@@ -573,7 +573,7 @@ theorem farErr_local_window_ge {W Y : ℝ} (hY : Real.exp (Real.exp 1) ≤ Y)
   have hT0 : (0 : ℝ) < Tstar Y (Real.log Y) := by linarith
   have hlogT := log_Tstar_self hY
   have hTin : Tstar Y (Real.log Y) ≤ 3 + Tstar Y (Real.log Y) * (1 + Real.log Y) := by
-    nlinarith
+    nlinarith only [hYW, hT16, hT4, hWY, hΛ1]
   have hlogmono : Real.log (Tstar Y (Real.log Y))
       ≤ Real.log (3 + Tstar Y (Real.log Y) * (1 + Real.log Y)) :=
     Real.log_le_log hT0 hTin
@@ -583,7 +583,7 @@ theorem farErr_local_window_ge {W Y : ℝ} (hY : Real.exp (Real.exp 1) ≤ Y)
     linarith
   have hN0 : (0 : ℝ) ≤ 1 + Real.log (3 + Tstar Y (Real.log Y) * (1 + Real.log Y)) := by
     have := Real.log_nonneg (show (1 : ℝ) ≤ 3 + Tstar Y (Real.log Y) * (1 + Real.log Y) by
-      nlinarith)
+      linarith only [hTin, hT16, hT4])
     linarith
   -- clear the division in `hNge`
   have hLmul : Real.log Y
@@ -593,10 +593,10 @@ theorem farErr_local_window_ge {W Y : ℝ} (hY : Real.exp (Real.exp 1) ≤ Y)
   have hΛmul : Real.log W
       ≤ 4 * (1 + Real.log (Real.log W))
         * (1 + Real.log (3 + Tstar Y (Real.log Y) * (1 + Real.log Y))) := by
-    nlinarith
+    nlinarith only [hlΛ0, hLmul, hll1, hYW, hllle, hWY]
   have hC0 : (0 : ℝ) < ballSupC := ballSupC_pos
   unfold farErr
   rw [div_le_div_iff₀ (by linarith) hsq]
-  nlinarith [mul_nonneg hC0.le hN0]
+  nlinarith only [hLmul, hC0, hllle, hsqsq, hWY, mul_nonneg hC0.le hN0]
 
 end Salt.MR

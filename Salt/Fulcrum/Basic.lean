@@ -8,7 +8,7 @@ import Salt.SW.ZeroFreeReal
 import Mathlib.Analysis.Complex.ExponentialBounds
 
 /-!
-# THE FULCRUM — the weakest twin-prime hypothesis, in Lean (`fulcrum`)
+# THE FULCRUM — the hypothesis F(C), in Lean (`fulcrum`)
 
 Design / provenance: `docs/exploration/fulcrum-pass1.md` (Pass 1 VERDICT: the
 refuter-survived `F_min`, quality angle, survived both refuters) and
@@ -16,10 +16,10 @@ refuter-survived `F_min`, quality angle, survived both refuters) and
 lands the STATEMENT layer of the fulcrum BESIDE the landed Heath-Brown statement
 (`Salt/TwinBar/SiegelTwin.lean`), additively — it does not touch it.
 
-`FulcrumQualityMin C` is the weakest hypothesis from which the Heath-Brown engine
-can still manufacture twin primes: infinitely many real primitive quadratic
-characters whose `L`-function carries a zero within `1/(C·log q)` of `1`, at ONE
-fixed effective constant `C = C⋆`. Everything a Siegel zero classically supplies
+`FulcrumQualityMin C` is the hypothesis a Heath-Brown-type engine would consume: real (`χ ^ 2 = 1`),
+nontrivial, primitive characters of arbitrarily large modulus `q`, each with an `L`-zero `ρ` (not assumed
+real) satisfying `‖1 − ρ‖·(C·log q) ≤ 1`, at one fixed `C`. No declaration states that it is minimal; it
+was found by asking what the engine uses. Everything a Siegel zero classically supplies
 beyond that — reality, `β < 1`, `1/2 ≤ β` — is DERIVED here, not assumed
 (`fulcrum_zero_real`).
 

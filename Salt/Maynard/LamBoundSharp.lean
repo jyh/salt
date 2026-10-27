@@ -41,8 +41,12 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-! ## Multiplicativity helpers for pairwise-coprime families -/
 
+omit [TupleChoice] in
 /-- `φ(∏ᵢ dᵢ) = ∏ᵢ φ(dᵢ)` for a pairwise-coprime family. -/
 theorem prod_totient_coprime {ι : Type*} (s : Finset ι) (d : ι → ℕ)
     (hcop : ∀ i ∈ s, ∀ j ∈ s, i ≠ j → Nat.Coprime (d i) (d j)) :
@@ -59,6 +63,7 @@ theorem prod_totient_coprime {ι : Type*} (s : Finset ι) (d : ι → ℕ)
       ih (fun i hi j hj hij =>
         hcop i (Finset.mem_insert_of_mem hi) j (Finset.mem_insert_of_mem hj) hij)]
 
+omit [TupleChoice] in
 /-- A product of pairwise-coprime squarefrees is squarefree. -/
 theorem squarefree_prod_coprime {ι : Type*} (s : Finset ι) (d : ι → ℕ)
     (hsf : ∀ i ∈ s, Squarefree (d i))
@@ -80,6 +85,7 @@ theorem squarefree_prod_coprime {ι : Type*} (s : Finset ι) (d : ι → ℕ)
 
 /-! ## The `D/φ(D) ≤ C₃ log R` Mertens bound (step 5) -/
 
+omit [TupleChoice] in
 /-- **The Mertens ratio bound.** For any squarefree `D < R` (`R ≥ 2`),
 `D/φ(D) ≤ C₃·(1 + log R)` with `C₃ = max (exp C₂) 1` an absolute constant.
 The estimate `D/φ(D) = ∏_{p∣D}(1 + 1/(p−1)) ≤ exp(Σ_{p≤D} 1/(p−1))
@@ -174,6 +180,7 @@ theorem phi_ratio_le :
 
 /-! ## The per-coordinate reindex (step 4) -/
 
+omit [TupleChoice] in
 /-- **Per-coordinate divisor-sum bound.** For squarefree `a`,
 `Σ_{s<R : a∣s, sqfree} 1/φ(s) ≤ (1/φ(a))·Σ_{t<R sqfree} 1/φ(t)`, via the
 reindex `s = a·(s/a)` (`φ(s) = φ(a)·φ(s/a)`, `gcd(a, s/a) = 1`). -/
@@ -227,6 +234,7 @@ theorem coord_sum_le {a R : ℕ} (_ha : Squarefree a) :
 
 /-! ## The guarded `wSum` bound (steps 2–3) -/
 
+omit [TupleChoice] in
 /-- **Guarded triangle bound on `wSum`.** With `|y| ≤ 1`, `|wSum d|` is
 bounded by the divisor-*guarded* reciprocal-totient sum (guard kept). -/
 theorem abs_wSum_le_guarded {k R W : ℕ} (y : (Fin k → ℕ) → ℝ)
@@ -249,6 +257,7 @@ theorem abs_wSum_le_guarded {k R W : ℕ} (y : (Fin k → ℕ) → ℝ)
     exact hy1 r
   · rw [if_neg h, if_neg h, abs_zero]
 
+omit [TupleChoice] in
 /-- **Guarded sum factorizes across coordinates.** The divisor-guarded
 sum over the coupled index set `𝒟` is dominated by the product of the
 per-coordinate (uncoupled) divisor sums. -/
@@ -284,6 +293,7 @@ theorem guarded_sum_le_prod {k R W : ℕ} (d : Fin k → ℕ) :
 
 /-! ## The sharp bound -/
 
+omit [TupleChoice] in
 /-- **Sharp per-tuple bound on the Selberg weight `λ`.** With `|y| ≤ 1`,
 `|λ(d)| ≤ C·(1 + log R)^(k+1)` for all `d ∈ 𝒟`, where `C = C₃·C₁^k` is an
 *explicit constant independent of `R`* (it depends only on `k` and on the

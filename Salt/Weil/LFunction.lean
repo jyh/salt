@@ -40,9 +40,12 @@ noncomputable def eta (a b : ZMod p) (k : (ZMod p)[X]) : ℂ :=
   if k.coeff 0 = 0 then 0
   else ZMod.stdAddChar (-(a * k.nextCoeff)) * ZMod.stdAddChar (-(b * (k.coeff 1 / k.coeff 0)))
 
+/-- `eta a b k = 0` when `k.coeff 0 = 0` (`h`): the `X ∣ k` branch of Harcos's η. -/
 theorem eta_of_coeff_zero (a b : ZMod p) {k : (ZMod p)[X]} (h : k.coeff 0 = 0) :
     eta a b k = 0 := by unfold eta; exact if_pos h
 
+/-- `eta a b 1 = 1`: the constant `1` has `coeff 0 = 1 ≠ 0`, `nextCoeff 1 = 0` and
+`coeff 1 = 0`, so both character values are `ψ(0) = 1`. -/
 theorem eta_one (a b : ZMod p) : eta a b 1 = 1 := by
   have hc0 : (1 : (ZMod p)[X]).coeff 0 = 1 := by simp
   have hc1 : (1 : (ZMod p)[X]).coeff 1 = 0 := by simp [coeff_one]
@@ -93,15 +96,21 @@ noncomputable def aCoeff (a b : ZMod p) (d : ℕ) : ℂ :=
 noncomputable def tuplePoly {d : ℕ} (c : Fin d → ZMod p) : (ZMod p)[X] :=
   X ^ d + ∑ i : Fin d, C (c i) * X ^ (i : ℕ)
 
+/-- `aCoeff a b d = ∑ c, eta a b (tuplePoly c)` (`rfl`): the coefficient sum, written through
+the monic polynomial `tuplePoly c` it sums over. -/
 theorem aCoeff_eq (a b : ZMod p) (d : ℕ) :
     aCoeff a b d = ∑ c : Fin d → ZMod p, eta a b (tuplePoly c) := rfl
 
+/-- The non-leading part `∑ i : Fin d, C (c i) * X ^ i` has degree `< d`: every summand has
+degree `≤ i < d`. -/
 private theorem sum_CX_degree_lt {d : ℕ} (c : Fin d → ZMod p) :
     degree (∑ i : Fin d, C (c i) * X ^ (i : ℕ)) < (d : WithBot ℕ) := by
   refine (degree_sum_le _ _).trans_lt ((Finset.sup_lt_iff (WithBot.bot_lt_coe d)).mpr ?_)
   intro i _
   exact (degree_C_mul_X_pow_le _ (c i)).trans_lt (WithBot.coe_lt_coe.mpr i.isLt)
 
+/-- `(tuplePoly c).coeff j = c ⟨j, hj⟩` for `j < d` (`hj`): below the leading term the
+coefficients are the tuple's. -/
 theorem tuplePoly_coeff {d : ℕ} (c : Fin d → ZMod p) {j : ℕ} (hj : j < d) :
     (tuplePoly c).coeff j = c ⟨j, hj⟩ := by
   rw [tuplePoly, coeff_add, coeff_X_pow, if_neg (Nat.ne_of_lt hj), zero_add, finsetSum_coeff]
@@ -111,15 +120,19 @@ theorem tuplePoly_coeff {d : ℕ} (c : Fin d → ZMod p) {j : ℕ} (hj : j < d) 
     rw [coeff_C_mul, coeff_X_pow, if_neg (fun h => hij (Fin.ext h.symm)), mul_zero]
   · intro h; exact absurd (Finset.mem_univ _) h
 
+/-- `tuplePoly c` is monic: `X ^ d` plus a polynomial of degree `< d` (`sum_CX_degree_lt`). -/
 theorem tuplePoly_monic {d : ℕ} (c : Fin d → ZMod p) : (tuplePoly c).Monic :=
   monic_X_pow_add (sum_CX_degree_lt c)
 
+/-- `(tuplePoly c).natDegree = d`: the leading term is `X ^ d` and the rest has degree `< d`. -/
 theorem tuplePoly_natDegree {d : ℕ} (c : Fin d → ZMod p) : (tuplePoly c).natDegree = d := by
   have hdeg : degree (tuplePoly c) = (d : WithBot ℕ) := by
     rw [tuplePoly, degree_add_eq_left_of_degree_lt (by rw [degree_X_pow]; exact sum_CX_degree_lt c),
       degree_X_pow]
   exact natDegree_eq_of_degree_eq_some hdeg
 
+/-- `(tuplePoly c).nextCoeff = c ⟨d - 1, _⟩` for `0 < d` (`hd`): the coefficient just below the
+leading one is the tuple's last entry (`tuplePoly_coeff` at `d - 1`). -/
 theorem tuplePoly_nextCoeff {d : ℕ} (c : Fin d → ZMod p) (hd : 0 < d) :
     (tuplePoly c).nextCoeff = c ⟨d - 1, by omega⟩ := by
   rw [nextCoeff_of_natDegree_pos (by rw [tuplePoly_natDegree]; exact hd), tuplePoly_natDegree]

@@ -139,6 +139,7 @@ import Salt.Chen.FinLed2
 import Salt.Chen.FinA3c
 import Salt.Chen.FinLed3
 import Salt.Chen.ChenTheorem
+import Salt.Chen.SiegelFree
 import Salt.Chen.WindowedBVStatement
 import Salt.Chen.CountW
 import Salt.Chen.TwinA2W
@@ -591,3 +592,7 @@ factor is slack, carrying `≤` to the STRICT `<` that `rosserRemainder`'s `if` 
 open Salt.Tactic in
 #audit_axioms Salt.Chen.blockTruncSieve₂ Salt.Chen.blockTruncSieve₂_lam
   Salt.Chen.chi_lower_lt Salt.Chen.brun_lower_ell1
+
+-- From a Siegel standoff (SiegelFree), by a proof term that does not use Siegel's theorem.
+open Salt.Tactic in
+#audit_axioms Salt.Chen.chen_headline_of_standoff

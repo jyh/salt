@@ -32,10 +32,14 @@ The error constant is deliberately generous (`2^(k+1)`): the caller
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 open Finset
 
 /-! ## A CRT fold: pairwise-coprime moduli combine `ModEq` over a product -/
 
+omit [TupleChoice] in
 /-- If `a ≡ b` modulo each of a family of pairwise-coprime moduli indexed
 by a `Finset`, then `a ≡ b` modulo their product. -/
 lemma modEq_prod_of_pairwise_coprime {ι : Type*} {a b : ℕ}

@@ -289,7 +289,7 @@ theorem exp_pow_im (x : ℝ) (n : ℕ) :
 theorem sin_pi_mul_pos (hx : x ∈ Set.Ioo (0 : ℝ) 1) : 0 < Real.sin (Real.pi * x) := by
   obtain ⟨hx0, hx1⟩ := hx
   refine Real.sin_pos_of_pos_of_lt_pi (by positivity) ?_
-  nlinarith [Real.pi_pos]
+  nlinarith only [hx1, Real.pi_pos]
 
 /-- The half-angle identity `1 − cos (2πx) = 2 sin²(πx)`. -/
 theorem one_sub_cos_two_pi_mul (x : ℝ) :
@@ -346,7 +346,7 @@ theorem abs_sum_sin_le (hx : x ∈ Set.Ioo (0 : ℝ) 1) (N : ℕ) :
     rw [← norm_neg, neg_sub]
     exact norm_one_sub_exp hx
   rw [hden, div_le_div_iff₀ (by linarith) hsin]
-  nlinarith
+  nlinarith only [hsin, hnum]
 
 /-- The `n`-th power of `e^{2πix}` has real part `cos (2πnx)`. -/
 theorem exp_pow_re (x : ℝ) (n : ℕ) :
@@ -379,7 +379,7 @@ theorem abs_sum_cos_le (hx : x ∈ Set.Ioo (0 : ℝ) 1) (N : ℕ) :
     rw [← norm_neg, neg_sub]
     exact norm_one_sub_exp hx
   rw [hden, div_le_div_iff₀ (by linarith) hsin]
-  nlinarith
+  nlinarith only [hsin, hnum]
 
 
 end Geometry
@@ -485,8 +485,8 @@ theorem tendsto_sum_sin_div_nat {x : ℝ} (hx : x ∈ Set.Ioo (0 : ℝ) 1) :
   have harg : (Complex.log (1 - z)).im = Real.pi * x - Real.pi / 2 := by
     rw [Complex.log_im, hpolar]
     refine Complex.arg_mul_cos_add_sin_mul_I (by linarith) (Set.mem_Ioc.mpr ⟨?_, ?_⟩)
-    · nlinarith [Real.pi_pos, hx.1, hx.2]
-    · nlinarith [Real.pi_pos, hx.1, hx.2]
+    · nlinarith only [Real.pi_pos, hx.1]
+    · nlinarith only [Real.pi_pos, hx.2, hx.1]
   have hTval : T = Real.pi * (1 / 2 - x) := by
     have h := tendsto_nhds_unique habel' hcont
     rw [harg] at h
@@ -516,7 +516,7 @@ theorem sinZeta_apply_one {x : ℝ} (hx : x ∈ Set.Ioo (0 : ℝ) 1) :
         simp only [hc]
         exact Real.abs_sin_le_one _
       rw [div_le_div_iff₀ hpos hpos]
-      nlinarith
+      nlinarith only [hpos, habs]
   -- (b) the Dirichlet series tends to `T` as `σ → 1⁺`
   have hshiftsum : ∀ σ : ℝ, 1 < σ →
       ∑' n : ℕ, c n / (n : ℝ) ^ σ = ∑' n : ℕ, c (n + 1) / ((n : ℝ) + 1) ^ σ := by
@@ -767,7 +767,7 @@ theorem cosZeta_apply_one {x : ℝ} (hx : x ∈ Set.Ioo (0 : ℝ) 1) :
         simp only [hc]
         exact Real.abs_cos_le_one _
       rw [div_le_div_iff₀ hpos hpos]
-      nlinarith
+      nlinarith only [hpos, habs]
   -- (b) the Dirichlet series tends to `T` as `σ → 1⁺`
   have hshiftsum : ∀ σ : ℝ, 1 < σ →
       ∑' n : ℕ, c n / (n : ℝ) ^ σ = ∑' n : ℕ, c (n + 1) / ((n : ℝ) + 1) ^ σ := by

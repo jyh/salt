@@ -121,7 +121,7 @@ private lemma rampSliver_lcard_le {X h y : ℝ} (hy : (0 : ℝ) ≤ y) (hh : (0 
     ((Finset.Ioc ⌊y⌋₊ ⌊y + y * h / X⌋₊).card : ℝ) ≤ y * h / X + 1 := by
   have hnn : (0 : ℝ) ≤ y + y * h / X := by positivity
   have hmono : ⌊y⌋₊ ≤ ⌊y + y * h / X⌋₊ :=
-    Nat.floor_mono (by nlinarith [div_nonneg (mul_nonneg hy hh) hX.le])
+    Nat.floor_mono (by linarith only [div_nonneg (mul_nonneg hy hh) hX.le])
   rw [Nat.card_Ioc, Nat.cast_sub hmono]
   have hup : (⌊y + y * h / X⌋₊ : ℝ) ≤ y + y * h / X := Nat.floor_le hnn
   have hlo : y - 1 < (⌊y⌋₊ : ℝ) := by have := Nat.lt_floor_add_one y; linarith
@@ -159,7 +159,7 @@ theorem ramp_sliver_bound (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ �
   have hhval : h = X / sq := by rw [hh, hsqdef]
   have hhpos : (0 : ℝ) < h := by rw [hhval]; positivity
   have hhnn : (0 : ℝ) ≤ h := hhpos.le
-  have hhX : h ≤ X := by rw [hhval, div_le_iff₀ hsqpos]; nlinarith
+  have hhX : h ≤ X := by rw [hhval, div_le_iff₀ hsqpos]; nlinarith only [hXpos, hsq1]
   have hypos : (0 : ℝ) < y := by linarith
   have hy2 : (2 : ℝ) ≤ y := by linarith
   have hygate' : sq ≤ y := by rw [hsqdef]; exact hygate
@@ -189,7 +189,7 @@ theorem ramp_sliver_bound (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ �
       have h2 : (⌊y + y * h / X⌋₊ : ℝ) ≤ y + y * h / X :=
         Nat.floor_le (by positivity)
       have h3 : y * h / X ≤ y := by
-        rw [div_le_iff₀ hXpos]; nlinarith
+        rw [div_le_iff₀ hXpos]; nlinarith only [hy10, hhX]
       linarith
     -- factor out ‖Λ_ℓ l‖
     rw [← Finset.sum_mul]
@@ -234,7 +234,7 @@ theorem ramp_sliver_bound (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ �
     have h_hy_le : h / y ≤ X / L := by
       rw [hhval, div_div]
       rw [div_le_div_iff₀ (by positivity) hLpos]
-      nlinarith [hsqsq, mul_le_mul_of_nonneg_left hygate' hsqpos.le]
+      nlinarith only [hXpos, hsqsq, mul_le_mul_of_nonneg_left hygate' hsqpos.le]
     rw [h_hhX]; linarith
   -- assemble: M = C_cheb·(h/y)·log(2y), so (y·h/X+1)·M = C_cheb·log(2y)·((y·h/X+1)·(h/y))
   have hrw : (y * h / X + 1) * M = C_cheb * Real.log (2 * y) * ((y * h / X + 1) * (h / y)) := by

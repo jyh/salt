@@ -394,7 +394,7 @@ private lemma upper_tail_analytic {A C₀ : ℝ} (hA : 0 < A) (hC₀ : 0 ≤ C�
   set c₁ : ℝ := Real.log 4 + Real.log 2 with hc₁def
   have hc₁nn : 0 ≤ c₁ := by rw [hc₁def]; linarith
   set s₀ : ℝ := 8 * A + 2 * c₁ + 5 * C₀ + 10 with hs₀def
-  have hs₀ge10 : 10 ≤ s₀ := by rw [hs₀def]; nlinarith [hA.le, hc₁nn, hC₀]
+  have hs₀ge10 : 10 ≤ s₀ := by rw [hs₀def]; linarith only [hlog2nn, hlog4nn, hC₀, hA]
   refine ⟨Real.exp (s₀ ^ 2), Real.exp_le_exp.mpr (by nlinarith [hs₀ge10]), ?_⟩
   intro X y hX hy2 hyA
   have hX0pos : (0 : ℝ) < Real.exp (s₀ ^ 2) := Real.exp_pos _
@@ -403,13 +403,13 @@ private lemma upper_tail_analytic {A C₀ : ℝ} (hA : 0 < A) (hC₀ : 0 ≤ C�
   have hXy_pos : (0 : ℝ) < X / y := div_pos hXpos hy0
   have hLbig : s₀ ^ 2 ≤ Real.log X := by
     have h := Real.log_le_log hX0pos hX; rwa [Real.log_exp] at h
-  have hlogXpos : 0 < Real.log X := by nlinarith [hs₀ge10, hLbig]
+  have hlogXpos : 0 < Real.log X := by nlinarith only [hlog2nn, hlog4nn, hC₀, hA, hLbig]
   have hlogXne : Real.log X ≠ 0 := ne_of_gt hlogXpos
   have hX_big : Real.log X + 1 ≤ X := by
     have h := Real.add_one_le_exp (Real.log X); rwa [Real.exp_log hXpos] at h
-  have hs₀geC : 5 * C₀ + 10 ≤ s₀ := by rw [hs₀def]; nlinarith [hA.le, hc₁nn]
+  have hs₀geC : 5 * C₀ + 10 ≤ s₀ := by rw [hs₀def]; linarith only [hlog2nn, hlog4nn, hA]
   have hlogX_C : 20 * C₀ + 20 ≤ Real.log X := by
-    nlinarith [hs₀geC, hC₀, hLbig, sq_nonneg (s₀ - (5 * C₀ + 10))]
+    nlinarith only [hC₀, hlog2nn, hlog4nn, hA, hLbig, sq_nonneg (s₀ - (5 * C₀ + 10))]
   have hlogXge4 : (4 : ℝ) ≤ Real.log X := by linarith [hC₀, hlogX_C]
   -- (⋆′): `A·loglog X + c₁ ≤ (1/2)·log X` via the √-device `log t ≤ 2√t`
   have hstar : A * Real.log (Real.log X) + c₁ ≤ (1 / 2) * Real.log X := by
@@ -425,13 +425,13 @@ private lemma upper_tail_analytic {A C₀ : ℝ} (hA : 0 < A) (hC₀ : 0 ≤ C�
       rw [← hs_sq, Real.log_pow]; push_cast; ring
     have hlogL_le : Real.log (Real.log X) ≤ 2 * s := by rw [hlogL_eq]; linarith
     have hAlogL : A * Real.log (Real.log X) ≤ 2 * A * s := by
-      nlinarith [mul_le_mul_of_nonneg_left hlogL_le hA.le]
+      linarith only [mul_le_mul_of_nonneg_left hlogL_le hA.le]
     have hs_lb : 8 * A + 2 * c₁ + 1 ≤ s := by linarith [hs0_le, hs₀def, hC₀]
     have hquad : 8 * A * s + 2 * c₁ ≤ s ^ 2 := by
-      nlinarith [hs_lb, hs1, hc₁nn, hA.le,
-        mul_nonneg hc₁nn (by linarith [hs1] : (0 : ℝ) ≤ s - 1),
-        mul_nonneg hA.le hs_nn, mul_le_mul_of_nonneg_left hs_lb hs_nn]
-    nlinarith [hAlogL, hquad, hs_sq, mul_nonneg hA.le hs_nn]
+      linarith only [hs0_le, hlog2nn, hlog4nn,
+          hC₀, hA, mul_le_mul_of_nonneg_left hs_lb hs_nn,
+          mul_nonneg hc₁nn (by linarith [hs1] : (0 : ℝ) ≤ s - 1)]
+    linarith only [hquad, hAlogL, hs_sq, mul_nonneg hA.le hs_nn]
   have hlogy : Real.log y ≤ A * Real.log (Real.log X) := by
     have h1 : Real.log y ≤ Real.log ((Real.log X) ^ A) := Real.log_le_log hy0 hyA
     rwa [Real.log_rpow hlogXpos] at h1
@@ -449,7 +449,7 @@ private lemma upper_tail_analytic {A C₀ : ℝ} (hA : 0 < A) (hC₀ : 0 ≤ C�
   have hII : (Real.log X) ^ A ≤ X := by linarith
   have hr4 : (4 : ℝ) ≤ X / y := by
     rw [le_div_iff₀ hy0]
-    calc (4 : ℝ) * y ≤ 4 * (Real.log X) ^ A := by nlinarith [hyA, hrpownn]
+    calc (4 : ℝ) * y ≤ 4 * (Real.log X) ^ A := by linarith only [hyA]
       _ ≤ X := hII4
   set N : ℕ := ⌊X⌋₊ with hNdef
   set m : ℕ := ⌊X / y⌋₊ with hmdef

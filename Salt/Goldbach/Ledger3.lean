@@ -31,17 +31,18 @@ open Finset ArithmeticFunction Salt.Chen Salt.BrunLower
 namespace Salt.Goldbach
 
 set_option maxHeartbeats 1000000 in -- deep op composition: normalized_package unifies 4 carriers
-/-- **`gold_hL_bundle`** — the F2 ledger positivity at the Goldbach carriers, uniformly
-in the admissible residue `a`.  The exact `hL` slot of `chen_goldbach_of_ledger`. -/
-theorem gold_hL_bundle : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x₁ ≤ N →
+/-- `gold_hL_bundle` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_hL_bundle_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x₁ ≤ N →
     R ≤ Real.log N → Even N →
     ∀ a : ℕ, a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
     0 < M1G N a - M2G N a / 2 - M3G N / 2
       - Real.log N * (N : ℝ) / ((opZ N : ℝ) - 1) / 2 := by
-  obtain ⟨Ccount, xcount, hCcount_nn, hcount_s⟩ := gold_hcount_seam
+  obtain ⟨Ccount, xcount, hCcount_nn, hcount_s⟩ := (gold_hcount_seam_of_SW hSWall)
   obtain ⟨xs1, hslack1⟩ := slack1_le
   obtain ⟨xag, hag⟩ := gold_aggSlack_le
-  obtain ⟨xcr, hcr⟩ := gold_crumbs_le
+  obtain ⟨xcr, hcr⟩ := (gold_crumbs_le_of_SW hSWall)
   obtain ⟨xa2, ha2⟩ := A2weight_le
   obtain ⟨xrh, hrh⟩ := gold_rho_le
   obtain ⟨xc1, hc1⟩ := gold_hcertA1_at_op
@@ -75,14 +76,14 @@ theorem gold_hL_bundle : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x�
   -- ══ ecount = ecountOp Ccount N ≤ 1/100000 ══
   have hlogopZ_big : (200000 : ℝ) * Ccount ≤ Real.log (opZ N) := by
     have : (1 / 8) * Real.log N - 1 / 999999 ≥ 200000 * Ccount := by
-      nlinarith [hlogx, hCcount_nn]
+      linarith only [hlogx]
     linarith [hlogopZ_ge18, this]
   have hec_le : ecountOp Ccount N ≤ 1 / 100000 := by
     have h2 : ecountOp Ccount N ≤ 1 / 200000 := by
       rw [ecountOp, div_le_iff₀ hlogzpos]
       rcases eq_or_lt_of_le hCcount_nn with h | h
       · rw [← h]; positivity
-      · nlinarith [hlogopZ_big, h]
+      · linarith only [hlogopZ_ge18, hlogx]
     linarith
   have hec_nn : 0 ≤ ecountOp Ccount N := by
     rw [ecountOp]
@@ -116,10 +117,10 @@ theorem gold_hL_bundle : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x�
       exact h
     have h21 : 21 / Real.log (opZ N) ≤ 1 / 200000 := by
       rw [div_le_iff₀ hlogzpos]
-      nlinarith [hlogopZ_ge18, hlogx, hCcount_nn]
+      linarith only [hlogopZ_ge18, hlogx, hCcount_nn]
     have h2z : 2 / ((opZ N : ℝ) - 1) ≤ 1 / 200000 := by
       rw [div_le_div_iff₀ (by linarith [hz6]) (by norm_num)]
-      nlinarith [hz6]
+      linarith only [hz6]
     linarith [h21, h2z]
   have hwtail_bd : (3 + 43 / 75) * WTAIL ≤ 4342 / 1000000 := by
     have hexpand : (3 + 43 / 75) * WTAIL
@@ -137,7 +138,7 @@ theorem gold_hL_bundle : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x�
       have hA2w1 : A2w ≤ 1 := le_trans hA2w_hi (by norm_num)
       have hprod : A2w * (21 / Real.log (opZ N) + 2 / ((opZ N : ℝ) - 1)) ≤ 1 / 100000 :=
         le_trans (mul_le_mul hA2w1 hlp_le hlp_nn (by norm_num)) (by norm_num)
-      nlinarith [hprod, mul_nonneg hA2w_nn hlp_nn]
+      linarith only [hprod]
     rw [hexpand]
     linarith [hrazor, hvanish]
   -- ══ the raw carrier bounds (definitional regroupings) ══
@@ -220,5 +221,14 @@ theorem gold_hL_bundle : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x�
   have he3 := e3_collapse cbar_pos.le (le_of_lt cbar_lt) hec_nn hec_le hrho_hi
     hs3_nn hs3_hi hR3XW
   linarith [hslack1 N (by omega), hR1XW, hwtail_bd, hagg_bd, hR2XW, he3, he4XW]
+
+/-- **`gold_hL_bundle`** — the F2 ledger positivity at the Goldbach carriers, uniformly
+in the admissible residue `a`.  The exact `hL` slot of `chen_goldbach_of_ledger`. -/
+theorem gold_hL_bundle : ∃ (R : ℝ) (x₁ : ℕ), 0 ≤ R ∧ ∀ N : ℕ, x₁ ≤ N →
+    R ≤ Real.log N → Even N →
+    ∀ a : ℕ, a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
+    0 < M1G N a - M2G N a / 2 - M3G N / 2
+      - Real.log N * (N : ℝ) / ((opZ N : ℝ) - 1) / 2 :=
+  gold_hL_bundle_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Goldbach

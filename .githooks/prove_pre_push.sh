@@ -20,6 +20,8 @@
 #   FAIL CLOSED -- with the scanner missing, a clean push is refused; so it is
 #                  with the subject gate missing.
 #   DELETE arm  -- deleting a ref pushes no objects and must be ALLOWED.
+#   REWIND arm  -- a clean force-push that moves a ref BACKWARDS must be ALLOWED
+#                  (desk ML #6: the range picker tests ancestry, not existence).
 #   MUTATION    -- the same refused push must SUCCEED with `--no-verify`. Without
 #     CONTROL      this arm, every red above is equally consistent with "the push
 #                  would have failed anyway", and the prover would prove nothing.
@@ -45,6 +47,8 @@ HOOK="$HERE/pre-push"
 PATHS_GATE="$REPO/scripts/check_private_paths.py"
 TRAILER_GATE="$REPO/scripts/check_commit_trailers.py"
 SUBJECT_GATE="$REPO/scripts/check_pr_descriptions.py"
+INFRA_GATE="$REPO/scripts/check_infra_names.py"
+CERT_GATE="$REPO/scripts/check_cert_imports.py"
 SUBJECT_BASELINE="$REPO/scripts/subject_debt_baseline.tsv"
 
 fail=0
@@ -56,6 +60,7 @@ bad()  { printf 'FAIL %s\n' "$*"; fail=$((fail + 1)); }
 [ -f "$PATHS_GATE" ]   || { note "FAIL: no $PATHS_GATE"; exit 2; }
 [ -f "$TRAILER_GATE" ] || { note "FAIL: no $TRAILER_GATE"; exit 2; }
 [ -f "$SUBJECT_GATE" ] || { note "FAIL: no $SUBJECT_GATE"; exit 2; }
+[ -f "$INFRA_GATE" ] || { note "FAIL: no $INFRA_GATE"; exit 2; }
 [ -f "$SUBJECT_BASELINE" ] || { note "FAIL: no $SUBJECT_BASELINE"; exit 2; }
 
 PY=
@@ -153,6 +158,12 @@ cp "$TRAILER_GATE" "$W/scripts/check_commit_trailers.py"
 cp "$SCAN" "$W/.githooks/gate_scan.py"
 cp "$SUBJECT_GATE" "$W/scripts/check_pr_descriptions.py"
 cp "$SUBJECT_BASELINE" "$W/scripts/subject_debt_baseline.tsv"
+# ARM 4 of the hook (the infrastructure-name ratchet, council 2026-10-07 ruling 3) needs its gate in the
+# fixture, or the hook refuses every push as "not in this working tree". No baseline is copied: in the
+# fixture every added name is NEW, which is exactly the arm under test.
+cp "$INFRA_GATE" "$W/scripts/check_infra_names.py"
+# ARM 5 of the hook (the certificates' import rule) runs where its gate is present.
+[ -f "$CERT_GATE" ] && cp "$CERT_GATE" "$W/scripts/check_cert_imports.py"
 git -C "$W" config core.hooksPath .githooks
 
 commit_file() { # <path> <content> <message>
@@ -233,6 +244,26 @@ commit_file feat.txt "another seat's bank carries the superseded value" "feature
 run_push 0 green-new-branch origin feature
 expect_out green-new-branch "merge-base with origin/"
 git -C "$W" checkout -q main
+
+# ── ARM 3b ── a clean force-push that REWINDS the ref (desk ML finding #6). The old
+# remote tip still EXISTS in this clone, so an existence test picks the range
+# `<old tip>..<new tip>`, which is EMPTY, and the gate refuses clean content.
+# An ancestry test sees the old tip is not an ancestor and falls through.
+note "ARM 3b clean force-push that REWINDS main                    expect 0"
+commit_file rewind.txt "a line pushed and then rewound away" "clean: a commit the next push rewinds"
+run_push 0 green-pre-rewind origin main
+git -C "$W" reset -q --hard "$GOOD"
+run_push 0 green-rewind -f origin main
+expect_out green-rewind "pre-push OK"
+if [ "$(remote_tip main)" = "$GOOD" ]; then
+  printf '       +   green-rewind: the remote ref rewound to the earlier tip\n'
+else
+  bad "green-rewind: the remote ref is not at the earlier tip"
+fi
+# Whatever happened above, the arms below start from the remote at the earlier tip
+# (a refused rewind leaves it AHEAD of this clone, and every later push would be
+# git's own non-fast-forward rejection, read as the hook's).
+git -C "$REMOTE" update-ref refs/heads/main "$GOOD"
 
 # ── ARM 4 ── a private-record path in a COMMIT MESSAGE.
 note "ARM 4  private path in a commit MESSAGE                       expect 1"
@@ -359,6 +390,19 @@ else
 fi
 git -C "$W" reset -q --hard "$GOOD"; restore_remote
 
+# ── ARM 10b ── the infrastructure-name arm (ARM 4 of the hook): an added line carrying a host or
+# account name is REFUSED and the refusal names the gate, never the name. The word is READ from the
+# gate's own assembled list, so this prover spells nothing the tree ratchet would catch.
+note "ARM 10b an added line with an infrastructure name (ARM 4)         expect 1"
+INFRA_WORD=$(read_const "$INFRA_GATE" 'FORBIDDEN[1]') || INFRA_WORD=
+[ -n "$INFRA_WORD" ] || { note "FAIL: could not read a forbidden word out of the infrastructure-name gate"; exit 2; }
+PRE_INFRA=$(git -C "$W" rev-parse HEAD)
+commit_file infra.txt "the box $INFRA_WORD ran it" "docs: a clean subject, a doc line"
+run_push 1 red-infra-arm origin main
+expect_out red-infra-arm "the infrastructure-name gate RED"
+if grep -qF -- "$INFRA_WORD" "$OUT"; then bad "red-infra-arm: the refusal LEAKS the name"; fi
+git -C "$W" reset -q --hard "$PRE_INFRA"; restore_remote
+
 # ── ARM 11 ── FAIL CLOSED: with gate_scan.py absent the hook cannot read the
 #              gates' patterns, and a CLEAN push must be refused, not waved on.
 note "ARM 11 the scanner is missing: a clean push is refused        expect 1"
@@ -445,9 +489,204 @@ expect_out fail-closed-no-subject-gate "check_pr_descriptions.py is not in this 
 mv "$SBX/check_pr_descriptions.py.hidden" "$W/scripts/check_pr_descriptions.py"
 git -C "$W" reset -q --hard "$GOOD"; restore_remote
 
+# ── ARMS 17-21 ── A TAG WHOSE COMMIT ORIGIN ALREADY HAS (the helm's ask, 2026-10-15).
+# An annotated tag on a commit that is already public adds no commit, so every
+# range arm listed zero commits and the hook refused it. ARM 17 is the arm that was
+# RED on the hook as it stood; 18-18c are the tag-OBJECT arms (the message is the
+# only new content, so it is the only place a leak can ride); 19 and 20 are the
+# arms that keep the exception from widening.
+git -C "$REMOTE" update-ref refs/heads/main "$GOOD"
+git -C "$W" reset -q --hard "$GOOD"
+remote_tag() { git -C "$REMOTE" rev-parse --verify --quiet "refs/tags/$1" 2>/dev/null; }
+tag_not_landed() { # <label> <tag>
+  if [ -z "$(remote_tag "$2")" ]; then
+    printf '       +   %s: the tag did NOT reach the remote\n' "$1"
+  else
+    bad "$1: THE TAG REACHED THE REMOTE"
+  fi
+}
+
+note "ARM 17 clean annotated tag on an ALREADY-PUBLIC commit         expect 0"
+git -C "$W" tag -a tag-public-ok -m "a submission tag: the tree a paper cites" "$GOOD"
+run_push 0 green-public-tag origin refs/tags/tag-public-ok
+expect_out green-public-tag "pre-push OK"
+expect_out green-public-tag "already an ancestor of"
+expect_out green-public-tag "annotated tag object scanned"
+if [ -n "$(remote_tag tag-public-ok)" ]; then
+  printf '       +   green-public-tag: the tag reached the remote\n'
+else
+  bad "green-public-tag: the tag did NOT reach the remote"
+fi
+
+note "ARM 17b clean LIGHTWEIGHT tag on an already-public commit      expect 0"
+git -C "$W" tag tag-public-light "$GOOD"
+run_push 0 green-public-light-tag origin refs/tags/tag-public-light
+expect_out green-public-light-tag "LIGHTWEIGHT tag"
+
+note "ARM 18  tag MESSAGE carries a session URL                      expect 1"
+git -C "$W" tag -a tag-red-url -m "cut for review: $SHAPE_2" "$GOOD"
+run_push 1 red-tag-url origin refs/tags/tag-red-url
+expect_out red-tag-url "carries a forbidden shape (named above)"
+expect_out red-tag-url "PUSH REFUSED by .githooks/pre-push"
+tag_not_landed red-tag-url tag-red-url
+
+note "ARM 18b tag MESSAGE carries a private-record path              expect 1"
+git -C "$W" tag -a tag-red-path -m "see $PRIVATE_PATH" "$GOOD"
+run_push 1 red-tag-path origin refs/tags/tag-red-path
+expect_out red-tag-path "carries a forbidden shape (named above)"
+tag_not_landed red-tag-path tag-red-path
+
+# Only a repository that HAS an infrastructure-name gate has this arm: a prover that
+# skipped it silently would read as covered, so the skip is said.
+if [ -n "${INFRA_WORD:-}" ]; then
+  note "ARM 18c tag MESSAGE carries an infrastructure name             expect 1"
+  git -C "$W" tag -a tag-red-infra -m "built on $INFRA_WORD" "$GOOD"
+  run_push 1 red-tag-infra origin refs/tags/tag-red-infra
+  expect_out red-tag-infra "carries a forbidden shape (named above)"
+  if grep -qF -- "$INFRA_WORD" "$OUT"; then bad "red-tag-infra: the refusal LEAKS the name"; fi
+  tag_not_landed red-tag-infra tag-red-infra
+else
+  note "ARM 18c SKIPPED: this repository has no infrastructure-name gate (not covered)"
+fi
+
+note "ARM 18d the tag NAME carries a refused word                    expect 1"
+git -C "$W" tag -a "tidy-$KIN_WORD" -m "a clean message" "$GOOD"
+run_push 1 red-tag-name origin "refs/tags/tidy-$KIN_WORD"
+expect_out red-tag-name "the pushed tag name carries a refused word"
+tag_not_landed red-tag-name "tidy-$KIN_WORD"
+
+# ARM 19 -- the exception must not widen: a tag on an UNPUSHED commit still scans
+# that commit. The commit's file line carries the private path; the tag message is clean.
+note "ARM 19  tag on an UNPUSHED commit with a dirty line           expect 1"
+commit_file leak19.txt "the record is at $PRIVATE_PATH" "docs: a clean message over a dirty line"
+git -C "$W" tag -a tag-unpushed-red -m "a clean message" HEAD
+run_push 1 red-tag-unpushed origin refs/tags/tag-unpushed-red
+expect_out red-tag-unpushed "private-record path"
+tag_not_landed red-tag-unpushed tag-unpushed-red
+git -C "$W" reset -q --hard "$GOOD"
+
+note "ARM 19b the same shape, CLEAN: still scanned, still passes    expect 0"
+commit_file clean19.txt "nothing wrong with this line" "clean: a commit the tag adds"
+git -C "$W" tag -a tag-unpushed-ok -m "a clean message" HEAD
+run_push 0 green-tag-unpushed origin refs/tags/tag-unpushed-ok
+expect_out green-tag-unpushed "commit(s) scanned"
+expect_no_out green-tag-unpushed "already an ancestor of"
+git -C "$W" reset -q --hard "$GOOD"; restore_remote
+
+# ARM 22 -- THE TAGGER HEADER IS MEASURED BY WHAT IT ADDS (found at the first real
+# push, 2026-10-15): the owner's identity is the author and committer of every public
+# commit, so a listed word in it tripped the infra-name scan of the tag object and
+# the arm refused EVERY tag he makes. ARM 17's fixture carried no listed word and so
+# never drove the property the gate keys on. Here the identity IS a listed word.
+if [ -n "${INFRA_WORD:-}" ]; then
+  note "ARM 22  tagger carries a listed word the tagged commit ALSO carries   expect 0"
+  printf '%s\n' "a line by the named identity" > "$W/ident22.txt"
+  git -C "$W" add -- ident22.txt
+  GIT_AUTHOR_NAME="$INFRA_WORD" GIT_AUTHOR_EMAIL="id@example.invalid" \
+  GIT_COMMITTER_NAME="$INFRA_WORD" GIT_COMMITTER_EMAIL="id@example.invalid" \
+    git -C "$W" commit -q --no-verify -m "docs: a clean subject by a named identity"
+  IDC=$(git -C "$W" rev-parse HEAD)
+  git -C "$W" push -q --no-verify origin main 2>/dev/null
+  GIT_COMMITTER_NAME="$INFRA_WORD" GIT_COMMITTER_EMAIL="id@example.invalid" \
+    git -C "$W" tag -a tag-ident-ok -m "a clean message" "$IDC"
+  run_push 0 green-tag-same-identity origin refs/tags/tag-ident-ok
+  expect_out green-tag-same-identity "NOT scanned (already public)"
+  expect_no_out green-tag-same-identity "$INFRA_WORD"
+
+  note "ARM 22b tagger carries a listed word the tagged commit does NOT   expect 1"
+  GIT_COMMITTER_NAME="$INFRA_WORD" GIT_COMMITTER_EMAIL="id@example.invalid" \
+    git -C "$W" tag -a tag-ident-red -m "a clean message" "$GOOD"
+  run_push 1 red-tag-other-identity origin refs/tags/tag-ident-red
+  expect_out red-tag-other-identity "an infrastructure name"
+  if grep -qF -- "$INFRA_WORD" "$OUT"; then bad "red-tag-other-identity: the refusal LEAKS the name"; fi
+  tag_not_landed red-tag-other-identity tag-ident-red
+  git -C "$W" reset -q --hard "$GOOD"; restore_remote
+else
+  note "ARM 22/22b SKIPPED: this repository has no infrastructure-name gate (not covered)"
+fi
+
+# ARM 20 -- an EMPTY branch range is UNCHANGED by the tag branch. Measured on the
+# hook as it stood (origin/master 553252d): remote tip == local tip does NOT refuse,
+# it exits 0 and prints "adds NO commit that origin does not already have; nothing
+# to scan" -- the receipt that says nothing was read. This arm pins that behaviour
+# so the tag branch cannot silently turn it into a different verdict. git sends no
+# ref line for an up-to-date ref, so the hook is driven directly with the line
+# git would send.
+# The two verdicts are the two hook generations that exist across the public repos
+# (measured 2026-10-15): the generation that carries the ancestry guard on the remote
+# tip (desk ML finding #6, ARM 3b) prints the receipt and exits 0; the older one
+# refuses "scanned ZERO commits". Which one this repository's hook is, is read from
+# the hook; the tag branch must leave EITHER unchanged.
+if grep -qF 'merge-base --is-ancestor "$remote_sha"' "$HOOK"; then
+  note "ARM 20  empty BRANCH range (tip == tip): receipt, unchanged   expect 0"
+  want20=0
+else
+  note "ARM 20  empty BRANCH range (tip == tip): refused, unchanged   expect 1"
+  want20=1
+fi
+printf 'refs/heads/main %s refs/heads/main %s\n' "$GOOD" "$GOOD" > "$SBX/ref-line.txt"
+( cd "$W" && sh .githooks/pre-push origin "$REMOTE" < "$SBX/ref-line.txt" ) > "$OUT" 2>&1
+rc=$?
+if [ "$rc" -eq "$want20" ]; then
+  printf '  ok   %-22s exit=%s (expected %s)\n' empty-branch-range-unchanged "$rc" "$want20"
+else
+  printf '  FAIL %-22s exit=%s expected=%s\n' empty-branch-range-unchanged "$rc" "$want20"
+  sed 's/^/         | /' "$OUT"
+  fail=$((fail + 1))
+fi
+if [ "$want20" -eq 0 ]; then
+  expect_out empty-branch-range-unchanged "adds NO commit that origin does not already have; nothing to scan"
+else
+  expect_out empty-branch-range-unchanged "scanned ZERO commits"
+fi
+expect_no_out empty-branch-range-unchanged "already an ancestor of"
+
+# ARM 21 -- MUTATION CONTROL for the tag arms: the refused tag lands with --no-verify,
+# so ARM 18's refusal is the hook's and not git's.
+note "ARM 21  mutation control: the refused tag, --no-verify        expect 0"
+run_push 0 mutation-tag --no-verify origin refs/tags/tag-red-url
+if [ -n "$(remote_tag tag-red-url)" ]; then
+  printf '       +   mutation-tag: the tag landed once the hook was bypassed\n'
+else
+  bad "mutation-tag: the bypassed push did not land the tag"
+fi
+
+# ARM 23 -- the certificates' import rule (hook ARM 5, C1 · A2e): a file under
+# SaltC1/Cert54/ that imports the Salt library is REFUSED, the remote unmoved; the
+# same file importing Mathlib passes, so the refusal is the import's and not the path's.
+git -C "$REMOTE" update-ref refs/heads/main "$GOOD"
+git -C "$W" reset -q --hard "$GOOD"
+if [ -f "$CERT_GATE" ]; then
+  BEFORE_TIP=$(remote_tip main)
+  mkdir -p "$W/SaltC1/Cert54"
+  note "ARM 23  a Salt import under SaltC1/Cert54/                  expect 1"
+  commit_file SaltC1/Cert54/Planted.lean "import Salt.MaynardK.Cert105" "cert: a planted import"
+  run_push 1 red-cert-import origin main
+  expect_out red-cert-import "refused import"
+  expect_out red-cert-import "the certificates' import gate RED"
+  if [ "$(remote_tip main)" = "$BEFORE_TIP" ]; then
+    printf '       +   red-cert-import: the remote ref did NOT move\n'
+  else
+    bad "red-cert-import: THE REMOTE REF MOVED"
+  fi
+  git -C "$W" reset -q --hard "$GOOD"; restore_remote
+  note "ARM 23b the same file importing Mathlib                    expect 0"
+  mkdir -p "$W/SaltC1/Cert54"
+  commit_file SaltC1/Cert54/Planted.lean "import Mathlib.Data.Int.Basic" "cert: a clean import"
+  run_push 0 green-cert-import origin main
+  expect_out green-cert-import "check_cert_imports OK"
+  expect_out green-cert-import "cert-imports --rev"
+  git -C "$W" reset -q --hard "$GOOD"; restore_remote
+else
+  note "ARM 23/23b SKIPPED: this repository has no certificates' import gate (not covered)"
+fi
+
 note ""
 if [ "$fail" -eq 0 ]; then
   note "prove_pre_push: PASS -- 3 clean pushes each SUCCEED and print a receipt"
+  note "  (plus a clean tag on an already-public commit, which is scanned by its"
+  note "  tag OBJECT and refused when that carries a leak, a tag on an unpushed"
+  note "  commit still scanned, an empty branch range's receipt unchanged);"
   note "  naming the range; 12 leak shapes (message path, added-line path, the 5"
   note "  trailer shapes, a path and a URL each added then removed inside one"
   note "  push, and a lane name or family reference in a subject or a lane name in"
@@ -455,7 +694,8 @@ if [ "$fail" -eq 0 ]; then
   note "  whose name carries a refused word; a missing scanner"
   note "  or subject gate refuses a clean push; a delete is allowed; and the"
   note "  mutation control lands the same commit with the hook bypassed, so the"
-  note "  refusals are the hook's."
+  note "  refusals are the hook's; and a Salt import under SaltC1/Cert54/ is"
+  note "  refused where a Mathlib import passes."
   exit 0
 fi
 note "prove_pre_push: FAILED ($fail arm(s))"

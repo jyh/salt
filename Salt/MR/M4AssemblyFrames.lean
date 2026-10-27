@@ -96,7 +96,7 @@ theorem frames_quarter_sq_le_exp {t : ℝ} (ht : 0 ≤ t) : t ^ 2 / 4 ≤ Real.e
     rw [← Real.exp_add]; ring_nf
   have hpos : (0 : ℝ) < Real.exp (t / 2) := Real.exp_pos _
   rw [hsplit]
-  nlinarith [h, hpos, ht]
+  nlinarith only [h, ht]
 
 /-- `t ≤ e^t` — the shadow of the same step, used for `loglog X ≤ log X`. -/
 theorem frames_le_exp (t : ℝ) : t ≤ Real.exp t := by
@@ -134,9 +134,9 @@ theorem frames_theta293_nonneg : (0 : ℝ) ≤ theta293 :=
 /-- `θ₂₉₃ ≤ 1/100`: `θ₂₉₃ = 1/(32(3e+1)) ≤ 1/(32·9.15)`. -/
 theorem frames_theta293_le : theta293 ≤ 1 / 100 := by
   have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-  have hden : (0 : ℝ) < 32 * (3 * Real.exp 1 + 1) := by nlinarith
+  have hden : (0 : ℝ) < 32 * (3 * Real.exp 1 + 1) := by linarith only [h1]
   have hval : theta293 = 1 / (32 * (3 * Real.exp 1 + 1)) := rfl
-  have h100 : (100 : ℝ) ≤ 32 * (3 * Real.exp 1 + 1) := by nlinarith
+  have h100 : (100 : ℝ) ≤ 32 * (3 * Real.exp 1 + 1) := by linarith only [h1]
   rw [hval]
   exact one_div_le_one_div_of_le (by norm_num) h100
 
@@ -206,7 +206,7 @@ theorem doorBaseFrame_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} {C₁ M
     rwa [Real.exp_add, Real.exp_log hH0, Real.exp_log hLX0] at h1
   have hHX : 2.7 * Real.log (H : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := by
     have he27 : (2.7 : ℝ) < Real.exp 1 := exp_one_gt_27
-    nlinarith [hEH, he27, hH0]
+    nlinarith only [hH1, he27, hEH]
   have hllX : Real.log (Real.log (((A + s : ℕ)) : ℝ)) ≤ Real.log (((A + s : ℕ)) : ℝ) - 1 := by
     have := Real.add_one_le_exp (Real.log (Real.log (((A + s : ℕ)) : ℝ)))
     rw [Real.exp_log hLX0] at this; linarith
@@ -249,7 +249,7 @@ theorem doorBaseFrame_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} {C₁ M
         ≤ Real.log (((A + s : ℕ)) : ℝ) / 60 := by
       have hnn : (0 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) / 60 := by positivity
       have hle : Real.log (((A + s : ℕ)) : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ) / 60) ^ 2 := by
-        nlinarith [hLXn, hLX0]
+        nlinarith only [hLX]
       calc Real.sqrt (Real.log (((A + s : ℕ)) : ℝ))
           ≤ Real.sqrt ((Real.log (((A + s : ℕ)) : ℝ) / 60) ^ 2) := Real.sqrt_le_sqrt hle
         _ = Real.log (((A + s : ℕ)) : ℝ) / 60 := Real.sqrt_sq hnn
@@ -258,14 +258,7 @@ theorem doorBaseFrame_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} {C₁ M
     linarith
   · -- ⟦`ceil5`⟧
     have he5 : Real.exp 5 ≤ 1000 := by
-      have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-      have hh : Real.exp 5 = (Real.exp 1) ^ (5 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-      have hpos : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
-      rw [hh]
-      have hc : (Real.exp 1) ^ (5 : ℕ) ≤ (2.7182818286 : ℝ) ^ (5 : ℕ) :=
-        pow_le_pow_left₀ hpos.le he.le 5
-      have hn : (2.7182818286 : ℝ) ^ (5 : ℕ) ≤ 1000 := by norm_num
-      linarith
+      exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 5 (c := 1000) (by norm_num)
     have hlog : Real.exp 5
         ≤ Real.log (2 * ((((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ))) := by
       have h1 : Real.log (((A + s : ℕ)) : ℝ) - Real.log (H : ℝ)
@@ -350,9 +343,9 @@ theorem endpt_at_decayPool {Xd : ℕ} (hpos : 0 < Xd)
     rw [decayPool_def, Real.rpow_neg hL0.le]
   have he2 : 2 * Real.exp 1 + 2 ≤ 7.44 := by have := Real.exp_one_lt_d9; linarith
   have hLsq : 2742688 * Real.log ((Xd : ℕ) : ℝ) ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ 2 := by
-    nlinarith [hL, hL0]
+    nlinarith only [hL]
   have hA1 : 5760 * (2 * Real.exp 1 + 2) * (4 * (Real.log ((Xd : ℕ) : ℝ)) ^ theta293)
-      ≤ 171418 * (Real.log ((Xd : ℕ) : ℝ)) ^ theta293 := by nlinarith [he2, hpowpos]
+      ≤ 171418 * (Real.log ((Xd : ℕ) : ℝ)) ^ theta293 := by nlinarith only [hpowpos, he2]
   have hA2 : 171418 * (Real.log ((Xd : ℕ) : ℝ)) ^ theta293
       ≤ 171418 * Real.log ((Xd : ℕ) : ℝ) := by linarith
   have hA3 : 171418 * Real.log ((Xd : ℕ) : ℝ) ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ 2 / 4 := by
@@ -410,9 +403,7 @@ theorem hL4096_of_frame {M H j : ℕ} {X C₁ M₀ K ρ : ℝ}
       = Real.exp (Real.log (Real.log X) * (1 - (1 : ℝ) / 500 - theta293)) :=
     Real.rpow_def_of_pos (by linarith) _
   have h9 : (4096 : ℝ) ≤ Real.exp 9 := by
-    have h := pow_27_le_exp 9
-    norm_num at h
-    linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 9 (by norm_num)
   have hmul : (356600 : ℝ) * (98 / 100)
       ≤ Real.log (Real.log X) * (1 - (1 : ℝ) / 500 - theta293) :=
     mul_le_mul hmu ha (by norm_num) (by linarith)

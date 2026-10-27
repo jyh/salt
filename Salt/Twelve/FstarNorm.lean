@@ -39,6 +39,9 @@ This file provides:
 
 namespace Salt.Twelve
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Maynard
 
 /-! ## `Qabs` and the ℓ¹-normalized certificate `Fstar1` -/
@@ -66,8 +69,10 @@ respectively): `Σ_{p,q} p.2 · q.2 · ker p.1 q.1`. -/
 private def biQuad (ker : (Fin 5 → ℕ) → (Fin 5 → ℕ) → ℚ) (F : Poly) : ℚ :=
   (F.map (fun p => (F.map (fun q => p.2 * q.2 * ker p.1 q.1)).sum)).sum
 
+/-- `Ical F` is `biQuad` at the kernel `DInt (a + b)` (`rfl`). -/
 private lemma Ical_eq_biQuad (F : Poly) : Ical F = biQuad (fun a b => DInt (a + b)) F := rfl
 
+/-- `Jcal m F` is `biQuad` at the kernel `JD · · m` (`rfl`). -/
 private lemma Jcal_eq_biQuad (m : Fin 5) (F : Poly) :
     Jcal m F = biQuad (fun a b => JD a b m) F := rfl
 
@@ -99,20 +104,26 @@ private lemma Jcal_scale (m : Fin 5) (F : Poly) (c : ℚ) :
 
 /-! ## `Qabs Fstar > 0` -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- The concrete value of `Qabs Fstar`: the 56 monomial coefficients of `F★`
 sum in absolute value to `1227` (`1 + 5·(19+28) + 10·30 + 5·15 + 20·21 +
 10·19`). -/
 theorem Qabs_Fstar_eq : Qabs Fstar = 1227 := by
   norm_num [Qabs, Fstar]
 
+omit [Salt.Maynard.TupleChoice] in
+/-- `0 < Qabs Fstar`: its value is `1227` (`Qabs_Fstar_eq`). -/
 theorem Qabs_Fstar_pos : 0 < Qabs Fstar := by rw [Qabs_Fstar_eq]; norm_num
 
 /-! ## `Fstar1` as a coefficient rescaling by `c = (Qabs Fstar)⁻¹` -/
 
+/-- `Fstar1` is `Fstar` with every coefficient multiplied by `(Qabs Fstar)⁻¹` — the definition
+with its division written as a product (`div_eq_mul_inv`). -/
 private lemma Fstar1_eq_scale : Fstar1 = Fstar.map (fun m => (m.1, m.2 * (Qabs Fstar)⁻¹)) := by
   unfold Fstar1
   simp only [div_eq_mul_inv]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `Qabs Fstar1 = 1`: the normalization makes the ℓ¹-norm of the
 coefficients exactly `1`. -/
 theorem Qabs_Fstar1 : Qabs Fstar1 = 1 := by
@@ -121,6 +132,7 @@ theorem Qabs_Fstar1 : Qabs Fstar1 = 1 := by
 
 /-! ## `M5_cert1` -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **The transported certificate.** `Fstar1` (the ℓ¹-normalized `F★`) still
 certifies `M₅ > 2`: both sides of `M5_cert` scale by `(Qabs Fstar)⁻²` under
 the rescaling, so the strict inequality survives (multiplying through by
@@ -189,6 +201,7 @@ private lemma eval_ofPoly_abs_le (F : Poly) (t : Fin 5 → ℝ)
         mul_le_mul_of_nonneg_left hprod1 (abs_nonneg _)
     _ = |(a.2 : ℝ)| := mul_one _
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **The uniform `|yF| ≤ 1` bound (card W4-4 deliverable).** Off the sieve
 box `yF` vanishes; on the box, `t i = log(s i)/log R ∈ [0,1]` (each
 coordinate is `< R` and `≥ 1`, forcing `R ≥ 2` so `log R > 0`), so the
@@ -219,6 +232,7 @@ theorem yF_Fstar1_abs_le_one (R W' : ℕ) (s : Fin 5 → ℕ) :
 
 /-! ## `primorial_hDlt` -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Instantiation at `W' = primorial D`.** Every prime not dividing
 `primorial D` exceeds `D`, since `primorial D` already contains every prime
 `≤ D` (`Nat.Prime.dvd_primorial_iff`). This is the concrete witness for the

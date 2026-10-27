@@ -257,7 +257,7 @@ theorem dist_one_shift_le_of_two_caps {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ �
     Real.sq_sqrt (pretDistSq_nonneg _ _ _ (norm_costwist_le t₀) (norm_costwist_le v))
   have hSsq : Real.sqrt S ^ 2 = S := Real.sq_sqrt hS0
   rw [← pretDistSq_costwist_shift t₀ v X, ← hsq]
-  nlinarith [htri, e0, e1, hnn, hSsq, Real.sqrt_nonneg S]
+  nlinarith only [e1, hnn, e0, htri, hSsq]
 
 /-- **C3 — the overhang cannot undercut the cap (`overhang_no_undercut`).**
 

@@ -282,7 +282,7 @@ theorem densSieve_error_le (P Q X : ℕ) :
         _ ≤ L * ((3 : ℝ) ^ (ω d) / d) := by
             rw [mul_div_assoc', le_div_iff₀ hdR]
             have : (d : ℝ) ≤ L := hcond
-            nlinarith [pow_pos (show (0:ℝ) < 3 by norm_num) (ω d)]
+            nlinarith only [hcond, pow_pos (show (0 : ℝ) < 3 by norm_num) (ω d)]
     · positivity
   calc ∑ d ∈ (bandProd P Q).divisors,
           (if (d : ℝ) ≤ L then (3 : ℝ) ^ (ω d) * |(densSieve P Q X).rem d| else 0)
@@ -579,11 +579,11 @@ theorem densSieve_rankin_exponent_sum_le {P Q : ℕ} (hP : 2 ≤ P) (hPQ : P ≤
     have hxe : (1 - x) * Real.exp x ≤ 1 := by
       have h1 := Real.add_one_le_exp (-x)
       have h2 : Real.exp (-x) * Real.exp x = 1 := by rw [← Real.exp_add]; simp
-      nlinarith [Real.exp_pos x]
+      nlinarith only [h1, h2, Real.exp_pos x]
     have hex : Real.exp x ≤ Real.exp 1 := Real.exp_le_exp.mpr hx1
     have hnum : (p : ℝ) ^ a - 1 ≤ Real.exp 1 * a * Real.log p := by
       rw [hpa]
-      have hstep1 : Real.exp x - 1 ≤ x * Real.exp x := by nlinarith [hxe]
+      have hstep1 : Real.exp x - 1 ≤ x * Real.exp x := by linarith only [hxe]
       have hstep2 : x * Real.exp x ≤ x * Real.exp 1 :=
         mul_le_mul_of_nonneg_left hex hx0
       calc Real.exp x - 1 ≤ x * Real.exp x := hstep1
@@ -622,11 +622,11 @@ theorem densSieve_rankin_exponent_sum_le {P Q : ℕ} (hP : 2 ≤ P) (hPQ : P ≤
     have hdivle : (2 * Real.log 2 + 4) / Real.log Q ≤ (2 * Real.log 2 + 4) / Real.log 2 := by
       apply div_le_div_of_nonneg_left (by linarith) hl2pos hlog2Q
     have hstep : (2 * Real.log 2 + 4) / Real.log 2 ≤ 7.8 := by
-      rw [div_le_iff₀ hl2pos]; nlinarith
+      rw [div_le_iff₀ hl2pos]; linarith only [hl2pos, hl2]
     have hD : 1 + (2 * Real.log 2 + 4) / Real.log Q ≤ 8.8 := by linarith
     calc Real.exp 1 * (1 + (2 * Real.log 2 + 4) / Real.log Q)
-        ≤ Real.exp 1 * 8.8 := by nlinarith [Real.exp_pos 1]
-      _ ≤ 2.7182818286 * 8.8 := by nlinarith
+        ≤ Real.exp 1 * 8.8 := by nlinarith only [hstep, hdivle, Real.exp_pos 1]
+      _ ≤ 2.7182818286 * 8.8 := by linarith only [he]
       _ ≤ 24 := by norm_num
   calc ∑ p ∈ primeBand P Q, ((p : ℝ) ^ a - 1) / p
       ≤ ∑ p ∈ primeBand P Q, Real.exp 1 * a * (Real.log p / p) :=
@@ -755,7 +755,7 @@ theorem densSieve_tail_le {P Q X : ℕ} (hP : 2 ≤ P) (hPQ : P ≤ Q)
   have hlevle : lev ^ (-(a / 2)) ≤ Real.exp (-(Real.log X / (4 * Real.log Q))) := by
     rw [Real.rpow_def_of_pos hlev0]
     apply Real.exp_le_exp.mpr
-    nlinarith [hlevX]
+    linarith only [hlevX]
   -- assemble
   have hsumnn : 0 ≤ ∑ ℓ ∈ (bandProd P Q).divisors, rankinWt P Q X a ℓ := by
     apply Finset.sum_nonneg
@@ -860,7 +860,7 @@ theorem densGate_of_sqrt {Q X : ℕ} (hQ : 2 ≤ Q)
     norm_num at hbig
   have hsq : Real.sqrt (Real.log X) * Real.sqrt (Real.log X) = Real.log X :=
     Real.mul_self_sqrt hlogX0
-  nlinarith
+  nlinarith only [hbig, hsq, hreg]
 
 
 /-- **`typical_density_le` — the exit stone (S8/MR-CORE node A4a; MR Lemma 2.2).**

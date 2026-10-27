@@ -32,6 +32,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 /-! ## Local private copies of the landed private helpers
 
 These are byte-identical copies of the same-named `private` lemmas in
@@ -87,7 +90,7 @@ private theorem prod_one_add_le {ι : Type*} (s : Finset ι)
       have hih := ih has hss
       have hprod_nonneg : (0 : ℝ) ≤ ∏ z ∈ s, (1 + a z) :=
         Finset.prod_nonneg fun z hz => by linarith [has z hz]
-      nlinarith [hih, hax, hss, hsum_nonneg]
+      nlinarith only [hax, hih, hss]
 
 /-- `μ(n)² = 1` for squarefree `n` (local copy of `Lemma53Tight.moebius_sq_one'`). -/
 private theorem moebius_sq_one' {n : ℕ} (hn : Squarefree n) :
@@ -122,11 +125,11 @@ private theorem gr_ratio_mem' {ρ : ℕ} (hρ : Squarefree ρ)
   · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
     have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
     have h1 : ((p : ℝ) - 1)⁻¹ ≤ 1 := by rw [inv_le_one_iff₀]; right; linarith
-    nlinarith [h0, h1]
+    nlinarith only [h0, h1]
   · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
     have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
     have h1 : ((p : ℝ) - 1)⁻¹ ≤ 1 := by rw [inv_le_one_iff₀]; right; linarith
-    nlinarith [h0, h1]
+    nlinarith only [h0, h1]
   · nlinarith [sq_nonneg (((p : ℝ) - 1)⁻¹)]
 
 /-- Telescoping tail bound (local copy of `Lemma53.inv_sq_tele53`). -/
@@ -173,8 +176,8 @@ private theorem one_sub_sum_le_prod_one_sub {ι : Type*} (s : Finset ι) (x : ι
       have hpn : 0 ≤ ∏ p ∈ s, (1 - x p) :=
         Finset.prod_nonneg fun p hp => by linarith [hx1' p hp]
       have hsn : 0 ≤ ∑ p ∈ s, x p := Finset.sum_nonneg hx0'
-      nlinarith [hih, hxa0, hxa1, hpn, hsn,
-        mul_le_mul_of_nonneg_left hih (by linarith : (0 : ℝ) ≤ 1 - x a)]
+      nlinarith only [hxa0, hsn,
+          mul_le_mul_of_nonneg_left hih (by linarith : (0 : ℝ) ≤ 1 - x a)]
 
 /-- `|∏(1 − xₚ) − 1| ≤ ∑ xₚ` (local copy of `Lemma53.abs_prod_one_sub_le`). -/
 private theorem abs_prod_one_sub_le {ι : Type*} (s : Finset ι) (x : ι → ℝ)
@@ -192,6 +195,7 @@ private theorem abs_prod_one_sub_le {ι : Type*} (s : Finset ι) (x : ι → ℝ
 Port of `EulerTailL.euler_tail_L` with the `k` binder dropped and `D₀ k → D`
 (the landed `k` occurs ONLY through `D₀ k`). -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`euler_tail_LW`.** Free-`D` form of `euler_tail_L`. -/
 theorem euler_tail_LW (M : ℕ) (L : ℝ) (D : ℕ) (hL : 1 ≤ L)
     (hD : 4 * L ≤ (D : ℝ)) :
@@ -322,6 +326,7 @@ theorem euler_tail_LW (M : ℕ) (L : ℝ) (D : ℕ) (hL : 1 ≤ L)
 
 /-! ## Tight `μ²/φ²` tail bounds via `euler_tail_LW` -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`phiSq_tail_tightW`.** Free-`D` form of `phiSq_tail_tight`. -/
 theorem phiSq_tail_tightW (M D : ℕ) (hD : 4 ≤ D) :
     ∑ c ∈ ((Finset.range M).filter
@@ -340,6 +345,7 @@ theorem phiSq_tail_tightW (M D : ℕ) (hD : 4 ≤ D) :
     rw [Finset.prod_pow, Finset.prod_inv_distrib, ← totient_squarefree_cast hcsq, inv_pow]
   rw [one_pow, one_mul, hrhs, moebius_sq_one' hcsq, one_div]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`phiSq_dvd_ne_tightW`.** Free-`D` form of `phiSq_dvd_ne_tight`. -/
 theorem phiSq_dvd_ne_tightW (R D : ℕ) (hD : 4 ≤ D)
     (ρ : ℕ) (_hρsq : Squarefree ρ) :
@@ -413,6 +419,7 @@ theorem phiSq_dvd_ne_tightW (R D : ℕ) (hD : 4 ≤ D)
         rw [hTdef]
         exact phiSq_tail_tightW R D hD
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`phiSq_dvd_tightW`.** Free-`D` form of `phiSq_dvd_tight`. -/
 theorem phiSq_dvd_tightW (R D : ℕ) (hD : 4 ≤ D)
     (ρ : ℕ) (hρsq : Squarefree ρ) (hρp : ∀ p ∈ ρ.primeFactors, D < p) (hρR : ρ < R) :
@@ -451,6 +458,7 @@ noncomputable def tailCoordSetW (k R D : ℕ) (r : Fin k → ℕ) (j i : Fin k) 
   (Finset.range R).filter
     (fun x => Squarefree x ∧ (∀ p ∈ x.primeFactors, D < p) ∧ r i ∣ x ∧ (i = j → x ≠ r j))
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`tail_factor_le'W`.** Free-`(W',D)` form of `tail_factor_le'`. -/
 theorem tail_factor_le'W (k R W' D : ℕ)
     (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p)
@@ -477,6 +485,7 @@ theorem tail_factor_le'W (k R W' D : ℕ)
   · intro a _ _
     exact Finset.prod_nonneg (fun i _ => hH i (a i))
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`htail_tightW`.** Free-`(W',D)`, `|y| ≤ B` form of `htail_tight`.  The
 concrete error constant is `B·(4·exp 4·rankinC·k)·log R/D`. -/
 theorem htail_tightW (k R W' D : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
@@ -498,7 +507,7 @@ theorem htail_tightW (k R W' D : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
   have hk2 : 1 ≤ k ^ 2 := Nat.one_le_pow 2 k (by omega)
   have hD12 : 12 ≤ D := by omega
   have hD4 : 4 ≤ D := by omega
-  have hkD : k ≤ D := by nlinarith [hDk]
+  have hkD : k ≤ D := by nlinarith only [hk, hk2, hDk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   have hD0 : 0 < D := by omega
   have hD0R : (0 : ℝ) < (D : ℝ) := by exact_mod_cast hD0
   have hD0ne : (D : ℝ) ≠ 0 := hD0R.ne'
@@ -557,7 +566,7 @@ theorem htail_tightW (k R W' D : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
       rw [abs_mul, abs_of_nonneg (by positivity : (0 : ℝ) ≤ (r i : ℝ) / (Nat.totient (a i) : ℝ))]
       have h1 := abs_moebius_real_le_one (a i)
       have h2 : (0 : ℝ) ≤ (r i : ℝ) / (Nat.totient (a i) : ℝ) := by positivity
-      nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - |((μ (a i) : ℤ) : ℝ)|) h2]
+      linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - |((μ (a i) : ℤ) : ℝ)|) h2]
     calc |y a| / (∏ i, (Nat.totient (a i) : ℝ))
             * ∏ i ∈ Finset.univ.erase m,
                 |((μ (a i) : ℤ) : ℝ) * ((r i : ℝ) / (Nat.totient (a i) : ℝ))|
@@ -679,7 +688,7 @@ theorem htail_tightW (k R W' D : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
                     = ((gMult (r i) : ℝ) * (r i : ℝ) / (Nat.totient (r i) : ℝ) ^ 2)
                       * (1 + 4 / (D : ℝ)) from by ring]
               have hge := (gr_ratio_mem' (hsq i) (hodd i)).2
-              nlinarith [hge, (by positivity : (0:ℝ) ≤ 1 + 4 / (D : ℝ))]
+              nlinarith only [hge, (by positivity : (0 : ℝ) ≤ 1 + 4 / (D : ℝ))]
         _ = (1 + 4 / (D : ℝ)) ^ ((Finset.univ.erase m).erase j).card := by
             rw [Finset.prod_const]
         _ ≤ (Real.exp (4 / (D : ℝ))) ^ ((Finset.univ.erase m).erase j).card :=
@@ -799,6 +808,7 @@ theorem htail_tightW (k R W' D : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
 
 /-! ## The main-sum size bound and the Lemma 5.3 assembly -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`abs_mainSum_le_tightW`.** Free-`W'`, `|y| ≤ B` form of
 `abs_mainSum_le_tight`: `|∑ y/φ| ≤ B·rankinC·log R`. -/
 theorem abs_mainSum_le_tightW (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
@@ -837,6 +847,7 @@ theorem abs_mainSum_le_tightW (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) �
         rw [Finset.mul_sum]
     _ ≤ B * (rankinC * Real.log R) := mul_le_mul_of_nonneg_left hRankin hB0
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`stepB_identityW`.** Free-`W'` form of `stepB_identity` (pure `W k → W'`,
 no `D₀`). -/
 theorem stepB_identityW (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
@@ -966,6 +977,7 @@ theorem stepB_identityW (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
         * (∑ am ∈ Finset.range R, y (Function.update r m am) / (Nat.totient am : ℝ)) := by
         rw [Finset.mul_sum]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`gProd_boundW`.** Free-`(W',D)` form of `gProd_bound`. -/
 theorem gProd_boundW (k R W' D : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D)
     (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p)
@@ -1024,7 +1036,7 @@ theorem gProd_boundW (k R W' D : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D)
     have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
     have : ((p : ℝ) - 1)⁻¹ ≤ 1 := by
       rw [inv_le_one_iff₀]; right; linarith
-    nlinarith [this, h0]
+    nlinarith only [h0, this]
   · have hsub : S ⊆ Finset.Icc (D + 1) R := by
       intro p hp
       obtain ⟨-, hpD, hpR⟩ := hSmem p hp
@@ -1048,6 +1060,7 @@ theorem gProd_boundW (k R W' D : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D)
         rw [inv_nonneg]; linarith
       linarith [hmono, htele, hfrac]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`lemma53_tightW`** (the frozen deliverable).  Free-`(W',D)`, `|y| ≤ B`
 form of `lemma53_tight`: `|yM − contraction| ≤ B·lemma53Const·k·log R/D`. -/
 theorem lemma53_tightW (k R W' D : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)

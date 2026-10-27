@@ -167,7 +167,7 @@ lemma not_blockSmallG_witness_of_mem_UsetG {f : ℕ → ℂ} {Pseq Qseq : ℕ �
 
 /-! ## §2 — T-2: the per-block count at the graded level
 
-`ramQ_large_count` (LANDED, `USetThinTL` :207) is fed at `V := exp(α·v/H)`, i.e. at the
+`ramQ_large_count` (LANDED, `USetThinTL`) is fed at `V := exp(α·v/H)`, i.e. at the
 block's own graded threshold, and its three `v`-dependent factors are made uniform:
 
 * `T ^ (2 log V / log base) ≤ T ^ (2α)` — because `log V = α·(v/H) ≤ α·log base`, the
@@ -246,7 +246,7 @@ theorem ramQ_graded_count {H α : ℝ} (hH : 2 ≤ H) (hα : 0 ≤ α) (P Q v : 
   -- (ii) the uniform level
   have h2 : Real.exp (α * (v : ℝ) / H) ^ 2 ≤ VJ ^ 2 := by
     have h0 : (0 : ℝ) ≤ Real.exp (α * (v : ℝ) / H) := (Real.exp_pos _).le
-    nlinarith [hVJ, h0, hV1]
+    nlinarith only [hVJ, hV1]
   -- (iii) the base-`P` floor in the `exp` leg
   have h3 : Real.exp (2 * (Real.log T / Real.log ((ramQbase H P v : ℕ) : ℝ))
         * Real.log (Real.log T))
@@ -254,7 +254,7 @@ theorem ramQ_graded_count {H α : ℝ} (hH : 2 ≤ H) (hα : 0 ≤ α) (P Q v : 
     refine Real.exp_le_exp.mpr ?_
     have hd : Real.log T / Real.log ((ramQbase H P v : ℕ) : ℝ)
         ≤ Real.log T / Real.log (P : ℝ) := by gcongr
-    nlinarith [hd, hLL0]
+    nlinarith only [hLL5, hd]
   -- the product
   have hTpow0 : (0 : ℝ) ≤ T ^ (2 * α) :=
     (Real.rpow_pos_of_pos (by linarith : (0 : ℝ) < T) _).le
@@ -363,7 +363,7 @@ theorem usetG_thin_Q (f : ℕ → ℂ) (hf1 : ∀ n : ℕ, ‖f n‖ ≤ 1)
   have hdiv := ramI_div_le_log hH0 hQ1 hv
   have hle : αseq Jb * (v : ℝ) / Hseq Jb ≤ Real.log ((Qseq Jb : ℕ) : ℝ) * αseq Jb := by
     rw [show αseq Jb * (v : ℝ) / Hseq Jb = αseq Jb * ((v : ℝ) / Hseq Jb) by ring]
-    nlinarith [mul_le_mul_of_nonneg_left hdiv hα0]
+    linarith only [mul_le_mul_of_nonneg_left hdiv hα0]
   calc Real.exp (αseq Jb * (v : ℝ) / Hseq Jb)
       ≤ Real.exp (Real.log ((Qseq Jb : ℕ) : ℝ) * αseq Jb) := Real.exp_le_exp.mpr hle
     _ = ((Qseq Jb : ℕ) : ℝ) ^ (αseq Jb) := (Real.rpow_def_of_pos hQ0R _).symm
@@ -390,7 +390,7 @@ lemma gradeV_sq_le_rpow {X ε α : ℝ} {Q : ℕ} (hX1 : 1 < X) (hQ0 : 0 < Q)
   have hexp : Real.log X / Real.log (Real.log X) * (2 * α) ≤ Real.log X * ε := by
     rw [div_mul_eq_mul_div, div_le_iff₀ hLL0]
     have h := mul_le_mul_of_nonneg_left hkey hLX.le
-    nlinarith [h]
+    linarith only [h]
   have hstep : (Q83 X) ^ (2 * α)
       = Real.exp (Real.log X / Real.log (Real.log X) * (2 * α)) := by
     rw [Q83, Real.rpow_def_of_pos (Real.exp_pos _), Real.log_exp]

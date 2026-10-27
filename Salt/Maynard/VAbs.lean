@@ -43,6 +43,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-! ## `fTilde` antitonicity -/
 
 /-- **`fTilde` divisor-antitonicity.**  For `a ∣ b`, `b > 0`, one has
@@ -70,6 +73,7 @@ Each kills the guard `∀ i, vᵢ ∣ dᵢ` (or uses `dₘ = 1`) term-by-term in
 defining `d`-sum of `lamPhiContractM`; they hold for every weight `y` and
 modulus `W'`. -/
 
+omit [TupleChoice] in
 /-- **Degenerate case `vₘ ≠ 1`.**  On the pinned sub-lattice `dₘ = 1` the
 guard forces `vₘ ∣ 1`, so `Vₘ(v) = 0`. -/
 theorem lamPhiContractM_eq_zero_of_coord_ne_one (k R W' : ℕ) (m : Fin k)
@@ -82,6 +86,7 @@ theorem lamPhiContractM_eq_zero_of_coord_ne_one (k R W' : ℕ) (m : Fin k)
   intro hall
   exact hvm (Nat.dvd_one.mp (hd.2 ▸ hall m))
 
+omit [TupleChoice] in
 /-- **Degenerate case: a non-squarefree coordinate.**  Coordinates of sieve
 tuples are squarefree, and squarefreeness passes to divisors, so the divisor
 guard is empty and `Vₘ(v) = 0`. -/
@@ -96,6 +101,7 @@ theorem lamPhiContractM_eq_zero_of_not_squarefree (k R W' : ℕ) (m : Fin k)
   intro hall
   exact hi ((((mem_kSieveIndex_iff d).mp hd.1).1 i).squarefree_of_dvd (hall i))
 
+omit [TupleChoice] in
 /-- **Degenerate case: an incompatible coordinate pair.**  Distinct
 coordinates of sieve tuples are coprime, so a non-coprime pair `vᵢ, vⱼ`
 (`i ≠ j`) empties the divisor guard and `Vₘ(v) = 0`. -/
@@ -111,6 +117,7 @@ theorem lamPhiContractM_eq_zero_of_not_coprime (k R W' : ℕ) (m : Fin k)
   have hco := ((mem_kSieveIndex_iff d).mp hd.1).2.1 i j hij
   exact h ((hco.coprime_dvd_left (hall i)).coprime_dvd_right (hall j))
 
+omit [TupleChoice] in
 /-- **Degenerate case `∏ vᵢ ≥ R`.**  Sieve tuples have `∏ dᵢ < R`, and the
 guard gives `∏ vᵢ ∣ ∏ dᵢ`, so `R ≤ ∏ vᵢ` empties the guard and `Vₘ(v) = 0`. -/
 theorem lamPhiContractM_eq_zero_of_le_prod (k R W' : ℕ) (m : Fin k)
@@ -412,7 +419,7 @@ private theorem count_tail_le (k R : ℕ) (hk : 1 ≤ k) (hR : 2 ≤ R)
       (pow_le_pow_left₀ (Nat.cast_nonneg k) ?_ _)
       (Finset.prod_nonneg fun p _ => by positivity)
     have h1k : (1 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
-    nlinarith
+    nlinarith only [h1k, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   have htail : (∑ c ∈ ((Finset.range R).filter
       (fun c => Squarefree c ∧ ∀ p ∈ c.primeFactors, D₀ k < p)).erase 1,
       (k : ℝ) ^ c.primeFactors.card * ((Nat.totient c : ℝ) ^ 2)⁻¹) ≤ 1 := by
@@ -793,9 +800,9 @@ theorem lamPhiContractM_abs_le_g (k R : ℕ) (T : ℝ) (m : Fin k) (v : Fin k �
           ← Finset.prod_mul_distrib, ← Finset.prod_pow]
         refine Finset.prod_le_prod (fun p hp => ?_) (fun p hp => ?_)
         · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
-          nlinarith
+          nlinarith only [h3, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
         · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
-          nlinarith
+          linarith only []
       rw [div_le_div_iff₀ (by positivity) hgpos]
       calc fTilde k R T (v i) * (v i : ℝ) * (gMult (v i) : ℝ)
           = fTilde k R T (v i) * ((gMult (v i) : ℝ) * (v i : ℝ)) := by ring

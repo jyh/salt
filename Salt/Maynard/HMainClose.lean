@@ -35,6 +35,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- Re-declared private copy of `CollisionQuant.inv_sq_tele` / `HOmit.inv_sq_tele`
 (both `private`): telescoping tail `∑_{a < n ≤ b} (n−1)⁻² ≤ (a−1)⁻¹ − (b−1)⁻¹`. -/
 private theorem inv_sq_tele (a : ℕ) (ha : 2 ≤ a) :
@@ -432,7 +435,7 @@ theorem hCop_bound (k R : ℕ) (m : Fin k) (T : ℝ) (hR : 2 ≤ R) (hk : 16 ≤
         have hk16 : (16 : ℝ) * (k : ℝ) ^ 2 ≤ (D₀ k : ℝ) := by
           have h1 : (16 : ℝ) * (k : ℝ) ^ 2 ≤ (k : ℝ) ^ 3 := by
             have hkr : (16 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
-            nlinarith [pow_nonneg (by positivity : (0:ℝ) ≤ (k:ℝ)) 2]
+            nlinarith only [hkr, sq_nonneg ↑k]
           have h2 : (k : ℝ) ^ 3 ≤ (D₀ k : ℝ) := by exact_mod_cast hk3cube
           linarith
         have hfrac : ((k * k - k : ℕ) : ℝ) * (2 / (D₀ k : ℝ)) ≤ 1 / 8 := by
@@ -599,8 +602,8 @@ theorem hOver_bound (k R : ℕ) (m : Fin k) (T : ℝ) (hR : 2 ≤ R) (hk : 2 ≤
         -- goal: (k−1)·A₁⁽¹⁾·A₁^{k-2} ≤ (3/8)·(A₁^{k-2}·A₁)·(k−T)
         have hmoment_nn : 0 ≤ A1_1 k R (W k) T * (A1 k R (W k) T) ^ (k - 2) :=
           mul_nonneg hA1_1nn hApow
-        nlinarith [mul_le_mul_of_nonneg_right hkTb hmoment_nn,
-          mul_le_mul_of_nonneg_right hA11 hApow, hApow, hkT.le, hAnn]
+        nlinarith only [hTk, mul_le_mul_of_nonneg_right hA11 hApow,
+            mul_le_mul_of_nonneg_right hkTb hmoment_nn, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
 
 /-! ## Assembly — `H_main` fully discharged with the re-threaded `(3/8, 1/8)` split -/
 

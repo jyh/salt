@@ -376,7 +376,7 @@ theorem vtail_meansq_damped {A : ℝ → ℂ} (hA : Continuous A) {X h₁ h₂ �
             + ‖tailTr (dampA A) α β (X / 2) x‖) := by
       rw [show (3 : ℝ) * X / h₁ = (1 / h₁) * (3 * X) by ring, mul_assoc]
       refine mul_le_mul_of_nonneg_left ?_ (by positivity)
-      nlinarith
+      nlinarith only [hx2, hnc, hna, hh2X, hh12, hX]
     have hs2 : (1 / h₂) * ((x + h₂) * ‖tailTr (dampA A) α β (X / 2) (x + h₂)‖
           + x * ‖tailTr (dampA A) α β (X / 2) x‖)
         ≤ (3 * X / h₁) * (‖tailTr (dampA A) α β (X / 2) (x + h₂)‖
@@ -386,7 +386,7 @@ theorem vtail_meansq_damped {A : ℝ → ℂ} (hA : Continuous A) {X h₁ h₂ �
           ≤ (1 / h₂) * (3 * X * (‖tailTr (dampA A) α β (X / 2) (x + h₂)‖
               + ‖tailTr (dampA A) α β (X / 2) x‖)) := by
         refine mul_le_mul_of_nonneg_left ?_ (by positivity)
-        nlinarith
+        nlinarith only [hx2, hnc, hnb, hh2X, hX]
       refine hstep.trans ?_
       have h3 : (1 / h₂) * (3 * X * (‖tailTr (dampA A) α β (X / 2) (x + h₂)‖
             + ‖tailTr (dampA A) α β (X / 2) x‖))
@@ -428,7 +428,7 @@ theorem vtail_meansq_damped {A : ℝ → ℂ} (hA : Continuous A) {X h₁ h₂ �
           - ‖tailTr (dampA A) α β (X / 2) x‖),
         sq_nonneg (‖tailTr (dampA A) α β (X / 2) (x + h₂)‖
           - ‖tailTr (dampA A) α β (X / 2) x‖)]
-    nlinarith [sq_nonneg (X / h₁), hquad]
+    nlinarith only [hquad, sq_nonneg (1 * (X / h₁))]
   -- integrate the pointwise bound
   have hmajc : Continuous (fun x : ℝ => 36 * (X / h₁) ^ 2 *
       (‖tailTr (dampA A) α β (X / 2) (x + h₁)‖ ^ 2
@@ -547,7 +547,7 @@ private lemma vtail_meansq_arm {A : ℝ → ℂ} (hA : Continuous A) {X h₁ h�
   have hpk : (0 : ℝ) ≤ Real.pi * ((X / h₁) ^ 2 * ∫ t in p..q, ‖A t‖ ^ 2 * k t ^ 2) := by
     have : (0 : ℝ) ≤ (X / h₁) ^ 2 * ∫ t in p..q, ‖A t‖ ^ 2 * k t ^ 2 :=
       mul_nonneg (sq_nonneg _) hKnn
-    nlinarith [Real.pi_pos]
+    nlinarith only [this, Real.pi_pos]
   rcases harm with hlow | hhigh
   · have h1 := vtail_mean_sq_bound hA hX hh1 hh2 hh1X hh2X hpq
     have h2 : (∫ t in p..q, ‖A t‖ ^ 2)
@@ -555,7 +555,7 @@ private lemma vtail_meansq_arm {A : ℝ → ℂ} (hA : Continuous A) {X h₁ h�
       rw [← intervalIntegral.integral_const_mul]
       refine intervalIntegral.integral_mono_on hpq ((hA.norm.pow 2).intervalIntegrable _ _)
         (hKi.const_mul _) (fun t ht => ?_)
-      nlinarith [hlow t ht, sq_nonneg ‖A t‖]
+      nlinarith only [hlow t ht, sq_nonneg ‖A t‖]
     have h3 : 164 * Real.pi * (∫ t in p..q, ‖A t‖ ^ 2)
         ≤ 164 * Real.pi * ((X / h₁) ^ 2 * ∫ t in p..q, ‖A t‖ ^ 2 * k t ^ 2) :=
       mul_le_mul_of_nonneg_left h2 (by positivity)
@@ -624,8 +624,8 @@ private lemma vtail_meansq_glue {A : ℝ → ℂ} (hA : Continuous A) {X h₁ h�
       - ((1 / h₂ : ℝ) : ℂ) * vSeg A x h₂ α m with hu
     set v : ℂ := ((1 / h₁ : ℝ) : ℂ) * vSeg A x h₁ m β
       - ((1 / h₂ : ℝ) : ℂ) * vSeg A x h₂ m β with hv
-    nlinarith [pow_le_pow_left₀ (norm_nonneg (u + v)) (norm_add_le u v) 2,
-      sq_nonneg (‖u‖ - ‖v‖), norm_nonneg u, norm_nonneg v]
+    linarith only [pow_le_pow_left₀ (norm_nonneg (u + v)) (norm_add_le u v) 2,
+        sq_nonneg (‖u‖ - ‖v‖)]
   have hI1 := vdiff_sq_intervalIntegrable hA hX hh1 hh2 α m
   have hI2 := vdiff_sq_intervalIntegrable hA hX hh1 hh2 m β
   have hI := vdiff_sq_intervalIntegrable hA hX hh1 hh2 α β
@@ -700,7 +700,7 @@ theorem vtail_meansq_kernel {A : ℝ → ℂ} (hA : Continuous A) {X h₁ h₂ �
     have hexp : (2 / t) ^ 2 = 4 / t ^ 2 := by
       rw [div_pow]; norm_num
     rw [hexp, div_le_div_iff₀ (by positivity) (by positivity)]
-    nlinarith [sq_nonneg t]
+    linarith only [sq_nonneg t]
   have hkc : ∀ p q : ℝ, 0 < p → p ≤ q → ContinuousOn k (Set.uIcc p q) := by
     intro p q hp hpq
     have hne : ∀ t ∈ Set.uIcc p q, t ≠ 0 := by
@@ -713,15 +713,15 @@ theorem vtail_meansq_kernel {A : ℝ → ℂ} (hA : Continuous A) {X h₁ h₂ �
       (Or.inl (hcert_low α β hα (fun t ht => le_trans (Set.mem_Icc.mp ht).2 hlow)))) ?_
     have hKnn : (0 : ℝ) ≤ ∫ t in α..β, ‖A t‖ ^ 2 * k t ^ 2 :=
       intervalIntegral.integral_nonneg hab (fun t _ => by positivity)
-    nlinarith [Real.pi_pos, hKnn, sq_nonneg (X / h₁),
-      mul_nonneg (mul_nonneg Real.pi_pos.le (sq_nonneg (X / h₁))) hKnn]
+    linarith only
+        [mul_nonneg (mul_nonneg Real.pi_pos.le (sq_nonneg (X / h₁))) hKnn]
   · rcases le_or_gt (2 * (X / h₁)) α with hhigh | hhigh
     · refine le_trans (vtail_meansq_arm hA hX hh1 hh12 hh2X hab (hkc α β hα hab)
         (Or.inr (hcert_high α β (fun t ht => le_trans hhigh (Set.mem_Icc.mp ht).1)))) ?_
       have hKnn : (0 : ℝ) ≤ ∫ t in α..β, ‖A t‖ ^ 2 * k t ^ 2 :=
         intervalIntegral.integral_nonneg hab (fun t _ => by positivity)
-      nlinarith [Real.pi_pos, hKnn, sq_nonneg (X / h₁),
-        mul_nonneg (mul_nonneg Real.pi_pos.le (sq_nonneg (X / h₁))) hKnn]
+      linarith only
+          [mul_nonneg (mul_nonneg Real.pi_pos.le (sq_nonneg (X / h₁))) hKnn]
     · exact vtail_meansq_glue hA hX hh1 hh12 hh2X hhigh.le hlow.le (hkc α β hα hab)
         (Or.inl (hcert_low α (2 * (X / h₁)) hα (fun t ht => (Set.mem_Icc.mp ht).2)))
         (Or.inr (hcert_high (2 * (X / h₁)) β (fun t ht => (Set.mem_Icc.mp ht).1)))
@@ -762,11 +762,11 @@ theorem vtail_meansq_kernel_neg {A : ℝ → ℂ} (hA : Continuous A) {X h₁ h�
         _ ≤ h₁ * -t := mul_le_mul_of_nonneg_left (by linarith [hge t ht]) hh1.le
     have hkt : k t = 2 / (-t) := by rw [hk]; exact min_eq_right h2t
     rw [hkt]
-    have ht2 : (0 : ℝ) < t ^ 2 := by nlinarith
+    have ht2 : (0 : ℝ) < t ^ 2 := by nlinarith only [ht0]
     have hexp : (2 / (-t)) ^ 2 = 4 / t ^ 2 := by
       rw [div_pow, neg_pow]; norm_num
     rw [hexp, div_le_div_iff₀ (by positivity) ht2]
-    nlinarith [sq_nonneg t]
+    linarith only [ht2]
   have hkc : ∀ p q : ℝ, q < 0 → p ≤ q → ContinuousOn k (Set.uIcc p q) := by
     intro p q hq hpq
     have hne : ∀ t ∈ Set.uIcc p q, -t ≠ 0 := by
@@ -782,16 +782,16 @@ theorem vtail_meansq_kernel_neg {A : ℝ → ℂ} (hA : Continuous A) {X h₁ h�
     simp only [hk]
     have hKnn : (0 : ℝ) ≤ ∫ t in α..β, ‖A t‖ ^ 2 * (min (h₁ / X) (2 / (-t))) ^ 2 :=
       intervalIntegral.integral_nonneg hab (fun t _ => by positivity)
-    nlinarith [Real.pi_pos, hKnn, sq_nonneg (X / h₁),
-      mul_nonneg (mul_nonneg Real.pi_pos.le (sq_nonneg (X / h₁))) hKnn]
+    linarith only
+        [mul_nonneg (mul_nonneg Real.pi_pos.le (sq_nonneg (X / h₁))) hKnn]
   · rcases le_or_gt β (-(2 * (X / h₁))) with hhigh | hhigh
     · refine le_trans (vtail_meansq_arm hA hX hh1 hh12 hh2X hab (hkc α β hβ hab)
         (Or.inr (hcert_high α β hβ (fun t ht => le_trans (Set.mem_Icc.mp ht).2 hhigh)))) ?_
       simp only [hk]
       have hKnn : (0 : ℝ) ≤ ∫ t in α..β, ‖A t‖ ^ 2 * (min (h₁ / X) (2 / (-t))) ^ 2 :=
         intervalIntegral.integral_nonneg hab (fun t _ => by positivity)
-      nlinarith [Real.pi_pos, hKnn, sq_nonneg (X / h₁),
-        mul_nonneg (mul_nonneg Real.pi_pos.le (sq_nonneg (X / h₁))) hKnn]
+      linarith only
+          [mul_nonneg (mul_nonneg Real.pi_pos.le (sq_nonneg (X / h₁))) hKnn]
     · refine vtail_meansq_glue hA hX hh1 hh12 hh2X hlow.le hhigh.le (hkc α β hβ hab)
         (Or.inr (hcert_high α (-(2 * (X / h₁))) (by linarith)
           (fun t ht => (Set.mem_Icc.mp ht).2)))
@@ -835,10 +835,10 @@ private lemma norm_sum_five_sq_le (z₁ z₂ z₃ z₄ z₅ : ℂ) :
     have t4 : ‖z₁ + z₂‖ ≤ ‖z₁‖ + ‖z₂‖ := norm_add_le _ _
     linarith
   refine (pow_le_pow_left₀ (norm_nonneg _) htri 2).trans ?_
-  nlinarith [sq_nonneg (‖z₁‖ - ‖z₂‖), sq_nonneg (‖z₁‖ - ‖z₃‖), sq_nonneg (‖z₁‖ - ‖z₄‖),
-    sq_nonneg (‖z₁‖ - ‖z₅‖), sq_nonneg (‖z₂‖ - ‖z₃‖), sq_nonneg (‖z₂‖ - ‖z₄‖),
-    sq_nonneg (‖z₂‖ - ‖z₅‖), sq_nonneg (‖z₃‖ - ‖z₄‖), sq_nonneg (‖z₃‖ - ‖z₅‖),
-    sq_nonneg (‖z₄‖ - ‖z₅‖)]
+  linarith only [sq_nonneg (‖z₁‖ - ‖z₂‖),
+      sq_nonneg (‖z₁‖ - ‖z₃‖), sq_nonneg (‖z₁‖ - ‖z₄‖), sq_nonneg (‖z₁‖ - ‖z₅‖),
+      sq_nonneg (‖z₂‖ - ‖z₃‖), sq_nonneg (‖z₂‖ - ‖z₄‖), sq_nonneg (‖z₂‖ - ‖z₅‖),
+      sq_nonneg (‖z₃‖ - ‖z₄‖), sq_nonneg (‖z₃‖ - ‖z₅‖), sq_nonneg (‖z₄‖ - ‖z₅‖)]
 
 /-- Additivity of an interval integral over a five-term sum. -/
 private lemma integral_five_add {f₁ f₂ f₃ f₄ f₅ : ℝ → ℝ} {p q : ℝ}
@@ -962,7 +962,7 @@ theorem lemma14_contour_kernel (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂ 
   have hh2' : (0 : ℝ) < h₂ := by linarith
   have hLinv1 : (Real.log X) ^ (-(1 / 5 : ℝ)) ≤ 1 :=
     Real.rpow_le_one_of_one_le_of_nonpos hL1 (by norm_num)
-  have hh2X' : h₂ ≤ X := by nlinarith
+  have hh2X' : h₂ ≤ X := by nlinarith only [he2, hLinv1, hX, hh2X]
   have hh1X : h₁ ≤ X := le_trans hh12 hh2X'
   have hpos : ∀ m ∈ s0, 0 < m := by
     intro m hm
@@ -1015,7 +1015,7 @@ theorem lemma14_contour_kernel (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂ 
         ((Real.log X) ^ (1 / 45 : ℝ)) x‖ ^ 2) ≤ 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by
     have hs5 : (∑ m ∈ s0, 1 / (m : ℝ)) ≤ 5 := coeff_sum_inv_le (by linarith) s0 hrange
     have hs0 : (0 : ℝ) ≤ ∑ m ∈ s0, 1 / (m : ℝ) := Finset.sum_nonneg fun m _ => by positivity
-    have hsq25 : (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 ≤ 25 := by nlinarith
+    have hsq25 : (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 ≤ 25 := by nlinarith only [hs5, hs0]
     have hLnn : (0 : ℝ) ≤ (Real.log X) ^ (-(14 / 45 : ℝ)) := Real.rpow_nonneg hLp.le _
     have hpt : ∀ x ∈ Set.Icc X (2 * X),
         ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 45 : ℝ)))
@@ -1054,7 +1054,7 @@ theorem lemma14_contour_kernel (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂ 
     have h := hMsup T hT
     have hn : (0 : ℝ) ≤ ∫ t in (-(2 * T))..(-T), ‖dpolyA a s0 t‖ ^ 2 :=
       intervalIntegral.integral_nonneg (by linarith) (fun t _ => by positivity)
-    nlinarith [mul_nonneg (le_of_lt (div_pos hWpos hT0)) hn]
+    linarith only [h, mul_nonneg (le_of_lt (div_pos hWpos hT0)) hn]
   have hMsupN : ∀ T : ℝ, X / h₁ ≤ T →
       X / h₁ / T * (∫ t in T..(2 * T), ‖dpolyA a s0 (-t)‖ ^ 2) ≤ Msup := by
     intro T hT
@@ -1066,7 +1066,7 @@ theorem lemma14_contour_kernel (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂ 
     have h := hMsup T hT
     have hn : (0 : ℝ) ≤ ∫ t in T..(2 * T), ‖dpolyA a s0 t‖ ^ 2 :=
       intervalIntegral.integral_nonneg (by linarith) (fun t _ => by positivity)
-    nlinarith [mul_nonneg (le_of_lt (div_pos hWpos hT0)) hn]
+    linarith only [h, mul_nonneg (le_of_lt (div_pos hWpos hT0)) hn]
   have hdyP := dyadic_tail_proper (G := fun t : ℝ => ‖dpolyA a s0 t‖ ^ 2) (b := h₁ / X)
     (W := X / h₁) (Msup := Msup) (Tmax := X / h₁) hWpos hWpos (by positivity) hMnn
     hGnn hGc hMsupP N
@@ -1182,7 +1182,7 @@ theorem lemma14_shortInterval_meansq_kernel (a : ℕ → ℂ) (s0 : Finset ℕ)
   have hh2' : (0 : ℝ) < h₂ := by linarith
   have hLinv1 : (Real.log X) ^ (-(1 / 5 : ℝ)) ≤ 1 :=
     Real.rpow_le_one_of_one_le_of_nonpos hL1 (by norm_num)
-  have hh2X' : h₂ ≤ X := by nlinarith
+  have hh2X' : h₂ ≤ X := by nlinarith only [he2, hLinv1, hX, hh2X]
   have hh1X : h₁ ≤ X := le_trans hh12 hh2X'
   have hpos : ∀ m ∈ s0, 0 < m := by
     intro m hm
@@ -1339,6 +1339,6 @@ theorem lemma14_shortInterval_meansq_kernel (a : ℕ → ℂ) (s0 : Finset ℕ)
     have hn2 : (0 : ℝ) ≤ ∫ t in (-(2 * (X / h₁)))..(-(X / h₁)), ‖dpolyA a s0 t‖ ^ 2 :=
       intervalIntegral.integral_nonneg (by linarith) (fun t _ => by positivity)
     linarith
-  nlinarith [hcont, hGsq, hLnn, hSnn, hMnn, hpi]
+  nlinarith only [hpi, hSnn, hLnn, hMnn, hcont, hGsq]
 
 end Salt.MR

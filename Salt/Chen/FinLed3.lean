@@ -97,7 +97,7 @@ theorem exp_neg_19992_le : Real.exp (-(19992 / 10000)) ≤ 271 / 2000 := by
   have hexp2 : (7389 : ℝ) / 1000 < Real.exp 2 := by
     have h9 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
     have he : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    rw [he]; nlinarith [h9, Real.exp_pos 1]
+    rw [he]; nlinarith only [h9]
   -- exp(19992/10000) = exp 2 · exp(-(8/10000)) ≥ 7.389 · 0.9992 ≥ 2000/271
   have hexp_a : (2000 : ℝ) / 271 ≤ Real.exp (19992 / 10000) := by
     have h1 : Real.exp (19992 / 10000 : ℝ) = Real.exp 2 * Real.exp (-(8 / 10000)) := by
@@ -105,7 +105,7 @@ theorem exp_neg_19992_le : Real.exp (-(19992 / 10000)) ≤ 271 / 2000 := by
     have h2 : (9992 : ℝ) / 10000 ≤ Real.exp (-(8 / 10000)) := by
       have := Real.add_one_le_exp (-(8 / 10000) : ℝ); linarith
     rw [h1]
-    nlinarith [hexp2, h2, Real.exp_pos 2, Real.exp_pos (-(8 / 10000 : ℝ))]
+    nlinarith only [hexp2, h2, Real.exp_pos (-(8 / 10000 : ℝ))]
   have hpos := Real.exp_pos (19992 / 10000 : ℝ)
   rw [show -(19992 / 10000 : ℝ) = -(19992 / 10000) by ring, Real.exp_neg]
   rw [inv_le_comm₀ hpos (by norm_num)]
@@ -275,17 +275,17 @@ theorem aggSlack_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
 `1/X_W ≤ K := 4·e^{35}·(log x)²/x`.  Every crumb `N/X_W ≤ N·K` then vanishes against the concrete
 `N` (`x/(log x)^{10}`, `√x·log₂x·log x`, `log x·x/(z−1)`) by poly-beats-power. -/
 
-/-- **`crumb_reduce`** — the `X_W`-normalisation reduction.  Past a threshold, `X_W > 0` and every
-nonneg numerator `N` obeys `N/X_W ≤ N·(4·e^{35}·(log x)²/x)`. -/
-theorem crumb_reduce : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+/-- `crumb_reduce` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem crumb_reduce_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     0 < (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
           * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x))
       ∧ ∀ N : ℝ, 0 ≤ N →
         N / ((twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
               * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)))
           ≤ N * (4 * Real.exp 35 * (Real.log x) ^ 2 / (x : ℝ)) := by
-  obtain ⟨xlo, hlo⟩ := XW_lower_at_op
-  obtain ⟨xpos, hpos⟩ := XW_pos_at_op
+  obtain ⟨xlo, hlo⟩ := (XW_lower_at_op_of_SW hSWall)
+  obtain ⟨xpos, hpos⟩ := (XW_pos_at_op_of_SW hSWall)
   obtain ⟨xt, -, htower⟩ := opf_tower
   refine ⟨max (max xlo xpos) (max xt (10 ^ 48)), fun x hx => ?_⟩
   simp only [max_le_iff] at hx
@@ -317,7 +317,7 @@ theorem crumb_reduce : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     rw [opZ]; linarith [hzlog_le]
   have hφlogz : (opQ.totient : ℝ) * Real.log (opZ x) ≤ (Real.log x) ^ 2 := by
     have := mul_le_mul hφlogx hlogzlogx hlogzpos.le hlogxpos.le
-    nlinarith [this]
+    linarith only [this]
   set K := 4 * Real.exp 35 * (Real.log x) ^ 2 / (x : ℝ) with hKdef
   have hKpos : 0 < K := by rw [hKdef]; positivity
   -- 1 ≤ K·XWlo
@@ -338,6 +338,17 @@ theorem crumb_reduce : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   calc N / XW = N * (1 / XW) := by rw [mul_one_div]
     _ ≤ N * K := mul_le_mul_of_nonneg_left h1XW hN
 
+/-- **`crumb_reduce`** — the `X_W`-normalisation reduction.  Past a threshold, `X_W > 0` and every
+nonneg numerator `N` obeys `N/X_W ≤ N·(4·e^{35}·(log x)²/x)`. -/
+theorem crumb_reduce : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+    0 < (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
+          * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x))
+      ∧ ∀ N : ℝ, 0 ≤ N →
+        N / ((twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
+              * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)))
+          ≤ N * (4 * Real.exp 35 * (Real.log x) ^ 2 / (x : ℝ)) :=
+  crumb_reduce_of_SW Salt.SW.siegelWalfisz_holds
+
 /-- **`master_le`** — the master crumb bound.  Past a threshold, `1 ≤ log x` and
 `8·e^{35}/(log x)^7 ≤ 1/100000`; since `(log x)^k ≥ (log x)^7` for `k ≥ 7`, this dominates
 every reduced crumb. -/
@@ -347,11 +358,11 @@ theorem master_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   refine ⟨xL, fun x hx => ?_⟩
   have hlogx : 8 * Real.exp 35 * 10 ^ 5 ≤ Real.log x := (hL x hx).2
   have hexp35 : (1 : ℝ) ≤ Real.exp 35 := Real.one_le_exp (by norm_num)
-  have hlogx2 : 2 ≤ Real.log x := by nlinarith [hlogx, hexp35]
+  have hlogx2 : 2 ≤ Real.log x := by linarith only [hexp35, hlogx]
   refine ⟨hlogx2, ?_⟩
   have hpow : Real.log x ≤ (Real.log x) ^ 7 := le_self_pow₀ (by linarith) (by norm_num)
   rw [div_le_iff₀ (by positivity)]
-  nlinarith [hpow, hlogx, hexp35]
+  linarith only [hpow, hlogx]
 
 /-- **`logpow_reduction`** — the power-vs-log reductions.  Past a threshold,
 `(log x)^{11} ≤ √x` and `(log x)^{11} ≤ x^{1/8}` (both via `a12_logpow_le_rpow`); these convert
@@ -372,9 +383,9 @@ theorem logpow_reduction : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   · have h := hb x hxb
     rwa [hcast, Real.rpow_natCast] at h
 
-/-- **`crumbs_le`** — the four ledger crumbs at op.  Past a threshold, `X_W > 0` and each of
-`R1/X_W`, `R2/X_W`, `log x·R3/X_W`, `e4` is below its (tiny) share. -/
-theorem crumbs_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+/-- `crumbs_le` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem crumbs_le_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     0 < (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
           * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x))
     ∧ ((x : ℝ) / (Real.log x) ^ 10 + Real.sqrt x * (Nat.log 2 x : ℝ) * Real.log x)
@@ -393,7 +404,7 @@ theorem crumbs_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
           / ((twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
             * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)))
         ≤ 1 / 100000 := by
-  obtain ⟨xr, hr⟩ := crumb_reduce
+  obtain ⟨xr, hr⟩ := (crumb_reduce_of_SW hSWall)
   obtain ⟨xm, hm⟩ := master_le
   obtain ⟨xp, hp⟩ := logpow_reduction
   obtain ⟨xt, -, htower⟩ := opf_tower
@@ -413,7 +424,7 @@ theorem crumbs_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   have hlog2half : (1 : ℝ) / 2 ≤ Real.log 2 := by
     rw [Real.le_log_iff_exp_le (by norm_num)]
     have hsq : Real.exp (1 / 2) * Real.exp (1 / 2) = Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_lt_d9, Real.exp_pos (1 / 2 : ℝ), hsq]
+    nlinarith only [hsq, Real.exp_one_lt_d9]
   have hlog2x : (Nat.log 2 x : ℝ) ≤ 2 * Real.log x := by
     have hpow : (2 : ℕ) ^ (Nat.log 2 x) ≤ x := Nat.pow_log_le_self 2 (by omega : x ≠ 0)
     have hlogpow : (Nat.log 2 x : ℝ) * Real.log 2 ≤ Real.log x := by
@@ -421,7 +432,7 @@ theorem crumbs_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
       have := Real.log_le_log (by positivity) hle
       rwa [show ((2 : ℕ) ^ (Nat.log 2 x) : ℝ) = (2 : ℝ) ^ (Nat.log 2 x) by push_cast; ring,
         Real.log_pow] at this
-    nlinarith [hlogpow, hlog2half, (show (0 : ℝ) ≤ (Nat.log 2 x : ℝ) by positivity)]
+    nlinarith only [hlog2half, hlogpow, (Nat.cast_nonneg _ : 0 ≤ ↑(Nat.log 2 x))]
   -- opZ − 1 ≥ (log x)^10
   have hopZlo : (x : ℝ) ^ ((1 : ℝ) / 8) - 1 ≤ (opZ x : ℝ) := by
     rw [opZ]; linarith [Nat.lt_floor_add_one ((x : ℝ) ^ ((1 : ℝ) / 8))]
@@ -432,17 +443,17 @@ theorem crumbs_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
       le_trans (by norm_num) (pow_le_pow_left₀ (by norm_num) hlogx2 10)
     have hprod : (2 : ℝ) * 1 ≤ (Real.log x) ^ 10 * (Real.log x - 1) :=
       mul_le_mul hp10 (by linarith) (by norm_num) (by positivity)
-    nlinarith [hchain, h1110, hprod]
+    linarith only [hprod, hopZlo, hx18]
   set K := 4 * Real.exp 35 * (Real.log x) ^ 2 / (x : ℝ) with hKdef
   have hpow87 : (Real.log x) ^ 8 = (Real.log x) ^ 7 * Real.log x := by ring
   have hp7pos : (0 : ℝ) < (Real.log x) ^ 7 := by positivity
   -- the master bound `4exp35/(logx)^8 ≤ 8exp35/(logx)^7` and its `logx··/(logx)^7` sibling
   have hle86 : 4 * Real.exp 35 / (Real.log x) ^ 8 ≤ 8 * Real.exp 35 / (Real.log x) ^ 7 := by
     rw [div_le_div_iff₀ (by positivity) hp7pos]
-    nlinarith [hpow87, hlogx2, hexp35, hp7pos,
-      mul_nonneg (mul_nonneg hexp35.le hp7pos.le) (show (0 : ℝ) ≤ 2 * Real.log x - 1 by linarith)]
+    linarith only [mul_nonneg (mul_nonneg hexp35.le hp7pos.le)
+        (show (0 : ℝ) ≤ 2 * Real.log x - 1 by linarith)]
   have hle77 : 4 * Real.exp 35 / (Real.log x) ^ 7 ≤ 8 * Real.exp 35 / (Real.log x) ^ 7 := by
-    rw [div_le_div_iff₀ hp7pos hp7pos]; nlinarith [hexp35, hp7pos]
+    rw [div_le_div_iff₀ hp7pos hp7pos]; nlinarith only [hexp35, hp7pos]
   -- crumb R2
   have hc_R2 : (x : ℝ) / (Real.log x) ^ 10
         / ((twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
@@ -507,7 +518,7 @@ theorem crumbs_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
         have hpow34 : (Real.log x) ^ 4 = (Real.log x) ^ 3 * Real.log x := by ring
         have hkey := mul_le_mul_of_nonneg_left hlog2x
           (show (0 : ℝ) ≤ 4 * Real.exp 35 * (Real.log x) ^ 3 by positivity)
-        nlinarith [hkey, hpow34, hexp35, pow_pos hlogxpos 3]
+        linarith only [hkey]
       apply mul_le_mul_of_nonneg_right hL2 (by positivity)
     -- 8exp35(logx)^4/√x ≤ 8exp35(logx)^4/(logx)^11 = 8exp35/(logx)^7
     have hstep2 : 8 * Real.exp 35 * (Real.log x) ^ 4 * (1 / Real.sqrt x)
@@ -525,6 +536,29 @@ theorem crumbs_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   refine ⟨hXWpos, ?_, hc_R2, hc_R3, hc_e4⟩
   rw [add_div]
   linarith [hc_R2, hc_sqrt]
+
+/-- **`crumbs_le`** — the four ledger crumbs at op.  Past a threshold, `X_W > 0` and each of
+`R1/X_W`, `R2/X_W`, `log x·R3/X_W`, `e4` is below its (tiny) share. -/
+theorem crumbs_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+    0 < (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
+          * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x))
+    ∧ ((x : ℝ) / (Real.log x) ^ 10 + Real.sqrt x * (Nat.log 2 x : ℝ) * Real.log x)
+          / ((twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
+            * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)))
+        ≤ 2 / 100000
+    ∧ (x : ℝ) / (Real.log x) ^ 10
+          / ((twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
+            * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)))
+        ≤ 1 / 100000
+    ∧ Real.log x * ((x : ℝ) / (Real.log x) ^ 10)
+          / ((twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
+            * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)))
+        ≤ 1 / 100000
+    ∧ Real.log x * (x : ℝ) / ((opZ x : ℝ) - 1)
+          / ((twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)).totalMass
+            * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) (opf_P_sq x) (opf_Podd x)))
+        ≤ 1 / 100000 :=
+  crumbs_le_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## Part E — the A₂ tail weight bound (`e2`'s vanishing `wtail` factor) -/
 
@@ -552,7 +586,7 @@ theorem A2weight_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     linarith [hden]
   refine ⟨?_, ?_⟩
   · unfold A2weight; rw [hlogz4]; exact div_nonneg hlogzpos.le hdenpos.le
-  · unfold A2weight; rw [hlogz4, div_le_iff₀ hdenpos]; nlinarith [hden, hlogzpos]
+  · unfold A2weight; rw [hlogz4, div_le_iff₀ hdenpos]; linarith only [hLy_hi]
 
 /-! ## Part F — the `W`-ratio collapse (`rho = (log opZ + 38)/log opY ≤ 3/8 + 1/100000`) -/
 
@@ -588,7 +622,7 @@ theorem rho_le : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
         = (Real.log (opZ x) + 38) / Real.log (opY x) := by
       field_simp
     rw [hrho_eq, div_le_iff₀ hlogypos]
-    nlinarith [hza_le, hya_ge, hlogx]
+    linarith only [hya_ge, hza_le, hlogx]
 
 /-! ## Part G — the `e3` catch-#49 collapse (abstract arithmetic) -/
 
@@ -639,16 +673,14 @@ theorem e3_collapse {cbar ec rho s3 crumb : ℝ}
 /-! ## Part H — the `hL` ledger bundle: `normalized_package` at the op carriers -/
 
 set_option maxHeartbeats 1000000 in -- deep op composition: normalized_package unifies 4 carriers
-/-- **`hL_bundle`** — the F2 ledger hypothesis of `chen_headline_of_A3_ledger` at the concrete
-carriers `M1`/`M2`/`M3`.  `normalized_package` at the frozen operating point, with the four error
-shares discharged (`e1 ≈ 0.0003`, `e2/2 ≈ 0.0033`, `e3/2 ≈ 0.0016`, `e4/2 ≈ 0.000005`;
-total `≈ 0.00374 < 1/200`). -/
-theorem hL_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+/-- `hL_bundle` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem hL_bundle_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     0 < M1 x - M2 x / 2 - M3 x / 2 - Real.log x * (x : ℝ) / ((opZ x : ℝ) - 1) / 2 := by
-  obtain ⟨Ccount, xcount, hCcount_nn, hcount_s⟩ := hcount_seam
+  obtain ⟨Ccount, xcount, hCcount_nn, hcount_s⟩ := (hcount_seam_of_SW hSWall)
   obtain ⟨xs1, hslack1⟩ := slack1_le
   obtain ⟨xag, hag⟩ := aggSlack_le
-  obtain ⟨xcr, hcr⟩ := crumbs_le
+  obtain ⟨xcr, hcr⟩ := (crumbs_le_of_SW hSWall)
   obtain ⟨xa2, ha2⟩ := A2weight_le
   obtain ⟨xrh, hrh⟩ := rho_le
   obtain ⟨xc1, hc1⟩ := hcertA1_at_op
@@ -679,16 +711,16 @@ theorem hL_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   obtain ⟨e, he_nn, he_le, hcount_bd⟩ := hcount_s x (by omega)
   -- ══ ecount ≤ 1/100000 ══
   have hlogopZ_big : (200000 : ℝ) * Ccount ≤ Real.log (opZ x) := by
-    have : (1 / 8) * Real.log x - 1 / 999999 ≥ 200000 * Ccount := by nlinarith [hlogx, hCcount_nn]
+    have : (1 / 8) * Real.log x - 1 / 999999 ≥ 200000 * Ccount := by linarith only [hlogx]
     linarith [hlogopZ_ge18, this]
   have hec_ecountOp : ecountOp Ccount x ≤ 1 / 200000 := by
     rw [ecountOp, div_le_iff₀ hlogzpos]
     rcases eq_or_lt_of_le hCcount_nn with h | h
     · rw [← h]; positivity
-    · nlinarith [hlogopZ_big, h]
+    · linarith only [hlogopZ_ge18, hlogx]
   have he_small : e ≤ 1 / 200000 := by
     have h8 : (8 : ℝ) / Real.log x ≤ 1 / 200000 := by
-      rw [div_le_div_iff₀ hlogxpos (by norm_num)]; nlinarith [hlogx, hCcount_nn]
+      rw [div_le_div_iff₀ hlogxpos (by norm_num)]; linarith only [hlogx, hCcount_nn]
     linarith [he_le, h8]
   have hec_le : ecountOp Ccount x + e ≤ 1 / 100000 := by linarith [hec_ecountOp, he_small]
   have hec_nn : 0 ≤ ecountOp Ccount x + e := by
@@ -721,9 +753,9 @@ theorem hL_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
       obtain ⟨-, h, -, -⟩ := opf_window_floor_bounds x hx48R (γ := (1 : ℝ) / 8) (by norm_num)
       rw [opZ]; exact h
     have h21 : 21 / Real.log (opZ x) ≤ 1 / 200000 := by
-      rw [div_le_iff₀ hlogzpos]; nlinarith [hlogopZ_ge18, hlogx, hCcount_nn]
+      rw [div_le_iff₀ hlogzpos]; linarith only [hlogopZ_ge18, hlogx, hCcount_nn]
     have h2z : 2 / ((opZ x : ℝ) - 1) ≤ 1 / 200000 := by
-      rw [div_le_div_iff₀ (by linarith [hz6]) (by norm_num)]; nlinarith [hz6]
+      rw [div_le_div_iff₀ (by linarith [hz6]) (by norm_num)]; linarith only [hz6]
     linarith [h21, h2z]
   have hwtail_bd : (3 + 43 / 75) * WTAIL ≤ 4342 / 1000000 := by
     have hexpand : (3 + 43 / 75) * WTAIL
@@ -739,7 +771,7 @@ theorem hL_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
       have hA2w1 : A2w ≤ 1 := le_trans hA2w_hi (by norm_num)
       have hprod : A2w * (21 / Real.log (opZ x) + 2 / ((opZ x : ℝ) - 1)) ≤ 1 / 100000 :=
         le_trans (mul_le_mul hA2w1 hlp_le hlp_nn (by norm_num)) (by norm_num)
-      nlinarith [hprod, mul_nonneg hA2w_nn hlp_nn]
+      linarith only [hprod]
     rw [hexpand]; linarith [hrazor, hvanish]
   -- ══ the raw carrier bounds (definitional regroupings) ══
   have hrawA1 := (M1_raw_shape x).le
@@ -792,6 +824,14 @@ theorem hL_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   -- ══ the error bundle `hEbundle ≤ 1/200` ══
   have he3 := e3_collapse (cbar_pos.le) (le_of_lt cbar_lt) hec_nn hec_le hrho_hi hs3_nn hs3_hi hR3XW
   linarith [hslack1 x (by omega), hR1XW, hwtail_bd, hagg_bd, hR2XW, he3, he4XW]
+
+/-- **`hL_bundle`** — the F2 ledger hypothesis of `chen_headline_of_A3_ledger` at the concrete
+carriers `M1`/`M2`/`M3`.  `normalized_package` at the frozen operating point, with the four error
+shares discharged (`e1 ≈ 0.0003`, `e2/2 ≈ 0.0033`, `e3/2 ≈ 0.0016`, `e4/2 ≈ 0.000005`;
+total `≈ 0.00374 < 1/200`). -/
+theorem hL_bundle : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+    0 < M1 x - M2 x / 2 - M3 x / 2 - Real.log x * (x : ℝ) / ((opZ x : ℝ) - 1) / 2 :=
+  hL_bundle_of_SW Salt.SW.siegelWalfisz_holds
 
 /-- **The compiled endpoint.**  Given the F1 A₃ bundle `hA3` (`triplePrimeSumW ≤ M3`, supplied by
 `FinA3c`'s `hBVblocksW_discharge'` composition), the F2 ledger `hL_bundle` closes the entire Chen

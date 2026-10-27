@@ -42,7 +42,7 @@ The exact ratio the driver receives is **`c = 7/10`**.
 
 ## Honest scope of the hypotheses
 
-Everything geometric/analytic is genuinely derived.  Four side hypotheses
+Everything geometric/analytic is genuinely derived.  Seven side hypotheses
 isolate the largeness regime and are stated explicitly (never the conclusion):
 
 * `hT`   : the frozen `T = k^{1/8}/log k` (fixes `b·log R₀ ≤ k^{1/8}`);
@@ -52,7 +52,8 @@ isolate the largeness regime and are stated explicitly (never the conclusion):
   `Q = φW·b⁻¹ = φW·log R/(k log k)`, `Q·log k = φW·log R/k` grows in `R` while
   `errA1 k W`, `errB1 k W` are fixed `W`-only constants.
 * `hlogk` : `300 ≤ log k`, the `k`-large condition absorbing the `4Q log 2`
-  boundary term and the residual `+1/log k`.
+  boundary term and the residual `+1/log k`;
+* `hT1`, `hX` : the floors `1 ≤ T`, `4 ≤ R₀` the sharp transfer bounds take.
 
 See the PORT-BLOCKER note at the end for the one sub-step (reducing `hEA`/`hEB`
 to a raw `log R ≥ …` threshold) that is deferred.
@@ -64,8 +65,9 @@ namespace Salt.Maynard
 
 /-- **`hA11`.**  The transfer-ratio bound `A1_1 ≤ (7/10)·A1`, the explicit
 `c = 7/10 < 1` consumed by the Chebyshev overshoot.  Proved from
-`A1_1_upper_split` + `B1_upper_sharp` + `A1_lower_sharp`; the four largeness
-hypotheses `hT`/`hb4`/`hEA`/`hEB`/`hlogk` are documented in the module header. -/
+`A1_1_upper_split` + `B1_upper_sharp` + `A1_lower_sharp`; `hT` fixes `T`; of the largeness
+hypotheses, `hb4`/`hEA`/`hEB`/`hlogk` are documented in the module header, and `hT1 : 1 ≤ T`,
+`hX : 4 ≤ R0 k R T` are the floors `B1_upper_sharp` and `A1_lower_sharp` take. -/
 theorem A1_1_le_seven_tenths (k R W : ℕ) (T : ℝ)
     (hW : W ≠ 0) (hk : 3 ≤ k) (hR : 2 ≤ R)
     (hT : T = (k : ℝ) ^ ((1 : ℝ) / 8) / Real.log k) (hT1 : 1 ≤ T)
@@ -125,10 +127,10 @@ theorem A1_1_le_seven_tenths (k R W : ℕ) (T : ℝ)
     linarith [Real.log_two_lt_d9, hlogk]
   have hlog2 : 4 * ((Nat.totient W / W : ℝ) * (bParam k R)⁻¹) * Real.log 2
       ≤ (1 / 100) * ((Nat.totient W / W : ℝ) * (bParam k R)⁻¹) * Real.log k := by
-    nlinarith [mul_le_mul_of_nonneg_left hlt hQ0]
+    linarith only [mul_le_mul_of_nonneg_left hlt hQ0]
   have hB1 : B1 k R W T
       ≤ (13 / 25) * ((Nat.totient W / W : ℝ) * (bParam k R)⁻¹) * Real.log k := by
-    nlinarith [hsharpB, hstepB, hlog2, hEA]
+    linarith only [hlog2, hstepB, hsharpB, hEA]
   -- ==== A1 ≥ (79/100)·Q ====
   have hsharpA := A1_lower_sharp k R W T hW hk hR hT1 hX
   have hdenpos : 0 < 1 + bParam k R * Real.log (R0 k R T - 1) := by linarith [hb4]
@@ -136,9 +138,9 @@ theorem A1_1_le_seven_tenths (k R W : ℕ) (T : ℝ)
     have hcancel : (1 + bParam k R * Real.log (R0 k R T - 1))
         * (1 + bParam k R * Real.log (R0 k R T - 1))⁻¹ = 1 := mul_inv_cancel₀ hdenpos.ne'
     have hinv0 : 0 ≤ (1 + bParam k R * Real.log (R0 k R T - 1))⁻¹ := inv_nonneg.mpr hdenpos.le
-    nlinarith [hcancel, hinv0,
-      mul_nonneg (show (0 : ℝ) ≤ (1 + bParam k R * Real.log (R0 k R T - 1)) - 5 by
-        linarith [hb4]) hinv0]
+    linarith only [hcancel, mul_nonneg
+        (show (0 : ℝ) ≤ (1 + bParam k R * Real.log (R0 k R T - 1)) - 5 by linarith [hb4])
+        hinv0]
   have hstepA : (Nat.totient W / W : ℝ) * (bParam k R)⁻¹ * (4 / 5)
       ≤ (Nat.totient W / W : ℝ) * (bParam k R)⁻¹
         * (1 - (1 + bParam k R * Real.log (R0 k R T - 1))⁻¹) :=
@@ -182,7 +184,7 @@ theorem A1_1_le_seven_tenths (k R W : ℕ) (T : ℝ)
 /-!
 ## PORT-BLOCKER — reducing `hEA`/`hEB` to a raw `log R` threshold
 
-The four largeness hypotheses of `A1_1_le_seven_tenths` are all genuine
+The largeness hypotheses of `A1_1_le_seven_tenths` are all genuine
 "`k`/`R` large" statements (never the conclusion `A1_1 ≤ (7/10)A1`).  Three of
 them — `hT` (frozen `T`), `hb4` (`b·log(R₀−1) ≥ 4`), `hlogk` (`log k ≥ 300`) —
 are already in the cleanest downstream-usable form.

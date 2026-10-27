@@ -42,7 +42,7 @@ The brief's two candidate supplies for the centre bound
   **THE HEIGHT GATE — the one real restriction, and it is IN THE STATEMENT.**  The two folds
   `MmuChiRate → MlambdaChi_rate → MlamGrChi_rate` each halve the height range:
   `|t| ≤ y` ↝ `|t| ≤ ⌊√y⌋` ↝ `|t| ≤ ⌊√⌊√y⌋⌋`.  At `y = k ≍ X` that is `|t₁| ≲ X^{1/4}`,
-  and the seam's annulus reaches `Tann ≤ X` (`ThmA2.lean:669`), so **a centre above `X^{1/4}`
+  and the seam's annulus reaches `Tann ≤ X` (`ThmA2.lean · A2Frame`), so **a centre above `X^{1/4}`
   is NOT covered by this route** — the honest statement of the death the brief anticipated.
   It does not bite at the door: `M4DoorClose.lean:61` pins the socket's ball centre at
   **`t₁ := 0`** (`Ps := 1`, `J := 2`, `Tann := X`, `Rrad := seamRad X`), and `|0| ≤ anything`
@@ -344,8 +344,7 @@ lemma eight_le_of_ballMertensThreshold {X : ℝ} (hX : ballMertensThreshold ≤ 
   have h41 : (41 : ℝ) ≤ Real.exp 40 := exp_forty_ge
   have hmono : Real.exp 41 ≤ Real.exp (Real.exp 40) := Real.exp_le_exp.mpr h41
   have h8 : (8 : ℝ) ≤ Real.exp 41 := by
-    have := Real.add_one_le_exp (41 : ℝ)
-    linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 41 (by norm_num)
   linarith
 
 /-- **THE BINDER, ASSEMBLED.**  `ball_sup_of_center` at `f := pieceDatum χ 𝒥 Pseq Qseq`, with

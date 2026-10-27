@@ -110,7 +110,7 @@ theorem farey_spacing_dvd {q q' Q a a' δ : ℕ} (hq : 0 < q) (hq' : 0 < q')
   have hQR : (0 : ℝ) ≤ (Q : ℝ) := hqR.le.trans hqQR
   have hQQ : (q : ℝ) * q' ≤ (Q : ℝ) ^ 2 := by
     have hmul : (q : ℝ) * q' ≤ (Q : ℝ) * Q := mul_le_mul hqQR hq'QR hq'R.le hQR
-    nlinarith [hmul]
+    linarith only [hmul]
   have hstep0 : 1 / (Q : ℝ) ^ 2 ≤ 1 / ((q : ℝ) * q') :=
     one_div_le_one_div_of_le (mul_pos hqR hq'R) hQQ
   have hδnn : (0 : ℝ) ≤ (δ : ℝ) := Nat.cast_nonneg δ
@@ -167,7 +167,7 @@ theorem arithmetic_LS_dvd {N Q δ : ℕ} (hδ1 : 1 ≤ δ) (c : ℕ → ℂ) :
       have hδsp_pos : 0 < δsp := by rw [hδspdef]; exact div_pos hδRpos hQsq
       have hδsp2 : δsp ≤ 1 / 2 := by
         rw [hδspdef, div_le_iff₀ hQsq]
-        nlinarith [hδRQ, hQR, mul_nonneg (sub_nonneg.mpr hQR) hQpos.le]
+        linarith only [hδRQ, mul_nonneg (sub_nonneg.mpr hQR) hQpos.le]
       -- Pairwise spacing over the δ-restricted Farey system.
       have hSp : ∀ x ∈ fareyPairsDvd Q δ, ∀ y ∈ fareyPairsDvd Q δ, x ≠ y →
           δsp ≤ dist₁ (fareyFrac x) (fareyFrac y) := by

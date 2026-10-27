@@ -68,7 +68,7 @@ theorem crumb_le_rpow_at_op (x : ℕ) (hx1 : 1 ≤ x) :
   have hlog10 : (2 : ℝ) ≤ Real.log 10 := by
     rw [Real.le_log_iff_exp_le (by norm_num)]
     have he : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    rw [he]; nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    rw [he]; nlinarith only [Real.exp_one_lt_d9, Real.exp_pos 1]
   have hlogw'12 : (12 : ℝ) ≤ Real.log (opW' : ℝ) := by
     have h1 : Real.log ((10 : ℝ) ^ 6) ≤ Real.log (opW' : ℝ) :=
       Real.log_le_log (by norm_num) hw'R
@@ -84,10 +84,10 @@ theorem crumb_le_rpow_at_op (x : ℕ) (hx1 : 1 ≤ x) :
     have h := Real.log_le_log (pow_pos hw'pos L) hpow
     rwa [Real.log_pow] at h
   have hLle : (L : ℝ) ≤ Real.log x / Real.log (opW' : ℝ) := by
-    rw [le_div_iff₀ hlogw'pos]; nlinarith [hlogpow]
+    rw [le_div_iff₀ hlogw'pos]; linarith only [hlogpow]
   have hratio : Real.log 2 / Real.log (opW' : ℝ) ≤ 1 / 7 := by
     rw [div_le_iff₀ hlogw'pos]
-    nlinarith [Real.log_two_lt_d9, hlogw'12]
+    linarith only [hlogw'12, Real.log_two_lt_d9]
   calc (2 : ℝ) ^ L
       = (2 : ℝ) ^ (L : ℝ) := (Real.rpow_natCast (2 : ℝ) L).symm
     _ ≤ (2 : ℝ) ^ (Real.log x / Real.log (opW' : ℝ)) :=
@@ -131,7 +131,7 @@ theorem nu_sum_le_log_at_op : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   have hlog10 : (2 : ℝ) ≤ Real.log 10 := by
     rw [Real.le_log_iff_exp_le (by norm_num)]
     have he : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    rw [he]; nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    rw [he]; nlinarith only [Real.exp_one_lt_d9, Real.exp_pos 1]
   have hlogw2 : (2 : ℝ) ≤ Real.log (w0R opEps) := by
     have h1 : Real.log ((10 : ℝ) ^ 6) ≤ Real.log (w0R opEps) :=
       Real.log_le_log (by norm_num) opf_w0R_big
@@ -155,7 +155,7 @@ theorem nu_sum_le_log_at_op : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     linarith [hstep1, hy_le]
   have hprod : (0 : ℝ) ≤ Real.log x * (Real.log (w0R opEps) - 2 / 3) :=
     mul_nonneg hLnn (by linarith [hlogw2])
-  nlinarith [hnum, hprod]
+  linarith only [hprod, hstep1, hy_le]
 
 /-! ## Part C — the closed `Pdiag` and the `hdiag` row -/
 
@@ -263,7 +263,7 @@ theorem opPdiag_compat : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
       mul_le_mul_of_nonneg_left hL11 (by norm_num)
     have hp : (0 : ℝ) ≤ (x : ℝ) ^ ((1 : ℝ) / 84) := Real.rpow_nonneg hxpos.le _
     have s2 : 2 * (x : ℝ) ^ ((1 : ℝ) / 84) ≤ (x : ℝ) ^ ((1 : ℝ) / 84) * (x : ℝ) ^ ((1 : ℝ) / 84) := by
-      nlinarith [h2x84, hp, mul_nonneg hp (by linarith [h2x84] : (0 : ℝ) ≤ (x : ℝ) ^ ((1 : ℝ) / 84) - 2)]
+      linarith only [mul_nonneg hp (by linarith [h2x84] : (0 : ℝ) ≤ (x : ℝ) ^ ((1 : ℝ) / 84) - 2)]
     calc 2 * (Real.log x) ^ (11 : ℕ) ≤ 2 * (x : ℝ) ^ ((1 : ℝ) / 84) := s1
       _ ≤ (x : ℝ) ^ ((1 : ℝ) / 84) * (x : ℝ) ^ ((1 : ℝ) / 84) := s2
       _ = (x : ℝ) ^ ((1 : ℝ) / 42) := hstep3

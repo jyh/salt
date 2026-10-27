@@ -81,7 +81,7 @@ theorem errC_normSq_le (Pseq Qseq : ℕ → ℕ) (J : ℕ) {a : ℕ → ℂ} (ha
       simp only [errC, memSCoeff, if_neg h]; ring
     rw [h0, if_pos (by simpa using h)]
     have := ha m
-    nlinarith [norm_nonneg (a m)]
+    nlinarith only [this, norm_nonneg (a m)]
 
 /-- The window sums are additive in the datum (`absWindowSum`, the absolute-indexed form). -/
 theorem absWindowSum_sub (a b : ℕ → ℂ) (H n : ℕ) (α : ℝ) :
@@ -321,7 +321,7 @@ theorem m4_door_insert_mass_integral :
   have hend : (4 * 2 ^ k * (H : ℝ) / (x : ℝ)) / ∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹
       ≤ 4 * 2 ^ k * (H : ℝ) / (x : ℝ) := by
     rw [div_le_iff₀ hZ0]
-    nlinarith
+    nlinarith only [hZlo, hnn, hL]
   linarith
 
 /-- **⟦THE FREEZE'S BUDGET LINE⟧** (stone 5's exit).  For a 1-bounded datum `a` and ANY
@@ -365,7 +365,7 @@ theorem parseval_insert_budget_door :
     have hb := parseval_stone_budget (H := H) ha (calP A G) (calQK A G M) J n Xi
     rw [div_mul_eq_mul_div, div_mul_eq_mul_div, one_mul, one_mul,
       div_le_div_iff₀ (by positivity) hHpos] at hb
-    nlinarith [Nat.cast_nonneg (α := ℝ) (notMemSCount (calP A G) (calQK A G M) J H n), hHpos]
+    nlinarith only [hHpos, hb]
   -- the ξ-sum of integrals, bounded by the door's mass integral
   have hsum : ∑ ξ ∈ Xi, (∫ n, ‖absWindowSum a H n (-(ξ.val : ℝ) / (H : ℝ))
           - absWindowSum (memSCoeff (calP A G) (calQK A G M) J a) H n

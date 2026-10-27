@@ -27,11 +27,9 @@ open scoped BigOperators
 
 set_option maxHeartbeats 1600000 in -- verbatim `low_price_at_op` body: deep band-row bundle per box
 open Classical in
-/-- **`low_price_indep` — the arg-free low discharger.**  `low_price_at_op` with
-`Ps`/`X`/`K`/`QR`/`Dlev`/`D` moved inside the `∃ Kb x₁`, so `(Kb, x₁)` are genuinely
-x-independent handles (they come from the arg-free terminal `medium_box_price_at_op_band`).
-Body copied verbatim from `low_price_at_op`. -/
-theorem low_price_indep : ∃ (Kb x₁ : ℝ), 0 < Kb ∧
+/-- `low_price_indep` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem low_price_indep_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kb x₁ : ℝ), 0 < Kb ∧
     ∀ (Ps : ℕ), 0 < Ps → Nat.Coprime opQ Ps → Nat.Coprime opQ (opA + 2) →
       (∀ p ∈ Ps.primeFactors, 3 ≤ p) → ∀ (X K : ℕ) (QR : ℝ) (Dlev D : ℕ),
         Nat.log 2 X ≤ K → (opQ : ℝ) * (QR * (Dlev : ℝ)) ≤ (D : ℝ) →
@@ -50,7 +48,7 @@ theorem low_price_indep : ∃ (Kb x₁ : ℝ), 0 < Kb ∧
                   (x / 2 + 1)‖)
             ≤ lowPriceK Kb (opZ x) x (opY x) K k := by
   classical
-  obtain ⟨Kb, N₀b, hK0b, hbody⟩ := medium_box_price_at_op_band
+  obtain ⟨Kb, N₀b, hK0b, hbody⟩ := (medium_box_price_at_op_band_of_SW hSWall)
   obtain ⟨xrb, hxrb48, hrows⟩ := band_price_rows_at_op
   obtain ⟨xhb, hhabs⟩ := band_habs_row
   have hQ1 : 1 ≤ opQ := opf_Q_pos
@@ -213,7 +211,7 @@ theorem low_price_indep : ∃ (Kb x₁ : ℝ), 0 < Kb ∧
         have hsx : Real.sqrt x ≤ (x : ℝ) / 2 := by
           rw [show (x : ℝ) / 2 = Real.sqrt (((x : ℝ) / 2) ^ 2) by rw [Real.sqrt_sq (by positivity)]]
           apply Real.sqrt_le_sqrt
-          nlinarith [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
+          linarith only [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
         have hXMloR : (x : ℝ) / 2 < ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k : ℝ) := by
           have hxlt : x < 2 * (x / 2 + 1) := by omega
           have hxltR : (x : ℝ) < 2 * ((x / 2 + 1 : ℕ) : ℝ) := by exact_mod_cast hxlt
@@ -251,13 +249,36 @@ theorem low_price_indep : ∃ (Kb x₁ : ℝ), 0 < Kb ∧
       hprice
     exact this
 
+open Classical in
+/-- **`low_price_indep` — the arg-free low discharger.**  `low_price_at_op` with
+`Ps`/`X`/`K`/`QR`/`Dlev`/`D` moved inside the `∃ Kb x₁`, so `(Kb, x₁)` are genuinely
+x-independent handles (they come from the arg-free terminal `medium_box_price_at_op_band`).
+Body copied verbatim from `low_price_at_op`. -/
+theorem low_price_indep : ∃ (Kb x₁ : ℝ), 0 < Kb ∧
+    ∀ (Ps : ℕ), 0 < Ps → Nat.Coprime opQ Ps → Nat.Coprime opQ (opA + 2) →
+      (∀ p ∈ Ps.primeFactors, 3 ≤ p) → ∀ (X K : ℕ) (QR : ℝ) (Dlev D : ℕ),
+        Nat.log 2 X ≤ K → (opQ : ℝ) * (QR * (Dlev : ℝ)) ≤ (D : ℝ) →
+      ∀ (x : ℕ) (ε₀ : ℝ), x₁ ≤ (x : ℝ) → x ≤ X →
+        (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (D : ℝ) →
+        (D : ℝ) ≤ (x : ℝ) ^ ((499 : ℝ) / 1000) →
+        ∀ (j k : ℕ), k ∈ Finset.range (Nat.log 2 x + 1) →
+          (∑ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
+                (fun d => opQ * d),
+              ‖apDiscBilinCutoff (restrictAlpha (blockAlphaLow (opZ x) (opY x) ε₀ j (pieceN k))
+                    (min (opZ x * pieceN k + 1) (x + 1)) (x + 1))
+                  (blockPrimeInd (pieceN k)) X (pieceM k) (crtClassW opQ (m / opQ) opA) m x
+                - apDiscBilinCutoff (restrictAlpha (blockAlphaLow (opZ x) (opY x) ε₀ j (pieceN k))
+                    (min (opZ x * pieceN k + 1) (x + 1)) (x + 1))
+                  (blockPrimeInd (pieceN k)) X (pieceM k) (crtClassW opQ (m / opQ) opA) m
+                  (x / 2 + 1)‖)
+            ≤ lowPriceK Kb (opZ x) x (opY x) K k :=
+  low_price_indep_of_SW Salt.SW.siegelWalfisz_holds
+
 set_option maxHeartbeats 1600000 in -- verbatim `sym_price_at_op` body: deep band-row bundle per box
 open Classical in
-/-- **`sym_price_indep` — the arg-free sym discharger.**  `sym_price_at_op` with
-`Ps`/`X`/`K`/`QR`/`Dlev`/`D` moved inside the `∃ Kb Km x₁`, so `(Kb, Km, x₁)` are genuinely
-x-independent handles (from the arg-free terminals `medium_box_price_at_op_band` /
-`middle_medium_box_price_at_y`).  Body copied verbatim from `sym_price_at_op`. -/
-theorem sym_price_indep : ∃ (Kb Km x₁ : ℝ), 0 < Kb ∧ 0 < Km ∧
+/-- `sym_price_indep` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem sym_price_indep_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kb Km x₁ : ℝ), 0 < Kb ∧ 0 < Km ∧
     ∀ (Ps : ℕ), 0 < Ps → Nat.Coprime opQ Ps → Nat.Coprime opQ (opA + 2) →
       (∀ p ∈ Ps.primeFactors, 3 ≤ p) → ∀ (X K : ℕ) (QR : ℝ) (Dlev D : ℕ),
         Nat.log 2 X ≤ K → (opQ : ℝ) * (QR * (Dlev : ℝ)) ≤ (D : ℝ) →
@@ -275,8 +296,8 @@ theorem sym_price_indep : ∃ (Kb Km x₁ : ℝ), 0 < Kb ∧ 0 < Km ∧
                   (crtClassW opQ (m / opQ) opA) m (x / 2 + 1)‖)
             ≤ symPriceK Kb Km (opZ x) x (opY x) K k := by
   classical
-  obtain ⟨Kb, N₀b, hK0b, hbody⟩ := medium_box_price_at_op_band
-  obtain ⟨Km, N₀m, hK0m, hbodyM⟩ := middle_medium_box_price_at_y
+  obtain ⟨Kb, N₀b, hK0b, hbody⟩ := (medium_box_price_at_op_band_of_SW hSWall)
+  obtain ⟨Km, N₀m, hK0m, hbodyM⟩ := (middle_medium_box_price_at_y_of_SW hSWall)
   obtain ⟨xrb, hxrb48, hrows⟩ := band_price_rows_at_op
   obtain ⟨xhb, hhabs⟩ := band_habs_row
   have hQ1 : 1 ≤ opQ := opf_Q_pos
@@ -402,7 +423,7 @@ theorem sym_price_indep : ∃ (Kb Km x₁ : ℝ), 0 < Kb ∧ 0 < Km ∧
         have htfl : (x : ℝ) ^ ((1 : ℝ) / 3) < (opY x : ℝ) + 1 := by
           rw [opY]; exact Nat.lt_floor_add_one _
         have h2k1 : ((2 ^ (k + 1) : ℕ) : ℝ) = 2 * ((2 ^ k : ℕ) : ℝ) := by push_cast; ring
-        rw [h2k1] at h1R; push_cast at h1R htfl ⊢; nlinarith [htfl, h1R]
+        rw [h2k1] at h1R; push_cast at h1R htfl ⊢; linarith only [h1R, htfl, h4le]
       have hN₀m : N₀m ≤ opY x := by
         have hR : ((max N₀b N₀m + 4 : ℕ) : ℝ) ≤ (opY x : ℝ) := le_trans hNfl hyfloor
         have : max N₀b N₀m + 4 ≤ opY x := by exact_mod_cast hR
@@ -460,7 +481,7 @@ theorem sym_price_indep : ∃ (Kb Km x₁ : ℝ), 0 < Kb ∧ 0 < Km ∧
             rw [show (x : ℝ) / 2 = Real.sqrt (((x : ℝ) / 2) ^ 2) by
               rw [Real.sqrt_sq (by positivity)]]
             apply Real.sqrt_le_sqrt
-            nlinarith [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
+            linarith only [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
           have hXMloR : (x : ℝ) / 2 < ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k : ℝ) := by
             have hxlt : x < 2 * (x / 2 + 1) := by omega
             have hxltR : (x : ℝ) < 2 * ((x / 2 + 1 : ℕ) : ℝ) := by exact_mod_cast hxlt
@@ -548,7 +569,7 @@ theorem sym_price_indep : ∃ (Kb Km x₁ : ℝ), 0 < Kb ∧ 0 < Km ∧
             rw [show (x : ℝ) / 2 = Real.sqrt (((x : ℝ) / 2) ^ 2) by
               rw [Real.sqrt_sq (by positivity)]]
             apply Real.sqrt_le_sqrt
-            nlinarith [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
+            linarith only [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
           have hXMloR : (x : ℝ) / 2 < ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k : ℝ) := by
             have hxlt : x < 2 * (x / 2 + 1) := by omega
             have hxltR : (x : ℝ) < 2 * ((x / 2 + 1 : ℕ) : ℝ) := by exact_mod_cast hxlt
@@ -571,6 +592,30 @@ theorem sym_price_indep : ∃ (Kb Km x₁ : ℝ), 0 < Kb ∧ 0 < Km ∧
             (fun m => crtClassW opQ (m / opQ) opA) hk htower hi rfl hNfloor hα hd1 hcop2 hDsetD hN₀
             hL2 hX2 hD1 hDlo hDscale hDsq habs hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx hLbb hfloor
             hDXM)
+
+open Classical in
+/-- **`sym_price_indep` — the arg-free sym discharger.**  `sym_price_at_op` with
+`Ps`/`X`/`K`/`QR`/`Dlev`/`D` moved inside the `∃ Kb Km x₁`, so `(Kb, Km, x₁)` are genuinely
+x-independent handles (from the arg-free terminals `medium_box_price_at_op_band` /
+`middle_medium_box_price_at_y`).  Body copied verbatim from `sym_price_at_op`. -/
+theorem sym_price_indep : ∃ (Kb Km x₁ : ℝ), 0 < Kb ∧ 0 < Km ∧
+    ∀ (Ps : ℕ), 0 < Ps → Nat.Coprime opQ Ps → Nat.Coprime opQ (opA + 2) →
+      (∀ p ∈ Ps.primeFactors, 3 ≤ p) → ∀ (X K : ℕ) (QR : ℝ) (Dlev D : ℕ),
+        Nat.log 2 X ≤ K → (opQ : ℝ) * (QR * (Dlev : ℝ)) ≤ (D : ℝ) →
+      ∀ (x : ℕ) (ε₀ : ℝ), x₁ ≤ (x : ℝ) → x ≤ X →
+        (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (D : ℝ) →
+        (D : ℝ) ≤ (x : ℝ) ^ ((499 : ℝ) / 1000) →
+        ∀ (j k : ℕ), k ∈ Finset.range (Nat.log 2 x + 1) →
+          (∑ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
+                (fun d => opQ * d),
+              ‖apDiscBilinCutoff (blockAlphaSym (opZ x) (opY x) ε₀ j (pieceN k) (pieceM k))
+                  (blockPrimeInd (max (opY x) (pieceN k))) X (pieceM k)
+                  (crtClassW opQ (m / opQ) opA) m x
+                - apDiscBilinCutoff (blockAlphaSym (opZ x) (opY x) ε₀ j (pieceN k) (pieceM k))
+                  (blockPrimeInd (max (opY x) (pieceN k))) X (pieceM k)
+                  (crtClassW opQ (m / opQ) opA) m (x / 2 + 1)‖)
+            ≤ symPriceK Kb Km (opZ x) x (opY x) K k :=
+  sym_price_indep_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## The `hA3_bundle` target-shape slot check (mandate item 3)
 

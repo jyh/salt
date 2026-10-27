@@ -36,6 +36,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 /-- **W5-1 (Node A).** The one tensor-dependent atom of the S1 collision
 bound, isolated behind an abstract hypothesis. This is the exact conclusion of
 `inner_abs_le` (`CollisionQuant.lean`), universally quantified over the
@@ -60,6 +63,7 @@ def S1InnerBound (k R W' : ℕ) (y : (Fin k → ℕ) → ℝ) : Prop :=
           * ∑ r ∈ kSieveIndex k R W', (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ)
 
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `y`-generic form of `collision_lower_orderW`: the tensor weight is
 replaced by the abstract atom `hInner : S1InnerBound k R W' y` (plus off-support
 vanishing `hy0`). Body is the landed proof with the single `inner_abs_le` call
@@ -190,7 +194,7 @@ theorem collision_lower_orderW_of (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
             have h1 : (k * k - k : ℕ) ≤ k * k := Nat.sub_le _ _
             calc ((k * k - k : ℕ) : ℝ) ≤ ((k * k : ℕ) : ℝ) := by exact_mod_cast h1
               _ = (k : ℝ) * (k : ℝ) := by push_cast; ring
-          nlinarith
+          linarith only [hle]
       calc |((μ t : ℤ) : ℝ)
             * ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
                 (if t ∣ cRad d e then s1Summand k R W' y d e else 0)|
@@ -201,7 +205,7 @@ theorem collision_lower_orderW_of (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
             have h2 := abs_nonneg (∑ d ∈ kSieveIndex k R W',
               ∑ e ∈ kSieveIndex k R W',
                 (if t ∣ cRad d e then s1Summand k R W' y d e else 0))
-            nlinarith
+            nlinarith only [h1, h2]
         _ ≤ ((assignments k t).card : ℝ)
               * ((3 : ℝ) ^ t.primeFactors.card
                 * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
@@ -286,6 +290,7 @@ theorem collision_lower_orderW_of (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
               (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) :=
         mul_le_mul_of_nonneg_right htail hyside
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `y`-generic form of `crossCollisionControlled_holdsW`. -/
 theorem crossCollisionControlled_holds_of (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
     (hy0 : ∀ r, r ∉ kSieveIndex k R W' → y r = 0)
@@ -299,6 +304,7 @@ theorem crossCollisionControlled_holds_of (k R W' D : ℕ) (y : (Fin k → ℕ) 
     positivity
   · exact collision_lower_orderW_of k R W' D y hy0 hInner hDlt hk hDk
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `y`-generic form of `compat_le_two_ysideW`. -/
 theorem compat_le_two_yside_of (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
     (hy0 : ∀ r, r ∉ kSieveIndex k R W' → y r = 0)

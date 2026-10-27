@@ -369,7 +369,7 @@ The handful of facts every group reads off the gate's ONE scale line `4 ≤ log 
 /-- `0 < θ₂₉₃` and `θ₂₉₃ ≤ 1` — the exponent that `H83_le` and the `X`-frame spend. -/
 theorem theta293_pos_le_one : 0 < theta293 ∧ theta293 ≤ 1 := by
   have he : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
-  have hd : (1 : ℝ) ≤ 32 * (3 * Real.exp 1 + 1) := by nlinarith
+  have hd : (1 : ℝ) ≤ 32 * (3 * Real.exp 1 + 1) := by linarith only [he]
   have hd0 : (0 : ℝ) < 32 * (3 * Real.exp 1 + 1) := by linarith
   constructor
   · rw [theta293]; positivity
@@ -466,12 +466,12 @@ theorem s13_doorCapBase {Cq cs T₀ Kq Ks : ℝ} {M Nd q P Q Mr : ℕ} {m₀ : �
   have hcalH : calH (H1door M) 2 = 4 * H1door M := by rw [calH]; norm_num
   have hcalH0 : (0 : ℝ) < calH (H1door M) 2 := by rw [hcalH]; linarith
   -- ⟦the height scale⟧
-  have hqT1 : (1 : ℝ) < (q : ℝ) * Tann := by nlinarith
+  have hqT1 : (1 : ℝ) < (q : ℝ) * Tann := by nlinarith only [hT1, hqR]
   have hlogqT0 : (0 : ℝ) < Real.log ((q : ℝ) * Tann) := Real.log_pos hqT1
   have hloglog5 : (5 : ℝ) ≤ Real.log (Real.log ((q : ℝ) * Tann)) := by
     have hTpos : (0 : ℝ) < Tann := by linarith
     have h1 : Real.log Tann ≤ Real.log ((q : ℝ) * Tann) :=
-      Real.log_le_log hTpos (by nlinarith)
+      Real.log_le_log hTpos (by nlinarith only [hT1, hqR])
     have hlogT0 : (0 : ℝ) < Real.log Tann := Real.log_pos hT1
     exact le_trans hTll (Real.log_le_log hlogT0 h1)
   have hlogqT1 : (1 : ℝ) ≤ Real.log ((q : ℝ) * Tann) := by
@@ -490,7 +490,7 @@ theorem s13_doorCapBase {Cq cs T₀ Kq Ks : ℝ} {M Nd q P Q Mr : ℕ} {m₀ : �
     rw [h]
     have h1 : 1 ≤ Adoor M := hA0
     have h2 : 1 ≤ 3072 * M := by omega
-    nlinarith
+    nlinarith only [hA0, hM, (Nat.cast_nonneg _ : 0 ≤ ↑M)]
   -- ⟦the pinned `Lr` and `V`⟧
   have hLr : s13Lr Nd = (Real.log ((Nd : ℕ) : ℝ)) ^ ((11 : ℝ) / 10) := rfl
   have hLrge : Real.log ((Nd : ℕ) : ℝ) ≤ s13Lr Nd := by
@@ -591,7 +591,7 @@ theorem s13_doorCapBase {Cq cs T₀ Kq Ks : ℝ} {M Nd q P Q Mr : ℕ} {m₀ : �
         positivity
       exact le_trans h1 (Nat.floor_le h2)
     rw [div_le_iff₀ hcalH0]
-    nlinarith [hvle, hcalH0]
+    linarith only [hvle]
   · -- ⟦`debit`⟧ an EQUALITY at the pinned `εd`
     rw [s13Jb, s13EpsD, halpha]
     have h1 : ((Nd : ℕ) : ℝ) ^ (2 * (7 / 48 : ℝ) * Real.log ((q : ℕ) : ℝ)
@@ -790,7 +790,7 @@ theorem s13_exp_two_lt_eight : Real.exp 2 < 8 := by
   have h : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
   have h1 := Real.exp_one_lt_d9
   have h0 := Real.exp_pos 1
-  nlinarith
+  nlinarith only [h1, h0, h]
 
 /-- `0 < N_d` off the scale floor. -/
 theorem s13_Nd_pos {Nd : ℕ} (h8 : 8 ≤ Real.log ((Nd : ℕ) : ℝ)) : (0 : ℝ) < ((Nd : ℕ) : ℝ) := by
@@ -970,7 +970,7 @@ theorem s13_KS_gate {Nd : ℕ} {Tann : ℝ} (h8 : 8 ≤ Real.log ((Nd : ℕ) : �
   have hmul := mul_le_mul_of_nonneg_right hstep
     (mul_pos hApos hBpos).le
   rw [s13KS, ← hμdef, ← hid]
-  nlinarith [hmul, hApos, hBpos]
+  linarith only [hmul]
 
 /-! ### §8d — ⟦THE PER-BASE GATE, PER-BLOCK⟧ `S13CapGatePerBlock` -/
 
@@ -1252,12 +1252,12 @@ theorem s13_doorCapBase_perBlock {Cq cs T₀ Kq Ks C : ℝ} {M Nd q P Q Hreg : �
   have hcalH : calH (H1door M) 2 = 4 * H1door M := by rw [calH]; norm_num
   have hcalH0 : (0 : ℝ) < calH (H1door M) 2 := by rw [hcalH]; linarith
   -- ⟦the height scale⟧
-  have hqT1 : (1 : ℝ) < (q : ℝ) * Tann := by nlinarith
+  have hqT1 : (1 : ℝ) < (q : ℝ) * Tann := by nlinarith only [hT1, hqR]
   have hlogqT0 : (0 : ℝ) < Real.log ((q : ℝ) * Tann) := Real.log_pos hqT1
   have hloglog5 : (5 : ℝ) ≤ Real.log (Real.log ((q : ℝ) * Tann)) := by
     have hTpos : (0 : ℝ) < Tann := by linarith
     have h1 : Real.log Tann ≤ Real.log ((q : ℝ) * Tann) :=
-      Real.log_le_log hTpos (by nlinarith)
+      Real.log_le_log hTpos (by nlinarith only [hT1, hqR])
     have hlogT0 : (0 : ℝ) < Real.log Tann := Real.log_pos hT1
     exact le_trans hTll (Real.log_le_log hlogT0 h1)
   have hlogqT1 : (1 : ℝ) ≤ Real.log ((q : ℝ) * Tann) := by
@@ -1276,7 +1276,7 @@ theorem s13_doorCapBase_perBlock {Cq cs T₀ Kq Ks C : ℝ} {M Nd q P Q Hreg : �
     rw [h]
     have h1 : 1 ≤ Adoor M := hA0
     have h2 : 1 ≤ 3072 * M := by omega
-    nlinarith
+    nlinarith only [hA0, hM, (Nat.cast_nonneg _ : 0 ≤ ↑M)]
   -- ⟦the pinned `Lr` and `V`⟧
   have hLr : s13Lr Nd = (Real.log ((Nd : ℕ) : ℝ)) ^ ((11 : ℝ) / 10) := rfl
   have hLrge : Real.log ((Nd : ℕ) : ℝ) ≤ s13Lr Nd := by
@@ -1377,7 +1377,7 @@ theorem s13_doorCapBase_perBlock {Cq cs T₀ Kq Ks C : ℝ} {M Nd q P Q Hreg : �
         positivity
       exact le_trans h1 (Nat.floor_le h2)
     rw [div_le_iff₀ hcalH0]
-    nlinarith [hvle, hcalH0]
+    linarith only [hvle]
   · -- ⟦`debit`⟧ an EQUALITY at the pinned `εd`
     rw [s13Jb, s13EpsD, halpha]
     have h1 : ((Nd : ℕ) : ℝ) ^ (2 * (7 / 48 : ℝ) * Real.log ((q : ℕ) : ℝ)
@@ -1699,12 +1699,12 @@ theorem s13_doorCapBase_gk (K : ℕ) {Cq cs T₀ Kq Ks : ℝ} {M Nd q P Q Mr : �
   have hcalH : calH (H1door M) 2 = 4 * H1door M := by rw [calH]; norm_num
   have hcalH0 : (0 : ℝ) < calH (H1door M) 2 := by rw [hcalH]; linarith
   -- ⟦the height scale⟧
-  have hqT1 : (1 : ℝ) < (q : ℝ) * Tann := by nlinarith
+  have hqT1 : (1 : ℝ) < (q : ℝ) * Tann := by nlinarith only [hT1, hqR]
   have hlogqT0 : (0 : ℝ) < Real.log ((q : ℝ) * Tann) := Real.log_pos hqT1
   have hloglog5 : (5 : ℝ) ≤ Real.log (Real.log ((q : ℝ) * Tann)) := by
     have hTpos : (0 : ℝ) < Tann := by linarith
     have h1 : Real.log Tann ≤ Real.log ((q : ℝ) * Tann) :=
-      Real.log_le_log hTpos (by nlinarith)
+      Real.log_le_log hTpos (by nlinarith only [hT1, hqR])
     have hlogT0 : (0 : ℝ) < Real.log Tann := Real.log_pos hT1
     exact le_trans hTll (Real.log_le_log hlogT0 h1)
   have hlogqT1 : (1 : ℝ) ≤ Real.log ((q : ℝ) * Tann) := by
@@ -1723,7 +1723,7 @@ theorem s13_doorCapBase_gk (K : ℕ) {Cq cs T₀ Kq Ks : ℝ} {M Nd q P Q Mr : �
     rw [h]
     have h1 : 1 ≤ Adoor M := hA0
     have h2 : 1 ≤ s13GK K M := one_le_s13GK K hM
-    nlinarith
+    nlinarith only [h2, hA0, (Nat.cast_nonneg _ : 0 ≤ ↑(Adoor M))]
   -- ⟦the pinned `Lr` and `V`⟧
   have hLr : s13Lr Nd = (Real.log ((Nd : ℕ) : ℝ)) ^ ((11 : ℝ) / 10) := rfl
   have hLrge : Real.log ((Nd : ℕ) : ℝ) ≤ s13Lr Nd := by
@@ -1824,7 +1824,7 @@ theorem s13_doorCapBase_gk (K : ℕ) {Cq cs T₀ Kq Ks : ℝ} {M Nd q P Q Mr : �
         positivity
       exact le_trans h1 (Nat.floor_le h2)
     rw [div_le_iff₀ hcalH0]
-    nlinarith [hvle, hcalH0]
+    linarith only [hvle]
   · -- ⟦`debit`⟧ an EQUALITY at the pinned `εd`
     rw [s13Jb, s13EpsD, halpha]
     have h1 : ((Nd : ℕ) : ℝ) ^ (2 * (7 / 48 : ℝ) * Real.log ((q : ℕ) : ℝ)
@@ -2235,12 +2235,12 @@ theorem s13_doorCapBase_perBlock_gk (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {M Nd q
   have hcalH : calH (H1door M) 2 = 4 * H1door M := by rw [calH]; norm_num
   have hcalH0 : (0 : ℝ) < calH (H1door M) 2 := by rw [hcalH]; linarith
   -- ⟦the height scale⟧
-  have hqT1 : (1 : ℝ) < (q : ℝ) * Tann := by nlinarith
+  have hqT1 : (1 : ℝ) < (q : ℝ) * Tann := by nlinarith only [hT1, hqR]
   have hlogqT0 : (0 : ℝ) < Real.log ((q : ℝ) * Tann) := Real.log_pos hqT1
   have hloglog5 : (5 : ℝ) ≤ Real.log (Real.log ((q : ℝ) * Tann)) := by
     have hTpos : (0 : ℝ) < Tann := by linarith
     have h1 : Real.log Tann ≤ Real.log ((q : ℝ) * Tann) :=
-      Real.log_le_log hTpos (by nlinarith)
+      Real.log_le_log hTpos (by nlinarith only [hT1, hqR])
     have hlogT0 : (0 : ℝ) < Real.log Tann := Real.log_pos hT1
     exact le_trans hTll (Real.log_le_log hlogT0 h1)
   have hlogqT1 : (1 : ℝ) ≤ Real.log ((q : ℝ) * Tann) := by
@@ -2259,7 +2259,7 @@ theorem s13_doorCapBase_perBlock_gk (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {M Nd q
     rw [h]
     have h1 : 1 ≤ Adoor M := hA0
     have h2 : 1 ≤ s13GK K M := one_le_s13GK K hM
-    nlinarith
+    nlinarith only [h2, hA0, (Nat.cast_nonneg _ : 0 ≤ ↑(Adoor M))]
   -- ⟦the pinned `Lr` and `V`⟧
   have hLr : s13Lr Nd = (Real.log ((Nd : ℕ) : ℝ)) ^ ((11 : ℝ) / 10) := rfl
   have hLrge : Real.log ((Nd : ℕ) : ℝ) ≤ s13Lr Nd := by
@@ -2360,7 +2360,7 @@ theorem s13_doorCapBase_perBlock_gk (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {M Nd q
         positivity
       exact le_trans h1 (Nat.floor_le h2)
     rw [div_le_iff₀ hcalH0]
-    nlinarith [hvle, hcalH0]
+    linarith only [hvle]
   · -- ⟦`debit`⟧ an EQUALITY at the pinned `εd`
     rw [s13Jb, s13EpsD, halpha]
     have h1 : ((Nd : ℕ) : ℝ) ^ (2 * (7 / 48 : ℝ) * Real.log ((q : ℕ) : ℝ)

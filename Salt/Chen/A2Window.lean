@@ -99,12 +99,12 @@ theorem A2weight_window_dom {z Dtot : ℕ} {t : ℝ} (hz2 : 2 ≤ z) (_ht0 : 0 <
   have hLD0 : Real.log ((z ^ 4 : ℕ) : ℝ) = 4 * Real.log z := by
     rw [Nat.cast_pow, Real.log_pow]; push_cast; ring
   -- both denominators are positive on the window
-  have hden_e : 0 < 4 * Real.log z - Real.log t := by nlinarith [htyR, hL]
-  have hden_a : 0 < Real.log Dtot - Real.log t := by nlinarith [hLD_lo, htyR, hL]
+  have hden_e : 0 < 4 * Real.log z - Real.log t := by linarith only [hL, htyR]
+  have hden_a : 0 < Real.log Dtot - Real.log t := by linarith only [hL, hLD_lo, htyR]
   -- the key rational inequality: exact denom ≤ (1+κ)·actual denom, tight iff log t ≤ (8/3)log z
   have hkey : 4 * Real.log z - Real.log t
       ≤ 5000 / 4997 * (Real.log Dtot - Real.log t) := by
-    nlinarith [hLD_lo, htyR, hL]
+    linarith only [hLD_lo, htyR]
   rw [A2weight, A2weight, hLD0, ← mul_div_assoc, div_le_div_iff₀ hden_a hden_e]
   calc Real.log z * (4 * Real.log z - Real.log t)
       ≤ Real.log z * (5000 / 4997 * (Real.log Dtot - Real.log t)) :=
@@ -250,7 +250,7 @@ theorem A2grid_window_le {Cmass : ℝ} (P : Finset ℕ) (z Dtot : ℕ) (yR : ℝ
     have hlt : (8 / 3 : ℝ) * Real.log z < (4 - 8 / 10000) * Real.log z :=
       mul_lt_mul_of_pos_right (by norm_num) hL
     linarith [hLD_lo]
-  have hDlogpos : 0 < Real.log Dtot := lt_of_le_of_lt (by nlinarith [hLy, hL]) hyD
+  have hDlogpos : 0 < Real.log Dtot := lt_of_le_of_lt (by linarith only [hL, hLy]) hyD
   have hDpos : (0 : ℝ) < (Dtot : ℝ) := by
     rcases Nat.eq_zero_or_pos Dtot with h0 | hpos
     · exfalso; rw [h0, Nat.cast_zero, Real.log_zero] at hDlogpos; exact lt_irrefl 0 hDlogpos
@@ -346,7 +346,7 @@ theorem razor_window_cost :
     have h6 : Real.log 6 = Real.log 2 + Real.log 3 := by
       rw [show (6 : ℝ) = 2 * 3 by norm_num, Real.log_mul (by norm_num) (by norm_num)]
     rw [h6]; linarith [log_two_le, log_three_le]
-  nlinarith [hlog6]
+  linarith only [hlog6]
 
 /-! ## Part E — the at-op geometry membership (for fin8d) -/
 

@@ -155,12 +155,19 @@ noncomputable def M2G (N a : ℕ) : ℝ :=
                     * hBJS (logRatio (opZ N) (cdiv (opD N) p))))
     + (N : ℝ) / (Real.log N) ^ 10
 
+/-- `gold_hA2_bundle` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_hA2_bundle_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
+    ∀ a : ℕ, a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
+    goldOmegaPrimeSum opQ a N (goldOpP N) (opY N) ≤ M2G N a := by
+  obtain ⟨x₁, h⟩ := (gold_a12_hA2_of_SW hSWall)
+  exact ⟨x₁, fun N hN a haN hQa hQNa => h N hN a haN hQa hQNa⟩
+
 /-- The A₂ bundle at a general residue — `gold_a12_hA2` re-expressed at `M2G`. -/
 theorem gold_hA2_bundle : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
     ∀ a : ℕ, a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
-    goldOmegaPrimeSum opQ a N (goldOpP N) (opY N) ≤ M2G N a := by
-  obtain ⟨x₁, h⟩ := gold_a12_hA2
-  exact ⟨x₁, fun N hN a haN hQa hQNa => h N hN a haN hQa hQNa⟩
+    goldOmegaPrimeSum opQ a N (goldOpP N) (opY N) ≤ M2G N a :=
+  gold_hA2_bundle_of_SW Salt.SW.siegelWalfisz_holds
 
 /-- The A₃ main-term carrier: the `gold_mainA3_of_block_remainders_W` output at the op
 witnesses (`M3` mirror). -/
@@ -183,13 +190,14 @@ theorem goldOpP_full' (N : ℕ) :
     exact Finset.mem_filter.mpr ⟨Finset.mem_Ico.mpr ⟨hwq, hqz⟩, hq, hqN⟩
   exact Nat.dvd_of_mem_primeFactors hmem
 
-/-- **The A₃ bundle at op** — the Λ-bridge + the closed block-BV terminal through the
-composed A₃ terminal, at a general residue `a`.  The exposed `CT` is §3's threshold. -/
-theorem gold_hA3_bundle : ∃ (CT : ℝ) (x₁ : ℕ), 0 ≤ CT ∧ ∀ N : ℕ, x₁ ≤ N →
+/-- `gold_hA3_bundle` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_hA3_bundle_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : ∃ (CT : ℝ) (x₁ : ℕ), 0 ≤ CT ∧ ∀ N : ℕ, x₁ ≤ N →
     CT ≤ Real.log N → Even N →
     ∀ a : ℕ, a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
     goldTriplePrimeSumW opQ a N (goldOpP N) (opY N) ≤ M3G N := by
-  obtain ⟨CT, xB, hCT0, hclosed⟩ := gold_hBVblocksW_at_op_closed
+  obtain ⟨CT, xB, hCT0, hclosed⟩ := (gold_hBVblocksW_at_op_closed_of_SW hSWall)
   obtain ⟨xt, -, htower⟩ := opf_tower
   obtain ⟨xsc, hsc⟩ := gold_op_scales
   refine ⟨CT, max (max xB xt) xsc, hCT0, ?_⟩
@@ -215,5 +223,13 @@ theorem gold_hA3_bundle : ∃ (CT : ℝ) (x₁ : ℕ), 0 ≤ CT ∧ ∀ N : ℕ,
     hz1 hε₀ (goldOpPs_squarefree N) (goldOpPs_odd N) (goldOpPs_py N) (goldOpPs_plow N)
     hDlev2 (le_refl 1) opf_eps_pos opf_w0R3 a12_eps_le_1000 (le_refl _)
     (h4_cond_of_base opEps (1 + opEps) opf_eps_pos.le (le_refl _)) hS2' hbridge hBV
+
+/-- **The A₃ bundle at op** — the Λ-bridge + the closed block-BV terminal through the
+composed A₃ terminal, at a general residue `a`.  The exposed `CT` is §3's threshold. -/
+theorem gold_hA3_bundle : ∃ (CT : ℝ) (x₁ : ℕ), 0 ≤ CT ∧ ∀ N : ℕ, x₁ ≤ N →
+    CT ≤ Real.log N → Even N →
+    ∀ a : ℕ, a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
+    goldTriplePrimeSumW opQ a N (goldOpP N) (opY N) ≤ M3G N :=
+  gold_hA3_bundle_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Goldbach

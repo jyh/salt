@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.HB.L2cEL
+import Salt.Tactic.ExpLogNum
 
 /-!
 # HB-L2c — the `E_L` T1 family budget (node HB-L2c, Wave 3 input; the `J1` row)
@@ -80,7 +81,7 @@ lemma T1_totient_ratio_sq_le {d₁ d₂ : ℕ} (h1 : IsPrimePow d₁ ∨ d₁ = 
   have hratio : (d₁ * d₂ : ℝ) / (Nat.totient (d₁ * d₂)) ≤ 4 := by
     rw [div_le_iff₀ hφpos, hφ]
     push_cast
-    nlinarith [hd1, hd2, hφ1, hφ2]
+    nlinarith only [hd2, hd1, (Nat.cast_nonneg _ : 0 ≤ ↑d₁), (Nat.cast_nonneg _ : 0 ≤ ↑d₂.totient)]
   have hnn : (0 : ℝ) ≤ (d₁ * d₂ : ℝ) / (Nat.totient (d₁ * d₂)) := by positivity
   calc ((d₁ * d₂ : ℝ) / (Nat.totient (d₁ * d₂))) ^ 2 ≤ (4 : ℝ) ^ 2 :=
         pow_le_pow_left₀ hnn hratio 2
@@ -162,7 +163,7 @@ lemma T1_logx_le_logZf {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3
   have hfl : (x : ℝ) ^ ((1 : ℝ) / 48) < (Zf x : ℝ) + 1 := Nat.lt_floor_add_one _
   have hZf2 : ((Zf x : ℕ) : ℝ) + 1 ≤ ((Zf x : ℕ) : ℝ) ^ 2 := by
     have h2 : (2 : ℝ) ≤ ((Zf x : ℕ) : ℝ) := by exact_mod_cast (by omega : 2 ≤ Zf x)
-    nlinarith
+    nlinarith only [h2, (Nat.cast_nonneg _ : 0 ≤ ↑(Zf x))]
   have hxle : (x : ℝ) ≤ ((Zf x : ℕ) : ℝ) ^ 96 := by
     have hxeq : ((x : ℝ) ^ ((1 : ℝ) / 48)) ^ (48 : ℕ) = x := by
       rw [← Real.rpow_natCast ((x : ℝ) ^ ((1 : ℝ) / 48)) 48, ← Real.rpow_mul hx0.le,
@@ -179,7 +180,7 @@ lemma T1_Lwin_le_logZf {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3
     Lwin x ≤ 192 * Real.log (Zf x) := by
   have h3x : (3 : ℝ) ≤ x := le_trans (by norm_num) (T1_x_ge hz100 hzx)
   have hx0 : (0 : ℝ) < x := by linarith
-  have hsq : 2 * (x : ℝ) + 2 ≤ (x : ℝ) ^ 2 := by nlinarith
+  have hsq : 2 * (x : ℝ) + 2 ≤ (x : ℝ) ^ 2 := by nlinarith only [h3x, (Nat.cast_nonneg _ : 0 ≤ ↑x)]
   have hL2 : Lwin x ≤ 2 * Real.log x := by
     rw [Lwin]
     calc Real.log (2 * (x : ℝ) + 2) ≤ Real.log ((x : ℝ) ^ 2) :=
@@ -205,10 +206,7 @@ lemma T1_logz_le_logZf {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3
 /-- `6 ≤ log z` (`z ≥ 100^16` and `e² < 10`). -/
 lemma T1_log_z_ge {z : ℕ} (hz100 : 100 ^ 16 ≤ z) : 6 ≤ Real.log z := by
   have hexp2 : Real.exp 2 < 10 := by
-    have h1 := Real.exp_one_lt_d9
-    have h2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by
-      rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.exp_nat_lt_of_pow_lt 2 (c := 10) (by norm_num)
   have hlog10 : (2 : ℝ) ≤ Real.log 10 :=
     (Real.le_log_iff_exp_le (by norm_num)).mpr hexp2.le
   have hz : ((100 : ℝ) ^ 16) ≤ (z : ℝ) := by exact_mod_cast hz100
@@ -299,10 +297,7 @@ lemma T1_mertens_le {z : ℕ} (hz100 : 100 ^ 16 ≤ z) :
       (fun i _ _ => div_nonneg vonMangoldt_nonneg (Nat.cast_nonneg i))
   have h2 := mertens_vonMangoldt_div_le (N := z) (by omega : 1 ≤ z)
   have hlog4 : Real.log 4 ≤ 2 := by
-    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]
-    have := Real.log_two_lt_d9
-    norm_num
-    linarith
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 2 (by norm_num) (by norm_num)
   linarith
 
 /-! ## §2 — the T1 per-term structure
@@ -617,7 +612,7 @@ lemma T1_scale_main {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3 �
     (mul_nonneg (mul_nonneg (by norm_num : (0 : ℝ) ≤ 32768) hx0) hlogz0)
   have hint2 : (0 : ℝ) ≤ x * Real.log z * Real.log (Zf x) ^ 2 :=
     mul_nonneg (mul_nonneg hx0 hlogz0) (by positivity)
-  nlinarith [hint1, hint2]
+  linarith only [hint2, hint1]
 
 /-- The edge-row comparison: `4096·(x·L'/(log Zf)²)·(2 log z) ≤ 2^29·(x·log z/L')`. -/
 lemma T1_scale_edge {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3 ≤ x) :
@@ -640,7 +635,7 @@ lemma T1_scale_edge {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3 �
     (mul_nonneg (mul_nonneg (by norm_num : (0 : ℝ) ≤ 8192) hx0) hlogz0)
   have hint2 : (0 : ℝ) ≤ x * Real.log z * Real.log (Zf x) ^ 2 :=
     mul_nonneg (mul_nonneg hx0 hlogz0) (by positivity)
-  nlinarith [hint1, hint2]
+  linarith only [hint2, hint1]
 
 /-! ## §5 — the T1 slice, its sum, and the frozen `J1` bound -/
 
@@ -654,6 +649,7 @@ noncomputable def T1slice (χ : DirichletCharacter ℂ q) (z x : ℕ) : Finset �
     Odd n ∧ (nPlus χ n).Prime ∧ (nPlus χ (n + 2)).Prime ∧
     1 < nMinus χ n ∧ nMinus χ n < z ∧ nMinus χ (n + 2) < z)
 
+/-- The T1 family slice is a filter of the window `l2cWindow χ z x` (`Finset.filter_subset`). -/
 lemma T1slice_subset (χ : DirichletCharacter ℂ q) (z x : ℕ) :
     T1slice χ z x ⊆ l2cWindow χ z x := Finset.filter_subset _ _
 
@@ -789,6 +785,7 @@ lemma EL_T1_edge_le (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : �
     no dependence on `χ`, `z`, `x`). -/
 noncomputable def T1Cmain : ℝ := 2 ^ 30
 
+/-- `0 < Cmain = 2^30` (`positivity`). -/
 lemma T1Cmain_pos : 0 < T1Cmain := by rw [T1Cmain]; positivity
 
 /-- **`EL_T1_bound` — the frozen `J1` family budget** (freeze §S4, T1 row).  On the T1

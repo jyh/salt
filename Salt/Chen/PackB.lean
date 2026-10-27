@@ -66,13 +66,13 @@ theorem twinA1SieveW_W_eq (Q a x P : ℕ) (hP : Squarefree P)
 `totalMass = (Σ_{n∈twinWindow x} Λ n)/φ(opQ) > 0` for large `x` (`lambda_mass_lower`: the window
 Λ-mass exceeds `x/2 − 1 − 2K·x/log x`, which is positive once `log x ≥ 8K`). -/
 
-/-- **`XW_pos_at_op`** — `0 < X_W` at the operating point.  The window Λ-mass is positive past
-`x₁` (PNT lower bound minus `O(x/log x)`), `φ(opQ) > 0`, and `W > 0`. -/
-theorem XW_pos_at_op : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+/-- `XW_pos_at_op` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem XW_pos_at_op_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     ∀ (hP : Squarefree (opP x)) (hPodd : ∀ p ∈ (opP x).primeFactors, 3 ≤ p),
     0 < (twinA1SieveW opQ opA x (opP x) hP hPodd).totalMass
           * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) hP hPodd) := by
-  obtain ⟨K, hK0, hmass⟩ := lambda_mass_lower
+  obtain ⟨K, hK0, hmass⟩ := (lambda_mass_lower_of_SW hSWall)
   -- threshold: log x ≥ max(8·K, 1) so that x/2 − 1 − 2K·x/log x > 0, and x ≥ 8
   obtain ⟨xL, hxL⟩ := a12_log_ge (max (8 * K) 1)
   refine ⟨max xL 8, fun x hx hP hPodd => ?_⟩
@@ -103,6 +103,14 @@ theorem XW_pos_at_op : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   apply mul_pos
   · exact div_pos hmasspos hφ
   · exact Salt.BrunLower.W_pos _
+
+/-- **`XW_pos_at_op`** — `0 < X_W` at the operating point.  The window Λ-mass is positive past
+`x₁` (PNT lower bound minus `O(x/log x)`), `φ(opQ) > 0`, and `W > 0`. -/
+theorem XW_pos_at_op : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
+    ∀ (hP : Squarefree (opP x)) (hPodd : ∀ p ∈ (opP x).primeFactors, 3 ≤ p),
+    0 < (twinA1SieveW opQ opA x (opP x) hP hPodd).totalMass
+          * Salt.BrunLower.W (twinA1SieveW opQ opA x (opP x) hP hPodd) :=
+  XW_pos_at_op_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## Deliverable 1b — `hWy_at_op`: the `W`-ratio at the operating windows
 

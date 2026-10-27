@@ -86,9 +86,9 @@ theorem e4a_sin_prod_eq_norm {q : ℕ} (S : Finset ℕ) (e : ℕ → ℤ)
 /-! ## PROBE 36 — GAP 4 CLOSED, grafted from the helm's executor, and JOINTLY VERIFIED
 
 ⭐ It went past the ask and INTO my spine: not just `σζ = ζ^{b.val}` but `hgal` itself, and
-then `e4a_spine` APPLIED with `hgal` discharged.  Its mutation control deleted the swap arm
-and got a type mismatch AT THE `e4a_spine` CALL SITE — proving the spine genuinely CONSUMES
-the lemma rather than elaborating past it.
+then `e4a_spine` APPLIED with `hgal` discharged (now `EvenChiEta.e4a_eta_sum_is_integer_concrete`).
+Its mutation control deleted the swap arm and got a type mismatch AT THE `e4a_spine` CALL SITE —
+proving the spine genuinely CONSUMES the lemma rather than elaborating past it.
 
 ⛔ AND IT FOUND AN EIGHTH INTERFACE ON THE WAY IN: there was no `e4a_fibre_fix'` (the −1
 fibre at `χ(b) = +1`), hence no fixed-arm quotient — probe 25 fixed the NUMERATOR and said
@@ -142,14 +142,14 @@ theorem e4a_sum_clog_re_sin {q : ℕ} (S : Finset ℕ) (c : ℕ → ℤ)
 /-! ############################################################################
 ## ⭐ E5a MIDDLE, PIECE (2) — τ(χ) IS REAL AT AN EVEN QUADRATIC χ
 GRAFTED 2026-08-19 from `salt/ScratchE4aTauReal-exec.lean` (untracked, mortal),
-proved by an Opus executor in 2 attempts.  The exec file was STANDALONE — its own
-imports, no shared body with this file — so the graft is a pure append and the
-"their base may lag mine" prefix hazard does not arise here.  Verified before the
-graft: 0 name collisions on all 7 theorems.
+proved by an Opus executor in 2 attempts; the theorems now live in `EvenChiTau`.  The exec file
+was STANDALONE — its own imports, no shared body with this file — so the graft was a pure append
+and the "their base may lag mine" prefix hazard did not arise.  Checked before the graft: 0 name
+collisions on all 7 theorems.
 
-REPRICE HONOURED: only REALITY is proved.  The SIGN (τ = ±√q) is deliberately NOT
-proved and is NOT needed — `cosh` is even, so `e4a_cosh_of_pm` /
-`e4a_cosh_integer_of_pm` absorb it downstream.  NO √q appears below.
+REPRICE HONOURED: the graft proved REALITY only; `EvenChiTau` later added the magnitude
+`τ.re = ±√q` (primitive χ, `e4a_gaussSum_re_eq_pm_sqrt`).  The SIGN of `τ.re` is NOT proved and is
+NOT needed — `cosh` is even, so `e4a_cosh_of_pm` / `e4a_cosh_integer_of_pm` absorb it downstream.
 
 ⭐ CONSUME `e4a_gaussSum_real` (even + quadratic).  `hprim` IS NOT NEEDED — the
 brief's `_of_primitive` variant is kept only so the requested name exists, and is
@@ -160,7 +160,7 @@ zero call sites in mathlib or salt before this.
 ⚠ MATHLIB GAP: `mul_gaussSum_inv_eq_gaussSum` (GaussSum.lean:123) packages exactly
 `χ(-1) * gaussSum χ ψ⁻¹ = gaussSum χ ψ` but sits under `[Field R]` GRATUITOUSLY —
 its proof uses no field structure — so it is UNAVAILABLE at `ZMod q` for composite
-`q`.  Re-derived below at `[CommRing R] [Fintype R]`.  A 1-line upstream PR.
+`q`.  Re-derived in `EvenChiTau` at `[CommRing R] [Fintype R]`.  A 1-line upstream PR.
 ############################################################################ -/
 
 
@@ -190,7 +190,7 @@ theorem e4a_log_eta_eq_sum {q : ℕ} (S : Finset ℕ) (e : ℕ → ℤ)
     positivity
   have h1 : Real.pi * ((a : ℝ) / (q : ℝ)) < Real.pi := by
     have hlt : ((a : ℝ) / (q : ℝ)) < 1 := by rw [div_lt_one hqR]; exact_mod_cast haq
-    nlinarith [Real.pi_pos]
+    nlinarith only [hlt, Real.pi_pos]
   have := Real.sin_pos_of_pos_of_lt_pi h0 h1
   positivity
 

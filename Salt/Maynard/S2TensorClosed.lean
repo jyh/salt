@@ -19,6 +19,9 @@ atoms `H_main_bound_closed` (HMainClose.lean) and `H_omit_bound_closed`
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 open scoped BigOperators
 
 /-- **C3b, fully assembled.** For the concrete tensor weight, the S₂

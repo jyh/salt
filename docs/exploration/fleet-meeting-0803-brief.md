@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Lines 73–75 say more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 # THE FLEET-MEETING BRIEF — 2026-08-03
 ### Composed 2026-08-02 from four census-grade scout reports (FULCRUM-ROAD, MRT-ROAD, PARITY-RECON, MR-CENSUS) + HB-CENSUS + the day's five landed waves. Every claim file:line-grounded in the scout ledger; dates always; file order never.
 
@@ -142,3 +144,5 @@ once).
 4. **MINE + SEARCH stand up as background lanes**; mathlib staging
    begins after the Fulcrum submission.
 5. The summit word (e) stays gated on the ceremony + the Captain.
+
+*Note, 2026-10-26: this is a dated working record. Its priority statements ("first …", "never formalized …") are as of its date; the survey-dated forms are in `docs/RESULTS.md` and the priority surveys (`docs/priority-survey-2026-08-11.md`, `docs/priority-survey-2026-08-17-delta.md`), and several of those rows have since fallen (the delta's rows 7–9; the 2026-10-11 note at the head of the 08-11 survey).*

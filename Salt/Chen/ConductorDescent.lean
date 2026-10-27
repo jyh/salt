@@ -12,7 +12,7 @@ import Salt.Chen.BetaSW
 Design: `docs/blueprints/chen.md`, the C3c row ("the fine-partition bookkeeping").
 This node reconciles C3b's **count-form** SW-regularity (`prime_indicator_SW`) with
 C3a's **twist-form** hypothesis slot (`hβSW` in `general_BV_weak`), and composes the
-two into the closed general Bombieri–Vinogradov for the interval prime indicator.
+two into `general_BV_closed`: general BV for the prime indicator, `hLargeDisc` still named.
 
 ## What this file lands (sorry-free, FULL)
 
@@ -166,19 +166,16 @@ lemma blockPrimeInd_classCount {d : ℕ} (N M : ℕ) (r : ZMod d) :
     have hp1 : 1 ≤ p := by omega
     exact ⟨⟨hp1, hp.1.2⟩, hp.2.2, hp.1.1, hp.2.1⟩
 
-/-- **The count→twist bridge for the interval prime indicator (C3c bridge).** From
-C3b's `prime_indicator_SW` (the residue-class prime-count discrepancy on a block
-`(N,M]`, `M ≤ 2N`) the character twist of the interval prime indicator obeys
-`‖bilinTwist (blockPrimeInd N) M d χ‖ ≤ d·K·N/(log N)^A` for `χ ≠ 1`, `d ≤ (log N)^C`.
-Duality (`bilinTwist_le_of_classDisc`): `bilinTwist = ∑_a χ(a)·count_a`, orthogonality
-kills the `Mass/φd` main term, and `χ` vanishes off units, so `≤ d·(max discrepancy)`. -/
-theorem hβSW_of_prime_indicator {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
+/-- `hβSW_of_prime_indicator` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem hβSW_of_prime_indicator_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
       ∀ (N M d : ℕ) (χ : DirichletCharacter ℂ d),
         N₀ ≤ N → N ≤ M → M ≤ 2 * N → 2 ≤ d →
         ((d : ℝ) ≤ (Real.log N) ^ C) → χ ≠ 1 →
         ‖bilinTwist (blockPrimeInd N) M d χ‖ ≤ (d : ℝ) * (K * N / (Real.log N) ^ A) := by
-  obtain ⟨K, N₀, hK0, hb⟩ := prime_indicator_SW hA hC
+  obtain ⟨K, N₀, hK0, hb⟩ := (prime_indicator_SW_of_SW hSWall) hA hC
   refine ⟨K, max N₀ 3, hK0, fun N M d χ hN hNM hM2N hd2 hdlog hχ => ?_⟩
   classical
   haveI : NeZero d := ⟨by omega⟩
@@ -217,6 +214,20 @@ theorem hβSW_of_prime_indicator {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
     rw [hMassdef, hccdef, hmcdef]; push_cast; ring
   rw [hconv, Complex.norm_real, Real.norm_eq_abs]
   exact hbound
+
+/-- **The count→twist bridge for the interval prime indicator (C3c bridge).** From
+C3b's `prime_indicator_SW` (the residue-class prime-count discrepancy on a block
+`(N,M]`, `M ≤ 2N`) the character twist of the interval prime indicator obeys
+`‖bilinTwist (blockPrimeInd N) M d χ‖ ≤ d·K·N/(log N)^A` for `χ ≠ 1`, `d ≤ (log N)^C`.
+Duality (`bilinTwist_le_of_classDisc`): `bilinTwist = ∑_a χ(a)·count_a`, orthogonality
+kills the `Mass/φd` main term, and `χ` vanishes off units, so `≤ d·(max discrepancy)`. -/
+theorem hβSW_of_prime_indicator {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
+    ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
+      ∀ (N M d : ℕ) (χ : DirichletCharacter ℂ d),
+        N₀ ≤ N → N ≤ M → M ≤ 2 * N → 2 ≤ d →
+        ((d : ℝ) ≤ (Real.log N) ^ C) → χ ≠ 1 →
+        ‖bilinTwist (blockPrimeInd N) M d χ‖ ≤ (d : ℝ) * (K * N / (Real.log N) ^ A) :=
+  hβSW_of_prime_indicator_of_SW Salt.SW.siegelWalfisz_holds hA hC
 
 /-! ## 3. The composed keystone -/
 

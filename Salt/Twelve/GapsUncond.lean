@@ -15,7 +15,7 @@ import Salt.Maynard.EHLevelTheta
 import Salt.Maynard.FrontierDischarge
 
 /-!
-# R2b + R2c — the unconditional closure of the `explicit12` rung
+# R2b + R2c — the closure of the `explicit12` rung, conditional on `EHall`
 
 Design: `docs/blueprints/explicit12-design.md`, cards NC-3 / R2b / R2c; the W5-7
 flag in `docs/blueprints/flags.md`.
@@ -24,7 +24,7 @@ flag in `docs/blueprints/flags.md`.
   eventually in `N'`, for all `D` above an explicit (∃, F-only) cutoff `D₀`.
 * **R2c** (`gaps_le_twelve` — THE frozen capstone name) feeds `winSlackM_ev` through
   `winFrontierMW_of` (R2a) and mirrors `gaps_le_twelve_of_frontierM` at
-  `(D₀, primorial D₀)`, yielding the unconditional explicit bounded-gaps theorem.
+  `(D₀, primorial D₀)`, yielding explicit bounded gaps `≤ 12` given `EHall` (EH at every θ < 1).
 
 The slack anatomy (all at FIXED `(D, W' = primorial D)`, `N' → ∞`,
 `R = ⌊N'^{1999/4000}⌋₊`, `X = (φW'/W')·log R`):
@@ -49,12 +49,16 @@ open Salt.Maynard
 
 /-! ## Local numeric helper -/
 
+/-- `h_i ≤ 19` for each of the five shifts (`hSeq_five_zero` … `hSeq_five_four`, by cases on
+`i`); the file-scoped copy of `FrontierM`'s private helper. -/
 private lemma hSeq_le_nineteen' (i : Fin 5) : hSeq 5 i ≤ 19 := by
   fin_cases i <;>
     simp only [hSeq_five_zero, hSeq_five_one, hSeq_five_two, hSeq_five_three,
       hSeq_five_four] <;>
     norm_num
 
+/-- `Lc ≤ log R` once `R ≥ ⌈e^{Lc}⌉` (`hR`): `e^{Lc} ≤ ⌈e^{Lc}⌉ ≤ R` (`Nat.le_ceil`) and `log`
+is monotone (`Real.log_le_log`). -/
 private lemma log_ge_of_ceil_exp' (Lc : ℝ) (R : ℕ) (hR : ⌈Real.exp Lc⌉₊ ≤ R) :
     Lc ≤ Real.log R := by
   have hpos : (0 : ℝ) < Real.exp Lc := Real.exp_pos Lc
@@ -91,7 +95,7 @@ theorem deltaPi_upper_ev :
   have hs0 : 0 < s := Real.sqrt_pos.mpr hN0
   have hss : s * s = (N' : ℝ) := Real.mul_self_sqrt hN0.le
   have hLs : L < s := by rw [div_lt_one hs0] at hsq; exact hsq
-  have hsL : L * s ≤ (N' : ℝ) := by nlinarith [hLs, hs0, hL]
+  have hsL : L * s ≤ (N' : ℝ) := by nlinarith only [hs0, hLs, hss]
   have hdmono : deltaPi 5 64 N' m ≤ (Nat.primeCounting (64 * N' + 19) : ℝ) := by
     rw [deltaPi, primesCount_one_zero_eq, primesCount_one_zero_eq]
     have h1 : (Nat.primeCounting (64 * N' + hSeq 5 m) : ℝ)
@@ -101,7 +105,7 @@ theorem deltaPi_upper_ev :
     linarith
   set x : ℝ := ((64 * N' + 19 : ℕ) : ℝ) with hxdef
   have hxN : x = 64 * (N':ℝ) + 19 := by rw [hxdef]; push_cast; ring
-  have hx1 : (1 : ℝ) < x := by rw [hxN]; nlinarith
+  have hx1 : (1 : ℝ) < x := by rw [hxN]; linarith only [hN100r]
   have hx0 : 0 < x := by linarith
   have hcheb := Chebyshev.pi_le_log4_mul_div hx1
   rw [Nat.floor_natCast] at hcheb
@@ -120,18 +124,18 @@ theorem deltaPi_upper_ev :
   have hxle : x ≤ 65 * (N':ℝ) := by rw [hxN]; linarith
   have hterm1 : Real.log 4 * x / Real.log (Real.sqrt x) ≤ 182 * (N':ℝ) / L := by
     have h_a : Real.log 4 * x ≤ 91 * (N':ℝ) := by
-      nlinarith [mul_le_mul_of_nonneg_right (le_of_lt hlog4) hx0.le,
-        mul_le_mul_of_nonneg_left hxle (show (0:ℝ) ≤ 1.4 by norm_num)]
+      linarith only [hxN, hN100r,
+          mul_le_mul_of_nonneg_right (le_of_lt hlog4) hx0.le]
     rw [div_le_div_iff₀ hlogsqrt_pos hL]
-    nlinarith [mul_le_mul_of_nonneg_right h_a hL.le,
-      mul_le_mul_of_nonneg_left hlogsqrt_ge (show (0:ℝ) ≤ 182 * (N':ℝ) by positivity)]
+    linarith only [mul_le_mul_of_nonneg_left hlogsqrt_ge
+        (show (0 : ℝ) ≤ 182 * (N' : ℝ) by positivity), mul_le_mul_of_nonneg_right h_a hL.le]
   have hsqrtx : Real.sqrt x ≤ 9 * s := by
     have h81 : x ≤ 81 * (N':ℝ) := by rw [hxN]; linarith
     calc Real.sqrt x ≤ Real.sqrt (81 * (N':ℝ)) := Real.sqrt_le_sqrt h81
       _ = 9 * s := by
           rw [Real.sqrt_mul (by norm_num : (0:ℝ) ≤ 81), show (81:ℝ) = 9^2 by norm_num,
             Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 9)]
-  have hsN : s ≤ (N':ℝ) / L := by rw [le_div_iff₀ hL]; nlinarith [hsL]
+  have hsN : s ≤ (N':ℝ) / L := by rw [le_div_iff₀ hL]; linarith only [hsL]
   have hterm2 : Real.sqrt x ≤ 9 * (N':ℝ) / L := by
     calc Real.sqrt x ≤ 9 * s := hsqrtx
       _ ≤ 9 * ((N':ℝ)/L) := by linarith [hsN]
@@ -140,7 +144,7 @@ theorem deltaPi_upper_ev :
     _ ≤ Real.log 4 * x / Real.log (Real.sqrt x) + Real.sqrt x := hcheb
     _ ≤ 182 * (N':ℝ) / L + 9 * (N':ℝ) / L := add_le_add hterm1 hterm2
     _ ≤ 1000 * (N':ℝ) / L := by
-        rw [← add_div, div_le_div_iff₀ hL hL]; nlinarith [hN0.le, hL.le]
+        rw [← add_div, div_le_div_iff₀ hL hL]; nlinarith only [hL, (Nat.cast_nonneg _ : 0 ≤ ↑N')]
 
 /-! ## The tight `Qdiag` lower bound (error `(c/log R + A/√D)·X⁶`) -/
 
@@ -172,7 +176,7 @@ theorem qdiag_err_split (m : Fin 5) :
   have hsqD_ge1 : (1 : ℝ) ≤ Real.sqrt D := by
     rw [show (1:ℝ) = Real.sqrt 1 by simp]
     exact Real.sqrt_le_sqrt (by exact_mod_cast (by omega : 1 ≤ D))
-  have hsqD_le_D : Real.sqrt D ≤ (D : ℝ) := by nlinarith [hsqD, hsqD_ge1]
+  have hsqD_le_D : Real.sqrt D ≤ (D : ℝ) := by nlinarith only [hsqDnn, hsqD_ge1, hsqD]
   have hsqrtD_div : Real.sqrt D / (D:ℝ) = 1 / Real.sqrt D := by
     rw [div_eq_div_iff hDne hsqDne]; rw [one_mul, hsqD]
   obtain ⟨c, hc0, hb⟩ := hbridge W' D hW' hpos hUpper hD300 hDlt
@@ -219,9 +223,9 @@ theorem qdiag_err_split (m : Fin 5) :
   have hκinv2 : κinv ^ 2 ≤ 25 * (D : ℝ) := by
     have hfac : (0 : ℝ) ≤ (5 * Real.sqrt D - κinv) * (5 * Real.sqrt D + κinv) :=
       mul_nonneg (sub_nonneg.mpr hκ) (by linarith [hsqDnn, hκinv_pos.le])
-    nlinarith [hfac, hsqD]
+    linarith only [hfac, hsqD]
   have hterm1 : c * (1 + X) ^ 6 / Real.log R ≤ (64 * c / Real.log R) * X ^ 6 := by
-    have hnum : c * (1 + X) ^ 6 ≤ 64 * c * X ^ 6 := by nlinarith [h1X6, hc0, hX6nn]
+    have hnum : c * (1 + X) ^ 6 ≤ 64 * c * X ^ 6 := by nlinarith only [hc0, h1X6]
     have heq : (64 * c / Real.log R) * X ^ 6 = 64 * c * X ^ 6 / Real.log R := by ring
     rw [heq]; exact div_le_div_of_nonneg_right hnum hlogRpos.le
   have hterm2 : A * κinv * (1 + X + PAS) ^ 6 / (D : ℝ)
@@ -273,15 +277,21 @@ theorem qdiag_err_split (m : Fin 5) :
 
 /-! ## Vanishing-rate helpers (all at `R = ⌊N'^{1999/4000}⌋₊`) -/
 
+/-- `log N' ≥ M` for all large `N'`: `Real.tendsto_log_atTop` composed with the cast `ℕ → ℝ`
+(`tendsto_natCast_atTop_atTop`). -/
 private lemma eventually_logN_ge (M : ℝ) : ∀ᶠ N' : ℕ in atTop, M ≤ Real.log N' :=
   (Real.tendsto_log_atTop.comp tendsto_natCast_atTop_atTop).eventually_ge_atTop M
 
+/-- `log R ≥ b` for all large `N'`, at `R = ⌊N'^{1999/4000}⌋`: `log R ≥ (1/4) log N'` eventually
+(`eventually_logR_lower_theta`) and `log N' ≥ 4b` eventually (`eventually_logN_ge`). -/
 private lemma eventually_logR_ge (b : ℝ) :
     ∀ᶠ N' : ℕ in atTop, b ≤ Real.log (⌊(N':ℝ) ^ (1999 / 4000 : ℝ)⌋₊ : ℝ) := by
   filter_upwards [eventually_logR_lower_theta (1/4) (by norm_num) (by norm_num),
     eventually_logN_ge (4 * b)] with N' h1 h2
   linarith
 
+/-- `C/log R ≤ ε` for all large `N'`, for `0 < ε` (`hε`): `log R ≥ (max C 1)/ε` and `log R ≥ 1`
+eventually (`eventually_logR_ge`). -/
 private lemma eventually_div_logR_le (C ε : ℝ) (hε : 0 < ε) :
     ∀ᶠ N' : ℕ in atTop,
       C / Real.log (⌊(N':ℝ) ^ (1999 / 4000 : ℝ)⌋₊ : ℝ) ≤ ε := by
@@ -296,6 +306,11 @@ private lemma eventually_div_logR_le (C ε : ℝ) (hε : 0 < ε) :
     _ ≤ L * ε := mul_le_mul_of_nonneg_right h2 hε.le
     _ = ε * L := by ring
 
+/-- `A(1 + log R)^p/(log N')^q ≤ K` for all large `N'` when `p < q` (`hpq`), `0 < K` (`hK`) and
+`0 ≤ A` (`hA`): `1 + log R ≤ 2 log N'` (`R ≤ N'`, `R_le_N'_theta`), so the ratio is at most
+`2^p A/(log N')^{q − p} ≤ 2^p A/log N'`, and `log N' ≥ max 1 (2^p A/K)` eventually
+(`eventually_logN_ge`); the `1` in the threshold is what gives `1 + log R ≤ 2 log N'` and
+`(log N')^{q − p} ≥ log N'`. -/
 private lemma eventually_polylog_ratio_le (p q : ℕ) (A K : ℝ) (hpq : p < q)
     (hK : 0 < K) (hA : 0 ≤ A) :
     ∀ᶠ N' : ℕ in atTop,
@@ -338,14 +353,18 @@ private lemma eventually_polylog_ratio_le (p q : ℕ) (A K : ℝ) (hpq : p < q)
       have : A * 2 ^ p ≤ K * Real.log N' := by
         rw [mul_comm A (2^p)]
         have := (div_le_iff₀ hK).mp hThr
-        nlinarith [this, hlog1]
-      nlinarith [hLqp, hK.le, this]
-    nlinarith [h1, pow_nonneg hlogNpos.le p]
+        linarith only [this]
+      nlinarith only [hK, hLqp, this]
+    nlinarith only [h1, pow_nonneg hlogNpos.le p]
   calc A * (1 + Real.log R) ^ p
       ≤ A * (2 ^ p * (Real.log N') ^ p) := mul_le_mul_of_nonneg_left hpow hA
     _ ≤ K * ((Real.log N') ^ p * (Real.log N') ^ (q - p)) := hAle
     _ = K * (Real.log N') ^ q := by rw [← hsplit]
 
+/-- `C·R²(1 + log R)^n ≤ K N'` for all large `N'`, for `0 < K` (`hK`) and `0 ≤ C` (`hC`), at
+`R = ⌊N'^{1999/4000}⌋`: `R² ≤ N'^{3998/4000}` (`R_sq_le_theta`), `1 + log R ≤ 1 + log N'`, and
+`C(1 + log N')^n ≤ K N'^{1/2000}` eventually (`eventually_poly_beats_polylog`); the exponents
+add to `1`. -/
 private lemma eventually_poly_o_linear (n : ℕ) (K C : ℝ) (hK : 0 < K) (hC : 0 ≤ C) :
     ∀ᶠ N' : ℕ in atTop,
       C * (⌊(N':ℝ) ^ (1999 / 4000 : ℝ)⌋₊ : ℝ) ^ 2
@@ -385,6 +404,8 @@ private lemma eventually_poly_o_linear (n : ℕ) (K C : ℝ) (hK : 0 < K) (hC : 
     _ = K * ((N':ℝ) ^ (3998 / 4000 : ℝ) * (N':ℝ) ^ (1 / 2000 : ℝ)) := by ring
     _ = K * (N':ℝ) := by rw [hrpow]
 
+/-- `R ≥ Rb` for all large `N'`, at `R = ⌊N'^{1999/4000}⌋`: `N'^{1999/4000} → ∞`
+(`tendsto_rpow_atTop`) and `Nat.le_floor`. -/
 private lemma eventually_R_ge (Rb : ℕ) :
     ∀ᶠ N' : ℕ in atTop, Rb ≤ ⌊(N':ℝ) ^ (1999 / 4000 : ℝ)⌋₊ := by
   have htend : Tendsto (fun N' : ℕ => (N':ℝ) ^ (1999 / 4000 : ℝ)) atTop atTop :=
@@ -394,6 +415,11 @@ private lemma eventually_R_ge (Rb : ℕ) :
 
 /-! ## The `Δπ` lower-bound pinning `31465/1000·N' ≤ δ·log R` -/
 
+/-- **The `Δπ` pin.** `(31465/1000)·N' ≤ δ·log R` for all large `N'`, with
+`δ = (63 − 1/100) N'/log N' − 19` and `R = ⌊N'^{1999/4000}⌋`: `log R ≥ (4997/10000) log N'`
+eventually (`eventually_logR_lower_theta`), `δ·log N' = (63 − 1/100) N' − 19 log N'`, and
+`1000(1 + log N') ≤ N'` eventually (`eventually_poly_beats_polylog`) absorbs the `19 log N'`
+term. -/
 private lemma eventually_DL :
     ∀ᶠ N' : ℕ in atTop,
       (31465 : ℝ) / 1000 * N'
@@ -412,7 +438,7 @@ private lemma eventually_DL :
   -- hbeat : 1000 * (1 + L) ≤ N'
   have hδ0 : 0 ≤ (63 - 1 / 100) * (N':ℝ) / L - 19 := by
     rw [sub_nonneg, le_div_iff₀ hL]
-    nlinarith [hbeat, hL]
+    linarith only [hbeat, hL]
   set δ : ℝ := (63 - 1 / 100) * (N':ℝ) / L - 19 with hδdef
   have hδL : δ * L = (63 - 1 / 100) * (N':ℝ) - 19 * L := by
     rw [hδdef]; field_simp
@@ -421,13 +447,24 @@ private lemma eventually_DL :
   have hkey : δ * (4997 / 10000 * L) = 4997 / 10000 * ((63 - 1 / 100) * (N':ℝ) - 19 * L) := by
     rw [show δ * (4997 / 10000 * L) = 4997 / 10000 * (δ * L) by ring, hδL]
   rw [hkey] at hstep
-  nlinarith [hstep, hbeat, hL]
+  linarith only [hstep, hbeat, hL]
 
 /-! ## R2b — the slack discharge -/
 
 set_option maxHeartbeats 10000000 in
 -- The endgame assembly threads ~40 named bounds through one linear closure; the
 -- large local context makes elaboration heartbeat-heavy.
+/-- **R2b — the slack discharge.** There is a cutoff `D₀ ≥ 300` such that for every `D ≥ D₀` and
+`C₀ ≥ 0`, `WinSlackM D C₀ N'` holds for all large `N'`. The `F`-only constants come first —
+`Ical Fstar1` and the five `Jcal m Fstar1` positive, the certified ratio `4003·Ic < 1999·ΣJ`
+(`theta_ratio_cert_sharp`), the `mv_I_split` constants at `Fstar1` and `onePoly`, the per-`m`
+`qdiag_err_split` and `s2_collision_floor` constants — and
+`D₀ = max (max 1200 ΣDthr) ⌈Dthr_real⌉` is built from them so that every `1/D` or `1/√D` piece
+is at most `U/700000` of the main term `U = 63 N'·Base·Ic`. At `W' = primorial D` the `∀ᶠ N'`
+bundle (`deltaPi_upper_ev`, `eventually_R_ge`, `eventually_logR_ge`, `eventually_DL`,
+`eventually_div_logR_le`, `eventually_poly_o_linear`, `eventually_polylog_ratio_le`) kills every
+`1/log R` piece the same way, and the certified ratio `63 N'(1 + 1/100000)·Ic < δ·log R·ΣJ`
+closes the inequality in one linear combination. -/
 theorem winSlackM_ev : ∃ D₀ : ℕ, 300 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤ D →
     ∀ C₀ : ℝ, 0 ≤ C₀ → ∀ᶠ N' : ℕ in atTop, WinSlackM D C₀ N' := by
   classical
@@ -442,7 +479,7 @@ theorem winSlackM_ev : ∃ D₀ : ℕ, 300 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤ D 
     simp only [hSJdef, hJcdef, hIcdef]
     rw [← Rat.cast_sum]
     exact_mod_cast theta_ratio_cert_sharp
-  have hSJpos : 0 < SJ := by nlinarith [hcert, hIcpos]
+  have hSJpos : 0 < SJ := by linarith only [hcert, hIcpos]
   obtain ⟨AF, hAF0, hyb⟩ := mv_I_split Fstar1
   obtain ⟨A1, hA10, hMb⟩ := mv_I_split onePoly
   have hqd_ex : ∀ m : Fin 5, ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ,
@@ -581,11 +618,11 @@ theorem winSlackM_ev : ∃ D₀ : ℕ, 300 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤ D 
   have h1X : (1:ℝ) ≤ X := by
     have hle : 1 / κ ≤ LR := le_trans (le_max_left _ _) hLRthr
     rw [div_le_iff₀ hκpos] at hle
-    rw [hXdef]; nlinarith [hle]
+    rw [hXdef]; linarith only [hle]
   have hXCpas : 1 + Cpas ≤ X := by
     have hle : (1 + Cpas) / κ ≤ LR := le_trans (le_max_right _ _) hLRthr
     rw [div_le_iff₀ hκpos] at hle
-    rw [hXdef]; nlinarith [hle]
+    rw [hXdef]; linarith only [hle]
   have hPASnn : 0 ≤ PAS := by
     rw [hPASdef]; unfold Salt.Maynard.phiAtomSum
     exact Finset.sum_nonneg fun r _ => by positivity
@@ -1049,10 +1086,10 @@ theorem winSlackM_ev : ∃ D₀ : ℕ, 300 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤ D 
   -- === closure ===
   linarith only [hLHS_le, hmain_ge, hcoll_le, hp1, hp2, hp3, hpqe, hpcoll, hpTR, hpherr, hwin']
 
-/-! ## R2c — the unconditional capstone -/
+/-! ## R2c — the capstone, conditional on `EHall` -/
 
-/-- **R2c (THE RUNG CLOSES).**  Explicit bounded prime gaps `≤ 12`, unconditional
-apart from the standing analytic inputs `WindowPNT` and `EHall`: for every `N`
+/-- **R2c (THE RUNG CLOSES).**  Explicit bounded prime gaps `≤ 12`, given `EHall` (and
+`WindowPNT`, which `windowPNT_holds` proves): for every `N`
 there are two primes `p ≠ q > N` with `|q − p| ≤ 12`.  Assembles `winSlackM_ev`
 (R2b) through `winFrontierMW_of` (R2a) — discharging the largeness bundle
 `WinFrontierMW D₀` at the F-only cutoff `D₀` — and mirrors `gaps_le_twelve_of_frontierM`

@@ -185,7 +185,9 @@ consumer (`gold_a12_hA2`) can choose its threshold as a function of the `N`-inde
 from `psi_BV_of_siegelWalfisz'`.  Body is `goldA2_hBVagg_W`'s composition verbatim (the punctured
 per-prime split `goldRosserRemainderW2_le_split` + the shared W2 dispersion/conversion legs). -/
 set_option linter.unusedVariables false in
-theorem gold_a12_hBV_A2 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
+/-- `gold_a12_hBV_A2` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_a12_hBV_A2_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
     ∀ (Qm a N z y Dtot P : ℕ) (ε Qlev : ℝ)
       (hP : Squarefree P) (hPodd : ∀ q ∈ P.primeFactors, 3 ≤ q)
       (hPz : ∀ q ∈ P.primeFactors, q < z)
@@ -207,7 +209,7 @@ theorem gold_a12_hBV_A2 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
             rosserRemainder (goldA2SieveW Qm a N P p hP hPodd) (Qlev * (cdiv Dtot p : ℝ))
           ≤ (N : ℝ) / (Real.log N) ^ 10 ) := by
   obtain ⟨B, C, hB, hC, hbv⟩ :=
-    psi_BV_of_siegelWalfisz' Salt.SW.siegelWalfisz_holds 11 (by norm_num)
+    psi_BV_of_siegelWalfisz' hSWall 11 (by norm_num)
   refine ⟨B, C, hB, hC, ?_⟩
   intro Qm a N z y Dtot P ε Qlev hP hPodd hPz hPlow hPcopN hN hz3 hε hw0 hwz hQm1 hQmP hQma
     hQmPr hQlev hD1 hlevel hclose
@@ -346,6 +348,31 @@ theorem gold_a12_hBV_A2 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
     exact mul_le_mul_of_nonneg_left hMbound hK0
   linarith [hsum, hS1, hS2, hconv2, hclose]
 
+set_option linter.unusedVariables false in
+/-- `gold_a12_hBV_A2_of_SW` at the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_a12_hBV_A2 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
+    ∀ (Qm a N z y Dtot P : ℕ) (ε Qlev : ℝ)
+      (hP : Squarefree P) (hPodd : ∀ q ∈ P.primeFactors, 3 ≤ q)
+      (hPz : ∀ q ∈ P.primeFactors, q < z)
+      (hPlow : ∀ q ∈ P.primeFactors, w0R ε ≤ (q : ℝ))
+      (hPcopN : Nat.Coprime P N)
+      (hN : 4 ≤ N) (hz3 : 3 ≤ z) (hε : 0 < ε) (hw0 : 3 ≤ w0R ε) (hwz : w0R ε ≤ (z : ℝ))
+      (hQm1 : 1 ≤ Qm) (hQmP : Nat.Coprime Qm P) (hQma : Nat.Coprime Qm a)
+      (hQmPr : ∀ p ∈ (Finset.Icc z y).filter Nat.Prime, Nat.Coprime Qm p)
+      (hQlev : 1 ≤ Qlev) (hD1 : 1 ≤ Dtot),
+      ( (Qm : ℝ) * (Qlev * ((Dtot : ℝ) + (y : ℝ))) ≤ Real.sqrt (N : ℝ) / (Real.log N) ^ B →
+        C * (N : ℝ) / (Real.log N) ^ (11 : ℝ) + C * (N : ℝ) / (Real.log N) ^ (11 : ℝ)
+          + 2 * Real.log N
+              * ((Qm.primeFactors.card : ℝ)
+                  + Real.log (Qlev * ((Dtot : ℝ) + (y : ℝ))) / Real.log 3)
+              * ((1 + ε) * Real.log (z : ℝ) / Real.log (w0R ε))
+              * (∑ p ∈ (Finset.Icc z y).filter Nat.Prime, 1 / ((p : ℝ) - 1))
+          ≤ (N : ℝ) / (Real.log N) ^ 10 →
+        ∑ p ∈ (Finset.Icc z y).filter (fun p => p.Prime ∧ ¬ p ∣ N),
+            rosserRemainder (goldA2SieveW Qm a N P p hP hPodd) (Qlev * (cdiv Dtot p : ℝ))
+          ≤ (N : ℝ) / (Real.log N) ^ 10 ) :=
+  gold_a12_hBV_A2_of_SW Salt.SW.siegelWalfisz_holds
+
 /-! ## Part E — the operating-point A₂ bundle (`gold_a12_hA2`)
 
 The window prime `n ≥ N/2` exceeds `y = opY N = ⌊N^{1/3}⌋` past a threshold — the fact that
@@ -396,13 +423,9 @@ theorem goldOpP_pfull (N : ℕ) :
     (Finset.mem_filter.mpr ⟨Finset.mem_Ico.mpr ⟨hw, hlt⟩, hqp, hqN⟩)
 
 set_option linter.unusedVariables false in
-/-- **The `hA2` slot of `goldbach_of_hypotheses_W` at the frozen operating point.**  The A₂ omega
-carrier's upper bound at `x := N`, over the reflected residue `a` (`gold_op_residue`'s witness,
-supplying `Coprime opQ a` and `Coprime opQ (N − a)`).  Byte-mirrors `Salt.Chen.a12_hA2` with the
-punctured window aggregation: `goldOmegaPrimeSum_decomp` folds the carrier into the per-prime
-`goldA2pW`, `twin_A2_upper` aggregates them (per-prime `gold_A2_per_prime_W`, density coefficient
-`goldA2W_hcoef`), and `gold_a12_hBV_A2` discharges the aggregated Rosser remainder. -/
-theorem gold_a12_hA2 : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
+/-- `gold_a12_hA2` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_a12_hA2_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
     ∀ (a : ℕ), a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
     goldOmegaPrimeSum opQ a N (goldOpP N) (opY N)
       ≤ ((goldA1SieveW opQ a N (goldOpP N) (goldOpP_squarefree N) (goldOpP_odd N)).totalMass
@@ -417,7 +440,7 @@ theorem gold_a12_hA2 : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
                     * (opEps * CsharpB opEps * Real.exp 2
                         * hBJS (logRatio (opZ N) (cdiv (opD N) p))))
         + (N : ℝ) / (Real.log N) ^ 10 := by
-  obtain ⟨B, C, hB, hC, hbvfun⟩ := gold_a12_hBV_A2
+  obtain ⟨B, C, hB, hC, hbvfun⟩ := (gold_a12_hBV_A2_of_SW hSWall)
   obtain ⟨x₂, hlev⟩ := a12_level2 B hB
   obtain ⟨x₃, hcl⟩ := a12_close2 C hC
   obtain ⟨x₄, hcd2⟩ := a12_cdiv2
@@ -523,5 +546,29 @@ theorem gold_a12_hA2 : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
     (opf_QmPr N hw'z) hQlevR hD1 (hlev N (by omega) hQlog hyD) (hcl N (by omega) hQlog)
   rw [hdecomp]
   linarith [hupper, hagg]
+
+set_option linter.unusedVariables false in
+/-- **The `hA2` slot of `goldbach_of_hypotheses_W` at the frozen operating point.**  The A₂ omega
+carrier's upper bound at `x := N`, over the reflected residue `a` (`gold_op_residue`'s witness,
+supplying `Coprime opQ a` and `Coprime opQ (N − a)`).  Byte-mirrors `Salt.Chen.a12_hA2` with the
+punctured window aggregation: `goldOmegaPrimeSum_decomp` folds the carrier into the per-prime
+`goldA2pW`, `twin_A2_upper` aggregates them (per-prime `gold_A2_per_prime_W`, density coefficient
+`goldA2W_hcoef`), and `gold_a12_hBV_A2` discharges the aggregated Rosser remainder. -/
+theorem gold_a12_hA2 : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
+    ∀ (a : ℕ), a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
+    goldOmegaPrimeSum opQ a N (goldOpP N) (opY N)
+      ≤ ((goldA1SieveW opQ a N (goldOpP N) (goldOpP_squarefree N) (goldOpP_odd N)).totalMass
+            * Salt.BrunLower.W (goldA1SieveW opQ a N (goldOpP N)
+                (goldOpP_squarefree N) (goldOpP_odd N)))
+          * (A2grid ((Finset.Icc (opZ N) (opY N)).filter (fun p => p.Prime ∧ ¬ p ∣ N))
+                (opZ N) (opD N)
+                (fun p => maxDepth (goldA2SieveW opQ a N (goldOpP N) p
+                    (goldOpP_squarefree N) (goldOpP_odd N)))
+              + ∑ p ∈ (Finset.Icc (opZ N) (opY N)).filter (fun p => p.Prime ∧ ¬ p ∣ N),
+                  (1 / ((p : ℝ) - 1))
+                    * (opEps * CsharpB opEps * Real.exp 2
+                        * hBJS (logRatio (opZ N) (cdiv (opD N) p))))
+        + (N : ℝ) / (Real.log N) ^ 10 :=
+  gold_a12_hA2_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Goldbach

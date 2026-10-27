@@ -15,7 +15,7 @@ it and re-cuts the terminal with the rider REMOVED-BECAUSE-PROVEN.
 
 ⟦THE TWO HOPS⟧
 
-* §1 `s15_crossing_supplied_L_gk` — `S16Budget.s15_crossing_supplied_wide_gk (:2461)` at the
+* §1 `s15_crossing_supplied_L_gk` — `S16Budget.s15_crossing_supplied_wide_gk` at the
   linear ladder.  The WIRE is `S16FlatTerminalLinear.m4_fuse_hcap_of_capWS_L_gk` (§8, landed);
   the CAP GATE is `S13CapGateLinear.s16_capGate_supply_L_gk` (this wave) composed through
   `doorCapBundle_at_workingPoint_perBlock_L_gk`.
@@ -59,7 +59,7 @@ open Salt.Entropy.Chowla
 set_option maxHeartbeats 1000000 in
 -- the eighteen-slot `hcapWS` family re-elaborates against the wire's own shape
 /-- **⟦THE CROSSING SUPPLY AT THE LINEAR LADDER⟧** (`s15_crossing_supplied_L_gk`) —
-`S16Budget.s15_crossing_supplied_wide_gk (:2461)` at `AdoorL M = 2^36·M`.  The body is the
+`S16Budget.s15_crossing_supplied_wide_gk` at `AdoorL M = 2^36·M`.  The body is the
 landed one, reading `m4_fuse_hcap_of_capWS_L_gk` for the wire, `s16_capGate_supply_L_gk` for
 the gate and `doorCapBundle_at_workingPoint_perBlock_L_gk` for the join. -/
 theorem s15_crossing_supplied_L_gk (K : ℕ) :

@@ -80,6 +80,8 @@ noncomputable def EL_T3F (χ : DirichletCharacter ℂ q) (z x : ℕ) : ℝ :=
   ∑ n ∈ T3FSet χ z x, (LamTilde χ n - Λ n) * LamTilde χ (n + 2)
 
 open Classical in
+/-- The guarded T3 slice is a filter of the window `l2cWindow χ z x`
+(`Finset.filter_subset`). -/
 lemma T3FSet_subset_window (χ : DirichletCharacter ℂ q) (z x : ℕ) :
     T3FSet χ z x ⊆ l2cWindow χ z x := Finset.filter_subset _ _
 
@@ -173,7 +175,7 @@ lemma t3f_totient_ratio {P w : ℕ} (hP : P.Prime) (hw : w = 1 ∨ IsPrimePow w)
   have hφpos : (0 : ℝ) < (Nat.totient (P * w) : ℝ) := by
     exact_mod_cast Nat.totient_pos.mpr (by positivity)
   have hr : (P * w : ℝ) / (Nat.totient (P * w) : ℝ) ≤ 9 / 4 := by
-    rw [div_le_iff₀ hφpos]; nlinarith [hphi]
+    rw [div_le_iff₀ hφpos]; linarith only [hphi]
   calc ((P * w : ℝ) / (Nat.totient (P * w) : ℝ)) ^ 2
       ≤ (9 / 4 : ℝ) ^ 2 := pow_le_pow_left₀ (by positivity) hr 2
     _ = (81 / 16 : ℝ) := by norm_num
@@ -721,7 +723,7 @@ theorem EL_T3F_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : �
                 (pow_nonneg (z0_nonneg (x := x) hz2) 3)
               have hz0 := z0_nonneg (x := x) hz2
               have hl2 : 0 ≤ Real.log 2 := Real.log_nonneg (by norm_num)
-              nlinarith [mul_nonneg hl2 hz0]
+              linarith only [mul_nonneg hl2 hz0]
           _ ≤ Real.exp (5 * z0 z x) := exp_absorption hz2
     _ = 11943936 * ((x : ℝ) / Lwin x) * Real.exp (5 * z0 z x) * PretenseSum χ (2 * x + 2) := by
         ring

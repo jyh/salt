@@ -103,7 +103,7 @@ private lemma four_log_le_selfF {L : ℝ} (h : 64 ≤ L) : 4 * Real.log L ≤ L 
   have hlog : Real.log (Real.sqrt L) ≤ Real.sqrt L - 1 := Real.log_le_sub_one_of_pos hs0
   have hhalf : Real.log (Real.sqrt L) = Real.log L / 2 := Real.log_sqrt hL0.le
   have hsq : Real.sqrt L * Real.sqrt L = L := Real.mul_self_sqrt hL0.le
-  nlinarith
+  nlinarith only [hs0, hs8, hsq, hhalf, hlog]
 
 /-- `4·log L < L` for `L ≥ 64` — the STRICT form (`s² − 8s + 8 > 0` at `s = √L ≥ 8`). -/
 private lemma four_log_lt_selfF {L : ℝ} (h : 64 ≤ L) : 4 * Real.log L < L := by
@@ -117,7 +117,7 @@ private lemma four_log_lt_selfF {L : ℝ} (h : 64 ≤ L) : 4 * Real.log L < L :=
   have hlog : Real.log (Real.sqrt L) ≤ Real.sqrt L - 1 := Real.log_le_sub_one_of_pos hs0
   have hhalf : Real.log (Real.sqrt L) = Real.log L / 2 := Real.log_sqrt hL0.le
   have hsq : Real.sqrt L * Real.sqrt L = L := Real.mul_self_sqrt hL0.le
-  nlinarith
+  nlinarith only [hs0, hs8, hsq, hhalf, hlog]
 
 /-- The pin's elementary arithmetic at the `e^{64}` gate.  Re-derivation of `SupClose`'s
 private `pin_basic64S`, with `log y = 4 log L` and the STRICT gap `1/L < η` added. -/
@@ -136,8 +136,7 @@ private lemma pin_basic64F {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = R
     linarith
   have hlogy : Real.log y = 4 * Real.log L := by rw [hy, Real.log_pow]; norm_num
   have he2 : Real.exp 2 ≤ 64 := by
-    have h1 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 64) (by norm_num)
   have hlogL2 : (2 : ℝ) ≤ Real.log L := by
     rw [← Real.log_exp 2]; exact Real.log_le_log (Real.exp_pos 2) (by linarith)
   refine ⟨hk0, hL64, hy131072, hlogy, by rw [hη, hlogy]; positivity, ?_, ?_, ?_⟩
@@ -181,7 +180,7 @@ private lemma rhsFbound_zero_le {L σ : ℝ} (hσ0 : 0 < σ) (hσL : 1 ≤ σ * 
   have hexp_le : -(1 / (2 * Real.exp 1)) * (0 - 2 * Real.log (σ * L) - 48)
       ≤ Real.log (σ * L) + 24 / Real.exp 1 := by
     rw [hkey]
-    nlinarith
+    nlinarith only [hlog0, h2c]
   have hstep : Real.exp (-(1 / (2 * Real.exp 1)) * (0 - 2 * Real.log (σ * L) - 48))
       ≤ σ * L * Real.exp (24 / Real.exp 1) := by
     have hrw : σ * L * Real.exp (24 / Real.exp 1)

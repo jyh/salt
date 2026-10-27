@@ -76,7 +76,7 @@ lemma ten_log_le_sqrt {u : ℝ} (hu : 2560000 ≤ u) : 10 * Real.log u ≤ Real.
     rw [hlt]; linarith
   calc 10 * Real.log u ≤ 10 * (4 * s2) := by linarith
     _ = 40 * s2 := by ring
-    _ ≤ s2 * s2 := by nlinarith [hs2ge, hs2nn]
+    _ ≤ s2 * s2 := by nlinarith only [hs2nn, hs2ge]
     _ = s1 := hs2sq
 
 /-! ## The three-block decomposition of the central binomial coefficient -/
@@ -256,7 +256,7 @@ theorem primes_in_Ioc_eff :
     have hfloor : ((2 * y / 3 : ℕ) : ℝ) ≤ 2 / 3 * (y : ℝ) := by
       have h := Nat.div_mul_le_self (2 * y) 3
       have hc' := (Nat.cast_le (α := ℝ)).mpr h; push_cast at hc'; linarith
-    nlinarith [hfloor, hlog4nn]
+    nlinarith only [hlog4nn, hfloor]
   -- (C): the count lower bound, grouping `y·log4` as one atom
   have hC : 1 / 3 * ((y : ℝ) * Real.log 4) - Real.log (y : ℝ)
         - Real.sqrt (2 * (y : ℝ)) * Real.log (2 * (y : ℝ))
@@ -269,12 +269,12 @@ theorem primes_in_Ioc_eff :
   have hsqrtlog : Real.sqrt (2 * (y : ℝ)) * Real.log (2 * (y : ℝ))
       ≤ (2 * (y : ℝ)) / 10 := by
     have hten := ten_log_le_sqrt h2yge
-    nlinarith [hten, Real.sqrt_nonneg (2 * (y : ℝ)), Real.mul_self_sqrt h2y0.le]
+    nlinarith only [hten, hL2ynn, Real.mul_self_sqrt h2y0.le]
   have hlogy_small : Real.log (y : ℝ) ≤ (y : ℝ) / 100 := by
     have hteny := ten_log_le_sqrt hyge
     have hsqy : Real.sqrt (y : ℝ) ≤ (y : ℝ) / 10 := by
       rw [← Real.sqrt_sq (show (0 : ℝ) ≤ (y : ℝ) / 10 by positivity)]
-      exact Real.sqrt_le_sqrt (by nlinarith [hyge])
+      exact Real.sqrt_le_sqrt (by nlinarith only [hyge, (Nat.cast_nonneg _ : 0 ≤ ↑y)])
     linarith
   -- `c·log(2y) ≥ 0.252 y`, then `log(2y) ≤ 1.5 log y`, then `8 c log y ≥ y`
   have hClow : (252 / 1000 : ℝ) * (y : ℝ) ≤ (c : ℝ) * Real.log (2 * (y : ℝ)) := by
@@ -288,7 +288,7 @@ theorem primes_in_Ioc_eff :
     linarith
   have hc0 : (0 : ℝ) ≤ (c : ℝ) := Nat.cast_nonneg c
   have hcL : (c : ℝ) * Real.log (2 * (y : ℝ)) ≤ 3 / 2 * ((c : ℝ) * Real.log (y : ℝ)) := by
-    nlinarith [mul_le_mul_of_nonneg_left hL2y_le hc0]
+    linarith only [mul_le_mul_of_nonneg_left hL2y_le hc0]
   have hfinal : (y : ℝ) ≤ 8 * ((c : ℝ) * Real.log (y : ℝ)) := by linarith [hClow, hcL]
   rw [div_le_iff₀ (mul_pos (by norm_num) hLypos)]
   calc (y : ℝ) ≤ 8 * ((c : ℝ) * Real.log (y : ℝ)) := hfinal

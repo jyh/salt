@@ -95,7 +95,7 @@ lemma reflectedFactor_ne_zero {c ρ z : ℂ} (hρ : ‖ρ - c‖ < 3 / 2) (hz : 
   have heq : ((9 : ℂ) / 4) = (starRingEnd ℂ) (ρ - c) * (z - c) := sub_eq_zero.mp hnum
   have hlt : ‖(starRingEnd ℂ) (ρ - c) * (z - c)‖ < 9 / 4 := by
     rw [norm_mul, Complex.norm_conj]
-    nlinarith [hρ, hz, norm_nonneg (ρ - c), norm_nonneg (z - c)]
+    nlinarith only [hρ, hz, norm_nonneg (z - c)]
   rw [← heq] at hlt
   have hn : ‖(9 : ℂ) / 4‖ = 9 / 4 := by norm_num
   rw [hn] at hlt; linarith
@@ -115,13 +115,13 @@ lemma norm_logDeriv_reflectedFactor_le {c ρ s : ℂ} (hρ : ‖ρ - c‖ < 3 / 
   have hden : (21 : ℝ) / 40 ≤ ‖(9 : ℂ) / 4 - (starRingEnd ℂ) (ρ - c) * (s - c)‖ := by
     have h1 : ‖(starRingEnd ℂ) (ρ - c) * (s - c)‖ ≤ 69 / 40 := by
       rw [norm_mul, Complex.norm_conj]
-      nlinarith [hρ, hs, norm_nonneg (ρ - c), norm_nonneg (s - c)]
+      nlinarith only [hρ, hs, norm_nonneg (s - c)]
     have h2 := norm_sub_norm_le ((9 : ℂ) / 4) ((starRingEnd ℂ) (ρ - c) * (s - c))
     have h3 : ‖(9 : ℂ) / 4‖ = 9 / 4 := by norm_num
     rw [h3] at h2; linarith
   have hdenpos : (0 : ℝ) < ‖(9 : ℂ) / 4 - (starRingEnd ℂ) (ρ - c) * (s - c)‖ := by linarith
   rw [div_le_iff₀ hdenpos]
-  nlinarith [hρ, hden]
+  linarith only [hden, hρ]
 
 /-- Logarithmic derivative of the reflected Blaschke product `∏_{ρ∈Z} (reflectedFactor c ρ)^{m_ρ}`
 at `s`, as the multiplicity-weighted sum of per-factor logarithmic derivatives. -/
@@ -166,8 +166,8 @@ theorem norm_logDeriv_sub_sum_of_blaschke {L h : ℂ → ℂ} {c : ℂ} {M₀ : 
     ‖logDeriv L s - ∑ ρ ∈ Z, (m ρ : ℂ) / (s - ρ)‖ ≤ 120 * Real.log (4 * M₀) := by
   set Q : ℂ → ℂ := fun z => ∏ ρ ∈ Z, (reflectedFactor c ρ z) ^ (m ρ) with hQdef
   set g : ℂ → ℂ := fun z => h z * Q z with hgdef
-  have hLM_nonneg : 0 ≤ Real.log (4 * M₀) := Real.log_nonneg (by nlinarith [hM₀])
-  have hLM_pos : 0 < Real.log (4 * M₀) := Real.log_pos (by nlinarith [hM₀])
+  have hLM_nonneg : 0 ≤ Real.log (4 * M₀) := Real.log_nonneg (by linarith only [hM₀])
+  have hLM_pos : 0 < Real.log (4 * M₀) := Real.log_pos (by linarith only [hM₀])
   have hsball : s ∈ ball c (3 / 2) := by rw [mem_ball, dist_eq_norm]; linarith
   have hcball : c ∈ ball c (3 / 2) := mem_ball_self (by norm_num)
   -- analyticity of `Q`, `g`
@@ -284,8 +284,8 @@ theorem norm_logDeriv_sub_sum_of_blaschke {L h : ℂ → ℂ} {c : ℂ} {M₀ : 
     rw [div_le_iff₀ hgcpos]
     have h1 : ‖g (c + ζ)‖ ≤ M₀ := by
       have := hsup (c + ζ) hcζ; simpa [hgdef, hQdef] using this
-    nlinarith [h1, hgc_lb, hM₀,
-      mul_nonneg (by linarith [hgc_lb] : (0 : ℝ) ≤ ‖g c‖ - 1 / 4)
+    linarith only [h1, mul_nonneg
+        (by linarith [hgc_lb] : (0 : ℝ) ≤ ‖g c‖ - 1 / 4)
         (by linarith [hM₀] : (0 : ℝ) ≤ M₀)]
   -- Borel–Carathéodory: `‖logDeriv g s‖ ≤ 100·log(4M₀)`
   have hsc_ball : s - c ∈ ball (0 : ℂ) (3 / 2) := by rw [mem_ball_zero_iff]; linarith
@@ -328,7 +328,7 @@ theorem norm_logDeriv_sub_sum_of_blaschke {L h : ℂ → ℂ} {c : ℂ} {M₀ : 
     have hDiv_le : (20 / 7) * (Real.log (4 * M₀) / Real.log (7 / 6)) ≤ 20 * Real.log (4 * M₀) := by
       rw [mul_div_assoc']
       rw [div_le_iff₀ (by linarith : (0 : ℝ) < Real.log (7 / 6))]
-      nlinarith [hlog76, hLM_nonneg]
+      nlinarith only [hLM_nonneg, hlog76]
     linarith
   -- assemble
   rw [hident s hsball hLs]
@@ -383,10 +383,10 @@ theorem LFunction_norm_logDeriv_sub_sum {f : ℕ} [NeZero f] (χ : DirichletChar
     have ha : (4 : ℝ) ≤ 4 + |t₀| := by linarith [abs_nonneg t₀]
     have hp1nn : (0 : ℝ) ≤ 5 * (4 + |t₀|) := by linarith
     have p2 : (20 : ℝ) ≤ 5 * (4 + |t₀|) * Real.sqrt f := by
-      nlinarith [mul_nonneg hp1nn (by linarith [hsqrt1] : (0 : ℝ) ≤ Real.sqrt f - 1)]
+      linarith only [ha, mul_nonneg hp1nn (by linarith [hsqrt1] : (0 : ℝ) ≤ Real.sqrt f - 1)]
     have hp2nn : (0 : ℝ) ≤ 5 * (4 + |t₀|) * Real.sqrt f := by linarith
     have p3 : (20 : ℝ) ≤ 5 * (4 + |t₀|) * Real.sqrt f * (1 + Real.log f) := by
-      nlinarith [mul_nonneg hp2nn (by linarith [hlog2] : (0 : ℝ) ≤ (1 + Real.log f) - 1)]
+      linarith only [p2, mul_nonneg hp2nn (by linarith [hlog2] : (0 : ℝ) ≤ (1 + Real.log f) - 1)]
     rw [hM₀]; linarith [p3]
   obtain ⟨Z, m, h, hmemZ, hcount, hana_h, hne_h, hEqOn, hident⟩ :=
     LFunction_partialFraction χ hχ hf t₀

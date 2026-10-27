@@ -8,7 +8,7 @@ import Salt.MR.FlatDoorEpsRung2
 import Salt.Tactic.ExpLogNum
 import Mathlib
 
--- Needed to transcribe the stride builder's ceiling step (`StridePairReceipt.lean:93` opens the
+-- Needed to transcribe the stride builder's ceiling step (`StridePairReceipt.lean`'s head opens the
 -- same line for the same body).  MEASURED, not assumed: `#check @xceil_flat_P` and
 -- `#check @xceil_flat_step` both fail without this line (`Unknown identifier`).
 open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
@@ -399,7 +399,7 @@ theorem zCount_form {K : ℝ} {c h : ℕ} {L : ℝ} (hK0 : 0 < K)
   linarith
 
 /-- **Z3 — THE BUILDER'S CEILING ABSORBS `+L` WHERE IT ABSORBED `+9`.**  The landed step
-(`StridePairReceipt.lean:2712–2715`) is `log H₊ + 9/(30·u) ≤ H₊` at `u ≥ 2`; at Z the reserved room
+(the `_b9` builder's `hlogself`) is `log H₊ + 9/(30·u) ≤ H₊` at `u ≥ 2`; at Z the reserved room
 is `L ≤ log H₊` (from `L ≤ Lc ≤ loglog H₊ ≤ log H₊`), and `log H₊ ≤ H₊/10⁴ + 10⁴` pays it. -/
 theorem zBuilder_absorb_L {Hhi : ℕ} (hH4 : 4000000 ≤ Hhi) {u L : ℝ} (hu2 : 2 ≤ u)
     (hL0 : 0 ≤ L) (hLH : L ≤ Real.log ((Hhi : ℕ) : ℝ)) :
@@ -421,7 +421,7 @@ theorem zBuilder_absorb_L {Hhi : ℕ} (hH4 : 4000000 ≤ Hhi) {u L : ℝ} (hu2 :
 
 /-- **⟦THE SET DOOR IS MONOTONE UP IN ITS GRADE⟧** (`mrtUniformityXiL2Set_mono`) — the Set-door
 twin of `mrtUniformityXiL2_mono` (`FlatDoorEpsChain.lean:54`): `MRTUniformityXiL2Set Xi R ρ` is
-`∀ H …, Σ … ≤ ρ` (`StridePair.lean:337`), so a door at `ρ` is a door at any `ρ' ≥ ρ`. -/
+`∀ H …, Σ … ≤ ρ` (`StridePair.lean:361`), so a door at `ρ` is a door at any `ρ' ≥ ρ`. -/
 theorem mrtUniformityXiL2Set_mono {Xi : XiFamily} {R : ChowlaRegime} {ρ ρ' : ℝ}
     (hd : MRTUniformityXiL2Set Xi R ρ) (hle : ρ ≤ ρ') : MRTUniformityXiL2Set Xi R ρ' := by
   intro H _ hlo hhi
@@ -430,7 +430,7 @@ theorem mrtUniformityXiL2Set_mono {Xi : XiFamily} {R : ChowlaRegime} {ρ ρ' : �
 /-! ## §D — THE BUILDER PAIR AT THE CHARGE -/
 
 /-- **⟦THE STRIDE BUILDER AT THE CHARGE⟧** (`chowlaRegimeFlat_exists_param_gen_ceiling_mul_L`) —
-`chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9` (`StridePairReceipt.lean:2571`) with the stride's
+`chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9` (`StridePairReceipt.lean`) with the stride's
 numeral cap gone: (a) `hlogA : log a ≤ 9`, derived there from `a ≤ 8103`, is the BINDER
 `haL : log a ≤ L`; (b) the `+ 9` absorbed into the ceiling is `+ L`, closed by `zBuilder_absorb_L`
 where the landed proof closes `log H₊ + 9/(30u) ≤ H₊`, its room `L ≤ log H₊` derived from
@@ -609,7 +609,7 @@ theorem chowlaRegimeFlat_exists_param_gen_ceiling_mul_L (a : ℕ) (ha : 1 ≤ a)
 
 /-- **⟦THE STRIDE HEAD BUILDER AT THE CHARGE, ON THE PARAMETRIC RIDER⟧**
 (`chowlaRegimeFlat_exists_param_head_xceil_mul_at_L`) —
-`chowlaRegimeFlat_exists_param_head_xceil_mul_b9` (`StridePairReceipt.lean:2749`) on
+`chowlaRegimeFlat_exists_param_head_xceil_mul_b9` (`StridePairReceipt.lean`) on
 `chowlaRegimeFlat_exists_param_gen_ceiling_mul_L`, with the rider at the parametric floor `lam0` as
 rung 2's `chowlaRegimeFlat_exists_param_head_xceil_at` (`FlatDoorEpsRung2.lean:2900`) carries it:
 the `loglog` floor is `hll : lam0 ≤ loglog H₊`, proved from `hlamA : lam0 ≤ 3.2·A` and the design
@@ -896,7 +896,7 @@ theorem flat_roadExit_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L
   exact le_trans (hdoor H hlo hhi) hbudget
 
 /-- **⟦THE `j`-FLOOR AT THE CHARGE⟧** (`s13_g2_jfloor_of_MSelect'_L_gk_h_L`) —
-`s13_g2_jfloor_of_MSelect'_L_gk_h_b9` (`S16FlatTerminalLinear.lean:2574`) at `hhL : log h ≤ L`:
+`s13_g2_jfloor_of_MSelect'_L_gk_h_b9` (`S16FlatTerminalLinear.lean`) at `hhL : log h ≤ L`:
 the hypothesis carries the twist as `4·log h ≤ 4·L`, so `h1`'s `+ 36 = 4·9` is `+ 4·L`.  BODY:
 the source's, with `L` for `9`. -/
 theorem s13_g2_jfloor_of_MSelect'_L_gk_h_L {h : ℕ} (hh : 0 < h) {L : ℝ}
@@ -4851,14 +4851,14 @@ theorem flat_kswin_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L : 
 
 /-! ## §O — THE FOUR STRIDE LIFTS AT THE CHARGE (the freeze's row L1, this half's cell 21)
 
-The four `_b9` stride suppliers of `Salt/Entropy/Chowla/StridePair.lean` (`:842–1214`) read the
+The four `_b9` stride suppliers of `Salt/Entropy/Chowla/StridePair.lean` (`:871–1238`) read the
 numeral cap `a ≤ 8103` (or its consequence `log a ≤ 9`, or the pin floor
 `1/4051500 = 1/(500·8103)`) at exactly the sites named in each docstring below; the `_L` lifts
 replace each such site by a binder or by the design base, and are the sources' bodies VERBATIM
-elsewhere.  The landed `StridePair.lean` is not touched. -/
+elsewhere.  These lifts did not touch the landed `StridePair.lean`. -/
 
 /-- **⟦F3-P19 AT THE CHARGE⟧** (`loglog_mul_flatDesignBase_le_L`) —
-`loglog_mul_flatDesignBase_le_b9` (`StridePair.lean:842`) with `ha9 : log a ≤ 9` REPLACED by
+`loglog_mul_flatDesignBase_le_b9` (`StridePair.lean:871`) with `ha9 : log a ≤ 9` REPLACED by
 `haL : log a ≤ L` and `hLA : L ≤ A`.  The cap was read only in `hub`
 (`log a + log 2 + E ≤ 2E`); at the charge it closes from
 `hE519' : A + 1 ≤ exp (3.2·A)` (`Real.add_one_le_exp` and `A ≤ 3.2·A`):
@@ -4906,7 +4906,7 @@ theorem loglog_mul_flatDesignBase_le_L {A : ℝ} (hA : 162 ≤ A) {a : ℕ} (ha 
         rw [Real.log_mul (by norm_num) (Real.exp_ne_zero _), Real.log_exp]; ring
 
 /-- **⟦F3-P20 AT THE CHARGE⟧** (`flatDesignBase_clears_stride_floors_L`) —
-`flatDesignBase_clears_stride_floors_b9` (`StridePair.lean:885`) with the pin floor
+`flatDesignBase_clears_stride_floors_b9` (`StridePair.lean:914`) with the pin floor
 `1/4051500 = 1/(500·8103)` REPLACED by the form's own pin at the MULTIPLIER `k`,
 `1/(500·k) ≤ eps`, and `k` bounded through the charge (`log k ≤ L ≤ A`), plus the third floor
 `500000·k³ ≤ flatDesignBase A` that pays the shrink's `hcop` and `hHlo` at the terminal.  DERIVED:
@@ -4983,7 +4983,7 @@ theorem flatDesignBase_clears_stride_floors_L {A : ℝ} (hA : 162 ≤ A) {k : �
   exact Nat.mul_le_mul (le_refl 4) (Nat.pow_le_pow_left hceil 4)
 
 /-- **⟦F3-P3 AT THE CHARGE⟧ (def)** (`regimeShrinkX_stride_L`) — `regimeShrinkX_stride_b9`
-(`StridePair.lean:917`) with the stride cap `ha8103 : a ≤ 8103` GONE.  The source read it at exactly
+(`StridePair.lean:946`) with the stride cap `ha8103 : a ≤ 8103` GONE.  The source read it at exactly
 two sites, and BOTH are now HYPOTHESES of the def, paid by the caller at the terminal
 (`strideDoorAllGradesW_holds`, from `flatDesignBase_clears_stride_floors_L`'s third floor
 `500000·k³ ≤ flatDesignBase A` and the multiplier pin `1/(500·k) ≤ ε`): `hcop`
@@ -5063,7 +5063,7 @@ def regimeShrinkX_stride_L (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
           hPNTwindow := hPNT, hωbig := R.hωbig, hxbig := hs.2.2.2.2.2.2 }
 
 /-- **⟦F3-P4 AT THE CHARGE⟧** — the projection family of `regimeShrinkX_stride_L`, at the new binder
-list (`regimeShrinkX_stride_x_b9` and its siblings, `StridePair.lean:1010–1057`).  Each is `rfl`,
+list (`regimeShrinkX_stride_x_b9` and its siblings, `StridePair.lean:1042–1089`).  Each is `rfl`,
 as at the source. -/
 theorem regimeShrinkX_stride_x_L (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
@@ -5136,7 +5136,7 @@ theorem regimeShrinkX_stride_J_L (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
     (regimeShrinkX_stride_L R a ha heps500 hs hdiv hlo4 hloM hcop hHlo).J = R.J := by
   rfl
 
-/-- **⟦F3-P6 AT THE CHARGE⟧** — `regimeShrinkX_stride_x_mul_b9` (`StridePair.lean:1061`) at the
+/-- **⟦F3-P6 AT THE CHARGE⟧** — `regimeShrinkX_stride_x_mul_b9` (`StridePair.lean:1095`) at the
 lift, read through `regimeShrinkX_stride_x_L`. -/
 theorem regimeShrinkX_stride_x_mul_L (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
@@ -5148,7 +5148,7 @@ theorem regimeShrinkX_stride_x_mul_L (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
   exact Nat.div_mul_cancel hs.1
 
 /-- **⟦F3-P16 AT THE CHARGE⟧** (`mrtUniformityXiL2AffW_of_set_L`) —
-`mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1079`), which reads its stride cap ONLY inside
+`mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1113`), which reads its stride cap ONLY inside
 the regime terms (its `omega` for `hω2` does not spend it): the binder list is the def's
 (`hcop hHlo` where the source has `ha8103`), `regimeShrinkX_stride_b9 ↦ regimeShrinkX_stride_L` in
 `hb` and in the conclusion's regime.  BODY: the source's, verbatim. -/
@@ -5418,7 +5418,7 @@ theorem flat_chain_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L : 
 /-- **⟦THE COUNT FLOOR AT THE AFFINE FAMILY, CAP-FREE⟧** (`zCount_affine`) — the head's `hcount`
 (`flat_door_head_xceil_h_Z`, §E) at the grid-restricted affine family and the multiplier `a·h`:
 the cap-free leaf `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2235`, `C ≤ 2^283·c^20`)
-through `bigXiAffD_card_le` (`StridePair.lean:320`) and `bigXiAff_card_le_mul`
+through `bigXiAffD_card_le` (`StridePair.lean:344`) and `bigXiAff_card_le_mul`
 (`StrideFork.lean:379`) with the constant `(a·h)·C ≤ 2^283·c^20·(a·h)`.  G12b's
 `mrtUniformityXiL2AffSet_holds_flat_floor_g12b` `hcount` block (`:1127–1133`) with its capped pin
 leaf replaced by the cap-free one (the freeze's row K). -/

@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # λ-BV wave 2-S, step F3 — THE REGIME PAIRING (Entropy half): share the tower
 
-The affine seam `contradiction_of_mrtDoorXiL2Aff` (`StrideFork.lean:759`) consumes the `L²`
+The affine seam `contradiction_of_mrtDoorXiL2Aff` (`StrideFork.lean`) consumes the `L²`
 door at the AFFINE target regime `R_aff : ChowlaRegimeAff`, through `logMeasureAff R.a R.x R.ω`
 (the log-measure of `(x/ω, x]` pushed along `n ↦ a·n`) and the set `bigXiAff`.  The landed door
 supply is the road's own `∃ R` at a PLAIN regime `R_door` through `logMeasure R.x R.ω`.  The door
@@ -68,9 +68,9 @@ namespace Salt.Entropy.Chowla
 scale can be divided by `a`: `a ∣ x` and the six `x`-fields of `ChowlaRegime` (`Regime.lean`:
 `hx`, `hωx`, `hheadroom`, `hheadroom'`, `hPHheadroom`, `hxbig`) read at `x / a` with every other
 field the regime's own.  Produced on the MR side by the multiplier builder
-(`chowlaRegimeFlat_exists_param_gen_ceiling_mul`: `x := a·x₀`, the floors at `x₀` are the
-builder's own) and threaded INERT through the road (no hop reads `R.x` except through these
-fields and the ceiling).  Consumed by `regimeShrinkX_stride`. -/
+(`chowlaRegimeFlat_exists_param_gen_ceiling_mul`, from 2026-09-27 its `_b9` twin: `x := a·x₀`,
+the floors at `x₀` are the builder's own) and threaded INERT through the road (no hop reads
+`R.x` except through these fields and the ceiling).  Consumed by `regimeShrinkX_stride`. -/
 def StrideScale (a : ℕ) (R : ChowlaRegime) : Prop :=
   a ∣ R.x ∧ 2 ≤ R.x / a ∧ R.ω ≤ R.x / a ∧ R.Hhi ≤ R.x / a / R.ω ∧
     8 * (R.Hhi : ℝ) * Real.log R.Hhi * Real.log R.Hhi ≤ ((R.x / a / R.ω : ℕ) : ℝ) ∧
@@ -223,55 +223,62 @@ def regimeShrinkX_stride (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a
           hheadroom' := hs.2.2.2.2.1, hPHheadroom := hs.2.2.2.2.2.1,
           hPNTwindow := hPNT, hωbig := R.hωbig, hxbig := hs.2.2.2.2.2.2 }
 
-/-- **F3-P4 (class A ×8).**  The projections of the shrunk regime.  Each is `rfl` once F3-P3 is
+/-! ### SEVEN `rfl` PROJECTIONS OF `regimeShrinkX_stride` AT `a ≤ 1096` — RETIRED INTO CAP-9 TWINS
+
+⟦XY debt lane, family 50 (2026-10-11)⟧
+`regimeShrinkX_stride_x (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096) (heps500 : R.eps
+≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo) (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤
+R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) : (regimeShrinkX_stride R a ha ha1096 heps500 hs
+hdiv hlo4 hloM).x = R.x / a`, `regimeShrinkX_stride_omega (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
+(ha1096 : a ≤ 1096) (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
+(hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
+(regimeShrinkX_stride R a ha ha1096 heps500 hs hdiv hlo4 hloM).ω = R.ω`, `regimeShrinkX_stride_a (R
+: ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096) (heps500 : R.eps ≤ 1 / 500) (hs :
+StrideScale a R) (hdiv : a ∣ R.a * R.Hlo) (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a)
+(hloM : 4000000 ≤ R.a * R.Hlo / a) : (regimeShrinkX_stride R a ha ha1096 heps500 hs hdiv hlo4
+hloM).a = a`, `regimeShrinkX_stride_eps (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096)
+(heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo) (hlo4 : 4 * ⌈(1 / R.eps
+: ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) : (regimeShrinkX_stride R a ha
+ha1096 heps500 hs hdiv hlo4 hloM).eps = R.eps`, `regimeShrinkX_stride_Hhi (R : ChowlaRegime) (a : ℕ)
+(ha : 1 ≤ a) (ha1096 : a ≤ 1096) (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣
+R.a * R.Hlo) (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo /
+a) : (regimeShrinkX_stride R a ha ha1096 heps500 hs hdiv hlo4 hloM).Hhi = R.Hhi`,
+`regimeShrinkX_stride_C0 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096) (heps500 :
+R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo) (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4
+≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) : (regimeShrinkX_stride R a ha ha1096 heps500
+hs hdiv hlo4 hloM).C0 = R.C0` and `regimeShrinkX_stride_J (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
+(ha1096 : a ≤ 1096) (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
+(hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
+(regimeShrinkX_stride R a ha ha1096 heps500 hs hdiv hlo4 hloM).J = R.J` stood here.  They are
+`regimeShrinkX_stride_x_b9`, `regimeShrinkX_stride_omega_b9`, `regimeShrinkX_stride_a_b9`,
+`regimeShrinkX_stride_eps_b9`, `regimeShrinkX_stride_Hhi_b9`, `regimeShrinkX_stride_C0_b9` and
+`regimeShrinkX_stride_J_b9` (in ⟦β W1 E1⟧ below), the same projections of the cap-9 twin def
+`regimeShrinkX_stride_b9` with `(ha8103 : a ≤ 8103)` for `(ha1096 : a ≤ 1096)`; each twin's
+statement names that second def, so these are DEF-PROJECTION pairs, not the hypothesis-binder pairs
+of families 25–49 — the kernel identifies the two defs' projections (their data fields verbatim),
+and each twin implies its page by one call with the cap from `omega`, kernel-checked from each
+retired statement's own bytes before the removal was committed.  A consumer wanting one of these
+facts about `regimeShrinkX_stride R a ha ha1096 …` writes `exact <that twin> R a ha (by omega)
+heps500 hs hdiv hlo4 hloM` (or `rfl`): each twin closes its goal by unfolding, never by `rw`, since
+its statement names the cap-9 def.  (Families 25–49 retired pages whose cap sat in a hypothesis
+alone; where a twin existed it implied the page through `linarith`.)  Each body is `rfl`, as each
+twin's is.  At this retirement `regimeShrinkX_stride_x` had ONE call site, the body of
+`regimeShrinkX_stride_x_mul` (retired with it in this family; its twin calls `_x_b9`), and the other
+six had NONE; none of the seven had any other caller when the lane opened (main `93d7f312`,
+2026-09-25).  This retirement leaves no name without a caller.  `regimeShrinkX_stride_Hlo` (below)
+is NOT retired: it is called by `StridePairReceipt` and `StridePairReceiptG`; its twin stands beside
+the seven.
+
+The family's docstring, verbatim:
+
+**F3-P4 (class A ×8).**  The projections of the shrunk regime.  Each is `rfl` once F3-P3 is
 a `where`-structure (the executor writes F3-P3 as a structure literal, NOT a tactic block, so
 that these reduce); mark `@[simp]`. -/
-theorem regimeShrinkX_stride_x (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096)
-    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
-    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
-    (regimeShrinkX_stride R a ha ha1096 heps500 hs hdiv hlo4 hloM).x = R.x / a := by
-  rfl
-
-theorem regimeShrinkX_stride_omega (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096)
-    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
-    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
-    (regimeShrinkX_stride R a ha ha1096 heps500 hs hdiv hlo4 hloM).ω = R.ω := by
-  rfl
-
-theorem regimeShrinkX_stride_a (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096)
-    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
-    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
-    (regimeShrinkX_stride R a ha ha1096 heps500 hs hdiv hlo4 hloM).a = a := by
-  rfl
-
-theorem regimeShrinkX_stride_eps (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096)
-    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
-    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
-    (regimeShrinkX_stride R a ha ha1096 heps500 hs hdiv hlo4 hloM).eps = R.eps := by
-  rfl
 
 theorem regimeShrinkX_stride_Hlo (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
     (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
     (regimeShrinkX_stride R a ha ha1096 heps500 hs hdiv hlo4 hloM).Hlo = R.a * R.Hlo / a := by
-  rfl
-
-theorem regimeShrinkX_stride_Hhi (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096)
-    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
-    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
-    (regimeShrinkX_stride R a ha ha1096 heps500 hs hdiv hlo4 hloM).Hhi = R.Hhi := by
-  rfl
-
-theorem regimeShrinkX_stride_C0 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096)
-    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
-    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
-    (regimeShrinkX_stride R a ha ha1096 heps500 hs hdiv hlo4 hloM).C0 = R.C0 := by
-  rfl
-
-theorem regimeShrinkX_stride_J (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096)
-    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
-    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
-    (regimeShrinkX_stride R a ha ha1096 heps500 hs hdiv hlo4 hloM).J = R.J := by
   rfl
 
 /-- **F3-P5 (class A) — THE SHARED TOWER, AS A THEOREM.**  The stride-`a` tower from the shrunk
@@ -284,16 +291,33 @@ theorem regimeShrinkX_stride_tower (R : ChowlaRegime) (a : ℕ) (hdiv : a ∣ R.
   rw [chowlaTower_eq_base_one R.C0 a (R.a * R.Hlo / a) j, Nat.mul_div_cancel' hdiv]
   exact (chowlaTower_eq_base_one R.C0 R.a R.Hlo j).symm
 
-/-- **F3-P6 (class A).**  The scale is divided EXACTLY: `(x/a) * a = x` from `a ∣ x`
+/-! ### `regimeShrinkX_stride_x_mul` AT `a ≤ 1096` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 50 (2026-10-11)⟧
+`regimeShrinkX_stride_x_mul (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096) (heps500 :
+R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo) (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4
+≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) : (regimeShrinkX_stride R a ha ha1096 heps500
+hs hdiv hlo4 hloM).x * a = R.x` stood here.  It is `regimeShrinkX_stride_x_mul_b9` (in ⟦β W1 E1⟧
+below), the same lemma about the `x` projection of the cap-9 twin def `regimeShrinkX_stride_b9` with
+`(ha8103 : a ≤ 8103)` for `(ha1096 : a ≤ 1096)`; the twin's statement names that second def, so this
+is a DEF-PROJECTION pair, not the hypothesis-binder pair of families 25–49 — the kernel identifies
+the two defs' projections (their data fields verbatim), and the twin implies this page by one call
+with the cap from `omega`, kernel-checked from the retired statement's own bytes before the removal
+was committed.  A consumer wanting this fact about `regimeShrinkX_stride R a ha ha1096 …` writes
+`exact regimeShrinkX_stride_x_mul_b9 R a ha (by omega) heps500 hs hdiv hlo4 hloM`: the twin closes
+the goal by unfolding, never by `rw`, since its statement names the cap-9 def.  (Families 25–49
+retired pages whose cap sat in a hypothesis alone; where a twin existed it implied the page through
+`linarith`.)  The twin's body is this page's with ONE line changed: the `rw` of its supplier
+`regimeShrinkX_stride_x` (a projection of this family, retired with it) made the `rw` of
+`regimeShrinkX_stride_x_b9`.  At this retirement the page had NO call site, and none when the lane
+opened (main `93d7f312`, 2026-09-25).  This retirement leaves no name without a caller.
+
+The page's docstring, verbatim:
+
+**F3-P6 (class A).**  The scale is divided EXACTLY: `(x/a) * a = x` from `a ∣ x`
 (`Nat.div_mul_cancel hs.1`), read through `regimeShrinkX_stride_x`.  This is what makes the
 affine pushforward's top endpoint `a·(x/a) = x` the plain window's top endpoint, with no
 `⌊·⌋` corner at the top (the bottom corner is `sum_window_image_le`'s inclusion). -/
-theorem regimeShrinkX_stride_x_mul (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096)
-    (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
-    (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
-    (regimeShrinkX_stride R a ha ha1096 heps500 hs hdiv hlo4 hloM).x * a = R.x := by
-  rw [regimeShrinkX_stride_x R a ha ha1096 heps500 hs hdiv hlo4 hloM]
-  exact Nat.div_mul_cancel hs.1
 
 /-! ## F3-P7 — the affine set on the `a`-grid only -/
 
@@ -316,7 +340,7 @@ theorem bigXiAffD_of_dvd {a b h : ℕ} {eps : ℚ} {H : ℕ} [NeZero H] (hdvd : 
 
 /-- **F3-P7b (class A).**  The restricted set's cardinality never exceeds the affine set's:
 `split_ifs` — `le_rfl` on the grid, `Finset.card_empty ▸ Nat.zero_le` off it.  Feeds the count
-hook (`bigXiAff_bounded_ceiling_of_pin`, `StrideFork.lean:413`) to the road's `K`. -/
+hook (`bigXiAff_bounded_ceiling_of_pin_b9` of `StrideFork`) to the road's `K`. -/
 theorem bigXiAffD_card_le (a b h : ℕ) (eps : ℚ) (H : ℕ) [NeZero H] :
     (bigXiAffD a b h eps H).card ≤ (bigXiAff a b h eps H).card := by
   unfold bigXiAffD
@@ -350,7 +374,7 @@ theorem mrtUniformityXiL2Set_bigXiH_eq (h : ℕ) (R : ChowlaRegime) (ρ : ℝ) :
 /-! ## F3-P9 — THE STATEMENT ACT: the affine door at Tao's range -/
 
 /-- **F3-P9 (def, Fable statement act).**  The Ξ-summed `L²` door at `(a, b, h)` AT TAO'S RANGE:
-F1-D2 (`StrideFork.lean:652`) with the range `R.Hlo ≤ H` replaced by `R.a ∣ H ∧ R.a * R.Hlo ≤ H`
+F1-D2 (`StrideFork.lean`) with the range `R.Hlo ≤ H` replaced by `R.a ∣ H ∧ R.a * R.Hlo ≤ H`
 (textdump:1296-1300: `H ≡ 0 (mod a)`, `H ≥ a·H₋`).  Two reasons, both forced (freeze §3):
 (i) the affine tower windows START at `a·Hlo` (`Regime.lean:38`, index `0 = a·Hlo`) and the
 shared plain door covers `[R_door.Hlo, Hhi] = [a·Hlo_aff, Hhi]` only — the range `[Hlo_aff,
@@ -384,7 +408,7 @@ theorem mrtUniformityXiL2AffW_mono (h : ℕ) (R : ChowlaRegimeAff) {ρ ρ' : ℝ
   exact le_trans (hdoor H hdvd hlo hhi) hle
 
 /-- **F3-P11 (class A) — THE `L²` SEAM AT TAO'S RANGE.**  `contradiction_of_mrtDoorXiL2Aff`
-(`StrideFork.lean:759`) with the door fired at `hdvd hlo hhi`: `have hd := hdoor H hdvd hlo hhi;
+(`StrideFork.lean`) with the door fired at `hdvd hlo hhi`: `have hd := hdoor H hdvd hlo hhi;
 linarith`.  The entropy-side caller (F4) supplies `hdvd` from `dvd_chowlaTower` and `hlo` from the
 window's index `≥ a·Hlo`. -/
 theorem contradiction_of_mrtDoorXiL2AffW (h : ℕ) (R : ChowlaRegimeAff) {ρ c₀ ε : ℝ} {H : ℕ}
@@ -402,7 +426,7 @@ theorem contradiction_of_mrtDoorXiL2AffW (h : ℕ) (R : ChowlaRegimeAff) {ρ c�
 (the affine regime `ChowlaRegimeAff.ofRegime R 0 _` of a regime with `R.a = 1`) the windowed
 door is the landed `MRTUniformityXiL2H h`: `propext`; `1 ∣ H` is `one_dvd` and `1 * R.Hlo =
 R.Hlo` is `one_mul`, the set is `bigXiAff_one_zero`, the measure `logMeasureAff_one` — the body
-of `mrtUniformityXiL2H_eq_xiL2Aff_one_zero` (`StrideFork.lean:692`) with the two extra binders
+of `mrtUniformityXiL2H_eq_xiL2Aff_one_zero` (`StrideFork.lean`) with the two extra binders
 introduced and discharged.  Records that the range change is invisible at stride `1`, and
 nothing more (it cannot police the range at `a ≥ 2`; F3-P9's docstring carries the reasons). -/
 theorem mrtUniformityXiL2AffW_one_zero_eq (h : ℕ) (R : ChowlaRegime) (hR1 : R.a = 1) (ρ : ℝ) :
@@ -573,13 +597,15 @@ count, since `bigXiAffD = ∅` off the grid — the hypothesis is now the WEAKER
 uses): for each `ξ`, `f := ‖windowExpSum H · (−ξ/H)‖²` has `0 ≤ f ≤ H²`
 (`norm_windowExpSum_trivial`, `MRTDoor.lean:219`, opened `private` above — v2, A5: v1 cited a
 phantom name and an MR name unreachable from this module; `sq_nonneg`, `pow_le_pow_left`);
-`integral_logMeasureAff_le_plain` at `x' := Ra.x` (`regimeShrinkX_stride_x_mul` gives `a * Ra.x
-= Rd.x`, so the plain measure is `Rd`'s), multiply by `1/H²`, sum over `ξ ∈ bigXiAff`
-(`Finset.sum_le_sum`, `Finset.mul_sum`), the first sum is `≤ ρ` by `hdoor H hlo' hhi` (`hlo' :
-Rd.Hlo ≤ H` from `Rd.Hlo ≤ Rd.a * Rd.Hlo = a * Ra.Hlo ≤ H`), the second is `card · (H²/H²) ·
-a/((…)·Z) ≤ K·a/((…)·Z)` by `hK H hlo' hhi` after the same rewrite.  Ranges: `Ra.Hhi = Rd.Hhi`,
-`Ra.eps = Rd.eps`, `Ra.ω = Rd.ω`, `Ra.a = a`, `Ra.b = b` (the projections; `ofRegime` is `{ R with
-… }`).  `hω : 8 ≤ Rd.ω` from `Rd.hωbig` (`log ω ≥ 129`) — the caller's numeral. -/
+`integral_logMeasureAff_le_plain` at `x' := Ra.x` (`regimeShrinkX_stride_x_mul` gives
+`a * Ra.x = Rd.x`, so the plain measure is `Rd`'s) (2026-10-11: `regimeShrinkX_stride_x_mul` is
+retired into `regimeShrinkX_stride_x_mul_b9`, which gives the same by unfolding; its note stands in
+F3-P3), multiply by `1/H²`, sum over `ξ ∈ bigXiAff` (`Finset.sum_le_sum`, `Finset.mul_sum`), the
+first sum is `≤ ρ` by `hdoor H hlo' hhi` (`hlo' : Rd.Hlo ≤ H` from
+`Rd.Hlo ≤ Rd.a * Rd.Hlo = a * Ra.Hlo ≤ H`), the second is `card · (H²/H²) · a/((…)·Z) ≤ K·a/((…)·Z)`
+by `hK H hlo' hhi` after the same rewrite.  Ranges: `Ra.Hhi = Rd.Hhi`, `Ra.eps = Rd.eps`,
+`Ra.ω = Rd.ω`, `Ra.a = a`, `Ra.b = b` (the projections; `ofRegime` is `{ R with … }`).
+`hω : 8 ≤ Rd.ω` from `Rd.hωbig` (`log ω ≥ 129`) — the caller's numeral. -/
 theorem mrtUniformityXiL2AffW_of_set (h : ℕ) (Rd : ChowlaRegime) (a b : ℕ) (ha : 1 ≤ a)
     (ha1096 : a ≤ 1096) (heps500 : Rd.eps ≤ 1 / 500) (hs : StrideScale a Rd)
     (hdiv : a ∣ Rd.a * Rd.Hlo) (hlo4 : 4 * ⌈(1 / Rd.eps : ℚ)⌉₊ ^ 4 ≤ Rd.a * Rd.Hlo / a)
@@ -746,7 +772,7 @@ theorem strideEndpoint_le (K a Z : ℝ) (q ω : ℕ) (hK : 0 ≤ K) (ha : 0 ≤ 
 NOT fit the ONE consumer that reads `Hlo` from above: H6's `hbaseceil` (`DoorReceipt.lean:
 819-821` at `h = 1`; `flat_L_width_priced`'s `hbase`) wants `loglog Hlo ≤ 3.2·A + log 2`
 LITERALLY, with `log 2` of
-slack that `flatDesignBase_loglog_le` (`S16FlatTerminalLinear.lean:1535`) already spends on the
+slack that `flatDesignBase_loglog_le` (`S16FlatTerminalLinear.lean`) already spends on the
 `Nat.ceil` overshoot.  So the lemma is stated at the flat base with the factor `a` absorbed
 inside the ceiling's own margin: `log(a·B) = log a + log B ≤ 7 + (exp(3.2A) + log 2)` (the
 `B ≤ 2·exp(exp(3.2A))` step of `flatDesignBase_loglog_le`'s proof, re-derived: `B ≤ exp(exp(3.2A))
@@ -832,9 +858,12 @@ theorem flatDesignBase_clears_stride_floors {A : ℝ} (hA : 162 ≤ A) {eps : �
 
 Build freeze v2 v1.1 (2026-09-13) §3.0: at product cap 9 the crown derives `a ≤ a·h ≤ ⌊e⁹⌋ = 8103`
 and `ε ≥ 1/(500·8103) = 1/4051500`, and nothing more; every stride site below the composition is
-twinned there.  Additive only — every declaration above is untouched.  Each twin is its source's
+twinned there.  Additive at landing — no declaration above was touched.  Each twin is its source's
 statement and body with ONLY the raises `1096 ↦ 8103`, `log a ≤ 7 ↦ ≤ 9`, `548000 ↦ 4051500`,
-`10^24 ↦ 10^28`; no hypothesis is added and no conclusion weakened. -/
+`10^24 ↦ 10^28`; no hypothesis is added and no conclusion weakened.  2026-10-11: family 50 of the XY
+debt lane retired the seven F3-P4 `rfl` projections of `regimeShrinkX_stride` and the F3-P6 lemma
+`regimeShrinkX_stride_x_mul` into their twins here (two notes stand where they stood;
+`regimeShrinkX_stride_Hlo` stands). -/
 
 /-- **F3-P19 at `log a ≤ 9`** (`loglog_mul_flatDesignBase_le_b9`) — `loglog_mul_flatDesignBase_le`
 with `ha7 ↦ ha9`.  The cap is read only in `hub`: `log a + log 2 + E ≤ 2E` at `E ≥ 519`,
@@ -1006,7 +1035,10 @@ def regimeShrinkX_stride_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 
           hPNTwindow := hPNT, hωbig := R.hωbig, hxbig := hs.2.2.2.2.2.2 }
 
 /-- **F3-P4 at `a ≤ 8103`** — the projection family of `regimeShrinkX_stride_b9` (freeze §3.1
-rule 4: a `def` is twinned with its projections, in one layer).  Each is `rfl`, as at the source. -/
+rule 4: a `def` is twinned with its projections, in one layer).  Each is `rfl`, as at the source.
+2026-10-11: the seven cap-7 F3-P4 `rfl` projections of `regimeShrinkX_stride` (`_x`, `_omega`, `_a`,
+`_eps`, `_Hhi`, `_C0`, `_J`) are retired into these, noted where they stood, and the F3-P6 lemma
+`_x_mul` into `_x_mul_b9`; `regimeShrinkX_stride_Hlo` stands. -/
 theorem regimeShrinkX_stride_x_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 : a ≤ 8103)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
     (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
@@ -1056,8 +1088,10 @@ theorem regimeShrinkX_stride_J_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (h
     (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).J = R.J := by
   rfl
 
-/-- **F3-P6 at `a ≤ 8103`** — `regimeShrinkX_stride_x_mul` at the twin, read through
-`regimeShrinkX_stride_x_b9`. -/
+/-- **F3-P6 at `a ≤ 8103`** — `regimeShrinkX_stride_x_mul` at the twin (the former
+`regimeShrinkX_stride_x_mul`, at `a ≤ 1096`, retired into this, 2026-10-11) — SUPPLIER-SWAP
+(`regimeShrinkX_stride_x_b9`).  BODY: the retired page's, with one line changed (its note stands
+above, in F3-P3). -/
 theorem regimeShrinkX_stride_x_mul_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
     (ha8103 : a ≤ 8103)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)

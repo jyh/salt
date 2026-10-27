@@ -118,7 +118,7 @@ theorem zeta_block_vdC_prefix_twist (k : ℕ) (hk : 2 ≤ k)
       have hnat : 2 * (i + 1) ≤ 2 ^ (i + 1) := two_mul_le_two_pow (i + 1) (by omega)
       have hnatR : (2 : ℝ) * ((i : ℝ) + 1) ≤ (2 : ℝ) ^ (i + 1) := by
         have h := (Nat.cast_le (α := ℝ)).mpr hnat; push_cast at h; linarith
-      rw [← mul_div_assoc, div_le_iff₀ hpp]; push_cast; nlinarith [hnatR]
+      rw [← mul_div_assoc, div_le_iff₀ hpp]; push_cast; linarith only [hnatR]
     calc (3 : ℝ) ^ (((i + 1 : ℕ) : ℝ) * (4 / (2 : ℝ) ^ (i + 1)))
         ≤ (3 : ℝ) ^ (2 : ℝ) := Real.rpow_le_rpow_of_exponent_le (by norm_num) hle2
       _ = 9 := by rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]; norm_num
@@ -162,7 +162,7 @@ theorem zeta_block_vdC_prefix_twist (k : ℕ) (hk : 2 ≤ k)
     add_nonneg (mul_nonneg hxNnn hlamα)
       (mul_nonneg (Real.rpow_nonneg hxNnn _) hlamnα)
   have hcoef : 16 * cc ^ (4 / (2 : ℝ) ^ (i + 1)) ≤ 144 := by
-    nlinarith [hcc9, hcc0]
+    linarith only [hcc9]
   calc 16 * cc ^ (4 / (2 : ℝ) ^ (i + 1))
         * (((x : ℝ) - (N : ℤ)) * lam ^ α + ((x : ℝ) - (N : ℤ)) ^ βe * lam ^ (-α))
       ≤ 144 * (((x : ℝ) - (N : ℤ)) * lam ^ α
@@ -426,7 +426,7 @@ theorem zeta_seam_prefix_twist (t : ℝ) (N : ℕ) (x : ℤ) (β : ℝ) (hN3 : 3
       ring
     calc (N : ℝ) ^ (-2 : ℝ) * (2 * π * (((2 * N + 3 : ℕ) : ℝ) ^ 3))
         ≤ 54 * π * (N : ℝ) := by rw [← hB]; exact hA
-      _ ≤ 2 * t := by nlinarith [hlo]
+      _ ≤ 2 * t := by linarith only [hlo]
   have hrlo : (N : ℝ) ^ (-3 + 8 / (2 : ℝ) ^ 3) ≤ lam := by
     rw [show (-3 + 8 / (2 : ℝ) ^ 3 : ℝ) = -2 by norm_num]
     rw [← hlam_eq] at hcore_lo
@@ -447,8 +447,8 @@ theorem zeta_seam_prefix_twist (t : ℝ) (N : ℕ) (x : ℤ) (β : ℝ) (hN3 : 3
       ring
     calc 2 * t ≤ (N : ℝ) ^ 2 := by linarith [hhi]
       _ ≤ 16 * π * (N : ℝ) ^ 2 := by
-          nlinarith [mul_nonneg (show (0 : ℝ) ≤ 16 * π - 1 by linarith [Real.pi_gt_three])
-            (sq_nonneg (N : ℝ))]
+          linarith only [mul_nonneg
+              (show (0 : ℝ) ≤ 16 * π - 1 by linarith [Real.pi_gt_three]) (sq_nonneg (N : ℝ))]
       _ = (N : ℝ) ^ (-1 : ℝ) * (2 * π * (8 * (N : ℝ) ^ 3)) := hEq.symm
       _ ≤ (N : ℝ) ^ (-1 : ℝ) * (2 * π * (((2 * N + 3 : ℕ) : ℝ) ^ 3)) := hstep
   have hrhi : lam ≤ (N : ℝ) ^ (-1 : ℝ) := by
@@ -487,26 +487,26 @@ theorem zeta_patch_prefix_twist (t : ℝ) (N : ℕ) (x : ℤ) (β : ℝ) (hN2 : 
     rw [Real.rpow_neg (le_of_lt hlam_pos), hsqrt1, ← Real.sqrt_inv]
   have hD2ge : (4 : ℝ) * (N : ℝ) ^ 2 ≤ ((2 * N + 2 : ℕ) : ℝ) ^ 2 := by
     have h : 2 * (N : ℝ) ≤ ((2 * N + 2 : ℕ) : ℝ) := by push_cast; linarith
-    nlinarith [pow_le_pow_left₀ (by positivity : (0:ℝ) ≤ 2 * (N:ℝ)) h 2]
+    linarith only [pow_le_pow_left₀ (by positivity : (0 : ℝ) ≤ 2 * (N : ℝ)) h 2]
   have hD2le : ((2 * N + 2 : ℕ) : ℝ) ^ 2 ≤ 9 * (N : ℝ) ^ 2 := by
     have h : ((2 * N + 2 : ℕ) : ℝ) ≤ 3 * (N : ℝ) := by
       have : (2 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN2
       push_cast; linarith
-    nlinarith [pow_le_pow_left₀ hDpos.le h 2]
+    linarith only [pow_le_pow_left₀ hDpos.le h 2]
   have hNlam : (N : ℝ) * lam ≤ 27 / 8 := by
     rw [hlam2]
     rw [mul_div_assoc', div_le_iff₀ (by positivity)]
     have hNt : (N : ℝ) * t ≤ 27 * π * (N : ℝ) ^ 2 := by
-      nlinarith [mul_le_mul_of_nonneg_left hhi (Nat.cast_nonneg (α := ℝ) N)]
+      linarith only [mul_le_mul_of_nonneg_left hhi (Nat.cast_nonneg (α := ℝ) N)]
     have hRHS : 27 * π * (N : ℝ) ^ 2 ≤ 27 / 8 * (2 * π * ((2 * N + 2 : ℕ) : ℝ) ^ 2) := by
-      nlinarith [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr hD2ge)]
+      linarith only [mul_nonneg (le_of_lt Real.pi_pos) (sub_nonneg.mpr hD2ge)]
     linarith
   have hT1 : (N : ℝ) * lam ^ (1 / 2 : ℝ) ≤ 1.84 * (N : ℝ) ^ (1 / 2 : ℝ) := by
     rw [hsqrt1, hsqrtN]
     have hT1eq : (N : ℝ) * Real.sqrt lam = Real.sqrt ((N : ℝ) ^ 2 * lam) := by
       rw [Real.sqrt_mul (sq_nonneg (N : ℝ)) lam, Real.sqrt_sq (Nat.cast_nonneg N)]
     have hle : (N : ℝ) ^ 2 * lam ≤ 3.3856 * (N : ℝ) := by
-      nlinarith [hNlam, Nat.cast_nonneg (α := ℝ) N]
+      nlinarith only [hNlam, hNRpos, (Nat.cast_nonneg _ : 0 ≤ ↑N)]
     rw [hT1eq]
     calc Real.sqrt ((N : ℝ) ^ 2 * lam)
         ≤ Real.sqrt (3.3856 * (N : ℝ)) := Real.sqrt_le_sqrt hle
@@ -518,12 +518,12 @@ theorem zeta_patch_prefix_twist (t : ℝ) (N : ℕ) (x : ℤ) (β : ℝ) (hN2 : 
       rw [hlam2, inv_div]
     rw [hlaminv_eq, div_le_iff₀ htpos]
     have step1 : 2 * π * ((2 * N + 2 : ℕ) : ℝ) ^ 2 ≤ 18 * π * (N : ℝ) ^ 2 := by
-      nlinarith [hD2le, Real.pi_pos]
+      nlinarith only [hNRpos, hhi, hD2le, hlo, (Nat.cast_nonneg _ : 0 ≤ ↑N)]
     have step2 : 18 * π * (N : ℝ) ^ 2 ≤ 56.5504 * (N : ℝ) * t := by
       have hpiN : 18 * π * (N : ℝ) ^ 2 ≤ 56.5504 * (N : ℝ) ^ 2 := by
-        nlinarith [Real.pi_lt_d6, sq_nonneg (N : ℝ)]
+        nlinarith only [Real.pi_lt_d6, sq_nonneg ↑N, sq_nonneg ↑N]
       have hNt : 56.5504 * (N : ℝ) ^ 2 ≤ 56.5504 * (N : ℝ) * t := by
-        nlinarith [hlo, Nat.cast_nonneg (α := ℝ) N]
+        nlinarith only [hlo, (Nat.cast_nonneg _ : 0 ≤ ↑N)]
       linarith
     linarith [step1, step2]
   have hT2 : lam ^ (-(1 / 2) : ℝ) ≤ 7.52 * (N : ℝ) ^ (1 / 2 : ℝ) := by
@@ -578,12 +578,12 @@ theorem zeta_lowt_prefix_twist (t : ℝ) (N : ℕ) (x : ℤ) (β : ℝ) (hN2 : 2
     rw [Real.rpow_neg (le_of_lt hlam_pos), hsqrt1, ← Real.sqrt_inv]
   have hD2ge : (4 : ℝ) * (N : ℝ) ^ 2 ≤ ((2 * N + 2 : ℕ) : ℝ) ^ 2 := by
     have h : 2 * (N : ℝ) ≤ ((2 * N + 2 : ℕ) : ℝ) := by push_cast; linarith
-    nlinarith [pow_le_pow_left₀ (by positivity : (0:ℝ) ≤ 2 * (N:ℝ)) h 2]
+    linarith only [pow_le_pow_left₀ (by positivity : (0 : ℝ) ≤ 2 * (N : ℝ)) h 2]
   have hD2le : ((2 * N + 2 : ℕ) : ℝ) ^ 2 ≤ 9 * (N : ℝ) ^ 2 := by
     have h : ((2 * N + 2 : ℕ) : ℝ) ≤ 3 * (N : ℝ) := by
       have : (2 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN2
       push_cast; linarith
-    nlinarith [pow_le_pow_left₀ hDpos.le h 2]
+    linarith only [pow_le_pow_left₀ hDpos.le h 2]
   -- term 1:  N·√λ = √(N²λ) ≤ √N, since N²λ ≤ t/(8π) ≤ N
   have hT1 : (N : ℝ) * lam ^ (1 / 2 : ℝ) ≤ Real.sqrt (N : ℝ) := by
     rw [hsqrt1]
@@ -594,10 +594,10 @@ theorem zeta_lowt_prefix_twist (t : ℝ) (N : ℕ) (x : ℤ) (β : ℝ) (hN2 : 2
       have h1 : (N : ℝ) ^ 2 * t ≤ (N : ℝ) ^ 2 * (N : ℝ) :=
         mul_le_mul_of_nonneg_left hle (sq_nonneg (N : ℝ))
       have hD8 : 8 * π * (N : ℝ) ^ 2 ≤ 2 * π * ((2 * N + 2 : ℕ) : ℝ) ^ 2 := by
-        nlinarith [hD2ge, Real.pi_pos]
+        nlinarith only [hD2ge, Real.pi_pos]
       have hcube : (0 : ℝ) ≤ (N : ℝ) ^ 3 := by positivity
       have h2 : (N : ℝ) ^ 2 * (N : ℝ) ≤ (N : ℝ) * (8 * π * (N : ℝ) ^ 2) := by
-        nlinarith [mul_nonneg (show (0 : ℝ) ≤ 8 * π - 1 by linarith [Real.pi_gt_three]) hcube]
+        linarith only [mul_nonneg (show (0 : ℝ) ≤ 8 * π - 1 by linarith [Real.pi_gt_three]) hcube]
       have h3 : (N : ℝ) * (8 * π * (N : ℝ) ^ 2)
           ≤ (N : ℝ) * (2 * π * ((2 * N + 2 : ℕ) : ℝ) ^ 2) :=
         mul_le_mul_of_nonneg_left hD8 hNRpos.le
@@ -611,7 +611,7 @@ theorem zeta_lowt_prefix_twist (t : ℝ) (N : ℕ) (x : ℤ) (β : ℝ) (hN2 : 2
     have hlaminv_eq : lam⁻¹ = 2 * π * ((2 * N + 2 : ℕ) : ℝ) ^ 2 * t⁻¹ := by
       rw [hlam2, inv_div, div_eq_mul_inv]
     have hnum : 2 * π * ((2 * N + 2 : ℕ) : ℝ) ^ 2 ≤ 57 * (N : ℝ) ^ 2 := by
-      nlinarith [hD2le, Real.pi_lt_d6, sq_nonneg (N : ℝ)]
+      nlinarith only [hD2le, Real.pi_lt_d6, sq_nonneg ↑(2 * N + 2), sq_nonneg ↑N]
     have hinv : lam⁻¹ ≤ 57 * (N : ℝ) ^ 2 * t⁻¹ := by
       rw [hlaminv_eq]
       exact mul_le_mul_of_nonneg_right hnum (inv_nonneg.mpr ht0.le)
@@ -625,7 +625,7 @@ theorem zeta_lowt_prefix_twist (t : ℝ) (N : ℕ) (x : ℤ) (β : ℝ) (hN2 : 2
       have h57 : Real.sqrt 57 ≤ 7.6 := by
         rw [show (7.6 : ℝ) = Real.sqrt (7.6 ^ 2) from (Real.sqrt_sq (by norm_num)).symm]
         exact Real.sqrt_le_sqrt (by norm_num)
-      nlinarith [Nat.cast_nonneg (α := ℝ) N, Real.sqrt_nonneg (57 : ℝ)]
+      nlinarith only [h57, (Nat.cast_nonneg _ : 0 ≤ ↑N)]
     calc Real.sqrt lam⁻¹ ≤ Real.sqrt (57 * (N : ℝ) ^ 2) * (Real.sqrt t)⁻¹ := by
           rw [← heq]; exact hstep
       _ ≤ (7.6 * (N : ℝ)) * (Real.sqrt t)⁻¹ :=
@@ -644,6 +644,6 @@ theorem zeta_lowt_prefix_twist (t : ℝ) (N : ℕ) (x : ℤ) (β : ℝ) (hN2 : 2
         have h2 : (1095 : ℝ) * (N : ℝ) / Real.sqrt t = 1095 * ((N : ℝ) / Real.sqrt t) := by
           ring
         rw [h2]
-        nlinarith [hd]
+        linarith only [hd]
 
 end Salt.ExpSum

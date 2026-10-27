@@ -11,7 +11,7 @@ import Mathlib
 
 **S-3 (salt QUEUE P1; council 2026-09-14 afternoon ⑩) — FROZEN STATEMENT-ONLY at `74afa591`, PROVED
 in the §6 wave the same day: 6 obligations, 6 landed, every statement byte-identical to the freeze.
-HONEST LABEL, FIRST LINE: NO NEW UNCONDITIONAL THEOREM.**  S-3 restates S-1's crown band
+HONEST LABEL, FIRST LINE: NO NEW MATHEMATICS.**  S-3 restates S-1's crown band
 `mrtUniformityXiL2AffW_holds_flat_stride_g12b_band` (`TierSBand.lean:1619`) with the margin `ε`,
 the design constant `A` AND the band `(x₀, ω₀, Hhi₀)` bound ABOVE the class quantifier `∀ b < a`.
 It exports a uniformity that is already TRUE of every landed witness and STATED by no landed
@@ -52,7 +52,7 @@ namespace Salt.MR
 /-! ## §0 — the class-union family and its four class-A gates (the route's owed names) -/
 
 /-- **⟦S-3 U0⟧ (def) — THE CLASS-UNION FAMILY.**  At stride `a` and shift `h`, the union over the
-classes `b < a` of the grid-restricted affine sets `bigXiAffD a b h` (`StridePair.lean:306`).
+classes `b < a` of the grid-restricted affine sets `bigXiAffD a b h` (`StridePair.lean:330`).
 `b`-free by construction; each class's set is a subset (U1).  Off the grid (`¬ a ∣ H`) every
 member is `∅`, so the union is `∅` there too, as the road's `∀ H ∈ [Hlo, Hhi]` door needs. -/
 def bigXiAffU (a h : ℕ) : XiFamily :=
@@ -66,7 +66,7 @@ theorem bigXiAffD_subset_bigXiAffU (a b h : ℕ) (hb : b < a) (eps : ℚ) (H : �
   exact Finset.subset_biUnion_of_mem (fun b => bigXiAffD a b h eps H) (Finset.mem_range.mpr hb)
 
 /-- **⟦S-3 U2⟧ (class A) — THE UNION'S COUNT GATE AT THE PIN.**
-`bigXiAff_bounded_ceiling_of_pin_b9` (`StrideFork.lean:807`) with `a` copies:
+`bigXiAff_bounded_ceiling_of_pin_b9` (`StrideFork.lean`) with `a` copies:
 `Finset.card_biUnion_le` + `Finset.sum_le_card_nsmul` over `range a`, each class at
 `bigXiAffD_card_le` + `bigXiAff_card_le_mul` (the per-class bound is `a·h·|bigXi|`, `b`-FREE), so
 the witness is `a ·` the landed one and `H₀ = 2` again.  The numeral:
@@ -158,9 +158,9 @@ theorem bigXiAffU_bounded_ceiling_of_pin_b9 (a h : ℕ) (ha : 0 < a) (hh : 0 < h
             * (500 * ((a * h : ℕ) : ℝ)) ^ (10 : ℕ) * ((a * h : ℕ) : ℝ)) := by ring
 
 /-- **⟦S-3 U3⟧ (class A/B) — THE UNION IS ARC-TIGHT.**  `nearRatTight_of_bigXiAffD`
-(`StridePairReceipt.lean:605`) at every class, with ONE threshold: its `H₀` is
-`nearRatTight_of_bigXiArcTight harc heps`'s (obtained at `:524` inside
-`nearRatTight_of_bigXiAffArcTight`, `:520`), read at the PLAIN set and `b`-FREE, so
+(`StridePairReceipt.lean`) at every class, with ONE threshold: its `H₀` is
+`nearRatTight_of_bigXiArcTight harc heps`'s (obtained inside
+`nearRatTight_of_bigXiAffArcTight`), read at the PLAIN set and `b`-FREE, so
 either take `Finset.sup` over `range a` of the per-class thresholds (`Classical.choose` +
 `Finset.le_sup`, ~15 lines) or transcribe `nearRatTight_of_bigXiAffArcTight` with `intro b` moved
 inside `∃ H₀` (~60 lines, one line moved).  A member of the union is a member of SOME class's set
@@ -184,9 +184,9 @@ theorem nearRatTight_of_bigXiAffU {B₅ : ℝ} (harc : BigXiArcTight B₅)
     (nearRatTight_of_bigXiAffD (a := a) (b := b) (h := h) harc heps ha hh) H hle ξ hξb
 
 /-- **⟦S-3 U4⟧ (class A) — THE SET DOOR IS MONOTONE UNDER A POINTWISE-SUBSET FAMILY.**  Each
-summand of `MRTUniformityXiL2Set` (`StridePair.lean:337`) is `(1/H²)·∫‖…‖²`, non-negative
+summand of `MRTUniformityXiL2Set` (`StridePair.lean:361`) is `(1/H²)·∫‖…‖²`, non-negative
 (`integral_nonneg`, `sq_nonneg`, `norm_nonneg`), so `Finset.sum_le_sum_of_subset_of_nonneg` (the
-corpus's own move at `:497`) bounds the sub-family's sum by the family's, at every `H`. -/
+corpus's own move at `:521`) bounds the sub-family's sum by the family's, at every `H`. -/
 theorem mrtUniformityXiL2Set_of_subset (Xi Xi' : XiFamily)
     (hsub : ∀ (eps : ℚ) (H : ℕ) [NeZero H], Xi eps H ⊆ Xi' eps H) (R : ChowlaRegime) (ρ : ℝ)
     (hd : MRTUniformityXiL2Set Xi' R ρ) : MRTUniformityXiL2Set Xi R ρ := by
@@ -240,7 +240,7 @@ scale `N` for all `r ∈ admClasses P`).
 
 Route (`TierSBandU` header; not fired): C2 at the union (U5) in place of C2 at the class, the
 crown band's body verbatim to the band witnesses `⟨ε, A, …, Rd.x / a, Rd.ω, Rd.Hhi, …⟩`, then
-`intro b hba` and the per-class transport `mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1079`)
+`intro b hba` and the per-class transport `mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1113`)
 with its `hK` from the union's count gate through U1 (`Finset.card_le_card`) and its `hdoor` from
 the union's door through U4 ∘ U1.  Everything else in the crown band's proof is `b`-free or
 `b`-local (`hb0`, `hbRe`).  The witnesses `ε, A, x₀, ω₀, Hhi₀` are the crown band's own, read at

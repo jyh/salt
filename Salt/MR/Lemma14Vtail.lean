@@ -362,7 +362,7 @@ theorem xTentT_norm_le {X : ℝ} (hX : 0 < X) (θ : ℝ) :
     Real.sqrt_le_sqrt (by linarith)
   have hden : (1 : ℝ) + θ ^ 2 ≤ ‖((1 : ℂ) + (θ : ℂ) * I) * ((2 : ℂ) + (θ : ℂ) * I)‖ := by
     rw [norm_mul, hz1, hz2]
-    nlinarith [Real.sqrt_nonneg (1 + θ ^ 2)]
+    nlinarith only [hmono, hsq, Real.sqrt_nonneg (1 + θ ^ 2)]
   have hdpos : (0 : ℝ) < ‖((1 : ℂ) + (θ : ℂ) * I) * ((2 : ℂ) + (θ : ℂ) * I)‖ := by
     have : (0 : ℝ) < 1 + θ ^ 2 := by positivity
     linarith
@@ -388,9 +388,9 @@ theorem xTentT_norm_le {X : ℝ} (hX : 0 < X) (θ : ℝ) :
             norm_num
             ring
   rw [xTentT_eq hX, norm_div, div_le_div_iff₀ hdpos (by positivity)]
-  nlinarith [norm_nonneg (((X / 2 : ℝ) : ℂ) ^ ((1 : ℂ) + (θ : ℂ) * I)
-    - 8 * ((2 * X : ℝ) : ℂ) ^ ((1 : ℂ) + (θ : ℂ) * I)
-    + 7 * ((7 * X / 2 : ℝ) : ℂ) ^ ((1 : ℂ) + (θ : ℂ) * I))]
+  nlinarith only [hX,
+      hden, hnum,
+      sq_nonneg θ]
 
 lemma xTentT_continuous {X : ℝ} (hX : 0 < X) : Continuous (xTentT X) := by
   have hfun : xTentT X = fun θ : ℝ =>
@@ -763,7 +763,7 @@ theorem tailT_weighted_mean_sq {A : ℝ → ℂ} (hA : Continuous A) {X α β : 
           ((hQc.uncurry_left t₂).const_mul (1 / 2))).intervalIntegrable α β)
         (fun t₁ _ => ?_)
       have hnn : (0 : ℝ) ≤ ‖xTentT X (t₁ - t₂)‖ := norm_nonneg _
-      nlinarith [sq_nonneg (‖A t₂‖ - ‖A t₁‖), norm_nonneg (A t₂), norm_nonneg (A t₁)]
+      nlinarith only [hnn, sq_nonneg (‖A t₂‖ - ‖A t₁‖)]
     refine hsum.trans ?_
     rw [intervalIntegral.integral_add
       (((hPc.uncurry_left t₂).const_mul (1 / 2)).intervalIntegrable α β)
@@ -852,7 +852,7 @@ theorem tailT_mean_sq_bound {A : ℝ → ℂ} (hA : Continuous A) {X α β : ℝ
       ≤ ∫ u in X..(3 * X), xTent X u * ‖tailT A α β u‖ ^ 2 := by
     refine intervalIntegral.integral_mono_on (by linarith) hi1 hi2 (fun u hu => ?_)
     rw [Set.mem_Icc] at hu
-    nlinarith [one_le_xTent hX hu.1 hu.2, sq_nonneg ‖tailT A α β u‖]
+    nlinarith only [one_le_xTent hX hu.1 hu.2, sq_nonneg ‖tailT A α β u‖]
   have hstep2 : (∫ u in X..(3 * X), xTent X u * ‖tailT A α β u‖ ^ 2)
       ≤ ∫ u in (X / 2)..(7 * X / 2), xTent X u * ‖tailT A α β u‖ ^ 2 :=
     intervalIntegral.integral_mono_interval (by linarith) (by linarith) (by linarith)
@@ -885,7 +885,7 @@ lemma sq_intervalIntegral_le {G : ℝ → ℝ} {a b : ℝ} (hab : a ≤ b)
   rw [hexp] at hnn
   have hmL : m * (b - a) = ∫ u in a..b, G u := by
     rw [hm]; field_simp
-  nlinarith [hnn, hmL, hL]
+  nlinarith only [hmL, hab, hnn]
 
 /-- **V8a — the pointwise `Vⱼ` weighted-difference bound.**  Using `vSeg_eq_tailT_integral`
 (the `Vⱼ` object is `I` times the average of `F` over `[x, x+hⱼ]`), Cauchy–Schwarz on each
@@ -933,7 +933,7 @@ theorem vSeg_diff_sq_le {A : ℝ → ℂ} (hA : Continuous A) {x h₁ h₂ α β
   set b : ℂ := ((1 / h₂ : ℝ) : ℂ) * vSeg A x h₂ α β with hb
   have hsq : ‖a - b‖ ^ 2 ≤ (‖a‖ + ‖b‖) ^ 2 :=
     pow_le_pow_left₀ (norm_nonneg _) (norm_sub_le a b) 2
-  nlinarith [hsq, h1, h2, sq_nonneg (‖a‖ - ‖b‖)]
+  linarith only [hsq, h2, h1, sq_nonneg (‖a‖ - ‖b‖)]
 
 /-- The `max`-regularized tail transform: globally continuous, equal to `tailT` on `[c,∞)`. -/
 def tailTr (A : ℝ → ℂ) (α β c u : ℝ) : ℂ := tailT A α β (max u c)

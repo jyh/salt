@@ -195,7 +195,7 @@ lemma near_norm_logDeriv_entire_le {F : ℂ → ℂ} (hF : Differentiable ℂ F)
           have hd := hdist' ρ hρ
           have hdpos : 0 < ‖s - ρ‖ := lt_of_lt_of_le hw hd
           rw [div_le_div_iff₀ hdpos hw]
-          nlinarith [Nat.cast_nonneg (α := ℝ) (m ρ), hd]
+          nlinarith only [hd, (Nat.cast_nonneg _ : 0 ≤ ↑(m ρ))]
       _ = (∑ ρ ∈ Z, (m ρ : ℝ)) / w := by rw [Finset.sum_div]
   have h76 : 0 < Real.log (7 / 6) := Real.log_pos (by norm_num)
   have hcount' : (∑ ρ ∈ Z, (m ρ : ℝ)) / w ≤ (Real.log (4 * M₀) / Real.log (7 / 6)) / w := by
@@ -272,7 +272,7 @@ lemma LFunction_crude_growth {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q
     have h : 1 / z.re ≤ 2 := by rw [div_le_iff₀ hzre]; linarith
     linarith
   have hznn : (0 : ℝ) ≤ ‖z‖ := norm_nonneg _
-  have hfac : (1 : ℝ) + ‖z‖ * (1 + 1 / z.re) ≤ 1 + 3 * ‖z‖ := by nlinarith [hinv, hznn]
+  have hfac : (1 : ℝ) + ‖z‖ * (1 + 1 / z.re) ≤ 1 + 3 * ‖z‖ := by nlinarith only [hinv, hznn]
   have hstep : (q : ℝ) * (1 + ‖z‖ * (1 + 1 / z.re)) ≤ (q : ℝ) * (1 + 3 * ‖z‖) :=
     mul_le_mul_of_nonneg_left hfac (by linarith)
   calc ‖LFunction χ z‖ ≤ ‖(1 : ℂ)‖ + ‖LFunction χ z - 1‖ := by
@@ -331,7 +331,7 @@ lemma twisted_disc_engine {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q) (
     have hgz := hgrowth z hre1 hre2 him
     exact LFunction_ratio_bound ψ hΘ0 hΘ12 hM hgz
   have hM₀1 : (1 : ℝ) ≤ 5 * M / Θ := by
-    rw [le_div_iff₀ hΘ0]; nlinarith [hM, hΘ12, hΘ0]
+    rw [le_div_iff₀ hΘ0]; linarith only [hwΘ, hw0, hM, hΘ12]
   have hR74 : (7 : ℝ) / 4 * lam ≤ 3 * Θ / 2 := by rw [hlamdef]; linarith
   have hR32 : (3 : ℝ) / 2 * lam ≤ 3 * Θ / 2 := by rw [hlamdef]; linarith
   have hsphere74 := hsph (7 / 4 * lam) (by positivity) hR74
@@ -344,8 +344,8 @@ lemma twisted_disc_engine {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q) (
     have hb := abs_le.mp hx
     rw [abs_le]
     constructor
-    · rw [hlamdef]; nlinarith [hb.1, hwΘ, hΘ0]
-    · rw [hlamdef]; nlinarith [hb.2, hwΘ, hΘ0]
+    · rw [hlamdef]; linarith only [hb, hwΘ]
+    · rw [hlamdef]; linarith only [hb, hwΘ, hw0]
   -- the min-distance and the point's own nonvanishing
   have hdistb : ∀ ρ : ℂ, LFunction ψ ρ = 0 → ρ ∈ ball c₀ (3 / 2 * lam) → w ≤ ‖s - ρ‖ := by
     intro ρ hρ0 hρball
@@ -449,8 +449,8 @@ lemma twisted_edge_disc_core {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q
     rw [hD4def]
     have h1 : ℓT ≤ ℓT ^ (4 : ℕ) := by
       have h3 : (1 : ℝ) ≤ ℓT ^ (3 : ℕ) := one_le_pow₀ hℓT1
-      nlinarith [mul_le_mul_of_nonneg_left h3 hℓTpos.le]
-    nlinarith [h1, pow_nonneg hℓTpos.le 4]
+      linarith only [mul_le_mul_of_nonneg_left h3 hℓTpos.le]
+    nlinarith only [hLT34, h1, hsc_thr, hc_vk]
   set w : ℝ := (c_vk / 2) / D4 with hwdef
   have hw0 : 0 < w := by rw [hwdef]; positivity
   -- === the height-`γ` scales ===
@@ -493,7 +493,7 @@ lemma twisted_edge_disc_core {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q
   have hTpos : 0 < T := by linarith
   have hL3_2LT : L3 ≤ 2 * LT := by
     have h1 : (3 : ℝ) * |γ| ≤ (5 * T + 1) ^ 2 := by
-      nlinarith [hγT, hTpos, sq_nonneg (5 * T - 1)]
+      linarith only [hEbig, hγT, hγfloor, sq_nonneg (5 * T - 1)]
     calc L3 ≤ Real.log ((5 * T + 1) ^ 2) := by
           rw [hL3def]; exact Real.log_le_log (by positivity) h1
       _ = 2 * LT := by rw [Real.log_pow, ← hLTdef]; push_cast; ring
@@ -515,7 +515,7 @@ lemma twisted_edge_disc_core {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q
     rw [hPinvdef]
     have h1 : (1 : ℝ) ≤ L3 ^ ((3 : ℝ) / 4) := Real.one_le_rpow hL31 (by norm_num)
     have h2 : (1 : ℝ) ≤ ℓ3 ^ (2 : ℕ) := one_le_pow₀ (by linarith)
-    nlinarith [h1, h2]
+    nlinarith only [h1, h2, sq_nonneg ℓ3]
   have hΘ12 : Θ ≤ 1 / 2 := by
     rw [hΘPinv, div_le_div_iff₀ hPinvpos (by norm_num)]; linarith
   have hPinv5 : Pinv ≤ 8000 * (LT ^ ((3 : ℝ) / 4) * ℓT ^ (2 : ℕ)) := by
@@ -528,7 +528,7 @@ lemma twisted_edge_disc_core {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q
               calc (2 : ℝ) ^ ((3 : ℝ) / 4) ≤ (2 : ℝ) ^ (1 : ℝ) :=
                     Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
                 _ = 2 := Real.rpow_one 2
-            nlinarith [h2, Real.rpow_nonneg hLTpos.le ((3 : ℝ) / 4)]
+            nlinarith only [hLT34, h2]
     have hℓ3sq : ℓ3 ^ (2 : ℕ) ≤ 4 * ℓT ^ (2 : ℕ) := by
       calc ℓ3 ^ (2 : ℕ) ≤ (2 * ℓT) ^ (2 : ℕ) := pow_le_pow_left₀ hℓ3pos.le hℓ3_2ℓT 2
         _ = 4 * ℓT ^ (2 : ℕ) := by ring
@@ -541,7 +541,7 @@ lemma twisted_edge_disc_core {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q
   set Cq : ℝ := vkStripConst q with hCqdef
   have hCq1 : (1 : ℝ) ≤ Cq := by rw [hCqdef]; exact one_le_vkStripConst
   set M : ℝ := Cq * (1 + L3) with hMdef
-  have hM1 : (1 : ℝ) ≤ M := by rw [hMdef]; nlinarith [hCq1, hL31]
+  have hM1 : (1 : ℝ) ≤ M := by rw [hMdef]; nlinarith only [hL3eq, hCq1, hlog3nn, hLg100, hexp100]
   have hgrowth : ∀ z : ℂ, 1 - Θ ≤ z.re → z.re ≤ 2 → |z.im - γ| ≤ 3 / 4 →
       ‖LFunction ψ z‖ ≤ M := by
     intro z hre1 hre2 him
@@ -571,12 +571,12 @@ lemma twisted_edge_disc_core {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q
     have hstep : 4000 * c_vk / ℓT ^ (2 : ℕ) ≤ 17 / 35 := by
       rw [div_le_div_iff₀ hℓTsq (by norm_num : (0 : ℝ) < 35)]
       have hsq : ℓT ^ (2 : ℕ) = ℓT * ℓT := by ring
-      nlinarith [hsc_thr, hℓT100, hc_vk, hsq]
+      nlinarith only [hsc_thr, hc_vk, hℓT100]
     linarith [hkey, hstep]
   have hwΘ : w ≤ 17 * Θ / 35 := by
     rw [hΘPinv, show (17 : ℝ) * (1 / Pinv) / 35 = 17 / (35 * Pinv) by field_simp,
       le_div_iff₀ (by positivity)]
-    nlinarith [hwPinv, hPinvpos]
+    linarith only [hwPinv]
   -- === the strip datum and the margin ===
   have hx : |x - 1| ≤ w := by
     rw [abs_le]; constructor <;> linarith [hxlb, hxub]
@@ -624,7 +624,7 @@ lemma twisted_edge_disc_core {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q
   have hW0 : 0 ≤ W := by
     rw [hWdef, h20M]
     apply Real.log_nonneg
-    nlinarith [hPinv2, hM1, hPinvpos]
+    nlinarith only [hPinvpos, hM1, hPinv2]
   -- term 1
   have hterm1 : 140 * Pinv * W ≤ 10 ^ 8 * D5 := by
     have hPW : Pinv * W ≤ 8000 * (LT ^ ((3 : ℝ) / 4) * ℓT ^ (2 : ℕ)) * (8 * ℓT) :=
@@ -635,7 +635,7 @@ lemma twisted_edge_disc_core {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q
       rw [hD5def]
       refine mul_le_mul_of_nonneg_left ?_ hLT34pos.le
       exact pow_le_pow_right₀ hℓT1 (by norm_num)
-    nlinarith [hPW, heq, hstep, hD5pos]
+    linarith only [hstep, hPW, hD5pos]
   -- term 2
   have hterm2 : (W / Real.log (7 / 6)) / w ≤ 200 / c_vk * D5 := by
     have h76pos : 0 < Real.log (7 / 6) := Real.log_pos (by norm_num)
@@ -645,8 +645,8 @@ lemma twisted_edge_disc_core {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q
       linarith
     have hWlog : W / Real.log (7 / 6) ≤ 56 * ℓT := by
       rw [div_le_iff₀ h76pos]
-      nlinarith [hWub, mul_nonneg (by positivity : (0 : ℝ) ≤ 56 * ℓT) (sub_nonneg.mpr h76ge),
-        hℓTpos, hW0]
+      linarith only [hWub,
+          mul_nonneg (by positivity : (0 : ℝ) ≤ 56 * ℓT) (sub_nonneg.mpr h76ge)]
     have h1w : (1 : ℝ) / w = 2 * D4 / c_vk := by rw [hwdef]; field_simp
     rw [div_eq_mul_one_div (W / Real.log (7 / 6)) w, h1w]
     have hstep : W / Real.log (7 / 6) * (2 * D4 / c_vk) ≤ 56 * ℓT * (2 * D4 / c_vk) :=
@@ -673,7 +673,7 @@ def twistedEdgeLowConst : ℝ := Real.log (40 * (2 + 3 * (Real.exp (Real.exp 100
 lemma twistedEdgeLowConst_pos : 0 < twistedEdgeLowConst := by
   rw [twistedEdgeLowConst]
   apply Real.log_pos
-  nlinarith [Real.exp_pos (Real.exp 100)]
+  linarith only [Real.exp_pos (Real.exp 100)]
 
 set_option maxHeartbeats 1600000 in
 -- The moderate leg's closing arithmetic (the log q / loglog absorption at the fixed scale) needs
@@ -732,17 +732,17 @@ lemma twisted_edge_moderate {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q)
     rw [hD4def]
     have h1 : ℓT ≤ ℓT ^ (4 : ℕ) := by
       have h3 : (1 : ℝ) ≤ ℓT ^ (3 : ℕ) := one_le_pow₀ hℓT1
-      nlinarith [mul_le_mul_of_nonneg_left h3 hℓTpos.le]
-    nlinarith [h1, pow_nonneg hℓTpos.le 4]
+      linarith only [mul_le_mul_of_nonneg_left h3 hℓTpos.le]
+    nlinarith only [hLT34, h1, hsc_thr, hc_vk]
   have hD41 : (1 : ℝ) ≤ D4 := by linarith
   have hD5geℓT : ℓT ≤ D5 := by rw [← hD4ℓT]; nlinarith [hD41, hℓTpos]
   have hD51 : (1 : ℝ) ≤ D5 := by linarith
-  have hD4D5 : 100 * D4 ≤ D5 := by rw [← hD4ℓT]; nlinarith [hD4pos, hℓT100]
+  have hD4D5 : 100 * D4 ≤ D5 := by rw [← hD4ℓT]; nlinarith only [hℓT100, hD4pos]
   set w : ℝ := (c_vk / 2) / D4 with hwdef
   have hw0 : 0 < w := by rw [hwdef]; positivity
   have hwsmall : w ≤ 1 / 18000 := by
     rw [hwdef, div_le_div_iff₀ hD4pos (by norm_num : (0 : ℝ) < 18000)]
-    nlinarith [hsc_thr, hD4geℓT, hc_vk]
+    linarith only [hD4geℓT, hsc_thr]
   -- the fixed scale
   set Θ : ℝ := 1 / 2 with hΘdef
   have hΘ0 : 0 < Θ := by rw [hΘdef]; norm_num
@@ -788,7 +788,7 @@ lemma twisted_edge_moderate {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q)
   set W : ℝ := Real.log (40 * M) with hWdef
   -- `W ≤ log q + twistedEdgeLowConst`
   have hWub : W ≤ Real.log (q : ℝ) + twistedEdgeLowConst := by
-    have hMle : M ≤ (q : ℝ) * (2 + 3 * Zb) := by rw [hMdef]; nlinarith [hq1, hZb0]
+    have hMle : M ≤ (q : ℝ) * (2 + 3 * Zb) := by rw [hMdef]; linarith only [hq1]
     have hstep : W ≤ Real.log (40 * ((q : ℝ) * (2 + 3 * Zb))) := by
       rw [hWdef]
       refine Real.log_le_log (by positivity) ?_
@@ -800,11 +800,11 @@ lemma twisted_edge_moderate {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q)
     rw [twistedEdgeLowConst, hZbdef] at *
     linarith [hstep, heq]
   have hW0 : 0 ≤ W := by
-    rw [hWdef]; apply Real.log_nonneg; nlinarith [hM1]
+    rw [hWdef]; apply Real.log_nonneg; linarith only [hM1, hwsmall, hw0]
   have hlogq : Real.log (q : ℝ) ≤ ℓT / 8 := by
     have h1 : Real.log (q : ℝ) ≤ Real.log (40000 * vkStripConst q) := by
       refine Real.log_le_log (by linarith) ?_
-      rw [vkStripConst]; nlinarith [hq1]
+      rw [vkStripConst]; linarith only [hq1, hwsmall, hw0]
     linarith [hqgate]
   set Cl : ℝ := twistedEdgeLowConst with hCldef
   have hCl0 : 0 < Cl := by rw [hCldef]; exact twistedEdgeLowConst_pos
@@ -814,7 +814,7 @@ lemma twisted_edge_moderate {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q)
     have h1 : 280 * W ≤ 280 * (ℓT / 8 + Cl) := by linarith
     have h2 : 280 * (ℓT / 8 + Cl) = 35 * ℓT + 280 * Cl := by ring
     have h3 : 35 * ℓT ≤ 35 * D5 := by linarith [hD5geℓT]
-    have h4 : 280 * Cl ≤ 280 * Cl * D5 := by nlinarith [hCl0, hD51]
+    have h4 : 280 * Cl ≤ 280 * Cl * D5 := by nlinarith only [hD5geℓT, hCl0, hℓT100, hsc_thr, hc_vk]
     linarith [h1, h2, h3, h4]
   -- term 2
   have hterm2 : (W / Real.log (7 / 6)) / w ≤ (2 + Cl) * (1 / c_vk) * D5 := by
@@ -825,7 +825,7 @@ lemma twisted_edge_moderate {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q)
       linarith
     have hWlog : W / Real.log (7 / 6) ≤ 7 * W := by
       rw [div_le_iff₀ h76pos]
-      nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 7 * W) (sub_nonneg.mpr h76ge), hW0]
+      linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ 7 * W) (sub_nonneg.mpr h76ge)]
     have h1w : (1 : ℝ) / w = 2 * D4 / c_vk := by rw [hwdef]; field_simp
     rw [div_eq_mul_one_div (W / Real.log (7 / 6)) w, h1w]
     have hstep : W / Real.log (7 / 6) * (2 * D4 / c_vk) ≤ 7 * W * (2 * D4 / c_vk) :=
@@ -835,10 +835,10 @@ lemma twisted_edge_moderate {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q)
     rw [heq]
     have hbnd : 14 * W * D4 ≤ (2 + Cl) * D5 := by
       have hA : 14 * W * D4 ≤ 14 * (ℓT / 8 + Cl) * D4 := by
-        nlinarith [hWfin, hD4pos]
+        nlinarith only [hD4pos, hWub, hlogq]
       have hB : 14 * (ℓT / 8 + Cl) * D4 = (7 / 4) * (D4 * ℓT) + 14 * Cl * D4 := by ring
       have hC : 14 * Cl * D4 ≤ Cl * D5 := by
-        nlinarith [hD4D5, hCl0, hD4pos]
+        nlinarith only [hD4D5, hCl0, hD4geℓT, hsc_thr, hc_vk]
       rw [hD4ℓT] at hB
       linarith [hA, hB, hC, hD5pos]
     have hcinv : (0 : ℝ) < 1 / c_vk := by positivity
@@ -854,7 +854,7 @@ lemma twisted_edge_moderate {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q)
     have h1 : 280 * Cl + 35 ≤ 300 * Cl + 300 := by linarith
     have h2 : (2 + Cl) * (1 / c_vk) ≤ (300 * Cl + 300) * (1 / c_vk) := by
       apply mul_le_mul_of_nonneg_right _ hc1.le; linarith
-    nlinarith [h1, h2, hD5pos]
+    nlinarith only [hD5pos, h2, hCl0, hℓT100, hsc_thr, hD4geℓT, hc_vk, hwsmall, hw0]
   calc ‖logDeriv (LFunction ψ) ((x : ℂ) + (γ : ℂ) * I)‖
       ≤ 280 * W + (W / Real.log (7 / 6)) / w := hkey
     _ ≤ (280 * Cl + 35) * D5 + (2 + Cl) * (1 / c_vk) * D5 := by linarith [hterm1, hterm2]
@@ -904,7 +904,7 @@ theorem twisted_edge_price_strip :
   have hexp100 : (101 : ℝ) ≤ Real.exp 100 := by linarith [Real.add_one_le_exp (100 : ℝ)]
   have hEpos : (0 : ℝ) < Real.exp (Real.exp 100) := Real.exp_pos _
   have hE5T : Real.exp (Real.exp 100) ≤ 5 * T + 1 := by
-    have := hT; nlinarith [hEpos]
+    have := hT; linarith only [hEpos, hT]
   have hLT100 : Real.exp 100 ≤ Real.log (5 * T + 1) := by
     rw [← Real.log_exp (Real.exp 100)]; exact Real.log_le_log hEpos hE5T
   have hℓT100 : (100 : ℝ) ≤ Real.log (Real.log (5 * T + 1)) := by
@@ -1019,7 +1019,7 @@ lemma norm_logDeriv_LFunction_cline_le {q : ℕ} [NeZero q] (χ : DirichletChara
           rw [Complex.norm_real, Real.norm_eq_abs,
             abs_of_nonneg ArithmeticFunction.vonMangoldt_nonneg]
         rw [h2]
-        nlinarith [ArithmeticFunction.vonMangoldt_nonneg (n := n), norm_nonneg (χ (n : ZMod q))]
+        nlinarith only [h1, ArithmeticFunction.vonMangoldt_nonneg (n := n)]
       have hpos : (0 : ℝ) < (n : ℝ) ^ x :=
         Real.rpow_pos_of_pos (by exact_mod_cast hn) x
       rw [div_le_div_iff_of_pos_right hpos]
@@ -1169,7 +1169,7 @@ theorem twisted_window_price_gated_holds :
   have hD4pos : 0 < D4 := by rw [hD4def]; positivity
   have hD5pos : 0 < D5 := by rw [hD5def]; positivity
   have hD41 : (1 : ℝ) ≤ D4 := by
-    rw [hD4def]; nlinarith [hLT34, one_le_pow₀ hℓT1 (n := 4)]
+    rw [hD4def]; nlinarith only [hLT34, one_le_pow₀ hℓT1 (n := 4)]
   have hD4leD5 : D4 ≤ D5 := by
     rw [hD4def, hD5def]
     refine mul_le_mul_of_nonneg_left ?_ hLT34pos.le
@@ -1223,7 +1223,7 @@ theorem twisted_window_price_gated_holds :
     · have hmr := hmargin (s - (u : ℂ) * I) hz0 hshim
       rw [hsre'] at hmr
       have hlt : (c_vk / 2) / D4 < c_vk / D4 := by
-        rw [div_lt_div_iff₀ hD4pos hD4pos]; nlinarith [hc_vk0, hD4pos]
+        rw [div_lt_div_iff₀ hD4pos hD4pos]; nlinarith only [hc_vk0, hD4pos]
       have hσs : σ₀ ≤ s.re := hsre.1
       rw [hσ₀def, hwdef] at hσs
       linarith [hmr, hlt]
@@ -1371,7 +1371,7 @@ theorem twisted_window_price_gated_holds :
         rw [show (9 : ℝ) = (3 : ℝ) ^ (2 : ℝ) by
           rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]; norm_num]
         exact Real.rpow_le_rpow_of_exponent_le (by norm_num) (by linarith [hσ₀1])
-      nlinarith [h3, hPσ0nn]
+      nlinarith only [hPσ0nn, h3, hc_vkval, hc_vk0]
     have hLL : ∀ v : ℝ, v ∈ Set.Icc (-Tp) Tp →
         ‖(- logDeriv (LFunction ψ) (((σ₀ : ℂ) + (v : ℂ) * I) - (u : ℂ) * I))‖ ≤ CE * D5 := by
       intro v hv
@@ -1426,7 +1426,7 @@ theorem twisted_window_price_gated_holds :
           rw [MeasureTheory.integral_const_mul, Salt.SW.integral_inv_sq_add hσ₀0]
       _ ≤ CL * P * Real.exp (-(c_vk / 2) * Real.log P / D4) * D5 := by
           have hπσ₀ : Real.pi / σ₀ ≤ 2 * Real.pi := by
-            rw [div_le_iff₀ hσ₀0]; nlinarith [Real.pi_pos, hσ₀half]
+            rw [div_le_iff₀ hσ₀0]; nlinarith only [hCLpos, hwle, hCE0]
           have hexpnn : (0 : ℝ) ≤ Real.exp (-(c_vk / 2) * Real.log P / D4) := (Real.exp_pos _).le
           rw [hPσ₀]
           have hfac_nn : (0 : ℝ) ≤ 22 * (P * Real.exp (-(c_vk / 2) * Real.log P / D4)) := by
@@ -1443,7 +1443,7 @@ theorem twisted_window_price_gated_holds :
   have h1w_inv : (1 : ℝ) / w ≤ 2 / c_vk * D5 := by
     have he : (1 : ℝ) / w = 2 * D4 / c_vk := by rw [hwdef, one_div_div]; ring
     rw [he, show (2 : ℝ) / c_vk * D5 = 2 * D5 / c_vk by ring, div_le_div_iff₀ hc_vk0 hc_vk0]
-    nlinarith [hD4leD5, hc_vk0]
+    nlinarith only [hc_vk0, hD4leD5]
   have hLhoriz : ∀ x τ : ℝ, σ₀ ≤ x → x ≤ c → |τ| = Tp →
       ‖(- logDeriv (LFunction ψ) (((x : ℂ) + (τ : ℂ) * I) - (u : ℂ) * I))‖ ≤ Cζ * D5 := by
     intro x τ hxl hxu hτ
@@ -1490,7 +1490,7 @@ theorem twisted_window_price_gated_holds :
         _ ≤ 2 / c_vk * D5 + |C₀z| * D5 := by
             have h1 : |C₀z| ≤ |C₀z| * D5 := by nlinarith [abs_nonneg C₀z, hD51]
             linarith [h1w_inv, h1]
-        _ ≤ Cζ * D5 := by rw [hCζdef]; nlinarith [hD5pos, hCE0]
+        _ ≤ Cζ * D5 := by rw [hCζdef]; nlinarith only [hCE0, hD5pos, hc_vkval, hc_vk0]
   have hkerhoriz : ∀ x τ : ℝ, σ₀ ≤ x → x ≤ c → |τ| = Tp →
       ‖windowMellin P ((x : ℂ) + (τ : ℂ) * I)‖ ≤ Kc * P / (9 * T ^ 2) := by
     intro x τ hxl hxu hτ
@@ -1529,10 +1529,10 @@ theorem twisted_window_price_gated_holds :
           _ = Real.exp 1 * P := hPc
       have hPxnn : (0 : ℝ) ≤ (P : ℝ) ^ x := Real.rpow_nonneg hP0.le x
       rw [hKcdef]
-      nlinarith [h3x, hPxc, hPxnn, Real.rpow_nonneg (by norm_num : (0 : ℝ) ≤ 3) ((Real.log 2)⁻¹),
-        mul_nonneg (Real.rpow_nonneg (by norm_num : (0 : ℝ) ≤ 3) ((Real.log 2)⁻¹)) hP0.le]
+      nlinarith only [hPxc, h3x, hPxnn, hc_vkval, hc_vk0,
+          Real.rpow_nonneg (by norm_num : (0 : ℝ) ≤ 3) ((Real.log 2)⁻¹)]
     have hinv : (x ^ 2 + τ ^ 2)⁻¹ ≤ (9 * T ^ 2)⁻¹ := by
-      rw [hτ2]; apply inv_anti₀ (by positivity); nlinarith [sq_nonneg x]
+      rw [hτ2]; apply inv_anti₀ (by positivity); linarith only [sq_nonneg x]
     calc (2 * (2 * P + P) ^ (x + 1) / P + 2 * (P / 2 + P / 2) ^ (x + 1) / (P / 2))
             * (x ^ 2 + τ ^ 2)⁻¹
         ≤ (Kc * P) * (9 * T ^ 2)⁻¹ :=

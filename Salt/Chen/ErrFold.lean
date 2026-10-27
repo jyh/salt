@@ -19,7 +19,7 @@ structure of the second — `hErrSum`, the summed α/β coprimality error — vi
 
 The crude bound `‖A_d − A⋆‖ ≤ #{m ≤ X : gcd(m,d) > 1}` makes the naive `d`-sum
 `∑_{d≤D}(1/φd)(∑_{p∣d}X/p)·Y ≈ XY·D` — **too big by `D`** (giving `(XY)^{3/2}/(log)^B`).
-The honest fix is the `e`-fold, which this file lands.
+The honest fix is the `e`-fold; this file lands its structure, the per-`e` bound named.
 
 ## What this file lands (sorry-free)
 
@@ -65,8 +65,8 @@ remaining analytic core).  `EfoldTerm e` is another instance of the C3c″ energ
 `∑_e 1/(e·φe) < ∞` — the `1/e²` envelope `sum_inv_sq_Icc_le_one` is the representative
 convergent shape.  Re-running the full dyadic energy engine per `e` with the scale
 bookkeeping is the deferred research core, recorded in `docs/blueprints/flags.md` (C3c‴).
-Consequently `general_BV_final` closes modulo this single per-`e` glue (both structural
-cores — identity and reorganization — are landed here).
+Consequently `general_BV_final` closes modulo this per-`e` glue and the named `hMainEnergy`
+(both structural cores — identity and reorganization — are landed here).
 
 Only `[propext, Classical.choice, Quot.sound]` are used.
 -/
@@ -88,7 +88,7 @@ lemma reindex_mult (e X : ℕ) (he : 1 ≤ e) (g : ℕ → ℂ) :
   · intro m' hm'
     rw [Finset.mem_Icc] at hm'
     rw [Finset.mem_filter, Finset.mem_Icc]
-    refine ⟨⟨by nlinarith [hm'.1], ?_⟩, Dvd.intro _ rfl⟩
+    refine ⟨⟨by nlinarith only [hm', he, (Nat.cast_nonneg _ : 0 ≤ ↑e)], ?_⟩, Dvd.intro _ rfl⟩
     calc e * m' ≤ e * (X / e) := by exact Nat.mul_le_mul_left e hm'.2
       _ ≤ X := Nat.mul_div_le X e
   · intro m hm
@@ -268,7 +268,7 @@ theorem sum_inv_sq_Icc_le (N : ℕ) :
         rw [div_sub_div _ _ (ne_of_gt hnpos) (ne_of_gt hn1pos),
           div_le_div_iff₀ (by positivity) (by positivity)]
         ring_nf
-        nlinarith [hn1]
+        linarith only [hn1]
       have hcast : (((n + 1 : ℕ) : ℝ)) = (n : ℝ) + 1 := by push_cast; ring
       rw [hcast]
       calc (∑ e ∈ Finset.Icc 2 n, (1 / (e : ℝ) ^ 2)) + 1 / ((n : ℝ) + 1) ^ 2

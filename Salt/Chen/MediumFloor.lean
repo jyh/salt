@@ -291,7 +291,7 @@ theorem hdiv_direct {A : ℝ} (hA : 0 ≤ A) (x Lb : ℝ) (F X M D : ℕ)
   have hXM1 : (1 : ℝ) ≤ (X : ℝ) * (M : ℝ) := by
     have hX' : (1 : ℝ) ≤ (X : ℝ) := by exact_mod_cast h1X
     have hM' : (1 : ℝ) ≤ (M : ℝ) := by exact_mod_cast h1M
-    nlinarith
+    nlinarith only [hM', hX', Mathlib.Tactic.Linarith.natCast_nonneg ℝ X]
   have hLnn : (0 : ℝ) ≤ Real.log ((X : ℝ) * (M : ℝ)) := Real.log_nonneg hXM1
   -- Step A: `d(e) ≤ C·x^{1/6}` (the DivisorBound cube-root bound at `e ≤ D ≤ √x`).
   have hsub : (e.divisors.card : ℝ) ≤ C * (e : ℝ) ^ ((1 : ℝ) / 3) := by

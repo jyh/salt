@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.Chen.StepBound2
+import Salt.Tactic.ExpLogNum
 
 /-!
 # M4F — the operating-point window memberships (the H-glue's rounding lemmas)
@@ -83,7 +84,7 @@ private lemma window_floor_bounds (x : ℕ) (hx : (10 : ℝ) ^ 48 ≤ (x : ℝ))
   -- lower: `log⌊x^γ⌋ ≥ log(x^γ − 1) ≥ γ·log x − 1/(x^γ−1) ≥ γ·log x − 1/999999`
   have hratio : (x : ℝ) ^ γ / ((x : ℝ) ^ γ - 1) ≤ 1000000 / 999999 := by
     rw [div_le_div_iff₀ hXγ1pos (by norm_num : (0 : ℝ) < 999999)]
-    nlinarith [hA6]
+    linarith only [hstep2, hstep1]
   have hcorr : Real.log ((x : ℝ) ^ γ) - Real.log ((x : ℝ) ^ γ - 1) ≤ 1 / 999999 := by
     have h1 : Real.log ((x : ℝ) ^ γ / ((x : ℝ) ^ γ - 1)) ≤ (x : ℝ) ^ γ / ((x : ℝ) ^ γ - 1) - 1 :=
       Real.log_le_sub_one_of_pos (by positivity)
@@ -99,9 +100,7 @@ private lemma window_floor_bounds (x : ℕ) (hx : (10 : ℝ) ^ 48 ≤ (x : ℝ))
 /-- `log 10 ≥ 2`, hence `log(x) ≥ 96` for `x ≥ 10⁴⁸`. -/
 private lemma log_ge_96 (x : ℕ) (hx : (10 : ℝ) ^ 48 ≤ (x : ℝ)) : (96 : ℝ) ≤ Real.log (x : ℝ) := by
   have hlog10 : (2 : ℝ) ≤ Real.log 10 := by
-    rw [Real.le_log_iff_exp_le (by norm_num)]
-    have he : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    rw [he]; nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 2 (by norm_num) (by norm_num)
   have hmono : Real.log ((10 : ℝ) ^ 48) ≤ Real.log (x : ℝ) := Real.log_le_log (by positivity) hx
   rw [Real.log_pow] at hmono
   push_cast at hmono

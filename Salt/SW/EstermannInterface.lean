@@ -15,9 +15,9 @@ Design: `docs/blueprints/sw.md`, wave S4; the flags `SW S4b` / `SW S4b′` / `SW
 the pole-subtracted Taylor data `(a, B)` of `F = ζ·f` at `s = 2`, its Cauchy bound, the
 ψ-series identity, and the sign `ζ(σ) ≤ 0`.
 
-## CRITICAL FINDING — `EstermannInterface` (as landed in `Estermann.lean`) is FALSE
+## CRITICAL FINDING — `EstermannInterface` as FIRST landed in `Estermann.lean` was FALSE
 
-The `Prop` `Salt.SW.EstermannInterface` quantifies over all `f, r` with `ζ·f = LSeries r`
+The `Prop` `Salt.SW.EstermannInterface` quantified over all `f, r` with `ζ·f = LSeries r`
 on `Re > 1`, `r ≥ 0`, `r 1 = 1` — but the tsum-based `LSeries` equality does **not** force
 `r` to be summable. Take `f ≡ 0` and `r n = 2^(n-1)` (nonneg, `r 1 = 1`, and non-summable at
 every `Re s > 1`, so `LSeries r s = 0 = ζ(s)·0` holds). All interface hypotheses are met, yet
@@ -27,7 +27,7 @@ no `(a, B)` can satisfy the conclusion: the Cauchy bound forces `∑ a k (2−σ
 
 The correct statement needs a summability hypothesis (`abscissaOfAbsConv r < 2`, satisfied by
 every real application via `LSeriesSummable_fourfoldCoeff`). We prove the corrected interface
-`EstermannInterface'` in FULL below.
+`EstermannInterface'` in FULL below; catch #26 folded it into `EstermannInterface` itself.
 
 ## What is proven here (sorry-free, axiom-clean)
 
@@ -51,8 +51,8 @@ namespace Salt.SW
 /-- **The falseness kernel.** If `L = 0` and the ψ-series is forced to `0`, then no admissible
 Taylor data `(a, B)` exists: the Cauchy bound `|a k| ≤ B (2/3)^k` makes `∑ a k y^k` converge to
 `≥ a 0 ≥ 1`, contradicting `∑ a k y^k = 0`. This is exactly the contradiction reached by feeding
-`f ≡ 0` (with a non-summable `r`, e.g. `r n = 2^(n-1)`) to `EstermannInterface`, whence
-`¬ EstermannInterface`. -/
+`f ≡ 0` (with a non-summable `r`, e.g. `r n = 2^(n-1)`) to the original `EstermannInterface`, whence
+its negation (before catch #26 added `abscissaOfAbsConv r < 2` to it). -/
 theorem no_estermann_data_for_zero {a : ℕ → ℝ} {B σ : ℝ}
     (hσ1 : 1 < 2 - σ) (hσ2 : 2 - σ ≤ 21 / 20)
     (ha : ∀ k, 0 ≤ a k) (ha0 : 1 ≤ a 0)
@@ -134,8 +134,8 @@ theorem zeta_nonpos {σ : ℝ} (h1 : (19 : ℝ) / 20 ≤ σ) (h2 : σ < 1) :
       have hrw : (σ : ℂ) - 1 = ((σ - 1 : ℝ) : ℂ) := by push_cast; ring
       rw [hrw, Complex.norm_real, Real.norm_eq_abs, abs_of_neg (by linarith : σ - 1 < 0)]; ring
     rw [hσ1_norm]
-    nlinarith [hR_le, h1, h2, norm_nonneg R, mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - σ)
-      (by linarith [hR_le] : (0 : ℝ) ≤ σ + 1 - ‖R‖)]
+    nlinarith only [h1, h2, mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - σ)
+        (by linarith [hR_le] : (0 : ℝ) ≤ σ + 1 - ‖R‖)]
   -- `Re(Zc σ) ≥ 9/10 > 0`
   have hZcpos : 0 < (Zc (σ : ℂ)).re := by
     rw [hZc, Complex.add_re, Complex.one_re]
@@ -164,7 +164,7 @@ theorem zeta_nonpos {σ : ℝ} (h1 : (19 : ℝ) / 20 ≤ σ) (h2 : σ < 1) :
     have hpos : 0 < (σ - 1) * (riemannZeta (σ : ℂ)).re := hre_eq ▸ hZcpos
     by_contra hc
     have hc' : 0 ≤ (riemannZeta (σ : ℂ)).re := not_lt.mp hc
-    nlinarith [mul_nonpos_of_nonpos_of_nonneg (by linarith : σ - 1 ≤ 0) hc']
+    linarith only [hre_eq, hZcpos, mul_nonpos_of_nonpos_of_nonneg (by linarith : σ - 1 ≤ 0) hc']
   refine Complex.le_def.mpr ⟨?_, ?_⟩
   · rw [Complex.zero_re]; linarith [hζre]
   · rw [Complex.zero_im]; exact hζim
@@ -208,7 +208,7 @@ private lemma iteratedDeriv_pole (k : ℕ) :
 
 /-! ## 3. The corrected interface and its full discharge
 
-The original `EstermannInterface` (`Estermann.lean`) is FALSE (see `no_estermann_data_for_zero`).
+The original `EstermannInterface` (`Estermann.lean`) was FALSE (see `no_estermann_data_for_zero`).
 `EstermannInterface'` adds the missing summability input `abscissaOfAbsConv r < 2` — satisfied by
 every real application (`LSeriesSummable_fourfoldCoeff`) — and is proven in full. -/
 

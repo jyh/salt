@@ -1,0 +1,69 @@
+name: Docs gates
+
+# The four generated O13 pages (docs/CATALOGUE.md, docs/METHODS-CATALOGUE.md with
+# docs/methods-catalogue.tsv, docs/TACTICS-CATALOGUE.md, docs/FULCRUM-CENSUS.md) each
+# carry a `--check` staleness gate, and until this workflow no CI job ran any of them:
+# PR #244 merged green with all four pages stale (they named a commit on no public
+# ref), and #245 repaired them by hand.
+#
+# NOT A REQUIRED CHECK. Adding it to branch protection is the Captain's act, so this
+# job turns a PR red without blocking its merge. The merger reads it.
+#
+# WHAT IT NEEDS, AND WHY THE CHECKOUT IS NOT THE DEFAULT ONE:
+# - FULL HISTORY. Each page's header names the last commit touching `Salt/`
+#   (`git log -1 --format=%h -- Salt`). In a depth-1 clone that log sees only the
+#   grafted tip, so it would name the tip and every page would read stale.
+# - THE PR HEAD, NOT THE SYNTHETIC MERGE REF. On a pull_request event the default
+#   checkout is refs/pull/N/merge, a commit that exists on no branch; when main and
+#   the PR both changed `Salt/`, that commit is the last one touching `Salt/` and
+#   every page would read stale for a reason the author cannot fix. The pages are a
+#   claim about the branch, so the branch head is what is checked. The state after
+#   the merge is checked by the push run on main.
+# DECLARED LIMIT: the base sha is printed with `%h`, whose length git picks from the
+# object count. A full clone here and a working clone agree today (8 hex digits);
+# a length change would read as stale everywhere at once and is fixed by regenerating.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-gates-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generated-pages:
+    name: the generated docs pages are current (--check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      # Each generator's self-test first: a gate whose mutants no longer die
+      # would pass any page.
+      - name: self-tests (each generator's mutants must still die)
+        run: |
+          python scripts/results_catalogue.py --self-test
+          python scripts/methods_catalogue.py --self-test
+          python scripts/tactics_catalogue.py --self-test
+          python scripts/fulcrum_census.py --self-test
+      # One step per page, so a red names the stale page in the step list.
+      - name: docs/CATALOGUE.md is current
+        if: ${{ !cancelled() }}
+        run: python scripts/results_catalogue.py --check
+      - name: docs/METHODS-CATALOGUE.md and docs/methods-catalogue.tsv are current
+        if: ${{ !cancelled() }}
+        run: python scripts/methods_catalogue.py --check
+      - name: docs/TACTICS-CATALOGUE.md is current
+        if: ${{ !cancelled() }}
+        run: python scripts/tactics_catalogue.py --check
+      - name: docs/FULCRUM-CENSUS.md is current
+        if: ${{ !cancelled() }}
+        run: python scripts/fulcrum_census.py --check

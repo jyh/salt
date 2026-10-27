@@ -26,6 +26,10 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
+omit [TupleChoice] in
 /-- The Möbius–times–index coordinate product is bounded in absolute value by
 the plain product of indices, since `|μ n| ≤ 1` and each `dᵢ ≥ 0`. -/
 theorem abs_prod_moebius_mul_le {k : ℕ} (d : Fin k → ℕ) :
@@ -48,6 +52,7 @@ theorem abs_prod_moebius_mul_le {k : ℕ} (d : Fin k → ℕ) :
           apply mul_le_mul_of_nonneg_right hμ (Nat.cast_nonneg _)
       _ = (d i : ℝ) := one_mul _
 
+omit [TupleChoice] in
 /-- The divisor-shifted `y`-sum `wSum` is bounded in absolute value by the
 full `y`-weight sum over the sieve support: apply the triangle inequality and
 drop the divisibility guard. -/
@@ -65,6 +70,7 @@ theorem abs_wSum_le (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) (u : Fin k → �
   · rw [if_neg h, abs_zero]
     exact div_nonneg (abs_nonneg _) hΦnn
 
+omit [TupleChoice] in
 /-- **N2.3 — crude per-tuple bound on the Selberg weight `λ`.** The weight is
 controlled coordinatewise by `∏ᵢ dᵢ` times the total `y`-weight over the sieve
 support. -/
@@ -78,6 +84,7 @@ theorem lam_abs_le (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) (d : Fin k → �
   · exact abs_nonneg _
   · exact Finset.prod_nonneg (fun i _ => Nat.cast_nonneg _)
 
+omit [TupleChoice] in
 /-- **N2.3 corollary — the `y_max·(1+log R)^k` packaging hook.** With
 `ymax` an upper bound for `|y r|` on the support, `|λ(d)|` is bounded by
 `(∏ᵢ dᵢ)·ymax·Σ_{r} 1/∏φ(rᵢ)`. The remaining `Σ 1/∏φ ≤ (1+log R)^k`-type

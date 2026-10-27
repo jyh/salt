@@ -133,7 +133,7 @@ private lemma cube_le_exp {x : ℝ} (hx : 0 ≤ x) : x ^ 3 / 27 ≤ Real.exp x :
   have hb0 : 0 ≤ 1 + x / 3 := by linarith
   calc x ^ 3 / 27 ≤ (1 + x / 3) ^ 3 := by
         have hexp : (1 + x / 3) ^ 3 = 1 + x + x ^ 2 / 3 + x ^ 3 / 27 := by ring
-        rw [hexp]; nlinarith [hx, sq_nonneg x]
+        rw [hexp]; linarith only [hx, sq_nonneg x]
     _ ≤ (Real.exp (x / 3)) ^ 3 := pow_le_pow_left₀ hb0 hb 3
 
 /-! ## The abstract-height core — gates + power-width algebra -/
@@ -167,7 +167,7 @@ theorem zeta_zero_free_pow_core {K t₀ : ℝ} (hK : 1 ≤ K) (ht₀ : 3 ≤ t�
   have hℓ0 : 0 < ℓ := by rw [hℓdef]; exact Real.log_pos (by linarith [hL3])
   have hℓ1100 : 1100 ≤ ℓ := by
     have : (0 : ℝ) ≤ 8 * Real.log (20000 * K) :=
-      mul_nonneg (by norm_num) (Real.log_nonneg (by nlinarith [hK]))
+      mul_nonneg (by norm_num) (Real.log_nonneg (by linarith only [hK]))
     linarith [hℓK]
   -- log 3γ facts: L3 := log 3γ ∈ [L, 2L]; ℓ3 := log L3 ∈ [ℓ, 2ℓ]
   set L3 : ℝ := Real.log (3 * ρ.im) with hL3def
@@ -202,13 +202,13 @@ theorem zeta_zero_free_pow_core {K t₀ : ℝ} (hK : 1 ≤ K) (ht₀ : 3 ≤ t�
   set Mζ : ℝ := K * L3 with hMζdef
   have hMζpos : 0 < Mζ := by rw [hMζdef]; positivity
   have hMζ1 : 1 ≤ Mζ := by
-    rw [hMζdef]; nlinarith [hK, hL3lb, hL3]
+    rw [hMζdef]; nlinarith only [hK, hL3lb, hL3, hMζpos]
   -- Pinv ≥ 2 (so Θ ≤ 1/2)
   have hPinv2 : 2 ≤ Pinv := by
     rw [hPinvdef]
     have h1 : (1 : ℝ) ≤ L3 ^ ((3 : ℝ) / 4) := Real.one_le_rpow (by linarith [hL3lb, hL3]) (by norm_num)
     have h2 : (1 : ℝ) ≤ ℓ3 ^ (2 : ℕ) := one_le_pow₀ (by linarith [hℓ31100])
-    nlinarith [h1, h2]
+    nlinarith only [h1, h2, sq_nonneg ℓ3]
   have hΘ12 : Θ ≤ 1 / 2 := by
     rw [hΘPinv]; rw [div_le_div_iff₀ hPinvpos (by norm_num)]; linarith [hPinv2]
   -- the box growth
@@ -247,10 +247,10 @@ theorem zeta_zero_free_pow_core {K t₀ : ℝ} (hK : 1 ≤ K) (ht₀ : 3 ≤ t�
   have hWub : W ≤ 2 * ℓ3 := by
     rw [hWeq]
     have h2logℓ3 : 2 * Real.log ℓ3 ≤ ℓ3 / 8 := by
-      nlinarith [hlogℓ3, hsqℓ3, hsqℓ3sq, Real.sqrt_nonneg ℓ3]
+      nlinarith only [hlogℓ3, hℓ3log, hΘ12, hΘ0, hℓ3lb, hℓ1100, hsqℓ3sq, sq_nonneg √ℓ3]
     linarith [hlog20K, h2logℓ3]
   have hW1 : (1 : ℝ) ≤ W := by
-    have h40 : (40 : ℝ) ≤ 20 * Pinv * Mζ := by nlinarith [hPinv2, hMζ1, hPinvpos]
+    have h40 : (40 : ℝ) ≤ 20 * Pinv * Mζ := by nlinarith only [hPinvpos, hMζ1, hPinv2]
     have he40 : Real.exp 1 ≤ 20 * Pinv * Mζ :=
       le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) h40
     rw [hWdef, ← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) he40
@@ -258,7 +258,7 @@ theorem zeta_zero_free_pow_core {K t₀ : ℝ} (hK : 1 ≤ K) (ht₀ : 3 ≤ t�
     rw [hLqdef]
     have hkey : 700 * Pinv * 1 ≤ 700 * Pinv * W := by
       apply mul_le_mul_of_nonneg_left hW1 (by positivity)
-    nlinarith [hkey, hPinvpos]
+    linarith only [hkey, hΘ12, hPinv2, hΘ0]
   have hLq0 : 0 < Lq := lt_of_lt_of_le hPinvpos hLqgeP
   -- the three gates
   have hσΘ : (1 : ℝ) / 2 / Lq ≤ Θ / 2 := by
@@ -267,7 +267,7 @@ theorem zeta_zero_free_pow_core {K t₀ : ℝ} (hK : 1 ≤ K) (ht₀ : 3 ≤ t�
   have hwΘ : (1 : ℝ) / 2 / (7 * Lq) ≤ 11 / 14 * Θ := by
     rw [hΘPinv, mul_one_div, div_div]
     rw [div_le_div_iff₀ (by positivity) (by positivity)]
-    nlinarith [hLqgeP, hPinvpos, hLq0]
+    linarith only [hLqgeP, hΘ12, hPinv2, hΘ0]
   have hchainC : 8 + 5 * ((120 / (6 * Θ / 7)) * Real.log (4 * (5 * Mζ / Θ)))
       ≤ Lq / (2 * (1 / 2)) := by
     have h1 : (120 : ℝ) / (6 * Θ / 7) = 140 * Pinv := by
@@ -291,7 +291,7 @@ theorem zeta_zero_free_pow_core {K t₀ : ℝ} (hK : 1 ≤ K) (ht₀ : 3 ≤ t�
             Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
         _ = 2 := Real.rpow_one 2
     have hL34nn : 0 ≤ L ^ ((3 : ℝ) / 4) := Real.rpow_nonneg hL0.le _
-    rw [h2] at h1; nlinarith [h1, h3, hL34nn]
+    rw [h2] at h1; nlinarith only [h3, hL34nn, h1]
   have hL34nn : 0 ≤ L ^ ((3 : ℝ) / 4) := Real.rpow_nonneg hL0.le _
   have hℓ3sqle : ℓ3 ^ (2 : ℕ) ≤ 4 * ℓ ^ (2 : ℕ) := by
     have := pow_le_pow_left₀ hℓ30.le hℓ3ub 2
@@ -309,7 +309,7 @@ theorem zeta_zero_free_pow_core {K t₀ : ℝ} (hK : 1 ≤ K) (ht₀ : 3 ≤ t�
   have hD1 : (1 : ℝ) ≤ L ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ) := by
     have h1 : (1 : ℝ) ≤ L ^ ((3 : ℝ) / 4) := Real.one_le_rpow (by linarith [hL3]) (by norm_num)
     have h2 : (1 : ℝ) ≤ ℓ ^ (3 : ℕ) := one_le_pow₀ (by linarith [hℓ1100])
-    nlinarith [h1, h2]
+    nlinarith only [hℓ1100, hPinvle, hPinvpos, h1, hΘ12, hΘ0, sq_nonneg ℓ]
   have hLqbnd : Lq ≤ 22500000 * (L ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)) := by
     rw [hLqdef]
     -- 700 · Pinv · W ≤ 700 · (8000 L^{3/4} ℓ²) · (4 ℓ)  = 2.24e7 · L^{3/4} ℓ³
@@ -324,16 +324,16 @@ theorem zeta_zero_free_pow_core {K t₀ : ℝ} (hK : 1 ≤ K) (ht₀ : 3 ≤ t�
     have hbound : 700 * Pinv * W ≤ 22400000 * (L ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)) := by
       have hh : 700 * (Pinv * W) ≤ 700 * (8000 * (L ^ ((3 : ℝ) / 4) * ℓ ^ (2 : ℕ)) * (4 * ℓ)) :=
         mul_le_mul_of_nonneg_left hPWle (by norm_num)
-      nlinarith [hh, hℓ23, hL34nn]
-    nlinarith [hbound, hD1]
+      linarith only [hPWle]
+    linarith only [hPWle, hD1, hΘ12, hΘ0]
   -- convert width: 1/(14 Lq) ≥ (1/10⁹)/(L^{3/4} ℓ³)
-  have h14Lq : 14 * Lq ≤ 315000000 * (L ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)) := by nlinarith [hLqbnd]
+  have h14Lq : 14 * Lq ≤ 315000000 * (L ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)) := by linarith only [hLqbnd]
   have hwidth : (1 / 10 ^ 9) * (1 / (L ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))) ≤ 1 / 2 / (7 * Lq) := by
     rw [show (1 : ℝ) / 2 / (7 * Lq) = 1 / (14 * Lq) by ring,
       show (1 / 10 ^ 9) * (1 / (L ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)))
         = 1 / (10 ^ 9 * (L ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))) by ring]
     refine one_div_le_one_div_of_le (by linarith [hLq0]) ?_
-    nlinarith [h14Lq, hDpos]
+    linarith only [hLqbnd, hD1, hΘ12, hΘ0]
   -- assemble
   have hfin : (1 / 10 ^ 9) * (1 / (L ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))) ≤ 1 - ρ.re :=
     le_trans hwidth (by linarith [hreg])
@@ -359,7 +359,7 @@ theorem zeta_zero_free_region_pow_of_growth (hgrow : ZetaGrowthPow) :
   have hKpos : 0 < K := lt_of_lt_of_le one_pos hK
   set A : ℝ := 8 * Real.log (20000 * K) + 1100 with hAdef
   have hA1100 : 1100 ≤ A := by
-    have : (0 : ℝ) ≤ Real.log (20000 * K) := Real.log_nonneg (by nlinarith [hK])
+    have : (0 : ℝ) ≤ Real.log (20000 * K) := Real.log_nonneg (by linarith only [hK])
     rw [hAdef]; linarith
   have hEpos : 0 < Real.exp (Real.exp A) := Real.exp_pos _
   refine ⟨1 / 10 ^ 9, Real.exp (Real.exp A) + t₀ + 3, by norm_num, by linarith [hEpos, ht₀], ?_⟩

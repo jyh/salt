@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.FarClose
 import Salt.MR.SeamGate
+import Salt.Tactic.ExpLogNum
 
 /-!
 # FAR-STAR — the far arm re-pinned at `T* = y·k^{1/log y}` (`FarStar`)
@@ -95,7 +96,7 @@ private lemma four_log_le_selfT {L : ℝ} (h : 64 ≤ L) : 4 * Real.log L ≤ L 
   have hlog : Real.log (Real.sqrt L) ≤ Real.sqrt L - 1 := Real.log_le_sub_one_of_pos hs0
   have hhalf : Real.log (Real.sqrt L) = Real.log L / 2 := Real.log_sqrt hL0.le
   have hsq : Real.sqrt L * Real.sqrt L = L := Real.mul_self_sqrt hL0.le
-  nlinarith
+  nlinarith only [hs0, hs8, hsq, hhalf, hlog]
 
 /-- `4·log L < L` for `L ≥ 64` — the STRICT form (`FarClose`'s `four_log_lt_selfF`). -/
 private lemma four_log_lt_selfT {L : ℝ} (h : 64 ≤ L) : 4 * Real.log L < L := by
@@ -109,7 +110,7 @@ private lemma four_log_lt_selfT {L : ℝ} (h : 64 ≤ L) : 4 * Real.log L < L :=
   have hlog : Real.log (Real.sqrt L) ≤ Real.sqrt L - 1 := Real.log_le_sub_one_of_pos hs0
   have hhalf : Real.log (Real.sqrt L) = Real.log L / 2 := Real.log_sqrt hL0.le
   have hsq : Real.sqrt L * Real.sqrt L = L := Real.mul_self_sqrt hL0.le
-  nlinarith
+  nlinarith only [hs0, hs8, hsq, hhalf, hlog]
 
 /-- **`8·log L ≤ L` for `L ≥ 64`** — the sharper self-bound the `ℓ¹` shift needs.  The
 `√L − 1` majorant of `four_log_le_selfT` is too lossy here (it needs `√L ≥ 14.9`); the
@@ -133,7 +134,7 @@ private lemma eight_log_le_selfT {L : ℝ} (h : 64 ≤ L) : 8 * Real.log L ≤ L
   have hdiv : Real.sqrt L / Real.exp 1 ≤ Real.sqrt L / 2 :=
     div_le_div_of_nonneg_left hs0.le (by norm_num) he2
   rw [hhalf] at hlog
-  nlinarith
+  nlinarith only [hs0, hs8, hdiv, hlog, hsq]
 
 /-- The pin's elementary arithmetic at the `e^{64}` gate (`FarClose`'s `pin_basic64F`). -/
 private lemma pin_basic64T {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Real.log k)
@@ -151,8 +152,7 @@ private lemma pin_basic64T {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = R
     linarith
   have hlogy : Real.log y = 4 * Real.log L := by rw [hy, Real.log_pow]; norm_num
   have he2 : Real.exp 2 ≤ 64 := by
-    have h1 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 64) (by norm_num)
   have hlogL2 : (2 : ℝ) ≤ Real.log L := by
     rw [← Real.log_exp 2]; exact Real.log_le_log (Real.exp_pos 2) (by linarith)
   refine ⟨hk0, hL64, hy131072, hlogy, by rw [hη, hlogy]; positivity, ?_, ?_, ?_⟩
@@ -183,16 +183,15 @@ private lemma pin_rpow_scaleT {k h L c₀ : ℝ} (hk : Real.exp 64 ≤ k) (hL : 
   have hk65 : (65 : ℝ) ≤ k := by linarith [Real.add_one_le_exp (64 : ℝ)]
   have hk1 : (1 : ℝ) ≤ k := by linarith
   have hhk : h ≤ k / 8 := by
-    rw [hh, div_le_div_iff₀ hs0 (by norm_num)]; nlinarith
+    rw [hh, div_le_div_iff₀ hs0 (by norm_num)]; nlinarith only [hk0, hs8]
   have hkh98 : k + h ≤ 9 / 8 * k := by linarith
   have hlogkh : Real.log (k + h) ≤ 2 * L := by
-    have hsq : k + h ≤ k * k := by nlinarith
+    have hsq : k + h ≤ k * k := by nlinarith only [hk0, hk65, hhk]
     have h1 : Real.log (k + h) ≤ Real.log (k * k) := Real.log_le_log hkh0 hsq
     rw [Real.log_mul hk0.ne' hk0.ne', ← hL] at h1
     linarith
   have he2 : Real.exp 2 ≤ 8 := by
-    have h1 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 8) (by norm_num)
   have hfrac : (k + h) ^ (1 / L : ℝ) ≤ 8 := by
     rw [Real.rpow_def_of_pos hkh0]
     have hexp : Real.log (k + h) * (1 / L) ≤ 2 := by
@@ -227,7 +226,7 @@ private lemma div_log_monoT {L M : ℝ} (hL : Real.exp 1 ≤ L) (hLM : L ≤ M) 
       calc L * (Real.log M - Real.log L) ≤ L * ((M - L) / L) :=
             mul_le_mul_of_nonneg_left hstep hL0.le
         _ = M - L := h4
-    nlinarith
+    nlinarith only [hLM, hlogL, h3]
   rw [div_le_div_iff₀ (by linarith) (by linarith)]
   exact hmul
 
@@ -347,8 +346,7 @@ private lemma far_mass_cancel {k L : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Rea
   have hL0 : (0 : ℝ) < L := by linarith
   have hy0 : (0 : ℝ) < L ^ 4 := by positivity
   have he2 : Real.exp 2 ≤ 64 := by
-    have h1 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 64) (by norm_num)
   have hlogL2 : (2 : ℝ) ≤ Real.log L := by
     rw [← Real.log_exp 2]; exact Real.log_le_log (Real.exp_pos 2) (by linarith)
   have hlogL0 : Real.log L ≠ 0 := by linarith
@@ -381,8 +379,7 @@ theorem far_kfar_star_le {d : ℕ → ℂ} (hd : ∀ p, p.Prime → ‖d p‖ �
       rw [show (64 : ℝ) = 8 ^ 2 from by norm_num, Real.sqrt_sq (by norm_num)]
     rw [← h64]; exact Real.sqrt_le_sqrt hL64
   have he2 : Real.exp 2 ≤ 64 := by
-    have h1 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 64) (by norm_num)
   have hlogL2 : (2 : ℝ) ≤ Real.log L := by
     rw [← Real.log_exp 2]; exact Real.log_le_log (Real.exp_pos 2) (by linarith)
   have hlogL0 : (0 : ℝ) < Real.log L := by linarith
@@ -451,7 +448,7 @@ theorem far_kfar_star_le {d : ℕ → ℂ} (hd : ∀ p, p.Prime → ‖d p‖ �
       have hTeq : Tstar k L = L ^ 4 * k ^ (1 / (4 * Real.log L)) := rfl
       have hden : (0 : ℝ) < L ^ 4 * k ^ (1 / (4 * Real.log L)) := by positivity
       rw [hTeq, div_le_div_iff₀ hden hden]
-      nlinarith [hs8, hden]
+      nlinarith only [hs8, hT0, hs0, hTeq]
     refine mul_le_mul hsc hrat ?_ (by positivity)
     exact div_nonneg (by positivity) hT0.le
   have hfac0 : (0 : ℝ) ≤ (k + k / Real.sqrt L) ^ (1 + 1 / L)
@@ -475,11 +472,11 @@ theorem far_kfar_star_le {d : ℕ → ℂ} (hd : ∀ p, p.Prime → ‖d p‖ �
   rw [hEq]
   have hone : 1 / (Real.exp 1 * Real.exp 1) ≤ 1 := by
     rw [div_le_one (by positivity)]
-    nlinarith [Real.exp_one_gt_d9, Real.exp_pos 1]
+    nlinarith only [Real.exp_one_gt_d9]
   have hR0 : (0 : ℝ) ≤ 2448 * (Real.log 4 + 4) ^ 2 * (k * Real.log L * Real.sqrt L / L ^ 3) := by
     have hlog4 : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
     positivity
-  nlinarith [hR0, hone]
+  nlinarith only [hone, hR0]
 
 /-- **The crown's currency, floored (`log_price_floor`).**  `(log X)^{−1/(32e)} ≥ 1/(2L)`
 whenever `log X ≤ 2L` — which is all the crown's `⌊X⌋₊ ≤ k` supplies (`X < k+1 ≤ 2k`).  The
@@ -578,8 +575,7 @@ theorem hfar_star {d : ℕ → ℂ} (hd : ∀ p, p.Prime → ‖d p‖ ≤ 1) {k
       rw [show (64 : ℝ) = 8 ^ 2 from by norm_num, Real.sqrt_sq (by norm_num)]
     rw [← h64]; exact Real.sqrt_le_sqrt hL64
   have he2 : Real.exp 2 ≤ 64 := by
-    have h1 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 64) (by norm_num)
   have hlogL2 : (2 : ℝ) ≤ Real.log L := by
     rw [← Real.log_exp 2]; exact Real.log_le_log (Real.exp_pos 2) (by linarith)
   have hlogL0 : Real.log L ≠ 0 := by linarith
@@ -610,7 +606,7 @@ theorem hfar_star {d : ℕ → ℂ} (hd : ∀ p, p.Prime → ‖d p‖ ≤ 1) {k
     _ ≤ farCStar * k * (1 / (2 * L)) * 1 := by
         have hfrac : Real.sqrt L / (Real.log L * L) ≤ 1 := by
           rw [div_le_one (by positivity)]
-          nlinarith
+          nlinarith only [hs0, hs8, hL64, hlogL2, hsq]
         refine mul_le_mul_of_nonneg_left hfrac ?_
         have : (0 : ℝ) ≤ 1 / (2 * L) := by positivity
         exact mul_nonneg hC0 this

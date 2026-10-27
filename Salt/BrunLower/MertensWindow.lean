@@ -80,7 +80,7 @@ theorem sum_vonMangoldt_div_ge {N : ℕ} (hN : 1 ≤ N) :
   have hcomb : (N : ℝ) * Real.log N - N ≤ (N : ℝ) * ∑ d ∈ Finset.Ioc 0 N, Λ d / d :=
     le_trans hstir hup
   have hfac : (N : ℝ) * (Real.log N - 1) ≤ (N : ℝ) * ∑ d ∈ Finset.Ioc 0 N, Λ d / d := by
-    nlinarith [hcomb]
+    linarith only [hup, hstir]
   exact le_of_mul_le_mul_left hfac hNr
 
 /-! ## Section 2 — the prime-power strip -/
@@ -135,7 +135,7 @@ private theorem antitoneOn_lsF {b : ℝ} : AntitoneOn lsF (Set.Icc 2 b) := by
       have hl2 : (0.6931471803:ℝ) < Real.log 2 := Real.log_two_gt_d9
       have hxx : x⁻¹ * x ^ 2 = x := by field_simp
       rw [hxx]
-      nlinarith [mul_pos hx0 (by linarith [hlog, hl2] : (0:ℝ) < 2 * Real.log x - 1)]
+      linarith only [mul_pos hx0 (by linarith [hlog, hl2] : (0 : ℝ) < 2 * Real.log x - 1)]
     · positivity
 
 private theorem continuousOn_lsF {b : ℝ} (hb : 2 ≤ b) :
@@ -162,7 +162,7 @@ theorem sum_lsF_le (N : ℕ) : ∑ n ∈ Finset.Ioc 1 N, lsF n ≤ 5/4 := by
   have hlog2 : Real.log 2 ≤ 1 := by have := Real.log_two_lt_d9; linarith
   have hlsF2 : lsF ((2:ℕ):ℝ) ≤ 1/4 := by
     rw [lsF]; push_cast
-    rw [div_le_iff₀ (by norm_num)]; nlinarith [hlog2]
+    rw [div_le_iff₀ (by norm_num)]; linarith only [hlog2]
   rcases le_or_gt N 2 with hN | hN
   · interval_cases N
     · rw [Finset.Ioc_eq_empty (by omega), Finset.sum_empty]; norm_num
@@ -373,7 +373,7 @@ theorem abs_Sfun_sub_log_le {t : ℝ} (ht : 2 ≤ t) : |Sfun t - Real.log t| ≤
   -- combine, using `log 4 ≤ 2`
   have hlog4 : Real.log 4 ≤ 2 := by
     rw [show (4:ℝ) = 2 ^ 2 by norm_num, Real.log_pow]
-    have := Real.log_two_lt_d9; push_cast; nlinarith
+    have := Real.log_two_lt_d9; push_cast; linarith only [this]
   rw [abs_le]
   exact ⟨by linarith, by linarith⟩
 
@@ -528,7 +528,7 @@ theorem window_core {w z : ℝ} (hw : 2 ≤ w) (hwz : w ≤ z) :
         = (t * Real.log t)⁻¹ + 6 * (t * Real.log t ^ 2)⁻¹ := by
       have hne : Real.log t ≠ 0 := ne_of_gt hlogt
       field_simp
-    nlinarith [hkey, hsplit]
+    linarith only [hsplit, hkey]
   have hIntA : (∫ t in w..z, -(t * Real.log t)⁻¹)
       = -(Real.log (Real.log z) - Real.log (Real.log w)) := by
     rw [intervalIntegral.integral_neg, integral_inv_tlog_real hw hwz]

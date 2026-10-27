@@ -24,6 +24,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- `A₁ ≥ 1`: the `r = 1` term contributes `fWt(1)²/φ(1) = 1`, all others `≥ 0`. -/
 theorem A1_ge_one (k R : ℕ) (T : ℝ) (hR0 : 2 ≤ R0 k R T) :
     1 ≤ A1 k R (W k) T := by

@@ -95,10 +95,10 @@ theorem zeta_neg_re_logDeriv_ge :
   have hM0log : 120 * Real.log (4 * M0zeta t₀) ≤ 1080 * L := by
     have hcoll := log_4M0zeta_le γ
     rw [ht₀, hL]
-    nlinarith [hcoll]
+    linarith only [hcoll]
   have hM0nn : 0 ≤ 120 * Real.log (4 * M0zeta t₀) := by
     have h1M : (1 : ℝ) ≤ M0zeta t₀ := one_le_M0zeta t₀
-    have : (0 : ℝ) ≤ Real.log (4 * M0zeta t₀) := Real.log_nonneg (by nlinarith)
+    have : (0 : ℝ) ≤ Real.log (4 * M0zeta t₀) := Real.log_nonneg (by linarith only [h1M])
     linarith
   -- the shared zero facts
   have hzero_facts : ∀ ρ ∈ Z, riemannZeta ρ = 0 ∧ ρ.re < 1 ∧ ‖ρ - c‖ < 3 / 2 := by
@@ -173,7 +173,7 @@ theorem zeta_neg_re_logDeriv_ge :
       rw [Complex.normSq_eq_norm_sq]
       have hnorm : ‖c - ρ‖ < 3 / 2 := by
         rw [show c - ρ = -(ρ - c) by ring, norm_neg]; exact hball
-      nlinarith [norm_nonneg (c - ρ)]
+      nlinarith only [hnorm, norm_nonneg (c - ρ)]
     have hnormSq_pos : 0 < Complex.normSq (c - ρ) := Complex.normSq_pos.mpr hne
     rw [one_div, Complex.inv_re]
     calc (4 : ℝ) / 9 = 1 / (9 / 4) := by norm_num
@@ -220,7 +220,7 @@ theorem zeta_neg_re_logDeriv_ge :
       rw [one_div, Complex.inv_re, hsρre]
       have hnsq : (σ - ρ.re) ^ 2 ≤ Complex.normSq (s - ρ) := by
         rw [Complex.normSq_apply, hsρre]
-        nlinarith [sq_nonneg (s - ρ).im]
+        linarith only [mul_self_nonneg (s - ρ).im]
       calc (σ - ρ.re) / Complex.normSq (s - ρ) ≤ (σ - ρ.re) / (σ - ρ.re) ^ 2 :=
             div_le_div_of_nonneg_left hgappos.le (by positivity) hnsq
         _ = 1 / (σ - ρ.re) := by
@@ -229,7 +229,7 @@ theorem zeta_neg_re_logDeriv_ge :
     have hsep : 1 / (σ - ρ.re) ≤ Real.log (|ρ.im| + 2) / c₃ := by
       rw [div_le_div_iff₀ hgappos hc₃pos]
       have := (div_le_iff₀ hLρpos).mp hgap
-      nlinarith [this]
+      linarith only [this]
     calc (1 / (s - ρ)).re ≤ 1 / (σ - ρ.re) := hre_bound
       _ ≤ Real.log (|ρ.im| + 2) / c₃ := hsep
       _ ≤ 2 * L / c₃ := by
@@ -278,12 +278,12 @@ theorem zeta_neg_re_logDeriv_ge :
       ≤ (9 / (2 * c₃) * ((2 + Z₂) / Real.log 2 + 1080) + 1080 / Real.log 2) * L ^ 2 := by
     have hZ2L : (2 + Z₂) ≤ (2 + Z₂) / Real.log 2 * L := by
       rw [div_mul_eq_mul_div, le_div_iff₀ hlog2]
-      nlinarith [hLlog2, hZ₂0]
+      nlinarith only [hZ₂0, hLlog2]
     have hLL : L ≤ L ^ 2 / Real.log 2 := by
       rw [le_div_iff₀ hlog2]
-      nlinarith [hLlog2, hLpos]
+      nlinarith only [hLlog2, hlog2]
     have hbig : (2 + Z₂) + 1080 * L ≤ ((2 + Z₂) / Real.log 2 + 1080) * L := by
-      nlinarith [hZ2L]
+      linarith only [hZ2L]
     have hc₃L : (0 : ℝ) ≤ 9 / (2 * c₃) * L :=
       mul_nonneg (div_nonneg (by norm_num) (by linarith)) hLpos.le
     have hstep1 : 2 / c₃ * L * (9 / 4 * ((2 + Z₂) + 1080 * L))

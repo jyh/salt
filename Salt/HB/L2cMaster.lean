@@ -17,10 +17,10 @@ import Salt.HB.L2cERTsw
 /-!
 # HB-L2c master assembly — Wave 3 (node HB-L2c, Horn A keystone)
 
-This file completes the exact-overshoot surgery: the theorem whose shape is `hb_lemma2`'s
-conclusion (`TransferFull.hb_lemma2`), proven *directly* from the exact identity
-`S⁽²⁾ − S⁽¹⁾ = Σ_{n∈W} overshootExact χ n` (`L2cCore.S2_sub_S1_eq`) and the eleven landed
-`E_L`/`E_R` family rows.  No `τ`-crude majorant (`hres`) is consumed.
+This file assembles the exact-overshoot surgery, conditional on two residuals named below (both
+discharged in `L2cMasterUncond.lean`): the theorem of `hb_lemma2`'s conclusion shape, proven
+*directly* from `S⁽²⁾ − S⁽¹⁾ = Σ_{n∈W} overshootExact χ n` (`L2cCore.S2_sub_S1_eq`) and the
+eleven landed `E_L`/`E_R` rows.  No `τ`-crude majorant (`hres`) is consumed.
 
 ## The assembly ladder
 
@@ -342,7 +342,7 @@ lemma ELodd_cover (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (z x : ℕ)
 lemma master_sqrt_le {x : ℕ} (hx1 : (1 : ℝ) ≤ (x : ℝ)) :
     Real.sqrt (2 * (x : ℝ)) ≤ 2 * (x : ℝ) ^ ((9 : ℝ) / 10) := by
   have hs2 : Real.sqrt 2 ≤ 2 := by
-    nlinarith [Real.sq_sqrt (show (0 : ℝ) ≤ 2 by norm_num), Real.sqrt_nonneg (2 : ℝ)]
+    nlinarith only [Real.sq_sqrt (show (0 : ℝ) ≤ 2 by norm_num)]
   have hsx : Real.sqrt (x : ℝ) ≤ (x : ℝ) ^ ((9 : ℝ) / 10) := by
     rw [Real.sqrt_eq_rpow]
     exact Real.rpow_le_rpow_of_exponent_le hx1 (by norm_num)
@@ -418,9 +418,9 @@ theorem hb_l2c_master_of_count (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1
       ≤ 4 * Real.exp (2 * z0 z x) * (x : ℝ) ^ ((9 : ℝ) / 10) * Lwin x ^ 3 := by
     have ha : 2 * Real.sqrt (2 * (x : ℝ)) ≤ 4 * (x : ℝ) ^ ((9 : ℝ) / 10) := by
       linarith [master_sqrt_le (x := x) hx1]
-    have hb : Lwin x ^ 2 ≤ Lwin x ^ 3 := by nlinarith [hLwin1]
+    have hb : Lwin x ^ 2 ≤ Lwin x ^ 3 := by nlinarith only [hLwin1, sq_nonneg (Lwin x)]
     have hc : Real.exp (0.7 * z0 z x) ≤ Real.exp (2 * z0 z x) :=
-      Real.exp_le_exp.mpr (by nlinarith [hz0nn])
+      Real.exp_le_exp.mpr (by linarith only [hz0nn])
     have hL0 : 0 ≤ Lwin x := Lwin_nonneg x
     calc 2 * Real.sqrt (2 * (x : ℝ)) * Lwin x ^ 2 * Real.exp (0.7 * z0 z x)
         ≤ 4 * (x : ℝ) ^ ((9 : ℝ) / 10) * Lwin x ^ 3 * Real.exp (2 * z0 z x) :=

@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Line 21 says more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5). Its priority statements ("first …") are as of its date; the survey-dated forms are in `docs/RESULTS.md` and the priority surveys (`docs/priority-survey-2026-08-11.md`, `docs/priority-survey-2026-08-17-delta.md`), and several of those rows have since fallen (the delta's rows 7–9; the 2026-10-11 note at the head of the 08-11 survey).*
+
 # The Gold Window — campaign report (for JYH ratification)
 
 **Window:** 2026-07-16 → 2026-07-18 (~78h play window, this report
@@ -70,7 +72,7 @@ process lesson, none a kernel error).
 **Doors** (each at its final hinges): the HB engine (Siegel-zero
 conditional; WP1 transfer parametrically complete, WP2 at the
 T-BAL balance); the GEH door (anchored combinator consistent
-end-to-end post-replumb, ShiuCore wired; remaining: tiiBlock
+end-to-end post-replumb, ShiuCore's `hshiu` body proved but not yet accepted by the combinator's fixed-`F` slot, catch #54; remaining: tiiBlock
 CoeffAt/SW + the honest interfaces); the VMVT road (summit
 landed; the VK region in flight — θ = 3/4 unlocks MR, then
 unconditional log-Chowla-2); Littlewood (COVER ✓, STRIP ✓,

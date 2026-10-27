@@ -38,16 +38,22 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-! ## The shared Rankin constant (from `rankin_bound 1`) -/
 
 /-- The Rankin `L = 1` constant `∑_{q<Q,sf} 1/φ(q) ≤ rankinC·log Q`, exposed as a
 fixed real (not hidden in an `∃`) so the tight error constants are explicit. -/
 noncomputable def rankinC : ℝ := (rankin_bound 1).choose
 
+omit [TupleChoice] in
 lemma rankinC_ge_one : 1 ≤ rankinC := (rankin_bound 1).choose_spec.1
 
+omit [TupleChoice] in
 lemma rankinC_nonneg : 0 ≤ rankinC := le_trans zero_le_one rankinC_ge_one
 
+omit [TupleChoice] in
 lemma rankinC_bound (Q : ℕ) (hQ : 2 ≤ Q) :
     ∑ q ∈ (Finset.range Q).filter Squarefree, 1 / (Nat.totient q : ℝ)
       ≤ rankinC * Real.log Q := by
@@ -90,11 +96,11 @@ private theorem gr_ratio_mem' {ρ : ℕ} (hρ : Squarefree ρ)
   · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
     have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
     have h1 : ((p : ℝ) - 1)⁻¹ ≤ 1 := by rw [inv_le_one_iff₀]; right; linarith
-    nlinarith [h0, h1]
+    nlinarith only [h0, h1]
   · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
     have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
     have h1 : ((p : ℝ) - 1)⁻¹ ≤ 1 := by rw [inv_le_one_iff₀]; right; linarith
-    nlinarith [h0, h1]
+    nlinarith only [h0, h1]
   · nlinarith [sq_nonneg (((p : ℝ) - 1)⁻¹)]
 
 /-- The coordinate factorization (local copy of the private `tail_factor_le`). -/
@@ -277,7 +283,7 @@ theorem htail_tight (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
   have hk2 : 1 ≤ k ^ 2 := Nat.one_le_pow 2 k (by omega)
   have hD12 : 12 ≤ D₀ k := by omega
   have hD4 : 4 ≤ D₀ k := by omega
-  have hkD : k ≤ D₀ k := by nlinarith [hD]
+  have hkD : k ≤ D₀ k := by nlinarith only [hk, hk2, hD, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   have hD0 : 0 < D₀ k := by omega
   have hD0R : (0 : ℝ) < (D₀ k : ℝ) := by exact_mod_cast hD0
   have hD0ne : (D₀ k : ℝ) ≠ 0 := hD0R.ne'
@@ -336,7 +342,7 @@ theorem htail_tight (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
       rw [abs_mul, abs_of_nonneg (by positivity : (0 : ℝ) ≤ (r i : ℝ) / (Nat.totient (a i) : ℝ))]
       have h1 := abs_moebius_real_le_one (a i)
       have h2 : (0 : ℝ) ≤ (r i : ℝ) / (Nat.totient (a i) : ℝ) := by positivity
-      nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - |((μ (a i) : ℤ) : ℝ)|) h2]
+      linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - |((μ (a i) : ℤ) : ℝ)|) h2]
     calc |y a| / (∏ i, (Nat.totient (a i) : ℝ))
             * ∏ i ∈ Finset.univ.erase m,
                 |((μ (a i) : ℤ) : ℝ) * ((r i : ℝ) / (Nat.totient (a i) : ℝ))|
@@ -467,7 +473,7 @@ theorem htail_tight (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
                     = ((gMult (r i) : ℝ) * (r i : ℝ) / (Nat.totient (r i) : ℝ) ^ 2)
                       * (1 + 4 / (D₀ k : ℝ)) from by ring]
               have hge := (gr_ratio_mem' (hsq i) (hodd i)).2
-              nlinarith [hge, (by positivity : (0:ℝ) ≤ 1 + 4 / (D₀ k : ℝ))]
+              nlinarith only [hge, (by positivity : (0 : ℝ) ≤ 1 + 4 / (D₀ k : ℝ))]
         _ = (1 + 4 / (D₀ k : ℝ)) ^ ((Finset.univ.erase m).erase j).card := by
             rw [Finset.prod_const]
         _ ≤ (Real.exp (4 / (D₀ k : ℝ))) ^ ((Finset.univ.erase m).erase j).card :=
@@ -616,6 +622,7 @@ theorem abs_mainSum_le_tight (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → �
 /-- The explicit linear-in-`k` Lemma 5.3 constant `rankinC·(2 + 4·exp 4)`. -/
 noncomputable def lemma53Const : ℝ := rankinC * (2 + 4 * Real.exp 4)
 
+omit [TupleChoice] in
 lemma lemma53Const_nonneg : 0 ≤ lemma53Const := by
   rw [lemma53Const]
   have := rankinC_nonneg
@@ -704,8 +711,8 @@ theorem lemma53_tight (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
           + 4 * Real.exp 4 * rankinC * (k : ℝ) * Real.log R
         ≤ (lemma53Const * (k : ℝ)) * Real.log R := by
       rw [lemma53Const]
-      nlinarith [hC₁0, hlogR, hexp4, hkR, mul_nonneg hC₁0 hlogR,
-        mul_nonneg (mul_nonneg hexp4 hC₁0) hlogR]
+      nlinarith only [hkR,
+          mul_nonneg hC₁0 hlogR]
     have hLHSeq : (2 / (D₀ k : ℝ)) * (rankinC * Real.log R)
           + (4 * Real.exp 4 * rankinC * (k : ℝ)) * Real.log R / (D₀ k : ℝ)
         = (2 * (rankinC * Real.log R)
@@ -1091,7 +1098,7 @@ theorem s2main_lower_rel_tight (k R : ℕ) (m : Fin k) (T : ℝ)
       have h1b : -(|b| * |a - b|) ≤ b * (a - b) := by
         have := neg_abs_le (b * (a - b)); rwa [abs_mul] at this
       have hstep : b ^ 2 - 2 * |b| * |a - b| ≤ a ^ 2 := by
-        nlinarith [sq_nonneg (a - b), h1b]
+        linarith only [h1b, sq_nonneg (a - b)]
       have h2b0 : (0 : ℝ) ≤ 2 * |b| := by positivity
       have hmul := mul_le_mul_of_nonneg_left herr h2b0
       linarith [hstep, hmul]
@@ -1102,7 +1109,7 @@ theorem s2main_lower_rel_tight (k R : ℕ) (m : Fin k) (T : ℝ)
       (div_le_div_iff_of_pos_right hΦpos).mpr hsqb
     have hle2 : a ^ 2 / Φ ≤ G * V ^ 2 := by
       rw [hyMsq, div_le_iff₀ hΦpos]
-      nlinarith [mul_nonneg (mul_nonneg hGpos.le (sq_nonneg V)) (sub_nonneg.mpr hGleΦ)]
+      linarith only [mul_nonneg (mul_nonneg hGpos.le (sq_nonneg V)) (sub_nonneg.mpr hGleΦ)]
     rw [heq]; exact le_trans hle1 hle2
   have hrw' :
       (∑ u ∈ (kSieveIndex k R (W k)).filter (fun u => u m = 1),
@@ -1220,20 +1227,20 @@ theorem s2CompatFormM_ge_sixteenth_tight (k R : ℕ) (T : ℝ) (m : Fin k)
   have hB2M : 0 ≤ (B1 k R (W k) T) ^ 2 * M := mul_nonneg (sq_nonneg _) hM
   have h1 : 4 * C * Real.log R / (D₀ k : ℝ) ≤ B1 k R (W k) T / 8 := by
     rw [div_le_iff₀ hD0pos] at *
-    nlinarith [hreg]
+    linarith only [hreg]
   have he1 : 4 * C * Real.log R / (D₀ k : ℝ) * (B1 k R (W k) T * M)
       ≤ 1 / 8 * ((B1 k R (W k) T) ^ 2 * M) := by
     have := mul_le_mul_of_nonneg_right h1 hB1M
-    nlinarith [this]
+    linarith only [this]
   have h2 : 192 * (k : ℝ) ^ 2 / (D₀ k : ℝ) ≤ 1 / 16 := by
     rw [div_le_iff₀ hD0pos]
     have hk3 : (k : ℝ) ^ 3 ≤ (D₀ k : ℝ) := by exact_mod_cast hD
     have hkR : (3072 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
-    nlinarith [hk3, hkR, sq_nonneg (k : ℝ)]
+    nlinarith only [hkR, hk3, sq_nonneg ↑k]
   have he2 : 192 * (k : ℝ) ^ 2 / (D₀ k : ℝ) * ((B1 k R (W k) T) ^ 2 * M)
       ≤ 1 / 16 * ((B1 k R (W k) T) ^ 2 * M) :=
     mul_le_mul_of_nonneg_right h2 hB2M
-  nlinarith [hbound, he1, he2]
+  linarith only [he2, he1, hbound]
 
 /-! ## `D₀ k = k³` and the Mertens `φ(W)/W` lower bound (for the regime discharge)
 
@@ -1243,65 +1250,8 @@ on `φ(W k)/W k`.  Two ingredients: `D₀ k = k³` (so `log D₀ = 3 log k`; nee
 Chebyshev prime-count bound to show the admissible tuple `H k` fits under `k³`),
 and the Mertens third-theorem style bound `W/φW ≤ exp(mertensC)·log D₀`. -/
 
-/-- Chebyshev count bound: `π(k) + k ≤ π(k³)` (there are `≥ k` primes in `(k, k³]`),
-via `Chebyshev.pi_ge`.  Holds for `k ≥ 20`. -/
-private lemma count_le_count_cube (k : ℕ) (hk : 20 ≤ k) :
-    Nat.count Nat.Prime (k + 1) + k ≤ Nat.count Nat.Prime (k ^ 3 + 1) := by
-  have hk1 : 1 < k := by omega
-  have hkR : (1 : ℝ) < (k : ℝ) := by exact_mod_cast hk1
-  have hk20R : (20 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
-  have hlogk : 0 < Real.log k := Real.log_pos hkR
-  have hlogcube : Real.log ((k:ℝ)^3) = 3 * Real.log k := by rw [Real.log_pow]; push_cast; ring
-  have hlog2 : (1:ℝ)/2 ≤ Real.log 2 := by have := Real.log_two_gt_d9; linarith
-  have hlog2le : Real.log 2 ≤ 1 := by have := Real.log_two_lt_d9; linarith
-  have hL : Real.log k ≤ (k:ℝ) := by
-    have := Real.log_le_sub_one_of_pos (show (0:ℝ) < (k:ℝ) by linarith); linarith
-  have hk3nn : (0:ℝ) ≤ (k:ℝ)^3 := by positivity
-  have hk3one : (1:ℝ) ≤ (k:ℝ)^3 := one_le_pow₀ (by linarith)
-  have hlogcube1 : Real.log ((k:ℝ)^3 + 1) ≤ Real.log 2 + 3 * Real.log k := by
-    have h1 : (k:ℝ)^3 + 1 ≤ 2 * (k:ℝ)^3 := by linarith [hk3one]
-    calc Real.log ((k:ℝ)^3+1) ≤ Real.log (2 * (k:ℝ)^3) := Real.log_le_log (by positivity) h1
-      _ = Real.log 2 + Real.log ((k:ℝ)^3) := by rw [Real.log_mul (by norm_num) (by positivity)]
-      _ = Real.log 2 + 3 * Real.log k := by rw [hlogcube]
-  have hcubic : 6*(k:ℝ)^2 + 6*(k:ℝ) + 1 ≤ (k:ℝ)^3 / 2 := by
-    nlinarith [hk20R, sq_nonneg (k:ℝ),
-      mul_nonneg (show (0:ℝ) ≤ (k:ℝ) - 20 by linarith) (sq_nonneg (k:ℝ))]
-  have e2 : 6*(k:ℝ)*Real.log k ≤ 6*(k:ℝ)^2 := by nlinarith [hL, hlogk.le, hk20R]
-  have e4 : Real.log ((k:ℝ)^3+1) ≤ 1 + 3*(k:ℝ) := by nlinarith [hlogcube1, hlog2le, hL]
-  have hk3log2 : (k:ℝ)^3/2 ≤ (k:ℝ)^3 * Real.log 2 := by nlinarith [hlog2, hk3nn]
-  have hkey : (2*(k:ℝ)+1)*(3*Real.log k) ≤ (k:ℝ)^3 * Real.log 2 - Real.log ((k:ℝ)^3+1) := by
-    nlinarith [e2, e4, hcubic, hk3log2, hL, hlogk.le]
-  have hpi := Chebyshev.pi_ge (k ^ 3)
-  rw [show ((k ^ 3 : ℕ) : ℝ) = (k : ℝ) ^ 3 by norm_cast] at hpi
-  rw [hlogcube] at hpi
-  have h3logk : 0 < 3 * Real.log k := by linarith
-  have hpi2 : 2*(k:ℝ)+1 ≤ (Nat.primeCounting (k^3):ℝ) := by
-    refine le_trans ?_ hpi
-    rw [le_div_iff₀ h3logk]; exact hkey
-  have hpc : Nat.primeCounting (k ^ 3) = Nat.count Nat.Prime (k ^ 3 + 1) := rfl
-  have hnat : 2 * k + 1 ≤ Nat.primeCounting (k^3) := by
-    have : (2*k+1 : ℝ) ≤ (Nat.primeCounting (k^3):ℝ) := by linarith [hpi2]
-    exact_mod_cast this
-  have hcnt : Nat.count Nat.Prime (k + 1) ≤ k + 1 := Nat.count_le Nat.Prime
-  rw [← hpc]; omega
-
-/-- `(H k).sup id ≤ k³`: the largest shift of the admissible tuple `H k` (the
-`k`-th prime above `k`) is `≤ k³`, since `π(k³) − π(k) ≥ k`.  Holds for `k ≥ 20`. -/
-private lemma H_sup_le_cube (k : ℕ) (hk : 20 ≤ k) : (H k).sup id ≤ k ^ 3 := by
-  have hcnt := count_le_count_cube k hk
-  apply Finset.sup_le
-  intro h hh
-  simp only [id_eq]
-  unfold H at hh
-  simp only [Finset.mem_image, Finset.mem_range] at hh
-  obtain ⟨i, hi, rfl⟩ := hh
-  rw [← Nat.lt_succ_iff]
-  refine (Nat.lt_nth_iff_count_lt Nat.infinite_setOf_prime).mp ?_
-  change firstIdxAboveK k + i < Nat.count Nat.Prime (k ^ 3 + 1)
-  unfold firstIdxAboveK
-  omega
-
-/-- `D₀ k = k³` for `k ≥ 20` (the `k³` floor dominates the admissible-tuple sup). -/
+/-- `D₀ k = k³` for `k ≥ 20` (the `k³` floor dominates the admissible-tuple sup; the sup bound is
+the tuple choice's `sup_cube`, proved for the standard tuple in `Tuple.lean`). -/
 theorem D0_eq_cube (k : ℕ) (hk : 20 ≤ k) : D₀ k = k ^ 3 := by
   unfold D₀
   exact max_eq_left (H_sup_le_cube k hk)

@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Line 39 says more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 # THE DICHOTOMY DAY CLOSING REPORT
 ### 2026-07-19 — the Gold Window's final day; the last day of subscription Fable
 
@@ -36,8 +38,8 @@ every one of ~35 commits.**
    perfect-pretense neutrality point.
 4. **THE SPINE IS DOOR-ONLY** — log-Chowla-two at ONE hypothesis
    (MRTUniformityXi at δ₀ = c₀ε/2K); the old t/g/hbudget1
-   residual proven unsatisfiable (F0, 4-way confirmed) and
-   deleted from every surface.
+   residual found unsatisfiable at c₀ = 1 (F0, a freeze-panel finding, outside Lean) and
+   absent from the door-only terminals (corrected 2026-10-26: it survives in the superseded `log_chowla_two_final(_xi)`).
 5. **S8 day one**: 12 MR modules landed (PrimeSigmaShift + the
    unconditional Euler-oscillation bridge [LOG-EULER-OSC closed],
    OneLinePowGrowth at the frozen ℓ⁴, MVHilbert + MVCore [K2

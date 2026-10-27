@@ -83,7 +83,7 @@ theorem zeta_ne_zero_of_pole_dominant {s : ℂ} (hs : 0 < s.re)
     rw [← norm_mul, hR, norm_neg, norm_one]
   have hRle : ‖∑' n : ℕ, dTerm s (n + 1)‖ ≤ ‖s‖ * (1 + 1 / s.re) := norm_R_le s hs
   have hs1 : (0 : ℝ) ≤ ‖s - 1‖ := norm_nonneg _
-  nlinarith [hnorm, hRle, hs1, h]
+  nlinarith only [hRle, hs1, hnorm, h]
 
 /-! ## 2. The explicit strip -/
 
@@ -248,13 +248,13 @@ theorem zeta_zero_free_region_explicit {ρ : ℂ} (hρ : riemannZeta ρ = 0) (hr
       exact le_trans h3 (Real.log_le_log (by norm_num) (by linarith [hγ1]))
     rcases le_or_gt ρ.re (1 / 2) with hβ | hβ
     · have hc₃Lv : (1 / 10 ^ 7 : ℝ) / Lv ≤ 1 / 2 := by
-        rw [div_le_iff₀ hLpos]; nlinarith [hL1]
+        rw [div_le_iff₀ hLpos]; linarith only [hL1, hβ1, hre]
       linarith
     · set dd : ℝ := 1 / 10816 with hdddef
       have hddpos : (0 : ℝ) < dd := by norm_num
       have hddlt1 : dd < 1 := by rw [hdddef]; norm_num
       set σ : ℝ := 1 + dd / Lv with hσdef
-      have hddL : dd / Lv ≤ dd := by rw [div_le_iff₀ hLpos]; nlinarith [hL1, hddpos]
+      have hddL : dd / Lv ≤ dd := by rw [div_le_iff₀ hLpos]; nlinarith only [hL1, hddpos, hβ1, hre]
       have hσ1 : 1 < σ := by
         rw [hσdef]; have : 0 < dd / Lv := div_pos hddpos hLpos; linarith
       have hσ2 : σ < 2 := by rw [hσdef]; linarith [hddL, hddlt1]
@@ -296,12 +296,12 @@ theorem zeta_zero_free_region_explicit {ρ : ℂ} (hρ : riemannZeta ρ = 0) (hr
         have hn : (1 : ℝ) ≤ ‖s2 - 1‖ := by
           have h := Complex.abs_im_le_norm (s2 - 1); rw [him] at h
           have h2 : (2 : ℝ) * |ρ.im| = |2 * ρ.im| := by rw [abs_mul]; norm_num
-          nlinarith [hγ1, h, h2, abs_nonneg (2 * ρ.im)]
+          linarith only [h2, h, hσ1, hddL, hγ1]
         calc (1 / (s2 - 1)).re ≤ ‖1 / (s2 - 1)‖ :=
               le_trans (le_abs_self _) (Complex.abs_re_le_norm _)
           _ = 1 / ‖s2 - 1‖ := by rw [norm_div, norm_one]
           _ ≤ 1 := by rw [div_le_one (by linarith : (0 : ℝ) < ‖s2 - 1‖)]; exact hn
-      have e8 : (8 : ℝ) ≤ 8 * Lv := by nlinarith [hL1]
+      have e8 : (8 : ℝ) ≤ 8 * Lv := by linarith only [hL1]
       have key : 4 * (1 / (σ - ρ.re)) ≤ 3 * (1 / (σ - 1)) + 5408 * Lv := by
         linarith [h341, hA0, hA1, hA2, hP1, hP2, e8, hLdef]
       have hchain' : 4 / (dd / Lv + (1 - ρ.re)) ≤ 3 / (dd / Lv) + 5408 * Lv := by
@@ -387,7 +387,7 @@ theorem Zc_lower_near_pole {z : ℂ} (hre : 1 / 2 ≤ z.re) (hz : ‖z - 1‖ �
         _ = ‖Zc z - (z - 1) * ∑' n : ℕ, dTerm z (n + 1)‖ := by rw [hser]; ring_nf
         _ ≤ ‖Zc z‖ + ‖(z - 1) * ∑' n : ℕ, dTerm z (n + 1)‖ := norm_sub_le _ _
     rwa [norm_mul] at hstep
-  nlinarith [h1, hz, hR3, hRnn, norm_nonneg (z - 1)]
+  nlinarith only [hz, hRnn, h1, hR3]
 
 /-- **The right-half `Zc` floor.** For `2 ≤ Re z`, `1/4 ≤ ‖Zc z‖`: here `‖z−1‖ ≥ Re z − 1 ≥ 1`
 and `‖ζ z‖ ≥ 1/4` (`zeta_norm_ge`). -/
@@ -400,7 +400,7 @@ theorem Zc_lower_of_two_le_re {z : ℂ} (hre : 2 ≤ z.re) : (1 : ℝ) / 4 ≤ �
     rw [Complex.sub_re, Complex.one_re, abs_of_nonneg (by linarith : (0 : ℝ) ≤ z.re - 1)] at h
     linarith
   have h2 : (1 : ℝ) / 4 ≤ ‖riemannZeta z‖ := zeta_norm_ge hre
-  nlinarith [h1, h2, norm_nonneg (riemannZeta z)]
+  nlinarith only [h1, h2]
 
 /-- **The pole patch floored, modulo the residual band.** Given any explicit floor `δ₁` on the
 band `{a ≤ Re z ≤ 2, |Im z| ≤ 2, 1/5 ≤ ‖z−1‖}`, the whole `Zc_patch_lower` rectangle carries
@@ -490,13 +490,13 @@ theorem Zc_sphere_bound_sharp {t₀ a b : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b)
   have hcn : ‖c‖ ≤ b := by
     have h2 : ‖c‖ ^ 2 = 4 + t₀ ^ 2 := by
       rw [Complex.sq_norm, Complex.normSq_apply, hcre, hcim]; ring
-    nlinarith [norm_nonneg c, h2, hb2, hb]
+    nlinarith only [hb, h2, hb2]
   have hc1n : ‖c - 1‖ ≤ a := by
     have hre1 : (c - 1).re = 1 := by rw [Complex.sub_re, hcre, Complex.one_re]; norm_num
     have him1 : (c - 1).im = t₀ := by rw [Complex.sub_im, hcim, Complex.one_im]; ring
     have h2 : ‖c - 1‖ ^ 2 = 1 + t₀ ^ 2 := by
       rw [Complex.sq_norm, Complex.normSq_apply, hre1, him1]; ring
-    nlinarith [norm_nonneg (c - 1), h2, ha2, ha]
+    nlinarith only [ha, h2, ha2]
   have hznorm : ‖z‖ ≤ 7 / 4 + b := by
     calc ‖z‖ = ‖c + (z - c)‖ := by ring_nf
       _ ≤ ‖c‖ + ‖z - c‖ := norm_add_le _ _
@@ -524,9 +524,9 @@ Against `M₀ζ(1) = 137.5625`: the log gain is `log(550.25/264) = 0.734`, i.e. 
 theorem Zc_sphere_bound_height_one {t₀ : ℝ} (ht : |t₀| ≤ 1) {z : ℂ}
     (hz : ‖z - (2 + (t₀ : ℂ) * I)‖ ≤ 7 / 4) : ‖Zc z‖ ≤ 66 := by
   have hsq : t₀ ^ 2 ≤ 1 := by
-    have := sq_abs t₀; nlinarith [abs_nonneg t₀]
+    have := sq_abs t₀; nlinarith only [ht, this, abs_nonneg t₀]
   have h := Zc_sphere_bound_sharp (a := 3 / 2) (b := 9 / 4) (by norm_num) (by norm_num)
-    (by nlinarith) (by nlinarith) hz
+    (by linarith only [hsq]) (by linarith only [hsq]) hz
   norm_num at h
   linarith
 
@@ -535,9 +535,9 @@ the `s₂ = σ + 2iγ` slot of the 3-4-1 at `|γ| ≤ 1`. Against `M₀ζ(2) = 1
 theorem Zc_sphere_bound_height_two {t₀ : ℝ} (ht : |t₀| ≤ 2) {z : ℂ}
     (hz : ‖z - (2 + (t₀ : ℂ) * I)‖ ≤ 7 / 4) : ‖Zc z‖ ≤ 96 := by
   have hsq : t₀ ^ 2 ≤ 4 := by
-    have := sq_abs t₀; nlinarith [abs_nonneg t₀]
+    have := sq_abs t₀; nlinarith only [ht, this, abs_nonneg t₀]
   have h := Zc_sphere_bound_sharp (a := 9 / 4) (b := 3) (by norm_num) (by norm_num)
-    (by nlinarith) (by nlinarith) hz
+    (by linarith only [hsq]) (by linarith only [hsq]) hz
   norm_num at h
   linarith
 
@@ -848,13 +848,13 @@ theorem zeta_zero_free_region_sharp {ρ : ℂ} (hρ : riemannZeta ρ = 0) (hre :
       exact le_trans h3 (Real.log_le_log (by norm_num) (by linarith [hγ1]))
     rcases le_or_gt ρ.re (1 / 2) with hβ | hβ
     · have hc₃Lv : (1 / 75712 : ℝ) / Lv ≤ 1 / 2 := by
-        rw [div_le_iff₀ hLpos]; nlinarith [hL1]
+        rw [div_le_iff₀ hLpos]; linarith only [hL1, hβ1, hre]
       linarith
     · set dd : ℝ := 1 / 10816 with hdddef
       have hddpos : (0 : ℝ) < dd := by norm_num
       have hddlt1 : dd < 1 := by rw [hdddef]; norm_num
       set σ : ℝ := 1 + dd / Lv with hσdef
-      have hddL : dd / Lv ≤ dd := by rw [div_le_iff₀ hLpos]; nlinarith [hL1, hddpos]
+      have hddL : dd / Lv ≤ dd := by rw [div_le_iff₀ hLpos]; nlinarith only [hL1, hddpos, hβ1, hre]
       have hσ1 : 1 < σ := by
         rw [hσdef]; have : 0 < dd / Lv := div_pos hddpos hLpos; linarith
       have hσ2 : σ < 2 := by rw [hσdef]; linarith [hddL, hddlt1]
@@ -896,12 +896,12 @@ theorem zeta_zero_free_region_sharp {ρ : ℂ} (hρ : riemannZeta ρ = 0) (hre :
         have hn : (1 : ℝ) ≤ ‖s2 - 1‖ := by
           have h := Complex.abs_im_le_norm (s2 - 1); rw [him] at h
           have h2 : (2 : ℝ) * |ρ.im| = |2 * ρ.im| := by rw [abs_mul]; norm_num
-          nlinarith [hγ1, h, h2, abs_nonneg (2 * ρ.im)]
+          linarith only [h2, h, hσ1, hddL, hγ1]
         calc (1 / (s2 - 1)).re ≤ ‖1 / (s2 - 1)‖ :=
               le_trans (le_abs_self _) (Complex.abs_re_le_norm _)
           _ = 1 / ‖s2 - 1‖ := by rw [norm_div, norm_one]
           _ ≤ 1 := by rw [div_le_one (by linarith : (0 : ℝ) < ‖s2 - 1‖)]; exact hn
-      have e8 : (8 : ℝ) ≤ 8 * Lv := by nlinarith [hL1]
+      have e8 : (8 : ℝ) ≤ 8 * Lv := by linarith only [hL1]
       have key : 4 * (1 / (σ - ρ.re)) ≤ 3 * (1 / (σ - 1)) + 5408 * Lv := by
         linarith [h341, hA0, hA1, hA2, hP1, hP2, e8, hLdef]
       have hchain' : 4 / (dd / Lv + (1 - ρ.re)) ≤ 3 / (dd / Lv) + 5408 * Lv := by

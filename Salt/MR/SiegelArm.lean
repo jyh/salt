@@ -197,7 +197,7 @@ lemma eulerFactor_prod_lower (q : ℕ) [NeZero q] {s : ℂ} (hs : 1 ≤ s.re) :
       rw [div_le_iff₀ (by linarith : (0 : ℝ) < (p : ℝ))]
       have : (1 : ℝ) / (p : ℝ) ≤ 1 / 2 := by
         rw [div_le_div_iff₀ (by linarith) (by norm_num)]; linarith
-      nlinarith
+      nlinarith only [this, hp2, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
     linarith
   have hnn : ∀ p ∈ q.primeFactors, (0 : ℝ) ≤ (1 : ℝ) / (p : ℝ) := by
     intro p hp
@@ -341,7 +341,7 @@ theorem chi_floor_all_complete :
     have h2 : 2 ≤ 2 * orderOf χ := by omega
     exact_mod_cast h2
   rw [abs_mul, abs_of_nonneg (by linarith : (0 : ℝ) ≤ ((2 * orderOf χ : ℕ) : ℝ))] at hkt
-  nlinarith [abs_nonneg t]
+  nlinarith only [hk2, hkt, (Nat.cast_nonneg _ : 0 ≤ ↑(2 * orderOf χ))]
 
 /-- **S-3 (MRT shape) — the unified growing floor on `𝔻(λ, χ·n^{it}; X)²`**, the object the
 quality infimum `M(λ; X, W)` ranges over.  One rewrite through `pretDistSq_lam_chi_twist`. -/
@@ -415,7 +415,7 @@ theorem zeta_upper_band :
   have hstep : ‖riemannZeta s‖ * |τ| ≤ ‖riemannZeta s‖ * ‖s - 1‖ :=
     mul_le_mul_of_nonneg_left him (norm_nonneg _)
   have hZ : ‖Zc s‖ ≤ max ‖Zc z₀‖ 1 := le_trans hle (le_max_left _ _)
-  nlinarith [hstep, hZ, heq.symm.le, heq.le]
+  linarith only [hZ, hstep, heq]
 
 /-- **The principal-character upper bound in terms of ζ.**  For `Re s ≥ 0` and `s ≠ 1`,
 `‖L(s,χ₀)‖ ≤ q·‖ζ(s)‖`: the Euler correction `∏_{p|q}(1 − p^{−s})` has every factor of norm
@@ -640,12 +640,12 @@ theorem chi_Llower_real_of_L1 :
   have hδpos : 0 < δ := by rw [hδdef]; positivity
   have hδsmall : δ ≤ 1 / 32 := by
     rw [hδdef, div_le_div_iff₀ (by positivity) (by norm_num)]
-    nlinarith
+    linarith only [hD1, hL1le]
   -- the gate puts `1/log X` below `δ`
   have hdδ : 1 / Real.log X ≤ δ := by
     rw [hδdef, div_le_div_iff₀ hlogXpos (by positivity)]
     rw [div_le_iff₀ hL1pos] at hgate
-    nlinarith
+    linarith only [hgate]
   -- the two nonnegative pieces of `B`
   have hNnn : (0 : ℝ) ≤ Real.log 2 - Real.log L₁ := by
     have h1 : Real.log L₁ ≤ 0 := Real.log_nonpos hL1pos.le hL1le
@@ -653,8 +653,8 @@ theorem chi_Llower_real_of_L1 :
     linarith
   have hqZ : (0 : ℝ) ≤ (q : ℝ) * Z := mul_nonneg (by linarith) (by linarith)
   have hqZD : (1 : ℝ) ≤ (q : ℝ) * Z * diskConst q := by
-    have h1 : (1 : ℝ) ≤ (q : ℝ) * Z := by nlinarith
-    nlinarith [h1]
+    have h1 : (1 : ℝ) ≤ (q : ℝ) * Z := by nlinarith only [hZ1, hq1R, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
+    nlinarith only [hD1, hqZ, h1]
   have hbig1 : (1 : ℝ) ≤ 16 * (q : ℝ) * Z * diskConst q / L₁ := by
     rw [le_div_iff₀ hL1pos]
     linarith [hqZD]
@@ -690,7 +690,7 @@ theorem chi_Llower_real_of_L1 :
       have hsum : ‖s - 1‖ ≤ 2 * δ := by linarith [hs1, hdδ, htsmall]
       have h2δ : (8 * diskConst q) * (2 * δ) = L₁ / 2 := by
         rw [hδdef]; field_simp; ring
-      nlinarith [hsum, hDpos]
+      nlinarith only [hD1, hs1, htsmall, hdδ, h2δ]
     have hlow : L₁ / 2 ≤ ‖LFunction χ s‖ := LFunction_lower_of_L1 χ hχ1 hL1 hs2 hclose
     have hlog : Real.log (L₁ / 2) ≤ Real.log ‖LFunction χ s‖ :=
       Real.log_le_log (by positivity) hlow
@@ -758,7 +758,7 @@ theorem chi_floor_real_of_L1 :
       exact_mod_cast h2
     have ht1 : |t| ≤ 1 / 2 := by
       rw [abs_mul, abs_of_nonneg (by linarith : (0 : ℝ) ≤ ((2 * orderOf χ : ℕ) : ℝ))] at hkt
-      nlinarith [abs_nonneg t]
+      nlinarith only [hk2, hkt, (Nat.cast_nonneg _ : 0 ≤ ↑(2 * orderOf χ))]
     exact hL q χ hχ1 hsq X t L₁ hX ht1 hL1pos hL1le hL1 hgate
 
 /-- **The `L₁` slot is inhabited at every real nonprincipal character.**  `L(1,χ)` is a

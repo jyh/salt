@@ -61,6 +61,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- Nonnegativity of the truncated coordinate weight `fTilde`. -/
 lemma fTilde_nonneg (k R : ℕ) (T : ℝ) (r : ℕ) (hR : 2 ≤ R) : 0 ≤ fTilde k R T r := by
   unfold fTilde
@@ -115,6 +118,7 @@ noncomputable def omitMass (k R : ℕ) (m : Fin k) (T : ℝ) (u : Fin k → ℕ)
     (if ¬ Nat.Coprime am (∏ i ∈ Finset.univ.erase m, u i)
       then fWt k R am / (Nat.totient am : ℝ) else 0)
 
+omit [TupleChoice] in
 /-- **`uVal`-threshold ⇒ product bound.** If every coordinate is `≥ 1` and the
 total `uVal`-mass is `< k`, then `∏ᵢ rᵢ < R`.  (The forward half of the sieve
 identity `Σᵢ uVal(rᵢ) < k ⟺ ∏ᵢ rᵢ < R`, since `uVal(r) = k·log r / log R`.) -/
@@ -431,7 +435,7 @@ theorem s2_tensor_lower (k R : ℕ) (m : Fin k) (T : ℝ) (hR : 2 ≤ R)
     -- algebraic lower bound `Q² ≥ c² − 2 c·omitMass`
     have hQsq : c ^ 2 - 2 * c * omitMass k R m T u ≤ Q ^ 2 := by
       have hQom : 0 ≤ Q + omitMass k R m T u - c := by linarith
-      nlinarith [sq_nonneg (Q - c), mul_nonneg hB1 hQom]
+      linarith only [mul_nonneg hB1 hQom, sq_nonneg (Q - c : ℝ)]
     -- assemble: `(c² − 2c·omit)·W ≤ Q²·W = S²/∏φ`
     rw [hid]
     exact mul_le_mul_of_nonneg_right hQsq hWnn

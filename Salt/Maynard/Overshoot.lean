@@ -24,6 +24,10 @@ Markov argument — a bounded fraction of `A₁^k`.
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
+omit [TupleChoice] in
 /-- On the natural-number support `r ≥ 1`, `u(r) = k·log r/log R ≥ 0` — no `2 ≤ R`
 needed, since `Real.log` of a natural number is always `≥ 0` (`log 0 = log 1 = 0`). -/
 lemma uVal_nonneg_nat (k R r : ℕ) (hr : 1 ≤ r) : 0 ≤ uVal k R r := by

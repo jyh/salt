@@ -271,7 +271,9 @@ byte-identical to `gold_box_price_engine_at_live_annulus`'s (the two-cutoff
 set_option maxHeartbeats 800000 in
 -- the base engine (`gold_box_price_engine`) application re-elaborates the ~43-hypothesis
 -- rpow-bearing row list; the whnf/defeq checks need headroom above the default budget.
-theorem gold_box_price_engine_at_band :
+/-- `gold_box_price_engine_at_band` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_box_price_engine_at_band_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
     ∃ (Kc : ℝ) (N₀ : ℕ), 0 < Kc ∧
       ∀ (x Lb : ℝ) (F : ℕ) (β : ℕ → ℂ) (X M kp D : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ)
         (Kβ Km Kβ' : ℝ) (T₁ T₂ Ne z y K ka i : ℕ),
@@ -317,7 +319,7 @@ theorem gold_box_price_engine_at_band :
           ≤ 2 * ((Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
                     + ((2 : ℝ) ^ ((13 : ℝ) + 5) * Kβ' + 15360 + 1)))
               * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (13 : ℝ)) := by
-  obtain ⟨Kc, N₀, hKc, hbody⟩ := gold_box_price_engine
+  obtain ⟨Kc, N₀, hKc, hbody⟩ := (gold_box_price_engine_of_SW hSWall)
   refine ⟨Kc, N₀, hKc, ?_⟩
   intro x Lb F β X M kp D Dset r Kβ Km Kβ' T₁ T₂ Ne z y K ka i hNe hi hx hNfloor hXeq hMeq
     hDge hk hβ hKβ hKm hKβ' hN₀ hd1 hcop2 hL1 hD1 hDsetD hDsq habs hX2 hM2 hDscale hXsqrt
@@ -346,6 +348,56 @@ theorem gold_box_price_engine_at_band :
     hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev hFX hDx hLbb hfloor herr_LEpos herr_D0E hDXM
     herr_scale hcoupG hcoup3 herr_book4
 
+/-- `gold_box_price_engine_at_band_of_SW` at the unconditional gate
+`Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_box_price_engine_at_band :
+    ∃ (Kc : ℝ) (N₀ : ℕ), 0 < Kc ∧
+      ∀ (x Lb : ℝ) (F : ℕ) (β : ℕ → ℂ) (X M kp D : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ)
+        (Kβ Km Kβ' : ℝ) (T₁ T₂ Ne z y K ka i : ℕ),
+        2 ≤ Ne →
+        i ∈ dyadicBoundary (pieceN kp) (pieceM kp) (goldCut Ne ka) (goldCut Ne (ka + 1))
+          (z * y) K →
+        Real.exp (10 ^ 10) ≤ (goldCut Ne (ka + 1) : ℝ) →
+        (goldCut Ne (ka + 1) : ℝ) ^ ((1 : ℝ) / 3) / 8 ≤ ((2 ^ kp : ℕ) : ℝ) →
+        X = 2 ^ (i + 1) - 1 → M = pieceM kp →
+        (goldCut Ne (ka + 1) : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (D : ℝ) →
+        2 ≤ kp →
+        (∀ m, ‖β m‖ ≤ 1) → 0 ≤ Kβ → 0 ≤ Km → 0 ≤ Kβ' → N₀ ≤ 2 ^ kp →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
+        (1 ≤ Real.log ((X : ℝ) * (M : ℝ))) →
+        1 ≤ D → (∀ d ∈ Dset, d ≤ D) → D < (2 ^ kp + 1) * (2 ^ kp + 1) →
+        (4 * (1 + Real.log D) * (D : ℝ)
+            ≤ ((2 ^ kp : ℕ) : ℝ) * (M : ℝ) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (13 : ℝ)) →
+        2 ≤ X → 2 ≤ M →
+        ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (15 : ℝ)) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 3) ≤ Real.sqrt (X : ℝ)) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 3) ≤ Real.sqrt (M : ℝ)) →
+        ((D : ℝ) * (Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt ((X : ℝ) * (M : ℝ))) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 5) ≤ Real.sqrt (M : ℝ)) →
+        F ≤ X →
+        ((D : ℝ) ≤ Real.sqrt x) →
+        (Real.log ((X : ℝ) * (M : ℝ)) ≤ Lb) →
+        (((3 : ℝ) / Real.log 2) ^ 8 * x ^ ((1 : ℝ) / 6) * Lb ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt (F : ℝ)) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X → 0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        ((D : ℝ) ≤ (X : ℝ) * (M : ℝ)) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
+            Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        (Kc * (Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 18)
+            ≤ Kβ * (Real.log ((2 ^ kp : ℕ) : ℝ)) ^ ((13 : ℝ) + 2 * 18)) →
+        (Kc * (Real.log ((X : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 1 + 2 * 18)
+            ≤ Km * (Real.log ((2 ^ kp : ℕ) : ℝ)) ^ ((13 : ℝ) + 2 * 18)) →
+        (∀ e, 2 ≤ e → e ≤ D →
+            Kc * (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ ((13 : ℝ) + 1 + 1 + 2 * 18)
+              ≤ Kβ' * (Real.log ((2 ^ kp : ℕ) : ℝ)) ^ ((13 : ℝ) + 1 + 2 * 18)) →
+        (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp)) X M (r d) d T₂‖)
+          + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp)) X M (r d) d T₁‖)
+          ≤ 2 * ((Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
+                    + ((2 : ℝ) ^ ((13 : ℝ) + 5) * Kβ' + 15360 + 1)))
+              * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ (13 : ℝ)) :=
+  gold_box_price_engine_at_band_of_SW Salt.SW.siegelWalfisz_holds
+
 /-! ## 3. `gold_band_box_kerr` — the Kerr-minima collapse onto `boxPriceKerr` (node 2b)
 
 `gold_box_price_engine_at_band` re-exported at the Kerr minima `Kβ := Kbeta_min Kc L logN 13 18` /
@@ -359,7 +411,9 @@ composition supplies them from the band geometry). -/
 set_option maxHeartbeats 1600000 in
 -- the 39-hypothesis engine application re-elaborates the long rpow-bearing row list (incl. the
 -- RHS↔`boxPriceKerr` collapse); the whnf/defeq checks need headroom above the default budget.
-theorem gold_band_box_kerr : ∃ (Kc : ℝ) (N₀ : ℕ), 0 < Kc ∧
+/-- `gold_band_box_kerr` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_band_box_kerr_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kc : ℝ) (N₀ : ℕ), 0 < Kc ∧
     ∀ (x Lb : ℝ) (F : ℕ) (β : ℕ → ℂ) (kp D : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ)
       (T₁ T₂ Ne z y K ka i : ℕ),
       2 ≤ Ne →
@@ -402,7 +456,7 @@ theorem gold_band_box_kerr : ∃ (Kc : ℝ) (N₀ : ℕ), 0 < Kc ∧
         + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp))
               (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₁‖)
         ≤ boxPriceKerr Kc kp i := by
-  obtain ⟨Kc, N₀, hKc, hbody⟩ := gold_box_price_engine_at_band
+  obtain ⟨Kc, N₀, hKc, hbody⟩ := (gold_box_price_engine_at_band_of_SW hSWall)
   refine ⟨Kc, N₀, hKc, ?_⟩
   intro x Lb F β kp D Dset r T₁ T₂ Ne z y K ka i hNe hi hx hNfloor hDge hk hβ hN₀
     hd1 hcop2 hL1 hD1 hDsetD hDsq habs hX2 hM2 hDscale hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx
@@ -438,6 +492,52 @@ theorem gold_band_box_kerr : ∃ (Kc : ℝ) (N₀ : ℕ), 0 < Kc ∧
   -- the engine RHS at the Kerr minima IS `boxPriceKerr Kc kp i` (byte-for-byte the closed price)
   exact hmain
 
+/-- `gold_band_box_kerr_of_SW` at the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_band_box_kerr : ∃ (Kc : ℝ) (N₀ : ℕ), 0 < Kc ∧
+    ∀ (x Lb : ℝ) (F : ℕ) (β : ℕ → ℂ) (kp D : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ)
+      (T₁ T₂ Ne z y K ka i : ℕ),
+      2 ≤ Ne →
+      i ∈ dyadicBoundary (pieceN kp) (pieceM kp) (goldCut Ne ka) (goldCut Ne (ka + 1)) (z * y) K →
+      Real.exp (10 ^ 10) ≤ (goldCut Ne (ka + 1) : ℝ) →
+      (goldCut Ne (ka + 1) : ℝ) ^ ((1 : ℝ) / 3) / 8 ≤ ((2 ^ kp : ℕ) : ℝ) →
+      (goldCut Ne (ka + 1) : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (D : ℝ) →
+      2 ≤ kp →
+      (∀ m, ‖β m‖ ≤ 1) → N₀ ≤ 2 ^ kp →
+      (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
+      1 ≤ Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) →
+      1 ≤ D → (∀ d ∈ Dset, d ≤ D) → D < (2 ^ kp + 1) * (2 ^ kp + 1) →
+      (4 * (1 + Real.log D) * (D : ℝ)
+          ≤ ((2 ^ kp : ℕ) : ℝ) * (pieceM kp : ℝ)
+              / (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ (13 : ℝ)) →
+      2 ≤ 2 ^ (i + 1) - 1 → 2 ≤ pieceM kp →
+      ((D : ℝ) ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
+          / (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ (15 : ℝ)) →
+      ((Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ ((13 : ℝ) + 3)
+          ≤ Real.sqrt ((2 ^ (i + 1) - 1 : ℕ) : ℝ)) →
+      ((Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ ((13 : ℝ) + 3)
+          ≤ Real.sqrt (pieceM kp : ℝ)) →
+      ((D : ℝ) * (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ ((13 : ℝ) + 5)
+          ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) →
+      ((Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ ((13 : ℝ) + 5)
+          ≤ Real.sqrt (pieceM kp : ℝ)) →
+      F ≤ 2 ^ (i + 1) - 1 →
+      ((D : ℝ) ≤ Real.sqrt x) →
+      (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) ≤ Lb) →
+      (((3 : ℝ) / Real.log 2) ^ 8 * x ^ ((1 : ℝ) / 6) * Lb ^ ((13 : ℝ) + 5)
+          ≤ Real.sqrt (F : ℝ)) →
+      (∀ e, 2 ≤ e → e ≤ D → e ≤ 2 ^ (i + 1) - 1 →
+          0 < Real.log (((((2 ^ (i + 1) - 1) / e : ℕ)) : ℝ) * (pieceM kp : ℝ))) →
+      ((D : ℝ) ≤ ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) →
+      (∀ e, 2 ≤ e → e ≤ D → e ≤ 2 ^ (i + 1) - 1 →
+          Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
+            ≤ 2 * Real.log (((((2 ^ (i + 1) - 1) / e : ℕ)) : ℝ) * (pieceM kp : ℝ))) →
+      (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp))
+            (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₂‖)
+        + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp))
+              (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₁‖)
+        ≤ boxPriceKerr Kc kp i :=
+  gold_band_box_kerr_of_SW Salt.SW.siegelWalfisz_holds
+
 /-! ## 4. `gold_band_survsum_geoN` — the outer-scale conversion (node 2c)
 
 The band mirror of `gold_box_hbox_geoN`: the leg-agnostic geo bridge that turns a per-survivor
@@ -448,6 +548,13 @@ geo grade `Cgeo·Kc·goldCut N (ka+1)/(log N)^{12}` (`Cgeo := cr^{12}·gboxConst
 ratio `hNXM : log N ≤ cr·log(X·M)` (holds on the high annuli the high-pass band survivors populate,
 `goldCut(ka+1) ≳ N^{19/24}`; the carrier vanishes on low annuli).  This is the `hgeoSym`/`hgeoLow`
 per-survivor grade the terminal `gold_hBVblocksW_at_op_band` consumes. -/
+/-- **The outer-scale conversion (node 2c).** With `X := 2^{i+1} − 1` and `M := pieceM kp`: for
+a dyadic boundary index `i` of the band carrier (`hi`), under `1 ≤ Kc` (`hKc`), the fold-log
+floor `1 ≤ log(X·M)` (`hL1`), the ratio `(10/31)·log(X·M) ≤ log 2^{kp}` (`hratio`), `0 < log N`
+(`hlogN0`), `1 ≤ cr` (`hcr`) and the outer ratio `log N ≤ cr·log(X·M)` (`hNXM`), a per-survivor
+price `P ≤ boxPriceKerr Kc kp i` (`hbox`) converts to the geo grade
+`P ≤ (cr^{12}·gboxConst)·Kc·goldCut N (ka+1) / (log N)^{12}`, via the landed
+`gold_boxPriceKerr_geoN`. Leg-agnostic: the band mirror of `gold_box_hbox_geoN`. -/
 theorem gold_band_survsum_geoN {N K kp ka i : ℕ} {Kc cr P : ℝ}
     (hKc : 1 ≤ Kc)
     (hi : i ∈ dyadicBoundary (pieceN kp) (pieceM kp)

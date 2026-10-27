@@ -196,7 +196,7 @@ theorem eh_error_small (k : ℕ) (hEH : EH (1 / 2)) :
         mul_le_mul_of_nonneg_left hD htnn
       have hstep : t ≤ (N : ℝ) * t / (Nat.totient q : ℝ) := by
         rw [le_div_iff₀ hφpos]
-        nlinarith [mul_nonneg htnn (sub_nonneg.mpr hφN)]
+        linarith only [mul_nonneg htnn (sub_nonneg.mpr hφN)]
       have key2 : t * ((N : ℝ) / (Nat.totient q : ℝ) + 1)
           ≤ 2 * (N : ℝ) * (t / (Nat.totient q : ℝ)) := by
         have e1 : t * ((N : ℝ) / (Nat.totient q : ℝ) + 1)
@@ -371,7 +371,7 @@ theorem eh_error_pow (k B : ℕ) (hB : 1 ≤ B) (hEH : EH (1 / 2)) :
         mul_le_mul_of_nonneg_left hD htnn
       have hstep : t ≤ (N : ℝ) * t / (Nat.totient q : ℝ) := by
         rw [le_div_iff₀ hφpos]
-        nlinarith [mul_nonneg htnn (sub_nonneg.mpr hφN)]
+        linarith only [mul_nonneg htnn (sub_nonneg.mpr hφN)]
       have key2 : t * ((N : ℝ) / (Nat.totient q : ℝ) + 1)
           ≤ 2 * (N : ℝ) * (t / (Nat.totient q : ℝ)) := by
         have e1 : t * ((N : ℝ) / (Nat.totient q : ℝ) + 1)

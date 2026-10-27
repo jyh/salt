@@ -16,6 +16,20 @@ on:
   push:
     branches: [main]
   pull_request:
+    # 2026-10-25 (the helm's queue item on h2c's cone measurement): a PR that touches no Lean source and
+    # none of this job's inputs SKIPS this workflow. The `build` check is required nowhere (measured at the
+    # branch protection: five scrub/docs contexts), so a skipped run blocks no merge; a docs-only PR
+    # otherwise costs a ~3.5 h cold Salt build and a runner slot that main's own run needs. The list is
+    # the job's inputs: Lean sources, lake's files, the blueprint lint's inputs and this file.
+    # Checked by `python3 scripts/lean_ci_paths_check.py --self-test` (fixtures both ways + a mutant).
+    paths:
+      - '**/*.lean'
+      - 'lakefile.*'
+      - 'lake-manifest.json'
+      - 'lean-toolchain'
+      - 'docs/blueprints/**'
+      - 'scripts/blueprint_lint.py'
+      - '.github/workflows/lean_action_ci.yml'
   workflow_dispatch:
   schedule:
     # Nightly backstop build (09:00 UTC) so the badge never goes >24h stale.
@@ -91,7 +105,10 @@ jobs:
     #   zero output of any kind in the window — and only the wall ended it. No cap value
     #   fixes a stall; the cap is what bounds one. 300 clears the measured cold build
     #   with margin and still bounds a hang.
-    timeout-minutes: 300
+    # 2026-10-25: 300 -> 360, the GitHub-hosted maximum. main's cold-cone run 40165668608 (every Salt module
+    # rebuilt after root-module edits) was cancelled by the 300-min bound at job [9962/9966], four jobs
+    # from the save; a same-cone PR run took 3 h 43 m. Nothing but a completed main run saves the key.
+    timeout-minutes: 360
 
     steps:
       # Disk headroom: the corpus (~9,400 jobs) + mathlib cache (~5.7GB) +
@@ -152,7 +169,24 @@ jobs:
           #   insulation where a failure is most expensive; drop it where it destroys
           #   the cap. `use-github-cache` gates BOTH the restore and the save in
           #   lean-action's action.yml (its only two uses of the input).
-          use-github-cache: ${{ github.ref == 'refs/heads/main' }}
+          # ⛔ AND ON main IT WAS UNDOING THE SEED (council 2026-09-29, ruling 3). lean-action
+          #   restores its `.lake` entry INSIDE this step, AFTER the salt restore above, and
+          #   that entry contains a `.lake/build` from main's last green sha — so it
+          #   overwrote a NEWER seed with an OLDER build. Measured in run 36434984641: the
+          #   seed restored at 14:23:35Z, lean-action's 72be91ba entry at 14:25:53Z, and
+          #   701 modules then rebuilt. So `seed_cache.yml` could never warm a main run, and
+          #   every main run after a large train ran cold (2 h 20 m – 3 h 20 m; one was
+          #   cancelled at the cap on 09-28). The order cannot be fixed from outside,
+          #   because lean-action restores and builds in the one step.
+          #   ⇒ OFF EVERYWHERE, main included. ⚠️ AND THE "INSULATION" ABOVE WAS NEVER REAL
+          #   (non-author read of PR #232, measured): in run 36434984641 lean-action had just
+          #   restored a 3,515,962,394 B `.lake` and `lake exe cache get` STILL printed
+          #   "Attempting to download 8564 file(s)" and fetched every one of them. mathlib's
+          #   Cache keeps the files it lacks in ~/.cache/mathlib (Cache/IO.lean), which is
+          #   outside `.lake`, and a failed download exits 1 (Cache/Requests.lean). So a CDN
+          #   outage turned main red with or without this cache, and dropping it costs
+          #   nothing but its storage: ~3.5 GB per main sha, leaving the ~1.0 GB salt entry.
+          use-github-cache: false
       # Blueprint lint: docs↔code consistency + repo-wide axiom audit (CLAUDE.md
       # iron rule 3). Runs AFTER lean-action so the oleans it built are on disk:
       # the lint's phase-1/phase-3 `lake env lean` invocations elaborate a tiny
@@ -193,7 +227,9 @@ jobs:
   # Council 2026-09-01, ruling 5. PR #14 stopped PRs from WRITING to the 10 GiB
   # cache cap; it does nothing about main's own history, and main writes ~4.3 GB
   # per sha across the two cache families (lean-action's `.lake` ~3.38 GB plus
-  # this workflow's `.lake/build` ~0.91 GB). Measured 20:3xZ that day, minutes
+  # this workflow's `.lake/build` ~0.91 GB). (Since PR #232 lean-action's family is
+  # no longer written, so main writes one `.lake/build` entry, ~1.0 GB, per sha.
+  # The rule is unchanged and deletes the old family's last entries.) Measured 20:3xZ that day, minutes
   # after #14 merged: two main shas + one pre-#14 PR entry = 9,509,119,693 B,
   # 88.6% of the cap. ⇒ THE CAP HOLDS TWO MAIN SHAS. Without this job the third
   # merge evicts, GitHub picks the victim, and the 2026-09-01 fixed point

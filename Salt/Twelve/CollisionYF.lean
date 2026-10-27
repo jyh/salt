@@ -77,6 +77,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Twelve
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Maynard
 
 /-- **NB-1 constant tensor.** `ONEw R W' r = 1` on the sieve box, `0` off it —
@@ -85,10 +88,12 @@ the `f₀ ≡ 1` tensor that majorises `|yF|` (a legal divisor-decreasing tensor
 def ONEw (R W' : ℕ) : (Fin 5 → ℕ) → ℝ :=
   fun r => if r ∈ kSieveIndex 5 R W' then 1 else 0
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `ONEw` is nonnegative. -/
 theorem ONEw_nonneg (R W' : ℕ) (r : Fin 5 → ℕ) : 0 ≤ ONEw R W' r := by
   unfold ONEw; split_ifs <;> norm_num
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Step 4 (pointwise domination).** With `Qabs F ≤ 1`, Maynard's weight is
 dominated by the constant tensor: `|yF R W' F r| ≤ ONEw R W' r`.  On the box
 `|yF| ≤ Qabs F ≤ 1 = ONEw`; off the box both sides are `0`. -/
@@ -103,6 +108,7 @@ theorem yF_abs_le_ONEw (R W' : ℕ) (F : Poly) (hQ : Qabs F ≤ 1) (r : Fin 5 �
 
 /-! ## The `|y|`-monotonicity of the absolute collision majorant -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- The divisor-shifted inner sum is dominated in absolute value by the
 `|y|`-majorant's inner sum: `|wSum y₁ u| ≤ wSum y₂ u` whenever `|y₁ r| ≤ y₂ r`
 pointwise.  (The hypothesis forces `y₂ r ≥ |y₁ r| ≥ 0`, so `wSum y₂ u ≥ 0`.) -/
@@ -119,6 +125,7 @@ theorem wSum_abs_le {k R W : ℕ} {y₁ y₂ : (Fin k → ℕ) → ℝ}
     exact div_le_div_of_nonneg_right (hle r) hφ
   · rw [abs_zero]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Step 3 core (`lam_abs_mono`).** `|lam y₁ d| ≤ |lam y₂ d|` whenever
 `|y₁ r| ≤ y₂ r` pointwise: `lam y d = (∏ᵢ μ(dᵢ)dᵢ)·wSum y d`, and the `μ`/`d`
 prefactor cancels in the ratio, leaving `|wSum y₁ d| ≤ |wSum y₂ d|`
@@ -131,6 +138,7 @@ theorem lam_abs_mono {k R W : ℕ} {y₁ y₂ : (Fin k → ℕ) → ℝ}
   refine mul_le_mul_of_nonneg_left ?_ (abs_nonneg _)
   exact le_trans (wSum_abs_le hle d) (le_abs_self _)
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Step 3 (`s1AbsCollisionForm_mono`).** The absolute collision majorant is
 monotone in `|y|`: `s1AbsCollisionForm y₁ ≤ s1AbsCollisionForm y₂` whenever
 `|y₁ r| ≤ y₂ r` pointwise.  Termwise via `lam_abs_mono` (numerator monotone,
@@ -151,6 +159,7 @@ theorem s1AbsCollisionForm_mono {k R W : ℕ} {y₁ y₂ : (Fin k → ℕ) → �
 
 /-! ## Reduction A′ — black-boxing the landed assembly via `S1InnerBound (yF)` -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **NB-1 reduction A′ (sorry-free, recommended).** The frozen `collision_yF_le`
 FOLLOWS from the canonical inner atom `S1InnerBound 5 R W' (yF)` by BLACK-BOXING
 the landed `collision_lower_orderW_of` (no assembly copy):
@@ -192,6 +201,7 @@ theorem collision_yF_le_of_innerYF (R W' D : ℕ) (F : Poly) (hQ : Qabs F ≤ 1)
 
 /-! ## Reduction B — the design's mono chain, via the constant-tensor majorant -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **NB-1 reduction (sorry-free).** The frozen `collision_yF_le` FOLLOWS from
 the single collision atom `s1AbsCollisionForm ONEw ≤ (12·5²/D)·∑1/∏φ` by the
 `|y|`-mono chain

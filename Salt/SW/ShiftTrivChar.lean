@@ -120,7 +120,7 @@ theorem norm_logDeriv_eulerFactor_le_threshold {M : ℕ} (ψ : DirichletCharacte
   calc ‖deriv (eulerFactor ψ p) s‖
       ≤ pσ * Real.log p := hnum
     _ ≤ 2 * Real.log p * (1 - pσ) := by
-        nlinarith [mul_nonneg hLnn (show (0:ℝ) ≤ 2 - 3 * pσ by linarith), hLnn, hpσ_23]
+        linarith only [mul_nonneg hLnn (show (0 : ℝ) ≤ 2 - 3 * pσ by linarith)]
     _ ≤ 2 * Real.log p * ‖eulerFactor ψ p s‖ := by
         apply mul_le_mul_of_nonneg_left hfac; positivity
 
@@ -174,7 +174,7 @@ theorem norm_logDeriv_eulerCorr_trivChar_le (q : ℕ) [NeZero q] {s : ℂ} (hs :
 lemma M0zeta_le_of_abs_le {a b : ℝ} (hab : |a| ≤ b) : M0zeta a ≤ M0zeta b := by
   have hTnn : (0 : ℝ) ≤ b := le_trans (abs_nonneg a) hab
   rw [M0zeta, M0zeta, abs_of_nonneg hTnn]
-  nlinarith [abs_nonneg a, hab]
+  nlinarith only [hab, hTnn, abs_nonneg a]
 
 /-- **The `Zc` shifted-contour numeric, distance form.** The `Zc`-analogue of
 `Salt.SW.norm_logDeriv_le_of_ball_dist`: for `s` on the shifted contour (`9/10 ≤ Re s ≤ 2`,
@@ -278,7 +278,7 @@ lemma norm_logDeriv_Zc_le_of_ball_dist {T w : ℝ} (hw : 0 < w) {s : ℂ}
           have hd := hdist' ρ hρ
           have hdpos : 0 < ‖s - ρ‖ := lt_of_lt_of_le hw hd
           rw [div_le_div_iff₀ hdpos hw]
-          nlinarith [Nat.cast_nonneg (α := ℝ) (m ρ), hd]
+          nlinarith only [hd, (Nat.cast_nonneg _ : 0 ≤ ↑(m ρ))]
       _ = (∑ ρ ∈ Z, (m ρ : ℝ)) / w := by rw [Finset.sum_div]
   have hsplit : ‖logDeriv Zc s‖
       ≤ ‖logDeriv Zc s - ∑ ρ ∈ Z, (m ρ : ℂ) / (s - ρ)‖
@@ -726,7 +726,7 @@ theorem psi1_contour_shift_trivchar (q : ℕ) [NeZero q] {x : ℝ} (hx : 3 ≤ x
     have hxexp : x ^ (u + 1) ≤ x ^ (c + 1) :=
       Real.rpow_le_rpow_of_exponent_le hx1 (by linarith [hu.2])
     have hinvle : (u ^ 2 + τ ^ 2)⁻¹ ≤ (T ^ 2)⁻¹ :=
-      (inv_le_inv₀ (by positivity) (by positivity)).mpr (by nlinarith [sq_nonneg u])
+      (inv_le_inv₀ (by positivity) (by positivity)).mpr (by linarith only [hττ, sq_nonneg u])
     rw [hFnorm, hsre]
     calc x ^ (u + 1) * ‖(((u : ℂ) + (τ : ℂ) * I) * (((u : ℂ) + (τ : ℂ) * I) + 1))⁻¹‖
             * ‖logDeriv (LFunction (1 : DirichletCharacter ℂ q)) ((u : ℂ) + (τ : ℂ) * I)‖

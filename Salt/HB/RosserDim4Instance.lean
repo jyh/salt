@@ -105,6 +105,7 @@ extension of `G(p)/p = 2(2p−1)/(p(p+1))`.  This is HB's `ρ₁(d) = G(d)/d` (L
 noncomputable def nuG : ArithmeticFunction ℝ :=
   ⟨fun d => if d = 0 then 0 else omegaG d / (d : ℝ), by simp⟩
 
+/-- `ν_G(d) = ω_G(d)/d` for `d ≠ 0` (`hd`) — the `if` of the definition on its live branch. -/
 lemma nuG_apply {d : ℕ} (hd : d ≠ 0) : nuG d = omegaG d / (d : ℝ) := by
   simp only [nuG, ArithmeticFunction.coe_mk, if_neg hd]
 
@@ -112,6 +113,7 @@ lemma nuG_apply {d : ℕ} (hd : d ≠ 0) : nuG d = omegaG d / (d : ℝ) := by
 lemma nuG_prime {p : ℕ} (hp : p.Prime) : nuG p = Gdens p / (p : ℝ) := by
   rw [nuG_apply hp.ne_zero, omegaG_prime hp]
 
+/-- `ω_G(1) = 1`: the empty product over `Nat.primeFactors 1 = ∅`. -/
 lemma omegaG_one : omegaG 1 = 1 := by
   rw [omegaG, Nat.primeFactors_one, Finset.prod_empty]
 
@@ -150,7 +152,7 @@ lemma nuG_lt_one_of_prime {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) : nuG p < 1 :
   have h3 : 3 ≤ p := by have := hp.two_le; omega
   have hpR : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast h3
   rw [nuG_prime hp, Gdens, div_lt_one (by linarith), div_lt_iff₀ (by linarith)]
-  nlinarith [hpR]
+  nlinarith only [hpR, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
 
 /-- **THE DENSITY CARRIER.**  HB's sieve situation as a `BoundingSieve`, at the level the
 `W`/`mainSum` bookkeeping actually uses: `prodPrimes = P` (the sifting modulus) and
@@ -172,9 +174,11 @@ noncomputable def hbSieve (P : ℕ) (hP : Squarefree P)
   nu_lt_one_of_prime := fun p hp hdvd =>
     nuG_lt_one_of_prime hp (hPodd p (Nat.mem_primeFactors.mpr ⟨hp, hdvd, hP.ne_zero⟩))
 
+/-- The density carrier's `prodPrimes` is `P`, by `rfl`. -/
 @[simp] lemma hbSieve_prodPrimes {P : ℕ} {hP : Squarefree P}
     {hPodd : ∀ p ∈ P.primeFactors, p ≠ 2} : (hbSieve P hP hPodd).prodPrimes = P := rfl
 
+/-- The density carrier's `nu` is `ν_G`, by `rfl`. -/
 @[simp] lemma hbSieve_nu {P : ℕ} {hP : Squarefree P}
     {hPodd : ∀ p ∈ P.primeFactors, p ≠ 2} : (hbSieve P hP hPodd).nu = nuG := rfl
 
@@ -195,6 +199,9 @@ noncomputable def hbSiftSet {q : ℕ} (χ : DirichletCharacter ℝ q) (z : ℝ) 
   (Finset.range ⌈z⌉₊).filter
     (fun p => p.Prime ∧ 2 < p ∧ (p : ℝ) < z ∧ χ (p : ZMod q) = 1)
 
+/-- `p ∈ hbSiftSet χ z ↔ p` prime, `2 < p`, `p < z` and `χ(p) = 1` — the `Finset.range ⌈z⌉₊`
+bound of the definition is implied by `p < z` (`Nat.lt_ceil`), so it drops out of the
+membership. -/
 lemma mem_hbSiftSet {q : ℕ} {χ : DirichletCharacter ℝ q} {z : ℝ} {p : ℕ} :
     p ∈ hbSiftSet χ z ↔ p.Prime ∧ 2 < p ∧ (p : ℝ) < z ∧ χ (p : ZMod q) = 1 := by
   classical
@@ -221,13 +228,19 @@ lemma squarefree_prod_of_primes {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime) :
       (fun h => hpq ((Nat.prime_dvd_prime_iff_eq hpp hqp).mp h))
   · exact fun p hp => (hS p hp).squarefree
 
+/-- `P = hbP χ z` is squarefree: a product of distinct primes (`squarefree_prod_of_primes` on
+`mem_hbSiftSet`). The `P_squarefree` field of `HBSieveData.ofHbP`. -/
 lemma hbP_squarefree {q : ℕ} (χ : DirichletCharacter ℝ q) (z : ℝ) : Squarefree (hbP χ z) :=
   squarefree_prod_of_primes (fun _ hp => (mem_hbSiftSet.mp hp).1)
 
+/-- The prime factors of `hbP χ z` are exactly `hbSiftSet χ z` (`Nat.primeFactors_prod` over a
+set of primes). -/
 @[simp] lemma hbP_primeFactors {q : ℕ} (χ : DirichletCharacter ℝ q) (z : ℝ) :
     (hbP χ z).primeFactors = hbSiftSet χ z :=
   Nat.primeFactors_prod (fun _ hp => (mem_hbSiftSet.mp hp).1)
 
+/-- The prime factors of `hbP χ z` are odd (`≠ 2`): each lies in `hbSiftSet χ z`
+(`hbP_primeFactors`), where `2 < p`. The `P_odd` field of `HBSieveData.ofHbP`. -/
 lemma hbP_odd {q : ℕ} (χ : DirichletCharacter ℝ q) (z : ℝ) :
     ∀ p ∈ (hbP χ z).primeFactors, p ≠ 2 := by
   intro p hp
@@ -235,12 +248,16 @@ lemma hbP_odd {q : ℕ} (χ : DirichletCharacter ℝ q) (z : ℝ) :
   have := (mem_hbSiftSet.mp hp).2.1
   omega
 
+/-- The prime factors of `hbP χ z` are `< z`: the third conjunct of `mem_hbSiftSet` through
+`hbP_primeFactors`. The `P_lt_z` field of `HBSieveData.ofHbP`. -/
 lemma hbP_lt_z {q : ℕ} (χ : DirichletCharacter ℝ q) (z : ℝ) :
     ∀ p ∈ (hbP χ z).primeFactors, (p : ℝ) < z := by
   intro p hp
   rw [hbP_primeFactors] at hp
   exact (mem_hbSiftSet.mp hp).2.2.1
 
+/-- The prime factors of `hbP χ z` lie in the fibre `χ(p) = 1`: the fourth conjunct of
+`mem_hbSiftSet` through `hbP_primeFactors`. The `P_chi` field of `HBSieveData.ofHbP`. -/
 lemma hbP_chi {q : ℕ} (χ : DirichletCharacter ℝ q) (z : ℝ) :
     ∀ p ∈ (hbP χ z).primeFactors, χ (p : ZMod q) = 1 := by
   intro p hp
@@ -307,6 +324,7 @@ noncomputable def HBSieveData.ofHbP {q : ℕ} (χ : DirichletCharacter ℝ q) {z
   a := a
   a_nonneg := ha
 
+/-- The situation built by `HBSieveData.ofHbP` has `P = hbP χ z`, by `rfl`. -/
 @[simp] lemma HBSieveData.ofHbP_P {q : ℕ} {χ : DirichletCharacter ℝ q} {z : ℝ}
     {hz : 2 ≤ z} {support : Finset ℕ} {val : ℕ → ℕ} {a : ℕ → ℝ}
     {ha : ∀ n ∈ support, 0 ≤ a n} :
@@ -332,8 +350,10 @@ lemma S_nonneg (d : ℕ) : 0 ≤ H.S d :=
 /-- The density carrier attached to the situation. -/
 noncomputable def sieve : BoundingSieve := hbSieve H.P H.P_squarefree H.P_odd
 
+/-- The situation's density carrier `H.sieve` has `prodPrimes = H.P`, by `rfl`. -/
 @[simp] lemma sieve_prodPrimes : H.sieve.prodPrimes = H.P := rfl
 
+/-- The situation's density carrier `H.sieve` has `nu = ν_G`, by `rfl`. -/
 @[simp] lemma sieve_nu : H.sieve.nu = nuG := rfl
 
 end HBSieveData

@@ -151,8 +151,8 @@ lemma natLog_le_two_Lwin (x : ℕ) :
     rw [Lwin, ← Real.log_pow]
     exact Real.log_le_log (by positivity) hR
   have hE0 : (0 : ℝ) ≤ ((Nat.log 2 (2 * x + 2) : ℕ) : ℝ) := Nat.cast_nonneg _
-  nlinarith [half_le_log_two,
-    mul_nonneg hE0 (by linarith [half_le_log_two] : (0 : ℝ) ≤ Real.log 2 - 1 / 2)]
+  linarith only [hlog, mul_nonneg hE0
+      (by linarith [half_le_log_two] : (0 : ℝ) ≤ Real.log 2 - 1 / 2)]
 
 open Classical in
 /-- **The `(c)`-junk index pairs** `(p,e)`: `2 ≤ p ≤ Zz`, `2 ≤ e ≤ log₂(2x+2)`,
@@ -299,7 +299,7 @@ lemma left_summand_cap (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x n
       ≤ Real.exp (2 * z0 z x) := by
     rw [← Real.exp_add]
     refine Real.exp_le_exp.mpr ?_
-    nlinarith [mul_nonneg hz00 (by linarith [log_two_le_one] : (0 : ℝ) ≤ 1 - Real.log 2)]
+    linarith only [mul_nonneg hz00 (by linarith [log_two_le_one] : (0 : ℝ) ≤ 1 - Real.log 2)]
   calc (LamTilde χ n - Λ n) * LamTilde χ (n + 2)
       ≤ (Real.exp (Real.log 2 * z0 z x) * Lwin x)
           * (Real.exp (Real.log 2 * z0 z x) * Lwin x) := mul_le_mul ha hc2 hb0 hcap0
@@ -320,7 +320,7 @@ lemma right_summand_cap (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x 
   have hz00 : 0 ≤ z0 z x := z0_nonneg hz2
   have hexp : Real.exp (Real.log 2 * z0 z x) ≤ Real.exp (2 * z0 z x) := by
     refine Real.exp_le_exp.mpr ?_
-    nlinarith [mul_nonneg hz00 (by linarith [log_two_le_one] : (0 : ℝ) ≤ 2 - Real.log 2)]
+    linarith only [mul_nonneg hz00 (by linarith [log_two_le_one] : (0 : ℝ) ≤ 2 - Real.log 2)]
   calc Λ n * (LamTilde χ (n + 2) - Λ (n + 2))
       ≤ Lwin x * (Real.exp (Real.log 2 * z0 z x) * Lwin x) :=
         mul_le_mul h1 h2 hb0 (Lwin_nonneg x)
@@ -665,8 +665,8 @@ theorem EL_corners_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x
   have hL0 : 0 ≤ Lwin x := Lwin_nonneg x
   have hL96 : Lwin x ≤ 96 * (x : ℝ) ^ ((1 : ℝ) / 48) := by
     have hb : 2 * (x : ℝ) + 2 ≤ (x : ℝ) ^ (2 : ℕ) := by
-      nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ (x : ℝ) - 3)
-        (by linarith : (0 : ℝ) ≤ (x : ℝ))]
+      linarith only [hzcube, hz100R, hzx, mul_nonneg
+          (by linarith : (0 : ℝ) ≤ (x : ℝ) - 3) (by linarith : (0 : ℝ) ≤ (x : ℝ))]
     have h1 : Lwin x ≤ ((x : ℝ) ^ (2 : ℕ)) ^ ((1 : ℝ) / 96) / ((1 : ℝ) / 96) := by
       rw [Lwin]
       exact le_trans (Real.log_le_log (by linarith) hb)

@@ -34,8 +34,8 @@ predicate:
 The registration phrases the constraint as "the marginals vanish outside the UNIT
 simplex" (`marg₁ = 0` for `t₂ > 1`). The primary source
 (Tao, *Polymath8b VII*, `terrytao.wordpress.com/2014/01/28/...`, the `k = 2` GEH
-problem, verified this session) states the honest ε-trick class with a DIFFERENT
-threshold and a DIFFERENT numerator region:
+problem, read at the source this session, outside Lean) states the honest ε-trick
+class with a DIFFERENT threshold and a DIFFERENT numerator region:
   - marginal vanishing at `y ≥ 1 + ε` (NOT `y > 1`), and
   - the numerator `∫_{y ≤ 1−ε} (∫F dx)² dy + ∫_{x ≤ 1−ε} (∫F dy)² dx` (region `≤ 1−ε`),
   - denominator `∫_R F²` over the enlarged support, gate `> 2 ∫_R F²`.
@@ -220,14 +220,14 @@ theorem no_twin_weight_constrained {δ : ℝ} (hδ : 0 < δ)
 `twin_bar_constrained` no longer implies the no-go. -/
 theorem enlarged_ceiling_ge_two {δ : ℝ} (h : 1 ≤ (1 + δ) * Real.log 2) :
     2 ≤ 2 * (1 + δ) * Real.log 2 := by
-  nlinarith [h]
+  linarith only [h]
 
 /-- **At the extreme enlargement `δ = 1` the CS ceiling is `4·log 2 ≈ 2.773 > 2`** —
 the route is off by more than `0.77` from the fixed gate (and by `≈ 0.77` from the
 true constrained sup `2.0`). Uses `Real.log 2 > 0.693`. -/
 theorem ceiling_at_one : 2 < 2 * (1 + (1:ℝ)) * Real.log 2 := by
   have h : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
-  nlinarith [h]
+  linarith only [h]
 
 /-- **The wing corner defeats the constraint.** On the wing `{t₁ > 1}` (inside the
 enlarged simplex), the per-slice CS weight `w₁ᵉ (t₁,t₂) = 1+δ−t₂+t₁` reaches

@@ -15,8 +15,11 @@ import Salt.BrunLower.Pointwise
 
 The two-sided Rosser–Iwaniec linear sieve of Bordignon, Johnston, Starichkova
 (*An explicit version of Chen's theorem and the linear sieve*, arXiv:2207.09452v6,
-**BJS**), Theorem 6 — to our knowledge the first Rosser–Iwaniec linear sieve
-formalisation.  Keystone 1 of the `chen` rung.
+**BJS**), Theorem 6.  When this was written (2026-07-12) we knew of no other
+Rosser–Iwaniec linear sieve formalisation; the 2026-08-11 priority survey (row 4)
+found none in any public artifact, and its 2026-08-17 re-run left the row standing.
+This is not a claim to the first sieve theory in Lean (row 4's fence).
+Keystone 1 of the `chen` rung.
 
 ## BJS Theorem 6 (verbatim, dossier Item 1)
 

@@ -556,7 +556,7 @@ theorem rhsAgradeConstC_le {c Cb k L y h c₀ : ℝ} (hc1 : 2 * c < 1) (hCb0 : 0
 /-! ### The exit -/
 
 /-- **W4-4 — THE GRADE AT SCALE, WINDOW-FLOOR FORM, AT A FREE `c`**
-(`rhs_grade_at_scale_windowC`).  `GradeConst.rhs_grade_at_scale_const` (:1089) and
+(`rhs_grade_at_scale_windowC`).  `GradeConst.rhs_grade_at_scale_const` and
 `SupClose.rhs_grade_at_scale_trunc` (:334) merged and freed:
 
   `‖prop21RHS (damped datum) t₀' k h c₀ y η‖

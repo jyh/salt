@@ -368,7 +368,7 @@ theorem shiu_classIV_bin_le {z q a w W P₀ r : ℕ} (Kd Crc RankIV : ℝ)
         rw [Real.log_rpow hWR]
         rw [le_div_iff₀ hlogρ] at hrle
         rw [div_mul_eq_mul_div, le_div_iff₀ hrpos]
-        nlinarith [hrle]
+        linarith only [hrle]
       have := Real.exp_le_exp.mpr hlog
       rwa [Real.exp_log (by exact_mod_cast (by omega : 0 < ρ)),
         Real.exp_log (Real.rpow_pos_of_pos hWR _)] at this
@@ -378,7 +378,7 @@ theorem shiu_classIV_bin_le {z q a w W P₀ r : ℕ} (Kd Crc RankIV : ℝ)
         rw [Real.log_rpow hWR]
         rw [div_lt_iff₀ hlogρ] at hltr1
         rw [div_mul_eq_mul_div, div_lt_iff₀ hr1pos]
-        nlinarith [hltr1]
+        linarith only [hltr1]
       have := Real.exp_lt_exp.mpr hlog
       rwa [Real.exp_log (Real.rpow_pos_of_pos hWR _),
         Real.exp_log (by exact_mod_cast (by omega : 0 < ρ))] at this
@@ -517,14 +517,14 @@ lemma r_mul_log_vCut_le {W r : ℕ} (hW : 1 ≤ W) (hr : 1 ≤ r) (hv1 : 1 ≤ v
       _ = (2 : ℝ) / (r : ℝ) * Real.log W := Real.log_rpow hWR _
   rw [div_mul_eq_mul_div] at hlog
   rw [le_div_iff₀ hrpos] at hlog
-  nlinarith [hlog]
+  linarith only [hlog]
 
 /-- `log x ≤ 2·log⌊x⌋` for `⌊x⌋ ≥ 2` (via `⌊x⌋² ≥ x`). -/
 lemma log_le_two_log_floor {x : ℝ} (hx : 0 < x) (hf : 2 ≤ ⌊x⌋₊) :
     Real.log x ≤ 2 * Real.log (⌊x⌋₊ : ℝ) := by
   have hfR : (2 : ℝ) ≤ (⌊x⌋₊ : ℝ) := by exact_mod_cast hf
   have hxlt : x < (⌊x⌋₊ : ℝ) + 1 := Nat.lt_floor_add_one x
-  have hsq : x ≤ (⌊x⌋₊ : ℝ) ^ 2 := by nlinarith [hxlt, hfR]
+  have hsq : x ≤ (⌊x⌋₊ : ℝ) ^ 2 := by nlinarith only [hfR, hxlt, (Nat.cast_nonneg _ : 0 ≤ ↑⌊x⌋₊)]
   calc Real.log x ≤ Real.log ((⌊x⌋₊ : ℝ) ^ 2) := Real.log_le_log hx hsq
     _ = 2 * Real.log (⌊x⌋₊ : ℝ) := by rw [Real.log_pow]; push_cast; ring
 
@@ -607,7 +607,7 @@ theorem shiu_classIV_bin_collapse {z q a w W P₀ r : ℕ} (Kd Crc Cek Cnk : ℝ
         rw [hlogW2]
         have hr1pos : (0 : ℝ) < (r : ℝ) + 1 := by linarith
         rw [div_mul_eq_mul_div, div_le_iff₀ hr1pos] at hlogsucc
-        nlinarith [hlogsucc]
+        linarith only [hlogsucc]
       calc Real.log z ≤ Kd * Real.log ((W : ℝ) ^ 2) := hKd
         _ ≤ Kd * (((r : ℝ) + 1) * Real.log ((vCut W (r + 1) : ℝ) + 1)) :=
             mul_le_mul_of_nonneg_left hkey hKd0
@@ -638,7 +638,7 @@ theorem shiu_classIV_bin_collapse {z q a w W P₀ r : ℕ} (Kd Crc Cek Cnk : ℝ
     -- (2/(r+1))·logW ≤ 2 log t  ⟹  log(W²) = 2 logW ≤ 2(r+1) log t
     have hr1pos : (0 : ℝ) < (r : ℝ) + 1 := by linarith
     rw [div_mul_eq_mul_div, div_le_iff₀ hr1pos] at hlog2f
-    rw [hlogW2]; nlinarith [hlog2f]
+    rw [hlogW2]; linarith only [hlog2f]
   -- 1/log t ≤ 2(r+1)/log(W²)
   have hinvt : (1 : ℝ) / Real.log t ≤ 2 * ((r : ℝ) + 1) / Real.log ((W : ℝ) ^ 2) := by
     rw [div_le_div_iff₀ hlogt hlogW2pos, one_mul]; linarith [hgrade]
@@ -678,7 +678,7 @@ theorem shiu_classIV_bin_collapse {z q a w W P₀ r : ℕ} (Kd Crc Cek Cnk : ℝ
           have hkey2 : 2 * ((r : ℝ) + 1) * A5 ^ (r + 1) ≤ 4 * A5 * (2 * A5) ^ r := by
             have h1 : 2 * ((r : ℝ) + 1) * A5 ^ (r + 1) ≤ 2 * (2 : ℝ) ^ (r + 1) * A5 ^ (r + 1) := by
               apply mul_le_mul_of_nonneg_right _ hAr
-              nlinarith [hrpow]
+              linarith only [hrpow]
             calc 2 * ((r : ℝ) + 1) * A5 ^ (r + 1)
                 ≤ 2 * (2 : ℝ) ^ (r + 1) * A5 ^ (r + 1) := h1
               _ = 4 * A5 * (2 * A5) ^ r := by rw [mul_pow]; ring

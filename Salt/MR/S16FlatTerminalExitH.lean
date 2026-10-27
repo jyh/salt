@@ -17,7 +17,7 @@ file composes the two into the `h`-twin of `S16FlatTerminalLinear.m4_second_road
 
 ⟦WHAT THE COMPOSE COST, AND WHY (iii) IS NOT TWO LEMMAS⟧  The commission priced part (iii) as
 `h`-twins of `HloExportMRFlatRoot.m4_exit_socket_split_sq_arc_flatRoot` (`:70`) and
-`S16FlatTerminalLinear.m4_doorL2_close_split_sq_gk_flatRoot_L` (`:179`).  Those two exist at
+`S16FlatTerminalLinear.m4_doorL2_close_split_sq_gk_flatRoot_L`.  Those two exist at
 `h = 1` because the `h = 1` register is built in the SPLIT form (`a`/`e`, `Bsieve`/`Binsert`) and
 must be walked back to the door: the socket unfolds `MRTUniformityXiL2` into the split and the
 loop re-closes it.  At shift `h` that walk is already paid — the mint
@@ -75,7 +75,7 @@ theorem mrtUniformityXiL2H_mono {h : ℕ} {R : ChowlaRegime} {ρ ρ' : ℝ}
 
 /-- **⟦THE SECOND ROAD'S TERMINAL REGISTER AT SHIFT `h`, ON THE TERMINAL'S LANE — EXIT FORM⟧**
 (`m4_second_road_L2_H_gk_flatRoot_L_exit`) — the `h`-twin of
-`S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L` (`:239`), composed from the landed
+`S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L`, composed from the landed
 door-form register (`S16FlatTerminalLinearH.lean:1567`) and the flat head at shift `h`
 (`HloExportFlatH.lean:210`).
 

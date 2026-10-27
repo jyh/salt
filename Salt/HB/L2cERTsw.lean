@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.HB.L2cER
+import Salt.Tactic.ExpLogNum
 
 /-!
 # HB-L2c — the `E_R` T-sw mirror family budget (node HB-L2c-M-Tsw, Horn A mirror keystone)
@@ -308,8 +309,7 @@ theorem ER_Tsw'_pretense_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1
     field_simp
   rw [hkey]
   have hlog4 : Real.log 4 ≤ 3 := by
-    have h := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 4)
-    linarith only [h]
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 3 (by norm_num) (by norm_num)
   have hz0 : 0 ≤ z0 z x := z0_nonneg (by omega)
   have hPS : 0 ≤ PretenseSum χ (2 * x + 2) := erTsw_pretenseSum_nonneg χ _
   have h1 : (Real.log 4 + 4) * (2 * (x : ℝ) + 2) * 2 ≤ 56 * (x : ℝ) := by
@@ -350,8 +350,7 @@ lemma erTsw_two_z0sq_le_exp {t : ℝ} (h3 : 3 ≤ t) : 2 * t ^ 2 ≤ Real.exp (5
   have h4 : (2 : ℝ) ≤ Real.exp (3 * t) := by
     have h9 : (9 : ℝ) ≤ 3 * t := by linarith only [h3]
     have hA : (10 : ℝ) ≤ Real.exp 9 := by
-      have h := Real.add_one_le_exp (9 : ℝ)
-      linarith only [h]
+      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 9 (by norm_num)
     have hB : Real.exp 9 ≤ Real.exp (3 * t) := Real.exp_le_exp.mpr h9
     linarith only [hA, hB]
   calc 2 * t ^ 2 ≤ 2 * Real.exp (2 * t) :=

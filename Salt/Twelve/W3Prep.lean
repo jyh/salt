@@ -37,11 +37,15 @@ open Salt.Maynard
 
 /-! ## Log helpers (as in `Salt/Twelve/MarkedPrime.lean`/`MomentAtom.lean`) -/
 
+/-- `0 ≤ log n` for every natural `n` (`log 0 = 0`; `Real.log_nonneg` for `n ≥ 1`); the file's
+private copy of the helper in `MarkedPrime` and `MomentAtom`. -/
 private lemma log_nat_nonneg (n : ℕ) : 0 ≤ Real.log (n : ℝ) := by
   rcases Nat.eq_zero_or_pos n with h | h
   · subst h; simp
   · exact Real.log_nonneg (by exact_mod_cast h)
 
+/-- `log m ≤ log n` for naturals `m ≤ n` (`h`), the case `m = 0` through `log_nat_nonneg`; the
+file's private copy. -/
 private lemma log_nat_mono_le {m n : ℕ} (h : m ≤ n) :
     Real.log (m : ℝ) ≤ Real.log (n : ℝ) := by
   rcases Nat.eq_zero_or_pos m with hm | hm
@@ -353,10 +357,10 @@ theorem log_natCap_slip (r z : ℕ) (hr : 1 ≤ r) (hrz : r < z) :
   have hcl : (z:ℝ) ≤ 2 * ((((z - 1) / r + 1 : ℕ) : ℝ) * r) := by exact_mod_cast hlower
   have h2 : (((z - 1) / r + 1 : ℕ) : ℝ) ≤ 2 * ((z:ℝ) / r) := by
     rw [show (2:ℝ) * ((z:ℝ)/r) = (2*(z:ℝ))/r by ring, le_div_iff₀ hrR]
-    nlinarith [hcu]
+    linarith only [hcu]
   have h1 : (z:ℝ) / r ≤ 2 * (((z - 1) / r + 1 : ℕ) : ℝ) := by
     rw [div_le_iff₀ hrR]
-    nlinarith [hcl]
+    linarith only [hcl]
   have hkey : |Real.log (((z - 1) / r + 1 : ℕ) : ℝ) - Real.log ((z:ℝ)/r)| ≤ Real.log 2 :=
     abs_log_sub_le_log_two hmR hzrpos h1 h2
   have hdiv : Real.log ((z:ℝ)/r) = Real.log z - Real.log r :=

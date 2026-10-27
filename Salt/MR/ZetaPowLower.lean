@@ -286,7 +286,7 @@ lemma zeta_pow_lower_far {d' t : ℝ} (hd0 : 0 < d') (hd1 : d' ≤ 1) (ht : 2 �
         mul_le_mul_of_nonneg_left hd_ub hd0.le
       have h2 : d' * (1 + 1 / d') = d' + 1 := by field_simp
       linarith [h1, h2]
-    nlinarith [hbc, hprod, hd1]
+    linarith only [hprod, hbc, hd1]
   linarith [hquot, hquot2]
 
 /-! ## Block B — the near-region zero-counting bridge (`d' < w`) -/
@@ -315,7 +315,7 @@ lemma near_norm_logDeriv_Zc_le {Θ M₀ w τ : ℝ} {s : ℂ}
   set c₀ : ℂ := ((1 + Θ / 2 : ℝ) : ℂ) + (τ : ℂ) * I with hc₀
   have hlam0 : 0 < lam := by rw [hlam]; positivity
   have hcre : c₀.re = 1 + Θ / 2 := by rw [hc₀]; simp
-  have hcne : c₀ ≠ 1 := fun h => by rw [h, Complex.one_re] at hcre; nlinarith [hΘ0]
+  have hcne : c₀ ≠ 1 := fun h => by rw [h, Complex.one_re] at hcre; linarith only [hcre, hΘ0]
   have hζc : riemannZeta c₀ ≠ 0 := riemannZeta_ne_zero_of_one_le_re (by rw [hcre]; nlinarith [hΘ0])
   have hZcc0 : Zc c₀ ≠ 0 := by rw [Zc_eq_of_ne hcne]; exact mul_ne_zero (sub_ne_zero.mpr hcne) hζc
   have hG_diff : Differentiable ℂ (fun z => Zc z / Zc c₀) :=
@@ -409,7 +409,7 @@ lemma near_norm_logDeriv_Zc_le {Θ M₀ w τ : ℝ} {s : ℂ}
           have hd := hdist' ρ hρ
           have hdpos : 0 < ‖s - ρ‖ := lt_of_lt_of_le hw hd
           rw [div_le_div_iff₀ hdpos hw]
-          nlinarith [Nat.cast_nonneg (α := ℝ) (m ρ), hd]
+          nlinarith only [hd, (Nat.cast_nonneg _ : 0 ≤ ↑(m ρ))]
       _ = (∑ ρ ∈ Z, (m ρ : ℝ)) / w := by rw [Finset.sum_div]
   have h76 : 0 < Real.log (7 / 6) := Real.log_pos (by norm_num)
   have hcount' : (∑ ρ ∈ Z, (m ρ : ℝ)) / w ≤ (Real.log (4 * M₀) / Real.log (7 / 6)) / w := by
@@ -458,7 +458,7 @@ private lemma zeta_near_bound_core {K t₀K : ℝ} (hK : 1 ≤ K) (ht₀K : 3 �
   have hKpos : 0 < K := lt_of_lt_of_le one_pos hK
   set A : ℝ := 8 * Real.log (20000 * K) + 1100 with hAdef
   have hA1100 : 1100 ≤ A := by
-    have : (0:ℝ) ≤ Real.log (20000 * K) := Real.log_nonneg (by nlinarith [hK])
+    have : (0:ℝ) ≤ Real.log (20000 * K) := Real.log_nonneg (by linarith only [hK])
     rw [hAdef]; linarith
   have hEpos : 0 < Real.exp (Real.exp A) := Real.exp_pos _
   -- height thresholds (raw, pre-set)
@@ -517,12 +517,12 @@ private lemma zeta_near_bound_core {K t₀K : ℝ} (hK : 1 ≤ K) (ht₀K : 3 �
   have hΘ0 : 0 < Θ := by rw [hΘPinv]; positivity
   set Mζ : ℝ := K * L3 with hMζdef
   have hMζpos : 0 < Mζ := by rw [hMζdef]; positivity
-  have hMζ1 : (1:ℝ) ≤ Mζ := by rw [hMζdef]; nlinarith [hK, hL3lb, hL3]
+  have hMζ1 : (1:ℝ) ≤ Mζ := by rw [hMζdef]; nlinarith only [hK, hL3lb, hfactsγ, hMζpos]
   have hPinv2 : (2:ℝ) ≤ Pinv := by
     rw [hPinvdef]
     have h1 : (1:ℝ) ≤ L3 ^ ((3:ℝ)/4) := Real.one_le_rpow (by linarith [hL3lb, hL3]) (by norm_num)
     have h2 : (1:ℝ) ≤ ℓ3 ^ (2:ℕ) := one_le_pow₀ (by linarith [hℓ31100])
-    nlinarith [h1, h2]
+    nlinarith only [h1, h2, sq_nonneg ℓ3]
   have hΘ12 : Θ ≤ 1 / 2 := by
     rw [hΘPinv]; rw [div_le_div_iff₀ hPinvpos (by norm_num)]; linarith [hPinv2]
   -- box growth
@@ -552,7 +552,7 @@ private lemma zeta_near_bound_core {K t₀K : ℝ} (hK : 1 ≤ K) (ht₀K : 3 �
     rw [hWeq]; linarith [hlog20K, hℓ3ub, hlogℓ3le]
   have hW0 : 0 ≤ W := by
     rw [hWdef]; apply Real.log_nonneg
-    nlinarith [hPinv2, hMζ1, hMζpos, hPinvpos]
+    nlinarith only [hPinvpos, hMζ1, hMζpos, hPinv2]
   -- Pinv width bound
   have hL34le : L3 ^ ((3:ℝ)/4) ≤ 2 * Lg ^ ((3:ℝ)/4) := by
     have h1 : L3 ^ ((3:ℝ)/4) ≤ (2 * Lg) ^ ((3:ℝ)/4) := Real.rpow_le_rpow hL30.le hL3ub (by norm_num)
@@ -563,7 +563,7 @@ private lemma zeta_near_bound_core {K t₀K : ℝ} (hK : 1 ≤ K) (ht₀K : 3 �
             Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
         _ = 2 := Real.rpow_one 2
     have hL34nn : 0 ≤ Lg ^ ((3:ℝ)/4) := Real.rpow_nonneg hL0.le _
-    rw [h2] at h1; nlinarith [h1, h3, hL34nn]
+    rw [h2] at h1; nlinarith only [h3, hL34nn, h1]
   have hℓ3sqle : ℓ3 ^ (2:ℕ) ≤ 4 * ℓ ^ (2:ℕ) := by
     have := pow_le_pow_left₀ hℓ30.le hℓ3ub 2
     calc ℓ3 ^ (2:ℕ) ≤ (2 * ℓ) ^ (2:ℕ) := this
@@ -597,33 +597,33 @@ private lemma zeta_near_bound_core {K t₀K : ℝ} (hK : 1 ≤ K) (ht₀K : 3 �
     have himb : |z.im - γ| ≤ R := by
       have h := Complex.abs_im_le_norm (z - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I))
       rw [Complex.sub_im, hcim, hzc] at h; exact h
-    have hre1 : 1 - Θ ≤ z.re := by have := (abs_le.mp hreb).1; nlinarith [hR, hΘ12]
-    have hre2 : z.re ≤ 2 := by have := (abs_le.mp hreb).2; nlinarith [hR, hΘ12]
-    have him1 : γ - 1 ≤ z.im := by have := (abs_le.mp himb).1; nlinarith [hR, hΘ12]
+    have hre1 : 1 - Θ ≤ z.re := by have := (abs_le.mp hreb).1; linarith only [this, hR]
+    have hre2 : z.re ≤ 2 := by have := (abs_le.mp hreb).2; linarith only [this, hR, hΘ12]
+    have him1 : γ - 1 ≤ z.im := by have := (abs_le.mp himb).1; linarith only [this, hR, hΘ12, hΘ0]
     have him2 : z.im ≤ 3 * γ := by have := (abs_le.mp himb).2; nlinarith [hR, hΘ12, hγ2]
     exact Zc_ratio_sphere_bound hΘ0 hΘ12 hγ1 hMζ1 hR0 hR hz (hgrowth z hre1 hre2 him1 him2)
-  have hR74 : (7:ℝ) / 4 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by nlinarith [hΘ0]
-  have hR32 : (3:ℝ) / 2 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by nlinarith [hΘ0]
+  have hR74 : (7:ℝ) / 4 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by linarith only []
+  have hR32 : (3:ℝ) / 2 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by linarith only [hΘ0]
   have hsphere74 := hsph (7 / 4 * (6 * Θ / 7)) (by positivity) hR74
   have hsphere32 := hsph (3 / 2 * (6 * Θ / 7)) (by positivity) hR32
-  have hM₀1 : (1:ℝ) ≤ 5 * Mζ / Θ := by rw [le_div_iff₀ hΘ0]; nlinarith [hMζ1, hΘ12, hΘ0]
+  have hM₀1 : (1:ℝ) ≤ 5 * Mζ / Θ := by rw [le_div_iff₀ hΘ0]; linarith only [hΘ12, hMζ1, hΘ0]
   -- cut ≤ Θ/2 and the centering bound
   have hcut_le : (1 / 10 ^ 9) / (P * ℓ ^ (4:ℕ)) ≤ Θ / 2 := by
     have hℓ24 : ℓ ^ (2:ℕ) ≤ ℓ ^ (4:ℕ) := pow_le_pow_right₀ (by linarith [hℓ1100]) (by norm_num)
     have hkey : P * ℓ ^ (2:ℕ) ≤ P * ℓ ^ (4:ℕ) := mul_le_mul_of_nonneg_left hℓ24 hP0.le
     have hstep2 : 1 / (16000 * (P * ℓ ^ (2:ℕ))) ≤ Θ / 2 := by
       rw [hΘPinv, div_div]
-      exact one_div_le_one_div_of_le (by positivity) (by nlinarith [hPinvle])
+      exact one_div_le_one_div_of_le (by positivity) (by linarith only [hPinvle])
     refine le_trans ?_ hstep2
     rw [div_div]
     exact one_div_le_one_div_of_le (by positivity)
-      (by nlinarith [hkey, mul_pos hP0 (pow_pos hℓ0 4)])
+      (by linarith only [hkey, hPinvle, hΘ12, hPinv2, hΘ0])
   have hsc : ‖s - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I)‖ ≤ 23 / 20 * (6 * Θ / 7) := by
     have hsub : s - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I)
         = ((v - (1 + Θ / 2) : ℝ) : ℂ) := by
       rw [hsdef]; push_cast; ring
     rw [hsub, Complex.norm_real, Real.norm_eq_abs, abs_le]
-    refine ⟨by nlinarith [hv1, hΘ0], by nlinarith [hcut, hcut_le, hΘ0]⟩
+    refine ⟨by linarith only [hΘ0, hv1], by linarith only [hcut_le, hcut, hΘ0]⟩
   have hs1 : s ≠ 1 := by
     rw [hsdef]; intro h
     have := congrArg Complex.im h; simp at this; linarith [hγ2, this]
@@ -647,7 +647,7 @@ private lemma zeta_near_bound_core {K t₀K : ℝ} (hK : 1 ≤ K) (ht₀K : 3 �
     have himb : |ρ.im - γ| ≤ 3 / 2 * (6 * Θ / 7) := by
       have h := Complex.abs_im_le_norm (ρ - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I))
       rw [Complex.sub_im, hcim] at h; linarith [h, hρball]
-    have hrad : 3 / 2 * (6 * Θ / 7) ≤ 9 / 14 := by nlinarith [hΘ12, hΘ0]
+    have hrad : 3 / 2 * (6 * Θ / 7) ≤ 9 / 14 := by linarith only [hΘ12]
     have hρim_lb : γ - 1 ≤ ρ.im := by have := (abs_le.mp himb).1; linarith [hrad]
     have hρim_ub : ρ.im ≤ 3 * γ := by have := (abs_le.mp himb).2; linarith [hrad, hγ2]
     have hρimpos : 0 < ρ.im := by linarith [hρim_lb, hγ2]
@@ -722,10 +722,10 @@ private lemma zeta_near_bound_core {K t₀K : ℝ} (hK : 1 ≤ K) (ht₀K : 3 �
   have hDpos : 0 < P * ℓ ^ (4:ℕ) := by positivity
   have hD1 : (1:ℝ) ≤ P * ℓ ^ (4:ℕ) := by
     have h2 : (1:ℝ) ≤ ℓ ^ (4:ℕ) := one_le_pow₀ (by linarith [hℓ1100])
-    nlinarith [hP1, h2]
+    nlinarith only [hfactsγ, hA1100, hPinvle, hPinv2, hΘ12, hΘ0, sq_nonneg ℓ, sq_nonneg ℓ]
   have hcRpos : (0:ℝ) < 1 / 10 ^ 9 := by norm_num
   have hT3 : (1:ℝ) ≤ (P * ℓ ^ (4:ℕ)) / (1 / 10 ^ 9) := by
-    rw [le_div_iff₀ hcRpos]; nlinarith [hD1]
+    rw [le_div_iff₀ hcRpos]; linarith only [hD1, hΘ12, hΘ0]
   have hT1 : 140 * Pinv * W ≤ (P * ℓ ^ (4:ℕ)) / (1 / 10 ^ 9) := by
     rw [le_div_iff₀ hcRpos]
     have hPW : Pinv * W ≤ 64000 * (P * ℓ ^ (3:ℕ)) := by
@@ -764,7 +764,7 @@ private lemma zeta_near_bound_core {K t₀K : ℝ} (hK : 1 ≤ K) (ht₀K : 3 �
         ≤ (56 * ℓ) * (4 * (P * ℓ ^ (3:ℕ))) :=
           mul_le_mul hWlog hdenom3 hd3nn (by positivity)
       _ = 224 * (P * ℓ ^ (4:ℕ)) := by ring
-      _ ≤ 398 * (P * ℓ ^ (4:ℕ)) := by nlinarith [hDpos]
+      _ ≤ 398 * (P * ℓ ^ (4:ℕ)) := by linarith only [hD1, hΘ12, hΘ0]
   have hT2 : (W / Real.log (7/6)) / w ≤ 398 * ((P * ℓ ^ (4:ℕ)) / (1 / 10 ^ 9)) := by
     rw [hwdef, div_div_eq_mul_div, ← mul_div_assoc]
     gcongr
@@ -789,7 +789,7 @@ lemma zeta_near_logDeriv_bound :
   have hKpos : 0 < K := lt_of_lt_of_le one_pos hK
   set A : ℝ := 8 * Real.log (20000 * K) + 1100 with hAdef
   have hA1100 : 1100 ≤ A := by
-    have : (0:ℝ) ≤ Real.log (20000 * K) := Real.log_nonneg (by nlinarith [hK])
+    have : (0:ℝ) ≤ Real.log (20000 * K) := Real.log_nonneg (by linarith only [hK])
     rw [hAdef]; linarith
   have hEpos : 0 < Real.exp (Real.exp A) := Real.exp_pos _
   set T₀ : ℝ := Real.exp (Real.exp A) + t₀K + 4 with hT₀def
@@ -851,7 +851,7 @@ lemma zeta_near_bridge {t a b Bnd : ℝ} (hab : a ≤ b) (h1a : 1 ≤ a) (ht : 3
     intro v hv
     rw [uIcc_of_le hab] at hv
     exact riemannZeta_ne_zero_of_one_le_re (by simp only [Complex.add_re, Complex.ofReal_re,
-      Complex.mul_re, Complex.I_re, Complex.I_im, Complex.ofReal_im]; nlinarith [hv.1, h1a])
+      Complex.mul_re, Complex.I_re, Complex.I_im, Complex.ofReal_im]; linarith only [h1a, hv.1])
   have hzne1 : ∀ v : ℝ, ((v : ℂ) + (t : ℂ) * I) ≠ 1 := by
     intro v h
     have him : ((v : ℂ) + (t : ℂ) * I).im = (1 : ℂ).im := by rw [h]
@@ -920,7 +920,7 @@ theorem zeta_pow_lower : ∃ c' T₁ : ℝ, 0 < c' ∧ 3 ≤ T₁ ∧
   have hDrpow1 : (1 : ℝ) ≤ (Real.log |t|) ^ ((3 : ℝ) / 4) :=
     Real.one_le_rpow hL1.le (by norm_num)
   have hDpow1 : (1 : ℝ) ≤ (Real.log (Real.log |t|)) ^ (4 : ℕ) := one_le_pow₀ hℓ1'
-  have hD1 : (1 : ℝ) ≤ D := by rw [hDdef]; nlinarith [hDrpow1, hDpow1]
+  have hD1 : (1 : ℝ) ≤ D := by rw [hDdef]; nlinarith only [hDrpow1, hDpow1]
   set w : ℝ := cR / D with hwdef
   have hw0 : 0 < w := div_pos hcR0 hD0
   have hw1 : w ≤ 1 := le_trans (div_le_self hcR0.le hD1) hcR1
@@ -936,7 +936,7 @@ theorem zeta_pow_lower : ∃ c' T₁ : ℝ, 0 < c' ∧ 3 ≤ T₁ ∧
       have hc'D : Real.exp (-400) * (cR / 32) / D = Real.exp (-400) * w / 32 := by
         rw [hwdef]; ring
       rw [hc'D]
-      have h1 : Real.exp (-400) * w / 32 ≤ w / 32 := by nlinarith [he400, hw0.le]
+      have h1 : Real.exp (-400) * w / 32 ≤ w / 32 := by nlinarith only [hw0, he400]
       linarith [h1, hle]
     exact le_trans hstep hfar
   · -- NEAR case `d' < w` : the bridge from `1+d'` up to `1+w`
@@ -962,7 +962,7 @@ theorem zeta_pow_lower : ∃ c' T₁ : ℝ, 0 < c' ∧ 3 ≤ T₁ ∧
       rw [norm_pos_iff]
       exact riemannZeta_ne_zero_of_one_le_re (by
         simp only [Complex.add_re, Complex.ofReal_re, Complex.mul_re, Complex.I_re, Complex.I_im,
-          Complex.ofReal_im]; nlinarith [hd0])
+          Complex.ofReal_im]; linarith only [hd0])
     have hwlog : Real.log ((1 / 32) * w) ≤ Real.log ‖riemannZeta ((1 + w : ℝ) + (t : ℂ) * I)‖ :=
       Real.log_le_log (by positivity) hfarW
     have hgoalpos : 0 < Real.exp (-400) * (cR / 32) / D := by positivity

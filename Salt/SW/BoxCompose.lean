@@ -39,7 +39,7 @@ The two halves speak different dialects of "the count": BoxFold counts with `zZe
 ## The registered A1
 
 `zeta_local_density` : `∃ C, ∀ t, zBoxCount (zBoxFull t) ≤ C·log(|t|+2)` with `C = 2·zetaBoxConst`
-— the first effective *local* zero-density bound for `ζ` in a proof assistant. Its cardinality
+— an effective *local* zero-density bound for `ζ`. Its cardinality
 face `zeta_local_density_card` bounds any finite set of distinct box zeros.
 -/
 
@@ -141,7 +141,7 @@ lemma zBoxFull_finite (t : ℝ) : (zBoxFull t).Finite := by
         Complex.mul_re, Complex.mul_im]
   rw [hdecomp, Complex.norm_add_mul_I]
   have hsq : (ρ.re - 2) ^ 2 + (ρ.im - t) ^ 2 ≤ (3 : ℝ) ^ 2 := by
-    nlinarith [abs_le.mp him, h0, h1]
+    nlinarith only [h1, h0, abs_le.mp him]
   calc Real.sqrt ((ρ.re - 2) ^ 2 + (ρ.im - t) ^ 2)
       ≤ Real.sqrt ((3 : ℝ) ^ 2) := Real.sqrt_le_sqrt hsq
     _ = 3 := Real.sqrt_sq (by norm_num)
@@ -196,8 +196,8 @@ theorem zeta_full_box_count (t : ℝ) :
 
 /-- **The registered A1 theorem — effective local zero density for `ζ`.** There is a constant
 `C` (here `2·zetaBoxConst = 22/log(39/37)`) with, for every ordinate `t`, the with-multiplicity
-zero count of `riemannZeta` in the box `{Re ∈ (0,1), |Im−t| ≤ 1}` at most `C·log(|t|+2)`. The
-first effective local zero-density bound for `ζ` in a proof assistant. -/
+zero count of `riemannZeta` in the box `{Re ∈ (0,1), |Im−t| ≤ 1}` at most `C·log(|t|+2)`. An
+effective local zero-density bound for `ζ`. -/
 theorem zeta_local_density :
     ∃ C : ℝ, ∀ t : ℝ, zBoxCount (zBoxFull t) ≤ C * Real.log (|t| + 2) :=
   ⟨2 * zetaBoxConst, zeta_full_box_count⟩

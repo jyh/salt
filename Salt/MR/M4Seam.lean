@@ -146,7 +146,7 @@ theorem cfb_t0band_supply_of_sup {N : ℕ} {a : ℕ → ℂ} {X C₁ M₀ S : �
     mul_nonneg (bandTail_nonneg hX3 hT0) (by linarith)
   have hinner : 2 * Real.sqrt 2 * (cfbC₁ X C₁ * E) ≤ t0BandS X (cfbC₁ X C₁) M₀ := by
     unfold t0BandS bandSupS
-    nlinarith [hP0, hsqrt2, htail]
+    nlinarith only [hP0, hsqrt2, hPdef, htail]
   have hinner0 : (0 : ℝ) ≤ 2 * Real.sqrt 2 * (cfbC₁ X C₁ * E) := by positivity
   have hexpand : (2 * Real.sqrt 2 * (cfbC₁ X C₁ * E)) ^ 2
       = 8 * ((C₁ + 1) ^ 2 * seamT0 X * E ^ 2) := by
@@ -154,15 +154,15 @@ theorem cfb_t0band_supply_of_sup {N : ℕ} {a : ℕ → ℂ} {X C₁ M₀ S : �
         = 4 * Real.sqrt 2 ^ 2 * (cfbC₁ X C₁ ^ 2 * E ^ 2) := by ring
     rw [h, hsq2, cfbC₁_sq hlogX0]
     ring
-  have hSle' : S ≤ 2 * ((C₁ + 1) * E) := by nlinarith [hSle, hErr]
+  have hSle' : S ≤ 2 * ((C₁ + 1) * E) := by linarith only [hErr, hSle]
   have hSsq : S ^ 2 ≤ (2 * ((C₁ + 1) * E)) ^ 2 := pow_le_pow_left₀ hS0 hSle' 2
   have hfinal : 8 * seamT0 X * S ^ 2 ≤ 8 * (t0BandS X (cfbC₁ X C₁) M₀) ^ 2 := by
     have h1 : 8 * seamT0 X * S ^ 2 ≤ 32 * seamT0 X * ((C₁ + 1) ^ 2 * E ^ 2) := by
-      nlinarith [mul_nonneg hT0 (sub_nonneg.mpr hSsq)]
+      linarith only [mul_nonneg hT0 (sub_nonneg.mpr hSsq)]
     have h2 : 32 * seamT0 X * ((C₁ + 1) ^ 2 * E ^ 2)
         ≤ 8 * (2 * Real.sqrt 2 * (cfbC₁ X C₁ * E)) ^ 2 := by
       rw [hexpand]
-      nlinarith [hT0, sq_nonneg E, sq_nonneg (C₁ + 1)]
+      linarith only [hexpand, sq_nonneg (2 * √2 * (cfbC₁ X C₁ * E))]
     have h3 : (2 * Real.sqrt 2 * (cfbC₁ X C₁ * E)) ^ 2 ≤ (t0BandS X (cfbC₁ X C₁) M₀) ^ 2 :=
       pow_le_pow_left₀ hinner0 hinner 2
     linarith
@@ -453,7 +453,7 @@ theorem norm_spolyA_dilate_le {q : ℕ} (χ : DirichletCharacter ℂ q) {P m : �
     rw [norm_mul, norm_mul, hPunit, mul_one]
   rw [hfac]
   have hcf0 : (0 : ℝ) ≤ ‖cf P‖ := norm_nonneg _
-  nlinarith [mul_le_mul_of_nonneg_left hsieve hcf0, hresid]
+  linarith only [hresid, mul_le_mul_of_nonneg_left hsieve hcf0]
 
 /-- **THE FINDING** (`m4_row_cf_block_eq_zero`).  The row's window binder at the block prime,
 read at the cofactor `m = 1` (where `ℓ(1) = 1`), forces `X_d ≤ P` unless `cf P = 0`.  Since
@@ -515,10 +515,10 @@ theorem m4_hT0band_of_dilated_sup {q : ℕ} (χ : DirichletCharacter ℂ q)
   have hmid : ‖cf P‖ * ‖spolyA (ellLin (liouChi χ)) t (m / P)‖
       ≤ S₁ * ((m : ℝ) / (P : ℝ)) := by
     have hsp : (0 : ℝ) ≤ ‖spolyA (ellLin (liouChi χ)) t (m / P)‖ := norm_nonneg _
-    nlinarith [hdil', hcast', hsp, norm_nonneg (cf P)]
+    nlinarith only [hcf1, hsp, hcast', hdil']
   have hmp : (0 : ℝ) ≤ (m : ℝ) / ((P : ℝ) * (P : ℝ)) := by positivity
   have hlast : (‖cf P‖ + 1) * ((m : ℝ) / ((P : ℝ) * (P : ℝ)))
-      ≤ 2 * ((m : ℝ) / ((P : ℝ) * (P : ℝ))) := by nlinarith [hcf1, hmp]
+      ≤ 2 * ((m : ℝ) / ((P : ℝ) * (P : ℝ))) := by nlinarith only [hcf1, hmp]
   calc ‖spolyA a t m‖
       ≤ S₁ * ((m : ℝ) / (P : ℝ)) + 2 * ((m : ℝ) / ((P : ℝ) * (P : ℝ))) := by linarith
     _ = (S₁ / (P : ℝ) + 2 / ((P : ℝ) * (P : ℝ))) * (m : ℝ) := by ring
@@ -559,7 +559,7 @@ theorem m4_hT0band_at_row {q : ℕ} (χ : DirichletCharacter ℂ q)
   -- `P < X_d`: the row's own door gates
   have hXh : X / h ≤ X / 4 := by
     rw [div_le_div_iff₀ hh0 (by norm_num : (0 : ℝ) < 4)]
-    nlinarith
+    nlinarith only [hXd, hh4, (Nat.cast_nonneg _ : 0 ≤ ↑Xd)]
   have hPXd : (P : ℝ) < (Xd : ℝ) := by rw [hXd]; linarith
   -- THE FINDING, and the `P²`-support it forces
   have hpin : ∀ k : ℕ, ¬ P ∣ k → a (P * k) = ellLin (liouChi χ) k * cf P :=
@@ -604,7 +604,7 @@ theorem m4_hT0band_at_row {q : ℕ} (χ : DirichletCharacter ℂ q)
   have hSle : 1 / ((P : ℝ) * (P : ℝ))
       ≤ 2 * (C₁ * Real.exp (-(1 / (2 * Real.exp 1)) * M₀)
           + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) := by
-    nlinarith [hkey, hPw, hE0, mul_nonneg (by linarith : (0 : ℝ) ≤ C₁ - 1) hE0.le]
+    linarith only [hE0, hPw, hkey, mul_nonneg (by linarith : (0 : ℝ) ≤ C₁ - 1) hE0.le]
   exact cfb_t0band_supply_of_sup hX3 hXN hN2 hC₁ hsupp (by positivity) hSle hsup hErr
 
 /-- The same exit at the row's OWN two pins (`(X_d : ℝ) = X` and `N = 2·X_d`, `M4MeanSq`'s

@@ -276,7 +276,7 @@ theorem lemma12RowsMR_priced_ratioK :
     linarith
   have hcoefle : 12 * (2 * T + 20 * (N : ℝ)) ≤ 960 * (Xd : ℝ) * (T / (Xd : ℝ) + 1) := by
     have hTid : (Xd : ℝ) * (T / (Xd : ℝ)) = T := by field_simp
-    nlinarith [hN4, hT, hXd0]
+    linarith only [hTid, hN4, hT]
   have hstep := hrow P Q N Xd H T a b c hP hPQ hXd hN hT hH hreg hbig herr ha hb hc hasupp
   refine hstep.trans ?_
   have hmul := mul_le_mul_of_nonneg_right hcoefle hBnn
@@ -394,7 +394,7 @@ private lemma logb_two_mul_P_le {P Q Xd : ℕ} (hP : 2 ≤ P) (hPQ : P ≤ Q) (h
     norm_num at hbig
   have hsq : Real.sqrt (Real.log (Xd : ℝ)) * Real.sqrt (Real.log (Xd : ℝ))
       = Real.log (Xd : ℝ) := Real.mul_self_sqrt hu0
-  have hu4 : (10000 : ℝ) ≤ Real.log (Xd : ℝ) := by nlinarith
+  have hu4 : (10000 : ℝ) ≤ Real.log (Xd : ℝ) := by nlinarith only [hbig, hsq]
   -- `P ≤ e^s`
   have hPexp : (P : ℝ) ≤ Real.exp (Real.sqrt (Real.log (Xd : ℝ))) := by
     have hlogP : Real.log (P : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) :=
@@ -418,7 +418,7 @@ private lemma logb_two_mul_P_le {P Q Xd : ℕ} (hP : 2 ≤ P) (hPQ : P ≤ Q) (h
       ≤ 2 * Real.exp (Real.log (Xd : ℝ) - Real.sqrt (Real.log (Xd : ℝ))) := by
     have hexp := Real.add_one_le_exp
       (Real.log (Xd : ℝ) - Real.sqrt (Real.log (Xd : ℝ)))
-    nlinarith [hsq, hbig, hexp]
+    nlinarith only [hbig, hexp, hu4, hsq]
   calc Real.logb 2 (2 * (Xd : ℝ)) * (P : ℝ)
       ≤ (3 / 2 * Real.log (Xd : ℝ)) * Real.exp (Real.sqrt (Real.log (Xd : ℝ))) :=
         mul_le_mul hLb hPexp hP0.le (by linarith)
@@ -562,7 +562,7 @@ theorem lemma12RowsMR_priced_ratioK_end :
     linarith
   have hcoefle : 12 * (2 * T + 20 * (N : ℝ)) ≤ 960 * (Xd : ℝ) * (T / (Xd : ℝ) + 1) := by
     have hTid : (Xd : ℝ) * (T / (Xd : ℝ)) = T := by field_simp
-    nlinarith [hN4, hT, hXd0]
+    linarith only [hTid, hN4, hT]
   have hstep := hrow P Q N Xd H T a b c hP hPQ hXd hN hT hH hreg hbig herr ha hb hc hasupp
   refine hstep.trans ?_
   have hmul := mul_le_mul_of_nonneg_right hcoefle hBnn
@@ -655,7 +655,7 @@ theorem sum_lemma12RowsMR_priced_calibratedK2_end :
         _ ≤ 2 ^ calE A G j := Nat.pow_le_pow_right (by norm_num) hE
     · rw [calH]
       have hjR : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
-      nlinarith
+      nlinarith only [hjR, hH1, (Nat.cast_nonneg _ : 0 ≤ ↑j), sq_nonneg ↑j]
   have h := hsum (calP A G) (calQK A G M) (calH H1) Jb N Xd T a b c hXd hN hT hN4 hgates hreg
     hbig herr ha hb hc hasupp
   refine h.trans (mul_le_mul_of_nonneg_left ?_ ?_)
@@ -758,7 +758,7 @@ theorem sum_lemma12RowsMR_priced_calibratedK2 :
         _ ≤ 2 ^ calE A G j := Nat.pow_le_pow_right (by norm_num) hE
     · rw [calH]
       have hjR : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
-      nlinarith
+      nlinarith only [hjR, hH1, (Nat.cast_nonneg _ : 0 ≤ ↑j), sq_nonneg ↑j]
   have h := hsum (calP A G) (calQK A G M) (calH H1) Jb N Xd T a b c hXd hN hT hN4 hgates hreg
     hbig herr ha hb hc hasupp
   refine h.trans (mul_le_mul_of_nonneg_left ?_ ?_)
@@ -815,7 +815,7 @@ private lemma logbsq_two_mul_P_le {P Q Xd : ℕ} (hP : 2 ≤ P) (hPQ : P ≤ Q) 
     norm_num at hbig
   have hsq : Real.sqrt (Real.log (Xd : ℝ)) * Real.sqrt (Real.log (Xd : ℝ))
       = Real.log (Xd : ℝ) := Real.mul_self_sqrt hu0
-  have hu4 : (10000 : ℝ) ≤ Real.log (Xd : ℝ) := by nlinarith
+  have hu4 : (10000 : ℝ) ≤ Real.log (Xd : ℝ) := by nlinarith only [hbig, hsq]
   -- `s ≤ u/100`
   have hsu : Real.sqrt (Real.log (Xd : ℝ)) ≤ Real.log (Xd : ℝ) / 100 := by nlinarith
   have hs0 : (0 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) := Real.sqrt_nonneg _
@@ -860,11 +860,11 @@ private lemma logbsq_two_mul_P_le {P Q Xd : ℕ} (hP : 2 ≤ P) (hPQ : P ≤ Q) 
   have hgap : 3 / 4 * Real.log (Xd : ℝ) ^ 2
       ≤ Real.exp (Real.log (Xd : ℝ) - Real.sqrt (Real.log (Xd : ℝ))) := by
     rw [← hexp3]
-    nlinarith [hcube, hu4, sq_nonneg (Real.log (Xd : ℝ))]
+    nlinarith only [hu4, hu0, hcube, sq_nonneg (Real.log ↑Xd), sq_nonneg (Real.log ↑Xd)]
   calc (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 * (P : ℝ)
       ≤ (3 / 2 * Real.log (Xd : ℝ)) ^ 2 * Real.exp (Real.sqrt (Real.log (Xd : ℝ))) := by
         have hLsq : (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 ≤ (3 / 2 * Real.log (Xd : ℝ)) ^ 2 := by
-          nlinarith
+          nlinarith only [hL0, hLb, hu0]
         exact mul_le_mul hLsq hPexp hP0.le (by positivity)
     _ = 3 * (3 / 4 * Real.log (Xd : ℝ) ^ 2) * Real.exp (Real.sqrt (Real.log (Xd : ℝ))) := by
         ring
@@ -983,7 +983,7 @@ theorem lemma12RowsMR_priced_ratioK' :
     linarith
   have hcoefle : 12 * (2 * T + 20 * (N : ℝ)) ≤ 960 * (Xd : ℝ) * (T / (Xd : ℝ) + 1) := by
     have hTid : (Xd : ℝ) * (T / (Xd : ℝ)) = T := by field_simp
-    nlinarith [hN4, hT, hXd0]
+    linarith only [hTid, hN4, hT]
   have hstep := hrow P Q N Xd H T a b c hP hPQ hXd hN hT hH hreg hbig herr ha hb hc hasupp
   refine hstep.trans ?_
   have hmul := mul_le_mul_of_nonneg_right hcoefle hBnn
@@ -1046,8 +1046,8 @@ theorem lemma12RowsMR_pricedK_end' :
       ≤ 1 / 2 * (24 / ((Xd : ℝ) * (P : ℝ))) := by
     rw [show (1 : ℝ) / 2 * (24 / ((Xd : ℝ) * (P : ℝ))) = 12 / ((Xd : ℝ) * (P : ℝ)) by ring,
       div_le_div_iff₀ (by positivity) (by positivity)]
-    nlinarith [mul_nonneg hXd0.le
-      (by linarith : (0 : ℝ) ≤ 3 * (Xd : ℝ) - (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 * (P : ℝ))]
+    linarith only [mul_nonneg hXd0.le
+        (by linarith : (0 : ℝ) ≤ 3 * (Xd : ℝ) - (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 * (P : ℝ))]
   have hp2' : (∑ n ∈ Finset.Icc 1 N,
         ‖ramP2coeffEndMR N Xd P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2)
       ≤ 3 / 2 * (24 / ((Xd : ℝ) * (P : ℝ))) := by linarith
@@ -1114,7 +1114,7 @@ theorem lemma12RowsMR_priced_ratioK_end' :
     linarith
   have hcoefle : 12 * (2 * T + 20 * (N : ℝ)) ≤ 960 * (Xd : ℝ) * (T / (Xd : ℝ) + 1) := by
     have hTid : (Xd : ℝ) * (T / (Xd : ℝ)) = T := by field_simp
-    nlinarith [hN4, hT, hXd0]
+    linarith only [hTid, hN4, hT]
   have hstep := hrow P Q N Xd H T a b c hP hPQ hXd hN hT hH hreg hbig herr ha hb hc hasupp
   refine hstep.trans ?_
   have hmul := mul_le_mul_of_nonneg_right hcoefle hBnn
@@ -1255,7 +1255,7 @@ theorem sum_lemma12RowsMR_priced_calibratedK2' :
     refine ⟨four_le_calP hA hG, calP_le_calQK hM hj.1, ?_⟩
     rw [calH]
     have hjR : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
-    nlinarith
+    nlinarith only [hjR, hH1, (Nat.cast_nonneg _ : 0 ≤ ↑j), sq_nonneg ↑j]
   have h := hsum (calP A G) (calQK A G M) (calH H1) Jb N Xd T a b c hXd hN hT hN4 hgates hreg
     hbig herr ha hb hc hasupp
   refine h.trans (mul_le_mul_of_nonneg_left ?_ ?_)
@@ -1302,7 +1302,7 @@ theorem sum_lemma12RowsMR_priced_calibratedK2_end' :
     refine ⟨four_le_calP hA hG, calP_le_calQK hM hj.1, ?_⟩
     rw [calH]
     have hjR : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
-    nlinarith
+    nlinarith only [hjR, hH1, (Nat.cast_nonneg _ : 0 ≤ ↑j), sq_nonneg ↑j]
   have h := hsum (calP A G) (calQK A G M) (calH H1) Jb N Xd T a b c hXd hN hT hN4 hgates hreg
     hbig herr ha hb hc hasupp
   refine h.trans (mul_le_mul_of_nonneg_left ?_ ?_)

@@ -10,9 +10,9 @@ import Mathlib
 
 Analytic facts feeding the final Abel-summation step from the counting bound
 `twinPrimeCounting N = O(N/(log N)²)` to convergence of `Σ 1/p` over twin
-primes. The main assembly (N6.2) additionally needs the counting bound
-(N5.3), still downstream of the M1 fundamental theorem; the self-contained
-integrability fact (N6.1) is proved here.
+primes. The main assembly (N6.2, `N6_2` in `Salt/Brun/N6.lean`) also needs the counting
+bound (N5.3, `Salt/Brun/M5BigO.lean`), still downstream of the M1 fundamental theorem when
+this file was written; this file holds the self-contained integrability fact (N6.1).
 -/
 
 open MeasureTheory Filter Real Set Topology

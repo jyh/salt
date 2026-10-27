@@ -29,8 +29,8 @@ keeping this demand-spec module oracle-clean by construction.
 
 `L5` (`Z_implies_TPC`) with `L6` (`TPC_implies_Z`) makes the demand exact —
 `Z θ A₀ ⟺ TwinPrimeConjecture` over the certified window `θ ∈ (0, 1/2)`, `A₀ ≥ 0`.
-The corpus census sits in `ParityInv` (the `L0` schema, `Salt/Parity/Instances.lean`),
-and the gap theorem `L3` (`sufficient_true_not_parityInv`) places every true,
+The `L0` closure schema applies to ten closed corpus theorems (`Salt/Parity/Instances.lean`; as that
+file says, this carries no arithmetic information), and the gap theorem `L3` (`sufficient_true_not_parityInv`) places every true,
 twin-sufficient completion predicate outside `ParityInv` at Brun grade: `Z` is
 exactly the demand the parity-invariant cone cannot meet.
 -/
@@ -78,6 +78,9 @@ def TwinSufficient (θ A₀ : ℝ) (E : (ℕ → ℝ) → Prop) : Prop :=
   ∀ a : ℕ → ℝ, Completion θ A₀ a → E a →
     ∀ C : ℝ, ∃ x : ℕ, C < twinMass a x
 
+/-- The all-ones weight `oneWeight n = 1`: the true sequence, read as a completion. Its
+membership `oneWeight ∈ Completion θ A₀` (`L1`, on the certified window) is the grade guard that
+gives `Z θ A₀` its demand-force; where it fails, `Z` trivialises. -/
 def oneWeight : ℕ → ℝ := fun _ => 1
 
 /-- The Brun-grade twin-free completion 𝒜⁻ (the landable witness). -/

@@ -217,7 +217,7 @@ theorem efMultHarmonic_box_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ 
   set C : ℝ := (7 / Real.log (39 / 37)) * Real.log ((q : ℝ) * (T + 3)) with hC
   have hlogpos : (0 : ℝ) < Real.log (39 / 37) := lt_of_lt_of_le (by norm_num) log_39_37_lower
   have hlognn : 0 ≤ Real.log ((q : ℝ) * (T + 3)) := by
-    refine Real.log_nonneg ?_; nlinarith
+    refine Real.log_nonneg ?_; nlinarith only [hT, hq2, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hCnn : 0 ≤ C := by rw [hC]; positivity
   set w : ℤ → ℝ := fun j => 2 / max |(j : ℝ)| 1 with hw
   have hmax1 : ∀ j : ℤ, (1 : ℝ) ≤ max |(j : ℝ)| 1 := fun j => le_max_right _ _
@@ -384,7 +384,7 @@ theorem zeroCountM_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
   have hlognn : 0 ≤ Real.log ((q : ℝ) * (T + 3)) := by
     refine Real.log_nonneg ?_
     have h2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
-    nlinarith
+    nlinarith only [hT, h2, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hbox := efMultTotal_box_le χ hχ hq (Z := boxZeros χ σ 1 T) hT
     (fun ρ hρ => ((mem_boxZeros hχ1).mp hρ).1)
     (fun ρ hρ => ⟨le_trans hσ ((mem_boxZeros hχ1).mp hρ).2.1, ((mem_boxZeros hχ1).mp hρ).2.2.1⟩)
@@ -392,7 +392,7 @@ theorem zeroCountM_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
   refine le_trans hbox ?_
   have hw := windowConst_le_137
   have h2T : (0 : ℝ) ≤ 2 * T + 3 := by linarith
-  nlinarith [mul_le_mul_of_nonneg_right hw hlognn]
+  nlinarith only [hT, mul_le_mul_of_nonneg_right hw hlognn]
 
 /-- **THE ROAD'S SHAPE, at `D = 83` — with no constant and no log factor.**
 
@@ -412,7 +412,7 @@ theorem zeroCountM_density_crude {q : ℕ} [NeZero q] (χ : DirichletCharacter �
     zeroCountM χ σ T ≤ ((q : ℝ) * T) ^ (83 * (1 - σ)) := by
   have hq8 : (8 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
   have hT0 : (0 : ℝ) ≤ T := by linarith
-  have hQ1 : (1 : ℝ) ≤ (q : ℝ) * T := by nlinarith
+  have hQ1 : (1 : ℝ) ≤ (q : ℝ) * T := by nlinarith only [hT, hq8, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hexp : (4 : ℝ) ≤ 83 * (1 - σ) := by linarith
   have hrpow : ((q : ℝ) * T) ^ (4 : ℝ) ≤ ((q : ℝ) * T) ^ (83 * (1 - σ)) :=
     Real.rpow_le_rpow_of_exponent_le hQ1 hexp
@@ -424,11 +424,11 @@ theorem zeroCountM_density_crude {q : ℕ} [NeZero q] (χ : DirichletCharacter �
     have := Real.log_le_sub_one_of_pos (show (0 : ℝ) < (q : ℝ) * (T + 3) by nlinarith)
     linarith
   have hlognn : 0 ≤ Real.log ((q : ℝ) * (T + 3)) := by
-    refine Real.log_nonneg ?_; nlinarith
+    refine Real.log_nonneg ?_; linarith only [hQ1, hq8]
   have hstep1 : 137 * (2 * T + 3) * Real.log ((q : ℝ) * (T + 3))
       ≤ 137 * (4 * T) * ((q : ℝ) * (3 * T)) := by
     have ha : 137 * (2 * T + 3) * Real.log ((q : ℝ) * (T + 3))
-        ≤ 137 * (4 * T) * Real.log ((q : ℝ) * (T + 3)) := by nlinarith
+        ≤ 137 * (4 * T) * Real.log ((q : ℝ) * (T + 3)) := by nlinarith only [hT, hlognn]
     have hb : 137 * (4 * T) * Real.log ((q : ℝ) * (T + 3))
         ≤ 137 * (4 * T) * ((q : ℝ) * (3 * T)) := by nlinarith
     linarith
@@ -437,7 +437,7 @@ theorem zeroCountM_density_crude {q : ℕ} [NeZero q] (χ : DirichletCharacter �
     have h1 : (512 : ℝ) ≤ (q : ℝ) ^ 3 := by
       have h := pow_le_pow_left₀ (by norm_num : (0 : ℝ) ≤ 8) hq8 3
       norm_num at h; linarith
-    have h2 : (4 : ℝ) ≤ T ^ 2 := by nlinarith
+    have h2 : (4 : ℝ) ≤ T ^ 2 := by nlinarith only [hT]
     have h3 : (512 : ℝ) * 4 ≤ (q : ℝ) ^ 3 * T ^ 2 :=
       mul_le_mul h1 h2 (by norm_num) (by positivity)
     linarith
@@ -462,14 +462,14 @@ theorem zeroCountM_density_log {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ
       ≤ ((q : ℝ) * T) ^ (83 * (1 - σ)) * (137 * (2 * T + 3) * Real.log ((q : ℝ) * (T + 3))) := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
   have hT0 : (0 : ℝ) ≤ T := by linarith
-  have hQ1 : (1 : ℝ) ≤ (q : ℝ) * T := by nlinarith
+  have hQ1 : (1 : ℝ) ≤ (q : ℝ) * T := by nlinarith only [hT, hq2, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hexp : (0 : ℝ) ≤ 83 * (1 - σ) := by linarith
   have hone : (1 : ℝ) ≤ ((q : ℝ) * T) ^ (83 * (1 - σ)) := Real.one_le_rpow hQ1 hexp
   have hcount := zeroCountM_le χ hχ hq (by linarith : (1 : ℝ) / 2 ≤ σ) hT0
   have hlognn : 0 ≤ Real.log ((q : ℝ) * (T + 3)) := by
-    refine Real.log_nonneg ?_; nlinarith
+    refine Real.log_nonneg ?_; linarith only [hQ1, hq2]
   have hnn : 0 ≤ 137 * (2 * T + 3) * Real.log ((q : ℝ) * (T + 3)) := by positivity
-  nlinarith
+  nlinarith only [hone, hnn, hcount]
 
 /-- **The campaign box's count is POLYLOG.** At the ⟦N0 CLEAR⟧ ruled height
 `T = efHeight q + 2 = (log q + 2)⁴ + 2` — the box `psi_sharp_at_efHeightM` enumerates — the total
@@ -509,11 +509,11 @@ theorem zeroCountM_efHeight_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ
   have hB : Real.log ((q : ℝ) * ((L + 2) ^ 4 + 2 + 3)) ≤ 5 * (L + 2) := by
     rw [hlogsplit]; linarith
   have hBnn : 0 ≤ Real.log ((q : ℝ) * ((L + 2) ^ 4 + 2 + 3)) := by
-    refine Real.log_nonneg ?_; nlinarith
+    refine Real.log_nonneg ?_; nlinarith only [h16, hq2, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   calc 137 * (2 * ((L + 2) ^ 4 + 2) + 3) * Real.log ((q : ℝ) * ((L + 2) ^ 4 + 2 + 3))
       ≤ 137 * (3 * (L + 2) ^ 4) * Real.log ((q : ℝ) * ((L + 2) ^ 4 + 2 + 3)) := by nlinarith
     _ ≤ 137 * (3 * (L + 2) ^ 4) * (5 * (L + 2)) := by
-        nlinarith [pow_nonneg (by linarith : (0 : ℝ) ≤ L + 2) 4]
+        nlinarith only [h16, hlog5, hlog4, hlog3, hlog2, hlogsplit]
     _ = 2055 * (L + 2) ^ 5 := by ring
 
 /-! ## 4. THE SPEND — the shape N3/N4 consume -/
@@ -611,7 +611,7 @@ theorem efZeroSumM_spend_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
       ≤ 137 * (2 * T + 3) * Real.log ((q : ℝ) * (T + 3)) := zeroCountM_le χ hχ hq hσ hT
   have hcnn : 0 ≤ efMultTotal χ (boxZeros χ σ 1 T) := efMultTotal_nonneg _ _
   have hinv : y ^ β / σ ≤ 2 * y ^ β := by
-    rw [div_le_iff₀ hσ0]; nlinarith
+    rw [div_le_iff₀ hσ0]; nlinarith only [hσ, hyβ]
   calc ‖efZeroSumM χ (boxZeros χ σ 1 T) y‖
       ≤ efMultTotal χ (boxZeros χ σ 1 T) * (y ^ β / σ) := hnorm
     _ ≤ efMultTotal χ (boxZeros χ σ 1 T) * (2 * y ^ β) := mul_le_mul_of_nonneg_left hinv hcnn
@@ -645,7 +645,7 @@ theorem efZeroSumM_spend_at_efHeight {q : ℕ} [NeZero q] (χ : DirichletCharact
       ≤ 2055 * (Real.log q + 2) ^ 5 := zeroCountM_efHeight_le χ hχ hq hσ
   have hcnn : 0 ≤ efMultTotal χ (boxZeros χ σ 1 (efHeight q + 2)) := efMultTotal_nonneg _ _
   have hinv : y ^ β / σ ≤ 2 * y ^ β := by
-    rw [div_le_iff₀ hσ0]; nlinarith
+    rw [div_le_iff₀ hσ0]; nlinarith only [hσ, hyβ]
   calc ‖efZeroSumM χ (boxZeros χ σ 1 (efHeight q + 2)) y‖
       ≤ efMultTotal χ (boxZeros χ σ 1 (efHeight q + 2)) * (y ^ β / σ) := hnorm
     _ ≤ efMultTotal χ (boxZeros χ σ 1 (efHeight q + 2)) * (2 * y ^ β) :=
@@ -694,7 +694,7 @@ lemma exists_gap_midpoint (S : Finset ℝ) (c : ℝ) {δ : ℝ} (hδ : 0 < δ) {
   set u : ℝ := δ / (2 * M) with hudef
   have hu : (0 : ℝ) < u := by rw [hudef]; positivity
   have hMu : 2 * (M : ℝ) * u = δ := by rw [hudef]; field_simp
-  have h2u : 2 * u ≤ δ := by nlinarith
+  have h2u : 2 * u ≤ δ := by nlinarith only [hMR, hu, hMu]
   rcases S.eq_empty_or_nonempty with rfl | ⟨v₀, hv₀⟩
   · exact ⟨c + u, le_rfl, by linarith, by simp⟩
   by_contra hcon

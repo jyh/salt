@@ -131,10 +131,10 @@ private lemma norm_sum_five_sq_le (z₁ z₂ z₃ z₄ z₅ : ℂ) :
     have t4 : ‖z₁ + z₂‖ ≤ ‖z₁‖ + ‖z₂‖ := norm_add_le _ _
     linarith
   refine (pow_le_pow_left₀ (norm_nonneg _) htri 2).trans ?_
-  nlinarith [sq_nonneg (‖z₁‖ - ‖z₂‖), sq_nonneg (‖z₁‖ - ‖z₃‖), sq_nonneg (‖z₁‖ - ‖z₄‖),
-    sq_nonneg (‖z₁‖ - ‖z₅‖), sq_nonneg (‖z₂‖ - ‖z₃‖), sq_nonneg (‖z₂‖ - ‖z₄‖),
-    sq_nonneg (‖z₂‖ - ‖z₅‖), sq_nonneg (‖z₃‖ - ‖z₄‖), sq_nonneg (‖z₃‖ - ‖z₅‖),
-    sq_nonneg (‖z₄‖ - ‖z₅‖)]
+  linarith only [sq_nonneg (‖z₁‖ - ‖z₂‖),
+      sq_nonneg (‖z₁‖ - ‖z₃‖), sq_nonneg (‖z₁‖ - ‖z₄‖), sq_nonneg (‖z₁‖ - ‖z₅‖),
+      sq_nonneg (‖z₂‖ - ‖z₃‖), sq_nonneg (‖z₂‖ - ‖z₄‖), sq_nonneg (‖z₂‖ - ‖z₅‖),
+      sq_nonneg (‖z₃‖ - ‖z₄‖), sq_nonneg (‖z₃‖ - ‖z₅‖), sq_nonneg (‖z₄‖ - ‖z₅‖)]
 
 /-- Additivity of an interval integral over a five-term sum. -/
 private lemma integral_five_add {f₁ f₂ f₃ f₄ f₅ : ℝ → ℝ} {p q : ℝ}
@@ -319,7 +319,7 @@ theorem lemma14_contour (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂ Msup : 
   have hh2' : (0 : ℝ) < h₂ := by linarith
   have hLinv1 : (Real.log X) ^ (-(1 / 5 : ℝ)) ≤ 1 :=
     Real.rpow_le_one_of_one_le_of_nonpos hL1 (by norm_num)
-  have hh2X' : h₂ ≤ X := by nlinarith
+  have hh2X' : h₂ ≤ X := by nlinarith only [he2, hLinv1, hX, hh2X]
   have hh1X : h₁ ≤ X := le_trans hh12 hh2X'
   have hpos : ∀ m ∈ s0, 0 < m := by
     intro m hm
@@ -371,7 +371,7 @@ theorem lemma14_contour (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂ Msup : 
         ((Real.log X) ^ (1 / 45 : ℝ)) x‖ ^ 2) ≤ 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by
     have hs5 : (∑ m ∈ s0, 1 / (m : ℝ)) ≤ 5 := coeff_sum_inv_le (by linarith) s0 hrange
     have hs0 : (0 : ℝ) ≤ ∑ m ∈ s0, 1 / (m : ℝ) := Finset.sum_nonneg fun m _ => by positivity
-    have hsq25 : (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 ≤ 25 := by nlinarith
+    have hsq25 : (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 ≤ 25 := by nlinarith only [hs5, hs0]
     have hLnn : (0 : ℝ) ≤ (Real.log X) ^ (-(14 / 45 : ℝ)) := Real.rpow_nonneg hLp.le _
     have hpt : ∀ x ∈ Set.Icc X (2 * X),
         ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 45 : ℝ)))
@@ -409,7 +409,7 @@ theorem lemma14_contour (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂ Msup : 
         + ∫ t in (-(2 * (X / h₁)))..(-(X / h₁)), ‖dpolyA a s0 t‖ ^ 2)
       ≤ 820 * Real.pi * Msup :=
     mul_le_mul_of_nonneg_left hMsupW (by positivity)
-  nlinarith [hmul, hb1, hb2, hb4, hb5, hSB, hfar]
+  linarith only [hfar, hb5, hb4, hb2, hb1, hmul, hSB]
 
 /-- **Lemma 14, the assembly — grouped (`≪`) form.**  The same bound with a single absolute
 constant `C = 2000 + 820π`, matching the frozen right-hand side's shape. -/
@@ -469,7 +469,7 @@ theorem lemma14_contour_grouped (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂
       intervalIntegral.integral_nonneg (by linarith) (fun t _ => by positivity)
     linarith
   have hmain := lemma14_contour a s0 hX hh1 hh12 hh2X ha hrange hMsup
-  nlinarith [hmain, Real.pi_pos, hLnn, hmid1, hmid2, hMnn]
+  nlinarith only [hLnn, hmain, hMnn, hmid2, hmid1, Real.pi_pos]
 
 /-! ## E5 — the `Sⱼ` form, modulo the Perron defect -/
 
@@ -649,7 +649,7 @@ theorem shortSum_diff_sq_intervalIntegrable (a : ℕ → ℂ) (s0 : Finset ℕ) 
       have b2 := shortSum_norm_le a s0 x h₂
       have p1 : (0 : ℝ) < 1 / h₁ := by positivity
       have p2 : (0 : ℝ) < 1 / h₂ := by positivity
-      nlinarith [b1, b2, p1, p2]
+      nlinarith only [b2, p2, b1, p1]
     rw [Real.norm_of_nonneg (by positivity)]
     exact pow_le_pow_left₀ (norm_nonneg _) hd 2
   exact bounded_measurable_intervalIntegrable p q hm hb

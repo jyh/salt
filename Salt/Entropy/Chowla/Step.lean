@@ -30,6 +30,7 @@ import Mathlib
 import Salt.Entropy.Basic
 import Salt.Entropy.Chowla.InvarianceHead
 import Salt.Entropy.Chowla.Windows
+import Salt.Tactic.ExpLogNum
 
 open MeasureTheory Real ProbabilityTheory
 open scoped ENNReal NNReal BigOperators
@@ -472,9 +473,7 @@ theorem condEntropy_shift_le (R : ChowlaRegime) {H k j : ℕ}
     have hlogH2 : (2:ℝ) ≤ Real.log H := by
       rw [Real.le_log_iff_exp_le (by exact_mod_cast hHpos)]
       have hexp2 : Real.exp 2 ≤ 8 := by
-        have h := Real.exp_one_lt_d9
-        have he2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-        rw [he2]; nlinarith [Real.exp_pos 1, h]
+        exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (by norm_num)
       linarith [hexp2, hHR]
     have hsq : (4:ℝ) ≤ (Real.log H)^2 := by nlinarith [hlogH2]
     have hq : 1/(Real.log H)^2 ≤ 1/4 := one_div_le_one_div_of_le (by norm_num) hsq
@@ -715,10 +714,7 @@ theorem step_ineq_3_11 (R : ChowlaRegime) {H k : ℕ}
     have hlogH3 : (3:ℝ) < Real.log H := by
       rw [Real.lt_log_iff_exp_lt hHR]
       have hexp3 : Real.exp 3 ≤ 21 := by
-        have h := Real.exp_one_lt_d9
-        have he3 : Real.exp 3 = Real.exp 1 * Real.exp 1 * Real.exp 1 := by
-          rw [← Real.exp_add, ← Real.exp_add]; norm_num
-        rw [he3]; nlinarith [Real.exp_pos 1, h]
+        exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 3 (by norm_num)
       have h21 : (21:ℝ) < (H:ℝ) := by
         have : (4000000:ℝ) ≤ (H:ℝ) := by exact_mod_cast hHfloor
         linarith

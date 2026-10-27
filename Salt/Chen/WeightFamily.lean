@@ -122,11 +122,11 @@ theorem chenWeightA_le_indicator_of_sifted {z y m : ℕ} {α : ℝ} (hα : 1 / 2
   unfold p2Ind
   by_cases hp2 : IsP2 z m
   · rw [if_pos hp2, chenWeightA]
-    nlinarith [mul_nonneg hα0 ho, mul_nonneg hα0 hTnn, mul_nonneg hα0 hs]
+    linarith only [mul_nonneg hα0 hs, mul_nonneg hα0 hTnn, mul_nonneg hα0 ho]
   · rw [if_neg hp2, chenWeightA]
     have hstruct := chen_weight_struct hm2 hcop hmy hp2
-    nlinarith [hstruct, hα,
-      mul_nonneg (by linarith : (0 : ℝ) ≤ α - 1 / 2)
+    linarith only
+        [hstruct, mul_nonneg (by linarith : (0 : ℝ) ≤ α - 1 / 2)
         (by linarith [hstruct] : (0 : ℝ) ≤ (omegaLe y m : ℝ) + tripleT y m + (sqStrip y m : ℝ))]
 
 /-- **The scalar admissibility floor.**  Domination at the WORST-CASE decoration sum `2` (the floor
@@ -172,8 +172,8 @@ theorem not_isP2_30 : ¬ IsP2 2 30 := by
   · exact (by decide : ¬ Nat.Prime 30) h
   · have h2p := hp.two_le
     have h2q := hq.two_le
-    have hp15 : p ≤ 15 := by nlinarith [hpq]
-    have hq15 : q ≤ 15 := by nlinarith [hpq]
+    have hp15 : p ≤ 15 := by nlinarith only [h2q, hpq, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
+    have hq15 : q ≤ 15 := by nlinarith only [h2p, hpq, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
     interval_cases p <;> interval_cases q <;>
       first
         | exact absurd hpq (by decide)

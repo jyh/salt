@@ -64,7 +64,7 @@ lemma one_sub_rpow_neg_sq_le_exp_tight {p : ℕ} (hp : 2 ≤ p) {σ : ℝ} (hσ 
     rw [Real.log_inv] at h1
     have h2 : (1 - x)⁻¹ - 1 ≤ x + 4 * x ^ 2 := by
       rw [inv_eq_one_div, div_sub_one hu.ne', div_le_iff₀ hu]
-      nlinarith [mul_nonneg (sq_nonneg x) (by linarith : (0 : ℝ) ≤ 3 - 4 * x)]
+      linarith only [mul_nonneg (sq_nonneg x) (by linarith : (0 : ℝ) ≤ 3 - 4 * x)]
     linarith
   have hinv_exp : (1 - x)⁻¹ = Real.exp (-Real.log (1 - x)) := by
     rw [← Real.log_inv, Real.exp_log (by positivity)]
@@ -284,7 +284,7 @@ theorem sum_tau_smooth_gt_tuned_le :
       rw [show 2 * (1 - σ) * (r : ℝ) ^ (1 / 4 : ℝ) * (Real.log 4 + 4)
           = (r : ℝ) ^ (1 / 4 : ℝ) * (2 * (1 - σ) * (Real.log 4 + 4)) by ring]
       apply mul_le_mul_of_nonneg_left _ hr4nn
-      nlinarith [h1σ_le, hl4]
+      nlinarith only [h1σ_le, hl4]
     have expand : 2 * ((1 - σ) * (r : ℝ) ^ (1 / 4 : ℝ) * (Real.log v + (Real.log 4 + 4)))
         = 2 * (1 - σ) * (r : ℝ) ^ (1 / 4 : ℝ) * Real.log v
           + 2 * (1 - σ) * (r : ℝ) ^ (1 / 4 : ℝ) * (Real.log 4 + 4) := by ring

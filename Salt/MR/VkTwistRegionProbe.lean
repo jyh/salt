@@ -102,8 +102,8 @@ lemma norm_LFunction_inv_cline_le {q : ℕ} [NeZero q] (χ : DirichletCharacter 
               = (((ArithmeticFunction.moebius n : ℤ) : ℝ) : ℂ) by push_cast; ring,
             Complex.norm_real, Real.norm_eq_abs, ← Int.cast_abs]
           exact_mod_cast ArithmeticFunction.abs_moebius_le_one
-        nlinarith [norm_nonneg (χ (n : ZMod q)),
-          norm_nonneg (((ArithmeticFunction.moebius n : ℤ) : ℂ))]
+        nlinarith only [h1, h2,
+            norm_nonneg (((ArithmeticFunction.moebius n : ℤ) : ℂ))]
       have hpow : (0 : ℝ) < (n : ℝ) ^ σ :=
         Real.rpow_pos_of_pos (by exact_mod_cast Nat.pos_of_ne_zero hn) σ
       rw [div_le_iff₀ hpow, inv_mul_cancel₀ hpow.ne']
@@ -129,9 +129,9 @@ lemma LFunction_ratio_bound {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
     ‖LFunction χ z / LFunction χ (((1 + Θ / 2 : ℝ) : ℂ) + (τ : ℂ) * I)‖ ≤ 5 * M / Θ := by
   set c : ℂ := ((1 + Θ / 2 : ℝ) : ℂ) + (τ : ℂ) * I with hc
   have hcre : c.re = 1 + Θ / 2 := by rw [hc]; simp
-  have hcne1 : c ≠ 1 := fun h => by rw [h, Complex.one_re] at hcre; nlinarith [hΘ0]
+  have hcne1 : c ≠ 1 := fun h => by rw [h, Complex.one_re] at hcre; linarith only [hcre, hΘ0]
   have hLc : LFunction χ c ≠ 0 :=
-    LFunction_ne_zero_of_one_le_re χ (Or.inr hcne1) (by rw [hcre]; nlinarith [hΘ0])
+    LFunction_ne_zero_of_one_le_re χ (Or.inr hcne1) (by rw [hcre]; linarith only [hΘ0])
   have hLcpos : 0 < ‖LFunction χ c‖ := norm_pos_iff.mpr hLc
   -- the reference floor `(Θ+2)·‖L c‖ ≥ Θ`
   have hfloor : Θ ≤ (Θ + 2) * ‖LFunction χ c‖ := by
@@ -146,7 +146,7 @@ lemma LFunction_ratio_bound {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
     rwa [mul_comm ‖LFunction χ c‖⁻¹ Θ, mul_assoc, inv_mul_cancel₀ hLcpos.ne', mul_one] at hmul
   rw [norm_div, div_le_div_iff₀ hLcpos hΘ0]
   set Lc : ℝ := ‖LFunction χ c‖ with hLcdef
-  have hstep : Θ ≤ 5 * Lc := by nlinarith [hfloor, hΘ12, hLcpos]
+  have hstep : Θ ≤ 5 * Lc := by nlinarith only [hΘ0, hΘ12, hfloor, hLcpos]
   calc ‖LFunction χ z‖ * Θ ≤ M * Θ := mul_le_mul_of_nonneg_right hLz hΘ0.le
     _ ≤ M * (5 * Lc) := mul_le_mul_of_nonneg_left hstep (by linarith [hM])
     _ = 5 * M * Lc := by ring
@@ -178,7 +178,7 @@ theorem LFunction_keep_one_disc {q : ℕ} [NeZero q] {χ : DirichletCharacter �
   have hlam0 : 0 < lam := by rw [hlam]; positivity
   have hcre : c.re = 1 + Θ / 2 := by rw [hc]; simp
   have hLc : LFunction χ c ≠ 0 :=
-    LFunction_ne_zero_of_one_le_re χ (Or.inl hχ1) (by rw [hcre]; nlinarith [hΘ0])
+    LFunction_ne_zero_of_one_le_re χ (Or.inl hχ1) (by rw [hcre]; linarith only [hρnear, hβ1])
   have hsre : s.re = σ := by rw [hs]; simp
   have hLs : LFunction χ s ≠ 0 :=
     LFunction_ne_zero_of_one_le_re χ (Or.inl hχ1) (by rw [hsre]; exact hσlo.le)
@@ -217,8 +217,8 @@ theorem LFunction_keep_one_disc {q : ℕ} [NeZero q] {χ : DirichletCharacter �
         simp [Complex.add_im, Complex.mul_im, Complex.I_im, Complex.I_re, Complex.ofReal_im,
           Complex.ofReal_re, hγ]
     rw [hρc, Complex.norm_real, Real.norm_eq_abs,
-      abs_of_nonpos (by nlinarith [hβ1, hΘ0] : ρ.re - 1 - Θ / 2 ≤ 0), hlam]
-    nlinarith [hρnear, hΘ0]
+      abs_of_nonpos (by linarith only [hρnear, hβ1] : ρ.re - 1 - Θ / 2 ≤ 0), hlam]
+    linarith only [hρnear]
   obtain ⟨hρZ, hmρ⟩ := mem_zeros_of_factorization_gen hne_h hEqOn hρball hGρ
   -- all retained terms have positive real part; the `ρ`-term is retained
   have hpos : ∀ ρ' ∈ Z, 0 < (s - ρ').re := by
@@ -265,7 +265,7 @@ theorem LFunction_drop_all_disc {q : ℕ} [NeZero q] {ψ : DirichletCharacter �
   have hlam0 : 0 < lam := by rw [hlam]; positivity
   have hcre : c.re = 1 + Θ / 2 := by rw [hc]; simp
   have hLc : LFunction ψ c ≠ 0 :=
-    LFunction_ne_zero_of_one_le_re ψ (Or.inl hψ1) (by rw [hcre]; nlinarith [hΘ0])
+    LFunction_ne_zero_of_one_le_re ψ (Or.inl hψ1) (by rw [hcre]; linarith only [hΘ0])
   have hsre : s.re = σ := by rw [hs]; simp
   have hLs : LFunction ψ s ≠ 0 :=
     LFunction_ne_zero_of_one_le_re ψ (Or.inl hψ1) (by rw [hsre]; exact hσlo.le)
@@ -345,8 +345,8 @@ theorem LFunction_zero_free_of_disc {q : ℕ} [NeZero q] {χ : DirichletCharacte
   have hσ1 : 1 < σ := by rw [hσdef]; linarith [hddL]
   have hσ2le : σ ≤ 2 := by rw [hσdef]; linarith [hσΘ, hΘ2]
   have hσc : |σ - 1 - Θ / 2| ≤ 69 / 70 * Θ := by
-    rw [hσdef, abs_of_nonpos (by nlinarith [hσΘ, hddL] : (1 + dd / Lq) - 1 - Θ / 2 ≤ 0)]
-    nlinarith [hσΘ, hΘ0, hddL]
+    rw [hσdef, abs_of_nonpos (by linarith only [hσΘ] : (1 + dd / Lq) - 1 - Θ / 2 ≤ 0)]
+    linarith only [hddL, hσΘ]
   rcases le_or_gt ρ.re (1 - 11 / 14 * Θ) with hout | hin
   · linarith [hwΘ, hout]
   · -- the Davenport chain
@@ -404,7 +404,7 @@ theorem LFunction_region_of_uniform_growth {q : ℕ} [NeZero q] {χ : DirichletC
         ‖LFunction (χ ^ 2) z‖ ≤ M) :
     ρ.re ≤ 1 - dd / (7 * Lq) := by
   have hM₀ : (1 : ℝ) ≤ 5 * M / Θ := by
-    rw [le_div_iff₀ hΘ0]; nlinarith [hM, hΘ12, hΘ0]
+    rw [le_div_iff₀ hΘ0]; linarith only [hM, hΘ12, hΘ0]
   -- the sphere geometry: any point of a `τ`-centered sphere of radius `R ≤ (3/2)Θ` sits in the box
   have box : ∀ (τ R : ℝ), 0 ≤ R → R ≤ 3 / 2 * Θ → ρ.im - 1 + R ≤ τ → τ + R ≤ 3 * ρ.im →
       ∀ z ∈ sphere (((1 + Θ / 2 : ℝ) : ℂ) + (τ : ℂ) * I) R,
@@ -421,32 +421,32 @@ theorem LFunction_region_of_uniform_growth {q : ℕ} [NeZero q] {χ : DirichletC
       have h := Complex.abs_im_le_norm (z - (((1 + Θ / 2 : ℝ) : ℂ) + (τ : ℂ) * I))
       rw [Complex.sub_im, hcim, hzc] at h; exact h
     refine ⟨⟨?_, ?_⟩, ?_, ?_⟩
-    · have := (abs_le.mp hreb).1; nlinarith [hR, hΘ12]
-    · have := (abs_le.mp hreb).2; nlinarith [hR, hΘ12]
+    · have := (abs_le.mp hreb).1; linarith only [this, hR]
+    · have := (abs_le.mp hreb).2; linarith only [this, hR, hΘ12]
     · have := (abs_le.mp himb).1; linarith [hτlo]
     · have := (abs_le.mp himb).2; linarith [hτhi]
   -- radius bookkeeping (identical to ζ's)
-  have hR74 : (7 : ℝ) / 4 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by nlinarith [hΘ0]
-  have hR32 : (3 : ℝ) / 2 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by nlinarith [hΘ0]
+  have hR74 : (7 : ℝ) / 4 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by linarith only []
+  have hR32 : (3 : ℝ) / 2 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by linarith only [hΘ0]
   have hR74' : (0 : ℝ) ≤ 7 / 4 * (6 * Θ / 7) := by positivity
   have hR32' : (0 : ℝ) ≤ 3 / 2 * (6 * Θ / 7) := by positivity
   refine LFunction_zero_free_of_disc hχ1 hχ2 hρ0 hβ1 hΘ0 (by linarith [hΘ12]) hM₀ hdd hddlt
     hLq0 hσΘ hwΘ hchainC ?_ ?_ ?_ ?_
   · intro z hz
-    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box ρ.im _ hR74' hR74 (by nlinarith [hΘ12])
-      (by nlinarith [hΘ12, hγ2]) z hz
+    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box ρ.im _ hR74' hR74 (by linarith only [hΘ12, hΘ0])
+      (by linarith only [hγ2, hΘ12, hΘ0]) z hz
     exact LFunction_ratio_bound χ hΘ0 hΘ12 hM (hgrowth z h1 h2 h3 h4)
   · intro z hz
-    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box ρ.im _ hR32' hR32 (by nlinarith [hΘ12])
-      (by nlinarith [hΘ12, hγ2]) z hz
+    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box ρ.im _ hR32' hR32 (by linarith only [hΘ12, hΘ0])
+      (by linarith only [hγ2, hΘ12, hΘ0]) z hz
     exact LFunction_ratio_bound χ hΘ0 hΘ12 hM (hgrowth z h1 h2 h3 h4)
   · intro z hz
-    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box (2 * ρ.im) _ hR74' hR74 (by nlinarith [hΘ12, hγ2])
-      (by nlinarith [hΘ12, hγ2]) z hz
+    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box (2 * ρ.im) _ hR74' hR74 (by linarith only [hγ2, hΘ12, hΘ0])
+      (by linarith only [hγ2, hΘ12, hΘ0]) z hz
     exact LFunction_ratio_bound (χ ^ 2) hΘ0 hΘ12 hM (hgrowth2 z h1 h2 h3 h4)
   · intro z hz
-    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box (2 * ρ.im) _ hR32' hR32 (by nlinarith [hΘ12, hγ2])
-      (by nlinarith [hΘ12, hγ2]) z hz
+    obtain ⟨⟨h1, h2⟩, h3, h4⟩ := box (2 * ρ.im) _ hR32' hR32 (by linarith only [hγ2, hΘ12, hΘ0])
+      (by linarith only [hγ2, hΘ12, hΘ0]) z hz
     exact LFunction_ratio_bound (χ ^ 2) hΘ0 hΘ12 hM (hgrowth2 z h1 h2 h3 h4)
 
 /-! ## 5. THE WIDTH LAW — `width = Θ/log(M/Θ)` (the KR-2 reconciliation) -/
@@ -477,7 +477,7 @@ theorem LFunction_zero_free_width_law {q : ℕ} [NeZero q] {χ : DirichletCharac
     rw [hPinvdef, le_div_iff₀ hΘ0]; linarith [hΘ12]
   set W : ℝ := Real.log (20 * M / Θ) with hWdef
   have h20 : (40 : ℝ) ≤ 20 * M / Θ := by
-    rw [le_div_iff₀ hΘ0]; nlinarith [hM, hΘ12]
+    rw [le_div_iff₀ hΘ0]; linarith only [hM, hΘ12]
   have hW1 : (1 : ℝ) ≤ W := by
     have he : Real.exp 1 ≤ 20 * M / Θ :=
       le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) h20
@@ -487,7 +487,7 @@ theorem LFunction_zero_free_width_law {q : ℕ} [NeZero q] {χ : DirichletCharac
     rw [hLqdef]
     have hkey : 700 * Pinv * 1 ≤ 700 * Pinv * W :=
       mul_le_mul_of_nonneg_left hW1 (by positivity)
-    nlinarith [hkey, hPinvpos]
+    linarith only [hkey, hPinv2, hΘ12, hΘ0]
   have hLq0 : 0 < Lq := lt_of_lt_of_le hPinvpos hLqgeP
   -- the three gates at `dd = 1/2`
   have hΘPinv : Θ = 1 / Pinv := by
@@ -498,7 +498,7 @@ theorem LFunction_zero_free_width_law {q : ℕ} [NeZero q] {χ : DirichletCharac
   have hwΘ : (1 : ℝ) / 2 / (7 * Lq) ≤ 11 / 14 * Θ := by
     rw [hΘPinv, mul_one_div, div_div]
     rw [div_le_div_iff₀ (by positivity) (by positivity)]
-    nlinarith [hLqgeP, hPinvpos, hLq0]
+    linarith only [hLqgeP, hPinv2, hΘ12, hΘ0]
   have hchainC : 8 + 5 * ((120 / (6 * Θ / 7)) * Real.log (4 * (5 * M / Θ)))
       ≤ Lq / (2 * (1 / 2)) := by
     have h1 : (120 : ℝ) / (6 * Θ / 7) = 140 * Pinv := by
@@ -510,7 +510,7 @@ theorem LFunction_zero_free_width_law {q : ℕ} [NeZero q] {χ : DirichletCharac
     (dd := 1 / 2) hΘ0 hΘ12 hγ2 hM (by norm_num) (by norm_num) hLq0 hσΘ hwΘ hchainC
     hgrowth hgrowth2
   -- `dd/(7Lq) = 1/(14 Lq) = Θ/(14(8Θ + 700 W))`
-  have hden : 0 < 8 * Θ + 700 * W := by nlinarith [hΘ0, hW1]
+  have hden : 0 < 8 * Θ + 700 * W := by linarith only [hW1, hΘ12, hΘ0]
   have hEq : (1 : ℝ) / 2 / (7 * Lq) = Θ / (14 * (8 * Θ + 700 * W)) := by
     rw [hLqdef, hPinvdef]
     rw [div_eq_div_iff (by positivity) (by positivity)]
@@ -564,13 +564,13 @@ private lemma vk_width_shape {Lg ℓ L3 ℓ3 Θ M Cq A : ℝ}
     rw [eq_div_iff (ne_of_gt hPinvpos), hΘval, hPinvdef]
     field_simp [ne_of_gt hL34pos, ne_of_gt hℓ30]
   have hΘ0 : 0 < Θ := by rw [hΘPinv]; positivity
-  have hPinv2 : 2 ≤ Pinv := by rw [hPinvdef]; nlinarith [hL31, hℓ3sq1]
+  have hPinv2 : 2 ≤ Pinv := by rw [hPinvdef]; nlinarith only [hL31, hℓ3sq1, sq_nonneg ℓ3]
   have hΘ12 : Θ ≤ 1 / 2 := by
     rw [hΘPinv, div_le_div_iff₀ hPinvpos (by norm_num)]; linarith
   have hM1 : 1 ≤ M := by
     rw [hMval]
-    have h1 : (1 : ℝ) ≤ Cq * L3 ^ ((3 : ℝ) / 4) := by nlinarith [hCq, hL31]
-    nlinarith [h1, hℓ3q1]
+    have h1 : (1 : ℝ) ≤ Cq * L3 ^ ((3 : ℝ) / 4) := by nlinarith only [hCq, hL34pos, hL31]
+    nlinarith only [hℓ3q1, h1, hℓ3sq1, hCq, hL34pos, hℓ3lb, hℓ1100, hΘ12, hΘ0]
   refine ⟨hΘ0, hΘ12, hM1, ?_⟩
   -- the logarithm: `log(20M/Θ) = log(20000 Cq) + (3/2) ℓ3 + 6 log ℓ3`
   set W : ℝ := Real.log (20 * M / Θ) with hWdef
@@ -596,11 +596,11 @@ private lemma vk_width_shape {Lg ℓ L3 ℓ3 Θ M Cq A : ℝ}
       rwa [show (1089 : ℝ) = 33 ^ 2 by norm_num,
         Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 33)] at h
     have h3 : Real.sqrt ℓ3 ^ 2 = ℓ3 := Real.sq_sqrt hℓ30.le
-    nlinarith [h1, h2, h3, Real.sqrt_nonneg ℓ3]
+    nlinarith only [h2, hΘ12, hΘ0, h1, hℓ3lb, hℓ1100, h3]
   have hWub : W ≤ (A + 5) * ℓ := by rw [hWeq]; linarith
   have hW1 : (1 : ℝ) ≤ W := by
     have h20 : (40 : ℝ) ≤ 20 * M / Θ := by
-      rw [le_div_iff₀ hΘ0]; nlinarith [hM1, hΘ12]
+      rw [le_div_iff₀ hΘ0]; linarith only [hM1, hΘ12]
     have he : Real.exp 1 ≤ 20 * M / Θ :=
       le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) h20
     rw [hWdef, ← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) he
@@ -614,7 +614,7 @@ private lemma vk_width_shape {Lg ℓ L3 ℓ3 Θ M Cq A : ℝ}
       calc (2 : ℝ) ^ ((3 : ℝ) / 4) ≤ (2 : ℝ) ^ (1 : ℝ) :=
             Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
         _ = 2 := Real.rpow_one 2
-    rw [h2] at h1; nlinarith [h1, h3, hLg34nn]
+    rw [h2] at h1; nlinarith only [hLg34nn, h3, h1]
   have hℓ3sqle : ℓ3 ^ (2 : ℕ) ≤ 4 * ℓ ^ (2 : ℕ) := by
     calc ℓ3 ^ (2 : ℕ) ≤ (2 * ℓ) ^ (2 : ℕ) := pow_le_pow_left₀ hℓ30.le hℓ3ub 2
       _ = 4 * ℓ ^ (2 : ℕ) := by ring
@@ -627,9 +627,9 @@ private lemma vk_width_shape {Lg ℓ L3 ℓ3 Θ M Cq A : ℝ}
           mul_le_mul_of_nonneg_left hprod (by norm_num)
       _ = 8000 * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (2 : ℕ)) := by ring
   set den : ℝ := 8 * Θ + 700 * W with hdendef
-  have hden0 : 0 < den := by rw [hdendef]; nlinarith [hΘ0, hW1]
+  have hden0 : 0 < den := by rw [hdendef]; linarith only [hW1, hΘ12, hΘ0]
   have hdenub : den ≤ 704 * ((A + 5) * ℓ) := by
-    rw [hdendef]; nlinarith [hΘ12, hW1, hWub]
+    rw [hdendef]; linarith only [hW1, hlogℓ3le, hWeq, hΘ12, hgate, hℓ3ub]
   -- the final comparison
   set D : ℝ := Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ) with hDdef
   have hDpos : 0 < D := by rw [hDdef]; positivity

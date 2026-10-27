@@ -50,17 +50,18 @@ an `O((|t|+2)²)` bound on `‖Zc‖` valid on the sphere `|z − (2+t·i)| = 39
 `Re z ≥ 1/20`, so `1 + 1/Re z ≤ 21`). Wider analogue of `M0zeta`. -/
 noncomputable def M0box (t : ℝ) : ℝ := 1 + 21 * (99 / 20 + |t|) * (79 / 20 + |t|)
 
+/-- `1 ≤ M0box t`: the added product `21(99/20 + |t|)(79/20 + |t|)` is nonnegative. -/
 lemma one_le_M0box (t : ℝ) : 1 ≤ M0box t := by
   rw [M0box]
   have h1 : (0 : ℝ) ≤ 99 / 20 + |t| := by have := abs_nonneg t; linarith
   have h2 : (0 : ℝ) ≤ 79 / 20 + |t| := by have := abs_nonneg t; linarith
-  nlinarith [mul_nonneg h1 h2]
+  linarith only [mul_nonneg h1 h2]
 
 /-- `log(4·M0box(t)) ≤ 11·log(|t|+2)` — the `O(log(|t|+2))` collapse of the wide growth
 quantity (`4·M0box(t) ≤ 412(|t|+2)²`, `log 412 ≤ 9 log 2 ≤ 9 log(|t|+2)`). -/
 lemma log_4M0box_le (t : ℝ) : Real.log (4 * M0box t) ≤ 11 * Real.log (|t| + 2) := by
   have hx : (0 : ℝ) ≤ |t| := abs_nonneg t
-  have hbnd : 4 * M0box t ≤ 412 * (|t| + 2) ^ 2 := by rw [M0box]; nlinarith [hx]
+  have hbnd : 4 * M0box t ≤ 412 * (|t| + 2) ^ 2 := by rw [M0box]; nlinarith only [hx]
   have hpos : (0 : ℝ) < 4 * M0box t := by have := one_le_M0box t; linarith
   have hlog412 : Real.log 412 ≤ 9 * Real.log (|t| + 2) := by
     have h9 : Real.log 412 ≤ 9 * Real.log 2 := by
@@ -119,6 +120,7 @@ lemma Zc_sphere_bound_wide (t : ℝ) {z : ℂ} (hz : ‖z - (2 + (t : ℂ) * I)�
 /-- The half-box zero-count constant: `C = 11/log(39/37) ≈ 209`. -/
 noncomputable def zetaBoxConst : ℝ := 11 / Real.log (39 / 37)
 
+/-- `0 < C = 11/log(39/37)`: `39/37 > 1` makes the logarithm positive. -/
 lemma zetaBoxConst_pos : 0 < zetaBoxConst :=
   div_pos (by norm_num) (Real.log_pos (by norm_num))
 

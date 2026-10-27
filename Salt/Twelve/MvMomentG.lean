@@ -30,6 +30,9 @@ open Finset
 
 namespace Salt.Twelve
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Maynard
 
 /-! ## The product-telescope inequality -/
@@ -70,7 +73,7 @@ private lemma product_gap_bound {ι : Type*} [DecidableEq ι] (s : Finset ι)
     have k1 : a x * ((∏ i ∈ s, a i) - ∏ i ∈ s, b i)
         ≤ a x * ∑ j ∈ s, (a j - b j) * ∏ i ∈ s.erase j, a i :=
       mul_le_mul_of_nonneg_left ihs hax
-    nlinarith [k1, mul_nonneg habx (sub_nonneg.mpr hprod_b_le_a)]
+    linarith only [k1, mul_nonneg habx (sub_nonneg.mpr hprod_b_le_a)]
 
 /-- Algebraic identity peeling the `w`-weight out of a product-of-inverse difference. -/
 private lemma sub_div_eq {n : ℕ} (w : ℝ) (f h : Fin n → ℝ) :
@@ -176,6 +179,22 @@ set_option maxHeartbeats 1600000 in
 -- The final assembly bundles the two 1-D corollaries, the per-r telescope, and the
 -- per-j product factoring in a single elaboration; the nested `calc`s over `decBox`
 -- and the product box exceed the default heartbeat budget.
+omit [Salt.Maynard.TupleChoice] in
+/-- **W3-3 — the `g`-weighted multi-dimensional budget moment.** For square-free `W' > 0`
+(`hW'`, `hpos`) with `PhiUpperAtom W'` (`hUpper`), an exponent vector `e` on `n` coordinates and
+a budget power `d`: there is `c ≥ 0` such that for `3 ≤ D` below every prime not dividing `W'`,
+`2 ≤ z ≤ R` and `1 ≤ log R`, the `g`-weighted budget monomial sum over `decBox n z W'` is within
+`c·(1 + X)^{n−1}·(1 + log R/D)` of the SAME main term as `mv_monomial`,
+`X^n·DInt' e d·(log z/log R)^{n+d+Σe}` (`X = φ(W')/W'·log R`). The witness is
+`c = c1 + Σ_j cgap(e j)·∏_{i ≠ j} cg(e i)`, `c1` the `mv_monomial` constant, `cg a` the crude
+`g`-moment constants (`crude_g_moment`, from `marked_sqf_g` at `s = 1`) and `cgap a` the gap
+constants (`gap_g_moment`, from `budget_moment_g` at `b = 0`). The route compares
+`|g-sum − Main| ≤ |g-sum − φ-sum| + |φ-sum − Main|`: the second is `mv_monomial`; the first is
+nonnegative and telescopes coordinate by coordinate (`product_gap_bound`:
+`∏ 1/g − ∏ 1/φ ≤ Σ_j (1/g(r j) − 1/φ(r j))·∏_{i ≠ j} 1/g(r i)`), the budget factor dropped
+(`≤ 1`), the coupled `decBox` enlarged to the product box and factored
+(`Finset.sum_prod_piFinset`), with the marked coordinate a gap moment `≤ cgap·log R/D` and the
+others crude moments `≤ cg·(1 + X)`. -/
 theorem mv_monomial_g (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (n : ℕ) (e : Fin n → ℕ) (d : ℕ) :
     ∃ c : ℝ, 0 ≤ c ∧ ∀ D z R : ℕ, 3 ≤ D →
@@ -543,7 +562,7 @@ theorem mv_monomial_g (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
           add_le_add hcompare hmain0
       _ ≤ (c1 + ∑ j : Fin n, cgap (e j) * ∏ i ∈ Finset.univ.erase j, cg (e i))
             * (1 + X) ^ (n - 1) * (1 + Real.log R / D) := by
-          nlinarith [mul_nonneg (mul_nonneg hc1_0 hP) hLD0, mul_nonneg hSK0 hP,
-            mul_nonneg (mul_nonneg hSK0 hP) hLD0]
+          linarith only [mul_nonneg hSK0 hP,
+              mul_nonneg (mul_nonneg hc1_0 hP) hLD0]
 
 end Salt.Twelve

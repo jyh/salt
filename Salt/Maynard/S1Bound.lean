@@ -40,6 +40,9 @@ true (pairwise-coprime moduli ⇒ CRT-solvable) but its Lean construction over a
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 open Finset
 
 /-! ## Concrete objects -/
@@ -225,7 +228,7 @@ theorem S1_le_main_add_error (k K₀ N R W' ν₀ : ℕ) (y : (Fin k → ℕ) �
       have hexp : lam k R (W k) y d * lam k R (W k) y e * (CT - main)
           = lam k R (W k) y d * lam k R (W k) y e * CT
             - lam k R (W k) y d * lam k R (W k) y e * main := by ring
-      nlinarith [hdisc, hexp]
+      linarith only [hdisc]
   -- Sum the per-pair bound and regroup.
   refine (Finset.sum_le_sum (fun d hd =>
     Finset.sum_le_sum (fun e he => hterm d hd e he))).trans ?_
@@ -282,6 +285,7 @@ theorem S1_le (k K₀ N R W' ν₀ : ℕ) (y : (Fin k → ℕ) → ℝ) (f₀ : 
 
 /-! ## L4 — the trivial error is small -/
 
+omit [TupleChoice] in
 /-- **L4.** The trivial error is `O_k(R²·(1+log R)^(4k+2))`. The exponent is
 `4k+2 = 2·(2k+1)`: `∑_d|λ_d| ≤ card·λ_max ≤ (R(1+logR)^k)·(Cl(1+logR)^(k+1))
 = Cl·R·(1+logR)^(2k+1)`, and squaring doubles both the coefficient's power and
@@ -520,7 +524,7 @@ theorem S1_le_main_add_errorW (k K₀ N R W' ν₀ D : ℕ) (y : (Fin k → ℕ)
       have hexp : lam k R W' y d * lam k R W' y e * (CT - main)
           = lam k R W' y d * lam k R W' y e * CT
             - lam k R W' y d * lam k R W' y e * main := by ring
-      nlinarith [hdisc, hexp]
+      linarith only [hdisc]
   refine (Finset.sum_le_sum (fun d hd =>
     Finset.sum_le_sum (fun e he => hterm d hd e he))).trans ?_
   rw [Finset.sum_congr rfl (fun d _ => Finset.sum_add_distrib), Finset.sum_add_distrib]

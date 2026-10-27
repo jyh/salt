@@ -55,9 +55,9 @@ lemma log_four_M0_le {f q : ℕ} {t γ : ℝ} (hf2 : 2 ≤ f) (hfq : f ≤ q) (h
   have hfpos : (0 : ℝ) < (f : ℝ) := by linarith
   set Q : ℝ := (q : ℝ) * (|γ| + 2) with hQ
   have hQ4 : (4 : ℝ) ≤ Q := by
-    rw [hQ]; nlinarith [mul_nonneg (show (0:ℝ) ≤ (q:ℝ) by linarith) hγ0, hq2R]
+    rw [hQ]; linarith only [hq2R, mul_nonneg (show (0 : ℝ) ≤ (q : ℝ) by linarith) hγ0]
   have hQpos : (0 : ℝ) < Q := by linarith
-  have hqQ : (q : ℝ) ≤ Q := by rw [hQ]; nlinarith [hq2R, hγ0]
+  have hqQ : (q : ℝ) ≤ Q := by rw [hQ]; nlinarith only [hγ0, hQ4, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hfQ : (f : ℝ) ≤ Q := le_trans hfqR hqQ
   have hlogf_nn : (0 : ℝ) ≤ Real.log (f : ℝ) := Real.log_nonneg (by linarith)
   -- the four factor bounds
@@ -65,12 +65,12 @@ lemma log_four_M0_le {f q : ℕ} {t γ : ℝ} (hf2 : 2 ≤ f) (hfq : f ≤ q) (h
     le_trans (by norm_num) (pow_le_pow_left₀ (by norm_num : (0:ℝ) ≤ 4) hQ4 3)
   have hb1 : (4 + |t|) ≤ Q := by
     rw [hQ]
-    nlinarith [mul_nonneg (show (0:ℝ) ≤ (q:ℝ) - 2 by linarith) (show (0:ℝ) ≤ |γ| + 2 by linarith),
-      ht]
-  have hQQ2 : Q ≤ Q ^ 2 := by nlinarith [hQ4]
+    linarith only [ht, mul_nonneg (show (0 : ℝ) ≤ (q : ℝ) - 2 by linarith)
+        (show (0 : ℝ) ≤ |γ| + 2 by linarith)]
+  have hQQ2 : Q ≤ Q ^ 2 := by nlinarith only [hQ4]
   have hb2 : Real.sqrt (f : ℝ) ≤ Q := by
     rw [show Q = Real.sqrt (Q ^ 2) from (Real.sqrt_sq hQpos.le).symm]
-    exact Real.sqrt_le_sqrt (by nlinarith [hfQ, hQQ2])
+    exact Real.sqrt_le_sqrt (by linarith only [hQQ2, hqQ, hfqR])
   have hb3 : (1 + Real.log (f : ℝ)) ≤ Q := by
     have hle : Real.log (f : ℝ) + 1 ≤ (f : ℝ) := by
       have h := Real.add_one_le_exp (Real.log (f : ℝ)); rwa [Real.exp_log hfpos] at h
@@ -154,10 +154,10 @@ lemma zero_free_extraction {Lq β C dd : ℝ}
   rw [hrw, div_le_div_iff₀ hBupos hBpos] at hchain
   have hCLB : C * Lq * B = 1 / 2 := by rw [mul_assoc, hLB]; exact hCdd
   rw [hCLB] at hchain
-  have hfin : B ≤ 7 * u := by nlinarith [hchain]
+  have hfin : B ≤ 7 * u := by linarith only [hchain]
   rw [div_le_iff₀ (by positivity : (0:ℝ) < 7 * Lq)]
   rw [hBdef, div_le_iff₀ hL] at hfin
-  nlinarith [hfin]
+  linarith only [hfin]
 
 /-! ## 6. The two `−Re(L'/L)` bounds from the S2 endpoint -/
 
@@ -272,7 +272,7 @@ theorem zero_free_region_primitive :
   have hqR2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq2
   set Lval : ℝ := Real.log ((q : ℝ) * (|ρ.im| + 2)) with hLdef
   have hQ4 : (4 : ℝ) ≤ (q : ℝ) * (|ρ.im| + 2) := by
-    nlinarith [abs_nonneg ρ.im, hqR2, mul_nonneg (show (0:ℝ) ≤ (q:ℝ) by linarith) (abs_nonneg ρ.im)]
+    linarith only [hqR2, mul_nonneg (show (0 : ℝ) ≤ (q : ℝ) by linarith) (abs_nonneg ρ.im)]
   have hexp4 : Real.exp 1 ≤ 4 := le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))
   have h4 : (1 : ℝ) ≤ Real.log 4 := by
     rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hexp4
@@ -285,14 +285,14 @@ theorem zero_free_region_primitive :
   rcases le_or_gt ρ.re (1 / 2) with hβle | hβgt
   · -- trivial branch: `Re ρ ≤ 1/2 ≤ 1 − c₀/L`
     have hc0 : (1 / 50456 : ℝ) / Lval ≤ 1 / 50456 := by
-      rw [div_le_iff₀ hLpos]; nlinarith [hL1]
+      rw [div_le_iff₀ hLpos]; linarith only [hL1]
     linarith [hc0, hβle]
   · -- the 3-4-1 machinery
     set dd : ℝ := 1 / 7208 with hdddef
     have hddpos : (0 : ℝ) < dd := by norm_num
     have hddlt1 : dd < 1 := by rw [hdddef]; norm_num
     set σ : ℝ := 1 + dd / Lval with hσdef
-    have hddL : dd / Lval ≤ dd := by rw [div_le_iff₀ hLpos]; nlinarith [hL1, hddpos]
+    have hddL : dd / Lval ≤ dd := by rw [div_le_iff₀ hLpos]; nlinarith only [hL1, hddpos]
     have hσ1 : 1 < σ := by
       rw [hσdef]
       have hpos : 0 < dd / Lval := div_pos hddpos hLpos
@@ -358,8 +358,8 @@ theorem zero_free_region_primitive :
     have hlogq : Real.log (q : ℝ) ≤ Lval := by
       rw [hLdef]
       apply Real.log_le_log (by linarith)
-      nlinarith [abs_nonneg ρ.im, hqR2,
-        mul_nonneg (show (0:ℝ) ≤ (q:ℝ) by linarith) (abs_nonneg ρ.im)]
+      linarith only [hσ1, hddL, hQ4,
+          mul_nonneg (show (0 : ℝ) ≤ (q : ℝ) by linarith) (abs_nonneg ρ.im)]
     -- assemble the 3-4-1 chain
     have hrel1 : (4 : ℝ) / (σ - ρ.re) = 4 * (1 / (σ - ρ.re)) := by ring
     have hrel2 : (3 : ℝ) / (σ - 1) = 3 * (1 / (σ - 1)) := by ring

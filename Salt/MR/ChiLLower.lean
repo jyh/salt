@@ -163,7 +163,7 @@ lemma LFunction_dirichlet_re_le {q : ℕ} [NeZero q] (χ : DirichletCharacter �
         have : (0 : ℝ) < (n : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero hn
         exact Real.rpow_pos_of_pos this u
       rw [hfac, div_le_div_iff_of_pos_right hpos]
-      nlinarith [norm_nonneg ((↗vonMangoldt : ℕ → ℂ) n), norm_nonneg (χ ((n : ℕ) : ZMod q))]
+      nlinarith only [hnb, norm_nonneg ((↗vonMangoldt : ℕ → ℂ) n)]
   have hterm_re : ∀ n : ℕ, (LSeries.term ↗vonMangoldt (u : ℂ) n).re
       = ‖LSeries.term ↗vonMangoldt (u : ℂ) n‖ := by
     intro n
@@ -299,7 +299,7 @@ lemma LFunction_near_one_lower {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ
         mul_le_mul_of_nonneg_left hd_ub hd0.le
       have h2 : d * (1 + 1 / d) = d + 1 := by field_simp
       linarith [h1, h2]
-    nlinarith [hbc, hprod, hd1]
+    linarith only [hprod, hbc, hd1]
   linarith [hquot, hquot2]
 
 /-- **Stone A, the exit — the unconditional `L`-lower at the bridge point.**  For `X ≥ e` and
@@ -496,8 +496,8 @@ lemma LFunction_norm_le_level {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ 
     have h1 : 3 * (1 + ‖s‖) * Real.sqrt (ψ.conductor : ℝ)
         ≤ 3 * (1 + ‖s‖) * Real.sqrt (q : ℝ) := by
       exact mul_le_mul_of_nonneg_left hsq hcoef
-    nlinarith [Real.sqrt_nonneg ((ψ.conductor : ℝ)), Real.sqrt_nonneg ((q : ℝ)), hlgf, hlg, h1,
-      hcoef, mul_nonneg hcoef (Real.sqrt_nonneg ((q : ℝ)))]
+    nlinarith only [hlgf, h1, hlg,
+        mul_nonneg hcoef (Real.sqrt_nonneg ((q : ℝ)))]
   -- the Euler-factor product costs at most `q`
   have hprodle : ‖∏ p ∈ q.primeFactors,
       (1 - ψ.primitiveCharacter p * (p : ℂ) ^ (-s))‖ ≤ (q : ℝ) := by
@@ -515,8 +515,8 @@ lemma LFunction_norm_le_level {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ 
         ψ.primitiveCharacter.norm_le_one _
       have hmul : ‖ψ.primitiveCharacter ((p : ℕ) : ZMod ψ.conductor) * (p : ℂ) ^ (-s)‖ ≤ 1 := by
         rw [norm_mul]
-        nlinarith [norm_nonneg ((p : ℂ) ^ (-s)),
-          norm_nonneg (ψ.primitiveCharacter ((p : ℕ) : ZMod ψ.conductor))]
+        nlinarith only [hcp, hchi,
+            norm_nonneg (ψ.primitiveCharacter ((p : ℕ) : ZMod ψ.conductor))]
       calc ‖1 - ψ.primitiveCharacter p * (p : ℂ) ^ (-s)‖
           ≤ ‖(1 : ℂ)‖ + ‖ψ.primitiveCharacter ((p : ℕ) : ZMod ψ.conductor) * (p : ℂ) ^ (-s)‖ :=
             norm_sub_le _ _
@@ -655,15 +655,15 @@ theorem chi_Llower_341 {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) (hχ
       (by rw [hs2re]; linarith) (by rw [hs2re]; linarith)
     refine le_trans hbnd ?_
     have hsq : Real.sqrt (q : ℝ) ≤ (q : ℝ) := by
-      nlinarith [Real.sq_sqrt (le_trans zero_le_one hq1R), Real.sqrt_nonneg ((q : ℝ))]
+      nlinarith only [hq1R, Real.sq_sqrt (le_trans zero_le_one hq1R), (Nat.cast_nonneg _ : 0 ≤ ↑q)]
     have ha : 3 * (1 + ‖(((1 + 1 / Real.log X : ℝ) : ℂ)) + 2 * ((-t : ℝ) : ℂ) * I‖)
         * Real.sqrt q ≤ 15 * (q : ℝ) := by
       have h15 : 3 * (1 + ‖(((1 + 1 / Real.log X : ℝ) : ℂ)) + 2 * ((-t : ℝ) : ℂ) * I‖) ≤ 15 := by
         linarith [hnorms]
-      nlinarith [Real.sqrt_nonneg ((q : ℝ)), h15, hsq]
+      nlinarith only [hnorms, hsq, Real.sqrt_nonneg ((q : ℝ))]
     have e1 : 3 * (1 + ‖(((1 + 1 / Real.log X : ℝ) : ℂ)) + 2 * ((-t : ℝ) : ℂ) * I‖)
           * Real.sqrt q * (1 + Real.log q) ≤ 15 * (q : ℝ) * (1 + Real.log q) := by
-      nlinarith [ha, hlogq]
+      nlinarith only [hlogq, ha]
     calc (q : ℝ) * (3 * (1 + ‖(((1 + 1 / Real.log X : ℝ) : ℂ)) + 2 * ((-t : ℝ) : ℂ) * I‖)
           * Real.sqrt q * (1 + Real.log q))
         ≤ (q : ℝ) * (15 * (q : ℝ) * (1 + Real.log q)) :=
@@ -712,7 +712,7 @@ theorem chi_floor_all_nonreal :
       exact_mod_cast h2
     have ht1 : |t| ≤ 1 := by
       rw [abs_mul, abs_of_nonneg (by linarith : (0 : ℝ) ≤ ((2 * orderOf χ : ℕ) : ℝ))] at hkt
-      nlinarith [abs_nonneg t]
+      nlinarith only [hk2, hkt, (Nat.cast_nonneg _ : 0 ≤ ↑(2 * orderOf χ))]
     exact chi_Llower_341 χ hχ2 X t hX ht1
 
 /-- **CAPSTONE A, MRT shape.**  `chi_floor_all_unconditional` moved to the `g`-side twist

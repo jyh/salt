@@ -21,6 +21,9 @@ Two load-bearing facts for the Maynard sieve's cross-term analysis:
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- Every prime factor of anything coprime to `W k` exceeds `D₀ k`
 (since `W k = primorial (D₀ k)` contains every prime `≤ D₀ k`). -/
 theorem D₀_lt_of_prime_dvd_coprime {k m : ℕ} (hm : Nat.Coprime m (W k))
@@ -76,6 +79,7 @@ via `Nat.Prime.dvd_primorial_iff`), and the tuple bound `hSeq k · < D` (supplie
 by `hSeq_lt_of_sup_lt`).  Instantiating `W' := W k`, `D := D₀ k + 1` recovers the
 `W k`-specific versions above. -/
 
+omit [TupleChoice] in
 /-- **Free-`(D,W')` form of `D₀_lt_of_prime_dvd_coprime`.** Any prime dividing
 something coprime to `W'` is `≥ D`, where `D` bounds the primes NOT dividing
 `W'` from below (`hD`). No squarefreeness needed. -/

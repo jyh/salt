@@ -89,7 +89,7 @@ theorem vk_twist_strip_sum_le {σ t β : ℝ} {N : ℕ}
   have ht1 : (1 : ℝ) ≤ t := by
     have h := Real.exp_lt_exp.mpr hlogtpos
     rw [Real.exp_zero, Real.exp_log ht0] at h; linarith
-  have hNt2u : (N : ℝ) ≤ 2 * t ^ 2 := by nlinarith [hNle, ht1]
+  have hNt2u : (N : ℝ) ≤ 2 * t ^ 2 := by nlinarith only [ht0, ht1, hNle]
   -- every dyadic block inside `(1, N]` is `≤ 1348`
   have hblock : ∀ M x' : ℕ, 1 ≤ M → M < x' → x' ≤ 2 * M → x' ≤ N →
       ‖∑ n ∈ Finset.Ioc M x', eR (β * (n : ℝ)) * (n : ℂ) ^ (-((σ : ℂ) + (t : ℂ) * I))‖
@@ -116,7 +116,7 @@ theorem vk_twist_strip_sum_le {σ t β : ℝ} {N : ℕ}
         by_cases hc : Y ≤ 2 ^ J
         · refine le_trans (ih Y hY0 hc hYN) ?_
           have : (0 : ℝ) ≤ (J : ℝ) := by positivity
-          push_cast; nlinarith
+          push_cast; linarith only []
         · replace hc : 2 ^ J < Y := not_le.mp hc
           have hmid : 1 ≤ 2 ^ J := Nat.one_le_pow J 2 (by norm_num)
           have hsplit : ∑ n ∈ Finset.Ioc 1 Y,
@@ -155,8 +155,8 @@ theorem vk_twist_strip_sum_le {σ t β : ℝ} {N : ℕ}
           rw [Nat.cast_sub (by omega)]; push_cast; ring
         rw [hcast] at h; push_cast at h; linarith [h]
       have h23 : (2 : ℝ) ≤ 3 * Real.log 2 := by
-        have := Real.log_two_gt_d9; nlinarith
-      nlinarith [hlogineq, hlog2pos, h23, hlogtnn]
+        have := Real.log_two_gt_d9; linarith only [this, hlog2pos]
+      nlinarith only [hlog2pos, hexp101, h23, hL100, hlogineq, (Nat.cast_nonneg _ : 0 ≤ ↑J₀)]
   -- the head term `n = 1`
   have hins : Finset.Icc 1 N = insert 1 (Finset.Ioc 1 N) := by
     ext n; simp only [Finset.mem_Icc, Finset.mem_insert, Finset.mem_Ioc]; omega
@@ -249,9 +249,9 @@ lemma vkTheta_le_thousandth {t : ℝ} (hL1 : 1 ≤ Real.log t)
   have h1 : (1 : ℝ) ≤ (Real.log t) ^ ((3 : ℝ) / 4) := Real.one_le_rpow hL1 (by norm_num)
   have h2 : (1 : ℝ) ≤ (Real.log (Real.log t)) ^ (2 : ℕ) := one_le_pow₀ hℓ1
   have hD : (1 : ℝ) ≤ (Real.log t) ^ ((3 : ℝ) / 4) * (Real.log (Real.log t)) ^ (2 : ℕ) := by
-    nlinarith [h1, h2]
+    nlinarith only [h1, h2, sq_nonneg (Real.log (Real.log t))]
   rw [div_le_iff₀ (by linarith)]
-  nlinarith [hD]
+  linarith only [hD]
 
 set_option maxHeartbeats 1000000 in
 -- The truncation/head assembly stages the rpow height bookkeeping through `nlinarith`, as in
@@ -289,7 +289,7 @@ theorem vk_char_strip_growth {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q
   have hσpos : 0 < σ := by linarith
   -- the truncation length
   set N : ℕ := ⌈T ^ 2⌉₊ with hNdef
-  have hT2pos : (0 : ℝ) < T ^ 2 := by nlinarith [habs0, sq_abs T]
+  have hT2pos : (0 : ℝ) < T ^ 2 := by nlinarith only [habs0, sq_abs T]
   have hN1 : 1 ≤ N := by rw [hNdef]; exact Nat.one_le_ceil_iff.mpr hT2pos
   have hNge : T ^ 2 ≤ (N : ℝ) := by rw [hNdef]; exact Nat.le_ceil _
   have hNle : (N : ℝ) ≤ T ^ 2 + 1 := by
@@ -327,11 +327,11 @@ theorem vk_char_strip_growth {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q
       linarith
     have hfac : (1 : ℝ) + ‖(σ : ℂ) + (T : ℂ) * I‖ * (1 + 1 / σ) ≤ 7 + 3 * |T| := by
       have hnn : (0 : ℝ) ≤ ‖(σ : ℂ) + (T : ℂ) * I‖ := norm_nonneg _
-      nlinarith [hsnorm, hinv, hnn, habs0]
+      nlinarith only [hinv, hnn, hsnorm]
     have hfac0 : (0 : ℝ) ≤ 1 + ‖(σ : ℂ) + (T : ℂ) * I‖ * (1 + 1 / σ) := by
       have hnn : (0 : ℝ) ≤ ‖(σ : ℂ) + (T : ℂ) * I‖ := norm_nonneg _
       have : (0 : ℝ) ≤ 1 / σ := by positivity
-      nlinarith [hnn]
+      nlinarith only [hnn, this]
     have hNσ0 : (0 : ℝ) ≤ (N : ℝ) ^ (-σ) := Real.rpow_nonneg hNpos.le _
     have hratio : (7 + 3 * |T|) * (1 / |T|) ≤ 4 := by
       rw [mul_one_div, div_le_iff₀ habs0]; linarith [hbig]
@@ -355,7 +355,7 @@ theorem vk_char_strip_growth {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q
     linarith [htri, htrunc, herr, hhead]
   refine le_trans htot ?_
   rw [vkStripConst]
-  nlinarith [hL1, hq1R]
+  nlinarith only [hL100, hexp101, hq1R, (Nat.cast_nonneg _ : 0 ≤ ↑q), (Nat.cast_nonneg _ : 0 ≤ ↑q)]
 
 /-! ## §4 — THE BOX FORM (the shape the probe's region consumes) -/
 

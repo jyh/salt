@@ -88,6 +88,7 @@ import argparse
 import ast
 import contextlib
 import hashlib
+import html
 import io
 import json
 import os
@@ -97,10 +98,15 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import check_private_paths as gate  # noqa: E402  (the pattern owner)
 import check_commit_trailers as trailers  # noqa: E402  (the session-shape owner)
+try:  # the infra-name gate is a sibling in the repos that carry it; a repo without it is DECLARED in the OK line, never skipped silently
+    import check_infra_names as infra  # noqa: E402  (the infra-name owner)
+except ImportError:
+    infra = None
 
 
 def self_id() -> str:
@@ -124,6 +130,43 @@ def scan_session(number, title: str, body: str):
     rows = [(f"PR #{number} TITLE", title or ""),
             (f"PR #{number} BODY", body or "")]
     return trailers.scan(rows)
+
+
+_HTML_COMMENT = re.compile(r"<!--.*?(?:-->|\Z)", re.S)   # unclosed: to the end, as the forge hides it; linear (kent R1)
+_EMPHASIS = str.maketrans("", "", "*_~`")
+
+
+def rendered_text(s: str) -> str:
+    """What the forge SHOWS, near enough to match a name in (the helm's commission of 2026-10-18, on systems' G2):
+    drop HTML comments (keeping their newlines, so line numbers survive), html.unescape, NFKC, drop Unicode Cf
+    (zero-widths, soft hyphen, bidi), drop the markdown emphasis characters * _ ~ `. NOT a renderer: look-alike
+    letters from other scripts are not folded, and that is declared in the OK line."""
+    s = _HTML_COMMENT.sub(lambda m: "\n" * m.group(0).count("\n"), s or "")
+    s = unicodedata.normalize("NFKC", html.unescape(s))
+    return "".join(c for c in s if unicodedata.category(c) != "Cf").translate(_EMPHASIS)
+
+
+def scan_infra(number, title: str, body: str):
+    """Infrastructure names (a host, an account) in one PR's forge-side prose, via the
+    infra-name gate's FORBIDDEN list (imported, never re-typed; the helm's order of
+    2026-10-18 after a box host name sat in six public PR bodies). Returns
+    [(where, line_number)] and NEVER the matched text: this log is public too.
+    A repo with no check_infra_names.py returns [] and says so in the OK line."""
+    if infra is None:
+        return []
+    rows = [(f"PR #{number} TITLE", title or ""),
+            (f"PR #{number} BODY", body or "")]
+    # the SOURCE and its RENDERING both scanned; one finding per (surface, line)
+    hits = {(rel, i) for rel, i, _text in infra.scan(rows)}
+    hits |= {(rel, i) for rel, i, _text in infra.scan([(rel, rendered_text(s)) for rel, s in rows])}
+    order = {rel: k for k, (rel, _s) in enumerate(rows)}
+    return sorted(hits, key=lambda h: (order[h[0]], h[1]))
+
+
+def infra_finding_lines(rows) -> list[str]:
+    """Name the PR, the surface and the line number, NEVER the matched text."""
+    label = getattr(infra, "_FINDING_LABEL", "an infrastructure name")
+    return [f"  {where}, line {i}: {label}" for where, i in rows]
 
 
 def session_finding_lines(rows) -> list[str]:
@@ -438,7 +481,19 @@ def msg_file_mode(path: str) -> int:
         print("\n".join(subject_finding_lines(bad)))
         _debt_remedy()
         return 1
-    print(f"check_pr_descriptions --msg-file {tag}: OK -- subject and body clean.")
+    # The session arm too (2026-09-27): this mode is also used as a receipt for
+    # a PR's title and body, and until today it ran the subject arm alone while
+    # its OK line claimed "body clean" -- a planted session URL passed it.
+    subject, _, body = text.partition("\n")
+    sess = [(f"MESSAGE {w.split(' ', 2)[-1]}", what, ln)
+            for w, what, ln in scan_session(0, subject, body)]
+    if sess:
+        print(f"REFUSED {tag}: this message carries a chat-session trailer or URL "
+              "(withheld).\n")
+        print("\n".join(session_finding_lines(sess)))
+        return 1
+    print(f"check_pr_descriptions --msg-file {tag}: OK -- subject words and "
+          "session shapes clean (subject arm + session arm).")
     return 0
 
 
@@ -591,14 +646,16 @@ def open_mode(repo: str) -> int:
     bad = []
     sess = []
     words = []
+    infra_f = []
     notes = []
     for pr in prs:
         n = pr["number"]
         pr_bad = scan_description(n, pr.get("title"), pr.get("body"))
         pr_sess = scan_session(n, pr.get("title"), pr.get("body"))
+        pr_infra = scan_infra(n, pr.get("title"), pr.get("body"))
         pr_words = subject_scan(pr_rows(pr))
-        bad += pr_bad; sess += pr_sess; words += pr_words
-        live_clean = not (pr_bad or pr_sess or pr_words)   # desk SN rec (1): what this run READ
+        bad += pr_bad; sess += pr_sess; words += pr_words; infra_f += pr_infra
+        live_clean = not (pr_bad or pr_sess or pr_words or pr_infra)   # desk SN rec (1): what this run READ
         head = pr["head"]["sha"]
         base_ref = pr["base"]["ref"]
         run_sha = run_green = None
@@ -631,6 +688,15 @@ def open_mode(repo: str) -> int:
         print("\n".join(session_finding_lines(sess)))
         print("\nThe PR-opening harness appends a session URL; this repository is")
         print("public. Delete that line on the forge. No push required.")
+    if infra_f:
+        print(f"FAIL [pr-gate {self_id()}]: {len(infra_f)} infrastructure name(s) (a host or an "
+              f"account) in OPEN PR titles/bodies (matched text withheld: this log is public).\n")
+        print("\n".join(infra_finding_lines(infra_f)))
+        print("\nA title or body is EDITABLE on the forge: name the machine by ROLE (\"the Windows box\").")
+        print("The forge keeps edit history on a public repo, so the earlier text stays readable there:")
+        print("do not paste the name again.")
+        print("This check reads EVERY open PR, so a red on a clean PR can come from ANOTHER PR\'s body: after that body is fixed,")
+        print("re-run the failed job on the other PRs (an edit re-runs only the edited PR\'s own job).")
     if words:
         print(f"FAIL [pr-gate {self_id()}]: {len(words)} refused word(s) in OPEN PR "
               f"titles, head refs or bodies (withheld: this log is public).\n")
@@ -638,12 +704,16 @@ def open_mode(repo: str) -> int:
         print("\nA title or body is EDITABLE on the forge: name the lane or the person")
         print("by ROLE. A head ref is not: its merge subject will quote it, so push")
         print("the branch under a neutral name and reopen.")
-    if bad or sess or words:
+    if bad or sess or words or infra_f:
         print("\n".join(rerun_note_lines(edited_trigger_armed())))
         return 1
     print(f"check_pr_descriptions --open [pr-gate {self_id()}]: OK — {len(prs)} open "
           f"PR(s), 0 private-record paths and 0 session trailers/URLs in titles/bodies, "
           f"0 refused words in titles, head refs and bodies. {_vocab_id()}.")
+    print("infra-name arm: " + ("0 infrastructure names (host or account) in open PR titles/bodies. NOT COVERED by this arm: "
+          "look-alike letters from other scripts (confusables are not folded; the source AND its rendering are read: HTML comments, entities, Unicode Cf and * _ ~ ` dropped, then NFKC); "
+          "PR and review comments; CLOSED or MERGED PR bodies; more than 100 open PRs (no paging)." if infra is not None
+          else "NOT COVERED here: this repository carries no check_infra_names.py (declared, not skipped)."))
     print(_NOT_COVERED)
     if notes:
         print("REF-vs-RUN (which object each verdict is about; never status alone):")
@@ -840,6 +910,10 @@ def _subject_arms() -> list[str]:
         m_lane = bl("msg-lane.txt", "tidy " + w0 + "\n")
         m_kin = bl("msg-kin.txt", "the " + k0 + " agreed\n\nbody\n")
         m_clean = bl("msg-clean.txt", "clean\n\nbody\n")
+        # ASSEMBLED from the sibling gate's host pattern, never spelled out: this
+        # file is itself scanned, and a literal fixture is caught by its own gate.
+        m_sess = bl("msg-sess.txt", "clean subject\n\nhttps://"
+                    + trailers._HOST.replace(chr(92), "") + "/code/session_abc\n")
 
         if history_verdict(set(), d) != (sorted([k1, k4]), [], [], 5):
             failures.append("history over an empty baseline must report both planted subjects as NEW")
@@ -871,6 +945,7 @@ def _subject_arms() -> list[str]:
             ("msg-file, a lane subject", msg_file_mode, (m_lane,), 1),
             ("msg-file, a family-reference subject", msg_file_mode, (m_kin,), 1),
             ("msg-file, a clean message", msg_file_mode, (m_clean,), 0),
+            ("msg-file, a session URL in the BODY", msg_file_mode, (m_sess,), 1),
             ("msg-file, unreadable", msg_file_mode, (b_none,), 1),
             ("ref, a lane word joined into a branch name", ref_mode, (ref,), 1),
             ("ref, a family word", ref_mode, ("refs/heads/tidy-" + k0,), 1),
@@ -1040,6 +1115,91 @@ def self_test() -> int:
             "[Claude Code](https://" + "claude" + ".com/claude-code)")
     if scan_session(6, "", kept) or scan_session(6, None, None):
         failures.append("Co-Authored-By, the product link and a null body must pass")
+    # ARM 5b -- the helm's order of 2026-10-18 (flask STATUS § 447): a host or account NAME in a PR TITLE or BODY is
+    # caught, the finding names the PR, the surface and the line and NEVER the name, role words and a null body pass, and
+    # open_mode itself (not only the scanner) reds on it and stays green on a clean PR. The name is read from the infra
+    # gate's own list, which assembles it; this file never spells one.
+    if infra is None:
+        failures.append("this repository must carry check_infra_names.py for the PR-body infra-name arm")
+    else:
+        nm = infra.FORBIDDEN[0]
+        if not scan_infra(11, "", "ran on " + nm + " today"):
+            failures.append("a planted infrastructure name in a BODY must be caught")
+        if not scan_infra(11, "on " + nm, ""):
+            failures.append("a planted infrastructure name in a TITLE must be caught")
+        got_i = scan_infra(12, "", "x\nran on " + nm)
+        if not got_i or "PR #12 BODY" not in got_i[0][0] or got_i[0][1] != 2:
+            failures.append("an infra finding must name its PR, its surface and its line")
+        if any(nm.lower() in l.lower() for l in infra_finding_lines(got_i)):
+            failures.append("an infra finding must NEVER echo the matched text")
+        if scan_infra(13, "the Windows box", "ran on the bench account") or scan_infra(13, None, None):
+            failures.append("role words and a null body must pass")
+        _real_gh = globals()["_gh"]
+        def _fake_gh(path_args, _title="t", _body=""):
+            p = path_args[0]
+            if "/pulls?" in p:
+                return [{"number": 21, "title": _title, "body": _body,
+                         "head": {"sha": "a" * 40, "ref": "x"}, "base": {"ref": "main"}}]
+            if "/check-runs" in p:
+                return {"check_runs": []}
+            return {"ahead_by": 0}
+        def _drive(body):
+            buf = io.StringIO()
+            globals()["_gh"] = lambda a: _fake_gh(a, "t", body)
+            try:
+                with contextlib.redirect_stdout(buf):
+                    rc = open_mode("owner/repo")
+            finally:
+                globals()["_gh"] = _real_gh
+            return rc, buf.getvalue()
+        rc_bad, out_bad = _drive("ran on " + nm)
+        if rc_bad != 1 or "infrastructure name" not in out_bad:
+            failures.append("open_mode must RED on a PR body carrying an infrastructure name")
+        if nm.lower() in out_bad.lower():
+            failures.append("open_mode must NEVER echo the infrastructure name into the log")
+        if "ANOTHER PR" not in out_bad:
+            failures.append("the infra FAIL block must carry the cross-PR remedy line")
+        rc_ok, out_ok = _drive("ran on the Windows box")
+        if "confusables are not folded" not in out_ok or "CLOSED or MERGED PR bodies" not in out_ok:
+            failures.append("the OK line must DECLARE what the infra arm does not cover")
+        if rc_ok != 0 or "infra-name arm: 0 infrastructure names" not in out_ok:
+            failures.append("open_mode must stay GREEN on a clean PR and DECLARE the infra arm's scope")
+        # ARM 5c -- the helm's commission of 2026-10-18 (systems' G2 on kent's arm): the arm read the SOURCE while the
+        # forge shows the RENDERING, so six spellings that RENDER as the name passed. Each is caught after the
+        # normalisation; the plain name still matches; a hyphenated near-name and a look-alike letter from another
+        # script still do NOT (confusables are not folded, and that is declared); a multi-line comment keeps line numbers.
+        a_, b_ = nm[:2], nm[2:]
+        rendered_cases = {
+            "an HTML comment inside the name": a_ + "<!-- -->" + b_,
+            "an HTML entity for one letter": "&#" + str(ord(nm[0])) + ";" + nm[1:],
+            "a zero-width space inside": a_ + chr(0x200B) + b_,      # chr(), never a literal: this file is cp1252-linted
+            "a soft hyphen inside": a_ + chr(0xAD) + b_,
+            "an emphasis split": "**" + a_ + "**" + b_,
+            "full-width letters": "".join(chr(ord(ch) + 0xFEE0) for ch in nm),
+        }
+        for what, s in rendered_cases.items():
+            if not scan_infra(14, "", "ran on " + s):
+                failures.append("a name that RENDERS through " + what + " must be caught")
+            if not scan_infra(14, "on " + s, ""):
+                failures.append("a TITLE that renders through " + what + " must be caught")
+        if not scan_infra(14, "", "ran on " + nm):
+            failures.append("the plain name must still be caught once the normaliser runs")
+        look = {"k": chr(0x43A), "y": chr(0x443), "j": chr(0x458), "s": chr(0x455), "c": chr(0x441), "a": chr(0x430)}
+        if scan_infra(15, "", "ran on " + nm[:2] + "-" + nm[2:]):
+            failures.append("a HYPHENATED near-name is not the name: the normaliser must not drop '-'")
+        if nm[0] in look and scan_infra(15, "", "ran on " + look[nm[0]] + nm[1:]):
+            failures.append("a look-alike letter from another script is NOT folded (declared): it must not match")
+        # kent's R1 (10-18 13:08): an UNCLOSED comment opener repeated was quadratic (64 KiB of "<!--" took 3 s); bounded
+        # here at 1 s, ~100x the fixed cost; and a name after an unclosed opener is still caught (by the SOURCE scan)
+        import time as _t
+        _t0 = _t.monotonic(); rendered_text("<!--" * 16384); _dt = _t.monotonic() - _t0
+        if _dt > 1.0:
+            failures.append("rendered_text must be linear on unclosed comment openers (64 KiB took %.2f s)" % _dt)
+        if not scan_infra(17, "", "<!-- never closed\nran on " + nm):
+            failures.append("a name after an UNCLOSED comment opener must still be caught")
+        got_c = scan_infra(16, "", "x\n<!-- a\nb -->\nran on " + a_ + "<!-- -->" + b_)
+        if [w for w in got_c] != [("PR #16 BODY", 4)]:
+            failures.append("a multi-line comment must keep the line numbers (want PR #16 BODY line 4, got " + repr(got_c) + ")")
     # ARM 6 -- desks SN/WB: the remedy promises a re-run on edit ONLY where the
     # workflow's bytes say so. Every state planted, both list forms; the note
     # must not promise what an unarmed trigger cannot deliver; and THIS

@@ -13,7 +13,7 @@ by path per M0, because this house has more than one:
 
 * **Nature draft**, `${SEAT_DIR}/briefs/2026-08-11-nature-draft-v0.md:201` — the
   surveyed-strength list: *"no public artifact in any proof assistant proves **the
-  Siegel–Walfisz theorem**, …"*
+  Siegel–Walfisz theorem**, …"* (not current: see the 2026-10-11 note heading the survey)
 * **Pi flagship**, `papers/flagship/main.tex:322` — *"Around these sit **an
   unconditional Siegel–Walfisz theorem**, …"* (prose; no `\label`, so quoted by line).
 
@@ -42,15 +42,15 @@ and none here tries. This file certifies the mathematical half: that the corpus 
 the statement, unconditionally, with no hypothesis of its own.
 
 📌 **AND A STALENESS FOUND BY WRITING THIS DOWN — reported at its true size, not larger.**
-`Salt/BV/Defs.lean:31-34`, the docstring of `SiegelWalfisz` itself, still reads *"The
+`Salt/BV/Defs.lean:31-34`, the docstring of `SiegelWalfisz` itself, read at landing *"The
 single assumed analytic input of this rung (absent from every Lean artifact as of 2026-07;
-**supplied by future formalization or upstream**)"*. The last clause is **stale**: it is
+**supplied by future formalization or upstream**)"*. The last clause was **stale**: it is
 supplied HERE, in this repo, by `siegelWalfisz_holds`.
-*The rest of that docstring is fine and should not be swept: `SiegelWalfisz` legitimately
+*The rest of that docstring was fine and was not swept: `SiegelWalfisz` legitimately
 remains a HYPOTHESIS in parameterised consumers (`hSW : SiegelWalfisz` appears across
 `Salt/BV/**`), which is ordinary — a proved proposition may still be quantified over. **The
-defect is one clause about PROVENANCE, not the predicate's role.*** Not fixed here: it is
-another module's docstring, and a cert file is not the place to edit its dependency.
+defect was one clause about PROVENANCE, not the predicate's role.*** Since repaired at the
+source (2026-10-24): `Salt/BV/Defs.lean:33` now reads *"proved since as `siegelWalfisz_holds`"*.
 
 ## Axioms
 

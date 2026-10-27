@@ -215,7 +215,7 @@ private lemma ramP2MR_inner_row_le (N X p : ℕ) (hX : 1 ≤ X) (hp : 0 < p) :
   rw [div_mul_div_comm]
   rw [div_le_div_iff₀ (by positivity) (by positivity)]
   ring_nf
-  nlinarith [sq_nonneg ((p : ℝ)), hX0.le, hp0.le]
+  linarith only []
 
 /-- **The whole `p²` domain sum** `∑_{σ ∈ ramP2domMR} 2/(σ.1σ.2) ≤ 8/P`
 (`SmallStones.ramP2_dom_sum_le`, re-derived — the original is `private`). -/
@@ -343,7 +343,7 @@ own two-half route.  The design line, verified against the bytes:
 * the **max** half is FREE — the fibre injection into `n.primeFactors` never read `p ∣ m`, so
   `ramP2coeffEndMR_norm_div_le` is `ramP2coeffMR_norm_div_le` with the domain renamed and the
   conclusion `2·log₂(2X)/X` UNCHANGED;
-* the **Σ** half gains exactly `2·ω(X)/X`: the `∨`-filter splits by subset-sum (⟦AMENDMENT
+* the **Σ** half gains at most `2·ω(X)/X`: the `∨`-filter splits by subset-sum (⟦AMENDMENT
   8⟧ — over-counting the `p² ∣ X` overlap is a legal upper bound), and the endpoint half is a
   SINGLETON per prime `p ∣ X` (`p·m = X` determines `m`), so its whole domain injects into
   `X.primeFactors` and each of its terms is exactly `2/X`.  With `ω(X) ≤ log₂ X ≤ log₂(2X)`
@@ -947,7 +947,7 @@ theorem ramP2massMR_L2_direct (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ N) 
   refine (ramP2massMR_L2 N X P Q hX hN (by omega) a b c ha hb hc).trans ?_
   have hoff : 32 / ((X : ℝ) * (P : ℝ) ^ 2) ≤ 8 / ((X : ℝ) * (P : ℝ)) := by
     rw [div_le_div_iff₀ (by positivity) (by positivity)]
-    nlinarith [mul_nonneg (mul_nonneg hX0.le hP0.le) (by linarith : (0 : ℝ) ≤ (P : ℝ) - 4)]
+    linarith only [mul_nonneg (mul_nonneg hX0.le hP0.le) (by linarith : (0 : ℝ) ≤ (P : ℝ) - 4)]
   have hid : 16 / ((X : ℝ) * (P : ℝ)) + 8 / ((X : ℝ) * (P : ℝ))
       = 24 / ((X : ℝ) * (P : ℝ)) := by ring
   linarith
@@ -966,7 +966,7 @@ theorem ramP2massMR_L2_direct32 (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ N
   refine (ramP2massMR_L2 N X P Q hX hN (by omega) a b c ha hb hc).trans ?_
   have hoff : 32 / ((X : ℝ) * (P : ℝ) ^ 2) ≤ 16 / ((X : ℝ) * (P : ℝ)) := by
     rw [div_le_div_iff₀ (by positivity) (by positivity)]
-    nlinarith [mul_nonneg (mul_nonneg hX0.le hP0.le) (by linarith : (0 : ℝ) ≤ (P : ℝ) - 2)]
+    linarith only [mul_nonneg (mul_nonneg hX0.le hP0.le) (by linarith : (0 : ℝ) ≤ (P : ℝ) - 2)]
   have hid : 16 / ((X : ℝ) * (P : ℝ)) + 16 / ((X : ℝ) * (P : ℝ))
       = 32 / ((X : ℝ) * (P : ℝ)) := by ring
   linarith
@@ -1085,7 +1085,7 @@ theorem ramP2massEndMR_L2 (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ N) (hP 
       linarith
     have hnn : (0 : ℝ) ≤ ‖ramP2coeffEndMR N X P Q a b c X‖ := norm_nonneg _
     have hnum : ‖ramP2coeffEndMR N X P Q a b c X‖ ^ 2
-        ≤ 4 * (Real.logb 2 (2 * (X : ℝ))) ^ 2 := by nlinarith
+        ≤ 4 * (Real.logb 2 (2 * (X : ℝ))) ^ 2 := by nlinarith only [hnorm, hnn, hL0]
     gcongr
   -- the off-endpoint terms: §3's fibre, verbatim
   have hoff : ∀ n ∈ (Finset.Icc 1 (2 * X)).erase X,
@@ -1160,7 +1160,7 @@ theorem ramP2massEndMR_L2_direct (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ 
       ≤ 24 / ((X : ℝ) * (P : ℝ)) := by
     have hoff : 32 / ((X : ℝ) * (P : ℝ) ^ 2) ≤ 8 / ((X : ℝ) * (P : ℝ)) := by
       rw [div_le_div_iff₀ (by positivity) (by positivity)]
-      nlinarith [mul_nonneg (mul_nonneg hX0.le hP0.le) (by linarith : (0 : ℝ) ≤ (P : ℝ) - 4)]
+      linarith only [mul_nonneg (mul_nonneg hX0.le hP0.le) (by linarith : (0 : ℝ) ≤ (P : ℝ) - 4)]
     have hid : 16 / ((X : ℝ) * (P : ℝ)) + 8 / ((X : ℝ) * (P : ℝ))
         = 24 / ((X : ℝ) * (P : ℝ)) := by ring
     linarith

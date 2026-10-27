@@ -56,7 +56,11 @@ noncomputable def goldOpP (N : ℕ) : ℕ := goldPs N (opZ N) opW'
 /-- The A₂/switch sifting modulus: the punctured product of primes in `[opW', y)`. -/
 noncomputable def goldOpPs (N : ℕ) : ℕ := goldPs N (opY N) opW'
 
+/-- `goldOpZ N = opZ N` (`rfl`): the Goldbach lower cutoff is the twin scale `z = ⌊N^{1/8}⌋` at
+`x := N`. -/
 theorem goldOpZ_eq (N : ℕ) : goldOpZ N = opZ N := rfl
+/-- `goldOpY N = opY N` (`rfl`): the Goldbach upper cutoff is the twin scale `y = ⌊N^{1/3}⌋` at
+`x := N`. -/
 theorem goldOpY_eq (N : ℕ) : goldOpY N = opY N := rfl
 
 /-! ## Part 2 — the fixed modulus `opQ` (squarefree, even) -/
@@ -148,6 +152,9 @@ theorem goldOpPs_plow (N : ℕ) : ∀ p ∈ (goldOpPs N).primeFactors, w0R opEps
 `z⁹ ≥ (N^{1/8}/2)⁹ = N^{9/8}/512 = N·N^{1/8}/512 ≥ N·10⁶/512 > N`.  This is the
 `hN9` slot of `card_primesInWindow_dvd_le` (⟹ at most 8 window primes divide `N`,
 the punctured correction stays bounded). -/
+/-- **The density threshold.** Past a threshold (the proof takes `x₁ = 10^48`), `N < (opZ N)^9`:
+`z = ⌊N^{1/8}⌋ ≥ ½·N^{1/8}`, so `z⁹ ≥ N·N^{1/8}/512 > N`. The `hN9` slot of
+`card_primesInWindow_dvd_le`. -/
 theorem gold_op_Zpow9 : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N → (N : ℝ) < ((opZ N : ℕ) : ℝ) ^ 9 := by
   refine ⟨10 ^ 48, fun N hN => ?_⟩
   have hx48R : (10 : ℝ) ^ 48 ≤ (N : ℝ) := by exact_mod_cast hN
@@ -183,6 +190,9 @@ theorem gold_op_Zpow9 : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N → (N : ℝ) < 
 `goldbach_residue_witness` needs `Squarefree opQ`, `Even N`, and `opQ ≤ N`; the
 first is `gold_opQ_squarefree`, the second is supplied by the (even) consumer,
 the third is the free tower fact `opQ ≤ log N ≤ N`. -/
+/-- **The residue witness at the operating point.** For even `N` (hypothesis `hN`) with
+`opQ ≤ N` (`hQN`), some `a < opQ` has `a` and `N − a` both coprime to `opQ`, and avoids `0` and
+`N` modulo every prime factor of `opQ`: `goldbach_residue_witness` at `gold_opQ_squarefree`. -/
 theorem gold_op_residue (N : ℕ) (hN : Even N) (hQN : opQ ≤ N) :
     ∃ a, a < opQ ∧ Nat.Coprime opQ a ∧ Nat.Coprime opQ (N - a) ∧
       ∀ q ∈ opQ.primeFactors, a % q ≠ 0 ∧ a % q ≠ N % q :=
@@ -197,7 +207,9 @@ consumer can choose its threshold as a function of `B, C`.  The body is
 `goldRosserRemainderW_le_split` + the shared `dispDiscW_filtered_le_Icc` /
 `convSumW_le` legs). -/
 set_option linter.unusedVariables false in
-theorem gold_a12_hBV_A1 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
+/-- `gold_a12_hBV_A1` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_a12_hBV_A1_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
     ∀ (Qm a N z D P : ℕ) (ε Qlev : ℝ)
       (hP : Squarefree P) (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p)
       (hPz : ∀ p ∈ P.primeFactors, p < z)
@@ -214,7 +226,7 @@ theorem gold_a12_hBV_A1 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
       rosserRemainder (goldA1SieveW Qm a N P hP hPodd) (Qlev * D)
         ≤ (N : ℝ) / (Real.log N) ^ 10 := by
   obtain ⟨B, C, hB, hC, hbv⟩ :=
-    psi_BV_of_siegelWalfisz' Salt.SW.siegelWalfisz_holds 11 (by norm_num)
+    psi_BV_of_siegelWalfisz' hSWall 11 (by norm_num)
   refine ⟨B, C, hB, hC, ?_⟩
   intro Qm a N z D P ε Qlev hP hPodd hPz hPlow hx hε hw0 hwz hQm1 hQmP hQma hPN hQlev hD
     hlevel hclose
@@ -258,6 +270,26 @@ theorem gold_a12_hBV_A1 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
       (mul_le_mul_of_nonneg_left hMbound hconvfac)
   linarith [hsplit, hS1, hS2, hConv, hclose]
 
+set_option linter.unusedVariables false in
+/-- `gold_a12_hBV_A1_of_SW` at the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_a12_hBV_A1 : ∃ B C : ℝ, 0 ≤ B ∧ 0 ≤ C ∧
+    ∀ (Qm a N z D P : ℕ) (ε Qlev : ℝ)
+      (hP : Squarefree P) (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p)
+      (hPz : ∀ p ∈ P.primeFactors, p < z)
+      (hPlow : ∀ p ∈ P.primeFactors, w0R ε ≤ (p : ℝ))
+      (hx : 4 ≤ N) (hε : 0 < ε) (hw0 : 3 ≤ w0R ε) (hwz : w0R ε ≤ (z : ℝ))
+      (hQm1 : 1 ≤ Qm) (hQmP : Nat.Coprime Qm P) (hQma : Nat.Coprime Qm a)
+      (hPN : Nat.Coprime P N) (hQlev : 1 ≤ Qlev) (hD : 1 ≤ D),
+      (Qm : ℝ) * (Qlev * D) ≤ Real.sqrt (N : ℝ) / (Real.log N) ^ B →
+      C * (N : ℝ) / (Real.log N) ^ (11 : ℝ) + C * (N : ℝ) / (Real.log N) ^ (11 : ℝ)
+          + 2 * Real.log N
+              * ((Qm.primeFactors.card : ℝ) + Real.log (Qlev * D) / Real.log 3)
+              * ((1 + ε) * Real.log (z : ℝ) / Real.log (w0R ε))
+        ≤ (N : ℝ) / (Real.log N) ^ 10 →
+      rosserRemainder (goldA1SieveW Qm a N P hP hPodd) (Qlev * D)
+        ≤ (N : ℝ) / (Real.log N) ^ 10 :=
+  gold_a12_hBV_A1_of_SW Salt.SW.siegelWalfisz_holds
+
 /-! ## Part 7 — the A₁ operating-point bundle (`gold_a12_hA1`)
 
 The Goldbach analogue of `a12_hA1`: past a threshold the A₁ carrier `M1` is a
@@ -267,6 +299,12 @@ discharged from the landed op facts.  Composes `gold_A1_lower_B_W` (the sharp
 sieve lower bound) with the BV row from `gold_a12_hBV_A1` at `B, C` and the
 reused scale thresholds `a12_level`/`a12_close`. -/
 set_option linter.unusedVariables false in
+/-- **The A₁ operating-point bundle**, the Goldbach analogue of `a12_hA1`: past a threshold, for
+the instance `goldA1SieveW opQ opA N (goldOpP N) …`, its `totalMass` times
+`W · (fchain (maxDepth) (logRatio (opZ N) (opD N)) − opEps · CsharpB opEps · e² · hBJS (…))`,
+less `N / (log N)^10`, is a lower bound for the `Λ`-sum over the window points
+`n ≡ opA (mod opQ)` with `Coprime (goldOpP N) (N − n)`. Composes `gold_A1_lower_B_W` with the BV
+row `gold_a12_hBV_A1`. -/
 theorem gold_a12_hA1 : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
     (goldA1SieveW opQ opA N (goldOpP N) (goldOpP_squarefree N) (goldOpP_odd N)).totalMass *
         (Salt.BrunLower.W (goldA1SieveW opQ opA N (goldOpP N)
@@ -312,6 +350,12 @@ the G-COUNT-2 op-satisfiability catch.  The Ifun/hbjs error terms in
 `goldTripleSum_le_cbar_final`'s conclusion still need the `o(1)` fold to the
 clean `hcount_seam` shape — that fold is the FinLed-tier Class-C follow-up
 (see the module note and the G-OP report). -/
+/-- **The count-seam scale rows at the operating point.** Past a threshold, eleven facts about
+`opZ N` and `opY N` against `N^{1/8}` and `N^{1/3}`: `6 ≤ opY N`;
+`log N ≤ 3·log (opY N) + log (opZ N)`; `1 < N`; `2 ≤ N^{1/8} ≤ N^{1/3}`; the two `log`
+identities `log (N^{1/8}) = log N / 8` and `log (N^{1/3}) = log N / 3`; and the floor brackets
+`opZ N ≤ N^{1/8} ≤ opZ N + 1`, `opY N ≤ N^{1/3} ≤ opY N + 1` — the bundle the count keystone
+consumes. -/
 theorem gold_op_count_rows : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
     6 ≤ opY N ∧
     Real.log N ≤ 3 * Real.log (opY N) + Real.log (opZ N) ∧
@@ -374,6 +418,12 @@ The `hCE` slot of `gold_hBVblocksW_of_generalBV` at the operating point
 landed op facts.  The `hHD` (honest-disc) half and the full survivor-price rows
 of `gold_hBVblocksW_discharge'` are the remaining Class-C annulus-pricing
 instantiation (see the G-OP report). -/
+/-- **The block conversion-error row at the operating point** — the `hCE` slot of
+`gold_hBVblocksW_of_generalBV` at `Q := opQ`, `Ps := goldOpPs N`, `z := opZ N`, `y := opY N`,
+`ε₀ := N`: past a threshold, for every `QR` and `Dlev`, the sum over the blocks
+`j ≤ maxBlock N (opZ N) N` and the divisors `d ∣ goldOpPs N` with `d < QR·Dlev` of
+`goldBlockConvErrW N (opZ N) (opY N) N j opQ d` is at most
+`nuChen opQ · (Σ_{d ∣ goldOpPs N} nuChen d) · goldTripleSum N (opZ N) (opY N) / (opZ N − 1)`. -/
 theorem gold_op_hCE : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N → ∀ (QR : ℝ) (Dlev : ℕ),
     (∑ j ∈ Finset.range (maxBlock N (opZ N) (N : ℝ) + 1), ∑ d ∈ Nat.divisors (goldOpPs N),
         if (d : ℝ) < QR * Dlev then goldBlockConvErrW N (opZ N) (opY N) (N : ℝ) j opQ d else 0)

@@ -20,8 +20,8 @@ brief; they are not the maestro's or this executor's paraphrase.
 | `mrtM_lamCoeff_loglog_floor` | the honest correction term absorbed: `(1/8)·loglog X ≤ M(λ; X)` |
 | `mrtM_lamCoeff_ge` | the same floor read as "eventually above any constant" |
 
-The landed supply is `mrtM_lam_lower` (`MRTQualityLam.lean:75`), unconditional and
-effective, in the shape
+The landed supply is `mrtM_lam_lower` (`MRTQualityLam.lean:75`), unconditional (its
+constants existential), in the shape
 
   `M(λ; X) ≥ (1/4)·loglog X − 4·logloglog(X + 16) − C`   (`X ≥ x0`),
 
@@ -101,7 +101,7 @@ theorem log3_shift_le_linear {X : ℝ} (hX : (16 : ℝ) ≤ X) :
   have hs1' : (0 : ℝ) < Real.log (X + 16) := by linarith
   -- step A : `log (X + 16) ≤ 2 · log X`
   have hsq : X + 16 ≤ X * X := by
-    nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ X - 16) (by linarith : (0 : ℝ) ≤ X)]
+    linarith only [hX, mul_nonneg (by linarith : (0 : ℝ) ≤ X - 16) (by linarith : (0 : ℝ) ≤ X)]
   have hA : Real.log (X + 16) ≤ 2 * Real.log X := by
     have h1 : Real.log (X + 16) ≤ Real.log (X * X) := Real.log_le_log hs0 hsq
     rw [Real.log_mul (ne_of_gt hX0) (ne_of_gt hX0)] at h1
@@ -143,7 +143,7 @@ theorem mrtM_lamCoeff_lower :
 /-- **E3 (2) — the floor `(1/8)·loglog X ≤ M(λ; X)`, absorption done.**
 
 The target shape is the corpus's own case-split hypothesis: it appears as an unsupplied
-binder at `MRTPropA3.lean:295`, `:519`, `:538`, `:1547`, `:1556`, `:3533` (there at a
+binder at `MRTPropA3.lean · MRTLemmaA4ii`, `:519`, `:538`, `:1547`, `:1556`, `:3533` (there at a
 general `f`), so this is the first producer of that shape at `f := lamCoeff`.
 
 Threshold: `X₀ = max (max x0 16) (exp (exp (max 1 (32·K/3))))` with

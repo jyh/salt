@@ -31,13 +31,13 @@ worth stating is what each horn *delivers*:
   (`Salt/TwinBar/SiegelTwin.lean`) turns `¬ IMSZ` into `NoSiegelZeros`. HONEST
   SHAPE (pass2_e2 §0 Form A): the `∃c` obtained this way is a BARE existential —
   the below-`Q` isolation radii come from the cheap-ball continuity route, no
-  rate. `NoSiegelZeros` is an *effective-gap* currency; it does not cross the
+  rate. `NoSiegelZeros` is a gap currency (a bare existential constant); it does not cross the
   parity barrier `Z` (verdict §"THE CAMPAIGN RE-PRICED", horn `¬F`).
 
-* **Horn `F` — CONDITIONAL on the (unbuilt) Heath-Brown engine.** A fulcrum
-  witness family `FulcrumQualityMin C` manufactures twin primes only through the
-  Heath-Brown engine at threshold `C`, formalized here as the hypothesis
-  `hEngine : FulcrumQualityMin C → TwinPrimeConjecture`. That engine is NOT
+* **Horn `F` — CONDITIONAL on the Heath-Brown engine** (unbuilt when written; proved since only
+  conditional on N7, `hEngine_of_N7`). A fulcrum witness family `FulcrumQualityMin C` manufactures
+  twin primes only through the Heath-Brown engine at threshold `C`, formalized here as the
+  hypothesis `hEngine : FulcrumQualityMin C → TwinPrimeConjecture`. That engine is NOT
   proven — it is the future HB-L2c node (the analytic μ↔χ correlation at the
   fulcrum's one fixed strength; cf. `HeathBrownStatement`, the Siegel-side
   sibling `IMSZ → TPC`). So the composite below carries the engine as an explicit,
@@ -68,7 +68,7 @@ namespace Salt.Fulcrum
 
 /-- **HORN `¬F` — the dichotomy's kernel-real half** (verdict D1, pass2_e2 §0
 Form A). For any `C > 0`, the failure of the fulcrum hypothesis
-`FulcrumQualityMin C` yields the effective no-Siegel-zeros gap `NoSiegelZeros`.
+`FulcrumQualityMin C` yields the no-Siegel-zeros gap `NoSiegelZeros` (a bare existential constant).
 
 Route (the contrapositive of the landed machinery): `NoSiegelZeros` is defeq to
 `¬ InfinitelyManySiegelZeros` (`noSiegelZeros_iff_not_infinitely`); assuming
@@ -93,8 +93,8 @@ the excluded middle on `FulcrumQualityMin C` delivers `HeathBrownDichotomy`
 (`= TwinPrimeConjecture ∨ NoSiegelZeros`):
 
 * `F` branch — the engine manufactures the Twin Prime Conjecture (left horn);
-* `¬F` branch — `not_fulcrum_implies_noSiegelZeros` supplies the effective gap
-  `NoSiegelZeros` (right horn).
+* `¬F` branch — `not_fulcrum_implies_noSiegelZeros` supplies `NoSiegelZeros`
+  (a bare existential constant; see above) (right horn).
 
 When HB-L2c lands `hEngine` unconditionally at `C := C⋆`, this becomes the
 UNCONDITIONAL dichotomy. The engine is carried as a hypothesis precisely so the

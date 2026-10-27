@@ -110,7 +110,7 @@ lemma loglog_floor_succ_le {a b : ℝ} (ha : 2 ≤ a) (hab : a ≤ b) :
     have e4 : 1 / (b * Real.log b) ≤ 1 / Real.log a := by
       apply one_div_le_one_div_of_le hloga
       calc Real.log a ≤ Real.log b := Real.log_le_log (by linarith) hab
-        _ ≤ b * Real.log b := by nlinarith [hlogb.le, (show (1 : ℝ) ≤ b by linarith)]
+        _ ≤ b * Real.log b := by nlinarith only [hab, hlogb, ha]
     linarith [e1, e3, e4]
   linarith [hmono, hstep]
 
@@ -383,7 +383,7 @@ theorem prime_sum_abel_antitone {w z : ℝ} (hw : 2 ≤ w) (hwz : w ≤ z)
       ≤ (∫ t in w..z, f t / (t * Real.log t)) + (20 / Real.log w) * f w := by
     have e20 : (20 / Real.log w) * f w = 20 * (f w / Real.log w) := by ring
     rw [hGw] at hIBP
-    nlinarith [habel, hmono, hsplit_int, hIBP, hfzterm, e20]
+    linarith only [hfzterm, hIBP, hsplit_int, hmono, habel]
   -- boundary reconciliation `primesInWindow → Ioc`, fold the extra `f w / w`
   have hbdry := primesInWindow_sum_le hw hwz hf_pos
   have hlw : Real.log w ≤ w := le_trans (Real.log_le_sub_one_of_pos hwpos) (by linarith)
@@ -527,7 +527,7 @@ theorem prime_sum_abel_monotone {w z : ℝ} (hw : 2 ≤ w) (hwz : w ≤ z)
       ≤ (∫ t in w..z, f t / (t * Real.log t)) + (20 / Real.log w) * f z := by
     have e20 : (20 / Real.log w) * f z = 20 * (f z / Real.log w) := by ring
     rw [hGhatz] at hIBP
-    nlinarith [habel, hmono, hsplit_int, hIBP, hfwterm, e20]
+    linarith only [hfwterm, hIBP, hsplit_int, hmono, habel]
   -- boundary reconciliation, fold `f w / w ≤ f z / log w`
   have hbdry := primesInWindow_sum_le hw hwz hf_pos
   have hlw : Real.log w ≤ w := le_trans (Real.log_le_sub_one_of_pos hwpos) (by linarith)
@@ -561,7 +561,7 @@ theorem applicationA {N p y w : ℝ} (hy : 2 ≤ y) (hyw : y ≤ w) (hp : 0 < p)
     rw [Set.mem_Icc] at ht
     have htpos : 0 < t := by linarith [ht.1]
     have hpt : 0 < p * t := mul_pos hp htpos
-    have hptw : p * t ≤ p * w := by nlinarith [hp.le, ht.2]
+    have hptw : p * t ≤ p * w := by nlinarith only [hp, ht]
     have hptN : p * t < N := lt_of_le_of_lt hptw hpwN
     have hNptgt1 : 1 < N / (p * t) := by rw [lt_div_iff₀ hpt]; linarith
     exact Real.log_pos hNptgt1
@@ -573,7 +573,7 @@ theorem applicationA {N p y w : ℝ} (hy : 2 ≤ y) (hyw : y ≤ w) (hp : 0 < p)
     rw [Set.mem_Icc] at ht
     have htpos : 0 < t := by linarith [ht.1]
     have hpt : 0 < p * t := mul_pos hp htpos
-    have hptw : p * t ≤ p * w := by nlinarith [hp.le, ht.2]
+    have hptw : p * t ≤ p * w := by nlinarith only [hp, ht]
     have hptN : p * t < N := lt_of_le_of_lt hptw hpwN
     have hNptpos : 0 < N / (p * t) := div_pos hNpos hpt
     have hlogpos : 0 < Real.log (N / (p * t)) := hlogpos_all t ⟨ht.1, ht.2⟩

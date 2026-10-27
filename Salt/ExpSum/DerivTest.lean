@@ -119,8 +119,8 @@ lemma sum_sqrt_range (H : ℕ) :
         push_cast; ring_nf
       have hnn : (0 : ℝ) ≤ (H : ℝ) := Nat.cast_nonneg H
       push_cast
-      nlinarith [ih, hmono, Real.sqrt_nonneg ((H : ℝ) + 1), Real.sqrt_nonneg (H : ℝ),
-        mul_le_mul_of_nonneg_left hmono hnn]
+      linarith only [ih,
+          mul_le_mul_of_nonneg_left hmono hnn]
 
 /-- `∑_{i<H} 1/√(i+1) ≤ 2·√H` (telescoping `1/√(H+1) ≤ 2(√(H+1)−√H)` via AM–GM). -/
 lemma sum_inv_sqrt_range (H : ℕ) :
@@ -137,7 +137,7 @@ lemma sum_inv_sqrt_range (H : ℕ) :
       have hsnn : 0 ≤ s := Real.sqrt_nonneg _
       have hkey : 1 / t ≤ 2 * (t - s) := by
         rw [div_le_iff₀ htpos]
-        nlinarith [sq_nonneg (t - s), hs2, ht2, htpos, hsnn]
+        linarith only [ht2, hs2, sq_nonneg (t - s)]
       have hcast : Real.sqrt ((H : ℝ) + 1) = Real.sqrt ((H + 1 : ℕ) : ℝ) := by
         push_cast; ring_nf
       calc ∑ i ∈ Finset.range H, 1 / Real.sqrt ((i : ℝ) + 1) + 1 / Real.sqrt ((H : ℝ) + 1)
@@ -227,8 +227,8 @@ lemma opt_core (Nr u t c : ℝ) (hN : 0 ≤ Nr) (hu : 0 < u) (ht : 0 < t) (hc : 
   have hu2 : 0 < u ^ 2 := by positivity
   have ht2 : 0 < t ^ 2 := by positivity
   have hu3t : 0 < u ^ 3 * t := by positivity
-  have hple1 : p ≤ 1 := by nlinarith [hp1, hppos]
-  have hphalf : 1 / 2 ≤ p := by nlinarith [hp1, hp2, hple1, hppos]
+  have hple1 : p ≤ 1 := by nlinarith only [hppos, hp1]
+  have hphalf : 1 / 2 ≤ p := by nlinarith only [hppos, hple1, hp2]
   have hupt : u ^ 3 * t = u ^ 2 * p := by rw [hp]; ring
   -- three sub-bounds
   have hb1 : 2 * Nr ^ 2 / t ^ 2 ≤ 4 * Nr ^ 2 * u ^ 2 := by
@@ -241,8 +241,8 @@ lemma opt_core (Nr u t c : ℝ) (hN : 0 ≤ Nr) (hu : 0 < u) (ht : 0 < t) (hc : 
       (le_of_lt hu2)) (by linarith [hple1] : (0 : ℝ) ≤ 1 - p)]
   have hb3 : 64 * Nr / (u ^ 3 * t) ≤ 128 * Nr / u ^ 2 := by
     rw [div_le_div_iff₀ hu3t hu2, hupt]
-    nlinarith [mul_nonneg (mul_nonneg hN (le_of_lt hu2))
-      (by linarith [hphalf] : (0 : ℝ) ≤ 2 * p - 1)]
+    linarith only [mul_nonneg (mul_nonneg hN (le_of_lt hu2))
+        (by linarith [hphalf] : (0 : ℝ) ≤ 2 * p - 1)]
   -- combine
   have hNu2 : 0 ≤ Nr / u ^ 2 := div_nonneg hN (le_of_lt hu2)
   have hNr2u2 : 0 ≤ Nr ^ 2 * u ^ 2 := by positivity
@@ -252,8 +252,8 @@ lemma opt_core (Nr u t c : ℝ) (hN : 0 ≤ Nr) (hu : 0 < u) (ht : 0 < t) (hc : 
   have hrhs : 4 * Nr ^ 2 * u ^ 2 + 32 * c * Nr ^ 2 * u ^ 2 + 128 * Nr / u ^ 2
       ≤ 144 * c * (Nr ^ 2 * u ^ 2 + Nr / u ^ 2) := by
     rw [mul_div_assoc]
-    nlinarith [hc, hNu2, hNr2u2, mul_nonneg (by linarith : (0 : ℝ) ≤ c - 1) hNr2u2,
-      mul_nonneg (by linarith : (0 : ℝ) ≤ c - 1) hNu2]
+    linarith only [hNr2u2, hNu2, mul_nonneg (by linarith : (0 : ℝ) ≤ c - 1) hNu2,
+        mul_nonneg (by linarith : (0 : ℝ) ≤ c - 1) hNr2u2]
   linarith [hsum, hrhs]
 
 /-- **Per-shift bound.**  For a positive shift `1 ≤ h ≤ N`, the differenced sum
@@ -313,7 +313,7 @@ lemma Gh_bound_pos (f : ℤ → ℝ) (a : ℤ) (N : ℕ) (lam c : ℝ)
         ≤ c * ((h : ℝ) * lam) := by
     intro n hn1 hn2; simp only; rw [hconn n]
     have hacc := diff2_accum D2f hstepU n (by omega) k₀ (by rw [hk0Z]; omega)
-    rw [hk0Z, hk0R] at hacc; nlinarith [hacc]
+    rw [hk0Z, hk0R] at hacc; linarith only [hacc]
   -- apply the base test on the sub-window
   have hbase := vdC_2nd_ZR (fun m => f (m + h) - f m) a (a + (N : ℤ) - h) ((h : ℝ) * lam) c
     (by omega) hmu hc hlbφ hubφ
@@ -327,8 +327,8 @@ lemma Gh_bound_pos (f : ℤ → ℝ) (a : ℤ) (N : ℕ) (lam c : ℝ)
 lemma Real_sqrt_add_le (x y : ℝ) (hx : 0 ≤ x) (hy : 0 ≤ y) :
     Real.sqrt (x + y) ≤ Real.sqrt x + Real.sqrt y := by
   have key : x + y ≤ (Real.sqrt x + Real.sqrt y) ^ 2 := by
-    nlinarith [Real.sq_sqrt hx, Real.sq_sqrt hy,
-      mul_nonneg (Real.sqrt_nonneg x) (Real.sqrt_nonneg y)]
+    linarith only [mul_nonneg (Real.sqrt_nonneg x) (Real.sqrt_nonneg y),
+        Real.sq_sqrt hy, Real.sq_sqrt hx]
   calc Real.sqrt (x + y) ≤ Real.sqrt ((Real.sqrt x + Real.sqrt y) ^ 2) := Real.sqrt_le_sqrt key
     _ = Real.sqrt x + Real.sqrt y := Real.sqrt_sq (by positivity)
 
@@ -368,12 +368,12 @@ lemma vdC_third_main (f : ℤ → ℝ) (a : ℤ) (N : ℕ) (lam c : ℝ)
   have hl3pos : (0 : ℝ) < lam ^ (1/3 : ℝ) := Real.rpow_pos_of_pos hlam _
   have hp1 : (u * t) ^ 2 ≤ 1 := by
     rw [hut2]
-    nlinarith [hHlo, hlaminv, hl3pos, mul_nonneg (le_of_lt hl3pos)
-      (by linarith [hHlo] : (0 : ℝ) ≤ lam ^ (-1/3 : ℝ) - (H : ℝ))]
+    linarith only [hlaminv, mul_nonneg (le_of_lt hl3pos)
+        (by linarith [hHlo] : (0 : ℝ) ≤ lam ^ (-1 / 3 : ℝ) - (H : ℝ))]
   have hp2 : 1 ≤ 2 * (u * t) ^ 2 := by
     rw [hut2]
-    nlinarith [hHhi, hlaminv, hl3pos, hHR1, mul_nonneg (le_of_lt hl3pos)
-      (by linarith [hHhi, hHR1] : (0 : ℝ) ≤ 2 * (H : ℝ) - lam ^ (-1/3 : ℝ))]
+    linarith only [hlaminv, mul_nonneg (le_of_lt hl3pos)
+        (by linarith [hHhi, hHR1] : (0 : ℝ) ≤ 2 * (H : ℝ) - lam ^ (-1 / 3 : ℝ))]
   -- the A-process
   have hA := weyl_vdC_expSum f a N H hH1 hHN
   set base : ℤ → ℝ :=
@@ -465,7 +465,7 @@ lemma vdC_third_main (f : ℤ → ℝ) (a : ℤ) (N : ℕ) (lam c : ℝ)
   have hfactor : ((N : ℝ) + (H : ℝ)) / ((H : ℝ) + 1) ≤ 2 * (N : ℝ) / (H : ℝ) := by
     rw [div_le_div_iff₀ (by positivity) hHRpos]
     have hHNr : (H : ℝ) ≤ (N : ℝ) := by exact_mod_cast hHN
-    nlinarith [hHNr, hHRpos, hN]
+    nlinarith only [hHNr, hHR1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
   have hQeq : (2 * (N : ℝ) / (H : ℝ)) * ((N : ℝ) + 2 * (8 * c * (N : ℝ) * Real.sqrt lam
         * ((H : ℝ) * Real.sqrt (H : ℝ)) + 8 * (1 / Real.sqrt lam) * (2 * Real.sqrt (H : ℝ))))
       = 2 * (N : ℝ) ^ 2 / t ^ 2 + 32 * c * (N : ℝ) ^ 2 * u ^ 3 * t
@@ -575,10 +575,10 @@ theorem vdC_third_derivative (f : ℤ → ℝ) (a : ℤ) (N : ℕ) (lam c : ℝ)
         rw [hu2eq, ← Real.rpow_add hlam]; norm_num
       have hu1 : (1 : ℝ) ≤ lam ^ (1/6 : ℝ) := by nlinarith [hxu2mul, hlt, hu_pos]
       have hcu : (1 : ℝ) ≤ Real.sqrt c * lam ^ (1/6 : ℝ) := by
-        nlinarith [mul_nonneg (sub_nonneg.mpr hsqc1) (sub_nonneg.mpr hu1), hsqc1, hu1]
+        linarith only [hu1, hsqc1, mul_nonneg (sub_nonneg.mpr hsqc1) (sub_nonneg.mpr hu1)]
       have hnn2 : (0 : ℝ) ≤ (N : ℝ) ^ (1/2 : ℝ) * lam ^ (-(1/6) : ℝ) := by positivity
       have hcum1 : (0 : ℝ) ≤ Real.sqrt c * lam ^ (1/6 : ℝ) - 1 := by linarith [hcu]
-      nlinarith [hcu, hN, hnn2, mul_nonneg hN hcum1]
+      nlinarith only [hsqc1, hnn2, mul_nonneg hN hcum1, (Nat.cast_nonneg _ : 0 ≤ ↑N)]
     · -- `λ^{-1/3} > N` forces `λ^{-1/6} ≥ N^{1/2}`
       have hinv_eq : lam ^ (-(1/6) : ℝ) = (lam ^ (-1/3 : ℝ)) ^ (1/2 : ℝ) := by
         rw [← Real.rpow_mul (le_of_lt hlam)]; norm_num
@@ -593,7 +593,7 @@ theorem vdC_third_derivative (f : ℤ → ℝ) (a : ℤ) (N : ℕ) (lam c : ℝ)
               mul_le_mul_of_nonneg_left hxge (by positivity)
       have hAnn : (0 : ℝ) ≤ (N : ℝ) ^ (1/2 : ℝ) * lam ^ (-(1/6) : ℝ) := by positivity
       have hNu_nn : (0 : ℝ) ≤ 12 * Real.sqrt c * ((N : ℝ) * lam ^ (1/6 : ℝ)) := by positivity
-      nlinarith [hprod, hsqc1, hAnn, hNu_nn,
-        mul_nonneg hAnn (by linarith [hsqc1] : (0 : ℝ) ≤ 12 * Real.sqrt c - 1)]
+      linarith only [hNu_nn, hprod, mul_nonneg hAnn
+          (by linarith [hsqc1] : (0 : ℝ) ≤ 12 * Real.sqrt c - 1)]
 
 end Salt.ExpSum

@@ -891,7 +891,7 @@ The window polynomial `windowSum = P` truncates the full log-derivative
 COEFFICIENT level the defect is the full coefficient supported OFF the window; its norm is
 dominated by the full coefficient's, so its mass is `≤` the full `lambdaLin (restrictAbove)`
 mass — exactly the shape `mult_shiu_MS_B` bounds (`MS-B`'s triple sum carries
-`‖lambdaLin (restrictAbove y g) q.2.1‖` with the shifted exponents; `MultShiu:2214`).  This is
+`‖lambdaLin (restrictAbove y g) q.2.1‖` with the shifted exponents; `MultShiu · mult_shiu_MS_B`).  This is
 the freeze's woven-truncation ruling landed at the coefficient level.  (Its analytic consumer
 is H-5, walled above; the defect object is banked for the campaign-gate continuation.) -/
 
@@ -2064,7 +2064,7 @@ theorem prop21_unconditional (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p�
     exact hg p hp
   have hyXh : y ≤ X + h := by
     have hsqrtle : Real.sqrt X ≤ X := by
-      have h1 : Real.sqrt X ≤ Real.sqrt (X * X) := Real.sqrt_le_sqrt (by nlinarith)
+      have h1 : Real.sqrt X ≤ Real.sqrt (X * X) := Real.sqrt_le_sqrt (by nlinarith only [hX])
       rwa [Real.sqrt_mul_self (by linarith)] at h1
     linarith
   obtain ⟨C_E, hCE⟩ := mult_shiu_MS_EXIT gtw hgtw

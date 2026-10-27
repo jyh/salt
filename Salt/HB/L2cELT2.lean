@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.HB.L2cEL
+import Salt.Tactic.ExpLogNum
 
 /-!
 # HB-L2c — the T2 family budget (node HB-L2c-F-T2, Horn A keystone)
@@ -64,6 +65,7 @@ noncomputable def T2Set (χ : DirichletCharacter ℂ q) (z x : ℕ) : Finset ℕ
     Odd n ∧ 1 < nPlus χ n ∧ ¬ (nPlus χ n).Prime ∧ ¬ T2JunkBlock z (nMinus χ (n + 2)))
 
 open Classical in
+/-- The T2 slice is a filter of the window `l2cWindow χ z x` (`Finset.filter_subset`). -/
 lemma T2Set_subset_window (χ : DirichletCharacter ℂ q) (z x : ℕ) :
     T2Set χ z x ⊆ l2cWindow χ z x := Finset.filter_subset _ _
 
@@ -161,7 +163,7 @@ lemma exp_absorption {z x : ℕ} (hz2 : 2 ≤ z) :
     _ = Real.exp (3 * z0 z x + 2 * Real.log 2 * z0 z x) := by rw [← Real.exp_add]
     _ ≤ Real.exp (5 * z0 z x) := by
         apply Real.exp_le_exp.mpr
-        nlinarith [hz0, hlog2, mul_nonneg hz0 (sub_nonneg.mpr hlog2)]
+        linarith only [mul_nonneg hz0 (sub_nonneg.mpr hlog2)]
 
 /-! ## §3 — the modulus-route legality gate (freeze §S4 T2: `(log z)² ≤ 4096·z^{1/4}`)
 
@@ -188,7 +190,7 @@ lemma log_sq_le_rpow_quarter {z : ℕ} (hz1 : 1 ≤ z) :
   have h8 := log_le_rpow_eighth hz1
   have hr8 : (0 : ℝ) ≤ (z : ℝ) ^ ((1 : ℝ) / 8) := (Real.rpow_pos_of_pos hzpos _).le
   have hsq : (Real.log z) ^ 2 ≤ (8 * (z : ℝ) ^ ((1 : ℝ) / 8)) ^ 2 :=
-    sq_le_sq' (by nlinarith [hlognn, hr8]) h8
+    sq_le_sq' (by linarith only [h8, hlognn]) h8
   have ht2 : ((z : ℝ) ^ ((1 : ℝ) / 8)) ^ 2 = (z : ℝ) ^ ((1 : ℝ) / 4) := by
     rw [← Real.rpow_natCast ((z : ℝ) ^ ((1 : ℝ) / 8)) 2, ← Real.rpow_mul hzpos.le]; norm_num
   have hpow : (8 * (z : ℝ) ^ ((1 : ℝ) / 8)) ^ 2 = 64 * (z : ℝ) ^ ((1 : ℝ) / 4) := by
@@ -222,7 +224,7 @@ lemma logsq_Zz_le {z : ℕ} (hz100 : 100 ^ 16 ≤ z) :
     Real.log_nonneg (by exact_mod_cast (by omega : 1 ≤ Zz z))
   have hlogznn : 0 ≤ Real.log z := Real.log_nonneg (by exact_mod_cast hz1)
   have hsq : (Real.log (Zz z)) ^ 2 ≤ ((1 / 16) * Real.log z) ^ 2 :=
-    sq_le_sq' (by nlinarith [hlognn, hlogznn]) hlogle
+    sq_le_sq' (by linarith only [hlognn, hlogle]) hlogle
   calc (Real.log (Zz z)) ^ 2 ≤ ((1 / 16) * Real.log z) ^ 2 := hsq
     _ = (Real.log z) ^ 2 / 256 := by ring
 
@@ -285,6 +287,8 @@ for EVERY window element: in the `ω(block) ≥ 2` cases both sides vanish (`Λ�
 /-- **The T2 family weight** (family-local): `Λ(u)` for `u ≠ 1`, `L'` for `u = 1`. -/
 noncomputable def T2Wt (x u : ℕ) : ℝ := if u = 1 then Lwin x else Λ u
 
+/-- `0 ≤ T2Wt x u`: `L' = log(2x+2) ≥ 0` on the degenerate block `u = 1` (`Lwin_nonneg`) and
+`Λ(u) ≥ 0` otherwise. -/
 lemma T2Wt_nonneg (x u : ℕ) : 0 ≤ T2Wt x u := by
   rw [T2Wt]; split
   · exact Lwin_nonneg x
@@ -377,20 +381,13 @@ lemma t2_Lwin_ge {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3 ≤ x
       _ ≤ (x : ℝ) := hzx
   have hxpos : (0 : ℝ) < (x : ℝ) := lt_of_lt_of_le (by positivity) hx48
   have hlog100 : (4 : ℝ) ≤ Real.log 100 := by
-    rw [Real.le_log_iff_exp_le (by norm_num : (0 : ℝ) < 100)]
-    have h1 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-    have h4 : Real.exp 4 = (Real.exp 1) ^ 4 := by
-      rw [← Real.exp_nat_mul]; norm_num
-    rw [h4]
-    calc (Real.exp 1) ^ 4 ≤ (2.7182818286 : ℝ) ^ 4 :=
-          pow_le_pow_left₀ (Real.exp_pos 1).le h1.le 4
-      _ ≤ 100 := by norm_num
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 4 (by norm_num) (by norm_num)
   have h1 : Real.log ((100 : ℝ) ^ 48) ≤ Real.log x := Real.log_le_log (by positivity) hx48
   rw [Real.log_pow] at h1
   have h2 : Real.log x ≤ Lwin x := by
     rw [Lwin]
     exact Real.log_le_log hxpos (by linarith [Nat.cast_nonneg (α := ℝ) x])
-  have h3 : (100 : ℝ) ≤ 48 * Real.log 100 := by nlinarith [hlog100]
+  have h3 : (100 : ℝ) ≤ 48 * Real.log 100 := by linarith only [hlog100]
   push_cast at h1
   linarith [h1, h2, h3]
 
@@ -544,7 +541,7 @@ lemma t2_totient_ratio {v p' w : ℕ} (hv : v = 1 ∨ IsPrimePow v) (hw : w = 1 
     exact_mod_cast Nat.totient_pos.mpr (by positivity)
   have hr : (v * p' * w : ℝ) / (Nat.totient (v * p' * w) : ℝ) ≤ 27 / 8 := by
     rw [div_le_iff₀ hφpos]
-    nlinarith [hphi]
+    linarith only [hphi]
   calc ((v * p' * w : ℝ) / (Nat.totient (v * p' * w) : ℝ)) ^ 2
       ≤ (27 / 8 : ℝ) ^ 2 := pow_le_pow_left₀ (by positivity) hr 2
     _ = (729 / 64 : ℝ) := by norm_num

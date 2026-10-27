@@ -61,9 +61,9 @@ strict gives the *exact* negation of the `≤` in `NoSiegelZeros`.
 
 Between Landau–Page and Siegel. `siegel_theorem` gives the ineffective
 `β ≤ 1 − C(ε)/q^ε`, which for large `q` is WEAKER than the `log q` gap asserted
-here — so the corpus genuinely does not decide `InfinitelyManySiegelZeros`; it is a
-real, open hypothesis (cf. Landau–Page for the effective one-exception bound,
-Siegel for the ineffective `q^ε` bound).
+here — so the corpus does not decide `InfinitelyManySiegelZeros` (cf. Landau–Page
+for the effective one-exception bound, Siegel for the ineffective `q^ε` bound; and
+see the dated note at the end of this file).
 -/
 
 open Complex DirichletCharacter
@@ -71,8 +71,8 @@ open Complex DirichletCharacter
 namespace Salt.TwinBar
 
 /-- **NO Siegel zeros.** Some `c > 0` pushes every real primitive quadratic
-character's real zeros below `1 − c/log q`. (Tao Thm 1 (ii); the effective
-zero-free gap for exceptional characters.) -/
+character's real zeros below `1 − c/log q`. (Tao Thm 1 (ii); the zero-free
+gap for exceptional characters (an existential constant).) -/
 def NoSiegelZeros : Prop :=
   ∃ c : ℝ, 0 < c ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
     1 < q → χ.IsPrimitive → χ ^ 2 = 1 → χ ≠ 1 →
@@ -93,7 +93,7 @@ def HeathBrownStatement : Prop :=
   InfinitelyManySiegelZeros → TwinPrimeConjecture
 
 /-- **The dichotomy corollary shape**: either the Twin Prime Conjecture holds, or
-there is an effective no-Siegel-zeros gap. -/
+there is a no-Siegel-zeros gap (`NoSiegelZeros`: some c > 0, existential). -/
 def HeathBrownDichotomy : Prop :=
   TwinPrimeConjecture ∨ NoSiegelZeros
 
@@ -105,7 +105,7 @@ def BadHyp : Prop :=
     (1 < q ∧ χ.IsPrimitive ∧ χ ^ 2 = 1 ∧ χ ≠ 1 ∧ LFunction χ β = 0 ∧ β < 1) ∧
     ∀ c : ℝ, 0 < c → 1 - c / Real.log q < β
 
-/-- The live hypothesis is the exact negation of the effective gap: infinitely
+/-- The live hypothesis is the exact negation of the gap: infinitely
 many Siegel zeros ↔ there is NO no-Siegel-zeros constant. The `∀c∃` order and the
 `<`/`≤` boundary pairing are pinned by this equivalence holding. -/
 theorem infinitely_iff_not_noSiegel :
@@ -124,7 +124,7 @@ theorem infinitely_iff_not_noSiegel :
     rw [not_le] at hle
     exact hcon ⟨q, hq0, χ, β, h1q, hprim, hsq, hne, hL, hle, hβ1⟩
 
-/-- The dual reading: an effective no-Siegel-zeros gap exists iff there are NOT
+/-- The dual reading: a no-Siegel-zeros gap exists iff there are NOT
 infinitely many Siegel zeros. -/
 theorem noSiegelZeros_iff_not_infinitely :
     NoSiegelZeros ↔ ¬ InfinitelyManySiegelZeros := by
@@ -165,3 +165,26 @@ theorem badHyp_false : ¬ BadHyp := by
   linarith
 
 end Salt.TwinBar
+
+/-! ## A dated note (2026-10-22)
+
+OpenAI's preprints dated 2026-09-30 and 2026-10-01 (Lean sources at `github.com/openai/math`) claim
+that no Dirichlet L-function has a zero with real part above 7/8 and that there are no Siegel zeros.
+The Lean proof of the 7/8 claim was kernel-checked on our machine, 2026-10-22, from OpenAI's pinned
+source (`openai/math` 1581d4cbdd69): the full environment of 561,427 declarations replayed by
+`leanchecker --fresh`, and the theorem depends on the three standard axioms only (`#print axioms`).
+The statement was matched by elaboration, not by OpenAI's comparator; OpenAI's 23 patches to
+third-party packages were applied as their build applies them, and their content was not read
+(mathlib is not patched); and this checks their Lean proof, not the preprint's argument. The steps
+of that run are written down as `scripts/replay_openai_seven_eighths.sh`, with checks added since
+the run; the script as it stood that day was then run end to end, from a fresh directory on
+2026-10-22, and exited 0 with its planted control rejected. This repository does not import that
+proof. It restates the 7/8 statement over its own mathlib as `DirichletSevenEighths` and proves that
+it implies `NoSiegelZeros` (`noSiegelZeros_of_sevenEighths`, in
+`Salt/TwinBar/SevenEighthsClaim.lean`). OpenAI's mathlib (`d13f23b7`) and this repository's
+(`360da6fa`) agree on the six definitions compared at the top of the statement's chain
+(`DirichletCharacter.LFunction`, `ZMod.LFunction`, `DirichletCharacter`, `MulChar`, `ZMod`,
+`Complex.re`); below them, 591 definitions differ structurally, and their equivalence has not been
+checked. So OpenAI's theorem does not discharge `DirichletSevenEighths` here. If
+`DirichletSevenEighths` holds, then `NoSiegelZeros` holds and `InfinitelyManySiegelZeros` is false.
+-/

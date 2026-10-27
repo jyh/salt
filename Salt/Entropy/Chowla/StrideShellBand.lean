@@ -7,7 +7,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 **S-4 (desk NE, chartered by the helm 2026-09-14 19:4x under council ⑩'s tempo order) — LANDED
 2026-09-14 21:0x: H and C PROVED by ONE Opus executor at one attempt each, on the helm's word after
 math's non-author pass (NO KILL); M and K1 were proved at the freeze.  HONEST LABEL, FIRST LINE:
-NO NEW UNCONDITIONAL THEOREM (a restatement of landed proofs).**  S-4 restates the landed
+NO NEW MATHEMATICS (a restatement of landed proofs).**  S-4 restates the landed
 entropy head `log_chowla_aff_of_door_g12b` (`StrideShellG.lean:320`) with the REGIME quantifier
 moved: the landed head proves `door Ra ρ' → ¬ logChowlaFailsAff` at the ONE regime `Ra` it obtains
 from the crown's payload `hcrown` (`∃ Ra`); S-4 states the same arrow at EVERY affine regime at the
@@ -80,7 +80,7 @@ slot is discharged, so the class carries the entropy side's own binder `hgcd : g
 What it says that no landed statement says: the arrow does not depend on WHICH regime the crown
 built — any regime at the pin above the threshold that carries the door at the floor is a window
 where log-Chowla does not fail.  Composed with S-3's band (every `y ∈ [x₀, exp(31·Hhi₀/ε)/a]` at
-the same `ω₀`, every class) this is D12's `hwin` for every class over ONE band
+the same `ω₀`, every class) this is D12's `hwin` for every class with `hgcd` over ONE band
 (`Salt/MR/TierSBridge.lean`).
 
 Route (module header; not fired): the landed head's body with step (4) removed, `A ↦ A₁`, the
@@ -365,7 +365,7 @@ payload `hcrown` (the landed head's own binder, `StrideShellG.lean:334-343`, byt
 `GradedAffHeadAt_g12b a b h A₀` (`StridePrize.lean:295`) — the landed head's conclusion — at every
 `A₀`: obtain the crown at `max A₀ A₁`, lower its `flatDesignBase A ≤ Ra.Hlo` to `A₁` by
 `flatDesignBase_mono`, and take `δ₀ := floor`.  Stated with the hypothesis spelled out rather than
-through the `sorry` above, so its axiom audit is the kernel's three. -/
+through the arrow above, so its axiom audit is the kernel's three. -/
 theorem gradedAffHeadAt_g12b_of_at_regime (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b < a)
     (hgcd : Nat.gcd (b + h) a ∣ h)
     (hS4 : ∃ A₁ : ℝ, 162 ≤ A₁ ∧

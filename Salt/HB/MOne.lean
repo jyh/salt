@@ -37,7 +37,7 @@ additive `1` in Prachar's shape is exactly the mass of the counted zero itself, 
 driving its coefficient below `2` **is** the optimized-radius Landau argument.
 
 That argument is already in the kernel. `Salt.SW.landau_one_exceptional_at`
-(`Salt/SW/LandauPage.lean:194`) evaluates the partial fraction at
+(`Salt/SW/LandauPage.lean · landau_one_exceptional_at`) evaluates the partial fraction at
 `σ = 1 + (3/5000)/log(4q)` — the radius tuned so that the kept term of a
 double zero, `2/(σ−β₀) ≥ 2500·log(4q)`, overruns the whole budget
 `1/(σ−1) + 1 + 720·log(4q) = (5000/3 + 720)·log(4q) + 1`. It delivers

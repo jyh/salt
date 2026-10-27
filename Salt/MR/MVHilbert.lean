@@ -47,7 +47,7 @@ by the Montgomery–Vaughan inequality, with `δ = 1/N` the (uniform) frequency 
 The entire reduction is landed sorry-free.  The single irreducible hard core — the
 Montgomery–Vaughan Hilbert inequality `‖H(x)‖ ≤ (π/δ)∑‖xₙ‖²` itself, which mathlib does
 **not** have and which admits no Schur-type elementary proof (the Schur norm is `≍ N log N`)
-— is carried as the explicit hypothesis `MVHilbertUniform` of `dirichlet_poly_l2_mvt`.
+— is the hypothesis `MVHilbertUniform` of `dirichlet_poly_l2_mvt`, since proved (`MVCore2.lean`).
 Also landed: `l2_duality`, the large-sieve duality principle (for the wave-2 consumer).
 -/
 
@@ -94,7 +94,7 @@ lemma log_gap_ge {N m n : ℕ} (hm : m ∈ Finset.Icc 1 N) (hn : n ∈ Finset.Ic
       have hc : (q : ℝ) + 1 ≤ p := by exact_mod_cast hqp
       linarith
     have h1' : (N : ℝ) ≤ N * ((p : ℝ) - q) := by
-      nlinarith [mul_nonneg (le_of_lt hNr) (show (0 : ℝ) ≤ (p : ℝ) - q - 1 by linarith)]
+      linarith only [mul_nonneg (le_of_lt hNr) (show (0 : ℝ) ≤ (p : ℝ) - q - 1 by linarith)]
     have hexp : (N : ℝ) * ((p : ℝ) - q) = N * p - N * q := by ring
     have hcross : (p : ℝ) ≤ N * p - N * q := by rw [hexp] at h1'; linarith
     have hlow : (1 : ℝ) / N ≤ 1 - (q : ℝ) / p := by
@@ -318,7 +318,7 @@ theorem dirichlet_poly_l2_mvt (hMV : MVHilbertUniform) (N : ℕ) (a : ℕ → �
       linarith [h1, hOD_bound]
     calc S ≤ 2 * T * P + 2 * (Real.pi * N) * P := by linarith [hSle]
       _ ≤ 2 * T * P + 20 * (N : ℝ) * P := by
-          nlinarith [Real.pi_le_four, mul_nonneg hNr.le hPnn]
+          nlinarith only [Real.pi_le_four, mul_nonneg hNr.le hPnn]
       _ = (2 * T + 20 * (N : ℝ)) * P := by ring
 
 /-- One direction of the large-sieve **duality principle**: the dual bound implies the
@@ -373,10 +373,10 @@ lemma l2_dual_of {ι κ : Type*} (s : Finset ι) (t : Finset κ) (φ : ι → κ
     mul_le_mul_of_nonneg_left hEA hB_nonneg
   have hfin : (∑ r ∈ s, ‖c r‖ ^ 2) ^ 2
       ≤ Δ * (∑ r ∈ s, ‖c r‖ ^ 2) * (∑ n ∈ t, ‖a n‖ ^ 2) := by
-    nlinarith [hA2W2, hW2, hBE]
+    linarith only [hBE, hW2, hA2W2]
   rcases eq_or_lt_of_le hA_nonneg with hA0 | hApos
   · rw [← hA0]; exact mul_nonneg hΔ hB_nonneg
-  · nlinarith [hfin, hApos]
+  · nlinarith only [hApos, hBE, hW2, hA2W2]
 
 /-- **The large-sieve duality principle** (MR L10).  For a finite complex matrix `φ` and
 `0 ≤ Δ`, the primal `L²` bound holds for all `a` iff the dual bound holds for all `b`. -/

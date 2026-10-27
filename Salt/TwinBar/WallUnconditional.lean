@@ -31,7 +31,7 @@ unconditional: the `MmuRate` slot is discharged by the landed nullary
 
 Before this, the composition `LambdaSummatory_of_MmuRate Salt.SW.mmuRate_holds`
 was re-spelled inline at four discharge sites (`:39`, `:50`,
-`WallCorr.lean:151`, `:227`).  Naming it once is the restatement-renames law:
+`WallCorr.lean:161`, `:238`).  Naming it once is the restatement-renames law:
 the wall's mathematics is unchanged and the constant now has a name a consumer
 can cite.  QUEUE.md P1 fill 5b. -/
 theorem lambdaSummatory_holds (A : ℝ) (hA : 0 < A) : LambdaSummatory A :=

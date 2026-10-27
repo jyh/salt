@@ -454,6 +454,11 @@ import Salt.MR.StrideDoorAllGrades
 import Salt.MR.StrideSupplyAllStrides
 import Salt.MR.FlatDoorParityFloor
 import Salt.MR.FlatDoorUniform
+import Salt.MR.FlatDoorStandoff
+import Salt.MR.FlatDoorSevenEighths
+import Salt.MR.V7SiegelFree
+import Salt.MR.V6SiegelFree
+import Salt.MR.DoorReceiptSiegelFree
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
@@ -3277,7 +3282,7 @@ open Salt.Tactic in
 -- the coprime-tail triple at the door's cut datum inside the K6 existential
 -- (`m4_door_tail_supply`).  ⚠ WALL 1 — THE K-BLOCK WINDOW LAW: `band_window_ratio_lock`
 -- proves that the capstone's `hcoefBand`/`hwinBand` pair (inherited verbatim from
--- `ThmA2Rows.a2Rows_of_capfree3`'s `hcoef`/`hwin`, ThmA2Rows:914–918) locks any two block
+-- `ThmA2Rows.a2Rows_of_capfree3`'s `hcoef`/`hwin`, ThmA2Rows) locks any two block
 -- primes at which the datum is LIVE into a factor 2 of each other, while
 -- `door_block_one_wide` shows the door's level-1 K-block spans `2^{(M−1)·Adoor M}` (a factor
 -- 4 already at M ≥ 2) and the sieve `𝒮` puts live points at block primes throughout it.  This
@@ -3796,7 +3801,7 @@ open Salt.Tactic in
 
 -- ⟦THE SWAP⟧ (`M4Collapse`, 2026-07-28) — the M4 wave's SECOND carried analytic arm,
 -- discharged, and the exit re-composed around it.  `m4_wave_closed_T0_discharged` consumes
--- `M4CoprimeBlockMeanSq` (the interface ⟦COPRIME-SCOPE⟧ proved unsuppliable) INSIDE its own
+-- `M4CoprimeBlockMeanSq` (which ⟦COPRIME-SCOPE⟧ argued on paper no route supplies) INSIDE its own
 -- proof, and the narrowed twin does not imply the full one — so the swap is not a patch but
 -- an ADDITIVE re-run of the two compositions off the same three landed stones
 -- (`m4_wave_closed_of_dyadicRow`, `m4_dyadicRow_carried`, `doorRowCarried_of_t0free`), with
@@ -7574,9 +7579,9 @@ under `RegisterSupply`'s single explicit cushion `32·K_vt + 32·D ≤ log H₊/
 /-! ⟦CAP-RECUT — THE RAISED LEVER, THE `g`-RIDER, AND THE RE-CUT BASE-SCALE CAP⟧
 (`KLever` + the uniform hoists + the wide-ceiling twins, 2026-08-02).
 
-CAP-SCOPE proved `S16BaseScaleCap96_L_gk 32000000 R (flatDoorM A)` FALSE at the flat terminal's
-own regime, which made the flat-lane conditionals VACUOUS.  The Fable ruling's composite repair
-lands here in four parts.
+CAP-SCOPE argued on paper (no Lean theorem negates it) that `S16BaseScaleCap96_L_gk 32000000 R
+(flatDoorM A)` is FALSE at the flat terminal's own regime, which made the flat-lane conditionals
+VACUOUS.  The Fable ruling's composite repair lands here in four parts.
 
 **P1 — the uniform hoists.**  `∀K ∃C` → `∃C ∀K` at four sites, bodies verbatim: the piece rate,
 the `T₀`-band exit, the band slot, and the windowed band-lane rider.  BAND-K-PROBE traced the
@@ -7711,21 +7716,21 @@ immediately after it, so the `M` in scope is the terminal's own.  -/
 
 /-! ⟦COMPOSE-2 — THE `K`-HOIST AND `logChowla2_ineffective_v4`⟧ (`S16ComposeV4`, 2026-08-02).
 
-CAP-RECUT proved the base-scale cap AT the raised lever `KlevF A`; KWIDE-65 widened every flat
-`K ≤ 1.7·10⁸` binder so the lever can flow.  What neither could reach is the BINDER ORDER: in
-`v3` the design constant `A` is chosen from `ε`, `β`, `x₀`, `Hopq`, which the conditional
-produces only AFTER a lever is fixed, so `K := KlevF A` closes a circle.  It is a false circle —
-`flat_head_uniform_ceiling` and `flat_socket_uniform_ceiling` take no `K`, and the door/road
-merely forward their witnesses — and §1–§5 re-mint the chain with the `∀ K` hoisted INSIDE the
-`∃`-prefix (`∃ ε Cg Kc δ₀ β x₀ Hopq Mfl, ⟨K-free facts⟩ ∧ ∀ K, ∃ Ct …, ∀ A, …`).  Only the
+CAP-RECUT proved the base-scale cap AT the raised lever `KlevF A`; KWIDE-65 gave every flat
+`K ≤ 1.7·10⁸` binder on the `L`-door chain a widened `_kwide` twin.  What neither could reach is the
+BINDER ORDER: in `v3` the design constant `A` is chosen from `ε`, `β`, `x₀`, `Hopq`, which the
+conditional produces only AFTER a lever is fixed, so `K := KlevF A` closes a circle.  It is a false
+circle — `flat_head_uniform_ceiling` and `flat_socket_uniform_ceiling` take no `K`, and the
+door/road merely forward their witnesses — and §1–§5 re-mint the chain with the `∀ K` hoisted INSIDE
+the `∃`-prefix (`∃ ε Cg Kc δ₀ β x₀ Hopq Mfl, ⟨K-free facts⟩ ∧ ∀ K, ∃ Ct …, ∀ A, …`).  Only the
 constant-pool `Ct` and the crossing supply's six constants move with `K`, and the `A`-choice
 reads none of them.  §0 records the band rider in its witness-uniform shape (ONE `x₀`, ONE
 `Cband`, hence ONE `Mfl` and ONE `Awin`, for every lever) — the shape
 `m4_hband_at_door_slot_split_graded_L_gk_uniform` already mints.
 
-§4b rethreads the `T₀` rider onto its consumer's TRUE tolerance.  RIDER-TRACE proved
-`T₀ ≤ e^{e^{100}}` unreachable along this proof and diagnosed a MIS-SIZED NUMERAL: the sole
-consumer `S13CapFloor.capfloor_T0_Tann` has a sharp sibling (`:226`) asking only
+§4b rethreads the `T₀` rider onto its consumer's TRUE tolerance.  RIDER-TRACE showed,
+partly in Lean, `T₀ ≤ e^{e^{100}}` unreachable along this proof and diagnosed a MIS-SIZED NUMERAL:
+the sole consumer `S13CapFloor.capfloor_T0_Tann` has a sharp sibling (`:226`) asking only
 `T₀ ≤ e^{√H/2}`.  Four hops, uniform carrier `T₀ ≤ exp(√(R.Hlo)/2)` (every hop has the regime
 in scope and the socket puts `R.Hlo ≤ H`), one binder move (the crossing supply's rider goes
 INSIDE its own `∀ R`).  At `v4` the rider reads `T₀ ≤ exp(√(flatDesignBase A)/2)` — satisfiable
@@ -7733,8 +7738,8 @@ at the corpus's own witness by two exponential levels.
 
 §6's `logChowla2_ineffective_v4` chooses `A` FIRST, sets `K := KlevF A` SECOND, and discharges
 the base-scale cap inside the proof by `s16_baseScaleCap96_L_at_klevF`.  The cap predicate —
-the one CAP-SCOPE proved FALSE at the produced regime — is GONE from the statement.  What
-stands in its place is the flat builder's own outer-scale ceiling `log x ≤ (31/ε)·H₊`, carried
+the one CAP-SCOPE argued on paper is FALSE at the produced regime — is GONE from the statement.
+What stands in its place is the flat builder's own outer-scale ceiling `log x ≤ (31/ε)·H₊`, carried
 as a named antecedent: X-CEIL landed it at the builder and explicitly banked the uniform-lane
 threading, so the terminal cannot yet EXPORT it.  That is a repair, not a paper-over — the `v3`
 antecedent was false at the regime, this one is the builder's own landed law. -/
@@ -7936,7 +7941,7 @@ Rethreading the sharp form through the hops is V7-E's landing; V7-A supplies the
 /-! ⟦V7-C `T0-ARM` — THE `T₀` RIDER DISCHARGED, AND THE MARGIN MEASURED⟧ (`V7C`)
 
 `v6`'s second inner rider is `T₀ ≤ exp(√(flatDesignBase A)/2)` — the tolerance
-`S13CapFloor.capfloor_T0_Tann_sharp` really needs.  `RIDER-TRACE` proved `T₀` has **no
+`S13CapFloor.capfloor_T0_Tann_sharp` really needs.  `RIDER-TRACE` found on paper that `T₀` has **no
 effective ceiling** in the corpus (its VK leg bottoms out at `zeta_zero_free_strip_height`,
 `RiderTrace:54-92`), so the rider cannot be discharged by computing `T₀`.
 
@@ -8063,10 +8068,10 @@ of record. -/
 
 /-! ⟦KS-RETHREAD — `logChowla2_ineffective_v7_ksarm`⟧ (`V7Ks`, 2026-08-14, waking review 08-15).
 
-⟦WHY A RETHREAD AND NOT A DISCHARGE⟧ V7-A proved `Real.exp (-100) ≤ Ks` is not provable as a
-numeral — it reduces to an explicit lower bound on Siegel's ineffective constant at `ε = 1/16` —
-and supplied the replacement leaf: `capfloor_floor4_of_pos` derives the `floor4` field of
-`S13CapGatePerBlock` from `0 < Ks` plus the WINDOW `log(1/Ks) ≤ 3·log H/16`, no numeral anywhere.
+⟦WHY A RETHREAD AND NOT A DISCHARGE⟧ V7-A argued on paper that `Real.exp (-100) ≤ Ks` cannot be
+proved as a numeral — it reduces to an explicit lower bound on Siegel's ineffective constant at
+`ε = 1/16` — and supplied the replacement leaf: `capfloor_floor4_of_pos` derives the `floor4` field
+of `S13CapGatePerBlock` from `0 < Ks` plus the WINDOW `log(1/Ks) ≤ 3·log H/16`, no numeral anywhere.
 The window is `A`-satisfiable and the numeral is not, so the rider is not discharged where it
 stands: the window is threaded DOWN to the leaf, and met at the top by a new arm of `A`'s `max`.
 
@@ -8865,7 +8870,7 @@ open Salt.Tactic in
   -- rated socket's `∃ Z δ Kvt` over the lever (the witnesses are argument-free, so the hoist is
   -- the same proof with `intro K` after the `refine`); N1b is the co-factor supply SIBLING with
   -- FOUR Skolem REALS and a cushion carrying NO evaluation point (the refuters' seam: the spine
-  -- has no socket call — RegisterRepair:490 is where the socket is consumed); N1's `armVt`
+  -- has no socket call — RegisterRepair · cofkR_cofactorSupply_L_gk is where the socket is consumed); N1's `armVt`
   -- (eighth `max` arm, `max 162 (log(1+Kvt))`) pays that cushion out of the regime's own
   -- exponential budget (exp-beats-linear, SPEND NOTHING ON GRADE); N2 `logChowla2_v7_rated` is
   -- the headline with the `Kvt` binder and the cushion arrow GONE — the program's first
@@ -8944,13 +8949,11 @@ open Salt.Tactic in
   Salt.MR.vkDebitConst_le_of_le_arcDen_h
   Salt.MR.vkMidDebitSharp_le_of_le_arcDen_h
   Salt.MR.bandConstQ_le_of_le_arcDen_h
-  Salt.MR.pieceFloor_vt_threshold_of_loglog_rated_h
   Salt.MR.pieceFloor_vt_threshold_of_loglog_rated_two
   Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated_two
   Salt.MR.SocketBaseLH
   Salt.MR.socketBaseLH_one_iff
   Salt.MR.socketBaseLH_of_socketBaseL
-  Salt.MR.cofkL_logX_floor_h
   Salt.MR.cofkL_mu_floor_h
   Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform_two
   Salt.MR.abs_mul_window_le_of_cap
@@ -9123,7 +9126,16 @@ fuse's output with `RStr := h⁷·rStrWitness` and the `j₀`-floor `g2_of_j0_fl
 ⛔ NOT here: the exit below the register (wave X) and the six hops above it (wave H); no
 `SocketBaseH`/`S13BandGate'H`/`rStrWitnessH` def.
 Nothing bears on twin primes: every object is conditional exactly where its `h = 1` twin is;
-the seven OPEN sockets cross to `h` unchanged.  Purely additive. -/
+the seven OPEN sockets cross to `h` unchanged.  Purely additive.  2026-10-08: the XY debt lane's
+family 45 retired five pages of `S16ProducersH` — the three socket tops, the block page and the band
+base — into their cap-9 twins, each noted where it stood, their five rows dropped here (the twins
+are audited under ⟦β W1 E2⟧ and ⟦β W2 F1⟧).  2026-10-09: family 46 retired two more,
+`s15_block_at_socket_gen_LH` and `s13_band_qfit_h`, into their cap-9 twins, their two rows dropped
+here (the twins are audited under ⟦β W1 E2⟧).  2026-10-11: family 49 retired the five cap-7 pages of
+`S16ProducersH` §2 — the call chain under `s12c_llX_ge_LH`: `s13_socketBase_logA_ge_sqrt_LH`,
+`s13_socketBase_loglogA_sharp_LH`, `s13_socketBase_loglogA_LH`, `s14_loglogX_ge_of_socket_LH`,
+`s12c_llX_ge_LH` — into their cap-9 twins, their five rows dropped here (the twins are audited under
+⟦β W1 E2⟧ and ⟦β W2 F1⟧); of the names of that file that have a `_b9` twin, none remains. -/
 #audit_axioms Salt.MR.RSanDoorRhoH
   Salt.MR.RSanDoorRhoH_one
   Salt.MR.RSanDoorRhoH_nonneg
@@ -9139,18 +9151,8 @@ the seven OPEN sockets cross to `h` unchanged.  Purely additive. -/
   Salt.MR.m4_arith_henv_rho_poolH_L_gk
   Salt.MR.m4_arith_henv_constPoolH_L_gk
   Salt.MR.s13_socketBase_xscale_LH
-  Salt.MR.s13_socketBase_logA_ge_sqrt_LH
-  Salt.MR.s13_socketBase_loglogA_sharp_LH
-  Salt.MR.s13_socketBase_loglogA_LH
-  Salt.MR.s14_loglogX_ge_of_socket_LH
-  Salt.MR.s12c_llX_ge_LH
-  Salt.MR.s15_block_at_socket_gen_LH
   Salt.MR.s13_band_X400_LH
   Salt.MR.s13_band_baseFloor_LH
-  Salt.MR.s12c_eps_threshold_at_socket_flatH
-  Salt.MR.s15_heps293_at_socket_flatH
-  Salt.MR.s15_hband4096_at_socket_flatH
-  Salt.MR.s15_block_at_socketH_L_gk
   Salt.MR.s15ArmH
   Salt.MR.s15ArmH_one
   Salt.MR.s15ArmH_demoted
@@ -9160,10 +9162,8 @@ the seven OPEN sockets cross to `h` unchanged.  Purely additive. -/
   Salt.MR.s15ArmH_log_le
   Salt.MR.s15_doorArithFrameRho_L_at_socketH''
   Salt.MR.s15_doorArithFrameRho_L_familyH''
-  Salt.MR.s13_band_qfit_h
   Salt.MR.s13_band_arm_at_top_LH
   Salt.MR.s13_band_err_free_LH
-  Salt.MR.doorBandBase_family'H_L_gk
   Salt.MR.m4_hband_at_door_slotH_L_gk
   Salt.MR.rStrWitness_G1_h
   Salt.MR.rStrWitness_mul_nonneg
@@ -9177,14 +9177,14 @@ the seven OPEN sockets cross to `h` unchanged.  Purely additive. -/
 
 /-! ⟦THE EXIT BELOW THE REGISTER AT SHIFT `h` — WAVE X, PARTS (iii)/(iv)⟧
 (`S16FlatTerminalExitH`, 2026-09-01, math).  The `h`-twin of
-`S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L` (`:239`): the terminal register on the
+`S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L`: the terminal register on the
 terminal's lane, in `¬ Fails` form, at shift `h`.  Composed from the landed door-form register
 (`S16FlatTerminalLinearH.lean:1567`) and the flat head at shift `h`
 (`Salt/Entropy/Chowla/HloExportFlatH.lean:210`).
 
 ⭐ THE WAVE'S FINDING, AND IT IS A COUNT THAT WENT DOWN.  The commission priced part (iii) as
 `h`-twins of `HloExportMRFlatRoot.m4_exit_socket_split_sq_arc_flatRoot` (`:70`) and
-`S16FlatTerminalLinear.m4_doorL2_close_split_sq_gk_flatRoot_L` (`:179`).  NEITHER IS NEEDED.
+`S16FlatTerminalLinear.m4_doorL2_close_split_sq_gk_flatRoot_L`.  NEITHER IS NEEDED.
 Those two exist at `h = 1` because the `h = 1` register is built in the SPLIT form
 (`a`/`e`, `Bsieve`/`Binsert`) and must be walked back to a door: the socket UNFOLDS
 `MRTUniformityXiL2` into the split, the loop RE-CLOSES it.  At shift `h` that walk was already
@@ -9334,17 +9334,17 @@ a drifted def would still elaborate at every consumer and no build could see it.
 ⛔ NOT here: word 8's `Ct ≤ 2^23` export at `h` (its statement copy alone exceeds the
 commission's own 30-line budget before any body, and it would re-cut the `Ct` slot of all three
 hops — the antecedent stays and H3 takes it); H2c's crossing supplier; H3's uniform lane.
-Nothing bears on twin primes: every object is conditional exactly where its `h = 1` twin is. -/
+Nothing bears on twin primes: every object is conditional exactly where its `h = 1` twin is.
+2026-10-09: the XY debt lane's family 47 retired `s13_gate8_L_gk_h`,
+`s15_gRows_const_at_socket_flat_doorLH_gk` and `s13_smallGradeFits_of_halfWindow_L_gk_h` into their
+cap-9 twins, their three rows dropped here (the twins are audited under ⟦β W1 E3⟧ and ⟦β W2 F3⟧).
+2026-10-10: family 48 retired `s13_smallGradeFits_h` and `s13_winFit_h_of_halfWindow_gen` into their
+cap-9 twins, their two rows dropped here (the twins are audited under ⟦β W1 E3⟧). -/
 #audit_axioms Salt.MR.s16BandLaneCBoundedLH_one_iff
   Salt.MR.s15CrossingBound_LH_gk_one_iff
   Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_LH
   Salt.MR.RSanDoorRhoH_le_RSanDoorRho
-  Salt.MR.s13_gate8_L_gk_h
   Salt.MR.doorBaseFrame_at_socket_LH
-  Salt.MR.s15_gRows_const_at_socket_flat_doorLH_gk
-  Salt.MR.s13_smallGradeFits_h
-  Salt.MR.s13_winFit_h_of_halfWindow_gen
-  Salt.MR.s13_smallGradeFits_of_halfWindow_L_gk_h
   Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk_shift28
   Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH
   Salt.MR.logChowla2_witnessed_scale_flat_LH
@@ -9356,11 +9356,47 @@ Nothing bears on twin primes: every object is conditional exactly where its `h =
 prefix and pins, `hblk` at `SocketBaseLH h`, concluding
 `S16CofactorSupply_LH_gk h K Cq R M → S16BaseScaleCap96_LH_gk h K R M →
 S15CrossingBound_LH_gk h K R M`.
-No landed declaration is edited: every landed numeric stone the `h` lane outgrows has a
-SIBLING here with a wider ceiling.
+No landed declaration is edited (2026-09-28: the XY debt lane's family 21 moved the cap-7
+assembler chain to the file's foot, bytes verbatim, and re-pointed five of
+`s13CapFloor_all_LH_gk`'s seven supplier calls to their cap-9 twins, its statement unchanged;
+2026-09-29: family 22 re-pointed six calls of `s16_capGate_supply_LH_gk` to five cap-9 twins, its
+statement unchanged; 2026-09-29: family 23 retired eight of the names audited below into their
+cap-9 twins, their rows dropped, which leaves the numeric sibling `capfloor_floor3_numeric_h`
+without a caller; 2026-09-29: family 24 retired twelve more of them, their rows dropped, which
+leaves nine more names without a caller: seven siblings that have a cap-9 twin, and the rows
+`capeps_row_phi_h` and `capeps_row_tail_h`, which have none; 2026-09-30: family 25 retired those
+seven, their rows dropped, which leaves three more names without a caller: the siblings
+`s13_abs8640_at_base_LH` and `s13CapGrid_logTann_lo_LH`, which have a cap-9 twin, and the numeric
+sibling `capeps_Pbig_h`, which has none; 2026-09-30: family 26 retired the two that have a `_b9`
+twin, their rows dropped, which leaves two more names without a caller: the siblings
+`s13_abs8640_of_socketBase_LH` and `s13CapGrid_twoj_le_H_LH`, which have a `_b9` twin; 2026-09-30:
+family 27 retired those two, their rows dropped, which leaves no name audited here that has a `_b9`
+twin without a caller; 2026-09-30: family 28 retired three names that have no `_b9` twin into their
+relatives — the numeric sibling `capfloor_floor3_numeric_h` and the rows `capeps_row_phi_h` and
+`capeps_row_tail_h` — their registry rows dropped, which leaves `h_le_exp_seven` without a caller;
+2026-09-30: family 29 moved `capfloor_T0_Tann_LH` and `capfloor_floor4_LH` to that file's foot and
+re-pointed five of their supplier calls to cap-9 twins, their statements unchanged, which leaves
+three siblings audited below without a caller: `capfloor_logq_le_LH`, `capfloor_T0_Tann_sharp_LH`
+and `capfloor_rhs_legs_LH`; 2026-10-01: family 30 retired those three into their cap-9 twins, their
+rows dropped, which leaves `capfloor_muLambda_LH`, which has a `_b9` twin, without a caller;
+2026-10-01: family 31 retired it into its cap-9 twin, its row dropped, which leaves no name audited
+here that has a `_b9` twin without a caller; 2026-10-06: family 40 retired three more of them into
+their cap-9 twins, their rows dropped — `s13CapGrid_mu_2000_LH`, `s13CapGrid_Lambda_lo_LH` and
+`capfloor_core_LH`, which family 39's retirement of a page of `V7RatedH` left without a caller
+(2026-10-05) — which leaves two more siblings audited below without a caller:
+`capfloor_twoj_le_H_LH` and `s13CapGrid_Lambda_sharp_LH`, each of which has a `_b9` twin;
+2026-10-06: family 41 retired those two into their cap-9 twins, their rows dropped, which leaves no
+name audited here that has a `_b9` twin without a caller — one such name is audited here,
+`s13CapGrid_mu_lo_LH`, and its one caller is `s13CapGrid_logH_le_mu_LH`, a theorem that no
+declaration calls; 2026-10-07: family 42 retired that theorem by ruling (filed in `docs/QUEUE.md`
+2026-09-30, ruled RETIRE 2026-10-06; it has no twin, and no declaration had called it since its
+first commit), its row dropped, which leaves `s13CapGrid_mu_lo_LH`, audited here, which has a `_b9`
+twin, without a caller; 2026-10-08: family 43 retired it into its cap-9 twin, its row dropped, which
+leaves no name audited here that has a `_b9` twin: the last such name is retired): every landed
+numeric stone the `h` lane outgrows has a SIBLING here with a wider ceiling.
 
-⛔ **WHY THE PAGE IS SIXTY NAMES AND NOT THIRTY.**  `s16_capGate_supply_L_gk` (`:955`) and
-`s13CapGrid_all_L_gk` (`:594`) derive `hbb : SocketBase` from their `SocketBaseL` binder and
+⛔ **WHY THE PAGE IS SIXTY NAMES AND NOT THIRTY.**  `s16_capGate_supply_L_gk` and
+`s13CapGrid_all_L_gk` derive `hbb : SocketBase` from their `SocketBaseL` binder and
 feed `hbb` to the WHOLE floor and eps pages.  `SocketBaseLH h → SocketBase` is FALSE at
 `h ≥ 2` and no non-linear inflated socket exists, so every `SocketBase`-typed leaf under that
 assembler is re-stated here.
@@ -9368,11 +9404,24 @@ assembler is re-stated here.
 **THE TWO CONJUNCTS THAT MOVE, AND WHERE THEY ARE READ** (census driven at the object).
 Conjunct 5 (`q ≤ h·arcDen 12 H`) is read at exactly FIVE sites — `s13CapGrid_q_logX`
 (`S13CapGrid:393`), `capfloor_logq_le` (`S13CapFloor:284`), `capfloor_floor4` (`:459`),
-`s13_capEps_register` (`S13CapEps:476`), `s13CapEps_q_arcDen` (`:530`).  Conjunct 11 is read
+`s13_capEps_register` (`S13CapEps`), `s13CapEps_q_arcDen`.  Conjunct 11 is read
 at exactly ONE — `s13_socketBase_xscale` (`S13MSelect2:111`) — and reaches this page only
 through `s13_socketBase_logA_ge_sqrt`.  ⭐ Conjunct 11 therefore costs NO new substrate: its
-`_LH` twins are already landed in `S16ProducersH` (`:332`, `:345`, `:408`, `:425`), and on the
-grid page only `mu_lo` and `Lambda_sharp` touch them — the other twelve inherit.
+`_LH` twins are already landed in `S16ProducersH` (`:351`, `:362`, `:385`, `:407`), and on the
+grid page only `mu_lo` and `Lambda_sharp` touch them — the other twelve inherit.  (2026-09-29: the
+XY debt lane's family 24 retired five of the twelve into their cap-9 twins; seven stand at the
+cap 7.  2026-09-30: family 25 retired three more of the twelve; four stand at the cap 7.
+2026-09-30: family 26 retired one more of the twelve; three stand at the cap 7.  2026-10-06:
+family 40 retired two more of the twelve; one stands at the cap 7.  2026-10-06: family 41 retired
+`s13CapGrid_Lambda_sharp_LH`, one of the two that touch the substrate directly, into its cap-9 twin;
+the other, `s13CapGrid_mu_lo_LH`, and one of the twelve stand at the cap 7.  2026-10-07: family 42
+retired the one of the twelve, `s13CapGrid_logH_le_mu_LH`, by ruling; `s13CapGrid_mu_lo_LH` stands
+at the cap 7, without a caller.  2026-10-08: family 43 retired `s13CapGrid_mu_lo_LH`, the other of
+the two that touch the substrate directly, into its cap-9 twin; of the two and the twelve, none
+stands at the cap 7.  2026-10-11: family 49 retired three of the four `_LH` restatements pinned
+above — `s13_socketBase_logA_ge_sqrt_LH`, `s13_socketBase_loglogA_sharp_LH` and
+`s13_socketBase_loglogA_LH` — into their cap-9 twins, each noted where it stood; their three pins
+now name those notes, and the fourth still names `s13_socketBase_xscale_LH`'s declaration.)
 
 ⭐ **TRANSITIVE REACHABILITY OF CONJUNCT 5 IS NOT THE SAME AS SPENDING IT.**
 `s13CapFloor_all_L_gk` reaches `capfloor_logq_le` through `QTann_L_gk → QTann_gen →
@@ -9396,13 +9445,18 @@ travelling would mean the ceiling was a barrier rather than a convenience — a 
 the mathematics.  All six travel.  In `capeps_master` the hypothesis `t ≤ 50` enters in
 exactly one place, linearly, against `(14/10000)·Λ ≥ 7·10¹⁷` versus a left side of about
 `686`: the true admissible `t` is ~`7·10¹⁷`.  Each sibling is consumed by exactly one row and
-nowhere else, which is the check that the ceilings were priced from real demand.
+nowhere else, which is the check that the ceilings were priced from real demand.  (2026-09-30: the
+XY debt lane's family 25 retired the `p²` row at the cap 7, `capeps_row_p2_h`, into its cap-9 twin;
+the sibling `capeps_Pbig_h` is consumed by no row now.  2026-09-30: family 28 retired one of the
+six, `capfloor_floor3_numeric_h`, into its relative `capfloor_floor3_numeric_h_10`, and the two rows
+that stood at the cap 7 into their relatives at `log h ≤ 14`; `capeps_expbound_60` and
+`capeps_bigexp_60` are consumed by the rows at the raised caps.)
 
 ⟦R KILL 1⟧ **`s13CapEps_all`'s FOURTH CONJUNCT IS FALSE AT `LH` AND IS RE-BASED, NOT DROPPED.**
 `q ≤ arcDen 12 H` cannot hold when the socket only gives `q ≤ h·arcDen 12 H`.  It is stated at
 `Hreg := A + s`, where `arcDen 12 (A+s) = (log (A+s))^12` is exactly the grid page's `q_logX`,
 whose `LH` conclusion is unchanged.  The field it lands in
-(`S13CapGatePerBlock_L_gk.q_arcDen`, `S13CapGateLinear:187`) is READ NOWHERE in the corpus —
+(`S13CapGatePerBlock_L_gk.q_arcDen`, `S13CapGateLinear`) is READ NOWHERE in the corpus —
 three declarations, five `:= e4` assignments, docstrings, zero reads — and `Hreg` occurs in
 that structure only there, so no landed object changes and nothing downstream observes it.
 
@@ -9411,6 +9465,8 @@ longer closes `q ≤ h·(log H)^12 ≤ μ^12`, so `capfloor_logH_le_half_sqrt` p
 `log H ≤ μ/2` UNIFORMLY — `2^12 = 4096` of room against `h ≤ 1096`, margin `3.7×`, no numeral
 at a floor.  `floor4_LH`: rather than carry an `h^{1/16}` factor, `h ≤ 1096 ≤ log H` absorbs
 the inflation into the exponent — `q ≤ (log H)^13`, so `q^{1/16} ≤ (log H)^{13/16} ≤ log H`.
+(2026-09-30: the XY debt lane's family 25 retired the first of the two, `s13CapGrid_q_logX_LH`, into
+its cap-9 twin, whose re-cut is `log H ≤ √H/3`; `capfloor_floor4_LH` stands.)
 
 The `h = 1` twin laws are stated as THEOREMS for both new defs.  In both, the socket sits in
 HYPOTHESIS position under a `∀`, so a drifted definition would still elaborate at every
@@ -9425,60 +9481,15 @@ no axioms; they are audited anyway so the registry row count matches the declara
   Salt.MR.capeps_bigexp_60
   Salt.MR.capeps_Pbig_h
   Salt.MR.capfloor_lam_core_h
-  Salt.MR.capfloor_floor3_numeric_h
   Salt.MR.S16BaseScaleCap96_LH_gk
   Salt.MR.S16CofactorSupply_LH_gk
   Salt.MR.s16BaseScaleCap96LH_gk_one_iff
   Salt.MR.s16CofactorSupplyLH_gk_one_iff
-  Salt.MR.s13_abs8640_of_socketBase_LH
-  Salt.MR.s13_abs8640_at_base_LH
-  Salt.MR.s13_abs8640_at_shift_LH
-  Salt.MR.s13CapGrid_twoj_le_H_LH
-  Salt.MR.s13CapGrid_mu_lo_LH
-  Salt.MR.s13CapGrid_mu_2000_LH
-  Salt.MR.s13CapGrid_logH_le_mu_LH
-  Salt.MR.s13CapGrid_Lambda_sharp_LH
-  Salt.MR.s13CapGrid_Lambda_lo_LH
-  Salt.MR.s13CapGrid_logX_eight_LH
-  Salt.MR.s13CapGrid_q_logX_LH
-  Salt.MR.s13CapGrid_logqT_L_LH
-  Salt.MR.s13CapGrid_logTann_lo_LH
-  Salt.MR.s13CapGrid_Tann_one_LH
-  Salt.MR.s13CapGrid_kappa_Tann_LH
-  Salt.MR.s13CapGrid_kappa30_LH
-  Salt.MR.s13CapGrid_BT_LH
-  Salt.MR.s13CapGrid_BT10_LH
-  Salt.MR.capfloor_logq_le_LH
-  Salt.MR.capfloor_twoj_le_H_LH
-  Salt.MR.capfloor_core_LH
-  Salt.MR.capfloor_muLambda_LH
-  Salt.MR.capfloor_T0_Tann_sharp_LH
   Salt.MR.capfloor_T0_Tann_LH
-  Salt.MR.capfloor_rhs_legs_LH
-  Salt.MR.capfloor_tannGate_LH
-  Salt.MR.capfloor_QTann_gen_LH
-  Salt.MR.capfloor_kappa30Q_gen_LH
-  Salt.MR.capfloor_QTann_LH_gk
-  Salt.MR.capfloor_kappa30Q_LH_gk
-  Salt.MR.capfloor_floor1_LH
-  Salt.MR.capfloor_floor2_LH
-  Salt.MR.capfloor_floor3_LH
   Salt.MR.capfloor_floor4_LH
   Salt.MR.s13CapFloor_all_LH_gk
   Salt.MR.h_le_exp_seven
   Salt.MR.h_le_exp_fourteen
-  Salt.MR.capeps_row_phi_h
-  Salt.MR.capeps_row_tail_h
-  Salt.MR.capeps_row_p2_h
-  Salt.MR.s13_capEps_register_LH
-  Salt.MR.s13CapEps_abs8640_LH
-  Salt.MR.s13CapEps_q_arcDen_LH
-  Salt.MR.s13CapEps_EP2_gate_LH
-  Salt.MR.s13CapEps_all_LH
-  Salt.MR.s13CapEps_pin_floors_LH
-  Salt.MR.s13CapEps_pins_supply_LH
-  Salt.MR.s13CapGrid_Q2_reg_LH_gk
-  Salt.MR.s13CapGrid_all_LH_gk
   Salt.MR.s16_capGate_supply_LH_gk
   Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded
   Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling
@@ -9560,8 +9571,8 @@ LEADING BINDER.  The hoist is still pure re-bracketing (`Cg` from parseval, `H�
 the head is `HloExportFlatH.flat_head_uniform_h`, and `Salt/Entropy` CANNOT import `Salt/MR`,
 where the whole `xceil` apparatus lives.  So `flat_head_uniform_xceil_h` is built HERE, beside
 its `h = 1` sibling, off a one-line PUBLIC RE-EXPORT appended to `HloExportFlatH` §5 (a new
-declaration — no landed line touched, no `private` lifted).  The 4-line `flatCapH_shuffle` is
-re-proved locally, as `S16UniformLH` re-proves `flatRootCapH_arc_u` for the same reason.
+declaration — no landed line touched, no `private` lifted).  The 3-line `flatCapH_shuffle` is
+re-proved locally, as `S16UniformLH` re-proves `flatRootCapH_arc` as `flatRootCapH_arc_u`.
 ⭐ **The arithmetic was already paid:** the only inequality spent in the whole block is the
 conditional's `g`-substitution, and H2a word 4's `xceil_arm_split_h` is exactly the statement
 that the thinned margin `H₊/(250000·h²)` still covers the arm's `log h` and the split's `log 2`.
@@ -9600,7 +9611,13 @@ which is what wave H1 bought by threading a scale `c` through the selector layer
 ⭐ **THE SHARP-`T₀` CHAIN IS THREE NAMES BECAUSE H2c LANDED THE ONE PIECE THAT IS NOT
 BOOKKEEPING** (`capfloor_T0_Tann_sharp_LH`): hop 5 wants `T₀ ≤ exp(√H₋/2)` INSIDE the `∀ R`
 where H2c's chain exports the flat `exp(exp 100)` outside it, so these are that chain with one
-discharger swapped and one binder moved.
+discharger swapped and one binder moved.  (2026-09-28: family 19 of the XY lane re-pointed six of
+the assembler's seven supplier calls to their cap-9 twins, its statement unchanged; 2026-09-28:
+family 20 six of the capfloor bundle's seven, its statement unchanged and `capfloor_floor4_LH`
+kept at the cap 7; 2026-09-29: family 22 made the same six re-points in H2c's cap-gate assembler,
+whose body is the assembler's here up to the bundle's name, its statement unchanged; 2026-10-01:
+family 30 retired that piece into its cap-9 twin, `capfloor_T0_Tann_sharp_LH_b9`, which the capfloor
+bundle has called since family 20.)
 
 ⛔⛔ **AND THE BLOCK ORDER IS WRONG: H3's HEADLINE `logChowla2_v7_rated_h` IS GATED ON BLOCK E.**
 `logChowla2_v7_rated` (V7Rated:973) obtains `cofkR_cofactorSupply_L_gk_rated` (V7Rated:241) in
@@ -9637,21 +9654,31 @@ take `log(1/Ks)` into its `max` and read `floor4` off with no numeral rider at a
 
 ⛔⛔ **AND HOP 6's `h` TWIN IS EXACTLY THE SHAPE `logChowla2_v7_rated` CONSUMES — which is why
 the headline is BLOCKED ON E and not on T.**  See the previous block's note.
-Nothing bears on twin primes. -/
-#audit_axioms Salt.MR.capfloor_floor4_sharp_LH
-  Salt.MR.capfloor_floor4_of_regimeWin_LH
-  Salt.MR.s13CapFloor_all_LH_gk_sharpT0_kswin
-  Salt.MR.s16_capGate_supply_LH_gk_sharpT0_kswin
-  Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist
-  Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist_cs
+Nothing bears on twin primes.  (From 2026-09-27 the XY debt lane retires members of this chain
+into their cap-9 twins, noted in place in `S16ComposeLH.lean`; their rows leave with them.) -/
+#audit_axioms Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded_khoist
   Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist
-  Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs
-  Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_h
 
 /-! ⟦BLOCK E — THE `ε` SEAM CLOSED, AND THE PRIZE⟧ (`HDoorSupply` §6–§8 re-spelled in place,
 `Salt/MR/V7RatedH.lean` NEW, 2026-09-02, math — wave H3 block E).  **`logChowla2_v7_rated_h`
 stands: H3's hypothesis-free headline at every `h` with `log h ≤ 7`.**
+
+(2026-10-03: the XY debt lane's family 38 re-pointed the prize's two supplier calls — the rated
+supply and the base-scale cap — to their cap-9 twins in `V7RatedH`, its statement unchanged, and
+moved that file's §4 and §5 below its two twin blocks; `cofkR_cofactorSupply_L_gk_rated_h` and
+`s16_baseScaleCap96_LH_at_klevF` are left with no call site, their rows standing below; no name is
+retired by it.)
+
+(2026-10-05: family 39 retired the four cap-7 pages of `V7RatedH` §1–§3 — `cofkL_socket_floors_h`,
+`cofkR_cofactorSupply_L_gk_rated_h`, `klevF_capNumeral_h` and `s16_baseScaleCap96_LH_at_klevF` —
+into their cap-9 twins (⟦β W1 E3⟧, ⟦β W2 F3⟧ below), each noted where it stood; their four rows are
+dropped from the command below, which audits §3's four helpers and the prize with its gate from then
+on.  The removed code was the last caller of `capfloor_core_LH`, `s13CapGrid_Lambda_lo_LH` and
+`s13CapGrid_mu_2000_LH` (each keeps its row; each has a cap-9 twin whose statement is its own at the
+raised cap — the lane's next candidates) and of `cofkL_mu_floor_h` (its row stands; its twin's
+statement differs beyond the cap, `28` ↦ `32`, so the twin does not imply it).  2026-10-06:
+family 40 retired the first three into those twins, their rows dropped.)
 
 ⛔ **WHAT WAS ACTUALLY WRONG.** The `h` head pins `ε = 1/(500·h)`; seven merged `_h` names in
 `HDoorSupply` demanded the FLAT `1/500 ≤ R.eps`, **false at `h ≥ 2`**, and both sides sat in
@@ -9659,6 +9686,8 @@ HYPOTHESIS position of conditional statements, so no gate in the repository coul
 whole demand is spent at ONE place — `heps2` inside `cofkL_logX_floor_h` — and at `1/(500h)`
 the closing coefficient goes NEGATIVE at `h = 4`: no `H₊` closes it.  Ruling (a): the
 conclusion becomes `h`-explicit, `H₊/(10⁶·h²) ≤ log(A+s)`.
+(2026-09-26: `cofkL_logX_floor_h` was retired into `cofkL_logX_floor_h_b9`, XY debt lane
+family 09, noted in place in `HDoorSupply.lean`; `heps2` stands in the generic's body.)
 
 ⭐ **THE RE-CUT IS LOCAL, AND THAT IS A MEASUREMENT, NOT A HOPE.**  Every call site of all
 seven is inside `HDoorSupply.lean` itself; outside it, only this registry names them.  So the
@@ -9676,6 +9705,9 @@ ANTECEDENT throughout and is untouched.
 and ROWS cannot see a dependency between BLOCKS; this one was found by opening the prize's
 proof and reading its FIRST line.  Its `h` twin reads the socket at exactly six places and is
 otherwise ~650 lines of arithmetic on the block scale `A + s`.
+(2026-10-03, the XY debt lane's family 38: the headline's supplier is this page's cap-9 twin
+`cofkR_cofactorSupply_L_gk_rated_h_b9` from then on; the cap-7 page keeps its row below; 2026-10-05:
+family 39 retired the cap-7 page into that twin, noted where it stood, and its row is dropped.)
 
 ⭐ **AND A SECOND ROUTE NOBODY NAMED: the base-scale cap.**  `s16_baseScaleCap96_L_at_klevF`
 (`KLever:427`) is `SocketBaseL`-only, and the headline closes with it.  Its port is cheap for a
@@ -9701,14 +9733,10 @@ build anywhere could see it.  The substitution `h := 1` is the only instrument t
 `h = 1` twin is, and nothing here bears on twin primes: the transport wall is untouched at this
 rung, `ε` is bounded only from BELOW (and at shift `h` that floor is `1/(500·h)`, not `1/500`),
 and the residual ineffectivity prices scale-extractability, not truth. -/
-#audit_axioms Salt.MR.cofkL_socket_floors_h
-  Salt.MR.cofkR_cofactorSupply_L_gk_rated_h
-  Salt.MR.S16BaseScaleCapEnd_LH_gk
+#audit_axioms Salt.MR.S16BaseScaleCapEnd_LH_gk
   Salt.MR.s16BaseScaleCapEndLH_gk_one_iff
   Salt.MR.s16_baseScaleCapEnd_LH_of_xceil
   Salt.MR.s16_baseScaleCap96_LH_of_end
-  Salt.MR.klevF_capNumeral_h
-  Salt.MR.s16_baseScaleCap96_LH_at_klevF
   Salt.MR.logChowla2_v7_rated_h
   Salt.MR.logChowla2_v7_rated_h_one
 
@@ -9772,10 +9800,20 @@ statements, the five replays, the door-head, the chain, the receipts (the anti-d
 the tower, grade `≤ 1.02·a·ρ + E` with `ρ ≤ 1/(837782(ah)²)` — the F2 supply line at the regime it
 lives at; the affine DEMAND is still missed by `1.02·a` (F5's numeral). Nothing here bears on twin
 primes.  20 obligations, 20 landed (one Opus executor, 2026-09-04 12:2x–12:5x; 17 at one attempt).
+(From 2026-09-26 the XY debt lane retires copied siblings of this block into their cap-9 twins,
+noted in place in `StridePairReceipt.lean`; the rows below are fewer than 20 by the retirements
+to date.  From family 10 every door-head that called the retired head-shaped builder reads the
+cap-9 pair, as the G12b one already did, at `log a ≤ 9`; the builder named above stood, with no
+call site, until family 11 (2026-09-27) retired it into its cap-9 twin.  2026-10-01: family 32
+re-pointed two calls of `flat_v7_generic_h` — the rated supply and the base-scale cap — to
+their cap-9 twins in `V7RatedH`, its statement unchanged; no name is retired by it.  2026-10-01:
+family 33 re-pointed the count hook of `mrtUniformityXiL2AffSet_holds_flat_floor` and of its
+graded form to the cap-9 twin `bigXiAff_bounded_ceiling_of_pin_b9` (`StrideFork`), statements
+unchanged; the cap-7 hook keeps its declaration with no call site, and no name is retired by it.
+2026-10-01: family 34 retired that hook, `bigXiAff_bounded_ceiling_of_pin`, into the same twin,
+noted where it stood in `StrideFork`; the twin's row stands below, under ⟦β W2 F1⟧.)
 -/
 #audit_axioms Salt.MR.xceilRider_mul_of_strict
-  Salt.MR.chowlaRegimeFlat_exists_param_gen_ceiling_mul
-  Salt.MR.chowlaRegimeFlat_exists_param_head_xceil_mul
   Salt.MR.nearRatTight_of_bigXiAffArcTight
   Salt.MR.nearRatTight_of_bigXiAffD
   Salt.MR.sum_Xi_norm_windowExpSum_sq_le_parseval
@@ -9979,9 +10017,9 @@ open Salt.Tactic in
 named landed declaration's proof term VERBATIM with its single **unused** cap binder
 `(_hh7 : Real.log (h : ℝ) ≤ 7)` weakened to `(_hh14 : Real.log (h : ℝ) ≤ 14)`; the delta is two
 tokens — the declaration name and that binder — and the body is byte-identical, which is why the
-landed term closes the twin unchanged.  Every name is new: **no landed declaration moves and no
-landed statement is re-pointed**, and each twin is the strictly stronger theorem (same conclusion,
-weaker hypothesis), so the family is additive and inert.
+landed term closes the twin unchanged.  Every name was new: **no landed declaration moved and no
+landed statement was re-pointed** at landing, and each twin is the strictly stronger theorem (same
+conclusion, weaker hypothesis), so the family is additive and inert.
 
 ⛔ **THESE FOUR HAVE NO CONSUMERS.**  They buy headroom for a future consumer that holds only
 `log h ≤ 14`; **nothing in the corpus reads them today.**  The rung moves no citable number — not
@@ -10004,9 +10042,9 @@ open Salt.Tactic in
 /-! ⟦THE COST-8 RUNG OF ARM (A)⟧ — THE RAISED-CAP SUPPLIER CHAIN (`S11Arc36`,
 `S16FlatTerminalLinear`, `S16ProducersH`, `S16ComposeLH`, `StridePairReceipt`, 2026-09-11, math).
 Nine twins at the raised cap `log h ≤ 14`, reaching `flat_capstone_generic_h` — the cost-**8**
-point of the ladder `0 · 1 · 8 · 20 · 61 · 93 · 116`.  Every name is new; **no landed declaration
-moves, no landed statement is re-pointed, and nothing is deleted.**  Each twin is the strictly
-stronger theorem (same conclusion, weaker hypothesis).
+point of the ladder `0 · 1 · 8 · 20 · 61 · 93 · 116`.  Every name was new; **no landed declaration
+moved, no landed statement was re-pointed, and nothing was deleted** at landing.  Each twin is the
+strictly stronger theorem (same conclusion, weaker hypothesis).
 
 ⛔ **THE RUNG IS NOT A TRANSCRIPTION, AND THE COST MODEL CANNOT SEE THAT.**  The ladder prices all
 eight members alike.  Measured at the object, they are **5 supplier swaps (one token each) + 2
@@ -10052,6 +10090,8 @@ chosen; at `log h ≤ 14` it is `63 > 60`, so the lane's true ceiling was `max l
 is `~7·10¹⁷` and calls `60` *"an author's convenience rather than a barrier"*.  The `_63`
 siblings carry the LANDED certificates verbatim; a certificate that stopped travelling would
 have meant the ceiling was a barrier after all, which is a finding rather than a repair.
+(2026-09-30: the XY debt lane's family 28 retired `capeps_row_tail_h` into `capeps_row_tail_h_14`;
+the spend at `log h ≤ 7` above is what the retired page's body spent.)
 
 ⛔ **TWO DELIBERATE ABSENCES, RECORDED SO NEITHER READS AS AN OVERSIGHT.**  `capeps_bigexp_63`
 is NOT minted — the tail row's other leg spends `8 + 14 = 22 ≤ 60` and keeps the landed
@@ -10127,12 +10167,22 @@ open Salt.Tactic in
 
 /-! ⟦β W1 E1⟧ — THE ENTROPY-SIDE CAP-9 / `2^12` TWINS (`GoldbachEnergyKcH`, `StridePair`,
 `StrideShellG`, `StridePrize`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief
-W1 bundle E1).  Additive only: every landed declaration is untouched.  Each twin is its source's
+W1 bundle E1).  Additive at landing: no landed declaration was touched.  Each twin is its source's
 statement and body with ONLY the freeze's rule-2 raises — product cap `≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`,
 `1201216 ↦ 65658609`, stride `a ≤ 1096 ↦ a ≤ 8103` / `log a ≤ 7 ↦ ≤ 9`, `548000 ↦ 4051500`,
 `10^24 ↦ 10^28`, door grade `2^11 ↦ 2^12` — and no hypothesis added.  The Entropy converter
 `h_le_8103_of_log_le_nine` is new (`e^9 = 8103.08`, sharp); `regimeShrinkX_stride_b9` is twinned
-with its nine projections (rule 4).  Nothing here bears on twin primes.  18 obligations, 18 landed. -/
+with its nine projections (rule 4).  Nothing here bears on twin primes.  18 obligations, 18 landed.
+2026-10-01: family 35 of the XY debt lane re-pointed the one call of `hpt_holds_500h` in the
+`h`-lane count hook `bigXiH_bounded_ceiling_of_pin` (`GoldbachEnergyKcH`) to `hpt_holds_500h_b9`,
+audited here; the hook's statement is unchanged.
+2026-10-01: family 36 retired `hpt_holds_500h` into `hpt_holds_500h_b9`, noted where it stood in
+`GoldbachEnergyKcH`; the twin's row stands below.
+2026-10-02: family 37 retired `hpt_const_le_pow35_h` into `hpt_const_le_pow35_h_b9`, noted where it
+stood in `GoldbachEnergyKcH`; the twin's row stands below.  2026-10-11: family 50 retired the seven
+F3-P4 `rfl` projections of `regimeShrinkX_stride` and the F3-P6 lemma `regimeShrinkX_stride_x_mul`
+into the `_b9` twins listed here, noted where they stood in `StridePair` F3-P3; `_Hlo_b9`'s source
+stands. -/
 open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.h_le_8103_of_log_le_nine
   Salt.Entropy.Chowla.hpt_const_le_pow35_h_b9
@@ -10155,7 +10205,28 @@ open Salt.Tactic in
 
 /-! ⟦β W1 E2⟧ — THE MR h-LANE A CAP-9 TWINS (`S13CapFloor`, `S16ProducersH`, `S13CapGateLinearLH`,
 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief W1 bundle E2).  Additive only:
-every landed declaration is untouched.  Each twin is its source's statement and body with ONLY the
+every landed declaration is untouched (2026-09-28: the XY debt lane's family 21 re-pointed the
+cap-7 capfloor assembler of `S13CapGateLinearLH` to five F2 twins and moved its chain to that
+file's foot; 2026-09-29: family 22 re-pointed that file's cap-gate assembler to two F2 twins and
+three F3 twins; 2026-09-29: family 23 retired eight siblings of that file into F2 and F3 twins;
+2026-09-29: family 24 twelve more, one of them into a twin here; 2026-09-30: family 25 seven more,
+one of them into a twin here; 2026-09-30: family 26 two more, both into F2 twins; 2026-09-30:
+family 27 two more, one into a twin here and one into an F2 twin; 2026-09-30: family 28 three more,
+into relatives that are not `_b9` twins, one of them audited here; 2026-09-30: family 29 re-pointed
+two landed suppliers of that file's capfloor assembler to two twins here, by three of their calls,
+and moved the two to that file's foot; 2026-10-01: family 30 retired three more siblings of that
+file, one into a twin here and two into F2 twins; 2026-10-01: family 31 one more, into an F2 twin;
+2026-10-06: family 40 three more, one into a twin here and two into F2 twins; 2026-10-06: family 41
+two more, one into a twin here and one into an F2 twin; 2026-10-07: family 42 one more, by ruling
+and with no twin (this entry written by family 43); 2026-10-08: family 43 one more, into a twin
+here; 2026-10-08: family 44 re-pointed the twelve live consumers' calls of two `S16ProducersH` pages
+to their twins here (`s15_block_at_socketH_L_gk_b9` and `doorBandBase_family'H_L_gk_b9`) and of its
+three socket tops to their twins in ⟦β W2 F1⟧, `log h ≤ 9` supplied once in each by a `have` from
+`hh7`, their statements unchanged; no name is retired by it; 2026-10-08: family 45 retired those two
+pages into their twins here, noted in place; 2026-10-09: family 46 retired
+`s15_block_at_socket_gen_LH` and `s13_band_qfit_h` into their twins here, noted in place;
+2026-10-11: family 49 retired `s13_socketBase_logA_ge_sqrt_LH` and `s13_socketBase_loglogA_sharp_LH`
+into their twins here, noted in place).  Each twin is its source's statement and body with ONLY the
 freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, the census's in-body literal
 `7 ↦ 9` in `hlog'`, `e^18 ↦ e^20` in the `p²` row — every derived cap-dependent supplier replaced by
 its twin, and no hypothesis added.  The MR converter `h_le_8103_of_hh9` is new (`e^9 = 8103.08`,
@@ -10186,17 +10257,26 @@ open Salt.Tactic in
 `S16FlatTerminalLinearLH`, `S16ComposeLH`, `V7RatedH`, 2026-09-13, math — build freeze v2 v1.1
 §3.0/§3.1, executor brief W1 bundle E3).  Additive only at landing: every landed declaration was
 untouched (from 2026-09-26 the XY debt lane retires copied `h` siblings into these `_b9` generics,
-noted in place).
-Each twin is its source's statement and body with ONLY the freeze's rule-2 raises — shift cap
-`log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, `1201216 ↦ 65658609`, `548000 ↦ 4051500`, and the census's
-in-body literals — every derived cap-dependent supplier replaced by its twin, and no hypothesis
-added.  Two conclusion/hypothesis numerals move as the census prices them: `cofkL_mu_floor_h_b9`
-concludes `log H₊ − 32` (was `− 28`; `31.866 ≤ 32`) and `s13_g2_jfloor_of_MSelect'_L_gk_h_b9`
-reads `+ 36` in `h1`, supplied by the sibling mint `s13_g2_jfloor_of_MSelect'_L_gk_shift36`.
-`pieceFloor_vt_threshold_of_loglog_rated_h_b9` is the one RE-DERIVATION: its two log absorptions
-are merged into one product inequality, valid at `0 ≤ log h ≤ 9`, `1 ≤ loglog H`; its statement
-differs from the source only by the cap.  Nothing here bears on twin primes.  19 obligations,
-19 landed. -/
+noted in place; 2026-09-28: family 19 re-pointed six of the seven supplier calls of a landed
+`S16ComposeLH` assembler to cap-9 twins; 2026-09-28: family 20 six of the seven of that assembler's
+landed capfloor bundle; 2026-10-05: family 39 retired the sources of `cofkL_socket_floors_h_b9` and
+`klevF_capNumeral_h_b9` into them, noted where they stood in `V7RatedH`; 2026-10-08: family 44
+re-pointed the seven consumers of `S16FlatTerminalLinearLH`'s `s13_gate8_L_gk_h` and
+`s13_smallGradeFits_of_halfWindow_L_gk_h` to their twins here, their statements unchanged, and moved
+that file's §5 and §6 below its two twin blocks; 2026-10-09: family 47 retired those two pages into
+their twins here, noted where they stood; 2026-10-10: family 48 retired `s13_smallGradeFits_h` and
+`s13_winFit_h_of_halfWindow_gen` into their twins here, noted where they stood; of
+`s13_smallGradeFits_h_b9`, whose source it retires, the sentence below holds of the code and the
+twin's block omits nine comment lines of its source's body — said of that twin alone).  Each twin is
+its source's statement and body with ONLY the freeze's rule-2 raises — shift cap `log h ≤ 7 ↦ ≤ 9`,
+`1096 ↦ 8103`, `1201216 ↦ 65658609`, `548000 ↦ 4051500`, and the census's in-body literals — every
+derived cap-dependent supplier replaced by its twin, and no hypothesis added.  Two
+conclusion/hypothesis numerals move as the census prices them: `cofkL_mu_floor_h_b9` concludes
+`log H₊ − 32` (was `− 28`; `31.866 ≤ 32`) and `s13_g2_jfloor_of_MSelect'_L_gk_h_b9` reads `+ 36` in
+`h1`, supplied by the sibling mint `s13_g2_jfloor_of_MSelect'_L_gk_shift36`.
+`pieceFloor_vt_threshold_of_loglog_rated_h_b9` is the one RE-DERIVATION: its two log absorptions are
+merged into one product inequality, valid at `0 ≤ log h ≤ 9`, `1 ≤ loglog H`; its statement differs
+from the source only by the cap.  Nothing here bears on twin primes.  19 obligations, 19 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.s15_sel''_L_witness_flat_b9
   Salt.MR.s15_sel''_L_gk_witness_flat_b9
@@ -10220,7 +10300,9 @@ open Salt.Tactic in
 
 /-! ⟦β W1 E4⟧ — THE MR GRADED/STRIDE TWINS (`StridePairReceipt`, NEW `StrideGrade12bWalls`, NEW
 `StridePairReceiptG12b`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief W1
-bundle E4).  Additive only: every landed declaration is untouched; the two new modules exist for
+bundle E4).  Additive only at landing: every landed declaration was untouched (from 2026-09-26
+the XY debt lane retires copied siblings into these twins, noted in place); the two new
+modules exist for
 rule 6's placement (twins beside their graded sources would make an import cycle).  Each twin is
 its source's statement and body with ONLY the freeze's rule-2 raises — the stride `a ≤ 1096 ↦
 a ≤ 8103` / `log a ≤ 7 ↦ ≤ 9` (the bound the crown derives at cap 9), the shift cap `log h ≤ 7 ↦
@@ -10248,16 +10330,21 @@ open Salt.Tactic in
 `S16FlatTerminalLinear`, `HDoorSupply`, `S16ProducersH`, and the graded wall twins in the W1 module
 `StrideGrade12bWalls`; 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1, executor brief W2 bundle
 F1).  Additive only at landing: every landed declaration was untouched (from 2026-09-26
-the XY debt lane retires copied `h` siblings into these `_b9` generics, noted in place).
-Each twin is its source's statement and
-body with ONLY the freeze's rule-2 raises — the product cap `log (a·h) ≤ 7 ↦ ≤ 9` with the count
-pin's `1096 ↦ 8103` (116 bits spare), the stride `a ≤ 1096 ↦ a ≤ 8103`, the shift cap `log h ≤ 7 ↦
-≤ 9` / `c ≤ 1096 ↦ c ≤ 8103`, `cofkL_mu_floor_h`'s `28 ↦ 32` in the threshold's typed floors, the
-walls' floor `2 ^ 31 ↦ 2 ^ 32` and door grade `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12`, and the charge
-`425 ↦ 429 = 411 + 2·9` — every derived supplier replaced by its twin or the landed `_g12` rung,
-and no hypothesis added.  `regimeShrinkX_stride_Hlo` was already minted by W1 E1 as
-`regimeShrinkX_stride_Hlo_b9`: recorded (listed below), not re-minted.  Nothing here bears on twin
-primes.  18 obligations, 18 landed. -/
+the XY debt lane retires copied `h` siblings into these `_b9` generics, noted in place; 2026-10-01:
+family 34 retired `bigXiAff_bounded_ceiling_of_pin`, the cap-7 source of the first of them, into it,
+noted in `StrideFork`; 2026-10-08: family 44 re-pointed the seven consumers of `S16ProducersH`'s
+three socket tops — `s12c_eps_threshold_at_socket_flatH`, `s15_heps293_at_socket_flatH`,
+`s15_hband4096_at_socket_flatH` — to their twins here, their statements unchanged; 2026-10-08:
+family 45 retired the three into their twins here, noted in place; 2026-10-11: family 49 retired
+`s13_socketBase_loglogA_LH`, `s14_loglogX_ge_of_socket_LH` and `s12c_llX_ge_LH` into their twins
+here, noted in place).  Each twin is its source's statement and body with ONLY the freeze's rule-2
+raises — the product cap `log (a·h) ≤ 7 ↦ ≤ 9` with the count pin's `1096 ↦ 8103` (116 bits spare),
+the stride `a ≤ 1096 ↦ a ≤ 8103`, the shift cap `log h ≤ 7 ↦ ≤ 9` / `c ≤ 1096 ↦ c ≤ 8103`,
+`cofkL_mu_floor_h`'s `28 ↦ 32` in the threshold's typed floors, the walls' floor `2 ^ 31 ↦ 2 ^ 32`
+and door grade `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12`, and the charge `425 ↦ 429 = 411 + 2·9` — every
+derived supplier replaced by its twin or the landed `_g12` rung, and no hypothesis added.
+`regimeShrinkX_stride_Hlo` was already minted by W1 E1 as `regimeShrinkX_stride_Hlo_b9`: recorded
+(listed below), not re-minted.  Nothing here bears on twin primes.  18 obligations, 18 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.bigXiAff_bounded_ceiling_of_pin_b9
   Salt.Entropy.Chowla.mrtUniformityXiL2AffW_of_set_b9
@@ -10280,13 +10367,24 @@ open Salt.Tactic in
 
 /-! ⟦β W2 F2⟧ — `S13CapGateLinearLH` DEPTH 2–4 (the grid, floor and `εr` pages at the inflated
 socket; 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1/§5.1, executor brief W2 bundle F2).
-Additive only: every landed declaration is untouched.  Each twin is its source's statement and body
-with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` (signatures byte-diffed against their sources) —
-every derived supplier replaced by its W1 E2 / F1 twin (`capfloor_core_LH_b9`,
-`s13CapGrid_mu_lo_LH_b9`, `capfloor_logq_le_LH_b9`, the `S16ProducersH` socket chain) or by the
-landed `capeps_row_phi_h_14` / `capeps_row_tail_h_14` through `≤ 9 ⇒ ≤ 14`, and no hypothesis added.
-Named numerals: `capfloor_floor1_LH_b9` through `capfloor_lam_core_h_232`, `capfloor_floor3_LH_b9`
-through `capfloor_floor3_numeric_h_10` (`hW`'s `+8 ↦ +10`), `s13CapEps_EP2_gate_LH_b9` through
+Additive only: every landed declaration is untouched (2026-09-28: family 19 re-pointed the §8
+assembler of `S16ComposeLH` to two twins here; 2026-09-28: family 20 the §8 capfloor bundle of
+`S16ComposeLH` to six twins here; 2026-09-28: family 21 the cap-7 capfloor assembler of
+`S13CapGateLinearLH` itself to five twins here, its chain moved to that file's foot; 2026-09-29:
+family 22 that file's cap-gate assembler to two twins here, by three of its calls; 2026-09-29:
+family 23 retired the sources of five twins here into them; 2026-09-29: family 24 the sources of
+seven more; 2026-09-30: family 25 the sources of five more; 2026-09-30: family 26 the sources of two
+more; 2026-09-30: family 27 the source of one more; 2026-09-30: family 29 re-pointed two landed
+suppliers of that file's capfloor assembler to two twins here, by two of their calls, and moved the
+two to that file's foot; 2026-10-01: family 30 retired the sources of two more twins here into
+them; 2026-10-01: family 31 the source of one more; 2026-10-06: family 40 the sources of two more;
+2026-10-06: family 41 the source of one more).  Each twin is its source's statement and body with
+ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` (signatures byte-diffed against their sources) — every
+derived supplier replaced by its W1 E2 / F1 twin (`capfloor_core_LH_b9`, `s13CapGrid_mu_lo_LH_b9`,
+`capfloor_logq_le_LH_b9`, the `S16ProducersH` socket chain) or by the landed `capeps_row_phi_h_14` /
+`capeps_row_tail_h_14` through `≤ 9 ⇒ ≤ 14`, and no hypothesis added.  Named numerals:
+`capfloor_floor1_LH_b9` through `capfloor_lam_core_h_232`, `capfloor_floor3_LH_b9` through
+`capfloor_floor3_numeric_h_10` (`hW`'s `+8 ↦ +10`), `s13CapEps_EP2_gate_LH_b9` through
 `capeps_row_p2_h_b9`.  ONE re-derivation, `s13CapGrid_q_logX_LH_b9`: `log H ≤ √H/3`
 (`capfloor_logH_le_third_sqrt`), `3^12 = 531441 ≥ 8103`, the step `8103·(x/531441) ≤ x`; its
 conclusion `q ≤ μ^12` is unchanged.  Nothing here bears on twin primes.  26 obligations, 26
@@ -10323,14 +10421,33 @@ open Salt.Tactic in
 `S16FlatTerminalLinearLH` (the grid/eps assemblers at the inflated socket and the spine's first
 three links `s13CapEps_all_LH_b9` → `s16_capGate_supply_LH_gk_sharpT0_kswin_b9` →
 `s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_b9`; 2026-09-13, math — build
-freeze v2 v1.1 §3.0/§3.1/§5, executor brief W2 bundle F3).  Additive only: every landed declaration
-is untouched.  Each twin is its source's statement and body with ONLY the shift-cap raise `log h ≤ 7
-↦ ≤ 9` (signatures diffed against their sources), every derived supplier replaced by its W1 / F1 /
-F2 twin, and no hypothesis added.  Named numerals: `capfloor_floor4_sharp_LH_b9` spends `h ≤ 8103 ≤
-10^21` through `h_le_8103_of_hh9` (was `h ≤ 1096`); `cofkR_cofactorSupply_L_gk_rated_h_b9` takes
-`cofkL_mu_floor_h_b9`'s `−32` at its four sites (`hmuF`, `hthrLL`, `hthr14`, `h2`; was `28`),
-binding step `c ≤ 100` at margin 0.4533.  Nothing here bears on twin primes.  16 obligations, 16
-landed. -/
+freeze v2 v1.1 §3.0/§3.1/§5, executor brief W2 bundle F3).  Additive only at landing: every landed
+declaration was untouched (from 2026-09-27 the XY debt lane retires copied `h` siblings into these
+`_b9` generics, noted in place; 2026-09-28: family 19 re-pointed the §8 assembler of
+`S16ComposeLH` to three of them; 2026-09-28: family 20 the §8 capfloor bundle of `S16ComposeLH` to
+six F2 twins; 2026-09-28: family 21 the cap-7 capfloor assembler of `S13CapGateLinearLH` to five F2
+twins, its chain — assembler, cap-gate assembler, deliverable — moved to that file's foot;
+2026-09-29: family 22 that file's cap-gate assembler to three twins here and two of F2;
+2026-09-29: family 23 retired the sources of three twins here into them; 2026-09-29: family 24 the
+sources of four more; 2026-09-30: family 25 the source of one more; 2026-09-30: family 29 re-pointed
+two landed suppliers of that file's capfloor assembler to two twins of ⟦β W1 E2⟧ and two of F2, and
+moved the two to that file's foot (recorded 2026-10-01); 2026-10-01: family 32 re-pointed the H4→H5
+replay `flat_v7_generic_h` (`StridePairReceipt`) and its graded form `flat_v7_generic_h_g`
+(`StridePairReceiptG`) to two `V7RatedH` twins here, `cofkR_cofactorSupply_L_gk_rated_h_b9` and
+`s16_baseScaleCap96_LH_at_klevF_b9`, two calls each, their statements unchanged; 2026-10-03: family
+38 re-pointed the prize `logChowla2_v7_rated_h` (`V7RatedH` §4) to the same two twins, one call
+each, its statement unchanged, and moved that file's §4 and §5 below its twin blocks; 2026-10-05:
+family 39 retired the sources of `cofkR_cofactorSupply_L_gk_rated_h_b9` and
+`s16_baseScaleCap96_LH_at_klevF_b9` into them, noted where they stood in `V7RatedH`; 2026-10-08:
+family 44 re-pointed the seven consumers of `s15_gRows_const_at_socket_flat_doorLH_gk`
+(`S16FlatTerminalLinearLH`) to its twin here, their statements unchanged; 2026-10-09: family 47
+retired that page into its twin here, noted where it stood).  Each twin is its source's statement
+and body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` (signatures diffed against their sources),
+every derived supplier replaced by its W1 / F1 / F2 twin, and no hypothesis added.  Named numerals:
+`capfloor_floor4_sharp_LH_b9` spends `h ≤ 8103 ≤ 10^21` through `h_le_8103_of_hh9` (was `h ≤ 1096`);
+`cofkR_cofactorSupply_L_gk_rated_h_b9` takes `cofkL_mu_floor_h_b9`'s `−32` at its four sites
+(`hmuF`, `hthrLL`, `hthr14`, `h2`; was `28`), binding step `c ≤ 100` at margin 0.4533.  Nothing here
+bears on twin primes.  16 obligations, 16 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.s13_abs8640_at_shift_LH_b9
   Salt.MR.s13CapGrid_kappa30_LH_b9
@@ -10362,12 +10479,15 @@ open Salt.Tactic in
 
 /-! ⟦β W34 G1⟧ — THE SIX GRADED REPLAYS AT `2^12`, CAP 9 (`StridePairReceiptG12b`, 2026-09-13, math
 — build freeze v2 v1.1 §3.0/§3.1/§5 W3/§5.1(e), executor brief W34 bundle G1, census band 4 rows 22,
-24–28). Additive only: every `_g` replay in `StridePairReceiptG` is untouched. Each twin is its
+24–28). Additive only at landing: every `_g` replay in `StridePairReceiptG` was untouched
+(2026-09-26: the XY pin conversion rewrote docstring pins in them; family 10 re-pointed the
+builder call of one; 2026-09-27: family 12 re-pointed a supplier call of another; 2026-10-01: family
+32 two supplier calls of a third, `flat_v7_generic_h_g`). Each twin is its
 source's statement and body with ONLY the shift-cap raise `log h ≤ 7 ↦ ≤ 9` and the `_g12b` FORMs /
 receipt predicate (signatures diffed against their sources), every derived supplier replaced by its
 landed `_b9` / `_g12b` twin or `_14` rung (capstone, by weakening `≤ 9 ⇒ ≤ 14`), and no hypothesis
 added. Named numerals: the door-head mint `2 ^ 11 ↦ 2 ^ 12` at its five sites; `flat_conditional`'s
-`:542` wall `1096 ≤ exp 7 ↦ 8103 ≤ exp 9` (via `2.7182818283^9`) with `harm'`/`hgb'`/`hsum`/`hprod`
+`:556` wall `1096 ≤ exp 7 ↦ 8103 ≤ exp 9` (via `2.7182818283^9`) with `harm'`/`hgb'`/`hsum`/`hprod`
 at `− 9` against `xceil_arm_split_mul_h_b9`'s `+ 9`, and slot 3 at `+ 36`
 (`s13_g2_jfloor_of_MSelect'_L_gk_shift36`). Nothing here bears on twin primes. 6 obligations, 6
 landed. -/
@@ -10381,8 +10501,11 @@ open Salt.Tactic in
 
 /-! ⟦β W34 H1⟧ — THE SPINE AT `2^12`, CAP 9, AND THE CROWNED HEAD (`StridePairReceiptG12b`,
 `StrideGradeReceipt12b`, 2026-09-13, math — build freeze v2 v1.1 §3.0/§3.1/§5 W4/§5.1(g)(h)/§6,
-executor brief W34 bundle H1, census band 4 rows 14, 23, 29–32). Additive only: every `_g` source in
-`StridePairReceiptG` and `StrideGradeReceipt` is untouched. Each twin is its source's statement and
+executor brief W34 bundle H1, census band 4 rows 14, 23, 29–32). Additive at landing: no `_g` source
+in `StridePairReceiptG` or `StrideGradeReceipt` was touched (2026-09-26: the XY pin conversion
+rewrote line pins in the docstrings of the four in `StridePairReceiptG`, recorded 2026-10-01;
+2026-10-01: family 33 re-pointed a supplier call of one of them,
+`mrtUniformityXiL2AffSet_holds_flat_floor_g`). Each twin is its source's statement and
 body with ONLY the cap raise `≤ 7 ↦ ≤ 9`, the `_g12b` FORMs / receipt predicate / head, the ceiling
 `837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`, and the stride `a ≤ 1096 ↦ a ≤ 8103` — in the Set floor's and
 THE NAMED LIFT's (`a' ≤ 8103`) statements, and in the crown's body, where it is DERIVED from the
@@ -10446,8 +10569,8 @@ slack — on H3–H5 and the crown). At fixed `z` (equivalently, the band's own 
 `y := x₀` instantiation) this is a SECOND PROOF of a terminal that already lands — K1–K7 (and
 `mrtUniformityXiL2AffW_holds_flat_stride_g12b_of_band`) are exactly that conservativity check,
 each recovering its `StridePairReceiptG12b` source verbatim by `regimeEnlargeX_self`. `E2` is
-conditional on `MRTDoorAllGrades`, which has no producer; the `∃ε` tripwire is untouched. NO NEW
-UNCONDITIONAL THEOREM. Nothing here bears on twin primes. 23 obligations, 23 landed. -/
+conditional on `MRTDoorAllGrades`, which has no producer; the `∃ε` tripwire is untouched. NO
+NEW MATHEMATICS. Nothing here bears on twin primes. 23 obligations, 23 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.regimeEnlargeX_self
   Salt.MR.strideScale_regimeEnlargeX
@@ -10493,7 +10616,7 @@ monotonicity (U1, U4). No landed file moves. The conservativity control is
 taken as a hypothesis, yields S-1's crown band at every class `b < a` verbatim — so the
 re-statement is conservative over what is landed. At fixed `z` Tier S is a SECOND PROOF of a
 terminal that already lands; `E2` is conditional on `MRTDoorAllGrades`, which has no producer; the
-`∃ε` tripwire is untouched. NO NEW UNCONDITIONAL THEOREM. Nothing here bears on twin primes.
+`∃ε` tripwire is untouched. NO NEW MATHEMATICS. Nothing here bears on twin primes.
 6 obligations, 6 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.bigXiAffU
@@ -10525,7 +10648,7 @@ author); they become unconditional with H and C WITHOUT a non-author pass of the
 statement was refuted by a non-author, the repair was not.  The binder `a ≤ 2310` is the
 composition's (the Captain's granted binder), inherited and not added here.  What this does NOT
 buy: D10's ONE `(ε, A)` over an INFINITE `S` — the `(2ε, 1)`-normalisation inside a band and the
-class-scale placement are the next link.  NO NEW UNCONDITIONAL THEOREM (a composition of landed
+class-scale placement are the next link.  NO NEW MATHEMATICS (a composition of landed
 proofs); nothing here bears on twin primes.  4 names, 4 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.gradedAffHeadAt_g12b_of_at_regime_crowned
@@ -10549,7 +10672,7 @@ hypothesis package at every `P ≤ 2310` with `ε = 1/(500·P)`, `A = 1`;
 is the numeric leaf.  The SCALE quantifier moves here — the bridge moved the REGIME quantifier,
 S-3 the CLASS quantifier — completing the three.
 
-⚠ LABEL: NO NEW UNCONDITIONAL THEOREM; nothing here bears on twin primes.  K's set
+⚠ LABEL: NO NEW TERMINAL; nothing here bears on twin primes.  K's set
 `{n | twinLogWeight P n ≠ 0}.Infinite` at a squarefree `P ≤ 2310` is the sieve-level set the crown
 road already lands — and `twinLogWeight_support_infinite_of_crown_g12b` (P6, THE CROWN TWIN)
 states that same set from the crown road's landed names at every `0 < P ≤ 2310`, so that K is a
@@ -11228,3 +11351,116 @@ open Salt.Tactic in
   Salt.MR.flat_chain_U
   Salt.MR.flatDoorUniformW_holds
   Salt.MR.flatDoorAllGradesW_of_uniform
+
+/-! ⟦O13 — THEOREM 4.25 UNDER THE STANDOFF⟧ (`FlatDoorStandoff`, 2026-10-23, math).  Additive only:
+no landed statement moves; the landed file edited is THIS one (one import and this block).
+
+`logChowla2_epsFamily_flatDoor_floor_of_standoff` is Theorem 4.25's conclusion under
+`NoSiegelZerosAt cS`.  The census at main `7290d90c` found exactly two direct users of
+`Salt.SW.siegel_theorem` in 4.25's closure, `siegel_real_carve` and `Salt.SW.psi1AP_main_bound`;
+the module replaces the first by `standoff_real_carve` (same statement), the second by the landed
+`Salt.SW.siegelWalfisz_of_standoff`, and re-states the 21 declarations between them and the root
+as `_of_standoff` twins, each checked token for token against its landed statement by
+`#assert_conclusion_is`.  The module's certificate: the root reaches none of `siegel_theorem` ·
+`siegel_L_one_exceptional` · `L1_lower_siegel`, nor the cut nodes `siegel_real_carve` ·
+`siegelWalfisz_holds` · `psi1AP_main_bound`.  ⚠ LIMIT: it is CONDITIONAL on the open hypothesis
+`NoSiegelZerosAt cS`, and a reach certificate, not a claim that the result is effective.  Nothing
+here bears on twin primes. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.standoff_real_carve
+  Salt.MR.xiCarveWidth_of_siegel_of_standoff
+  Salt.MR.mmuChiRate_holds_gated_of_standoff
+  Salt.MR.s16_bandLaneWinL_holdsU_of_standoff
+  Salt.MR.twisted_rect_zero_free_siegel_bounded_of_standoff
+  Salt.MR.halasz_primes_chi_pair_of_gates_bounded_cs_of_standoff
+  Salt.MR.halaszPrimesChi_holds_gated_bounded_cs_of_standoff
+  Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded_cs_of_standoff
+  Salt.MR.usetGChi_window_meansq_gated_family_perBlock_bounded_cs_of_standoff
+  Salt.MR.usetGChi_row_exit_perChi_perBlock_bounded_cs_of_standoff
+  Salt.MR.m4_rowChi_capstone_perBlock_bounded_cs_of_standoff
+  Salt.MR.m4_hcap_at_door_perBlock_L_gk_bounded_khoist_cs_of_standoff
+  Salt.MR.m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist_cs_of_standoff
+  Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin_of_standoff
+  Salt.Entropy.Chowla.primeWindow_sum_inv_ge_bounded_of_standoff
+  Salt.Entropy.Chowla.hbudget_holds_bounded_of_standoff
+  Salt.Entropy.Chowla.hreduce_holds_final_bounded_of_standoff
+  Salt.MR.flat_head_uniform_xceil_epsW_of_standoff
+  Salt.MR.flat_kswin_generic_epsW_of_standoff
+  Salt.MR.flat_v7_generic_epsW_of_standoff
+  Salt.MR.flat_chain_generic_epsW_of_standoff
+  Salt.MR.flatDoorEpsFamilyW_holds_of_standoff
+  Salt.MR.logChowla2_epsFamily_flatDoor_floor_of_standoff
+
+/-! ⟦O13 — THEOREM 4.25 FROM THE 7/8 STATEMENT⟧ (`FlatDoorSevenEighths`, 2026-10-23, math).
+Additive only: the landed file edited is THIS one (one import and this block).
+
+`logChowla2_epsFamily_flatDoor_floor_of_sevenEighths` composes
+`logChowla2_epsFamily_flatDoor_floor_of_standoff` with
+`Salt.TwinBar.noSiegelZerosAt_of_sevenEighths` at `cS = (log 2)/8`.  The module's certificate: it
+reaches none of `siegel_theorem` · `siegel_L_one_exceptional` · `L1_lower_siegel`, and its
+conclusion is Theorem 4.25's, token for token.  ⚠ LIMIT: it is CONDITIONAL on
+`Salt.TwinBar.DirichletSevenEighths` as cited, and a reach certificate, not a claim that the
+result is effective. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.logChowla2_epsFamily_flatDoor_floor_of_sevenEighths
+
+-- The v7 family of log-Chowla theorems under a Siegel standoff and from the 7/8 statement
+-- (V7SiegelFree), by proof terms that do not use Siegel's theorem (O13).
+open Salt.Tactic in
+#audit_axioms Salt.MR.flat_head_uniform_xceil_of_standoff
+  Salt.MR.flat_socket_uniform_xceil_of_standoff Salt.MR.flat_doorL2_uniform_xceil_khoist_of_standoff
+  Salt.MR.flat_road_uniform_xceil_khoist_of_standoff
+  Salt.MR.flat_capstone_uniform_win_xceil_kwide_khoist_of_standoff
+  Salt.MR.flat_conditional_uniform_win_xceil_kwide_khoist_of_standoff
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_of_standoff
+  Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_of_standoff
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_of_standoff
+  Salt.MR.logChowla2_ineffective_v6_csarm_of_standoff
+  Salt.MR.logChowla2_ineffective_v6_csarm_of_sevenEighths
+  Salt.MR.logChowla2_ineffective_v7_of_standoff Salt.MR.logChowla2_ineffective_v7_of_sevenEighths
+  Salt.MR.logChowla2_ineffective_v7_g0_of_standoff
+  Salt.MR.logChowla2_ineffective_v7_g0_of_sevenEighths Salt.MR.logChowla2_v7_rated_of_standoff
+  Salt.MR.logChowla2_v7_rated_of_sevenEighths
+
+-- The v6 family of log-Chowla theorems under a Siegel standoff and from the 7/8 statement
+-- (V6SiegelFree), by proof terms that do not use Siegel's theorem (O13).
+open Salt.Tactic in
+#audit_axioms Salt.MR.logChowla2_witnessed_scale_flat_L_v2_of_standoff
+  Salt.MR.logChowla2_ineffective_v6_of_standoff Salt.MR.logChowla2_ineffective_v6_T0arm_of_standoff
+  Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_of_standoff
+  Salt.MR.s15_crossing_supplied_L_gk_of_standoff
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_of_standoff
+  Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L_of_standoff
+  Salt.MR.m4_fuse_hcap_of_capWS_L_gk_of_standoff
+  Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_of_standoff
+  Salt.MR.m4_second_road_L2_gk_flatRoot_L_of_standoff Salt.MR.m4_fuse_hcap_of_capWS_gk_of_standoff
+  Salt.MR.m4_hcap_at_door_perBlock_L_gk_of_standoff
+  Salt.MR.m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist_of_standoff
+  Salt.MR.m4_doorL2_close_split_sq_gk_flatRoot_L_of_standoff
+  Salt.MR.m4_hcap_at_door_perBlock_gk_of_standoff Salt.MR.m4_rowChi_capstone_perBlock_of_standoff
+  Salt.MR.m4_hcap_at_door_perBlock_L_gk_bounded_khoist_of_standoff
+  Salt.MR.m4_exit_socket_split_sq_arc_flatRoot_of_standoff
+  Salt.MR.usetGChi_row_exit_perChi_perBlock_of_standoff
+  Salt.MR.m4_rowChi_capstone_perBlock_bounded_of_standoff
+  Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_of_standoff
+  Salt.MR.usetGChi_window_meansq_gated_family_perBlock_of_standoff
+  Salt.MR.usetGChi_row_exit_perChi_perBlock_bounded_of_standoff
+  Salt.MR.halaszPrimesChi_pointwise_of_gates_of_standoff
+  Salt.MR.usetGChi_window_meansq_gated_family_perBlock_bounded_of_standoff
+  Salt.MR.halaszPrimesChi_holds_gated_of_standoff
+  Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded_of_standoff
+  Salt.MR.halasz_primes_chi_pair_of_gates_of_standoff
+  Salt.MR.halaszPrimesChi_holds_gated_bounded_of_standoff
+  Salt.MR.twisted_rect_zero_free_siegel_of_standoff
+  Salt.MR.halasz_primes_chi_pair_of_gates_bounded_of_standoff
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_of_sevenEighths
+  Salt.MR.logChowla2_ineffective_v6_of_sevenEighths
+  Salt.MR.logChowla2_ineffective_v6_T0arm_of_sevenEighths
+
+-- The flat door's Ξ_H receipt under a Siegel standoff and from the 7/8 statement
+-- (DoorReceiptSiegelFree), by proof terms that do not use Siegel's theorem (O13).
+open Salt.Tactic in
+#audit_axioms Salt.MR.mrtUniformityXi_holds_flat_of_standoff
+  Salt.MR.mrtUniformityXiL2_holds_flat_of_standoff Salt.MR.mrtDoorReceipt_v7_form_of_standoff
+  Salt.MR.flat_chain_generic_of_standoff Salt.MR.flat_v7_generic_of_standoff
+  Salt.MR.flat_kswin_generic_of_standoff Salt.MR.mrtUniformityXi_holds_flat_of_sevenEighths

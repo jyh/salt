@@ -22,7 +22,7 @@ item the dossier priced with genuine risk): the `(χ, t)`-pair analogue of
 
 `ramQChi_graded_count` is the graded **uniformisation** of the landed raw pair count
 `USetChi.ramQChi_large_count` (:440), exactly as `ramQ_graded_count` is the graded
-uniformisation of `USetThinTL.ramQ_large_count` (:207).  The raw count is fed at the block's
+uniformisation of `USetThinTL.ramQ_large_count`.  The raw count is fed at the block's
 own graded level `V_v := exp(α·v/H)` and the three `v`-dependencies are removed:
 
 * **the exact-`α` collapse** `2·log V_v / log(base_v) ≤ 2α` — the base is `≥ e^{v/H}`
@@ -147,7 +147,7 @@ theorem ramQChi_graded_count (q : ℕ) [NeZero q] {H α : ℝ} (hH : 2 ≤ H) (h
   -- (ii) the uniform level
   have h2 : Real.exp (α * (v : ℝ) / H) ^ 2 ≤ VJ ^ 2 := by
     have h0 : (0 : ℝ) ≤ Real.exp (α * (v : ℝ) / H) := (Real.exp_pos _).le
-    nlinarith [hVJ, h0, hV1]
+    nlinarith only [hVJ, hV1]
   -- (iii) the base-`P` floor in the `exp` leg
   have h3 : Real.exp (2 * (Real.log S / Real.log ((ramQbase H P v : ℕ) : ℝ))
         * Real.log (Real.log S))
@@ -155,7 +155,7 @@ theorem ramQChi_graded_count (q : ℕ) [NeZero q] {H α : ℝ} (hH : 2 ≤ H) (h
     refine Real.exp_le_exp.mpr ?_
     have hd : Real.log S / Real.log ((ramQbase H P v : ℕ) : ℝ)
         ≤ Real.log S / Real.log (P : ℝ) := by gcongr
-    nlinarith [hd, hLL0]
+    nlinarith only [hLL5, hd]
   -- the product
   have hSpow0 : (0 : ℝ) ≤ S ^ (2 * α) :=
     (Real.rpow_pos_of_pos (by linarith : (0 : ℝ) < S) _).le

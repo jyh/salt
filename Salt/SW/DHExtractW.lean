@@ -168,7 +168,7 @@ theorem dhAbel_inner_abs_le [NeZero q] (χ : DirichletCharacter ℂ q)
       _ ≤ 12 * M * D := by
           rw [hDdef, hrdef]
           have := natSqrt_mul_rpow_le (β := β₀) ht
-          nlinarith [this, hMnn, natSqrt_le_sqrt t, Real.sqrt_nonneg (t : ℝ)]
+          nlinarith only [hMnn, this, hhi, hlo]
   -- CORNER bound : `|B(⌊√t⌋)·T(⌊√t⌋)| ≤ 12M/(1−β₀)·D` (copied from `dhAbel_inner_le`)
   have hCorner : |(∑ d ∈ Finset.Icc 1 r, chiRe χ d * (d : ℝ) ^ (-β₀))
         * ∑ e ∈ Finset.Icc 1 r, (e : ℝ) ^ (-β₀)| ≤ 12 * M / (1 - β₀) * D := by
@@ -269,15 +269,15 @@ theorem sum_rpow_sandwich {c : ℝ} (hc0 : 0 ≤ c) (_hc1 : c ≤ 1) {x : ℝ} (
     Real.rpow_le_rpow (by linarith) (by linarith) (by linarith)
   -- x^{c+1} − (T−1)^{c+1} ≤ 2(c+1)x^c
   have hgap : x ^ (c + 1) - ((T : ℝ) - 1) ^ (c + 1) ≤ 2 * (c + 1) * x ^ c := by
-    nlinarith [htan1, htan2, hx1c, hT1x2]
+    nlinarith only [hc0, hx1c, hT1x2, htan2, htan1]
   rw [abs_le]
   constructor
   · -- lower: −2x^c ≤ (corner + sum) − x^{c+1}/(c+1)
     have hdiv : (x ^ (c + 1) - ((T : ℝ) - 1) ^ (c + 1)) / (c + 1) ≤ 2 * x ^ c := by
-      rw [div_le_iff₀ hc1p]; nlinarith [hgap]
+      rw [div_le_iff₀ hc1p]; linarith only [hgap]
     have : x ^ (c + 1) / (c + 1) - ((T : ℝ) - 1) ^ (c + 1) / (c + 1)
         = (x ^ (c + 1) - ((T : ℝ) - 1) ^ (c + 1)) / (c + 1) := by ring
-    nlinarith [hSum_ge, hxT0, hTc_nn, mul_nonneg hxT0 hTc_nn, hdiv, this]
+    linarith only [this, hdiv, hSum_ge, mul_nonneg hxT0 hTc_nn]
   · -- upper: (corner + sum) − x^{c+1}/(c+1) ≤ 2x^c
     linarith [hSum_le, hcorner_le, hxc_nn]
 
@@ -340,7 +340,7 @@ theorem unmoll_extraction_abs_real [NeZero q] (χ : DirichletCharacter ℂ q)
     have hsq14 : (1.4 : ℝ) ≤ Real.sqrt q := le_trans hs2 (Real.sqrt_le_sqrt hq2)
     have h5e : 5 * Real.exp 1 ≤ 18 * Real.sqrt q := by nlinarith [Real.exp_one_lt_d9, hsq14]
     rw [hMdef]
-    nlinarith [hre, hnorm, mul_le_mul_of_nonneg_right h5e hlogq0]
+    linarith only [hre, hnorm, mul_le_mul_of_nonneg_right h5e hlogq0]
   -- R6-1 : the real-scale kernel-Abel identity
   have hAbel : dhD0 χ β₀ x = (1 / x) * ((x - (T : ℝ))
         * (∑ s ∈ Finset.Icc 1 T, dhA χ s * (s : ℝ) ^ (-β₀))
@@ -405,7 +405,7 @@ theorem unmoll_extraction_abs_real [NeZero q] (χ : DirichletCharacter ℂ q)
         _ ≤ Cw * x ^ (3 / 2 - β₀) := by
             rw [one_mul]; calc Cw * (T : ℝ) ^ (1 / 2 - β₀) ≤ Cw * 1 :=
                   mul_le_mul_of_nonneg_left hTle1 hCwnn
-              _ ≤ Cw * x ^ (3 / 2 - β₀) := by rw [mul_one]; nlinarith [hCwnn, h1x]
+              _ ≤ Cw * x ^ (3 / 2 - β₀) := by rw [mul_one]; nlinarith only [hCwnn, h1x, hhi, hlo]
     have hterm2 : |∑ t ∈ Finset.Icc 1 (T - 1),
           ((∑ s ∈ Finset.Icc 1 t, dhA χ s * (s : ℝ) ^ (-β₀))
             - L₁ * (t : ℝ) ^ (1 - β₀) / (1 - β₀))| ≤ 2 * Cw * x ^ (3 / 2 - β₀) := by
@@ -431,7 +431,7 @@ theorem unmoll_extraction_abs_real [NeZero q] (χ : DirichletCharacter ℂ q)
               _ ≤ x ^ (3 / 2 - β₀) / (3 / 2 - β₀) :=
                   (div_le_div_iff_of_pos_right h32).mpr hbase
               _ ≤ 2 * x ^ (3 / 2 - β₀) := by
-                  rw [div_le_iff₀ h32]; nlinarith [hxc32]
+                  rw [div_le_iff₀ h32]; nlinarith only [hhi, hxc32]
         _ = 2 * Cw * x ^ (3 / 2 - β₀) := by ring
     calc |(x - (T : ℝ)) * (ST - L₁ * (T : ℝ) ^ (1 - β₀) / (1 - β₀))
             + ∑ t ∈ Finset.Icc 1 (T - 1),
@@ -450,7 +450,7 @@ theorem unmoll_extraction_abs_real [NeZero q] (χ : DirichletCharacter ℂ q)
     have hCwmul : Cw * (1 - β₀) = (34 + 12 * M + 12 * M * Z₀) * (1 - β₀) + 36 * M := by
       rw [hCwdef]; field_simp
     have hprod : (0 : ℝ) ≤ (34 + 12 * M + 12 * M * Z₀) * (1 - β₀) :=
-      mul_nonneg (by nlinarith [hMnn, mul_nonneg hMnn hZ0nn]) hu.le
+      mul_nonneg (by linarith only [hMnn, hhi, hlo, mul_nonneg hMnn hZ0nn]) hu.le
     have h2L1 : 2 * L₁ ≤ Cw * (1 - β₀) := by rw [hCwmul]; linarith [hL1_le, hprod]
     have hcoef : 2 * L₁ / (1 - β₀) ≤ Cw := by rw [div_le_iff₀ hu]; linarith [h2L1]
     have hnn2 : (0 : ℝ) ≤ 2 * L₁ / (1 - β₀) := div_nonneg (by linarith [hL1nn]) hu.le

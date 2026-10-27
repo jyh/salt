@@ -9,8 +9,13 @@ import Mathlib
 # The Kusmin–Landau inequality and van der Corput's second-derivative test
 
 This file develops the B-side foundation of the van der Corput exponential-sum
-toolkit: the **Kusmin–Landau inequality** (`kusmin_landau`) and the discrete
-**second-derivative test** (`vdC_second_derivative`, milestone 2).
+toolkit: the **Kusmin–Landau inequality** (`kusmin_landau`, milestone 1), on the
+character `eK`, the telescoping weight `wK` and their trigonometric identities
+(`eK_re`, `eK_im`, `one_sub_eK_re`, `one_sub_eK_im`, `normSq_one_sub_eK`,
+`norm_one_sub_eK`, `wK_re`, `wK_im`, `norm_wK`). The discrete **second-derivative
+test** built on it (milestone 2) is `vdC_second_derivative` in
+`Salt/ExpSum/VdCorput2.lean`, with the constant `8`; the arithmetic recorded at the
+foot of this file was written before it landed and advertised `5`.
 
 ## House note on the character
 
@@ -52,10 +57,12 @@ open Real Finset
 `Basic.eR` at wire-in** (identical definition). -/
 noncomputable def eK (x : ℝ) : ℂ := Complex.exp (((2 * π * x : ℝ) : ℂ) * Complex.I)
 
+/-- `‖eK x‖ = 1`. -/
 @[simp] lemma eK_norm (x : ℝ) : ‖eK x‖ = 1 := by
   simp only [eK]
   exact Complex.norm_exp_ofReal_mul_I _
 
+/-- `eK (x + y) = eK x * eK y`. -/
 lemma eK_add (x y : ℝ) : eK (x + y) = eK x * eK y := by
   simp only [eK, ← Complex.exp_add]
   congr 1
@@ -73,25 +80,30 @@ lemma eK_eq (s : ℝ) :
     eK s = (Real.cos (2 * π * s) : ℂ) + (Real.sin (2 * π * s) : ℂ) * Complex.I := by
   simp only [eK, Complex.exp_mul_I, Complex.ofReal_cos, Complex.ofReal_sin]
 
+/-- `(eK s).re = cos (2πs)`. -/
 lemma eK_re (s : ℝ) : (eK s).re = Real.cos (2 * π * s) := by
   rw [eK_eq]
   simp only [Complex.add_re, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
     Complex.I_re, Complex.I_im, mul_zero, zero_mul, sub_zero, add_zero]
 
+/-- `(eK s).im = sin (2πs)`. -/
 lemma eK_im (s : ℝ) : (eK s).im = Real.sin (2 * π * s) := by
   rw [eK_eq]
   simp only [Complex.add_im, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im,
     Complex.I_re, Complex.I_im, mul_zero, mul_one, add_zero, zero_add]
 
+/-- `(1 - eK s).re = 2 sin²(πs)`. -/
 lemma one_sub_eK_re (s : ℝ) : (1 - eK s).re = 2 * Real.sin (π * s) ^ 2 := by
   have h1 : (1 - eK s).re = 1 - Real.cos (2 * π * s) := by simp [eK_re]
   rw [h1, show (2 : ℝ) * π * s = 2 * (π * s) by ring, Real.cos_two_mul]
   nlinarith [Real.sin_sq_add_cos_sq (π * s)]
 
+/-- `(1 - eK s).im = -2 sin(πs) cos(πs)`. -/
 lemma one_sub_eK_im (s : ℝ) : (1 - eK s).im = -(2 * Real.sin (π * s) * Real.cos (π * s)) := by
   have h1 : (1 - eK s).im = -Real.sin (2 * π * s) := by simp [eK_im]
   rw [h1, show (2 : ℝ) * π * s = 2 * (π * s) by ring, Real.sin_two_mul]
 
+/-- `normSq (1 - eK s) = 4 sin²(πs)`. -/
 lemma normSq_one_sub_eK (s : ℝ) : Complex.normSq (1 - eK s) = 4 * Real.sin (π * s) ^ 2 := by
   rw [Complex.normSq_apply, one_sub_eK_re, one_sub_eK_im]
   nlinarith [Real.sin_sq_add_cos_sq (π * s)]
@@ -128,7 +140,7 @@ lemma norm_wK (s : ℝ) : ‖wK s‖ = 1 / (2 * |Real.sin (π * s)|) := by
 lemma sin_pi_mul_pos {s : ℝ} (h0 : 0 < s) (h1 : s < 1) : 0 < Real.sin (π * s) := by
   apply Real.sin_pos_of_pos_of_lt_pi
   · positivity
-  · nlinarith [Real.pi_pos]
+  · nlinarith only [h1, Real.pi_pos]
 
 /-- Jordan's inequality, symmetrised: `sin(πs) ≥ 2δ` for `s ∈ [δ, 1-δ]`, `δ ≤ 1/2`. -/
 lemma sin_pi_mul_ge {δ s : ℝ} (hδ0 : 0 < δ) (hδ : δ ≤ 1 / 2) (hs1 : δ ≤ s)
@@ -155,10 +167,10 @@ lemma wK_im_antitone {s₁ s₂ : ℝ} (h1 : 0 < s₁) (h12 : s₁ ≤ s₂) (h2
   rw [div_le_div_iff₀ (by positivity) (by positivity)]
   have hsin : 0 ≤ Real.sin (π * s₂ - π * s₁) := by
     apply Real.sin_nonneg_of_nonneg_of_le_pi
-    · nlinarith [Real.pi_pos]
-    · nlinarith [Real.pi_pos, mul_pos Real.pi_pos h1]
+    · nlinarith only [h12, Real.pi_pos]
+    · nlinarith only [h2, h12, h1, Real.pi_pos, mul_pos Real.pi_pos h1]
   rw [Real.sin_sub] at hsin
-  nlinarith [hsin]
+  linarith only [hsin]
 
 /-- A purely imaginary complex number has norm equal to `|Im|`. -/
 lemma norm_eq_abs_im_of_re_eq_zero {z : ℂ} (h : z.re = 0) : ‖z‖ = |z.im| := by
@@ -245,8 +257,8 @@ theorem kusmin_landau {f : ℕ → ℝ} {a b : ℕ} {δ : ℝ} {m : ℤ}
       rw [hWim k hk, abs_div, abs_of_pos (mul_pos (by norm_num) hs)]
       rw [div_le_div_iff₀ (mul_pos (by norm_num) hs) (by positivity)]
       have hcos : |Real.cos (π * σ k)| ≤ 1 := Real.abs_cos_le_one _
-      nlinarith [hcos, hsg, hδ0,
-        mul_le_mul_of_nonneg_right hcos (by positivity : (0 : ℝ) ≤ 4 * δ)]
+      linarith only [hsg,
+          mul_le_mul_of_nonneg_right hcos (by positivity : (0 : ℝ) ≤ 4 * δ)]
     have hWnorm : ∀ k, k ≤ N → ‖W k‖ ≤ 1 / (4 * δ) := by
       intro k hk
       simp only [hWdef, norm_wK]
@@ -315,7 +327,8 @@ theorem kusmin_landau {f : ℕ → ℝ} {a b : ℕ} {δ : ℝ} {m : ℤ}
     positivity
 
 /-!
-## Milestone 2 — the second-derivative test (RESIDUAL; paper arithmetic recorded)
+## Milestone 2 — the second-derivative test (the paper arithmetic, recorded before
+`Salt/ExpSum/VdCorput2.lean` landed `vdC_second_derivative`)
 
 **Target statement.**  With `g n := f (n+1) - f n`, additionally assume the
 second differences obey `λ ≤ g (n+1) - g n ≤ c · λ` for all `n` in range
@@ -360,10 +373,10 @@ Set `δ := √λ`.  Split on the size of `λ`:
 
 Both cases give `C' = 5`.
 
-**Why this is deferred (the real Lean cost).**  The elementary content above
-needs three pieces of `Finset` engineering, the middle one being a genuine
-sub-obstacle with no mathlib shortcut (see the recon: only the *identity*
-predicate has `filter_lt_le_eq_Ioc`):
+**What the Lean build needed (the three pieces; `VdCorput2.lean` built (2) and (3)).**
+The elementary content above needs three pieces of `Finset` engineering, the
+middle one being a genuine sub-obstacle with no mathlib shortcut (see the
+recon: only the *identity* predicate has `filter_lt_le_eq_Ioc`):
 
 1.  fibrewise decomposition — available (`Finset.sum_fiberwise_of_maps_to`);
 2.  **`G_k` (a monotone-predicate filter of an interval) equals an explicit
@@ -373,8 +386,12 @@ predicate has `filter_lt_le_eq_Ioc`):
     per-step lower bound `g (n+1) - g n ≥ λ`.
 
 `kusmin_landau` (milestone 1) is stated exactly to receive the good windows
-`G_k` (single interval `m := k`, `g` increasing), so wiring is mechanical once
-(2) lands.  Recorded as the named residual `VK-N2-M2` in `flags.md`.
+`G_k` (single interval `m := k`, `g` increasing). The residual `VK-N2-M2` in
+`flags.md` records both the deferral and its closure (2026-07-17): `VdCorput2.lean`
+takes (1) from mathlib (`Finset.sum_fiberwise_of_maps_to`) and builds (2) as
+`fibre_is_interval` and (3) as `count_window` and `step_accum`, and its
+fibre count `K ≤ cλL + 2` (the step `⌊x⌋ - ⌊y⌋ ≤ x - y` above is false in general)
+lands `vdC_second_derivative` with `C' = 8` in place of the `5` derived above.
 -/
 
 end Salt.ExpSum

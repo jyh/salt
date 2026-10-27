@@ -97,9 +97,14 @@ def ushift3 {p k j : ℕ} [NeZero (p ^ k)] (hkj : k ≤ 3 * j) (z : ZMod (p ^ k)
         = 1 + ((p : ZMod (p ^ k)) ^ j * z) ^ 3 := by ring
     rw [e, h3, add_zero]
 
+/-- The value of the Salié shift unit: `(ushift3 hkj z : ZMod (p ^ k)) = 1 + p ^ j * z` (`rfl`;
+`hkj : k ≤ 3 * j`). -/
 @[simp] lemma ushift3_val {p k j : ℕ} [NeZero (p ^ k)] (hkj : k ≤ 3 * j) (z : ZMod (p ^ k)) :
     ((ushift3 hkj z : (ZMod (p ^ k))ˣ) : ZMod (p ^ k)) = 1 + (p : ZMod (p ^ k)) ^ j * z := rfl
 
+/-- The inverse of the Salié shift unit (`rfl`):
+`(ushift3 hkj z)⁻¹ = 1 - p ^ j * z + (p ^ j * z) ^ 2` in `ZMod (p ^ k)`, the truncated geometric
+series, since the cube of `p ^ j * z` vanishes under `hkj : k ≤ 3 * j`. -/
 @[simp] lemma ushift3_inv_val {p k j : ℕ} [NeZero (p ^ k)] (hkj : k ≤ 3 * j)
     (z : ZMod (p ^ k)) :
     (((ushift3 hkj z)⁻¹ : (ZMod (p ^ k))ˣ) : ZMod (p ^ k))
@@ -111,6 +116,8 @@ def ushift3 {p k j : ℕ} [NeZero (p ^ k)] (hkj : k ≤ 3 * j) (z : ZMod (p ^ k)
 noncomputable def klSummand {N : ℕ} [NeZero N] (a b : ZMod N) (t : (ZMod N)ˣ) : ℂ :=
   ZMod.stdAddChar (a * (t : ZMod N) + b * ((t⁻¹ : (ZMod N)ˣ) : ZMod N))
 
+/-- `‖klSummand a b t‖ = 1`: the Kloosterman summand is a value of the standard additive
+character, of norm one. -/
 lemma norm_klSummand {N : ℕ} [NeZero N] (a b : ZMod N) (t : (ZMod N)ˣ) :
     ‖klSummand a b t‖ = 1 := AddChar.norm_apply _ _
 
@@ -551,7 +558,7 @@ theorem norm_kloosterman_prime_pow_gcd {p : ℕ} [Fact p.Prime] (hp2 : p ≠ 2) 
             congr 1
             ring
           rw [hs]
-          nlinarith [hpp, Real.sqrt_nonneg ((p : ℕ) : ℝ)]
+          linarith only [hpp, hp_pos]
         · -- `e ≥ 2`: the descent
           obtain ⟨A', rfl⟩ := hA
           obtain ⟨B', rfl⟩ := hB

@@ -100,7 +100,7 @@ theorem strideWindow_sum_inv_sq (eps : ℚ) (H : ℕ) :
     exact_mod_cast h3
   have hEH : (0 : ℝ) < (eps : ℝ) ^ 2 * (H : ℝ) := lt_of_lt_of_le hpR hple
   have hinv : 1 / (p : ℝ) ≤ 2 / ((eps : ℝ) ^ 2 * (H : ℝ)) := by
-    rw [div_le_div_iff₀ hpR hEH]; nlinarith [hlb]
+    rw [div_le_div_iff₀ hpR hEH]; linarith only [hlb]
   have key : (1 / (p : ℝ)) * (1 / (p : ℝ))
       ≤ (2 / ((eps : ℝ) ^ 2 * (H : ℝ))) * (1 / (p : ℝ)) :=
     mul_le_mul_of_nonneg_right hinv (by positivity)
@@ -353,7 +353,7 @@ theorem absXaff_le_one (a b h : ℕ) {x ω : ℕ} (hx : 2 ≤ x) (hω : 2 ≤ ω
           have h1 : |(ArithmeticFunction.liouville (a * n + b) : ℝ)|
               * |(ArithmeticFunction.liouville (a * n + b + h) : ℝ)| ≤ 1 :=
             mul_le_one₀ (abs_liouville_le_one _) (abs_nonneg _) (abs_liouville_le_one _)
-          nlinarith [inv_nonneg.mpr (by positivity : (0 : ℝ) ≤ (n : ℝ))]
+          nlinarith only [h1, inv_nonneg.mpr (by positivity : (0 : ℝ) ≤ (n : ℝ))]
   have hfin : Z⁻¹ * |∑ n ∈ Finset.Ioc (x / ω) x,
       (ArithmeticFunction.liouville (a * n + b) : ℝ)
         * (ArithmeticFunction.liouville (a * n + b + h) : ℝ) * (n : ℝ)⁻¹| ≤ Z⁻¹ * Z :=
@@ -506,7 +506,7 @@ theorem perPair_bound_aff {x ω : ℕ} (a b h H : ℕ) (hx : 2 ≤ x) (hω : 2 �
     have haR : (1 : ℝ) ≤ (a : ℝ) := by exact_mod_cast ha
     have hHnn : (0 : ℝ) ≤ (H : ℝ) := Nat.cast_nonneg H
     have h9 : (a : ℝ) * ((((k / a : ℕ)) : ℝ) * (p : ℝ)) ≤ (a : ℝ) * ((p : ℝ) + (H : ℝ)) := by
-      nlinarith [hR, mul_nonneg (sub_nonneg.mpr haR) hHnn]
+      linarith only [hR, mul_nonneg (sub_nonneg.mpr haR) hHnn]
     exact le_of_mul_le_mul_left h9 (by linarith)
   set A : ℝ := (∑ n ∈ (Finset.Ioc (x / ω) x).filter (fun n => n % p = r),
       (ArithmeticFunction.liouville (a * n + j + 1) : ℝ)
@@ -526,7 +526,7 @@ theorem perPair_bound_aff {x ω : ℕ} (a b h H : ℕ) (hx : 2 ≤ x) (hω : 2 �
   have hrle : (r : ℝ) ≤ (p : ℝ) := by exact_mod_cast hrp.le
   have hb1a : 2 * (r : ℝ) / (p : ℝ) ^ 2 / Z ≤ 2 / ((p : ℝ) * Z) := by
     rw [div_div, div_le_div_iff₀ (by positivity) (by positivity)]
-    nlinarith [mul_nonneg (mul_nonneg (sub_nonneg.mpr hrle) hpR.le) hZpos.le]
+    linarith only [mul_nonneg (mul_nonneg (sub_nonneg.mpr hrle) hpR.le) hZpos.le]
   have hb1b : (1 / (p : ℝ)) * ((2 * Real.log p + 6) / Z)
       = (2 * Real.log p + 6) / ((p : ℝ) * Z) := by field_simp
   have hsplit : (2 * Real.log p + 8) / ((p : ℝ) * Z)
@@ -539,7 +539,7 @@ theorem perPair_bound_aff {x ω : ℕ} (a b h H : ℕ) (hx : 2 ≤ x) (hω : 2 �
     have hRHS : (1 / (p : ℝ)) + (H : ℝ) / (p : ℝ) ^ 2 = ((p : ℝ) + H) / (p : ℝ) ^ 2 := by
       field_simp
     rw [mul_comm, mul_one_div, hRHS, div_le_div_iff₀ hpR (by positivity)]
-    nlinarith [mul_le_mul_of_nonneg_right hkp hpR.le]
+    linarith only [mul_le_mul_of_nonneg_right hkp hpR.le]
   calc |A - (1 / (p : ℝ)) * shiftCorrAff a x ω b h|
       ≤ |A - (1 / (p : ℝ)) * IMG|
           + (|(1 / (p : ℝ)) * IMG - (1 / (p : ℝ)) * shiftCorrAff a x ω k h|
@@ -825,17 +825,17 @@ theorem hbudget_holds_aff :
         = 16 * Real.log ((eps : ℝ) ^ 2 * (H : ℝ)) + 64 := by field_simp
     rw [hlhs] at h3; exact h3
   have hZ1 : (1 : ℝ) ≤ ∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹ := by
-    nlinarith [hZbig', hlogε2H, hε_le1, hZpos, mul_le_mul_of_nonneg_right hε_le1 hZpos.le]
+    linarith only [hZbig', hlogε2H, hZpos, mul_le_mul_of_nonneg_right hε_le1 hZpos.le]
   have hxpos : (0 : ℝ) < (x : ℝ) := by
     have hle : (ω : ℝ) * (H : ℝ) ≤ (x : ℝ) := by
-      nlinarith [hxbig, (show (0 : ℝ) ≤ 48 * (ω : ℝ) * (1 + 2 / (eps : ℝ) ^ 2) / (eps : ℝ)
-        by positivity)]
-    nlinarith [hle, mul_pos hωR hHR]
+      linarith only [hxbig,
+          (show (0 : ℝ) ≤ 48 * (ω : ℝ) * (1 + 2 / (eps : ℝ) ^ 2) / (eps : ℝ) by positivity)]
+    linarith only [hle, mul_pos hωR hHR]
   -- === slice 1 (dilation + swap) ===
   have hZεbound : (2 * Real.log ((eps : ℝ) ^ 2 * (H : ℝ)) + 8)
       / (∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹) ≤ (eps : ℝ) / 8 := by
     rw [div_le_div_iff₀ hZpos (by norm_num)]
-    nlinarith [hZbig']
+    linarith only [hZbig']
   have hsum1 : ∑ p ∈ primeWindow eps H, (2 * Real.log (p : ℕ) + 8) / (((p : ℕ) : ℝ)
         * ∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹)
       ≤ (1 / 8) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (eps : ℝ) := by
@@ -890,14 +890,14 @@ theorem hbudget_holds_aff :
     have hxZ : 48 * (ω : ℝ) * (1 + 2 / (eps : ℝ) ^ 2) / (eps : ℝ)
         ≤ (x : ℝ) * (∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹) := by
       have hx1 : 48 * (ω : ℝ) * (1 + 2 / (eps : ℝ) ^ 2) / (eps : ℝ) ≤ (x : ℝ) := by
-        nlinarith [hxbig, (show (0 : ℝ) ≤ (ω : ℝ) * (H : ℝ) by positivity)]
+        linarith only [hxbig, (show (0 : ℝ) ≤ (ω : ℝ) * (H : ℝ) by positivity)]
       calc 48 * (ω : ℝ) * (1 + 2 / (eps : ℝ) ^ 2) / (eps : ℝ) ≤ (x : ℝ) := hx1
         _ = (x : ℝ) * 1 := (mul_one _).symm
         _ ≤ (x : ℝ) * (∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹) :=
             mul_le_mul_of_nonneg_left hZ1 hxpos.le
     rw [div_le_iff₀ hepsR] at hxZ
     rw [div_div, div_le_div_iff₀ (mul_pos hxpos hZpos) (by positivity)]
-    nlinarith [hxZ]
+    linarith only [hxZ]
   have hsum2 : ∑ p ∈ primeWindow eps H, (1 / ((p : ℕ) : ℝ) + (H : ℝ) / ((p : ℕ) : ℝ) ^ 2)
         * (3 * (ω : ℝ) / (x : ℝ) / ∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹)
       ≤ (1 / 16) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (eps : ℝ) := by
@@ -907,14 +907,14 @@ theorem hbudget_holds_aff :
         * (3 * (ω : ℝ) / (x : ℝ) / ∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹)
         ≤ ((1 + 2 / (eps : ℝ) ^ 2) * ∑ p ∈ primeWindow eps H, (1 / (p : ℝ)))
           * (3 * (ω : ℝ) / (x : ℝ) / ∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹) :=
-      mul_le_mul_of_nonneg_right (by nlinarith [hHsq]) hSpos2
+      mul_le_mul_of_nonneg_right (by linarith only [hHsq]) hSpos2
     have hmul : ((1 + 2 / (eps : ℝ) ^ 2) * ∑ p ∈ primeWindow eps H, (1 / (p : ℝ)))
           * (3 * (ω : ℝ) / (x : ℝ) / ∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹)
         ≤ (1 / 16) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (eps : ℝ) := by
       have hCbound := hxbound
       rw [le_div_iff₀ (by positivity : (0 : ℝ) < 16 * (1 + 2 / (eps : ℝ) ^ 2))] at hCbound
-      nlinarith [mul_le_mul_of_nonneg_left hCbound
-        (by positivity : (0 : ℝ) ≤ (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) / 16)]
+      linarith only [mul_le_mul_of_nonneg_left hCbound
+          (by positivity : (0 : ℝ) ≤ (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) / 16)]
     linarith [hfac, hmul]
   -- === slice 3 (boundary), the gate at 64 ===
   have hT3 : ((primeWindow eps H).card : ℝ) * ((h : ℝ) * |∫ m,
@@ -955,14 +955,14 @@ theorem hbudget_holds_aff :
     linarith [hcount]
   have hHA_12 : (12 : ℝ) ≤ (H : ℝ) / (a : ℝ) := by
     rw [le_div_iff₀ haPos]
-    nlinarith [hcount, mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - (eps : ℝ)) hHR.le]
+    linarith only [haR, hcount, mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - (eps : ℝ)) hHR.le]
   have hslice4 : (∑ p ∈ primeWindow eps H, (1 / (p : ℝ)))
       ≤ (1 / 64) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * ((H : ℝ) / (a : ℝ)) * (eps : ℝ) := by
-    nlinarith [mul_le_mul_of_nonneg_left hHA_ge hSPpos.le]
+    linarith only [mul_le_mul_of_nonneg_left hHA_ge hSPpos.le]
   have hslice5 : (3 / 16) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (eps : ℝ)
       ≤ (1 / 64) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * ((H : ℝ) / (a : ℝ)) * (eps : ℝ) := by
-    nlinarith [mul_le_mul_of_nonneg_left hHA_12
-      (by positivity : (0 : ℝ) ≤ (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (eps : ℝ) / 64)]
+    linarith only [mul_le_mul_of_nonneg_left hHA_12
+        (by positivity : (0 : ℝ) ≤ (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (eps : ℝ) / 64)]
   -- === the div/floor comparisons for the class count ===
   have hdivR : ((H / a : ℕ) : ℝ) ≤ (H : ℝ) / (a : ℝ) := Nat.cast_div_le
   have hdivR2 : (H : ℝ) / (a : ℝ) < ((H / a : ℕ) : ℝ) + 1 := by
@@ -1281,7 +1281,7 @@ theorem hreduce_holds_aff (a b h : ℕ) (eps : ℚ) (H : ℕ) {x ω : ℕ}
     linarith [hMAIN_abs]
   have hprod : (0 : ℝ) ≤ (2 * |Xs| - (eps : ℝ)) * (SP * ((H : ℝ) / (a : ℝ))) :=
     mul_nonneg (by linarith [hseed]) (mul_nonneg hSPnn hHnn)
-  nlinarith [hmain, hbudget, hprod]
+  linarith only [hprod, hmain, hbudget]
 
 /-- **F4-R6b (class B) — `hreduce_close_h` (`HReduce.lean:167`) at the affine forms** (the
 `ETOT` form; `h`-free arithmetic on named reals with `H ↦ H/a`). -/
@@ -1308,7 +1308,7 @@ theorem hreduce_close_aff (a b h : ℕ) (eps : ℚ) (H : ℕ) {x ω : ℕ}
   have hHnn : (0 : ℝ) ≤ (H : ℝ) / (a : ℝ) := div_nonneg (Nat.cast_nonneg H) (Nat.cast_nonneg a)
   have hprod : (0 : ℝ) ≤ (2 * Xv - (eps : ℝ)) * (SP * ((H : ℝ) / (a : ℝ))) :=
     mul_nonneg (by linarith) (mul_nonneg hSPnn hHnn)
-  nlinarith [hmain, hbudget, hprod]
+  linarith only [hprod, hmain, hbudget]
 
 /-- **F4-R6c (class A) — the consumability probe** (`HReduce.lean:140`'s shape): the frozen
 `hreduce` is consumable into `h211_aff`'s `hprop26` slot without re-freeze — one line over

@@ -116,7 +116,7 @@ theorem halasz_socket_small (N : ℕ) (u : ℝ) (hu : |u| ≤ 1) :
           + Real.sqrt (1 + |u|) * (1 + Real.log (2 + |u|))) := by
   have hu2 : u ^ 2 ≤ 1 := by
     have := abs_le.mp hu
-    nlinarith [this.1, this.2]
+    nlinarith only [this]
   have hden_pos : 0 < Real.sqrt (1 + u ^ 2) := Real.sqrt_pos.mpr (by positivity)
   have hden_le : Real.sqrt (1 + u ^ 2) ≤ Real.sqrt 2 :=
     Real.sqrt_le_sqrt (by linarith)
@@ -125,7 +125,7 @@ theorem halasz_socket_small (N : ℕ) (u : ℝ) (hu : |u| ≤ 1) :
     rw [mul_div_assoc']
     rw [le_div_iff₀ hden_pos]
     have hNnn : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg N
-    nlinarith [mul_le_mul_of_nonneg_left hden_le hNnn]
+    linarith only [mul_le_mul_of_nonneg_left hden_le hNnn]
   have h2nn : (0 : ℝ) ≤ Real.sqrt 2 := Real.sqrt_nonneg _
   have htail_nn : 0 ≤ Real.sqrt (1 + |u|) * (1 + Real.log (2 + |u|)) := by
     have hlog : 0 ≤ 1 + Real.log (2 + |u|) := by

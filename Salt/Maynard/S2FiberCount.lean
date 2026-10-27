@@ -39,6 +39,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-! ## Basic combinatorial facts about a compatible pair -/
 
 /-- `lcm a b ∣ a * b` for naturals (cofactor `gcd a b`). -/

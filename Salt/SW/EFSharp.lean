@@ -113,6 +113,7 @@ the explicit formula is stated in). -/
 noncomputable def psiChiR {q : ℕ} (y : ℝ) (χ : DirichletCharacter ℂ q) : ℂ :=
   psiChi ⌊y⌋₊ χ
 
+/-- `ψ(y,χ) = Σ_{1 ≤ n ≤ ⌊y⌋} Λ(n) χ(n)` — `psiChiR` unfolded through `psiChi` (`rfl`). -/
 lemma psiChiR_def {q : ℕ} (y : ℝ) (χ : DirichletCharacter ℂ q) :
     psiChiR y χ = ∑ n ∈ Finset.Icc 1 ⌊y⌋₊, (vonMangoldt n : ℂ) * χ (n : ZMod q) := rfl
 
@@ -130,6 +131,7 @@ lemma sixteen_le_efHeight {q : ℕ} (hq : 1 ≤ q) : (16 : ℝ) ≤ efHeight q :
     _ ≤ (Real.log q + 2) ^ 4 := by
         apply pow_le_pow_left₀ (by norm_num) (by linarith)
 
+/-- `0 < T(q)` for `1 ≤ q` (`hq`): the height is `≥ 16` (`sixteen_le_efHeight`). -/
 lemma efHeight_pos {q : ℕ} (hq : 1 ≤ q) : (0 : ℝ) < efHeight q := by
   linarith [sixteen_le_efHeight hq]
 
@@ -364,7 +366,7 @@ theorem psi_sharp_riesz_at_height {q : ℕ} {y T : ℝ} (hq : 2 ≤ q) (hy : 2 �
   have hstep : y + y / T ≤ (q : ℝ) * y := by
     have h1 : y / T ≤ y / 2 := by
       apply div_le_div_of_nonneg_left (by linarith) (by norm_num) hT
-    nlinarith [hqR, hy1]
+    nlinarith only [hy, hqR, h1, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hlog : Real.log (y + y / T) ≤ Real.log ((q : ℝ) * y) :=
     Real.log_le_log (by positivity) hstep
   have hcoef : (0 : ℝ) ≤ y / T + 1 := by positivity
@@ -569,6 +571,8 @@ and run the Jensen keystone at `r = 37/20 = 1.85 > 1.803`. -/
 noncomputable def M0Lbox (f : ℕ) (t : ℝ) : ℝ :=
   21 * (4 + |t|) * Real.sqrt f * (1 + Real.log f)
 
+/-- `1 ≤ M0Lbox(f,t)` for `2 ≤ f` (`hf`): the three factors are at least `84`, `1` and `1`
+(`21(4 + |t|) ≥ 84`, `√f ≥ 1`, `log f ≥ 0`). -/
 lemma one_le_M0Lbox {f : ℕ} (hf : 2 ≤ f) (t : ℝ) : (1 : ℝ) ≤ M0Lbox f t := by
   have hfR : (2 : ℝ) ≤ (f : ℝ) := by exact_mod_cast hf
   have h1 : (1 : ℝ) ≤ Real.sqrt f := by
@@ -636,18 +640,18 @@ lemma log_four_M0Lbox_le {f q : ℕ} {t : ℝ} (hf2 : 2 ≤ f) (hfq : f ≤ q) (
   have hfqR : (f : ℝ) ≤ (q : ℝ) := by exact_mod_cast hfq
   have hfpos : (0 : ℝ) < (f : ℝ) := by linarith
   set Q : ℝ := (q : ℝ) * (|t| + 2) with hQ
-  have hQ4 : (4 : ℝ) ≤ Q := by rw [hQ]; nlinarith
+  have hQ4 : (4 : ℝ) ≤ Q := by rw [hQ]; nlinarith only [hγ0, hq2R, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hQpos : (0 : ℝ) < Q := by linarith
-  have hqQ : (q : ℝ) ≤ Q := by rw [hQ]; nlinarith
+  have hqQ : (q : ℝ) ≤ Q := by rw [hQ]; nlinarith only [hγ0, hQ4, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have hfQ : (f : ℝ) ≤ Q := le_trans hfqR hqQ
   have hlogf_nn : (0 : ℝ) ≤ Real.log (f : ℝ) := Real.log_nonneg (by linarith)
   have hb84 : (84 : ℝ) ≤ Q ^ 4 :=
     le_trans (by norm_num) (pow_le_pow_left₀ (by norm_num : (0:ℝ) ≤ 4) hQ4 4)
-  have hb1 : (4 + |t|) ≤ Q := by rw [hQ]; nlinarith
-  have hQQ2 : Q ≤ Q ^ 2 := by nlinarith
+  have hb1 : (4 + |t|) ≤ Q := by rw [hQ]; nlinarith only [hγ0, hq2R, hQ4]
+  have hQQ2 : Q ≤ Q ^ 2 := by nlinarith only [hQ4]
   have hb2 : Real.sqrt (f : ℝ) ≤ Q := by
     rw [show Q = Real.sqrt (Q ^ 2) from (Real.sqrt_sq hQpos.le).symm]
-    exact Real.sqrt_le_sqrt (by nlinarith)
+    exact Real.sqrt_le_sqrt (by linarith only [hQQ2, hqQ, hfqR])
   have hb3 : (1 + Real.log (f : ℝ)) ≤ Q := by
     have hle : Real.log (f : ℝ) + 1 ≤ (f : ℝ) := by
       have h := Real.add_one_le_exp (Real.log (f : ℝ)); rwa [Real.exp_log hfpos] at h
@@ -680,7 +684,7 @@ lemma halfbox_subset_closedBall (t₀ : ℝ) :
   have him : (z - (2 + (t₀ : ℂ) * I)).im = z.im - t₀ := by simp
   rw [hre, him]
   have habs := abs_le.mp h3
-  have hsq : (z.re - 2) ^ 2 + (z.im - t₀) ^ 2 ≤ (37 / 20) ^ 2 := by nlinarith
+  have hsq : (z.re - 2) ^ 2 + (z.im - t₀) ^ 2 ≤ (37 / 20) ^ 2 := by nlinarith only [habs, h1, h2]
   calc Real.sqrt ((z.re - 2) ^ 2 + (z.im - t₀) ^ 2) ≤ Real.sqrt ((37 / 20) ^ 2) :=
         Real.sqrt_le_sqrt hsq
     _ = 37 / 20 := Real.sqrt_sq (by norm_num)

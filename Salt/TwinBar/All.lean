@@ -27,6 +27,10 @@ import Salt.TwinBar.Wall
 import Salt.TwinBar.WallUnconditional
 import Salt.TwinBar.WallCorr
 import Salt.TwinBar.SiegelTwin
+import Salt.TwinBar.SevenEighthsClaim
+import Salt.TwinBar.RealZeroGapClaim
+import Salt.TwinBar.SevenEighthsStandoff
+import Salt.TwinBar.SevenEighthsGaps
 import Salt.TwinBar.SiegelCorr
 import Salt.TwinBar.SiegelCorrStrong
 import Salt.TwinBar.TwistedSieve
@@ -164,19 +168,21 @@ open Salt.Tactic in
 The landed wall caps certificates tolerant with respect to `SieveAgree` (the three
 main-term fields plus a shared Rosser budget).  `WallCorr` WIDENS that interface by
 the shift-2 correlation field `corr₂ s = ∑_{n ∈ s.support} s.weights n · s.weights
-(n+2)` and shows the cap survives: since `SieveAgreeCorr → SieveAgree`, tolerance
-with respect to the widened relation is a strictly WEAKER hypothesis on `Φ`, and
-`parity_wall_corr_stable` still delivers `parity_wall_unconditional`'s bound at
-`s₋ x`.
+(n+2)` and shows the cap survives: at one budget `B₂` the pair meets, tolerance with
+respect to the widened relation is a weaker hypothesis on `Φ` (since `SieveAgreeCorr
+→ SieveAgree`), and `parity_wall_corr` delivers the per-`x` cap at `s₋ x`.  The
+eventual form `parity_wall_corr_stable` quantifies over every `B₂`, which makes its
+hypothesis equivalent to `SieveAgree`-tolerance, so it is a restatement of
+`parity_wall_unconditional` (corrected 2026-10-25).
 
 The content is the core identity `corr2_witness_diff_Mlambda`: at the Selberg witness
 pair the `λλ` cross-term CANCELS — `(1 ± λ(n))(1 ± λ(n+2))` carries it with the same
 sign in both witnesses — leaving the one-point gap `2·(M_λ(x) + M_λ(x+2))`, which
 `corr2_witness_budget` puts at `O(x/(log x)^A)` unconditionally through the landed
 `Salt.SW.mmuRate_holds`.  So the witness pair really does agree in the widened field,
-at a sublinear budget: the strengthening is met, not evaded.
+at a sublinear budget: the widened relation is met, not evaded.
 
-Scope: a NEGATIVE theorem strengthened at the real witnesses.  No lower bound, no
+Scope: a NEGATIVE theorem at the real witnesses.  No lower bound, no
 positive rung, nothing about twin primes — and nothing here escapes, crosses or
 evades the wall. -/
 open Salt.Tactic in
@@ -787,3 +793,39 @@ open Salt.Tactic in
   Salt.TwinBar.twinLogWeight_support_infinite_of_affFullRange
   Salt.TwinBar.twinLogWeight_support_infinite_of_affFullRange_all
   Salt.TwinBar.abs_sum_Icc_le_of_windows
+
+-- The 7/8 statement (SevenEighthsClaim) and its implication to `NoSiegelZeros`; the certificate:
+-- the implication reaches none of the three Siegel names.
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.noSiegelZeros_of_sevenEighths
+open Salt.SW.StandoffCert in
+#assert_not_reaches Salt.TwinBar.noSiegelZeros_of_sevenEighths Salt.SW.siegel_theorem
+open Salt.SW.StandoffCert in
+#assert_not_reaches Salt.TwinBar.noSiegelZeros_of_sevenEighths Salt.SW.siegel_L_one_exceptional
+open Salt.SW.StandoffCert in
+#assert_not_reaches Salt.TwinBar.noSiegelZeros_of_sevenEighths Salt.SW.L1_lower_siegel
+
+-- The 7/8 statement through the standoff (SevenEighthsStandoff), by proof terms that do not use
+-- Siegel's theorem.
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.noSiegelZerosAt_of_sevenEighths Salt.TwinBar.three_primes_of_sevenEighths
+  Salt.TwinBar.gaps_le_636_of_sevenEighths Salt.TwinBar.gaps_le_600_of_sevenEighths
+  Salt.TwinBar.chen_headline_of_sevenEighths Salt.TwinBar.chen_goldbach_of_sevenEighths
+  Salt.TwinBar.bounded_gaps_of_sevenEighths
+
+-- OpenAI's real-zero gap statement, restated (RealZeroGapClaim), and its implication to
+-- `NoSiegelZeros`; the certificate: the implication reaches none of the three Siegel names.
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.im_eq_zero_of_sq_eq_one Salt.TwinBar.eq_one_of_modulus_two
+  Salt.TwinBar.noSiegelZeros_of_realZeroGap
+open Salt.SW.StandoffCert in
+#assert_not_reaches Salt.TwinBar.noSiegelZeros_of_realZeroGap Salt.SW.siegel_theorem
+open Salt.SW.StandoffCert in
+#assert_not_reaches Salt.TwinBar.noSiegelZeros_of_realZeroGap Salt.SW.siegel_L_one_exceptional
+open Salt.SW.StandoffCert in
+#assert_not_reaches Salt.TwinBar.noSiegelZeros_of_realZeroGap Salt.SW.L1_lower_siegel
+
+-- TwinParityAtomClasses: its two definitions, beside the twelve theorems audited above (O88 batch 30).
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.admClasses
+  Salt.TwinBar.AffFullRangeAt

@@ -39,6 +39,9 @@ open Filter Topology
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 /-- `√(64N)/N → 0`: the prime-power strip term `C·√(64N)`, once normalised by the
 window length `N`, is negligible. -/
 private theorem windowPNT_sqrt_div :
@@ -86,10 +89,11 @@ private theorem windowPNT_logratio :
   field_simp
   ring
 
-/-- **The discharge.**  The corpus PNT-with-rate `Salt.Chen.psiTot_pnt` proves the
-long-window hypothesis `WindowPNT` unconditionally. -/
-theorem windowPNT_holds : WindowPNT := by
-  obtain ⟨K, hK0, hK⟩ := Salt.Chen.psiTot_pnt
+omit [Salt.Maynard.TupleChoice] in
+/-- `windowPNT_holds` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem windowPNT_holds_of_SW (hSWall : Salt.BV.SiegelWalfisz) : WindowPNT := by
+  obtain ⟨K, hK0, hK⟩ := Salt.Chen.psiTot_pnt_of_SW hSWall
   obtain ⟨C, hC⟩ := Chebyshev.psi_sub_theta_le_mul_sqrt
   -- `π m` as a filtered card, once and for all.
   have hpc : ∀ m : ℕ,
@@ -260,5 +264,11 @@ theorem windowPNT_holds : WindowPNT := by
         = (63 - ε) * ((N : ℝ) * Real.log (64 * (N : ℝ))) := by ring
     linarith [hEn, hassoc]
   exact le_trans hfrac ((div_le_iff₀ hL64).mpr hMAIN)
+
+omit [Salt.Maynard.TupleChoice] in
+/-- **The discharge.**  The corpus PNT-with-rate `Salt.Chen.psiTot_pnt` proves the
+long-window hypothesis `WindowPNT` unconditionally. -/
+theorem windowPNT_holds : WindowPNT :=
+  windowPNT_holds_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Maynard

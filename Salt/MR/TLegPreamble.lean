@@ -132,7 +132,7 @@ lemma ramQ_sq_le_of_blockSmallG {f : ℕ → ℂ} {Pseq Qseq : ℕ → ℕ} {Hse
     congr 1
     ring
   calc ‖ramQ (Hseq j) (Pseq j) (Qseq j) v f t‖ ^ 2
-      ≤ Real.exp (-(αseq j) * (v : ℝ) / Hseq j) ^ 2 := by nlinarith [hb, h0]
+      ≤ Real.exp (-(αseq j) * (v : ℝ) / Hseq j) ^ 2 := by nlinarith only [hb, h0]
     _ = Real.exp (-(2 * αseq j) * (v : ℝ) / Hseq j) := hexp
 
 /-- **G2a (non-degeneracy) — the graded bound on `𝒯ⱼ` is not vacuous.**  `G0` banked the
@@ -496,7 +496,7 @@ theorem sum_exp_neg_graded_card (H α : ℝ) (hH : 0 < H) (hα : 0 ≤ α) (P Q 
       exact_mod_cast hv.1
     refine Real.exp_le_exp.mpr ?_
     rw [div_le_div_iff_of_pos_right hH]
-    nlinarith [hv0, hα]
+    nlinarith only [hα, hv0]
   calc ∑ v ∈ ramI H P Q, Real.exp (-(2 * α) * (v : ℝ) / H)
       ≤ ∑ _v ∈ ramI H P Q, Real.exp (-(2 * α) * (⌊H * Real.log (P : ℝ)⌋₊ : ℝ) / H) :=
         Finset.sum_le_sum hterm
@@ -573,7 +573,7 @@ theorem sum_exp_growth_top (H α : ℝ) (hH : 0 < H) (hα2 : 2 * α < 1) (P Q : 
     rw [hQrpow, ← Real.exp_add]
     refine Real.exp_le_exp.mpr ?_
     rw [div_add' _ _ _ (ne_of_gt hH), div_le_div_iff_of_pos_right hH]
-    nlinarith [hfloor, hα2]
+    nlinarith only [hα2, hfloor]
   have hnum0 : (0 : ℝ)
       ≤ Real.exp ((1 - 2 * α) * ((⌊H * Real.log (Q : ℝ)⌋₊ : ℝ) + 1) / H) :=
     (Real.exp_pos _).le

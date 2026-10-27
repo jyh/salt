@@ -35,6 +35,9 @@ open Finset
 
 namespace Salt.Twelve
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Maynard
 
 /-! ## The constant polynomial and its Dirichlet moments -/
@@ -42,10 +45,12 @@ open Salt.Maynard
 /-- The constant-`1` polynomial on the 5-simplex. -/
 def onePoly : Poly := [(![0, 0, 0, 0, 0], 1)]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `eval (ofPoly onePoly) t = 1` for every point `t`. -/
 lemma eval_ofPoly_onePoly (t : Fin 5 → ℝ) : eval (ofPoly onePoly) t = 1 := by
   simp [eval, ofPoly, onePoly, Fin.prod_univ_five]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- `simplexInt (sq (ofPoly onePoly)) = 1/120` (= `DInt' 0 0`). -/
 lemma simplexInt_sq_ofPoly_onePoly :
     simplexInt (sq (ofPoly onePoly)) = (1 / 120 : ℚ) := by
@@ -57,6 +62,7 @@ lemma simplexInt_sq_ofPoly_onePoly :
 
 /-! ## The `mv_I` error witness, exposed for the `D`-threshold hypothesis -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- The error constant produced by the keystone `mv_I` at `(W', F)`. Opaque, but
 its defining bound (`mvIErr_bound`) and nonnegativity (`mvIErr_nonneg`) are
 available.  Exposed so the `D`-threshold hypothesis `hD0` of `yside_ge_cM` can be
@@ -65,10 +71,20 @@ noncomputable def mvIErr (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (F : Poly) : ℝ :=
   (mv_I W' hW' hpos hUpper F).choose
 
+omit [Salt.Maynard.TupleChoice] in
+/-- The `mv_I` error constant at `(W', F)` is nonnegative, for square-free `W' > 0` (`hW'`,
+`hpos`) with `PhiUpperAtom W'` (`hUpper`): the first component of `mv_I`'s witness specification
+(`Classical.choose_spec`). -/
 lemma mvIErr_nonneg (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (F : Poly) : 0 ≤ mvIErr W' hW' hpos hUpper F :=
   (mv_I W' hW' hpos hUpper F).choose_spec.1
 
+omit [Salt.Maynard.TupleChoice] in
+/-- **The keystone `mv_I` restated through its error constant.** For square-free `W' > 0`
+(`hW'`, `hpos`) with `PhiUpperAtom W'` (`hUpper`), a cutoff `D ≥ 3` (`hD`) below every prime not
+dividing `W'` (`hDW`) and `log R ≥ 1` (`hlogR`):
+`|Σ_r F(log r_i/log R)²/∏φ(r_i) − X⁵·∫F²| ≤ mvIErr·(1 + X)⁵·(1/log R + 1/D)` with
+`X = (φ(W')/W')·log R` — the second component of `mv_I`'s witness specification. -/
 lemma mvIErr_bound (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (F : Poly) (D R : ℕ) (hD : 3 ≤ D)
     (hDW : ∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) (hlogR : 1 ≤ Real.log R) :
@@ -82,6 +98,7 @@ lemma mvIErr_bound (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 
 /-! ## The keystone `yside_ge_cM` -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **NB-2.** The `yside`-relative lower bound on the crude collision moment `M`.
 For a polynomial `F` with `0 < Ical F` there is a positive constant
 `c = 60·Ical F` with `c·M ≤ yside` for all large `R`, where

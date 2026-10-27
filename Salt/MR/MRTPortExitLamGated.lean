@@ -132,7 +132,7 @@ theorem m4_exit_lam_of_rowMeanSqLam_gated :
       ≤ c * (R.x : ℝ) * (∑ n ∈ Finset.Ioc (R.x / R.ω) R.x, (n : ℝ)⁻¹) * (R.Hlo : ℝ) := by
     have hZH : (1 : ℝ)
         ≤ (∑ n ∈ Finset.Ioc (R.x / R.ω) R.x, (n : ℝ)⁻¹) * (R.Hlo : ℝ) := by
-      nlinarith [hZ3, hHlo1]
+      nlinarith only [hZ3, hHlo1, Mathlib.Tactic.Linarith.natCast_nonneg ℝ R.Hlo]
     calc (8 : ℝ) * 2 ^ (doorCount R.ω) ≤ 32 * (R.ω : ℝ) := h2R
       _ ≤ c * (R.x : ℝ) := hkey
       _ ≤ c * (R.x : ℝ)

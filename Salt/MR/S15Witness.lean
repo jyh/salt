@@ -115,7 +115,7 @@ theorem s15w_rho_ge {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
   rw [doorRhoOfDelta, le_min_iff]
   refine ⟨by norm_num, ?_⟩
   rw [s12DeltaSock_sq hδ hK, div_div, le_div_iff₀ (by positivity)]
-  nlinarith [hKb, hδb, hK]
+  linarith only [hKb, hδb, hδ]
 
 /-- **⟦THE CLEARING CHARGE, NUMERIC⟧** — `log(1/ρ) ≤ 36`. -/
 theorem s15w_neglog_rho_le {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
@@ -144,14 +144,14 @@ of the `M = 2^355` register still closes (`probe_B3_*`; the binding `anchor`/`lv
 move from 0.48%/2.3% to 0.48%/2.3% — the `43` is invisible against `14·λ₊`). -/
 
 /-- **⟦THE `ρ` FLOOR, AT THE REACHABLE `δ₀`⟧** (`s15w_rho_ge'`) — `2^{-62} ≤ ρ` at
-`1/2^20 ≤ δ₀`.  `s15w_rho_ge` (:112) with the one relaxed numeral. -/
+`1/2^20 ≤ δ₀`.  `s15w_rho_ge` with the one relaxed numeral. -/
 theorem s15w_rho_ge' {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
     (hδb : 1 / 2 ^ 20 ≤ δ₀) (hKb : K ≤ 2 ^ 20) :
     (1 : ℝ) / 2 ^ 62 ≤ doorRhoOfDelta (s12DeltaSock δ₀ K) := by
   rw [doorRhoOfDelta, le_min_iff]
   refine ⟨by norm_num, ?_⟩
   rw [s12DeltaSock_sq hδ hK, div_div, le_div_iff₀ (by positivity)]
-  nlinarith [hKb, hδb, hK]
+  linarith only [hKb, hδb, hδ]
 
 /-- **⟦THE CLEARING CHARGE, RE-NUMERALLED⟧** (`s15w_neglog_rho_le'`) — `log(1/ρ) ≤ 43`. -/
 theorem s15w_neglog_rho_le' {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
@@ -202,7 +202,7 @@ theorem s15WitM_le {Cg δ₀ : ℝ} {x₀ Mfl : ℕ} (hδ : 0 < δ₀) (hCgb : C
     rw [div_le_iff₀ hδ]
     have h1 : ((2 ^ 56 : ℕ) : ℝ) = 2 ^ 56 := by push_cast; ring
     rw [h1]
-    nlinarith [hCgb, hδb]
+    linarith only [hδb, hCgb, hδ]
   simp only [s15WitM, max_le_iff]
   exact ⟨⟨hMfl, hx₀⟩, by norm_num, hceil⟩
 
@@ -287,7 +287,7 @@ theorem s15w_blk_floor {R : ChowlaRegime} (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
   have hHq : ((2 : ℕ) ^ 400 : ℚ) ≤ (R.Hhi : ℚ) := by exact_mod_cast hHhi
   have hHq' : (2 : ℚ) ^ 400 ≤ (R.Hhi : ℚ) := by push_cast at hHq; linarith
   have hepspos : (0 : ℚ) < R.eps := R.heps
-  have hsq : (1 : ℚ) / 2 ^ 18 ≤ R.eps ^ 2 := by nlinarith [heps, hepspos]
+  have hsq : (1 : ℚ) / 2 ^ 18 ≤ R.eps ^ 2 := by nlinarith only [heps]
   refine Nat.le_floor ?_
   have hstep : ((2 : ℕ) ^ 341 : ℚ) ≤ (1 / 2 ^ 18) * 2 ^ 400 := by
     push_cast
@@ -399,22 +399,22 @@ theorem s15_sel'_witness {Cg δ₀ Ct K : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegim
       rwa [Real.log_pow] at h
     have hρ' : -(36 : ℝ) ≤ Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) := by
       linarith [hρlog]
-    nlinarith [hAd, hlog2lo, hhi, hCtl, hρ', hlog2hi]
+    nlinarith only [hlog2lo, hCtl, hlog2hi, hAd, hρlog, hhi, (Nat.cast_nonneg _ : 0 ≤ ↑(Adoor M))]
   · -- the `level1` budget
     have hQ : Real.log (Real.log ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ)) ≤ 68 := by
       rw [s15_log_calQK_one M]
       have hpos : (0 : ℝ) < ((doorRowFloor M : ℕ) : ℝ) * Real.log 2 := by
         have : (0 : ℝ) < Real.log 2 := by linarith
-        nlinarith [hdrf1]
+        nlinarith only [hlog2lo, hdrf1, hlog2hi, (Nat.cast_nonneg _ : 0 ≤ ↑(doorRowFloor M))]
       have hle : ((doorRowFloor M : ℕ) : ℝ) * Real.log 2 ≤ (2 : ℝ) ^ 98 := by
-        nlinarith [hdrf, hdrf1, hlog2hi]
+        nlinarith only [hlog2hi, hdrf, hlog2lo, (Nat.cast_nonneg _ : 0 ≤ ↑(doorRowFloor M))]
       have h := Real.log_le_log hpos hle
       have h98 : Real.log ((2 : ℝ) ^ 98) = 98 * Real.log 2 := by
         rw [Real.log_pow]; push_cast; ring
       rw [h98] at h
       linarith [h, hlog2hi]
     have hρ' : -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) ≤ 36 := hρlog
-    nlinarith [hAd, hlog2lo, hhi, hQ, hρ']
+    nlinarith only [hlog2lo, hQ, hlog2hi, hAd, hρlog, hhi, (Nat.cast_nonneg _ : 0 ≤ ↑(Adoor M))]
 
 /-! ## §5 — ⟦THE WINDOW⟧ WHAT THE REGISTER COSTS THE SPINE'S `b`-FLOOR
 
@@ -476,7 +476,7 @@ theorem s15_sel'_bfloor_window_num {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : 
     24 * Cg / δ₀ ≤ 2 ^ 74 := by
   refine le_trans (s15_sel'_bfloor_window hρ0 hρ1 hsel) ?_
   rw [div_le_iff₀ (by norm_num)]
-  nlinarith [hw]
+  linarith only [hw]
 
 /-! ## §6 — ⟦THE COMPOSE⟧ THE SHARP CONDITIONAL, REGISTER DISCHARGED -/
 
@@ -547,7 +547,7 @@ theorem s15w_tower_bound {x : ℝ} (hx0 : 0 ≤ x) (hx : x ≤ 69315 / 1000) :
       ← Real.rpow_mul (by norm_num), ← Real.rpow_natCast (69315 / 1000 : ℝ) 9]
     norm_num
   have hb : (69315 / 1000 : ℝ) ^ ((9 : ℝ) / 2) ≤ 2 * 10 ^ 8 := by
-    nlinarith [hsq, hnn]
+    nlinarith only [hnn, hsq]
   linarith
 
 /-- `arcFloor36 = 10^138 ≤ s15WitFloor`. -/
@@ -671,7 +671,7 @@ theorem s15w_CcmExpr_ge : (65 / 10 : ℝ) ≤ CcmExpr := by
 theorem s15w_KlcmExpr_ge : (6 * 10 ^ 16 : ℝ) ≤ KlcmExpr := by
   have hpi : (3.141592 : ℝ) < Real.pi := Real.pi_gt_d6
   have hpi0 : (0 : ℝ) < Real.pi := Real.pi_pos
-  have h39 : (39 : ℝ) ≤ 4 * Real.pi ^ 2 := by nlinarith [hpi, hpi0]
+  have h39 : (39 : ℝ) ≤ 4 * Real.pi ^ 2 := by nlinarith only [hpi]
   have he : (2.7 : ℝ) < Real.exp 1 := lt_trans (by norm_num) Real.exp_one_gt_d9
   have hpow : (6 * 10 ^ 16 : ℝ) ≤ Real.exp 39 := by
     have hid : Real.exp 39 = Real.exp 1 ^ (39 : ℕ) := by
@@ -694,9 +694,9 @@ theorem s15w_KExpr_ge (H₁ : ℕ) : (12 * 10 ^ 65 : ℝ) ≤ KExpr H₁ := by
   have hK := s15w_KlcmExpr_ge
   have hC := s15w_C1Expr_ge H₁
   have hCpos := C1Expr_pos H₁
-  have hsq : (25600051200 : ℝ) ^ 2 ≤ (C1Expr H₁) ^ 2 := by nlinarith [hC, hCpos]
+  have hsq : (25600051200 : ℝ) ^ 2 ≤ (C1Expr H₁) ^ 2 := by nlinarith only [hC]
   rw [KExpr_eq]
-  nlinarith [hK, hsq, KlcmExpr_pos, sq_nonneg (C1Expr H₁)]
+  nlinarith only [hK, hsq, sq_nonneg (C1Expr H₁)]
 
 /-- **⟦THE ROAD'S `b`-FLOOR, FROM BELOW⟧** (`s15w_bfloor_expr_ge`) — at the closed forms,
 `2^282 ≤ 24·Cg/δ₀`.  (The true value is `2^602.02`; this crude read keeps only `K_lcm` and
@@ -709,13 +709,13 @@ theorem s15w_bfloor_expr_ge (H₁ : ℕ) : (2 : ℝ) ^ 282 ≤ 24 * CgExpr / del
   have hKpos := KExpr_pos H₁
   rw [delta0Expr_eq, one_div, div_inv_eq_mul]
   have hCK : (65 / 10 : ℝ) * (12 * 10 ^ 65) ≤ CcmExpr * KExpr H₁ := by
-    nlinarith [hCcm, hK, hCcmpos, hKpos]
+    nlinarith only [hCcm, hK]
   have hstep : (2 : ℝ) ^ 282
       ≤ 24 * (832240189441 : ℝ) * (64000 * ((65 / 10 : ℝ) * (12 * 10 ^ 65))) := by
     norm_num
   refine le_trans hstep ?_
   have hCgpos : (0 : ℝ) < CgExpr := CgExpr_pos
-  nlinarith [hCg, hCK, hCgpos, hCcmpos, hKpos]
+  nlinarith only [hCg, hCK]
 
 /-- **⟦THE REGISTER IS EMPTY AT THE ROAD'S CLOSED FORMS⟧**
 (`s15_sel'_empty_at_closed_forms`).
@@ -857,7 +857,7 @@ theorem s15w2_tower_bound {x : ℝ} (hx0 : 0 ≤ x) (hx : x ≤ 2772589 / 10000)
       ← Real.rpow_mul (by norm_num), ← Real.rpow_natCast (2772589 / 10000 : ℝ) 9]
     norm_num
   have hb : (2772589 / 10000 : ℝ) ^ ((9 : ℝ) / 2) ≤ 987 * 10 ^ 8 := by
-    nlinarith [hsq, hnn]
+    nlinarith only [hnn, hsq]
   linarith
 
 /-- `2 ≤ e^{0.694}` — the base step of the window's `ℕ`-floors. -/
@@ -943,7 +943,7 @@ theorem s15w2_blk_floor {R : ChowlaRegime} (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
   have hHq : ((2 : ℕ) ^ 1600 : ℚ) ≤ (R.Hhi : ℚ) := by exact_mod_cast hHhi
   have hHq' : (2 : ℚ) ^ 1600 ≤ (R.Hhi : ℚ) := by push_cast at hHq; linarith
   have hepspos : (0 : ℚ) < R.eps := R.heps
-  have hsq : (1 : ℚ) / 2 ^ 18 ≤ R.eps ^ 2 := by nlinarith [heps, hepspos]
+  have hsq : (1 : ℚ) / 2 ^ 18 ≤ R.eps ^ 2 := by nlinarith only [heps]
   refine Nat.le_floor ?_
   have hstep : ((2 : ℕ) ^ 1541 : ℚ) ≤ (1 / 2 ^ 18) * 2 ^ 1600 := by
     push_cast; norm_num
@@ -1026,7 +1026,7 @@ theorem s15_sel''_witness {Cg δ₀ Ct K : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegi
         _ = (2 : ℝ) ^ (398 : ℕ) := Real.exp_log (by positivity)
     have hrow : (2 : ℝ) ^ (398 : ℕ)
         ≤ ((doorRowFloor (2 ^ 355) : ℕ) : ℝ) * Real.log 2 := by
-      rw [hdrfR]; nlinarith [hlog2lo]
+      rw [hdrfR]; linarith only [hlog2hi, hlog2lo]
     have hpowid : ((2 : ℝ) ^ (doorRowFloor (2 ^ 355) : ℕ))
         = Real.exp (((doorRowFloor (2 ^ 355) : ℕ) : ℝ) * Real.log 2) := by
       rw [← Real.log_pow]
@@ -1067,7 +1067,7 @@ theorem s15_sel''_witness {Cg δ₀ Ct K : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegi
       rwa [Real.log_pow] at h
     have hρ' : -(36 : ℝ) ≤ Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) := by
       linarith [hρlog]
-    nlinarith [hlog2lo, hhi, hCtl, hρ', hlog2hi]
+    linarith only [hCtl, hlog2hi, hlog2lo, hρlog, hhi]
   · -- the `level1` budget
     rw [hAdR, s15_log_calQK_one (2 ^ 355), hdrfR]
     have hQ : Real.log ((356 : ℝ) * 2 ^ 391 * Real.log 2) ≤ 277 := by
@@ -1202,7 +1202,7 @@ theorem s15w_blockExp_le_gk (K : ℕ) {M : ℕ} (hM : M ≤ 2 ^ 56) :
   omega
 
 /-- **⟦THE WINDOW FLOOR AT AN ARBITRARY DYADIC EXPONENT⟧** (`s15w_Hhi_ge_gk`) —
-`s15w_Hhi_ge` (:221) generalised from the fixed `400` to any `n ≤ 4·10^8`, which is what the
+`s15w_Hhi_ge` generalised from the fixed `400` to any `n ≤ 4·10^8`, which is what the
 levered block exponent needs (`n = 2K + 359 ≤ 3.4·10^8` at `K ≤ 1.7·10^8`).  `log H₋ ≥ 10^30`
 buys `2^n` for every such `n` with 21 orders of margin. -/
 theorem s15w_Hhi_ge_gk {R : ChowlaRegime} (n : ℕ) (hn : n ≤ 400000000)
@@ -1222,7 +1222,7 @@ theorem s15w_Hhi_ge_gk {R : ChowlaRegime} (n : ℕ) (hn : n ≤ 400000000)
   have hexp : Real.exp ((n : ℝ) * (5 / 2)) ≤ ((R.Hlo : ℕ) : ℝ) := by
     have h1 : ((n : ℝ)) * (5 / 2) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
       refine le_trans ?_ hlo
-      nlinarith [hnR]
+      linarith only [hnR]
     have h2 := Real.exp_le_exp.mpr h1
     rwa [Real.exp_log hpos] at h2
   have hlo' : (((2 : ℕ) ^ n : ℕ) : ℝ) ≤ ((R.Hlo : ℕ) : ℝ) := by
@@ -1232,7 +1232,7 @@ theorem s15w_Hhi_ge_gk {R : ChowlaRegime} (n : ℕ) (hn : n ≤ 400000000)
   exact le_trans hnat R.hHlohi
 
 /-- **⟦`M`-UPPER 1's WINDOW SIDE, AT THE LEVER⟧** (`s15w_blk_floor_gk`) —
-`2^(2K+341) ≤ ⌊ε²·H₊⌋₊` at `ε ≥ 2^{-9}`.  `s15w_blk_floor` (:247) with the exponent carrying
+`2^(2K+341) ≤ ⌊ε²·H₊⌋₊` at `ε ≥ 2^{-9}`.  `s15w_blk_floor` with the exponent carrying
 the lever's `2K`; the `18` bits `ε²` costs are unchanged. -/
 theorem s15w_blk_floor_gk (K : ℕ) (hKle : K ≤ 170000000) {R : ChowlaRegime}
     (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
@@ -1248,7 +1248,7 @@ theorem s15w_blk_floor_gk (K : ℕ) (hKle : K ≤ 170000000) {R : ChowlaRegime}
     rw [hc] at h
     exact h
   have hepspos : (0 : ℚ) < R.eps := R.heps
-  have hsq : (1 : ℚ) / 2 ^ 18 ≤ R.eps ^ 2 := by nlinarith [heps, hepspos]
+  have hsq : (1 : ℚ) / 2 ^ 18 ≤ R.eps ^ 2 := by nlinarith only [heps]
   refine Nat.le_floor ?_
   have hcast : (((2 : ℕ) ^ (2 * K + 341) : ℕ) : ℚ) = (2 : ℚ) ^ (2 * K + 341) := by
     push_cast
@@ -1268,7 +1268,7 @@ theorem s15w_blk_floor_gk (K : ℕ) (hKle : K ≤ 170000000) {R : ChowlaRegime}
 set_option maxHeartbeats 800000 in
 -- eleven register lines discharged in one `refine`, each an `nlinarith`/`linarith` over casts
 -- of `2^342`-sized numerals; the default budget is exhausted by `gP1` and `lvl`
-/-- `s15_sel'_witness` (:281) at the lever.  The ONE field that moves is `blk`: the
+/-- `s15_sel'_witness` at the lever.  The ONE field that moves is `blk`: the
 levered block exponent is `2^(2K+342)`, and the tower floor `s15WitFloor` covers it. -/
 theorem s15_sel'_witness_gk (K : ℕ) (hKle : K ≤ 170000000) {Cg δ₀ Ct Kc : ℝ}
     {x₀ Mfl : ℕ} {R : ChowlaRegime}
@@ -1365,22 +1365,22 @@ theorem s15_sel'_witness_gk (K : ℕ) (hKle : K ≤ 170000000) {Cg δ₀ Ct Kc :
       rwa [Real.log_pow] at h
     have hρ' : -(36 : ℝ) ≤ Real.log (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) := by
       linarith [hρlog]
-    nlinarith [hAd, hlog2lo, hhi, hCtl, hρ', hlog2hi]
+    nlinarith only [hlog2lo, hCtl, hlog2hi, hAd, hρlog, hhi, (Nat.cast_nonneg _ : 0 ≤ ↑(Adoor M))]
   · -- the `level1` budget
     have hQ : Real.log (Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ)) ≤ 68 := by
       rw [s15_log_calQK_one_gk K M]
       have hpos : (0 : ℝ) < ((doorRowFloor M : ℕ) : ℝ) * Real.log 2 := by
         have : (0 : ℝ) < Real.log 2 := by linarith
-        nlinarith [hdrf1]
+        nlinarith only [hlog2lo, hdrf1, hlog2hi, (Nat.cast_nonneg _ : 0 ≤ ↑(doorRowFloor M))]
       have hle : ((doorRowFloor M : ℕ) : ℝ) * Real.log 2 ≤ (2 : ℝ) ^ 98 := by
-        nlinarith [hdrf, hdrf1, hlog2hi]
+        nlinarith only [hlog2hi, hdrf, hlog2lo, (Nat.cast_nonneg _ : 0 ≤ ↑(doorRowFloor M))]
       have h := Real.log_le_log hpos hle
       have h98 : Real.log ((2 : ℝ) ^ 98) = 98 * Real.log 2 := by
         rw [Real.log_pow]; push_cast; ring
       rw [h98] at h
       linarith [h, hlog2hi]
     have hρ' : -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) ≤ 36 := hρlog
-    nlinarith [hAd, hlog2lo, hhi, hQ, hρ']
+    nlinarith only [hlog2lo, hQ, hlog2hi, hAd, hρlog, hhi, (Nat.cast_nonneg _ : 0 ≤ ↑(Adoor M))]
 
 /-- `s15_sel'_bfloor_window (:399)` at the lever. -/
 theorem s15_sel'_bfloor_window_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
@@ -1411,12 +1411,12 @@ theorem s15_sel'_bfloor_window_num_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl
     24 * Cg / δ₀ ≤ 2 ^ 74 := by
   refine le_trans (s15_sel'_bfloor_window_gk K hρ0 hρ1 hsel) ?_
   rw [div_le_iff₀ (by norm_num)]
-  nlinarith [hw]
+  linarith only [hw]
 
 set_option maxHeartbeats 800000 in
 -- the `∃`-block re-elaborates the capstone's instantiated prefix, as in the landed §6
 /-- **⟦THE TERMINAL TWIN⟧** (`logChowla2_conditional_sharp_nonvacuous_gk`) —
-`logChowla2_conditional_sharp_nonvacuous` (:568) at the lever, INHERITING THE PIN: the proof
+`logChowla2_conditional_sharp_nonvacuous` at the lever, INHERITING THE PIN: the proof
 fires `logChowla2_conditional_sharp_atK_gk` at `K = 500000` (whose `K ≤ 1.7·10⁸` side
 condition is `norm_num`), and `K` is exported as the FIRST component of the ∃-prefix, exactly
 as at `S15Compose.logChowla2_conditional_sharp_gk`.
@@ -1506,13 +1506,13 @@ theorem s15w2_blockExp_le_gk (K : ℕ) : s13BlockExp_gk K (2 ^ 355) ≤ 2 ^ (2 *
   have hdom : s13BlockExp_gk K (2 ^ 355) ≤ 2 ^ (2 * K) * s13BlockExp (2 ^ 355) := by
     rw [hgkid, hid, hsq]
     have := Nat.mul_le_mul_right (14427 + (64 + 8 * (Nat.log 2 (2 ^ 355) + 1))) h1
-    nlinarith [this, h1]
+    linarith only [this]
   calc s13BlockExp_gk K (2 ^ 355) ≤ 2 ^ (2 * K) * s13BlockExp (2 ^ 355) := hdom
     _ ≤ 2 ^ (2 * K) * 2 ^ 1542 := Nat.mul_le_mul_left _ s15w2_blockExp_le
     _ = 2 ^ (2 * K + 1542) := by rw [← pow_add]
 
 /-- **⟦THE WINDOW FLOOR AT AN ARBITRARY DYADIC EXPONENT, RE-CUT⟧** (`s15w2_Hhi_ge_gk`) —
-`s15w2_Hhi_ge` (:881) generalised from the fixed `1600` to any `n ≤ 4·10^8`, which is what the
+`s15w2_Hhi_ge` generalised from the fixed `1600` to any `n ≤ 4·10^8`, which is what the
 levered block exponent needs (`n = 2K + 1559 ≤ 3.4·10^8` at `K ≤ 1.7·10^8`).  It is a
 strengthening of `s15w_Hhi_ge_gk`'s hypothesis, not a new estimate: `2^400 ≥ 10^30`. -/
 theorem s15w2_Hhi_ge_gk {R : ChowlaRegime} (n : ℕ) (hn : n ≤ 400000000)
@@ -1521,7 +1521,7 @@ theorem s15w2_Hhi_ge_gk {R : ChowlaRegime} (n : ℕ) (hn : n ≤ 400000000)
   s15w_Hhi_ge_gk n hn (le_trans (by norm_num) hlo)
 
 /-- **⟦`M`-UPPER 1's WINDOW SIDE, RE-CUT, AT THE LEVER⟧** (`s15w2_blk_floor_gk`) —
-`2^(2K+1541) ≤ ⌊ε²·H₊⌋₊` at `ε ≥ 2^{-9}`.  `s15w2_blk_floor` (:903) with the exponent
+`2^(2K+1541) ≤ ⌊ε²·H₊⌋₊` at `ε ≥ 2^{-9}`.  `s15w2_blk_floor` with the exponent
 carrying the lever's `2K`; the `18` bits `ε²` costs are unchanged. -/
 theorem s15w2_blk_floor_gk (K : ℕ) (hKle : K ≤ 170000000) {R : ChowlaRegime}
     (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
@@ -1537,7 +1537,7 @@ theorem s15w2_blk_floor_gk (K : ℕ) (hKle : K ≤ 170000000) {R : ChowlaRegime}
     rw [hc] at h
     exact h
   have hepspos : (0 : ℚ) < R.eps := R.heps
-  have hsq : (1 : ℚ) / 2 ^ 18 ≤ R.eps ^ 2 := by nlinarith [heps, hepspos]
+  have hsq : (1 : ℚ) / 2 ^ 18 ≤ R.eps ^ 2 := by nlinarith only [heps]
   refine Nat.le_floor ?_
   have hcast : (((2 : ℕ) ^ (2 * K + 1541) : ℕ) : ℚ) = (2 : ℚ) ^ (2 * K + 1541) := by
     push_cast
@@ -1556,7 +1556,7 @@ theorem s15w2_blk_floor_gk (K : ℕ) (hKle : K ≤ 170000000) {R : ChowlaRegime}
 set_option maxHeartbeats 1600000 in
 -- same cause as the landed §8.3: eleven register lines at `M = 2^355`, the `blk` line now
 -- carrying `2^(2K+1542)`-sized casts and the `x0M` line an `exp∘exp` chain
-/-- `s15_sel''_witness` (:944) at the lever.  The ONE field that moves is `blk`; see the
+/-- `s15_sel''_witness` at the lever.  The ONE field that moves is `blk`; see the
 section preamble for why the `2^355` pin, `λ₋`, `λ₊` and `x₀` all stand. -/
 theorem s15_sel''_witness_gk (Klev : ℕ) (hKle : Klev ≤ 170000000) {Cg δ₀ Ct K : ℝ}
     {x₀ Mfl : ℕ} {R : ChowlaRegime}
@@ -1608,7 +1608,7 @@ theorem s15_sel''_witness_gk (Klev : ℕ) (hKle : Klev ≤ 170000000) {Cg δ₀ 
         _ = (2 : ℝ) ^ (398 : ℕ) := Real.exp_log (by positivity)
     have hrow : (2 : ℝ) ^ (398 : ℕ)
         ≤ ((doorRowFloor (2 ^ 355) : ℕ) : ℝ) * Real.log 2 := by
-      rw [hdrfR]; nlinarith [hlog2lo]
+      rw [hdrfR]; linarith only [hlog2hi, hlog2lo]
     have hpowid : ((2 : ℝ) ^ (doorRowFloor (2 ^ 355) : ℕ))
         = Real.exp (((doorRowFloor (2 ^ 355) : ℕ) : ℝ) * Real.log 2) := by
       rw [← Real.log_pow]
@@ -1654,7 +1654,7 @@ theorem s15_sel''_witness_gk (Klev : ℕ) (hKle : Klev ≤ 170000000) {Cg δ₀ 
       rwa [Real.log_pow] at h
     have hρ' : -(36 : ℝ) ≤ Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) := by
       linarith [hρlog]
-    nlinarith [hlog2lo, hhi, hCtl, hρ', hlog2hi]
+    linarith only [hCtl, hlog2hi, hlog2lo, hρlog, hhi]
   · -- the `level1` budget
     rw [hAdR, s15_log_calQK_one_gk Klev (2 ^ 355), hdrfR]
     have hQ : Real.log ((356 : ℝ) * 2 ^ 391 * Real.log 2) ≤ 277 := by
@@ -1668,7 +1668,7 @@ theorem s15_sel''_witness_gk (Klev : ℕ) (hKle : Klev ≤ 170000000) {Cg δ₀ 
       linarith only [h, hlog2hi]
     exact s15w2_lvl_num hhi hQ hρlog
 
-/-- `logChowla2_conditional_sharp2_nonvacuous` (:1067) at the lever, at the pin
+/-- `logChowla2_conditional_sharp2_nonvacuous` at the lever, at the pin
 `K = 500000`.  ⚠ `hx0win` rides inside as before: `x₀` is Siegel-ineffective and NO theorem
 discharges it — the field's wall, carried honestly and named. -/
 theorem logChowla2_conditional_sharp2_nonvacuous_gk :
@@ -1740,7 +1740,7 @@ theorem s15w2_lvl_num' {X Q Y : ℝ} (hX : X ≤ 987 * 10 ^ 8) (hQ : Q ≤ 277) 
 set_option maxHeartbeats 1600000 in
 -- same cause as §GK.8: eleven register lines at `M = 2^355`, the `blk` line carrying
 -- `2^(2K+1542)`-sized casts and the `x0M` line an `exp∘exp` chain
-/-- `s15_sel''_witness_gk` (:1525) at the reachable `δ₀`.  The ONLY changes are the relaxed
+/-- `s15_sel''_witness_gk` at the reachable `δ₀`.  The ONLY changes are the relaxed
 hypothesis `1/2^20 ≤ δ₀` and the `ρ`-charge `43` in the five lines that spend it. -/
 theorem s15_sel''_witness_gk' (Klev : ℕ) (hKle : Klev ≤ 170000000) {Cg δ₀ Ct K : ℝ}
     {x₀ Mfl : ℕ} {R : ChowlaRegime}
@@ -1792,7 +1792,7 @@ theorem s15_sel''_witness_gk' (Klev : ℕ) (hKle : Klev ≤ 170000000) {Cg δ₀
         _ = (2 : ℝ) ^ (398 : ℕ) := Real.exp_log (by positivity)
     have hrow : (2 : ℝ) ^ (398 : ℕ)
         ≤ ((doorRowFloor (2 ^ 355) : ℕ) : ℝ) * Real.log 2 := by
-      rw [hdrfR]; nlinarith [hlog2lo]
+      rw [hdrfR]; linarith only [hlog2hi, hlog2lo]
     have hpowid : ((2 : ℝ) ^ (doorRowFloor (2 ^ 355) : ℕ))
         = Real.exp (((doorRowFloor (2 ^ 355) : ℕ) : ℝ) * Real.log 2) := by
       rw [← Real.log_pow]
@@ -1837,7 +1837,7 @@ theorem s15_sel''_witness_gk' (Klev : ℕ) (hKle : Klev ≤ 170000000) {Cg δ₀
       rwa [Real.log_pow] at h
     have hρ' : -(43 : ℝ) ≤ Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) := by
       linarith [hρlog]
-    nlinarith [hlog2lo, hhi, hCtl, hρ', hlog2hi]
+    linarith only [hCtl, hlog2hi, hlog2lo, hρlog, hhi]
   · -- the `level1` budget
     rw [hAdR, s15_log_calQK_one_gk Klev (2 ^ 355), hdrfR]
     have hQ : Real.log ((356 : ℝ) * 2 ^ 391 * Real.log 2) ≤ 277 := by
@@ -1852,7 +1852,7 @@ theorem s15_sel''_witness_gk' (Klev : ℕ) (hKle : Klev ≤ 170000000) {Cg δ₀
     exact s15w2_lvl_num' hhi hQ hρlog
 
 /-- **⟦THE RE-CUT CONDITIONAL, REPAIRED⟧** (`logChowla2_conditional_sharp2_nonvacuous_gk'`) —
-`logChowla2_conditional_sharp2_nonvacuous_gk` (:1638) with the three EPSPIN riders DISCHARGED
+`logChowla2_conditional_sharp2_nonvacuous_gk` with the three EPSPIN riders DISCHARGED
 and `K` left free.  ⚠ `hx0win` rides as before: `x₀` is Siegel-ineffective and NO theorem
 discharges it — the field's wall, carried honestly and named. -/
 theorem logChowla2_conditional_sharp2_nonvacuous_gk' (Klev : ℕ) (hKle : Klev ≤ 170000000) :

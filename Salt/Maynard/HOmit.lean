@@ -36,6 +36,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- Off-`m` product weight `owt(u) = ∏_{i≠m} fTilde(uᵢ)²/φ(uᵢ)` — the weight
 appearing in `H_main`/`H_omit`. -/
 private noncomputable def owt (k R : ℕ) (m : Fin k) (T : ℝ) (u : Fin k → ℕ) : ℝ :=
@@ -348,6 +351,7 @@ theorem H_omit_bound (k R : ℕ) (m : Fin k) (T : ℝ) (hR : 2 ≤ R) (hk : 1 �
 
 /-! ## Closing the two `H_omit` leaves (concrete per-prime reindexes) -/
 
+omit [TupleChoice] in
 /-- `fWt` is nonnegative for *every* natural argument (not just `r ≥ 1`):
 `uVal ≥ 0` unconditionally (`log n ≥ 0`), so the denominator `1 + (log k)·uVal ≥ 1`. -/
 lemma fWt_nonneg_all (k R n : ℕ) (hR : 2 ≤ R) : 0 ≤ fWt k R n := by
@@ -357,10 +361,11 @@ lemma fWt_nonneg_all (k R n : ℕ) (hR : 2 ≤ R) : 0 ≤ fWt k R n := by
   have hu : 0 ≤ uVal k R n := by
     unfold uVal
     exact div_nonneg (mul_nonneg (Nat.cast_nonneg k) hlogn) hlogR.le
-  have hden : (0 : ℝ) ≤ 1 + Real.log (k : ℝ) * uVal k R n := by nlinarith [mul_nonneg hlk hu]
+  have hden : (0 : ℝ) ≤ 1 + Real.log (k : ℝ) * uVal k R n := by linarith only [mul_nonneg hlk hu]
   unfold fWt
   exact div_nonneg zero_le_one hden
 
+omit [TupleChoice] in
 /-- **`fWt` antitonicity.** For `a ∣ b` with `b > 0`, `fWt b ≤ fWt a`.  `uVal` is
 monotone in its argument (`log` monotone), and `fWt = 1/(1 + (log k)·uVal)` is a
 decreasing function of `uVal` (since `log k ≥ 0`). -/
@@ -384,10 +389,11 @@ lemma fWt_anti (k R : ℕ) (hR : 2 ≤ R) :
     unfold uVal
     exact div_nonneg (mul_nonneg (Nat.cast_nonneg k) (Real.log_natCast_nonneg a)) hlogR.le
   have hden_a_pos : (0 : ℝ) < 1 + Real.log (k : ℝ) * uVal k R a := by
-    nlinarith [mul_nonneg hlk hua]
+    linarith only [mul_nonneg hlk hua]
   unfold fWt
   exact one_div_le_one_div_of_le hden_a_pos hden_le
 
+omit [TupleChoice] in
 /-- The square of `fWt` is antitone (square of a nonnegative antitone function). -/
 lemma fWt_sq_anti (k R : ℕ) (hR : 2 ≤ R) :
     ∀ a b : ℕ, 0 < b → a ∣ b → (fWt k R b) ^ 2 ≤ (fWt k R a) ^ 2 := by

@@ -31,7 +31,7 @@ the tail piece produced by the change of variables is `∫_3^{k+1} fseq (k−1) 
 (k−1)`,
 i.e. the mass runs to the **support edge** `(k−1)+2`.  Using `n+1` would drop the nonzero mass on
 `[n+1, n+2]`, breaking both the exact identity and the numeric cross-check (`Σ_{odd j} massO j =
-4·evenSum(4) = 0.086584`, verified against the `∫_3^{n+2}` definition to full precision).  So we set
+4·evenSum(4) = 0.086584`, computed outside Lean from the `∫_3^{n+2}` definition).  So we set
 `massO n := ∫_3^{n+2} fseq n`, the exact sibling of `massE n := ∫_2^{n+2} fseq n` (only the lower
 limit differs, `3` vs `2`).  The frozen constant `Σ massO ≤ 11/125` (true 0.086584) is unaffected —
 it is a property of the sum, and 0.086584 < 0.088 with the correct `∫_3^{n+2}` masses.
@@ -268,7 +268,7 @@ theorem fchain_ge_A1_of_massSums (N : ℕ) (hN : 2 ≤ N)
       ≤ (221 / 10000) * (s * (s - 1)) := by
     have hgap : (0 : ℝ) ≤ s - 39992 / 10000 := by linarith
     have hgap4 : (0 : ℝ) ≤ 4 - s := by linarith
-    nlinarith [mul_nonneg hgap hgap4, sq_nonneg (4 - s), hlo, hhi]
+    linarith only [hlo, mul_nonneg hgap hgap4]
   have hRHS : (4 - s) ^ 2 / (s * (s - 1)) + ((4 - s) / (s - 1) * (43 / 75) + 11 / 125) / s
       ≤ 221 / 10000 := by
     rw [expand, div_le_iff₀ hden]

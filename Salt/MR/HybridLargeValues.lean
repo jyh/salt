@@ -255,7 +255,7 @@ lemma hybrid_l2_arith {φ T Z L : ℝ} (hφ : 0 ≤ φ) (hT : 0 ≤ T) (hZ : 0 �
     (2 * φ * (T + 1 / 2) + 7 * Z) * (1 + 2 * L) ≤ 84 * (φ * (T + 1) + Z) * L := by
   have hslack : (0 : ℝ) ≤ L - 1 / 2 := by linarith
   have hA : (0 : ℝ) ≤ φ * T := mul_nonneg hφ hT
-  nlinarith [mul_nonneg hA hslack, mul_nonneg hφ hslack, mul_nonneg hZ hslack, hA, hφ, hZ]
+  linarith only [hA, hZ, hφ, mul_nonneg hZ hslack, mul_nonneg hφ hslack, mul_nonneg hA hslack]
 
 /-- **The per-fibre Gallagher step.**  For one character `χ` and one well-spaced fibre
 `𝒯 ⊆ [−T, T]`, the pointwise Sobolev bound at `δ = 1` plus the unit-window disjointness
@@ -404,7 +404,7 @@ theorem hybrid_wellspaced_l2_family {N : ℕ} (q : ℕ) [NeZero q] (s : Finset �
       ≤ C * (LN ^ 2 * M) := hybrid_char_mvt_deriv q s hs a hT'
   have hCM0 : (0 : ℝ) ≤ C * M := mul_nonneg hCnn hM0
   have hLLinvLN : LL⁻¹ * LN ^ 2 ≤ LL := by
-    have hsq : LN ^ 2 ≤ LL ^ 2 := by nlinarith [hLNnn, hLNLL]
+    have hsq : LN ^ 2 ≤ LL ^ 2 := by nlinarith only [hLNnn, hLNLL, hLLpos]
     have h1 : LL⁻¹ * LN ^ 2 ≤ LL⁻¹ * LL ^ 2 :=
       mul_le_mul_of_nonneg_left hsq (inv_nonneg.mpr hLLnn)
     have h2 : LL⁻¹ * LL ^ 2 = LL := by field_simp
@@ -489,7 +489,7 @@ lemma norm_coeffChiTwist_le (q : ℕ) (χ : DirichletCharacter ℂ q) (a : ℕ �
     ‖coeffChiTwist q χ a n‖ ≤ ‖a n‖ := by
   rw [coeffChiTwist, norm_mul]
   have h := DirichletCharacter.norm_le_one χ (n : ZMod q)
-  nlinarith [norm_nonneg (a n), norm_nonneg (χ (n : ZMod q))]
+  nlinarith only [h, norm_nonneg (a n)]
 
 /-- **Complete multiplicativity distributes over the `k`-fold convolution.**  The `k`-th
 power of the `χ`-twisted polynomial has coefficients `(c^{*k})ₙ·χ(n)`: the twist commutes
@@ -719,7 +719,7 @@ theorem hybrid_large_value_count (q : ℕ) [NeZero q] (P : ℕ) (c : ℕ → ℂ
     have hstep : 84 * ((q.totient : ℝ) * (T + 1) + (q.totient : ℝ) * X / q) * L * W
         ≤ 84 * (2 * (S + X)) * L * W := by
       have hLW : (0 : ℝ) ≤ L * W := mul_nonneg hLnn hWnn
-      nlinarith [hbracket, hLW]
+      nlinarith only [hbracket, hLW]
     calc 84 * ((q.totient : ℝ) * (T + 1) + (q.totient : ℝ) * X / q) * L * W
         ≤ 84 * (2 * (S + X)) * L * W := hstep
       _ = 2 * (84 * (S + X) * L * W) := by ring

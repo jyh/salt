@@ -401,7 +401,7 @@ lemma exp_block_bottom_le_rpow {H α : ℝ} (hH : 0 < H) (hα : 0 < α) {P : ℕ
   rw [Real.rpow_def_of_pos hP0, ← Real.exp_add]
   refine Real.exp_le_exp.mpr ?_
   rw [div_add' _ _ _ (ne_of_gt hH), div_le_div_iff_of_pos_right hH]
-  nlinarith [hkey]
+  linarith only [hkey]
 
 /-- The GROWING leg's base conversion: `Q^{1−2α} = Q·Q^{−2α} ≤ Q·P^{−2α}` for `1 ≤ P ≤ Q`
 and `0 < α`.  This is the step that turns `(4T/X_d)·Q^{1−2α}` into MR's normalized
@@ -417,7 +417,7 @@ lemma rpow_growth_le_rpow_bottom {α : ℝ} (hα : 0 < α) {P Q : ℕ} (hP : 1 �
     refine Real.exp_le_exp.mpr ?_
     have hlog : Real.log (P : ℝ) ≤ Real.log (Q : ℝ) :=
       Real.log_le_log hP0 (by exact_mod_cast hPQ)
-    nlinarith [hlog, hα]
+    nlinarith only [hα, hlog]
   rw [hsplit]
   exact mul_le_mul_of_nonneg_left hbase hQ0.le
 
@@ -510,7 +510,7 @@ theorem E1_pin_gen (c : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ
             * (60 * (Hseq 1 / αseq 1) * Real.exp (4 * αseq 1 / Hseq 1)) := by
       field_simp
       ring
-    nlinarith [hmin, hbottom, heq, hfin, hPrpow]
+    linarith only [hfin, hbottom, hmin]
   -- the `(T·Q/X_d + 1)` normalization: `u·A + B ≤ (u+1)(A+B)` for `u, A, B ≥ 0`
   have hu0 : (0 : ℝ) ≤ T * (Qseq 1 : ℝ) / (Xd : ℝ) := by positivity
   have hA0 : (0 : ℝ) ≤ (Pseq 1 : ℝ) ^ (-(2 * αseq 1))
@@ -534,7 +534,7 @@ theorem E1_pin_gen (c : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ
       ≤ (T * (Qseq 1 : ℝ) / (Xd : ℝ) + 1) * (Pseq 1 : ℝ) ^ (-(2 * αseq 1))
           * (4 * (Hseq 1 / (1 - 2 * αseq 1)) * Real.exp ((1 - 2 * αseq 1) / Hseq 1)
               + 60 * (Hseq 1 / αseq 1) * Real.exp (4 * αseq 1 / Hseq 1)) := by
-    nlinarith [hgrow, hdecay, hu0, hA0, hB0]
+    nlinarith only [hu0, hB0, hα2, hα, hA0, hdecay, hgrow]
   have hbr0 : (0 : ℝ) ≤ 4 * T / (Xd : ℝ)
         * (Hseq 1 / (1 - 2 * αseq 1) * Real.exp ((1 - 2 * αseq 1) / Hseq 1)
             * (Qseq 1 : ℝ) ^ (1 - 2 * αseq 1))
@@ -550,7 +550,7 @@ theorem E1_pin_gen (c : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ
       have hq : (0 : ℝ) ≤ (Qseq 1 : ℝ) ^ (1 - 2 * αseq 1) := Real.rpow_nonneg hQ0.le _
       have hcf : (0 : ℝ) ≤ 4 * T / (Xd : ℝ)
           * (Hseq 1 / (1 - 2 * αseq 1) * Real.exp ((1 - 2 * αseq 1) / Hseq 1)) := by positivity
-      nlinarith [hq, hcf]
+      nlinarith only [hq, hcf, hα2, hα]
     have h2 : (0 : ℝ) ≤ min (Hseq 1 / (2 * αseq 1)
           * Real.exp (-(2 * αseq 1)
               * ((⌊Hseq 1 * Real.log (Pseq 1 : ℝ)⌋₊ : ℝ) - 1) / Hseq 1))

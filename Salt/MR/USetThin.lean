@@ -124,15 +124,15 @@ theorem meansq_on_subset_of_decomp {N : ℕ} {a : ℕ → ℂ} {I : Finset ℕ}
         simp only [hdecomp]
     _ ≤ ∫ t in A, (2 * ‖∑ j ∈ I, mainPoly j t‖ ^ 2 + 2 * ‖errPoly t‖ ^ 2) := by
         refine setIntegral_mono_on hInt_lhs hInt_rhs hAm (fun t _ => ?_)
-        nlinarith [norm_add_le (∑ j ∈ I, mainPoly j t) (errPoly t),
-          norm_nonneg (∑ j ∈ I, mainPoly j t), norm_nonneg (errPoly t),
-          norm_nonneg ((∑ j ∈ I, mainPoly j t) + errPoly t),
-          sq_nonneg (‖∑ j ∈ I, mainPoly j t‖ - ‖errPoly t‖)]
+        nlinarith only [norm_add_le (∑ j ∈ I, mainPoly j t) (errPoly t),
+            norm_nonneg ((∑ j ∈ I, mainPoly j t) + errPoly t),
+            norm_nonneg (errPoly t), norm_nonneg (∑ j ∈ I, mainPoly j t),
+            sq_nonneg (‖∑ j ∈ I, mainPoly j t‖ - ‖errPoly t‖)]
     _ = 2 * (∫ t in A, ‖∑ j ∈ I, mainPoly j t‖ ^ 2) + 2 * (∫ t in A, ‖errPoly t‖ ^ 2) := by
         rw [MeasureTheory.integral_add (hInt_main.const_mul 2) (hInt_err.const_mul 2),
           MeasureTheory.integral_const_mul, MeasureTheory.integral_const_mul]
     _ ≤ 2 * (I.card : ℝ) * (∑ j ∈ I, ∫ t in A, ‖mainPoly j t‖ ^ 2) + 2 * E := by
-        nlinarith [hmainA, herrA]
+        linarith only [hmainA, herrA]
 
 /-- **U-1 — Lemma 12's mean square on `A ⊆ [−T,T]` (the SHARP row).**  Exactly
 `lemma12_meansq_sharp` with both the left side and the main term restricted to a measurable
@@ -477,18 +477,18 @@ lemma largeblock_bound_mono (T V : ℝ) (hT : 1 < T) (hV : 1 ≤ V) (P p : ℕ) 
   have hB : Real.exp (2 * (Real.log T / Real.log p) * Real.log (Real.log T))
       ≤ Real.exp (2 * (Real.log T / Real.log P) * Real.log (Real.log T)) := by
     refine Real.exp_le_exp.mpr ?_
-    nlinarith
+    nlinarith only [hLL, h2]
   have hApos : (0 : ℝ) < T ^ (2 * Real.log V / Real.log p) :=
     Real.rpow_pos_of_pos (by linarith) _
-  have hVpos : (0 : ℝ) < V ^ 2 := by nlinarith
+  have hVpos : (0 : ℝ) < V ^ 2 := by nlinarith only [hV]
   have hBpos : (0 : ℝ) < Real.exp (2 * (Real.log T / Real.log p) * Real.log (Real.log T)) :=
     Real.exp_pos _
   have hstep : 840 * T ^ (2 * Real.log V / Real.log p) * V ^ 2
-      ≤ 840 * T ^ (2 * Real.log V / Real.log P) * V ^ 2 := by nlinarith
+      ≤ 840 * T ^ (2 * Real.log V / Real.log P) * V ^ 2 := by nlinarith only [hA, sq_nonneg V]
   have hRHSnn : (0 : ℝ) ≤ 840 * T ^ (2 * Real.log V / Real.log P) * V ^ 2 := by
     have h : (0 : ℝ) < T ^ (2 * Real.log V / Real.log P) :=
       Real.rpow_pos_of_pos (by linarith) _
-    nlinarith
+    nlinarith only [hApos, hstep, sq_nonneg V]
   exact mul_le_mul hstep hB (le_of_lt hBpos) hRHSnn
 
 /-! ### The ratio-2 chain and the witness refinement -/

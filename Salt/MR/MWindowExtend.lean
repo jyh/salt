@@ -333,7 +333,7 @@ theorem pretFloorShape_quarter_at_pow {X b A : ℝ}
   have hc2a : Real.log (Real.log (b + 16)) ≤ Real.log A + Real.log (Real.log X) := by
     rw [← hprod]; exact Real.log_le_log (by linarith) h16
   have hsplit : Real.log A + Real.log (Real.log X)
-      ≤ (1 + Real.log A) * Real.log (Real.log X) := by nlinarith
+      ≤ (1 + Real.log A) * Real.log (Real.log X) := by nlinarith only [hL2, hLA]
   have hc2 : Real.log (Real.log (Real.log (b + 16)))
       ≤ Real.log (1 + Real.log A) + Real.log (Real.log (Real.log X)) := by
     have hstep : Real.log (Real.log (Real.log (b + 16)))
@@ -389,12 +389,7 @@ theorem Tstar_two_mul_le_quarter {X : ℝ} (hX : Real.exp 8192 ≤ X) :
   set m : ℝ := Real.log u with hmdef
   -- `m ≥ 8`, from `e⁸ < 8192`
   have hexp8 : Real.exp 8 < 8192 := by
-    have h1 : Real.exp 8 = Real.exp 1 ^ (8 : ℕ) := by
-      rw [Real.exp_one_pow]; norm_num
-    rw [h1]
-    calc Real.exp 1 ^ (8 : ℕ) < (2.7182818286 : ℝ) ^ (8 : ℕ) :=
-          pow_lt_pow_left₀ Real.exp_one_lt_d9 (Real.exp_nonneg 1) (by norm_num)
-      _ < 8192 := by norm_num
+    exact_mod_cast Salt.Tactic.exp_nat_lt_of_pow_lt 8 (by norm_num)
   have hm8 : (8 : ℝ) ≤ m := by
     rw [hmdef, ← Real.log_exp 8]
     exact Real.log_le_log (Real.exp_pos _) (by linarith)
@@ -416,7 +411,7 @@ theorem Tstar_two_mul_le_quarter {X : ℝ} (hX : Real.exp 8192 ≤ X) :
     div_le_div_of_nonneg_left hupos.le (by norm_num) (by linarith)
   have hcore : 4 * m + u / (4 * m) ≤ u - 3 * Real.log 2 := by
     have hquad : 8 * Real.sqrt u + 3 * 0.6931471808 ≤ (31 / 32) * u := by
-      nlinarith [hs90, hssq, sq_nonneg (Real.sqrt u - 90)]
+      linarith only [hssq, hu, hlog2lt, hlog2pos, hlogX, sq_nonneg (√u - 90)]
     linarith
   -- the exponential form of `T*`
   have hu4 : u ^ 4 = Real.exp (4 * m) := by
@@ -471,7 +466,7 @@ theorem seamGateRstar_le_two_mul {X T : ℝ} (hX : Real.exp 8192 ≤ X) (hT : T 
     have h1 : Real.log (Real.sqrt X) ≤ Real.sqrt X - 1 := Real.log_le_sub_one_of_pos hs0
     have h2 : Real.log (Real.sqrt X) = Real.log X / 2 := Real.log_sqrt hXpos.le
     linarith
-  have hsmall : Real.log X + 1 ≤ X / 4 := by nlinarith [hs90, hssq, hs0]
+  have hsmall : Real.log X + 1 ≤ X / 4 := by nlinarith only [hs0, hs90, hlogsq, hssq, hlogX]
   have hTs := Tstar_two_mul_le_quarter hX
   unfold seamGateRstar
   linarith

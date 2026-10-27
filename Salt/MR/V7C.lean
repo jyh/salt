@@ -170,8 +170,8 @@ set_option maxHeartbeats 1600000 in
 
 ⟦HOW⟧ `T₀` is minted before the design constant `A` and is `A`-independent, so it joins `A`'s
 `max` as a sixth arm; §1 then clears it by three exponential levels
-(`t0_arm_le_tolerance`).  The discharge needs NO effective ceiling on `T₀` — which is what
-makes it available at all, since `RIDER-TRACE` proved no such ceiling exists in the corpus.
+(`t0_arm_le_tolerance`).  The discharge needs NO effective ceiling on `T₀` — which is what makes it
+available at all, since `RIDER-TRACE` found on paper that no such ceiling exists in the corpus.
 
 `v6` is untouched and remains citable; this is the form node V7-E's mint consumes. -/
 theorem logChowla2_ineffective_v6_T0arm (A₀ : ℝ) :

@@ -76,10 +76,10 @@ theorem kfloor_of_live_box {x z y k i K : ℕ} (hx : (1 : ℝ) ≤ (x : ℝ))
   have hcutR : (x : ℝ) / 8 < (2 : ℝ) ^ i * (2 : ℝ) ^ k := by linarith [hxR]
   -- Step 4: `x/8 < 2^i·2^k ≤ z·(2^k)² ≤ x^{1/8}·(2^k)²`.
   have hProd : (x : ℝ) / 8 < (z : ℝ) * ((2 : ℝ) ^ k * (2 : ℝ) ^ k) := by
-    nlinarith [hcutR, mul_le_mul_of_nonneg_right hliveR hknn]
+    linarith only [hxR, mul_le_mul_of_nonneg_right hliveR hknn]
   have hProd2 : (x : ℝ) / 8 < (x : ℝ) ^ ((1 : ℝ) / 8) * ((2 : ℝ) ^ k * (2 : ℝ) ^ k) := by
     have hk2nn : (0 : ℝ) ≤ (2 : ℝ) ^ k * (2 : ℝ) ^ k := by positivity
-    nlinarith [hProd, mul_le_mul_of_nonneg_right hz hk2nn]
+    linarith only [hProd, mul_le_mul_of_nonneg_right hz hk2nn]
   -- Step 5: cancel `x^{1/8}`: `x^{7/8}/8 < (2^k)²`.
   have hx18pos : (0 : ℝ) < (x : ℝ) ^ ((1 : ℝ) / 8) := Real.rpow_pos_of_pos hxpos _
   have hxeq : (x : ℝ) = (x : ℝ) ^ ((7 : ℝ) / 8) * (x : ℝ) ^ ((1 : ℝ) / 8) := by
@@ -96,8 +96,8 @@ theorem kfloor_of_live_box {x z y k i K : ℕ} (hx : (1 : ℝ) ≤ (x : ℝ))
   have hann : (0 : ℝ) ≤ (x : ℝ) ^ ((7 : ℝ) / 16) := Real.rpow_nonneg hxpos.le _
   have h78nn : (0 : ℝ) ≤ (x : ℝ) ^ ((7 : ℝ) / 8) := Real.rpow_nonneg hxpos.le _
   rw [show ((2 ^ k : ℕ) : ℝ) = (2 : ℝ) ^ k by push_cast; ring]
-  nlinarith [hPsq, hxx, hann, hknn, h78nn,
-    show (0 : ℝ) ≤ (x : ℝ) ^ ((7 : ℝ) / 16) / 8 + (2 : ℝ) ^ k by positivity]
+  nlinarith only [hann, hknn, hxx, hPsq,
+      mul_self_nonneg (1 * ↑x ^ (7 / 16))]
 
 /-! ## F1.2 — `box_hprice_at_2pow_lo` (the priced-branch supplier at the 7/16 floor)
 

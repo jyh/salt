@@ -77,7 +77,7 @@ lemma prime_contour_decay {P p : ℕ} {δ : ℝ} (hP : 2 ≤ P) (hp : P ≤ p) (
   have hrw : (p : ℝ) ^ (-δ) = Real.exp (Real.log p * (-δ)) := Real.rpow_def_of_pos hp0 _
   rw [hrw]
   apply Real.exp_le_exp.mpr
-  nlinarith [hlog, hδ]
+  nlinarith only [hδ, hlog]
 
 /-- **R3 (frozen).**  The in-statement `exp(−log P / ((log T)^{3/4}(loglog T)⁴))` decay:
 substituting `δ = c / ((log T)^{3/4}(loglog T)⁴)` into `prime_contour_decay` exhibits the
@@ -163,7 +163,7 @@ lemma primes_dual_iff (𝒯 : Finset ℝ) (S : Finset ℕ) {Δ : ℝ} (hΔ : 0 �
   l2_duality 𝒯 S (fun t p => (p : ℂ) ^ (-(t : ℂ) * I)) hΔ
 
 /-!
-## Resistance map (R1-core — the remaining blocker)
+## Resistance map (R1-core — then the remaining blocker; `halasz_primes_pow` has since landed)
 
 Landed tonight (all sorry-free): the four ladder sub-stones —
 `primes_dual_iff` (R1 gateway), `zeta_near_strip_growth` (R2 price = 400),
@@ -175,7 +175,7 @@ Landed tonight (all sorry-free): the four ladder sub-stones —
 (`Salt.MR.perron_trunc`) one writes `Σ_{P≤p≤2P} Λ(n) n^{iu}` as a vertical integral of
 `−ζ′/ζ(s+iu)·(kernel)`, then shifts the contour left to `σ = 1 − cR/((log T)^{3/4}(loglog T)⁴)`.
 No zeros are crossed (VK zero-free region `zeta_zero_free_region_pow`,
-`GrowthPow.lean:1044`), the shifted integrand is priced by the region bound (R2 machinery),
+`GrowthPow.lean · zeta_zero_free_region_pow`), the shifted integrand is priced by the region bound (R2 machinery),
 and the `p^{−(1−σ)}` factor supplies the R3 `exp`-decay.  Assembling
 (diagonal `+` off-diagonal `+` prime↔prime-power passage `+` `√` from `L²`-duality) then
 closes `halasz_primes_pow` in the frozen shape.

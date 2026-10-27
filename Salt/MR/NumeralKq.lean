@@ -80,7 +80,7 @@ theorem zero_free_region_primitive_bounded :
   have hqR2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq2
   set Lval : ℝ := Real.log ((q : ℝ) * (|ρ.im| + 2)) with hLdef
   have hQ4 : (4 : ℝ) ≤ (q : ℝ) * (|ρ.im| + 2) := by
-    nlinarith [abs_nonneg ρ.im, hqR2, mul_nonneg (show (0:ℝ) ≤ (q:ℝ) by linarith) (abs_nonneg ρ.im)]
+    linarith only [hqR2, mul_nonneg (show (0 : ℝ) ≤ (q : ℝ) by linarith) (abs_nonneg ρ.im)]
   have hexp4 : Real.exp 1 ≤ 4 := le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))
   have h4 : (1 : ℝ) ≤ Real.log 4 := by
     rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hexp4
@@ -93,14 +93,14 @@ theorem zero_free_region_primitive_bounded :
   rcases le_or_gt ρ.re (1 / 2) with hβle | hβgt
   · -- trivial branch: `Re ρ ≤ 1/2 ≤ 1 − c₀/L`
     have hc0 : (1 / 50456 : ℝ) / Lval ≤ 1 / 50456 := by
-      rw [div_le_iff₀ hLpos]; nlinarith [hL1]
+      rw [div_le_iff₀ hLpos]; linarith only [hL1]
     linarith [hc0, hβle]
   · -- the 3-4-1 machinery
     set dd : ℝ := 1 / 7208 with hdddef
     have hddpos : (0 : ℝ) < dd := by norm_num
     have hddlt1 : dd < 1 := by rw [hdddef]; norm_num
     set σ : ℝ := 1 + dd / Lval with hσdef
-    have hddL : dd / Lval ≤ dd := by rw [div_le_iff₀ hLpos]; nlinarith [hL1, hddpos]
+    have hddL : dd / Lval ≤ dd := by rw [div_le_iff₀ hLpos]; nlinarith only [hL1, hddpos]
     have hσ1 : 1 < σ := by
       rw [hσdef]
       have hpos : 0 < dd / Lval := div_pos hddpos hLpos
@@ -166,8 +166,8 @@ theorem zero_free_region_primitive_bounded :
     have hlogq : Real.log (q : ℝ) ≤ Lval := by
       rw [hLdef]
       apply Real.log_le_log (by linarith)
-      nlinarith [abs_nonneg ρ.im, hqR2,
-        mul_nonneg (show (0:ℝ) ≤ (q:ℝ) by linarith) (abs_nonneg ρ.im)]
+      linarith only [hσ1, hddL, hQ4,
+          mul_nonneg (show (0 : ℝ) ≤ (q : ℝ) by linarith) (abs_nonneg ρ.im)]
     -- assemble the 3-4-1 chain
     have hrel1 : (4 : ℝ) / (σ - ρ.re) = 4 * (1 / (σ - ρ.re)) := by ring
     have hrel2 : (3 : ℝ) / (σ - 1) = 3 * (1 / (σ - 1)) := by ring
@@ -207,8 +207,8 @@ theorem zero_free_region_real_bounded :
   have hqR2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq2
   set Lval : ℝ := Real.log ((q : ℝ) * (|ρ.im| + 2)) with hLdef
   have hQ4 : (4 : ℝ) ≤ (q : ℝ) * (|ρ.im| + 2) := by
-    nlinarith [abs_nonneg ρ.im, hqR2,
-      mul_nonneg (show (0:ℝ) ≤ (q:ℝ) by linarith) (abs_nonneg ρ.im)]
+    linarith only [hqR2,
+        mul_nonneg (show (0 : ℝ) ≤ (q : ℝ) by linarith) (abs_nonneg ρ.im)]
   have hexp4 : Real.exp 1 ≤ 4 := le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))
   have h4 : (1 : ℝ) ≤ Real.log 4 := by
     rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hexp4
@@ -220,14 +220,14 @@ theorem zero_free_region_real_bounded :
   rcases le_or_gt ρ.re (3 / 4) with hβle | hβgt
   · -- trivial branch: `Re ρ ≤ 3/4 ≤ 1 − c₀/L`
     have hc0 : (1 / 126848 : ℝ) / Lval ≤ 1 / 126848 := by
-      rw [div_le_iff₀ hLpos]; nlinarith [hL1]
+      rw [div_le_iff₀ hLpos]; linarith only [hL1]
     linarith [hc0, hβle]
   · -- the 3-4-1 machinery
     set dd : ℝ := 1 / 15856 with hdddef
     have hddpos : (0 : ℝ) < dd := by norm_num
     have hddlt1 : dd < 1 := by rw [hdddef]; norm_num
     set σ : ℝ := 1 + dd / Lval with hσdef
-    have hddL : dd / Lval ≤ dd := by rw [div_le_iff₀ hLpos]; nlinarith [hL1, hddpos]
+    have hddL : dd / Lval ≤ dd := by rw [div_le_iff₀ hLpos]; nlinarith only [hL1, hddpos]
     have hθpos : 0 < dd / Lval := div_pos hddpos hLpos
     have hσ1 : 1 < σ := by rw [hσdef]; linarith
     have hσ2 : σ < 2 := by rw [hσdef]; linarith [hddL, hddlt1]
@@ -278,8 +278,8 @@ theorem zero_free_region_real_bounded :
     have hlogq : Real.log (q : ℝ) ≤ Lval := by
       rw [hLdef]
       apply Real.log_le_log (by linarith)
-      nlinarith [abs_nonneg ρ.im, hqR2,
-        mul_nonneg (show (0:ℝ) ≤ (q:ℝ) by linarith) (abs_nonneg ρ.im)]
+      linarith only [hθpos, hddL, hQ4,
+          mul_nonneg (show (0 : ℝ) ≤ (q : ℝ) by linarith) (abs_nonneg ρ.im)]
     have hlogγ : Real.log (|ρ.im| + 2) ≤ Lval := by
       rw [hLdef]
       apply Real.log_le_log (by positivity)
@@ -307,9 +307,9 @@ theorem zero_free_region_real_bounded :
         rwa [abs_mul_abs_self] at h1
       have hpole : (σ - 1) / ((σ - 1) ^ 2 + 4 * ρ.im ^ 2) ≤ 1 / 4 * (1 / (σ - 1)) := by
         have hden : (0 : ℝ) < (σ - 1) ^ 2 + 4 * ρ.im ^ 2 := by
-          nlinarith [pow_pos hσ1' 2, sq_nonneg ρ.im]
+          linarith only [hγsq, pow_pos hσ1' 2]
         rw [mul_one_div, div_le_div_iff₀ hden hσ1']
-        nlinarith [hγsq]
+        linarith only [hden, hγsq]
       have hA2' : T2 ≤ 1 / 4 * (1 / (σ - 1)) + 1080 * Real.log (|ρ.im| + 2)
           + Real.log (q : ℝ) := by
         linarith [hA2, hpole]
@@ -360,16 +360,16 @@ theorem zero_free_region_real_bounded :
       have hconj_ge : 1 / (5 * (σ - ρ.re))
           ≤ (σ - ρ.re) / ((σ - ρ.re) ^ 2 + 4 * ρ.im ^ 2) := by
         have hden : (0 : ℝ) < (σ - ρ.re) ^ 2 + 4 * ρ.im ^ 2 := by
-          nlinarith [pow_pos hηpos 2, sq_nonneg ρ.im]
+          linarith only [pow_pos hηpos 2, mul_self_nonneg ρ.im]
         rw [div_le_div_iff₀ (by linarith : (0:ℝ) < 5 * (σ - ρ.re)) hden]
-        nlinarith [hγsq, mul_self_le_mul_self hσ1'.le hθη]
+        linarith only [hγsq, mul_self_le_mul_self hσ1'.le hθη]
       have hbridge : (1 : ℝ) / 5 * (1 / (σ - ρ.re)) = 1 / (5 * (σ - ρ.re)) := by
         rw [div_mul_div_comm, one_mul]
       have hpole : (σ - 1) / ((σ - 1) ^ 2 + 4 * ρ.im ^ 2) ≤ 1 / (σ - 1) := by
         have hden : (0 : ℝ) < (σ - 1) ^ 2 + 4 * ρ.im ^ 2 := by
-          nlinarith [pow_pos hσ1' 2, sq_nonneg ρ.im]
+          linarith only [pow_pos hσ1' 2, mul_self_nonneg ρ.im]
         rw [div_le_div_iff₀ hden hσ1']
-        nlinarith [sq_nonneg ρ.im]
+        linarith only [mul_self_nonneg ρ.im]
       have hA2' : T2 ≤ 1 / (σ - 1) + 1080 * Real.log (|ρ.im| + 2)
           + Real.log (q : ℝ) := by
         linarith [hA2, hpole]
@@ -421,7 +421,7 @@ theorem zero_free_region_all_bounded :
     exact_mod_cast this
   have hLpos : 0 < Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
     apply Real.log_pos
-    nlinarith [abs_nonneg ρ.im, hq1]
+    nlinarith only [hq1, abs_nonneg ρ.im, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   by_cases hsq : χ ^ 2 = 1
   · have hγ : ρ.im ≠ 0 := by
       rcases hor with h | h
@@ -519,7 +519,7 @@ theorem twisted_rect_zero_free_siegel_bounded :
   obtain ⟨Ks, hKs0, hsg⟩ := siegel_real_carve
   refine ⟨1 / (10 ^ 8 * c₀), 10 ^ 8 * Ks, by positivity, ?_, by positivity, ?_⟩
   · rw [div_le_div_iff₀ (by positivity) (by norm_num : (0 : ℝ) < 10 ^ 8)]
-    nlinarith [hc₀b, hc₀0]
+    linarith only [hc₀b]
   intro q hNe ψ hψ1 A T hA1 hTfloor hAq hAabs hKq hSg ρ hρ0 hρim
   -- the `T`-scale quantities
   have hE0 : (0 : ℝ) < Real.exp (Real.exp 100) := Real.exp_pos _
@@ -543,11 +543,11 @@ theorem twisted_rect_zero_free_siegel_bounded :
   have hD4pos : 0 < Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by positivity
   have hD4ge1 : (1 : ℝ) ≤ Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by
     have h1 : (1 : ℝ) ≤ ℓ ^ (4 : ℕ) := one_le_pow₀ hℓ1
-    nlinarith
+    nlinarith only [hLg34, h1]
   -- the target width is tiny
   have hWsmall : (1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ)) ≤ 1 / 2 := by
     rw [div_le_div_iff₀ hD4pos (by norm_num : (0:ℝ) < 2)]
-    nlinarith
+    linarith only [hD4ge1, hD4pos]
   by_cases hcase : Real.exp (Real.exp 100) + 1 ≤ |ρ.im|
   · -- ABOVE the floor: stones A+B
     have hβ1 : ρ.re < 1 := by
@@ -626,7 +626,7 @@ theorem twisted_rect_zero_free_siegel_bounded :
               = ((q : ℝ) ^ ((1 : ℝ) / 16) * (1 / 10 ^ 8 : ℝ))
                 / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ)) := by ring
           rw [heq, div_le_iff₀ hD4pos]
-          nlinarith [hSg, hD4pos, hKs0]
+          linarith only [hSg]
         exact hsg q ψ hψ1 _ hW0 hgate ρ hρ0 him
       · have hcv : ψ.primitiveCharacter ^ 2 ≠ 1 ∨ ρ.im ≠ 0 := Or.inr him
         have hcl := hc₀ q ψ hψ1 hρ0 hre hcv
@@ -634,7 +634,7 @@ theorem twisted_rect_zero_free_siegel_bounded :
           have := Nat.pos_of_ne_zero (NeZero.ne q); exact_mod_cast this
         have hEq : |ρ.im| + 2 ≤ Real.exp (Real.exp 100) + 3 := by linarith
         have hlow0 : 0 < Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
-          apply Real.log_pos; nlinarith [abs_nonneg ρ.im]
+          apply Real.log_pos; nlinarith only [hq1, abs_nonneg ρ.im, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
         have hlowle : Real.log ((q : ℝ) * (|ρ.im| + 2))
             ≤ Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3)) := by
           apply Real.log_le_log (by nlinarith [abs_nonneg ρ.im])
@@ -650,7 +650,7 @@ theorem twisted_rect_zero_free_siegel_bounded :
             have h := hKq
             rw [div_mul_eq_mul_div, one_mul, div_le_iff₀ (by positivity)] at h
             linarith
-          nlinarith [hgate']
+          linarith only [hgate']
         have hshrink : c₀ / Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
             ≤ c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
           rw [div_le_div_iff₀ hlowE0 hlow0]

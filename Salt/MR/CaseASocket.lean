@@ -104,14 +104,14 @@ private lemma two_log_le_self_CA {X : ℝ} (hX : 16 ≤ X) : 2 * Real.log X ≤ 
   have hlog : Real.log (Real.sqrt X) ≤ Real.sqrt X - 1 := Real.log_le_sub_one_of_pos hs0
   have hhalf : Real.log (Real.sqrt X) = Real.log X / 2 := Real.log_sqrt hX0.le
   have hsq : Real.sqrt X * Real.sqrt X = X := Real.mul_self_sqrt hX0.le
-  nlinarith [hs4, hlog, hsq, hhalf]
+  nlinarith only [hs0, hs4, hsq, hhalf, hlog]
 
 /-- `25 ≤ exp 8` (`CenterSupply.twentyfive_le_exp_eight`, re-derived). -/
 private lemma twentyfive_le_exp_eight_CA : (25 : ℝ) ≤ Real.exp 8 := by
   have h4 : (5 : ℝ) ≤ Real.exp 4 := by linarith [Real.add_one_le_exp (4 : ℝ)]
   have hpos : (0 : ℝ) < Real.exp 4 := Real.exp_pos 4
   rw [show (8 : ℝ) = 4 + 4 from by norm_num, Real.exp_add]
-  nlinarith
+  nlinarith only [h4]
 
 /-- `exp 2 < 10` — the numeral behind the `y`-page's `c₀ − 2η > 0` gate at a free `Y`. -/
 private lemma exp_two_lt_ten_CA : Real.exp 2 < 10 := by
@@ -119,7 +119,7 @@ private lemma exp_two_lt_ten_CA : Real.exp 2 < 10 := by
   have h0 : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
   have h2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by
     rw [← Real.exp_add]; norm_num
-  nlinarith
+  nlinarith only [h1, h0, h2]
 
 /-- **THE `y`-GENERIC GRADE PAGE (`center_error_grade_CA`).**  `CenterSupply`'s
 `center_error_grade` with the pin's `loglog k` replaced by a FREE weight `W` capped by
@@ -302,7 +302,7 @@ theorem center_halasz_supply_YA (Y : ℝ → ℝ) :
   have hsqLk0 : (0 : ℝ) < Real.sqrt (Real.log (k : ℝ)) := by linarith
   have hh0 : (0 : ℝ) < (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) := by positivity
   have hhX : (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) ≤ (k : ℝ) := by
-    rw [div_le_iff₀ hsqLk0]; nlinarith
+    rw [div_le_iff₀ hsqLk0]; nlinarith only [hsqLk1, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   -- THE `Y`-PAGE at this scale
   have hY10k : (10 : ℝ) ≤ Y (k : ℝ) := hY10 k hkfl hkN
   have hlogY2 : (2 : ℝ) ≤ Real.log (Y (k : ℝ)) := by
@@ -355,7 +355,7 @@ theorem center_halasz_supply_YA (Y : ℝ → ℝ) :
         / Real.log ((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ)))
       ≤ 2 * (k : ℝ) / Real.log (k : ℝ) := by
     rw [div_le_div_iff₀ (by linarith) hLk0]
-    nlinarith
+    nlinarith only [hLklo, hhX, hL8, hlog2hi, hulogb, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   have hEle : C_E * (((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ)))
           / Real.log ((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ))))
         * Real.log (Y (k : ℝ))
@@ -492,7 +492,7 @@ theorem joint_supF_pin_at2C {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖
   have hσL : 1 / (β + 1 / L) ≤ L := by
     rw [div_le_iff₀ hσ0]
     have h1 : L * (1 / L) = 1 := by field_simp
-    nlinarith
+    nlinarith only [hβ0, hL32, h1]
   have hYX : Real.exp (1 / (c₀ - 1 + β)) ≤ k := by
     rw [show c₀ - 1 + β = β + 1 / L from by rw [hc₀eq]; ring]
     calc Real.exp (1 / (β + 1 / L)) ≤ Real.exp L := Real.exp_le_exp.mpr hσL
@@ -507,7 +507,7 @@ theorem joint_supF_pin_at2C {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖
   refine hP.trans ?_
   unfold rhsFboundC rhsCSF
   refine mul_le_mul_of_nonneg_left (Real.exp_le_exp.mpr ?_) ?_
-  · nlinarith [mul_le_mul_of_nonneg_left hMt hc0.le]
+  · linarith only [mul_le_mul_of_nonneg_left hMt hc0.le]
   · have : (0 : ℝ) ≤ 1 / (β + 1 / L) := by positivity
     exact mul_nonneg (mul_nonneg (Real.exp_nonneg _) (Real.exp_nonneg _)) this
 
@@ -944,7 +944,7 @@ theorem caseA_partial_supply2 :
       Real.rpow_nonneg (Real.log_nonneg hW1) _
     have h3 : (0 : ℝ) ≤ farCStar2 := farCStar2_nonneg
     have h4 : (0 : ℝ) ≤ Real.exp (-c * M) := (Real.exp_pos _).le
-    nlinarith
+    nlinarith only [h2, h3, h1, h4, hc1, hc0]
   -- THE FOUR `Y`-GATES at `Y = y₂ ∘ log`, all numerals at the family gate
   have hY10 : ∀ k : ℕ, ⌊W⌋₊ ≤ k → k ≤ N → (10 : ℝ) ≤ ypin2 (Real.log (k : ℝ)) := by
     intro k h1 h2

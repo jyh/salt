@@ -276,9 +276,11 @@ Tiered, against mathlib master as fetched 2026-07-12 (scout F, full audit):
 - **Tier 0 — BV at 1/2 (our chain): done modulo the SW gate.**
   `bounded_gaps_of_siegelWalfisz_of_bridge` (`Salt/BV/Headline.lean:26`) +
   `hasLevel_half_of_siegelWalfisz : HasLevel (1/2)`
-  (`Salt/BV/AbelCore.lean:753`) is, to our knowledge, the only BV-shaped chain
-  in any Lean artifact — mathlib has **no large sieve, no BV** (GitHub +
-  docs searches, zero hits). The gate itself (SW) is classical contour-shift
+  (`Salt/BV/AbelCore.lean:753`) was, to our knowledge when this was written
+  (2026-07-12), the only BV-shaped chain in any Lean artifact — mathlib has
+  **no large sieve, no BV** (GitHub + docs searches, zero hits). No longer
+  true: by the 2026-08-17 priority survey (rows 2 and 7) a public Lean
+  Bombieri–Vinogradov modulo a Siegel–Walfisz axiom, and the large sieve, exist. The gate itself (SW) is classical contour-shift
   analysis; the `sw` blueprint's scouts found mathlib readier than folklore
   (Borel–Carathéodory, Jensen, 3-4-1 shape, `LSeries` positivity all present).
   Nothing foundational blocks Tier 0.

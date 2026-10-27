@@ -81,7 +81,7 @@ lemma classSet_meanSq_le {N : ℕ} (q : ℕ) (hq : 0 < q) (hN : 0 < N) (s : Fins
   have hrewrite : 2 * Real.pi / ((q : ℝ) / N) = 2 * Real.pi * (N : ℝ) / q :=
     div_div_eq_mul_div _ _ _
   have hnum : 2 * Real.pi * (N : ℝ) ≤ 7 * (N : ℝ) := by
-    nlinarith [Real.pi_lt_d2, hNr.le]
+    nlinarith only [hNr, Real.pi_lt_d2, (Nat.cast_nonneg _ : 0 ≤ ↑N)]
   have hstep : 2 * Real.pi * (N : ℝ) / q ≤ 7 * (N : ℝ) / q :=
     div_le_div_of_nonneg_right hnum hqr.le
   rw [hrewrite]

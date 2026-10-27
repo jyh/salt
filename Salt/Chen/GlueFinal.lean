@@ -633,7 +633,7 @@ private lemma glue_floor_bounds (x : ℕ) (hx : (10 : ℝ) ^ 48 ≤ (x : ℝ)) {
     rw [← hlogXγ]; exact Real.log_le_log hzfpos hfloor_le
   have hratio : (x : ℝ) ^ γ / ((x : ℝ) ^ γ - 1) ≤ 1000000 / 999999 := by
     rw [div_le_div_iff₀ hXγ1pos (by norm_num : (0 : ℝ) < 999999)]
-    nlinarith [hA6]
+    linarith only [hstep2, hstep1]
   have hcorr : Real.log ((x : ℝ) ^ γ) - Real.log ((x : ℝ) ^ γ - 1) ≤ 1 / 999999 := by
     have h1 : Real.log ((x : ℝ) ^ γ / ((x : ℝ) ^ γ - 1)) ≤ (x : ℝ) ^ γ / ((x : ℝ) ^ γ - 1) - 1 :=
       Real.log_le_sub_one_of_pos (by positivity)
@@ -652,7 +652,7 @@ private lemma glue_log_ge_96 (x : ℕ) (hx : (10 : ℝ) ^ 48 ≤ (x : ℝ)) :
   have hlog10 : (2 : ℝ) ≤ Real.log 10 := by
     rw [Real.le_log_iff_exp_le (by norm_num)]
     have he : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    rw [he]; nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
+    rw [he]; nlinarith only [Real.exp_one_lt_d9, Real.exp_pos 1]
   have hmono : Real.log ((10 : ℝ) ^ 48) ≤ Real.log (x : ℝ) := Real.log_le_log (by positivity) hx
   rw [Real.log_pow] at hmono
   push_cast at hmono

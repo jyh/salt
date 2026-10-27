@@ -26,6 +26,10 @@ open Finset Filter
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
+omit [Salt.Maynard.TupleChoice] in
 /-- **L2 — the level-of-distribution error bound.** Under `HasLevel (1/2)`, the
 `(3k)^ω`-weighted discrepancy over squarefree moduli `≤ √N/(log N)^B'` is
 `O(N/(log N)^B)`.  Same proof as `eh_error_pow`; only the modulus range shrinks
@@ -265,6 +269,7 @@ theorem EH_range_lod (k₀ : ℕ) (B' : ℝ) (hB'0 : 0 ≤ B') :
   push_cast
   exact hmul
 
+omit [Salt.Maynard.TupleChoice] in
 /-- Eventual monotonicity of the shrunk range `y^{1/2}/(log y)^{B'}` once
 `2·B' ≤ log N`: for `2 ≤ N ≤ x` with `log N ≥ 2B'`, the haircut range at `N` is
 `≤` the haircut range at `x`.  (The map is increasing for `y ≥ e^{2B'}`; the
@@ -643,6 +648,7 @@ theorem bounded_gaps_from_level_final
   exact win_core k₀ N' R ν₀ T c C₀ Cs (by omega) hNpos hlogNpos hc0 hδ0 hA1ge1
     hDpi hcompat hEHres hS1 hratio hδlb hlogR hdom herr1 herr2
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **L4b — bounded gaps from `HasLevel (1/2)`.**  The LoD-shaped capstone,
 discharging `CompatFrontier` with the EH-free `compatFrontier_holds`. -/
 theorem bounded_gaps_from_level :
@@ -650,6 +656,7 @@ theorem bounded_gaps_from_level :
       p.Prime ∧ q.Prime ∧ (q : ℤ) - (p : ℤ) ∈ Set.Icc (-(C : ℤ)) (C : ℤ) :=
   bounded_gaps_from_level_final compatFrontier_holds
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Consistency check.**  The LoD chain subsumes the EH one: `EH (1/2)` gives
 `HasLevel (1/2)` (`EH_hasLevel`), so `bounded_gaps_from_level` recovers
 `BoundedGapsFromEH`. -/

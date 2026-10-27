@@ -321,7 +321,7 @@ theorem classIV_discharge :
     have h2 : (2 : ℝ) ≤ (z : ℝ) ^ ((1 : ℝ) / 96000) := by
       rw [Real.rpow_def_of_pos hzpos,
         show (2 : ℝ) = Real.exp (Real.log 2) from (Real.exp_log (by norm_num)).symm]
-      exact Real.exp_le_exp.mpr (by rw [hydef] at *; nlinarith [hL96])
+      exact Real.exp_le_exp.mpr (by rw [hydef] at *; linarith only [hdblexp, hmaster, hlog2])
     linarith
   have hW2nat : 2 ≤ Wp z := by
     have h : 1 < Wp z := by exact_mod_cast hWR1
@@ -388,7 +388,7 @@ theorem classIV_discharge :
     rw [vCut]
     apply Nat.le_floor
     have hexp : Real.log (P0p z) ≤ (2 : ℝ) / (R : ℝ) * Real.log (Wp z) := by
-      rw [div_mul_eq_mul_div, le_div_iff₀ hRpos]; nlinarith [hRlogP0]
+      rw [div_mul_eq_mul_div, le_div_iff₀ hRpos]; linarith only [hRlogP0]
     have hpow : (P0p z : ℝ) ≤ (Wp z : ℝ) ^ ((2 : ℝ) / (R : ℝ)) := by
       rw [← Real.exp_log hP0pos, ← Real.exp_log (Real.rpow_pos_of_pos hWpos _)]
       apply Real.exp_le_exp.mpr
@@ -406,7 +406,7 @@ theorem classIV_discharge :
     have hexp : Real.log 2 ≤ (2 : ℝ) / ((R + 1 : ℕ) : ℝ) * Real.log (Wp z) := by
       rw [show ((R + 1 : ℕ) : ℝ) = (R : ℝ) + 1 from by push_cast; ring,
         div_mul_eq_mul_div, le_div_iff₀ (by positivity)]
-      nlinarith [hR1P0, hlog2W]
+      linarith only [hR1P0, hlogWlo, hdblexp, hmaster, hlog2]
     have hpow : (2 : ℝ) ≤ (Wp z : ℝ) ^ ((2 : ℝ) / ((R + 1 : ℕ) : ℝ)) := by
       rw [← Real.log_le_log_iff (by norm_num) (Real.rpow_pos_of_pos hWpos _), Real.log_rpow hWpos]
       exact hexp
@@ -417,7 +417,7 @@ theorem classIV_discharge :
           mul_le_mul_of_nonneg_left hlogRP0 hRpos.le
       _ ≤ 2 * Real.log (Wp z) := hRlogP0
   have hlogzKd : Real.log z ≤ 48000 * Real.log ((Wp z : ℝ) ^ 2) := by
-    rw [Real.log_pow]; push_cast; nlinarith [hlogWlo]
+    rw [Real.log_pow]; push_cast; linarith only [hlogWlo]
   have hφpos : (0 : ℝ) < (q.totient : ℝ) := by exact_mod_cast Nat.totient_pos.mpr (by omega)
   have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
   have hzdiv : (z : ℝ) ^ ((1 : ℝ) / 8000) ≤ (z : ℝ) / (q.totient : ℝ) :=

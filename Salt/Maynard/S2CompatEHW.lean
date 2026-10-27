@@ -35,6 +35,9 @@ Everything is additive (`*W`-suffixed); no landed statement is touched.
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Finset
 
 /-! ## The base algebraic discrepancy bound (mirror of `abs_S2m_sub_compatMain_le`) -/
@@ -196,6 +199,8 @@ private def pairAssignSetW (k q : ℕ) :
     Finset ((p : ℕ) → p ∈ q.primeFactors → Fin k × Fin 3) :=
   q.primeFactors.pi (fun _ => (Finset.univ : Finset (Fin k × Fin 3)))
 
+/-- `|pairAssignSetW k q| = (3k) ^ ω(q)`: one choice of `Fin k × Fin 3` per prime factor of `q`
+(`Finset.card_pi`). -/
 private theorem pairAssignSetW_card (k q : ℕ) :
     (pairAssignSetW k q).card = (3 * k) ^ q.primeFactors.card := by
   rw [pairAssignSetW, Finset.card_pi, Finset.prod_const, Finset.card_univ,
@@ -443,6 +448,7 @@ private theorem fiberCardLeW {k R W' : ℕ} (hW' : Squarefree W') (m : Fin k) (q
 
 /-! ## The headline free-`W'` fiber bound (mirror of `compat_pair_fiber_le`) -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **W5-3 item 3 — the free-`W'` pair fiber count.**  A nonnegative `F` summed
 over compatible pairs (both in `kSieveIndex k R W'`, `dₘ = eₘ = 1`,
 non-collision), regrouped by their combined modulus `q = qModW k W' d e`, is

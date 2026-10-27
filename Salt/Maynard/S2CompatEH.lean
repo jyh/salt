@@ -32,8 +32,12 @@ regrouping, and `eh_error_pow` at both endpoints) is layered on top.
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 open Finset
 
+omit [TupleChoice] in
 /-- For a prime `p`, `p ∣ lcm a b ↔ p ∣ a ∨ p ∣ b` (via `lcm ∣ a*b` and `a,b ∣ lcm`). -/
 theorem prime_dvd_lcm_iff {p a b : ℕ} (hp : p.Prime) :
     p ∣ Nat.lcm a b ↔ p ∣ a ∨ p ∣ b := by

@@ -90,7 +90,7 @@ optimizes, and `hbCoreRate_at_hb_optimum` collapses them at `a = (log η)^{1/2}`
 `(2 + 4Cs)·L(log η)^{−1/2}` — **the paper's rate, arrived at from this file's own
 constants** rather than assumed.
 
-## 🔴 WHAT IS STILL CARRIED (the exact residue, named)
+## 🔴 WHAT WAS STILL CARRIED (items 1–3 since discharged: `hb_lemma3_unconditional`, `Lemma3Uncond`)
 
 `hb_lemma3_final`'s hypotheses beyond the transfer-side data (`hsq`, `hA`, `hres`, `hcoef`,
 inherited verbatim from N3) are:
@@ -106,11 +106,11 @@ inherited verbatim from N3) are:
 2. **`hβZ`, `hmβ`** — `(β₀ : ℂ) ∈ Z` and `1 ≤ m β₀`: the Siegel zero is one of the disk
    zeros, with multiplicity ≥ 1.  True, but *not exported*: `LFunction_partialFraction`
    states only `∀ ρ ∈ Z, L ρ = 0` (one direction), never `L ρ = 0 → ρ ∈ Z`.  Closing this
-   needs a strengthened export of the factorization (`Z = support (divisor …)`), not new
-   mathematics.
-3. **`hmz`** (in `invSq_sum_split_le`) — `m ρ ≤ zeroMult χ ρ` on `Z`.  Again true and again
-   unexported: `LFunction_partialFraction`'s `m` *is* `(divisor (LFunction χ) (ball c R) ·).toNat`,
-   which agrees with `analyticOrderNatAt` on the ball, but the existential hides it.
+   needed a strengthened export of the factorization (`Z = support (divisor …)`), not new
+   mathematics; `Lemma3Uncond.lean` closes it.
+3. **`hmz`** (in `invSq_sum_split_le`) — `m ρ ≤ zeroMult χ ρ` on `Z`.  True, and unexported when
+   written: `LFunction_partialFraction`'s `m` *is* `(divisor (LFunction χ) (ball c R) ·).toNat`,
+   which agrees with `analyticOrderNatAt` on the ball, but the existential hid it.
 4. **`hfloor`** — the Deuring–Heilbronn repulsion floor `r₀ ≤ ‖ρ − 1‖` off `β₀`.  This is
    *supplied*, not owed: N3's `one_sub_ceiling_le_dist_one` turns
    `Salt.SW.boxZeros_re_le_unit_box` / `boxZeros_re_le_at_efHeight` into exactly this shape.
@@ -172,6 +172,8 @@ private lemma re_term_twist {f : ℕ} (χ : DirichletCharacter ℂ f) (σ : ℝ)
   rw [term_twist_real χ σ n, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im]
   simp [chiRe]
 
+/-- The real part of the untwisted `L`-series term at a real `σ` is `Λ(n) n^{−σ}`: the term is
+the cast of that real number (`term_vm_real`), so `Complex.ofReal_re` reads it off. -/
 private lemma re_term_vm (σ : ℝ) (n : ℕ) :
     (LSeries.term ↗vonMangoldt (σ : ℂ) n).re = Λ n * (n : ℝ) ^ (-σ) := by
   rw [term_vm_real σ n, Complex.ofReal_re]
@@ -235,7 +237,7 @@ theorem neg_re_logDeriv_LFunction_le {f : ℕ} [NeZero f] (χ : DirichletCharact
     have hnn : (0 : ℝ) ≤ Λ n * (n : ℝ) ^ (-σ) :=
       mul_nonneg ArithmeticFunction.vonMangoldt_nonneg (Real.rpow_nonneg (Nat.cast_nonneg n) _)
     have h := abs_le.mp (chiRe_abs_le_one χ n)
-    nlinarith [h.2]
+    nlinarith only [hnn, h]
   refine le_trans (Summable.tsum_le_tsum hdom (summable_twist_real χ h1)
     (summable_vm_real h1)) ?_
   rw [← neg_re_logDeriv_zeta_eq_tsum h1]
@@ -329,7 +331,7 @@ lemma per_zero_inv_diff_le {σ σ' r0 : ℝ} {ρ : ℂ} (hσ1 : 1 ≤ σ) (hlt :
     rw [hcast, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (by linarith)]
   rw [hnum]
   have hden : ‖ρ - 1‖ ^ 2 / 4 ≤ ‖(σ : ℂ) - ρ‖ * ‖(σ' : ℂ) - ρ‖ := by
-    nlinarith [hlow, hlow', hρ0]
+    nlinarith only [hlow, hlow', hfl, hσr, hσ1]
   have hzpos : (0 : ℝ) < ‖(σ : ℂ) - ρ‖ := by
     rcases (norm_nonneg ((σ : ℂ) - ρ)).lt_or_eq with h | h
     · exact h
@@ -339,7 +341,7 @@ lemma per_zero_inv_diff_le {σ σ' r0 : ℝ} {ρ : ℂ} (hσ1 : 1 ≤ σ) (hlt :
     · exact h
     · exact absurd (norm_eq_zero.mp h.symm) hw
   rw [div_le_div_iff₀ (by positivity) (by positivity)]
-  nlinarith [hden, sub_nonneg.mpr hlt]
+  nlinarith only [hlt, hden]
 
 /-- **THE DIFFERENCING (HB (4.1)+(4.2)), abstract in the partial-fraction data.**  Let `Lf`
 be any function admitting the partial-fraction shape at the two real points `σ ≤ σ′`, with
@@ -428,7 +430,7 @@ theorem neg_re_logDeriv_differenced {Lf : ℂ → ℂ} {Z : Finset ℂ} {m : ℂ
     have he2 : (m (β₀ : ℂ) : ℝ) / (σ - β₀) = (m (β₀ : ℂ) : ℝ) * (1 / (σ - β₀)) := by
       rw [mul_one_div]
     rw [he1, he2]
-    nlinarith [hstep]
+    linarith only [hstep]
   -- the remaining zeros: paid at `4(σ′−σ)‖ρ−1‖^{−2}`
   have hother : ∑ ρ ∈ Z.erase ((β₀ : ℂ)),
       (((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re)
@@ -630,10 +632,10 @@ theorem invSq_sum_split_le : ∃ C : ℝ, 0 < C ∧
     have hstep : ∀ ρ ∈ Zf, (m ρ : ℝ) / ‖ρ - 1‖ ^ 2 ≤ 16 * (m ρ : ℝ) := by
       intro ρ hρ
       have hbig : (1 : ℝ) / 4 ≤ ‖ρ - 1‖ := not_lt.mp (Finset.mem_filter.mp hρ).2
-      have hsq : (1 : ℝ) / 16 ≤ ‖ρ - 1‖ ^ 2 := by nlinarith [hbig]
-      have hpos : (0 : ℝ) < ‖ρ - 1‖ ^ 2 := by nlinarith [hbig]
+      have hsq : (1 : ℝ) / 16 ≤ ‖ρ - 1‖ ^ 2 := by nlinarith only [hbig]
+      have hpos : (0 : ℝ) < ‖ρ - 1‖ ^ 2 := by linarith only [hsq]
       rw [div_le_iff₀ hpos]
-      nlinarith [hsq, Nat.cast_nonneg (α := ℝ) (m ρ)]
+      nlinarith only [hsq, (Nat.cast_nonneg _ : 0 ≤ ↑(m ρ))]
     refine le_trans (Finset.sum_le_sum hstep) ?_
     rw [← Finset.mul_sum]
     have hsub : ∑ ρ ∈ Zf, (m ρ : ℝ) ≤ ∑ ρ ∈ Z, (m ρ : ℝ) :=
@@ -681,8 +683,8 @@ theorem hbCoreRate_at_operating_point {Lp a ell Sinv Rrem Cs : ℝ}
     ring
   have hmono : 4 * Cs * ((a - 1) * Lp / ell) ≤ 4 * Cs * (a * Lp / ell) := by
     have hstep : (a - 1) * Lp / ell ≤ a * Lp / ell :=
-      (div_le_div_iff_of_pos_right hell).mpr (by nlinarith [hL.le])
-    nlinarith [hstep, hCs]
+      (div_le_div_iff_of_pos_right hell).mpr (by linarith only [hL])
+    nlinarith only [hCs, hstep]
   have hinv : 2 * (1 / ((1 + a / Lp) - 1)) = 2 * (Lp / a) := by
     have : (1 + a / Lp) - 1 = a / Lp := by ring
     rw [this, one_div_div]

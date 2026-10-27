@@ -247,8 +247,8 @@ theorem perron_gt_one {y c T : ℝ} (hy : 1 < y) (hc : 0 < c) (hT : 0 < T) :
       gcongr
     have hb2 : 2 * T * (1 / (R * Real.log y)) ≤ ε * R := by
       rw [mul_one_div, div_le_iff₀ (mul_pos hR0 hlog)]
-      nlinarith [hRbig, mul_nonneg (mul_nonneg (mul_nonneg hε.le hlog.le) hR0.le)
-        (by linarith : (0 : ℝ) ≤ R - 1)]
+      linarith only [hRbig, mul_nonneg (mul_nonneg (mul_nonneg hε.le hlog.le) hR0.le)
+          (by linarith : (0 : ℝ) ≤ R - 1)]
     linarith
   -- assemble
   rw [hid]
@@ -363,8 +363,8 @@ theorem perron_lt_one {y c T : ℝ} (hy0 : 0 < y) (hy1 : y < 1) (hc : 0 < c) (hT
     have hb1 : 2 * T * (y : ℝ) ^ R ≤ 2 * T * (1 / (R * M)) := by gcongr
     have hb2 : 2 * T * (1 / (R * M)) ≤ ε * R := by
       rw [mul_one_div, div_le_iff₀ (mul_pos hR0 hMpos)]
-      nlinarith [hRbig, mul_nonneg (mul_nonneg (mul_nonneg hε.le hMpos.le) hR0.le)
-        (by linarith : (0 : ℝ) ≤ R - 1)]
+      linarith only [hRbig, mul_nonneg (mul_nonneg (mul_nonneg hε.le hMpos.le) hR0.le)
+          (by linarith : (0 : ℝ) ≤ R - 1)]
     linarith
   -- assemble
   rw [hid]

@@ -36,8 +36,8 @@ count in a length-`x` window), and the level is `z²`.
 
 ## What is proven here (sorry-free)
 
-* `Salt.HB.card_apResidues` — the CRT cardinality: the AP-pair + twin residues
-  mod `d·d₁·d₂` number exactly `ρ(d)` (mirrors `rho_mul_of_coprime`).
+* `Salt.HB.card_apResidues` — the CRT cardinality: for pairwise coprime positive `d, d₁, d₂`,
+  the AP-pair + twin residues mod `d·d₁·d₂` number exactly `ρ(d)` (mirrors `rho_mul_of_coprime`).
 * `Salt.HB.hbPairSieve` — the `SelbergSieve` instance.
 * `Salt.HB.hbPairSieve_siftedSum` — `siftedSum = S(d₁,d₂;z)` as an explicit
   `Finset.card`.
@@ -87,14 +87,18 @@ noncomputable def hbPairSieve (x d₁ d₂ z : ℕ) (hz : 1 ≤ z) : SelbergSiev
   level := (z : ℝ) ^ 2
   one_le_level := by
     have hz1 : (1 : ℝ) ≤ (z : ℝ) := by exact_mod_cast hz
-    nlinarith
+    nlinarith only [hz1, Mathlib.Tactic.Linarith.natCast_nonneg ℝ z]
 
 variable {x d₁ d₂ z : ℕ} {hz : 1 ≤ z}
 
+/-- The AP-pair twin sieve's `prodPrimes` is `primorial z`, by `rfl`. -/
 @[simp] lemma hbPairSieve_prodPrimes : (hbPairSieve x d₁ d₂ z hz).prodPrimes = primorial z := rfl
+/-- The AP-pair twin sieve's `totalMass` is `x/(d₁ d₂)`, by `rfl`. -/
 @[simp] lemma hbPairSieve_totalMass :
     (hbPairSieve x d₁ d₂ z hz).totalMass = (x : ℝ) / (d₁ * d₂) := rfl
+/-- The AP-pair twin sieve's `level` is `z²`, by `rfl`. -/
 @[simp] lemma hbPairSieve_level : (hbPairSieve x d₁ d₂ z hz).level = (z : ℝ) ^ 2 := rfl
+/-- The AP-pair twin sieve's `nu` is the twin density `Salt.TwinSieve.nu`, by `rfl`. -/
 @[simp] lemma hbPairSieve_nu : (hbPairSieve x d₁ d₂ z hz).nu = Salt.TwinSieve.nu := rfl
 
 /-- `multSum d` counts `n ∈ A` with `d ∣ n(n+2)` (the sifting variable). -/
@@ -125,6 +129,7 @@ lemma hbPairSieve_siftedSum :
 def apResSet (d d₁ d₂ : ℕ) : Finset ℕ :=
   (Finset.range (d * d₁ * d₂)).filter (fun r => d₁ ∣ r ∧ d₂ ∣ (r + 2) ∧ d ∣ r * (r + 2))
 
+/-- The AP-pair residue set is a filter of `Finset.range (d d₁ d₂)` (`Finset.filter_subset`). -/
 lemma apResSet_subset_range (d d₁ d₂ : ℕ) :
     apResSet d d₁ d₂ ⊆ Finset.range (d * d₁ * d₂) := Finset.filter_subset _ _
 

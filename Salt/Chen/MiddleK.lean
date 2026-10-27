@@ -98,7 +98,7 @@ theorem hDsq_of_floor {x N D : ℕ}
     have hsplit : (x : ℝ) ^ ((2 : ℝ) / 3) = (x : ℝ) ^ ((1 : ℝ) / 2) * (x : ℝ) ^ ((1 : ℝ) / 6) := by
       rw [← Real.rpow_add hxpos, show (1 : ℝ) / 2 + 1 / 6 = 2 / 3 by norm_num]
     rw [hsplit]
-    nlinarith [hx16, h12nn]
+    nlinarith only [hsqrt_eq, hx16, hDx, (Nat.cast_nonneg _ : 0 ≤ ↑D)]
   have hx13x13 : (x : ℝ) ^ ((1 : ℝ) / 3) * (x : ℝ) ^ ((1 : ℝ) / 3) = (x : ℝ) ^ ((2 : ℝ) / 3) := by
     rw [← Real.rpow_add hxpos, show (1 : ℝ) / 3 + 1 / 3 = 2 / 3 by norm_num]
   have h8pos : (0 : ℝ) ≤ (x : ℝ) ^ ((1 : ℝ) / 3) / 8 := by positivity
@@ -129,13 +129,9 @@ routing (`pieceM_le_two_pow`/`two_pow_le_pieceM`/`sum_norm_apDiscBilinCutoff_pie
 by the `y` routing (`middle_k_M_le_two_y` / `y ≤ pieceM k` / NO bridge).  The `habs` row enters in
 the `2^k·M` shape `band_habs_row` supplies and is weakened to `y·M` via `2^k ≤ y`. -/
 
-/-- **`middle_medium_box_price_at_y` (single-`T` core).**  `medium_box_price_at_op_band` at
-`N := y` and indicator `blockPrimeInd y`: the generic terminal `medium_survivor_price_sqrtD`
-(`A=13`, `C0=18`, `B=15`) applied to a generic `0/1` carrier `α`, with the band `D0` window at
-`N := y` (`d0_window_of_XM_band`), the couplings at `logN := log y`, and the `habs` row taken in
-the `2^k·M/L^13` shape (weakened to `y·M/L^13` via `2^k ≤ y`).  The price is the Kerr form at
-`log y`. -/
-theorem middle_medium_box_price_at_y :
+/-- `middle_medium_box_price_at_y` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem middle_medium_box_price_at_y_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
       ∀ (x : ℕ) (Lb : ℝ) (F k y : ℕ) (α : ℕ → ℂ) (X T D : ℕ)
         (Dset : Finset ℕ) (r : ℕ → ℕ),
@@ -182,7 +178,8 @@ theorem middle_medium_box_price_at_y :
                       * Kbeta'_min K (Real.log ((X : ℝ) * (pieceM k : ℝ)))
                           (Real.log (y : ℝ)) 13 18 + 15360 + 1)))
             * ((X : ℝ) * (pieceM k : ℝ)) / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (13 : ℝ) := by
-  obtain ⟨K, N₀, hK0, hbody⟩ := medium_survivor_price_sqrtD (A := 13) (C0 := 18) (by norm_num)
+  obtain ⟨K, N₀, hK0, hbody⟩ :=
+      medium_survivor_price_sqrtD_of_SW hSWall (A := 13) (C0 := 18) (by norm_num)
     (by norm_num)
   refine ⟨K, N₀, hK0, fun x Lb F k y α X T D Dset r hk hmidlo hmidhi hx hy hXMlo hXMhi hα hd1
     hcop2 hDsetD hN₀ hL2 hX2 hD1 hDge_x hDscale hDsq habs hXsqrt hMsqrt herr_lev herr_Mlev hFX
@@ -255,6 +252,61 @@ theorem middle_medium_box_price_at_y :
     habs_y hX2 hM2 (by norm_num) (by norm_num) hd_eq hd_2D0 hD0D rfl hDscale hD0lo_main hXsqrt
     hMsqrt herr_lev herr_D0lo herr_Mlev hFX hDx hLbb hfloor herr_LEpos herr_D0E hDXM herr_scale
     hcoupG hcoup3 herr_book4
+
+/-- **`middle_medium_box_price_at_y` (single-`T` core).**  `medium_box_price_at_op_band` at
+`N := y` and indicator `blockPrimeInd y`: the generic terminal `medium_survivor_price_sqrtD`
+(`A=13`, `C0=18`, `B=15`) applied to a generic `0/1` carrier `α`, with the band `D0` window at
+`N := y` (`d0_window_of_XM_band`), the couplings at `logN := log y`, and the `habs` row taken in
+the `2^k·M/L^13` shape (weakened to `y·M/L^13` via `2^k ≤ y`).  The price is the Kerr form at
+`log y`. -/
+theorem middle_medium_box_price_at_y :
+    ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
+      ∀ (x : ℕ) (Lb : ℝ) (F k y : ℕ) (α : ℕ → ℂ) (X T D : ℕ)
+        (Dset : Finset ℕ) (r : ℕ → ℕ),
+        2 ≤ k →
+        pieceN k < y →
+        y < pieceM k →
+        Real.exp (10 ^ 10) ≤ (x : ℝ) →
+        (x : ℝ) ^ ((1 : ℝ) / 3) / 8 ≤ (y : ℝ) →
+        x / 2 + 1 < X * pieceM k →
+        X * pieceM k ≤ 4 * x →
+        (∀ m, ‖α m‖ ≤ 1) →
+        (∀ d ∈ Dset, 1 ≤ d) →
+        (∀ d ∈ Dset, Nat.Coprime (r d) d) →
+        (∀ d ∈ Dset, d ≤ D) →
+        N₀ ≤ y →
+        2 ≤ Real.log ((X : ℝ) * (pieceM k : ℝ)) →
+        2 ≤ X →
+        1 ≤ D →
+        (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (D : ℝ) →
+        ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (pieceM k : ℝ))
+            / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (15 : ℝ)) →
+        D < (y + 1) * (y + 1) →
+        (4 * (1 + Real.log D) * (D : ℝ)
+            ≤ ((2 ^ k : ℕ) : ℝ) * (pieceM k : ℝ)
+                / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (13 : ℝ)) →
+        ((Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 3) ≤ Real.sqrt (X : ℝ)) →
+        ((Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 3) ≤ Real.sqrt (pieceM k : ℝ)) →
+        ((D : ℝ) * (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt ((X : ℝ) * (pieceM k : ℝ))) →
+        ((Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 5) ≤ Real.sqrt (pieceM k : ℝ)) →
+        F ≤ X →
+        ((D : ℝ) ≤ Real.sqrt (x : ℝ)) →
+        (Real.log ((X : ℝ) * (pieceM k : ℝ)) ≤ Lb) →
+        (((3 : ℝ) / Real.log 2) ^ 8 * (x : ℝ) ^ ((1 : ℝ) / 6) * Lb ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt (F : ℝ)) →
+        ((D : ℝ) ≤ (X : ℝ) * (pieceM k : ℝ)) →
+        ∑ d ∈ Dset,
+            ‖apDiscBilinCutoff α (blockPrimeInd y) X (pieceM k) (r d) d T‖
+          ≤ (Kbeta_min K (Real.log ((X : ℝ) * (pieceM k : ℝ)))
+                  (Real.log (y : ℝ)) 13 18
+              + (6 * (Km_min K (Real.log ((X : ℝ) * (pieceM k : ℝ)))
+                        (Real.log (y : ℝ)) 13 18 + 448 + 32 * Real.sqrt 26)
+                  + ((2 : ℝ) ^ ((13 : ℝ) + 5)
+                      * Kbeta'_min K (Real.log ((X : ℝ) * (pieceM k : ℝ)))
+                          (Real.log (y : ℝ)) 13 18 + 15360 + 1)))
+            * ((X : ℝ) * (pieceM k : ℝ)) / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (13 : ℝ) :=
+  middle_medium_box_price_at_y_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## §2 — `middle_k_price` : the two-`T` composition at the middle-`k` sym carrier
 (mandate item 2)
@@ -386,7 +438,7 @@ theorem middle_k_price (z y Ps Q a : ℕ) (hQ1 : 1 ≤ Q) (hPspos : 0 < Ps)
     have hsx : Real.sqrt x ≤ (x : ℝ) / 2 := by
       rw [show (x : ℝ) / 2 = Real.sqrt (((x : ℝ) / 2) ^ 2) by rw [Real.sqrt_sq (by positivity)]]
       apply Real.sqrt_le_sqrt
-      nlinarith [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
+      linarith only [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
     have hXMloR : (x : ℝ) / 2 < (X : ℝ) * (pieceM k : ℝ) := by
       have hxlt : x < 2 * (x / 2 + 1) := by omega
       have hxltR : (x : ℝ) < 2 * ((x / 2 + 1 : ℕ) : ℝ) := by exact_mod_cast hxlt

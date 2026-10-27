@@ -63,7 +63,7 @@ private lemma lcard_le_of_pos {X h y : ℝ} (hy : (0 : ℝ) ≤ y) (hh : (0 : �
     ((Finset.Ioc ⌊y⌋₊ ⌊y + y * h / X⌋₊).card : ℝ) ≤ y * h / X + 1 := by
   have hnn : (0 : ℝ) ≤ y + y * h / X := by positivity
   have hmono : ⌊y⌋₊ ≤ ⌊y + y * h / X⌋₊ :=
-    Nat.floor_mono (by nlinarith [div_nonneg (mul_nonneg hy hh) hX.le])
+    Nat.floor_mono (by linarith only [div_nonneg (mul_nonneg hy hh) hX.le])
   rw [Nat.card_Ioc, Nat.cast_sub hmono]
   have hup : (⌊y + y * h / X⌋₊ : ℝ) ≤ y + y * h / X := Nat.floor_le hnn
   have hlo : y - 1 < (⌊y⌋₊ : ℝ) := by have := Nat.lt_floor_add_one y; linarith
@@ -96,7 +96,7 @@ theorem ramp_sliver_bound_const (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g 
   have hhval : h = X / sq := by rw [hh, hsqdef]
   have hhpos : (0 : ℝ) < h := by rw [hhval]; positivity
   have hhnn : (0 : ℝ) ≤ h := hhpos.le
-  have hhX : h ≤ X := by rw [hhval, div_le_iff₀ hsqpos]; nlinarith
+  have hhX : h ≤ X := by rw [hhval, div_le_iff₀ hsqpos]; nlinarith only [hXpos, hsq1]
   have hypos : (0 : ℝ) < y := by linarith
   have hy2 : (2 : ℝ) ≤ y := by linarith
   have hygate' : sq ≤ y := by rw [hsqdef]; exact hygate
@@ -126,7 +126,7 @@ theorem ramp_sliver_bound_const (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g 
       have h2 : (⌊y + y * h / X⌋₊ : ℝ) ≤ y + y * h / X :=
         Nat.floor_le (by positivity)
       have h3 : y * h / X ≤ y := by
-        rw [div_le_iff₀ hXpos]; nlinarith
+        rw [div_le_iff₀ hXpos]; nlinarith only [hy10, hhX]
       linarith
     -- factor out ‖Λ_ℓ l‖
     rw [← Finset.sum_mul]
@@ -169,7 +169,7 @@ theorem ramp_sliver_bound_const (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g 
     have h_hy_le : h / y ≤ X / LX := by
       rw [hhval, div_div]
       rw [div_le_div_iff₀ (by positivity) hLpos]
-      nlinarith [hsqsq, mul_le_mul_of_nonneg_left hygate' hsqpos.le]
+      nlinarith only [hXpos, hsqsq, mul_le_mul_of_nonneg_left hygate' hsqpos.le]
     rw [h_hhX]; linarith
   -- assemble: M = C_cheb·(h/y)·log(2y), so (y·h/X+1)·M = C_cheb·log(2y)·((y·h/X+1)·(h/y))
   have hrw : (y * h / X + 1) * M = C_cheb * Real.log (2 * y) * ((y * h / X + 1) * (h / y)) := by
@@ -228,11 +228,11 @@ theorem window_regime_of_large {X h y : ℝ} (hXbig : (17179869184 : ℝ) ≤ X)
   have hsqge1 : (1 : ℝ) ≤ Real.sqrt (Real.log X) := by
     rw [show (1 : ℝ) = Real.sqrt 1 by simp]; exact Real.sqrt_le_sqrt hlogX1
   have hh0 : (0 : ℝ) < h := by rw [hh]; exact div_pos hXpos hsqlogX
-  have hhX : h ≤ X := by rw [hh, div_le_iff₀ hsqlogX]; nlinarith [hsqge1, hXpos]
+  have hhX : h ≤ X := by rw [hh, div_le_iff₀ hsqlogX]; nlinarith only [hXbig, hsqge1]
   have hy0 : (0 : ℝ) < y := by linarith
   have hsqrtXnn : (0 : ℝ) ≤ Real.sqrt X := Real.sqrt_nonneg _
   have hsqrtXge : (131072 : ℝ) ≤ Real.sqrt X := by
-    have h1 : ((131072 : ℝ)) ^ 2 ≤ X := by nlinarith [hXbig]
+    have h1 : ((131072 : ℝ)) ^ 2 ≤ X := by linarith only [hXbig]
     calc (131072 : ℝ) = Real.sqrt (131072 ^ 2) := (Real.sqrt_sq (by norm_num)).symm
       _ ≤ Real.sqrt X := Real.sqrt_le_sqrt h1
   intro l hl
@@ -254,7 +254,7 @@ theorem window_regime_of_large {X h y : ℝ} (hXbig : (17179869184 : ℝ) ≤ X)
     linarith [hyh, hyX]
   have hXl_ge : Real.sqrt X / 2 ≤ X / (l : ℝ) := by
     rw [div_le_div_iff₀ (by norm_num : (0 : ℝ) < 2) hlpos]
-    nlinarith [Real.mul_self_sqrt hXpos.le, mul_le_mul_of_nonneg_left hle2sqrt hsqrtXnn]
+    linarith only [mul_le_mul_of_nonneg_left hle2sqrt hsqrtXnn, Real.mul_self_sqrt hXpos.le]
   have hXlpos : (0 : ℝ) < X / (l : ℝ) := div_pos hXpos hlpos
   refine ⟨?_, ?_, ?_⟩
   · -- (a) 65536 ≤ X/l
@@ -324,7 +324,7 @@ theorem prop21_unconditional_ofC (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g
     exact hg p hp
   have hyXh : y ≤ X + h := by
     have hsqrtle : Real.sqrt X ≤ X := by
-      have h1 : Real.sqrt X ≤ Real.sqrt (X * X) := Real.sqrt_le_sqrt (by nlinarith)
+      have h1 : Real.sqrt X ≤ Real.sqrt (X * X) := Real.sqrt_le_sqrt (by nlinarith only [hX])
       rwa [Real.sqrt_mul_self (by linarith)] at h1
     linarith
   refine prop21_analog (ellLin_norm_le_one g hg) t₀ hX hh hc₀ ?_
@@ -413,7 +413,7 @@ theorem prop21_unconditional_uniform (g : ℕ → ℂ) (hg : ∀ p, p.Prime → 
   have hsqge1 : (1 : ℝ) ≤ Real.sqrt (Real.log X) := by
     rw [show (1 : ℝ) = Real.sqrt 1 by simp]; exact Real.sqrt_le_sqrt hlogX1
   have hh0 : (0 : ℝ) < h := by rw [hh]; exact div_pos hXpos hsqlogX
-  have hhX : h ≤ X := by rw [hh, div_le_iff₀ hsqlogX]; nlinarith [hsqge1, hXpos]
+  have hhX : h ≤ X := by rw [hh, div_le_iff₀ hsqlogX]; nlinarith only [hXbig, hsqge1]
   have hy0 : (0 : ℝ) < y := by linarith
   have hlogy : (0 : ℝ) < Real.log y := Real.log_pos (by linarith)
   have hexp10 : Real.exp 1 ≤ 10 := by linarith [Real.exp_one_lt_three]
@@ -497,8 +497,8 @@ theorem prop21_uniform_at_scale (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g 
     have hpos : (0 : ℝ) < 1 / Real.log X := by positivity
     linarith
   have hy10 : (10 : ℝ) ≤ Real.log X ^ 4 := by
-    have h2 : (4 : ℝ) ≤ Real.log X * Real.log X := by nlinarith
-    nlinarith [h2, sq_nonneg (Real.log X * Real.log X - 4)]
+    have h2 : (4 : ℝ) ≤ Real.log X * Real.log X := by nlinarith only [hL2]
+    linarith only [h2, sq_nonneg (Real.log X * Real.log X - 4)]
   have hyX : Real.log X ^ 4 ≤ Real.sqrt X := by
     have hkey := hX₁ X hXX₁
     have h0 : (0 : ℝ) ≤ Real.sqrt X := Real.sqrt_nonneg X

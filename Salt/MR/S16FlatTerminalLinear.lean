@@ -66,7 +66,7 @@ def S16BandLaneCBoundedL (K : ℕ) : Prop :=
 
 /-! ## §1 — THE CONSTANT-POOL FUSE AT `0 ≤ C_p`, AT THE LINEAR LADDER -/
 
-/-- `S12ConstCompose.ftl_one_le_log_of_three_le`, re-proved (the landed lemma is `private`).
+/-- `S12ConstCompose.s12c_one_le_log_of_three_le`, re-proved (the landed lemma is `private`).
 Ladder-BLIND. -/
 private lemma ftl_one_le_log_of_three_le {Xd : ℕ} (h : (3 : ℝ) ≤ ((Xd : ℕ) : ℝ)) :
     (1 : ℝ) ≤ Real.log ((Xd : ℕ) : ℝ) := by
@@ -1501,7 +1501,7 @@ theorem flat_witFloor_eq_designBase_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h 
 own exported pins, the pinned base collapses to `flatDesignBase A = ⌈e^{e^{3.2A}}⌉₊` as soon
 as the ONE opaque arm `Hopq` is inside it.  `Hopq` is the road's
 `max (max H₀red H₀D3) H₀xi`, whose `H₀red`/`H₀D3` carry the SIEGEL-INEFFECTIVE `K_Chen`
-(`⌈e^{64·K_Chen}⌉+1`, FORMALLY UNBOUNDED at `S16Budget:887`).  So `Hopq ≤ flatDesignBase A`
+(`⌈e^{64·K_Chen}⌉+1`, FORMALLY UNBOUNDED at `S16Budget · logChowla2_witnessed_scale_final'`).  So `Hopq ≤ flatDesignBase A`
 is the honest surviving form of the old width rider: one Siegel ask, the same genre as the
 `x₀` window. -/
 theorem flat_witFloor_eq_designBase {A β : ℝ} {ε : ℚ} {Hopq : ℕ} (hA : 162 ≤ A) (hβ : 0 < β)
@@ -1638,7 +1638,7 @@ design floor `A₀ ≥ 162`.  The inner implication asks for, in order:
    sits under `flatDesignBase A = ⌈e^{e^{3.2A}}⌉₊`.  What remains is exactly ONE arm:
    `Hopq` (`HloExportFlat`: `max (max H₀red H₀D3) H₀xi`, whose `H₀red = H₀D3 = max (96^8)
    (⌈e^{64·K_Chen}⌉+1)` carries the SIEGEL-INEFFECTIVE `K_Chen`, recorded FORMALLY UNBOUNDED
-   at `S16Budget:887`).  So this rider is a quantitative bound on a Siegel-ineffective
+   at `S16Budget · logChowla2_witnessed_scale_final'`).  So this rider is a quantitative bound on a Siegel-ineffective
    constant — the SAME GENRE as rider 3's `x₀` window, not a free lunch — and the width
    demand itself is now REMOVED-BECAUSE-PROVEN (exported as a fact, conjunct 6 below);
 5. `S15CrossingBound_L_gk 32000000 R (flatDoorM A)` — the crossing bound at the linear
@@ -1736,7 +1736,7 @@ now-exported width certificate (`htow`, verbatim the shape §6 hands out) plus a
 AT its design law give the register's `hhi` line.  What rider 4 of §6 asks along THIS route
 is therefore a CEILING on `flatWitFloor`'s opaque arm — the road's `Hopq`, whose `H₀red`/
 `H₀D3` are built from the SIEGEL-INEFFECTIVE `K_Chen` (`⌈e^{64·K_Chen}⌉+1`, recorded FORMALLY
-UNBOUNDED at `S16Budget:887`).  So this IS an analytic ask, of the same genre as the `x₀`
+UNBOUNDED at `S16Budget · logChowla2_witnessed_scale_final'`).  So this IS an analytic ask, of the same genre as the `x₀`
 window of rider 3: it says `K_Chen` is not astronomically large.  The route is also the
 LOSSY one — it demands the base at its design law EXACTLY, and ⟦REF-FLAT-SAT⟧ showed that
 demand is not met: `flatDesignBase A = ⌈e^{e^{3.2A}}⌉₊`'s `Nat.ceil` overshoots, so the
@@ -2392,7 +2392,7 @@ cannot carry it — it clears `h = 1` by `1.14×` — so the tower floor is not 
 the only floor that works at any `h ≥ 2`.
 
 ⚠️ **`h ≤ 1202604` comes from `h_le_1202604_of_log_le_fourteen`** (LANDED,
-`GoldbachEnergyKcH.lean:129`), which sits OUTSIDE the 142-declaration MR population the cost
+`GoldbachEnergyKcH.lean · h_le_1202604_of_log_le_fourteen`), which sits OUTSIDE the 142-declaration MR population the cost
 ladder counts — which is why this rung's price does not include it.  *"Not built for my object"
 is not "not in the corpus".* -/
 theorem arc36_of_regime_h_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) {R : ChowlaRegime}

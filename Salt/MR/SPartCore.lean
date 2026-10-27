@@ -348,7 +348,7 @@ theorem pretDistSq_scale_gap {f g : ℕ → ℂ} (hf : ∀ p, ‖f p‖ ≤ 1) (
           refine Finset.sum_le_sum fun p hp => ?_
           have hnorm : ‖f p * (starRingEnd ℂ) (g p)‖ ≤ 1 := by
             rw [norm_mul, Complex.norm_conj]
-            nlinarith [hf p, hg p, norm_nonneg (f p), norm_nonneg (g p)]
+            nlinarith only [hf p, norm_nonneg (g p), hg p]
           have hre : -1 ≤ (f p * (starRingEnd ℂ) (g p)).re := by
             have h := (abs_le.mp (Complex.abs_re_le_norm (f p * (starRingEnd ℂ) (g p)))).1
             linarith
@@ -395,9 +395,9 @@ theorem pretDistSq_scale_gap_dilate {f g : ℕ → ℂ} (hf : ∀ p, ‖f p‖ �
       ≤ pretDistSq f g (X / D) := by
   have hD0 : (0 : ℝ) < D := by linarith
   have hXd : X / D * D = X := div_mul_cancel₀ X hD0.ne'
-  have hX0 : (0 : ℝ) < X := by nlinarith
+  have hX0 : (0 : ℝ) < X := by nlinarith only [hD, hu, hXd]
   have huX : X / D ≤ X := by
-    rw [div_le_iff₀ hD0]; nlinarith
+    rw [div_le_iff₀ hD0]; nlinarith only [hD, hX0]
   have hlogsplit : Real.log X - Real.log (X / D) = Real.log D := by
     rw [Real.log_div hX0.ne' hD0.ne']; ring
   have hgap := mertens_gap_le hu huX
@@ -526,8 +526,8 @@ theorem sum_tau_cube_le (s : ℝ) (N : ℕ) :
       ≤ (u.divisors.card : ℝ) ^ 2 * (v.divisors.card : ℝ) ^ 2 := by
     intro u v
     have h := card_divisors_mul_le_real u v
-    nlinarith [Nat.cast_nonneg (α := ℝ) ((u * v).divisors.card),
-      Nat.cast_nonneg (α := ℝ) u.divisors.card, Nat.cast_nonneg (α := ℝ) v.divisors.card]
+    nlinarith only [h,
+        (Nat.cast_nonneg _ : 0 ≤ ↑(u * v).divisors.card)]
   have h := sum_tau_weight_le (g := fun n => (n.divisors.card : ℝ) ^ 2)
     (fun n => by positivity) hsub s N
   have h2 : (∑ n ∈ Finset.Icc 1 N, (n.divisors.card : ℝ) ^ 2 * (n : ℝ) ^ (-s)) ^ 2
@@ -569,7 +569,7 @@ theorem step_three_halves {x : ℝ} (hx : 1 ≤ x) :
   have hB2 : B ^ 2 = x + 1 := Real.sq_sqrt hx1.le
   have hAB : A ≤ B := Real.sqrt_le_sqrt (by linarith)
   have hprod : (B - A) * (B + A) = 1 := by nlinarith [hA2, hB2]
-  have hABm : A * B ≤ B ^ 2 := by nlinarith [hAB, hA0, hB0]
+  have hABm : A * B ≤ B ^ 2 := by nlinarith only [hB0, hAB]
   have hmul : (2 * (B - A) * B ^ 2 - A) * (B + A) ≥ 0 := by nlinarith [hprod, hABm, hA2, hB2]
   have hkey : A ≤ 2 * (B - A) * B ^ 2 := by nlinarith [hmul, hA0, hB0]
   have hid : 2 / A - 2 / B - 1 / B ^ 3 = (2 * (B - A) * B ^ 2 - A) / (A * B ^ 3) := by
@@ -588,7 +588,7 @@ theorem step_two {x : ℝ} (hx : 1 ≤ x) :
   rw [rpow_neg_two hx1.le]
   have heq : 1 / x - 1 / (x + 1) = 1 / (x * (x + 1)) := by field_simp; ring
   rw [heq]
-  exact one_div_le_one_div_of_le (by positivity) (by nlinarith)
+  exact one_div_le_one_div_of_le (by positivity) (by linarith only [hx])
 
 /-- The `Icc`-to-`range` bridge for a summand vanishing at `0`. -/
 theorem sum_Icc_eq_sum_range_of_zero {f : ℕ → ℝ} (hf : f 0 = 0) (N : ℕ) :
@@ -804,8 +804,8 @@ theorem sPart_dirichlet_bound_three_quarters {F : ℕ → ℂ}
               have h2' := card_divisors_mul_le_real b b
               have hbb : b * (b * b) = b ^ 3 := by ring
               rw [hbb] at h1'
-              nlinarith [Nat.cast_nonneg (α := ℝ) b.divisors.card,
-                Nat.cast_nonneg (α := ℝ) (b * b).divisors.card]
+              nlinarith only [h2', h1',
+                  (Nat.cast_nonneg _ : 0 ≤ ↑b.divisors.card)]
             exact mul_le_mul hA hB (Nat.cast_nonneg _) (by positivity)
         _ = (a.divisors.card : ℝ) ^ 2 * (b.divisors.card : ℝ) ^ 3 := by ring
     have hwt : (d : ℝ) ^ (-(3 / 4 : ℝ))

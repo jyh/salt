@@ -7,6 +7,7 @@ import Mathlib
 import Salt.SW.MaxModulus
 import Salt.SW.ZeroFree
 import Salt.SW.ZetaPole
+import Salt.Tactic.ExpLogNum
 
 /-!
 # The SW rung, node S3e — Landau's one-exceptional-zero theorem (per modulus)
@@ -207,10 +208,7 @@ theorem landau_one_exceptional_at {q : ℕ} [NeZero q] {χ : DirichletCharacter 
   -- `L ≥ 2` (since `4q ≥ 8 > e²`)
   have hL2 : (2 : ℝ) ≤ Lq := by
     have hexp2 : Real.exp 2 ≤ 8 := by
-      have h1 := Real.exp_one_lt_d9
-      have h2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by
-        rw [← Real.exp_add]; norm_num
-      nlinarith [Real.exp_pos 1]
+      exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 8) (by norm_num)
     calc (2 : ℝ) = Real.log (Real.exp 2) := (Real.log_exp 2).symm
       _ ≤ Real.log (4 * (q : ℝ)) :=
           Real.log_le_log (Real.exp_pos 2) (by linarith [hexp2, hqR])

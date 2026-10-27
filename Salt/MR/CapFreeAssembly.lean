@@ -137,19 +137,19 @@ theorem cff_scale_facts {X : ℝ} (hX : Real.exp (Real.exp 1) ≤ X) :
   have he2 : (7 : ℝ) < Real.exp 2 := by
     have : Real.exp 2 = Real.exp 1 * Real.exp 1 := by
       rw [← Real.exp_add]; norm_num
-    rw [this]; nlinarith
+    rw [this]; nlinarith only [he]
   have he07 : (1.7 : ℝ) ≤ Real.exp 0.7 := by
     have := Real.add_one_le_exp (0.7 : ℝ); linarith
   have hsplit : Real.exp (2.7 : ℝ) = Real.exp 2 * Real.exp 0.7 := by
     rw [← Real.exp_add]; norm_num
   have h27 : (8 : ℝ) < Real.exp (2.7 : ℝ) := by
-    rw [hsplit]; nlinarith [Real.exp_pos (2 : ℝ), Real.exp_pos (0.7 : ℝ)]
+    rw [hsplit]; nlinarith only [he2, he07]
   have hmono : Real.exp (2.7 : ℝ) ≤ Real.exp (Real.exp 1) :=
     Real.exp_le_exp.mpr (by linarith)
   have hX8 : (8 : ℝ) ≤ X := by linarith
   have hXpos : (0 : ℝ) < X := by linarith
   have hlogX : Real.exp 1 ≤ Real.log X := (Real.le_log_iff_exp_le hXpos).mpr hX
-  have hlogXpos : (0 : ℝ) < Real.log X := by nlinarith [Real.exp_pos (1 : ℝ)]
+  have hlogXpos : (0 : ℝ) < Real.log X := by linarith only [hlogX, he]
   have hLL : (1 : ℝ) ≤ Real.log (Real.log X) :=
     (Real.le_log_iff_exp_le hlogXpos).mpr hlogX
   exact ⟨hX8, hlogX, hLL, Real.log_nonneg hLL⟩
@@ -168,11 +168,11 @@ stays `X`, never `3X`. -/
 theorem cff_box_loglog {X v : ℝ} (hX : Real.exp (Real.exp 1) ≤ X) (hv : |v| ≤ 3 * X) :
     Real.log (Real.log (|2 * v| + 3)) ≤ Real.log (Real.log X) + Real.log 2 := by
   obtain ⟨hX8, hlogX, _, _⟩ := cff_scale_facts hX
-  have hlogXpos : (0 : ℝ) < Real.log X := by nlinarith [Real.exp_pos (1 : ℝ)]
+  have hlogXpos : (0 : ℝ) < Real.log X := by linarith only [hlogX, Real.exp_pos (1 : ℝ)]
   have habs : |2 * v| = 2 * |v| := by
     rw [abs_mul, abs_of_nonneg (by norm_num : (0 : ℝ) ≤ 2)]
   have hbox : |2 * v| + 3 ≤ X ^ 2 := by
-    rw [habs]; nlinarith [abs_nonneg v]
+    rw [habs]; nlinarith only [hX8, hv]
   have hpos : (0 : ℝ) < |2 * v| + 3 := by positivity
   have hgt1 : (1 : ℝ) < |2 * v| + 3 := by linarith [abs_nonneg (2 * v)]
   have h1 : Real.log (|2 * v| + 3) ≤ Real.log (X ^ 2) := Real.log_le_log hpos hbox
@@ -194,13 +194,13 @@ theorem cff_box_logloglog {X v : ℝ} (hX : Real.exp (Real.exp 1) ≤ X) (hv : |
     Real.log (Real.log (Real.log (|2 * v| + 16)))
       ≤ Real.log (Real.log (Real.log X)) + Real.log 2 := by
   obtain ⟨hX8, hlogX, hLL, _⟩ := cff_scale_facts hX
-  have hlogXpos : (0 : ℝ) < Real.log X := by nlinarith [Real.exp_pos (1 : ℝ)]
+  have hlogXpos : (0 : ℝ) < Real.log X := by linarith only [hlogX, Real.exp_pos (1 : ℝ)]
   have hLLpos : (0 : ℝ) < Real.log (Real.log X) := by linarith
   have hlog2 := cff_log_two_le_one
   have habs : |2 * v| = 2 * |v| := by
     rw [abs_mul, abs_of_nonneg (by norm_num : (0 : ℝ) ≤ 2)]
   have hbox : |2 * v| + 16 ≤ X ^ 2 := by
-    rw [habs]; nlinarith [abs_nonneg v]
+    rw [habs]; nlinarith only [hX8, hv]
   have hpos : (0 : ℝ) < |2 * v| + 16 := by positivity
   have h1 : Real.log (|2 * v| + 16) ≤ Real.log (X ^ 2) := Real.log_le_log hpos hbox
   have h2 : Real.log (X ^ 2) = 2 * Real.log X := by rw [Real.log_pow]; norm_num
@@ -263,7 +263,7 @@ theorem primeDivSum_le_modulus {q : ℕ} (hq : q ≠ 0) (X : ℝ) : primeDivSum 
   have hcard : (q.primeFactors.card : ℝ) ≤ (q : ℝ) + 1 := by
     have : ((q.primeFactors.card : ℕ) : ℝ) ≤ ((q + 1 : ℕ) : ℝ) := by exact_mod_cast hcardN
     push_cast at this; linarith
-  have : (q.primeFactors.card : ℝ) * (1 / 2) ≤ (q : ℝ) := by nlinarith
+  have : (q.primeFactors.card : ℝ) * (1 / 2) ≤ (q : ℝ) := by linarith only [hcard, hq1]
   linarith [hstep, hhalf, hconst.le]
 
 /-! ## §3 — the three arms
@@ -383,7 +383,7 @@ theorem capFreeFloor3_all_chi (Q : ℕ) :
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero hq0
   have hlogq : (0 : ℝ) ≤ Real.log q := Real.log_nonneg hq1
   have hC1 : (1 : ℝ) ≤ vkEulerCorr q * vkTwistConst q := by
-    nlinarith [one_le_vkEulerCorr q, one_le_vkTwistConst (q := q)]
+    nlinarith only [one_le_vkEulerCorr q, one_le_vkTwistConst (q := q)]
   have hvkD : (0 : ℝ) ≤ vkDebitConst (vkEulerCorr q * vkTwistConst q) :=
     vkDebitConst_nonneg hC1
   have hvkM : (0 : ℝ) ≤ vkMidDebit q := vkMidDebit_nonneg q
@@ -473,7 +473,7 @@ theorem norm_liouChi_le_one {q : ℕ} (χ : DirichletCharacter ℂ q) (n : ℕ) 
   rw [norm_mul, Complex.norm_conj]
   have h1 := liouvilleC_norm_le_one n
   have h2 := DirichletCharacter.norm_le_one χ ((n : ℕ) : ZMod q)
-  nlinarith [norm_nonneg (liouvilleC n), norm_nonneg (χ ((n : ℕ) : ZMod q))]
+  nlinarith only [h1, h2, norm_nonneg (χ ((n : ℕ) : ZMod q))]
 
 /-- The floor transports from the pretentious datum to the sum-side datum. -/
 theorem capFreeFloor3_liouChi_of_lamChi {q : ℕ} (χ : DirichletCharacter ℂ q) {X : ℝ}

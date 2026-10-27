@@ -15,7 +15,7 @@ PDF itself** rather than from any summary (including this repo's own
 
 ⛔ **ERRATUM 2026-08-25 (second pass).**  This block is introduced as *MRT's text,
 verbatim*, and until now it read `(loglog h)²/(log h)` — **unsquared**.  The `46b7a5a9`
-repair moved the STATEMENT at `:94` and `MRTPropA3.lean:3809` and left this QUOTATION
+repair moved the STATEMENT at `:94` and `MRTPropA3.lean · mrtA4ii_far_of_either_estimate` and left this QUOTATION
 stale, so the file convicted its own theorem of an error the quote above it still
 committed.  *A fix reaches where the pain was felt; the quotation is a separate surface
 and it was not enumerated.*  Re-read at 200 dpi from p. 20 and corrected here.
@@ -184,7 +184,7 @@ theorem intervalIntegrable_mrtThmA1_integrand {f : ℕ → ℂ} (hf : ∀ n, ‖
     have hnn : (0 : ℝ) ≤ ((⌊2 * X + h⌋₊ : ℝ) + 1) / h := by positivity
     rw [Real.norm_of_nonneg (by positivity), Real.norm_of_nonneg (by positivity)]
     have h0 : (0 : ℝ) ≤ ‖mrtShortMean f h x‖ := norm_nonneg _
-    nlinarith [hb, h0, hnn]
+    nlinarith only [hb, h0, hnn]
 
 /-! ## The `j`-union's arithmetic half
 

@@ -34,6 +34,9 @@ open Finset
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-- **Crude second moment.**  `A₁⁽²⁾ ≤ T²·A₁` (thin wrapper over
 `A1_2_le_Tsq_mul_A1`, matching the brief's argument shape). -/
 theorem A1_2_le_Tsq (k R : ℕ) (T : ℝ) (hk : 1 ≤ k) (hR : 2 ≤ R) (_hT : 0 ≤ T) :
@@ -359,9 +362,9 @@ private lemma cheb_variance (k R : ℕ) (m : Fin k) (T : ℝ) (hk : 3 ≤ k)
     have h1k : (1 : ℝ) ≤ (k : ℝ) := by exact_mod_cast (by omega : 1 ≤ k)
     linarith
   have hinner : a * a2 - a1 ^ 2 ≤ T ^ 2 * a ^ 2 := by
-    nlinarith [mul_le_mul_of_nonneg_left ha2T ha_nn, sq_nonneg a1]
+    linarith only [mul_le_mul_of_nonneg_left ha2T ha_nn, sq_nonneg a1]
   have hk1P : (0 : ℝ) ≤ ((k : ℝ) - 1) * P := mul_nonneg hk1 hPnn
-  nlinarith [mul_le_mul_of_nonneg_left hinner hk1P]
+  linarith only [mul_le_mul_of_nonneg_left hinner hk1P]
 
 /-! ## The Chebyshev overshoot bound -/
 
@@ -390,7 +393,7 @@ theorem overshoot_cheb (k R : ℕ) (m : Fin k) (T c : ℝ) (hk : 3 ≤ k) (hR : 
   -- `μ ≤ (7/10)·k`.
   have hμle : μ ≤ (7 / 10 : ℝ) * (k : ℝ) := by
     rw [hμ, div_le_iff₀ hA1pos]
-    nlinarith [mul_le_mul_of_nonneg_left hA11 hk1, mul_nonneg hk1 hA1pos.le, hc, hA1pos.le]
+    nlinarith only [hc, hA1pos, mul_nonneg hk1 hA1pos.le, mul_le_mul_of_nonneg_left hA11 hk1]
   -- On the overshoot region, `k/10 ≤ (∑ uVal) − μ`, hence `1 ≤ (100/k²)(∑ uVal − μ)²`.
   have hMarkov : ∀ u ∈ (hmBox k R m T).filter
       (fun u => ¬ ((∑ i ∈ Finset.univ.erase m, uVal k R (u i)) < (k : ℝ) - T)),
@@ -409,7 +412,7 @@ theorem overshoot_cheb (k R : ℕ) (m : Fin k) (T c : ℝ) (hk : 3 ≤ k) (hR : 
     have h1 : (1 : ℝ)
         ≤ (100 / (k : ℝ) ^ 2) * ((∑ i ∈ Finset.univ.erase m, uVal k R (u i)) - μ) ^ 2 := by
       rw [div_mul_eq_mul_div, le_div_iff₀ (by positivity : (0 : ℝ) < (k : ℝ) ^ 2)]
-      nlinarith [hkk]
+      linarith only [hkk]
     calc hmW k R m T u
         = 1 * hmW k R m T u := (one_mul _).symm
       _ ≤ ((100 / (k : ℝ) ^ 2) * ((∑ i ∈ Finset.univ.erase m, uVal k R (u i)) - μ) ^ 2)
@@ -447,7 +450,7 @@ theorem overshoot_cheb (k R : ℕ) (m : Fin k) (T c : ℝ) (hk : 3 ≤ k) (hR : 
               = 100 / (k : ℝ) * (T ^ 2 * (A1 k R (W k) T) ^ (k - 1)) from by ring]
         apply mul_le_mul_of_nonneg_right _ hb
         rw [div_le_div_iff₀ (by positivity) hkpos]
-        nlinarith [hkpos]
+        linarith only [hkpos]
 
 /-! ## Full composition — the ratio hypothesis discharged (genuine o(1))
 

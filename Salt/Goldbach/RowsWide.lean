@@ -98,14 +98,9 @@ private theorem gold_Lpow_le_w {N : ℕ} {L : ℝ} (hlogN1 : 1 ≤ Real.log N)
 set_option maxHeartbeats 4000000 in
 -- The ~24-row wide-geometry discharge elaborates a long rpow/sqrt-bearing chain and applies the
 -- 39-hypothesis `gold_box_price_live_kerr`; the whnf/defeq checks need headroom above the default.
-/-- **`gold_box_rows_wide`.**  At a LIVE annulus box at op with a per-annulus level in the WIDE
-window `w ≤ D`, `D·L^{18} ≤ √(X·M)` (`L := log(X·M)`), the two-cutoff box price is
-`≤ boxPriceKerr Kc kp i` — every residual analytic row of `gold_box_price_live_kerr` discharged at
-the wide level.  Instantiable at `D := opD N` (the operating conductor) on annuli where
-`opD N · L^{18} ≤ √(X·M)` — in particular the top-grade annuli (`X·M ≈ 2N`), where the DSplit
-certificate `gold_dsplit_head_cap_below_conductor` showed the NARROW cap `2w` fell short.  Only the
-carrier/`Dset` rows (`hβ`/`hd1`/`hcop2`/`hDsetD`) remain, supplied by the assembly. -/
-theorem gold_box_rows_wide : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
+/-- `gold_box_rows_wide` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_box_rows_wide_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
     ∀ (N : ℕ), x₁ ≤ N →
       ∀ (β : ℕ → ℂ) (kp D : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (T₁ T₂ ka i K : ℕ),
         i ∈ dyadicBoundary (pieceN kp) (pieceM kp) (goldCut N ka) (goldCut N (ka + 1))
@@ -121,7 +116,7 @@ theorem gold_box_rows_wide : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
           + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp))
                 (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₁‖)
           ≤ boxPriceKerr Kc kp i := by
-  obtain ⟨Kc, N₀, hKc, hbody⟩ := gold_box_price_live_kerr
+  obtain ⟨Kc, N₀, hKc, hbody⟩ := (gold_box_price_live_kerr_of_SW hSWall)
   obtain ⟨xs, hs⟩ := gold_op_scales
   obtain ⟨xz, hzrows⟩ := gold_box_zx_rows
   obtain ⟨xp, hp⟩ := a12_logpow_le_rpow 18 (1 / 2000) (by norm_num) (by norm_num)
@@ -503,6 +498,31 @@ theorem gold_box_rows_wide : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
   exact hbody (N : ℝ) (Real.log (4 * (N : ℝ))) (opZ N * opY N) β kp D Dset r T₁ T₂ N (opZ N)
     (opY N) K ka i hN2 hi hlive hZ1 hz_ratio hx hDge hk hβ hN₀ hd1 hcop2 hL1 hD1 hDsetD hDsq habs
     hX2 hM2 hDscale hXsqrt hMsqrt herr_lev herr_Mlev hFXR hDx hLbb hfloor herr_LEpos hDXM herr_scale
+
+/-- **`gold_box_rows_wide`.**  At a LIVE annulus box at op with a per-annulus level in the WIDE
+window `w ≤ D`, `D·L^{18} ≤ √(X·M)` (`L := log(X·M)`), the two-cutoff box price is
+`≤ boxPriceKerr Kc kp i` — every residual analytic row of `gold_box_price_live_kerr` discharged at
+the wide level.  Instantiable at `D := opD N` (the operating conductor) on annuli where
+`opD N · L^{18} ≤ √(X·M)` — in particular the top-grade annuli (`X·M ≈ 2N`), where the DSplit
+certificate `gold_dsplit_head_cap_below_conductor` showed the NARROW cap `2w` fell short.  Only the
+carrier/`Dset` rows (`hβ`/`hd1`/`hcop2`/`hDsetD`) remain, supplied by the assembly. -/
+theorem gold_box_rows_wide : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
+    ∀ (N : ℕ), x₁ ≤ N →
+      ∀ (β : ℕ → ℂ) (kp D : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (T₁ T₂ ka i K : ℕ),
+        i ∈ dyadicBoundary (pieceN kp) (pieceM kp) (goldCut N ka) (goldCut N (ka + 1))
+          (opZ N * opY N) K →
+        2 ^ i < opZ N * pieceN kp + 1 →
+        ((goldCut N (ka + 1) : ℝ) / (8 * (opZ N : ℝ))) ^ ((1 : ℝ) / 2) ≤ (D : ℝ) →
+        (D : ℝ) * (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) →
+        (∀ m, ‖β m‖ ≤ 1) →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) → (∀ d ∈ Dset, d ≤ D) →
+        (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp))
+              (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₂‖)
+          + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp))
+                (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₁‖)
+          ≤ boxPriceKerr Kc kp i :=
+  gold_box_rows_wide_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## 2. Byte-lock — the wide bundle + the DSplit certificate it resolves -/
 

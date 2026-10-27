@@ -137,14 +137,14 @@ private lemma two_log_le_self_A {X : ℝ} (hX : 16 ≤ X) : 2 * Real.log X ≤ X
   have hlog : Real.log (Real.sqrt X) ≤ Real.sqrt X - 1 := Real.log_le_sub_one_of_pos hs0
   have hhalf : Real.log (Real.sqrt X) = Real.log X / 2 := Real.log_sqrt hX0.le
   have hsq : Real.sqrt X * Real.sqrt X = X := Real.mul_self_sqrt hX0.le
-  nlinarith [hs4, hlog, hsq, hhalf]
+  nlinarith only [hs0, hs4, hsq, hhalf, hlog]
 
 /-- `25 ≤ exp 8`.  (`GradeWindowC.twentyfive_le_exp_eight_B`, `private` there.) -/
 private lemma twentyfive_le_exp_eight_A : (25 : ℝ) ≤ Real.exp 8 := by
   have h4 : (5 : ℝ) ≤ Real.exp 4 := by linarith [Real.add_one_le_exp (4 : ℝ)]
   have hpos : (0 : ℝ) < Real.exp 4 := Real.exp_pos 4
   rw [show (8 : ℝ) = 4 + 4 from by norm_num, Real.exp_add]
-  nlinarith
+  nlinarith only [h4]
 
 /-- **THE GRADE PAGE** (`GradeWindowC.center_error_grade_B`, `private` there).  The two error
 legs of the centre composition — the desmooth cost `k/√(log k) + 1` and the S1′ `E`-error,
@@ -311,7 +311,7 @@ theorem center_halasz_supply_A :
   have hsqLk0 : (0 : ℝ) < Real.sqrt (Real.log (k : ℝ)) := by linarith
   have hh0 : (0 : ℝ) < (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) := by positivity
   have hhX : (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) ≤ (k : ℝ) := by
-    rw [div_le_iff₀ hsqLk0]; nlinarith
+    rw [div_le_iff₀ hsqLk0]; nlinarith only [hsqLk1, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   -- the two landed legs, at scale `k`
   have hdes := prop21_desmooth_reduction (f := ellLin g) (gJ := fun _ => 1) (t₀ + t₁)
     (fun n => ellLin_norm_le_one g hg n) (fun _ => by simp)
@@ -348,7 +348,7 @@ theorem center_halasz_supply_A :
         / Real.log ((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ)))
       ≤ 2 * (k : ℝ) / Real.log (k : ℝ) := by
     rw [div_le_div_iff₀ (by linarith) hLk0]
-    nlinarith
+    nlinarith only [hLklo, hhX, hL8, hlog2hi, hulogb, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
   have hEle : C_E * (((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ)))
           / Real.log ((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ))))
         * Real.log (Real.log (k : ℝ) ^ 4)
@@ -534,7 +534,7 @@ theorem caseA_partial_supply :
       Real.rpow_nonneg (Real.log_nonneg hW1) _
     have h3 : (0 : ℝ) ≤ farCStar := farCStar_nonneg
     have h4 : (0 : ℝ) ≤ Real.exp (-c * M) := (Real.exp_pos _).le
-    nlinarith
+    nlinarith only [h2, h3, h1, h4, hc1, hc0]
   -- the `hRHS` binder: §2 at each scale of the window
   have hRHS : ∀ k : ℕ, ⌊W⌋₊ ≤ k → k ≤ N →
       ‖prop21RHS (fun p => gxDatum g P Q x p
@@ -629,7 +629,7 @@ theorem caseA_damped_partial {g : ℕ → ℂ}
           + ‖∑ n ∈ Finset.Icc 1 k₀, ellLin (gxDatum g P Q x) n * eIu (-t) n‖ :=
           norm_sub_le _ _
       _ ≤ S * (m : ℝ) + S * (k₀ : ℝ) := add_le_add h1 h2
-      _ ≤ 2 * S * (m : ℝ) := by nlinarith
+      _ ≤ 2 * S * (m : ℝ) := by nlinarith only [hS0, hk₀m]
 
 /-- **E-2b — THE CASE-A `ramR` BOUND FROM THE SUPPLY** (`caseA_ramR_of_supplied`).  The
 `[0,1]` average (`CofactorBall.spolyA_ramRcoeff_le_of_damp`, free: the unit interval has

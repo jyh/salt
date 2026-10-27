@@ -176,7 +176,7 @@ lemma exp_budget_le {u : ℕ → ℂ} {x : ℝ} (hx : 3 ≤ x) (hu : ∀ p, ‖u
   have hmert := abs_le.mp (Salt.Mertens.mertens_second_sharp_real hx2)
   have h12 : 12 / Real.log x ≤ 12 := by
     rw [div_le_iff₀ (by linarith)]
-    nlinarith
+    linarith only [hlog1]
   have hb := budget_le_half hu hM
   have hstep : (∑ p ∈ (Finset.Icc 1 ⌊x⌋₊).filter Nat.Prime, ‖1 - u p‖ / (p : ℝ))
       ≤ Real.log (Real.log x) / 2 + (Salt.Mertens.mertensM / 2 + 6) := by
@@ -246,7 +246,7 @@ noncomputable def ballSupC : ℝ := renormaliseConst * Real.exp (Salt.Mertens.me
 lemma ballSupC_pos : 0 < ballSupC := by
   have h28 : (28 : ℝ) ≤ renormaliseConst := by
     rw [renormaliseConst_eq]
-    nlinarith [one_le_exp_eight, Real.log_nonneg (show (1 : ℝ) ≤ 4 by norm_num)]
+    nlinarith only [one_le_exp_eight, Real.log_nonneg (show (1 : ℝ) ≤ 4 by norm_num)]
   exact mul_pos (by linarith) (Real.exp_pos _)
 
 /-- **The error majorant.**  `ballErr x r = C·(x/√(log x))·(1 + log(3 + r(1+log x)))` — GS
@@ -274,7 +274,7 @@ noncomputable def ballSupS (X S₀ : ℝ) : ℝ :=
 lemma ballLterm_pos {X : ℝ} (hX : 3 ≤ X) : 0 < ballLterm X := by
   have hrad : 0 ≤ seamRad X := seamRad_nonneg (Real.log_nonneg (by linarith))
   have hlog : 0 ≤ Real.log (2 * X) := Real.log_nonneg (by linarith)
-  have h3 : (1 : ℝ) ≤ 3 + seamRad X * (1 + Real.log (2 * X)) := by nlinarith
+  have h3 : (1 : ℝ) ≤ 3 + seamRad X * (1 + Real.log (2 * X)) := by nlinarith only [hrad, hlog]
   have := Real.log_nonneg h3
   unfold ballLterm
   linarith
@@ -291,7 +291,7 @@ lemma ballSupS_nonneg {X S₀ : ℝ} (hX : 3 ≤ X) (hS₀ : 0 ≤ S₀) : 0 ≤
   have h2 : (0 : ℝ) ≤ Real.sqrt 2 := Real.sqrt_nonneg 2
   unfold ballSupS
   have : 0 ≤ ballTail X * (1 + seamRad X) := by positivity
-  nlinarith
+  nlinarith only [hS₀, h2, this]
 
 /-- `x/L·√L = x/√L` — the collapse that turns GS 7.1's `x/log x` prefactor and the
 `(log x)^{1/2}` budget into the `(log x)^{−1/2}` grade. -/
@@ -329,9 +329,9 @@ theorem transfer_at_scale {f : ℕ → ℂ} (hf1 : f 1 = 1)
       * (1 + Real.log (3 + |t - t₁| * (1 + Real.log x))) := by
     have h28 : (28 : ℝ) ≤ renormaliseConst := by
       rw [renormaliseConst_eq]
-      nlinarith [one_le_exp_eight, Real.log_nonneg (show (1 : ℝ) ≤ 4 by norm_num)]
+      nlinarith only [one_le_exp_eight, Real.log_nonneg (show (1 : ℝ) ≤ 4 by norm_num)]
     have hL : (1 : ℝ) ≤ 3 + |t - t₁| * (1 + Real.log x) := by
-      nlinarith [abs_nonneg (t - t₁)]
+      nlinarith only [hlog1, abs_nonneg (t - t₁)]
     have := Real.log_nonneg hL
     have hxl : (0 : ℝ) ≤ x / Real.log x := by positivity
     have : (0 : ℝ) ≤ 1 + Real.log (3 + |t - t₁| * (1 + Real.log x)) := by linarith
@@ -428,7 +428,7 @@ lemma ballErr_le {X x r : ℝ} (hX : 3 ≤ X) (hx : X ≤ x) (hx2 : x ≤ 2 * X)
     have : r * (1 + Real.log x) ≤ seamRad X * (1 + Real.log (2 * X)) :=
       mul_le_mul hrad (by linarith) (by linarith) (le_trans hr hrad)
     linarith
-  have hpos : (0 : ℝ) < 3 + r * (1 + Real.log x) := by nlinarith
+  have hpos : (0 : ℝ) < 3 + r * (1 + Real.log x) := by nlinarith only [hr, hlogx, hlogX]
   have hLog : 1 + Real.log (3 + r * (1 + Real.log x)) ≤ ballLterm X := by
     unfold ballLterm
     have := Real.log_le_log hpos hinner

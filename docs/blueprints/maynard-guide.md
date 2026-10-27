@@ -61,9 +61,11 @@ Green lint = "not mechanically stale", never "the prose is true".
   (S₁ and S₂ — the hardest nodes, landed first-pass), the index set and
   weights, the CRT congruence counting, the Mertens-2nd bound (built from
   scratch — absent from mathlib), the Rankin bound, the EH consumption
-  (where the hypothesis is genuinely used), and the ratio prize. To our
-  knowledge no prior formalization of this machinery exists in any
-  assistant. What remains between here and `BoundedGapsFromEH` is a
+  (where the hypothesis is genuinely used), and the ratio prize. When this
+  was written (2026-07-07) we knew of no prior formalization of this
+  machinery in any assistant; AxiomMath's PrimeGapsLib has since
+  formalized Maynard–Tao (`docs/priority-survey-2026-08-11.md`,
+  row 10). What remains between here and `BoundedGapsFromEH` is a
   chain of **sharp analytic estimates** — above all the exact-constant
   weighted transfer (N3.3) — that two serious automated attempts each
   landed only in crude form. Completing them needs either sharper
@@ -251,7 +253,7 @@ directly).
 ### N3.1 — the μ²/φ atom (probe) ✅
 **Statement.** `Σ_{r<x, squarefree, (r,B)=1} 1/φ(r)`: lower bound at the exact constant `(φ(B)/B)(log x − C_B)`; upper bounds at 4×-lossy and fallback quality.
 **Role.** The single analytic atom all M3 weighted transfers partial-sum against; the probe that gated N2.0.
-**Proof idea.** Lower: radical decomposition (n = rad(n)·m unique) + block-counting coprime harmonic bounds — `M3Expansion`'s technique verbatim. Upper: finite identity `r/φ(r) = Σ_{d∣r} 1/φ(d)`, divisorsAntidiagonal factorization, `d ≤ 2φ(d)²` tail. Exact-upper needs a signed-convolution identity — documented PORT-BLOCKER, deliberately NOT built (N2.0 D1).
+**Proof idea.** Lower: radical decomposition (n = rad(n)·m unique) + block-counting coprime harmonic bounds — `M3Expansion`'s technique verbatim. Upper: finite identity `r/φ(r) = Σ_{d∣r} 1/φ(d)`, divisorsAntidiagonal factorization, `d ≤ 2φ(d)²` tail. Exact-upper needs a signed-convolution identity — documented PORT-BLOCKER, deliberately NOT built at N2.0 (D1); built later in `Salt/Twelve/PhiUpperReindex.lean` (`phiUpperAtom_final`).
 **Lean.** `Salt.Maynard.phiAtom_lower`, `phiAtom_upper_lossy`, `phiAtom_upper_fallback`, `sqfCop`, `phiAtomSum` (Salt/Maynard/PhiAtom.lean)
 **Status.** ✅ 2026-07-07 (delegated implement+verify workflow at effort-high; driver verification pass at the N2.0 session: build by module name, forbidden-token grep, crux read of `fiber_sum_le_inv_totient`).
 **Difficulty.** predicted C, actual C (the upper-bound asymmetry was the probe's key finding).

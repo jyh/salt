@@ -38,8 +38,12 @@ THE NUMERALS (each re-derived here, none copied from a docstring):
   · the exponent `7000·Λ + 500·439 + 6600 ≤ e^Λ/2` at `Λ ≥ 50`: `576100 ≤ 2.59·10²¹`, `4.5·10¹⁵×`.
 
 ⭐ AND THE WALL THAT IS **NOT** A NUMERAL, WHICH IS WHY IT IS HERE.  `s13CapGrid_q_logX_LH`
-(`S13CapGateLinearLH.lean:381`) closes `q ≤ h·(log H)^12 ≤ (log X_d)^12` out of
+(`S13CapGateLinearLH.lean` · `s13CapGrid_q_logX_LH`) closes `q ≤ h·(log H)^12 ≤ (log X_d)^12` out of
 `capfloor_logH_le_half_sqrt` — `log H ≤ √H/2` — which buys exactly `2^12 = 4096` of room in `h`.
+(2026-10-03: the XY debt lane's family 25 (2026-09-30) retired `s13CapGrid_q_logX_LH` into its cap-9
+twin `s13CapGrid_q_logX_LH_b9`, which takes `k = 3` through `capfloor_logH_le_third_sqrt`, so its
+room is `3^12 = 531441`; this paragraph describes the cap-7 page, whose note in
+`S13CapGateLinearLH.lean` keeps its docstring.)
 **That `4096` is a STRUCTURAL factor `k^12`, not a numeral: it is the `k` in `log H ≤ √H/k`.**  Its
 docstring's *"margin 3.7×"* is `4096/1096` — a margin on `h` computed at the landed `k = 2` — and
 it reads as a ceiling when `k` is free.  ⇒ ***A FACTOR THAT IS A PARAMETER RAISED TO A POWER LOOKS
@@ -104,11 +108,14 @@ theorem landed_ceiling_refuses_the_million :
     ¬ ((2 : ℕ) ^ 11 * (10 ^ 6) ^ 2 ≤ 2460090368) := by norm_num
 
 /-- ⛔ **⟦CONTROL — THE LANDED CAPGATE FACTOR REFUSES THE ORDERED TARGET⟧ (class A)** — `k = 2`
-gives `2^12 = 4096`, and `10⁶ > 4096` by `244×`.  This is the wall that is not a numeral. -/
+gives `2^12 = 4096`, and `10⁶ > 4096` by `244×`.  This is the wall that is not a numeral.
+(2026-10-03: the landed factor is the cap-7 page's, which the XY debt lane's family 25 retired on
+2026-09-30; its cap-9 twin `s13CapGrid_q_logX_LH_b9` takes `k = 3`, and `3^12 = 531441` refuses
+`10⁶` by `1.88×`.) -/
 theorem landed_capgate_refuses_the_million : ¬ ((10 : ℕ) ^ 6 ≤ 4096) := by norm_num
 
 /-- ⛔ **⟦CONTROL — THE COUNT PIN REFUSES THE NEW CAP AT STRIDE 2, EVEN AT ITS LOOSEST READING⟧
-(class A)** — the `2^539` count pin (`GoldbachEnergyKcH.lean:226`) carries the witness
+(class A)** — the `2^539` count pin (`GoldbachEnergyKcH.lean · bigXiH_bounded_ceiling_of_pin`) carries the witness
 `32·exp 40·2^70·500^10·(a·h)^15 ≤ 2^539`, and it has TWO ceilings, which is the point of stating
 this control against the LOOSER one:
 ```
@@ -129,7 +136,7 @@ theorem reach14_countpin_refuses_stride_two : ¬ (2 * 1202604 ≤ 2261670) := by
 /-! ## §1 — THE CAP CONVERTER AT `14` (`h_le_1096_of_hh7`'s twin) -/
 
 /-- **⟦THE SHIFT IS BOUNDED BY ITS OWN BINDER, AT `14`⟧ (class A)** — the twin of
-`h_le_1096_of_hh7` (`S16ProducersH.lean:766`) at the raised cap: `e^14 = 1202604.284…`, so
+`h_le_1096_of_hh7` (`S16ProducersH.lean`) at the raised cap: `e^14 = 1202604.284…`, so
 `h ≤ 1202604`.  Every numeral in this module is stated against this one.  BODY: the landed
 proof's shape with `Real.exp_one_lt_d9` raised to the `14`th instead of the `7`th. -/
 theorem h_le_1202604_of_hh14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) :
@@ -151,7 +158,10 @@ theorem h_le_1202604_of_hh14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) �
 /-! ## §2 — WALL 2, AND IT IS THE ONE THAT IS NOT A NUMERAL
 
 `log H ≤ √H/k` buys `k^12` of room in `h` at `s13CapGrid_q_logX_LH`.  The landed `k = 2`
-(`capfloor_logH_le_half_sqrt`, `S13CapFloor.lean:110`) gives `4096`; `k = 4` gives `16777216`. -/
+(`capfloor_logH_le_half_sqrt`, `S13CapFloor.lean:110`) gives `4096`; `k = 4` gives `16777216`.
+(2026-10-03: `s13CapGrid_q_logX_LH` was retired into its cap-9 twin `s13CapGrid_q_logX_LH_b9`, at
+`k = 3`, by the XY debt lane's family 25 on 2026-09-30; the `k = 2` reading above is the cap-7
+page's; the `k = 4` figure is this file's own lemma's, and no cap-grid page is built at it.) -/
 
 /-- **⟦`log H ≤ √H/4` AT `H ≥ 4·10⁶`⟧ (class B)** — `capfloor_logH_le_half_sqrt`'s `k = 4` twin,
 the same proof at a harder closing step.  With `a := H^{1/4}`, `log a = (log H)/4 ≤ a − 1` gives
@@ -558,14 +568,14 @@ theorem s15ArmH_log_le_g14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤
 /-! ## §5 — THE ARM AT THE **UNGRADED** PIN, AT THE RAISED CAP
 
 `s15ArmH_log_le_g14` above is the graded lane's (`1/(838400·2^11·h²) ≤ δ₀`).  The landed `h`-lane
-also carries the UNGRADED pin `1/(838400·h²) ≤ δ₀` (`s15ArmH_log_le`, `S16ProducersH.lean:793`),
+also carries the UNGRADED pin `1/(838400·h²) ≤ δ₀` (`s15ArmH_log_le`, `S16ProducersH.lean`),
 and it needs its own twin — but not its own `scaled` lemma: at `c = h²` and `h ≤ 1202604` the
 ceiling is `1.4463·10^12` and `log c ≤ 28`, both comfortably inside §4's `2961933067911168` and
 `36`.  ⇒ **the wide ceiling covers BOTH pins**, which is why this is four lines of instantiation
 and not a second body. -/
 
 /-- **⟦THE ARM'S LOG AT SHIFT `h`, UNGRADED PIN, AT THE RAISED CAP⟧ (class A)** —
-`s15ArmH_log_le` (`S16ProducersH.lean:793`) with `hh7 : log h ≤ 7 ↦ hh14 : log h ≤ 14`;
+`s15ArmH_log_le` (`S16ProducersH.lean`) with `hh7 : log h ≤ 7 ↦ hh14 : log h ≤ 14`;
 conclusion unchanged.  Routed through `s15Arm_log_le_scaled_g14` at `c = h²`: `hcb` is
 `h² ≤ 1202604² = 1446256380816 ≤ 2961933067911168` (a factor `2048` of room — exactly the `2^11`
 the graded pin spends) and `hlogc` is `2·log h ≤ 28 ≤ 36`.  **A NEW name with its OWN binder;

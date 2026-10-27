@@ -176,8 +176,8 @@ theorem boxPriceKerr_worst_le {x k i F K : ℕ} {Kc : ℝ}
     exact hterm _ _ (by norm_num) (by norm_num) (by norm_num)
   -- `S ≥ 1` (folds the additive constants) and `√26 ≤ 6`.
   have hrpow1 : (1 : ℝ) ≤ ((31 : ℝ) / 10) ^ (50 : ℝ) := Real.one_le_rpow (by norm_num) (by norm_num)
-  have hrL : (1 : ℝ) ≤ ((31 : ℝ) / 10) ^ (50 : ℝ) * L := by nlinarith [hrpow1, hL1]
-  have hSge1 : (1 : ℝ) ≤ S := by rw [hSdef]; nlinarith [hKc, hrL]
+  have hrL : (1 : ℝ) ≤ ((31 : ℝ) / 10) ^ (50 : ℝ) * L := by linarith only [hlog_lo, hlogx10]
+  have hSge1 : (1 : ℝ) ≤ S := by rw [hSdef]; nlinarith only [hKc, hlog_lo, hlogx10]
   have h26 : 32 * Real.sqrt 26 ≤ 192 := by
     have hs : Real.sqrt 26 ≤ 6 := by
       have h1 : Real.sqrt 26 ≤ Real.sqrt 36 := Real.sqrt_le_sqrt (by norm_num)
@@ -194,7 +194,7 @@ theorem boxPriceKerr_worst_le {x k i F K : ℕ} {Kc : ℝ}
           + ((2 : ℝ) ^ ((13 : ℝ) + 5) * Kbeta'_min Kc L logN 13 18 + 15360 + 1))
       ≤ 281352 * S := by
     rw [h218]
-    nlinarith [hkb, hkm, hkb', h26, hSge1]
+    linarith only [h26, hSge1, hkb', hkm, hkb]
   -- fold the bracket into `BR`, then lift the bound through `·XM/L^{13}` and the factor `2`.
   set BR : ℝ := Kbeta_min Kc L logN 13 18
       + (6 * (Km_min Kc L logN 13 18 + 448 + 32 * Real.sqrt 26)
@@ -259,8 +259,8 @@ theorem nat_log2_count_le {x : ℕ} (hx2 : 2 ≤ x) (hlogx : 2 ≤ Real.log x) :
   -- `hlogle : ↑(Nat.log 2 x) · log 2 ≤ log x`, and `log 2 > 0.6931`
   have hl2 : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
   have hnn : (0 : ℝ) ≤ (Nat.log 2 x : ℝ) := Nat.cast_nonneg _
-  nlinarith [hlogle, mul_nonneg hnn (by linarith [hl2] : (0 : ℝ) ≤ Real.log 2 - 0.6931471803),
-    hlogx]
+  linarith only [hlogle, hlogx, mul_nonneg hnn
+      (by linarith [hl2] : (0 : ℝ) ≤ Real.log 2 - 0.6931471803)]
 
 /-! ## 4. The aggregation (deliverable 3, the summit)
 

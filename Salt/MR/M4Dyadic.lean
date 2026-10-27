@@ -26,7 +26,7 @@ MRT's step (c) is three moves, and this file is exactly those three:
 
 ## ⟦WHY THIS ROW IS NOT SUBSUMED BY THE SUMMIT⟧
 
-`thm_a2'_of_rows` (`ThmA2.lean:466`) is **single-scale**: its carrier is
+`thm_a2'_of_rows` (`ThmA2.lean`) is **single-scale**: its carrier is
 `(1/X)∫_X^{2X}‖(1/h)·shortSum a s₀ x h‖²dx` at ONE `X`, with `X ≤ N ≤ 2X`.  The *outer*
 cover over scales `X′ ∈ (X/W^{10}, X]` is a different object entirely and is untouched by
 the S8 arc.  Nothing here instantiates `thm_a2'` (that is M4-5), closes the arithmetic
@@ -52,7 +52,7 @@ the S8 arc.  Nothing here instantiates `thm_a2'` (that is M4-5), closes the arit
   so `log W = 12·loglog H` and the count is `≤ 120·loglog H/log 2 + 2 ≤ 174·loglog H + 2`
   — `dyadCount_logPow_le` / `dyadCount_logPow_le_numeral`.  It is NEVER `loglog X`.
 * **The index is `dyadIdx`, never `K`.**  `K` in this corpus is the Perron dyadic depth
-  (`ThmA2.lean:88–90`'s glyph list) and the `K`-family's parameter; the outer cover's index
+  (`ThmA2.lean` §"Glyph traps honoured"'s glyph list) and the `K`-family's parameter; the outer cover's index
   is `i`, its top index `dyadIdx W`, and the number of scales `dyadCount W = dyadIdx W + 1`.
 
 ## The `d₀`-dilation is CONSUMED, not re-derived
@@ -112,7 +112,7 @@ theorem two_mul_dyadScale_succ (X : ℝ) (i : ℕ) : 2 * dyadScale X (i + 1) = d
 theorem one_le_two_pow_real (i : ℕ) : (1 : ℝ) ≤ 2 ^ i := by
   induction i with
   | zero => norm_num
-  | succ k ih => rw [pow_succ]; nlinarith
+  | succ k ih => rw [pow_succ]; linarith only [ih]
 
 theorem dyadScale_pos {X : ℝ} (hX : 0 < X) (i : ℕ) : 0 < dyadScale X i :=
   div_pos hX (by positivity)
@@ -183,7 +183,7 @@ theorem dyadCount_logPow_le_numeral {H : ℝ} (hH : 1 ≤ Real.log H) :
   have hLL : (0 : ℝ) ≤ Real.log (Real.log H) := Real.log_nonneg hH
   have hstep : 120 * Real.log (Real.log H) / Real.log 2 ≤ 174 * Real.log (Real.log H) := by
     rw [div_le_iff₀ hlog2]
-    nlinarith
+    nlinarith only [hd9, hLL, hlog2]
   linarith
 
 /-- **The ladder descends past the floor**: `W^{10} ≤ 2^{dyadIdx W}`.  This is the whole
@@ -395,7 +395,7 @@ theorem two_mul_pow_ten_le_sqrt {X W : ℝ} (hX : 8 ≤ X) (hW : 1 ≤ W)
     norm_num
   have hpos : (0 : ℝ) < X ^ ((1 : ℝ) / 25) := Real.rpow_pos_of_pos hX0 _
   calc 2 * W ^ (10 : ℕ) ≤ 2 * X ^ ((1 : ℝ) / 25) := by rw [← h2]; linarith
-    _ ≤ X ^ ((1 : ℝ) / 25) * X ^ ((23 : ℝ) / 50) := by nlinarith
+    _ ≤ X ^ ((1 : ℝ) / 25) * X ^ ((23 : ℝ) / 50) := by nlinarith only [h2le, hpos, h8eq, h8]
     _ = Real.sqrt X := hsplit.symm
 
 /-- **THE `√X ≤ X′` SIDE CONDITION, assembled.**  A block scale `X_i` produced by the cover

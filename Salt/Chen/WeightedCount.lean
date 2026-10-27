@@ -87,7 +87,7 @@ private lemma cast_div_ge' {x m : ℕ} (hm : 0 < m) :
   have h3 : (x : ℝ) < ((x / m : ℕ) : ℝ) * m + m := by
     have : (x : ℝ) = (m : ℝ) * ((x / m : ℕ) : ℝ) + ((x % m : ℕ) : ℝ) := by exact_mod_cast h1.symm
     have h2R : ((x % m : ℕ) : ℝ) < (m : ℝ) := by exact_mod_cast h2
-    nlinarith [this, h2R]
+    linarith only [h2R, this]
   rw [sub_lt_iff_lt_add, div_lt_iff₀ hmR]
   linarith [h3]
 
@@ -210,10 +210,10 @@ theorem per_pair_weighted_le {K : ℝ} (hK0 : 0 ≤ K)
           div_le_div_of_nonneg_left (mul_nonneg hK0 (by positivity)) hlogLpos hlogU
       _ ≤ K * (2 * t) / logL := by
           rw [div_eq_mul_inv, div_eq_mul_inv]
-          exact mul_le_mul_of_nonneg_right (by nlinarith [hU2t, hK0]) (by positivity)
+          exact mul_le_mul_of_nonneg_right (by nlinarith only [hK0, hxm, hUup]) (by positivity)
   have hKL : K * (Lfun x q : ℝ) / logL ≤ K * t / logL := by
     rw [div_eq_mul_inv, div_eq_mul_inv]
-    exact mul_le_mul_of_nonneg_right (by nlinarith [hLup, hK0]) (by positivity)
+    exact mul_le_mul_of_nonneg_right (by nlinarith only [hK0, hLup]) (by positivity)
   have hnum : (Ufun x q : ℝ) - Lfun x q
         + K * (Ufun x q : ℝ) / Real.log (Ufun x q)
         + K * (Lfun x q : ℝ) / logL
@@ -268,13 +268,13 @@ theorem per_pair_weighted_le {K : ℝ} (hK0 : 0 ≤ K)
   have hW₀nn : 0 ≤ W₀ := by rw [hW₀def]; positivity
   have hW₀D : W₀ * D = 4 * Real.log 2 := by rw [hW₀def]; field_simp
   have hW₀le1 : W₀ ≤ 1 := by
-    rw [hW₀def, div_le_one hDpos]; nlinarith [hD_ge, hlog2pos]
+    rw [hW₀def, div_le_one hDpos]; linarith only [hD_eq, hlog2lt, hlog2pos, hLval4]
   -- the key inequality `logN ≤ (1 + W₀)·logL`
   have hconv : logN ≤ (1 + W₀) * logL := by
     have hWlogN : 4 * Real.log 2 ≤ W₀ * logN := by
       calc 4 * Real.log 2 = W₀ * D := hW₀D.symm
         _ ≤ W₀ * logN := mul_le_mul_of_nonneg_left hlogN_ge_D hW₀nn
-    nlinarith [hlogL_ge_ND, hWlogN, hW₀le1, hlog2pos, mul_nonneg hW₀nn hlogLpos.le]
+    nlinarith only [hD_eq, hW₀nn, hlogL_ge, hlog2lt, hlog2pos, hW₀le1, hW₀D, hlogL_ge_ND]
   -- 1/logL ≤ (1 + W₀)/logN, hence t/logL ≤ (1+W₀)·t/logN
   have hW₀nn' : 0 ≤ 1 + W₀ := by linarith
   have ht_div : t / logL ≤ (1 + W₀) * t / logN := by

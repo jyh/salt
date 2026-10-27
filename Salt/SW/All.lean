@@ -109,6 +109,7 @@ import Salt.SW.DensityStrip
 import Salt.SW.PseudoCharEuler
 import Salt.SW.JutilaDetector
 import Salt.SW.StandoffCert
+import Salt.SW.GapsStandoff
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -935,3 +936,33 @@ open Salt.Tactic in
   Salt.SW.rpow_mul_le_rpow_of_le_150
   Salt.SW.zeroCountM_density_logfree_strip
   Salt.SW.zeroCountM_density_logfree
+
+-- Bounded gaps from a Siegel standoff (GapsStandoff), by a proof term that does not use Siegel's
+-- theorem (O13).
+open Salt.Tactic in
+#audit_axioms Salt.SW.bounded_gaps_of_standoff
+
+-- O88 batch 28/29 DH rows: the "axiom-clean" headers of DHFinal, DHMollified and DHTrunc name
+-- these declarations (DHTrunc's eight more on math's #521 observation); audited here so the
+-- claim is checked at every build (math's #518 LOW).
+open Salt.Tactic in
+#audit_axioms Salt.SW.dhCoeff_one
+  Salt.SW.norm_dhDetectorShift_term
+  Salt.SW.dhDetectorShift_eq_add_tail
+  Salt.SW.norm_dhDetectorShift_ge
+  Salt.SW.dhGlin_one_eq
+  Salt.SW.norm_dhGlin_one_le
+  Salt.SW.norm_dhGpoly_one_le
+  Salt.SW.dvd_mul_iff_div_gcd_dvd
+  Salt.SW.sum_range_filter_dvd_char_eq
+  Salt.SW.norm_range_filter_dvd_partial_le
+  Salt.SW.norm_inner_mdiv_le
+  Salt.SW.partial_sum_at_zero_small
+  Salt.SW.dhA_hyperbola_shift
+  Salt.SW.norm_range_partial_at_zero_le
+  Salt.SW.norm_shifted_detector_unmollified_le
+  Salt.SW.norm_sum_Icc_cpow_neg_le
+  Salt.SW.norm_sum_smul_antitone_le
+  Salt.SW.partial_sum_at_zero_small_range
+  Salt.SW.shifted_detector_hyperbola
+  Salt.SW.sum_Icc_rpow_neg_le

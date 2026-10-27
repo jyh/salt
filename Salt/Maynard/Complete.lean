@@ -30,8 +30,12 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 /-! ## Part A — explicit Mertens second theorem (sub-one form) -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Explicit Mertens sub-one bound.** `∑_{p ≤ n} 1/(p−1) ≤ log log n + 20`.
 The constant is explicit (not `∃`-hidden): from `sum_inv_prime_le_aux`'s explicit
 `C₀ = 1 + 2(log4+4)/log2 − log(log2) ≤ 19`, plus the telescoping tail `≤ 1`. -/
@@ -137,12 +141,15 @@ theorem W_div_totient_le_explicit (k : ℕ) (hD : 2 ≤ D₀ k) :
 /-- The explicit Rankin `L = 1` constant `exp 20` (replacing the opaque `rankinC`). -/
 noncomputable def rankinK : ℝ := Real.exp 20
 
+omit [Salt.Maynard.TupleChoice] in
 lemma rankinK_ge_one : 1 ≤ rankinK := by
   rw [rankinK]; calc (1 : ℝ) = Real.exp 0 := Real.exp_zero.symm
     _ ≤ Real.exp 20 := Real.exp_le_exp.mpr (by norm_num)
 
+omit [Salt.Maynard.TupleChoice] in
 lemma rankinK_nonneg : 0 ≤ rankinK := le_trans zero_le_one rankinK_ge_one
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Explicit Rankin bound (`L = 1`).** `∑_{q<Q,sf} 1/φ(q) ≤ rankinK·log Q`
 with `rankinK = exp 20` explicit (copy of `rankin_bound 1` with the explicit
 Mertens bound). -/
@@ -346,6 +353,7 @@ theorem abs_mainSum_le_K (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
 /-- The explicit linear-in-`k` Lemma-5.3 constant `rankinK·(2 + 4·exp 4)`. -/
 noncomputable def lemma53KConst : ℝ := rankinK * (2 + 4 * Real.exp 4)
 
+omit [Salt.Maynard.TupleChoice] in
 lemma lemma53KConst_nonneg : 0 ≤ lemma53KConst := by
   rw [lemma53KConst]
   have := rankinK_nonneg
@@ -1299,6 +1307,7 @@ private lemma A_le_exp60 : 1728 * lemma53KConst * Real.exp 20 ≤ Real.exp 60 :=
   have h222 : 1728 * (2 + 4 * Real.exp 4) ≤ Real.exp 20 := by nlinarith [hexp4, hexp20]
   nlinarith [h222, hpos20, mul_pos hpos20 hpos20]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`k`-largeness.** For `log k ≥ 300`, `1728·lemma53KConst·exp 20·log k ≤ k`.
 This closes the item-6 regime because `1728·lemma53KConst·exp 20 ≤ exp 60` and
 `exp 60·L ≤ exp L = k` for `L = log k ≥ 300` (via `exp(L−60) ≥ (1+(L−60)/2)² ≥ L`). -/
@@ -1464,8 +1473,9 @@ theorem compatFrontier_holds (k₀ : ℕ) (hk3072 : 3072 ≤ k₀) (hlogk : 300 
   have hreg := regime_discharge k₀ R T hk3072 hlogk hR hT1 hX hbLo hEBr
   exact s2CompatFormM_ge_sixteenth_K k₀ R T m hR hk3072 (le_max_left _ _) hB1pos hA1nn hcheb hreg
 
-/-! ## Part H — the unconditional capstone -/
+/-! ## Part H — the capstone `EH (1/2) → bounded gaps`, with no residual hypotheses -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **The Maynard capstone.** `bounded_gaps_from_eh_complete : BoundedGapsFromEH`,
 unconditional (no residual hypotheses): `bounded_gaps_from_eh_final` fed with the
 now-proved `CompatFrontier` atom for every regime tuple width. -/

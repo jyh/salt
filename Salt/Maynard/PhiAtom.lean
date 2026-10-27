@@ -26,14 +26,14 @@ coprime harmonic sum, which is bounded below by block counting (`φ(B)` coprime
 residues per length-`B` block, via `Salt.Brun.CongruenceCounting.block_count`)
 plus `harmonic q ≥ log (q+1)`.
 
-Route (upper): the finite identity `r/φ(r) = ∑_{d ∣ r} μ²(d)/φ(d)` (squarefree
-`r`; proved via the powerset expansion `∏(1 + 1/(p−1))`) turns `1/φ(r)` into
-`∑_{de = r} 1/(d·e·φ(d))`; summing over `r` and relaxing the pair set to a
-product gives `phiAtomSum x B ≤ (∑_{d<x sqfree} 1/(dφ(d)))·(coprime harmonic)`.
+Route (upper): the bound `r/φ(r) ≤ ∑_{d ∣ r} 1/φ(d)` (squarefree `r`, `sum_divisors_inv_totient_ge`)
+bounds `1/φ(r)` by `∑_{de = r} 1/(d·e·φ(d))` (`inv_totient_le_sum_antidiag`); summing over `r`
+and relaxing the pair set to a product gives `phiAtomSum_le_mul`,
+`phiAtomSum x B ≤ (∑_{d ∈ sqfCop x B} 1/(dφ(d)))·(coprime harmonic)`.
 The first factor is `≤ 1 + 2√2 ≤ 4` since `d ≤ 2φ(d)²` for squarefree `d`
 (telescoping `∑ 1/(d√d) ≤ 2`), the second is `≤ (φ(B)/B)log x + C_B` by block
-counting. The exact-constant upper bound would need the tail cancellation
-`∑_d h(d)/d = 1` for `h = (μ²·id/φ) * μ`; see the PORT-BLOCKER note at the end.
+counting. The exact-constant upper bound is not in this file (see the PORT-BLOCKER note at
+the end); `phiUpperAtom_final`, in `Salt/Twelve/PhiUpperReindex.lean`, has it.
 -/
 
 open Finset
@@ -648,8 +648,8 @@ lemma sum_inv_mul_sqrt_aux (N : ℕ) (hN : 1 ≤ N) :
           linear_combination (2 * a * b) * hba
         rw [hd2, ← hb2]
         rw [div_le_div_iff₀ (by positivity) (by positivity)]
-        nlinarith [mul_nonneg (mul_nonneg (sub_nonneg.mpr hab) hb0.le) hb0.le,
-          mul_nonneg (mul_nonneg (sub_nonneg.mpr hab) ha0.le) hb0.le]
+        linarith only [mul_nonneg (mul_nonneg (sub_nonneg.mpr hab) ha0.le) hb0.le,
+            mul_nonneg (mul_nonneg (sub_nonneg.mpr hab) hb0.le) hb0.le]
       have htop : (1 : ℝ) / ((((n + 1) : ℕ) : ℝ) * Real.sqrt (((n + 1) : ℕ) : ℝ))
           = (1 : ℝ) / (((n : ℝ) + 1) * b) := by
         rw [hb]
@@ -913,7 +913,7 @@ theorem phiAtom_upper_fallback (B : ℕ) (hB : B ≠ 0) :
       ≤ 4 * ((Nat.totient B / B : ℝ) * Real.log x) + 4 * ((Nat.totient B : ℝ) + 1) := hbase
     _ ≤ 4 * Real.log x + 4 * ((Nat.totient B : ℝ) + 1) := by linarith [hstep]
     _ ≤ (4 * ((Nat.totient B : ℝ) + 1) + 4) * (1 + Real.log x) := by
-        nlinarith [mul_nonneg hφ0 hlogx, hlogx, hφ0]
+        linarith only [hlogx, mul_nonneg hφ0 hlogx]
 
 /-! ## What did NOT land: the exact-constant upper bound
 
@@ -939,11 +939,11 @@ theorem phiAtom_upper_fallback (B : ℕ) (hB : B ≠ 0) :
 -- miracle is `h(p)/p + h(p²)/p² = 0`, so `∑_d h(d)/d = 1` (leading constant
 -- exactly recovered) and `∑_d |h(d)|/d < ∞`.  Formalizing that needs signed
 -- multiplicative-function convolution plus a convergent-Euler-product argument
--- (mathlib's `EulerProduct` machinery); estimated a full C-difficulty node of
--- its own, out of scope for this probe.
+-- (mathlib's `EulerProduct` machinery); a C-difficulty node, out of scope for this probe;
+-- `phiUpperAtom_final` (`Salt/Twelve/PhiUpperReindex.lean`) later proved it.
 --
 -- What IS proved instead (this file): the same pair expansion kept *finite*
--- via the divisor identity `r/φ(r) = ∑_{d ∣ r} 1/φ(d)` (squarefree `r`),
+-- via `r/φ(r) ≤ ∑_{d ∣ r} 1/φ(d)` (squarefree `r`, `sum_divisors_inv_totient_ge`),
 -- giving the factorized bound
 -- `phiAtomSum x B ≤ (∑_{d<x sqfree} 1/(dφ(d))) · (∑_{e<x, (e,B)=1} 1/e)`
 -- with `∑ 1/(dφ(d)) ≤ 1 + 2√2 ≤ 4`.  The true value of that factor is

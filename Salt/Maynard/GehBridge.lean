@@ -330,7 +330,7 @@ theorem piLevel_of_lambdaLevelU_of_pp {θ : ℝ}
       refine mul_le_mul_of_nonneg_right ?_ hCΛnn
       have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
       have hle2 : (Real.log 2)⁻¹ ≤ 2 := by
-        rw [inv_le_iff_one_le_mul₀ hlog2]; nlinarith [Real.log_two_gt_d9]
+        rw [inv_le_iff_one_le_mul₀ hlog2]; linarith only [hlog2, Real.log_two_gt_d9]
       linarith [inv_nonneg.mpr hlogxpos.le]
     refine le_trans hsum ?_
     rw [Finset.sum_add_distrib, Finset.sum_add_distrib]

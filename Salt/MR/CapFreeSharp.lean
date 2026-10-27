@@ -203,8 +203,7 @@ theorem chi_floor_real_bulk_sharp :
   have hP := primeDivSum_le_mertensCap (q := q) hq X
   -- `CapFreeAssembly.cff_log_two_le_one` is `private`; the same one-liner
   have hlog2 : Real.log 2 ≤ 1 := by
-    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 2)
-    linarith
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 1 (by norm_num) (by norm_num)
   linarith
 
 /-! ## §3 — THE SHARP THRESHOLD FAMILY (`CapFreeAssembly` §4/§5) -/

@@ -332,7 +332,7 @@ the unsquared term is `0.34` and FAILS. **A floor ported from the brief would th
 HIGH** — conservative for this term, wasteful for the consumer, and wrong as a statement about A.1.
 *The dangerous direction is the mirror — a squared-derived floor consumed by a statement still
 carrying the unsquared form — and it does not arise: all three landed sites (`MRTThmA1:126`,
-`MRTPortA1:95`, `MRTPropA3:3865`) carry the SQUARED form, checked here.* ⇒ ***KNOWING WHICH
+`MRTPortA1:95`, `MRTPropA3 · MRTThmA1GJ`) carry the SQUARED form, checked here.* ⇒ ***KNOWING WHICH
 TRANSCRIPTION IS RIGHT DOES NOT TELL YOU WHICH WAY THE ERROR WOULD HAVE PUSHED YOU; THAT IS A
 SECOND QUESTION AND IT HAS ITS OWN ANSWER.***
 

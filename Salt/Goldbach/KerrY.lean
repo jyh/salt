@@ -163,8 +163,8 @@ theorem gold_boxPriceKerrY_geo {N z yb K y kp ka i : ℕ} {Kc : ℝ}
   have hkb' : Kbeta'_min Kc L logN 13 18 ≤ S := by
     rw [Kbeta'_min, mul_div_assoc]; exact hterm _ _ (by norm_num) (by norm_num) (by norm_num)
   have hrpow1 : (1 : ℝ) ≤ ((31 : ℝ) / 10) ^ (50 : ℝ) := Real.one_le_rpow (by norm_num) (by norm_num)
-  have hrL : (1 : ℝ) ≤ ((31 : ℝ) / 10) ^ (50 : ℝ) * L := by nlinarith [hrpow1, hL1]
-  have hSge1 : (1 : ℝ) ≤ S := by rw [hSdef]; nlinarith [hKc, hrL]
+  have hrL : (1 : ℝ) ≤ ((31 : ℝ) / 10) ^ (50 : ℝ) * L := by linarith only [hL1]
+  have hSge1 : (1 : ℝ) ≤ S := by rw [hSdef]; nlinarith only [hKc, hL1]
   have h26 : 32 * Real.sqrt 26 ≤ 192 := by
     have hs : Real.sqrt 26 ≤ 6 := by
       have h1 : Real.sqrt 26 ≤ Real.sqrt 36 := Real.sqrt_le_sqrt (by norm_num)
@@ -178,7 +178,7 @@ theorem gold_boxPriceKerrY_geo {N z yb K y kp ka i : ℕ} {Kc : ℝ}
         + (6 * (Km_min Kc L logN 13 18 + 448 + 32 * Real.sqrt 26)
           + ((2 : ℝ) ^ ((13 : ℝ) + 5) * Kbeta'_min Kc L logN 13 18 + 15360 + 1))
       ≤ 281352 * S := by
-    rw [h218]; nlinarith [hkb, hkm, hkb', h26, hSge1]
+    rw [h218]; linarith only [h26, hSge1, hkb', hkm, hkb]
   set BR : ℝ := Kbeta_min Kc L logN 13 18
       + (6 * (Km_min Kc L logN 13 18 + 448 + 32 * Real.sqrt 26)
         + ((2 : ℝ) ^ ((13 : ℝ) + 5) * Kbeta'_min Kc L logN 13 18 + 15360 + 1)) with hBRdef
@@ -525,7 +525,7 @@ theorem gold_kerrY_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       have h1 : Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
           ≤ Real.sqrt ((((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
               * (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) :=
-        Real.sqrt_le_sqrt (by nlinarith [hXMge1])
+        Real.sqrt_le_sqrt (by nlinarith only [hXMpos, hXMge1])
       rwa [Real.sqrt_mul_self hXMpos.le] at h1
     linarith [hDsqrtXM, hsqrtself]
   have hDx : (D : ℝ) ≤ Real.sqrt (N : ℝ) := by
@@ -537,12 +537,12 @@ theorem gold_kerrY_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       have h1le : L ^ (1 : ℝ) ≤ L ^ ((13 : ℝ) + 5) :=
         Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
       rw [Real.rpow_one] at h1le
-      nlinarith [le_trans hL2 h1le, hL18ge1]
+      nlinarith only [hL18ge1, h1le, hLlow, hlog4, hlogN]
     have hDDN : (D : ℝ) * (D : ℝ) ≤ (N : ℝ) := by
       have hexp : ((D : ℝ) * L ^ ((13 : ℝ) + 5)) * ((D : ℝ) * L ^ ((13 : ℝ) + 5))
           = ((D : ℝ) * (D : ℝ)) * (L ^ ((13 : ℝ) + 5) * L ^ ((13 : ℝ) + 5)) := by ring
       rw [hexp] at hsqle
-      nlinarith [hsqle, hL18ge2, hXMhiR, mul_nonneg hDnn hDnn]
+      nlinarith only [hL18ge2, hsqle, hXMhiR, mul_self_nonneg ↑D]
     rw [show (D : ℝ) = Real.sqrt ((D : ℝ) * (D : ℝ)) from (Real.sqrt_mul_self hDnn).symm]
     exact Real.sqrt_le_sqrt hDDN
   have hDsq : D < (2 ^ kp + 1) * (2 ^ kp + 1) := by
@@ -582,7 +582,7 @@ theorem gold_kerrY_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       le_trans hDsqrtXM (le_trans hsqrt2N hsqrt2N_le)
     have hDnat : D ≤ 2 ^ kp * 2 ^ kp := by exact_mod_cast hDreal
     have hm : (1 : ℕ) ≤ 2 ^ kp := Nat.one_le_pow _ _ (by norm_num)
-    nlinarith [hDnat, hm]
+    linarith only [hm, hDnat]
   have hD1 : 1 ≤ D := by
     have : (1 : ℝ) ≤ (D : ℝ) := by
       have h1w : (1 : ℝ) ≤ w := by
@@ -593,14 +593,14 @@ theorem gold_kerrY_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
   have hDleN : (D : ℝ) ≤ (N : ℝ) := by
     have hself : Real.sqrt (N : ℝ) ≤ (N : ℝ) := by
       have h1 : Real.sqrt (N : ℝ) ≤ Real.sqrt ((N : ℝ) * (N : ℝ)) :=
-        Real.sqrt_le_sqrt (by nlinarith [hN1R])
+        Real.sqrt_le_sqrt (by nlinarith only [hN1R, (Nat.cast_nonneg _ : 0 ≤ ↑N)])
       rwa [Real.sqrt_mul_self hNpos.le] at h1
     linarith [hDx, hself]
   have hlogD : Real.log D ≤ Real.log N := by
     rcases Nat.eq_zero_or_pos D with h0 | hDpos
     · rw [h0]; simp only [Nat.cast_zero, Real.log_zero]; linarith [hlogN1]
     · exact Real.log_le_log (by exact_mod_cast hDpos) hDleN
-  have hlogNle7L : Real.log N ≤ 7 * L := by nlinarith [hLlow, hlog4, hL2, hlogN1]
+  have hlogNle7L : Real.log N ≤ 7 * L := by linarith only [hLlow, hlog4, hlogN]
   have habs : 4 * (1 + Real.log D) * (D : ℝ)
       ≤ ((2 ^ kp : ℕ) : ℝ) * (pieceM kp : ℝ) / L ^ (13 : ℝ) := by
     rw [le_div_iff₀ (Real.rpow_pos_of_pos hLpos _)]
@@ -611,7 +611,7 @@ theorem gold_kerrY_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       le_trans (mul_le_mul_of_nonneg_left h14le18 hDnn) herr_lev
     have hL14eq : L ^ (14 : ℝ) = L * L ^ (13 : ℝ) := by
       rw [show (14 : ℝ) = 1 + 13 by norm_num, Real.rpow_add hLpos, Real.rpow_one]
-    have hcoef : 4 * (1 + Real.log D) ≤ 32 * L := by nlinarith [hlogD, hlogNle7L, hL1]
+    have hcoef : 4 * (1 + Real.log D) ≤ 32 * L := by linarith only [hlogD, hLlow, hlog4, hlogN]
     have hL13nn : (0 : ℝ) ≤ L ^ (13 : ℝ) := Real.rpow_nonneg hL0 _
     have hstep1 : 4 * (1 + Real.log D) * (D : ℝ) * L ^ (13 : ℝ)
         ≤ 32 * ((D : ℝ) * L ^ (14 : ℝ)) := by
@@ -661,7 +661,7 @@ theorem gold_kerrY_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
               = (N : ℝ) ^ ((4 : ℝ) / 3) / 65536 := by rw [h43]; ring
           rw [hexp]; linarith [hstep]
         linarith [hkpMlo2, h2N_le]
-      nlinarith [hXMhiR, hBBlo]
+      linarith only [hBBlo, hXMhiR]
     have hAle : 32 * Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
         ≤ ((2 ^ kp : ℕ) : ℝ) * (pieceM kp : ℝ) := by
       have h1 := Real.sqrt_le_sqrt hAAle

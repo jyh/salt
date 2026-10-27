@@ -10,7 +10,7 @@ import Salt.Chen.WindowedStepP
 # E₁d′ — the CONDITIONED parametric windowed layer + the B-mirror (FREEZE V2, catches #32/#33)
 
 `WindowedStepP` (E₁d) parametrized the windowed Buchstab keystone over `(cf, ch)` but left its
-per-step contract `StepHypWP` unconditioned.  Catch #32 (a machine-verified counterexample)
+per-step contract `StepHypWP` unconditioned.  Catch #32 (a counterexample checked numerically)
 showed `StepHypWP` is UNDISCHARGEABLE at ε-order coefficients: it carries only
 `1 ≤ σ ≤ n+3`, no `loBnd side' ≤ σ` and no parity structure, so at `(side'=2, n=1, S ∈ [1,2))`
 the RHS collapses to `O(εW)` (`fseq 2 = 0` below 2) while the LHS is `Θ(W)`.  BJS's induction
@@ -324,12 +324,12 @@ theorem cfSharpB_nonneg (n : ℕ) {ε : ℝ} (hε : 0 ≤ ε) : 0 ≤ cfSharpB n
       (by positivity)
 
 theorem chSharpB_nonneg {ε : ℝ} (hε : 0 ≤ ε) : 0 ≤ chSharpB ε := by
-  unfold chSharpB; nlinarith [hε]
+  unfold chSharpB; linarith only [hε]
 
 /-- **The contraction** `chSharpB ε < 1` for `ε < 1/249` (the gate-computed exact threshold:
 `(49/50 + 4)ε < 1/50 ⟺ 249ε < 1`).  Do NOT use `1/49`. -/
 theorem chSharpB_lt_one {ε : ℝ} (h : ε < 1 / 249) : chSharpB ε < 1 := by
-  unfold chSharpB; nlinarith [h]
+  unfold chSharpB; linarith only [h]
 
 /-- **The B-mirror sharp τ-sequence** `tauSharpB`: `τ₀ = 0`, `τ_{n+1} = (n=0 ? 3 : 20(99/100)ⁿ)
 + chSharpB ε·τₙ`, so `τ₁ = 3` exactly (the keystones' `htau1`).  The `n = 0` forcing anchor is

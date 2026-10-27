@@ -338,7 +338,7 @@ theorem UsetGChi_thin_pin (q : ℕ) [NeZero q] (f : ℕ → ℂ) (hf1 : ∀ n : 
 `USetPrice.ramI_card_le_pin`), Lemma 6.5's absolute `1680`, the uniform graded level `VJ²`,
 and the count's `exp(2(log S/log P_J)·loglog S)` tail.  Explicit by construction (law #253).
 
-The graded twin of `USetChiTS.thinBundleChi` (:190), with `dyadicPairs P_J Q_J` replaced by
+The graded twin of `USetChiTS.thinBundleChi`, with `dyadicPairs P_J Q_J` replaced by
 `ramI H_J P_J Q_J` — hence the extra `H` argument, and hence the disappearance of the `K₀`
 pigeonhole from everything downstream. -/
 noncomputable def thinBundleGChi (S VJ H : ℝ) (Pj Qj : ℕ) : ℝ :=
@@ -388,7 +388,7 @@ a `hVα` gate.
 
   `|ℰ|·√T ≤ q^{2α_Jb}·bundle·X^{1−2η}`.
 
-The `q = 1`/flat twin is `USetChiTS.UsetChi_thin_sqrt_kill` (:247). -/
+The `q = 1`/flat twin is `USetChiTS.UsetChi_thin_sqrt_kill`. -/
 theorem UsetGChi_thin_sqrt_kill (q : ℕ) [NeZero q] (f : ℕ → ℂ) (hf1 : ∀ n : ℕ, ‖f n‖ ≤ 1)
     (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ) (J Jb : ℕ)
     (hJb1 : 1 ≤ Jb) (hJbJ : Jb ≤ J)
@@ -439,7 +439,7 @@ the character debit costs the exponent `ε`, and at `ε ≤ η` the razor still 
 — half the margin pays for the whole `φ(q)`-genre cost.  The debit page is
 `USetChiTS.charDebit_le_rpow`, **reusable verbatim** (see `UsetGChi_thin_sqrt_kill_at_debit`).
 
-The `q = 1`/flat twin is `USetChiTS.UsetChi_thin_sqrt_kill_absorbed` (:375); the exits match
+The `q = 1`/flat twin is `USetChiTS.UsetChi_thin_sqrt_kill_absorbed`; the exits match
 byte-for-byte apart from the bundle's identity. -/
 theorem UsetGChi_thin_sqrt_kill_absorbed (q : ℕ) [NeZero q] (f : ℕ → ℂ)
     (hf1 : ∀ n : ℕ, ‖f n‖ ≤ 1)

@@ -18,6 +18,9 @@ used pervasively downstream.
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 open Finset
 
 /-- The Maynard sieve index set: `k`-tuples `r : Fin k → ℕ` of pairwise-
@@ -29,10 +32,12 @@ def kSieveIndex (k R W : ℕ) : Finset (Fin k → ℕ) :=
               (∀ i, Nat.Coprime (r i) W) ∧
               (∏ i, r i < R))
 
+omit [TupleChoice] in
 /-- A squarefree natural is positive. -/
 theorem Squarefree.pos {n : ℕ} (hn : Squarefree n) : 0 < n :=
   Nat.pos_of_ne_zero hn.ne_zero
 
+omit [TupleChoice] in
 /-- Membership in `kSieveIndex` is exactly the conjunction of the four
 sieve conditions. The `r i < R` clause defining `piFinset (range R)` is
 recovered from the predicate: each `r i ≥ 1` (squarefree ⇒ nonzero), so
@@ -56,6 +61,7 @@ theorem mem_kSieveIndex_iff {k R W : ℕ} (r : Fin k → ℕ) :
       Finset.single_le_prod' (fun j _ => Squarefree.pos (hpred.1 j)) (Finset.mem_univ i)
     exact lt_of_le_of_lt hprod hpred.2.2.2
 
+omit [TupleChoice] in
 /-- Every coordinate of a sieve tuple is `< R`. -/
 theorem kSieveIndex_coord_lt {k R W : ℕ} {r} (hr : r ∈ kSieveIndex k R W)
     (i : Fin k) : r i < R := by
@@ -64,6 +70,7 @@ theorem kSieveIndex_coord_lt {k R W : ℕ} {r} (hr : r ∈ kSieveIndex k R W)
     Finset.single_le_prod' (fun j _ => Squarefree.pos (hr.1 j)) (Finset.mem_univ i)
   exact lt_of_le_of_lt hprod hr.2.2.2
 
+omit [TupleChoice] in
 /-- Every coordinate of a sieve tuple is positive (squarefree ⇒ nonzero). -/
 theorem kSieveIndex_coord_pos {k R W : ℕ} {r} (hr : r ∈ kSieveIndex k R W)
     (i : Fin k) : 0 < r i := by

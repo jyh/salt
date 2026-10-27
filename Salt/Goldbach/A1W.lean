@@ -65,14 +65,20 @@ noncomputable def goldA1SieveW (Q a N P : ℕ) (hP : Squarefree P)
 
 section FactsW
 
+/-- The `prodPrimes` field of `goldA1SieveW Q a N P hP hPodd` is the sifting modulus `P`
+(`rfl`). -/
 @[simp] lemma goldA1SieveW_prodPrimes (Q a N P : ℕ) (hP : Squarefree P)
     (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p) :
     (goldA1SieveW Q a N P hP hPodd).prodPrimes = P := rfl
 
+/-- The `nu` field of `goldA1SieveW Q a N P hP hPodd` is `nuChen` (`rfl`): the AP restriction
+leaves the density unchanged. -/
 @[simp] lemma goldA1SieveW_nu (Q a N P : ℕ) (hP : Squarefree P)
     (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p) :
     (goldA1SieveW Q a N P hP hPodd).nu = nuChen := rfl
 
+/-- The `totalMass` field of `goldA1SieveW Q a N P hP hPodd` is the smooth
+`(Σ_{n ∈ twinWindow N} Λ(n)) / φ(Q)` (`rfl`). -/
 @[simp] lemma goldA1SieveW_totalMass (Q a N P : ℕ) (hP : Squarefree P)
     (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p) :
     (goldA1SieveW Q a N P hP hPodd).totalMass
@@ -130,10 +136,15 @@ Mirror of the twin `crtClass` (`= chineseRemainder h a (d − 2)`) with the sift
 def crtClassA1 (Q a d N : ℕ) (h : Nat.Coprime Q d) : ℕ :=
   (Nat.chineseRemainder h a (N % d) : ℕ)
 
+/-- `crtClassA1 Q a d N h ≡ a (mod Q)` (hypothesis `h : Nat.Coprime Q d`): the `Q`-side
+congruence of the `n`-side CRT class, `Nat.chineseRemainder`'s first component. -/
 lemma crtClassA1_mod_left (Q a d N : ℕ) (h : Nat.Coprime Q d) :
     crtClassA1 Q a d N h % Q = a % Q :=
   (Nat.chineseRemainder h a (N % d)).2.1
 
+/-- `crtClassA1 Q a d N h % d = (N % d) % d` (hypothesis `h : Nat.Coprime Q d`): the `d`-side
+congruence, `Nat.chineseRemainder`'s second component, with the residue `N % d` reduced again as
+that lemma states it. -/
 lemma crtClassA1_mod_right (Q a d N : ℕ) (h : Nat.Coprime Q d) :
     crtClassA1 Q a d N h % d = (N % d) % d :=
   (Nat.chineseRemainder h a (N % d)).2.2
@@ -385,7 +396,7 @@ theorem goldBVSum_W (Qm a N z D P : ℕ) (ε Qlev : ℝ)
     le_trans (dispDiscW_filtered_le_Icc Qm (N / 2 - 1) hQm1 hlevel) hbv2
   have hb1 : (1 : ℝ) ≤ Qlev * (D : ℝ) := by
     have hD1 : (1 : ℝ) ≤ (D : ℝ) := by exact_mod_cast hD
-    nlinarith [hQlev, hD1]
+    nlinarith only [hQlev, hD1, (Nat.cast_nonneg _ : 0 ≤ ↑D)]
   have hMbound : ∑ d ∈ P.divisors, (1 : ℝ) / (Nat.totient d)
       ≤ (1 + ε) * Real.log (z : ℝ) / Real.log (w0R ε) := by
     have hvr := vratio_prod_le (goldA1SieveW Qm a N P hP hPodd) P.primeFactors hε.le hw0 hwz

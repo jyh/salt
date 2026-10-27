@@ -102,6 +102,24 @@ namespace Salt.Chen
 
 /-! ## Layer 1 — the Λ-mass bridge -/
 
+/-- `hcount_massBridge` with the Siegel–Walfisz statement as the hypothesis `hSWall`, in place of
+the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem hcount_massBridge_of_SW (hSWall : Salt.BV.SiegelWalfisz) :
+    ∃ (Kmass : ℝ) (x₁ : ℕ), 0 ≤ Kmass ∧ ∀ x : ℕ, x₁ ≤ x → ∀ ecount : ℝ, 0 ≤ cbar + ecount →
+      Real.log x * tripleSumW opQ opA x (opZ x) (opY x)
+          ≤ (cbar + ecount)
+              * (((x : ℝ) / 2 - 1 - 2 * Kmass * x / Real.log x) / (opQ.totient : ℝ)) →
+      Real.log x * tripleSumW opQ opA x (opZ x) (opY x)
+          ≤ (cbar + ecount)
+              * ((∑ n ∈ twinWindow x, vonMangoldt n) / (opQ.totient : ℝ)) := by
+  obtain ⟨Kmass, hK0, hmass⟩ := (lambda_mass_lower_of_SW hSWall)
+  refine ⟨Kmass, 8, hK0, fun x hx ecount hce hbound => ?_⟩
+  refine le_trans hbound ?_
+  have hφ : (0 : ℝ) < (opQ.totient : ℝ) := by
+    exact_mod_cast Nat.totient_pos.mpr opf_Q_pos
+  have hlow := hmass x hx
+  gcongr
+
 /-- **`hcount_massBridge` — the window Λ-mass bridge (layer 1, FULLY CLOSED).**
 `MertensPNT.lambda_mass_lower` supplies a fixed `Kmass ≥ 0` and threshold with
 `x/2 − 1 − 2·Kmass·x/log x ≤ ∑_{twinWindow x} Λ` for `x ≥ 8`.  Hence for any `ecount` with
@@ -115,14 +133,8 @@ theorem hcount_massBridge :
               * (((x : ℝ) / 2 - 1 - 2 * Kmass * x / Real.log x) / (opQ.totient : ℝ)) →
       Real.log x * tripleSumW opQ opA x (opZ x) (opY x)
           ≤ (cbar + ecount)
-              * ((∑ n ∈ twinWindow x, vonMangoldt n) / (opQ.totient : ℝ)) := by
-  obtain ⟨Kmass, hK0, hmass⟩ := lambda_mass_lower
-  refine ⟨Kmass, 8, hK0, fun x hx ecount hce hbound => ?_⟩
-  refine le_trans hbound ?_
-  have hφ : (0 : ℝ) < (opQ.totient : ℝ) := by
-    exact_mod_cast Nat.totient_pos.mpr opf_Q_pos
-  have hlow := hmass x hx
-  gcongr
+              * ((∑ n ∈ twinWindow x, vonMangoldt n) / (opQ.totient : ℝ)) :=
+  hcount_massBridge_of_SW Salt.SW.siegelWalfisz_holds
 
 /-! ## The dischargeable keystone rows at the operating point
 

@@ -49,7 +49,7 @@ smaller saving than span − 1.
 ## Measured price (pricing scratch, run 2, `Elab.async false`)
 
 Named landed proof `Salt.MR.chowlaRegimeFlat_exists_param_head_xceil_mul_at_L`
-(`StrideDoorAllGrades.lean:618–737`), verbatim copy vs the two blocks replaced: **lines 120 → 114;
+(`StrideDoorAllGrades.lean` · `chowlaRegimeFlat_exists_param_head_xceil_mul_at_L`), verbatim copy vs the two blocks replaced: **lines 120 → 114;
 heartbeats 79,094 → 72,746 (−8.0 %)**, both copies at three axioms.  Corpus: **≈254 lines, an
 UPPER BOUND** (in-coverage R3 148 sites / 176 saved + R2 36 / 114, less 36 counted twice through
 nesting).  The candidate stays a CANDIDATE until a landed proof converts; that is the debt lane's

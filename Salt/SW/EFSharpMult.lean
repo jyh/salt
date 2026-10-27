@@ -39,7 +39,7 @@ orphaned.
 * **`hZsimple` is deleted** and replaced by `hZzero : ∀ ρ ∈ Z, LFunction χ ρ = 0` — which wave 2
   *derived* from `hZsimple` and which the assembly gets for free from `mem_boxZeros`. So the
   hypothesis budget strictly *shrinks*.
-* **`E` is unchanged** — literally wave 2's `efShiftError`. Verified by inspection at the bytes:
+* **`E` is unchanged** — literally wave 2's `efShiftError`. Checked by reading, outside Lean:
   the horizontal/left/tail estimates read only `hZsep` (edge separation) and `hZall` (nothing
   outside `Z` is a zero near the contour) through `hdist_edge`; the Borel–Carathéodory/Jensen
   edge constant `B` already prices **all** zeros of the ball *with multiplicity*
@@ -155,6 +155,8 @@ noncomputable def efMultTotal {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ 
     ℝ :=
   ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ)
 
+/-- `0 ≤ Σ_{ρ ∈ Z} m_ρ`: a sum of casts of natural numbers (`Finset.sum_nonneg`,
+`positivity`). -/
 lemma efMultTotal_nonneg {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) (Z : Finset ℂ) :
     0 ≤ efMultTotal χ Z :=
   Finset.sum_nonneg fun _ _ => by positivity
@@ -713,7 +715,7 @@ theorem psi1_contour_shift_finsetM_gap {f : ℕ} [NeZero f] (χ : DirichletChara
     have hxexp : x ^ (u + 1) ≤ x ^ (c + 1) :=
       Real.rpow_le_rpow_of_exponent_le hx1 (by linarith [hu.2])
     have hinvle : (u ^ 2 + τ ^ 2)⁻¹ ≤ (T ^ 2)⁻¹ :=
-      (inv_le_inv₀ (by positivity) (by positivity)).mpr (by nlinarith [sq_nonneg u])
+      (inv_le_inv₀ (by positivity) (by positivity)).mpr (by linarith only [hττ, sq_nonneg u])
     rw [hFnorm, hsre]
     calc x ^ (u + 1) * ‖(((u : ℂ) + (τ : ℂ) * I) * (((u : ℂ) + (τ : ℂ) * I) + 1))⁻¹‖
             * ‖logDeriv (LFunction χ) ((u : ℂ) + (τ : ℂ) * I)‖

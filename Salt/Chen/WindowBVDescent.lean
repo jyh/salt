@@ -102,7 +102,7 @@ theorem block_energy_le_cutoff {X Y T a b : ℕ} (ha : 1 ≤ a) (hb : 2 ≤ b) (
       have hrw : (1 / (a : ℝ)) * ((f : ℝ) / (f.totient : ℝ))
           = (f : ℝ) / ((a : ℝ) * (f.totient : ℝ)) := by field_simp
       rw [hrw, div_le_div_iff₀ hφpos (mul_pos haR hφpos)]
-      nlinarith [haf, hφpos.le]
+      nlinarith only [haf, (Nat.cast_nonneg _ : 0 ≤ ↑f.totient)]
     calc (1 / (f.totient : ℝ)) * cutoffPrimEnergy α β X Y T f
         ≤ ((1 / (a : ℝ)) * ((f : ℝ) / (f.totient : ℝ))) * cutoffPrimEnergy α β X Y T f :=
           mul_le_mul_of_nonneg_right hwle hEnn
@@ -240,13 +240,13 @@ theorem cutoffTwist_energy_le_dvd {X Y T Q δ : ℕ} (hδ1 : 1 ≤ δ) (hQ : 2 �
   have hmassα : Real.sqrt (∑ m ∈ Finset.Icc 1 X, ‖α m‖ ^ 2) ≤ Real.sqrt (X : ℝ) := by
     apply Real.sqrt_le_sqrt
     calc ∑ m ∈ Finset.Icc 1 X, ‖α m‖ ^ 2 ≤ ∑ _m ∈ Finset.Icc 1 X, (1 : ℝ) := by
-          refine Finset.sum_le_sum (fun m _ => ?_); nlinarith [hα m, norm_nonneg (α m)]
+          refine Finset.sum_le_sum (fun m _ => ?_); nlinarith only [hα m, norm_nonneg (α m)]
       _ = (X : ℝ) := by
           rw [Finset.sum_const, Nat.card_Icc, Nat.add_sub_cancel, nsmul_eq_mul, mul_one]
   have hmassβ : Real.sqrt (∑ n ∈ Finset.Icc 1 Y, ‖β n‖ ^ 2) ≤ Real.sqrt (Y : ℝ) := by
     apply Real.sqrt_le_sqrt
     calc ∑ n ∈ Finset.Icc 1 Y, ‖β n‖ ^ 2 ≤ ∑ _n ∈ Finset.Icc 1 Y, (1 : ℝ) := by
-          refine Finset.sum_le_sum (fun n _ => ?_); nlinarith [hβ n, norm_nonneg (β n)]
+          refine Finset.sum_le_sum (fun n _ => ?_); nlinarith only [hβ n, norm_nonneg (β n)]
       _ = (Y : ℝ) := by
           rw [Finset.sum_const, Nat.card_Icc, Nat.add_sub_cancel, nsmul_eq_mul, mul_one]
   have h1logY : (0 : ℝ) ≤ 1 + Real.log Y :=
@@ -301,7 +301,7 @@ theorem block_energy_le_cutoff_dvd {X Y T a b δ : ℕ} (hδ1 : 1 ≤ δ) (ha : 
       have hrw : (1 / (a : ℝ)) * ((f : ℝ) / (f.totient : ℝ))
           = (f : ℝ) / ((a : ℝ) * (f.totient : ℝ)) := by field_simp
       rw [hrw, div_le_div_iff₀ hφpos (mul_pos haR hφpos)]
-      nlinarith [haf, hφpos.le]
+      nlinarith only [haf, (Nat.cast_nonneg _ : 0 ≤ ↑f.totient)]
     calc (1 / (f.totient : ℝ)) * cutoffPrimEnergy α β X Y T f
         ≤ ((1 / (a : ℝ)) * ((f : ℝ) / (f.totient : ℝ))) * cutoffPrimEnergy α β X Y T f :=
           mul_le_mul_of_nonneg_right hwle hEnn

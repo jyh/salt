@@ -13,7 +13,7 @@ import Salt.Tactic.ExpLogNum
 ⟦WHAT THIS FILE SETTLES⟧  `S16FlatTerminalLinearH` re-stated the second road's terminal
 register at the `h`-inflated arc cap and left its socket `M4ChiSummedFreeRowH_L_gk h K R M RS`
 with NO producer at `h ≥ 2`.  This file is the producer chain the terminal path reads — the
-constant-pool fuse `m4_closure_fuse_zero'_const_nonneg_L_gk` (`S16FlatTerminalLinear.lean:109`)
+constant-pool fuse `m4_closure_fuse_zero'_const_nonneg_L_gk` (`S16FlatTerminalLinear.lean`)
 and everything under it — re-quantified over the inflated framed base `HDoorSupply.SocketBaseLH h`
 (`SocketBaseL` with conjuncts 5 and 11, the modulus cap and the x-scale floor, read at
 `h · arcDen 12 H`).
@@ -36,7 +36,13 @@ Every other shape is CAP-BLIND: its producer projects only conjuncts `{1,2,3,4,6
 carries no socket binder, and its `h`-twin is the landed proof with `SocketBaseL` read as
 `SocketBaseLH h`.  ⚠️ The socket helpers under the bridge restatements (`s13_socketBase_xscale`
 and its descendants, `s15_block_at_socket_gen`) read conjunct 11 and lose exactly `log h` in
-the log; each is restated with `hh7` absorbing it against slack of `10²¹` and more.
+the log; each descendant was restated with `hh7` absorbing it against slack of `10²¹` and more at
+the file's landing (2026-09-01).  2026-10-09: family 46 retired `s15_block_at_socket_gen_LH`, that
+restatement, into its cap-9 twin of §7 ⟦β W1 E2⟧ (at `hh9`), noted where it stood.  2026-10-11:
+family 49 retired the five `_LH` descendants of §2 — `s13_socketBase_logA_ge_sqrt_LH`,
+`s13_socketBase_loglogA_sharp_LH`, `s13_socketBase_loglogA_LH`, `s14_loglogX_ge_of_socket_LH`,
+`s12c_llX_ge_LH` — into their cap-9 twins of §7 ⟦β W1 E2⟧ and §8 ⟦β W2 F1⟧ (at `hh9`), each noted
+where it stood.
 
 ⟦THE RECEIPT⟧  `m4_closure_fuse_zero'_const_nonneg_H_L_gk` concludes
 `M4ChiSummedFreeRowH_L_gk h K R M (m4ChiRowGradedH_L h M (fun _ H => RSanDoorRhoH ρ h H))` —
@@ -48,9 +54,20 @@ shows the register's own consumer `m4_chiSummedN_suppliedH_L_gk` fires on it, wi
 head's h-twin, the ¬Fails-form register) and the six hops above it (wave H).  No `SocketBaseH`
 def, no `S13BandGate'H` structure, no `rStrWitnessH` def — each would be a statement act.
 
-**PURELY ADDITIVE.**  No landed declaration is touched.  Nothing here bears on twin primes:
-every object is conditional exactly where its `h = 1` twin is; the seven OPEN sockets
-(`DoorRowZeroBase`, `DoorRowEndBase`, the `epsrf` split, the `calQK` window, …) cross to `h`
+**PURELY ADDITIVE AT ITS LANDING (2026-09-01).**  No landed statement or proof was touched by it.
+2026-10-08: the XY debt lane's family 45 retired five pages of this file, left without a call site
+by family 44, into their cap-9 twins of §7 ⟦β W1 E2⟧ and §8 ⟦β W2 F1⟧ — the three socket tops and
+the block page of §3, and the band base of §5 — each noted where it stood; of the twelve names of
+this file that have a `_b9` twin, seven stand, two of them now without a caller (`s13_band_qfit_h`,
+`s15_block_at_socket_gen_LH`).  2026-10-09: family 46 retired those two,
+`s15_block_at_socket_gen_LH` (§2) and `s13_band_qfit_h` (§5), into their cap-9 twins of §7
+⟦β W1 E2⟧, each noted where it stood; of the names of this file that have a `_b9` twin, five stand,
+each with a caller.  2026-10-11: family 49 retired those five — the chain of §2 under
+`s12c_llX_ge_LH`, which family 47 (2026-10-09) had left without a caller, each of the other four
+called at this date only from inside that chain — into their cap-9 twins of §7 ⟦β W1 E2⟧ and §8
+⟦β W2 F1⟧, each noted where it stood; no name of this file with a `_b9` twin remains.  Nothing here
+bears on twin primes: every object is conditional exactly where its `h = 1` twin is; the seven OPEN
+sockets (`DoorRowZeroBase`, `DoorRowEndBase`, the `epsrf` split, the `calQK` window, …) cross to `h`
 unchanged.
 -/
 
@@ -323,7 +340,12 @@ theorem m4_arith_henv_constPoolH_L_gk (K : ℕ) {h : ℕ} (hh : 0 < h) (hh7 : Re
 `SocketBase`'s x-scale field `x ≤ 16·ω·arcDen·A` is read by `s13_socketBase_xscale` and
 everything above it; at `SocketBaseLH h` the field is `x ≤ 16·ω·(h·arcDen)·A`, so each
 descendant loses exactly `log h ≤ 7` in the log against slack of `10²¹` and more.  Each is the
-landed proof with the one extra term absorbed.  Conjuncts 1–4, 6–10, 12–13 read identically. -/
+landed proof with the one extra term absorbed.  Conjuncts 1–4, 6–10, 12–13 read identically.
+2026-10-09: family 46 retired `s15_block_at_socket_gen_LH`, the block page's supplier, into its
+cap-9 twin of §7 ⟦β W1 E2⟧, noted where it stood.  2026-10-11: family 49 retired the section's five
+cap-7 pages — the chain under `s12c_llX_ge_LH` — into their cap-9 twins, each noted where it stood;
+the section's three declarations without a twin — `s13_socketBase_xscale_LH`, `s13_band_X400_LH` and
+`s13_band_baseFloor_LH` — stand. -/
 
 /-- `s13_socketBase_xscale` at the inflated socket: `(4^{⌊ε²H₊⌋₊})² ≤ 2·(h·arcDen 12 H)·A`. -/
 theorem s13_socketBase_xscale_LH {h : ℕ} {R : ChowlaRegime} {M H L q j A s : ℕ}
@@ -337,191 +359,140 @@ theorem s13_socketBase_xscale_LH {h : ℕ} {R : ChowlaRegime} {M H L q j A s : �
   have hc0 : (0 : ℝ) ≤ c := hArcDen_nonneg h H
   nlinarith [hx, hhead, hω, hc0]
 
-/-- `s13_socketBase_logA_ge_sqrt` at the inflated socket — `√H ≤ log A`; the `log h ≤ 7` the
+/-! ### `s13_socketBase_logA_ge_sqrt_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 49 (2026-10-11)⟧
+`s13_socketBase_logA_ge_sqrt_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7) {R : ChowlaRegime} {M H
+L q j A s : ℕ} (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) : Real.sqrt (H :
+ℝ) ≤ Real.log (A : ℝ)` stood here.  It is `s13_socketBase_logA_ge_sqrt_LH_b9` (in §7 ⟦β W1 E2⟧
+below) with `(hh9 : Real.log h ≤ 9)` for `(hh7 : Real.log h ≤ 7)`, token-identical elsewhere, so the
+twin implies it by `linarith` — kernel-checked from the retired statement's own bytes before the
+removal was committed.  The twin's body is this page's with ONE line changed: `hlog'` reads the
+x-scale's `log h` at `9` (`7 ↦ 9`).  At this retirement the page's only callers were
+`s13_socketBase_loglogA_sharp_LH` and `s13_socketBase_loglogA_LH` of this section, retired with it
+in this family; their twins call this page's twin.  When the lane opened (main `93d7f312`,
+2026-09-25) it had three more: `capfloor_core_LH` (`S13CapGateLinearLH`), which family 40 retired
+into its cap-9 twin (2026-10-06); `s13CapGrid_Lambda_sharp_LH` (`S13CapGateLinearLH`), which
+family 41 retired into its cap-9 twin (2026-10-06); `s13CapGrid_mu_lo_LH` (`S13CapGateLinearLH`),
+which family 43 retired into its cap-9 twin (2026-10-08); each of those twins calls this page's
+twin.  This retirement leaves no name without a caller.
+
+The page's docstring, verbatim:
+
+`s13_socketBase_logA_ge_sqrt` at the inflated socket — `√H ≤ log A`; the `log h ≤ 7` the
 x-scale loses is absorbed by the `2000 ≤ √H` floor's margin. -/
-theorem s13_socketBase_logA_ge_sqrt_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s : ℕ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
-    Real.sqrt (H : ℝ) ≤ Real.log (A : ℝ) := by
-  have hlo : R.Hlo ≤ H := hb.1
-  have hhi : H ≤ R.Hhi := hb.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
-  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
-  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
-    have := Real.exp_le_exp.mpr h50
-    rwa [Real.exp_log hlogH0] at this
-  have hlogHbig : (4000000 : ℝ) ≤ Real.log (H : ℝ) := le_trans s13_four_million_le_exp50 hexp50
-  set u : ℝ := Real.sqrt (H : ℝ) with hu
-  set w : ℝ := Real.sqrt (Real.log (H : ℝ)) with hw
-  have hu2 : u ^ 2 = (H : ℝ) := Real.sq_sqrt (by positivity)
-  have hw2 : w ^ 2 = Real.log (H : ℝ) := Real.sq_sqrt hlogH0.le
-  have hu0 : (0 : ℝ) < u := by rw [hu]; exact Real.sqrt_pos.mpr (by linarith)
-  have hw0 : (0 : ℝ) < w := by rw [hw]; exact Real.sqrt_pos.mpr hlogH0
-  have hu2000 : (2000 : ℝ) ≤ u := by nlinarith [hu2, hu0, hHR]
-  have hw2000 : (2000 : ℝ) ≤ w := by nlinarith [hw2, hw0, hlogHbig]
-  have hlogu : Real.log u = Real.log (H : ℝ) / 2 := by
-    rw [hu]; exact Real.log_sqrt (by positivity)
-  have hlogule : Real.log u ≤ u - 1 := Real.log_le_sub_one_of_pos hu0
-  have hHu : Real.log (H : ℝ) ≤ 2 * u - 2 := by rw [hlogu] at hlogule; linarith
-  have hlogw : Real.log w = Real.log (Real.log (H : ℝ)) / 2 := by
-    rw [hw]; exact Real.log_sqrt hlogH0.le
-  have hlogwle : Real.log w ≤ w - 1 := Real.log_le_sub_one_of_pos hw0
-  have hllH : Real.log (Real.log (H : ℝ)) ≤ 2 * w - 2 := by rw [hlogw] at hlogwle; linarith
-  have hwu : w ^ 2 ≤ 2 * u := by rw [hw2]; linarith
-  -- ⟦the x-scale, in logs, at the inflated cap⟧
-  set m : ℕ := ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ with hm
-  have hxs : ((4 ^ m : ℕ) : ℝ) ^ 2 ≤ 2 * ((h : ℝ) * arcDen 12 H) * (A : ℝ) :=
-    s13_socketBase_xscale_LH hb
-  have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
-    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-  have hAR : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-  have hL12 : (0 : ℝ) < Real.log (H : ℝ) ^ (12 : ℕ) := by positivity
-  have hhl : (0 : ℝ) < (h : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) := mul_pos hh0 hL12
-  have hlhs0 : (0 : ℝ) < ((4 ^ m : ℕ) : ℝ) ^ 2 := by positivity
-  have hlog := Real.log_le_log hlhs0 hxs
-  have hL : Real.log (((4 ^ m : ℕ) : ℝ) ^ 2) = 4 * (m : ℝ) * Real.log 2 := by
-    have h4 : ((4 ^ m : ℕ) : ℝ) = (4 : ℝ) ^ m := by push_cast; ring
-    rw [h4, ← pow_mul, Real.log_pow, show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
-    push_cast; ring
-  have hRR : Real.log (2 * ((h : ℝ) * arcDen 12 H) * (A : ℝ))
-      = Real.log 2 + Real.log (h : ℝ) + 12 * Real.log (Real.log (H : ℝ)) + Real.log (A : ℝ) := by
-    rw [harcpow, Real.log_mul (mul_pos two_pos hhl).ne' hAR.ne', Real.log_mul two_ne_zero hhl.ne',
-      Real.log_mul hh0.ne' hL12.ne', Real.log_pow]
-    push_cast; ring
-  rw [hL, hRR] at hlog
-  have hlog' : 4 * (m : ℝ) * Real.log 2
-      ≤ Real.log 2 + 7 + 12 * Real.log (Real.log (H : ℝ)) + Real.log (A : ℝ) := by linarith
-  have hmfl : 2 * u - 1 ≤ (m : ℝ) := by rw [hm, hu]; exact s13_socketBase_mFloor hhi
-  have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
-  have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hm0 : (0 : ℝ) ≤ (m : ℝ) := Nat.cast_nonneg _
-  nlinarith [hlog', hmfl, hllH, hwu, hw2000, hu2000, hl2lo, hl2hi, hu0, hw0]
 
-/-- `s13_socketBase_loglogA_sharp` at the inflated socket. -/
-theorem s13_socketBase_loglogA_sharp_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s : ℕ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
-    Real.log (H : ℝ) / 2 ≤ Real.log (Real.log (A : ℝ)) := by
-  have hlo : R.Hlo ≤ H := hb.1
-  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  set u : ℝ := Real.sqrt (H : ℝ) with hu
-  have hu0 : (0 : ℝ) < u := by rw [hu]; exact Real.sqrt_pos.mpr (by linarith)
-  have hmain : u ≤ Real.log (A : ℝ) := s13_socketBase_logA_ge_sqrt_LH hh hh7 hfl hb
-  have hlogu : Real.log u = Real.log (H : ℝ) / 2 := by
-    rw [hu]; exact Real.log_sqrt (by positivity)
-  have hmono := Real.log_le_log hu0 hmain
-  rw [hlogu] at hmono
-  linarith
+/-! ### `s13_socketBase_loglogA_sharp_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
 
-/-- `s13_socketBase_loglogA` at the inflated socket. -/
-theorem s13_socketBase_loglogA_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s : ℕ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
-    (2000 : ℝ) ≤ Real.log (A : ℝ) ∧ (6500 : ℝ) ≤ Real.log (Real.log (A : ℝ)) := by
-  have hlo : R.Hlo ≤ H := hb.1
-  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
-  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
-  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
-    have := Real.exp_le_exp.mpr h50
-    rwa [Real.exp_log hlogH0] at this
-  have hlogHbig : (4000000 : ℝ) ≤ Real.log (H : ℝ) := le_trans s13_four_million_le_exp50 hexp50
-  set u : ℝ := Real.sqrt (H : ℝ) with hu
-  have hu2 : u ^ 2 = (H : ℝ) := Real.sq_sqrt (by positivity)
-  have hu0 : (0 : ℝ) < u := by rw [hu]; exact Real.sqrt_pos.mpr (by linarith)
-  have hu2000 : (2000 : ℝ) ≤ u := by nlinarith [hu2, hu0, hHR]
-  have hmain : u ≤ Real.log (A : ℝ) := s13_socketBase_logA_ge_sqrt_LH hh hh7 hfl hb
-  exact ⟨le_trans hu2000 hmain,
-    by have := s13_socketBase_loglogA_sharp_LH hh hh7 hfl hb; linarith⟩
+⟦XY debt lane, family 49 (2026-10-11)⟧
+`s13_socketBase_loglogA_sharp_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7) {R : ChowlaRegime} {M H
+L q j A s : ℕ} (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) : Real.log (H :
+ℝ) / 2 ≤ Real.log (Real.log (A : ℝ))` stood here.  It is `s13_socketBase_loglogA_sharp_LH_b9` (in §7
+⟦β W1 E2⟧ below) with `(hh9 : Real.log h ≤ 9)` for `(hh7 : Real.log h ≤ 7)`, token-identical
+elsewhere, so the twin implies it by `linarith` — kernel-checked from the retired statement's own
+bytes before the removal was committed.  The twin's body is this page's with ONE line changed: the
+call of its supplier `s13_socketBase_logA_ge_sqrt_LH` (a page of this section, retired with it),
+swapped for the `_b9` twin's.  At this retirement the page's only callers were
+`s13_socketBase_loglogA_LH` and `s14_loglogX_ge_of_socket_LH` of this section, retired with it in
+this family; their twins call this page's twin.  When the lane opened (main `93d7f312`, 2026-09-25)
+it had two more: `s13_capEps_register_LH` (`S13CapGateLinearLH`), which family 25 retired into its
+cap-9 twin (2026-09-30); `s13CapGrid_Lambda_sharp_LH` (`S13CapGateLinearLH`), which family 41
+retired into its cap-9 twin (2026-10-06); each of those twins calls this page's twin.  This
+retirement leaves no name without a caller.
 
-/-- `s14_loglogX_ge_of_socket` at the inflated socket. -/
-theorem s14_loglogX_ge_of_socket_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s : ℕ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
-    Real.log (H : ℝ) / 2 ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
-  have hsharp := s13_socketBase_loglogA_sharp_LH hh hh7 hfl hb
-  obtain ⟨h2000, -⟩ := s13_socketBase_loglogA_LH hh hh7 hfl hb
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
-  have hmono : Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := Real.log_le_log hA0 hAX
-  have h := Real.log_le_log (by linarith : (0 : ℝ) < Real.log (A : ℝ)) hmono
-  linarith
+The page's docstring, verbatim:
 
-/-- `s12c_llX_ge` at the inflated socket. -/
-theorem s12c_llX_ge_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s : ℕ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
-    Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) / 2
-      ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
-  have hlo : R.Hlo ≤ H := hb.1
-  have hH4 : 4000000 ≤ R.Hlo := R.hHlo_floor
-  have hHR : (4000000 : ℝ) ≤ ((R.Hlo : ℕ) : ℝ) := by exact_mod_cast hH4
-  have hlogHlopos : (0 : ℝ) < Real.log ((R.Hlo : ℕ) : ℝ) := Real.log_pos (by linarith)
-  have hcast : ((R.Hlo : ℕ) : ℝ) ≤ (H : ℝ) := by exact_mod_cast hlo
-  have hmono : Real.log ((R.Hlo : ℕ) : ℝ) ≤ Real.log (H : ℝ) :=
-    Real.log_le_log (by linarith) hcast
-  have hsharp := s14_loglogX_ge_of_socket_LH hh hh7 hfl hb
-  rw [Real.exp_log hlogHlopos]
-  linarith
+`s13_socketBase_loglogA_sharp` at the inflated socket. -/
 
-/-- `s15_block_at_socket_gen` at the inflated socket: `2^E ≤ A + s`.  The `log h ≤ 7` is
+/-! ### `s13_socketBase_loglogA_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 49 (2026-10-11)⟧
+`s13_socketBase_loglogA_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7) {R : ChowlaRegime} {M H L q j
+A s : ℕ} (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) : (2000 : ℝ) ≤ Real.log
+(A : ℝ) ∧ (6500 : ℝ) ≤ Real.log (Real.log (A : ℝ))` stood here.  It is
+`s13_socketBase_loglogA_LH_b9` (in §8 ⟦β W2 F1⟧ below) with `(hh9 : Real.log h ≤ 9)` for
+`(hh7 : Real.log h ≤ 7)`, token-identical elsewhere, so the twin implies it by `linarith` —
+kernel-checked from the retired statement's own bytes before the removal was committed.  The twin's
+body is this page's with TWO lines changed: the calls of its suppliers
+`s13_socketBase_logA_ge_sqrt_LH` and `s13_socketBase_loglogA_sharp_LH` (pages of this section,
+retired with it), each swapped for its `_b9` twin.  At this retirement the page's only caller was
+`s14_loglogX_ge_of_socket_LH` of this section, retired with it in this family; its twin calls this
+page's twin.  When the lane opened (main `93d7f312`, 2026-09-25) it had six more:
+`s13_capEps_register_LH` (`S13CapGateLinearLH`), which family 25 retired into its cap-9 twin
+(2026-09-30); `s13_abs8640_at_base_LH` (`S13CapGateLinearLH`), which family 26 retired into its
+cap-9 twin (2026-09-30); `s13_abs8640_of_socketBase_LH` (`S13CapGateLinearLH`), which family 27
+retired into its cap-9 twin (2026-09-30); `s15_hband4096_at_socket_flatH` and
+`s15_heps293_at_socket_flatH` (this file), which family 45 retired into their cap-9 twins
+(2026-10-08); `s15_gRows_const_at_socket_flat_doorLH_gk` (`S16FlatTerminalLinearLH`), which
+family 47 retired into its cap-9 twin (2026-10-09); each of those twins calls this page's twin.
+This retirement leaves no name without a caller.
+
+The page's docstring, verbatim:
+
+`s13_socketBase_loglogA` at the inflated socket. -/
+
+/-! ### `s14_loglogX_ge_of_socket_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 49 (2026-10-11)⟧
+`s14_loglogX_ge_of_socket_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7) {R : ChowlaRegime} {M H L q
+j A s : ℕ} (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) : Real.log (H : ℝ) /
+2 ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ))` stood here.  It is `s14_loglogX_ge_of_socket_LH_b9` (in
+§8 ⟦β W2 F1⟧ below) with `(hh9 : Real.log h ≤ 9)` for `(hh7 : Real.log h ≤ 7)`, token-identical
+elsewhere, so the twin implies it by `linarith` — kernel-checked from the retired statement's own
+bytes before the removal was committed.  The twin's body is this page's with TWO lines changed: the
+calls of its suppliers `s13_socketBase_loglogA_sharp_LH` and `s13_socketBase_loglogA_LH` (pages of
+this section, retired with it), each swapped for its `_b9` twin.  At this retirement the page's only
+caller was `s12c_llX_ge_LH` of this section, retired with it in this family; its twin calls this
+page's twin.  It had no other caller when the lane opened (main `93d7f312`, 2026-09-25).  This
+retirement leaves no name without a caller.
+
+The page's docstring, verbatim:
+
+`s14_loglogX_ge_of_socket` at the inflated socket. -/
+
+/-! ### `s12c_llX_ge_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 49 (2026-10-11)⟧
+`s12c_llX_ge_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7) {R : ChowlaRegime} {M H L q j A s : ℕ}
+(hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) : Real.exp (Real.log (Real.log
+((R.Hlo : ℕ) : ℝ))) / 2 ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ))` stood here.  It is
+`s12c_llX_ge_LH_b9` (in §8 ⟦β W2 F1⟧ below) with `(hh9 : Real.log h ≤ 9)` for
+`(hh7 : Real.log h ≤ 7)`, token-identical elsewhere, so the twin implies it by `linarith` —
+kernel-checked from the retired statement's own bytes before the removal was committed.  The twin's
+body is this page's with ONE line changed: the call of its supplier `s14_loglogX_ge_of_socket_LH` (a
+page of this section, retired with it), swapped for the `_b9` twin's.  At this retirement the page
+had NO call site.  When the lane opened (main `93d7f312`, 2026-09-25) it had four:
+`s12c_eps_threshold_at_socket_flatH`, `s15_hband4096_at_socket_flatH` and
+`s15_heps293_at_socket_flatH` (this file), which family 45 retired into their cap-9 twins
+(2026-10-08); `s15_gRows_const_at_socket_flat_doorLH_gk` (`S16FlatTerminalLinearLH`), which
+family 47 retired into its cap-9 twin (2026-10-09); each of those twins calls this page's twin.
+This retirement leaves no name without a caller.
+
+The page's docstring, verbatim:
+
+`s12c_llX_ge` at the inflated socket. -/
+
+/-! ### `s15_block_at_socket_gen_LH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 46 (2026-10-09)⟧
+`s15_block_at_socket_gen_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7) {R : ChowlaRegime} {M H L q
+j A s E : ℕ} (hb : SocketBaseLH h R M H L q j A s) (hHreg : 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log
+(Real.log (H : ℝ))) (hblk : ((E : ℕ) : ℝ) + 1 + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 4 *
+((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) : 2 ^ E ≤ A + s` stood here.  It is
+`s15_block_at_socket_gen_LH_b9` (in the §7 ⟦β W1 E2⟧ section below) with the hypothesis
+strengthened: the two statements differ in that ONE binder, `log h ≤ 7` against `log h ≤ 9`, and are
+token-identical elsewhere, so the twin implies it by `linarith` — kernel-checked from the retired
+statement's own bytes before the removal was committed.  The twin's body is this page's with ONE
+line changed: the numeral `7` of the `hlog'` step lifted to `9` (the cap, spent there as a literal).
+At this retirement the page had NO call site.  When the lane opened (main, 2026-09-25) it had one:
+`s15_block_at_socketH_L_gk` (of this file), which family 45 retired into its cap-9 twin
+(2026-10-08); that twin calls this page's twin.  This retirement leaves no name of this file without
+a caller.
+
+The page's docstring, verbatim:
+
+`s15_block_at_socket_gen` at the inflated socket: `2^E ≤ A + s`.  The `log h ≤ 7` is
 absorbed by the `18·loglog H₊` against `12·loglog H` margin (`≥ 0.47·50 > 7`). -/
-theorem s15_block_at_socket_gen_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s E : ℕ}
-    (hb : SocketBaseLH h R M H L q j A s)
-    (hHreg : 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
-    (hblk : ((E : ℕ) : ℝ) + 1 + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) :
-    2 ^ E ≤ A + s := by
-  have hlo : R.Hlo ≤ H := hb.1
-  have hhi : H ≤ R.Hhi := hb.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hApos : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) :=
-    lt_of_lt_of_le (by norm_num) (one_lt_log_of_loglog_ge hHreg.1 (by norm_num) hHreg.2).le
-  have hllH : Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) :=
-    s13_loglog_le_of_range (R := R) hlo hhi
-  set m : ℕ := ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ with hm
-  have hxs : ((4 ^ m : ℕ) : ℝ) ^ 2 ≤ 2 * ((h : ℝ) * arcDen 12 H) * (A : ℝ) :=
-    s13_socketBase_xscale_LH hb
-  have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
-    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-  have hL12 : (0 : ℝ) < Real.log (H : ℝ) ^ (12 : ℕ) := by positivity
-  have hhl : (0 : ℝ) < (h : ℝ) * Real.log (H : ℝ) ^ (12 : ℕ) := mul_pos hh0 hL12
-  have hlhs0 : (0 : ℝ) < ((4 ^ m : ℕ) : ℝ) ^ 2 := by positivity
-  have hlog := Real.log_le_log hlhs0 hxs
-  have hLid : Real.log (((4 ^ m : ℕ) : ℝ) ^ 2) = 4 * (m : ℝ) * Real.log 2 := by
-    have h4 : ((4 ^ m : ℕ) : ℝ) = (4 : ℝ) ^ m := by push_cast; ring
-    rw [h4, ← pow_mul, Real.log_pow, show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
-    push_cast; ring
-  have hRR : Real.log (2 * ((h : ℝ) * arcDen 12 H) * (A : ℝ))
-      = Real.log 2 + Real.log (h : ℝ) + 12 * Real.log (Real.log (H : ℝ)) + Real.log (A : ℝ) := by
-    rw [harcpow, Real.log_mul (mul_pos two_pos hhl).ne' hApos.ne', Real.log_mul two_ne_zero hhl.ne',
-      Real.log_mul hh0.ne' hL12.ne', Real.log_pow]
-    push_cast; ring
-  rw [hLid, hRR] at hlog
-  have hlog' : 4 * (m : ℝ) * Real.log 2
-      ≤ Real.log 2 + 7 + 12 * Real.log (Real.log (H : ℝ)) + Real.log (A : ℝ) := by linarith
-  have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
-  have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hE : ((E : ℕ) : ℝ) * Real.log 2 ≤ Real.log (A : ℝ) := by
-    nlinarith [hblk, hlog', hllH, hHreg.2, hl2lo, hl2hi]
-  have hpow : ((2 : ℝ)) ^ E ≤ (A : ℝ) := by
-    have hlt : Real.log (((2 : ℝ)) ^ E) ≤ Real.log (A : ℝ) := by
-      rw [Real.log_pow]; linarith
-    exact (Real.log_le_log_iff (by positivity) hApos).mp hlt
-  have hcast : ((2 ^ E : ℕ) : ℝ) ≤ (A : ℝ) := by push_cast; exact hpow
-  have hnat : (2 : ℕ) ^ E ≤ A := by exact_mod_cast hcast
-  omega
 
 /-- `s13_band_X400` at the inflated socket — conjuncts 7 and 9 only (cap-blind); the LINEAR row
 floor `doorRowFloorL M = M·2^36·M ≥ 2^36 ≥ 2^9`. -/
@@ -564,127 +535,129 @@ theorem s13_band_baseFloor_LH {h : ℕ} {R : ChowlaRegime} {M H L q j A s : ℕ}
 /-! ## §3 — the four bridge restatements at the inflated socket (word 5)
 
 At `h = 1` these are consumed THROUGH `socketBase_of_socketBaseL`; no `SocketBaseH` exists and
-none can at `h ≥ 2`, so each is restated at `SocketBaseLH h` over the `_LH` helpers of §2. -/
+none can at `h ≥ 2`, so each is restated at `SocketBaseLH h` over the `_LH` helpers of §2.
+2026-10-08: family 45 retired all four — `s12c_eps_threshold_at_socket_flatH`,
+`s15_heps293_at_socket_flatH`, `s15_hband4096_at_socket_flatH` into their twins of §8 ⟦β W2 F1⟧,
+`s15_block_at_socketH_L_gk` into its twin of §7 ⟦β W1 E2⟧ — each noted where it stood; after it no
+declaration stands in this section. -/
 
-/-- `s12c_eps_threshold_at_socket_flat` at the inflated socket. -/
-theorem s12c_eps_threshold_at_socket_flatH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ ε : ℝ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
-    (hlam : 50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)))
-    (htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2))
-    (hrho : -Real.log ρ ≤ 100000000000000)
-    (hε : ε ≤ theta293 - 1 / 500) :
-    14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + Real.log 376266 + (-Real.log ρ)
-      ≤ (theta293 - ε) * Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
-  set lam : ℝ := Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) with hlamdef
-  set Λ : ℝ := Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) with hLamdef
-  set ll : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hlldef
-  have hll := s12c_llX_ge_LH hh hh7 hfl hb
-  have hcore := flat_lambda_core hlam
-  have hlog376 := s12c_log376266
-  have hexp0 : (0 : ℝ) < Real.exp lam := Real.exp_pos _
-  have hll0 : (0 : ℝ) ≤ ll := by linarith
-  have hcoef : (1 : ℝ) / 500 ≤ theta293 - ε := by linarith
-  have hprod : (1 : ℝ) / 500 * ll ≤ (theta293 - ε) * ll :=
-    mul_le_mul_of_nonneg_right hcoef hll0
-  have h1 : 14 * Λ ≤ 14 * Real.exp (lam / 2) := by linarith
-  linarith
+/-! ### `s12c_eps_threshold_at_socket_flatH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
 
-/-- `s15_heps293_at_socket_flat` at the inflated socket. -/
-theorem s15_heps293_at_socket_flatH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : ℝ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hρ : 0 < ρ)
-    (hlam : 50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)))
-    (htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2))
-    (hrho : -Real.log ρ ≤ 100000000000000) :
-    (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293) ≤ constPool ρ R.Hhi := by
-  set lam : ℝ := Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) with hlamdef
-  set Λ : ℝ := Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) with hLamdef
-  set ll : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hlldef
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
-  obtain ⟨h2000, -⟩ := s13_socketBase_loglogA_LH hh hh7 hfl hb
-  have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
-  have hX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
-  have hpool : constPool ρ R.Hhi = Real.exp (Real.log ρ - Real.log 376266 - 14 * Λ) := by
-    rw [constPool_def, hLamdef, Real.exp_sub, Real.exp_sub, Real.exp_log hρ,
-      Real.exp_log (by norm_num : (0 : ℝ) < 376266), div_div]
-  have hlhs : (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293) = Real.exp (-(theta293 * ll)) := by
-    rw [Real.rpow_def_of_pos hX0, hlldef]; congr 1; ring
-  rw [hlhs, hpool]
-  refine Real.exp_le_exp.mpr ?_
-  have hθ : (0.0034 : ℝ) ≤ theta293 := by have := s13_theta293_margin_lo; linarith
-  have hll := s12c_llX_ge_LH hh hh7 hfl hb
-  have hcore := flat_lambda_core_17 hlam
-  have hlog376 := s12c_log376266
-  have hexp0 : (0 : ℝ) < Real.exp lam := Real.exp_pos _
-  have hll0 : (0 : ℝ) ≤ ll := by
-    have : (0 : ℝ) < Real.exp lam / 2 := by positivity
-    linarith [hll]
-  have hkey : 14 * Λ + 13 + (-Real.log ρ) ≤ theta293 * ll := by
-    have h1 : 14 * Λ ≤ 14 * Real.exp (lam / 2) := by linarith [htow]
-    have h2 : theta293 * ll ≥ 0.0034 * (Real.exp lam / 2) := by
-      nlinarith [hθ, hll, hll0]
-    nlinarith [h1, h2, hcore, hrho]
-  linarith [hkey, hlog376]
+⟦XY debt lane, family 45 (2026-10-08)⟧
+`s12c_eps_threshold_at_socket_flatH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7) {R : ChowlaRegime}
+{M H L q j A s : ℕ} {ρ ε : ℝ} (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
+(hlam : 50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) (htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤
+Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2)) (hrho : -Real.log ρ ≤ 100000000000000) (hε : ε
+≤ theta293 - 1 / 500) : 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + Real.log 376266 + (-Real.log ρ)
+≤ (theta293 - ε) * Real.log (Real.log (((A + s : ℕ)) : ℝ))` stood here.  It is
+`s12c_eps_threshold_at_socket_flatH_b9` (in the §8 ⟦β W2 F1⟧ section below) with the hypothesis
+strengthened: the two statements differ in that ONE binder, `log h ≤ 7` against `log h ≤ 9`, and are
+token-identical elsewhere, so the twin implies it by `linarith` — kernel-checked from the retired
+statement's own bytes before the removal was committed.  The twin's body is this page's with ONE
+line changed: the call of its supplier `s12c_llX_ge_LH` (declared in this file), swapped for the
+`_b9` twin's.  At this retirement the page had NO call site.  When the lane opened (main,
+2026-09-25) it had seven: `flat_conditional_uniform_win_ceiling_h`,
+`flat_conditional_uniform_win_ceiling_kwide_h`,
+`flat_conditional_uniform_win_ceiling_kwide_khoist_h` and
+`flat_conditional_uniform_win_xceil_kwide_khoist_h` (all of `S16ComposeLH`);
+`logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH` (of `S16FlatTerminalLinearLH`);
+`flat_conditional_generic_h` (of `StridePairReceipt`); `flat_conditional_generic_h_g` (of
+`StridePairReceiptG`), whose calls family 44 re-pointed to this page's twin (2026-10-08).  Each of
+them calls this page's twin itself.  Of the declared names the page's code calls, none is left
+without a caller by this family.
 
-/-- `s15_hband4096_at_socket_flat` at the inflated socket. -/
-theorem s15_hband4096_at_socket_flatH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : ℝ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hρ : 0 < ρ)
-    (hlam : 50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)))
-    (htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2))
-    (hrho : -Real.log ρ ≤ 100000000000000) :
-    (4096 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500) * constPool ρ R.Hhi := by
-  set lam : ℝ := Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) with hlamdef
-  set Λ : ℝ := Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) with hLamdef
-  set ll : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hlldef
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
-  obtain ⟨h2000, -⟩ := s13_socketBase_loglogA_LH hh hh7 hfl hb
-  have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
-  have hX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
-  have hpool : constPool ρ R.Hhi = Real.exp (Real.log ρ - Real.log 376266 - 14 * Λ) := by
-    rw [constPool_def, hLamdef, Real.exp_sub, Real.exp_sub, Real.exp_log hρ,
-      Real.exp_log (by norm_num : (0 : ℝ) < 376266), div_div]
-  have hlhs : (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500)
-      = Real.exp ((1 - (1 : ℝ) / 500) * ll) := by
-    rw [Real.rpow_def_of_pos hX0, hlldef]; congr 1; ring
-  rw [hlhs, hpool, ← Real.exp_add]
-  have h4096 : (4096 : ℝ) ≤ Real.exp 9 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 9 (by norm_num)
-  refine le_trans h4096 (Real.exp_le_exp.mpr ?_)
-  have hll := s12c_llX_ge_LH hh hh7 hfl hb
-  have hcore := flat_lambda_core_17 hlam
-  have hlog376 := s12c_log376266
-  have hexp0 : (0 : ℝ) < Real.exp lam := Real.exp_pos _
-  have hll0 : (0 : ℝ) ≤ ll := by
-    have : (0 : ℝ) < Real.exp lam / 2 := by positivity
-    linarith [hll]
-  have h1 : 14 * Λ ≤ 14 * Real.exp (lam / 2) := by linarith [htow]
-  have h2 : (1 - (1 : ℝ) / 500) * ll ≥ 0.0017 * Real.exp lam := by nlinarith [hll, hll0]
-  nlinarith [h1, h2, hcore, hrho, hlog376]
+The page's docstring, verbatim:
 
-/-- `s15_block_at_socket_L_gk` at the inflated socket. -/
-theorem s15_block_at_socketH_L_gk (K : ℕ) {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    {R : ChowlaRegime} {M H L q j A s : ℕ}
-    (hb : SocketBaseLH h R M H L q j A s)
-    (hHreg : 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
-    (hblk : ((s13BlockExp_L_gk K M : ℕ) : ℝ) + 1
-        + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) :
-    s13BlockFloor_L_gk K M ≤ A + s := by
-  rw [s13BlockFloor_L_gk]
-  exact s15_block_at_socket_gen_LH hh hh7 hb hHreg hblk
+`s12c_eps_threshold_at_socket_flat` at the inflated socket. -/
+
+/-! ### `s15_heps293_at_socket_flatH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 45 (2026-10-08)⟧
+`s15_heps293_at_socket_flatH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7) {R : ChowlaRegime} {M H L q
+j A s : ℕ} {ρ : ℝ} (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hρ : 0 < ρ)
+(hlam : 50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) (htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤
+Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2)) (hrho : -Real.log ρ ≤ 100000000000000) :
+(Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293) ≤ constPool ρ R.Hhi` stood here.  It is
+`s15_heps293_at_socket_flatH_b9` (in the §8 ⟦β W2 F1⟧ section below) with the hypothesis
+strengthened: the two statements differ in that ONE binder, `log h ≤ 7` against `log h ≤ 9`, and are
+token-identical elsewhere, so the twin implies it by `linarith` — kernel-checked from the retired
+statement's own bytes before the removal was committed.  The twin's body is this page's with TWO
+lines changed: the calls of its suppliers `s13_socketBase_loglogA_LH` and `s12c_llX_ge_LH` (declared
+in this file), each swapped for the `_b9` twin's.  At this retirement the page had NO call site.
+When the lane opened (main, 2026-09-25) it had seven: `flat_conditional_uniform_win_ceiling_h`,
+`flat_conditional_uniform_win_ceiling_kwide_h`,
+`flat_conditional_uniform_win_ceiling_kwide_khoist_h` and
+`flat_conditional_uniform_win_xceil_kwide_khoist_h` (all of `S16ComposeLH`);
+`logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH` (of `S16FlatTerminalLinearLH`);
+`flat_conditional_generic_h` (of `StridePairReceipt`); `flat_conditional_generic_h_g` (of
+`StridePairReceiptG`), whose calls family 44 re-pointed to this page's twin (2026-10-08).  Each of
+them calls this page's twin itself.  Of the declared names the page's code calls, none is left
+without a caller by this family.
+
+The page's docstring, verbatim:
+
+`s15_heps293_at_socket_flat` at the inflated socket. -/
+
+/-! ### `s15_hband4096_at_socket_flatH` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 45 (2026-10-08)⟧
+`s15_hband4096_at_socket_flatH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7) {R : ChowlaRegime} {M H L
+q j A s : ℕ} {ρ : ℝ} (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hρ : 0 <
+ρ) (hlam : 50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) (htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2)) (hrho : -Real.log ρ ≤ 100000000000000) :
+(4096 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500) * constPool ρ R.Hhi` stood here.
+It is `s15_hband4096_at_socket_flatH_b9` (in the §8 ⟦β W2 F1⟧ section below) with the hypothesis
+strengthened: the two statements differ in that ONE binder, `log h ≤ 7` against `log h ≤ 9`, and are
+token-identical elsewhere, so the twin implies it by `linarith` — kernel-checked from the retired
+statement's own bytes before the removal was committed.  The twin's body is this page's with TWO
+lines changed: the calls of its suppliers `s13_socketBase_loglogA_LH` and `s12c_llX_ge_LH` (declared
+in this file), each swapped for the `_b9` twin's.  At this retirement the page had NO call site.
+When the lane opened (main, 2026-09-25) it had seven: `flat_conditional_uniform_win_ceiling_h`,
+`flat_conditional_uniform_win_ceiling_kwide_h`,
+`flat_conditional_uniform_win_ceiling_kwide_khoist_h` and
+`flat_conditional_uniform_win_xceil_kwide_khoist_h` (all of `S16ComposeLH`);
+`logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH` (of `S16FlatTerminalLinearLH`);
+`flat_conditional_generic_h` (of `StridePairReceipt`); `flat_conditional_generic_h_g` (of
+`StridePairReceiptG`), whose calls family 44 re-pointed to this page's twin (2026-10-08).  Each of
+them calls this page's twin itself.  Of the declared names the page's code calls, none is left
+without a caller by this family.
+
+The page's docstring, verbatim:
+
+`s15_hband4096_at_socket_flat` at the inflated socket. -/
+
+/-! ### `s15_block_at_socketH_L_gk` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 45 (2026-10-08)⟧
+`s15_block_at_socketH_L_gk (K : ℕ) {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7) {R : ChowlaRegime} {M
+H L q j A s : ℕ} (hb : SocketBaseLH h R M H L q j A s) (hHreg : 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log
+(Real.log (H : ℝ))) (hblk : ((s13BlockExp_L_gk K M : ℕ) : ℝ) + 1 + 18 * Real.log (Real.log ((R.Hhi :
+ℕ) : ℝ)) ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) : s13BlockFloor_L_gk K M ≤ A + s` stood here.
+It is `s15_block_at_socketH_L_gk_b9` (in the §7 ⟦β W1 E2⟧ section below) with the hypothesis
+strengthened: the two statements differ in that ONE binder, `log h ≤ 7` against `log h ≤ 9`, and are
+token-identical elsewhere, so the twin implies it by `linarith` — kernel-checked from the retired
+statement's own bytes before the removal was committed.  The twin's body is this page's with ONE
+line changed: the call of its supplier `s15_block_at_socket_gen_LH` (declared in this file), swapped
+for the `_b9` twin's.  At this retirement the page had NO call site.  When the lane opened (main,
+2026-09-25) it had nineteen, in twelve declarations: `flat_conditional_uniform_win_ceiling_h`,
+`flat_conditional_uniform_win_ceiling_kwide_h`,
+`flat_conditional_uniform_win_ceiling_kwide_khoist_h` and
+`flat_conditional_uniform_win_xceil_kwide_khoist_h` (each twice),
+`logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_h`,
+`logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_h` and
+`logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist_h` (all of `S16ComposeLH`);
+`logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH` (of `S16FlatTerminalLinearLH`, twice);
+`flat_conditional_generic_h` (twice), `flat_kswin_generic_h` (both of `StridePairReceipt`);
+`flat_conditional_generic_h_g` (twice), `flat_kswin_generic_h_g` (both of `StridePairReceiptG`),
+whose calls family 44 re-pointed to this page's twin (2026-10-08).  Each of them calls this page's
+twin itself.  Of the declared names the page's code calls, one is left without a caller by this
+family: `s15_block_at_socket_gen_LH`, which has a cap-9 twin whose statement is its own at the
+raised cap (a next candidate of the lane); its row stands.  2026-10-09: family 46 retired it into
+that twin, noted where it stood; its row is dropped.
+
+The page's docstring, verbatim:
+
+`s15_block_at_socket_L_gk` at the inflated socket. -/
 
 /-! ## §4 — S2: the compose's arm and the `ρ`-frame at the inflated socket (word 3)
 
@@ -753,7 +726,7 @@ theorem s15ArmH_le_mul {h : ℕ} (hh : 0 < h) (δ₀ ρ : ℝ) (Hhi ω : ℕ) :
   exact Nat.add_le_add h1 h2
 
 /-- **⟦THE SHIFT IS BOUNDED BY ITS OWN BINDER⟧** (`h_le_1096_of_hh7`) — the `ℕ` half of
-`hh7 : log h ≤ 7`, which the `ℝ` half at `:170` already uses.  `e^7 = 1096.63…`, so `h ≤ 1096`
+`hh7 : log h ≤ 7`, which the `ℝ` half at `hArcDen_mul_strataResidualH_sq_le` already uses.  `e^7 = 1096.63…`, so `h ≤ 1096`
 and `h² ≤ 1201216`.  Every numeral re-cut of wave H1 is stated against these two. -/
 theorem h_le_1096_of_hh7 {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) : h ≤ 1096 := by
   have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
@@ -895,29 +868,34 @@ theorem s15_doorArithFrameRho_L_familyH'' {h : ℕ} (hh : 0 < h)
   exact s15_doorArithFrameRho_L_at_socketH'' hh hM hρ0 hρ1 hanchor (hHreg H hb.1 hb.2.1)
     (hg H hb.1 hb.2.1) (hC1 (A + s)) hb
 
-/-! ## §5 — S11: the band base at the inflated socket (word 4) -/
+/-! ## §5 — S11: the band base at the inflated socket (word 4)
 
-/-- **⟦`qfit` AT SHIFT `h`⟧** (`s13_band_qfit_h`) — `q ≤ (log X_d)^{10}` from
+2026-10-08: family 45 retired `doorBandBase_family'H_L_gk`, the band base, into its cap-9 twin of §7
+⟦β W1 E2⟧, noted where it stood; `s13_band_qfit_h`, which it alone called, stands without a
+caller.  2026-10-09: family 46 retired `s13_band_qfit_h` into its cap-9 twin of §7 ⟦β W1 E2⟧, noted
+where it stood. -/
+
+/-! ### `s13_band_qfit_h` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 46 (2026-10-09)⟧
+`s13_band_qfit_h {h q H Xd : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7) (hq : (q : ℝ) ≤ (h : ℝ) * arcDen
+12 H) (hH : (0 : ℝ) < Real.log ((H : ℕ) : ℝ)) (hX : (0 : ℝ) < Real.log ((Xd : ℕ) : ℝ)) (hHfl : (1 :
+ℝ) ≤ Real.log (Real.log ((H : ℕ) : ℝ))) (harm : 7000 * Real.log (Real.log ((H : ℕ) : ℝ)) ≤ Real.log
+(Real.log ((Xd : ℕ) : ℝ))) : (q : ℝ) ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (10 : ℕ)` stood here.  It is
+`s13_band_qfit_h_b9` (in the §7 ⟦β W1 E2⟧ section below) with the hypothesis strengthened: the two
+statements differ in that ONE binder, `log h ≤ 7` against `log h ≤ 9`, and are token-identical
+elsewhere, so the twin implies it by `linarith` — kernel-checked from the retired statement's own
+bytes before the removal was committed.  The twin's body is this page's, byte for byte (the cap is
+spent by the closing `linarith` without being named).  At this retirement the page had NO call site.
+When the lane opened (main, 2026-09-25) it had one: `doorBandBase_family'H_L_gk` (of this file),
+which family 45 retired into its cap-9 twin (2026-10-08); that twin calls this page's twin.  This
+retirement leaves no name of this file without a caller.
+
+The page's docstring, verbatim:
+
+**⟦`qfit` AT SHIFT `h`⟧** (`s13_band_qfit_h`) — `q ≤ (log X_d)^{10}` from
 `q ≤ h·(log H)^{12}` and the arm: `log h + 12·λ_H ≤ 7 + 12·λ_H ≤ 10·Λ` under `7000·λ_H ≤ Λ`
 and `1 ≤ λ_H`. -/
-theorem s13_band_qfit_h {h q H Xd : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    (hq : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H)
-    (hH : (0 : ℝ) < Real.log ((H : ℕ) : ℝ)) (hX : (0 : ℝ) < Real.log ((Xd : ℕ) : ℝ))
-    (hHfl : (1 : ℝ) ≤ Real.log (Real.log ((H : ℕ) : ℝ)))
-    (harm : 7000 * Real.log (Real.log ((H : ℕ) : ℝ))
-      ≤ Real.log (Real.log ((Xd : ℕ) : ℝ))) :
-    (q : ℝ) ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (10 : ℕ) := by
-  refine le_trans hq ?_
-  have hA : arcDen 12 H = Real.exp (12 * Real.log (Real.log ((H : ℕ) : ℝ))) := by
-    rw [arcDen, Real.rpow_def_of_pos hH]; ring_nf
-  have hB : (Real.log ((Xd : ℕ) : ℝ)) ^ (10 : ℕ)
-      = Real.exp (10 * Real.log (Real.log ((Xd : ℕ) : ℝ))) := by
-    rw [← Real.rpow_natCast (Real.log ((Xd : ℕ) : ℝ)) 10, Real.rpow_def_of_pos hX]
-    push_cast; ring_nf
-  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-  have hhe : (h : ℝ) = Real.exp (Real.log (h : ℝ)) := (Real.exp_log hh0).symm
-  rw [hA, hB, hhe, ← Real.exp_add]
-  exact Real.exp_le_exp.mpr (by linarith)
 
 /-- `s13_band_arm_at_top` at the inflated socket — the arm at `h·ω`. -/
 theorem s13_band_arm_at_top_LH {h : ℕ} (hh : 0 < h)
@@ -1009,76 +987,42 @@ theorem s13_band_err_free_LH {h : ℕ} (hh : 0 < h)
   set c : ℝ := Real.log (C₁ (A + s) + 1) with hcdef
   linarith [hshift, hlamT, hlρ, hc]
 
-/-- **⟦THE BAND BASE FAMILY AT THE INFLATED SOCKET⟧** (`doorBandBase_family'_L_gk` at
+/-! ### `doorBandBase_family'H_L_gk` AT `log h ≤ 7` — RETIRED INTO ITS CAP-9 TWIN
+
+⟦XY debt lane, family 45 (2026-10-08)⟧
+`doorBandBase_family'H_L_gk (K : ℕ) {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7) {R : ChowlaRegime}
+{M x₀ : ℕ} {C' Kar ρ : ℝ} {C₁ : ℕ → ℝ} (hM : 1 ≤ M) (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hC1hi : ∀ n : ℕ, C₁
+n ≤ 1) (hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H :
+ℝ))) (hg : gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ R.Hhi ≤ (R.x : ℝ)) (harith : ∀ H L q j A s : ℕ,
+SocketBaseLH h R M H L q j A s → DoorArithFrameRho_L M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s))
+(s13BandM0 R ρ C₁ (A + s)) Kar ρ) (hx0 : x₀ ≤ 2 ^ doorRowFloorL M) (hC1one : ∀ n : ℕ, (1 : ℝ) ≤ C₁
+n) (hgrade : 8 * C' ≤ (Real.log 2 * ((doorRowFloorL M : ℕ) : ℝ)) ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 /
+1000))) (hblock : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → s13BlockFloor_L_gk K M ≤ A +
+s) : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → DoorBandBase_L_gk K x₀ C' s13Aexp M (A + s)
+q (C₁ (A + s)) (s13BandM0 R ρ C₁ (A + s))` stood here.  It is `doorBandBase_family'H_L_gk_b9` (in
+the §7 ⟦β W1 E2⟧ section below) with the hypothesis strengthened: the two statements differ in that
+ONE binder, `log h ≤ 7` against `log h ≤ 9`, and are token-identical elsewhere, so the twin implies
+it by `linarith` — kernel-checked from the retired statement's own bytes before the removal was
+committed.  The twin's body is this page's with ONE line changed: the call of its supplier
+`s13_band_qfit_h` (declared in this file), swapped for the `_b9` twin's.  At this retirement the
+page had NO call site.  When the lane opened (main, 2026-09-25) it had seven:
+`flat_conditional_uniform_win_ceiling_h`, `flat_conditional_uniform_win_ceiling_kwide_h`,
+`flat_conditional_uniform_win_ceiling_kwide_khoist_h` and
+`flat_conditional_uniform_win_xceil_kwide_khoist_h` (all of `S16ComposeLH`);
+`logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH` (of `S16FlatTerminalLinearLH`);
+`flat_conditional_generic_h` (of `StridePairReceipt`); `flat_conditional_generic_h_g` (of
+`StridePairReceiptG`), whose calls family 44 re-pointed to this page's twin (2026-10-08).  Each of
+them calls this page's twin itself.  Of the declared names the page's code calls, one is left
+without a caller by this family: `s13_band_qfit_h`, which has a cap-9 twin whose statement is its
+own at the raised cap (a next candidate of the lane); its row stands.  2026-10-09: family 46 retired
+it into that twin, noted where it stood; its row is dropped.
+
+The page's docstring, verbatim:
+
+**⟦THE BAND BASE FAMILY AT THE INFLATED SOCKET⟧** (`doorBandBase_family'_L_gk` at
 `SocketBaseLH h`).  The band gate's four fields are taken as binders (a `S13BandGate'H`
 structure would be a def); `qfit` is `s13_band_qfit_h`, `X400`/`grade` read conjuncts 7 and 9,
 `err` reads the arm at `h·ω`. -/
-theorem doorBandBase_family'H_L_gk (K : ℕ) {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    {R : ChowlaRegime} {M x₀ : ℕ} {C' Kar ρ : ℝ} {C₁ : ℕ → ℝ}
-    (hM : 1 ≤ M) (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hC1hi : ∀ n : ℕ, C₁ n ≤ 1)
-    (hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
-    (hg : gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ R.Hhi ≤ (R.x : ℝ))
-    (harith : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-      DoorArithFrameRho_L M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s))
-        (s13BandM0 R ρ C₁ (A + s)) Kar ρ)
-    (hx0 : x₀ ≤ 2 ^ doorRowFloorL M)
-    (hC1one : ∀ n : ℕ, (1 : ℝ) ≤ C₁ n)
-    (hgrade : 8 * C' ≤ (Real.log 2 * ((doorRowFloorL M : ℕ) : ℝ))
-      ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000)))
-    (hblock : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-      s13BlockFloor_L_gk K M ≤ A + s) :
-    ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-      DoorBandBase_L_gk K x₀ C' s13Aexp M (A + s) q (C₁ (A + s))
-        (s13BandM0 R ρ C₁ (A + s)) := by
-  intro H L q j A s hbL
-  have hfr := harith H L q j A s hbL
-  have hΛ : (356600 : ℝ) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := hfr.loglogX_ge
-  have hμ : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := lt_trans (by norm_num) hfr.one_lt_logX
-  obtain ⟨hbig, h48, h24⟩ := s13_band_floors hμ hΛ
-  have hΛ0 : (0 : ℝ) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by linarith
-  have hX2 : (2 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := by linarith
-  have hjfl : doorRowFloorL M ≤ j := hbL.2.2.2.2.2.2.1
-  have hfive := s13_doorRowZeroBase_five_L_gk K hM (hblock H L q j A s hbL) hjfl
-  have hreg : Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
-      ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) := hfive.2.1
-  refine
-    { X400 := s13_band_X400_LH hM hbL
-      C₁_one := hC1one (A + s)
-      x₀_le := ?_
-      qfit := ?_
-      gHalf := ?_
-      gO1 := ?_
-      gWin := ?_
-      grade := ?_
-      err := ?_ }
-  · have hAj : 2 ^ j ≤ A := hbL.2.2.2.2.2.2.2.2.1
-    have hpow : (2 : ℕ) ^ doorRowFloorL M ≤ 2 ^ j := Nat.pow_le_pow_right (by norm_num) hjfl
-    exact le_trans hx0 (le_trans hpow (le_trans hAj (Nat.le_add_right A s)))
-  · refine s13_band_qfit_h hh hh7 hbL.2.2.2.2.1 (lt_trans (by norm_num) hfr.one_lt_logH) hμ
-      ?_ ?_
-    · linarith [hfr.Hfloor]
-    · have := hfr.armWeak
-      have := hfr.logInvRho_nonneg
-      linarith
-  · intro k hk1 hk2
-    have h := s13_band_gHalf hX2 h48 k hk1 hk2
-    simp only [s13Aexp]
-    linarith
-  · intro k hk1 hk2
-    have hQ0 : (0 : ℝ) ≤ Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) := by
-      linarith [s13_band_log_calQK_two_ge_L_gk K hM]
-    have h := s13_band_gO1 hX2 hQ0 hreg h24 k hk1 hk2
-    simp only [s13Aexp]
-    linarith
-  · intro k hk1 hk2
-    have h := s13_band_gWin (by linarith) hX2 (s13_band_loglog_calP_one_L_gk K hM)
-      (s13_band_log_calQK_two_ge_L_gk K hM) hreg k hk1 hk2
-    simpa only [s13Aexp] using h
-  · refine le_trans hgrade ?_
-    refine Real.rpow_le_rpow (by positivity) (s13_band_baseFloor_LH hbL) ?_
-    rw [s13Aexp]; norm_num
-  · exact s13_band_err_free_LH hh hρ0 hρ1 (hC1one (A + s)) (hC1hi (A + s)) hHreg hg hbL
 
 /-- **⟦THE `hband` SLOT, MET, AT THE INFLATED SOCKET⟧** (`m4_hband_at_door_slot_L_gk` at
 `SocketBaseLH h`; conjunct 4 only — cap-blind). -/
@@ -1297,7 +1241,7 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_pool'_gatedH_L_gk (h K : ℕ) {R : C
     hF.eps_pool hF.band_pool
 
 set_option maxHeartbeats 1000000 in
--- the landed fuse's own budget (`S16FlatTerminalLinear.lean:106`): sixteen socket-framed
+-- the landed fuse's own budget (`S16FlatTerminalLinear.lean` · `doorFuseFrame_pool'_of_gates_const_pos_L_gk`): sixteen socket-framed
 -- hypotheses re-elaborate against the re-cut prefix
 /-- **⟦THE CONSTANT-POOL FUSE AT THE INFLATED SOCKET⟧** (`m4_closure_fuse_zero'_const_nonneg_L_gk`
 at `SocketBaseLH h`) — THE BOTTOM of the terminal chain: sixteen hypotheses, every one cap-blind
@@ -1377,7 +1321,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk (h : ℕ) (hh : 0 < h) (hh7 : 
 applied to the socket in the SHAPE the fuse produces, with ⟦G1⟧ at `RStr := h⁷·rStrWitness`
 (`rStrWitness_G1_h`), ⟦G2⟧ at the `j₀`-floor (`g2_of_j0_floor_h`, via
 `RSanDoorRhoH ρ h H ≤ 1 ≤ rSanWitness H`), and `han` at gate 4.  This is the `h`-twin of the
-capstone's ⟦ITEM 11⟧ → ⟦gate 6⟧ wiring (`S16FlatTerminalLinear.lean:490-518`). -/
+capstone's ⟦ITEM 11⟧ → ⟦gate 6⟧ wiring (`S16FlatTerminalLinear.lean` · `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L`). -/
 theorem m4_chiSummedN_supplied_of_rowH_L_gk (h K : ℕ) (hh : 0 < h) {R : ChowlaRegime} {M : ℕ}
     {ρ : ℝ} (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
     (hj0 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
@@ -1592,10 +1536,16 @@ theorem m4_arith_henv_constPoolH_L_gk_14 (K : ℕ) {h : ℕ} (hh : 0 < h) (hh14 
 
 /-! ## §7 — ⟦β W1 E2⟧ the cap-9 twins, h-lane A (build freeze v2 v1.1, 2026-09-13)
 
-Additive only: every declaration above is untouched.  Each twin is its source's statement and
-body with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`, `1096 ↦ 8103`, and the
-census's in-body literal `7 ↦ 9` in `hlog'`), every derived cap-dependent supplier replaced by
-its twin; no hypothesis is added and no conclusion weakened. -/
+Additive only at its landing: every declaration above was untouched by it.  Each twin is its
+source's statement and body with ONLY the freeze's §3.1 rule-2 raises (`log h ≤ 7 ↦ ≤ 9`,
+`1096 ↦ 8103`, and the census's in-body literal `7 ↦ 9` in `hlog'`), every derived cap-dependent
+supplier replaced by its twin; no hypothesis is added and no conclusion weakened.  2026-10-08:
+family 45 retired the two pages twinned here, `s15_block_at_socketH_L_gk` and
+`doorBandBase_family'H_L_gk`, into their twins, each noted where it stood.  2026-10-09: family 46
+retired the two suppliers twinned here, `s15_block_at_socket_gen_LH` and `s13_band_qfit_h`, into
+their twins, each noted where it stood.  2026-10-11: family 49 retired the two §2 pages twinned
+here, `s13_socketBase_logA_ge_sqrt_LH` and `s13_socketBase_loglogA_sharp_LH`, into their twins, each
+noted where it stood. -/
 
 /-- **⟦THE SHIFT IS BOUNDED BY ITS OWN BINDER, CAP 9⟧ (class A)** (`h_le_8103_of_hh9`) — the
 `log h ≤ 9` twin of `h_le_1096_of_hh7`, the MR converter of the β lane (its Entropy sibling is
@@ -1609,9 +1559,10 @@ theorem h_le_8103_of_hh9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
   have : (h : ℝ) < 8104 := by linarith
   exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
 
-/-- `s13_band_qfit_h` at `log h ≤ 9` (`s13_band_qfit_h_b9`) — TRANSPORT: the closing `linarith`
-reads `log h + 12·λ_H ≤ 9 + 12·λ_H ≤ 10·Λ` under `7000·λ_H ≤ Λ`, `1 ≤ λ_H` (slack
-`69988·λ_H − 9`).  BODY: the source's, verbatim. -/
+/-- `s13_band_qfit_h` at `log h ≤ 9` (the former `s13_band_qfit_h`, at `log h ≤ 7`, retired into
+this, 2026-10-09) — TRANSPORT: the closing `linarith` reads `log h + 12·λ_H ≤ 9 + 12·λ_H ≤ 10·Λ`
+under `7000·λ_H ≤ Λ`, `1 ≤ λ_H` (slack `69988·λ_H − 9`).  BODY: the retired page's, verbatim (its
+note stands above, in §5, S11 at the inflated socket). -/
 theorem s13_band_qfit_h_b9 {h q H Xd : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
     (hq : (q : ℝ) ≤ (h : ℝ) * arcDen 12 H)
     (hH : (0 : ℝ) < Real.log ((H : ℕ) : ℝ)) (hX : (0 : ℝ) < Real.log ((Xd : ℕ) : ℝ))
@@ -1631,10 +1582,11 @@ theorem s13_band_qfit_h_b9 {h q H Xd : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9
   rw [hA, hB, hhe, ← Real.exp_add]
   exact Real.exp_le_exp.mpr (by linarith)
 
-/-- `s13_socketBase_logA_ge_sqrt_LH` at `log h ≤ 9` (`s13_socketBase_logA_ge_sqrt_LH_b9`) —
-NUMERAL-LIFT: the x-scale's `log h` is read at `9` in `hlog'` (`7 ↦ 9`); the `2000 ≤ √H` floor's
-margin absorbs it (census band 2 row 33: slack `7584` at `u = 2000`).  Every other step is the
-source's, verbatim. -/
+/-- `s13_socketBase_logA_ge_sqrt_LH` at `log h ≤ 9` (the former `s13_socketBase_logA_ge_sqrt_LH`, at
+`log h ≤ 7`, retired into this, 2026-10-11) — NUMERAL-LIFT: the x-scale's `log h` is read at `9` in
+`hlog'` (`7 ↦ 9`); the `2000 ≤ √H` floor's margin absorbs it (census band 2 row 33: slack `7584` at
+`u = 2000`).  BODY: the retired page's, with one line changed (its note stands above, in §2, the
+socket helpers). -/
 theorem s13_socketBase_logA_ge_sqrt_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
     {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
@@ -1697,8 +1649,10 @@ theorem s13_socketBase_logA_ge_sqrt_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log
   have hm0 : (0 : ℝ) ≤ (m : ℝ) := Nat.cast_nonneg _
   nlinarith [hlog', hmfl, hllH, hwu, hw2000, hu2000, hl2lo, hl2hi, hu0, hw0]
 
-/-- `s13_socketBase_loglogA_sharp_LH` at `log h ≤ 9` — SUPPLIER-SWAP
-(`s13_socketBase_logA_ge_sqrt_LH_b9`).  BODY: the source's, verbatim. -/
+/-- `s13_socketBase_loglogA_sharp_LH` at `log h ≤ 9` (the former `s13_socketBase_loglogA_sharp_LH`,
+at `log h ≤ 7`, retired into this, 2026-10-11) — SUPPLIER-SWAP
+(`s13_socketBase_logA_ge_sqrt_LH_b9`).  BODY: the retired page's, with one line changed (its note
+stands above, in §2, the socket helpers). -/
 theorem s13_socketBase_loglogA_sharp_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
     {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
@@ -1715,10 +1669,10 @@ theorem s13_socketBase_loglogA_sharp_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.lo
   rw [hlogu] at hmono
   linarith
 
-/-- `s15_block_at_socket_gen_LH` at `log h ≤ 9` (`s15_block_at_socket_gen_LH_b9`) —
-NUMERAL-LIFT: `hlog'` reads the x-scale's `log h` at `9` (`7 ↦ 9`); `hE` needs
-`9 ≤ (18·log 2 − 12)·50 = 23.83` (census band 2 row 38, ×2.65).  Every other step is the
-source's, verbatim. -/
+/-- `s15_block_at_socket_gen_LH` at `log h ≤ 9` (the former `s15_block_at_socket_gen_LH`, at
+`log h ≤ 7`, retired into this, 2026-10-09) — NUMERAL-LIFT: `hlog'` reads the x-scale's `log h` at
+`9` (`7 ↦ 9`); `hE` needs `9 ≤ (18·log 2 − 12)·50 = 23.83` (census band 2 row 38, ×2.65).  BODY: the
+retired page's, with one line changed (its note stands above, in §2, the socket helpers). -/
 theorem s15_block_at_socket_gen_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
     {R : ChowlaRegime} {M H L q j A s E : ℕ}
     (hb : SocketBaseLH h R M H L q j A s)
@@ -1768,8 +1722,10 @@ theorem s15_block_at_socket_gen_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h �
   have hnat : (2 : ℕ) ^ E ≤ A := by exact_mod_cast hcast
   omega
 
-/-- `s15_block_at_socketH_L_gk` at `log h ≤ 9` — SUPPLIER-SWAP
-(`s15_block_at_socket_gen_LH_b9`).  BODY: the source's, verbatim. -/
+/-- `s15_block_at_socketH_L_gk` at `log h ≤ 9` (the former `s15_block_at_socketH_L_gk`, at
+`log h ≤ 7`, retired into this, 2026-10-08) — SUPPLIER-SWAP (`s15_block_at_socket_gen_LH_b9`).
+BODY: the retired page's, with one line changed (its note stands above, in §3, the four bridge
+restatements). -/
 theorem s15_block_at_socketH_L_gk_b9 (K : ℕ) {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
     {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hb : SocketBaseLH h R M H L q j A s)
@@ -1781,9 +1737,10 @@ theorem s15_block_at_socketH_L_gk_b9 (K : ℕ) {h : ℕ} (hh : 0 < h) (hh9 : Rea
   rw [s13BlockFloor_L_gk]
   exact s15_block_at_socket_gen_LH_b9 hh hh9 hb hHreg hblk
 
-/-- `doorBandBase_family'H_L_gk` at `log h ≤ 9` (`doorBandBase_family'H_L_gk_b9`) —
-SUPPLIER-SWAP: `qfit` is `s13_band_qfit_h_b9`; `X400`/`grade`/`err` are cap-blind and applied
-as landed.  BODY: the source's, verbatim. -/
+/-- `doorBandBase_family'H_L_gk` at `log h ≤ 9` (the former `doorBandBase_family'H_L_gk`, at
+`log h ≤ 7`, retired into this, 2026-10-08) — SUPPLIER-SWAP: `qfit` is `s13_band_qfit_h_b9`;
+`X400`/`grade`/`err` are cap-blind and applied as landed.  BODY: the retired page's, with one line
+changed (its note stands above, in §5). -/
 theorem doorBandBase_family'H_L_gk_b9 (K : ℕ) {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
     {R : ChowlaRegime} {M x₀ : ℕ} {C' Kar ρ : ℝ} {C₁ : ℕ → ℝ}
     (hM : 1 ≤ M) (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hC1hi : ∀ n : ℕ, C₁ n ≤ 1)
@@ -1853,14 +1810,20 @@ theorem doorBandBase_family'H_L_gk_b9 (K : ℕ) {h : ℕ} (hh : 0 < h) (hh9 : Re
 
 /-! ## §8 — ⟦β W2 F1⟧ the cap-9 twins, h-lane leaves (build freeze v2 v1.1, 2026-09-13)
 
-Additive only: every declaration above is untouched.  Each twin is its source's statement and
-body with ONLY the freeze's §3.1 rule-2 raise `log h ≤ 7 ↦ ≤ 9`, every derived cap-dependent
-supplier replaced by its twin (W1 E2's `_b9` rungs of §7, or an earlier twin of this section);
-no hypothesis is added and no conclusion weakened. -/
+Additive only at its landing: every declaration above was untouched by it.  Each twin is its
+source's statement and body with ONLY the freeze's §3.1 rule-2 raise `log h ≤ 7 ↦ ≤ 9`, every
+derived cap-dependent supplier replaced by its twin (W1 E2's `_b9` rungs of §7, or an earlier twin
+of this section); no hypothesis is added and no conclusion weakened.  2026-10-08: family 45 retired
+the three socket tops twinned here — `s12c_eps_threshold_at_socket_flatH`,
+`s15_heps293_at_socket_flatH`, `s15_hband4096_at_socket_flatH` — into their twins, each noted where
+it stood.  2026-10-11: family 49 retired the three §2 pages twinned here —
+`s13_socketBase_loglogA_LH`, `s14_loglogX_ge_of_socket_LH`, `s12c_llX_ge_LH` — into their twins,
+each noted where it stood. -/
 
-/-- `s13_socketBase_loglogA_LH` at `log h ≤ 9` (`s13_socketBase_loglogA_LH_b9`) — SUPPLIER-SWAP
-(census band 2 row 34: `s13_socketBase_logA_ge_sqrt_LH_b9`, `s13_socketBase_loglogA_sharp_LH_b9`).
-BODY: the source's, verbatim. -/
+/-- `s13_socketBase_loglogA_LH` at `log h ≤ 9` (the former `s13_socketBase_loglogA_LH`, at
+`log h ≤ 7`, retired into this, 2026-10-11) — SUPPLIER-SWAP (census band 2 row 34:
+`s13_socketBase_logA_ge_sqrt_LH_b9`, `s13_socketBase_loglogA_sharp_LH_b9`).  BODY: the retired
+page's, with two lines changed (its note stands above, in §2, the socket helpers). -/
 theorem s13_socketBase_loglogA_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
     {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
@@ -1882,9 +1845,10 @@ theorem s13_socketBase_loglogA_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h �
   exact ⟨le_trans hu2000 hmain,
     by have := s13_socketBase_loglogA_sharp_LH_b9 hh hh9 hfl hb; linarith⟩
 
-/-- `s14_loglogX_ge_of_socket_LH` at `log h ≤ 9` (`s14_loglogX_ge_of_socket_LH_b9`) — SUPPLIER-SWAP
-(census band 2 row 36: `s13_socketBase_loglogA_sharp_LH_b9`, `s13_socketBase_loglogA_LH_b9`).
-BODY: the source's, verbatim. -/
+/-- `s14_loglogX_ge_of_socket_LH` at `log h ≤ 9` (the former `s14_loglogX_ge_of_socket_LH`, at
+`log h ≤ 7`, retired into this, 2026-10-11) — SUPPLIER-SWAP (census band 2 row 36:
+`s13_socketBase_loglogA_sharp_LH_b9`, `s13_socketBase_loglogA_LH_b9`).  BODY: the retired page's,
+with two lines changed (its note stands above, in §2, the socket helpers). -/
 theorem s14_loglogX_ge_of_socket_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
     {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
@@ -1899,8 +1863,9 @@ theorem s14_loglogX_ge_of_socket_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h 
   have h := Real.log_le_log (by linarith : (0 : ℝ) < Real.log (A : ℝ)) hmono
   linarith
 
-/-- `s12c_llX_ge_LH` at `log h ≤ 9` (`s12c_llX_ge_LH_b9`) — SUPPLIER-SWAP (census band 2 row 31:
-`s14_loglogX_ge_of_socket_LH_b9`).  BODY: the source's, verbatim. -/
+/-- `s12c_llX_ge_LH` at `log h ≤ 9` (the former `s12c_llX_ge_LH`, at `log h ≤ 7`, retired into this,
+2026-10-11) — SUPPLIER-SWAP (census band 2 row 31: `s14_loglogX_ge_of_socket_LH_b9`).  BODY: the
+retired page's, with one line changed (its note stands above, in §2, the socket helpers). -/
 theorem s12c_llX_ge_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
     {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
@@ -1917,9 +1882,11 @@ theorem s12c_llX_ge_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
   rw [Real.exp_log hlogHlopos]
   linarith
 
-/-- `s12c_eps_threshold_at_socket_flatH` at `log h ≤ 9` (`s12c_eps_threshold_at_socket_flatH_b9`) —
-SUPPLIER-SWAP (census band 2 row 30: `s12c_llX_ge_LH_b9`; the `14·Λ` is the arcDen exponent,
-cap-free).  BODY: the source's, verbatim. -/
+/-- `s12c_eps_threshold_at_socket_flatH` at `log h ≤ 9` (the former
+`s12c_eps_threshold_at_socket_flatH`, at `log h ≤ 7`, retired into this, 2026-10-08) — SUPPLIER-SWAP
+(census band 2 row 30: `s12c_llX_ge_LH_b9`; the `14·Λ` is the arcDen exponent, cap-free).  BODY: the
+retired page's, with one line changed (its note stands above, in §3, the four bridge
+restatements). -/
 theorem s12c_eps_threshold_at_socket_flatH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
     {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ ε : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s)
@@ -1944,9 +1911,10 @@ theorem s12c_eps_threshold_at_socket_flatH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real
   have h1 : 14 * Λ ≤ 14 * Real.exp (lam / 2) := by linarith
   linarith
 
-/-- `s15_heps293_at_socket_flatH` at `log h ≤ 9` (`s15_heps293_at_socket_flatH_b9`) — SUPPLIER-SWAP
-(census band 2 row 40: `s13_socketBase_loglogA_LH_b9`, `s12c_llX_ge_LH_b9`).  BODY: the source's,
-verbatim. -/
+/-- `s15_heps293_at_socket_flatH` at `log h ≤ 9` (the former `s15_heps293_at_socket_flatH`, at
+`log h ≤ 7`, retired into this, 2026-10-08) — SUPPLIER-SWAP (census band 2 row 40:
+`s13_socketBase_loglogA_LH_b9`, `s12c_llX_ge_LH_b9`).  BODY: the retired page's, with two lines
+changed (its note stands above, in §3, the four bridge restatements). -/
 theorem s15_heps293_at_socket_flatH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
     {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hρ : 0 < ρ)
@@ -1988,9 +1956,11 @@ theorem s15_heps293_at_socket_flatH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h 
     nlinarith [h1, h2, hcore, hrho]
   linarith [hkey, hlog376]
 
-/-- `s15_hband4096_at_socket_flatH` at `log h ≤ 9` (`s15_hband4096_at_socket_flatH_b9`) —
-SUPPLIER-SWAP (census band 2 row 39: `s13_socketBase_loglogA_LH_b9`, `s12c_llX_ge_LH_b9`; the
-`4096 ≤ e^9` is the band, cap-free).  BODY: the source's, verbatim. -/
+/-- `s15_hband4096_at_socket_flatH` at `log h ≤ 9` (the former `s15_hband4096_at_socket_flatH`, at
+`log h ≤ 7`, retired into this, 2026-10-08) — SUPPLIER-SWAP (census band 2 row 39:
+`s13_socketBase_loglogA_LH_b9`, `s12c_llX_ge_LH_b9`; the `4096 ≤ e^9` is the band, cap-free).  BODY:
+the retired page's, with two lines changed (its note stands above, in §3, the four bridge
+restatements). -/
 theorem s15_hband4096_at_socket_flatH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log h ≤ 9)
     {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hρ : 0 < ρ)

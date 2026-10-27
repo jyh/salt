@@ -37,8 +37,8 @@ pipeline, in the frozen shape the A₃ switch consumes:
    consumption of the landed shell `Salt.BV.bilinear_LS_shell`: with `‖α‖,‖β‖ ≤ 1`
    the `(q/φq)`-weighted primitive-character `L¹` product energy
    `∑_{q≤Q}(q/φq)∑_{χ prim}‖A(χ)·B(χ)‖` obeys the balanced
-   `√(Q²+13X)·√(Q²+13Y)·√X·√Y` bound (the cutoff taken vacuous so the bilinear
-   character sum equals `A(χ)·B(χ)`).  Fully proven.
+   `2(1+log Y)·√(Q²+13(X+1))·√(Q²+13(Y+1))·√X·√Y` bound (the cutoff taken vacuous so the
+   bilinear character sum equals `A(χ)·B(χ)`).  Fully proven.
 
 3. **The headline** `general_BV_weak` — the `L¹`-over-`d` discrepancy bound in the
    frozen weak shape, assembled from (1) with the small-conductor branch **full**
@@ -282,13 +282,13 @@ theorem bilinTwist_energy_le {X Y Q : ℕ} (hQ : 2 ≤ Q) (hY : 0 < Y) (α β : 
   have hmassα : Real.sqrt (∑ m ∈ Finset.Icc 1 X, ‖α m‖ ^ 2) ≤ Real.sqrt (X : ℝ) := by
     apply Real.sqrt_le_sqrt
     calc ∑ m ∈ Finset.Icc 1 X, ‖α m‖ ^ 2 ≤ ∑ _m ∈ Finset.Icc 1 X, (1 : ℝ) := by
-          refine Finset.sum_le_sum (fun m _ => ?_); nlinarith [hα m, norm_nonneg (α m)]
+          refine Finset.sum_le_sum (fun m _ => ?_); nlinarith only [hα m, norm_nonneg (α m)]
       _ = (X : ℝ) := by
           rw [Finset.sum_const, Nat.card_Icc, Nat.add_sub_cancel, nsmul_eq_mul, mul_one]
   have hmassβ : Real.sqrt (∑ n ∈ Finset.Icc 1 Y, ‖β n‖ ^ 2) ≤ Real.sqrt (Y : ℝ) := by
     apply Real.sqrt_le_sqrt
     calc ∑ n ∈ Finset.Icc 1 Y, ‖β n‖ ^ 2 ≤ ∑ _n ∈ Finset.Icc 1 Y, (1 : ℝ) := by
-          refine Finset.sum_le_sum (fun n _ => ?_); nlinarith [hβ n, norm_nonneg (β n)]
+          refine Finset.sum_le_sum (fun n _ => ?_); nlinarith only [hβ n, norm_nonneg (β n)]
       _ = (Y : ℝ) := by
           rw [Finset.sum_const, Nat.card_Icc, Nat.add_sub_cancel, nsmul_eq_mul, mul_one]
   have h1logY : (0 : ℝ) ≤ 1 + Real.log Y :=

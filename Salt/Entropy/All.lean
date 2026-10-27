@@ -86,6 +86,7 @@ import Salt.Entropy.Chowla.TowerFlatExport
 import Salt.Entropy.Chowla.TowerFlatBuilder
 import Salt.Entropy.Chowla.HloExportFlat
 import Salt.Entropy.Chowla.SpineEpsFence
+import Salt.Entropy.Chowla.SiegelFree
 import Salt.Entropy.Chowla.PinDichotomy
 import Salt.Entropy.Chowla.ShiftFork
 import Salt.Entropy.Chowla.SignSplit
@@ -619,7 +620,7 @@ THE FLOOR.  `sign_split_of_not_fails` is parametric in the regime and takes the 
 hypothesis `¬ logChowla2Fails R.eps R.x R.ω`: from the two identities plus
 `harmonic_window_bounds` alone, each mass is `≥ ((1 − ε)·log ω − 1)/2`.  There is no
 case split, no minimum lemma and no sign hypothesis — `abs_le` and `linarith` close both
-conjuncts — and the chain is NON-STRICT end to end, an equality at `A = D`.
+conjuncts — and every step of the chain is NON-STRICT (`≤`, never `<`).
 `sign_split_quarter_log` weakens it to the `ε`-free `(1/4)·log ω − 1/2` from `R.heps1`
 together with `0 ≤ log ω`; that second hypothesis is consumed, since the `(1 − ε) → 1/2`
 step multiplies through by `log ω` and would reverse without it.
@@ -853,8 +854,8 @@ concentration deviation sets, `FBridge`/`Decoupled`); at `h = 1` it reads
 `windowVal H (liouvilleWindow H n) (j + (p : ℕ))`, with no `* h`.  `outer_combine_h` writes
 wave A's fixed target spelling `windowVal H v (j + (p : ℕ) * h)` (`OuterCombine.lean:150`).
 VERIFIED BY `grep -F` ON THE LITERAL, NOT BY EYE: the string `(j + (p : ℕ) * h) : ℝ)` occurs at
-site 1 (`Transport.lean:203`), site 2 (`FBridge.lean:789`, `Decoupled.lean:107`) and site 3
-(`OuterCombine.lean:638`); after `OuterCombine.lean:436` — the whole B-4 block — the unshifted
+site 1 (`Transport.lean:203`), site 2 (`FBridge.lean:811`, `Decoupled.lean:107`) and site 3
+(`OuterCombine.lean:642`); after `OuterCombine.lean:440` — the whole B-4 block — the unshifted
 literal `(j + (p : ℕ)) : ℝ)` occurs ZERO times.
 
 ⛔⛔ CORRECTED 2026-08-21: THIS PARAGRAPH SAID "ALL THREE SITES AGREE" AND THE AGREEMENT
@@ -1002,7 +1003,7 @@ already IS the shifted count `≤ p·h`.  ⇒ A LEMMA STATED GENERICALLY IS ALRE
 the statement's own generality before pricing a port.
 
 ⛔ ONE DUPLICATION, DELIBERATE AND FLAGGED.  `collapse_identity_h`/`liouville_sq_h` are
-re-proved `private` in `HBudget` although `ShiftFork.lean:434` already has the identical
+re-proved `private` in `HBudget` although `ShiftFork.lean:479` already has the identical
 public `liouville_collapse_h`, and `DilationStability` has the `h = 1` pair.  Reason:
 `DilationStability`'s are `private`, and `ShiftFork` is NOT in `HBudget`'s import closure
 (both import `ChowlaFailure`; neither imports the other), so reuse would mean ADDING AN IMPORT
@@ -1010,9 +1011,9 @@ to a landed file — a structural change this node does not own.  Reported, not 
 
 THE IMPORT CYCLE THAT SHAPED THE STATEMENT.  `singleCorr_of_fails_h`'s hypothesis is the
 INEQUALITY that `logChowlaFails h eps x ω` unfolds to, not the named Prop, because `ShiftFork`
-IMPORTS `ChowlaFailure` and naming it there would close a cycle.  Verified by seam probe, not
-by eye: an `example` feeding a `logChowlaFails h eps x ω` hypothesis straight into
-`singleCorr_of_fails_h` elaborates with no coercion.
+IMPORTS `ChowlaFailure` and naming it there would close a cycle.  Kernel-checked at a landed
+use: `HloExportFlatH.lean:170` feeds a `logChowlaFails h R.eps R.x R.ω` hypothesis (`:115`)
+straight into `singleCorr_of_fails_h` with no coercion (the first `example` probe is gone).
 
 THE `h = 1` RECOVERY IS A FOURTH SHAPE, AND THE TWO COMPATS OF THIS NODE ARE NOT ALIKE.  The
 GAP compat `shiftCorrH_one` is `rfl` (the gap enters as `_ + h`, and `Nat.add` recurses on its
@@ -1158,11 +1159,21 @@ silently.  `h_le_1096_of_log_le_seven` duplicates `Salt.MR.h_le_1096_of_hh7` del
 imports Entropy and not the reverse.  `h_le_1202604_of_log_le_fourteen` (2026-09-08, the
 `h`-cap reach — council ⑤, "(B)", target `h ≤ 10⁶`) is that pair's `log h ≤ 14` twin,
 `h ≤ ⌊e^14⌋ = 1202604`; it is a NEW name with its OWN binder and the `7` pair is untouched.
-Nothing bears on twin primes: a bound on `|Ξ_H(h)|`, conditional on nothing. -/
+Nothing bears on twin primes: a bound on `|Ξ_H(h)|`, conditional on nothing.
+2026-10-01: family 35 of the XY debt lane re-pointed the one call of `hpt_holds_500h` in
+`bigXiH_bounded_ceiling_of_pin` to its cap-9 twin `hpt_holds_500h_b9` (audited in `Salt/MR/All`) and
+moved the hook to the foot of its file, below the twin; its statement is unchanged, and
+`hpt_holds_500h` is left without a caller.
+2026-10-01: family 36 retired `hpt_holds_500h` into that twin, noted where it stood (§3 of
+`GoldbachEnergyKcH`); its row is dropped below, and the twin's row stands in `Salt/MR/All.lean`,
+under ⟦β W1 E1⟧.  `hpt_const_le_pow35_h` is left without a caller.
+2026-10-02: family 37 retired `hpt_const_le_pow35_h` into its cap-9 twin `hpt_const_le_pow35_h_b9`,
+noted where it stood (§1 of `GoldbachEnergyKcH`); its row is dropped below, and the twin's row
+stands in `Salt/MR/All.lean`, under ⟦β W1 E1⟧.  The cap-7 numerals of the paragraph THE TWO CASES
+ARE FORCED, NOT STYLISTIC above are the retired page's.  The twin's docstring has its own:
+`(log T)² ≤ 2154.8164`, closing ratio `0.891` at `h² = 4`. -/
 #audit_axioms Salt.Entropy.Chowla.h_le_1096_of_log_le_seven
   Salt.Entropy.Chowla.h_le_1202604_of_log_le_fourteen
-  Salt.Entropy.Chowla.hpt_const_le_pow35_h
-  Salt.Entropy.Chowla.hpt_holds_500h
   Salt.Entropy.Chowla.bigXiH_bounded_ceiling_of_pin
   Salt.Entropy.Chowla.eps_line_h
 
@@ -1178,9 +1189,9 @@ Nothing bears on twin primes. -/
 #audit_axioms Salt.Entropy.Chowla.flat_head_uniform_h
 /-! ⟦THE SPINE CORE, RE-EXPORTED FOR THE `xceil` LANE⟧ (`HloExportFlatH` §5, 2026-09-02, math —
 wave H3 block C).  One line, and it exists because of an import direction: the `x`-ceiling
-apparatus lives entirely in `Salt/MR` and `Salt/Entropy` cannot import `Salt/MR`, so the `h`
+apparatus lives entirely in `Salt/MR` and `Salt/Entropy` did not import `Salt/MR`, so the `h`
 lane's `x`-ceilinged head must be built in MR — where two `private` helpers of this module are
-out of reach.  The 4-line one is re-proved at the MR site; the 139-line
+out of reach.  The 3-line one is re-proved at the MR site; the 138-line
 `spine_False_core_xi_sq_flat_h` is re-exported here instead.
 **Deliberately the smallest possible edit: a NEW declaration, not a visibility change.**  No
 landed line is touched and no `private` marker is lifted.
@@ -1241,7 +1252,11 @@ ChowlaRegime` by `b`, `hb : b ≤ Hlo` — Tao Lemma 2.5's `|r| ≤ H₋`), the 
 quantifier outside) with their `(1, 0)` compats and their seams (the tripwires), and the exact
 `x`-scaling of the stride measure on the sums.  Every declaration is foundational: nothing here
 produces `LogChowlaAffSupply` at any `a ≥ 2`, nothing moves the door, nothing bears on twin
-primes.  25 obligations, 25 first attempt (one Opus executor, 2026-09-03 13:3x–13:5x). -/
+primes.  25 obligations, 25 first attempt (one Opus executor, 2026-09-03 13:3x–13:5x).  (2026-10-01:
+the XY debt lane's family 34 retired the pinned ceiling at `log (a·h) ≤ 7`,
+`bigXiAff_bounded_ceiling_of_pin`, into its cap-9 twin `bigXiAff_bounded_ceiling_of_pin_b9` of the
+same file, noted where it stood; its row is dropped below, and the twin's row stands in
+`Salt/MR/All.lean`, under ⟦β W2 F1⟧.) -/
 #audit_axioms Salt.Entropy.Chowla.logMeasureAff
   Salt.Entropy.Chowla.logMeasureAff_one
   Salt.Entropy.Chowla.integral_logMeasureAff
@@ -1257,7 +1272,6 @@ primes.  25 obligations, 25 first attempt (one Opus executor, 2026-09-03 13:3x�
   Salt.Entropy.Chowla.bigXiAff_card_le
   Salt.Entropy.Chowla.bigXiAff_card_le_mul
   Salt.Entropy.Chowla.bigXiAff_bounded
-  Salt.Entropy.Chowla.bigXiAff_bounded_ceiling_of_pin
   Salt.Entropy.Chowla.ChowlaRegimeAff.ofRegime
   Salt.Entropy.Chowla.ChowlaRegimeAff.ofRegime_toChowlaRegime
   Salt.Entropy.Chowla.chowlaTower_eq_base_one
@@ -1328,19 +1342,15 @@ SUBSET of the plain window, the normaliser ratio `≤ 1.02` at `log ω ≥ 101`,
 slack term) from the plain door over `bigXiAffD` to the affine door at the shrunk regime, and the
 flat-base numerals (`loglog(a·B) ≤ 3.2A + log 2` at the consumer's literal).  Nothing here produces
 a door (the receipt is `Salt.MR.StridePairReceipt`'s) or bears on twin primes.  28 obligations,
-28 landed (one Opus executor, 2026-09-04 12:0x–12:2x; 24 at one attempt). -/
+28 landed (one Opus executor, 2026-09-04 12:0x–12:2x; 24 at one attempt).  2026-10-11: family 50 of
+the XY debt lane retired the seven F3-P4 `rfl` projections of `regimeShrinkX_stride` (`_x`,
+`_omega`, `_a`, `_eps`, `_Hhi`, `_C0`, `_J`) and the F3-P6 lemma `regimeShrinkX_stride_x_mul` into
+their cap-9 twins in `StridePair` ⟦β W1 E1⟧, noted where they stood; their eight rows are dropped
+here; `regimeShrinkX_stride_Hlo` and `regimeShrinkX_stride_tower` stand. -/
 #audit_axioms Salt.Entropy.Chowla.strideScale_one
   Salt.Entropy.Chowla.chowlaTower_ge_base
-  Salt.Entropy.Chowla.regimeShrinkX_stride_x
-  Salt.Entropy.Chowla.regimeShrinkX_stride_omega
-  Salt.Entropy.Chowla.regimeShrinkX_stride_a
-  Salt.Entropy.Chowla.regimeShrinkX_stride_eps
   Salt.Entropy.Chowla.regimeShrinkX_stride_Hlo
-  Salt.Entropy.Chowla.regimeShrinkX_stride_Hhi
-  Salt.Entropy.Chowla.regimeShrinkX_stride_C0
-  Salt.Entropy.Chowla.regimeShrinkX_stride_J
   Salt.Entropy.Chowla.regimeShrinkX_stride_tower
-  Salt.Entropy.Chowla.regimeShrinkX_stride_x_mul
   Salt.Entropy.Chowla.bigXiAffD_of_dvd
   Salt.Entropy.Chowla.bigXiAffD_card_le
   Salt.Entropy.Chowla.mrtUniformityXiL2Set_bigXiH_eq
@@ -1560,7 +1570,7 @@ circle slot is obtained per class after `intro b` from `circle_method_estimate_s
 `gradedAffHeadAt_g12b_of_at_regime` (K1) is the conservativity control: H's conclusion, taken as a
 hypothesis, together with the landed head's own `hcrown` binder gives `GradedAffHeadAt_g12b a b h
 A₀` at every `A₀`; `flatDesignBase_mono` (M) is monotonicity of the design floor, what K1 and the
-bridge spend to lower a consumer's `A` to `A₁`.  NO NEW UNCONDITIONAL THEOREM (a restatement of
+bridge spend to lower a consumer's `A` to `A₁`.  NO NEW MATHEMATICS (a restatement of
 landed proofs); nothing here bears on twin primes.  2 obligations, 2 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.flatDesignBase_mono
@@ -1579,3 +1589,16 @@ while the stride lane reads the `Xi`-generic / affine door (`MRTUniformityXiL2Se
 `MRTUniformityXiL2AffW`), which none of the flat-door files names.  `MRTDoorAllGrades` still has NO
 producer.  Nothing bears on twin primes.
 -/
+
+-- The log-Chowla spine under a Siegel standoff and from the 7/8 statement (SiegelFree), by proof
+-- terms that do not use Siegel's theorem (O13).
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.hreduce_holds_final_of_standoff
+  Salt.Entropy.Chowla.primeWindow_sum_inv_ge_of_standoff
+  Salt.Entropy.Chowla.log_chowla_two_budget_head_of_standoff
+  Salt.Entropy.Chowla.log_chowla_two_door_only_xi_of_standoff
+  Salt.Entropy.Chowla.log_chowla_two_door_only_of_standoff
+  Salt.Entropy.Chowla.spine_eps_constant_floor_of_standoff
+  Salt.Entropy.Chowla.log_chowla_two_budget_head_of_sevenEighths
+  Salt.Entropy.Chowla.log_chowla_two_door_only_of_sevenEighths
+  Salt.Entropy.Chowla.spine_eps_constant_floor_of_sevenEighths

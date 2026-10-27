@@ -481,7 +481,7 @@ lemma log_le_of_below_floor {γ : ℝ} (hγ : γ < Real.exp (Real.exp 100) + 1) 
     linarith [Real.exp_one_gt_d9]
   have hEe : E + 3 ≤ Real.exp (Real.exp 100 + 1) := by
     rw [Real.exp_add, ← hE]
-    nlinarith [hEbig, he1]
+    nlinarith only [hEbig, he1, hγ, hγ0]
   calc Real.log (γ + 2) ≤ Real.log (E + 3) := by
         apply Real.log_le_log (by linarith) (by linarith)
     _ ≤ Real.exp 100 + 1 := by
@@ -543,7 +543,7 @@ theorem LFunction_no_zero_in_box {q : ℕ} [NeZero q] {χ : DirichletCharacter �
     have hℓγ : (100 : ℝ) ≤ Real.log (Real.log γ) := by
       rw [← Real.log_exp 100]
       exact Real.log_le_log (Real.exp_pos _) hLγ
-    nlinarith [hgate, hℓγ, hA1]
+    nlinarith only [hA1, hℓγ, hgate]
   rcases le_or_gt (Real.exp (Real.exp 100) + 1) |ρ.im| with habove | hbelow
   · -- ABOVE THE FLOOR: the χ-VK region, both arms
     have hwid := vkBoxWidth_le_of_le (A := A) (γ := |ρ.im|) (H := H) hA1 habove hIm
@@ -558,7 +558,7 @@ theorem LFunction_no_zero_in_box {q : ℕ} [NeZero q] {χ : DirichletCharacter �
         apply Real.log_le_log
         · have := one_le_vkStripConst (q := q); positivity
         · have : (0 : ℝ) ≤ 8104 := by norm_num
-          nlinarith [one_le_vkStripConst (q := q)]
+          linarith only [hhalf, hβ1]
     have hbw := boxWidth_le_vk c₀ A q H
     linarith [hvk, hwid, hbw]
   · -- BELOW THE FLOOR: the classical explicit region, or the ξ₁ carve-out at `γ = 0`
@@ -572,7 +572,7 @@ theorem LFunction_no_zero_in_box {q : ℕ} [NeZero q] {χ : DirichletCharacter �
         linarith [log_le_of_below_floor (γ := |ρ.im|) hbelow habs0]
       have hden0 : (0 : ℝ) < Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
         apply Real.log_pos
-        nlinarith [habs0, hq1]
+        nlinarith only [habs0, hhalf, hβ1, hq1, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
       have hmono : clBoxWidth c₀ q ≤ c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
         rw [clBoxWidth]
         exact div_le_div_of_nonneg_left hc₀pos.le hden0 hlog2

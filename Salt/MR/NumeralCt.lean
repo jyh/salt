@@ -230,9 +230,9 @@ theorem lemma13_moment_bounded :
             ((ℓ.factorial : ℝ) ^ 2 * (blockDiv Y₁ n : ℝ) ^ 2) / (n : ℝ) ^ 2 := by
           refine Finset.sum_le_sum (fun n _ => ?_)
           have h1 : ‖a n‖ ^ 2 ≤ (ℓ.factorial : ℝ) ^ 2 * (blockDiv Y₁ n : ℝ) ^ 2 := by
-            nlinarith [hcoeff n, norm_nonneg (a n),
-              mul_nonneg (Nat.cast_nonneg (α := ℝ) ℓ.factorial)
-                (Nat.cast_nonneg (α := ℝ) (blockDiv Y₁ n))]
+            nlinarith only
+                [hcoeff n,
+                norm_nonneg (a n)]
           gcongr
       _ = (ℓ.factorial : ℝ) ^ 2
             * ∑ n ∈ Finset.Icc X N, (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2 := by
@@ -1050,7 +1050,7 @@ theorem six_exp_fourteen_le_two_pow_23 : 6 * Real.exp 14 ≤ 2 ^ 23 := by
   have h3 : Real.exp 1 ^ (14 : ℕ) ≤ (2.7182818286 : ℝ) ^ (14 : ℕ) :=
     pow_le_pow_left₀ (Real.exp_pos 1).le h1 14
   rw [h2]
-  nlinarith [h3]
+  linarith only [h3]
 
 set_option maxHeartbeats 1600000 in
 -- The twin re-elaborates the landed statement with one extra conjunct, so it needs the

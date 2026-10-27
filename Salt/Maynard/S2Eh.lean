@@ -57,6 +57,9 @@ with `w(n) = (∑_d λ_d [∀i dᵢ ∣ n+hᵢ])²` the Maynard sieve weight (`w
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 open Finset
 
 /-! ## The object -/
@@ -302,6 +305,7 @@ theorem totient_qMod_eq (k : ℕ) (d e : Fin k → ℕ)
   push_cast
   ring
 
+omit [TupleChoice] in
 /-- The per-residue discrepancy is dominated by `maxDiscrepancy` at a reduced
 residue `a` (`a < q`, coprime to `q`) — immediate from the `Finset.sup'`
 definition. -/
@@ -559,6 +563,7 @@ theorem s2PrimeCount_approx' (k K₀ N ν₀ : ℕ) (m : Fin k) (d e : Fin k →
 
 /-! ## Steps 4–5 — the main term and the assembled headline -/
 
+omit [TupleChoice] in
 /-- A guarded double sum over `𝒟 × 𝒟` equals the `dₘ=eₘ=1`-filtered double
 sum. -/
 theorem guarded_double_sum {k : ℕ} (s : Finset (Fin k → ℕ)) (m : Fin k)
@@ -838,6 +843,7 @@ theorem S2mW_eq_guarded (k K₀ N R ν₀ W' : ℕ) (m : Fin k) (y : (Fin k → 
     · rw [s2PrimeCountW_eq_zero_of_dm k K₀ N R ν₀ W' m d e hd hRN hdm]; simp
     · rw [s2PrimeCountW_eq_zero_of_em k K₀ N R ν₀ W' m d e he hRN hem]; simp
 
+omit [TupleChoice] in
 /-- Free-modulus form of `totient_qMod_eq`. -/
 theorem totient_qModW_eq (k W' : ℕ) (d e : Fin k → ℕ)
     (hcopW : ∀ i, Nat.Coprime W' (Nat.lcm (d i) (e i)))

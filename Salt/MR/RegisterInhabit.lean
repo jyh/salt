@@ -55,7 +55,7 @@ ceiling.  Everything else in the design is coherent: the three `caseASwide` summ
 ## §3 — WHAT THE PREDICATE ACTUALLY DEMANDS, AND THE PRICE OF THE REPAIR
 
 `S16CofactorSupply_L_gk` does NOT ask for `C_R = gradeCR2 Cb`: its `C_R` is EXISTENTIAL
-(`S13CapGateLinear:897`), constrained only by the pair `Rbd ≤ C_R·(log X)^{−ρ₂₉₃}` and
+(`S13CapGateLinear · S16CofactorSupply_L_gk`), constrained only by the pair `Rbd ≤ C_R·(log X)^{−ρ₂₉₃}` and
 `1728·C_q·C_R² ≤ (log X)^{2θ₂₉₃}`.  Eliminating `C_R` between them (`s16cof_exit_decay`) gives
 the register's TRUE law:
 

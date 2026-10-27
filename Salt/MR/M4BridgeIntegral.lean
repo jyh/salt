@@ -205,7 +205,7 @@ theorem norm_shortSum_nat_sq_le_one {a : ℕ → ℂ} (ha : ∀ m, ‖a m‖ ≤
         ≤ 1 / (H : ℝ) * (H : ℝ) := by
           exact mul_le_mul_of_nonneg_left hcard (by positivity)
       _ = 1 := by field_simp
-  nlinarith [norm_nonneg (((1 / (H : ℝ) : ℝ) : ℂ) * shortSum a s0 (n : ℝ) (H : ℝ))]
+  nlinarith only [hnorm, norm_nonneg (((1 / (H : ℝ) : ℝ) : ℂ) * shortSum a s0 (n : ℝ) (H : ℝ))]
 
 /-! ## §2 — PIECEWISE-CONSTANT INTEGRABILITY
 
@@ -267,7 +267,7 @@ theorem shortSum_sq_intervalIntegrable (a : ℕ → ℂ) (s0 : Finset ℕ) (hlen
     exact mul_le_mul_of_nonneg_left (shortSum_bound a s0 x hlen) (abs_nonneg _)
   rw [Real.norm_eq_abs, abs_of_nonneg (by positivity)]
   have h0 : (0 : ℝ) ≤ ‖((1 / hlen : ℝ) : ℂ) * shortSum a s0 x hlen‖ := norm_nonneg _
-  nlinarith [mul_nonneg (abs_nonneg (1 / hlen)) hsum0]
+  nlinarith only [hd, h0]
 
 /-! ## §3 — THE BRIDGE IDENTITY
 
@@ -481,7 +481,7 @@ theorem sum_Ioc_absWindowSum_sq_div_le (c : ℕ → ℂ) (s0 : Finset ℕ) (α :
     rw [div_le_iff₀ hA0]
     have hle : (H : ℝ) ^ 2 * MS * X ≤ (H : ℝ) ^ 2 * MS * (A : ℝ) :=
       mul_le_mul_of_nonneg_left hXA (by positivity)
-    nlinarith
+    linarith only [hle]
   have hdiv : (∑ n ∈ Finset.Ioc A B, ‖absWindowSum c H n α‖ ^ 2) / (A : ℝ)
       ≤ (H : ℝ) ^ 2 * (X * MS) / (A : ℝ) := by
     exact div_le_div_of_nonneg_right hstep3 hA0.le

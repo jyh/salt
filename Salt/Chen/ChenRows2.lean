@@ -201,7 +201,7 @@ theorem band_hDsq_of_kfloor {x k D : ℕ}
     have hsplit : (x : ℝ) ^ ((2 : ℝ) / 3) = (x : ℝ) ^ ((1 : ℝ) / 2) * (x : ℝ) ^ ((1 : ℝ) / 6) := by
       rw [← Real.rpow_add hxpos, show (1 : ℝ) / 2 + 1 / 6 = 2 / 3 by norm_num]
     rw [hsplit]
-    nlinarith [hx16, h12nn]
+    nlinarith only [hsqrt_eq, hx16, hDx, (Nat.cast_nonneg _ : 0 ≤ ↑D)]
   -- `x^{2/3} = x^{1/3}·x^{1/3}`, so `x^{2/3}/64 = (x^{1/3}/8)·(x^{1/3}/8) ≤ (2^k)·(2^k)`
   have hx13x13 : (x : ℝ) ^ ((1 : ℝ) / 3) * (x : ℝ) ^ ((1 : ℝ) / 3) = (x : ℝ) ^ ((2 : ℝ) / 3) := by
     rw [← Real.rpow_add hxpos, show (1 : ℝ) / 3 + 1 / 3 = 2 / 3 by norm_num]
@@ -222,7 +222,7 @@ theorem band_hDsq_of_kfloor {x k D : ℕ}
       push_cast; push_cast at hDR; linarith
     exact_mod_cast h
   have hpos : 0 < 2 ^ k := Nat.pos_of_ne_zero (by positivity)
-  nlinarith [hDnat, hpos]
+  linarith only [hpos, hDnat]
 
 /-! ## §3 — the fresh operating-value rows (deliverable 3)
 
@@ -260,7 +260,7 @@ theorem log3pow_le_rpow (E c : ℝ) (hE : 0 ≤ E) (hc : 0 < c) :
       rwa [div_mul_cancel₀ _ (ne_of_gt hcpos)] at h
     calc (2 : ℝ) ^ E = Real.exp (Real.log 2 * E) := by
           rw [Real.rpow_def_of_pos (by norm_num), mul_comm]
-      _ ≤ Real.exp (Real.log (x : ℝ) * (c / 2)) := Real.exp_le_exp.mpr (by nlinarith [hkey])
+      _ ≤ Real.exp (Real.log (x : ℝ) * (c / 2)) := Real.exp_le_exp.mpr (by linarith only [hkey])
       _ = (x : ℝ) ^ (c / 2) := (Real.rpow_def_of_pos hxpos _).symm
   calc (Real.log x + 3) ^ E ≤ (2 * Real.log x) ^ E := Real.rpow_le_rpow hbnn hbase hE
     _ = (2 : ℝ) ^ E * (Real.log x) ^ E := Real.mul_rpow (by norm_num) hL0
@@ -288,7 +288,7 @@ theorem poly3_le_sqrt_floor (E γ : ℝ) (hE : 0 ≤ E) (hγ : 0 < γ) :
       have h := mul_le_mul_of_nonneg_right hmargin hγ6pos.le
       rwa [div_mul_cancel₀ _ (ne_of_gt hγ6pos)] at h
     calc (3 : ℝ) = Real.exp (Real.log 3) := (Real.exp_log (by norm_num)).symm
-      _ ≤ Real.exp (Real.log (x : ℝ) * (γ / 6)) := Real.exp_le_exp.mpr (by nlinarith [hkey])
+      _ ≤ Real.exp (Real.log (x : ℝ) * (γ / 6)) := Real.exp_le_exp.mpr (by linarith only [hkey])
       _ = (x : ℝ) ^ (γ / 6) := (Real.rpow_def_of_pos hxpos _).symm
   -- `x^{γ/3} ≤ x^{γ/2}/3`
   have hxγ3nn : (0 : ℝ) ≤ (x : ℝ) ^ (γ / 3) := Real.rpow_nonneg hxpos.le _
@@ -296,7 +296,7 @@ theorem poly3_le_sqrt_floor (E γ : ℝ) (hE : 0 ≤ E) (hγ : 0 < γ) :
     rw [← Real.rpow_add hxpos]; congr 1; ring
   have hx32 : (x : ℝ) ^ (γ / 3) ≤ (x : ℝ) ^ (γ / 2) / 3 := by
     rw [le_div_iff₀ (by norm_num : (0 : ℝ) < 3), hsplit]
-    nlinarith [h3x, hxγ3nn]
+    nlinarith only [h3x, hxγ3nn]
   -- `√V ≥ √(x^γ/8) = x^{γ/2}/√8 ≥ x^{γ/2}/3`
   have hsqrtV : (x : ℝ) ^ (γ / 2) / 3 ≤ Real.sqrt (V : ℝ) := by
     have hVnn : (0 : ℝ) ≤ (x : ℝ) ^ γ / 8 := by positivity
@@ -341,7 +341,7 @@ theorem poly3_mul_le_sqrtXM (E : ℝ) (hE : 0 ≤ E) :
       rwa [div_mul_cancel₀ _ (by norm_num : ((9 : ℝ) / 200000) ≠ 0)] at h
     calc (2 : ℝ) = Real.exp (Real.log 2) := (Real.exp_log (by norm_num)).symm
       _ ≤ Real.exp (Real.log (x : ℝ) * ((9 : ℝ) / 200000)) :=
-          Real.exp_le_exp.mpr (by nlinarith [hkey])
+          Real.exp_le_exp.mpr (by linarith only [hmargin])
       _ = (x : ℝ) ^ ((9 : ℝ) / 200000) := (Real.rpow_def_of_pos hxpos _).symm
   have hDnn : (0 : ℝ) ≤ (D : ℝ) := Nat.cast_nonneg _
   have hmid : (x : ℝ) ^ ((1 : ℝ) / 2 - 9 / 100000) * (x : ℝ) ^ ((9 : ℝ) / 200000)
@@ -652,7 +652,7 @@ theorem low_rows_at_op (z y Ps Q a : ℕ) (hQ1 : 1 ≤ Q) (hPspos : 0 < Ps)
     have hsx : Real.sqrt x ≤ (x : ℝ) / 2 := by
       rw [show (x : ℝ) / 2 = Real.sqrt (((x : ℝ) / 2) ^ 2) by rw [Real.sqrt_sq (by positivity)]]
       apply Real.sqrt_le_sqrt
-      nlinarith [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
+      linarith only [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
     have hXMloR : (x : ℝ) / 2 < (X : ℝ) * (pieceM k : ℝ) := by
       have hxlt : x < 2 * (x / 2 + 1) := by omega
       have hxltR : (x : ℝ) < 2 * ((x / 2 + 1 : ℕ) : ℝ) := by exact_mod_cast hxlt
@@ -759,7 +759,7 @@ theorem sym_rows_at_op (z y Ps Q a : ℕ) (hQ1 : 1 ≤ Q) (hPspos : 0 < Ps)
     have hsx : Real.sqrt x ≤ (x : ℝ) / 2 := by
       rw [show (x : ℝ) / 2 = Real.sqrt (((x : ℝ) / 2) ^ 2) by rw [Real.sqrt_sq (by positivity)]]
       apply Real.sqrt_le_sqrt
-      nlinarith [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
+      linarith only [mul_nonneg (by linarith [hx4R] : (0 : ℝ) ≤ (x : ℝ) - 4) hxpos.le]
     have hXMloR : (x : ℝ) / 2 < (X : ℝ) * (pieceM k : ℝ) := by
       have hxlt : x < 2 * (x / 2 + 1) := by omega
       have hxltR : (x : ℝ) < 2 * ((x / 2 + 1 : ℕ) : ℝ) := by exact_mod_cast hxlt

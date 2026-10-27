@@ -67,7 +67,7 @@ theorem hBJS_antitone {a b : ℝ} (hab : a ≤ b) : hBJS b ≤ hBJS a := by
           rw [inv_le_inv₀ hb0 ha0]; exact hab
         have hexp : Real.exp (-b) ≤ Real.exp (-a) := Real.exp_le_exp.mpr (by linarith)
         calc 3 * b⁻¹ * Real.exp (-b) ≤ 3 * a⁻¹ * Real.exp (-a) :=
-              mul_le_mul (by nlinarith [hinv]) hexp (Real.exp_pos _).le
+              mul_le_mul (by linarith only [hinv]) hexp (Real.exp_pos _).le
                 (mul_nonneg (by norm_num) (inv_nonneg.mpr ha0.le))
 
 /-- **The exponential shift majorant** `h(k−1) ≤ e^{−(k−1)}` for every `k : ℕ`.  For `k ≤ 3`
@@ -107,7 +107,7 @@ theorem two_mul_add_three_le (k : ℕ) : 2 * (k : ℝ) + 3 ≤ 3 * 2 ^ k := by
     push_cast
     calc 2 * ((m : ℝ) + 1) + 3 = (2 * (m : ℝ) + 3) + 2 := by ring
       _ ≤ 3 * 2 ^ m + 2 := by linarith
-      _ ≤ 3 * 2 ^ (m + 1) := by rw [pow_succ]; nlinarith [h2]
+      _ ≤ 3 * 2 ^ (m + 1) := by rw [pow_succ]; linarith only [ih, (Nat.cast_nonneg _ : 0 ≤ ↑m)]
 
 /-- **`(k+1)² ≤ 3·2^k`** for every `k : ℕ` (the polynomial-vs-geometric bound making the
 dyadic tail summable at ratio `2/e < 1`). -/
@@ -162,7 +162,7 @@ theorem prime_tail_mass_le (D' : ℕ) (K : ℝ) (hK : 1 ≤ K) (T : Finset ℕ)
           have h := Real.exp_le_exp.mpr hwlog2
           rwa [Real.exp_log (by norm_num : (0 : ℝ) < 2), Real.exp_log hwpos] at h
         have hwD : w ≤ (D' : ℝ) := by
-          have h1 : L / K ≤ L := by rw [div_le_iff₀ hn3pos]; nlinarith [hlogD, hK]
+          have h1 : L / K ≤ L := by rw [div_le_iff₀ hn3pos]; nlinarith only [hK, hlogD]
           have h := Real.exp_le_exp.mpr h1
           rw [hLdef] at h
           rwa [Real.exp_log (show (0 : ℝ) < (D' : ℝ) by linarith)] at h
@@ -206,7 +206,7 @@ theorem prime_tail_mass_le (D' : ℕ) (K : ℝ) (hK : 1 ≤ K) (T : Finset ℕ)
     have hp1 : (0 : ℝ) < (p : ℝ) - 1 := by linarith
     rw [div_add_div _ _ (ne_of_gt hp0) (by positivity : ((p : ℝ) ^ 2) ≠ 0),
       div_le_div_iff₀ hp1 (by positivity)]
-    nlinarith [mul_nonneg hp0.le (by linarith : (0 : ℝ) ≤ (p : ℝ) - 2)]
+    linarith only [mul_nonneg hp0.le (by linarith : (0 : ℝ) ≤ (p : ℝ) - 2)]
   have hsub : T ⊆ Finset.Icc 2 D' := by
     intro p hp
     obtain ⟨hpp, hpD, _⟩ := hT p hp
@@ -497,7 +497,7 @@ theorem hh_of_window (s' : BoundingSieve) (ε : ℝ) (z side' D' n : ℕ)
         have hstep : (1 + ε) * Salt.BrunLower.W s' * Cabs
             ≤ (1 + ε) * Salt.BrunLower.W s' * Cabs
                 * (((n : ℝ) + 3) * Real.exp ((n : ℝ) + 3) * hBJS S) := by
-          nlinarith [mul_nonneg hbase (sub_nonneg.mpr hone)]
+          linarith only [mul_nonneg hbase (sub_nonneg.mpr hone)]
         calc (1 + ε) * Salt.BrunLower.W s' * Cabs
             ≤ (1 + ε) * Salt.BrunLower.W s' * Cabs
                 * (((n : ℝ) + 3) * Real.exp ((n : ℝ) + 3) * hBJS S) := hstep

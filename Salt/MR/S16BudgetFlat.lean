@@ -11,10 +11,10 @@ import Salt.MR.FlatConsumers
 
 The two terminal `S16Budget` surfaces at the flat tower conjunct:
 
-* **HOP 3** `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl` (`:1429`) — a
+* **HOP 3** `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl` — a
   pure CARRIER.  Its flat twin is the landed statement with the conjunct
   re-shaped, proved by one `pow_nine_halves_le_exp_half`.
-* **HOP 4** `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl` (`:1654`) — the
+* **HOP 4** `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl` — the
   first surface on this road that CONSUMES the conjunct (`htow := hRtow hlam50`,
   `:1700`) and spends it on four socket suppliers.  Its flat twin is the landed
   proof with those four swapped for the flat consumers of
@@ -47,7 +47,7 @@ open Salt.Entropy.Chowla
 set_option maxHeartbeats 1000000 in
 -- Same cause as the landed original: the residue re-elaborates against the re-cut prefix.
 /-- **⟦HOP 3, FLAT⟧** — `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl`
-(`S16Budget.lean:1429`) at the FLAT tower conjunct.  Pure carry. -/
+(`S16Budget.lean` · `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl`) at the FLAT tower conjunct.  Pure carry. -/
 theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flat (K : ℕ)
     (hK : K ≤ 170000000) (hband : S16BandLaneCBounded K) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ Ct Cq cs T₀ Kq Ks : ℝ) (x₀ Hcap Mfl : ℕ),
@@ -144,7 +144,7 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flat (K : ℕ)
 set_option maxHeartbeats 1000000 in
 -- Same cause as the landed original: the residue re-elaborates against the prefix.
 /-- **⟦HOP 4, FLAT⟧** — `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl`
-(`S16Budget.lean:1654`) at the FLAT tower conjunct.  THE DELIVERABLE: the first
+(`S16Budget.lean` · `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl`) at the FLAT tower conjunct.  THE DELIVERABLE: the first
 surface on the road whose flat twin is genuine new content rather than a
 weakening — the landed proof with its four socket suppliers taken from
 `Salt.MR.FlatConsumers`, at unchanged numerals. -/

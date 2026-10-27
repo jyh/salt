@@ -88,14 +88,10 @@ private theorem gold_Lpow_le_bw {N : ℕ} {L : ℝ} (hlogN1 : 1 ≤ Real.log N)
 set_option maxHeartbeats 4000000 in
 -- The ~24-row wide-geometry discharge elaborates a long rpow/sqrt-bearing chain and applies the
 -- 39-hypothesis `gold_band_box_kerr`; the whnf/defeq checks need headroom above the default.
-/-- **`gold_band_wide_price_at_op`.**  At a non-vanishing high-pass band survivor at op (the y-floor
-`opY N < pieceN kp`) with a per-annulus level in the WIDE window (`hDge : goldCut^{11/24}/8 ≤ D`,
-`hDwide : D·L^{18} ≤ √(X·M)`, `L := log((2^{i+1}−1)·pieceM kp)`), the two-cutoff band-box price is
-`≤ boxPriceKerr Kc kp i` — every residual analytic row of `gold_band_box_kerr` discharged at the
-y-floor.  Instantiable at `D := opD N` on the high annuli the band populates.  Only the
-carrier/`Dset` rows (`hβ`/`hd1`/`hcop2`/`hDsetD`) remain, supplied by the assembly.  This is `hbox`
-residual and — chained through `gold_band_survsum_geoN_floored` — Surv's `hwide`. -/
-theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
+/-- `gold_band_wide_price_at_op` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_band_wide_price_at_op_of_SW (hSWall : Salt.BV.SiegelWalfisz)
+    : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
     ∀ (N : ℕ), x₁ ≤ N →
       ∀ (β : ℕ → ℂ) (kp D : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (T₁ T₂ ka i K : ℕ),
         i ∈ dyadicBoundary (pieceN kp) (pieceM kp) (goldCut N ka) (goldCut N (ka + 1))
@@ -111,7 +107,7 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
           + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp))
                 (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₁‖)
           ≤ boxPriceKerr Kc kp i := by
-  obtain ⟨Kc, N₀, hKc, hbody⟩ := gold_band_box_kerr
+  obtain ⟨Kc, N₀, hKc, hbody⟩ := (gold_band_box_kerr_of_SW hSWall)
   obtain ⟨xs, hs⟩ := gold_op_scales
   obtain ⟨xp, hp⟩ := a12_logpow_le_rpow 18 (1 / 2000) (by norm_num) (by norm_num)
   obtain ⟨xh, hh⟩ := a12_log_ge (3 * 10 ^ 10 + 3)
@@ -346,7 +342,7 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       have h1 : Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
           ≤ Real.sqrt ((((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
               * (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) :=
-        Real.sqrt_le_sqrt (by nlinarith [hXMge1])
+        Real.sqrt_le_sqrt (by nlinarith only [hXMpos, hXMge1])
       rwa [Real.sqrt_mul_self hXMpos.le] at h1
     linarith [hDsqrtXM, hsqrtself]
   have hDx : (D : ℝ) ≤ Real.sqrt (N : ℝ) := by
@@ -358,12 +354,12 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       have h1le : L ^ (1 : ℝ) ≤ L ^ ((13 : ℝ) + 5) :=
         Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
       rw [Real.rpow_one] at h1le
-      nlinarith [le_trans hL2 h1le, hL18ge1]
+      nlinarith only [hL18ge1, h1le, hLlow, hlog4, hlogNbig]
     have hDDN : (D : ℝ) * (D : ℝ) ≤ (N : ℝ) := by
       have hexp : ((D : ℝ) * L ^ ((13 : ℝ) + 5)) * ((D : ℝ) * L ^ ((13 : ℝ) + 5))
           = ((D : ℝ) * (D : ℝ)) * (L ^ ((13 : ℝ) + 5) * L ^ ((13 : ℝ) + 5)) := by ring
       rw [hexp] at hsqle
-      nlinarith [hsqle, hL18ge2, hXMhiR, mul_nonneg hDnn hDnn]
+      nlinarith only [hL18ge2, hsqle, hXMhiR, mul_self_nonneg ↑D]
     rw [show (D : ℝ) = Real.sqrt ((D : ℝ) * (D : ℝ)) from (Real.sqrt_mul_self hDnn).symm]
     exact Real.sqrt_le_sqrt hDDN
   have hDsq : D < (2 ^ kp + 1) * (2 ^ kp + 1) := by
@@ -403,7 +399,7 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       le_trans hDsqrtXM (le_trans hsqrt2N hsqrt2N_le)
     have hDnat : D ≤ 2 ^ kp * 2 ^ kp := by exact_mod_cast hDreal
     have hm : (1 : ℕ) ≤ 2 ^ kp := Nat.one_le_pow _ _ (by norm_num)
-    nlinarith [hDnat, hm]
+    linarith only [hDnat, hpc, hy6, hyfloor]
   -- hD1 (from the band floor `hDge`)
   have hD1 : 1 ≤ D := by
     have hgcpow_pos : (0 : ℝ) < (goldCut N (ka + 1) : ℝ) ^ ((11 : ℝ) / 24) :=
@@ -412,9 +408,7 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       have hlog8_le : Real.log 8 ≤ Real.log ((goldCut N (ka + 1) : ℝ) ^ ((11 : ℝ) / 24)) := by
         rw [Real.log_rpow hgcPos]
         have hlog8 : Real.log 8 ≤ 3 := by
-          have h8 : Real.log 8 = 3 * Real.log 2 := by
-            rw [show (8 : ℝ) = 2 ^ 3 by norm_num, Real.log_pow]; push_cast; ring
-          rw [h8]; linarith [hlog2]
+          exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 3 (by norm_num) (by norm_num)
         linarith [hlog_gc, hlog8]
       have := Real.exp_le_exp.mpr hlog8_le
       rwa [Real.exp_log (by norm_num), Real.exp_log hgcpow_pos] at this
@@ -424,14 +418,14 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
   have hDleN : (D : ℝ) ≤ (N : ℝ) := by
     have hself : Real.sqrt (N : ℝ) ≤ (N : ℝ) := by
       have h1 : Real.sqrt (N : ℝ) ≤ Real.sqrt ((N : ℝ) * (N : ℝ)) :=
-        Real.sqrt_le_sqrt (by nlinarith [hN1R])
+        Real.sqrt_le_sqrt (by nlinarith only [hN1R, (Nat.cast_nonneg _ : 0 ≤ ↑N)])
       rwa [Real.sqrt_mul_self hNpos.le] at h1
     linarith [hDx, hself]
   have hlogD : Real.log D ≤ Real.log N := by
     rcases Nat.eq_zero_or_pos D with h0 | hDpos
     · rw [h0]; simp only [Nat.cast_zero, Real.log_zero]; linarith [hlogN1]
     · exact Real.log_le_log (by exact_mod_cast hDpos) hDleN
-  have hlogNle7L : Real.log N ≤ 7 * L := by nlinarith [hLlow, hlog4, hL2, hlogN1]
+  have hlogNle7L : Real.log N ≤ 7 * L := by linarith only [hLlow, hlog4, hlogNbig]
   have habs : 4 * (1 + Real.log D) * (D : ℝ)
       ≤ ((2 ^ kp : ℕ) : ℝ) * (pieceM kp : ℝ) / L ^ (13 : ℝ) := by
     rw [le_div_iff₀ (Real.rpow_pos_of_pos hLpos _)]
@@ -442,12 +436,12 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       le_trans (mul_le_mul_of_nonneg_left h14le18 hDnn) herr_lev
     have hL14eq : L ^ (14 : ℝ) = L * L ^ (13 : ℝ) := by
       rw [show (14 : ℝ) = 1 + 13 by norm_num, Real.rpow_add hLpos, Real.rpow_one]
-    have hcoef : 4 * (1 + Real.log D) ≤ 32 * L := by nlinarith [hlogD, hlogNle7L, hL1]
+    have hcoef : 4 * (1 + Real.log D) ≤ 32 * L := by linarith only [hlogD, hLlow, hlog4, hlogNbig]
     have hL13nn : (0 : ℝ) ≤ L ^ (13 : ℝ) := Real.rpow_nonneg hL0 _
     have hstep1 : 4 * (1 + Real.log D) * (D : ℝ) * L ^ (13 : ℝ)
         ≤ 32 * ((D : ℝ) * L ^ (14 : ℝ)) := by
       rw [hL14eq]
-      nlinarith [hcoef, hDnn, hL13nn, mul_nonneg hDnn hL13nn]
+      nlinarith only [hlogD, hLlow, hlog4, hlogN, mul_nonneg hDnn hL13nn]
     have hMnn : (0 : ℝ) ≤ (pieceM kp : ℝ) := by positivity
     have hBnn : (0 : ℝ) ≤ ((2 ^ kp : ℕ) : ℝ) * (pieceM kp : ℝ) := by positivity
     have hAnn : (0 : ℝ) ≤ 32 * Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) := by
@@ -492,7 +486,7 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
               = (N : ℝ) ^ ((4 : ℝ) / 3) / 65536 := by rw [h43]; ring
           rw [hexp]; linarith [hstep]
         linarith [hkpMlo2, h2N_le]
-      nlinarith [hXMhiR, hBBlo]
+      linarith only [hBBlo, hXMhiR]
     have hAle : 32 * Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
         ≤ ((2 ^ kp : ℕ) : ℝ) * (pieceM kp : ℝ) := by
       have h1 := Real.sqrt_le_sqrt hAAle
@@ -514,5 +508,30 @@ theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
   exact hbody (N : ℝ) (Real.log (4 * (N : ℝ))) (opZ N * opY N) β kp D Dset r T₁ T₂ N (opZ N)
     (opY N) K ka i hN2 hi hx hNfloor hDge hk hβ hN₀ hd1 hcop2 hL1 hD1 hDsetD hDsq habs
     hX2 hM2 hDscale hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx hLbb hfloor herr_LEpos hDXM herr_scale
+
+/-- **`gold_band_wide_price_at_op`.**  At a non-vanishing high-pass band survivor at op (the y-floor
+`opY N < pieceN kp`) with a per-annulus level in the WIDE window (`hDge : goldCut^{11/24}/8 ≤ D`,
+`hDwide : D·L^{18} ≤ √(X·M)`, `L := log((2^{i+1}−1)·pieceM kp)`), the two-cutoff band-box price is
+`≤ boxPriceKerr Kc kp i` — every residual analytic row of `gold_band_box_kerr` discharged at the
+y-floor.  Instantiable at `D := opD N` on the high annuli the band populates.  Only the
+carrier/`Dset` rows (`hβ`/`hd1`/`hcop2`/`hDsetD`) remain, supplied by the assembly.  This is `hbox`
+residual and — chained through `gold_band_survsum_geoN_floored` — Surv's `hwide`. -/
+theorem gold_band_wide_price_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
+    ∀ (N : ℕ), x₁ ≤ N →
+      ∀ (β : ℕ → ℂ) (kp D : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (T₁ T₂ ka i K : ℕ),
+        i ∈ dyadicBoundary (pieceN kp) (pieceM kp) (goldCut N ka) (goldCut N (ka + 1))
+          (opZ N * opY N) K →
+        opY N < pieceN kp →
+        (goldCut N (ka + 1) : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (D : ℝ) →
+        (D : ℝ) * (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) →
+        (∀ m, ‖β m‖ ≤ 1) →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) → (∀ d ∈ Dset, d ≤ D) →
+        (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp))
+              (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₂‖)
+          + (∑ d ∈ Dset, ‖apDiscBilinCutoff β (blockPrimeInd (pieceN kp))
+                (2 ^ (i + 1) - 1) (pieceM kp) (r d) d T₁‖)
+          ≤ boxPriceKerr Kc kp i :=
+  gold_band_wide_price_at_op_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Goldbach

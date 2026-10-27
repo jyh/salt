@@ -93,7 +93,7 @@ lemma norm_one_sub_le_of_one_le_re {M : ℕ} (ψ : DirichletCharacter ℂ M) {p 
     rw [div_le_iff₀ hp0]
     have : (1 : ℝ) / (p : ℝ) ≤ 1 / 2 := by
       rw [div_le_div_iff₀ hp0 (by norm_num)]; linarith
-    nlinarith
+    nlinarith only [this, hp2, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
   linarith
 
 /-- **D-1 (product form).** For ANY character `ψ` (any level) and `Re s ≥ 1`,

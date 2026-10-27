@@ -23,7 +23,7 @@ import Salt.MR.StridePairReceiptG
 import Salt.MR.StrideGrade12bWalls
 import Mathlib
 
--- The same three `open private` lines as `StridePairReceiptG.lean:66-68` — the later replays and
+-- The same three `open private` lines as `StridePairReceiptG.lean:78-80` — the later replays and
 -- the door-head of this lane are the same bodies and reach the same private names.
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
@@ -42,7 +42,7 @@ namespace Salt.MR
 /-! ## §4 — THE FORMS AT `2^12`: the six graded forms, pin at `838400 · 2^12`, stride `a ≤ 8103` -/
 
 /-- **⟦H0 FORM AT `2^12`⟧ (def) — `FlatHeadFormHG_g12b`.**
-`FlatHeadFormHG` (StridePairReceiptG.lean:86) with the pin `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and
+`FlatHeadFormHG` (StridePairReceiptG.lean:98) with the pin `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and
 the stride `a ≤ 1096 ↦ a ≤ 8103`; nothing else moves. -/
 def FlatHeadFormHG_g12b (h : ℕ) (Xi : XiFamily) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (ε : ℚ) (K δ₀ β : ℝ) (Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 539 ∧ 0 < δ₀ ∧
@@ -66,7 +66,7 @@ def FlatHeadFormHG_g12b (h : ℕ) (Xi : XiFamily) (P : ChowlaRegime → Prop) : 
               P R
 
 /-- **⟦H1 FORM AT `2^12`⟧ (def) — `FlatRoadExitFormHG_g12b`.**
-`FlatRoadExitFormHG` (:109) with the pin `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and the stride `a ≤
+`FlatRoadExitFormHG` (:121) with the pin `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and the stride `a ≤
 1096 ↦ a ≤ 8103`; nothing else moves. -/
 def FlatRoadExitFormHG_g12b (h : ℕ) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ β : ℝ) (Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
@@ -106,7 +106,7 @@ def FlatRoadExitFormHG_g12b (h : ℕ) (P : ChowlaRegime → Prop) : Prop :=
                   P R
 
 /-- **⟦H2 FORM AT `2^12`⟧ (def) — `FlatCapstoneFormHG_g12b`.**
-`FlatCapstoneFormHG` (:151) with the pin `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and the stride `a ≤
+`FlatCapstoneFormHG` (:163) with the pin `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and the stride `a ≤
 1096 ↦ a ≤ 8103`; nothing else moves. -/
 def FlatCapstoneFormHG_g12b (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
@@ -207,7 +207,7 @@ def FlatCapstoneFormHG_g12b (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) :
                         P R
 
 /-- **⟦H3 FORM AT `2^12`⟧ (def) — `FlatConditionalFormHG_g12b`.**
-`FlatConditionalFormHG` (:252) with the pin `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and the stride `a ≤
+`FlatConditionalFormHG` (:264) with the pin `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and the stride `a ≤
 1096 ↦ a ≤ 8103`; nothing else moves. -/
 def FlatConditionalFormHG_g12b (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (ε : ℚ) (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
@@ -233,7 +233,7 @@ def FlatConditionalFormHG_g12b (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop
                 S15Sel''_L_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R M →
                 S15CrossingBound_LH_gk h K R M → P R
 
-/-- **⟦H4 FORM AT `2^12`⟧ (def) — `FlatKswinFormHG_g12b`.** `FlatKswinFormHG` (:278) with the pin
+/-- **⟦H4 FORM AT `2^12`⟧ (def) — `FlatKswinFormHG_g12b`.** `FlatKswinFormHG` (:290) with the pin
 `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and the stride `a ≤ 1096 ↦ a ≤ 8103`; nothing else moves. -/
 def FlatKswinFormHG_g12b (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (ε : ℚ) (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
@@ -266,7 +266,7 @@ def FlatKswinFormHG_g12b (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : Pr
               S16BaseScaleCap96_LH_gk h K R (flatDoorM A) →
                 P R))
 
-/-- **⟦H5 FORM AT `2^12`⟧ (def) — `V7RatedFormHG_g12b`.** `V7RatedFormHG` (:311) with the pin
+/-- **⟦H5 FORM AT `2^12`⟧ (def) — `V7RatedFormHG_g12b`.** `V7RatedFormHG` (:323) with the pin
 `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and the stride `a ≤ 1096 ↦ a ≤ 8103`; nothing else moves. -/
 def V7RatedFormHG_g12b (h : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
@@ -290,7 +290,7 @@ def V7RatedFormHG_g12b (h : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop
 /-! ## §6 — the receipt predicate at `2^12` -/
 
 /-- **⟦THE RECEIPT PREDICATE AT `2^12`⟧ (def) — `MRTDoorReceiptSetG_g12b`.**
-`MRTDoorReceiptSetG` (:950) with the door's ceiling `837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`; the ε-pin
+`MRTDoorReceiptSetG` (:966) with the door's ceiling `837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`; the ε-pin
 equality and the count ride the slot unchanged. -/
 def MRTDoorReceiptSetG_g12b (h : ℕ) (Xi : XiFamily) (R : ChowlaRegime) : Prop :=
   R.eps = 1 / (500 * (h : ℚ)) ∧
@@ -314,7 +314,7 @@ HONEST LABEL.  Replays only; nothing here proves a new estimate, and nothing bea
 primes. -/
 
 /-- **⟦H0→H1 REPLAY AT `2^12`⟧ — `flat_roadExit_generic_h_g12b`.** `flat_roadExit_generic_h_g`
-(StridePairReceiptG.lean:336) at the `_g12b` forms, its unused cap binder at `≤ 9`.  BODY verbatim:
+(StridePairReceiptG.lean:348) at the `_g12b` forms, its unused cap binder at `≤ 9`.  BODY verbatim:
 `hδpin` and the stride bound are forwarded opaquely; the road
 `m4_second_road_L2_Set_gk_flatRoot_L_khoist` is cap-free and `δ₀`-generic. -/
 theorem flat_roadExit_generic_h_g12b (h : ℕ) (hh : 0 < h) (_hh9 : Real.log (h : ℝ) ≤ 9)
@@ -343,7 +343,7 @@ theorem flat_roadExit_generic_h_g12b (h : ℕ) (hh : 0 < h) (_hh9 : Real.log (h 
   exact le_trans (hdoor H hlo hhi) hbudget
 
 /-- **⟦H1→H2 REPLAY AT `2^12`⟧ — `flat_capstone_generic_h_g12b`.** `flat_capstone_generic_h_g`
-(:365) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim with the two cap-dependent suppliers at
+(:377) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim with the two cap-dependent suppliers at
 their landed `_14` rungs, fed `log h ≤ 14` by weakening:
 `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide ↦ …_kwide_14`,
 `arc36_of_regime_h ↦ arc36_of_regime_h_14`.  `hδpin` is forwarded; the share table is
@@ -494,11 +494,11 @@ theorem flat_capstone_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h :
     linarith [hend]
 
 /-- **⟦H2→H3 REPLAY AT `2^12`⟧ — `flat_conditional_generic_h_g12b`.** `flat_conditional_generic_h_g`
-(:516) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim with: ⟦THE `:542` WALL⟧ `hlogA` at
+(:529) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim with: ⟦THE `:556` WALL⟧ `hlogA` at
 `log a ≤ 9` from `8103 ≤ exp 9` via `2.7182818283^9` (margin 0.084) and `haR : a ≤ 8103`, the four
 budget sites `harm'` · `hgb'` · `hsum` · `hprod` moving `− 7 ↦ − 9` together against
 `xceil_arm_split_mul_h_b9`'s `+ 9` (freeze §5.1 (e)); the slot-3 shift `+ 28 ↦ + 36` at
-`s13_g2_jfloor_of_MSelect'_L_gk_shift36` (freeze §3.1 rule 2, `StridePairReceiptG:676,679`), read by
+`s13_g2_jfloor_of_MSelect'_L_gk_shift36` (freeze §3.1 rule 2, `StridePairReceiptG:690,693`), read by
 `s13_g2_jfloor_of_MSelect'_L_gk_h_b9`; and the eleven cap-dependent suppliers at their `_b9` /
 `_g12b` twins (`s15ArmH_log_le_g12b` reads the `2^12` pin). -/
 theorem flat_conditional_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
@@ -694,7 +694,7 @@ theorem flat_conditional_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (
         s15_block_at_socketH_L_gk_b9 K hh hh9 hb (hHreg H hb.1 hb.2.1) hsel.blk))
     harith
 
-/-- **⟦H3→H4 REPLAY AT `2^12`⟧ — `flat_kswin_generic_h_g12b`.** `flat_kswin_generic_h_g` (:719) at
+/-- **⟦H3→H4 REPLAY AT `2^12`⟧ — `flat_kswin_generic_h_g12b`.** `flat_kswin_generic_h_g` (:734) at
 the `_g12b` forms and cap `≤ 9`.  BODY verbatim with the four cap-dependent suppliers at their
 twins: the spine head `s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_b9`,
 `flat_witFloor_eq_designBase_h_b9`, `s15_sel''_L_gk_witness_flat_bumped_win_h_g12b` (reads the
@@ -800,7 +800,7 @@ theorem flat_kswin_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : �
         linarith)
       hblk hcof hcapsc)
 
-/-- **⟦H4→H5 REPLAY AT `2^12`⟧ — `flat_v7_generic_h_g12b`.** `flat_v7_generic_h_g` (:823) at the
+/-- **⟦H4→H5 REPLAY AT `2^12`⟧ — `flat_v7_generic_h_g12b`.** `flat_v7_generic_h_g` (:839) at the
 `_g12b` forms and cap `≤ 9`.  BODY verbatim with the two cap-dependent suppliers at their twins:
 `cofkR_cofactorSupply_L_gk_rated_h_b9` and `s16_baseScaleCap96_LH_at_klevF_b9`.  `hδpin` is
 forwarded only; the eight-arm design constant reads no pin. -/
@@ -927,7 +927,7 @@ theorem flat_v7_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) 
 
 /-! ## §8 — the door-head at `2^12` -/
 
-/-- **⟦THE DOOR-HEAD AT `2^12`⟧ — `flat_door_head_xceil_h_g12b`.** `flat_door_head_xceil_h_g` (:967)
+/-- **⟦THE DOOR-HEAD AT `2^12`⟧ — `flat_door_head_xceil_h_g12b`.** `flat_door_head_xceil_h_g` (:983)
 at `FlatHeadFormHG_g12b … (MRTDoorReceiptSetG_g12b h Xi)`, its unused cap binder at `≤ 9`.  BODY
 verbatim with the mint moved `2 ^ 11 ↦ 2 ^ 12` at its five sites (`hval` both sides, `hδ₀ge` at
 `838400 * 2 ^ 12`, `hδ₀le` at `837782 * 2 ^ 12`, the `refine` witness); `hnum`
@@ -1040,7 +1040,7 @@ HONEST LABEL.  Replays only; nothing here proves a new estimate, and nothing bea
 primes. -/
 
 /-- **⟦THE CHAIN AT `2^12`⟧ — `flat_chain_generic_h_g12b`.** `flat_chain_generic_h_g`
-(StridePairReceiptG.lean:1061) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
+(StridePairReceiptG.lean:1077) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
 replays (census band 4 row 23: SUPPLIER-SWAP, no numerals). -/
 theorem flat_chain_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) (Xi : XiFamily)
     (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →
@@ -1054,7 +1054,7 @@ theorem flat_chain_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : �
           (flat_roadExit_generic_h_g12b h hh hh9 Xi harcXi P hhead)))) A₀
 
 /-- **⟦THE RECEIPT AT `h`, GENERIC SET, AT `2^12`⟧ — `mrtUniformityXiL2Set_holds_flat_floor_g12b`.**
-`mrtUniformityXiL2Set_holds_flat_floor_g` (:1076) with the cap `≤ 9`, the statement's stride
+`mrtUniformityXiL2Set_holds_flat_floor_g` (:1092) with the cap `≤ 9`, the statement's stride
 `a ≤ 1096 ↦ a ≤ 8103` and ceiling `837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`.  BODY verbatim at
 `flat_chain_generic_h_g12b`, `MRTDoorReceiptSetG_g12b`, `flat_door_head_xceil_h_g12b`; the `a := 1`
 ε-probe stays `norm_num` (`1 ≤ 8103`); `flatDesignBase_loglog_le` is cap-free (census row 32). -/
@@ -1097,7 +1097,7 @@ theorem mrtUniformityXiL2Set_holds_flat_floor_g12b (h : ℕ) (hh : 0 < h)
   exact ⟨R, hReps, hHlo, hRg, hstride, hdes, hwin, hcountR, ρ, hρpos, hρle, hdoor⟩
 
 /-- **⟦THE NAMED LIFT⟧ — `mrtUniformityXiL2AffSet_holds_flat_floor_g12b`.**
-`mrtUniformityXiL2AffSet_holds_flat_floor_g` (:1139) with `hah7 ↦ hah9 : log (a·h) ≤ 9`, the
+`mrtUniformityXiL2AffSet_holds_flat_floor_g` (:1155) with `hah7 ↦ hah9 : log (a·h) ≤ 9`, the
 statement's `a' ≤ 1096 ↦ a' ≤ 8103` (council 2026-09-13 A② clause 2's named statement lift,
 realised as a twin at the bound the crown derives — freeze §3.0/§6) and the ceiling
 `837782 * 2 ^ 12`.  BODY verbatim: the Set floor twin at `k = a·h`, and
@@ -1129,7 +1129,7 @@ theorem mrtUniformityXiL2AffSet_holds_flat_floor_g12b (a b h : ℕ) (ha : 0 < a)
   exact_mod_cast bigXiAffD_card_le a b h _ H
 
 /-- **⟦THE CROWN AT `2^12`, CAP 9⟧ — `mrtUniformityXiL2AffW_holds_flat_stride_g12b`.**
-`mrtUniformityXiL2AffW_holds_flat_stride_g` (:1173) with `hah7 ↦ hah9` and the ceiling
+`mrtUniformityXiL2AffW_holds_flat_stride_g` (:1189) with `hah7 ↦ hah9` and the ceiling
 `837782 * 2 ^ 12` (the spelling `GradedAffHeadAt_g12b` and `log_chowla_aff_of_door_unslotted_g12b`'s
 `hcrown` read).  BODY verbatim with (census band 4 row 30): `a·h ≤ 1096 ↦ a·h ≤ 8103` via
 `h_le_8103_of_log_le_nine`, hence `a ≤ 8103`; `log a ≤ 9` into `loglog_mul_flatDesignBase_le_b9`;

@@ -58,7 +58,7 @@ lemma cast_div_ge {N p : ℕ} (hp : 0 < p) : (N : ℝ) / p - 1 ≤ ((N / p : ℕ
   have hdm : (p : ℝ) * ((N / p : ℕ) : ℝ) + ((N % p : ℕ) : ℝ) = (N : ℝ) := by
     exact_mod_cast Nat.div_add_mod N p
   rw [sub_le_iff_le_add, div_le_iff₀ hp']
-  nlinarith [hdm, hmod]
+  linarith only [hdm, hmod]
 
 /-- For `n ∈ [1, N]`, `n.primeFactors` are exactly the primes `≤ N` dividing `n`. -/
 lemma primeFactors_eq_filter {N n : ℕ} (hn1 : 1 ≤ n) (hnN : n ≤ N) :
@@ -246,7 +246,7 @@ lemma variance_bound (N : ℕ) (μ : ℝ) (hμ : 0 ≤ μ) :
   rw [hid]
   have hS2 := second_moment_le N
   have hS1l := first_moment_ge N
-  nlinarith [hS2, hS1l, hμ, mul_nonneg hμ (sub_nonneg.mpr hS1l)]
+  linarith only [hS2, mul_nonneg hμ (sub_nonneg.mpr hS1l)]
 
 /-- Bridge between `loglog N` and `loglog x` when `N ≤ x ≤ N + 1`: the gap is `≤ 1`. -/
 lemma loglog_gap {N : ℕ} (hN : 2 ≤ N) {x : ℝ}
@@ -265,7 +265,7 @@ lemma loglog_gap {N : ℕ} (hN : 2 ≤ N) {x : ℝ}
   have hlogNb : 0 < Real.log ((N : ℝ) + 1) := lt_of_lt_of_le hlogx hlogx_le
   have hba : Real.log ((N : ℝ) + 1) ≤ 2 * Real.log (N : ℝ) := by
     have hle : Real.log ((N : ℝ) + 1) ≤ Real.log ((N : ℝ) * (N : ℝ)) :=
-      Real.log_le_log (by linarith) (by nlinarith [hNge2, sq_nonneg ((N : ℝ) - 2)])
+      Real.log_le_log (by linarith) (by linarith only [hNge2, sq_nonneg (↑N - 2 : ℝ)])
     rw [Real.log_mul (ne_of_gt hNpos) (ne_of_gt hNpos)] at hle
     linarith
   have hup : Real.log (Real.log x) ≤ Real.log (Real.log (N : ℝ)) + 1 := by
@@ -297,7 +297,7 @@ theorem turan_kubilius :
     have h2 : (0 : ℝ) ≤ CM / Real.log 2 := div_nonneg hCM hlog2pos.le
     rw [hKdef]; linarith
   set L : ℝ := K ^ 2 + K with hLdef
-  have hLpos : 0 ≤ L := by rw [hLdef]; nlinarith [hKpos]
+  have hLpos : 0 ≤ L := by rw [hLdef]; linarith only [hKpos, sq_nonneg K]
   refine ⟨4, Real.exp (Real.exp L), by norm_num, ?_⟩
   intro x hx
   have hx0pos : (0 : ℝ) < Real.exp (Real.exp L) := Real.exp_pos _
@@ -347,7 +347,7 @@ theorem turan_kubilius :
   have hPle : primeRecip N ≤ μ + K := by have := (abs_le.mp hPmu).2; linarith
   have hbracket : (primeRecip N - μ) ^ 2 + primeRecip N + 2 * μ ≤ 4 * μ := by
     have hL : K ^ 2 + K ≤ μ := by rw [← hLdef]; exact hμL
-    nlinarith [hsq, hPle, hL]
+    linarith only [hPle, hsq, hμL]
   calc ∑ n ∈ Finset.Icc 1 N, ((n.primeFactors.card : ℝ) - μ) ^ 2
       ≤ (N : ℝ) * ((primeRecip N - μ) ^ 2 + primeRecip N + 2 * μ) := hvar
     _ ≤ (N : ℝ) * (4 * μ) := by

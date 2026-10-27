@@ -525,7 +525,7 @@ theorem ramQChi_large_count_Tfree (q : ℕ) [NeZero q] {H : ℝ} (hH : 2 ≤ H) 
     refine Real.exp_le_exp.mpr ?_
     have h1 : Real.log S / W ≤ L / W := by gcongr
     have h2 : (0 : ℝ) ≤ Real.log S / W := by positivity
-    nlinarith
+    nlinarith only [hlogL, h1, hκ30, hLL5]
   have hV0 : (0 : ℝ) < V := by linarith
   calc (ℰ.card : ℝ)
       ≤ 1680 * S ^ (2 * Real.log V / W) * V ^ 2
@@ -719,7 +719,7 @@ theorem tLChi_ramQ_sumsq_killed {C c : ℝ} (hC : 0 ≤ C) (hc : 0 < c)
         gcongr
         exact hcf1 p
       have hnn : (0 : ℝ) ≤ ‖cf p / (p : ℂ)‖ := norm_nonneg _
-      have hsq : ‖cf p / (p : ℂ)‖ ^ 2 ≤ (1 / (p : ℝ)) ^ 2 := by nlinarith
+      have hsq : ‖cf p / (p : ℂ)‖ ^ 2 ≤ (1 / (p : ℝ)) ^ 2 := by nlinarith only [hnorm, hnn]
       have hfin : (1 / (p : ℝ)) ^ 2 ≤ (1 / (ramQbase H P j : ℝ)) * (1 / (p : ℝ)) := by
         have h1 : (1 / (p : ℝ)) ^ 2 = 1 / ((p : ℝ) * (p : ℝ)) := by ring
         have h2 : (1 / (ramQbase H P j : ℝ)) * (1 / (p : ℝ))
@@ -823,9 +823,9 @@ theorem tLChi_main_sumsq {C c : ℝ} (hC : 0 < C) (hc : 0 < c)
     rw [hnorm]
     have h1 : ‖ramR H N X P Q j (chiBarCoeff q r.1 bb) r.2‖ ^ 2 ≤ Rbd ^ 2 := by
       have := hR r hr
-      nlinarith [norm_nonneg (ramR H N X P Q j (chiBarCoeff q r.1 bb) r.2)]
+      nlinarith only [this, hRbd, norm_nonneg (ramR H N X P Q j (chiBarCoeff q r.1 bb) r.2)]
     have h2 : (0 : ℝ) ≤ ‖ramQ H P Q j (chiBarCoeff q r.1 cf) r.2‖ ^ 2 := sq_nonneg _
-    nlinarith
+    nlinarith only [h1, sq_nonneg ‖ramQ H P Q j (chiBarCoeff q r.1 cf) r.2‖]
   -- the prime-window gain and `1/log base ≤ H/j`
   have hgain := ramQblock_inv_sum_le (H := H) hH (P := P) (Q := Q) (j := j) hHj
   have hnn : (0 : ℝ) ≤ ∑ p ∈ ramQblock H P Q j, (1 : ℝ) / p :=
@@ -851,7 +851,7 @@ theorem tLChi_main_sumsq {C c : ℝ} (hC : 0 < C) (hc : 0 < c)
           ≤ 3 * C * (27 * H / (j : ℝ)) := mul_le_mul_of_nonneg_left hgain hCnn
       have hB : (0 : ℝ) ≤ 3 * C * (∑ p ∈ ramQblock H P Q j, (1 : ℝ) / p) := by positivity
       have hinv0 : (0 : ℝ) ≤ 1 / Real.log (ramQbase H P j) := by positivity
-      nlinarith
+      nlinarith only [hA, hinv0, hinvW, hB]
     have h2 : 3 * C * (27 * H / (j : ℝ)) * (H / (j : ℝ))
         = 81 * C * (H / (j : ℝ)) ^ 2 := by ring
     linarith

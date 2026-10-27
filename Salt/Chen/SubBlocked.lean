@@ -75,7 +75,7 @@ theorem does not accept).
 to the LANDED `general_BV_cutoff_unconditional`/`DivisorBound` design (Fable/design-tier).**  This
 file lands the summation layer honestly (`subblocked_box_price` with the per-survivor price
 ABSTRACTED); `hprice` is satisfiable by `cutoff_BV_at_op` only for the `X_sub ≥ √x/4` survivors.
-`hNum_at_op` (item 4) is BLOCKED on this residual.
+`hNum_at_op` (item 4) was BLOCKED on this residual; `MediumFloor.hNum_at_op` later closes it.
 
 ## What this file lands (sorry-free, axiom-clean, NEW FILE — no edits to landed files)
 

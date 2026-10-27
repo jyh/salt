@@ -182,7 +182,7 @@ theorem crude_exp_ge_vmvtExp {k r : ℕ} (hk : 2 ≤ k) (hr : 1 ≤ r) :
   unfold vmvtExp
   have hη : vmvtEta k r ≤ (1 / 2) * (k : ℝ) * ((k : ℝ) - 1) := vmvtEta_le (by omega) hr
   have hk2 : (2 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
-  nlinarith [hη, hk2]
+  linarith only [hk2, hη]
 
 /-! ## Part D — the packaged consumer closure (the R4 plug-in)
 
@@ -261,10 +261,10 @@ theorem pairEqDominant_JkI_le_const {k r : ℕ} (x : ℕ) (e : Fin k → Fin (k 
   have hoff1R : (1 : ℝ) ≤ ((offPairs k).card : ℝ) := by exact_mod_cast hoff1
   have hCc0 : (0 : ℝ) ≤ Cc := le_trans zero_le_one hCc
   have hoffsq : (1 : ℝ) ≤ ((offPairs k).card : ℝ) ^ 2 := by
-    nlinarith [hoff1R, sq_nonneg (((offPairs k).card : ℝ) - 1)]
+    nlinarith only [hoff1R, sq_nonneg (↑(#(offPairs k)) - 1)]
   set K : ℝ := ((offPairs k).card : ℝ) ^ 2 * Cc with hKdef
   have hK1 : (1 : ℝ) ≤ 4 * K := by
-    rw [hKdef]; nlinarith [hoffsq, hCc, hCc0, mul_nonneg (sub_nonneg.mpr hoffsq) hCc0]
+    rw [hKdef]; linarith only [hCc, mul_nonneg (sub_nonneg.mpr hoffsq) hCc0]
   have hstep : (JkI k (k * r) x : ℝ) ≤ 4 * K * (JkI k (k * r) x : ℝ) ^ (1 - θ) := by
     calc (JkI k (k * r) x : ℝ)
         ≤ 4 * (Ncount k (k * r) 0 (degenBox x e) (degenBox x e) : ℝ) := hdom

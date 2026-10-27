@@ -117,7 +117,7 @@ theorem boxPriceKerr_nonneg {Kc : ℝ} (hKc : 0 ≤ Kc) (k i : ℕ) : 0 ≤ boxP
                     (Real.log ((2 ^ k : ℕ) : ℝ)) 13 18 + 15360 + 1)) := by
     have h26 : (0 : ℝ) ≤ Real.sqrt 26 := Real.sqrt_nonneg _
     have h2p : (0 : ℝ) ≤ (2 : ℝ) ^ ((13 : ℝ) + 5) := by positivity
-    nlinarith [hkb, hkm, hkb', h26, h2p]
+    nlinarith only [hkb', h2p, h26, hkm, hkb]
   have hXMnn : (0 : ℝ) ≤ ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k : ℝ) := by positivity
   have hLpow : (0 : ℝ) ≤ (Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM k : ℝ))) ^ (13 : ℝ) :=
     Real.rpow_nonneg hL0 _

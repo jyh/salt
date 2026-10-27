@@ -7,7 +7,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 `Salt.Entropy` cannot import `Salt.MR` (the `xceil` fence, H3's lesson), so the affine head
 `log_chowla_aff_of_door` (`Salt/Entropy/Chowla/StrideShell.lean`) takes the crown's PAYLOAD as a
 binder `hcrown`.  This module is the one place both sides are in scope: it feeds the landed crown
-`mrtUniformityXiL2AffW_holds_flat_stride` (`StridePairReceipt.lean:2121`, F3) into that binder.
+`mrtUniformityXiL2AffW_holds_flat_stride` (`StridePairReceipt.lean`, F3) into that binder.
 The result is F4a's single MR-side name — the object F5 consumes: at the crown's regime `Ra`, the
 door at grade `a·Zr·ρ + E` AND the entropy-half implication `∀ ρ' ≤ δ₀_aff, door ρ' → ¬ fails`,
 side by side, NOT composed (`a·Zr·ρ + E ≤ δ₀_aff` is the `214` miss at `(210, 2)` — F5's

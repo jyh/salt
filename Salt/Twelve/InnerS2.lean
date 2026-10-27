@@ -31,6 +31,9 @@ open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Twelve
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Maynard
 
 /-! ## Deliverable 2 — the correction-slotted S₂ atom `S2InnerBoundQC`
@@ -50,6 +53,11 @@ already uses `48k² = 4·12·k²` (design §"Endgame constants", line 1542) — 
 factor-4 is the `(p−2)→(p−1)` cost — so this `(p−2)⁻²` shape (⇒ `s2_collision_le_QdiagW_C`'s
 `48·CF·k²/D = 4·Cs·CF·k²/D`) is exactly what the endgame `D ≥ 7×10¹⁶` was
 calibrated for.  See `flags.md`. -/
+/-- **The correction-slotted S₂ inner atom.** For every square-free `s` and assignment `α` of
+its primes to coordinate pairs, the `g`-weighted bilinear contraction sum over the sieve box is
+at most `3^{ω(s)}·∏_{p ∣ s} (p − 2)⁻²·CF·Qdiag_gv`; the left side is `S2InnerBoundQ`'s, and the
+right side replaces `S2InnerBoundQ`'s `(p − 1)⁻²` by `(p − 2)⁻²`, matching the `g`-weight
+`g(p) = p − 2`, and gains the `CF` slot. -/
 def S2InnerBoundQC (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) (CF : ℝ) : Prop :=
   ∀ {s : ℕ}, Squarefree s → ∀ α ∈ assignments k s,
     |∑ u ∈ kSieveIndex k R W', (∏ i, (gMult (u i) : ℝ))
@@ -66,6 +74,7 @@ nonnegative constant `B` in the inner bound (this is exactly the landed
 `s2_collision_le_QdiagW` with `Qdiag_gv k R W' m y` replaced by the abstract
 `B`), then instantiate at `B := CF * Qdiag_gv k R W' m y`. -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **General S₂ collision bound relative to an abstract nonneg constant `B`.**
 The landed `s2_collision_le_QdiagW` (`CollisionYF_S2.lean`) proof, with the
 concrete `Qdiag_gv k R W' m y` diagonal replaced by an opaque nonneg `B`
@@ -196,7 +205,7 @@ theorem s2_collision_le_of_innerB (k R W' D : ℕ) (m : Fin k) (y : (Fin k → �
             have h1 : (k * k - k : ℕ) ≤ k * k := Nat.sub_le _ _
             calc ((k * k - k : ℕ) : ℝ) ≤ ((k * k : ℕ) : ℝ) := by exact_mod_cast h1
               _ = (k : ℝ) * (k : ℝ) := by push_cast; ring
-          nlinarith
+          linarith only [hle]
       calc |((μ t : ℤ) : ℝ)
             * ∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
                 (if t ∣ cRad d e then s2Summand k R W' y d e else 0)|
@@ -206,7 +215,7 @@ theorem s2_collision_le_of_innerB (k R W' D : ℕ) (m : Fin k) (y : (Fin k → �
             have h1 := abs_moebius_real_le_one t
             have h2 := abs_nonneg (∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
                 (if t ∣ cRad d e then s2Summand k R W' y d e else 0))
-            nlinarith
+            nlinarith only [h1, h2]
         _ ≤ ((assignments k t).card : ℝ)
               * ((3 : ℝ) ^ t.primeFactors.card
                 * (∏ p ∈ t.primeFactors, (((p : ℝ) - 2)⁻¹) ^ 2)
@@ -252,7 +261,7 @@ theorem s2_collision_le_of_innerB (k R W' D : ℕ) (m : Fin k) (y : (Fin k → �
     omega)
   -- per-`t` `(p−2)→(p−1)` conversion: `(3k²)^ω∏(p−2)⁻² ≤ (3(2k)²)^ω∏(p−1)⁻²`
   -- (each prime `p > D ≥ 48 > 3`, so `(p−2)⁻² ≤ 4(p−1)⁻²`).
-  have hDbig : 48 ≤ D := le_trans (by nlinarith [Nat.one_le_pow 2 k (by omega : 0 < k)]) hDk
+  have hDbig : 48 ≤ D := le_trans (by linarith only [hk2]) hDk
   have hconv : ∀ t ∈ (((collisionModuli k R).filter
         (fun t => Squarefree t ∧ ∀ p ∈ t.primeFactors, D < p)).erase 1),
       (3 * (k : ℝ) ^ 2) ^ t.primeFactors.card
@@ -285,13 +294,13 @@ theorem s2_collision_le_of_innerB (k R W' D : ℕ) (m : Fin k) (y : (Fin k → �
           field_simp
         rw [expand]
         apply div_nonneg
-        · nlinarith [mul_nonneg (by linarith : (0:ℝ) ≤ (p:ℝ) - 3)
-            (by linarith : (0:ℝ) ≤ 3 * (p:ℝ) - 5)]
+        · linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ (p : ℝ) - 3)
+              (by linarith : (0 : ℝ) ≤ 3 * (p : ℝ) - 5)]
         · positivity
       have hcast : ((2 * k : ℕ) : ℝ) ^ 2 = 4 * (k : ℝ) ^ 2 := by push_cast; ring
       rw [hcast]
       have h3k : (0 : ℝ) ≤ 3 * (k : ℝ) ^ 2 := by positivity
-      nlinarith [mul_le_mul_of_nonneg_left hconvp h3k]
+      linarith only [mul_le_mul_of_nonneg_left hconvp h3k]
   calc |s2CollisionForm k R W' m y|
       = |∑ t ∈ (collisionModuli k R).erase 1, ((μ t : ℤ) : ℝ)
           * ∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
@@ -342,6 +351,7 @@ theorem s2_collision_le_of_innerB (k R W' D : ℕ) (m : Fin k) (y : (Fin k → �
           exact this
         exact mul_le_mul_of_nonneg_right hfin hyside
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Card NC-2 deliverable 3 — the CF-slotted S₂ collision assembly.** The
 CF-slotted mirror of NB-3's landed `s2_collision_le_QdiagW`: `CF` multiplies
 through the euler tail as a nonneg constant.  Collision constant `4·Cs = 48`
@@ -371,6 +381,16 @@ product→`marked_sqf_g_rel` structure, threading the `|Q|` marks through the
 per-coordinate `marked_sqf_g_rel` reindexes at the `slot`-selected products
 `sfun i = ∏_{p∈Q, slot p = i} p`, and collecting the constants by fiberwise
 partition of `Q` under `slot`. -/
+omit [Salt.Maynard.TupleChoice] in
+/-- **The marked 4-dimensional `g`-moment** (the landed `gmoment4_le` is the case `Q = ∅`). For
+marked primes `Q` (`hQp`) above `D` (`hDlt`) with slots off `m` (`hslot`), square-free `W' > 0`
+(`hW'`, `hpos`), a cutoff `D ≥ 3` (`hD`) below every prime not dividing `W'` (`hDW`) and `R ≥ 2`
+(`hR2`): the `1/∏_{i ≠ m} g(u_i)`-moment over the pinned box `u_m = 1` with `p ∣ u_{slot p}` for
+every `p ∈ Q` is at most `∏_{p ∈ Q} (p − 2)⁻¹·(2·PAS)⁴`. The box lies in the product of
+per-coordinate sets forced by `sfun i = ∏_{slot p = i} p`, the sum factors coordinatewise
+(`Finset.prod_univ_sum`), each coordinate is bounded by `marked_sqf_g_rel` at exponent `0`
+(`g(sfun i)⁻¹·2·PAS`), and `∏_{i ≠ m} g(sfun i) = ∏_{p ∈ Q} (p − 2)` by the fiberwise partition
+of `Q` under `slot` (`gMult_cast`, `Finset.prod_fiberwise_of_maps_to`). -/
 theorem box_marked_gmoment (R W' D : ℕ) (m : Fin 5) (Q : Finset ℕ) (slot : ℕ → Fin 5)
     (hslot : ∀ p ∈ Q, slot p ≠ m) (hQp : ∀ p ∈ Q, p.Prime) (hDlt : ∀ p ∈ Q, D < p)
     (hW' : Squarefree W') (hpos : 0 < W') (hD : 3 ≤ D)
@@ -510,6 +530,7 @@ private lemma gMult_lcm_split {a b : ℕ} (ha : Squarefree a) :
   obtain ⟨heq, hcop⟩ := lcm_split (a := a) (b := b) ha
   rw [heq, gMult_mul_cop hcop]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **The contraction `V` vanishes off the pinned box.**  If `w` is not a box
 tuple with `wₘ = 1`, then `lamPhiContractM w = 0`: either `wₘ ≠ 1` (the divisor
 guard `wₘ ∣ dₘ = 1` fails) or `w ∉ box`, in which case any `d ∈ box` with
@@ -525,6 +546,7 @@ theorem lamPhiContractM_vanish (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) �
     exact hnb (mem_kSieveIndex_of_dvd hd.1 hall)
   · exact lamPhiContractM_eq_zero_of_coord_ne_one k R W' m y w hwm
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **The S₂ termwise `V`-bound.**  `∏ᵢg(wᵢ)·|V(w)| ≤ PAS + ε`, where
 `ε = lemma53Const·5·log R/D`.  Off the pinned box `V(w) = 0` (`lamPhiContractM_vanish`);
 on it, `∏g(w)·|V(w)| = |yM(w)|` (from `yM = (∏μ·g)·V`, `μ²=1`, `g ≥ 0`), and
@@ -1058,6 +1080,7 @@ private lemma s2_part_bound (R W' D : ℕ) (hR2 : 2 ≤ R) (hW' : Squarefree W')
         rw [hprodadd, Finset.prod_const, hpf, Finset.card_attach]
         norm_num
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **NC-2 s2_inner_termwise** — the full termwise+partition bound: the S₂ inner
 form is `≤ 3^ω · ∏(p−2)⁻² · ((PAS+ε)²·(2·PAS)⁴)`.  Combines `s2_term_bound` (termwise)
 + `s2_part_bound` (partition), with the whole-`s` vanishing cases (`σₘ≠1 ∨ τₘ≠1 ⇒`
@@ -1178,6 +1201,7 @@ lemma s2_inner_termwise (F : Poly) (m : Fin 5) (hQ : Qabs F ≤ 1)
     positivity
 
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Card NC-2 deliverable 4 — `yF` satisfies the S₂ inner atom.** The S₂ collision
 inner bound `S2InnerBoundQC` for Maynard's weight `yF`, via the design's TERMWISE +
 contamination-partition proof (`s2_inner_termwise`) plus the step-(d) `qdiag`

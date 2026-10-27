@@ -84,10 +84,14 @@ lemma chiReTB_abs_le_one {q : ℕ} (χ : DirichletCharacter ℂ q) (n : ℕ) :
 noncomputable def windowPrimes (z Y : ℝ) : Finset ℕ :=
   (Finset.Ioc ⌊z⌋₊ ⌊Y⌋₊).filter (fun n => Nat.Prime n)
 
+/-- `p ∈ windowPrimes z Y ↔ (⌊z⌋₊ < p ∧ p ≤ ⌊Y⌋₊) ∧ p` prime — the membership unfolding of
+`windowPrimes`. -/
 lemma mem_windowPrimes {z Y : ℝ} {p : ℕ} :
     p ∈ windowPrimes z Y ↔ (⌊z⌋₊ < p ∧ p ≤ ⌊Y⌋₊) ∧ Nat.Prime p := by
   simp [windowPrimes, Finset.mem_filter, Finset.mem_Ioc, and_assoc]
 
+/-- A member of `windowPrimes z Y` (`hp`) is prime — the second conjunct of
+`mem_windowPrimes`. -/
 lemma windowPrimes_prime {z Y : ℝ} {p : ℕ} (hp : p ∈ windowPrimes z Y) : Nat.Prime p :=
   (mem_windowPrimes.mp hp).2
 
@@ -139,7 +143,7 @@ lemma abs_log_log_floor_sub_le {z : ℝ} (hz : 3 ≤ z) :
       have h1 : (Real.log z - Real.log (⌊z⌋₊ : ℝ)) * (⌊z⌋₊ : ℝ) ≤ 1 := by
         rw [← le_div_iff₀ hn0]
         simpa [one_div] using hle
-      nlinarith
+      linarith only [h1, hlogn1]
     linarith
   -- `1/⌊z⌋ ≤ 1/log z` since `log z ≤ z − 1 < ⌊z⌋`
   have hcmp : 1 / (⌊z⌋₊ : ℝ) ≤ 1 / Real.log z := by
@@ -159,7 +163,7 @@ lemma log_le_two_mul_log_floor {z : ℝ} (hz : 3 ≤ z) :
   have hn3 : 3 ≤ ⌊z⌋₊ := Nat.le_floor (by exact_mod_cast hz)
   have hnR : (3 : ℝ) ≤ (⌊z⌋₊ : ℝ) := by exact_mod_cast hn3
   have hzn : z < (⌊z⌋₊ : ℝ) + 1 := Nat.lt_floor_add_one z
-  have hsq : z ≤ (⌊z⌋₊ : ℝ) ^ 2 := by nlinarith
+  have hsq : z ≤ (⌊z⌋₊ : ℝ) ^ 2 := by nlinarith only [hnR, hzn, (Nat.cast_nonneg _ : 0 ≤ ↑⌊z⌋₊)]
   have := Real.log_le_log (by linarith) hsq
   rwa [Real.log_pow, Nat.cast_ofNat] at this
 
@@ -201,13 +205,15 @@ lemma log_hbEulerProd {q : ℕ} (χ : DirichletCharacter ℂ q) (z Y : ℝ) :
 noncomputable def hbLogF {q : ℕ} (χ : DirichletCharacter ℂ q) (z : ℝ) : ℝ :=
   limUnder Filter.atTop (fun Y : ℝ => hbEulerLog χ z Y)
 
-/-- **`F = ∏_{p ≥ z}(1 − χ(p)/p)^{−1}`**, as a real number. -/
+/-- **`F = ∏_{p > z}(1 − χ(p)/p)^{−1}`**, as a real number. -/
 noncomputable def hbF {q : ℕ} (χ : DirichletCharacter ℂ q) (z : ℝ) : ℝ :=
   Real.exp (hbLogF χ z)
 
+/-- `0 < hbF χ z`: `F` is defined as `exp (hbLogF χ z)` (`Real.exp_pos`). -/
 @[simp] lemma hbF_pos {q : ℕ} (χ : DirichletCharacter ℂ q) (z : ℝ) : 0 < hbF χ z :=
   Real.exp_pos _
 
+/-- `log (hbF χ z) = hbLogF χ z`, definitional (`Real.log_exp`). -/
 @[simp] lemma log_hbF {q : ℕ} (χ : DirichletCharacter ℂ q) (z : ℝ) :
     Real.log (hbF χ z) = hbLogF χ z := Real.log_exp _
 
@@ -250,7 +256,7 @@ lemma abs_neg_log_one_sub_sub_self_le {x : ℝ} (hx : |x| ≤ 1 / 2) :
     rw [show (1 : ℕ) + 1 = 2 from rfl, ← abs_pow, abs_of_nonneg (sq_nonneg x)]
   rw [hnum]
   rw [div_le_iff₀ (by linarith)]
-  nlinarith [sq_nonneg x]
+  nlinarith only [hx, sq_nonneg x]
 
 /-- **The product side of HB's step 1.**  Termwise, the Euler log-product differs from
 `∑_{z<p≤Y} χ(p)/p` by at most `∑ 2/p²`. -/
@@ -269,9 +275,9 @@ lemma hbEulerLog_sub_primeSum_termwise {q : ℕ} (χ : DirichletCharacter ℂ q)
     linarith
   refine le_trans (abs_neg_log_one_sub_sub_self_le hxabs) ?_
   have hsq : (Salt.TwinBar.chiRe χ p / (p : ℝ)) ^ 2 ≤ 1 / (p : ℝ) ^ 2 := by
-    have hc2 : Salt.TwinBar.chiRe χ p ^ 2 ≤ 1 := by nlinarith [abs_le.mp hc]
+    have hc2 : Salt.TwinBar.chiRe χ p ^ 2 ≤ 1 := by nlinarith only [abs_le.mp hc]
     rw [div_pow, div_le_div_iff₀ (by positivity) (by positivity)]
-    nlinarith [sq_nonneg ((p : ℝ))]
+    nlinarith only [hc2, sq_nonneg ↑p]
   calc 2 * (Salt.TwinBar.chiRe χ p / (p : ℝ)) ^ 2 ≤ 2 * (1 / (p : ℝ) ^ 2) := by linarith
     _ = 2 / (p : ℝ) ^ 2 := by ring
 
@@ -311,6 +317,8 @@ Chebyshev's `ψ − θ` read through the Abel weight `w(t) = 1/(t log t)`. -/
 noncomputable def ppDefect (z Y : ℝ) : ℝ :=
   ∑ n ∈ (Finset.Ioc ⌊z⌋₊ ⌊Y⌋₊).filter (fun n => ¬ Nat.Prime n), wLog n * vonMangoldt n
 
+/-- `0 ≤ ppDefect z Y` for `1 ≤ z` (`hz`): every term is `wLog n · Λ(n)` with `n > ⌊z⌋ ≥ 1`, so
+`wLog n ≥ 0` (`wLog_nonneg`) and `Λ(n) ≥ 0`. -/
 lemma ppDefect_nonneg {z Y : ℝ} (hz : 1 ≤ z) : 0 ≤ ppDefect z Y := by
   classical
   refine Finset.sum_nonneg (fun n hn => ?_)
@@ -361,7 +369,7 @@ lemma logChiSum_re_sub_primeSum_le {q : ℕ} (χ : DirichletCharacter ℂ q) (hs
   have hL : 0 ≤ (vonMangoldt n : ℝ) := vonMangoldt_nonneg
   rw [abs_mul, abs_of_nonneg (mul_nonneg hw hL)]
   have hc := chiReTB_abs_le_one χ n
-  nlinarith [mul_nonneg hw hL]
+  nlinarith only [hc, mul_nonneg hw hL]
 
 /-! ## §4 — part β: the coprime half of the segment (HB `(4.7)`) -/
 
@@ -545,10 +553,10 @@ theorem hb_coprime_segment :
     -- the `C₀/log⌊·⌋ ≤ 2C₀/log ·` prices
     have hpz : C₀ / Real.log (⌊z⌋₊ : ℝ) ≤ 2 * C₀ / Real.log z := by
       rw [div_le_div_iff₀ (by linarith) hlogz]
-      nlinarith [log_le_two_mul_log_floor hz]
+      nlinarith only [hC₀, log_le_two_mul_log_floor hz]
     have hpX : C₀ / Real.log (⌊X⌋₊ : ℝ) ≤ 2 * C₀ / Real.log X := by
       rw [div_le_div_iff₀ (by linarith) hlogX]
-      nlinarith [log_le_two_mul_log_floor hX3]
+      nlinarith only [hC₀, log_le_two_mul_log_floor hX3]
     have hmono : ∀ a : ℝ, 0 ≤ a → a / Real.log X ≤ a / Real.log z := by
       intro a ha
       exact div_le_div_of_nonneg_left ha hlogz hlogzX
@@ -691,6 +699,9 @@ constant visible. -/
 Chebyshev's `ψ − θ`. -/
 noncomputable def ppCoef (n : ℕ) : ℝ := if Nat.Prime n then 0 else vonMangoldt n
 
+/-- The partial sums of `ppCoef` up to `⌊t⌋₊` are Chebyshev's `ψ(t) − θ(t)`: mathlib's
+`Chebyshev.psi_sub_theta_eq_sum_not_prime` (the sum over `Finset.Ioc 0 ⌊t⌋₊` of the non-primes),
+the `k = 0` term being `ppCoef 0 = Λ(0) = 0`. -/
 lemma sum_ppCoef_eq (t : ℝ) :
     ∑ k ∈ Finset.Icc 0 ⌊t⌋₊, ppCoef k = Chebyshev.psi t - Chebyshev.theta t := by
   classical
@@ -706,12 +717,15 @@ lemma sum_ppCoef_eq (t : ℝ) :
   · rw [if_pos hk, if_neg (not_not.mpr hk)]
   · rw [if_neg hk, if_pos hk]
 
+/-- `sum_ppCoef_eq` at a natural `t = m` (`Nat.floor_natCast`) — the form Abel summation's
+boundary terms take in `ppDefect_le`. -/
 lemma sum_ppCoef_nat_eq (m : ℕ) :
     ∑ k ∈ Finset.Icc 0 m, ppCoef k
       = Chebyshev.psi (m : ℝ) - Chebyshev.theta (m : ℝ) := by
   have h := sum_ppCoef_eq (m : ℝ)
   rwa [Nat.floor_natCast] at h
 
+/-- `0 ≤ ψ(t) − θ(t)`, from mathlib's `Chebyshev.theta_le_psi`. -/
 lemma psi_sub_theta_nonneg (t : ℝ) : 0 ≤ Chebyshev.psi t - Chebyshev.theta t := by
   have := Chebyshev.theta_le_psi t
   linarith
@@ -746,7 +760,7 @@ lemma abs_wLog'_mul_psi_sub_theta_le {t : ℝ} (ht3 : 3 ≤ t) :
     have hexp : (Real.log t + 1) * (2 * Real.sqrt t * Real.log t) * (t * Real.sqrt t)
         = 2 * (Real.log t + 1) * Real.log t * t * (Real.sqrt t * Real.sqrt t) := by ring
     rw [hexp, hsqt]
-    nlinarith [sq_nonneg t, hlogt, ht1]
+    nlinarith only [hlogt, sq_nonneg (t * Real.log t)]
   linarith
 
 /-- **The prime-power defect is `O(z^{−1/2})`, with the constant `10`.**  Abel summation at
@@ -803,7 +817,7 @@ theorem ppDefect_le {z Y : ℝ} (hz : 3 ≤ z) (hzY : z ≤ Y) :
       * (Chebyshev.psi ((⌊Y⌋₊ : ℕ) : ℝ) - Chebyshev.theta ((⌊Y⌋₊ : ℕ) : ℝ))
       ≤ 2 / Real.sqrt ((⌊Y⌋₊ : ℕ) : ℝ) := by
     rw [wLog, inv_mul_eq_div, div_le_div_iff₀ (by positivity) hsqM]
-    nlinarith [hsqMsq, hlogM.le, hAM0, hAMle]
+    nlinarith only [hsqM, hAMle, hlogM, hsqMsq]
   have hbdN : 0 ≤ wLog ((⌊z⌋₊ : ℕ) : ℝ)
       * (Chebyshev.psi ((⌊z⌋₊ : ℕ) : ℝ) - Chebyshev.theta ((⌊z⌋₊ : ℕ) : ℝ)) := by
     have : (0 : ℝ) ≤ wLog ((⌊z⌋₊ : ℕ) : ℝ) := wLog_nonneg (by linarith)

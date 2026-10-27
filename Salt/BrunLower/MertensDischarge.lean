@@ -91,7 +91,7 @@ lemma zThresh_facts {lam z : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
   have hllz : 100 / lam ≤ Real.log (Real.log z) := loglog_ge hz
   have h400 : (400:ℝ) ≤ Real.log (Real.log z) := by
     have : (400:ℝ) ≤ 100 / lam := by
-      rw [le_div_iff₀ hlam]; nlinarith [hlam']
+      rw [le_div_iff₀ hlam]; linarith only [hlam']
     linarith
   have hllz_pos : 0 < Real.log (Real.log z) := by linarith
   have hlz_eq : Real.log z = Real.exp (Real.log (Real.log z)) := (Real.exp_log hlz_pos).symm
@@ -103,12 +103,12 @@ lemma zThresh_facts {lam z : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
       apply sq_le_sq' <;> nlinarith [hexppos, hllz_pos]
     have h3 : (Real.exp (Real.log (Real.log z) / 2))^2 = Real.exp (Real.log (Real.log z)) := by
       rw [sq, ← Real.exp_add]; congr 1; ring
-    nlinarith [h2, h3, hllz_pos]
+    linarith only [h3, h2, h400, hlam', hlam]
   have hquad : (Real.log (Real.log z))^2 / 4 ≤ Real.log z := by linarith [hexpge, hlz_eq]
   have hkey : 25 * Real.log (Real.log z) ≤ lam * Real.log z := by
     have h100 : (100:ℝ) ≤ Real.log (Real.log z) * lam := (div_le_iff₀ hlam).mp hllz
     have hprod : 25 * Real.log (Real.log z) ≤ lam * ((Real.log (Real.log z))^2 / 4) := by
-      nlinarith [h100, hllz_pos]
+      nlinarith only [h400, h100]
     linarith [mul_le_mul_of_nonneg_left hquad hlam.le, hprod]
   have hz2 : (2:ℝ) ≤ z := by
     have h1 : (1:ℝ) ≤ Real.exp (100 / lam) := by
@@ -136,7 +136,7 @@ lemma LamTwin_le_lam {lam z : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
   obtain ⟨_, _, _, hllz_pos, _, _, _⟩ := zThresh_facts hlam hlam' hz
   rw [LamTwin]
   have : 0 ≤ 120 / Real.log (Real.log z) := by positivity
-  nlinarith [hlam.le, this]
+  nlinarith only [hlam, this]
 
 /-- **Support lemma**: `LamTwin lam z ≤ 1` for `z ≥ z₀` (uses `λ ≤ 1/4`). -/
 lemma LamTwin_le_one {lam z : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4)
@@ -198,7 +198,7 @@ lemma neg_log_one_sub_nu_le (s : BoundingSieve) {p : ℕ}
       field_simp; ring
     have htail : 4 / ((p:ℝ) * ((p:ℝ) - 2)) ≤ 12 / (p:ℝ)^2 := by
       rw [div_le_div_iff₀ (by positivity) (by positivity)]
-      nlinarith [hpR]
+      nlinarith only [hpR, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
     calc - Real.log (1 - s.nu p)
         ≤ - Real.log (1 - 2/(p:ℝ)) := hmono
       _ ≤ 2 / ((p:ℝ) - 2) := hquad
@@ -246,7 +246,7 @@ lemma sum_one_div_sq_le {M K : ℕ} (hM : 2 ≤ M) :
         field_simp; ring
       rw [hid]
       apply one_div_le_one_div_of_le (by positivity)
-      nlinarith [hm2]
+      linarith only [hm2]
     calc ∑ m ∈ Finset.Icc M K, (1:ℝ)/(m:ℝ)^2
         ≤ ∑ m ∈ Finset.Icc M K, ((1:ℝ)/((m:ℝ)-1) - 1/(m:ℝ)) := hle
       _ = 1/((M:ℝ)-1) - 1/(K:ℝ) := sum_telescope hM K hMK
@@ -487,9 +487,9 @@ lemma M_bound {lam z : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4) (hz : zThre
   -- BRANCH A: 50·e^Λ·loglog z ≤ 240 λ log z
   have hbranchA : 50 * Real.exp Lam * Real.log (Real.log z) ≤ 240 * lam * Real.log z := by
     have h1 : 50 * Real.exp Lam * Real.log (Real.log z) ≤ 150 * Real.log (Real.log z) := by
-      nlinarith [hexpLam3, hllz_pos]
+      nlinarith only [h400, hexpLam3, hlam', hlam]
     -- 150 loglog z ≤ 240 λ log z since λ log z ≥ 25 loglog z
-    nlinarith [hkey, hllz_pos]
+    linarith only [h1, hkey, h400, hlam', hlam]
   -- BRANCH B: 50·(e^{rΛ}/r)·loglog z ≤ 240 λ log z
   have hbranchB : 50 * (Real.exp ((r:ℝ) * Lam) / (r:ℝ)) * Real.log (Real.log z)
       ≤ 240 * lam * Real.log z := by
@@ -522,7 +522,7 @@ lemma M_bound {lam z : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4) (hz : zThre
           rw [le_div_iff₀ hlog2pos]
           have : Real.log 2 ≤ Real.log z := Real.log_le_log (by norm_num) (by linarith)
           linarith
-        nlinarith [Real.exp_pos Lam, hlogzlog2]
+        nlinarith only [hlogzlog2, hlam', hlam, Real.exp_pos Lam]
     -- r ≥ (loglog z - loglog 2)/Λ, i.e. rΛ ≥ loglog z - loglog 2
     have hr_lb : Real.log (Real.log z) - Real.log (Real.log 2) ≤ (r:ℝ) * Lam := by
       have h := exp_minLevel_ge (Lam := Lam) (z := z) hLampos hz1
@@ -573,7 +573,7 @@ lemma M_bound {lam z : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4) (hz : zThre
         rw [mul_one]
         -- 50·3·λ·(log z/0.6931) ≤ 240 λ log z  ⟺  150/0.6931 ≤ 240
         have hbound : 50 * Real.exp Lam * Lam ≤ 150 * lam := by
-          nlinarith [hexpLam3, hLamle, hLampos.le, hlam.le]
+          nlinarith only [hLampos, hexpLam3, hlam', hlam, hLamle]
         have hlogz_div : Real.log z / Real.log 2 ≤ Real.log z / 0.6931 := by
           apply div_le_div_of_nonneg_left hlz_pos.le (by norm_num) hlog2ge
         calc (50 * Real.exp Lam * Lam) * (Real.log z / Real.log 2)
@@ -581,7 +581,7 @@ lemma M_bound {lam z : ℝ} (hlam : 0 < lam) (hlam' : lam ≤ 1 / 4) (hz : zThre
               apply mul_le_mul hbound hlogz_div (by positivity) (by positivity)
           _ ≤ 240 * lam * Real.log z := by
               rw [div_eq_mul_inv]
-              nlinarith [hlz_pos.le, hlam.le, mul_nonneg hlam.le hlz_pos.le]
+              linarith only [hkey, h400, hlam', hlam]
       linarith [h1, h2]
     calc 50 * (Real.exp ((r:ℝ) * Lam) / (r:ℝ)) * Real.log (Real.log z)
         ≤ 50 * ((Real.exp Lam * (Real.log z / Real.log 2))
@@ -630,7 +630,7 @@ theorem hMert_twin (s : BoundingSieve) {lam z : ℝ}
       rw [hgap]; ring
     rw [h2lamLam, div_le_div_iff₀ hlz_pos hllz_pos]
     have : 50 * M * Real.log (Real.log z) ≤ 240 * lam * Real.log z := hMbound
-    nlinarith [this]
+    linarith only [hMbound]
   -- assemble
   -- log Wratio ≤ 2nΛ + 50 e^{nΛ}/log z ≤ 2nΛ + 50 M n/log z ≤ 2nΛ + 2n(λ-Λ) = 2nλ
   have hexp_bound : 50 * Real.exp ((n:ℝ) * Lam) / Real.log z ≤ 50 * (M * (n:ℝ)) / Real.log z := by

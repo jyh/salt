@@ -17,8 +17,12 @@ open Finset Filter
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 /-! ## k₀-regime elementary facts -/
 
+omit [TupleChoice] in
 /-- For `L ≥ 256`, `L ≤ exp(L/8)`.  (Two linear `add_one_le_exp` steps squared.) -/
 lemma le_exp_eighth {L : ℝ} (hL : 256 ≤ L) : L ≤ Real.exp (L / 8) := by
   have h16 : L / 16 ≤ Real.exp (L / 16) := by
@@ -27,11 +31,12 @@ lemma le_exp_eighth {L : ℝ} (hL : 256 ≤ L) : L ≤ Real.exp (L / 8) := by
   have hsq : (L / 16) ^ 2 ≤ (Real.exp (L / 16)) ^ 2 := pow_le_pow_left₀ hnn h16 2
   have hexp2 : (Real.exp (L / 16)) ^ 2 = Real.exp (L / 8) := by
     rw [sq, ← Real.exp_add]; ring_nf
-  have hLsq : L ≤ (L / 16) ^ 2 := by nlinarith [hL]
+  have hLsq : L ≤ (L / 16) ^ 2 := by nlinarith only [hL]
   calc L ≤ (L / 16) ^ 2 := hLsq
     _ ≤ (Real.exp (L / 16)) ^ 2 := hsq
     _ = Real.exp (L / 8) := hexp2
 
+omit [TupleChoice] in
 /-- `log k ≤ k^{1/8}` once `log k ≥ 256`. -/
 lemma logk_le_k18 {k : ℕ} (hk : 0 < k) (hlogk : 256 ≤ Real.log k) :
     Real.log k ≤ (k : ℝ) ^ ((1 : ℝ) / 8) := by
@@ -40,6 +45,7 @@ lemma logk_le_k18 {k : ℕ} (hk : 0 < k) (hlogk : 256 ≤ Real.log k) :
     rw [Real.rpow_def_of_pos hkpos]; ring_nf
   rw [hre]; exact le_exp_eighth hlogk
 
+omit [TupleChoice] in
 /-- `k^{1/9} ≥ 4` when `log k ≥ 300`. -/
 lemma k19_ge_four {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
     (4 : ℝ) ≤ (k : ℝ) ^ ((1 : ℝ) / 9) := by
@@ -51,6 +57,7 @@ lemma k19_ge_four {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
     have := Real.add_one_le_exp ((300 : ℝ) / 9); linarith
   linarith
 
+omit [TupleChoice] in
 /-- `k^{1/72} ≥ 2` when `log k ≥ 300`. -/
 lemma k172_ge_two {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
     (2 : ℝ) ≤ (k : ℝ) ^ ((1 : ℝ) / 72) := by
@@ -62,12 +69,14 @@ lemma k172_ge_two {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
     have := Real.add_one_le_exp ((300 : ℝ) / 72); linarith
   linarith
 
+omit [TupleChoice] in
 /-- `k^{1/8} = k^{1/9}·k^{1/72}`. -/
 lemma k18_eq_k19_k172 {k : ℕ} (hk : 0 < k) :
     (k : ℝ) ^ ((1 : ℝ) / 8) = (k : ℝ) ^ ((1 : ℝ) / 9) * (k : ℝ) ^ ((1 : ℝ) / 72) := by
   have hkpos : (0 : ℝ) < (k : ℝ) := by exact_mod_cast hk
   rw [← Real.rpow_add hkpos]; norm_num
 
+omit [TupleChoice] in
 /-- `k^{1/9} + 1 ≤ k^{1/8}` (so `k^{1/9} ≤ k^{1/8} − 1`) when `log k ≥ 300`. -/
 lemma k19_add_one_le_k18 {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
     (k : ℝ) ^ ((1 : ℝ) / 9) + 1 ≤ (k : ℝ) ^ ((1 : ℝ) / 8) := by
@@ -75,8 +84,9 @@ lemma k19_add_one_le_k18 {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
   have h72 : (2 : ℝ) ≤ (k : ℝ) ^ ((1 : ℝ) / 72) := k172_ge_two hk hlogk
   have hsplit := k18_eq_k19_k172 hk
   have h9nn : (0 : ℝ) ≤ (k : ℝ) ^ ((1 : ℝ) / 9) := by positivity
-  nlinarith [hsplit, h9, h72, h9nn]
+  nlinarith only [h9, h72, hsplit]
 
+omit [TupleChoice] in
 /-- `5 ≤ k^{1/8}` when `log k ≥ 300`. -/
 lemma k18_ge_five {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
     (5 : ℝ) ≤ (k : ℝ) ^ ((1 : ℝ) / 8) := by
@@ -84,6 +94,7 @@ lemma k18_ge_five {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
   have := k19_add_one_le_k18 hk hlogk
   linarith
 
+omit [TupleChoice] in
 /-- The frozen `T = k^{1/8}/log k` satisfies `1 ≤ T` when `log k ≥ 300`. -/
 lemma T_ge_one {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
     1 ≤ (k : ℝ) ^ ((1 : ℝ) / 8) / Real.log k := by
@@ -91,6 +102,7 @@ lemma T_ge_one {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
   rw [le_div_iff₀ hlogkpos, one_mul]
   exact logk_le_k18 hk (by linarith)
 
+omit [TupleChoice] in
 /-- The frozen `T` satisfies `5·T ≤ k` when `log k ≥ 300`, `k ≥ 1`. -/
 lemma five_T_le {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
     5 * ((k : ℝ) ^ ((1 : ℝ) / 8) / Real.log k) ≤ (k : ℝ) := by
@@ -102,15 +114,16 @@ lemma five_T_le {k : ℕ} (hk : 0 < k) (hlogk : 300 ≤ Real.log k) :
           Real.rpow_le_rpow_of_exponent_le h1 (by norm_num)
       _ = (k : ℝ) := Real.rpow_one _
   rw [← mul_div_assoc, div_le_iff₀ hlogkpos]
-  nlinarith [hk18le, hlogkpos, hkpos, hlogk]
+  nlinarith only [hlogk, hk18le, hkpos, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
 
 /-! ## Facts about `R = ⌊N'^{1/5}⌋₊` -/
 
+omit [TupleChoice] in
 /-- `log R ≥ (1/6)·log N'` for `N' ≥ 2^30`. -/
 lemma logR_lower (N' : ℕ) (hN' : (2 : ℝ) ^ 30 ≤ (N' : ℝ)) :
     Real.log N' / 6 ≤ Real.log (⌊(N' : ℝ) ^ ((1 : ℝ) / 5)⌋₊ : ℝ) := by
   set x := (N' : ℝ) with hx
-  have hx1 : (1 : ℝ) ≤ x := by nlinarith [hN']
+  have hx1 : (1 : ℝ) ≤ x := by linarith only [hN']
   have hxpos : (0 : ℝ) < x := by linarith
   set R := ⌊x ^ ((1 : ℝ) / 5)⌋₊ with hR
   have h30 : (2 : ℝ) ≤ x ^ ((1 : ℝ) / 30) := by
@@ -124,14 +137,15 @@ lemma logR_lower (N' : ℕ) (hN' : (2 : ℝ) ^ 30 ≤ (N' : ℝ)) :
   have hx6pos : (0 : ℝ) < x ^ ((1 : ℝ) / 6) := Real.rpow_pos_of_pos hxpos _
   have hx6ge1 : (1 : ℝ) ≤ x ^ ((1 : ℝ) / 6) := Real.one_le_rpow hx1 (by norm_num)
   have hbig : 2 * x ^ ((1 : ℝ) / 6) ≤ x ^ ((1 : ℝ) / 5) := by
-    rw [hsplit]; nlinarith [h30, hx6pos]
+    rw [hsplit]; nlinarith only [h30, hx6pos]
   have hfloor : x ^ ((1 : ℝ) / 5) - 1 ≤ (R : ℝ) := by
     have := Nat.lt_floor_add_one (x ^ ((1 : ℝ) / 5)); rw [← hR] at this; linarith
-  have hRge : x ^ ((1 : ℝ) / 6) ≤ (R : ℝ) := by nlinarith [hfloor, hbig, hx6ge1]
+  have hRge : x ^ ((1 : ℝ) / 6) ≤ (R : ℝ) := by linarith only [hfloor, hbig, hx6ge1]
   have hlog := Real.log_le_log hx6pos hRge
   rw [Real.log_rpow hxpos] at hlog
   linarith [hlog]
 
+omit [TupleChoice] in
 /-- `log R ≤ (1/5)·log N'` for `N' ≥ 1`. -/
 lemma logR_upper (N' : ℕ) (hN' : 1 ≤ N') :
     Real.log (⌊(N' : ℝ) ^ ((1 : ℝ) / 5)⌋₊ : ℝ) ≤ Real.log N' / 5 := by
@@ -148,6 +162,7 @@ lemma logR_upper (N' : ℕ) (hN' : 1 ≤ N') :
   rw [Real.log_rpow hxpos] at hlog
   linarith [hlog]
 
+omit [TupleChoice] in
 /-- `2 ≤ R` for `N' ≥ 32`. -/
 lemma R_ge_two (N' : ℕ) (hN' : (32 : ℝ) ≤ (N' : ℝ)) :
     2 ≤ ⌊(N' : ℝ) ^ ((1 : ℝ) / 5)⌋₊ := by
@@ -161,6 +176,7 @@ lemma R_ge_two (N' : ℕ) (hN' : (32 : ℝ) ≤ (N' : ℝ)) :
     rwa [he] at h2
   exact Nat.le_floor (by exact_mod_cast hge)
 
+omit [TupleChoice] in
 /-- `R ≤ N'` for `N' ≥ 1`. -/
 lemma R_le_N' (N' : ℕ) (hN' : 1 ≤ N') :
     ⌊(N' : ℝ) ^ ((1 : ℝ) / 5)⌋₊ ≤ N' := by
@@ -212,6 +228,7 @@ lemma EH_range (k₀ N' : ℕ) (hN' : ((W k₀ : ℝ)) ^ (10 : ℕ) ≤ (N' : �
 
 /-! ## `eventually` engines: `log R` and `(φW/W)·log R` grow without bound -/
 
+omit [TupleChoice] in
 /-- Eventually `log R ≥ t`, for `R = ⌊N'^{1/5}⌋₊`. -/
 lemma eventually_logR_ge (t : ℝ) :
     ∀ᶠ N' : ℕ in atTop, t ≤ Real.log (⌊(N' : ℝ) ^ ((1 : ℝ) / 5)⌋₊ : ℝ) := by
@@ -223,6 +240,7 @@ lemma eventually_logR_ge (t : ℝ) :
   have := logR_lower N' hN30
   linarith [this, hlog]
 
+omit [TupleChoice] in
 /-- Eventually `(T/k₀)·log R ≥ t`, given `0 < T/k₀`. -/
 lemma eventually_rho_logR_ge (k₀ : ℕ) (T t : ℝ) (hρ : 0 < T / (k₀ : ℝ)) :
     ∀ᶠ N' : ℕ in atTop,
@@ -244,6 +262,7 @@ lemma eventually_phiW_logR_ge (k₀ : ℕ) (C : ℝ) :
 
 /-! ## The R₀/`bParam` sharp-regime atoms -/
 
+omit [TupleChoice] in
 /-- Key identity `b·(T/k₀·log R) = k₀^{1/8}`. -/
 lemma bParam_rho_logR (k₀ R : ℕ) (T : ℝ) (hk : 2 ≤ k₀) (hR : 2 ≤ R)
     (hT : T = (k₀ : ℝ) ^ ((1 : ℝ) / 8) / Real.log k₀) :
@@ -253,6 +272,7 @@ lemma bParam_rho_logR (k₀ R : ℕ) (T : ℝ) (hk : 2 ≤ k₀) (hR : 2 ≤ R)
   have hk0 : (0 : ℝ) < (k₀ : ℝ) := by exact_mod_cast (by omega : 0 < k₀)
   rw [hT]; unfold bParam; field_simp
 
+omit [TupleChoice] in
 /-- `4 ≤ R0 k₀ R T` from `(T/k₀)·log R ≥ log 8`. -/
 lemma R0_ge_four (k₀ R : ℕ) (T : ℝ) (hR : 2 ≤ R)
     (hρR : Real.log 8 ≤ T / (k₀ : ℝ) * Real.log R) :
@@ -267,6 +287,7 @@ lemma R0_ge_four (k₀ R : ℕ) (T : ℝ) (hR : 2 ≤ R)
   have h4 : 4 ≤ ⌊(R : ℝ) ^ (T / (k₀ : ℝ))⌋₊ := Nat.le_floor (by push_cast; linarith)
   rwa [R0]
 
+omit [TupleChoice] in
 /-- `(T/k₀)·log R − log 2 ≤ log(R0−1)` from `(T/k₀)·log R ≥ log 8`. -/
 lemma logR0m1_lower (k₀ R : ℕ) (T : ℝ) (hR : 2 ≤ R)
     (hρR : Real.log 8 ≤ T / (k₀ : ℝ) * Real.log R) :
@@ -290,6 +311,7 @@ lemma logR0m1_lower (k₀ R : ℕ) (T : ℝ) (hR : 2 ≤ R)
   rw [Real.log_div (by linarith) (by norm_num), hlogRρ] at hmono
   linarith [hmono]
 
+omit [TupleChoice] in
 /-- `bParam·log 2 ≤ 1` from `log R ≥ k₀·log k₀·log 2`. -/
 lemma bParam_log2_le (k₀ R : ℕ) (_hk : 2 ≤ k₀) (hR : 2 ≤ R)
     (hlogR : (k₀ : ℝ) * Real.log k₀ * Real.log 2 ≤ Real.log R) :
@@ -299,6 +321,7 @@ lemma bParam_log2_le (k₀ R : ℕ) (_hk : 2 ≤ k₀) (hR : 2 ≤ R)
   rw [div_mul_eq_mul_div, div_le_one hlogR0]
   linarith [hlogR]
 
+omit [TupleChoice] in
 /-- The `hbLo` atom: `k₀^{1/9} ≤ b·log(R0−1)`. -/
 lemma hbLo_of (k₀ R : ℕ) (T : ℝ) (hk : 3072 ≤ k₀) (hR : 2 ≤ R)
     (hlogk : 300 ≤ Real.log k₀)
@@ -316,6 +339,7 @@ lemma hbLo_of (k₀ R : ℕ) (T : ℝ) (hk : 3072 ≤ k₀) (hR : 2 ≤ R)
   rw [hexpand, hid] at hmul
   linarith [hmul, hk18, hblog2]
 
+omit [TupleChoice] in
 /-- The `hb4` atom follows from `hbLo` and `4 ≤ k₀^{1/9}`. -/
 lemma hb4_of (k₀ R : ℕ) (T : ℝ) (hlogk : 300 ≤ Real.log k₀) (hk₀ : 0 < k₀)
     (hbLo : (k₀ : ℝ) ^ ((1 : ℝ) / 9) ≤ bParam k₀ R * Real.log ((R0 k₀ R T : ℝ) - 1)) :
@@ -325,6 +349,7 @@ lemma hb4_of (k₀ R : ℕ) (T : ℝ) (hlogk : 300 ≤ Real.log k₀) (hk₀ : 0
 
 /-! ## The four error atoms (`errA1`/`errB1` in both regime shapes) -/
 
+omit [TupleChoice] in
 /-- `(bParam k₀ R)⁻¹ = log R / (k₀·log k₀)`. -/
 lemma bParam_inv (k₀ R : ℕ) :
     (bParam k₀ R)⁻¹ = Real.log R / ((k₀ : ℝ) * Real.log k₀) := by
@@ -396,6 +421,7 @@ lemma hEB_cheb_of (k₀ R : ℕ) (hk : 2 ≤ k₀) (_hR : 2 ≤ R)
 
 /-! ## Part C: routine thresholds (`hδlb`, `herr1`, `herr2`) -/
 
+omit [TupleChoice] in
 /-- `R² ≤ N'^{2/5}`. -/
 lemma R_sq_le (N' : ℕ) (hN' : 1 ≤ N') :
     (⌊(N' : ℝ) ^ ((1 : ℝ) / 5)⌋₊ : ℝ) ^ 2 ≤ (N' : ℝ) ^ ((2 : ℝ) / 5) := by
@@ -419,9 +445,9 @@ lemma eventually_D0_le (k₀ : ℕ) (c : ℝ) (hc : 0 < c) :
   simp only [pow_one, Real.rpow_one] at hN'
   have hD0nn : (0 : ℝ) ≤ (D₀ k₀ : ℝ) := by positivity
   have hN'' : 2 * (D₀ k₀ : ℝ) * (1 + Real.log N') ≤ c * (N' : ℝ) := by
-    rw [div_mul_eq_mul_div, div_le_iff₀ hc] at hN'; nlinarith [hN']
+    rw [div_mul_eq_mul_div, div_le_iff₀ hc] at hN'; linarith only [hN']
   rw [le_div_iff₀ (by positivity)]
-  nlinarith [hN'', hlogpos, hD0nn]
+  linarith only [hN'', (Nat.cast_nonneg _ : 0 ≤ ↑(D₀ k₀))]
 
 /-- Eventually `Cs·R²·(1+log R)^{4k₀+2} ≤ 126·N'/W` for `Cs ≥ 0`. -/
 lemma eventually_herr1 (k₀ : ℕ) (Cs : ℝ) (hCs : 0 ≤ Cs) :
@@ -753,7 +779,7 @@ theorem analyticFrontier_holds' (k₀ : ℕ) (c : ℝ) (Nc : ℕ) (hEH : EH (1 /
   · -- herr2
     exact herr2'
 
-/-! ## The unconditional capstone (modulo the Part-A port-blocker) -/
+/-! ## The capstone `EH (1/2) → bounded gaps`, modulo the Part-A port-blocker `hCompat` -/
 
 /-- **M7 — bounded gaps from Elliott–Halberstam.**  Assembled from
 `analyticFrontier_holds'` via `bounded_gaps_reduces` + `win_core`, choosing the

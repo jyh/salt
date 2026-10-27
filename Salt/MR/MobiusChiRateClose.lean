@@ -214,7 +214,7 @@ theorem mmu1Chi_contour_shift {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ 
     have hττ : τ ^ 2 = T ^ 2 := by rw [← sq_abs, hτ]
     have hxexp : x ^ u ≤ x ^ c := Real.rpow_le_rpow_of_exponent_le hx (by linarith [hu.2])
     have hinvle : (u ^ 2 + τ ^ 2)⁻¹ ≤ (T ^ 2)⁻¹ :=
-      (inv_le_inv₀ (by positivity) (by positivity)).mpr (by nlinarith [sq_nonneg u])
+      (inv_le_inv₀ (by positivity) (by positivity)).mpr (by linarith only [hττ, sq_nonneg u])
     rw [hFnorm, hsre]
     calc x ^ u * ‖(((u : ℂ) + (τ : ℂ) * I) * (((u : ℂ) + (τ : ℂ) * I) + 1))⁻¹‖
             * ‖g ((u : ℂ) + (τ : ℂ) * I)‖
@@ -520,7 +520,7 @@ theorem mmu1Chi_rate_of_pinned {c₅ K X₁ : ℝ} {m : ℕ}
             calc (2 : ℝ) ^ ((3 : ℝ) / 4) ≤ (2 : ℝ) ^ (1 : ℝ) :=
                   Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
               _ = 2 := Real.rpow_one 2
-          nlinarith [Real.rpow_pos_of_pos hLpos ((3 : ℝ) / 4)]
+          nlinarith only [hRL0, h2, hdd0, hdddef, hc₅1]
   have hden0 : (0 : ℝ) < R2 * l2 ^ (6 : ℕ) :=
     mul_pos hR20 (pow_pos (by linarith : (0 : ℝ) < l2) 6)
   set w : ℝ := pinW c₅ (2 * x) with hwset
@@ -552,7 +552,7 @@ theorem mmu1Chi_rate_of_pinned {c₅ K X₁ : ℝ} {m : ℕ}
     rw [hwdef, div_le_div_iff₀ hden0 (by norm_num)]
     have h1 : (1 : ℝ) ≤ l2 ^ (6 : ℕ) := one_le_pow₀ hl21
     have hR2ge : (10 : ℝ) ≤ R2 := le_trans hRL10 hRlo
-    nlinarith [hR2ge, h1, hc₅1]
+    nlinarith only [hR20, h1, hRL10, hRlo, hc₅1]
   set σ₀ : ℝ := 1 - w with hσ₀def
   have hσ₀9 : (9 : ℝ) / 10 ≤ σ₀ := by rw [hσ₀def]; linarith
   have hσ₀pos : (0 : ℝ) < σ₀ := by linarith
@@ -567,7 +567,7 @@ theorem mmu1Chi_rate_of_pinned {c₅ K X₁ : ℝ} {m : ℕ}
         refine mul_le_mul hRhi hl26 (by positivity) (by linarith [hRL0])
       have h2 : Real.log Lg ^ (6 : ℕ) ≤ Lg ^ ((1 : ℝ) / 20) := by
         rw [hLdef] at hx2 ⊢; exact hx2
-      nlinarith [h1, h2, hRL0, Real.rpow_pos_of_pos hLpos ((1 : ℝ) / 20)]
+      nlinarith only [hx2, hRL0, hdd0, hdddef, hc₅1, h1]
     have hLratio : Lg / (RL * Lg ^ ((1 : ℝ) / 20)) = Lg ^ ((1 : ℝ) / 5) := by
       have hne : Lg ^ ((4 : ℝ) / 5) ≠ 0 := (Real.rpow_pos_of_pos hLpos _).ne'
       rw [hRLdef, ← Real.rpow_add hLpos,
@@ -577,8 +577,8 @@ theorem mmu1Chi_rate_of_pinned {c₅ K X₁ : ℝ} {m : ℕ}
       rw [hwdef]
       rw [div_le_iff₀ (by positivity), mul_comm (Lg : ℝ) (c₅ / (R2 * l2 ^ (6 : ℕ)))]
       rw [div_mul_eq_mul_div, div_mul_eq_mul_div, le_div_iff₀ hden0]
-      nlinarith [hdenle, hc₅0, mul_pos hLpos hc₅0, hRL0,
-        Real.rpow_pos_of_pos hLpos ((1 : ℝ) / 20)]
+      nlinarith only [hdenle, hdd0,
+          hdddef, hc₅1, mul_pos hLpos hc₅0]
     refine le_trans (le_of_eq ?_) hstep
     have hRLne : RL ≠ 0 := hRL0.ne'
     have h20ne : Lg ^ ((1 : ℝ) / 20) ≠ 0 := (Real.rpow_pos_of_pos hLpos _).ne'
@@ -628,7 +628,7 @@ theorem mmu1Chi_rate_of_pinned {c₅ K X₁ : ℝ} {m : ℕ}
       exact Real.rpow_le_rpow_of_exponent_le hL1 (by linarith)
     calc K * Real.log (2 * x) ^ m ≤ K * (2 ^ m * Lg ^ m) := by
           rw [← h2]; exact mul_le_mul_of_nonneg_left h1 hK0.le
-      _ ≤ K * 2 ^ m * Lm := by nlinarith [h3, h2m, hK0]
+      _ ≤ K * 2 ^ m * Lm := by nlinarith only [hbC0, h3, hbC, hπ]
   have hBnn : (0 : ℝ) ≤ K * Real.log (2 * x) ^ m := by positivity
   -- the three terms
   have hterm1 : 2 * ((1 + 1 / Lg) - σ₀) * (K * Real.log (2 * x) ^ m) * x ^ (1 + 1 / Lg)
@@ -645,7 +645,7 @@ theorem mmu1Chi_rate_of_pinned {c₅ K X₁ : ℝ} {m : ℕ}
     have hfac : 2 * ((1 + 1 / Lg) - σ₀) * (K * Real.log (2 * x) ^ m)
         ≤ 2 * (11 / 10) * (K * 2 ^ m * Lm) := by
       have := mul_le_mul hcM hBle hBnn (by norm_num : (0 : ℝ) ≤ 11 / 10)
-      nlinarith [this, hcm, hBnn, hBle, mul_nonneg hcm hBnn]
+      linarith only [this]
     have hexple : Real.exp (-(2 * sg)) ≤ Real.exp (-sg) :=
       Real.exp_le_exp.mpr (by linarith)
     calc 2 * ((1 + 1 / Lg) - σ₀) * (K * Real.log (2 * x) ^ m) * (Real.exp 1 * x)
@@ -659,7 +659,7 @@ theorem mmu1Chi_rate_of_pinned {c₅ K X₁ : ℝ} {m : ℕ}
   have hterm2 : (K * Real.log (2 * x) ^ m) * x ^ σ₀ * (Real.pi / σ₀)
       ≤ bC * (x * (Lm * Real.exp (-(dd * Lg ^ ((1 : ℝ) / 5))))) := by
     have hπσ : Real.pi / σ₀ ≤ 10 * Real.pi / 9 := by
-      rw [div_le_div_iff₀ hσ₀pos (by norm_num)]; nlinarith [hπ, hσ₀9]
+      rw [div_le_div_iff₀ hσ₀pos (by norm_num)]; nlinarith only [hπ, hwsmall]
     have hxσle : x ^ σ₀ ≤ Real.exp (-(dd * Lg ^ ((1 : ℝ) / 5))) * x := by
       rw [hxσ]
       exact mul_le_mul_of_nonneg_right (Real.exp_le_exp.mpr (by linarith [hLw])) hxpos.le
@@ -697,7 +697,7 @@ theorem mmu1Chi_rate_of_pinned {c₅ K X₁ : ℝ} {m : ℕ}
         + bC * (x * (Lm * Real.exp (-(dd * Lg ^ ((1 : ℝ) / 5))))) := by
     rw [haC]
     have h := add_le_add (add_le_add hterm1 hterm2) hterm3
-    nlinarith [h]
+    linarith only [hterm3, hterm2, hterm1]
   refine le_trans (mul_le_mul_of_nonneg_left hsum (by positivity)) ?_
   have hfin1 : aC * (x * (Lm * Real.exp (-sg))) ≤ aC * (x / Lg ^ A) := by
     refine mul_le_mul_of_nonneg_left ?_ haC0.le
@@ -785,7 +785,7 @@ lemma pinW_le_sharp {c₄ c₅ : ℝ} (_hc₄0 : 0 < c₄) (hc₅0 : 0 < c₅) (
   have hsq : (Real.log (q : ℝ) + 1) ^ 2 ≤ 169 * Real.log (Real.log (2 * x)) ^ 2 := by
     have h0 : (0 : ℝ) ≤ Real.log (q : ℝ) + 1 := by linarith
     have h := mul_self_le_mul_self h0 hq13
-    nlinarith [h]
+    linarith only [h]
   have hprod : (0 : ℝ) ≤ Real.log (2 * x) ^ ((3 : ℝ) / 4)
       * Real.log (Real.log (2 * x)) ^ (4 : ℕ) := by positivity
   calc c₅ * ((Real.log (q : ℝ) + 1) ^ 2 * Real.log (2 * x) ^ ((3 : ℝ) / 4)
@@ -793,7 +793,7 @@ lemma pinW_le_sharp {c₄ c₅ : ℝ} (_hc₄0 : 0 < c₄) (hc₅0 : 0 < c₅) (
       ≤ c₅ * ((169 * Real.log (Real.log (2 * x)) ^ 2)
           * Real.log (2 * x) ^ ((3 : ℝ) / 4) * Real.log (Real.log (2 * x)) ^ (4 : ℕ)) := by
         have := mul_le_mul_of_nonneg_right hsq hprod
-        nlinarith [this, hc₅0]
+        nlinarith only [hc₅0, this]
     _ = 169 * c₅ * (Real.log (2 * x) ^ ((3 : ℝ) / 4)
           * Real.log (Real.log (2 * x)) ^ (6 : ℕ)) := by ring
     _ ≤ c₄ * (Real.log (2 * x) ^ ((3 : ℝ) / 4)
@@ -832,13 +832,13 @@ lemma pinW_le_boxWidth_half {c₀ c₅ : ℝ} (hc₀pos : 0 < c₀) (hc₀1 : c�
         ≤ c₅ * (10 ^ 20 * ((13 * Real.log (Real.log (2 * x)))
             * Real.log (2 * x) ^ ((3 : ℝ) / 4) * Real.log (Real.log (2 * x)) ^ (3 : ℕ)) * 2) := by
       have h := mul_le_mul_of_nonneg_right hq13 hlD.le
-      nlinarith [h, hc₅0]
+      nlinarith only [hc₅0, h]
     have hfin : 26 * 10 ^ 20 * c₅ ≤ c₀ * Real.log (Real.log (2 * x)) ^ 2 := by
-      have hl2 : (10 : ℝ) ^ 4 ≤ Real.log (Real.log (2 * x)) ^ 2 := by nlinarith [hll]
-      nlinarith [hl2, h22, hc₀pos, hc₅0]
+      have hl2 : (10 : ℝ) ^ 4 ≤ Real.log (Real.log (2 * x)) ^ 2 := by nlinarith only [hll]
+      nlinarith only [hc₀pos, hl2, h22, hc₅0]
     have hprod := mul_nonneg (mul_nonneg hR0.le
       (pow_nonneg hl0.le 4)) (sub_nonneg.mpr hfin)
-    nlinarith [hstep1, hprod]
+    linarith only [hprod, hstep1]
   linarith [hgoal, hlow]
 
 /-! ## §3 — de-smoothing `M₁_{μχ̄} → M_{μχ̄}` (the ℂ-valued mirror) -/
@@ -1009,8 +1009,8 @@ theorem mmuChiRate_of_smoothed (P : (q : ℕ) → DirichletCharacter ℂ q → P
           ≤ (Y + h) * (C' * (Y + h) / Real.log (Y + h) ^ (2 * A + 2)) :=
         mul_le_mul_of_nonneg_left hR1Yh (by linarith)
       have hnum : C' * (Y + h) ^ 2 ≤ 4 * C' * Y ^ 2 := by
-        nlinarith [mul_nonneg hC'pos.le (mul_nonneg (by linarith : (0 : ℝ) ≤ Y - h)
-          (by linarith : (0 : ℝ) ≤ 3 * Y + h))]
+        linarith only [mul_nonneg hC'pos.le
+            (mul_nonneg (by linarith : (0 : ℝ) ≤ Y - h) (by linarith : (0 : ℝ) ≤ 3 * Y + h))]
       have hstep2 : (Y + h) * (C' * (Y + h) / Real.log (Y + h) ^ (2 * A + 2))
           ≤ 4 * C' * Y ^ 2 / Lg ^ (2 * A + 2) := by
         rw [show (Y + h) * (C' * (Y + h) / Real.log (Y + h) ^ (2 * A + 2))
@@ -1057,10 +1057,10 @@ theorem mmuChiRate_of_smoothed (P : (q : ℕ) → DirichletCharacter ℂ q → P
               + (h + 1) ^ 2 := by linarith [hT1, hT2, hSbd]
         _ = 5 * C' * Y ^ 2 / Lg ^ (2 * A + 2) + (h + 1) ^ 2 := by ring
     have hclean : 5 * C' * Y ^ 2 + (Y + Pw) ^ 2 ≤ (5 * C' + 2) * Y ^ 2 * Lg := by
-      nlinarith [mul_nonneg (mul_nonneg hC'pos.le (sq_nonneg Y)) (by linarith : (0 : ℝ) ≤ Lg - 1),
-        mul_nonneg (sq_nonneg Y) (by linarith : (0 : ℝ) ≤ Lg - 1),
-        mul_nonneg (by linarith : (0 : ℝ) ≤ Y - 3 * Pw) (by linarith : (0 : ℝ) ≤ Y + Pw),
-        sq_nonneg Pw]
+      linarith only
+          [mul_nonneg (by linarith : (0 : ℝ) ≤ Y - 3 * Pw) (by linarith : (0 : ℝ) ≤ Y + Pw),
+          mul_nonneg (sq_nonneg Y) (by linarith : (0 : ℝ) ≤ Lg - 1), mul_nonneg
+          (mul_nonneg hC'pos.le (sq_nonneg Y)) (by linarith : (0 : ℝ) ≤ Lg - 1), mul_self_nonneg Pw]
     have key2 : 5 * C' * Y ^ 2 / (Pw * Pw) + (Y / Pw + 1) ^ 2
         ≤ (5 * C' + 2) * Y ^ 2 / (Pw * Q) := by
       have e1 : (Y / Pw + 1) ^ 2 = (Y + Pw) ^ 2 / (Pw * Pw) := by field_simp
@@ -1201,7 +1201,7 @@ theorem mmuChiRate_nonprincipal {H₀ : ℝ} (hH₀ : Real.exp (Real.exp 100) + 
     have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
     have hlogpos : 0 < Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
       apply Real.log_pos
-      nlinarith [abs_nonneg ρ.im]
+      nlinarith only [hq1, hc₅0, hcB, hc₀1, abs_nonneg ρ.im, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
     have hmono : c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2))
         ≤ c₀' / Real.log ((q : ℝ) * (|ρ.im| + 2)) :=
       (div_le_div_iff_of_pos_right hlogpos).mpr hc₀le
@@ -1421,7 +1421,7 @@ lemma norm_one_sub_prime_cpow_ge {p : ℕ} (hpp : p.Prime) {s : ℂ} (hs : 3 / 4
     have ha2 : ((2 : ℝ) ^ ((1 : ℝ) / 2)) ^ (2 : ℕ) = 2 := by
       rw [← Real.rpow_natCast ((2 : ℝ) ^ ((1 : ℝ) / 2)) 2, ← Real.rpow_mul (by norm_num)]
       norm_num
-    have hage : (4 : ℝ) / 3 ≤ (2 : ℝ) ^ ((1 : ℝ) / 2) := by nlinarith [ha0, ha2]
+    have hage : (4 : ℝ) / 3 ≤ (2 : ℝ) ^ ((1 : ℝ) / 2) := by nlinarith only [ha0, ha2]
     rw [inv_le_comm₀ (by positivity) (by norm_num)]
     linarith
   calc (1 : ℝ) / 4 ≤ 1 - ‖(p : ℂ) ^ (-s)‖ := by rw [hnorm]; linarith
@@ -1469,9 +1469,9 @@ lemma norm_eulerFac_inv_le {q : ℕ} (hq : 0 < q) {s : ℂ} (hs : 3 / 4 ≤ s.re
     have h4 : (4 : ℝ) ^ q.primeFactors.card
         = (2 : ℝ) ^ q.primeFactors.card * (2 : ℝ) ^ q.primeFactors.card := by
       rw [← mul_pow]; norm_num
-    rw [h4]; nlinarith [h5, h6]
+    rw [h4]; nlinarith only [h6, h5, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
   have h8 : (1 : ℝ) / (4 : ℝ) ^ q.primeFactors.card ≤ ‖eulerFac q s‖ := by
-    rw [div_le_iff₀ h7]; nlinarith [h1]
+    rw [div_le_iff₀ h7]; linarith only [h1]
   rw [norm_inv]
   calc ‖eulerFac q s‖⁻¹ ≤ ((1 : ℝ) / (4 : ℝ) ^ q.primeFactors.card)⁻¹ :=
         (inv_le_inv₀ hpos (by positivity)).mpr h8
@@ -1505,9 +1505,9 @@ lemma pinW_le_quarter {c₅ : ℝ} (hc₅1 : c₅ ≤ 1) {x : ℝ}
   have hl0 : (0 : ℝ) < Real.log (Real.log (2 * x)) := by linarith
   have hl6 : (4 : ℝ) ≤ Real.log (Real.log (2 * x)) ^ (6 : ℕ) := by
     have h := pow_le_pow_left₀ (by norm_num : (0 : ℝ) ≤ 100) hll 6
-    nlinarith [h]
+    linarith only [h]
   rw [pinW, div_le_div_iff₀ (by positivity) (by norm_num)]
-  nlinarith [hR1, hl6, hc₅1]
+  nlinarith only [hR1, hl6, hc₅1]
 
 set_option maxHeartbeats 4000000 in
 -- The principal row threads the pole-normalized carrier (mmuG × the Euler factor) through §1,

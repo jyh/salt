@@ -36,6 +36,9 @@ open Finset
 
 namespace Salt.Twelve
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Maynard
 
 /-! ## `box_g_pos` and per-prime facts on the box -/
@@ -48,6 +51,7 @@ private lemma box_prime_gt {W' D r : ℕ} (hrcop : r.Coprime W')
   have : p ∣ 1 := hrcop ▸ Nat.dvd_gcd hpr hpW
   exact hpp.one_lt.ne' (Nat.dvd_one.mp this)
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **`box_g_pos` (reusable helper).** On the box `r` — squarefree, coprime to
 `W'`, with `D ≥ 3` and every prime not dividing `W'` exceeding `D` — the
 `g`-weight is strictly positive.  This is load-bearing for the sandwich's LOWER
@@ -167,7 +171,7 @@ private lemma prod_one_add_le {ι : Type*} (s : Finset ι)
       have hih := ih has hss
       have hprod_nonneg : (0 : ℝ) ≤ ∏ z ∈ s, (1 + a z) :=
         Finset.prod_nonneg fun z hz => by linarith [has z hz]
-      nlinarith [hih, hax, hss, hsum_nonneg]
+      nlinarith only [hax, hih, hss]
 
 /-- Telescoping tail bound:
 `∑_{D < n ≤ M} ((n−1)(n−2))⁻¹ ≤ (D−1)⁻¹` for `2 ≤ D`. -/
@@ -302,7 +306,7 @@ private lemma tail_erase_le (D M : ℕ) (hD : 3 ≤ D) :
     _ ≤ 2 / ((D : ℝ) - 1) := by
         rw [div_eq_mul_inv]
         have := htailsum
-        nlinarith [htailsum, inv_nonneg.mpr hDpos.le]
+        linarith only [htailsum]
 
 /-- **The full Euler tail (including `d = 1`).** For `D ≥ 3` and `2 ≤ M`,
 `∑_{d < M, nice} ∏_{p∣d}((p−1)(p−2))⁻¹ ≤ 2`.  This is `1 + tail_erase ≤ 1 + 2/(D−1) ≤ 2`. -/
@@ -329,6 +333,7 @@ private lemma tail_full_le (D M : ℕ) (hD : 3 ≤ D) (hM : 2 ≤ M) :
 
 /-! ## `marked_sqf_g` -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Frozen theorem 1.** The `g`-weighted marked-sqf sum: for an arbitrary
 divisor `s`, the sub-sum over multiples of `s` is at most `(1/g(s))` times a
 `(W', a)`-uniform constant times `(log z)^{a+1}`.  No case split on `s` is
@@ -535,6 +540,7 @@ theorem marked_sqf_g (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W') (a : ℕ) 
 
 /-! ## `budget_moment_g` -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- **Frozen theorem 2 (two-sided sandwich).** The `φ`-weighted budget moment is
 bounded below by its `g`-weighted analogue (LOWER, termwise from `0 < g ≤ φ`),
 and above by it plus an `O(log R / D)` correction (UPPER, the `d ≠ 1` divisor

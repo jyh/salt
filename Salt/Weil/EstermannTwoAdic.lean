@@ -105,7 +105,7 @@ theorem norm_kloosterman_two_pow_estermann {e : ℕ} [NeZero (2 ^ e)] (he : e �
     simpa using h
   have hprod0 : (0 : ℝ) ≤ (((2 ^ e : ℕ).divisors.card : ℕ) : ℝ) * Real.sqrt ((2 : ℝ) ^ e) := by
     positivity
-  nlinarith [h2, hg, hprod0]
+  nlinarith only [h2, hg, (Nat.cast_nonneg _ : 0 ≤ ↑(2 ^ e).totient)]
 
 /-- **D2 — the factor-free global bound under `v₂(k) ≤ 8` (nat form).**  Splits `k = 2^κ·m`
 with `m` odd, applies D1 to the 2-part and the LANDED global bound to the odd part (where the

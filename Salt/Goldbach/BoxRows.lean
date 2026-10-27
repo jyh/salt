@@ -61,7 +61,7 @@ twin's `box_rows_at_op` (`x`-generic reuse), the per-annulus `L`-scale, and the 
 
 ## What this file lands (sorry-free, NEW FILE — no edits to landed files)
 
-* §1 the x-generic reuse rows (`gold_box_hcoupG`/`_hcoup3`/`_herr_book4`/`_herr_scale`);
+* §1 the x-generic reuse rows (`gold_box_hcoupG`/`_hcoup3`/`_herr_book4`);
 * §2 the vanish lemmas (`gold_box_carrier_vanish`/`gold_box_price_vanish`, the dead-annulus floor);
 * §3 the per-annulus scale facts (`gold_box_XM_scale`, the D0-window's geometry input).
 
@@ -111,6 +111,8 @@ theorem gold_box_efold_le (X M e : ℕ) :
     Real.log (((X / e : ℕ) : ℝ) * (M : ℝ)) ≤ Real.log ((X : ℝ) * (M : ℝ)) :=
   log_efold_le X M e
 
+/-- `0 ≤ log(⌊X/e⌋·M)`: the nonneg half of the e-fold row, packaged for the caller
+(`log_efold_nonneg`). -/
 theorem gold_box_efold_nonneg (X M e : ℕ) :
     0 ≤ Real.log (((X / e : ℕ) : ℝ) * (M : ℝ)) :=
   log_efold_nonneg X M e

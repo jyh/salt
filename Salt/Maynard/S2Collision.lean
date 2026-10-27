@@ -38,7 +38,7 @@ structure — by `(Cs k²/D₀)·(nonneg S₂ diagonal yside)`.  It is the exact
   `m`-restricted contraction of `S2DiagRestricted.lean`.  This does NOT
   collapse to a single diagonal term (the `d/φ` weight prevents it — the
   S₂-vs-S₁ asymmetry), which is exactly why the per-assignment absolute
-  bound is the wall (`S2InnerControlled`, see below).
+  bound was the wall (`S2InnerControlled`); Node B below (`s2_inner_bound_N`) bounds it.
 
 ## Status
 
@@ -47,13 +47,16 @@ The per-assignment ABSOLUTE bound — the `∏φ(lcm)` analog of N4.4's
 `inner_abs_le`, whose S₁ proof crucially used the single-term collapse of the
 forced sum — is isolated as the precise `Prop` `S2InnerControlled` (strictly
 narrower than the collision bound) and the collision bound is assembled ON TOP
-of it (`s2_collision_lower_order`).
+of it (`s2_collision_lower_order`); `s2_collision_le_N`, below, needs no such hypothesis.
 -/
 
 open Finset
 open scoped ArithmeticFunction.Moebius
 
 namespace Salt.Maynard
+
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
 
 /-- The explicit S₂ collision constant. -/
 noncomputable def Cs : ℝ := 12
@@ -108,6 +111,7 @@ noncomputable def s2CompatFormM (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ) �
 
 /-! ## The exact decomposition -/
 
+omit [TupleChoice] in
 /-- **Exact decomposition.** The full `m`-restricted S₂ diagonal form splits,
 pair by pair, into its collision part and its compatible part. Unconditional. -/
 theorem s2_full_split_M (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) :
@@ -119,6 +123,7 @@ theorem s2_full_split_M (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) 
   apply Finset.sum_congr rfl; intro e _
   split_ifs <;> ring
 
+omit [TupleChoice] in
 /-- **The reduction C4 wants (unconditional).** The compatible (count-weighted)
 S₂ main term equals the full `m`-restricted S₂ diagonal minus the collision
 correction: `s2CompatFormM = s2FullFormM − s2CollisionForm`. -/
@@ -129,6 +134,7 @@ theorem s2_compat_eq_M (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) :
 
 /-! ## The S₂ constrained inner evaluation (the genuinely new derivation) -/
 
+omit [TupleChoice] in
 /-- **`inner_exact_S2`, the S₂ constrained diagonalisation.** The `(σ,τ)`-forced
 `dₘ = eₘ = 1`-restricted double `lam·lam/∏φ(lcm)` sum diagonalises exactly to a
 signed `u`-sum of `g`-weighted `Vₘ`-contractions.  Unlike the S₁ `inner_exact`,
@@ -265,6 +271,7 @@ theorem inner_exact_S2 (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
 
 /-! ## Structural machinery (`m`-restricted ports of the N4.4 collision lemmas) -/
 
+omit [TupleChoice] in
 /-- **`m`-restricted Möbius collision expansion.** The compatible form expands
 exactly over collision moduli with signed Möbius weights.  Port of
 `compat_moebius_expansion` with the `dₘ = eₘ = 1` filters threaded through
@@ -326,6 +333,7 @@ theorem compat_moebius_expansion_M (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ
         apply Finset.sum_congr rfl; intro d _
         rw [Finset.mul_sum]
 
+omit [TupleChoice] in
 /-- **`m`-restricted `inner_collision_expand`.** For squarefree `t`, the
 `t ∣ cRad`-guarded restricted double sum expands exactly over prime-to-slot
 assignments.  Port of `inner_collision_expand`; the slot machinery
@@ -630,7 +638,7 @@ theorem s2_collision_lower_order (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ)
             have h1 : (k * k - k : ℕ) ≤ k * k := Nat.sub_le _ _
             calc ((k * k - k : ℕ) : ℝ) ≤ ((k * k : ℕ) : ℝ) := by exact_mod_cast h1
               _ = (k : ℝ) * (k : ℝ) := by push_cast; ring
-          nlinarith
+          linarith only [hle]
       calc |((μ t : ℤ) : ℝ)
             * ∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
                 (if t ∣ cRad d e then s2Summand k R (W k) y d e else 0)|
@@ -640,7 +648,7 @@ theorem s2_collision_lower_order (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ)
             have h1 := abs_moebius_real_le_one t
             have h2 := abs_nonneg (∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
                 (if t ∣ cRad d e then s2Summand k R (W k) y d e else 0))
-            nlinarith
+            nlinarith only [h1, h2]
         _ ≤ ((assignments k t).card : ℝ)
               * ((3 : ℝ) ^ t.primeFactors.card
                 * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
@@ -756,12 +764,14 @@ the correct RHS for the S₂ collision bound: it is `≥ 0` and, by
 noncomputable def Qdiag_gv (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) : ℝ :=
   ∑ u ∈ kSieveIndex k R W, (∏ i, (gMult (u i) : ℝ)) * (lamPhiContractM k R W m y u) ^ 2
 
+omit [TupleChoice] in
 /-- `Qdiag_gv ≥ 0`: each summand is `(∏ ℕ-cast) · (·)²`. -/
 theorem Qdiag_gv_nonneg (k R W : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) :
     0 ≤ Qdiag_gv k R W m y := by
   apply Finset.sum_nonneg; intro u _
   exact mul_nonneg (Finset.prod_nonneg fun i _ => Nat.cast_nonneg _) (sq_nonneg _)
 
+omit [TupleChoice] in
 /-- **`s2FullFormM = Qdiag_gv`.**  The full `dₘ=eₘ=1`-restricted S₂ diagonal is the
 `g`-weighted `Vₘ²`-sum: immediate from `s2_diag_lam_restricted` after collapsing
 the (forced) `uₘ = 1` filter — any `u` with `uₘ ≠ 1` has `Vₘ(u) = 0`. -/
@@ -932,7 +942,7 @@ theorem s2_collision_le_Qdiag (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) �
             have h1 : (k * k - k : ℕ) ≤ k * k := Nat.sub_le _ _
             calc ((k * k - k : ℕ) : ℝ) ≤ ((k * k : ℕ) : ℝ) := by exact_mod_cast h1
               _ = (k : ℝ) * (k : ℝ) := by push_cast; ring
-          nlinarith
+          linarith only [hle]
       calc |((μ t : ℤ) : ℝ)
             * ∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
                 (if t ∣ cRad d e then s2Summand k R (W k) y d e else 0)|
@@ -942,7 +952,7 @@ theorem s2_collision_le_Qdiag (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) �
             have h1 := abs_moebius_real_le_one t
             have h2 := abs_nonneg (∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
                 (if t ∣ cRad d e then s2Summand k R (W k) y d e else 0))
-            nlinarith
+            nlinarith only [h1, h2]
         _ ≤ ((assignments k t).card : ℝ)
               * ((3 : ℝ) ^ t.primeFactors.card
                 * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
@@ -1067,6 +1077,7 @@ private theorem gMult_mul_coprime {a b : ℕ} (hab : Nat.Coprime a b) :
   unfold gMult
   rw [Nat.Coprime.primeFactors_mul hab, Finset.prod_union hab.disjoint_primeFactors]
 
+omit [TupleChoice] in
 /-- **The `g`-weighted single-prime erasure (the `erase_branch` analog, LANDED).**
 Dividing the forced prime `q₀ ≥ 3` out of coordinate `i₀` contracts the
 `g`-weighted constrained tensor `∏g(uᵢ)·(∏f₀(uᵢ))²/∏φ(uᵢ)` by
@@ -1612,7 +1623,7 @@ private theorem sum_gweight_occ_le (k R : ℕ) (T : ℝ) (m : Fin k)
           (Nat.prime_of_mem_primeFactors hp)
           ((Nat.dvd_of_mem_primeFactors hp).trans hn)
         have hk : 1 ≤ k := m.pos
-        have h12 : 12 ≤ D₀ k := le_trans (by nlinarith) hD
+        have h12 : 12 ≤ D₀ k := le_trans (by nlinarith only [hk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]) hD
         omega
       -- (a) the occupied filter is the `χ ≠ 0` filter
       have hocc_eq : s.primeFactors.attach.filter
@@ -1811,7 +1822,7 @@ private theorem s2_side_bound (k R : ℕ) (T : ℝ) (m : Fin k)
                 (((q : ℕ) : ℝ) - 2)⁻¹) := by
   classical
   have hk : 1 ≤ k := m.pos
-  have h12 : 12 ≤ D₀ k := le_trans (by nlinarith) hD
+  have h12 : 12 ≤ D₀ k := le_trans (by nlinarith only [hk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]) hD
   have hσsq : ∀ i, Squarefree (slotProd s α sel i) :=
     fun i => hs.squarefree_of_dvd (slotProd_dvd hs α sel i)
   have hupos : ∀ i, 0 < u i := fun i => kSieveIndex_coord_pos hu i
@@ -1962,7 +1973,7 @@ private theorem s2_term_majorant (k R : ℕ) (T : ℝ) (m : Fin k)
                 (((q : ℕ) : ℝ) - 2)) := by
   classical
   have hk : 1 ≤ k := m.pos
-  have h12 : 12 ≤ D₀ k := le_trans (by nlinarith) hD
+  have h12 : 12 ≤ D₀ k := le_trans (by nlinarith only [hk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]) hD
   have hgnn : (0 : ℝ) ≤ ∏ i, (gMult (u i) : ℝ) :=
     Finset.prod_nonneg fun _ _ => Nat.cast_nonneg _
   have hB := B1_nonneg k R (W k) T hR
@@ -2092,8 +2103,8 @@ private theorem s2_term_majorant (k R : ℕ) (T : ℝ) (m : Fin k)
                 (((q : ℕ) : ℝ) - 2)) := by
         ring
 
-/-- **Node B — the proven per-assignment inner bound (RHS `Ndiag`).**  For a
-squarefree collision modulus `s` with all primes `> D₀ k` and any
+/-- **Node B — the proven per-assignment inner bound (RHS `Ndiag`).**  When `2 ≤ R` and
+`12k² ≤ D₀ k`, for a squarefree collision modulus `s` with all primes `> D₀ k` and any
 prime-to-slot assignment `α`, the signed `u`-sum produced by `inner_exact_S2`
 at `(σ,τ) = (slotProd fst, slotProd snd)` with the tensor weight `yTensor`
 satisfies
@@ -2117,7 +2128,7 @@ theorem s2_inner_bound_N (k R : ℕ) (T : ℝ) (m : Fin k)
           * Ndiag k R T m := by
   classical
   have hk : 1 ≤ k := m.pos
-  have h12 : 12 ≤ D₀ k := le_trans (by nlinarith) hD
+  have h12 : 12 ≤ D₀ k := le_trans (by nlinarith only [hk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]) hD
   have hs3 : ∀ p ∈ s.primeFactors, 3 ≤ p := by
     intro p hp
     have := hsD p hp
@@ -2275,8 +2286,8 @@ theorem s2_collision_le_N (k R : ℕ) (T : ℝ) (m : Fin k)
       ≤ 24 * (k : ℝ) ^ 2 / (D₀ k : ℝ) * Ndiag k R T m := by
   classical
   have hk : 1 ≤ k := m.pos
-  have hD12 : 12 * k ^ 2 ≤ D₀ k := le_trans (by nlinarith) hD
-  have h24 : 24 ≤ D₀ k := le_trans (by nlinarith) hD
+  have hD12 : 12 * k ^ 2 ≤ D₀ k := le_trans (by linarith only [sq_nonneg ↑k]) hD
+  have h24 : 24 ≤ D₀ k := le_trans (by nlinarith only [hk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]) hD
   set 𝒮 := (kSieveIndex k R (W k)).filter (fun d => d m = 1) with h𝒮
   have hNnn : 0 ≤ Ndiag k R T m := Ndiag_nonneg k R T m
   have hDposN : 0 < D₀ k := by omega
@@ -2407,10 +2418,10 @@ theorem s2_collision_le_N (k R : ℕ) (T : ℝ) (m : Fin k)
               show (2 : ℝ) * (((p : ℝ) - 1) ^ 2)⁻¹ = 2 / ((p : ℝ) - 1) ^ 2 from by
                 rw [div_eq_mul_inv],
               div_le_div_iff₀ h2sq h1sq]
-            nlinarith
+            nlinarith only [hpR, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
           have hkk_nn : (0 : ℝ) ≤ ((k * k - k : ℕ) : ℝ) * 3 := by positivity
           have hkk_le : ((k * k - k : ℕ) : ℝ) * 3 * 2 ≤ 6 * (k : ℝ) ^ 2 := by
-            nlinarith
+            linarith only [hkkle]
           calc ((k * k - k : ℕ) : ℝ) * 3 * (((p : ℝ) - 2)⁻¹) ^ 2
               ≤ ((k * k - k : ℕ) : ℝ) * 3
                   * (2 * (((p : ℝ) - 1)⁻¹) ^ 2) :=
@@ -2431,7 +2442,7 @@ theorem s2_collision_le_N (k R : ℕ) (T : ℝ) (m : Fin k)
             have h2 := abs_nonneg (∑ d ∈ 𝒮, ∑ e ∈ 𝒮,
                 (if t ∣ cRad d e then s2Summand k R (W k) (yTensor k R T) d e
                  else 0))
-            nlinarith
+            nlinarith only [h1, h2]
         _ ≤ ((assignments k t).card : ℝ)
               * ((3 : ℝ) ^ t.primeFactors.card
                 * (∏ p ∈ t.primeFactors, (((p : ℝ) - 2)⁻¹) ^ 2)
@@ -2473,7 +2484,7 @@ theorem s2_collision_le_N (k R : ℕ) (T : ℝ) (m : Fin k)
   have htail := euler_tail_L k (R ^ k + 1) (6 * (k : ℝ) ^ 2)
     (by
       have hkR : (1 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
-      nlinarith)
+      nlinarith only [hkR, (Nat.cast_nonneg _ : 0 ≤ ↑k)])
     (by
       have hcast : ((24 * k ^ 2 : ℕ) : ℝ) ≤ ((D₀ k : ℕ) : ℝ) := by
         exact_mod_cast hD

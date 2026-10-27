@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.HB.L2cER
 import Salt.HB.L2cEL
+import Salt.Tactic.ExpLogNum
 
 /-!
 # HB-L2c — the `E_R` T2′ family budget (node HB-L2c-F-ER-T2′, Horn A keystone)
@@ -63,12 +64,7 @@ noncomputable def ert2K (z : ℕ) : ℕ := ⌊(z : ℝ) ^ ((1 : ℝ) / 4)⌋₊
 lemma ert2_logz_ge {z : ℕ} (hz100 : 100 ^ 16 ≤ z) : (64 : ℝ) ≤ Real.log z := by
   have hzr : (100 : ℝ) ^ 16 ≤ (z : ℝ) := by exact_mod_cast hz100
   have hlog100 : (4 : ℝ) ≤ Real.log 100 := by
-    rw [Real.le_log_iff_exp_le (by norm_num : (0 : ℝ) < 100)]
-    have h4 : Real.exp 4 = Real.exp 1 ^ 4 := by rw [← Real.exp_nat_mul]; norm_num
-    rw [h4]
-    calc Real.exp 1 ^ 4 ≤ (2.7182818286 : ℝ) ^ 4 :=
-          pow_le_pow_left₀ (Real.exp_pos 1).le Real.exp_one_lt_d9.le 4
-      _ ≤ 100 := by norm_num
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 4 (by norm_num) (by norm_num)
   have hlog : Real.log ((100 : ℝ) ^ 16) ≤ Real.log z := Real.log_le_log (by positivity) hzr
   rw [Real.log_pow] at hlog
   push_cast at hlog
@@ -105,7 +101,7 @@ lemma ert2_log_sq_le {z : ℕ} (hz1 : 1 ≤ z) :
   have h8 := ert2_log_le_rpow_eighth hz1
   have hr8 : (0 : ℝ) ≤ (z : ℝ) ^ ((1 : ℝ) / 8) := (Real.rpow_pos_of_pos hzpos _).le
   have hsq : Real.log z ^ 2 ≤ (8 * (z : ℝ) ^ ((1 : ℝ) / 8)) ^ 2 :=
-    sq_le_sq' (by nlinarith) h8
+    sq_le_sq' (by linarith only [h8, hlognn]) h8
   have ht2 : ((z : ℝ) ^ ((1 : ℝ) / 8)) ^ 2 = (z : ℝ) ^ ((1 : ℝ) / 4) := by
     rw [← Real.rpow_natCast ((z : ℝ) ^ ((1 : ℝ) / 8)) 2, ← Real.rpow_mul hzpos.le]; norm_num
   calc Real.log z ^ 2 ≤ (8 * (z : ℝ) ^ ((1 : ℝ) / 8)) ^ 2 := hsq
@@ -189,18 +185,13 @@ lemma ert2_Lwin_ge {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3 ≤
       _ ≤ (x : ℝ) := hzx
   have hxpos : (0 : ℝ) < (x : ℝ) := lt_of_lt_of_le (by positivity) hx48
   have hlog100 : (4 : ℝ) ≤ Real.log 100 := by
-    rw [Real.le_log_iff_exp_le (by norm_num : (0 : ℝ) < 100)]
-    have h4 : Real.exp 4 = Real.exp 1 ^ 4 := by rw [← Real.exp_nat_mul]; norm_num
-    rw [h4]
-    calc Real.exp 1 ^ 4 ≤ (2.7182818286 : ℝ) ^ 4 :=
-          pow_le_pow_left₀ (Real.exp_pos 1).le Real.exp_one_lt_d9.le 4
-      _ ≤ 100 := by norm_num
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 4 (by norm_num) (by norm_num)
   have h1 : Real.log ((100 : ℝ) ^ 48) ≤ Real.log x := Real.log_le_log (by positivity) hx48
   rw [Real.log_pow] at h1
   have h2 : Real.log x ≤ Lwin x := by
     rw [Lwin]
     exact Real.log_le_log hxpos (by linarith [Nat.cast_nonneg (α := ℝ) x])
-  have h3 : (100 : ℝ) ≤ 48 * Real.log 100 := by nlinarith
+  have h3 : (100 : ℝ) ≤ 48 * Real.log 100 := by linarith only [hlog100]
   push_cast at h1
   linarith
 
@@ -289,8 +280,8 @@ lemma ert2_legality {z x d : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3 
     _ = 64 * (2 * x + 2) / (z : ℝ) ^ ((1 : ℝ) / 4) := by ring
     _ ≤ 32 * x := by
         rw [div_le_iff₀ hq_pos]
-        nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 32 * (x : ℝ))
-          (by linarith : (0 : ℝ) ≤ (z : ℝ) ^ ((1 : ℝ) / 4) - 10 ^ 8)]
+        linarith only [hx1, mul_nonneg (by linarith : (0 : ℝ) ≤ 32 * (x : ℝ))
+            (by linarith : (0 : ℝ) ≤ (z : ℝ) ^ ((1 : ℝ) / 4) - 10 ^ 8)]
 
 /-- **Exponent absorption (square form).**  `z₀²·e^{(log2)z₀} ≤ e^{5z₀}`. -/
 lemma ert2_absorb2 {z x : ℕ} (hz2 : 2 ≤ z) :
@@ -308,7 +299,7 @@ lemma ert2_absorb2 {z x : ℕ} (hz2 : 2 ≤ z) :
     _ = Real.exp (2 * z0 z x + Real.log 2 * z0 z x) := by rw [← Real.exp_add]
     _ ≤ Real.exp (5 * z0 z x) := by
         refine Real.exp_le_exp.mpr ?_
-        nlinarith [mul_nonneg hz0 (sub_nonneg.mpr hlog2)]
+        linarith only [hz0, mul_nonneg hz0 (sub_nonneg.mpr hlog2)]
 
 /-- **Exponent absorption (cube form).**  `z₀³·e^{(log2)z₀} ≤ e^{5z₀}`. -/
 lemma ert2_absorb3 {z x : ℕ} (hz2 : 2 ≤ z) :
@@ -326,7 +317,7 @@ lemma ert2_absorb3 {z x : ℕ} (hz2 : 2 ≤ z) :
     _ = Real.exp (3 * z0 z x + Real.log 2 * z0 z x) := by rw [← Real.exp_add]
     _ ≤ Real.exp (5 * z0 z x) := by
         refine Real.exp_le_exp.mpr ?_
-        nlinarith [mul_nonneg hz0 (sub_nonneg.mpr hlog2)]
+        linarith only [hz0, mul_nonneg hz0 (sub_nonneg.mpr hlog2)]
 
 /-! ## §2 — the structural layer: parity, the `χ=+1` packet, the swapped modulus law -/
 
@@ -522,7 +513,7 @@ lemma ert2_clean_count {z x d₂ : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ
   have hxd : (0 : ℝ) ≤ (x : ℝ) / (d₂ : ℝ) := div_nonneg (Nat.cast_nonneg _) (Nat.cast_nonneg _)
   have h1 : 128 * ((d₂ : ℝ) / (Nat.totient d₂ : ℝ)) ^ 2 * ((x : ℝ) / (d₂ : ℝ))
       ≤ 128 * C * ((x : ℝ) / (d₂ : ℝ)) := by
-    nlinarith [mul_nonneg (sub_nonneg.mpr hratio) hxd]
+    linarith only [mul_nonneg (sub_nonneg.mpr hratio) hxd]
   refine le_trans hcount ?_
   rw [div_eq_mul_inv, div_eq_mul_inv]
   exact mul_le_mul_of_nonneg_right h1 (inv_nonneg.mpr hlogsqpos.le)
@@ -1070,6 +1061,6 @@ theorem ER_T2'_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : �
       (fun n => nMinus χ (n + 2) ≤ ert2K z)]
   have hA := ert2_routeA_sum χ hsq hz100 hzx
   have hB := ert2_routeB_sum χ hsq hz100 hzx
-  nlinarith [hA, hB, hY]
+  linarith only [hB, hA, hY]
 
 end Salt.HB

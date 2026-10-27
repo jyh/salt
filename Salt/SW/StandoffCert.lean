@@ -72,6 +72,9 @@ structure St where
   count   : Nat := 0
   saltN   : Nat := 0
 
+/-- The walker's monad: the environment to read, `St` (the visited set, the parent map, the counts)
+to accumulate.
+-/
 abbrev M := ReaderT Environment (StateM St)
 
 /-- The toolchain's `CollectAxioms.collect`, with a parent map instead of an axiom list. -/
@@ -108,17 +111,28 @@ partial def pathTo (s : St) (root t : Name) (acc : List Name := []) (fuel : Nat 
 /-- Plain joined names: one deterministic line, no width-driven wrapping. -/
 def render (ns : List Name) : String := ", ".intercalate (ns.map toString)
 
+/-- Whether the string form of the name `m` contains `sub` — the module-name filter
+`#closure_report` uses to count and list the `Siegel`-, `DHCore`- and `Page`-named modules a
+root reaches.
+-/
 def hasSub (m : Name) (sub : String) : Bool := ((toString m).splitOn sub).length > 1
 
 /-- The three Siegel-zero-theory names the certificate excludes. -/
 def targets : List Name :=
   [``Salt.SW.siegel_theorem, ``Salt.SW.siegel_L_one_exceptional, ``Salt.SW.L1_lower_siegel]
 
+/-- The transitive constant closure of `root`: `walk` from an empty `St` over the current
+environment, following every constant a type or value mentions, with the parent pointer that
+reached each one. Every certificate command below reads this.
+-/
 def closureOf (root : Name) : CommandElabM St := do
   let env ← getEnv
   let ((), s) := ((walk root none).run env).run {}
   return s
 
+/-- The one global constant an identifier names (`realizeGlobalConstWithInfos`); an ambiguous or
+unknown identifier is an error, never a silent choice.
+-/
 def resolve (id : Ident) : CommandElabM Name := do
   let cs ← liftCoreM <| realizeGlobalConstWithInfos id
   match cs with

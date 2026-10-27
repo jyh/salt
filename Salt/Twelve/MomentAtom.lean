@@ -17,7 +17,7 @@ polynomial-weight moment sum
 
 The density is `φW'/W'` (NOT a `6/π²`-polluted squarefree density — the
 coprimality restriction threads through and the classic Euler-product `6/π²`
-cancels against `ζ(2)` per-prime; see the reassembly note in
+cancels against `ζ(2)` per-prime; see the PORT-BLOCKER note at the end of
 `Salt/Maynard/PhiAtom.lean`).
 
 ## What lands here (sorry-free)
@@ -35,9 +35,9 @@ cancels against `ζ(2)` per-prime; see the reassembly note in
 The a=0 base is `phiAtomSum z W' = (φW'/W')·log z + O(1)`.  Its LOWER half is
 `Salt.Maynard.phiAtom_lower` (landed, exact constant, elementary block
 counting).  Its sharp UPPER half `phiAtom_upper` is a documented pre-existing
-blocker (`Salt/Maynard/PhiAtom.lean`, lines 918-953): a C-node requiring
-signed multiplicative-convolution + convergent Euler products
-(`∑_d h(d)/d = 1`), out of scope for this card.  It enters `moment_atom` as the
+blocker (`Salt/Maynard/PhiAtom.lean`, lines 918-953): a C-node requiring signed
+multiplicative-convolution + convergent Euler products (`∑_d h(d)/d = 1`), out of scope for
+this card, landed later as `phiUpperAtom_final`.  It enters `moment_atom` as the
 explicit hypothesis `PhiUpperAtom W'`.  The Abel lift — the mandated floor —
 lands unconditionally.
 -/
@@ -48,11 +48,13 @@ namespace Salt.Twelve
 
 /-! ## Cast/log monotonicity helpers -/
 
+/-- `0 ≤ log n` for every natural `n` (`log 0 = 0`; `Real.log_nonneg` for `n ≥ 1`). -/
 private lemma log_nat_nonneg (n : ℕ) : 0 ≤ Real.log (n : ℝ) := by
   rcases Nat.eq_zero_or_pos n with h | h
   · subst h; simp
   · exact Real.log_nonneg (by exact_mod_cast h)
 
+/-- `log m ≤ log n` for naturals `m ≤ n` (`h`), the case `m = 0` through `log_nat_nonneg`. -/
 private lemma log_nat_mono_le {m n : ℕ} (h : m ≤ n) :
     Real.log (m : ℝ) ≤ Real.log (n : ℝ) := by
   rcases Nat.eq_zero_or_pos m with hm | hm
@@ -118,6 +120,13 @@ private lemma pow_sub_bounds (a : ℕ) {u v : ℝ} (hu : 0 ≤ u) (huv : u ≤ v
 gap `≤ log 2 · (log z)^a` (increments `log(r+1)−log r ≤ log 2`).  This is where
 the EXACT main constant `1/(a+1)` comes from. -/
 
+/-- **L2 — the left-Riemann sum against `∫_0^{log z} u^a du`.** For every `a` and `z`,
+`Afwd z = Σ_{r < z} (log r)^a·(log(r + 1) − log r)` lies below `(log z)^{a+1}/(a + 1)` by at
+most `log 2·(log z)^a`: each increment is bracketed by the mean-value bounds `pow_sub_bounds`
+(`u^a(v − u) ≤ (v^{a+1} − u^{a+1})/(a + 1) ≤ v^a(v − u)`), the middle terms telescope to
+`(log z)^{a+1}/(a + 1)` (`Finset.sum_range_sub`), and the gap `Σ (v^a − u^a)(v − u)` is at most
+`log 2·Σ (v^a − u^a) = log 2·(log z)^a` since every increment `log(r + 1) − log r ≤ log 2`. This
+is where the EXACT main constant `1/(a + 1)` comes from. -/
 private lemma afwd_bounds (a z : ℕ) :
     0 ≤ (Real.log (z : ℝ)) ^ (a + 1) / ((a : ℝ) + 1)
           - ∑ r ∈ Finset.range z,
@@ -158,7 +167,7 @@ private lemma afwd_bounds (a z : ℕ) :
     have huv : u ≤ v := log_le_log_succ r
     have hb := (pow_sub_bounds a hunn huv).1
     rw [le_div_iff₀ hpos1]
-    nlinarith [hb]
+    linarith only [hb]
   -- `midsum = target`
   have hmidsum : (∑ r ∈ Finset.range z,
         ((Real.log ((r : ℝ) + 1)) ^ (a + 1) - (Real.log (r : ℝ)) ^ (a + 1)) / ((a : ℝ) + 1))
@@ -195,7 +204,7 @@ private lemma afwd_bounds (a z : ℕ) :
         exact Finset.sum_congr rfl (fun r _ => by ring)
     _ ≤ Real.log 2 * (Real.log (z : ℝ)) ^ a := by
         have h0 : (0 : ℝ) ≤ (0 : ℝ) ^ a := pow_nonneg le_rfl a
-        nlinarith [h0, hlog2]
+        nlinarith only [hlog2, h0]
 
 /-! ## The Abel lift (generic; the mandated floor)
 
@@ -204,6 +213,16 @@ Given a weight `w` with two-sided base `|∑_{i<n} w i − M·log n| ≤ C₀` f
 `a`-th log-moment, with the main constant `1/(a+1)` EXACT and an
 `(a`-uniform!) error constant `2·C₀ + M·log 2`. -/
 
+/-- **The Abel lift `a ↦ a + 1`** (the card's mandated floor, unconditional). For any weight `w`
+whose partial sums satisfy the two-sided base `|Σ_{i < n} w i − M·log n| ≤ C₀` for `n ≥ 2`
+(`hbase`) with `M ≥ 0` (`hM0`), and any `a` and `z ≥ 2` (`hz`): `Σ_{i < z} (log i)^a·w i` is
+within `(2·C₀ + M·log 2)·(1 + log z)^a` of `M·(log z)^{a+1}/(a + 1)`. Partial summation
+(`Finset.sum_range_by_parts`) against `(log ·)^a`, for `w` and for the increments
+`g i = log(i + 1) − log i` (whose partial sums are `log n`), gives the master identity
+`moment − M·Afwd = (log(z − 1))^a·E z − Σ_{i < z−1} ((log(i + 1))^a − (log i)^a)·E(i + 1)` with
+`E n = Σ_{i < n} w i − M·log n`; `|E| ≤ C₀` and the telescoping increments bound it by
+`2·C₀·(log z)^a`; `afwd_bounds` puts `M·Afwd` within `M·log 2·(log z)^a` of the main term; and
+`(log z)^a ≤ (1 + log z)^a`. The error constant is `a`-uniform. -/
 private lemma abel_lift (w : ℕ → ℝ) (M C₀ : ℝ) (hM0 : 0 ≤ M)
     (hbase : ∀ n : ℕ, 2 ≤ n → |(∑ i ∈ Finset.range n, w i) - M * Real.log (n : ℝ)| ≤ C₀)
     (a z : ℕ) (hz : 2 ≤ z) :
@@ -314,7 +333,7 @@ private lemma abel_lift (w : ℕ → ℝ) (M C₀ : ℝ) (hM0 : 0 ≤ M)
             rw [← Finset.sum_mul, hDisum]
         _ ≤ (Real.log (z : ℝ)) ^ a * C₀ := by
             have h00 : 0 ≤ (Real.log ((0 : ℕ) : ℝ)) ^ a := pow_nonneg (log_nat_nonneg 0) a
-            nlinarith [hfz1, h00, hC0]
+            nlinarith only [hC0, h00, hfz1]
     calc |(Real.log ((z - 1 : ℕ) : ℝ)) ^ a * E z
             - ∑ i ∈ Finset.range (z - 1),
                 ((Real.log ((i + 1 : ℕ) : ℝ)) ^ a - (Real.log (i : ℝ)) ^ a) * E (i + 1)|
@@ -376,9 +395,9 @@ base `∑_{r<x, sqf, (r,W')=1} 1/φ(r) ≤ (φW'/W')·log x + C`.
 This is strictly narrower than `moment_atom` (a=0, upper direction only).  Its
 matching LOWER bound `Salt.Maynard.phiAtom_lower` is landed (elementary block
 counting, exact constant `φW'/W'`).  The sharp upper bound is the documented
-blocker in `Salt/Maynard/PhiAtom.lean` (lines 918-953): a C-node requiring
-signed multiplicative-convolution + convergent Euler products
-(`∑_d h(d)/d = 1`, per-prime cancellation of the `6/π²`), out of scope here.
+blocker in `Salt/Maynard/PhiAtom.lean` (lines 918-953): a C-node requiring signed
+multiplicative-convolution + convergent Euler products (`∑_d h(d)/d = 1`, per-prime
+cancellation of the `6/π²`), out of scope here; it landed later as `phiUpperAtom_final`.
 `phiAtom_upper_lossy` (4×-lossy) and `phiAtom_upper_fallback` are the landed
 non-sharp substitutes; neither is sharp enough for the O(1) a=0 error. -/
 def PhiUpperAtom (W' : ℕ) : Prop :=

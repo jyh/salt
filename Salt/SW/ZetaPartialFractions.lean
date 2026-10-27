@@ -44,11 +44,14 @@ open scoped Topology
 /-- `Zc s = (s−1)·ζ(s)`, extended entire by the removable singularity at `s = 1` (value `1`). -/
 noncomputable def Zc : ℂ → ℂ := Function.update (fun s => (s - 1) * riemannZeta s) 1 1
 
+/-- `Zc 1 = 1`. -/
 lemma Zc_one : Zc 1 = 1 := Function.update_self 1 1 _
 
+/-- `Zc s = (s - 1) * riemannZeta s` for `s ≠ 1`. -/
 lemma Zc_eq_of_ne {s : ℂ} (hs : s ≠ 1) : Zc s = (s - 1) * riemannZeta s :=
   Function.update_of_ne hs _ _
 
+/-- `Zc` is differentiable at every `s ≠ 1`. -/
 lemma Zc_differentiableAt_of_ne {s : ℂ} (hs : s ≠ 1) : DifferentiableAt ℂ Zc s := by
   have hprod : DifferentiableAt ℂ (fun z => (z - 1) * riemannZeta z) s :=
     (differentiableAt_id.sub_const 1).mul (differentiableAt_riemannZeta hs)
@@ -57,6 +60,7 @@ lemma Zc_differentiableAt_of_ne {s : ℂ} (hs : s ≠ 1) : DifferentiableAt ℂ 
     exact Zc_eq_of_ne (by simpa using hz)
   exact hprod.congr_of_eventuallyEq hloc
 
+/-- `Zc` is continuous at `1`. -/
 lemma Zc_continuousAt_one : ContinuousAt Zc 1 := by
   rw [← continuousWithinAt_compl_self]
   have hEq : (fun s => (s - 1) * riemannZeta s) =ᶠ[𝓝[≠] 1] Zc := by
@@ -65,11 +69,13 @@ lemma Zc_continuousAt_one : ContinuousAt Zc 1 := by
   have : Tendsto Zc (𝓝[≠] 1) (𝓝 1) := riemannZeta_residue_one.congr' hEq
   simpa [ContinuousWithinAt, Zc_one] using this
 
+/-- `Zc` is analytic at `1`. -/
 lemma Zc_analyticAt_one : AnalyticAt ℂ Zc 1 := by
   apply analyticAt_of_differentiable_on_punctured_nhds_of_continuousAt _ Zc_continuousAt_one
   filter_upwards [self_mem_nhdsWithin] with z hz
   exact Zc_differentiableAt_of_ne hz
 
+/-- `Zc` is differentiable on all of `ℂ`. -/
 lemma Zc_differentiable : Differentiable ℂ Zc := by
   intro s
   rcases eq_or_ne s 1 with rfl | hs
@@ -149,7 +155,7 @@ theorem entire_zero_count_le {F : ℂ → ℂ} (hF : Differentiable ℂ F) {c : 
   have hRr : 1 < R / r := (one_lt_div hr).mpr hrR
   have hlogpos : 0 < Real.log (R / r) := Real.log_pos hRr
   have hMpos : (0 : ℝ) < M := by linarith
-  have hle1 : M / ‖F c‖ ≤ 4 * M := by rw [div_le_iff₀ hcnorm]; nlinarith [hFc, hMpos]
+  have hle1 : M / ‖F c‖ ≤ 4 * M := by rw [div_le_iff₀ hcnorm]; nlinarith only [hFc, hM]
   have hlog : Real.log (M / ‖F c‖) ≤ Real.log (4 * M) :=
     Real.log_le_log (div_pos hMpos hcnorm) hle1
   rw [div_le_div_iff_of_pos_right hlogpos]
@@ -507,16 +513,19 @@ lemma dom_summable (s : ℂ) (hσ : 0 < s.re) :
     refine hbase.congr (fun n => ?_); push_cast; ring
   exact h1.mul_left _
 
+/-- `‖dTerm s (n + 1)‖ ≤ ‖s‖ · (n + 1) ^ (-(Re s + 1))` for `0 < Re s`. -/
 lemma dTerm_norm_le' (s : ℂ) (hσ : 0 < s.re) (n : ℕ) :
     ‖dTerm s (n + 1)‖ ≤ ‖s‖ * ((n : ℝ) + 1) ^ (-(s.re + 1)) := by
   have := dTerm_norm_le s hσ (m := n + 1) (by omega)
   rwa [show ((n + 1 : ℕ) : ℝ) = (n : ℝ) + 1 by push_cast; ring] at this
 
+/-- `n ↦ ‖dTerm s (n + 1)‖` is summable for `0 < Re s`. -/
 lemma dTerm_norm_summable (s : ℂ) (hσ : 0 < s.re) :
     Summable (fun n : ℕ => ‖dTerm s (n + 1)‖) :=
   Summable.of_nonneg_of_le (fun _ => norm_nonneg _) (fun n => dTerm_norm_le' s hσ n)
     (dom_summable s hσ)
 
+/-- `n ↦ dTerm s (n + 1)` is summable for `0 < Re s`. -/
 lemma dTerm_summable_shift (s : ℂ) (hσ : 0 < s.re) : Summable (fun n : ℕ => dTerm s (n + 1)) :=
   (dTerm_norm_summable s hσ).of_norm
 
@@ -866,8 +875,9 @@ end ZcGrowth
 `O((|t₀|+2)²)` bound valid on both spheres `|z−c| ∈ {3/2, 7/4}` about `c = 2 + t₀i`. -/
 noncomputable def M0zeta (t₀ : ℝ) : ℝ := 1 + 5 * (19 / 4 + |t₀|) * (15 / 4 + |t₀|)
 
+/-- `1 ≤ M0zeta t₀`. -/
 lemma one_le_M0zeta (t₀ : ℝ) : 1 ≤ M0zeta t₀ := by
-  have := abs_nonneg t₀; rw [M0zeta]; nlinarith [this]
+  have := abs_nonneg t₀; rw [M0zeta]; nlinarith only [this]
 
 /-- `log(4·M₀ζ(2γ)) ≤ 9·log(|γ|+2)` — the `O(log(|γ|+2))` collapse of the growth quantity
 (`4 M₀ζ(2γ) ≤ 100(|γ|+2)²`, `log 100 ≤ 7 log 2 ≤ 7 log(|γ|+2)`). -/
@@ -876,7 +886,7 @@ lemma log_4M0zeta_le (γ : ℝ) :
   have hx : (0 : ℝ) ≤ |γ| := abs_nonneg γ
   have h2γ : |2 * γ| = 2 * |γ| := by rw [abs_mul]; norm_num
   have hbound4 : 4 * M0zeta (2 * γ) ≤ 100 * (|γ| + 2) ^ 2 := by
-    rw [M0zeta, h2γ]; nlinarith [hx]
+    rw [M0zeta, h2γ]; nlinarith only [hx]
   have hM0pos : (0 : ℝ) < 4 * M0zeta (2 * γ) := by have := one_le_M0zeta (2 * γ); linarith
   have hlog2le : Real.log 2 ≤ Real.log (|γ| + 2) := Real.log_le_log (by norm_num) (by linarith)
   have hlog100 : Real.log 100 ≤ 7 * Real.log (|γ| + 2) := by
@@ -992,7 +1002,7 @@ theorem zeta_neg_re_logDeriv_le {σ γ : ℝ} (h1 : 1 < σ) (h2 : σ ≤ 2) :
   -- collapse `120·log(4M₀ζ(2γ)) ≤ 1080·log(|γ|+2)`
   have hlog : 120 * Real.log (4 * M0zeta t₀) ≤ 1080 * Real.log (|γ| + 2) := by
     have := log_4M0zeta_le γ; rw [ht₀]
-    nlinarith [this]
+    linarith only [this]
   -- assemble
   rw [hsplit]
   linarith [hZcnum, hlog]

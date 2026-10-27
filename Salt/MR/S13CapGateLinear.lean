@@ -8,6 +8,7 @@ import Salt.MR.S13BandCapLinear
 import Salt.MR.M4CapWireLinear
 import Salt.MR.M4RowLinear
 import Salt.MR.DoorLadderLinear
+import Salt.Tactic.ExpLogNum
 
 /-!
 # `S13CapGateLinear` — THE CAP-GATE LANE AT THE LINEAR DOOR
@@ -91,7 +92,7 @@ only; the other thirty-two are the landed terms verbatim. -/
 structure S13CapGatePerBlock_L_gk (K : ℕ) (Cq cs T₀ Kq Ks C : ℝ) (M Nd q P Q Hreg : ℕ)
     (Tann Rrad Rbd CR EP2 εr : ℝ) : Prop where
   -- ⟦THE SCALE FLOOR⟧
-  /-- `8 ≤ log X` — §3's `logX_four` strengthened by one octave (§8a's grid floor). -/
+  /-- `8 ≤ log X` — `S13FramesB` §3's `logX_four` strengthened one octave (its §8a grid floor). -/
   logX_eight : 8 ≤ Real.log ((Nd : ℕ) : ℝ)
   /-- `2 ≤ H₈₃ X θ₂₉₃` — ONE field for both bundles. -/
   H83_two : 2 ≤ H83 ((Nd : ℕ) : ℝ) theta293
@@ -612,7 +613,7 @@ product route is LADDER-BLIND and the only moving parts are the two door reads t
 `Lq = 4M·Lp` (`s16_logQK2`, `(A,G)`-generic) and the width cap
 `log 𝓗₂ ≤ 2 + Lp/73728` (re-cut below). -/
 
-/-- `s16_logP1_le_logP2 (S16Budget:139)` at the linear door. -/
+/-- `s16_logP1_le_logP2 (S16Budget)` at the linear door. -/
 theorem s16_logP1_le_logP2_L (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
     Real.log ((calP (AdoorL M) (3072 * M) 1 : ℕ) : ℝ)
       ≤ Real.log ((calP (AdoorL M) (s13GK K M) 2 : ℕ) : ℝ) / 12288 := by
@@ -632,7 +633,7 @@ theorem s16_logP1_le_logP2_L (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
   nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 4 * ((s13GK K M : ℕ) : ℝ) - 12288)
     (mul_nonneg (by linarith : (0 : ℝ) ≤ ((AdoorL M : ℕ) : ℝ)) hlog2.le)]
 
-/-- `s16_logH2_le (S16Budget:156)` at the linear door. -/
+/-- `s16_logH2_le (S16Budget)` at the linear door. -/
 theorem s16_logH2_le_L (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
     Real.log (calH (H1doorL M) 2)
       ≤ 2 + Real.log ((calP (AdoorL M) (s13GK K M) 2 : ℕ) : ℝ) / 73728 := by
@@ -648,18 +649,13 @@ theorem s16_logH2_le_L (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
   have hle := s16_logP1_le_logP2_L K hM
   rw [s16_calH_two, Real.log_mul (by norm_num) (by linarith)]
   have hlog4 : Real.log 4 ≤ 2 := by
-    have : (4 : ℝ) ≤ Real.exp 2 := by
-      have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-      have hsq : Real.exp 2 = (Real.exp 1) ^ (2 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-      rw [hsq]; nlinarith [Real.exp_pos 1]
-    calc Real.log 4 ≤ Real.log (Real.exp 2) := Real.log_le_log (by norm_num) this
-      _ = 2 := Real.log_exp 2
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 2 (by norm_num) (by norm_num)
   linarith
 
 set_option maxHeartbeats 1600000 in
 -- same cause as the landed `s16_budget_field_gk_96`: the numeric core's seven-symbol
 -- instantiation re-elaborates against the linear anchor's casts
-/-- `s16_budget_field_gk_96 (S16Budget:2029)` at the linear door. -/
+/-- `s16_budget_field_gk_96 (S16Budget)` at the linear door. -/
 theorem s16_budget_field_L_gk_96 (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
     (hM : 1 ≤ M) (hq : 1 ≤ q) (hQpos : 0 < Q)
     (hmu8 : 8 ≤ Real.log (Nd : ℝ))
@@ -802,11 +798,7 @@ theorem s16_budget_field_L_gk_96 (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
     ring
   -- ⟦THE ASSEMBLY⟧
   have h1680 : (1680 : ℝ) ≤ Real.exp 8 := by
-    have h2 : Real.exp 8 = (Real.exp 1) ^ (8 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have h4 : (2.7182818283 : ℝ) ^ (8 : ℕ) ≤ (Real.exp 1) ^ (8 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) Real.exp_one_gt_d9.le 8
-    have h5 : (1680 : ℝ) ≤ (2.7182818283 : ℝ) ^ (8 : ℕ) := by norm_num
-    linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 8 (by norm_num)
   rw [thinBundleGChi, hVJ, hXr]
   set E : ℝ := 2 * (Real.log ((q : ℝ) * Tann) / Lp)
     * Real.log (Real.log ((q : ℝ) * Tann)) with hEdef
@@ -882,7 +874,7 @@ theorem s16_budget_field_L_gk_96 (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
 
 /-! ## §7 — ⟦THE CAP-GATE SUPPLY AT THE LINEAR DOOR⟧
 
-`S16Budget.s16_capGate_supply_wide_gk (:2370)` re-cut.  The two carried riders
+`S16Budget.s16_capGate_supply_wide_gk` re-cut.  The two carried riders
 (⟦RULING 9⟧'s co-factor debt and ITEM 3's base-scale cap) are re-stated at the LINEAR socket
 and the LINEAR door: both get WEAKER, since `SocketBaseL → SocketBase` strengthens the
 antecedent and `Adoor M ≤ AdoorL M` raises the cap's right side. -/
@@ -931,7 +923,7 @@ theorem s16_baseScaleCap96_L_of_baseScaleCap96 (K : ℕ) {R : ChowlaRegime} {M :
 set_option maxHeartbeats 1000000 in
 -- 37 structure fields are checked against the levered per-block gate in one `exact`
 /-- **⟦THE CAP GATE AT THE LINEAR DOOR⟧** (`s16_capGate_supply_L_gk`) —
-`S16Budget.s16_capGate_supply_wide_gk (:2370)` at `AdoorL`.  The grid wave is the linear one
+`S16Budget.s16_capGate_supply_wide_gk` at `AdoorL`.  The grid wave is the linear one
 (§5), the floor wave is `S13BandCapLinear.s13CapFloor_all_L_gk`, the `eps` wave is the LANDED
 `s13CapEps_all` (ladder-blind: it reads the socket base and the pinned band only, never the
 anchor) composed through `ArithPageLinear.socketBase_of_socketBaseL`, and the `budget` field

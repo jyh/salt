@@ -299,7 +299,7 @@ theorem zeta_block_vdC (k : ℕ) (hk : 2 ≤ k) : ∃ C : ℝ, 1 ≤ C ∧
   refine ⟨C₀ * ((3 : ℝ) ^ (i + 1)) ^ (4 / (2 : ℝ) ^ (i + 1)), ?_, ?_⟩
   · have h3 : (1 : ℝ) ≤ ((3 : ℝ) ^ (i + 1)) ^ (4 / (2 : ℝ) ^ (i + 1)) :=
       Real.one_le_rpow (one_le_pow₀ (by norm_num)) (by positivity)
-    nlinarith [hC₀1, h3, mul_nonneg (sub_nonneg.mpr hC₀1) (sub_nonneg.mpr h3)]
+    linarith only [h3, hC₀1, mul_nonneg (sub_nonneg.mpr hC₀1) (sub_nonneg.mpr h3)]
   · intro t N lam ht hkN hlam
     simp only [Nat.add_sub_cancel] at hlam
     have hN1 : 1 ≤ N := by omega

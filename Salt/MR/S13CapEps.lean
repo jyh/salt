@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.S13MSelect2
 import Salt.MR.M4AssemblyFrames
+import Salt.Tactic.ExpLogNum
 
 /-!
 # ⟦W-EPS⟧ — THE `εr` GROUP OF `S13CapGatePerBlock`, SUPPLIED AT THE SOCKET
@@ -248,12 +249,7 @@ theorem capeps_row_phi (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) 
   have hΛ1 : (1 : ℝ) ≤ Real.log μ := by linarith
   have hp12 : (0 : ℝ) < u ^ (12 : ℕ) := pow_pos hu0 12
   have he11 : (49920 : ℝ) ≤ Real.exp 11 := by
-    have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-    have hh : Real.exp 11 = (Real.exp 1) ^ (11 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have hc : (2.7182818283 : ℝ) ^ (11 : ℕ) ≤ (Real.exp 1) ^ (11 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) h1.le 11
-    have : (49920 : ℝ) ≤ (2.7182818283 : ℝ) ^ (11 : ℕ) := by norm_num
-    rw [hh]; linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 11 (by norm_num)
   have hstone := capeps_expbound hu hμ hΛ (by norm_num : (11 : ℝ) ≤ 50)
   have hkey : 49920 * φ ≤ μ ^ (theta293 - 1 / 500) := by
     have h1 : 49920 * φ ≤ Real.exp 11 * u ^ (12 : ℕ) := by nlinarith
@@ -313,12 +309,7 @@ theorem capeps_row_tail (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ)
     have := Real.exp_le_exp.mpr hC
     rwa [Real.exp_log hC0] at this
   have h3072 : (3072 : ℝ) ≤ Real.exp 9 := by
-    have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-    have hh : Real.exp 9 = (Real.exp 1) ^ (9 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have hc : (2.7182818283 : ℝ) ^ (9 : ℕ) ≤ (Real.exp 1) ^ (9 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) h1.le 9
-    have : (3072 : ℝ) ≤ (2.7182818283 : ℝ) ^ (9 : ℕ) := by norm_num
-    rw [hh]; linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 9 (by norm_num)
   have h38 : (3072 : ℝ) * C ≤ Real.exp 49 := by
     have hsum : Real.exp 49 = Real.exp 9 * Real.exp 40 := by rw [← Real.exp_add]; norm_num
     rw [hsum]
@@ -342,12 +333,7 @@ theorem capeps_row_tail (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ)
   have hlegB : 64 * u ^ (12 : ℕ) / X ≤ μ ^ (-(1 / 500) : ℝ) / 24 := by
     have hstone := capeps_bigexp hu hμ hΛ (by norm_num : (8 : ℝ) ≤ 50)
     have he8 : (1536 : ℝ) ≤ Real.exp 8 := by
-      have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-      have hh : Real.exp 8 = (Real.exp 1) ^ (8 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-      have hc : (2.7182818283 : ℝ) ^ (8 : ℕ) ≤ (Real.exp 1) ^ (8 : ℕ) :=
-        pow_le_pow_left₀ (by norm_num) h1.le 8
-      have : (1536 : ℝ) ≤ (2.7182818283 : ℝ) ^ (8 : ℕ) := by norm_num
-      rw [hh]; linarith
+      exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 8 (by norm_num)
     have hμ2 : (1 : ℝ) ≤ μ ^ 2 := by nlinarith
     have ha : 1536 * u ^ (12 : ℕ) ≤ Real.exp 8 * u ^ (12 : ℕ) :=
       mul_le_mul_of_nonneg_right he8 hp12.le
@@ -395,12 +381,7 @@ theorem capeps_row_p2 (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) �
     ring
   -- ⟦leg 1⟧ `49152·u¹²·μ·μ^{1/500} ≤ P`
   have he11 : (49152 : ℝ) ≤ Real.exp 11 := by
-    have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
-    have hh : Real.exp 11 = (Real.exp 1) ^ (11 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
-    have hc : (2.7182818283 : ℝ) ^ (11 : ℕ) ≤ (Real.exp 1) ^ (11 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) h1.le 11
-    have : (49152 : ℝ) ≤ (2.7182818283 : ℝ) ^ (11 : ℕ) := by norm_num
-    rw [hh]; linarith
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 11 (by norm_num)
   have hlegA : 12 * (1024 * u ^ (12 : ℕ) * β / Pr) ≤ μ ^ (-(1 / 500) : ℝ) / 2 := by
     have hstone := capeps_Pbig hu hμ hΛ
     have h500 : (0 : ℝ) < μ ^ ((1 : ℝ) / 500) := Real.rpow_pos_of_pos hμ0 _

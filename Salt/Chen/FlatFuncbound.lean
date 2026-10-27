@@ -48,7 +48,7 @@ theorem hBJS_window_min {s : ℝ} (hs1 : 1 ≤ s) (hs3 : s ≤ 3) : Real.exp (-2
   rcases le_total s 2 with h2 | h2
   · -- flat branch `s ≤ 2`: `s·e⁻² ≥ e⁻²`
     rw [hBJS_le2 h2]
-    nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ s - 1) (Real.exp_pos (-2 : ℝ)).le]
+    linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ s - 1) (Real.exp_pos (-2 : ℝ)).le]
   · -- decay branch `2 ≤ s ≤ 3`: `s·e⁻ˢ ≥ e⁻²` via `e^{s−2} ≤ s`
     rw [hBJS_mid h2 hs3]
     have hpade : (4 - s) * Real.exp (s - 2) ≤ s := by
@@ -58,7 +58,7 @@ theorem hBJS_window_min {s : ℝ} (hs1 : 1 ≤ s) (hs3 : s ≤ 3) : Real.exp (-2
       rw [e1, e2] at h; exact h
     have hexp_le : Real.exp (s - 2) ≤ s := by
       have h1 : Real.exp (s - 2) ≤ (4 - s) * Real.exp (s - 2) := by
-        nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 3 - s) (Real.exp_pos (s - 2)).le]
+        linarith only [mul_nonneg (by linarith : (0 : ℝ) ≤ 3 - s) (Real.exp_pos (s - 2)).le]
       linarith [hpade, h1]
     have eid : Real.exp (-2) = Real.exp (s - 2) * Real.exp (-s) := by
       rw [← Real.exp_add]; congr 1; ring
@@ -81,7 +81,7 @@ theorem hBJS_funcbound_flat (s c : ℝ) (hs1 : 1 ≤ s) (hs3 : s ≤ 3) :
     have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
     have h3pos : (0 : ℝ) < Real.exp (-3) := Real.exp_pos _
     rw [e2id]
-    nlinarith [he, h3pos, mul_pos (by linarith : (0 : ℝ) < 2.7182818286 - Real.exp 1) h3pos]
+    linarith only [h3pos, mul_pos (by linarith : (0 : ℝ) < 2.7182818286 - Real.exp 1) h3pos]
   -- window minimum `e⁻² ≤ s·h(s)` lifts the constant target to the general `s`
   have key_min : Real.exp (-2) ≤ s * hBJS s := hBJS_window_min hs1 hs3
   have hassoc : (97 / 100) * (s * hBJS s) = (97 / 100) * s * hBJS s := by ring

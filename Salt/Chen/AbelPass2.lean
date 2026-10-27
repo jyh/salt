@@ -31,7 +31,7 @@ transferred to `Ifun` by `HasDerivAt.congr_of_eventuallyEq` on the open band.  T
 monotonicity finding: writing `P = 2 − 3β`, `β = log u/log N ∈ [1/8, 1/3]` on `[z, y]`, the
 derivative sign reduces to `P log P ≤ 1 + P` for `P ∈ [1, 13/8]` — TRUE, so **`I` is globally
 antitone on `[z, y]`** and the antitone Abel pass (`prime_sum_abel_antitone`) applies directly.
-(Numerically verified: `I(u)` matches the closed form to ~1e−12; the derivative `< 0`
+(Checked numerically, outside Lean: `I(u)` matches the closed form to ~1e−12; the derivative `< 0`
 throughout the operating range.)
 
 No `sorry`, no `native_decide`, no new axioms.
@@ -275,8 +275,8 @@ theorem Ifun_deriv_nonpos {N u : ℝ} (hN : 1 < N) (hu0 : 0 < u)
     linarith
   have hlogP : Real.log (IargA N u) ≤ IargA N u - 1 := Real.log_le_sub_one_of_pos hP0
   have hkey : IargA N u * Real.log (IargA N u) - (1 + IargA N u) ≤ 0 := by
-    nlinarith [mul_le_mul_of_nonneg_left hlogP hP0.le,
-      mul_nonneg (by linarith : (0:ℝ) ≤ 13 / 8 - IargA N u) (by linarith : (0:ℝ) ≤ IargA N u - 1)]
+    linarith only [hP_hi, mul_nonneg (by linarith : (0 : ℝ) ≤ 13 / 8 - IargA N u)
+        (by linarith : (0 : ℝ) ≤ IargA N u - 1), mul_le_mul_of_nonneg_left hlogP hP0.le]
   -- the P-Q relation `3Q = (1 + P)·log N`, hence `3Q/(log N·P) = (1 + P)/P`
   have hR : 3 * IdenA N u = (1 + IargA N u) * Real.log N := by
     simp only [IargA, IdenA]; field_simp; ring
@@ -285,7 +285,7 @@ theorem Ifun_deriv_nonpos {N u : ℝ} (hN : 1 < N) (hu0 : 0 < u)
   simp only [Ifun_deriv]
   rw [hfrac]
   have hnum : Real.log (IargA N u) - (1 + IargA N u) / IargA N u ≤ 0 := by
-    rw [sub_nonpos, le_div_iff₀ hP0]; nlinarith [hkey]
+    rw [sub_nonpos, le_div_iff₀ hP0]; linarith only [hkey]
   have hu0' : 0 < u⁻¹ := by positivity
   apply div_nonpos_of_nonpos_of_nonneg
   · exact mul_nonpos_of_nonneg_of_nonpos hu0'.le hnum
@@ -438,7 +438,7 @@ theorem Ifun_integral_eq_cbar {N z y : ℝ} (hN : 1 < N) (hy0 : 0 < y)
       rw [Set.uIcc_of_le (by norm_num : (1 : ℝ) / 8 ≤ 1 / 3), Set.mem_Icc] at hβ; exact hβ
     have hφβ0 : (0 : ℝ) < Real.exp (β * Real.log N) := Real.exp_pos _
     have hlogφ : Real.log (Real.exp (β * Real.log N)) = β * Real.log N := Real.log_exp _
-    have hβlt : β * Real.log N < 2 / 3 * Real.log N := by nlinarith [hLN]
+    have hβlt : β * Real.log N < 2 / 3 * Real.log N := by nlinarith only [hLN, hβhi]
     have hcf : Ifun N y (Real.exp (β * Real.log N))
         = Ifun_cf N (Real.exp (β * Real.log N)) :=
       Ifun_closed_form hN hy0 hy hφβ0 (by rw [hlogφ]; exact hβlt)

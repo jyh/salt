@@ -389,7 +389,7 @@ theorem sum_cpow_sandwich_rho {ρ : ℂ} (hσ0 : 0 < ρ.re) (hσ1 : ρ.re < 1) {
       ≤ 2 * x ^ (1 - σ) + 4 * ‖1 - ρ‖ * x ^ (1 - σ) / (1 - σ) := by
     have hstep : (n : ℝ) ^ (1 - σ) / (1 - σ) ≤ x ^ (1 - σ) / (1 - σ) := by
       rw [div_le_div_iff_of_pos_right hu]; exact hnxpow
-    have h2x : (2 : ℝ) ≤ 2 * x ^ (1 - σ) := by nlinarith [hxge1]
+    have h2x : (2 : ℝ) ≤ 2 * x ^ (1 - σ) := by linarith only [hxge1]
     have hcoef : (0 : ℝ) ≤ 4 * ‖1 - ρ‖ := by positivity
     calc ‖∑ t ∈ Finset.Icc 1 n, e t‖ ≤ 2 + 4 * ‖1 - ρ‖ * ((n : ℝ) ^ (1 - σ) / (1 - σ)) := hesum
       _ ≤ 2 * x ^ (1 - σ) + 4 * ‖1 - ρ‖ * (x ^ (1 - σ) / (1 - σ)) := by
@@ -488,7 +488,7 @@ theorem unmoll_extraction_rho [NeZero q] (χ : DirichletCharacter ℂ q)
     have hsq14 : (1.4 : ℝ) ≤ Real.sqrt q := le_trans hs2 (Real.sqrt_le_sqrt hq2)
     have h5e : 5 * Real.exp 1 ≤ 18 * Real.sqrt q := by nlinarith [Real.exp_one_lt_d9, hsq14]
     rw [hMdef]
-    nlinarith [hnorm, mul_le_mul_of_nonneg_right h5e hlogq0]
+    linarith only [hnorm, mul_le_mul_of_nonneg_right h5e hlogq0]
   -- R6-1@ρ : the complex kernel-Abel identity
   have hAbel : dhD0rho χ ρ x = (1 / (x : ℂ)) * (((x : ℂ) - (T : ℂ))
         * (∑ s ∈ Finset.Icc 1 T, (dhA χ s : ℂ) * (s : ℂ) ^ (-ρ))
@@ -593,7 +593,7 @@ theorem unmoll_extraction_rho [NeZero q] (χ : DirichletCharacter ℂ q)
             calc ∑ t ∈ Finset.Icc 1 (T - 1), (t : ℝ) ^ (1 / 2 - ρ.re)
                 ≤ ((T - 1 : ℕ) : ℝ) ^ (3 / 2 - ρ.re) / (3 / 2 - ρ.re) := h
               _ ≤ x ^ (3 / 2 - ρ.re) / (3 / 2 - ρ.re) := (div_le_div_iff_of_pos_right h32).mpr hbase
-              _ ≤ 2 * x ^ (3 / 2 - ρ.re) := by rw [div_le_iff₀ h32]; nlinarith [hxc]
+              _ ≤ 2 * x ^ (3 / 2 - ρ.re) := by rw [div_le_iff₀ h32]; nlinarith only [hhi, hxc]
         _ = 2 * Cwρ * x ^ (3 / 2 - ρ.re) := by ring
     calc ‖((x : ℂ) - (T : ℂ)) * (ST - L₁ * (T : ℂ) ^ (1 - ρ) / (1 - ρ))
             + ∑ t ∈ Finset.Icc 1 (T - 1),

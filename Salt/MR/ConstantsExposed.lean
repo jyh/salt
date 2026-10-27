@@ -100,7 +100,7 @@ theorem exp_nineteen_div_log_two_le : Real.exp (19 / Real.log 2) ≤ 9 * 10 ^ 11
   have hlog : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
   have hlogpos : (0 : ℝ) < Real.log 2 := by linarith
   have ha : 19 / Real.log 2 ≤ 27.5 := by
-    rw [div_le_iff₀ hlogpos]; nlinarith
+    rw [div_le_iff₀ hlogpos]; linarith only [hlogpos, hlog]
   set y := Real.exp (19 / Real.log 2) with hy
   have hypos : 0 < y := Real.exp_pos _
   have hsq : y ^ 2 ≤ 8 * 10 ^ 23 := by
@@ -108,7 +108,7 @@ theorem exp_nineteen_div_log_two_le : Real.exp (19 / Real.log 2) ≤ 9 * 10 ^ 11
       rw [hy, ← Real.exp_nat_mul]; norm_num
     rw [hyy]
     exact le_trans (Real.exp_le_exp.mpr (by linarith)) exp_55_le
-  nlinarith [hsq, hypos]
+  nlinarith only [hypos, hsq]
 
 /-- The closed form of `Cg`: `1/(exp(-19/log 2)/2) + 1 = 2·exp(19/log 2) + 1`. -/
 theorem CgExpr_eq : CgExpr = 2 * Real.exp (19 / Real.log 2) + 1 := by
@@ -262,8 +262,8 @@ theorem Klcm_le : KlcmExpr ≤ 15 * 10 ^ 16 := by
     have hyy : y ^ 2 = Real.exp (2 * (4 * Real.pi ^ 2)) := by
       rw [hy, ← Real.exp_nat_mul]; norm_num
     rw [hyy]
-    exact le_trans (Real.exp_le_exp.mpr (by nlinarith)) exp_79_le
-  nlinarith [h2, hypos]
+    exact le_trans (Real.exp_le_exp.mpr (by nlinarith only [hpi, hpi0])) exp_79_le
+  nlinarith only [hypos, h2]
 
 /-- **`CL`**, the large-`H` arm of `hpt_holds`'s `C₁`: `800/c₀ + 102400/ε²` at
 `c₀ = 1/64` (`Salt.M3Assembly.exists_const_mainTermSum_ge`'s witness). -/
@@ -296,9 +296,9 @@ theorem CSExpr_le {H₁ : ℕ} (h1 : 1 ≤ H₁) (h2 : H₁ ≤ 2 ^ 100) :
       rw [Real.log_pow]; norm_num
     rw [he] at h
     linarith
-  have hlogsq : (Real.log (H₁ : ℝ)) ^ 2 ≤ 4805 := by nlinarith
+  have hlogsq : (Real.log (H₁ : ℝ)) ^ 2 ≤ 4805 := by nlinarith only [hlognn, hlog]
   have hA : (epsPin : ℝ) ^ 2 * (H₁ : ℝ) + 1 ≤ 50706025 * 10 ^ 17 := by
-    rw [epsPin_cast]; nlinarith [hHR]
+    rw [epsPin_cast]; linarith only [hHR]
   have hAnn : (0 : ℝ) ≤ (epsPin : ℝ) ^ 2 * (H₁ : ℝ) + 1 := by
     rw [epsPin_cast]; positivity
   have hAsq : ((epsPin : ℝ) ^ 2 * (H₁ : ℝ) + 1) ^ 2 ≤ (50706025 * 10 ^ 17 : ℝ) ^ 2 :=
@@ -310,9 +310,9 @@ theorem CSExpr_le {H₁ : ℕ} (h1 : 1 ≤ H₁) (h2 : H₁ ≤ 2 ^ 100) :
       ≤ (50706025 * 10 ^ 17 : ℝ) ^ 2 * 4805 := by
     have h1' : ((1 / 500 : ℝ) ^ 2 * (H₁ : ℝ) + 1) ^ 2 ≤ (50706025 * 10 ^ 17 : ℝ) ^ 2 := by
       rw [epsPin_cast] at hAsq; exact hAsq
-    nlinarith [sq_nonneg (Real.log (H₁ : ℝ)), hlogsq, h1',
-      sq_nonneg ((1 / 500 : ℝ) ^ 2 * (H₁ : ℝ) + 1)]
-  nlinarith [hstep]
+    nlinarith only [hlogsq, h1',
+        sq_nonneg (1 * 1 * (1 * ↑H₁) + 250000 * 1)]
+  linarith only [hstep]
 
 /-- **`C₁ = CL + CS`**, the representation-count constant of `hpt_holds`. -/
 noncomputable def C1Expr (H₁ : ℕ) : ℝ := CLExpr + CSExpr H₁
@@ -363,9 +363,9 @@ theorem KExpr_le {H₁ : ℕ} (h1 : 1 ≤ H₁) (h2 : H₁ ≤ 2 ^ 100) :
   have hprod : KlcmExpr * (C1Expr H₁) ^ 2
       ≤ (15 * 10 ^ 16 : ℝ) * (1551 * 10 ^ 55 : ℝ) ^ 2 := by
     have hsqnn : (0 : ℝ) ≤ (C1Expr H₁) ^ 2 := sq_nonneg _
-    nlinarith [hK, hKpos, hCsq, hsqnn]
+    nlinarith only [hK, hCsq, sq_nonneg (C1Expr H₁)]
   rw [KExpr_eq]
-  nlinarith [hprod]
+  linarith only [hprod]
 
 /-! ## §4 `δ₀` and the composite floor -/
 
@@ -396,7 +396,7 @@ theorem delta0_ge {H₁ : ℕ} (h1 : 1 ≤ H₁) (h2 : H₁ ≤ 2 ^ 100) :
   have hCle := CcmExpr_le
   have hK := KExpr_pos H₁
   have hKle := KExpr_le h1 h2
-  have hden : 64000 * CcmExpr * KExpr H₁ ≤ 10 ^ 168 := by nlinarith
+  have hden : 64000 * CcmExpr * KExpr H₁ ≤ 10 ^ 168 := by nlinarith only [hC, hKle, hCle]
   have hdenpos : (0 : ℝ) < 64000 * CcmExpr * KExpr H₁ := by positivity
   rw [delta0Expr_eq]
   exact one_div_le_one_div_of_le hdenpos hden
@@ -419,7 +419,7 @@ theorem b_floor_cert {H₁ : ℕ} (h1 : 1 ≤ H₁) (h2 : H₁ ≤ 2 ^ 100) :
   have hstep : 24 * CgExpr * (64000 * CcmExpr * KExpr H₁)
       ≤ 24 * (2 * 10 ^ 12) * (64000 * (655 / 100) * (12 * 10 ^ 161)) := by
     have h1' : CcmExpr * KExpr H₁ ≤ (655 / 100 : ℝ) * (12 * 10 ^ 161) := by nlinarith
-    nlinarith [hCg, hCgpos, h1', hC, hK]
+    nlinarith only [hCgpos, h1', hCg]
   refine le_trans hstep ?_
   norm_num
 

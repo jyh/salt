@@ -74,7 +74,7 @@ private lemma eight_log_le_self_hs {Lv : ℝ} (h : 64 ≤ Lv) : 8 * Real.log Lv 
   have hdiv : Real.sqrt Lv / Real.exp 1 ≤ Real.sqrt Lv / 2 :=
     div_le_div_of_nonneg_left hs0.le (by norm_num) he2
   rw [hhalf] at hlog
-  nlinarith
+  nlinarith only [hs0, hs8, hdiv, hlog, hsq]
 
 /-- **The four `Y`-gates at the corpus pin `Y x = (log x)^4`**, from the single scale gate
 `e^{4096} ≤ k`.  The binding one is the fourth, `log (Y k) = 4 log L ≤ √L`, which is
@@ -121,7 +121,7 @@ private lemma ypin4_gates_hs {k : ℝ} (hk : Real.exp 4096 ≤ k) :
     refine Real.exp_le_exp.mpr ?_
     have h8 := eight_log_le_self_hs (le_trans (by norm_num) hL)
     linarith
-  refine ⟨by nlinarith, hg2, le_trans hsqLle hL4, ?_⟩
+  refine ⟨by linarith only [hL4, hL], hg2, le_trans hsqLle hL4, ?_⟩
   rw [hlogpow]
   exact hbind
 
@@ -136,7 +136,7 @@ private lemma le_natDiv_of_le_hs {k d : ℕ} {z : ℝ} (hd : 1 ≤ d)
     exact_mod_cast Nat.mod_lt k (show 0 < d by omega)
   have h2 : (k : ℝ) / (d : ℝ) - 1 < ((k / d : ℕ) : ℝ) := by
     rw [sub_lt_iff_lt_add, div_lt_iff₀ hd0]
-    nlinarith
+    linarith only [hlt, hmod]
   linarith
 
 /-! ## §2 — the hoisted twin -/
@@ -213,13 +213,13 @@ theorem seam_ball_leg_station_M_hoisted {F : ℕ → ℂ}
   have hX0 : (0 : ℝ) < X := Real.sqrt_pos.mp hsq0
   have hsqsq : Real.sqrt X * Real.sqrt X = X := Real.mul_self_sqrt hX0.le
   have hsq1 : (1 : ℝ) ≤ Real.sqrt X := by linarith
-  have hsqX : Real.sqrt X ≤ X := by nlinarith
+  have hsqX : Real.sqrt X ≤ X := by linarith only [hXdX, hsqXd]
   have hXth : ballMertensThreshold ≤ X := le_trans hthlb hsqX
   have hX3 : (3 : ℝ) ≤ X := le_trans three_le_ballMertensThreshold hXth
   have hXexp : Real.exp 8192 ≤ X := by
     have hsplit : Real.exp 8192 = Real.exp 4096 * Real.exp 4096 := by
       rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_pos (4096 : ℝ)]
+    nlinarith only [hsq4096, hexp4097, hX1lb, hc1, hc0, hX₁0, hsplit, hsqsq]
   have hLX : (8192 : ℝ) ≤ Real.log X := by
     rw [← Real.log_exp 8192]; exact Real.log_le_log (Real.exp_pos _) hXexp
   have hLhalf0 : (0 : ℝ) < Real.log X / 2 := by linarith

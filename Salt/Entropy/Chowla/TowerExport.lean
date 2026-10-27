@@ -140,7 +140,7 @@ lemma quartic_le_exp {u : ℝ} (hu : 0 ≤ u) : (u / 4 + 1) ^ 4 ≤ Real.exp u :
     a factor `(1 + 2u)/L = (1 + 2u)/exp u ≤ 1/100`. -/
 lemma hundred_mul_le_exp {u : ℝ} (hu : 50 ≤ u) : 100 * (1 + 2 * u) ≤ Real.exp u := by
   have h := quartic_le_exp (by linarith : (0 : ℝ) ≤ u)
-  nlinarith [h, hu, sq_nonneg (u - 50), sq_nonneg u, mul_nonneg (sq_nonneg u) (sq_nonneg u)]
+  nlinarith only [hu, h, sq_nonneg u, sq_nonneg u, sq_nonneg (u - 50), sq_nonneg (u - 50)]
 
 /-- `exp 3 ≤ 50`, i.e. `log u ≥ 3` at `u ≥ 50`. -/
 lemma exp_three_le_fifty : Real.exp 3 ≤ 50 := by
@@ -158,11 +158,11 @@ lemma three_halves_lt_log_five : (3 / 2 : ℝ) < Real.log 5 := by
   have hhalf : Real.exp (1 / 2) < 1.65 := by
     have hsq : Real.exp (1 / 2) * Real.exp (1 / 2) = Real.exp 1 := by
       rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_pos (1 / 2), hsq, h1]
+    nlinarith only [hsq, h1]
   have hsplit : Real.exp (3 / 2) = Real.exp 1 * Real.exp (1 / 2) := by
     rw [← Real.exp_add]; norm_num
   rw [hsplit]
-  nlinarith [Real.exp_pos (1 / 2), h1, hhalf]
+  nlinarith only [h1, hhalf, Real.exp_pos (1 / 2)]
 
 /-- `log 3 < 6/5`: the companion (lower) export's budget. -/
 lemma log_three_lt : Real.log 3 < 6 / 5 := by
@@ -252,7 +252,7 @@ lemma towerMul_le {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) :
   have hV : (1 / 2 : ℝ) ≤ towerV B j := by
     rw [towerV, towerU, towerL]
     exact (tower_log_bounds (chowlaTower_base_floor hB j)).2
-  nlinarith
+  nlinarith only [hL, hV]
 
 /-- **(a), lower half.**  `L ≤ ⌊2 L v⌋₊` — the floor never rounds below the
     base, because `2 v - 1 ≥ 5` at the floor.  These two bounds are ALL the
@@ -451,12 +451,12 @@ lemma logStep_dw_ge {L u v w L' u' v' w' m : ℝ}
       mul_le_mul hL'le hu'le hu'pos.le (by positivity)
     have h2 : (L' * u') * v' ≤ (((101 / 100) * L) * ((101 / 100) * u)) * ((101 / 100) * v) :=
       mul_le_mul h1 hv'le hv'pos.le (by positivity)
-    nlinarith [h2]
+    linarith only [h2]
   have hkey2 : u ≤ (w' - w) * ((1030301 / 1000000) * (L * u * v)) :=
     le_trans hkey (mul_le_mul_of_nonneg_left hprod (by linarith))
   have hLvpos : (0 : ℝ) < L * v := mul_pos hLpos hvpos
   rw [div_le_iff₀ hLvpos]
-  nlinarith [hkey2, hupos, hLvpos]
+  nlinarith only [hu50, hkey2]
 
 /-! ### Section 4 — the per-step sandwich along the tower -/
 
@@ -509,7 +509,7 @@ theorem towerDropSum_ge_half_log_ratio {B : ℕ} (hB : 4000000 ≤ B)
     have hstep := towerStep_dw_le hB hu j
     have hL := towerL_ge_fifteen hB j
     have hV := towerV_ge_three hB hu j
-    have hX : (0 : ℝ) < towerL B j * towerV B j := by nlinarith
+    have hX : (0 : ℝ) < towerL B j * towerV B j := by nlinarith only [hL, hV]
     have e2 : 1 / (2 * towerL B j * towerV B j)
         = (1 / 2 : ℝ) / (towerL B j * towerV B j) := by
       field_simp
@@ -546,7 +546,7 @@ theorem towerDropSum_le_half_log_ratio_mul {B : ℕ} (hB : 4000000 ≤ B)
     have hstep := towerStep_dw_ge hB hu j
     have hL := towerL_ge_fifteen hB j
     have hV := towerV_ge_three hB hu j
-    have hX : (0 : ℝ) < towerL B j * towerV B j := by nlinarith
+    have hX : (0 : ℝ) < towerL B j * towerV B j := by nlinarith only [hL, hV]
     have e2 : 1 / (2 * towerL B j * towerV B j)
         = (1 / 2 : ℝ) / (towerL B j * towerV B j) := by
       field_simp
@@ -629,11 +629,11 @@ theorem tower_loglog_le {B : ℕ} (hB : 4000000 ≤ B) (hu : 50 ≤ Real.log (Re
   have hstep := towerStep_dw_le hB hu k
   have hL := towerL_ge_fifteen hB k
   have hV := towerV_ge_three hB hu k
-  have hX : (0 : ℝ) < towerL B k * towerV B k := by nlinarith
+  have hX : (0 : ℝ) < towerL B k * towerV B k := by nlinarith only [hL, hV]
   have hlast : towerW B (k + 1) - towerW B k ≤ 7 / 300 := by
     refine le_trans hstep ?_
     rw [div_le_iff₀ hX]
-    nlinarith
+    nlinarith only [hL, hV]
   have hfinal : towerW B (towerJmin 2 1 B) - towerW B 0 < 3 / 2 := by
     rw [hk]; linarith
   -- convert to the `v` ratio, then to the `u` power
@@ -800,7 +800,7 @@ lemma three_halves_lt_log_nine_halves : (3 / 2 : ℝ) < Real.log (9 / 2) := by
     rw [h3]
     calc Real.exp 1 ^ 3 ≤ (2.7182818286 : ℝ) ^ 3 := by gcongr
       _ < 81 / 4 := by norm_num
-  nlinarith [Real.exp_pos (3 / 2), hsq, hlt]
+  nlinarith only [hlt, hsq]
 
 /-- **THE BRIDGE** `x^(9/2) ≤ x^5` for `x ≥ 1` — the `9/2` export implies the
 landed `5` export at every point of the guard (`50 ≤ loglog H₋`, so `x ≥ 50 ≥ 1`).
@@ -835,11 +835,11 @@ theorem tower_loglog_le_45 {B : ℕ} (hB : 4000000 ≤ B)
   have hstep := towerStep_dw_le hB hu k
   have hL := towerL_ge_fifteen hB k
   have hV := towerV_ge_three hB hu k
-  have hX : (0 : ℝ) < towerL B k * towerV B k := by nlinarith
+  have hX : (0 : ℝ) < towerL B k * towerV B k := by nlinarith only [hL, hV]
   have hlast : towerW B (k + 1) - towerW B k ≤ 7 / 300 := by
     refine le_trans hstep ?_
     rw [div_le_iff₀ hX]
-    nlinarith
+    nlinarith only [hL, hV]
   have hfinal : towerW B (towerJmin 2 1 B) - towerW B 0 < 3 / 2 := by
     rw [hk]; linarith
   -- convert to the `v` ratio, then to the `u` power

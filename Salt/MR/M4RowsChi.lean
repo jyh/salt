@@ -680,8 +680,8 @@ The `hrowsSum` slot demands a constant `Mrow χ` UNIFORM over the whole height f
 `X/h ≤ T`, `2T ≤ X` (`ThmA2ChiSummed`'s ⟦A1⟧: `Mrow` is a scalar per character, never a
 function of `T`).  §7's row is `T`-linear in four places, and the weight `w = (X/h)/T` kills
 every one of them at the four numerals of `ThmA2Rows` §1 — `9`, `244`, `3`, `3/2` — which are
-CHARACTER-BLIND arithmetic.  Those helpers are `private` to `ThmA2Rows`, so the page is
-re-derived here at its own names; no content is re-proved (the arithmetic is
+CHARACTER-BLIND arithmetic.  Those helpers are `private` to `ThmA2Rows`, so the page is re-derived
+here at its own names; no content is re-proved that could have been imported (the arithmetic is
 `(X/h)/X_d ≤ 4/h` and `w ≤ 1`, twice each).
 
 ⟦THE LEVEL-1 TERM IS LEFT AT THE GENERAL LADDER⟧  `ThmA2Rows` weighs it against
@@ -710,7 +710,7 @@ private lemma m4_weight_gates {X h T Xd Q1 : ℝ} (hh4 : 4 ≤ h) (hX0 : 0 < X)
   have hw1 : X / h / T ≤ 1 := (div_le_one hT0).mpr hT
   have hratio : X / h / Xd ≤ 4 / h := by
     rw [div_div, div_le_div_iff₀ (by positivity) hh0]
-    nlinarith
+    nlinarith only [hh4, hXd]
   refine ⟨hw0, hw1, ?_, ?_, ?_, ?_⟩
   · have hid : X / h / T * (2 * T * Q1 / Xd + 1) = 2 * Q1 * (X / h / Xd) + X / h / T := by
       field_simp
@@ -757,7 +757,7 @@ private lemma m4_level1_weigh {w Hq Lq R Pq Br : ℝ}
       = (2 * (Hq * Lq + 1) * Pq * Br) * (w * R) := by ring
   have h0 : (0 : ℝ) ≤ 2 * (Hq * Lq + 1) * Pq * Br := by positivity
   rw [hid]
-  nlinarith [mul_le_mul_of_nonneg_left hR9 h0]
+  linarith only [mul_le_mul_of_nonneg_left hR9 h0]
 
 /-- The `Ct`-summand, at the `244`-gate: `1536·244 = 374784`. -/
 private lemma m4_term2_weigh {w Ct R Y : ℝ} (hCt : 0 ≤ Ct) (hY : 0 ≤ Y) (hR : w * R ≤ 244) :
@@ -784,7 +784,7 @@ private lemma m4_term4_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3 / 2)
 
 /-- The ball leg passes the weighting untouched (`w ≤ 1`). -/
 private lemma m4_ball_weigh {w S : ℝ} (hw1 : w ≤ 1) :
-    w * (8 * S ^ 2) ≤ 8 * S ^ 2 := by nlinarith [sq_nonneg S]
+    w * (8 * S ^ 2) ≤ 8 * S ^ 2 := by nlinarith only [hw1, sq_nonneg S]
 
 /-- **THE PER-`χ` ROW NUMBER** (`m4MrowChi`).  The `T`-FREE bound the weighted seam row obeys
 uniformly over the family `X/h ≤ T`, `2T ≤ X` — the value the `hrowsSum` slot's `Mrow χ`
@@ -831,7 +831,7 @@ private lemma m4_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) (h
       div_nonneg (by positivity) hcalH.le
     have hr : (0 : ℝ) ≤ Real.exp 1 / (Xd : ℝ) ^ 2 := by positivity
     have := mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1) hr
-    nlinarith
+    nlinarith only [this, Mathlib.Tactic.Linarith.natCast_nonneg ℝ Xd]
   have h2 : (0 : ℝ) ≤ 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ) :=
     div_nonneg (by linarith) (by linarith)
   have h3 : (0 : ℝ) ≤ 1 / (Xd : ℝ) := by positivity
@@ -878,13 +878,13 @@ theorem m4_rowChi_weighed {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ q} {
   have hcalH1 : calH H1 1 = H1 := by simp [calH]
   have hH1pos : (0 : ℝ) < calH H1 1 := by rw [hcalH1]; linarith
   have hα1 : 0 < mrAlpha η 1 := mrAlpha_pos η hη hη6 le_rfl
-  have hα1' : mrAlpha η 1 ≤ 1 / 4 := by rw [mrAlpha]; nlinarith
+  have hα1' : mrAlpha η 1 ≤ 1 / 4 := by rw [mrAlpha]; linarith only [hη]
   have hHL0 : (0 : ℝ) ≤ 2 * (calH H1 1 * Real.log ((calQK A G M 1 : ℕ) : ℝ) + 1) := by
     have hQlog : (0 : ℝ) ≤ Real.log ((calQK A G M 1 : ℕ) : ℝ) := by
       have h : (1 : ℝ) ≤ ((calQK A G M 1 : ℕ) : ℝ) := by
         exact_mod_cast one_le_calQK A G M 1
       exact Real.log_nonneg h
-    nlinarith
+    nlinarith only [hcalH1, hQlog, hη6, hη, hH1]
   have hPq0 : (0 : ℝ) ≤ ((calP A G 1 : ℕ) : ℝ) ^ (-(2 * mrAlpha η 1)) :=
     Real.rpow_nonneg (Nat.cast_nonneg _) _
   have hBr0 : (0 : ℝ) ≤ 4 * (calH H1 1 / (1 - 2 * mrAlpha η 1))
@@ -895,7 +895,7 @@ theorem m4_rowChi_weighed {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ q} {
     have h3 : (0 : ℝ) ≤ calH H1 1 / mrAlpha η 1 := by positivity
     have e1 : (0 : ℝ) < Real.exp ((1 - 2 * mrAlpha η 1) / calH H1 1) := Real.exp_pos _
     have e2 : (0 : ℝ) < Real.exp (4 * mrAlpha η 1 / calH H1 1) := Real.exp_pos _
-    nlinarith
+    nlinarith only [h3, e2, h2, e1, hη6, hη]
   have hY0 : (0 : ℝ) ≤ 1 / ((calP A G 1 : ℕ) : ℝ) := by positivity
   have hRS0 : (0 : ℝ) ≤ (∑ j ∈ Finset.Icc 1 Jb,
       ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)

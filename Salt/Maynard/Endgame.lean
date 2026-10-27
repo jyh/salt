@@ -25,6 +25,9 @@ end-of-proof building blocks:
 
 namespace Salt.Maynard
 
+set_option linter.unusedSectionVars false
+variable [TupleChoice]
+
 open Finset
 
 /-- **P3 — S₁ upper bound for the concrete tensor.** `fTilde` is in `[0,1]` and
@@ -81,6 +84,7 @@ theorem S1_upper_A1 (k K₀ N R ν₀ : ℕ) (T : ℝ)
   have hmul := mul_le_mul_of_nonneg_left (yside_le_A1pow k R T) hcoef
   linarith [hS1, hmul]
 
+omit [TupleChoice] in
 /-- `Nat.count p` grows by at most `h` over a window of length `h`. -/
 theorem count_le_count_add (p : ℕ → Prop) [DecidablePred p] (a h : ℕ) :
     Nat.count p (a + h) ≤ Nat.count p a + h := by
@@ -90,12 +94,14 @@ theorem count_le_count_add (p : ℕ → Prop) [DecidablePred p] (a h : ℕ) :
     rw [← Nat.add_assoc, Nat.count_succ]
     split_ifs <;> omega
 
+omit [TupleChoice] in
 /-- `Nat.primeCounting` is monotone. -/
 theorem primeCounting_mono : Monotone Nat.primeCounting := by
   intro a b hab
   unfold Nat.primeCounting Nat.primeCounting'
   exact Nat.count_monotone _ (Nat.succ_le_succ hab)
 
+omit [TupleChoice] in
 /-- `π(N+h) ≤ π(N) + h`: at most `h` primes appear in a window of length `h`. -/
 theorem primeCounting_shift_le (N h : ℕ) :
     Nat.primeCounting (N + h) ≤ Nat.primeCounting N + h := by
@@ -103,6 +109,7 @@ theorem primeCounting_shift_le (N h : ℕ) :
   rw [show N + h + 1 = (N + 1) + h by ring]
   exact count_le_count_add _ (N + 1) h
 
+omit [TupleChoice] in
 /-- `primesCount x 1 0 = π(x)` (all naturals are `≡ 0 [MOD 1]`). -/
 theorem primesCount_one_zero_eq (x : ℕ) : primesCount x 1 0 = Nat.primeCounting x := by
   rw [primesCount_one_zero]; rfl
@@ -231,21 +238,21 @@ theorem s2CompatFormM_ge_sixteenth (k R : ℕ) (T : ℝ) (m : Fin k)
   -- error term 1 ≤ (1/8)·B₁²M via `4C logR/D₀ ≤ B₁/8`.
   have h1 : 4 * C * Real.log R / (D₀ k : ℝ) ≤ B1 k R (W k) T / 8 := by
     rw [div_le_iff₀ hD0pos] at *
-    nlinarith [hreg]
+    linarith only [hreg]
   have he1 : 4 * C * Real.log R / (D₀ k : ℝ) * (B1 k R (W k) T * M)
       ≤ 1 / 8 * ((B1 k R (W k) T) ^ 2 * M) := by
     have := mul_le_mul_of_nonneg_right h1 hB1M
-    nlinarith [this]
+    linarith only [this]
   -- error term 2 ≤ (1/16)·B₁²M via `192k²/D₀ ≤ 1/16`.
   have h2 : 192 * (k : ℝ) ^ 2 / (D₀ k : ℝ) ≤ 1 / 16 := by
     rw [div_le_iff₀ hD0pos]
     have hk3 : (k : ℝ) ^ 3 ≤ (D₀ k : ℝ) := by exact_mod_cast hD
     have hkR : (3072 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
-    nlinarith [hk3, hkR, sq_nonneg (k : ℝ)]
+    nlinarith only [hkR, hk3, sq_nonneg ↑k]
   have he2 : 192 * (k : ℝ) ^ 2 / (D₀ k : ℝ) * ((B1 k R (W k) T) ^ 2 * M)
       ≤ 1 / 16 * ((B1 k R (W k) T) ^ 2 * M) :=
     mul_le_mul_of_nonneg_right h2 hB2M
-  nlinarith [hbound, he1, he2]
+  linarith only [he2, he1, hbound]
 
 /-! ## C5 — the counting identity and pigeonhole -/
 

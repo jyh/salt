@@ -338,9 +338,13 @@ cofactor sift kills only one residue class of `t`), `ν(p) = 2/p` for `p ∤ M`
 noncomputable def nuMix (M : ℕ) : ArithmeticFunction ℝ :=
   ⟨fun d => (∏ p ∈ d.primeFactors, (if p ∣ M then (1 : ℝ) else 2)) / d, by simp⟩
 
+/-- `nuMix M d = (∏_{p ∣ d} [p ∣ M ? 1 : 2]) / d`, by `rfl`. -/
 @[simp] lemma nuMix_apply (M d : ℕ) :
     nuMix M d = (∏ p ∈ d.primeFactors, (if p ∣ M then (1 : ℝ) else 2)) / d := rfl
 
+/-- `nuMix M` is multiplicative: `nuMix M 1 = 1`, and on coprime `m, n` the prime factors split
+as a disjoint union (`Nat.primeFactors_mul`, `Finset.prod_union`) while the denominators
+multiply; the `0` cases are direct. -/
 lemma nuMix_mult (M : ℕ) : (nuMix M).IsMultiplicative := by
   constructor
   · simp [nuMix_apply]
@@ -352,11 +356,14 @@ lemma nuMix_mult (M : ℕ) : (nuMix M).IsMultiplicative := by
     rw [nuMix_apply, nuMix_apply, nuMix_apply, Nat.primeFactors_mul hm hn,
       Finset.prod_union (Nat.Coprime.disjoint_primeFactors hmn), Nat.cast_mul, mul_div_mul_comm]
 
+/-- `0 < nuMix M p` at a prime `p` (`hp`): the single factor is `1` or `2`, over `p > 0`. -/
 lemma nuMix_pos (M p : ℕ) (hp : p.Prime) : 0 < nuMix M p := by
   rw [nuMix_apply, hp.primeFactors, Finset.prod_singleton]
   have hp0 : (0 : ℝ) < p := by exact_mod_cast hp.pos
   split_ifs <;> positivity
 
+/-- `nuMix M p < 1` at a prime `p` (`hp`) when `2 ∣ M` (`h2M`): for `p ∣ M` it is `1/p ≤ 1/2`,
+and for `p ∤ M` the prime is odd, so `2/p ≤ 2/3`. -/
 lemma nuMix_lt_one (M p : ℕ) (hp : p.Prime) (h2M : 2 ∣ M) : nuMix M p < 1 := by
   rw [nuMix_apply, hp.primeFactors, Finset.prod_singleton]
   have hp2 : (2 : ℝ) ≤ p := by exact_mod_cast hp.two_le
@@ -371,6 +378,7 @@ lemma nuMix_lt_one (M p : ℕ) (hp : p.Prime) (h2M : 2 ∣ M) : nuMix M p < 1 :=
     have hp3R : (3 : ℝ) ≤ p := by exact_mod_cast hp3
     rw [div_lt_one hp0]; linarith
 
+/-- `nuMix M p = 2/p` at a prime `p ∤ M` (`hp`, `hpM`): the single factor reads `2`. -/
 lemma nuMix_eq_two_div (M p : ℕ) (hp : p.Prime) (hpM : ¬ p ∣ M) : nuMix M p = 2 / (p : ℝ) := by
   rw [nuMix_apply, hp.primeFactors, Finset.prod_singleton, if_neg hpM]
 
@@ -428,15 +436,19 @@ noncomputable def mixPairSieve (x d₁ d₂ Z : ℕ) (hZ : 1 ≤ Z) : SelbergSie
   level := (Z : ℝ) ^ 2
   one_le_level := by
     have hZ1 : (1 : ℝ) ≤ (Z : ℝ) := by exact_mod_cast hZ
-    nlinarith
+    nlinarith only [hZ1, (Nat.cast_nonneg _ : 0 ≤ ↑Z)]
 
 variable {x d₁ d₂ Z : ℕ} {hZ : 1 ≤ Z}
 
+/-- The mixed AP-pair sieve's `prodPrimes` is `primorial Z`, by `rfl`. -/
 @[simp] lemma mixPairSieve_prodPrimes :
     (mixPairSieve x d₁ d₂ Z hZ).prodPrimes = primorial Z := rfl
+/-- The mixed AP-pair sieve's `totalMass` is `x/(d₁ d₂)`, by `rfl`. -/
 @[simp] lemma mixPairSieve_totalMass :
     (mixPairSieve x d₁ d₂ Z hZ).totalMass = (x : ℝ) / (d₁ * d₂) := rfl
+/-- The mixed AP-pair sieve's `level` is `Z²`, by `rfl`. -/
 @[simp] lemma mixPairSieve_level : (mixPairSieve x d₁ d₂ Z hZ).level = (Z : ℝ) ^ 2 := rfl
+/-- The mixed AP-pair sieve's `nu` is `nuMix (2 d₁ d₂)`, by `rfl`. -/
 @[simp] lemma mixPairSieve_nu : (mixPairSieve x d₁ d₂ Z hZ).nu = nuMix (2 * (d₁ * d₂)) := rfl
 
 /-- `siftedSum` counts `n` in the window whose cofactor product `(n/d₁)((n+2)/d₂)`

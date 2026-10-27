@@ -79,9 +79,9 @@ is sharper, and it is a theorem** (`seam_coef_contract_forces_vanishing`,
 
 The window and the factorization cannot both be global.  `RamareErr`'s own header
 already names the piece `hwin` is buying for free (it kills MR p.20's SECOND seam
-window, the overcount range `[2X, 2Xe^{1/H}]`, "identically zero in this
-formalisation").  **The repair is a `SeamNumber`/`RamareErr` statement change —
-maestro-tier, flagged, NOT taken here** (iron rule 1): relativize `hcoef`/`hwin` to the
+window, the overcount range `[2X, 2Xe^{1/H}]`, zero under `hwin` there).
+**The repair is a `SeamNumber`/`RamareErr` statement change, maestro-tier, NOT taken here
+(since taken: `SeamRowWindowed.SeamCoefW`)** (iron rule 1): relativize `hcoef`/`hwin` to the
 window (`X_d ≤ pm ≤ 2X_d →` as an antecedent) and price MR's second seam window as the
 fourth Lemma-12 row.  Consequently `thm_a2_spine` takes the seam row's bound as a
 hypothesis (the `SeamLemma14.lemma14_contour_seam_supplied` idiom — the row as a free
@@ -185,7 +185,7 @@ private lemma seam_coeff_massSq_le {N : ℕ} {a : ℕ → ℂ} {X : ℝ} (hX0 : 
       have hz : (0 : ℝ) ≤ 1 / X ^ 2 := by positivity
       simpa using hz
     · have hn0 : (0 : ℝ) < (n : ℝ) := lt_trans hX0 hn
-      have h1 : ‖a n‖ ^ 2 ≤ 1 := by nlinarith [norm_nonneg (a n), ha n]
+      have h1 : ‖a n‖ ^ 2 ≤ 1 := by nlinarith only [norm_nonneg (a n), ha n]
       have h2 : X ^ 2 ≤ (n : ℝ) ^ 2 := by nlinarith
       calc ‖a n‖ ^ 2 / (n : ℝ) ^ 2 ≤ 1 / (n : ℝ) ^ 2 := by gcongr
         _ ≤ 1 / X ^ 2 := by
@@ -249,7 +249,7 @@ theorem far_tail_crude {N : ℕ} {a : ℕ → ℂ} {X h T : ℝ} (hX0 : 0 < X) (
           mul_le_mul_of_nonneg_left hmass hpre
       _ ≤ (4 * T + 40 * X) * (2 / X) := by
           have h20 : 20 * (N : ℝ) ≤ 40 * X := by linarith
-          nlinarith [hXnn, h20]
+          nlinarith only [hN2, hXnn]
       _ = 8 * T / X + 80 := by field_simp; ring
   -- assemble
   have hw : (0 : ℝ) ≤ X / h / T := by positivity
@@ -312,7 +312,7 @@ theorem seam_Msup_family {N : ℕ} {a : ℕ → ℂ} {X h Mrow : ℝ}
   have h2W : 2 * (X / h) ≤ X := by
     have hkey : 2 * (X / h) = 2 * X / h := by ring
     rw [hkey, div_le_iff₀ hh0]
-    nlinarith
+    nlinarith only [hh4, hN2, he2, hX, Mathlib.Tactic.Linarith.natCast_nonneg ℝ N]
   -- the annulus height at the designed place exceeds `1` (`TannGate`), so `loglog` is
   -- past its junk region and the frame's `h`-ceiling transfers upward
   have hTann' : Real.exp (30 * (Real.log X) ^ ((1 : ℝ) / 2)) ≤ 2 * (X / h) := hTann
@@ -347,7 +347,7 @@ theorem seam_Msup_family {N : ℕ} {a : ℕ → ℂ} {X h Mrow : ℝ}
     have hcr := far_tail_crude (N := N) (a := a) hX0 hh0 hTpos ha hsupp hN2
     have hXT : X / (h * T) ≤ 2 / h := by
       rw [div_le_div_iff₀ (by positivity) hh0]
-      nlinarith
+      nlinarith only [hh4, hcase]
     have hb1 : 80 * (X / (h * T)) ≤ 160 / h := by
       calc 80 * (X / (h * T)) ≤ 80 * (2 / h) :=
             mul_le_mul_of_nonneg_left hXT (by norm_num)
@@ -421,7 +421,7 @@ theorem thm_a2_spine {N : ℕ} {a : ℕ → ℂ} {X h Mrow B₀ δ : ℝ} (K : �
   have h2W : 2 * (X / h) ≤ X := by
     have hkey : 2 * (X / h) = 2 * X / h := by ring
     rw [hkey, div_le_iff₀ hh0]
-    nlinarith
+    nlinarith only [hh4, hN2, he2, hX, Mathlib.Tactic.Linarith.natCast_nonneg ℝ N]
   -- the MID BAND: the row at the designed height, where the weight is `1`
   have hrowW := hrows (X / h) le_rfl h2W hTann hceil
   rw [div_self hWpos.ne', one_mul] at hrowW

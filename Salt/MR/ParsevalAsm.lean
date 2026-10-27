@@ -58,7 +58,7 @@ private lemma integral_inv_c_abs {c T : ℝ} (hc : 0 < c) (hT : 0 < T) :
       have hcont : IntervalIntegrable (fun t : ℝ => 1 / (c + t)) volume 0 T := by
         apply ContinuousOn.intervalIntegrable
         apply ContinuousOn.div continuousOn_const (by fun_prop)
-        intro x hx; rw [uIcc_of_le hT.le, mem_Icc] at hx; nlinarith [hx.1]
+        intro x hx; rw [uIcc_of_le hT.le, mem_Icc] at hx; linarith only [hx, hc]
       rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv hcont]; simp
     · intro t ht; rw [uIcc_of_le hT.le, mem_Icc] at ht
       dsimp only; rw [abs_of_nonneg ht.1]
@@ -144,10 +144,10 @@ theorem perron_trunc_trivial {y c T : ℝ} (hy : 0 < y) (hc : 0 < c) (hT : 0 < T
         rw [show (4:ℝ) * (c ^ 2 + v ^ 2) = 2 ^ 2 * (c ^ 2 + v ^ 2) by ring,
           Real.sqrt_mul (by positivity), Real.sqrt_sq (by norm_num)]
       rw [h4X]; apply Real.sqrt_le_sqrt
-      nlinarith [sq_abs v, sq_nonneg (c - |v|), abs_nonneg v]
+      linarith only [sq_abs v, sq_nonneg c, sq_nonneg v, sq_nonneg (c - |v|)]
     rw [div_le_div_iff₀ hsqrt hden]
     have hyc : (0:ℝ) ≤ y ^ c := (Real.rpow_pos_of_pos hy c).le
-    nlinarith [mul_le_mul_of_nonneg_left hbnd hyc]
+    linarith only [mul_le_mul_of_nonneg_left hbnd hyc]
   have hstep1 : ‖perronContour y c T‖ ≤ ∫ v in (-T)..T, ‖pk y ((c : ℂ) + (v : ℂ) * I)‖ := by
     rw [perronContour, norm_mul, Complex.norm_I, one_mul]
     exact intervalIntegral.norm_integral_le_integral_norm (by linarith)
@@ -206,11 +206,11 @@ theorem perron_trunc_min {y c T : ℝ} (hy : 0 < y) (hy1 : y ≠ 1) (hc : 0 < c)
           ≤ ‖perronContour y c T‖ + ‖2 * (Real.pi : ℂ) * I‖ := norm_sub_le _ _
         _ ≤ 4 * y ^ c * Real.log (1 + T / c) + 2 * Real.pi := by rw [hrho]; linarith
         _ ≤ 2 * y ^ c * (Real.pi + 2 * Real.log (1 + T / c)) := by
-            nlinarith [hy1c, hlog_nn, Real.pi_pos]
+            nlinarith only [hy1c, Real.pi_pos]
     · rw [if_neg hgt, mul_zero, sub_zero]
       calc ‖perronContour y c T‖ ≤ 4 * y ^ c * Real.log (1 + T / c) := h_triv
         _ ≤ 2 * y ^ c * (Real.pi + 2 * Real.log (1 + T / c)) := by
-            nlinarith [hyc_pos, hlog_nn, Real.pi_pos]
+            nlinarith only [hyc_pos, Real.pi_pos]
   -- the decay branch
   have h_perron := perron_trunc hy hy1 hc hT
   have h_dec : ‖perronContour y c T - 2 * (Real.pi : ℂ) * I * (if 1 < y then (1 : ℂ) else 0)‖

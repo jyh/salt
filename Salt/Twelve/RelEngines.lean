@@ -31,21 +31,28 @@ open Finset
 
 namespace Salt.Twelve
 
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
 open Salt.Maynard
 
 /-! ## Local helpers, re-derived from `Salt.Twelve.W3Prep` (there: `private`) -/
 
+/-- `0 ≤ log n` for every natural `n` (`log 0 = 0`; `Real.log_nonneg` for `n ≥ 1`). -/
 private lemma log_nat_nonneg (n : ℕ) : 0 ≤ Real.log (n : ℝ) := by
   rcases Nat.eq_zero_or_pos n with h | h
   · subst h; simp
   · exact Real.log_nonneg (by exact_mod_cast h)
 
+/-- `log m ≤ log n` for naturals `m ≤ n` (`h`), the case `m = 0` through `log_nat_nonneg`. -/
 private lemma log_nat_mono_le {m n : ℕ} (h : m ≤ n) :
     Real.log (m : ℝ) ≤ Real.log (n : ℝ) := by
   rcases Nat.eq_zero_or_pos m with hm | hm
   · subst hm; simpa using log_nat_nonneg n
   · exact Real.log_le_log (by exact_mod_cast hm) (by exact_mod_cast h)
 
+/-- A divisor `s` of a square-free `r` (`hrsf`, `hsr`) splits it as `r = s·(r/s)` with the two
+factors coprime (`Nat.squarefree_mul_iff`). -/
 private lemma reindex_coprime {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) :
     r = s * (r / s) ∧ Nat.Coprime s (r / s) := by
   have hrs : r = s * (r / s) := by
@@ -53,6 +60,8 @@ private lemma reindex_coprime {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) 
   have hsf : Squarefree (s * (r / s)) := hrs ▸ hrsf
   exact ⟨hrs, (Nat.squarefree_mul_iff.mp hsf).1⟩
 
+/-- `φ(r) = φ(s)·φ(r/s)` for a divisor `s` of a square-free `r` (`hrsf`, `hsr`):
+`Nat.totient_mul` on the coprime factorisation `reindex_coprime`. -/
 private lemma totient_reindex {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) :
     (Nat.totient r : ℝ) = (Nat.totient s : ℝ) * (Nat.totient (r / s) : ℝ) := by
   obtain ⟨hrs, hcop⟩ := reindex_coprime hrsf hsr
@@ -345,6 +354,14 @@ identity `1/φ(r) = (1/φ(s))·(1/φ(r/s))`, reindex `r ↦ r/s` injectively, an
 extend the image to `sqfCop z W'`), STOPPING there instead of continuing on
 to invoke `Salt.Maynard.phiAtom_upper_lossy` for an opaque `(W',a)`-constant. -/
 
+omit [Salt.Maynard.TupleChoice] in
+/-- **The constant-free marked φ-moment** (card W4-1). Over the square-free `r < z` coprime to
+`W'` with `s ∣ r`, `Σ (log r)^a/φ(r) ≤ (log z)^a/φ(s)·phiAtomSum z W'`. The truncation of
+`W3Prep`'s `marked_sqf_phi` at its steps 1–6: `(log r)^a ≤ (log z)^a` termwise,
+`1/φ(r) = (1/φ(s))·(1/φ(r/s))` (`totient_reindex`), the reindex `r ↦ r/s` (injective on the
+marked set), its image inside `sqfCop z W'`, whose `1/φ` sum is `phiAtomSum z W'` by definition
+— stopping before the atom-constant step, so no `∃ c` appears. `hW'`, `hpos`, `hs` and `hz` are
+carried for the frozen signature and not consumed. -/
 theorem marked_sqf_phi_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (a : ℕ) (s z : ℕ) (hs : 0 < s) (hz : 2 ≤ z) :
     (∑ r ∈ (Finset.range z).filter
@@ -463,6 +480,18 @@ divisor-swap bound on `∑_{b} 1/g(b)` (Step B), with the constant-bearing
 `2 · phiAtomSum z W'` (the `2` is the same `exp(2/D) ≤ 2`-shaped Euler-tail
 factor as the landed proof, from `tail_full_le`). -/
 
+omit [Salt.Maynard.TupleChoice] in
+/-- **The constant-free marked `g`-moment** (card W4-1). Over the square-free `r < z` coprime to
+`W'` with `s ∣ r`, `Σ (log r)^a/g(r) ≤ 2·(log z)^a/g(s)·phiAtomSum z W'`, for square-free
+`W' > 0` (`hW'`, `hpos`), `3 ≤ D` below every prime not dividing `W'` (`hD`, `hDp`) and `2 ≤ z`
+(`hz`). Step A, unchanged from `BudgetMomentG`'s `marked_sqf_g`: reindex `r = s·b`,
+`g(r) = g(s)·g(b)` on the coprime factorisation, `(log r)^a ≤ (log z)^a`, the image inside the
+`b < z` square-free, coprime to `W'` and to `s`. Step B, relative: expand
+`1/g(b) = Σ_{d ∣ b} h(d)/φ(b)`, `h(d) = ∏_{p ∣ d} (p − 2)⁻¹` (`inv_gMult_expand`), swap to the
+moduli `d` (square-free, every prime factor `> D`), bound each `d`-marked `1/φ` sum by
+`marked_sqf_phi_rel` at `a = 0` (`PAS/φ(d)`), and sum `h(d)/φ(d) = ∏_{p ∣ d} ((p − 1)(p − 2))⁻¹`
+over the moduli by the Euler tail `tail_full_le` (`≤ 2`). `hs` is carried for the frozen
+signature and not consumed. -/
 theorem marked_sqf_g_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (a : ℕ) (D s z : ℕ) (hD : 3 ≤ D)
     (hDp : ∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) (hs : 0 < s) (hz : 2 ≤ z) :
@@ -682,6 +711,16 @@ since `marked_sqf_phi_rel` at `a = 0` carries no `log z`/`log R` factor at
 all, the tail lands directly at `(4/D)·phiAtomSum z W'` with no `log R`
 multiplier (unlike the landed `Cg/D · log R` correction). -/
 
+omit [Salt.Maynard.TupleChoice] in
+/-- **The constant-free `g → φ` gap of the budget moment** (card W4-1; the UPPER half of
+`BudgetMomentG`'s `budget_moment_g` sandwich). Over the square-free `r < z` coprime to `W'`,
+with the budget weight `w(r) = (log r/log R)^c·((log z − log r)/log R)^b`,
+`Σ w(r)/g(r) ≤ Σ w(r)/φ(r) + (4/D)·phiAtomSum z W'`, for square-free `W' > 0` (`hW'`, `hpos`),
+`3 ≤ D` below every prime not dividing `W'` (`hD`, `hDp`), `2 ≤ z ≤ R` (`hz`, `hzR`) and
+`1 ≤ log R` (`hlR`). Expand `1/g(r)` by `inv_gMult_expand`: the `d = 1` modulus is the φ-sum,
+and the `d ≠ 1` tail — with `w(r) ≤ 1` and `marked_sqf_phi_rel` at `a = 0` for each `d` — is at
+most `Σ_{d ≠ 1} h(d)/φ(d)·PAS ≤ 2/(D − 1)·PAS ≤ (4/D)·PAS` (`tail_erase_le`). No `log R` factor
+rides on the tail, where the landed sandwich carries `Cg/D·log R`. -/
 theorem g_gap_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (c b : ℕ) (D z R : ℕ) (hD : 3 ≤ D)
     (hDp : ∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p)

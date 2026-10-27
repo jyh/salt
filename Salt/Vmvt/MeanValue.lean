@@ -223,7 +223,7 @@ theorem old_c0_le {k : ℕ} (hk : 2 ≤ k) :
   have hnat : k ^ 6 * k.factorial * 2 ^ (k ^ 2) * 3 ≤ k ^ (24 * k ^ 2) := by
     have hf : k.factorial ≤ k ^ k := Nat.factorial_le_pow k
     have h2 : 2 ^ (k ^ 2) ≤ k ^ (k ^ 2) := Nat.pow_le_pow_left hk (k ^ 2)
-    have h3 : 3 ≤ k ^ 2 := by nlinarith [hk]
+    have h3 : 3 ≤ k ^ 2 := by nlinarith only [hk, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
     have step : k ^ 6 * k.factorial * 2 ^ (k ^ 2) * 3 ≤ k ^ 6 * k ^ k * k ^ (k ^ 2) * k ^ 2 :=
       Nat.mul_le_mul (Nat.mul_le_mul (Nat.mul_le_mul (le_refl _) hf) h2) h3
     calc k ^ 6 * k.factorial * 2 ^ (k ^ 2) * 3

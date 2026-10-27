@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Mathlib
 import Salt.SW.Siegel
+import Salt.Tactic.ExpLogNum
 
 /-!
 # The SW rung, node S4b′ — Estermann's positivity lemma (the Landau truncation core)
@@ -112,9 +113,7 @@ theorem landau_truncation {a : ℕ → ℝ} {L B M y : ℝ}
     calc Real.exp 1 ≤ 2.7182818286 := Real.exp_one_lt_d9.le
       _ ≤ (10/7:ℝ)^3 := by norm_num
   have hc_fact : 1 ≤ Real.log 3 := by
-    rw [Real.le_log_iff_exp_le (by norm_num)]
-    calc Real.exp 1 ≤ 2.7182818286 := Real.exp_one_lt_d9.le
-      _ ≤ 3 := by norm_num
+    exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 1 (by norm_num) (by norm_num)
   have hb_fact : Real.log (580 / 3) ≤ 19 * c7 := by
     have h19 : (19:ℝ) * c7 = Real.log ((10/7:ℝ)^19) := by
       rw [hc7def, Real.log_pow]; push_cast; ring
@@ -267,10 +266,10 @@ theorem estermannPositivity_core (f : ℂ → ℂ) {M : ℝ} (hM : 1 ≤ M) {σ 
     hM hBlo hBM hcauchy hle
   rwa [show (2 : ℝ) - σ - 1 = 1 - σ from by ring] at hmain
 
-/-- **The analytic interface** deferred to the later Estermann wave: for each admissible input,
+/-- **The analytic interface**, deferred here to a later Estermann wave: for each admissible input,
 the pole-subtracted Taylor data (`a`, `B`) of `F = ζ·f` at `s = 2` together with its Cauchy bound,
-the sign `ζ(σ) ≤ 0`, and the ψ-series identity. Discharging this is the remaining formalization
-work (see the module docstring and `docs/blueprints/flags.md`, SW S4b′). -/
+the sign `ζ(σ) ≤ 0`, and the ψ-series identity. It is discharged in `EstermannInterface.lean`
+(`estermannInterface`; `docs/blueprints/flags.md`, SW S4b′). -/
 def EstermannInterface : Prop :=
   ∀ (f : ℂ → ℂ) (r : ℕ → ℂ) (M : ℝ), 1 ≤ M → Differentiable ℂ f →
     (∀ z ∈ Metric.ball (2 : ℂ) (3 / 2), ‖f z‖ ≤ M) →

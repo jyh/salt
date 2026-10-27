@@ -65,7 +65,7 @@ def intSieve (M K t : ℕ) (ht : 2 ≤ t) : SelbergSieve where
   level := (t : ℝ) ^ 2
   one_le_level := by
     have h2 : (2 : ℝ) ≤ t := by exact_mod_cast ht
-    nlinarith
+    nlinarith only [h2, (Nat.cast_nonneg _ : 0 ≤ ↑t)]
 
 @[simp] lemma intSieve_prodPrimes (M K t : ℕ) (ht : 2 ≤ t) :
     (intSieve M K t ht).prodPrimes = roughP 1 t := rfl
@@ -416,7 +416,7 @@ theorem shortInterval_vonMangoldt_le :
   have hH0 : (0 : ℝ) < H := by
     by_contra h
     rw [not_lt] at h
-    nlinarith [hrpos, hHr, ha0, h]
+    nlinarith only [hrpos, h, hHr, ha]
   set P : ℝ := a + H with hPdef
   have hP0 : (0 : ℝ) < P := by rw [hPdef]; linarith
   have hP2a : P ≤ 2 * a := by rw [hPdef]; linarith
@@ -437,7 +437,7 @@ theorem shortInterval_vonMangoldt_le :
     rw [h, hq4, Real.sq_sqrt hP0.le]
   -- `q ≥ 4`
   have hq4ge : (4 : ℝ) ≤ q := by
-    have h48 : (4 : ℝ) ^ 8 ≤ q ^ 8 := by rw [hq8]; nlinarith [hPge]
+    have h48 : (4 : ℝ) ^ 8 ≤ q ^ 8 := by rw [hq8]; linarith only [hH0, ha]
     exact le_of_pow_le_pow_left₀ (by norm_num) hq0 h48
   -- the root `r = √√√a` and its powers
   have hsqa : (0 : ℝ) ≤ Real.sqrt a := Real.sqrt_nonneg _
@@ -454,7 +454,7 @@ theorem shortInterval_vonMangoldt_le :
     rw [hqdef, hrdef]
     exact Real.sqrt_le_sqrt (Real.sqrt_le_sqrt (Real.sqrt_le_sqrt (by rw [hPdef]; linarith)))
   have hr4ge : (4 : ℝ) ≤ r := by
-    have h48 : (4 : ℝ) ^ 8 ≤ r ^ 8 := by rw [hr8]; nlinarith [ha]
+    have h48 : (4 : ℝ) ^ 8 ≤ r ^ 8 := by rw [hr8]; linarith only [ha]
     exact le_of_pow_le_pow_left₀ (by norm_num) hrpos.le h48
   -- `r^7 ≤ H` and `q^7 ≤ 2H`
   have hr7 : r ^ 7 ≤ H := by
@@ -471,7 +471,7 @@ theorem shortInterval_vonMangoldt_le :
       rw [← pow_succ, hq8]
       have h1 : (2 : ℝ) * H * r ≤ 2 * H * q :=
         mul_le_mul_of_nonneg_left hqr (by linarith [hH0.le])
-      nlinarith [hP2a, hHr, h1]
+      linarith only [h1, hHr, hHa]
     exact le_of_mul_le_mul_right hstep hqpos
   -- the sifting level `t = ⌊q⌋`
   set t : ℕ := ⌊q⌋₊ with htdef
@@ -562,7 +562,7 @@ theorem shortInterval_vonMangoldt_le :
       mul_le_mul hlogK_2q4 (pow_le_pow_left₀ ht_pos.le ht_le 3) (by positivity) (by positivity)
     have h3 : (2 * q ^ 4) * q ^ 3 = 2 * q ^ 7 := by ring
     have h5 : Real.log K * (t : ℝ) ^ 3 ≤ 2 * q ^ 7 := by rw [← h3]; exact h2
-    nlinarith [h5, hq7]
+    linarith only [h2, hq7]
   -- term (iii): `log K * t ≤ 4 H`
   have htiii : Real.log K * (t : ℝ) ≤ 4 * H := by
     have h2 : Real.log K * (t : ℝ) ≤ (2 * q ^ 4) * q :=
@@ -570,7 +570,7 @@ theorem shortInterval_vonMangoldt_le :
     have h3 : (2 * q ^ 4) * q = 2 * q ^ 5 := by ring
     have h4 : q ^ 5 ≤ q ^ 7 := pow_le_pow_right₀ (by linarith [hq4ge]) (by norm_num)
     have h5 : Real.log K * (t : ℝ) ≤ 2 * q ^ 5 := by rw [← h3]; exact h2
-    nlinarith [h5, h4, hq7, hH0.le]
+    linarith only [h4, h2, hq7]
   refine le_trans (add_le_add (add_le_add hti htii) htiii) ?_
   linarith only [hH1]
 

@@ -865,8 +865,8 @@ theorem cutoffEfold_large_discharge (α : ℕ → ℂ) (N X Y T D0 D e k0 K : �
     have h := Real.log_le_log (by positivity) (le_trans h2K hDsqrtXY)
     rw [Real.log_pow, Real.log_sqrt hXYnn, ← hLdef] at h; linarith
   have hKL : (K : ℝ) ≤ L := by
-    nlinarith [hlog2K,
-        mul_nonneg hKnn (by linarith [Real.log_two_gt_d9] : (0 : ℝ) ≤ Real.log 2 - 1 / 2)]
+    linarith only [hlog2K, mul_nonneg hKnn
+        (by linarith [Real.log_two_gt_d9] : (0 : ℝ) ≤ Real.log 2 - 1 / 2)]
   have hK2 : ((K + 1 : ℕ) : ℝ) ≤ 2 * L := by push_cast; linarith
   -- 1/φe ≤ 3L/e
   have hφe3 : (1 : ℝ) / (e.totient : ℝ) ≤ 3 * L / (e : ℝ) := by
@@ -874,14 +874,14 @@ theorem cutoffEfold_large_discharge (α : ℕ → ℂ) (N X Y T D0 D e k0 K : �
     rcases eq_or_lt_of_le he2 with he2' | he3
     · have hee : e = 2 := he2'.symm
       have hφ2 : (e.totient : ℝ) = 1 := by rw [hee]; norm_num
-      rw [hφ2, hee]; push_cast; nlinarith [hL1]
+      rw [hφ2, hee]; push_cast; linarith only [hL1]
     · have hratio := totient_ratio_le_log e he3
       rw [div_le_iff₀ hφinv] at hratio
       have hlogeL : Real.log (e : ℝ) ≤ L := by
         rw [hLdef]; refine Real.log_le_log (by exact_mod_cast (by omega : 0 < e)) ?_
         exact le_trans (by exact_mod_cast heD) hDXY
-      nlinarith [hratio,
-        mul_nonneg (show (0 : ℝ) ≤ L - Real.log (e : ℝ) by linarith) hφinv.le]
+      linarith only [hratio,
+          mul_nonneg (show (0 : ℝ) ≤ L - Real.log (e : ℝ) by linarith) hφinv.le]
   -- d(e) ≤ 2√e, and √e·d(e) ≤ 2e
   have hd2 : (e.divisors.card : ℝ) ≤ 2 * Real.sqrt (e : ℝ) := card_divisors_le_two_sqrt e (by omega)
   have hSed : Real.sqrt (e : ℝ) * (e.divisors.card : ℝ) ≤ 2 * (e : ℝ) := by
@@ -914,7 +914,7 @@ theorem cutoffEfold_large_discharge (α : ℕ → ℂ) (N X Y T D0 D e k0 K : �
   have hPM : Real.sqrt (Y : ℝ) * Real.sqrt (13 * ((Y : ℝ) + 1)) ≤ 6 * (Y : ℝ) := by
     rw [← Real.sqrt_mul (by linarith)]
     calc Real.sqrt ((Y : ℝ) * (13 * ((Y : ℝ) + 1))) ≤ Real.sqrt ((6 * (Y : ℝ)) ^ 2) := by
-          apply Real.sqrt_le_sqrt; nlinarith [hMr1]
+          apply Real.sqrt_le_sqrt; nlinarith only [hMr1, (Nat.cast_nonneg _ : 0 ≤ ↑Y)]
       _ = 6 * (Y : ℝ) := Real.sqrt_sq (by positivity)
   -- threshold conversions to XY/L^{A+5}
   have hXsqMdiv : (X : ℝ) * Real.sqrt (Y : ℝ) ≤ (X : ℝ) * (Y : ℝ) / L ^ (A + 5) := by

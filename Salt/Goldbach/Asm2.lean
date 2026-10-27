@@ -28,9 +28,9 @@ set_option maxHeartbeats 1600000 in
 -- the terminal composes ten multi-hypothesis suppliers; the bump is preemptive
 set_option linter.unusedVariables false in
 -- the giant ∀-telescope trips the linter on named rows (the Final2/BandPrice2 pattern)
-/-- **`gold_hBVblocksW_final`** — the A₃ block-BV terminal at op, modulo the named
-op-arithmetic rows (§3). -/
-theorem gold_hBVblocksW_final : ∃ (CT : ℝ) (x₁ : ℕ), 0 ≤ CT ∧
+/-- `gold_hBVblocksW_final` with the Siegel–Walfisz statement as the hypothesis `hSWall`,
+in place of the unconditional gate `Salt.SW.siegelWalfisz_holds`. -/
+theorem gold_hBVblocksW_final_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (CT : ℝ) (x₁ : ℕ), 0 ≤ CT ∧
     ∀ (N : ℕ), x₁ ≤ N →
       CT ≤ Real.log N →
       ∀ a : ℕ, a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
@@ -59,9 +59,9 @@ theorem gold_hBVblocksW_final : ∃ (CT : ℝ) (x₁ : ℕ), 0 ≤ CT ∧
             (1 * (opDlev N : ℝ)))
         ≤ (N : ℝ) / (Real.log N) ^ 10 := by
   classical
-  obtain ⟨KcB, xB, hKcB, hpriceB⟩ := gold_box_hprice_at_min
-  obtain ⟨KcS, xS, hKcS, hsymslot⟩ := gold_band_hsym_slot_full
-  obtain ⟨KcL, xL, hKcL, hlowslot⟩ := gold_band_hlow_slot_at_op
+  obtain ⟨KcB, xB, hKcB, hpriceB⟩ := (gold_box_hprice_at_min_of_SW hSWall)
+  obtain ⟨KcS, xS, hKcS, hsymslot⟩ := (gold_band_hsym_slot_full_of_SW hSWall)
+  obtain ⟨KcL, xL, hKcL, hlowslot⟩ := (gold_band_hlow_slot_at_op_of_SW hSWall)
   obtain ⟨xT, htailT⟩ := gold_box_crumb_tower
   obtain ⟨xBT, hbandT⟩ := gold_band_crumb_tower
   obtain ⟨xCE, hCEop⟩ := gold_op_hCE
@@ -254,5 +254,37 @@ theorem gold_hBVblocksW_final : ∃ (CT : ℝ) (x₁ : ℕ), 0 ≤ CT ∧
         _ = max Ctotal 1 * KcT * (N : ℝ) / (Real.log N) ^ 11 := by ring
     · -- the tower row: the exposed CT
       exact le_trans (le_of_eq (by ring)) htower
+
+/-- **`gold_hBVblocksW_final`** — the A₃ block-BV terminal at op, modulo the named
+op-arithmetic rows (§3). -/
+theorem gold_hBVblocksW_final : ∃ (CT : ℝ) (x₁ : ℕ), 0 ≤ CT ∧
+    ∀ (N : ℕ), x₁ ≤ N →
+      CT ≤ Real.log N →
+      ∀ a : ℕ, a ≤ N → Nat.Coprime opQ a → Nat.Coprime opQ (N - a) →
+      (1 : ℝ) ≤ 1 * (opDlev N : ℝ) →
+      ((opQ : ℝ) * (1 * (opDlev N : ℝ)) ≤ ((opD N : ℕ) : ℝ)) →
+      (∀ k, (goldCut N (k + 1) : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ ((opD N : ℕ) : ℝ)) →
+      (∀ k, ((goldCut N (k + 1) : ℝ) / (8 * (opZ N : ℝ))) ^ ((1 : ℝ) / 2)
+        ≤ ((opD N : ℕ) : ℝ)) →
+      (((opD N : ℕ) : ℝ) ≤ (N : ℝ) ^ ((1 : ℝ) / 2 - 9 / 100000)) →
+      ((1 : ℝ) * (opDlev N : ℝ) ≤ (N : ℝ) ^ ((1 : ℝ) / 2)) →
+      ((Nat.log 2 N : ℝ) + 1 ≤ 2 * Real.log N) →
+      (∀ k' k, ∀ i ∈ dyadicBoundary (pieceN k') (pieceM k')
+          (goldCut N k) (goldCut N (k + 1)) (opZ N * opY N) (Nat.log 2 N),
+          2 ^ (i + 1) ≤ N + 1) →
+      ((opY N : ℝ) * (Nat.sqrt N : ℝ)
+          * ((2 : ℝ) ^ Nat.log opW' N + ∑ d ∈ Nat.divisors (goldOpPs N), nuChen d)
+        ≤ (N : ℝ) / (Real.log N) ^ 11) →
+      (nuChen opQ * (∑ d ∈ Nat.divisors (goldOpPs N), nuChen d)
+          * goldTripleSum N (opZ N) (opY N) / ((opZ N : ℝ) - 1)
+        ≤ (N : ℝ) / (Real.log N) ^ 11) →
+      2 ≤ N → 1 ≤ opZ N →
+      (∑ j ∈ Finset.range (maxBlock N (opZ N) (N : ℝ) + 1),
+          rosserRemainder
+            (goldBlockSwitchSieveW N (opZ N) (opY N) (N : ℝ) j opQ a (goldOpPs N)
+              (goldOpPs_squarefree N) (goldOpPs_odd N))
+            (1 * (opDlev N : ℝ)))
+        ≤ (N : ℝ) / (Real.log N) ^ 10 :=
+  gold_hBVblocksW_final_of_SW Salt.SW.siegelWalfisz_holds
 
 end Salt.Goldbach

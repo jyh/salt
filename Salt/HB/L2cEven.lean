@@ -23,7 +23,7 @@ The complete provable **structural layer** of the row — everything any pricing
 must consume:
 
 * the character dichotomy (`evenCorner_chiRe_two`, `evenCornerSum_eq_zero_of_chiRe_two_ne`);
-* **the even-survivor classification** (`evenCorner_survivor`, the house-verified core):
+* **the even-survivor classification** (`evenCorner_survivor`, the core):
   a nonzero even term forces BOTH `χ=−1` blocks pure — `n₋ = 2^{e₁}`, `(n+2)₋ = 2^{e₂}`
   (any odd `χ=−1` block alongside a `2`-power dies by the two-block kill);
 * **the exponent split** (`evenCorner_exponent_split`, the fiber law): `e₁ ≥ 2 ⟹ e₂ = 1`
@@ -168,7 +168,7 @@ lemma evenCorner_block_of_diff_ne (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 
     le_antisymm (h0 ▸ vonMangoldt_le_LamTilde χ hsq m) vonMangoldt_nonneg
   rw [h0, hΛ, sub_zero]
 
-/-- **THE EVEN-SURVIVOR CLASSIFICATION** (the house-verified structural core of the
+/-- **THE EVEN-SURVIVOR CLASSIFICATION** (the structural core of the
     catch-#246 row).  If an even window element carries a nonzero overshoot term, BOTH
     `χ=−1` blocks are pure `2`-powers: `n₋ = 2^{e₁}` and `(n+2)₋ = 2^{e₂}` with
     `e₁, e₂ ≥ 1`.  (First summand: the difference side classifies, the `Λ̃` side
@@ -281,8 +281,7 @@ lemma evenCorner_survivor_term_le (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 
     (hM2 : nMinus χ (n + 2) = 2 ^ e₂) :
     overshootExact χ n ≤ Real.exp (2 * z0 z x) := by
   have hlog2a : Real.log 2 ≤ 1 := by
-    have h := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 2)
-    linarith only [h]
+    exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 1 (by norm_num) (by norm_num)
   have hlog2b : (0 : ℝ) ≤ Real.log 2 := Real.log_nonneg (by norm_num)
   have hκ0 : (0 : ℝ) ≤ Real.exp (Real.log 2 * z0 z x) * Real.log 2 :=
     mul_nonneg (Real.exp_pos _).le hlog2b
@@ -452,7 +451,7 @@ single free exponent and Chebyshev-counts the `χ=+1` cofactor). -/
 /-! ## §6 — the RE-FROZEN row (House Amendment 4, catch #248): `J2 + junk`, engine-free
 
 Amendment 4 re-froze the row's conclusion to the `J2 + standard-junk` shape and supplied
-a house-verified route that uses **crude divisor counting only** (no pair-count engine —
+a route that uses **crude divisor counting only** (no pair-count engine —
 the engine's primorial coprimality contains `2`, so even fibers never embed).  This
 section lands that bound, `EL_evenCorner_bound`, with `Cmain = 2` (absolute).
 
@@ -690,10 +689,10 @@ theorem EL_evenCorner_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {
   -- window log-scale is `≥ 1`
   have hx8 : (8 : ℝ) ≤ (x : ℝ) := by
     have h23 : (2 : ℝ) ^ 3 ≤ (z : ℝ) ^ 3 := by gcongr
-    nlinarith [hzx, h23]
+    linarith only [h23, hzx]
   have hL1 : 1 ≤ Lwin x := by
     rw [Lwin, Real.le_log_iff_exp_le (by positivity)]
-    nlinarith [hx8, Real.exp_one_lt_d9]
+    linarith only [hx8, Real.exp_one_lt_d9]
   have hLpos : 0 < Lwin x := by linarith
   -- the two conversion facts
   have hxln : (x : ℝ) / Real.log z = ((x : ℝ) / Lwin x) * z0 z x := by
@@ -741,9 +740,9 @@ theorem EL_evenCorner_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {
   have hb : Real.exp (2 * z0 z x)
       ≤ 2 * Real.exp (2 * z0 z x) * ((x : ℝ) / (z : ℝ) ^ (1 / 8 : ℝ)) * (Lwin x) ^ 3 := by
     have hfac : (1 : ℝ) ≤ 2 * ((x : ℝ) / (z : ℝ) ^ (1 / 8 : ℝ)) * (Lwin x) ^ 3 := by
-      nlinarith [hA1, hL3, mul_nonneg (by linarith [hA1] :
-        (0 : ℝ) ≤ (x : ℝ) / (z : ℝ) ^ (1 / 8 : ℝ) - 1) (by linarith [hL3] :
-        (0 : ℝ) ≤ (Lwin x) ^ 3 - 1)]
+      linarith only [hL3, hA1, mul_nonneg
+          (by linarith [hA1] : (0 : ℝ) ≤ (x : ℝ) / (z : ℝ) ^ (1 / 8 : ℝ) - 1)
+          (by linarith [hL3] : (0 : ℝ) ≤ (Lwin x) ^ 3 - 1)]
     calc Real.exp (2 * z0 z x) = Real.exp (2 * z0 z x) * 1 := (mul_one _).symm
       _ ≤ Real.exp (2 * z0 z x) * (2 * ((x : ℝ) / (z : ℝ) ^ (1 / 8 : ℝ)) * (Lwin x) ^ 3) :=
           mul_le_mul_of_nonneg_left hfac hexp.le

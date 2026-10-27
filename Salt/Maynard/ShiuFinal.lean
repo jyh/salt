@@ -84,7 +84,7 @@ theorem divis_ap_count_le {q a z K : ℕ} (hq : 1 ≤ q) (hK : 1 ≤ K)
         obtain ⟨m, rfl⟩ := hKn
         have hmK : K * m / K = m := Nat.mul_div_cancel_left m hKpos0
         simp only [hT, Finset.mem_coe, Finset.mem_filter, Finset.mem_Icc, hmK]
-        have hm1 : 1 ≤ m := by nlinarith [hn1, hKpos0]
+        have hm1 : 1 ≤ m := by nlinarith only [hn1, (Nat.cast_nonneg _ : 0 ≤ ↑K)]
         refine ⟨⟨hm1, ?_⟩, ?_⟩
         · rw [Nat.le_div_iff_mul_le hKpos0, Nat.mul_comm]; exact hnz
         · have haq : a % q = a := by
@@ -352,6 +352,11 @@ The proof is NEW-1's, with the three tuning equalities `(1−σ)log v = log r/4`
 `v^{1−σ} = r^{1/4}` weakened to `≤` (the correct direction — the correction term is
 upper-bounded).  Reuses the SAME landed helpers.  THIS is the stone that unblocks
 the class-IV binned assembly (each bin instantiates `v = v_r`, `σ_r`). -/
+/-- The class-IV stone with the `v`-constraint RELAXED to `r · log v ≤ log z` (the header
+above): constants `Ce, C₀ ≥ 0` such that for `3 ≤ v`, `2 ≤ r`, `1 ≤ W`, `1 < z`,
+`r log r ≤ log z`, `log W = ½ log z`, `r log v ≤ log z` and `σ = 1 − r log r / (4 log z)`, the
+sum of `τ(c)/c` over the `v`-smooth `c ∈ (W, N]` is at most
+`exp(−r log r / 8 + r^{1/4}(log r / 2 + C₀)) · exp(2 ∑_{p ≤ z} 1/p + Ce)`. -/
 theorem sum_tau_smooth_gt_tuned_le' :
     ∃ (Ce C₀ : ℝ), 0 ≤ Ce ∧ 0 ≤ C₀ ∧
     ∀ (N z r v W : ℕ) (σ : ℝ),
@@ -442,8 +447,8 @@ theorem sum_tau_smooth_gt_tuned_le' :
             mul_le_mul_of_nonneg_right hv1σ_le (mul_nonneg h1σ_nn hl4)
         _ ≤ (r : ℝ) ^ (1 / 4 : ℝ) * ((Real.log 4 + 4) / 4) := by
             apply mul_le_mul_of_nonneg_left _ hr4nn
-            nlinarith [h1σ_le, hl4]
-    nlinarith [ht1, ht2]
+            nlinarith only [h1σ_le, hl4]
+    linarith only [ht2, ht1]
   -- the exponent inequality (identical to NEW-1)
   set Ppv := (Finset.range (v + 1)).filter Nat.Prime with hPpv
   set Ppz := (Finset.range (z + 1)).filter Nat.Prime with hPpz

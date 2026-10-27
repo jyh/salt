@@ -104,7 +104,7 @@ theorem neg_log_nu_le {x : ℝ} {p : ℕ} (hp3 : 3 ≤ p) (hxle : x ≤ 1 / ((p 
       have hfin : 1 / ((p : ℝ) - 2) ≤ 1 / (p : ℝ) + 4 / (p : ℝ) ^ 2 := by
         rw [div_add_div _ _ (ne_of_gt hp0) (pow_ne_zero 2 (ne_of_gt hp0)),
           div_le_div_iff₀ hpm2 (by positivity)]
-        nlinarith [hp4R, hp0, mul_nonneg hp0.le (by linarith : (0 : ℝ) ≤ (p : ℝ) - 4)]
+        linarith only [mul_nonneg hp0.le (by linarith : (0 : ℝ) ≤ (p : ℝ) - 4)]
       linarith [hq, hfin]
   -- monotone reduction from `x` up to `1/(p−1)`
   have h1x : (0 : ℝ) < 1 - x := by
@@ -245,7 +245,7 @@ theorem w0R_threshold {ε : ℝ} (hε : 0 < ε) :
     linarith [h1, h2]
   rw [hterm1]
   have hbudget : 19 * Real.log (1 + ε) / 40 + Real.log (1 + ε) / 10 ≤ Real.log (1 + ε) := by
-    nlinarith [hL]
+    linarith only [hL]
   linarith [hterm2, hbudget]
 
 /-- **Threshold monotonicity**: the guard at `w ≥ 3` transports up to any `u ≥ w`.  Lets a caller

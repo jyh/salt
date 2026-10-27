@@ -1,3 +1,5 @@
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Lines 38, 66 and 96 say more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+
 > Provenance: the merged verdict of the 2026-08-17 pre-submission priority re-run, copied from the
 > private campaign register into salt for public citation, following the same convention as
 > `priority-survey-2026-08-11.md` (the baseline this delta is measured against). The merged verdict
@@ -7,6 +9,16 @@
 > two verdicts rest on our own local kernel checks (`lake build` + `#print axioms`) of the
 > competitor's public bytes, not on their claims. Cited by papers/flagship/main.tex; the survey
 > re-runs again at submission (eval-board surface on a cadence of days).
+>
+> **Correction, 2026-10-11 (re-measured at the sources that day; the verdicts below are kept as
+> written and are no longer current on Siegel–Walfisz and Bombieri–Vinogradov).** The repository
+> `kimihiro64/bombieri-vinogradov` (public, created 2026-08-31) states in its README that it proves
+> Bombieri–Vinogradov in level-of-distribution form for every `θ < 1/2`, including a character-form
+> Siegel–Walfisz theorem; its commit `7a174830` is dated 2026-09-05. A submission reusing it for
+> the bound 246 (with `AxiomMath/PrimeGapsLib`) is recorded as passing the `lean-eval` comparator
+> in `leanprover/lean-eval-submissions` issue #1971 (closed 2026-10-05). So any sentence here that
+> Siegel–Walfisz or unconditional Bombieri–Vinogradov is unproved in Lean, or that SW is the single
+> remaining wall, is false as of those dates and must not be cited.
 
 # PRIORITY AUDIT — DELTA VERDICT (state as of 2026-08-17; baseline: docs/priority-survey-2026-08-11.md)
 
