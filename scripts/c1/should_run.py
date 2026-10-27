@@ -12,8 +12,10 @@ already superseded (2026-10-26, run 40432683016, key for 2aa057fb). Such a run S
 the newer head's own run checks the certificate on main. Every other event runs: the nightly
 schedule, a dispatch, a pull request, and a `workflow_run` whose sha is still main's head.
 
-LIMIT: the head is read when this step runs; if main moves between this check and the restore, the
-restore can still miss (a window of seconds, not hours).
+LIMITS: the head is read when this step runs; if main moves between this check and the restore, the
+restore can still miss (a window of seconds, not hours). A skip rests on the newer head's own run: if
+that head's Lean run is cancelled or red, no workflow_run C1 checks main until the nightly schedule,
+which always runs. If the freshness job itself fails, the workflow runs the certificate anyway.
 """
 import sys
 
