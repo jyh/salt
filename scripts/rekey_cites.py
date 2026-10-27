@@ -84,12 +84,12 @@ def done_at_head(root, head, src, old, new):
 
 
 def census(root, base, head):
-    out = git(root, "diff", "--name-status", base, head)
+    out = git(root, "diff", "--name-status", "-M", base, head)   # -M: rename detection whatever the config
     edited = [ln.split("\t")[1] for ln in out.splitlines()
               if ln.startswith("M\t") and ln.endswith(".lean")]
     # a renamed .lean target: every cite of its OLD path is REPORTED (never skipped)
     renamed = [ln.split("\t")[1] for ln in out.splitlines()
-               if ln.startswith("R") and ln.split("\t")[1].endswith(".lean")]
+               if ln[:1] in ("R", "D") and ln.split("\t")[1].endswith(".lean")]   # renamed or deleted
     files = git(root, "ls-tree", "-r", "--name-only", base).split()
     leaves = Counter(f.rsplit("/", 1)[-1] for f in files if f.endswith(".lean"))
     maps = {f: line_map(show(root, base, f), show(root, head, f)) for f in edited}
@@ -252,6 +252,7 @@ def self_test():
     with tempfile.TemporaryDirectory() as d:
         g = lambda *a: git(d, *a)
         g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        g("config", "diff.renames", "false")          # the census must not depend on this (paper LOW 3)
         os.makedirs(os.path.join(d, "Salt"))
         ten = "".join(f"line {i}\n" for i in range(1, 11))
         for n in ("C", "E", "R"):
