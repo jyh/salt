@@ -27,9 +27,11 @@ cite is classed:
 
 --apply edits a citing file only where the same cite text is present at HEAD, in its base order;
 a citing file whose cite occurrences differ between BASE and HEAD is REPORTED for that cite.
-A file is PINNED when its own text, whitespace flattened (the clause is hard-wrapped), contains
-`citations refer to the archived snapshot`. Generated pages are skipped (their generators re-key them). Exit 0 when nothing is stale after the
-run (no REPORTED, and no RE-KEYED left unapplied), 1 otherwise, 2 on a usage error.
+A file is PINNED when it is a DECLARED published manuscript (PUBLISHED), or when, whitespace
+flattened, its own text (a .tex file) says `citations refer to the archived snapshot`, or it is a main.tex whose
+sibling ERRATA.md says `kept as published` / `kept as submitted` (an UNDECLARED pin, printed so it is
+added to the list). A diff that EDITS a pinned file is REFUSED, rc 3, before any census or --apply. Generated pages are skipped (their generators re-key them). Exit 0 when nothing is stale after the
+run (no REPORTED, and no RE-KEYED left unapplied), 1 otherwise, 2 on a usage error, 3 refused.
 
 LIMITS, printed with every verdict: only `.lean` targets; cites in other forms (`:N, M` lists,
 "line N" prose) are not read; a cite written fresh at HEAD is not checked; content equality is per
@@ -46,7 +48,13 @@ from collections import Counter
 
 GENERATED = {"docs/CATALOGUE.md", "docs/METHODS-CATALOGUE.md", "docs/methods-catalogue.tsv",
              "docs/FULCRUM-CENSUS.md", "docs/TACTICS-CATALOGUE.md"}
+# Published manuscripts: their file:line locators cite an archived snapshot, so they stay byte-identical
+# and a correction goes to their ERRATA (the helm's scope of condition 5, 10-27). Declared here; the two
+# word roads below (the file's own clause, a sibling ERRATA's) catch one that is not declared yet.
+PUBLISHED = ("papers/witness/main.tex",    # Zenodo snapshot; "citations refer to the archived snapshot"
+             "papers/flagship/main.tex")   # its ERRATA: "kept as submitted"
 PIN_PHRASE = "citations refer to the archived snapshot"
+ERRATA_PHRASES = ("kept as published", "kept as submitted")
 TEXT = (".lean", ".md", ".tex", ".tsv", ".py", ".txt", ".yml")
 LIMITS = ("LIMITS: .lean targets only; forms Leaf.lean:N and :N–M / :N-M; lists and prose line "
           "numbers are not read; a cite written fresh at HEAD is not checked; content equality is "
@@ -87,7 +95,31 @@ def done_at_head(root, head, src, old, new):
     return t is not None and not occ_re(old).search(t) and bool(occ_re(new).search(t))
 
 
-def census(root, base, head):
+def flat(t):
+    return " ".join((t or "").split())
+
+
+def pin_road(root, rev, src, text, published):
+    """Why a citing file is pinned at rev (None if it is not): declared, its own clause, or its ERRATA."""
+    if src in published:
+        return "declared"
+    if src.endswith(".tex") and PIN_PHRASE in flat(text):   # a manuscript's clause, never code quoting it
+        return "own clause"
+    if src.rsplit("/", 1)[-1] == "main.tex":
+        er = show(root, rev, (src.rsplit("/", 1)[0] + "/" if "/" in src else "") + "ERRATA.md")
+        if any(ph in flat(er) for ph in ERRATA_PHRASES):
+            return "ERRATA"
+    return None
+
+
+def refusals(root, base, head, published=PUBLISHED):
+    """Pinned manuscripts the diff BASE..HEAD edits: a re-key must never touch one."""
+    out = git(root, "diff", "--name-only", base, head).split()
+    return sorted(f for f in out if f.endswith(TEXT)
+                  and pin_road(root, base, f, show(root, base, f), published))
+
+
+def census(root, base, head, published=PUBLISHED):
     out = git(root, "diff", "--name-status", "-M", base, head)   # -M: rename detection whatever the config
     edited = [ln.split("\t")[1] for ln in out.splitlines()
               if ln.startswith("M\t") and ln.endswith(".lean")]
@@ -107,7 +139,7 @@ def census(root, base, head):
         text = show(root, base, src)
         if text is None:
             continue
-        pinned = PIN_PHRASE in " ".join(text.split())   # the manuscript's own words, read flattened
+        road = pin_road(root, base, src, text, published)
         for f in edited + renamed:
             leaf = f.rsplit("/", 1)[-1]
             pat = r"(?<![A-Za-z0-9_./])((?:[A-Za-z0-9_.]+/)*)" + re.escape(leaf) + r":(\d+)(?:([–-])(\d+))?"
@@ -115,9 +147,9 @@ def census(root, base, head):
                 pre = mt.group(1)
                 if pre and not f.endswith(pre + leaf):
                     continue
-                if pinned:
+                if road:
                     cls["PINNED"] += 1
-                    rows.append(dict(src=src, target=f, cite=mt.group(0), cls="PINNED", new=None))
+                    rows.append(dict(src=src, target=f, cite=mt.group(0), cls="PINNED", new=None, road=road))
                     continue
                 if not pre and leaves[leaf] > 1:
                     cls["AMBIGUOUS"] += 1
@@ -175,14 +207,34 @@ def report(edited, rows, cls, applied):
           f"PRE-STALE (past the base file's end, not this edit's) {cls['PRE-STALE']} · "
           f"AMBIGUOUS (bare leaf, not read) {cls['AMBIGUOUS']} · "
           f"PINNED (an archived manuscript's, never re-keyed) {cls['PINNED']}")
-    pins = sorted({r["src"] for r in rows if r["cls"] == "PINNED"})
+    pins = sorted({(r["src"], r["road"]) for r in rows if r["cls"] == "PINNED"})
     if pins:
-        print(f"  PINNED files ({len(pins)}): " + ", ".join(pins))
+        print(f"  PINNED files ({len(pins)}): " + ", ".join(f"{s} [{w}]" for s, w in pins))
+    for s, w in pins:
+        if w != "declared":
+            print(f"  UNDECLARED {s}: pinned by its {w}; add it to PUBLISHED")
     for r in rows:
         if r["cls"] in ("RE-KEYED", "REPORTED", "PRE-STALE"):
             print(f"  {r['cls']:9s} {r['src']}: {r['cite']} -> {r['new'] or '(no head line: read by hand)'}"
                   + (f"  [{r['why']}]" if r.get("why") else ""))
     print(LIMITS)
+
+
+def main_rc(root, args, applied=False, published=PUBLISHED):
+    base, head = args[0], (args[1] if len(args) > 1 else "HEAD")
+    bad = refusals(root, base, head, published)
+    if bad:
+        print(f"rekey_cites: REFUSED: {base}..{head} edits {len(bad)} published manuscript(s), which stay "
+              "byte-identical (their locators cite an archived snapshot; a correction goes to their ERRATA): "
+              + ", ".join(bad))
+        return 3
+    edited, rows, cls = census(root, base, head, published)
+    if applied:
+        apply(root, base, head, rows)
+        cls = Counter(r["cls"] for r in rows) + Counter({"AMBIGUOUS": cls["AMBIGUOUS"]})
+    report(edited, rows, cls, applied)
+    stale = cls["REPORTED"] + (0 if applied else cls["RE-KEYED"])   # PRE-STALE is printed, not counted
+    return 1 if stale else 0
 
 
 def main(argv):
@@ -192,16 +244,7 @@ def main(argv):
     if not 1 <= len(args) <= 2:
         print(__doc__)
         return 2
-    base, head = args[0], (args[1] if len(args) > 1 else "HEAD")
-    root = git(".", "rev-parse", "--show-toplevel").strip()
-    edited, rows, cls = census(root, base, head)
-    applied = "--apply" in argv
-    if applied:
-        apply(root, base, head, rows)
-        cls = Counter(r["cls"] for r in rows) + Counter({"AMBIGUOUS": cls["AMBIGUOUS"]})
-    report(edited, rows, cls, applied)
-    stale = cls["REPORTED"] + (0 if applied else cls["RE-KEYED"])   # PRE-STALE is printed, not counted
-    return 1 if stale else 0
+    return main_rc(git(".", "rev-parse", "--show-toplevel").strip(), args, "--apply" in argv)
 
 
 def self_test():
@@ -311,6 +354,47 @@ def self_test():
         apply(d, "HEAD~1", "HEAD", rows5)
         check("--apply leaves the pinned manuscript byte-identical",
               open(os.path.join(d, "pinned.tex")).read().startswith(body))
+        # a DECLARED published manuscript is pinned whatever its words (the helm's scope of condition 5)
+        open(os.path.join(d, "kept.tex"), "w").write(body)
+        g("add", "-A"); g("commit", "-q", "-m", "kept")
+        t = ["inserted again"] + open(os.path.join(d, "Salt/P.lean")).read().split("\n")
+        open(os.path.join(d, "Salt/P.lean"), "w").write("\n".join(t))
+        g("commit", "-q", "-am", "head3")
+        _, rows6, _ = census(d, "HEAD~1", "HEAD", published=("kept.tex",))
+        k6 = {(r["src"], r["cite"]): r for r in rows6}
+        check("a DECLARED published manuscript is PINNED though it carries no clause",
+              k6.get(("kept.tex", "P.lean:7"), {}).get("cls") == "PINNED")
+        check("... and the same text undeclared is RE-KEYED (control)",
+              k6.get(("live.tex", "P.lean:8"), {}).get("new") == "P.lean:9")
+        check("a diff that does not touch a published manuscript is not refused",
+              refusals(d, "HEAD~1", "HEAD", published=("kept.tex",)) == [])
+        open(os.path.join(d, "kept.tex"), "w").write("see P.lean:9.\n")
+        g("commit", "-q", "-am", "edits the manuscript")
+        check("a diff that EDITS a published manuscript is REFUSED, naming it",
+              refusals(d, "HEAD~2", "HEAD", published=("kept.tex",)) == ["kept.tex"])
+        check("... and main() exits 3 on it",
+              main_rc(d, ["HEAD~2", "HEAD"], published=("kept.tex",)) == 3)
+        # paper's flagship-shaped fixture: an undeclared main.tex kept as submitted by its sibling ERRATA
+        os.makedirs(os.path.join(d, "pap"))
+        open(os.path.join(d, "pap/main.tex"), "w").write("see P.lean:9.\n")
+        open(os.path.join(d, "pap/ERRATA.md"), "w").write("The manuscript itself is kept as\nsubmitted.\n")
+        g("add", "-A"); g("commit", "-q", "-m", "flagship-shaped")
+        t = ["inserted thrice"] + open(os.path.join(d, "Salt/P.lean")).read().split("\n")
+        open(os.path.join(d, "Salt/P.lean"), "w").write("\n".join(t))
+        g("commit", "-q", "-am", "head4")
+        _, rows7, _ = census(d, "HEAD~1", "HEAD", published=())
+        k7 = {(r["src"], r["cite"]): r for r in rows7}
+        check("an undeclared main.tex whose ERRATA keeps it as submitted is PINNED by its ERRATA",
+              k7.get(("pap/main.tex", "P.lean:9"), {}).get("road") == "ERRATA")
+        check("a non-.tex file QUOTING the clause (this tool) is not pinned",
+              pin_road(d, "HEAD", "tool.py", "x = 'citations refer to the archived snapshot'", ()) is None)
+    # the live repo: every manuscript a word road pins is DECLARED (derived from the tree's bytes)
+    here = git(os.path.dirname(os.path.abspath(__file__)), "rev-parse", "--show-toplevel").strip()
+    roads = {f: pin_road(here, "HEAD", f, show(here, "HEAD", f), ())
+             for f in git(here, "ls-tree", "-r", "--name-only", "HEAD").split() if f.endswith(TEXT)}
+    word = sorted(f for f, w in roads.items() if w)
+    check(f"in this repo, the {len(word)} manuscript(s) a word road pins are all DECLARED, and the list "
+          "names no file the tree lacks", word and set(word) <= set(PUBLISHED) and set(PUBLISHED) <= set(roads))
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
