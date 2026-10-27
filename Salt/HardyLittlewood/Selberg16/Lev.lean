@@ -29,6 +29,8 @@ noncomputable def zSel (δ : ℝ) (N : ℕ) : ℕ := ⌊(N : ℝ) ^ ((1 - δ) / 
 /-- Sift modulus. -/
 noncomputable def PSel (δ : ℝ) (N : ℕ) : ℕ := primorial (zSel δ N)
 
+/-- The sift modulus `PSel δ N = primorial (zSel δ N)` is squarefree
+(`primorial_squarefree`). -/
 lemma PSel_squarefree (δ : ℝ) (N : ℕ) : Squarefree (PSel δ N) :=
   Salt.M5Assembly.primorial_squarefree (zSel δ N)
 
@@ -40,24 +42,33 @@ noncomputable def twinSieveSel (δ : ℝ) (hδ : δ < 1) (N : ℕ) (hN : 1 ≤ N
     unfold ySel
     exact Real.one_le_rpow (by exact_mod_cast hN) (by linarith)
 
+/-- The product of the sifting primes of `twinSieveSel δ hδ N hN` is `PSel δ N` (`rfl`;
+`hδ : δ < 1`, `hN : 1 ≤ N`). -/
 @[simp] lemma twinSieveSel_prodPrimes (δ : ℝ) (hδ : δ < 1) (N : ℕ) (hN : 1 ≤ N) :
     (twinSieveSel δ hδ N hN).prodPrimes = PSel δ N := rfl
 
+/-- The total mass of `twinSieveSel δ hδ N hN` is `N` (`rfl`). -/
 @[simp] lemma twinSieveSel_totalMass (δ : ℝ) (hδ : δ < 1) (N : ℕ) (hN : 1 ≤ N) :
     (twinSieveSel δ hδ N hN).totalMass = (N : ℝ) := rfl
 
+/-- The level of `twinSieveSel δ hδ N hN` is `ySel δ N = N ^ (1 - δ)` (`rfl`). -/
 @[simp] lemma twinSieveSel_level (δ : ℝ) (hδ : δ < 1) (N : ℕ) (hN : 1 ≤ N) :
     (twinSieveSel δ hδ N hN).level = ySel δ N := rfl
 
+/-- The Selberg terms of `twinSieveSel δ hδ N hN` are those of the underlying twin sieve
+`Salt.TwinSieve.sieve N (PSel δ N) _`: `selbergTerms` reads only the bounding-sieve fields. -/
 lemma twinSieveSel_selbergTerms (δ : ℝ) (hδ : δ < 1) (N : ℕ) (hN : 1 ≤ N) :
     (twinSieveSel δ hδ N hN).selbergTerms
       = (Salt.TwinSieve.sieve N (PSel δ N) (PSel_squarefree δ N)).selbergTerms := rfl
 
+/-- The remainder `rem d` of `twinSieveSel δ hδ N hN` is the twin sieve's `_root_.rem d N`. -/
 lemma twinSieveSel_rem (δ : ℝ) (hδ : δ < 1) (N : ℕ) (hN : 1 ≤ N) (d : ℕ) :
     (twinSieveSel δ hδ N hN).rem d = _root_.rem d N := by
   change (Salt.TwinSieve.sieve N (PSel δ N) (PSel_squarefree δ N)).rem d = _root_.rem d N
   exact Salt.TwinSieve.sieve_rem d
 
+/-- The sifted sum of `twinSieveSel δ hδ N hN` is that of the underlying twin sieve
+`Salt.TwinSieve.sieve N (PSel δ N) _`. -/
 lemma twinSieveSel_siftedSum (δ : ℝ) (hδ : δ < 1) (N : ℕ) (hN : 1 ≤ N) :
     (twinSieveSel δ hδ N hN).siftedSum
       = (Salt.TwinSieve.sieve N (PSel δ N) (PSel_squarefree δ N)).siftedSum := rfl

@@ -8068,10 +8068,10 @@ of record. -/
 
 /-! ⟦KS-RETHREAD — `logChowla2_ineffective_v7_ksarm`⟧ (`V7Ks`, 2026-08-14, waking review 08-15).
 
-⟦WHY A RETHREAD AND NOT A DISCHARGE⟧ V7-A proved `Real.exp (-100) ≤ Ks` is not provable as a
-numeral — it reduces to an explicit lower bound on Siegel's ineffective constant at `ε = 1/16` —
-and supplied the replacement leaf: `capfloor_floor4_of_pos` derives the `floor4` field of
-`S13CapGatePerBlock` from `0 < Ks` plus the WINDOW `log(1/Ks) ≤ 3·log H/16`, no numeral anywhere.
+⟦WHY A RETHREAD AND NOT A DISCHARGE⟧ V7-A argued on paper that `Real.exp (-100) ≤ Ks` cannot be
+proved as a numeral — it reduces to an explicit lower bound on Siegel's ineffective constant at
+`ε = 1/16` — and supplied the replacement leaf: `capfloor_floor4_of_pos` derives the `floor4` field
+of `S13CapGatePerBlock` from `0 < Ks` plus the WINDOW `log(1/Ks) ≤ 3·log H/16`, no numeral anywhere.
 The window is `A`-satisfiable and the numeral is not, so the rider is not discharged where it
 stands: the window is threaded DOWN to the leaf, and met at the top by a new arm of `A`'s `max`.
 
@@ -9571,8 +9571,8 @@ LEADING BINDER.  The hoist is still pure re-bracketing (`Cg` from parseval, `H�
 the head is `HloExportFlatH.flat_head_uniform_h`, and `Salt/Entropy` CANNOT import `Salt/MR`,
 where the whole `xceil` apparatus lives.  So `flat_head_uniform_xceil_h` is built HERE, beside
 its `h = 1` sibling, off a one-line PUBLIC RE-EXPORT appended to `HloExportFlatH` §5 (a new
-declaration — no landed line touched, no `private` lifted).  The 4-line `flatCapH_shuffle` is
-re-proved locally, as `S16UniformLH` re-proves `flatRootCapH_arc_u` for the same reason.
+declaration — no landed line touched, no `private` lifted).  The 3-line `flatCapH_shuffle` is
+re-proved locally, as `S16UniformLH` re-proves `flatRootCapH_arc` as `flatRootCapH_arc_u`.
 ⭐ **The arithmetic was already paid:** the only inequality spent in the whole block is the
 conditional's `g`-substitution, and H2a word 4's `xceil_arm_split_h` is exactly the statement
 that the thinned margin `H₊/(250000·h²)` still covers the arm's `log h` and the split's `log 2`.

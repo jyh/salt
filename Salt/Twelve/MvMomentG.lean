@@ -180,6 +180,21 @@ set_option maxHeartbeats 1600000 in
 -- per-j product factoring in a single elaboration; the nested `calc`s over `decBox`
 -- and the product box exceed the default heartbeat budget.
 omit [Salt.Maynard.TupleChoice] in
+/-- **W3-3 — the `g`-weighted multi-dimensional budget moment.** For square-free `W' > 0`
+(`hW'`, `hpos`) with `PhiUpperAtom W'` (`hUpper`), an exponent vector `e` on `n` coordinates and
+a budget power `d`: there is `c ≥ 0` such that for `3 ≤ D` below every prime not dividing `W'`,
+`2 ≤ z ≤ R` and `1 ≤ log R`, the `g`-weighted budget monomial sum over `decBox n z W'` is within
+`c·(1 + X)^{n−1}·(1 + log R/D)` of the SAME main term as `mv_monomial`,
+`X^n·DInt' e d·(log z/log R)^{n+d+Σe}` (`X = φ(W')/W'·log R`). The witness is
+`c = c1 + Σ_j cgap(e j)·∏_{i ≠ j} cg(e i)`, `c1` the `mv_monomial` constant, `cg a` the crude
+`g`-moment constants (`crude_g_moment`, from `marked_sqf_g` at `s = 1`) and `cgap a` the gap
+constants (`gap_g_moment`, from `budget_moment_g` at `b = 0`). The route compares
+`|g-sum − Main| ≤ |g-sum − φ-sum| + |φ-sum − Main|`: the second is `mv_monomial`; the first is
+nonnegative and telescopes coordinate by coordinate (`product_gap_bound`:
+`∏ 1/g − ∏ 1/φ ≤ Σ_j (1/g(r j) − 1/φ(r j))·∏_{i ≠ j} 1/g(r i)`), the budget factor dropped
+(`≤ 1`), the coupled `decBox` enlarged to the product box and factored
+(`Finset.sum_prod_piFinset`), with the marked coordinate a gap moment `≤ cgap·log R/D` and the
+others crude moments `≤ cg·(1 + X)`. -/
 theorem mv_monomial_g (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (n : ℕ) (e : Fin n → ℕ) (d : ℕ) :
     ∃ c : ℝ, 0 ≤ c ∧ ∀ D z R : ℕ, 3 ≤ D →

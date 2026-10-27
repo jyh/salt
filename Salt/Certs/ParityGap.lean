@@ -10,7 +10,7 @@ import Salt.Parity.Z
 
 Campaign: `saltworks/docs/cert-layer-design-0811.md` (the fifth deliverable).
 Landed theorem certified: `Salt.Parity.sufficient_true_not_parityInv`
-(`Salt/Parity/Z.lean:670`). Paper: Theorem `thm:gap`.
+(`Salt/Parity/Z.lean:681`). Paper: Theorem `thm:gap`.
 
 ## WHAT THE THEOREM SAYS, in one sentence
 **No predicate on completions can be simultaneously parity-invariant and
@@ -40,10 +40,10 @@ its binders named in plain terms, proved by `exact`. **No generality is traded.*
 ## ⭐ THIS CERTIFIES THE **RE-CUT** STATEMENT (2026-08-11)
 Writing the first version of this file surfaced that the landed theorem carried **two
 hypotheses its proof never used** — `h1 : 1 ≤ A₀` (half of what Pi's PRE-RE-CUT
-display called "the certified $A_0$ range", `8680167^:main.tex:645` verbatim) and
+display called "the certified $A_0$ range", `f4188dfd^:main.tex:645` verbatim) and
 `ht : E oneWeight` (that display's "true ($E(\mathbf{1})$)" conjunct,
-`8680167^:main.tex:646` verbatim) — both phrases were DROPPED from Pi in the
-re-cut `8680167`; the quotes here are HISTORICAL, pinned to the pre-re-cut
+`f4188dfd^:main.tex:646` verbatim) — both phrases were DROPPED from Pi in the
+re-cut `f4188dfd`; the quotes here are HISTORICAL, pinned to the pre-re-cut
 revision, and correctly absent from today's `main.tex` —
 so the kernel held **strictly more** than the statement said. That first cert stated the
 theorem *as landed*, because rule 3 forbids a cert from strengthening: a stronger
@@ -88,8 +88,8 @@ is NOT exhibited in this corpus**, and exhibiting one is research-adjacent
 (near the sufficiency side of the conjecture itself). The certificate's force
 is unaffected: it is a negative, holding for EVERY `E`, degenerate or not.
 (Degenerate-`E` instantiation is landed corpus practice, not an invention of this
-witness — see `Z_trivial_of_not_completion`, `Salt/Parity/Z.lean:125`, and its
-escape at L1 `:457`.) AND THE WITNESS IS NOT CONTENT-FREE [math's mirror case,
+witness — see `Z_trivial_of_not_completion`, `Salt/Parity/Z.lean:128`, and its
+escape at L1 `:463`.) AND THE WITNESS IS NOT CONTENT-FREE [math's mirror case,
 10:39 — an UNDERclaim, corrected]: `ParityInv` at `E := fun _ => False` says
 "no completion exists", so this example's NEGATIVE kernel-certifies that a
 completion EXISTS at `(θ, A₀) = (1/4, 2)` — degenerate on the `E` axis exactly

@@ -27,12 +27,17 @@ variable [Salt.Maynard.TupleChoice]
 
 /-! ## Local replica of the `biQuad` homogeneity chain (private in `FstarNorm`) -/
 
+/-- The bilinear form `Σ_{p, q ∈ F} p₂ q₂·ker(p₁, q₁)` of a polynomial's coefficient list
+against a kernel on exponent vectors; the local replica of `FstarNorm`'s private `biQuad`. -/
 private def biQuadP (ker : (Fin 5 → ℕ) → (Fin 5 → ℕ) → ℚ) (F : Poly) : ℚ :=
   (F.map (fun p => (F.map (fun q => p.2 * q.2 * ker p.1 q.1)).sum)).sum
 
+/-- `Jcal m F` is `biQuadP` at the kernel `JD · · m` (`rfl`). -/
 private lemma Jcal_eq_biQuadP (m : Fin 5) (F : Poly) :
     Jcal m F = biQuadP (fun a b => JD a b m) F := rfl
 
+/-- Scaling every coefficient of `F` by `c` scales the bilinear form by `c²`: both sums pull the
+factor out (`List.sum_map_mul_left`). -/
 private lemma biQuadP_scale (ker : (Fin 5 → ℕ) → (Fin 5 → ℕ) → ℚ) (F : Poly) (c : ℚ) :
     biQuadP ker (F.map (fun m => (m.1, m.2 * c))) = c ^ 2 * biQuadP ker F := by
   unfold biQuadP
@@ -44,11 +49,14 @@ private lemma biQuadP_scale (ker : (Fin 5 → ℕ) → (Fin 5 → ℕ) → ℚ) 
   dsimp only [Function.comp]
   ring
 
+/-- `Jcal m (c·F) = c²·Jcal m F` (`Jcal_eq_biQuadP`, `biQuadP_scale`). -/
 private lemma Jcal_scaleP (m : Fin 5) (F : Poly) (c : ℚ) :
     Jcal m (F.map (fun n => (n.1, n.2 * c))) = c ^ 2 * Jcal m F := by
   rw [Jcal_eq_biQuadP, Jcal_eq_biQuadP]
   exact biQuadP_scale _ F c
 
+/-- `Fstar1` is `Fstar` with every coefficient multiplied by `(Qabs Fstar)⁻¹` — the definition
+with its division written as a product (`div_eq_mul_inv`). -/
 private lemma Fstar1_eq_scaleP :
     Fstar1 = Fstar.map (fun m => (m.1, m.2 * (Qabs Fstar)⁻¹)) := by
   unfold Fstar1
@@ -56,6 +64,7 @@ private lemma Fstar1_eq_scaleP :
 
 /-! ## `Jcal m Fstar1` -/
 
+/-- `Jcal m Fstar1 = (Qabs Fstar)⁻²·Jcal m Fstar` (`Fstar1_eq_scaleP`, `Jcal_scaleP`). -/
 private lemma Jcal_Fstar1_scale (m : Fin 5) :
     Jcal m Fstar1 = ((Qabs Fstar)⁻¹) ^ 2 * Jcal m Fstar := by
   rw [Fstar1_eq_scaleP]; exact Jcal_scaleP m Fstar _

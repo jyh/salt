@@ -16,7 +16,7 @@ PHRASE because line numbers into that file have rotted once already:
 * `:201` — *"no public artifact in any proof assistant proves … **the large sieve
   inequality** …"* (fallen: the 2026-08-17 survey delta, row 7)
 * `:205` — the adversary sentence: *"the two live external Bombieri–Vinogradov
-  formalization projects **take Siegel–Walfisz and the large sieve as axioms**"*
+  formalization projects **take Siegel–Walfisz and the large sieve as axioms**"* (fallen, row 7)
 
 **Landed declarations certified:** `Salt.LS.analytic_LS` (`Salt/LS/AnalyticLS.lean:58`)
 and `Salt.LS.char_LS` (`Salt/LS/CharLS.lean:277`).
@@ -24,8 +24,8 @@ and `Salt.LS.char_LS` (`Salt/LS/CharLS.lean:277`).
 ## What the second anchor makes this certificate about
 
 The first anchor is an absence claim about the literature; **no Lean theorem can support
-or refute it, and none here tries.** The second is different and it is the one that gives
-this file its job: the adversaries *take the large sieve as an axiom*. **So the fact worth
+or refute it, and none here tries.** The second gave this file its job: the adversaries
+*took the large sieve as an axiom* (one proved it by 07-09: delta row 7). **So the fact worth
 certifying is not that a large-sieve-shaped statement exists here, but that it is PROVED,
 with the constants written down.**
 
@@ -37,8 +37,8 @@ between assuming and proving becomes visible to a reader.*
 ## Direction and scope
 
 **Direction: SAME PROPOSITION** — `analytic_LS`'s `expSum` and `Spaced` are unfolded to
-the exponential sum and the circle-separation condition they abbreviate, so nothing but
-mathlib primitives remains; `char_LS` is already primitive and is restated verbatim.
+the exponential sum and the circle-separation condition they abbreviate, so only mathlib
+primitives and the LS atoms `e`, `dist₁` remain; `char_LS` is restated verbatim.
 Nothing is strengthened.
 
 ⚠️ **NOT CLAIMED.** These are the *inequalities*. Bombieri–Vinogradov itself is a

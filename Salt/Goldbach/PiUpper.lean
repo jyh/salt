@@ -63,15 +63,20 @@ namespace Salt.Goldbach
 /-- The `k`-th dyadic point of `M`: `⌊M/2^k⌋`. -/
 private def dpt (M k : ℕ) : ℕ := M / 2 ^ k
 
+/-- `dpt M 0 = M`: the zeroth dyadic point is `M` itself (`2^0 = 1`). -/
 private lemma dpt_zero (M : ℕ) : dpt M 0 = M := by simp [dpt]
 
+/-- `dpt M (k+1) = dpt M k / 2`: each dyadic point halves the previous one
+(`M / 2^(k+1) = (M / 2^k) / 2`). -/
 private lemma dpt_succ (M k : ℕ) : dpt M (k + 1) = dpt M k / 2 := by
   simp only [dpt, pow_succ]
   rw [Nat.div_div_eq_div_mul]
 
+/-- `dpt M (k+1) ≤ dpt M k`: the dyadic points decrease (`dpt_succ` and `Nat.div_le_self`). -/
 private lemma dpt_antitone (M k : ℕ) : dpt M (k + 1) ≤ dpt M k := by
   rw [dpt_succ]; exact Nat.div_le_self _ _
 
+/-- `dpt M k ≤ M`: every dyadic point is at most `M` (`Nat.div_le_self`). -/
 private lemma dpt_le (M k : ℕ) : dpt M k ≤ M := by
   simp only [dpt]; exact Nat.div_le_self M (2 ^ k)
 

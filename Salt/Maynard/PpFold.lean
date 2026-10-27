@@ -82,6 +82,8 @@ def isPrimeSq (n : ℕ) : Prop := (Nat.sqrt n).Prime ∧ (Nat.sqrt n) ^ 2 = n
 
 instance (n : ℕ) : Decidable (isPrimeSq n) := by unfold isPrimeSq; infer_instance
 
+/-- `isPrimeSq n ↔ (Nat.sqrt n).Prime ∧ (Nat.sqrt n) ^ 2 = n`: the definition, unfolded for
+`simp`. -/
 @[simp] lemma isPrimeSq_iff (n : ℕ) :
     isPrimeSq n ↔ (Nat.sqrt n).Prime ∧ (Nat.sqrt n) ^ 2 = n := Iff.rfl
 

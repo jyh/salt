@@ -548,6 +548,13 @@ geo grade `Cgeo·Kc·goldCut N (ka+1)/(log N)^{12}` (`Cgeo := cr^{12}·gboxConst
 ratio `hNXM : log N ≤ cr·log(X·M)` (holds on the high annuli the high-pass band survivors populate,
 `goldCut(ka+1) ≳ N^{19/24}`; the carrier vanishes on low annuli).  This is the `hgeoSym`/`hgeoLow`
 per-survivor grade the terminal `gold_hBVblocksW_at_op_band` consumes. -/
+/-- **The outer-scale conversion (node 2c).** With `X := 2^{i+1} − 1` and `M := pieceM kp`: for
+a dyadic boundary index `i` of the band carrier (`hi`), under `1 ≤ Kc` (`hKc`), the fold-log
+floor `1 ≤ log(X·M)` (`hL1`), the ratio `(10/31)·log(X·M) ≤ log 2^{kp}` (`hratio`), `0 < log N`
+(`hlogN0`), `1 ≤ cr` (`hcr`) and the outer ratio `log N ≤ cr·log(X·M)` (`hNXM`), a per-survivor
+price `P ≤ boxPriceKerr Kc kp i` (`hbox`) converts to the geo grade
+`P ≤ (cr^{12}·gboxConst)·Kc·goldCut N (ka+1) / (log N)^{12}`, via the landed
+`gold_boxPriceKerr_geoN`. Leg-agnostic: the band mirror of `gold_box_hbox_geoN`. -/
 theorem gold_band_survsum_geoN {N K kp ka i : ℕ} {Kc cr P : ℝ}
     (hKc : 1 ≤ Kc)
     (hi : i ∈ dyadicBoundary (pieceN kp) (pieceM kp)

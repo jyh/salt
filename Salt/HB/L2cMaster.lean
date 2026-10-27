@@ -17,10 +17,10 @@ import Salt.HB.L2cERTsw
 /-!
 # HB-L2c master assembly — Wave 3 (node HB-L2c, Horn A keystone)
 
-This file completes the exact-overshoot surgery: the theorem whose shape is `hb_lemma2`'s
-conclusion (`TransferFull.hb_lemma2`), proven *directly* from the exact identity
-`S⁽²⁾ − S⁽¹⁾ = Σ_{n∈W} overshootExact χ n` (`L2cCore.S2_sub_S1_eq`) and the eleven landed
-`E_L`/`E_R` family rows.  No `τ`-crude majorant (`hres`) is consumed.
+This file assembles the exact-overshoot surgery, conditional on two residuals named below (both
+discharged in `L2cMasterUncond.lean`): the theorem of `hb_lemma2`'s conclusion shape, proven
+*directly* from `S⁽²⁾ − S⁽¹⁾ = Σ_{n∈W} overshootExact χ n` (`L2cCore.S2_sub_S1_eq`) and the
+eleven landed `E_L`/`E_R` rows.  No `τ`-crude majorant (`hres`) is consumed.
 
 ## The assembly ladder
 

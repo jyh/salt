@@ -55,14 +55,19 @@ noncomputable def LamTildeGen (f : ℕ → ℝ) (n : ℕ) : ℝ :=
 /-- `μ²·f` as an `ArithmeticFunction ℝ` — mirror of `gChi` (TC:118). -/
 noncomputable def gGen (f : ℕ → ℝ) : ArithmeticFunction ℝ := ⟨fun n => (μ n : ℝ) ^ 2 * f n, by simp⟩
 
+/-- `gGen f n = μ(n)² · f(n)`, by `rfl`. -/
 @[simp] lemma gGen_apply (f : ℕ → ℝ) (n : ℕ) : gGen f n = (μ n : ℝ) ^ 2 * f n := rfl
 
 /-- `f = ζ ∗ (μ²f)` — mirror of `fChiArith` (TC:136). -/
 noncomputable def fGenArith (f : ℕ → ℝ) : ArithmeticFunction ℝ := ζ * gGen f
 
+/-- `fGenArith f n = ∑_{d ∣ n} gGen f d` — the Dirichlet convolution with `ζ` unfolded
+(`coe_zeta_mul_apply`). -/
 lemma fGenArith_apply (f : ℕ → ℝ) (n : ℕ) :
     fGenArith f n = ∑ d ∈ n.divisors, gGen f d := by rw [fGenArith, coe_zeta_mul_apply]
 
+/-- The arithmetic-function form agrees with the plain sum `fGenSum f n = ∑_{d ∣ n} μ(d)² f(d)`:
+`fGenArith_apply`, then `rfl`. -/
 lemma fGenArith_eq_fGenSum (f : ℕ → ℝ) (n : ℕ) : fGenArith f n = fGenSum f n := by
   rw [fGenArith_apply]; rfl
 

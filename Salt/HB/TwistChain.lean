@@ -118,6 +118,7 @@ noncomputable def LamStar (χ : DirichletCharacter ℂ q) (z n : ℕ) : ℝ :=
 noncomputable def gChi (χ : DirichletCharacter ℂ q) : ArithmeticFunction ℝ :=
   ⟨fun n => (μ n : ℝ) ^ 2 * chiRe χ n, by simp⟩
 
+/-- `gChi χ n = μ(n)² · χ_ℝ(n)`, by `rfl`. -/
 @[simp] lemma gChi_apply (χ : DirichletCharacter ℂ q) (n : ℕ) :
     gChi χ n = (μ n : ℝ) ^ 2 * chiRe χ n := rfl
 
@@ -125,9 +126,13 @@ noncomputable def gChi (χ : DirichletCharacter ℂ q) : ArithmeticFunction ℝ 
 noncomputable def hChiArith (χ : DirichletCharacter ℂ q) (z : ℕ) : ArithmeticFunction ℝ :=
   ⟨fun n => if n = 0 then 0 else if Admissible χ z n then chiRe χ n else 0, by simp⟩
 
+/-- `hChiArith χ z n` is `0` at `n = 0`, `χ_ℝ(n)` on admissible `n` and `0` otherwise, by
+`rfl`. -/
 lemma hChiArith_apply (χ : DirichletCharacter ℂ q) (z n : ℕ) :
     hChiArith χ z n = if n = 0 then 0 else if Admissible χ z n then chiRe χ n else 0 := rfl
 
+/-- `hChiArith χ z n` at `n ≠ 0` (`hn`): `χ_ℝ(n)` on admissible `n`, `0` otherwise —
+`hChiArith_apply` with the `n = 0` branch discharged. -/
 lemma hChiArith_apply_of_ne (χ : DirichletCharacter ℂ q) (z : ℕ) {n : ℕ} (hn : n ≠ 0) :
     hChiArith χ z n = if Admissible χ z n then chiRe χ n else 0 := by
   rw [hChiArith_apply, if_neg hn]
@@ -139,9 +144,13 @@ noncomputable def fChiArith (χ : DirichletCharacter ℂ q) : ArithmeticFunction
 noncomputable def fStarArith (χ : DirichletCharacter ℂ q) (z : ℕ) : ArithmeticFunction ℝ :=
   ζ * hChiArith χ z
 
+/-- `fChiArith χ n = ∑_{d ∣ n} gChi χ d` — the Dirichlet convolution with `ζ` unfolded
+(`coe_zeta_mul_apply`). -/
 lemma fChiArith_apply (χ : DirichletCharacter ℂ q) (n : ℕ) :
     fChiArith χ n = ∑ d ∈ n.divisors, gChi χ d := by rw [fChiArith, coe_zeta_mul_apply]
 
+/-- `fStarArith χ z n = ∑_{d ∣ n} hChiArith χ z d` — the Dirichlet convolution with `ζ` unfolded
+(`coe_zeta_mul_apply`). -/
 lemma fStarArith_apply (χ : DirichletCharacter ℂ q) (z n : ℕ) :
     fStarArith χ z n = ∑ d ∈ n.divisors, hChiArith χ z d := by rw [fStarArith, coe_zeta_mul_apply]
 

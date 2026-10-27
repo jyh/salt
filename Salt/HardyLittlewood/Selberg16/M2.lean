@@ -44,14 +44,18 @@ lemma betaLoc_antidiag_sum (k : ℕ) :
       simp only [Nat.cast_zero, zero_add, mul_one, this]
       rw [pow_succ, pow_succ]; ring
 
+/-- `betaT 0 = 0`: `0` is not odd. -/
 lemma betaT_zero : betaT 0 = 0 := by simp [betaT]
 
 
 /-- `betaT` as an arithmetic function. -/
 noncomputable def betaA : ArithmeticFunction ℝ := ⟨betaT, betaT_zero⟩
 
+/-- `betaA n = betaT n` (`rfl`): evaluating the arithmetic function. -/
 lemma betaA_apply (n : ℕ) : betaA n = betaT n := rfl
 
+/-- `betaA` is multiplicative: `betaT 1 = 1`; on coprime odd arguments the product over prime
+factors splits, and an even factor makes both sides `0`. -/
 lemma betaA_isMultiplicative : betaA.IsMultiplicative := by
   refine ⟨betaT_one, fun {m n} hmn => ?_⟩
   simp only [betaA_apply]
@@ -63,13 +67,17 @@ lemma betaA_isMultiplicative : betaA.IsMultiplicative := by
   · have : ¬ Odd (m * n) := by rw [Nat.odd_mul]; tauto
     simp [betaT, this, hm]
 
+/-- `pow2Omega 0 = 0`: `0` is not odd. -/
 lemma pow2Omega_zero : pow2Omega 0 = 0 := by simp [pow2Omega]
 
 /-- `pow2Omega` as an arithmetic function. -/
 noncomputable def pow2OmegaA : ArithmeticFunction ℝ := ⟨pow2Omega, pow2Omega_zero⟩
 
+/-- `pow2OmegaA n = pow2Omega n` (`rfl`): evaluating the arithmetic function. -/
 lemma pow2OmegaA_apply (n : ℕ) : pow2OmegaA n = pow2Omega n := rfl
 
+/-- `pow2OmegaA` is multiplicative: `Ω` is additive on coprime odd arguments, so `2 ^ Ω`
+multiplies, and an even factor makes both sides `0`. -/
 lemma pow2OmegaA_isMultiplicative : pow2OmegaA.IsMultiplicative := by
   refine ⟨by simp [pow2OmegaA_apply, pow2Omega], fun {m n} hmn => ?_⟩
   simp only [pow2OmegaA_apply]

@@ -49,12 +49,16 @@ open Salt.Maynard
 
 /-! ## Local numeric helper -/
 
+/-- `h_i ≤ 19` for each of the five shifts (`hSeq_five_zero` … `hSeq_five_four`, by cases on
+`i`); the file-scoped copy of `FrontierM`'s private helper. -/
 private lemma hSeq_le_nineteen' (i : Fin 5) : hSeq 5 i ≤ 19 := by
   fin_cases i <;>
     simp only [hSeq_five_zero, hSeq_five_one, hSeq_five_two, hSeq_five_three,
       hSeq_five_four] <;>
     norm_num
 
+/-- `Lc ≤ log R` once `R ≥ ⌈e^{Lc}⌉` (`hR`): `e^{Lc} ≤ ⌈e^{Lc}⌉ ≤ R` (`Nat.le_ceil`) and `log`
+is monotone (`Real.log_le_log`). -/
 private lemma log_ge_of_ceil_exp' (Lc : ℝ) (R : ℕ) (hR : ⌈Real.exp Lc⌉₊ ≤ R) :
     Lc ≤ Real.log R := by
   have hpos : (0 : ℝ) < Real.exp Lc := Real.exp_pos Lc
@@ -273,15 +277,21 @@ theorem qdiag_err_split (m : Fin 5) :
 
 /-! ## Vanishing-rate helpers (all at `R = ⌊N'^{1999/4000}⌋₊`) -/
 
+/-- `log N' ≥ M` for all large `N'`: `Real.tendsto_log_atTop` composed with the cast `ℕ → ℝ`
+(`tendsto_natCast_atTop_atTop`). -/
 private lemma eventually_logN_ge (M : ℝ) : ∀ᶠ N' : ℕ in atTop, M ≤ Real.log N' :=
   (Real.tendsto_log_atTop.comp tendsto_natCast_atTop_atTop).eventually_ge_atTop M
 
+/-- `log R ≥ b` for all large `N'`, at `R = ⌊N'^{1999/4000}⌋`: `log R ≥ (1/4) log N'` eventually
+(`eventually_logR_lower_theta`) and `log N' ≥ 4b` eventually (`eventually_logN_ge`). -/
 private lemma eventually_logR_ge (b : ℝ) :
     ∀ᶠ N' : ℕ in atTop, b ≤ Real.log (⌊(N':ℝ) ^ (1999 / 4000 : ℝ)⌋₊ : ℝ) := by
   filter_upwards [eventually_logR_lower_theta (1/4) (by norm_num) (by norm_num),
     eventually_logN_ge (4 * b)] with N' h1 h2
   linarith
 
+/-- `C/log R ≤ ε` for all large `N'`, for `0 < ε` (`hε`): `log R ≥ (max C 1)/ε` and `log R ≥ 1`
+eventually (`eventually_logR_ge`). -/
 private lemma eventually_div_logR_le (C ε : ℝ) (hε : 0 < ε) :
     ∀ᶠ N' : ℕ in atTop,
       C / Real.log (⌊(N':ℝ) ^ (1999 / 4000 : ℝ)⌋₊ : ℝ) ≤ ε := by
@@ -296,6 +306,11 @@ private lemma eventually_div_logR_le (C ε : ℝ) (hε : 0 < ε) :
     _ ≤ L * ε := mul_le_mul_of_nonneg_right h2 hε.le
     _ = ε * L := by ring
 
+/-- `A(1 + log R)^p/(log N')^q ≤ K` for all large `N'` when `p < q` (`hpq`), `0 < K` (`hK`) and
+`0 ≤ A` (`hA`): `1 + log R ≤ 2 log N'` (`R ≤ N'`, `R_le_N'_theta`), so the ratio is at most
+`2^p A/(log N')^{q − p} ≤ 2^p A/log N'`, and `log N' ≥ max 1 (2^p A/K)` eventually
+(`eventually_logN_ge`); the `1` in the threshold is what gives `1 + log R ≤ 2 log N'` and
+`(log N')^{q − p} ≥ log N'`. -/
 private lemma eventually_polylog_ratio_le (p q : ℕ) (A K : ℝ) (hpq : p < q)
     (hK : 0 < K) (hA : 0 ≤ A) :
     ∀ᶠ N' : ℕ in atTop,
@@ -346,6 +361,10 @@ private lemma eventually_polylog_ratio_le (p q : ℕ) (A K : ℝ) (hpq : p < q)
     _ ≤ K * ((Real.log N') ^ p * (Real.log N') ^ (q - p)) := hAle
     _ = K * (Real.log N') ^ q := by rw [← hsplit]
 
+/-- `C·R²(1 + log R)^n ≤ K N'` for all large `N'`, for `0 < K` (`hK`) and `0 ≤ C` (`hC`), at
+`R = ⌊N'^{1999/4000}⌋`: `R² ≤ N'^{3998/4000}` (`R_sq_le_theta`), `1 + log R ≤ 1 + log N'`, and
+`C(1 + log N')^n ≤ K N'^{1/2000}` eventually (`eventually_poly_beats_polylog`); the exponents
+add to `1`. -/
 private lemma eventually_poly_o_linear (n : ℕ) (K C : ℝ) (hK : 0 < K) (hC : 0 ≤ C) :
     ∀ᶠ N' : ℕ in atTop,
       C * (⌊(N':ℝ) ^ (1999 / 4000 : ℝ)⌋₊ : ℝ) ^ 2
@@ -385,6 +404,8 @@ private lemma eventually_poly_o_linear (n : ℕ) (K C : ℝ) (hK : 0 < K) (hC : 
     _ = K * ((N':ℝ) ^ (3998 / 4000 : ℝ) * (N':ℝ) ^ (1 / 2000 : ℝ)) := by ring
     _ = K * (N':ℝ) := by rw [hrpow]
 
+/-- `R ≥ Rb` for all large `N'`, at `R = ⌊N'^{1999/4000}⌋`: `N'^{1999/4000} → ∞`
+(`tendsto_rpow_atTop`) and `Nat.le_floor`. -/
 private lemma eventually_R_ge (Rb : ℕ) :
     ∀ᶠ N' : ℕ in atTop, Rb ≤ ⌊(N':ℝ) ^ (1999 / 4000 : ℝ)⌋₊ := by
   have htend : Tendsto (fun N' : ℕ => (N':ℝ) ^ (1999 / 4000 : ℝ)) atTop atTop :=
@@ -394,6 +415,11 @@ private lemma eventually_R_ge (Rb : ℕ) :
 
 /-! ## The `Δπ` lower-bound pinning `31465/1000·N' ≤ δ·log R` -/
 
+/-- **The `Δπ` pin.** `(31465/1000)·N' ≤ δ·log R` for all large `N'`, with
+`δ = (63 − 1/100) N'/log N' − 19` and `R = ⌊N'^{1999/4000}⌋`: `log R ≥ (4997/10000) log N'`
+eventually (`eventually_logR_lower_theta`), `δ·log N' = (63 − 1/100) N' − 19 log N'`, and
+`1000(1 + log N') ≤ N'` eventually (`eventually_poly_beats_polylog`) absorbs the `19 log N'`
+term. -/
 private lemma eventually_DL :
     ∀ᶠ N' : ℕ in atTop,
       (31465 : ℝ) / 1000 * N'
@@ -428,6 +454,17 @@ private lemma eventually_DL :
 set_option maxHeartbeats 10000000 in
 -- The endgame assembly threads ~40 named bounds through one linear closure; the
 -- large local context makes elaboration heartbeat-heavy.
+/-- **R2b — the slack discharge.** There is a cutoff `D₀ ≥ 300` such that for every `D ≥ D₀` and
+`C₀ ≥ 0`, `WinSlackM D C₀ N'` holds for all large `N'`. The `F`-only constants come first —
+`Ical Fstar1` and the five `Jcal m Fstar1` positive, the certified ratio `4003·Ic < 1999·ΣJ`
+(`theta_ratio_cert_sharp`), the `mv_I_split` constants at `Fstar1` and `onePoly`, the per-`m`
+`qdiag_err_split` and `s2_collision_floor` constants — and
+`D₀ = max (max 1200 ΣDthr) ⌈Dthr_real⌉` is built from them so that every `1/D` or `1/√D` piece
+is at most `U/700000` of the main term `U = 63 N'·Base·Ic`. At `W' = primorial D` the `∀ᶠ N'`
+bundle (`deltaPi_upper_ev`, `eventually_R_ge`, `eventually_logR_ge`, `eventually_DL`,
+`eventually_div_logR_le`, `eventually_poly_o_linear`, `eventually_polylog_ratio_le`) kills every
+`1/log R` piece the same way, and the certified ratio `63 N'(1 + 1/100000)·Ic < δ·log R·ΣJ`
+closes the inequality in one linear combination. -/
 theorem winSlackM_ev : ∃ D₀ : ℕ, 300 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤ D →
     ∀ C₀ : ℝ, 0 ≤ C₀ → ∀ᶠ N' : ℕ in atTop, WinSlackM D C₀ N' := by
   classical

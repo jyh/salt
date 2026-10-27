@@ -199,6 +199,8 @@ private def pairAssignSetW (k q : ℕ) :
     Finset ((p : ℕ) → p ∈ q.primeFactors → Fin k × Fin 3) :=
   q.primeFactors.pi (fun _ => (Finset.univ : Finset (Fin k × Fin 3)))
 
+/-- `|pairAssignSetW k q| = (3k) ^ ω(q)`: one choice of `Fin k × Fin 3` per prime factor of `q`
+(`Finset.card_pi`). -/
 private theorem pairAssignSetW_card (k q : ℕ) :
     (pairAssignSetW k q).card = (3 * k) ^ q.primeFactors.card := by
   rw [pairAssignSetW, Finset.card_pi, Finset.prod_const, Finset.card_univ,

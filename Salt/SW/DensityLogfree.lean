@@ -196,6 +196,8 @@ noncomputable def boxRep {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) (�
     (k : ℤ) : ℂ :=
   if h : (boxFibre χ σ T D k).Nonempty then h.choose else 0
 
+/-- The representative of a nonempty box (`h`) lies in the box: the `dite` takes its live branch
+and `Exists.choose_spec` reads off membership. -/
 theorem boxRep_mem {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ q} {σ T D : ℝ} {k : ℤ}
     (h : (boxFibre χ σ T D k).Nonempty) : boxRep χ σ T D k ∈ boxFibre χ σ T D k := by
   have hd : boxRep χ σ T D k

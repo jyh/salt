@@ -13,7 +13,7 @@ import Salt.Goldbach.ChenGoldbach
 *"Chen's theorem"*. Named by path per M0.
 
 **Landed declaration certified:** `Salt.Goldbach.chen_goldbach`
-(`Salt/Goldbach/ChenGoldbach.lean:41`).
+(`Salt/Goldbach/ChenGoldbach.lean:47`).
 
 ## ⛔ WHY THIS FILE EXISTS SEPARATELY FROM `Salt/Certs/Chen.lean`
 

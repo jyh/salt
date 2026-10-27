@@ -211,9 +211,12 @@ lemma prod_primes_squarefree {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime) :
     intro p hp
     exact (Nat.coprime_primes haP (hSP p hp)).mpr (by rintro rfl; exact ha hp)
 
+/-- The sifting modulus `Pz z = ∏_{p < z} p` is squarefree (`prod_primes_squarefree`). -/
 lemma Pz_squarefree (z : ℝ) : Squarefree (Pz z) :=
   prod_primes_squarefree (fun _ hp => (Finset.mem_filter.mp hp).2)
 
+/-- The prime factors of `Pz z` are exactly the primes `< z`:
+`(Finset.range ⌈z⌉₊).filter Nat.Prime` (`Nat.primeFactors_prod`). -/
 lemma Pz_primeFactors (z : ℝ) :
     (Pz z).primeFactors = (Finset.range ⌈z⌉₊).filter Nat.Prime :=
   Nat.primeFactors_prod (fun _ hp => (Finset.mem_filter.mp hp).2)

@@ -90,7 +90,7 @@ optimizes, and `hbCoreRate_at_hb_optimum` collapses them at `a = (log η)^{1/2}`
 `(2 + 4Cs)·L(log η)^{−1/2}` — **the paper's rate, arrived at from this file's own
 constants** rather than assumed.
 
-## 🔴 WHAT IS STILL CARRIED (the exact residue, named)
+## 🔴 WHAT WAS STILL CARRIED (items 1–3 since discharged: `hb_lemma3_unconditional`, `Lemma3Uncond`)
 
 `hb_lemma3_final`'s hypotheses beyond the transfer-side data (`hsq`, `hA`, `hres`, `hcoef`,
 inherited verbatim from N3) are:
@@ -106,11 +106,11 @@ inherited verbatim from N3) are:
 2. **`hβZ`, `hmβ`** — `(β₀ : ℂ) ∈ Z` and `1 ≤ m β₀`: the Siegel zero is one of the disk
    zeros, with multiplicity ≥ 1.  True, but *not exported*: `LFunction_partialFraction`
    states only `∀ ρ ∈ Z, L ρ = 0` (one direction), never `L ρ = 0 → ρ ∈ Z`.  Closing this
-   needs a strengthened export of the factorization (`Z = support (divisor …)`), not new
-   mathematics.
-3. **`hmz`** (in `invSq_sum_split_le`) — `m ρ ≤ zeroMult χ ρ` on `Z`.  Again true and again
-   unexported: `LFunction_partialFraction`'s `m` *is* `(divisor (LFunction χ) (ball c R) ·).toNat`,
-   which agrees with `analyticOrderNatAt` on the ball, but the existential hides it.
+   needed a strengthened export of the factorization (`Z = support (divisor …)`), not new
+   mathematics; `Lemma3Uncond.lean` closes it.
+3. **`hmz`** (in `invSq_sum_split_le`) — `m ρ ≤ zeroMult χ ρ` on `Z`.  True, and unexported when
+   written: `LFunction_partialFraction`'s `m` *is* `(divisor (LFunction χ) (ball c R) ·).toNat`,
+   which agrees with `analyticOrderNatAt` on the ball, but the existential hid it.
 4. **`hfloor`** — the Deuring–Heilbronn repulsion floor `r₀ ≤ ‖ρ − 1‖` off `β₀`.  This is
    *supplied*, not owed: N3's `one_sub_ceiling_le_dist_one` turns
    `Salt.SW.boxZeros_re_le_unit_box` / `boxZeros_re_le_at_efHeight` into exactly this shape.
@@ -172,6 +172,8 @@ private lemma re_term_twist {f : ℕ} (χ : DirichletCharacter ℂ f) (σ : ℝ)
   rw [term_twist_real χ σ n, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im]
   simp [chiRe]
 
+/-- The real part of the untwisted `L`-series term at a real `σ` is `Λ(n) n^{−σ}`: the term is
+the cast of that real number (`term_vm_real`), so `Complex.ofReal_re` reads it off. -/
 private lemma re_term_vm (σ : ℝ) (n : ℕ) :
     (LSeries.term ↗vonMangoldt (σ : ℂ) n).re = Λ n * (n : ℝ) ^ (-σ) := by
   rw [term_vm_real σ n, Complex.ofReal_re]

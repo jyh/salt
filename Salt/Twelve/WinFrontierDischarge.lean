@@ -44,6 +44,8 @@ open Finset Filter
 
 /-! ## Local helpers -/
 
+/-- A product of distinct primes (`hs`) is square-free: induction on the finset, the new prime
+coprime to the product of the rest (`Nat.Coprime.prod_right`, `Nat.squarefree_mul_iff`). -/
 private lemma prod_primes_sqf {s : Finset ℕ} (hs : ∀ p ∈ s, p.Prime) :
     Squarefree (∏ p ∈ s, p) := by
   induction s using Finset.induction with
@@ -59,14 +61,18 @@ private lemma prod_primes_sqf {s : Finset ℕ} (hs : ∀ p ∈ s, p.Prime) :
     rw [Nat.squarefree_mul_iff]
     exact ⟨hcop, hap.squarefree, ih hsp⟩
 
+/-- `primorial D` is square-free: the product of the primes `≤ D` (`prod_primes_sqf`). -/
 private lemma primorial_sqf (D : ℕ) : Squarefree (primorial D) := by
   unfold primorial
   exact prod_primes_sqf (fun p hp => (Finset.mem_filter.mp hp).2)
 
+/-- `0 < primorial D`: a product of primes (`Finset.prod_pos`). -/
 private lemma primorial_pos' (D : ℕ) : 0 < primorial D := by
   unfold primorial
   exact Finset.prod_pos (fun p hp => (Finset.mem_filter.mp hp).2.pos)
 
+/-- Each of the five shifts `h_i ≤ 19` is below `Dstar = 3·10⁷` (`hSeq_five_zero` …
+`hSeq_five_four`, by cases on `i`). -/
 private lemma hSeq_lt_Dstar' (i : Fin 5) : hSeq 5 i < Dstar := by
   unfold Dstar
   fin_cases i <;>
@@ -74,6 +80,8 @@ private lemma hSeq_lt_Dstar' (i : Fin 5) : hSeq 5 i < Dstar := by
       hSeq_five_four] <;>
     norm_num
 
+/-- `h_i ≤ 19` for each of the five shifts (`hSeq_five_zero` … `hSeq_five_four`, by cases on
+`i`). -/
 private lemma hSeq_le_nineteen (i : Fin 5) : hSeq 5 i ≤ 19 := by
   fin_cases i <;>
     simp only [hSeq_five_zero, hSeq_five_one, hSeq_five_two, hSeq_five_three,

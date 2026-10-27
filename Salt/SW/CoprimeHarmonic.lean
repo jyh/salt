@@ -38,6 +38,8 @@ open ArithmeticFunction
 noncomputable section
 namespace Salt.SW
 
+/-- `log R ≤ Σ_{n ≤ ⌊R⌋} 1/n` for `1 ≤ R` (`hR`) — mathlib's `log_le_harmonic_floor` with the
+harmonic number unfolded (`harmonic_eq_sum_Icc`). -/
 theorem log_le_sum_inv_Icc_floor {R : ℝ} (hR : 1 ≤ R) :
     Real.log R ≤ ∑ n ∈ Finset.Icc 1 ⌊R⌋₊, (1 : ℝ) / n := by
   have h := log_le_harmonic_floor R (by linarith)
@@ -45,6 +47,11 @@ theorem log_le_sum_inv_Icc_floor {R : ℝ} (hR : 1 ≤ R) :
   push_cast at h
   simpa only [one_div] using h
 
+/-- Every `n ≥ 1` (`hn`) splits as `n = d·m` with `d` `q`-smooth and `m` coprime to `q`, for
+`q ≥ 1` (`hq`): take `d = gcd(n, qⁿ)`. Its prime factors lie among `q`'s
+(`Nat.primeFactors_pow`, `Nat.primeFactors_mono`), and a prime `p ∣ q` dividing `m = n/d` would
+put `p^{v_p(n)+1} ∣ n` (`Nat.ordProj_dvd`, `Nat.Prime.pow_dvd_iff_le_factorization`), a
+contradiction. -/
 theorem exists_smooth_mul_coprime {q : ℕ} (hq : 1 ≤ q) {n : ℕ} (hn : 1 ≤ n) :
     ∃ d m : ℕ, d * m = n ∧ d.primeFactors ⊆ q.primeFactors ∧ Nat.Coprime m q := by
   have hq0 : q ≠ 0 := by omega
@@ -74,6 +81,11 @@ theorem exists_smooth_mul_coprime {q : ℕ} (hq : 1 ≤ q) {n : ℕ} (hn : 1 ≤
     have h8 := (Nat.Prime.pow_dvd_iff_le_factorization hp hn0).mp h7
     omega
 
+/-- **The first injection.** For `q ≥ 1` (`hq`),
+`Σ_{n ≤ N} 1/n ≤ (Σ_{m ≤ N, (m,q)=1} 1/m)·(Σ_{d ≤ N, d q-smooth} 1/d)`: the split `n = d·m`
+(`exists_smooth_mul_coprime`) sends `Icc 1 N` into the image of the product set under
+`(m, d) ↦ m·d` (both factors `≤ N`), a sum over an image is at most the sum over the product
+(`Finset.sum_image_le_of_nonneg`), and that sum factors (`Finset.sum_mul_sum`). -/
 theorem sum_inv_Icc_le_coprime_mul_smooth {q : ℕ} (hq : 1 ≤ q) (N : ℕ) :
     ∑ n ∈ Finset.Icc 1 N, (1 : ℝ) / n
       ≤ (∑ m ∈ (Finset.Icc 1 N).filter (fun m => Nat.Coprime m q), (1 : ℝ) / m)
@@ -114,6 +126,9 @@ theorem sum_inv_Icc_le_coprime_mul_smooth {q : ℕ} (hq : 1 ≤ q) (N : ℕ) :
         push_cast
         rw [← one_div_mul_one_div]
 
+/-- `Σ_{n ≤ N} 1/n ≤ (q/φ(q))·Σ_{m ≤ N, (m,q)=1} 1/m` for `q ≥ 1` (`hq`): the first injection
+(`sum_inv_Icc_le_coprime_mul_smooth`) with the smooth sum bounded by `q/φ(q)`
+(`sum_smooth_inv_le`). -/
 theorem sum_inv_Icc_le_div_totient_mul_coprime {q : ℕ} (hq : 1 ≤ q) (N : ℕ) :
     ∑ n ∈ Finset.Icc 1 N, (1 : ℝ) / n
       ≤ (q : ℝ) / Nat.totient q
@@ -130,6 +145,12 @@ theorem sum_inv_Icc_le_div_totient_mul_coprime {q : ℕ} (hq : 1 ≤ q) (N : ℕ
     _ = (q : ℝ) / Nat.totient q
         * ∑ m ∈ (Finset.Icc 1 N).filter (fun m => Nat.Coprime m q), (1 : ℝ) / m := mul_comm _ _
 
+/-- **The second injection.**
+`Σ_{m ≤ N, (m,q)=1} 1/m ≤ (π²/6)·Σ_{a ≤ N, a square-free, (a,q)=1} 1/a`: each `m` is `b²·a` with
+`a` square-free (`Nat.sq_mul_squarefree_of_pos`) and `a` inherits the coprimality
+(`Nat.Coprime.coprime_dvd_left`), the sum over the image factors as before
+(`Finset.sum_image_le_of_nonneg`, `Finset.sum_mul_sum`), and `Σ_{b ≤ N} 1/b² ≤ π²/6`
+(`hasSum_zeta_two`, `sum_le_hasSum`). -/
 theorem sum_coprime_inv_le_zeta_two_mul_sqf (q N : ℕ) :
     ∑ m ∈ (Finset.Icc 1 N).filter (fun m => Nat.Coprime m q), (1 : ℝ) / m
       ≤ Real.pi ^ 2 / 6
@@ -169,6 +190,11 @@ theorem sum_coprime_inv_le_zeta_two_mul_sqf (q N : ℕ) :
     _ ≤ (∑ a ∈ A, (1 : ℝ) / a) * (Real.pi ^ 2 / 6) := mul_le_mul_of_nonneg_left hzeta hAnn
     _ = Real.pi ^ 2 / 6 * ∑ a ∈ A, (1 : ℝ) / a := mul_comm _ _
 
+/-- **Jutila's Lemma 5 as a uniform lower bound.** For `q ≥ 1` (`hq`) and `R ≥ 1` (`hR`),
+`(6/π²)(φ(q)/q)·log R ≤ Σ'_{r ≤ R} 1/r` over the square-free `r` coprime to `q`: the chain
+`log R ≤ Σ_{n ≤ ⌊R⌋} 1/n ≤ (q/φ(q))·Σ_{(m,q)=1} 1/m ≤ (q/φ(q))(π²/6)·Σ'`
+(`log_le_sum_inv_Icc_floor`, `sum_inv_Icc_le_div_totient_mul_coprime`,
+`sum_coprime_inv_le_zeta_two_mul_sqf`), then the positive constants cross over. -/
 theorem sum_sf_coprime_inv_ge (q : ℕ) (R : ℝ) (hq : 1 ≤ q) (hR : 1 ≤ R) :
     6 / Real.pi ^ 2 * ((Nat.totient q : ℝ) / q) * Real.log R
       ≤ ∑ r ∈ (Finset.Icc 1 ⌊R⌋₊).filter (fun r => Squarefree r ∧ Nat.Coprime r q),

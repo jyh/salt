@@ -76,7 +76,9 @@ structure HBForms where
 
 namespace HBForms
 
+/-- HB's first form `l₁(n) = α₁ n + β₁` (pp.193–194), with `β₁ : ℕ`. -/
 def l₁ (F : HBForms) (n : ℕ) : ℕ := F.α₁ * n + F.β₁
+/-- HB's second form `l₂(n) = α₂ n + β₂` (pp.193–194), with `β₂ : ℕ`. -/
 def l₂ (F : HBForms) (n : ℕ) : ℕ := F.α₂ * n + F.β₂
 /-- HB's `α = (α₁, α₂)`. -/
 def α (F : HBForms) : ℕ := Nat.gcd F.α₁ F.α₂
@@ -112,6 +114,8 @@ theorem alpha₂_ne_zero (F : HBForms) : F.α₂ ≠ 0 := by
 theorem two_le_α₁ (F : HBForms) : 2 ≤ F.α₁ :=
   Nat.le_of_dvd (Nat.pos_of_ne_zero (alpha₁_ne_zero F)) F.even₁
 
+/-- (1.5)+(1.6)+(1.8): `α₂` is a nonzero even number (`alpha₂_ne_zero` with `even₂`) — the
+mirror of `two_le_α₁`. -/
 theorem two_le_α₂ (F : HBForms) : 2 ≤ F.α₂ :=
   Nat.le_of_dvd (Nat.pos_of_ne_zero (alpha₂_ne_zero F)) F.even₂
 
@@ -128,6 +132,8 @@ theorem one_le_β₁ (F : HBForms) : 1 ≤ F.β₁ := by
     omega
   · exact h
 
+/-- (1.4)+(1.5): `β₂ = 0` would make `(α₂, β₂) = α₂ = 1`, against `2 ∣ α₂` — the mirror of
+`one_le_β₁`. -/
 theorem one_le_β₂ (F : HBForms) : 1 ≤ F.β₂ := by
   rcases Nat.eq_zero_or_pos F.β₂ with h | h
   · exfalso
@@ -148,6 +154,8 @@ theorem one_le_l₁ (F : HBForms) (n : ℕ) : 1 ≤ F.l₁ n := by
   simp only [l₁]
   omega
 
+/-- `1 ≤ l₂(n)` for EVERY `n`, with no side condition (`one_le_β₂`) — what `β₂ : ℕ` buys; the
+mirror of `one_le_l₁`. -/
 theorem one_le_l₂ (F : HBForms) (n : ℕ) : 1 ≤ F.l₂ n := by
   have := one_le_β₂ F
   simp only [l₂]
@@ -163,6 +171,7 @@ theorem odd_β₁ (F : HBForms) : Odd F.β₁ := by
     omega
   · exact ho
 
+/-- (1.4)+(1.5): `β₂` is odd, since `2 ∣ α₂` and `(α₂, β₂) = 1` — the mirror of `odd_β₁`. -/
 theorem odd_β₂ (F : HBForms) : Odd F.β₂ := by
   rcases Nat.even_or_odd F.β₂ with he | ho
   · exfalso
@@ -180,6 +189,8 @@ theorem odd_l₁ (F : HBForms) (n : ℕ) : Odd (F.l₁ n) := by
   simp only [l₁]
   rw [hk, hm]; ring
 
+/-- HB p.194: `l₂(n)` is odd — an even `α₂` (`even₂`) plus an odd `β₂` (`odd_β₂`); the mirror of
+`odd_l₁`. -/
 theorem odd_l₂ (F : HBForms) (n : ℕ) : Odd (F.l₂ n) := by
   obtain ⟨k, hk⟩ := F.even₂
   obtain ⟨m, hm⟩ := odd_β₂ F
@@ -193,6 +204,8 @@ theorem coprime_l₁_α₁ (F : HBForms) (n : ℕ) : Nat.Coprime (F.l₁ n) F.α
   rw [he]
   exact (Nat.coprime_add_mul_left_left F.β₁ F.α₁ n).mpr F.cop₁.symm
 
+/-- `l₂(n) ≡ β₂ (mod α₂)`, so (1.4) transfers: `(l₂(n), α₂) = 1`
+(`Nat.coprime_add_mul_left_left` on `cop₂`) — the mirror of `coprime_l₁_α₁`. -/
 theorem coprime_l₂_α₂ (F : HBForms) (n : ℕ) : Nat.Coprime (F.l₂ n) F.α₂ := by
   have he : F.l₂ n = F.β₂ + F.α₂ * n := by simp only [l₂]; ring
   rw [he]
@@ -203,6 +216,8 @@ theorem l₁_mono (F : HBForms) {m n : ℕ} (h : m ≤ n) : F.l₁ m ≤ F.l₁ 
   simp only [l₁]
   exact Nat.add_le_add_right (Nat.mul_le_mul_left _ h) _
 
+/-- `l₂` is monotone: `m ≤ n` (`h`) gives `l₂ m ≤ l₂ n`; B-1.8 needs `l₂(n) ≤ l₂(2x)` on the
+window. The mirror of `l₁_mono`. -/
 theorem l₂_mono (F : HBForms) {m n : ℕ} (h : m ≤ n) : F.l₂ m ≤ F.l₂ n := by
   simp only [l₂]
   exact Nat.add_le_add_right (Nat.mul_le_mul_left _ h) _
@@ -293,8 +308,12 @@ def twin : HBForms where
       exact (Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp (hp.dvd_of_dvd_pow this)
     subst h2; decide
 
+/-- At the twin instance `l₁(n) = 4n + 1` (p.195), by `rfl`. -/
 theorem twin_l₁ (n : ℕ) : twin.l₁ n = 4 * n + 1 := rfl
+/-- At the twin instance `l₂(n) = 4n + 3` (p.195), by `rfl`. -/
 theorem twin_l₂ (n : ℕ) : twin.l₂ n = 4 * n + 3 := rfl
+/-- At the twin instance `(α₁, q) = (α₂, q)` for every `q`, both `α_i` being `4` — the
+`hΔ`-shaped fact of B-4 at `twin`; by `rfl`. -/
 theorem twin_gcd_eq (q : ℕ) : Nat.gcd twin.α₁ q = Nat.gcd twin.α₂ q := rfl
 
 end HBForms
@@ -322,6 +341,9 @@ theorem bilinearS_eq_zero_of_not_coprime_q₁ (χ : DirichletCharacter ℂ q) (F
   exfalso
   rw [Finset.mem_filter, hbFormsWindow, Finset.mem_filter] at hn
   exact h (Nat.Coprime.coprime_dvd_left (Dvd.dvd.mul_right hn.2.1 (F.l₂ n)) hn.1.2)
+/-- (5.1), first clause at the second form: `S(δ₁,δ₂;V₁,V₂) = 0` unless `(δ₂, q) = 1` (`h`): on
+the window `(l₁(n) l₂(n), q) = 1` while `δ₂ ∣ l₂(n)`. The mirror of
+`bilinearS_eq_zero_of_not_coprime_q₁`. -/
 theorem bilinearS_eq_zero_of_not_coprime_q₂ (χ : DirichletCharacter ℂ q) (F : HBForms)
     (x δ₁ δ₂ : ℕ) (V₁ V₂ : ℝ) (h : ¬ Nat.Coprime δ₂ q) :
     bilinearS χ F x δ₁ δ₂ V₁ V₂ = 0 := by
@@ -340,6 +362,9 @@ theorem bilinearS_eq_zero_of_not_coprime_α₁ (χ : DirichletCharacter ℂ q) (
   have h₁ : Nat.Coprime δ₁ F.α₁ :=
     Nat.Coprime.coprime_dvd_left hn.2.1 (F.coprime_l₁_α₁ n)
   exact h (Nat.Coprime.coprime_dvd_right (Nat.gcd_dvd_left F.α₁ F.α₂) h₁)
+/-- (5.1), second clause at the second form: `= 0` unless `(δ₂, α) = 1` (`h`): `δ₂ ∣ l₂(n)` and
+`(l₂(n), α₂) = 1` (`coprime_l₂_α₂`) give `(δ₂, α₂) = 1`, and `α ∣ α₂`; no window filter is
+needed. The mirror of `bilinearS_eq_zero_of_not_coprime_α₁`. -/
 theorem bilinearS_eq_zero_of_not_coprime_α₂ (χ : DirichletCharacter ℂ q) (F : HBForms)
     (x δ₁ δ₂ : ℕ) (V₁ V₂ : ℝ) (h : ¬ Nat.Coprime δ₂ F.α) :
     bilinearS χ F x δ₁ δ₂ V₁ V₂ = 0 := by
@@ -370,6 +395,9 @@ theorem truncChiSum_eq_zero_of_le (χ : DirichletCharacter ℂ q) (N : ℕ) {V :
   have hle : ((p.2 : ℕ) : ℝ) ≤ (N : ℝ) := by
     exact_mod_cast Nat.le_of_dvd (Nat.pos_of_ne_zero hp.2) hdvd
   exact if_neg (not_lt.mpr (le_trans hle h))
+/-- B-1.8 at the first form: `S(δ₁,δ₂;V₁,V₂) = 0` once `l₁(2x) ≤ V₁` (`h`): on the window
+`n ≤ 2x`, so `l₁(n)/δ₁ ≤ l₁(n) ≤ l₁(2x) ≤ V₁` (`Nat.div_le_self`, `l₁_mono`) and the first
+`truncChiSum` factor vanishes (`truncChiSum_eq_zero_of_le`). -/
 theorem bilinearS_eq_zero_of_le₁ (χ : DirichletCharacter ℂ q) (F : HBForms) (x δ₁ δ₂ : ℕ)
     {V₁ : ℝ} (V₂ : ℝ) (h : ((F.l₁ (2 * x) : ℕ) : ℝ) ≤ V₁) :
     bilinearS χ F x δ₁ δ₂ V₁ V₂ = 0 := by
@@ -379,6 +407,9 @@ theorem bilinearS_eq_zero_of_le₁ (χ : DirichletCharacter ℂ q) (F : HBForms)
     le_trans (Nat.div_le_self _ _) (F.l₁_mono hn.1.1.2)
   have hcast : ((F.l₁ n / δ₁ : ℕ) : ℝ) ≤ V₁ := le_trans (by exact_mod_cast hstep) h
   rw [truncChiSum_eq_zero_of_le χ _ hcast, zero_mul]
+/-- B-1.8 at the second form: `S(δ₁,δ₂;V₁,V₂) = 0` once `l₂(2x) ≤ V₂` (`h`): on the window
+`n ≤ 2x`, so `l₂(n)/δ₂ ≤ l₂(n) ≤ l₂(2x) ≤ V₂` (`Nat.div_le_self`, `l₂_mono`) and the second
+`truncChiSum` factor vanishes (`truncChiSum_eq_zero_of_le`). -/
 theorem bilinearS_eq_zero_of_le₂ (χ : DirichletCharacter ℂ q) (F : HBForms) (x δ₁ δ₂ : ℕ)
     (V₁ : ℝ) {V₂ : ℝ} (h : ((F.l₂ (2 * x) : ℕ) : ℝ) ≤ V₂) :
     bilinearS χ F x δ₁ δ₂ V₁ V₂ = 0 := by
@@ -1589,6 +1620,8 @@ theorem exists_unique_dyadic {V v : ℝ} (hV : 0 < V) {J : ℕ} (h1 : V < v) (h2
 runs on: `v % q`, except that `0` is represented by `q`. -/
 def unitRep (q v : ℕ) : ℕ := if v % q = 0 then q else v % q
 
+/-- `v ≡ unitRep q v (mod q)`: either `v % q = 0` and the representative is `q ≡ 0`, or it is
+`v % q` itself (`Nat.mod_modEq`). -/
 theorem unitRep_modEq (q v : ℕ) : v ≡ unitRep q v [MOD q] := by
   unfold unitRep
   split
@@ -1597,6 +1630,8 @@ theorem unitRep_modEq (q v : ℕ) : v ≡ unitRep q v [MOD q] := by
     exact he
   · exact (Nat.mod_modEq v q).symm
 
+/-- `unitRep q v ∈ [1, q]` for `0 < q` (`hq`): the representative is `q` or a nonzero remainder
+`v % q < q` (`Nat.mod_lt`). -/
 theorem unitRep_mem_Icc {q v : ℕ} (hq : 0 < q) : unitRep q v ∈ Finset.Icc 1 q := by
   rw [Finset.mem_Icc]
   unfold unitRep
@@ -1605,6 +1640,8 @@ theorem unitRep_mem_Icc {q v : ℕ} (hq : 0 < q) : unitRep q v ∈ Finset.Icc 1 
   · rename_i h
     exact ⟨Nat.one_le_iff_ne_zero.mpr h, (Nat.mod_lt v hq).le⟩
 
+/-- `(v, q) = 1` (`hv`) transfers to the representative: a prime dividing both `unitRep q v` and
+`q` divides `v` through `unitRep_modEq`, against `hv`. -/
 theorem unitRep_coprime {q v : ℕ} (hv : Nat.Coprime v q) :
     Nat.Coprime (unitRep q v) q := by
   by_contra hcon
@@ -1616,6 +1653,9 @@ theorem unitRep_coprime {q v : ℕ} (hv : Nat.Coprime v q) :
   rw [show Nat.gcd v q = 1 from hv] at h4
   exact hp.one_lt.ne' (Nat.dvd_one.mp h4)
 
+/-- The representative is unique in its class: `a ∈ [1, q]` (`ha`) with `v ≡ a (mod q)` (`h`)
+forces `a = unitRep q v`, for `0 < q` (`hq`) — an `a < q` is pinned by `v % q = a % q = a`, and
+`a = q` is the `v % q = 0` branch. -/
 theorem unitRep_unique {q v a : ℕ} (hq : 0 < q) (ha : a ∈ Finset.Icc 1 q)
     (h : v ≡ a [MOD q]) : a = unitRep q v := by
   rw [Finset.mem_Icc] at ha
@@ -2146,6 +2186,10 @@ theorem cellCount_swap₁ (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S₁ R₂ 
       exact ⟨⟨by rw [← hmul]; exact Nat.mul_comm _ _, hne⟩, h3, h4, h1, h2, h6, h5⟩
     · intro p _; rfl
     · intro p _; rfl
+/-- **B-3c at the second cell**: `cellCount` is unchanged under swapping `(R₂, S₂, a₂, b₂)` for
+`(S₂, R₂, b₂, a₂)` — the `(w, v)` roles in the second cell exchange through `Prod.swap`, and the
+six conjuncts of that cell's filter permute (`Finset.card_nbij'`). The sibling of
+`cellCount_swap₁`, which swaps the first cell. -/
 theorem cellCount_swap₂ (F : HBForms) (q x δ₁ δ₂ : ℕ) (R₁ S₁ R₂ S₂ : ℝ) (a₁ b₁ a₂ b₂ : ℕ) :
     cellCount F q x δ₁ δ₂ R₁ S₁ R₂ S₂ a₁ b₁ a₂ b₂ = cellCount F q x δ₁ δ₂ R₁ S₁ S₂ R₂ a₁ b₁ b₂ a₂ :=
     by
@@ -2720,12 +2764,15 @@ theorem count_eq_zero_of_not_coprime {k : ℕ} {w₂ C : ℕ} (hC : Nat.Coprime 
 `five_eight_iff` is consumed by B-5d as well as by B-5c, so all three land here, above both.
 -/
 
+/-- `R₂ ≤ T₁`: `R₂` is the first of (5.15)'s three `max` arguments (`le_max_left`). -/
 theorem R₂_le_hbT₁ (F : HBForms) (x δ₁ δ₂ : ℕ) (R₁ R₂ : ℝ) (w₁ w₂ : ℕ) :
     R₂ ≤ hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂ := le_max_left _ _
 
+/-- `0 < T₁` for `0 < R₂` (`hR₂`), through `R₂_le_hbT₁`. -/
 theorem hbT₁_pos (F : HBForms) (x δ₁ δ₂ : ℕ) (R₁ R₂ : ℝ) (w₁ w₂ : ℕ) (hR₂ : 0 < R₂) :
     0 < hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂ := lt_of_lt_of_le hR₂ (R₂_le_hbT₁ F x δ₁ δ₂ R₁ R₂ w₁ w₂)
 
+/-- `T₂ ≤ 2R₂`: `2R₂` is the first of (5.16)'s three `min` arguments (`min_le_left`). -/
 theorem hbT₂_le_two_R₂ (F : HBForms) (x δ₁ δ₂ : ℕ) (R₁ R₂ : ℝ) (w₁ w₂ : ℕ) :
     hbT₂ F x δ₁ δ₂ R₁ R₂ w₁ w₂ ≤ 2 * R₂ := min_le_left _ _
 
@@ -3147,6 +3194,11 @@ noncomputable def kb5f_C (F : HBForms) (q δ₁ δ₂ a₁ b₁ a₂ b₂ : ℕ)
         hδ₁α hδ₂α hδ h.2.1 h.2.2.1 h.2.2.2 hab h54₁ h54₂ h55)
     else 1
 
+/-- **B-5f's second conjunct — the residue is coprime to its modulus.** For every `w₁` coprime
+to `α`, `δ₂` and `q`, `(C(w₁), D δ₁ w₁) = 1` with `D = roadModulus α₂ q`, under `kb5f_C`'s own
+inputs (`hq` · `hδ₁` · `hΔ` · `hδ₁q` · `hδ₂q` · `hδ₁α` · `hδ₂α` · `hδ` · `hab` · `h54₁` · `h54₂`
+· `h55`, the data of B-4's `crt_collapse`): on the `dite`'s live branch it is the first conjunct
+of `crt_collapse`'s witness; on the fallback the residue is `1` (`Nat.coprime_one_left`). -/
 theorem kb5f_C_coprime (F : HBForms) (q δ₁ δ₂ a₁ b₁ a₂ b₂ : ℕ) (hq : 0 < q)
     (hδ₁ : 0 < δ₁)
     (hΔ : Nat.gcd F.α₁ q = Nat.gcd F.α₂ q)

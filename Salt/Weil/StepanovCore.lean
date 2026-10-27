@@ -192,6 +192,9 @@ noncomputable def reducedPoly [Fintype F] {J : ℕ} (f : F[X]) (ℓ : ℕ) (r s 
   ∑ j : Fin J,
     hasseDeriv k (r j * f ^ ℓ + s j * f ^ (ℓ + (Fintype.card F - 1) / 2)) * X ^ (j : ℕ)
 
+/-- Evaluating the reduced polynomial: `(reducedPoly f ℓ r s k).eval x` is
+`∑ j, (hasseDeriv k (r j * f ^ ℓ + s j * f ^ (ℓ + e))).eval x * x ^ j` with `e = (|F| − 1) / 2`
+— evaluation commutes with the finite sum and the `X ^ j` factors. -/
 theorem reducedPoly_eval [Fintype F] {J : ℕ} (f : F[X]) (ℓ : ℕ) (r s : Fin J → F[X])
     (x : F) (k : ℕ) :
     (reducedPoly f ℓ r s k).eval x

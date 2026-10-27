@@ -13,7 +13,7 @@ Campaign: `saltworks/docs/cert-layer-design-0811.md` (the fifth deliverable).
 Landed theorems certified — **anchor row 5 names TWO declarations and this file covers
 BOTH** (the "one paper phrase, several declarations" hazard, which `Salt/Certs/ChowlaSpine.lean`
 hit first):
-* `Salt.Chen.chen_headline` (`Salt/Chen/ChenTheorem.lean:32`) — the twin form.
+* `Salt.Chen.chen_headline` (`Salt/Chen/ChenTheorem.lean:38`) — the twin form.
 * `Salt.Fulcrum.chen_omega_prod_le_three` (`Salt/Fulcrum/ChenCorollary.lean:34`) — the
   `Ω`-corollary, **the form the Pi paper pins by name**.
 
@@ -32,7 +32,7 @@ reader is owed the correspondence:
    name**. `Salt.Fulcrum.chen_omega_prod_le_three`. ✅ certified here as
    **`cert_chen_omega`** (Part 2).
 3. **The Goldbach half** — every sufficiently large even `N` is a prime plus a `P₂`.
-   `Salt.Goldbach.chen_goldbach` (`Salt/Goldbach/ChenGoldbach.lean:41`).
+   `Salt.Goldbach.chen_goldbach` (`Salt/Goldbach/ChenGoldbach.lean:47`).
    ❌ **NOT certified in this file** — it is anchor row 6 and gets its own certificate.
 
 ---
@@ -75,7 +75,7 @@ Proved from `chen_headline` by rewriting along the proved set equality.
 
 ## HYPOTHESES (rule 2, named)
 **None. The landed theorem is unconditional** — `chen_headline` takes no binders and no
-hypotheses (it is the composition of two closed bundles, `hA3_bundle` and `hL_bundle`), and
+hypotheses (it is `chen_headline_of_SW` applied to the landed `siegelWalfisz_holds`), and
 neither does this certificate. There is no Riemann-hypothesis, no Elliott–Halberstam, and
 no unproved sieve axiom standing behind it; the axiom residue below is the whole of what it
 rests on.
@@ -134,7 +134,7 @@ length. Proved from that landed declaration by rewriting along the proved set eq
 
 ## HYPOTHESES
 **None; unconditional.** `chen_omega_prod_le_three` takes no binders, and its only corpus
-input is `chen_headline` (`chen_headline.mono`, `Salt/Fulcrum/ChenCorollary.lean:35`; the
+input is `chen_headline` (`chen_headline.mono`, `Salt/Fulcrum/ChenCorollary.lean:36`; the
 rest of its proof is mathlib arithmetic), which is itself unconditional. The axiom residue
 below is the whole of what it rests on.
 

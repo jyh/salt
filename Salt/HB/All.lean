@@ -464,8 +464,8 @@ the divisor constant bound BEFORE `z x`, HB Lemma 3 at the pretense-sum level at
 floor on the `(L1)` packet at `Lp := 2L`) and `Salt/HB/CrownAssembly.lean` (the wire `hbDataN8`
 with the vacuous `(l, P) = 1` filter, HB Lemma 6 with literal constants, HB Lemma 5 as the
 INTERFACE `Lemma5Eval` that Wave C-2 fills, the p.200 assembly both signs, the `κS₁ = W` wire).
-All 27 theorems are proved, sorry-free, with no statement changed from the freeze and no new
-axiom (the wave: two Opus executors, one per file, 2026-09-04).  N8 assembles nothing:
+All 28 theorems (7 + 21) are proved, sorry-free, with no statement changed from the freeze and
+no new axiom (the wave: two Opus executors, one per file, 2026-09-04).  N8 assembles nothing:
 `hEngine` stays a binder until N7 (Waves A/B/C), N8, N4's composition wave, the `z` witness,
 N9, N10 and N12 land (N11 is closed).
 

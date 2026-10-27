@@ -23,7 +23,7 @@ The complete provable **structural layer** of the row — everything any pricing
 must consume:
 
 * the character dichotomy (`evenCorner_chiRe_two`, `evenCornerSum_eq_zero_of_chiRe_two_ne`);
-* **the even-survivor classification** (`evenCorner_survivor`, the house-verified core):
+* **the even-survivor classification** (`evenCorner_survivor`, the core):
   a nonzero even term forces BOTH `χ=−1` blocks pure — `n₋ = 2^{e₁}`, `(n+2)₋ = 2^{e₂}`
   (any odd `χ=−1` block alongside a `2`-power dies by the two-block kill);
 * **the exponent split** (`evenCorner_exponent_split`, the fiber law): `e₁ ≥ 2 ⟹ e₂ = 1`
@@ -168,7 +168,7 @@ lemma evenCorner_block_of_diff_ne (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 
     le_antisymm (h0 ▸ vonMangoldt_le_LamTilde χ hsq m) vonMangoldt_nonneg
   rw [h0, hΛ, sub_zero]
 
-/-- **THE EVEN-SURVIVOR CLASSIFICATION** (the house-verified structural core of the
+/-- **THE EVEN-SURVIVOR CLASSIFICATION** (the structural core of the
     catch-#246 row).  If an even window element carries a nonzero overshoot term, BOTH
     `χ=−1` blocks are pure `2`-powers: `n₋ = 2^{e₁}` and `(n+2)₋ = 2^{e₂}` with
     `e₁, e₂ ≥ 1`.  (First summand: the difference side classifies, the `Λ̃` side
@@ -451,7 +451,7 @@ single free exponent and Chebyshev-counts the `χ=+1` cofactor). -/
 /-! ## §6 — the RE-FROZEN row (House Amendment 4, catch #248): `J2 + junk`, engine-free
 
 Amendment 4 re-froze the row's conclusion to the `J2 + standard-junk` shape and supplied
-a house-verified route that uses **crude divisor counting only** (no pair-count engine —
+a route that uses **crude divisor counting only** (no pair-count engine —
 the engine's primorial coprimality contains `2`, so even fibers never embed).  This
 section lands that bound, `EL_evenCorner_bound`, with `Cmain = 2` (absolute).
 

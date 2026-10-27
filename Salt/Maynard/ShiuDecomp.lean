@@ -50,6 +50,8 @@ def shiuChunks (n : ℕ) : List ℕ :=
 /-- The sorted list of distinct prime factors of `n` (ascending). -/
 def shiuPrimes (n : ℕ) : List ℕ := n.primeFactors.sort (· ≤ ·)
 
+/-- `shiuChunks n = (shiuPrimes n).map (p ↦ p ^ n.factorization p)` (`rfl`): the chunk list is
+the sorted prime list mapped to full prime powers. -/
 theorem shiuChunks_eq (n : ℕ) :
     shiuChunks n = (shiuPrimes n).map (fun p => p ^ n.factorization p) := rfl
 
@@ -101,6 +103,8 @@ def shiuC (w n : ℕ) : ℕ := (greedyPrefix w (shiuChunks n)).prod
 /-- The rough cofactor `d(n,w) := n / c(n,w)`. -/
 def shiuD (w n : ℕ) : ℕ := n / shiuC w n
 
+/-- `shiuD w n = n / shiuC w n` (`rfl`): the rough cofactor is `n` over the greedy smooth
+prefix. -/
 theorem shiuD_def (w n : ℕ) : shiuD w n = n / shiuC w n := rfl
 
 /-- Every chunk is a positive prime power. -/
@@ -190,6 +194,8 @@ theorem shiuC_pos {n : ℕ} (hn : n ≠ 0) (w : ℕ) : 0 < shiuC w n :=
 /-- The cut length: the number of full chunks that fit greedily. -/
 def shiuCut (w n : ℕ) : ℕ := (greedyPrefix w (shiuChunks n)).length
 
+/-- `shiuC w n` is the product of the first `shiuCut w n` chunks: the greedy prefix is a `take`
+of `shiuChunks n` of length `shiuCut w n`. -/
 theorem shiuC_eq_take_prod (w n : ℕ) :
     shiuC w n = ((shiuChunks n).take (shiuCut w n)).prod := by
   rw [shiuC, shiuCut]

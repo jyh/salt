@@ -105,6 +105,8 @@ private lemma lcm_pairwise_coprime_of_noncollision {R W' : ℕ} {d e : Fin 5 →
   · exact absurd (hnc j i hij.symm) (Nat.Prime.not_coprime_iff_dvd.mpr ⟨p, hp, hdj, hei⟩)
   · exact absurd (hecop i j hij) (Nat.Prime.not_coprime_iff_dvd.mpr ⟨p, hp, hei, hej⟩)
 
+/-- `h_i ≤ 19` for each of the five shifts: the five values of `hSeq 5` (`hSeq_five_zero` …
+`hSeq_five_four`), by cases on `i`; the file-scoped mirror of `FrontierM`'s private helper. -/
 private lemma hSeq_le_nineteen (i : Fin 5) : hSeq 5 i ≤ 19 := by
   fin_cases i <;>
     simp only [hSeq_five_zero, hSeq_five_one, hSeq_five_two, hSeq_five_three,
@@ -115,6 +117,12 @@ private lemma hSeq_le_nineteen (i : Fin 5) : hSeq 5 i ≤ 19 := by
 
 Byte-mirror of `FrontierM`'s `WinFrontierMW` with the leading `EHall →` deleted:
 the largeness bundle needs only `HasLevel (3999/4000)`, not `EHall`. -/
+/-- **The `EHall`-free largeness bundle** at the modulus `primorial D`:
+`WindowPNT → ∀ N, ∃ N' ≥ N` and witnesses `R, ν₀, δ, errEH, cval` with the seven conjuncts of
+`WinFrontierMW` — CRT collision-solvability, `0 < φ(primorial D)`, `0 ≤ cval m`, `0 ≤ δ ≤ Δπ_m`,
+`cval m ≤ Qdiag_mW`, the `S2mW` lower bound, and the M-based ratio-slack. `FrontierM`'s
+`WinFrontierMW D` with its leading `EHall →` deleted, so that `winFrontierMW_of_hasLevel` can
+discharge it from `HasLevel (3999/4000)` without `EHall` (given `300 ≤ D` and `hslackEv`). -/
 def WinFrontierMWL (D : ℕ) : Prop :=
   WindowPNT → ∀ N : ℕ,
     ∃ (N' R ν₀ : ℕ) (δ : ℝ) (errEH cval : Fin 5 → ℝ), N ≤ N' ∧

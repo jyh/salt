@@ -565,14 +565,14 @@ theorem flat_head_uniform_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤
 
 ⛔ **WHY THIS ONE LINE EXISTS.**  The `x`-ceiling apparatus — `XCeilGate`, `XCeilRider`,
 `chowlaRegimeFlat_exists_param_gen_ceiling`, `chowlaRegimeFlat_exists_param_head_xceil` — lives
-entirely in `Salt/MR`, and `Salt/Entropy` **cannot import `Salt/MR`** (verified: zero
-`import Salt.MR` lines under `Salt/Entropy`, and every one of the 18 `Salt.MR` tokens there is
-prose in a docstring).  So the `h` lane's `x`-ceilinged head cannot be built here — it must be
+entirely in `Salt/MR`, and `Salt/Entropy` **did not import `Salt/MR`** (a layering convention,
+not a cycle: zero `import Salt.MR` lines under `Salt/Entropy` on 09-02; `SiegelFree.lean` has
+one since 10-24).  So the `h` lane's `x`-ceilinged head was not built here — it was
 built in MR, beside its `h = 1` sibling `XThread.flat_head_uniform_xceil`.
 
-But `flat_head_uniform_h`'s body calls two `private` helpers of this module.  The 4-line
+But `flat_head_uniform_h`'s body calls two `private` helpers of this module.  The 3-line
 `flatCapH_shuffle` is re-proved at the MR site (the corpus's own practice — `S16UniformLH`
-re-proves `flatRootCapH_arc_u` for exactly this reason).  `spine_False_core_xi_sq_flat_h` is 139
+re-proves `flatRootCapH_arc` as `flatRootCapH_arc_u`).  `spine_False_core_xi_sq_flat_h` is 138
 lines and re-proving it would be waste, so it is RE-EXPORTED here under a public name.
 
 **PURELY ADDITIVE, and deliberately the smallest possible edit: a new declaration, not a

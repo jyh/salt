@@ -111,6 +111,8 @@ theorem gold_box_efold_le (X M e : ℕ) :
     Real.log (((X / e : ℕ) : ℝ) * (M : ℝ)) ≤ Real.log ((X : ℝ) * (M : ℝ)) :=
   log_efold_le X M e
 
+/-- `0 ≤ log(⌊X/e⌋·M)`: the nonneg half of the e-fold row, packaged for the caller
+(`log_efold_nonneg`). -/
 theorem gold_box_efold_nonneg (X M e : ℕ) :
     0 ≤ Real.log (((X / e : ℕ) : ℝ) * (M : ℝ)) :=
   log_efold_nonneg X M e

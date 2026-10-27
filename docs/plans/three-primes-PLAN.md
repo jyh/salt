@@ -291,7 +291,7 @@ Nothing in the corpus states a three-primes or ternary theorem (searched: `three
 `threePrimes`, "sum of three primes", `goldbach_ternary`, "weak Goldbach", "odd Goldbach",
 `major_arc`, `singularIntegral`, all 0; controls: "Vaughan" in 55 files, `𝔖` 85 hits). The
 `Salt/Goldbach/` tree is **Chen's binary theorem** (`Salt.Goldbach.chen_goldbach`,
-`Salt/Goldbach/ChenGoldbach.lean:41`: every large even N is p + P₂), a sieve, and contributes nothing
+`Salt/Goldbach/ChenGoldbach.lean:47`: every large even N is p + P₂), a sieve, and contributes nothing
 here except shared tools.
 
 **Consume before writing (the 2026-10-09 ruling).** Every ABSENT piece is first looked for in prior

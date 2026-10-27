@@ -444,24 +444,39 @@ example (K : ℝ) (y : ℕ) (hK0 : 0 ≤ K) : 0 ≤ K * (2 * (y : ℝ)) := by
 /-! The pasted suggestions, as NAMED theorems so `#audit_axioms` can read them: each is the text
 printed above, pasted verbatim. -/
 
+/-- Suggestion A1 pasted verbatim, a named theorem so `#audit_axioms` can read it: `0 ≤ a * b`
+from `ha : 0 ≤ a` and `hb : 0 ≤ b` by the L2 replay — `linarith only` with the one product
+`mul_nonneg_of_nonpos_of_nonpos` of the two `sub_nonpos_of_le` facts. -/
 theorem pasted_A1 (a b : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) : 0 ≤ a * b := by
   linarith only [ha, hb,
     mul_nonneg_of_nonpos_of_nonpos (Mathlib.Tactic.Linarith.sub_nonpos_of_le ha)
       (Mathlib.Tactic.Linarith.sub_nonpos_of_le hb)]
+/-- Suggestion A2 pasted verbatim: `0 ≤ y` from `h : x * x ≤ y` by the L2 replay
+`linarith only [h, mul_self_nonneg x]`. -/
 theorem pasted_A2 (x y : ℝ) (h : x * x ≤ y) : 0 ≤ y := by
   linarith only [h, mul_self_nonneg x]
+/-- Suggestion A4 pasted verbatim: `x * n ≤ 0` from `h : x ≤ 0` (`n : ℕ` cast to `ℝ`) by the L2
+replay — the cast fact `natCast_nonneg ℝ n` and its one product with `h`. -/
 theorem pasted_A4 (n : ℕ) (x : ℝ) (h : x ≤ 0) : x * (n : ℝ) ≤ 0 := by
   linarith only [h, Mathlib.Tactic.Linarith.natCast_nonneg ℝ n,
     mul_nonneg_of_nonpos_of_nonpos
       (Mathlib.Tactic.Linarith.sub_nonpos_of_le
         (Mathlib.Tactic.Linarith.natCast_nonneg ℝ n))
       (Mathlib.Tactic.Linarith.sub_nonpos_of_le h)]
+/-- Suggestion A5 pasted verbatim: `a * b ≤ 0` from `h : a = 0` and `hb : 0 ≤ b` by the L2
+replay — the product `zero_mul_eq` of the equality with `hb`'s `sub_nonpos_of_le`. -/
 theorem pasted_A5 (a b : ℝ) (h : a = 0) (hb : 0 ≤ b) : a * b ≤ 0 := by
   linarith only [h, hb,
     Mathlib.Tactic.Linarith.zero_mul_eq (sub_eq_zero_of_eq h)
       (Mathlib.Tactic.Linarith.sub_nonpos_of_le hb)]
+/-- Suggestion A10 pasted verbatim: `2 * (a * c) ≤ a ^ 2 + c ^ 2` in `ℤ` for `a c : ℕ`, with no
+hypothesis, by the L2 replay `linarith only [sq_nonneg (↑a - ↑c : ℤ)]`. -/
 theorem pasted_A10 (a c : ℕ) : (2 * (a * c) : ℤ) ≤ (a : ℤ) ^ 2 + (c : ℤ) ^ 2 := by
   linarith only [sq_nonneg (↑a - ↑c : ℤ)]
+/-- Suggestion A9 pasted verbatim: `0 ≤ K * (2 * y)` from `hK0 : 0 ≤ K` with `y : ℕ` behind a
+`set` variable, by the L2 replay whose cast fact is printed as the term the preprocessor built,
+`natCast_nonneg ℝ y` — the form that elaborates at `ℝ` where `(Nat.cast_nonneg _ : 0 ≤ ↑y)` did
+not (the fourth failure class, the A9 example above). -/
 theorem pasted_A9 (K : ℝ) (y : ℕ) (hK0 : 0 ≤ K) : 0 ≤ K * (2 * (y : ℝ)) := by
   set Y : ℝ := (y : ℝ)
   linarith only [hK0, Mathlib.Tactic.Linarith.natCast_nonneg ℝ y,

@@ -48,6 +48,7 @@ the same `Nat.nth_count` pattern for indices `5, 6, 7`. -/
 
 namespace Salt.Twelve
 
+/-- `firstIdxAboveK 5 = 3`: the primes below `6` are `2, 3, 5` (`decide`). -/
 theorem firstIdxAboveK_five : firstIdxAboveK 5 = 3 := by decide
 
 /-- `Nat.nth Nat.Prime 5 = 13`, same pattern as mathlib's
@@ -63,22 +64,28 @@ theorem nth_prime_six_eq_seventeen : Nat.nth Nat.Prime 6 = 17 :=
 theorem nth_prime_seven_eq_nineteen : Nat.nth Nat.Prime 7 = 19 :=
   Nat.nth_count (show Nat.Prime 19 by norm_num)
 
+/-- `h₀ = 7`: `hSeq 5 i = Nat.nth Nat.Prime (3 + i)` (`hSeq_std`, `firstIdxAboveK_five`) and
+mathlib's `Nat.nth_prime_three_eq_seven`. -/
 theorem hSeq_five_zero : hSeq 5 ⟨0, by omega⟩ = 7 := by
   rw [hSeq_std, firstIdxAboveK_five]
   exact Nat.nth_prime_three_eq_seven
 
+/-- `h₁ = 11` (`hSeq_std`, `firstIdxAboveK_five`, mathlib's `Nat.nth_prime_four_eq_eleven`). -/
 theorem hSeq_five_one : hSeq 5 ⟨1, by omega⟩ = 11 := by
   rw [hSeq_std, firstIdxAboveK_five]
   exact Nat.nth_prime_four_eq_eleven
 
+/-- `h₂ = 13` (`hSeq_std`, `firstIdxAboveK_five`, `nth_prime_five_eq_thirteen`). -/
 theorem hSeq_five_two : hSeq 5 ⟨2, by omega⟩ = 13 := by
   rw [hSeq_std, firstIdxAboveK_five]
   exact nth_prime_five_eq_thirteen
 
+/-- `h₃ = 17` (`hSeq_std`, `firstIdxAboveK_five`, `nth_prime_six_eq_seventeen`). -/
 theorem hSeq_five_three : hSeq 5 ⟨3, by omega⟩ = 17 := by
   rw [hSeq_std, firstIdxAboveK_five]
   exact nth_prime_six_eq_seventeen
 
+/-- `h₄ = 19` (`hSeq_std`, `firstIdxAboveK_five`, `nth_prime_seven_eq_nineteen`). -/
 theorem hSeq_five_four : hSeq 5 ⟨4, by omega⟩ = 19 := by
   rw [hSeq_std, firstIdxAboveK_five]
   exact nth_prime_seven_eq_nineteen

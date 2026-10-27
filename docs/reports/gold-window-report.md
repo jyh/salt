@@ -72,7 +72,7 @@ process lesson, none a kernel error).
 **Doors** (each at its final hinges): the HB engine (Siegel-zero
 conditional; WP1 transfer parametrically complete, WP2 at the
 T-BAL balance); the GEH door (anchored combinator consistent
-end-to-end post-replumb, ShiuCore wired; remaining: tiiBlock
+end-to-end post-replumb, ShiuCore's `hshiu` body proved but not yet accepted by the combinator's fixed-`F` slot, catch #54; remaining: tiiBlock
 CoeffAt/SW + the honest interfaces); the VMVT road (summit
 landed; the VK region in flight — θ = 3/4 unlocks MR, then
 unconditional log-Chowla-2); Littlewood (COVER ✓, STRIP ✓,

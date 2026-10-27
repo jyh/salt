@@ -74,6 +74,8 @@ noncomputable def betaT (m : ℕ) : ℝ :=
 /-- The local factor of `betaT`: `b(k) = 0` at `k = 1`, `2^(k−2)` otherwise (`b(0) = 1`). -/
 noncomputable def betaLoc (k : ℕ) : ℝ := if k = 1 then 0 else (2 : ℝ) ^ (k - 2)
 
+/-- On odd `m` (`hm`), `betaT m = ∏_{p ∣ m} betaLoc (m.factorization p)`: the definition's
+product with its local factor named. -/
 lemma betaT_eq_prod {m : ℕ} (hm : Odd m) :
     betaT m = ∏ p ∈ m.primeFactors, betaLoc (m.factorization p) := by
   simp [betaT, hm, betaLoc]
@@ -112,6 +114,7 @@ theorem betaT_prime_pow {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) (k : ℕ) :
   · rw [Nat.primeFactors_prime_pow hk.ne' hp, Finset.prod_singleton,
       hp.factorization_pow, Finsupp.single_eq_same]
 
+/-- `betaT 1 = 1`: `1` is odd with no prime factors, so the product is empty. -/
 lemma betaT_one : betaT 1 = 1 := by simp [betaT]
 
 /-- **M2a.** -/

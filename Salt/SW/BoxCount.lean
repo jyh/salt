@@ -50,6 +50,7 @@ an `O((|t|+2)²)` bound on `‖Zc‖` valid on the sphere `|z − (2+t·i)| = 39
 `Re z ≥ 1/20`, so `1 + 1/Re z ≤ 21`). Wider analogue of `M0zeta`. -/
 noncomputable def M0box (t : ℝ) : ℝ := 1 + 21 * (99 / 20 + |t|) * (79 / 20 + |t|)
 
+/-- `1 ≤ M0box t`: the added product `21(99/20 + |t|)(79/20 + |t|)` is nonnegative. -/
 lemma one_le_M0box (t : ℝ) : 1 ≤ M0box t := by
   rw [M0box]
   have h1 : (0 : ℝ) ≤ 99 / 20 + |t| := by have := abs_nonneg t; linarith
@@ -119,6 +120,7 @@ lemma Zc_sphere_bound_wide (t : ℝ) {z : ℂ} (hz : ‖z - (2 + (t : ℂ) * I)�
 /-- The half-box zero-count constant: `C = 11/log(39/37) ≈ 209`. -/
 noncomputable def zetaBoxConst : ℝ := 11 / Real.log (39 / 37)
 
+/-- `0 < C = 11/log(39/37)`: `39/37 > 1` makes the logarithm positive. -/
 lemma zetaBoxConst_pos : 0 < zetaBoxConst :=
   div_pos (by norm_num) (Real.log_pos (by norm_num))
 

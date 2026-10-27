@@ -84,10 +84,14 @@ lemma chiReTB_abs_le_one {q : ℕ} (χ : DirichletCharacter ℂ q) (n : ℕ) :
 noncomputable def windowPrimes (z Y : ℝ) : Finset ℕ :=
   (Finset.Ioc ⌊z⌋₊ ⌊Y⌋₊).filter (fun n => Nat.Prime n)
 
+/-- `p ∈ windowPrimes z Y ↔ (⌊z⌋₊ < p ∧ p ≤ ⌊Y⌋₊) ∧ p` prime — the membership unfolding of
+`windowPrimes`. -/
 lemma mem_windowPrimes {z Y : ℝ} {p : ℕ} :
     p ∈ windowPrimes z Y ↔ (⌊z⌋₊ < p ∧ p ≤ ⌊Y⌋₊) ∧ Nat.Prime p := by
   simp [windowPrimes, Finset.mem_filter, Finset.mem_Ioc, and_assoc]
 
+/-- A member of `windowPrimes z Y` (`hp`) is prime — the second conjunct of
+`mem_windowPrimes`. -/
 lemma windowPrimes_prime {z Y : ℝ} {p : ℕ} (hp : p ∈ windowPrimes z Y) : Nat.Prime p :=
   (mem_windowPrimes.mp hp).2
 
@@ -201,13 +205,15 @@ lemma log_hbEulerProd {q : ℕ} (χ : DirichletCharacter ℂ q) (z Y : ℝ) :
 noncomputable def hbLogF {q : ℕ} (χ : DirichletCharacter ℂ q) (z : ℝ) : ℝ :=
   limUnder Filter.atTop (fun Y : ℝ => hbEulerLog χ z Y)
 
-/-- **`F = ∏_{p ≥ z}(1 − χ(p)/p)^{−1}`**, as a real number. -/
+/-- **`F = ∏_{p > z}(1 − χ(p)/p)^{−1}`**, as a real number. -/
 noncomputable def hbF {q : ℕ} (χ : DirichletCharacter ℂ q) (z : ℝ) : ℝ :=
   Real.exp (hbLogF χ z)
 
+/-- `0 < hbF χ z`: `F` is defined as `exp (hbLogF χ z)` (`Real.exp_pos`). -/
 @[simp] lemma hbF_pos {q : ℕ} (χ : DirichletCharacter ℂ q) (z : ℝ) : 0 < hbF χ z :=
   Real.exp_pos _
 
+/-- `log (hbF χ z) = hbLogF χ z`, definitional (`Real.log_exp`). -/
 @[simp] lemma log_hbF {q : ℕ} (χ : DirichletCharacter ℂ q) (z : ℝ) :
     Real.log (hbF χ z) = hbLogF χ z := Real.log_exp _
 
@@ -311,6 +317,8 @@ Chebyshev's `ψ − θ` read through the Abel weight `w(t) = 1/(t log t)`. -/
 noncomputable def ppDefect (z Y : ℝ) : ℝ :=
   ∑ n ∈ (Finset.Ioc ⌊z⌋₊ ⌊Y⌋₊).filter (fun n => ¬ Nat.Prime n), wLog n * vonMangoldt n
 
+/-- `0 ≤ ppDefect z Y` for `1 ≤ z` (`hz`): every term is `wLog n · Λ(n)` with `n > ⌊z⌋ ≥ 1`, so
+`wLog n ≥ 0` (`wLog_nonneg`) and `Λ(n) ≥ 0`. -/
 lemma ppDefect_nonneg {z Y : ℝ} (hz : 1 ≤ z) : 0 ≤ ppDefect z Y := by
   classical
   refine Finset.sum_nonneg (fun n hn => ?_)
@@ -691,6 +699,9 @@ constant visible. -/
 Chebyshev's `ψ − θ`. -/
 noncomputable def ppCoef (n : ℕ) : ℝ := if Nat.Prime n then 0 else vonMangoldt n
 
+/-- The partial sums of `ppCoef` up to `⌊t⌋₊` are Chebyshev's `ψ(t) − θ(t)`: mathlib's
+`Chebyshev.psi_sub_theta_eq_sum_not_prime` (the sum over `Finset.Ioc 0 ⌊t⌋₊` of the non-primes),
+the `k = 0` term being `ppCoef 0 = Λ(0) = 0`. -/
 lemma sum_ppCoef_eq (t : ℝ) :
     ∑ k ∈ Finset.Icc 0 ⌊t⌋₊, ppCoef k = Chebyshev.psi t - Chebyshev.theta t := by
   classical
@@ -706,12 +717,15 @@ lemma sum_ppCoef_eq (t : ℝ) :
   · rw [if_pos hk, if_neg (not_not.mpr hk)]
   · rw [if_neg hk, if_pos hk]
 
+/-- `sum_ppCoef_eq` at a natural `t = m` (`Nat.floor_natCast`) — the form Abel summation's
+boundary terms take in `ppDefect_le`. -/
 lemma sum_ppCoef_nat_eq (m : ℕ) :
     ∑ k ∈ Finset.Icc 0 m, ppCoef k
       = Chebyshev.psi (m : ℝ) - Chebyshev.theta (m : ℝ) := by
   have h := sum_ppCoef_eq (m : ℝ)
   rwa [Nat.floor_natCast] at h
 
+/-- `0 ≤ ψ(t) − θ(t)`, from mathlib's `Chebyshev.theta_le_psi`. -/
 lemma psi_sub_theta_nonneg (t : ℝ) : 0 ≤ Chebyshev.psi t - Chebyshev.theta t := by
   have := Chebyshev.theta_le_psi t
   linarith

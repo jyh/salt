@@ -53,12 +53,12 @@ and the H2 wave's H7c consumes H6e's main term AS `c0`. The frozen shape is kept
 one-line corollary `coprime_sum_moebius_div_kappa_log_exists`; `0 < c0` is the public
 `one_le_c0`.
 
-**Everything proved here is an UPPER bound or an exact identity** — no asymptotic and no
-lower bound anywhere. Where a constant is `∃`-bound it is **non-effective**: H5a and H5c
-pass through no rate at all (they are elementary, `C = 4` and `C = 250 + 39·C_{H5a}`), but
-the wave's remaining rows would pass through `mmuRate_holds` by way of H6a/H6b, whose `x₀`
-is not extracted anywhere in the corpus — so their constants, when they land, will print
-their DERIVATION and never a numeral.
+**Every estimate proved here is an UPPER bound or an exact identity** — no asymptotic, and no lower
+bound beyond the positivity and `1 ≤` facts they consume (`one_le_c0`). Where a constant is
+`∃`-bound it is **non-effective**: H5a and H5c pass through no rate at all (they are elementary, `C
+= 4` and `C = 250 + 39·C_{H5a}`), but the wave's remaining rows would pass through `mmuRate_holds`
+by way of H6a/H6b, whose `x₀` is not extracted anywhere in the corpus — so their constants, when
+they land, will print their DERIVATION and never a numeral.
 
 **`c0` is a SERIES, not a number.** It is `Σ'_n μ(n)²/(κ(n)φ(n))`; `c₀ = ζ(2)` is true and
 is never used, and `ρ₀·c₀ = 1` is true and is never used. T7 is stated at the series.
@@ -318,6 +318,8 @@ private lemma kappa_div_eq_prod_one_add (r : ℕ) (hr : 1 ≤ r) :
   have hr0 : (0 : ℝ) < r := by exact_mod_cast hr
   rw [kappa, mul_comm, mul_div_assoc, div_self hr0.ne', mul_one]
 
+/-- `0 < ∏_{p ∣ r} (1 − 1/p)`: each factor is positive, since `1/p < 1` for a prime `p > 1`
+(`Finset.prod_pos`). -/
 private lemma prod_one_sub_pos (r : ℕ) : (0 : ℝ) < ∏ p ∈ r.primeFactors, (1 - 1 / (p : ℝ)) := by
   refine Finset.prod_pos fun p hp => ?_
   have hp1 : (1 : ℝ) < (p : ℝ) := by
@@ -327,12 +329,15 @@ private lemma prod_one_sub_pos (r : ℕ) : (0 : ℝ) < ∏ p ∈ r.primeFactors,
     linarith
   linarith
 
+/-- `0 < ∏_{p ∣ r} (1 + 1/p)`: each factor is positive (`Finset.prod_pos`, `positivity`). -/
 private lemma prod_one_add_pos (r : ℕ) : (0 : ℝ) < ∏ p ∈ r.primeFactors, (1 + 1 / (p : ℝ)) := by
   refine Finset.prod_pos fun p hp => ?_
   have hp1 : (1 : ℝ) < (p : ℝ) := by
     exact_mod_cast (Nat.prime_of_mem_primeFactors hp).one_lt
   positivity
 
+/-- `0 < ∏_{p ∣ r} (1 − 1/p²)`: each factor is positive, since `1 < p²` for a prime `p`
+(`Finset.prod_pos`). -/
 private lemma prod_one_sub_sq_pos (r : ℕ) :
     (0 : ℝ) < ∏ p ∈ r.primeFactors, (1 - 1 / (p : ℝ) ^ 2) := by
   refine Finset.prod_pos fun p hp => ?_
@@ -506,6 +511,8 @@ theorem summable_moebius_sq_div_kappa_totient :
         zero_div, abs_zero]
       positivity
 
+/-- `Σ_n μ(n)²/(κ(n)φ(n))` converges, without the absolute value:
+`summable_moebius_sq_div_kappa_totient` through `Summable.of_abs`. -/
 private lemma summable_moebius_sq_div_kappa_totient' :
     Summable (fun n : ℕ => (moebius n : ℝ) ^ 2 / (kappa n * (Nat.totient n : ℝ))) :=
   summable_moebius_sq_div_kappa_totient.of_abs
@@ -1454,11 +1461,14 @@ private lemma le_kappa (r : ℕ) (hr : 1 ≤ r) : (r : ℝ) ≤ kappa r := by
   have : (1 : ℝ) ≤ kappa r / r := by rw [h]; exact h1
   rwa [le_div_iff₀ hr0, one_mul] at this
 
+/-- `0 < r/κ(r)` for `1 ≤ r` (`hr`): `κ(r) ≥ r > 0` (`le_kappa`). -/
 private lemma div_kappa_pos (r : ℕ) (hr : 1 ≤ r) : (0 : ℝ) < (r : ℝ) / kappa r := by
   have hr0 : (0 : ℝ) < r := by exact_mod_cast hr
   have hk := le_kappa r hr
   exact div_pos hr0 (by linarith)
 
+/-- `r/κ(r) ≤ 1` for `1 ≤ r` (`hr`): `r ≤ κ(r)` (`le_kappa`) over the positive `κ(r)`
+(`div_le_one`). -/
 private lemma div_kappa_le_one (r : ℕ) (hr : 1 ≤ r) : (r : ℝ) / kappa r ≤ 1 := by
   have hr0 : (0 : ℝ) < r := by exact_mod_cast hr
   have hk := le_kappa r hr
@@ -3286,15 +3296,23 @@ private noncomputable def smoothInd (t : ℕ) : ArithmeticFunction ℤ where
   toFun n := if n = 0 then 0 else if n.primeFactors ⊆ t.primeFactors then 1 else 0
   map_zero' := by simp
 
+/-- At `n ≠ 0` (`hn`) the smooth indicator reads `1` when the prime factors of `n` lie among
+those of `t` and `0` otherwise — the definition with its `n = 0` branch discharged. -/
 private lemma smoothInd_apply (t : ℕ) {n : ℕ} (hn : n ≠ 0) :
     smoothInd t n = if n.primeFactors ⊆ t.primeFactors then 1 else 0 := by
   classical
   simp [smoothInd, hn]
 
+/-- `smoothInd t 1 = 1`: `1` has no prime factors, so the inclusion holds (`smoothInd_apply`,
+`Nat.primeFactors_one`). -/
 private lemma smoothInd_one (t : ℕ) : smoothInd t 1 = 1 := by
   rw [smoothInd_apply t one_ne_zero, Nat.primeFactors_one]
   simp
 
+/-- The smooth indicator is multiplicative: it is `1` at `1` (`smoothInd_one`), and for coprime
+`m, n ≠ 0` the prime factors of `mn` are the union of the two sets
+(`Nat.Coprime.primeFactors_mul`), so the inclusion for `mn` is the conjunction of the two
+(`ArithmeticFunction.IsMultiplicative.iff_ne_zero`). -/
 private lemma isMultiplicative_smoothInd (t : ℕ) : (smoothInd t).IsMultiplicative := by
   classical
   rw [ArithmeticFunction.IsMultiplicative.iff_ne_zero]
@@ -3327,11 +3345,18 @@ private noncomputable def coprimeMoebius (t : ℕ) : ArithmeticFunction ℤ wher
     · rw [if_pos h, ArithmeticFunction.map_zero]
     · rw [if_neg h]
 
+/-- `coprimeMoebius t n` is `μ(n)` when `n` is coprime to `t` and `0` otherwise — the definition
+unfolded. -/
 private lemma coprimeMoebius_apply (t n : ℕ) :
     coprimeMoebius t n = if Nat.Coprime n t then moebius n else 0 := by
   classical
   simp [coprimeMoebius]
 
+/-- `n ↦ μ(n)·[(n,t) = 1]` is multiplicative: it is `1` at `1` (`Nat.coprime_one_left`,
+`isMultiplicative_moebius`), and for coprime `m, n` the product `mn` is coprime to `t` exactly
+when both are (`Nat.Coprime.mul_left`, `Nat.Coprime.coprime_dvd_left`), with `μ(mn) = μ(m)μ(n)`
+on the live branch and a `0` factor on each dead one
+(`ArithmeticFunction.IsMultiplicative.iff_ne_zero`). -/
 private lemma isMultiplicative_coprimeMoebius (t : ℕ) : (coprimeMoebius t).IsMultiplicative := by
   classical
   rw [ArithmeticFunction.IsMultiplicative.iff_ne_zero]
@@ -4028,10 +4053,13 @@ and `1` at every prime `≥ 7`. Their product is `≤ 3`. -/
 private noncomputable def smoothC (p : ℕ) : ℝ :=
   if p = 2 then 188/100 else if p = 3 then 138/100 else if p = 5 then 110/100 else 1
 
+/-- `1 ≤ c_p`: each of the four branches of `smoothC` is `≥ 1` (`188/100`, `138/100`, `110/100`,
+`1`). -/
 private lemma one_le_smoothC (p : ℕ) : 1 ≤ smoothC p := by
   unfold smoothC
   split_ifs <;> norm_num
 
+/-- `c_p = 1` for `7 ≤ p` (`hp`): none of the three special cases `p = 2, 3, 5` applies. -/
 private lemma smoothC_eq_one {p : ℕ} (hp : 7 ≤ p) : smoothC p = 1 := by
   unfold smoothC
   rw [if_neg (by omega), if_neg (by omega), if_neg (by omega)]

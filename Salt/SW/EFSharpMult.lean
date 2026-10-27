@@ -39,7 +39,7 @@ orphaned.
 * **`hZsimple` is deleted** and replaced by `hZzero : ∀ ρ ∈ Z, LFunction χ ρ = 0` — which wave 2
   *derived* from `hZsimple` and which the assembly gets for free from `mem_boxZeros`. So the
   hypothesis budget strictly *shrinks*.
-* **`E` is unchanged** — literally wave 2's `efShiftError`. Verified by inspection at the bytes:
+* **`E` is unchanged** — literally wave 2's `efShiftError`. Checked by reading, outside Lean:
   the horizontal/left/tail estimates read only `hZsep` (edge separation) and `hZall` (nothing
   outside `Z` is a zero near the contour) through `hdist_edge`; the Borel–Carathéodory/Jensen
   edge constant `B` already prices **all** zeros of the ball *with multiplicity*
@@ -155,6 +155,8 @@ noncomputable def efMultTotal {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ 
     ℝ :=
   ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ)
 
+/-- `0 ≤ Σ_{ρ ∈ Z} m_ρ`: a sum of casts of natural numbers (`Finset.sum_nonneg`,
+`positivity`). -/
 lemma efMultTotal_nonneg {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) (Z : Finset ℂ) :
     0 ≤ efMultTotal χ Z :=
   Finset.sum_nonneg fun _ _ => by positivity

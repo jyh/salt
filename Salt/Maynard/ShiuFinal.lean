@@ -352,6 +352,11 @@ The proof is NEW-1's, with the three tuning equalities `(1−σ)log v = log r/4`
 `v^{1−σ} = r^{1/4}` weakened to `≤` (the correct direction — the correction term is
 upper-bounded).  Reuses the SAME landed helpers.  THIS is the stone that unblocks
 the class-IV binned assembly (each bin instantiates `v = v_r`, `σ_r`). -/
+/-- The class-IV stone with the `v`-constraint RELAXED to `r · log v ≤ log z` (the header
+above): constants `Ce, C₀ ≥ 0` such that for `3 ≤ v`, `2 ≤ r`, `1 ≤ W`, `1 < z`,
+`r log r ≤ log z`, `log W = ½ log z`, `r log v ≤ log z` and `σ = 1 − r log r / (4 log z)`, the
+sum of `τ(c)/c` over the `v`-smooth `c ∈ (W, N]` is at most
+`exp(−r log r / 8 + r^{1/4}(log r / 2 + C₀)) · exp(2 ∑_{p ≤ z} 1/p + Ce)`. -/
 theorem sum_tau_smooth_gt_tuned_le' :
     ∃ (Ce C₀ : ℝ), 0 ≤ Ce ∧ 0 ≤ C₀ ∧
     ∀ (N z r v W : ℕ) (σ : ℝ),

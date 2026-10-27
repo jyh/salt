@@ -56,9 +56,12 @@ noncomputable def Lwin (x : ℕ) : ℝ := Real.log (2 * (x : ℝ) + 2)
 /-- `z₀ := log(2x+2)/log z` — the small-prime exponent scale. -/
 noncomputable def z0 (z x : ℕ) : ℝ := Lwin x / Real.log z
 
+/-- `0 ≤ L' = log(2x+2)`: the argument is `≥ 2` (`Real.log_nonneg`). -/
 lemma Lwin_nonneg (x : ℕ) : 0 ≤ Lwin x := by
   rw [Lwin]; exact Real.log_nonneg (by have := Nat.cast_nonneg (α := ℝ) x; linarith)
 
+/-- `0 ≤ z₀ = L'/log z` for `2 ≤ z` (`hz2`): both `L'` (`Lwin_nonneg`) and `log z` are
+nonnegative. -/
 lemma z0_nonneg {z x : ℕ} (hz2 : 2 ≤ z) : 0 ≤ z0 z x := by
   rw [z0]
   exact div_nonneg (Lwin_nonneg x) (Real.log_nonneg (by exact_mod_cast (by omega : 1 ≤ z)))
@@ -159,6 +162,7 @@ lemma lamTilde_sub_support_classification (χ : DirichletCharacter ℂ q) (hsq :
 noncomputable def l2cWindow (χ : DirichletCharacter ℂ q) (z x : ℕ) : Finset ℕ :=
   (Finset.Ioc x (2 * x)).filter (fun n => Nat.Coprime (n * (n + 2)) (q * excPrimorial χ z))
 
+/-- The honest window is a filter of `Finset.Ioc x (2x)` (`Finset.filter_subset`). -/
 lemma l2cWindow_subset (χ : DirichletCharacter ℂ q) (z x : ℕ) :
     l2cWindow χ z x ⊆ Finset.Ioc x (2 * x) := Finset.filter_subset _ _
 

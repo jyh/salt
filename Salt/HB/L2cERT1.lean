@@ -30,7 +30,7 @@ the `J1` budget `≤ Cmain·(x / z₀)` with `Cmain` absolute.  That statement i
   `z ≍ L'⁸` (allowed by `hz8`) drives `z₀ = L'/log z → ∞`, so `x·log z₀ ≫ Cmain·(x/z₀)`
   for every fixed `Cmain`.  The roles-swap restatement routed the `w = 1` composite
   plus-part class into `T1'`/`J1`, where `E_L` routes it into `T2`/`J2` — an R6-cover
-  statement-layer gap (the freeze's own open risk), for Fable/human re-ratification.
+  statement-layer gap (the freeze's own open risk); the house adopted the repair below.
 
 ## What lands instead (the Zeno partial, sorry-free)
 

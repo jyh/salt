@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.Parity.Z
 import Salt.Parity.Instances
+import Salt.Parity.SiegelFree
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -34,6 +35,8 @@ outside `ParityInv`. `ParityBarrier` is stated, never assumed.
   parityInv_twin_almost_prime
   parityInv_N5_3
   parityInv_chen_second
+  parityInv_chen_headline_of_standoff
+  parityInv_chen_second_of_standoff
 
 /-!
 ## The four census rows APPENDIX-A found outside every audit block

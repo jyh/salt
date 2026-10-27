@@ -83,26 +83,37 @@ Every family fibration consumes the same packet from `n ∈ l2cWindow χ z x`: `
 `(n, q) = 1`, `(n+2, q) = 1`, `n ≤ 2x`, `n+2 ≤ 2x+2`, and the two roughness facts (every
 `χ ≠ −1` prime of `n`, resp. `n+2`, is `≥ z`).  These pull the packet once. -/
 
+/-- A window element (`hn`) is nonzero — the first component of the window's `CoprimeSupport q`
+packet (`l2cWindow_coprimeSupport`). -/
 lemma l2cWindow_ne_zero (χ : DirichletCharacter ℂ q) {z x n : ℕ}
     (hn : n ∈ l2cWindow χ z x) : n ≠ 0 :=
   (l2cWindow_coprimeSupport χ z x n hn).1
 
+/-- A window element (`hn`) is coprime to `q` — the second component of the `CoprimeSupport q`
+packet (`l2cWindow_coprimeSupport`). -/
 lemma l2cWindow_coprime (χ : DirichletCharacter ℂ q) {z x n : ℕ}
     (hn : n ∈ l2cWindow χ z x) : Nat.Coprime n q :=
   (l2cWindow_coprimeSupport χ z x n hn).2.1
 
+/-- `n + 2` is coprime to `q` for a window element `n` (`hn`) — the third component of the
+`CoprimeSupport q` packet (`l2cWindow_coprimeSupport`). -/
 lemma l2cWindow_coprime_add_two (χ : DirichletCharacter ℂ q) {z x n : ℕ}
     (hn : n ∈ l2cWindow χ z x) : Nat.Coprime (n + 2) q :=
   (l2cWindow_coprimeSupport χ z x n hn).2.2
 
+/-- A window element (`hn`) is `≤ 2x`: the window is a filter of `Finset.Ioc x (2x)`
+(`l2cWindow_subset`). -/
 lemma l2cWindow_le (χ : DirichletCharacter ℂ q) {z x n : ℕ}
     (hn : n ∈ l2cWindow χ z x) : n ≤ 2 * x :=
   (Finset.mem_Ioc.mp (l2cWindow_subset χ z x hn)).2
 
+/-- A window element (`hn`) is `> x`: the window is a filter of `Finset.Ioc x (2x)`
+(`l2cWindow_subset`). -/
 lemma l2cWindow_lt (χ : DirichletCharacter ℂ q) {z x n : ℕ}
     (hn : n ∈ l2cWindow χ z x) : x < n :=
   (Finset.mem_Ioc.mp (l2cWindow_subset χ z x hn)).1
 
+/-- `n + 2 ≤ 2x + 2` for a window element `n` (`hn`), from `l2cWindow_le`. -/
 lemma l2cWindow_add_two_le (χ : DirichletCharacter ℂ q) {z x n : ℕ}
     (hn : n ∈ l2cWindow χ z x) : n + 2 ≤ 2 * x + 2 := by
   have := l2cWindow_le χ hn; omega
@@ -271,11 +282,11 @@ freeze, over `W := l2cWindow χ z x` under the master hypotheses
 * `EL_corners_bound` — even-block `e`-split at `√x`, `m=1`, squarefull-`≥z`, `>x^{1/4}`
   corners: `≤ Cmain·exp(2·z0 z x)·((x:ℝ)^(9/10:ℝ))·(Lwin x)^3` (the junkExpr `x^{9/10}` row).
 
-RESIDUAL CATCH (LOUD): the freeze's "~380 ln / R5 [C]" sizing is not realistic for a
-sorry-free mathlib-rigor landing of these five — each family (fiber def + `(d₁,d₂)` legality
-discharge + `l2c_pair_count_clean` application + Mertens/pretense summation) is on the order of
-several hundred lines, and the freeze's own `R5/R6 COVER COMPLETENESS` open risk (a Lean-time
-disjoint cover may surface a micro-subclass ⇒ STOP-and-flag, iron rule 1) applies at Lean time.
-A focused multi-pass campaign per family is warranted; see the executor report. -/
+RESIDUAL CATCH (LOUD, at this file's landing): the freeze's "~380 ln / R5 [C]" sizing was not
+realistic for a sorry-free mathlib-rigor landing of these five — each family (fiber def + `(d₁,d₂)`
+legality discharge + `l2c_pair_count_clean` application + Mertens/pretense summation) ran to several
+hundred lines, and the freeze's own `R5/R6 COVER COMPLETENESS` open risk did surface at Lean time:
+the `E_L` residual `L2cELuncov`, later discharged by `EL_uncov_bound_unconditional`
+(`L2cMasterUncond.lean`). See the executor report. -/
 
 end Salt.HB

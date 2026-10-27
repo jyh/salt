@@ -126,12 +126,17 @@ gives `N − n ≡ N`); `0` off the coprime case (never consumed there). -/
 noncomputable def crtClassG (Q d N a : ℕ) : ℕ :=
   if h : Nat.Coprime Q d then (Nat.chineseRemainder h (N - a) N).1 else 0
 
+/-- `crtClassG Q d N a ≡ N − a [MOD Q]` (hypothesis `h : Nat.Coprime Q d`): the `Q`-side
+congruence of the switch-side CRT class — `Nat.chineseRemainder`'s first component, once `h`
+selects the definition's coprime branch. -/
 lemma crtClassG_modEq_left {Q d : ℕ} (N a : ℕ) (h : Nat.Coprime Q d) :
     crtClassG Q d N a ≡ N - a [MOD Q] := by
   unfold crtClassG
   rw [dif_pos h]
   exact (Nat.chineseRemainder h (N - a) N).2.1
 
+/-- `crtClassG Q d N a ≡ N [MOD d]` (hypothesis `h : Nat.Coprime Q d`): the `d`-side congruence,
+`Nat.chineseRemainder`'s second component under the coprime branch. -/
 lemma crtClassG_modEq_right {Q d : ℕ} (N a : ℕ) (h : Nat.Coprime Q d) :
     crtClassG Q d N a ≡ N [MOD d] := by
   unfold crtClassG

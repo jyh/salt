@@ -133,6 +133,8 @@ lemma prod_one_sub_chiRe_div_Pz_pos {q : ℕ} (χ : DirichletCharacter ℂ q) (z
     (0 : ℝ) < ∏ p ∈ Pz z, (1 - Salt.TwinBar.chiRe χ p / (p : ℝ)) :=
   Finset.prod_pos (fun _ hp => one_sub_chiRe_div_pos χ (mem_Pz.mp hp).2)
 
+/-- `0 < hbL1 χ z`: the inverse of the positive finite factor (`prod_one_sub_chiRe_div_Pz_pos`)
+times `F > 0` (`hbF_pos`). -/
 @[simp] lemma hbL1_pos {q : ℕ} (χ : DirichletCharacter ℂ q) (z : ℝ) : 0 < hbL1 χ z :=
   mul_pos (inv_pos.mpr (prod_one_sub_chiRe_div_Pz_pos χ z)) (hbF_pos χ z)
 
@@ -155,6 +157,8 @@ lemma Pz_eq_union_windowPrimes {z Y : ℝ} (h : ⌊z⌋₊ ≤ ⌊Y⌋₊) :
     · exact ⟨by omega, hpp⟩
     · exact ⟨hpY, hpp⟩
 
+/-- The primes `≤ ⌊z⌋` and the window primes `(⌊z⌋, ⌊Y⌋]` are disjoint: a common `p` would be
+both `≤ ⌊z⌋` (`mem_Pz`) and `> ⌊z⌋` (`mem_windowPrimes`). -/
 lemma Pz_disjoint_windowPrimes {z Y : ℝ} : Disjoint (Pz z) (windowPrimes z Y) := by
   rw [Finset.disjoint_left]
   intro p hp hp'

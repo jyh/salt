@@ -64,12 +64,16 @@ noncomputable def goldA1Sieve (N P : ℕ) (hP : Squarefree P)
 
 section Facts
 
+/-- The `prodPrimes` field of `goldA1Sieve N P hP hPodd` is the sifting modulus `P` (`rfl`). -/
 @[simp] lemma goldA1Sieve_prodPrimes (N P : ℕ) (hP : Squarefree P)
     (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p) : (goldA1Sieve N P hP hPodd).prodPrimes = P := rfl
 
+/-- The `nu` field of `goldA1Sieve N P hP hPodd` is `nuChen` (`rfl`): the density `1/φ`. -/
 @[simp] lemma goldA1Sieve_nu (N P : ℕ) (hP : Squarefree P)
     (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p) : (goldA1Sieve N P hP hPodd).nu = nuChen := rfl
 
+/-- The `totalMass` field of `goldA1Sieve N P hP hPodd` is the exact window `Λ`-mass
+`Σ_{n ∈ twinWindow N} Λ(n)` (`rfl`). -/
 @[simp] lemma goldA1Sieve_totalMass (N P : ℕ) (hP : Squarefree P)
     (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p) :
     (goldA1Sieve N P hP hPodd).totalMass = ∑ n ∈ twinWindow N, vonMangoldt n := rfl

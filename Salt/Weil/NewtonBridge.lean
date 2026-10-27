@@ -61,6 +61,8 @@ noncomputable def cCoeffN (a b : ZMod p) (n : ℕ) : ℂ :=
 
 /-! ### `tuplePoly` is injective; membership in the index sets -/
 
+/-- `tuplePoly` is injective (`h : tuplePoly c₁ = tuplePoly c₂` gives `c₁ = c₂`): the tuple is
+read back from the coefficients (`tuplePoly_coeff`). -/
 theorem tuplePoly_injective {d : ℕ} {c₁ c₂ : Fin d → ZMod p}
     (h : tuplePoly c₁ = tuplePoly c₂) : c₁ = c₂ := by
   funext i
@@ -70,6 +72,8 @@ theorem tuplePoly_injective {d : ℕ} {c₁ c₂ : Fin d → ZMod p}
   have : c₁ ⟨(i : ℕ), i.isLt⟩ = c₂ ⟨(i : ℕ), i.isLt⟩ := h1.symm.trans h2
   simpa using this
 
+/-- Membership in `monicOfDegN p d`: `K ∈ monicOfDegN p d ↔ K.Monic ∧ K.natDegree = d` — the
+image of `tuplePoly` is exactly the monic polynomials of degree `d`. -/
 theorem mem_monicOfDegN {d : ℕ} {K : (ZMod p)[X]} :
     K ∈ monicOfDegN p d ↔ K.Monic ∧ K.natDegree = d := by
   constructor
@@ -87,12 +91,16 @@ theorem mem_monicOfDegN {d : ℕ} {K : (ZMod p)[X]} :
     rw [tuplePoly, Fin.sum_univ_eq_sum_range (fun i => C (K.coeff i) * X ^ i) d, add_comm]
     exact hsum.symm
 
+/-- Membership in `irredMonicOfDegN p d`: monic, of degree `d`, and irreducible
+(`mem_monicOfDegN` plus the filter). -/
 theorem mem_irredMonicOfDegN {d : ℕ} {k : (ZMod p)[X]} :
     k ∈ irredMonicOfDegN p d ↔ k.Monic ∧ k.natDegree = d ∧ Irreducible k := by
   classical
   rw [irredMonicOfDegN, Finset.mem_filter, mem_monicOfDegN]
   tauto
 
+/-- Membership in `irrLe p n`: `k` is monic, irreducible, and of degree `≤ n` (a union of
+`irredMonicOfDegN p d` over `d ≤ n`). -/
 theorem mem_irrLe {n : ℕ} {k : (ZMod p)[X]} :
     k ∈ irrLe p n ↔ k.Monic ∧ Irreducible k ∧ k.natDegree ≤ n := by
   rw [irrLe, Finset.mem_biUnion]

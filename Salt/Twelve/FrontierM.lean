@@ -71,6 +71,8 @@ private lemma lcm_pairwise_coprime_of_noncollision {R W' : ℕ} {d e : Fin 5 →
   · exact absurd (hnc j i hij.symm) (Nat.Prime.not_coprime_iff_dvd.mpr ⟨p, hp, hdj, hei⟩)
   · exact absurd (hecop i j hij) (Nat.Prime.not_coprime_iff_dvd.mpr ⟨p, hp, hei, hej⟩)
 
+/-- `h_i ≤ 19` for each of the five shifts (`hSeq_five_zero` … `hSeq_five_four`, by cases on
+`i`); the file-scoped copy of `WinFrontierDischarge`'s private helper. -/
 private lemma hSeq_le_nineteen (i : Fin 5) : hSeq 5 i ≤ 19 := by
   fin_cases i <;>
     simp only [hSeq_five_zero, hSeq_five_one, hSeq_five_two, hSeq_five_three,
@@ -82,6 +84,13 @@ private lemma hSeq_le_nineteen (i : Fin 5) : hSeq 5 i ≤ 19 := by
 Byte-mirror of `GapsFinal`'s `WinFrontierM` with every `primorial Dfin` replaced
 by `primorial D` and the slack's `12 * (5:ℝ)^2 / Dfin` by `12 * (5:ℝ)^2 / D`.
 At `D := Dfin` this is definitionally `WinFrontierM` (`winFrontierM_of_W`). -/
+/-- **The abstract frontier at the modulus `primorial D`**: `WindowPNT → EHall → ∀ N, ∃ N' ≥ N`
+and witnesses `R, ν₀, δ, errEH, cval` with seven conjuncts — CRT collision-solvability on
+`kSieveIndex 5 R (primorial D)`, `0 < φ(primorial D)`, `0 ≤ cval m`, `0 ≤ δ ≤ Δπ_m`,
+`cval m ≤ Qdiag_mW`, the `S2mW` lower bound `Δπ_m/φ·Qdiag_mW − errEH m ≤ S2mW`, and the M-based
+ratio-slack (the S₁ upper bound of `sharp_S1_upperM` below `Σ_m δ/φ·cval m − Σ_m errEH m`).
+`GapsFinal`'s `WinFrontierM` with `Dfin` replaced by the parameter `D`; at `D = Dfin` the two
+are definitionally equal (`winFrontierM_of_W`). -/
 def WinFrontierMW (D : ℕ) : Prop :=
   WindowPNT → EHall → ∀ N : ℕ,
     ∃ (N' R ν₀ : ℕ) (δ : ℝ) (errEH cval : Fin 5 → ℝ), N ≤ N' ∧

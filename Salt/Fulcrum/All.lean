@@ -7,6 +7,7 @@ import Salt.Fulcrum.Basic
 import Salt.Fulcrum.Dichotomy
 import Salt.Fulcrum.ChenCorollary
 import Salt.Fulcrum.CZeroNumeral
+import Salt.Fulcrum.SiegelFree
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -56,5 +57,6 @@ open Salt.Tactic in
   Salt.Fulcrum.siegel_zeros_isolated_below Salt.Fulcrum.imsz_gives_fulcrum_witnesses
   Salt.Fulcrum.not_fulcrum_implies_noSiegelZeros Salt.Fulcrum.fulcrum_dichotomy
   Salt.Fulcrum.chen_omega_prod_le_three
+  Salt.Fulcrum.chen_omega_prod_le_three_of_standoff
   Salt.Fulcrum.zero_free_region_all_numeral
   Salt.Fulcrum.fulcrum_zero_real_numeral

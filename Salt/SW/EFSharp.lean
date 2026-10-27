@@ -113,6 +113,7 @@ the explicit formula is stated in). -/
 noncomputable def psiChiR {q : ℕ} (y : ℝ) (χ : DirichletCharacter ℂ q) : ℂ :=
   psiChi ⌊y⌋₊ χ
 
+/-- `ψ(y,χ) = Σ_{1 ≤ n ≤ ⌊y⌋} Λ(n) χ(n)` — `psiChiR` unfolded through `psiChi` (`rfl`). -/
 lemma psiChiR_def {q : ℕ} (y : ℝ) (χ : DirichletCharacter ℂ q) :
     psiChiR y χ = ∑ n ∈ Finset.Icc 1 ⌊y⌋₊, (vonMangoldt n : ℂ) * χ (n : ZMod q) := rfl
 
@@ -130,6 +131,7 @@ lemma sixteen_le_efHeight {q : ℕ} (hq : 1 ≤ q) : (16 : ℝ) ≤ efHeight q :
     _ ≤ (Real.log q + 2) ^ 4 := by
         apply pow_le_pow_left₀ (by norm_num) (by linarith)
 
+/-- `0 < T(q)` for `1 ≤ q` (`hq`): the height is `≥ 16` (`sixteen_le_efHeight`). -/
 lemma efHeight_pos {q : ℕ} (hq : 1 ≤ q) : (0 : ℝ) < efHeight q := by
   linarith [sixteen_le_efHeight hq]
 
@@ -569,6 +571,8 @@ and run the Jensen keystone at `r = 37/20 = 1.85 > 1.803`. -/
 noncomputable def M0Lbox (f : ℕ) (t : ℝ) : ℝ :=
   21 * (4 + |t|) * Real.sqrt f * (1 + Real.log f)
 
+/-- `1 ≤ M0Lbox(f,t)` for `2 ≤ f` (`hf`): the three factors are at least `84`, `1` and `1`
+(`21(4 + |t|) ≥ 84`, `√f ≥ 1`, `log f ≥ 0`). -/
 lemma one_le_M0Lbox {f : ℕ} (hf : 2 ≤ f) (t : ℝ) : (1 : ℝ) ≤ M0Lbox f t := by
   have hfR : (2 : ℝ) ≤ (f : ℝ) := by exact_mod_cast hf
   have h1 : (1 : ℝ) ≤ Real.sqrt f := by

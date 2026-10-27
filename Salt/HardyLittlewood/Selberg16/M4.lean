@@ -18,6 +18,7 @@ namespace Salt.HardyLittlewood.Sel
 open ArithmeticFunction
 open scoped ArithmeticFunction.zeta
 
+/-- `betaT m = 0` when `m` is not odd (`h`): the definition's `else` branch. -/
 lemma betaT_of_not_odd {m : ℕ} (h : ¬ Odd m) : betaT m = 0 := by
   simp [betaT, h]
 
@@ -25,8 +26,11 @@ lemma betaT_of_not_odd {m : ℕ} (h : ¬ Odd m) : betaT m = 0 := by
 noncomputable def betaDiv : ArithmeticFunction ℝ :=
   ⟨fun m => betaT m / m, by simp⟩
 
+/-- `betaDiv m = betaT m / m` (`rfl`): evaluating the arithmetic function. -/
 lemma betaDiv_apply (m : ℕ) : betaDiv m = betaT m / m := rfl
 
+/-- `betaDiv` is multiplicative: `betaT` multiplies on coprime odd arguments (`betaT_mul`) and
+vanishes off the odd ones (`betaT_of_not_odd`), and `m ↦ 1 / m` is completely multiplicative. -/
 lemma isMultiplicative_betaDiv : betaDiv.IsMultiplicative := by
   refine ⟨by simp [betaDiv_apply, betaT_one], ?_⟩
   intro a b hab
@@ -39,11 +43,16 @@ lemma isMultiplicative_betaDiv : betaDiv.IsMultiplicative := by
   · rw [betaT_of_not_odd ha, betaT_of_not_odd (fun h => ha (Nat.odd_mul.mp h).1)]
     simp
 
+/-- `∑_{m ∣ n} betaT m / m = (betaDiv * ζ) n`: the divisor sum is the Dirichlet convolution with
+`ζ`, evaluated at `n`. -/
 lemma sum_divisors_betaT (n : ℕ) :
     ∑ m ∈ n.divisors, betaT m / m = (betaDiv * (ζ : ArithmeticFunction ℝ)) n := by
   rw [coe_mul_zeta_apply]
   rfl
 
+/-- At an odd prime power (`hp : p.Prime`, `hp2 : p ≠ 2`),
+`(betaDiv * ζ) (p ^ K) = ∑_{k ≤ K} betaLoc k / p ^ k`: the divisors of `p ^ K` are the `p ^ k`,
+each odd, and `betaT (p ^ k) = betaLoc k`. -/
 lemma betaDivZeta_prime_pow {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) (K : ℕ) :
     (betaDiv * (ζ : ArithmeticFunction ℝ)) (p ^ K)
       = ∑ k ∈ Finset.range (K + 1), betaLoc k / (p : ℝ) ^ k := by

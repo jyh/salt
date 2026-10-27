@@ -2511,6 +2511,15 @@ private lemma dh_repulsion_inst {q : ℕ} [NeZero q] (χ : DirichletCharacter �
     rw [hROW3] at hmaster
     linarith only [hmaster, hrow1, hrow2, hrowA, hrowEβ, hrow1x, hYbig]
 
+/-- **The T-BAL campaign's target: the ordered Deuring–Heilbronn repulsion contract** (the shape
+of `DHRepulsion.lean`). There are `b = 680`, `k = 14` and an explicit `c > 0` such that for
+every primitive non-principal quadratic character `χ` (`χ² = 1`) mod `q ≥ 2`, every real zero
+`β₀ ∈ (1/2, 1)` of `L(·,χ)` and every non-real zero `ρ` with `|Im ρ| ≤ 1`, `16/17 ≤ Re ρ < 1`
+and `Re ρ ≤ β₀`, one has `1 − β₀ ≥ c·(q(|Im ρ| + 2))^{−b(1 − Re ρ)}/(log(q(|Im ρ| + 2)) + 2)^k`.
+The constant `c` is the eleven-arm `min` tower in the proof, built from the zero-free-region
+constant `c₀ = min c₀' 1` (`zero_free_region_all`) and the `zetaHol` bound `Z₀`
+(`zetaHol_bound`); the per-instance body is `dh_repulsion_inst`, fed the zero-free floor
+`Re ρ ≤ 1 − c₀/log(q(|Im ρ| + 2))` and the eleven thresholds `c ≤ ·` read off the tower. -/
 theorem dh_repulsion_ordered : ∃ b c k : ℝ, 0 < b ∧ 0 < c ∧ 0 ≤ k ∧
     ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
       χ.IsPrimitive → χ ≠ 1 → χ ^ 2 = 1 → 2 ≤ q →

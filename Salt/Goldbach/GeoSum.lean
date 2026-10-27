@@ -44,6 +44,8 @@ the twin's `CconBox` numerator WITHOUT the `/(9/10)^{12}` `log x`-transfer (we k
 in the denominator). -/
 noncomputable def gboxConst : ℝ := 2250816 * ((31 : ℝ) / 10) ^ (50 : ℝ)
 
+/-- `0 ≤ gboxConst`: the box constant `2250816 · (31/10)^{50}` is a product of positives
+(`positivity`). -/
 theorem gboxConst_nonneg : 0 ≤ gboxConst := by unfold gboxConst; positivity
 
 set_option maxHeartbeats 1600000 in

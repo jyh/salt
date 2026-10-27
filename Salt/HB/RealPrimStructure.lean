@@ -107,24 +107,33 @@ def crtIn₁ (hcop : Nat.Coprime q₁ q₂) (x : ZMod q₁) : ZMod (q₁ * q₂)
 def crtIn₂ (hcop : Nat.Coprime q₁ q₂) (x : ZMod q₂) : ZMod (q₁ * q₂) :=
   (ZMod.chineseRemainder hcop).symm (1, x)
 
+/-- The first CRT injection sends `1` to `1`: `(1, 1)` is the unit of the product ring, and the
+CRT isomorphism's inverse preserves it. -/
 theorem crtIn₁_one (hcop : Nat.Coprime q₁ q₂) : crtIn₁ hcop (1 : ZMod q₁) = 1 := by
   simp [crtIn₁, show ((1 : ZMod q₁), (1 : ZMod q₂)) = 1 from rfl]
 
+/-- The second CRT injection sends `1` to `1`, the mirror of `crtIn₁_one`. -/
 theorem crtIn₂_one (hcop : Nat.Coprime q₁ q₂) : crtIn₂ hcop (1 : ZMod q₂) = 1 := by
   simp [crtIn₂, show ((1 : ZMod q₁), (1 : ZMod q₂)) = 1 from rfl]
 
+/-- The first CRT injection is multiplicative: `(x y, 1) = (x, 1)(y, 1)`, and the CRT
+isomorphism's inverse is a ring map (`map_mul`). -/
 theorem crtIn₁_mul (hcop : Nat.Coprime q₁ q₂) (x y : ZMod q₁) :
     crtIn₁ hcop (x * y) = crtIn₁ hcop x * crtIn₁ hcop y := by
   simp only [crtIn₁, ← map_mul]
   congr 1
   simp
 
+/-- The second CRT injection is multiplicative, the mirror of `crtIn₁_mul`. -/
 theorem crtIn₂_mul (hcop : Nat.Coprime q₁ q₂) (x y : ZMod q₂) :
     crtIn₂ hcop (x * y) = crtIn₂ hcop x * crtIn₂ hcop y := by
   simp only [crtIn₂, ← map_mul]
   congr 1
   simp
 
+/-- `crtIn₁ hcop x` is a unit iff `x` is: through the CRT isomorphism the image is `(x, 1)`, a
+unit of the product iff `x` is (`Prod.isUnit_iff`), and units are carried both ways by the
+isomorphism (`IsUnit.map`). -/
 theorem isUnit_crtIn₁_iff (hcop : Nat.Coprime q₁ q₂) (x : ZMod q₁) :
     IsUnit (crtIn₁ hcop x) ↔ IsUnit x := by
   constructor
@@ -136,6 +145,7 @@ theorem isUnit_crtIn₁_iff (hcop : Nat.Coprime q₁ q₂) (x : ZMod q₁) :
     have h2 : IsUnit ((x, (1 : ZMod q₂))) := Prod.isUnit_iff.mpr ⟨h, isUnit_one⟩
     exact h2.map (ZMod.chineseRemainder hcop).symm
 
+/-- `crtIn₂ hcop x` is a unit iff `x` is, the mirror of `isUnit_crtIn₁_iff`. -/
 theorem isUnit_crtIn₂_iff (hcop : Nat.Coprime q₁ q₂) (x : ZMod q₂) :
     IsUnit (crtIn₂ hcop x) ↔ IsUnit x := by
   constructor
@@ -163,9 +173,11 @@ def crtFactor₂ (hcop : Nat.Coprime q₁ q₂) (χ : DirichletCharacter R (q₁
   map_mul' x y := by simp [crtIn₂_mul]
   map_nonunit' x hx := χ.map_nonunit (fun h => hx ((isUnit_crtIn₂_iff hcop x).mp h))
 
+/-- The `q₁`-part evaluated at `x` is `χ (crtIn₁ hcop x)`, by `rfl`. -/
 @[simp] theorem crtFactor₁_apply (hcop : Nat.Coprime q₁ q₂) (χ : DirichletCharacter R (q₁ * q₂))
     (x : ZMod q₁) : crtFactor₁ hcop χ x = χ (crtIn₁ hcop x) := rfl
 
+/-- The `q₂`-part evaluated at `x` is `χ (crtIn₂ hcop x)`, by `rfl`. -/
 @[simp] theorem crtFactor₂_apply (hcop : Nat.Coprime q₁ q₂) (χ : DirichletCharacter R (q₁ * q₂))
     (x : ZMod q₂) : crtFactor₂ hcop χ x = χ (crtIn₂ hcop x) := rfl
 

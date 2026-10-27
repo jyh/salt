@@ -17,9 +17,12 @@ namespace Salt.HardyLittlewood.Sel
 
 /-! ## M5a helpers -/
 
+/-- `k.divisorsAntidiagonal.card = k.divisors.card`: the antidiagonal is in bijection with the
+divisors by the first coordinate. -/
 lemma m5_card_antidiag (k : ℕ) : k.divisorsAntidiagonal.card = k.divisors.card := by
   rw [← Nat.map_div_right_divisors, Finset.card_map]
 
+/-- `0 ≤ pow2Omega n / n`: `pow2Omega n` is a power of `2` or `0`, and `n` is a natural. -/
 lemma m5_pow2Omega_div_nonneg (n : ℕ) : 0 ≤ pow2Omega n / n := by
   unfold pow2Omega
   split_ifs <;> positivity

@@ -3810,10 +3810,10 @@ composes in the kernel:
 * `hsplit` — **THE ONE OPEN PIECE**: their (A.5), the short-segment splitting, whose value is
   `(1 − 2/π)·log(log X / log Y)`.  *Assumed here, NOT proved.*
 
-⇒ **the far arm then owed `hsplit` alone** (its `O(1)` form since discharged, `A4FMidRange`).  With
-`mrt_exponent_gap_at_Y` supplying `log(log X/log Y) = (⅓ − ε)·loglog X` and
-`mrtA4ii_constant_decomposition` supplying `(½)·(1 − 2/π)·(⅓) = 1/6 − 1/(3π)`, the constant
-falls out of this bound by arithmetic alone.
+⇒ **the far arm then owed `hsplit` alone** (its `O(1)` form since proved in the mid range
+`(log X)^{1/16}/2 ≤ |t − t₁| ≤ (log X)^{20}` only, `A4FMidRange`).  With `mrt_exponent_gap_at_Y`
+supplying `log(log X/log Y) = (⅓ − ε)·loglog X` and `mrtA4ii_constant_decomposition` supplying
+`(½)·(1 − 2/π)·(⅓) = 1/6 − 1/(3π)`, the constant falls out of this bound by arithmetic alone.
 
 ⛔ Stating a hypothesis is not discharging it: `hsplit` is exactly the estimate nobody has
 proved here, and the separate large-`|t−t₁|` branch (Erdős–Turán + VK) is not addressed by

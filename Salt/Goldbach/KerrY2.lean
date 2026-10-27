@@ -654,6 +654,11 @@ floor (`kp·log 2 ≥ log N/3 − 2·log 2`, one `log 2` weaker than the low leg
 set_option maxHeartbeats 800000 in
 -- the final `gold_boxPriceKerrY_geoN` application unifies the long rpow-bearing `boxPriceKerrY`
 -- bracket; the isDefEq/whnf checks need headroom above the default heartbeat budget.
+/-- **The outer geo grade, Y-mirror** (`Cgeo := 4^{12}·gboxConst`). Past a threshold, for every
+`kp ka i K y` and `Kc P`: under `1 ≤ Kc`, a dyadic boundary index `i` of the band carrier,
+`opY N < pieceM kp` and `2^{kp} ≤ y`, a per-survivor price `P ≤ goldBoxPriceKerrY Kc y kp i`
+converts to `P ≤ (4^{12}·gboxConst)·Kc·goldCut N (ka+1) / (log N)^{12}`: the Y-mirror of
+`gold_band_survsum_geoN_floored`, via `gold_boxPriceKerrY_geoN` at `cr := 4`. -/
 theorem gold_kerrY2_geoN : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
     ∀ (kp ka i K y : ℕ) (Kc P : ℝ), 1 ≤ Kc →
       i ∈ dyadicBoundary (pieceN kp) (pieceM kp) (goldCut N ka) (goldCut N (ka + 1))

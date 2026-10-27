@@ -72,11 +72,19 @@ noncomputable def mvIErr (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
   (mv_I W' hW' hpos hUpper F).choose
 
 omit [Salt.Maynard.TupleChoice] in
+/-- The `mv_I` error constant at `(W', F)` is nonnegative, for square-free `W' > 0` (`hW'`,
+`hpos`) with `PhiUpperAtom W'` (`hUpper`): the first component of `mv_I`'s witness specification
+(`Classical.choose_spec`). -/
 lemma mvIErr_nonneg (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (F : Poly) : 0 ≤ mvIErr W' hW' hpos hUpper F :=
   (mv_I W' hW' hpos hUpper F).choose_spec.1
 
 omit [Salt.Maynard.TupleChoice] in
+/-- **The keystone `mv_I` restated through its error constant.** For square-free `W' > 0`
+(`hW'`, `hpos`) with `PhiUpperAtom W'` (`hUpper`), a cutoff `D ≥ 3` (`hD`) below every prime not
+dividing `W'` (`hDW`) and `log R ≥ 1` (`hlogR`):
+`|Σ_r F(log r_i/log R)²/∏φ(r_i) − X⁵·∫F²| ≤ mvIErr·(1 + X)⁵·(1/log R + 1/D)` with
+`X = (φ(W')/W')·log R` — the second component of `mv_I`'s witness specification. -/
 lemma mvIErr_bound (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (F : Poly) (D R : ℕ) (hD : 3 ≤ D)
     (hDW : ∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) (hlogR : 1 ≤ Real.log R) :

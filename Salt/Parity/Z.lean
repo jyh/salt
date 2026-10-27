@@ -78,6 +78,9 @@ def TwinSufficient (θ A₀ : ℝ) (E : (ℕ → ℝ) → Prop) : Prop :=
   ∀ a : ℕ → ℝ, Completion θ A₀ a → E a →
     ∀ C : ℝ, ∃ x : ℕ, C < twinMass a x
 
+/-- The all-ones weight `oneWeight n = 1`: the true sequence, read as a completion. Its
+membership `oneWeight ∈ Completion θ A₀` (`L1`, on the certified window) is the grade guard that
+gives `Z θ A₀` its demand-force; where it fails, `Z` trivialises. -/
 def oneWeight : ℕ → ℝ := fun _ => 1
 
 /-- The Brun-grade twin-free completion 𝒜⁻ (the landable witness). -/

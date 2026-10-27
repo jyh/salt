@@ -61,6 +61,8 @@ trace. Built as `ZMod.stdAddChar.compAddMonoidHom (Algebra.trace _ _).toAddMonoi
 noncomputable def traceAddChar (p n : ℕ) [Fact p.Prime] : AddChar (GaloisField p n) ℂ :=
   ZMod.stdAddChar.compAddMonoidHom (Algebra.trace (ZMod p) (GaloisField p n)).toAddMonoidHom
 
+/-- `traceAddChar p n z = ZMod.stdAddChar (Algebra.trace (ZMod p) (GaloisField p n) z)` (`rfl`):
+the trace character evaluates as `ψ ∘ Tr_n`. -/
 @[simp] theorem traceAddChar_apply (p n : ℕ) [Fact p.Prime] (z : GaloisField p n) :
     traceAddChar p n z = ZMod.stdAddChar (Algebra.trace (ZMod p) (GaloisField p n) z) := rfl
 

@@ -35,6 +35,9 @@ namespace Salt.Twelve
 
 /-! ## The radical is multiplicative on coprime arguments -/
 
+/-- The radical is multiplicative on coprime arguments: for `a, b ≠ 0` (`ha`, `hb`) coprime
+(`hab`), the prime factors of `ab` are the disjoint union of the two sets
+(`Nat.primeFactors_mul`, `Finset.prod_union`). -/
 lemma rad_mul_coprime {a b : ℕ} (ha : a ≠ 0) (hb : b ≠ 0) (hab : Nat.Coprime a b) :
     rad (a * b) = rad a * rad b := by
   simp only [rad]
@@ -50,11 +53,13 @@ def sqfPart (n : ℕ) : ℕ :=
 def powPart (n : ℕ) : ℕ :=
   ∏ p ∈ n.primeFactors.filter (fun p => ¬ (n.factorization p = 1)), p ^ (n.factorization p)
 
+/-- `0 < sqfPart n`: a product of primes (`Finset.prod_pos`). -/
 lemma sqfPart_pos (n : ℕ) : 0 < sqfPart n := by
   rw [sqfPart]
   exact Finset.prod_pos (fun p hp =>
     (Nat.prime_of_mem_primeFactors (Finset.mem_of_mem_filter p hp)).pos)
 
+/-- `0 < powPart n`: a product of prime powers (`Finset.prod_pos`). -/
 lemma powPart_pos (n : ℕ) : 0 < powPart n := by
   rw [powPart]
   exact Finset.prod_pos (fun p hp =>
@@ -76,6 +81,8 @@ lemma sqfPart_mul_powPart {n : ℕ} (hn : n ≠ 0) : sqfPart n * powPart n = n :
       (fun p => p ^ (n.factorization p))]
   exact hself
 
+/-- `sqfPart n` is square-free: a product of distinct primes
+(`Finset.squarefree_prod_of_pairwise_isCoprime`). -/
 lemma sqfPart_squarefree (n : ℕ) : Squarefree (sqfPart n) := by
   rw [sqfPart]
   apply Finset.squarefree_prod_of_pairwise_isCoprime
@@ -88,6 +95,9 @@ lemma sqfPart_squarefree (n : ℕ) : Squarefree (sqfPart n) := by
   · intro p hp
     exact (Nat.prime_of_mem_primeFactors (Finset.mem_of_mem_filter p hp)).prime.squarefree
 
+/-- The two parts are coprime: a prime `p` of `sqfPart n` has `v_p(n) = 1`, so it divides no
+factor `q^{v_q(n)}` of `powPart n`, whose primes have `v_q(n) ≠ 1` (`Nat.Coprime.prod_left`,
+`Nat.Prime.coprime_iff_not_dvd`). -/
 lemma sqfPart_coprime_powPart (n : ℕ) : Nat.Coprime (sqfPart n) (powPart n) := by
   rw [sqfPart]
   apply Nat.Coprime.prod_left
@@ -104,6 +114,8 @@ lemma sqfPart_coprime_powPart (n : ℕ) : Nat.Coprime (sqfPart n) (powPart n) :=
   rw [heq] at hp1
   exact hq1 hp1
 
+/-- `powPart n` is powerful: a prime `q` dividing it divides one of its factors `p^{v_p(n)}`
+with `v_p(n) ≠ 1`, so `q = p` and `v_p(n) ≥ 2`, whence `q² ∣ powPart n`. -/
 lemma powPart_isPowerful (n : ℕ) : IsPowerful (powPart n) := by
   intro q hq hqdvd
   rw [powPart] at hqdvd ⊢
@@ -134,6 +146,9 @@ lemma rad_eq_sqfPart_mul_rad_powPart {n : ℕ} (hn : n ≠ 0) :
 
 /-! ## Coprimality to `B` is automatic on a radical fiber -/
 
+/-- Coprimality to `B` descends from the radical: for `n, B ≠ 0` (`hn`, `hB`) with `rad n = r`
+(`h`) and `r` coprime to `B` (`hrc`), `n` is coprime to `B` — `n` and `r` have the same prime
+factors (`rad_eq_primeFactors`, `Nat.disjoint_primeFactors`). -/
 lemma coprime_of_rad_eq {n r B : ℕ} (hn : n ≠ 0) (hB : B ≠ 0) (h : rad n = r)
     (hrc : Nat.Coprime r B) : Nat.Coprime n B := by
   have hr0 : r ≠ 0 := by
@@ -178,16 +193,21 @@ noncomputable def windowWeight (x : ℕ) (p : ℕ × ℕ) : ℝ :=
   if IsPowerful p.1 ∧ p.1 ≠ 0 ∧ 0 < p.2 ∧ p.2 * rad p.1 < x ∧ x ≤ p.2 * p.1
   then ((p.2 * p.1 : ℕ) : ℝ)⁻¹ else 0
 
+/-- `0 ≤ windowWeight x p`: the weight is `1/(u·v)` or `0`. -/
 lemma windowWeight_nonneg (x : ℕ) (p : ℕ × ℕ) : 0 ≤ windowWeight x p := by
   rw [windowWeight]; split_ifs
   · positivity
   · exact le_rfl
 
+/-- On the window (`h`: `v` powerful and nonzero, `0 < u`, `u·rad v < x ≤ u·v`),
+`windowWeight x (v, u) = 1/(u·v)` (`if_pos`). -/
 lemma windowWeight_of (x v u : ℕ)
     (h : IsPowerful v ∧ v ≠ 0 ∧ 0 < u ∧ u * rad v < x ∧ x ≤ u * v) :
     windowWeight x (v, u) = ((u * v : ℕ) : ℝ)⁻¹ := by
   rw [windowWeight]; exact if_pos h
 
+/-- Off the window set (`hu : u ∉ windowSet x v`) the weight is `0`: the window conditions would
+put `u` in `windowSet x v` (`u ≤ u·rad v < x`, since `rad v ≥ 1`). -/
 lemma windowWeight_supp (x v u : ℕ) (hu : u ∉ windowSet x v) :
     windowWeight x (v, u) = 0 := by
   rw [windowWeight]
@@ -202,6 +222,8 @@ lemma windowWeight_supp (x v u : ℕ) (hu : u ∉ windowSet x v) :
 
 /-! ## Summability of `powerfulWeight` -/
 
+/-- `powerfulWeight` is summable: every finite partial sum is bounded by the constant of
+`powerful_sum_bounded` (`summable_of_sum_le`). -/
 lemma summable_powerfulWeight : Summable powerfulWeight := by
   classical
   obtain ⟨C, hC⟩ := powerful_sum_bounded
@@ -215,6 +237,11 @@ lemma summable_powerfulWeight : Summable powerfulWeight := by
 
 /-! ## The column bound: `∑'_u windowWeight x (v, u) ≤ powerfulWeight v` -/
 
+/-- **The column bound.** For `x ≥ 2` (`hx`) and any `v`,
+`Σ'_u windowWeight x (v, u) ≤ powerfulWeight v`: off powerful nonzero `v` both sides are `0`; on
+it the window lies in `[aL, aU]` with `aL = ⌈x/v⌉`, `aU = ⌊(x − 1)/rad v⌋`, so
+`(1/v)·Σ_{aL ≤ u ≤ aU} 1/u ≤ (1/v)(1 + log aU − log aL) ≤ (1/v)(1 + log v)` (`sum_Icc_inv_le`,
+`log aU ≤ log x − log(rad v)`, `log x − log v ≤ log aL`). -/
 lemma windowWeight_col_le (x : ℕ) (hx : 2 ≤ x) (v : ℕ) :
     ∑' u : ℕ, windowWeight x (v, u) ≤ powerfulWeight v := by
   by_cases hv : IsPowerful v ∧ v ≠ 0
@@ -297,6 +324,9 @@ lemma windowWeight_col_le (x : ℕ) (hx : 2 ≤ x) (v : ℕ) :
 
 /-! ## Summability and the total bound for `windowWeight` -/
 
+/-- `windowWeight x` is summable on `ℕ × ℕ` for `x ≥ 2` (`hx`): each column is finitely
+supported (`windowWeight_supp`) and the column sums are dominated by the summable
+`powerfulWeight` (`windowWeight_col_le`, `summable_prod_of_nonneg`). -/
 lemma summable_windowWeight (x : ℕ) (hx : 2 ≤ x) : Summable (windowWeight x) := by
   rw [summable_prod_of_nonneg (fun p => windowWeight_nonneg x p)]
   refine ⟨fun v => ?_, ?_⟩
@@ -306,6 +336,9 @@ lemma summable_windowWeight (x : ℕ) (hx : 2 ≤ x) : Summable (windowWeight x)
   · exact Summable.of_nonneg_of_le (fun v => tsum_nonneg (fun u => windowWeight_nonneg x _))
       (fun v => windowWeight_col_le x hx v) summable_powerfulWeight
 
+/-- `Σ'_{(v,u)} windowWeight x (v, u) ≤ Σ'_v powerfulWeight v` for `x ≥ 2` (`hx`): sum the
+columns first (`Summable.tsum_prod'`) and compare termwise (`windowWeight_col_le`,
+`Summable.tsum_le_tsum`). -/
 lemma windowWeight_tsum_le (x : ℕ) (hx : 2 ≤ x) :
     ∑' p : ℕ × ℕ, windowWeight x p ≤ ∑' v : ℕ, powerfulWeight v := by
   have hcolsum : ∀ v, Summable (fun u => windowWeight x (v, u)) := by
@@ -419,6 +452,12 @@ lemma hasSum_indicator_U (x B : ℕ) (hB : B ≠ 0) :
 
 /-! ## The frozen deliverables -/
 
+/-- **The reindex (W4-0).** For `B ≠ 0` (`hB`) and every `x ≥ 2`,
+`Σ_{r ∈ sqfCop x B} radFiberTail r x B ≤ Σ'_v powerfulWeight v`: the fiber tails regroup to the
+tsum of `1/n` over `unionDom x B` (`hasSum_indicator_U`); `n ↦ (powPart n, sqfPart n)` is
+injective there (`sqfPart_mul_powPart`) with `1/n = windowWeight x (powPart n, sqfPart n)`
+(`windowWeight_of`, `rad_eq_sqfPart_mul_rad_powPart`), so the sum is at most `Σ' windowWeight x`
+(`tsum_comp_le_tsum_of_inj`), and then `windowWeight_tsum_le`. -/
 theorem reindex_tail_le (B : ℕ) (hB : B ≠ 0) : ∀ x : ℕ, 2 ≤ x →
     (∑ r ∈ Salt.Maynard.sqfCop x B, radFiberTail r x B)
       ≤ ∑' v : ℕ, powerfulWeight v := by
@@ -455,6 +494,8 @@ theorem reindex_tail_le (B : ℕ) (hB : B ≠ 0) : ∀ x : ℕ, 2 ≤ x →
           (fun p => windowWeight_nonneg x p) hinj
     _ ≤ ∑' v : ℕ, powerfulWeight v := windowWeight_tsum_le x hx
 
+/-- **`PhiUpperAtom B` without hypotheses**, for `B ≠ 0` (`hB`): `phiUpperAtom_holds` with the
+reindex hypothesis supplied by `reindex_tail_le`. -/
 theorem phiUpperAtom_final (B : ℕ) (hB : B ≠ 0) : Salt.Twelve.PhiUpperAtom B :=
   phiUpperAtom_holds B hB (reindex_tail_le B hB)
 

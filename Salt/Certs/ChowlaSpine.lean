@@ -27,7 +27,7 @@ hypothesis … implies the logarithmic two-point Chowla statement at `R`"*.
 The landed statement names that hypothesis `MRTUniformity` and names its conclusion
 `¬ logChowla2Fails`; **both names are opaque, and unfolding them IS this certificate.**
 
-## THE HYPOTHESIS, unfolded (`MRTDoor.lean:48`)
+## THE HYPOTHESIS, unfolded (`MRTDoor.lean:53`)
 `MRTUniformity R δ` says:
 > for **every** window length `H` in the regime's range (`R.Hlo ≤ H ≤ R.Hhi`) and
 > **every** real `α`, the logarithmically-averaged `L¹` mass of the window exponential
@@ -51,8 +51,8 @@ two opaque predicates replaced by their definitions at the statement. Proved by 
 **no generality traded.**
 
 ## WHAT THIS CERTIFICATE DOES **NOT** CLAIM
-* **Not a proof of Chowla.** `MRTUniformity` is a *hypothesis*: this is a **reduction**,
-  and the door is not discharged here or anywhere in the corpus.
+* **Not a proof of Chowla.** `MRTUniformity` is a *hypothesis*: this is a **reduction**. The
+  ∀ α door is proved nowhere here; the Ξ-door is, at flat regimes (`mrtUniformityXi_holds_flat`).
 * **Not a claim that the regime `R` is unique or optimal** — `R` is existentially bound,
   as is `δ₀`. The companion `log_chowla_two_budget_head` supplies the `∀`-quantified head
   that places the regime floor above a prescribed threshold; that is a *different* theorem.

@@ -473,10 +473,15 @@ re-cut here.  The one deliberate difference: `cont_efShiftBound` there carries a
 `Or.inr`; on `[3,∞)` the base is `≥ 3 ≠ 0`, so `Or.inl` discharges it with no hypothesis
 on `σb` at all — which is what the B3 statement's binder list allows. -/
 
+/-- `x ↦ log (g x)` is continuous on `s` when `g` is continuous on `s` (`hg`) and never vanishes
+there (`h0`): `Real.continuousOn_log.comp` — the B3 re-cut of `Lemma7EF`'s private
+`cont_log_comp`. -/
 private lemma contB3_log_comp {s : Set ℝ} {g : ℝ → ℝ} (hg : ContinuousOn g s)
     (h0 : ∀ x ∈ s, g x ≠ 0) : ContinuousOn (fun x => Real.log (g x)) s :=
   Real.continuousOn_log.comp hg (fun x hx => by simpa using h0 x hx)
 
+/-- `u ↦ log(q·u)` is continuous on `[3, ∞)` for `2 ≤ q` (`hq`): `contB3_log_comp`, with
+`q · u > 0` there. -/
 private lemma contB3_logqu {q : ℕ} (hq : 2 ≤ q) :
     ContinuousOn (fun u : ℝ => Real.log ((q : ℝ) * u)) (Set.Ici (3 : ℝ)) := by
   have hq0 : (0 : ℝ) < (q : ℝ) := by
@@ -486,6 +491,8 @@ private lemma contB3_logqu {q : ℕ} (hq : 2 ≤ q) :
   have h3 : (3 : ℝ) ≤ u := hu
   exact ne_of_gt (by positivity)
 
+/-- `3 ≤ log(q·u) + 2` for `2 ≤ q` (`hq`) and `3 ≤ u` (`hu`): `q · u ≥ 6 > e`, so
+`log(q·u) ≥ 1`. -/
 private lemma logquB3_ge {q : ℕ} (hq : 2 ≤ q) {u : ℝ} (hu : 3 ≤ u) :
     (3 : ℝ) ≤ Real.log ((q : ℝ) * u) + 2 := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
@@ -495,11 +502,15 @@ private lemma logquB3_ge {q : ℕ} (hq : 2 ≤ q) {u : ℝ} (hu : 3 ≤ u) :
   have h1 : (1 : ℝ) ≤ Real.log ((q : ℝ) * u) := (Real.le_log_iff_exp_le (by linarith)).mpr he
   linarith
 
+/-- `u ↦ T₀(u)` is continuous on `[3, ∞)` for `2 ≤ q` (`hq`): the sixth power of the continuous
+`log(q·u) + 2` (`contB3_logqu`). -/
 private lemma contB3_efT0 {q : ℕ} (hq : 2 ≤ q) :
     ContinuousOn (fun u : ℝ => efT0 q u) (Set.Ici (3 : ℝ)) := by
   simp only [efT0]
   exact ((contB3_logqu hq).add continuousOn_const).pow 6
 
+/-- `u ↦ h(u)` is continuous on `[3, ∞)` for `2 ≤ q` (`hq`): `u` over the cube of `log(q·u) + 2`
+(`contB3_logqu`), which is at least `3` there (`logquB3_ge`). -/
 private lemma contB3_efH {q : ℕ} (hq : 2 ≤ q) :
     ContinuousOn (fun u : ℝ => efH q u) (Set.Ici (3 : ℝ)) := by
   simp only [efH]
@@ -507,6 +518,9 @@ private lemma contB3_efH {q : ℕ} (hq : 2 ≤ q) :
   have h := logquB3_ge hq (show (3 : ℝ) ≤ u from hu)
   positivity
 
+/-- `u ↦ log(q · (T₀(u) + a))` is continuous on `[3, ∞)` for `2 ≤ q` (`hq`) and `0 ≤ a` (`ha`):
+`contB3_log_comp` over `contB3_efT0`, the argument positive since `2 ≤ T₀(u)`
+(`two_le_efT0`). -/
 private lemma contB3_logQT {q : ℕ} (hq : 2 ≤ q) (a : ℝ) (ha : 0 ≤ a) :
     ContinuousOn (fun u : ℝ => Real.log ((q : ℝ) * (efT0 q u + a))) (Set.Ici (3 : ℝ)) := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
@@ -515,6 +529,10 @@ private lemma contB3_logQT {q : ℕ} (hq : 2 ≤ q) (a : ℝ) (ha : 0 ≤ a) :
   have h1 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
   nlinarith only [h1, ha, hq2, (Nat.cast_nonneg _ : 0 ≤ ↑q), (Nat.cast_nonneg _ : 0 ≤ ↑q)]
 
+/-- `u ↦ efShiftB q (T₀(u)) σa σb` is continuous on `[3, ∞)` for `2 ≤ q` (`hq`): both factors of
+the edge constant are continuous in `u` through `T₀(u)` (`contB3_efT0`), `log(q · (T₀(u) + 5))`
+(`contB3_logQT`) and the outer logarithm (`contB3_log_comp`, its argument positive by
+`two_le_efT0`); `σa`, `σb` are constants and need no hypothesis. -/
 private lemma contB3_efShiftB {q : ℕ} (hq : 2 ≤ q) {σa σb : ℝ} :
     ContinuousOn (fun u : ℝ => efShiftB q (efT0 q u) σa σb) (Set.Ici (3 : ℝ)) := by
   have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
@@ -543,6 +561,11 @@ private lemma contB3_efShiftB {q : ℕ} (hq : 2 ≤ q) {σa σb : ℝ} :
   simp only [efShiftB]
   exact hfac1.mul hfac2
 
+/-- `u ↦ efShiftBound q (T₀(u)) σa σb (φ u)` is continuous on `[3, ∞)` for `2 ≤ q` (`hq`) and a
+continuous `φ` (`hφ`) with `3 ≤ φ u` there (`hφ3`): the three summands row by row — `log (φ u)`
+is continuous and nonzero (`φ u ≥ 3 > e`), the `rpow` factor `φ u ^ (σb + 1)` is continuous by
+`Or.inl` on the base `φ u ≠ 0` (the deliberate difference from `Lemma7EF`'s `cont_efShiftBound`:
+no `0 < σb + 1` hypothesis), and `T₀(u)`, `efShiftB` by `contB3_efT0` and `contB3_efShiftB`. -/
 private lemma contB3_efShiftBound {q : ℕ} (hq : 2 ≤ q) {σa σb : ℝ}
     {φ : ℝ → ℝ} (hφ : ContinuousOn φ (Set.Ici (3 : ℝ)))
     (hφ3 : ∀ u ∈ Set.Ici (3 : ℝ), 3 ≤ φ u) :

@@ -295,6 +295,8 @@ def ShiuCore : Prop :=
     (∑ n ∈ (Finset.Icc 1 z).filter (fun n => n % q = a), (n.divisors.card : ℝ))
       ≤ C * ((z : ℝ) / (q.totient : ℝ)) * Real.log z
 
+/-- For every real `M` there is a threshold `X0` with `M ≤ log x` for all naturals `x ≥ X0`
+(`X0 = ⌈exp M⌉₊ + 1`). -/
 private lemma exists_log_ge (M : ℝ) : ∃ X0 : ℕ, ∀ x : ℕ, X0 ≤ x → M ≤ Real.log x := by
   refine ⟨⌈Real.exp M⌉₊ + 1, fun x hx => ?_⟩
   have hxR : Real.exp M ≤ (x : ℝ) := by

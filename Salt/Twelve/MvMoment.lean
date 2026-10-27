@@ -192,6 +192,18 @@ lemma DInt'_nonneg {n : ℕ} (e : Fin n → ℕ) (d : ℕ) : 0 ≤ ((DInt' e d :
 set_option maxHeartbeats 1600000 in
 -- The single-block induction (base cases + the peel step with its three-piece error
 -- decomposition and all sub-bounds inline) exceeds the default heartbeat budget.
+/-- **W3-1 — the multi-dimensional budget moment, the keystone `mv_I` and `mv_J` consume.** For
+square-free `W' > 0` (`hW'`, `hpos`) with `PhiUpperAtom W'` (`hUpper`), an exponent vector `e`
+on `n` coordinates and a budget power `d`: there is `c ≥ 0` such that for `2 ≤ z ≤ R` and
+`1 ≤ log R`, the φ-weighted budget monomial sum over `decBox n z W'` is within `c·(1 + X)^{n−1}`
+of `X^n·DInt' e d·(log z/log R)^{n+d+Σe}` (`X = φ(W')/W'·log R`). Induction on `n` with `e`, `d`
+generalised: `n = 0` is exact (`DInt' = 1`); `n = 1` is `budget_moment` at `(e 0, d)` with
+witness `Catom·4^{d + e 0}`; the peel `n = m + 1` splits the head coordinate `r₀` off
+(`decBox_succ_sum`), applies the hypothesis at the ℕ-cap `(z − 1)/r₀ + 1`, converts the cap to
+the real budget `log z − log r₀` by `log_natCap_slip` and `abs_pow_sub_pow_le` (two slip pieces
+of `log 2/log R`, absorbed by `1 ≤ log R`), sums the head weights by `budget_moment` at
+`(e 0, 0)` (`≤ X + C'`) and telescopes the Dirichlet constant through `DInt'_succ` with
+`budget_moment` at `(e 0, K)`; the witness is `(ct + G)·(1 + C') + Dt·cb2·4^{K + e 0}`. -/
 theorem mv_monomial (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (n : ℕ) (e : Fin n → ℕ) (d : ℕ) :
     ∃ c : ℝ, 0 ≤ c ∧ ∀ z R : ℕ, 2 ≤ z → z ≤ R → 1 ≤ Real.log R →

@@ -1657,7 +1657,7 @@ theorem flat_conditional_uniform_win_ceiling_kwide_khoist_h (h : ℕ) (hh : 0 < 
 ⛔⛔ **THIS ROW IS NOT A COPY, AND THE REASON IS A FENCE RATHER THAN A NUMBER.**  Rows 7/8's third
 copy stands on `flat_road_uniform_xceil_khoist`, whose head is `XThread.flat_head_uniform_xceil`,
 built from `chowlaRegimeFlat_exists_param_head_xceil`.  At `h` the head is
-`HloExportFlatH.flat_head_uniform_h` — and `Salt/Entropy` **cannot import `Salt/MR`**, where the
+`HloExportFlatH.flat_head_uniform_h` — and `Salt/Entropy` **did not import `Salt/MR`**, where the
 whole `xceil` apparatus lives (`XCeilGate` · `XCeilRider` · `XCeil.chowlaRegimeFlat_exists_param
 _gen_ceiling` · `XThread.chowlaRegimeFlat_exists_param_head_xceil`).  So the `h` `x`-ceilinged
 head is built HERE, beside its `h = 1` sibling, off the one-line public re-export appended to
