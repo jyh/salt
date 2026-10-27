@@ -103,7 +103,7 @@ import Salt.MR.HDoorArc
 import Mathlib
 
 -- The head reaches `flatCapH_shuffle` (the `h` head's own cap shuffle) by `open private`, the
--- corpus's sanctioned device (`DoorReceipt.lean:65` does the same for `uniformCap_shuffle`).
+-- corpus's sanctioned device (`DoorReceipt.lean:66` does the same for `uniformCap_shuffle`).
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 -- v2 (refuter R1): two "body verbatim" replays call `private` lemmas of their source modules —
 -- the multiplier builder (F3-Q2; from 2026-09-27 its cap-9 twin, XY family 11) copies
@@ -1412,7 +1412,7 @@ theorem flat_capstone_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ)
     rw [hval]
     linarith [hend]
 
-/-- **⟦A1 — THE `+ 7` NUMERAL TWIN⟧ (class A, v2).**  `xceil_arm_split_h` (XThread.lean:1140)
+/-- **⟦A1 — THE `+ 7` NUMERAL TWIN⟧ (class A, v2).**  `xceil_arm_split_h` (XThread.lean:1130)
 with `+ 7` on the left: `log 2 + log h + 7 ≤ H₊/(250000·h²) − H₊/10²⁰`.  The landed lemma is an
 EQUALITY-tight budget line (the conditional's `hg'` block closes at ZERO slack on `31/ε·H₊`), so
 the H2→H3 replay's extra `log a ≤ 7` cannot ride it — refuter verdict A1.  Same body as the
@@ -1930,7 +1930,7 @@ theorem flat_v7_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7
 /-! ## §6 — the door-head, the chain, the receipts -/
 
 /-- **⟦THE RECEIPT PREDICATE AT `h` — THE P-SLOT, WIDENED (v2)⟧** the `L²` door over `Xi` at
-the closed numeral `1/(837782·h²)` — `DoorReceipt.MRTDoorReceipt` (DoorReceipt.lean:85) with the
+the closed numeral `1/(837782·h²)` — `DoorReceipt.MRTDoorReceipt` (DoorReceipt.lean:86) with the
 set family and the `h²` — carrying TWO facts the head holds and the chain does not forward:
 (i) the head's ε-PIN as an EQUALITY, `R.eps = 1/(500·h)` (refuter verdict A4: the six forms and
 the receipts export only the LOWER pin `1/(500h) ≤ ε`, while `regimeShrinkX_stride` and the
@@ -1950,7 +1950,7 @@ def MRTDoorReceiptSet (h : ℕ) (Xi : XiFamily) (R : ChowlaRegime) : Prop :=
   ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / (837782 * (h : ℝ) ^ 2) ∧ MRTUniformityXiL2Set Xi R ρ
 
 /-- **⟦THE DOOR-HEAD AT `h`, AT A GENERIC SET⟧ (class B).**  `DoorReceipt.flat_door_head_xceil`
-(DoorReceipt.lean:988) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean):
+(DoorReceipt.lean:978) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean):
 the leaves PINNED — `cD3 := 1/4`, `C := h·(1 + 2·(2·log 4))`, `ε := 1/(500·h)` —
 so `δ₀ := cD3/(16·C)·ε/4 = 1/(128000·h²·(1 + 8·log 2))` closes BOTH `1/(838400·h²) ≤ δ₀`
 (`hδ₀ge`, the landed script at `h`) and `δ₀ ≤ 1/(837782·h²)` (`hδ₀le`, `C > 6.5451718·h` by

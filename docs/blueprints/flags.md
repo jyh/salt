@@ -23417,7 +23417,7 @@ cost a census and not a wave.
 (*regime enlargement absorbs any `X`-independent debit*) plus the live lever `g R.Hhi R.ω ≤ R.x`
 in the parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:437`, which `_g0` sets to **zero**)
 makes a re-route onto the outer scale look free. **It is not: the lever has a ceiling.**
-`XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:83`); with
+`XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:84`); with
 `ε ≥ 1/500` a caller may request at most `log g ≤ 15500·H₊`, worth **≈ +24 additive on
 `loglog X`** against the landed floor `loglog X ≥ log H₊ − 14` (`cofkL_logX_floor`, linear in
 `H₊` via the regime's `hPHheadroom`) — **a constant factor ≤ ~4 in the budget, never a rate.**
@@ -25622,7 +25622,7 @@ the class and the statement of record, the five receipts, the four inversion lem
 U-forms, U-ARM (`s15Arm_le_of_regime`), and the doorL2, road and capstone hops on the U-forms.
 
 **What the hop needs about `R` that its U-form does not give.**  The source
-`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4953`) spends the head's COUNT export
+`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4954`) spends the head's COUNT export
 `∀ H [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → |bigXi R.eps H| ≤ K` (K the head's existential) twice:
 as an input to the head's own slot and as `hcount` of `sum_bigXi_norm_windowExpSum_sq_le_twelve`
 (`M4Window.lean:567`).  Under the brief's rule `FlatHeadFormU` keeps the count as a HYPOTHESIS
@@ -25632,7 +25632,7 @@ one open goal is exactly
 `⊢ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ↑(bigXi R.eps H).card ≤ K`
 with `K` known only through `0 < K` and `K ≤ 2 ^ 283 * c ^ 20`.
 
-**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2236`) needs
+**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2237`) needs
 `ε ≤ 1/500`, which no form carries (only `0 < ε` and the pin), and it yields ITS OWN constant `C`,
 not the head's `K`; the socket's `Hopq`/`Hcap` are the hop's to choose but a floor cannot bound a
 count by a constant the hop did not pick.  So this is a walk finding about the FORMS, not a proof
