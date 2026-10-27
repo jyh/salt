@@ -62,6 +62,8 @@ private lemma pas_mono {z z' W' : ℕ} (h : z ≤ z') :
 
 /-! ## General `List`-sum helpers (private copies) -/
 
+/-- The triangle inequality for a `List` sum: `|Σ l| ≤ Σ_{x ∈ l} |x|` (induction on `l`,
+`abs_add_le`). -/
 private lemma list_abs_sum_le (l : List ℝ) : |l.sum| ≤ (l.map (fun x => |x|)).sum := by
   induction l with
   | nil => simp
@@ -69,17 +71,23 @@ private lemma list_abs_sum_le (l : List ℝ) : |l.sum| ≤ (l.map (fun x => |x|)
     simp only [List.sum_cons, List.map_cons]
     exact (abs_add_le a l.sum).trans (by linarith [ih])
 
+/-- A difference of two mapped `List` sums is the mapped sum of the termwise differences
+(induction on `l`). -/
 private lemma list_sum_map_sub {γ : Type*} (l : List γ) (f g : γ → ℝ) :
     (l.map f).sum - (l.map g).sum = (l.map (fun x => f x - g x)).sum := by
   induction l with
   | nil => simp
   | cons a l ih => simp only [List.map_cons, List.sum_cons]; rw [← ih]; ring
 
+/-- A mapped `List` sum divided by `c` is the mapped sum of the termwise quotients
+(`List.sum_map_mul_right` through `div_eq_mul_inv`). -/
 private lemma list_sum_map_div {γ : Type*} (l : List γ) (f : γ → ℝ) (c : ℝ) :
     (l.map f).sum / c = (l.map (fun x => f x / c)).sum := by
   rw [div_eq_mul_inv, ← List.sum_map_mul_right]
   simp only [div_eq_mul_inv]
 
+/-- Swap a `Finset` sum over the box `B` with an inner `List` sum over `P` (induction on `P`,
+`Finset.sum_add_distrib`). -/
 private lemma sum_finset_list_swap {γ : Type*} (B : Finset (Fin 5 → ℕ))
     (P : List γ) (f : γ → (Fin 5 → ℕ) → ℝ) :
     ∑ r ∈ B, (P.map (fun m => f m r)).sum = (P.map (fun m => ∑ r ∈ B, f m r)).sum := by
@@ -89,6 +97,8 @@ private lemma sum_finset_list_swap {γ : Type*} (B : Finset (Fin 5 → ℕ))
     simp only [List.map_cons, List.sum_cons]
     rw [Finset.sum_add_distrib, ih]
 
+/-- Termwise `f x ≤ g x` on `l` (`h`) gives `Σ f ≤ Σ g` for the mapped `List` sums (induction on
+`l`). -/
 private lemma list_sum_map_le {γ : Type*} (l : List γ) (f g : γ → ℝ)
     (h : ∀ x ∈ l, f x ≤ g x) : (l.map f).sum ≤ (l.map g).sum := by
   induction l with
@@ -99,6 +109,8 @@ private lemma list_sum_map_le {γ : Type*} (l : List γ) (f g : γ → ℝ)
     have ha := h a (List.mem_cons.mpr (Or.inl rfl))
     linarith
 
+/-- A mapped `List` sum of termwise-nonnegative values (`h`) is nonnegative (induction on
+`l`). -/
 private lemma list_map_sum_nonneg {γ : Type*} (l : List γ) (f : γ → ℝ)
     (h : ∀ x ∈ l, 0 ≤ f x) : 0 ≤ (l.map f).sum := by
   induction l with
@@ -109,6 +121,7 @@ private lemma list_map_sum_nonneg {γ : Type*} (l : List γ) (f : γ → ℝ)
     have ha := h a (List.mem_cons.mpr (Or.inl rfl))
     linarith
 
+/-- A mapped `List` sum of termwise sums splits into two mapped sums (induction on `l`). -/
 private lemma list_sum_map_add {γ : Type*} (l : List γ) (f g : γ → ℝ) :
     (l.map (fun x => f x + g x)).sum = (l.map f).sum + (l.map g).sum := by
   induction l with
@@ -117,6 +130,10 @@ private lemma list_sum_map_add {γ : Type*} (l : List γ) (f g : γ → ℝ) :
 
 /-! ## The prime tail `Σ_{p>D} 1/(p-1)² ≤ 2/D` (private copy) -/
 
+/-- The integer tail `Σ_{D < k < R} 1/(k − 1)² ≤ 1/(D − 1)` for `3 ≤ D` (`hD`): the filter is
+`Ico (D+1) R`, each term is at most `1/(k − 2) − 1/(k − 1)` (`1/(a+1)² ≤ 1/(a(a+1))` at
+`a = k − 2`), and the telescoped sum (`Finset.sum_range_sub'`) is at most its first term
+`1/(D − 1)`. -/
 private lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
     ∑ k ∈ (Finset.range R).filter (fun k => D < k), 1 / ((k:ℝ) - 1)^2
       ≤ 1 / ((D:ℝ) - 1) := by
@@ -156,6 +173,10 @@ private lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
         linarith
     _ = 1 / ((D:ℝ) - 1) := by simp [hφ]
 
+/-- The prime tail `Σ_{p prime, D < p < R} 1/(p − 1)² ≤ 2/D` for `3 ≤ D` (`hD`): the primes are
+a subset of the integers `D < k` (`int_tail` gives `1/(D − 1)`), and `1/(D − 1) ≤ 2/D` for
+`D ≥ 3`. The file's private copy of the Stage-2 tail, consumed by every `1/D` drop bound
+below. -/
 private lemma prime_tail (D R : ℕ) (hD : 3 ≤ D) :
     ∑ p ∈ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p), 1 / ((p:ℝ) - 1)^2
       ≤ 2 / (D:ℝ) := by
@@ -181,6 +202,15 @@ each of the five coordinate factors `∑_{g_k ∣ s} 1/φ(s)` is bounded by
 `marked_sqf_phi_rel` at `s = g k`, `a = 0`, `z = R`, giving `(1/φ(g_k))·PAS`
 with NO opaque constant. -/
 
+/-- **The relative pairwise-collision bound** (the `mv_I` side of Stage 2). Over the decoupled
+box `decBox 5 R W'`, the tuples with `p ∣ r i` and `p ∣ r j` for a prime `p` (`hp`) and two
+distinct coordinates (`hij`) have `Σ ∏_k 1/φ(r k) ≤ (phiAtomSum R W')⁵/(p − 1)²`. The filtered
+box sits inside the product of the five coordinate sets
+`{s < R : square-free, coprime to W', g k ∣ s}` with `g = p` at `i, j` and `1` elsewhere
+(`Finset.prod_univ_sum`); `marked_sqf_phi_rel` at `a = 0`, `z = R` (`hW'`, `hpos`, `hR2`) bounds
+each coordinate sum by `PAS/φ(g k)`, which is `PAS/(p − 1)` twice (`Nat.totient_prime`) and
+`PAS` three times. The truncation of `MvI`'s `badpair_bound`: its `c₀·log R` per coordinate
+becomes `PAS`, with no opaque constant. -/
 private lemma badpair_bound_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (R : ℕ) (hR2 : 2 ≤ R) (i j : Fin 5) (hij : i ≠ j) (p : ℕ) (hp : Nat.Prime p) :
     ∑ r ∈ (decBox 5 R W').filter (fun r => p ∣ r i ∧ p ∣ r j),
@@ -282,6 +312,21 @@ private lemma badpair_bound_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 /-! ## `mv_I_split` -/
 
 omit [Salt.Maynard.TupleChoice] in
+/-- **`mv_I` with its `1/D` error split off and re-based on `phiAtomSum`** (frozen deliverable
+of card W4-2). For a certificate polynomial `F`: there is an `F`-only `A ≥ 0` — quantified
+BEFORE `W'` — such that for square-free `W' > 0` with `PhiUpperAtom W'` and a cutoff `3 ≤ D`
+below every prime not dividing `W'`, there is `c ≥ 0` with, for every `R` with `1 ≤ log R`, the
+φ-weighted second moment of `F` over `kSieveIndex 5 R W'` within
+`c·(1 + X)⁵/log R + A·(1 + phiAtomSum R W')⁵/D` of `X⁵·∫_{Δ₅} F²` (`X = φ(W')/W'·log R`,
+`simplexInt (sq (ofPoly F))`). The witnesses are `A = 40·Σ|coeff|` over the monomials of
+`sq (ofPoly F)` and `c = Σ|coeff|·C_m/κ`, `C_m` the `mv_monomial` constant of each monomial and
+`κ = φ(W')/W'`. The sum expands monomial by monomial (`sum_finset_list_swap`); per monomial the
+pairwise-coprimality drop from `decBox` to `kSieveIndex` is at most
+`Drop = Σ_{decBox ∖ kSieveIndex} ∏ 1/φ`, covered by the 20 ordered pairs times the primes
+`D < p < R` and bounded by `badpair_bound_rel` and `prime_tail` to `40·PAS⁵/D`; `mv_monomial` at
+`z = R` gives the main term with error `C_m·(1 + X)⁴`, absorbed into `(1 + X)⁵/(κ·log R)`. Where
+the landed `mv_I` carries `c·(1 + X)⁵·(1/log R + 1/D)` with one opaque `c` after `W'`, here the
+`1/D` coefficient is `F`-only. -/
 theorem mv_I_split (F : Poly) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
       PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
@@ -642,6 +687,8 @@ theorem mv_I_split (F : Poly) :
 
 /-! ## Helpers for `inner_contract_rel` (private copies from `MvJ.lean`) -/
 
+/-- Swap a `Finset` sum over `S` with an inner `List` sum over `L` (induction on `L`); the
+private copy of `MvJ`'s `sum_finset_list_sum`. -/
 private lemma ic_sum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
     (f : ι → γ → ℝ) :
     ∑ u ∈ S, (L.map (fun x => f u x)).sum = (L.map (fun x => ∑ u ∈ S, f u x)).sum := by
@@ -651,6 +698,7 @@ private lemma ic_sum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List �
       simp only [List.map_cons, List.sum_cons]
       rw [Finset.sum_add_distrib, ih]
 
+/-- `|Σ_{a ∈ L} f a| ≤ Σ |f a|` for a mapped `List` sum (induction on `L`, `abs_add_le`). -/
 private lemma ic_list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
     |(L.map f).sum| ≤ (L.map (fun a => |f a|)).sum := by
   induction L with
@@ -660,22 +708,27 @@ private lemma ic_list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
       calc |f a + (L.map f).sum| ≤ |f a| + |(L.map f).sum| := abs_add_le _ _
         _ ≤ |f a| + (L.map (fun a => |f a|)).sum := by linarith [ih]
 
+/-- A mapped `List` sum of termwise sums splits into two (induction on `L`). -/
 private lemma ic_list_sum_map_add {γ : Type*} (L : List γ) (f g : γ → ℝ) :
     (L.map (fun a => f a + g a)).sum = (L.map f).sum + (L.map g).sum := by
   induction L with
   | nil => simp
   | cons a L ih => simp only [List.map_cons, List.sum_cons, ih]; ring
 
+/-- Division of a mapped `List` sum by `c` distributes termwise (`List.sum_map_mul_right`). -/
 private lemma ic_list_sum_div {γ : Type*} (L : List γ) (g : γ → ℝ) (c : ℝ) :
     (L.map g).sum / c = (L.map (fun a => g a / c)).sum := by
   rw [div_eq_mul_inv, ← List.sum_map_mul_right]; simp only [div_eq_mul_inv]
 
+/-- A difference of two mapped `List` sums is the mapped sum of the differences (induction on
+`L`). -/
 private lemma ic_list_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
     (L.map f).sum - (L.map g).sum = (L.map (fun a => f a - g a)).sum := by
   induction L with
   | nil => simp
   | cons a L ih => simp only [List.map_cons, List.sum_cons]; rw [← ih]; ring
 
+/-- Termwise `f a ≤ g a` on `L` (`h`) gives `Σ f ≤ Σ g` (induction on `L`). -/
 private lemma ic_list_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
     (h : ∀ a ∈ L, f a ≤ g a) : (L.map f).sum ≤ (L.map g).sum := by
   induction L with
@@ -788,6 +841,20 @@ budget bound (`hUnc`) and the floor-slip bound (`hslip`) are UNCHANGED and keep
 the opaque `budget_moment` constant; only the `u ⊥ ∏r`-drop is re-based on
 `marked_sqf_phi_rel`, giving `PAS · Pr(r)` with NO opaque constant. -/
 
+/-- **The relative one-dimensional inner-sum estimate**, the truncation of `MvJ`'s
+`inner_sum_estimate`. For square-free `W' > 0` (`hW'`, `hpos`) with `PhiUpperAtom W'`
+(`hUpper`), `1 ≤ log R` (`hR`), a sieve tuple `r` (`hr`) with `r m = 1` (`hrm`) and a power `c`:
+the sum over the `u < R` keeping `update r m u` in the sieve box of `(log u/log R)^c/φ(u)` is
+within `Catom·4^c + log 2 + phiAtomSum R W'·Σ_{p ∣ ∏ r} 1/(p − 1)` of
+`X·((log R − log ∏ r)/log R)^{c+1}/(c + 1)`, with `Catom` the
+`budget_moment W' hW' hpos hUpper c 0` constant and `X = φ(W')/W'·log R`. The admissible `u` are
+the square-free `u < z` coprime to `W'` and to `∏ r`, `z = (R − 1)/∏ r + 1`
+(`update_mem_kSieveIndex_iff`); the budget bound (`budget_moment` at `z ≤ R`, UNCHANGED, the
+opaque `Catom`) and the floor-slip bound (`log_natCap_slip` through `abs_pow_sub_pow_le_unit`,
+UNCHANGED, `log 2`) are the landed ones; only the `u ⊥ ∏ r` drop is re-based: covering the
+non-coprime `u` by the primes `p ∣ ∏ r`, `marked_sqf_phi_rel` at `a = c`, `s = p` bounds each
+marked sum by `PAS·1/(p − 1)` with no opaque constant, where the landed version spends
+`(marked_sqf_phi …).choose·log R`. -/
 private lemma inner_sum_estimate_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') {R : ℕ} (hR : 1 ≤ Real.log R)
     {r : Fin 5 → ℕ} (hr : r ∈ kSieveIndex 5 R W') {m : Fin 5} (hrm : r m = 1) (c : ℕ) :
@@ -1073,6 +1140,21 @@ private lemma inner_sum_estimate_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 
 /-! ## `inner_contract_rel` (frozen deliverable 1) -/
 
 omit [Salt.Maynard.TupleChoice] in
+/-- **`inner_contract` with its `Pr(r)`-weighted error re-based on `phiAtomSum`** (frozen
+deliverable 1 of card W4-2). For a certificate polynomial `F` and a coordinate `m`: there is an
+`F`-only `A ≥ 0` — quantified BEFORE `W'` — such that for square-free `W' > 0` with
+`PhiUpperAtom W'` and any cutoff `3 ≤ D` below every prime not dividing `W'` (the two `D`
+hypotheses are carried for the frozen shape and not consumed), there is `c ≥ 0` with, for every
+`R` with `1 ≤ log R` and every sieve tuple `r` with `r m = 1`, the inner sum
+`Σ_{u < R} yF R W' F (update r m u)/φ(u)` within `c + A·phiAtomSum R W'·Σ_{p ∣ ∏ r} 1/(p − 1)`
+of `X·eval (contractAt m F)` at `log r(m.succAbove i)/log R` (`X = φ(W')/W'·log R`). The
+witnesses are `A = Σ_a |f_a|` over the monomials of `F` and
+`c = Σ_a |f_a|·(Cb(α_m)·4^{α_m} + log 2)`, `Cb k` the `budget_moment … k 0` constant. The inner
+sum expands monomial by monomial (`eval_ofPoly`, `prod_update_split`, `ic_sum_finset_list_sum`),
+each inner `u`-sum is `inner_sum_estimate_rel` at `c = α_m`, and the budget factor
+`1 − Σ_{i ≠ m} t_i` is `(log R − log ∏ r)/log R` since `r m = 1`. Where the landed
+`inner_contract` bounds the error by `c·(1 + X·Σ_p 1/(p − 1))` with one opaque `c` after `W'`,
+here the `Pr(r)` coefficient is `F`-only. -/
 theorem inner_contract_rel (F : Poly) (m : Fin 5) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
       PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
@@ -1248,13 +1330,18 @@ theorem inner_contract_rel (F : Poly) (m : Fin 5) :
 
 /-! ## `mv_J_split` — shared helpers (private copies from `MvJ.lean`) -/
 
+/-- `g(p) = p − 2` for a prime `p` (`hp`), cast to `ℝ`: `primeFactors p = {p}`. -/
 private lemma mjs_gMult_prime_cast {p : ℕ} (hp : Nat.Prime p) : (gMult p : ℝ) = (p : ℝ) - 2 := by
   have : gMult p = p - 2 := by rw [gMult, Nat.Prime.primeFactors hp, Finset.prod_singleton]
   rw [this, Nat.cast_sub hp.two_le]; norm_num
 
+/-- `g(1) = 1`: the empty product over `primeFactors 1 = ∅`. -/
 private lemma mjs_gMult_one_cast : (gMult 1 : ℝ) = 1 := by
   rw [gMult, Nat.primeFactors_one, Finset.prod_empty]; norm_num
 
+/-- `g(pq) = (p − 2)(q − 2)` for distinct primes (`hp`, `hq`, `hpq`): `gMult` is multiplicative
+on coprime arguments (`Nat.Coprime.primeFactors_mul`, `Finset.prod_union`), then
+`mjs_gMult_prime_cast` twice. -/
 private lemma mjs_gMult_pq_cast {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) :
     (gMult (p * q) : ℝ) = ((p:ℝ) - 2) * ((q:ℝ) - 2) := by
   have hcop : Nat.Coprime p q := (Nat.coprime_primes hp hq).mpr hpq
@@ -1263,6 +1350,8 @@ private lemma mjs_gMult_pq_cast {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq :
       Finset.prod_union hcop.disjoint_primeFactors]
   rw [hmul, Nat.cast_mul, mjs_gMult_prime_cast hp, mjs_gMult_prime_cast hq]
 
+/-- Every prime factor of an `x < R` coprime to `W'` (`hxR`, `hxcop`) lies in the prime window
+`D < p < R`: `p ≤ x < R`, and `p ∤ W'` (coprimality) gives `D < p` by `hD`. -/
 private lemma mjs_box_PF_subset {W' D R : ℕ} (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p)
     {x : ℕ} (hxR : x < R) (hxcop : x.Coprime W') :
     x.primeFactors ⊆ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p) := by
@@ -1276,6 +1365,7 @@ private lemma mjs_box_PF_subset {W' D R : ℕ} (hD : ∀ p : ℕ, p.Prime → ¬
     exact hpp.one_lt.ne' (Nat.dvd_one.mp h1)
   rw [Finset.mem_filter, Finset.mem_range]; exact ⟨hpltR, hpp, hD p hpp hnpW⟩
 
+/-- The marked-prime sum `Σ_{p ∣ m} 1/(p − 1)` is nonnegative (each `p ≥ 2`). -/
 private lemma mjs_PFsum_nn (m : ℕ) : 0 ≤ ∑ p ∈ m.primeFactors, (1 / ((p:ℝ) - 1)) := by
   apply Finset.sum_nonneg; intro p hp
   have hpp := Nat.prime_of_mem_primeFactors hp
@@ -1283,6 +1373,8 @@ private lemma mjs_PFsum_nn (m : ℕ) : 0 ≤ ∑ p ∈ m.primeFactors, (1 / ((p:
   have : (0:ℝ) < (p:ℝ) - 1 := by linarith
   positivity
 
+/-- A nonnegative `g` (`hg`) summed over a `biUnion` is at most the sum of the sums over the
+pieces (induction on `s`; the overlap `t a ∩ s.biUnion t` is dropped as a nonnegative term). -/
 private lemma mjs_sum_biUnion_le {ι : Type*} (s : Finset ι) (t : ι → Finset ℕ)
     (g : ℕ → ℝ) (hg : ∀ i ∈ s, ∀ p ∈ t i, 0 ≤ g p) :
     ∑ p ∈ s.biUnion t, g p ≤ ∑ i ∈ s, ∑ p ∈ t i, g p := by
@@ -1301,6 +1393,10 @@ private lemma mjs_sum_biUnion_le {ι : Type*} (s : Finset ι) (t : ι → Finset
       linarith
     linarith [ih hgs]
 
+/-- Subadditivity of the marked-prime sum over a product:
+`Σ_{p ∣ ∏ ρ} 1/(p − 1) ≤ Σ_i Σ_{p ∣ ρ i} 1/(p − 1)` for nonzero coordinates (`hρ`); the prime
+factors of the product are covered by the `biUnion` of the coordinates'
+(`Prime.exists_mem_finset_dvd`), then `mjs_sum_biUnion_le`. -/
 private lemma mjs_P_subadd (ρ : Fin 4 → ℕ) (hρ : ∀ i, ρ i ≠ 0) :
     (∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1)))
       ≤ ∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))) := by
@@ -1330,6 +1426,9 @@ private lemma mjs_P_subadd (ρ : Fin 4 → ℕ) (hρ : ∀ i, ρ i ≠ 0) :
         have : (0:ℝ) < (p:ℝ) - 1 := by linarith
         positivity
 
+/-- Over the full product box `F_R⁴`, a weight on one coordinate `i` factors out:
+`Σ_ρ w(ρ i)·∏_k 1/g(ρ k) = (Σ_x w x/g x)·(Σ_x 1/g x)³` (`Finset.prod_univ_sum` after writing the
+summand as a product over `k` with the `w` on the `i`-th factor). -/
 private lemma mjs_factor_one (F_R : Finset ℕ) (i : Fin 4) (w : ℕ → ℝ) :
     ∑ ρ ∈ Fintype.piFinset (fun _ : Fin 4 => F_R), w (ρ i) * ∏ k, (1 / (gMult (ρ k) : ℝ))
       = (∑ x ∈ F_R, w x * (1 / (gMult x : ℝ))) * (∑ x ∈ F_R, (1 / (gMult x : ℝ))) ^ 3 := by
@@ -1370,6 +1469,10 @@ private lemma mjs_factor_one (F_R : Finset ℕ) (i : Fin 4) (w : ℕ → ℝ) :
   rw [hp2, Finset.prod_const, Finset.card_erase_of_mem (Finset.mem_univ i), Finset.card_univ,
     Fintype.card_fin]
 
+/-- Enlarge a nonnegative `g`-weighted sum (`hnum0`) from the sieve box `kSieveIndex 4 R W'` to
+the full product box `F_R⁴` of square-free `x < R` coprime to `W'`:
+`kSieveIndex ⊆ decBox ⊆ F_R⁴` (`mem_kSieveIndex_iff`, `kSieveIndex_coord_lt`), and the summand
+is rewritten as `num ρ·∏ 1/g`. -/
 private lemma mjs_enlarge_to_PB (W' R : ℕ)
     (num : (Fin 4 → ℕ) → ℝ) (hnum0 : ∀ ρ, 0 ≤ num ρ) :
     (∑ ρ ∈ kSieveIndex 4 R W', num ρ / ∏ i, (gMult (ρ i) : ℝ))
@@ -1402,6 +1505,8 @@ private lemma mjs_enlarge_to_PB (W' R : ℕ)
     _ ≤ ∑ ρ ∈ Fintype.piFinset (fun _ : Fin 4 => F_R), num ρ * ∏ i, (1 / (gMult (ρ i) : ℝ)) :=
         Finset.sum_le_sum_of_subset_of_nonneg hsub2 (fun ρ _ _ => hnn ρ)
 
+/-- A product over `Fin 5` minus `m` is the product over `Fin 4` through `m.succAbove`
+(`Fin.image_succAbove_univ`, `Finset.prod_image`). -/
 private lemma mjs_erase_prod_removeNth {M : Type*} [CommMonoid M] (m : Fin 5) (F : Fin 5 → M) :
     ∏ i ∈ Finset.univ.erase m, F i = ∏ i : Fin 4, F (m.succAbove i) := by
   have he : Finset.univ.erase m = ({m}ᶜ : Finset (Fin 5)) := by
@@ -1409,6 +1514,9 @@ private lemma mjs_erase_prod_removeNth {M : Type*} [CommMonoid M] (m : Fin 5) (F
   rw [he, ← Fin.image_succAbove_univ m, Finset.prod_image
     (fun i _ j _ h => Fin.succAbove_right_injective h)]
 
+/-- On the simplex — `0 ≤ t i ≤ 1` (`ht0`, `ht1`) and `Σ t ≤ 1` (`hs`) — a budget polynomial is
+bounded by the sum of its coefficients' absolute values: each monomial's
+`∏ t_i^{e_i}·(1 − Σ t)^d` lies in `[0, 1]`. -/
 private lemma mjs_eval_bpoly_bound {n : ℕ} (P : BPoly n) (t : Fin n → ℝ)
     (ht0 : ∀ i, 0 ≤ t i) (ht1 : ∀ i, t i ≤ 1) (hs : ∑ i, t i ≤ 1) :
     |eval P t| ≤ (P.map (fun mo => |(mo.2.2 : ℝ)|)).sum := by
@@ -1429,6 +1537,10 @@ private lemma mjs_eval_bpoly_bound {n : ℕ} (P : BPoly n) (t : Fin n → ℝ)
 
 /-! ### Relative one-coordinate g-moments (`M0`, `MQ`, `MQ2`) over `sqfCop R W'` -/
 
+/-- **The relative `g`-moment `M0`**:
+`Σ_{x < R, square-free, coprime to W'} 1/g(x) ≤ 2·phiAtomSum R W'` for square-free `W' > 0`
+(`hW'`, `hpos`), `3 ≤ D` below every prime not dividing `W'` (`hD`, `hDW`) and `2 ≤ R` (`hR2`):
+`marked_sqf_g_rel` at `a = 0`, `s = 1`, `z = R` (`g(1) = 1`, the `1 ∣ r` filter is vacuous). -/
 private lemma mjs_M0_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'), (1 / (gMult x : ℝ)))
@@ -1448,6 +1560,10 @@ private lemma mjs_M0_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
   rw [hL] at hg1
   simpa using hg1
 
+/-- **The opaque `g`-moment `M0`**: under the `marked_sqf_g` spec `hcg` at `a = 0` (its constant
+`cg`), `Σ_{x < R, square-free, coprime to W'} 1/g(x) ≤ cg·log R` for `3 ≤ D` below every prime
+not dividing `W'` (`hD`, `hDW`) and `2 ≤ R` (`hR2`): `hcg` at `s = 1`, `z = R`. The two `W'`
+hypotheses are carried for the signature and not consumed. -/
 private lemma mjs_M0_op (W' : ℕ) (_hW' : Squarefree W') (_hpos : 0 < W') (cg : ℝ)
     (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
       (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
@@ -1472,6 +1588,13 @@ private lemma mjs_M0_op (W' : ℕ) (_hW' : Squarefree W') (_hpos : 0 < W') (cg :
   rw [hRw] at hg1
   exact hg1
 
+/-- **The relative first marked `g`-moment `MQ`**:
+`Σ_{x ∈ F_R} Q(x)/g(x) ≤ 8·phiAtomSum R W'/D`, `Q(x) = Σ_{p ∣ x} 1/(p − 1)`, for square-free
+`W' > 0` (`hW'`, `hpos`), `3 ≤ D` below every prime not dividing `W'` (`hD`, `hDW`) and `2 ≤ R`
+(`hR2`). Swap to a sum over the primes `D < p < R` (`mjs_box_PF_subset`); each
+`1/(p − 1)·Σ_{p ∣ x} 1/g(x)` is at most `2·PAS·2/(p − 1)²` by `marked_sqf_g_rel` at `a = 0`,
+`s = p` (`g(p) = p − 2`, and `1/((p − 1)(p − 2)) ≤ 2/(p − 1)²` for `p ≥ 3`); `prime_tail` sums
+the squares to `2/D`. -/
 private lemma mjs_MQ_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'),
@@ -1567,6 +1690,13 @@ private lemma mjs_MQ_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
         apply mul_le_mul_of_nonneg_left (prime_tail D R hD) (by norm_num)
     _ = 8 * PAS / (D : ℝ) := by ring
 
+/-- **The relative second marked `g`-moment `MQ2`**:
+`Σ_{x ∈ F_R} Q(x)²/g(x) ≤ 40·phiAtomSum R W'/D` under the same hypotheses (`hW'`, `hpos`, `hD`,
+`hDW`, `hR2`). Expand `Q(x)²` over pairs of primes `p, q ∣ x` in the window `D < p, q < R`; the
+diagonal `p = q` costs `2·PAS/(p − 2)` per prime (`marked_sqf_g_rel` at `s = p`) and the
+off-diagonal `2·PAS/((p − 2)(q − 2))` (`s = p·q`, `mjs_gMult_pq_cast`); with
+`Σ_p 1/((p − 1)(p − 2)) ≤ 4/D` (`prime_tail`) the two parts are `2·PAS·4/D` and `2·PAS·(4/D)²`,
+and `(4/D)² ≤ 16/D`. -/
 private lemma mjs_MQ2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'),
@@ -1786,6 +1916,11 @@ private lemma mjs_MQ2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 
 /-! ### The 4-dim aggregate g-moments `T0` (opaque), `T1`, `T2` (relative) -/
 
+/-- **The opaque 4-dimensional `g`-moment `T0`**:
+`Σ_{ρ ∈ kSieveIndex 4 R W'} 1/∏_i g(ρ i) ≤ (cg·log R)⁴` under the `marked_sqf_g` spec `hcg` at
+`a = 0`, `3 ≤ D` below every prime not dividing `W'` (`hD`, `hDW`) and `2 ≤ R` (`hR2`): enlarge
+to the product box (`mjs_enlarge_to_PB`), factor (`mjs_factor_one` with `w = 1`) into `M0⁴`, and
+`mjs_M0_op`. The sign hypothesis on `cg` is carried, not consumed. -/
 private lemma mjs_T0_op (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W') (cg : ℝ) (_hcg0 : 0 ≤ cg)
     (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
       (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
@@ -1805,6 +1940,11 @@ private lemma mjs_T0_op (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W') (cg : �
       = M0 ^ 4 := by rw [hM0def]; ring
     _ ≤ (cg * Real.log R) ^ 4 := pow_le_pow_left₀ hM0nn hM0le 4
 
+/-- **The relative first-marked 4-dimensional `g`-moment `T1`**:
+`Σ_{ρ ∈ kSieveIndex 4 R W'} Q(∏ ρ)/∏_i g(ρ i) ≤ 256·(phiAtomSum R W')⁴/D` (`hW'`, `hpos`, `hD`,
+`hDW`, `hR2` as in `mjs_M0_rel`). Enlarge to the product box (`mjs_enlarge_to_PB`), split
+`Q(∏ ρ) ≤ Σ_i Q(ρ i)` (`mjs_P_subadd`), factor each of the four terms (`mjs_factor_one`) into
+`MQ·M0³`, and `4·(8·PAS/D)·(2·PAS)³ = 256·PAS⁴/D` (`mjs_MQ_rel`, `mjs_M0_rel`). -/
 private lemma mjs_T1_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ ρ ∈ kSieveIndex 4 R W',
@@ -1857,6 +1997,11 @@ private lemma mjs_T1_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
         mul_le_mul_of_nonneg_left hMQM0 (by norm_num)
     _ = 256 * PAS ^ 4 / (D:ℝ) := by ring
 
+/-- **The relative second-marked 4-dimensional `g`-moment `T2`**:
+`Σ_{ρ ∈ kSieveIndex 4 R W'} Q(∏ ρ)²/∏_i g(ρ i) ≤ 5120·(phiAtomSum R W')⁴/D` (same hypotheses).
+Enlarge (`mjs_enlarge_to_PB`), `Q(∏ ρ)² ≤ (Σ_i Q(ρ i))² = Σ_{i,j} Q(ρ i)·Q(ρ j)`, each cross
+term at most `(Q(ρ i)² + Q(ρ j)²)/2`, so each of the 16 `(i, j)` sums is at most `MQ2·M0³`
+(`mjs_factor_one`), and `16·(40·PAS/D)·(2·PAS)³ = 5120·PAS⁴/D` (`mjs_MQ2_rel`, `mjs_M0_rel`). -/
 private lemma mjs_T2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ ρ ∈ kSieveIndex 4 R W',
@@ -1975,6 +2120,12 @@ private lemma mjs_one_sub_prod_le_sum {ι : Type*} (s : Finset ι) (a : ι → �
       Finset.prod_le_one (fun i hi => (has i hi).1) (fun i hi => (has i hi).2)
     nlinarith only [hax, hsum_nn, hih]
 
+/-- **The relative 4-dimensional `g → φ` gap**:
+`Σ_{ρ ∈ kSieveIndex 4 R W'} (1/∏ g(ρ i) − 1/∏ φ(ρ i)) ≤ 256·(phiAtomSum R W')⁴/D` (hypotheses as
+in `mjs_M0_rel`). Per coordinate `1 − g(x)/φ(x) ≤ Q(x)` (`gMult_cast`,
+`totient_squarefree_cast`, `mjs_one_sub_prod_le_sum` over the prime factors, all `≥ 3` by
+`hDW`); per tuple `1/∏ g − 1/∏ φ ≤ (Σ_i Q(ρ i))/∏ g` (`gMult_le_totient`, `box_g_pos`); the sum
+is then the `T1`-style tail without `mjs_P_subadd`: `4·MQ·M0³ ≤ 256·PAS⁴/D`. -/
 private lemma mjs_gap_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ ρ ∈ kSieveIndex 4 R W',
@@ -2104,6 +2255,10 @@ private lemma mjs_gap_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 
 /-! ### The 4-dim φ pairwise-coprimality drop -/
 
+/-- The 4-dimensional `badpair_bound_rel`: over `decBox 4 R W'`, the tuples with `p ∣ r i` and
+`p ∣ r j` (`hp`, `hij`) have `Σ ∏_k 1/φ(r k) ≤ (phiAtomSum R W')⁴/(p − 1)²` — two coordinate
+sums `PAS/(p − 1)` and two `PAS` by `marked_sqf_phi_rel` at `a = 0`, `z = R` (`hW'`, `hpos`,
+`hR2`). -/
 private lemma mjs_badpair_rel4 (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (R : ℕ) (hR2 : 2 ≤ R) (i j : Fin 4) (hij : i ≠ j) (p : ℕ) (hp : Nat.Prime p) :
     ∑ r ∈ (decBox 4 R W').filter (fun r => p ∣ r i ∧ p ∣ r j),
@@ -2202,6 +2357,11 @@ private lemma mjs_badpair_rel4 (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     _ ≤ _ := hbnd
     _ = PAS ^ 4 / ((p:ℝ) - 1) ^ 2 := hfinal
 
+/-- **The 4-dimensional φ pairwise-coprimality drop**:
+`Σ_{r ∈ decBox 4 R W' ∖ kSieveIndex 4 R W'} ∏_i 1/φ(r i) ≤ 24·(phiAtomSum R W')⁴/D` (`hW'`,
+`hpos`, `hD`, `hDW`, `hR2`). A dropped tuple has a prime `p` dividing two coordinates, `p ∤ W'`
+so `D < p` (`hDW`) and `p < R`; cover by the 12 ordered pairs times the primes `D < p < R`,
+`mjs_badpair_rel4` per pair and prime, `prime_tail` per pair: `12·PAS⁴·2/D`. -/
 private lemma mjs_drop_phi4 (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ r ∈ decBox 4 R W' \ kSieveIndex 4 R W', ∏ i, (1 / (Nat.totient (r i) : ℝ)))
@@ -2302,6 +2462,18 @@ private lemma mjs_drop_phi4 (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 
 /-! ## `mv_J_main_split` — the relativized 4-dim g-weighted main moment -/
 
+/-- **The relativized 4-dimensional `g`-weighted main moment.** For `F` and `m`: an `F`-only
+`A ≥ 0` — quantified BEFORE `W'` — such that for square-free `W' > 0` with `PhiUpperAtom W'` and
+`3 ≤ D` below every prime not dividing `W'`, there is `c ≥ 0` with, for `1 ≤ log R`, the
+`g`-weighted second moment of `eval (contractAt m F)` over the sieve tuples with `r m = 1`
+within `c·(1 + X)⁴/log R + A·(1 + phiAtomSum R W')⁴/D` of `X⁴·∫_{Δ₄} (contractAt m F)²`
+(`X = φ(W')/W'·log R`, `simplexInt (sq (contractAt m F))`). The witnesses are `A = 280·cF²`,
+`cF = Σ|coeff|` over `contractAt m F`, and `c = Cmain/κ` with `Cmain` the `mv_monomial`-weighted
+coefficient sum of `sq (contractAt m F)` (`n = 4`). Reindex to `kSieveIndex 4 R W'`
+(`sum_filt_removeNth`, `mjs_erase_prod_removeNth`), then three brackets: the `g → φ` gap
+`≤ 256·cF²·PAS⁴/D` (`mjs_gap_rel`, `|Ev| ≤ cF` by `mjs_eval_bpoly_bound`), the drop from
+`kSieveIndex` to `decBox` `≤ 24·cF²·PAS⁴/D` (`mjs_drop_phi4`), and `mv_monomial` at `z = R` per
+monomial with error `Cmain·(1 + X)³`, absorbed into `(1 + X)⁴/(κ·log R)`. -/
 private lemma mv_J_main_split (F : Poly) (m : Fin 5) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
       PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
@@ -2633,6 +2805,9 @@ private lemma mv_J_main_split (F : Poly) (m : Fin 5) :
 
 /-! ## `mv_J_split` (frozen deliverable, mixed-power `1/D` bucket) -/
 
+/-- The two mixed-base absorptions for `mv_J_split`: for `0 < κ` (`hκ`) and `1 ≤ L` (`hL`),
+`κ·L·L⁴ ≤ (1 + κL)⁶/(κ⁵·L)` and `L⁴ ≤ (1 + κL)⁶/(κ⁶·L)` — both from `(κL)⁶ ≤ (1 + κL)⁶`, the
+second also using `L⁵ ≤ L⁶`. -/
 private lemma mjs_absorb (κ L : ℝ) (hκ : 0 < κ) (hL : 1 ≤ L) :
     κ * L * L ^ 4 ≤ 1 / κ ^ 5 * (1 + κ * L) ^ 6 * (1 / L)
     ∧ L ^ 4 ≤ 1 / κ ^ 6 * (1 + κ * L) ^ 6 * (1 / L) := by
@@ -2660,6 +2835,23 @@ set_option maxHeartbeats 2000000 in
 -- relativized swap sums, the mixed-base absorptions) elaborates in one block and
 -- exceeds the default heartbeat budget (a resource limit, not an axiom).
 omit [Salt.Maynard.TupleChoice] in
+/-- **`mv_J` with its `1/D` error split off into a mixed-power `phiAtomSum` bucket** (frozen
+deliverable of card W4-2). For `F` and `m`: an `F`-only `A ≥ 0` — quantified BEFORE `W'` — such
+that for square-free `W' > 0` with `PhiUpperAtom W'` and `3 ≤ D` below every prime not dividing
+`W'`, there is `c ≥ 0` with, for `1 ≤ log R`, the `g`-weighted second moment of the inner sums
+`Σ_{u < R} yF R W' F (update r m u)/φ(u)` over the sieve tuples with `r m = 1` within
+`c·(1 + X)⁶/log R + A·(1 + X + phiAtomSum R W')⁶/D` of `X⁶·∫_{Δ₄} (contractAt m F)²`
+(`X = φ(W')/W'·log R`). The witnesses are `A = Amain + 512·cF·Aic + 10240·Aic²` (`Amain` from
+`mv_J_main_split`, `Aic` from `inner_contract_rel`, `cF = Σ|coeff|` over `contractAt m F`) and
+`c = cmain + 2·cF·cic·cg⁴/κ⁵ + 2·cic²·cg⁴/κ⁶` (`cmain`, `cic` the two `∃c` constants, `cg` the
+`marked_sqf_g` constant at `a = 0`). Writing `Inn r = X·Ev r + δ_r` with
+`|δ_r| ≤ cic + Aic·PAS·Pr(r)` (`inner_contract_rel`) and `|Ev r| ≤ cF`,
+`Inn² − X²·Ev² = 2X·Ev·δ + δ²` is summed against the three `g`-moments `T0` (`mjs_T0_op`,
+opaque, `(cg·log R)⁴`), `T1` (`mjs_T1_rel`) and `T2` (`mjs_T2_rel`); the `1/L` pieces are
+absorbed by `mjs_absorb` and the `1/D` pieces into `Y⁶ = (1 + X + PAS)⁶` (`X·PAS⁵ ≤ Y⁶`,
+`PAS⁶ ≤ Y⁶`); the main part is `X²·mv_J_main_split`. Where the landed `mv_J` carries
+`c·(1 + X)⁶·(1/log R + 1/D)` with one opaque `c` after `W'`, here the `1/D` coefficient is
+`F`-only. -/
 theorem mv_J_split (F : Poly) (m : Fin 5) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
       PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
