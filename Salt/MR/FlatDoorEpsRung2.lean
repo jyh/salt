@@ -234,7 +234,7 @@ theorem xt_log_inv_rho_le_L {c δ₀ Kc Kb : ℝ} (hc1 : 1 ≤ c) (hδ₀ : 0 < 
 
 /-! ## §3 — ⟦R7⟧ the three S16 flat arms at generic `L`
 
-The two cap sites are `S16FlatTerminalLinear.lean:2461` (`h ≤ 8103`, feeding
+The two cap sites are `S16FlatTerminalLinear.lean:2447` (`h ≤ 8103`, feeding
 `⌈1/ε⌉₊ ≤ 500·h ≤ 4051500` and `4·4051500⁴ ≤ arcFloor36 = 10¹³⁸`) and `:2489` (the budget chain's
 `1/ε⁶ ≤ 4.43·10³⁹`).  Neither numeral survives a generic `L`: both are bounds on `h`, so at
 generic `L` they read `4·(500·h)⁴ ≤ e^{27 + 4L}` and `1/ε⁶ ≤ 1.5625·10¹⁶ · e^{6L}`, and the
@@ -3985,7 +3985,7 @@ theorem s15_sel''_L_gk_T_of_L_T (Klev : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : 
   lvl := by rw [calQK_gk_one_eq]; exact hsel.lvl
 
 /-- `s15_bandGate''_of_grade_L_gk` at the tower-relative register
-(`S16FlatTerminalLinear.lean:800`).  STATEMENT: the source's with
+(`S16FlatTerminalLinear.lean:792`).  STATEMENT: the source's with
 `S15Sel''_L_gk ↦ S15Sel''_L_gk_T`; the conclusion is the source's, byte for byte.  BODY: the
 source's, verbatim — it reads `x0M`, `blk` and `hM`, and never `rho`.
 Nothing here bears on twin primes. -/
@@ -4176,7 +4176,7 @@ theorem s15_hband4096_at_socket_flat_T {R : ChowlaRegime} {M H L q j A s : ℕ} 
   linarith [h1, h2, hcore, hrhoE, hlog376]
 
 /-- `s15_gRows_const_at_socket_flat_doorL_gk` at the tower-relative register
-(`S16FlatTerminalLinear.lean:964`).  STATEMENT: the source's with the ONE `hrho` binder moved
+(`S16FlatTerminalLinear.lean:956`).  STATEMENT: the source's with the ONE `hrho` binder moved
 to the tower; the conclusion is the source's, byte for byte.  BODY: the source's, with
 `flat_lambda_core_17 ↦ flat_lambda_core_T`, `hrho ↦ hrhoE` in `hendbud`'s close, and the ONE
 positivity fact `hE0` the smaller core no longer carries for free (the landed `10 ^ 15` inside
