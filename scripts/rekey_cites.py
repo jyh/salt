@@ -33,6 +33,16 @@ sibling ERRATA.md says `kept as published` / `kept as submitted` (an UNDECLARED 
 added to the list). A diff that EDITS a pinned file is REFUSED, rc 3, before any census or --apply. Generated pages are skipped (their generators re-key them). Exit 0 when nothing is stale after the
 run (no REPORTED, and no RE-KEYED left unapplied), 1 otherwise, 2 on a usage error, 3 refused.
 
+RECORDS: --apply also re-hashes a prose record. A cite inside a sentence a non-author has read is part of that
+sentence's hash (claim-sha12 in .prose-lean-reads), so a re-key alone turns the record STALE-CLAIM and the required
+prose check red. After the rewrite, a record of an edited citing file whose sentence was a claim sentence of that file
+BEFORE the rewrite and is not one after it is re-hashed iff the old sentence with exactly the applied re-keys
+substituted (simultaneously, as in the file) IS a claim sentence of the rewritten file, read by check_prose_lean's own
+splitter. Only claim-sha12 changes; id, declaration, readers and date stand, because the read sentence and the new one
+differ only by the cite numbers this tool verified. Anything else is RECORD-STALE, printed and counted (rc 1). A
+.prose-lean-baseline row hit by a re-key is printed as BASELINE-HIT and NOT rewritten: the ratchet refuses a re-hashed
+baseline row, so it needs a record (read by hand).
+
 LIMITS, printed with every verdict: only `.lean` targets; cites in other forms (`:N, M` lists,
 "line N" prose) are not read; a cite written fresh at HEAD is not checked; content equality is per
 line, so a cite of a line whose MEANING moved while its text stayed is KEPT or RE-KEYED as text.
@@ -58,7 +68,8 @@ ERRATA_PHRASES = ("kept as published", "kept as submitted")
 TEXT = (".lean", ".md", ".tex", ".tsv", ".py", ".txt", ".yml")
 LIMITS = ("LIMITS: .lean targets only; forms Leaf.lean:N and :N–M / :N-M; lists and prose line "
           "numbers are not read; a cite written fresh at HEAD is not checked; content equality is "
-          "per line (a line whose meaning moved but whose text did not is not caught).")
+          "per line (a line whose meaning moved but whose text did not is not caught); a record is re-hashed only "
+          "under --apply (a re-key made by hand, read DONE, leaves its records to the prose check).")
 
 
 def git(root, *a):
@@ -194,7 +205,7 @@ def mark_done(root, base, head, rows, cls):
             cls["DONE"] += len(rs)
 
 
-def apply(root, base, head, rows):
+def apply(root, base, head, rows, log=None):
     """Rewrite RE-KEYED cites in the working tree, matched by occurrence order per (src, cite), all at
     once per file, so a chain of re-keys never rewrites a cite twice."""
     by_src = {}
@@ -206,7 +217,7 @@ def apply(root, base, head, rows):
         p = os.path.join(root, src)
         cur = open(p, encoding="utf-8").read()
         btext = show(root, base, src)
-        spans = []
+        spans, applied_subs = [], {}
         for cite in sorted({r["cite"] for r in rs}):
             want = [r for r in rs if r["cite"] == cite]
             occ = occ_re(cite)
@@ -219,13 +230,84 @@ def apply(root, base, head, rows):
                 unapplied += len(want)
                 continue
             spans += [(m.start(), m.end(), want[0]["new"]) for m in hits]
+            applied_subs[cite] = want[0]["new"]
         spans.sort()
+        if log is not None and spans:
+            log[src] = (cur, applied_subs)
         out, at = [], 0
         for st, en, new in spans:
             assert st >= at, "overlapping cites"
             out += [cur[at:st], new]; at = en
         open(p, "w", encoding="utf-8").write("".join(out) + cur[at:])
     return unapplied
+
+
+def _cpl():
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import check_prose_lean
+    return check_prose_lean
+
+
+def claim_shas(cpl, rel, text):
+    """{claim-sha12: sentence} for one file, read exactly as check_prose_lean.scan reads it."""
+    if rel.endswith(".lean"):
+        items, kw = [ds for ds, _ in cpl.docstring_items(text)], dict(headline=True, docstring=True)
+    elif rel.endswith((".md", ".tex")):
+        items, kw = cpl.prose_of(rel, text), dict(headline=cpl.is_headline(rel))
+    else:
+        return {}
+    return {cpl.sha12(sn): sn for p in items for sn, _, _ in cpl.claim_sentences(p, **kw)}
+
+
+def substitute(text, subs):
+    """Every cite in subs replaced by its new value in ONE pass (a chain is never rewritten twice)."""
+    if not subs:
+        return text
+    alt = "|".join(re.escape(c) for c in sorted(subs, key=len, reverse=True))
+    rx = re.compile(r"(?<![A-Za-z0-9_./])(?:" + alt + r")(?![0-9]|[–-][0-9])")
+    return rx.sub(lambda m: subs[m.group(0)], text)
+
+
+def rehash_records(root, log):
+    """Re-hash the .prose-lean-reads records whose sentences only the applied re-keys changed (see RECORDS).
+    -> (rehashed, stale, baseline_hits): lists of (id-or-sha, path, detail)."""
+    rehashed, stale, bhits = [], [], []
+    if not log:
+        return rehashed, stale, bhits
+    cpl = _cpl()
+    moved = {}                                   # path -> {old sha: (old sentence, sentence with the re-keys)}
+    after = {}
+    for src, (before, subs) in log.items():
+        b = claim_shas(cpl, src, before)
+        a = claim_shas(cpl, src, open(os.path.join(root, src), encoding="utf-8").read())
+        after[src] = a
+        moved[src] = {sh: (sn, substitute(sn, subs)) for sh, sn in b.items() if sh not in a}
+    rp = os.path.join(root, cpl.READS_FILE)
+    if os.path.exists(rp):
+        lines = open(rp, encoding="utf-8").read().split("\n")
+        for i, line in enumerate(lines):
+            c = line.split("\t")
+            if len(c) != 8 or c[1] not in moved or c[2] not in moved[c[1]]:
+                continue
+            old, new = moved[c[1]][c[2]]
+            nsh = cpl.sha12(new)
+            if new != old and after[c[1]].get(nsh) == new:
+                rehashed.append((c[0], c[1], f"{c[2]} -> {nsh}"))
+                c[2] = nsh
+                lines[i] = "\t".join(c)
+            else:
+                stale.append((c[0], c[1], f"{c[2]}: the sentence changed beyond the re-keys, or the splitter cut it "
+                              "differently: re-hash by hand after a read"))
+        if rehashed:
+            open(rp, "w", encoding="utf-8").write("\n".join(lines))
+    bp = os.path.join(root, cpl.BASELINE_FILE)
+    if os.path.exists(bp):
+        for line in open(bp, encoding="utf-8").read().split("\n"):
+            c = line.split("\t")
+            if len(c) >= 2 and c[1] in moved and c[0] in moved[c[1]]:
+                bhits.append((c[0], c[1], "a baselined sentence moved by a re-key: the ratchet refuses a re-hashed "
+                              "baseline row, so give it a record (read by hand)"))
+    return rehashed, stale, bhits
 
 
 def report(edited, rows, cls, applied):
@@ -256,11 +338,23 @@ def main_rc(root, args, applied=False, published=PUBLISHED):
               + ", ".join(bad))
         return 3
     edited, rows, cls = census(root, base, head, published)
+    recs = None
     if applied:
-        apply(root, base, head, rows)
+        log = {}
+        apply(root, base, head, rows, log)
         cls = Counter(r["cls"] for r in rows) + Counter({"AMBIGUOUS": cls["AMBIGUOUS"]})
+        recs = rehash_records(root, log)
     report(edited, rows, cls, applied)
+    if recs is not None:
+        rh, st, bh = recs
+        print(f"  records: RE-HASHED {len(rh)} (only the re-keys changed the read sentence) · RECORD-STALE {len(st)} · "
+              f"BASELINE-HIT {len(bh)}")
+        for tag, xs in (("RE-HASHED", rh), ("RECORD-STALE", st), ("BASELINE-HIT", bh)):
+            for k, p, why in xs:
+                print(f"  {tag:12s} {p}: {k} {why}")
     stale = cls["REPORTED"] + (0 if applied else cls["RE-KEYED"])   # PRE-STALE is printed, not counted
+    if recs is not None:
+        stale += len(recs[1]) + len(recs[2])
     return 1 if stale else 0
 
 
@@ -444,6 +538,53 @@ def self_test():
             _, _, cls9 = census(d, "HEAD~2", "HEAD")
             check(f"... and after the commit every link of the chain ({direction}) reads DONE",
                   cls9["DONE"] == 3 and cls9["RE-KEYED"] == 0 and cls9["REPORTED"] == 0)
+    # RECORDS: a re-key inside a read sentence re-hashes its record (paper's root, 10-27: three PRs went red on it)
+    cpl = _cpl()
+    with tempfile.TemporaryDirectory() as d:
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt"))
+        lean = "theorem foo : True := trivial\n" + "".join(f"-- line {i}\n" for i in range(2, 11))
+        open(os.path.join(d, "Salt/A.lean"), "w").write(lean)
+        readme = ("# T\n\nWe proved foo at Salt/A.lean:3 and Salt/A.lean:4.\n\n"
+                  "We proved foo again, see Salt/A.lean:2.\n\nWe proved foo with no cite.\n")
+        open(os.path.join(d, "README.md"), "w").write(readme)
+        g("add", "-A"); g("commit", "-q", "-m", "pre")
+        sent = claim_shas(cpl, "README.md", readme)
+        by_text = {v: k for k, v in sent.items()}
+        s1 = "We proved foo at Salt/A.lean:3 and Salt/A.lean:4."
+        s2 = "We proved foo with no cite."
+        _, stmt = cpl.decl_statement(cpl.aan.Repo(d), "Salt/A.lean::foo")
+        ss = cpl.sha12(stmt)
+        recs = [f"r1\tREADME.md\t{by_text[s1]}\tSalt/A.lean::foo\t{ss}\tmath\tpaper\t2026-10-27",
+                f"r2\tREADME.md\t{by_text[s2]}\tSalt/A.lean::foo\t{ss}\tmath\tpaper\t2026-10-27",
+                f"r3\tREADME.md\t000000000000\tSalt/A.lean::foo\t{ss}\tmath\tpaper\t2026-10-27"]
+        reads0 = "\n".join(recs) + "\n"
+        base0 = f"{by_text['We proved foo again, see Salt/A.lean:2.']}\tREADME.md\tclaim\n"
+        open(os.path.join(d, ".prose-lean-reads"), "w").write(reads0)
+        open(os.path.join(d, ".prose-lean-baseline"), "w").write(base0)
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        t = lean.split("\n"); t = t[:1] + ["-- inserted"] + t[1:]          # every line below 1 moves down one
+        open(os.path.join(d, "Salt/A.lean"), "w").write("\n".join(t))
+        g("commit", "-q", "-am", "head")
+        rc = main_rc(d, ["HEAD~1", "HEAD"], applied=True, published=())
+        reads1 = open(os.path.join(d, ".prose-lean-reads")).read().split("\n")
+        new1 = "We proved foo at Salt/A.lean:4 and Salt/A.lean:5."
+        check("--apply re-keys a CHAIN inside one read sentence (3->4, 4->5)",
+              new1 in open(os.path.join(d, "README.md")).read())
+        check("... and re-hashes its record to the rewritten sentence's hash",
+              reads1[0].split("\t")[2] == cpl.sha12(new1) != by_text[s1])
+        check("... changing only claim-sha12 (id, declaration, readers, date stand)",
+              reads1[0].split("\t")[:2] + reads1[0].split("\t")[3:] == recs[0].split("\t")[:2] + recs[0].split("\t")[3:])
+        check("a record whose sentence carries no moved cite is byte-unchanged", reads1[1] == recs[1])
+        check("a record already stale BEFORE the apply is not rewritten (not this re-key's)", reads1[2] == recs[2])
+        check("a BASELINE row hit by a re-key is left as written (the ratchet refuses a re-hash) ...",
+              open(os.path.join(d, ".prose-lean-baseline")).read() == base0)
+        check("... and counted, so the run exits 1", rc == 1)
+        found = cpl.scan(d)[0]
+        stale_ids = sorted(m.split(":")[0] for _, _, c, m in found if c == "STALE-CLAIM")
+        check("end to end: check_prose_lean reads r1 green after the apply (only r3, stale before, is STALE-CLAIM)",
+              stale_ids == ["r3"])
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
