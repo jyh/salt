@@ -999,7 +999,7 @@ different in kind.
 {\emergencystretch=2.5em
 \emph{The outer hypothesis.} $\mathrm{S16BandLaneCBoundedL}(32\cdot10^{6})$
 is the band lane's constant hypothesis
-(\leaninline{Salt/\allowbreak MR/\allowbreak S16FlatTerminalLinear.lean:49}). Everything in it beyond a landed unconditional theorem
+(\leaninline{Salt/\allowbreak MR/\allowbreak S16FlatTerminalLinear.lean:50}). Everything in it beyond a landed unconditional theorem
 (\leaninline{Salt.MR.\allowbreak mmuChiRate\_holds\_gated}, carried through
 \leaninline{S11HoistLinear}) is the single conjunct $\log C_{\mathrm{band}}
 \le 40$. It is not of Siegel genre: the constant is effective, and a trace of
@@ -1174,7 +1174,7 @@ $\log R.x \le (31/\varepsilon)R.H_+$, at the cost of a condition on the
 function the caller supplies: $\mathrm{XCeilRiderStrict}(\varepsilon,g)$ asks
 that on the gate the builder's own regime satisfies, $\log g(H_+,\omega) +
 \varepsilon^{2}H_+ \le (31/\varepsilon)H_+$
-(\leaninline{Salt/MR/XThread.lean:82}). The trade is in the consumer's favour:
+(\leaninline{Salt/MR/XThread.lean:83}). The trade is in the consumer's favour:
 Theorem~\ref{thm:pearl} asked for a property of the regime it produces, which
 its consumer cannot inspect; Theorem~\ref{thm:pearl-recut} asks for a property
 of the function its consumer writes down. The budget is
@@ -1279,7 +1279,7 @@ numeral proved at its leaves, and a predicate proved outright.
 \S\ref{sec:pearl-hyp} fall to the $\max$ of the containment argument. The
 resulting statement carries the band-lane hypothesis, six numeric riders and
 the two predicates, and no Siegel item of any kind.
-\leanname{Salt.MR.logChowla2\_ineffective (Salt/MR/S16Uniform.lean:1061)}
+\leanname{Salt.MR.logChowla2\_ineffective (Salt/MR/S16Uniform.lean:1048)}
 
 \emph{Step 2: the band lane, by an $A$-window.} The numeral
 $\log C_{\mathrm{band}} \le 40$ of \S\ref{sec:pearl-hyp} is unpayable, and it
@@ -1292,7 +1292,7 @@ discharges it. The band constant is $A$-free and $K$-free, a property that
 Step 4 will need in the stronger form of one witness
 $A_{\mathrm{win}} \approx 3.5\cdot10^{4}$ serving every lever. The outer
 hypothesis list is now empty: the caller supplies only the depth $A_0$.
-\leanname{Salt.MR.logChowla2\_ineffective\_v2 (Salt/MR/S16Uniform.lean:1707)}
+\leanname{Salt.MR.logChowla2\_ineffective\_v2 (Salt/MR/S16Uniform.lean:1680)}
 
 \emph{Step 3: $K_c$, $C_t$, $K_q$, by conjunct-carry.} Each of the three was a
 rider only because the hop that mints it exports positivity alone. Pricing them
@@ -1301,7 +1301,7 @@ than $300$ bits of room), $C_t = 6e^{14} = 2^{22.78}$ against $2^{23}$
 (occupying $86\%$ of its budget), and $K_q = 1.26848\cdot10^{-3}$ against
 $e^{100}$ ($46$ orders); carrying the three conjuncts up the lane spends them
 where the proof needs them.
-\leanname{Salt.MR.logChowla2\_ineffective\_v3 (Salt/MR/S16Compose.lean:1112)}
+\leanname{Salt.MR.logChowla2\_ineffective\_v3 (Salt/MR/S16Compose.lean:1099)}
 
 \emph{Step 4: the base-scale cap, at the raised lever; and the $T_0$ reshape.}
 This is \S\ref{sec:pearl-defects} arriving in the corollary line: the lever is
@@ -1310,14 +1310,14 @@ deleted from the statement; the $T_0$ numeral is replaced by its consumer's
 tolerance. What appears in their place is one new conclusion-side antecedent,
 the outer-scale ceiling $\log R.x \le (31/\varepsilon)R.H_+$ --- the builder's
 own law, which the lane did not yet export.
-\leanname{Salt.MR.logChowla2\_ineffective\_v4 (Salt/MR/S16ComposeV4.lean:1002)}
+\leanname{Salt.MR.logChowla2\_ineffective\_v4 (Salt/MR/S16ComposeV4.lean:989)}
 
 \emph{Step 5: the outer-scale ceiling, by threading.} The builder's law is
 carried down every hop of the uniform lane, so the antecedent becomes an
 export. The cost is the caller-side rider
 $\mathrm{XCeilRiderStrict}(\varepsilon,g)$ of \S\ref{sec:pearl-repair}. One
 conclusion-side predicate remains, the co-factor supply.
-\leanname{Salt.MR.logChowla2\_ineffective\_v5 (Salt/MR/XThread.lean:1367)}
+\leanname{Salt.MR.logChowla2\_ineffective\_v5 (Salt/MR/XThread.lean:1354)}
 
 \emph{Step 6: the co-factor supply, by repairing its register and
 instantiating its supplier.} The predicate had a landed reduction: a named
@@ -1684,7 +1684,7 @@ Thm~\ref{thm:pearl} width & \leaninline{flatWitFloor\_design,
   S16CofactorSupply\_L\_gk} & --- \\
  & (defs, \texttt{S13CapGateLinear.lean:891,897}) & \\
 \S\ref{sec:pearl-hyp} band lane & \leaninline{S16BandLaneCBoundedL} (def,
-  \texttt{S16FlatTerminalLinear.lean:49}) & --- \\
+  \texttt{S16FlatTerminalLinear.lean:50}) & --- \\
 \S\ref{sec:pearl-repair} lever & \leaninline{kcap, KlevF} (defs),
   \leaninline{KlevF\_le\_wideCeiling} & the three \\
  & (\texttt{KLever.lean:142,147,172}) & \\
@@ -1702,15 +1702,15 @@ Thm~\ref{thm:pearl-recut} &
   logChowla2\_witnessed\_} & the three \\
  & \leaninline{scale\_flat\_L\_v2\_uniform} (\texttt{S16Uniform.lean}) & \\
 \S\ref{sec:chain} step 1 & \leaninline{logChowla2\_ineffective}
-  (\texttt{S16Uniform.lean:1061}) & the three \\
+  (\texttt{S16Uniform.lean:1048}) & the three \\
 \S\ref{sec:chain} step 2 & \leaninline{logChowla2\_ineffective\_v2}
-  (\texttt{S16Uniform.lean:1707}) & the three \\
+  (\texttt{S16Uniform.lean:1680}) & the three \\
 \S\ref{sec:chain} step 3 & \leaninline{logChowla2\_ineffective\_v3}
-  (\texttt{S16Compose.lean:1112}) & the three \\
+  (\texttt{S16Compose.lean:1099}) & the three \\
 \S\ref{sec:chain} step 4 & \leaninline{logChowla2\_ineffective\_v4}
-  (\texttt{S16ComposeV4.lean:1002}) & the three \\
+  (\texttt{S16ComposeV4.lean:989}) & the three \\
 \S\ref{sec:chain} step 5 & \leaninline{logChowla2\_ineffective\_v5}
-  (\texttt{XThread.lean:1367}) & the three \\
+  (\texttt{XThread.lean:1354}) & the three \\
 \S\ref{sec:chain} refutation & \leaninline{cofkL\_bulk\_false\_at\_socket}
   (\texttt{RegisterInhabit.lean:260}) & the three \\
 \S\ref{sec:chain} repair & \leaninline{cofkR\_cofactorSupply\_L\_gk}
