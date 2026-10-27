@@ -317,7 +317,7 @@ build reports: B3's consumer `twinParitySieve_rosserRemainder_le` (`:292`) deman
 `Q · (exp(…·log z) · 2^(2r−1))` — nothing in the tree supplied `1 ≤` that product.
 
 Each of the three factors is `≥ 1` on its own, so no size input is needed and `minLevel`'s
-own lower bound (`Salt/BrunLower/Defs.lean:114`) is NOT consumed: `2 ^ k ≥ 1` holds for
+own lower bound (`Salt/BrunLower/Defs.lean:118`) is NOT consumed: `2 ^ k ≥ 1` holds for
 every `k : ℕ`, truncation included.  `Q` is the door's own `hQ`; the exponent is
 nonnegative because `LamTwin (1/4) z > 0` (`MertensDischarge.lean:124`) makes
 `(exp Λ − 1)⁻¹ > 0`, and `1 < z` (`one_lt_of_zThresh`, `:164`) makes `log z ≥ 0`. -/
@@ -1186,7 +1186,7 @@ stated as `0 ≤ … ≤ 2/d` rather than with `|·|`.  The `d`-dependence of th
 `d`-dependence of the MAIN TERM, which is what makes `∑_d μ(d)·err_d` summable against `W`.
 
 The pointwise identity is `(1/d)(1/m) − 1/(dm+r) = r/(dm(dm+r))`, bounded by `1/(d·m²)` using
-`r ≤ d`; the `m`-sum of `1/m²` is the landed `sum_inv_sq_Icc_le` (`TwinBar/LambdaRate.lean:363`),
+`r ≤ d`; the `m`-sum of `1/m²` is the landed `sum_inv_sq_Icc_le` (`TwinBar/LambdaRate.lean:366`),
 whose range `Icc 1 M` and constant `2` are exactly the ones needed — **reused, not re-derived**.
 
 ✅ Consumed 2026-09-03 by `abs_class_sub_harmonic_le` (`TwinParitySieveLog.lean`), the per-class

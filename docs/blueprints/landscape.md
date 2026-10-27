@@ -15,7 +15,7 @@ caveats preserved verbatim in the appendix).*
 ## Headline findings
 
 1. **Our `EHall` is the classical conjecture, exactly.** `EH θ`
-   (`Salt/Maynard.lean:113`) is the textbook form — all moduli `q ≤ x^θ`, max
+   (`Salt/Maynard.lean:117`) is the textbook form — all moduli `q ≤ x^θ`, max
    over reduced residues, absolute values, π-normalization, `(log x)^A` saving
    for every `A`; `EHall` (`Salt/Twelve/Params.lean:33`) is `∀ θ ∈ (0,1)`. The
    literature's verdict on that exact shape: **provably false at the top**
@@ -67,9 +67,9 @@ caveats preserved verbatim in the appendix).*
 
 ### I.1 What our `EHall` says (corpus formulation, verified against source)
 
-- `Salt/Maynard.lean:90` — `maxDiscrepancy x q` = `Finset.sup'` over residues
+- `Salt/Maynard.lean:92` — `maxDiscrepancy x q` = `Finset.sup'` over residues
   `a < q` coprime to `q` of `|π(x;q,a) − π(x)/φ(q)|` (π-form via `primesCount`).
-- `Salt/Maynard.lean:113` — `EH θ`: for every `A > 0` there is `C` with
+- `Salt/Maynard.lean:117` — `EH θ`: for every `A > 0` there is `C` with
   `∑_{q=1}^{⌊x^θ⌋} maxDiscrepancy x q ≤ C·x/(log x)^A` for all `x ≥ 2`.
 - `Salt/Twelve/Params.lean:33` — `EHall : ∀ θ, 0 < θ → θ < 1 → EH θ`.
 - Consumers: `gaps_le_twelve (hPNT : WindowPNT) (hEH : EHall)`

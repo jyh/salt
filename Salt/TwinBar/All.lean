@@ -302,7 +302,7 @@ INTERFACE between wave 1's two green halves — a gap no build reports: B3's con
 producer `twinParitySieve_brun_lower_ell1` (:206) carries the level
 `Q · (exp((1 + 2(exp Λ − 1)⁻¹)·log z) · 2^(2r−1))`, and nothing in the tree supplied
 `1 ≤` that product.  All three factors are `≥ 1` separately, so no size input is needed
-and `minLevel_mem` (BrunLower/Defs.lean:114) is NOT consumed — `2 ^ k ≥ 1` holds for every
+and `minLevel_mem` (BrunLower/Defs.lean:118) is NOT consumed — `2 ^ k ≥ 1` holds for every
 `k : ℕ`, ℕ-truncation included.  `Q` is `hQ`; the exponent is nonnegative because
 `LamTwin_pos` (MertensDischarge.lean:124) makes `(exp Λ − 1)⁻¹ > 0` and `one_lt_of_zThresh`
 (TwinParitySieve.lean:164) makes `Real.log z ≥ 0`.
@@ -616,7 +616,7 @@ wants the sign, and **both the main term and the error carry `1/d` and nothing e
 — which is what makes `∑_d μ(d)·err_d` summable against `W`.
 
 📌 **REUSED, NOT RE-DERIVED:** the `∑_{m ≤ M} 1/m² ≤ 2` step is the landed
-`Salt.TwinBar.sum_inv_sq_Icc_le` (`TwinBar/LambdaRate.lean:363`) — already in this file's namespace
+`Salt.TwinBar.sum_inv_sq_Icc_le` (`TwinBar/LambdaRate.lean:366`) — already in this file's namespace
 and import closure, with exactly the range `Icc 1 M` and exactly the constant `2`. *A first search
 for it under the `Salt.Chen` spelling found a different copy and would have cost an import.* -/
 open Salt.Tactic in

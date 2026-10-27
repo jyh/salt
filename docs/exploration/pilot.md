@@ -2428,7 +2428,7 @@ decisions per question.
   narrowed door funded ahead of sprint termination. House freeze
   (s2-b3-design.md) with THREE house catches against the recon's
   sketch: (1) the consumable maxDiscrepancy is π-BASED (primesCount,
-  Salt/Maynard.lean:90), not ψ as the recon reported — the trap-iv
+  Salt/Maynard.lean:92), not ψ as the recon reported — the trap-iv
   class caught at freeze; (2) 1_prime is NOT a convolution — the
   "specialize α⋆β := Λ" mechanism cannot carry N-N2; the honest
   route is the corpus's OWN landed Vaughan machinery (BV rung:
