@@ -89,12 +89,6 @@ def occ_re(cite):
     return re.compile(r"(?<![A-Za-z0-9_./])" + re.escape(cite) + r"(?![0-9]|[–-][0-9])")
 
 
-def done_at_head(root, head, src, old, new):
-    """The re-key is already in HEAD: the old cite is gone from the citing file and the new is present."""
-    t = show(root, head, src)
-    return t is not None and not occ_re(old).search(t) and bool(occ_re(new).search(t))
-
-
 def flat(t):
     return " ".join((t or "").split())
 
@@ -168,15 +162,41 @@ def census(root, base, head, published=PUBLISHED):
                 else:
                     c = "RE-KEYED"
                     rep = f"{pre}{leaf}:{new[0]}" + (f"{mt.group(3)}{new[1]}" if mt.group(4) else "")
-                if c == "RE-KEYED" and done_at_head(root, head, src, mt.group(0), rep):
-                    c = "DONE"
                 cls[c] += 1
                 rows.append(dict(src=src, target=f, cite=mt.group(0), cls=c, new=rep))
+    mark_done(root, base, head, rows, cls)
     return edited, rows, cls
 
 
+def mark_done(root, base, head, rows, cls):
+    """A citing file's re-keys are DONE when HEAD's counts of every cite they touch equal the counts
+    the re-keys predict from BASE. Counted per file, so a CHAIN (one cite's new number is another's
+    old) reads DONE: asking only "is the old cite gone?" misreads it, since the old text is present
+    as the next link's new value."""
+    by = {}
+    for r in rows:
+        if r["cls"] == "RE-KEYED":
+            by.setdefault(r["src"], []).append(r)
+    for src, rs in by.items():
+        b, h = show(root, base, src), show(root, head, src)
+        if b is None or h is None:
+            continue
+        keys = {r["cite"] for r in rs} | {r["new"] for r in rs}
+        want = {k: len(occ_re(k).findall(b)) for k in keys}
+        for r in rs:
+            want[r["cite"]] -= 1
+            want[r["new"]] += 1
+        if all(len(occ_re(k).findall(h)) == want[k] for k in keys) and \
+                any(want[r["cite"]] != len(occ_re(r["cite"]).findall(b)) for r in rs):
+            for r in rs:
+                r["cls"] = "DONE"
+            cls["RE-KEYED"] -= len(rs)
+            cls["DONE"] += len(rs)
+
+
 def apply(root, base, head, rows):
-    """Rewrite RE-KEYED cites in the working tree, matched by occurrence order per (src, cite)."""
+    """Rewrite RE-KEYED cites in the working tree, matched by occurrence order per (src, cite), all at
+    once per file, so a chain of re-keys never rewrites a cite twice."""
     by_src = {}
     for r in rows:
         if r["cls"] == "RE-KEYED":
@@ -186,18 +206,25 @@ def apply(root, base, head, rows):
         p = os.path.join(root, src)
         cur = open(p, encoding="utf-8").read()
         btext = show(root, base, src)
+        spans = []
         for cite in sorted({r["cite"] for r in rs}):
             want = [r for r in rs if r["cite"] == cite]
             occ = occ_re(cite)
-            nb, nh = len(occ.findall(btext)), len(occ.findall(cur))
+            hits = list(occ.finditer(cur))
+            nb, nh = len(occ.findall(btext)), len(hits)
             if nb != nh or len(want) != nb or len({r["new"] for r in want}) != 1:
                 for r in want:
                     r["cls"] = "REPORTED"
                     r["why"] = f"occurrences base {nb} / head {nh} differ"
                 unapplied += len(want)
                 continue
-            cur = occ.sub(want[0]["new"], cur)
-        open(p, "w", encoding="utf-8").write(cur)
+            spans += [(m.start(), m.end(), want[0]["new"]) for m in hits]
+        spans.sort()
+        out, at = [], 0
+        for st, en, new in spans:
+            assert st >= at, "overlapping cites"
+            out += [cur[at:st], new]; at = en
+        open(p, "w", encoding="utf-8").write("".join(out) + cur[at:])
     return unapplied
 
 
@@ -395,6 +422,28 @@ def self_test():
     word = sorted(f for f, w in roads.items() if w)
     check(f"in this repo, the {len(word)} manuscript(s) a word road pins are all DECLARED, and the list "
           "names no file the tree lacks", word and set(word) <= set(PUBLISHED) and set(PUBLISHED) <= set(roads))
+    # CHAINS: one cite's new number is another's old one (paper-free find, 10-27, a 168-cite batch)
+    for direction, edit in (("down", lambda t: t[1:]), ("up", lambda t: ["ins"] + t)):
+        with tempfile.TemporaryDirectory() as d:
+            g = lambda *a: git(d, *a)
+            g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+            os.makedirs(os.path.join(d, "Salt"))
+            ten = "".join(f"line {i}\n" for i in range(1, 11))
+            open(os.path.join(d, "Salt/C.lean"), "w").write(ten)
+            open(os.path.join(d, "c.md"), "w").write("C.lean:5 and C.lean:6 and C.lean:7\n")
+            g("add", "-A"); g("commit", "-q", "-m", "base")
+            open(os.path.join(d, "Salt/C.lean"), "w").write("\n".join(edit(ten.split("\n"))))
+            g("commit", "-q", "-am", "head")
+            _, rows8, _ = census(d, "HEAD~1", "HEAD")
+            un = apply(d, "HEAD~1", "HEAD", rows8)
+            want = ("C.lean:4 and C.lean:5 and C.lean:6\n" if direction == "down"
+                    else "C.lean:6 and C.lean:7 and C.lean:8\n")
+            check(f"a CHAIN of re-keys ({direction}) is applied whole, nothing unapplied",
+                  un == 0 and open(os.path.join(d, "c.md")).read() == want)
+            g("commit", "-q", "-am", "rekeyed")
+            _, _, cls9 = census(d, "HEAD~2", "HEAD")
+            check(f"... and after the commit every link of the chain ({direction}) reads DONE",
+                  cls9["DONE"] == 3 and cls9["RE-KEYED"] == 0 and cls9["REPORTED"] == 0)
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
