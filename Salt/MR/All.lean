@@ -459,6 +459,7 @@ import Salt.MR.FlatDoorSevenEighths
 import Salt.MR.V7SiegelFree
 import Salt.MR.V6SiegelFree
 import Salt.MR.DoorReceiptSiegelFree
+import Salt.MR.StrataBounds
 
 /-!
 # The Matomäki–Radziwiłł gate track (`MR`) — aggregate import + axiom audit
