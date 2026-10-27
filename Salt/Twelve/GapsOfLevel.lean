@@ -34,7 +34,7 @@ is a `B ≥ 0` and a constant `C` with
   `gaps_le_twelve_of_hasLevel : WindowPNT → HasLevel (3999/4000) →`
   `  ∀ N, ∃ p ≠ q > N primes with |q − p| ≤ 12`,
 
-and the landed unconditional capstone `gaps_le_twelve` is recovered from it as
+and the landed capstone `gaps_le_twelve` (it takes `WindowPNT`, `EHall`) is recovered as
 the `EHall`-instance (`gaps_le_twelve_of_EHall` below), via the corpus's
 `EH_hasLevel ∘ EHall_hasEH` composition — the anti-vacuity check: the old
 theorem IS an instance of the new one.
@@ -105,6 +105,8 @@ private lemma lcm_pairwise_coprime_of_noncollision {R W' : ℕ} {d e : Fin 5 →
   · exact absurd (hnc j i hij.symm) (Nat.Prime.not_coprime_iff_dvd.mpr ⟨p, hp, hdj, hei⟩)
   · exact absurd (hecop i j hij) (Nat.Prime.not_coprime_iff_dvd.mpr ⟨p, hp, hei, hej⟩)
 
+/-- `h_i ≤ 19` for each of the five shifts: the five values of `hSeq 5` (`hSeq_five_zero` …
+`hSeq_five_four`), by cases on `i`; the file-scoped mirror of `FrontierM`'s private helper. -/
 private lemma hSeq_le_nineteen (i : Fin 5) : hSeq 5 i ≤ 19 := by
   fin_cases i <;>
     simp only [hSeq_five_zero, hSeq_five_one, hSeq_five_two, hSeq_five_three,
@@ -115,6 +117,12 @@ private lemma hSeq_le_nineteen (i : Fin 5) : hSeq 5 i ≤ 19 := by
 
 Byte-mirror of `FrontierM`'s `WinFrontierMW` with the leading `EHall →` deleted:
 the largeness bundle needs only `HasLevel (3999/4000)`, not `EHall`. -/
+/-- **The `EHall`-free largeness bundle** at the modulus `primorial D`:
+`WindowPNT → ∀ N, ∃ N' ≥ N` and witnesses `R, ν₀, δ, errEH, cval` with the seven conjuncts of
+`WinFrontierMW` — CRT collision-solvability, `0 < φ(primorial D)`, `0 ≤ cval m`, `0 ≤ δ ≤ Δπ_m`,
+`cval m ≤ Qdiag_mW`, the `S2mW` lower bound, and the M-based ratio-slack. `FrontierM`'s
+`WinFrontierMW D` with its leading `EHall →` deleted, so that `winFrontierMW_of_hasLevel` can
+discharge it from `HasLevel (3999/4000)` without `EHall` (given `300 ≤ D` and `hslackEv`). -/
 def WinFrontierMWL (D : ℕ) : Prop :=
   WindowPNT → ∀ N : ℕ,
     ∃ (N' R ν₀ : ℕ) (δ : ℝ) (errEH cval : Fin 5 → ℝ), N ≤ N' ∧
@@ -276,8 +284,8 @@ theorem winFrontierMW_of_hasLevel (D : ℕ) (hD : 300 ≤ D)
 every `N` there are two primes `p ≠ q > N` with `|q − p| ≤ 12`, assuming only
 `WindowPNT` and the single BV-shaped level hypothesis `HasLevel (3999/4000)`.
 
-This is the weakest precisely-stated equidistribution interface that the landed
-gaps ≤ 12 chain consumes: the whole chain touches `EHall` at exactly one point
+This is the equidistribution interface that the landed gaps ≤ 12 chain consumes
+(sufficient; not proved minimal): the chain touches `EHall` at exactly one point
 (`FrontierM.lean:171`), and that point needs only `HasLevel (3999/4000)`.
 
 **θ-caveat (see the module docstring):** `θ★ = 3999/4000` is near `1`, so this
@@ -301,7 +309,7 @@ theorem gaps_le_twelve_of_hasLevel (hPNT : WindowPNT) (hLoD : HasLevel (3999 / 4
     (primorial_sqf' D₀) (primorial_hDlt D₀) hSeqlt (by omega) hsol hφpos hcvnn hδ0 hDpi
     hQlow hS2low hslack
 
-/-- **Anti-vacuity check.**  The landed unconditional capstone `gaps_le_twelve`
+/-- **Anti-vacuity check.**  The landed capstone `gaps_le_twelve` (hypotheses `hPNT`, `hEH`)
 (`Salt/Twelve/GapsUncond.lean`) is exactly the `EHall`-instance of the interface
 theorem: `EHall` gives `EH (3999/4000)` (`EHall_hasEH`), hence
 `HasLevel (3999/4000)` (`EH_hasLevel`), so `gaps_le_twelve_of_hasLevel` recovers

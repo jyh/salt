@@ -1269,7 +1269,7 @@ claim in this campaign fires on **all three**:
 ```
   mrtUniformityXi_of_absWindowBound_twelve   M4Window.lean:268   CONCLUDES MRTUniformityXi R δ
   bigXiArcTight_twelve                       ExitClose.lean:773   NO HYPOTHESES — unconditional
-  both REGISTERED in Salt/MR/All.lean (lines 1710, 2000) ⇒ inside the axiom audit
+  both REGISTERED in Salt/MR/All.lean (lines 1821, 2111) ⇒ inside the axiom audit
 ```
 
 The adapter reduces the door to **one** remaining hypothesis — an `L¹` bound
@@ -1890,12 +1890,12 @@ half came from.
 
 The step has three parts:
 * `(a+b)² ≤ 2a² + 2b²` — pointwise, proved below as `mrtA3_T0_pointwise_sq`;
-* `∫ dt/(1+|t−t₁|)² ≤ 2` over any interval — **NOT proved here**, and named so;
+* `∫ dt/(1+|t−t₁|)² ≤ 2` over any interval centred at `t₁` — named, and proved later in this file;
 * `|T₀| ≤ 2(log X)^{1/16}` — the radius, available from `abs_sub_le_of_mem_mrtT0`.
 
-⚠️ Only the first is landed. The integral fact is elementary (`∫₀^c (1+x)^{−2} =
-1 − 1/(1+c) ≤ 1`) but needs interval-integral machinery, and I am not claiming it
-by asserting it in prose. -/
+⚠️ When written, only the first was landed; `integral_inv_one_add_abs_sub_sq_le_two` (:2128)
+now proves the integral. It is elementary (`∫₀^c (1+x)^{−2} = 1 − 1/(1+c) ≤ 1`) but needs
+interval-integral machinery, and I did not claim it by asserting it in prose. -/
 
 /-- **The pointwise half of MRT's "immediately implies".**  From
 `|F| ≤ A/(1+|u|) + B`, squaring costs only the factor `2` on each term:
@@ -3810,10 +3810,10 @@ composes in the kernel:
 * `hsplit` — **THE ONE OPEN PIECE**: their (A.5), the short-segment splitting, whose value is
   `(1 − 2/π)·log(log X / log Y)`.  *Assumed here, NOT proved.*
 
-⇒ **the remaining analytic content of A.4(ii)'s far arm is `hsplit` and nothing else.**  With
-`mrt_exponent_gap_at_Y` supplying `log(log X/log Y) = (⅓ − ε)·loglog X` and
-`mrtA4ii_constant_decomposition` supplying `(½)·(1 − 2/π)·(⅓) = 1/6 − 1/(3π)`, the constant
-falls out of this bound by arithmetic alone.
+⇒ **the far arm then owed `hsplit` alone** (its `O(1)` form since proved in the mid range
+`(log X)^{1/16}/2 ≤ |t − t₁| ≤ (log X)^{20}` only, `A4FMidRange`).  With `mrt_exponent_gap_at_Y`
+supplying `log(log X/log Y) = (⅓ − ε)·loglog X` and `mrtA4ii_constant_decomposition` supplying
+`(½)·(1 − 2/π)·(⅓) = 1/6 − 1/(3π)`, the constant falls out of this bound by arithmetic alone.
 
 ⛔ Stating a hypothesis is not discharging it: `hsplit` is exactly the estimate nobody has
 proved here, and the separate large-`|t−t₁|` branch (Erdős–Turán + VK) is not addressed by
@@ -4019,7 +4019,7 @@ theorem mrtThmA1_of_mrtThmA1GJ_empty (C : ℝ) (Pseq Qseq : ℕ → ℕ)
 
 The Parseval assembly is landed (`parseval_bound_of_propA3_shape`, `MRTPropA3Bridge.lean:204`)
 and its left-hand side is A.2's — **except for the window convention.**  `shortSum`
-(`Lemma14.lean:479`) sums the HALF-OPEN `(x, x+h]`; `mrtShortMean` (`MRTThmA1.lean:60`) averages
+(`Lemma14.lean:479`) sums the HALF-OPEN `(x, x+h]`; `mrtShortMean` (`MRTThmA1.lean:89`) averages
 the CLOSED `[x, x+h]` (that identification is `mem_mrtShortWindow`, already proved).
 
 The gap is exactly `x ≤ n` versus `x < n`, so the two index sets differ **only at `n = x`** — a

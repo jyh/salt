@@ -147,7 +147,7 @@ v1.2, the helm's Q2, each DRIVEN at `h := 8103` in the record's Q5(e) receipt; t
 real-`c` helpers (`s15Arm_log_le_scaled`'s `log c ≤ 14`, the count hook's `K ≤ 2^539`) take
 `c := ⌈1/(500ε)⌉ ≤ 8103`.  v1 stated the cap as `log(1/(500·ε)) ≤ 9`, which admits a sliver
 `ε ∈ [1/(500·e⁹), 1/4051500)`, about 42 units wide in `1/ε`, on which NO natural `h` meets the
-twins' binders (math's non-author pass, K8, kernel-checked at `ε = 1/4051541`); the restatement is
+twins' binders (math's pass K8, at `ε = 1/4051541`; arithmetic, not in Lean); the restatement is
 math's recommendation (i), adopted at v1.1 — a STRONGER hypothesis, so this rung is implied by
 v1's (`flatDoor_cap_restated_in_v1`).  Same conclusion as W-ε, token for token; landing W-ε (rung 2,
 `: FlatDoorEpsFamilyW`) discharges this by `…_capped_of_epsFamily` below, from `FlatDoorEpsFamilyW`.

@@ -60,7 +60,7 @@ which discharges every `y₂`-gate the §8.3 chain asks for (`10 ≤ y₂`, `131
 * **§4 — FarStar at `y₂`, whole** (`farKfarStar2`, `far_kernel_bound_star2`,
   `far_mass_cancel2`, `far_kfar_star2_le`, `far_supF_bound2`, `hfar_star2`).  The exact
   `k^{η₂}` cancellation with residual `k^{−1/L}·y₂^{−η₂} = e^{−2}` — the SAME `e^{−2}`, at
-  the new pin, confirming ⟦V6b⟧'s "at ANY `y`".  The margin IMPROVES from `L^{−1/2}/log L`
+  the new pin, a second case of ⟦V6b⟧'s "at ANY `y`".  The margin IMPROVES from `L^{−1/2}/log L`
   to `L^{2}/exp(L^{2/5})`.
 * **§5 — THE PRIZE** (`log_Tstar2_self`, `farErr34_local_le_pin2`,
   `farErr34_local_closes_of_gate`, **`farErr34_local_closes`**): the composed certificate.
@@ -426,7 +426,7 @@ pin.  §4 re-runs the three pages at `y₂` from those interiors.
 definition of `η₂`.  Its interior is pin-agnostic.
 
 **The margin.**  The `k`-power cancellation is EXACT at `y₂` with the SAME residual `e^{−2}`
-(`far_mass_cancel2`) — confirming ⟦V6b⟧'s "at ANY `y`" — and the far page improves from
+(`far_mass_cancel2`) — a second case of ⟦V6b⟧'s "at ANY `y`" — and the far page improves from
 `FarStar`'s `O(L^{−1/2}/log L)` to `O(L³/exp(L^{2/5}))`, i.e. faster than any power. -/
 
 /-- The pin's amplitude ratio `4(k+h)/(h·T) = 4(√L+1)/T` at `h = k/√L`
@@ -484,7 +484,7 @@ private lemma pin_rpow_scale2 {k h L c₀ : ℝ} (hk : pin2Gate ≤ k) (hL : L =
 Identical in form and in residual to `FarStar`'s `far_mass_cancel` at `y = L⁴`: the `ℓ¹`
 excess IS a `k`-power `k^{η₂} = k^{1/log y₂}`, and the two leftovers `k^{−1/L}` and
 `y₂^{−η₂}` are each exactly `e^{−1}`.  ⟦V6b⟧'s claim "the residual is `e^{−2}` at ANY `y`"
-is therefore VERIFIED, not assumed: nothing in the identity mentions the pin's shape. -/
+is checked here at a second `y`; no general-`y` lemma is stated, though no step uses the pin. -/
 private lemma far_mass_cancel2 {k L : ℝ} (hk : pin2Gate ≤ k) (hL : L = Real.log k) :
     (k / ypin2 L) ^ (eta2 L - 1 / L) * (ypin2 L) ^ (-(1 / L))
       = k ^ eta2 L / (Real.exp 1 * Real.exp 1) := by

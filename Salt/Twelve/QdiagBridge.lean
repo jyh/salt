@@ -122,10 +122,14 @@ private lemma qb_list_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
       simp only [List.map_cons, List.sum_cons]
       exact add_le_add (h a (by simp)) (ih (fun b hb => h b (List.mem_cons_of_mem a hb)))
 
+/-- The evaluation of `ofPoly F` at `t` is the coefficient-list sum
+`Σ_{a ∈ F} a₂·∏_i t_i^{a₁ i}` (`eval` and `ofPoly` unfolded). -/
 private lemma eval_ofPoly_sum (F : Poly) (t : Fin 5 → ℝ) :
     eval (ofPoly F) t = (F.map (fun a => (a.2 : ℝ) * ∏ i, t i ^ a.1 i)).sum := by
   simp only [eval, ofPoly, List.map_map, Function.comp_def, pow_zero, mul_one]
 
+/-- The cast of `Qabs F` to `ℝ` is the sum of the cast coefficients' absolute values
+(`Rat.cast_list_sum`, `Rat.cast_abs`). -/
 private lemma Qabs_cast_R (F : Poly) :
     ((Qabs F : ℚ) : ℝ) = (F.map (fun m => |(m.2 : ℝ)|)).sum := by
   unfold Qabs
@@ -239,6 +243,7 @@ theorem absInn_le_pas (R W' : ℕ) (m : Fin 5) (F : Poly) (hQ : Qabs F ≤ 1)
 
 /-! ## Step 4: the crude 4-dim `g`-moment and the summed contraction bound -/
 
+/-- `0 ≤ phiAtomSum z W'`: a sum of nonnegative terms. -/
 private lemma pas_nn (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
   unfold Salt.Maynard.phiAtomSum
   exact Finset.sum_nonneg (fun x _ => by positivity)

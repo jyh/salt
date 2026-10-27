@@ -10,7 +10,7 @@ import Salt.Chen.WindowedStepP
 # E₁d′ — the CONDITIONED parametric windowed layer + the B-mirror (FREEZE V2, catches #32/#33)
 
 `WindowedStepP` (E₁d) parametrized the windowed Buchstab keystone over `(cf, ch)` but left its
-per-step contract `StepHypWP` unconditioned.  Catch #32 (a machine-verified counterexample)
+per-step contract `StepHypWP` unconditioned.  Catch #32 (a counterexample checked numerically)
 showed `StepHypWP` is UNDISCHARGEABLE at ε-order coefficients: it carries only
 `1 ≤ σ ≤ n+3`, no `loBnd side' ≤ σ` and no parity structure, so at `(side'=2, n=1, S ∈ [1,2))`
 the RHS collapses to `O(εW)` (`fseq 2 = 0` below 2) while the LHS is `Θ(W)`.  BJS's induction

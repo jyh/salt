@@ -532,7 +532,7 @@ reaches height `≤ T' + 2T = 5T` — the R-3 refuter-audited budget; Amendment 
 disc-core's zeros at the honest `5T+1`, so all height evaluations downstream read `5T+1`), avoids
 every ζ-zero, with `σ₀ = 1 − (c_vk/2)/D₃(5T+1)`, `D₃(t) = (log t)^{3/4}(loglog t)³`.
 
-Two mathlib inputs (verified): `zeta_zero_free_region_pow` (`Vk/GrowthPow.lean`, the power region
+Two corpus inputs (verified): `zeta_zero_free_region_pow` (`Vk/GrowthPow.lean`, the power region
 `Re ρ ≤ 1 − c/D₃(|Im ρ|)` for `|Im ρ| ≥ T₀^pow`) covers the high heights via the monotonicity
 `logD3_mono`; the compact `Re = 1` segment at height `≤ M := T₀^pow` is a positive `infDist`
 from the closed zero set (`zeta_zero_free_strip_height`, the height-`M` generalization of the

@@ -328,6 +328,8 @@ private lemma rpow_pow_nat {x : ℝ} (hx : 0 ≤ x) (q : ℝ) (k : ℕ) :
     (x ^ q) ^ k = x ^ (q * (k : ℝ)) := by
   rw [← Real.rpow_natCast (x ^ q) k, ← Real.rpow_mul hx]
 
+/-- `(t^{−1/4})⁴ · t = 1` for `0 < t` (`ht`): the fourth power is `t^{−1}` (`rpow_pow_nat`,
+`Real.rpow_neg`). -/
 private lemma rpow_neg_quarter_pow {t : ℝ} (ht : 0 < t) : (t ^ (-(1/4) : ℝ)) ^ 4 * t = 1 := by
   rw [rpow_pow_nat ht.le, show (-(1/4 : ℝ)) * ((4 : ℕ) : ℝ) = -(1 : ℝ) by norm_num,
     Real.rpow_neg ht.le, Real.rpow_one]
@@ -376,6 +378,9 @@ private lemma rpow_step_five_quarter {n : ℕ} (hn : 1 ≤ n) :
       _ = 4 * (a ^ 4 * b ^ 4) := by ring
   exact le_of_mul_le_mul_right hkey hP
 
+/-- `Σ_{2 ≤ e ≤ N} e^{−5/4} ≤ 4 − 4 N^{−1/4}` for `1 ≤ N` (`hN`): induction on `N`
+(`Nat.le_induction`) with the telescoping step `rpow_step_five_quarter`; the base `N = 1` is an
+empty sum against `0`. -/
 private lemma sum_rpow_neg_five_quarter_tail {N : ℕ} (hN : 1 ≤ N) :
     ∑ e ∈ Finset.Icc 2 N, (e : ℝ) ^ (-(5/4) : ℝ) ≤ 4 - 4 * (N : ℝ) ^ (-(1/4) : ℝ) := by
   induction N, hN using Nat.le_induction with
@@ -473,6 +478,8 @@ private lemma log_le_four_rpow_quarter {u : ℝ} (hu : 1 ≤ u) :
   have h3 : (0 : ℝ) ≤ u ^ ((1/4) : ℝ) := (Real.rpow_pos_of_pos hu0 _).le
   linarith
 
+/-- `(Q/e)^q = Q^q · e^{−q}` for `0 ≤ Q` (`hQ`), `0 ≤ e` (`he`) and a real exponent `q`
+(`Real.mul_rpow`, `Real.inv_rpow`, `Real.rpow_neg`). -/
 private lemma div_rpow_neg {Q e : ℝ} (hQ : 0 ≤ Q) (he : 0 ≤ e) (q : ℝ) :
     (Q / e) ^ q = Q ^ q * e ^ (-q) := by
   rw [div_eq_mul_inv, Real.mul_rpow hQ (inv_nonneg.mpr he), Real.inv_rpow he, Real.rpow_neg he]

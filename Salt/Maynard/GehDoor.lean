@@ -25,7 +25,7 @@ direction, and one faithful carry:
   restores the `∃K` *before* `∀x` ordering of Siegel–Walfisz
   (`Salt/BV/Defs.lean`): demanding a single discrepancy constant uniform in `x`
   is the honest shape. (The earlier house freeze put `∃K` *after* `∀x`; the B3
-  gate kernel-proved that form's SW slot vacuous — `swat_vacuous` — so `GEH_min`
+  gate proved that form's SW slot vacuous in a scratch probe (`swat_vacuous`) — so `GEH_min`
   would have silently *dropped* the hypothesis and become *stronger* than GEH,
   the `_min` backwards. See `docs/exploration/pilot.md`, "THE B3 GATE: RE-CUT".)
   We keep P8b's `r`-coprimality restriction and its `τ(qr)^{O(1)}` divisor
@@ -46,7 +46,7 @@ believable, not a step in the door).
 ## What the door reaches, and what it does not
 
 The door reaches the landed `H₁ ≤ 12` bounded-gaps conclusion **carrying
-`WindowPNT`** — the π/ψ window PNT input is undischarged in-corpus, so the
+`WindowPNT`** — the π/ψ window PNT input (discharged since 07-17 by `windowPNT_holds`), so the
 honest chain is `GEH_min (3999/4000) → WindowPNT → H₁ ≤ 12`. There is **no
 unconditional gap claim** anywhere in this arc. The `H₁ ≤ 6` sharpening (the
 ε-enlarged Maynard functional `M₃^{[ε]} > 2` gap) is **explicitly out of

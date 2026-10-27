@@ -3801,7 +3801,7 @@ open Salt.Tactic in
 
 -- ⟦THE SWAP⟧ (`M4Collapse`, 2026-07-28) — the M4 wave's SECOND carried analytic arm,
 -- discharged, and the exit re-composed around it.  `m4_wave_closed_T0_discharged` consumes
--- `M4CoprimeBlockMeanSq` (the interface ⟦COPRIME-SCOPE⟧ proved unsuppliable) INSIDE its own
+-- `M4CoprimeBlockMeanSq` (which ⟦COPRIME-SCOPE⟧ argued on paper no route supplies) INSIDE its own
 -- proof, and the narrowed twin does not imply the full one — so the swap is not a patch but
 -- an ADDITIVE re-run of the two compositions off the same three landed stones
 -- (`m4_wave_closed_of_dyadicRow`, `m4_dyadicRow_carried`, `doorRowCarried_of_t0free`), with
@@ -7579,9 +7579,9 @@ under `RegisterSupply`'s single explicit cushion `32·K_vt + 32·D ≤ log H₊/
 /-! ⟦CAP-RECUT — THE RAISED LEVER, THE `g`-RIDER, AND THE RE-CUT BASE-SCALE CAP⟧
 (`KLever` + the uniform hoists + the wide-ceiling twins, 2026-08-02).
 
-CAP-SCOPE proved `S16BaseScaleCap96_L_gk 32000000 R (flatDoorM A)` FALSE at the flat terminal's
-own regime, which made the flat-lane conditionals VACUOUS.  The Fable ruling's composite repair
-lands here in four parts.
+CAP-SCOPE argued on paper (no Lean theorem negates it) that `S16BaseScaleCap96_L_gk 32000000 R
+(flatDoorM A)` is FALSE at the flat terminal's own regime, which made the flat-lane conditionals
+VACUOUS.  The Fable ruling's composite repair lands here in four parts.
 
 **P1 — the uniform hoists.**  `∀K ∃C` → `∃C ∀K` at four sites, bodies verbatim: the piece rate,
 the `T₀`-band exit, the band slot, and the windowed band-lane rider.  BAND-K-PROBE traced the
@@ -7716,21 +7716,21 @@ immediately after it, so the `M` in scope is the terminal's own.  -/
 
 /-! ⟦COMPOSE-2 — THE `K`-HOIST AND `logChowla2_ineffective_v4`⟧ (`S16ComposeV4`, 2026-08-02).
 
-CAP-RECUT proved the base-scale cap AT the raised lever `KlevF A`; KWIDE-65 widened every flat
-`K ≤ 1.7·10⁸` binder so the lever can flow.  What neither could reach is the BINDER ORDER: in
-`v3` the design constant `A` is chosen from `ε`, `β`, `x₀`, `Hopq`, which the conditional
-produces only AFTER a lever is fixed, so `K := KlevF A` closes a circle.  It is a false circle —
-`flat_head_uniform_ceiling` and `flat_socket_uniform_ceiling` take no `K`, and the door/road
-merely forward their witnesses — and §1–§5 re-mint the chain with the `∀ K` hoisted INSIDE the
-`∃`-prefix (`∃ ε Cg Kc δ₀ β x₀ Hopq Mfl, ⟨K-free facts⟩ ∧ ∀ K, ∃ Ct …, ∀ A, …`).  Only the
+CAP-RECUT proved the base-scale cap AT the raised lever `KlevF A`; KWIDE-65 gave every flat
+`K ≤ 1.7·10⁸` binder on the `L`-door chain a widened `_kwide` twin.  What neither could reach is the
+BINDER ORDER: in `v3` the design constant `A` is chosen from `ε`, `β`, `x₀`, `Hopq`, which the
+conditional produces only AFTER a lever is fixed, so `K := KlevF A` closes a circle.  It is a false
+circle — `flat_head_uniform_ceiling` and `flat_socket_uniform_ceiling` take no `K`, and the
+door/road merely forward their witnesses — and §1–§5 re-mint the chain with the `∀ K` hoisted INSIDE
+the `∃`-prefix (`∃ ε Cg Kc δ₀ β x₀ Hopq Mfl, ⟨K-free facts⟩ ∧ ∀ K, ∃ Ct …, ∀ A, …`).  Only the
 constant-pool `Ct` and the crossing supply's six constants move with `K`, and the `A`-choice
 reads none of them.  §0 records the band rider in its witness-uniform shape (ONE `x₀`, ONE
 `Cband`, hence ONE `Mfl` and ONE `Awin`, for every lever) — the shape
 `m4_hband_at_door_slot_split_graded_L_gk_uniform` already mints.
 
-§4b rethreads the `T₀` rider onto its consumer's TRUE tolerance.  RIDER-TRACE proved
-`T₀ ≤ e^{e^{100}}` unreachable along this proof and diagnosed a MIS-SIZED NUMERAL: the sole
-consumer `S13CapFloor.capfloor_T0_Tann` has a sharp sibling (`:226`) asking only
+§4b rethreads the `T₀` rider onto its consumer's TRUE tolerance.  RIDER-TRACE showed,
+partly in Lean, `T₀ ≤ e^{e^{100}}` unreachable along this proof and diagnosed a MIS-SIZED NUMERAL:
+the sole consumer `S13CapFloor.capfloor_T0_Tann` has a sharp sibling (`:226`) asking only
 `T₀ ≤ e^{√H/2}`.  Four hops, uniform carrier `T₀ ≤ exp(√(R.Hlo)/2)` (every hop has the regime
 in scope and the socket puts `R.Hlo ≤ H`), one binder move (the crossing supply's rider goes
 INSIDE its own `∀ R`).  At `v4` the rider reads `T₀ ≤ exp(√(flatDesignBase A)/2)` — satisfiable
@@ -7738,8 +7738,8 @@ at the corpus's own witness by two exponential levels.
 
 §6's `logChowla2_ineffective_v4` chooses `A` FIRST, sets `K := KlevF A` SECOND, and discharges
 the base-scale cap inside the proof by `s16_baseScaleCap96_L_at_klevF`.  The cap predicate —
-the one CAP-SCOPE proved FALSE at the produced regime — is GONE from the statement.  What
-stands in its place is the flat builder's own outer-scale ceiling `log x ≤ (31/ε)·H₊`, carried
+the one CAP-SCOPE argued on paper is FALSE at the produced regime — is GONE from the statement.
+What stands in its place is the flat builder's own outer-scale ceiling `log x ≤ (31/ε)·H₊`, carried
 as a named antecedent: X-CEIL landed it at the builder and explicitly banked the uniform-lane
 threading, so the terminal cannot yet EXPORT it.  That is a repair, not a paper-over — the `v3`
 antecedent was false at the regime, this one is the builder's own landed law. -/
@@ -7941,7 +7941,7 @@ Rethreading the sharp form through the hops is V7-E's landing; V7-A supplies the
 /-! ⟦V7-C `T0-ARM` — THE `T₀` RIDER DISCHARGED, AND THE MARGIN MEASURED⟧ (`V7C`)
 
 `v6`'s second inner rider is `T₀ ≤ exp(√(flatDesignBase A)/2)` — the tolerance
-`S13CapFloor.capfloor_T0_Tann_sharp` really needs.  `RIDER-TRACE` proved `T₀` has **no
+`S13CapFloor.capfloor_T0_Tann_sharp` really needs.  `RIDER-TRACE` found on paper that `T₀` has **no
 effective ceiling** in the corpus (its VK leg bottoms out at `zeta_zero_free_strip_height`,
 `RiderTrace:54-92`), so the rider cannot be discharged by computing `T₀`.
 
@@ -8068,10 +8068,10 @@ of record. -/
 
 /-! ⟦KS-RETHREAD — `logChowla2_ineffective_v7_ksarm`⟧ (`V7Ks`, 2026-08-14, waking review 08-15).
 
-⟦WHY A RETHREAD AND NOT A DISCHARGE⟧ V7-A proved `Real.exp (-100) ≤ Ks` is not provable as a
-numeral — it reduces to an explicit lower bound on Siegel's ineffective constant at `ε = 1/16` —
-and supplied the replacement leaf: `capfloor_floor4_of_pos` derives the `floor4` field of
-`S13CapGatePerBlock` from `0 < Ks` plus the WINDOW `log(1/Ks) ≤ 3·log H/16`, no numeral anywhere.
+⟦WHY A RETHREAD AND NOT A DISCHARGE⟧ V7-A argued on paper that `Real.exp (-100) ≤ Ks` cannot be
+proved as a numeral — it reduces to an explicit lower bound on Siegel's ineffective constant at
+`ε = 1/16` — and supplied the replacement leaf: `capfloor_floor4_of_pos` derives the `floor4` field
+of `S13CapGatePerBlock` from `0 < Ks` plus the WINDOW `log(1/Ks) ≤ 3·log H/16`, no numeral anywhere.
 The window is `A`-satisfiable and the numeral is not, so the rider is not discharged where it
 stands: the window is threaded DOWN to the leaf, and met at the top by a new arm of `A`'s `max`.
 
@@ -9571,8 +9571,8 @@ LEADING BINDER.  The hoist is still pure re-bracketing (`Cg` from parseval, `H�
 the head is `HloExportFlatH.flat_head_uniform_h`, and `Salt/Entropy` CANNOT import `Salt/MR`,
 where the whole `xceil` apparatus lives.  So `flat_head_uniform_xceil_h` is built HERE, beside
 its `h = 1` sibling, off a one-line PUBLIC RE-EXPORT appended to `HloExportFlatH` §5 (a new
-declaration — no landed line touched, no `private` lifted).  The 4-line `flatCapH_shuffle` is
-re-proved locally, as `S16UniformLH` re-proves `flatRootCapH_arc_u` for the same reason.
+declaration — no landed line touched, no `private` lifted).  The 3-line `flatCapH_shuffle` is
+re-proved locally, as `S16UniformLH` re-proves `flatRootCapH_arc` as `flatRootCapH_arc_u`.
 ⭐ **The arithmetic was already paid:** the only inequality spent in the whole block is the
 conditional's `g`-substitution, and H2a word 4's `xceil_arm_split_h` is exactly the statement
 that the thinned margin `H₊/(250000·h²)` still covers the arm's `log h` and the split's `log 2`.
@@ -10569,8 +10569,8 @@ slack — on H3–H5 and the crown). At fixed `z` (equivalently, the band's own 
 `y := x₀` instantiation) this is a SECOND PROOF of a terminal that already lands — K1–K7 (and
 `mrtUniformityXiL2AffW_holds_flat_stride_g12b_of_band`) are exactly that conservativity check,
 each recovering its `StridePairReceiptG12b` source verbatim by `regimeEnlargeX_self`. `E2` is
-conditional on `MRTDoorAllGrades`, which has no producer; the `∃ε` tripwire is untouched. NO NEW
-UNCONDITIONAL THEOREM. Nothing here bears on twin primes. 23 obligations, 23 landed. -/
+conditional on `MRTDoorAllGrades`, which has no producer; the `∃ε` tripwire is untouched. NO
+NEW MATHEMATICS. Nothing here bears on twin primes. 23 obligations, 23 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.regimeEnlargeX_self
   Salt.MR.strideScale_regimeEnlargeX
@@ -10616,7 +10616,7 @@ monotonicity (U1, U4). No landed file moves. The conservativity control is
 taken as a hypothesis, yields S-1's crown band at every class `b < a` verbatim — so the
 re-statement is conservative over what is landed. At fixed `z` Tier S is a SECOND PROOF of a
 terminal that already lands; `E2` is conditional on `MRTDoorAllGrades`, which has no producer; the
-`∃ε` tripwire is untouched. NO NEW UNCONDITIONAL THEOREM. Nothing here bears on twin primes.
+`∃ε` tripwire is untouched. NO NEW MATHEMATICS. Nothing here bears on twin primes.
 6 obligations, 6 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.bigXiAffU
@@ -10648,7 +10648,7 @@ author); they become unconditional with H and C WITHOUT a non-author pass of the
 statement was refuted by a non-author, the repair was not.  The binder `a ≤ 2310` is the
 composition's (the Captain's granted binder), inherited and not added here.  What this does NOT
 buy: D10's ONE `(ε, A)` over an INFINITE `S` — the `(2ε, 1)`-normalisation inside a band and the
-class-scale placement are the next link.  NO NEW UNCONDITIONAL THEOREM (a composition of landed
+class-scale placement are the next link.  NO NEW MATHEMATICS (a composition of landed
 proofs); nothing here bears on twin primes.  4 names, 4 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.gradedAffHeadAt_g12b_of_at_regime_crowned
@@ -10672,7 +10672,7 @@ hypothesis package at every `P ≤ 2310` with `ε = 1/(500·P)`, `A = 1`;
 is the numeric leaf.  The SCALE quantifier moves here — the bridge moved the REGIME quantifier,
 S-3 the CLASS quantifier — completing the three.
 
-⚠ LABEL: NO NEW UNCONDITIONAL THEOREM; nothing here bears on twin primes.  K's set
+⚠ LABEL: NO NEW TERMINAL; nothing here bears on twin primes.  K's set
 `{n | twinLogWeight P n ≠ 0}.Infinite` at a squarefree `P ≤ 2310` is the sieve-level set the crown
 road already lands — and `twinLogWeight_support_infinite_of_crown_g12b` (P6, THE CROWN TWIN)
 states that same set from the crown road's landed names at every `0 < P ≤ 2310`, so that K is a

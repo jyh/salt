@@ -41,9 +41,9 @@ conclusion here is stated with that factor **explicit** — `2^J·C/(log X)^{1/2
 Lemma 5 is landed over `ℂ` (`gJ : … → ℂ`, the Dirichlet-polynomial lane);
 Lemma 4 and eq (26) are statements about **real**, `[−1,1]`-valued
 multiplicative `f`.  `gJR` is the `ℝ` mirror of `gJ` and `gJR_ofReal` the one
-`split_ifs` that bridges them; every `ℝ`-side fact below is *transported*
-through `Complex.ofReal_inj` rather than re-proved (the freeze's "cast route",
-⟦AMENDMENT A⟧).
+`split_ifs` that bridges them; `lemma5R` and `gJR_mul` are *transported* through
+`Complex.ofReal_inj` (the freeze's "cast route", ⟦AMENDMENT A⟧); the other `gJR` facts
+are read off `gJR`'s definition directly.
 
 ## The stones
 
@@ -107,7 +107,7 @@ open scoped BigOperators
 /-- **`g_𝒥`, real-valued** — the `ℝ` mirror of `Sec9Glue.gJ`, defined by the same
 `if`-`then`-`else`.  Lemma 5 is landed over `ℂ` because its consumers there are
 Dirichlet polynomials; eq (26) and Lemma 4 live over `ℝ`.  `gJR_ofReal` is the
-one-line bridge, and every `ℝ`-side fact below is transported across it. -/
+one-line bridge; `lemma5R` and `gJR_mul` are transported across it, the rest are direct. -/
 def gJR (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ) (n : ℕ) : ℝ :=
   if ∀ j ∈ 𝒥, blockOmega (Pseq j) (Qseq j) n = 0 then 1 else 0
 

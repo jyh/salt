@@ -5433,7 +5433,7 @@ FL term `flConst(1/4)(Λ₄ z)·4^{−hbS}` with `flConst (1/4) (Lam4 (1/4) z) �
 `flConst_quarter_le` at the packet's last conjunct (`Λ₄ ≥ 1/10`); the `n8C6·B·L` term is
 `≤ 3n8C6/η` relative; `CC ≥ 0` is NOT a `Lemma5Eval` field — derive it from `C₀_le` at
 `L > 0` before using `n8C6 ≥ 0` / `n9K3 > 0`.  Every relative error is one of the four shapes
-in the bound (verified exhaustive, K9).  **THE BRIDGE:** `hb_p200_lower_HB` lands at
+in the bound (checked exhaustive outside Lean, K9).  **THE BRIDGE:** `hb_p200_lower_HB` lands at
 `(hbDataHB …).S3`, a sum over `k ∈ (x, 2x]`; `hbDataHB_S3_le_S3_window` carries it to
 `S3 χ z (l2cWindow χ z (4x+1))` through `k ↦ 4k+1`, every discarded term `≥ 0`.
 Consumer: `hb_theorem1`. -/

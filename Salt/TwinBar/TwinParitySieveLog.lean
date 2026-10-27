@@ -70,9 +70,13 @@ noncomputable def twinParitySieveLog (N P : ℕ) (hP : Squarefree P) : BoundingS
 
 variable {N P : ℕ} {hP : Squarefree P}
 
+/-- The `prodPrimes` field of `twinParitySieveLog N P hP` is `P` (`rfl`): the log sieve sifts by
+wave 1's modulus. -/
 @[simp] theorem twinParitySieveLog_prodPrimes :
     (twinParitySieveLog N P hP).prodPrimes = P := rfl
 
+/-- The `nu` field of `twinParitySieveLog N P hP` is `Salt.TwinSieve.nu` (`rfl`): wave 1's
+density, unchanged by the log weight. -/
 @[simp] theorem twinParitySieveLog_nu :
     (twinParitySieveLog N P hP).nu = Salt.TwinSieve.nu := rfl
 
@@ -100,10 +104,15 @@ noncomputable def Clog (N d : ℕ) : ℝ :=
 /-- **P1c.**  The harmonic remainder: the log-count minus its main term `ν(d)·H_N`. -/
 noncomputable def remLogCount (d N : ℕ) : ℝ := Clog N d - Salt.TwinSieve.nu d * Clog N 1
 
+/-- At `d = 1` the filter `1 ∣ n(n+2)` of `Llog` is vacuous, so `Llog N 1` is the full
+log-weighted Liouville sum `Σ_{n ≤ N} λ(n(n+2))/n` — the `Llog N 1` of the Liouville discrepancy
+`Llog N d − ν(d)·Llog N 1` and of `totalMass = Clog N 1 − Llog N 1` in the remainder split. -/
 theorem Llog_one : Llog N 1
     = ∑ n ∈ Finset.Icc 1 N, ((ArithmeticFunction.liouville (n * (n + 2)) : ℤ) : ℝ) / (n : ℝ) := by
   rw [Llog, Finset.filter_true_of_mem (fun n _ => one_dvd _)]
 
+/-- At `d = 1` the filter of `Clog` is vacuous, so `Clog N 1 = Σ_{n ≤ N} 1/n`, the harmonic
+number `H_N` whose multiple `ν(d)·Clog N 1` is `remLogCount`'s main term. -/
 theorem Clog_one : Clog N 1 = ∑ n ∈ Finset.Icc 1 N, (1 : ℝ) / (n : ℝ) := by
   rw [Clog, Finset.filter_true_of_mem (fun n _ => one_dvd _)]
 

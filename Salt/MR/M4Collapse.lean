@@ -11,7 +11,7 @@ import Salt.MR.M4CoprimeSupply
 
 `M4T0Discharge.m4_wave_closed_T0_discharged` left ONE analytic arm carried — the coprime
 supply `M4NonCoprime.M4CoprimeBlockMeanSq R M (m4BclGraded j₀ (2·MSan) (2·MStr))`, read at
-the OVER-GENERAL interface.  ⟦COPRIME-SCOPE⟧ then proved that interface unsuppliable (its
+the OVER-GENERAL interface.  ⟦COPRIME-SCOPE⟧ then argued on paper that no route supplies it (its
 grade's small-length summand is off by `H/L` for any route) and landed the NARROWED twin
 `M4CoprimeBlockMeanSqN` beside it, together with the chain that supplies the twin from the
 free-base row datum:
@@ -147,7 +147,7 @@ set_option maxHeartbeats 1600000 in
 /-- **THE M4 WAVE, THE COPRIME ARM DISCHARGED** (`m4_wave_closed_coprime_discharged`).
 
 `M4T0Discharge.m4_wave_closed_T0_discharged` with ARM 2 swapped: the coprime supply is no
-longer assumed at `M4CoprimeBlockMeanSq` (the interface ⟦COPRIME-SCOPE⟧ proved unsuppliable)
+longer assumed at `M4CoprimeBlockMeanSq` (which ⟦COPRIME-SCOPE⟧ argued on paper no route supplies)
 but DERIVED, through `M4CoprimeSupply.m4_coprimeN_supplied` and
 `M4NonCoprime.m4_nonCoprime_classMeanSq_N`, from the free-base row datum
 `M4ChiFreeRowMeanSq R M MS` at the register's own grade `MS`.
