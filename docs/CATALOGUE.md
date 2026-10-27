@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `965a7fbd` · source digest `6fb1018f059a98db` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `67c25424` · source digest `e940f77b244b84c7` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -6178,9 +6178,9 @@ Declarations indexed across the tree: 23365 · corpus Prop-valued names (the hyp
 | `Salt.SW.one_add_selG_eq_local_inv` | Salt/SW/DHClose2.lean:81 | sieves, characters |
 | `Salt.SW.selHblock_divisors_eq` | Salt/SW/DHClose2.lean:107 | sieves, characters |
 | `Salt.SW.dhExtractionW_regroup` | Salt/SW/DHClose2.lean:133 | sieves, characters |
-| `Salt.SW.zetaHol_differentiable` | Salt/SW/DHContour.lean:110 | sieves |
-| `Salt.SW.rectBI_zeta_shift_mul` | Salt/SW/DHContour.lean:217 | zeros, sieves |
-| `Salt.SW.rectBI_zeta_LFunction_kernel` | Salt/SW/DHContour.lean:252 | zeros, sieves, characters |
+| `Salt.SW.zetaHol_differentiable` | Salt/SW/DHContour.lean:130 | sieves |
+| `Salt.SW.rectBI_zeta_shift_mul` | Salt/SW/DHContour.lean:237 | zeros, sieves |
+| `Salt.SW.rectBI_zeta_LFunction_kernel` | Salt/SW/DHContour.lean:272 | zeros, sieves, characters |
 | `Salt.SW.sum_rpow_neg_le` | Salt/SW/DHCore.lean:44 | sieves |
 | `Salt.SW.T_em_real` | Salt/SW/DHCore.lean:90 | sieves |
 | `Salt.SW.abs_zeta_re_le` | Salt/SW/DHCore.lean:132 | sieves |
@@ -6196,10 +6196,10 @@ Declarations indexed across the tree: 23365 · corpus Prop-valued names (the hyp
 | `Salt.SW.dhAbel_inner_le` | Salt/SW/DHCore.lean:578 | sieves, characters |
 | `Salt.SW.unmoll_extraction_real` | Salt/SW/DHCore.lean:692 | sieves, characters |
 | `Salt.SW.L1_lower_siegel` | Salt/SW/DHCore.lean:808 | sieves, characters |
-| `Salt.SW.dhA_nonneg` | Salt/SW/DHDetector.lean:206 | sieves, characters |
-| `Salt.SW.dhA_square_ge_one` | Salt/SW/DHDetector.lean:219 | sieves, characters |
-| `Salt.SW.dhA_mass_floor_real` | Salt/SW/DHDetector.lean:264 | sieves, characters |
-| `Salt.SW.dhA_hyperbola` | Salt/SW/DHDetector.lean:325 | sieves, characters |
+| `Salt.SW.dhA_nonneg` | Salt/SW/DHDetector.lean:222 | sieves, characters |
+| `Salt.SW.dhA_square_ge_one` | Salt/SW/DHDetector.lean:235 | sieves, characters |
+| `Salt.SW.dhA_mass_floor_real` | Salt/SW/DHDetector.lean:280 | sieves, characters |
+| `Salt.SW.dhA_hyperbola` | Salt/SW/DHDetector.lean:341 | sieves, characters |
 | `Salt.SW.sum_mul_index_eq` | Salt/SW/DHExtract.lean:45 | sieves |
 | `Salt.SW.kernel_abel_sum` | Salt/SW/DHExtract.lean:72 | sieves |
 | `Salt.SW.sum_Icc_one_shift` | Salt/SW/DHExtract.lean:89 | sieves |
@@ -6251,9 +6251,9 @@ Declarations indexed across the tree: 23365 · corpus Prop-valued names (the hyp
 | `Salt.SW.norm_range_filter_dvd_partial_le` | Salt/SW/DHMollified.lean:227 | sieves, characters |
 | `Salt.SW.norm_inner_mdiv_le` | Salt/SW/DHMollified.lean:259 | sieves, characters |
 | `Salt.SW.norm_shifted_detector_mollified_le` | Salt/SW/DHMollified.lean:356 | sieves, characters |
-| `Salt.SW.dhDetector_floor` | Salt/SW/DHRepulsion.lean:112 | sieves, characters |
-| `Salt.SW.dhDetector_mellin` | Salt/SW/DHRepulsion.lean:188 | sieves, characters |
-| `Salt.SW.dhLSeries_identity` | Salt/SW/DHRepulsion.lean:239 | zeros, sieves, characters |
+| `Salt.SW.dhDetector_floor` | Salt/SW/DHRepulsion.lean:125 | sieves, characters |
+| `Salt.SW.dhDetector_mellin` | Salt/SW/DHRepulsion.lean:204 | sieves, characters |
+| `Salt.SW.dhLSeries_identity` | Salt/SW/DHRepulsion.lean:255 | zeros, sieves, characters |
 | `Salt.SW.partial_sum_at_zero_small` | Salt/SW/DHTrunc.lean:96 | sieves, characters |
 | `Salt.SW.partial_sum_at_zero_small_range` | Salt/SW/DHTrunc.lean:112 | sieves, characters |
 | `Salt.SW.sum_Icc_rpow_neg_le` | Salt/SW/DHTrunc.lean:156 | sieves |
@@ -6356,9 +6356,9 @@ Declarations indexed across the tree: 23365 · corpus Prop-valued names (the hyp
 | `Salt.SW.estermannPositivity_core` | Salt/SW/Estermann.lean:243 | zeros, sieves |
 | `Salt.SW.no_estermann_data_for_zero` | Salt/SW/EstermannInterface.lean:56 | sieves |
 | `Salt.SW.zeta_nonpos` | Salt/SW/EstermannInterface.lean:112 | zeros, sieves |
-| `Salt.SW.estermannInterface'` | Salt/SW/EstermannInterface.lean:231 | sieves |
-| `Salt.SW.estermannInterface` | Salt/SW/EstermannInterface.lean:463 | sieves |
-| `Salt.SW.estermannPositivity` | Salt/SW/EstermannInterface.lean:468 | sieves |
+| `Salt.SW.estermannInterface'` | Salt/SW/EstermannInterface.lean:236 | sieves |
+| `Salt.SW.estermannInterface` | Salt/SW/EstermannInterface.lean:468 | sieves |
+| `Salt.SW.estermannPositivity` | Salt/SW/EstermannInterface.lean:473 | sieves |
 | `Salt.SW.eulerCorr_ne_zero` | Salt/SW/EulerBridge.lean:117 | sieves, characters |
 | `Salt.SW.LFunction_eq_primitive_mul` | Salt/SW/EulerBridge.lean:128 | sieves, characters |
 | `Salt.SW.logDeriv_LFunction_eq` | Salt/SW/EulerBridge.lean:145 | sieves, characters |
@@ -6382,10 +6382,10 @@ Declarations indexed across the tree: 23365 · corpus Prop-valued names (the hyp
 | `Salt.SW.psi1AP_main_bound` | Salt/SW/Fold.lean:157 | sieves |
 | `Salt.SW.fourfold_vonMangoldt_nonneg` | Salt/SW/FourFold.lean:69 | sieves, characters |
 | `Salt.SW.fourfoldCoeff_apply_one` | Salt/SW/FourFold.lean:93 | sieves, characters |
-| `Salt.SW.fourfoldCoeff_nonneg` | Salt/SW/FourFold.lean:286 | sieves, characters |
-| `Salt.SW.LSeriesSummable_fourfoldCoeff` | Salt/SW/FourFold.lean:310 | zeros, sieves, characters |
-| `Salt.SW.LSeries_fourfoldCoeff_eq` | Salt/SW/FourFold.lean:330 | zeros, sieves, characters |
-| `Salt.SW.changeLevel_quadratic` | Salt/SW/FourFold.lean:345 | sieves, characters |
+| `Salt.SW.fourfoldCoeff_nonneg` | Salt/SW/FourFold.lean:295 | sieves, characters |
+| `Salt.SW.LSeriesSummable_fourfoldCoeff` | Salt/SW/FourFold.lean:319 | zeros, sieves, characters |
+| `Salt.SW.LSeries_fourfoldCoeff_eq` | Salt/SW/FourFold.lean:339 | zeros, sieves, characters |
+| `Salt.SW.changeLevel_quadratic` | Salt/SW/FourFold.lean:354 | sieves, characters |
 | `Salt.SW.siegelWalfisz_holds` | Salt/SW/Gate.lean:150 | sieves |
 | `Salt.SW.bounded_gaps_unconditional` | Salt/SW/Gate.lean:376 | sieves |
 | `Salt.SW.sum_divisors_moebius_mul_log_div_eq` | Salt/SW/GrahamHard.lean:105 | sieves, characters |
@@ -6580,7 +6580,7 @@ Declarations indexed across the tree: 23365 · corpus Prop-valued names (the hyp
 | `Salt.SW.mmu1_eq_integral` | Salt/SW/MobiusRate.lean:187 | zeros, sieves |
 | `Salt.SW.mmu_rectBI_eq_zero` | Salt/SW/MobiusRate.lean:229 | zeros, sieves |
 | `Salt.SW.mmuRate_smoothed` | Salt/SW/MobiusRateClose.lean:784 | sieves |
-| `Salt.SW.mmuRate_holds` | Salt/SW/MobiusRateClose.lean:1059 | sieves |
+| `Salt.SW.mmuRate_holds` | Salt/SW/MobiusRateClose.lean:1062 | sieves |
 | `Salt.SW.mwWeighted_tendsto_zero` | Salt/SW/MoebiusDiv.lean:469 | sieves |
 | `Salt.SW.abs_sum_moebius_div_mul_log_le` | Salt/SW/MoebiusLog.lean:206 | sieves |
 | `Salt.SW.abs_sum_grahamTheta_div_le_inv_log` | Salt/SW/MoebiusLog.lean:334 | sieves |
@@ -6651,22 +6651,22 @@ Declarations indexed across the tree: 23365 · corpus Prop-valued names (the hyp
 | `Salt.SW.selberg_opt_eq` | Salt/SW/SelOpt.lean:440 | sieves, characters |
 | `Salt.SW.partial_H_bound` | Salt/SW/SelOpt.lean:483 | sieves, characters |
 | `Salt.SW.selweight_abs_le_one` | Salt/SW/SelOpt.lean:536 | sieves, characters |
-| `Salt.SW.dhWeightSqW_one` | Salt/SW/SelWeight.lean:74 | sieves |
-| `Salt.SW.dhCoeffW_one` | Salt/SW/SelWeight.lean:93 | sieves, characters |
-| `Salt.SW.dhCoeffW_nonneg` | Salt/SW/SelWeight.lean:99 | sieves, characters |
-| `Salt.SW.dhWeightSqW_eq_sum_gcW` | Salt/SW/SelWeight.lean:107 | sieves |
-| `Salt.SW.gcW_eq_zero_of_not_squarefree` | Salt/SW/SelWeight.lean:156 | sieves |
-| `Salt.SW.abs_gcW_le` | Salt/SW/SelWeight.lean:171 | sieves |
-| `Salt.SW.sum_abs_gcW_sigmaSq_div_le` | Salt/SW/SelWeight.lean:204 | sieves |
-| `Salt.SW.norm_dhCoeffW_term` | Salt/SW/SelWeight.lean:241 | sieves, characters |
-| `Salt.SW.selH_pos` | Salt/SW/SelWeight.lean:260 | sieves, characters |
-| `Salt.SW.selH_le_two` | Salt/SW/SelWeight.lean:272 | sieves, characters |
-| `Salt.SW.selH_lt_of_prime` | Salt/SW/SelWeight.lean:284 | sieves, characters |
-| `Salt.SW.selG_pos` | Salt/SW/SelWeight.lean:300 | sieves, characters |
-| `Salt.SW.selGmul_pos` | Salt/SW/SelWeight.lean:311 | sieves, characters |
-| `Salt.SW.selHSum_pos` | Salt/SW/SelWeight.lean:320 | sieves, characters |
-| `Salt.SW.selWeight_apply_one` | Salt/SW/SelWeight.lean:350 | sieves, characters |
-| `Salt.SW.tail_shift_to_beta0` | Salt/SW/SelWeight.lean:381 | sieves |
+| `Salt.SW.dhWeightSqW_one` | Salt/SW/SelWeight.lean:76 | sieves |
+| `Salt.SW.dhCoeffW_one` | Salt/SW/SelWeight.lean:95 | sieves, characters |
+| `Salt.SW.dhCoeffW_nonneg` | Salt/SW/SelWeight.lean:101 | sieves, characters |
+| `Salt.SW.dhWeightSqW_eq_sum_gcW` | Salt/SW/SelWeight.lean:109 | sieves |
+| `Salt.SW.gcW_eq_zero_of_not_squarefree` | Salt/SW/SelWeight.lean:158 | sieves |
+| `Salt.SW.abs_gcW_le` | Salt/SW/SelWeight.lean:173 | sieves |
+| `Salt.SW.sum_abs_gcW_sigmaSq_div_le` | Salt/SW/SelWeight.lean:206 | sieves |
+| `Salt.SW.norm_dhCoeffW_term` | Salt/SW/SelWeight.lean:243 | sieves, characters |
+| `Salt.SW.selH_pos` | Salt/SW/SelWeight.lean:262 | sieves, characters |
+| `Salt.SW.selH_le_two` | Salt/SW/SelWeight.lean:274 | sieves, characters |
+| `Salt.SW.selH_lt_of_prime` | Salt/SW/SelWeight.lean:286 | sieves, characters |
+| `Salt.SW.selG_pos` | Salt/SW/SelWeight.lean:302 | sieves, characters |
+| `Salt.SW.selGmul_pos` | Salt/SW/SelWeight.lean:313 | sieves, characters |
+| `Salt.SW.selHSum_pos` | Salt/SW/SelWeight.lean:322 | sieves, characters |
+| `Salt.SW.selWeight_apply_one` | Salt/SW/SelWeight.lean:352 | sieves, characters |
+| `Salt.SW.tail_shift_to_beta0` | Salt/SW/SelWeight.lean:383 | sieves |
 | `Salt.SW.psi1_contour_shift` | Salt/SW/ShiftAssembly.lean:478 | sieves, characters |
 | `Salt.SW.norm_logDeriv_eulerCorr_trivChar_le` | Salt/SW/ShiftTrivChar.lean:131 | sieves, characters |
 | `Salt.SW.norm_logDeriv_Zc_le_of_ball_dist` | Salt/SW/ShiftTrivChar.lean:186 | sieves, characters |
@@ -6682,16 +6682,16 @@ Declarations indexed across the tree: 23365 · corpus Prop-valued names (the hyp
 | `Salt.SW.siegel_dichotomy` | Salt/SW/Siegel.lean:227 | sieves, characters |
 | `Salt.SW.siegel_L_one_extract` | Salt/SW/Siegel.lean:247 | sieves, characters |
 | `Salt.SW.siegel_zero_free_of_exceptional_case` | Salt/SW/Siegel.lean:310 | sieves, characters |
-| `Salt.SW.norm_eulerCorr_one_le` | Salt/SW/SiegelClose.lean:136 | sieves, characters |
-| `Salt.SW.LFunction_norm_le_near_one` | Salt/SW/SiegelClose.lean:315 | sieves, characters |
-| `Salt.SW.LFunction_apply_one_norm_le` | Salt/SW/SiegelClose.lean:389 | sieves, characters |
-| `Salt.SW.norm_deriv_LFunction_near_one` | Salt/SW/SiegelClose.lean:406 | sieves, characters |
-| `Salt.SW.LFunction_one_re_le_mvt_sharp` | Salt/SW/SiegelClose.lean:458 | sieves, characters |
-| `Salt.SW.siegel_theorem` | Salt/SW/SiegelClose.lean:841 | sieves, characters |
+| `Salt.SW.norm_eulerCorr_one_le` | Salt/SW/SiegelClose.lean:139 | sieves, characters |
+| `Salt.SW.LFunction_norm_le_near_one` | Salt/SW/SiegelClose.lean:318 | sieves, characters |
+| `Salt.SW.LFunction_apply_one_norm_le` | Salt/SW/SiegelClose.lean:392 | sieves, characters |
+| `Salt.SW.norm_deriv_LFunction_near_one` | Salt/SW/SiegelClose.lean:409 | sieves, characters |
+| `Salt.SW.LFunction_one_re_le_mvt_sharp` | Salt/SW/SiegelClose.lean:461 | sieves, characters |
+| `Salt.SW.siegel_theorem` | Salt/SW/SiegelClose.lean:848 | sieves, characters |
 | `Salt.SW.LFunction_one_re_le_mvt` | Salt/SW/SiegelFinal.lean:106 | sieves, characters |
 | `Salt.SW.fourfold_disk_bound` | Salt/SW/SiegelFinal.lean:272 | sieves, characters |
-| `Salt.SW.siegel_L_one_exceptional` | Salt/SW/SiegelFinal.lean:324 | sieves, characters |
-| `Salt.SW.siegel_zero_free_exceptional` | Salt/SW/SiegelFinal.lean:440 | sieves, characters |
+| `Salt.SW.siegel_L_one_exceptional` | Salt/SW/SiegelFinal.lean:327 | sieves, characters |
+| `Salt.SW.siegel_zero_free_exceptional` | Salt/SW/SiegelFinal.lean:443 | sieves, characters |
 | `Salt.SW.tendsto_partialLSeries` | Salt/SW/StripConvergence.lean:372 | sieves |
 | `Salt.SW.norm_LFunction_sub_partial_le_strip` | Salt/SW/StripConvergence.lean:438 | sieves |
 | `Salt.SW.dhW_detector_floor_beta0` | Salt/SW/TBalClose.lean:43 | sieves, characters |
@@ -6792,8 +6792,8 @@ Declarations indexed across the tree: 23365 · corpus Prop-valued names (the hyp
 | `Salt.SW.entire_norm_logDeriv_sub_sum'` | Salt/SW/ZetaPartialFractions.lean:177 | zeros, sieves |
 | `Salt.SW.Zc_growth` | Salt/SW/ZetaPartialFractions.lean:860 | zeros, sieves |
 | `Salt.SW.zeta_neg_re_logDeriv_le` | Salt/SW/ZetaPartialFractions.lean:952 | zeros, sieves |
-| `Salt.SW.neg_logDeriv_zeta_le` | Salt/SW/ZetaPole.lean:189 | zeros, sieves |
-| `Salt.SW.neg_logDeriv_LFunction_trivChar_le` | Salt/SW/ZetaPole.lean:351 | zeros, sieves, characters |
+| `Salt.SW.neg_logDeriv_zeta_le` | Salt/SW/ZetaPole.lean:204 | zeros, sieves |
+| `Salt.SW.neg_logDeriv_LFunction_trivChar_le` | Salt/SW/ZetaPole.lean:366 | zeros, sieves, characters |
 | `Salt.SW.zeta_neg_re_logDeriv_le_keep` | Salt/SW/ZetaZeroFree.lean:102 | zeros, sieves |
 | `Salt.SW.zeta_zero_free_strip` | Salt/SW/ZetaZeroFree.lean:180 | zeros, sieves |
 | `Salt.SW.zeta_zero_free_region` | Salt/SW/ZetaZeroFree.lean:235 | zeros, sieves |
