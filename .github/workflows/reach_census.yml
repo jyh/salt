@@ -121,9 +121,10 @@ jobs:
       - name: Verdict
         env:
           DROP: ${{ github.event.inputs.drop_by_design }}
+          SHA: ${{ steps.sha.outputs.sha }}
         run: |
           rc=0; python3 scripts/o13_census.py parse census.log --manifest O13Census.lean.json > verdict.txt || rc=$?
-          { echo '## Reach census (clean)'; echo; echo "parse rc=$rc at ${{ steps.sha.outputs.sha }}"; echo;
+          { echo '## Reach census (clean)'; echo; echo "parse rc=$rc at $SHA"; echo;
             echo '```'; cat verdict.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
           cat verdict.txt
           fail=0
