@@ -108,8 +108,8 @@ cannot police this. Fires once in the spine, at α := −ξ.val/H (Tao p. 24).
 
 This is the weakened, Tao-faithful surface: Tao's proof (p. 24) fires Prop 2.4
 only at the finitely many large-spectrum frequencies ξ ∈ Ξ_H; |Ξ_H| ≤ C is
-Lemma 3.5 (landed as `bigXi_bounded`). Note ξ = 0 ∈ Ξ_H above a floor, and its instance
-is already full Matomäki–Radziwiłł short-interval strength — the weakening
+Lemma 3.5 (landed as `bigXi_bounded`). Note ξ = 0 ∈ Ξ_H above a floor (`crownNV_zero_mem_bigXi`),
+and its instance is already full Matomäki–Radziwiłł short-interval strength — the weakening
 shrinks the door's surface, not its depth (see the W4-MAJOR-R0 RED verdict). -/
 noncomputable def MRTUniformityXi (R : ChowlaRegime) (δ : ℝ) : Prop :=
   ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ ξ ∈ bigXi R.eps H,
