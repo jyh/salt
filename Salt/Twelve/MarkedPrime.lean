@@ -68,11 +68,15 @@ namespace Salt.Twelve
 
 /-! ## Log helpers (as in `Salt/Twelve/MomentAtom.lean`) -/
 
+/-- `0 ≤ log n` for every natural `n` (`log 0 = 0`; `Real.log_nonneg` for `n ≥ 1`); the file's
+private copy of `MomentAtom`'s helper. -/
 private lemma log_nat_nonneg (n : ℕ) : 0 ≤ Real.log (n : ℝ) := by
   rcases Nat.eq_zero_or_pos n with h | h
   · subst h; simp
   · exact Real.log_nonneg (by exact_mod_cast h)
 
+/-- `log m ≤ log n` for naturals `m ≤ n` (`h`), the case `m = 0` through `log_nat_nonneg`; the
+file's private copy. -/
 private lemma log_nat_mono_le {m n : ℕ} (h : m ≤ n) :
     Real.log (m : ℝ) ≤ Real.log (n : ℝ) := by
   rcases Nat.eq_zero_or_pos m with hm | hm
