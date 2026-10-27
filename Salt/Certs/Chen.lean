@@ -32,7 +32,7 @@ reader is owed the correspondence:
    name**. `Salt.Fulcrum.chen_omega_prod_le_three`. ✅ certified here as
    **`cert_chen_omega`** (Part 2).
 3. **The Goldbach half** — every sufficiently large even `N` is a prime plus a `P₂`.
-   `Salt.Goldbach.chen_goldbach` (`Salt/Goldbach/ChenGoldbach.lean:41`).
+   `Salt.Goldbach.chen_goldbach` (`Salt/Goldbach/ChenGoldbach.lean:47`).
    ❌ **NOT certified in this file** — it is anchor row 6 and gets its own certificate.
 
 ---
