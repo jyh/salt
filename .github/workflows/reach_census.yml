@@ -1,0 +1,145 @@
+name: Reach census
+
+# The O13 reach census (`scripts/o13_census.py`) as a NON-REQUIRED report: every RESULTS row is
+# walked for the three Siegel names and classed FREE / TWIN-EXISTS / REACHES-BY-DESIGN /
+# REACHES-OWED, so an owed row surfaces without a seat remembering to run the census. It runs:
+#   * nightly, two hours after the Lean job's cron hour, on main's head;
+#   * on demand (workflow_dispatch, inputs `sha` and `drop_by_design`);
+#   * on a pull request that touches the census, RESULTS, or this file. A pull request runs the
+#     census TWICE: clean, which must read rc 0, and planted (`--drop-by-design`, one BY_DESIGN row
+#     left out), which must read rc 1 naming that row. The planted arm is the red-first check, kept.
+# Red on an owed row (parse rc 1) or on a run that is not clean (rc 2). It is not a required
+# check and blocks no merge. Not on workflow_run: one walk a night, not one per merge.
+# The build cache is RESTORED from main's Lean job and never saved here.
+on:
+  schedule:
+    - cron: '0 11 * * *'
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: "commit to census (default: the dispatching ref's head)"
+        required: false
+        default: ""
+      drop_by_design:
+        description: "red-first: a BY_DESIGN name to leave out (the run must then read rc 1)"
+        required: false
+        default: ""
+  pull_request:
+    paths:
+      - 'scripts/o13_census.py'
+      - 'docs/RESULTS.md'
+      - '.github/workflows/reach_census.yml'
+
+concurrency:
+  group: reach-census-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions:
+  contents: read
+
+jobs:
+  census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    env:
+      PLANT: Salt.HB.heathBrownDichotomy_of_N7
+    steps:
+      - name: Free runner disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+            /usr/local/.ghcup /usr/share/swift /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force 2>/dev/null || true
+          df -h /
+      - name: The commit under census
+        id: sha
+        env:
+          INPUT_SHA: ${{ github.event.inputs.sha }}
+        run: |
+          if [ -n "$INPUT_SHA" ]; then s="$INPUT_SHA"; else s="${{ github.sha }}"; fi
+          echo "sha=$s" >> "$GITHUB_OUTPUT"
+          echo "census of $s (${{ github.event_name }})"
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ steps.sha.outputs.sha }}
+      - name: Restore salt build cache (prefix, read only)
+        uses: actions/cache/restore@v4
+        with:
+          path: .lake/build
+          key: salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ steps.sha.outputs.sha }}
+          restore-keys: |
+            salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Install elan
+        run: |
+          curl https://elan.lean-lang.org/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Get mathlib cache
+        run: lake exe cache get
+      - name: Census self-test
+        run: python3 scripts/o13_census.py --self-test
+      - name: Generate the scratch (RESULTS rows)
+        env:
+          DROP: ${{ github.event.inputs.drop_by_design }}
+        run: |
+          if [ -n "$DROP" ]; then
+            python3 scripts/o13_census.py gen --drop-by-design "$DROP" --out O13Census.lean
+          else
+            python3 scripts/o13_census.py gen --out O13Census.lean
+          fi
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            python3 scripts/o13_census.py gen --drop-by-design "$PLANT" --out O13Plant.lean
+          fi
+      # A scratch cannot build its own imports, so they are built first (cache hits after a green
+      # main run; a stale cache rebuilds what changed).
+      - name: Build the scratch's imports
+        run: |
+          mods=$(sed -n 's/^import //p' O13Census.lean | tr '\n' ' ')
+          set -o pipefail
+          lake build $mods 2>&1 | tail -20
+      # The step writes its own exit line, which `parse` reads exactly as it reads the wrapper's.
+      - name: Walk (clean)
+        run: |
+          rc=0; lake env lean O13Census.lean > census.log 2>&1 || rc=$?
+          echo "o13-ci EXIT=$rc" >> census.log
+          tail -3 census.log
+      - name: Walk (planted, pull requests only)
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          rc=0; lake env lean O13Plant.lean > plant.log 2>&1 || rc=$?
+          echo "o13-ci EXIT=$rc" >> plant.log
+          tail -3 plant.log
+      - name: Upload the logs
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: reach-census-${{ steps.sha.outputs.sha }}
+          path: |
+            census.log
+            plant.log
+            O13Census.lean.json
+            O13Plant.lean.json
+          if-no-files-found: ignore
+      - name: Verdict
+        env:
+          DROP: ${{ github.event.inputs.drop_by_design }}
+        run: |
+          rc=0; python3 scripts/o13_census.py parse census.log --manifest O13Census.lean.json > verdict.txt || rc=$?
+          { echo '## Reach census (clean)'; echo; echo "parse rc=$rc at ${{ steps.sha.outputs.sha }}"; echo;
+            echo '```'; cat verdict.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          cat verdict.txt
+          fail=0
+          if [ -n "$DROP" ]; then
+            # a dispatched plant: the run must read rc 1 and print the plant
+            [ "$rc" = 1 ] && grep -qF "PLANT: $DROP" verdict.txt || { echo "PLANT DID NOT FIRE (rc=$rc)"; fail=1; }
+            echo "dispatched plant $DROP: parse rc=$rc (want 1)"
+          elif [ "$rc" != 0 ]; then
+            fail=1
+          fi
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            prc=0; python3 scripts/o13_census.py parse plant.log --manifest O13Plant.lean.json > plant.txt || prc=$?
+            { echo '## Planted arm (red-first)'; echo; echo "parse rc=$prc, want 1 naming $PLANT"; echo;
+              echo '```'; cat plant.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+            cat plant.txt
+            [ "$prc" = 1 ] && grep -qF "REACHES-OWED $PLANT " plant.txt && grep -qF "PLANT: $PLANT" plant.txt \
+              || { echo "PLANTED ARM DID NOT FIRE (rc=$prc)"; fail=1; }
+          fi
+          exit $fail
