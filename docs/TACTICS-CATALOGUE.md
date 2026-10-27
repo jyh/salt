@@ -1,7 +1,7 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `965a7fbd` · source digest `6fb1018f059a98db` (the same digest as items 1–3).
+> Base: last commit touching `Salt/` = `80a912c4` · source digest `85e7cca3ccb0e782` (the same digest as items 1–3).
 > Receipt: files 1387 · decls 23365 · with_body 23365 · tactic_lines 319927 · runs 37279 · blocks 1611.
 
 ## LIMITS (read before any number below)
@@ -21,14 +21,14 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 |---|---|---|---|---|---|
 | T1 | `CertEval` | PROBE RESULT | `CertEval.lean` | `CertEval.lean` (ledger) | `CertEval` yes |
 | T2 | `eventually_budget` | LANDED · NOT USED | `EventuallyBudget.lean` | `EventuallyBudget.lean` (All.lean, header, ledger) | `eventually_budget` yes |
-| T3 | `budget_num` | LANDED | `ExpLogNum.lean`, `NlinarithSuggest.lean`, `Numerals.lean` ⛔ NOT ON DISK | `ExpLogNum.lean` (All.lean, header, ledger); `LogNum.lean` (All.lean, header); `NlinarithSuggest.lean` (All.lean, header, ledger) | `budget_num` **no** |
-| T4 | `salt_cast` | (no status word) | - | **none** | `salt_cast` **no** |
+| T3 | `budget_num` | LANDED | `ExpLogNum.lean`, `NlinarithSuggest.lean` | `ExpLogNum.lean` (All.lean, header, ledger); `LogNum.lean` (All.lean, header); `NlinarithSuggest.lean` (All.lean, header, ledger) | `budget_num` **no** |
+| T4 | `salt_cast` | NOT-YET | - | **none** | `salt_cast` **no** |
 | T5 | `#audit_axioms` | LANDED | `AuditAxioms.lean` | `AuditAxioms.lean` (All.lean, ledger) | `#audit_axioms` yes |
-| T6 | - | (no status word) | - | `DyadicRec.lean` (All.lean, header) | - |
-| T7 | - | (no status word) | - | **none** | - |
-| T8 | `slack_report` | (no status word) | - | **none** | `slack_report` **no** |
+| T6 | - | NOT-YET | - | `DyadicRec.lean` (All.lean, header) | - |
+| T7 | - | NOT-YET | - | **none** | - |
+| T8 | `slack_report` | NOT-YET | - | **none** | `slack_report` **no** |
 | T9 | `dyadicRec`, `regime_split`, `guard_collapse` | HARVESTED · NOT-YET | `DyadicRec.lean` | `DyadicRec.lean` (All.lean, ledger) | `dyadicRec` yes, `regime_split` **no**, `guard_collapse` **no** |
-| T10 | `interval_log_exp` | (no status word) | - | **none** | `interval_log_exp` **no** |
+| T10 | `interval_log_exp` | NOT-YET | - | **none** | `interval_log_exp` **no** |
 
 ⚠️ **Modules on disk that NO ledger section names by path:** `Salt/Tactic/LogNum.lean` — their T-id comes only from their own header or `All.lean`.
 
