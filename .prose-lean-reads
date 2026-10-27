@@ -1203,3 +1203,6 @@ o88-2026-10-26-299	Salt/SW/DHFinal.lean	944511bc3564	Salt/SW/DHFinal.lean::norm_
 o88-2026-10-26-300	Salt/SW/DHMollified.lean	e43586eb05e5	Salt/SW/DHMollified.lean::dvd_mul_iff_div_gcd_dvd	d9c84d7940be	paper	math	2026-10-26
 o88-2026-10-26-301	Salt/SW/DHMollified.lean	e036d9386573	Salt/SW/DHMollified.lean::norm_shifted_detector_mollified_le	df7f4d99de79	paper	math	2026-10-26
 o88-2026-10-26-302	Salt/SW/DHTrunc.lean	b83fede5b42b	Salt/SW/DHTrunc.lean::partial_sum_at_zero_small	edcfec4db8d7	paper	math	2026-10-26
+o88-math-2026-10-26-297	Salt/Certs/ChenGoldbach.lean	ab4feeeded31	Salt/Certs/ChenGoldbach.lean::cert_chen_goldbach	2557e0c22e79	math	paper	2026-10-26
+o88-math-2026-10-26-298	Salt/Certs/ChenGoldbach.lean	ab8babdde3be	Salt/Certs/ChenGoldbach.lean::cert_chen_goldbach_isP2_iff	bdac0d719a8f	math	paper	2026-10-26
+o88-math-2026-10-26-299	Salt/Certs/Kloosterman.lean	2e80d9c57e1e	Salt/Certs/Kloosterman.lean::cert_kloosterman_estermann	dd3d4e5dfa50	math	paper	2026-10-26

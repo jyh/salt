@@ -824,3 +824,8 @@ open Salt.SW.StandoffCert in
 #assert_not_reaches Salt.TwinBar.noSiegelZeros_of_realZeroGap Salt.SW.siegel_L_one_exceptional
 open Salt.SW.StandoffCert in
 #assert_not_reaches Salt.TwinBar.noSiegelZeros_of_realZeroGap Salt.SW.L1_lower_siegel
+
+-- TwinParityAtomClasses: its two definitions, beside the twelve theorems audited above (O88 batch 30).
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.admClasses
+  Salt.TwinBar.AffFullRangeAt
