@@ -18,7 +18,9 @@ suffixes `<root>_of_standoff` / `<root>_of_sevenEighths`:
          run of THIS scratch (no `saltbuild EXIT=0`, a tagged error, a control that did not print,
          a count that does not match the manifest).
 
-The build between them is `../saltbuild.sh <scratch>` (never bare lake, never piped):
+The build between them is `../saltbuild.sh <scratch>` (never bare lake, never piped). A scratch run cannot
+build its dependencies, so build the scratch's imports first, through the build arm in the same tree
+(`../saltbuild.sh <every module the scratch imports>`):
   python3 scripts/o13_census.py gen [--names FILE --import MOD ...] [--out Scratch.lean]
   ../saltbuild.sh Scratch.lean > census.log 2>&1
   python3 scripts/o13_census.py parse census.log [--manifest Scratch.lean.json]
@@ -144,9 +146,9 @@ elab "#o13_census" : command => do
     else
       -- an undotted name resolves only to a constant DECLARED in this repository's modules
       -- (never a Mathlib or core constant that happens to share the last component)
-      (all.filter fun n => !n.isInternal && ownMod n && match n with
+      (all.filter fun n => (match n with
         | .str _ t => t == s
-        | _ => false).toList
+        | _ => false) && !n.isInternal && ownMod n).toList
   let nameTwins (root : Name) : List Name := Id.run do
     let L := root.getString!
     let mut r : List Name := []
