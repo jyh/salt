@@ -22,10 +22,13 @@ cite is classed:
              contiguity, or the target was RENAMED: NEVER rewritten, read by hand
   PRE-STALE  the cite was past the base file's end already: printed, not this edit's
   AMBIGUOUS  a bare leaf shared by several files: not read, counted
+  PINNED     the citing file says its citations refer to an ARCHIVED snapshot (a published
+             manuscript): its cites are correct against the archive, so never re-keyed; counted
 
 --apply edits a citing file only where the same cite text is present at HEAD, in its base order;
 a citing file whose cite occurrences differ between BASE and HEAD is REPORTED for that cite.
-Generated pages are skipped (their generators re-key them). Exit 0 when nothing is stale after the
+A file is PINNED when its own text, whitespace flattened (the clause is hard-wrapped), contains
+`citations refer to the archived snapshot`. Generated pages are skipped (their generators re-key them). Exit 0 when nothing is stale after the
 run (no REPORTED, and no RE-KEYED left unapplied), 1 otherwise, 2 on a usage error.
 
 LIMITS, printed with every verdict: only `.lean` targets; cites in other forms (`:N, M` lists,
@@ -43,6 +46,7 @@ from collections import Counter
 
 GENERATED = {"docs/CATALOGUE.md", "docs/METHODS-CATALOGUE.md", "docs/methods-catalogue.tsv",
              "docs/FULCRUM-CENSUS.md", "docs/TACTICS-CATALOGUE.md"}
+PIN_PHRASE = "citations refer to the archived snapshot"
 TEXT = (".lean", ".md", ".tex", ".tsv", ".py", ".txt", ".yml")
 LIMITS = ("LIMITS: .lean targets only; forms Leaf.lean:N and :N–M / :N-M; lists and prose line "
           "numbers are not read; a cite written fresh at HEAD is not checked; content equality is "
@@ -103,12 +107,17 @@ def census(root, base, head):
         text = show(root, base, src)
         if text is None:
             continue
+        pinned = PIN_PHRASE in " ".join(text.split())   # the manuscript's own words, read flattened
         for f in edited + renamed:
             leaf = f.rsplit("/", 1)[-1]
             pat = r"(?<![A-Za-z0-9_./])((?:[A-Za-z0-9_.]+/)*)" + re.escape(leaf) + r":(\d+)(?:([–-])(\d+))?"
             for mt in re.finditer(pat, text):
                 pre = mt.group(1)
                 if pre and not f.endswith(pre + leaf):
+                    continue
+                if pinned:
+                    cls["PINNED"] += 1
+                    rows.append(dict(src=src, target=f, cite=mt.group(0), cls="PINNED", new=None))
                     continue
                 if not pre and leaves[leaf] > 1:
                     cls["AMBIGUOUS"] += 1
@@ -164,7 +173,11 @@ def report(edited, rows, cls, applied):
     print(f"rekey_cites: edited {len(edited)} .lean file(s); cites KEPT {cls['KEPT']} · DONE at HEAD {cls['DONE']} · "
           f"RE-KEYED {cls['RE-KEYED']}{' (applied)' if applied else ''} · REPORTED {cls['REPORTED']} · "
           f"PRE-STALE (past the base file's end, not this edit's) {cls['PRE-STALE']} · "
-          f"AMBIGUOUS (bare leaf, not read) {cls['AMBIGUOUS']}")
+          f"AMBIGUOUS (bare leaf, not read) {cls['AMBIGUOUS']} · "
+          f"PINNED (an archived manuscript's, never re-keyed) {cls['PINNED']}")
+    pins = sorted({r["src"] for r in rows if r["cls"] == "PINNED"})
+    if pins:
+        print(f"  PINNED files ({len(pins)}): " + ", ".join(pins))
     for r in rows:
         if r["cls"] in ("RE-KEYED", "REPORTED", "PRE-STALE"):
             print(f"  {r['cls']:9s} {r['src']}: {r['cite']} -> {r['new'] or '(no head line: read by hand)'}"
@@ -276,6 +289,28 @@ def self_test():
               b4.get("R.lean:2", {}).get("cls") == "REPORTED")
         check("a cite past the base file's end is PRE-STALE, not this edit's",
               b4.get("C.lean:99", {}).get("cls") == "PRE-STALE")
+    with tempfile.TemporaryDirectory() as d:
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt"))
+        ten = "".join(f"line {i}\n" for i in range(1, 11))
+        open(os.path.join(d, "Salt/P.lean"), "w").write(ten)
+        body = "see P.lean:7.\n"
+        open(os.path.join(d, "pinned.tex"), "w").write(body + "file:line citations refer to\nthe archived snapshot.\n")
+        open(os.path.join(d, "live.tex"), "w").write(body)
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        t = ten.split("\n"); t = ["inserted"] + t
+        open(os.path.join(d, "Salt/P.lean"), "w").write("\n".join(t))
+        g("commit", "-q", "-am", "head")
+        _, rows5, cls5 = census(d, "HEAD~1", "HEAD")
+        k5 = {(r["src"], r["cite"]): r for r in rows5}
+        check("a manuscript pinned to an archive (clause hard-wrapped) is PINNED, not re-keyed",
+              k5.get(("pinned.tex", "P.lean:7"), {}).get("cls") == "PINNED" and cls5["PINNED"] == 1)
+        check("... and its control, the same text without the clause, is RE-KEYED",
+              k5.get(("live.tex", "P.lean:7"), {}).get("new") == "P.lean:8")
+        apply(d, "HEAD~1", "HEAD", rows5)
+        check("--apply leaves the pinned manuscript byte-identical",
+              open(os.path.join(d, "pinned.tex")).read().startswith(body))
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
