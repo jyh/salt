@@ -66,7 +66,7 @@ open Salt.Entropy.Chowla
 
 /-! ## §1 — `S12ConstCompose`'s socket consumers at the flat shape -/
 
-/-- `s12c_eps_threshold_at_socket` (`S12ConstCompose.lean:251`) at the FLAT tower
+/-- `s12c_eps_threshold_at_socket` (`S12ConstCompose.lean:252`) at the FLAT tower
 conjunct.  Landed proof, with `flat_lambda_core` in place of `s12c_lambda_core`;
 no numeral moves. -/
 theorem s12c_eps_threshold_at_socket_flat {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ ε : ℝ}
@@ -92,7 +92,7 @@ theorem s12c_eps_threshold_at_socket_flat {R : ChowlaRegime} {M H L q j A s : �
   have h1 : 14 * Λ ≤ 14 * Real.exp (lam / 2) := by linarith
   linarith
 
-/-- `eps_pool_const_pos_at_socket` (`S12ConstCompose.lean:278`) at the FLAT tower
+/-- `eps_pool_const_pos_at_socket` (`S12ConstCompose.lean:279`) at the FLAT tower
 conjunct — §1's stone composed with the flat socket discharge. -/
 theorem eps_pool_const_pos_at_socket_flat {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ ε : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hρ : 0 < ρ)
