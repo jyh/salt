@@ -1207,3 +1207,4 @@ o88-math-2026-10-26-297	Salt/Certs/ChenGoldbach.lean	ab4feeeded31	Salt/Certs/Che
 o88-math-2026-10-26-298	Salt/Certs/ChenGoldbach.lean	ab8babdde3be	Salt/Certs/ChenGoldbach.lean::cert_chen_goldbach_isP2_iff	bdac0d719a8f	math	paper	2026-10-26
 o88-math-2026-10-26-299	Salt/Certs/Kloosterman.lean	2e80d9c57e1e	Salt/Certs/Kloosterman.lean::cert_kloosterman_estermann	dd3d4e5dfa50	math	paper	2026-10-26
 o13-paper-2026-10-27-01	Salt/MR/BlockLenDoor.lean	61ee6176af81	Salt/MR/BlockLenDoor.lean::m4_sievedDoorSq_of_blk2_blockLen_L_gk	38f3f3cdc143	math	paper	2026-10-27
+o88-math-2026-10-27-332	Salt/Chen/All.lean	78ab3ce1bfb8	Salt/Chen/CbarCert.lean::cbar_lt	2097ffcda324	math	paper	2026-10-27

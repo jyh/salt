@@ -181,12 +181,12 @@ coupled induction → `fseq_measurable`/`fseq_bounded`/
 `SwitchConstant` (C4a, FLOOR): `cbar` (the switch integral), `cbar_pos`,
 and **`two_log_three_sub_log_six_sub_cbar_pos`** — the literal budget
 line C5 consumes (`2log3 − log6 = log(3/2) ≥ 2/5 > 0.363084`). The
-tight `cbar_lt : cbar < 0.363084` (gap 2.7e−7) is DEFERRED: mathlib has
-no `Li₂`/polylog and no `norm_num` log extension, so neither the exact
-dilog route nor a ≳220-panel tangent majorant is in scope — and C3d's
-Lean-shape count bound may come from explicit prime sums rather than
-the smooth integral, in which case `cbar_lt` is never consumed. See the
-module docstring and `docs/blueprints/flags.md`.
+tight `cbar_lt : cbar < 363084/1000000` (gap 2.7e−7), deferred at C4a
+for want of a `norm_num` log extension, is proved in `CbarCert` (600
+rational panels, a generated certificate) and is consumed: by
+`razor_scalar_margin` (`RazorClose`) and in `CountAtOp3`, `FinLed3`,
+`Goldbach.Asm3` and `Goldbach.Ledger3`. See `SwitchConstant`'s module
+docstring.
 -/
 
 -- Build-time axiom audit: a stray axiom in the `chen` carriers fails
