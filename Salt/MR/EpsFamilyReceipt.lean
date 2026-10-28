@@ -7,7 +7,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 The 08/31 crown re-tier lists three apex arms above the landed base `logChowla2_v7_rated`:
 `∀ ε`, full range, effective `A`.  This file states the first arm's dependency in the kernel:
-the crown `MRTDoorAllGrades` (`DoorReceipt.lean:1213` — the `L¹` door at every grade `δ` and
+the crown `MRTDoorAllGrades` (`DoorReceipt.lean:1200` — the `L¹` door at every grade `δ` and
 every `ε ≤ 1/2` on regimes above a floor; NO producer) composed with the `ε`-family head
 (`SpineEpsFamily.lean`) gives log-Chowla-2 at every `ε ≤ 1/500`, on a regime at that `ε`.
 The `L¹ → L²` step is `mrtUniformityXiL2_of_xi` (`Salt/Entropy/Chowla/MRTDoor.lean:255`,
