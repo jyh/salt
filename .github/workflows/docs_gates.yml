@@ -54,6 +54,7 @@ jobs:
           python scripts/methods_catalogue.py --self-test
           python scripts/tactics_catalogue.py --self-test
           python scripts/fulcrum_census.py --self-test
+          python scripts/rekey_cites.py --self-test
       # One step per page, so a red names the stale page in the step list.
       - name: docs/CATALOGUE.md is current
         if: ${{ !cancelled() }}
@@ -67,3 +68,13 @@ jobs:
       - name: docs/FULCRUM-CENSUS.md is current
         if: ${{ !cancelled() }}
         run: python scripts/fulcrum_census.py --check
+      # The helm's fifth condition for an edit to merged proofs: no hand-written
+      # `File.lean:N` cite that this PR moves is left pointing at the wrong line, and no
+      # published manuscript is edited (rc 3). Measured from the MERGE-BASE, because a diff
+      # against the base tip would also count main's newer edits as this PR's.
+      # PRs only: a push to main has no base to diff against.
+      - name: no File.lean:N cite this PR moves is left stale (rekey_cites)
+        if: ${{ !cancelled() && github.event_name == 'pull_request' }}
+        run: |
+          BASE=$(git merge-base "${{ github.event.pull_request.base.sha }}" HEAD)
+          python scripts/rekey_cites.py "$BASE" HEAD
