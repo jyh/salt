@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `41238718` · source digest `9f14ebd61c8449ac` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `33ddb972` · source digest `560c86678c351cec` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -16,7 +16,7 @@
 - **Disjunction sites are VISIBLE ONLY:** a theorem conclusion that is a top-level `∨`, or a Prop-def body that is one. A theorem concluding a NAMED disjunction (e.g. `HeathBrownDichotomy`) is not unfolded — the Prop-def row carries it.
 - **Case splits are a TOKEN SCAN** of proof bodies: `by_cases [h :] P`, `em P`, `Classical.em P`, `Decidable.em P`, `Classical.byCases P`, with P's head resolved against the corpus Prop set in the declaration's namespace/open context. A split on an unfolded or `have`-named proposition is invisible.
 - **The classes are SHAPES, not verdicts.** FULCRUM-SHAPED says both polarities are consumed somewhere; it does not say the two horns are the SAME instance of P (arguments are not compared) nor that either horn is unconditional.
-- **Regression guard on item 1's `¬`-binder walk:** 77 declarations see a corpus Prop ONLY under `¬` in their binders; **5 of them are AUDITED results that item 1 classes `unconditional`** (this census found 31 on 2026-09-26, when item 1's walk read `¬ P` as head `Not`; item 1 now records such a binder as the hypothesis `¬P`). The residue listed at the foot is expected to be binders of shape `¬ P → Q`, where `¬P` sits in the binder's ANTECEDENT and the hypothesis is on Q — item 1 reads those correctly and this census's positional polarity scan over-counts them (5 such at 2026-09-26, each read at source); a name of any other shape at the foot is a regression.
+- **Regression guard on item 1's `¬`-binder walk:** 77 declarations see a corpus Prop ONLY under `¬` in their binders; **5 of them are AUDITED results that item 1 classes `unconditional`** (this census found 31 on 2026-09-26, when item 1's walk read `¬ P` as head `Not`; item 1 now records such a binder as the hypothesis `¬P`). The residue listed at the foot is expected to be binders whose `¬P` sits in the binder's ANTECEDENT while the hypothesis is on some Q, in three shapes: `¬ P → Q`; `(∀ x, ¬ P x) → Q`; and a continuation `(… → ¬ P) → Q`, where `¬P` concludes a premise of the binder. Item 1 reads all three correctly and this census's positional polarity scan over-counts them (5 at 2026-09-26; 5 at 2026-10-27, each read at source: 1, 2 and 2 of the three shapes); a name whose `¬P` is NOT in its binder's antecedent is a regression.
 
 ## Population receipt
 
