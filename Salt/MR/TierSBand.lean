@@ -10,7 +10,7 @@ import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
 
 -- Needed to transcribe B1/B2/H0/hop1's proofs, the same private names
--- `StridePairReceiptG12b.lean:29-31` opens for the identical purpose.
+-- `StridePairReceiptG12b.lean:30-32` opens for the identical purpose.
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
 open private flatRootCapH_arc_k from Salt.MR.S16ComposeLH
@@ -89,11 +89,11 @@ def xTightCeil (ε : ℚ) (Hhi : ℕ) : ℝ :=
     + 2 * Real.log (((4 ^ ⌊ε ^ 2 * (Hhi : ℚ)⌋₊ : ℕ) : ℝ) + 1)
 
 /-- **⟦S-1⟧ THE TIGHT CEILING WITH THE ARM'S SLACK** — what survives hop 3's rider inflation
-(`StridePairReceiptG12b.lean:611`, `g ↦ s15ArmH h δ₀ ρ + g`): `log (a · s15ArmH …) ≤ 9 + log ω +
+(`StridePairReceiptG12b.lean:603`, `g ↦ s15ArmH h δ₀ ρ + g`): `log (a · s15ArmH …) ≤ 9 + log ω +
 log h + H₊/10²⁰` (`s15ArmH_log_le_g12b`) with `log ω ≤ xTightCeil ε H₊` (the (i-ω) export) and
 `log h ≤ 9`, plus `log 2` for the sum's larger summand.  The shift's cost is the second `9` in the
 `18`, so the definition takes NO shift argument: at C1 the operative shift is `h`, at C2 and the
-crown it is `a·h` (`StridePairReceiptG12b.lean:1123`); both are covered by `log (·) ≤ 9`. -/
+crown it is `a·h` (`StridePairReceiptG12b.lean:1115`); both are covered by `log (·) ≤ 9`. -/
 def xTightCeilArm (ε : ℚ) (Hhi : ℕ) : ℝ :=
   xTightCeil ε Hhi + 18 + Real.log 2 + ((Hhi : ℕ) : ℝ) / 10 ^ 20
 

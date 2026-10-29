@@ -222,7 +222,7 @@
 ## P1 — THE λ-BV CAMPAIGN (commissioned 08/20) + finish-first fill
 
 ⭐⭐ **S-3 — THE b-FREENESS RE-STATEMENT (chartered at council 2026-09-14 ⑩; STAMPED HERE 09-14 19:0x by the 61st helm head, which is the HOME ⑩ named and the stamp h2c asked for).**
-**CHARTER:** the re-statement that EXPORTS b-freeness of the additive constant A — math's ⑥ census found A b-free at every WITNESS and exported by NO statement, so the gap is a RE-STATEMENT, not new mathematics. DRAFTER **h2c** (author of S-1's freeze, whose crown band `TierSBand.lean:570` S-3 consumes), STATEMENT-ONLY, honest label on line one. REFUTER **math** (non-author). CAP: one drafting shift + one refuter pass. ⛔ **NO PROOF ATTEMPT UNTIL THE STATEMENT SURVIVES.**
+**CHARTER:** the re-statement that EXPORTS b-freeness of the additive constant A — math's ⑥ census found A b-free at every WITNESS and exported by NO statement, so the gap is a RE-STATEMENT, not new mathematics. DRAFTER **h2c** (author of S-1's freeze, whose crown band `TierSBand.lean:571` S-3 consumes), STATEMENT-ONLY, honest label on line one. REFUTER **math** (non-author). CAP: one drafting shift + one refuter pass. ⛔ **NO PROOF ATTEMPT UNTIL THE STATEMENT SURVIVES.**
 ✅ **THE CHARTER IS DISCHARGED AND THE STATEMENT SURVIVED.** h2c froze v1 (18:32, `2c28bc6e8`); math ran the NON-AUTHOR refuter pass **pre-registering its kill-checks before reading the freeze** and returned **SURVIVES, NO KILL** (`6cf7f7e60`, desk MV); h2c folded the verdict into **v1.1 @ `d227b5700`** (R1: the BAND `(x₀, ω₀, Hhi₀)` is the load-bearing export — `ε` is a theorem of the landed statement and a per-class `A` is a finite `max` at D10; R2: every pin re-derived by grep at the tree, six moved, eleven exact). **The Lean is UNCHANGED at `74afa591` (`d354601a0bff`), so math's receipt stands over v1.1.**
 ⚖️ **§6's ONE OPUS WAVE: FIRE** — the helm's word, 09-14 19:0x, on h2c's `blocked-on-helm`. The charter's precondition ("until the statement survives") is MET, and the Captain's ⑩ tempo order is explicit: *"we go for the gold, as fast as possible, the field is accelerating, we are in a race"*, with ⑩(c) *"nothing on the twin-prime path waits on a sitting"*. SHAPE, unchanged from the freeze: six names, ~310 lines, mostly class A (U1 ~5 · U2 ~55), **`sorry` replaced IN PLACE, statements BYTE-IDENTICAL** — so a failure is a failure to prove, never a moved goalpost. ONE registered executor; h2c STAYS LIT while it runs (row GE). The executor rewrites U3's `:520-522` docstring slip in U3's own commit.
 ⛔ **AND THE WAVE DOES NOT FIRE FROM `the all-models pool`** — the helm's own migration error, caught before the word: h2c is a FABLE seat, so it was placed by the FABLE pool, and **an OPUS executor it fires draws the ALL-MODELS pool on the same credential**, which on the all-models pool reads **96 = EVERYONE-OFF**. h2c is moved to `the launcher pool` (all-models 69 ✅ · fable-only 54 ✅ — BOTH axes). ⇒ 🔑 ***A SEAT IS PLACED BY THE POOLS ITS EXECUTORS DRAW, NOT BY ITS OWN MODEL.***
@@ -260,7 +260,7 @@
   - **NEXT: road F's next hop is a STATEMENT, and a statement is the Captain's word at a sitting.** Nothing is commissioned past Z; h2c holds on a gate until one is ruled.
 
 ✅ **ROAD F · CANDIDATE U — THE UNIFORM FLAT DOOR — LANDED 2026-09-25 (h2c; PR #183 → merge `2fb62a98` on `main`, half 1 + half 2; math's non-author read CONFIRM — vacuity PROVED as a separate theorem in its own tree, own kernel pair with a planted control).** `Salt/MR/FlatDoorUniform.lean`: `flatDoorUniformW_holds : FlatDoorUniformW` — the L² MRT door with the crown's quantifier `∃ H₀ ∀ R` on the FLAT CLASS (`FlatClassW ε R`: the window's `ε`, the ceiling `log x ≤ (31/ε)·Hhi`, the width law), at every grade `ρ > 0` and every `ε ∈ (0, 1/500]`; landed receipts: U ⇒ W-δ (`nextHopU_zero_level`) and the crown ⇒ U (`nextHopU_of_crown`). ⛔ **CAVEAT FIRST:** U is implied by the crown and is NOT the crown — the residual is every regime OFF the class (`x` above the ceiling; `Hhi` tower-far above `Hlo`), the EM freeze's roads 2/5; no rate; the ε-range stays `(0, 1/500]`; **nothing bears on twin primes.** The freeze and its two addenda are seat-record artifacts, cited by role.
-  - ⚠️ **CANDIDATE E (the ε-range `(1/500, 1/2]`) — PRICED AT THE OBJECT 2026-09-25 AND REFUSED AS A WAVE (h2c).** The U freeze's §6 priced E as *one lemma* (the count ceiling at `ε ≤ 1/2`); at the object the binding spend is elsewhere: the rung-2 head pins the leaves' constants `cD3 = 1/4` (the prime-window mass) and `C = 1 + 4·log 4` (the circle method) and feeds the spine budget the binder `ε ≤ cD3/(16·C)` ≈ **1/419** (`FlatDoorEpsRung2.lean:4826` → `SpineFlat.lean:144–151`, where `C·ε²·H/log H` must sit under a sixteenth of `cD3·ε·H/log H`); the reduce leaf adds `ε ≤ cE/(32·log 4)` ≤ 1/177. **No re-pin reaches past ~1/192; the crown's `ε ≤ 1/2` is a factor ≥ 96 beyond this device.** The widening the device CAN buy (`1/500 → ≤ 1/419`) is ≈ 100 lines and worth nothing toward the crown's axis; the crown's ε-axis needs a NEW budget device — class D, a statement, the Captain's. The price brief is a seat-record artifact, cited by role.
+  - ⚠️ **CANDIDATE E (the ε-range `(1/500, 1/2]`) — PRICED AT THE OBJECT 2026-09-25 AND REFUSED AS A WAVE (h2c).** The U freeze's §6 priced E as *one lemma* (the count ceiling at `ε ≤ 1/2`); at the object the binding spend is elsewhere: the rung-2 head pins the leaves' constants `cD3 = 1/4` (the prime-window mass) and `C = 1 + 4·log 4` (the circle method) and feeds the spine budget the binder `ε ≤ cD3/(16·C)` ≈ **1/419** (`FlatDoorEpsRung2.lean:4827` → `SpineFlat.lean:144–151`, where `C·ε²·H/log H` must sit under a sixteenth of `cD3·ε·H/log H`); the reduce leaf adds `ε ≤ cE/(32·log 4)` ≤ 1/177. **No re-pin reaches past ~1/192; the crown's `ε ≤ 1/2` is a factor ≥ 96 beyond this device.** The widening the device CAN buy (`1/500 → ≤ 1/419`) is ≈ 100 lines and worth nothing toward the crown's axis; the crown's ε-axis needs a NEW budget device — class D, a statement, the Captain's. The price brief is a seat-record artifact, cited by role.
   - **NEXT: road F's next hop is a STATEMENT, and a statement is the Captain's word at a sitting.** U is the last hop the 09:48 order commissioned ("road F's next hop after arm S"); E is parked here with its read; nothing is commissioned past U. ⛔ Caveat unchanged: U is implied by the crown and is NOT the crown; nothing bears on twin primes.
 
 
@@ -2223,7 +2223,7 @@ RESURRECTS THEM:**
    chars: a cut would have destroyed a *"no sieve, no cover"* verification and **E3's ENTIRE
    give-up-early instruction.** **Fixed before freezing; restoration verified by positive control.**
    ③ **Wave B's routing of GAP α's core to `M4ChiSummedFreeRow` is FACTUALLY WRONG and struck** — it
-   has five producers (`M4Assembly.lean:407`/`:515`, `S12ConstCompose.lean:397`,
+   has five producers (`M4Assembly.lean:407`/`:515`, `S12ConstCompose.lean:398`,
    `M4SocketDischarge.lean:228`) plus an unconditional witness (`M4ChiSummed.lean:217`), and its
    integrand runs at `doorChiCoeff χ M`, i.e. **sieved**. ④ An unstated ℕ→ℝ cast in E4. ⑤ Tier
    calibration: D8 was rated **C** for structurally the same move these rate **B**.
@@ -6355,7 +6355,7 @@ three days and was carried into a council as an open item before measurement kil
    `linarith`; 82 `maxHeartbeats` overrides in the population; the 24 M site measured 8,034,485 heartbeats.
    **THE CANDIDATE: `explog_num`** (T3's first cut) — closes the four numeral `exp`/`log` forms at integer exponent by
    `exp n = (exp 1)^n` + `exp_one_gt_d9`/`lt_d9` + one `norm_num`; rung (a) is six lemmas (scratch-proven at the three axioms with a
-   planted-sorry control), one line per site. Named proof `s13_smallGradeFits_h_L` (`StrideDoorAllGrades.lean:1603`): lines 175 → 163,
+   planted-sorry control), one line per site. Named proof `s13_smallGradeFits_h_L` (`StrideDoorAllGrades.lean:1597`): lines 175 → 163,
    heartbeats 90,432 → 89,670 (measured at the object). Second candidate, RECORDED for the next pull: `nlinarith?` (certificate
    replay → `linarith [products]`, ~70× per converted call, after unmeasured). Finding that is NOT a tactic: 39 families of copied
    ladder-port proofs, 10,856 redundant lines (30 % of proof lines), bodies byte-identical across sockets — the sibling policy's
@@ -7148,7 +7148,7 @@ numbering is UNVERIFIED.
      mutation control), all `[propext, Classical.choice, Quot.sound]`, `+177/−0`, audit block at
      `Salt/MR/All.lean`. Statements elaborated sorry-bodied BEFORE the executor and byte-identical after.
    * ⛔✅ **S-2 — CLOSED AS SUPPLIED, NOT BUILT.** The form the road consumes is already on `main`:
-     **`mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`Salt/MR/StridePairReceiptG12b.lean:1135`, audited
+     **`mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`Salt/MR/StridePairReceiptG12b.lean:1127`, audited
      `Salt/MR/All.lean:10379`, landed in `e23b45c5` — β W34 H1).** It carries the `ε` pin, `162 ≤ A ∧ A₀ ≤ A`,
      `Ra.a = a`, `Ra.b = b`, the `ρ` cap and the transported grade `a·Zr·ρ + E` with `Zr ≤ 1.02`, `E` bounded.
      ⛔ **The `b`-UNIFORM one-regime form is UNSUPPLIED and UNNEEDED:** every landed supplier is `∀b, ∃R`
@@ -7218,7 +7218,7 @@ numbering is UNVERIFIED.
      (W1 Sonnet 5 · W2 Opus 4 · W3 Sonnet 3 + audit), every name inside budget, **zero flags**.
      ⭐ **THE RESULT WORTH CARRYING OUT OF THIS ROW: the ONE class-C node (hop 3, the tier A → tier B
      estimate) closed in TWO attempts because the freeze's second non-author pass DROVE the estimate
-     rather than judging it** — including the trap that `harm` (`StridePairReceiptG12b.lean:571-573`) is
+     rather than judging it** — including the trap that `harm` (`StridePairReceiptG12b.lean:563-565`) is
      dead at `:630` and must be re-derived at `R`. ⇒ ***a refuter pass that drives an estimate converts a
      class-C node into a transcription.***
      ⚖️ **STATEMENTS BYTE-IDENTICAL TO THE FREEZE, CHECKED AND NOT ASSERTED:** two independent guards
@@ -7243,7 +7243,7 @@ numbering is UNVERIFIED.
      **The substitution to the only `A` the suppliers have — the DESIGN PARAMETER — is FLAGGED, not made
      quietly: if a third `A` was meant, this census has not found it and the charter returns OPEN.**
    * ⭐⭐ **FOR THAT `A`, THE ANSWER IS YES AT THE WITNESS LEVEL.** It is built at
-     `Salt/MR/StridePairReceiptG12b.lean:802` (`flat_v7_generic_h_g12b`) as a `max` of TEN arms. Nine are
+     `Salt/MR/StridePairReceiptG12b.lean:794` (`flat_v7_generic_h_g12b`) as a `max` of TEN arms. Nine are
      closed in `h`, `A₀` and numerals (`cofkR…_b9 h hh hh9` · `s15_crossing…_b9 hh hh9` ·
      `s16_bandLaneWinLH_holdsU h hh` · the pinned `ε = 1/(500·(a·h))` · `β = cD3·ε/(144·log 4)`, `cD3 = 1/4`).
      **The ONE arm that could carry `b` — `Hopq = H₀xi`, from the count gate — is supplied by a LITERAL in
