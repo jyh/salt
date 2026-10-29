@@ -6,9 +6,10 @@ Authors: Jason Hickey, Claude
 import Salt.MR.StridePairReceiptG12b
 import Salt.MR.RegimeHead
 import Mathlib
+import Salt.MR.RegimeFloors
 
 -- Needed to transcribe B1/B2/H0/hop1's proofs, the same private names
--- `StridePairReceiptG12b.lean:28-30` opens for the identical purpose.
+-- `StridePairReceiptG12b.lean:29-31` opens for the identical purpose.
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
 open private flatRootCapH_arc_k from Salt.MR.S16ComposeLH
@@ -87,11 +88,11 @@ def xTightCeil (ε : ℚ) (Hhi : ℕ) : ℝ :=
     + 2 * Real.log (((4 ^ ⌊ε ^ 2 * (Hhi : ℚ)⌋₊ : ℕ) : ℝ) + 1)
 
 /-- **⟦S-1⟧ THE TIGHT CEILING WITH THE ARM'S SLACK** — what survives hop 3's rider inflation
-(`StridePairReceiptG12b.lean:610`, `g ↦ s15ArmH h δ₀ ρ + g`): `log (a · s15ArmH …) ≤ 9 + log ω +
+(`StridePairReceiptG12b.lean:611`, `g ↦ s15ArmH h δ₀ ρ + g`): `log (a · s15ArmH …) ≤ 9 + log ω +
 log h + H₊/10²⁰` (`s15ArmH_log_le_g12b`) with `log ω ≤ xTightCeil ε H₊` (the (i-ω) export) and
 `log h ≤ 9`, plus `log 2` for the sum's larger summand.  The shift's cost is the second `9` in the
 `18`, so the definition takes NO shift argument: at C1 the operative shift is `h`, at C2 and the
-crown it is `a·h` (`StridePairReceiptG12b.lean:1128`); both are covered by `log (·) ≤ 9`. -/
+crown it is `a·h` (`StridePairReceiptG12b.lean:1123`); both are covered by `log (·) ≤ 9`. -/
 def xTightCeilArm (ε : ℚ) (Hhi : ℕ) : ℝ :=
   xTightCeil ε Hhi + 18 + Real.log 2 + ((Hhi : ℕ) : ℝ) / 10 ^ 20
 
@@ -1138,13 +1139,7 @@ theorem flat_conditional_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.
         ≤ a * (s15ArmH h δ₀ ρ R.Hhi R.ω + g R.Hhi R.ω) :=
       Nat.mul_le_mul_left a (by omega)
     omega
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, -⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hstride, hRx, hRωtight, ?_, hRtow, ?_⟩
   · -- ⟦S-1 (i-x) TIER A → TIER B⟧ the rider inflation, paid at the arm's own slack.
     -- `log a ≤ 9` and `log h ≤ 9` make the `18`; the doubling makes the `log 2`; the arm's

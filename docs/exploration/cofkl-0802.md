@@ -7,7 +7,7 @@ never written at an anchor.
 
 ## 1. The route is anchor-general
 
-Both `S16CofactorSupply_gk` (S16Budget.lean:473) and the L twin
+Both `S16CofactorSupply_gk` (S16Budget.lean:474) and the L twin
 (S13CapGateLinear.lean:897) are OPEN — ⟦RULING 9⟧'s debt is unpaid at
 BOTH doors; there is one shared debt, not two. The intended supplier
 `RbdSupply.m4_supplier_all_chi` (RbdSupply.lean:190, wrapping
