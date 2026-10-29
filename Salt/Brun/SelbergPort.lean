@@ -37,8 +37,8 @@ the classical fundamental theorem (blueprint N1.3 convention). -/
 noncomputable def selbergBoundingSum : ℝ :=
   ∑ l ∈ s.prodPrimes.divisors, if (l : ℝ) ^ 2 ≤ s.level then s.selbergTerms l else 0
 
-/-- `0 < selbergBoundingSum s`: `ℓ = 1` qualifies (`1 ∣ P`, `1 ≤ level`) with term
-`selbergTerms 1 = 1`, and every term is nonnegative. -/
+/-- `0 < selbergBoundingSum s`: by `Finset.sum_pos`, every qualifying term is positive
+(`BoundingSieve.selbergTerms_pos`) and `ℓ = 1` qualifies (`1 ∣ P`, `1 ≤ level`). -/
 theorem selbergBoundingSum_pos : 0 < selbergBoundingSum s := by
   rw [selbergBoundingSum, ← Finset.sum_filter]
   apply Finset.sum_pos
