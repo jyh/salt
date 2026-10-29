@@ -1,7 +1,7 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `dc7c895d` · source digest `d341227ca86acde7` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `83e53e35` · source digest `b7bb7d1158b29984` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
@@ -730,7 +730,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.TwinBar.MarginalVanish` | DISCHARGED | `Salt.TwinBar.tent_marginalVanish` (Salt/TwinBar/Constrained.lean:349) |
 | `Salt.Vmvt.DistinctModP` | DISCHARGED | `Salt.Vmvt.residue_distinctModP` ✓audited GUARDED (Salt/Vmvt/Transversal2.lean:67) |
 | `Salt.Vmvt.blockDistinctMod` | DISCHARGED | `Salt.Vmvt.mem_mixBox` GUARDED (Salt/Vmvt/Transversal3.lean:79) · `Salt.Vmvt.mem_transRestBox` GUARDED (Salt/Vmvt/Transversal3.lean:109) |
-| `TwinCountingBigO` | DISCHARGED | `Salt.M5BigO.N5_3` (Salt/Brun/M5BigO.lean:295) |
+| `TwinCountingBigO` | DISCHARGED | `Salt.M5BigO.N5_3` (Salt/Brun/M5BigO.lean:296) |
 | `Salt.BrunLower.capPred` | FRAME | — |
 | `Salt.Entropy.Chowla.XCeilGate` | FRAME | — |
 | `Salt.MR.DoorRowT0Gates` | FRAME | — |
