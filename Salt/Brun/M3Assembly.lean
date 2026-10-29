@@ -27,6 +27,8 @@ noncomputable def mainTermSum (z : ℕ) : ℝ :=
 
 /-! ## Step A — termwise bound `τ(m)/m ≤ ν*(m)` on odd `m` -/
 
+/-- On odd `m` (`hm`), `τ(m)/m ≤ nuStar m = 2 ^ Ω(m) / m`: `τ(m) ≤ 2 ^ Ω(m)`
+(`card_divisors_le_two_pow_cardFactors`). -/
 lemma term_bound {m : ℕ} (hm : Odd m) : (m.divisors.card : ℝ) / m ≤ nuStar m := by
   have hm0 : m ≠ 0 := by rintro rfl; simp at hm
   have h := card_divisors_le_two_pow_cardFactors hm0
@@ -37,6 +39,8 @@ lemma term_bound {m : ℕ} (hm : Odd m) : (m.divisors.card : ℝ) / m ≤ nuStar
 
 /-! ## Step B — chain to `mainTermSum` -/
 
+/-- `divSum` over the odd `m < z` is at most `∑ nuStar m` over the same range (`term_bound`,
+termwise). -/
 lemma divSum_le_nuStar_sum (z : ℕ) :
     divSum ((Finset.range z).filter Odd) ≤ ∑ m ∈ (Finset.range z).filter Odd, nuStar m := by
   unfold divSum
@@ -45,6 +49,9 @@ lemma divSum_le_nuStar_sum (z : ℕ) :
   simp only [Finset.mem_filter] at hm
   exact term_bound hm.2
 
+/-- The Selberg main term dominates the square of the odd reciprocal sum below `√z`:
+`mainTermSum z ≥ (∑_{a < z.sqrt, a odd} 1/a) ^ 2` — the module's N3 chain with the divisor-pair
+expansion of the square. -/
 theorem mainTermSum_ge_sq (z : ℕ) :
     mainTermSum z ≥ (∑ a ∈ (Finset.range z.sqrt).filter Odd, (1 : ℝ) / a) ^ 2 := by
   unfold mainTermSum
@@ -56,6 +63,8 @@ theorem mainTermSum_ge_sq (z : ℕ) :
 
 /-! ## Step C — reindex `range z.sqrt` to `Icc 1 (z.sqrt - 1)` -/
 
+/-- For `1 ≤ n` (`hn`), the odd members of `range n` are the odd members of `Icc 1 (n − 1)` (`0`
+is not odd). -/
 lemma range_odd_eq_Icc_odd {n : ℕ} (hn : 1 ≤ n) :
     (Finset.range n).filter Odd = (Finset.Icc 1 (n - 1)).filter Odd := by
   ext a
@@ -67,6 +76,8 @@ lemma range_odd_eq_Icc_odd {n : ℕ} (hn : 1 ≤ n) :
   · rintro ⟨⟨ha1, ha2⟩, hodd⟩
     exact ⟨by omega, hodd⟩
 
+/-- For `1 ≤ z.sqrt` (`hz`), `∑_{a < z.sqrt, a odd} 1/a = oddHarmonicSum (z.sqrt − 1)`
+(`range_odd_eq_Icc_odd`). -/
 lemma stepC (z : ℕ) (hz : 1 ≤ z.sqrt) :
     ∑ a ∈ (Finset.range z.sqrt).filter Odd, (1 : ℝ) / a = oddHarmonicSum (z.sqrt - 1) := by
   unfold oddHarmonicSum
@@ -75,6 +86,8 @@ lemma stepC (z : ℕ) (hz : 1 ≤ z.sqrt) :
   intro i _
   rw [one_div]
 
+/-- `mainTermSum z ≥ (oddHarmonicSum (z.sqrt − 1)) ^ 2` for `1 ≤ z.sqrt` (`hz`):
+`mainTermSum_ge_sq` rewritten by `stepC`. -/
 theorem mainTermSum_ge_oddHarmonicSum_sq {z : ℕ} (hz : 1 ≤ z.sqrt) :
     mainTermSum z ≥ (oddHarmonicSum (z.sqrt - 1)) ^ 2 := by
   rw [← stepC z hz]
@@ -162,6 +175,9 @@ theorem stepD {z : ℕ} (hz : z0 ≤ z) :
 
 /-! ## Step E — square and conclude -/
 
+/-- N3.6 in existential form: some `c₀ > 0` and some `z₀` have
+`mainTermSum z ≥ c₀ · (log z) ^ 2` for every `z ≥ z₀` (the concrete threshold `z0 = 100` sits
+beside it). -/
 theorem exists_const_mainTermSum_ge :
     ∃ c₀ : ℝ, 0 < c₀ ∧ ∃ z₀ : ℕ, ∀ z ≥ z₀, mainTermSum z ≥ c₀ * (Real.log z) ^ 2 := by
   refine ⟨1/64, by norm_num, z0, ?_⟩

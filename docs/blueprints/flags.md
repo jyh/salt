@@ -9330,7 +9330,7 @@ hyperbola: for any `AddCommMonoid` and `F`,
 **LANDED — R4-prereq `sum_abs_grahamGc_div_le` [C] (DHBal.lean:444).** The Barban–Vehov `gc`
 harmonic moment: for `2 ≤ z`, any `M`, `Σ_{m∈Icc 1 M} |grahamGc z m|/m ≤ (1+log M)³`. Restrict
 to the squarefree support (`grahamGc_eq_zero_of_not_squarefree`), bound `|gc| ≤ 3^ω`
-(`abs_grahamGc_le`), and apply the landed **`Salt.HardyLittlewood.tau6W_le`** (Sharp.lean:248,
+(`abs_grahamGc_le`), and apply the landed **`Salt.HardyLittlewood.tau6W_le`** (Sharp.lean:261,
 `Σ_{d≤L,sqfree} k^ω(d)/d ≤ (1+log L)^k`) at `k = 3`. **This RETIRES the R4 Mertens-moment
 sub-wall the prior analysis feared:** mathlib has no quantitative Mertens, but the project's
 `tau6W_le` supplies the `(log z)^k`-grade divisor moment directly. The σ₀-loaded R4 form
