@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.S16FlatTerminalLinear
 import Salt.MR.S16ProducersH
 import Salt.MR.S16FlatTerminalExitH
+import Salt.MR.RegimeFloors
 
 /-!
 # THE FLAT-LINEAR LANE AT THE INFLATED SOCKET — the two riders, re-quantified
@@ -1180,13 +1181,7 @@ theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH (h : ℕ) (h
     hmain 0 le_rfl U1floor (fun Hhi ω => s15ArmH h δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, -⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
   intro M hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
