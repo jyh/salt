@@ -10544,7 +10544,7 @@ freeze v1.3 §2). Additive only: no landed statement moves. `ArithPageLinear.Soc
 socket as a HYPOTHESIS — so until now each was a claim about a set nobody had shown nonempty.
 `A := 2·R.x` meets all five at every regime and every admissible `(M, H, L, q, j, s)`: `0 < A`
 and `A ≤ 2x` from `R.hx`; `2 ^ j ≤ A` and `√H ≤ A` from the landed headroom chain
-`H ≤ R.Hhi ≤ R.x / R.ω ≤ R.x / 2` (`DoorReceipt.lean:210-216`); the window conjunct
+`H ≤ R.Hhi ≤ R.x / R.ω ≤ R.x / 2` (`DoorReceipt.lean:212-218`); the window conjunct
 `x ≤ 16·ω·arcDen 12 H·A` with a factor of 64 to spare, from `one_le_arcDen_of_regime` and
 `R.hω`. The `L = 0` branch is split out because `Nat.pow_log_le_self` carries the side
 condition `L ≠ 0` and the socket assumes no positivity of `L`; there `j ≤ Nat.log 2 0` forces
