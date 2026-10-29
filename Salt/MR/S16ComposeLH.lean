@@ -12,6 +12,7 @@ import Salt.MR.HSeamCheck
 import Salt.MR.V7A
 import Salt.MR.V7B
 import Salt.MR.RegimeFloors
+import Salt.MR.DoorSocket
 
 /-!
 # THE UNIFORM CAPSTONES AT SHIFT `h` — wave H3, block C
@@ -335,12 +336,9 @@ theorem flat_capstone_uniform_win_ceiling_h (h : ℕ) (hh : 0 < h) (hh7 : Real.l
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
       DoorRowZeroBase_L_gk K M (A + s) j liouvilleC
@@ -427,11 +425,7 @@ theorem flat_capstone_uniform_win_ceiling_h (h : ℕ) (hh : 0 < h) (hh7 : Real.l
     rw [hval] at hstep
     have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2
         * (108 / 5 * RSanDoorRhoH ρ h H)) ≤ 2 * δs ^ 2 := by linarith
-    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
-      rw [hδssq]
-      field_simp
-      ring
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
@@ -491,11 +485,9 @@ theorem flat_conditional_uniform_win_ceiling_h (h : ℕ) (hh : 0 < h)
   obtain ⟨Hcap, hCapLe, hmain⟩ := hcapU A hA26 hAge
   refine ⟨Hcap, hCapLe, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15ArmH h δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
@@ -832,12 +824,9 @@ theorem flat_capstone_uniform_win_ceiling_kwide_h (h : ℕ) (hh : 0 < h)
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
       DoorRowZeroBase_L_gk K M (A + s) j liouvilleC
@@ -924,11 +913,7 @@ theorem flat_capstone_uniform_win_ceiling_kwide_h (h : ℕ) (hh : 0 < h)
     rw [hval] at hstep
     have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2
         * (108 / 5 * RSanDoorRhoH ρ h H)) ≤ 2 * δs ^ 2 := by linarith
-    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
-      rw [hδssq]
-      field_simp
-      ring
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
@@ -975,11 +960,9 @@ theorem flat_conditional_uniform_win_ceiling_kwide_h (h : ℕ) (hh : 0 < h)
   obtain ⟨Hcap, hCapLe, hmain⟩ := hcapU A hA26 hAge
   refine ⟨Hcap, hCapLe, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15ArmH h δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
@@ -1410,12 +1393,9 @@ theorem flat_capstone_uniform_win_ceiling_kwide_khoist_h (h : ℕ) (hh : 0 < h)
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
       DoorRowZeroBase_L_gk K M (A + s) j liouvilleC
@@ -1502,11 +1482,7 @@ theorem flat_capstone_uniform_win_ceiling_kwide_khoist_h (h : ℕ) (hh : 0 < h)
     rw [hval] at hstep
     have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2
         * (108 / 5 * RSanDoorRhoH ρ h H)) ≤ 2 * δs ^ 2 := by linarith
-    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
-      rw [hδssq]
-      field_simp
-      ring
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
@@ -1558,11 +1534,9 @@ theorem flat_conditional_uniform_win_ceiling_kwide_khoist_h (h : ℕ) (hh : 0 < 
   obtain ⟨Hcap, hCapLe, hmain⟩ := hcapK A hA26 hAge
   refine ⟨Hcap, hCapLe, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15ArmH h δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
@@ -2021,12 +1995,9 @@ theorem flat_capstone_uniform_win_xceil_kwide_khoist_h (h : ℕ) (hh : 0 < h)
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
       DoorRowZeroBase_L_gk K M (A + s) j liouvilleC
@@ -2113,11 +2084,7 @@ theorem flat_capstone_uniform_win_xceil_kwide_khoist_h (h : ℕ) (hh : 0 < h)
     rw [hval] at hstep
     have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2
         * (108 / 5 * RSanDoorRhoH ρ h H)) ≤ 2 * δs ^ 2 := by linarith
-    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
-      rw [hδssq]
-      field_simp
-      ring
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
@@ -2178,11 +2145,9 @@ theorem flat_conditional_uniform_win_xceil_kwide_khoist_h (h : ℕ) (hh : 0 < h)
   obtain ⟨Hcap, hCapLe, hmain⟩ := hcapK A hA26 hAge
   refine ⟨Hcap, hCapLe, ?_⟩
   intro U1floor g hg hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦THE ONE GENUINE ESTIMATE, SPENT AT SHIFT `h`⟧ the substituted
   -- `g' = s15ArmH h δ₀ ρ + g` still obeys the builder-side rider.  H1's re-cut prices the arm at
   -- `log ω + log h + H₊/10^20` (`s15ArmH_log_le`), the caller's own `ε²·H₊` margin is

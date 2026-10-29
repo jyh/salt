@@ -7,6 +7,7 @@ import Salt.MR.StridePairReceiptG12b
 import Salt.MR.RegimeHead
 import Mathlib
 import Salt.MR.RegimeFloors
+import Salt.MR.DoorSocket
 
 -- Needed to transcribe B1/B2/H0/hop1's proofs, the same private names
 -- `StridePairReceiptG12b.lean:29-31` opens for the identical purpose.
@@ -913,12 +914,9 @@ theorem flat_capstone_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.log
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBaseLH h (regimeEnlargeX R hx') M H L q j A s →
       DoorRowZeroBase_L_gk K M (A + s) j liouvilleC
@@ -1006,11 +1004,7 @@ theorem flat_capstone_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.log
     rw [hval] at hstep
     have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2
         * (108 / 5 * RSanDoorRhoH ρ h H)) ≤ 2 * δs ^ 2 := by linarith
-    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
-      rw [hδssq]
-      field_simp
-      ring
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
@@ -1049,11 +1043,9 @@ theorem flat_conditional_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.
     have haR : ((a : ℕ) : ℝ) ≤ 8103 := by exact_mod_cast ha8103
     calc Real.log ((a : ℕ) : ℝ) ≤ Real.log (Real.exp 9) := Real.log_le_log haR0 (by linarith)
       _ = 9 := Real.log_exp 9
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦THE ONE GENUINE ESTIMATE, SPENT AT SHIFT `h`⟧ as in the source, at the `+ 9` split
   have hh1R : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
   have hεR : (1 : ℝ) / (500 * (h : ℝ)) ≤ (ε : ℝ) := by

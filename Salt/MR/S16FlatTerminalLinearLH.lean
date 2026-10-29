@@ -7,6 +7,7 @@ import Salt.MR.S16FlatTerminalLinear
 import Salt.MR.S16ProducersH
 import Salt.MR.S16FlatTerminalExitH
 import Salt.MR.RegimeFloors
+import Salt.MR.DoorSocket
 
 /-!
 # THE FLAT-LINEAR LANE AT THE INFLATED SOCKET — the two riders, re-quantified
@@ -296,12 +297,9 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_LH (h : �
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`; the head's count bound IS the register's `Kc`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKb
   set δs : ℝ := s12DeltaSock δ₀ Kb with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKb
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kb) := s12DeltaSock_sq hδ₀ hKb
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned at LH
   have hbase : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
       DoorRowZeroBase_L_gk K M (A + s) j liouvilleC
@@ -1172,11 +1170,9 @@ theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH (h : ℕ) (h
   refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, x₀, Hcap, Hopq, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl,
     hCgle, hεpin, hδpin, hMflb, hKcb, hβ, hA26, hA₀A, hAge, hCapLe, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15ArmH h δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
