@@ -112,10 +112,10 @@ them (lint has verified that each file exists and declares that name).
 
 **§1 Sieve / Brun**
 - `Salt.N6.N6_2` — Brun's theorem: the sum of reciprocals of the twin primes converges. `Salt/Brun/N6.lean:231`
-- `Salt.M5BigO.N5_3` — `twinPrimeCounting N` is `O(N/(log N)²)`, explicit constant 25700. `Salt/Brun/M5BigO.lean:295`
+- `Salt.M5BigO.N5_3` — `twinPrimeCounting N` is `O(N/(log N)²)`, explicit constant 25700. `Salt/Brun/M5BigO.lean:296`
 - `Salt.BrunLower.twin_almost_prime` — infinitely many `n` with `Ω(n(n+2)) ≤ 20`. `Salt/BrunLower/TwinInstance.lean:771`
 - `Salt.HardyLittlewood.twinCounting_upper_order` [tier-2] — `∃ C > 0`, `π₂(N) ≤ C·N/(log N)²`. `Salt/HardyLittlewood/Frame.lean:117`
-- `Salt.HardyLittlewood.twinCounting_upper_sharp` — the same with `C ≤ 100` (here 90). `Salt/HardyLittlewood/Sharp.lean:786`
+- `Salt.HardyLittlewood.twinCounting_upper_sharp` — the same with `C ≤ 100` (here 90). `Salt/HardyLittlewood/Sharp.lean:802`
 
 **§2 Chen / Goldbach**
 - `Salt.Chen.chen_headline` — Chen's theorem, unconditional. `Salt/Chen/ChenTheorem.lean:32`

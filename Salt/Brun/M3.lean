@@ -62,6 +62,9 @@ lemma even_sum_eq_half_harmonic (n : ℕ) :
 noncomputable def oddHarmonicSum (n : ℕ) : ℝ :=
   ∑ i ∈ (Finset.Icc 1 n).filter (fun i => Odd i), (i : ℝ)⁻¹
 
+/-- `oddHarmonicSum n = harmonic n − (1/2) · harmonic (n / 2)`: the odd reciprocals are all of
+them minus the even ones, and the even ones `1/(2j)`, `j ≤ n / 2`, are half a harmonic
+number. -/
 lemma oddHarmonicSum_eq (n : ℕ) :
     oddHarmonicSum n = harmonic n - (1 / 2 : ℝ) * harmonic (n / 2) := by
   unfold oddHarmonicSum
@@ -122,6 +125,8 @@ noncomputable def divSum (S : Finset ℕ) : ℝ := ∑ m ∈ S, (m.divisors.card
 def divPairs (S : Finset ℕ) : Finset (ℕ × ℕ) :=
   S.biUnion (fun m => m.divisors.image (fun d => (m, d)))
 
+/-- `divSum S = ∑_{(m, d) ∈ divPairs S} 1 / m`: `τ(m)/m` counts each divisor pair `(m, d)` with
+weight `1/m`. -/
 lemma divSum_eq_sum_divPairs (S : Finset ℕ) : divSum S = ∑ p ∈ divPairs S, (1 : ℝ) / p.1 := by
   unfold divSum divPairs
   rw [Finset.sum_biUnion]
