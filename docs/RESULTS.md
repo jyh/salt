@@ -62,10 +62,10 @@ authority on the method's record. [METHODS.md](METHODS.md), [OPERATIONS.md](OPER
 | Theorem (Lean name) | Plain statement (one line) | File:line | Date landed | Commit | Axioms |
 |---|---|---|---|---|---|
 | `Salt.N6.N6_2` | **Brun's theorem**: the sum of reciprocals of the twin primes converges. | Salt/Brun/N6.lean:231 | 2026-07-07 | `9091e405` | 3 (blueprint_lint P3) |
-| `Salt.M5BigO.N5_3` | `twinPrimeCounting N` is `O(N/(log N)²)` — explicit constant 25700. | Salt/Brun/M5BigO.lean:295 | 2026-07-07 | `5a7d6f1c` | 3 (blueprint_lint P1) |
+| `Salt.M5BigO.N5_3` | `twinPrimeCounting N` is `O(N/(log N)²)` — explicit constant 25700. | Salt/Brun/M5BigO.lean:296 | 2026-07-07 | `5a7d6f1c` | 3 (blueprint_lint P1) |
 | `Salt.BrunLower.twin_almost_prime` | Infinitely many `n` with `Ω(n(n+2)) ≤ 20` — the corpus's first lower-bound sieve. | Salt/BrunLower/TwinInstance.lean:792 | 2026-07-12 | `d11e3a02` | 3 (Salt/BrunLower/All.lean:54) |
 | `Salt.HardyLittlewood.twinCounting_upper_order` [tier-2] | Order-sharp packaging: `∃ C > 0`, `π₂(N) ≤ C·N/(log N)²` for all large `N`. | Salt/HardyLittlewood/Frame.lean:131 | 2026-07-17 | `6f568e3e` | 3 (Salt/HardyLittlewood/All.lean:34) |
-| `Salt.HardyLittlewood.twinCounting_upper_sharp` | The sharp-order twin upper bound: `C ≤ 100` (here 90) with `π₂(N) ≤ C·N/(log N)²` — a factor ≈285 off the landed 25700. | Salt/HardyLittlewood/Sharp.lean:790 | 2026-07-18 | `790913d1` | 3 (Salt/HardyLittlewood/All.lean:34) |
+| `Salt.HardyLittlewood.twinCounting_upper_sharp` | The sharp-order twin upper bound: `C ≤ 100` (here 90) with `π₂(N) ≤ C·N/(log N)²` — a factor ≈285 off the landed 25700. | Salt/HardyLittlewood/Sharp.lean:806 | 2026-07-18 | `790913d1` | 3 (Salt/HardyLittlewood/All.lean:34) |
 
 ## 2. Chen / Goldbach
 
