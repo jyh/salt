@@ -23417,7 +23417,7 @@ cost a census and not a wave.
 (*regime enlargement absorbs any `X`-independent debit*) plus the live lever `g R.Hhi R.ω ≤ R.x`
 in the parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:437`, which `_g0` sets to **zero**)
 makes a re-route onto the outer scale look free. **It is not: the lever has a ceiling.**
-`XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:84`); with
+`XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:86`); with
 `ε ≥ 1/500` a caller may request at most `log g ≤ 15500·H₊`, worth **≈ +24 additive on
 `loglog X`** against the landed floor `loglog X ≥ log H₊ − 14` (`cofkL_logX_floor`, linear in
 `H₊` via the regime's `hPHheadroom`) — **a constant factor ≤ ~4 in the budget, never a rate.**

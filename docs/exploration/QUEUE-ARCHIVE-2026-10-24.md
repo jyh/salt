@@ -739,7 +739,7 @@
    with `13·10^13` left landed at the wider `c` FAILS at `hstep`'s own `nlinarith`, XThread:476's twin — one step before the
    freeze's predicted :482); the exit test §7.1 whole (the six-path diff against `9a2b3053`, the excluding diff EMPTY, the
    minus lines exactly the 27 `sorry`, statements 14/18/2/3 byte-identical to the freeze, both aggregates `EXIT=0`, lint
-   `OK`). Two lines the recipe did not carry, both ABOVE the arm's `theorem` and copied from the landed `XThread.lean:332`
+   `OK`). Two lines the recipe did not carry, both ABOVE the arm's `theorem` and copied from the landed `XThread.lean:334`
    shape: `open private xt_exp25 from Salt.MR.XThread` and `set_option maxHeartbeats 2000000 in`. salt `math/lbv-w2s-beta`
    off `9a2b3053`: `Salt/MR/StrideGradeWalls.lean` (14) · `Salt/MR/StridePairReceiptG.lean` (7 defs + 11) ·
    `Salt/Entropy/Chowla/StrideShellG.lean` (2) · `Salt/MR/StrideGradeReceipt.lean` (3) = **37 declarations, 27 obligations
@@ -5294,7 +5294,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    REFUTED BEFORE PROPOSING IT:** re-routing the cushion onto the outer scale so the regime lever
    `g R.Hhi R.ω ≤ R.x` absorbs it — `_g0` sets that lever to zero and the parent
    (`V7Ks.lean:437`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
-   `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:84`) with `ε ≥ 1/500` permits at most
+   `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:86`) with `ε ≥ 1/500` permits at most
    `log g ≤ 15500·H₊`, worth **≈ +24 additive on `loglog X`** against the landed floor
    `loglog X ≥ log H₊ − 14` — a constant factor ≤ ~4, **never a rate.** Full stamp:
    `docs/blueprints/arc.md` §4's R-1 row (and §7 carries the pointer).
