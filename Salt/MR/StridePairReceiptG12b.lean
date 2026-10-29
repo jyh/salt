@@ -24,7 +24,7 @@ import Salt.MR.StrideGrade12bWalls
 import Mathlib
 import Salt.MR.RegimeFloors
 
--- The same three `open private` lines as `StridePairReceiptG.lean:78-80` — the later replays and
+-- The same three `open private` lines as `StridePairReceiptG.lean:79-81` — the later replays and
 -- the door-head of this lane are the same bodies and reach the same private names.
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
@@ -43,7 +43,7 @@ namespace Salt.MR
 /-! ## §4 — THE FORMS AT `2^12`: the six graded forms, pin at `838400 · 2^12`, stride `a ≤ 8103` -/
 
 /-- **⟦H0 FORM AT `2^12`⟧ (def) — `FlatHeadFormHG_g12b`.**
-`FlatHeadFormHG` (StridePairReceiptG.lean:98) with the pin `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and
+`FlatHeadFormHG` (StridePairReceiptG.lean:99) with the pin `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and
 the stride `a ≤ 1096 ↦ a ≤ 8103`; nothing else moves. -/
 def FlatHeadFormHG_g12b (h : ℕ) (Xi : XiFamily) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (ε : ℚ) (K δ₀ β : ℝ) (Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 539 ∧ 0 < δ₀ ∧
@@ -315,7 +315,7 @@ HONEST LABEL.  Replays only; nothing here proves a new estimate, and nothing bea
 primes. -/
 
 /-- **⟦H0→H1 REPLAY AT `2^12`⟧ — `flat_roadExit_generic_h_g12b`.** `flat_roadExit_generic_h_g`
-(StridePairReceiptG.lean:348) at the `_g12b` forms, its unused cap binder at `≤ 9`.  BODY verbatim:
+(StridePairReceiptG.lean:349) at the `_g12b` forms, its unused cap binder at `≤ 9`.  BODY verbatim:
 `hδpin` and the stride bound are forwarded opaquely; the road
 `m4_second_road_L2_Set_gk_flatRoot_L_khoist` is cap-free and `δ₀`-generic. -/
 theorem flat_roadExit_generic_h_g12b (h : ℕ) (hh : 0 < h) (_hh9 : Real.log (h : ℝ) ≤ 9)
@@ -1035,7 +1035,7 @@ HONEST LABEL.  Replays only; nothing here proves a new estimate, and nothing bea
 primes. -/
 
 /-- **⟦THE CHAIN AT `2^12`⟧ — `flat_chain_generic_h_g12b`.** `flat_chain_generic_h_g`
-(StridePairReceiptG.lean:1077) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
+(StridePairReceiptG.lean:1072) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
 replays (census band 4 row 23: SUPPLIER-SWAP, no numerals). -/
 theorem flat_chain_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) (Xi : XiFamily)
     (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →
