@@ -12,8 +12,8 @@ The capstone consumers open a regime `R` under the window hypothesis
 `hU : max Hcap (max arcFloor36 loglogFloor50) ≤ U1floor`, with the fields `hU1 : U1floor ≤ R.Hlo`
 and `hRcap : R.Hlo ≤ max Hcap U1floor`, and then re-derive the base pin `R.Hlo = U1floor` and the
 two regime floors `loglogFloor50 ≤ R.Hlo`, `arcFloor36 ≤ R.Hlo` in ten lines (the tactics
-catalogue's candidate #4, 38 sites in 22 files). This module states that block once. It is generic
-in the two floors, so it needs neither definition.
+catalogue's candidate #4: 38 sites in 22 files, landed in two batches). This module states that
+block once. It is generic in the two floors, so it needs neither definition.
 -/
 
 namespace Salt.MR
