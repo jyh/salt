@@ -9,10 +9,11 @@ import Salt.MR.S12Compose
 # The door socket (`DoorSocket`)
 
 The door consumers set the socket threshold `δs := s12DeltaSock δ₀ Kc` and its grade
-`ρ := doorRhoOfDelta δs`, then re-derive the same four facts (`0 < δs`, `δs ^ 2 = δ₀ / (16 · Kc)`,
-`0 < ρ`, `ρ ≤ 1`); at gate 9 they re-derive `2 · δs ^ 2 = δ₀ / (8 · Kc)` by `field_simp`. This module
-states both once (the tactics catalogue's door-socket block and its gate-9 tail). At a site the facts
-are obtained BEFORE the two `set`s, so the `set`s rewrite them into `δs` and `ρ`.
+`ρ := doorRhoOfDelta δs`, then re-derive the same four facts (`0 < δs`,
+`δs ^ 2 = δ₀ / (16 · Kc)`, `0 < ρ`, `ρ ≤ 1`); at gate 9 they re-derive
+`2 · δs ^ 2 = δ₀ / (8 · Kc)` by `field_simp`. This module states both once (the tactics
+catalogue's door-socket block and its gate-9 tail). At a site the facts are obtained BEFORE the
+two `set`s, so the `set`s rewrite them into `δs` and `ρ`.
 -/
 
 namespace Salt.MR
