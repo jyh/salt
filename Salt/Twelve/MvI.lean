@@ -276,6 +276,19 @@ private lemma badpair_bound (W' : ℕ) (c₀ : ℝ) (hc₀0 : 0 ≤ c₀)
 /-! ## The keystone `mv_I` -/
 
 omit [Salt.Maynard.TupleChoice] in
+/-- **The wave-3 keystone `I`-evaluation.** For square-free `W' > 0` (`hW'`, `hpos`) with
+`PhiUpperAtom W'` (`hUpper`) and a certificate polynomial `F`: there is `c ≥ 0` such that for
+every cutoff `3 ≤ D` below every prime not dividing `W'` and every `R` with `1 ≤ log R`, the
+φ-weighted second moment `Σ_{r ∈ kSieveIndex 5 R W'} eval (ofPoly F)(log r_i/log R)²/∏ φ(r_i)`
+is within `c·(1 + X)⁵·(1/log R + 1/D)` of `X⁵·∫_{Δ₅} F²` (`X = φ(W')/W'·log R`,
+`simplexInt (sq (ofPoly F))`). The witness is `c = 40·c₀⁵·Qabs/κ⁵ + Cmain/κ`, with `c₀` the
+`marked_sqf_phi` constant at `a = 0`, `Qabs = Σ|coeff|` over `sq (ofPoly F)`, `Cmain` its
+`mv_monomial`-weighted coefficient sum and `κ = φ(W')/W'`. The sum expands monomial by monomial
+(`sum_finset_list_swap`); per monomial, the pairwise-coprimality drop from `decBox` to
+`kSieveIndex` is covered by the 20 ordered pairs times the primes `D < p < R` and bounded by
+`badpair_bound` and `prime_tail` to `40·c₀⁵·(log R)⁵/D`, absorbed into `(1 + X)⁵/κ⁵`;
+`mv_monomial` at `z = R` gives the main term with error `C_m·(1 + X)⁴`, absorbed into
+`(1 + X)⁵/(κ·log R)`. -/
 theorem mv_I (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (F : Poly) :
     ∃ c : ℝ, 0 ≤ c ∧ ∀ D R : ℕ, 3 ≤ D →

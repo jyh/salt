@@ -403,18 +403,18 @@ theorem s15_sel''_L_gk_witness_flat_bumped_win_h_g {A : ℝ} (hA : 162 ≤ A) (K
     (flatDoorM_bfloor_bump_g hh (h_le_1096_of_hh7 hh hh7) hA hδ hδb hCg)
     hMfl hx0win heps hlo hhi
 
-/-! ## §5 — THE ARM AT THE GRADED PIN (`XThread.lean:345-533`, `S16ProducersH.lean` · `s15ArmH_log_le`) -/
+/-! ## §5 — THE ARM AT THE GRADED PIN (`XThread.lean:347-535`, `S16ProducersH.lean` · `s15ArmH_log_le`) -/
 
 set_option maxHeartbeats 2000000 in
--- as `XThread.lean:330` above the landed `s15Arm_log_le_scaled`: the arm's four summands,
+-- as `XThread.lean:332` above the landed `s15Arm_log_le_scaled`: the arm's four summands,
 -- the double exponential's collapse and the closing budget elaborate in one block
 /-- **⟦THE ARM, PRICED, AT A `c`-CEILING THAT ADMITS `2^11·h²`⟧ (class B)** —
-`s15Arm_log_le_scaled` (`XThread.lean:345`) with `hcb : c ≤ 1201216 ↦ c ≤ 2460090368` and
+`s15Arm_log_le_scaled` (`XThread.lean:347`) with `hcb : c ≤ 1201216 ↦ c ≤ 2460090368` and
 `hlogc : log c ≤ 14 ↦ ≤ 22`; conclusion unchanged.  ⛔ The landed lemma CANNOT be reused at
 `c = 2^11·h²`: both binders fail (`log(2^11·1201216) = 21.62`).  ⚠ `2460090368 = 2^11·1096²`
 EXACTLY — the `c`-ceiling has ZERO margin; it is safe only because its sole supplier (`h ≤ 1096`
 in `s15ArmH_log_le_g`) is itself the exact `⌊e^7⌋` bound, and a raise of `h`'s cap re-cuts it.
-BODY: `XThread.lean:351-534` verbatim — from `have hc0 : 0 < c` and `set ρ := …` (:351-352) to
+BODY: `XThread.lean:353-536` verbatim — from `have hc0 : 0 < c` and `set ρ := …` (:351-352) to
 the closing `linarith [hlog, hprod, hω1, hclose]` (:534) — with NINE numeral sites moved in THREE
 families, each anchored by its `have`-name (the line numbers are at `main 9a2b3053`):
   · `hρlog : log(1/ρ) ≤ 417 ↦ ≤ 425` (:355-356; `xt_log_inv_rho_le_scaled` gives `403 + log c`

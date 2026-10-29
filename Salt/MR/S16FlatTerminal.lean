@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.S16BudgetFlat
 import Salt.MR.HloExportMRFlatRoot
+import Salt.MR.StrataBounds
 
 /-!
 # THE FLAT TERMINAL — the third face at HEIGHT 2, and the price of the last step
@@ -470,21 +471,7 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot (K : ℕ)
           simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
     positivity
   · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
-    intro H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
-      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
-      unfold strataResidual
-      linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
-    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
-      have h1 : RSanDoorRho ρ H ≤ 1 := by
-        unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
-        linarith
-      exact le_trans h1 (le_max_left _ _)
-    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
-    linarith
+    exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
     have hH0 : 0 < H := by

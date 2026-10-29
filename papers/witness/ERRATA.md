@@ -83,10 +83,29 @@ band lane, eight numeric riders on constants the theorem itself produces, and tw
 (`logChowla2_witnessed_scale_flat_L_v2` (`Salt/MR/S16FlatFinal.lean:136`), Theorem thm:pearl, takes `A₀` with
 `162 ≤ A₀` and produces one `A` with `A₀ ≤ A`; the manuscript's own :1201–1202 says "the theorem produces, for every
 `A₀`, some `A ≥ A₀`". The hoisted form of §sec:limit, `logChowla2_witnessed_scale_flat_L_v2_uniform`
-(`Salt/MR/S16Uniform.lean:933`), does hold at every `A` with `162 ≤ A` and `budgetAFlat ε β ≤ A`, but
+(`Salt/MR/S16Uniform.lean:910`), does hold at every `A` with `162 ≤ A` and `budgetAFlat ε β ≤ A`, but
 `budgetAFlat ε β = 2304·log 4/(ε⁶β²)` is computed from constants the theorem produces, and only `0 < β` is known of
 `β`, so that floor is not explicit.)
 
 (Copies, measured 2026-10-25: the same claim stands in `pi-overview-draft.md` beside this file, a draft, and in the
 description of the Zenodo record 10.5281/zenodo.22942698, which reproduces the abstract. W2's sentence stands in both
 too. This file corrects them; the record's metadata is left as published.)
+
+**W5. :1437–1439, "The five riders, by nature", the $K_{\mathrm{vt}}$ item**. The sentence:
+```text
+This is the single point at which Siegel's ineffective constant enters, and the cushion is therefore carried by
+name, with the trace behind it rather than a bound.
+```
+
+Corrected:
+```text
+This is the one leg of the cushion that is not effective in $q$: the minimum is the extreme-value theorem's, which
+is where a Siegel-type ineffectivity would enter, and the cushion is therefore carried by name, with the trace
+behind it rather than a bound.
+```
+
+(The declaration, `Salt.MR.LFunction_band_lower` (`Salt/MR/SiegelArm.lean:161`), uses no Siegel input. Its docstring
+says the minimum "is NOT effective in `q`: that, and only that, is where Siegel's ineffective constant would enter".
+Siegel's theorem itself enters the corollary elsewhere: `xiCarveWidth_of_siegel` (`Salt/MR/PortClose.lean:76`)
+obtains `siegel_real_carve` (`Salt/MR/PortAssembly.lean:1180`), which obtains `Salt.SW.siegel_theorem`. The
+sentence holds only inside its own paragraph. Found by math's reach census, salt #525.)
