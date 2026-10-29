@@ -33,6 +33,7 @@ namespace Salt.M5BigO
 `N0 ^ (1/10) = 2^10 = 1024` is also exact. -/
 def N0 : ℕ := 2 ^ 100
 
+/-- `(N0 : ℝ) = 2 ^ 100`: the threshold cast to `ℝ`. -/
 lemma N0_cast : (N0 : ℝ) = (2 : ℝ) ^ (100 : ℕ) := by
   unfold N0; push_cast; ring
 

@@ -9330,7 +9330,7 @@ hyperbola: for any `AddCommMonoid` and `F`,
 **LANDED — R4-prereq `sum_abs_grahamGc_div_le` [C] (DHBal.lean:444).** The Barban–Vehov `gc`
 harmonic moment: for `2 ≤ z`, any `M`, `Σ_{m∈Icc 1 M} |grahamGc z m|/m ≤ (1+log M)³`. Restrict
 to the squarefree support (`grahamGc_eq_zero_of_not_squarefree`), bound `|gc| ≤ 3^ω`
-(`abs_grahamGc_le`), and apply the landed **`Salt.HardyLittlewood.tau6W_le`** (Sharp.lean:248,
+(`abs_grahamGc_le`), and apply the landed **`Salt.HardyLittlewood.tau6W_le`** (Sharp.lean:261,
 `Σ_{d≤L,sqfree} k^ω(d)/d ≤ (1+log L)^k`) at `k = 3`. **This RETIRES the R4 Mertens-moment
 sub-wall the prior analysis feared:** mathlib has no quantitative Mertens, but the project's
 `tau6W_le` supplies the `(log z)^k`-grade divisor moment directly. The σ₀-loaded R4 form
@@ -25431,7 +25431,7 @@ forms, four receipts, `mrtUniformityXiL2Set_mono`, the builder pair, the head, t
 road-exit hop, and the `j`-floor lift `s13_g2_jfloor_of_MSelect'_L_gk_h_L`).
 
 **(1) The capstone reads the twist cap at two sites the freeze does not name.**  G12b's
-`flat_capstone_generic_h_g12b` derives `hh14 : log h <= 14` at `StridePairReceiptG12b.lean:355`
+`flat_capstone_generic_h_g12b` derives `hh14 : log h <= 14` at `StridePairReceiptG12b.lean:356`
 and reads it at exactly two lines, both `_14` suppliers with NO charge-form twin in the corpus
 (measured: `git grep` finds only the base and `_14` variants of each):
 - `:369` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the
@@ -25622,7 +25622,7 @@ the class and the statement of record, the five receipts, the four inversion lem
 U-forms, U-ARM (`s15Arm_le_of_regime`), and the doorL2, road and capstone hops on the U-forms.
 
 **What the hop needs about `R` that its U-form does not give.**  The source
-`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4954`) spends the head's COUNT export
+`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4955`) spends the head's COUNT export
 `∀ H [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → |bigXi R.eps H| ≤ K` (K the head's existential) twice:
 as an input to the head's own slot and as `hcount` of `sum_bigXi_norm_windowExpSum_sq_le_twelve`
 (`M4Window.lean:567`).  Under the brief's rule `FlatHeadFormU` keeps the count as a HYPOTHESIS
@@ -25632,7 +25632,7 @@ one open goal is exactly
 `⊢ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ↑(bigXi R.eps H).card ≤ K`
 with `K` known only through `0 < K` and `K ≤ 2 ^ 283 * c ^ 20`.
 
-**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2237`) needs
+**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2238`) needs
 `ε ≤ 1/500`, which no form carries (only `0 < ε` and the pin), and it yields ITS OWN constant `C`,
 not the head's `K`; the socket's `Hopq`/`Hcap` are the hop's to choose but a floor cannot bound a
 count by a constant the hop did not pick.  So this is a walk finding about the FORMS, not a proof
