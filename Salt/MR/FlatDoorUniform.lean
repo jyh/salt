@@ -140,9 +140,7 @@ theorem nextHopU_zero_level (hU : FlatDoorUniformW) : FlatDoorAllGradesW := by
     linarith
   have hε2 : (ε : ℝ) ≤ 1 / 2 := by
     have hq : ε ≤ (1 : ℚ) / 2 := le_trans hε (by norm_num)
-    have h := (Rat.cast_le (K := ℝ)).mpr hq
-    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hq
   have hhead : FlatHeadFormEpsW ε c (fun _ => True) :=
     flat_head_uniform_xceil_epsW ε hε0 hε hc1 hcε (fun _ => True) (fun _ _ _ _ => trivial)
   obtain ⟨K, δ₀, β, Hopq, -, -, -, -, -, -, -, hβ, hbody⟩ := hhead
@@ -1328,9 +1326,7 @@ theorem flat_kswin_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (A
   have hc0 : 0 < c := by omega
   have hLc0 : (0 : ℝ) ≤ Real.log (c : ℝ) := Real.log_nonneg (by exact_mod_cast hc1)
   have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
-    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
   have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
   have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
   have hεR : (1 : ℝ) / (500 * (c : ℝ)) ≤ (ε : ℝ) := by
