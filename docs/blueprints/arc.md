@@ -189,10 +189,10 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   whole blocker.**
   ⛔⛔ **AND THE RE-ROUTE I TESTED BEFORE PROPOSING IT IS REFUTED — recorded because it is the
   attractive wrong answer.** `SiegelBand.lean`'s design law says an `X`-independent debit is absorbed
-  by regime enlargement, and the terminal's parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:437`)
+  by regime enlargement, and the terminal's parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:438`)
   keeps a live lever `g R.Hhi R.ω ≤ R.x` that `_g0` sets to **zero**. So the obvious move is to re-route
   the cushion from `log H₊/4` onto the outer scale and let `g` absorb it. **The lever has a ceiling.**
-  `XCeilRiderStrict ε g` (`XThread.lean:86`) demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊`, and `ε ≥ 1/500`,
+  `XCeilRiderStrict ε g` (`XThread.lean:87`) demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊`, and `ε ≥ 1/500`,
   so a caller may request at most `log (g H₊ ω) ≤ 15500·H₊`; against the landed floor
   `loglog X ≥ log H₊ − 14` (`cofkL_logX_floor`, LINEAR in `H₊` via `hPHheadroom`) the lever buys
   **≈ +24 additive on `loglog X`, i.e. a constant factor ≤ ~4 in the budget — never a rate.**

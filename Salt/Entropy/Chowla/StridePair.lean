@@ -54,7 +54,7 @@ import Mathlib
 -- v2 (refuter verdict A5): the transport's integrand bound `‖windowExpSum H n α‖ ≤ H` lives in
 -- `MRTDoor.lean` as a `private` lemma (its `Salt.MR` twin `norm_windowExpSum_le` is unreachable
 -- from an Entropy module).  Reached by `open private`, the corpus's sanctioned device
--- (`DoorReceipt.lean:68` does the same for `uniformCap_shuffle`).
+-- (`DoorReceipt.lean:69` does the same for `uniformCap_shuffle`).
 open private norm_windowExpSum_trivial from Salt.Entropy.Chowla.MRTDoor
 
 open MeasureTheory

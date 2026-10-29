@@ -247,7 +247,7 @@ section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `s16_bandLaneWinL_holdsU` (`Salt/MR/S16ComposeV4.lean:97`): its statement
+/-- **⟦STANDOFF TWIN⟧** `s16_bandLaneWinL_holdsU` (`Salt/MR/S16ComposeV4.lean:98`): its statement
 under the three standoff binders, its proof verbatim with `mmuChiRate_holds_gated` replaced by the
 standoff form. -/
 theorem s16_bandLaneWinL_holdsU_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -464,7 +464,7 @@ set_option maxHeartbeats 1600000 in
 -- that declaration's own heartbeat room.
 open Complex MeasureTheory Set ArithmeticFunction DirichletCharacter in
 open scoped LSeries.notation in
-/-- **⟦STANDOFF TWIN⟧** `halasz_primes_chi_pair_of_gates_bounded_cs` (`Salt/MR/V7B.lean:1122`): its
+/-- **⟦STANDOFF TWIN⟧** `halasz_primes_chi_pair_of_gates_bounded_cs` (`Salt/MR/V7B.lean:1123`): its
 statement under the three standoff binders, its proof verbatim with
 `twisted_rect_zero_free_siegel_bounded` replaced by the standoff form. -/
 theorem halasz_primes_chi_pair_of_gates_bounded_cs_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -525,7 +525,7 @@ set_option maxHeartbeats 1600000 in
 -- The twin re-elaborates the `_bounded` statement with one more conjunct, so it needs
 -- that declaration's own heartbeat room.
 open Complex DirichletCharacter in
-/-- **⟦STANDOFF TWIN⟧** `halaszPrimesChi_holds_gated_bounded_cs` (`Salt/MR/V7B.lean:1176`): its
+/-- **⟦STANDOFF TWIN⟧** `halaszPrimesChi_holds_gated_bounded_cs` (`Salt/MR/V7B.lean:1177`): its
 statement under the three standoff binders, its proof verbatim with
 `halasz_primes_chi_pair_of_gates_bounded_cs` replaced by the standoff form. -/
 theorem halaszPrimesChi_holds_gated_bounded_cs_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -565,7 +565,7 @@ set_option maxHeartbeats 1600000 in
 -- The twin re-elaborates the `_bounded` statement with one more conjunct, so it needs
 -- that declaration's own heartbeat room.
 open Complex DirichletCharacter in
-/-- **⟦STANDOFF TWIN⟧** `halaszPrimesChi_pointwise_of_gates_bounded_cs` (`Salt/MR/V7B.lean:1210`):
+/-- **⟦STANDOFF TWIN⟧** `halaszPrimesChi_pointwise_of_gates_bounded_cs` (`Salt/MR/V7B.lean:1211`):
 its statement under the three standoff binders, its proof verbatim with
 `halaszPrimesChi_holds_gated_bounded_cs` replaced by the standoff form. -/
 theorem halaszPrimesChi_pointwise_of_gates_bounded_cs_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -599,7 +599,7 @@ set_option maxHeartbeats 2400000 in
 -- that declaration's own heartbeat room.
 open MeasureTheory in
 /-- **⟦STANDOFF TWIN⟧** `usetGChi_window_meansq_gated_family_perBlock_bounded_cs`
-(`Salt/MR/V7B.lean:1237`): its statement under the three standoff binders, its proof verbatim with
+(`Salt/MR/V7B.lean:1238`): its statement under the three standoff binders, its proof verbatim with
 `halaszPrimesChi_pointwise_of_gates_bounded_cs` replaced by the standoff form. -/
 theorem usetGChi_window_meansq_gated_family_perBlock_bounded_cs_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -686,7 +686,7 @@ set_option maxHeartbeats 2400000 in
 -- The twin re-elaborates the `_bounded` statement with one more conjunct, so it needs
 -- that declaration's own heartbeat room.
 open MeasureTheory in
-/-- **⟦STANDOFF TWIN⟧** `usetGChi_row_exit_perChi_perBlock_bounded_cs` (`Salt/MR/V7B.lean:1319`):
+/-- **⟦STANDOFF TWIN⟧** `usetGChi_row_exit_perChi_perBlock_bounded_cs` (`Salt/MR/V7B.lean:1320`):
 its statement under the three standoff binders, its proof verbatim with
 `usetGChi_window_meansq_gated_family_perBlock_bounded_cs` replaced by the standoff form. -/
 theorem usetGChi_row_exit_perChi_perBlock_bounded_cs_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -797,7 +797,7 @@ set_option maxHeartbeats 3200000 in
 -- The twin re-elaborates the `_bounded` statement with one more conjunct, so it needs
 -- that declaration's own heartbeat room.
 open MeasureTheory in
-/-- **⟦STANDOFF TWIN⟧** `m4_rowChi_capstone_perBlock_bounded_cs` (`Salt/MR/V7B.lean:1424`): its
+/-- **⟦STANDOFF TWIN⟧** `m4_rowChi_capstone_perBlock_bounded_cs` (`Salt/MR/V7B.lean:1425`): its
 statement under the three standoff binders, its proof verbatim with
 `usetGChi_row_exit_perChi_perBlock_bounded_cs` replaced by the standoff form. -/
 theorem m4_rowChi_capstone_perBlock_bounded_cs_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -921,7 +921,7 @@ open Salt.Entropy.Chowla
 open scoped BigOperators
 set_option maxHeartbeats 3200000 in
 -- Same cause as the landed original: one application of a ~45-binder capstone.
-/-- **⟦STANDOFF TWIN⟧** `m4_hcap_at_door_perBlock_L_gk_bounded_khoist_cs` (`Salt/MR/V7B.lean:1561`):
+/-- **⟦STANDOFF TWIN⟧** `m4_hcap_at_door_perBlock_L_gk_bounded_khoist_cs` (`Salt/MR/V7B.lean:1562`):
 its statement under the three standoff binders, its proof verbatim with
 `m4_rowChi_capstone_perBlock_bounded_cs` replaced by the standoff form. -/
 theorem m4_hcap_at_door_perBlock_L_gk_bounded_khoist_cs_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -990,7 +990,7 @@ open Salt.Entropy.Chowla
 open scoped BigOperators
 set_option maxHeartbeats 3200000 in
 -- Same cause as the landed original: the wire's own statement re-elaborates.
-/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist_cs` (`Salt/MR/V7B.lean:1623`):
+/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist_cs` (`Salt/MR/V7B.lean:1624`):
 its statement under the three standoff binders, its proof verbatim with
 `m4_hcap_at_door_perBlock_L_gk_bounded_khoist_cs` replaced by the standoff form. -/
 theorem m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist_cs_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1048,7 +1048,7 @@ open scoped BigOperators
 set_option maxHeartbeats 3200000 in
 -- Same cause as the landed original: the eighteen-slot `hcapWS` family re-elaborates.
 /-- **⟦STANDOFF TWIN⟧** `s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin`
-(`Salt/MR/V7Ks.lean:244`): its statement under the three standoff binders, its proof verbatim with
+(`Salt/MR/V7Ks.lean:245`): its statement under the three standoff binders, its proof verbatim with
 `m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist_cs` replaced by the standoff form. -/
 theorem s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin_of_standoff
     {cS : ℝ} (hcS : 0 < cS) (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -1602,7 +1602,7 @@ namespace Salt.MR
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_head_uniform_xceil_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:4787`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_head_uniform_xceil_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:4788`): its
 statement under the three standoff binders, its proof verbatim with `primeWindow_sum_inv_ge_bounded`
 and `hreduce_holds_final_bounded` replaced by the standoff form. -/
 theorem flat_head_uniform_xceil_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1625,7 +1625,7 @@ theorem flat_head_uniform_xceil_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
   have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:973–982`)
+  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:970–979`)
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
@@ -1769,7 +1769,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_kswin_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5341`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_kswin_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5342`): its
 statement under the three standoff binders, its proof verbatim with
 `s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin` replaced by the standoff form. -/
 theorem flat_kswin_generic_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1876,7 +1876,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_v7_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5466`): its statement
+/-- **⟦STANDOFF TWIN⟧** `flat_v7_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5467`): its statement
 under the three standoff binders, its proof verbatim with `s16_bandLaneWinL_holdsU` replaced by the
 standoff form. -/
 theorem flat_v7_generic_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -2026,7 +2026,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_chain_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5617`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_chain_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5614`): its
 statement under the three standoff binders, its proof verbatim with `flat_kswin_generic_epsW` and
 `flat_v7_generic_epsW` replaced by the standoff form. -/
 theorem flat_chain_generic_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -2044,7 +2044,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flatDoorEpsFamilyW_holds` (`Salt/MR/FlatDoorEpsRung2.lean:5643`): its
+/-- **⟦STANDOFF TWIN⟧** `flatDoorEpsFamilyW_holds` (`Salt/MR/FlatDoorEpsRung2.lean:5640`): its
 statement under the three standoff binders, its proof verbatim with `flat_head_uniform_xceil_epsW`
 and `flat_chain_generic_epsW` replaced by the standoff form. -/
 theorem flatDoorEpsFamilyW_holds_of_standoff {cS : ℝ} (hcS : 0 < cS)

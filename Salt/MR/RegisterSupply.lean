@@ -9,7 +9,7 @@ import Salt.MR.RbdSupply
 /-!
 # `RegisterSupply` — THE TWO CARRIED PREDICATES OF `logChowla2_ineffective_v3`, PRICED
 
-`S16Compose.logChowla2_ineffective_v3` (`Salt/MR/S16Compose.lean:1073`) carries exactly two
+`S16Compose.logChowla2_ineffective_v3` (`Salt/MR/S16Compose.lean:1074`) carries exactly two
 conclusion-side supply predicates, both at the LINEAR door and the LINEAR socket:
 
 * `S16BaseScaleCap96_L_gk 32000000 R (flatDoorM A)` — ⟦ITEM 3⟧'s base-scale cap
