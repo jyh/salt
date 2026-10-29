@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.StridePairReceiptG12b
 import Salt.MR.RegimeHead
 import Mathlib
+import Salt.MR.RegimeFloors
 
 -- Needed to transcribe B1/B2/H0/hop1's proofs, the same private names
 -- `StridePairReceiptG12b.lean:28-30` opens for the identical purpose.
@@ -1138,13 +1139,7 @@ theorem flat_conditional_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.
         ≤ a * (s15ArmH h δ₀ ρ R.Hhi R.ω + g R.Hhi R.ω) :=
       Nat.mul_le_mul_left a (by omega)
     omega
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, -⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hstride, hRx, hRωtight, ?_, hRtow, ?_⟩
   · -- ⟦S-1 (i-x) TIER A → TIER B⟧ the rider inflation, paid at the arm's own slack.
     -- `log a ≤ 9` and `log h ≤ 9` make the `18`; the doubling makes the `log 2`; the arm's

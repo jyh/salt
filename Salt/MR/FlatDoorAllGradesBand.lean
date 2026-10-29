@@ -7,6 +7,7 @@ import Salt.MR.FlatDoorAllGrades
 import Salt.MR.TierSBand
 import Mathlib
 import Salt.MR.BlockLenDoor
+import Salt.MR.RegimeFloors
 
 -- Needed to transcribe §4's band head and §5's socket hop: the two names rung 2 itself
 -- opens for the identical purpose (`FlatDoorEpsRung2.lean:27-28`).  MEASURED, not assumed:
@@ -1080,16 +1081,7 @@ theorem flat_conditional_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegim
     hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω) hg'
   have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
-  have harcfl : arcFloor36 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, harcfl⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRx, hRωtight, ?_, hRtow, ?_⟩
   · -- the tier A to tier B export
     have hH4R : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi

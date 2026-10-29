@@ -7,6 +7,7 @@ import Salt.MR.StridePairReceiptG12b
 import Salt.MR.FlatDoorEpsRung2
 import Salt.Tactic.ExpLogNum
 import Mathlib
+import Salt.MR.RegimeFloors
 
 -- Needed to transcribe the stride builder's ceiling step (`StridePairReceipt.lean`'s head opens the
 -- same line for the same body).  MEASURED, not assumed: `#check @xceil_flat_P` and
@@ -2458,13 +2459,7 @@ theorem flat_conditional_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ)
         ≤ a * (s15ArmH h δ₀ ρ R.Hhi R.ω + g R.Hhi R.ω) :=
       Nat.mul_le_mul_left a (by omega)
     omega
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, -⟩ := regime_floors_of_U1 hU hU1 hRcap
   -- ⟦THE DESIGN FLOOR ON THE REGIME (rule (i), v1.1)⟧ `flatDesignBase A ≤ R.Hlo`
   have hdesR : flatDesignBase A ≤ R.Hlo := by
     have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU

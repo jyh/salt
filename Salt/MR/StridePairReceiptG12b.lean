@@ -22,6 +22,7 @@ HONEST LABEL.  Definitions only; nothing here proves an estimate, and nothing be
 import Salt.MR.StridePairReceiptG
 import Salt.MR.StrideGrade12bWalls
 import Mathlib
+import Salt.MR.RegimeFloors
 
 -- The same three `open private` lines as `StridePairReceiptG.lean:78-80` — the later replays and
 -- the door-head of this lane are the same bodies and reach the same private names.
@@ -620,13 +621,7 @@ theorem flat_conditional_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (
         ≤ a * (s15ArmH h δ₀ ρ R.Hhi R.ω + g R.Hhi R.ω) :=
       Nat.mul_le_mul_left a (by omega)
     omega
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, -⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hstride, hRx, hRtow, ?_⟩
   intro M hKw hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor hKw
