@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `04b767ac` · source digest `b50373847d3ae412` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `e577ef79` · source digest `ce00ed2a728299ba` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -2893,28 +2893,28 @@ Declarations indexed across the tree: 23370 · corpus Prop-valued names (the hyp
 | `Salt.MR.Ah_containment` | Salt/MR/Eq26Compose.lean:909 | characters |
 | `Salt.MR.calFrameK_satisfiable_Ah` | Salt/MR/Eq26Compose.lean:929 | characters |
 | `Salt.MR.levelGates_calibrated_Ah` | Salt/MR/Eq26Compose.lean:945 | characters |
-| `Salt.MR.e4a_zeta_isPrimitiveRoot` | Salt/MR/EvenChiAlgebra.lean:34 | characters |
-| `Salt.MR.e4a_fixed_isRational` | Salt/MR/EvenChiAlgebra.lean:47 | characters |
-| `Salt.MR.e4a_descent_to_int` | Salt/MR/EvenChiAlgebra.lean:53 | characters |
-| `Salt.MR.e4a_fibre_fix` | Salt/MR/EvenChiAlgebra.lean:92 | characters |
-| `Salt.MR.e4a_prod_fibre_swap` | Salt/MR/EvenChiAlgebra.lean:133 | characters |
-| `Salt.MR.e4a_prod_fibre_fix` | Salt/MR/EvenChiAlgebra.lean:142 | characters |
-| `Salt.MR.e4a_fibre_swap'` | Salt/MR/EvenChiAlgebra.lean:163 | characters |
-| `Salt.MR.e4a_prod_fibre_swap'` | Salt/MR/EvenChiAlgebra.lean:181 | characters |
-| `Salt.MR.e4a_eta_inverts` | Salt/MR/EvenChiAlgebra.lean:192 | characters |
-| `Salt.MR.e4a_sum_inv_fixed` | Salt/MR/EvenChiAlgebra.lean:224 | characters |
-| `Salt.MR.e4a_sum_inv_fixed_alg` | Salt/MR/EvenChiAlgebra.lean:232 | characters |
-| `Salt.MR.e4a_eta_sum_is_integer` | Salt/MR/EvenChiAlgebra.lean:240 | characters |
-| `Salt.MR.e4a_sum_isIntegral_of_both` | Salt/MR/EvenChiAlgebra.lean:268 | characters |
-| `Salt.MR.e4a_spine` | Salt/MR/EvenChiAlgebra.lean:273 | characters |
-| `Salt.MR.e4a_pow_mod_gen` | Salt/MR/EvenChiAlgebra.lean:279 | characters |
-| `Salt.MR.e4a_pow_val_mul_gen` | Salt/MR/EvenChiAlgebra.lean:284 | characters |
-| `Salt.MR.e4a_fibre_fix'` | Salt/MR/EvenChiAlgebra.lean:303 | characters |
-| `Salt.MR.e4a_prod_fibre_fix'` | Salt/MR/EvenChiAlgebra.lean:321 | characters |
-| `Salt.MR.e4a_eta_fixed` | Salt/MR/EvenChiAlgebra.lean:347 | characters |
-| `Salt.MR.e4a_associated_quotient_eq` | Salt/MR/EvenChiAlgebra.lean:371 | characters |
-| `Salt.MR.e4a_prod_associated_gen` | Salt/MR/EvenChiAlgebra.lean:389 | characters |
-| `Salt.MR.e4a_assoc_of_card_eq_gen` | Salt/MR/EvenChiAlgebra.lean:406 | characters |
+| `Salt.MR.e4a_zeta_isPrimitiveRoot` | Salt/MR/EvenChiAlgebra.lean:38 | characters |
+| `Salt.MR.e4a_fixed_isRational` | Salt/MR/EvenChiAlgebra.lean:57 | characters |
+| `Salt.MR.e4a_descent_to_int` | Salt/MR/EvenChiAlgebra.lean:63 | characters |
+| `Salt.MR.e4a_fibre_fix` | Salt/MR/EvenChiAlgebra.lean:102 | characters |
+| `Salt.MR.e4a_prod_fibre_swap` | Salt/MR/EvenChiAlgebra.lean:147 | characters |
+| `Salt.MR.e4a_prod_fibre_fix` | Salt/MR/EvenChiAlgebra.lean:160 | characters |
+| `Salt.MR.e4a_fibre_swap'` | Salt/MR/EvenChiAlgebra.lean:185 | characters |
+| `Salt.MR.e4a_prod_fibre_swap'` | Salt/MR/EvenChiAlgebra.lean:206 | characters |
+| `Salt.MR.e4a_eta_inverts` | Salt/MR/EvenChiAlgebra.lean:217 | characters |
+| `Salt.MR.e4a_sum_inv_fixed` | Salt/MR/EvenChiAlgebra.lean:252 | characters |
+| `Salt.MR.e4a_sum_inv_fixed_alg` | Salt/MR/EvenChiAlgebra.lean:260 | characters |
+| `Salt.MR.e4a_eta_sum_is_integer` | Salt/MR/EvenChiAlgebra.lean:268 | characters |
+| `Salt.MR.e4a_sum_isIntegral_of_both` | Salt/MR/EvenChiAlgebra.lean:299 | characters |
+| `Salt.MR.e4a_spine` | Salt/MR/EvenChiAlgebra.lean:304 | characters |
+| `Salt.MR.e4a_pow_mod_gen` | Salt/MR/EvenChiAlgebra.lean:313 | characters |
+| `Salt.MR.e4a_pow_val_mul_gen` | Salt/MR/EvenChiAlgebra.lean:322 | characters |
+| `Salt.MR.e4a_fibre_fix'` | Salt/MR/EvenChiAlgebra.lean:345 | characters |
+| `Salt.MR.e4a_prod_fibre_fix'` | Salt/MR/EvenChiAlgebra.lean:366 | characters |
+| `Salt.MR.e4a_eta_fixed` | Salt/MR/EvenChiAlgebra.lean:392 | characters |
+| `Salt.MR.e4a_associated_quotient_eq` | Salt/MR/EvenChiAlgebra.lean:420 | characters |
+| `Salt.MR.e4a_prod_associated_gen` | Salt/MR/EvenChiAlgebra.lean:443 | characters |
+| `Salt.MR.e4a_assoc_of_card_eq_gen` | Salt/MR/EvenChiAlgebra.lean:460 | characters |
 | `Salt.MR.e4a_descent_needs_integrality` | Salt/MR/EvenChiControls.lean:61 | characters |
 | `Salt.MR.e4a_descent_holds_when_integral` | Salt/MR/EvenChiControls.lean:72 | characters |
 | `Salt.MR.e4a_gaussSum_real_of_primitive` | Salt/MR/EvenChiControls.lean:94 | characters, exponential sums |
@@ -2980,32 +2980,32 @@ Declarations indexed across the tree: 23370 · corpus Prop-valued names (the hyp
 | `Salt.MR.e4a_L1_lower_primitive_both` | Salt/MR/EvenChiDescent.lean:209 | characters |
 | `Salt.MR.l1LowerEffective_goldenGate` | Salt/MR/EvenChiDescent.lean:248 | characters |
 | `Salt.MR.e4a_zeta_pow_q` | Salt/MR/EvenChiEta.lean:46 | characters |
-| `Salt.MR.e4a_zeta_isAlgebraic` | Salt/MR/EvenChiEta.lean:59 | characters |
-| `Salt.MR.e4a_route_b_isCyclotomicExtension` | Salt/MR/EvenChiEta.lean:73 | characters |
-| `Salt.MR.e4aZetaK_isPrimitiveRoot` | Salt/MR/EvenChiEta.lean:108 | characters |
-| `Salt.MR.e4aZetaO_isPrimitiveRoot` | Salt/MR/EvenChiEta.lean:119 | characters |
-| `Salt.MR.e4a_ringOfIntegers_isIntegral` | Salt/MR/EvenChiEta.lean:129 | characters |
-| `Salt.MR.e4a_sigma_to_b` | Salt/MR/EvenChiEta.lean:178 | characters |
-| `Salt.MR.e4a_sigma_prod_reindex` | Salt/MR/EvenChiEta.lean:191 | characters |
-| `Salt.MR.e4a_eta_gal` | Salt/MR/EvenChiEta.lean:230 | characters |
-| `Salt.MR.e4a_eta_sum_is_integer_concrete` | Salt/MR/EvenChiEta.lean:263 | characters |
-| `Salt.MR.e4a_eta_isIntegral_of_associated` | Salt/MR/EvenChiEta.lean:283 | characters |
-| `Salt.MR.e4a_eta_products_associated` | Salt/MR/EvenChiEta.lean:296 | characters |
-| `Salt.MR.e4a_prod_image` | Salt/MR/EvenChiEta.lean:330 | characters |
-| `Salt.MR.e4a_eta_is_unit_image` | Salt/MR/EvenChiEta.lean:342 | characters |
-| `Salt.MR.e4a_eta_inv_is_unit_image` | Salt/MR/EvenChiEta.lean:365 | characters |
-| `Salt.MR.e4a_eta_sum_integer_final` | Salt/MR/EvenChiEta.lean:379 | characters |
-| `Salt.MR.e4a_fibre_prod_ne_zero` | Salt/MR/EvenChiEta.lean:414 | characters |
-| `Salt.MR.e4a_eta_image` | Salt/MR/EvenChiEta.lean:433 | characters |
-| `Salt.MR.e4a_eta_norm` | Salt/MR/EvenChiEta.lean:443 | characters |
-| `Salt.MR.e4a_sin_prod_eq_eta_norm_inv` | Salt/MR/EvenChiEta.lean:463 | characters |
-| `Salt.MR.e4a_fibre_prod_K_ne_zero` | Salt/MR/EvenChiEta.lean:530 | characters |
-| `Salt.MR.e4a_eta_ne_zero` | Salt/MR/EvenChiEta.lean:541 | characters |
-| `Salt.MR.exists_int_add_inv_sin_prod` | Salt/MR/EvenChiEta.lean:548 | characters |
-| `Salt.MR.e4a_E5a_cosh_integer` | Salt/MR/EvenChiEta.lean:604 | characters, exponential sums |
-| `Salt.MR.e4a_E5_floor_at_middle` | Salt/MR/EvenChiEta.lean:625 | characters, exponential sums |
-| `Salt.MR.e4a_E5_floor_unconditional` | Salt/MR/EvenChiEta.lean:659 | characters, exponential sums |
-| `Salt.MR.e4a_L1_lower_even` | Salt/MR/EvenChiEta.lean:688 | characters |
+| `Salt.MR.e4a_zeta_isAlgebraic` | Salt/MR/EvenChiEta.lean:63 | characters |
+| `Salt.MR.e4a_route_b_isCyclotomicExtension` | Salt/MR/EvenChiEta.lean:77 | characters |
+| `Salt.MR.e4aZetaK_isPrimitiveRoot` | Salt/MR/EvenChiEta.lean:121 | characters |
+| `Salt.MR.e4aZetaO_isPrimitiveRoot` | Salt/MR/EvenChiEta.lean:136 | characters |
+| `Salt.MR.e4a_ringOfIntegers_isIntegral` | Salt/MR/EvenChiEta.lean:146 | characters |
+| `Salt.MR.e4a_sigma_to_b` | Salt/MR/EvenChiEta.lean:198 | characters |
+| `Salt.MR.e4a_sigma_prod_reindex` | Salt/MR/EvenChiEta.lean:215 | characters |
+| `Salt.MR.e4a_eta_gal` | Salt/MR/EvenChiEta.lean:261 | characters |
+| `Salt.MR.e4a_eta_sum_is_integer_concrete` | Salt/MR/EvenChiEta.lean:298 | characters |
+| `Salt.MR.e4a_eta_isIntegral_of_associated` | Salt/MR/EvenChiEta.lean:318 | characters |
+| `Salt.MR.e4a_eta_products_associated` | Salt/MR/EvenChiEta.lean:331 | characters |
+| `Salt.MR.e4a_prod_image` | Salt/MR/EvenChiEta.lean:365 | characters |
+| `Salt.MR.e4a_eta_is_unit_image` | Salt/MR/EvenChiEta.lean:377 | characters |
+| `Salt.MR.e4a_eta_inv_is_unit_image` | Salt/MR/EvenChiEta.lean:400 | characters |
+| `Salt.MR.e4a_eta_sum_integer_final` | Salt/MR/EvenChiEta.lean:414 | characters |
+| `Salt.MR.e4a_fibre_prod_ne_zero` | Salt/MR/EvenChiEta.lean:449 | characters |
+| `Salt.MR.e4a_eta_image` | Salt/MR/EvenChiEta.lean:471 | characters |
+| `Salt.MR.e4a_eta_norm` | Salt/MR/EvenChiEta.lean:484 | characters |
+| `Salt.MR.e4a_sin_prod_eq_eta_norm_inv` | Salt/MR/EvenChiEta.lean:511 | characters |
+| `Salt.MR.e4a_fibre_prod_K_ne_zero` | Salt/MR/EvenChiEta.lean:582 | characters |
+| `Salt.MR.e4a_eta_ne_zero` | Salt/MR/EvenChiEta.lean:596 | characters |
+| `Salt.MR.exists_int_add_inv_sin_prod` | Salt/MR/EvenChiEta.lean:603 | characters |
+| `Salt.MR.e4a_E5a_cosh_integer` | Salt/MR/EvenChiEta.lean:659 | characters, exponential sums |
+| `Salt.MR.e4a_E5_floor_at_middle` | Salt/MR/EvenChiEta.lean:680 | characters, exponential sums |
+| `Salt.MR.e4a_E5_floor_unconditional` | Salt/MR/EvenChiEta.lean:714 | characters, exponential sums |
+| `Salt.MR.e4a_L1_lower_even` | Salt/MR/EvenChiEta.lean:743 | characters |
 | `Salt.MR.e4a_norm_add_inv_int` | Salt/MR/EvenChiMiddle.lean:44 | characters |
 | `Salt.MR.e4a_prod_units_eq_prod_Ioo` | Salt/MR/EvenChiMiddle.lean:96 | characters |
 | `Salt.MR.e4a_ne_one_of_sum_zero` | Salt/MR/EvenChiMiddle.lean:131 | characters |
@@ -9369,8 +9369,8 @@ Declarations indexed across the tree: 23370 · corpus Prop-valued names (the hyp
 | `Salt.MR.doorRowFloorL` | Salt/MR/DoorLinear.lean:530 | characters |
 | `Salt.MR.gJR_ofReal` | Salt/MR/Eq26Bridge.lean:115 | characters |
 | `Salt.MR.gJR_prime_pow` | Salt/MR/Eq26Bridge.lean:295 | characters |
-| `Salt.MR.e4aEta_def` | Salt/MR/EvenChiEta.lean:220 | characters |
-| `Salt.MR.e4a_zetaO_image` | Salt/MR/EvenChiEta.lean:326 | characters |
+| `Salt.MR.e4aEta_def` | Salt/MR/EvenChiEta.lean:251 | characters |
+| `Salt.MR.e4a_zetaO_image` | Salt/MR/EvenChiEta.lean:361 | characters |
 | `Salt.MR.e4a_toC_conductor_eq` | Salt/MR/EvenChiRingBridge.lean:125 | characters |
 | `Salt.MR.e4a_toC_isPrimitive_iff` | Salt/MR/EvenChiRingBridge.lean:131 | characters |
 | `Salt.MR.E4aChiBridge.e4a_signOf_eq_one_or_neg_one` | Salt/MR/EvenChiSign.lean:158 | characters |
