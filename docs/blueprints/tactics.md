@@ -86,8 +86,9 @@ numerals (`Real.pi_lt_d2`, `log 4 + 4 ≤ 5.39`-style, `(log x)² ≤ 4x`,
 **Evidence:** the `nlinarith` product hints in `AnalyticLS` ("needed
 explicit `(N²·P)·(10−π²) ≥ 0`"), `BDH`'s numeral chain (≈5792 ≤ 6000),
 `win_ratio_core` cert arithmetic, the `13N`/`4πN` slack discharges.
-**When:** opportunistic; a shared lemma file (`Salt/Tactic/Numerals.lean`)
-is step one and is class A.
+**When:** opportunistic; a shared lemma file (planned as `Numerals.lean`)
+is step one and is class A. *(It landed as `ExpLogNum.lean` and `LogNum.lean`, below; no
+`Numerals.lean` exists.)*
 **FIRST CUT LANDED (2026-09-24, h2c, from the O15 proof-shape census; seat record `3f2fab874`):
 `Salt/Tactic/ExpLogNum.lean`, rung (a) — seven lemmas closing numeral `exp`/`log` bounds at integer
 exponent (`c ≤ exp n` · `c < exp n` · `exp n ≤ c` · `exp n < c` · `log d ≤ k` · `k ≤ log d`) in one
@@ -131,6 +132,7 @@ reason and fails on `(x y : ℚ) (h1 : x ≤ y) (h2 : y ≤ 3) ⊢ x ≤ 3`; rep
 (`((Q/d : ℕ):ℝ)` vs real division), `TypeSums` (the `((a*b:ℝ):ℂ)`
 ascription trap), `JcalPos`, the seam's `⌊(64N:ℝ)⌋₊` plumbing. **When:**
 now-ish; cheap, immediate payoff.
+**Status (2026-10-27, read at the object): NOT-YET.** No `salt_cast` in `Salt/`, and no `Salt/Tactic/` module for it.
 
 ### T5 — `#audit_axioms` command — class B
 An in-file command `#audit_axioms decl₁ decl₂ …` that FAILS elaboration
@@ -154,6 +156,8 @@ The `sum_nbij'`/`sum_sigma`/`sum_comm'`/fiberwise patterns, packaged.
 four independent reimplementations of adjacent idioms this session.
 **When:** harvest AFTER BV (which will add 2–3 more instances to
 generalize from); premature abstraction is the risk.
+**Status (2026-10-27, read at the object): NOT-YET as a library.** `DyadicRec.lean` names itself "T6/T9" for its
+dyadic re-indexing; no general Finset-reindexing module exists.
 
 ### T7 — instance-hygiene guard — class B, investigate-first
 The `DecidableEq (DirichletCharacter ℂ q)`/`Fintype` clash cost the BDH
@@ -163,6 +167,7 @@ instances file + a linter that flags decidability-instance mismatches
 across module boundaries. **Evidence:** `BDH.lean` friction report; the
 `open Classical in`-before-docstring trap in `CharLS`. **When:** if it
 bites a third time.
+**Status (2026-10-27, read at the object): NOT-YET.** No guard or linter module exists.
 
 ### T8 — `slack_report`: retrospective proof-tightening miner — class C/D, SPECULATIVE (research-note)
 User-raised question (2026-07-11): can landed proofs be tightened
@@ -181,6 +186,7 @@ PiAsymp). **When:** genuinely speculative; revisit when a sharpened
 input actually lands (the Mertens case) or at a rung close-out with
 idle capacity. Evidence will accumulate passively via the named-gate
 discharges.
+**Status (2026-10-27, read at the object): NOT-YET.** No `slack_report` in `Salt/`.
 
 ### Doctrine addition (2026-07-11, evidence-based): kernel lemmas land PUBLIC
 ~270 lines of duplication in one wave (V2.Perron replicated 6 PV privates,
@@ -245,11 +251,15 @@ NON-dyadic (excluded).
 
 ## T10 (candidate, 2026-07-12): `interval_log_exp` — certified log/exp interval arithmetic
 
+**Status (2026-10-27, read at the object): NOT-YET.** No `interval_log_exp` in `Salt/`. Consumer 1 is closed
+without it (below); the numeral `exp`/`log` lemmas of T3 (`ExpLogNum`, `LogNum`) cover integer-exponent cases only.
+
 Empirically motivated (the ledger doctrine: design from observed
 friction, not speculation). Three consumers already waiting:
 1. `Salt/Chen/SwitchConstant.lean`'s deferred `cbar_lt` — blocked on
    "no norm_num log extension" (≥220 tangent panels, each a
-   log(rational) comparison).
+   log(rational) comparison). *(CLOSED without this tactic: `cbar_lt` is proved in
+   `Salt/Chen/CbarCert.lean` by a generated 600-panel certificate, 2026-07-13.)*
 2. The κ₃ ≤ 0.98 sharpening (chen C1c⁵/C1c⁶ flags) — certified
    exp-integral panel bounds.
 3. The recurring hand-rolled rational bounds on e^x across ~6 nodes
