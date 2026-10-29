@@ -65,7 +65,7 @@ binder (`N7Exit` itself stays open), and says nothing about twin primes.
 
 ## Trust policy
 
-- Everything on `main` compiles: `lake build` (the default target, `Salt`) builds every module under `Salt/`, and the C1 certificates workflow builds the 29 modules under `SaltC1/`, which `Salt` does not import.
+- Everything on `main` compiles: `lake build` (the default target, `Salt`) builds every module under `Salt/`, and the C1 certificates workflow builds the 29 modules of the `SaltC1` library (`SaltC1.lean` and the 28 files under `SaltC1/`), which `Salt` does not import.
 - No `sorry` on `main`.
 - No axioms beyond mathlib's standard three (`propext`, `Quot.sound`,
   `Classical.choice`); in particular **no `native_decide`** — numerical
