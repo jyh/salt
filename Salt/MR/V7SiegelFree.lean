@@ -53,7 +53,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_head_uniform_xceil` (`XThread.lean:561`): its statement under the
+/-- **⟦STANDOFF TWIN⟧** `flat_head_uniform_xceil` (`XThread.lean:562`): its statement under the
 three standoff binders, its proof verbatim with `hreduce_holds_final_bounded` ·
 `primeWindow_sum_inv_ge_bounded` replaced by their twins. -/
 theorem flat_head_uniform_xceil_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -186,7 +186,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_socket_uniform_xceil` (`XThread.lean:686`): its statement under the
+/-- **⟦STANDOFF TWIN⟧** `flat_socket_uniform_xceil` (`XThread.lean:687`): its statement under the
 three standoff binders, its proof verbatim with `flat_head_uniform_xceil` replaced by their twins.
 -/
 theorem flat_socket_uniform_xceil_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -246,7 +246,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_doorL2_uniform_xceil_khoist` (`XThread.lean:738`): its statement under
+/-- **⟦STANDOFF TWIN⟧** `flat_doorL2_uniform_xceil_khoist` (`XThread.lean:739`): its statement under
 the three standoff binders, its proof verbatim with `flat_socket_uniform_xceil` replaced by their
 twins. -/
 theorem flat_doorL2_uniform_xceil_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -319,7 +319,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_road_uniform_xceil_khoist` (`XThread.lean:803`): its statement under
+/-- **⟦STANDOFF TWIN⟧** `flat_road_uniform_xceil_khoist` (`XThread.lean:804`): its statement under
 the three standoff binders, its proof verbatim with `flat_doorL2_uniform_xceil_khoist` replaced by
 their twins. -/
 theorem flat_road_uniform_xceil_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -401,7 +401,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_capstone_uniform_win_xceil_kwide_khoist` (`XThread.lean:891`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_capstone_uniform_win_xceil_kwide_khoist` (`XThread.lean:884`): its
 statement under the three standoff binders, its proof verbatim with `flat_road_uniform_xceil_khoist`
 replaced by their twins. -/
 theorem flat_capstone_uniform_win_xceil_kwide_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -627,7 +627,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_conditional_uniform_win_xceil_kwide_khoist` (`XThread.lean:1180`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_conditional_uniform_win_xceil_kwide_khoist` (`XThread.lean:1173`): its
 statement under the three standoff binders, its proof verbatim with
 `flat_capstone_uniform_win_xceil_kwide_khoist` replaced by their twins. -/
 theorem flat_conditional_uniform_win_xceil_kwide_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
