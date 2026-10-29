@@ -1402,11 +1402,7 @@ theorem flat_capstone_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ)
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 /-- **⟦A1 — THE `+ 7` NUMERAL TWIN⟧ (class A, v2).**  `xceil_arm_split_h` (XThread.lean:1126)
 with `+ 7` on the left: `log 2 + log h + 7 ≤ H₊/(250000·h²) − H₊/10²⁰`.  The landed lemma is an
@@ -2615,11 +2611,7 @@ theorem flat_capstone_generic_h_14 (h : ℕ) (hh : 0 < h) (hh14 : Real.log (h : 
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 /-! ## ⟦β W1 E4⟧ the stride/cap-9 twins (build freeze v2 v1.1, 2026-09-13)
 

@@ -954,11 +954,7 @@ theorem flat_capstone_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop)
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 /-- **⟦flat_conditional_generic, AT GENERIC `ε`⟧** — `DoorReceipt`'s replay of the same
 name, body VERBATIM, with the form names suffixed `Eps` and `ε` threaded as the first

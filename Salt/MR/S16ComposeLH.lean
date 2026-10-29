@@ -429,11 +429,7 @@ theorem flat_capstone_uniform_win_ceiling_h (h : ℕ) (hh : 0 < h) (hh7 : Real.l
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 /-! ## §3 — THE CONDITIONAL, WINDOWED, WITH BOTH SOCKET CEILINGS, AT SHIFT `h` -/
 
@@ -917,11 +913,7 @@ theorem flat_capstone_uniform_win_ceiling_kwide_h (h : ℕ) (hh : 0 < h)
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 set_option maxHeartbeats 1000000 in
 -- Same cause as §3: the conditional's residue re-elaborates against the widened prefix.
@@ -1486,11 +1478,7 @@ theorem flat_capstone_uniform_win_ceiling_kwide_khoist_h (h : ℕ) (hh : 0 < h)
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 set_option maxHeartbeats 1600000 in
 -- Same cause as §4's conditional: the residue re-elaborates under one more binder layer.
@@ -2088,11 +2076,7 @@ theorem flat_capstone_uniform_win_xceil_kwide_khoist_h (h : ℕ) (hh : 0 < h)
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 set_option maxHeartbeats 1600000 in
 -- Same cause as §5's conditional: the residue re-elaborates, here with the rider spent.

@@ -998,11 +998,7 @@ theorem flat_capstone_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime �
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 
 /-! ## §6 — the conditional hop, and the ONE export block: tier A → tier B
