@@ -1,7 +1,6 @@
 # ACCEPTED DEBT at the gate's birth (council 2026-10-20 1(b)): claim sentences that predate it, by sha + path + class.
 # class 'shape' = a sentence matching one of the lexicon's shapes (read off the 2026-10-19 census; matching is NOT thereby an overclaim, and each census correction, being the Captain's wording, shrinks this file); 'predates' = a claim word in a headline carrier.
 # A line whose sentence is gone is refused (STALE-BASELINE): delete it. A NEW claim is refused until a .prose-lean-reads record names its Lean statement and a non-author reader.
-0a6cbbea934d	README.md	predates
 566f03f7cb4c	README.md	shape
 b4b8f122fea4	README.md	shape
 eb31babe7d79	README.md	predates
@@ -87,16 +86,13 @@ b4d1f3bc6aa6	papers/witness/main.tex	shape
 fc548e7304a8	papers/witness/main.tex	predates
 158a5ca8d0b2	papers/witness/pi-overview-draft.md	shape
 # lexicon epoch 2 (R5, council 2026-10-22 item 3): sentences the epoch-1 lexicon did not see, accepted as debt by the WIDENING arm; each exists at the same path in the base tree.
-1b9491cecd72	README.md	lexicon-e2
 1ccdafb07cd9	README.md	lexicon-e2
 a91cf1f064a1	README.md	lexicon-e2
 2c812b0fa57f	docs/RESULTS.md	lexicon-e2
 2fc972271931	docs/RESULTS.md	lexicon-e2
 413fd8317136	docs/RESULTS.md	lexicon-e2
 a788e45b480b	docs/RESULTS.md	lexicon-e2
-bdb36b4b10b1	docs/RESULTS.md	lexicon-e2
 c9c1f5c54d6c	docs/RESULTS.md	lexicon-e2
-f2341ca129d4	docs/RESULTS.md	lexicon-e2
 f871460fa5f8	docs/RESULTS.md	lexicon-e2
 4ce649f66284	docs/priority-survey-2026-08-17-delta.md	lexicon-e2
 27a0988adb10	papers/flagship/floor-chen-seed.tex	lexicon-e2
