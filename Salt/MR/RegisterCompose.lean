@@ -253,9 +253,13 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist (Awin : �
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
   have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
   have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
+    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
+    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
+    exact h
   have hεR : (1 : ℝ) / 500 ≤ (ε : ℝ) := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
+    have h := (Rat.cast_le (K := ℝ)).mpr hεpin
+    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
+    exact h
   refine ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
     hCgle, hεpin, hδpin, hMflb, hβ, hCq, hcs0, hT₀3, hKq0, hKs0, hC0, hC40, ?_⟩
   intro K
@@ -428,7 +432,9 @@ theorem logChowla2_ineffective_v6 (A₀ : ℝ) :
   have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
   have heps500R : (1 : ℝ) / 500 ≤ (R.eps : ℝ) := by
     rw [hReps]
-    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
+    have h := (Rat.cast_le (K := ℝ)).mpr hεpin
+    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
+    exact h
   have h518 : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by nlinarith [hdes, hA162]
   have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by

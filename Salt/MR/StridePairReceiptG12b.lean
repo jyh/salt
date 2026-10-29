@@ -1170,7 +1170,9 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride_g12b (a b h : ℕ) (ha : 0 < a) 
   -- ⟦THE WIDTH NUMERAL⟧ `log ω ≥ 32001` off `hωbig` at `ε ≤ 1/500`
   have hepsR0 : (0 : ℝ) < (Rd.eps : ℝ) := by exact_mod_cast Rd.heps
   have heps500R : (Rd.eps : ℝ) ≤ 1 / 500 := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr heps500
+    have hq := (Rat.cast_le (K := ℝ)).mpr heps500
+    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at hq
+    exact hq
   have hcop : (2 : ℝ) ≤ (Rd.eps : ℝ) ^ 2 * ((Rd.Hlo : ℕ) : ℝ) := by
     have hQ : ((Rd.a : ℕ) : ℚ) ≤ Rd.eps ^ 2 * ((Rd.Hlo : ℕ) : ℚ) / 2 := Rd.hcoprime
     have ha1 : (1 : ℚ) ≤ ((Rd.a : ℕ) : ℚ) := by exact_mod_cast Rd.ha

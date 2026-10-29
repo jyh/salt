@@ -1313,7 +1313,9 @@ theorem logChowla2_v7_rated_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
   have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
   have heps500R : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ) := by
     rw [hReps]
-    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
+    have hq := (Rat.cast_le (K := ℝ)).mpr hεpin
+    rwa [show (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) by
+      push_cast; ring] at hq
   have h518 : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by nlinarith [hdes, hA162]
   have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
