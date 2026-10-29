@@ -273,10 +273,10 @@ open Salt.Tactic in
 The remainder majorant and the assembly.  `Btwin lvl = ⌊lvl⌋₊·(1 + log ⌊lvl⌋₊)` is the
 EXPLICIT, unconditional bound for the untwisted half of `rem_split`: `twinRem_sum_le` runs
 `rem_abs_le` (M2.lean:241, `|rem d| ≤ ρ(d)`) → `rho_squarefree_le` (M2.lean:206, `ρ ≤ 2^ω`
-on the squarefree `d ∣ P`) → the M5Assembly.lean:209-239 re-index (`Finset.sum_filter`, then
+on the squarefree `d ∣ P`) → the M5Assembly.lean:226-256 re-index (`Finset.sum_filter`, then
 `Finset.sum_le_sum_of_subset_of_nonneg` onto `Finset.Icc 1 ⌊lvl⌋₊`) → `sum_two_pow_omega_le`
 (GehPp2.lean:113 — a ROOT-level declaration; that file carries no `namespace`).  The `3^ω`
-constant of the landed idiom is replaced by `2^ω`, and its N4.2 `y⁴` step (M5Assembly.lean:240)
+constant of the landed idiom is replaced by `2^ω`, and its N4.2 `y⁴` step (M5Assembly.lean:257)
 is NOT used.
 
 `twinParitySieve_rosserRemainder_le` is the assembly `rosserRemainder ≤ Btwin lvl + B`: the

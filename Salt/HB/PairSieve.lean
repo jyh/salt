@@ -48,7 +48,7 @@ two-dimensional estimate.
   `ν(p) = 2/p` on its (odd) sifted primes, whose sifted primes include all odd
   primes `< z` and whose level is `≥ z²`, the Selberg denominator satisfies
   `S ≥ (1/64)·(log z)²`.  This abstracts the Brun-track
-  `selbergBoundingSum_ge_log_sq` (`M5Assembly.lean:169`) away from its concrete
+  `selbergBoundingSum_ge_log_sq` (`M5Assembly.lean:186`) away from its concrete
   instance, reusing the instance-free `(log z)²` chain of `Salt.M3Assembly`
   (whose mechanism — radical-grouping + `divSum_ge_sq` — is the `divSum_ge_sq`
   route named in the campaign spec).
