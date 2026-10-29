@@ -72,14 +72,18 @@ open BoundingSieve
 /-- `stir m = (m/e)^m / m!` = `m^m e^{-m}/m!`; H-R's decreasing Stirling factor. -/
 noncomputable def stir (m : ℕ) : ℝ := (m : ℝ) ^ m * Real.exp (-(m : ℝ)) / (m ! : ℝ)
 
+/-- `0 ≤ stir m`: a power times an exponential over a factorial. -/
 lemma stir_nonneg (m : ℕ) : 0 ≤ stir m := by
   unfold stir; positivity
 
+/-- `stir 2 = 2 · e^{−2}`: `2² · e^{−2} / 2!`. -/
 lemma stir_two : stir 2 = 2 * Real.exp (-2) := by
   unfold stir
   norm_num [Nat.factorial]
   ring
 
+/-- `stir (m + 1) ≤ stir m` for `0 < m` (`hpos`): the ratio is `(1 + 1/m)^m · e^{−1} ≤ 1` by
+`1 + 1/m ≤ e^{1/m}`. -/
 lemma stir_succ_le (m : ℕ) (hpos : 0 < m) : stir (m + 1) ≤ stir m := by
   have hmpos : (0 : ℝ) < (m : ℝ) := by exact_mod_cast hpos
   have h1 : (1 : ℝ) + 1 / (m : ℝ) ≤ Real.exp (1 / (m : ℝ)) := by
@@ -122,6 +126,7 @@ lemma stir_succ_le (m : ℕ) (hpos : 0 < m) : stir (m + 1) ≤ stir m := by
       ≤ stir m * 1 := by apply mul_le_mul_of_nonneg_left hratio (stir_nonneg m)
     _ = stir m := mul_one _
 
+/-- `stir` is antitone on `ℕ`: `stir 1 = e^{−1} ≤ 1 = stir 0`, then `stir_succ_le`. -/
 lemma stir_antitone : Antitone stir := by
   apply antitone_nat_of_succ_le
   intro m
@@ -135,12 +140,16 @@ lemma stir_antitone : Antitone stir := by
     exact (Real.exp_le_one_iff).mpr (by norm_num)
   · exact stir_succ_le m hpos
 
+/-- `stir (2 * n) ≤ stir 2 = 2 · e^{−2}` for `1 ≤ n` (`hn`): `stir` is antitone
+(`stir_antitone`) and `2 ≤ 2 * n`. -/
 lemma stir_two_n_le (n : ℕ) (hn : 1 ≤ n) : stir (2 * n) ≤ 2 * Real.exp (-2) := by
   rw [← stir_two]
   exact stir_antitone (by omega : 2 ≤ 2 * n)
 
 /-! ## Geometric tail -/
 
+/-- The geometric tail from `1`: `∑_{n ∈ Icc 1 r} q ^ n ≤ q / (1 − q)` for `0 ≤ q` (`hq0`) and
+`q < 1` (`hq1`), any `r` (mathlib's `geom_sum_Ico_le_of_lt_one`). -/
 lemma geom_Icc_le {q : ℝ} (hq0 : 0 ≤ q) (hq1 : q < 1) (r : ℕ) :
     ∑ n ∈ Finset.Icc 1 r, q ^ n ≤ q / (1 - q) := by
   have hIcc : Finset.Icc 1 r = Finset.Ico 1 (r + 1) := by

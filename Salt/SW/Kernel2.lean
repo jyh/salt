@@ -38,9 +38,11 @@ namespace Salt.SW
 /-- The twice-smoothed profile `t ↦ ((1 - t)₊)²`, ℂ-valued. -/
 def kern2 : ℝ → ℂ := fun t => (((max 0 (1 - t)) ^ 2 : ℝ) : ℂ)
 
+/-- The twice-smoothed profile is the square of `kern`: `((1 − t)₊)²`, unfolding both. -/
 theorem kern2_eq_sq_kern (t : ℝ) : kern2 t = kern t ^ 2 := by
   simp [kern2, kern]
 
+/-- `kern2` is continuous: `t ↦ max 0 (1 − t)` is, hence its square and its cast to `ℂ`. -/
 theorem continuous_kern2 : Continuous kern2 := by
   have h : Continuous fun t : ℝ => (max 0 (1 - t)) ^ 2 :=
     (continuous_const.max (continuous_const.sub continuous_id)).pow 2
@@ -65,6 +67,10 @@ private lemma kern2_eq_indicator_comb {t : ℝ} (ht : 0 < t) :
       Set.indicator_of_notMem hnot, max_eq_left (by linarith : (1:ℝ) - t ≤ 0)]
     push_cast; ring
 
+/-- **The Mellin transform of `kern2`** for `Re s > 0` (`hs`): convergent, with value
+`2/(s(s+1)(s+2))` — the `Ioc 0 1` indicator combination `1 − 2t + t²`
+(`kern2_eq_indicator_comb`) transforms termwise (`hasMellin_one_Ioc`, `hasMellin_cpow_Ioc` at
+the exponents `1` and `2`), and `1/s − 2/(s+1) + 1/(s+2)` is the stated quotient. -/
 theorem hasMellin_kern2 {s : ℂ} (hs : 0 < s.re) :
     MellinConvergent kern2 s ∧ mellin kern2 s = 2 / (s * (s + 1) * (s + 2)) := by
   have hs0 : s ≠ 0 := by rintro rfl; simp at hs
@@ -104,10 +110,15 @@ theorem hasMellin_kern2 {s : ℂ} (hs : 0 < s.re) :
     field_simp
     ring
 
+/-- `c + ti + 2 ≠ 0` for `c > 0` (`hc`): its real part is `c + 2`. -/
 theorem s2_ne_zero {c : ℝ} (hc : 0 < c) (t : ℝ) : ((c : ℂ) + (t : ℂ) * I + 2) ≠ 0 := by
   have hre : ((c:ℂ) + (t:ℂ) * I + 2).re = c + 2 := by simp
   intro h; rw [h] at hre; simp at hre; linarith
 
+/-- **The `(1/c)`-weighted quadratic bound** (an integrability tool only — the constant blows up
+as `c → 0⁺`): `‖(s(s+1)(s+2))⁻¹‖ ≤ (1/c)(c² + t²)⁻¹` on `s = c + ti`, `c > 0` (`hc`):
+`Kernel.lean`'s `norm_inv_denom_le` for the first two factors and `‖s + 2‖ ≥ c` for the
+third. -/
 theorem norm_inv_denom2_le {c : ℝ} (hc : 0 < c) (t : ℝ) :
     ‖(((c : ℂ) + (t : ℂ) * I) * ((c : ℂ) + (t : ℂ) * I + 1) * ((c : ℂ) + (t : ℂ) * I + 2))⁻¹‖
       ≤ (1 / c) * (c ^ 2 + t ^ 2)⁻¹ := by
@@ -129,6 +140,9 @@ theorem norm_inv_denom2_le {c : ℝ} (hc : 0 < c) (t : ℝ) :
         mul_le_mul h1 h2 (by positivity) (by positivity)
     _ = (1 / c) * (c ^ 2 + t ^ 2)⁻¹ := mul_comm _ _
 
+/-- **The cubic decay with no `c`-dependent constant** — the row W7's contour bound consumes:
+`‖(s(s+1)(s+2))⁻¹‖ ≤ (c² + t²)^{−3/2}` on `s = c + ti`, `c > 0` (`hc`): each of `‖s‖`,
+`‖s + 1‖`, `‖s + 2‖` is at least `√(c² + t²)`. -/
 theorem norm_inv_denom2_cubic_le {c : ℝ} (hc : 0 < c) (t : ℝ) :
     ‖(((c : ℂ) + (t : ℂ) * I) * ((c : ℂ) + (t : ℂ) * I + 1) * ((c : ℂ) + (t : ℂ) * I + 2))⁻¹‖
       ≤ ((c ^ 2 + t ^ 2) ^ (3 / 2 : ℝ))⁻¹ := by
@@ -158,6 +172,10 @@ theorem norm_inv_denom2_cubic_le {c : ℝ} (hc : 0 < c) (t : ℝ) :
   rw [norm_inv]
   exact inv_anti₀ (by positivity) hprod
 
+/-- The Mellin transform of `kern2` is integrable on the vertical line `Re = c` for `c > 0`
+(`hc`): on the line it is `2 · (s(s+1)(s+2))⁻¹` (`hasMellin_kern2`), dominated by
+`(1/c)(c² + t²)⁻¹` (`norm_inv_denom2_le`), which is integrable
+(`integrable_inv_c_sq_add_sq`). -/
 theorem verticalIntegrable_mellin_kern2 {c : ℝ} (hc : 0 < c) :
     Complex.VerticalIntegrable (mellin kern2) c := by
   have hint : Integrable (fun t : ℝ =>
@@ -175,6 +193,8 @@ theorem verticalIntegrable_mellin_kern2 {c : ℝ} (hc : 0 < c) :
   have hsre : 0 < ((c:ℂ) + (t:ℂ) * I).re := by simp; linarith
   rw [(hasMellin_kern2 hsre).2, div_eq_mul_inv]
 
+/-- `kern2(1/y) = (1 − 1/y)²` for `y ≥ 1` and `0` for `0 < y < 1` (`hy`): `kern_value` squared
+(`kern2_eq_sq_kern`). -/
 theorem kern2_value {y : ℝ} (hy : 0 < y) :
     kern2 (1 / y) = if 1 ≤ y then (1 - 1 / (y : ℂ)) ^ 2 else 0 := by
   rw [kern2_eq_sq_kern, kern_value hy]
@@ -182,6 +202,11 @@ theorem kern2_value {y : ℝ} (hy : 0 < y) :
   · rfl
   · exact zero_pow two_ne_zero
 
+/-- **The twice-smoothed Riesz kernel identity**:
+`(1/2π) ∫ 2 y^{c+ti} / ((c+ti)(c+ti+1)(c+ti+2)) dt = (1 − 1/y)²` for `y ≥ 1` and `0` for `y < 1`
+(`hy : 0 < y`, `hc : 0 < c`) — Mellin inversion (`mellinInv_mellin_eq`) of `hasMellin_kern2` at
+the point `1/y`, with `kern2_value` reading off the value `kern2(1/y)` (the right side) and
+`reflect` turning the `1/y` powers into `y` powers. -/
 theorem kernel_identity_2 {y : ℝ} (hy : 0 < y) {c : ℝ} (hc : 0 < c) :
     (1 / (2 * Real.pi)) • ∫ t : ℝ,
         2 * (y : ℂ) ^ ((c : ℂ) + (t : ℂ) * I) /
@@ -212,6 +237,10 @@ example : (1 / (2 * Real.pi)) • ∫ t : ℝ,
   rw [kernel_identity_2 (by norm_num : (0 : ℝ) < 2) (by norm_num : (0 : ℝ) < 1)]
   norm_num
 
+/-- The integrand `2 w b^{c+ti} / ((c+ti)(c+ti+1)(c+ti+2))` is integrable in `t`, for `0 ≤ b`
+(`hb`) and `c > 0` (`hc`): it is identically `0` at `b = 0`, and otherwise its norm is
+`‖2w‖ b^c` times `‖(s(s+1)(s+2))⁻¹‖`, dominated through `norm_inv_denom2_le` by an integrable
+multiple of `(c² + t²)⁻¹`. -/
 theorem integrable_Fterm2 (w : ℂ) {b : ℝ} (hb : 0 ≤ b) {c : ℝ} (hc : 0 < c) :
     Integrable (fun t : ℝ => 2 * w * (b : ℂ) ^ ((c : ℂ) + (t : ℂ) * I)
         / (((c : ℂ) + (t : ℂ) * I) * ((c : ℂ) + (t : ℂ) * I + 1)
@@ -243,6 +272,11 @@ theorem integrable_Fterm2 (w : ℂ) {b : ℝ} (hb : 0 ≤ b) {c : ℝ} (hc : 0 <
       have hmul := mul_le_mul_of_nonneg_left hd hK
       linarith [hmul]
 
+/-- **Sum–integral exchange for the twice-smoothed kernel**: for `x > 0` (`hx`), `c > 0` (`hc`)
+and coefficients with `∑ ‖a_n‖ (x/n)^c` summable (`hsum`),
+`∑_n ∫ 2 a_n (x/n)^{c+ti}/(…) dt = ∫ 2 (∑_n a_n (x/n)^{c+ti})/(…) dt` —
+`integral_tsum_of_summable_integral_norm` on the termwise integrability (`integrable_Fterm2`)
+and the summability of the integrated norms. -/
 theorem kernel_sum_swap_2 (a : ℕ → ℂ) {x : ℝ} (hx : 0 < x) {c : ℝ} (hc : 0 < c)
     (hsum : Summable (fun n : ℕ => ‖a n‖ * (x / n) ^ c)) :
     ∑' n : ℕ, (∫ t : ℝ, 2 * a n * ((x / n : ℝ) : ℂ) ^ ((c : ℂ) + (t : ℂ) * I)

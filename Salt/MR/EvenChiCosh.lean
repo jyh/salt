@@ -141,8 +141,8 @@ E5a's remaining middle is `log η = √q · L(1,χ).re`.  Unpacked, that is E3's
 plus THIS: turning `log` of a zpow-weighted product into the weighted SUM of logs, which is
 what makes the right-hand side a character sum.
 
-Proved generally; `Real.log_zpow` is unconditional, so only nonvanishing of the base is
-needed. -/
+Proved generally in `EvenChiSine` (`e4a_log_zpow_prod`); `Real.log_zpow` is unconditional, so
+only nonvanishing of the base is needed. -/
 
 theorem e4a_cosh_neg_free (y : ℝ) : 2 * Real.cosh (-y) = 2 * Real.cosh y := by
   rw [Real.cosh_neg]
