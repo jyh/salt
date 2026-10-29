@@ -12,7 +12,7 @@ the consistency anchor.
 ## House catches at freeze (vs the recon's sketch)
 
 1. **The consumable target is π-based**: maxDiscrepancy
-   (Salt/Maynard.lean:90) is |π(x;q,a) − π(x)/φ(q)| over
+   (Salt/Maynard.lean:92) is |π(x;q,a) − π(x)/φ(q)| over
    primesCount — NOT ψ-weighted as the recon's report said. The
    N-N2 seam lands on prime COUNTS (trap-iv class, caught at
    freeze).
