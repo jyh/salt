@@ -83,7 +83,7 @@ band lane, eight numeric riders on constants the theorem itself produces, and tw
 (`logChowla2_witnessed_scale_flat_L_v2` (`Salt/MR/S16FlatFinal.lean:136`), Theorem thm:pearl, takes `A₀` with
 `162 ≤ A₀` and produces one `A` with `A₀ ≤ A`; the manuscript's own :1201–1202 says "the theorem produces, for every
 `A₀`, some `A ≥ A₀`". The hoisted form of §sec:limit, `logChowla2_witnessed_scale_flat_L_v2_uniform`
-(`Salt/MR/S16Uniform.lean:895`), does hold at every `A` with `162 ≤ A` and `budgetAFlat ε β ≤ A`, but
+(`Salt/MR/S16Uniform.lean:891`), does hold at every `A` with `162 ≤ A` and `budgetAFlat ε β ≤ A`, but
 `budgetAFlat ε β = 2304·log 4/(ε⁶β²)` is computed from constants the theorem produces, and only `0 < β` is known of
 `β`, so that floor is not explicit.)
 
