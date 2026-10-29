@@ -1,7 +1,6 @@
 # ACCEPTED DEBT at the gate's birth (council 2026-10-20 1(b)): claim sentences that predate it, by sha + path + class.
 # class 'shape' = a sentence matching one of the lexicon's shapes (read off the 2026-10-19 census; matching is NOT thereby an overclaim, and each census correction, being the Captain's wording, shrinks this file); 'predates' = a claim word in a headline carrier.
 # A line whose sentence is gone is refused (STALE-BASELINE): delete it. A NEW claim is refused until a .prose-lean-reads record names its Lean statement and a non-author reader.
-0a6cbbea934d	README.md	predates
 566f03f7cb4c	README.md	shape
 b4b8f122fea4	README.md	shape
 eb31babe7d79	README.md	predates
@@ -87,16 +86,13 @@ b4d1f3bc6aa6	papers/witness/main.tex	shape
 fc548e7304a8	papers/witness/main.tex	predates
 158a5ca8d0b2	papers/witness/pi-overview-draft.md	shape
 # lexicon epoch 2 (R5, council 2026-10-22 item 3): sentences the epoch-1 lexicon did not see, accepted as debt by the WIDENING arm; each exists at the same path in the base tree.
-1b9491cecd72	README.md	lexicon-e2
 1ccdafb07cd9	README.md	lexicon-e2
 a91cf1f064a1	README.md	lexicon-e2
 2c812b0fa57f	docs/RESULTS.md	lexicon-e2
 2fc972271931	docs/RESULTS.md	lexicon-e2
 413fd8317136	docs/RESULTS.md	lexicon-e2
 a788e45b480b	docs/RESULTS.md	lexicon-e2
-bdb36b4b10b1	docs/RESULTS.md	lexicon-e2
 c9c1f5c54d6c	docs/RESULTS.md	lexicon-e2
-f2341ca129d4	docs/RESULTS.md	lexicon-e2
 f871460fa5f8	docs/RESULTS.md	lexicon-e2
 4ce649f66284	docs/priority-survey-2026-08-17-delta.md	lexicon-e2
 27a0988adb10	papers/flagship/floor-chen-seed.tex	lexicon-e2
@@ -227,10 +223,6 @@ f6cc88d6ace7	Salt/Chen/SwitchConstant.lean	docstring
 3df89ee61c3e	Salt/Chen/SwitchW2.lean	docstring
 78e103a000b9	Salt/Chen/TwinA1W.lean	docstring
 1f427e5cdfed	Salt/Chen/TwinA2W.lean	docstring
-01c2d951b00a	Salt/Entropy/Chowla/GoldbachEnergyKcH.lean	docstring
-6c62792d6327	Salt/Entropy/Chowla/GoldbachEnergyKcH.lean	docstring
-ca23b24298c6	Salt/Entropy/Chowla/GoldbachEnergyKcH.lean	docstring
-ed03915d6bc3	Salt/Entropy/Chowla/GoldbachEnergyKcH.lean	docstring-cited
 28f45ffc5f07	Salt/Entropy/Chowla/HBudget.lean	docstring
 88bc56520c05	Salt/Entropy/Chowla/HReduce.lean	docstring
 b8886a3bc19c	Salt/Entropy/Chowla/HloExport.lean	docstring
@@ -246,9 +238,6 @@ f03908e9f186	Salt/Entropy/Chowla/ShiftFork.lean	docstring-cited
 e5911aab0972	Salt/Entropy/Chowla/SpineFinal.lean	docstring-cited
 e9b60128e242	Salt/Entropy/Chowla/SpineFinal.lean	docstring
 f1cb5ef2d41a	Salt/Entropy/Chowla/SpineFinal.lean	docstring
-c0fb06e523f0	Salt/Entropy/Chowla/SpineFlat.lean	docstring
-8fc9dba8a01e	Salt/Entropy/Chowla/StrideCircle.lean	docstring-cited
-c7fb3c5e827e	Salt/Entropy/Chowla/StridePair.lean	docstring
 739e023b345a	Salt/Entropy/Chowla/TowerFlatExport.lean	docstring
 04a0f6732d17	Salt/HB/All.lean	docstring
 04d13682e8ca	Salt/HB/CrownTheorem1.lean	docstring-cited

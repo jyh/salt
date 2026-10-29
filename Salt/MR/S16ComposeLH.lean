@@ -11,6 +11,7 @@ import Salt.MR.S13CapGateLinearLH
 import Salt.MR.HSeamCheck
 import Salt.MR.V7A
 import Salt.MR.V7B
+import Salt.MR.RegimeFloors
 
 /-!
 # THE UNIFORM CAPSTONES AT SHIFT `h` — wave H3, block C
@@ -499,13 +500,7 @@ theorem flat_conditional_uniform_win_ceiling_h (h : ℕ) (hh : 0 < h)
     hmain 0 le_rfl U1floor (fun Hhi ω => s15ArmH h δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, -⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
   intro M hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
@@ -989,13 +984,7 @@ theorem flat_conditional_uniform_win_ceiling_kwide_h (h : ℕ) (hh : 0 < h)
     hmain 0 le_rfl U1floor (fun Hhi ω => s15ArmH h δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, -⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
   intro M hKw hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor hKw
@@ -1578,13 +1567,7 @@ theorem flat_conditional_uniform_win_ceiling_kwide_khoist_h (h : ℕ) (hh : 0 < 
     hmain 0 le_rfl U1floor (fun Hhi ω => s15ArmH h δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, -⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
   intro M hKw hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor hKw
@@ -2255,13 +2238,7 @@ theorem flat_conditional_uniform_win_xceil_kwide_khoist_h (h : ℕ) (hh : 0 < h)
     hmain 0 le_rfl U1floor (fun Hhi ω => s15ArmH h δ₀ ρ Hhi ω + g Hhi ω) hg'
   have hRarm : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, -⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRx, hRtow, ?_⟩
   intro M hKw hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor hKw
