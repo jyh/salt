@@ -9,6 +9,7 @@ import Salt.MR.StrataBounds
 import Salt.MR.BlockLenDoor
 import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
+import Salt.MR.FlatDesignBound
 
 /-!
 # `S16ComposeV4` — ⟦THE `K`-HOIST⟧ AND `logChowla2_ineffective_v4`
@@ -1013,11 +1014,7 @@ theorem logChowla2_ineffective_v4 (A₀ : ℝ) :
       Real.add_one_le_exp _
     linarith
   -- ⟦RIDER 4, DISCHARGED⟧ the arm census
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   -- ⟦THE RAISED LEVER⟧ chosen AFTER `A`, admissible inside the register's own wide ceiling
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26

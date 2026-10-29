@@ -25,6 +25,7 @@ import Salt.MR.StrataBounds
 import Salt.MR.BlockLenDoor
 import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
+import Salt.MR.FlatDesignBound
 
 /-!
 # The v6 family of log-Chowla theorems under a Siegel standoff (O13)
@@ -2195,11 +2196,7 @@ theorem logChowla2_ineffective_v6_of_standoff {cS : ℝ} (hcS : 0 < cS)
     have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
       Real.add_one_le_exp _
     linarith
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
   obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)
@@ -2264,7 +2261,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6_T0arm` (`Salt/MR/V7C.lean:177`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6_T0arm` (`Salt/MR/V7C.lean:178`): its statement under the three standoff
 binders, its proof verbatim with `s16_bandLaneWinL_holdsU` · `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist` replaced by their twins. -/
 theorem logChowla2_ineffective_v6_T0arm_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) :
@@ -2335,11 +2332,7 @@ theorem logChowla2_ineffective_v6_T0arm_of_standoff {cS : ℝ} (hcS : 0 < cS)
     have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
       Real.add_one_le_exp _
     linarith
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
   obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)

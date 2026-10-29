@@ -17,7 +17,7 @@ consumers is, as written, a claim about a set nobody has shown to be nonempty.
 
 * `0 < A` and `A ≤ 2x` are immediate from `R.hx : 2 ≤ R.x`;
 * `2^j ≤ A` is the dyadic floor — `j ≤ ⌊log₂ L⌋` puts `2^j ≤ L` (at `L > 0`), and
-  `L ≤ H ≤ H₊ ≤ x/ω ≤ x/2` is the landed headroom chain (`DoorReceipt.lean:212-218`);
+  `L ≤ H ≤ H₊ ≤ x/ω ≤ x/2` is the landed headroom chain (`DoorReceipt.lean:213-219`);
 * `√H ≤ A` from the same chain;
 * the window conjunct `x ≤ 16·ω·arcDen 12 H·A` holds with a factor of 64 to spare, since
   `arcDen 12 H ≥ 1` past the regime's window floor (`one_le_arcDen_of_regime`) and `ω ≥ 2`.
@@ -44,7 +44,7 @@ open Salt.Entropy.Chowla
 /-! ## §1 — the shared scale facts -/
 
 /-- `H + 1 ≤ x` at every admissible window — the landed headroom chain
-`H ≤ H₊ ≤ x/ω ≤ x/2` (`DoorReceipt.lean:212-218`) plus `2 ≤ x`. -/
+`H ≤ H₊ ≤ x/ω ≤ x/2` (`DoorReceipt.lean:213-219`) plus `2 ≤ x`. -/
 theorem tierS_succ_le_x_of_le_Hhi {R : ChowlaRegime} {H : ℕ} (hHhi : H ≤ R.Hhi) :
     H + 1 ≤ R.x := by
   have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
