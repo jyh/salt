@@ -103,6 +103,7 @@ import Salt.MR.HDoorArc
 import Mathlib
 import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
+import Salt.MR.FlatDesignBound
 
 -- The head reaches `flatCapH_shuffle` (the `h` head's own cap shuffle) by `open private`, the
 -- corpus's sanctioned device (`DoorReceipt.lean:68` does the same for `uniformCap_shuffle`).
@@ -1858,11 +1859,7 @@ theorem flat_v7_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7
     have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
       Real.add_one_le_exp _
     linarith
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
   obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)

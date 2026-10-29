@@ -11,6 +11,7 @@ import Salt.MR.StrataBounds
 import Salt.MR.BlockLenDoor
 import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
+import Salt.MR.FlatDesignBound
 
 /-!
 # `S16Compose` — ⟦THE BAR-2 CLOSING PASS⟧ AND `logChowla2_ineffective_v3`
@@ -1121,11 +1122,7 @@ theorem logChowla2_ineffective_v3 (A₀ : ℝ) :
       Real.add_one_le_exp _
     linarith
   -- ⟦RIDER 4, DISCHARGED⟧ the arm census
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   obtain ⟨hbase, hfire⟩ := hmain A hA162 hAwinA hAge
   refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, Mfl, Cq, cs, T₀, Kq, Ks, C,
     hε, hCg, hKc, hδ₀, hCt, hMfl1, hCq, hcs0, hT₀3, hKq0, hKs0, hC0, hC40,
