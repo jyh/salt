@@ -11,7 +11,8 @@ import Salt.MR.M4NonCoprime
 The door consumers receive the arc hypothesis `128 · arcDen 12 H ^ 3 ≤ H` on the regime's
 range `R.Hlo ≤ H ≤ R.Hhi` and re-derive the same two weaker forms from it at every site:
 `8 · arcDen 12 H ^ 3 ≤ H` and `128 · arcDen 12 H ^ 2 ≤ H` (the tactics catalogue's arc
-block). Both follow from `1 ≤ arcDen 12 H` on the regime. This module states them once.
+block). Both follow from `1 ≤ arcDen 12 H` on the regime. This module states them once:
+`arcDen_cube_le_of_arc3` and `arcDen_sq_le_of_arc3`.
 -/
 
 namespace Salt.MR
