@@ -7075,7 +7075,7 @@ THE TWO SIDES (verbatim shapes). CONSUMER — `hBVblocksW_discharge'` (PDiag.lea
 its `hprice` for every box in `dyadicBoundary (pieceN k) (pieceM k) (x/2+1) x (z·y) K`
 (N = pieceN k = 2^k − 1). SUPPLIER — every landed box-price terminal
 (`box_hprice_at_2pow`/`sym_`/`low_box_hprice_at_2pow`, PriceThree.lean:217/302/382; underlying
-`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:278, PriceTwo.lean:438/316;
+`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:279, PriceTwo.lean:391/316;
 `medium_survivor_price(_sqrtD)`, MediumFloor.lean:507/SqrtDFold.lean:956) provides a bound
 ONLY for `i ∈ dyadicBoundary (2^k) (pieceM k) (x/2+1) x F Krange` (N = 2^k, forced by the
 terminal's `M ≤ 2N` with M = pieceM k = 2·pieceN k + 1). The only bridge
@@ -7094,7 +7094,7 @@ priceable by either trichotomy route for the pieces with 2^k > x^{7/16}:
   • 2^k-BOUNDARY route (`box_hprice_at_2pow`/`_lo`): its hypothesis `i ∈ dyadicBoundary (2^k)`
     FAILS by construction (edge box ∉ dyadicBoundary (2^k)); concretely the terminal's corner
     clause `2^i·(2^k+1) ≤ x` is violated (edge box: x < 2^i·(2^k+1)). The `_lo` floor relaxation
-    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:438) is met but is orthogonal — it does not restore the
+    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:391) is met but is orthogonal — it does not restore the
     boundary membership. So neither route covers the live edge box.
 The trivial fallback (carrier norm ≤ 1 ⟹ box sum ≤ 2·|Dset|·X·M ≈ x·τ(Ps)) overshoots the
 hSum budget Ccon·K·x/L^{11} by ~x^{1} and cannot be used.
