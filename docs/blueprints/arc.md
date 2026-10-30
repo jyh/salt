@@ -41,7 +41,7 @@ close; every wave carries that sentence.
   `M4RowMeanSqLam R (doorCount R.ω) MS` (`MRTPortRowLam.lean:49`) plus the sed'd pricing line
   `∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 6 * MS H ≤ c` (`MRTPortExitLamGated.lean:78`; note `MS`
   is `∀`-bound at :77 — the producer picks it) feed E4. **The chain is ONE-WAY: PAD B ⇒
-  PAD A** via `m4_doorSq_of_rowMeanSqLam` (`MRTPortRowLam.lean:59`, modulo the three ladder
+  PAD A** via `m4_doorSq_of_rowMeanSqLam` (`MRTPortRowLam.lean:68`, modulo the three ladder
   gates and the `4·2^k·H/x / Z` tail, absorbed by E4). **The converse does not exist:**
   `M4RowMeanSqLam` has ZERO producers (9-occurrence census, all def/binder/docstring/audit)
   and no DOOR→ROW lemma is landed; L¹⇒L² is false, not unproved.
@@ -349,7 +349,7 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   drifted 70 lines and `:788` now holds an unrelated A.1 paragraph. All three claims verified
   at the bytes first (the gate is THREE hypotheses, not one; the second term is
   `4·2^k·H/x / Z`; the landed conclusion is `m4_doorSq_of_rowMeanSqLam`,
-  `MRTPortRowLam.lean:59`). [A, QUEUE amendment]:** the "absolute factor 3, no log and no loglog debit"
+  `MRTPortRowLam.lean:68`). [A, QUEUE amendment]:** the "absolute factor 3, no log and no loglog debit"
   one-liner (QUEUE:788-791) over-compresses: the 3 arrives via `door_count_le_three_mul_norm`
   (`M4Door.lean:648`) under `4 ≤ log ω` (+2 gates), and the composed conclusion carries a
   second term `4·2^k·H/x / Z`. The landed absolute-3 conclusion is
