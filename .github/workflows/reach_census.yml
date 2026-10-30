@@ -113,7 +113,11 @@ jobs:
         run: |
           mods=$(sed -n 's/^import //p' O13Census.lean | tr '\n' ' ')
           set -o pipefail
-          lake build $mods 2>&1 | tail -20
+          lake build $mods 2>&1 | tee import.log | tail -20
+          # what the restored caches did NOT cover, by library (the whole log is uploaded below)
+          # (lake prints a line per module it BUILT; a silent replay prints nothing, so only builds are counted)
+          echo "import build: $(grep -c ' Built ' import.log || true) modules built"
+          grep -oE ' Built [A-Za-z0-9]+' import.log | sort | uniq -c || true
       # The step writes its own exit line, which `parse` reads exactly as it reads the wrapper's.
       - name: Walk (clean)
         run: |
@@ -139,6 +143,7 @@ jobs:
         with:
           name: reach-census-${{ steps.sha.outputs.sha }}
           path: |
+            import.log
             census.log
             plant.log
             O13Census.lean.json
