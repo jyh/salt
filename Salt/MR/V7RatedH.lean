@@ -1348,7 +1348,7 @@ substitution `h := 1` is the one instrument that looks.
 
 The house pattern (V7Rated §5): a HAND-RETYPED copy of the landed statement, proved from the
 `h`-family at `h = 1`; then an `example` whose type is that same statement and whose proof term
-is the LANDED declaration itself, so any drift between the copy and `V7Rated.lean:973` fails to
+is the LANDED declaration itself, so any drift between the copy and `V7Rated.lean:974` fails to
 elaborate HERE. -/
 
 section AntiDriftH

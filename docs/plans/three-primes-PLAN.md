@@ -278,7 +278,7 @@ would call hard.** The minor arcs are essentially done. The major arcs are not s
 | L7 Abel summation | **have** | `Salt.MR.sum_Ioc_abel`, `Salt/MR/MinorArcCore.lean:177`; mathlib `sum_mul_eq_sub_sub_integral_mul` | discrete and continuous |
 | L9 geometric sum | **have** | `Salt.MR.geom_phase_bound`, `Salt/MR/MinorArcVaughan.lean:298` | ≤ min(M, 1/(2‖θ‖)) |
 | L14 Dirichlet | **have** ★ | `Salt.MR.exists_dirichlet_approx`, `Salt/MR/BigXiArc.lean:229`; `approx_reduced`, `approx_c_form` (`Salt/MR/MinorArcExit.lean:333`, `:387`) | to lowest terms, then to the \|α − a/q\| ≤ c/q² shape the bound consumes |
-| L15 Vaughan | **have** ★ | `Salt.LS.vaughan`, `Salt/LS/Vaughan.lean:91`; `Salt.MR.vaughan_expSum` | exact identity, and its exponential-sum form |
+| L15 Vaughan | **have** ★ | `Salt.LS.vaughan`, `Salt/LS/Vaughan.lean:93`; `Salt.MR.vaughan_expSum` | exact identity, and its exponential-sum form |
 | L16–L18 type I/II | **have** | `typeI_bound`, `typeII_block_bound`, `typeII_dyadic_bound` (`Salt/MR/MinorArcCore.lean`) | explicit constants |
 | L19 Vinogradov | **have**, in a different shape ★ | `Salt.MR.lambdaPhase_le` → `vinoBd`, `Salt/MR/MinorArcExit.lean:706`, `:661` | U = V = W with W² ≤ x, a dyadic count K. It must be **specialised** to N P^{−1/2}(log N)^c on P < q ≤ N/P. The log power c comes out of `vinoBd`, not the textbook's 4, and B is re-derived from it |
 | L5 Ramanujan sums | **absent** | (only c_{p^e}(a) = 0, e ≥ 2, inside `Salt/Weil/GcdBranch.lean`) | new: c_q(a) = μ(q) for (a, q) = 1; multiplicativity; the trivial \|c_q(N)\| ≤ φ(q), which is the only bound 4b uses |
