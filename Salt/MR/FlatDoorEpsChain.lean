@@ -10,6 +10,8 @@ import Mathlib
 import Salt.MR.StrataBounds
 import Salt.MR.BlockLenDoor
 import Salt.MR.RegimeFloors
+import Salt.MR.DoorSocket
+import Salt.MR.FlatDesignBound
 
 /-!
 # ⟦TIER S — THE DOOR AT THE HEAD'S GRADE, `ε`-FAMILY: THE CHAIN⟧ (`FlatDoorEpsChain`)
@@ -75,7 +77,7 @@ theorem s16BaseScaleCap96_L_of_LH {h K : ℕ} (hh : 0 < h) {R : ChowlaRegime} {M
   exact hs H L q j A s (socketBaseLH_of_socketBaseL hh hb)
 
 /-- **⟦THE SUM SPLIT'S `log 2`, PAID FROM THE TOWER AT THE CAP⟧** (`epsChain_arm_split_cap`) —
-`xceil_arm_split_h` (`XThread.lean:1130`) re-cut at the interval cap instead of at a pin: the
+`xceil_arm_split_h` (`XThread.lean:1126`) re-cut at the interval cap instead of at a pin: the
 margin `ε²·H₊ − H₊/10^20` covers `log 2` for every `ε ≥ 1/(500·8103)`.  The room is the gate's
 SECOND conjunct `50 ≤ loglog H₊`, which gives `log H₊ ≥ e^50 ≥ 10^21`, hence `H₊ ≥ 10^21`, against
 a demand of `1.14·10^13`: **the headroom is a tower and the corner is a constant.** -/
@@ -539,9 +541,9 @@ theorem bigXi_bounded_ceiling_of_cap (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 
 /-! ## §3 — ⟦THE `ε`-HEAD⟧ the door-head's DEVICE with the head's TAIL kept, generic in `P` -/
 
 /-- **⟦THE `A`-UNIFORM FLAT HEAD AT GENERIC `ε`, LEAVES PINNED, TAIL KEPT⟧**
-(`flat_head_uniform_xceil_eps`) — `flat_head_uniform_xceil` (`XThread.lean:558`) with the pin
+(`flat_head_uniform_xceil_eps`) — `flat_head_uniform_xceil` (`XThread.lean:561`) with the pin
 `ε := 1/500` replaced by the parameter under `0 < ε ≤ 1/500` and the cap, the leaves' witnesses
-PINNED as the door-head pins them (`DoorReceipt.lean:989`, `cD3 = 1/4`, `C = 1 + 2·(2·log 4)`) so
+PINNED as the door-head pins them (`DoorReceipt.lean:970`, `cD3 = 1/4`, `C = 1 + 2·(2·log 4)`) so
 that the mint is the EXACT `ε/(256·(1 + 4·log 4))`, and the head's TAIL — the entropy collision —
 kept, which the door-head drops.  Keeping both is what forces the two transports: the `D3` floor
 and the circle-method grade are stated at the `∃`-witnesses, and each moves to the pinned witness
@@ -570,7 +572,7 @@ theorem flat_head_uniform_xceil_eps (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 /
   have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:989–998`)
+  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:970–979`)
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
@@ -874,12 +876,9 @@ theorem flat_capstone_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop)
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
       DoorRowZeroBase_L_gk K M (A + s) j liouvilleC
@@ -952,11 +951,7 @@ theorem flat_capstone_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop)
     rw [hval] at hstep
     have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
         * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
-    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
-      rw [hδssq]
-      field_simp
-      ring
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
@@ -984,11 +979,9 @@ theorem flat_conditional_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop) (Awi
   obtain ⟨Hcap, hCapLe, hmain⟩ := hcapK A hA26 hAge
   refine ⟨Hcap, hCapLe, ?_⟩
   intro U1floor g hg hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦THE ONE GENUINE ESTIMATE, SPENT⟧ the substituted `g' = s15Arm δ₀ ρ + g` still obeys the
   -- builder-side rider.  THE ONE EDIT ON THIS HOP: the arm is priced by `s15Arm_log_le_scaled`
   -- at `c := 8103` (the form's own `δ₀` pin `1/(838400·8103)`) and the sum split's `log 2` is
@@ -1246,11 +1239,7 @@ theorem flat_v7_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop)
     have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
       Real.add_one_le_exp _
     linarith
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
   obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)
@@ -1303,7 +1292,7 @@ theorem flat_v7_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop)
     R, hReps, by rw [hHlo]; exact hbase hopq, hRtow, hdes, hwin, hfireR⟩
 
 /-- **⟦THE CHAIN, AT GENERIC `ε`⟧** (`flat_chain_generic_eps`) — H1 ∘ … ∘ H7 at the cap:
-`flat_chain_generic` (`DoorReceipt.lean:1053`) with every hop's `_eps` sibling.  The cap and the
+`flat_chain_generic` (`DoorReceipt.lean:1034`) with every hop's `_eps` sibling.  The cap and the
 `δ₀` pin travel INSIDE the forms, so no hop takes them as a hypothesis and this composition is
 the landed one token for token. -/
 theorem flat_chain_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop) (h : FlatHeadFormEps ε P)

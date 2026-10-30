@@ -24,6 +24,8 @@ import Salt.TwinBar.SevenEighthsStandoff
 import Salt.MR.StrataBounds
 import Salt.MR.BlockLenDoor
 import Salt.MR.RegimeFloors
+import Salt.MR.DoorSocket
+import Salt.MR.FlatDesignBound
 
 /-!
 # The v6 family of log-Chowla theorems under a Siegel standoff (O13)
@@ -652,7 +654,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `m4_doorL2_close_split_sq_gk_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:183`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_doorL2_close_split_sq_gk_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:184`): its statement under the three standoff
 binders, its proof verbatim with `m4_exit_socket_split_sq_arc_flatRoot` replaced by their twins. -/
 theorem m4_doorL2_close_split_sq_gk_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
@@ -718,7 +720,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `m4_second_road_L2_gk_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:243`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_second_road_L2_gk_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:244`): its statement under the three standoff
 binders, its proof verbatim with `m4_doorL2_close_split_sq_gk_flatRoot_L` replaced by their twins. -/
 theorem m4_second_road_L2_gk_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
@@ -1230,7 +1232,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:349`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:350`): its statement under the three standoff
 binders, its proof verbatim with `m4_second_road_L2_gk_flatRoot_L` · `m4_fuse_hcap_of_capWS_gk` replaced by their twins. -/
 theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ)
@@ -1352,12 +1354,9 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L_of_stan
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
       DoorRowZeroBase_L_gk K M (A + s) j liouvilleC
@@ -1430,11 +1429,7 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L_of_stan
     rw [hval] at hstep
     have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
         * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
-    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
-      rw [hδssq]
-      field_simp
-      ring
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
@@ -1450,7 +1445,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:1012`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:1006`): its statement under the three standoff
 binders, its proof verbatim with `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L` replaced by their twins. -/
 theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ)
@@ -1477,11 +1472,9 @@ theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_of_standoff {
   refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, x₀, Hcap, Hopq, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl,
     hCgle, hεpin, hδpin, hMflb, hβ, hA26, hA₀A, hAge, hCapLe, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
@@ -2203,11 +2196,7 @@ theorem logChowla2_ineffective_v6_of_standoff {cS : ℝ} (hcS : 0 < cS)
     have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
       Real.add_one_le_exp _
     linarith
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
   obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)
@@ -2272,7 +2261,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6_T0arm` (`Salt/MR/V7C.lean:177`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6_T0arm` (`Salt/MR/V7C.lean:178`): its statement under the three standoff
 binders, its proof verbatim with `s16_bandLaneWinL_holdsU` · `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist` replaced by their twins. -/
 theorem logChowla2_ineffective_v6_T0arm_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) :
@@ -2343,11 +2332,7 @@ theorem logChowla2_ineffective_v6_T0arm_of_standoff {cS : ℝ} (hcS : 0 < cS)
     have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
       Real.add_one_le_exp _
     linarith
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
   obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)
@@ -2483,7 +2468,7 @@ open MeasureTheory
 open Salt.Entropy.Chowla
 set_option maxHeartbeats 1000000 in
 -- The twin re-elaborates the landed proof, so it keeps the landed declaration's heartbeat room.
-/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk` (`Salt/MR/S16FlatTerminalLinear.lean:1904`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk` (`Salt/MR/S16FlatTerminalLinear.lean:1896`): its statement under the three standoff
 binders, its proof verbatim with `m4_hcap_at_door_perBlock_L_gk` replaced by their twins. -/
 theorem m4_fuse_hcap_of_capWS_L_gk_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) :

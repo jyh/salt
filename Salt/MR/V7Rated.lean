@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.V7Headline
 import Salt.MR.BandRatedSocket
+import Salt.MR.FlatDesignBound
 
 /-!
 # `V7Rated` — R-1 Wave 1: the V7 rethread onto the RATED socket
@@ -962,7 +963,7 @@ the `K_vt` cushion — is discharged inside.
 * nothing here bears on twin primes — the transport wall is untouched at this rung.
 
 ⟦KEPT, FROZEN⟧ the tower conjunct and the `loglog H₊ ≤ 2·e^{1.6A}` export are carried
-verbatim from the parent (`V7Ks.lean:446-450`): the kernel census found zero live kernel
+verbatim from the parent (`V7Ks.lean:447-451`): the kernel census found zero live kernel
 consumers either way, but `arc.md`'s erratum-(a) argument reads the second export off the
 headline, and keeping both is what makes the parent's `_g0` derivable-from-stronger as a
 KERNEL FACT (`logChowla2_ineffective_v7_ksarm_g0_of_rated` below).
@@ -1048,11 +1049,7 @@ theorem logChowla2_v7_rated (A₀ : ℝ) :
     have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
       Real.add_one_le_exp _
     linarith
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
   obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)

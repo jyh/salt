@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.S16Budget
 import Salt.MR.FlatConsumers
 import Salt.MR.RegimeFloors
+import Salt.MR.DoorSocket
 
 /-!
 # THE FLAT SHAPE at the TOP OF THE ROAD — HOP 3 and HOP 4 (freeze F-5)
@@ -168,11 +169,9 @@ theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flat (K : ℕ) (hK : K �
   refine ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl,
     hCgle, hεpin, hδpin, hMflb, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
