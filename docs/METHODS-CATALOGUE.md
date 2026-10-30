@@ -1,7 +1,7 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `aea58c22` · source digest `c0de99a37c1ca6b9` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `13b4fca3` · source digest `e9ab3e36cd1e6ac5` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
@@ -316,7 +316,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Twelve.PhiUpperAtom` | DISCHARGED | 10 | `Salt.Twelve.phiUpperAtom_holds` GUARDED (Salt/Twelve/PhiUpper.lean:531) · `Salt.Twelve.phiUpperAtom_final` ✓audited GUARDED (Salt/Twelve/PhiUpperReindex.lean:499) |
 | `Salt.BV.SiegelWalfisz` | DISCHARGED | 9 | `Salt.SW.siegelWalfisz_holds` ✓audited (Salt/SW/Gate.lean:150) |
 | `Salt.Entropy.Chowla.StrideScale` | DISCHARGED | 9 | `Salt.Entropy.Chowla.strideScale_one` ✓audited (Salt/Entropy/Chowla/StridePair.lean:84) |
-| `Salt.BrunLower.chi` | DISCHARGED | 8 | `Salt.BrunLower.chi_one` ✓audited GUARDED (Salt/BrunLower/Defs.lean:187) · `Salt.BrunLower.chi_prime` ✓audited GUARDED (Salt/BrunLower/Defs.lean:214) · `Salt.HB.mem_failSet` (Salt/HB/RosserDim4FL.lean:442) |
+| `Salt.BrunLower.chi` | DISCHARGED | 8 | `Salt.BrunLower.chi_one` ✓audited GUARDED (Salt/BrunLower/Defs.lean:191) · `Salt.BrunLower.chi_prime` ✓audited GUARDED (Salt/BrunLower/Defs.lean:218) · `Salt.HB.mem_failSet` (Salt/HB/RosserDim4FL.lean:442) |
 | `Salt.Chen.StepHypWP` | DISCHARGED | 8 | `Salt.Chen.stepHypWP_const` ✓audited GUARDED (Salt/Chen/WindowedStepP.lean:78) |
 | `Salt.Entropy.Chowla.PairCollapse` | DISCHARGED | 8 | `Salt.Entropy.Chowla.slack_witness_twinDetecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:98) · `Salt.Entropy.Chowla.delta1w_pairCollapse` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:320) · `Salt.Entropy.Chowla.chi4w_pairCollapse` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:346) · +1 |
 | `Salt.MR.M4ChiSummedFreeRow_L_gk` | DISCHARGED | 8 | `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:339) · `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_pool_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:3171) · `Salt.MR.m4_chiSummedFreeRow_trivial_L_gk` (Salt/MR/M4RowLinear.lean:8011) |
@@ -410,7 +410,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Chen.StepHypW` | DISCHARGED | 1 | `Salt.Chen.stepHypW_holds` ✓audited GUARDED (Salt/Chen/WindowedStep.lean:244) |
 | `Salt.Entropy.Chowla.GradedAffHeadAt_g12b` | DISCHARGED | 1 | `Salt.MR.log_chowla_aff_of_door_crowned_unslotted_g12b` ✓audited GUARDED (Salt/MR/StrideGradeReceipt12b.lean:40) |
 | `Salt.Entropy.Chowla.TwinDetecting` | DISCHARGED | 1 | `Salt.Entropy.Chowla.slack_witness_twinDetecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:98) · `Salt.Entropy.Chowla.chi4w_detecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:297) |
-| `Salt.ExpSum.IsVdCBound` | DISCHARGED | 1 | `Salt.ExpSum.isVdCBound_two` (Salt/ExpSum/DerivTestK.lean:227) · `Salt.ExpSum.isVdCBound_16` ✓audited GUARDED (Salt/ExpSum/Strip.lean:182) |
+| `Salt.ExpSum.IsVdCBound` | DISCHARGED | 1 | `Salt.ExpSum.isVdCBound_two` (Salt/ExpSum/DerivTestK.lean:236) · `Salt.ExpSum.isVdCBound_16` ✓audited GUARDED (Salt/ExpSum/Strip.lean:182) |
 | `Salt.MR.FlatDoorAllGradesBandW` | DISCHARGED | 1 | `Salt.MR.flatDoorAllGradesBandW_holds` ✓audited (Salt/MR/FlatDoorAllGradesBand.lean:1664) |
 | `Salt.MR.FlatDoorUniformW` | DISCHARGED | 1 | `Salt.MR.flatDoorUniformW_holds` ✓audited (Salt/MR/FlatDoorUniform.lean:1560) |
 | `Salt.MR.M4BlockMeanSqBlk` | DISCHARGED | 1 | `Salt.MR.m4_blockMeanSqBlk_trivial` ✓audited (Salt/MR/M4BridgeBlock.lean:520) |
@@ -729,7 +729,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Twelve.WinFrontierMW` | DISCHARGED | `Salt.Twelve.winFrontierMW_of` ✓audited GUARDED (Salt/Twelve/FrontierM.lean:164) |
 | `Salt.TwinBar.MarginalVanish` | DISCHARGED | `Salt.TwinBar.tent_marginalVanish` (Salt/TwinBar/Constrained.lean:349) |
 | `Salt.Vmvt.DistinctModP` | DISCHARGED | `Salt.Vmvt.residue_distinctModP` ✓audited GUARDED (Salt/Vmvt/Transversal2.lean:67) |
-| `Salt.Vmvt.blockDistinctMod` | DISCHARGED | `Salt.Vmvt.mem_mixBox` GUARDED (Salt/Vmvt/Transversal3.lean:79) · `Salt.Vmvt.mem_transRestBox` GUARDED (Salt/Vmvt/Transversal3.lean:109) |
+| `Salt.Vmvt.blockDistinctMod` | DISCHARGED | `Salt.Vmvt.mem_mixBox` GUARDED (Salt/Vmvt/Transversal3.lean:84) · `Salt.Vmvt.mem_transRestBox` GUARDED (Salt/Vmvt/Transversal3.lean:117) |
 | `TwinCountingBigO` | DISCHARGED | `Salt.M5BigO.N5_3` (Salt/Brun/M5BigO.lean:296) |
 | `Salt.BrunLower.capPred` | FRAME | — |
 | `Salt.Entropy.Chowla.XCeilGate` | FRAME | — |
@@ -996,8 +996,8 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | audited member | in-degree | file:line |
 |---|---|---|
 | `Salt.BrunLower.sum_vonMangoldt_div_ge` | 1417 | Salt/BrunLower/MertensWindow.lean:53 |
-| `Salt.BrunLower.abs_Sfun_sub_log_le` | 1416 | Salt/BrunLower/MertensWindow.lean:340 |
-| `Salt.BrunLower.sum_inv_le_of_prime_window` | 670 | Salt/BrunLower/MertensWindow.lean:595 |
+| `Salt.BrunLower.abs_Sfun_sub_log_le` | 1416 | Salt/BrunLower/MertensWindow.lean:349 |
+| `Salt.BrunLower.sum_inv_le_of_prime_window` | 670 | Salt/BrunLower/MertensWindow.lean:608 |
 | `Salt.Chen.sum_inv_prime_window_ge` | 435 | Salt/Chen/MertensPNT.lean:159 |
 | `Salt.MR.norm_memSCoeff_le_one` | 432 | Salt/MR/M4Sieve.lean:126 |
 | `Salt.MR.two_le_calP` | 333 | Salt/MR/SieveGlue.lean:315 |
@@ -1011,13 +1011,13 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | audited member | in-degree | file:line |
 |---|---|---|
 | `Salt.BrunLower.sum_vonMangoldt_div_ge` | 1417 | Salt/BrunLower/MertensWindow.lean:53 |
-| `Salt.BrunLower.abs_Sfun_sub_log_le` | 1416 | Salt/BrunLower/MertensWindow.lean:340 |
-| `Salt.BrunLower.sum_inv_le_of_prime_window` | 670 | Salt/BrunLower/MertensWindow.lean:595 |
+| `Salt.BrunLower.abs_Sfun_sub_log_le` | 1416 | Salt/BrunLower/MertensWindow.lean:349 |
+| `Salt.BrunLower.sum_inv_le_of_prime_window` | 670 | Salt/BrunLower/MertensWindow.lean:608 |
 | `Salt.Chen.sum_inv_prime_window_ge` | 435 | Salt/Chen/MertensPNT.lean:159 |
 | `Salt.MR.mertens_first_upper` | 432 | Salt/MR/PrimeSigmaShift.lean:46 |
-| `Salt.Mertens.abel_primeZeta` | 327 | Salt/Mertens/Third.lean:414 |
+| `Salt.Mertens.abel_primeZeta` | 327 | Salt/Mertens/Third.lean:418 |
 | `Salt.Mertens.loglog_integral_asymp` | 327 | Salt/Mertens/GammaIntegral.lean:323 |
-| `Salt.Mertens.mertensM_eq_sub` | 326 | Salt/Mertens/Third.lean:653 |
+| `Salt.Mertens.mertensM_eq_sub` | 326 | Salt/Mertens/Third.lean:659 |
 | `Salt.Chen.twinWindow_mass_eq` | 310 | Salt/Chen/MertensPNT.lean:248 |
 | `Salt.Mertens.mertensB_nonneg` | 286 | Salt/Mertens/PrimePower.lean:155 |
 
@@ -1060,14 +1060,14 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | audited member | in-degree | file:line |
 |---|---|---|
 | `Salt.LS.gallagher_pointwise` | 511 | Salt/LS/Gallagher.lean:38 |
-| `Salt.LS.vaughan` | 325 | Salt/LS/Vaughan.lean:91 |
-| `Salt.LS.vaughan_sum` | 321 | Salt/LS/Vaughan.lean:156 |
+| `Salt.LS.vaughan` | 325 | Salt/LS/Vaughan.lean:93 |
+| `Salt.LS.vaughan_sum` | 321 | Salt/LS/Vaughan.lean:158 |
 | `Salt.LS.parseval` | 137 | Salt/LS/Parseval.lean:76 |
 | `Salt.LS.analytic_LS` | 133 | Salt/LS/AnalyticLS.lean:58 |
 | `Salt.LS.char_LS_perQ` | 131 | Salt/LS/CharLS.lean:74 |
 | `Salt.LS.farey_spacing_core` | 121 | Salt/LS/Farey.lean:36 |
 | `Salt.LS.farey_spacing` | 120 | Salt/LS/Farey.lean:85 |
-| `Salt.LS.arithmetic_LS` | 119 | Salt/LS/ArithmeticLS.lean:91 |
+| `Salt.LS.arithmetic_LS` | 119 | Salt/LS/ArithmeticLS.lean:92 |
 | `Salt.LS.char_LS` | 118 | Salt/LS/CharLS.lean:277 |
 
 ### exponential sums — 1297 external dependents

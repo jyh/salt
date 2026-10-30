@@ -98,6 +98,7 @@ def sig (k b : ℕ) (m : Fin b → ℤ) : Deg k → ℤ := fun j => ∑ q, (m q)
 /-- The shift vector `ℓ` read as a signature offset. -/
 def sigOf (k : ℕ) (ℓ : ℕ → ℤ) : Deg k → ℤ := fun j => ℓ (j : ℕ)
 
+/-- `sigOf k 0 = 0`: the zero shift vector reads as the zero signature offset. -/
 @[simp] theorem sigOf_zero (k : ℕ) : sigOf k (0 : ℕ → ℤ) = 0 := by
   funext j; simp [sigOf]
 

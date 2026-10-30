@@ -23,6 +23,8 @@ open Filter Asymptotics
 def primesCount (x q a : ℕ) : ℕ :=
   Nat.count (fun p => p.Prime ∧ p % q = a) (x + 1)
 
+/-- `x ↦ primesCount x q a` is monotone for fixed `q` and `a`: a `Nat.count` over a longer range
+(`Nat.count_monotone`). -/
 theorem primesCount_monotone (q a : ℕ) : Monotone (fun x => primesCount x q a) :=
   fun _ _ h => Nat.count_monotone _ (Nat.succ_le_succ h)
 
@@ -93,6 +95,8 @@ noncomputable def maxDiscrepancy (x q : ℕ) : ℝ :=
     (exists_coprime_lt hq)
     (fun a => |(primesCount x q a : ℝ) - (primesCount x 1 0 : ℝ) / (Nat.totient q : ℝ)|)
 
+/-- `0 ≤ maxDiscrepancy x q`: the junk value `0` when `q = 0`, and otherwise a `sup'` of
+absolute values, each `≥ 0`. -/
 theorem maxDiscrepancy_nonneg (x q : ℕ) : 0 ≤ maxDiscrepancy x q := by
   unfold maxDiscrepancy
   split
