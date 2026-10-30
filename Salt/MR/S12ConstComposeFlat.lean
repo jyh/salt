@@ -10,7 +10,7 @@ import Salt.Entropy.Chowla.TowerFlatExport
 # THE FLAT SHAPE at the CAPSTONE — the §GK / §GK-PINNED twins (freeze F-5)
 
 The two most downstream carriers of the tower conjunct on the second road:
-`logChowla2_capstone_final_const'_graded_gk` (`S12ConstCompose.lean:1164`) and its
+`logChowla2_capstone_final_const'_graded_gk` (`S12ConstCompose.lean:1152`) and its
 pinned twin (`:1460`), restated with
 
 ```
@@ -40,7 +40,7 @@ open Salt.Entropy.Chowla
 
 set_option maxHeartbeats 1000000 in
 -- Same cause as the landed originals: the statement re-elaborates the full residue.
-/-- `logChowla2_capstone_final_const'_graded_gk` (`S12ConstCompose.lean:1164`) at the
+/-- `logChowla2_capstone_final_const'_graded_gk` (`S12ConstCompose.lean:1152`) at the
 FLAT tower conjunct. -/
 theorem logChowla2_capstone_final_const'_graded_gk_flat (K : ℕ) (hK : K ≤ 170000000)
     (Aexp : ℝ) (hAexp : 0 < Aexp) :
@@ -136,7 +136,7 @@ theorem logChowla2_capstone_final_const'_graded_gk_flat (K : ℕ) (hK : K ≤ 17
 
 set_option maxHeartbeats 1000000 in
 -- Same cause as the landed original: the statement re-elaborates the full residue.
-/-- `logChowla2_capstone_final_const'_graded_gk_pinned` (`S12ConstCompose.lean:1386`)
+/-- `logChowla2_capstone_final_const'_graded_gk_pinned` (`S12ConstCompose.lean:1370`)
 at the FLAT tower conjunct — the road's terminal carrier, flat. -/
 theorem logChowla2_capstone_final_const'_graded_gk_pinned_flat (K : ℕ) (hK : K ≤ 170000000)
     (Aexp : ℝ) (hAexp : 0 < Aexp) :
