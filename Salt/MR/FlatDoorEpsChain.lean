@@ -542,7 +542,7 @@ theorem bigXi_bounded_ceiling_of_cap (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 
 /-- **⟦THE `A`-UNIFORM FLAT HEAD AT GENERIC `ε`, LEAVES PINNED, TAIL KEPT⟧**
 (`flat_head_uniform_xceil_eps`) — `flat_head_uniform_xceil` (`XThread.lean:561`) with the pin
 `ε := 1/500` replaced by the parameter under `0 < ε ≤ 1/500` and the cap, the leaves' witnesses
-PINNED as the door-head pins them (`DoorReceipt.lean:962`, `cD3 = 1/4`, `C = 1 + 2·(2·log 4)`) so
+PINNED as the door-head pins them (`DoorReceipt.lean:958`, `cD3 = 1/4`, `C = 1 + 2·(2·log 4)`) so
 that the mint is the EXACT `ε/(256·(1 + 4·log 4))`, and the head's TAIL — the entropy collision —
 kept, which the door-head drops.  Keeping both is what forces the two transports: the `D3` floor
 and the circle-method grade are stated at the `∃`-witnesses, and each moves to the pinned witness
@@ -571,7 +571,7 @@ theorem flat_head_uniform_xceil_eps (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 /
   have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:962–971`)
+  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:958–967`)
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
@@ -1284,7 +1284,7 @@ theorem flat_v7_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop)
     R, hReps, by rw [hHlo]; exact hbase hopq, hRtow, hdes, hwin, hfireR⟩
 
 /-- **⟦THE CHAIN, AT GENERIC `ε`⟧** (`flat_chain_generic_eps`) — H1 ∘ … ∘ H7 at the cap:
-`flat_chain_generic` (`DoorReceipt.lean:1026`) with every hop's `_eps` sibling.  The cap and the
+`flat_chain_generic` (`DoorReceipt.lean:1022`) with every hop's `_eps` sibling.  The cap and the
 `δ₀` pin travel INSIDE the forms, so no hop takes them as a hypothesis and this composition is
 the landed one token for token. -/
 theorem flat_chain_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop) (h : FlatHeadFormEps ε P)
