@@ -535,13 +535,9 @@ theorem flat_capstone_generic (P : ChowlaRegime → Prop) (h : FlatRoadForm P) (
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
-/-- **⟦H5 FORM⟧** `flat_conditional_uniform_win_xceil_kwide_khoist`'s statement (XThread.lean:1173)
+/-- **⟦H5 FORM⟧** `flat_conditional_uniform_win_xceil_kwide_khoist`'s statement (XThread.lean:1176)
 with the conclusion slot `P R`. -/
 def FlatConditionalForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
     ∃ (ε : ℚ) (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
@@ -568,9 +564,9 @@ def FlatConditionalForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
                 S15CrossingBound_L_gk K R M → P R
 
 set_option maxHeartbeats 1600000 in
--- Same cause as the parent (XThread.lean:1100): the capstone's monster body is consumed under
+-- Same cause as the parent (XThread.lean:1103): the capstone's monster body is consumed under
 -- one more binder layer.
-/-- **⟦H5 REPLAY⟧** `flat_conditional_uniform_win_xceil_kwide_khoist` (XThread.lean:1173) from the
+/-- **⟦H5 REPLAY⟧** `flat_conditional_uniform_win_xceil_kwide_khoist` (XThread.lean:1176) from the
 generic capstone — the one hop that moves `g` (the `s15Arm` substitution and its rider).  Body
 verbatim; the conclusion is only `hgo`'s codomain (refuter R-STOP). -/
 theorem flat_conditional_generic (P : ChowlaRegime → Prop) (Awin : ℝ)
@@ -596,9 +592,7 @@ theorem flat_conditional_generic (P : ChowlaRegime → Prop) (Awin : ℝ)
   -- builder-side rider: §2 prices the arm at `log ω + H₊/10^6` and the caller's own `ε²·H₊`
   -- margin (`≥ 4·H₊/10^6` at `ε ≥ 1/500`) pays for it AND for the sum split's `log 2`
   have hεR : (1 : ℝ) / 500 ≤ (ε : ℝ) := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   have hg' : XCeilRider ε (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω) := by
     intro Hhi ω hgate
     obtain ⟨hH4, hll, hωw⟩ := hgate
@@ -750,13 +744,9 @@ theorem flat_kswin_generic (P : ChowlaRegime → Prop) (Awin : ℝ)
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
   have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
   have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
-    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
   have hεR : (1 : ℝ) / 500 ≤ (ε : ℝ) := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   refine ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
     hCgle, hεpin, hδpin, hMflb, hβ, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40, ?_⟩
   intro K
@@ -914,9 +904,7 @@ theorem flat_v7_generic (P : ChowlaRegime → Prop)
   have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
   have heps500R : (1 : ℝ) / 500 ≤ (R.eps : ℝ) := by
     rw [hReps]
-    have h := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   have h518 : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by nlinarith [hdes, hA162]
   have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by

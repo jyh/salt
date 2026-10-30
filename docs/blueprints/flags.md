@@ -23122,7 +23122,7 @@ average over `n ≤ x`); the shift is `n + 1` (the `2` counts the factors `λ(n)
 constants are ineffective (`A` produced through `Classical.choice`, `Ks` carrying Siegel's
 constant); and **twins are untouched** — the transport wall stands at this rung.
 
-**THE `g ≡ 0` INSTANCE** has its own row (`logChowla2_ineffective_v7_g0`, `V7E.lean:218`,
+**THE `g ≡ 0` INSTANCE** has its own row (`logChowla2_ineffective_v7_g0`, `V7E.lean:216`,
 `82fedba`, ledger `:7921`): **two** named inner riders (`e^{-100} ≤ Ks`; the `K_vt` cushion),
 outer none. The row states plainly the thing a rider count alone would hide —
 ***the scale-request rider is VOID at `g ≡ 0`, NOT discharged in general*** — and prices it:
@@ -23144,7 +23144,7 @@ ceremony that followed them:
 
 ```
 logChowla2_ineffective_v6_T0arm   Salt/MR/V7C.lean:178    2026-08-14  8b0bd31  ledger MR/All.lean:7821
-logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1840   2026-08-14  8b03281  ledger MR/All.lean:7856
+logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1836   2026-08-14  8b03281  ledger MR/All.lean:7856
 ```
 
 **FOUR NAMED INNER RIDERS EACH, outer hypotheses none.** `_csarm` (V7-B): the
@@ -23415,7 +23415,7 @@ cost a census and not a wave.
 
 **The attractive wrong answer, tested before it was proposed.** `SiegelBand.lean`'s design law
 (*regime enlargement absorbs any `X`-independent debit*) plus the live lever `g R.Hhi R.ω ≤ R.x`
-in the parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:438`, which `_g0` sets to **zero**)
+in the parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:434`, which `_g0` sets to **zero**)
 makes a re-route onto the outer scale look free. **It is not: the lever has a ceiling.**
 `XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:88`); with
 `ε ≥ 1/500` a caller may request at most `log g ≤ 15500·H₊`, worth **≈ +24 additive on
@@ -25622,7 +25622,7 @@ the class and the statement of record, the five receipts, the four inversion lem
 U-forms, U-ARM (`s15Arm_le_of_regime`), and the doorL2, road and capstone hops on the U-forms.
 
 **What the hop needs about `R` that its U-form does not give.**  The source
-`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4958`) spends the head's COUNT export
+`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4955`) spends the head's COUNT export
 `∀ H [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → |bigXi R.eps H| ≤ K` (K the head's existential) twice:
 as an input to the head's own slot and as `hcount` of `sum_bigXi_norm_windowExpSum_sq_le_twelve`
 (`M4Window.lean:567`).  Under the brief's rule `FlatHeadFormU` keeps the count as a HYPOTHESIS

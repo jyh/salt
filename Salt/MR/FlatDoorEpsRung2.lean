@@ -240,7 +240,7 @@ theorem xt_log_inv_rho_le_L {c δ₀ Kc Kb : ℝ} (hc1 : 1 ≤ c) (hδ₀ : 0 < 
 
 /-! ## §3 — ⟦R7⟧ the three S16 flat arms at generic `L`
 
-The two cap sites are `S16FlatTerminalLinear.lean:2383` (`h ≤ 8103`, feeding
+The two cap sites are `S16FlatTerminalLinear.lean:2378` (`h ≤ 8103`, feeding
 `⌈1/ε⌉₊ ≤ 500·h ≤ 4051500` and `4·4051500⁴ ≤ arcFloor36 = 10¹³⁸`) and `:2489` (the budget chain's
 `1/ε⁶ ≤ 4.43·10³⁹`).  Neither numeral survives a generic `L`: both are bounds on `h`, so at
 generic `L` they read `4·(500·h)⁴ ≤ e^{27 + 4L}` and `1/ε⁶ ≤ 1.5625·10¹⁶ · e^{6L}`, and the
@@ -2255,8 +2255,7 @@ theorem bigXi_bounded_ceiling_eps (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 5
       _ = 500 * (c : ℚ) * ε := by ring
   have hcapR : (1 : ℝ) ≤ 500 * (c : ℝ) * (ε : ℝ) := by exact_mod_cast hqcap
   have hεle : (ε : ℝ) ≤ 1 / 500 := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hε
-    rwa [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hε
   have heps2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith [hεR0, hεle]
   have hε2le : (ε : ℝ) ^ 2 ≤ 1 / 250000 := by nlinarith [hεR0, hεle]
   have hsqQ : (1 : ℚ) ≤ 250000 * (c : ℚ) ^ 2 * ε ^ 2 := by
@@ -2996,7 +2995,7 @@ theorem chowlaRegimeFlat_exists_param_head_xceil_at (lam0 A : ℝ) (hA : 26 ≤ 
 /-! ### §W3.3 — ⟦THE RIDER STEP⟧ the conditional hop's `hg'` block, as a lemma on the new gate -/
 
 /-- **⟦THE RIDER STEP AT A GENERIC CHARGE⟧** (`xCeilRiderAt_arm_add`) — the conditional hop's
-`hg'` block (`FlatDoorEpsChain.lean:986–1005`) lifted out as a standalone lemma and re-cut on
+`hg'` block (`FlatDoorEpsChain.lean:987–1006`) lifted out as a standalone lemma and re-cut on
 `XCeilGateAt (50 + Lc)`: if `g` satisfies the STRICT rider on that gate, then `s15Arm + g`
 satisfies the plain one.  This is what proves the new conclusion has the shape its consumer
 needs, and it is the wave's END-TO-END CHECK: the arm's cut and the split's cut must be the SAME
@@ -3991,7 +3990,7 @@ theorem s15_sel''_L_gk_T_of_L_T (Klev : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : 
   lvl := by rw [calQK_gk_one_eq]; exact hsel.lvl
 
 /-- `s15_bandGate''_of_grade_L_gk` at the tower-relative register
-(`S16FlatTerminalLinear.lean:765`).  STATEMENT: the source's with
+(`S16FlatTerminalLinear.lean:768`).  STATEMENT: the source's with
 `S15Sel''_L_gk ↦ S15Sel''_L_gk_T`; the conclusion is the source's, byte for byte.  BODY: the
 source's, verbatim — it reads `x0M`, `blk` and `hM`, and never `rho`.
 Nothing here bears on twin primes. -/
@@ -4182,7 +4181,7 @@ theorem s15_hband4096_at_socket_flat_T {R : ChowlaRegime} {M H L q j A s : ℕ} 
   linarith [h1, h2, hcore, hrhoE, hlog376]
 
 /-- `s15_gRows_const_at_socket_flat_doorL_gk` at the tower-relative register
-(`S16FlatTerminalLinear.lean:929`).  STATEMENT: the source's with the ONE `hrho` binder moved
+(`S16FlatTerminalLinear.lean:932`).  STATEMENT: the source's with the ONE `hrho` binder moved
 to the tower; the conclusion is the source's, byte for byte.  BODY: the source's, with
 `flat_lambda_core_17 ↦ flat_lambda_core_T`, `hrho ↦ hrhoE` in `hendbud`'s close, and the ONE
 positivity fact `hE0` the smaller core no longer carries for free (the landed `10 ^ 15` inside
@@ -4394,7 +4393,7 @@ theorem s15_sel''_L_gk_witness_flat_bumped_win_L {A : ℝ} (hA : 162 ≤ A) (Kle
 /-- **⟦THE CONDITIONAL HOP'S SIX READS, ON THE NEW SELECTOR⟧** (`s15_replay_reads_L_gk_T`) —
 this wave's END-TO-END CHECK.  It takes a `S15Sel''_L_gk_T` and the conditional replay's own
 context hypotheses and produces, by calling `s15_bandGate''_of_grade_L_gk_T` and the four `_T`
-readers EXACTLY as `FlatDoorEpsChain.lean:1041` and `:1098-1108` call their sources, the five
+readers EXACTLY as `FlatDoorEpsChain.lean:1042` and `:1098-1108` call their sources, the five
 facts those six lines produce.
 
 ⭐ THE POINT: `hsel.rho` feeds all four `_T` consumers with NO conversion — the register's new
@@ -4772,7 +4771,7 @@ theorem xceilRiderStrictAt_zero (lam0 : ℝ) (ε : ℚ) :
 /-! ### §W6.2 — ⟦THE HEAD AT GENERIC `ε`, NO CAP⟧ -/
 
 /-- **⟦THE `A`-UNIFORM FLAT HEAD AT THE CHARGE⟧** (`flat_head_uniform_xceil_epsW`) —
-`flat_head_uniform_xceil_eps` (`FlatDoorEpsChain.lean:558`) with its cap binder
+`flat_head_uniform_xceil_eps` (`FlatDoorEpsChain.lean:556`) with its cap binder
 `1/(500·8103) ≤ ε` replaced by the two-component charge `1 ≤ c` + `1/(500·c) ≤ ε`, and THREE
 edits in the body, each measured at the object by the wave's edit-site census:
 
@@ -4804,7 +4803,7 @@ theorem flat_head_uniform_xceil_epsW (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 
   have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:963–972`)
+  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:958–967`)
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
@@ -4815,8 +4814,7 @@ theorem flat_head_uniform_xceil_epsW (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 
   -- ⟦THE `ε` BOUNDS⟧ E1's recipe, read off `ε ≤ 1/500` instead of off the pin
   have hεR0 : (0 : ℝ) < (ε : ℝ) := by exact_mod_cast hε0
   have hεle : (ε : ℝ) ≤ 1 / 500 := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hε
-    rwa [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hε
   have hεcE : (ε : ℝ) ≤ cE / (32 * Real.log 4) := by
     have h : (1 : ℝ) / 500 ≤ cE / (32 * Real.log 4) := by
       rw [le_div_iff₀ (by positivity), hlog4eq]; linarith
@@ -4953,7 +4951,7 @@ each `refine` tuple gains ONE component (`1 ≤ c`), each `A`-quantifier applica
 argument (`hAL`), and no other token moves.  Nothing here bears on twin primes. -/
 
 /-- **⟦flat_socket_generic, AT THE CHARGE⟧** (`flat_socket_generic_epsW`) — the source's body
-(`FlatDoorEpsChain.lean:719`) with `hc1` threaded through the tuple and `hAL` through the
+(`FlatDoorEpsChain.lean:716`) with `hc1` threaded through the tuple and `hAL` through the
 `A`-application.  No cap is read here; the `clear`-probe confirms it. -/
 theorem flat_socket_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
     (h : FlatHeadFormEpsW ε c P) :
@@ -5188,16 +5186,12 @@ theorem flat_capstone_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pr
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 /-! ### §W6.4 — ⟦THE CONDITIONAL HOP ON THE GENERIC GATE⟧ -/
 
 /-- **⟦flat_conditional_generic, AT THE CHARGE⟧** (`flat_conditional_generic_epsW`) — the
-source's body (`FlatDoorEpsChain.lean:959`) with the two threadings and TWO edits:
+source's body (`FlatDoorEpsChain.lean:960`) with the two threadings and TWO edits:
 
 * **the rider block** (`:1014–1041`, 28 lines): rung 1 priced the substituted arm
   `g' = s15Arm δ₀ ρ + g` inline — `log 8103 ≤ 9`, `s15Arm_log_le_scaled` at `c := 8103`, the
@@ -5313,7 +5307,7 @@ theorem flat_conditional_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime →
 /-! ### §W6.5 — ⟦THE TERMINAL HOP AT THE CHARGE⟧ -/
 
 /-- **⟦flat_kswin_generic, AT THE CHARGE⟧** (`flat_kswin_generic_epsW`) — the source's body
-(`FlatDoorEpsChain.lean:1076`), the two threadings, and the EIGHT sites where rung 1 spent the
+(`FlatDoorEpsChain.lean:1077`), the two threadings, and the EIGHT sites where rung 1 spent the
 cap, each at the charge:
 
 * `:1132–1134` **the `ε`-ceiling probe's OWN design constant** — the one place in the whole
@@ -5360,9 +5354,7 @@ theorem flat_kswin_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
   have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
   have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
-    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
   -- ⟦THE CHARGE, IN THE REAL SPELLING⟧ the `_L` siblings take the pin over `ℝ`; the RATIONAL
   -- spelling the `_b9` twins needed a second cast for is now the form's own `hεpin`, at `c`.
   have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
@@ -5431,7 +5423,7 @@ theorem flat_kswin_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
 
 /-! ### §W6.6 — ⟦THE NINTH ARM AND THE RATED HOP⟧
 
-The design constant `A` is minted in exactly one place on the road (`FlatDoorEpsChain.lean:1183`),
+The design constant `A` is minted in exactly one place on the road (`FlatDoorEpsChain.lean:1182`),
 as a `max` of eight arms.  This is where the whole charge is paid: a NINTH arm `162 + 2·Lc`, put
 OUTERMOST, with the source's eight verbatim inside it.  It is a `max`, so it costs nothing anyone
 downstream can see — every consumer reads `A` through an inequality — and it pays five demands:
@@ -5601,7 +5593,7 @@ theorem flat_v7_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
 /-! ### §W6.7 — ⟦THE CHAIN AND THE THEOREM⟧ -/
 
 /-- **⟦THE CHAIN, AT THE CHARGE⟧** (`flat_chain_generic_epsW`) — `flat_chain_generic_eps`
-(`FlatDoorEpsChain.lean:1291`) with every hop's `W` sibling and `c` threaded beside `ε`.  The
+(`FlatDoorEpsChain.lean:1290`) with every hop's `W` sibling and `c` threaded beside `ε`.  The
 charge and the `δ₀` pin travel INSIDE the forms, so no hop takes either as a hypothesis and this
 composition is the landed one token for token. -/
 theorem flat_chain_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
@@ -5668,7 +5660,7 @@ to their `hW` binder and nothing else.
 
 The other two consumers are NOT applied here, on purpose.  Supplying `hW` to C3
 (`mrtUniformityXiL2_holds_flat_of_epsFamily`) yields the statement of
-`mrtUniformityXiL2_holds_flat` (`DoorReceipt.lean:1061`), and supplying it to C4
+`mrtUniformityXiL2_holds_flat` (`DoorReceipt.lean:1056`), and supplying it to C4
 (`mrtUniformityXiL2_holds_flat_epsFamily_capped_of_epsFamily`) yields rung 1's
 (`mrtUniformityXiL2_holds_flat_epsFamily_capped`); both are ALREADY LANDED with no hypothesis, so
 an applied copy would land no new statement.  The value of C3 and C4 is the implication each

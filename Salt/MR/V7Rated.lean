@@ -963,7 +963,7 @@ the `K_vt` cushion — is discharged inside.
 * nothing here bears on twin primes — the transport wall is untouched at this rung.
 
 ⟦KEPT, FROZEN⟧ the tower conjunct and the `loglog H₊ ≤ 2·e^{1.6A}` export are carried
-verbatim from the parent (`V7Ks.lean:447-451`): the kernel census found zero live kernel
+verbatim from the parent (`V7Ks.lean:443-447`): the kernel census found zero live kernel
 consumers either way, but `arc.md`'s erratum-(a) argument reads the second export off the
 headline, and keeping both is what makes the parent's `_g0` derivable-from-stronger as a
 KERNEL FACT (`logChowla2_ineffective_v7_ksarm_g0_of_rated` below).
@@ -1069,9 +1069,7 @@ theorem logChowla2_v7_rated (A₀ : ℝ) :
   have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
   have heps500R : (1 : ℝ) / 500 ≤ (R.eps : ℝ) := by
     rw [hReps]
-    have h := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   have h518 : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by nlinarith [hdes, hA162]
   have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
