@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `92e24727` · source digest `b051e0336fa0394d` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `2b82b3c9` · source digest `123e1015d42a970c` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -2915,57 +2915,57 @@ Declarations indexed across the tree: 23376 · corpus Prop-valued names (the hyp
 | `Salt.MR.e4a_associated_quotient_eq` | Salt/MR/EvenChiAlgebra.lean:420 | characters |
 | `Salt.MR.e4a_prod_associated_gen` | Salt/MR/EvenChiAlgebra.lean:443 | characters |
 | `Salt.MR.e4a_assoc_of_card_eq_gen` | Salt/MR/EvenChiAlgebra.lean:460 | characters |
-| `Salt.MR.e4a_descent_needs_integrality` | Salt/MR/EvenChiControls.lean:61 | characters |
-| `Salt.MR.e4a_descent_holds_when_integral` | Salt/MR/EvenChiControls.lean:72 | characters |
-| `Salt.MR.e4a_gaussSum_real_of_primitive` | Salt/MR/EvenChiControls.lean:94 | characters, exponential sums |
-| `Salt.MR.e4a_gaussSum_odd_inv_addChar` | Salt/MR/EvenChiControls.lean:109 | characters, exponential sums |
-| `Salt.MR.e4a_gaussSum_odd_re_zero` | Salt/MR/EvenChiControls.lean:118 | characters, exponential sums |
-| `Salt.MR.e4a_gaussSum_mutant_is_false` | Salt/MR/EvenChiControls.lean:130 | characters, exponential sums |
-| `Salt.MR.e4a_toC_vanishes_off_units` | Salt/MR/EvenChiControls.lean:167 | characters |
-| `Salt.MR.e4a_toC_signOf_mutant_is_false` | Salt/MR/EvenChiControls.lean:171 | characters |
-| `Salt.MR.e4a_ruled_hypothesis_probe` | Salt/MR/EvenChiControls.lean:215 | characters |
-| `Salt.MR.e4a_two_cosh_log` | Salt/MR/EvenChiCosh.lean:34 | characters |
-| `Salt.MR.e4a_cosh_integer_of_sum` | Salt/MR/EvenChiCosh.lean:43 | characters |
-| `Salt.MR.e4a_cosh_sign_free` | Salt/MR/EvenChiCosh.lean:51 | characters |
-| `Salt.MR.e4a_golden_sq` | Salt/MR/EvenChiCosh.lean:70 | characters |
-| `Salt.MR.e4a_cosh_floor` | Salt/MR/EvenChiCosh.lean:76 | characters |
-| `Salt.MR.e4a_two_lt_two_cosh` | Salt/MR/EvenChiCosh.lean:113 | characters |
-| `Salt.MR.e4a_int_ge_three_of_two_lt` | Salt/MR/EvenChiCosh.lean:118 | characters |
-| `Salt.MR.e4a_E5_floor` | Salt/MR/EvenChiCosh.lean:126 | characters |
-| `Salt.MR.e4a_cosh_neg_free` | Salt/MR/EvenChiCosh.lean:147 | characters |
-| `Salt.MR.e4a_cosh_of_pm` | Salt/MR/EvenChiCosh.lean:151 | characters |
-| `Salt.MR.e4a_cosh_integer_of_pm` | Salt/MR/EvenChiCosh.lean:158 | characters |
+| `Salt.MR.e4a_descent_needs_integrality` | Salt/MR/EvenChiControls.lean:66 | characters |
+| `Salt.MR.e4a_descent_holds_when_integral` | Salt/MR/EvenChiControls.lean:77 | characters |
+| `Salt.MR.e4a_gaussSum_real_of_primitive` | Salt/MR/EvenChiControls.lean:99 | characters, exponential sums |
+| `Salt.MR.e4a_gaussSum_odd_inv_addChar` | Salt/MR/EvenChiControls.lean:114 | characters, exponential sums |
+| `Salt.MR.e4a_gaussSum_odd_re_zero` | Salt/MR/EvenChiControls.lean:123 | characters, exponential sums |
+| `Salt.MR.e4a_gaussSum_mutant_is_false` | Salt/MR/EvenChiControls.lean:135 | characters, exponential sums |
+| `Salt.MR.e4a_toC_vanishes_off_units` | Salt/MR/EvenChiControls.lean:172 | characters |
+| `Salt.MR.e4a_toC_signOf_mutant_is_false` | Salt/MR/EvenChiControls.lean:180 | characters |
+| `Salt.MR.e4a_ruled_hypothesis_probe` | Salt/MR/EvenChiControls.lean:229 | characters |
+| `Salt.MR.e4a_two_cosh_log` | Salt/MR/EvenChiCosh.lean:37 | characters |
+| `Salt.MR.e4a_cosh_integer_of_sum` | Salt/MR/EvenChiCosh.lean:46 | characters |
+| `Salt.MR.e4a_cosh_sign_free` | Salt/MR/EvenChiCosh.lean:54 | characters |
+| `Salt.MR.e4a_golden_sq` | Salt/MR/EvenChiCosh.lean:73 | characters |
+| `Salt.MR.e4a_cosh_floor` | Salt/MR/EvenChiCosh.lean:79 | characters |
+| `Salt.MR.e4a_two_lt_two_cosh` | Salt/MR/EvenChiCosh.lean:118 | characters |
+| `Salt.MR.e4a_int_ge_three_of_two_lt` | Salt/MR/EvenChiCosh.lean:123 | characters |
+| `Salt.MR.e4a_E5_floor` | Salt/MR/EvenChiCosh.lean:131 | characters |
+| `Salt.MR.e4a_cosh_neg_free` | Salt/MR/EvenChiCosh.lean:154 | characters |
+| `Salt.MR.e4a_cosh_of_pm` | Salt/MR/EvenChiCosh.lean:158 | characters |
+| `Salt.MR.e4a_cosh_integer_of_pm` | Salt/MR/EvenChiCosh.lean:165 | characters |
 | `Salt.MR.e4a_step1_associated` | Salt/MR/EvenChiCyclotomic.lean:57 | characters |
 | `Salt.MR.e4a_step2_unit_ratio` | Salt/MR/EvenChiCyclotomic.lean:62 | characters |
-| `Salt.MR.e4a_prod_associated` | Salt/MR/EvenChiCyclotomic.lean:71 | characters |
-| `Salt.MR.e4a_step4_equal_card_associated` | Salt/MR/EvenChiCyclotomic.lean:88 | characters |
-| `Salt.MR.e4a_step5_unit_witness` | Salt/MR/EvenChiCyclotomic.lean:99 | characters |
-| `Salt.MR.e4a_pair_mul_one` | Salt/MR/EvenChiCyclotomic.lean:113 | characters |
-| `Salt.MR.e4a_conj_eq_pair` | Salt/MR/EvenChiCyclotomic.lean:120 | characters |
-| `Salt.MR.e4a_step7_pair_product` | Salt/MR/EvenChiCyclotomic.lean:138 | characters |
-| `Salt.MR.e4a_prod_associated_concrete` | Salt/MR/EvenChiCyclotomic.lean:154 | characters |
-| `Salt.MR.e4a_prod_one_sub_eq_q` | Salt/MR/EvenChiCyclotomic.lean:161 | characters |
-| `Salt.MR.e4a_range_pair_split` | Salt/MR/EvenChiCyclotomic.lean:169 | characters |
-| `Salt.MR.e4a_prod_sin_sq_eq_q` | Salt/MR/EvenChiCyclotomic.lean:182 | characters |
-| `Salt.MR.e4a_prod_sin_eq_sqrt_q` | Salt/MR/EvenChiCyclotomic.lean:207 | characters |
-| `Salt.MR.e4a_eta_associated_of_sum_zero` | Salt/MR/EvenChiCyclotomic.lean:244 | characters |
-| `Salt.MR.e4a_zpow_prod_split` | Salt/MR/EvenChiCyclotomic.lean:256 | characters |
-| `Salt.MR.e4a_eta_eq_quotient` | Salt/MR/EvenChiCyclotomic.lean:286 | characters |
-| `Salt.MR.e4a_eta_associated_in_ring` | Salt/MR/EvenChiCyclotomic.lean:315 | characters |
-| `Salt.MR.e4a_real_char_inv` | Salt/MR/EvenChiCyclotomic.lean:325 | characters |
-| `Salt.MR.e4a_map_prod_sub_one` | Salt/MR/EvenChiCyclotomic.lean:331 | characters |
-| `Salt.MR.e4a_map_prod_sub_one_pow` | Salt/MR/EvenChiCyclotomic.lean:340 | characters |
-| `Salt.MR.e4a_map_prod_sub_one_gen` | Salt/MR/EvenChiCyclotomic.lean:351 | characters |
-| `Salt.MR.e4a_zeta_pow_mod` | Salt/MR/EvenChiCyclotomic.lean:366 | characters |
-| `Salt.MR.e4a_zeta_pow_val_mul` | Salt/MR/EvenChiCyclotomic.lean:374 | characters |
-| `Salt.MR.e4a_prod_units_index` | Salt/MR/EvenChiCyclotomic.lean:381 | characters |
-| `Salt.MR.e4a_prod_units_galois` | Salt/MR/EvenChiCyclotomic.lean:397 | characters |
-| `Salt.MR.e4a_term_bridge` | Salt/MR/EvenChiCyclotomic.lean:434 | characters |
-| `Salt.MR.e4a_galois_fibre_swap` | Salt/MR/EvenChiCyclotomic.lean:449 | characters |
-| `Salt.MR.e4a_galois_fibre_fix` | Salt/MR/EvenChiCyclotomic.lean:467 | characters |
-| `Salt.MR.e4a_galois_eta_swap` | Salt/MR/EvenChiCyclotomic.lean:488 | characters |
-| `Salt.MR.e4a_fibres_nonempty` | Salt/MR/EvenChiCyclotomic.lean:509 | characters |
-| `Salt.MR.e4a_unit_image_isIntegral_pair` | Salt/MR/EvenChiCyclotomic.lean:523 | characters |
+| `Salt.MR.e4a_prod_associated` | Salt/MR/EvenChiCyclotomic.lean:77 | characters |
+| `Salt.MR.e4a_step4_equal_card_associated` | Salt/MR/EvenChiCyclotomic.lean:98 | characters |
+| `Salt.MR.e4a_step5_unit_witness` | Salt/MR/EvenChiCyclotomic.lean:109 | characters |
+| `Salt.MR.e4a_pair_mul_one` | Salt/MR/EvenChiCyclotomic.lean:123 | characters |
+| `Salt.MR.e4a_conj_eq_pair` | Salt/MR/EvenChiCyclotomic.lean:130 | characters |
+| `Salt.MR.e4a_step7_pair_product` | Salt/MR/EvenChiCyclotomic.lean:152 | characters |
+| `Salt.MR.e4a_prod_associated_concrete` | Salt/MR/EvenChiCyclotomic.lean:168 | characters |
+| `Salt.MR.e4a_prod_one_sub_eq_q` | Salt/MR/EvenChiCyclotomic.lean:178 | characters |
+| `Salt.MR.e4a_range_pair_split` | Salt/MR/EvenChiCyclotomic.lean:189 | characters |
+| `Salt.MR.e4a_prod_sin_sq_eq_q` | Salt/MR/EvenChiCyclotomic.lean:205 | characters |
+| `Salt.MR.e4a_prod_sin_eq_sqrt_q` | Salt/MR/EvenChiCyclotomic.lean:230 | characters |
+| `Salt.MR.e4a_eta_associated_of_sum_zero` | Salt/MR/EvenChiCyclotomic.lean:267 | characters |
+| `Salt.MR.e4a_zpow_prod_split` | Salt/MR/EvenChiCyclotomic.lean:283 | characters |
+| `Salt.MR.e4a_eta_eq_quotient` | Salt/MR/EvenChiCyclotomic.lean:313 | characters |
+| `Salt.MR.e4a_eta_associated_in_ring` | Salt/MR/EvenChiCyclotomic.lean:342 | characters |
+| `Salt.MR.e4a_real_char_inv` | Salt/MR/EvenChiCyclotomic.lean:352 | characters |
+| `Salt.MR.e4a_map_prod_sub_one` | Salt/MR/EvenChiCyclotomic.lean:361 | characters |
+| `Salt.MR.e4a_map_prod_sub_one_pow` | Salt/MR/EvenChiCyclotomic.lean:370 | characters |
+| `Salt.MR.e4a_map_prod_sub_one_gen` | Salt/MR/EvenChiCyclotomic.lean:381 | characters |
+| `Salt.MR.e4a_zeta_pow_mod` | Salt/MR/EvenChiCyclotomic.lean:396 | characters |
+| `Salt.MR.e4a_zeta_pow_val_mul` | Salt/MR/EvenChiCyclotomic.lean:404 | characters |
+| `Salt.MR.e4a_prod_units_index` | Salt/MR/EvenChiCyclotomic.lean:411 | characters |
+| `Salt.MR.e4a_prod_units_galois` | Salt/MR/EvenChiCyclotomic.lean:427 | characters |
+| `Salt.MR.e4a_term_bridge` | Salt/MR/EvenChiCyclotomic.lean:464 | characters |
+| `Salt.MR.e4a_galois_fibre_swap` | Salt/MR/EvenChiCyclotomic.lean:479 | characters |
+| `Salt.MR.e4a_galois_fibre_fix` | Salt/MR/EvenChiCyclotomic.lean:497 | characters |
+| `Salt.MR.e4a_galois_eta_swap` | Salt/MR/EvenChiCyclotomic.lean:518 | characters |
+| `Salt.MR.e4a_fibres_nonempty` | Salt/MR/EvenChiCyclotomic.lean:544 | characters |
+| `Salt.MR.e4a_unit_image_isIntegral_pair` | Salt/MR/EvenChiCyclotomic.lean:558 | characters |
 | `Salt.MR.e4a_unit_val_pm` | Salt/MR/EvenChiDescent.lean:56 | characters |
 | `Salt.MR.e4a_signRu_coe` | Salt/MR/EvenChiDescent.lean:68 | characters |
 | `Salt.MR.e4a_toC_toR` | Salt/MR/EvenChiDescent.lean:106 | characters |
@@ -3009,56 +3009,56 @@ Declarations indexed across the tree: 23376 · corpus Prop-valued names (the hyp
 | `Salt.MR.e4a_norm_add_inv_int` | Salt/MR/EvenChiMiddle.lean:44 | characters |
 | `Salt.MR.e4a_prod_units_eq_prod_Ioo` | Salt/MR/EvenChiMiddle.lean:96 | characters |
 | `Salt.MR.e4a_ne_one_of_sum_zero` | Salt/MR/EvenChiMiddle.lean:131 | characters |
-| `Salt.MR.e4a_fourier_signOf_form` | Salt/MR/EvenChiMiddle.lean:141 | characters, exponential sums |
-| `Salt.MR.e4a_fourier_signOf_form_real` | Salt/MR/EvenChiMiddle.lean:171 | characters, exponential sums |
-| `Salt.MR.e4a_witness_rhs_re` | Salt/MR/EvenChiMiddle.lean:196 | characters |
-| `Salt.MR.e4a_middle_re_join` | Salt/MR/EvenChiMiddle.lean:218 | characters, exponential sums |
-| `Salt.MR.e4a_signOf_neg` | Salt/MR/EvenChiMiddle.lean:238 | characters |
-| `Salt.MR.e4a_middle_reindex` | Salt/MR/EvenChiMiddle.lean:249 | characters |
-| `Salt.MR.e4a_log_eta_units` | Salt/MR/EvenChiMiddle.lean:265 | characters |
-| `Salt.MR.e4a_middle_closed` | Salt/MR/EvenChiMiddle.lean:274 | characters, exponential sums |
-| `Salt.MR.e4a_P_eq_units_prod_inv` | Salt/MR/EvenChiMiddle.lean:308 | characters |
-| `Salt.MR.e4a_log_P_eq_middle` | Salt/MR/EvenChiMiddle.lean:338 | characters, exponential sums |
-| `Salt.MR.e4a_middle_ne_zero` | Salt/MR/EvenChiMiddle.lean:348 | characters, exponential sums |
-| `Salt.MR.e4a_toC_isQuadratic` | Salt/MR/EvenChiRingBridge.lean:42 | characters |
-| `Salt.MR.e4a_toC_even` | Salt/MR/EvenChiRingBridge.lean:46 | characters |
-| `Salt.MR.e4a_toC_ne_one` | Salt/MR/EvenChiRingBridge.lean:51 | characters |
-| `Salt.MR.e4a_toC_eq_signOf` | Salt/MR/EvenChiRingBridge.lean:58 | characters |
-| `Salt.MR.e4a_sum_units_of_vanishing` | Salt/MR/EvenChiRingBridge.lean:67 | characters |
-| `Salt.MR.e4a_toC_sum_eq_signOf_sum` | Salt/MR/EvenChiRingBridge.lean:84 | characters |
-| `Salt.MR.e4a_toC_toUnitHom_ker` | Salt/MR/EvenChiRingBridge.lean:100 | characters |
-| `Salt.MR.e4a_toC_factorsThrough_iff` | Salt/MR/EvenChiRingBridge.lean:108 | characters |
-| `Salt.MR.e4a_toC_conductorSet_eq` | Salt/MR/EvenChiRingBridge.lean:115 | characters |
-| `Salt.MR.e4a_toC_isPrimitive` | Salt/MR/EvenChiRingBridge.lean:138 | characters |
-| `Salt.MR.e4a_card_eq_of_sum_zero` | Salt/MR/EvenChiSign.lean:30 | characters |
-| `Salt.MR.e4a_units_reindex` | Salt/MR/EvenChiSign.lean:43 | characters |
-| `Salt.MR.e4a_prod_restrict_coprime` | Salt/MR/EvenChiSign.lean:48 | characters |
-| `Salt.MR.e4a_char_vanishes_off_units` | Salt/MR/EvenChiSign.lean:63 | characters |
-| `Salt.MR.e4a_fibre_swap` | Salt/MR/EvenChiSign.lean:84 | characters |
-| `Salt.MR.E4aChiBridge.e4a_signOf_one` | Salt/MR/EvenChiSign.lean:113 | characters |
-| `Salt.MR.E4aChiBridge.e4a_signOf_cast` | Salt/MR/EvenChiSign.lean:122 | characters |
-| `Salt.MR.E4aChiBridge.e4a_signOf_mul` | Salt/MR/EvenChiSign.lean:139 | characters |
-| `Salt.MR.E4aChiBridge.e4a_signOf_trichotomy` | Salt/MR/EvenChiSign.lean:166 | characters |
-| `Salt.MR.E4aChiBridge.e4a_dirichletReal_values` | Salt/MR/EvenChiSign.lean:188 | characters |
-| `Salt.MR.E4aChiBridge.e4a_signOf_cast'` | Salt/MR/EvenChiSign.lean:204 | characters |
-| `Salt.MR.E4aChiBridge.e4a_signOf_mul'` | Salt/MR/EvenChiSign.lean:210 | characters |
-| `Salt.MR.e4a_dirichlet_fibre_swap` | Salt/MR/EvenChiSign.lean:231 | characters |
-| `Salt.MR.e4a_dirichlet_card_eq` | Salt/MR/EvenChiSign.lean:241 | characters |
-| `Salt.MR.e4a_signOf_sum_eq_zero` | Salt/MR/EvenChiSign.lean:269 | characters |
-| `Salt.MR.e4a_step3_sin_bridge` | Salt/MR/EvenChiSine.lean:33 | characters |
-| `Salt.MR.e4a_norm_zpow_prod` | Salt/MR/EvenChiSine.lean:66 | characters |
-| `Salt.MR.e4a_sin_prod_eq_norm` | Salt/MR/EvenChiSine.lean:74 | characters |
-| `Salt.MR.e4a_neg_clog_re` | Salt/MR/EvenChiSine.lean:113 | characters |
-| `Salt.MR.e4a_sum_clog_re` | Salt/MR/EvenChiSine.lean:118 | characters |
-| `Salt.MR.e4a_sum_clog_re_sin` | Salt/MR/EvenChiSine.lean:128 | characters |
-| `Salt.MR.e4a_log_zpow_prod` | Salt/MR/EvenChiSine.lean:169 | characters |
-| `Salt.MR.e4a_log_eta_eq_sum` | Salt/MR/EvenChiSine.lean:178 | characters |
-| `Salt.MR.e4a_exp_pow_eq_exp` | Salt/MR/EvenChiSine.lean:217 | characters |
-| `Salt.MR.e4a_unit_ne_zero_aux` | Salt/MR/EvenChiSine.lean:227 | characters |
-| `Salt.MR.e4a_unit_neg_ne_zero` | Salt/MR/EvenChiSine.lean:242 | characters |
-| `Salt.MR.e4a_unit_val_div_mem` | Salt/MR/EvenChiSine.lean:251 | characters |
-| `Salt.MR.e4a_sin_ne_zero_at_unit` | Salt/MR/EvenChiSine.lean:261 | characters |
-| `Salt.MR.e4a_sin_bridge_zmod` | Salt/MR/EvenChiSine.lean:267 | characters |
+| `Salt.MR.e4a_fourier_signOf_form` | Salt/MR/EvenChiMiddle.lean:145 | characters, exponential sums |
+| `Salt.MR.e4a_fourier_signOf_form_real` | Salt/MR/EvenChiMiddle.lean:175 | characters, exponential sums |
+| `Salt.MR.e4a_witness_rhs_re` | Salt/MR/EvenChiMiddle.lean:200 | characters |
+| `Salt.MR.e4a_middle_re_join` | Salt/MR/EvenChiMiddle.lean:222 | characters, exponential sums |
+| `Salt.MR.e4a_signOf_neg` | Salt/MR/EvenChiMiddle.lean:242 | characters |
+| `Salt.MR.e4a_middle_reindex` | Salt/MR/EvenChiMiddle.lean:253 | characters |
+| `Salt.MR.e4a_log_eta_units` | Salt/MR/EvenChiMiddle.lean:269 | characters |
+| `Salt.MR.e4a_middle_closed` | Salt/MR/EvenChiMiddle.lean:278 | characters, exponential sums |
+| `Salt.MR.e4a_P_eq_units_prod_inv` | Salt/MR/EvenChiMiddle.lean:312 | characters |
+| `Salt.MR.e4a_log_P_eq_middle` | Salt/MR/EvenChiMiddle.lean:342 | characters, exponential sums |
+| `Salt.MR.e4a_middle_ne_zero` | Salt/MR/EvenChiMiddle.lean:352 | characters, exponential sums |
+| `Salt.MR.e4a_toC_isQuadratic` | Salt/MR/EvenChiRingBridge.lean:45 | characters |
+| `Salt.MR.e4a_toC_even` | Salt/MR/EvenChiRingBridge.lean:49 | characters |
+| `Salt.MR.e4a_toC_ne_one` | Salt/MR/EvenChiRingBridge.lean:54 | characters |
+| `Salt.MR.e4a_toC_eq_signOf` | Salt/MR/EvenChiRingBridge.lean:61 | characters |
+| `Salt.MR.e4a_sum_units_of_vanishing` | Salt/MR/EvenChiRingBridge.lean:70 | characters |
+| `Salt.MR.e4a_toC_sum_eq_signOf_sum` | Salt/MR/EvenChiRingBridge.lean:87 | characters |
+| `Salt.MR.e4a_toC_toUnitHom_ker` | Salt/MR/EvenChiRingBridge.lean:103 | characters |
+| `Salt.MR.e4a_toC_factorsThrough_iff` | Salt/MR/EvenChiRingBridge.lean:111 | characters |
+| `Salt.MR.e4a_toC_conductorSet_eq` | Salt/MR/EvenChiRingBridge.lean:118 | characters |
+| `Salt.MR.e4a_toC_isPrimitive` | Salt/MR/EvenChiRingBridge.lean:141 | characters |
+| `Salt.MR.e4a_card_eq_of_sum_zero` | Salt/MR/EvenChiSign.lean:34 | characters |
+| `Salt.MR.e4a_units_reindex` | Salt/MR/EvenChiSign.lean:50 | characters |
+| `Salt.MR.e4a_prod_restrict_coprime` | Salt/MR/EvenChiSign.lean:59 | characters |
+| `Salt.MR.e4a_char_vanishes_off_units` | Salt/MR/EvenChiSign.lean:74 | characters |
+| `Salt.MR.e4a_fibre_swap` | Salt/MR/EvenChiSign.lean:100 | characters |
+| `Salt.MR.E4aChiBridge.e4a_signOf_one` | Salt/MR/EvenChiSign.lean:129 | characters |
+| `Salt.MR.E4aChiBridge.e4a_signOf_cast` | Salt/MR/EvenChiSign.lean:138 | characters |
+| `Salt.MR.E4aChiBridge.e4a_signOf_mul` | Salt/MR/EvenChiSign.lean:155 | characters |
+| `Salt.MR.E4aChiBridge.e4a_signOf_trichotomy` | Salt/MR/EvenChiSign.lean:182 | characters |
+| `Salt.MR.E4aChiBridge.e4a_dirichletReal_values` | Salt/MR/EvenChiSign.lean:204 | characters |
+| `Salt.MR.E4aChiBridge.e4a_signOf_cast'` | Salt/MR/EvenChiSign.lean:220 | characters |
+| `Salt.MR.E4aChiBridge.e4a_signOf_mul'` | Salt/MR/EvenChiSign.lean:226 | characters |
+| `Salt.MR.e4a_dirichlet_fibre_swap` | Salt/MR/EvenChiSign.lean:247 | characters |
+| `Salt.MR.e4a_dirichlet_card_eq` | Salt/MR/EvenChiSign.lean:257 | characters |
+| `Salt.MR.e4a_signOf_sum_eq_zero` | Salt/MR/EvenChiSign.lean:289 | characters |
+| `Salt.MR.e4a_step3_sin_bridge` | Salt/MR/EvenChiSine.lean:38 | characters |
+| `Salt.MR.e4a_norm_zpow_prod` | Salt/MR/EvenChiSine.lean:73 | characters |
+| `Salt.MR.e4a_sin_prod_eq_norm` | Salt/MR/EvenChiSine.lean:81 | characters |
+| `Salt.MR.e4a_neg_clog_re` | Salt/MR/EvenChiSine.lean:121 | characters |
+| `Salt.MR.e4a_sum_clog_re` | Salt/MR/EvenChiSine.lean:126 | characters |
+| `Salt.MR.e4a_sum_clog_re_sin` | Salt/MR/EvenChiSine.lean:136 | characters |
+| `Salt.MR.e4a_log_zpow_prod` | Salt/MR/EvenChiSine.lean:180 | characters |
+| `Salt.MR.e4a_log_eta_eq_sum` | Salt/MR/EvenChiSine.lean:189 | characters |
+| `Salt.MR.e4a_exp_pow_eq_exp` | Salt/MR/EvenChiSine.lean:228 | characters |
+| `Salt.MR.e4a_unit_ne_zero_aux` | Salt/MR/EvenChiSine.lean:238 | characters |
+| `Salt.MR.e4a_unit_neg_ne_zero` | Salt/MR/EvenChiSine.lean:253 | characters |
+| `Salt.MR.e4a_unit_val_div_mem` | Salt/MR/EvenChiSine.lean:262 | characters |
+| `Salt.MR.e4a_sin_ne_zero_at_unit` | Salt/MR/EvenChiSine.lean:272 | characters |
+| `Salt.MR.e4a_sin_bridge_zmod` | Salt/MR/EvenChiSine.lean:278 | characters |
 | `Salt.MR.e4a_gaussSum_even_inv_addChar` | Salt/MR/EvenChiTau.lean:28 | characters, exponential sums |
 | `Salt.MR.e4a_gaussSum_real` | Salt/MR/EvenChiTau.lean:38 | characters, exponential sums |
 | `Salt.MR.e4a_gaussSum_eq_real` | Salt/MR/EvenChiTau.lean:45 | characters, exponential sums |
@@ -9371,9 +9371,9 @@ Declarations indexed across the tree: 23376 · corpus Prop-valued names (the hyp
 | `Salt.MR.gJR_prime_pow` | Salt/MR/Eq26Bridge.lean:295 | characters |
 | `Salt.MR.e4aEta_def` | Salt/MR/EvenChiEta.lean:251 | characters |
 | `Salt.MR.e4a_zetaO_image` | Salt/MR/EvenChiEta.lean:361 | characters |
-| `Salt.MR.e4a_toC_conductor_eq` | Salt/MR/EvenChiRingBridge.lean:125 | characters |
-| `Salt.MR.e4a_toC_isPrimitive_iff` | Salt/MR/EvenChiRingBridge.lean:131 | characters |
-| `Salt.MR.E4aChiBridge.e4a_signOf_eq_one_or_neg_one` | Salt/MR/EvenChiSign.lean:158 | characters |
+| `Salt.MR.e4a_toC_conductor_eq` | Salt/MR/EvenChiRingBridge.lean:128 | characters |
+| `Salt.MR.e4a_toC_isPrimitive_iff` | Salt/MR/EvenChiRingBridge.lean:134 | characters |
+| `Salt.MR.E4aChiBridge.e4a_signOf_eq_one_or_neg_one` | Salt/MR/EvenChiSign.lean:174 | characters |
 | `Salt.MR.plogM0` | Salt/MR/FarL2.lean:385 | characters |
 | `Salt.MR.plogM0_add_debit` | Salt/MR/FarL2.lean:390 | characters |
 | `Salt.MR.boxM0` | Salt/MR/FarL2.lean:650 | characters |
