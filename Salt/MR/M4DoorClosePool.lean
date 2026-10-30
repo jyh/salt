@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.M4T0Discharge
 import Salt.MR.M4MeanSqPrime
+import Salt.MR.DoorCloseScale
 
 /-!
 # ⟦R4 — THE DOOR-ROW REGISTER AT THE FREE POOL⟧ (`M4DoorClosePool`)
@@ -276,19 +277,7 @@ theorem m4_door_meansq_carried_pool :
   subst hhj
   haveI : NeZero q := ⟨hq.ne'⟩
   -- ⟦the scale's arithmetic⟧
-  have hX0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hXee
-  have h1ee : (1 : ℝ) ≤ Real.exp (Real.exp 1) := by
-    have h1 := Real.add_one_le_exp (Real.exp 1)
-    have h2 := Real.exp_pos 1
-    linarith
-  have hXd1 : 1 ≤ Xd := by
-    have : (1 : ℝ) ≤ ((Xd : ℕ) : ℝ) := le_trans h1ee hXee
-    exact_mod_cast this
-  have hexp2 : (3 : ℝ) ≤ Real.exp 2 := by
-    have := Real.add_one_le_exp (2 : ℝ); linarith
-  have hlog1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
-  have hLXe : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  obtain ⟨hX0, hXd1, hlog1, hLXe⟩ := door_close_scale hXee hlX2
   have hP1 : 1 ≤ P := by omega
   have hP2 : 2 ≤ P := by omega
   -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate
@@ -921,19 +910,7 @@ theorem m4_door_meansq_carried_join :
   subst hhj
   haveI : NeZero q := ⟨hq.ne'⟩
   -- ⟦the scale's arithmetic⟧
-  have hX0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hXee
-  have h1ee : (1 : ℝ) ≤ Real.exp (Real.exp 1) := by
-    have h1 := Real.add_one_le_exp (Real.exp 1)
-    have h2 := Real.exp_pos 1
-    linarith
-  have hXd1 : 1 ≤ Xd := by
-    have : (1 : ℝ) ≤ ((Xd : ℕ) : ℝ) := le_trans h1ee hXee
-    exact_mod_cast this
-  have hexp2 : (3 : ℝ) ≤ Real.exp 2 := by
-    have := Real.add_one_le_exp (2 : ℝ); linarith
-  have hlog1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
-  have hLXe : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  obtain ⟨hX0, hXd1, hlog1, hLXe⟩ := door_close_scale hXee hlX2
   have hP1 : 1 ≤ P := by omega
   have hP2 : 2 ≤ P := by omega
   -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate
@@ -1576,19 +1553,7 @@ theorem m4_door_meansq_carried_pool_gk (K : ℕ) (hK : K ≤ 170000000) :
   subst hhj
   haveI : NeZero q := ⟨hq.ne'⟩
   -- ⟦the scale's arithmetic⟧
-  have hX0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hXee
-  have h1ee : (1 : ℝ) ≤ Real.exp (Real.exp 1) := by
-    have h1 := Real.add_one_le_exp (Real.exp 1)
-    have h2 := Real.exp_pos 1
-    linarith
-  have hXd1 : 1 ≤ Xd := by
-    have : (1 : ℝ) ≤ ((Xd : ℕ) : ℝ) := le_trans h1ee hXee
-    exact_mod_cast this
-  have hexp2 : (3 : ℝ) ≤ Real.exp 2 := by
-    have := Real.add_one_le_exp (2 : ℝ); linarith
-  have hlog1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
-  have hLXe : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  obtain ⟨hX0, hXd1, hlog1, hLXe⟩ := door_close_scale hXee hlX2
   have hP1 : 1 ≤ P := by omega
   have hP2 : 2 ≤ P := by omega
   -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate
@@ -2060,19 +2025,7 @@ theorem m4_door_meansq_carried_join_gk (K : ℕ) (hK : K ≤ 170000000) :
   subst hhj
   haveI : NeZero q := ⟨hq.ne'⟩
   -- ⟦the scale's arithmetic⟧
-  have hX0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hXee
-  have h1ee : (1 : ℝ) ≤ Real.exp (Real.exp 1) := by
-    have h1 := Real.add_one_le_exp (Real.exp 1)
-    have h2 := Real.exp_pos 1
-    linarith
-  have hXd1 : 1 ≤ Xd := by
-    have : (1 : ℝ) ≤ ((Xd : ℕ) : ℝ) := le_trans h1ee hXee
-    exact_mod_cast this
-  have hexp2 : (3 : ℝ) ≤ Real.exp 2 := by
-    have := Real.add_one_le_exp (2 : ℝ); linarith
-  have hlog1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
-  have hLXe : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  obtain ⟨hX0, hXd1, hlog1, hLXe⟩ := door_close_scale hXee hlX2
   have hP1 : 1 ≤ P := by omega
   have hP2 : 2 ≤ P := by omega
   -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate

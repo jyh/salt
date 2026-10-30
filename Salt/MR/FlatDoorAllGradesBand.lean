@@ -7,9 +7,12 @@ import Salt.MR.FlatDoorAllGrades
 import Salt.MR.TierSBand
 import Mathlib
 import Salt.MR.BlockLenDoor
+import Salt.MR.RegimeFloors
+import Salt.MR.DoorSocket
+import Salt.MR.FlatDesignBound
 
 -- Needed to transcribe §4's band head and §5's socket hop: the two names rung 2 itself
--- opens for the identical purpose (`FlatDoorEpsRung2.lean:27-28`).  MEASURED, not assumed:
+-- opens for the identical purpose (`FlatDoorEpsRung2.lean:30-31`).  MEASURED, not assumed:
 -- `#check @uniformCap_shuffle` and `#check @uniformCap_arc` both fail without this line
 -- (`Unknown identifier`), and `regimeFlatEnlargeX` needs no such line — it is public in
 -- `Salt.Entropy.Chowla`, which is opened below.
@@ -39,9 +42,9 @@ long-band bound, which is class A.  §9's zero level proves ARM R is never weake
 W-δ, and the `example` beside it is the control that the two compose.
 
 ## §2's RULE — the eight band forms are GENERATED, never typed
-ONE RULE turns each of rung 2's eight forms (`FlatDoorEpsRung2.lean:4480 · 4499 · 4529 · 4554 ·
+ONE RULE turns each of rung 2's eight forms (`FlatDoorEpsRung2.lean:4482 · 4499 · 4529 · 4554 ·
 4590 · 4684 · 4709 · 4738`) into its `_band` twin, everything else the source's byte for byte.
-⚠️ Rung 2 has NO STRIDE, so the landed S-1 rule (`TierSBand.lean:35–54`) loses `a` throughout:
+⚠️ Rung 2 has NO STRIDE, so the landed S-1 rule (`TierSBand.lean:38–57`) loses `a` throughout:
 the rider is `g`, never `a * g`; there is no `a ∣ x'`, no `1 ≤ a → a ≤ 8103`, no `StrideScale`.
 
   (i-ω)    after the loose ceiling `Real.log R.x ≤ 31/ε · R.Hhi ∧` INSERT the rider-free tight
@@ -133,7 +136,7 @@ def FlatDoorAllGradesBandW : Prop :=
 /-! ## §2 — the eight band forms, by rules (i-ω) (i-x) (i-gate) (i′) (ii) of the header.
 GENERATED from rung 2's eight `def`s, not typed: everything but the five inserted lines and the
 `(regimeEnlargeX R hx')` substitution is the source's byte for byte, which is why they carry no
-per-declaration docstring — the rule above is their specification, exactly as `TierSBand.lean:99`
+per-declaration docstring — the rule above is their specification, exactly as `TierSBand.lean:102`
 does for the six landed band forms. -/
 
 def FlatHeadFormEpsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :=
@@ -469,9 +472,9 @@ def V7RatedFormEpsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (A₀ 
 
 /-- **⟦ARM R B2′ — THE BUILDER TWIN ON B1 AT STRIDE 1⟧**
 (`chowlaRegimeFlat_exists_param_head_xceil_at_tight`) — rung 2's
-`chowlaRegimeFlat_exists_param_head_xceil_at` (`FlatDoorEpsRung2.lean:2902`, body 90 lines) with
+`chowlaRegimeFlat_exists_param_head_xceil_at` (`FlatDoorEpsRung2.lean:2904`, body 90 lines) with
 its first `obtain` taken from the landed S-1 builder B1
-(`chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9_tight`, `TierSBand.lean:420`) at stride
+(`chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9_tight`, `TierSBand.lean:423`) at stride
 `a := 1` — `strideScale_one` makes that a flat regime — instead of from
 `chowlaRegimeFlat_exists_param_gen_ceiling`.  Everything else is the source's body byte for byte;
 THREE conjuncts move, and they are the whole reason this twin exists:
@@ -481,7 +484,7 @@ THREE conjuncts move, and they are the whole reason this twin exists:
 * `hRωtight` (`log R.ω ≤ xTightCeil eps R.Hhi`) is EXPORTED unchanged — `ω` is carried verbatim
   by the enlargement — and `hRxtight` (`log R.x ≤ xTightCeil eps R.Hhi`) is carried through the
   enlargement `x ↦ max x (g Hhi ω)` into the MAX shape by the two `rcases` on `le_total`, exactly
-  as the landed B2 does it (`TierSBand.lean:615`), minus the stride's division by `a`.
+  as the landed B2 does it (`TierSBand.lean:618`), minus the stride's division by `a`.
 * `hll` (`lam0 ≤ log (log R.Hhi)`, the source's own `:2917`) is EXPORTED as the last conjunct
   instead of being spent silently at the rider gate.  The five tier-A band forms of §2 carry it
   and HALF 2's conditional hop spends it; it reads `Hhi` only, so the enlargement does not move
@@ -594,7 +597,7 @@ theorem chowlaRegimeFlat_exists_param_head_xceil_at_tight (lam0 A : ℝ) (hA : 2
 
 /-- **⟦ARM R H0 — THE BAND HEAD AT THE TRIVIAL PAYLOAD⟧**
 (`flat_head_uniform_xceil_epsW_band`) — rung 2's `flat_head_uniform_xceil_epsW`
-(`FlatDoorEpsRung2.lean:4785`, body 169 lines) at the band form, at `P := fun _ => True`.
+(`FlatDoorEpsRung2.lean:4787`, body 169 lines) at the band form, at `P := fun _ => True`.
 
 **THE PAYLOAD IS DROPPED, BINDER AND ALL.**  The landed head takes a four-clause `hP` and spends
 it in a SLOT that runs the door-head's spine at the regime it built; this twin takes no `hP`, and
@@ -610,7 +613,7 @@ WHAT SURVIVES, AND WHY: every `obtain`/`have` the FORM's conjuncts read — the 
 `β`, `Hopq`, `Hcap`'s equation, the builder call (now B2′ of §3 at `lam0 := 50 + log c`, with
 `hlamA` paid exactly as the landed head pays it), the tower conjunct and the cap conjunct.  The
 count conjunct is stated at `R`, not at the enlarged regime, exactly as the landed band head does
-it (`TierSBand.lean:115`) — it reads `Hlo`, `Hhi`, `eps` only.  THE THREE NEW EXPORTS come
+it (`TierSBand.lean:118`) — it reads `Hlo`, `Hhi`, `eps` only.  THE THREE NEW EXPORTS come
 straight from B2′'s conclusion: `hRωtight`, `hRxtight` in the MAX shape, and `hll`, at the
 positions rules (i-ω) (i-x) (i-gate) put them.
 
@@ -633,7 +636,7 @@ theorem flat_head_uniform_xceil_epsW_band (ε : ℚ) (hε0 : 0 < ε) (hε : ε �
   have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:989–998`)
+  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:958–967`)
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
@@ -699,7 +702,7 @@ theorem flat_head_uniform_xceil_epsW_band (ε : ℚ) (hε0 : 0 < ε) (hε : ε �
 
 /-! ## §5 — the four pass-through hops, at the enlarged regime
 
-Rung 2's four PASS-THROUGH hops (`FlatDoorEpsRung2.lean:4954 · 4978 · 5023 · 5086`) at the band
+Rung 2's four PASS-THROUGH hops (`FlatDoorEpsRung2.lean:4955 · 4978 · 5023 · 5086`) at the band
 forms.  In each one the source's tuple gains the THREE new export conjuncts of rules (i-ω) (i-x)
 (i-gate) — `hRωtight`, `hRxtight`, `hll` — which are passed straight through, and the source's
 antecedent block gains `intro x' hx' hxc` in front and is then RUN AT `R' := regimeEnlargeX R hx'`
@@ -708,7 +711,7 @@ bodies spend (`R.hx`, `R.hω`, `R.hωx`, `R.hheadroom`, `R.hHlo_floor`) are `R'`
 `R'.eps`, `R'.Hlo`, `R'.Hhi` are `R`'s verbatim.  MEASURED over all four bodies: not one of them
 bounds `x` from ABOVE anywhere — every read of `x` is a lower bound and so survives `x ↦ x'` — so
 the band hypothesis `hxc` is consumed by nothing here but the next form's own block.  The worked
-precedent is the landed road-exit band hop (`TierSBand.lean:844`), which merges rung 2's three
+precedent is the landed road-exit band hop (`TierSBand.lean:847`), which merges rung 2's three
 into one; these are three separate hops making the same moves, plus the capstone. -/
 
 /-- **⟦ARM R H0→H1⟧** (`flat_socket_generic_epsW_band`) — rung 2's `flat_socket_generic_epsW`
@@ -901,12 +904,9 @@ theorem flat_capstone_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime �
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBaseL R' M H L q j A s →
       DoorRowZeroBase_L_gk K M (A + s) j liouvilleC
@@ -995,30 +995,22 @@ theorem flat_capstone_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime �
     rw [hval] at hstep
     have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
         * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
-    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
-      rw [hδssq]
-      field_simp
-      ring
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 
 /-! ## §6 — the conditional hop, and the ONE export block: tier A → tier B
 
-Rung 2's conditional hop (`FlatDoorEpsRung2.lean:5227`) at the band forms.  It is the only hop
+Rung 2's conditional hop (`FlatDoorEpsRung2.lean:5217`) at the band forms.  It is the only hop
 of this file that does arithmetic rather than pass a conjunct through, and the arithmetic is
 forced by rule (i-x)'s TWO TIERS: this hop instantiates its source at the INFLATED rider
 `g' = s15Arm δ₀ ρ + g`, so the tier-A bound it receives is stated at `g'` and the tier-B bound it
 must export is stated at `2 · g`.  The block below is that conversion. -/
 
 /-- **⟦ARM R H4→H5⟧** (`flat_conditional_generic_epsW_band`) — rung 2's
-`flat_conditional_generic_epsW` (`FlatDoorEpsRung2.lean:5227`) at the band forms.
+`flat_conditional_generic_epsW` (`FlatDoorEpsRung2.lean:5217`) at the band forms.
 
 THREE THINGS HAPPEN HERE, and only the third is new work:
 * the source's `hg'` (the substituted rider `s15Arm δ₀ ρ + g` still obeys the builder-side gate,
@@ -1030,7 +1022,7 @@ THREE THINGS HAPPEN HERE, and only the third is new work:
 * ⟦S-1 (i-x) TIER A → TIER B⟧ the rider inflation, paid at the arm's own slack.  The capstone
   band form hands us `log R.x ≤ max (xTightCeil ε R.Hhi) (log (g' R.Hhi R.ω))` at `g' = arm + g`;
   the conditional band form demands `log R.x ≤ max (xTightCeilArm ε R.Hhi) (log (2 · g R.Hhi
-  R.ω))`.  `xTightCeilArm = xTightCeil + 18 + log 2 + H₊/10²⁰` (`TierSBand.lean:95`), and at
+  R.ω))`.  `xTightCeilArm = xTightCeil + 18 + log 2 + H₊/10²⁰` (`TierSBand.lean:98`), and at
   stride 1 this hop spends only `log 2 + H₊/10²⁰` of that — the `18` is the landed definition's
   slack for the stride lane's two `log (·) ≤ 9` shifts, which do not exist here.  The case split
   is on which summand of `g'` is the larger: at the arm, `log (arm + g) ≤ log 2 + log arm ≤
@@ -1040,7 +1032,7 @@ THREE THINGS HAPPEN HERE, and only the third is new work:
   B2′ of §3 exports and the five tier-A forms carry; THIS hop is what spends it, and `log c` does
   NOT reach the conclusion — it is consumed entirely inside the arm's own cut.
 
-The landed precedent is the stride lane's conditional band hop (`TierSBand.lean:1149`, the block
+The landed precedent is the stride lane's conditional band hop (`TierSBand.lean:1131`, the block
 opening ⟦S-1 (i-x) TIER A → TIER B⟧); this transcription drops that block's `a` multiplier
 throughout (no `Real.log_mul`, no zero-product case) and its `log h` term, and reads the arm
 through `s15Arm_log_le_L_cut20` instead of `s15ArmH_log_le_g12b`.
@@ -1065,11 +1057,9 @@ theorem flat_conditional_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegim
   obtain ⟨Hcap, hCapLe, hmain⟩ := hcapK A hA26 hAge hAL
   refine ⟨Hcap, hCapLe, ?_⟩
   intro U1floor g hg hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   have hLc0 : (0 : ℝ) ≤ Real.log (c : ℝ) := Real.log_nonneg (by exact_mod_cast hc1)
   have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
   have hg' : XCeilRiderAt (50 + Real.log (c : ℝ)) ε
@@ -1080,16 +1070,7 @@ theorem flat_conditional_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegim
     hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω) hg'
   have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
-  have harcfl : arcFloor36 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, harcfl⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRx, hRωtight, ?_, hRtow, ?_⟩
   · -- the tier A to tier B export
     have hH4R : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
@@ -1188,14 +1169,14 @@ theorem flat_conditional_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegim
 /-! ## §7 — the terminal hop, the rated hop and the chain -/
 
 /-- **⟦ARM R H5→H6⟧** (`flat_kswin_generic_epsW_band`) — rung 2's `flat_kswin_generic_epsW`
-(`FlatDoorEpsRung2.lean:5357`) at the band forms.  Everything above the band quantifier is the
+(`FlatDoorEpsRung2.lean:5336`) at the band forms.  Everything above the band quantifier is the
 source's token for token: the hoisted crossing constants, the `ε`-ceiling probe at the re-minted
 design constant `162 + 2·log c`, the two `ε`-numeral casts at the charge, the two
 `flat_witFloor_eq_designBase_L` reads and the width price.  The (i-ω) and tier-B exports pass
 straight through — `ω` is untouched and the tier-B bound was already converted one hop below.
 
 THE BAND-ONLY WORK IS FIFTEEN LINES, and it is the same shape as the landed stride-lane band
-hop (`TierSBand.lean:1272`): the `M`-selection register and the block floor are built at
+hop (`TierSBand.lean:1254`): the `M`-selection register and the block floor are built at
 `regimeEnlargeX R hx'` rather than at `R`, and the crossing supply is fired there.  Every
 hypothesis those two consumers read — `R.eps` (through `heps`), `R.Hlo` (through `hfl`, `hlo`,
 `hKswR`) and `R.Hhi` (through `hwin`) — is carried VERBATIM by the enlargement, so each is
@@ -1225,9 +1206,7 @@ theorem flat_kswin_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → 
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
   have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
   have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
-    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
   have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
   have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
   have hεR : (1 : ℝ) / (500 * (c : ℝ)) ≤ (ε : ℝ) := by
@@ -1293,7 +1272,7 @@ theorem flat_kswin_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → 
       (by simp only [regimeEnlargeX_Hlo]; rw [hHlo]; exact hT₀) hblk hcof hcapsc)
 
 /-- **⟦ARM R H6→H7⟧** (`flat_v7_generic_epsW_band`) — rung 2's `flat_v7_generic_epsW`
-(`FlatDoorEpsRung2.lean:5482`) at the band forms.  The ninth arm, the eight-arm design constant,
+(`FlatDoorEpsRung2.lean:5459`) at the band forms.  The ninth arm, the eight-arm design constant,
 the rated co-factor supply and every `le_max` chain are the source's, unchanged: the design
 constant is chosen before any regime exists, so the band does not reach it.
 
@@ -1304,7 +1283,7 @@ TWO THINGS ARE BAND WORK.
   `log 0 = 0 ≤ xTightCeilArm` (`xTightCeilArm_nonneg` at `4000000 ≤ R.Hhi`, which is
   `R.hHlo_floor` through `R.hHlohi`), so the `max` is its LEFT arm.  That collapsed bound is
   rule (i′)'s third inserted conjunct and is what the crown side reads in §9 — there is no `g`
-  left to put in a `max`.  The landed collapse is `TierSBandU.lean:338-341`, at stride 1 here.
+  left to put in a `max`.  The landed collapse is `TierSBandU.lean:336-339`, at stride 1 here.
 * **THE OUTER-SCALE CEILING IS RE-PROVED FROM THE BAND HYPOTHESIS.**  The source spends `hRx`
   once, at `s16_baseScaleCap96_LH_at_klevF_L`, to cap the base scale.  At the band that consumer
   is fired at `regimeEnlargeX R hx'`, whose `x` is `x'` — and `hRx` says nothing about `x'`.  The
@@ -1386,11 +1365,7 @@ theorem flat_v7_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pro
     have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
       Real.add_one_le_exp _
     linarith
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
   obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)
@@ -1402,7 +1377,7 @@ theorem flat_v7_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pro
       (xceilRiderStrictAt_zero _ ε)
   -- ⟦THE MAX COLLAPSE AT THE EXHIBITED CALLER `g ≡ 0`⟧ `log ((2·0 : ℕ) : ℝ) = 0` and the arm
   -- ceiling is nonnegative, so the tier-B MAX is its LEFT arm: the V7 band form's collapsed
-  -- conjunct.  This is the landed collapse of `TierSBandU.lean:338-341` at stride 1.
+  -- conjunct.  This is the landed collapse of `TierSBandU.lean:336-339` at stride 1.
   have hHhi4 : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
   have hRxArm : Real.log ((R.x : ℕ) : ℝ) ≤ xTightCeilArm ε R.Hhi := by
     have hle := hceilX
@@ -1456,7 +1431,7 @@ theorem flat_v7_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pro
         hA26 hLt (flatDoorM_one_le hA26) heps500 hxceil hwin))
 
 /-- **⟦ARM R — THE CHAIN⟧** (`flat_chain_generic_epsW_band`) — rung 2's
-`flat_chain_generic_epsW` (`FlatDoorEpsRung2.lean:5633`) over the `_band` hops, token for token.
+`flat_chain_generic_epsW` (`FlatDoorEpsRung2.lean:5606`) over the `_band` hops, token for token.
 The charge and the `δ₀` pin travel INSIDE the forms and the band quantifier travels inside their
 last conjunct, so no hop takes either as a hypothesis and this composition is the landed one with
 six names changed.  Nothing here bears on twin primes. -/
@@ -1585,7 +1560,7 @@ theorem crownBand_long_of_tight (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500
 
 /-- **⟦THE LONG-BAND LEMMA AT THE ARM CEILING (class A)⟧** (`crownBand_long_of_tightArm`) — the
 twin of `crownBand_long_of_tight` at `xTightCeilArm = xTightCeil + 18 + log 2 + Hhi/10²⁰`
-(`TierSBand.lean:95`), which is the ceiling the V7 band form actually exports after the
+(`TierSBand.lean:98`), which is the ceiling the V7 band form actually exports after the
 conditional hop's rider inflation.
 
 THE ADDED TERM, DERIVED, AND WHY IT IS FREE: doubling the ceiling adds

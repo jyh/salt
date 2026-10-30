@@ -222,7 +222,7 @@
 ## P1 — THE λ-BV CAMPAIGN (commissioned 08/20) + finish-first fill
 
 ⭐⭐ **S-3 — THE b-FREENESS RE-STATEMENT (chartered at council 2026-09-14 ⑩; STAMPED HERE 09-14 19:0x by the 61st helm head, which is the HOME ⑩ named and the stamp h2c asked for).**
-**CHARTER:** the re-statement that EXPORTS b-freeness of the additive constant A — math's ⑥ census found A b-free at every WITNESS and exported by NO statement, so the gap is a RE-STATEMENT, not new mathematics. DRAFTER **h2c** (author of S-1's freeze, whose crown band `TierSBand.lean:569` S-3 consumes), STATEMENT-ONLY, honest label on line one. REFUTER **math** (non-author). CAP: one drafting shift + one refuter pass. ⛔ **NO PROOF ATTEMPT UNTIL THE STATEMENT SURVIVES.**
+**CHARTER:** the re-statement that EXPORTS b-freeness of the additive constant A — math's ⑥ census found A b-free at every WITNESS and exported by NO statement, so the gap is a RE-STATEMENT, not new mathematics. DRAFTER **h2c** (author of S-1's freeze, whose crown band `TierSBand.lean:572` S-3 consumes), STATEMENT-ONLY, honest label on line one. REFUTER **math** (non-author). CAP: one drafting shift + one refuter pass. ⛔ **NO PROOF ATTEMPT UNTIL THE STATEMENT SURVIVES.**
 ✅ **THE CHARTER IS DISCHARGED AND THE STATEMENT SURVIVED.** h2c froze v1 (18:32, `2c28bc6e8`); math ran the NON-AUTHOR refuter pass **pre-registering its kill-checks before reading the freeze** and returned **SURVIVES, NO KILL** (`6cf7f7e60`, desk MV); h2c folded the verdict into **v1.1 @ `d227b5700`** (R1: the BAND `(x₀, ω₀, Hhi₀)` is the load-bearing export — `ε` is a theorem of the landed statement and a per-class `A` is a finite `max` at D10; R2: every pin re-derived by grep at the tree, six moved, eleven exact). **The Lean is UNCHANGED at `74afa591` (`d354601a0bff`), so math's receipt stands over v1.1.**
 ⚖️ **§6's ONE OPUS WAVE: FIRE** — the helm's word, 09-14 19:0x, on h2c's `blocked-on-helm`. The charter's precondition ("until the statement survives") is MET, and the Captain's ⑩ tempo order is explicit: *"we go for the gold, as fast as possible, the field is accelerating, we are in a race"*, with ⑩(c) *"nothing on the twin-prime path waits on a sitting"*. SHAPE, unchanged from the freeze: six names, ~310 lines, mostly class A (U1 ~5 · U2 ~55), **`sorry` replaced IN PLACE, statements BYTE-IDENTICAL** — so a failure is a failure to prove, never a moved goalpost. ONE registered executor; h2c STAYS LIT while it runs (row GE). The executor rewrites U3's `:520-522` docstring slip in U3's own commit.
 ⛔ **AND THE WAVE DOES NOT FIRE FROM `the all-models pool`** — the helm's own migration error, caught before the word: h2c is a FABLE seat, so it was placed by the FABLE pool, and **an OPUS executor it fires draws the ALL-MODELS pool on the same credential**, which on the all-models pool reads **96 = EVERYONE-OFF**. h2c is moved to `the launcher pool` (all-models 69 ✅ · fable-only 54 ✅ — BOTH axes). ⇒ 🔑 ***A SEAT IS PLACED BY THE POOLS ITS EXECUTORS DRAW, NOT BY ITS OWN MODEL.***
@@ -260,7 +260,7 @@
   - **NEXT: road F's next hop is a STATEMENT, and a statement is the Captain's word at a sitting.** Nothing is commissioned past Z; h2c holds on a gate until one is ruled.
 
 ✅ **ROAD F · CANDIDATE U — THE UNIFORM FLAT DOOR — LANDED 2026-09-25 (h2c; PR #183 → merge `2fb62a98` on `main`, half 1 + half 2; math's non-author read CONFIRM — vacuity PROVED as a separate theorem in its own tree, own kernel pair with a planted control).** `Salt/MR/FlatDoorUniform.lean`: `flatDoorUniformW_holds : FlatDoorUniformW` — the L² MRT door with the crown's quantifier `∃ H₀ ∀ R` on the FLAT CLASS (`FlatClassW ε R`: the window's `ε`, the ceiling `log x ≤ (31/ε)·Hhi`, the width law), at every grade `ρ > 0` and every `ε ∈ (0, 1/500]`; landed receipts: U ⇒ W-δ (`nextHopU_zero_level`) and the crown ⇒ U (`nextHopU_of_crown`). ⛔ **CAVEAT FIRST:** U is implied by the crown and is NOT the crown — the residual is every regime OFF the class (`x` above the ceiling; `Hhi` tower-far above `Hlo`), the EM freeze's roads 2/5; no rate; the ε-range stays `(0, 1/500]`; **nothing bears on twin primes.** The freeze and its two addenda are seat-record artifacts, cited by role.
-  - ⚠️ **CANDIDATE E (the ε-range `(1/500, 1/2]`) — PRICED AT THE OBJECT 2026-09-25 AND REFUSED AS A WAVE (h2c).** The U freeze's §6 priced E as *one lemma* (the count ceiling at `ε ≤ 1/2`); at the object the binding spend is elsewhere: the rung-2 head pins the leaves' constants `cD3 = 1/4` (the prime-window mass) and `C = 1 + 4·log 4` (the circle method) and feeds the spine budget the binder `ε ≤ cD3/(16·C)` ≈ **1/419** (`FlatDoorEpsRung2.lean:4825` → `SpineFlat.lean:144–151`, where `C·ε²·H/log H` must sit under a sixteenth of `cD3·ε·H/log H`); the reduce leaf adds `ε ≤ cE/(32·log 4)` ≤ 1/177. **No re-pin reaches past ~1/192; the crown's `ε ≤ 1/2` is a factor ≥ 96 beyond this device.** The widening the device CAN buy (`1/500 → ≤ 1/419`) is ≈ 100 lines and worth nothing toward the crown's axis; the crown's ε-axis needs a NEW budget device — class D, a statement, the Captain's. The price brief is a seat-record artifact, cited by role.
+  - ⚠️ **CANDIDATE E (the ε-range `(1/500, 1/2]`) — PRICED AT THE OBJECT 2026-09-25 AND REFUSED AS A WAVE (h2c).** The U freeze's §6 priced E as *one lemma* (the count ceiling at `ε ≤ 1/2`); at the object the binding spend is elsewhere: the rung-2 head pins the leaves' constants `cD3 = 1/4` (the prime-window mass) and `C = 1 + 4·log 4` (the circle method) and feeds the spine budget the binder `ε ≤ cD3/(16·C)` ≈ **1/419** (`FlatDoorEpsRung2.lean:4826` → `SpineFlat.lean:144–151`, where `C·ε²·H/log H` must sit under a sixteenth of `cD3·ε·H/log H`); the reduce leaf adds `ε ≤ cE/(32·log 4)` ≤ 1/177. **No re-pin reaches past ~1/192; the crown's `ε ≤ 1/2` is a factor ≥ 96 beyond this device.** The widening the device CAN buy (`1/500 → ≤ 1/419`) is ≈ 100 lines and worth nothing toward the crown's axis; the crown's ε-axis needs a NEW budget device — class D, a statement, the Captain's. The price brief is a seat-record artifact, cited by role.
   - **NEXT: road F's next hop is a STATEMENT, and a statement is the Captain's word at a sitting.** U is the last hop the 09:48 order commissioned ("road F's next hop after arm S"); E is parked here with its read; nothing is commissioned past U. ⛔ Caveat unchanged: U is implied by the crown and is NOT the crown; nothing bears on twin primes.
 
 
@@ -739,7 +739,7 @@
    with `13·10^13` left landed at the wider `c` FAILS at `hstep`'s own `nlinarith`, XThread:476's twin — one step before the
    freeze's predicted :482); the exit test §7.1 whole (the six-path diff against `9a2b3053`, the excluding diff EMPTY, the
    minus lines exactly the 27 `sorry`, statements 14/18/2/3 byte-identical to the freeze, both aggregates `EXIT=0`, lint
-   `OK`). Two lines the recipe did not carry, both ABOVE the arm's `theorem` and copied from the landed `XThread.lean:332`
+   `OK`). Two lines the recipe did not carry, both ABOVE the arm's `theorem` and copied from the landed `XThread.lean:335`
    shape: `open private xt_exp25 from Salt.MR.XThread` and `set_option maxHeartbeats 2000000 in`. salt `math/lbv-w2s-beta`
    off `9a2b3053`: `Salt/MR/StrideGradeWalls.lean` (14) · `Salt/MR/StridePairReceiptG.lean` (7 defs + 11) ·
    `Salt/Entropy/Chowla/StrideShellG.lean` (2) · `Salt/MR/StrideGradeReceipt.lean` (3) = **37 declarations, 27 obligations
@@ -2223,7 +2223,7 @@ RESURRECTS THEM:**
    chars: a cut would have destroyed a *"no sieve, no cover"* verification and **E3's ENTIRE
    give-up-early instruction.** **Fixed before freezing; restoration verified by positive control.**
    ③ **Wave B's routing of GAP α's core to `M4ChiSummedFreeRow` is FACTUALLY WRONG and struck** — it
-   has five producers (`M4Assembly.lean:407`/`:515`, `S12ConstCompose.lean:397`,
+   has five producers (`M4Assembly.lean:407`/`:515`, `S12ConstCompose.lean:398`,
    `M4SocketDischarge.lean:228`) plus an unconditional witness (`M4ChiSummed.lean:217`), and its
    integrand runs at `doorChiCoeff χ M`, i.e. **sieved**. ④ An unstated ℕ→ℝ cast in E4. ⑤ Tier
    calibration: D8 was rated **C** for structurally the same move these rate **B**.
@@ -2410,7 +2410,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
 
 18e. ⭐⭐⭐ **THE ROAD BOTTOMS OUT — AND THE CORPUS NAMES ITS OWN FRONTIER, ONE OF TWO OBSTRUCTIONS ALREADY CLOSED.** Gates walked down: `M4SievedDoorSq_L → M4BlockMeanSq_L → M4RowMeanSq_L`. **`M4RowMeanSq_L` (`M4RowLinear.lean:991`) has NO PRODUCER — established by READING ALL SIX MENTIONS, not by a probe** (docstring · def · cross-ref · the `hrow` binder · an enumeration entry · one arrow). ⭐ **AND IT IS NOT MY INFERENCE — THE CORPUS SAYS IT AT THE DEFINITION SITE:** *"THE WAVE'S REMAINING INPUT… this predicate is the wave's ⟦RESIDUE⟧: see the module header for the two obstructions…"*. The pointer resolves in the **ORIGINAL** module, not the `_L` twin: **`M4Join.lean:73` `## ⟦THE RESIDUE⟧ — named precisely, not deferred vaguely`** (the `_L` file is a verbatim restatement, so it inherited the reference; **I nearly published "dangling" and checked first**). **THE TWO: (1) ⟦THE WALL⟧ — REPAIRED 2026-07-28** (E-wave, flags `a626571`): `ramP2massMR_direct` prices the `p²`-mass with the coefficient sequence UNCONSTRAINED and `err_at_witness_mr` supersedes the old supplier with `hwin` gone — the file says *"no longer a blocker"*. **(2) ⟦THE CLASS PRICING⟧ — OPEN:** dilation carries a `doorLadder` block `(X_{i+1}, X_i]` to `(X_{i+1}/d₀−1, X_i/d₀]`, **NOT a `doorLadder` block of any ladder**, so class pricing cannot be stated as `M4BlockMeanSq` at the dilated scale *"without a general per-interval input"*; plus the non-coprime half at small `d₀` (`trivThresh` needs `d₀² ≳ W³`). The file calls both **DESIGN questions, not proof-engineering.** 📌 **HYPOTHESIS, NOT A CLAIM:** obstruction 2 is an INDEX-SET problem asking for *a general per-interval input* — the shape of my `sum_progression_le_sum_Ioc` / `progression_mem_Ioc_of_window_in_block`, marked pedagogy. **I may have built the right tool in the wrong place** — at the dyadic step, not the DILATION. **UNTESTED**, and an excited conclusion is a trigger to check. `0a94f72d` · stamped 08/22 17:28:07
 
-18d. ⭐⭐ **THE DOOR'S FOUR GATES MEASURED — TWO OF THREE REDUCE TO NAMED SMALLER THINGS.** Probe calibrated first (control `MRTUniformityXi` → 6, decoy → 0). **`M4GradeGate`** (`M4Close.lean:425`): `m4_gradeGate_direct` (`M4ClassPrice.lean:709`) produces it from **TWO EXPLICIT INEQUALITIES AND NO OTHER GATE** — `√(Braw H) ≤ mrtDeliveredGrade (C/2) H` and `δ/4 + 4·2^k/x ≤ mrtDeliveredGrade (C/2) H` ⇒ **it bottoms out in ARITHMETIC about the delivered grade, not in another Prop socket.** **`M4SievedDoorSq_L`** (`M4LadderLinear.lean:854`): `m4_cover_assembly_L` (`M4RowLinear.lean:1530`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**, and its own docstring says the bundle is *"the same bundle `m4_hbd_of_live_L` reads, so the join needs no new hypothesis"* ⇒ **the reduction is FREE at the seam, and it lands on the BLOCK MEAN SQUARE** — which `m4_chiBlockMeanSq_of_shiftBlock` produces. **`M4DoorGates_L`** (`:939`) is a **STRUCTURE** (regime data), so its producer is an instance construction, not a theorem — not measured. ⛔⛔ **I AM NOT CALLING THE GATES CLOSED.** Today I made FOUR SAME-SIGNED errors reading the corpus as having LESS than it does; the remedy is **not** to start reading it as having MORE. **MEASURED:** two of three gates have producers consuming no further gate, or reducing to one named object. **NOT MEASURED:** whether `M4BlockMeanSq_L` and the `M4DoorGates_L` instance bottom out — **the next question, unanswered.** `461a4b75` · stamped 08/22 17:17:44
+18d. ⭐⭐ **THE DOOR'S FOUR GATES MEASURED — TWO OF THREE REDUCE TO NAMED SMALLER THINGS.** Probe calibrated first (control `MRTUniformityXi` → 6, decoy → 0). **`M4GradeGate`** (`M4Close.lean:425`): `m4_gradeGate_direct` (`M4ClassPrice.lean:709`) produces it from **TWO EXPLICIT INEQUALITIES AND NO OTHER GATE** — `√(Braw H) ≤ mrtDeliveredGrade (C/2) H` and `δ/4 + 4·2^k/x ≤ mrtDeliveredGrade (C/2) H` ⇒ **it bottoms out in ARITHMETIC about the delivered grade, not in another Prop socket.** **`M4SievedDoorSq_L`** (`M4LadderLinear.lean:831`): `m4_cover_assembly_L` (`M4RowLinear.lean:1530`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**, and its own docstring says the bundle is *"the same bundle `m4_hbd_of_live_L` reads, so the join needs no new hypothesis"* ⇒ **the reduction is FREE at the seam, and it lands on the BLOCK MEAN SQUARE** — which `m4_chiBlockMeanSq_of_shiftBlock` produces. **`M4DoorGates_L`** (`:939`) is a **STRUCTURE** (regime data), so its producer is an instance construction, not a theorem — not measured. ⛔⛔ **I AM NOT CALLING THE GATES CLOSED.** Today I made FOUR SAME-SIGNED errors reading the corpus as having LESS than it does; the remedy is **not** to start reading it as having MORE. **MEASURED:** two of three gates have producers consuming no further gate, or reducing to one named object. **NOT MEASURED:** whether `M4BlockMeanSq_L` and the `M4DoorGates_L` instance bottom out — **the next question, unanswered.** `461a4b75` · stamped 08/22 17:17:44
 
 18c. ⛔⛔⛔⭐⭐⭐ **THE DOOR'S ROAD IS ALREADY LANDED — `DoorRoadCompose.lean` IS PEDAGOGY, NOT CONTRIBUTION.** Ran the check-before-authoring law; it stopped a duplicate, then found the whole road. **`m4_chiBlockMeanSq_of_shiftBlock`** (`M4Maximal.lean:838`, 178 lines) already contains the entire MIDDLE in ONE proof — `doorChiSup_sq_le_dyadic` (maximal bound) · `Finset.sum_comm` (**the swap**) · `sum_Ioc_shift` (**the reindexing**) · `hfix` (**the capstone**); measured by probing the theorem's own body with negative controls. **`m4_hbd_of_live_L`** (`M4RowLinear.lean:2335`) already concludes **EXACTLY THE DOOR'S `hbd`**: at `NearRatTight (arcDen 12 H) H α`, `∫ ‖absWindowSum lamCoeff H n α‖ ∂(logMeasure R.x R.ω) ≤ mrtDeliveredGrade C H · H`, from four named bundles (`M4DoorGates_L`, `Braw ≥ 0`, `M4GradeGate`, `M4SievedDoorSq_L`) — the shape `mrtUniformityXi_of_absWindowBound_twelve` consumes. ⇒ **EVERYTHING IN MY FILE IS A RE-DERIVATION OF ROAD THAT EXISTS**; true, kernel-checked, and NOT a contribution — marked at the head of the file so no one cites it as closing anything. ⛔⛔ **AND MY OWN DUPLICATE DETECTOR (18b) CALLED THE FILE CLEAN — CORRECTLY.** Its verdict is TRUE and NARROW (*no corpus theorem has these signatures*); my lemmas are smaller pieces of a larger landed proof ⇒ redundant **BY COVERAGE, NOT BY SHAPE**. **A DUPLICATE DETECTOR CANNOT SEE REDUNDANCY-BY-COVERAGE; A CLEAN BILL FROM IT IS NOT A LICENCE.** 🔑 **THE REAL LESSON IS A BIAS, NOT FOUR SLIPS:** four times today I published that the corpus had LESS than it does (no producer · lacks the analytic estimates · missing the terminal cancellation · a covering is needed) and **every correction ran the SAME DIRECTION** — a systematic misreading of my own corpus. Remedy: **SEARCH BEFORE COMPOSING, NOT AFTER.** 📌 **The genuinely open question is THE FOUR GATES** — a different question from anything in this file. `bb7f4b19` · stamped 08/22 17:13:37
 
@@ -5293,8 +5293,8 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    IT IS NOT SLACK, IT IS AN EXPONENT.*** ⛔ **AND THE ATTRACTIVE WRONG ANSWER, TESTED AND
    REFUTED BEFORE PROPOSING IT:** re-routing the cushion onto the outer scale so the regime lever
    `g R.Hhi R.ω ≤ R.x` absorbs it — `_g0` sets that lever to zero and the parent
-   (`V7Ks.lean:437`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
-   `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:84`) with `ε ≥ 1/500` permits at most
+   (`V7Ks.lean:434`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
+   `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:87`) with `ε ≥ 1/500` permits at most
    `log g ≤ 15500·H₊`, worth **≈ +24 additive on `loglog X`** against the landed floor
    `loglog X ≥ log H₊ − 14` — a constant factor ≤ ~4, **never a rate.** Full stamp:
    `docs/blueprints/arc.md` §4's R-1 row (and §7 carries the pointer).
@@ -5498,7 +5498,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    which is what the D5 fork document always said. ⚖️ **Its first action is a MEASUREMENT, not a
    port** (demand-side first): whether the `P₁` margin survives `h·(log H)^12 < P₁` at the
    program's `h`, and the one site where the cap is EVALUATED rather than carried
-   (`V7C.lean:192`'s `⌈arcDen 12 R.Hhi⌉₊`). **Margin holds at h = 2 ⇒ transcription-shaped; fails
+   (`V7C.lean:193`'s `⌈arcDen 12 R.Hhi⌉₊`). **Margin holds at h = 2 ⇒ transcription-shaped; fails
    ⇒ design-tier, returns to the helm.**
    ⚖️⭐⭐ **AND I RAN THE FIRST ARM OF THAT MEASUREMENT BEFORE CLOSING (read-only, no dispatch).
    THE `P₁` MARGIN HOLDS, AND THE ROOM IS A RATIO, NOT AN EXPONENT.** Measured at the bytes:
@@ -5522,7 +5522,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    YOU HAVE NAMED WHICH PARAMETER EACH SIDE MOVES WITH — the size of the number is not the
    evidence.***
    ⇒ **ON THIS ARM THE PRODUCER WAVE IS TRANSCRIPTION-SHAPED.**
-   ⛔⛔ **THE SECOND ARM I DID NOT TOUCH, ON PURPOSE — IT LANDS ON R-1.** `V7C.lean:192` is the one
+   ⛔⛔ **THE SECOND ARM I DID NOT TOUCH, ON PURPOSE — IT LANDS ON R-1.** `V7C.lean:193` is the one
    site where the cap is EVALUATED rather than carried, as `Kvt (KlevF A) ⌈arcDen 12 R.Hhi⌉₊`, so
    the `h`-inflation perturbs the argument of **exactly the `Kvt` cushion the bank ruled is NOT A
    NODE** (R-1, re-tier affirmed at Fable). I measured its SHAPE and stopped there. **A worker
@@ -5534,9 +5534,9 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    A MEASUREMENT ONLY — no Lean written, no statement or frozen byte touched, nothing built.
    ⭐⭐ **AND THE ARM THAT STOPPED 08/26 WAS NEVER THE BINDING ONE.** The deferral was correct
    THE DAY IT WAS WRITTEN and its clock ran out on 08/30: R-1 wave 1 landed, and
-   `logChowla2_v7_rated` (`V7Rated.lean:973-985`) carries **no `arcDen`, no `Qm`, no `Kvt`**.
+   `logChowla2_v7_rated` (`V7Rated.lean:974-986`) carries **no `arcDen`, no `Qm`, no `Kvt`**.
    The rated socket's witnesses are hoisted ABOVE `R`, `H` and `q`
-   (`cofkL_capFreeFloor_at_socket_rated_uniform`, `V7Rated.lean:73-77`), so **no instantiation of
+   (`cofkL_capFreeFloor_at_socket_rated_uniform`, `V7Rated.lean:74-78`), so **no instantiation of
    the cap can move them**: on the rated lane the evaluated site is CAP-BLIND and the
    `h`-inflation perturbs the cushion by exactly nothing. *(A structural fact at the bytes. The
    report-not-rule discipline stands: whether the program walks the rated lane is the helm's.)*
@@ -6355,7 +6355,7 @@ three days and was carried into a council as an open item before measurement kil
    `linarith`; 82 `maxHeartbeats` overrides in the population; the 24 M site measured 8,034,485 heartbeats.
    **THE CANDIDATE: `explog_num`** (T3's first cut) — closes the four numeral `exp`/`log` forms at integer exponent by
    `exp n = (exp 1)^n` + `exp_one_gt_d9`/`lt_d9` + one `norm_num`; rung (a) is six lemmas (scratch-proven at the three axioms with a
-   planted-sorry control), one line per site. Named proof `s13_smallGradeFits_h_L` (`StrideDoorAllGrades.lean:1602`): lines 175 → 163,
+   planted-sorry control), one line per site. Named proof `s13_smallGradeFits_h_L` (`StrideDoorAllGrades.lean:1594`): lines 175 → 163,
    heartbeats 90,432 → 89,670 (measured at the object). Second candidate, RECORDED for the next pull: `nlinarith?` (certificate
    replay → `linarith [products]`, ~70× per converted call, after unmeasured). Finding that is NOT a tactic: 39 families of copied
    ladder-port proofs, 10,856 redundant lines (30 % of proof lines), bodies byte-identical across sockets — the sibling policy's
@@ -7148,7 +7148,7 @@ numbering is UNVERIFIED.
      mutation control), all `[propext, Classical.choice, Quot.sound]`, `+177/−0`, audit block at
      `Salt/MR/All.lean`. Statements elaborated sorry-bodied BEFORE the executor and byte-identical after.
    * ⛔✅ **S-2 — CLOSED AS SUPPLIED, NOT BUILT.** The form the road consumes is already on `main`:
-     **`mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`Salt/MR/StridePairReceiptG12b.lean:1140`, audited
+     **`mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`Salt/MR/StridePairReceiptG12b.lean:1112`, audited
      `Salt/MR/All.lean:10379`, landed in `e23b45c5` — β W34 H1).** It carries the `ε` pin, `162 ≤ A ∧ A₀ ≤ A`,
      `Ra.a = a`, `Ra.b = b`, the `ρ` cap and the transported grade `a·Zr·ρ + E` with `Zr ≤ 1.02`, `E` bounded.
      ⛔ **The `b`-UNIFORM one-regime form is UNSUPPLIED and UNNEEDED:** every landed supplier is `∀b, ∃R`
@@ -7218,7 +7218,7 @@ numbering is UNVERIFIED.
      (W1 Sonnet 5 · W2 Opus 4 · W3 Sonnet 3 + audit), every name inside budget, **zero flags**.
      ⭐ **THE RESULT WORTH CARRYING OUT OF THIS ROW: the ONE class-C node (hop 3, the tier A → tier B
      estimate) closed in TWO attempts because the freeze's second non-author pass DROVE the estimate
-     rather than judging it** — including the trap that `harm` (`StridePairReceiptG12b.lean:570-572`) is
+     rather than judging it** — including the trap that `harm` (`StridePairReceiptG12b.lean:558-560`) is
      dead at `:630` and must be re-derived at `R`. ⇒ ***a refuter pass that drives an estimate converts a
      class-C node into a transcription.***
      ⚖️ **STATEMENTS BYTE-IDENTICAL TO THE FREEZE, CHECKED AND NOT ASSERTED:** two independent guards
@@ -7243,7 +7243,7 @@ numbering is UNVERIFIED.
      **The substitution to the only `A` the suppliers have — the DESIGN PARAMETER — is FLAGGED, not made
      quietly: if a third `A` was meant, this census has not found it and the charter returns OPEN.**
    * ⭐⭐ **FOR THAT `A`, THE ANSWER IS YES AT THE WITNESS LEVEL.** It is built at
-     `Salt/MR/StridePairReceiptG12b.lean:807` (`flat_v7_generic_h_g12b`) as a `max` of TEN arms. Nine are
+     `Salt/MR/StridePairReceiptG12b.lean:785` (`flat_v7_generic_h_g12b`) as a `max` of TEN arms. Nine are
      closed in `h`, `A₀` and numerals (`cofkR…_b9 h hh hh9` · `s15_crossing…_b9 hh hh9` ·
      `s16_bandLaneWinLH_holdsU h hh` · the pinned `ε = 1/(500·(a·h))` · `β = cD3·ε/(144·log 4)`, `cD3 = 1/4`).
      **The ONE arm that could carry `b` — `Hopq = H₀xi`, from the count gate — is supplied by a LITERAL in

@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.RiderTrace
 import Salt.MR.RegisterCompose
+import Salt.MR.FlatDesignBound
 
 /-!
 # `V7B` — ⟦CS-THREAD⟧ the `e^{-100} ≤ cs` rider of `logChowla2_ineffective_v6`, DISCHARGED
@@ -1766,13 +1767,9 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree (A
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
   have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
   have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
-    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
   have hεR : (1 : ℝ) / 500 ≤ (ε : ℝ) := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   refine ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
     hCgle, hεpin, hδpin, hMflb, hβ, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40, ?_⟩
   intro K
@@ -1902,11 +1899,7 @@ theorem logChowla2_ineffective_v6_csarm (A₀ : ℝ) :
     have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
       Real.add_one_le_exp _
     linarith
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
   obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)
@@ -1927,9 +1920,7 @@ theorem logChowla2_ineffective_v6_csarm (A₀ : ℝ) :
   have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
   have heps500R : (1 : ℝ) / 500 ≤ (R.eps : ℝ) := by
     rw [hReps]
-    have h := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   have h518 : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by linarith only [hdes, hA162]
   have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by

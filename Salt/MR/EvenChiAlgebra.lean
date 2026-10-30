@@ -31,6 +31,10 @@ namespace Salt.MR
 
 open IsPrimitiveRoot
 
+/-- `ζ_q := exp(2πi/q)` is a primitive `q`-th root of unity in `ℂ` at `hq : 0 < q`: the exponent
+is rewritten to `2πi · (1/q)` and `Complex.isPrimitiveRoot_exp_of_coprime` at `1` applies.
+Consumed by `e4a_route_b_isCyclotomicExtension` and `e4aZetaK_isPrimitiveRoot` (`EvenChiEta`)
+and by `EvenChiCyclotomic`. -/
 theorem e4a_zeta_isPrimitiveRoot {q : ℕ} (hq : 0 < q) :
     IsPrimitiveRoot (Complex.exp (((2 * Real.pi / q : ℝ) : ℂ) * Complex.I)) q := by
   have hqC : (q : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr hq.ne'
@@ -41,9 +45,15 @@ theorem e4a_zeta_isPrimitiveRoot {q : ℕ} (hq : 0 < q) :
   rw [heq]
   exact Complex.isPrimitiveRoot_exp_of_coprime 1 q hq.ne' (Nat.coprime_one_left q)
 
+/-- `e4aZeta q = exp(2πi/q)`, the concrete complex root the port adjoins; an `abbrev`, so
+`e4a_zeta_isPrimitiveRoot` applies to it by unfolding. It generates `e4aK q` and is the image of
+`e4aZetaK q` in `ℂ` (`EvenChiEta`). -/
 noncomputable abbrev e4aZeta (q : ℕ) : ℂ :=
   Complex.exp (((2 * Real.pi / q : ℝ) : ℂ) * Complex.I)
 
+/-- The descent's first step: an element `x` of a finite Galois extension `E/ℚ` fixed by every
+`f : Gal(E/ℚ)` (`hfix`) is in the image of `ℚ` — `IsGalois.mem_range_algebraMap_iff_fixed`.
+Consumed by `e4a_descent_to_int`. -/
 theorem e4a_fixed_isRational {E : Type*} [Field E] [Algebra ℚ E] [IsGalois ℚ E]
     [FiniteDimensional ℚ E] (x : E) (hfix : ∀ f : Gal(E/ℚ), f x = x) :
     ∃ r : ℚ, algebraMap ℚ E r = x :=
@@ -130,6 +140,10 @@ section
 variable {G : Type*} [Fintype G] [Group G] [DecidableEq G] {M : Type*} [CommMonoid M]
 
 omit [DecidableEq G] in
+/-- The product form of `e4a_fibre_swap` (`EvenChiSign`): at `hb : χ b = -1` the `+1` fibre of
+`χ` translated by `b` is the `-1` fibre, so the product of `F (a * b)` over the `+1` fibre is
+the product of `F` over the `-1` fibre — `Finset.prod_image` with right multiplication
+injective. Consumed by `e4a_eta_inverts` and `EvenChiCyclotomic`. -/
 theorem e4a_prod_fibre_swap (χ : G → ℤ) (hmul : ∀ x y, χ (x * y) = χ x * χ y) (hone : χ 1 = 1)
     (b : G) (hb : χ b = -1) (F : G → M) :
     ∏ a ∈ Finset.univ.filter (fun a => χ a = 1), F (a * b)
@@ -139,6 +153,10 @@ theorem e4a_prod_fibre_swap (χ : G → ℤ) (hmul : ∀ x y, χ (x * y) = χ x 
     Finset.prod_image (fun x _ y _ h => mul_right_cancel h)]
 
 omit [DecidableEq G] in
+/-- The product form of `e4a_fibre_fix`: at `hb : χ b = 1` the `+1` fibre of `χ` translated by
+`b` is itself, so the product of `F (a * b)` over it equals the product of `F` —
+`Finset.prod_image` with right multiplication injective. Consumed by `e4a_eta_fixed` and
+`EvenChiCyclotomic`. -/
 theorem e4a_prod_fibre_fix (χ : G → ℤ) (hmul : ∀ x y, χ (x * y) = χ x * χ y) (hone : χ 1 = 1)
     (b : G) (hb : χ b = 1) (F : G → M) :
     ∏ a ∈ Finset.univ.filter (fun a => χ a = 1), F (a * b)
@@ -160,6 +178,10 @@ At `χ(b) = −1` and `χ(a) = −1`: `χ(ab) = (−1)(−1) = +1`, so the `−1
 `+1` fibre.  **Only with both directions is the quotient inverted rather than merely
 scrambled.** -/
 
+/-- The mirror of `e4a_fibre_swap`: at `hb : χ b = -1` the `-1` fibre of `χ` translated by `b`
+is the `+1` fibre, since `χ (a * b) = (-1) * (-1) = 1` by `hmul`; the converse direction uses
+`χ b⁻¹ = -1`, derived from `hb`, `hone` and `hmul`. Without it `e4a_eta_inverts` would move only
+η's numerator. Consumed by `e4a_prod_fibre_swap'`. -/
 theorem e4a_fibre_swap' (χ : G → ℤ) (hmul : ∀ x y, χ (x * y) = χ x * χ y) (hone : χ 1 = 1)
     (b : G) (hb : χ b = -1) :
     (Finset.univ.filter (fun a => χ a = -1)).image (fun a => a * b)
@@ -178,6 +200,9 @@ theorem e4a_fibre_swap' (χ : G → ℤ) (hmul : ∀ x y, χ (x * y) = χ x * χ
     rw [hmul, hx, hinv]; norm_num
 
 omit [DecidableEq G] in
+/-- The product form of `e4a_fibre_swap'`: at `hb : χ b = -1` the product of `F (a * b)` over
+the `-1` fibre of `χ` is the product of `F` over the `+1` fibre. With `e4a_prod_fibre_swap` it
+is what `e4a_eta_inverts` rewrites. -/
 theorem e4a_prod_fibre_swap' (χ : G → ℤ) (hmul : ∀ x y, χ (x * y) = χ x * χ y) (hone : χ 1 = 1)
     (b : G) (hb : χ b = -1) (F : G → M) :
     ∏ a ∈ Finset.univ.filter (fun a => χ a = -1), F (a * b)
@@ -221,6 +246,9 @@ Grafted with the two restated givens dropped.  ⚠️ Their caveat said both sat
 `GivenByMath` section; measured, `e4a_units_reindex` sat OUTSIDE it, so deleting the fence
 alone would have collided.  Extracted `section E4aUnitsIndex` only. -/
 
+/-- A ring hom `σ` that sends `x` to `x` or to `x⁻¹` (`h`) fixes `x + x⁻¹`: `map_add`,
+`map_inv₀`, and in the second arm `inv_inv` and `add_comm`. The ring-hom form behind
+`e4a_sum_inv_fixed_alg`. -/
 theorem e4a_sum_inv_fixed {K : Type*} [Field K] (σ : K →+* K) (x : K)
     (h : σ x = x ∨ σ x = x⁻¹) : σ (x + x⁻¹) = x + x⁻¹ := by
   rw [map_add, map_inv₀]
@@ -265,6 +293,9 @@ by `IsIntegral.add`.  Stated for `x` and `x⁻¹` integral rather than for a `(�
 general, and it avoids the units-group plumbing entirely (attempt 1 tried `u + u⁻¹` inside
 the UNIT GROUP, which has no addition at all). -/
 
+/-- The join the composition control (probe 30) found missing: if `x` and `x⁻¹` are both
+integral over `ℤ` (`hx`, `hxinv`), so is `x + x⁻¹` — `IsIntegral.add`. Stated for the two
+elements rather than for a unit of `𝓞 K`, which has no addition. Consumed by `e4a_spine`. -/
 theorem e4a_sum_isIntegral_of_both {K : Type*} [Field K] (x : K)
     (hx : IsIntegral ℤ x) (hxinv : IsIntegral ℤ x⁻¹) :
     IsIntegral ℤ (x + x⁻¹) := hx.add hxinv
@@ -276,11 +307,18 @@ theorem e4a_spine {K : Type*} [Field K] [Algebra ℚ K] [IsGalois ℚ K] [Finite
     ∃ z : ℤ, algebraMap ℤ K z = x + x⁻¹ :=
   e4a_eta_sum_is_integer x hgal (e4a_sum_isIntegral_of_both x hx hxinv)
 
+/-- For `ζ` with `hζ : ζ ^ q = 1` in any monoid, an exponent may be reduced mod `q`: write
+`n = q * (n / q) + n % q` (`Nat.div_add_mod`) and the `q`-multiple part contributes `1`.
+Consumed by `e4a_pow_val_mul_gen`. -/
 theorem e4a_pow_mod_gen {M : Type*} [Monoid M] {q : ℕ} {ζ : M} (hζ : ζ ^ q = 1) (n : ℕ) :
     ζ ^ (n % q) = ζ ^ n := by
   conv_rhs => rw [← Nat.div_add_mod n q]
   rw [pow_add, pow_mul, hζ, one_pow, one_mul]
 
+/-- The exponent bridge off `ℂ`: for `ζ` with `hζ : ζ ^ q = 1`, the `val` of a `ZMod q` product
+and the product of the `val`s give the same power, since `ZMod.val_mul` differs by a reduction
+mod `q` that `e4a_pow_mod_gen` absorbs. Consumed by `e4a_sigma_prod_reindex` (`EvenChiEta`),
+where `σ_b : ζ ↦ ζ ^ b.val` is pushed through η's products. -/
 theorem e4a_pow_val_mul_gen {M : Type*} [Monoid M] {q : ℕ} {ζ : M} (hζ : ζ ^ q = 1)
     (x y : ZMod q) : ζ ^ ((x * y).val) = ζ ^ (x.val * y.val) := by
   rw [ZMod.val_mul, e4a_pow_mod_gen hζ]
@@ -300,6 +338,10 @@ section
 variable {G : Type*} [Fintype G] [Group G] [DecidableEq G] {M : Type*} [CommMonoid M]
 variable {G : Type*} [Fintype G] [Group G] [DecidableEq G] {M : Type*} [CommMonoid M]
 
+/-- The partner of `e4a_fibre_fix` for the `-1` fibre: at `hb : χ b = 1` the `-1` fibre of `χ`
+translated by `b` is itself, since `χ (a * b) = χ a` by `hmul`; the converse direction uses
+`χ b⁻¹ = 1`. The gap probe 36 (`EvenChiEta`) found: without it the fix arm fixed η's numerator
+and said nothing of its denominator. Consumed by `e4a_prod_fibre_fix'`. -/
 theorem e4a_fibre_fix' (χ : G → ℤ) (hmul : ∀ x y, χ (x * y) = χ x * χ y) (hone : χ 1 = 1)
     (b : G) (hb : χ b = 1) :
     (Finset.univ.filter (fun a => χ a = -1)).image (fun a => a * b)
@@ -318,6 +360,9 @@ theorem e4a_fibre_fix' (χ : G → ℤ) (hmul : ∀ x y, χ (x * y) = χ x * χ 
     rw [hmul, hx, hinv]; norm_num
 
 omit [DecidableEq G] in
+/-- The product form of `e4a_fibre_fix'`: at `hb : χ b = 1` the product of `F (a * b)` over the
+`-1` fibre of `χ` is the product of `F` over it. With `e4a_prod_fibre_fix` it is what
+`e4a_eta_fixed` rewrites. -/
 theorem e4a_prod_fibre_fix' (χ : G → ℤ) (hmul : ∀ x y, χ (x * y) = χ x * χ y) (hone : χ 1 = 1)
     (b : G) (hb : χ b = 1) (F : G → M) :
     ∏ a ∈ Finset.univ.filter (fun a => χ a = -1), F (a * b)
@@ -368,6 +413,10 @@ variable {G : Type*} [Fintype G] [Group G] [DecidableEq G] {M : Type*} [CommMono
 variable {R K : Type*} [CommRing R] [IsDomain R] [Field K] [Algebra R K]
 
 omit [IsDomain R] in
+/-- Two associated elements `x`, `y` of `R` (`h`), with `x ≠ 0` (`hx`) and `algebraMap R K`
+injective (`hinj`), have a quotient `y / x` in `K` that is the image of a unit `u : Rˣ`:
+`y = x * u` and the nonzero image of `x` cancels. Instantiated at `R = 𝓞 K` by
+`e4a_eta_isIntegral_of_associated` (`EvenChiEta`). -/
 theorem e4a_associated_quotient_eq (hinj : Function.Injective (algebraMap R K))
     {x y : R} (hx : x ≠ 0) (h : Associated x y) :
     ∃ u : Rˣ, (algebraMap R K y) / (algebraMap R K x) = algebraMap R K (u : R) := by
@@ -386,6 +435,11 @@ section
 variable {G : Type*} [Fintype G] [Group G] [DecidableEq G] {M : Type*} [CommMonoid M]
 variable {A : Type*} [CommRing A] [IsDomain A] {ζ : A} {n : ℕ}
 
+/-- For a primitive `n`-th root `ζ` of a domain (`hζ`) and exponents `e a` coprime to `n` on `S`
+(`hS`), the product of `ζ ^ (e a) - 1` over `S` is associated to `(ζ - 1) ^ S.card`: induction
+on `S`, each factor associated to `ζ - 1` by
+`IsPrimitiveRoot.associated_sub_one_pow_sub_one_of_coprime`. Consumed by
+`e4a_assoc_of_card_eq_gen`. -/
 theorem e4a_prod_associated_gen {ι : Type*} (hζ : IsPrimitiveRoot ζ n) (S : Finset ι)
     (e : ι → ℕ) (hS : ∀ a ∈ S, Nat.Coprime (e a) n) :
     Associated (∏ a ∈ S, (ζ ^ (e a) - 1)) ((ζ - 1) ^ S.card) := by
