@@ -104,6 +104,7 @@ import Mathlib
 import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
+import Salt.Entropy.Chowla.RegimeHeadroom
 
 -- The head reaches `flatCapH_shuffle` (the `h` head's own cap shuffle) by `open private`, the
 -- corpus's sanctioned device (`DoorReceipt.lean:69` does the same for `uniformCap_shuffle`).
@@ -858,12 +859,7 @@ theorem m4_doorL2_supply_Set_gk_khoist (h : ℕ) (_hh : 0 < h) (Xi : XiFamily)
   -- ⟦the door's own scales, off the regime — the lane's four lines⟧
   have hA : 1 ≤ AdoorL M := one_le_AdoorL hgates.hM
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   -- ⟦THE FUSE⟧ the adapter's `hins`, fired at `Xi R.eps H` (parseval is set-generic).
   have hins : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
       (1 / (H : ℝ) ^ 2) * ∑ ξ ∈ Xi R.eps H,

@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.S16FlatTerminalLinear
 import Salt.MR.HDoorArc
 import Salt.MR.HDoorSupply
+import Salt.Entropy.Chowla.RegimeHeadroom
 
 /-!
 # THE SECOND ROAD AT SHIFT `h`, ON THE TERMINAL'S LANE — the `_L_gk` h-family
@@ -1495,12 +1496,7 @@ theorem m4_doorL2_supply_H_L_gk (h : ℕ) (hh : 0 < h) (K : ℕ) :
   -- ⟦the door's own scales, off the regime — the lane's four lines⟧
   have hA : 1 ≤ AdoorL M := one_le_AdoorL hgates.hM
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   -- ⟦THE FUSE⟧ the adapter's `hins`, fired at `Xi := bigXiH h R.eps H`.
   have hins : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
       (1 / (H : ℝ) ^ 2) * ∑ ξ ∈ bigXiH h R.eps H,

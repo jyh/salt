@@ -10,6 +10,7 @@ import Salt.MR.BlockLenDoor
 import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
+import Salt.Entropy.Chowla.RegimeHeadroom
 
 -- Needed to transcribe §4's band head and §5's socket hop: the two names rung 2 itself
 -- opens for the identical purpose (`FlatDoorEpsRung2.lean:30-31`).  MEASURED, not assumed:
@@ -772,12 +773,7 @@ theorem flat_doorL2_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime →
   set R' : ChowlaRegime := regimeEnlargeX R hx' with hR'def
   have hA : 1 ≤ AdoorL M := one_le_AdoorL hgates.hM
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : ∀ H : ℕ, H ≤ R'.Hhi → H + 1 ≤ R'.x := by
-    intro H hhi
-    have hdiv : R'.x / R'.ω ≤ R'.x / 2 := Nat.div_le_div_left R'.hω (by norm_num)
-    have hle : H ≤ R'.x / 2 := le_trans (le_trans hhi R'.hheadroom) hdiv
-    have h2 : 2 ≤ R'.x := R'.hx
-    omega
+  have hHx := R'.add_one_le_x
   refine hR x' hx' hxc
     (memSCoeff (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) 2
       liouvilleC)
