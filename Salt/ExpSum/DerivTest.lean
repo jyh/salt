@@ -174,6 +174,11 @@ lemma sum_Icc_symm {M : Type*} [AddCommMonoid M] (H : ℕ) (φ : ℤ → M) :
 differences `Δ³f`) it yields the `[hλ, hcλ]` window bounds the base test
 consumes; the lower bound comes from running it on `−Δ²f`. -/
 
+/-- Integer step accumulation: if every unit step of `F` on `[lo, hi)` is at most `β`
+(`hstep : ∀ m, lo ≤ m → m < hi → F (m + 1) - F m ≤ β`), then from any `n` with `lo ≤ n` (`hn`),
+`F (n + k) - F n ≤ k * β` for every `k : ℕ` with `n + k ≤ hi`. Applied with `F = Δ²f` it turns
+the third-difference window bounds into the `[hλ, hcλ]` hypotheses of the base test; the lower
+bound comes from running it on `−Δ²f`. -/
 lemma diff2_accum (F : ℤ → ℝ) {lo hi : ℤ} {β : ℝ}
     (hstep : ∀ m, lo ≤ m → m < hi → F (m + 1) - F m ≤ β)
     (n : ℤ) (hn : lo ≤ n) :

@@ -7075,7 +7075,7 @@ THE TWO SIDES (verbatim shapes). CONSUMER — `hBVblocksW_discharge'` (PDiag.lea
 its `hprice` for every box in `dyadicBoundary (pieceN k) (pieceM k) (x/2+1) x (z·y) K`
 (N = pieceN k = 2^k − 1). SUPPLIER — every landed box-price terminal
 (`box_hprice_at_2pow`/`sym_`/`low_box_hprice_at_2pow`, PriceThree.lean:217/302/382; underlying
-`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:278, PriceTwo.lean:438/316;
+`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:279, PriceTwo.lean:391/316;
 `medium_survivor_price(_sqrtD)`, MediumFloor.lean:507/SqrtDFold.lean:956) provides a bound
 ONLY for `i ∈ dyadicBoundary (2^k) (pieceM k) (x/2+1) x F Krange` (N = 2^k, forced by the
 terminal's `M ≤ 2N` with M = pieceM k = 2·pieceN k + 1). The only bridge
@@ -7094,7 +7094,7 @@ priceable by either trichotomy route for the pieces with 2^k > x^{7/16}:
   • 2^k-BOUNDARY route (`box_hprice_at_2pow`/`_lo`): its hypothesis `i ∈ dyadicBoundary (2^k)`
     FAILS by construction (edge box ∉ dyadicBoundary (2^k)); concretely the terminal's corner
     clause `2^i·(2^k+1) ≤ x` is violated (edge box: x < 2^i·(2^k+1)). The `_lo` floor relaxation
-    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:438) is met but is orthogonal — it does not restore the
+    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:391) is met but is orthogonal — it does not restore the
     boundary membership. So neither route covers the live edge box.
 The trivial fallback (carrier norm ≤ 1 ⟹ box sum ≤ 2·|Dset|·X·M ≈ x·τ(Ps)) overshoots the
 hSum budget Ccon·K·x/L^{11} by ~x^{1} and cannot be used.
@@ -12886,9 +12886,9 @@ one_line_pow_growth (Salt/MR/OneLinePowGrowth.lean:324, 353 ln):
 |t| ≥ exp(exp 100) — LANDED, axiom-clean, sitting on 18,278 lines of
 zero-sorry machinery: Salt/Vmvt/ (5,722 — vmvt at the classical
 Linnik–Karatsuba form, fully general k,r,x, Summit2.lean:151), Salt/Vk/
-(6,919 — vk_block_core at ρ = 1/(16kr), Core.lean:256), Salt/ExpSum/
+(6,919 — vk_block_core at ρ = 1/(16kr), Core.lean:263), Salt/ExpSum/
 (5,637 — IsVdCBound at the Graham–Kolesnik exponents with the k-uniform
-constant 16, DerivTestK.lean:667; Kusmin–Landau; Weyl; the window
+constant 16, DerivTestK.lean:676; Kusmin–Landau; Weyl; the window
 tiling). Mathlib has NONE of this; no proof assistant does
 (PrimeNumberTheoremAnd carries dlVP only). SALT IS THE STATE OF THE ART
 and three of our own agents (M4-JOIN, CAPFREE-REF, the maestro's design
@@ -20102,7 +20102,7 @@ explicit bounds**, not as proved steps:
    ~60-line stone.  **Follow-up: define `logEulerTail χ z` and discharge `hcorr`; the mertensB
    machinery is the right tool and it is already in the corpus.**
 2. `hseg`: the coprime half `∑_{z<n≤X,(n,q)=1} Λ/(n log n) = log log X − log log z + O(1/log z)`.
-   The inputs are all landed (`mertens_second_sharp'` at `Mertens/Third.lean:679`, i.e.
+   The inputs are all landed (`mertens_second_sharp'` at `Mertens/Third.lean:685`, i.e.
    `M = γ − B`), and the `p ∣ q, p ≥ z` correction is the divisor-count row `≤ z₀/z`
    (hb1983-notes:451); what is missing is the ~200 lines of Finset/floor bookkeeping between
    `∑_{p ≤ n} 1/p` and `∑ n ∈ Ioc ⌊z⌋ ⌊X⌋ with (n,q)=1, wLog n · Λ n`.  **Purely mechanical,
@@ -20117,7 +20117,7 @@ it too and any future W4 statement must match.  (b) `mertensB` at `PrimePower.le
 `1/(k p^k)`-weighted constant, i.e. exactly the prime-power correction of HB's step 1 — the brief
 called it "the prime-power correction" and that is right, but note its *tail* lemma
 (`mertensB_tail_le`) is what step 1 actually needs.  (c) `mertens_second_sharp` (Second.lean:216)
-carries an existential `M`; `mertens_second_sharp'` (Third.lean:679) is the one to quote, since
+carries an existential `M`; `mertens_second_sharp'` (Third.lean:685) is the one to quote, since
 only there is `M` identified as `γ − B` — and the `γ` must be the same `Real.eulerMascheroniConstant`
 that §1's integral produces, which it is.
 
@@ -23122,7 +23122,7 @@ average over `n ≤ x`); the shift is `n + 1` (the `2` counts the factors `λ(n)
 constants are ineffective (`A` produced through `Classical.choice`, `Ks` carrying Siegel's
 constant); and **twins are untouched** — the transport wall stands at this rung.
 
-**THE `g ≡ 0` INSTANCE** has its own row (`logChowla2_ineffective_v7_g0`, `V7E.lean:218`,
+**THE `g ≡ 0` INSTANCE** has its own row (`logChowla2_ineffective_v7_g0`, `V7E.lean:216`,
 `82fedba`, ledger `:7921`): **two** named inner riders (`e^{-100} ≤ Ks`; the `K_vt` cushion),
 outer none. The row states plainly the thing a rider count alone would hide —
 ***the scale-request rider is VOID at `g ≡ 0`, NOT discharged in general*** — and prices it:
@@ -23144,7 +23144,7 @@ ceremony that followed them:
 
 ```
 logChowla2_ineffective_v6_T0arm   Salt/MR/V7C.lean:178    2026-08-14  8b0bd31  ledger MR/All.lean:7821
-logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1840   2026-08-14  8b03281  ledger MR/All.lean:7856
+logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1836   2026-08-14  8b03281  ledger MR/All.lean:7856
 ```
 
 **FOUR NAMED INNER RIDERS EACH, outer hypotheses none.** `_csarm` (V7-B): the
@@ -23415,9 +23415,9 @@ cost a census and not a wave.
 
 **The attractive wrong answer, tested before it was proposed.** `SiegelBand.lean`'s design law
 (*regime enlargement absorbs any `X`-independent debit*) plus the live lever `g R.Hhi R.ω ≤ R.x`
-in the parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:438`, which `_g0` sets to **zero**)
+in the parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:434`, which `_g0` sets to **zero**)
 makes a re-route onto the outer scale look free. **It is not: the lever has a ceiling.**
-`XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:87`); with
+`XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:88`); with
 `ε ≥ 1/500` a caller may request at most `log g ≤ 15500·H₊`, worth **≈ +24 additive on
 `loglog X`** against the landed floor `loglog X ≥ log H₊ − 14` (`cofkL_logX_floor`, linear in
 `H₊` via the regime's `hPHheadroom`) — **a constant factor ≤ ~4 in the budget, never a rate.**
@@ -25622,7 +25622,7 @@ the class and the statement of record, the five receipts, the four inversion lem
 U-forms, U-ARM (`s15Arm_le_of_regime`), and the doorL2, road and capstone hops on the U-forms.
 
 **What the hop needs about `R` that its U-form does not give.**  The source
-`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4957`) spends the head's COUNT export
+`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4956`) spends the head's COUNT export
 `∀ H [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → |bigXi R.eps H| ≤ K` (K the head's existential) twice:
 as an input to the head's own slot and as `hcount` of `sum_bigXi_norm_windowExpSum_sq_le_twelve`
 (`M4Window.lean:567`).  Under the brief's rule `FlatHeadFormU` keeps the count as a HYPOTHESIS
@@ -25632,7 +25632,7 @@ one open goal is exactly
 `⊢ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ↑(bigXi R.eps H).card ≤ K`
 with `K` known only through `0 < K` and `K ≤ 2 ^ 283 * c ^ 20`.
 
-**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2240`) needs
+**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2241`) needs
 `ε ≤ 1/500`, which no form carries (only `0 < ε` and the pin), and it yields ITS OWN constant `C`,
 not the head's `K`; the socket's `Hopq`/`Hcap` are the hop's to choose but a floor cannot bound a
 count by a constant the hop did not pick.  So this is a walk finding about the FORMS, not a proof

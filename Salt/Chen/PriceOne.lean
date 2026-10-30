@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.Chen.GlueFinal
 import Salt.Chen.PieceDecomp
+import Salt.Chen.DyadicWindow
 
 /-!
 # PRICE-1 — the uniform per-box price lemma (node PRICE-1)
@@ -347,35 +348,11 @@ theorem d0_window_of_XM {x N M X : ℕ}
     rw [hc, hWdef]
     linarith
   -- ⑤ the dyadic window: `D0 = 2^{k0} ∈ [L^{17}, 4·L^{17}]`.
-  have hL17_1 : (1 : ℝ) ≤ L ^ ((17 : ℝ)) := Real.one_le_rpow hL1 (by norm_num)
   have hL17_2 : (2 : ℝ) ≤ L ^ ((17 : ℝ)) := by
     calc (2 : ℝ) ≤ L := by linarith
       _ = L ^ ((1 : ℝ)) := (Real.rpow_one L).symm
       _ ≤ L ^ ((17 : ℝ)) := Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-  obtain ⟨n, hn_ge, hn_le⟩ :
-      ∃ n : ℕ, L ^ ((17 : ℝ)) ≤ (n : ℝ) ∧ (n : ℝ) ≤ L ^ ((17 : ℝ)) + 1 :=
-    ⟨⌈L ^ ((17 : ℝ))⌉₊, Nat.le_ceil _,
-      le_of_lt (Nat.ceil_lt_add_one (Real.rpow_nonneg hLnn _))⟩
-  have hn1 : 1 < n := by
-    have h1R : (1 : ℝ) < (n : ℝ) := by linarith
-    exact_mod_cast h1R
-  obtain ⟨k0, hnpow, hpow2n⟩ : ∃ k0 : ℕ, n ≤ 2 ^ k0 ∧ 2 ^ k0 ≤ 2 * n := by
-    refine ⟨Nat.clog 2 n, Nat.le_pow_clog (by norm_num) n, ?_⟩
-    have hk0pos : 0 < Nat.clog 2 n := Nat.clog_pos (by norm_num) hn1
-    have hpow_lt : 2 ^ (Nat.clog 2 n - 1) < n :=
-      Nat.pow_pred_clog_lt_self (by norm_num) hn1
-    have hsplit : 2 * 2 ^ (Nat.clog 2 n - 1) = 2 ^ Nat.clog 2 n := by
-      rw [← pow_succ']
-      congr 1
-      omega
-    rw [← hsplit]
-    exact Nat.mul_le_mul (le_refl 2) (le_of_lt hpow_lt)
-  have hD0_lo : L ^ ((17 : ℝ)) ≤ ((2 ^ k0 : ℕ) : ℝ) := by
-    refine le_trans hn_ge ?_
-    exact_mod_cast hnpow
-  have hD0_hi : ((2 ^ k0 : ℕ) : ℝ) ≤ 4 * L ^ ((17 : ℝ)) := by
-    have h1 : ((2 ^ k0 : ℕ) : ℝ) ≤ 2 * (n : ℝ) := by exact_mod_cast hpow2n
-    linarith
+  obtain ⟨k0, h2k0, hD0_lo, hD0_hi⟩ := Salt.Chen.exists_two_pow_window hL17_2
   have hL18eq : L ^ ((18 : ℝ)) = L * L ^ ((17 : ℝ)) := by
     have hh := Real.rpow_add hLpos 1 17
     rw [Real.rpow_one] at hh
@@ -429,7 +406,7 @@ theorem d0_window_of_XM {x N M X : ℕ}
     exact div_le_div_of_nonneg_left (Real.rpow_nonneg hxpos.le _) (by norm_num) h7
   -- ⑧ emit the rows.
   have hcast : ((2 ^ k0 : ℕ) : ℝ) = (2 : ℝ) ^ k0 := by push_cast; ring
-  refine ⟨2 ^ k0, k0, rfl, le_trans (by omega : 2 ≤ n) hnpow, ?_, hD0_lo, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨2 ^ k0, k0, rfl, h2k0, ?_, hD0_lo, ?_, ?_, ?_, ?_, ?_⟩
   · -- `hD0lo_main`, the DECOUPLED row (exponent `A+2 = 15`)
     have h15 : L ^ ((15 : ℝ)) ≤ L ^ ((17 : ℝ)) :=
       Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)

@@ -94,6 +94,8 @@ lemma nu_lt_one_of_mem_window {s : BoundingSieve} {Lam z : ℝ} {n : ℕ} {p : �
   exact s.nu_lt_one_of_prime p (Nat.prime_of_mem_primeFactors hp.1)
     (Nat.dvd_of_mem_primeFactors hp.1)
 
+/-- `0 < s.nu p` for `p` in the window `[z_n, z)` (`hp : p ∈ windowPrimes s Lam z n`): a window
+prime is a sifting prime, and the sieve's `nu_pos_of_prime` applies. -/
 lemma nu_pos_of_mem_window {s : BoundingSieve} {Lam z : ℝ} {n : ℕ} {p : ℕ}
     (hp : p ∈ windowPrimes s Lam z n) : 0 < s.nu p := by
   rw [windowPrimes, Finset.mem_filter] at hp

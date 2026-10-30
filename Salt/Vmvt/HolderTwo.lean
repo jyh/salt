@@ -188,13 +188,19 @@ theorem setGen_pairEqBox_factor {k r : ℕ} (x : ℕ) (e : Fin k → Fin (k * r)
 
 /-! ## Part B — continuity, integrability, and the Hölder step -/
 
+/-- `α ↦ gcoord k α v` is continuous in the torus coordinates `Deg k → ℝ` (a single exponential;
+`fun_prop`). -/
 @[fun_prop]
 theorem continuous_gcoord (k : ℕ) (v : ℤ) :
     Continuous (fun α : Deg k → ℝ => gcoord k α v) := by unfold gcoord; fun_prop
 
+/-- `α ↦ genFun k A α` is continuous: a finite sum of the continuous `gcoord k α v` over
+`v ∈ A`. -/
 theorem continuous_genFun (k : ℕ) (A : Finset ℤ) :
     Continuous (fun α : Deg k → ℝ => genFun k A α) := by unfold genFun; fun_prop
 
+/-- `α ↦ G2 k x α` is continuous: the doubled generating function, a finite sum of squares of
+`gcoord k α n` over `n ∈ (0, x]`. -/
 theorem continuous_G2 (k x : ℕ) :
     Continuous (fun α : Deg k → ℝ => G2 k x α) := by unfold G2; fun_prop
 
@@ -204,12 +210,16 @@ theorem integrable_cont_bdd {k : ℕ} {φ : (Deg k → ℝ) → ℝ} (hφ : Cont
   ⟨hφ.aestronglyMeasurable,
     HasFiniteIntegral.of_bounded (C := C) (Filter.Eventually.of_forall hbd)⟩
 
+/-- `‖G2 k x α‖ ^ n` is integrable against `torusMeasure k`: continuous and bounded by `x ^ n`
+(`norm_G2_le`), on a probability measure (`integrable_cont_bdd`). -/
 theorem integrable_norm_G2_pow (k x n : ℕ) :
     Integrable (fun α => ‖G2 k x α‖ ^ n) (torusMeasure k) := by
   refine integrable_cont_bdd ((continuous_G2 k x).norm.pow n) (C := (x : ℝ) ^ n) (fun α => ?_)
   rw [Real.norm_eq_abs, abs_of_nonneg (by positivity)]
   exact pow_le_pow_left₀ (norm_nonneg _) (norm_G2_le k x α) n
 
+/-- `‖genFun k (Ioc 0 x) α‖ ^ n` is integrable against `torusMeasure k`: continuous and bounded
+by `x ^ n` (`norm_genFun_le`, with `card (Ioc 0 x) = x`). -/
 theorem integrable_norm_genFun_pow (k x n : ℕ) :
     Integrable (fun α => ‖genFun k (Finset.Ioc (0 : ℤ) (x : ℤ)) α‖ ^ n) (torusMeasure k) := by
   refine integrable_cont_bdd ((continuous_genFun k _).norm.pow n) (C := (x : ℝ) ^ n) (fun α => ?_)
@@ -219,6 +229,8 @@ theorem integrable_norm_genFun_pow (k x n : ℕ) :
         norm_genFun_le _ _ _
     _ = (x : ℝ) := by rw [card_Ioc_zero]
 
+/-- The Hölder integrand `‖G2 k x α‖ ^ 2 * ‖genFun k (Ioc 0 x) α‖ ^ (2 * (b - 2))` is integrable
+against `torusMeasure k`: continuous and bounded by `x ^ 2 * x ^ (2 * (b - 2))`. -/
 theorem integrable_G2_mul_genFun (k x b : ℕ) :
     Integrable (fun α => ‖G2 k x α‖ ^ 2
         * ‖genFun k (Finset.Ioc (0 : ℤ) (x : ℤ)) α‖ ^ (2 * (b - 2))) (torusMeasure k) := by

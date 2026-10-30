@@ -285,6 +285,12 @@ quantifier structure (the fixed level `D`, the `2·B` tolerance, the `atTop` cap
 byte-matches `Wall.lean:533`.  The involution mechanism (`λ ↦ −λ` preserving every
 `SieveAgree` field, `sPlus`/`sMinus` sharing `|rem|` bounds) is recorded in the module
 docstring. -/
+/-- **The dichotomy (D3).** Under `LambdaSummatory A` with `2 < A` (hypotheses `hLS`, `hA`) and
+a level `D ≥ 2` (`hD`), a lower-bound certificate `Φ` (`hcert : ∀ s, Φ s ≤ s.siftedSum`) that
+eventually captures a positive proportion of the prime mass `(sMinus x).siftedSum` (`hprop`) is
+not `SieveAgree`-tolerant at level `D`: some pair with `SieveAgree s t D B` has
+`|Φ s − Φ t| > 2·B`. The contraposition of `no_parity_beating_certificate`, whose full
+hypothesis set it carries explicitly. -/
 theorem wall_or_door (A : ℝ) (hA : 2 < A) (hLS : LambdaSummatory A) (D : ℕ) (hD : 2 ≤ D)
     (Φ : BoundingSieve → ℝ)
     (hcert : ∀ s, Φ s ≤ s.siftedSum)

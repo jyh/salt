@@ -377,7 +377,7 @@ def M4ChiSummedBlockMeanSqNH_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl 
         ∑ χ : DirichletCharacter ℂ q, ∑ n ∈ Finset.Ioc A B, (doorChiSup_L_gk K χ M L n) ^ 2
           ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
 
-/-- `M4BlockMeanSqBlk2_L_gk` (`M4RowSpineLinear.lean:665`) at the inflated cap. -/
+/-- `M4BlockMeanSqBlk2_L_gk` (`M4RowSpineLinear.lean:658`) at the inflated cap. -/
 def M4BlockMeanSqBlk2H_L_gk (h K : ℕ) (R : ChowlaRegime) (M k : ℕ) (ℓ : ℕ → ℕ → ℕ)
     (Bblk : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ (b : ℤ) (q : ℕ), 0 < q →
@@ -389,7 +389,7 @@ def M4BlockMeanSqBlk2H_L_gk (h K : ℕ) (R : ChowlaRegime) (M k : ℕ) (ℓ : �
         ≤ Bblk H * (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2
             * (doorLadder R.x H (i + 1) : ℝ)
 
-/-- `M4SievedDoorSqBlk2_L_gk` (`M4RowSpineLinear.lean:584`) at the inflated cap. -/
+/-- `M4SievedDoorSqBlk2_L_gk` (`M4RowSpineLinear.lean:577`) at the inflated cap. -/
 def M4SievedDoorSqBlk2H_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) (ℓ : ℕ → ℕ → ℕ)
     (Bblk : ℕ → ℝ) : Prop :=
   M4BandTransport →
@@ -1223,8 +1223,8 @@ theorem m4_freeBlockSup_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M : �
 
 set_option maxHeartbeats 1200000 in
 -- the block sum is re-associated over the drift blocks and then over the ladder block, as at
--- `M4RowSpineLinear.lean:695`
-/-- **3.5** `m4_blockMeanSqBlk2_of_chiSummed_L_gk` (`M4RowSpineLinear.lean:699`) at the witness
+-- `M4RowSpineLinear.lean:688`
+/-- **3.5** `m4_blockMeanSqBlk2_of_chiSummed_L_gk` (`M4RowSpineLinear.lean:692`) at the witness
 `blockLenH h`; `hgate` is the door gate `h·(log H)^12 < P₁`, a HYPOTHESIS here as at `h = 1`. -/
 theorem m4_blockMeanSqBlk2_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M k : ℕ}
     {Bcl : ℕ → ℝ} (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
@@ -1359,7 +1359,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M 
   refine le_of_eq ?_
   ring
 
-/-- **3.6** `m4_cover_assembly_blk2_L_gk` (`M4RowSpineLinear.lean:676`), verbatim
+/-- **3.6** `m4_cover_assembly_blk2_L_gk` (`M4RowSpineLinear.lean:669`), verbatim
 (`integral_door_cover_le_clean` reads no cap). -/
 theorem m4_cover_assembly_blk2H_L_gk (h K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ} {δ : ℝ}
     {ℓ : ℕ → ℕ → ℕ} {Bblk : ℕ → ℝ}
@@ -1380,7 +1380,7 @@ theorem m4_cover_assembly_blk2H_L_gk (h K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {
   ring
 
 /-- **3.7 THE BLOCKED DRIFT AT THE INFLATED `α`-SET** — `m4_sievedDoorSq_of_blk2_L_gk`
-(`M4RowSpineLinear.lean:595`) with the drift lemma fired at the opaque cap
+(`M4RowSpineLinear.lean:588`) with the drift lemma fired at the opaque cap
 `Q := h · arcDen 12 H` (§1′); `h`-general. -/
 theorem m4_sievedDoorSq_of_blk2H_L_gk (h K : ℕ) {R : ChowlaRegime} {M : ℕ} {ℓ : ℕ → ℕ → ℕ}
     {Bblk Braw : ℕ → ℝ}
