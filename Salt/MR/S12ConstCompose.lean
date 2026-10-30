@@ -633,11 +633,7 @@ theorem logChowla2_capstone_final_const' (Aexp : ℝ) (hAexp : 0 < Aexp) :
       ring
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * K * (δ₀ / (8 * K)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * K * (δ₀ / (8 * K)) = δ₀ / 4 by field_simp; ring]
 
 /-! ## §5 — ⟦PIECE 5⟧ THE TWIN AT THE GRADED BAND WIRE (⟦B5 `grade`⟧ PAID) -/
 
@@ -863,11 +859,7 @@ theorem logChowla2_capstone_final_const'_graded (Aexp : ℝ) (hAexp : 0 < Aexp) 
       ring
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * K * (δ₀ / (8 * K)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * K * (δ₀ / (8 * K)) = δ₀ / 4 by field_simp; ring]
 
 /-! ## §GK — the G-lever twin -/
 
@@ -1149,11 +1141,7 @@ theorem logChowla2_capstone_final_const'_gk (K : ℕ) (hK : K ≤ 170000000)
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 /-! ## §5 — ⟦PIECE 5⟧ THE TWIN AT THE GRADED BAND WIRE (⟦B5 `grade`⟧ PAID) -/
 
@@ -1348,11 +1336,7 @@ theorem logChowla2_capstone_final_const'_graded_gk (K : ℕ) (hK : K ≤ 1700000
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 /-! ## §GK-PINNED — ⟦REF-REPAIR (b) + THE `Mfl` WIRE⟧ THE GRADED CAPSTONE ON THE **PINNED**
 ROAD
@@ -1571,11 +1555,7 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned (K : ℕ) (hK : K ≤ 
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 
 end Salt.MR
