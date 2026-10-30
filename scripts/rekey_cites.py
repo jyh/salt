@@ -8,7 +8,9 @@
 BASE and HEAD are git revisions (HEAD defaults to `HEAD`). For every `.lean` file the diff
 BASE..HEAD MODIFIES (not adds or deletes), the base and head texts are aligned with
 `difflib.SequenceMatcher`. A base line inside an `equal` block maps to its head line, and its text
-is the same by construction; a base line in a replaced or deleted block has NO head line.
+is the same by construction; a base line in a replaced or deleted block has NO head line, except a
+NESTED re-key: a line whose head text is its base text with this tool's own re-keys applied to the
+cites inside it maps as equal (h2c, salt #567: a re-key inside a cited range never poisons the range).
 
 A cite is read from each tracked text file AS IT IS AT BASE, in the forms `Leaf.lean:N`,
 `Leaf.lean:N–M` and `Leaf.lean:N-M`, with or without a directory prefix. A prefix must match the
@@ -22,6 +24,8 @@ cite is classed:
              contiguity, or the target was RENAMED: NEVER rewritten, read by hand
   PRE-STALE  the cite was past the base file's end already: printed, not this edit's
   AMBIGUOUS  a bare leaf shared by several files: not read, counted
+  NESTED     not a class: KEPT or RE-KEYED cites whose line(s) mapped only through a nested
+             re-key, counted beside the verdict
   PINNED     the citing file says its citations refer to an ARCHIVED snapshot (a published
              manuscript): its cites are correct against the archive, so never re-keyed; counted
 
@@ -46,7 +50,8 @@ baseline row, so it needs a record (read by hand).
 
 LIMITS, printed with every verdict: only `.lean` targets; cites in other forms (`:N, M` lists,
 "line N" prose) are not read; a cite written fresh at HEAD is not checked; content equality is per
-line, so a cite of a line whose MEANING moved while its text stayed is KEPT or RE-KEYED as text.
+line, so a cite of a line whose MEANING moved while its text stayed is KEPT or RE-KEYED as text;
+a line that changed only by this tool's own re-key of a cite inside it counts as unchanged (NESTED).
 """
 from __future__ import annotations
 
@@ -70,7 +75,8 @@ TEXT = (".lean", ".md", ".tex", ".tsv", ".py", ".txt", ".yml")
 LIMITS = ("LIMITS: .lean targets only; forms Leaf.lean:N and :N–M / :N-M; lists and prose line "
           "numbers are not read; a cite written fresh at HEAD is not checked; content equality is "
           "per line (a line whose meaning moved but whose text did not is not caught); a record is re-hashed only "
-          "under --apply (a re-key made by hand, read DONE, leaves its records to the prose check).")
+          "under --apply (a re-key made by hand, read DONE, leaves its records to the prose check); a line "
+          "changed only by this tool's re-key of a cite inside it counts as unchanged (NESTED).")
 
 
 LAST = {}                     # the last --apply's record verdicts (read by the self-test)
@@ -128,6 +134,72 @@ def refusals(root, base, head, published=PUBLISHED):
                   and pin_road(root, base, f, show(root, base, f), published))
 
 
+def cite_re(leaf):
+    return re.compile(r"(?<![A-Za-z0-9_./])((?:[A-Za-z0-9_.]+/)*)" + re.escape(leaf) + r":(\d+)(?:([–-])(\d+))?")
+
+
+def resolve(m, nb, mt):
+    """(class, rewritten cite or None) for a cite match `mt` into a file with line map `m` and `nb` base lines."""
+    lo = int(mt.group(2)); hi = int(mt.group(4)) if mt.group(4) else lo
+    nums = [lo] + ([hi] if mt.group(4) else [])
+    span = [m.get(n) for n in range(lo, hi + 1)]
+    new = [m.get(n) for n in nums]
+    if hi > nb:
+        return "PRE-STALE", None                    # past the base file's end: not this edit's
+    if any(x is None for x in span) or (span and span[-1] - span[0] != hi - lo):
+        return "REPORTED", None                     # an edited, deleted or inserted line inside
+    if new == nums:
+        return "KEPT", mt.group(0)
+    return "RE-KEYED", (mt.group(0).split(":")[0] + f":{new[0]}"
+                        + (f"{mt.group(3)}{new[1]}" if mt.group(4) else ""))
+
+
+def nested_map(root, base, head, edited, maps, nbase, leaves):
+    """Extend `maps` (in place) through NESTED re-keys and return the (file, base line) pairs so mapped.
+
+    A base line in a `replace` block maps to a head line when the head line equals the base line with every
+    cite in it rewritten as this tool rewrites it (KEPT or RE-KEYED by `resolve`). So a line that changed ONLY
+    because this tool re-keyed a cite inside it (h2c's case: XCeil moved, TierSBand's cite of XCeil re-keyed,
+    FlatDoorAllGradesBand cites a TierSBand range around it) keeps its number, and a range around it is not
+    REPORTED. Any other change, including a nested cite edited to a number the tool would not write, leaves the
+    line unmapped (LOW 1 stands). Iterated to a fixed point, since a rewrite reads the other files' maps."""
+    pats = {f: cite_re(f.rsplit("/", 1)[-1]) for f in edited}
+
+    def rekeyed(line):
+        for f in edited:
+            leaf = f.rsplit("/", 1)[-1]
+
+            def sub(mt, f=f, leaf=leaf):
+                pre = mt.group(1)
+                if (pre and not f.endswith(pre + leaf)) or (not pre and leaves[leaf] > 1):
+                    return mt.group(0)
+                c, rep = resolve(maps[f], nbase[f], mt)
+                return rep if c in ("KEPT", "RE-KEYED") else mt.group(0)
+            line = pats[f].sub(sub, line)
+        return line
+
+    texts = {f: (show(root, base, f).split("\n"), show(root, head, f).split("\n")) for f in edited}
+    blocks = {f: [op for op in difflib.SequenceMatcher(None, *texts[f], autojunk=False).get_opcodes()
+                  if op[0] == "replace"] for f in edited}
+    via, grew = set(), True
+    while grew:
+        grew = False
+        for f in edited:
+            a, b = texts[f]
+            for _, i1, i2, j1, j2 in blocks[f]:
+                ra = [rekeyed(x) for x in a[i1:i2]]
+                for tag, p1, p2, q1, _ in difflib.SequenceMatcher(None, ra, b[j1:j2], autojunk=False).get_opcodes():
+                    if tag != "equal":
+                        continue
+                    for k in range(p2 - p1):
+                        n = i1 + p1 + k + 1
+                        if n not in maps[f] and ra[p1 + k] != a[i1 + p1 + k]:
+                            maps[f][n] = j1 + q1 + k + 1
+                            via.add((f, n))
+                            grew = True
+    return via
+
+
 def census(root, base, head, published=PUBLISHED):
     out = git(root, "diff", "--name-status", "-M", base, head)   # -M: rename detection whatever the config
     edited = [ln.split("\t")[1] for ln in out.splitlines()
@@ -141,6 +213,7 @@ def census(root, base, head, published=PUBLISHED):
     nbase = {f: show(root, base, f).count("\n") + 1 for f in edited + renamed}
     for f in renamed:
         maps[f] = {}
+    via = nested_map(root, base, head, edited, maps, nbase, leaves)
     rows, cls = [], Counter()
     for src in files:
         if src in GENERATED or not src.endswith(TEXT):
@@ -163,22 +236,12 @@ def census(root, base, head, published=PUBLISHED):
                 if not pre and leaves[leaf] > 1:
                     cls["AMBIGUOUS"] += 1
                     continue
+                c, rep = resolve(maps[f], nbase[f], mt)
                 lo = int(mt.group(2)); hi = int(mt.group(4)) if mt.group(4) else lo
-                nums = [lo] + ([hi] if mt.group(4) else [])
-                span = [maps[f].get(n) for n in range(lo, hi + 1)]
-                new = [maps[f].get(n) for n in nums]
-                if hi > nbase[f]:
-                    c, rep = "PRE-STALE", None            # past the base file's end: not this edit's
-                elif any(x is None for x in span) or (span and span[-1] - span[0] != hi - lo):
-                    c = "REPORTED"                          # an edited, deleted or inserted line inside
-                    rep = None
-                elif new == nums:
-                    c, rep = "KEPT", mt.group(0)
-                else:
-                    c = "RE-KEYED"
-                    rep = f"{pre}{leaf}:{new[0]}" + (f"{mt.group(3)}{new[1]}" if mt.group(4) else "")
+                nest = c in ("KEPT", "RE-KEYED") and any((f, n) in via for n in range(lo, hi + 1))
                 cls[c] += 1
-                rows.append(dict(src=src, target=f, cite=mt.group(0), cls=c, new=rep))
+                cls["NESTED"] += nest
+                rows.append(dict(src=src, target=f, cite=mt.group(0), cls=c, new=rep, nested=nest))
     mark_done(root, base, head, rows, cls)
     return edited, rows, cls
 
@@ -319,7 +382,8 @@ def report(edited, rows, cls, applied):
           f"RE-KEYED {cls['RE-KEYED']}{' (applied)' if applied else ''} · REPORTED {cls['REPORTED']} · "
           f"PRE-STALE (past the base file's end, not this edit's) {cls['PRE-STALE']} · "
           f"AMBIGUOUS (bare leaf, not read) {cls['AMBIGUOUS']} · "
-          f"PINNED (an archived manuscript's, never re-keyed) {cls['PINNED']}")
+          f"PINNED (an archived manuscript's, never re-keyed) {cls['PINNED']} · "
+          f"NESTED (KEPT/RE-KEYED through a nested re-key) {cls['NESTED']}")
     pins = sorted({(r["src"], r["road"]) for r in rows if r["cls"] == "PINNED"})
     if pins:
         print(f"  PINNED files ({len(pins)}): " + ", ".join(f"{s} [{w}]" for s, w in pins))
@@ -346,7 +410,8 @@ def main_rc(root, args, applied=False, published=PUBLISHED):
     if applied:
         log = {}
         apply(root, base, head, rows, log)
-        cls = Counter(r["cls"] for r in rows) + Counter({"AMBIGUOUS": cls["AMBIGUOUS"]})
+        cls = Counter(r["cls"] for r in rows) + Counter({"AMBIGUOUS": cls["AMBIGUOUS"],
+                                                         "NESTED": sum(bool(r.get("nested")) for r in rows)})
         recs = LAST["recs"] = rehash_records(root, base, log)
     report(edited, rows, cls, applied)
     if recs is not None:
@@ -458,6 +523,38 @@ def self_test():
               b4.get("R.lean:2", {}).get("cls") == "REPORTED")
         check("a cite past the base file's end is PRE-STALE, not this edit's",
               b4.get("C.lean:99", {}).get("cls") == "PRE-STALE")
+    # a NESTED re-key (h2c, salt #567's XCeil cut): an edit moves X, this tool re-keys Y's cite of X, and Z
+    # cites a range of Y around that line. The range is as read, so it is KEPT; the same line edited to any
+    # OTHER number (W) is a real interior edit and stays REPORTED (LOW 1).
+    with tempfile.TemporaryDirectory() as d:
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt"))
+        ten = "".join(f"line {i}\n" for i in range(1, 11))
+        open(os.path.join(d, "Salt/X.lean"), "w").write(ten)
+        for n, c in (("Y", "X.lean:8"), ("W", "X.lean:9")):
+            y = [f"{n} {i}" for i in range(1, 11)]; y[4] = f"-- see {c}"
+            open(os.path.join(d, f"Salt/{n}.lean"), "w").write("\n".join(y) + "\n")
+        open(os.path.join(d, "z.md"), "w").write("Y.lean:3–7 · W.lean:3–7 · Y.lean:5\n")
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        open(os.path.join(d, "Salt/X.lean"), "w").write("a\nb\n" + ten)        # X moves by two
+        g("commit", "-q", "-am", "move X")
+        _, r7, _ = census(d, "HEAD~1", "HEAD")
+        apply(d, "HEAD~1", "HEAD", r7)                                         # Y: X.lean:10 · W: X.lean:11
+        w = open(os.path.join(d, "Salt/W.lean")).read().replace("X.lean:11", "X.lean:12")
+        open(os.path.join(d, "Salt/W.lean"), "w").write(w)                     # W: a hand edit, not the tool's
+        g("commit", "-q", "-am", "rekeyed")
+        _, rows7, cls7 = census(d, "HEAD~2", "HEAD")
+        k7 = {(r["src"], r["cite"]): r for r in rows7}
+        check("a range whose interior line changed ONLY by this tool's re-key is KEPT (h2c, #567)",
+              k7.get(("z.md", "Y.lean:3–7"), {}).get("cls") == "KEPT")
+        check("... and so is a cite of that line itself",
+              k7.get(("z.md", "Y.lean:5"), {}).get("cls") == "KEPT")
+        check("... counted apart, so the verdict says it", cls7["NESTED"] == 2)
+        check("the same line edited to ANOTHER number is still REPORTED (LOW 1 stands)",
+              k7.get(("z.md", "W.lean:3–7"), {}).get("cls") == "REPORTED")
+        check("... and the nested cite itself reads DONE in Y",
+              k7.get(("Salt/Y.lean", "X.lean:8"), {}).get("cls") == "DONE")
     with tempfile.TemporaryDirectory() as d:
         g = lambda *a: git(d, *a)
         g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
