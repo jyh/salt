@@ -79,9 +79,13 @@ behind an unused argument. -/
 noncomputable def mrtBandQ (Q₁ : ℝ) (j : ℕ) : ℝ :=
   Real.exp (((j ^ (4 * j + 2) : ℕ) : ℝ) * Real.log Q₁ ^ j)
 
+/-- `mrtBandP` is positive, being an `exp` (`Real.exp_pos`): a `simp` fact about the lower band
+endpoint, the twin of `mrtBandQ_pos`. -/
 @[simp] theorem mrtBandP_pos (P₁ Q₁ : ℝ) (j : ℕ) : 0 < mrtBandP P₁ Q₁ j :=
   Real.exp_pos _
 
+/-- `mrtBandQ` is positive, being an `exp` (`Real.exp_pos`). Spent by `mem_mrtBand_nat` as the
+nonnegativity `Nat.le_floor_iff` needs for the upper endpoint `⌊Q_j⌋₊`. -/
 @[simp] theorem mrtBandQ_pos (Q₁ : ℝ) (j : ℕ) : 0 < mrtBandQ Q₁ j :=
   Real.exp_pos _
 
