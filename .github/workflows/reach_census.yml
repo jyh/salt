@@ -72,6 +72,21 @@ jobs:
           key: salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ steps.sha.outputs.sha }}
           restore-keys: |
             salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      # The scratch imports two SaltC1 modules (MaynardK.Gaps270, MaynardK.SiegelFree), and the Lean
+      # job builds only the default target `Salt`, so its cache has no SaltC1 oleans: dispatch
+      # 41123063002 restored main's Salt cache by EXACT key and still spent 41 min importing.
+      # The certificate workflow saves the SaltC1 oleans on main; read them here, read only.
+      - name: Restore certificate build cache (prefix, read only)
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            .lake/build/lib/lean/SaltC1
+            .lake/build/lib/lean/SaltC1.*
+            .lake/build/ir/SaltC1
+            .lake/build/ir/SaltC1.*
+          key: c1-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'SaltC1/Cert54/data/**') }}-${{ steps.sha.outputs.sha }}
+          restore-keys: |
+            c1-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'SaltC1/Cert54/data/**') }}-
       - name: Install elan
         run: |
           curl https://elan.lean-lang.org/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
