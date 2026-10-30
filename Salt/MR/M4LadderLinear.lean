@@ -12,6 +12,7 @@ import Salt.MR.M4BridgePhase
 import Salt.MR.M4MeanSqPrime
 import Salt.MR.M4BridgeDilate
 import Salt.MR.M4ClassPrice
+import Salt.MR.LadderScale
 
 /-!
 # `M4LadderLinear` — the M4 mean-square ladder at `AdoorL M = 2^36·M`
@@ -228,21 +229,9 @@ theorem m4_meansq_per_chi_gen_L :
     hcoefBand hcoefPin
     hT0band _hcff hgP1 hgRows hL4096
   -- ⟦THE SCALE PAGE⟧
-  have hXe : Real.exp 1 ≤ X := le_trans exp_one_le_exp_exp_one hXee
-  have hX3 : (3 : ℝ) ≤ X := le_of_lt (lt_of_lt_of_le exp_exp_one_gt_three hXee)
-  have hX0 : (0 : ℝ) < X := by linarith
+  obtain ⟨hXe, hX3, hX0, hLX0, hXdX, hXd1, hMN, hNle, hXN, hN2X, hN4⟩ :=
+    ladder_scale_page hXee hlX2 hXd hNXd
   have hh0 : (0 : ℝ) < h := by linarith
-  have hLX0 : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 2) hlX2
-  -- ⟦THE TWO PINS, in every shape the suppliers want⟧
-  have hXdX : X ≤ (Xd : ℝ) := le_of_eq hXd.symm
-  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by rw [hXd]; linarith
-  have hXd1 : 1 ≤ Xd := by exact_mod_cast hXd1'
-  have hNcast : (N : ℝ) = 2 * X := by rw [hNXd]; push_cast; rw [hXd]
-  have hMN : 2 * Xd ≤ N := le_of_eq hNXd.symm
-  have hNle : (N : ℝ) ≤ 2 * (Xd : ℝ) := by rw [hNcast, hXd]
-  have hXN : X ≤ (N : ℝ) := by rw [hNcast]; linarith
-  have hN2X : (N : ℝ) ≤ 2 * X := le_of_eq hNcast
-  have hN4 : (N : ℝ) ≤ 4 * (Xd : ℝ) := by rw [hNcast, hXd]; linarith
   -- ⟦THE FRAME'S REMAINING ARITHMETIC⟧
   have hW4 : ∀ j ∈ ramI (H83 X theta293) P Q, 4 ≤ ramRbot (H83 X theta293) Xd j :=
     fun j hj => by linarith [hW5 j hj]
@@ -649,21 +638,9 @@ theorem m4_meansq_per_chi_gen_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     hcoefBand hcoefPin
     hT0band _hcff hgP1 hgRows hL4096
   -- ⟦THE SCALE PAGE⟧
-  have hXe : Real.exp 1 ≤ X := le_trans exp_one_le_exp_exp_one hXee
-  have hX3 : (3 : ℝ) ≤ X := le_of_lt (lt_of_lt_of_le exp_exp_one_gt_three hXee)
-  have hX0 : (0 : ℝ) < X := by linarith
+  obtain ⟨hXe, hX3, hX0, hLX0, hXdX, hXd1, hMN, hNle, hXN, hN2X, hN4⟩ :=
+    ladder_scale_page hXee hlX2 hXd hNXd
   have hh0 : (0 : ℝ) < h := by linarith
-  have hLX0 : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 2) hlX2
-  -- ⟦THE TWO PINS, in every shape the suppliers want⟧
-  have hXdX : X ≤ (Xd : ℝ) := le_of_eq hXd.symm
-  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by rw [hXd]; linarith
-  have hXd1 : 1 ≤ Xd := by exact_mod_cast hXd1'
-  have hNcast : (N : ℝ) = 2 * X := by rw [hNXd]; push_cast; rw [hXd]
-  have hMN : 2 * Xd ≤ N := le_of_eq hNXd.symm
-  have hNle : (N : ℝ) ≤ 2 * (Xd : ℝ) := by rw [hNcast, hXd]
-  have hXN : X ≤ (N : ℝ) := by rw [hNcast]; linarith
-  have hN2X : (N : ℝ) ≤ 2 * X := le_of_eq hNcast
-  have hN4 : (N : ℝ) ≤ 4 * (Xd : ℝ) := by rw [hNcast, hXd]; linarith
   -- ⟦THE FRAME'S REMAINING ARITHMETIC⟧
   have hW4 : ∀ j ∈ ramI (H83 X theta293) P Q, 4 ≤ ramRbot (H83 X theta293) Xd j :=
     fun j hj => by linarith [hW5 j hj]
@@ -1088,21 +1065,9 @@ theorem m4_meansq_per_chi_gen_pool_L :
     hcoefBand hcoefPin
     hT0band _hcff hpool hgP1 hgRows hgU hgBand
   -- ⟦THE SCALE PAGE⟧
-  have hXe : Real.exp 1 ≤ X := le_trans exp_one_le_exp_exp_one hXee
-  have hX3 : (3 : ℝ) ≤ X := le_of_lt (lt_of_lt_of_le exp_exp_one_gt_three hXee)
-  have hX0 : (0 : ℝ) < X := by linarith
+  obtain ⟨hXe, hX3, hX0, hLX0, hXdX, hXd1, hMN, hNle, hXN, hN2X, hN4⟩ :=
+    ladder_scale_page hXee hlX2 hXd hNXd
   have hh0 : (0 : ℝ) < h := by linarith
-  have hLX0 : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 2) hlX2
-  -- ⟦THE TWO PINS, in every shape the suppliers want⟧
-  have hXdX : X ≤ (Xd : ℝ) := le_of_eq hXd.symm
-  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by rw [hXd]; linarith
-  have hXd1 : 1 ≤ Xd := by exact_mod_cast hXd1'
-  have hNcast : (N : ℝ) = 2 * X := by rw [hNXd]; push_cast; rw [hXd]
-  have hMN : 2 * Xd ≤ N := le_of_eq hNXd.symm
-  have hNle : (N : ℝ) ≤ 2 * (Xd : ℝ) := by rw [hNcast, hXd]
-  have hXN : X ≤ (N : ℝ) := by rw [hNcast]; linarith
-  have hN2X : (N : ℝ) ≤ 2 * X := le_of_eq hNcast
-  have hN4 : (N : ℝ) ≤ 4 * (Xd : ℝ) := by rw [hNcast, hXd]; linarith
   -- ⟦THE FRAME'S REMAINING ARITHMETIC⟧
   have hW4 : ∀ j ∈ ramI (H83 X theta293) P Q, 4 ≤ ramRbot (H83 X theta293) Xd j :=
     fun j hj => by linarith [hW5 j hj]
@@ -1434,21 +1399,9 @@ theorem m4_meansq_per_chi_gen_pool_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     hcoefBand hcoefPin
     hT0band _hcff hpool hgP1 hgRows hgU hgBand
   -- ⟦THE SCALE PAGE⟧
-  have hXe : Real.exp 1 ≤ X := le_trans exp_one_le_exp_exp_one hXee
-  have hX3 : (3 : ℝ) ≤ X := le_of_lt (lt_of_lt_of_le exp_exp_one_gt_three hXee)
-  have hX0 : (0 : ℝ) < X := by linarith
+  obtain ⟨hXe, hX3, hX0, hLX0, hXdX, hXd1, hMN, hNle, hXN, hN2X, hN4⟩ :=
+    ladder_scale_page hXee hlX2 hXd hNXd
   have hh0 : (0 : ℝ) < h := by linarith
-  have hLX0 : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 2) hlX2
-  -- ⟦THE TWO PINS, in every shape the suppliers want⟧
-  have hXdX : X ≤ (Xd : ℝ) := le_of_eq hXd.symm
-  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by rw [hXd]; linarith
-  have hXd1 : 1 ≤ Xd := by exact_mod_cast hXd1'
-  have hNcast : (N : ℝ) = 2 * X := by rw [hNXd]; push_cast; rw [hXd]
-  have hMN : 2 * Xd ≤ N := le_of_eq hNXd.symm
-  have hNle : (N : ℝ) ≤ 2 * (Xd : ℝ) := by rw [hNcast, hXd]
-  have hXN : X ≤ (N : ℝ) := by rw [hNcast]; linarith
-  have hN2X : (N : ℝ) ≤ 2 * X := le_of_eq hNcast
-  have hN4 : (N : ℝ) ≤ 4 * (Xd : ℝ) := by rw [hNcast, hXd]; linarith
   -- ⟦THE FRAME'S REMAINING ARITHMETIC⟧
   have hW4 : ∀ j ∈ ramI (H83 X theta293) P Q, 4 ≤ ramRbot (H83 X theta293) Xd j :=
     fun j hj => by linarith [hW5 j hj]
@@ -1837,21 +1790,9 @@ theorem m4_meansq_per_chi_gen_join_L :
     hcoefBand hcoefPin
     hT0band _hcff hpool hgP1 hgRows hgU hgBand
   -- ⟦THE SCALE PAGE⟧
-  have hXe : Real.exp 1 ≤ X := le_trans exp_one_le_exp_exp_one hXee
-  have hX3 : (3 : ℝ) ≤ X := le_of_lt (lt_of_lt_of_le exp_exp_one_gt_three hXee)
-  have hX0 : (0 : ℝ) < X := by linarith
+  obtain ⟨hXe, hX3, hX0, hLX0, hXdX, hXd1, hMN, hNle, hXN, hN2X, hN4⟩ :=
+    ladder_scale_page hXee hlX2 hXd hNXd
   have hh0 : (0 : ℝ) < h := by linarith
-  have hLX0 : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 2) hlX2
-  -- ⟦THE TWO PINS, in every shape the suppliers want⟧
-  have hXdX : X ≤ (Xd : ℝ) := le_of_eq hXd.symm
-  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by rw [hXd]; linarith
-  have hXd1 : 1 ≤ Xd := by exact_mod_cast hXd1'
-  have hNcast : (N : ℝ) = 2 * X := by rw [hNXd]; push_cast; rw [hXd]
-  have hMN : 2 * Xd ≤ N := le_of_eq hNXd.symm
-  have hNle : (N : ℝ) ≤ 2 * (Xd : ℝ) := by rw [hNcast, hXd]
-  have hXN : X ≤ (N : ℝ) := by rw [hNcast]; linarith
-  have hN2X : (N : ℝ) ≤ 2 * X := le_of_eq hNcast
-  have hN4 : (N : ℝ) ≤ 4 * (Xd : ℝ) := by rw [hNcast, hXd]; linarith
   -- ⟦THE FRAME'S REMAINING ARITHMETIC⟧
   have hW4 : ∀ j ∈ ramI (H83 X theta293) P Q, 4 ≤ ramRbot (H83 X theta293) Xd j :=
     fun j hj => by linarith [hW5 j hj]
@@ -2182,21 +2123,9 @@ theorem m4_meansq_per_chi_gen_join_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     hcoefBand hcoefPin
     hT0band _hcff hpool hgP1 hgRows hgU hgBand
   -- ⟦THE SCALE PAGE⟧
-  have hXe : Real.exp 1 ≤ X := le_trans exp_one_le_exp_exp_one hXee
-  have hX3 : (3 : ℝ) ≤ X := le_of_lt (lt_of_lt_of_le exp_exp_one_gt_three hXee)
-  have hX0 : (0 : ℝ) < X := by linarith
+  obtain ⟨hXe, hX3, hX0, hLX0, hXdX, hXd1, hMN, hNle, hXN, hN2X, hN4⟩ :=
+    ladder_scale_page hXee hlX2 hXd hNXd
   have hh0 : (0 : ℝ) < h := by linarith
-  have hLX0 : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 2) hlX2
-  -- ⟦THE TWO PINS, in every shape the suppliers want⟧
-  have hXdX : X ≤ (Xd : ℝ) := le_of_eq hXd.symm
-  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by rw [hXd]; linarith
-  have hXd1 : 1 ≤ Xd := by exact_mod_cast hXd1'
-  have hNcast : (N : ℝ) = 2 * X := by rw [hNXd]; push_cast; rw [hXd]
-  have hMN : 2 * Xd ≤ N := le_of_eq hNXd.symm
-  have hNle : (N : ℝ) ≤ 2 * (Xd : ℝ) := by rw [hNcast, hXd]
-  have hXN : X ≤ (N : ℝ) := by rw [hNcast]; linarith
-  have hN2X : (N : ℝ) ≤ 2 * X := le_of_eq hNcast
-  have hN4 : (N : ℝ) ≤ 4 * (Xd : ℝ) := by rw [hNcast, hXd]; linarith
   -- ⟦THE FRAME'S REMAINING ARITHMETIC⟧
   have hW4 : ∀ j ∈ ramI (H83 X theta293) P Q, 4 ≤ ramRbot (H83 X theta293) Xd j :=
     fun j hj => by linarith [hW5 j hj]
@@ -2845,21 +2774,9 @@ theorem m4_meansq_per_chi_gen_L_gk_kwide (K : ℕ) :
     hcoefBand hcoefPin
     hT0band _hcff hgP1 hgRows hL4096
   -- ⟦THE SCALE PAGE⟧
-  have hXe : Real.exp 1 ≤ X := le_trans exp_one_le_exp_exp_one hXee
-  have hX3 : (3 : ℝ) ≤ X := le_of_lt (lt_of_lt_of_le exp_exp_one_gt_three hXee)
-  have hX0 : (0 : ℝ) < X := by linarith
+  obtain ⟨hXe, hX3, hX0, hLX0, hXdX, hXd1, hMN, hNle, hXN, hN2X, hN4⟩ :=
+    ladder_scale_page hXee hlX2 hXd hNXd
   have hh0 : (0 : ℝ) < h := by linarith
-  have hLX0 : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 2) hlX2
-  -- ⟦THE TWO PINS, in every shape the suppliers want⟧
-  have hXdX : X ≤ (Xd : ℝ) := le_of_eq hXd.symm
-  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by rw [hXd]; linarith
-  have hXd1 : 1 ≤ Xd := by exact_mod_cast hXd1'
-  have hNcast : (N : ℝ) = 2 * X := by rw [hNXd]; push_cast; rw [hXd]
-  have hMN : 2 * Xd ≤ N := le_of_eq hNXd.symm
-  have hNle : (N : ℝ) ≤ 2 * (Xd : ℝ) := by rw [hNcast, hXd]
-  have hXN : X ≤ (N : ℝ) := by rw [hNcast]; linarith
-  have hN2X : (N : ℝ) ≤ 2 * X := le_of_eq hNcast
-  have hN4 : (N : ℝ) ≤ 4 * (Xd : ℝ) := by rw [hNcast, hXd]; linarith
   -- ⟦THE FRAME'S REMAINING ARITHMETIC⟧
   have hW4 : ∀ j ∈ ramI (H83 X theta293) P Q, 4 ≤ ramRbot (H83 X theta293) Xd j :=
     fun j hj => by linarith [hW5 j hj]
@@ -3185,21 +3102,9 @@ theorem m4_meansq_per_chi_gen_pool_L_gk_kwide (K : ℕ) :
     hcoefBand hcoefPin
     hT0band _hcff hpool hgP1 hgRows hgU hgBand
   -- ⟦THE SCALE PAGE⟧
-  have hXe : Real.exp 1 ≤ X := le_trans exp_one_le_exp_exp_one hXee
-  have hX3 : (3 : ℝ) ≤ X := le_of_lt (lt_of_lt_of_le exp_exp_one_gt_three hXee)
-  have hX0 : (0 : ℝ) < X := by linarith
+  obtain ⟨hXe, hX3, hX0, hLX0, hXdX, hXd1, hMN, hNle, hXN, hN2X, hN4⟩ :=
+    ladder_scale_page hXee hlX2 hXd hNXd
   have hh0 : (0 : ℝ) < h := by linarith
-  have hLX0 : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 2) hlX2
-  -- ⟦THE TWO PINS, in every shape the suppliers want⟧
-  have hXdX : X ≤ (Xd : ℝ) := le_of_eq hXd.symm
-  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by rw [hXd]; linarith
-  have hXd1 : 1 ≤ Xd := by exact_mod_cast hXd1'
-  have hNcast : (N : ℝ) = 2 * X := by rw [hNXd]; push_cast; rw [hXd]
-  have hMN : 2 * Xd ≤ N := le_of_eq hNXd.symm
-  have hNle : (N : ℝ) ≤ 2 * (Xd : ℝ) := by rw [hNcast, hXd]
-  have hXN : X ≤ (N : ℝ) := by rw [hNcast]; linarith
-  have hN2X : (N : ℝ) ≤ 2 * X := le_of_eq hNcast
-  have hN4 : (N : ℝ) ≤ 4 * (Xd : ℝ) := by rw [hNcast, hXd]; linarith
   -- ⟦THE FRAME'S REMAINING ARITHMETIC⟧
   have hW4 : ∀ j ∈ ramI (H83 X theta293) P Q, 4 ≤ ramRbot (H83 X theta293) Xd j :=
     fun j hj => by linarith [hW5 j hj]
@@ -3525,21 +3430,9 @@ theorem m4_meansq_per_chi_gen_join_L_gk_kwide (K : ℕ) :
     hcoefBand hcoefPin
     hT0band _hcff hpool hgP1 hgRows hgU hgBand
   -- ⟦THE SCALE PAGE⟧
-  have hXe : Real.exp 1 ≤ X := le_trans exp_one_le_exp_exp_one hXee
-  have hX3 : (3 : ℝ) ≤ X := le_of_lt (lt_of_lt_of_le exp_exp_one_gt_three hXee)
-  have hX0 : (0 : ℝ) < X := by linarith
+  obtain ⟨hXe, hX3, hX0, hLX0, hXdX, hXd1, hMN, hNle, hXN, hN2X, hN4⟩ :=
+    ladder_scale_page hXee hlX2 hXd hNXd
   have hh0 : (0 : ℝ) < h := by linarith
-  have hLX0 : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 2) hlX2
-  -- ⟦THE TWO PINS, in every shape the suppliers want⟧
-  have hXdX : X ≤ (Xd : ℝ) := le_of_eq hXd.symm
-  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by rw [hXd]; linarith
-  have hXd1 : 1 ≤ Xd := by exact_mod_cast hXd1'
-  have hNcast : (N : ℝ) = 2 * X := by rw [hNXd]; push_cast; rw [hXd]
-  have hMN : 2 * Xd ≤ N := le_of_eq hNXd.symm
-  have hNle : (N : ℝ) ≤ 2 * (Xd : ℝ) := by rw [hNcast, hXd]
-  have hXN : X ≤ (N : ℝ) := by rw [hNcast]; linarith
-  have hN2X : (N : ℝ) ≤ 2 * X := le_of_eq hNcast
-  have hN4 : (N : ℝ) ≤ 4 * (Xd : ℝ) := by rw [hNcast, hXd]; linarith
   -- ⟦THE FRAME'S REMAINING ARITHMETIC⟧
   have hW4 : ∀ j ∈ ramI (H83 X theta293) P Q, 4 ≤ ramRbot (H83 X theta293) Xd j :=
     fun j hj => by linarith [hW5 j hj]
