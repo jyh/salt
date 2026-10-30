@@ -12,7 +12,7 @@ import Mathlib
 **S-3 (salt QUEUE P1; council 2026-09-14 afternoon ⑩) — FROZEN STATEMENT-ONLY at `74afa591`, PROVED
 in the §6 wave the same day: 6 obligations, 6 landed, every statement byte-identical to the freeze.
 HONEST LABEL, FIRST LINE: NO NEW MATHEMATICS.**  S-3 restates S-1's crown band
-`mrtUniformityXiL2AffW_holds_flat_stride_g12b_band` (`TierSBand.lean:1599`) with the margin `ε`,
+`mrtUniformityXiL2AffW_holds_flat_stride_g12b_band` (`TierSBand.lean:1595`) with the margin `ε`,
 the design constant `A` AND the band `(x₀, ω₀, Hhi₀)` bound ABOVE the class quantifier `∀ b < a`.
 It exports a uniformity that is already TRUE of every landed witness and STATED by no landed
 theorem.  At fixed `z` Tier S is a SECOND PROOF of a terminal that already lands; E2 is
@@ -198,7 +198,7 @@ theorem mrtUniformityXiL2Set_of_subset (Xi Xi' : XiFamily)
 /-! ## §1 — the C2 band at the union (the route's fifth owed name) -/
 
 /-- **⟦S-3 U5⟧ (class A) — C2 AT THE UNION.**  `mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band`
-(`TierSBand.lean:1558`) with `bigXiAffD a b h ↦ bigXiAffU a h`: C1's band
+(`TierSBand.lean:1554`) with `bigXiAffD a b h ↦ bigXiAffU a h`: C1's band
 (`mrtUniformityXiL2Set_holds_flat_floor_g12b_band`, `:1524`) at shift `a·h`, `harcXi` from U3 at
 `bigXiArcTight_twelve`, `hcount` from U2.  BODY: C2's, with the two per-class suppliers swapped for
 U2/U3.  No class quantifier anywhere — this is the statement that has `b` nowhere in it. -/
@@ -231,7 +231,7 @@ theorem mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band_U (a h : ℕ) (ha : 0
 /-! ## §2 — THE STATEMENT: the crown band with `∀ b < a` moved inward -/
 
 /-- **⟦S-3⟧ THE CLASS-UNIFORM CROWN BAND** — `mrtUniformityXiL2AffW_holds_flat_stride_g12b_band`
-(`TierSBand.lean:1599`) with `∃ ε A` and `∃ x₀ ω₀ Hhi₀` (and the three exported ceilings on
+(`TierSBand.lean:1595`) with `∃ ε A` and `∃ x₀ ω₀ Hhi₀` (and the three exported ceilings on
 them) placed ABOVE `∀ b, b < a →`; below that line the statement is the landed one, byte for byte
 (`Ra.b = b` included).  What it says that no landed statement says: ONE margin, ONE design constant
 and ONE band `[x₀, exp(31·Hhi₀/ε)/a]` at width `ω₀` serve EVERY class `b < a` — which is what D12
@@ -304,9 +304,7 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride_g12b_band_bU (a h : ℕ) (ha : 0
   have hloM : 4000000 ≤ Rd.a * Rd.Hlo / a := le_trans hf2 hBle
   have hepsR0 : (0 : ℝ) < (Rd.eps : ℝ) := by exact_mod_cast Rd.heps
   have heps500R : (Rd.eps : ℝ) ≤ 1 / 500 := by
-    have hq := (Rat.cast_le (K := ℝ)).mpr heps500
-    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at hq
-    exact hq
+    simpa using (Rat.cast_le (K := ℝ)).mpr heps500
   have hcop : (2 : ℝ) ≤ (Rd.eps : ℝ) ^ 2 * ((Rd.Hlo : ℕ) : ℝ) := by
     have hQ : ((Rd.a : ℕ) : ℚ) ≤ Rd.eps ^ 2 * ((Rd.Hlo : ℕ) : ℚ) / 2 := Rd.hcoprime
     have ha1 : (1 : ℚ) ≤ ((Rd.a : ℕ) : ℚ) := by exact_mod_cast Rd.ha

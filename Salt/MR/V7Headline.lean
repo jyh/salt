@@ -42,7 +42,7 @@ parent; the proof discards the parent's own `hRg` and passes the rest through un
 `log 0 + ε²·H₊ ≤ (31/ε)·H₊`.  `Real.log_zero` collapses the `log 0` summand to `0`, and the
 gate's own third field is `log ω + ε²·H₊ ≤ (31/ε)·H₊` with `log ω ≥ 0` — the ε²·H₊ margin the
 gate already carries is the whole payment.  This is the witness pattern already in-body at
-`RegisterCompose.lean:247-251`, `XThread.lean:1363-1367` and `V7B.lean:1761`, lifted here to the
+`RegisterCompose.lean:247-251`, `XThread.lean:1365-1369` and `V7B.lean:1761`, lifted here to the
 terminal.
 
 ## What this instance does and does not say
