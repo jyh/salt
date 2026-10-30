@@ -32,7 +32,7 @@ on the road to a terminal may carry `hW`.  Exactly five statements moved (W and 
 the transition guard's DIFFERS set is the receipt.)
 
 **HONEST LABEL, FIRST LINE.**  Nothing here bears on twin primes.  What W-ε would land is the
-landed `L²` MRT door on the flat family (`mrtUniformityXiL2_holds_flat`, `DoorReceipt.lean:1087`,
+landed `L²` MRT door on the flat family (`mrtUniformityXiL2_holds_flat`, `DoorReceipt.lean:1060`,
 UNCONDITIONAL at the ONE pin `ε = 1/500`) at EVERY `0 < ε ≤ 1/500`, on the head's own regime and
 at the head's own door threshold — `ρ := δ₀`, the mint `cD3/(16·C)·ε/4` read at the leaves'
 pinned witnesses `cD3 = 1/4`, `C = 1 + 4·log 4` — with that threshold's un-rounded FLOOR
@@ -53,14 +53,14 @@ and any consumer's floor on its threshold rounds DOWN, so a door stated at `ρ �
 never provably meets a slot `∀ ρ ≤ δ₀'` on another regime — not even with that slot's floor
 exported un-rounded (`ε/1675.565 < ε/1675.564`).  The door and the slot are therefore stated at
 ONE `δ₀` on ONE regime, which is what the chain proves (the socket hands the door out at
-`ρ := δ₀`, `XThread.lean:725`); the floor and the grade are exports ABOUT `δ₀`, never a
+`ρ := δ₀`, `XThread.lean:728`); the floor and the grade are exports ABOUT `δ₀`, never a
 substitute for it.  ⚠️ ERRATUM to «W-δ … is not stated» above: END OF FILE.
 
 **THE ROUTE (road F, h2c's per-hop walk of 2026-09-15 in the seat record):** the flat road's
 eight hops re-cut at generic `ε ≤ 1/500` — the pin `1/500 ≤ ε` enters at ONE site
-(`XThread.lean:589`) and is spent by exactly four proofs, each absorbed by an `ε`-dependent floor
+(`XThread.lean:592`) and is spent by exactly four proofs, each absorbed by an `ε`-dependent floor
 the corpus already carries; the head at the leaves' PINNED witnesses (the door-head's device,
-`DoorReceipt.lean:978`, with the three leaf estimates transported by one monotone step each) so
+`DoorReceipt.lean:951`, with the three leaf estimates transported by one monotone step each) so
 that the mint carries BOTH bounds and the tail (the entropy collision) still fires.  The capped
 rung (`…_capped`, `1/(500·8103) ≤ ε` — the lattice top `h = 8103`) is EXACTLY where every helper's
 landed `_h`/`_b9` numeral applies as it stands.  The full family (rung 2) is NOT priced here: each
@@ -82,7 +82,7 @@ namespace Salt.MR
 `837782 ≤ 128000·(1 + 8·log 2)` needs `log 2 ≥ 0.6931465`, and `Real.log_two_gt_d9` gives
 `0.6931471803`.  The interval W-ε's `δ₀` lives in is nonempty; at `ε = 1/500` it is
 `[1/(128000·(1 + 8·log 2)), 1/837782]`, whose LEFT end is the receipt's own `δ₀` — the receipt
-states `δ₀ ∈ (1/837783, 1/837782)` (`DoorReceipt.lean:82`).  (v1.2; v1.1 wrote the interval as
+states `δ₀ ∈ (1/837783, 1/837782)` (`DoorReceipt.lean:85`).  (v1.2; v1.1 wrote the interval as
 `(1/837782.7, 1/837782]` and called it the receipt's, which it is not — the helm's §6(2).) -/
 theorem flatDoorMint_floor_le_grade (ε : ℝ) (hε : 0 ≤ ε) :
     ε / (256 * (1 + 4 * Real.log 4)) ≤ 500 * ε / 837782 := by
@@ -94,7 +94,7 @@ theorem flatDoorMint_floor_le_grade (ε : ℝ) (hε : 0 ≤ ε) :
 
 /-- **⟦C2 — THE GRADE AT THE PIN IS THE LANDED NUMERAL⟧** (`flatDoorMint_grade_at_pin`) —
 `500·(1/500)/837782 = 1/837782`, the receipt predicate's grade (`MRTDoorReceipt`,
-`DoorReceipt.lean:87`), to the digit. -/
+`DoorReceipt.lean:90`), to the digit. -/
 theorem flatDoorMint_grade_at_pin :
     500 * (((1 : ℚ) / 500 : ℚ) : ℝ) / 837782 = 1 / 837782 := by
   norm_num
@@ -105,11 +105,11 @@ is the ONE theorem that inhabits it) -/
 /-- **⟦W-ε — THE `L²` DOOR ON THE FLAT FAMILY AT EVERY `ε ≤ 1/500`, AT `ρ := δ₀`⟧**
 (`FlatDoorEpsFamilyW`, FROZEN — a NAMED `Prop` from v1.4; v1–v1.3 stated it as the `sorry`-bodied
 theorem `mrtUniformityXiL2_holds_flat_epsFamily`) — `mrtUniformityXiL2_holds_flat`
-(`DoorReceipt.lean:1087`) with `ε` moved from the `∃`-prefix to a hypothesis `0 < ε ≤ 1/500`,
+(`DoorReceipt.lean:1060`) with `ε` moved from the `∃`-prefix to a hypothesis `0 < ε ≤ 1/500`,
 the door stated AT the head's own threshold `δ₀` (not at some `ρ ≤ 1/837782`), the threshold's
 FLOOR `ε/(256·(1 + 4·log 4)) ≤ δ₀` and GRADE `δ₀ ≤ 500·ε/837782` exported, and the head's slot
 `∀ ρ ≤ δ₀, MRTUniformityXiL2 R ρ → ¬ logChowla2Fails …` carried on the same regime
-(`flat_head_uniform_xceil`'s last conjunct, `XThread.lean:558`).  The regime conjuncts are the
+(`flat_head_uniform_xceil`'s last conjunct, `XThread.lean:561`).  The regime conjuncts are the
 landed door's verbatim: `R.eps = ε`, `R.Hlo = flatDesignBase A`, `162 ≤ A`, `A₀ ≤ A`,
 `3.2·A ≤ loglog R.Hlo`.  A consumer wanting `extraFloor ≤ R.Hlo` takes `A₀ := extraFloor` and
 `nat_le_flatDesignBase` (`logChowla2_epsFamily_of_flatDoor_floor` does).
@@ -184,7 +184,7 @@ theorem mrtUniformityXiL2_holds_flat_epsFamily_capped (ε : ℚ) (hε0 : 0 < ε)
 
 /-- **⟦C3 — THE ZERO LEVEL IS THE LANDED DOOR⟧** (`mrtUniformityXiL2_holds_flat_of_epsFamily`) —
 W-ε at `ε := 1/500` yields `mrtUniformityXiL2_holds_flat`'s statement VERBATIM
-(`DoorReceipt.lean:1087`): the witness `ρ := δ₀` with `δ₀ ≤ 500·(1/500)/837782 = 1/837782`.
+(`DoorReceipt.lean:1060`): the witness `ρ := δ₀` with `δ₀ ≤ 500·(1/500)/837782 = 1/837782`.
 This is the kernel's word that the corrected W-ε reduces to the landed receipt at the pin — the
 check the charter-request's K6 got backwards (it read the FLOOR's ordering for the GRADE's).
 v1.4: CONDITIONAL on `hW : FlatDoorEpsFamilyW` (rung 2 discharges it); not a final theorem. -/

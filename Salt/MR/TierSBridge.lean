@@ -55,7 +55,7 @@ namespace Salt.MR
 /-- **⟦S-4 K1′⟧ (class A, PROVED) — K1 WITH THE LANDED CROWN IN THE BINDER.**
 `gradedAffHeadAt_g12b_of_at_regime` (`StrideShellBand.lean`) at
 `hcrown := fun A₀' => mrtUniformityXiL2AffW_holds_flat_stride_g12b a b h … A₀'`
-(`StridePairReceiptG12b.lean:1140`, the landed crown): the `∀ Ra` arrow, as a hypothesis,
+(`StridePairReceiptG12b.lean:1116`, the landed crown): the `∀ Ra` arrow, as a hypothesis,
 recovers the landed graded head at every class and every `A₀` with nothing else assumed.  The
 landed consumers of `GradedAffHeadAt_g12b` can therefore be served through S-4. -/
 theorem gradedAffHeadAt_g12b_of_at_regime_crowned (a b h : ℕ) (ha : 0 < a) (hh : 0 < h)

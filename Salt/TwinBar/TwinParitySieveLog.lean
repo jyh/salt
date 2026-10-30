@@ -282,7 +282,7 @@ private lemma abs_class_sub_harmonic_le {d r : ℕ} (hd : 0 < d) (hr : r < d) (N
 
 /-- **P3a (class B — the hardest B in this file; not a one-line row).**  The harmonic remainder
 per divisor: `{n ≤ N : d ∣ n(n+2)}` is the union of `ρ(d)` residue classes `r ∈ Rnat d`
-(`dvd_iff_mem_Rnat`, `Salt/Brun/M2.lean:85`, which wants `[NeZero d]` — produce it from `hd`;
+(`dvd_iff_mem_Rnat`, `Salt/Brun/M2.lean:90`, which wants `[NeZero d]` — produce it from `hd`;
 `Rnat_card :76`, `Rnat_lt :100`; `nu_apply`: `ν(d) = ρ(d)/d`), and each class is within `4` of
 its main term `(1/d)·H_N`, so `|remLogCount d N| ≤ 4·ρ(d)`.
 UPPER: `sum_inv_class_le` (`:1087`) gives `class_r ≤ 1 + (1/d)(1 + log N)` and
