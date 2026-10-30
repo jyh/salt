@@ -1404,7 +1404,7 @@ theorem flat_capstone_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ)
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
-/-- **⟦A1 — THE `+ 7` NUMERAL TWIN⟧ (class A, v2).**  `xceil_arm_split_h` (XThread.lean:1122)
+/-- **⟦A1 — THE `+ 7` NUMERAL TWIN⟧ (class A, v2).**  `xceil_arm_split_h` (XThread.lean:1115)
 with `+ 7` on the left: `log 2 + log h + 7 ≤ H₊/(250000·h²) − H₊/10²⁰`.  The landed lemma is an
 EQUALITY-tight budget line (the conditional's `hg'` block closes at ZERO slack on `31/ε·H₊`), so
 the H2→H3 replay's extra `log a ≤ 7` cannot ride it — refuter verdict A1.  Same body as the
@@ -1922,7 +1922,7 @@ def MRTDoorReceiptSet (h : ℕ) (Xi : XiFamily) (R : ChowlaRegime) : Prop :=
   ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / (837782 * (h : ℝ) ^ 2) ∧ MRTUniformityXiL2Set Xi R ρ
 
 /-- **⟦THE DOOR-HEAD AT `h`, AT A GENERIC SET⟧ (class B).**  `DoorReceipt.flat_door_head_xceil`
-(DoorReceipt.lean:947) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean):
+(DoorReceipt.lean:940) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean):
 the leaves PINNED — `cD3 := 1/4`, `C := h·(1 + 2·(2·log 4))`, `ε := 1/(500·h)` —
 so `δ₀ := cD3/(16·C)·ε/4 = 1/(128000·h²·(1 + 8·log 2))` closes BOTH `1/(838400·h²) ≤ δ₀`
 (`hδ₀ge`, the landed script at `h`) and `δ₀ ≤ 1/(837782·h²)` (`hδ₀le`, `C > 6.5451718·h` by

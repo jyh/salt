@@ -25622,7 +25622,7 @@ the class and the statement of record, the five receipts, the four inversion lem
 U-forms, U-ARM (`s15Arm_le_of_regime`), and the doorL2, road and capstone hops on the U-forms.
 
 **What the hop needs about `R` that its U-form does not give.**  The source
-`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4955`) spends the head's COUNT export
+`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4956`) spends the head's COUNT export
 `∀ H [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → |bigXi R.eps H| ≤ K` (K the head's existential) twice:
 as an input to the head's own slot and as `hcount` of `sum_bigXi_norm_windowExpSum_sq_le_twelve`
 (`M4Window.lean:567`).  Under the brief's rule `FlatHeadFormU` keeps the count as a HYPOTHESIS
