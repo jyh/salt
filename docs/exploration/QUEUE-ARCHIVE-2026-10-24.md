@@ -260,7 +260,7 @@
   - **NEXT: road F's next hop is a STATEMENT, and a statement is the Captain's word at a sitting.** Nothing is commissioned past Z; h2c holds on a gate until one is ruled.
 
 ✅ **ROAD F · CANDIDATE U — THE UNIFORM FLAT DOOR — LANDED 2026-09-25 (h2c; PR #183 → merge `2fb62a98` on `main`, half 1 + half 2; math's non-author read CONFIRM — vacuity PROVED as a separate theorem in its own tree, own kernel pair with a planted control).** `Salt/MR/FlatDoorUniform.lean`: `flatDoorUniformW_holds : FlatDoorUniformW` — the L² MRT door with the crown's quantifier `∃ H₀ ∀ R` on the FLAT CLASS (`FlatClassW ε R`: the window's `ε`, the ceiling `log x ≤ (31/ε)·Hhi`, the width law), at every grade `ρ > 0` and every `ε ∈ (0, 1/500]`; landed receipts: U ⇒ W-δ (`nextHopU_zero_level`) and the crown ⇒ U (`nextHopU_of_crown`). ⛔ **CAVEAT FIRST:** U is implied by the crown and is NOT the crown — the residual is every regime OFF the class (`x` above the ceiling; `Hhi` tower-far above `Hlo`), the EM freeze's roads 2/5; no rate; the ε-range stays `(0, 1/500]`; **nothing bears on twin primes.** The freeze and its two addenda are seat-record artifacts, cited by role.
-  - ⚠️ **CANDIDATE E (the ε-range `(1/500, 1/2]`) — PRICED AT THE OBJECT 2026-09-25 AND REFUSED AS A WAVE (h2c).** The U freeze's §6 priced E as *one lemma* (the count ceiling at `ε ≤ 1/2`); at the object the binding spend is elsewhere: the rung-2 head pins the leaves' constants `cD3 = 1/4` (the prime-window mass) and `C = 1 + 4·log 4` (the circle method) and feeds the spine budget the binder `ε ≤ cD3/(16·C)` ≈ **1/419** (`FlatDoorEpsRung2.lean:4827` → `SpineFlat.lean:144–151`, where `C·ε²·H/log H` must sit under a sixteenth of `cD3·ε·H/log H`); the reduce leaf adds `ε ≤ cE/(32·log 4)` ≤ 1/177. **No re-pin reaches past ~1/192; the crown's `ε ≤ 1/2` is a factor ≥ 96 beyond this device.** The widening the device CAN buy (`1/500 → ≤ 1/419`) is ≈ 100 lines and worth nothing toward the crown's axis; the crown's ε-axis needs a NEW budget device — class D, a statement, the Captain's. The price brief is a seat-record artifact, cited by role.
+  - ⚠️ **CANDIDATE E (the ε-range `(1/500, 1/2]`) — PRICED AT THE OBJECT 2026-09-25 AND REFUSED AS A WAVE (h2c).** The U freeze's §6 priced E as *one lemma* (the count ceiling at `ε ≤ 1/2`); at the object the binding spend is elsewhere: the rung-2 head pins the leaves' constants `cD3 = 1/4` (the prime-window mass) and `C = 1 + 4·log 4` (the circle method) and feeds the spine budget the binder `ε ≤ cD3/(16·C)` ≈ **1/419** (`FlatDoorEpsRung2.lean:4828` → `SpineFlat.lean:144–151`, where `C·ε²·H/log H` must sit under a sixteenth of `cD3·ε·H/log H`); the reduce leaf adds `ε ≤ cE/(32·log 4)` ≤ 1/177. **No re-pin reaches past ~1/192; the crown's `ε ≤ 1/2` is a factor ≥ 96 beyond this device.** The widening the device CAN buy (`1/500 → ≤ 1/419`) is ≈ 100 lines and worth nothing toward the crown's axis; the crown's ε-axis needs a NEW budget device — class D, a statement, the Captain's. The price brief is a seat-record artifact, cited by role.
   - **NEXT: road F's next hop is a STATEMENT, and a statement is the Captain's word at a sitting.** U is the last hop the 09:48 order commissioned ("road F's next hop after arm S"); E is parked here with its read; nothing is commissioned past U. ⛔ Caveat unchanged: U is implied by the crown and is NOT the crown; nothing bears on twin primes.
 
 
@@ -739,7 +739,7 @@
    with `13·10^13` left landed at the wider `c` FAILS at `hstep`'s own `nlinarith`, XThread:476's twin — one step before the
    freeze's predicted :482); the exit test §7.1 whole (the six-path diff against `9a2b3053`, the excluding diff EMPTY, the
    minus lines exactly the 27 `sorry`, statements 14/18/2/3 byte-identical to the freeze, both aggregates `EXIT=0`, lint
-   `OK`). Two lines the recipe did not carry, both ABOVE the arm's `theorem` and copied from the landed `XThread.lean:336`
+   `OK`). Two lines the recipe did not carry, both ABOVE the arm's `theorem` and copied from the landed `XThread.lean:337`
    shape: `open private xt_exp25 from Salt.MR.XThread` and `set_option maxHeartbeats 2000000 in`. salt `math/lbv-w2s-beta`
    off `9a2b3053`: `Salt/MR/StrideGradeWalls.lean` (14) · `Salt/MR/StridePairReceiptG.lean` (7 defs + 11) ·
    `Salt/Entropy/Chowla/StrideShellG.lean` (2) · `Salt/MR/StrideGradeReceipt.lean` (3) = **37 declarations, 27 obligations
@@ -5294,7 +5294,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    REFUTED BEFORE PROPOSING IT:** re-routing the cushion onto the outer scale so the regime lever
    `g R.Hhi R.ω ≤ R.x` absorbs it — `_g0` sets that lever to zero and the parent
    (`V7Ks.lean:434`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
-   `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:88`) with `ε ≥ 1/500` permits at most
+   `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:89`) with `ε ≥ 1/500` permits at most
    `log g ≤ 15500·H₊`, worth **≈ +24 additive on `loglog X`** against the landed floor
    `loglog X ≥ log H₊ − 14` — a constant factor ≤ ~4, **never a rate.** Full stamp:
    `docs/blueprints/arc.md` §4's R-1 row (and §7 carries the pointer).
@@ -5961,7 +5961,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    `Salt/MR/All.lean` in the same commit. `m4_second_road_L2_H_gk_flatRoot_L_exit` is the
    `h`-twin of `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L` (`:239`): the terminal
    register on the terminal's lane, **in `¬ logChowlaFails h` form**, composed from the landed
-   DOOR-FORM register (`S16FlatTerminalLinearH.lean:1567`) and the new flat head at shift `h`.
+   DOOR-FORM register (`S16FlatTerminalLinearH.lean:1563`) and the new flat head at shift `h`.
    The four scalings and nothing else: the pins `1/(500·h) ≤ ε` and `1/(838400·h²) ≤ δ₀` (under
    which every gate of the landed head takes exactly its `h = 1` value, because `ε·h = 1/500`
    exactly), the cap `C ≤ h·(1 + 2·C₀)`, the count set `bigXiH h` with `K` existential, and the

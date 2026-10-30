@@ -104,6 +104,7 @@ import Mathlib
 import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
+import Salt.Entropy.Chowla.RegimeHeadroom
 
 -- The head reaches `flatCapH_shuffle` (the `h` head's own cap shuffle) by `open private`, the
 -- corpus's sanctioned device (`DoorReceipt.lean:70` does the same for `uniformCap_shuffle`).
@@ -585,13 +586,13 @@ theorem chowlaRegimeFlat_exists_param_head_xceil_mul_b9 (a : ℕ) (ha : 1 ≤ a)
 
 /-- **F3-Q4 (class B/C) — THE AFFINE ARC BRIDGE.**  Every affine frequency is `NearRatTight` at
 cap `(a·h)·arcDen B₅ H`, on the grid `a ∣ H`.  The twin of `nearRatTight_of_bigXiArcTight_H`
-(HDoorArc.lean:139): `ξ ∈ bigXiAff` gives `η < a` with `ζ := affOffset a b h H η + h·ξ ∈ bigXi`
+(HDoorArc.lean:140): `ξ ∈ bigXiAff` gives `η < a` with `ζ := affOffset a b h H η + h·ξ ∈ bigXi`
 (`mem_bigXiAff_iff`), so `NearRatTight (arcDen B₅ H) H (−ζ.val/H)` by the base bridge
 (`nearRatTight_of_bigXiArcTight harc heps`, at its own `H₀`); `ζ.val ≡ c + h·ξ.val (mod H)` with
 `c = affOffset … .val` and, on the grid, `c·a ≡ (b+h)·η·H (mod H·a)` (`affOffset_spec`, F1-X4), i.e.
 `c/H = (b+h)η/a − (an integer)` — a rational with denominator `a`; so `−h·ξ.val/H` is within
 `arcDen/(qH)` of `p/q + r/a + m`, a rational with denominator `≤ a·q ≤ a·arcDen`; then N2's
-division by `h` (`HDoorArc.lean:139`'s own script: the shift `k = (h·ξ.val)/H` stripped by
+division by `h` (`HDoorArc.lean:140`'s own script: the shift `k = (h·ξ.val)/H` stripped by
 `Nat.div_add_mod`, THE CAST SEAM ADDITIVE, never subtractive) puts `−ξ.val/H` within
 `(a·h)·arcDen/(q'·H)` of a rational with denominator `q' ≤ a·h·arcDen`.  ⛔ The B/C half is the
 denominator bookkeeping through `NearRatTight`'s tight radius `Q/(q·H)` (BigXiArc:566): the witness
@@ -701,9 +702,9 @@ theorem nearRatTight_of_bigXiAffD {B₅ : ℝ} (harc : BigXiArcTight B₅)
 /-! ## §3 — the road at a generic set family (Δ1) -/
 
 /-- **F3-Q5 (class B) — N4c at a generic set.**  `sum_bigXiH_norm_windowExpSum_sq_le_parseval`
-(HDoorArc.lean:328) with `bigXiH h R.eps H` replaced by `Xi R.eps H` and the cap `(h : ℝ) * arcDen
+(HDoorArc.lean:329) with `bigXiH h R.eps H` replaced by `Xi R.eps H` and the cap `(h : ℝ) * arcDen
 B₅ H` by an arbitrary `Q H`: the proof (`sum_bigXiH_norm_windowExpSum_sq_le_sub` ← N4a,
-HDoorArc.lean:211-293) reads the set ONLY through `harc`, `hXi`, `hins` and is copied with the
+HDoorArc.lean:212-294) reads the set ONLY through `harc`, `hXi`, `hins` and is copied with the
 set renamed — no `mem_bigXiH_iff` is used anywhere in it.  `hins` in the parseval spelling
 (`(1/H²) * ∑ ‖λ-sum − a-sum‖²`), the spelling lemma `sum_bigXi_insert_spelling_eq`
 (M4DoorL2.lean:545) being set-generic in its proof (`absWindowSum_add_coeff` + `Finset.mul_sum`)
@@ -734,7 +735,7 @@ theorem sum_Xi_norm_windowExpSum_sq_le_parseval (Xi : XiFamily) (Q : ℕ → ℝ
   have hH0 : H ≠ 0 := NeZero.ne H
   have hHpos : (0 : ℝ) < (H : ℝ) := by positivity
   have hinvpos : (0 : ℝ) < 1 / (H : ℝ) ^ 2 := by positivity
-  -- ⟦N4a AT `Xi`⟧ the landed body (HDoorArc.lean:211-293) with the set renamed
+  -- ⟦N4a AT `Xi`⟧ the landed body (HDoorArc.lean:212-294) with the set renamed
   have N4a : ∀ e : ℕ → ℂ, (∀ m, lamCoeff m = a m + e m) →
       (∑ ξ ∈ Xi R.eps H, (1 / (H : ℝ) ^ 2) *
         ∫ n, ‖absWindowSum e H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
@@ -794,7 +795,7 @@ theorem sum_Xi_norm_windowExpSum_sq_le_parseval (Xi : XiFamily) (Q : ℕ → ℝ
                   ∂(logMeasure R.x R.ω) := by
           rw [Finset.sum_add_distrib, Finset.sum_const, nsmul_eq_mul, ← Finset.mul_sum]
       _ ≤ K * (2 * Bsieve H) + 2 * Binsert := by linarith
-  -- ⟦THE PARSEVAL SPELLING⟧ HDoorArc.lean:353-376 with the set renamed
+  -- ⟦THE PARSEVAL SPELLING⟧ HDoorArc.lean:354-377 with the set renamed
   have hsub : ∀ (n : ℕ) (α : ℝ),
       absWindowSum (fun m => lamCoeff m - a m) H n α
         = absWindowSum lamCoeff H n α - absWindowSum a H n α := by
@@ -858,12 +859,7 @@ theorem m4_doorL2_supply_Set_gk_khoist (h : ℕ) (_hh : 0 < h) (Xi : XiFamily)
   -- ⟦the door's own scales, off the regime — the lane's four lines⟧
   have hA : 1 ≤ AdoorL M := one_le_AdoorL hgates.hM
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   -- ⟦THE FUSE⟧ the adapter's `hins`, fired at `Xi R.eps H` (parseval is set-generic).
   have hins : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
       (1 / (H : ℝ) ^ 2) * ∑ ξ ∈ Xi R.eps H,
@@ -1404,7 +1400,7 @@ theorem flat_capstone_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ)
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
-/-- **⟦A1 — THE `+ 7` NUMERAL TWIN⟧ (class A, v2).**  `xceil_arm_split_h` (XThread.lean:1115)
+/-- **⟦A1 — THE `+ 7` NUMERAL TWIN⟧ (class A, v2).**  `xceil_arm_split_h` (XThread.lean:1111)
 with `+ 7` on the left: `log 2 + log h + 7 ≤ H₊/(250000·h²) − H₊/10²⁰`.  The landed lemma is an
 EQUALITY-tight budget line (the conditional's `hg'` block closes at ZERO slack on `31/ε·H₊`), so
 the H2→H3 replay's extra `log a ≤ 7` cannot ride it — refuter verdict A1.  Same body as the

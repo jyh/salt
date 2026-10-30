@@ -35,8 +35,8 @@ door-conditional, whose value is the exported exchange rate.  Nothing bears on t
 -/
 
 -- The pinned head's core and the two cap helpers are `private` in `HloExport`; they are reached
--- by `open private` (Batteries), the corpus's sanctioned device (`XThread.lean:56`,
--- `S16Compose.lean:69`) — no landed file gains a declaration.
+-- by `open private` (Batteries), the corpus's sanctioned device (`XThread.lean:57`,
+-- `S16Compose.lean:70`) — no landed file gains a declaration.
 open private spine_False_core_xi_sq_cap mutualInfo_window_comm_cap hloCap_shuffle from
   Salt.Entropy.Chowla.HloExport
 
@@ -60,8 +60,8 @@ replaced by the hypothesis: `hεcE`, `hε_half_lt`, `hε_D3`, `hε_D3C`, `hε2`,
 `hCnum`, `hlog4eq`); the exchange-rate conjunct from `hkey : 5/2096 ≤ cD3/(16·C)` (the landed
 line) by `nlinarith`/`linarith` on `ε ≥ 0`; the three `private` names of `HloExport`
 (`spine_False_core_xi_sq_cap`, `mutualInfo_window_comm_cap`, `hloCap_shuffle`) via
-`open private … from Salt.Entropy.Chowla.HloExport` (the landed idiom, `XThread.lean:56`;
-a second at `S16Compose.lean:69`). -/
+`open private … from Salt.Entropy.Chowla.HloExport` (the landed idiom, `XThread.lean:57`;
+a second at `S16Compose.lean:70`). -/
 theorem log_chowla_two_budget_head_g_sq_count_hloCap_epsFamily (ε : ℚ) (hε0 : 0 < ε)
     (hε : ε ≤ 1 / 500) :
     ∃ (K δ₀ : ℝ) (Hcap : ℕ), 0 < K ∧ 0 < δ₀ ∧ (ε : ℝ) / 1677 ≤ δ₀ ∧
