@@ -10,9 +10,10 @@ import Salt.MR.BlockLenDoor
 import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
+import Salt.MR.ArcRegimeWeaken
 
 -- Needed to transcribe §4's band head and §5's socket hop: the two names rung 2 itself
--- opens for the identical purpose (`FlatDoorEpsRung2.lean:30-31`).  MEASURED, not assumed:
+-- opens for the identical purpose (`FlatDoorEpsRung2.lean:31-32`).  MEASURED, not assumed:
 -- `#check @uniformCap_shuffle` and `#check @uniformCap_arc` both fail without this line
 -- (`Unknown identifier`), and `regimeFlatEnlargeX` needs no such line — it is public in
 -- `Salt.Entropy.Chowla`, which is opened below.
@@ -42,7 +43,7 @@ long-band bound, which is class A.  §9's zero level proves ARM R is never weake
 W-δ, and the `example` beside it is the control that the two compose.
 
 ## §2's RULE — the eight band forms are GENERATED, never typed
-ONE RULE turns each of rung 2's eight forms (`FlatDoorEpsRung2.lean:4482 · 4499 · 4529 · 4554 ·
+ONE RULE turns each of rung 2's eight forms (`FlatDoorEpsRung2.lean:4483 · 4499 · 4529 · 4554 ·
 4590 · 4684 · 4709 · 4738`) into its `_band` twin, everything else the source's byte for byte.
 ⚠️ Rung 2 has NO STRIDE, so the landed S-1 rule (`TierSBand.lean:38–57`) loses `a` throughout:
 the rider is `g`, never `a * g`; there is no `a ∣ x'`, no `1 ≤ a → a ≤ 8103`, no `StrideScale`.
@@ -472,7 +473,7 @@ def V7RatedFormEpsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (A₀ 
 
 /-- **⟦ARM R B2′ — THE BUILDER TWIN ON B1 AT STRIDE 1⟧**
 (`chowlaRegimeFlat_exists_param_head_xceil_at_tight`) — rung 2's
-`chowlaRegimeFlat_exists_param_head_xceil_at` (`FlatDoorEpsRung2.lean:2904`, body 90 lines) with
+`chowlaRegimeFlat_exists_param_head_xceil_at` (`FlatDoorEpsRung2.lean:2905`, body 90 lines) with
 its first `obtain` taken from the landed S-1 builder B1
 (`chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9_tight`, `TierSBand.lean:423`) at stride
 `a := 1` — `strideScale_one` makes that a flat regime — instead of from
@@ -597,7 +598,7 @@ theorem chowlaRegimeFlat_exists_param_head_xceil_at_tight (lam0 A : ℝ) (hA : 2
 
 /-- **⟦ARM R H0 — THE BAND HEAD AT THE TRIVIAL PAYLOAD⟧**
 (`flat_head_uniform_xceil_epsW_band`) — rung 2's `flat_head_uniform_xceil_epsW`
-(`FlatDoorEpsRung2.lean:4787`, body 169 lines) at the band form, at `P := fun _ => True`.
+(`FlatDoorEpsRung2.lean:4788`, body 169 lines) at the band form, at `P := fun _ => True`.
 
 **THE PAYLOAD IS DROPPED, BINDER AND ALL.**  The landed head takes a four-clause `hP` and spends
 it in a SLOT that runs the door-head's spine at the regime it built; this twin takes no `hP`, and
@@ -636,7 +637,7 @@ theorem flat_head_uniform_xceil_epsW_band (ε : ℚ) (hε0 : 0 < ε) (hε : ε �
   have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:958–967`)
+  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:951–960`)
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
@@ -702,7 +703,7 @@ theorem flat_head_uniform_xceil_epsW_band (ε : ℚ) (hε0 : 0 < ε) (hε : ε �
 
 /-! ## §5 — the four pass-through hops, at the enlarged regime
 
-Rung 2's four PASS-THROUGH hops (`FlatDoorEpsRung2.lean:4955 · 4978 · 5023 · 5086`) at the band
+Rung 2's four PASS-THROUGH hops (`FlatDoorEpsRung2.lean:4956 · 4978 · 5023 · 5086`) at the band
 forms.  In each one the source's tuple gains the THREE new export conjuncts of rules (i-ω) (i-x)
 (i-gate) — `hRωtight`, `hRxtight`, `hll` — which are passed straight through, and the source's
 antecedent block gains `intro x' hx' hxc` in front and is then RUN AT `R' := regimeEnlargeX R hx'`
@@ -820,16 +821,8 @@ theorem flat_road_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → P
   intro x' hx' hxc δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2
     harc3 hdgate hdrift hceil hbudget hrow
   set R' : ChowlaRegime := regimeEnlargeX R hx' with hR'def
-  have harc8 : ∀ H : ℕ, R'.Hlo ≤ H → H ≤ R'.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R') hlo
-    nlinarith [h1, harc1]
-  have harc : ∀ H : ℕ, R'.Hlo ≤ H → H ≤ R'.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R') hlo
-    nlinarith [h1, harc1]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN_L_gk K R' M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied_L_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -1003,14 +996,14 @@ theorem flat_capstone_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime �
 
 /-! ## §6 — the conditional hop, and the ONE export block: tier A → tier B
 
-Rung 2's conditional hop (`FlatDoorEpsRung2.lean:5217`) at the band forms.  It is the only hop
+Rung 2's conditional hop (`FlatDoorEpsRung2.lean:5210`) at the band forms.  It is the only hop
 of this file that does arithmetic rather than pass a conjunct through, and the arithmetic is
 forced by rule (i-x)'s TWO TIERS: this hop instantiates its source at the INFLATED rider
 `g' = s15Arm δ₀ ρ + g`, so the tier-A bound it receives is stated at `g'` and the tier-B bound it
 must export is stated at `2 · g`.  The block below is that conversion. -/
 
 /-- **⟦ARM R H4→H5⟧** (`flat_conditional_generic_epsW_band`) — rung 2's
-`flat_conditional_generic_epsW` (`FlatDoorEpsRung2.lean:5217`) at the band forms.
+`flat_conditional_generic_epsW` (`FlatDoorEpsRung2.lean:5210`) at the band forms.
 
 THREE THINGS HAPPEN HERE, and only the third is new work:
 * the source's `hg'` (the substituted rider `s15Arm δ₀ ρ + g` still obeys the builder-side gate,
@@ -1169,7 +1162,7 @@ theorem flat_conditional_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegim
 /-! ## §7 — the terminal hop, the rated hop and the chain -/
 
 /-- **⟦ARM R H5→H6⟧** (`flat_kswin_generic_epsW_band`) — rung 2's `flat_kswin_generic_epsW`
-(`FlatDoorEpsRung2.lean:5336`) at the band forms.  Everything above the band quantifier is the
+(`FlatDoorEpsRung2.lean:5329`) at the band forms.  Everything above the band quantifier is the
 source's token for token: the hoisted crossing constants, the `ε`-ceiling probe at the re-minted
 design constant `162 + 2·log c`, the two `ε`-numeral casts at the charge, the two
 `flat_witFloor_eq_designBase_L` reads and the width price.  The (i-ω) and tier-B exports pass
@@ -1272,7 +1265,7 @@ theorem flat_kswin_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → 
       (by simp only [regimeEnlargeX_Hlo]; rw [hHlo]; exact hT₀) hblk hcof hcapsc)
 
 /-- **⟦ARM R H6→H7⟧** (`flat_v7_generic_epsW_band`) — rung 2's `flat_v7_generic_epsW`
-(`FlatDoorEpsRung2.lean:5459`) at the band forms.  The ninth arm, the eight-arm design constant,
+(`FlatDoorEpsRung2.lean:5452`) at the band forms.  The ninth arm, the eight-arm design constant,
 the rated co-factor supply and every `le_max` chain are the source's, unchanged: the design
 constant is chosen before any regime exists, so the band does not reach it.
 
@@ -1431,7 +1424,7 @@ theorem flat_v7_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pro
         hA26 hLt (flatDoorM_one_le hA26) heps500 hxceil hwin))
 
 /-- **⟦ARM R — THE CHAIN⟧** (`flat_chain_generic_epsW_band`) — rung 2's
-`flat_chain_generic_epsW` (`FlatDoorEpsRung2.lean:5606`) over the `_band` hops, token for token.
+`flat_chain_generic_epsW` (`FlatDoorEpsRung2.lean:5599`) over the `_band` hops, token for token.
 The charge and the `δ₀` pin travel INSIDE the forms and the band quantifier travels inside their
 last conjunct, so no hop takes either as a hypothesis and this composition is the landed one with
 six names changed.  Nothing here bears on twin primes. -/

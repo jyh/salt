@@ -239,7 +239,7 @@ def factTerm (argStxs : Array Term) : Prov → MetaM (Option Term)
     -- A square fact's term is printed with its type explicit unless it is a bare variable: `delab`
     -- prints `((a : ℤ) - c)` as `↑a - ↑c`, which carries no target type, so on replay (and on
     -- paste) the `↑`s elaborate elsewhere and the certificate is refused (desk ADL's successor;
-    -- math's reproducer, Salt/Vmvt/Shifted.lean:140:4, bundle 45). A variable carries its own
+    -- math's reproducer, Salt/Vmvt/Shifted.lean:141:4, bundle 45). A variable carries its own
     -- type, so `mul_self_nonneg x` stays as it was.
     let eS ← PrettyPrinter.delab e
     let eS ← if e.isFVar then pure eS else do

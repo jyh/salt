@@ -26,6 +26,7 @@ import Salt.MR.BlockLenDoor
 import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
+import Salt.MR.ArcRegimeWeaken
 
 /-!
 # The v6 family of log-Chowla theorems under a Siegel standoff (O13)
@@ -601,7 +602,7 @@ open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
 open private flatRootCap_arc from Salt.MR.HloExportMRFlatRoot
-/-- **⟦STANDOFF TWIN⟧** `m4_exit_socket_split_sq_arc_flatRoot` (`Salt/MR/HloExportMRFlatRoot.lean:70`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_exit_socket_split_sq_arc_flatRoot` (`Salt/MR/HloExportMRFlatRoot.lean:71`): its statement under the three standoff
 binders, its proof verbatim with `log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat` replaced by their twins. -/
 theorem m4_exit_socket_split_sq_arc_flatRoot_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
@@ -654,7 +655,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `m4_doorL2_close_split_sq_gk_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:184`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_doorL2_close_split_sq_gk_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:185`): its statement under the three standoff
 binders, its proof verbatim with `m4_exit_socket_split_sq_arc_flatRoot` replaced by their twins. -/
 theorem m4_doorL2_close_split_sq_gk_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
@@ -720,7 +721,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `m4_second_road_L2_gk_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:244`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_second_road_L2_gk_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:245`): its statement under the three standoff
 binders, its proof verbatim with `m4_doorL2_close_split_sq_gk_flatRoot_L` replaced by their twins. -/
 theorem m4_second_road_L2_gk_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
@@ -762,16 +763,8 @@ theorem m4_second_road_L2_gk_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
   refine ⟨R, hReps, hU1, hRg, hRtow, hRcap, ?_⟩
   intro δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3
     hdgate hdrift hceil hbudget hrow
-  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
-  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN_L_gk K R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied_L_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -1232,7 +1225,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:350`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:343`): its statement under the three standoff
 binders, its proof verbatim with `m4_second_road_L2_gk_flatRoot_L` · `m4_fuse_hcap_of_capWS_gk` replaced by their twins. -/
 theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ)
@@ -1441,7 +1434,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:1002`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:995`): its statement under the three standoff
 binders, its proof verbatim with `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L` replaced by their twins. -/
 theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ)
@@ -2456,7 +2449,7 @@ open MeasureTheory
 open Salt.Entropy.Chowla
 set_option maxHeartbeats 1000000 in
 -- The twin re-elaborates the landed proof, so it keeps the landed declaration's heartbeat room.
-/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk` (`Salt/MR/S16FlatTerminalLinear.lean:1888`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk` (`Salt/MR/S16FlatTerminalLinear.lean:1881`): its statement under the three standoff
 binders, its proof verbatim with `m4_hcap_at_door_perBlock_L_gk` replaced by their twins. -/
 theorem m4_fuse_hcap_of_capWS_L_gk_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) :

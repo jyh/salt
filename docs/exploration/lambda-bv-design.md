@@ -38,7 +38,7 @@ either direction and is struck.**
 
 ## R3 — THE REGIME-A BRANCH IS **ALREADY BUILT**, and §3 called it "specified, unbuilt"
 `mmuRate_holds` (`Salt/SW/MobiusRateClose.lean:1059`, no hypotheses) · `Mlambda_rate`
-(`Salt/TwinBar/LambdaRate.lean:451`) · `rosserRemainder_sPlus_le` (`Salt/TwinBar/Wall.lean:356`),
+(`Salt/TwinBar/LambdaRate.lean:454`) · `rosserRemainder_sPlus_le` (`Salt/TwinBar/Wall.lean:356`),
 composed into **`parity_wall_unconditional`** (`Salt/TwinBar/WallUnconditional.lean:31`).
 ⇒ **A regime-A verdict does not produce a two-node bridge; it produces NOTHING TO BUILD.**
 ⛔ **And `Salt/MR/LambdaRateTwisted.lean:131` records this exact stale "unbuilt" claim having been

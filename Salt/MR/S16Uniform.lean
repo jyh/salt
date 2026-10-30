@@ -9,6 +9,7 @@ import Salt.MR.BlockLenDoor
 import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
+import Salt.MR.ArcRegimeWeaken
 
 /-!
 # `S16Uniform` — ⟦THE A-UNIFORM TWIN CHAIN⟧ and ⟦THE INEFFECTIVE LIMIT⟧
@@ -514,16 +515,8 @@ theorem flat_road_uniform (K : ℕ) :
   refine ⟨R, hReps, hU1, hRg, hRtow, hRcap, ?_⟩
   intro δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3
     hdgate hdrift hceil hbudget hrow
-  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
-  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN_L_gk K R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied_L_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
