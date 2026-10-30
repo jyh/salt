@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `c9d47fbc` · source digest `e6dc5e0961709800` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `45538ff8` · source digest `49391a93932e9869` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23375 · corpus Prop-valued names (the hypothesis universe): 678.
+Declarations indexed across the tree: 23376 · corpus Prop-valued names (the hypothesis universe): 678.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -699,11 +699,11 @@ Declarations indexed across the tree: 23375 · corpus Prop-valued names (the hyp
 | `Salt.Chen.boundary_XM_raw` | Salt/Chen/ChenFinal.lean:66 | sieves |
 | `Salt.Chen.boundary_log_bounds` | Salt/Chen/ChenFinal.lean:135 | sieves |
 | `Salt.Chen.xm_sqrt_bounds` | Salt/Chen/ChenFinal.lean:145 | sieves |
-| `Salt.Chen.d0_window_of_XM_band` | Salt/Chen/ChenFinal2.lean:68 | sieves |
-| `Salt.Chen.band_kfloor_of_live` | Salt/Chen/ChenFinal2.lean:283 | sieves |
-| `Salt.Chen.medium_box_price_at_op_band` | Salt/Chen/ChenFinal2.lean:399 | sieves |
-| `Salt.Chen.sym_box_hprice_at_2pow_band` | Salt/Chen/ChenFinal2.lean:458 | sieves |
-| `Salt.Chen.low_box_hprice_at_2pow_band` | Salt/Chen/ChenFinal2.lean:538 | sieves |
+| `Salt.Chen.d0_window_of_XM_band` | Salt/Chen/ChenFinal2.lean:69 | sieves |
+| `Salt.Chen.band_kfloor_of_live` | Salt/Chen/ChenFinal2.lean:260 | sieves |
+| `Salt.Chen.medium_box_price_at_op_band` | Salt/Chen/ChenFinal2.lean:376 | sieves |
+| `Salt.Chen.sym_box_hprice_at_2pow_band` | Salt/Chen/ChenFinal2.lean:435 | sieves |
+| `Salt.Chen.low_box_hprice_at_2pow_band` | Salt/Chen/ChenFinal2.lean:515 | sieves |
 | `Salt.Chen.kfloor_of_live_box` | Salt/Chen/ChenHeadline.lean:48 | sieves |
 | `Salt.Chen.box_hprice_at_2pow_lo` | Salt/Chen/ChenHeadline.lean:119 | sieves |
 | `Salt.Chen.box_rows_at_op` | Salt/Chen/ChenRows1.lean:573 | sieves |
@@ -948,16 +948,16 @@ Declarations indexed across the tree: 23375 · corpus Prop-valued names (the hyp
 | `Salt.Chen.hDsmall_at_op` | Salt/Chen/PriceClose.lean:147 | sieves |
 | `Salt.Chen.tower_budget` | Salt/Chen/PriceClose.lean:205 | sieves |
 | `Salt.Chen.hNum_close_of_tower` | Salt/Chen/PriceClose.lean:219 | sieves |
-| `Salt.Chen.bridge_scale` | Salt/Chen/PriceOne.lean:137 | sieves |
-| `Salt.Chen.medium_box_price_at_op` | Salt/Chen/PriceOne.lean:492 | sieves |
+| `Salt.Chen.bridge_scale` | Salt/Chen/PriceOne.lean:138 | sieves |
+| `Salt.Chen.medium_box_price_at_op` | Salt/Chen/PriceOne.lean:469 | sieves |
 | `Salt.Chen.crtClassW_coprime_of_mem` | Salt/Chen/PriceThree.lean:101 | sieves |
 | `Salt.Chen.box_hprice_at_2pow` | Salt/Chen/PriceThree.lean:228 | sieves |
 | `Salt.Chen.sym_box_hprice_at_2pow` | Salt/Chen/PriceThree.lean:313 | sieves |
 | `Salt.Chen.low_box_hprice_at_2pow` | Salt/Chen/PriceThree.lean:393 | sieves |
-| `Salt.Chen.d0_window_nonempty_lo` | Salt/Chen/PriceTwo.lean:86 | sieves |
-| `Salt.Chen.medium_box_price_at_op_lo` | Salt/Chen/PriceTwo.lean:780 | sieves |
-| `Salt.Chen.sym_box_price_at_op` | Salt/Chen/PriceTwo.lean:910 | sieves |
-| `Salt.Chen.low_box_price_at_op` | Salt/Chen/PriceTwo.lean:947 | sieves |
+| `Salt.Chen.d0_window_nonempty_lo` | Salt/Chen/PriceTwo.lean:87 | sieves |
+| `Salt.Chen.medium_box_price_at_op_lo` | Salt/Chen/PriceTwo.lean:733 | sieves |
+| `Salt.Chen.sym_box_price_at_op` | Salt/Chen/PriceTwo.lean:863 | sieves |
+| `Salt.Chen.low_box_price_at_op` | Salt/Chen/PriceTwo.lean:900 | sieves |
 | `Salt.Chen.razor_scalar_margin` | Salt/Chen/RazorClose.lean:94 | sieves |
 | `Salt.Chen.razor_of_normalized` | Salt/Chen/RazorClose.lean:116 | sieves |
 | `Salt.Chen.hledger_at_certs` | Salt/Chen/RazorClose.lean:156 | sieves |
@@ -1750,10 +1750,10 @@ Declarations indexed across the tree: 23375 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_box_crumb_tower` | Salt/Goldbach/BandRows2.lean:314 | sieves |
 | `Salt.Goldbach.gold_band_crumb_tower` | Salt/Goldbach/BandRows2.lean:335 | sieves |
 | `Salt.Goldbach.gold_crumb_tower_close` | Salt/Goldbach/BandRows2.lean:379 | sieves |
-| `Salt.Goldbach.gold_d0_window_band` | Salt/Goldbach/BandWin.lean:56 | sieves |
-| `Salt.Goldbach.gold_box_price_engine_at_band` | Salt/Goldbach/BandWin.lean:353 | sieves |
-| `Salt.Goldbach.gold_band_box_kerr` | Salt/Goldbach/BandWin.lean:496 | sieves |
-| `Salt.Goldbach.gold_band_survsum_geoN` | Salt/Goldbach/BandWin.lean:558 | sieves |
+| `Salt.Goldbach.gold_d0_window_band` | Salt/Goldbach/BandWin.lean:57 | sieves |
+| `Salt.Goldbach.gold_box_price_engine_at_band` | Salt/Goldbach/BandWin.lean:330 | sieves |
+| `Salt.Goldbach.gold_band_box_kerr` | Salt/Goldbach/BandWin.lean:473 | sieves |
+| `Salt.Goldbach.gold_band_survsum_geoN` | Salt/Goldbach/BandWin.lean:535 | sieves |
 | `Salt.Goldbach.gold_band_geo_absorb_tail` | Salt/Goldbach/BandWin2.lean:148 | sieves |
 | `Salt.Goldbach.gold_band_hlow_tail` | Salt/Goldbach/BandWin2.lean:207 | sieves |
 | `Salt.Goldbach.gold_band_hsym_tail` | Salt/Goldbach/BandWin2.lean:232 | sieves |
@@ -1774,13 +1774,13 @@ Declarations indexed across the tree: 23375 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.goldTripleSum_le_pairSum` | Salt/Goldbach/Count.lean:144 | sieves |
 | `Salt.Goldbach.goldCount_bound_uniformK` | Salt/Goldbach/CountFinal.lean:67 | sieves |
 | `Salt.Goldbach.goldTripleSum_le_cbar_final` | Salt/Goldbach/CountFinal.lean:147 | sieves |
-| `Salt.Goldbach.gold_d0_window_annulus` | Salt/Goldbach/D0Win.lean:63 | sieves |
-| `Salt.Goldbach.gold_kfloor_live_annulus` | Salt/Goldbach/D0Win.lean:283 | sieves |
-| `Salt.Goldbach.gold_box_price_engine_at_live_annulus` | Salt/Goldbach/D0Win.lean:354 | sieves |
-| `Salt.Goldbach.gold_live_annulus_lower` | Salt/Goldbach/D0Win2.lean:59 | sieves |
-| `Salt.Goldbach.gold_kfloor_live_z` | Salt/Goldbach/D0Win2.lean:114 | sieves |
-| `Salt.Goldbach.gold_d0_window_z` | Salt/Goldbach/D0Win2.lean:186 | sieves |
-| `Salt.Goldbach.gold_box_price_engine_at_live_z` | Salt/Goldbach/D0Win2.lean:477 | sieves |
+| `Salt.Goldbach.gold_d0_window_annulus` | Salt/Goldbach/D0Win.lean:64 | sieves |
+| `Salt.Goldbach.gold_kfloor_live_annulus` | Salt/Goldbach/D0Win.lean:260 | sieves |
+| `Salt.Goldbach.gold_box_price_engine_at_live_annulus` | Salt/Goldbach/D0Win.lean:331 | sieves |
+| `Salt.Goldbach.gold_live_annulus_lower` | Salt/Goldbach/D0Win2.lean:60 | sieves |
+| `Salt.Goldbach.gold_kfloor_live_z` | Salt/Goldbach/D0Win2.lean:115 | sieves |
+| `Salt.Goldbach.gold_d0_window_z` | Salt/Goldbach/D0Win2.lean:187 | sieves |
+| `Salt.Goldbach.gold_box_price_engine_at_live_z` | Salt/Goldbach/D0Win2.lean:454 | sieves |
 | `Salt.Goldbach.gold_dsplit_head_cap_below_conductor` | Salt/Goldbach/DSplit.lean:101 | sieves |
 | `Salt.Goldbach.goldPs_squarefree` | Salt/Goldbach/Density.lean:74 | sieves |
 | `Salt.Goldbach.goldPs_primeFactors` | Salt/Goldbach/Density.lean:80 | sieves |
