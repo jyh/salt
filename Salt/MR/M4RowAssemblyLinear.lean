@@ -1311,8 +1311,9 @@ theorem m4_wave_closed_T0_discharged_pool_L (Qm : ℕ) :
 
 /-- `M4DoorClosePool.DoorRowCarriedJoin` at the LINEAR door: `DoorRowCarriedPool_L` with the one
 primed conjunct — `gRows` at `ThmA2.a2RowsSum'` (STRONGER than the pooled one; nothing implies
-it from the pool). Consumed by `m4_door_meansq_carried_join_L`, `m4_dyadicRow_carried_join_L`
-and `m4_wave_structurally_closed_join_L`. -/
+it from the pool). Consumed by `m4_door_meansq_carried_join_L`, `m4_dyadicRow_carried_join_L`,
+the bridge `doorRowCarried_of_t0free_join_L` and the closer
+`m4_wave_structurally_closed_join_L`. -/
 def DoorRowCarriedJoin_L (Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
     {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd j : ℕ) (B : ℝ) : Prop :=
   ∃ (P Q : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
