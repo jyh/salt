@@ -86,16 +86,24 @@ namespace Salt.Entropy.Chowla
 
 /-! ## §0 — the arithmetic leaves (division-free, so `linarith` sees shared atoms) -/
 
+/-- `8 ≤ u³` at `hu2 : 2 ≤ u` — `nlinarith` through `4 ≤ u²`. A division-free arithmetic leaf of
+`regime_outer_param_ceiling`'s `K`-bound, at `u = 1/ε`. -/
 private lemma xceil_cube_ge {u : ℝ} (hu2 : 2 ≤ u) : (8 : ℝ) ≤ u ^ 3 := by
   have h4 : (4 : ℝ) ≤ u ^ 2 := by nlinarith [hu2]
   nlinarith [h4, mul_nonneg (by linarith : (0 : ℝ) ≤ u - 2) (sq_nonneg u)]
 
+/-- At `hu2 : 2 ≤ u`, anything below `48u + 96u³ + 1` (`hc`) is at most `109u³`: the linear and
+constant terms are absorbed into `13u³` because `u(u² - 4) ≥ 0`. How
+`regime_outer_param_ceiling` reads the ceiling constant `Ce = ⌈48(1 + 2/ε²)/ε⌉₊`. -/
 private lemma xceil_Ce_le {u c : ℝ} (hu2 : 2 ≤ u) (hc : c < 48 * u + 96 * u ^ 3 + 1) :
     c ≤ 109 * u ^ 3 := by
   have h4 : (4 : ℝ) ≤ u ^ 2 := by nlinarith [hu2]
   have h1 : (0 : ℝ) ≤ u * (u ^ 2 - 4) := mul_nonneg (by linarith) (by linarith)
   nlinarith [h1, hu2]
 
+/-- The `K`-bound's assembly: with `hB`, `hQ`, `hE : 8 ≤ E`, `hp : p ≤ Q` and `hc : c ≤ 109E`,
+the three summands `8B`, `8p`, `c` each sit under `200·BQE`. Closes `K ≤ 600·H₊³·(P+1)²·u³` in
+`regime_outer_param_ceiling` (`B = H₊³`, `Q = (P+1)²`, `p = P²`, `E = u³`). -/
 private lemma xceil_sum_le {B Q E p c : ℝ} (hB : 1 ≤ B) (hQ : 1 ≤ Q) (hE : 8 ≤ E)
     (hp : p ≤ Q) (hc : c ≤ 109 * E) : 8 * B + 8 * p + c ≤ 600 * (B * (Q * E)) := by
   have hQE : (8 : ℝ) ≤ Q * E := by nlinarith [hQ, hE]
