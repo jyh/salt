@@ -7075,7 +7075,7 @@ THE TWO SIDES (verbatim shapes). CONSUMER — `hBVblocksW_discharge'` (PDiag.lea
 its `hprice` for every box in `dyadicBoundary (pieceN k) (pieceM k) (x/2+1) x (z·y) K`
 (N = pieceN k = 2^k − 1). SUPPLIER — every landed box-price terminal
 (`box_hprice_at_2pow`/`sym_`/`low_box_hprice_at_2pow`, PriceThree.lean:217/302/382; underlying
-`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:279, PriceTwo.lean:391/316;
+`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:450, PriceTwo.lean:695/564;
 `medium_survivor_price(_sqrtD)`, MediumFloor.lean:507/SqrtDFold.lean:956) provides a bound
 ONLY for `i ∈ dyadicBoundary (2^k) (pieceM k) (x/2+1) x F Krange` (N = 2^k, forced by the
 terminal's `M ≤ 2N` with M = pieceM k = 2·pieceN k + 1). The only bridge
@@ -7094,7 +7094,7 @@ priceable by either trichotomy route for the pieces with 2^k > x^{7/16}:
   • 2^k-BOUNDARY route (`box_hprice_at_2pow`/`_lo`): its hypothesis `i ∈ dyadicBoundary (2^k)`
     FAILS by construction (edge box ∉ dyadicBoundary (2^k)); concretely the terminal's corner
     clause `2^i·(2^k+1) ≤ x` is violated (edge box: x < 2^i·(2^k+1)). The `_lo` floor relaxation
-    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:391) is met but is orthogonal — it does not restore the
+    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:353) is met but is orthogonal — it does not restore the
     boundary membership. So neither route covers the live edge box.
 The trivial fallback (carrier norm ≤ 1 ⟹ box sum ≤ 2·|Dset|·X·M ≈ x·τ(Ps)) overshoots the
 hSum budget Ccon·K·x/L^{11} by ~x^{1} and cannot be used.
@@ -25437,7 +25437,7 @@ and reads it at exactly two lines, both `_14` suppliers with NO charge-form twin
 - `:369` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the
   arithmetic gate `m4_arith_henv_constPoolH_L_gk_14` -> `m4_arith_henv_rho_poolH_L_gk_14` ->
   `a2DoorGrade_pool_L_priced_rhoH_gk_14` -> `a2DoorGrade_pool_L_priced_rhoH_14` ->
-  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1468`):
+  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1476`):
   `h * arcDen 12 H * strataResidualH h H ^ 2 <= exp (14 * loglog H)` at `50 <= loglog H`.  With
   `arcDen 12 H = (log H)^12` this needs `h * (1 + 12 loglog H + log h)^2 <= (log H)^2`, which a FREE
   `h` breaks at any fixed tower floor;
