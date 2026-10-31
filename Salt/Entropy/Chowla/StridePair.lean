@@ -117,11 +117,11 @@ R.a * R.Hlo / a`, `a := a`, every other field VERBATIM.  Field by field:
 new fields do — no cast lemma needed); `hω`, `heps`, `heps1`, `hC0`, `hHlohi`-free fields copy.
 `ha := ha`.  `hHlo : a ≤ R.a*R.Hlo/a` from `hloM` and `ha1096` (`omega`).  `hHlo_floor := hloM`.
 `hcoprime : (a : ℚ) ≤ eps²·(R.a*R.Hlo/a)/2` — from `hlo4` cast to `ℚ`: `4·⌈1/ε⌉₊⁴ ≤ Hlo'` gives
-`4 ≤ ε²·Hlo'·ε²·⌈1/ε⌉₊²/…`; the builder's own script (`TowerFlatBuilder.lean:297-305`, `h4le :
+`4 ≤ ε²·Hlo'·ε²·⌈1/ε⌉₊²/…`; the builder's own script (`TowerFlatBuilder.lean:268-276`, `h4le :
 4 ≤ eps²·Hlo`) yields `2 ≤ eps²·Hlo'/2 · (1/ε²)`… — simplest: from `hlo4`, `(1/ε)⁴ ≤ ⌈1/ε⌉₊⁴ ≤
 Hlo'/4`, so `ε²·Hlo'/2 ≥ 2/ε² ≥ 2·500² = 500000 ≥ 1096 ≥ a` using `heps500` (`nlinarith` after
 `one_div_le` at `ε ≤ 1/500`).  `hPNTwindow : √Hlo' ≤ ε²·Hlo'/2` — the builder's `hPNT` block
-VERBATIM (`TowerFlatBuilder.lean:306-329`) at `m := ⌈1/ε⌉₊`, from `hlo4`.  `hHlohi`:
+VERBATIM (`TowerFlatBuilder.lean:277-300`) at `m := ⌈1/ε⌉₊`, from `hlo4`.  `hHlohi`:
 `Nat.div_le_self`
 then `chowlaTower_ge_base R.hC0 (base ≥ 4·10⁶) R.J` at base `R.a * R.Hlo` read through
 `chowlaTower_eq_base_one` and `R.hfit`.  `hfit`: `chowlaTower R.C0 a (R.a*R.Hlo/a) R.J =
