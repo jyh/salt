@@ -1,7 +1,7 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `c1627ce5` · source digest `a1d9307d959081f9` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `b7299786` · source digest `0445ebb3fd2a6b1f` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
@@ -110,7 +110,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 18 | `Salt.MR.S15CrossingBound_L_gk` | 12 | 0 | `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist`, `Salt.MR.s15_crossing_supplied_L_gk_ceiling` +4 | Salt/MR/S16FlatTerminalLinear.lean:965 |
 | 19 | `Salt.MR.CaseASocket2` | 11 | 1 | — | Salt/MR/USetGradedPrice.lean:122 |
 | 20 | `Salt.MR.DoorCapBasePerBlock_L_gk` | 11 | 1 | — | Salt/MR/M4CapWireLinear.lean:836 |
-| 21 | `Salt.MR.S16BandLaneCBoundedL_win` | 10 | 1 | `Salt.MR.s16_bandLaneWinL_holds`, `Salt.MR.s16_bandLaneWinL_holds_uniform` | Salt/MR/S16Uniform.lean:1101 |
+| 21 | `Salt.MR.S16BandLaneCBoundedL_win` | 10 | 1 | `Salt.MR.s16_bandLaneWinL_holds`, `Salt.MR.s16_bandLaneWinL_holds_uniform` | Salt/MR/S16Uniform.lean:1100 |
 | 22 | `Salt.HB.N7Exit` | 9 | 0 | — | Salt/HB/CrownTheorem1.lean:512 |
 | 23 | `Salt.MR.A2Frame` | 9 | 1 | — | Salt/MR/ThmA2.lean:713 |
 | 24 | `Salt.MR.DoorRowCarriedT0` | 9 | 0 | — | Salt/MR/M4T0Discharge.lean:581 |
