@@ -260,7 +260,7 @@
   - **NEXT: road F's next hop is a STATEMENT, and a statement is the Captain's word at a sitting.** Nothing is commissioned past Z; h2c holds on a gate until one is ruled.
 
 ✅ **ROAD F · CANDIDATE U — THE UNIFORM FLAT DOOR — LANDED 2026-09-25 (h2c; PR #183 → merge `2fb62a98` on `main`, half 1 + half 2; math's non-author read CONFIRM — vacuity PROVED as a separate theorem in its own tree, own kernel pair with a planted control).** `Salt/MR/FlatDoorUniform.lean`: `flatDoorUniformW_holds : FlatDoorUniformW` — the L² MRT door with the crown's quantifier `∃ H₀ ∀ R` on the FLAT CLASS (`FlatClassW ε R`: the window's `ε`, the ceiling `log x ≤ (31/ε)·Hhi`, the width law), at every grade `ρ > 0` and every `ε ∈ (0, 1/500]`; landed receipts: U ⇒ W-δ (`nextHopU_zero_level`) and the crown ⇒ U (`nextHopU_of_crown`). ⛔ **CAVEAT FIRST:** U is implied by the crown and is NOT the crown — the residual is every regime OFF the class (`x` above the ceiling; `Hhi` tower-far above `Hlo`), the EM freeze's roads 2/5; no rate; the ε-range stays `(0, 1/500]`; **nothing bears on twin primes.** The freeze and its two addenda are seat-record artifacts, cited by role.
-  - ⚠️ **CANDIDATE E (the ε-range `(1/500, 1/2]`) — PRICED AT THE OBJECT 2026-09-25 AND REFUSED AS A WAVE (h2c).** The U freeze's §6 priced E as *one lemma* (the count ceiling at `ε ≤ 1/2`); at the object the binding spend is elsewhere: the rung-2 head pins the leaves' constants `cD3 = 1/4` (the prime-window mass) and `C = 1 + 4·log 4` (the circle method) and feeds the spine budget the binder `ε ≤ cD3/(16·C)` ≈ **1/419** (`FlatDoorEpsRung2.lean:4827` → `SpineFlat.lean:144–151`, where `C·ε²·H/log H` must sit under a sixteenth of `cD3·ε·H/log H`); the reduce leaf adds `ε ≤ cE/(32·log 4)` ≤ 1/177. **No re-pin reaches past ~1/192; the crown's `ε ≤ 1/2` is a factor ≥ 96 beyond this device.** The widening the device CAN buy (`1/500 → ≤ 1/419`) is ≈ 100 lines and worth nothing toward the crown's axis; the crown's ε-axis needs a NEW budget device — class D, a statement, the Captain's. The price brief is a seat-record artifact, cited by role.
+  - ⚠️ **CANDIDATE E (the ε-range `(1/500, 1/2]`) — PRICED AT THE OBJECT 2026-09-25 AND REFUSED AS A WAVE (h2c).** The U freeze's §6 priced E as *one lemma* (the count ceiling at `ε ≤ 1/2`); at the object the binding spend is elsewhere: the rung-2 head pins the leaves' constants `cD3 = 1/4` (the prime-window mass) and `C = 1 + 4·log 4` (the circle method) and feeds the spine budget the binder `ε ≤ cD3/(16·C)` ≈ **1/419** (`FlatDoorEpsRung2.lean:4828` → `SpineFlat.lean:144–151`, where `C·ε²·H/log H` must sit under a sixteenth of `cD3·ε·H/log H`); the reduce leaf adds `ε ≤ cE/(32·log 4)` ≤ 1/177. **No re-pin reaches past ~1/192; the crown's `ε ≤ 1/2` is a factor ≥ 96 beyond this device.** The widening the device CAN buy (`1/500 → ≤ 1/419`) is ≈ 100 lines and worth nothing toward the crown's axis; the crown's ε-axis needs a NEW budget device — class D, a statement, the Captain's. The price brief is a seat-record artifact, cited by role.
   - **NEXT: road F's next hop is a STATEMENT, and a statement is the Captain's word at a sitting.** U is the last hop the 09:48 order commissioned ("road F's next hop after arm S"); E is parked here with its read; nothing is commissioned past U. ⛔ Caveat unchanged: U is implied by the crown and is NOT the crown; nothing bears on twin primes.
 
 
@@ -739,7 +739,7 @@
    with `13·10^13` left landed at the wider `c` FAILS at `hstep`'s own `nlinarith`, XThread:476's twin — one step before the
    freeze's predicted :482); the exit test §7.1 whole (the six-path diff against `9a2b3053`, the excluding diff EMPTY, the
    minus lines exactly the 27 `sorry`, statements 14/18/2/3 byte-identical to the freeze, both aggregates `EXIT=0`, lint
-   `OK`). Two lines the recipe did not carry, both ABOVE the arm's `theorem` and copied from the landed `XThread.lean:336`
+   `OK`). Two lines the recipe did not carry, both ABOVE the arm's `theorem` and copied from the landed `XThread.lean:337`
    shape: `open private xt_exp25 from Salt.MR.XThread` and `set_option maxHeartbeats 2000000 in`. salt `math/lbv-w2s-beta`
    off `9a2b3053`: `Salt/MR/StrideGradeWalls.lean` (14) · `Salt/MR/StridePairReceiptG.lean` (7 defs + 11) ·
    `Salt/Entropy/Chowla/StrideShellG.lean` (2) · `Salt/MR/StrideGradeReceipt.lean` (3) = **37 declarations, 27 obligations
@@ -1346,7 +1346,7 @@ RESURRECTS THEM:**
     stale, merely SCOPED WRONG IN THE PLACE THAT TRAVELS.*
     📐 **CENSUS 10:2x, BEFORE ANY ATTEMPT, so whoever holds quota can dispatch cold:**
     ```
-      mrtS P₁ Q₁ X₀ X            LANDED  MRTProp24.lean:130 (+ mem_mrtS :136)   ← wave 1a
+      mrtS P₁ Q₁ X₀ X            LANDED  MRTProp24.lean:134 (+ mem_mrtS :136)   ← wave 1a
       E-5c, the S-DILATION identity on mrtS      ABSENT — 0 declarations
         ⛔ the `memS_dilate` family that greps is the DOOR's, at `calP`/`windowClass`
            sequences (`M4ClassPrice.lean:232`, `DoorLadderLinear.lean:738`), NOT MRT's
@@ -1413,7 +1413,7 @@ RESURRECTS THEM:**
     ✅⭐⭐ **E-5c IS LANDED — STAMP 2026-08-29 20:0x (math), ROWS ABOVE BYTE-UNTOUCHED. THE LINE
     BELOW ASKING THE HELM FOR "ONE PARAGRAPH OF STATEMENT" IS STALE BY TWO DAYS AND THIS ROW WAS
     ABOUT TO SPEND A FABLE DESIGN PARAGRAPH RE-AUTHORING A THEOREM THAT IS IN THE KERNEL.**
-    `Salt/MR/MRTProp24.lean:323` **`mrtS_dilate`** (the membership half, an iff, no lower bound on
+    `Salt/MR/MRTProp24.lean:327` **`mrtS_dilate`** (the membership half, an iff, no lower bound on
     `m`) and `:386` **`mrtS_indicator_mul_dilate`** (the summand form the arc consumer takes),
     landed `e0fea691` 08/27 10:29, ancestor of main since the 08/29 merge `b2340108`. **Both
     `[propext, Classical.choice, Quot.sound]`**, audited by name at `Salt/MR/All.lean:8565-8566`.
@@ -1442,7 +1442,7 @@ RESURRECTS THEM:**
     ✅ **THE APPLIED COROLLARY IS LANDED — STAMPED 2026-09-05 13:53 (math, the item-7 sweep), ROWS ABOVE
     BYTE-UNTOUCHED. The line above saying "the open work is the applied corollary plus its wiring" was written
     at 20:0x on 08/29; the corollary landed at 21:44 the same night and no stamp followed it.** `6a460109`
-    (`Salt/MR/MRTProp24.lean:420-475`, ancestor of main): `mrtBandP_base_le` · `mrtBand_primeFactors_lt_of_le_W`
+    (`Salt/MR/MRTProp24.lean:424-479`, ancestor of main): `mrtBandP_base_le` · `mrtBand_primeFactors_lt_of_le_W`
     (every prime factor of `d₀` below every band, from `d₀ ≤ W`, `1 < W`, `P₁ = W^200` — the exponent carried as
     a hypothesis on the SHAPE, not a numeral) · `mrtS_dilate_of_le_W` · `mrtS_indicator_mul_dilate_of_le_W` (the
     two E-5c forms with their `hP` slot discharged in-regime) · `mrtS_dilate_of_le_W_witness`; five names, all
@@ -1759,7 +1759,7 @@ RESURRECTS THEM:**
    theorems) · G2's index-uniformity half · G3 (the L¹ twin of the unit-cell bridge — **class A/B
    restatement, NOT a research obstruction**: the bridge's content is exponent-agnostic cell-constancy)
    · G4 · **and the `(log X)^{1/125}` rpow step, which is the most dangerous survivor**: `(1 : ℝ)/125`
-   occurs in **exactly one line in all of `Salt/`** — `MRTProp24.lean:271`, the statement being ported —
+   occurs in **exactly one line in all of `Salt/`** — `MRTProp24.lean:275`, the statement being ported —
    while the H-arm's twin IS landed (`W_second_arm`, `DoorFloor1500.lean:250`). **One arm of the `min`
    has a converter, the other has none, and at margin 1× that step is load-bearing at equality.**
    🔑 ***THE LESSON THE CAMPAIGN ACTUALLY TAUGHT: every one of the FIVE kills was a true LOCAL fact
@@ -1857,7 +1857,7 @@ RESURRECTS THEM:**
    *"**W-2b — S10a at `B₅ = 12` (the `(log X)^{1/125}` arm)**"* — and it sits at `DoorFloor1500.lean:90`,
    **160 lines ABOVE `W_second_arm` at `:250`, WHICH I CITED IN THE SAME SENTENCE FOR THE OTHER ARM.**
    ⇒ **BOTH arms are landed.** What is genuinely absent is only the **SPELLING**: all three landed forms
-   (`:90`, `:201`, `:221`) conclude an **npow** `(log Hhi)^(1500:ℕ) ≤ …` while `MRTProp24.lean:271` states
+   (`:90`, `:201`, `:221`) conclude an **npow** `(log Hhi)^(1500:ℕ) ≤ …` while `MRTProp24.lean:275` states
    an **rpow**. N5 (`W_first_arm`) survives as that spelling bridge and is unchanged; **the headline
    around it does not.** 🔑 ***AND I HAD READ THAT DOCSTRING MYSELF, EARLIER THE SAME SESSION, AND QUOTED
    IT.*** The narrow literal I printed beside it — *"`(1 : ℝ)/125` occurs in exactly one line in all of
@@ -2079,7 +2079,7 @@ RESURRECTS THEM:**
    is absent from the CONCLUSION because it was paid in the ANTECEDENT — `log ω ≥ 4` is where the
    `loglog` went. A consumer at small `ω` has no factor 3.
    ② **THE COMPOSED CONCLUSION CARRIES A SECOND TERM.** The landed absolute-3 statement is
-   `m4_doorSq_of_rowMeanSqLam` (`MRTPortRowLam.lean:59`), and its right-hand side is
+   `m4_doorSq_of_rowMeanSqLam` (`MRTPortRowLam.lean:68`), and its right-hand side is
    `3·(MS H·H²) **+ 4·2^k·H/x / Z**` — the `3·(…)` is the first of two summands, and the row
    above quotes only the factor. The gate ① supplies enters that statement as its own binder
    `hk3 : (k:ℝ) ≤ 3·Z`, so the consumer discharges it, not the lemma.
@@ -5294,7 +5294,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    REFUTED BEFORE PROPOSING IT:** re-routing the cushion onto the outer scale so the regime lever
    `g R.Hhi R.ω ≤ R.x` absorbs it — `_g0` sets that lever to zero and the parent
    (`V7Ks.lean:434`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
-   `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:88`) with `ε ≥ 1/500` permits at most
+   `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:89`) with `ε ≥ 1/500` permits at most
    `log g ≤ 15500·H₊`, worth **≈ +24 additive on `loglog X`** against the landed floor
    `loglog X ≥ log H₊ − 14` — a constant factor ≤ ~4, **never a rate.** Full stamp:
    `docs/blueprints/arc.md` §4's R-1 row (and §7 carries the pointer).
@@ -5961,7 +5961,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    `Salt/MR/All.lean` in the same commit. `m4_second_road_L2_H_gk_flatRoot_L_exit` is the
    `h`-twin of `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L` (`:239`): the terminal
    register on the terminal's lane, **in `¬ logChowlaFails h` form**, composed from the landed
-   DOOR-FORM register (`S16FlatTerminalLinearH.lean:1567`) and the new flat head at shift `h`.
+   DOOR-FORM register (`S16FlatTerminalLinearH.lean:1563`) and the new flat head at shift `h`.
    The four scalings and nothing else: the pins `1/(500·h) ≤ ε` and `1/(838400·h²) ≤ δ₀` (under
    which every gate of the landed head takes exactly its `h = 1` value, because `ε·h = 1/500`
    exactly), the cap `C ≤ h·(1 + 2·C₀)`, the count set `bigXiH h` with `K` existential, and the

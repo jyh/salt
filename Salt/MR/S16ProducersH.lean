@@ -1317,7 +1317,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk (h : ℕ) (hh : 0 < h) (hh7 : 
 /-! ## §8 — THE RECEIPT: the register's consumer fires on the fuse's output -/
 
 /-- **⟦THE RECEIPT⟧** (`m4_chiSummedN_supplied_of_rowH_L_gk`) — the register's own consumer
-`m4_chiSummedN_suppliedH_L_gk` (fired at `S16FlatTerminalLinearH.lean:1607` inside the register)
+`m4_chiSummedN_suppliedH_L_gk` (fired at `S16FlatTerminalLinearH.lean:1603` inside the register)
 applied to the socket in the SHAPE the fuse produces, with ⟦G1⟧ at `RStr := h⁷·rStrWitness`
 (`rStrWitness_G1_h`), ⟦G2⟧ at the `j₀`-floor (`g2_of_j0_floor_h`, via
 `RSanDoorRhoH ρ h H ≤ 1 ≤ rSanWitness H`), and `han` at gate 4.  This is the `h`-twin of the

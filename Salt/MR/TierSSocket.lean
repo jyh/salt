@@ -46,11 +46,8 @@ open Salt.Entropy.Chowla
 /-- `H + 1 ≤ x` at every admissible window — the landed headroom chain
 `H ≤ H₊ ≤ x/ω ≤ x/2` (`DoorReceipt.lean:214-220`) plus `2 ≤ x`. -/
 theorem tierS_succ_le_x_of_le_Hhi {R : ChowlaRegime} {H : ℕ} (hHhi : H ≤ R.Hhi) :
-    H + 1 ≤ R.x := by
-  have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-  have hle : H ≤ R.x / 2 := le_trans (le_trans hHhi R.hheadroom) hdiv
-  have h2 : 2 ≤ R.x := R.hx
-  omega
+    H + 1 ≤ R.x :=
+  R.add_one_le_x H hHhi
 
 /-- `2 ^ j ≤ 2·x` — the dyadic floor at the anchor.  **The `L = 0` branch is separate**:
 `Nat.pow_log_le_self` needs `L ≠ 0`, and at `L = 0` the bound comes from `j = 0` instead. -/

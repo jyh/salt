@@ -56,6 +56,15 @@ def M4RowMeanSqLam (R : ChowlaRegime) (k : ℕ) (MS : ℕ → ℝ) : Prop :=
                       (doorLadder R.x H (i + 1) : ℝ)) y (H : ℝ)‖ ^ 2)
       ≤ MS H
 
+/-- **D8 — the sieve-free row descent.** From the row input `hrow : M4RowMeanSqLam R k MS` (the
+unsieved twin of `M4RowMeanSq`, at the bare Liouville datum `lamCoeff`), with the ladder
+reaching the door (`hreach`), `hpow : 2^(k+1) ≤ R.x` and the `k ≤ 3Z` absorption slack `hk3`,
+the squared door integral of `absWindowSum lamCoeff` is at most
+`3 · MS H · H² + 4 · 2^k · H / (R.x · Z)` at every window `H` of the regime and every tight arc
+`α`. The route: `hreach` at `k = 0` forces `0 < k`, `hrow` at `i = 0` gives `0 ≤ MS H`; per
+block `hcov_of_seamS0` (generic in `c`) discharges the coverage slot of
+`sum_Ioc_absWindowSum_sq_div_le_ladder`; `m4_bridge_door_sq_le` composes the ladder and
+`door_weight_absorb` normalises. Consumed by `MRTPortExitLam` (the row chain). -/
 theorem m4_doorSq_of_rowMeanSqLam {R : ChowlaRegime} {k : ℕ} {MS : ℕ → ℝ}
     (hreach : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → doorLadder R.x H k ≤ R.x / R.ω)
     (hpow : 2 ^ (k + 1) ≤ R.x)
