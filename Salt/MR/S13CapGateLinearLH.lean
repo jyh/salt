@@ -1367,6 +1367,15 @@ bytes verbatim; the two wire lemmas stay here.  2026-09-29: family 22 re-pointed
 assembler's calls to five cap-9 twins, its statement unchanged; the deliverable is as landed.) -/
 
 
+/-- **THE WIRE LEMMA, `h`-graded, at the linear door and the G-lever**: for the row-χ capstone's
+constants `Cq cs T₀ Kq Ks` with `Kq ≤ 126848/10^8`, and every regime `R`, modulus `M`,
+unimodular `cU` and grade `ε` — given a `DoorCapBasePerBlock_L_gk` at every `SocketBaseLH`
+socket and window `T` — the door's χ-twisted short polynomial has, on `seamAnn (A+s) (2T)`, mean
+square at most its mean square off the zero ball and inside `seamTtotG`, plus
+`2·(2T/(A+s) + 1)·(log (A+s))^{−θ₂₉₃+ε}` (the `8·0²` is the ball term at centre `0`). Route:
+`m4_rowChi_capstone_perBlock_bounded` read at the cap base's fields, `m4_hSup_door_at_zero`,
+then `chiBarCoeff_doorRowDatum_L_gk`. The binders `_hh`, `_hh7` keep the LH shape and are not
+spent. Consumed by `m4_fuse_hcap_of_capWS_LH_gk_ceiling`. -/
 theorem m4_hcap_at_door_perBlock_LH_gk_bounded {h : ℕ} (_hh : 0 < h)
     (_hh7 : Real.log (h : ℝ) ≤ 7) (K : ℕ) :
     ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ Kq ≤ 126848 / 10 ^ 8 ∧ 0 < Ks ∧
@@ -1425,6 +1434,12 @@ theorem m4_hcap_at_door_perBlock_LH_gk_bounded {h : ℕ} (_hh : 0 < h)
   rw [chiBarCoeff_doorRowDatum_L_gk] at hres
   simpa using hres
 
+/-- **THE FUSE, at the ceiling `Kq ≤ e^100`**: the wire lemma's conclusion from the WS cap error
+`G2Scaffold.DoorCapErrWS_L_gk` together with the `ramErr` row-sum bound `≤ E` at every socket
+and window, in place of the cap base — `G2Scaffold.m4_capE_at_door_L_gk` turns the pair into the
+`DoorCapBasePerBlock_L_gk` the wire lemma reads, and `kq_closed_form_le_exp_hundred` lifts
+`Kq ≤ 126848/10^8` to the ceiling. Consumed by `s15_crossing_supplied_LH_gk_ceiling` and by
+`S16ComposeLH.s15_crossing_supplied_LH_gk_ceiling_sharpT0`. -/
 theorem m4_fuse_hcap_of_capWS_LH_gk_ceiling {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (K : ℕ) :
     ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ Kq ≤ Real.exp 100 ∧ 0 < Ks ∧
@@ -3055,6 +3070,11 @@ the second still spends it (`h ≤ 1096`), and the capfloor assembler calls both
 before. -/
 
 -- 2026-09-30, the XY debt lane, family 29: two calls at the cap 9 (twins), none kept at the cap 7
+/-- `T₀ ≤ Tann` at the cap `log h ≤ 7`: for a socket `hb` over a regime with
+`loglogFloor50 ≤ R.Hlo`, `A ≤ Nd`, `Nd/2^j ≤ Tann` and `T₀ ≤ e^{e^100}`. Route:
+`capfloor_core_LH_b9` (at the cap 9, from `hh7`), `H ≥ 4·10^6` from the regime floor,
+`e^100 ≤ √H/2`, then `capfloor_T0_Tann_sharp_LH_b9`. Consumed by `s13CapFloor_all_LH_gk` (its
+third conjunct). -/
 theorem capfloor_T0_Tann_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {T₀ Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) (hAN : A ≤ Nd)
@@ -3183,6 +3203,15 @@ theorem capfloor_floor4_LH {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 
 
 
 -- 2026-09-28, the XY debt lane, family 21: five calls at the cap 9 (twins), two kept at the cap 7
+/-- **THE CAPFLOOR ASSEMBLER, `h`-graded, at the linear door and the G-lever**: at a socket `hb`
+over a regime with `loglogFloor50 ≤ R.Hlo`, under `1 ≤ M`, `As ≤ Nd`, `Nd/2^j ≤ Tann`, the `𝒬₂`
+regularity `hQ2reg`, `T₀ ≤ e^{e^100}`, `Kq ≤ e^100` and `e^{−100} ≤ Ks` — the eight floor
+conjuncts the per-block gate reads: `𝒬₂ ≤ q·Tann`, the κ30 ratio, `T₀ ≤ Tann`, the four
+`log (log (5·Tann + 1))` floors, and `hQ2reg` passed through. Route: one anonymous constructor
+over seven suppliers — five cap-9 twins (`capfloor_QTann_LH_gk_b9`,
+`capfloor_kappa30Q_LH_gk_b9`, `capfloor_floor1/2/3_LH_b9`) and two at the cap 7
+(`capfloor_T0_Tann_LH`, `capfloor_floor4_LH`). Consumed by `s16_capGate_supply_LH_gk` (its floor
+wave `f1 … f7`). -/
 theorem s13CapFloor_all_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (K : ℕ) {R : ChowlaRegime} {M H L q j As s Nd : ℕ}
     {T₀ Kq Ks Tann : ℝ}
@@ -3221,6 +3250,17 @@ theorem s13CapFloor_all_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
 set_option maxHeartbeats 1000000 in
 -- as the landed assembler: 37 structure fields checked against the per-block gate in one `exact`
 -- 2026-09-29, the XY debt lane, family 22: six calls at the cap 9 (five twins), one kept at cap 7
+/-- **THE CAP-GATE ASSEMBLER, `h`-graded, at the linear door and the G-lever**: under `1 ≤ M`,
+`loglogFloor50 ≤ R.Hlo`, `e^{−100} ≤ cs`, the block floor `s13BlockFloor_L_gk K M ≤ A + s` at
+every socket, the ceilings `T₀ ≤ e^{e^100}`, `Kq ≤ e^100`, `e^{−100} ≤ Ks`, `0 < C`,
+`log C ≤ 40`, the grade floor `θ₂₉₃ − 1/500 ≤ epsf A`, the base-scale cap
+`S16BaseScaleCap96_LH_gk` and the cofactor supply `S16CofactorSupply_LH_gk` — at every socket
+and window `T` there are `P Q Rrad Rbd CR EP2` with `S13CapGatePerBlock_L_gk … (2T) …`. Route:
+the thirty-seven fields in one `exact` from three waves — the grid wave
+`s13CapGrid_all_LH_gk_b9` (`g1 … g18`), the floor wave `s13CapFloor_all_LH_gk` (`f1 … f7`), the
+ε wave `s13CapEps_all_LH_b9` with `s13CapEps_pins_supply_LH_b9` (`e1 … e7`) — plus the cofactor
+supply's `Rrad Rbd CR`, the budget field `s16_budget_field_L_gk_96` from the cap and the gate
+`s16_capGrid_gate_cs`. Consumed by `s15_crossing_supplied_LH_gk_ceiling`. -/
 theorem s16_capGate_supply_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {R : ChowlaRegime} {M : ℕ}
     {epsf : ℕ → ℝ}
@@ -3307,6 +3347,17 @@ theorem s16_capGate_supply_LH_gk {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ
       band_product := g18 }
 
 
+/-- **THE DELIVERABLE: the crossing bound at the linear door and the G-lever, `h`-graded at the
+cap 7**: there are `Cq cs T₀ Kq Ks C` (positive, `3 ≤ T₀`, `Kq ≤ e^100`, `log C ≤ 40`) such that
+under the four ceilings, for every regime with `loglogFloor50 ≤ R.Hlo`, every `1 ≤ M` with the
+block floor at every socket, the cofactor supply `S16CofactorSupply_LH_gk h K Cq R M` and the
+base-scale cap `S16BaseScaleCap96_LH_gk h K R M` give `S15CrossingBound_LH_gk h K R M`. Route:
+`m4_fuse_hcap_of_capWS_LH_gk_ceiling` for the constants and the wire,
+`m4_tail_mass_at_band_bounded` for `C`, `s16_capGate_supply_LH_gk` for the gate at each socket
+(coefficients `liouvilleC`, grade `θ₂₉₃ − 1/500`), then
+`doorCapBundle_at_workingPoint_perBlock_L_gk`. Consumed by
+`S16ComposeLH.logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_h` (at `K = 32000000`)
+and by `S16ComposeLH.s15_crossing_supplied_LH_gk_ceiling_sharpT0`. -/
 theorem s15_crossing_supplied_LH_gk_ceiling {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (K : ℕ) :
     ∃ Cq cs T₀ Kq Ks C : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ Kq ≤ Real.exp 100 ∧
