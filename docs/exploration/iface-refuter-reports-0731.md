@@ -46,7 +46,7 @@ At λ₋ = 448.98 the landed tower gives λ₊ = λ₋^3.7436 = **8.489·10⁹**
 
 ## 5. CLAIM 3 — REFUTED (a category error, both branches)
 
-CLAIM 3 compares the socket floor `Λ ≥ e^{λ₊}` against `K ≤ 1.79e8·(L+1) ≈ 2e10` **as numbers**. But K enters the ceiling as `2^K`: `log 𝒫₂ = 4·Adoor M·s13GK K M·log 2` (`S16Budget.lean:106-114` `s16_logP2`, `:698` `s16_recut_calE_ge`), and the face `log H₊ ≤ log 𝒫₂/12` (S4 `probe_cap_forces_logHhi`, = `s13CapGrid_Lambda_sharp` `S13CapGrid.lean:201` composed with `S16BaseScaleCap_gk` `S16Budget.lean:469`, the `/24`). The demand is therefore
+CLAIM 3 compares the socket floor `Λ ≥ e^{λ₊}` against `K ≤ 1.79e8·(L+1) ≈ 2e10` **as numbers**. But K enters the ceiling as `2^K`: `log 𝒫₂ = 4·Adoor M·s13GK K M·log 2` (`S16Budget.lean` `s16_logP2`, `:698` `s16_recut_calE_ge`), and the face `log H₊ ≤ log 𝒫₂/12` (S4 `probe_cap_forces_logHhi`, = `s13CapGrid_Lambda_sharp` `S13CapGrid.lean:201` composed with `S16BaseScaleCap_gk` `S16Budget.lean:469`, the `/24`). The demand is therefore
 
 **K ≥ 1.4427·λ₊ − (48 + log₂M + log₂(3(L+1)) − 3.6)**, not `K ≈ e^{λ₊}`.
 
