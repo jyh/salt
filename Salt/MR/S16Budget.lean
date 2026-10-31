@@ -257,7 +257,7 @@ set_option maxHeartbeats 1000000 in
 -- the whole `exp`/`rpow` reduction (card, `VJ²`, the `X`-power, the `Mr` floor) elaborates in
 -- one term against the levered `𝒫₂`/`𝒬K₂` literals; the default budget is spent by the
 -- `thinBundleGChi` unfold
-/-- **The `budget` field of `S13CapGatePerBlock_gk`, proved verbatim at every ram block**
+/-- **The `budget` field of `S13CapGatePerBlock_gk`, supplied verbatim at every ram block**
 `hi : i ∈ ramI (H83 Nd theta293) P Q`: the thin bundle
 `thinBundleGChi (q·Tann) (s13VJ_gk K M) (calH (H1door M) 2) 𝒫₂ 𝒬K₂`, times
 `Nd^{1 − 2·s13Eta + s13EpsD q Nd}`, is at most `s13Mr Nd i`, from the grid wave's own fields
