@@ -564,7 +564,7 @@ composition above). Then log-Chowla-2 rests on: MRTUniformity
 is OFF BY ONE — a W2-b transcription slip, load-bearing only now.**
 The landed gate `(j : ZMod p) = −r` (0-indexed j) pairs with the
 1-indexed window values λ(n+j+1); Tao (3.14) has gate index =
-product index (house-verified against FBridge.lean:89 + pg-22).
+product index (house-verified against `fBridgeG`'s definition, FBridge line 89 when written, + pg-22).
 Every count-based consumer (boxes, means, Hoeffding, the decoupled
 chain) is residue-independent — hence ten nodes of silence; the
 multiplicativity collapse is the FIRST alignment-sensitive

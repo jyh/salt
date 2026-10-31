@@ -63,7 +63,7 @@ of the admissible window.*
 Offending sentence: *"Everything else — the regime bounds, `hI`, `h211`, the budget arithmetic —
 is unchanged."* **`hI` is h-free; `h211` is NOT.**
 `h211` is stated over `fBridgeF = ∑_p fBridgeG ∘ residueProj`, and **`fBridgeG` bakes the offset
-multiplier 1 into its DEFINITION** (`FBridge.lean:89-92`, `windowVal H v (j + (p:ℕ))`).
+multiplier 1 into its DEFINITION** (`fBridgeG`'s definition — cited by line as 89–92 when written — `windowVal H v (j + (p:ℕ))`).
 🔑 ***Its own docstring says so in as many words: "at the Liouville model (`a=1,b=0,h=1,c_p=1`)".
 The parameter I proposed to generalise is named FIXED AT 1 in the definition I proposed to reuse.***
 Machine-checked: the offset-1 and offset-`p·h` correlations are **not defeq**, so the shell's
