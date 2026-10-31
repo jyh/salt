@@ -63,17 +63,27 @@ noncomputable def Xe (K : ℕ) (v : ℝ) : ℝ :=
 noncomputable def Xo (K : ℕ) (w : ℝ) : ℝ :=
   ∑ j ∈ (Finset.range (K + 1)).filter (fun j => Odd j ∧ 3 ≤ j), fseq j w
 
+/-- `Xe K v` unfolded to its sum, by `rfl`: the rewrite rule for the even partial sum, used in
+`Xe_eq_zero_of_large`, `Xe_intervalIntegrable` (as a function equality), `Xe_recursion` and
+`superSol_dominates`. -/
 theorem Xe_apply (K : ℕ) (v : ℝ) :
     Xe K v = ∑ k ∈ (Finset.range (K + 1)).filter (fun k => Even k ∧ 2 ≤ k), fseq k v := rfl
 
+/-- `Xo K w` unfolded to its sum, by `rfl`: the rewrite rule for the odd partial sum, used in
+`Xo_eq_zero_of_large`, `Xo_intervalIntegrable` (as a function equality), `odd_step` and
+`superSol_dominates`. -/
 theorem Xo_apply (K : ℕ) (w : ℝ) :
     Xo K w = ∑ j ∈ (Finset.range (K + 1)).filter (fun j => Odd j ∧ 3 ≤ j), fseq j w := rfl
 
 /-! ### Nonnegativity, support, integrability -/
 
+/-- `0 ≤ Xe K v`: `Finset.sum_nonneg` over `fseq_nonneg`. Part of the structural layer beside
+`Xo_nonneg`; nothing in `Salt/` consumes it. -/
 theorem Xe_nonneg (K : ℕ) (v : ℝ) : 0 ≤ Xe K v :=
   Finset.sum_nonneg (fun k _ => fseq_nonneg k v)
 
+/-- `0 ≤ Xo K w`: `Finset.sum_nonneg` over `fseq_nonneg`. Part of the structural layer beside
+`Xe_nonneg`; nothing in `Salt/` consumes it. -/
 theorem Xo_nonneg (K : ℕ) (w : ℝ) : 0 ≤ Xo K w :=
   Finset.sum_nonneg (fun j _ => fseq_nonneg j w)
 
@@ -99,21 +109,36 @@ theorem Xo_eq_zero_of_large (K : ℕ) (w : ℝ) (h : (K : ℝ) + 2 ≤ w) : Xo K
     exact_mod_cast this
   exact fseq_eq_zero_of_ge j w (by linarith)
 
+/-- `IntervalIntegrable (Xe K) volume a b` for all `a`, `b`: `Xe K` is the finite sum of the
+functions `fseq k`, each interval integrable (`fseq_intervalIntegrable`), so
+`IntervalIntegrable.sum`. The integrability of the dominated side in
+`massSum_le_A2_of_superSolution` and `A2Weighted.massSum_le_A2_sharp`, and the source of
+`Xe_shift_ii`. -/
 theorem Xe_intervalIntegrable (K : ℕ) (a b : ℝ) : IntervalIntegrable (Xe K) volume a b := by
   have hfun : Xe K = ∑ k ∈ (Finset.range (K + 1)).filter (fun k => Even k ∧ 2 ≤ k), fseq k := by
     funext v; rw [Xe_apply, Finset.sum_apply]
   rw [hfun]
   exact IntervalIntegrable.sum _ (fun k _ => fseq_intervalIntegrable k a b)
 
+/-- `IntervalIntegrable (Xo K) volume a b` for all `a`, `b`: the finite sum of the `fseq j`,
+each interval integrable (`fseq_intervalIntegrable`), so `IntervalIntegrable.sum`. The
+integrability of the dominated side in `massOSum_le_A1_of_superSolution`, and the source of
+`Xo_shift_ii`. -/
 theorem Xo_intervalIntegrable (K : ℕ) (a b : ℝ) : IntervalIntegrable (Xo K) volume a b := by
   have hfun : Xo K = ∑ j ∈ (Finset.range (K + 1)).filter (fun j => Odd j ∧ 3 ≤ j), fseq j := by
     funext w; rw [Xo_apply, Finset.sum_apply]
   rw [hfun]
   exact IntervalIntegrable.sum _ (fun j _ => fseq_intervalIntegrable j a b)
 
+/-- `IntervalIntegrable (fun t => Xe K (t − 1)) volume a b`: `Xe_intervalIntegrable` on
+`[a−1, b−1]` composed with the shift (`IntervalIntegrable.comp_sub_right`). The integrability of
+the shifted even integrand in `superSol_dominates`'s odd step. -/
 theorem Xe_shift_ii (K : ℕ) (a b : ℝ) : IntervalIntegrable (fun t => Xe K (t - 1)) volume a b := by
   simpa using (Xe_intervalIntegrable K (a - 1) (b - 1)).comp_sub_right 1
 
+/-- `IntervalIntegrable (fun t => Xo K (t − 1)) volume a b`: `Xo_intervalIntegrable` on
+`[a−1, b−1]` composed with the shift (`IntervalIntegrable.comp_sub_right`). The integrability of
+the shifted odd integrand in `superSol_dominates`'s even step. -/
 theorem Xo_shift_ii (K : ℕ) (a b : ℝ) : IntervalIntegrable (fun t => Xo K (t - 1)) volume a b := by
   simpa using (Xo_intervalIntegrable K (a - 1) (b - 1)).comp_sub_right 1
 
