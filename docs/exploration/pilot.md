@@ -1346,7 +1346,7 @@ decisions per question.
   ec ≪ 0.01 inside the razor's 1/100. THE FLAG (deliverable 1,
   honest and precise): the twin's survivor-price bodies HARD-WIRE
   crtClassW across five files (FinA3/FinA3b/AggSum/PriceOne/
-  PriceClose — verified FinA3.lean:227) and carry a single
+  PriceClose — verified FinA3.lean:259) and carry a single
   T-difference (no annulus axis); no Goldbach crtClassG box-price
   supplier exists; reproducing that + the Σ_k annulus budget in one
   file was correctly out of scope. **G-PRICE COMMISSIONED** (the

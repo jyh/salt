@@ -54,6 +54,14 @@ Mirror of `A2Window.A2weight_window_dom` with the top filter relaxed from `log t
 `log t ≤ (8/3 + 1/1000)·log z`.  The combined window worsens the honest `1 + κ` from `5000/4997`
 to `1250/1249` (`κ = 24/39946 ≤ 1/1249`); after clearing denominators the claim reduces to the two
 window filters (rational, with `~0.33·log z` margin). -/
+/-- **The combined Dtot + top-window weight domination.**
+`A2weight z Dtot t ≤ (1250/1249)·A2weight z (z^4) t` at `hz2 : 2 ≤ z`,
+`htyR : log t ≤ (8/3 + 1/1000)·log z` and `hLD_lo : (4 − 8/10000)·log z ≤ log Dtot`: with
+`log (z^4) = 4·log z` both denominators `log Dtot − log t` and `4·log z − log t` are positive,
+`nlinarith` from the two window filters gives
+`4·log z − log t ≤ (1250/1249)·(log Dtot − log t)`, and `div_le_div_iff₀` finishes.
+`A2Window.A2weight_window_dom` with the top filter relaxed by `δ′ = 1/1000` (`5000/4997` →
+`1250/1249`); the pointwise step `hwdom` of `A2grid_topwindow_le`. -/
 theorem A2weight_topwindow_dom {z Dtot : ℕ} {t : ℝ} (hz2 : 2 ≤ z) (_ht0 : 0 < t)
     (htyR : Real.log t ≤ (8 / 3 + 1 / 1000) * Real.log z)
     (hLD_lo : (4 - 8 / 10000) * Real.log z ≤ Real.log Dtot) :
