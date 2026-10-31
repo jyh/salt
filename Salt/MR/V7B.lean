@@ -1822,7 +1822,7 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree (A
 
 /-! ## §5 — ⟦THE DELIVERABLE⟧ `v6` WITH THE `cs` RIDER GONE
 
-Body verbatim from `RegisterCompose.lean:345-446`, with the terminal re-pointed at §4's
+Body verbatim from `logChowla2_ineffective_v6`, with the terminal re-pointed at §4's
 `_csfree` twin and the rider's arrow removed.  This is NOT the `v7` mint — four inner items
 remain — it is the demonstration that the carry reaches `v6`'s own statement. -/
 
