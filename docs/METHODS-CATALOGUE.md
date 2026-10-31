@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `57595436` · source digest `c5bdfefb706bfdf7` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `09d001c8` · source digest `d6a864f324d047d6` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23384 · with a proof/definition body: 23384 · direct corpus references (edges): 87879 · audited results: 9148 · corpus Prop-valued names: 678.
+Declarations indexed: 23385 · with a proof/definition body: 23385 · direct corpus references (edges): 87865 · audited results: 9148 · corpus Prop-valued names: 678.
 
 ## Hypothesis status (Deliverable A)
 
@@ -162,7 +162,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 70 | `Salt.MR.PocketSocket3Gen` | 3 | 1 | — | Salt/MR/CofactorSupplier.lean:491 |
 | 71 | `Salt.MR.S13CapGate` | 3 | 0 | — | Salt/MR/S13FramesB.lean:248 |
 | 72 | `Salt.MR.S13CapGatePerBlock_L_gk` | 3 | 0 | — | Salt/MR/S13CapGateLinear.lean:92 |
-| 73 | `Salt.MR.S16BandLaneCBounded` | 3 | 1 | — | Salt/MR/S16Budget.lean:1444 |
+| 73 | `Salt.MR.S16BandLaneCBounded` | 3 | 1 | — | Salt/MR/S16Budget.lean:1435 |
 | 74 | `Salt.MR.S16BandLaneCBoundedLH` | 3 | 0 | — | Salt/MR/S16FlatTerminalLinearLH.lean:84 |
 | 75 | `Salt.MR.TLBlockGatesLoc` | 3 | 0 | — | Salt/MR/USetGradedBalance.lean:333 |
 | 76 | `Salt.TwinBar.LiouvilleTwinDispLog` | 3 | 0 | — | Salt/TwinBar/TwinParitySieveLog.lean:142 |
@@ -335,14 +335,14 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.SawtoothOdd` | DISCHARGED | 6 | `Salt.MR.sawtoothOdd` ✓audited (Salt/MR/Sawtooth.lean:842) |
 | `Salt.MR.SieveBlockGate` | DISCHARGED | 6 | `Salt.MR.s13_sieveBlockGate` ✓audited GUARDED (Salt/MR/S13FramesA.lean:145) · `Salt.MR.s13_sieveBlockGate_gk` GUARDED (Salt/MR/S13FramesA.lean:1141) · `Salt.MR.s13_sieveBlockGate_gen` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:77) · +2 |
 | `ProbabilityTheory.FiniteSupport` | DISCHARGED | 5 | `Salt.Entropy.Chowla.instFiniteSupport` (Salt/Entropy/Chowla/LogMeasure.lean:80) · `Salt.Entropy.Chowla.finiteSupport_logMeasureAff` ✓audited (Salt/Entropy/Chowla/StrideDecrement.lean:63) · `ProbabilityTheory.finiteSupport_zero` (Salt/Entropy/Measure.lean:130) · +2 |
-| `Salt.MR.GRowsZeroGate'''_L` | DISCHARGED | 5 | `Salt.MR.gRowsZeroGate'''_L_of_budget` ✓audited GUARDED (Salt/MR/ArithPageLinear.lean:894) |
+| `Salt.MR.GRowsZeroGate'''_L` | DISCHARGED | 5 | `Salt.MR.gRowsZeroGate'''_L_of_budget` ✓audited GUARDED (Salt/MR/ArithPageLinear.lean:945) |
 | `Salt.MR.JointIntegrableAtC` | DISCHARGED | 5 | `Salt.MR.jointIntegrableAtC_pin2_free` ✓audited GUARDED (Salt/MR/CaseASocket.lean:595) · `Salt.MR.jointIntegrableAtC_pin_free` ✓audited GUARDED (Salt/MR/GradeWindowC.lean:234) |
 | `Salt.MR.L1LowerEffective` | DISCHARGED | 5 | `Salt.MR.l1LowerEffective_goldenGate` ✓audited (Salt/MR/EvenChiDescent.lean:248) · `Salt.MR.L1LowerEffective_descend` ✓audited GUARDED (Salt/MR/LandauDescent.lean:197) |
 | `Salt.MR.M4ChiBlockMeanSqH` | DISCHARGED | 5 | `Salt.MR.m4_chiBlockMeanSqH_trivial` ✓audited (Salt/MR/HDoorClose.lean:357) |
 | `Salt.MR.M4ClassBlockMeanSq` | DISCHARGED | 5 | `Salt.MR.m4_classBlockMeanSq_trivial` ✓audited (Salt/MR/M4WaveClosed.lean:210) |
 | `Salt.MR.S16BaseScaleCap96_LH_gk` | DISCHARGED | 5 | `Salt.MR.s16_baseScaleCap96_LH_at_klevF_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:175) · `Salt.MR.s16_baseScaleCap96_LH_at_klevF_b9` ✓audited GUARDED (Salt/MR/V7RatedH.lean:1170) |
 | `Salt.MR.S16CofactorSupply_LH_gk` | DISCHARGED | 5 | `Salt.MR.cofkR_cofactorSupply_L_gk_rated_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:1505) · `Salt.MR.cofkR_cofactorSupply_L_gk_rated_h_b9` ✓audited GUARDED (Salt/MR/V7RatedH.lean:480) |
-| `Salt.MR.S16CofactorSupply_L_gk` | DISCHARGED | 5 | `Salt.MR.cofkR_cofactorSupply_L_gk` ✓audited GUARDED (Salt/MR/RegisterRepair.lean:473) · `Salt.MR.cofkR_cofactorSupply_L_gk_rated` ✓audited GUARDED (Salt/MR/V7Rated.lean:242) |
+| `Salt.MR.S16CofactorSupply_L_gk` | DISCHARGED | 5 | `Salt.MR.cofkR_cofactorSupply_L_gk` ✓audited GUARDED (Salt/MR/RegisterRepair.lean:473) · `Salt.MR.cofkR_cofactorSupply_L_gk_rated` ✓audited GUARDED (Salt/MR/V7Rated.lean:243) |
 | `Salt.TwinBar.LambdaSummatory` | DISCHARGED | 5 | `Salt.TwinBar.lambdaSummatory_holds` ✓audited GUARDED (Salt/TwinBar/WallUnconditional.lean:37) |
 | `Salt.BrunLower.IsLowerMoebius` | DISCHARGED | 4 | `Salt.BrunLower.isLowerMoebius_moebius_chiTwo` ✓audited GUARDED (Salt/BrunLower/Pointwise.lean:305) · `Salt.Chen.TruncSieve.isLowerMoebius` ✓audited GUARDED (Salt/Chen/LinearSieve.lean:285) · `Salt.Chen.rosserSieve_isLowerMoebius` ✓audited (Salt/Chen/LinearSieve.lean:587) · +1 |
 | `Salt.Chen.Feasible` | DISCHARGED | 4 | `Salt.Chen.corpus_feasible` ✓audited GUARDED (Salt/Chen/WeightNoGo.lean:126) |
@@ -425,7 +425,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.M4SievedDoorSqBlk` | DISCHARGED | 1 | `Salt.MR.m4_sievedDoorSqBlk_trivial` ✓audited (Salt/MR/M4BridgeBlock.lean:463) |
 | `Salt.MR.MRTShortSegmentSplitting` | DISCHARGED | 1 | `Salt.MR.mrtShortSegmentSplitting_holds` ✓audited (Salt/MR/A4FMidRange.lean:414) |
 | `Salt.MR.NearRat` | DISCHARGED | 1 | `Salt.MR.nearRat_zero` GUARDED (Salt/MR/BigXiArc.lean:217) · `Salt.MR.nearRat_of_pos` ✓audited GUARDED (Salt/MR/BigXiArc.lean:254) · `Salt.MR.nearRat_arc_zero` ✓audited GUARDED (Salt/MR/BigXiArc.lean:494) |
-| `Salt.MR.S15Sel''_gk` | DISCHARGED | 1 | `Salt.MR.s15_sel''_witness_gk` GUARDED (Salt/MR/S15Witness.lean:1561) · `Salt.MR.s15_sel''_witness_gk'` GUARDED (Salt/MR/S15Witness.lean:1745) · `Salt.MR.s15_sel''_witness_wide` GUARDED (Salt/MR/S16Budget.lean:2617) |
+| `Salt.MR.S15Sel''_gk` | DISCHARGED | 1 | `Salt.MR.s15_sel''_witness_gk` GUARDED (Salt/MR/S15Witness.lean:1561) · `Salt.MR.s15_sel''_witness_gk'` GUARDED (Salt/MR/S15Witness.lean:1745) · `Salt.MR.s15_sel''_witness_wide` GUARDED (Salt/MR/S16Budget.lean:2608) |
 | `Salt.MR.S16BaseScaleCapEnd_LH_gk` | DISCHARGED | 1 | `Salt.MR.s16_baseScaleCapEnd_LH_of_xceil` ✓audited GUARDED (Salt/MR/V7RatedH.lean:166) |
 | `Salt.MR.S4ArrowUncapped` | DISCHARGED | 1 | `Salt.MR.s4ArrowUncapped_holds` ✓audited (Salt/MR/StrideSupplyAllStrides.lean:323) |
 | `Salt.MR.StrideSupplyAllStridesW` | DISCHARGED | 1 | `Salt.MR.strideSupplyAllStridesW_holds` ✓audited (Salt/MR/StrideSupplyAllStrides.lean:327) |
@@ -985,7 +985,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | Mertens / PNT-type | 254 | 67 | 883 | 792 | 4 | 16 | 0 | 1695 | 1638 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
 | explog/lognum numeral tactic | 53 | 0 | 669 | 763 | 1 | 5 | 0 | 1438 | 1438 |
-| Matomaki-Radziwill / Halasz (short intervals) | 9783 | 5428 | 2960 | 1300 | 168 | 189 | 0 | 4617 | 73 |
+| Matomaki-Radziwill / Halasz (short intervals) | 9784 | 5428 | 2960 | 1300 | 168 | 189 | 0 | 4617 | 73 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
 
@@ -1165,7 +1165,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | family | external dependents | audited members | decls |
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
-| Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9783 |
+| Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9784 |
 | entropy decrement | 650 | 534 | 1400 |
 | character sums / L-functions | 966 | 2196 | 4310 |
 | circle method / Fourier | 1171 | 83 | 181 |
