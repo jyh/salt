@@ -1953,7 +1953,7 @@ RESURRECTS THEM:**
    ⛔⛔ **END OF THE WITHDRAWN RATE ARGUMENT (opened ~18 lines above).** Its premise — `A.1 → −1` — is a MIS-TRANSCRIPTION; **A.1 is −2**, so A.1 BEATS the pin and MISSES delivery. The conclusion it supported (the δ₀ SPLIT socket is the target) SURVIVES on a different comparison. Full supersession below at **"SUPERSEDED 08/25"**; repair `46b7a5a9`. *And gate v2 later showed the whole rate frame was malformed — the demand is a CONSTANT.*
    ⚠️ **THE REMAINING TENSION, MEASURED AND NOT RULED: the ratified route's feed is UNPROVEN and the
    deleted route's feed is FORBIDDEN.** `MRTThmA1` is a `def … : Prop`; the stack beneath it
-   (`MRTThmA2` → `MRTParsevalConstantMatch`, `MRTPropA3.lean:3802`/`:3883`) has no producer. **GATE v2
+   (`MRTThmA2` → `MRTParsevalConstantMatch`, `MRTPropA3.lean:3807`/`:3883`) has no producer. **GATE v2
    IS IN FLIGHT** under the corrected two-repo scope, targeting the δ₀ split socket, to price exactly
    that. **No node has fired. No Lean written. No build run — every ruling here is statement-level.**
    📌 Note for v2 and for whoever reads this next: the L²→L¹ step this row's own `📌` above calls
@@ -1967,7 +1967,7 @@ RESURRECTS THEM:**
    SOURCE  1503.05121v3 p.20 Thm A.1:  … + (log log h)^2/(log h)^2 + 1/(log X)^{1/50}
    CORPUS  MRTThmA1.lean:78 (was):     + (Real.log (Real.log h)) ^ 2 / Real.log h
    ⚠️ **AND THE `:78` ADDRESS ITSELF DRIFTED — MY OWN REPAIR MOVED IT.** Adding the repair docstring pushed the statement to **`MRTThmA1.lean:88`** and the middle term to **`:94`**; **`:78` is now a fence inside that docstring.** The three `:78` citations in this row are HISTORICAL addresses — true of what the file said before `46b7a5a9`, not directions to anything now. *I repaired the number and did not chase the citations pointing at it — the sibling-surface law, and the surface I missed was the one my own edit created.*
-           MRTPropA3.lean:3809 (was):  + (Real.log (Real.log h)) ^ 2 / Real.log h
+           MRTPropA3.lean:3814 (was):  + (Real.log (Real.log h)) ^ 2 / Real.log h
    ```
    **THE DENOMINATOR IS SQUARED IN THE SOURCE AND WAS UNSQUARED IN OUR LEAN, AT BOTH SITES** — so our
    `MRTThmA1` was **STRICTLY WEAKER than MRT's actual theorem**. Verified with **three instruments**
@@ -7139,7 +7139,7 @@ numbering is UNVERIFIED.
    argument (RENAMED from "S-4" 2026-09-14, desk `NI` — see the S-PLATEAU card in the Tier S block
    below) redone against the TWO builders that actually pin `Hhi`; the socket window's
    non-emptiness as a stated obligation; and S-1's head form EXPORTING the tight upper bound
-   (`XCeil.lean:494–497`) as a third conjunct.
+   (`XCeil.lean:502–505`) as a third conjunct.
    ⚖️✅ **TIER S IS STAMPED — 2026-09-14 (math, 32nd head; helm-ruled at 01:31 · 01:37 · 01:53 · 02:08).
    THE ⛔ ROW DIRECTLY ABOVE IS DISCHARGED AS TO S-0 AND S-2 AND IS KEPT AS WRITTEN.** Five states:
    * ✅ **S-0 — LANDED.** The socket's `A`-window is inhabited at `A := 2·R.x`. salt **PR #129 → main
