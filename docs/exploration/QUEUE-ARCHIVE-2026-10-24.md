@@ -1349,7 +1349,7 @@ RESURRECTS THEM:**
       mrtS P₁ Q₁ X₀ X            LANDED  MRTProp24.lean:134 (+ mem_mrtS :136)   ← wave 1a
       E-5c, the S-DILATION identity on mrtS      ABSENT — 0 declarations
         ⛔ the `memS_dilate` family that greps is the DOOR's, at `calP`/`windowClass`
-           sequences (`M4ClassPrice.lean:232`, `DoorLadderLinear.lean:738`), NOT MRT's
+           sequences (`M4ClassPrice.lean:232`, `DoorLadderLinear.lean:741`), NOT MRT's
            `mrtS` at MRT's own Definition-2.1 sequence. Different object, matching name.
       H₀mrt(ε) · H₊*(ε)          ABSENT — 0 declarations under any of 4 spellings tried
       W ≤ H^{1/250}              ABSENT as stated; the `1/250` that greps is a DIFFERENT
@@ -5566,7 +5566,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    a FREE `A` under `(q:ℝ) ≤ A`, so `A := h·arcDen 12 H` instantiates it VERBATIM. The commission's
    worry that the drift factor "is never re-chosen" is answered — it never needed to be.
    ⛔ **AND THE CAP HAS A SECOND SITE INSIDE ONE DEFINITION, MOVING THE OTHER WAY.** `SocketBaseL`
-   (`ArithPageLinear.lean:695-698`) carries `q ≤ arcDen 12 H` (5th conjunct, inflation STRENGTHENS
+   (`ArithPageLinear.lean:740-743`) carries `q ≤ arcDen 12 H` (5th conjunct, inflation STRENGTHENS
    the demand) AND `x ≤ 16·ω·arcDen 12 H·A` (11th, inflation WEAKENS the hypothesis — and
    `cofkL_logX_floor` DIVIDES by it, `RegisterSupply.lean:330`). **A port that inflates the fifth
    and not the eleventh is measuring a different object.**
