@@ -113,7 +113,7 @@ theorem eps_pool_const_pos_at_socket_flat {R : ChowlaRegime} {M H L q j A s : �
 
 /-! ## §2 — `S15Compose`'s socket consumers at the flat shape -/
 
-/-- `s15_heps293_at_socket` (`S15Compose.lean:371`) at the FLAT tower conjunct. -/
+/-- `s15_heps293_at_socket` (`S15Compose.lean:361`) at the FLAT tower conjunct. -/
 theorem s15_heps293_at_socket_flat {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hρ : 0 < ρ)
     (hlam : 50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)))
@@ -154,7 +154,7 @@ theorem s15_heps293_at_socket_flat {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ 
     nlinarith [h1, h2, hcore, hrho]
   linarith [hkey, hlog376]
 
-/-- `s15_hband4096_at_socket` (`S15Compose.lean:412`) at the FLAT tower
+/-- `s15_hband4096_at_socket` (`S15Compose.lean:402`) at the FLAT tower
 conjunct. -/
 theorem s15_hband4096_at_socket_flat {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hρ : 0 < ρ)
@@ -200,7 +200,7 @@ theorem s15_hband4096_at_socket_flat {R : ChowlaRegime} {M H L q j A s : ℕ} {�
   have h2 : (1 - (1 : ℝ) / 500) * ll ≥ 0.0017 * Real.exp lam := by nlinarith [hll, hll0]
   linarith [h1, h2, hcore, hrho, hlog376]
 
-/-- `s15_gRows_const_at_socket` (`S15Compose.lean:459`) at the FLAT tower
+/-- `s15_gRows_const_at_socket` (`S15Compose.lean:449`) at the FLAT tower
 conjunct — the `⟦B1'-3⟧` binder at the constant pool, flat. -/
 theorem s15_gRows_const_at_socket_flat {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hM : 1 ≤ M)
@@ -242,7 +242,7 @@ theorem s15_gRows_const_at_socket_flat {R : ChowlaRegime} {M H L q j A s : ℕ} 
     linarith [hbud, hQ0, hL50, hlogρ]
   · exact s15_dens_at_zero hρ0.le
 
-/-- `s15_gRows_const_at_socket_gk` (`S15Compose.lean:1834`) — the lever's copy — at
+/-- `s15_gRows_const_at_socket_gk` (`S15Compose.lean:1824`) — the lever's copy — at
 the FLAT tower conjunct.  This is the form `S16Budget`'s HOP 4 fires. -/
 theorem s15_gRows_const_at_socket_gk_flat (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hM : 1 ≤ M)
