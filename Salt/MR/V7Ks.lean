@@ -503,10 +503,8 @@ theorem logChowla2_ineffective_v7_ksarm (A₀ : ℝ) :
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   -- ⟦RIDER 3, DISCHARGED AT THE ARM⟧ the seventh `max` slot clears the window outright
   have hKswin : Real.log (1 / Ks) ≤ 3 * Real.exp (3.2 * A) / 16 := by linarith
-  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
-    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
-      Real.add_one_le_exp _
-    linarith
+  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
+    Salt.MR.x0_le_exp_exp_of_four_le hx0nn hx0A
   have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
