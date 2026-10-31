@@ -763,7 +763,8 @@ row-layer form of `M4AssemblyPrime.DoorFuseFrame_pool'`'s `gRows` field); every 
 is byte-identical. ⚠ `a2RowsSum' ≤ a2RowsSum`, so this asks a STRONGER `gRows` than the pooled
 register and nothing implies it from `DoorRowCarriedPool`; its capstone is
 `m4_meansq_per_chi_gen_join`, not `_pool`. Consumed by `m4_door_meansq_carried_join`,
-`m4_dyadicRow_carried_join` and `m4_wave_structurally_closed_join`. -/
+`m4_dyadicRow_carried_join`, the bridge `doorRowCarried_of_t0free_join` and the closer
+`m4_wave_structurally_closed_join`. -/
 def DoorRowCarriedJoin (Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
     {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd j : ℕ) (B : ℝ) : Prop :=
   ∃ (P Q : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
@@ -1424,8 +1425,8 @@ landed in this group, and `norm_doorChiCoeff_le_one_gk` / `doorRow_trivial_grade
 `M4ChiDyadicRowMeanSq_gk` are landed upstream.
 
 ⟦ABSTAINED, per the dispatch — the superseded roads, off the compose cone⟧
-`m4_wave_structurally_closed_pool` (:596), `m4_wave_closed_T0_discharged_pool` (:661),
-`m4_wave_structurally_closed_join` (:1243), `m4_wave_closed_T0_discharged_join` (:1308).
+`m4_wave_structurally_closed_pool`, `m4_wave_closed_T0_discharged_pool`,
+`m4_wave_structurally_closed_join`, `m4_wave_closed_T0_discharged_join`.
 No `_gk` sibling is minted for any of the four. -/
 
 /-- **THE DOOR ROW'S CARRIED REGISTER, AT THE POOL, AT THE G-LEVER**
