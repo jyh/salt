@@ -150,7 +150,7 @@ for **every** `k ≥ 1`. Its ONLY `k`-dependence is the error `ε²log4/k`. `tow
 
 ## (3) THE JOINT SHAPE — Q3's READING IS WRONG IN BOTH DIRECTIONS
 
-**(a) `λ₋³ ≤ log log 𝒫₂` at `K = 32M` is NOT a compatibility certificate.** `s16_recut_cap_demand_met` (`Salt/MR/S16Budget.lean:794`) is kernel-true, but the same file's `:660-670` states the companion: the `M`-window gives `K ≤ 0.55·λ₋ − 41 = 111.5` at that witness, while the cap needs `K ≥ 1.443·λ₋³ − 413 = 3.075·10⁷`. `Mfl` and `S16BaseScaleCap_gk` are jointly unsatisfiable at every `K`. So the tower face is NOT "already certified compatible at shallow λ₋".
+**(a) `λ₋³ ≤ log log 𝒫₂` at `K = 32M` is NOT a compatibility certificate.** `s16_recut_cap_demand_met` (`Salt/MR/S16Budget.lean:802`) is kernel-true, but the same file's `:660-670` states the companion: the `M`-window gives `K ≤ 0.55·λ₋ − 41 = 111.5` at that witness, while the cap needs `K ≥ 1.443·λ₋³ − 413 = 3.075·10⁷`. `Mfl` and `S16BaseScaleCap_gk` are jointly unsatisfiable at every `K`. So the tower face is NOT "already certified compatible at shallow λ₋".
 
 **(b) But an ADDITIVE tower DOES dissolve that particular collision** — at the landed witness only: `λ₊ = λ₋ + 0.9·log λ₋ = 282.3` ⟹ cap demands `K ≥ 1.443·282.3 − 413 < 0`, M-window allows `K ≤ 111.5`. Joint solution `K ∈ [0,111]`. The general form: `1.443·λ₊ ≤ 0.55·λ₋ + 372` with `λ₊ ≥ λ₋` forces `λ₋ ≤ 417`. So the additive tower buys a *real* register-side dissolution — up to `λ₋ ≈ 417` (S16 face) and `λ₋ ≈ 1690` (the 7.1448 width face).
 
@@ -179,7 +179,7 @@ stated on abstract sequences — it holds for EVERY tower design, not just `chow
 4. **Sharpen the exported `K` (5 → 9/2 → 4.42).** Class A/B, ~30 ln. **DO NOT FLY** (1.8% of exponent).
 5. **IMPOSSIBLE AT THIS DESIGN — name it as such.** Any road that keeps (i) `step_ineq_3_11`'s `ε²·log4/k` error shape, (ii) the `log 2` entropy ceiling, and (iii) `budgetFloor` in the `H₋` floor, has `λ₊ − λ₋ ≥ 243243` as a THEOREM (`P5.lean probe_the_one_line`). No tower redesign, no `C₀`, no `a`, no `J`, no multiplier schedule, no exponent re-export touches it. The register must supply a window of `≥ 243243` in `loglog H`, or one of (i)/(ii)/(iii) must go.
 
-**CARRIED, NOT KERNEL (check before consuming):** the `7.1448 = log(1280·log2/0.7)` width ceiling is LAMBDA-RECON prose (`flags.md:17972-17982`, docstring at `Salt/MR/S15Compose.lean:62,795`) — my floor law `P4.lean:49` is stated parametrically in `W`, so any register width plugs in. The `K ≤ 0.55·λ₋ − 41` M-window line is prose (`S16Budget.lean:731`), and that file itself marks the `Mfl` read `⟦NOT KERNEL-CERTIFIED⟧` (opaque band constant `C`).
+**CARRIED, NOT KERNEL (check before consuming):** the `7.1448 = log(1280·log2/0.7)` width ceiling is LAMBDA-RECON prose (`flags.md:17972-17982`, docstring at `Salt/MR/S15Compose.lean:62,795`) — my floor law `P4.lean:49` is stated parametrically in `W`, so any register width plugs in. The `K ≤ 0.55·λ₋ − 41` M-window line is prose (`S16Budget.lean:739`), and that file itself marks the `Mfl` read `⟦NOT KERNEL-CERTIFIED⟧` (opaque band constant `C`).
 
 ---
 
@@ -193,7 +193,7 @@ stated on abstract sequences — it holds for EVERY tower design, not just `chow
 
 `λ₋ = log log R.Hlo`, `λ₊ = log log R.Hhi`, `Adoor M = 2^36·(L+1)` (`Salt/MR/DoorFrame.lean:84`, cast at `:96`), `doorRowFloor M = M·Adoor M` (`Salt/MR/M4DoorRow.lean:462`), `s13GK K M = 3072·2^K·M` (`Salt/MR/GLever.lean:59`).
 
-The register is `S15Sel''_gk` (`Salt/MR/S15Compose.lean:2489`), the live one on the final object (`Salt/MR/S16Budget.lean:683`).
+The register is `S15Sel''_gk` (`Salt/MR/S15Compose.lean:2489`), the live one on the final object (`Salt/MR/S16Budget.lean:691`).
 
 | face | file:line | exact inequality | what it caps | probe |
 |---|---|---|---|---|
@@ -202,7 +202,7 @@ The register is `S15Sel''_gk` (`Salt/MR/S15Compose.lean:2489`), the live one on 
 | **gRows** | `S15Compose.lean:2498` | `242·λ₊ ≤ Adoor M` | `λ₊ ≤ 2.83965e8·(L+1)` | `faceC_gRows` ✅ |
 | **gP1** | `S15Compose.lean:2513` | `29 + log Ct + 14λ₊ ≤ Adoor M·log2 + log ρ` | `λ₊ ≤ 3.40234e9·(L+1)` (12× slack) | `faceD_gP1` ✅ |
 | **half/winFit** | `S15Compose.lean:2505`; law at `S14Compose.lean:123,309,346` | `0.7·M·Adoor M + 3log(1/ρ) ≤ (log H₋)/2` | **the ONLY M-upper**: `L+1 ≤ λ₋/log2 − 35` | `faceE_half` ✅ |
-| **cap+frame** | `S16Budget.lean:499` + `S13CapGrid.lean:201` + `SeamCalibrationK.lean:173` | `e^{λ₊} = log H₊ ≤ log𝒫₂/12 = 2^K(L+1)M·2^46·log2` | `λ₊ ≤ 1.241e8·(L+1)` — **2.25× sharper than anchor** | `faceF0_size`, `faceF_cap` ✅ |
+| **cap+frame** | `S16Budget.lean:507` + `S13CapGrid.lean:201` + `SeamCalibrationK.lean:173` | `e^{λ₊} = log H₊ ≤ log𝒫₂/12 = 2^K(L+1)M·2^46·log2` | `λ₊ ≤ 1.241e8·(L+1)` — **2.25× sharper than anchor** | `faceF0_size`, `faceF_cap` ✅ |
 | **blk** | `S15Compose.lean:2502`, def `S13FramesA.lean:1129` | `14427+64+8(L+1)+400(A·G·M)² + 1 + 18λ₊ ≤ 4⌊ε²H₊⌋` | K-upper `K ≲ e^{λ₊}/(2log2) ≳ 3.7e21` — **NOT the binder**, ~13 orders looser than the frame | analytic |
 | **rho / bfloor / mfloor / x0M** | `:2583/:2571/:2569/:2575` | `−log ρ ≤ 1e14`; `24Cg/δ₀ ≤ M`; `Mfl(=2) ≤ M`; `x₀ ≤ 2^{doorRowFloor M}` | no λ-content | — |
 
@@ -219,7 +219,7 @@ i.e. `(48L + 880 + 16K)·log2 ≤ (1/24)(2^36(L+1)log2 − 1)` — the RHS carri
 - `p1b_Agate_sharp`: **fails** at `K = 1.79e8·(L+1)` ✅ (so 1.7896e8 is sharp to 4 digits)
 - `p1c_calFrameK_satisfiable_door_gk_scaled`: the **full `CalFrameK` inhabitant**, byte-for-byte `calFrameK_satisfiable_door_gk` with only `hK` weakened to `K ≤ 178900000 * (Nat.log 2 M + 1)` — **GREEN** ✅
 
-So `K ≤ 170000000` is a *selection numeral read at `M = 1`*, not a structural ceiling. This is why `s16_audit_hcap_wall` (`S16Budget.lean:1079`, `492 ≤ λ ⇒ (K+413)log2 < λ³` for `K ≤ 1.7e8`) is true as stated but must not be read as the register's ceiling.
+So `K ≤ 170000000` is a *selection numeral read at `M = 1`*, not a structural ceiling. This is why `s16_audit_hcap_wall` (`S16Budget.lean:1087`, `492 ≤ λ ⇒ (K+413)log2 < λ³` for `K ≤ 1.7e8`) is true as stated but must not be read as the register's ceiling.
 
 ## 3. The joint ceiling, kernel-probed
 
@@ -247,7 +247,7 @@ In triple-log terms: register alone `logloglog H₋ ≤ log 20048 = 9.906`; with
 
 **SELECTION-REGISTER LINES (cheap):**
 - All 12 fields of `S15Sel''_gk` (`S15Compose.lean:2489-2519`) — demands on the witness `M`, each with a named supplier. At any `λ₋ ≤ 2e4` only `anchor` and `half` are within 10× of binding.
-- `S16BaseScaleCap_gk` (`S16Budget.lean:499`) — **carried, underived**, at `/24` with a stated 1.5× margin over what `s16_budget_num` spends. Cheapest of all.
+- `S16BaseScaleCap_gk` (`S16Budget.lean:507`) — **carried, underived**, at `/24` with a stated 1.5× margin over what `s16_budget_num` spends. Cheapest of all.
 - `K ≤ 170000000` — 94 sites, kernel-proved re-cuttable (P1c).
 
 **DEFINITIONS = the real knobs:** `Adoor` (`DoorFrame.lean:84`), `doorRowFloor` (`M4DoorRow.lean:462`), `s13GK` (`GLever.lean:59`), `s13BlockExp_gk` (`S13FramesA.lean:1129`).
@@ -256,9 +256,9 @@ In triple-log terms: register alone `logloglog H₋ ≤ log 20048 = 9.906`; with
 
 **D1 — `Adoor M := 2^36·M` (the knob).** `half` then reads `0.7·2^36·M² ≤ e^{λ₋}/2` ⇒ `M ≤ e^{λ₋/2}/310300`; the anchor's RHS becomes `∝ M`, so `λ₊ ≤ 2.786e8·M ≥ 696·e^{λ₋/2}`. Kernel: `P2.shape_probe_Adoor_linear` ✅ — `λ₋³ ≤ 2.786e8·M` for **every `λ₋ ≥ 50`**. The collision disappears. What breaks: `A_gate_logK` gets strictly easier (RHS grows like `M`, LHS like `log M + K`; the K-ceiling becomes `≈1.79e8·M`); `blk`'s `400(A·G·M)²` grows to `M⁶` but is priced against `H₊ = e^{e^{λ₊}}` — an entire exponential of room; `gRows/lvl/gP1/x0M` all get easier. **Price:** re-derive 4 arithmetic lemmas — `Adoor_cast` (13 sites), `calE_door_two` (38), `log_calE_door_two(_gk)` (16), `log_four_M_door` (10). `Adoor_ge` / `Adoor_ge_old` / `one_le_Adoor` (97 sites) **survive unchanged** because `Adoor` only grows. **Class B, wide.**
 
-**D2 — free the level-1 anchor `A` entirely (maximal).** `A` is bounded only by the window law `M·A ≤ 0.714·e^{λ₋}`; at the register's own `M`-floor (`Mfl = 2`, `S11HoistGrade.lean:327`) that permits `A ≤ e^{λ₋}/2.8`, hence `λ₊ ≤ A/246.7 ≤ e^{λ₋}/691`. Kernel: `P4.shape_probe_freeA` ✅ (`λ₋³ ≤ e^{λ₋}/1000` for all `λ₋ ≥ 200`; crossover is `λ₋ ≈ 24`, moving only like `+log M`). **Then the register imposes NO `λ₋` ceiling at all — including the budget's `e^{6.5e19}`.** **Class C** (`Adoor` becomes a parameter threaded through ~3188 symbolic sites; most are `∀`-abstract already).
+**D2 — free the level-1 anchor `A` entirely (maximal).** `A` is bounded only by the window law `M·A ≤ 0.714·e^{λ₋}`; at the register's own `M`-floor (`Mfl = 2`, `S11HoistGrade.lean:332`) that permits `A ≤ e^{λ₋}/2.8`, hence `λ₊ ≤ A/246.7 ≤ e^{λ₋}/691`. Kernel: `P4.shape_probe_freeA` ✅ (`λ₋³ ≤ e^{λ₋}/1000` for all `λ₋ ≥ 200`; crossover is `λ₋ ≈ 24`, moving only like `+log M`). **Then the register imposes NO `λ₋` ceiling at all — including the budget's `e^{6.5e19}`.** **Class C** (`Adoor` becomes a parameter threaded through ~3188 symbolic sites; most are `∀`-abstract already).
 
-**D3 — re-cut the carried cap `/24 → /16`** (`S16Budget.lean:499`; the margin is stated as 1.5×). Moves 13381 → ~16389. **Class A. Does not change genre.**
+**D3 — re-cut the carried cap `/24 → /16`** (`S16Budget.lean:507`; the margin is stated as 1.5×). Moves 13381 → ~16389. **Class A. Does not change genre.**
 
 **D4 — re-cut `K ≤ 1.7e8 → 1.789e8·(log₂M+1)`.** Moves the cap-face reading from 492 to 13381. Either 94 mechanical edits, or one new M-LOWER register line `klev : (K:ℝ) ≤ 1.789e8·(log₂M+1)` beside `gRows`. **Class B, wide.** Kernel-green at the frame (P1c). *Needed anyway* if D1/D2 is taken.
 
@@ -310,7 +310,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 - `s13GArm_gk K M δ Hhi ω = 2ω(Hhi+2) + 8ω + 4ω·s13BlockFloor_gk K M + ⌈128ω/δ⌉₊` (`S13FramesA.lean:1316`), consumed via the witness conjunct `g R.Hhi R.ω ≤ R.x` (`S15Witness.lean:1865`). `s13BlockFloor_gk = 2^{s13BlockExp_gk}` with `s13BlockExp_gk K M = 14427 + (64+8(log₂M+1)) + 400·(Adoor M·s13GK K M·M)²` (`S13FramesA.lean:1129`) — **double-exponential in K**, linear in H₊.
 - `s13GK K M = 3072·2^K·M` (`GLever.lean:59`); `Adoor M = 2^36(log₂M+1)` (`DoorFrame.lean:84`).
 
-**And the one x-CEILING:** `S16BaseScaleCap_gk` (`S16Budget.lean:499`) — `∀ H L q j A s, SocketBase R M H L q j A s → loglog(A+s) ≤ log 𝒫₂/24`. Carried, never discharged (`S16Budget.lean:95`, `:787`).
+**And the one x-CEILING:** `S16BaseScaleCap_gk` (`S16Budget.lean:507`) — `∀ H L q j A s, SocketBase R M H L q j A s → loglog(A+s) ≤ log 𝒫₂/24`. Carried, never discharged (`S16Budget.lean:95`, `:787`).
 
 **Why the base is x-scale at all** (the supply side, named): `doorLadder_ge_x_div_four_omega` (`M4SecondRoad.lean:449`) — every cover rung is ≥ ⌊x/(4ω)⌋, the window's own lower endpoint. That is the physical content of `SocketBase`'s x-scale field.
 
@@ -364,7 +364,7 @@ Second consumer, spine-side: `regime_W_headroom_of_floor` (`DoorDischarge.lean:4
 `probe_wall_core`: + `budgetFloor ε β ≤ R.Hlo` (via `budget_tower`, `BudgetCore.lean:54`) ⟹ **`exp(exp(budgetX ε β)) ≤ log 𝒫₂/12`**.
 `probe_calE_le` + `probe_wall_K_demand` (at the register's own `M = 2^355`): **`exp(budgetX ε β) + 2 ≤ (K + 414)·log 2`**.
 
-With `log 𝒫₂ = 4·Adoor M·s13GK K M·log 2 = 1.043·2^{K+413}·log 2` (exact at `M = 2^355`; the corpus's own lower twin is `s16_recut_calE_ge`, `S16Budget.lean:762`):
+With `log 𝒫₂ = 4·Adoor M·s13GK K M·log 2 = 1.043·2^{K+413}·log 2` (exact at `M = 2^355`; the corpus's own lower twin is `s16_recut_calE_ge`, `S16Budget.lean:770`):
 
 | K | λ₊ ceiling = `(K+413)log2 − 2.81` | logloglog H₊ ceiling |
 |---|---|---|
@@ -372,11 +372,11 @@ With `log 𝒫₂ = 4·Adoor M·s13GK K M·log 2 = 1.043·2^{K+413}·log 2` (exa
 | 3.2·10⁷ (§6 re-pin) | 2.218·10⁷ | 16.92 |
 | 1.7·10⁸ (frame ceiling) | 1.178·10⁸ | **18.58** |
 
-Budget demand: `logloglog H ≥ budgetX(1/500, cD3·ε/(144 log 4)) = 1.036·10³¹` (`BudgetCore.lean:21`; `S16Budget.lean:961` reads the same numeral). **The gap at my face is 1.04·10³¹ vs 18.58 in the triple log** (the flags' "≤ 6.24" is the anchor face, `S15Witness.lean:48`, not this one).
+Budget demand: `logloglog H ≥ budgetX(1/500, cD3·ε/(144 log 4)) = 1.036·10³¹` (`BudgetCore.lean:21`; `S16Budget.lean:969` reads the same numeral). **The gap at my face is 1.04·10³¹ vs 18.58 in the triple log** (the flags' "≤ 6.24" is the anchor face, `S15Witness.lean:48`, not this one).
 
 **Two corrections to the banked pre-analysis, both kernel-backed:**
-1. **The demand on K is `1.44·e^{budgetX}`, not `1.5·10³¹`.** `1.5e31 = budgetX/log 2` is the demand one gets from `λ₊ ≤ (K+413)log2` **only if the socket floor is `Λ ≥ λ₊`** — i.e. *after* the full decoupling. At the design as it stands the floor is `Λ ≥ e^{λ₊}` and the demand is `(K+414)log 2 ≥ e^{budgetX}` (probe F). The flags' number is the post-repair price; the pre-repair price is one exponential worse. Symmetrically, `S16Budget.lean:1077`'s "`budgetFloor` forces `λ₋ ≥ e^{e^{1.04·10³¹}}`" is one exponential too *many*: `budget_tower` gives `logloglog H ≥ budgetX`, i.e. `λ₋ ≥ e^{1.04·10³¹}`.
-2. **The tower is not load-bearing at this face.** `s16_audit_hcap_wall` (`S16Budget.lean:1080`) routes through `λ₋³ ≤ (K+413)log 2`. `probe_wall_core` needs only `Hlo ≤ Hhi` and `log` monotone. The maestro's "both cubic collisions trace to ONE root [the tower]" is false for S16BaseScaleCap: this collision is a **monotone** one, and it survives the deletion of `hJcon` entirely (which the register never reads).
+1. **The demand on K is `1.44·e^{budgetX}`, not `1.5·10³¹`.** `1.5e31 = budgetX/log 2` is the demand one gets from `λ₊ ≤ (K+413)log2` **only if the socket floor is `Λ ≥ λ₊`** — i.e. *after* the full decoupling. At the design as it stands the floor is `Λ ≥ e^{λ₊}` and the demand is `(K+414)log 2 ≥ e^{budgetX}` (probe F). The flags' number is the post-repair price; the pre-repair price is one exponential worse. Symmetrically, `S16Budget.lean:1085`'s "`budgetFloor` forces `λ₋ ≥ e^{e^{1.04·10³¹}}`" is one exponential too *many*: `budget_tower` gives `logloglog H ≥ budgetX`, i.e. `λ₋ ≥ e^{1.04·10³¹}`.
+2. **The tower is not load-bearing at this face.** `s16_audit_hcap_wall` (`S16Budget.lean:1088`) routes through `λ₋³ ≤ (K+413)log 2`. `probe_wall_core` needs only `Hlo ≤ Hhi` and `log` monotone. The maestro's "both cubic collisions trace to ONE root [the tower]" is false for S16BaseScaleCap: this collision is a **monotone** one, and it survives the deletion of `hJcon` entirely (which the register never reads).
 
 **One caveat I did not close** (flagging, not hiding): at a *moving* `M` the cap ceiling is `≈ 354.8·Adoor M·M·2^K`, and `half` (`S15Witness.lean:48`) lets `M ≲ log H₋`. Working that through gives `λ₊ ≤ λ₋ + K·log 2 + 5.5` — so with `M` free the collision reduces to the tower after all (`K ≳ 1.44·λ₋³`), still dead at `λ₋ ≥ e^{1.036·10³¹}`. The register's `M = 2^355` pin is itself downstream of the anchor's λ₋-ceiling: `λ₋^{4.5} ≤ 2.7857·10⁸·(log₂M+1)` with `log₂M ≤ 1.4427·λ₋` gives `λ₋^{3.5} ≤ 4.03·10⁸`, i.e. **λ₋ ≤ 288** (the corpus's 277.7, `S15Witness.lean:761-767`); under the spine's own `λ₊ ≥ λ₋³` the same line gives `λ₋ ≤ 2.0·10⁴` — which is the maestro's "~1e4-genre", independently confirmed on a second route. That ceiling belongs to the anchor scoper's face; I did not audit `gP1`/`lvl`/`Mfl` at a moving M.
 
