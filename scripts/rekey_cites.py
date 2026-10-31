@@ -137,7 +137,7 @@ def refusals(root, base, head, published=PUBLISHED):
 
 
 # A list-form cite `Leaf.lean:N, :K–L, :J` is ONE cite: every `:K` after the first names a line of the same file
-# (salt #570: a re-key of the first member alone left `XCeil.lean:152, :135` with a stale second member).
+# (salt #570: a re-key of the first member alone left `XCeil.lean:160, :143` with a stale second member).
 TAIL = r"((?:,\s*:\d+(?:[–-]\d+)?)*)"
 MEMBER = re.compile(r"(,\s*:)(\d+)(?:([–-])(\d+))?")
 
@@ -727,7 +727,7 @@ def self_test():
         stale_ids = sorted(m.split(":")[0] for _, _, c, m in found if c == "STALE-CLAIM")
         check("end to end: check_prose_lean reads r1 green after the apply (r3 stale at BASE, r4 r5 left for a reader)",
               stale_ids == ["r3", "r4", "r5"])
-    # a LIST cite (salt #570: `XCeil.lean:152, :135` had its first member re-keyed and its second left stale): the
+    # a LIST cite (salt #570: `XCeil.lean:160, :143` had its first member re-keyed and its second left stale): the
     # list is one cite, re-keyed whole; a plain cite of the list's first line is a separate cite; a list whose later
     # member's line was edited is REPORTED as a whole.
     with tempfile.TemporaryDirectory() as d:
