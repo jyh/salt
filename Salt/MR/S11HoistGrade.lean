@@ -243,6 +243,11 @@ noncomputable def s11GradeFloor (Cb : ℝ) : ℕ :=
   ⌈(max 1 (8 * Cb
       / (40000000000 : ℝ) ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000)))) ^ (2.5 : ℝ)⌉₊ + 1
 
+/-- `1 ≤ s11GradeFloor Cb`: the restored floor ends in `+ 1` (`Nat.le_add_left`). Consumed at
+about sixty sites — the `Mfloor` leg of the witness tuple and the `hM : 1 ≤ M` that follows it
+(`le_trans (s11GradeFloor_one_le _) hMfloor`) in every compose, receipt and terminal page
+(`DoorReceipt`, the `FlatDoor*` pages, `S12ConstCompose`, the `S16*` pages, the `Stride*` pages,
+`TierSBand`, `V6SiegelFree`, `V7SiegelFree`, `XThread`). -/
 theorem s11GradeFloor_one_le (Cb : ℝ) : 1 ≤ s11GradeFloor Cb := Nat.le_add_left 1 _
 
 /-- **⟦THE ABSORPTION, WITH THE NUMERAL KEPT⟧** (`s11_grade_absorption'`) — §2's conclusion at
