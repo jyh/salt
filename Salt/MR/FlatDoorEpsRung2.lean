@@ -13,6 +13,7 @@ import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
 import Salt.MR.ArcRegimeWeaken
 import Salt.Entropy.Chowla.RegimeHeadroom
+import Salt.Entropy.Chowla.WidthWindow
 
 /-!
 # ⟦TIER S — THE DOOR AT THE HEAD'S GRADE, `ε`-FAMILY: RUNG 2⟧ (`FlatDoorEpsRung2`)
@@ -186,7 +187,7 @@ theorem s16_baseScaleCap96_LH_at_klevF_L {h : ℕ} (hh : 0 < h) {L : ℝ} (hL0 :
 
 `xt_log_inv_rho_le_scaled`'s cap is NOT on `h` but on the socket's count parameter,
 `hKcb : Kc ≤ 2 ^ 539`, and its ONE spending site is the split
-`2 ^ 580 = 2 ^ 41 · 2 ^ 539` inside `hlo` (`XThread.lean:278`, `:283`).  At a generic real
+`2 ^ 580 = 2 ^ 41 · 2 ^ 539` inside `hlo` (`XThread.lean:229`, `:283`).  At a generic real
 ceiling `Kb ≥ 1` the split is `2 ^ 41 · Kb`, the `Kb` CANCELS EXACTLY in `hval`
 (`110525 · 16 · Kb / (2 ^ 41 · Kb · c) = 1768400 / (2 ^ 41 · c)`), and the conclusion's `403`
 becomes `29 + log Kb` — `29` is `41 · log 2 = 28.4190…` rounded up, and nothing else. -/
@@ -2474,7 +2475,7 @@ set_option maxHeartbeats 2000000 in
 -- in one block; the `L`-cut keeps the source's `u ≥ 8·10^41` tower step and multiplies it by
 -- `c²`, so the block still does not fit the previous 1000000
 /-- **⟦THE ARM, PRICED, AT A GENERIC CHARGE⟧** (`s15Arm_log_le_L`) — `s15Arm_log_le_scaled`
-(`XThread.lean:352`) with every cap replaced by a term AFFINE in the charge `Lc`, and the cut
+(`XThread.lean:303`) with every cap replaced by a term AFFINE in the charge `Lc`, and the cut
 SHRUNK to `H₊/(10^20·c²)`.  The four landed caps and their `_L` forms:
 
 * `hKcb : Kc ≤ 2^539` and `hlogc : log c ≤ 14` (the source's ONE site, `:355–356`) become the
@@ -2817,7 +2818,7 @@ theorem epsChain_arm_split_L {ε : ℚ} {c : ℕ} (hc1 : 1 ≤ c)
 
 /-! ### §W3.2 — ⟦THE GATE FAMILY, ITS TOWER FLOOR A PARAMETER⟧
 
-⛔ THE DESIGN FINDING THIS SECTION ANSWERS.  The landed `XCeilGate` (`XThread.lean:75`) carries
+⛔ THE DESIGN FINDING THIS SECTION ANSWERS.  The landed `XCeilGate` (`XThread.lean:76`) carries
 its tower floor as a NUMERAL — `50 ≤ loglog H₊` — and the rider a conditional hop must prove is
 quantified over EVERY `(H₊, ω)` on that gate.  On that gate the arm's heart `E ≤ (log H₊)/2` is
 `7000·50 + 10500·Lc + 119600 ≤ e^50/2`, which stops closing at
@@ -2882,11 +2883,11 @@ theorem xCeilRiderStrictAt_mono {a b : ℝ} (hab : a ≤ b) {eps : ℚ} {g : ℕ
 
 /-- **⟦THE HEAD-SHAPED FLAT BUILDER ON THE PARAMETRIC GATE⟧**
 (`chowlaRegimeFlat_exists_param_head_xceil_at`) — `chowlaRegimeFlat_exists_param_head_xceil`
-(`XThread.lean:103`) with the rider asked on `XCeilGateAt lam0` instead of `XCeilGate`.  The seven
+(`XThread.lean:104`) with the rider asked on `XCeilGateAt lam0` instead of `XCeilGate`.  The seven
 exported conjuncts are the landed builder's, byte for byte.
 
 BODY: the source's, with ONE edit.  The source's `hll50 : 50 ≤ loglog R.Hhi` — read at EXACTLY
-ONE line, the gate's discharge (`XThread.lean:185`; measured, not assumed) — becomes
+ONE line, the gate's discharge (`XThread.lean:136`; measured, not assumed) — becomes
 `hll : lam0 ≤ loglog R.Hhi`, off the regime's own design law `R.hflat : 3.2·R.A ≤ loglog R.Hlo`
 with `hRA : R.A = A`, the caller's `hlamA : lam0 ≤ 3.2·A`, and the same `Hlo ≤ Hhi` monotone
 step.  At `lam0 = 50` the hypothesis `hlamA` is `50 ≤ 3.2·A`, which `hA : 26 ≤ A` already gives
@@ -2901,7 +2902,7 @@ parameter — carried over THREE proof lines, measured by diffing the two bodies
 * the read at the gate's discharge, `⟨hHhi4, hll50, hωgate⟩` ↦ `⟨hHhi4, hll, hωgate⟩`.
 
 The clause about the READ is exact and unchanged: `hll50` is read at exactly one line
-(`XThread.lean:185`, re-measured by the same diff).  Everything else in the 90-line body is the
+(`XThread.lean:136`, re-measured by the same diff).  Everything else in the 90-line body is the
 source's byte for byte. -/
 theorem chowlaRegimeFlat_exists_param_head_xceil_at (lam0 A : ℝ) (hA : 26 ≤ A)
     (hlamA : lam0 ≤ 3.2 * A) (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 1 / 2) (Hlo₀ : ℕ)
@@ -2932,58 +2933,8 @@ theorem chowlaRegimeFlat_exists_param_head_xceil_at (lam0 A : ℝ) (hA : 26 ≤ 
     linarith
   -- ⟦THE WIDTH WINDOW⟧ the majorant field read against the ceiling
   have hωgate : Real.log ((R.ω : ℕ) : ℝ) + (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ)
-      ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) := by
-    set P : ℕ := 4 ^ ⌊R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)⌋₊ with hPdef
-    set n : ℕ := ⌊R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)⌋₊ with hndef
-    have hPH : 8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ) ≤ ((R.x : ℕ) : ℝ) := R.hPHheadroom
-    have hP1 : (1 : ℝ) ≤ ((P : ℕ) : ℝ) := by
-      rw [hPdef]
-      have : (1 : ℕ) ≤ 4 ^ n := Nat.one_le_pow _ _ (by norm_num)
-      exact_mod_cast this
-    have hω1 : (1 : ℝ) ≤ ((R.ω : ℕ) : ℝ) := by
-      have : (1 : ℕ) ≤ R.ω := le_trans (by norm_num) R.hω
-      exact_mod_cast this
-    -- `log 8 + 2·log P + log ω ≤ log x`
-    have hpos : (0 : ℝ) < 8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ) := by positivity
-    have hlogle : Real.log (8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ))
-        ≤ Real.log ((R.x : ℕ) : ℝ) := Real.log_le_log hpos hPH
-    have hsplit : Real.log (8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ))
-        = Real.log 8 + 2 * Real.log ((P : ℕ) : ℝ) + Real.log ((R.ω : ℕ) : ℝ) := by
-      rw [Real.log_mul (by positivity) (by linarith), Real.log_mul (by norm_num) (by positivity),
-        Real.log_pow]
-      push_cast
-      ring
-    -- `log P = n·log 4 ≥ (ε²H₊ − 1)·log 4`
-    have hlogP : Real.log ((P : ℕ) : ℝ) = (n : ℝ) * Real.log 4 := by
-      rw [hPdef]
-      have h4 : ((4 ^ n : ℕ) : ℝ) = (4 : ℝ) ^ n := by push_cast; ring
-      rw [h4, Real.log_pow]
-    have hnge : (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) - 1 ≤ (n : ℝ) := by
-      have hQ : R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ) < (n : ℚ) + 1 := by
-        rw [hndef]; exact Nat.lt_floor_add_one _
-      have hR : (R.eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) < (n : ℝ) + 1 := by exact_mod_cast hQ
-      rw [hReps] at hR
-      linarith
-    have hlog4 : (1.3862 : ℝ) ≤ Real.log 4 := by
-      have h : Real.log (4 : ℝ) = 2 * Real.log 2 := by
-        rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
-      rw [h]; linarith [Real.log_two_gt_d9]
-    have hlog8 : (2.0794 : ℝ) ≤ Real.log 8 := by
-      have h : Real.log (8 : ℝ) = 3 * Real.log 2 := by
-        rw [show (8 : ℝ) = 2 ^ (3 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
-      rw [h]; linarith [Real.log_two_gt_d9]
-    -- ⟦THE COPRIMALITY FLOOR⟧ `ε²·H₊ ≥ 2`
-    have hcop : (2 : ℝ) ≤ (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) := by
-      have hQ : ((R.a : ℕ) : ℚ) ≤ R.eps ^ 2 * ((R.Hlo : ℕ) : ℚ) / 2 := R.hcoprime
-      have ha1 : (1 : ℚ) ≤ ((R.a : ℕ) : ℚ) := by exact_mod_cast R.ha
-      have hQ2 : (2 : ℚ) ≤ R.eps ^ 2 * ((R.Hlo : ℕ) : ℚ) := by linarith
-      have hR2 : (2 : ℝ) ≤ (R.eps : ℝ) ^ 2 * ((R.Hlo : ℕ) : ℝ) := by exact_mod_cast hQ2
-      rw [hReps] at hR2
-      have hmono : (eps : ℝ) ^ 2 * ((R.Hlo : ℕ) : ℝ) ≤ (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) :=
-        mul_le_mul_of_nonneg_left (by exact_mod_cast R.hHlohi) (sq_nonneg _)
-      linarith
-    have hnn : (0 : ℝ) ≤ (n : ℝ) := Nat.cast_nonneg _
-    nlinarith [hlogle, hsplit, hlogP, hnge, hlog4, hlog8, hRx, hcop, hnn]
+      ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) :=
+    Salt.Entropy.Chowla.ChowlaRegime.width_window _ hReps hRx
   have hgx : Real.log ((g R.Hhi R.ω : ℕ) : ℝ) ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) :=
     hg R.Hhi R.ω ⟨hHhi4, hll, hωgate⟩
   refine ⟨regimeFlatEnlargeX R (le_max_left R.x (g R.Hhi R.ω)), hReps, hRA, hRHlo,
