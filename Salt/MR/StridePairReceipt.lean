@@ -112,7 +112,7 @@ open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 -- v2 (refuter R1): two "body verbatim" replays call `private` lemmas of their source modules —
 -- the multiplier builder (F3-Q2; from 2026-09-27 its cap-9 twin, XY family 11) copies
 -- `chowlaRegimeFlat_exists_param_gen_ceiling`'s body,
--- which invokes `xceil_flat_P` / `xceil_flat_step` (XCeil.lean:152, :135), and the road-exit
+-- which invokes `xceil_flat_P` / `xceil_flat_step` (XCeil.lean:152, :143), and the road-exit
 -- replay (F3-Q8) copies the body of `m4_second_road_L2_H_gk_flatRoot_L_exit_uniform_xceil_khoist`
 -- (S16ComposeLH.lean), whose cap line is `flatRootCapH_arc_k`.  Opened here so the copies
 -- elaborate; the opening moves nothing landed.

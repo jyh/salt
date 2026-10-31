@@ -286,7 +286,7 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
 - **F-4 [D] GAP A.1 — the primary's producer. PRECONDITION: H-1 (the A-appendix
   fidelity-and-truth pass) resolves first — F-4's target statement is currently FALSE as
   transcribed (see H-1).** The corpus's named chain (`MRTParsevalConstantMatch` at 𝒥 = ∅ →
-  `MRTThmA2` at 𝒥 = ∅ → `MRTThmA1`, `MRTPropA3.lean:3826-3827, :3898-3901`) is a
+  `MRTThmA2` at 𝒥 = ∅ → `MRTThmA1`, `MRTPropA3.lean:3826-3827, :3910-3913`) is a
   **definitional RESTATEMENT, not a reduction**: at 𝒥 = ∅, `gJ = 1` and A.2's RHS is
   byte-identical to A.1's, so the antecedent is equivalent to `MRTThmA1Statement`. **The
   route with content is the source decomposition** A.1 = A.2 + MR-Thm-3 + density Lemma 2.2
