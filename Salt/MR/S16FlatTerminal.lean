@@ -206,10 +206,19 @@ def flatWitFloor (ε : ℚ) (β A : ℝ) (Hopq : ℕ) : ℕ :=
       (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)))
     (max arcFloor36 loglogFloor50)
 
+/-- `arcFloor36 ≤ flatWitFloor ε β A Hopq`: the floor's right arm is
+`max arcFloor36 loglogFloor50`, so two `max` projections. Listed in `All.lean`'s registry; no
+proof in `Salt/` applies it — the flat road reads the other register floor,
+`flatWitFloor_ll`. -/
 theorem flatWitFloor_arc (ε : ℚ) (β A : ℝ) (Hopq : ℕ) :
     arcFloor36 ≤ flatWitFloor ε β A Hopq :=
   le_trans (le_max_left _ _) (le_max_right _ _)
 
+/-- `loglogFloor50 ≤ flatWitFloor ε β A Hopq`: the right arm of the floor's right arm. The
+`hfl : loglogFloor50 ≤ R.Hlo` line every flat-road terminal takes at `R.Hlo = flatWitFloor …` —
+in-file `logChowla2_witnessed_scale_flat`, and across `Salt/` the capstones of `S16Compose`,
+`S16ComposeLH`, `DoorReceipt`, `FlatDoorAllGradesBand`, `FlatDoorEpsChain`, the `V7*` and stride
+pages (52 sites in 28 files). -/
 theorem flatWitFloor_ll (ε : ℚ) (β A : ℝ) (Hopq : ℕ) :
     loglogFloor50 ≤ flatWitFloor ε β A Hopq :=
   le_trans (le_max_right _ _) (le_max_right _ _)
@@ -694,8 +703,13 @@ anywhere).  `flatWitA` is the least legal design constant at a given budget pair
 floor `162` (⟦LADDER-L G4⟧'s bump) joined with the head's own budget demand `budgetAFlat`. -/
 def flatWitA (ε β : ℝ) : ℝ := max 162 (budgetAFlat ε β)
 
+/-- `162 ≤ flatWitA ε β`: the left arm of `flatWitA = max 162 (budgetAFlat ε β)`, the house
+floor (⟦LADDER-L G4⟧'s bump). Listed in `All.lean`'s registry; no proof in `Salt/` applies
+it. -/
 theorem flatWitA_ge (ε β : ℝ) : 162 ≤ flatWitA ε β := le_max_left _ _
 
+/-- `budgetAFlat ε β ≤ flatWitA ε β`: the right arm — the head's own budget demand is met at the
+design point. Listed in `All.lean`'s registry; no proof in `Salt/` applies it. -/
 theorem flatWitA_budget (ε β : ℝ) : budgetAFlat ε β ≤ flatWitA ε β := le_max_right _ _
 
 /-- **⟦THE NON-VACUITY⟧** — a flat regime EXISTS at the flat witness floor, at any design
@@ -737,6 +751,11 @@ theorem s15w2_gRows_flat_break :
     ¬ (242 * (3 * 10 ^ 60 : ℝ) ≤ 24464133718016) := by norm_num
 
 set_option exponentiation.threshold 4000 in
+/-- **The `gRows` line's other side**: `242·(3·10^60) ≤ 2^391`, S3's linear door
+`AdoorL (2^355) = 2^391` clearing the flat ceiling `λ₊ ≤ 3·10^60` by 55 orders — the companion
+of `s15w2_gRows_flat_break`, which refutes the landed door's `24464133718016`. `norm_num` under
+`exponentiation.threshold 4000`. Listed in `All.lean`'s registry; no proof in `Salt/` applies
+it. -/
 theorem s15w2_gRows_flat_doorL : 242 * (3 * 10 ^ 60 : ℝ) ≤ (2 : ℝ) ^ (391 : ℕ) := by
   norm_num
 

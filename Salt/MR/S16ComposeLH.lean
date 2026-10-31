@@ -2263,6 +2263,21 @@ the selector layer instead of building four `h`-twins.
 -/
 
 -- 2026-10-08, the XY debt lane, family 44: one call at the cap 9 (one twin); the rest at cap 7
+/-- **⟦BLOCK T⟧ HOP 4 — the flat linear terminal `v2`, uniform in `A`, windowed, at shift `h`**:
+under `hh : 0 < h`, `hh7 : log h ≤ 7` and `hband : S16BandLaneCBoundedLH_win h Awin 32000000`,
+constants `ε Cg Kc δ₀ Ct β x₀ Hopq Mfl` and `Cq cs T₀ Kq Ks C` with the pins `1/(500h) ≤ ε`,
+`1/(838400h²) ≤ δ₀`, `Cg ≤ 2·10^12`, `log C ≤ 40` and `Mfl ≤ flatDoorM A` for
+`A ≥ max 162 Awin`, such that every such `A ≥ budgetAFlat ε β` has the base equal to
+`flatDesignBase A` once `Hopq ≤ flatDesignBase A`, and, under `hx0win`, that `hopq` and the
+`cs`/`T₀`/`Ks` riders, every `g` a regime `R` at `R.Hlo = flatWitFloor ε β A Hopq` with the
+width, design and tower lines and the fire
+`S16CofactorSupply_LH_gk h 32000000 Cq R (flatDoorM A)` →
+`S16BaseScaleCap96_LH_gk h 32000000 R (flatDoorM A)` → `¬ logChowlaFails h R.eps R.x R.ω`.
+Route: the conditional `flat_conditional_uniform_win_ceiling_h`, the crossing supplier
+`s15_crossing_supplied_LH_gk_ceiling`, the `ε`-ceiling read off one regime's own `heps1`, the
+shift-scaled selector `s15_sel''_L_gk_witness_flat_bumped_win_h` at `c := h`, and the block
+floor `s15_block_at_socketH_L_gk_b9` (the one cap-9 call). Consumed by
+`logChowla2_ineffective_v3_h` (§10). -/
 theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_h (h : ℕ) (hh : 0 < h)
     (hh7 : Real.log (h : ℝ) ≤ 7) (Awin : ℝ)
     (hband : S16BandLaneCBoundedLH_win h Awin 32000000) :

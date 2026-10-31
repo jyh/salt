@@ -25437,7 +25437,7 @@ and reads it at exactly two lines, both `_14` suppliers with NO charge-form twin
 - `:369` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the
   arithmetic gate `m4_arith_henv_constPoolH_L_gk_14` -> `m4_arith_henv_rho_poolH_L_gk_14` ->
   `a2DoorGrade_pool_L_priced_rhoH_gk_14` -> `a2DoorGrade_pool_L_priced_rhoH_14` ->
-  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1468`):
+  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1476`):
   `h * arcDen 12 H * strataResidualH h H ^ 2 <= exp (14 * loglog H)` at `50 <= loglog H`.  With
   `arcDen 12 H = (log H)^12` this needs `h * (1 + 12 loglog H + log h)^2 <= (log H)^2`, which a FREE
   `h` breaks at any fixed tower floor;
