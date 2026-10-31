@@ -104,17 +104,9 @@ open Real
 
 
 
-/-- `calE A G 2 = 4·(A·G)`: the calibrated exponent `e_j = A·G^{j−1}·(j!)²` at `j = 2`, where
-`(2!)² = 4` — `simp [Nat.factorial]` and `ring`. The §1 shape stone `s16_logP2` and `s16_logQK2`
-unfold. -/
 theorem s16_calE_two (A G : ℕ) : calE A G 2 = 4 * (A * G) := by
   rw [calE]; simp [Nat.factorial]; ring
 
-/-- `log 𝒫₂ = (4·(A·G))·log 2` for `𝒫₂ = calP A G 2 = 2^{e₂}`: `s16_calE_two` and
-`Real.log_pow`. The base log every budget reads — in-file `s16_budget_field_gk`,
-`s16_budget_field_gk_96`, `s16_logP1_le_logP2` and `s16_baseScaleCap96_of_baseScaleCap`; across
-`Salt/` the cap lemmas of `DoorLinear`, `RegisterSupply` and `S13CapGateLinear` and the
-`K`-lever numeral of `KLever` and `FlatDoorEpsRung2`. -/
 theorem s16_logP2 (A G : ℕ) :
     Real.log ((calP A G 2 : ℕ) : ℝ) = ((4 * (A * G) : ℕ) : ℝ) * Real.log 2 := by
   rw [calP, s16_calE_two]
