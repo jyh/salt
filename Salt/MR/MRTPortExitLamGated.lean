@@ -14,7 +14,7 @@ still exposes SIX hypotheses: the three ladder gates, the row pricing line, the
 `H`-uniform ladder tail, and the row mean square itself.  This file discharges four of
 them through E2's own `∀ (U1floor) (g)` slot, leaving exactly TWO.
 
-The move is the corpus's standing floor-absorption idiom (`S12ConstCompose.lean:544`,
+The move is the corpus's standing floor-absorption idiom (`S12ConstCompose.lean:539`,
 and the `⌈128·ω/δ⌉₊` summand of `S13FramesA.s13GArm`): E2's `c` is bound by its `∃`
 BEFORE the `∀ g` binder, so the caller may instantiate `g` at an arm that mentions `c`.
 We take

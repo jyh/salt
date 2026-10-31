@@ -46,7 +46,7 @@ its SIXTEEN residue binders as the landed supply allows, naming every survivor e
 | 6 | `hbf` | `doorBaseFrame_at_socket` | `M4AssemblyFrames.lean` |
 | 7 | `hgP1` | `s15_gP1_of_budget` (CONST-VERDICT §C) | §1 below |
 | 8 | `hgRows` | `s15_gRows_const_at_socket` (CONST-VERDICT §H) | §1 below |
-| 9 | `hthr` | `s12c_eps_threshold_at_socket` | `S12ConstCompose.lean:246` |
+| 9 | `hthr` | `s12c_eps_threshold_at_socket` | `S12ConstCompose.lean:241` |
 | 10 | `_heps293` | `s15_heps293_at_socket` (CONST-VERDICT §F) | §1 below |
 | 11 | `hband4096` | `s15_hband4096_at_socket` (CONST-VERDICT §F) | §1 below |
 | 12 | `_hepsr` | `s13_theta293_margin_lo` + `le_rfl` | `S13MSelect2.lean:66` |
@@ -787,7 +787,7 @@ theorem s15_bandGate_of_grade {Cg δ₀ Ct ρ : ℝ} {x₀ : ℕ} {R : ChowlaReg
     exact s15_block_at_socket hb (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
 
 /-- **⟦THE SURVIVOR, NAMED⟧** (`S15CrossingBound R M`) — the ⟦B4⟧ RAW CROSSING BOUND of
-`S12ConstCompose.logChowla2_capstone_final_const'` (`S12ConstCompose.lean:499-516`), written
+`S12ConstCompose.logChowla2_capstone_final_const'` (`S12ConstCompose.lean:494-511`), written
 at the compose's own instantiation (`t₁ ≡ 0`, `cU := liouvilleC`,
 `epsrf ≡ θ₂₉₃ − 1/500`), byte for byte.
 

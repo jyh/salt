@@ -2223,7 +2223,7 @@ RESURRECTS THEM:**
    chars: a cut would have destroyed a *"no sieve, no cover"* verification and **E3's ENTIRE
    give-up-early instruction.** **Fixed before freezing; restoration verified by positive control.**
    ③ **Wave B's routing of GAP α's core to `M4ChiSummedFreeRow` is FACTUALLY WRONG and struck** — it
-   has five producers (`M4Assembly.lean:407`/`:515`, `S12ConstCompose.lean:403`,
+   has five producers (`M4Assembly.lean:407`/`:515`, `S12ConstCompose.lean:398`,
    `M4SocketDischarge.lean:228`) plus an unconditional witness (`M4ChiSummed.lean:217`), and its
    integrand runs at `doorChiCoeff χ M`, i.e. **sieved**. ④ An unstated ℕ→ℝ cast in E4. ⑤ Tier
    calibration: D8 was rated **C** for structurally the same move these rate **B**.
