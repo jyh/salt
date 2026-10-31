@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.S16FlatFinal
+import Salt.MR.FlatDesignMax
 import Salt.MR.StrataBounds
 import Salt.MR.BlockLenDoor
 import Salt.MR.RegimeFloors
@@ -1631,29 +1632,9 @@ theorem logChowla2_ineffective_v2 (A₀ : ℝ) :
   -- ⟦THE CLASSICAL LIMIT⟧ the design constant, chosen ABOVE all three fixed constants
   obtain ⟨A, hAdef⟩ : ∃ a : ℝ, a = max (max (max A₀ 162) Awin)
       (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))) := ⟨_, rfl⟩
-  have hA162 : (162 : ℝ) ≤ A := by
-    rw [hAdef]
-    exact le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) (le_max_left _ _)
-  have hA₀A : A₀ ≤ A := by
-    rw [hAdef]
-    exact le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) (le_max_left _ _)
-  have hAwinA : Awin ≤ A := by
-    rw [hAdef]; exact le_trans (le_max_right _ _) (le_max_left _ _)
-  have hAge : budgetAFlat (ε : ℝ) β ≤ A := by
-    rw [hAdef]; exact le_trans (le_max_left _ _) (le_max_right _ _)
-  have hx0A : 4 * (x₀ : ℝ) ≤ A := by
-    rw [hAdef]
-    exact le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) (le_max_right _ _)
-  have hopqA : ((Hopq : ℕ) : ℝ) ≤ A := by
-    rw [hAdef]
-    exact le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) (le_max_right _ _)
-  have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
-  have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
-  -- ⟦RIDER 3, DISCHARGED⟧ the `x₀` window
-  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
-    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
-      Real.add_one_le_exp _
-    linarith
+  -- ⟦RIDER 3, DISCHARGED⟧ the `x₀` window, with the design floors
+  obtain ⟨hA162, hA₀A, hAwinA, hAge, hopqA, hx0win⟩ :=
+    Salt.MR.flatDesignMax_facts hAdef (Nat.cast_nonneg _)
   -- ⟦RIDER 4, DISCHARGED⟧ the arm census
   have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   obtain ⟨hbase, hfire⟩ := hmain A hA162 hAwinA hAge
