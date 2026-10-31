@@ -97,7 +97,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 
 ## (1) THE TRUE VARIANCE — the kill
 
-The bridge variable is `X_p = fBridgeG eps H v p (residueProj p ω)` (`FBridge.lean:88-92`), `ω` uniform on `ZMod P_H`, CRT-independent across `p` (`Concentration.lean:218`). `G_p(v)(r) = ∑_{j<H, gate} v_j·v_{j+p}` — the gate is rewritten by FBridge's own proof (`FBridge.lean:180-184`, `hset`) to `(j : ZMod p) = -r-1`, i.e. `G_p` sums the CONSECUTIVE PRODUCTS along the arithmetic chain `{j ≡ c (p)} ∩ [0,H)`, of length `m ≈ H/p`.
+The bridge variable is `X_p = fBridgeG eps H v p (residueProj p ω)` (`fBridgeG`'s definition; cited by line as 88–92 when written, 2026-07-31), `ω` uniform on `ZMod P_H`, CRT-independent across `p` (`Concentration.lean:218`). `G_p(v)(r) = ∑_{j<H, gate} v_j·v_{j+p}` — the gate is rewritten by FBridge's own proof (`FBridge.lean:180-184`, `hset`) to `(j : ZMod p) = -r-1`, i.e. `G_p` sums the CONSECUTIVE PRODUCTS along the arithmetic chain `{j ≡ c (p)} ∩ [0,H)`, of length `m ≈ H/p`.
 
 **Those products are freely prescribable per chain, and the chains are disjoint.** Setting `v` constant along even-indexed chains and alternating along odd-indexed chains makes every product `+1` resp. `−1`, so `G_p(r) = ±(m−1)`:
 - kernel (`P1.lean:39-43`, `decide`): at `p=5, H=100` the five class values are `19, −19, 19, −19, 19`; `vadv` is `±1`-valued (`P1.lean:33`, an admissible `hv : ∀ i, |v i| ≤ 1` pattern).

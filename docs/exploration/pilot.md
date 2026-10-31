@@ -4944,7 +4944,7 @@ decisions per question.
   attach). HMainAssembly.lean: **hreduce_holds** (hseed + hbudget
   ⟹ the frozen hreduce; the HReduce "carrier-gap" hmain is FREE —
   reverse-triangle on the explicit MAIN). THE CATCH
-  (house-verified at FBridge.lean:89 vs Tao pg-22): the gate uses
+  (house-verified at `fBridgeG`'s definition, FBridge line 89 when written, vs Tao pg-22): the gate uses
   0-indexed j against 1-indexed window values — complementary to
   the collapse class; every count-based consumer was
   residue-INDEPENDENT (ten nodes of silence); the p=2 witness
