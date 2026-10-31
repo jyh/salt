@@ -100,6 +100,16 @@ open Complex Salt.SW Salt.Vk Metric intervalIntegral
 set_option maxHeartbeats 12800000 in
 -- The full contour assembly (four sub-bounds + orientation glue) is heavy; the disc-core-grade
 -- 12.8M budget is warranted for the whole-theorem elaboration.
+/-- **THE PER-PAIR CONTOUR BOUND WITH THE FLOORED `c_vk`**: there are `c_vk C₁ C₂ C₃ T₀` with
+`1/10^9 ≤ c_vk` such that for `T₀ ≤ T`, `2 ≤ P`, `|u| ≤ 2T`, the twisted prime window
+`∑' n, Λ(n)·n^{iu}·primeWindow P n` differs from `windowKernel P 1 u` by at most
+`C₁·P·e^{−(c_vk/2)·log P / D₃}·D₄ + C₂·P·log P / T + C₃·D₄·P / T²`, where
+`D₃ = (log (5T+1))^{3/4}·(log log (5T+1))^3` and `D₄` has the fourth power. Route: the
+`HalaszPrimesCore` contour assembly replayed — the rectangle from `σ₀ = 1 − (c_vk/2)/D₃` to
+`c = 1 + 1/log P` with `|Im| ≤ 3T`, zero-free by `shifted_edge_price_strip_bounded`'s margin
+(which carries the `1/10^9` floor), the pole residue, the four edges, and
+`sum_vonMangoldt_cline_bound` on the right edge. Consumed by
+`halaszPrimesChiGated_of_price_floored` (§2). -/
 theorem per_pair_contour_floored :
     ∃ (c_vk C₁ C₂ C₃ T₀ : ℝ), 0 < c_vk ∧ 1 / 10 ^ 9 ≤ c_vk ∧
       0 < C₁ ∧ 0 < C₂ ∧ 0 < C₃ ∧ 3 ≤ T₀ ∧
