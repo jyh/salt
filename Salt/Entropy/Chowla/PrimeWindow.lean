@@ -27,17 +27,30 @@ def primeWindow (eps : ℚ) (H : ℕ) : Finset ℕ :=
   (Finset.Iic ⌊eps ^ 2 * (H : ℚ)⌋₊).filter
     (fun p => p.Prime ∧ eps ^ 2 * (H : ℚ) / 2 < (p : ℚ))
 
+/-- `p ∈ 𝒫_H ↔ p ≤ ⌊ε²H⌋₊ ∧ p.Prime ∧ ε²H/2 < p`: the prime window unfolded
+(`Finset.mem_filter`, `Finset.mem_Iic`). The membership every window argument opens with —
+`prime_of_mem_primeWindow` and `primeWindow_subset_primesLE` here, `window_lb` (`FBridge`),
+`sum_inv_p_le` (`CircleMethod`), the `HBudget` window sums, the Goldbach-energy thresholds —
+thirty-odd sites. -/
 lemma mem_primeWindow {eps : ℚ} {H p : ℕ} :
     p ∈ primeWindow eps H ↔
       p ≤ ⌊eps ^ 2 * (H : ℚ)⌋₊ ∧ p.Prime ∧ eps ^ 2 * (H : ℚ) / 2 < (p : ℚ) := by
   simp only [primeWindow, Finset.mem_filter, Finset.mem_Iic]
 
+/-- Every member of `𝒫_H` is prime: the second conjunct of `mem_primeWindow`. The
+`.pos`/`.two_le`/`.ne'` facts about a window prime at fifty-odd sites: the `NeZero (p : ℕ)`
+instance `neZero_primeWindow` (`FBridge`), the pairwise coprimality and independence in
+`Concentration`, every `1/p` positivity in `CircleMethod`'s estimates, and `PH_pos` here. -/
 lemma prime_of_mem_primeWindow {eps : ℚ} {H p : ℕ} (hp : p ∈ primeWindow eps H) :
     p.Prime := (mem_primeWindow.mp hp).2.1
 
 /-- The prime modulus `P_H = ∏ 𝒫_H`. -/
 def PH (eps : ℚ) (H : ℕ) : ℕ := ∏ p ∈ primeWindow eps H, p
 
+/-- `0 < P_H = ∏_{p ∈ 𝒫_H} p`: a product of primes (`Finset.prod_pos` over
+`prime_of_mem_primeWindow`). The `NeZero (PH eps H)` instance that makes `ZMod P_H` a `Fintype`
+for the residue datum, `log_PH_le`'s positivity, and the `0 < P_H` / `1 ≤ P_H` casts in
+`fBridgeG_mean`, `ResidueUniform`, `Step`, `Transport` and the stride twins. -/
 lemma PH_pos (eps : ℚ) (H : ℕ) : 0 < PH eps H :=
   Finset.prod_pos (fun _ hp => (prime_of_mem_primeWindow hp).pos)
 
@@ -69,6 +82,10 @@ lemma entropy_residueWindow_le_log_PH (eps : ℚ) (H : ℕ) (μ : Measure ℕ) :
 
 /-! ## Size bounds -/
 
+/-- `𝒫_H ⊆ Nat.primesLE ⌊ε²H⌋₊`: the first two conjuncts of `mem_primeWindow`. What bounds the
+window by the primes up to `ε²H`: `PH_le_four_pow` here (through the primorial bound) and
+`primeWindow_card_le_of_regime` (`WindowCount`), the PNT-shaped count the circle-method estimate
+consumes. -/
 lemma primeWindow_subset_primesLE (eps : ℚ) (H : ℕ) :
     primeWindow eps H ⊆ Nat.primesLE ⌊eps ^ 2 * (H : ℚ)⌋₊ := by
   intro p hp
@@ -113,6 +130,9 @@ lemma primeWindow_card_le (eps : ℚ) (H : ℕ) :
 
 /-! ## The empty-window corner -/
 
+/-- `ε²H < 2` empties the window: a member would be a prime `≤ ⌊ε²H⌋₊ < 2`. The empty-window
+corner that makes `P_H = 1` (`PH_eq_one_of_lt_two`) and that the Goldbach-energy `hpt_holds` and
+`hpt_holds_thr` dispose of before their large-`H` regime. -/
 lemma primeWindow_eq_empty_of_lt_two {eps : ℚ} {H : ℕ} (h : eps ^ 2 * (H : ℚ) < 2) :
     primeWindow eps H = ∅ := by
   rw [Finset.eq_empty_iff_forall_notMem]
