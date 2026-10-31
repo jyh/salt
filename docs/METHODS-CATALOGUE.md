@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `e7beabff` · source digest `e381c6915cf573a7` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `c5923d40` · source digest `9081c68e67635991` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23389 · with a proof/definition body: 23389 · direct corpus references (edges): 87908 · audited results: 9148 · corpus Prop-valued names: 678.
+Declarations indexed: 23390 · with a proof/definition body: 23390 · direct corpus references (edges): 87913 · audited results: 9148 · corpus Prop-valued names: 678.
 
 ## Hypothesis status (Deliverable A)
 
@@ -149,7 +149,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 57 | `Salt.MR.DoorCapBasePerBlock_gk` | 3 | 1 | — | Salt/MR/M4CapWire.lean:1312 |
 | 58 | `Salt.MR.DoorFuseFrame_pool'_L` | 3 | 5 | — | Salt/MR/M4RowSpineLinear.lean:1003 |
 | 59 | `Salt.MR.DoorRowCarried` | 3 | 1 | — | Salt/MR/M4DoorClose.lean:146 |
-| 60 | `Salt.MR.FlatHeadFormH` | 3 | 2 | — | Salt/MR/StridePairReceipt.lean:933 |
+| 60 | `Salt.MR.FlatHeadFormH` | 3 | 2 | — | Salt/MR/StridePairReceipt.lean:934 |
 | 61 | `Salt.MR.FlatHeadFormHG` | 3 | 2 | — | Salt/MR/StridePairReceiptG.lean:102 |
 | 62 | `Salt.MR.FlatHeadFormHG_Z` | 3 | 2 | — | Salt/MR/StrideDoorAllGrades.lean:80 |
 | 63 | `Salt.MR.FlatHeadFormHG_g12b_band` | 3 | 1 | — | Salt/MR/TierSBand.lean:105 |
@@ -185,7 +185,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 93 | `Salt.MR.FlatKswinForm` | 2 | 2 | — | Salt/MR/DoorReceipt.lean:690 |
 | 94 | `Salt.MR.FlatKswinFormEpsW` | 2 | 2 | — | Salt/MR/FlatDoorEpsRung2.lean:4666 |
 | 95 | `Salt.MR.FlatKswinFormHG_g12b_band` | 2 | 1 | — | Salt/MR/TierSBand.lean:313 |
-| 96 | `Salt.MR.FlatRoadExitFormH` | 2 | 2 | — | Salt/MR/StridePairReceipt.lean:958 |
+| 96 | `Salt.MR.FlatRoadExitFormH` | 2 | 2 | — | Salt/MR/StridePairReceipt.lean:959 |
 | 97 | `Salt.MR.FlatRoadExitFormHG_g12b_band` | 2 | 1 | — | Salt/MR/TierSBand.lean:131 |
 | 98 | `Salt.MR.M4ChiFreeRowMeanSqN` | 2 | 0 | — | Salt/MR/M4BaseNarrow.lean:811 |
 | 99 | `Salt.MR.M4ChiFreeRowMeanSq_L` | 2 | 0 | — | Salt/MR/M4RowLinear.lean:3955 |
@@ -216,14 +216,14 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 124 | `Salt.MR.FlatCapstoneFormEps` | 1 | 1 | — | Salt/MR/FlatDoorEpsChain.lean:242 |
 | 125 | `Salt.MR.FlatCapstoneFormEpsW` | 1 | 1 | — | Salt/MR/FlatDoorEpsRung2.lean:4547 |
 | 126 | `Salt.MR.FlatCapstoneFormEpsW_band` | 1 | 1 | — | Salt/MR/FlatDoorAllGradesBand.lean:285 |
-| 127 | `Salt.MR.FlatCapstoneFormH` | 1 | 2 | — | Salt/MR/StridePairReceipt.lean:998 |
+| 127 | `Salt.MR.FlatCapstoneFormH` | 1 | 2 | — | Salt/MR/StridePairReceipt.lean:999 |
 | 128 | `Salt.MR.FlatCapstoneFormHG` | 1 | 1 | — | Salt/MR/StridePairReceiptG.lean:167 |
 | 129 | `Salt.MR.FlatCapstoneFormHG_Z` | 1 | 1 | — | Salt/MR/StrideDoorAllGrades.lean:152 |
 | 130 | `Salt.MR.FlatCapstoneFormHG_g12b` | 1 | 2 | — | Salt/MR/StridePairReceiptG12b.lean:115 |
 | 131 | `Salt.MR.FlatCapstoneFormU` | 1 | 1 | — | Salt/MR/FlatDoorUniform.lean:408 |
 | 132 | `Salt.MR.FlatConditionalFormEps` | 1 | 1 | — | Salt/MR/FlatDoorEpsChain.lean:335 |
 | 133 | `Salt.MR.FlatConditionalFormEpsW_band` | 1 | 1 | — | Salt/MR/FlatDoorAllGradesBand.lean:390 |
-| 134 | `Salt.MR.FlatConditionalFormH` | 1 | 1 | — | Salt/MR/StridePairReceipt.lean:1098 |
+| 134 | `Salt.MR.FlatConditionalFormH` | 1 | 1 | — | Salt/MR/StridePairReceipt.lean:1099 |
 | 135 | `Salt.MR.FlatConditionalFormHG` | 1 | 1 | — | Salt/MR/StridePairReceiptG.lean:268 |
 | 136 | `Salt.MR.FlatConditionalFormHG_Z` | 1 | 1 | — | Salt/MR/StrideDoorAllGrades.lean:258 |
 | 137 | `Salt.MR.FlatConditionalFormHG_g12b` | 1 | 2 | — | Salt/MR/StridePairReceiptG12b.lean:216 |
@@ -236,7 +236,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 144 | `Salt.MR.FlatDoorPayload` | 1 | 0 | — | Salt/MR/FlatDoorEpsFamily.lean:299 |
 | 145 | `Salt.MR.FlatKswinFormEps` | 1 | 1 | — | Salt/MR/FlatDoorEpsChain.lean:359 |
 | 146 | `Salt.MR.FlatKswinFormEpsW_band` | 1 | 1 | — | Salt/MR/FlatDoorAllGradesBand.lean:420 |
-| 147 | `Salt.MR.FlatKswinFormH` | 1 | 1 | — | Salt/MR/StridePairReceipt.lean:1127 |
+| 147 | `Salt.MR.FlatKswinFormH` | 1 | 1 | — | Salt/MR/StridePairReceipt.lean:1128 |
 | 148 | `Salt.MR.FlatKswinFormHG` | 1 | 1 | — | Salt/MR/StridePairReceiptG.lean:294 |
 | 149 | `Salt.MR.FlatKswinFormHG_Z` | 1 | 1 | — | Salt/MR/StrideDoorAllGrades.lean:290 |
 | 150 | `Salt.MR.FlatKswinFormHG_g12b` | 1 | 2 | — | Salt/MR/StridePairReceiptG12b.lean:242 |
@@ -985,7 +985,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | Mertens / PNT-type | 254 | 67 | 883 | 792 | 4 | 16 | 0 | 1695 | 1638 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
 | explog/lognum numeral tactic | 53 | 0 | 669 | 763 | 1 | 5 | 0 | 1438 | 1438 |
-| Matomaki-Radziwill / Halasz (short intervals) | 9787 | 5428 | 2960 | 1300 | 168 | 189 | 0 | 4617 | 73 |
+| Matomaki-Radziwill / Halasz (short intervals) | 9788 | 5428 | 2960 | 1300 | 168 | 189 | 0 | 4617 | 73 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
 
@@ -1165,7 +1165,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | family | external dependents | audited members | decls |
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
-| Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9787 |
+| Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9788 |
 | entropy decrement | 650 | 534 | 1401 |
 | character sums / L-functions | 966 | 2196 | 4310 |
 | circle method / Fourier | 1171 | 83 | 181 |
