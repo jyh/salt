@@ -25,8 +25,9 @@ import Mathlib
 import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
+import Salt.MR.StridePins
 
--- The same three `open private` lines as `StridePairReceiptG.lean:81-83` — the later replays and
+-- The same three `open private` lines as `StridePairReceiptG.lean:82-84` — the later replays and
 -- the door-head of this lane are the same bodies and reach the same private names.
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
@@ -45,7 +46,7 @@ namespace Salt.MR
 /-! ## §4 — THE FORMS AT `2^12`: the six graded forms, pin at `838400 · 2^12`, stride `a ≤ 8103` -/
 
 /-- **⟦H0 FORM AT `2^12`⟧ (def) — `FlatHeadFormHG_g12b`.**
-`FlatHeadFormHG` (StridePairReceiptG.lean:101) with the pin `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and
+`FlatHeadFormHG` (StridePairReceiptG.lean:102) with the pin `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and
 the stride `a ≤ 1096 ↦ a ≤ 8103`; nothing else moves. -/
 def FlatHeadFormHG_g12b (h : ℕ) (Xi : XiFamily) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (ε : ℚ) (K δ₀ β : ℝ) (Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 539 ∧ 0 < δ₀ ∧
@@ -317,7 +318,7 @@ HONEST LABEL.  Replays only; nothing here proves a new estimate, and nothing bea
 primes. -/
 
 /-- **⟦H0→H1 REPLAY AT `2^12`⟧ — `flat_roadExit_generic_h_g12b`.** `flat_roadExit_generic_h_g`
-(StridePairReceiptG.lean:351) at the `_g12b` forms, its unused cap binder at `≤ 9`.  BODY verbatim:
+(StridePairReceiptG.lean:352) at the `_g12b` forms, its unused cap binder at `≤ 9`.  BODY verbatim:
 `hδpin` and the stride bound are forwarded opaquely; the road
 `m4_second_road_L2_Set_gk_flatRoot_L_khoist` is cap-free and `δ₀`-generic. -/
 theorem flat_roadExit_generic_h_g12b (h : ℕ) (hh : 0 < h) (_hh9 : Real.log (h : ℝ) ≤ 9)
@@ -915,28 +916,9 @@ theorem flat_door_head_xceil_h_g12b (h : ℕ) (hh : 0 < h) (_hh9 : Real.log (h :
   have hhR : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
   have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
   have hhne : (h : ℝ) ≠ 0 := ne_of_gt hhR
-  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
-  -- ⟦THE LEAF NUMERALS, PINNED⟧ `log 4 = 2·log 2`, both `d9` bounds on `log 2`
-  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
-  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
-    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
-  obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = (h : ℝ) * (1 + 2 * (2 * Real.log 4)) := ⟨_, rfl⟩
-  have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
-  have hLpos : (0 : ℝ) < 1 + 8 * Real.log 2 := by linarith
-  have hLne : (1 : ℝ) + 8 * Real.log 2 ≠ 0 := ne_of_gt hLpos
-  have hCval : C = (h : ℝ) * (1 + 8 * Real.log 2) := by rw [hCdef, hlog4eq]; ring
-  have hC : 0 < C := by rw [hCval]; positivity
-  -- ⟦THE PIN⟧ `ε := 1/(500·h)`
-  obtain ⟨ε, hεdef⟩ : ∃ e : ℚ, e = 1 / (500 * (h : ℚ)) := ⟨_, rfl⟩
-  have hεR : ((ε : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) := by rw [hεdef]; push_cast; ring
-  have hεR0 : (0 : ℝ) < (ε : ℝ) := by rw [hεR]; positivity
-  have hεQpos : 0 < ε := by exact_mod_cast hεR0
-  have hεQ1 : ε ≤ 1 / 2 := by
-    have hhQ : (1 : ℚ) ≤ (h : ℚ) := by exact_mod_cast hh
-    rw [hεdef]
-    exact one_div_le_one_div_of_le (by norm_num) (by nlinarith)
+  -- ⟦THE LEAF NUMERALS AND THE PIN⟧ `log 4 = 2·log 2`, the `d9` bounds, `ε := 1/(500·h)`
+  obtain ⟨cD3, C, ε, hcD3def, hCdef, hεdef, hlog4, hlog2lt, hlog2gt, hlog4eq, hcD3, hLpos,
+    hLne, hCval, hC, hεR, hεR0, hεQpos, hεQ1⟩ := stride_pin_facts h hh
   -- ⟦THE MINT, READ BOTH WAYS⟧ `δ₀ = 1/(128000·2^12·h²·(1 + 8·log 2))`
   have hval : cD3 / (16 * C) * (ε : ℝ) / 4 / 2 ^ 12
       = 1 / (128000 * 2 ^ 12 * (h : ℝ) ^ 2 * (1 + 8 * Real.log 2)) := by
@@ -1012,7 +994,7 @@ HONEST LABEL.  Replays only; nothing here proves a new estimate, and nothing bea
 primes. -/
 
 /-- **⟦THE CHAIN AT `2^12`⟧ — `flat_chain_generic_h_g12b`.** `flat_chain_generic_h_g`
-(StridePairReceiptG.lean:1049) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
+(StridePairReceiptG.lean:1031) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
 replays (census band 4 row 23: SUPPLIER-SWAP, no numerals). -/
 theorem flat_chain_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) (Xi : XiFamily)
     (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →

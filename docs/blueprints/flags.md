@@ -23144,7 +23144,7 @@ ceremony that followed them:
 
 ```
 logChowla2_ineffective_v6_T0arm   Salt/MR/V7C.lean:179    2026-08-14  8b0bd31  ledger MR/All.lean:7821
-logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1836   2026-08-14  8b03281  ledger MR/All.lean:7856
+logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1846   2026-08-14  8b03281  ledger MR/All.lean:7856
 ```
 
 **FOUR NAMED INNER RIDERS EACH, outer hypotheses none.** `_csarm` (V7-B): the
@@ -23417,7 +23417,7 @@ cost a census and not a wave.
 (*regime enlargement absorbs any `X`-independent debit*) plus the live lever `g R.Hhi R.ω ≤ R.x`
 in the parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:435`, which `_g0` sets to **zero**)
 makes a re-route onto the outer scale look free. **It is not: the lever has a ceiling.**
-`XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:89`); with
+`XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:90`); with
 `ε ≥ 1/500` a caller may request at most `log g ≤ 15500·H₊`, worth **≈ +24 additive on
 `loglog X`** against the landed floor `loglog X ≥ log H₊ − 14` (`cofkL_logX_floor`, linear in
 `H₊` via the regime's `hPHheadroom`) — **a constant factor ≤ ~4 in the budget, never a rate.**
@@ -25305,7 +25305,7 @@ down -- this is NOT the C-class obstacle the wave-1 brief asked me to watch for:
 | 4 | `flat_anchor_line_wide_g14` | `StrideGradeReach.lean:207-212` | 6 | `hc : c <= 439`, entering as `+ c + 33`; slack `449 x` |
 | 5 | `flat_gP1_line_g14` | `StrideGradeReach.lean:216-236` | 21 | `hc : -439 <= c`, entering as `+ c`; slack `5.5e3 x` |
 | 6 | `flat_lvl_line_g14` | `StrideGradeReach.lean:240-293` | 54 | `hc : c <= 439`, entering as `+ c`; slack `457 x` |
-| 7 | `s15_sel''_L_witness_flat_b9` | `S15SelLinear.lean:727-928` | 202 | `hcb : c <= 8103` (`:729`), spent at `:848` (`hcRb`) |
+| 7 | `s15_sel''_L_witness_flat_b9` | `S15SelLinear.lean:737-938` | 202 | `hcb : c <= 8103` (`:729`), spent at `:848` (`hcRb`) |
 | 8 | `s15_sel''_L_witness_flat_wide_g12b` | `StrideGrade12bWalls.lean:162-177` | 16 | carries `hcb`, `hh9c` through |
 | 9 | `s15_sel''_L_gk_witness_flat_wide_g12b` | `StrideGrade12bWalls.lean:183-201` | 19 | carries `hcb`, `hh9c` through |
 
@@ -25431,7 +25431,7 @@ forms, four receipts, `mrtUniformityXiL2Set_mono`, the builder pair, the head, t
 road-exit hop, and the `j`-floor lift `s13_g2_jfloor_of_MSelect'_L_gk_h_L`).
 
 **(1) The capstone reads the twist cap at two sites the freeze does not name.**  G12b's
-`flat_capstone_generic_h_g12b` derives `hh14 : log h <= 14` at `StridePairReceiptG12b.lean:358`
+`flat_capstone_generic_h_g12b` derives `hh14 : log h <= 14` at `StridePairReceiptG12b.lean:359`
 and reads it at exactly two lines, both `_14` suppliers with NO charge-form twin in the corpus
 (measured: `git grep` finds only the base and `_14` variants of each):
 - `:369` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the
@@ -25622,7 +25622,7 @@ the class and the statement of record, the five receipts, the four inversion lem
 U-forms, U-ARM (`s15Arm_le_of_regime`), and the doorL2, road and capstone hops on the U-forms.
 
 **What the hop needs about `R` that its U-form does not give.**  The source
-`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4957`) spends the head's COUNT export
+`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4908`) spends the head's COUNT export
 `∀ H [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → |bigXi R.eps H| ≤ K` (K the head's existential) twice:
 as an input to the head's own slot and as `hcount` of `sum_bigXi_norm_windowExpSum_sq_le_twelve`
 (`M4Window.lean:567`).  Under the brief's rule `FlatHeadFormU` keeps the count as a HYPOTHESIS
@@ -25632,7 +25632,7 @@ one open goal is exactly
 `⊢ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ↑(bigXi R.eps H).card ≤ K`
 with `K` known only through `0 < K` and `K ≤ 2 ^ 283 * c ^ 20`.
 
-**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2242`) needs
+**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2243`) needs
 `ε ≤ 1/500`, which no form carries (only `0 < ε` and the pin), and it yields ITS OWN constant `C`,
 not the head's `K`; the socket's `Hopq`/`Hcap` are the hop's to choose but a floor cannot bound a
 count by a constant the hop did not pick.  So this is a walk finding about the FORMS, not a proof
