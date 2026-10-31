@@ -486,7 +486,7 @@ theorem towerDropSum_eq_base_one (C0 a Hlo J : ℕ) :
 
 /-- **F1-R4 (class B) — the flat regime at a general stride EXISTS, with the coprimality floor
 paid by the flat base.**  The mirror of `chowlaRegimeFlat_exists_param_gen`
-(`TowerFlatBuilder.lean:228-330`, which builds at `a := 1` and returns a `ChowlaRegimeFlat`), read
+(`TowerFlatBuilder.lean:257-359`, which builds at `a := 1` and returns a `ChowlaRegimeFlat`), read
 at stride `a` and returned as a plain `ChowlaRegime` with the SAME lower endpoint
 `Hlo = max (flatDesignFloor A) (max Hlo₀ (4·⌈1/ε⌉₊⁴))` — spelled EXACTLY as that builder spells it
 (at `A ≥ 162` the `Salt.MR` side knows `flatDesignFloor A = flatDesignBase A`,
