@@ -95,7 +95,7 @@ haircut — ALREADY supplied by the unconditional gate.
 
 **What ¬F buys Chen (META only).** Same as §1: effectivity of every constant that
 currently inherits Cₛ — in particular the operating-point threshold `op_floors`
-(Chen/TheHeadline.lean:55, ∃ x₁ ...) and the error bundle ≤ 1/200 ledger
+(Chen/TheHeadline.lean:65, ∃ x₁ ...) and the error bundle ≤ 1/200 ledger
 (FinLed3 `hL_bundle`, cited in ChenTheorem.lean:17-19) become effective-in-(Q₀,c(Q₀)).
 **No level upgrade**: ¬F's zero-free ball improves the SAVING side (already
 saturated); the LEVEL 1/2 barrier is large-sieve/dispersion-limited, and ¬F supplies
