@@ -72,6 +72,21 @@ jobs:
           key: salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ steps.sha.outputs.sha }}
           restore-keys: |
             salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      # The scratch imports two SaltC1 modules (MaynardK.Gaps270, MaynardK.SiegelFree), and the Lean
+      # job builds only the default target `Salt`, so its cache has no SaltC1 oleans: dispatch
+      # 41123063002 restored main's Salt cache by EXACT key and still spent 41 min importing.
+      # The certificate workflow saves the SaltC1 oleans on main; read them here, read only.
+      - name: Restore certificate build cache (prefix, read only)
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            .lake/build/lib/lean/SaltC1
+            .lake/build/lib/lean/SaltC1.*
+            .lake/build/ir/SaltC1
+            .lake/build/ir/SaltC1.*
+          key: c1-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'SaltC1/Cert54/data/**') }}-${{ steps.sha.outputs.sha }}
+          restore-keys: |
+            c1-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lakefile.toml', 'SaltC1/Cert54/data/**') }}-
       - name: Install elan
         run: |
           curl https://elan.lean-lang.org/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
@@ -98,7 +113,11 @@ jobs:
         run: |
           mods=$(sed -n 's/^import //p' O13Census.lean | tr '\n' ' ')
           set -o pipefail
-          lake build $mods 2>&1 | tail -20
+          lake build $mods 2>&1 | tee import.log | tail -20
+          # what the restored caches did NOT cover, by library (the whole log is uploaded below)
+          # (lake prints a line per module it BUILT; a silent replay prints nothing, so only builds are counted)
+          echo "import build: $(grep -c ' Built ' import.log || true) modules built"
+          grep -oE ' Built [A-Za-z0-9]+' import.log | sort | uniq -c || true
       # The step writes its own exit line, which `parse` reads exactly as it reads the wrapper's.
       - name: Walk (clean)
         run: |
@@ -124,6 +143,7 @@ jobs:
         with:
           name: reach-census-${{ steps.sha.outputs.sha }}
           path: |
+            import.log
             census.log
             plant.log
             O13Census.lean.json
