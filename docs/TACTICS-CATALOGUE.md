@@ -1,7 +1,7 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `f654b108` · source digest `60e325578e017b11` (the same digest as items 1–3).
+> Base: last commit touching `Salt/` = `57bdf2ed` · source digest `ab0ac2bdef33ee60` (the same digest as items 1–3).
 > Receipt: files 1398 · decls 23384 · with_body 23384 · tactic_lines 317548 · runs 37180 · blocks 1568.
 
 ## LIMITS (read before any number below)
@@ -198,7 +198,7 @@ have $10 : (# : ℝ) ≤ ((# ^ $11 : ℕ) : ℝ) ^ # := sq_nonneg _
 have $12 : (# : ℝ) ≤ ((# ^ $11 : ℕ) : ℝ) ^ # / ((($6 + $5 : ℕ)) : ℝ) := by positivity
 ```
 
-**3.** 7 lines × 25 occurrences in 10 files · lines saved ≤ **150** · e.g. `Salt/MR/M4RowAssemblyLinear.lean:5023` · `Salt/MR/M4RowSpineLinear.lean:1341`
+**3.** 7 lines × 25 occurrences in 10 files · lines saved ≤ **150** · e.g. `Salt/MR/M4RowAssemblyLinear.lean:5070` · `Salt/MR/M4RowSpineLinear.lean:1341`
 
 ```lean
 have $1 : # < $2 := $3.2.2.2.1
