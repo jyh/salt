@@ -753,7 +753,7 @@ distributed, `Finset.abs_sum_le_sum_abs` twice, `per_term_aff` termwise, the bou
 `card_class_boundary_le H a (p*h)`, `linarith` on the five slices.  `c`, `1/4 ≤ c` and `H₀` are
 `primeWindow_sum_inv_ge_bounded`'s (`HeadPinLeaves.lean:61`, imported for this):
 `obtain ⟨c, hc, hcge, H₀, hD3⟩ := primeWindow_sum_inv_ge_bounded; refine ⟨c, hc, hcge, H₀, ?_⟩`
-(`HeadPinLeavesH.lean:70-71`) — NEVER the unbounded `primeWindow_sum_inv_ge`
+(`HeadPinLeavesH.lean:71-72`) — NEVER the unbounded `primeWindow_sum_inv_ge`
 (`WindowMertensLower.lean:56`), whose `1/4` is a witness inside a proof, invisible after `obtain`
 (v1.1, verdict A1; §3 S-7: the `cE` carry the head's gate reads). -/
 theorem hbudget_holds_aff :
@@ -1334,7 +1334,7 @@ theorem consumability_probe_aff (a b h : ℕ) (ha : 0 < a) (eps : ℚ) (H : ℕ)
 /-- **F4-R6d (class A) — THE CAPSTONE COMPOSED: `hreduce_holds_final_h` (`HBudget.lean:1514`) at the
 affine forms.**  `obtain ⟨c, hc, hcge, H₀, hbud⟩ := hbudget_holds_aff;
 refine ⟨c, hc, hcge, H₀, ?_⟩` (the
-`1/4 ≤ c` carry FORWARDED, as `HeadPinLeavesH.lean:360-361`), then `hreduce_holds_aff` at the
+`1/4 ≤ c` carry FORWARDED, as `HeadPinLeavesH.lean:361-362`), then `hreduce_holds_aff` at the
 budget.  This is the `hred` the affine head consumes (its `cE`, WITH `1/4 ≤ cE` — v1.1, verdict
 A1, §3 S-7). -/
 theorem hreduce_holds_final_aff :
