@@ -187,7 +187,7 @@ theorem s16_baseScaleCap96_LH_at_klevF_L {h : ℕ} (hh : 0 < h) {L : ℝ} (hL0 :
 
 `xt_log_inv_rho_le_scaled`'s cap is NOT on `h` but on the socket's count parameter,
 `hKcb : Kc ≤ 2 ^ 539`, and its ONE spending site is the split
-`2 ^ 580 = 2 ^ 41 · 2 ^ 539` inside `hlo` (`XThread.lean:278`, `:283`).  At a generic real
+`2 ^ 580 = 2 ^ 41 · 2 ^ 539` inside `hlo` (`XThread.lean:229`, `:283`).  At a generic real
 ceiling `Kb ≥ 1` the split is `2 ^ 41 · Kb`, the `Kb` CANCELS EXACTLY in `hval`
 (`110525 · 16 · Kb / (2 ^ 41 · Kb · c) = 1768400 / (2 ^ 41 · c)`), and the conclusion's `403`
 becomes `29 + log Kb` — `29` is `41 · log 2 = 28.4190…` rounded up, and nothing else. -/
@@ -2475,7 +2475,7 @@ set_option maxHeartbeats 2000000 in
 -- in one block; the `L`-cut keeps the source's `u ≥ 8·10^41` tower step and multiplies it by
 -- `c²`, so the block still does not fit the previous 1000000
 /-- **⟦THE ARM, PRICED, AT A GENERIC CHARGE⟧** (`s15Arm_log_le_L`) — `s15Arm_log_le_scaled`
-(`XThread.lean:352`) with every cap replaced by a term AFFINE in the charge `Lc`, and the cut
+(`XThread.lean:303`) with every cap replaced by a term AFFINE in the charge `Lc`, and the cut
 SHRUNK to `H₊/(10^20·c²)`.  The four landed caps and their `_L` forms:
 
 * `hKcb : Kc ≤ 2^539` and `hlogc : log c ≤ 14` (the source's ONE site, `:355–356`) become the
@@ -2818,7 +2818,7 @@ theorem epsChain_arm_split_L {ε : ℚ} {c : ℕ} (hc1 : 1 ≤ c)
 
 /-! ### §W3.2 — ⟦THE GATE FAMILY, ITS TOWER FLOOR A PARAMETER⟧
 
-⛔ THE DESIGN FINDING THIS SECTION ANSWERS.  The landed `XCeilGate` (`XThread.lean:75`) carries
+⛔ THE DESIGN FINDING THIS SECTION ANSWERS.  The landed `XCeilGate` (`XThread.lean:76`) carries
 its tower floor as a NUMERAL — `50 ≤ loglog H₊` — and the rider a conditional hop must prove is
 quantified over EVERY `(H₊, ω)` on that gate.  On that gate the arm's heart `E ≤ (log H₊)/2` is
 `7000·50 + 10500·Lc + 119600 ≤ e^50/2`, which stops closing at
@@ -2883,11 +2883,11 @@ theorem xCeilRiderStrictAt_mono {a b : ℝ} (hab : a ≤ b) {eps : ℚ} {g : ℕ
 
 /-- **⟦THE HEAD-SHAPED FLAT BUILDER ON THE PARAMETRIC GATE⟧**
 (`chowlaRegimeFlat_exists_param_head_xceil_at`) — `chowlaRegimeFlat_exists_param_head_xceil`
-(`XThread.lean:103`) with the rider asked on `XCeilGateAt lam0` instead of `XCeilGate`.  The seven
+(`XThread.lean:104`) with the rider asked on `XCeilGateAt lam0` instead of `XCeilGate`.  The seven
 exported conjuncts are the landed builder's, byte for byte.
 
 BODY: the source's, with ONE edit.  The source's `hll50 : 50 ≤ loglog R.Hhi` — read at EXACTLY
-ONE line, the gate's discharge (`XThread.lean:185`; measured, not assumed) — becomes
+ONE line, the gate's discharge (`XThread.lean:136`; measured, not assumed) — becomes
 `hll : lam0 ≤ loglog R.Hhi`, off the regime's own design law `R.hflat : 3.2·R.A ≤ loglog R.Hlo`
 with `hRA : R.A = A`, the caller's `hlamA : lam0 ≤ 3.2·A`, and the same `Hlo ≤ Hhi` monotone
 step.  At `lam0 = 50` the hypothesis `hlamA` is `50 ≤ 3.2·A`, which `hA : 26 ≤ A` already gives
@@ -2902,7 +2902,7 @@ parameter — carried over THREE proof lines, measured by diffing the two bodies
 * the read at the gate's discharge, `⟨hHhi4, hll50, hωgate⟩` ↦ `⟨hHhi4, hll, hωgate⟩`.
 
 The clause about the READ is exact and unchanged: `hll50` is read at exactly one line
-(`XThread.lean:185`, re-measured by the same diff).  Everything else in the 90-line body is the
+(`XThread.lean:136`, re-measured by the same diff).  Everything else in the 90-line body is the
 source's byte for byte. -/
 theorem chowlaRegimeFlat_exists_param_head_xceil_at (lam0 A : ℝ) (hA : 26 ≤ A)
     (hlamA : lam0 ≤ 3.2 * A) (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 1 / 2) (Hlo₀ : ℕ)

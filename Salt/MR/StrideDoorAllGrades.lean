@@ -615,7 +615,7 @@ theorem chowlaRegimeFlat_exists_param_gen_ceiling_mul_L (a : ℕ) (ha : 1 ≤ a)
 (`chowlaRegimeFlat_exists_param_head_xceil_mul_at_L`) —
 `chowlaRegimeFlat_exists_param_head_xceil_mul_b9` (`StridePairReceipt.lean`) on
 `chowlaRegimeFlat_exists_param_gen_ceiling_mul_L`, with the rider at the parametric floor `lam0` as
-rung 2's `chowlaRegimeFlat_exists_param_head_xceil_at` (`FlatDoorEpsRung2.lean:2906`) carries it:
+rung 2's `chowlaRegimeFlat_exists_param_head_xceil_at` (`FlatDoorEpsRung2.lean:2907`) carries it:
 the `loglog` floor is `hll : lam0 ≤ loglog H₊`, proved from `hlamA : lam0 ≤ 3.2·A` and the design
 law exactly as there, read at the gate, and EXPORTED as the last conjunct. `hLlam : L ≤ lam0` pays
 the builder's `L ≤ 3.2·A`. Every other step is the source's, verbatim. -/
@@ -2104,7 +2104,7 @@ theorem s13_smallGradeFits_of_halfWindow_L_gk_h_L {h : ℕ} (hh : 0 < h) {Lc : �
       (s13_winFit_h_of_halfWindow_gen_L hh hhL hfl hfloor hhalf H hlo hhi)
 
 /-- **TWIN 10** — `s15ArmH_log_le_g12b` at the charge (`s15ArmH_log_le_L`).  STATEMENT: the flat
-`s15Arm_log_le_L`'s binders (`FlatDoorEpsRung2.lean:2500`: the charge pin
+`s15Arm_log_le_L`'s binders (`FlatDoorEpsRung2.lean:2501`: the charge pin
 `1/(838400·c) ≤ δ₀`, `1 ≤ Kb`, `Kc ≤ Kb`, `log Kb ≤ 197 + 20·Lc`, the gate `50 + Lc ≤ loglog H₊`)
 plus `0 < h`, concluding the H-arm's bound with the flat `_L`'s SHRINKING slack
 `H₊/(10^20·c²)` (the Z1 split pays exactly that slack).  BODY: the `_g12b`'s with its
@@ -2174,7 +2174,7 @@ here (111 lines) and is `zSplit_arm_L2` (below) with the one binder `hLLc : L �
 `hL0 : 0 ≤ L`.  Kernel-checked from the retired statement's own bytes before the removal; it had
 no consumer.  The §J section header above and `zSplit_arm_L2`'s docstring below name it (the
 latter derives `_L2`'s room from it): read `zSplit_arm_L2`.  Its provenance, carried over from the
-retired docstring: Z1 was `epsChain_arm_split_L` (`FlatDoorEpsRung2.lean:2744`) with `+ L` on the
+retired docstring: Z1 was `epsChain_arm_split_L` (`FlatDoorEpsRung2.lean:2745`) with `+ L` on the
 left for every `0 ≤ L ≤ Lc`; room `H₊/c² ≥ 2^{150}·(1 + L)/6` from `50 + Lc ≤ loglog H₊`,
 `e^{Lc} ≥ c`, `e^{Lc} ≥ 1 + L` and `H₊ ≥ (log H₊)³/6`, against a demand of `250001·(log 2 + L)`. -/
 
@@ -2532,7 +2532,7 @@ theorem flat_v7_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L : ℝ
   obtain ⟨A', hA'def⟩ : ∃ a : ℝ, a = max (16 * Real.log (1 / Ks) / 3) (max T₀
       (max (max (max (max A₀ 162) Awin) (cofkRThr Cq Cb Xsk Y0))
         (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))))) := ⟨_, rfl⟩
-  -- ⟦THE NINTH ARM⟧ `162 + 2·Lc`, OUTERMOST (rung 2's re-mint, `FlatDoorEpsRung2.lean:5312`)
+  -- ⟦THE NINTH ARM⟧ `162 + 2·Lc`, OUTERMOST (rung 2's re-mint, `FlatDoorEpsRung2.lean:5263`)
   obtain ⟨A, hAdef⟩ : ∃ a : ℝ,
       a = max (162 + 2 * (Real.log (c : ℝ) + L)) (max (armVt Kvt) A') := ⟨_, rfl⟩
   have hA162b : 162 + 2 * (Real.log (c : ℝ) + L) ≤ A := by rw [hAdef]; exact le_max_left _ _
@@ -5344,7 +5344,7 @@ theorem flat_chain_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L : 
 
 /-- **⟦THE COUNT FLOOR AT THE AFFINE FAMILY, CAP-FREE⟧** (`zCount_affine`) — the head's `hcount`
 (`flat_door_head_xceil_h_Z`, §E) at the grid-restricted affine family and the multiplier `a·h`:
-the cap-free leaf `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2242`, `C ≤ 2^283·c^20`)
+the cap-free leaf `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2243`, `C ≤ 2^283·c^20`)
 through `bigXiAffD_card_le` (`StridePair.lean:344`) and `bigXiAff_card_le_mul`
 (`StrideFork.lean:379`) with the constant `(a·h)·C ≤ 2^283·c^20·(a·h)`.  G12b's
 `mrtUniformityXiL2AffSet_holds_flat_floor_g12b` `hcount` block (`:1127–1133`) with its capped pin
