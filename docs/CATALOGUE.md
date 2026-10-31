@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `77ca0b77` · source digest `b541875eb170ca74` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `0b2e4792` · source digest `46681676269c30f9` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -2813,37 +2813,37 @@ Declarations indexed across the tree: 23386 · corpus Prop-valued names (the hyp
 | `Salt.MR.calFrameK_satisfiable_Ah_L` | Salt/MR/DoorLadderLinear.lean:557 | characters |
 | `Salt.MR.memS_dilate_door_L` | Salt/MR/DoorLadderLinear.lean:741 | characters |
 | `Salt.MR.residue_split_dilate_door_L_gk` | Salt/MR/DoorLadderLinear.lean:798 | characters |
-| `Salt.MR.AdoorL_ge` | Salt/MR/DoorLinear.lean:84 | characters |
-| `Salt.MR.AdoorL_ge_old` | Salt/MR/DoorLinear.lean:89 | characters |
-| `Salt.MR.one_le_AdoorL` | Salt/MR/DoorLinear.lean:92 | characters |
-| `Salt.MR.Adoor_le_AdoorL` | Salt/MR/DoorLinear.lean:98 | characters |
-| `Salt.MR.AdoorL_cast` | Salt/MR/DoorLinear.lean:105 | characters |
-| `Salt.MR.calE_doorL_two` | Salt/MR/DoorLinear.lean:115 | characters |
-| `Salt.MR.calE_doorL_two_gk` | Salt/MR/DoorLinear.lean:122 | characters |
-| `Salt.MR.log_calE_doorL_two` | Salt/MR/DoorLinear.lean:139 | characters |
-| `Salt.MR.log_calE_doorL_two_gk` | Salt/MR/DoorLinear.lean:165 | characters |
-| `Salt.MR.log_four_M_doorL` | Salt/MR/DoorLinear.lean:193 | characters |
-| `Salt.MR.log_gate_doorL` | Salt/MR/DoorLinear.lean:203 | characters |
-| `Salt.MR.log_gate_doorL_gk` | Salt/MR/DoorLinear.lean:218 | characters |
-| `Salt.MR.calFrameK_satisfiable_doorL` | Salt/MR/DoorLinear.lean:248 | characters |
-| `Salt.MR.calFrameK_satisfiable_doorL_gk` | Salt/MR/DoorLinear.lean:300 | characters |
-| `Salt.MR.levelGates_calibrated_doorL` | Salt/MR/DoorLinear.lean:360 | characters |
-| `Salt.MR.levelGates_calibrated_doorL_gk` | Salt/MR/DoorLinear.lean:368 | characters |
-| `Salt.MR.eq28_doorL_clears` | Salt/MR/DoorLinear.lean:378 | characters |
-| `Salt.MR.eq28_doorL_clears_gk` | Salt/MR/DoorLinear.lean:387 | characters |
-| `Salt.MR.log_calQK_doorL_one` | Salt/MR/DoorLinear.lean:398 | characters |
-| `Salt.MR.log_calQK_doorL_one_gk` | Salt/MR/DoorLinear.lean:406 | characters |
-| `Salt.MR.calP_doorL_one_gk` | Salt/MR/DoorLinear.lean:413 | characters |
-| `Salt.MR.s11_calE_doorL_two` | Salt/MR/DoorLinear.lean:426 | characters |
-| `Salt.MR.s11_log_calQK_doorL_two` | Salt/MR/DoorLinear.lean:432 | characters |
-| `Salt.MR.s11_log_calP_doorL_one` | Salt/MR/DoorLinear.lean:442 | characters |
-| `Salt.MR.s11_calE_doorL_two_gk` | Salt/MR/DoorLinear.lean:449 | characters |
-| `Salt.MR.s11_log_calQK_doorL_two_gk` | Salt/MR/DoorLinear.lean:456 | characters |
-| `Salt.MR.doorRowFloorL_eq` | Salt/MR/DoorLinear.lean:532 | characters |
-| `Salt.MR.s13_calQK_doorL_one` | Salt/MR/DoorLinear.lean:537 | characters |
-| `Salt.MR.s13_calQK_doorL_two` | Salt/MR/DoorLinear.lean:543 | characters |
-| `Salt.MR.doorL_length_gate` | Salt/MR/DoorLinear.lean:550 | characters |
-| `Salt.MR.doorL_length_gate_iff` | Salt/MR/DoorLinear.lean:560 | characters |
+| `Salt.MR.AdoorL_ge` | Salt/MR/DoorLinear.lean:90 | characters |
+| `Salt.MR.AdoorL_ge_old` | Salt/MR/DoorLinear.lean:95 | characters |
+| `Salt.MR.one_le_AdoorL` | Salt/MR/DoorLinear.lean:103 | characters |
+| `Salt.MR.Adoor_le_AdoorL` | Salt/MR/DoorLinear.lean:109 | characters |
+| `Salt.MR.AdoorL_cast` | Salt/MR/DoorLinear.lean:116 | characters |
+| `Salt.MR.calE_doorL_two` | Salt/MR/DoorLinear.lean:126 | characters |
+| `Salt.MR.calE_doorL_two_gk` | Salt/MR/DoorLinear.lean:133 | characters |
+| `Salt.MR.log_calE_doorL_two` | Salt/MR/DoorLinear.lean:150 | characters |
+| `Salt.MR.log_calE_doorL_two_gk` | Salt/MR/DoorLinear.lean:176 | characters |
+| `Salt.MR.log_four_M_doorL` | Salt/MR/DoorLinear.lean:204 | characters |
+| `Salt.MR.log_gate_doorL` | Salt/MR/DoorLinear.lean:214 | characters |
+| `Salt.MR.log_gate_doorL_gk` | Salt/MR/DoorLinear.lean:229 | characters |
+| `Salt.MR.calFrameK_satisfiable_doorL` | Salt/MR/DoorLinear.lean:259 | characters |
+| `Salt.MR.calFrameK_satisfiable_doorL_gk` | Salt/MR/DoorLinear.lean:311 | characters |
+| `Salt.MR.levelGates_calibrated_doorL` | Salt/MR/DoorLinear.lean:371 | characters |
+| `Salt.MR.levelGates_calibrated_doorL_gk` | Salt/MR/DoorLinear.lean:379 | characters |
+| `Salt.MR.eq28_doorL_clears` | Salt/MR/DoorLinear.lean:389 | characters |
+| `Salt.MR.eq28_doorL_clears_gk` | Salt/MR/DoorLinear.lean:398 | characters |
+| `Salt.MR.log_calQK_doorL_one` | Salt/MR/DoorLinear.lean:409 | characters |
+| `Salt.MR.log_calQK_doorL_one_gk` | Salt/MR/DoorLinear.lean:417 | characters |
+| `Salt.MR.calP_doorL_one_gk` | Salt/MR/DoorLinear.lean:424 | characters |
+| `Salt.MR.s11_calE_doorL_two` | Salt/MR/DoorLinear.lean:437 | characters |
+| `Salt.MR.s11_log_calQK_doorL_two` | Salt/MR/DoorLinear.lean:443 | characters |
+| `Salt.MR.s11_log_calP_doorL_one` | Salt/MR/DoorLinear.lean:453 | characters |
+| `Salt.MR.s11_calE_doorL_two_gk` | Salt/MR/DoorLinear.lean:460 | characters |
+| `Salt.MR.s11_log_calQK_doorL_two_gk` | Salt/MR/DoorLinear.lean:467 | characters |
+| `Salt.MR.doorRowFloorL_eq` | Salt/MR/DoorLinear.lean:547 | characters |
+| `Salt.MR.s13_calQK_doorL_one` | Salt/MR/DoorLinear.lean:552 | characters |
+| `Salt.MR.s13_calQK_doorL_two` | Salt/MR/DoorLinear.lean:558 | characters |
+| `Salt.MR.doorL_length_gate` | Salt/MR/DoorLinear.lean:565 | characters |
+| `Salt.MR.doorL_length_gate_iff` | Salt/MR/DoorLinear.lean:575 | characters |
 | `Salt.MR.flat_door_head_xceil` | Salt/MR/DoorReceipt.lean:940 | characters |
 | `Salt.MR.logChowla2_v7_rated_form` | Salt/MR/DoorReceipt.lean:1025 | characters |
 | `Salt.MR.logChowla2_v7_rated_of_generic` | Salt/MR/DoorReceipt.lean:1033 | characters |
@@ -5087,9 +5087,9 @@ Declarations indexed across the tree: 23386 · corpus Prop-valued names (the hyp
 | `Salt.MR.flatDoorM_natLog_le` | Salt/MR/S15SelLinearWide.lean:500 | characters |
 | `Salt.MR.flat_landed_ladder_break` | Salt/MR/S15SelLinearWide.lean:528 | characters |
 | `Salt.MR.flat_blk_line_gk_b9` | Salt/MR/S15SelLinearWide.lean:565 | characters |
-| `Salt.MR.s16_audit_rho_ge_wide_h` | Salt/MR/S16Budget.lean:1045 | characters |
-| `Salt.MR.s16_audit_neglog_rho_le_wide_h` | Salt/MR/S16Budget.lean:1078 | characters |
-| `Salt.MR.s16_audit_neglog_rho_le_417_h` | Salt/MR/S16Budget.lean:1098 | characters |
+| `Salt.MR.s16_audit_rho_ge_wide_h` | Salt/MR/S16Budget.lean:1054 | characters |
+| `Salt.MR.s16_audit_neglog_rho_le_wide_h` | Salt/MR/S16Budget.lean:1087 | characters |
+| `Salt.MR.s16_audit_neglog_rho_le_417_h` | Salt/MR/S16Budget.lean:1107 | characters |
 | `Salt.MR.flat_socket_uniform_ceiling` | Salt/MR/S16Compose.lean:212 | sieves, characters |
 | `Salt.MR.s15_crossing_supplied_L_gk_ceiling` | Salt/MR/S16Compose.lean:907 | characters |
 | `Salt.MR.logChowla2_ineffective_v3` | Salt/MR/S16Compose.lean:1055 | characters |
@@ -7642,8 +7642,8 @@ Declarations indexed across the tree: 23386 · corpus Prop-valued names (the hyp
 | `Salt.MR.budget_head_sq_at_mrt_floors_34` | Salt/MR/DoorFloor.lean:636 | characters | `Salt.Entropy.Chowla.MRTUniformityXiL2` |
 | `Salt.MR.chi_floor_real_door_w` | Salt/MR/DoorFloor1500.lean:353 | characters | `Salt.MR.L1LowerEffective` |
 | `Salt.MR.chi_floor_real_door_12` | Salt/MR/DoorFloor1500.lean:383 | characters | `Salt.MR.L1LowerEffective` |
-| `Salt.MR.s16_baseScaleCapL_of_baseScaleCap` | Salt/MR/DoorLinear.lean:488 | characters | `Salt.MR.S16BaseScaleCap_gk` |
-| `Salt.MR.s16_baseScaleCapL96_of_baseScaleCapL` | Salt/MR/DoorLinear.lean:504 | characters | `Salt.MR.S16BaseScaleCapL_gk` |
+| `Salt.MR.s16_baseScaleCapL_of_baseScaleCap` | Salt/MR/DoorLinear.lean:499 | characters | `Salt.MR.S16BaseScaleCap_gk` |
+| `Salt.MR.s16_baseScaleCapL96_of_baseScaleCapL` | Salt/MR/DoorLinear.lean:515 | characters | `Salt.MR.S16BaseScaleCapL_gk` |
 | `Salt.MR.flat_socket_generic` | Salt/MR/DoorReceipt.lean:150 | characters | `Salt.MR.FlatHeadForm` |
 | `Salt.MR.flat_doorL2_generic` | Salt/MR/DoorReceipt.lean:198 | characters | `Salt.MR.FlatSocketForm` |
 | `Salt.MR.flat_road_generic` | Salt/MR/DoorReceipt.lean:279 | characters | `Salt.MR.FlatDoorL2Form` |
@@ -8989,8 +8989,8 @@ Declarations indexed across the tree: 23386 · corpus Prop-valued names (the hyp
 | `Salt.MR.CofactorSocket` | Salt/MR/CapFreeArm3.lean:258 | characters |
 | `Salt.MR.PocketSocket3Gen` | Salt/MR/CofactorSupplier.lean:491 | characters |
 | `Salt.MR.CaseASocketGen` | Salt/MR/CofactorSupplier.lean:542 | characters |
-| `Salt.MR.S16BaseScaleCapL_gk` | Salt/MR/DoorLinear.lean:473 | characters |
-| `Salt.MR.S16BaseScaleCapL96_gk` | Salt/MR/DoorLinear.lean:479 | characters |
+| `Salt.MR.S16BaseScaleCapL_gk` | Salt/MR/DoorLinear.lean:484 | characters |
+| `Salt.MR.S16BaseScaleCapL96_gk` | Salt/MR/DoorLinear.lean:490 | characters |
 | `Salt.MR.MRTDoorReceipt` | Salt/MR/DoorReceipt.lean:90 | characters |
 | `Salt.MR.FlatHeadForm` | Salt/MR/DoorReceipt.lean:97 | characters |
 | `Salt.MR.FlatSocketForm` | Salt/MR/DoorReceipt.lean:119 | characters |
@@ -9366,7 +9366,7 @@ Declarations indexed across the tree: 23386 · corpus Prop-valued names (the hyp
 | `Salt.MR.pretDistSq_liouville_split` | Salt/MR/Dist.lean:83 | characters |
 | `Salt.MR.HplusStar70` | Salt/MR/DoorFloor.lean:416 | characters |
 | `Salt.MR.AdoorL` | Salt/MR/DoorLinear.lean:82 | characters |
-| `Salt.MR.doorRowFloorL` | Salt/MR/DoorLinear.lean:530 | characters |
+| `Salt.MR.doorRowFloorL` | Salt/MR/DoorLinear.lean:541 | characters |
 | `Salt.MR.gJR_ofReal` | Salt/MR/Eq26Bridge.lean:115 | characters |
 | `Salt.MR.gJR_prime_pow` | Salt/MR/Eq26Bridge.lean:295 | characters |
 | `Salt.MR.e4aEta_def` | Salt/MR/EvenChiEta.lean:251 | characters |
