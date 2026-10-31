@@ -14,7 +14,8 @@ cites inside it maps as equal (h2c, salt #567: a re-key inside a cited range nev
 
 A cite is read from each tracked text file AS IT IS AT BASE, in the forms `Leaf.lean:N`,
 `Leaf.lean:N–M` and `Leaf.lean:N-M`, with or without a directory prefix, and a LIST `Leaf.lean:N, :K–L, :J`
-is ONE cite (every `:K` names a line of the same file; classed by its worst member, rewritten whole). A prefix must match the
+is ONE cite, and so is a SLASH list `Leaf.lean:N/K/J` (every `:K` or `/K` names a line of the same file; classed by its
+worst member, rewritten whole). This file's own text is not read: its cites are quotations. A prefix must match the
 edited file's path; a bare leaf counts only when one tracked `.lean` file has that leaf name. Each
 cite is classed:
 
@@ -50,7 +51,7 @@ RECORD-STALE, printed and counted (rc 1), and a reader re-reads it. A
 baseline row, so it needs a record (read by hand).
 
 LIMITS, printed with every verdict: only `.lean` targets; cites in other forms (a list member
-without its colon, `:N, M`; "line N" prose) are not read; a cite written fresh at HEAD is not checked; content equality is per
+without its colon or slash, `:N, M`; "line N" prose) are not read; a cite written fresh at HEAD is not checked; content equality is per
 line, so a cite of a line whose MEANING moved while its text stayed is KEPT or RE-KEYED as text;
 a line that changed only by this tool's own re-key of a cite inside it counts as unchanged (NESTED).
 """
@@ -63,6 +64,9 @@ import subprocess
 import sys
 from collections import Counter
 
+# This tool's own source quotes cites as examples (salt #570's carry re-keyed two of them into strings that
+# never occurred): a quotation is not a cite, so the file is never read as a citing source.
+SELF = "scripts/rekey_cites.py"
 GENERATED = {"docs/CATALOGUE.md", "docs/METHODS-CATALOGUE.md", "docs/methods-catalogue.tsv",
              "docs/FULCRUM-CENSUS.md", "docs/TACTICS-CATALOGUE.md"}
 # Published manuscripts: their file:line locators cite an archived snapshot, so they stay byte-identical
@@ -74,7 +78,7 @@ PIN_PHRASE = "citations refer to the archived snapshot"
 ERRATA_PHRASES = ("kept as published", "kept as submitted")
 TEXT = (".lean", ".md", ".tex", ".tsv", ".py", ".txt", ".yml")
 LIMITS = ("LIMITS: .lean targets only; forms Leaf.lean:N and :N–M / :N-M, and a list Leaf.lean:N, :K as ONE cite; "
-          "a list member without its colon and prose line numbers are not read; a cite written fresh at HEAD is not checked; content equality is "
+          "a slash list Leaf.lean:N/K too; a list member without its colon or slash and prose line numbers are not read; this tool's own source is not read (its cites are quotations); a cite written fresh at HEAD is not checked; content equality is "
           "per line (a line whose meaning moved but whose text did not is not caught); a record is re-hashed only "
           "under --apply (a re-key made by hand, read DONE, leaves its records to the prose check); a line "
           "changed only by this tool's re-key of a cite inside it counts as unchanged (NESTED).")
@@ -108,8 +112,8 @@ def line_map(old: str, new: str) -> dict:
 
 def occ_re(cite):
     # a bare cite must not match inside a longer path, a longer number, or the start of a range
-    # ... nor the head of a LIST cite (`X.lean:5` inside `X.lean:5, :7` is that list's, read as one cite)
-    return re.compile(r"(?<![A-Za-z0-9_./])" + re.escape(cite) + r"(?![0-9]|[–-][0-9]|,\s*:[0-9])")
+    # ... nor the head of a LIST cite (`X.lean:5` inside `X.lean:5, :7` or `X.lean:5/7` is that list's, read as one cite)
+    return re.compile(r"(?<![A-Za-z0-9_./])" + re.escape(cite) + r"(?![0-9]|[–-][0-9]|,\s*:[0-9]|/[0-9])")
 
 
 def flat(t):
@@ -137,9 +141,11 @@ def refusals(root, base, head, published=PUBLISHED):
 
 
 # A list-form cite `Leaf.lean:N, :K–L, :J` is ONE cite: every `:K` after the first names a line of the same file
-# (salt #570: a re-key of the first member alone left `XCeil.lean:160, :143` with a stale second member).
-TAIL = r"((?:,\s*:\d+(?:[–-]\d+)?)*)"
-MEMBER = re.compile(r"(,\s*:)(\d+)(?:([–-])(\d+))?")
+# (salt #570: a re-key of the first member alone left `XCeil.lean:152, :135` with a stale second member).
+# A SLASH list `Leaf.lean:N/K/J` is the same one cite (paper's LOW on salt #572: `PriceTwo.lean:391/316` had its
+# `/316` neither re-keyed nor REPORTED).
+TAIL = r"((?:(?:,\s*:|/)\d+(?:[–-]\d+)?)*)"
+MEMBER = re.compile(r"(,\s*:|/)(\d+)(?:([–-])(\d+))?")
 
 
 def cite_re(leaf):
@@ -244,7 +250,7 @@ def census(root, base, head, published=PUBLISHED):
     via = nested_map(root, base, head, edited, maps, nbase, leaves)
     rows, cls = [], Counter()
     for src in files:
-        if src in GENERATED or not src.endswith(TEXT):
+        if src in GENERATED or src == SELF or not src.endswith(TEXT):
             continue
         text = show(root, base, src)
         if text is None:
@@ -359,7 +365,7 @@ def substitute(text, subs):
     if not subs:
         return text
     alt = "|".join(re.escape(c) for c in sorted(subs, key=len, reverse=True))
-    rx = re.compile(r"(?<![A-Za-z0-9_./])(?:" + alt + r")(?![0-9]|[–-][0-9]|,\s*:[0-9])")   # occ_re's lookahead
+    rx = re.compile(r"(?<![A-Za-z0-9_./])(?:" + alt + r")(?![0-9]|[–-][0-9]|,\s*:[0-9]|/[0-9])")   # occ_re's lookahead
     return rx.sub(lambda m: subs[m.group(0)], text)
 
 
@@ -727,7 +733,7 @@ def self_test():
         stale_ids = sorted(m.split(":")[0] for _, _, c, m in found if c == "STALE-CLAIM")
         check("end to end: check_prose_lean reads r1 green after the apply (r3 stale at BASE, r4 r5 left for a reader)",
               stale_ids == ["r3", "r4", "r5"])
-    # a LIST cite (salt #570: `XCeil.lean:160, :143` had its first member re-keyed and its second left stale): the
+    # a LIST cite (salt #570: `XCeil.lean:152, :135` had its first member re-keyed and its second left stale): the
     # list is one cite, re-keyed whole; a plain cite of the list's first line is a separate cite; a list whose later
     # member's line was edited is REPORTED as a whole.
     with tempfile.TemporaryDirectory() as d:
@@ -763,6 +769,41 @@ def self_test():
               k9.get("L.lean:3, :8") == "DONE" and k9.get("L.lean:2-3, :9") == "DONE")
         check("the record re-hash (substitute) also leaves a plain cite's twin at the head of a list alone",
               substitute("X.lean:5, :7 and X.lean:5", {"X.lean:5": "X.lean:6"}) == "X.lean:5, :7 and X.lean:6")
+    # a SLASH list (paper's LOW on salt #572: flags.md's `PriceTwo.lean:391/316` had its `/316` neither re-keyed
+    # nor REPORTED): `Leaf.lean:N/M` is the same one cite as `Leaf.lean:N, :M`.
+    with tempfile.TemporaryDirectory() as d:
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt"))
+        ten = "".join(f"line {i}\n" for i in range(1, 11))
+        open(os.path.join(d, "Salt/L.lean"), "w").write(ten)
+        open(os.path.join(d, "Salt/E.lean"), "w").write(ten)
+        open(os.path.join(d, "a.md"), "w").write(
+            "L.lean:3/8 · L.lean:2-3/9/4 · L.lean:3 · E.lean:2/7\n")
+        os.makedirs(os.path.join(d, "scripts"))
+        open(os.path.join(d, "scripts/rekey_cites.py"), "w").write("# a quoted example: `L.lean:3, :8`\n")
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        open(os.path.join(d, "Salt/L.lean"), "w").write("a\nb\n" + ten)          # L moves by two
+        open(os.path.join(d, "Salt/E.lean"), "w").write(ten.replace("line 7\n", "LINE SEVEN\n"))
+        g("commit", "-q", "-am", "edit")
+        _, rs, _ = census(d, "HEAD~1", "HEAD")
+        ks = {r["cite"]: r for r in rs if r["src"] == "a.md"}
+        check("a slash list is ONE cite, re-keyed whole (every member)",
+              ks.get("L.lean:3/8", {}).get("new") == "L.lean:5/10")
+        check("... a ranged head and three members", ks.get("L.lean:2-3/9/4", {}).get("new") == "L.lean:4-5/11/6")
+        check("this tool's own source is not read: its cites are quotations (salt #570's carry)",
+              not any(r["src"] == "scripts/rekey_cites.py" for r in rs)
+              and "L.lean:3, :8" in open(os.path.join(d, "scripts/rekey_cites.py")).read())
+        check("... and a plain cite of the slash list's first line is its own cite",
+              ks.get("L.lean:3", {}).get("new") == "L.lean:5")
+        check("a slash list whose LATER member's line was edited is REPORTED as a whole",
+              ks.get("E.lean:2/7", {}).get("cls") == "REPORTED")
+        apply(d, "HEAD~1", "HEAD", rs)
+        check("--apply rewrites every slash member, and the plain cite apart",
+              open(os.path.join(d, "a.md")).read() ==
+              "L.lean:5/10 · L.lean:4-5/11/6 · L.lean:5 · E.lean:2/7\n")
+        check("the record re-hash (substitute) leaves a plain cite's twin at the head of a slash list alone",
+              substitute("X.lean:5/7 and X.lean:5", {"X.lean:5": "X.lean:6"}) == "X.lean:5/7 and X.lean:6")
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
