@@ -23144,7 +23144,7 @@ ceremony that followed them:
 
 ```
 logChowla2_ineffective_v6_T0arm   Salt/MR/V7C.lean:178    2026-08-14  8b0bd31  ledger MR/All.lean:7821
-logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1836   2026-08-14  8b03281  ledger MR/All.lean:7856
+logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1846   2026-08-14  8b03281  ledger MR/All.lean:7856
 ```
 
 **FOUR NAMED INNER RIDERS EACH, outer hypotheses none.** `_csarm` (V7-B): the
@@ -25305,7 +25305,7 @@ down -- this is NOT the C-class obstacle the wave-1 brief asked me to watch for:
 | 4 | `flat_anchor_line_wide_g14` | `StrideGradeReach.lean:207-212` | 6 | `hc : c <= 439`, entering as `+ c + 33`; slack `449 x` |
 | 5 | `flat_gP1_line_g14` | `StrideGradeReach.lean:216-236` | 21 | `hc : -439 <= c`, entering as `+ c`; slack `5.5e3 x` |
 | 6 | `flat_lvl_line_g14` | `StrideGradeReach.lean:240-293` | 54 | `hc : c <= 439`, entering as `+ c`; slack `457 x` |
-| 7 | `s15_sel''_L_witness_flat_b9` | `S15SelLinear.lean:727-928` | 202 | `hcb : c <= 8103` (`:729`), spent at `:848` (`hcRb`) |
+| 7 | `s15_sel''_L_witness_flat_b9` | `S15SelLinear.lean:737-938` | 202 | `hcb : c <= 8103` (`:729`), spent at `:848` (`hcRb`) |
 | 8 | `s15_sel''_L_witness_flat_wide_g12b` | `StrideGrade12bWalls.lean:162-177` | 16 | carries `hcb`, `hh9c` through |
 | 9 | `s15_sel''_L_gk_witness_flat_wide_g12b` | `StrideGrade12bWalls.lean:183-201` | 19 | carries `hcb`, `hh9c` through |
 

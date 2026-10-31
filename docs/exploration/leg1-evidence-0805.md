@@ -169,7 +169,7 @@ them (lint has verified that each file exists and declares that name).
 - **THE TOLL** — `towerDropSumFlat_ge_log_ratio` `:419`, `…_le_log_ratio_mul` `:443`, `towerFlat_width_ge` `:585`, `towerFlat_width_le` `:625`, all `Salt/Entropy/Chowla/TowerFlat.lean`; `towerShape_width_ge` `Salt/Entropy/Chowla/TowerShape.lean:362`
 - **THE PEARL** — `Salt.MR.logChowla2_witnessed_scale_flat_L_v2` `Salt/MR/S16FlatFinal.lean:136` (row carries its own 8/02 defect note)
 - `Salt.MR.logChowla2_ineffective_v6` — the terminal, predicate-free, no outer hypotheses. `Salt/MR/RegisterCompose.lean:345`
-- `Salt.MR.cofkR_cofactorSupply_L_gk` — the register, inhabited. `Salt/MR/RegisterRepair.lean:476`
+- `Salt.MR.cofkR_cofactorSupply_L_gk` — the register, inhabited. `Salt/MR/RegisterRepair.lean:483`
 - `Salt.MR.cofkL_bulk_false_at_socket` — the register refutation (the corpus refuting its own earlier row). `Salt/MR/RegisterInhabit.lean:260`
 
 **§9 Infrastructure firsts**
