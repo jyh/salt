@@ -213,6 +213,8 @@ specific constant — `C₀ := 2·log 4` from `primeWindow_card_le_of_regime` (n
 and the output constant pins uniformly to `C = 1 + 2·C₀`. -/
 
 -- inversion pointwise
+/-- Fourier inversion pointwise: `H·Φ(m) = Σ_ξ e(ξm)·𝓕Φ(ξ)` on `ZMod H`, from mathlib's
+`ZMod.dft_dft` (`𝓕𝓕Φ = H·Φ(−·)`) read at `−m`. The step `correlation_dft` opens with. -/
 private lemma inv_pt {H : ℕ} [NeZero H] (Φ : ZMod H → ℂ) (m : ZMod H) :
     (H : ℂ) * Φ m = ∑ ξ : ZMod H, ZMod.stdAddChar (ξ * m) * ZMod.dft Φ ξ := by
   have h := congrFun (ZMod.dft_dft Φ) (-m)
@@ -222,6 +224,8 @@ private lemma inv_pt {H : ℕ} [NeZero H] (Φ : ZMod H → ℂ) (m : ZMod H) :
   exact Finset.sum_congr rfl (fun ξ _ => by congr 2; ring)
 
 -- partial transform: ∑_m Φ(m) sc(ξ' m) = dft Φ (-ξ')
+/-- The partial transform `Σ_m Φ(m)·e(ξ'm) = 𝓕Φ(−ξ')`: `ZMod.dft_apply` with the character's
+sign flipped. The step that closes `correlation_dft`. -/
 private lemma sum_char_eq_dft_neg {H : ℕ} [NeZero H] (Φ : ZMod H → ℂ) (ξ' : ZMod H) :
     ∑ m : ZMod H, Φ m * ZMod.stdAddChar (ξ' * m) = ZMod.dft Φ (-ξ') := by
   rw [ZMod.dft_apply]
@@ -231,6 +235,11 @@ private lemma sum_char_eq_dft_neg {H : ℕ} [NeZero H] (Φ : ZMod H → ℂ) (ξ
   ring
 
 -- the correlation identity
+/-- **The correlation identity on `ZMod H`**: `H·Σ_m Φ₁(m)·Φ₂(m+t) = Σ_ξ 𝓕Φ₁(ξ)·𝓕Φ₂(−ξ)·e(−tξ)`.
+Route: `inv_pt` on `Φ₂(m+t)`, swap the sums, `sum_char_eq_dft_neg` for the `Φ₁` sum, then
+reindex `ξ' ↦ −ξ`. Offset- and frequency-general: `T_collapse` instantiates `t = p`,
+`T_collapse_h` `t = p·h`, and `StrideCircle`'s `T_collapse_twist` folds the stride phase into
+it. -/
 private lemma correlation_dft {H : ℕ} [NeZero H] (Φ₁ Φ₂ : ZMod H → ℂ) (t : ZMod H) :
     (H : ℂ) * ∑ m : ZMod H, Φ₁ m * Φ₂ (m + t)
       = ∑ ξ : ZMod H, ZMod.dft Φ₁ ξ * ZMod.dft Φ₂ (-ξ) * ZMod.stdAddChar (-(t * ξ)) := by
@@ -263,6 +272,10 @@ private lemma correlation_dft {H : ℕ} [NeZero H] (Φ₁ Φ₂ : ZMod H → ℂ
         ring
 
 -- Φ bound
+/-- `‖windowVal H x m.val‖ ≤ 1` for a `|x| ≤ 1` pattern, as a complex datum on `ZMod H`
+(`windowVal_abs_le` through `Complex.norm_real`). The `h1`/`h2` hypotheses of every
+circle-method estimate in this file (`circle_method_estimate`, `_sq`, `_h_core`, `_sq_h_core`)
+and of their head-pin and stride twins, which open it as private. -/
 private lemma windowVal_c_norm_le {H : ℕ} {x : Fin H → ℤ} (hx : ∀ i, |x i| ≤ 1) (m : ZMod H) :
     ‖((windowVal H x m.val : ℤ) : ℂ)‖ ≤ 1 := by
   rw [show ((windowVal H x m.val : ℤ) : ℂ) = ((windowVal H x m.val : ℝ) : ℂ) by push_cast; ring,
@@ -270,6 +283,9 @@ private lemma windowVal_c_norm_le {H : ℕ} {x : Fin H → ℤ} (hx : ∀ i, |x 
   exact windowVal_abs_le hx m.val
 
 -- box bound: ‖dft Φ ξ‖ ≤ H when ‖Φ j‖ ≤ 1
+/-- The box bound `‖𝓕Φ(ξ)‖ ≤ H` for `‖Φ‖ ≤ 1` (the triangle inequality over `ZMod.dft_apply`,
+each character of modulus `1`). The trivial bound `fourier_split` and `fourier_split_h` put on
+the discarded second Fourier factor of the major arm. -/
 private lemma dft_norm_le_card {H : ℕ} [NeZero H] (Φ : ZMod H → ℂ) (hΦ : ∀ j, ‖Φ j‖ ≤ 1)
     (ξ : ZMod H) : ‖ZMod.dft Φ ξ‖ ≤ (H : ℝ) := by
   rw [ZMod.dft_apply]
@@ -282,6 +298,10 @@ private lemma dft_norm_le_card {H : ℕ} [NeZero H] (Φ : ZMod H → ℂ) (hΦ :
     _ = (H : ℝ) := by rw [Finset.sum_const, Finset.card_univ, ZMod.card, nsmul_eq_mul, mul_one]
 
 -- reflection l1 bound: ∑_ξ ‖dft Φ₁ ξ‖ ‖dft Φ₂ (-ξ)‖ ≤ H²
+/-- The reflected `ℓ¹` bound `Σ_ξ ‖𝓕Φ₁(ξ)‖·‖𝓕Φ₂(−ξ)‖ ≤ H²` for unit-bounded data: `dft_l1_bound`
+(Parseval and Cauchy–Schwarz, `M = 1`, `t = 0`) at `Φ₂(−·)`, whose transform is the reflection
+(`ZMod.dft_comp_neg`). The minor arc of all four Fourier splits (`fourier_split`, `_sq`, `_h`,
+`_sq_h`) and of `StrideCircle`'s `fourier_split_sq_twist`. -/
 private lemma dft_l1_reflect {H : ℕ} [NeZero H] (Φ₁ Φ₂ : ZMod H → ℂ)
     (h1 : ∀ j, ‖Φ₁ j‖ ≤ 1) (h2 : ∀ j, ‖Φ₂ j‖ ≤ 1) :
     ∑ ξ : ZMod H, ‖ZMod.dft Φ₁ ξ‖ * ‖ZMod.dft Φ₂ (-ξ)‖ ≤ (H : ℝ) ^ 2 := by
@@ -295,6 +315,10 @@ private lemma dft_l1_reflect {H : ℕ} [NeZero H] (Φ₁ Φ₂ : ZMod H → ℂ)
     _ ≤ (H : ℝ) ^ 2 := key
 
 -- expSum connection
+/-- `S_H(−ξ.val/H) = Σ_{p ∈ 𝒫_H} (1/p)·e(−pξ)` on `ZMod H`: the exponential sum at a grid
+frequency is a character sum (`ZMod.stdAddChar_coe`, the exponent rewritten through
+`ZMod.natCast_zmod_val`). Frequency-general: `T_collapse` reads it at `ξ`, `T_collapse_h` at
+`h·ξ`, `StrideCircle` at `c + h·ξ`; `Theorem23Shell` and `M4ParsevalStone` cite it. -/
 private lemma expSum_eq_char_sum {eps : ℚ} {H : ℕ} [NeZero H] (ξ : ZMod H) :
     expSum eps H (-(ξ.val : ℝ) / (H : ℝ))
       = ∑ p : primeWindow eps H,
@@ -310,6 +334,9 @@ private lemma expSum_eq_char_sum {eps : ℚ} {H : ℕ} [NeZero H] (ξ : ZMod H) 
   rw [hd]; congr 2; push_cast; ring
 
 -- ∑_{p ∈ primeWindow} 1/p ≤ 2 C₀ / log H
+/-- `Σ_{p ∈ 𝒫_H} 1/p ≤ 2·C₀/log H` under the PNT hypothesis `|𝒫_H| ≤ C₀·ε²H/log H`: each window
+prime exceeds `ε²H/2` (`window_lb`), so each `1/p ≤ 2/(ε²H)`, and the count closes it; the empty
+window is `0`. The major-arc price behind `expSum_norm_le_major`. -/
 private lemma sum_inv_p_le {eps : ℚ} {H : ℕ} [NeZero H] {C₀ : ℝ} (hC₀ : 0 < C₀)
     (hlog : 0 < Real.log (H : ℝ))
     (hcard : ((primeWindow eps H).card : ℝ) ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))) :
@@ -348,6 +375,9 @@ private lemma sum_inv_p_le {eps : ℚ} {H : ℕ} [NeZero H] {C₀ : ℝ} (hC₀ 
           field_simp
 
 -- ‖expSum α‖ ≤ ∑_p 1/p
+/-- `‖S_H(α)‖ ≤ Σ_{p ∈ 𝒫_H} 1/p` for every real `α`: the triangle inequality, each `e(αp)` of
+modulus `1` (`Complex.norm_exp` at a purely imaginary exponent). Composed with `sum_inv_p_le` in
+`expSum_norm_le_major`. -/
 private lemma expSum_norm_le_sum {eps : ℚ} {H : ℕ} [NeZero H] (α : ℝ) :
     ‖expSum eps H α‖ ≤ ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℝ)) := by
   unfold expSum
@@ -360,6 +390,9 @@ private lemma expSum_norm_le_sum {eps : ℚ} {H : ℕ} [NeZero H] (α : ℝ) :
     rw [this, Real.exp_zero]
   rw [this, mul_one]
 
+/-- **The major-arc bound** `‖S_H(α)‖ ≤ 2·C₀/log H`, uniformly in `α`, under the PNT hypothesis
+(`expSum_norm_le_sum` then `sum_inv_p_le`). What every Fourier split pays on `ξ ∈ Ξ`:
+`fourier_split`, `_sq`, `_h`, `_sq_h` and `StrideCircle`'s `fourier_split_sq_twist`. -/
 private lemma expSum_norm_le_major {eps : ℚ} {H : ℕ} [NeZero H] {C₀ : ℝ} (hC₀ : 0 < C₀)
     (hlog : 0 < Real.log (H : ℝ))
     (hcard : ((primeWindow eps H).card : ℝ) ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)))
@@ -368,6 +401,11 @@ private lemma expSum_norm_le_major {eps : ℚ} {H : ℕ} [NeZero H] {C₀ : ℝ}
   (expSum_norm_le_sum α).trans (sum_inv_p_le hC₀ hlog hcard)
 
 -- membership in bigXi
+/-- `ξ ∈ Ξ_H ↔ ε²/log H ≤ ‖S_H(−ξ.val/H)‖`: the major-arc set unfolded (`Finset.mem_filter`).
+Its negation is the minor-arc bound in `fourier_split` and `fourier_split_sq` (and
+`StrideCircle`'s twist, through `mem_xiEta`); `ShiftFork.bigXi_eq_bigXiH_one` identifies it with
+the `h = 1` member of the `h`-family's set, and `Salt/MR/BigXiArc.lean` carries the public
+copy. -/
 private lemma mem_bigXi {eps : ℚ} {H : ℕ} [NeZero H] {ξ : ZMod H} :
     ξ ∈ bigXi eps H ↔
       (eps : ℝ) ^ 2 / Real.log (H : ℝ) ≤ ‖expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖ := by
@@ -375,6 +413,13 @@ private lemma mem_bigXi {eps : ℚ} {H : ℕ} [NeZero H] {ξ : ZMod H} :
   simp only [Finset.mem_filter, Finset.mem_univ, true_and]
 
 -- the Fourier split
+/-- **The Fourier split** (Lemma 3.4's major/minor split at the model offset):
+`‖Σ_ξ 𝓕Φ₁(ξ)·𝓕Φ₂(−ξ)·S_H(−ξ.val/H)‖ ≤ ε²H²/log H + (2·C₀·H/log H)·Σ_{ξ∈Ξ} ‖𝓕Φ₁(ξ)‖`. Minor arc
+(`ξ ∉ Ξ`): `‖S_H‖ < ε²/log H` (`mem_bigXi`) against `dft_l1_reflect`'s `H²`; major arc:
+`dft_norm_le_card` on the second factor and `expSum_norm_le_major` on the sum. Consumed by
+`circle_method_estimate`; `fourier_split_sq` keeps the second factor on the diagonal, and
+`fourier_split_h` is its clone at the twisted frequency (a clone because `ξ ↦ h·ξ` is not a
+reindexing when `gcd(h,H) > 1`). -/
 private lemma fourier_split {eps : ℚ} {H : ℕ} [NeZero H] (Φ₁ Φ₂ : ZMod H → ℂ)
     (h1 : ∀ j, ‖Φ₁ j‖ ≤ 1) (h2 : ∀ j, ‖Φ₂ j‖ ≤ 1)
     {C₀ : ℝ} (hC₀ : 0 < C₀) (hlog : 0 < Real.log (H : ℝ))
@@ -437,6 +482,12 @@ private lemma fourier_split {eps : ℚ} {H : ℕ} [NeZero H] (Φ₁ Φ₂ : ZMod
   linarith [hmajor, hminor]
 
 -- T collapse: (H) * T = W
+/-- **The `T`-collapse** `H·T = W`:
+`H·Σ_p (1/p)·Σ_m Φ₁(m)·Φ₂(m+p) = Σ_ξ 𝓕Φ₁(ξ)·𝓕Φ₂(−ξ)·S_H(−ξ.val/H)` — `correlation_dft` at
+`t = p` for each window prime, the sums swapped, and `expSum_eq_char_sum` to recognise `S_H`.
+The step that turns the periodised correlation into the Fourier form `fourier_split` bounds, in
+`circle_method_estimate`, `circle_method_estimate_sq` and `HeadPinLeaves`'
+`circle_method_estimate_sq_bounded`; `T_collapse_h` is the offset-`p·h` version. -/
 private lemma T_collapse {eps : ℚ} {H : ℕ} [NeZero H] (Φ₁ Φ₂ : ZMod H → ℂ) :
     (H : ℂ) * ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
         ∑ m : ZMod H, Φ₁ m * Φ₂ (m + ((p : ℕ) : ZMod H))
@@ -469,6 +520,9 @@ private lemma T_collapse {eps : ℚ} {H : ℕ} [NeZero H] (Φ₁ Φ₂ : ZMod H 
         exact Finset.sum_congr rfl (fun ξ _ => by rw [← expSum_eq_char_sum ξ])
 
 -- norm of a windowVal cast (nat index version)
+/-- `‖windowVal H x j‖ ≤ 1` at a natural index `j` (the `ℕ`-indexed twin of
+`windowVal_c_norm_le`; `windowVal_abs_le` through `Complex.norm_real`). The termwise bound in
+`perprime_diff_norm_le`. -/
 private lemma wv_c_norm {H : ℕ} {x : Fin H → ℤ} (hx : ∀ i, |x i| ≤ 1) (j : ℕ) :
     ‖((windowVal H x j : ℤ) : ℂ)‖ ≤ 1 := by
   rw [show ((windowVal H x j : ℤ) : ℂ) = ((windowVal H x j : ℝ) : ℂ) by push_cast; ring,
@@ -476,6 +530,9 @@ private lemma wv_c_norm {H : ℕ} {x : Fin H → ℤ} (hx : ∀ i, |x i| ≤ 1) 
   exact windowVal_abs_le hx j
 
 -- count of wraparound indices ≤ p
+/-- At most `p` indices `j < H` wrap, i.e. have `H ≤ j + p`: they lie in `Ico (H−p) H`. The
+count behind the per-prime periodization error (`perprime_diff_norm_le`), and at offset `p·h`
+(`q = p·h`) in `StrideCircle`'s `periodization_total_twist`. -/
 private lemma card_wrap_le {H : ℕ} (p : ℕ) :
     ((Finset.range H).filter (fun j => H ≤ j + p)).card ≤ p := by
   have hsub : (Finset.range H).filter (fun j => H ≤ j + p) ⊆ Finset.Ico (H - p) H := by
@@ -489,6 +546,11 @@ private lemma card_wrap_le {H : ℕ} (p : ℕ) :
     _ ≤ p := by omega
 
 -- per-prime periodization difference
+/-- **The per-prime periodization error**: the window correlation `Σ_{j<H} x₁(j)·x₂(j+p)`
+(junk-zero beyond `H`) and its `ZMod H` periodisation `Σ_m x₁(m)·x₂(m+p)` differ by at most `p`:
+the summands agree except at the `≤ p` wrapping indices (`card_wrap_le`), each of modulus `≤ 1`
+(`wv_c_norm`). Stated at integer windows; `periodization_total` sums it at offset `p`,
+`periodization_total_h` at `p·h`. -/
 private lemma perprime_diff_norm_le {H : ℕ} [NeZero H] {x1 x2 : Fin H → ℤ}
     (hx1 : ∀ i, |x1 i| ≤ 1) (hx2 : ∀ i, |x2 i| ≤ 1) (p : ℕ) :
     ‖((∑ j ∈ Finset.range H, (windowVal H x1 j : ℝ) * (windowVal H x2 (j + p) : ℝ) : ℝ) : ℂ)
@@ -543,6 +605,11 @@ private lemma perprime_diff_norm_le {H : ℕ} [NeZero H] {x1 x2 : Fin H → ℤ}
     _ ≤ (p : ℝ) := by exact_mod_cast card_wrap_le p
 
 -- total periodization
+/-- **The total periodization error** `‖Σ_p (1/p)·(L_p − T_p)‖ ≤ |𝒫_H|`: each prime's difference
+is `≤ p` (`perprime_diff_norm_le`) and the `1/p` weight makes it `≤ 1`. Funded by the PNT
+hypothesis in `circle_method_estimate` and `circle_method_estimate_sq` (the diagonal instance),
+and in `HeadPinLeaves`' `circle_method_estimate_sq_bounded`; `periodization_total_h` is the
+offset-`p·h` version. -/
 private lemma periodization_total {eps : ℚ} {H : ℕ} [NeZero H] {x1 x2 : Fin H → ℤ}
     (hx1 : ∀ i, |x1 i| ≤ 1) (hx2 : ∀ i, |x2 i| ≤ 1) :
     ‖∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
@@ -571,6 +638,17 @@ private lemma periodization_total {eps : ℚ} {H : ℕ} [NeZero H] {x1 x2 : Fin 
     _ = ((primeWindow eps H).card : ℝ) := by
         rw [Finset.sum_const, Finset.card_univ, Fintype.card_coe, nsmul_eq_mul, mul_one]
 
+/-- **Tao's Lemma 3.4 (1509.05422 (3.18)) at the Liouville model**
+(`a = 1, b = 0, h = 1, c_p = 1`), the v3 form: for every PNT constant `C₀ > 0` there is
+`C = 1 + 2·C₀` such that, for all `ε, H` and unit-bounded windows `x₁, x₂` with
+`|𝒫_H| ≤ C₀·ε²H/log H`,
+`|Σ_p (1/p)·Σ_j x₁(j)·x₂(j+p)| ≤ C·(H/log H)·(ε² + Σ_{ξ∈Ξ} (1/H)·‖𝓕Φ₁(ξ)‖)`. Route: periodise
+onto `ZMod H` (`periodization_total`, error `≤ |𝒫_H|`), collapse to the Fourier form
+(`T_collapse`), split major/minor (`fourier_split`), assemble; `H = 1` is the degenerate case
+where both sides vanish. `C₀` is universal and outermost, so the consumer instantiates it
+(`SiegelFree` and `SpineClose` at `C₀ = 2·log 4` from `primeWindow_card_le_of_regime`);
+`circle_method_estimate_sq` is the diagonal twin with the second Fourier factor kept,
+`circle_method_estimate_h_core` the offset-`p·h` twin. -/
 theorem circle_method_estimate (C₀ : ℝ) (hC₀ : 0 < C₀) :
     ∃ C : ℝ, 0 < C ∧
       ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 x2 : Fin H → ℤ),
@@ -950,6 +1028,9 @@ noncomputable def bigXiTwistFilter (h : ℕ) (eps : ℚ) (H : ℕ) [NeZero H] :
       ≤ ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖)
 
 -- membership in the twisted large-spectrum set
+/-- `ξ ∈ bigXiTwistFilter h eps H ↔ ε²/log H ≤ ‖S_H(−((h·ξ).val)/H)‖`: the twisted
+large-spectrum set unfolded (`Finset.mem_filter`). Its negation is the minor-arc bound in
+`fourier_split_h` and `fourier_split_sq_h`. -/
 private lemma mem_bigXiTwistFilter {h : ℕ} {eps : ℚ} {H : ℕ} [NeZero H] {ξ : ZMod H} :
     ξ ∈ bigXiTwistFilter h eps H ↔
       (eps : ℝ) ^ 2 / Real.log (H : ℝ)
@@ -958,6 +1039,14 @@ private lemma mem_bigXiTwistFilter {h : ℕ} {eps : ℚ} {H : ℕ} [NeZero H] {�
   simp only [Finset.mem_filter, Finset.mem_univ, true_and]
 
 -- T collapse at offset `p·h`: the DFT factors stay untwisted, the exponential moves
+/-- **The `T`-collapse at offset `p·h`**:
+`H·Σ_p (1/p)·Σ_m Φ₁(m)·Φ₂(m+p·h) = Σ_ξ 𝓕Φ₁(ξ)·𝓕Φ₂(−ξ)·S_H(−((h·ξ).val)/H)` — `correlation_dft`
+at `t = p·h`, the character `e(−(p·h)ξ)` read as `e(−p·(h·ξ))` (`Nat.cast_mul`), and
+`expSum_eq_char_sum` at the frequency `h·ξ`: the DFT factors stay untwisted, only the
+exponential sum's frequency moves. Consumed by `circle_method_estimate_h_core`,
+`circle_method_estimate_sq_h_core` and `HeadPinLeavesH`'s
+`circle_method_estimate_sq_bounded_h_core`; `StrideCircle` folds a phase into it for
+`T_collapse_twist`. -/
 private lemma T_collapse_h {eps : ℚ} {H : ℕ} [NeZero H] (h : ℕ) (Φ₁ Φ₂ : ZMod H → ℂ) :
     (H : ℂ) * ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
         ∑ m : ZMod H, Φ₁ m * Φ₂ (m + (((p : ℕ) * h : ℕ) : ZMod H))
@@ -1000,6 +1089,11 @@ private lemma T_collapse_h {eps : ℚ} {H : ℕ} [NeZero H] (h : ℕ) (Φ₁ Φ�
           (fun ξ _ => by rw [← expSum_eq_char_sum ((h : ZMod H) * ξ)])
 
 -- total periodization at offset `p·h`: the per-prime wrap is `p·h`, so the total is `h·|𝒫_H|`
+/-- **The total periodization error at offset `p·h`** `‖Σ_p (1/p)·(L_p − T_p)‖ ≤ h·|𝒫_H|`: the
+per-prime wrap is now `p·h` places (`perprime_diff_norm_le` at `p·h`), so each weighted term is
+`≤ h`. Why the `h`-family's constant is `h·(1 + 2·C₀)`; consumed by
+`circle_method_estimate_h_core`, `circle_method_estimate_sq_h_core` and `HeadPinLeavesH`'s
+`circle_method_estimate_sq_bounded_h_core`. -/
 private lemma periodization_total_h {eps : ℚ} {H : ℕ} [NeZero H] (h : ℕ) {x1 x2 : Fin H → ℤ}
     (hx1 : ∀ i, |x1 i| ≤ 1) (hx2 : ∀ i, |x2 i| ≤ 1) :
     ‖∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
