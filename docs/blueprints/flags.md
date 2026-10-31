@@ -25431,7 +25431,7 @@ forms, four receipts, `mrtUniformityXiL2Set_mono`, the builder pair, the head, t
 road-exit hop, and the `j`-floor lift `s13_g2_jfloor_of_MSelect'_L_gk_h_L`).
 
 **(1) The capstone reads the twist cap at two sites the freeze does not name.**  G12b's
-`flat_capstone_generic_h_g12b` derives `hh14 : log h <= 14` at `StridePairReceiptG12b.lean:358`
+`flat_capstone_generic_h_g12b` derives `hh14 : log h <= 14` at `StridePairReceiptG12b.lean:359`
 and reads it at exactly two lines, both `_14` suppliers with NO charge-form twin in the corpus
 (measured: `git grep` finds only the base and `_14` variants of each):
 - `:369` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the
