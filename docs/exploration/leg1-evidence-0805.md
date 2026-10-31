@@ -166,7 +166,7 @@ them (lint has verified that each file exists and declares that name).
 - `Salt.MR.halasz_ball_decay` — `Salt/MR/HalaszCore.lean:440`
 - `Salt.MR.thm_a2'` — the S7/S8 summit, Theorem A2′. `Salt/MR/ThmA2Rows.lean:636`
 - `Salt.MR.mmuChiRate_holds_gated` — the χ-twisted `t`-uniform Möbius rate. `Salt/MR/PortClose.lean:157`
-- **THE TOLL** — `towerDropSumFlat_ge_log_ratio` `:419`, `…_le_log_ratio_mul` `:443`, `towerFlat_width_ge` `:585`, `towerFlat_width_le` `:625`, all `Salt/Entropy/Chowla/TowerFlat.lean`; `towerShape_width_ge` `Salt/Entropy/Chowla/TowerShape.lean:362`
+- **THE TOLL** — `towerDropSumFlat_ge_log_ratio` `:419`, `…_le_log_ratio_mul` `:443`, `towerFlat_width_ge` `:585`, `towerFlat_width_le` `:625`, all `Salt/Entropy/Chowla/TowerFlat.lean`; `towerShape_width_ge` `Salt/Entropy/Chowla/TowerShape.lean:403`
 - **THE PEARL** — `Salt.MR.logChowla2_witnessed_scale_flat_L_v2` `Salt/MR/S16FlatFinal.lean:136` (row carries its own 8/02 defect note)
 - `Salt.MR.logChowla2_ineffective_v6` — the terminal, predicate-free, no outer hypotheses. `Salt/MR/RegisterCompose.lean:345`
 - `Salt.MR.cofkR_cofactorSupply_L_gk` — the register, inhabited. `Salt/MR/RegisterRepair.lean:483`
