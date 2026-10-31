@@ -29,6 +29,11 @@ name: Reach census
 # run, or running) or has come back with a finding, no later PR is merged on an advisory run.
 # Wait for main's verdict, or for the PR's own run. The receipt covers `gen` as this workflow
 # calls it (no `--names`); a run that adds `--names` reads the .lean sources and is not covered.
+# BEFORE DISPATCHING a census of record, check whether one already exists: a PR whose head already
+# contains main merges to a commit with the PR's tree, so its own run (on GitHub's test merge) is a
+# census of that tree. If `git rev-parse <test-merge>^{tree}` equals main's tree after the merge,
+# that run's verdict is the census of record (2026-10-31, #586: test merge 00affb32, tree
+# ec26ee57212c).
 on:
   schedule:
     - cron: '0 11 * * *'
