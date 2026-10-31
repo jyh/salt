@@ -1085,7 +1085,7 @@ theorem mrtUniformityXiL2AffSet_holds_flat_floor_g12b (a b h : ℕ) (ha : 0 < a)
 `837782 * 2 ^ 12` (the spelling `GradedAffHeadAt_g12b` and `log_chowla_aff_of_door_unslotted_g12b`'s
 `hcrown` read).  BODY verbatim with (census band 4 row 30): `a·h ≤ 1096 ↦ a·h ≤ 8103` via
 `h_le_8103_of_log_le_nine`, hence `a ≤ 8103`; `log a ≤ 9` into `loglog_mul_flatDesignBase_le_b9`;
-the AffSet lift at `a ≤ 8103`; `hahQ ≤ 8103` so `1/4051500 ≤ Rd.eps` into
+the AffSet lift at `a ≤ 8103`; `a·h ≤ 8103` so `1/4051500 ≤ Rd.eps` into
 `flatDesignBase_clears_stride_floors_b9`; `regimeShrinkX_stride_b9` (+ `_Hlo_b9`) and
 `mrtUniformityXiL2AffW_of_set_b9` at `a ≤ 8103`.  The cap-free numerals (`1/500`, `32000`,
 `32001`, `8`, `1.02`, `2^539`) are unchanged; the `omega` aux on `a ≤ 4000000` regenerates. -/
