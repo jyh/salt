@@ -125,7 +125,7 @@ now CLOSED:
    **UNPRIMED** residue — the object this file states — and mentions `M4RowMeanSq_L` **zero**
    times (measured; QUEUE P1b's 08/23 stamp and its 08/25 erratum).  **Nothing here says the
    `_L` lane's residue is produced.**  It is not: the `L` lane reaches this machinery only
-   through the socket exit `m4_sievedDoorSq_of_classMeanSq_L` (`M4RowLinear.lean:3192`), and a
+   through the socket exit `m4_sievedDoorSq_of_classMeanSq_L` (`M4RowLinear.lean:3186`), and a
    producer for `M4RowMeanSq_L` remains the precise open object.
 
    *A file that correctly scopes a negative to itself still publishes that negative to every

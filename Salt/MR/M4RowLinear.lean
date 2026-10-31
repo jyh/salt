@@ -2435,9 +2435,6 @@ theorem m4_chiBlock_fixed_of_chiRow_L {R : ChowlaRegime} {M k : ℕ} {MS : ℕ �
   rw [heq] at hflat
   exact hflat
 
-/-- `‖∑_{m ∈ doorSievedWindow_L M K n} liouChi χ m‖ ≤ doorChiSup_L χ M H n` at `hK : K ≤ H`: the
-sup over `K ∈ [0, H]` dominates each of its terms (`Finset.le_sup'`). Consumed by
-`classSup_le_inv_totient_sum_doorChiSup_L` and `norm_sq_coprime_window_le_L`. -/
 theorem le_doorChiSup_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {K : ℕ} (hK : K ≤ H) :
     ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖ ≤ doorChiSup_L χ M H n :=
   Finset.le_sup' (f := fun K => ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖)
@@ -2608,9 +2605,6 @@ theorem m4_sievedDoorSq_of_sup_L_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {Braw
     _ ≤ Braw H * (H : ℝ) ^ 2 :=
         mul_le_mul_of_nonneg_right (hgrade H q hlo hhi hq hqQ) (sq_nonneg _)
 
-/-- `le_doorChiSup_L` at the lever: `‖∑_{m ∈ doorSievedWindow_L_gk K M Kw n} liouChi χ m‖` is
-under `doorChiSup_L_gk K χ M H n` at `hK : Kw ≤ H` (`Finset.le_sup'`). Consumed by
-`classSup_le_inv_totient_sum_doorChiSup_L_gk` and `norm_sq_coprime_window_le_L_gk`. -/
 theorem le_doorChiSup_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {Kw : ℕ}
     (hK : Kw ≤ H) :
     ‖∑ m ∈ doorSievedWindow_L_gk K M Kw n, liouChi χ m‖ ≤ doorChiSup_L_gk K χ M H n :=
