@@ -13,7 +13,8 @@ NESTED re-key: a line whose head text is its base text with this tool's own re-k
 cites inside it maps as equal (h2c, salt #567: a re-key inside a cited range never poisons the range).
 
 A cite is read from each tracked text file AS IT IS AT BASE, in the forms `Leaf.lean:N`,
-`Leaf.lean:N–M` and `Leaf.lean:N-M`, with or without a directory prefix. A prefix must match the
+`Leaf.lean:N–M` and `Leaf.lean:N-M`, with or without a directory prefix, and a LIST `Leaf.lean:N, :K–L, :J`
+is ONE cite (every `:K` names a line of the same file; classed by its worst member, rewritten whole). A prefix must match the
 edited file's path; a bare leaf counts only when one tracked `.lean` file has that leaf name. Each
 cite is classed:
 
@@ -48,8 +49,8 @@ RECORD-STALE, printed and counted (rc 1), and a reader re-reads it. A
 .prose-lean-baseline row hit by a re-key is printed as BASELINE-HIT and NOT rewritten: the ratchet refuses a re-hashed
 baseline row, so it needs a record (read by hand).
 
-LIMITS, printed with every verdict: only `.lean` targets; cites in other forms (`:N, M` lists,
-"line N" prose) are not read; a cite written fresh at HEAD is not checked; content equality is per
+LIMITS, printed with every verdict: only `.lean` targets; cites in other forms (a list member
+without its colon, `:N, M`; "line N" prose) are not read; a cite written fresh at HEAD is not checked; content equality is per
 line, so a cite of a line whose MEANING moved while its text stayed is KEPT or RE-KEYED as text;
 a line that changed only by this tool's own re-key of a cite inside it counts as unchanged (NESTED).
 """
@@ -72,8 +73,8 @@ PUBLISHED = ("papers/witness/main.tex",    # Zenodo snapshot; "citations refer t
 PIN_PHRASE = "citations refer to the archived snapshot"
 ERRATA_PHRASES = ("kept as published", "kept as submitted")
 TEXT = (".lean", ".md", ".tex", ".tsv", ".py", ".txt", ".yml")
-LIMITS = ("LIMITS: .lean targets only; forms Leaf.lean:N and :N–M / :N-M; lists and prose line "
-          "numbers are not read; a cite written fresh at HEAD is not checked; content equality is "
+LIMITS = ("LIMITS: .lean targets only; forms Leaf.lean:N and :N–M / :N-M, and a list Leaf.lean:N, :K as ONE cite; "
+          "a list member without its colon and prose line numbers are not read; a cite written fresh at HEAD is not checked; content equality is "
           "per line (a line whose meaning moved but whose text did not is not caught); a record is re-hashed only "
           "under --apply (a re-key made by hand, read DONE, leaves its records to the prose check); a line "
           "changed only by this tool's re-key of a cite inside it counts as unchanged (NESTED).")
@@ -107,7 +108,8 @@ def line_map(old: str, new: str) -> dict:
 
 def occ_re(cite):
     # a bare cite must not match inside a longer path, a longer number, or the start of a range
-    return re.compile(r"(?<![A-Za-z0-9_./])" + re.escape(cite) + r"(?![0-9]|[–-][0-9])")
+    # ... nor the head of a LIST cite (`X.lean:5` inside `X.lean:5, :7` is that list's, read as one cite)
+    return re.compile(r"(?<![A-Za-z0-9_./])" + re.escape(cite) + r"(?![0-9]|[–-][0-9]|,\s*:[0-9])")
 
 
 def flat(t):
@@ -134,24 +136,50 @@ def refusals(root, base, head, published=PUBLISHED):
                   and pin_road(root, base, f, show(root, base, f), published))
 
 
+# A list-form cite `Leaf.lean:N, :K–L, :J` is ONE cite: every `:K` after the first names a line of the same file
+# (salt #570: a re-key of the first member alone left `XCeil.lean:152, :135` with a stale second member).
+TAIL = r"((?:,\s*:\d+(?:[–-]\d+)?)*)"
+MEMBER = re.compile(r"(,\s*:)(\d+)(?:([–-])(\d+))?")
+
+
 def cite_re(leaf):
-    return re.compile(r"(?<![A-Za-z0-9_./])((?:[A-Za-z0-9_.]+/)*)" + re.escape(leaf) + r":(\d+)(?:([–-])(\d+))?")
+    return re.compile(r"(?<![A-Za-z0-9_./])((?:[A-Za-z0-9_.]+/)*)" + re.escape(leaf) + r":(\d+)(?:([–-])(\d+))?" + TAIL)
 
 
-def resolve(m, nb, mt):
-    """(class, rewritten cite or None) for a cite match `mt` into a file with line map `m` and `nb` base lines."""
-    lo = int(mt.group(2)); hi = int(mt.group(4)) if mt.group(4) else lo
-    nums = [lo] + ([hi] if mt.group(4) else [])
+def span_class(m, nb, lo, hi, ranged):
+    """(class, new numbers) for ONE line or range `lo`(–`hi`) of a file with line map `m` and `nb` base lines."""
+    nums = [lo] + ([hi] if ranged else [])
     span = [m.get(n) for n in range(lo, hi + 1)]
     new = [m.get(n) for n in nums]
     if hi > nb:
         return "PRE-STALE", None                    # past the base file's end: not this edit's
     if any(x is None for x in span) or (span and span[-1] - span[0] != hi - lo):
         return "REPORTED", None                     # an edited, deleted or inserted line inside
-    if new == nums:
+    return ("KEPT" if new == nums else "RE-KEYED"), new
+
+
+def resolve(m, nb, mt):
+    """(class, rewritten cite or None) for a cite match `mt` into a file with line map `m` and `nb` base lines.
+    A list cite is classed by its worst member (REPORTED, then PRE-STALE) and rewritten whole."""
+    lo = int(mt.group(2)); hi = int(mt.group(4)) if mt.group(4) else lo
+    parts = [(mt.group(0).split(":")[0] + ":", lo, hi, mt.group(3))]
+    tail = mt.group(5) if mt.re.groups >= 5 else ""
+    for mm in MEMBER.finditer(tail or ""):
+        a = int(mm.group(2)); b = int(mm.group(4)) if mm.group(4) else a
+        parts.append((mm.group(1), a, b, mm.group(3)))
+    out, classes = [], []
+    for lead, a, b, sep in parts:
+        c, new = span_class(m, nb, a, b, sep is not None)
+        classes.append(c)
+        if new is not None:
+            out.append(lead + str(new[0]) + (f"{sep}{new[1]}" if sep else ""))
+    if "REPORTED" in classes:
+        return "REPORTED", None
+    if "PRE-STALE" in classes:
+        return "PRE-STALE", None
+    if all(c == "KEPT" for c in classes):
         return "KEPT", mt.group(0)
-    return "RE-KEYED", (mt.group(0).split(":")[0] + f":{new[0]}"
-                        + (f"{mt.group(3)}{new[1]}" if mt.group(4) else ""))
+    return "RE-KEYED", "".join(out)
 
 
 def nested_map(root, base, head, edited, maps, nbase, leaves):
@@ -224,7 +252,7 @@ def census(root, base, head, published=PUBLISHED):
         road = pin_road(root, base, src, text, published)
         for f in edited + renamed:
             leaf = f.rsplit("/", 1)[-1]
-            pat = r"(?<![A-Za-z0-9_./])((?:[A-Za-z0-9_.]+/)*)" + re.escape(leaf) + r":(\d+)(?:([–-])(\d+))?"
+            pat = r"(?<![A-Za-z0-9_./])((?:[A-Za-z0-9_.]+/)*)" + re.escape(leaf) + r":(\d+)(?:([–-])(\d+))?" + TAIL
             for mt in re.finditer(pat, text):
                 pre = mt.group(1)
                 if pre and not f.endswith(pre + leaf):
@@ -699,6 +727,40 @@ def self_test():
         stale_ids = sorted(m.split(":")[0] for _, _, c, m in found if c == "STALE-CLAIM")
         check("end to end: check_prose_lean reads r1 green after the apply (r3 stale at BASE, r4 r5 left for a reader)",
               stale_ids == ["r3", "r4", "r5"])
+    # a LIST cite (salt #570: `XCeil.lean:152, :135` had its first member re-keyed and its second left stale): the
+    # list is one cite, re-keyed whole; a plain cite of the list's first line is a separate cite; a list whose later
+    # member's line was edited is REPORTED as a whole.
+    with tempfile.TemporaryDirectory() as d:
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt"))
+        ten = "".join(f"line {i}\n" for i in range(1, 11))
+        open(os.path.join(d, "Salt/L.lean"), "w").write(ten)
+        open(os.path.join(d, "Salt/E.lean"), "w").write(ten)
+        open(os.path.join(d, "a.md"), "w").write(
+            "L.lean:3, :8 · L.lean:2-3, :9 · L.lean:3 · E.lean:2, :7\n")
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        open(os.path.join(d, "Salt/L.lean"), "w").write("a\nb\n" + ten)          # L moves by two
+        open(os.path.join(d, "Salt/E.lean"), "w").write(ten.replace("line 7\n", "LINE SEVEN\n"))
+        g("commit", "-q", "-am", "edit")
+        _, r8, c8 = census(d, "HEAD~1", "HEAD")
+        k8 = {r["cite"]: r for r in r8 if r["src"] == "a.md"}
+        check("a list cite is ONE cite, re-keyed whole (every member)",
+              k8.get("L.lean:3, :8", {}).get("new") == "L.lean:5, :10")
+        check("... a ranged list too", k8.get("L.lean:2-3, :9", {}).get("new") == "L.lean:4-5, :11")
+        check("... and a plain cite of the list's first line is its own cite",
+              k8.get("L.lean:3", {}).get("new") == "L.lean:5")
+        check("a list whose LATER member's line was edited is REPORTED as a whole",
+              k8.get("E.lean:2, :7", {}).get("cls") == "REPORTED")
+        apply(d, "HEAD~1", "HEAD", r8)
+        check("--apply rewrites every member, and the plain cite apart",
+              open(os.path.join(d, "a.md")).read() ==
+              "L.lean:5, :10 · L.lean:4-5, :11 · L.lean:5 · E.lean:2, :7\n")
+        g("commit", "-q", "-am", "rekeyed")
+        _, r9, c9 = census(d, "HEAD~2", "HEAD")
+        k9 = {r["cite"]: r["cls"] for r in r9 if r["src"] == "a.md"}
+        check("... and after the apply the list cites read DONE",
+              k9.get("L.lean:3, :8") == "DONE" and k9.get("L.lean:2-3, :9") == "DONE")
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
