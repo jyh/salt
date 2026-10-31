@@ -1794,6 +1794,11 @@ theorem a2Rows_of_capfree3_end_L :
   · exact a2_term4_weigh hZ0 hg32
 
 /-! ### `ThmA2Rows` — `a2RowsSum_nonneg_gk` -/
+/-- `0 ≤ a2RowsSum_L_gk K M Xd` at `hM : 1 ≤ M`, `hXd : 1 ≤ Xd`: the row sum at the linear door
+and the G-lever (the `16·log₂(2Xd)/𝒫ⱼ` bracket) is a `Finset.sum_nonneg` of nonnegative
+summands, `calH (H1doorL M) j > 0` from `H1door_two_L`. Consumed as the `hRS0` step of
+`a2Rows_of_capfree_L_gk`, `a2Rows_of_cap_L_gk`, `a2Rows_of_capfree3_L_gk`,
+`a2Rows_of_capfree3_end_L_gk` and their four `_kwide` siblings. -/
 lemma a2RowsSum_nonneg_L_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
     0 ≤ a2RowsSum_L_gk K M Xd := by
   have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
@@ -1828,6 +1833,16 @@ lemma a2RowsSum_nonneg_L_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ X
 set_option maxHeartbeats 1000000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
+/-- **THE CAP-FREE ROW AT THE LINEAR DOOR AND THE G-LEVER**: `ThmA2Rows.a2Rows_of_capfree_gk`
+with `Adoor M → AdoorL M`, `H1door M → H1doorL M`, under `hK : K ≤ 1.7·10⁸`. For the frame's
+constants `Cq cq T₀ X₀ Cs C`, under an `A2Frame` at `(AdoorL M, s13GK K M, H1doorL M)` with
+multiplicative data `g c a b cf`, the scale page, the window ladder, `CapFreeFloor g X`, the
+`kmin`/`Ymax` ladder and its gates, and every `T` with `X/h ≤ T`, `2T ≤ X`, `TannGate X (2T)`:
+`X/h/T · ∫_{seamAnn X (2T)} ‖spoly N a t‖² ≤ a2Mrow_L_gk K Cs C M Xd X ε`. Route:
+`seam_row_number_capfree` at `Tann = 2T` under `calFrameK_doorH1_at_L_gk`, then
+`a2_weight_gates` and `a2_row_weigh` with `level1_term_door_decays_L_gk`. Consumed by
+`thm_a2'_L_gk` (its cap-free arm); `a2Rows_of_capfree_L_gk_kwide` restates it with the ceiling
+inside the `∀ M`. -/
 theorem a2Rows_of_capfree_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -1955,6 +1970,16 @@ theorem a2Rows_of_capfree_L_gk (K : ℕ) (hK : K ≤ 170000000) :
 set_option maxHeartbeats 1000000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
+/-- **THE CAPPED ROW AT THE LINEAR DOOR AND THE G-LEVER**: `ThmA2Rows.a2Rows_of_cap_gk` at
+`AdoorL M`, `H1doorL M`, under `hK : K ≤ 1.7·10⁸`. The cap-free hypotheses of
+`a2Rows_of_capfree_L_gk` with `¬ CapFreeFloor g X` in place of the floor, plus
+`800 < log (log X)`, `collisionGate X 25 Ccol`, a station bound
+`‖spolyA a t m‖ ≤ Sb·m/(1+|t−t₁|)` near every centre in the seam, and `C + M·Sb²/2 ≤ Ccc`;
+conclusion `≤ a2Mrow_L_gk K Cs Ccc M Xd X ε` (the ball constant `Ccc` in `C`'s slot). Route: the
+bare-datum cap's witness `v₀` (`a2_row_cap_of_not_capFreeFloor`) closes a `PocketSocket`
+(`pocketSocket_of_row`), the row `seam_row_number_nocap` is read at `t₁ = v₀`, and
+`a2_row_weigh_cap` carries the ball leg (`a2_term3_ball_weigh`). Consumed by `thm_a2'_L_gk` (its
+capped arm); `a2Rows_of_cap_L_gk_kwide` restates it with the ceiling inside the `∀ M`. -/
 theorem a2Rows_of_cap_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C Ccol : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -2094,6 +2119,19 @@ theorem a2Rows_of_cap_L_gk (K : ℕ) (hK : K ≤ 170000000) :
 set_option maxHeartbeats 1000000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
+/-- **`thm_a2′` AT THE LINEAR DOOR AND THE G-LEVER**: `ThmA2Rows.thm_a2'_gk` with
+`Adoor M → AdoorL M`, `H1door M → H1doorL M`, under `hK : K ≤ 1.7·10⁸`. For two frames'
+constants (`Cq₁ … C₁`, `Cq₂ … C₂`, `Ccol`), under two `A2Frame`s at
+`(AdoorL M, s13GK K M, H1doorL M)`, the scale page, the window and `kmin`/`Ymax` ladders, the
+`T₀`-band bound `t0BandB X C₁' M₀`, the two `374784·Cs·e³/𝒫₁ ≤ (log X)^{−1/500}` gates, the two
+row gates `5760·(a2RowsSum_L_gk K M Xd + C·2/M) ≤ (log X)^{−1/500}`, `ε ≤ θ₂₉₃ − 1/500` and
+`4096 ≤ (log X)^{1−1/250}`: the short-sum mean square
+`(1/X)·∫_X^{2X} ‖(1/h)·shortSum a (seamS0 N X) x h‖²` is at most `a2DoorGrade_L M X h C₁' M₀`
+written out (`8448·C₁'²·e^{−M₀/e} + 1787702400·a2Level1_L M + 188133·(log X)^{−1/500}` + the
+`304128·ballSupC²` term `+ 6315000/h`). Route: `by_cases` on `CapFreeFloor g X`; each arm feeds
+`thm_a2'_of_rows_L_gk` with `a2Rows_of_capfree_L_gk` resp. `a2Rows_of_cap_L_gk`, the row's `EP₂`
+gate sharpened to the ε-graded one. No proof in `Salt/` applies it; `thm_a2'_L_gk_kwide`
+restates it with the ceiling inside the `∀ M`. -/
 theorem thm_a2'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq₁ cq₁ T₀₁ X₀₁ Cs₁ C₁ Cq₂ cq₂ T₀₂ X₀₂ Cs₂ C₂ Ccol : ℝ,
       0 < Cq₁ ∧ 0 < cq₁ ∧ 3 ≤ T₀₁ ∧ 0 < X₀₁ ∧ 0 < Cs₁ ∧ 0 < C₁ ∧
@@ -2214,6 +2252,15 @@ theorem thm_a2'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
 set_option maxHeartbeats 1000000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
+/-- **THE `3X`-MINTED ROW (closed window) AT THE LINEAR DOOR AND THE G-LEVER**:
+`ThmA2Rows.a2Rows_of_capfree3_gk` at `AdoorL M`, `H1doorL M`, under `hK : K ≤ 1.7·10⁸`. Under an
+`A2Frame3` with the co-factor socket `CofactorSocket … 0 Rbar b` at the window's top and its
+grade `Rbar ≤ gradeCR2 Cb·(log X)^{−ρ₂₉₃}` (the one datum beyond the cap-free row), the closed
+coefficient window `Xd ≤ p·m`, and every `T` in the window:
+`X/h/T · ∫_{seamAnn X (2T)} ‖spoly N a t‖² ≤ a2Mrow_L_gk K Cs C M Xd X ε`. Route:
+`seam_row_number_capfree3` at `Tann = 2T` under `calFrameK_doorH1_at_L_gk`, then the `a2_*`
+weighting. Consumed by `M4LadderLinear.m4_meansq_per_chi_gen_L_gk` and
+`m4_meansq_per_chi_gen_pool_L_gk` as their row supplier. -/
 theorem a2Rows_of_capfree3_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -2332,6 +2379,12 @@ theorem a2Rows_of_capfree3_L_gk (K : ℕ) (hK : K ≤ 170000000) :
 set_option maxHeartbeats 1000000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
+/-- **THE `3X`-MINTED ROW (strict/fused) AT THE LINEAR DOOR AND THE G-LEVER**:
+`ThmA2Rows.a2Rows_of_capfree3_end_gk` at `AdoorL M`, `H1doorL M`, under `hK : K ≤ 1.7·10⁸` — the
+hypotheses of `a2Rows_of_capfree3_L_gk` with the STRICT coefficient window `Xd < p·m`, the same
+conclusion. Route: `seam_row_number_capfree3_end` at `Tann = 2T`, then the `a2_*` weighting. No
+proof in `Salt/` applies it; `a2Rows_of_capfree3_end_L_gk_kwide` restates it with the ceiling
+inside the `∀ M`. -/
 theorem a2Rows_of_capfree3_end_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -3190,6 +3243,11 @@ theorem a2Rows_of_capfree3'_L :
   · exact a3_term4_weigh hZ0 hg32
 
 /-! ### `A3Middle` — `a2RowsSum'_nonneg_gk` -/
+/-- `0 ≤ a2RowsSum'_L_gk K M Xd` at `hM : 1 ≤ M`, `hXd : 1 ≤ Xd`: the PRIMED row sum at the
+linear door and the G-lever (the `X_d`-free `24/𝒫ⱼ` bracket) is a `Finset.sum_nonneg` of
+nonnegative summands, `calH (H1doorL M) j > 0` from `H1door_two_L`. Consumed as the `hRS0` step
+of `a2Rows_of_capfree3_end'_L_gk`, `a2Rows_of_capfree3'_L_gk` and their two `_kwide`
+siblings. -/
 lemma a2RowsSum'_nonneg_L_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
     0 ≤ a2RowsSum'_L_gk K M Xd := by
   have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
@@ -3221,6 +3279,12 @@ lemma a2RowsSum'_nonneg_L_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ 
 set_option maxHeartbeats 1000000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
+/-- **THE A3 EXIT (strict/fused) AT THE LINEAR DOOR AND THE G-LEVER**:
+`A3Middle.a2Rows_of_capfree3_end'_gk` at `AdoorL M`, `H1doorL M`, under `hK : K ≤ 1.7·10⁸` — the
+hypotheses of `a2Rows_of_capfree3_end_L_gk`, the conclusion at the PRIMED bracket
+`≤ a2Mrow'_L_gk K Cs C M Xd X ε`. Route: `seam_row_number_capfree3_end'` at `Tann = 2T`, then
+`a3_weight_gates` and `a3_row_weigh`. No proof in `Salt/` applies it;
+`a2Rows_of_capfree3_end'_L_gk_kwide` restates it with the ceiling inside the `∀ M`. -/
 theorem a2Rows_of_capfree3_end'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -3339,6 +3403,12 @@ theorem a2Rows_of_capfree3_end'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
 set_option maxHeartbeats 1000000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
+/-- **THE A3 EXIT (closed window) AT THE LINEAR DOOR AND THE G-LEVER**:
+`A3Middle.a2Rows_of_capfree3'_gk` at `AdoorL M`, `H1doorL M`, under `hK : K ≤ 1.7·10⁸` — the
+hypotheses of `a2Rows_of_capfree3_L_gk` (closed window `Xd ≤ p·m`), the conclusion at the PRIMED
+bracket `≤ a2Mrow'_L_gk K Cs C M Xd X ε`. Route: `seam_row_number_capfree3'` at `Tann = 2T`,
+then the `a3_*` weighting. Consumed by `M4LadderLinear.m4_meansq_per_chi_gen_join_L_gk` as its
+row supplier. Listed in `All.lean`'s registry. -/
 theorem a2Rows_of_capfree3'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →

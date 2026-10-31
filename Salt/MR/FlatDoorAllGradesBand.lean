@@ -664,7 +664,7 @@ bodies spend (`R.hx`, `R.hω`, `R.hωx`, `R.hheadroom`, `R.hHlo_floor`) are `R'`
 `R'.eps`, `R'.Hlo`, `R'.Hhi` are `R`'s verbatim.  MEASURED over all four bodies: not one of them
 bounds `x` from ABOVE anywhere — every read of `x` is a lower bound and so survives `x ↦ x'` — so
 the band hypothesis `hxc` is consumed by nothing here but the next form's own block.  The worked
-precedent is the landed road-exit band hop (`TierSBand.lean:798`), which merges rung 2's three
+precedent is the landed road-exit band hop (`TierSBand.lean:829`), which merges rung 2's three
 into one; these are three separate hops making the same moves, plus the capstone. -/
 
 /-- **⟦ARM R H0→H1⟧** (`flat_socket_generic_epsW_band`) — rung 2's `flat_socket_generic_epsW`
@@ -972,7 +972,7 @@ THREE THINGS HAPPEN HERE, and only the third is new work:
   B2′ of §3 exports and the five tier-A forms carry; THIS hop is what spends it, and `log c` does
   NOT reach the conclusion — it is consumed entirely inside the arm's own cut.
 
-The landed precedent is the stride lane's conditional band hop (`TierSBand.lean:1082`, the block
+The landed precedent is the stride lane's conditional band hop (`TierSBand.lean:1113`, the block
 opening ⟦S-1 (i-x) TIER A → TIER B⟧); this transcription drops that block's `a` multiplier
 throughout (no `Real.log_mul`, no zero-product case) and its `log h` term, and reads the arm
 through `s15Arm_log_le_L_cut20` instead of `s15ArmH_log_le_g12b`.
@@ -1116,7 +1116,7 @@ design constant `162 + 2·log c`, the two `ε`-numeral casts at the charge, the 
 straight through — `ω` is untouched and the tier-B bound was already converted one hop below.
 
 THE BAND-ONLY WORK IS FIFTEEN LINES, and it is the same shape as the landed stride-lane band
-hop (`TierSBand.lean:1205`): the `M`-selection register and the block floor are built at
+hop (`TierSBand.lean:1236`): the `M`-selection register and the block floor are built at
 `regimeEnlargeX R hx'` rather than at `R`, and the crossing supply is fired there.  Every
 hypothesis those two consumers read — `R.eps` (through `heps`), `R.Hlo` (through `hfl`, `hlo`,
 `hKswR`) and `R.Hhi` (through `hwin`) — is carried VERBATIM by the enlargement, so each is

@@ -23103,7 +23103,7 @@ the arms and the mint take their language from the ruling, so the wording is DET
 drafted. Rung 1a's law binds every row in this sweep: **the rider count LEADS.**
 
 **THE SENTENCE OF RECORD**, now the `RESULTS.md` §8 row for
-`Salt.MR.logChowla2_ineffective_v7` (`Salt/MR/V7E.lean:75`, landed `8548842`, ledger
+`Salt.MR.logChowla2_ineffective_v7` (`Salt/MR/V7E.lean:76`, landed `8548842`, ledger
 `Salt/MR/All.lean:7895`):
 
 > A machine-checked, witnessed-scale instance of the logarithmically averaged two-point
@@ -23122,7 +23122,7 @@ average over `n ≤ x`); the shift is `n + 1` (the `2` counts the factors `λ(n)
 constants are ineffective (`A` produced through `Classical.choice`, `Ks` carrying Siegel's
 constant); and **twins are untouched** — the transport wall stands at this rung.
 
-**THE `g ≡ 0` INSTANCE** has its own row (`logChowla2_ineffective_v7_g0`, `V7E.lean:216`,
+**THE `g ≡ 0` INSTANCE** has its own row (`logChowla2_ineffective_v7_g0`, `V7E.lean:206`,
 `82fedba`, ledger `:7921`): **two** named inner riders (`e^{-100} ≤ Ks`; the `K_vt` cushion),
 outer none. The row states plainly the thing a rider count alone would hide —
 ***the scale-request rider is VOID at `g ≡ 0`, NOT discharged in general*** — and prices it:
@@ -23143,7 +23143,7 @@ sitting**. Two rows added to `RESULTS.md` §8, both dated by pickaxe rather than
 ceremony that followed them:
 
 ```
-logChowla2_ineffective_v6_T0arm   Salt/MR/V7C.lean:178    2026-08-14  8b0bd31  ledger MR/All.lean:7821
+logChowla2_ineffective_v6_T0arm   Salt/MR/V7C.lean:179    2026-08-14  8b0bd31  ledger MR/All.lean:7821
 logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1836   2026-08-14  8b03281  ledger MR/All.lean:7856
 ```
 
@@ -23162,7 +23162,7 @@ discharges a DIFFERENT rider of `v6`, and neither implies the other. No row call
 `logChowla2_ineffective_v7`, registered in the entry above at three riders.
 
 **THE SHARPNESS CLAIM, stated where it is provable.** `_T0arm`'s row carries
-`t0_arm_four_levels_fails` (`V7C.lean:122`): the FOURTH exponential level fails at **every**
+`t0_arm_four_levels_fails` (`V7C.lean:123`): the FOURTH exponential level fails at **every**
 `A ≥ 162`, not only at the design floor — the generalization landed at `02495bc`, after the
 arm itself. So the three-level margin is sharp in tower height rather than merely true.
 
@@ -23415,7 +23415,7 @@ cost a census and not a wave.
 
 **The attractive wrong answer, tested before it was proposed.** `SiegelBand.lean`'s design law
 (*regime enlargement absorbs any `X`-independent debit*) plus the live lever `g R.Hhi R.ω ≤ R.x`
-in the parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:434`, which `_g0` sets to **zero**)
+in the parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:435`, which `_g0` sets to **zero**)
 makes a re-route onto the outer scale look free. **It is not: the lever has a ceiling.**
 `XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:90`); with
 `ε ≥ 1/500` a caller may request at most `log g ≤ 15500·H₊`, worth **≈ +24 additive on
@@ -25431,7 +25431,7 @@ forms, four receipts, `mrtUniformityXiL2Set_mono`, the builder pair, the head, t
 road-exit hop, and the `j`-floor lift `s13_g2_jfloor_of_MSelect'_L_gk_h_L`).
 
 **(1) The capstone reads the twist cap at two sites the freeze does not name.**  G12b's
-`flat_capstone_generic_h_g12b` derives `hh14 : log h <= 14` at `StridePairReceiptG12b.lean:358`
+`flat_capstone_generic_h_g12b` derives `hh14 : log h <= 14` at `StridePairReceiptG12b.lean:359`
 and reads it at exactly two lines, both `_14` suppliers with NO charge-form twin in the corpus
 (measured: `git grep` finds only the base and `_14` variants of each):
 - `:369` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the

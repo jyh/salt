@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.V7Headline
 import Salt.MR.BandRatedSocket
 import Salt.MR.FlatDesignBound
+import Salt.MR.RegimeSupplyFacts
 
 /-!
 # `V7Rated` — R-1 Wave 1: the V7 rethread onto the RATED socket
@@ -963,7 +964,7 @@ the `K_vt` cushion — is discharged inside.
 * nothing here bears on twin primes — the transport wall is untouched at this rung.
 
 ⟦KEPT, FROZEN⟧ the tower conjunct and the `loglog H₊ ≤ 2·e^{1.6A}` export are carried
-verbatim from the parent (`V7Ks.lean:443-447`): the kernel census found zero live kernel
+verbatim from the parent (`V7Ks.lean:444-448`): the kernel census found zero live kernel
 consumers either way, but `arc.md`'s erratum-(a) argument reads the second export off the
 headline, and keeping both is what makes the parent's `_g0` derivable-from-stronger as a
 KERNEL FACT (`logChowla2_ineffective_v7_ksarm_g0_of_rated` below).
@@ -1062,20 +1063,9 @@ theorem logChowla2_v7_rated (A₀ : ℝ) :
     hfire hx0win hopq (by rw [hbase hopq]; exact hT₀) hKswin (fun _ _ : ℕ => 0)
       (xceilRiderStrict_zero ε)
   -- ⟦THE BASE-SCALE CAP⟧ at `K = KlevF A`, as in the parent
-  have heps500 : (1 : ℚ) / 500 ≤ R.eps := by rw [hReps]; exact hεpin
-  have hxceil : Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (R.eps : ℝ) * ((R.Hhi : ℕ) : ℝ) := by
-    rw [hReps]; exact hRx
   -- ⟦THE RATED SUPPLY, WITH THE CUSHION PAID BY THE EIGHTH ARM⟧
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
-  have heps500R : (1 : ℝ) / 500 ≤ (R.eps : ℝ) := by
-    rw [hReps]
-    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
-  have h518 : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by nlinarith [hdes, hA162]
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA162
-  have hthrgate : cofkRThr Cq Cb Xsk Y0 ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    linarith [hthrA, hlo, hexp1]
+  obtain ⟨heps500, hxceil, hM1, heps500R, h518, hfl, hlo, hthrgate⟩ :=
+    regime_flat_supply_facts hReps hHlo hRx hdes hεpin hA162 hthrA
   have hKvtcush : 32 * Kvt
       + 32 * (2 * Real.log ((flatDoorM A : ℕ) : ℝ) + Real.log 4 + 50)
       ≤ Real.log (R.Hhi : ℝ) / 4 :=

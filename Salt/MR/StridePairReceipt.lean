@@ -106,6 +106,7 @@ import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
 import Salt.Entropy.Chowla.RegimeHeadroom
 import Salt.Entropy.Chowla.WidthWindow
+import Salt.MR.StridePins
 
 -- The head reaches `flatCapH_shuffle` (the `h` head's own cap shuffle) by `open private`, the
 -- corpus's sanctioned device (`DoorReceipt.lean:70` does the same for `uniformCap_shuffle`).
@@ -1896,28 +1897,9 @@ theorem flat_door_head_xceil_h (h : ℕ) (hh : 0 < h) (_hh7 : Real.log (h : ℝ)
   have hhR : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
   have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
   have hhne : (h : ℝ) ≠ 0 := ne_of_gt hhR
-  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
-  -- ⟦THE LEAF NUMERALS, PINNED⟧ `log 4 = 2·log 2`, both `d9` bounds on `log 2`
-  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
-  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
-    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
-  obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = (h : ℝ) * (1 + 2 * (2 * Real.log 4)) := ⟨_, rfl⟩
-  have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
-  have hLpos : (0 : ℝ) < 1 + 8 * Real.log 2 := by linarith
-  have hLne : (1 : ℝ) + 8 * Real.log 2 ≠ 0 := ne_of_gt hLpos
-  have hCval : C = (h : ℝ) * (1 + 8 * Real.log 2) := by rw [hCdef, hlog4eq]; ring
-  have hC : 0 < C := by rw [hCval]; positivity
-  -- ⟦THE PIN⟧ `ε := 1/(500·h)`
-  obtain ⟨ε, hεdef⟩ : ∃ e : ℚ, e = 1 / (500 * (h : ℚ)) := ⟨_, rfl⟩
-  have hεR : ((ε : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) := by rw [hεdef]; push_cast; ring
-  have hεR0 : (0 : ℝ) < (ε : ℝ) := by rw [hεR]; positivity
-  have hεQpos : 0 < ε := by exact_mod_cast hεR0
-  have hεQ1 : ε ≤ 1 / 2 := by
-    have hhQ : (1 : ℚ) ≤ (h : ℚ) := by exact_mod_cast hh
-    rw [hεdef]
-    exact one_div_le_one_div_of_le (by norm_num) (by nlinarith)
+  -- ⟦THE LEAF NUMERALS AND THE PIN⟧ `log 4 = 2·log 2`, the `d9` bounds, `ε := 1/(500·h)`
+  obtain ⟨cD3, C, ε, hcD3def, hCdef, hεdef, hlog4, hlog2lt, hlog2gt, hlog4eq, hcD3, hLpos,
+    hLne, hCval, hC, hεR, hεR0, hεQpos, hεQ1⟩ := stride_pin_facts h hh
   -- ⟦THE MINT, READ BOTH WAYS⟧ `δ₀ = 1/(128000·h²·(1 + 8·log 2))`
   have hval : cD3 / (16 * C) * (ε : ℝ) / 4
       = 1 / (128000 * (h : ℝ) ^ 2 * (1 + 8 * Real.log 2)) := by
@@ -2325,28 +2307,9 @@ theorem flat_door_head_xceil_h_14 (h : ℕ) (hh : 0 < h) (_hh14 : Real.log (h : 
   have hhR : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
   have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
   have hhne : (h : ℝ) ≠ 0 := ne_of_gt hhR
-  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
-  -- ⟦THE LEAF NUMERALS, PINNED⟧ `log 4 = 2·log 2`, both `d9` bounds on `log 2`
-  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
-  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
-    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
-  obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = (h : ℝ) * (1 + 2 * (2 * Real.log 4)) := ⟨_, rfl⟩
-  have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
-  have hLpos : (0 : ℝ) < 1 + 8 * Real.log 2 := by linarith
-  have hLne : (1 : ℝ) + 8 * Real.log 2 ≠ 0 := ne_of_gt hLpos
-  have hCval : C = (h : ℝ) * (1 + 8 * Real.log 2) := by rw [hCdef, hlog4eq]; ring
-  have hC : 0 < C := by rw [hCval]; positivity
-  -- ⟦THE PIN⟧ `ε := 1/(500·h)`
-  obtain ⟨ε, hεdef⟩ : ∃ e : ℚ, e = 1 / (500 * (h : ℚ)) := ⟨_, rfl⟩
-  have hεR : ((ε : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) := by rw [hεdef]; push_cast; ring
-  have hεR0 : (0 : ℝ) < (ε : ℝ) := by rw [hεR]; positivity
-  have hεQpos : 0 < ε := by exact_mod_cast hεR0
-  have hεQ1 : ε ≤ 1 / 2 := by
-    have hhQ : (1 : ℚ) ≤ (h : ℚ) := by exact_mod_cast hh
-    rw [hεdef]
-    exact one_div_le_one_div_of_le (by norm_num) (by nlinarith)
+  -- ⟦THE LEAF NUMERALS AND THE PIN⟧ `log 4 = 2·log 2`, the `d9` bounds, `ε := 1/(500·h)`
+  obtain ⟨cD3, C, ε, hcD3def, hCdef, hεdef, hlog4, hlog2lt, hlog2gt, hlog4eq, hcD3, hLpos,
+    hLne, hCval, hC, hεR, hεR0, hεQpos, hεQ1⟩ := stride_pin_facts h hh
   -- ⟦THE MINT, READ BOTH WAYS⟧ `δ₀ = 1/(128000·h²·(1 + 8·log 2))`
   have hval : cD3 / (16 * C) * (ε : ℝ) / 4
       = 1 / (128000 * (h : ℝ) ^ 2 * (1 + 8 * Real.log 2)) := by

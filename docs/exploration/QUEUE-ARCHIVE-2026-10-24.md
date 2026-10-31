@@ -1349,7 +1349,7 @@ RESURRECTS THEM:**
       mrtS P₁ Q₁ X₀ X            LANDED  MRTProp24.lean:134 (+ mem_mrtS :136)   ← wave 1a
       E-5c, the S-DILATION identity on mrtS      ABSENT — 0 declarations
         ⛔ the `memS_dilate` family that greps is the DOOR's, at `calP`/`windowClass`
-           sequences (`M4ClassPrice.lean:232`, `DoorLadderLinear.lean:738`), NOT MRT's
+           sequences (`M4ClassPrice.lean:232`, `DoorLadderLinear.lean:741`), NOT MRT's
            `mrtS` at MRT's own Definition-2.1 sequence. Different object, matching name.
       H₀mrt(ε) · H₊*(ε)          ABSENT — 0 declarations under any of 4 spellings tried
       W ≤ H^{1/250}              ABSENT as stated; the `1/250` that greps is a DIFFERENT
@@ -5293,8 +5293,8 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    IT IS NOT SLACK, IT IS AN EXPONENT.*** ⛔ **AND THE ATTRACTIVE WRONG ANSWER, TESTED AND
    REFUTED BEFORE PROPOSING IT:** re-routing the cushion onto the outer scale so the regime lever
    `g R.Hhi R.ω ≤ R.x` absorbs it — `_g0` sets that lever to zero and the parent
-   (`V7Ks.lean:434`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
-   `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:90`) with `ε ≥ 1/500` permits at most
+   (`V7Ks.lean:435`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
+   `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:89`) with `ε ≥ 1/500` permits at most
    `log g ≤ 15500·H₊`, worth **≈ +24 additive on `loglog X`** against the landed floor
    `loglog X ≥ log H₊ − 14` — a constant factor ≤ ~4, **never a rate.** Full stamp:
    `docs/blueprints/arc.md` §4's R-1 row (and §7 carries the pointer).
@@ -5498,7 +5498,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    which is what the D5 fork document always said. ⚖️ **Its first action is a MEASUREMENT, not a
    port** (demand-side first): whether the `P₁` margin survives `h·(log H)^12 < P₁` at the
    program's `h`, and the one site where the cap is EVALUATED rather than carried
-   (`V7C.lean:193`'s `⌈arcDen 12 R.Hhi⌉₊`). **Margin holds at h = 2 ⇒ transcription-shaped; fails
+   (`V7C.lean:194`'s `⌈arcDen 12 R.Hhi⌉₊`). **Margin holds at h = 2 ⇒ transcription-shaped; fails
    ⇒ design-tier, returns to the helm.**
    ⚖️⭐⭐ **AND I RAN THE FIRST ARM OF THAT MEASUREMENT BEFORE CLOSING (read-only, no dispatch).
    THE `P₁` MARGIN HOLDS, AND THE ROOM IS A RATIO, NOT AN EXPONENT.** Measured at the bytes:
@@ -5522,7 +5522,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    YOU HAVE NAMED WHICH PARAMETER EACH SIDE MOVES WITH — the size of the number is not the
    evidence.***
    ⇒ **ON THIS ARM THE PRODUCER WAVE IS TRANSCRIPTION-SHAPED.**
-   ⛔⛔ **THE SECOND ARM I DID NOT TOUCH, ON PURPOSE — IT LANDS ON R-1.** `V7C.lean:193` is the one
+   ⛔⛔ **THE SECOND ARM I DID NOT TOUCH, ON PURPOSE — IT LANDS ON R-1.** `V7C.lean:194` is the one
    site where the cap is EVALUATED rather than carried, as `Kvt (KlevF A) ⌈arcDen 12 R.Hhi⌉₊`, so
    the `h`-inflation perturbs the argument of **exactly the `Kvt` cushion the bank ruled is NOT A
    NODE** (R-1, re-tier affirmed at Fable). I measured its SHAPE and stopped there. **A worker
@@ -5534,9 +5534,9 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    A MEASUREMENT ONLY — no Lean written, no statement or frozen byte touched, nothing built.
    ⭐⭐ **AND THE ARM THAT STOPPED 08/26 WAS NEVER THE BINDING ONE.** The deferral was correct
    THE DAY IT WAS WRITTEN and its clock ran out on 08/30: R-1 wave 1 landed, and
-   `logChowla2_v7_rated` (`V7Rated.lean:974-986`) carries **no `arcDen`, no `Qm`, no `Kvt`**.
+   `logChowla2_v7_rated` (`V7Rated.lean:975-987`) carries **no `arcDen`, no `Qm`, no `Kvt`**.
    The rated socket's witnesses are hoisted ABOVE `R`, `H` and `q`
-   (`cofkL_capFreeFloor_at_socket_rated_uniform`, `V7Rated.lean:74-78`), so **no instantiation of
+   (`cofkL_capFreeFloor_at_socket_rated_uniform`, `V7Rated.lean:75-79`), so **no instantiation of
    the cap can move them**: on the rated lane the evaluated site is CAP-BLIND and the
    `h`-inflation perturbs the cushion by exactly nothing. *(A structural fact at the bytes. The
    report-not-rule discipline stands: whether the program walks the rated lane is the helm's.)*
@@ -5566,7 +5566,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    a FREE `A` under `(q:ℝ) ≤ A`, so `A := h·arcDen 12 H` instantiates it VERBATIM. The commission's
    worry that the drift factor "is never re-chosen" is answered — it never needed to be.
    ⛔ **AND THE CAP HAS A SECOND SITE INSIDE ONE DEFINITION, MOVING THE OTHER WAY.** `SocketBaseL`
-   (`ArithPageLinear.lean:695-698`) carries `q ≤ arcDen 12 H` (5th conjunct, inflation STRENGTHENS
+   (`ArithPageLinear.lean:740-743`) carries `q ≤ arcDen 12 H` (5th conjunct, inflation STRENGTHENS
    the demand) AND `x ≤ 16·ω·arcDen 12 H·A` (11th, inflation WEAKENS the hypothesis — and
    `cofkL_logX_floor` DIVIDES by it, `RegisterSupply.lean:330`). **A port that inflates the fifth
    and not the eleventh is measuring a different object.**
@@ -7148,7 +7148,7 @@ numbering is UNVERIFIED.
      mutation control), all `[propext, Classical.choice, Quot.sound]`, `+177/−0`, audit block at
      `Salt/MR/All.lean`. Statements elaborated sorry-bodied BEFORE the executor and byte-identical after.
    * ⛔✅ **S-2 — CLOSED AS SUPPLIED, NOT BUILT.** The form the road consumes is already on `main`:
-     **`mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`Salt/MR/StridePairReceiptG12b.lean:1112`, audited
+     **`mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`Salt/MR/StridePairReceiptG12b.lean:1094`, audited
      `Salt/MR/All.lean:10379`, landed in `e23b45c5` — β W34 H1).** It carries the `ε` pin, `162 ≤ A ∧ A₀ ≤ A`,
      `Ra.a = a`, `Ra.b = b`, the `ρ` cap and the transported grade `a·Zr·ρ + E` with `Zr ≤ 1.02`, `E` bounded.
      ⛔ **The `b`-UNIFORM one-regime form is UNSUPPLIED and UNNEEDED:** every landed supplier is `∀b, ∃R`
@@ -7218,7 +7218,7 @@ numbering is UNVERIFIED.
      (W1 Sonnet 5 · W2 Opus 4 · W3 Sonnet 3 + audit), every name inside budget, **zero flags**.
      ⭐ **THE RESULT WORTH CARRYING OUT OF THIS ROW: the ONE class-C node (hop 3, the tier A → tier B
      estimate) closed in TWO attempts because the freeze's second non-author pass DROVE the estimate
-     rather than judging it** — including the trap that `harm` (`StridePairReceiptG12b.lean:558-560`) is
+     rather than judging it** — including the trap that `harm` (`StridePairReceiptG12b.lean:559-561`) is
      dead at `:630` and must be re-derived at `R`. ⇒ ***a refuter pass that drives an estimate converts a
      class-C node into a transcription.***
      ⚖️ **STATEMENTS BYTE-IDENTICAL TO THE FREEZE, CHECKED AND NOT ASSERTED:** two independent guards
@@ -7243,7 +7243,7 @@ numbering is UNVERIFIED.
      **The substitution to the only `A` the suppliers have — the DESIGN PARAMETER — is FLAGGED, not made
      quietly: if a third `A` was meant, this census has not found it and the charter returns OPEN.**
    * ⭐⭐ **FOR THAT `A`, THE ANSWER IS YES AT THE WITNESS LEVEL.** It is built at
-     `Salt/MR/StridePairReceiptG12b.lean:785` (`flat_v7_generic_h_g12b`) as a `max` of TEN arms. Nine are
+     `Salt/MR/StridePairReceiptG12b.lean:786` (`flat_v7_generic_h_g12b`) as a `max` of TEN arms. Nine are
      closed in `h`, `A₀` and numerals (`cofkR…_b9 h hh hh9` · `s15_crossing…_b9 hh hh9` ·
      `s16_bandLaneWinLH_holdsU h hh` · the pinned `ε = 1/(500·(a·h))` · `β = cD3·ε/(144·log 4)`, `cD3 = 1/4`).
      **The ONE arm that could carry `b` — `Hopq = H₀xi`, from the count gate — is supplied by a LITERAL in
