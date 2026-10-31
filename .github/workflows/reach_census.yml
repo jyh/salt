@@ -25,6 +25,10 @@ name: Reach census
 # reads "census of record OWED on main at <sha>". A PR that changes proof code moves detection to
 # after the merge this way, which is acceptable only because a revert is cheap and that run happens.
 # If gen DIFFERS (a row's name or module changed), the PR's own run is owed as normal.
+# STOP RULE: while main's census of record for an earlier advisory merge is still OWED (not yet
+# run, or running) or has come back with a finding, no later PR is merged on an advisory run.
+# Wait for main's verdict, or for the PR's own run. The receipt covers `gen` as this workflow
+# calls it (no `--names`); a run that adds `--names` reads the .lean sources and is not covered.
 on:
   schedule:
     - cron: '0 11 * * *'
