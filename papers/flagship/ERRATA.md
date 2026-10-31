@@ -44,7 +44,7 @@ and one regime R (one x, one ω, one ε) such that, if `MRTUniformity R δ` hold
 states the logarithmic two-point Chowla statement (the limit as x → ∞, which is Tao's theorem), and the hypothesis
 is assumed at the constructed regime, not proved.
 **Added 2026-10-21:** a later declaration, `logChowla2_v7_rated`
-(Salt/MR/V7Rated.lean:974, landed 2026-08-30, in MR/All.lean's `#audit_axioms` list, no `sorry`), proves the same
+(Salt/MR/V7Rated.lean:975, landed 2026-08-30, in MR/All.lean's `#audit_axioms` list, no `sorry`), proves the same
 window inequality **with no hypothesis**: for every floor `A₀`, at an opaque ε ≥ 1/500 (which the statement lets
 depend on `A₀`) and a regime above `A₀`. It is still a
 single-scale bound and does not state the limit. So the short form below is exact for `log_chowla_two_door_only`

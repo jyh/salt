@@ -767,7 +767,7 @@ noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
 /-- **⟦STANDOFF TWIN⟧**
-`logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin` (`V7Ks.lean:295`): its
+`logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin` (`V7Ks.lean:296`): its
 statement under the three standoff binders, its proof verbatim with
 `flat_conditional_uniform_win_xceil_kwide_khoist` ·
 `s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin` replaced by their twins. -/
@@ -1136,7 +1136,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v7` (`V7E.lean:75`): its statement under the three
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v7` (`V7E.lean:76`): its statement under the three
 standoff binders, its proof verbatim with `s16_bandLaneWinL_holdsU` ·
 `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree` replaced by their twins. -/
 theorem logChowla2_ineffective_v7_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1265,7 +1265,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v7_g0` (`V7E.lean:216`): its statement under the
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v7_g0` (`V7E.lean:206`): its statement under the
 three standoff binders, its proof verbatim with `logChowla2_ineffective_v7` replaced by their twins.
 -/
 theorem logChowla2_ineffective_v7_g0_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1335,7 +1335,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_v7_rated` (`V7Rated.lean:974`): its statement under the three
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_v7_rated` (`V7Rated.lean:975`): its statement under the three
 standoff binders, its proof verbatim with `s16_bandLaneWinL_holdsU` ·
 `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin` replaced by their
 twins. -/
