@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `b46e9f53` · source digest `68aed8c6c7bf68a8` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `abc207e3` · source digest `29ef86313f2ae44c` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,7 +22,7 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 23380 | 678 | 22691 | 9148 | 13 | 283 | 40 | 342 | 87 |
+| 23382 | 678 | 22693 | 9148 | 13 | 283 | 40 | 342 | 87 |
 
 Per-polarity totals over the 678 Props: with F-consumers 528 · with ¬F-consumers 21 · with F-producers (any kind) 444 · with ¬F-producers (any kind) 59.
 
@@ -147,9 +147,9 @@ A FRAME is a bundle of order relations over its own parameters; ¬P is 'the para
 | `Salt.MR.M4SievedDoorSq_gk` | DISCHARGED | - | 14 | 0/0/1 | `Salt.MR.m4_door_False_of_live_gk` (Salt/MR/M4Close.lean:957) |
 | `Salt.MR.MRTBandCount` | OPEN | HALF | 2 | 0/0/1 | `Salt.MR.mrtBands_bandCount_incompatible_at_one` (Salt/MR/MRTPropA3.lean:599) |
 | `Salt.MR.MRTBands` | FRAME | FRAME | 7 | 0/0/1 | `Salt.MR.mrtBands_bandCount_incompatible_at_one` (Salt/MR/MRTPropA3.lean:599) |
-| `Salt.MR.MRTLargeRangeEquidistribution` | OPEN | - | 0 | 1/0/0 | `Salt.MR.not_mrtLargeRangeEquidistribution` (Salt/MR/MRTPropA3.lean:4612) |
+| `Salt.MR.MRTLargeRangeEquidistribution` | OPEN | - | 0 | 1/0/0 | `Salt.MR.not_mrtLargeRangeEquidistribution` (Salt/MR/MRTPropA3.lean:4648) |
 | `Salt.MR.MRTLemmaA4ii` | OPEN | - | 0 | 1/0/0 | `Salt.MR.not_mrtLemmaA4ii` (Salt/MR/MRTPropA3.lean:1475) |
-| `Salt.MR.MRTLemmaA7Statement` | OPEN | - | 0 | 1/0/0 | `Salt.MR.not_mrtLemmaA7Statement` (Salt/MR/MRTPropA3.lean:4156) |
+| `Salt.MR.MRTLemmaA7Statement` | OPEN | - | 0 | 1/0/0 | `Salt.MR.not_mrtLemmaA7Statement` (Salt/MR/MRTPropA3.lean:4187) |
 | `Salt.MR.MSelect'` | DISCHARGED | - | 4 | 0/0/1 | `Salt.MR.s14_compose_stops_of_MSelect'` (Salt/MR/S14Compose.lean:393) |
 | `Salt.MR.MSelect'_gk` | DISCHARGED | - | 4 | 0/0/1 | `Salt.MR.s14_compose_stops_of_MSelect'_gk` (Salt/MR/S14Compose.lean:577) |
 | `Salt.MR.S15Sel'` | DISCHARGED | - | 7 | 0/0/1 | `Salt.MR.s15_sel'_empty_at_closed_forms` (Salt/MR/S15Witness.lean:736) |

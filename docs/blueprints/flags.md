@@ -7075,7 +7075,7 @@ THE TWO SIDES (verbatim shapes). CONSUMER — `hBVblocksW_discharge'` (PDiag.lea
 its `hprice` for every box in `dyadicBoundary (pieceN k) (pieceM k) (x/2+1) x (z·y) K`
 (N = pieceN k = 2^k − 1). SUPPLIER — every landed box-price terminal
 (`box_hprice_at_2pow`/`sym_`/`low_box_hprice_at_2pow`, PriceThree.lean:217/302/382; underlying
-`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:279, PriceTwo.lean:391/316;
+`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:279, PriceTwo.lean:353/316;
 `medium_survivor_price(_sqrtD)`, MediumFloor.lean:507/SqrtDFold.lean:956) provides a bound
 ONLY for `i ∈ dyadicBoundary (2^k) (pieceM k) (x/2+1) x F Krange` (N = 2^k, forced by the
 terminal's `M ≤ 2N` with M = pieceM k = 2·pieceN k + 1). The only bridge
@@ -7094,7 +7094,7 @@ priceable by either trichotomy route for the pieces with 2^k > x^{7/16}:
   • 2^k-BOUNDARY route (`box_hprice_at_2pow`/`_lo`): its hypothesis `i ∈ dyadicBoundary (2^k)`
     FAILS by construction (edge box ∉ dyadicBoundary (2^k)); concretely the terminal's corner
     clause `2^i·(2^k+1) ≤ x` is violated (edge box: x < 2^i·(2^k+1)). The `_lo` floor relaxation
-    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:391) is met but is orthogonal — it does not restore the
+    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:353) is met but is orthogonal — it does not restore the
     boundary membership. So neither route covers the live edge box.
 The trivial fallback (carrier norm ≤ 1 ⟹ box sum ≤ 2·|Dset|·X·M ≈ x·τ(Ps)) overshoots the
 hSum budget Ccon·K·x/L^{11} by ~x^{1} and cannot be used.
@@ -21012,7 +21012,7 @@ audited at `Salt/MR/All.lean:1599`) is Montgomery p.40 eq.(2) with the `‖0‖`
 by `minTerm` (`:271`), and `dist₁` (`Salt/LS/Dist.lean:29`) is literally HB §7's `‖·‖`. The
 restricted sum reindexes as `n = b + qm` ⟹ `e(−sb/k)·Σ_m e((−sq/k)·m)`, i.e. **exactly
 `geom_phase_bound` at `θ = −sq/k`**. Also landed: the exact sawtooth Fourier series
-(`Salt/MR/Sawtooth.lean:358`), `abs_sum_sin_le` (`:329`), Abel (`:65`), Jordan
+(`Salt/MR/Sawtooth.lean:365`), `abs_sum_sin_le` (`:329`), Abel (`:65`), Jordan
 (`MinorArcVaughan.lean:136`), and the `Salt/BV/Completion.lean` kit with its `2 + log H` L¹ mass —
 none of which the WEIL-TRIO dossier's supply table names. **If this holds, W5 is not the class-C
 block it was priced at.**
@@ -21238,7 +21238,7 @@ test-fired:
    with `c = (A−b)/q`, `t = ((B−b)/q − (A−b)/q).toNat` (Euclidean division, `filter_Ioc_dvd_
    eq_image`). The ⚠️ SHAPE-MATCH caveat at `:21027` is **discharged**.
 2. **The sawtooth Fourier series was already in the kernel.** `Salt.MR.tendsto_sum_sin_div_nat`
-   (`Salt/MR/Sawtooth.lean:358`) — landed for the Hurwitz-zeta `k = 0` case of `LandauOdd`, and
+   (`Salt/MR/Sawtooth.lean:365`) — landed for the Hurwitz-zeta `k = 0` case of `LandauOdd`, and
    the one thing mathlib genuinely lacks (`ZetaValues.hasSum_one_div_nat_pow_mul_sin` needs
    exponent `≥ 3`; the `AddCircle` inversion needs summable coefficients). Without it, (7.2)'s
    sharp arm needs either Abel's limit theorem at `e(θ) ≠ 1` plus a `log(1−z)` argument
@@ -23512,7 +23512,7 @@ the brief's `≳ 1.17e4` = 11700 FAILS at `−9.18`). So the conjunct demands
   Salt/Entropy/Chowla/RegimeParam.lean:454      chowlaRegime_exists_param_gen           Hlo₀ param
   Salt/Entropy/Chowla/HloExport.lean:150        chowlaRegime_exists_param_gen_hloCap    Hlo₀ param
   Salt/Entropy/Chowla/TowerFlatBuilder.lean:322 chowlaRegimeFlat_exists_param_gen       Hlo₀ param
-  Salt/MR/XCeil.lean:502                        chowlaRegimeFlat_exists_param_gen_ceiling Hlo₀ param
+  Salt/MR/XCeil.lean:510                        chowlaRegimeFlat_exists_param_gen_ceiling Hlo₀ param
   Salt/Entropy/Chowla/RegimeInst.lean:175       regime_exists_of_dropSum          ⛔ Hlo := 4000000
 ```
 **The four parametric sites CAN discharge it.** Each sets `R.Hlo = max … (max Hlo₀ …)`, so the floor

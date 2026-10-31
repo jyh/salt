@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `b46e9f53` · source digest `68aed8c6c7bf68a8` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `abc207e3` · source digest `29ef86313f2ae44c` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hypothesis universe): 678.
+Declarations indexed across the tree: 23382 · corpus Prop-valued names (the hypothesis universe): 678.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -697,13 +697,13 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.Chen.fchain_trunc_close` | Salt/Chen/ChainValues.lean:215 | sieves |
 | `Salt.Chen.chen_ledger_line` | Salt/Chen/ChainValues.lean:257 | sieves |
 | `Salt.Chen.boundary_XM_raw` | Salt/Chen/ChenFinal.lean:66 | sieves |
-| `Salt.Chen.boundary_log_bounds` | Salt/Chen/ChenFinal.lean:135 | sieves |
-| `Salt.Chen.xm_sqrt_bounds` | Salt/Chen/ChenFinal.lean:145 | sieves |
+| `Salt.Chen.boundary_log_bounds` | Salt/Chen/ChenFinal.lean:95 | sieves |
+| `Salt.Chen.xm_sqrt_bounds` | Salt/Chen/ChenFinal.lean:105 | sieves |
 | `Salt.Chen.d0_window_of_XM_band` | Salt/Chen/ChenFinal2.lean:69 | sieves |
-| `Salt.Chen.band_kfloor_of_live` | Salt/Chen/ChenFinal2.lean:260 | sieves |
-| `Salt.Chen.medium_box_price_at_op_band` | Salt/Chen/ChenFinal2.lean:376 | sieves |
-| `Salt.Chen.sym_box_hprice_at_2pow_band` | Salt/Chen/ChenFinal2.lean:435 | sieves |
-| `Salt.Chen.low_box_hprice_at_2pow_band` | Salt/Chen/ChenFinal2.lean:515 | sieves |
+| `Salt.Chen.band_kfloor_of_live` | Salt/Chen/ChenFinal2.lean:241 | sieves |
+| `Salt.Chen.medium_box_price_at_op_band` | Salt/Chen/ChenFinal2.lean:357 | sieves |
+| `Salt.Chen.sym_box_hprice_at_2pow_band` | Salt/Chen/ChenFinal2.lean:416 | sieves |
+| `Salt.Chen.low_box_hprice_at_2pow_band` | Salt/Chen/ChenFinal2.lean:496 | sieves |
 | `Salt.Chen.kfloor_of_live_box` | Salt/Chen/ChenHeadline.lean:48 | sieves |
 | `Salt.Chen.box_hprice_at_2pow_lo` | Salt/Chen/ChenHeadline.lean:119 | sieves |
 | `Salt.Chen.box_rows_at_op` | Salt/Chen/ChenRows1.lean:573 | sieves |
@@ -949,15 +949,15 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.Chen.tower_budget` | Salt/Chen/PriceClose.lean:205 | sieves |
 | `Salt.Chen.hNum_close_of_tower` | Salt/Chen/PriceClose.lean:219 | sieves |
 | `Salt.Chen.bridge_scale` | Salt/Chen/PriceOne.lean:138 | sieves |
-| `Salt.Chen.medium_box_price_at_op` | Salt/Chen/PriceOne.lean:469 | sieves |
+| `Salt.Chen.medium_box_price_at_op` | Salt/Chen/PriceOne.lean:450 | sieves |
 | `Salt.Chen.crtClassW_coprime_of_mem` | Salt/Chen/PriceThree.lean:101 | sieves |
 | `Salt.Chen.box_hprice_at_2pow` | Salt/Chen/PriceThree.lean:228 | sieves |
 | `Salt.Chen.sym_box_hprice_at_2pow` | Salt/Chen/PriceThree.lean:313 | sieves |
 | `Salt.Chen.low_box_hprice_at_2pow` | Salt/Chen/PriceThree.lean:393 | sieves |
 | `Salt.Chen.d0_window_nonempty_lo` | Salt/Chen/PriceTwo.lean:87 | sieves |
-| `Salt.Chen.medium_box_price_at_op_lo` | Salt/Chen/PriceTwo.lean:733 | sieves |
-| `Salt.Chen.sym_box_price_at_op` | Salt/Chen/PriceTwo.lean:863 | sieves |
-| `Salt.Chen.low_box_price_at_op` | Salt/Chen/PriceTwo.lean:900 | sieves |
+| `Salt.Chen.medium_box_price_at_op_lo` | Salt/Chen/PriceTwo.lean:695 | sieves |
+| `Salt.Chen.sym_box_price_at_op` | Salt/Chen/PriceTwo.lean:825 | sieves |
+| `Salt.Chen.low_box_price_at_op` | Salt/Chen/PriceTwo.lean:862 | sieves |
 | `Salt.Chen.razor_scalar_margin` | Salt/Chen/RazorClose.lean:94 | sieves |
 | `Salt.Chen.razor_of_normalized` | Salt/Chen/RazorClose.lean:116 | sieves |
 | `Salt.Chen.hledger_at_certs` | Salt/Chen/RazorClose.lean:156 | sieves |
@@ -1751,9 +1751,9 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_band_crumb_tower` | Salt/Goldbach/BandRows2.lean:335 | sieves |
 | `Salt.Goldbach.gold_crumb_tower_close` | Salt/Goldbach/BandRows2.lean:379 | sieves |
 | `Salt.Goldbach.gold_d0_window_band` | Salt/Goldbach/BandWin.lean:57 | sieves |
-| `Salt.Goldbach.gold_box_price_engine_at_band` | Salt/Goldbach/BandWin.lean:330 | sieves |
-| `Salt.Goldbach.gold_band_box_kerr` | Salt/Goldbach/BandWin.lean:473 | sieves |
-| `Salt.Goldbach.gold_band_survsum_geoN` | Salt/Goldbach/BandWin.lean:535 | sieves |
+| `Salt.Goldbach.gold_box_price_engine_at_band` | Salt/Goldbach/BandWin.lean:312 | sieves |
+| `Salt.Goldbach.gold_band_box_kerr` | Salt/Goldbach/BandWin.lean:455 | sieves |
+| `Salt.Goldbach.gold_band_survsum_geoN` | Salt/Goldbach/BandWin.lean:517 | sieves |
 | `Salt.Goldbach.gold_band_geo_absorb_tail` | Salt/Goldbach/BandWin2.lean:148 | sieves |
 | `Salt.Goldbach.gold_band_hlow_tail` | Salt/Goldbach/BandWin2.lean:207 | sieves |
 | `Salt.Goldbach.gold_band_hsym_tail` | Salt/Goldbach/BandWin2.lean:232 | sieves |
@@ -1775,12 +1775,12 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.goldCount_bound_uniformK` | Salt/Goldbach/CountFinal.lean:67 | sieves |
 | `Salt.Goldbach.goldTripleSum_le_cbar_final` | Salt/Goldbach/CountFinal.lean:147 | sieves |
 | `Salt.Goldbach.gold_d0_window_annulus` | Salt/Goldbach/D0Win.lean:64 | sieves |
-| `Salt.Goldbach.gold_kfloor_live_annulus` | Salt/Goldbach/D0Win.lean:260 | sieves |
-| `Salt.Goldbach.gold_box_price_engine_at_live_annulus` | Salt/Goldbach/D0Win.lean:331 | sieves |
+| `Salt.Goldbach.gold_kfloor_live_annulus` | Salt/Goldbach/D0Win.lean:242 | sieves |
+| `Salt.Goldbach.gold_box_price_engine_at_live_annulus` | Salt/Goldbach/D0Win.lean:313 | sieves |
 | `Salt.Goldbach.gold_live_annulus_lower` | Salt/Goldbach/D0Win2.lean:60 | sieves |
 | `Salt.Goldbach.gold_kfloor_live_z` | Salt/Goldbach/D0Win2.lean:115 | sieves |
 | `Salt.Goldbach.gold_d0_window_z` | Salt/Goldbach/D0Win2.lean:187 | sieves |
-| `Salt.Goldbach.gold_box_price_engine_at_live_z` | Salt/Goldbach/D0Win2.lean:454 | sieves |
+| `Salt.Goldbach.gold_box_price_engine_at_live_z` | Salt/Goldbach/D0Win2.lean:436 | sieves |
 | `Salt.Goldbach.gold_dsplit_head_cap_below_conductor` | Salt/Goldbach/DSplit.lean:101 | sieves |
 | `Salt.Goldbach.goldPs_squarefree` | Salt/Goldbach/Density.lean:74 | sieves |
 | `Salt.Goldbach.goldPs_primeFactors` | Salt/Goldbach/Density.lean:80 | sieves |
@@ -3106,19 +3106,19 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.MR.box_floor_M0_liouChi` | Salt/MR/FarL2.lean:963 | characters |
 | `Salt.MR.box_floor_M0_pieceDatum` | Salt/MR/FarL2.lean:985 | characters |
 | `Salt.MR.box_floor_clears_gate_45` | Salt/MR/FarL2.lean:1012 | characters |
-| `Salt.MR.dpoly_eq_sum_blocks` | Salt/MR/FarL2Dyadic.lean:155 | characters |
-| `Salt.MR.dpoly_block_l2_mvt` | Salt/MR/FarL2Dyadic.lean:213 | characters |
-| `Salt.MR.far_weight_le_of_linear_growth` | Salt/MR/FarL2Dyadic.lean:382 | characters |
-| `Salt.MR.continuous_windowSum_sq` | Salt/MR/FarL2Dyadic.lean:437 | characters |
-| `Salt.MR.windowSum_l2_block_mvt` | Salt/MR/FarL2Dyadic.lean:449 | characters |
-| `Salt.MR.winL2Tail_dyadic_le` | Salt/MR/FarL2Dyadic.lean:506 | characters |
-| `Salt.MR.farL2_grade_clears_gate` | Salt/MR/FarL2Dyadic.lean:543 | characters |
-| `Salt.MR.crossKerFar_polylog` | Salt/MR/FarL2Dyadic.lean:587 | characters |
-| `Salt.MR.winL2Coeff_norm_antitone` | Salt/MR/FarL2Dyadic.lean:616 | characters |
-| `Salt.MR.winL2Mass_antitone` | Salt/MR/FarL2Dyadic.lean:632 | characters |
-| `Salt.MR.winL2Price_antitone` | Salt/MR/FarL2Dyadic.lean:643 | characters |
-| `Salt.MR.farL2Grade_antitone` | Salt/MR/FarL2Dyadic.lean:653 | characters |
-| `Salt.MR.crossKerFar_polylog_uniform` | Salt/MR/FarL2Dyadic.lean:686 | characters |
+| `Salt.MR.dpoly_eq_sum_blocks` | Salt/MR/FarL2Dyadic.lean:161 | characters |
+| `Salt.MR.dpoly_block_l2_mvt` | Salt/MR/FarL2Dyadic.lean:221 | characters |
+| `Salt.MR.far_weight_le_of_linear_growth` | Salt/MR/FarL2Dyadic.lean:403 | characters |
+| `Salt.MR.continuous_windowSum_sq` | Salt/MR/FarL2Dyadic.lean:461 | characters |
+| `Salt.MR.windowSum_l2_block_mvt` | Salt/MR/FarL2Dyadic.lean:473 | characters |
+| `Salt.MR.winL2Tail_dyadic_le` | Salt/MR/FarL2Dyadic.lean:533 | characters |
+| `Salt.MR.farL2_grade_clears_gate` | Salt/MR/FarL2Dyadic.lean:570 | characters |
+| `Salt.MR.crossKerFar_polylog` | Salt/MR/FarL2Dyadic.lean:614 | characters |
+| `Salt.MR.winL2Coeff_norm_antitone` | Salt/MR/FarL2Dyadic.lean:643 | characters |
+| `Salt.MR.winL2Mass_antitone` | Salt/MR/FarL2Dyadic.lean:659 | characters |
+| `Salt.MR.winL2Price_antitone` | Salt/MR/FarL2Dyadic.lean:670 | characters |
+| `Salt.MR.farL2Grade_antitone` | Salt/MR/FarL2Dyadic.lean:680 | characters |
+| `Salt.MR.crossKerFar_polylog_uniform` | Salt/MR/FarL2Dyadic.lean:713 | characters |
 | `Salt.MR.Tstar_mono` | Salt/MR/FarStar.lean:272 | characters |
 | `Salt.MR.far_kernel_bound_star` | Salt/MR/FarStar.lean:317 | characters |
 | `Salt.MR.far_kfar_star_le` | Salt/MR/FarStar.lean:369 | characters |
@@ -4474,36 +4474,36 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.MR.sum_norm_one_sub_liouvilleC` | Salt/MR/MRTPropA3.lean:3260 | characters |
 | `Salt.MR.recenter_from_unit_floor` | Salt/MR/MRTPropA3.lean:3375 | characters |
 | `Salt.MR.unit_floor_route_above_a4ii_target` | Salt/MR/MRTPropA3.lean:3385 | characters |
-| `Salt.MR.sieved_primes_floor_le_pretDistSq_sifted` | Salt/MR/MRTPropA3.lean:3411 | characters |
-| `Salt.MR.gJ_prime_eq_zero_iff` | Salt/MR/MRTPropA3.lean:3449 | characters |
-| `Salt.MR.mertens_block_difference` | Salt/MR/MRTPropA3.lean:3485 | characters |
-| `Salt.MR.pretDistSq_ge_cos_average` | Salt/MR/MRTPropA3.lean:3513 | characters |
-| `Salt.MR.integral_abs_cos_pi_unit` | Salt/MR/MRTPropA3.lean:3576 | characters |
-| `Salt.MR.mrtA4i_halving` | Salt/MR/MRTPropA3.lean:3633 | characters |
-| `Salt.MR.mrtA4ii_high_M_sixteenth` | Salt/MR/MRTPropA3.lean:3682 | characters |
-| `Salt.MR.mrt_exponent_gap` | Salt/MR/MRTPropA3.lean:3698 | characters |
-| `Salt.MR.mrt_exponent_gap_at_Y` | Salt/MR/MRTPropA3.lean:3705 | characters |
-| `Salt.MR.mrtA4ii_constant_decomposition` | Salt/MR/MRTPropA3.lean:3724 | characters |
-| `Salt.MR.pretDistSq_ge_cos_average_restricted` | Salt/MR/MRTPropA3.lean:3739 | characters |
-| `Salt.MR.abs_cos_pi_mul_eq_cos_pi_mul_dist_round` | Salt/MR/MRTPropA3.lean:3761 | characters |
-| `Salt.MR.mrtA4_summand_matches_source` | Salt/MR/MRTPropA3.lean:3792 | characters |
-| `Salt.MR.mrtA4ii_far_of_cos_average` | Salt/MR/MRTPropA3.lean:3821 | characters |
-| `Salt.MR.mrtA4ii_far_of_either_estimate` | Salt/MR/MRTPropA3.lean:3933 | characters |
-| `Salt.MR.closed_open_window_card_le_one` | Salt/MR/MRTPropA3.lean:4032 | characters |
-| `Salt.MR.shortWindow_closed_sub_open_norm_le` | Salt/MR/MRTPropA3.lean:4050 | characters |
-| `Salt.MR.mrtM_costwist_self` | Salt/MR/MRTPropA3.lean:4143 | characters |
-| `Salt.MR.not_mrtLemmaA7Statement` | Salt/MR/MRTPropA3.lean:4156 | characters |
-| `Salt.MR.mrt_constant_factors` | Salt/MR/MRTPropA3.lean:4314 | characters |
-| `Salt.MR.vk34_constant_factors` | Salt/MR/MRTPropA3.lean:4321 | characters |
-| `Salt.MR.vk34_constant_fails_rho_margin` | Salt/MR/MRTPropA3.lean:4372 | characters |
-| `Salt.MR.vk34_constant_pos` | Salt/MR/MRTPropA3.lean:4383 | characters |
-| `Salt.MR.vk34_constant_clears_bar` | Salt/MR/MRTPropA3.lean:4391 | characters |
-| `Salt.MR.vk34_constant_lt_mrt` | Salt/MR/MRTPropA3.lean:4400 | characters |
-| `Salt.MR.mrtA5_rho_margin34` | Salt/MR/MRTPropA3.lean:4430 | characters |
-| `Salt.MR.mrtA5_epsilon_ceiling34` | Salt/MR/MRTPropA3.lean:4441 | characters |
-| `Salt.MR.vk34_bar_366_fails` | Salt/MR/MRTPropA3.lean:4449 | characters |
-| `Salt.MR.mrtA4ii_high_M_target34` | Salt/MR/MRTPropA3.lean:4466 | characters |
-| `Salt.MR.not_mrtLargeRangeEquidistribution` | Salt/MR/MRTPropA3.lean:4612 | characters |
+| `Salt.MR.sieved_primes_floor_le_pretDistSq_sifted` | Salt/MR/MRTPropA3.lean:3416 | characters |
+| `Salt.MR.gJ_prime_eq_zero_iff` | Salt/MR/MRTPropA3.lean:3454 | characters |
+| `Salt.MR.mertens_block_difference` | Salt/MR/MRTPropA3.lean:3490 | characters |
+| `Salt.MR.pretDistSq_ge_cos_average` | Salt/MR/MRTPropA3.lean:3518 | characters |
+| `Salt.MR.integral_abs_cos_pi_unit` | Salt/MR/MRTPropA3.lean:3581 | characters |
+| `Salt.MR.mrtA4i_halving` | Salt/MR/MRTPropA3.lean:3638 | characters |
+| `Salt.MR.mrtA4ii_high_M_sixteenth` | Salt/MR/MRTPropA3.lean:3687 | characters |
+| `Salt.MR.mrt_exponent_gap` | Salt/MR/MRTPropA3.lean:3703 | characters |
+| `Salt.MR.mrt_exponent_gap_at_Y` | Salt/MR/MRTPropA3.lean:3710 | characters |
+| `Salt.MR.mrtA4ii_constant_decomposition` | Salt/MR/MRTPropA3.lean:3729 | characters |
+| `Salt.MR.pretDistSq_ge_cos_average_restricted` | Salt/MR/MRTPropA3.lean:3744 | characters |
+| `Salt.MR.abs_cos_pi_mul_eq_cos_pi_mul_dist_round` | Salt/MR/MRTPropA3.lean:3766 | characters |
+| `Salt.MR.mrtA4_summand_matches_source` | Salt/MR/MRTPropA3.lean:3797 | characters |
+| `Salt.MR.mrtA4ii_far_of_cos_average` | Salt/MR/MRTPropA3.lean:3826 | characters |
+| `Salt.MR.mrtA4ii_far_of_either_estimate` | Salt/MR/MRTPropA3.lean:3950 | characters |
+| `Salt.MR.closed_open_window_card_le_one` | Salt/MR/MRTPropA3.lean:4059 | characters |
+| `Salt.MR.shortWindow_closed_sub_open_norm_le` | Salt/MR/MRTPropA3.lean:4077 | characters |
+| `Salt.MR.mrtM_costwist_self` | Salt/MR/MRTPropA3.lean:4174 | characters |
+| `Salt.MR.not_mrtLemmaA7Statement` | Salt/MR/MRTPropA3.lean:4187 | characters |
+| `Salt.MR.mrt_constant_factors` | Salt/MR/MRTPropA3.lean:4345 | characters |
+| `Salt.MR.vk34_constant_factors` | Salt/MR/MRTPropA3.lean:4352 | characters |
+| `Salt.MR.vk34_constant_fails_rho_margin` | Salt/MR/MRTPropA3.lean:4403 | characters |
+| `Salt.MR.vk34_constant_pos` | Salt/MR/MRTPropA3.lean:4414 | characters |
+| `Salt.MR.vk34_constant_clears_bar` | Salt/MR/MRTPropA3.lean:4422 | characters |
+| `Salt.MR.vk34_constant_lt_mrt` | Salt/MR/MRTPropA3.lean:4431 | characters |
+| `Salt.MR.mrtA5_rho_margin34` | Salt/MR/MRTPropA3.lean:4461 | characters |
+| `Salt.MR.mrtA5_epsilon_ceiling34` | Salt/MR/MRTPropA3.lean:4472 | characters |
+| `Salt.MR.vk34_bar_366_fails` | Salt/MR/MRTPropA3.lean:4480 | characters |
+| `Salt.MR.mrtA4ii_high_M_target34` | Salt/MR/MRTPropA3.lean:4497 | characters |
+| `Salt.MR.not_mrtLargeRangeEquidistribution` | Salt/MR/MRTPropA3.lean:4648 | characters |
 | `Salt.MR.hMsup_of_propA3_shape` | Salt/MR/MRTPropA3Bridge.lean:56 | characters |
 | `Salt.MR.one_le_X_div_h` | Salt/MR/MRTPropA3Bridge.lean:126 | characters |
 | `Salt.MR.hMsup_of_propA3_shape_parseval` | Salt/MR/MRTPropA3Bridge.lean:140 | characters |
@@ -5273,18 +5273,18 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.MR.sin_pi_mul_pos` | Salt/MR/Sawtooth.lean:289 | characters |
 | `Salt.MR.one_sub_cos_two_pi_mul` | Salt/MR/Sawtooth.lean:295 | characters |
 | `Salt.MR.one_sub_exp_eq` | Salt/MR/Sawtooth.lean:302 | characters |
-| `Salt.MR.norm_one_sub_exp` | Salt/MR/Sawtooth.lean:316 | characters |
-| `Salt.MR.exp_ne_one` | Salt/MR/Sawtooth.lean:321 | characters |
-| `Salt.MR.abs_sum_sin_le` | Salt/MR/Sawtooth.lean:329 | characters |
-| `Salt.MR.tendsto_sum_sin_div_nat` | Salt/MR/Sawtooth.lean:392 | characters |
-| `Salt.MR.sinZeta_apply_one` | Salt/MR/Sawtooth.lean:502 | characters |
-| `Salt.MR.hurwitzZetaOdd_apply_zero` | Salt/MR/Sawtooth.lean:578 | characters |
-| `Salt.MR.coe_unitAddCircle_ne_zero` | Salt/MR/Sawtooth.lean:595 | characters |
-| `Salt.MR.hurwitzZeta_apply_zero` | Salt/MR/Sawtooth.lean:613 | characters |
-| `Salt.MR.sawtoothOdd` | Salt/MR/Sawtooth.lean:835 | characters |
-| `Salt.MR.L1_lower_odd` | Salt/MR/Sawtooth.lean:839 | characters |
-| `Salt.MR.l1LowerOddEffective_pi` | Salt/MR/Sawtooth.lean:845 | characters |
-| `Salt.MR.l1LowerOddEffective_one` | Salt/MR/Sawtooth.lean:849 | characters |
+| `Salt.MR.norm_one_sub_exp` | Salt/MR/Sawtooth.lean:320 | characters |
+| `Salt.MR.exp_ne_one` | Salt/MR/Sawtooth.lean:328 | characters |
+| `Salt.MR.abs_sum_sin_le` | Salt/MR/Sawtooth.lean:336 | characters |
+| `Salt.MR.tendsto_sum_sin_div_nat` | Salt/MR/Sawtooth.lean:399 | characters |
+| `Salt.MR.sinZeta_apply_one` | Salt/MR/Sawtooth.lean:509 | characters |
+| `Salt.MR.hurwitzZetaOdd_apply_zero` | Salt/MR/Sawtooth.lean:585 | characters |
+| `Salt.MR.coe_unitAddCircle_ne_zero` | Salt/MR/Sawtooth.lean:602 | characters |
+| `Salt.MR.hurwitzZeta_apply_zero` | Salt/MR/Sawtooth.lean:620 | characters |
+| `Salt.MR.sawtoothOdd` | Salt/MR/Sawtooth.lean:842 | characters |
+| `Salt.MR.L1_lower_odd` | Salt/MR/Sawtooth.lean:846 | characters |
+| `Salt.MR.l1LowerOddEffective_pi` | Salt/MR/Sawtooth.lean:852 | characters |
+| `Salt.MR.l1LowerOddEffective_one` | Salt/MR/Sawtooth.lean:856 | characters |
 | `Salt.MR.ball_leg_of_sup_weighted` | Salt/MR/SeamBallWeighted.lean:162 | characters |
 | `Salt.MR.prop_A3_T1_row_split_weighted` | Salt/MR/SeamBallWeighted.lean:248 | characters |
 | `Salt.MR.sigma_cutoff_pretentious_gen` | Salt/MR/SeamBallWeighted.lean:325 | characters |
@@ -5998,13 +5998,13 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.MR.window_mass_product` | Salt/MR/WindowBridge.lean:143 | characters |
 | `Salt.MR.window_bridge_shifted` | Salt/MR/WindowBridge.lean:227 | characters |
 | `Salt.MR.window_bridge` | Salt/MR/WindowBridge.lean:322 | characters |
-| `Salt.Entropy.Chowla.regime_outer_param_ceiling` | Salt/MR/XCeil.lean:185 | characters |
-| `Salt.Entropy.Chowla.chowlaRegimeFlat_exists_param_gen_ceiling` | Salt/MR/XCeil.lean:386 | characters |
-| `Salt.Entropy.Chowla.chowlaRegimeFlat_exists_param_head_ceiling` | Salt/MR/XCeil.lean:516 | characters |
-| `Salt.Entropy.Chowla.flat_endpoint_loglog_gt_lever` | Salt/MR/XCeil.lean:546 | characters |
-| `Salt.MR.s16_baseScaleCap96_L_of_xceil` | Salt/MR/XCeil.lean:584 | characters |
-| `Salt.MR.s16_baseScaleCap96_L_supplied` | Salt/MR/XCeil.lean:645 | characters |
-| `Salt.MR.flatA_endpoint_ceiling_misses_K_half` | Salt/MR/XCeil.lean:700 | characters |
+| `Salt.Entropy.Chowla.regime_outer_param_ceiling` | Salt/MR/XCeil.lean:193 | characters |
+| `Salt.Entropy.Chowla.chowlaRegimeFlat_exists_param_gen_ceiling` | Salt/MR/XCeil.lean:394 | characters |
+| `Salt.Entropy.Chowla.chowlaRegimeFlat_exists_param_head_ceiling` | Salt/MR/XCeil.lean:524 | characters |
+| `Salt.Entropy.Chowla.flat_endpoint_loglog_gt_lever` | Salt/MR/XCeil.lean:554 | characters |
+| `Salt.MR.s16_baseScaleCap96_L_of_xceil` | Salt/MR/XCeil.lean:592 | characters |
+| `Salt.MR.s16_baseScaleCap96_L_supplied` | Salt/MR/XCeil.lean:653 | characters |
+| `Salt.MR.flatA_endpoint_ceiling_misses_K_half` | Salt/MR/XCeil.lean:708 | characters |
 | `Salt.MR.m4_exit_socket_split_sq_arc_forallX` | Salt/MR/XGapThread.lean:146 | sieves, characters |
 | `Salt.MR.m4_exit_socket_split_sq_trivial_forallX` | Salt/MR/XGapThread.lean:188 | characters |
 | `Salt.MR.xt_log_inv_rho_le` | Salt/MR/XThread.lean:220 | characters |
@@ -7673,8 +7673,8 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.MR.hRHS_socket_of_far` | Salt/MR/FarClose.lean:515 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
 | `Salt.MR.ball_sup_closed` | Salt/MR/FarClose.lean:567 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
 | `Salt.MR.plog_floor_nonreal` | Salt/MR/FarL2.lean:323 | characters | `Salt.MR.VkTwistUB` |
-| `Salt.MR.joint_cs_trunc_polylog` | Salt/MR/FarL2Dyadic.lean:774 | characters | `Salt.MR.JointIntegrableAtC` |
-| `Salt.MR.dilated_scale_grade_polylog` | Salt/MR/FarL2Dyadic.lean:833 | characters | `Salt.MR.ShortIntervalDatum` |
+| `Salt.MR.joint_cs_trunc_polylog` | Salt/MR/FarL2Dyadic.lean:803 | characters | `Salt.MR.JointIntegrableAtC` |
+| `Salt.MR.dilated_scale_grade_polylog` | Salt/MR/FarL2Dyadic.lean:862 | characters | `Salt.MR.ShortIntervalDatum` |
 | `Salt.MR.rhs_grade_at_scale_closed_star` | Salt/MR/FarStar.lean:708 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
 | `Salt.MR.hRHS_socket_star` | Salt/MR/FarStar.lean:751 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
 | `Salt.MR.ball_sup_closed_star` | Salt/MR/FarStar.lean:822 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
@@ -8181,11 +8181,11 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.MR.mrtPropA3_in_bridge_shape` | Salt/MR/MRTPropA3.lean:2786 | characters | `Salt.MR.MRTPropA3`, `Salt.MR.MRTBands`, `Salt.MR.MRTBandCount`, `Salt.MR.MRTPropA3Ambient` |
 | `Salt.MR.mrtA3_ambient_excludes_degeneracies` | Salt/MR/MRTPropA3.lean:3003 | characters | `Salt.MR.MRTPropA3Ambient` |
 | `Salt.MR.mrtA3_band_bound_of_A6` | Salt/MR/MRTPropA3.lean:3028 | characters | `Salt.MR.MRTLemmaA6` |
-| `Salt.MR.mrtA4ii_far_of_named_splitting` | Salt/MR/MRTPropA3.lean:3871 | characters | `Salt.MR.MRTShortSegmentSplitting` |
-| `Salt.MR.mrtThmA1_of_mrtThmA1GJ_empty` | Salt/MR/MRTPropA3.lean:4012 | characters | `Salt.MR.MRTThmA1GJ` |
-| `Salt.MR.mrtThmA1Statement_of_constantMatch` | Salt/MR/MRTPropA3.lean:4093 | characters | `Salt.MR.MRTParsevalConstantMatch` |
-| `Salt.MR.mrtThmA1_of_mrtThmA1GJ_empty_34` | Salt/MR/MRTPropA3.lean:4576 | characters | `Salt.MR.MRTThmA1GJ_34` |
-| `Salt.MR.mrtThmA1Statement_of_constantMatch_34` | Salt/MR/MRTPropA3.lean:4590 | characters | `Salt.MR.MRTParsevalConstantMatch_34` |
+| `Salt.MR.mrtA4ii_far_of_named_splitting` | Salt/MR/MRTPropA3.lean:3883 | characters | `Salt.MR.MRTShortSegmentSplitting` |
+| `Salt.MR.mrtThmA1_of_mrtThmA1GJ_empty` | Salt/MR/MRTPropA3.lean:4035 | characters | `Salt.MR.MRTThmA1GJ` |
+| `Salt.MR.mrtThmA1Statement_of_constantMatch` | Salt/MR/MRTPropA3.lean:4124 | characters | `Salt.MR.MRTParsevalConstantMatch` |
+| `Salt.MR.mrtThmA1_of_mrtThmA1GJ_empty_34` | Salt/MR/MRTPropA3.lean:4607 | characters | `Salt.MR.MRTThmA1GJ_34` |
+| `Salt.MR.mrtThmA1Statement_of_constantMatch_34` | Salt/MR/MRTPropA3.lean:4621 | characters | `Salt.MR.MRTParsevalConstantMatch_34` |
 | `Salt.MR.mrtBands_log_Qseq_one_le` | Salt/MR/MRTSummandSupply.lean:57 | characters | `Salt.MR.MRTBands` |
 | `Salt.MR.mrtBands_log_Qseq_one_rpow_le` | Salt/MR/MRTSummandSupply.lean:71 | characters | `Salt.MR.MRTBands` |
 | `Salt.MR.mrtA3_first_summand_le_of_bands` | Salt/MR/MRTSummandSupply.lean:87 | characters | `Salt.MR.MRTBands` |
@@ -9106,19 +9106,19 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.MR.MRTLemmaA4iiFixed` | Salt/MR/MRTPropA3.lean:1646 | characters |
 | `Salt.MR.MRTLemmaA5` | Salt/MR/MRTPropA3.lean:1860 | characters |
 | `Salt.MR.MRTLemmaA5Statement` | Salt/MR/MRTPropA3.lean:1876 | characters |
-| `Salt.MR.MRTShortSegmentSplitting` | Salt/MR/MRTPropA3.lean:3853 | characters |
-| `Salt.MR.MRTLargeRangeEquidistribution` | Salt/MR/MRTPropA3.lean:3908 | characters |
-| `Salt.MR.MRTThmA1GJ` | Salt/MR/MRTPropA3.lean:3990 | characters |
-| `Salt.MR.MRTParsevalConstantMatch` | Salt/MR/MRTPropA3.lean:4074 | characters |
-| `Salt.MR.MRTLemmaA7Fixed` | Salt/MR/MRTPropA3.lean:4111 | characters |
-| `Salt.MR.MRTLemmaA7FixedStatement` | Salt/MR/MRTPropA3.lean:4121 | characters |
-| `Salt.MR.MRTPropA3Ambient34` | Salt/MR/MRTPropA3.lean:4507 | characters |
-| `Salt.MR.MRTLemmaA4iiFixed34` | Salt/MR/MRTPropA3.lean:4513 | characters |
-| `Salt.MR.MRTLemmaA5_34` | Salt/MR/MRTPropA3.lean:4524 | characters |
-| `Salt.MR.MRTPropA3_34` | Salt/MR/MRTPropA3.lean:4538 | characters |
-| `Salt.MR.MRTThmA1GJ_34` | Salt/MR/MRTPropA3.lean:4564 | characters |
-| `Salt.MR.MRTParsevalConstantMatch_34` | Salt/MR/MRTPropA3.lean:4584 | characters |
-| `Salt.MR.MRTLargeRangeEquidistributionFixed` | Salt/MR/MRTPropA3.lean:4756 | characters |
+| `Salt.MR.MRTShortSegmentSplitting` | Salt/MR/MRTPropA3.lean:3865 | characters |
+| `Salt.MR.MRTLargeRangeEquidistribution` | Salt/MR/MRTPropA3.lean:3925 | characters |
+| `Salt.MR.MRTThmA1GJ` | Salt/MR/MRTPropA3.lean:4013 | characters |
+| `Salt.MR.MRTParsevalConstantMatch` | Salt/MR/MRTPropA3.lean:4105 | characters |
+| `Salt.MR.MRTLemmaA7Fixed` | Salt/MR/MRTPropA3.lean:4142 | characters |
+| `Salt.MR.MRTLemmaA7FixedStatement` | Salt/MR/MRTPropA3.lean:4152 | characters |
+| `Salt.MR.MRTPropA3Ambient34` | Salt/MR/MRTPropA3.lean:4538 | characters |
+| `Salt.MR.MRTLemmaA4iiFixed34` | Salt/MR/MRTPropA3.lean:4544 | characters |
+| `Salt.MR.MRTLemmaA5_34` | Salt/MR/MRTPropA3.lean:4555 | characters |
+| `Salt.MR.MRTPropA3_34` | Salt/MR/MRTPropA3.lean:4569 | characters |
+| `Salt.MR.MRTThmA1GJ_34` | Salt/MR/MRTPropA3.lean:4595 | characters |
+| `Salt.MR.MRTParsevalConstantMatch_34` | Salt/MR/MRTPropA3.lean:4615 | characters |
+| `Salt.MR.MRTLargeRangeEquidistributionFixed` | Salt/MR/MRTPropA3.lean:4792 | characters |
 | `Salt.MR.MRTThmA1` | Salt/MR/MRTThmA1.lean:120 | characters |
 | `Salt.MR.MRTThmA1Statement` | Salt/MR/MRTThmA1.lean:222 | characters |
 | `Salt.MR.MRTThmA1_34` | Salt/MR/MRTThmA1.lean:229 | characters |
@@ -9189,8 +9189,8 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.Chen.bilinTwist_coprimeRestrict_primitive` | Salt/Chen/BilinearDescent.lean:110 | sieves, characters |
 | `Salt.Chen.blockTruncSieve₂` | Salt/Chen/BrunEll1.lean:76 | sieves |
 | `Salt.Chen.blockTruncSieve₂_lam` | Salt/Chen/BrunEll1.lean:89 | sieves |
-| `Salt.Chen.blockAlphaLow_eq_zero_of_pieceN_le` | Salt/Chen/ChenFinal.lean:180 | sieves |
-| `Salt.Chen.blockAlphaSym_eq_zero_of_pieceM_le` | Salt/Chen/ChenFinal.lean:195 | sieves |
+| `Salt.Chen.blockAlphaLow_eq_zero_of_pieceN_le` | Salt/Chen/ChenFinal.lean:140 | sieves |
+| `Salt.Chen.blockAlphaSym_eq_zero_of_pieceM_le` | Salt/Chen/ChenFinal.lean:155 | sieves |
 | `Salt.Chen.twinA1SieveW_W_eq` | Salt/Chen/PackB.lean:58 | sieves |
 | `Salt.Chen.EfoldTerm_split` | Salt/Chen/PerEEngine2.lean:104 | sieves |
 | `Salt.Chen.blockPrimeInd_dilated_eq_zero` | Salt/Chen/PerEEngine2.lean:118 | sieves |
@@ -9384,14 +9384,14 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.MR.winL2Tail` | Salt/MR/FarL2.lean:822 | characters |
 | `Salt.MR.boxM0_add_debit` | Salt/MR/FarL2.lean:956 | characters |
 | `Salt.MR.blockCoeff` | Salt/MR/FarL2Dyadic.lean:107 | characters |
-| `Salt.MR.dpoly_block_eq` | Salt/MR/FarL2Dyadic.lean:124 | characters |
-| `Salt.MR.dpolyBlockMass` | Salt/MR/FarL2Dyadic.lean:171 | characters |
-| `Salt.MR.blockCoeff_l2_eq` | Salt/MR/FarL2Dyadic.lean:178 | characters |
-| `Salt.MR.sum_dpolyBlockMass_eq` | Salt/MR/FarL2Dyadic.lean:420 | characters |
-| `Salt.MR.winL2Price` | Salt/MR/FarL2Dyadic.lean:429 | characters |
-| `Salt.MR.farL2Grade` | Salt/MR/FarL2Dyadic.lean:481 | characters |
-| `Salt.MR.farL2Threshold` | Salt/MR/FarL2Dyadic.lean:537 | characters |
-| `Salt.MR.farKfarPolylog` | Salt/MR/FarL2Dyadic.lean:815 | characters |
+| `Salt.MR.dpoly_block_eq` | Salt/MR/FarL2Dyadic.lean:127 | characters |
+| `Salt.MR.dpolyBlockMass` | Salt/MR/FarL2Dyadic.lean:177 | characters |
+| `Salt.MR.blockCoeff_l2_eq` | Salt/MR/FarL2Dyadic.lean:186 | characters |
+| `Salt.MR.sum_dpolyBlockMass_eq` | Salt/MR/FarL2Dyadic.lean:441 | characters |
+| `Salt.MR.winL2Price` | Salt/MR/FarL2Dyadic.lean:450 | characters |
+| `Salt.MR.farL2Grade` | Salt/MR/FarL2Dyadic.lean:505 | characters |
+| `Salt.MR.farL2Threshold` | Salt/MR/FarL2Dyadic.lean:564 | characters |
+| `Salt.MR.farKfarPolylog` | Salt/MR/FarL2Dyadic.lean:844 | characters |
 | `Salt.MR.xCeilGateAt_fifty` | Salt/MR/FlatDoorEpsRung2.lean:2855 | characters |
 | `Salt.MR.xCeilRiderAt_fifty` | Salt/MR/FlatDoorEpsRung2.lean:2859 | characters |
 | `Salt.MR.xCeilRiderStrictAt_fifty` | Salt/MR/FlatDoorEpsRung2.lean:2863 | characters |
