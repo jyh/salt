@@ -1041,7 +1041,6 @@ theorem logChowla2_ineffective (hband : S16BandLaneCBoundedL 32000000) (A₀ : �
     rw [hAdef]
     exact le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) (le_max_right _ _)
   have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
-  have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   -- ⟦RIDER 3, DISCHARGED⟧ the `x₀` window: `e^{e^{3.2A}/10} ≥ e^{3.2A}/10 + 1 ≥ 1.28·x₀`
   have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
     Salt.MR.x0_le_exp_exp_of_four_le hx0nn hx0A
