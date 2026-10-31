@@ -409,6 +409,15 @@ theorem m4_meansq_or_trivial_join (Qm : ℕ) :
 reads `ThmA2.a2RowsSum'_gk` and the row family `ThmA2Prime.a2Mrow'_gk`. -/
 
 set_option maxHeartbeats 1600000 in
+/-- **§GK — ⟦R1⟧'s joined capstone at the G-lever** `G := s13GK K M`:
+`m4_meansq_per_chi_gen_join` with the door's ladder at `s13GK K M`, the row gate at
+`ThmA2.a2RowsSum'_gk` and the row family `ThmA2Prime.a2Mrow'_gk`; the suppliers are
+`A3Middle.a2Rows_of_capfree3'_gk` and `ThmA2Prime.thm_a2'_of_rows_pool'_gk`, with the socket cut
+`caseASocket2_discharged` and the Skolem cut `capFreeFloor3_liouChi_all`; `hK : K ≤ 170000000`
+is the frame's side condition. One gate differs from
+`M4MeanSqPool.m4_meansq_per_chi_gen_pool_gk`: `hgRows` at the primed row sum.
+`maxHeartbeats 1600000`. Consumed by `m4_meansq_or_trivial_join_gk` and by
+`M4DoorClosePool.m4_door_meansq_carried_join_gk`. -/
 theorem m4_meansq_per_chi_gen_join_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ (Cq cq T₀ X₀ Cs Ccc : ℝ) (Kfl : ℕ → ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -589,6 +598,10 @@ theorem m4_meansq_per_chi_gen_join_gk (K : ℕ) (hK : K ≤ 170000000) :
     hpool hgP1 hgRows hgU hgBand
 
 set_option maxHeartbeats 1600000 in
+/-- **The per-scale dichotomy at the join and the G-lever**: `m4_meansq_or_trivial_join` at
+`s13GK K M` — the trivial branch below `trivThresh Hp d₀ W`, the joined five-summand bound of
+`m4_meansq_per_chi_gen_join_gk` above it; `Kfl` taken at `Qm`. No proof in `Salt/` applies it;
+its linear twin `M4LadderLinear.m4_meansq_or_trivial_join_L_gk` points here. -/
 theorem m4_meansq_or_trivial_join_gk (K : ℕ) (hK : K ≤ 170000000) (Qm : ℕ) :
     ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
