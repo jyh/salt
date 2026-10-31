@@ -678,7 +678,7 @@ private abbrev MIboundAff (R : ChowlaRegime) (H : ℕ) : Prop :=
 spellings unfold (defeq) to the raw `H[…]`/`I[…]` this statement uses, as at stride `1`.
 ⭐ The witness's range is exported at TAO'S RANGE `R.a * R.Hlo ≤ H` (the tower's base is
 `a·Hlo`, `Regime.lean:38`; the affine seam `contradiction_of_mrtDoorXiL2AffW` reads
-`R.a * R.Hlo ≤ H`, `StridePair.lean:418`), which the landed `R.Hlo ≤ H` does not give: `hmono`
+`R.a * R.Hlo ≤ H`, `StridePair.lean:414`), which the landed `R.Hlo ≤ H` does not give: `hmono`
 carries it, from `chowlaTower_eq_base_one` + `chowlaTower_ge_base R.hC0 (4·10⁶ ≤ R.a * R.Hlo) j`
 (the `StridePair.lean:150-156` script). -/
 theorem decrement_exists_of_tower_aff (R : ChowlaRegime)
