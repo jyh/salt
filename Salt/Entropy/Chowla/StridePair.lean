@@ -117,11 +117,11 @@ R.a * R.Hlo / a`, `a := a`, every other field VERBATIM.  Field by field:
 new fields do — no cast lemma needed); `hω`, `heps`, `heps1`, `hC0`, `hHlohi`-free fields copy.
 `ha := ha`.  `hHlo : a ≤ R.a*R.Hlo/a` from `hloM` and `ha1096` (`omega`).  `hHlo_floor := hloM`.
 `hcoprime : (a : ℚ) ≤ eps²·(R.a*R.Hlo/a)/2` — from `hlo4` cast to `ℚ`: `4·⌈1/ε⌉₊⁴ ≤ Hlo'` gives
-`4 ≤ ε²·Hlo'·ε²·⌈1/ε⌉₊²/…`; the builder's own script (`TowerFlatBuilder.lean:268-276`, `h4le :
+`4 ≤ ε²·Hlo'·ε²·⌈1/ε⌉₊²/…`; the builder's own script (`TowerFlatBuilder.lean:297-305`, `h4le :
 4 ≤ eps²·Hlo`) yields `2 ≤ eps²·Hlo'/2 · (1/ε²)`… — simplest: from `hlo4`, `(1/ε)⁴ ≤ ⌈1/ε⌉₊⁴ ≤
 Hlo'/4`, so `ε²·Hlo'/2 ≥ 2/ε² ≥ 2·500² = 500000 ≥ 1096 ≥ a` using `heps500` (`nlinarith` after
 `one_div_le` at `ε ≤ 1/500`).  `hPNTwindow : √Hlo' ≤ ε²·Hlo'/2` — the builder's `hPNT` block
-VERBATIM (`TowerFlatBuilder.lean:277-300`) at `m := ⌈1/ε⌉₊`, from `hlo4`.  `hHlohi`:
+VERBATIM (`TowerFlatBuilder.lean:306-329`) at `m := ⌈1/ε⌉₊`, from `hlo4`.  `hHlohi`:
 `Nat.div_le_self`
 then `chowlaTower_ge_base R.hC0 (base ≥ 4·10⁶) R.J` at base `R.a * R.Hlo` read through
 `chowlaTower_eq_base_one` and `R.hfit`.  `hfit`: `chowlaTower R.C0 a (R.a*R.Hlo/a) R.J =
@@ -275,6 +275,10 @@ The family's docstring, verbatim:
 a `where`-structure (the executor writes F3-P3 as a structure literal, NOT a tactic block, so
 that these reduce); mark `@[simp]`. -/
 
+/-- `(regimeShrinkX_stride R a …).Hlo = R.a·R.Hlo / a`, by `rfl` (the shrunk regime is a
+structure literal, so its projections reduce). The one cap-7 F3-P4 projection NOT retired into
+the `_b9` family (the header above): `StridePairReceipt` and `StridePairReceiptG` rewrite with
+it to read `b ≤ Hlo` off the shrunk regime; listed in `Salt/Entropy/All.lean`'s registry. -/
 theorem regimeShrinkX_stride_Hlo (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a ≤ 1096)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
     (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
@@ -1045,6 +1049,9 @@ theorem regimeShrinkX_stride_x_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (h
     (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).x = R.x / a := by
   rfl
 
+/-- `(regimeShrinkX_stride_b9 R a …).ω = R.ω`, by `rfl`: the F3-P4 projection family of the
+cap-9 twin (`a ≤ 8103`) — see the family docstring on `regimeShrinkX_stride_x_b9`. Registered in
+`Salt/MR/All.lean`; no proof in `Salt/` applies it. -/
 theorem regimeShrinkX_stride_omega_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
     (ha8103 : a ≤ 8103)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
@@ -1052,36 +1059,55 @@ theorem regimeShrinkX_stride_omega_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a
     (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).ω = R.ω := by
   rfl
 
+/-- `(regimeShrinkX_stride_b9 R a …).a = a`, by `rfl`: the stride itself is the shrunk regime's
+`a` (the family docstring on `regimeShrinkX_stride_x_b9`). Registered in `Salt/MR/All.lean`; no
+proof in `Salt/` applies it. -/
 theorem regimeShrinkX_stride_a_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 : a ≤ 8103)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
     (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
     (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).a = a := by
   rfl
 
+/-- `(regimeShrinkX_stride_b9 R a …).eps = R.eps`, by `rfl`: the shrink keeps `ε` (the family
+docstring on `regimeShrinkX_stride_x_b9`). Registered in `Salt/MR/All.lean`; no proof in `Salt/`
+applies it. -/
 theorem regimeShrinkX_stride_eps_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 : a ≤ 8103)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
     (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
     (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).eps = R.eps := by
   rfl
 
+/-- `(regimeShrinkX_stride_b9 R a …).Hlo = R.a·R.Hlo / a`, by `rfl`: the cap-9 twin of
+`regimeShrinkX_stride_Hlo` above, which is why that one is not re-minted (the ⟦β W1 E1⟧ note).
+Rewritten by `StridePairReceiptG12b`, `TierSBand` and `TierSBandU` to read `b ≤ Hlo` off the
+cap-9 shrunk regime; registered in `Salt/MR/All.lean`. -/
 theorem regimeShrinkX_stride_Hlo_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 : a ≤ 8103)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
     (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
     (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).Hlo = R.a * R.Hlo / a := by
   rfl
 
+/-- `(regimeShrinkX_stride_b9 R a …).Hhi = R.Hhi`, by `rfl`: the shrink keeps the outer window
+(the family docstring on `regimeShrinkX_stride_x_b9`). Registered in `Salt/MR/All.lean`; no
+proof in `Salt/` applies it. -/
 theorem regimeShrinkX_stride_Hhi_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 : a ≤ 8103)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
     (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
     (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).Hhi = R.Hhi := by
   rfl
 
+/-- `(regimeShrinkX_stride_b9 R a …).C0 = R.C0`, by `rfl`: the shrink keeps `C0` (the family
+docstring on `regimeShrinkX_stride_x_b9`). Registered in `Salt/MR/All.lean`; no proof in `Salt/`
+applies it. -/
 theorem regimeShrinkX_stride_C0_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 : a ≤ 8103)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
     (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
     (regimeShrinkX_stride_b9 R a ha ha8103 heps500 hs hdiv hlo4 hloM).C0 = R.C0 := by
   rfl
 
+/-- `(regimeShrinkX_stride_b9 R a …).J = R.J`, by `rfl`: the shrink keeps the level count `J`
+(the family docstring on `regimeShrinkX_stride_x_b9`). Registered in `Salt/MR/All.lean`; no
+proof in `Salt/` applies it. -/
 theorem regimeShrinkX_stride_J_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 : a ≤ 8103)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
     (hlo4 : 4 * ⌈(1 / R.eps : ℚ)⌉₊ ^ 4 ≤ R.a * R.Hlo / a) (hloM : 4000000 ≤ R.a * R.Hlo / a) :
