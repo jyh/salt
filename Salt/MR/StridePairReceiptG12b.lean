@@ -1085,7 +1085,7 @@ theorem mrtUniformityXiL2AffSet_holds_flat_floor_g12b (a b h : ℕ) (ha : 0 < a)
 `837782 * 2 ^ 12` (the spelling `GradedAffHeadAt_g12b` and `log_chowla_aff_of_door_unslotted_g12b`'s
 `hcrown` read).  BODY verbatim with (census band 4 row 30): `a·h ≤ 1096 ↦ a·h ≤ 8103` via
 `h_le_8103_of_log_le_nine`, hence `a ≤ 8103`; `log a ≤ 9` into `loglog_mul_flatDesignBase_le_b9`;
-the AffSet lift at `a ≤ 8103`; `hahQ ≤ 8103` so `1/4051500 ≤ Rd.eps` into
+the AffSet lift at `a ≤ 8103`; `a·h ≤ 8103` so `1/4051500 ≤ Rd.eps` into
 `flatDesignBase_clears_stride_floors_b9`; `regimeShrinkX_stride_b9` (+ `_Hlo_b9`) and
 `mrtUniformityXiL2AffW_of_set_b9` at `a ≤ 8103`.  The cap-free numerals (`1/500`, `32000`,
 `32001`, `8`, `1.02`, `2^539`) are unchanged; the `omega` aux on `a ≤ 4000000` regenerates. -/
@@ -1119,24 +1119,9 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride_g12b (a b h : ℕ) (ha : 0 < a) 
       (xceilRiderStrict_zero ε)
   obtain ⟨Kc, hKc0, hKcb, hKcount⟩ := hcountD
   -- ⟦THE ε PINS⟧ the receipt's own EQUALITY, read both ways
-  have hahQ : ((a * h : ℕ) : ℚ) ≤ 8103 := by exact_mod_cast hah8103
-  have hahQ1 : (1 : ℚ) ≤ ((a * h : ℕ) : ℚ) := by exact_mod_cast hkpos
-  have heps500 : Rd.eps ≤ 1 / 500 := by
-    rw [hReps, hεeq]
-    exact one_div_le_one_div_of_le (by norm_num) (by linarith)
-  have heps4051500 : (1 : ℚ) / 4051500 ≤ Rd.eps := by
-    rw [hReps, hεeq]
-    exact one_div_le_one_div_of_le (by positivity) (by linarith)
+  obtain ⟨heps500, heps4051500, hdiv, hquot, hBle⟩ :=
+    stride_shrink_facts (L := 4051500) Rd hReps hεeq hkpos hah8103 (by norm_num) hHlo hapos
   -- ⟦THE SHRINK'S THREE FLOORS⟧ off `flatDesignBase_clears_stride_floors_b9`
-  have hdiv : a ∣ Rd.a * Rd.Hlo := by
-    rw [hHlo]
-    exact (dvd_mul_right a (flatDesignBase A)).mul_left Rd.a
-  have hquot : Rd.a * Rd.Hlo / a = Rd.a * flatDesignBase A := by
-    rw [hHlo, show Rd.a * (a * flatDesignBase A) = a * (Rd.a * flatDesignBase A) by ring]
-    exact Nat.mul_div_cancel_left _ hapos
-  have hBle : flatDesignBase A ≤ Rd.a * Rd.Hlo / a := by
-    rw [hquot]
-    exact Nat.le_mul_of_pos_left _ Rd.ha
   obtain ⟨hf1, hf2⟩ := flatDesignBase_clears_stride_floors_b9 hA162 heps4051500
   have hlo4 : 4 * ⌈(1 / Rd.eps : ℚ)⌉₊ ^ 4 ≤ Rd.a * Rd.Hlo / a := le_trans hf1 hBle
   have hloM : 4000000 ≤ Rd.a * Rd.Hlo / a := le_trans hf2 hBle
