@@ -5039,7 +5039,7 @@ def regimeShrinkX_stride_L (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
           hPNTwindow := hPNT, hωbig := R.hωbig, hxbig := hs.2.2.2.2.2.2 }
 
 /-- **⟦F3-P4 AT THE CHARGE⟧** — the projection family of `regimeShrinkX_stride_L`, at the new binder
-list (`regimeShrinkX_stride_x_b9` and its siblings, `StridePair.lean:1042–1089`).  Each is `rfl`,
+list (`regimeShrinkX_stride_x_b9` and its seven `_b9` siblings, `StridePair.lean`).  Each is `rfl`,
 as at the source. -/
 theorem regimeShrinkX_stride_x_L (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
