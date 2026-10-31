@@ -96,7 +96,7 @@ def xTightCeil (ε : ℚ) (Hhi : ℕ) : ℝ :=
 log h + H₊/10²⁰` (`s15ArmH_log_le_g12b`) with `log ω ≤ xTightCeil ε H₊` (the (i-ω) export) and
 `log h ≤ 9`, plus `log 2` for the sum's larger summand.  The shift's cost is the second `9` in the
 `18`, so the definition takes NO shift argument: at C1 the operative shift is `h`, at C2 and the
-crown it is `a·h` (`StridePairReceiptG12b.lean:1082`); both are covered by `log (·) ≤ 9`. -/
+crown it is `a·h` (`StridePairReceiptG12b.lean:1080`); both are covered by `log (·) ≤ 9`. -/
 def xTightCeilArm (ε : ℚ) (Hhi : ℕ) : ℝ :=
   xTightCeil ε Hhi + 18 + Real.log 2 + ((Hhi : ℕ) : ℝ) / 10 ^ 20
 
@@ -1347,10 +1347,8 @@ theorem flat_v7_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : 
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   -- ⟦THE `Ks` WINDOW, AT THE SEVENTH ARM⟧ as in the parent
   have hKswin : Real.log (1 / Ks) ≤ 3 * Real.exp (3.2 * A) / 16 := by linarith
-  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
-    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
-      Real.add_one_le_exp _
-    linarith
+  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
+    Salt.MR.x0_le_exp_exp_of_four_le hx0nn hx0A
   have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
