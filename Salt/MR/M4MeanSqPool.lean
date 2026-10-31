@@ -420,6 +420,16 @@ ones with `3072 * M` replaced by `s13GK K M`; the suppliers are
 keep their landed names; the side condition `K ≤ 1.7·10⁸` is the frame's. -/
 
 set_option maxHeartbeats 1600000 in
+/-- **§GK — the pooled capstone at the G-lever** `G := s13GK K M`: `m4_meansq_per_chi_gen_pool`
+with `3072·M` replaced by `s13GK K M` in the door's ladder
+(`calP`/`calQK (Adoor M) (s13GK K M)`) and the row gate at `ThmA2.a2RowsSum_gk`; the level-1
+objects (`a2Level1 M`, `calH (H1door M) 2`) keep their landed names, and `hK : K ≤ 170000000` is
+the frame's side condition. The five pool gates (`0 ≤ π₀`, `374784·Cs·e³/𝒫₁ ≤ π₀`,
+`5760·(a2RowsSum_gk K M Xd + Ccc·(2/M)) ≤ π₀`, `(log X)^{−θ₂₉₃+ε} ≤ π₀`,
+`4096·(log X)^{−1+1/500} ≤ π₀`) and the `188133·π₀` summand are §1's. Route: the suppliers
+`a2Rows_of_capfree3_gk` and `thm_a2'_of_rows_pool_gk`, the socket cut `caseASocket2_discharged`
+and the Skolem cut `capFreeFloor3_liouChi_all`; `maxHeartbeats 1600000`. Consumed by
+`m4_meansq_or_trivial_pool_gk` and by `M4DoorClosePool.m4_door_meansq_carried_pool_gk`. -/
 theorem m4_meansq_per_chi_gen_pool_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ (Cq cq T₀ X₀ Cs Ccc : ℝ) (Kfl : ℕ → ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -600,6 +610,11 @@ theorem m4_meansq_per_chi_gen_pool_gk (K : ℕ) (hK : K ≤ 170000000) :
     hpool hgP1 hgRows hgU hgBand
 
 set_option maxHeartbeats 1600000 in
+/-- **The per-scale dichotomy at the pool and the G-lever**: `m4_meansq_or_trivial_pool` at
+`s13GK K M` — below the freeze's trivial threshold `trivThresh Hp d₀ W` the window `H'` is
+discarded, above it the pooled five-summand bound of `m4_meansq_per_chi_gen_pool_gk` fires; the
+gates are hypotheses in both branches and `Kfl` is taken at `Qm`. No proof in `Salt/` applies
+it; its linear twin `M4LadderLinear.m4_meansq_or_trivial_pool_L_gk` points here. -/
 theorem m4_meansq_or_trivial_pool_gk (K : ℕ) (hK : K ≤ 170000000) (Qm : ℕ) :
     ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧

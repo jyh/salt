@@ -2435,6 +2435,9 @@ theorem m4_chiBlock_fixed_of_chiRow_L {R : ChowlaRegime} {M k : ℕ} {MS : ℕ �
   rw [heq] at hflat
   exact hflat
 
+/-- `‖∑_{m ∈ doorSievedWindow_L M K n} liouChi χ m‖ ≤ doorChiSup_L χ M H n` at `hK : K ≤ H`: the
+sup over `K ∈ [0, H]` dominates each of its terms (`Finset.le_sup'`). Consumed by
+`classSup_le_inv_totient_sum_doorChiSup_L` and `norm_sq_coprime_window_le_L`. -/
 theorem le_doorChiSup_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {K : ℕ} (hK : K ≤ H) :
     ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖ ≤ doorChiSup_L χ M H n :=
   Finset.le_sup' (f := fun K => ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖)
@@ -2605,6 +2608,9 @@ theorem m4_sievedDoorSq_of_sup_L_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {Braw
     _ ≤ Braw H * (H : ℝ) ^ 2 :=
         mul_le_mul_of_nonneg_right (hgrade H q hlo hhi hq hqQ) (sq_nonneg _)
 
+/-- `le_doorChiSup_L` at the lever: `‖∑_{m ∈ doorSievedWindow_L_gk K M Kw n} liouChi χ m‖` is
+under `doorChiSup_L_gk K χ M H n` at `hK : Kw ≤ H` (`Finset.le_sup'`). Consumed by
+`classSup_le_inv_totient_sum_doorChiSup_L_gk` and `norm_sq_coprime_window_le_L_gk`. -/
 theorem le_doorChiSup_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {Kw : ℕ}
     (hK : Kw ≤ H) :
     ‖∑ m ∈ doorSievedWindow_L_gk K M Kw n, liouChi χ m‖ ≤ doorChiSup_L_gk K χ M H n :=
@@ -5199,6 +5205,11 @@ theorem band_floor_M0_doorPiece_L (Q : ℕ) :
   exact hK q χ _ _ 𝒥 X v _ hq hX hv hdeb
 
 -- the levered K-family in the pieces, `doorCofactor0_door_eq_L_gk` in the middle. -/
+/-- The cut door datum splits over the pieces: `winCutH Xd (doorChiCoeff_L_gk K χ M) n` is
+`∑_{𝒥 ⊆ {1,2}} pieceSign 𝒥 𝒫 𝒬 1 · winCutH Xd (pieceDatum χ 𝒥 𝒫 𝒬) n` at
+`𝒫 = calP (AdoorL M) (s13GK K M)`, `𝒬 = calQK (AdoorL M) (s13GK K M) M` — `winCutH_sum_finset`
+over `doorCofactor0_split`, through `doorCofactor0_door_eq_L_gk`. Consumed by
+`m4_t0datum_sup_L_gk` (the per-frequency band sup at the G-lever). -/
 theorem winCutH_doorChiCoeff_split_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
     (M Xd n : ℕ) :
     winCutH Xd (doorChiCoeff_L_gk K χ M) n
@@ -9167,6 +9178,8 @@ truncation speak the same object. -/
 def strataTerm_L (M q L d n : ℕ) : ℝ :=
   ∑ χ : DirichletCharacter ℂ (q / d), (doorChiSup_L χ M (capL L d) (n / d)) ^ 2
 
+/-- `0 ≤ strataTerm_L M q L d n`: a sum of squares (`Finset.sum_nonneg`, `sq_nonneg`). The
+`Real.sq_sqrt` input of `subWindowSup_sq_le_strata_L`'s weighted Cauchy–Schwarz. -/
 theorem strataTerm_nonneg_L (M q L d n : ℕ) : 0 ≤ strataTerm_L M q L d n :=
   Finset.sum_nonneg fun _ _ => sq_nonneg _
 
@@ -9986,6 +9999,9 @@ theorem m4_freeBlockSup_of_chiSummed_L_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
     _ = 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) := by ring
 /-! ## §9 — `M4T0Discharge` -/
 
+/-- `8·log Lv ≤ Lv` at `h : 64 ≤ Lv`: with `s = √Lv ≥ 8`, `log s ≤ s/e ≤ s/2` and
+`log Lv = 2·log s`, then `nlinarith`. `M4T0Discharge`'s private lemma re-derived verbatim for §9
+(it is `private` there); the binding gate `8·log s ≤ s` at `s = √L` behind `ypin4_gates_t0d`. -/
 private lemma eight_log_le_self_t0d {Lv : ℝ} (h : 64 ≤ Lv) : 8 * Real.log Lv ≤ Lv := by
   have hL0 : (0 : ℝ) < Lv := by linarith
   have hs0 : (0 : ℝ) < Real.sqrt Lv := Real.sqrt_pos.mpr hL0
@@ -10007,6 +10023,12 @@ private lemma eight_log_le_self_t0d {Lv : ℝ} (h : 64 ≤ Lv) : 8 * Real.log Lv
   rw [hhalf] at hlog
   nlinarith only [hs0, hs8, hdiv, hlog, hsq]
 
+/-- **The four `Y`-gates at the corpus pin** at `hk : e^{4096} ≤ k`: `10 ≤ (log k)^4`,
+`(log k)^4 ≤ √k`, `√(log k) ≤ (log k)^4` and `log((log k)^4) ≤ √(log k)`; the fourth is
+`4·loglog k ≤ √(log k)`, i.e. `eight_log_le_self_t0d` at `√(log k) ≥ 64`, and the second is the
+same lemma at `log k ≥ 4096`. `M4T0Discharge.ypin4_gates_t0d` re-derived verbatim (it is
+`private` there). Consumed by `m4_t0band_discharged_L` and `m4_t0band_discharged_L_gk` (the four
+gate slots of their `hwide`). -/
 private lemma ypin4_gates_t0d {k : ℝ} (hk : Real.exp 4096 ≤ k) :
     10 ≤ Real.log k ^ 4 ∧ Real.log k ^ 4 ≤ Real.sqrt k
       ∧ Real.sqrt (Real.log k) ≤ Real.log k ^ 4
