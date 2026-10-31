@@ -53,6 +53,10 @@ The three Kerr minima `Kbeta_min`/`Km_min`/`Kbeta'_min` are each `K · (nonneg)`
 (`PriceOne`), so the closed box prices are monotone in `K`.  This lets the worst-`W`
 lemmas (which require `1 ≤ K`) be applied at `max 1 K` after bumping. -/
 
+/-- `Kbeta_min K1 L logN A C0 ≤ Kbeta_min K2 L logN A C0` at `hK : K1 ≤ K2`, `hL : 0 ≤ L`,
+`hlogN : 0 ≤ logN`: `Kbeta_min` is `K` times the nonnegative rpow factors `L^(A+C0)` and
+`logN^(A+2·C0)`, so `gcongr` closes. The first of the three legs of `box_bracket_mono`, at
+`A = 13`, `C0 = 18`. -/
 theorem Kbeta_min_mono_K {K1 K2 L logN A C0 : ℝ} (hK : K1 ≤ K2) (hL : 0 ≤ L) (hlogN : 0 ≤ logN) :
     Kbeta_min K1 L logN A C0 ≤ Kbeta_min K2 L logN A C0 := by
   unfold Kbeta_min
@@ -60,6 +64,9 @@ theorem Kbeta_min_mono_K {K1 K2 L logN A C0 : ℝ} (hK : K1 ≤ K2) (hL : 0 ≤ 
   have hd : (0 : ℝ) ≤ logN ^ (A + 2 * C0) := Real.rpow_nonneg hlogN _
   gcongr
 
+/-- `Km_min K1 L logN A C0 ≤ Km_min K2 L logN A C0` at `hK : K1 ≤ K2`, `hL : 0 ≤ L`,
+`hlogN : 0 ≤ logN`: `Km_min` is `K` times `L^(A+1+2·C0)` and `logN^(A+2·C0)`, both nonnegative,
+so `gcongr` closes. The second leg of `box_bracket_mono`. -/
 theorem Km_min_mono_K {K1 K2 L logN A C0 : ℝ} (hK : K1 ≤ K2) (hL : 0 ≤ L) (hlogN : 0 ≤ logN) :
     Km_min K1 L logN A C0 ≤ Km_min K2 L logN A C0 := by
   unfold Km_min
@@ -67,6 +74,9 @@ theorem Km_min_mono_K {K1 K2 L logN A C0 : ℝ} (hK : K1 ≤ K2) (hL : 0 ≤ L) 
   have hd : (0 : ℝ) ≤ logN ^ (A + 2 * C0) := Real.rpow_nonneg hlogN _
   gcongr
 
+/-- `Kbeta'_min K1 L logN A C0 ≤ Kbeta'_min K2 L logN A C0` at `hK : K1 ≤ K2`, `hL : 0 ≤ L`,
+`hlogN : 0 ≤ logN`: `Kbeta'_min` is `K` times `L^(A+1+1+2·C0)` and `logN^(A+1+2·C0)`, both
+nonnegative, so `gcongr` closes. The third leg of `box_bracket_mono`. -/
 theorem Kbeta'_min_mono_K {K1 K2 L logN A C0 : ℝ} (hK : K1 ≤ K2) (hL : 0 ≤ L) (hlogN : 0 ≤ logN) :
     Kbeta'_min K1 L logN A C0 ≤ Kbeta'_min K2 L logN A C0 := by
   unfold Kbeta'_min
@@ -89,6 +99,12 @@ theorem box_bracket_mono {K1 K2 L logN : ℝ} (hK : K1 ≤ K2) (hL : 0 ≤ L) (h
   have h2p : (0 : ℝ) ≤ (2 : ℝ) ^ ((13 : ℝ) + 5) := by positivity
   nlinarith only [h3, h2p, h2, h1]
 
+/-- `boxPriceKerr K1 k i ≤ boxPriceKerr K2 k i` at `hK : K1 ≤ K2`: with
+`XM := (2^(i+1) − 1)·pieceM k ≥ 1` (`two_pow_le_pieceM`) both `log XM` and `log (2^k)` are
+nonnegative, so `box_bracket_mono` orders the bracket and `gcongr` carries it through the
+`(log XM)^13` factor. The bump of a price constant to `max 1 K` before the worst-`W` lemmas:
+`lowPriceK_mono`, `symPriceK_mono`, `FinA3c` (the `Khat` leg) and the Goldbach lane (`Asm`,
+`Close`, `OpPlumb`). -/
 theorem boxPriceKerr_mono {K1 K2 : ℝ} (hK : K1 ≤ K2) (k i : ℕ) :
     boxPriceKerr K1 k i ≤ boxPriceKerr K2 k i := by
   unfold boxPriceKerr
@@ -117,6 +133,10 @@ theorem boxPriceKerr_mono {K1 K2 : ℝ} (hK : K1 ≤ K2) (k i : ℕ) :
   have hLpow : (0 : ℝ) ≤ (Real.log XM) ^ (13 : ℝ) := Real.rpow_nonneg hL0 _
   gcongr
 
+/-- `boxPriceKerrY K1 y k i ≤ boxPriceKerrY K2 y k i` at `hK : K1 ≤ K2`: as `boxPriceKerr_mono`,
+with the bracket's third argument `log y` — nonnegative when `1 ≤ y`, and equal to `0` when
+`y = 0` (the only other case after the cast), each case through `box_bracket_mono`. The
+`y`-window twin, for `symPriceK_mono`'s `boxPriceKerrY` branch and `Goldbach/KerrY2`. -/
 theorem boxPriceKerrY_mono {K1 K2 : ℝ} (hK : K1 ≤ K2) (y k i : ℕ) :
     boxPriceKerrY K1 y k i ≤ boxPriceKerrY K2 y k i := by
   unfold boxPriceKerrY
@@ -156,11 +176,17 @@ theorem boxPriceKerrY_mono {K1 K2 : ℝ} (hK : K1 ≤ K2) (y k i : ℕ) :
     have hLpow : (0 : ℝ) ≤ (Real.log XM) ^ (13 : ℝ) := Real.rpow_nonneg hL0 _
     gcongr
 
+/-- `lowPriceK K1 z x y K k ≤ lowPriceK K2 z x y K k` at `hK : K1 ≤ K2`: `Finset.sum_le_sum` of
+`boxPriceKerr_mono` over the low boxes. The low leg's bump to `Khat` in `FinA3c`. -/
 theorem lowPriceK_mono {K1 K2 : ℝ} (hK : K1 ≤ K2) (z x y K k : ℕ) :
     lowPriceK K1 z x y K k ≤ lowPriceK K2 z x y K k := by
   unfold lowPriceK
   exact Finset.sum_le_sum (fun i _ => boxPriceKerr_mono hK k i)
 
+/-- `symPriceK Kb1 Km1 z x y K k ≤ symPriceK Kb2 Km2 z x y K k` at `hKb : Kb1 ≤ Kb2`,
+`hKm : Km1 ≤ Km2`: termwise over the sum; `split_ifs` sends the `boxPriceKerrY` boxes to
+`boxPriceKerrY_mono hKm` and the rest to `boxPriceKerr_mono hKb`. The sym leg's bump to `Khat`
+in `FinA3c`. -/
 theorem symPriceK_mono {Kb1 Kb2 Km1 Km2 : ℝ} (hKb : Kb1 ≤ Kb2) (hKm : Km1 ≤ Km2)
     (z x y K k : ℕ) :
     symPriceK Kb1 Km1 z x y K k ≤ symPriceK Kb2 Km2 z x y K k := by
@@ -177,6 +203,12 @@ each inner count `primeCountIoc (Lfun) (Ufun) ≤ Ufun = ⌊x/(q₁q₂)⌋ ≤ 
 landed `pairSum_le_at_op` caps `∑ 1/(q₁q₂) ≤ 16`.  This is the polylog `htriple` input the
 CE→RCE collapse (`PackA.hRCE_at_op`) consumes. -/
 
+/-- **`tripleSum ≤ 16·x` at the operating point**, for `x ≥ max xp 1` with `xp` the threshold of
+`pairSum_le_at_op`: `tripleSum_eq_card` and `card_tripleSet_le_pairSum` bound the switch count
+by `Σ_{q ∈ pairSet} primeCountIoc (Lfun x q) (Ufun x q)`; each count is at most
+`Ufun x q = ⌊x/(q₁q₂)⌋ ≤ x/(q₁q₂)` (`Finset.card_filter_le`, `Nat.cast_div_le`), and
+`pairSum_le_at_op` caps `Σ 1/(q₁q₂) ≤ 16`. The polylog `htriple` input of the CE→RCE collapse,
+taken by `FinA3c.hA3_bundle_of_SW` as `htr16`. -/
 theorem tripleSum_le_16x_at_op : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     tripleSum x (opZ x) (opY x) ≤ 16 * (x : ℝ) := by
   obtain ⟨xp, hp⟩ := pairSum_le_at_op
