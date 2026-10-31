@@ -132,6 +132,11 @@ theorem strataResidualH_eq {h : ℕ} (hh : 0 < h) {H : ℕ} (hL : 0 < Real.log (
   rw [strataResidualH, strataResidual, Real.log_mul hh0 harc]
   ring
 
+/-- `0 ≤ strataResidualH h H` at `h1 : 1 ≤ h·arcDen 12 H`: the residual is
+`1 + log (h·arcDen 12 H)` and the log is nonnegative. Consumed in-file by the stratified link
+`m4_freeBlockSup_of_chiSummedH_L_gk`, by `m4_blockMeanSqBlk2_of_chiSummedH_L_gk` and by the
+register `m4_second_road_L2_H_gk_flatRoot_L`; across `Salt/` by the `_khoist` registers of
+`S16ComposeLH` and `StridePairReceipt`. -/
 theorem strataResidualH_nonneg {h H : ℕ} (h1 : (1 : ℝ) ≤ (h : ℝ) * arcDen 12 H) :
     0 ≤ strataResidualH h H := by
   unfold strataResidualH
@@ -147,8 +152,14 @@ the admissible interval is `[H/cap², H/cap]` and this sits at its top end, wher
 binder holds at EVERY `q ≥ 1` with the whole factor `q` to spare. -/
 def blockLenH (h : ℕ) (H : ℕ) (_q : ℕ) : ℕ := max 1 (H / (⌊(h : ℝ) * arcDen 12 H⌋₊ + 1))
 
+/-- `1 ≤ blockLenH h H q`: the `max 1 _` left arm. The `1 ≤ ℓ` binder the register
+`m4_second_road_L2_H_gk_flatRoot_L` hands its cover, and its `_khoist` twins in `S16ComposeLH`
+and `StridePairReceipt`. -/
 theorem one_le_blockLenH (h H q : ℕ) : 1 ≤ blockLenH h H q := le_max_left _ _
 
+/-- `blockLenH h H q ≤ H` at `hH : 1 ≤ H`: both arms of the `max` are at most `H`
+(`Nat.div_le_self`). The `ℓ ≤ H` binder beside `one_le_blockLenH`, at the same three
+registers. -/
 theorem blockLenH_le (h H q : ℕ) (hH : 1 ≤ H) : blockLenH h H q ≤ H := by
   unfold blockLenH
   exact max_le hH (Nat.div_le_self H _)
@@ -1665,9 +1676,15 @@ the analytic grade above the door's floor, the absolute grade `4·h·arcDen 12 H
 def m4ChiRowGradedH_L (h M : ℕ) (RSbig : ℕ → ℕ → ℝ) : ℕ → ℕ → ℝ :=
   fun j H => if doorRowFloorL M ≤ j then RSbig j H else 4 * ((h : ℝ) * arcDen 12 H)
 
+/-- The spliced grade above the door's floor: at `hj : doorRowFloorL M ≤ j`,
+`m4ChiRowGradedH_L h M RSbig j H = RSbig j H` (`if_pos`). Consumed by ⟦GATE 4, READ⟧
+`m4ChiRowGradedH_an_L` and by the graded splice `m4_chiSummedFreeRow_of_bigH_L_gk`. -/
 theorem m4ChiRowGradedH_big_L (h M : ℕ) (RSbig : ℕ → ℕ → ℝ) {j : ℕ} (H : ℕ)
     (hj : doorRowFloorL M ≤ j) : m4ChiRowGradedH_L h M RSbig j H = RSbig j H := if_pos hj
 
+/-- The spliced grade below the floor: at `hj : ¬ doorRowFloorL M ≤ j` it is the absolute
+`4·(h·arcDen 12 H)` (`if_neg`). The lower `by_cases` arm of `m4_chiSummedFreeRow_of_bigH_L_gk`,
+where the anti-vacuity witness `m4_chiSummedFreeRow_trivialH_L_gk` carries the socket. -/
 theorem m4ChiRowGradedH_small_L (h M : ℕ) (RSbig : ℕ → ℕ → ℝ) {j : ℕ} (H : ℕ)
     (hj : ¬ doorRowFloorL M ≤ j) :
     m4ChiRowGradedH_L h M RSbig j H = 4 * ((h : ℝ) * arcDen 12 H) := if_neg hj

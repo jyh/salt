@@ -5961,7 +5961,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    `Salt/MR/All.lean` in the same commit. `m4_second_road_L2_H_gk_flatRoot_L_exit` is the
    `h`-twin of `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L` (`:239`): the terminal
    register on the terminal's lane, **in `¬ logChowlaFails h` form**, composed from the landed
-   DOOR-FORM register (`S16FlatTerminalLinearH.lean:1563`) and the new flat head at shift `h`.
+   DOOR-FORM register (`S16FlatTerminalLinearH.lean:1574`) and the new flat head at shift `h`.
    The four scalings and nothing else: the pins `1/(500·h) ≤ ε` and `1/(838400·h²) ≤ δ₀` (under
    which every gate of the landed head takes exactly its `h = 1` value, because `ε·h = 1/500`
    exactly), the cap `C ≤ h·(1 + 2·C₀)`, the count set `bigXiH h` with `K` existential, and the
