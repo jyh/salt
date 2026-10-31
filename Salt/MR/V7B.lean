@@ -1822,7 +1822,7 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree (A
 
 /-! ## §5 — ⟦THE DELIVERABLE⟧ `v6` WITH THE `cs` RIDER GONE
 
-Body verbatim from `RegisterCompose.lean:345-446`, with the terminal re-pointed at §4's
+Body verbatim from `logChowla2_ineffective_v6`, with the terminal re-pointed at §4's
 `_csfree` twin and the rider's arrow removed.  This is NOT the `v7` mint — four inner items
 remain — it is the demonstration that the carry reaches `v6`'s own statement. -/
 
@@ -1905,10 +1905,8 @@ theorem logChowla2_ineffective_v6_csarm (A₀ : ℝ) :
       (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)
   have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
-  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
-    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
-      Real.add_one_le_exp _
-    linarith
+  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
+    Salt.MR.x0_le_exp_exp_of_four_le hx0nn hx0A
   have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26

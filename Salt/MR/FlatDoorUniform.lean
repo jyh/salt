@@ -1473,10 +1473,8 @@ theorem flat_v7_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   -- ⟦THE `Ks` WINDOW, AT THE SEVENTH ARM⟧ as in the parent
   have hKswin : Real.log (1 / Ks) ≤ 3 * Real.exp (3.2 * A) / 16 := by linarith
-  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
-    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
-      Real.add_one_le_exp _
-    linarith
+  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
+    Salt.MR.x0_le_exp_exp_of_four_le hx0nn hx0A
   have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
@@ -1537,7 +1535,7 @@ theorem flat_v7_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
         hA26 hLt (flatDoorM_one_le hA26) heps500 hxceil hwin))
 
 /-- **the chain, uniform** (`flat_chain_U`) — `flat_chain_generic_epsW`
-(`FlatDoorEpsRung2.lean:5546`) on the U-forms: the seven U-hops composed.  ONE binder beyond the
+(`FlatDoorEpsRung2.lean:5544`) on the U-forms: the seven U-hops composed.  ONE binder beyond the
 source's, `hε2 : ε ≤ 1 / 2`, for the kswin hop's first conjunct (see `flat_kswin_generic_U`). -/
 theorem flat_chain_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (hε2 : ε ≤ 1 / 2)
     (h : FlatHeadFormU ε c P) : V7RatedFormU ε c P :=

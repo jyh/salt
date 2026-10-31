@@ -7148,7 +7148,7 @@ numbering is UNVERIFIED.
      mutation control), all `[propext, Classical.choice, Quot.sound]`, `+177/−0`, audit block at
      `Salt/MR/All.lean`. Statements elaborated sorry-bodied BEFORE the executor and byte-identical after.
    * ⛔✅ **S-2 — CLOSED AS SUPPLIED, NOT BUILT.** The form the road consumes is already on `main`:
-     **`mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`Salt/MR/StridePairReceiptG12b.lean:1094`, audited
+     **`mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`Salt/MR/StridePairReceiptG12b.lean:1092`, audited
      `Salt/MR/All.lean:10379`, landed in `e23b45c5` — β W34 H1).** It carries the `ε` pin, `162 ≤ A ∧ A₀ ≤ A`,
      `Ra.a = a`, `Ra.b = b`, the `ρ` cap and the transported grade `a·Zr·ρ + E` with `Zr ≤ 1.02`, `E` bounded.
      ⛔ **The `b`-UNIFORM one-regime form is UNSUPPLIED and UNNEEDED:** every landed supplier is `∀b, ∃R`

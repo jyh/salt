@@ -23122,7 +23122,7 @@ average over `n ≤ x`); the shift is `n + 1` (the `2` counts the factors `λ(n)
 constants are ineffective (`A` produced through `Classical.choice`, `Ks` carrying Siegel's
 constant); and **twins are untouched** — the transport wall stands at this rung.
 
-**THE `g ≡ 0` INSTANCE** has its own row (`logChowla2_ineffective_v7_g0`, `V7E.lean:206`,
+**THE `g ≡ 0` INSTANCE** has its own row (`logChowla2_ineffective_v7_g0`, `V7E.lean:204`,
 `82fedba`, ledger `:7921`): **two** named inner riders (`e^{-100} ≤ Ks`; the `K_vt` cushion),
 outer none. The row states plainly the thing a rider count alone would hide —
 ***the scale-request rider is VOID at `g ≡ 0`, NOT discharged in general*** — and prices it:
@@ -23511,7 +23511,7 @@ the brief's `≳ 1.17e4` = 11700 FAILS at `−9.18`). So the conjunct demands
 ```
   Salt/Entropy/Chowla/RegimeParam.lean:454      chowlaRegime_exists_param_gen           Hlo₀ param
   Salt/Entropy/Chowla/HloExport.lean:150        chowlaRegime_exists_param_gen_hloCap    Hlo₀ param
-  Salt/Entropy/Chowla/TowerFlatBuilder.lean:322 chowlaRegimeFlat_exists_param_gen       Hlo₀ param
+  Salt/Entropy/Chowla/TowerFlatBuilder.lean:351 chowlaRegimeFlat_exists_param_gen       Hlo₀ param
   Salt/MR/XCeil.lean:510                        chowlaRegimeFlat_exists_param_gen_ceiling Hlo₀ param
   Salt/Entropy/Chowla/RegimeInst.lean:175       regime_exists_of_dropSum          ⛔ Hlo := 4000000
 ```
