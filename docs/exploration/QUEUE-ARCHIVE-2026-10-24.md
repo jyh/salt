@@ -1346,7 +1346,7 @@ RESURRECTS THEM:**
     stale, merely SCOPED WRONG IN THE PLACE THAT TRAVELS.*
     📐 **CENSUS 10:2x, BEFORE ANY ATTEMPT, so whoever holds quota can dispatch cold:**
     ```
-      mrtS P₁ Q₁ X₀ X            LANDED  MRTProp24.lean:130 (+ mem_mrtS :136)   ← wave 1a
+      mrtS P₁ Q₁ X₀ X            LANDED  MRTProp24.lean:134 (+ mem_mrtS :136)   ← wave 1a
       E-5c, the S-DILATION identity on mrtS      ABSENT — 0 declarations
         ⛔ the `memS_dilate` family that greps is the DOOR's, at `calP`/`windowClass`
            sequences (`M4ClassPrice.lean:232`, `DoorLadderLinear.lean:738`), NOT MRT's
@@ -1413,7 +1413,7 @@ RESURRECTS THEM:**
     ✅⭐⭐ **E-5c IS LANDED — STAMP 2026-08-29 20:0x (math), ROWS ABOVE BYTE-UNTOUCHED. THE LINE
     BELOW ASKING THE HELM FOR "ONE PARAGRAPH OF STATEMENT" IS STALE BY TWO DAYS AND THIS ROW WAS
     ABOUT TO SPEND A FABLE DESIGN PARAGRAPH RE-AUTHORING A THEOREM THAT IS IN THE KERNEL.**
-    `Salt/MR/MRTProp24.lean:323` **`mrtS_dilate`** (the membership half, an iff, no lower bound on
+    `Salt/MR/MRTProp24.lean:327` **`mrtS_dilate`** (the membership half, an iff, no lower bound on
     `m`) and `:386` **`mrtS_indicator_mul_dilate`** (the summand form the arc consumer takes),
     landed `e0fea691` 08/27 10:29, ancestor of main since the 08/29 merge `b2340108`. **Both
     `[propext, Classical.choice, Quot.sound]`**, audited by name at `Salt/MR/All.lean:8565-8566`.
@@ -1442,7 +1442,7 @@ RESURRECTS THEM:**
     ✅ **THE APPLIED COROLLARY IS LANDED — STAMPED 2026-09-05 13:53 (math, the item-7 sweep), ROWS ABOVE
     BYTE-UNTOUCHED. The line above saying "the open work is the applied corollary plus its wiring" was written
     at 20:0x on 08/29; the corollary landed at 21:44 the same night and no stamp followed it.** `6a460109`
-    (`Salt/MR/MRTProp24.lean:420-475`, ancestor of main): `mrtBandP_base_le` · `mrtBand_primeFactors_lt_of_le_W`
+    (`Salt/MR/MRTProp24.lean:424-479`, ancestor of main): `mrtBandP_base_le` · `mrtBand_primeFactors_lt_of_le_W`
     (every prime factor of `d₀` below every band, from `d₀ ≤ W`, `1 < W`, `P₁ = W^200` — the exponent carried as
     a hypothesis on the SHAPE, not a numeral) · `mrtS_dilate_of_le_W` · `mrtS_indicator_mul_dilate_of_le_W` (the
     two E-5c forms with their `hP` slot discharged in-regime) · `mrtS_dilate_of_le_W_witness`; five names, all
@@ -1759,7 +1759,7 @@ RESURRECTS THEM:**
    theorems) · G2's index-uniformity half · G3 (the L¹ twin of the unit-cell bridge — **class A/B
    restatement, NOT a research obstruction**: the bridge's content is exponent-agnostic cell-constancy)
    · G4 · **and the `(log X)^{1/125}` rpow step, which is the most dangerous survivor**: `(1 : ℝ)/125`
-   occurs in **exactly one line in all of `Salt/`** — `MRTProp24.lean:271`, the statement being ported —
+   occurs in **exactly one line in all of `Salt/`** — `MRTProp24.lean:275`, the statement being ported —
    while the H-arm's twin IS landed (`W_second_arm`, `DoorFloor1500.lean:250`). **One arm of the `min`
    has a converter, the other has none, and at margin 1× that step is load-bearing at equality.**
    🔑 ***THE LESSON THE CAMPAIGN ACTUALLY TAUGHT: every one of the FIVE kills was a true LOCAL fact
@@ -1857,7 +1857,7 @@ RESURRECTS THEM:**
    *"**W-2b — S10a at `B₅ = 12` (the `(log X)^{1/125}` arm)**"* — and it sits at `DoorFloor1500.lean:90`,
    **160 lines ABOVE `W_second_arm` at `:250`, WHICH I CITED IN THE SAME SENTENCE FOR THE OTHER ARM.**
    ⇒ **BOTH arms are landed.** What is genuinely absent is only the **SPELLING**: all three landed forms
-   (`:90`, `:201`, `:221`) conclude an **npow** `(log Hhi)^(1500:ℕ) ≤ …` while `MRTProp24.lean:271` states
+   (`:90`, `:201`, `:221`) conclude an **npow** `(log Hhi)^(1500:ℕ) ≤ …` while `MRTProp24.lean:275` states
    an **rpow**. N5 (`W_first_arm`) survives as that spelling bridge and is unchanged; **the headline
    around it does not.** 🔑 ***AND I HAD READ THAT DOCSTRING MYSELF, EARLIER THE SAME SESSION, AND QUOTED
    IT.*** The narrow literal I printed beside it — *"`(1 : ℝ)/125` occurs in exactly one line in all of
@@ -2079,7 +2079,7 @@ RESURRECTS THEM:**
    is absent from the CONCLUSION because it was paid in the ANTECEDENT — `log ω ≥ 4` is where the
    `loglog` went. A consumer at small `ω` has no factor 3.
    ② **THE COMPOSED CONCLUSION CARRIES A SECOND TERM.** The landed absolute-3 statement is
-   `m4_doorSq_of_rowMeanSqLam` (`MRTPortRowLam.lean:59`), and its right-hand side is
+   `m4_doorSq_of_rowMeanSqLam` (`MRTPortRowLam.lean:68`), and its right-hand side is
    `3·(MS H·H²) **+ 4·2^k·H/x / Z**` — the `3·(…)` is the first of two summands, and the row
    above quotes only the factor. The gate ① supplies enters that statement as its own binder
    `hk3 : (k:ℝ) ≤ 3·Z`, so the consumer discharges it, not the lemma.

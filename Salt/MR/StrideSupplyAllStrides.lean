@@ -86,6 +86,17 @@ set_option maxHeartbeats 1600000 in
 -- THE ARROW is one large elaboration: the ceiling is S-4's own (`StrideShellBand.lean:67`,
 -- `1600000`, itself the landed head's, `StrideShellG.lean:310`) — the body is S-4's with its cap
 -- binder gone, so the demand is unchanged.
+/-- **S1 — S-4's entropy arrow with its cap binder deleted:**
+`log_chowla_aff_of_door_at_regime_g12b` (`StrideShellBand`) at every stride `ha : 0 < a` and
+twist `hh : 0 < h`, with the binder `log(a·h) ≤ 9` and its unused `have _hcap` removed and the
+body otherwise byte-identical (the cap is read nowhere in the arrow). For a class `b < a` with
+`gcd(b+h, a) ∣ h` and an affine regime `Ra` at the pin `ε = 1/(500·a·h)` above the floor
+`flatDesignBase A₁`, the door `MRTUniformityXiL2AffW h Ra ρ'` at any grade
+`ρ' ≤ 1/(838400·(a·h)²)` refutes `logChowlaFailsAff`: the reduce and
+`primeWindow_sum_inv_ge_bounded` leaves, the circle slot
+`circle_method_estimate_sq_bounded_aff`, the affine decrement `entropy_decrementAff`, the
+spine-budget witness `hbudget1_witness`, and `spine_False_core_xi_sq_aff`. Consumed by
+`s4ArrowUncapped_holds`, hence `strideSupplyAllStridesW_holds`. -/
 theorem log_chowla_aff_of_door_at_regime_uncapped (a h : ℕ) (ha : 0 < a) (hh : 0 < h) :
     ∃ A₁ : ℝ, 162 ≤ A₁ ∧
       ∀ b : ℕ, b < a → Nat.gcd (b + h) a ∣ h →

@@ -86,7 +86,7 @@ band hypothesis IS at `x'`.  The door at `R` does not imply the door at `regimeE
 so the chain is RE-RUN at the enlarged regime rather than transported, and re-running it costs
 the transcription and nothing else.  The four hops of §5 spend the regime's own fields, which are
 `(regimeEnlargeX R hx')`'s own fields, and `eps`, `Hlo`, `Hhi` reduce by the six `@[simp]`
-projections of `RegimeHead.lean:137`.
+projections of `RegimeHead.lean:142`.
 
 ## WHAT IS IN THIS FILE
 * §1 `FlatDoorAllGradesBandW` — the statement of record;
