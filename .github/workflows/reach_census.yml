@@ -15,6 +15,25 @@ name: Reach census
 # most of main's prefix cache and rebuilds the corpus inside this job (measured 10-27: #544's imports
 # took 146 min and the 150-min cap cancelled the walk). A cancelled run reaches no verdict; the
 # "No verdict" step below writes that to the summary, so a cancel never reads as a clean census.
+# WHEN A PULL REQUEST'S RUN IS ADVISORY (census owner's ruling, 2026-10-31): the pull-request trigger
+# keys on PATHS, and a PR most often sets it off only because rekey_cites moved cite digits in
+# RESULTS.md. `gen` reads each RESULTS row's name and the MODULE of its File column, never the line,
+# so a re-key cannot change the scratch. If `python3 scripts/o13_census.py gen` at the PR head is
+# byte-identical (cmp, manifest included) to gen at main, this PR's run is ADVISORY and a merge need
+# not wait for it. The cmp is that PR's receipt. Main's census is then the check of record and MUST
+# RUN after the merge: dispatch this workflow on main (input `sha`), and until its verdict the merge
+# reads "census of record OWED on main at <sha>". A PR that changes proof code moves detection to
+# after the merge this way, which is acceptable only because a revert is cheap and that run happens.
+# If gen DIFFERS (a row's name or module changed), the PR's own run is owed as normal.
+# STOP RULE: while main's census of record for an earlier advisory merge is still OWED (not yet
+# run, or running) or has come back with a finding, no later PR is merged on an advisory run.
+# Wait for main's verdict, or for the PR's own run. The receipt covers `gen` as this workflow
+# calls it (no `--names`); a run that adds `--names` reads the .lean sources and is not covered.
+# BEFORE DISPATCHING a census of record, check whether one already exists: a PR whose head already
+# contains main merges to a commit with the PR's tree, so its own run (on GitHub's test merge) is a
+# census of that tree. If `git rev-parse <test-merge>^{tree}` equals main's tree after the merge,
+# that run's verdict is the census of record (2026-10-31, #586: test merge 00affb32, tree
+# ec26ee57212c).
 on:
   schedule:
     - cron: '0 11 * * *'
