@@ -1721,7 +1721,7 @@ theorem flat_kswin_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
         linarith)
       hblk hcof hcapsc)
 
-/-- **⟦H4→H5 REPLAY⟧ (class B).**  The rated terminal (V7RatedH.lean:1210-1337) from a generic
+/-- **⟦H4→H5 REPLAY⟧ (class B).**  The rated terminal (`logChowla2_v7_rated_h`) from a generic
 kswin, with Δ3: after the eight-arm design constant, `intro U1floor a g hU hUceil ha ha1096 hg`
 and `hfire hx0win hopq (by rw [hbase hopq]; exact hT₀) hKswin U1floor (by rw [hbase hopq];
 exact hU) hUceil a g ha ha1096 hg` in place of the landed `g ≡ 0` exhibit (`xceilRiderStrict_zero`
