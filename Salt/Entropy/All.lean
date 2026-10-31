@@ -1117,7 +1117,8 @@ consequence of the landed form recovers the witness — the only route is to re-
 with the numeral kept.  `hbudget_holds_h_bounded` replays `HBudget.lean:1182-1465` over the
 PINNED Mertens leaf (`primeWindow_sum_inv_ge_bounded`) because `hbudget_holds_h` draws its `c`
 from the UNPINNED one and `1/4 ≤ cE` is unobtainable by weakening;
-`circle_method_estimate_sq_bounded_h_core` replays `CircleMethod.lean:1366-1508` with the cap
+`circle_method_estimate_sq_bounded_h_core` replays `circle_method_estimate_sq_h_core`'s body
+(cited by line as 1366–1508 when written) with the cap
 `C ≤ h·(1 + 2·C₀)` kept at the witness.
 
 ⟦THE HEAD MOVES BY FOUR SCALINGS AND ONE BINDER, NOTHING ELSE⟧ the pins are `1/(500·h) ≤ ε`
