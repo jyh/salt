@@ -942,6 +942,13 @@ private theorem perPair_collapse_h {x ω p r j h : ℕ} (hp : 1 ≤ p) (hr : r �
   calc |_| ≤ 2 * 1 * (r : ℝ) / (p : ℝ) ^ 2 / Z := hkey
     _ = 2 * (r : ℝ) / (p : ℝ) ^ 2 / Z := by ring
 
+/-- **The per-pair bound at gap `h`** (the `h`-port of `perPair_bound`): for a residue class `r`
+of a window prime `p`, the gated pair sum `(1/Z)·Σ_{n ≡ r (p)} λ(n+j+1)·λ(n+j+ph+1)/n` is within
+collapse-plus-swap `(2·log p + 8)/(pZ)` and shift `(1/p + H/p²)·3ω/(xZ)` of
+`(1/p)·shiftCorrH x ω 0 h`. Route: `perPair_collapse_h` (collapse to the dilated class,
+`2r/p²/Z ≤ 2/(pZ)`), `dilated_window_stability` (swap, `(2·log p + 6)/(pZ)`), `shiftCorrH_le`
+(shift at `k = (r+j+1)/p ≤ 1 + H/p`), assembled by the triangle inequality. Consumed once, by
+the non-boundary branch of `per_term_h`; its stride twin is `StrideReduce`'s F4-R3b. -/
 private theorem perPair_bound_h {x ω : ℕ} (H h : ℕ) (hx : 2 ≤ x) (hω : 2 ≤ ω) (hωx : ω ≤ x)
     (p j r : ℕ) (hp : 2 ≤ p) (hrp : r < p) (hdvd : p ∣ (r + j + 1))
     (hrx : r ≤ x / ω) (hB : 1 ≤ x / ω) (hkH : r + j + 1 ≤ p + H) :
@@ -1037,6 +1044,13 @@ private theorem perPair_bound_h {x ω : ℕ} (H h : ℕ) (hx : 2 ≤ x) (hω : 2
         rw [hsplit, hb1b]
         linarith [hb1a, hbound2]
 
+/-- **The F-bridge integral unfolded at gap `h`**: `∫ fBridgeF_h … ∂(logMeasure x ω)` is the
+double sum over `p ∈ 𝒫_H` (as a subtype) and `j < H` of the residue-gated integrals
+`∫ [p ∣ n+j+1]·λ(n+j+1)·windowVal H (liouvilleWindow H n) (j + p·h)`. Route:
+`fBridgeF_h_liouville_apply`, `integral_logMeasure_eq`, then `Finset.sum_mul` and two
+`Finset.sum_comm`. The first step of `hbudget_holds_h` (and of `HeadPinLeavesH`'s
+`hbudget_holds_h_bounded`), which then prices each term by `per_term_h`; its stride twin is
+`StrideReduce`'s F4-R4a `IF_unfold_aff`. -/
 private theorem IF_unfold_h (h : ℕ) (eps : ℚ) (H : ℕ) {x ω : ℕ} :
     (∫ n, fBridgeF_h eps H h (liouvilleWindow H n) (residueWindow eps H n) ∂(logMeasure x ω))
       = ∑ p : primeWindow eps H, ∑ j ∈ Finset.range H,
@@ -1074,6 +1088,13 @@ private theorem IF_unfold_h (h : ℕ) (eps : ℚ) (H : ℕ) {x ω : ℕ} :
   refine Finset.sum_congr rfl (fun p _ => ?_)
   rw [Finset.mul_sum]
 
+/-- **The per-term bound at gap `h`**: each gated integral `T(p,j)` of `IF_unfold_h` is within
+`(2·log p + 8)/(pZ) + (1/p + H/p²)·3ω/(xZ)` of `(1/p)·X_h` (`X_h = ∫ λ(n)·λ(n+h)`), plus the
+boundary term `(1/p)·|X_h|` when `H ≤ j + p·h` (there `windowVal` is `0`, so `T = 0`). The
+non-boundary branch rewrites `T(p,j)` as the residue-class sum of `gate_residue` and applies
+`perPair_bound_h`. **`0 < h` is forced here**: at `h = 0` the boundary gate `j + p·h < H` no
+longer bounds `p`, and `r ≤ x/ω` fails. Summed over `p, j` in `hbudget_holds_h` (and
+`hbudget_holds_h_bounded`); its stride twin is `StrideReduce`'s F4-R4b. -/
 private theorem per_term_h (h : ℕ) (hh : 0 < h) (eps : ℚ) (H : ℕ) {x ω : ℕ}
     (hx : 2 ≤ x) (hω : 2 ≤ ω) (hωx : ω ≤ x)
     (hxωH : H ≤ x / ω) (p : ℕ) (hp : p ∈ primeWindow eps H) (j : ℕ) (hj : j < H) :

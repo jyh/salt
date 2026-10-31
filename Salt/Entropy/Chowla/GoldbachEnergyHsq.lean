@@ -204,8 +204,12 @@ of squarefree odd prime-factor sets `S₁, S₂`, the `uu`-weight of each times 
 private noncomputable def Gterm (S₁ S₂ : Finset ℕ) : ℝ :=
   (∏ p ∈ S₁, uu p) * (∏ p ∈ S₂, uu p) * ∏ p ∈ S₁ ∪ S₂, vv p
 
+/-- `0 ≤ vv p = 1/p` for every `p : ℕ` (`positivity`). The sign of the lcm factor in
+`Gterm_nonneg` and in the exp-majorant step of `prod_L_le_exp`. -/
 private lemma vv_nonneg (p : ℕ) : 0 ≤ vv p := by simp only [vv]; positivity
 
+/-- `0 ≤ uu p = 1/(p−2)` for `3 ≤ p`: the denominator is `≥ 1`. Why GB-14 indexes over primes
+`≥ 3` — the sign `Gterm_nonneg` and `prod_L_le_exp` need pointwise over the index sets. -/
 private lemma uu_nonneg {p : ℕ} (hp : 3 ≤ p) : 0 ≤ uu p := by
   simp only [uu]
   have : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp

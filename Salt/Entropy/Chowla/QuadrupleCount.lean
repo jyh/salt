@@ -45,6 +45,11 @@ finsets `s t : Finset ℕ`.  This is the fiber cardinality appearing in the
 def repCount (s t : Finset ℕ) (n : ℕ) : ℕ :=
   {xy ∈ s ×ˢ t | xy.1 + xy.2 = n}.card
 
+/-- **The Parseval form of the additive energy** (chain step 1):
+`addEnergy s t = Σ_{n ∈ s+t} r(n)²` with `r = repCount s t` — mathlib's `addEnergy_eq_sum_sq'`,
+whose fibre cardinality is `repCount` definitionally. The first rewrite of
+`addEnergy_le_of_r_bound`, which folds step 2's sieve bound into one hypothesis; named in
+`Salt/Entropy/All.lean`'s audit. -/
 lemma addEnergy_eq_sum_repCount_sq (s t : Finset ℕ) :
     Finset.addEnergy s t = ∑ n ∈ s + t, (repCount s t n) ^ 2 := by
   rw [Finset.addEnergy_eq_sum_sq']
