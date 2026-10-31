@@ -1103,9 +1103,14 @@ private theorem flat_log_ten_le_three : Real.log 10 ≤ 3 := by
   have := Real.log_le_log (by norm_num : (0 : ℝ) < 10) h10
   rwa [Real.log_exp] at this
 
+/-- `519 ≤ e^{3.2·A}` at `hA : 162 ≤ A`: `3.2·162 = 518.4` and `x + 1 ≤ e^x`. The arithmetic
+leaf of ⟦ARM 1⟧ `flat_arm_arcFloor_le`, where it lifts `e^{414}` under `e^{e^{3.2·A}}`. -/
 private theorem flat_expA_ge_519 {A : ℝ} (hA : 162 ≤ A) : (519 : ℝ) ≤ Real.exp (3.2 * A) := by
   have := Real.add_one_le_exp (3.2 * A); linarith
 
+/-- `10^138 ≤ e^{414}`: `log (10^138) = 138·log 10 ≤ 414` by `flat_log_ten_le_three`, then
+`exp_le_exp` and `exp_log`. The literal `arcFloor36 = 10^138` lifted to the exponential scale
+for ⟦ARM 1⟧ `flat_arm_arcFloor_le`. -/
 private theorem flat_ten138_le : (10 : ℝ) ^ (138 : ℕ) ≤ Real.exp 414 := by
   have hl : Real.log ((10 : ℝ) ^ (138 : ℕ)) = 138 * Real.log 10 := by rw [Real.log_pow]; norm_num
   have h := Real.exp_le_exp.mpr
@@ -1127,6 +1132,10 @@ theorem flat_arm_loglogFloor_le {A : ℝ} (hA : 162 ≤ A) : loglogFloor50 ≤ f
   rw [loglogFloor50, flatDesignBase]
   exact Nat.ceil_le_ceil (Real.exp_le_exp.mpr (Real.exp_le_exp.mpr (by linarith)))
 
+/-- `4000000 ≤ flatDesignBase A` at `hA : 162 ≤ A`, through ⟦ARM 1⟧:
+`4·10^6 ≤ arcFloor36 ≤ flatDesignBase A`. The first `max` arm of
+`flatDesignFloor A = max 4000000 (max (flatBase A) (flatDesignBase A))`, which
+`flat_designFloor_eq_designBase` collapses with ⟦ARM 3⟧ by `omega`. -/
 theorem flat_designBase_ge_4e6 {A : ℝ} (hA : 162 ≤ A) : 4000000 ≤ flatDesignBase A :=
   le_trans (by norm_num [arcFloor36]) (flat_arm_arcFloor_le hA)
 
