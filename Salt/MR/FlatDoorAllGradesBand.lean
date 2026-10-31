@@ -1223,7 +1223,7 @@ TWO THINGS ARE BAND WORK.
   `log 0 = 0 ≤ xTightCeilArm` (`xTightCeilArm_nonneg` at `4000000 ≤ R.Hhi`, which is
   `R.hHlo_floor` through `R.hHlohi`), so the `max` is its LEFT arm.  That collapsed bound is
   rule (i′)'s third inserted conjunct and is what the crown side reads in §9 — there is no `g`
-  left to put in a `max`.  The landed collapse is `TierSBandU.lean:336-339`, at stride 1 here.
+  left to put in a `max`.  The landed collapse is `TierSBandU.lean:321-324`, at stride 1 here.
 * **THE OUTER-SCALE CEILING IS RE-PROVED FROM THE BAND HYPOTHESIS.**  The source spends `hRx`
   once, at `s16_baseScaleCap96_LH_at_klevF_L`, to cap the base scale.  At the band that consumer
   is fired at `regimeEnlargeX R hx'`, whose `x` is `x'` — and `hRx` says nothing about `x'`.  The
@@ -1315,7 +1315,7 @@ theorem flat_v7_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pro
       (xceilRiderStrictAt_zero _ ε)
   -- ⟦THE MAX COLLAPSE AT THE EXHIBITED CALLER `g ≡ 0`⟧ `log ((2·0 : ℕ) : ℝ) = 0` and the arm
   -- ceiling is nonnegative, so the tier-B MAX is its LEFT arm: the V7 band form's collapsed
-  -- conjunct.  This is the landed collapse of `TierSBandU.lean:336-339` at stride 1.
+  -- conjunct.  This is the landed collapse of `TierSBandU.lean:321-324` at stride 1.
   have hHhi4 : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
   have hRxArm : Real.log ((R.x : ℕ) : ℝ) ≤ xTightCeilArm ε R.Hhi := by
     have hle := hceilX
