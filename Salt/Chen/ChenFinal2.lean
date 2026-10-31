@@ -93,29 +93,10 @@ theorem d0_window_of_XM_band {x N M X : ℕ}
   -- ② the scale facts (from the RAW bounds): `x/2 < X·M ≤ 4x`.
   have hXM : x / 2 + 1 < X * M := hXMlo
   have hXM4x : X * M ≤ 4 * x := hXMhi
-  have hXMposN : 0 < X * M := by omega
-  have hXMposR : (0 : ℝ) < (X : ℝ) * (M : ℝ) := by exact_mod_cast hXMposN
-  have hXM4xR : (X : ℝ) * (M : ℝ) ≤ 4 * (x : ℝ) := by exact_mod_cast hXM4x
   set L := Real.log ((X : ℝ) * (M : ℝ)) with hLdef
   -- ③ `t − 1 ≤ L ≤ t + 3`.
-  have hL_lo : Real.log x - 1 ≤ L := by
-    have h1 : x < (x / 2 + 1) * 2 := by omega
-    have h2 : x / 2 + 1 ≤ X * M := by omega
-    have h1R : (x : ℝ) < ((x / 2 + 1 : ℕ) : ℝ) * 2 := by exact_mod_cast h1
-    have h2R : ((x / 2 + 1 : ℕ) : ℝ) ≤ (X : ℝ) * (M : ℝ) := by exact_mod_cast h2
-    push_cast at h1R h2R
-    have hhalf : (x : ℝ) / 2 < (X : ℝ) * (M : ℝ) := by linarith
-    have hlog : Real.log ((x : ℝ) / 2) ≤ L := Real.log_le_log (by linarith) hhalf.le
-    rw [Real.log_div (ne_of_gt hxpos) (by norm_num : (2 : ℝ) ≠ 0)] at hlog
-    have h2log : Real.log 2 ≤ 1 := by
-      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)]
-    linarith
-  have hL_up : L ≤ Real.log x + 3 := by
-    have h1 : L ≤ Real.log (4 * (x : ℝ)) := Real.log_le_log hXMposR hXM4xR
-    rw [Real.log_mul (by norm_num : (4 : ℝ) ≠ 0) (ne_of_gt hxpos)] at h1
-    have h4log : Real.log 4 ≤ 3 := by
-      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 4 by norm_num)]
-    linarith
+  obtain ⟨hL_lo, hL_up⟩ : Real.log x - 1 ≤ L ∧ L ≤ Real.log x + 3 :=
+    xm_log_bounds_of_le hx2 hXM.le hXM4x
   have hL1 : (1 : ℝ) ≤ L := by linarith
   have hLnn : (0 : ℝ) ≤ L := by linarith
   have hLpos : (0 : ℝ) < L := by linarith
