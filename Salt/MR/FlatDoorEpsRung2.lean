@@ -3305,7 +3305,7 @@ the witnesses are applied at that instance only.  Nothing here bears on twin pri
 set_option maxHeartbeats 1600000 in
 -- as the source: eleven register lines at a SYMBOLIC design point, `blk` a `y⁴`-vs-`e^y` comparison
 /-- **⟦THE FLAT WITNESS AT A GENERIC CHARGE⟧ (class B)** — the `_L` sibling of
-`s15_sel''_L_witness_flat_b9` (`S15SelLinear.lean:727`): its count cap `c ≤ 8103` is replaced by
+`s15_sel''_L_witness_flat_b9` (`S15SelLinear.lean:737`): its count cap `c ≤ 8103` is replaced by
 the charge `(hcL : Real.log c ≤ Lc)` with the ninth arm on the design constant
 `(hAL : 10 + 2 * Lc ≤ A)`.  Every other binder — including the FROZEN DUMMY INSTANCE's `hδb`,
 `hKb`, `hCtb`, which are not caps on this wave's parameters — and the conclusion are the source's,
@@ -3558,7 +3558,7 @@ theorem s15_sel''_L_witness_flat_L {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K Lc :
 set_option maxHeartbeats 1600000 in
 -- as the source: the levered `blk` line carries `4^K` against `e^{e^{3.2A}}` symbolically
 /-- **⟦THE LEVERED WITNESS AT A GENERIC CHARGE⟧ (class B)** — the `_L` sibling of
-`s15_sel''_L_gk_witness_flat_b9` (`S15SelLinear.lean:936`): the same interface edit as the
+`s15_sel''_L_gk_witness_flat_b9` (`S15SelLinear.lean:946`): the same interface edit as the
 sibling above (`c ≤ 8103 ↦ (hcL : Real.log c ≤ Lc)` with `(hAL : 10 + 2 * Lc ≤ A)`), its first
 step calling that sibling.  Conclusion and every other binder are the source's, byte for byte.
 
@@ -3968,7 +3968,7 @@ theorem S15Sel''_L_gk_T.head {K : ℕ} {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {
   have : s13BlockExp_L_gk K M ≤ 4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ := by exact_mod_cast hR
   omega
 
-/-- `s15_sel''_L_gk_of_L` at the tower-relative register (`S15SelLinear.lean:524`).  STATEMENT:
+/-- `s15_sel''_L_gk_of_L` at the tower-relative register (`S15SelLinear.lean:534`).  STATEMENT:
 the source's with both structures suffixed `_T`.  BODY: the source's, verbatim — `rho`
 transports like the other nine, because it is the SAME field in both siblings.
 Nothing here bears on twin primes. -/

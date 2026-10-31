@@ -173,6 +173,11 @@ theorem s15_doorRowFloor_ge {M : ℕ} (hM : 1 ≤ M) : (2 : ℕ) ^ 36 ≤ doorRo
     _ = 1 * Adoor M := (one_mul _).symm
     _ ≤ M * Adoor M := Nat.mul_le_mul_right _ hM
 
+/-- `0 < log 𝒬₁` at the logarithmic door (`𝒬₁ = calQK (Adoor M) (3072·M) M 1`), at `hM : 1 ≤ M`:
+`s15_log_calQK_one` reads it as `doorRowFloor M · log 2` and `s15_doorRowFloor_ge` gives
+`2^36 ≤ doorRowFloor M`. Consumed by `s15_a2Level1_exp` and by the lever twin
+`s15_log_calQK_one_pos_gk`; its linear-door copy is
+`ArithPageLinear.s15_log_calQK_L_one_pos`. -/
 theorem s15_log_calQK_one_pos {M : ℕ} (hM : 1 ≤ M) :
     (0 : ℝ) < Real.log ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) := by
   rw [s15_log_calQK_one]
@@ -181,6 +186,11 @@ theorem s15_log_calQK_one_pos {M : ℕ} (hM : 1 ≤ M) :
   have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
   nlinarith
 
+/-- `0 ≤ log (log 𝒬₁)` at the logarithmic door, at `hM : 1 ≤ M`:
+`log 𝒬₁ = doorRowFloor M · log 2` with `2^36 ≤ doorRowFloor M` and `log 2 > 0.69`, so
+`1 ≤ log 𝒬₁`. Consumed by `s15_gRows_const_at_socket`,
+`FlatConsumers.s15_gRows_const_at_socket_flat` and the lever twin `s15_loglogQ1_nonneg_gk`; its
+linear-door copy is `ArithPageLinear.s15_loglogQ1_L_nonneg`. -/
 theorem s15_loglogQ1_nonneg {M : ℕ} (hM : 1 ≤ M) :
     (0 : ℝ) ≤ Real.log (Real.log ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ)) := by
   refine Real.log_nonneg ?_
@@ -1711,13 +1721,13 @@ theorem s15_log_calQK_one_gk (K M : ℕ) :
   rw [calQK_gk_one_eq]
   exact s15_log_calQK_one M
 
-/-- `s15_log_calQK_one_pos` (:174) TRANSPORTED to the lever. -/
+/-- `s15_log_calQK_one_pos` TRANSPORTED to the lever. -/
 theorem s15_log_calQK_one_pos_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
     (0 : ℝ) < Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) := by
   rw [calQK_gk_one_eq]
   exact s15_log_calQK_one_pos hM
 
-/-- `s15_loglogQ1_nonneg` (:182) TRANSPORTED to the lever. -/
+/-- `s15_loglogQ1_nonneg` TRANSPORTED to the lever. -/
 theorem s15_loglogQ1_nonneg_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
     (0 : ℝ) ≤ Real.log (Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ)) := by
   rw [calQK_gk_one_eq]

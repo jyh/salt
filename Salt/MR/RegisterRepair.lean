@@ -107,6 +107,10 @@ constant `A` can be chosen above — provided `A` is chosen AFTER `C_q`, which i
 def cofkRThr (Cq Cb Xsk Y0 : ℝ) : ℝ :=
   10 ^ 6 + Xsk + Y0 + 450 * Real.log (1 + Cq + cofkRConst Cb)
 
+/-- `0 < cofkRSconst Cb` at `hCb0 : 0 ≤ Cb`: `cSq > 0` (`cofk_cSq_pos`),
+`gradeAbsConstC (1/e) Cb ≥ 0` at `2/e < 1` and `farCStar2 ≥ 0`, so the bracket is at least `9`.
+Consumed by `cofkRConst_pos` and, as `.le`, by the grading-gate steps of this file,
+`FlatDoorEpsRung2`, `V7Rated` and `V7RatedH`. -/
 lemma cofkRSconst_pos {Cb : ℝ} (hCb0 : 0 ≤ Cb) : 0 < cofkRSconst Cb := by
   have he : (2 : ℝ) < Real.exp 1 := by linarith [Real.exp_one_gt_d9]
   have hc1 : 2 * (1 / Real.exp 1) < 1 := by
@@ -117,6 +121,9 @@ lemma cofkRSconst_pos {Cb : ℝ} (hCb0 : 0 ≤ Cb) : 0 < cofkRSconst Cb := by
   rw [cofkRSconst]
   nlinarith only [h2, h3, h1]
 
+/-- `0 < cofkRConst Cb` at `hCb0 : 0 ≤ Cb`: `3·(2·cofkRSconst Cb + 5)` with `cofkRSconst_pos`.
+Consumed at the register's grading gate (`hRc0`, and the `linarith` steps around it) in this
+file, `FlatDoorEpsRung2`, `V7Rated` and `V7RatedH` — twelve sites. -/
 lemma cofkRConst_pos {Cb : ℝ} (hCb0 : 0 ≤ Cb) : 0 < cofkRConst Cb := by
   have h := cofkRSconst_pos hCb0
   rw [cofkRConst]; linarith
