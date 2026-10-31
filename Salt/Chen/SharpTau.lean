@@ -190,10 +190,18 @@ noncomputable def tauDec (ε : ℝ) : ℕ → ℝ
   | (n + 2) => (99 / 100) ^ (n + 1) * cf_const (n + 1) ε / (ε * Real.exp 2)
       + (99 / 100) ^ (n + 1) * ch_const (n + 1) ε * tauDec ε (n + 1)
 
+/-- `tauDec ε 0 = 0`, by `rfl`: the placeholder base (`τ₀` never recurses). The `0` case of
+`tauDec_nonneg`. -/
 @[simp] theorem tauDec_zero (ε : ℝ) : tauDec ε 0 = 0 := rfl
 
+/-- `tauDec ε 1 = 3`, by `rfl`: the `Lemma11.hlevel_one_upper` anchor `τ₁ = 3`. The `1` case of
+`tauDec_nonneg` and the base of `tauDec_ge_geom`'s induction. -/
 @[simp] theorem tauDec_one (ε : ℝ) : tauDec ε 1 = 3 := rfl
 
+/-- The `n + 2` clause of `tauDec` as a rewrite rule, by `rfl`:
+`τ_{n+2} = (99/100)^{n+1}·cf_const (n+1) ε/(ε·e²) + (99/100)^{n+1}·ch_const (n+1) ε·τ_{n+1}`.
+Rewritten in `tauDec_nonneg`'s step case and in `tauDec_double`, where the multiplier
+`(99/100)^{n+1}·ch_const (n+1) ε ≥ 2` (`ch_const_geom_ge`) still doubles the sequence. -/
 theorem tauDec_succ_succ (ε : ℝ) (n : ℕ) :
     tauDec ε (n + 2)
       = (99 / 100) ^ (n + 1) * cf_const (n + 1) ε / (ε * Real.exp 2)
