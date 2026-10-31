@@ -417,6 +417,19 @@ theorem m4_meansq_or_trivial_L (Qm : ℕ) :
       hT0band hcff hgP1 hgRows hL4096
 
 /-! ### `M4MeanSq` :945 — `m4_cofactorSocket_at_witness_gk` -/
+/-- **The co-factor socket at the witness ladder, at the LINEAR door and the G-lever**
+(`M4MeanSq.m4_cofactorSocket_at_witness_gk` with the frame at `AdoorL M`, `H1doorL M`): under
+the CASE-A supplier `hsockA` (the body of `caseASocket2_discharged` at the capstone's own `X₀`),
+an `A2Frame3` at `(AdoorL M, s13GK K M)` and the witness ladder, the scale (`hX0`, `hh4`,
+`hLXe`), the band (`hPlow`, `hQhigh`, `hPQ`), the cap-free floor `hfloor`, the datum (`hCb0`,
+`hCbound`), `hRrad0` and the `kmin`/`Ymax` ladder (`hX₀k`, `hMfl0`, `hk2`, `hkk`, `hMtpin`,
+`hMtY`), the socket `CofactorSocket …` at `t₁ = 0`, the uniform corner
+`cofactorRbd34loc (1/e) Cb X θ₂₉₃ kmin Ymax (Tstar2 Ymax (log Ymax)) Rrad` and the datum
+`ellLin (liouChi χ)`. Route: `pocketSocket_of_floor3` (vacuously, at the centre `0`), CASE A
+from `hsockA` at every ram block, the uniform ceiling `1 ≤ witMt`, then
+`cofactorSocket_of_ellLin`. At `K = 0` it is the retired `_L` sibling (`s13GK 0 M = 3072·M`;
+family 01, above). Listed in `All.lean`'s registry; no proof in `Salt/` applies it — the
+capstones carry the socket as a binder (⟦W1⟧). -/
 theorem m4_cofactorSocket_at_witness_L_gk (K : ℕ) {q : ℕ} [NeZero q]
     (χ : DirichletCharacter ℂ q)
     {cf a : ℕ → ℂ} {N Xd P Q M : ℕ}
@@ -497,6 +510,15 @@ theorem m4_cofactorSocket_at_witness_L_gk (K : ℕ) {q : ℕ} [NeZero q]
 set_option maxHeartbeats 1600000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
+/-- **The five-summand mean square at the M4 datum, at the LINEAR door and the G-lever**:
+`M4MeanSq.m4_meansq_per_chi_gen_gk` with the door's ladder read at `AdoorL M` — `calP`/`calQK`
+at `(AdoorL M, s13GK K M)`, `H1doorL M`, the row gate at `a2RowsSum_L_gk K M Xd`, the level-1
+summand `a2Level1_L M` — under `hK : K ≤ 170000000`; every other binder and the conclusion are
+`m4_meansq_per_chi_gen_L`'s (its docstring carries the binder → supplier table). Route: the
+landed body — `a2Rows_of_capfree3_L_gk`, the socket cut `caseASocket2_discharged`, the Skolem
+cut `capFreeFloor3_liouChi_all`, the ~60-binder application and the interface
+`thm_a2'_of_rows_L_gk` — under `maxHeartbeats 1600000` (the binder list is the cost). Consumed
+by `m4_meansq_or_trivial_L_gk` and by `M4RowLinear.m4_door_meansq_carried_L_gk`. -/
 theorem m4_meansq_per_chi_gen_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ (Cq cq T₀ X₀ Cs Ccc : ℝ) (Kfl : ℕ → ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -680,6 +702,13 @@ theorem m4_meansq_per_chi_gen_L_gk (K : ℕ) (hK : K ≤ 170000000) :
 set_option maxHeartbeats 1600000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
+/-- **The per-scale dichotomy at the LINEAR door and the G-lever** (`m4_meansq_or_trivial_L` at
+`s13GK K M`): at a fixed scale the consumer takes one of two branches — the window `H'` is below
+the freeze's trivial threshold `trivThresh Hp d₀ W` and is discarded (`m4_trivial_branch`), or
+it is above it and the five-summand mean square of `m4_meansq_per_chi_gen_L_gk` fires; the gates
+are hypotheses in both branches, the split is on the window length alone, and `Kfl` is taken at
+`Qm`. Listed in `All.lean`'s registry; no proof in `Salt/` applies it — its `_kwide` sibling
+below moves the flat ceiling inside the `∀ M`. -/
 theorem m4_meansq_or_trivial_L_gk (K : ℕ) (hK : K ≤ 170000000) (Qm : ℕ) :
     ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
@@ -1258,6 +1287,16 @@ theorem m4_meansq_or_trivial_pool_L (Qm : ℕ) :
 set_option maxHeartbeats 1600000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
+/-- **The POOLED capstone at the LINEAR door and the G-lever**
+(`M4MeanSqPool.m4_meansq_per_chi_gen_pool_gk` at `AdoorL M`): the three `(log X)^{−1/500}`
+grading gates and the `ε ≤ θ₂₉₃ − 1/500` window conjunct of `m4_meansq_per_chi_gen_L_gk`
+replaced by the five pool gates — `0 ≤ π₀`, `374784·Cs·e³/𝒫₁ ≤ π₀`,
+`5760·(a2RowsSum_L_gk K M Xd + Ccc·(2/M)) ≤ π₀`, `(log X)^{−θ₂₉₃+ε} ≤ π₀`,
+`4096·(log X)^{−1+1/500} ≤ π₀` — and the envelope's third summand by `188133·π₀`; the door at
+`AdoorL`/`H1doorL`, the level-1 summand `a2Level1_L M`. Route: the landed body over
+`a2Rows_of_capfree3_L_gk`, the two cuts and the interface `thm_a2'_of_rows_pool_L_gk`;
+`maxHeartbeats 1600000`. Consumed by `m4_meansq_or_trivial_pool_L_gk` and by
+`M4RowAssemblyLinear.m4_door_meansq_carried_pool_L_gk`. -/
 theorem m4_meansq_per_chi_gen_pool_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ (Cq cq T₀ X₀ Cs Ccc : ℝ) (Kfl : ℕ → ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -1441,6 +1480,10 @@ theorem m4_meansq_per_chi_gen_pool_L_gk (K : ℕ) (hK : K ≤ 170000000) :
 set_option maxHeartbeats 1600000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
+/-- **The per-scale dichotomy at the pool, LINEAR door, G-lever** (`m4_meansq_or_trivial_pool_L`
+at `s13GK K M`): the trivial branch below `trivThresh Hp d₀ W`, the pooled five-summand bound of
+`m4_meansq_per_chi_gen_pool_L_gk` above it; `Kfl` taken at `Qm`. No proof in `Salt/` applies it
+— its `_kwide` sibling below moves the flat ceiling inside the `∀ M`. -/
 theorem m4_meansq_or_trivial_pool_L_gk (K : ℕ) (hK : K ≤ 170000000) (Qm : ℕ) :
     ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
@@ -1982,6 +2025,14 @@ theorem m4_meansq_or_trivial_join_L (Qm : ℕ) :
 set_option maxHeartbeats 1600000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
+/-- **⟦R1×R2⟧ the JOINED capstone at the LINEAR door and the G-lever**
+(`M4MeanSqPrime.m4_meansq_per_chi_gen_join_gk` at `AdoorL M`): the pooled statement with ONE
+gate moved — `hgRows` reads `a2RowsSum'_L_gk K M Xd`, ⟦R1⟧'s primed row sum, so no
+`X_d`-decaying right-hand side and no `log₂(2X_d)` remain inside it. Route:
+`a2Rows_of_capfree3'_L_gk` (the closed-window arm), the two cuts, the interface
+`thm_a2'_of_rows_pool'_L_gk`; `maxHeartbeats 1600000`. Consumed by
+`m4_meansq_or_trivial_join_L_gk` and by
+`M4RowAssemblyLinear.m4_door_meansq_carried_join_L_gk`. -/
 theorem m4_meansq_per_chi_gen_join_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ (Cq cq T₀ X₀ Cs Ccc : ℝ) (Kfl : ℕ → ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -2165,6 +2216,11 @@ theorem m4_meansq_per_chi_gen_join_L_gk (K : ℕ) (hK : K ≤ 170000000) :
 set_option maxHeartbeats 1600000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
+/-- **The per-scale dichotomy at the join, LINEAR door, G-lever**
+(`M4MeanSqPrime.m4_meansq_or_trivial_join_gk` at `AdoorL M`): the trivial branch below
+`trivThresh Hp d₀ W`, the joined five-summand bound of `m4_meansq_per_chi_gen_join_L_gk` above
+it; `Kfl` taken at `Qm`. No proof in `Salt/` applies it — its `_kwide` sibling below moves the
+flat ceiling inside the `∀ M`. -/
 theorem m4_meansq_or_trivial_join_L_gk (K : ℕ) (hK : K ≤ 170000000) (Qm : ℕ) :
     ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧

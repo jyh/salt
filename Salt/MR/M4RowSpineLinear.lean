@@ -439,6 +439,8 @@ block `calP (AdoorL M) (3072M) 1 = 2^{AdoorL M}` with `AdoorL M ≥ 2^18 = 26214
 testing. -/
 def truncD_L (δ₀ : ℝ) : ℕ := ⌈2 / Real.sqrt (truncBudget δ₀)⌉₊
 
+/-- `2/√(truncBudget δ₀) ≤ truncD_L δ₀`: `Nat.le_ceil`. Consumed by `truncD_admissible_L`,
+⟦T-1⟧'s admissibility of the truncation ceiling. -/
 theorem truncD_ge_L (δ₀ : ℝ) : 2 / Real.sqrt (truncBudget δ₀) ≤ ((truncD_L δ₀ : ℕ) : ℝ) :=
   Nat.le_ceil _
 
@@ -900,9 +902,15 @@ theorem stratum_sq_le_chiSummed_at_truncD_L_gk (K : ℕ) {M Kw n q d Lw : ℕ} {
   stratum_sq_le_chiSummed_L_gk K hM hq hd0 hdq hdD hgate b hlen
 /-! ## §2 — `M4ArithPage` -/
 
+/-- `calP (AdoorL M) (3072·M) 1 = 2^{AdoorL M}`: `calE_one`. The level-1 door numeral at the
+linear anchor; `calP_door_one_at_lever_L` re-reads it at `s13GK K M`. No proof in `Salt/`
+applies this form. -/
 theorem calP_door_one_L (M : ℕ) : calP (AdoorL M) (3072 * M) 1 = 2 ^ AdoorL M := by
   rw [calP, calE_one]
 
+/-- `calQK (AdoorL M) (3072·M) M 1 = 2^{M·AdoorL M}`: `calE_one` and `norm_num`
+(`1²·M·e₁ = M·AdoorL M`). `calQK_door_one_at_lever_L` re-reads it at `s13GK K M`. No proof in
+`Salt/` applies this form. -/
 theorem calQK_door_one_L (M : ℕ) : calQK (AdoorL M) (3072 * M) M 1 = 2 ^ (M * AdoorL M) := by
   rw [calQK, calE_one]
   norm_num
