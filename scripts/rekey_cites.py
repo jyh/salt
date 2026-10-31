@@ -359,7 +359,7 @@ def substitute(text, subs):
     if not subs:
         return text
     alt = "|".join(re.escape(c) for c in sorted(subs, key=len, reverse=True))
-    rx = re.compile(r"(?<![A-Za-z0-9_./])(?:" + alt + r")(?![0-9]|[–-][0-9])")
+    rx = re.compile(r"(?<![A-Za-z0-9_./])(?:" + alt + r")(?![0-9]|[–-][0-9]|,\s*:[0-9])")   # occ_re's lookahead
     return rx.sub(lambda m: subs[m.group(0)], text)
 
 
@@ -761,6 +761,8 @@ def self_test():
         k9 = {r["cite"]: r["cls"] for r in r9 if r["src"] == "a.md"}
         check("... and after the apply the list cites read DONE",
               k9.get("L.lean:3, :8") == "DONE" and k9.get("L.lean:2-3, :9") == "DONE")
+        check("the record re-hash (substitute) also leaves a plain cite's twin at the head of a list alone",
+              substitute("X.lean:5, :7 and X.lean:5", {"X.lean:5": "X.lean:6"}) == "X.lean:5, :7 and X.lean:6")
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
