@@ -1546,7 +1546,7 @@ open Salt.Tactic in
 `HloExport`'s pinned head with `ε = 1/500` replaced by the HYPOTHESIS `0 < ε ≤ 1/500`, the four
 smallness arms re-derived by monotonicity, and the exchange rate `ε/1677 ≤ δ₀` exported as a
 conjunct (`δ₀ = cD3/(16C)·ε/4 ≥ 5ε/8384`; `1677` is the SMALLEST integer that works — the pinned
-leaves give `cD3/(16C) ≥ 5/2096` with zero slack, `Salt/Entropy/Chowla/HloExport.lean:561`).
+leaves give `cD3/(16C) ≥ 5/2096` with zero slack, the `hkey` step of that pinned head).
 
 ⚠ NO `K` UPPER BOUND IS EXPORTED (unlike `FlatHeadForm`'s `K ≤ 2^539`): the exchange rate is
 consumable at the L² grade only, so a consumer takes `K` from the same `obtain`, never from a
