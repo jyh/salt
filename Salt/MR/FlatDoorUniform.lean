@@ -1535,7 +1535,7 @@ theorem flat_v7_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
         hA26 hLt (flatDoorM_one_le hA26) heps500 hxceil hwin))
 
 /-- **the chain, uniform** (`flat_chain_U`) — `flat_chain_generic_epsW`
-(`FlatDoorEpsRung2.lean:5546`) on the U-forms: the seven U-hops composed.  ONE binder beyond the
+(`FlatDoorEpsRung2.lean:5544`) on the U-forms: the seven U-hops composed.  ONE binder beyond the
 source's, `hε2 : ε ≤ 1 / 2`, for the kswin hop's first conjunct (see `flat_kswin_generic_U`). -/
 theorem flat_chain_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (hε2 : ε ≤ 1 / 2)
     (h : FlatHeadFormU ε c P) : V7RatedFormU ε c P :=
