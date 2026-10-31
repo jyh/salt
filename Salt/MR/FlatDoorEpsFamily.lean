@@ -53,7 +53,7 @@ and any consumer's floor on its threshold rounds DOWN, so a door stated at `ρ �
 never provably meets a slot `∀ ρ ≤ δ₀'` on another regime — not even with that slot's floor
 exported un-rounded (`ε/1675.565 < ε/1675.564`).  The door and the slot are therefore stated at
 ONE `δ₀` on ONE regime, which is what the chain proves (the socket hands the door out at
-`ρ := δ₀`, `XThread.lean:681`); the floor and the grade are exports ABOUT `δ₀`, never a
+`ρ := δ₀`, `XThread.lean:665`); the floor and the grade are exports ABOUT `δ₀`, never a
 substitute for it.  ⚠️ ERRATUM to «W-δ … is not stated» above: END OF FILE.
 
 **THE ROUTE (road F, h2c's per-hop walk of 2026-09-15 in the seat record):** the flat road's

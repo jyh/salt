@@ -9,7 +9,7 @@ import Salt.Entropy.Chowla.HloExport
 # The spine head as an `ε`-FAMILY — the conditional `∀ ε ≤ 1/500` restatement
 (QUEUE P3 item 11, the design block of 2026-09-05; STATEMENT-ONLY at the freeze)
 
-`log_chowla_two_budget_head_g_sq_count_hloCap_pinned` (`HloExport.lean:519`) PINS `ε := 1/500`
+`log_chowla_two_budget_head_g_sq_count_hloCap_pinned` (`HloExport.lean:520`) PINS `ε := 1/500`
 in place of the landed `exists_rat_btwn` choice, so that the door threshold
 `δ₀ = cD3/(16·C)·ε/4` is a numeral (`≥ 1/838400`) and the `MR` lane's register can be met.  The
 four smallness demands on `ε` are all UPPER bounds (`ε ≤ cE/(32·log 4)`, `ε < 1/2`,

@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # ⟦THE PRICED LEAVES⟧ — the three head constants, CITABLE FROM BELOW (node EPSPIN)
 
-`log_chowla_two_budget_head_g_sq_count_hloCap` (`HloExport.lean:389`) chooses its
+`log_chowla_two_budget_head_g_sq_count_hloCap` (`HloExport.lean:390`) chooses its
 `ε` by `exists_rat_btwn` under a four-arm `min` built from three `∃`-delivered
 leaf constants, and emits `δ₀ = cD3/(16·C)·ε/4`.  Every one of those leaves is
 destructed by `obtain`, i.e. is a `Classical.choose` the kernel cannot evaluate —

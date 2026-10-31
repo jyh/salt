@@ -1056,7 +1056,7 @@ claim about Chowla, about the door's supply, or about twins is made or moved her
   Salt.Entropy.Chowla.hreduce_holds_final_h
   -- ⭐ ROLLED IN 2026-08-26 (math), discharging QUEUE P1 item 5c's "REPORTED, NOT FIXED".
   -- `log_chowla_two_shell_xi_sq` (`Theorem23Shell.lean:362`) is a LANDED terminal with two
-  -- consumers (`HloExport.lean:362`, `HloExportFlat.lean:196`), and three of its four family
+  -- consumers (`HloExport.lean:363`, `HloExportFlat.lean:196`), and three of its four family
   -- members were already audited above (`:163-165`) — it alone was gated by no build.
   -- ⛔ PLACED AT THE END OF THE LIST ON PURPOSE, not beside its siblings: `#audit_axioms`
   -- `throwError`s on the first non-whitelisted dependency and ABORTS the rest of its list, so a
