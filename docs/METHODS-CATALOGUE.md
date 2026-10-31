@@ -1,7 +1,7 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `2a41081f` · source digest `b7539fab2714dac2` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `6714dde1` · source digest `4596d0c9d4157c1d` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
@@ -318,10 +318,10 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Entropy.Chowla.StrideScale` | DISCHARGED | 9 | `Salt.Entropy.Chowla.strideScale_one` ✓audited (Salt/Entropy/Chowla/StridePair.lean:84) |
 | `Salt.BrunLower.chi` | DISCHARGED | 8 | `Salt.BrunLower.chi_one` ✓audited GUARDED (Salt/BrunLower/Defs.lean:191) · `Salt.BrunLower.chi_prime` ✓audited GUARDED (Salt/BrunLower/Defs.lean:218) · `Salt.HB.mem_failSet` (Salt/HB/RosserDim4FL.lean:442) |
 | `Salt.Chen.StepHypWP` | DISCHARGED | 8 | `Salt.Chen.stepHypWP_const` ✓audited GUARDED (Salt/Chen/WindowedStepP.lean:78) |
-| `Salt.Entropy.Chowla.PairCollapse` | DISCHARGED | 8 | `Salt.Entropy.Chowla.slack_witness_twinDetecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:98) · `Salt.Entropy.Chowla.delta1w_pairCollapse` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:320) · `Salt.Entropy.Chowla.chi4w_pairCollapse` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:346) · +1 |
+| `Salt.Entropy.Chowla.PairCollapse` | DISCHARGED | 8 | `Salt.Entropy.Chowla.slack_witness_twinDetecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:102) · `Salt.Entropy.Chowla.delta1w_pairCollapse` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:330) · `Salt.Entropy.Chowla.chi4w_pairCollapse` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:359) · +1 |
 | `Salt.MR.M4ChiSummedFreeRow_L_gk` | DISCHARGED | 8 | `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:339) · `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_pool_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:3219) · `Salt.MR.m4_chiSummedFreeRow_trivial_L_gk` (Salt/MR/M4RowLinear.lean:8016) |
 | `FiniteRange` | DISCHARGED | 7 | `Salt.Entropy.Chowla.instFiniteRangeShift` (Salt/Entropy/Chowla/Invariance.lean:49) · `Salt.Entropy.Chowla.instFiniteRangeJointWindow` (Salt/Entropy/Chowla/InvarianceHead.lean:53) · `instFiniteRangeLiouvilleWindow` (Salt/Entropy/Chowla/Windows.lean:50) · +1 |
-| `Salt.Entropy.Chowla.PmNormalized` | DISCHARGED | 7 | `Salt.Entropy.Chowla.slack_witness_twinDetecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:98) · `Salt.Entropy.Chowla.const_satisfies_slots` (Salt/Entropy/Chowla/TransportWall.lean:116) |
+| `Salt.Entropy.Chowla.PmNormalized` | DISCHARGED | 7 | `Salt.Entropy.Chowla.slack_witness_twinDetecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:102) · `Salt.Entropy.Chowla.const_satisfies_slots` (Salt/Entropy/Chowla/TransportWall.lean:116) |
 | `Salt.HB.CoprimeSupport` | DISCHARGED | 7 | `Salt.HB.l2cWindow_coprimeSupport` (Salt/HB/L2cCore.lean:170) · `Salt.HB.coprimeSupport_window` ✓audited GUARDED (Salt/HB/Transfer.lean:231) |
 | `Salt.MR.BigXiArcTight` | DISCHARGED | 7 | `Salt.MR.bigXiArcTight_twelve` ✓audited (Salt/MR/ExitClose.lean:773) |
 | `Salt.MR.MSelect'_L_gk` | DISCHARGED | 7 | `Salt.MR.s13_MSelect'_L_of_headroom_gk` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:679) · `Salt.MR.s13_MSelect'_L_of_halfWindow_gk` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:720) |
@@ -381,7 +381,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.BV.PsiToPiTransfer` | DISCHARGED | 2 | `Salt.BV.psiToPiTransfer_holds` ✓audited (Salt/BV/AbelCore.lean:750) |
 | `Salt.Entropy.Chowla.GradedAffHeadAt` | DISCHARGED | 2 | `Salt.MR.log_chowla_aff_of_door_crowned_unslotted_g` ✓audited GUARDED (Salt/MR/StrideGradeReceipt.lean:46) |
 | `Salt.Entropy.Chowla.LogChowlaAffSupplyW` | DISCHARGED | 2 | `Salt.MR.logChowlaAffSupplyW_holds` ✓audited GUARDED (Salt/MR/StrideGradeReceipt.lean:57) |
-| `Salt.Entropy.Chowla.TwinDetecting'` | DISCHARGED | 2 | `Salt.Entropy.Chowla.liouville_pinned` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:260) · `Salt.Entropy.Chowla.chi4w_detecting'` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:293) |
+| `Salt.Entropy.Chowla.TwinDetecting'` | DISCHARGED | 2 | `Salt.Entropy.Chowla.liouville_pinned` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:270) · `Salt.Entropy.Chowla.chi4w_detecting'` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:303) |
 | `Salt.HB.HasTwoFormGcdBound` | DISCHARGED | 2 | `Salt.HB.hasTwoFormGcdBound_of_modulus_one` ✓audited GUARDED (Salt/HB/RealPrimitive.lean:261) · `Salt.HB.hasTwoFormGcdBound_chi4` ✓audited (Salt/HB/RealPrimitive.lean:270) · `Salt.HB.hasTwoFormGcdBound_chi8` ✓audited (Salt/HB/RealPrimitive.lean:276) · +3 |
 | `Salt.HB.IsSignFunction` | DISCHARGED | 2 | `Salt.HB.isSignFunction_lamR` (Salt/HB/SignLiouville.lean:55) |
 | `Salt.MR.BlockLive` | DISCHARGED | 2 | `Salt.MR.blockLive_winCutH_doorCoeffU_L` GUARDED (Salt/MR/M4RowSpineLinear.lean:1255) · `Salt.MR.blockLive_winCutH_doorCoeffU_L_gk` GUARDED (Salt/MR/M4RowSpineLinear.lean:1416) · `Salt.MR.blockLive_memSCoeff` GUARDED (Salt/MR/M4RowsChiZero.lean:120) · +2 |
@@ -409,7 +409,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `SWAtData` | DISCHARGED | 1 | `GehAnchor.anchorSW` GUARDED (Salt/Maynard/GehAnchor.lean:268) |
 | `Salt.Chen.StepHypW` | DISCHARGED | 1 | `Salt.Chen.stepHypW_holds` ✓audited GUARDED (Salt/Chen/WindowedStep.lean:244) |
 | `Salt.Entropy.Chowla.GradedAffHeadAt_g12b` | DISCHARGED | 1 | `Salt.MR.log_chowla_aff_of_door_crowned_unslotted_g12b` ✓audited GUARDED (Salt/MR/StrideGradeReceipt12b.lean:40) |
-| `Salt.Entropy.Chowla.TwinDetecting` | DISCHARGED | 1 | `Salt.Entropy.Chowla.slack_witness_twinDetecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:98) · `Salt.Entropy.Chowla.chi4w_detecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:297) |
+| `Salt.Entropy.Chowla.TwinDetecting` | DISCHARGED | 1 | `Salt.Entropy.Chowla.slack_witness_twinDetecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:102) · `Salt.Entropy.Chowla.chi4w_detecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:307) |
 | `Salt.ExpSum.IsVdCBound` | DISCHARGED | 1 | `Salt.ExpSum.isVdCBound_two` (Salt/ExpSum/DerivTestK.lean:236) · `Salt.ExpSum.isVdCBound_16` ✓audited GUARDED (Salt/ExpSum/Strip.lean:182) |
 | `Salt.MR.FlatDoorAllGradesBandW` | DISCHARGED | 1 | `Salt.MR.flatDoorAllGradesBandW_holds` ✓audited (Salt/MR/FlatDoorAllGradesBand.lean:1611) |
 | `Salt.MR.FlatDoorUniformW` | DISCHARGED | 1 | `Salt.MR.flatDoorUniformW_holds` ✓audited (Salt/MR/FlatDoorUniform.lean:1556) |
