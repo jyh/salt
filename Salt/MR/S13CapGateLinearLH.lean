@@ -3356,8 +3356,8 @@ base-scale cap `S16BaseScaleCap96_LH_gk h K R M` give `S15CrossingBound_LH_gk h 
 `m4_tail_mass_at_band_bounded` for `C`, `s16_capGate_supply_LH_gk` for the gate at each socket
 (coefficients `liouvilleC`, grade `θ₂₉₃ − 1/500`), then
 `doorCapBundle_at_workingPoint_perBlock_L_gk`. Consumed by
-`S16ComposeLH.logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_h` (at `K = 32000000`)
-and by `S16ComposeLH.s15_crossing_supplied_LH_gk_ceiling_sharpT0`. -/
+`S16ComposeLH.logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_h` (at `K = 32000000`);
+its `S16ComposeLH` twin `…_sharpT0` re-runs the same fuse rather than applying this. -/
 theorem s15_crossing_supplied_LH_gk_ceiling {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (K : ℕ) :
     ∃ Cq cs T₀ Kq Ks C : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ Kq ≤ Real.exp 100 ∧
