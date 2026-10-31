@@ -12,7 +12,7 @@ The stride and band receipts (`StridePairReceipt` · `StridePairReceiptG` ·
 `StridePairReceiptG12b` · `TierSBand` · `TierSBandU`) each read the same five facts off a regime
 `R` whose `ε` is pinned at `1/(500·k)` with `1 ≤ k ≤ N` and whose lower endpoint is
 `R.Hlo = a·B`: the two `ε` bounds `R.eps ≤ 1/500` and `1/L ≤ R.eps` (for any `L ≥ 500·N`), and
-the shrink's divisibility, quotient and floor at stride `a`. They are proved here once.
+the shrink's divisibility, quotient and floor at stride `a`. This file states them once.
 
 ## Main result
 * `stride_shrink_facts` — the five facts.
