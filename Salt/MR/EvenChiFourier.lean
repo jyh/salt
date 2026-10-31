@@ -39,7 +39,7 @@ open scoped Real ZMod
 `expZeta a s = cosZeta a s + I * sinZeta a s` by definition (mathlib
 `HurwitzZeta.lean:115`).  At `s = 1` the cosine half is `cosZeta_apply_one` above (W1/E2,
 genuinely absent from mathlib) and the sine half is `sinZeta_apply_one`
-(`Salt/MR/Sawtooth.lean:468`, LANDED by the odd lane).  Their combination is exactly the
+(`Salt/MR/Sawtooth.lean:475`, LANDED by the odd lane).  Their combination is exactly the
 principal branch of `-log (1 - e^{2πix})`, because `1 - e^{2πix}` has modulus `2 sin (πx)`
 and argument `πx - π/2` — both already established here as `norm_one_sub_exp` and
 `one_sub_exp_eq`.

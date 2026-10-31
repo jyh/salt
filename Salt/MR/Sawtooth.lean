@@ -313,11 +313,18 @@ theorem one_sub_exp_eq (x : ℝ) :
   push_cast
   ring
 
+/-- `‖1 − e^{2πix}‖ = 2 sin(πx)` for `x ∈ (0,1)` (`hx`): the polar form `one_sub_exp_eq`, the
+unit modulus of `cos θ + i sin θ`, and `sin_pi_mul_pos` for the sign of the modulus. Consumed
+here by `exp_ne_one`, `abs_sum_sin_le`, `abs_sum_cos_le` and the sawtooth value (§4), and across
+`Salt/` by `EvenChiFourier` and `EvenChiSine` (the modulus of `1 − ζ^a` at `a/q ∈ (0,1)`). -/
 theorem norm_one_sub_exp (hx : x ∈ Set.Ioo (0 : ℝ) 1) :
     ‖1 - Complex.exp (((2 * Real.pi * x : ℝ) : ℂ) * I)‖ = 2 * Real.sin (Real.pi * x) := by
   rw [one_sub_exp_eq x, norm_mul, Complex.norm_cos_add_sin_mul_I, mul_one, Complex.norm_real,
     Real.norm_eq_abs, abs_of_pos (by linarith [sin_pi_mul_pos hx])]
 
+/-- `e^{2πix} ≠ 1` for `x ∈ (0,1)` (`hx`): were it `1`, `norm_one_sub_exp` would read
+`0 = 2 sin(πx)` against `sin_pi_mul_pos`. The `z ≠ 1` the geometric sums of `abs_sum_sin_le` and
+`abs_sum_cos_le` divide by; in-file consumers only. -/
 theorem exp_ne_one (hx : x ∈ Set.Ioo (0 : ℝ) 1) :
     Complex.exp (((2 * Real.pi * x : ℝ) : ℂ) * I) ≠ 1 := by
   intro h

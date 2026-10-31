@@ -48,7 +48,7 @@ byte otherwise:
          where `xTightCeilArm` = `xTightCeil` + the arm's slack `18 + log 2 + H₊/10²⁰`
          (`s15ArmH_log_le_g12b`, `StrideGrade12bWalls.lean:93`: `log arm ≤ log ω + log h + H₊/10²⁰`,
          spent against (i-ω) and `log a ≤ 9`, `log h ≤ 9`);
-       — `XCeil.lean:494-497`'s `hxu` at the stride builder (`StridePairReceipt.lean`, the
+       — `XCeil.lean:502-505`'s `hxu` at the stride builder (`StridePairReceipt.lean`, the
        `+ 9` is `log a ≤ 9` at `a ≤ 8103`), through the enlargement `x ↦ max x (a·g Hhi ω)`;
   (i′) `V7RatedFormHG_g12b` carries no ceiling: after `StrideScale a R ∧` INSERT the loose ceiling,
        then (i-ω), then (i-x) tier B;
@@ -80,7 +80,7 @@ namespace Salt.MR
 
 /-! ## §0 — the tight ceiling, named once -/
 
-/-- **⟦S-1⟧ THE TIGHT OUTER-SCALE CEILING AT THE STRIDE BUILDER** — `XCeil.lean:494-497`'s `hxu`
+/-- **⟦S-1⟧ THE TIGHT OUTER-SCALE CEILING AT THE STRIDE BUILDER** — `XCeil.lean:502-505`'s `hxu`
 with the stride multiplier's `log a ≤ 9` absorbed (`StridePairReceipt`'s `_b9` builder, `hxu`):
 `log R.x ≤ (30/ε)·log H₊ + 9 + 2·log(4^⌊ε²H₊⌋ + 1)`.  Against the loose `31/ε · H₊` its
 leading term is `2·log 4·ε²·H₊` — smaller by the factor `31/(2·log 4·ε³)` (`1.4·10⁹` at
@@ -416,7 +416,7 @@ theorem xTightCeilArm_nonneg (ε : ℚ) (hε : 0 < ε) (Hhi : ℕ) (hHhi : 40000
   have hH : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by positivity
   linarith
 
-/-! ## §3 — the builder twins: the tight bound lifted OUT of the proof (`XCeil.lean:494-497`) -/
+/-! ## §3 — the builder twins: the tight bound lifted OUT of the proof (`XCeil.lean:502-505`) -/
 
 /-- **⟦S-1 B1⟧** `chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9` (`StridePairReceipt.lean`)
 with ITS OWN `hxu` exported: body verbatim, one conjunct added. -/

@@ -21012,7 +21012,7 @@ audited at `Salt/MR/All.lean:1599`) is Montgomery p.40 eq.(2) with the `‖0‖`
 by `minTerm` (`:271`), and `dist₁` (`Salt/LS/Dist.lean:29`) is literally HB §7's `‖·‖`. The
 restricted sum reindexes as `n = b + qm` ⟹ `e(−sb/k)·Σ_m e((−sq/k)·m)`, i.e. **exactly
 `geom_phase_bound` at `θ = −sq/k`**. Also landed: the exact sawtooth Fourier series
-(`Salt/MR/Sawtooth.lean:358`), `abs_sum_sin_le` (`:329`), Abel (`:65`), Jordan
+(`Salt/MR/Sawtooth.lean:365`), `abs_sum_sin_le` (`:329`), Abel (`:65`), Jordan
 (`MinorArcVaughan.lean:136`), and the `Salt/BV/Completion.lean` kit with its `2 + log H` L¹ mass —
 none of which the WEIL-TRIO dossier's supply table names. **If this holds, W5 is not the class-C
 block it was priced at.**
@@ -21238,7 +21238,7 @@ test-fired:
    with `c = (A−b)/q`, `t = ((B−b)/q − (A−b)/q).toNat` (Euclidean division, `filter_Ioc_dvd_
    eq_image`). The ⚠️ SHAPE-MATCH caveat at `:21027` is **discharged**.
 2. **The sawtooth Fourier series was already in the kernel.** `Salt.MR.tendsto_sum_sin_div_nat`
-   (`Salt/MR/Sawtooth.lean:358`) — landed for the Hurwitz-zeta `k = 0` case of `LandauOdd`, and
+   (`Salt/MR/Sawtooth.lean:365`) — landed for the Hurwitz-zeta `k = 0` case of `LandauOdd`, and
    the one thing mathlib genuinely lacks (`ZetaValues.hasSum_one_div_nat_pow_mul_sin` needs
    exponent `≥ 3`; the `AddCircle` inversion needs summable coefficients). Without it, (7.2)'s
    sharp arm needs either Abel's limit theorem at `e(θ) ≠ 1` plus a `log(1−z)` argument
@@ -23512,7 +23512,7 @@ the brief's `≳ 1.17e4` = 11700 FAILS at `−9.18`). So the conjunct demands
   Salt/Entropy/Chowla/RegimeParam.lean:454      chowlaRegime_exists_param_gen           Hlo₀ param
   Salt/Entropy/Chowla/HloExport.lean:150        chowlaRegime_exists_param_gen_hloCap    Hlo₀ param
   Salt/Entropy/Chowla/TowerFlatBuilder.lean:322 chowlaRegimeFlat_exists_param_gen       Hlo₀ param
-  Salt/MR/XCeil.lean:502                        chowlaRegimeFlat_exists_param_gen_ceiling Hlo₀ param
+  Salt/MR/XCeil.lean:510                        chowlaRegimeFlat_exists_param_gen_ceiling Hlo₀ param
   Salt/Entropy/Chowla/RegimeInst.lean:175       regime_exists_of_dropSum          ⛔ Hlo := 4000000
 ```
 **The four parametric sites CAN discharge it.** Each sets `R.Hlo = max … (max Hlo₀ …)`, so the floor
