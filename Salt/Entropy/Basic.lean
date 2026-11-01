@@ -156,6 +156,9 @@ noncomputable
 def condEntropy (X : Ω → S) (Y : Ω → T) (μ : Measure Ω := by volume_tac) : ℝ :=
   (μ.map Y)[fun y ↦ H[X | Y ← y ; μ]]
 
+/-- `H[X | Y ; μ] = (μ.map Y)[fun y ↦ H[X | Y ← y ; μ]]`, by `rfl`: `condEntropy` unfolded to
+the expectation, under the law of `Y`, of the entropy of `X` conditioned on `Y = y`. The first
+rewrite of `condEntropy_eq_kernel_entropy`. -/
 lemma condEntropy_def (X : Ω → S) (Y : Ω → T) (μ : Measure Ω) :
     condEntropy X Y μ = (μ.map Y)[fun y ↦ H[X | Y ← y ; μ]] := rfl
 
@@ -183,6 +186,12 @@ lemma condEntropy_eq_kernel_entropy [Nonempty S] [Countable S] [MeasurableSingle
 variable [Countable T] [Nonempty T] [Nonempty S] [MeasurableSingletonClass S] [Countable S]
   [Countable U] [MeasurableSingletonClass U]
 
+/-- The conditional entropy of `X` given the pair `(Y, Z)` is the kernel entropy of the
+conditional kernel of `condDistrib (Y, X) Z μ`, over `μ.map Z ⊗ₘ fst` of that distribution:
+`condEntropy_eq_kernel_entropy` at the pair, then the `condDistrib` congruences
+(`condDistrib_fst_ae_eq`, `condKernel_condDistrib_ae_eq`, `swap_condDistrib_ae_eq`) and
+`Kernel.entropy_comap_swap`. The kernel form `entropy_submodular` reads for
+`H[X | Y, Z] ≤ H[X | Z]`. -/
 lemma condEntropy_two_eq_kernel_entropy (hX : Measurable X) (hY : Measurable Y) (hZ : Measurable Z)
     (μ : Measure Ω) [IsProbabilityMeasure μ] [FiniteRange Y] [FiniteRange Z] :
     H[X | (fun ω ↦ (Y ω, Z ω)) ; μ] =
@@ -263,6 +272,10 @@ def mutualInfo (X : Ω → S) (Y : Ω → T) (μ : Measure Ω := by volume_tac) 
 @[inherit_doc mutualInfo] notation3:max "I[" X " : " Y " ; " μ "]" => mutualInfo X Y μ
 @[inherit_doc mutualInfo] notation3:max "I[" X " : " Y "]" => mutualInfo X Y volume
 
+/-- `I[X : Y ; μ] = H[X ; μ] + H[Y ; μ] - H[X, Y ; μ]`, by `rfl`: `mutualInfo` unfolded. The
+first rewrite of `mutualInfo_nonneg`, `mutualInfo_eq_entropy_sub_condEntropy` and
+`entropy_sub_condEntropy` here, and of the window-commutation lemmas of `Salt/Entropy/Chowla`
+(`mutualInfo_window_comm` and its `'`, `_flat`, `_aff` and `_cap` twins). -/
 lemma mutualInfo_def (X : Ω → S) (Y : Ω → T) (μ : Measure Ω) :
   I[X : Y ; μ] = H[X ; μ] + H[Y ; μ] - H[(fun ω ↦ (X ω, Y ω)) ; μ] := rfl
 
@@ -273,6 +286,10 @@ def condMutualInfo (X : Ω → S) (Y : Ω → T) (Z : Ω → U) (μ : Measure Ω
     ℝ := (μ.map Z)[fun z ↦
       H[X | Z ← z ; μ] + H[Y | Z ← z ; μ] - H[(fun ω ↦ (X ω, Y ω)) | Z ← z ; μ]]
 
+/-- `I[X : Y | Z ; μ] = (μ.map Z)[fun z ↦ H[X | Z ← z] + H[Y | Z ← z] - H[X, Y | Z ← z]]` (each
+entropy against `μ`), by `rfl`: `condMutualInfo` unfolded to the integral, over the law of `Z`,
+of the mutual information conditioned on `Z = z`. The conditional twin of `mutualInfo_def`; no
+consumer at 884bd7d7. -/
 lemma condMutualInfo_def (X : Ω → S) (Y : Ω → T) (Z : Ω → U) (μ : Measure Ω) :
     condMutualInfo X Y Z μ = (μ.map Z)[fun z ↦
       H[X | Z ← z ; μ] + H[Y | Z ← z ; μ] - H[(fun ω ↦ (X ω, Y ω)) | Z ← z ; μ]] := rfl
