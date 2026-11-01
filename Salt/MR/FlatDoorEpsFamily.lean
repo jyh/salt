@@ -58,8 +58,8 @@ substitute for it.  ⚠️ ERRATUM to «W-δ … is not stated» above: END OF F
 
 **THE ROUTE (road F, h2c's per-hop walk of 2026-09-15 in the seat record):** the flat road's
 eight hops re-cut at generic `ε ≤ 1/500` — the pin `1/500 ≤ ε` enters at ONE site
-(`XThread.lean:545`) and is spent by exactly four proofs, each absorbed by an `ε`-dependent floor
-the corpus already carries; the head at the leaves' PINNED witnesses (the door-head's device,
+(`flat_head_uniform_xceil`) and is spent by exactly four proofs, each absorbed by an `ε`-dependent
+floor the corpus already carries; the head at the leaves' PINNED witnesses (the door-head's device,
 `DoorReceipt.lean:938`, with the three leaf estimates transported by one monotone step each) so
 that the mint carries BOTH bounds and the tail (the entropy collision) still fires.  The capped
 rung (`…_capped`, `1/(500·8103) ≤ ε` — the lattice top `h = 8103`) is EXACTLY where every helper's
