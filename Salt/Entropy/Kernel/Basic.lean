@@ -30,6 +30,8 @@ Modifications for Salt (ported to mathlib v4.32.0-rc1, toolchain
 - All other declarations, names, notation, namespaces, and proof bodies are
   verbatim from upstream; drift v4.33-rc1 → v4.32.0-rc1 required no further
   statement or proof changes.
+- Docstrings added by Salt (2026-11-01, the O83 documentation lane) to the 34 upstream
+  declarations that carried none; names, statements and bodies are unchanged.
 -/
 import Mathlib
 import Salt.Entropy.Measure
