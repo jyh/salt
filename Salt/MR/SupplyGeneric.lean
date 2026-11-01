@@ -12,7 +12,7 @@ import Salt.MR.CenterGrade
 
 `PinFamily2`'s RESIDUAL 1: `CenterSupply.ball_sup_supplied` carries the CORPUS pin
 `y = (log k)^4`, `η = 1/log((log k)^4)` LITERALLY inside its `hRHS` binder
-(`CenterSupply` :345–350), so `PinFamily2.hRHS_socket_star2` — the ready `y₂`-shaped
+(`CenterSupply` :213–218), so `PinFamily2.hRHS_socket_star2` — the ready `y₂`-shaped
 object — cannot feed it.  This file is the `y`-GENERIC TWIN CHAIN that unblocks it.
 
 **Iron rule 1 is respected literally**: no landed statement is touched, no existing file is

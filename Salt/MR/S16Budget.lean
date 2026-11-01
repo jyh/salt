@@ -952,7 +952,7 @@ Exported `Hcap = max Hcap_road (max arcFloor36 loglogFloor50)`; the two right ar
 LANDED-fine (`s15WitFloor2_arc`, `s15WitFloor2_ll`).  `Hcap_road` descends to
 `HloExportMR.m4_exit_socket_split_sq_arc_hloCap_pinned` (:303) as `max Hcap_head H₀arc`, with
 `Hcap_head = max 4000000 (max A (4·⌈1/ε⌉^4))`, `A = max (max (max H₀red H₀D3) H₀xi)
-(budgetFloor …)` (`HloExport` :566).  Leaf by leaf: `H₀xi = 2` (benign);
+(budgetFloor …)` (`HloExport` :550).  Leaf by leaf: `H₀xi = 2` (benign);
 `H₀D3 = H₀red = max (96^8) (⌈e^{64·K_Chen}⌉+1)` with `K_Chen` the Siegel-ineffective PNT
 constant (`Chen.lambda_mass_lower` ← `psiTot_pnt` ← `SW.siegelWalfisz_holds`) — FORMALLY
 UNBOUNDED; `H₀arc`'s own exp-arm is `⌈e^{25^{25}·10^{40}·250001^9}⌉ ≈ e^{3.39·10^{123}}`;

@@ -86,7 +86,7 @@ compose `caseAS2_absorbs_E_slot(_closes)` — ⟦V6b⟧ freeze risk (iii) cashed
 ## RESIDUALS (exact, for the next wave)
 
 1. **`ball_sup_closed_star2`** — blocked by `CenterSupply.ball_sup_supplied`'s corpus-pinned
-   `hRHS` binder (`CenterSupply` :345–350).  Needs a pin-generic twin of
+   `hRHS` binder (`CenterSupply` :213–218).  Needs a pin-generic twin of
    `ball_sup_supplied` → `center_halasz_supply` → `ball_sup_of_center`, or a statement
    change (Fable/JYH tier).  `hRHS_socket_star2` is the ready `y₂` object.
 2. **The free-`c` width layer at `y₂`** — `RHSGradeC.beta_integral_pin_constC` and
@@ -795,7 +795,7 @@ family gate `exp 32768 ≤ k` and upstream's own integrability.
 
 **⚠ THE CONSUMER GAP (recorded, not papered over).**  `FarStar.hRHS_socket_star`'s value is
 that its statement is `CenterSupply.ball_sup_supplied`'s `hRHS` hypothesis BYTE-FOR-BYTE.
-That is not available here: `ball_sup_supplied` (`CenterSupply` :345–350) has the CORPUS pin
+That is not available here: `ball_sup_supplied` (`CenterSupply` :213–218) has the CORPUS pin
 `(log k)⁴`, `1/log((log k)⁴)` written INTO its hypothesis, so no `y₂`-shaped socket can feed
 it.  Closing that needs either a pin-generic twin of the `CenterSupply` chain
 (`ball_sup_supplied` → `center_halasz_supply` → `ball_sup_of_center`) or a statement change

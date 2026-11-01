@@ -144,7 +144,7 @@ abbrev XiFamily := ∀ (_eps : ℚ) (H : ℕ) [NeZero H], Finset (ZMod H)
 `ε²·H₊ ≥ exp(exp 50)/548000² ≥ 7 ≥ log a` (`log_le_log` on `a ≤ 1096`, `Real.log 1096 < 7`
 by `Real.exp_one_gt_d9`… or `h_le_1096_of_log_le_seven`'s converse numeral); `Real.log_mul`
 (cases `g Hhi ω = 0`: `Real.log_zero`, `log a ≤ 7 ≤ ε²H₊`).  The corpus's `exp(exp 50)` floor:
-`regime_Hfloor_of_loglogFloor50`-style numerals (S12Compose:195) or `Real.add_one_le_exp` twice
+`regime_Hfloor_of_loglogFloor50`-style numerals (in S12Compose) or `Real.add_one_le_exp` twice
 after `exp 50 ≥ 2^72` (`Real.exp_one_gt_d9`, `Real.exp_nat_mul`).  Used by the crown's caller
 at `g := 0` (trivial) and by the H5 replay at `g' := s15ArmH + g` (§4). -/
 theorem xceilRider_mul_of_strict {ε : ℚ} (heps : 1 / 548000 ≤ ε) {a : ℕ} (ha1096 : a ≤ 1096)
