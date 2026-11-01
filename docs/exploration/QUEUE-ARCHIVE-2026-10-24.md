@@ -6355,7 +6355,7 @@ three days and was carried into a council as an open item before measurement kil
    `linarith`; 82 `maxHeartbeats` overrides in the population; the 24 M site measured 8,034,485 heartbeats.
    **THE CANDIDATE: `explog_num`** (T3's first cut) — closes the four numeral `exp`/`log` forms at integer exponent by
    `exp n = (exp 1)^n` + `exp_one_gt_d9`/`lt_d9` + one `norm_num`; rung (a) is six lemmas (scratch-proven at the three axioms with a
-   planted-sorry control), one line per site. Named proof `s13_smallGradeFits_h_L` (`StrideDoorAllGrades.lean:1545`): lines 175 → 163,
+   planted-sorry control), one line per site. Named proof `s13_smallGradeFits_h_L` (`StrideDoorAllGrades.lean:1534`): lines 175 → 163,
    heartbeats 90,432 → 89,670 (measured at the object). Second candidate, RECORDED for the next pull: `nlinarith?` (certificate
    replay → `linarith [products]`, ~70× per converted call, after unmeasured). Finding that is NOT a tactic: 39 families of copied
    ladder-port proofs, 10,856 redundant lines (30 % of proof lines), bodies byte-identical across sockets — the sibling policy's
@@ -7148,7 +7148,7 @@ numbering is UNVERIFIED.
      mutation control), all `[propext, Classical.choice, Quot.sound]`, `+177/−0`, audit block at
      `Salt/MR/All.lean`. Statements elaborated sorry-bodied BEFORE the executor and byte-identical after.
    * ⛔✅ **S-2 — CLOSED AS SUPPLIED, NOT BUILT.** The form the road consumes is already on `main`:
-     **`mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`Salt/MR/StridePairReceiptG12b.lean:1092`, audited
+     **`mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`Salt/MR/StridePairReceiptG12b.lean:1081`, audited
      `Salt/MR/All.lean:10379`, landed in `e23b45c5` — β W34 H1).** It carries the `ε` pin, `162 ≤ A ∧ A₀ ≤ A`,
      `Ra.a = a`, `Ra.b = b`, the `ρ` cap and the transported grade `a·Zr·ρ + E` with `Zr ≤ 1.02`, `E` bounded.
      ⛔ **The `b`-UNIFORM one-regime form is UNSUPPLIED and UNNEEDED:** every landed supplier is `∀b, ∃R`
@@ -7218,7 +7218,7 @@ numbering is UNVERIFIED.
      (W1 Sonnet 5 · W2 Opus 4 · W3 Sonnet 3 + audit), every name inside budget, **zero flags**.
      ⭐ **THE RESULT WORTH CARRYING OUT OF THIS ROW: the ONE class-C node (hop 3, the tier A → tier B
      estimate) closed in TWO attempts because the freeze's second non-author pass DROVE the estimate
-     rather than judging it** — including the trap that `harm` (`StridePairReceiptG12b.lean:559-561`) is
+     rather than judging it** — including the trap that `harm` (`StridePairReceiptG12b.lean:548-550`) is
      dead at `:630` and must be re-derived at `R`. ⇒ ***a refuter pass that drives an estimate converts a
      class-C node into a transcription.***
      ⚖️ **STATEMENTS BYTE-IDENTICAL TO THE FREEZE, CHECKED AND NOT ASSERTED:** two independent guards
@@ -7243,7 +7243,7 @@ numbering is UNVERIFIED.
      **The substitution to the only `A` the suppliers have — the DESIGN PARAMETER — is FLAGGED, not made
      quietly: if a third `A` was meant, this census has not found it and the charter returns OPEN.**
    * ⭐⭐ **FOR THAT `A`, THE ANSWER IS YES AT THE WITNESS LEVEL.** It is built at
-     `Salt/MR/StridePairReceiptG12b.lean:786` (`flat_v7_generic_h_g12b`) as a `max` of TEN arms. Nine are
+     `Salt/MR/StridePairReceiptG12b.lean:775` (`flat_v7_generic_h_g12b`) as a `max` of TEN arms. Nine are
      closed in `h`, `A₀` and numerals (`cofkR…_b9 h hh hh9` · `s15_crossing…_b9 hh hh9` ·
      `s16_bandLaneWinLH_holdsU h hh` · the pinned `ε = 1/(500·(a·h))` · `β = cD3·ε/(144·log 4)`, `cD3 = 1/4`).
      **The ONE arm that could carry `b` — `Hopq = H₀xi`, from the count gate — is supplied by a LITERAL in
