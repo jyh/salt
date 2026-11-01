@@ -336,6 +336,12 @@ private lemma log15_le : Real.log 15 ≤ 3 := by
   calc (15:ℝ) ≤ (2.7182818283 : ℝ) ^ 3 := by norm_num
     _ ≤ (Real.exp 1) ^ 3 := by gcongr
 
+/-- The budget inequality: for `4·10⁶ ≤ H`, the Fannes side `(3/2)·H·log 2/(log H)² + log 2`
+is at most the threshold `H/(4·log H·logloglog H)`. With `a = log H ≥ 15` (`exp15_le`):
+`log a ≤ a/5` (`log15_le`), `loglog a ≤ a/10` (`log_le_half`), `a² ≤ H` (`log_le_half` at `√H`),
+and `log 2 < 0.6931471808`; the chain closes through `5H/(2a²)` by `nlinarith`. Consumed by
+`condEntropy_shift_le` (the D-d headline, below) and `condEntropy_shift_le_aff`
+(`StrideDecrement`); its flat twin is `budget_realFlat` (`StepFlat`). -/
 theorem budget_real {H : ℕ} (hH : 4000000 ≤ H) :
     (3/2) * (H:ℝ) * Real.log 2 / (Real.log H)^2 + Real.log 2
       ≤ (H:ℝ) / (4 * Real.log H * Real.log (Real.log (Real.log H))) := by
