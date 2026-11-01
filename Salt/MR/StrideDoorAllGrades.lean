@@ -32,7 +32,7 @@ open private norm_windowExpSum_trivial from Salt.Entropy.Chowla.MRTDoor
 (`StrideDoorAllGrades`)
 
 The graded lane's crown `mrtUniformityXiL2AffW_holds_flat_stride_g12b`
-(`StridePairReceiptG12b.lean:1092`) is the affine `L²` MRT door at stride `a` and twist `h` under
+(`StridePairReceiptG12b.lean:1081`) is the affine `L²` MRT door at stride `a` and twist `h` under
 THREE caps: `log (a·h) ≤ 9`, the ε-pin `ε = 1/(500·a·h)`, and the grade pinned at
 `837782·2^12·(a·h)²`.  ARM Z states the same door with the three caps GONE — stride and twist FREE,
 the grade a QUANTIFIER `∀ ρ > 0`, `ε` over its range `[1/(500·a·h), 1/500]` — as the statement of
@@ -693,7 +693,7 @@ theorem chowlaRegimeFlat_exists_param_head_xceil_mul_at_L (a : ℕ) (ha : 1 ≤ 
 /-! ## §E — THE HEAD AT THE TRIVIAL PAYLOAD, AND THE SHRINK -/
 
 /-- **⟦THE DOOR-HEAD AT THE CHARGE⟧** (`flat_door_head_xceil_h_Z`) — G12b's
-`flat_door_head_xceil_h_g12b` (`StridePairReceiptG12b.lean:907`) at the charge and at the TRIVIAL
+`flat_door_head_xceil_h_g12b` (`StridePairReceiptG12b.lean:896`) at the charge and at the TRIVIAL
 payload `fun _ => True`: (a) the count `2^539 ↦ 2^283·c^20·h` is `hcount`'s, read at `Xi ε`; the
 ε-pin `1/(500h) ≤ ε` is the binder `hεh`, with the charge pin `hcε` beside it; the grade pin
 `1/(838400·c) ≤ δ₀` is proved from `hcε` exactly as rung 2's head proves its pin
@@ -1326,18 +1326,7 @@ theorem flat_capstone_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L
           simpa using (by linarith : (0:ℝ) ≤ 2 * ((h : ℝ) ^ 7 * rStrWitness H)))
     positivity
   · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
-    intro H hlo hhi
-    have harc1 : (1 : ℝ) ≤ (h : ℝ) * arcDen 12 H := one_le_hArcDen_of_regime hh hlo
-    have hSR1 : (1 : ℝ) ≤ strataResidualH h H := one_le_strataResidualH harc1
-    have hSRsq : (1 : ℝ) ≤ strataResidualH h H ^ 2 := by nlinarith
-    have hRSle : RSanDoorRhoH ρ h H ≤ rSanWitness H := by
-      have h1 : RSanDoorRhoH ρ h H ≤ 1 := by
-        unfold RSanDoorRhoH
-        rw [div_le_one (by nlinarith)]
-        linarith
-      exact le_trans h1 (le_max_left _ _)
-    have hG := g2_of_j0_floor_h h hh H (j₀ := doorRowFloorL M) (hj0 H hlo hhi)
-    linarith
+    exact gate6_rhoH_of_j0_floor hh hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
     have hH0 : 0 < H := by
@@ -2295,7 +2284,7 @@ theorem zSplit_arm_L2 {ε : ℚ} {c : ℕ} (hc1 : 1 ≤ c)
   linarith [hlow, hstep]
 
 /-- **⟦H2→H3 AT THE CHARGE⟧ — `flat_conditional_generic_h_Z`.** G12b's
-`flat_conditional_generic_h_g12b` (`StridePairReceiptG12b.lean:497`) on the Z forms.  THE ONE
+`flat_conditional_generic_h_g12b` (`StridePairReceiptG12b.lean:486`) on the Z forms.  THE ONE
 STRIDE-SPENDING SITE: G12b's `hlogA : log a ≤ 9` (from `a ≤ 8103`) is DELETED and `hprod` reads
 the form's binder `haL : log a ≤ L`; every other read of `a` is cap-free `ℕ` arithmetic,
 transcribed.  THE RIDER at the gate `50 + Lc` (`Lc := log c + L`): the arm is priced by
@@ -2502,7 +2491,7 @@ The kswin hop (H3→H4) is NOT in this file: its crossing spine head has no char
 above).  v7 takes the kswin form as a hypothesis and is proved here. -/
 
 /-- **⟦H4→H5 AT THE CHARGE⟧ — `flat_v7_generic_h_Z`.** G12b's `flat_v7_generic_h_g12b`
-(`StridePairReceiptG12b.lean:790`) on the Z forms.  The two capped suppliers are rung 2's
+(`StridePairReceiptG12b.lean:779`) on the Z forms.  The two capped suppliers are rung 2's
 h-generic ones AT THE TRUE `h` (rule (i)): `cofkR_cofactorSupply_L_gk_rated_L h hh` and
 `s16_baseScaleCap96_LH_at_klevF_L (h := h) hh`, each at `Lc := log c + L`.  The supply's `obtain`
 moves below the terminal's (as rung 2's v7 does), because the charge conjuncts are components of
@@ -4605,7 +4594,7 @@ set_option maxHeartbeats 400000 in
 -- the charge adds the design-floor bridge and the block's floor to G12b's body; measured: the
 -- default budget is exhausted at the declaration (a scratch build of this hop)
 /-- **⟦H3→H4 AT THE CHARGE⟧ — `flat_kswin_generic_h_Z`.** G12b's `flat_kswin_generic_h_g12b`
-(`StridePairReceiptG12b.lean:686`) on the Z forms, at `Lc := log c + L`.  The spine head is §M's
+(`StridePairReceiptG12b.lean:675`) on the Z forms, at `Lc := log c + L`.  The spine head is §M's
 root at the TRUE `h` (`log h ≤ L ≤ log c + L`), and its new antecedent `50 + Lc ≤ loglog R.Hlo` is
 paid as §J pays `hfloor`: `3.2·A ≤ loglog R.Hlo` (`hdes`) and `3.2·A ≥ 1.6·162 + 1.6·(10 + 2·Lc)
 = 275.2 + 3.2·Lc ≥ 50 + Lc`.  Rule (ii), at `h := c`: `flat_witFloor_eq_designBase_L` (the form's
@@ -5326,7 +5315,7 @@ theorem zE_beaten {Kc : ℝ} {c k a : ℕ} {ρ A : ℝ} {Rd : ChowlaRegime}
 cell 24) -/
 
 /-- **⟦THE CHAIN AT THE CHARGE⟧** (`flat_chain_generic_h_Z`) — G12b's `flat_chain_generic_h_g12b`
-(`StridePairReceiptG12b.lean:997`) on the Z forms: the five hops head→roadExit→capstone→conditional
+(`StridePairReceiptG12b.lean:986`) on the Z forms: the five hops head→roadExit→capstone→conditional
 →kswin→v7 composed at the landed binder orders (§F, §H, §J, §N, §K), every `_g12b ↦ _Z`, and the
 cap `hh9` GONE (no hop reads it).  No numeral. -/
 theorem flat_chain_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L : ℝ) (Xi : XiFamily)
@@ -5573,7 +5562,7 @@ guard gained one named exemption for exactly this theorem and its `example`; the
 
 /-- **⟦ZERO LEVEL A — Z AT THE PIN IS THE LANDED CROWN⟧** (`strideDoor_zero_level_g12b`) — from
 `StrideDoorAllGradesW` at `ε := 1/(500·a·h)` and grade `a·ρ₀` (`ρ₀` the landed ceiling), the
-conclusion of `mrtUniformityXiL2AffW_holds_flat_stride_g12b` (StridePairReceiptG12b.lean:1092)
+conclusion of `mrtUniformityXiL2AffW_holds_flat_stride_g12b` (StridePairReceiptG12b.lean:1081)
 VERBATIM, with `Zr := 1`, `E := 0`.  The cap `hah9` is a binder here so the two statements can be
 laid side by side; it is READ NOWHERE (the linter would say so). -/
 theorem strideDoor_zero_level_g12b (hZ : StrideDoorAllGradesW) (a b h : ℕ) (ha : 0 < a)
