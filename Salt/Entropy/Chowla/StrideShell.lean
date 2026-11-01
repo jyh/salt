@@ -399,39 +399,12 @@ set_option maxHeartbeats 1600000 in
 -- circle SLOT all sit in the context while the pin's numerals and the budget witness are
 -- discharged, exactly as at the `h`-lane's flat head (`HloExportFlatH.lean:398`, 1000000)
 -- and the affine budget (`StrideReduce.lean:732`, 1600000); the ceiling here is the latter.
-/-- **F4-S3 (class C, THE HEAD) — `log_chowla_aff_of_door`.**  For `b < a`, `0 < h`,
-`log(a·h) ≤ 7`, the circle-method SLOT `hcm` (F4b's producer, with its cap), the crown's payload
-`hcrown` (the conclusion of `mrtUniformityXiL2AffW_holds_flat_stride`,
-`StridePairReceipt.lean`,
-at the caller's `A₀'` — supplied by the MR-side one-liner F4-S6, since this file cannot import
-`Salt.MR`) and every `A₀`: the regime `Ra` of the crown, its door at grade `a·Zr·ρ + E` FORWARDED,
-and beside it THE ENTROPY HALF:
-`∀ ρ' ≤ δ₀_aff, MRTUniformityXiL2AffW h Ra ρ' → ¬ logChowlaFailsAff`,
-with `1/(838400·(ah)²) ≤ δ₀_aff` (the road's own re-mint at `k = ah`, F2 §2).
-
-THE ORDER (the `h`-head's, `HloExportFlatH.lean:256-372`, plain threshold): (1) the leaves —
-`obtain ⟨cE, hcE, hcEge, H₀red, hred⟩ := hreduce_holds_final_aff` (FIVE-WIDE: F4-R6d EXPORTS
-`1/4 ≤ c` since v1.1 — §3 S-7, verdict A1; `hcEge` is READ from the export, never re-derived
-from another existential's `c`),
-`⟨cD3, hcD3, hcD3ge, H₀D3, hD3⟩ := primeWindow_sum_inv_ge_bounded`, `⟨C, hC, hCcap, hcm'⟩ := hcm`;
-(2) THE PIN `ε := 1/(500·(a·h))` and the numerals — `hεcE : ε·a·h = 1/500 ≤ cE/(64·log 4)`
-(`cE ≥ 1/4`, `log 4 < 1.3863`), `hε_D3 : ε ≤ (cD3/a)/16`, `hε_D3C : ε ≤ (cD3/a)/(16·C)` from
-`C ≤ 6.55·h` (`hCcap`, `Real.log_two_lt_d9`), `hδ₀ge : 1/(838400·(ah)²) ≤ (cD3/a)/(16·C)·ε/4`
-(the `h`-head's `hkey` at `a·h`, zero slack), `hε32 : ε ≤ 1/32`; (3) `β' := (cD3/a)·ε/(144·log 4)`
-and `A₀' := max A₀ (max 162 (max (Real.exp (budgetX ε β') / 3.2 + 1)
-(Real.log (Real.log ((max H₀red H₀D3 : ℕ) : ℝ)) / 3.2 + 1)))`; (4) THE CROWN at `A₀'` (the
-binder `hcrown`): `⟨ε, A, …, Ra, hRa, hRb, hReps, hHloB, hdes, ρ, Zr, E, …, hdoorC⟩` — forward
-its payload; (5) `δ₀ := (cD3/a)/(16·C)·ε/4`; then `intro ρ' hρ'pos hρ' hdoor hfail`;
-(6) `obtain ⟨H, hlo, hhi, hdvd, hMI⟩ := entropy_decrementAff Ra.toChowlaRegime` (Tao's range
-`a·Ra.Hlo ≤ H`), `hI` by `mutualInfo_window_comm_aff`; `hH₀` from `nat_le_flatDesignBase` +
-`hHloB` + `hlo`; `hcount : 64·a ≤ ε·H` from `Ra.hcoprime` (`a ≤ ε²·Hlo/2`), `hε32`, `Hlo ≤ H`;
-(7) `hbudget1_witness Ra.toChowlaRegime H (cD3/a) C …` (`SpineFinal.lean:598`) at `hfloor` from
-`budgetFloor_le_flatDesignBase` + `hHloB` + `hlo` (its `cD3/a/4` against the core's `cD3/(4·a)`
-is `div_div` — v1.1, verdict A8(iv)); `hbudget2 : ρ' < (cD3/a)/(16·C)·ε` from
-`hρ'`; (8) `spine_False_core_xi_sq_aff`.  `hcrown`'s shape is the crown's conclusion verbatim,
-at `A₀'`. -/
-theorem log_chowla_aff_of_door (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b < a)
-    (_hah7 : Real.log ((a * h : ℕ) : ℝ) ≤ 7)
+/-- **The affine shell at a free door ceiling `K`** (`log_chowla_aff_of_door_K`).  The proof of
+`log_chowla_aff_of_door` below never reads the ceiling: it forwards the crown's
+`ρ ≤ 1 / K` into the conclusion unchanged.  So it is stated once here, and
+`log_chowla_aff_of_door` (`K = 837782·(a·h)²`), `log_chowla_aff_of_door_g` (`K = 837782·2¹¹·(a·h)²`)
+and `log_chowla_aff_of_door_g12b` (`K = 837782·2¹²·(a·h)²`) are its instances. -/
+theorem log_chowla_aff_of_door_K (a b h : ℕ) (K : ℝ) (ha : 0 < a) (hh : 0 < h) (hba : b < a)
     (hcm : ∃ C : ℝ, 0 < C ∧ C ≤ (h : ℝ) * (1 + 2 * (2 * Real.log 4)) ∧
       ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),
       (∀ i, |x1 i| ≤ 1) →
@@ -449,7 +422,7 @@ theorem log_chowla_aff_of_door (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b 
         ε = 1 / (500 * ((a * h : ℕ) : ℚ)) ∧ 162 ≤ A ∧ A₀' ≤ A ∧
         ∃ Ra : ChowlaRegimeAff, Ra.a = a ∧ Ra.b = b ∧ Ra.eps = ε ∧
           flatDesignBase A ≤ Ra.Hlo ∧ 3.2 * A ≤ Real.log (Real.log (Ra.Hlo : ℝ)) ∧
-          ∃ (ρ Zr E : ℝ), 0 < ρ ∧ ρ ≤ 1 / (837782 * ((a * h : ℕ) : ℝ) ^ 2) ∧
+          ∃ (ρ Zr E : ℝ), 0 < ρ ∧ ρ ≤ 1 / (K) ∧
             1 ≤ Zr ∧ Zr ≤ 1.02 ∧ 0 ≤ E ∧
             E ≤ 2 ^ 539 * (a : ℝ) / (((a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1)
                 * (Real.log (Ra.ω : ℝ) - 1)) ∧
@@ -458,7 +431,7 @@ theorem log_chowla_aff_of_door (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b 
     ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ ε = 1 / (500 * ((a * h : ℕ) : ℚ)) ∧ 162 ≤ A ∧ A₀ ≤ A ∧
       ∃ Ra : ChowlaRegimeAff, Ra.a = a ∧ Ra.b = b ∧ Ra.eps = ε ∧
         flatDesignBase A ≤ Ra.Hlo ∧ 3.2 * A ≤ Real.log (Real.log (Ra.Hlo : ℝ)) ∧
-        (∃ (ρ Zr E : ℝ), 0 < ρ ∧ ρ ≤ 1 / (837782 * ((a * h : ℕ) : ℝ) ^ 2) ∧
+        (∃ (ρ Zr E : ℝ), 0 < ρ ∧ ρ ≤ 1 / (K) ∧
           1 ≤ Zr ∧ Zr ≤ 1.02 ∧ 0 ≤ E ∧
           E ≤ 2 ^ 539 * (a : ℝ) / (((a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1)
               * (Real.log (Ra.ω : ℝ) - 1)) ∧
@@ -647,6 +620,75 @@ theorem log_chowla_aff_of_door (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b 
     C hC hcmR H hdvd hlo hhi hH₀ hepscR hcountR t g
     ((H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H)))) (cD3 / (a : ℝ) / (16 * C))
     ht hg hgle hI hbudget1 hbudget2 hfailR
+
+/-- **F4-S3 (class C, THE HEAD) — `log_chowla_aff_of_door`.**  For `b < a`, `0 < h`,
+`log(a·h) ≤ 7`, the circle-method SLOT `hcm` (F4b's producer, with its cap), the crown's payload
+`hcrown` (the conclusion of `mrtUniformityXiL2AffW_holds_flat_stride`,
+`StridePairReceipt.lean`,
+at the caller's `A₀'` — supplied by the MR-side one-liner F4-S6, since this file cannot import
+`Salt.MR`) and every `A₀`: the regime `Ra` of the crown, its door at grade `a·Zr·ρ + E` FORWARDED,
+and beside it THE ENTROPY HALF:
+`∀ ρ' ≤ δ₀_aff, MRTUniformityXiL2AffW h Ra ρ' → ¬ logChowlaFailsAff`,
+with `1/(838400·(ah)²) ≤ δ₀_aff` (the road's own re-mint at `k = ah`, F2 §2).
+
+THE ORDER (the `h`-head's, `HloExportFlatH.lean:256-372`, plain threshold): (1) the leaves —
+`obtain ⟨cE, hcE, hcEge, H₀red, hred⟩ := hreduce_holds_final_aff` (FIVE-WIDE: F4-R6d EXPORTS
+`1/4 ≤ c` since v1.1 — §3 S-7, verdict A1; `hcEge` is READ from the export, never re-derived
+from another existential's `c`),
+`⟨cD3, hcD3, hcD3ge, H₀D3, hD3⟩ := primeWindow_sum_inv_ge_bounded`, `⟨C, hC, hCcap, hcm'⟩ := hcm`;
+(2) THE PIN `ε := 1/(500·(a·h))` and the numerals — `hεcE : ε·a·h = 1/500 ≤ cE/(64·log 4)`
+(`cE ≥ 1/4`, `log 4 < 1.3863`), `hε_D3 : ε ≤ (cD3/a)/16`, `hε_D3C : ε ≤ (cD3/a)/(16·C)` from
+`C ≤ 6.55·h` (`hCcap`, `Real.log_two_lt_d9`), `hδ₀ge : 1/(838400·(ah)²) ≤ (cD3/a)/(16·C)·ε/4`
+(the `h`-head's `hkey` at `a·h`, zero slack), `hε32 : ε ≤ 1/32`; (3) `β' := (cD3/a)·ε/(144·log 4)`
+and `A₀' := max A₀ (max 162 (max (Real.exp (budgetX ε β') / 3.2 + 1)
+(Real.log (Real.log ((max H₀red H₀D3 : ℕ) : ℝ)) / 3.2 + 1)))`; (4) THE CROWN at `A₀'` (the
+binder `hcrown`): `⟨ε, A, …, Ra, hRa, hRb, hReps, hHloB, hdes, ρ, Zr, E, …, hdoorC⟩` — forward
+its payload; (5) `δ₀ := (cD3/a)/(16·C)·ε/4`; then `intro ρ' hρ'pos hρ' hdoor hfail`;
+(6) `obtain ⟨H, hlo, hhi, hdvd, hMI⟩ := entropy_decrementAff Ra.toChowlaRegime` (Tao's range
+`a·Ra.Hlo ≤ H`), `hI` by `mutualInfo_window_comm_aff`; `hH₀` from `nat_le_flatDesignBase` +
+`hHloB` + `hlo`; `hcount : 64·a ≤ ε·H` from `Ra.hcoprime` (`a ≤ ε²·Hlo/2`), `hε32`, `Hlo ≤ H`;
+(7) `hbudget1_witness Ra.toChowlaRegime H (cD3/a) C …` (`SpineFinal.lean:598`) at `hfloor` from
+`budgetFloor_le_flatDesignBase` + `hHloB` + `hlo` (its `cD3/a/4` against the core's `cD3/(4·a)`
+is `div_div` — v1.1, verdict A8(iv)); `hbudget2 : ρ' < (cD3/a)/(16·C)·ε` from
+`hρ'`; (8) `spine_False_core_xi_sq_aff`.  `hcrown`'s shape is the crown's conclusion verbatim,
+at `A₀'`. -/
+theorem log_chowla_aff_of_door (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b < a)
+    (_hah7 : Real.log ((a * h : ℕ) : ℝ) ≤ 7)
+    (hcm : ∃ C : ℝ, 0 < C ∧ C ≤ (h : ℝ) * (1 + 2 * (2 * Real.log 4)) ∧
+      ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),
+      (∀ i, |x1 i| ≤ 1) →
+      a ∣ H →
+      ((primeWindow eps H).card : ℝ)
+          ≤ (2 * Real.log 4) * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) →
+      |∑ p : primeWindow eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+          if ((j + 1 : ℕ) : ZMod a) = (((p : ℕ) * b : ℕ) : ZMod a) then
+            (windowVal H x1 j : ℝ) * (windowVal H x1 (j + (p : ℕ) * h) : ℝ) else 0|
+        ≤ C * ((H : ℝ) / Real.log (H : ℝ))
+            * ((eps : ℝ) ^ 2 + ∑ ξ ∈ bigXiAff a b h eps H, (1 / (H : ℝ) ^ 2)
+                * ‖(ZMod.dft (fun j : ZMod H => (windowVal H x1 (ZMod.val j) : ℂ))) ξ‖ ^ 2))
+    (hcrown : ∀ A₀' : ℝ,
+      ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / (500 * ((a * h : ℕ) : ℚ)) ≤ ε ∧
+        ε = 1 / (500 * ((a * h : ℕ) : ℚ)) ∧ 162 ≤ A ∧ A₀' ≤ A ∧
+        ∃ Ra : ChowlaRegimeAff, Ra.a = a ∧ Ra.b = b ∧ Ra.eps = ε ∧
+          flatDesignBase A ≤ Ra.Hlo ∧ 3.2 * A ≤ Real.log (Real.log (Ra.Hlo : ℝ)) ∧
+          ∃ (ρ Zr E : ℝ), 0 < ρ ∧ ρ ≤ 1 / (837782 * ((a * h : ℕ) : ℝ) ^ 2) ∧
+            1 ≤ Zr ∧ Zr ≤ 1.02 ∧ 0 ≤ E ∧
+            E ≤ 2 ^ 539 * (a : ℝ) / (((a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1)
+                * (Real.log (Ra.ω : ℝ) - 1)) ∧
+            MRTUniformityXiL2AffW h Ra ((a : ℝ) * Zr * ρ + E))
+    (A₀ : ℝ) :
+    ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ ε = 1 / (500 * ((a * h : ℕ) : ℚ)) ∧ 162 ≤ A ∧ A₀ ≤ A ∧
+      ∃ Ra : ChowlaRegimeAff, Ra.a = a ∧ Ra.b = b ∧ Ra.eps = ε ∧
+        flatDesignBase A ≤ Ra.Hlo ∧ 3.2 * A ≤ Real.log (Real.log (Ra.Hlo : ℝ)) ∧
+        (∃ (ρ Zr E : ℝ), 0 < ρ ∧ ρ ≤ 1 / (837782 * ((a * h : ℕ) : ℝ) ^ 2) ∧
+          1 ≤ Zr ∧ Zr ≤ 1.02 ∧ 0 ≤ E ∧
+          E ≤ 2 ^ 539 * (a : ℝ) / (((a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1)
+              * (Real.log (Ra.ω : ℝ) - 1)) ∧
+          MRTUniformityXiL2AffW h Ra ((a : ℝ) * Zr * ρ + E)) ∧
+        ∃ δ₀ : ℝ, 0 < δ₀ ∧ 1 / (838400 * ((a * h : ℕ) : ℝ) ^ 2) ≤ δ₀ ∧
+          ∀ ρ' : ℝ, 0 < ρ' → ρ' ≤ δ₀ → MRTUniformityXiL2AffW h Ra ρ' →
+            ¬ logChowlaFailsAff a b h Ra.eps Ra.x Ra.ω :=
+  log_chowla_aff_of_door_K a b h _ ha hh hba hcm hcrown A₀
 
 /-! ## F4-S4 — the `(1, 0)` compat of the shell -/
 
