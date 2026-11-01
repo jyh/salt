@@ -21,7 +21,7 @@ advance and the ball-leg supply is carried as the `hStation` binder rather than 
 
 The landed proof's witness is `max (max X₁ ballMertensThreshold) (exp 4096)` with `X₁` from
 `center_halasz_supply_wide hgF t₀ (fun x => (log x)^4)` — and that supply is ALREADY uniform
-in the centre (`t₁` is the first variable under its own `∃X₀`, `SPartStation` :302–319).  So
+in the centre (`t₁` is the first variable under its own `∃X₀`, `SPartStation` :169–186).  So
 the witness is `t₁`-free and the quantifier order is an artefact of the statement, not of
 the mathematics.  This file states the twin with the order fixed:
 

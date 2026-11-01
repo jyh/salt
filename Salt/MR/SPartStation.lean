@@ -151,7 +151,7 @@ theorem eIu_natCast_mul (t₁ : ℝ) {u v : ℕ} (hu : u ≠ 0) (hv : v ≠ 0) :
 /-! ## §1 (R6) — THE WIDE-WINDOW GRADE PAGE AND CENTRE SUPPLY -/
 
 /-- **R6 — THE WIDE-WINDOW CENTRE SUPPLY (`center_halasz_supply_wide`).**
-`SupplyGeneric.center_halasz_supply_Y` (:257) re-cut from the DYADIC window
+`SupplyGeneric.center_halasz_supply_Y` (:111) re-cut from the DYADIC window
 `⌊X⌋₊ ≤ k ≤ N ≤ 2X` to the WIDE window `√X ≤ k` — the range Route III's dissection head
 actually walks (`⌊k/d⌋` for `d ≤ D`, `k ∈ [X, 2X]`).
 
@@ -354,7 +354,7 @@ transported explicitly:
 at the corpus pin `y = (log k)^4`, `η = 1/log y`, `h = k/√(log k)`, `c₀ = 1 + 1/log k`.
 
 **What is consumed, and where.**  The main term is `GradeWindowC.rhs_grade_at_scale_windowC`
-(:582) — the LANDED FREE-`M` face, whose floor binder is the WINDOW one `hMwin` alone
+(:583) — the LANDED FREE-`M` face, whose floor binder is the WINDOW one `hMwin` alone
 (`hmin`, `hgate`, `hMt` are gone; `M` is a free real named by the consumer) — at
 `M := max 0 (M₀ − dilGap X Xd)` (the `max` discharges its `0 ≤ M` gate for free and only
 strengthens the exit, since `c > 0`).  The far arm rides additively and is closed by the
@@ -713,7 +713,7 @@ set_option maxHeartbeats 1000000 in
 -- As at `SupStation.seam_ball_leg_station_M`: the crown's binder block is instantiated
 -- wholesale and the `S`-slot carries the assembled grade expression twice.
 /-- **R7 (the AS-twin) — THE STATION EXIT AT GENERAL `F` (`seam_ball_leg_station_M_gen`).**
-`SupStation.seam_ball_leg_station_M` (:717) with the DATUM GENERALIZED from
+`SupStation.seam_ball_leg_station_M` (:583) with the DATUM GENERALIZED from
 `seamCoeff (ellLin g) 1 t₀` to `seamCoeff F 1 t₀` at any `1`-bounded multiplicative `F`:
 
   `‖A_t(m)‖ ≤ ballSupS X S₀ · m/(1+|t−t₁|)`,

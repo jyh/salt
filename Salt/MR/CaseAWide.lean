@@ -90,7 +90,7 @@ open scoped BigOperators Topology
 /-! ## §1 — THE X₀ HOIST: the wide centre supply with `∃ X₀` BEFORE the datum -/
 
 /-- **THE WIDE CENTRE SUPPLY, DATUM-HOISTED** (`center_halasz_supply_wideA`).
-`SPartStation.center_halasz_supply_wide` (:302) with the `∃ X₀` quantified BEFORE the datum
+`SPartStation.center_halasz_supply_wide` (:169) with the `∃ X₀` quantified BEFORE the datum
 `g` and the centre `t₀`.
 
 **The route: BOUNDS-UNIFORM, not finite-max.**  The landed witness
@@ -270,7 +270,7 @@ lemma caseASwide_nonneg {c Cb M Xw Xa : ℝ} (hc1 : 2 * c < 1) (hCb0 : 0 ≤ Cb)
   linarith
 
 /-- **E-1b AT `y₂`, ON THE WIDE WINDOW** (`caseA_partial_supply_wide`).
-`CaseASocket.caseA_partial_supply2` (:918) with `center_halasz_supply_YA` replaced by §1's
+`CaseASocket.caseA_partial_supply2` (:773) with `center_halasz_supply_YA` replaced by §1's
 wide hoist: the twisted partial sums of the DAMPED datum are linear with `caseASwide` at every
 scale of `[Xw, 2Xa]`, **uniformly over the damping parameter `x ∈ [0,1]`**.
 

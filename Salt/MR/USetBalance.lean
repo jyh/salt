@@ -579,7 +579,7 @@ that §7's exit byte-fits the row's `hU` slot — the set
 `‖spoly N a t‖^2`, and the direction of the inequality are the row's, verbatim.
 
 The plug-point is `prop_A3_T1_row_split_weighted` (`SeamBallWeighted`:248) rather than
-`prop_A3_T1_row_station` (`SupStation`:782): the station's extra content is a PRODUCED `t₁`
+`prop_A3_T1_row_station` (`SupStation`:648): the station's extra content is a PRODUCED `t₁`
 (a near-minimiser it manufactures), whereas §7's exit needs `t₁` as a FREE parameter (the
 far-leg radius `Rrad ≤ |t − t₁|` and the ball datum `pretDistSq … (costwist t₁)` are stated
 about the same `t₁` the `𝒰` integral is centred on).  Composing with the station is a

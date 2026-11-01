@@ -686,7 +686,7 @@ theorem rhs_grade_at_scale_windowC {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
 The grade page and its arithmetic helpers are `CenterGrade`'s. -/
 
 /-- **W4-6 — THE CENTRE SUPPLY AT AN ABSTRACT GRADE FACTOR, UNIFORM IN THE CENTRE**
-(`center_halasz_supply_B_uniform`).  `CenterSupply.center_halasz_supply` (:296) with the
+(`center_halasz_supply_B_uniform`).  `CenterSupply.center_halasz_supply` (:164) with the
 grade factor `C₁·e^{−(1/(2e))·𝔻²(f, p^{it₁}; X)}` replaced by an OPAQUE nonneg `B`:
 
   `hRHS : ∀ k ∈ [⌊X⌋₊, N],  ‖prop21RHS (damped datum) (t₀+t₁) k h c₀ y η‖ ≤ B·k`
@@ -817,7 +817,7 @@ theorem center_halasz_supply_B_uniform {g : ℕ → ℂ} (hg : ∀ p, p.Prime �
   linarith
 /-- **W4-6 face — the `CenterSupply` binder shape** (`center_halasz_supply_B`).
 `center_halasz_supply_B_uniform` at a fixed centre: `CenterSupply.center_halasz_supply`
-(:296) byte-for-byte with the grade factor abstracted to `B`. -/
+(:164) byte-for-byte with the grade factor abstracted to `B`. -/
 theorem center_halasz_supply_B {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ t₁ : ℝ) :
     ∃ X₀ : ℝ, 0 < X₀ ∧
       ∀ (X : ℝ) (N : ℕ) (B : ℝ), X₀ ≤ X → X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → 0 ≤ B →
