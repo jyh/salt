@@ -43,6 +43,7 @@ import Salt.Entropy.Chowla.HloExportFlat
 import Salt.Entropy.Chowla.HeadPinLeavesH
 import Salt.Entropy.Chowla.Theorem23Shell
 import Salt.Entropy.Chowla.GoldbachEnergyKcH
+import Salt.Entropy.Chowla.HeadFloors
 
 open MeasureTheory ProbabilityTheory
 open scoped BigOperators
@@ -50,7 +51,7 @@ open scoped BigOperators
 namespace Salt.Entropy.Chowla
 
 /-- The max-lattice shuffle of the flat cap, `h`-file copy: `HloExportFlat.flatCap_shuffle`
-(`HloExportFlat.lean:50`) is `private` to its own module, so the twin restates it here.
+(`HloExportFlat.lean:51`) is `private` to its own module, so the twin restates it here.
 Pure `ℕ` lattice arithmetic — no shift enters. -/
 private lemma flatCapH_shuffle (a b c d e : ℕ) :
     max a (max (max b (max d e)) c) ≤ max (max a (max b c)) (max d e) := by
@@ -58,7 +59,7 @@ private lemma flatCapH_shuffle (a b c d e : ℕ) :
 
 /-- **The `L²` spine contradiction core, flat-file twin, AT SHIFT `h`**
 (`spine_False_core_xi_sq_flat_h`) — `HloExportFlat.spine_False_core_xi_sq_flat` (`private`,
-`HloExportFlat.lean:60`) VERBATIM under a fresh name with the shift threaded: the seed is
+`HloExportFlat.lean:61`) VERBATIM under a fresh name with the shift threaded: the seed is
 `singleCorr_of_fails_h`, the reduce arrives from `hreduce_holds_final_h_bounded` at the gate
 `ε·h ≤ cE/(32·log 4)`, the circle estimate sums over `bigXiH h`, and the shell is
 `log_chowla_two_shell_xi_sq_h`.  The bridge is `fBridgeF_h eps H h`; the failure Prop is
@@ -507,15 +508,8 @@ theorem flat_head_uniform_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤
   obtain ⟨Rf, hReps, hRA, hRHlo, hRg, _hRcapEq, hRwid⟩ :=
     chowlaRegimeFlat_exists_param_head A hA26 ε hεQpos hεQ1
       (max F (max extraFloor U1floor)) g₅
-  have hFlo : F ≤ Rf.Hlo := le_trans (le_max_left _ _) hRHlo
-  have hxiHlo : H₀xi ≤ Rf.Hlo := by
-    rw [hFdef, hOpqdef] at hFlo
-    exact le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hFlo
-  have hbudHlo : budgetFloorFlat (ε : ℝ) β A ≤ Rf.Hlo := by
-    rw [hFdef] at hFlo; exact le_trans (le_max_right _ _) hFlo
-  have hredHlo : max H₀red H₀D3 ≤ Rf.Hlo := by
-    rw [hFdef, hOpqdef] at hFlo
-    exact le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hFlo
+  obtain ⟨hFlo, hxiHlo, hbudHlo, hredHlo⟩ :=
+    Salt.Entropy.Chowla.flatHeadFloors_facts hOpqdef hFdef hRHlo
   refine ⟨Rf.toChowlaRegime, hReps,
     le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRHlo,
     le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, ?_,

@@ -1542,7 +1542,7 @@ constant `KXi = h · 32·K_lcm·(2^35)² / ε^10` at `ε = 1/500`, `h`-explicit 
 ⚠️ **READ THE `ε` PIN BEFORE READING THE `h`-CHARGE OFF THIS WITNESS (H1 step 0, 2026-09-01).**
 Here the charge really is `h × (the h = 1 value)` — ONE factor of `h` — but only because this
 lemma pins `R.eps = 1/500`.  The `h` lane's own exit pins `ε = 1/(500·h)`
-(`HloExportFlatH.lean:250`), and the count constant carries `ε^{-10}`
+(`HloExportFlatH.lean:251`), and the count constant carries `ε^{-10}`
 (`bigXi_bounded_explicit`, `GoldbachEnergyN0.lean:726`), so THERE the charge is `h^11`, not `h`.
 Both are correct at their own pin; only the second is the exit's.  (Step 0's number: `h = 1`
 witness ≤ `2^228.06`, `+111.08` bits at `h ≤ 1096`, total `2^339.14` against the `2^539` pin.)
