@@ -14,6 +14,7 @@ import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
 import Salt.MR.ArcRegimeWeaken
 import Salt.Entropy.Chowla.RegimeHeadroom
+import Salt.MR.DesignEightArms
 
 /-!
 # ⟦TIER S — THE DOOR AT THE HEAD'S GRADE, `ε`-FAMILY: THE CHAIN⟧ (`FlatDoorEpsChain`)
@@ -544,7 +545,7 @@ theorem bigXi_bounded_ceiling_of_cap (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 
 /-- **⟦THE `A`-UNIFORM FLAT HEAD AT GENERIC `ε`, LEAVES PINNED, TAIL KEPT⟧**
 (`flat_head_uniform_xceil_eps`) — `flat_head_uniform_xceil` (`XThread.lean:514`) with the pin
 `ε := 1/500` replaced by the parameter under `0 < ε ≤ 1/500` and the cap, the leaves' witnesses
-PINNED as the door-head pins them (`DoorReceipt.lean:949`, `cD3 = 1/4`, `C = 1 + 2·(2·log 4)`) so
+PINNED as the door-head pins them (`DoorReceipt.lean:912`, `cD3 = 1/4`, `C = 1 + 2·(2·log 4)`) so
 that the mint is the EXACT `ε/(256·(1 + 4·log 4))`, and the head's TAIL — the entropy collision —
 kept, which the door-head drops.  Keeping both is what forces the two transports: the `D3` floor
 and the circle-method grade are stated at the `∃`-witnesses, and each moves to the pinned witness
@@ -573,7 +574,7 @@ theorem flat_head_uniform_xceil_eps (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 /
   have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:949–958`)
+  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:912–921`)
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
@@ -1172,46 +1173,8 @@ theorem flat_v7_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop)
       (max (max (max (max A₀ 162) Awin) (cofkRThr Cq Cb Xsk Y0))
         (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))))) := ⟨_, rfl⟩
   obtain ⟨A, hAdef⟩ : ∃ a : ℝ, a = max (armVt Kvt) A' := ⟨_, rfl⟩
-  have harmA : armVt Kvt ≤ A := by rw [hAdef]; exact le_max_left _ _
-  have hlift : A' ≤ A := by rw [hAdef]; exact le_max_right _ _
-  have hKsA : 16 * Real.log (1 / Ks) / 3 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]; exact le_max_left _ _
-  have hT₀A : T₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_max_left _ _) (le_max_right _ _)
-  have hA162 : (162 : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_right A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hA₀A : A₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_left A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAwinA : Awin ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (max A₀ 162) Awin)
-      (le_max_left _ (cofkRThr Cq Cb Xsk Y0))) (le_max_left _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hthrA : cofkRThr Cq Cb Xsk Y0 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_right (max (max A₀ 162) Awin)
-      (cofkRThr Cq Cb Xsk Y0)) (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAge : budgetAFlat (ε : ℝ) β ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_left (budgetAFlat (ε : ℝ) β) _)
-      (le_max_right _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hx0A : 4 * (x₀ : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_left (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hopqA : ((Hopq : ℕ) : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
+  obtain ⟨harmA, hKsA, hT₀A, hA162, hA₀A, hAwinA, hthrA, hAge, hx0A, hopqA⟩ :=
+    Salt.MR.designEightArms_facts hA'def hAdef
   have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   -- ⟦THE `Ks` WINDOW, AT THE SEVENTH ARM⟧ as in the parent
@@ -1271,7 +1234,7 @@ theorem flat_v7_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop)
     R, hReps, by rw [hHlo]; exact hbase hopq, hRtow, hdes, hwin, hfireR⟩
 
 /-- **⟦THE CHAIN, AT GENERIC `ε`⟧** (`flat_chain_generic_eps`) — H1 ∘ … ∘ H7 at the cap:
-`flat_chain_generic` (`DoorReceipt.lean:1013`) with every hop's `_eps` sibling.  The cap and the
+`flat_chain_generic` (`DoorReceipt.lean:976`) with every hop's `_eps` sibling.  The cap and the
 `δ₀` pin travel INSIDE the forms, so no hop takes them as a hypothesis and this composition is
 the landed one token for token. -/
 theorem flat_chain_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop) (h : FlatHeadFormEps ε P)

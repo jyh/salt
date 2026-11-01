@@ -10,12 +10,13 @@ import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
 import Salt.MR.ArcRegimeWeaken
+import Salt.MR.DesignEightArms
 
 /-!
 # `DoorReceipt` — the spine door, NAMED: the `L²` door at a numeral grade on the flat family
 
 **The finding this file answers** (the EM freeze, refuter-passed 2026-09-02): the live headline
-`logChowla2_v7_rated` (V7Rated.lean:975) PROVES the `L²` MRT door — `MRTUniformityXiL2 R ρ` at
+`logChowla2_v7_rated` (V7Rated.lean:976) PROVES the `L²` MRT door — `MRTUniformityXiL2 R ρ` at
 `ρ ≤ δ₀`, `ε = 1/500`, on every regime of the flat family — inside its own proof, and no theorem
 STATES it.  The head `flat_head_uniform_xceil` (XThread.lean:514) carries the door as a SLOT
 (`∀ ρ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ → ¬ logChowla2Fails …`); the road-side hops
@@ -789,7 +790,7 @@ theorem flat_kswin_generic (P : ChowlaRegime → Prop) (Awin : ℝ)
   exact hfire (flatDoorM A) hsel hKw
     (hsupply hKqb R (flatDoorM A) hM1 hfl hKswR (by rw [hHlo]; exact hT₀) hblk hcof hcapsc)
 
-/-- **⟦H7 FORM⟧** `logChowla2_v7_rated`'s statement (V7Rated.lean:975) with the terminal conjunct `¬
+/-- **⟦H7 FORM⟧** `logChowla2_v7_rated`'s statement (V7Rated.lean:976) with the terminal conjunct `¬
 logChowla2Fails R.eps R.x R.ω` replaced by `P R`.  At `P := (¬ logChowla2Fails ·)` this IS the
 landed headline's statement — `logChowla2_v7_rated_form` below is the kernel's word on that. -/
 def V7RatedForm (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
@@ -809,10 +810,10 @@ def V7RatedForm (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
 
 set_option exponentiation.threshold 4000 in
 set_option maxHeartbeats 3200000 in
--- Same cause as the parent (V7Rated.lean:937): the `∃`-prefix and the window discharges
+-- Same cause as the parent (V7Rated.lean:938): the `∃`-prefix and the window discharges
 -- re-elaborate
 -- the conclusion under the raised lever.
-/-- **⟦H7 REPLAY⟧** `logChowla2_v7_rated` (V7Rated.lean:975) from the generic windowed terminal: the
+/-- **⟦H7 REPLAY⟧** `logChowla2_v7_rated` (V7Rated.lean:976) from the generic windowed terminal: the
 rated co-factor supply, the eight-arm design constant, `g ≡ 0`, the base-scale cap — body
 verbatim, with `hfireR : P R` where the parent has `¬ logChowla2Fails`. -/
 theorem flat_v7_generic (P : ChowlaRegime → Prop)
@@ -836,46 +837,8 @@ theorem flat_v7_generic (P : ChowlaRegime → Prop)
       (max (max (max (max A₀ 162) Awin) (cofkRThr Cq Cb Xsk Y0))
         (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))))) := ⟨_, rfl⟩
   obtain ⟨A, hAdef⟩ : ∃ a : ℝ, a = max (armVt Kvt) A' := ⟨_, rfl⟩
-  have harmA : armVt Kvt ≤ A := by rw [hAdef]; exact le_max_left _ _
-  have hlift : A' ≤ A := by rw [hAdef]; exact le_max_right _ _
-  have hKsA : 16 * Real.log (1 / Ks) / 3 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]; exact le_max_left _ _
-  have hT₀A : T₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_max_left _ _) (le_max_right _ _)
-  have hA162 : (162 : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_right A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hA₀A : A₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_left A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAwinA : Awin ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (max A₀ 162) Awin)
-      (le_max_left _ (cofkRThr Cq Cb Xsk Y0))) (le_max_left _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hthrA : cofkRThr Cq Cb Xsk Y0 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_right (max (max A₀ 162) Awin)
-      (cofkRThr Cq Cb Xsk Y0)) (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAge : budgetAFlat (ε : ℝ) β ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_left (budgetAFlat (ε : ℝ) β) _)
-      (le_max_right _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hx0A : 4 * (x₀ : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_left (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hopqA : ((Hopq : ℕ) : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
+  obtain ⟨harmA, hKsA, hT₀A, hA162, hA₀A, hAwinA, hthrA, hAge, hx0A, hopqA⟩ :=
+    Salt.MR.designEightArms_facts hA'def hAdef
   have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   -- ⟦THE `Ks` WINDOW, AT THE SEVENTH ARM⟧ as in the parent
@@ -1019,7 +982,7 @@ theorem flat_chain_generic (P : ChowlaRegime → Prop) (h : FlatHeadForm P) (A�
 
 /-- **⟦RECEIPT 1 — THE FORM IS THE HEADLINE⟧** (`logChowla2_v7_rated_form`) — the landed
 `logChowla2_v7_rated` inhabits `V7RatedForm` at `P := (¬ logChowla2Fails ·)` by definitional
-unfolding.  Any drift between the form and V7Rated.lean:975 fails to elaborate HERE. -/
+unfolding.  Any drift between the form and V7Rated.lean:976 fails to elaborate HERE. -/
 theorem logChowla2_v7_rated_form (A₀ : ℝ) :
     V7RatedForm (fun R => ¬ logChowla2Fails R.eps R.x R.ω) A₀ :=
   logChowla2_v7_rated A₀
@@ -1043,7 +1006,7 @@ theorem mrtDoorReceipt_v7_form (A₀ : ℝ) : V7RatedForm MRTDoorReceipt A₀ :=
 `A₀` a regime of the flat family (`R.Hlo = flatDesignBase A`, `162 ≤ A`, `A₀ ≤ A`,
 `3.2·A ≤ loglog R.Hlo`) at `ε ≥ 1/500` carrying the Ξ-summed `L²` MRT door at a grade
 `ρ ≤ 1/837782`.  UNCONDITIONAL.  The payload conjuncts are a subset of `logChowla2_v7_rated`'s
-(V7Rated.lean:976–987), read at the same witnesses. -/
+(V7Rated.lean:977–988), read at the same witnesses. -/
 theorem mrtUniformityXiL2_holds_flat (A₀ : ℝ) :
     ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / 500 ≤ ε ∧ 162 ≤ A ∧ A₀ ≤ A ∧
       ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = flatDesignBase A ∧

@@ -11,9 +11,10 @@ import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
 import Salt.Entropy.Chowla.WidthWindow
 import Salt.MR.StridePins
+import Salt.MR.DesignEightArms
 
 -- Needed to transcribe B1/B2/H0/hop1's proofs, the same private names
--- `StridePairReceiptG12b.lean:32-34` opens for the identical purpose.
+-- `StridePairReceiptG12b.lean:33-35` opens for the identical purpose.
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
 open private flatRootCapH_arc_k from Salt.MR.S16ComposeLH
@@ -92,11 +93,11 @@ def xTightCeil (ε : ℚ) (Hhi : ℕ) : ℝ :=
     + 2 * Real.log (((4 ^ ⌊ε ^ 2 * (Hhi : ℚ)⌋₊ : ℕ) : ℝ) + 1)
 
 /-- **⟦S-1⟧ THE TIGHT CEILING WITH THE ARM'S SLACK** — what survives hop 3's rider inflation
-(`StridePairReceiptG12b.lean:599`, `g ↦ s15ArmH h δ₀ ρ + g`): `log (a · s15ArmH …) ≤ 9 + log ω +
+(`StridePairReceiptG12b.lean:600`, `g ↦ s15ArmH h δ₀ ρ + g`): `log (a · s15ArmH …) ≤ 9 + log ω +
 log h + H₊/10²⁰` (`s15ArmH_log_le_g12b`) with `log ω ≤ xTightCeil ε H₊` (the (i-ω) export) and
 `log h ≤ 9`, plus `log 2` for the sum's larger summand.  The shift's cost is the second `9` in the
 `18`, so the definition takes NO shift argument: at C1 the operative shift is `h`, at C2 and the
-crown it is `a·h` (`StridePairReceiptG12b.lean:1080`); both are covered by `log (·) ≤ 9`. -/
+crown it is `a·h` (`StridePairReceiptG12b.lean:1043`); both are covered by `log (·) ≤ 9`. -/
 def xTightCeilArm (ε : ℚ) (Hhi : ℕ) : ℝ :=
   xTightCeil ε Hhi + 18 + Real.log 2 + ((Hhi : ℕ) : ℝ) / 10 ^ 20
 
@@ -1303,46 +1304,8 @@ theorem flat_v7_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : 
       (max (max (max (max A₀ 162) Awin) (cofkRThr Cq Cb Xsk Y0))
         (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))))) := ⟨_, rfl⟩
   obtain ⟨A, hAdef⟩ : ∃ a : ℝ, a = max (armVt Kvt) A' := ⟨_, rfl⟩
-  have harmA : armVt Kvt ≤ A := by rw [hAdef]; exact le_max_left _ _
-  have hlift : A' ≤ A := by rw [hAdef]; exact le_max_right _ _
-  have hKsA : 16 * Real.log (1 / Ks) / 3 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]; exact le_max_left _ _
-  have hT₀A : T₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_max_left _ _) (le_max_right _ _)
-  have hA162 : (162 : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_right A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hA₀A : A₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_left A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAwinA : Awin ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (max A₀ 162) Awin)
-      (le_max_left _ (cofkRThr Cq Cb Xsk Y0))) (le_max_left _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hthrA : cofkRThr Cq Cb Xsk Y0 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_right (max (max A₀ 162) Awin)
-      (cofkRThr Cq Cb Xsk Y0)) (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAge : budgetAFlat (ε : ℝ) β ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_left (budgetAFlat (ε : ℝ) β) _)
-      (le_max_right _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hx0A : 4 * (x₀ : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_left (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hopqA : ((Hopq : ℕ) : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
+  obtain ⟨harmA, hKsA, hT₀A, hA162, hA₀A, hAwinA, hthrA, hAge, hx0A, hopqA⟩ :=
+    Salt.MR.designEightArms_facts hA'def hAdef
   have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   -- ⟦THE `Ks` WINDOW, AT THE SEVENTH ARM⟧ as in the parent

@@ -1625,7 +1625,7 @@ theorem flat_head_uniform_xceil_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
   have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:949–958`)
+  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:912–921`)
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num

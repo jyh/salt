@@ -10,6 +10,7 @@ import Salt.MR.V7SiegelFree
 import Salt.TwinBar.SevenEighthsStandoff
 import Salt.MR.FlatDesignBound
 import Salt.MR.RegimeSupplyFacts
+import Salt.MR.DesignEightArms
 
 /-!
 # The flat door's Ξ_H receipt under a Siegel standoff (O13)
@@ -45,7 +46,7 @@ open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
 set_option exponentiation.threshold 4000
-/-- **⟦STANDOFF TWIN⟧** `flat_v7_generic` (`Salt/MR/DoorReceipt.lean:818`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `flat_v7_generic` (`Salt/MR/DoorReceipt.lean:819`): its statement under the three standoff
 binders, its proof verbatim with `s16_bandLaneWinL_holdsU` replaced by their twins. -/
 theorem flat_v7_generic_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (P : ChowlaRegime → Prop)
@@ -69,46 +70,8 @@ theorem flat_v7_generic_of_standoff {cS : ℝ} (hcS : 0 < cS)
       (max (max (max (max A₀ 162) Awin) (cofkRThr Cq Cb Xsk Y0))
         (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))))) := ⟨_, rfl⟩
   obtain ⟨A, hAdef⟩ : ∃ a : ℝ, a = max (armVt Kvt) A' := ⟨_, rfl⟩
-  have harmA : armVt Kvt ≤ A := by rw [hAdef]; exact le_max_left _ _
-  have hlift : A' ≤ A := by rw [hAdef]; exact le_max_right _ _
-  have hKsA : 16 * Real.log (1 / Ks) / 3 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]; exact le_max_left _ _
-  have hT₀A : T₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_max_left _ _) (le_max_right _ _)
-  have hA162 : (162 : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_right A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hA₀A : A₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_left A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAwinA : Awin ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (max A₀ 162) Awin)
-      (le_max_left _ (cofkRThr Cq Cb Xsk Y0))) (le_max_left _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hthrA : cofkRThr Cq Cb Xsk Y0 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_right (max (max A₀ 162) Awin)
-      (cofkRThr Cq Cb Xsk Y0)) (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAge : budgetAFlat (ε : ℝ) β ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_left (budgetAFlat (ε : ℝ) β) _)
-      (le_max_right _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hx0A : 4 * (x₀ : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_left (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hopqA : ((Hopq : ℕ) : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
+  obtain ⟨harmA, hKsA, hT₀A, hA162, hA₀A, hAwinA, hthrA, hAge, hx0A, hopqA⟩ :=
+    Salt.MR.designEightArms_facts hA'def hAdef
   have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   -- ⟦THE `Ks` WINDOW, AT THE SEVENTH ARM⟧ as in the parent
@@ -154,7 +117,7 @@ open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
 set_option exponentiation.threshold 4000
-/-- **⟦STANDOFF TWIN⟧** `flat_kswin_generic` (`Salt/MR/DoorReceipt.lean:724`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `flat_kswin_generic` (`Salt/MR/DoorReceipt.lean:725`): its statement under the three standoff
 binders, its proof verbatim with `s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin` replaced by their twins. -/
 theorem flat_kswin_generic_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (P : ChowlaRegime → Prop) (Awin : ℝ)
@@ -234,7 +197,7 @@ open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
 set_option exponentiation.threshold 4000
-/-- **⟦STANDOFF TWIN⟧** `flat_chain_generic` (`Salt/MR/DoorReceipt.lean:1013`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `flat_chain_generic` (`Salt/MR/DoorReceipt.lean:976`): its statement under the three standoff
 binders, its proof verbatim with `flat_v7_generic` · `flat_kswin_generic` replaced by their twins. -/
 theorem flat_chain_generic_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (P : ChowlaRegime → Prop) (h : FlatHeadForm P) (A₀ : ℝ) :
@@ -253,7 +216,7 @@ open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
 set_option exponentiation.threshold 4000
-/-- **⟦STANDOFF TWIN⟧** `mrtDoorReceipt_v7_form` (`Salt/MR/DoorReceipt.lean:1037`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `mrtDoorReceipt_v7_form` (`Salt/MR/DoorReceipt.lean:1000`): its statement under the three standoff
 binders, its proof verbatim with `flat_chain_generic` replaced by their twins. -/
 theorem mrtDoorReceipt_v7_form_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) : V7RatedForm MRTDoorReceipt A₀ :=
@@ -268,7 +231,7 @@ open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
 set_option exponentiation.threshold 4000
-/-- **⟦STANDOFF TWIN⟧** `mrtUniformityXiL2_holds_flat` (`Salt/MR/DoorReceipt.lean:1047`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `mrtUniformityXiL2_holds_flat` (`Salt/MR/DoorReceipt.lean:1010`): its statement under the three standoff
 binders, its proof verbatim with `mrtDoorReceipt_v7_form` replaced by their twins. -/
 theorem mrtUniformityXiL2_holds_flat_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) :
@@ -290,7 +253,7 @@ open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
 set_option exponentiation.threshold 4000
-/-- **⟦STANDOFF TWIN⟧** `mrtUniformityXi_holds_flat` (`Salt/MR/DoorReceipt.lean:1110`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `mrtUniformityXi_holds_flat` (`Salt/MR/DoorReceipt.lean:1073`): its statement under the three standoff
 binders, its proof verbatim with `mrtUniformityXiL2_holds_flat` replaced by their twins. -/
 theorem mrtUniformityXi_holds_flat_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) :
