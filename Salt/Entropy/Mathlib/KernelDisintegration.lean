@@ -59,6 +59,10 @@ def condKernel (κ : Kernel T (S × U)) [IsFiniteKernel κ] :
   property := .of_discrete
 -/
 
+/-- At a point `x = (t, s)` whose first-coordinate fibre `{s}` has positive `κ t`-mass, the
+kernel's conditional kernel is the measure-level one: `condKernel κ x = (κ t).condKernel s`,
+from mathlib's `condKernel_apply_eq_condKernel` read pointwise through `ae_iff_of_countable`.
+The base of `condKernel_apply'`. -/
 lemma condKernel_apply (κ : Kernel T (S × U)) [IsFiniteKernel κ] (x : T × S)
     (hx : κ x.1 (Prod.fst ⁻¹' {x.2}) ≠ 0) :
     condKernel κ x = (κ x.1).condKernel x.2 := by
@@ -67,6 +71,12 @@ lemma condKernel_apply (κ : Kernel T (S × U)) [IsFiniteKernel κ] (x : T × S)
   refine h x.2 ?_
   rwa [fst_apply' _ _ (.singleton _)]
 
+/-- The conditional kernel evaluated:
+`condKernel κ x s = (κ x.1 (fst ⁻¹' {x.2}))⁻¹ * κ x.1 ({x.2} ×ˢ s)` when the fibre `{x.2}` has
+positive mass — `condKernel_apply` and `Measure.condKernel_apply_of_ne_zero`. The formula
+`condKernel_compProd_apply'`, `disintegration`, `condKernel_map_prodMk_left`,
+`condKernel_condDistrib_ae_eq`, `condDistrib_const_unit` and `aefiniteKernelSupport_of_cond`
+compute with. -/
 lemma condKernel_apply' (κ : Kernel T (S × U)) [IsFiniteKernel κ]
     (x : T × S) (hx : κ x.1 (Prod.fst ⁻¹' {x.2}) ≠ 0) (s : Set U) :
     condKernel κ x s
@@ -75,6 +85,10 @@ lemma condKernel_apply' (κ : Kernel T (S × U)) [IsFiniteKernel κ]
     Measure.fst_apply (.singleton _)]
   rwa [Measure.fst_apply (.singleton _)]
 
+/-- The conditional kernel of a composition `κ ⊗ₖ η` at `x = (t, s)` with `κ t {s} ≠ 0` is `η x`
+on every measurable set: `condKernel_apply'`, `compProd_apply`, and the two
+`lintegral_eq_single` collapses onto the fibre `s`. The pointwise form behind
+`condKernel_compProd_apply`. -/
 lemma condKernel_compProd_apply' (κ : Kernel T S) [IsFiniteKernel κ]
     (η : Kernel (T × S) U) [IsMarkovKernel η]
     (x : T × S) (hx : κ x.1 {x.2} ≠ 0) {s : Set U} (hs : MeasurableSet s) :
@@ -91,6 +105,8 @@ lemma condKernel_compProd_apply' (κ : Kernel T S) [IsFiniteKernel κ]
     simp [hb, Set.preimage_preimage]
   · measurability
 
+/-- `condKernel (κ ⊗ₖ η) x = η x` when `κ x.1 {x.2} ≠ 0`: `condKernel_compProd_apply'` under
+`ext`. The pointwise statement behind `condKernel_compProd_ae_eq`. -/
 lemma condKernel_compProd_apply (κ : Kernel T S) [IsFiniteKernel κ]
     (η : Kernel (T × S) U) [IsMarkovKernel η]
     (x : T × S) (hx : κ x.1 {x.2} ≠ 0) :
@@ -98,6 +114,10 @@ lemma condKernel_compProd_apply (κ : Kernel T S) [IsFiniteKernel κ]
   ext s hs
   convert condKernel_compProd_apply' κ η x hx hs
 
+/-- `κ = fst κ ⊗ₖ condKernel κ` for a finite kernel into `S × U` (countable, discrete): both
+sides evaluated on a measurable set as a double sum over the fibres, each term through
+`condKernel_apply'`, re-assembled by `measure_iUnion`. The identity `chain_rule`
+(`Kernel/Basic`) and `entropy_triple_add_entropy_le'` (`Kernel/MutualInfo`) open with. -/
 lemma disintegration (κ : Kernel T (S × U)) [IsFiniteKernel κ] :
     κ = (Kernel.fst κ) ⊗ₖ (condKernel κ) := by
   ext x s hs
@@ -131,6 +151,11 @@ lemma disintegration (κ : Kernel T (S × U)) [IsFiniteKernel κ] :
 
 variable [Countable T] [MeasurableSingletonClass S] [MeasurableSingletonClass T]
 
+/-- `condKernel (κ ⊗ₖ η) =ᵐ[μ ⊗ₘ κ] η`: `condKernel_compProd_apply` at every point of positive
+`μ ⊗ₘ κ`-mass (`ae_iff_of_countable`, the mass read as a sum). Read by `condKernel_prod_ae_eq`
+and `ae_eq_condKernel_of_compProd_eq` here, and in `Kernel/MutualInfo` by
+`entropy_condKernel_compProd_triple`, `entropy_submodular_compProd` and
+`entropy_compProd_triple_add_entropy_le`. -/
 lemma condKernel_compProd_ae_eq
     (κ : Kernel T S) [IsFiniteKernel κ]
     (η : Kernel (T × S) U) [IsMarkovKernel η] (μ : Measure T) :
@@ -150,6 +175,9 @@ lemma condKernel_compProd_ae_eq
     exact hy.2
   · simp [hyx1] at hy
 
+/-- `κ ⊗ₖ swapLeft (prodMkLeft β η) = κ ×ₖ η`: a product kernel is the composition with a second
+factor that ignores the first output (`compProd_apply`, `prod_apply'`). The rewrite
+`condKernel_prod_ae_eq` reduces a product to a composition with. -/
 lemma compProd_swapLeft_prodMkLeft {α β γ : Type*} {mα : MeasurableSpace α} {mβ : MeasurableSpace β}
     {mγ : MeasurableSpace γ} (κ : Kernel α β) [IsSFiniteKernel κ]
     (η : Kernel α γ) [IsSFiniteKernel η] :
@@ -157,12 +185,17 @@ lemma compProd_swapLeft_prodMkLeft {α β γ : Type*} {mα : MeasurableSpace α}
   ext x s hs
   simp [compProd_apply hs, prod_apply' _ _ _ hs]
 
+/-- `condKernel (κ ×ₖ η) =ᵐ[μ ⊗ₘ κ] prodMkRight S η`: the product as a composition
+(`compProd_swapLeft_prodMkLeft`), then `condKernel_compProd_ae_eq`. Read by `entropy_prod`
+(`Kernel/Basic`). -/
 lemma condKernel_prod_ae_eq (κ : Kernel T S) [IsFiniteKernel κ] {μ}
     (η : Kernel T U) [IsMarkovKernel η] :
     condKernel (κ ×ₖ η) =ᵐ[μ ⊗ₘ κ] prodMkRight S η := by
   simp_rw [← compProd_swapLeft_prodMkLeft]
   exact condKernel_compProd_ae_eq _ _ _
 
+/-- A kernel `η` with `fst κ ⊗ₖ η = κ` is the conditional kernel of `κ` a.e. (`μ ⊗ₘ fst κ`):
+rewrite `κ` by the hypothesis and apply `condKernel_compProd_ae_eq`. No consumer at 884bd7d7. -/
 lemma ae_eq_condKernel_of_compProd_eq (κ : Kernel T (S × U)) [IsFiniteKernel κ] {μ}
     (η : Kernel (T × S) U) [IsMarkovKernel η] (h : fst κ ⊗ₖ η = κ) :
     η =ᵐ[μ ⊗ₘ fst κ] condKernel κ := by
@@ -170,6 +203,10 @@ lemma ae_eq_condKernel_of_compProd_eq (κ : Kernel T (S × U)) [IsFiniteKernel �
   rw [this]
   exact (condKernel_compProd_ae_eq _ _ _).symm
 
+/-- The conditional kernel of `map κ (fun p ↦ (p.1, f p))` is, a.e. (`μ ⊗ₘ fst κ`), the output
+projection of `condKernel κ` composed with the deterministic kernel of `f`: pointwise through
+`condKernel_apply'` on both sides and `compProd_deterministic_apply`. Read by
+`entropy_snd_sub_mutualInfo_le_entropy_map_of_injective` (`Kernel/MutualInfo`). -/
 lemma condKernel_map_prodMk_left {V : Type*} [Nonempty V] [MeasurableSpace V]
     [DiscreteMeasurableSpace V] [Countable V]
     (κ : Kernel T (S × U)) [IsMarkovKernel κ] (μ : Measure T)
@@ -231,6 +268,10 @@ variable [Countable U] [DiscreteMeasurableSpace U]
 
 variable {X : Ω → S} {Y : Ω → T} {Z : Ω → U}
 
+/-- `condDistrib X Y μ x s = (μ (Y ⁻¹' {x}))⁻¹ * μ (Y ⁻¹' {x} ∩ X ⁻¹' s)` when
+`μ (Y ⁻¹' {x}) ≠ 0`: mathlib's `condDistrib_apply_of_ne_zero` with the two `Measure.map_apply`s
+unfolded. The formula every `condDistrib` identity in this file computes with, and
+`condEntropy_eq_kernel_entropy` (`Salt/Entropy/Basic`) reads. -/
 lemma condDistrib_apply' [Nonempty S] (hX : Measurable X) (hY : Measurable Y) (μ : Measure Ω)
     [IsFiniteMeasure μ] (x : T) (hYx : μ (Y ⁻¹' {x}) ≠ 0) {s : Set S} (hs : MeasurableSet s) :
     condDistrib X Y μ x s = (μ (Y ⁻¹' {x}))⁻¹ * μ (Y ⁻¹' {x} ∩ X ⁻¹' s) := by
@@ -240,6 +281,9 @@ lemma condDistrib_apply' [Nonempty S] (hX : Measurable X) (hY : Measurable Y) (�
     congr
   · rwa [Measure.map_apply hY (.singleton _)]
 
+/-- `condDistrib X Y μ x = (μ[|Y ⁻¹' {x}]).map X` when `μ (Y ⁻¹' {x}) ≠ 0`: `condDistrib_apply'`
+and `cond_apply` under `ext`. The pointwise form behind `condDistrib_ae_eq`; read by
+`condDistrib_eq_prod_of_indepFun`. -/
 lemma condDistrib_apply [Nonempty S] (hX : Measurable X) (hY : Measurable Y) (μ : Measure Ω)
     [IsFiniteMeasure μ]
     (x : T) (hYx : μ (Y ⁻¹' {x}) ≠ 0) :
@@ -250,6 +294,9 @@ lemma condDistrib_apply [Nonempty S] (hX : Measurable X) (hY : Measurable Y) (μ
 
 variable [Countable T]
 
+/-- `condDistrib X Y μ =ᵐ[μ.map Y] fun x ↦ (μ[|Y ⁻¹' {x}]).map X`: `condDistrib_apply` at every
+`x` of positive `μ.map Y`-mass (`ae_iff_of_countable`). Read by
+`aefiniteKernelSupport_condDistrib` (`Kernel/Basic`). -/
 lemma condDistrib_ae_eq [Nonempty S] (hX : Measurable X) (hY : Measurable Y) (μ : Measure Ω)
     [IsFiniteMeasure μ] :
     condDistrib X Y μ =ᵐ[μ.map Y] fun x ↦ (μ[|Y ⁻¹' {x}]).map X := by
@@ -260,6 +307,9 @@ lemma condDistrib_ae_eq [Nonempty S] (hX : Measurable X) (hY : Measurable Y) (μ
 
 variable [Nonempty T]
 
+/-- At a `u` with `μ (Z ⁻¹' {u}) ≠ 0`, the first marginal of the conditional distribution of the
+pair `(X, Y)` given `Z` is the conditional distribution of `X` given `Z`: both sides by
+`condDistrib_apply'`. The pointwise form behind `condDistrib_fst_ae_eq`. -/
 lemma condDistrib_fst_of_ne_zero [Nonempty S]
     (hX : Measurable X) (hY : Measurable Y) (hZ : Measurable Z) (μ : Measure Ω) [IsFiniteMeasure μ]
     (u : U) (hu : μ (Z ⁻¹' {u}) ≠ 0) :
@@ -271,6 +321,9 @@ lemma condDistrib_fst_of_ne_zero [Nonempty S]
   rw [condDistrib_apply' hX hZ _ _ hu hA]
   rfl
 
+/-- `fst (condDistrib (X, Y) Z μ) =ᵐ[μ.map Z] condDistrib X Z μ`: `condDistrib_fst_of_ne_zero`
+at every point of positive mass. Read by `condEntropy_two_eq_kernel_entropy`
+(`Salt/Entropy/Basic`) through `Measure.compProd_congr`. -/
 lemma condDistrib_fst_ae_eq [Nonempty S] (hX : Measurable X) (hY : Measurable Y) (hZ : Measurable Z)
     (μ : Measure Ω) [IsFiniteMeasure μ] :
     Kernel.fst (condDistrib (fun a ↦ (X a, Y a)) Z μ)
@@ -280,6 +333,9 @@ lemma condDistrib_fst_ae_eq [Nonempty S] (hX : Measurable X) (hY : Measurable Y)
   rw [condDistrib_fst_of_ne_zero hX hY hZ]
   rwa [Measure.map_apply hZ (.singleton _)] at hx
 
+/-- At a `u` with `μ (Z ⁻¹' {u}) ≠ 0`, the second marginal of the conditional distribution of
+the pair `(X, Y)` given `Z` is the conditional distribution of `Y` given `Z`: both sides by
+`condDistrib_apply'`. The pointwise form behind `condDistrib_snd_ae_eq`. -/
 lemma condDistrib_snd_of_ne_zero [Nonempty S]
     (hX : Measurable X) (hY : Measurable Y) (hZ : Measurable Z)
     (μ : Measure Ω) [IsFiniteMeasure μ] (u : U) (hu : μ (Z ⁻¹' {u}) ≠ 0) :
@@ -291,6 +347,9 @@ lemma condDistrib_snd_of_ne_zero [Nonempty S]
   rw [condDistrib_apply' hY hZ _ _ hu hA]
   rfl
 
+/-- `snd (condDistrib (X, Y) Z μ) =ᵐ[μ.map Z] condDistrib Y Z μ`: `condDistrib_snd_of_ne_zero`
+at every point of positive mass. Read by `entropy_submodular` (`Salt/Entropy/Basic`) through
+`Kernel.entropy_congr`. -/
 lemma condDistrib_snd_ae_eq [Nonempty S] (hX : Measurable X) (hY : Measurable Y) (hZ : Measurable Z)
     (μ : Measure Ω) [IsFiniteMeasure μ] :
     Kernel.snd (condDistrib (fun a ↦ (X a, Y a)) Z μ)
@@ -300,6 +359,11 @@ lemma condDistrib_snd_ae_eq [Nonempty S] (hX : Measurable X) (hY : Measurable Y)
   rw [condDistrib_snd_of_ne_zero hX hY hZ]
   rwa [Measure.map_apply hZ (.singleton _)] at hx
 
+/-- The conditional kernel of `condDistrib (X, Y) Z μ` is, a.e. (`μ.map (Z, X)`), the
+conditional distribution of `Y` given the pair `(Z, X)`: `condKernel_apply'` and
+`condDistrib_apply'` on both sides, the two masses cancelled in `ℝ≥0∞`
+(`ENNReal.mul_inv_cancel`). Read by `condEntropy_two_eq_kernel_entropy`
+(`Salt/Entropy/Basic`). -/
 lemma condKernel_condDistrib_ae_eq [Nonempty S]
     (hX : Measurable X) (hY : Measurable Y) (hZ : Measurable Z) (μ : Measure Ω)
     [IsFiniteMeasure μ] :
@@ -355,6 +419,10 @@ lemma condKernel_condDistrib_ae_eq [Nonempty S]
   _ = (μ (Z ⁻¹' {x.1} ∩ X ⁻¹' {x.2}))⁻¹ * μ (Z ⁻¹' {x.1} ∩ X ⁻¹' {x.2} ∩ Y ⁻¹' A) := by
         rw [ENNReal.mul_inv_cancel hx1 (measure_ne_top _ _), one_mul, Set.inter_assoc]
 
+/-- Conditioning on the pair in either order:
+`comap (condDistrib Y (X, Z) μ) Prod.swap =ᵐ[μ.map (Z, X)] condDistrib Y (Z, X) μ`, by
+`condDistrib_apply'` on both sides and the swapped fibre `{Prod.swap x}`. Read by
+`condEntropy_two_eq_kernel_entropy` (`Salt/Entropy/Basic`). -/
 lemma swap_condDistrib_ae_eq (hX : Measurable X) (hY : Measurable Y) (hZ : Measurable Z)
     (μ : Measure Ω) [IsFiniteMeasure μ] :
     Kernel.comap (condDistrib Y (fun a ↦ (X a, Z a)) μ) Prod.swap measurable_swap
@@ -373,6 +441,10 @@ lemma swap_condDistrib_ae_eq (hX : Measurable X) (hY : Measurable Y) (hZ : Measu
   swap; · rwa [Measure.map_apply (hZ.prodMk hX) (.singleton _)] at hx
   rw [h_swap]
 
+/-- The conditional kernel of the constant kernel `const Unit (μ.map (X, Y))` is, a.e.
+(`μ.map ((), X)`), `prodMkLeft Unit (condDistrib Y X μ)`: `condKernel_apply'` on the left,
+`condDistrib_apply'` on the right. Read by `chain_rule'` (`Salt/Entropy/Basic`) to turn the
+kernel chain rule into the random-variable one. -/
 lemma condDistrib_const_unit (hX : Measurable X) (hY : Measurable Y)
     (μ : Measure Ω) [IsFiniteMeasure μ] :
     Kernel.condKernel (Kernel.const Unit (μ.map (fun ω ↦ (X ω, Y ω))))
@@ -397,6 +469,9 @@ lemma condDistrib_const_unit (hX : Measurable X) (hY : Measurable Y)
   rw [Kernel.prodMkLeft_apply', condDistrib_apply' hY hX _ _ hx hs]
   rfl
 
+/-- Conditioning on the trivial variable `fun _ ↦ ()` is the law of `X`:
+`condDistrib X (fun _ ↦ ()) μ = const Unit (μ.map X)` for a probability measure, by
+`condDistrib_apply'` at the one fibre, which is `univ`. No consumer at 884bd7d7. -/
 lemma condDistrib_unit_right [Nonempty S]
     (hX : Measurable X) (μ : Measure Ω) [IsProbabilityMeasure μ] :
     condDistrib X (fun _ ↦ ()) μ = Kernel.const Unit (μ.map X) := by
@@ -407,6 +482,12 @@ lemma condDistrib_unit_right [Nonempty S]
     rw [Kernel.const_apply, Measure.map_apply hX hs]
   · simp
 
+/-- `μ.map Z ⊗ₘ condDistrib X Z μ = μ.map (Z, X)` for a probability measure: the composition's
+mass on `A` is the sum over `x` of `μ (Z ⁻¹' {x})` times the conditional mass, each term
+`μ (Z ⁻¹' {x} ∩ (x, X ·) ⁻¹' A)` by `condDistrib_apply'`, re-assembled by `measure_iUnion`. Read
+by `condEntropy_two_eq_kernel_entropy` (`Salt/Entropy/Basic`) and by the bad-event
+disintegrations `outer_badMass_eq`, `outer_badMass_h_eq` (`Chowla/OuterCombine`) and
+`outer_badMass_aff_eq` (`Chowla/StrideCombine`). -/
 lemma map_compProd_condDistrib [Nonempty S] (hX : Measurable X) (hZ : Measurable Z)
     (μ : Measure Ω) [IsProbabilityMeasure μ] :
     μ.map Z ⊗ₘ condDistrib X Z μ = μ.map (fun ω ↦ (Z ω, X ω)) := by
@@ -443,6 +524,11 @@ section Independence
 variable {V : Type*} [Countable V] [MeasurableSpace V] [MeasurableSingletonClass V]
   {W : Ω → V}
 
+/-- When `(X, Z)` and `(Y, W)` are independent, the conditional distribution of `(X, Y)` given
+`(Z, W)` is, a.e., the product of the conditional distributions of `X` given `Z` and of `Y`
+given `W` (`prodMkRight`/`prodMkLeft` to the common base): `condDistrib_apply` on both sides,
+independence splitting each fibre mass. No consumer at 884bd7d7 (the independence API lies
+outside the frozen subset the entropy files port). -/
 lemma condDistrib_eq_prod_of_indepFun [Nonempty S]
     (hX : Measurable X) (hZ : Measurable Z) (hY : Measurable Y) (hW : Measurable W)
     (μ : Measure Ω) [IsProbabilityMeasure μ]
@@ -529,6 +615,9 @@ namespace ProbabilityTheory.Kernel
 variable {Ω S T U V : Type*} [mΩ : MeasurableSpace Ω]
   [MeasurableSpace S] [MeasurableSpace T] [MeasurableSpace U] [MeasurableSpace V]
 
+/-- `(μ ⊗ₘ κ) {(t, s)} = κ t {s} * μ {t}` in spaces with measurable singletons:
+`Measure.compProd_apply` with the integrand an indicator of `{t}`. Read by
+`aefiniteKernelSupport_of_cond`. -/
 lemma _root_.MeasureTheory.Measure.compProd_apply_singleton
     [MeasurableSingletonClass S] [MeasurableSingletonClass T]
     (μ : Measure T) [SFinite μ]
@@ -550,6 +639,9 @@ lemma _root_.MeasureTheory.Measure.compProd_apply_singleton
   rw [lintegral_indicator (.singleton _)]
   simp
 
+/-- A `μ ⊗ₘ κ`-null set has `μ`-a.e. null fibres: `κ a (Prod.mk a ⁻¹' s) = 0` for a.e. `a`,
+through the measurable hull `toMeasurable` and `lintegral_eq_zero_iff`. The step
+`Measure.ae_of_ae_compProd` rests on. -/
 lemma _root_.MeasureTheory.Measure.ae_of_compProd_eq_zero {α β : Type*}
     {mα : MeasurableSpace α} {mβ : MeasurableSpace β}
     {μ : Measure α} [SFinite μ] {κ : Kernel α β} [IsSFiniteKernel κ]
@@ -564,6 +656,8 @@ lemma _root_.MeasureTheory.Measure.ae_of_compProd_eq_zero {α β : Type*}
   filter_upwards [ht] with a ha
   exact measure_mono_null (fun y hy ↦ subset_toMeasurable (μ ⊗ₘ κ) s hy) ha
 
+/-- A property holding `μ ⊗ₘ κ`-a.e. holds, for `μ`-a.e. `a`, `κ a`-a.e. on the fibre:
+`Measure.ae_of_compProd_eq_zero` on the complement. The step `compProd_congr_ae` rests on. -/
 lemma _root_.MeasureTheory.Measure.ae_of_ae_compProd {α β : Type*}
     {mα : MeasurableSpace α} {mβ : MeasurableSpace β}
     {μ : Measure α} [SFinite μ] {κ : Kernel α β} [IsSFiniteKernel κ]
@@ -574,6 +668,10 @@ lemma _root_.MeasureTheory.Measure.ae_of_ae_compProd {α β : Type*}
   filter_upwards [hp'] with a ha
   rwa [ae_iff]
 
+/-- Compositions of a.e.-equal kernels are a.e. equal: `κ =ᵐ[μ] κ'` and `η =ᵐ[μ ⊗ₘ κ] η'` give
+`κ ⊗ₖ η =ᵐ[μ] κ' ⊗ₖ η'`, by `Measure.ae_of_ae_compProd` on the second hypothesis and
+`lintegral_congr_ae` fibrewise. Read by `entropy_compProd` (`Kernel/Basic`) and
+`AEFiniteKernelSupport.compProd`. -/
 lemma compProd_congr_ae {μ} [SFinite μ] {κ κ' : Kernel T S} [IsSFiniteKernel κ] [IsSFiniteKernel κ']
     {η η' : Kernel (T × S) U} [IsSFiniteKernel η] [IsSFiniteKernel η']
     (hκ : κ =ᵐ[μ] κ') (hη : η =ᵐ[μ ⊗ₘ κ] η') :
@@ -595,14 +693,22 @@ point `t`, then `κ t` has finite support. Note that we don't require any unifor
 noncomputable def AEFiniteKernelSupport (κ : Kernel T S) (μ : Measure T) : Prop :=
   ∀ᵐ t ∂μ, ∃ A : Finset S, κ t Aᶜ = 0
 
+/-- Finite kernel support everywhere gives it almost everywhere, against any `μ` (`ae_of_all`).
+Read by `chain_rule'` (`Salt/Entropy/Basic`), by `entropy_compProd_deterministic` and
+`entropy_prodMkRight'` (`Kernel/Basic`), and by `aefiniteKernelSupport_zero`. -/
 lemma FiniteKernelSupport.aefiniteKernelSupport {κ : Kernel T S} (hκ : FiniteKernelSupport κ)
     (μ : Measure T) :
     AEFiniteKernelSupport κ μ :=
   ae_of_all μ hκ
 
+/-- The zero kernel has finite kernel support (the empty set carries every fibre). A `simp`
+lemma; read by `aefiniteKernelSupport_zero`. -/
 @[simp] lemma finiteKernelSupport_zero : FiniteKernelSupport (0 : Kernel T S) :=
   fun t ↦ ⟨∅, by simp⟩
 
+/-- The zero kernel has a.e.-finite kernel support against any `μ`:
+`finiteKernelSupport_zero.aefiniteKernelSupport`. A `simp` lemma; no named consumer at
+884bd7d7. -/
 @[simp] lemma aefiniteKernelSupport_zero {μ} : AEFiniteKernelSupport (0 : Kernel T S) μ :=
   finiteKernelSupport_zero.aefiniteKernelSupport _
 
@@ -622,6 +728,9 @@ def AEFiniteKernelSupport.mk {μ} {κ : Kernel T S} (_hκ : AEFiniteKernelSuppor
        (.const _ <| .dirac hS.some)
   else 0
 
+/-- The modification of the zero kernel is zero: `h.mk = 0`, by cases on whether `S` is empty
+and `Kernel.piecewise` unfolded. A `simp` lemma; read by
+`AEFiniteKernelSupport.isZeroOrMarkovKernel_mk`. -/
 @[simp] lemma AEFiniteKernelSupport.mk_zero
     {h : AEFiniteKernelSupport (0 : Kernel T S) μ} : h.mk = 0 := by
   rcases isEmpty_or_nonempty S with hS | hS
@@ -630,18 +739,29 @@ def AEFiniteKernelSupport.mk {μ} {κ : Kernel T S} (_hκ : AEFiniteKernelSuppor
   by_cases hx : x ∈ {t | ∃ A : Finset S, (0 : Kernel T S) t Aᶜ = 0} <;>
     simp [AEFiniteKernelSupport.mk, Kernel.piecewise, hS]
 
+/-- Over an empty `S` the modification is zero (`simp [mk]`: the `else` branch). A `simp` lemma;
+read by `AEFiniteKernelSupport.isSFiniteKernel_mk`. -/
 @[simp] lemma AEFiniteKernelSupport.mk_eq_zero_of_isEmpty
     [IsEmpty S] {κ : Kernel T S} (hκ : AEFiniteKernelSupport κ μ) :
     hκ.mk = 0 := by
   simp [mk]
 
 open Classical in
+/-- Over a nonempty `S` the modification is `κ.piecewise` on the set of points whose fibre is
+finitely supported, and the Dirac mass at `hS.some` elsewhere (`simp [mk, hS]`). The unfolding
+`finiteKernelSupport_mk`, `ae_eq_mk`, `isMarkovKernel_mk` and `isSFiniteKernel_mk` run on. -/
 lemma AEFiniteKernelSupport.mk_eq
     [hS : Nonempty S] {κ : Kernel T S} (hκ : AEFiniteKernelSupport κ μ) :
     hκ.mk = κ.piecewise (s := {t | ∃ A : Finset S, κ t Aᶜ = 0})
       (by rw [Set.setOf_exists]; measurability) (.const _ <| .dirac hS.some) := by
   simp [mk, hS]
 
+/-- The modification `hκ.mk` has finite kernel support everywhere: on the good set it is `κ t`
+itself (finitely supported by the set's definition), elsewhere a Dirac mass (`mk_eq`,
+`piecewise_apply`). Read as `hκ.finiteKernelSupport_mk` by `finiteSupport_of_compProd` and
+`entropy_compProd` (`Kernel/Basic`), `mutualInfo_nonneg` (`Kernel/MutualInfo`), and
+`aefiniteKernelSupport_iff`, `AEFiniteKernelSupport.compProd`, `prodMkRight` and `prodMkLeft`
+here. -/
 lemma AEFiniteKernelSupport.finiteKernelSupport_mk [MeasurableSingletonClass S] {κ : Kernel T S}
     (hκ : AEFiniteKernelSupport κ μ) :
     FiniteKernelSupport hκ.mk := by
@@ -655,6 +775,11 @@ lemma AEFiniteKernelSupport.finiteKernelSupport_mk [MeasurableSingletonClass S] 
   · refine ⟨{hS.some}, ?_⟩
     simp
 
+/-- `κ =ᵐ[μ] hκ.mk`: on the a.e. set where the fibre is finitely supported the modification is
+`κ t` itself (`mk_eq`, `piecewise_apply`, `if_pos`); over an empty `S` every kernel is `0`. Read
+as `hκ.ae_eq_mk` by `finiteSupport_of_compProd` and `entropy_compProd` (`Kernel/Basic`),
+`mutualInfo_nonneg` (`Kernel/MutualInfo`), and `aefiniteKernelSupport_iff`,
+`AEFiniteKernelSupport.compProd`, `prodMkRight` and `prodMkLeft` here. -/
 lemma AEFiniteKernelSupport.ae_eq_mk
     {κ : Kernel T S} (hκ : AEFiniteKernelSupport κ μ) :
     κ =ᵐ[μ] hκ.mk := by
@@ -692,6 +817,10 @@ instance AEFiniteKernelSupport.isSFiniteKernel_mk
   rw [AEFiniteKernelSupport.mk_eq]
   infer_instance
 
+/-- A.e.-finite kernel support is finite kernel support up to a.e. equality:
+`AEFiniteKernelSupport κ μ ↔ ∃ κ', FiniteKernelSupport κ' ∧ κ' =ᵐ[μ] κ` (the modification
+`hκ.mk` forwards; `filter_upwards` on the equality backwards). The route
+`AEFiniteKernelSupport.compProd`, `prodMkRight` and `prodMkLeft` take. -/
 lemma aefiniteKernelSupport_iff [MeasurableSingletonClass S] {κ : Kernel T S} {μ : Measure T} :
     AEFiniteKernelSupport κ μ ↔ ∃ κ' : Kernel T S, FiniteKernelSupport κ' ∧ κ' =ᵐ[μ] κ := by
   refine ⟨fun h ↦ ⟨h.mk, h.finiteKernelSupport_mk, h.ae_eq_mk.symm⟩, fun ⟨κ', hκ', h_eq⟩ ↦ ?_⟩
@@ -754,6 +883,11 @@ lemma FiniteKernelSupport.map [MeasurableSingletonClass U]
       exact Finset.finite_toSet (Finset.image f A)
   · simp [map_of_not_measurable _ hf]
 
+/-- `map κ f` keeps a.e.-finite kernel support: the image `Finset.image f A` of a finite support
+carries the fibre when `f` is measurable, and `map κ f = 0` otherwise. Read as `hκ.map` by
+`entropy_map_le` (`Kernel/Basic`), by `entropy_snd_sub_mutualInfo_le_entropy_map_of_injective`
+and `entropy_triple_add_entropy_le'` (`Kernel/MutualInfo`), and by `fst`, `snd`, `swapRight`
+here and `reverse` (`Mathlib/KernelComp`). -/
 lemma AEFiniteKernelSupport.map [MeasurableSingletonClass U] {κ : Kernel T S} {μ : Measure T}
     (hκ : AEFiniteKernelSupport κ μ) {f : S → U} :
     AEFiniteKernelSupport (Kernel.map κ f) μ := by
@@ -781,6 +915,10 @@ lemma FiniteKernelSupport.comap {κ : Kernel T S} (hκ : FiniteKernelSupport κ)
   use A
   rwa [Kernel.comap_apply]
 
+/-- Pulling `κ` back along a measurable equivalence `f`, against `μ.comap f`, keeps a.e.-finite
+kernel support: `μ.comap f` is `μ.map f.symm` and `ae_map_iff` transports the a.e. set. Read as
+`hη.comap_equiv MeasurableEquiv.prodAssoc` by `entropy_submodular_compProd` and
+`entropy_compProd_triple_add_entropy_le` (`Kernel/MutualInfo`). -/
 lemma AEFiniteKernelSupport.comap_equiv [Countable U] [MeasurableSingletonClass U]
   {κ : Kernel T S} {μ : Measure T}
     (hκ : AEFiniteKernelSupport κ μ) (f : U ≃ᵐ T) :
@@ -801,6 +939,9 @@ lemma FiniteKernelSupport.fst [MeasurableSingletonClass S]
   rw [fst_eq]
   apply hκ.map
 
+/-- The first marginal keeps a.e.-finite kernel support (`fst_eq`, `AEFiniteKernelSupport.map`).
+Read as `hκ.fst` by `chain_rule` (`Kernel/Basic`) and `entropy_triple_add_entropy_le'`
+(`Kernel/MutualInfo`). -/
 lemma AEFiniteKernelSupport.fst [MeasurableSingletonClass S] {κ : Kernel T (S × U)} {μ : Measure T}
     (hκ : AEFiniteKernelSupport κ μ) :
     AEFiniteKernelSupport (fst κ) μ := by
@@ -814,6 +955,9 @@ lemma FiniteKernelSupport.snd [MeasurableSingletonClass U]
   rw [snd_eq]
   apply hκ.map
 
+/-- The second marginal keeps a.e.-finite kernel support (`snd_eq`,
+`AEFiniteKernelSupport.map`). Read by `entropy_compProd_triple_add_entropy_le`
+(`Kernel/MutualInfo`). -/
 lemma AEFiniteKernelSupport.snd [MeasurableSingletonClass U] {κ : Kernel T (S × U)} {μ : Measure T}
     (hκ : AEFiniteKernelSupport κ μ) :
     AEFiniteKernelSupport (snd κ) μ := by
@@ -854,6 +998,8 @@ lemma FiniteKernelSupport.swapRight
   rw [swapRight_eq]
   apply hκ.map
 
+/-- `swapRight κ` keeps a.e.-finite kernel support (`swapRight_eq`,
+`AEFiniteKernelSupport.map`). Read as `hκ.swapRight` by `chain_rule'` (`Kernel/Basic`). -/
 lemma AEFiniteKernelSupport.swapRight {κ : Kernel T (S × U)} {μ : Measure T}
     [MeasurableSingletonClass S] [MeasurableSingletonClass U]
     (hκ : AEFiniteKernelSupport κ μ) :
@@ -877,6 +1023,9 @@ lemma FiniteKernelSupport.prod {κ : Kernel T S} {η : Kernel T U}
   refine measure_mono_null ?_ hB
   intro u; simp; tauto
 
+/-- A product of Markov kernels with a.e.-finite kernel supports has one: the product of the two
+finite supports carries the fibre (`prod_apply`, `Measure.prod_prod`). Read as `hκ.prod hη` by
+`entropy_prod` (`Kernel/Basic`). -/
 lemma AEFiniteKernelSupport.prod {κ : Kernel T S} {η : Kernel T U}
     [IsMarkovKernel κ] [IsMarkovKernel η] {μ : Measure T}
     (hκ : AEFiniteKernelSupport κ μ) (hη : AEFiniteKernelSupport η μ) :
@@ -908,6 +1057,12 @@ lemma FiniteKernelSupport.compProd [MeasurableSingletonClass S] [MeasurableSingl
   refine measure_mono_null ?_ (hB (t, s) (by simp [hs]))
   intro u; simp; tauto
 
+/-- A composition `κ ⊗ₖ η`, with `κ` a.e.-finitely supported against `μ` and `η` against
+`μ ⊗ₘ κ`, is a.e.-finitely supported against `μ`: through `aefiniteKernelSupport_iff`, the
+witness `hκ.mk ⊗ₖ hη.mk` (`FiniteKernelSupport.compProd`) is a.e. equal to `κ ⊗ₖ η` by
+`compProd_congr_ae`; both sides `0` when a factor is not s-finite. Read as `hξ.compProd hκ` by
+`entropy_submodular_compProd` and `entropy_compProd_triple_add_entropy_le`
+(`Kernel/MutualInfo`). -/
 lemma AEFiniteKernelSupport.compProd [Countable S] [MeasurableSingletonClass S]
     [Countable T] [MeasurableSingletonClass T] [MeasurableSingletonClass U]
     {κ : Kernel T S} {η : Kernel (T × S) U} {μ : Measure T} [SFinite μ]
@@ -929,6 +1084,10 @@ lemma FiniteKernelSupport.prodMkRight {κ : Kernel T S} (hκ : FiniteKernelSuppo
     FiniteKernelSupport (prodMkRight U κ) :=
   hκ.comap _
 
+/-- `prodMkRight U κ` keeps a.e.-finite kernel support against `μ.prod ν`: the witness
+`prodMkRight U hκ.mk` through `aefiniteKernelSupport_iff`, a.e. equal by
+`Measure.ae_prod_mem_iff_ae_ae_mem` and `ae_eq_mk`. No consumer at 884bd7d7
+(`entropy_prodMkRight` in `Kernel/Basic` goes through `finiteSupport_of_compProd` instead). -/
 protected lemma AEFiniteKernelSupport.prodMkRight [MeasurableSingletonClass S]
     [Countable T] [MeasurableSingletonClass T] [MeasurableSingletonClass U] [Countable U] {μ}
     {κ : Kernel T S} (hκ : AEFiniteKernelSupport κ μ)
@@ -949,6 +1108,9 @@ lemma FiniteKernelSupport.prodMkLeft {κ : Kernel T S} (hκ : FiniteKernelSuppor
     FiniteKernelSupport (prodMkLeft U κ) :=
   hκ.comap _
 
+/-- `prodMkLeft U κ` keeps a.e.-finite kernel support against `ν.prod μ`: the witness
+`prodMkLeft U hκ.mk` through `aefiniteKernelSupport_iff`, a.e. equal by
+`Measure.ae_prod_mem_iff_ae_ae_mem` and `ae_eq_mk`. No consumer at 884bd7d7. -/
 protected lemma AEFiniteKernelSupport.prodMkLeft [MeasurableSingletonClass S]
     [Countable T] [MeasurableSingletonClass T] [MeasurableSingletonClass U] [Countable U] {μ}
     {κ : Kernel T S} (hκ : AEFiniteKernelSupport κ μ)

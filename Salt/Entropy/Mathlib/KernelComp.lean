@@ -38,11 +38,16 @@ variable {Ω S T : Type*} [mΩ : MeasurableSpace Ω]
   [MeasurableSpace S] [MeasurableSpace T] [MeasurableSpace γ]
   {κ : Kernel T S} {μ : Measure T} {X : Ω → S} {Y : Ω → β}
 
+/-- `map (map κ f) g = map κ (g ∘ f)` for measurable `f`, `g`: `Measure.map_map` fibrewise under
+`map_apply`. The rewrite every `deleteMiddle`/`deleteRight`/`reverse` identity below runs on,
+and the `fst_eq`/`snd_eq` re-associations of the triple lemmas in `Kernel/MutualInfo`. -/
 lemma map_map (κ : Kernel α β) {f : β → γ} (hf : Measurable f) {g : γ → δ} (hg : Measurable g) :
     map (map κ f) g = map κ (g ∘ f) := by
   ext x s _
   rw [map_apply _ hg, map_apply _ hf, map_apply _ (hg.comp hf), Measure.map_map hg hf]
 
+/-- `map (swapRight κ) f = map κ (f ∘ Prod.swap)`: `swapRight_eq` and `map_map` when `f` is
+measurable, both sides `0` otherwise (`map_of_not_measurable`). No consumer at 884bd7d7. -/
 lemma map_swapRight (κ : Kernel α (β × γ)) {f : (γ × β) → δ} :
     map (swapRight κ) f = map κ (f ∘ Prod.swap) := by
   by_cases hf : Measurable f
@@ -59,6 +64,9 @@ def deleteMiddle (κ : Kernel α (β × γ × δ)) :
   mapOfMeasurable κ (fun p ↦ (p.1, p.2.2))
     (measurable_fst.prodMk (measurable_snd.comp measurable_snd))
 
+/-- `deleteMiddle κ = map κ (fun p ↦ (p.1, p.2.2))`: the `mapOfMeasurable` definition unfolded
+to a `map`. The first rewrite of every `deleteMiddle` lemma below, of its two instances, and of
+`swapRight_deleteMiddle_reverse`. -/
 lemma deleteMiddle_eq (κ : Kernel α (β × γ × δ)) :
     deleteMiddle κ = map κ (fun p ↦ (p.1, p.2.2)) := by
   simp [deleteMiddle]
@@ -70,20 +78,29 @@ instance (κ : Kernel α (β × γ × δ)) [IsZeroOrMarkovKernel κ] :
     IsZeroOrMarkovKernel (deleteMiddle κ) := by
   rw [deleteMiddle_eq]; infer_instance
 
+/-- `fst (deleteMiddle κ) = fst κ`: forgetting the middle coordinate keeps the first
+(`fst_map_prod`). A `simp` lemma; no named consumer at 884bd7d7. -/
 @[simp]
 lemma fst_deleteMiddle (κ : Kernel α (β × γ × δ)) : fst (deleteMiddle κ) = fst κ := by
   rw [deleteMiddle_eq, fst_map_prod, fst_eq]
   exact measurable_snd.comp measurable_snd
 
+/-- `snd (deleteMiddle κ) = snd (snd κ)`: the second coordinate of the deletion is the last
+coordinate of `κ` (`snd_map_prod`, `map_map`). A `simp` lemma; no named consumer at 884bd7d7. -/
 @[simp]
 lemma snd_deleteMiddle (κ : Kernel α (β × γ × δ)) : snd (deleteMiddle κ) = snd (snd κ) := by
   rw [deleteMiddle_eq, snd_map_prod, snd_eq, snd_eq, map_map _ measurable_snd measurable_snd]
   · rfl
   · exact measurable_fst
 
+/-- `deleteMiddle 0 = 0` (`simp [deleteMiddle_eq]`). A `simp` lemma; no named consumer at
+884bd7d7. -/
 @[simp] lemma deleteMiddle_zero : deleteMiddle (0 : Kernel α (β × γ × δ)) = 0 := by
   simp [deleteMiddle_eq]
 
+/-- `deleteMiddle (map κ (fun b ↦ (f b, g b, g' b))) = map κ (fun b ↦ (f b, g' b))` for
+measurable `g`: `map_map` when the kept pair is measurable, both sides `0` otherwise. A `simp`
+lemma (`nolint simpNF`); no named consumer at 884bd7d7. -/
 @[simp, nolint simpNF]
 lemma deleteMiddle_map_prod (κ : Kernel α β) {f : β → γ} {g : β → δ} {g' : β → ε}
     (hg : Measurable g) :
@@ -101,6 +118,10 @@ lemma deleteMiddle_map_prod (κ : Kernel α β) {f : β → γ} {g : β → δ} 
       exact U.prod T
     simp [map_of_not_measurable _ hfg', map_of_not_measurable _ this]
 
+/-- `deleteMiddle (ξ ⊗ₖ κ) = ξ ⊗ₖ snd κ` for s-finite kernels: both sides evaluated on a
+measurable set through `compProd_apply` and `snd_apply'`. Read by
+`entropy_triple_add_entropy_le'` (`Kernel/MutualInfo`) to identify `deleteMiddle κ` with the
+re-associated composition. -/
 @[simp]
 lemma deleteMiddle_compProd (ξ : Kernel α β) [IsSFiniteKernel ξ]
     (κ : Kernel (α × β) (γ × δ)) [IsSFiniteKernel κ] :
@@ -119,9 +140,15 @@ def deleteRight (κ : Kernel α (β × γ × δ)) : Kernel α (β × γ) :=
   mapOfMeasurable κ (fun p ↦ (p.1, p.2.1))
     (measurable_fst.prodMk (measurable_fst.comp measurable_snd))
 
+/-- `deleteRight κ = map κ (fun p ↦ (p.1, p.2.1))`: the definition unfolded to a `map`. The
+first rewrite of every `deleteRight` lemma below, of `swapRight_snd_reverse` and
+`swapRight_deleteRight_reverse`, and of `entropy_triple_add_entropy_le'`
+(`Kernel/MutualInfo`). -/
 lemma deleteRight_eq (κ : Kernel α (β × γ × δ)) :
     deleteRight κ = map κ (fun p ↦ (p.1, p.2.1)) := by simp [deleteRight]
 
+/-- `deleteRight 0 = 0` (`simp [deleteRight_eq]`). A `simp` lemma; no named consumer at
+884bd7d7. -/
 @[simp] lemma deleteRight_zero : deleteRight (0 : Kernel α (β × γ × δ)) = 0 := by
   simp [deleteRight_eq]
 
@@ -132,17 +159,24 @@ instance (κ : Kernel α (β × γ × δ)) [IsZeroOrMarkovKernel κ] :
     IsZeroOrMarkovKernel (deleteRight κ) := by
   rw [deleteRight_eq]; infer_instance
 
+/-- `fst (deleteRight κ) = fst κ` (`fst_map_prod`). A `simp` lemma; no named consumer at
+884bd7d7. -/
 @[simp]
 lemma fst_deleteRight (κ : Kernel α (β × γ × δ)) : fst (deleteRight κ) = fst κ := by
   rw [deleteRight_eq, fst_map_prod, fst_eq]
   exact measurable_fst.comp measurable_snd
 
+/-- `snd (deleteRight κ) = fst (snd κ)`: the second coordinate of the deletion is the middle
+coordinate of `κ` (`snd_map_prod`, `map_map`). A `simp` lemma; no named consumer at 884bd7d7. -/
 @[simp]
 lemma snd_deleteRight (κ : Kernel α (β × γ × δ)) : snd (deleteRight κ) = fst (snd κ) := by
   rw [deleteRight_eq, snd_map_prod, snd_eq, fst_eq, map_map _ measurable_snd measurable_fst]
   · rfl
   · exact measurable_fst
 
+/-- `deleteRight (map κ (fun b ↦ (f b, g b, g' b))) = map κ (fun b ↦ (f b, g b))` for measurable
+`g'`: `map_map` when the kept pair is measurable, both sides `0` otherwise. A `simp` lemma
+(`nolint simpNF`); no named consumer at 884bd7d7. -/
 @[simp, nolint simpNF]
 lemma deleteRight_map_prod (κ : Kernel α β) {f : β → γ} {g : β → δ} {g' : β → ε}
     (hg' : Measurable g') :
@@ -167,11 +201,18 @@ def reverse (κ : Kernel α (β × γ × δ)) : Kernel α (δ × γ × β) :=
     ((measurable_snd.comp measurable_snd).prodMk
       ((measurable_fst.comp measurable_snd).prodMk measurable_fst))
 
+/-- `reverse κ = map κ (fun p ↦ (p.2.2, p.2.1, p.1))`: the definition unfolded to a `map`. The
+first rewrite of the `reverse` lemmas below, of the two support lemmas at the end of this file,
+and of `entropy_reverse` and `entropy_triple_add_entropy_le` (`Kernel/MutualInfo`). -/
 lemma reverse_eq (κ : Kernel α (β × γ × δ)) : reverse κ = map κ (fun p ↦ (p.2.2, p.2.1, p.1)) := by
   simp [reverse]
 
+/-- `reverse 0 = 0` (`simp [reverse_eq]`). No consumer at 884bd7d7. -/
 lemma reverse_zero : reverse (0 : Kernel α (β × γ × δ)) = 0 := by simp [reverse_eq]
 
+/-- `reverse (reverse κ) = κ`: the two coordinate reversals compose to `id` (`map_map`,
+`map_id`). A `simp` lemma; read by `entropy_reverse` (`Kernel/MutualInfo`) for its second
+inequality. -/
 @[simp]
 lemma reverse_reverse (κ : Kernel α (β × γ × δ)) :
     reverse (reverse κ) = κ := by
@@ -186,6 +227,10 @@ instance (κ : Kernel α (β × γ × δ)) [IsZeroOrMarkovKernel κ] :
     IsZeroOrMarkovKernel (reverse κ) := by
   rw [reverse_eq]; infer_instance
 
+/-- `swapRight (deleteMiddle (reverse κ)) = deleteMiddle κ`: reversing, forgetting the middle
+and swapping the pair back is forgetting the middle (`map_map` twice, then `rfl`). A `simp`
+lemma; what `simp` reaches in `entropy_triple_add_entropy_le` (`Kernel/MutualInfo`) after
+`← entropy_swapRight`. -/
 @[simp]
 lemma swapRight_deleteMiddle_reverse (κ : Kernel α (β × γ × δ)) :
     swapRight (deleteMiddle (reverse κ)) = deleteMiddle κ := by
@@ -193,6 +238,9 @@ lemma swapRight_deleteMiddle_reverse (κ : Kernel α (β × γ × δ)) :
     map_map _ (by fun_prop) (by fun_prop), deleteMiddle_eq]
   rfl
 
+/-- `swapRight (snd (reverse κ)) = deleteRight κ`: the last two coordinates of the reversal,
+swapped back, are the first two of `κ` (`map_map`). A `simp` lemma; what `simp` reaches in
+`entropy_triple_add_entropy_le` (`Kernel/MutualInfo`) after `← entropy_swapRight`. -/
 @[simp]
 lemma swapRight_snd_reverse (κ : Kernel α (β × γ × δ)) :
     swapRight (snd (reverse κ)) = deleteRight κ := by
@@ -200,6 +248,9 @@ lemma swapRight_snd_reverse (κ : Kernel α (β × γ × δ)) :
     map_map _ (by fun_prop) (by fun_prop)]
   rfl
 
+/-- `swapRight (deleteRight (reverse κ)) = snd κ`: the first two coordinates of the reversal,
+swapped back, are the last two of `κ` (`map_map`). A `simp` lemma; what `simp` reaches in
+`entropy_triple_add_entropy_le` (`Kernel/MutualInfo`) after `← entropy_swapRight`. -/
 @[simp]
 lemma swapRight_deleteRight_reverse (κ : Kernel α (β × γ × δ)) :
     swapRight (deleteRight (reverse κ)) = snd κ := by
@@ -215,6 +266,9 @@ lemma FiniteKernelSupport.reverse
   rw [reverse_eq]
   apply hκ.map
 
+/-- Reversing preserves a.e.-finite kernel support: `reverse_eq`, then
+`AEFiniteKernelSupport.map`. Read as `hκ.reverse` by `entropy_reverse` and
+`entropy_triple_add_entropy_le` (`Kernel/MutualInfo`). -/
 lemma AEFiniteKernelSupport.reverse
     [MeasurableSingletonClass S] [MeasurableSingletonClass β] [MeasurableSingletonClass γ]
     {κ : Kernel T (S × β × γ)} {μ : Measure T}
