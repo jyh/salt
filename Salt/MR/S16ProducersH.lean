@@ -1121,7 +1121,7 @@ enter only through `henv` (§1) and the framed base's own conjunct 5 (the middle
 `φ(q) ≤ q ≤ h·arcDen`). -/
 
 set_option maxHeartbeats 1000000 in
--- the landed slot's own budget (`M4RowsChiPrimeLinear.lean:622`): the 40-line statement
+-- the landed slot's own budget (`M4RowsChiPrimeLinear.lean:611`): the 40-line statement
 -- re-elaborates the seam integrals at every socket base
 /-- **⟦THE SLOT, MET, DENSITY-FREE, AT THE INFLATED SOCKET⟧** (`m4_hrowsSlot_at_door_zero'_L_gk`
 at `SocketBaseLH h`; conjuncts 4 and 8 only — cap-blind). -/
