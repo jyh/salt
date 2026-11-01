@@ -480,7 +480,7 @@ theorem flat_capstone_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h :
 `log a ≤ 9` from `8103 ≤ exp 9` via `2.7182818283^9` (margin 0.084) and `haR : a ≤ 8103`, the four
 budget sites `harm'` · `hgb'` · `hsum` · `hprod` moving `− 7 ↦ − 9` together against
 `xceil_arm_split_mul_h_b9`'s `+ 9` (freeze §5.1 (e)); the slot-3 shift `+ 28 ↦ + 36` at
-`s13_g2_jfloor_of_MSelect'_L_gk_shift36` (freeze §3.1 rule 2, `StridePairReceiptG:690,693`), read by
+`s13_g2_jfloor_of_MSelect'_L_gk_shift36` (freeze §3.1 rule 2, `StridePairReceiptG:679,682`), read by
 `s13_g2_jfloor_of_MSelect'_L_gk_h_b9`; and the eleven cap-dependent suppliers at their `_b9` /
 `_g12b` twins (`s15ArmH_log_le_g12b` reads the `2^12` pin). -/
 theorem flat_conditional_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
