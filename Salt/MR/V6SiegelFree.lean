@@ -67,7 +67,7 @@ section
 open MeasureTheory ProbabilityTheory
 open scoped BigOperators
 open private flatCap_shuffle spine_False_core_xi_sq_flat from Salt.Entropy.Chowla.HloExportFlat
-/-- **⟦STANDOFF TWIN⟧** `log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat` (`Salt/Entropy/Chowla/HloExportFlat.lean:227`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat` (`Salt/Entropy/Chowla/HloExportFlat.lean:228`): its statement under the three standoff
 binders, its proof verbatim with `hreduce_holds_final_bounded` · `primeWindow_sum_inv_ge_bounded` replaced by their twins. -/
 theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :

@@ -9180,7 +9180,7 @@ here (the twins are audited under ⟦β W1 E2⟧).  2026-10-11: family 49 retire
 `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L`: the terminal register on the
 terminal's lane, in `¬ Fails` form, at shift `h`.  Composed from the landed door-form register
 (`S16FlatTerminalLinearH.lean:1574`) and the flat head at shift `h`
-(`Salt/Entropy/Chowla/HloExportFlatH.lean:210`).
+(`Salt/Entropy/Chowla/HloExportFlatH.lean:211`).
 
 ⭐ THE WAVE'S FINDING, AND IT IS A COUNT THAT WENT DOWN.  The commission priced part (iii) as
 `h`-twins of `HloExportMRFlatRoot.m4_exit_socket_split_sq_arc_flatRoot` (`:70`) and

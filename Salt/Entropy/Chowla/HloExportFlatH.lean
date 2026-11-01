@@ -51,7 +51,7 @@ open scoped BigOperators
 namespace Salt.Entropy.Chowla
 
 /-- The max-lattice shuffle of the flat cap, `h`-file copy: `HloExportFlat.flatCap_shuffle`
-(`HloExportFlat.lean:50`) is `private` to its own module, so the twin restates it here.
+(`HloExportFlat.lean:51`) is `private` to its own module, so the twin restates it here.
 Pure `ℕ` lattice arithmetic — no shift enters. -/
 private lemma flatCapH_shuffle (a b c d e : ℕ) :
     max a (max (max b (max d e)) c) ≤ max (max a (max b c)) (max d e) := by
@@ -59,7 +59,7 @@ private lemma flatCapH_shuffle (a b c d e : ℕ) :
 
 /-- **The `L²` spine contradiction core, flat-file twin, AT SHIFT `h`**
 (`spine_False_core_xi_sq_flat_h`) — `HloExportFlat.spine_False_core_xi_sq_flat` (`private`,
-`HloExportFlat.lean:60`) VERBATIM under a fresh name with the shift threaded: the seed is
+`HloExportFlat.lean:61`) VERBATIM under a fresh name with the shift threaded: the seed is
 `singleCorr_of_fails_h`, the reduce arrives from `hreduce_holds_final_h_bounded` at the gate
 `ε·h ≤ cE/(32·log 4)`, the circle estimate sums over `bigXiH h`, and the shell is
 `log_chowla_two_shell_xi_sq_h`.  The bridge is `fBridgeF_h eps H h`; the failure Prop is
