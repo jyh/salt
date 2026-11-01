@@ -128,14 +128,24 @@ noncomputable def twinA2SieveW (Q a x P p : ℕ) (hP : Squarefree P)
 
 section FactsW2
 
+/-- `(twinA2SieveW Q a x P p hP hPodd).prodPrimes = P`, by `rfl` (`@[simp]`): the per-prime `A₂`
+W-instance sifts by exactly the modulus it is built on. Read by `FinLed2` (the depth comparison
+with `twinA1SieveW_prodPrimes` at the operating point, where `P = opP x`). -/
 @[simp] lemma twinA2SieveW_prodPrimes (Q a x P p : ℕ) (hP : Squarefree P)
     (hPodd : ∀ q ∈ P.primeFactors, 3 ≤ q) :
     (twinA2SieveW Q a x P p hP hPodd).prodPrimes = P := rfl
 
+/-- `(twinA2SieveW Q a x P p hP hPodd).nu = nuChen`, by `rfl` (`@[simp]`): the density is
+`nuChen`, unchanged from the `A₁` instance — the AP and `p`-fibre densities cancel in the
+ν-ratio (the module header). No consumer outside this file. -/
 @[simp] lemma twinA2SieveW_nu (Q a x P p : ℕ) (hP : Squarefree P)
     (hPodd : ∀ q ∈ P.primeFactors, 3 ≤ q) :
     (twinA2SieveW Q a x P p hP hPodd).nu = nuChen := rfl
 
+/-- `(twinA2SieveW Q a x P p hP hPodd).totalMass` is
+`(Σ_{n ∈ twinWindow x} Λ(n)) / (φ(Q)·(p − 1))`, by `rfl` (`@[simp]`): the smooth total mass the
+module header fixes, so that `rem d` is exactly the `(Q·p·d)`-modulus discrepancy
+(`twinA2W_rem_eq`). No consumer outside this file. -/
 @[simp] lemma twinA2SieveW_totalMass (Q a x P p : ℕ) (hP : Squarefree P)
     (hPodd : ∀ q ∈ P.primeFactors, 3 ≤ q) :
     (twinA2SieveW Q a x P p hP hPodd).totalMass
