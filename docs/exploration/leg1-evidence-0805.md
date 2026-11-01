@@ -123,7 +123,7 @@ them (lint has verified that each file exists and declares that name).
 - `Salt.Chen.no_readable_certificate` — the four-carrier-row no-go. `Salt/Chen/WeightNoGo.lean:82`
 
 **§3 SW / BV / bounded gaps**
-- `Salt.Maynard.bounded_gaps_from_eh_complete` — the Maynard capstone, no residual hypotheses. `Salt/Maynard/Complete.lean:1472`
+- `Salt.Maynard.bounded_gaps_from_eh_complete` — the Maynard capstone, no residual hypotheses. `Salt/Maynard/Complete.lean:1497`
 - `Salt.Twelve.gaps_le_twelve` — explicit bounded gaps ≤ 12 (standing analytic inputs). `Salt/Twelve/GapsUncond.lean:1061`
 - `Salt.BV.bounded_gaps_of_siegelWalfisz` — bounded gaps from Siegel–Walfisz. `Salt/BV/AbelCore.lean:757`
 - `Salt.SW.siegelWalfisz_holds` — Siegel–Walfisz, unconditional. `Salt/SW/Gate.lean:150`

@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `b0ffb454` · source digest `ca2d585ed6632820` (the same digest as items 1–3).
-> Receipt: files 1404 · decls 23391 · with_body 23391 · tactic_lines 316656 · runs 37085 · blocks 1527.
+> Base: last commit touching `Salt/` = `8fa3be16` · source digest `2da6049218199c1e` (the same digest as items 1–3).
+> Receipt: files 1403 · decls 23390 · with_body 23390 · tactic_lines 316924 · runs 37155 · blocks 1533.
 
 ## LIMITS (read before any number below)
 
@@ -100,20 +100,20 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-316656 tactic lines. Top 30:
+316924 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 139371 | 44.0% |
+| 1 | `have` | 139481 | 44.0% |
 | 2 | `rw` | 50803 | 16.0% |
-| 3 | `exact` | 17929 | 5.7% |
+| 3 | `exact` | 18009 | 5.7% |
 | 4 | `intro` | 14613 | 4.6% |
-| 5 | `refine` | 13197 | 4.2% |
+| 5 | `refine` | 13287 | 4.2% |
 | 6 | `linarith` | 11177 | 3.5% |
-| 7 | `obtain` | 9322 | 2.9% |
+| 7 | `obtain` | 9312 | 2.9% |
 | 8 | `calc` | 8113 | 2.6% |
 | 9 | `set` | 5754 | 1.8% |
-| 10 | `simp` | 5236 | 1.7% |
+| 10 | `simp` | 5235 | 1.7% |
 | 11 | `apply` | 4600 | 1.5% |
 | 12 | `nlinarith` | 3540 | 1.1% |
 | 13 | `unfold` | 2706 | 0.9% |
@@ -150,12 +150,12 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | Mertens / PNT-type | 3298 | `have` 1530, `rw` 559, `exact` 173, `linarith` 147, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
-| Matomaki-Radziwill / Halasz (short intervals) | 126122 | `have` 58392, `rw` 17126, `exact` 7056, `refine` 6916, `intro` 6162, `linarith` 5932, `obtain` 5043, `calc` 2421 |
+| Matomaki-Radziwill / Halasz (short intervals) | 126390 | `have` 58502, `rw` 17126, `exact` 7136, `refine` 7006, `intro` 6162, `linarith` 5932, `obtain` 5033, `calc` 2421 |
 | (no family) | 29300 | `have` 11334, `rw` 5238, `exact` 1782, `intro` 1609, `obtain` 993, `refine` 971, `set` 907, `calc` 888 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
-Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1527 candidates; top 25 by the UPPER-BOUND saving.
+Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1533 candidates; top 25 by the UPPER-BOUND saving.
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 
@@ -368,7 +368,7 @@ have $16 : (# : ℝ) ≤ (# + # * Real.pi) ^ # := sq_nonneg _
 have $17 : (# + # * Real.pi) ^ # * ($6 : ℝ) * ($18 $8 * ($6 : ℝ) * ($7 : ℝ) ^ #)
 ```
 
-**14.** 5 lines × 29 occurrences in 16 files · lines saved ≤ **116** · e.g. `Salt/MR/DoorReceipt.lean:643` · `Salt/MR/FlatDoorAllGradesBand.lean:1062`
+**14.** 5 lines × 29 occurrences in 16 files · lines saved ≤ **116** · e.g. `Salt/MR/DoorReceipt.lean:642` · `Salt/MR/FlatDoorAllGradesBand.lean:1062`
 
 ```lean
 intro $1 $2 $3
@@ -378,7 +378,7 @@ have := one_lt_log_of_loglog_ge $6.1 (by norm_num : (#:ℝ) < #) $6.2
 linarith
 ```
 
-**15.** 4 lines × 38 occurrences in 22 files · lines saved ≤ **114** · e.g. `Salt/MR/DoorReceipt.lean:511` · `Salt/MR/FlatDoorEpsChain.lean:917`
+**15.** 4 lines × 38 occurrences in 22 files · lines saved ≤ **114** · e.g. `Salt/MR/DoorReceipt.lean:510` · `Salt/MR/FlatDoorEpsChain.lean:916`
 
 ```lean
 intro $1 $2 $3
@@ -399,7 +399,7 @@ rw [← $5]
 exact Real.sqrt_le_sqrt $6
 ```
 
-**17.** 4 lines × 37 occurrences in 23 files · lines saved ≤ **111** · e.g. `Salt/MR/DoorReceipt.lean:630` · `Salt/MR/FlatDoorAllGradesBand.lean:1048` · ⚠️ shares source lines with #12
+**17.** 4 lines × 37 occurrences in 23 files · lines saved ≤ **111** · e.g. `Salt/MR/DoorReceipt.lean:629` · `Salt/MR/FlatDoorAllGradesBand.lean:1048` · ⚠️ shares source lines with #12
 
 ```lean
 intro $1

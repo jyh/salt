@@ -86,7 +86,7 @@ Check: the build is Lean Action CI run [39014263528](https://github.com/jyh/salt
 
 | Theorem (Lean name) | Plain statement (one line) | File:line | Date landed | Commit | Axioms |
 |---|---|---|---|---|---|
-| `Salt.Maynard.bounded_gaps_from_eh_complete` | The Maynard capstone: `BoundedGapsFromEH` with no residual hypotheses (`CompatFrontier` proved for every regime width). | Salt/Maynard/Complete.lean:1482 | 2026-07-09 | `f9dcef96` | 3 axioms (audited) |
+| `Salt.Maynard.bounded_gaps_from_eh_complete` | The Maynard capstone: `BoundedGapsFromEH` with no residual hypotheses (`CompatFrontier` proved for every regime width). | Salt/Maynard/Complete.lean:1507 | 2026-07-09 | `f9dcef96` | 3 axioms (audited) |
 | `Salt.Twelve.gaps_le_twelve` | Explicit bounded gaps **≤ 12** (standing analytic inputs `WindowPNT`, `EHall`): for every `N`, two primes `p ≠ q > N` with `\|q−p\| ≤ 12`. | Salt/Twelve/GapsUncond.lean:1061 | 2026-07-11 | `919d19d9` | 3 (blueprint_lint P3) |
 | `Salt.BV.bounded_gaps_of_siegelWalfisz` | Bounded prime gaps from Siegel–Walfisz — the first Bombieri–Vinogradov chain consumed by a downstream theorem, in any public artifact as of 2026-08-11 (see the priority survey). | Salt/BV/AbelCore.lean:757 | 2026-07-12 | `0028379a` | 3 (Salt/BV/All.lean:58) |
 | `Salt.SW.siegelWalfisz_holds` | **Siegel–Walfisz, unconditional**: `\|ψ(x;q,a) − x/φ(q)\| ≤ K·x/(log x)^A` uniformly for `q ≤ (log x)^C`, `a` reduced. | Salt/SW/Gate.lean:150 | 2026-07-13 | `3dc6105d` | 3 (Salt/SW/All.lean:152) |
