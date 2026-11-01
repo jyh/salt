@@ -767,7 +767,7 @@ it is no longer the reason a BINDER is strict.**
 ### 14.3 CHANGES TO §0/K1 AND §2 (the shape edits this forces)
 - **§0/K1:** the sentence *"every object carries `hεh : ε²h < 1`, acquired at `h211_h`"* is
   **SUPERSEDED**. The operative binder is **`hεh' : (ε:ℝ)·h ≤ c/(32·Real.log 4)`**, acquired where
-  `heps_small` is today (`HBudget.lean:454`, `:711`; the spine's `hepsc` at `HloExport.lean:263`).
+  `heps_small` is today (`HBudget.lean:454`, `:711`; the spine's `hepsc` at `HloExport.lean:264`).
   ⛔ **This is the `c`-parameterised gate, so the binder now CARRIES `c` — a node that acquires
   `hεh'` must also name which `c`.** *That is new coupling and it is the price of the correct
   variable.*
@@ -862,7 +862,7 @@ freedom as the cone's.
 2. ⭐⭐ **THE DEMOTION QUIETLY DEFUSES §10's FATAL 3, AND THAT IS THE STRONGEST THING IT BUYS.**
    Fatal 3 was *"K1 acquires `hεh` at `h211_h`, and `h211_h` has ZERO hits"*. **Under §14 the binder
    is a REGIME GATE acquired where `heps_small` already lives (`HBudget.lean:454`/`:711`,
-   `HloExport.lean:263`) — not a producer output.** ⇒ **The missing producer stops being a
+   `HloExport.lean:264`) — not a producer output.** ⇒ **The missing producer stops being a
    contradiction; §11/§12's whole K4-vs-K1 fight is dissolved by changing the variable, not by
    resolving the fight.** *I spent two sections litigating which of K1/K4 was wrong. The answer was
    that the binder they disagreed about was the wrong binder.*

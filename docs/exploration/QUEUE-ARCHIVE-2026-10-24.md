@@ -1189,7 +1189,7 @@
    ⛔ **PLACED AT THE END OF THE LIST, DELIBERATELY, not beside its three family siblings at `:163-165`**
    (`log_chowla_two_shell`, `…_xi`, `…_xi_h` — it alone of the four was ungated): `#audit_axioms`
    ABORTS the remainder of its list on a throw, so a name whose axioms nobody has measured belongs
-   where a failure can mask nothing. *Consumers verified before the edit: `HloExport.lean:362`,
+   where a failure can mask nothing. *Consumers verified before the edit: `HloExport.lean:363`,
    `HloExportFlat.lean:196`.*
 
 5b. ✅ **LANDED `c4a1a237` (08/20 16:15, math) — DO NOT DISPATCH.** Name the untwisted λ trophy — one theorem composing
@@ -7336,7 +7336,7 @@ numbering is UNVERIFIED.
    the arm evidence flagged). THE RE-TIER CONDITION IS *NOT* MET — ITEM STAYS AT P3.**
    ```
      δ₀   ∝ ε                                              LINEAR   (helm)
-     K    = 9/2, ε absent   HloExport.lean:159, :176        FREE     (evidence)
+     K    = 9/2, ε absent   HloExport.lean:160, :177        FREE     (evidence)
      Hcap := max 4000000 (max A (4·⌈1/ε⌉₊⁴))                QUARTIC  (evidence)
      A    ⊇ budgetFloor ε (cD3·ε/(144·log 4))                        (helm, traced)
             budgetFloor ε β := ⌈exp(exp(exp(budgetX ε β)))⌉₊   BudgetCore.lean:30

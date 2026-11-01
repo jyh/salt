@@ -1056,7 +1056,7 @@ claim about Chowla, about the door's supply, or about twins is made or moved her
   Salt.Entropy.Chowla.hreduce_holds_final_h
   -- ⭐ ROLLED IN 2026-08-26 (math), discharging QUEUE P1 item 5c's "REPORTED, NOT FIXED".
   -- `log_chowla_two_shell_xi_sq` (`Theorem23Shell.lean:362`) is a LANDED terminal with two
-  -- consumers (`HloExport.lean:362`, `HloExportFlat.lean:196`), and three of its four family
+  -- consumers (`HloExport.lean:363`, `HloExportFlat.lean:196`), and three of its four family
   -- members were already audited above (`:163-165`) — it alone was gated by no build.
   -- ⛔ PLACED AT THE END OF THE LIST ON PURPOSE, not beside its siblings: `#audit_axioms`
   -- `throwError`s on the first non-whitelisted dependency and ABORTS the rest of its list, so a
@@ -1546,7 +1546,7 @@ open Salt.Tactic in
 `HloExport`'s pinned head with `ε = 1/500` replaced by the HYPOTHESIS `0 < ε ≤ 1/500`, the four
 smallness arms re-derived by monotonicity, and the exchange rate `ε/1677 ≤ δ₀` exported as a
 conjunct (`δ₀ = cD3/(16C)·ε/4 ≥ 5ε/8384`; `1677` is the SMALLEST integer that works — the pinned
-leaves give `cD3/(16C) ≥ 5/2096` with zero slack, `Salt/Entropy/Chowla/HloExport.lean:561`).
+leaves give `cD3/(16C) ≥ 5/2096` with zero slack, the `hkey` step of that pinned head).
 
 ⚠ NO `K` UPPER BOUND IS EXPORTED (unlike `FlatHeadForm`'s `K ≤ 2^539`): the exchange rate is
 consumable at the L² grade only, so a consumer takes `K` from the same `obtain`, never from a

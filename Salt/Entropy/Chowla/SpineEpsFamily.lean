@@ -9,7 +9,7 @@ import Salt.Entropy.Chowla.HloExport
 # The spine head as an `ε`-FAMILY — the conditional `∀ ε ≤ 1/500` restatement
 (QUEUE P3 item 11, the design block of 2026-09-05; STATEMENT-ONLY at the freeze)
 
-`log_chowla_two_budget_head_g_sq_count_hloCap_pinned` (`HloExport.lean:519`) PINS `ε := 1/500`
+`log_chowla_two_budget_head_g_sq_count_hloCap_pinned` (`HloExport.lean:520`) PINS `ε := 1/500`
 in place of the landed `exists_rat_btwn` choice, so that the door threshold
 `δ₀ = cD3/(16·C)·ε/4` is a numeral (`≥ 1/838400`) and the `MR` lane's register can be met.  The
 four smallness demands on `ε` are all UPPER bounds (`ε ≤ cE/(32·log 4)`, `ε < 1/2`,
@@ -54,7 +54,7 @@ the landed leaves give `5/2096` with ZERO slack).  Everything else is the pinned
 item.  ⚠ NO `K` UPPER BOUND IS EXPORTED here (unlike `FlatHeadForm`'s `K ≤ 2^539`): the exchange
 rate is consumable at the L² grade only, so a consumer must not hunt for a `K`-numeral.
 
-Recipe: the pinned head's proof VERBATIM (`HloExport.lean:519–618`) with `hεdef : ε = 1/500`
+Recipe: `log_chowla_two_budget_head_g_sq_count_hloCap_pinned`'s proof VERBATIM, with `hεdef`
 replaced by the hypothesis: `hεcE`, `hε_half_lt`, `hε_D3`, `hε_D3C`, `hε2`, `hεQ1` each by
 `linarith` (`nlinarith` for `hε2`) from `ε ≤ 1/500` and the pinned-leaf numerals (`hcEge`, `hcD3ge`,
 `hCnum`, `hlog4eq`); the exchange-rate conjunct from `hkey : 5/2096 ≤ cD3/(16·C)` (the landed

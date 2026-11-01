@@ -34,7 +34,7 @@ produces the wrong object and `le_trans hoc (le_trans hB …)` will not typechec
 **`M4DoorL2.lean:408` IS PROSE inside a `/-! … -/` section-doc block, and `Salt/MR/M4DoorL2.lean`
 does not import `Theorem23Shell` at all.** ***Docstring-as-declaration — the exact defect in my own
 banked six-corrections law — written into a design block whose J-gates cite that law.***
-The real consumers: `SpineFinal.lean:1302` · `S16Uniform.lean:227` · `HloExport.lean:362` ·
+The real consumers: `SpineFinal.lean:1302` · `S16Uniform.lean:227` · `HloExport.lean:363` ·
 `HloExportFlat.lean:196`. And `_sq` consumes **`MRTUniformityXiL2`**, is **`K`-free**, and would
 need `MRTUniformityXiL2H`/`contradiction_of_mrtDoorXiL2H` — objects my §2 delta never mentions.
 **§1 lists the L² object as in-scope while §2 specifies only the L¹ path. Pick one.**

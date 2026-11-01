@@ -79,7 +79,7 @@ theorem s16BaseScaleCap96_L_of_LH {h K : ℕ} (hh : 0 < h) {R : ChowlaRegime} {M
   exact hs H L q j A s (socketBaseLH_of_socketBaseL hh hb)
 
 /-- **⟦THE SUM SPLIT'S `log 2`, PAID FROM THE TOWER AT THE CAP⟧** (`epsChain_arm_split_cap`) —
-`xceil_arm_split_h` (`XThread.lean:1062`) re-cut at the interval cap instead of at a pin: the
+`xceil_arm_split_h` (`XThread.lean:1046`) re-cut at the interval cap instead of at a pin: the
 margin `ε²·H₊ − H₊/10^20` covers `log 2` for every `ε ≥ 1/(500·8103)`.  The room is the gate's
 SECOND conjunct `50 ≤ loglog H₊`, which gives `log H₊ ≥ e^50 ≥ 10^21`, hence `H₊ ≥ 10^21`, against
 a demand of `1.14·10^13`: **the headroom is a tower and the corner is a constant.** -/
