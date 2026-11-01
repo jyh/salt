@@ -19,6 +19,8 @@ Modifications for Salt (ported to mathlib v4.32.0-rc1, toolchain
 - All four lemmas are genuinely absent from mathlib v4.32.0-rc1; statements and
   proofs are ported verbatim.  This residue is in the W1-3 lane's closure:
   upstream `PFR/Mathlib/Probability/Kernel/Disintegration.lean` imports it.
+- Docstrings added by Salt (2026-11-01, the O83 documentation lane) to the 4 upstream
+  declarations that carried none; names, statements and bodies are unchanged.
 -/
 import Mathlib
 

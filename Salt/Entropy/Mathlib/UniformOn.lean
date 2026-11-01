@@ -21,6 +21,8 @@ Modifications for Salt (ported to mathlib v4.32.0-rc1, toolchain
   (`(s ∩ {ω}).ncard = if ω ∈ s then 1 else 0`) is inlined here as a local
   `have` rather than introducing a new shared residue.
 - All other declarations, names, and proof bodies are verbatim from upstream.
+- Docstrings added by Salt (2026-11-01, the O83 documentation lane) to the 11 upstream
+  declarations that carried none; names, statements and bodies are unchanged.
 -/
 import Mathlib
 

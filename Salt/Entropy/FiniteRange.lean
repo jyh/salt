@@ -17,6 +17,8 @@ Modifications for Salt (ported to mathlib v4.32.0-rc1, toolchain
   `import Mathlib`.
 - All declarations, names, instances, notation, and proof bodies are otherwise
   verbatim from upstream.
+- Docstrings added by Salt (2026-11-01, the O83 documentation lane) to the 7 upstream
+  declarations that carried none; names, statements and bodies are unchanged.
 -/
 import Mathlib
 

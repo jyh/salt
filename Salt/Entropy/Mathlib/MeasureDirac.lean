@@ -17,6 +17,8 @@ Modifications for Salt (ported to mathlib v4.32.0-rc1, toolchain
   `import Mathlib`.
 - The lemma `dirac_real_apply'` is genuinely absent from mathlib v4.32.0-rc1,
   so its statement and proof are ported verbatim.
+- Docstrings added by Salt (2026-11-01, the O83 documentation lane) to the one upstream
+  declaration that carried none; its name, statement and body are unchanged.
 -/
 import Mathlib
 

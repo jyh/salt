@@ -16,6 +16,8 @@ Modifications for Salt (ported to mathlib v4.32.0-rc1, toolchain
   Mathlib.MeasureTheory.Measure.Prod`, `public section`) to a plain
   `import Mathlib`.
 - All declarations, names, and proof bodies are otherwise verbatim from upstream.
+- Docstrings added by Salt (2026-11-01, the O83 documentation lane) to the 3 upstream
+  declarations that carried none; names, statements and bodies are unchanged.
 -/
 import Mathlib
 

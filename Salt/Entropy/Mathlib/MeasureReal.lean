@@ -26,6 +26,8 @@ Modifications for Salt (ported to mathlib v4.32.0-rc1, toolchain
   `measure_preimage_fst/snd_singleton_eq_sum`, which DO exist in mathlib
   v4.32.0-rc1 (`Mathlib.MeasureTheory.Measure.NullMeasurable`); ported verbatim.
 - All other declarations, names, and proof bodies are verbatim from upstream.
+- Docstrings added by Salt (2026-11-01, the O83 documentation lane) to the 6 upstream
+  declarations that carried none; names, statements and bodies are unchanged.
 -/
 import Mathlib
 
