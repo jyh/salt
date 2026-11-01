@@ -973,7 +973,7 @@ THREE THINGS HAPPEN HERE, and only the third is new work:
   B2′ of §3 exports and the five tier-A forms carry; THIS hop is what spends it, and `log c` does
   NOT reach the conclusion — it is consumed entirely inside the arm's own cut.
 
-The landed precedent is the stride lane's conditional band hop (`TierSBand.lean:1065`, the block
+The landed precedent is the stride lane's conditional band hop (`TierSBand.lean:1054`, the block
 opening ⟦S-1 (i-x) TIER A → TIER B⟧); this transcription drops that block's `a` multiplier
 throughout (no `Real.log_mul`, no zero-product case) and its `log h` term, and reads the arm
 through `s15Arm_log_le_L_cut20` instead of `s15ArmH_log_le_g12b`.
@@ -1109,7 +1109,7 @@ design constant `162 + 2·log c`, the two `ε`-numeral casts at the charge, the 
 straight through — `ω` is untouched and the tier-B bound was already converted one hop below.
 
 THE BAND-ONLY WORK IS FIFTEEN LINES, and it is the same shape as the landed stride-lane band
-hop (`TierSBand.lean:1180`): the `M`-selection register and the block floor are built at
+hop (`TierSBand.lean:1173`): the `M`-selection register and the block floor are built at
 `regimeEnlargeX R hx'` rather than at `R`, and the crossing supply is fired there.  Every
 hypothesis those two consumers read — `R.eps` (through `heps`), `R.Hlo` (through `hfl`, `hlo`,
 `hKswR`) and `R.Hhi` (through `hwin`) — is carried VERBATIM by the enlargement, so each is
