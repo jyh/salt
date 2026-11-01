@@ -305,6 +305,8 @@ conductor `f`, else `0`.  (A named def so that consuming statements carry no `Cl
 noncomputable def crumbBound (N d f X : ℕ) : ℝ :=
   if ∃ p : ℕ, p.Prime ∧ N < p ∧ p ∣ d ∧ ¬ p ∣ f then (X : ℝ) else 0
 
+/-- `0 ≤ crumbBound N d f X`: the single-term β-crumb envelope is `X` or `0` by its `if`, so
+`split_ifs` with `Nat.cast_nonneg`. No consumer at `main`, in this file or outside it. -/
 lemma crumbBound_nonneg (N d f X : ℕ) : 0 ≤ crumbBound N d f X := by
   unfold crumbBound
   split_ifs
