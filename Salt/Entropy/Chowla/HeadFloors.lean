@@ -13,9 +13,9 @@ The flat-head exports mint two floors, `Hopq = max (max H₀red H₀D3) H₀xi` 
 read off, each time by hand, that `Hlo` lies above `F`, `H₀xi`, the budget floor and
 `max H₀red H₀D3`. This file states those four facts once.
 
-The twelve call sites that took them inline are `HloExportFlat`, `HloExportFlatH` (two),
-`FlatDoorEpsChain`, `FlatDoorEpsRung2`, `FlatDoorStandoff`, `S16Compose`, `S16ComposeLH`,
-`S16Uniform`, `V6SiegelFree`, `V7SiegelFree` and `XThread`; there they are used as `hFlo`,
+The eleven call sites that take them from here are `HloExportFlat`, `HloExportFlatH` (its
+second head), `FlatDoorEpsChain`, `FlatDoorEpsRung2`, `FlatDoorStandoff`, `S16Compose`,
+`S16ComposeLH`, `S16Uniform`, `V6SiegelFree`, `V7SiegelFree` and `XThread`, where they are `hFlo`,
 `hxiHlo`, `hbudHlo` and `hredHlo`. The lemma is over naturals and imports nothing beyond
 Mathlib, so the `Salt.MR` sites and the `Salt.Entropy` sites can both read it.
 
