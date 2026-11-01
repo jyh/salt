@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `df36dac6` · source digest `e297f246057bfa90` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `cc014606` · source digest `ccc7bc4010b0da50` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23392 · with a proof/definition body: 23392 · direct corpus references (edges): 87912 · audited results: 9148 · corpus Prop-valued names: 678.
+Declarations indexed: 23391 · with a proof/definition body: 23391 · direct corpus references (edges): 87925 · audited results: 9148 · corpus Prop-valued names: 678.
 
 ## Hypothesis status (Deliverable A)
 
@@ -399,7 +399,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.MinorArcBoundTight` | DISCHARGED | 2 | `Salt.MR.minorArcBoundTight_twelve` ✓audited (Salt/MR/ExitClose.lean:769) |
 | `Salt.MR.S15Sel''_L_T` | DISCHARGED | 2 | `Salt.MR.s15_sel''_L_witness_flat_charge_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4213) · `Salt.MR.s15_sel''_L_witness_flat_wide_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4271) |
 | `Salt.MR.S16BaseScaleCapEnd_L_gk` | DISCHARGED | 2 | `Salt.MR.s16_baseScaleCapEnd_L_of_xceil` ✓audited GUARDED (Salt/MR/KLever.lean:215) |
-| `Salt.MR.StrideDoorAllGradesW` | DISCHARGED | 2 | `Salt.MR.strideDoorAllGradesW_holds` ✓audited (Salt/MR/StrideDoorAllGrades.lean:5375) |
+| `Salt.MR.StrideDoorAllGradesW` | DISCHARGED | 2 | `Salt.MR.strideDoorAllGradesW_holds` ✓audited (Salt/MR/StrideDoorAllGrades.lean:5386) |
 | `Salt.MR.XCeilRiderStrictAt` | DISCHARGED | 2 | `Salt.MR.xceilRiderStrictAt_zero` ✓audited (Salt/MR/FlatDoorEpsRung2.lean:4716) |
 | `Salt.SW.EstermannPositivity` | DISCHARGED | 2 | `Salt.SW.estermannPositivity` ✓audited (Salt/SW/EstermannInterface.lean:468) |
 | `Salt.SW.WellSpacedAt` | DISCHARGED | 2 | `Salt.SW.wellSpacedAt_parity_reps` ✓audited GUARDED (Salt/SW/DensityLogfree.lean:389) |
@@ -985,7 +985,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | Mertens / PNT-type | 254 | 67 | 883 | 792 | 4 | 16 | 0 | 1695 | 1638 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
 | explog/lognum numeral tactic | 53 | 0 | 669 | 763 | 1 | 5 | 0 | 1438 | 1438 |
-| Matomaki-Radziwill / Halasz (short intervals) | 9789 | 5428 | 2960 | 1300 | 168 | 189 | 0 | 4617 | 73 |
+| Matomaki-Radziwill / Halasz (short intervals) | 9788 | 5428 | 2960 | 1300 | 168 | 189 | 0 | 4617 | 73 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
 
@@ -1165,7 +1165,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | family | external dependents | audited members | decls |
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
-| Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9789 |
+| Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9788 |
 | entropy decrement | 650 | 534 | 1402 |
 | character sums / L-functions | 966 | 2196 | 4310 |
 | circle method / Fourier | 1171 | 83 | 181 |
