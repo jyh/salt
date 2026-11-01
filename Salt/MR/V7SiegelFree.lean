@@ -1330,7 +1330,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_v7_rated` (`V7Rated.lean:975`): its statement under the three
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_v7_rated` (`V7Rated.lean:976`): its statement under the three
 standoff binders, its proof verbatim with `s16_bandLaneWinL_holdsU` ·
 `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin` replaced by their
 twins. -/

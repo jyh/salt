@@ -11,7 +11,7 @@ regime `R` carrying (i) `R.Hlo = U1floor` for a CALLER-CHOSEN floor `U1floor ≥
 (so that `a ∣ R.Hlo`), (ii) `StrideScale a R` (the outer scale divisible by `a` with the six
 `x`-floors met at `x/a`), and (iii) the plain `L²` door over the AFFINE set
 `bigXiAffD a b h` at a closed numeral grade.  None of the three is exported by the landed
-`h`-lane headline (`logChowla2_v7_rated_h`, V7RatedH.lean:1210): it exports `R.Hlo =
+`h`-lane headline (`logChowla2_v7_rated_h`, V7RatedH.lean:1211): it exports `R.Hlo =
 flatDesignBase A` (the floor slot is instantiated at H6/H7), `g R.Hhi R.ω ≤ R.x` at `g ≡ 0` (the
 scale slot is spent), and `¬ logChowlaFails` (the door is SPENT at the head's tail, minted over
 `bigXiH h`).  This file is `DoorReceipt.lean`'s generator (`FlatHeadForm … V7RatedForm`, the seven
@@ -111,7 +111,7 @@ import Salt.MR.StrideShrinkFacts
 import Salt.MR.DesignEightArms
 
 -- The head reaches `flatCapH_shuffle` (the `h` head's own cap shuffle) by `open private`, the
--- corpus's sanctioned device (`DoorReceipt.lean:70` does the same for `uniformCap_shuffle`).
+-- corpus's sanctioned device (`DoorReceipt.lean:71` does the same for `uniformCap_shuffle`).
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 -- v2 (refuter R1): two "body verbatim" replays call `private` lemmas of their source modules —
 -- the multiplier builder (F3-Q2; from 2026-09-27 its cap-9 twin, XY family 11) copies
@@ -1157,7 +1157,7 @@ def FlatKswinFormH (h : ℕ) (Awin : ℝ) (P : ChowlaRegime → Prop) : Prop :=
               S16BaseScaleCap96_LH_gk h K R (flatDoorM A) →
                 P R))
 
-/-- **⟦H5 FORM⟧** `logChowla2_v7_rated_h`'s statement (V7RatedH.lean:1210) with Δ3 — `∀ U1floor ≥
+/-- **⟦H5 FORM⟧** `logChowla2_v7_rated_h`'s statement (V7RatedH.lean:1211) with Δ3 — `∀ U1floor ≥
 flatDesignBase A` under `loglog U1floor ≤ 3.2·A + log 2`, `R.Hlo = U1floor` in place of `R.Hlo =
 flatDesignBase A` — the scale slot, and `P R`.  At `U1floor := flatDesignBase A`, `a := 1`,
 `g := 0`, `P := (¬ logChowlaFails h · · ·)` this is the landed headline's statement. -/
@@ -1812,7 +1812,7 @@ theorem flat_v7_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7
 /-! ## §6 — the door-head, the chain, the receipts -/
 
 /-- **⟦THE RECEIPT PREDICATE AT `h` — THE P-SLOT, WIDENED (v2)⟧** the `L²` door over `Xi` at
-the closed numeral `1/(837782·h²)` — `DoorReceipt.MRTDoorReceipt` (DoorReceipt.lean:90) with the
+the closed numeral `1/(837782·h²)` — `DoorReceipt.MRTDoorReceipt` (DoorReceipt.lean:91) with the
 set family and the `h²` — carrying TWO facts the head holds and the chain does not forward:
 (i) the head's ε-PIN as an EQUALITY, `R.eps = 1/(500·h)` (refuter verdict A4: the six forms and
 the receipts export only the LOWER pin `1/(500h) ≤ ε`, while `regimeShrinkX_stride` and the
@@ -1832,7 +1832,7 @@ def MRTDoorReceiptSet (h : ℕ) (Xi : XiFamily) (R : ChowlaRegime) : Prop :=
   ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / (837782 * (h : ℝ) ^ 2) ∧ MRTUniformityXiL2Set Xi R ρ
 
 /-- **⟦THE DOOR-HEAD AT `h`, AT A GENERIC SET⟧ (class B).**  `DoorReceipt.flat_door_head_xceil`
-(DoorReceipt.lean:938) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean):
+(DoorReceipt.lean:901) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean):
 the leaves PINNED — `cD3 := 1/4`, `C := h·(1 + 2·(2·log 4))`, `ε := 1/(500·h)` —
 so `δ₀ := cD3/(16·C)·ε/4 = 1/(128000·h²·(1 + 8·log 2))` closes BOTH `1/(838400·h²) ≤ δ₀`
 (`hδ₀ge`, the landed script at `h`) and `δ₀ ≤ 1/(837782·h²)` (`hδ₀le`, `C > 6.5451718·h` by
