@@ -13,6 +13,7 @@ import Salt.MR.FlatDesignBound
 import Salt.MR.ArcRegimeWeaken
 import Salt.Entropy.Chowla.RegimeHeadroom
 import Salt.Entropy.Chowla.WidthWindow
+import Salt.MR.RegimeScaleReads
 
 -- Needed to transcribe §4's band head and §5's socket hop: the two names rung 2 itself
 -- opens for the identical purpose (`FlatDoorEpsRung2.lean:34-35`).  MEASURED, not assumed:
@@ -1046,13 +1047,9 @@ theorem flat_conditional_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegim
   intro x' hx' hxc M hsel hKw
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire x' hx' hxc M hsel.mfloor hKw
   intro hcap
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  obtain ⟨hlam50, hΛ50, hHreg⟩ := regime_scale_reads R hfl
   have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
   have hRarm' : s15Arm δ₀ ρ R.Hhi R.ω ≤ x' := le_trans hRarm hx'
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ x' :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm'

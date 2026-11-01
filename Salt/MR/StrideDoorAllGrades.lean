@@ -11,6 +11,7 @@ import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
 import Salt.Entropy.Chowla.WidthWindow
+import Salt.MR.RegimeScaleReads
 
 -- Needed to transcribe the stride builder's ceiling step (`StridePairReceipt.lean`'s head opens the
 -- same line for the same body).  MEASURED, not assumed: `#check @xceil_flat_P` and
@@ -2428,13 +2429,9 @@ theorem flat_conditional_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ)
   intro M hKw hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor hKw
   intro hcap
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  obtain ⟨hlam50, hΛ50, hHreg⟩ := regime_scale_reads R hfl
   have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
   have hLcΛ : Real.log (c : ℝ) + L ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) := by
     linarith [hfloor R.Hhi R.hHlohi le_rfl]
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=

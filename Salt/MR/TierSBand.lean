@@ -11,6 +11,7 @@ import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
 import Salt.Entropy.Chowla.WidthWindow
 import Salt.MR.StridePins
+import Salt.MR.RegimeScaleReads
 
 -- Needed to transcribe B1/B2/H0/hop1's proofs, the same private names
 -- `StridePairReceiptG12b.lean:32-34` opens for the identical purpose.
@@ -1115,13 +1116,9 @@ theorem flat_conditional_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.
   intro x' hx' hadvd hxc M hKw hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire x' hx' hadvd hxc M hsel.mfloor hKw
   intro hcapx
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  obtain ⟨hlam50, hΛ50, hHreg⟩ := regime_scale_reads R hfl
   have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
   have hRarm' : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ x' := le_trans hRarm hx'
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ x' :=
     le_trans (s15ArmH_demoted h δ₀ ρ R.Hhi R.ω) hRarm'
