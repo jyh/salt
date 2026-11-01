@@ -14,6 +14,7 @@ import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
 import Salt.MR.ArcRegimeWeaken
 import Salt.Entropy.Chowla.RegimeHeadroom
+import Salt.Entropy.Chowla.HeadFloors
 
 /-!
 # ⟦TIER S — THE DOOR AT THE HEAD'S GRADE, `ε`-FAMILY: THE CHAIN⟧ (`FlatDoorEpsChain`)
@@ -79,7 +80,7 @@ theorem s16BaseScaleCap96_L_of_LH {h K : ℕ} (hh : 0 < h) {R : ChowlaRegime} {M
   exact hs H L q j A s (socketBaseLH_of_socketBaseL hh hb)
 
 /-- **⟦THE SUM SPLIT'S `log 2`, PAID FROM THE TOWER AT THE CAP⟧** (`epsChain_arm_split_cap`) —
-`xceil_arm_split_h` (`XThread.lean:1062`) re-cut at the interval cap instead of at a pin: the
+`xceil_arm_split_h` (`XThread.lean:1056`) re-cut at the interval cap instead of at a pin: the
 margin `ε²·H₊ − H₊/10^20` covers `log 2` for every `ε ≥ 1/(500·8103)`.  The room is the gate's
 SECOND conjunct `50 ≤ loglog H₊`, which gives `log H₊ ≥ e^50 ≥ 10^21`, hence `H₊ ≥ 10^21`, against
 a demand of `1.14·10^13`: **the headroom is a tower and the corner is a constant.** -/
@@ -542,7 +543,7 @@ theorem bigXi_bounded_ceiling_of_cap (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 
 /-! ## §3 — ⟦THE `ε`-HEAD⟧ the door-head's DEVICE with the head's TAIL kept, generic in `P` -/
 
 /-- **⟦THE `A`-UNIFORM FLAT HEAD AT GENERIC `ε`, LEAVES PINNED, TAIL KEPT⟧**
-(`flat_head_uniform_xceil_eps`) — `flat_head_uniform_xceil` (`XThread.lean:514`) with the pin
+(`flat_head_uniform_xceil_eps`) — `flat_head_uniform_xceil` (`XThread.lean:515`) with the pin
 `ε := 1/500` replaced by the parameter under `0 < ε ≤ 1/500` and the cap, the leaves' witnesses
 PINNED as the door-head pins them (`DoorReceipt.lean:949`, `cD3 = 1/4`, `C = 1 + 2·(2·log 4)`) so
 that the mint is the EXACT `ε/(256·(1 + 4·log 4))`, and the head's TAIL — the entropy collision —
@@ -631,15 +632,8 @@ theorem flat_head_uniform_xceil_eps (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 /
   obtain ⟨Rf, hReps, hRA, hRHlo, hRg, _hRcapEq, hRwid, hRx⟩ :=
     chowlaRegimeFlat_exists_param_head_xceil A hA26 ε hε0 hεQ1
       (max F (max extraFloor U1floor)) g₅ hg₅
-  have hFlo : F ≤ Rf.Hlo := le_trans (le_max_left _ _) hRHlo
-  have hxiHlo : H₀xi ≤ Rf.Hlo := by
-    rw [hFdef, hOpqdef] at hFlo
-    exact le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hFlo
-  have hbudHlo : budgetFloorFlat (ε : ℝ) β A ≤ Rf.Hlo := by
-    rw [hFdef] at hFlo; exact le_trans (le_max_right _ _) hFlo
-  have hredHlo : max H₀red H₀D3 ≤ Rf.Hlo := by
-    rw [hFdef, hOpqdef] at hFlo
-    exact le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hFlo
+  obtain ⟨hFlo, hxiHlo, hbudHlo, hredHlo⟩ :=
+    Salt.Entropy.Chowla.flatHeadFloors_facts hOpqdef hFdef hRHlo
   refine ⟨Rf.toChowlaRegime, hReps,
     le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRHlo,
     le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, hRx, ?_,

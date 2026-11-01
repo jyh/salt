@@ -14,6 +14,7 @@ import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
 import Salt.MR.ArcRegimeWeaken
 import Salt.Entropy.Chowla.RegimeHeadroom
+import Salt.Entropy.Chowla.HeadFloors
 
 /-!
 # `S16Compose` — ⟦THE BAR-2 CLOSING PASS⟧ AND `logChowla2_ineffective_v3`
@@ -45,7 +46,7 @@ those hooks through the uniform lane and mints
 * **`Ct`** — `m4_hrowsSlot_at_door_zero'_L_gk_ceiling` drops into
   `m4_closure_fuse_zero'_const_nonneg_L_gk` (§5 here), whose twin then feeds §6–§9.
 * **`Kq`** — ⟦THE ONE CORRECTION TO THE MISSION BRIEF⟧ the `Kq` of the terminal's `∃`-prefix
-  is **not** the one `S16Uniform` :660 opens: that `obtain`'s payload is DISCARDED (`… , -⟩`)
+  is **not** the one `S16Uniform` :654 opens: that `obtain`'s payload is DISCARDED (`… , -⟩`)
   and its five constants are re-exported only to be dropped again by `flat_conditional_*`.
   The terminal's `Kq` is minted by `S16FlatFinal.s15_crossing_supplied_L_gk`, off the LINEAR
   wire `S16FlatTerminalLinear.m4_fuse_hcap_of_capWS_L_gk` → `M4CapWireLinear.
@@ -152,15 +153,8 @@ theorem flat_head_uniform_ceiling :
   obtain ⟨Rf, hReps, hRA, hRHlo, hRg, _hRcapEq, hRwid⟩ :=
     chowlaRegimeFlat_exists_param_head A hA26 ε hεQpos hεQ1
       (max F (max extraFloor U1floor)) g₅
-  have hFlo : F ≤ Rf.Hlo := le_trans (le_max_left _ _) hRHlo
-  have hxiHlo : H₀xi ≤ Rf.Hlo := by
-    rw [hFdef, hOpqdef] at hFlo
-    exact le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hFlo
-  have hbudHlo : budgetFloorFlat (ε : ℝ) β A ≤ Rf.Hlo := by
-    rw [hFdef] at hFlo; exact le_trans (le_max_right _ _) hFlo
-  have hredHlo : max H₀red H₀D3 ≤ Rf.Hlo := by
-    rw [hFdef, hOpqdef] at hFlo
-    exact le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hFlo
+  obtain ⟨hFlo, hxiHlo, hbudHlo, hredHlo⟩ :=
+    Salt.Entropy.Chowla.flatHeadFloors_facts hOpqdef hFdef hRHlo
   refine ⟨Rf.toChowlaRegime, hReps,
     le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRHlo,
     le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, ?_,
