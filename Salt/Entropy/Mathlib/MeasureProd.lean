@@ -38,16 +38,28 @@ lemma map_prod_comap_swap (hX : Measurable X) (hZ : Measurable Z) (μ : Measure 
     · exact MeasurableEquiv.prodComm.measurableEmbedding.measurableSet_image' hs
   · exact fun t ht ↦ MeasurableEquiv.prodComm.measurableEmbedding.measurableSet_image' ht
 
+/-- `(μ.prod ν) {x} = μ {x.1} * ν {x.2}` for `ν` σ-finite: a singleton of the product is the
+product of the singletons (`Set.singleton_prod_singleton` after `Prod.eta`), then
+`Measure.prod_prod`. Read by `prod_real_apply_singleton` below; `MeasureReal`'s
+`Measure.prod_real_singleton` inlines the same three rewrites rather than import this file (its
+header says why). -/
 lemma prod_apply_singleton {α β : Type*} {_ : MeasurableSpace α} {_ : MeasurableSpace β}
     (μ : Measure α) (ν : Measure β) [SigmaFinite ν] (x : α × β) :
     (μ.prod ν) {x} = μ {x.1} * ν {x.2} := by
   rw [← Prod.eta x, ← Set.singleton_prod_singleton, Measure.prod_prod]
 
+/-- `(μ.prod ν).real {x} = μ.real {x.1} * ν.real {x.2}` for `ν` σ-finite: `prod_apply_singleton`
+at real masses (`Measure.real`, `simp`). No consumer at 884bd7d7 — `MeasureReal`'s
+`Measure.prod_real_singleton` is the form the lane reads. -/
 lemma prod_real_apply_singleton {α β : Type*} {_ : MeasurableSpace α} {_ : MeasurableSpace β}
     (μ : Measure α) (ν : Measure β) [SigmaFinite ν] (x : α × β) :
     (μ.prod ν).real {x} = μ.real {x.1} * ν.real {x.2} := by
   simp [Measure.real, prod_apply_singleton]
 
+/-- `(μ.prod ν) (↑(A ×ˢ B))ᶜ = 0` when the finsets `A` and `B` each carry full measure: the
+complement of a product finset is `Aᶜ ×ˢ univ ∪ univ ×ˢ Bᶜ`, and both pieces are null by
+`prod_prod`. Read by `finiteSupport_of_prod` (`Measure`), which that file's header names as the
+reason for its explicit import of this one. -/
 lemma prod_of_full_measure_finset {μ : Measure α} {ν : Measure β} [SigmaFinite ν]
     {A : Finset α} {B : Finset β} (hA : μ Aᶜ = 0) (hB : ν Bᶜ = 0) :
     (μ.prod ν) (A ×ˢ B : Finset (α × β))ᶜ = 0 := by

@@ -23,6 +23,10 @@ import Mathlib
 namespace MeasureTheory.Measure
 variable {α : Type*} [MeasurableSpace α] {s : Set α} {a : α}
 
+/-- `(dirac a).real s = s.indicator 1 a` for a measurable `s`: the real mass a Dirac measure
+gives a set is the indicator of its point — by cases on `a ∈ s`, each a `simp` through
+`Measure.real`. A `simp` lemma; registered in `Salt/Entropy/All`'s axiom audit; no other
+consumer names it at 884bd7d7. -/
 @[simp]
 lemma dirac_real_apply' (a : α) (hs : MeasurableSet s) : (dirac a).real s = s.indicator 1 a := by
   by_cases ha : a ∈ s <;> simp [Measure.real, *]
