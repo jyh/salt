@@ -146,6 +146,10 @@ private def pairAssignSet (k q : ℕ) :
     Finset ((p : ℕ) → p ∈ q.primeFactors → Fin k × Fin 3) :=
   q.primeFactors.pi (fun _ => (Finset.univ : Finset (Fin k × Fin 3)))
 
+/-- `#(pairAssignSet k q) = (3k)^{ω(q)}`: the `pi` over `q.primeFactors` of
+`univ : Finset (Fin k × Fin 3)`, of size `k · 3` at each prime (`Finset.card_pi`,
+`Fintype.card_prod`, `Fintype.card_fin`, `Nat.mul_comm`); the count the injection
+`(d, e) ↦ pairTheta` lands in. -/
 private theorem pairAssignSet_card (k q : ℕ) :
     (pairAssignSet k q).card = (3 * k) ^ q.primeFactors.card := by
   rw [pairAssignSet, Finset.card_pi, Finset.prod_const, Finset.card_univ,
