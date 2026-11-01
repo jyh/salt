@@ -1012,7 +1012,7 @@ to a landed file — a structural change this node does not own.  Reported, not 
 THE IMPORT CYCLE THAT SHAPED THE STATEMENT.  `singleCorr_of_fails_h`'s hypothesis is the
 INEQUALITY that `logChowlaFails h eps x ω` unfolds to, not the named Prop, because `ShiftFork`
 IMPORTS `ChowlaFailure` and naming it there would close a cycle.  Kernel-checked at a landed
-use: `HloExportFlatH.lean:170` feeds a `logChowlaFails h R.eps R.x R.ω` hypothesis (`:115`)
+use: `HloExportFlatH.lean:171` feeds a `logChowlaFails h R.eps R.x R.ω` hypothesis (`:115`)
 straight into `singleCorr_of_fails_h` with no coercion (the first `example` probe is gone).
 
 THE `h = 1` RECOVERY IS A FOURTH SHAPE, AND THE TWO COMPATS OF THIS NODE ARE NOT ALIKE.  The
@@ -1056,7 +1056,7 @@ claim about Chowla, about the door's supply, or about twins is made or moved her
   Salt.Entropy.Chowla.hreduce_holds_final_h
   -- ⭐ ROLLED IN 2026-08-26 (math), discharging QUEUE P1 item 5c's "REPORTED, NOT FIXED".
   -- `log_chowla_two_shell_xi_sq` (`Theorem23Shell.lean:362`) is a LANDED terminal with two
-  -- consumers (`HloExport.lean:362`, `HloExportFlat.lean:196`), and three of its four family
+  -- consumers (`HloExport.lean:362`, `HloExportFlat.lean:197`), and three of its four family
   -- members were already audited above (`:163-165`) — it alone was gated by no build.
   -- ⛔ PLACED AT THE END OF THE LIST ON PURPOSE, not beside its siblings: `#audit_axioms`
   -- `throwError`s on the first non-whitelisted dependency and ABORTS the rest of its list, so a

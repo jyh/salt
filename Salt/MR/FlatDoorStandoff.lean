@@ -8,6 +8,7 @@ import Salt.SW.StandoffGate
 import Salt.SW.StandoffCert
 import Mathlib
 import Salt.MR.FlatDesignBound
+import Salt.Entropy.Chowla.HeadFloors
 
 /-!
 # Theorem 4.25 under the standoff, cut below `Salt.SW.siegel_theorem` (O13)
@@ -1602,7 +1603,7 @@ namespace Salt.MR
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_head_uniform_xceil_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:4740`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_head_uniform_xceil_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:4741`): its
 statement under the three standoff binders, its proof verbatim with `primeWindow_sum_inv_ge_bounded`
 and `hreduce_holds_final_bounded` replaced by the standoff form. -/
 theorem flat_head_uniform_xceil_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1692,15 +1693,8 @@ theorem flat_head_uniform_xceil_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
   obtain ⟨Rf, hReps, hRA, hRHlo, hRg, _hRcapEq, hRwid, hRx⟩ :=
     chowlaRegimeFlat_exists_param_head_xceil_at (50 + Real.log (c : ℝ)) A hA26 hlamA ε hε0 hεQ1
       (max F (max extraFloor U1floor)) g₅ hg₅
-  have hFlo : F ≤ Rf.Hlo := le_trans (le_max_left _ _) hRHlo
-  have hxiHlo : H₀xi ≤ Rf.Hlo := by
-    rw [hFdef, hOpqdef] at hFlo
-    exact le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hFlo
-  have hbudHlo : budgetFloorFlat (ε : ℝ) β A ≤ Rf.Hlo := by
-    rw [hFdef] at hFlo; exact le_trans (le_max_right _ _) hFlo
-  have hredHlo : max H₀red H₀D3 ≤ Rf.Hlo := by
-    rw [hFdef, hOpqdef] at hFlo
-    exact le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hFlo
+  obtain ⟨hFlo, hxiHlo, hbudHlo, hredHlo⟩ :=
+    Salt.Entropy.Chowla.flatHeadFloors_facts hOpqdef hFdef hRHlo
   refine ⟨Rf.toChowlaRegime, hReps,
     le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRHlo,
     le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, hRx, ?_,
@@ -1768,7 +1762,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_kswin_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5276`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_kswin_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5270`): its
 statement under the three standoff binders, its proof verbatim with
 `s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin` replaced by the standoff form. -/
 theorem flat_kswin_generic_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1873,7 +1867,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_v7_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5399`): its statement
+/-- **⟦STANDOFF TWIN⟧** `flat_v7_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5393`): its statement
 under the three standoff binders, its proof verbatim with `s16_bandLaneWinL_holdsU` replaced by the
 standoff form. -/
 theorem flat_v7_generic_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -2021,7 +2015,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_chain_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5544`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_chain_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5538`): its
 statement under the three standoff binders, its proof verbatim with `flat_kswin_generic_epsW` and
 `flat_v7_generic_epsW` replaced by the standoff form. -/
 theorem flat_chain_generic_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -2039,7 +2033,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flatDoorEpsFamilyW_holds` (`Salt/MR/FlatDoorEpsRung2.lean:5570`): its
+/-- **⟦STANDOFF TWIN⟧** `flatDoorEpsFamilyW_holds` (`Salt/MR/FlatDoorEpsRung2.lean:5564`): its
 statement under the three standoff binders, its proof verbatim with `flat_head_uniform_xceil_epsW`
 and `flat_chain_generic_epsW` replaced by the standoff form. -/
 theorem flatDoorEpsFamilyW_holds_of_standoff {cS : ℝ} (hcS : 0 < cS)

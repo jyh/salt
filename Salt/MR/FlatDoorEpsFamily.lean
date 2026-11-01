@@ -53,7 +53,7 @@ and any consumer's floor on its threshold rounds DOWN, so a door stated at `ρ �
 never provably meets a slot `∀ ρ ≤ δ₀'` on another regime — not even with that slot's floor
 exported un-rounded (`ε/1675.565 < ε/1675.564`).  The door and the slot are therefore stated at
 ONE `δ₀` on ONE regime, which is what the chain proves (the socket hands the door out at
-`ρ := δ₀`, `XThread.lean:681`); the floor and the grade are exports ABOUT `δ₀`, never a
+`ρ := δ₀`, `XThread.lean:675`); the floor and the grade are exports ABOUT `δ₀`, never a
 substitute for it.  ⚠️ ERRATUM to «W-δ … is not stated» above: END OF FILE.
 
 **THE ROUTE (road F, h2c's per-hop walk of 2026-09-15 in the seat record):** the flat road's
@@ -109,7 +109,7 @@ theorem `mrtUniformityXiL2_holds_flat_epsFamily`) — `mrtUniformityXiL2_holds_f
 the door stated AT the head's own threshold `δ₀` (not at some `ρ ≤ 1/837782`), the threshold's
 FLOOR `ε/(256·(1 + 4·log 4)) ≤ δ₀` and GRADE `δ₀ ≤ 500·ε/837782` exported, and the head's slot
 `∀ ρ ≤ δ₀, MRTUniformityXiL2 R ρ → ¬ logChowla2Fails …` carried on the same regime
-(`flat_head_uniform_xceil`'s last conjunct, `XThread.lean:514`).  The regime conjuncts are the
+(`flat_head_uniform_xceil`'s last conjunct, `XThread.lean:515`).  The regime conjuncts are the
 landed door's verbatim: `R.eps = ε`, `R.Hlo = flatDesignBase A`, `162 ≤ A`, `A₀ ≤ A`,
 `3.2·A ≤ loglog R.Hlo`.  A consumer wanting `extraFloor ≤ R.Hlo` takes `A₀ := extraFloor` and
 `nat_le_flatDesignBase` (`logChowla2_epsFamily_of_flatDoor_floor` does).
