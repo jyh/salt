@@ -101,7 +101,7 @@ and `apSelbergTerms_eq` rewrite through it to `apNu_apply`. -/
 @[simp] lemma apSieve_nu : (apSieve y q a P L hP hL).nu = apNu := rfl
 
 /-- The weight of `apSieve y q a P L hP hL` at `n` is the indicator of `n % q = a` (`1` or `0`),
-by `rfl`; the first rewrite of `apSieve_multSum` and `apSieve_siftedSum`. -/
+by `rfl`; the first rewrite of `apSieve_multSum` (`apSieve_siftedSum` goes by `change`). -/
 lemma apSieve_weights (n : ℕ) :
     (apSieve y q a P L hP hL).weights n = if n % q = a then 1 else 0 := rfl
 
