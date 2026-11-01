@@ -93,6 +93,13 @@ noncomputable
 def _root_.MeasureTheory.Measure.finSupport (μ : Measure S) [hμ : FiniteSupport μ] : Finset S :=
   hμ.finite.choose.filter (μ {·} ≠ 0)
 
+/-- `μ μ.finSupportᶜ = 0`: the chosen finite carrier, filtered to its atoms of positive mass,
+still carries `μ` — the complement of the chosen set is null and the dropped atoms are null. The
+floor of the `FiniteSupport` API: `ae_mem_support`, `mem_support`,
+`integrable_of_finiteSupport`, `integral_congr_finiteSupport`,
+`Measure.ext_iff_singleton_finiteSupport` and `measureEntropy_prod` here;
+`finiteKernelSupport_of_const`, `finiteSupport_of_compProd'` and `FiniteSupport.comap_equiv` in
+`Kernel/Basic`. -/
 lemma measure_compl_support (μ : Measure S) [hμ : FiniteSupport μ] : μ μ.finSupportᶜ = 0 := by
   let A := hμ.finite.choose
   have : (μ.finSupport : Set S)ᶜ ⊆ (A : Set S)ᶜ ∪ ⋃ x ∈ A.filter (μ {·} = 0), {x} := by
@@ -116,9 +123,15 @@ lemma measure_compl_support (μ : Measure S) [hμ : FiniteSupport μ] : μ μ.fi
       exact hx.2.le
   _ = 0 := by simp
 
+/-- `∀ᵐ x ∂μ, x ∈ μ.finSupport`: `measure_compl_support` read as an a.e. statement. Read by
+`finiteSupport_of_mul` and `finiteSupport_of_comp` here, by `finiteSupport_of_compProd'` and
+`entropy_compProd_aux` (`Kernel/Basic`) and by `mutualInfo_nonneg'` (`Kernel/MutualInfo`). -/
 lemma ae_mem_support (μ : Measure S) [FiniteSupport μ] : ∀ᵐ x ∂μ, x ∈ μ.finSupport :=
   measure_compl_support _
 
+/-- `x ∈ μ.finSupport ↔ μ {x} ≠ 0`: the carrier is exactly the atoms of positive mass — the
+filter in `finSupport`'s definition forwards, `measure_compl_support` backwards. A `simp` lemma;
+read by `integral_congr_finiteSupport` and `measureMutualInfo_nonneg_aux`. -/
 @[simp] lemma mem_support {μ : Measure S} [hμ : FiniteSupport μ] {x : S} :
     x ∈ μ.finSupport ↔ μ {x} ≠ 0 := by
   refine ⟨fun h ↦ ?_, fun h ↦ ?_⟩
@@ -147,6 +160,9 @@ section
 
 variable [MeasurableSingletonClass S]
 
+/-- The image of a finitely supported measure under a measurable map is finitely supported, on
+the image of the carrier (`ae_map_iff`, `ae_mem_support`). Read by `finiteSupport_logMeasureAff`
+(`Chowla/StrideDecrement`). -/
 lemma finiteSupport_of_comp
     {μ : Measure Ω} [FiniteSupport μ] {X : Ω → S} (hX : Measurable X) :
     FiniteSupport (μ.map X) := by
@@ -166,6 +182,9 @@ lemma full_measure_of_finiteRange {μ : Measure Ω} {X : Ω → S}
   ext x
   simp [FiniteRange.toFinset]
 
+/-- `∀ᵐ x ∂μ.map X, x ∈ hX'.toFinset` for a variable of finite range:
+`full_measure_of_finiteRange` as an a.e. statement. No consumer at 884bd7d7
+(`finiteSupport_of_finiteRange` goes through `FiniteRange.null_of_compl`). -/
 lemma ae_mem_of_finiteRange {μ : Measure Ω} {X : Ω → S} (hX : Measurable X) [hX' : FiniteRange X] :
     ∀ᵐ x ∂μ.map X, x ∈ hX'.toFinset := full_measure_of_finiteRange hX
 
@@ -209,6 +228,9 @@ lemma integrable_of_finiteSupport (μ : Measure S) [FiniteSupport μ]
   apply Integrable.comp_measurable .of_finite
   fun_prop
 
+/-- Two integrands agreeing at every atom of positive mass have the same integral against a
+finitely supported `μ`: `integral_congr_ae` on the carrier (`measure_compl_support`,
+`mem_support`). Read by `condEntropy_eq_kernel_entropy` (`Salt/Entropy/Basic`). -/
 lemma integral_congr_finiteSupport {μ : Measure Ω} {G : Type*}
     [NormedAddCommGroup G] [NormedSpace ℝ G] {f g : Ω → G} [FiniteSupport μ]
     (hfg : ∀ x, μ {x} ≠ 0 → f x = g x) : ∫ x, f x ∂μ = ∫ x, g x ∂μ := by
@@ -244,6 +266,9 @@ theorem Measure.ext_iff_singleton_finiteSupport
     rw [← hs.coe_toFinset, ← sum_measure_singleton (μ := μ1), ← sum_measure_singleton (μ := μ2)]
     simp_rw [h]
 
+/-- Two finite, finitely supported measures are equal iff their real masses agree on every
+singleton: `Measure.ext_iff_singleton_finiteSupport` with `ENNReal.toReal_eq_toReal_iff` on
+finite values. No consumer at 884bd7d7. -/
 theorem Measure.ext_iff_measureReal_singleton_finiteSupport {μ1 μ2 : Measure S}
     [FiniteSupport μ1] [FiniteSupport μ2] [IsFiniteMeasure μ1] [IsFiniteMeasure μ2] :
     μ1 = μ2 ↔ ∀ x, μ1.real {x} = μ2.real {x} := by
@@ -256,6 +281,10 @@ theorem Measure.ext_iff_measureReal_singleton_finiteSupport {μ1 μ2 : Measure S
 
 end
 
+/-- `Hm[μ] = ∑ s ∈ A, negMulLog (((μ univ)⁻¹ • μ).real {s})` for a finite `A` whose complement
+is null: the `tsum` collapses onto `A` (`tsum_eq_sum`), every term outside being `negMulLog 0`.
+Read by `measureEntropy_of_isProbabilityMeasure_finite` here and `entropy_compProd_aux`
+(`Kernel/Basic`). -/
 lemma measureEntropy_eq_sum {μ : Measure S} {A : Finset S} (hA : μ Aᶜ = 0) :
    Hm[μ] = ∑ s ∈ A, negMulLog (((μ Set.univ)⁻¹ • μ).real {s}) := by
   unfold measureEntropy
@@ -265,9 +294,15 @@ lemma measureEntropy_eq_sum {μ : Measure S} {A : Finset S} (hA : μ Aᶜ = 0) :
   rw [Measure.real, measure_mono_null (by simpa) hA]
   simp
 
+/-- `Hm[0] = 0` (`simp [measureEntropy]`). A `simp` lemma; what `simp` reaches in the `μ = 0`
+branches of `measureEntropy_univ_smul`, `measureEntropy_nonneg` and
+`measureMutualInfo_nonneg_aux`. -/
 @[simp]
 lemma measureEntropy_zero : Hm[(0 : Measure S)] = 0 := by simp [measureEntropy]
 
+/-- `Hm[dirac x] = 0`: the normalised measure has one atom, of mass `1`, and `negMulLog 1 = 0`
+(`tsum_eq_single`). A `simp` lemma; read by `entropy_deterministic` (`Kernel/Basic`) and by the
+A-R1 consumer test (`Salt/Entropy/ConsumerTest`). -/
 @[simp]
 lemma measureEntropy_dirac [MeasurableSingletonClass S] (x : S) : Hm[Measure.dirac x] = 0 := by
   rw [measureEntropy]
@@ -278,30 +313,49 @@ lemma measureEntropy_dirac [MeasurableSingletonClass S] (x : S) : Hm[Measure.dir
     indicator_of_mem, Pi.one_apply, ENNReal.toReal_one, negMulLog_one]
   · simp +contextual [eq_comm]
 
+/-- `Hm[μ] = 0` when `μ` is not finite: `μ univ = ⊤`, so the normalisation `(μ univ)⁻¹ • μ` is
+`0`. The infinite-mass branch of `measureEntropy_univ_smul`, `measureEntropy_nonneg`,
+`measureEntropy_le_log_card_of_mem` and `measureMutualInfo_of_not_isFiniteMeasure`. -/
 lemma measureEntropy_of_not_isFiniteMeasure (h : ¬ IsFiniteMeasure μ) : Hm[μ] = 0 := by
   simp [measureEntropy, not_isFiniteMeasure_iff.mp h]
 
+/-- `Hm[μ] = ∑' s, negMulLog (μ.real {s})` for a zero-or-probability measure: the normalisation
+is the identity (`μ univ = 1`), or `μ = 0`. Read by `entropy_eq_integral_sum` (`Kernel/Basic`);
+`measureEntropy_of_isProbabilityMeasure'` is the same statement under a second name. -/
 lemma measureEntropy_of_isProbabilityMeasure (μ : Measure S) [IsZeroOrProbabilityMeasure μ] :
     Hm[μ] = ∑' s, negMulLog (μ.real {s}) := by
   rcases eq_zero_or_isProbabilityMeasure μ with rfl | hμ
   · simp [measureEntropy]
   · simp [measureEntropy]
 
+/-- `measureEntropy_of_isProbabilityMeasure` under a second name, kept from upstream (the
+statement is the same). No consumer at 884bd7d7. -/
 lemma measureEntropy_of_isProbabilityMeasure' (μ : Measure S) [IsZeroOrProbabilityMeasure μ] :
     Hm[μ] = ∑' s, negMulLog (μ.real {s}) :=
   measureEntropy_of_isProbabilityMeasure μ
 
+/-- `Hm[μ] = ∑ s ∈ A, negMulLog (μ.real {s})` for a zero-or-probability measure and a finite `A`
+of full measure: `measureEntropy_eq_sum` with the normalisation discharged. Read by
+`measureMutualInfo_nonneg_aux` here and by `entropy_sub_le_of_l1` (`Chowla/Fannes`),
+`entropy_ge_of_mass_ub` (`Chowla/ResidueUniform`) and `measureEntropy_split_le`
+(`Chowla/WeakUniform`). -/
 lemma measureEntropy_of_isProbabilityMeasure_finite {μ : Measure S} {A : Finset S} (hA : μ Aᶜ = 0)
     [IsZeroOrProbabilityMeasure μ] :
     Hm[μ] = ∑ s ∈ A, negMulLog (μ.real {s}) := by
   rw [measureEntropy_eq_sum hA]
   rcases eq_zero_or_isProbabilityMeasure μ with rfl | hμ <;> simp
 
+/-- `measureEntropy_of_isProbabilityMeasure_finite` under a second name, kept from upstream.
+Read by `measureEntropy_prod`. -/
 lemma measureEntropy_of_isProbabilityMeasure_finite' {μ : Measure S} {A : Finset S} (hA : μ Aᶜ = 0)
     [IsZeroOrProbabilityMeasure μ] :
     Hm[μ] = ∑ s ∈ A, negMulLog (μ.real {s}) :=
   measureEntropy_of_isProbabilityMeasure_finite hA
 
+/-- `Hm[(μ univ)⁻¹ • μ] = Hm[μ]`: the entropy is already normalised, so normalising again
+changes nothing (both sides `0` when `μ` is not finite or is `0`). Read by
+`measureEntropy_le_log_card_of_mem`, `measureEntropy_eq_card_iff_measureReal_eq` and
+`measureMutualInfo_univ_smul`. -/
 lemma measureEntropy_univ_smul : Hm[(μ Set.univ)⁻¹ • μ] = Hm[μ] := by
   by_cases hμ_fin : IsFiniteMeasure μ
   swap
@@ -312,6 +366,11 @@ lemma measureEntropy_univ_smul : Hm[(μ Set.univ)⁻¹ • μ] = Hm[μ] := by
   | inl hμ => simp [hμ]
   | inr hμ => simp [measureEntropy]
 
+/-- `0 ≤ Hm[μ]`: each term is `negMulLog` of a mass in `[0, 1]` after normalisation
+(`negMulLog_nonneg`, `prob_le_one`), and `Hm[μ] = 0` when `μ` is not finite. The floor the
+random-variable and kernel levels read: `entropy_nonneg` and `condEntropy_nonneg`
+(`Salt/Entropy/Basic`), `entropy_nonneg` and `entropy_le_log_card` (`Kernel/Basic`), and the
+A-R1 consumer test. -/
 lemma measureEntropy_nonneg (μ : Measure S) : 0 ≤ Hm[μ] := by
   by_cases hμ_fin : IsFiniteMeasure μ
   swap; · rw [measureEntropy_of_not_isFiniteMeasure hμ_fin]
@@ -360,6 +419,10 @@ lemma measureEntropy_le_card_aux {μ : Measure S} [IsProbabilityMeasure μ]
   _ = N * negMulLog ((N : ℝ)⁻¹) := by simp [← Finset.mul_sum]; simp [μA, Measure.real]
   _ = log A.card := by simp [negMulLog, ← mul_assoc, mul_inv_cancel₀ N_pos.ne', N]
 
+/-- For a probability measure on a finite type, `Hm[μ] = log (card S)` iff every atom has real
+mass `(card S)⁻¹`: the equality case of Jensen for `negMulLog`
+(`strictConcaveOn_negMulLog.map_sum_eq_iff`) at the uniform weights. Read by
+`measureEntropy_eq_card_iff_measure_eq_aux` and `measureEntropy_eq_card_iff_measureReal_eq`. -/
 lemma measureEntropy_eq_card_iff_measureReal_eq_aux [Fintype S]
     (μ : Measure S) [IsProbabilityMeasure μ] :
     Hm[μ] = log (Fintype.card S) ↔ ∀ s, μ.real {s} = (Fintype.card S : ℝ)⁻¹ := by
@@ -381,6 +444,9 @@ lemma measureEntropy_eq_card_iff_measureReal_eq_aux [Fintype S]
   · simp [Finset.mul_sum, w, p]
   · simp [p, ← Finset.mul_sum, w, p]
 
+/-- `measureEntropy_eq_card_iff_measureReal_eq_aux` with the masses in `ℝ≥0∞`:
+`μ {s} = (card S : ℝ≥0)⁻¹` (`measureReal_def`, `ENNReal.toReal_eq_toReal_iff'`). No consumer at
+884bd7d7. -/
 lemma measureEntropy_eq_card_iff_measure_eq_aux
     (μ : Measure S) [Fintype S] [IsProbabilityMeasure μ] :
     Hm[μ] = log (Fintype.card S) ↔ (∀ s : S, μ {s} = (Fintype.card S : ℝ≥0)⁻¹) := by
@@ -390,6 +456,10 @@ lemma measureEntropy_eq_card_iff_measure_eq_aux
   congr!
 
 set_option linter.flexible false in
+/-- `Hm[μ] ≤ log A.card` for any measure carried by the finite set `A`:
+`measureEntropy_le_card_aux` after normalising (`measureEntropy_univ_smul`), the `μ = 0` and
+infinite-mass branches read off directly. Read by `measureEntropy_le_log_card` and by
+`entropy_liouvilleWindow_le` (`Chowla/Windows`). -/
 lemma measureEntropy_le_log_card_of_mem
     {A : Finset S} (μ : Measure S) (hμA : μ Aᶜ = 0) :
     Hm[μ] ≤ log A.card := by
@@ -403,9 +473,17 @@ lemma measureEntropy_le_log_card_of_mem
   · rw [measureEntropy_of_not_isFiniteMeasure hμ_fin]
     exact log_natCast_nonneg _
 
+/-- `Hm[μ] ≤ log (card S)` on a finite type: `measureEntropy_le_log_card_of_mem` at `A = univ`.
+The log-cardinality ceiling that the random-variable `entropy_le_log_card`
+(`Salt/Entropy/Basic`), the kernel `entropy_le_log_card` (`Kernel/Basic`),
+`decrement_markov_fintype` (`Chowla/MarkovExtract`) and the A-R1 consumer test read. -/
 lemma measureEntropy_le_log_card [Fintype S] (μ : Measure S) : Hm[μ] ≤ log (Fintype.card S) :=
   measureEntropy_le_log_card_of_mem (A := (Finset.univ : Finset S)) μ (by simp)
 
+/-- For a finite nonzero measure on a finite type, `Hm[μ] = log (card S)` iff every atom carries
+the same real mass `μ.real univ / card S`: normalise (`measureEntropy_univ_smul`) and apply
+`measureEntropy_eq_card_iff_measureReal_eq_aux`. Read by
+`measureEntropy_eq_card_iff_measure_eq`. -/
 lemma measureEntropy_eq_card_iff_measureReal_eq [Fintype S] [IsFiniteMeasure μ] [NeZero μ] :
     Hm[μ] = log (Fintype.card S) ↔ ∀ s : S, μ.real {s} = μ.real Set.univ / Fintype.card S := by
   rw [← measureEntropy_univ_smul]
@@ -437,6 +515,8 @@ lemma entropy_of_uniformOn (H : Set S) [Nonempty H] [Finite H] :
       simp only [ne_eq, Nat.cast_eq_zero, Nat.card_ne_zero]
       exact ⟨‹_›, ‹_›⟩
 
+/-- `measureEntropy_eq_card_iff_measureReal_eq` with the masses in `ℝ≥0∞`:
+`μ {s} = μ univ / card S`. No consumer at 884bd7d7. -/
 lemma measureEntropy_eq_card_iff_measure_eq [Fintype S] [IsFiniteMeasure μ] [NeZero μ] :
     Hm[μ] = log (Fintype.card S) ↔
     (∀ s : S, μ {s} = μ Set.univ / Fintype.card S) := by
@@ -450,6 +530,11 @@ lemma measureEntropy_eq_card_iff_measure_eq [Fintype S] [IsFiniteMeasure μ] [Ne
     rfl
   · finiteness
 
+/-- `Hm[μ.map f] = Hm[μ]` for an injective measurable `f`: the sum over `S` restricts to the
+image of `f` (`tsum_subtype_eq_of_support_subset`) and re-indexes through `f` (`tsum_image`),
+each fibre a singleton. Read by `entropy_comp_of_injective` (`Salt/Entropy/Basic`) and by
+`entropy_map_of_injective` and `entropy_snd_compProd_deterministic_of_injective`
+(`Kernel/Basic`). -/
 lemma measureEntropy_map_of_injective
     (μ : Measure T) (f : T → S) (hf_m : Measurable f) (hf : Function.Injective f) :
     Hm[μ.map f] = Hm[μ] := by
@@ -475,6 +560,9 @@ lemma measureEntropy_map_of_injective
   ext s'
   simpa using hf.eq_iff
 
+/-- `Hm[μ.comap f] = Hm[μ]` for a measurable embedding `f` whose range is `μ`-full: the sum over
+`S` is the sum over `range f` (`tsum_range`), and the atoms outside the range are null. Read by
+`measureEntropy_comap_equiv`. -/
 lemma measureEntropy_comap (μ : Measure T) (f : S → T) (hf : MeasurableEmbedding f)
     (hf_range : Set.range f =ᵐ[μ] Set.univ) :
     Hm[μ.comap f] = Hm[μ] := by
@@ -494,6 +582,9 @@ lemma measureEntropy_comap (μ : Measure T) (f : S → T) (hf : MeasurableEmbedd
   simp only [ae_eq_univ] at hf_range
   exact measure_mono_null (by simp [*]) hf_range
 
+/-- `Hm[μ.comap f] = Hm[μ]` for a measurable equivalence `f`: `measureEntropy_comap` with the
+range the whole space. No consumer at 884bd7d7 (the kernel level has its own
+`entropy_comap_equiv`). -/
 lemma measureEntropy_comap_equiv (μ : Measure T) (f : S ≃ᵐ T) : Hm[μ.comap f] = Hm[μ] := by
   refine measureEntropy_comap μ f f.measurableEmbedding ?_
   simp only [ae_eq_univ]
@@ -547,13 +638,20 @@ def measureMutualInfo (μ : Measure (S × T) := by volume_tac) : ℝ :=
 /-- The mutual information between the marginals of a measure on a product space. -/
 notation:100 "Im[" μ "]" => measureMutualInfo μ
 
+/-- `Im[μ] = Hm[μ.map fst] + Hm[μ.map snd] - Hm[μ]`, by `rfl`: `measureMutualInfo` unfolded. The
+first rewrite of `measureMutualInfo_of_not_isFiniteMeasure`, `measureMutualInfo_univ_smul`,
+`measureMutualInfo_swap`, `measureMutualInfo_prod` and `measureMutualInfo_nonneg_aux`. -/
 lemma measureMutualInfo_def (μ : Measure (S × T)) :
     Im[μ] = Hm[μ.map Prod.fst] + Hm[μ.map Prod.snd] - Hm[μ] := rfl
 
+/-- `Im[0] = 0` (`simp [measureMutualInfo]`). A `simp` lemma; no named consumer at 884bd7d7. -/
 @[simp]
 lemma measureMutualInfo_zero_measure : Im[(0 : Measure (S × T))] = 0 := by
   simp [measureMutualInfo]
 
+/-- `Im[μ] = 0` when `μ` is not finite: neither marginal is finite either, so all three
+entropies vanish (`measureEntropy_of_not_isFiniteMeasure`). The infinite-mass branch of
+`measureMutualInfo_univ_smul` and `measureMutualInfo_nonneg`. -/
 lemma measureMutualInfo_of_not_isFiniteMeasure {μ : Measure (S × U)} (h : ¬ IsFiniteMeasure μ) :
     Im[μ] = 0 := by
   rw [measureMutualInfo_def]
@@ -569,6 +667,9 @@ lemma measureMutualInfo_of_not_isFiniteMeasure {μ : Measure (S × U)} (h : ¬ I
     measureEntropy_of_not_isFiniteMeasure h2]
   simp
 
+/-- `Im[(μ univ)⁻¹ • μ] = Im[μ]`: `measureEntropy_univ_smul` on `μ` and on its two marginals
+(`Measure.map_smul`), the infinite-mass and zero branches read off. Read by
+`measureMutualInfo_nonneg` to pass from a finite measure to a probability measure. -/
 lemma measureMutualInfo_univ_smul (μ : Measure (S × U)) : Im[(μ Set.univ)⁻¹ • μ] = Im[μ] := by
   by_cases hμ_fin : IsFiniteMeasure μ
   swap
@@ -588,6 +689,9 @@ lemma measureMutualInfo_univ_smul (μ : Measure (S × U)) : Im[(μ Set.univ)⁻�
 
 variable [MeasurableSingletonClass S] [MeasurableSingletonClass T] [MeasurableSingletonClass U]
 
+/-- `Im[μ.map Prod.swap] = Im[μ]`: the marginals exchange roles (`add_comm`, `Measure.map_map`)
+and `Hm[μ.map swap] = Hm[μ]` by re-indexing the sum through the bijection `swap` (`tsum_range`).
+No consumer at 884bd7d7. -/
 lemma measureMutualInfo_swap (μ : Measure (S × T)) :
     Im[μ.map Prod.swap] = Im[μ] := by
   rw [measureMutualInfo_def, add_comm, Measure.map_map measurable_snd measurable_swap,
@@ -603,6 +707,9 @@ lemma measureMutualInfo_swap (μ : Measure (S × T)) :
   congr! with ⟨s, t⟩
   simpa using Prod.swap_injective.preimage_image {(s, t)}
 
+/-- A product measure carries no mutual information: `Im[μ.prod ν] = 0`, by
+`measureEntropy_prod` (`Hm[μ.prod ν] = Hm[μ] + Hm[ν]`) and the marginals of a product. A `simp`
+lemma; no named consumer at 884bd7d7. -/
 @[simp]
 lemma measureMutualInfo_prod {μ : Measure S} {ν : Measure T} [FiniteSupport μ] [FiniteSupport ν]
     [IsProbabilityMeasure μ] [IsProbabilityMeasure ν] :
@@ -810,6 +917,11 @@ lemma measureMutualInfo_nonneg_aux {μ : Measure (S × U)} [FiniteSupport μ]
   field_simp [this]
   rw [hyp (s,u)]
 
+/-- `0 ≤ Im[μ]` for a finitely supported measure on a product: normalise
+(`measureMutualInfo_univ_smul`) and take the first half of `measureMutualInfo_nonneg_aux`; `0`
+when `μ` is not finite. Read by the random-variable `mutualInfo_nonneg` (`Salt/Entropy/Basic`),
+the kernel `mutualInfo_nonneg'` (`Kernel/MutualInfo`), and the `positivity` extension
+`evalMeasureMutualInfo` below. -/
 lemma measureMutualInfo_nonneg {μ : Measure (S × U)} [FiniteSupport μ] :
     0 ≤ Im[μ] := by
   by_cases hμ_fin : IsFiniteMeasure μ
@@ -817,6 +929,10 @@ lemma measureMutualInfo_nonneg {μ : Measure (S × U)} [FiniteSupport μ] :
     apply measureMutualInfo_nonneg_aux.1
   rw [measureMutualInfo_of_not_isFiniteMeasure hμ_fin]
 
+/-- `Im[μ] = 0` iff `μ` is the product of its marginals atom by atom
+(`μ.real {p} = (μ.map fst).real {p.1} * (μ.map snd).real {p.2}` for every `p`), for a finitely
+supported zero-or-probability measure: the second half of `measureMutualInfo_nonneg_aux` (the
+equality case of Jensen). No consumer at 884bd7d7. -/
 lemma measureMutualInfo_eq_zero_iff {μ : Measure (S × U)} [FiniteSupport μ]
     [IsZeroOrProbabilityMeasure μ] :
     Im[μ] = 0 ↔ ∀ p, μ.real {p} = (μ.map Prod.fst).real {p.1} * (μ.map Prod.snd).real {p.2} :=
