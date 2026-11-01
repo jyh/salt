@@ -54,6 +54,7 @@ def fareyPairs (Q : ℕ) : Finset (Σ _ : ℕ, ℕ) :=
 /-- **L6.1b.** The fraction attached to a Farey pair: `(q, a) ↦ a / q`. -/
 noncomputable def fareyFrac (x : Σ _ : ℕ, ℕ) : ℝ := (x.2 : ℝ) / (x.1 : ℝ)
 
+/-- `fareyFrac ⟨q, a⟩ = a / q` (`rfl`): the fraction of a Farey pair, modulus first. -/
 @[simp] lemma fareyFrac_mk (q a : ℕ) : fareyFrac ⟨q, a⟩ = (a : ℝ) / q := rfl
 
 /-- **L6.1b (assembly engine).** The analytic large sieve, packaged for an

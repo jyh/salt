@@ -39,12 +39,17 @@ open scoped Real ZMod
 `expZeta a s = cosZeta a s + I * sinZeta a s` by definition (mathlib
 `HurwitzZeta.lean:115`).  At `s = 1` the cosine half is `cosZeta_apply_one` above (W1/E2,
 genuinely absent from mathlib) and the sine half is `sinZeta_apply_one`
-(`Salt/MR/Sawtooth.lean:468`, LANDED by the odd lane).  Their combination is exactly the
+(`Salt/MR/Sawtooth.lean:475`, LANDED by the odd lane).  Their combination is exactly the
 principal branch of `-log (1 - e^{2πix})`, because `1 - e^{2πix}` has modulus `2 sin (πx)`
 and argument `πx - π/2` — both already established here as `norm_one_sub_exp` and
 `one_sub_exp_eq`.
 
 This is the analytic input to E3 `LFunction_one_even_fourier`; it is NOT itself E3. -/
+/-- The boundary value of `expZeta` at `s = 1` for `hx : x ∈ (0, 1)`:
+`expZeta = cosZeta + I * sinZeta` with `cosZeta_apply_one` and `sinZeta_apply_one` (`Sawtooth`),
+and the principal `-log (1 - e^{2πix})` has modulus `2 sin (πx)` (`norm_one_sub_exp`) and
+argument `πx - π/2` (`one_sub_exp_eq`, `Complex.arg_mul_cos_add_sin_mul_I`). The analytic input
+to `LFunction_one_even_fourier`, not itself E3. -/
 theorem expZeta_apply_one {x : ℝ} (hx : x ∈ Set.Ioo (0 : ℝ) 1) :
     HurwitzZeta.expZeta (x : UnitAddCircle) 1
       = -Complex.log (1 - Complex.exp (((2 * Real.pi * x : ℝ) : ℂ) * I)) := by
@@ -71,6 +76,12 @@ needs `Φ 0 = 0`, and `DirichletCharacter.map_zero'` supplies that only under `n
 `N = 1` the character is trivial, `χ 0 = 1`, and the `j = 0` term is a genuine pole — this is
 the same pole of `ζ` that every rung of this ladder has to name its way around.)  The ladder
 document leaves this rider unstated; mathlib does not. -/
+/-- **E3** — `τ(χ) · L(1, χ⁻¹) = ∑_j χ(j) · (-log (1 - ζ^{-j}))` for a primitive (`hχ`) even
+(`hev`) character at modulus `hN : N ≠ 1`: `ZMod.LFunction_dft` at `s = 1` (its first disjunct
+`χ 0 = 0` from `map_zero'` under `hN`), the Fourier side by
+`fourierTransform_eq_inv_mul_gaussSum` and the evenness of `χ⁻¹`, the arithmetic side by
+`expZeta_apply_one` at every `j ≠ 0`. Consumed by `e4a_fourier_signOf_form`
+(`EvenChiMiddle`). -/
 theorem LFunction_one_even_fourier {N : ℕ} [NeZero N] (hN : N ≠ 1)
     {χ : DirichletCharacter ℂ N} (hχ : χ.IsPrimitive) (hev : χ.Even) :
     gaussSum χ ZMod.stdAddChar * DirichletCharacter.LFunction χ⁻¹ 1
@@ -116,6 +127,10 @@ FALSE, not merely unreachable by one route.  Dropping `hN` is such a mutation �
 left side is `riemannZeta 1 ≠ 0` and the right side is `0`, because the `j = 0` term the
 hypothesis exists to kill contributes `-log (1 - e⁰) = -log 0 = 0` while the L-function keeps
 `ζ`'s pole value.  So this is a witness against the `hN`-free statement, not a failed proof. -/
+/-- POSITIVE CONTROL for `hN` — at `N = 1` the identity is FALSE, not merely unreachable: the
+right side is `0` (every `(-j).val` is `0` and `Complex.log 0 = 0`) while the left is
+`riemannZeta 1 ≠ 0` (`gaussSum χ = 1`, `LFunction_modOne_eq`, `riemannZeta_one_ne_zero`). So
+`N ≠ 1` is kernel-necessary in `LFunction_one_even_fourier`. -/
 theorem LFunction_one_even_fourier_needs_modulus_ne_one (χ : DirichletCharacter ℂ 1) :
     gaussSum χ ZMod.stdAddChar * DirichletCharacter.LFunction χ⁻¹ 1
       ≠ ∑ j : ZMod 1, χ j *

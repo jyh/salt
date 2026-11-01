@@ -163,6 +163,11 @@ theorem s16BandLaneCBoundedLH_win_one_iff (Awin : ℝ) (K : ℕ) :
   unfold S16BandLaneCBoundedLH_win S16BandLaneCBoundedL_win
   simp only [socketBaseLH_one_iff]
 
+/-- The `h = 1` twin law for the witness-uniform rider: `S16BandLaneCBoundedLH_winU 1 Awin` is
+`S16ComposeV4.S16BandLaneCBoundedL_winU Awin`, by unfolding both and `socketBaseLH_one_iff`
+under `simp only`. With `s16BandLaneCBoundedLH_win_one_iff` the anti-drift gate for the two
+`h`-defs, whose socket occurrences sit in hypothesis position where no consumer build would see
+a drift. -/
 theorem s16BandLaneCBoundedLH_winU_one_iff (Awin : ℝ) :
     S16BandLaneCBoundedLH_winU 1 Awin ↔ S16BandLaneCBoundedL_winU Awin := by
   unfold S16BandLaneCBoundedLH_winU S16BandLaneCBoundedL_winU

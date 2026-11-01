@@ -26,10 +26,10 @@ multiplicity).
   explicit `Real.exp` bound off `Real.abs_exp_sub_one_le`, never an informal absorption.
 * `log F = log log z − log(ηL) + γ₀ + O(Δ)` — **proved in wave 3**
   (`hb_logF_at_split_point`).
-* `(4.4)`, the finite-product rearrangement of `κS₁` — **named binder** `hrear`: the sieve
-  side (`G(p)`, `ρ₁`, `C(α)`) has no corpus definition yet; see the `W4.5` note below.
-* `(4.5)` `𝔖(z,χ) = {1+O(z^{−1})}𝔖` — **named binder** `hsing`, stated against the corpus's
-  *own* `𝔖` (`Salt.HardyLittlewood.twinSingularSeries`).
+* `(4.4)`, the finite-product rearrangement of `κS₁` — **named binder** `hrear` here; the sieve
+  side had no corpus definition when this file landed (since proved: `hb_hrear`, `W4.5` below).
+* `(4.5)` `𝔖(z,χ) = {1+O(z^{−1})}𝔖` — **named binder** `hsing` here (since proved: `hb_hsing`),
+  stated against the corpus's *own* `𝔖` (`Salt.HardyLittlewood.twinSingularSeries`).
 
 Nothing is hidden inside an `O(·)`: `hrear` and `hsing` each come with an explicit numeric bound
 (`a1`, `a2`) on their `{1+ε}` factor, and the conclusion's `δ` is bounded by
@@ -42,10 +42,10 @@ with `Δ` W3's total and `E_P` the `(4.6)` error.  At HB's operating point
 
 ## The `W4.5` stone (recorded, not owed here)
 
-`κ` — HB's sieve normalisation — has no corpus definition, so `(4.4)` cannot be *proved* at the
-bytes: it is a statement about `ρ₁`, `G(p)` and `C(α)`, none of which exist yet.  `S₁` **is**
-defined here (`hbS1`, HB p.207 exactly), so `(L2)` is stated about the honest object
-`κ · S₁`, and the residue is precisely: *define `κ`, `G`, `C(α)` and prove `hrear`.*  That is the
+`κ` — HB's sieve normalisation — had no corpus definition when this file landed, so `(4.4)` rides
+here as `hrear` (since landed in `Lemma7Kappa`: `hbKappa`, `hbG`, `hbCalpha`, `hb_hrear`).
+`S₁` **is** defined here (`hbS1`, HB p.207 exactly), so `(L2)` is stated about the honest object
+`κ · S₁`, and the residue was: *define `κ`, `G`, `C(α)`, prove `hrear`* (done 08-05).  That is the
 `W4.5` stone for the N5/N6 consumer wiring.
 
 ## Binders (all named, nothing silent)
@@ -105,6 +105,7 @@ lemma abs_one_add_mul_sub_one_le {a b : ℝ} (ha : |a| ≤ 1) :
 noncomputable def primeProdBelow (z : ℝ) : ℝ :=
   ∏ p ∈ (Finset.range (⌊z⌋₊ + 1)).filter Nat.Prime, (1 - 1 / (p : ℝ))
 
+/-- `0 < ∏_{p ≤ ⌊z⌋} (1 − 1/p)`: every factor is `≥ 1/2`, since `p ≥ 2` (`Finset.prod_pos`). -/
 lemma primeProdBelow_pos {z : ℝ} : 0 < primeProdBelow z := by
   refine Finset.prod_pos (fun p hp => ?_)
   have hp2 : 2 ≤ p := (Finset.mem_filter.mp hp).2.two_le

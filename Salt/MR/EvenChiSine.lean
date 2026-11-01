@@ -30,6 +30,11 @@ import Salt.MR.Sawtooth
 
 namespace Salt.MR
 
+/-- **The sine bridge** — `‖1 - ζ_q ^ a‖ = 2 sin(πa/q)` for `ha : 0 < a`, `haq : a < q`:
+`ζ ^ a = exp(2πi · a/q)` and `norm_one_sub_exp` (`Sawtooth`) at `a/q ∈ (0, 1)`. The joint
+between the analytic and arithmetic sides; consumed by `e4a_sin_prod_eq_norm`,
+`e4a_sum_clog_re_sin`, `e4a_sin_bridge_zmod`, `e4a_step7_pair_product` (`EvenChiCyclotomic`) and
+`e4a_sin_prod_eq_eta_norm_inv` (`EvenChiEta`). -/
 theorem e4a_step3_sin_bridge {q a : ℕ} (ha : 0 < a) (haq : a < q) :
     ‖1 - (Complex.exp (((2 * Real.pi / q : ℝ) : ℂ) * Complex.I)) ^ a‖
       = 2 * Real.sin (Real.pi * ((a : ℝ) / q)) := by
@@ -63,6 +68,8 @@ computation, and UNIFORMLY IN q — no prime-power branch.  v1 sought this throu
 `Norm = 1 ⇒ unit`, which is false off the integers because η is a quotient; the
 associate route never leaves the ring. -/
 
+/-- The norm of a `zpow`-weighted product is the weighted product of norms — `norm_prod` and
+`norm_zpow`, over any index type. Consumed by `e4a_sin_prod_eq_norm`. -/
 theorem e4a_norm_zpow_prod {ι : Type*} (S : Finset ι) (f : ι → ℂ) (e : ι → ℤ) :
     ‖∏ a ∈ S, (f a) ^ (e a)‖ = ∏ a ∈ S, ‖f a‖ ^ (e a) := by
   rw [norm_prod]
@@ -86,9 +93,9 @@ theorem e4a_sin_prod_eq_norm {q : ℕ} (S : Finset ℕ) (e : ℕ → ℤ)
 /-! ## PROBE 36 — GAP 4 CLOSED, grafted from the helm's executor, and JOINTLY VERIFIED
 
 ⭐ It went past the ask and INTO my spine: not just `σζ = ζ^{b.val}` but `hgal` itself, and
-then `e4a_spine` APPLIED with `hgal` discharged.  Its mutation control deleted the swap arm
-and got a type mismatch AT THE `e4a_spine` CALL SITE — proving the spine genuinely CONSUMES
-the lemma rather than elaborating past it.
+then `e4a_spine` APPLIED with `hgal` discharged (now `EvenChiEta.e4a_eta_sum_is_integer_concrete`).
+Its mutation control deleted the swap arm and got a type mismatch AT THE `e4a_spine` CALL SITE —
+proving the spine genuinely CONSUMES the lemma rather than elaborating past it.
 
 ⛔ AND IT FOUND AN EIGHTH INTERFACE ON THE WAY IN: there was no `e4a_fibre_fix'` (the −1
 fibre at `χ(b) = +1`), hence no fixed-arm quotient — probe 25 fixed the NUMERATOR and said
@@ -110,6 +117,7 @@ that it does what its name says — `σ x = x ^ (galEquivZMod n K σ).val.val` f
 is right that it forbids applying this lemma to η.  It does not forbid applying it to ζ,
 which is all the link needs — the transport to η goes through the product, below. -/
 
+/-- `Re(-log z) = -log ‖z‖` — `Complex.log_re`. The per-term step of `e4a_sum_clog_re`. -/
 theorem e4a_neg_clog_re (z : ℂ) : (-(Complex.log z)).re = -Real.log ‖z‖ := by
   rw [Complex.neg_re, Complex.log_re]
 
@@ -142,14 +150,14 @@ theorem e4a_sum_clog_re_sin {q : ℕ} (S : Finset ℕ) (c : ℕ → ℤ)
 /-! ############################################################################
 ## ⭐ E5a MIDDLE, PIECE (2) — τ(χ) IS REAL AT AN EVEN QUADRATIC χ
 GRAFTED 2026-08-19 from `salt/ScratchE4aTauReal-exec.lean` (untracked, mortal),
-proved by an Opus executor in 2 attempts.  The exec file was STANDALONE — its own
-imports, no shared body with this file — so the graft is a pure append and the
-"their base may lag mine" prefix hazard does not arise here.  Verified before the
-graft: 0 name collisions on all 7 theorems.
+proved by an Opus executor in 2 attempts; the theorems now live in `EvenChiTau`.  The exec file
+was STANDALONE — its own imports, no shared body with this file — so the graft was a pure append
+and the "their base may lag mine" prefix hazard did not arise.  Checked before the graft: 0 name
+collisions on all 7 theorems.
 
-REPRICE HONOURED: only REALITY is proved.  The SIGN (τ = ±√q) is deliberately NOT
-proved and is NOT needed — `cosh` is even, so `e4a_cosh_of_pm` /
-`e4a_cosh_integer_of_pm` absorb it downstream.  NO √q appears below.
+REPRICE HONOURED: the graft proved REALITY only; `EvenChiTau` later added the magnitude
+`τ.re = ±√q` (primitive χ, `e4a_gaussSum_re_eq_pm_sqrt`).  The SIGN of `τ.re` is NOT proved and is
+NOT needed — `cosh` is even, so `e4a_cosh_of_pm` / `e4a_cosh_integer_of_pm` absorb it downstream.
 
 ⭐ CONSUME `e4a_gaussSum_real` (even + quadratic).  `hprim` IS NOT NEEDED — the
 brief's `_of_primitive` variant is kept only so the requested name exists, and is
@@ -160,12 +168,15 @@ zero call sites in mathlib or salt before this.
 ⚠ MATHLIB GAP: `mul_gaussSum_inv_eq_gaussSum` (GaussSum.lean:123) packages exactly
 `χ(-1) * gaussSum χ ψ⁻¹ = gaussSum χ ψ` but sits under `[Field R]` GRATUITOUSLY —
 its proof uses no field structure — so it is UNAVAILABLE at `ZMod q` for composite
-`q`.  Re-derived below at `[CommRing R] [Fintype R]`.  A 1-line upstream PR.
+`q`.  Re-derived in `EvenChiTau` at `[CommRing R] [Fintype R]`.  A 1-line upstream PR.
 ############################################################################ -/
 
 
 open Complex
 
+/-- `log` of a `zpow`-weighted real product with nonzero factors (`hg`) is the weighted sum of
+logs — `Real.log_prod` and `Real.log_zpow`, over any index type. Consumed by
+`e4a_log_eta_eq_sum` and `e4a_log_eta_units` (`EvenChiMiddle`). -/
 theorem e4a_log_zpow_prod {ι : Type*} (S : Finset ι) (g : ι → ℝ) (e : ι → ℤ)
     (hg : ∀ a ∈ S, g a ≠ 0) :
     Real.log (∏ a ∈ S, (g a) ^ (e a)) = ∑ a ∈ S, (e a : ℝ) * Real.log (g a) := by

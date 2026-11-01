@@ -620,7 +620,7 @@ THE FLOOR.  `sign_split_of_not_fails` is parametric in the regime and takes the 
 hypothesis `¬ logChowla2Fails R.eps R.x R.ω`: from the two identities plus
 `harmonic_window_bounds` alone, each mass is `≥ ((1 − ε)·log ω − 1)/2`.  There is no
 case split, no minimum lemma and no sign hypothesis — `abs_le` and `linarith` close both
-conjuncts — and the chain is NON-STRICT end to end, an equality at `A = D`.
+conjuncts — and every step of the chain is NON-STRICT (`≤`, never `<`).
 `sign_split_quarter_log` weakens it to the `ε`-free `(1/4)·log ω − 1/2` from `R.heps1`
 together with `0 ≤ log ω`; that second hypothesis is consumed, since the `(1 − ε) → 1/2`
 step multiplies through by `log ω` and would reverse without it.
@@ -854,8 +854,8 @@ concentration deviation sets, `FBridge`/`Decoupled`); at `h = 1` it reads
 `windowVal H (liouvilleWindow H n) (j + (p : ℕ))`, with no `* h`.  `outer_combine_h` writes
 wave A's fixed target spelling `windowVal H v (j + (p : ℕ) * h)` (`OuterCombine.lean:150`).
 VERIFIED BY `grep -F` ON THE LITERAL, NOT BY EYE: the string `(j + (p : ℕ) * h) : ℝ)` occurs at
-site 1 (`Transport.lean:203`), site 2 (`FBridge.lean:789`, `Decoupled.lean:107`) and site 3
-(`OuterCombine.lean:638`); after `OuterCombine.lean:436` — the whole B-4 block — the unshifted
+site 1 (`Transport.lean:203`), site 2 (`FBridge.lean:811`, `Decoupled.lean:107`) and site 3
+(`OuterCombine.lean:642`); after `OuterCombine.lean:440` — the whole B-4 block — the unshifted
 literal `(j + (p : ℕ)) : ℝ)` occurs ZERO times.
 
 ⛔⛔ CORRECTED 2026-08-21: THIS PARAGRAPH SAID "ALL THREE SITES AGREE" AND THE AGREEMENT
@@ -1003,7 +1003,7 @@ already IS the shifted count `≤ p·h`.  ⇒ A LEMMA STATED GENERICALLY IS ALRE
 the statement's own generality before pricing a port.
 
 ⛔ ONE DUPLICATION, DELIBERATE AND FLAGGED.  `collapse_identity_h`/`liouville_sq_h` are
-re-proved `private` in `HBudget` although `ShiftFork.lean:434` already has the identical
+re-proved `private` in `HBudget` although `ShiftFork.lean:479` already has the identical
 public `liouville_collapse_h`, and `DilationStability` has the `h = 1` pair.  Reason:
 `DilationStability`'s are `private`, and `ShiftFork` is NOT in `HBudget`'s import closure
 (both import `ChowlaFailure`; neither imports the other), so reuse would mean ADDING AN IMPORT
@@ -1011,9 +1011,9 @@ to a landed file — a structural change this node does not own.  Reported, not 
 
 THE IMPORT CYCLE THAT SHAPED THE STATEMENT.  `singleCorr_of_fails_h`'s hypothesis is the
 INEQUALITY that `logChowlaFails h eps x ω` unfolds to, not the named Prop, because `ShiftFork`
-IMPORTS `ChowlaFailure` and naming it there would close a cycle.  Verified by seam probe, not
-by eye: an `example` feeding a `logChowlaFails h eps x ω` hypothesis straight into
-`singleCorr_of_fails_h` elaborates with no coercion.
+IMPORTS `ChowlaFailure` and naming it there would close a cycle.  Kernel-checked at a landed
+use: `HloExportFlatH.lean:170` feeds a `logChowlaFails h R.eps R.x R.ω` hypothesis (`:115`)
+straight into `singleCorr_of_fails_h` with no coercion (the first `example` probe is gone).
 
 THE `h = 1` RECOVERY IS A FOURTH SHAPE, AND THE TWO COMPATS OF THIS NODE ARE NOT ALIKE.  The
 GAP compat `shiftCorrH_one` is `rfl` (the gap enters as `_ + h`, and `Nat.add` recurses on its
@@ -1117,7 +1117,8 @@ consequence of the landed form recovers the witness — the only route is to re-
 with the numeral kept.  `hbudget_holds_h_bounded` replays `HBudget.lean:1182-1465` over the
 PINNED Mertens leaf (`primeWindow_sum_inv_ge_bounded`) because `hbudget_holds_h` draws its `c`
 from the UNPINNED one and `1/4 ≤ cE` is unobtainable by weakening;
-`circle_method_estimate_sq_bounded_h_core` replays `CircleMethod.lean:1366-1508` with the cap
+`circle_method_estimate_sq_bounded_h_core` replays `circle_method_estimate_sq_h_core`'s body
+(cited by line as 1366–1508 when written) with the cap
 `C ≤ h·(1 + 2·C₀)` kept at the witness.
 
 ⟦THE HEAD MOVES BY FOUR SCALINGS AND ONE BINDER, NOTHING ELSE⟧ the pins are `1/(500·h) ≤ ε`
@@ -1189,9 +1190,9 @@ Nothing bears on twin primes. -/
 #audit_axioms Salt.Entropy.Chowla.flat_head_uniform_h
 /-! ⟦THE SPINE CORE, RE-EXPORTED FOR THE `xceil` LANE⟧ (`HloExportFlatH` §5, 2026-09-02, math —
 wave H3 block C).  One line, and it exists because of an import direction: the `x`-ceiling
-apparatus lives entirely in `Salt/MR` and `Salt/Entropy` cannot import `Salt/MR`, so the `h`
+apparatus lives entirely in `Salt/MR` and `Salt/Entropy` did not import `Salt/MR`, so the `h`
 lane's `x`-ceilinged head must be built in MR — where two `private` helpers of this module are
-out of reach.  The 4-line one is re-proved at the MR site; the 139-line
+out of reach.  The 3-line one is re-proved at the MR site; the 138-line
 `spine_False_core_xi_sq_flat_h` is re-exported here instead.
 **Deliberately the smallest possible edit: a NEW declaration, not a visibility change.**  No
 landed line is touched and no `private` marker is lifted.
@@ -1545,7 +1546,7 @@ open Salt.Tactic in
 `HloExport`'s pinned head with `ε = 1/500` replaced by the HYPOTHESIS `0 < ε ≤ 1/500`, the four
 smallness arms re-derived by monotonicity, and the exchange rate `ε/1677 ≤ δ₀` exported as a
 conjunct (`δ₀ = cD3/(16C)·ε/4 ≥ 5ε/8384`; `1677` is the SMALLEST integer that works — the pinned
-leaves give `cD3/(16C) ≥ 5/2096` with zero slack, `Salt/Entropy/Chowla/HloExport.lean:561`).
+leaves give `cD3/(16C) ≥ 5/2096` with zero slack, the `hkey` step of that pinned head).
 
 ⚠ NO `K` UPPER BOUND IS EXPORTED (unlike `FlatHeadForm`'s `K ≤ 2^539`): the exchange rate is
 consumable at the L² grade only, so a consumer takes `K` from the same `obtain`, never from a
@@ -1570,7 +1571,7 @@ circle slot is obtained per class after `intro b` from `circle_method_estimate_s
 `gradedAffHeadAt_g12b_of_at_regime` (K1) is the conservativity control: H's conclusion, taken as a
 hypothesis, together with the landed head's own `hcrown` binder gives `GradedAffHeadAt_g12b a b h
 A₀` at every `A₀`; `flatDesignBase_mono` (M) is monotonicity of the design floor, what K1 and the
-bridge spend to lower a consumer's `A` to `A₁`.  NO NEW UNCONDITIONAL THEOREM (a restatement of
+bridge spend to lower a consumer's `A` to `A₁`.  NO NEW MATHEMATICS (a restatement of
 landed proofs); nothing here bears on twin primes.  2 obligations, 2 landed. -/
 open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.flatDesignBase_mono

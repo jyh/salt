@@ -51,8 +51,17 @@ set_option linter.style.whitespace false
 so `∫_{1+j/20}^{12} Obar = sufNumList[j]/400000000` (`Obar_suffix`). -/
 def sufNumList : List ℕ := [282228525, 271234843, 260753062, 250737609, 241148740, 231951587, 223115389, 214612874, 206419750, 198514284, 190876957, 183490171, 176338006, 169406014, 162681041, 156151078, 149805131, 143633111, 137625738, 131774454, 126071352, 120509111, 115080939, 109780525, 104601992, 99539860, 94589011, 89744657, 85002312, 80357768, 75807073, 71346509, 66972574, 62681967, 58471572, 54338445, 50279801, 46293003, 42375551, 38525074, 34739321, 31173248, 27963804, 25074871, 22474255, 20133206, 18026003, 16129598, 14423308, 12888545, 11508586, 10268368, 9154309, 8154150, 7256819, 6452308, 5731564, 5086395, 4509383, 3993809, 3533586, 3123199, 2757648, 2432402, 2143355, 1886786, 1659326, 1457923, 1279816, 1122508, 983741, 861478, 753882, 659298, 576238, 503366, 439485, 383526, 334536, 291668, 254172, 221387, 192732, 167696, 145832, 126748, 110099, 95582, 82932, 71916, 62328, 53988, 46739, 40443, 34978, 30238, 26130, 22572, 19492, 16828, 14526, 12537, 10820, 9339, 8062, 6962, 6014, 5198, 4496, 3892, 3373, 2927, 2544, 2215, 1932, 1688, 1478, 1298, 1144, 1012, 898, 800, 716, 643, 580, 526, 479, 438, 403, 373, 347, 324, 304, 287, 272, 259, 247, 236, 226, 217, 209, 202, 196, 190, 184, 178, 173, 169, 165, 161, 157, 153, 149, 145, 141, 137, 133, 129, 125, 122, 120, 118, 116, 114, 112, 110, 108, 106, 104, 102, 100, 98, 96, 94, 92, 90, 88, 86, 84, 82, 80, 78, 76, 74, 72, 70, 68, 66, 64, 62, 60, 58, 56, 54, 52, 50, 48, 46, 44, 42, 40, 38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2, 0]
 
+/-- The suffix cumulative as a real: `sufKnots j = sufNumList[j]/400000000`, so
+`∫_{1+j/20}^{12} Obar = sufKnots j` (`Obar_suffix`). Read on every even panel
+(`hptE_0 … hptE_199`), where the `TObar` integral is split at the panel's right edge, and at
+`j = 200` in `hptE_tail` (`sufKnots 200 = 1/10⁷`, the `[11, 12]` mass of `Obar`). -/
 noncomputable def sufKnots (j : ℕ) : ℝ := (sufNumList.getD j 0 : ℝ) / 400000000
 
+/-- The suffix numerator recurrence
+`sufNumList[j] = (ObarNum j + ObarNum (j+1)) + sufNumList[j+1]` for every `j < 220`, checked by
+one `decide` over the table. The step of `Obar_suffix`'s downward induction, where it turns
+`Obar_panel_integral j` into the `sufKnots` identity — one linear pass instead of 220
+partial-sum evaluations. -/
 theorem suf_rec_bulk : ∀ j ∈ Finset.range 220,
     sufNumList.getD j 0 = (ObarNum j + ObarNum (j+1)) + sufNumList.getD (j+1) 0 := by decide
 
@@ -117,6 +126,11 @@ theorem Obar_partial (i : ℕ) (hi : i < 220) (x : ℝ)
 noncomputable def TObar (x : ℝ) : ℝ :=
   if x ≤ 12 then (∫ w in x..(12:ℝ), Obar w) + (1/10000)/(2*12^2) else (1/10000)/(2*x^2)
 
+/-- `∫_x^c Obar ≤ TObar x` at `hc : x ≤ c`. For `x ≤ 12`: a top `c ≤ 12` is bounded by
+`∫_x^{12} Obar` (`Obar_nonneg` discards the remainder), and a top past `12` adds the cubic tail,
+`≤ K/(2·12²)` by `Obar_tail_eq` and `tail_integral_le`; for `x > 12` the whole integral is tail,
+`≤ K/(2x²)`. `hTO` shifts it to `∫_v^b Obar(t−1) ≤ TObar (v−1)`, discharging the `∀ b`
+quantifier for `hSE_reduce`. -/
 theorem TObar_ge (x : ℝ) (c : ℝ) (hc : x ≤ c) : (∫ w in x..c, Obar w) ≤ TObar x := by
   unfold TObar
   by_cases h12 : x ≤ 12
@@ -156,13 +170,25 @@ theorem hTO : ∀ v, (2:ℝ) ≤ v → ∀ b, v ≤ b → (∫ t in v..b, Obar (
 
 /-! ## Certified 8-digit log sandwiches for the fseq2 chord majorant -/
 
+/-- `34657359/50000000 ≤ log 2`, an 8-digit lower sandwich: `LogToolkit.le_log_of_taylor` at
+`n = 10`. Added to the half-knot bounds `logh_21 … logh_40` in the chord constants
+`loglow_21 … loglow_40` (`log (41/20) = log 2 + log (41/40)`, and so on across the twenty
+`fseq 2` panels). -/
 theorem le_log_2c : (34657359/50000000 : ℝ) ≤ Real.log 2 :=
   le_log_of_taylor (n:=10) (by norm_num) (by norm_num) (by norm_num)
     (by norm_num [Finset.sum_range_succ, Nat.factorial])
+/-- `log 2 ≤ 69314719/100000000`, the matching upper sandwich: `LogToolkit.log_le_of_taylor` at
+`n = 10`. With `log_threehalf_le_c`, one of the two halves of `L3up_c`. -/
 theorem log_two_le_c : Real.log 2 ≤ 69314719/100000000 :=
   log_le_of_taylor (by norm_num) 10 (by norm_num) (by norm_num [Finset.sum_range_succ, Nat.factorial])
+/-- `log (3/2) ≤ 40546511/100000000`: `LogToolkit.log_le_of_taylor` at `n = 9`. With
+`log_two_le_c`, one of the two halves of `L3up_c`. -/
 theorem log_threehalf_le_c : Real.log (3/2) ≤ 40546511/100000000 :=
   log_le_of_taylor (by norm_num) 9 (by norm_num) (by norm_num [Finset.sum_range_succ, Nat.factorial])
+/-- `log 3 ≤ 10986123/10000000`: `3 = 2·(3/2)`, `Real.log_mul`, then `log_two_le_c` and
+`log_threehalf_le_c`. The `L3up` argument of `fseq2_upper_of_log_lower` on each of the forty
+`fseq 2` panels (`hptE_0 … hptE_39`, `v ∈ [2, 4)`), where the chord majorant of `fseq 2` is
+priced. -/
 theorem L3up_c : Real.log 3 ≤ 10986123/10000000 := by
   rw [show (3:ℝ) = 2*(3/2) by norm_num, Real.log_mul (by norm_num) (by norm_num)]
   linarith [log_two_le_c, log_threehalf_le_c]
@@ -6995,6 +7021,12 @@ theorem hptE_199 : ∀ v ∈ Set.Ico (2+((199:ℕ):ℝ)/20) (2+(((199:ℕ):ℝ)+
 
 /-! ## The `v ≥ 12` power-tail seam -/
 
+/-- **The `v ≥ 12` power-tail seam of `hSE`.** `fseq 2 v + (1/v)·TObar (v−1) ≤ Ebar v` at
+`hv : 12 ≤ v`: `fseq 2 v = 0` past its support (`fseq_eq_zero_of_ge`) and `Ebar v = K/v³`
+(`Ebar_tail_eq`). For `v − 1 ≤ 12` the `TObar` branch is `∫_{v−1}^{12} Obar + K/(2·12²)`, the
+integral at most `sufKnots 200 = 1/10⁷` (`Obar_suffix` at `200`, `Obar_nonneg` on `[11, v−1]`),
+and `nlinarith` closes against `K/v³`; for `v − 1 > 12` it is the pure tail `K/(2(v−1)²)` and
+`(v−2)²`-type arithmetic closes. The `v ≥ 12` case of `hpt_holds`. -/
 theorem hptE_tail : ∀ v, (12:ℝ) ≤ v → fseq 2 v + (1/v) * TObar (v-1) ≤ Ebar v := by
   intro v hv
   have hv0 : (0:ℝ) < v := by linarith
@@ -7866,6 +7898,11 @@ theorem hpt_disp_9 (v : ℝ)
   have hlow199 : 2+((199:ℕ):ℝ)/20 ≤ v := by push_cast at hcut198 ⊢; linarith
   exact hptE_199 v ⟨hlow199, by push_cast at hhi ⊢; linarith⟩
 
+/-- **The panel-local `hSE` check for every `v ≥ 2`**: `fseq 2 v + (1/v)·TObar (v−1) ≤ Ebar v`.
+`v ≥ 12` is `hptE_tail`; `v ∈ [2, 12)` is dispatched by ten `by_cases` on the twenty-panel
+blocks `[2 + k, 3 + k)` to `hpt_disp_0 … hpt_disp_9`, each of which dispatches to its twenty
+`hptE_N`. The `hpt` argument of `hSE_reduce` in `hSE_holds`, this file's export. (Not the
+`Salt.Entropy.Chowla.hpt_holds` of the Goldbach energy lane, which shares only the name.) -/
 theorem hpt_holds : ∀ v, (2:ℝ) ≤ v → fseq 2 v + (1/v) * TObar (v-1) ≤ Ebar v := by
   intro v hv2
   rcases le_or_gt 12 v with hv12 | hv12

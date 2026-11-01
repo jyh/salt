@@ -12,7 +12,7 @@ import Salt.Maynard.Mertens
 # N8, THE SIEVE HALF — HB 1983's p.200 assembly from the dimension-4 sieve (design freeze v2)
 
 **STATUS: EXECUTED (2026-09-04).  The v2 design freeze (after the refuter pass) is
-DISCHARGED — all twenty theorems below are proved, sorry-free, with no statement changed and
+DISCHARGED — all twenty-one theorems below are proved, sorry-free, with no statement changed and
 no new axiom (each `#print axioms` shows exactly `[propext, Classical.choice, Quot.sound]`);
 no pre-authorised numeral amendment was needed.**  This file is one half of node N8 of the
 Heath-Brown engine (`docs/sources/hb1983-notes.md` §1–§2, pp.199–200, and Lemma 6,

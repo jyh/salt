@@ -60,6 +60,8 @@ noncomputable def desigBox (k x p : ℕ) : Finset (Fin k → ℤ) := by
   exact (Fintype.piFinset fun _ : Fin k => Finset.Ioc (0 : ℤ) (x : ℤ)).filter
     (fun md => ∀ i j : Fin k, i ≠ j → ¬ (p : ℤ) ∣ (md i - md j))
 
+/-- Membership in the designated box `desigBox k x p`: every coordinate in `(0, x]` and pairwise
+distinct modulo `p`. -/
 theorem mem_desigBox {k x p : ℕ} {md : Fin k → ℤ} :
     md ∈ desigBox k x p ↔
       (∀ i, md i ∈ Finset.Ioc (0 : ℤ) (x : ℤ)) ∧
@@ -76,6 +78,9 @@ noncomputable def mixBox {k r : ℕ} (x : ℕ) (e : Fin k → Fin (k * r)) (p : 
   exact (solBox (k * r) x).filter
     (fun m => blockDistinctMod e p m ∧ ∀ q, q ∉ Set.range e → (p : ℤ) ∣ (m q - a))
 
+/-- Membership in the mixed box `mixBox x e p a`: every coordinate in `(0, x]`, the designated
+block `e` distinct modulo `p` (`blockDistinctMod e p m`), and `p ∣ m q - a` at every rest
+coordinate `q ∉ Set.range e`. -/
 theorem mem_mixBox {k r : ℕ} {x : ℕ} {e : Fin k → Fin (k * r)} {p : ℕ} {a : ℤ}
     {m : Fin (k * r) → ℤ} :
     m ∈ mixBox x e p a ↔
@@ -106,6 +111,9 @@ noncomputable def transRestBox {k r : ℕ} (x : ℕ) (e : Fin k → Fin (k * r))
   exact (solBox (k * r) x).filter
     (fun m => blockDistinctMod e p m ∧ ∀ q, q ∉ Set.range e → P (m q))
 
+/-- Membership in the transversal box `transRestBox x e p P` with rest-predicate `P`: every
+coordinate in `(0, x]`, the designated block `e` distinct modulo `p` (`blockDistinctMod e p m`),
+and `P (m q)` at every rest coordinate `q ∉ Set.range e`. -/
 theorem mem_transRestBox {k r : ℕ} {x : ℕ} {e : Fin k → Fin (k * r)} {p : ℕ}
     {P : ℤ → Prop} {m : Fin (k * r) → ℤ} :
     m ∈ transRestBox x e p P ↔
@@ -278,6 +286,8 @@ theorem setGen_mixBox_factor {k r : ℕ} (x : ℕ) (e : Fin k → Fin (k * r))
 
 /-! ## c-3/c-4 support — continuity, integrability, and the residue partition -/
 
+/-- `setGen k b D` is continuous in the torus coordinates: a finite sum over `D` of products of
+the continuous `gcoord` (`fun_prop`). -/
 @[fun_prop]
 theorem continuous_setGen (k b : ℕ) (D : Finset (Fin b → ℤ)) :
     Continuous (setGen k b D) := by unfold setGen; fun_prop
@@ -506,10 +516,15 @@ noncomputable def transEquiv {k r : ℕ} (e : Fin k → Fin (k * r)) (he : Funct
     rw [Fintype.card_fin] at h; exact h.symm
   rw [Fintype.card_subtype_compl, Fintype.card_fin, hcardRange]
 
+/-- The transversal reindex sends `Sum.inl a` back to the designated coordinate `e a`
+(`he : Function.Injective e`). -/
 theorem transEquiv_symm_inl {k r : ℕ} (e : Fin k → Fin (k * r)) (he : Function.Injective e)
     (a : Fin k) : (transEquiv e he).symm (Sum.inl a) = e a := by
   simp [transEquiv]
 
+/-- The transversal reindex sends `Sum.inr b` to a REST coordinate:
+`(transEquiv e he).symm (Sum.inr b) ∉ Set.range e`, since its image under `transEquiv e he`
+would otherwise be an `inl`. -/
 theorem transEquiv_symm_inr_notmem {k r : ℕ} (e : Fin k → Fin (k * r)) (he : Function.Injective e)
     (b : Fin (k * r - k)) : (transEquiv e he).symm (Sum.inr b) ∉ Set.range e := by
   rintro ⟨i, hi⟩

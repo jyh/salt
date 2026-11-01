@@ -80,6 +80,8 @@ noncomputable def errB1 (_k W : ℕ) : ℝ :=
 noncomputable def errA1 (_k W : ℕ) : ℝ :=
   1 + 8 * (Nat.totient W / W : ℝ) * Real.log 2 + 4 * ((Nat.totient W : ℝ) + 1)
 
+/-- `0 < B = k · log k / log R` for `2 ≤ k` and `2 ≤ R`: `0 < log k`, `0 < log R` and `0 < k`
+(`positivity`); the `hB` every derivative and sign lemma below takes, as `≤` or `<`. -/
 lemma bParam_pos {k R : ℕ} (hk : 2 ≤ k) (hR : 2 ≤ R) : 0 < bParam k R := by
   have h1 : 0 < Real.log k := Real.log_pos (by exact_mod_cast (by omega : 1 < k))
   have h2 : 0 < Real.log R := Real.log_pos (by exact_mod_cast (by omega : 1 < R))
@@ -95,33 +97,44 @@ lemma fWt_eq_g1F (k R r : ℕ) : fWt k R r = g1F k R r := by
   congr 1
   ring
 
+/-- `fWt r ^ 2 = g₂(r)`: `fWt_eq_g1F` and `g₂ = g₁²` by `rfl`; `A1_bridge` reads `A₁`'s terms
+through it. -/
 lemma fWt_sq_eq_g2F (k R r : ℕ) : fWt k R r ^ 2 = g2F k R r := by
   rw [fWt_eq_g1F]; rfl
 
+/-- `1 ≤ s(t) = 1 + B · log t` for `B ≥ 0` (`hB`) and `t ≥ 1` (`ht`): `B · log t ≥ 0`
+(`Real.log_nonneg`). -/
 lemma one_le_sF {k R : ℕ} (hB : 0 ≤ bParam k R) {t : ℝ} (ht : 1 ≤ t) :
     1 ≤ sF k R t := by
   have h := mul_nonneg hB (Real.log_nonneg ht)
   unfold sF
   linarith
 
+/-- `0 < s(t)` for `B ≥ 0` and `t ≥ 1`: `1 ≤ s(t)` (`one_le_sF`); the nonvanishing every inverse
+of `s` below needs. -/
 lemma sF_pos {k R : ℕ} (hB : 0 ≤ bParam k R) {t : ℝ} (ht : 1 ≤ t) :
     0 < sF k R t :=
   lt_of_lt_of_le one_pos (one_le_sF hB ht)
 
+/-- `0 ≤ g₁(t) = s(t)⁻¹` for `B ≥ 0` and `t ≥ 1`: `sF_pos`, `positivity`. -/
 lemma g1F_nonneg {k R : ℕ} (hB : 0 ≤ bParam k R) {t : ℝ} (ht : 1 ≤ t) :
     0 ≤ g1F k R t := by
   have := sF_pos hB ht
   unfold g1F
   positivity
 
+/-- `g₁(t) ≤ 1` for `B ≥ 0` and `t ≥ 1`: `inv_le_one_of_one_le₀` on `one_le_sF`. -/
 lemma g1F_le_one {k R : ℕ} (hB : 0 ≤ bParam k R) {t : ℝ} (ht : 1 ≤ t) :
     g1F k R t ≤ 1 :=
   inv_le_one_of_one_le₀ (one_le_sF hB ht)
 
+/-- `0 ≤ g₂(t) = (s(t)⁻¹)²`, an even power, with no hypothesis (`positivity`). -/
 lemma g2F_nonneg (k R : ℕ) (t : ℝ) : 0 ≤ g2F k R t := by
   unfold g2F
   positivity
 
+/-- `g₂(t) ≤ 1` for `B ≥ 0` and `t ≥ 1`: `g₁(t) ∈ [0, 1]` (`g1F_nonneg`, `g1F_le_one`) squared
+(`nlinarith`). -/
 lemma g2F_le_one {k R : ℕ} (hB : 0 ≤ bParam k R) {t : ℝ} (ht : 1 ≤ t) :
     g2F k R t ≤ 1 := by
   have h0 := g1F_nonneg hB ht
@@ -183,11 +196,14 @@ All statements live on `t ≥ 1` (where `s(t) ≥ 1 > 0` for `B ≥ 0`);
 trap 2 of the node brief: `s` has a zero at `t = exp(−1/B) ∈ (0,1)`,
 so nothing here may wander below `1`. -/
 
+/-- `s'(t) = B / t` at every `t ≠ 0`: `Real.hasDerivAt_log` scaled by `B` and shifted by `1`. -/
 lemma hasDerivAt_sF (k R : ℕ) {t : ℝ} (ht : t ≠ 0) :
     HasDerivAt (sF k R) (bParam k R / t) t := by
   have h := ((Real.hasDerivAt_log ht).const_mul (bParam k R)).const_add 1
   rwa [div_eq_mul_inv]
 
+/-- `g₁'(t) = g1D t = −(B / t) · s(t)⁻²` for `B ≥ 0` and `t ≥ 1`: `hasDerivAt_sF` through
+`HasDerivAt.inv` (`s(t) ≠ 0` by `sF_pos`), the value rewritten to `g1D`. -/
 lemma hasDerivAt_g1F {k R : ℕ} (hB : 0 ≤ bParam k R) {t : ℝ} (ht : 1 ≤ t) :
     HasDerivAt (g1F k R) (g1D k R t) t := by
   have ht0 : t ≠ 0 := by positivity
@@ -199,6 +215,8 @@ lemma hasDerivAt_g1F {k R : ℕ} (hB : 0 ≤ bParam k R) {t : ℝ} (ht : 1 ≤ t
   rw [hval] at h
   exact h
 
+/-- `g₂'(t) = g2D t = −(2 B / t) · s(t)⁻³` for `B ≥ 0` and `t ≥ 1`: `hasDerivAt_g1F` through
+`HasDerivAt.pow 2`, and `2 · g₁ · g1D = g2D` by `ring`. -/
 lemma hasDerivAt_g2F {k R : ℕ} (hB : 0 ≤ bParam k R) {t : ℝ} (ht : 1 ≤ t) :
     HasDerivAt (g2F k R) (g2D k R t) t := by
   have h := (hasDerivAt_g1F hB ht).pow 2
@@ -208,6 +226,9 @@ lemma hasDerivAt_g2F {k R : ℕ} (hB : 0 ≤ bParam k R) {t : ℝ} (ht : 1 ≤ t
   rw [hval] at h
   exact h
 
+/-- `G₁'(t) = g₁(t) / t` for `B > 0` and `t ≥ 1`: `G₁ = B⁻¹ · log s`, so `Real.hasDerivAt_log`
+composed with `hasDerivAt_sF` and scaled by `B⁻¹`; `B⁻¹ · (s⁻¹ · (B / t)) = g₁ / t` by
+`field_simp`. The antiderivative `byparts_transfer` takes for the `B₁` sums. -/
 lemma hasDerivAt_G1F {k R : ℕ} (hB : 0 < bParam k R) {t : ℝ} (ht : 1 ≤ t) :
     HasDerivAt (G1F k R) (g1F k R t / t) t := by
   have ht0 : t ≠ 0 := by positivity
@@ -220,6 +241,9 @@ lemma hasDerivAt_G1F {k R : ℕ} (hB : 0 < bParam k R) {t : ℝ} (ht : 1 ≤ t) 
   rw [hval] at h
   exact h
 
+/-- `G₂'(t) = g₂(t) / t` for `B > 0` and `t ≥ 1`: `G₂ = −B⁻¹ · g₁`, so `hasDerivAt_g1F` scaled
+and negated; `−B⁻¹ · g1D = g₂ / t` by `field_simp`. The antiderivative `byparts_transfer` takes
+for the `A₁` sums. -/
 lemma hasDerivAt_G2F {k R : ℕ} (hB : 0 < bParam k R) {t : ℝ} (ht : 1 ≤ t) :
     HasDerivAt (G2F k R) (g2F k R t / t) t := by
   have h := ((hasDerivAt_g1F hB.le ht).const_mul (bParam k R)⁻¹).neg
@@ -230,10 +254,15 @@ lemma hasDerivAt_G2F {k R : ℕ} (hB : 0 < bParam k R) {t : ℝ} (ht : 1 ≤ t) 
   rw [hval] at h
   exact h
 
+/-- `s` is continuous on any set of nonzero points (`hs`): a constant plus a constant times
+`log` (`continuousOn_id.log`). -/
 lemma continuousOn_sF (k R : ℕ) {s : Set ℝ} (hs : ∀ t ∈ s, t ≠ 0) :
     ContinuousOn (sF k R) s :=
   continuousOn_const.add (continuousOn_const.mul (continuousOn_id.log hs))
 
+/-- `g1D = −(B / t) · s⁻²` is continuous on `[1, b]` for `B ≥ 0`: `t ≠ 0` and `s(t) ≠ 0` there
+(`sF_pos`), so the quotient, the inverse (`inv₀`) and the square are; the `hw'c` of
+`abel_aW_lower` and `abel_aW_upper` at `w = g₁`. -/
 lemma continuousOn_g1D {k R : ℕ} (hB : 0 ≤ bParam k R) {b : ℝ} :
     ContinuousOn (g1D k R) (Set.Icc 1 b) := by
   have hne0 : ∀ t ∈ Set.Icc (1 : ℝ) b, t ≠ 0 := by
@@ -247,6 +276,8 @@ lemma continuousOn_g1D {k R : ℕ} (hB : 0 ≤ bParam k R) {b : ℝ} :
   exact ((continuousOn_const.div continuousOn_id hne0).neg).mul
     (((continuousOn_sF k R hne0).inv₀ hsne).pow 2)
 
+/-- `g2D = −(2 B / t) · s⁻³` is continuous on `[1, b]` for `B ≥ 0`: as `continuousOn_g1D` with
+the cube; the `hw'c` of the Abel bounds at `w = g₂`. -/
 lemma continuousOn_g2D {k R : ℕ} (hB : 0 ≤ bParam k R) {b : ℝ} :
     ContinuousOn (g2D k R) (Set.Icc 1 b) := by
   have hne0 : ∀ t ∈ Set.Icc (1 : ℝ) b, t ≠ 0 := by
@@ -260,6 +291,8 @@ lemma continuousOn_g2D {k R : ℕ} (hB : 0 ≤ bParam k R) {b : ℝ} :
   exact ((continuousOn_const.div continuousOn_id hne0).neg).mul
     (((continuousOn_sF k R hne0).inv₀ hsne).pow 3)
 
+/-- `g1D t ≤ 0` for `B ≥ 0` and `t ≥ 1`: `(B / t) · s⁻² ≥ 0` (`positivity`), negated — `g₁`
+decreases; the `hw'neg` of the Abel bounds at `w = g₁`. -/
 lemma g1D_nonpos {k R : ℕ} (hB : 0 ≤ bParam k R) {t : ℝ} (ht : 1 ≤ t) :
     g1D k R t ≤ 0 := by
   have ht0 : (0 : ℝ) < t := by linarith
@@ -267,6 +300,8 @@ lemma g1D_nonpos {k R : ℕ} (hB : 0 ≤ bParam k R) {t : ℝ} (ht : 1 ≤ t) :
   unfold g1D
   linarith
 
+/-- `g2D t ≤ 0` for `B ≥ 0` and `t ≥ 1`: `(2 B / t) · s⁻³ ≥ 0` with `s(t) ≥ 0` (`sF_pos`),
+negated — `g₂` decreases; the `hw'neg` of the Abel bounds at `w = g₂`. -/
 lemma g2D_nonpos {k R : ℕ} (hB : 0 ≤ bParam k R) {t : ℝ} (ht : 1 ≤ t) :
     g2D k R t ≤ 0 := by
   have ht0 : (0 : ℝ) < t := by linarith
@@ -284,6 +319,13 @@ For any weight `w` with derivative `w'` and antiderivative `G` of
 `(−w'(t))·(c₁·log t − c₂)`, so the by-parts integral evaluates to
 `F(b) − F(a)` by FTC.  Proved once; instantiated for `g₁` and `g₂`. -/
 
+/-- **Fact 1 — the universal by-parts evaluation.** For `w` with derivative `w'` on
+`[a, b] ⊆ [1, ∞)`, `G` an antiderivative of `w(t) / t` there, `w'` continuous, and any `c₁`,
+`c₂`: `∫_a^b −w'(t) · (c₁ · log t − c₂) dt = F(b) − F(a)` with
+`F(t) = c₁ · (G(t) − w(t) · log t) + c₂ · w(t)`. `F' = −w' · (c₁ · log t − c₂)` by the product
+rule on `w · log` (`Real.hasDerivAt_log`) and `hG`, and FTC (`integral_eq_sub_of_hasDerivAt`)
+with the integrand continuous. Instantiated at `(g₁, G₁)` and `(g₂, G₂)` by `abel_aW_lower` and
+`abel_aW_upper`. -/
 theorem byparts_transfer {w w' G : ℝ → ℝ} {a b : ℝ} (ha : 1 ≤ a) (hab : a ≤ b)
     (hw : ∀ t ∈ Set.Icc a b, HasDerivAt w (w' t) t)
     (hG : ∀ t ∈ Set.Icc a b, HasDerivAt G (w t / t) t)
@@ -330,8 +372,13 @@ explicit `+ 1` in the bridges. -/
 noncomputable def aW (W r : ℕ) : ℝ :=
   if 2 ≤ r ∧ Squarefree r ∧ Nat.Coprime r W then 1 / (Nat.totient r : ℝ) else 0
 
+/-- `aW W 0 = 0`: the guard `2 ≤ 0` fails (`simp`); the `c 0 = 0` side condition of
+`sum_mul_eq_sub_integral_mul₁` in `abel_aW_eq`. -/
 lemma aW_zero (W : ℕ) : aW W 0 = 0 := by simp [aW]
 
+/-- `aW W 1 = 0`: the guard `2 ≤ 1` fails (`simp`); the `c 1 = 0` side condition of
+`sum_mul_eq_sub_integral_mul₁` in `abel_aW_eq` — the excluded `r = 1` term is the explicit `+ 1`
+of `B1_bridge` and `A1_bridge`. -/
 lemma aW_one (W : ℕ) : aW W 1 = 0 := by simp [aW]
 
 /-- Generic bridge: an `aW`-weighted sum over `Icc 0 (X−1)` is the
@@ -458,6 +505,11 @@ lemma sum_aW_floor_upper (W : ℕ) (hW : W ≠ 0) {t : ℝ} (ht : 2 ≤ t) :
 the partial sum under the integral (`setIntegral_mono_on`, both sides
 integrable — trap 5) and evaluate by `byparts_transfer`. -/
 
+/-- **Fact 2 — the Abel core.** For `w` differentiable on `[2, N]` with continuous derivative
+`w'`:
+`Σ_{r ≤ N} w(r) · aW(r) = w(N) · Σ_{r ≤ N} aW(r) − ∫_{(2, N]} w'(t) · Σ_{r ≤ ⌊t⌋} aW(r) dt` —
+mathlib's `sum_mul_eq_sub_integral_mul₁` at `aW W` (`aW_zero`, `aW_one`), with `deriv w`
+replaced by `w'` under the integral (`setIntegral_congr_fun`). -/
 lemma abel_aW_eq (W N : ℕ) (w w' : ℝ → ℝ)
     (hw : ∀ t ∈ Set.Icc (2 : ℝ) (N : ℝ), HasDerivAt w (w' t) t)
     (hw'c : ContinuousOn w' (Set.Icc (2 : ℝ) (N : ℝ))) :
@@ -482,6 +534,12 @@ lemma abel_aW_eq (W N : ℕ) (w w' : ℝ → ℝ)
   simp only
   rw [hderiv_eq t (Set.Ioc_subset_Icc_self ht)]
 
+/-- **The Abel lower bound.** For a decreasing weight (`hw'neg : w' ≤ 0`) and a lower bound
+`c₁ · log t − c₂ ≤ Σ_{r ≤ ⌊t⌋} aW(r)` on `(2, N]` (`hΦ`):
+`w(N) · Σ_{r ≤ N} aW(r) + (F(N) − F(2)) ≤ Σ_{r ≤ N} w(r) · aW(r)` with `F` as in
+`byparts_transfer`. `abel_aW_eq`, then `setIntegral_mono_on` under `−w' ≥ 0` (both integrands
+integrable: the explicit one by continuity, the partial-sum one by `integrableOn_mul_sum_Icc`),
+evaluated by `byparts_transfer`. Fed by `sum_aW_floor_lower` in the sharp lower bounds. -/
 lemma abel_aW_lower (W N : ℕ) (hN : 2 ≤ N) (w w' G : ℝ → ℝ) (c₁ c₂ : ℝ)
     (hw : ∀ t ∈ Set.Icc (2 : ℝ) (N : ℝ), HasDerivAt w (w' t) t)
     (hG : ∀ t ∈ Set.Icc (2 : ℝ) (N : ℝ), HasDerivAt G (w t / t) t)
@@ -530,6 +588,11 @@ lemma abel_aW_lower (W N : ℕ) (hN : 2 ≤ N) (w w' G : ℝ → ℝ) (c₁ c₂
   rw [heq]
   linarith [hfinal]
 
+/-- **The Abel upper bound**, the mirror of `abel_aW_lower` with `hΦ` reversed
+(`Σ_{r ≤ ⌊t⌋} aW(r) ≤ c₁ · log t − c₂`):
+`Σ_{r ≤ N} w(r) · aW(r) ≤ w(N) · Σ_{r ≤ N} aW(r) + (F(N) − F(2))`, by the same `abel_aW_eq`,
+`setIntegral_mono_on` and `byparts_transfer` route. Fed by `sum_aW_floor_upper` in the sharp
+upper bounds. -/
 lemma abel_aW_upper (W N : ℕ) (hN : 2 ≤ N) (w w' G : ℝ → ℝ) (c₁ c₂ : ℝ)
     (hw : ∀ t ∈ Set.Icc (2 : ℝ) (N : ℝ), HasDerivAt w (w' t) t)
     (hG : ∀ t ∈ Set.Icc (2 : ℝ) (N : ℝ), HasDerivAt G (w t / t) t)
@@ -584,6 +647,8 @@ The `t = 2` ends of the by-parts evaluations, bounded by `R`-free
 quantities: `B⁻¹·log s(2) ≤ log 2` and `B⁻¹·(1 − s(2)⁻¹) ≤ log 2`
 (both via `log(1+x) ≤ x`-type inequalities at `x = B·log 2`). -/
 
+/-- `B⁻¹ · log s(2) ≤ log 2` for `B > 0`: `log s(2) ≤ s(2) − 1 = B · log 2`
+(`Real.log_le_sub_one_of_pos`). The `t = 2` boundary of the `G₁` evaluations, `R`-free. -/
 lemma inv_mul_log_sF_two_le {k R : ℕ} (hB : 0 < bParam k R) :
     (bParam k R)⁻¹ * Real.log (sF k R 2) ≤ Real.log 2 := by
   have hs2pos : (0 : ℝ) < sF k R 2 := sF_pos hB.le one_le_two
@@ -598,6 +663,8 @@ lemma inv_mul_log_sF_two_le {k R : ℕ} (hB : 0 < bParam k R) :
         mul_le_mul_of_nonneg_left h1 (inv_nonneg.mpr hB.le)
     _ = Real.log 2 := by field_simp
 
+/-- `B⁻¹ · (1 − s(2)⁻¹) ≤ log 2` for `B > 0`: `1 − s⁻¹ ≤ s − 1 = B · log 2` for `s ≥ 1`
+(`nlinarith` with `s · s⁻¹ = 1`). The `t = 2` boundary of the `G₂` evaluations, `R`-free. -/
 lemma inv_mul_one_sub_inv_sF_two_le {k R : ℕ} (hB : 0 < bParam k R) :
     (bParam k R)⁻¹ * (1 - (sF k R 2)⁻¹) ≤ Real.log 2 := by
   have hs2 : 1 ≤ sF k R 2 := one_le_sF hB.le one_le_two

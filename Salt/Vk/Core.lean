@@ -93,9 +93,14 @@ lemma vk_const_le {k r P : ℕ} (hk : 2 ≤ k) (hP : 1 ≤ P)
 noncomputable def vkDelta (P k : ℕ) (ρbl : ℝ) : Deg k → ℝ :=
   fun j => (P : ℝ) ^ (-((j : ℕ) : ℝ) - ρbl) / (16 * (k : ℝ))
 
+/-- `0 ≤ vkDelta P k ρbl j` (`hk : 1 ≤ k`; `ρbl` and `j` arbitrary): a nonnegative real power
+`P ^ (-j - ρbl)` over the positive denominator `16 * k`. -/
 lemma vkDelta_nonneg {P k : ℕ} (hk : 1 ≤ k) (ρbl : ℝ) (j : Deg k) : 0 ≤ vkDelta P k ρbl j := by
   rw [vkDelta]; positivity
 
+/-- `vkDelta P k ρbl j ≤ 1` for `1 ≤ P` (`hP`), `1 ≤ k` (`hk`) and `0 ≤ ρbl` (`hρ0`): since
+`1 ≤ j` on `Deg k`, the exponent `-j - ρbl` is nonpositive, so `P ^ (-j - ρbl) ≤ 1`, and the
+denominator `16 * k` is at least `16`. -/
 lemma vkDelta_le_one {P k : ℕ} (hP : 1 ≤ P) (hk : 1 ≤ k) {ρbl : ℝ} (hρ0 : 0 ≤ ρbl)
     (j : Deg k) : vkDelta P k ρbl j ≤ 1 := by
   rw [vkDelta]
@@ -109,6 +114,8 @@ lemma vkDelta_le_one {P k : ℕ} (hP : 1 ≤ P) (hk : 1 ≤ k) {ρbl : ℝ} (hρ
   rw [div_le_one (by positivity)]
   nlinarith [hexp, hkR]
 
+/-- `0 < ∏ j : Deg k, vkDelta P k ρbl j` for `0 < P` (`hP`) and `1 ≤ k` (`hk`): every factor is
+a positive real power over `16 * k > 0`. -/
 lemma vkDelta_prod_pos {P k : ℕ} (hP : 0 < P) (hk : 1 ≤ k) (ρbl : ℝ) :
     0 < ∏ j : Deg k, vkDelta P k ρbl j := by
   apply Finset.prod_pos

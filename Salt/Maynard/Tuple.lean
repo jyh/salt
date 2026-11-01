@@ -36,6 +36,8 @@ can avoid all residues `0 (mod p)` simultaneously via a shift). -/
 def Admissible (H : Finset ℕ) : Prop :=
   ∀ p : ℕ, p.Prime → ∃ a : ZMod p, ∀ h ∈ H, (h : ZMod p) ≠ a
 
+/-- A subset of an admissible set is admissible: the class `a` missed by every `h ∈ H` at a
+prime `p` is missed by every `h ∈ H' ⊆ H` (`hH'`). -/
 theorem Admissible.mono {H H' : Finset ℕ} (hH' : H' ⊆ H) (h : Admissible H) :
     Admissible H' := by
   intro p hp
@@ -76,15 +78,24 @@ def firstIdxAboveK (k : ℕ) : ℕ := Nat.count Nat.Prime (k + 1)
 noncomputable def stdSeq (k : ℕ) (i : Fin k) : ℕ :=
   Nat.nth Nat.Prime (firstIdxAboveK k + (i : ℕ))
 
+/-- Every entry of the standard tuple is prime: `Nat.nth Nat.Prime n` is a prime for every `n`
+because the primes are infinite (`Nat.nth_mem_of_infinite`, `Nat.infinite_setOf_prime`). -/
 theorem stdSeq_prime (k : ℕ) (i : Fin k) : (stdSeq k i).Prime :=
   Nat.nth_mem_of_infinite Nat.infinite_setOf_prime _
 
+/-- `stdSeq k` is injective: `Nat.nth Nat.Prime` is strictly monotone on the infinite set of
+primes (`Nat.nth_strictMono`), so equal entries have equal indices `firstIdxAboveK k + i`, hence
+`i = j` (`Fin.ext`, `omega`). The `inj` field of `stdTuple`. -/
 theorem stdSeq_injective (k : ℕ) : Function.Injective (stdSeq k) := by
   intro i j hij
   unfold stdSeq at hij
   have := (Nat.nth_strictMono Nat.infinite_setOf_prime).injective hij
   exact Fin.ext (by omega)
 
+/-- The prime at index `firstIdxAboveK k = count Prime (k + 1)` exceeds `k`: were it `≤ k`,
+counting the primes below it and itself (`Nat.count_succ` at a prime,
+`Nat.count_nth_of_infinite`) would read `count (k + 1) + 1 ≤ count (k + 1)` by
+`Nat.count_monotone`. The base case of `stdSeq_gt_k`. -/
 theorem firstIdxAboveK_gt (k : ℕ) : k < Nat.nth Nat.Prime (firstIdxAboveK k) := by
   unfold firstIdxAboveK
   by_contra hle
@@ -101,6 +112,9 @@ theorem firstIdxAboveK_gt (k : ℕ) : k < Nat.nth Nat.Prime (firstIdxAboveK k) :
     exact Nat.count_nth_of_infinite Nat.infinite_setOf_prime _
   omega
 
+/-- Every entry of the standard tuple exceeds `k`: the entry at `i = 0` is `firstIdxAboveK_gt`,
+and a later entry is larger by `Nat.nth_strictMono`. It supplies the missed class `0` at the
+primes `p ≤ k` in `std_admissible`, and `hSeq_gt_k` · `H_gt_k` at `stdTuple`. -/
 theorem stdSeq_gt_k (k : ℕ) (i : Fin k) : k < stdSeq k i := by
   unfold stdSeq
   have hbase := firstIdxAboveK_gt k
@@ -209,17 +223,25 @@ noncomputable def hSeq (k : ℕ) (i : Fin k) : ℕ := TupleChoice.tup k i
 /-- The chosen `k`-tuple as a set. -/
 noncomputable def H (k : ℕ) : Finset ℕ := (Finset.univ : Finset (Fin k)).image (hSeq k)
 
+/-- The chosen tuple's `inj` field, stated for `hSeq k`: `hSeq k` is injective. The downstream
+chain reads the tuple only through this and the lemmas below. -/
 theorem hSeq_injective (k : ℕ) : Function.Injective (hSeq k) := TupleChoice.inj k
 
+/-- `#(H k) = k`: the image of `univ : Finset (Fin k)` under the injective `hSeq k`
+(`Finset.card_image_of_injective`, `Fintype.card_fin`). -/
 theorem H_card (k : ℕ) : (H k).card = k := by
   unfold H
   rw [Finset.card_image_of_injective _ (hSeq_injective k), Finset.card_univ, Fintype.card_fin]
 
+/-- `hSeq k i ∈ H k` for every `i`: `H k` is the image of `univ` (`Finset.mem_image_of_mem`);
+the membership behind `hSeq_le_D₀` and `hSeq_lt_of_sup_lt`. -/
 theorem hSeq_mem_H (k : ℕ) (i : Fin k) : hSeq k i ∈ H k :=
   Finset.mem_image_of_mem _ (Finset.mem_univ i)
 
 /-! ## N1.3 — `H k` is admissible -/
 
+/-- `H k` is admissible — the chosen tuple's `admissible` field; the one property of the tuple
+that `exists_nu0W`'s CRT construction spends (a missed class at every prime). -/
 theorem H_admissible (k : ℕ) : Admissible (H k) := TupleChoice.admissible k
 
 /-- `(H k).sup id ≤ k³` for `k ≥ 20`. -/
@@ -321,6 +343,9 @@ theorem exists_nu0 (k : ℕ) :
   exists_nu0W k (W k) (W_squarefree k).ne_zero
 
 
+/-- `hSeq k i ≤ D₀ k`: `hSeq k i ≤ (H k).sup id` by membership (`hSeq_mem_H`, `Finset.le_sup`)
+and `(H k).sup id ≤ max (k ^ 3) ((H k).sup id) = D₀ k` (`le_max_right`). Every tuple entry lies
+under the W-trick's threshold. -/
 theorem hSeq_le_D₀ (k : ℕ) (i : Fin k) : hSeq k i ≤ D₀ k :=
   le_trans (Finset.le_sup (f := id) (hSeq_mem_H k i)) (le_max_right _ _)
 
@@ -336,17 +361,25 @@ end Tuple
 
 /-! ## The standard tuple's own facts (at `stdTuple`) -/
 
+/-- At the default instance `stdTuple`, `hSeq k i = Nat.nth Nat.Prime (firstIdxAboveK k + i)` by
+`rfl` — the `i`-th prime strictly above `k`. -/
 theorem hSeq_std (k : ℕ) (i : Fin k) :
     @hSeq stdTuple k i = Nat.nth Nat.Prime (firstIdxAboveK k + (i : ℕ)) := rfl
 
+/-- At `stdTuple` every tuple entry is prime (`stdSeq_prime`). -/
 theorem hSeq_prime (k : ℕ) (i : Fin k) : (@hSeq stdTuple k i).Prime := stdSeq_prime k i
 
+/-- At `stdTuple` every tuple entry exceeds `k` (`stdSeq_gt_k`). -/
 theorem hSeq_gt_k (k : ℕ) (i : Fin k) : k < @hSeq stdTuple k i := stdSeq_gt_k k i
 
+/-- At `stdTuple` every element of `H k` is prime: it is `stdSeq k i` for some `i`
+(`Finset.mem_image`), prime by `stdSeq_prime`. -/
 theorem H_prime (k : ℕ) {h : ℕ} (hh : h ∈ @H stdTuple k) : h.Prime := by
   obtain ⟨i, -, rfl⟩ := Finset.mem_image.mp hh
   exact stdSeq_prime k i
 
+/-- At `stdTuple` every element of `H k` exceeds `k`: it is `stdSeq k i` for some `i`
+(`Finset.mem_image`), and `stdSeq_gt_k`. -/
 theorem H_gt_k (k : ℕ) {h : ℕ} (hh : h ∈ @H stdTuple k) : k < h := by
   obtain ⟨i, -, rfl⟩ := Finset.mem_image.mp hh
   exact stdSeq_gt_k k i

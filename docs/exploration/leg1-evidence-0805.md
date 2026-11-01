@@ -112,10 +112,10 @@ them (lint has verified that each file exists and declares that name).
 
 **§1 Sieve / Brun**
 - `Salt.N6.N6_2` — Brun's theorem: the sum of reciprocals of the twin primes converges. `Salt/Brun/N6.lean:231`
-- `Salt.M5BigO.N5_3` — `twinPrimeCounting N` is `O(N/(log N)²)`, explicit constant 25700. `Salt/Brun/M5BigO.lean:295`
+- `Salt.M5BigO.N5_3` — `twinPrimeCounting N` is `O(N/(log N)²)`, explicit constant 25700. `Salt/Brun/M5BigO.lean:296`
 - `Salt.BrunLower.twin_almost_prime` — infinitely many `n` with `Ω(n(n+2)) ≤ 20`. `Salt/BrunLower/TwinInstance.lean:771`
 - `Salt.HardyLittlewood.twinCounting_upper_order` [tier-2] — `∃ C > 0`, `π₂(N) ≤ C·N/(log N)²`. `Salt/HardyLittlewood/Frame.lean:117`
-- `Salt.HardyLittlewood.twinCounting_upper_sharp` — the same with `C ≤ 100` (here 90). `Salt/HardyLittlewood/Sharp.lean:786`
+- `Salt.HardyLittlewood.twinCounting_upper_sharp` — the same with `C ≤ 100` (here 90). `Salt/HardyLittlewood/Sharp.lean:802`
 
 **§2 Chen / Goldbach**
 - `Salt.Chen.chen_headline` — Chen's theorem, unconditional. `Salt/Chen/ChenTheorem.lean:32`
@@ -123,7 +123,7 @@ them (lint has verified that each file exists and declares that name).
 - `Salt.Chen.no_readable_certificate` — the four-carrier-row no-go. `Salt/Chen/WeightNoGo.lean:82`
 
 **§3 SW / BV / bounded gaps**
-- `Salt.Maynard.bounded_gaps_from_eh_complete` — the Maynard capstone, no residual hypotheses. `Salt/Maynard/Complete.lean:1472`
+- `Salt.Maynard.bounded_gaps_from_eh_complete` — the Maynard capstone, no residual hypotheses. `Salt/Maynard/Complete.lean:1497`
 - `Salt.Twelve.gaps_le_twelve` — explicit bounded gaps ≤ 12 (standing analytic inputs). `Salt/Twelve/GapsUncond.lean:1061`
 - `Salt.BV.bounded_gaps_of_siegelWalfisz` — bounded gaps from Siegel–Walfisz. `Salt/BV/AbelCore.lean:757`
 - `Salt.SW.siegelWalfisz_holds` — Siegel–Walfisz, unconditional. `Salt/SW/Gate.lean:150`
@@ -166,10 +166,10 @@ them (lint has verified that each file exists and declares that name).
 - `Salt.MR.halasz_ball_decay` — `Salt/MR/HalaszCore.lean:440`
 - `Salt.MR.thm_a2'` — the S7/S8 summit, Theorem A2′. `Salt/MR/ThmA2Rows.lean:636`
 - `Salt.MR.mmuChiRate_holds_gated` — the χ-twisted `t`-uniform Möbius rate. `Salt/MR/PortClose.lean:157`
-- **THE TOLL** — `towerDropSumFlat_ge_log_ratio` `:419`, `…_le_log_ratio_mul` `:443`, `towerFlat_width_ge` `:585`, `towerFlat_width_le` `:625`, all `Salt/Entropy/Chowla/TowerFlat.lean`; `towerShape_width_ge` `Salt/Entropy/Chowla/TowerShape.lean:362`
+- **THE TOLL** — `towerDropSumFlat_ge_log_ratio` `:419`, `…_le_log_ratio_mul` `:443`, `towerFlat_width_ge` `:585`, `towerFlat_width_le` `:625`, all `Salt/Entropy/Chowla/TowerFlat.lean`; `towerShape_width_ge` `Salt/Entropy/Chowla/TowerShape.lean:403`
 - **THE PEARL** — `Salt.MR.logChowla2_witnessed_scale_flat_L_v2` `Salt/MR/S16FlatFinal.lean:136` (row carries its own 8/02 defect note)
 - `Salt.MR.logChowla2_ineffective_v6` — the terminal, predicate-free, no outer hypotheses. `Salt/MR/RegisterCompose.lean:345`
-- `Salt.MR.cofkR_cofactorSupply_L_gk` — the register, inhabited. `Salt/MR/RegisterRepair.lean:476`
+- `Salt.MR.cofkR_cofactorSupply_L_gk` — the register, inhabited. `Salt/MR/RegisterRepair.lean:483`
 - `Salt.MR.cofkL_bulk_false_at_socket` — the register refutation (the corpus refuting its own earlier row). `Salt/MR/RegisterInhabit.lean:260`
 
 **§9 Infrastructure firsts**
@@ -736,3 +736,5 @@ public repo cannot both exist in the same history.
 **UNVERIFIED and out of scope here:** whether any commit *content* (as
 opposed to author metadata) needs review before publication. That is a
 separate audit.
+
+*Note, 2026-10-26: this is a dated working record. Its priority statements ("first …", "never formalized …") are as of its date; the survey-dated forms are in `docs/RESULTS.md` and the priority surveys (`docs/priority-survey-2026-08-11.md`, `docs/priority-survey-2026-08-17-delta.md`), and several of those rows have since fallen (the delta's rows 7–9; the 2026-10-11 note at the head of the 08-11 survey).*

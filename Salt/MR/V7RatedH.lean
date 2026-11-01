@@ -1285,10 +1285,8 @@ theorem logChowla2_v7_rated_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   -- ⟦THE `Ks` WINDOW, AT THE SEVENTH ARM⟧ as in the parent
   have hKswin : Real.log (1 / Ks) ≤ 3 * Real.exp (3.2 * A) / 16 := by linarith
-  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
-    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
-      Real.add_one_le_exp _
-    linarith
+  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
+    Salt.MR.x0_le_exp_exp_of_four_le hx0nn hx0A
   have hopq : Hopq ≤ flatDesignBase A := by
     have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
     have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
@@ -1348,7 +1346,7 @@ substitution `h := 1` is the one instrument that looks.
 
 The house pattern (V7Rated §5): a HAND-RETYPED copy of the landed statement, proved from the
 `h`-family at `h = 1`; then an `example` whose type is that same statement and whose proof term
-is the LANDED declaration itself, so any drift between the copy and `V7Rated.lean:973` fails to
+is the LANDED declaration itself, so any drift between the copy and `V7Rated.lean:975` fails to
 elaborate HERE. -/
 
 section AntiDriftH

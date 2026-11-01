@@ -9,6 +9,7 @@ import Salt.Twelve.W3Prep
 import Salt.Twelve.MomentAtom
 import Salt.Twelve.BudgetPoly
 import Salt.Maynard.KSieve
+import Salt.Twelve.DecBoxPair
 
 /-!
 # W3-4 (keystone I) — the 5-dimensional first moment (`mv_I`)
@@ -194,26 +195,7 @@ private lemma badpair_bound (W' : ℕ) (c₀ : ℝ) (hc₀0 : 0 ≤ c₀)
   have hstepA : ∑ r ∈ (decBox 5 R W').filter (fun r => p ∣ r i ∧ p ∣ r j),
         ∏ k, (1 / (Nat.totient (r k) : ℝ))
       ≤ ∏ k, ∑ s ∈ coordSet k, (1 / (Nat.totient s : ℝ)) := by
-    rw [Finset.prod_univ_sum coordSet (fun _ s => 1 / (Nat.totient s : ℝ))]
-    apply Finset.sum_le_sum_of_subset_of_nonneg
-    · intro r hr
-      rw [Finset.mem_filter] at hr
-      obtain ⟨hrdec, hpi, hpj⟩ := hr
-      simp only [decBox, Finset.mem_filter, Fintype.mem_piFinset, Finset.mem_range] at hrdec
-      obtain ⟨hlt, hsqf, hcop, _⟩ := hrdec
-      rw [Fintype.mem_piFinset]
-      intro k
-      rw [hcoord, Finset.mem_filter, Finset.mem_range]
-      refine ⟨hlt k, hsqf k, hcop k, ?_⟩
-      simp only [hg]
-      split
-      · rename_i hcase
-        rcases hcase with hki | hkj
-        · rw [hki]; exact hpi
-        · rw [hkj]; exact hpj
-      · exact one_dvd _
-    · intro r _ _
-      exact Finset.prod_nonneg (fun k _ => by positivity)
+    exact decBox_filter_pair_le_prod i j (fun s => 1 / (Nat.totient s : ℝ)) (fun s => by positivity)
   set h : Fin 5 → ℝ := fun k => ∑ s ∈ coordSet k, (1 / (Nat.totient s : ℝ)) with hh
   have hhnn : ∀ k, 0 ≤ h k := fun k => Finset.sum_nonneg (fun s _ => by positivity)
   have hhle : ∀ k, h k ≤ (1 / (Nat.totient (g k) : ℝ)) * c₀ * Real.log R := by
@@ -276,6 +258,19 @@ private lemma badpair_bound (W' : ℕ) (c₀ : ℝ) (hc₀0 : 0 ≤ c₀)
 /-! ## The keystone `mv_I` -/
 
 omit [Salt.Maynard.TupleChoice] in
+/-- **The wave-3 keystone `I`-evaluation.** For square-free `W' > 0` (`hW'`, `hpos`) with
+`PhiUpperAtom W'` (`hUpper`) and a certificate polynomial `F`: there is `c ≥ 0` such that for
+every cutoff `3 ≤ D` below every prime not dividing `W'` and every `R` with `1 ≤ log R`, the
+φ-weighted second moment `Σ_{r ∈ kSieveIndex 5 R W'} eval (ofPoly F)(log r_i/log R)²/∏ φ(r_i)`
+is within `c·(1 + X)⁵·(1/log R + 1/D)` of `X⁵·∫_{Δ₅} F²` (`X = φ(W')/W'·log R`,
+`simplexInt (sq (ofPoly F))`). The witness is `c = 40·c₀⁵·Qabs/κ⁵ + Cmain/κ`, with `c₀` the
+`marked_sqf_phi` constant at `a = 0`, `Qabs = Σ|coeff|` over `sq (ofPoly F)`, `Cmain` its
+`mv_monomial`-weighted coefficient sum and `κ = φ(W')/W'`. The sum expands monomial by monomial
+(`sum_finset_list_swap`); per monomial, the pairwise-coprimality drop from `decBox` to
+`kSieveIndex` is covered by the 20 ordered pairs times the primes `D < p < R` and bounded by
+`badpair_bound` and `prime_tail` to `40·c₀⁵·(log R)⁵/D`, absorbed into `(1 + X)⁵/κ⁵`;
+`mv_monomial` at `z = R` gives the main term with error `C_m·(1 + X)⁴`, absorbed into
+`(1 + X)⁵/(κ·log R)`. -/
 theorem mv_I (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (F : Poly) :
     ∃ c : ℝ, 0 ≤ c ∧ ∀ D R : ℕ, 3 ≤ D →
@@ -514,19 +509,9 @@ theorem mv_I (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
         rw [mem_kSieveIndex_iff] at hrnk
         have hpair_neg : ¬ (∀ i j : Fin 5, i ≠ j → Nat.Coprime (r i) (r j)) :=
           fun hpair => hrnk ⟨hsqf, hpair, hcop, hprod⟩
-        simp only [not_forall] at hpair_neg
-        obtain ⟨i, j, hij, hncop⟩ := hpair_neg
-        have hg1 : Nat.gcd (r i) (r j) ≠ 1 := hncop
-        obtain ⟨p, hp, hpg⟩ := Nat.exists_prime_and_dvd hg1
-        have hpi : p ∣ r i := hpg.trans (Nat.gcd_dvd_left _ _)
-        have hpj : p ∣ r j := hpg.trans (Nat.gcd_dvd_right _ _)
-        have hpW' : ¬ p ∣ W' := by
-          intro hpW
-          have h1 : p ∣ (1 : ℕ) := (hcop i) ▸ Nat.dvd_gcd hpi hpW
-          exact absurd (Nat.dvd_one.mp h1) hp.one_lt.ne'
+        obtain ⟨i, j, p, hij, hp, hpi, hpj, hpW', hpR⟩ :=
+          exists_prime_pair_of_not_pairwise_coprime hlt hsqf hcop hpair_neg
         have hDp : D < p := hDW p hp hpW'
-        have hri1 : 1 ≤ r i := Nat.pos_of_ne_zero (hsqf i).ne_zero
-        have hpR : p < R := lt_of_le_of_lt (Nat.le_of_dvd (by omega) hpi) (hlt i)
         have hpmem : p ∈ Primes := by
           rw [hPrimesdef, Finset.mem_filter, Finset.mem_range]; exact ⟨hpR, hp, hDp⟩
         have hqmem : (i, j) ∈ Pairs := by

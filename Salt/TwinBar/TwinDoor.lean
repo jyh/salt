@@ -16,7 +16,7 @@ Design: `docs/exploration/q6b-design.md` (post-gate, corrections C1–C4 applied
 **This is EXPLORATION, not a frozen blueprint node.**  The file adds NEW work only; it
 imports two landed spines (`Salt.Chen.TwinDeficit` for the Λ-weighted twin carrier
 `p1PrimeSum`, and `Salt.TwinBar.Wall` for the parity wall) plus `Salt.Basic` for the
-target `TwinPrimeConjecture`.  It edits no landed file, is wired into no `All`, and is
+target `TwinPrimeConjecture`.  It edits no landed file, is imported by `Salt.TwinBar.All`, and is
 sorry-free / axiom-clean.  Every OPEN mathematical gap is recorded as prose or as a
 named `Prop`, never as a `sorry`'d theorem.
 
@@ -39,7 +39,7 @@ partition: **either** it is `SieveAgree`-tolerant (and the wall kills it), **or*
 NOT tolerant — it reads the *sign* of the weights inside `multSum`, at the bilinear
 `α ⊗ β` resolution.  `wall_or_door` is the door: any `Φ` that does capture a positive
 proportion of `siftedSum (sMinus x)` provably falls in the second class.  Chen's switch
-(`switchSieve_multSum_eq_apCount`, landed in the Goldbach spine) is the kernel-checked
+(`switchSieve_multSum_eq_apCount`, landed in the Chen spine) is the kernel-checked
 proof-of-life that a certificate CAN read at signed resolution — the escape is
 inhabited, not hypothetical.
 
@@ -51,7 +51,7 @@ type-II asymptotic for the Λ-weighted carrier `p1PrimeSum x 1` — the sifted p
 
 GATE CORRECTION C1 (the main term is the Λ-weighted one).  Because the carrier carries
 the von Mangoldt weight, its main term is one logarithm UP from the naive twin count:
-`twinMainTerm x = twinC2 · x / log x`, NOT `𝔖 · x/(log x)²`.  The gate verified this
+`twinMainTerm x = twinC2 · x / log x`, NOT `𝔖 · x/(log x)²`.  The gate checked this, outside Lean,
 against the landed witness `p1_carrier_inhabited` (the `n = 17` term is `log 17`, not
 `1`).  The classical Hardy–Littlewood constant `𝔖 = 2·twinC2` is the *unweighted*-count
 constant; the window `[x/2, x−2]` halves it to `twinC2`.  `TwinTypeII` demands the
@@ -285,6 +285,12 @@ quantifier structure (the fixed level `D`, the `2·B` tolerance, the `atTop` cap
 byte-matches `Wall.lean:533`.  The involution mechanism (`λ ↦ −λ` preserving every
 `SieveAgree` field, `sPlus`/`sMinus` sharing `|rem|` bounds) is recorded in the module
 docstring. -/
+/-- **The dichotomy (D3).** Under `LambdaSummatory A` with `2 < A` (hypotheses `hLS`, `hA`) and
+a level `D ≥ 2` (`hD`), a lower-bound certificate `Φ` (`hcert : ∀ s, Φ s ≤ s.siftedSum`) that
+eventually captures a positive proportion of the prime mass `(sMinus x).siftedSum` (`hprop`) is
+not `SieveAgree`-tolerant at level `D`: some pair with `SieveAgree s t D B` has
+`|Φ s − Φ t| > 2·B`. The contraposition of `no_parity_beating_certificate`, whose full
+hypothesis set it carries explicitly. -/
 theorem wall_or_door (A : ℝ) (hA : 2 < A) (hLS : LambdaSummatory A) (D : ℕ) (hD : 2 ≤ D)
     (Φ : BoundingSieve → ℝ)
     (hcert : ∀ s, Φ s ≤ s.siftedSum)

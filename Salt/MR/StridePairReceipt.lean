@@ -101,14 +101,21 @@ import Salt.MR.S16ComposeLH
 import Salt.MR.V7RatedH
 import Salt.MR.HDoorArc
 import Mathlib
+import Salt.MR.RegimeFloors
+import Salt.MR.DoorSocket
+import Salt.MR.FlatDesignBound
+import Salt.Entropy.Chowla.RegimeHeadroom
+import Salt.Entropy.Chowla.WidthWindow
+import Salt.MR.StridePins
+import Salt.MR.StrideShrinkFacts
 
 -- The head reaches `flatCapH_shuffle` (the `h` head's own cap shuffle) by `open private`, the
--- corpus's sanctioned device (`DoorReceipt.lean:64` does the same for `uniformCap_shuffle`).
+-- corpus's sanctioned device (`DoorReceipt.lean:70` does the same for `uniformCap_shuffle`).
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 -- v2 (refuter R1): two "body verbatim" replays call `private` lemmas of their source modules —
 -- the multiplier builder (F3-Q2; from 2026-09-27 its cap-9 twin, XY family 11) copies
 -- `chowlaRegimeFlat_exists_param_gen_ceiling`'s body,
--- which invokes `xceil_flat_P` / `xceil_flat_step` (XCeil.lean:144, :135), and the road-exit
+-- which invokes `xceil_flat_P` / `xceil_flat_step` (XCeil.lean:152, :143), and the road-exit
 -- replay (F3-Q8) copies the body of `m4_second_road_L2_H_gk_flatRoot_L_exit_uniform_xceil_khoist`
 -- (S16ComposeLH.lean), whose cap line is `flatRootCapH_arc_k`.  Opened here so the copies
 -- elaborate; the opening moves nothing landed.
@@ -219,8 +226,8 @@ head-shaped builder at `a ≤ 1096`, was retired by family 10 (the next note).
 This page's docstring, verbatim:
 
 **F3-Q2 (class B) — THE MULTIPLIER BUILDER.**  `chowlaRegimeFlat_exists_param_gen_ceiling`
-(XCeil.lean:386) with `x := a * x₀`: the same construction (`regime_outer_param_ceiling` at
-`(ε, H₊, P := 4^⌊ε²H₊⌋)`, XCeil.lean:185, gives `(x₀, ω)` with the eight floors and the ceiling
+(XCeil.lean:394) with `x := a * x₀`: the same construction (`regime_outer_param_ceiling` at
+`(ε, H₊, P := 4^⌊ε²H₊⌋)`, XCeil.lean:193, gives `(x₀, ω)` with the eight floors and the ceiling
 `log x₀ ≤ (30/ε)·log H₊ + 2·log(P+1)`), the regime record at `x := a * x₀` (each `x`-field at
 `a·x₀ ≥ x₀` by `Nat.le_mul_of_pos_left`/monotonicity, exactly `regimeFlatEnlargeX`'s six lines),
 `StrideScale a R` from `Nat.mul_div_cancel_left x₀ ha` (`R.x / a = x₀`) and the floors at `x₀`
@@ -493,58 +500,8 @@ theorem chowlaRegimeFlat_exists_param_head_xceil_mul_b9 (a : ℕ) (ha : 1 ≤ a)
     linarith
   -- ⟦THE WIDTH WINDOW⟧ the majorant field read against the ceiling
   have hωgate : Real.log ((R.ω : ℕ) : ℝ) + (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ)
-      ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) := by
-    set P : ℕ := 4 ^ ⌊R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)⌋₊ with hPdef
-    set n : ℕ := ⌊R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)⌋₊ with hndef
-    have hPH : 8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ) ≤ ((R.x : ℕ) : ℝ) := R.hPHheadroom
-    have hP1 : (1 : ℝ) ≤ ((P : ℕ) : ℝ) := by
-      rw [hPdef]
-      have : (1 : ℕ) ≤ 4 ^ n := Nat.one_le_pow _ _ (by norm_num)
-      exact_mod_cast this
-    have hω1 : (1 : ℝ) ≤ ((R.ω : ℕ) : ℝ) := by
-      have : (1 : ℕ) ≤ R.ω := le_trans (by norm_num) R.hω
-      exact_mod_cast this
-    -- `log 8 + 2·log P + log ω ≤ log x`
-    have hpos : (0 : ℝ) < 8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ) := by positivity
-    have hlogle : Real.log (8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ))
-        ≤ Real.log ((R.x : ℕ) : ℝ) := Real.log_le_log hpos hPH
-    have hsplit : Real.log (8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ))
-        = Real.log 8 + 2 * Real.log ((P : ℕ) : ℝ) + Real.log ((R.ω : ℕ) : ℝ) := by
-      rw [Real.log_mul (by positivity) (by linarith), Real.log_mul (by norm_num) (by positivity),
-        Real.log_pow]
-      push_cast
-      ring
-    -- `log P = n·log 4 ≥ (ε²H₊ − 1)·log 4`
-    have hlogP : Real.log ((P : ℕ) : ℝ) = (n : ℝ) * Real.log 4 := by
-      rw [hPdef]
-      have h4 : ((4 ^ n : ℕ) : ℝ) = (4 : ℝ) ^ n := by push_cast; ring
-      rw [h4, Real.log_pow]
-    have hnge : (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) - 1 ≤ (n : ℝ) := by
-      have hQ : R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ) < (n : ℚ) + 1 := by
-        rw [hndef]; exact Nat.lt_floor_add_one _
-      have hR : (R.eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) < (n : ℝ) + 1 := by exact_mod_cast hQ
-      rw [hReps] at hR
-      linarith
-    have hlog4 : (1.3862 : ℝ) ≤ Real.log 4 := by
-      have h : Real.log (4 : ℝ) = 2 * Real.log 2 := by
-        rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
-      rw [h]; linarith [Real.log_two_gt_d9]
-    have hlog8 : (2.0794 : ℝ) ≤ Real.log 8 := by
-      have h : Real.log (8 : ℝ) = 3 * Real.log 2 := by
-        rw [show (8 : ℝ) = 2 ^ (3 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
-      rw [h]; linarith [Real.log_two_gt_d9]
-    -- ⟦THE COPRIMALITY FLOOR⟧ `ε²·H₊ ≥ 2`
-    have hcop : (2 : ℝ) ≤ (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) := by
-      have hQ : ((R.a : ℕ) : ℚ) ≤ R.eps ^ 2 * ((R.Hlo : ℕ) : ℚ) / 2 := R.hcoprime
-      have ha1 : (1 : ℚ) ≤ ((R.a : ℕ) : ℚ) := by exact_mod_cast R.ha
-      have hQ2 : (2 : ℚ) ≤ R.eps ^ 2 * ((R.Hlo : ℕ) : ℚ) := by linarith
-      have hR2 : (2 : ℝ) ≤ (R.eps : ℝ) ^ 2 * ((R.Hlo : ℕ) : ℝ) := by exact_mod_cast hQ2
-      rw [hReps] at hR2
-      have hmono : (eps : ℝ) ^ 2 * ((R.Hlo : ℕ) : ℝ) ≤ (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) :=
-        mul_le_mul_of_nonneg_left (by exact_mod_cast R.hHlohi) (sq_nonneg _)
-      linarith
-    have hnn : (0 : ℝ) ≤ (n : ℝ) := Nat.cast_nonneg _
-    nlinarith [hlogle, hsplit, hlogP, hnge, hlog4, hlog8, hRx, hcop, hnn]
+      ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) :=
+    Salt.Entropy.Chowla.ChowlaRegime.width_window _ hReps hRx
   have hgx : Real.log (((a * g R.Hhi R.ω : ℕ)) : ℝ) ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) :=
     hg R.Hhi R.ω ⟨hHhi4, hll50, hωgate⟩
   -- ⟦THE PUSH⟧ the scale to `a * max (R.x / a) (g R.Hhi R.ω)`
@@ -582,13 +539,13 @@ theorem chowlaRegimeFlat_exists_param_head_xceil_mul_b9 (a : ℕ) (ha : 1 ≤ a)
 
 /-- **F3-Q4 (class B/C) — THE AFFINE ARC BRIDGE.**  Every affine frequency is `NearRatTight` at
 cap `(a·h)·arcDen B₅ H`, on the grid `a ∣ H`.  The twin of `nearRatTight_of_bigXiArcTight_H`
-(HDoorArc.lean:139): `ξ ∈ bigXiAff` gives `η < a` with `ζ := affOffset a b h H η + h·ξ ∈ bigXi`
+(HDoorArc.lean:140): `ξ ∈ bigXiAff` gives `η < a` with `ζ := affOffset a b h H η + h·ξ ∈ bigXi`
 (`mem_bigXiAff_iff`), so `NearRatTight (arcDen B₅ H) H (−ζ.val/H)` by the base bridge
 (`nearRatTight_of_bigXiArcTight harc heps`, at its own `H₀`); `ζ.val ≡ c + h·ξ.val (mod H)` with
 `c = affOffset … .val` and, on the grid, `c·a ≡ (b+h)·η·H (mod H·a)` (`affOffset_spec`, F1-X4), i.e.
 `c/H = (b+h)η/a − (an integer)` — a rational with denominator `a`; so `−h·ξ.val/H` is within
 `arcDen/(qH)` of `p/q + r/a + m`, a rational with denominator `≤ a·q ≤ a·arcDen`; then N2's
-division by `h` (`HDoorArc.lean:139`'s own script: the shift `k = (h·ξ.val)/H` stripped by
+division by `h` (`HDoorArc.lean:140`'s own script: the shift `k = (h·ξ.val)/H` stripped by
 `Nat.div_add_mod`, THE CAST SEAM ADDITIVE, never subtractive) puts `−ξ.val/H` within
 `(a·h)·arcDen/(q'·H)` of a rational with denominator `q' ≤ a·h·arcDen`.  ⛔ The B/C half is the
 denominator bookkeeping through `NearRatTight`'s tight radius `Q/(q·H)` (BigXiArc:566): the witness
@@ -698,9 +655,9 @@ theorem nearRatTight_of_bigXiAffD {B₅ : ℝ} (harc : BigXiArcTight B₅)
 /-! ## §3 — the road at a generic set family (Δ1) -/
 
 /-- **F3-Q5 (class B) — N4c at a generic set.**  `sum_bigXiH_norm_windowExpSum_sq_le_parseval`
-(HDoorArc.lean:328) with `bigXiH h R.eps H` replaced by `Xi R.eps H` and the cap `(h : ℝ) * arcDen
+(HDoorArc.lean:329) with `bigXiH h R.eps H` replaced by `Xi R.eps H` and the cap `(h : ℝ) * arcDen
 B₅ H` by an arbitrary `Q H`: the proof (`sum_bigXiH_norm_windowExpSum_sq_le_sub` ← N4a,
-HDoorArc.lean:211-293) reads the set ONLY through `harc`, `hXi`, `hins` and is copied with the
+HDoorArc.lean:212-294) reads the set ONLY through `harc`, `hXi`, `hins` and is copied with the
 set renamed — no `mem_bigXiH_iff` is used anywhere in it.  `hins` in the parseval spelling
 (`(1/H²) * ∑ ‖λ-sum − a-sum‖²`), the spelling lemma `sum_bigXi_insert_spelling_eq`
 (M4DoorL2.lean:545) being set-generic in its proof (`absWindowSum_add_coeff` + `Finset.mul_sum`)
@@ -731,7 +688,7 @@ theorem sum_Xi_norm_windowExpSum_sq_le_parseval (Xi : XiFamily) (Q : ℕ → ℝ
   have hH0 : H ≠ 0 := NeZero.ne H
   have hHpos : (0 : ℝ) < (H : ℝ) := by positivity
   have hinvpos : (0 : ℝ) < 1 / (H : ℝ) ^ 2 := by positivity
-  -- ⟦N4a AT `Xi`⟧ the landed body (HDoorArc.lean:211-293) with the set renamed
+  -- ⟦N4a AT `Xi`⟧ the landed body (HDoorArc.lean:212-294) with the set renamed
   have N4a : ∀ e : ℕ → ℂ, (∀ m, lamCoeff m = a m + e m) →
       (∑ ξ ∈ Xi R.eps H, (1 / (H : ℝ) ^ 2) *
         ∫ n, ‖absWindowSum e H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
@@ -791,7 +748,7 @@ theorem sum_Xi_norm_windowExpSum_sq_le_parseval (Xi : XiFamily) (Q : ℕ → ℝ
                   ∂(logMeasure R.x R.ω) := by
           rw [Finset.sum_add_distrib, Finset.sum_const, nsmul_eq_mul, ← Finset.mul_sum]
       _ ≤ K * (2 * Bsieve H) + 2 * Binsert := by linarith
-  -- ⟦THE PARSEVAL SPELLING⟧ HDoorArc.lean:353-376 with the set renamed
+  -- ⟦THE PARSEVAL SPELLING⟧ HDoorArc.lean:354-377 with the set renamed
   have hsub : ∀ (n : ℕ) (α : ℝ),
       absWindowSum (fun m => lamCoeff m - a m) H n α
         = absWindowSum lamCoeff H n α - absWindowSum a H n α := by
@@ -855,12 +812,7 @@ theorem m4_doorL2_supply_Set_gk_khoist (h : ℕ) (_hh : 0 < h) (Xi : XiFamily)
   -- ⟦the door's own scales, off the regime — the lane's four lines⟧
   have hA : 1 ≤ AdoorL M := one_le_AdoorL hgates.hM
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   -- ⟦THE FUSE⟧ the adapter's `hins`, fired at `Xi R.eps H` (parseval is set-generic).
   have hins : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
       (1 / (H : ℝ) ^ 2) * ∑ ξ ∈ Xi R.eps H,
@@ -1307,12 +1259,9 @@ theorem flat_capstone_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ)
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
       DoorRowZeroBase_L_gk K M (A + s) j liouvilleC
@@ -1399,20 +1348,12 @@ theorem flat_capstone_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ)
     rw [hval] at hstep
     have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2
         * (108 / 5 * RSanDoorRhoH ρ h H)) ≤ 2 * δs ^ 2 := by linarith
-    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
-      rw [hδssq]
-      field_simp
-      ring
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
-/-- **⟦A1 — THE `+ 7` NUMERAL TWIN⟧ (class A, v2).**  `xceil_arm_split_h` (XThread.lean:1153)
+/-- **⟦A1 — THE `+ 7` NUMERAL TWIN⟧ (class A, v2).**  `xceil_arm_split_h` (XThread.lean:1062)
 with `+ 7` on the left: `log 2 + log h + 7 ≤ H₊/(250000·h²) − H₊/10²⁰`.  The landed lemma is an
 EQUALITY-tight budget line (the conditional's `hg'` block closes at ZERO slack on `31/ε·H₊`), so
 the H2→H3 replay's extra `log a ≤ 7` cannot ride it — refuter verdict A1.  Same body as the
@@ -1515,11 +1456,9 @@ theorem flat_conditional_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : �
     have haR : ((a : ℕ) : ℝ) ≤ 1096 := by exact_mod_cast ha1096
     calc Real.log ((a : ℕ) : ℝ) ≤ Real.log (Real.exp 7) := Real.log_le_log haR0 (by linarith)
       _ = 7 := Real.log_exp 7
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦THE ONE GENUINE ESTIMATE, SPENT AT SHIFT `h`⟧ the substituted
   -- `g' = s15ArmH h δ₀ ρ + g` still obeys the builder-side rider.  H1's re-cut prices the arm at
   -- `log ω + log h + H₊/10^20` (`s15ArmH_log_le`), the caller's own `ε²·H₊` margin is
@@ -1527,9 +1466,7 @@ theorem flat_conditional_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : �
   -- statement that the margin pays for BOTH the arm's `log h` and the sum split's `log 2`.
   have hh1R : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
   have hεR : (1 : ℝ) / (500 * (h : ℝ)) ≤ (ε : ℝ) := by
-    have hq := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rwa [show (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) by
-      push_cast; ring] at hq
+    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   have hεpos : (0 : ℝ) < (ε : ℝ) := by
     have hb : (0 : ℝ) < 1 / (500 * (h : ℝ)) := by positivity
     linarith
@@ -1609,13 +1546,7 @@ theorem flat_conditional_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : �
         ≤ a * (s15ArmH h δ₀ ρ R.Hhi R.ω + g R.Hhi R.ω) :=
       Nat.mul_le_mul_left a (by omega)
     omega
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, -⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hstride, hRx, hRtow, ?_⟩
   intro M hKw hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor hKw
@@ -1720,13 +1651,9 @@ theorem flat_kswin_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
       hzero le_rfl
   have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
   have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
-    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
   have hεR : (1 : ℝ) / (500 * (h : ℝ)) ≤ (ε : ℝ) := by
-    have hq := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rwa [show (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) by
-      push_cast; ring] at hq
+    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   refine ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
     hCgle, hεpin, hδpin, hMflb, hβ, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40, ?_⟩
   intro K
@@ -1795,7 +1722,7 @@ theorem flat_kswin_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
         linarith)
       hblk hcof hcapsc)
 
-/-- **⟦H4→H5 REPLAY⟧ (class B).**  The rated terminal (V7RatedH.lean:1210-1337) from a generic
+/-- **⟦H4→H5 REPLAY⟧ (class B).**  The rated terminal (`logChowla2_v7_rated_h`) from a generic
 kswin, with Δ3: after the eight-arm design constant, `intro U1floor a g hU hUceil ha ha1096 hg`
 and `hfire hx0win hopq (by rw [hbase hopq]; exact hT₀) hKswin U1floor (by rw [hbase hopq];
 exact hU) hUceil a g ha ha1096 hg` in place of the landed `g ≡ 0` exhibit (`xceilRiderStrict_zero`
@@ -1867,15 +1794,9 @@ theorem flat_v7_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   -- ⟦THE `Ks` WINDOW, AT THE SEVENTH ARM⟧ as in the parent
   have hKswin : Real.log (1 / Ks) ≤ 3 * Real.exp (3.2 * A) / 16 := by linarith
-  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
-    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
-      Real.add_one_le_exp _
-    linarith
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
+    Salt.MR.x0_le_exp_exp_of_four_le hx0nn hx0A
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
   obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)
@@ -1899,9 +1820,7 @@ theorem flat_v7_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7
   have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
   have heps500R : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ) := by
     rw [hReps]
-    have hq := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rwa [show (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) by
-      push_cast; ring] at hq
+    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   have h518 : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by nlinarith [hdes, hA162]
   have hfl : loglogFloor50 ≤ R.Hlo := by
     rw [hHlo]
@@ -1930,7 +1849,7 @@ theorem flat_v7_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7
 /-! ## §6 — the door-head, the chain, the receipts -/
 
 /-- **⟦THE RECEIPT PREDICATE AT `h` — THE P-SLOT, WIDENED (v2)⟧** the `L²` door over `Xi` at
-the closed numeral `1/(837782·h²)` — `DoorReceipt.MRTDoorReceipt` (DoorReceipt.lean:84) with the
+the closed numeral `1/(837782·h²)` — `DoorReceipt.MRTDoorReceipt` (DoorReceipt.lean:90) with the
 set family and the `h²` — carrying TWO facts the head holds and the chain does not forward:
 (i) the head's ε-PIN as an EQUALITY, `R.eps = 1/(500·h)` (refuter verdict A4: the six forms and
 the receipts export only the LOWER pin `1/(500h) ≤ ε`, while `regimeShrinkX_stride` and the
@@ -1950,7 +1869,7 @@ def MRTDoorReceiptSet (h : ℕ) (Xi : XiFamily) (R : ChowlaRegime) : Prop :=
   ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / (837782 * (h : ℝ) ^ 2) ∧ MRTUniformityXiL2Set Xi R ρ
 
 /-- **⟦THE DOOR-HEAD AT `h`, AT A GENERIC SET⟧ (class B).**  `DoorReceipt.flat_door_head_xceil`
-(DoorReceipt.lean:1001) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean):
+(DoorReceipt.lean:938) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean):
 the leaves PINNED — `cD3 := 1/4`, `C := h·(1 + 2·(2·log 4))`, `ε := 1/(500·h)` —
 so `δ₀ := cD3/(16·C)·ε/4 = 1/(128000·h²·(1 + 8·log 2))` closes BOTH `1/(838400·h²) ≤ δ₀`
 (`hδ₀ge`, the landed script at `h`) and `δ₀ ≤ 1/(837782·h²)` (`hδ₀le`, `C > 6.5451718·h` by
@@ -1977,28 +1896,9 @@ theorem flat_door_head_xceil_h (h : ℕ) (hh : 0 < h) (_hh7 : Real.log (h : ℝ)
   have hhR : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
   have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
   have hhne : (h : ℝ) ≠ 0 := ne_of_gt hhR
-  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
-  -- ⟦THE LEAF NUMERALS, PINNED⟧ `log 4 = 2·log 2`, both `d9` bounds on `log 2`
-  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
-  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
-    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
-  obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = (h : ℝ) * (1 + 2 * (2 * Real.log 4)) := ⟨_, rfl⟩
-  have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
-  have hLpos : (0 : ℝ) < 1 + 8 * Real.log 2 := by linarith
-  have hLne : (1 : ℝ) + 8 * Real.log 2 ≠ 0 := ne_of_gt hLpos
-  have hCval : C = (h : ℝ) * (1 + 8 * Real.log 2) := by rw [hCdef, hlog4eq]; ring
-  have hC : 0 < C := by rw [hCval]; positivity
-  -- ⟦THE PIN⟧ `ε := 1/(500·h)`
-  obtain ⟨ε, hεdef⟩ : ∃ e : ℚ, e = 1 / (500 * (h : ℚ)) := ⟨_, rfl⟩
-  have hεR : ((ε : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) := by rw [hεdef]; push_cast; ring
-  have hεR0 : (0 : ℝ) < (ε : ℝ) := by rw [hεR]; positivity
-  have hεQpos : 0 < ε := by exact_mod_cast hεR0
-  have hεQ1 : ε ≤ 1 / 2 := by
-    have hhQ : (1 : ℚ) ≤ (h : ℚ) := by exact_mod_cast hh
-    rw [hεdef]
-    exact one_div_le_one_div_of_le (by norm_num) (by nlinarith)
+  -- ⟦THE LEAF NUMERALS AND THE PIN⟧ `log 4 = 2·log 2`, the `d9` bounds, `ε := 1/(500·h)`
+  obtain ⟨cD3, C, ε, hcD3def, hCdef, hεdef, hlog4, hlog2lt, hlog2gt, hlog4eq, hcD3, hLpos,
+    hLne, hCval, hC, hεR, hεR0, hεQpos, hεQ1⟩ := stride_pin_facts h hh
   -- ⟦THE MINT, READ BOTH WAYS⟧ `δ₀ = 1/(128000·h²·(1 + 8·log 2))`
   have hval : cD3 / (16 * C) * (ε : ℝ) / 4
       = 1 / (128000 * (h : ℝ) ^ 2 * (1 + 8 * Real.log 2)) := by
@@ -2239,24 +2139,9 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride (a b h : ℕ) (ha : 0 < a) (hh :
       (xceilRiderStrict_zero ε)
   obtain ⟨Kc, hKc0, hKcb, hKcount⟩ := hcountD
   -- ⟦THE ε PINS⟧ the receipt's own EQUALITY, read both ways
-  have hahQ : ((a * h : ℕ) : ℚ) ≤ 1096 := by exact_mod_cast hah1096
-  have hahQ1 : (1 : ℚ) ≤ ((a * h : ℕ) : ℚ) := by exact_mod_cast hkpos
-  have heps500 : Rd.eps ≤ 1 / 500 := by
-    rw [hReps, hεeq]
-    exact one_div_le_one_div_of_le (by norm_num) (by linarith)
-  have heps548 : (1 : ℚ) / 548000 ≤ Rd.eps := by
-    rw [hReps, hεeq]
-    exact one_div_le_one_div_of_le (by positivity) (by linarith)
+  obtain ⟨heps500, heps548, hdiv, hquot, hBle⟩ :=
+    stride_shrink_facts (L := 548000) Rd hReps hεeq hkpos hah1096 (by norm_num) hHlo hapos
   -- ⟦THE SHRINK'S THREE FLOORS⟧ off `flatDesignBase_clears_stride_floors`
-  have hdiv : a ∣ Rd.a * Rd.Hlo := by
-    rw [hHlo]
-    exact (dvd_mul_right a (flatDesignBase A)).mul_left Rd.a
-  have hquot : Rd.a * Rd.Hlo / a = Rd.a * flatDesignBase A := by
-    rw [hHlo, show Rd.a * (a * flatDesignBase A) = a * (Rd.a * flatDesignBase A) by ring]
-    exact Nat.mul_div_cancel_left _ hapos
-  have hBle : flatDesignBase A ≤ Rd.a * Rd.Hlo / a := by
-    rw [hquot]
-    exact Nat.le_mul_of_pos_left _ Rd.ha
   obtain ⟨hf1, hf2⟩ := flatDesignBase_clears_stride_floors hA162 heps548
   have hlo4 : 4 * ⌈(1 / Rd.eps : ℚ)⌉₊ ^ 4 ≤ Rd.a * Rd.Hlo / a := le_trans hf1 hBle
   have hloM : 4000000 ≤ Rd.a * Rd.Hlo / a := le_trans hf2 hBle
@@ -2266,9 +2151,7 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride (a b h : ℕ) (ha : 0 < a) (hh :
   -- ⟦THE WIDTH NUMERAL⟧ `log ω ≥ 32001` off `hωbig` at `ε ≤ 1/500`
   have hepsR0 : (0 : ℝ) < (Rd.eps : ℝ) := by exact_mod_cast Rd.heps
   have heps500R : (Rd.eps : ℝ) ≤ 1 / 500 := by
-    have hq := (Rat.cast_le (K := ℝ)).mpr heps500
-    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at hq
-    exact hq
+    simpa using (Rat.cast_le (K := ℝ)).mpr heps500
   have hcop : (2 : ℝ) ≤ (Rd.eps : ℝ) ^ 2 * ((Rd.Hlo : ℕ) : ℝ) := by
     have hQ : ((Rd.a : ℕ) : ℚ) ≤ Rd.eps ^ 2 * ((Rd.Hlo : ℕ) : ℚ) / 2 := Rd.hcoprime
     have ha1 : (1 : ℚ) ≤ ((Rd.a : ℕ) : ℚ) := by exact_mod_cast Rd.ha
@@ -2408,28 +2291,9 @@ theorem flat_door_head_xceil_h_14 (h : ℕ) (hh : 0 < h) (_hh14 : Real.log (h : 
   have hhR : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
   have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
   have hhne : (h : ℝ) ≠ 0 := ne_of_gt hhR
-  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
-  -- ⟦THE LEAF NUMERALS, PINNED⟧ `log 4 = 2·log 2`, both `d9` bounds on `log 2`
-  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
-  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
-    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
-  obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = (h : ℝ) * (1 + 2 * (2 * Real.log 4)) := ⟨_, rfl⟩
-  have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
-  have hLpos : (0 : ℝ) < 1 + 8 * Real.log 2 := by linarith
-  have hLne : (1 : ℝ) + 8 * Real.log 2 ≠ 0 := ne_of_gt hLpos
-  have hCval : C = (h : ℝ) * (1 + 8 * Real.log 2) := by rw [hCdef, hlog4eq]; ring
-  have hC : 0 < C := by rw [hCval]; positivity
-  -- ⟦THE PIN⟧ `ε := 1/(500·h)`
-  obtain ⟨ε, hεdef⟩ : ∃ e : ℚ, e = 1 / (500 * (h : ℚ)) := ⟨_, rfl⟩
-  have hεR : ((ε : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) := by rw [hεdef]; push_cast; ring
-  have hεR0 : (0 : ℝ) < (ε : ℝ) := by rw [hεR]; positivity
-  have hεQpos : 0 < ε := by exact_mod_cast hεR0
-  have hεQ1 : ε ≤ 1 / 2 := by
-    have hhQ : (1 : ℚ) ≤ (h : ℚ) := by exact_mod_cast hh
-    rw [hεdef]
-    exact one_div_le_one_div_of_le (by norm_num) (by nlinarith)
+  -- ⟦THE LEAF NUMERALS AND THE PIN⟧ `log 4 = 2·log 2`, the `d9` bounds, `ε := 1/(500·h)`
+  obtain ⟨cD3, C, ε, hcD3def, hCdef, hεdef, hlog4, hlog2lt, hlog2gt, hlog4eq, hcD3, hLpos,
+    hLne, hCval, hC, hεR, hεR0, hεQpos, hεQ1⟩ := stride_pin_facts h hh
   -- ⟦THE MINT, READ BOTH WAYS⟧ `δ₀ = 1/(128000·h²·(1 + 8·log 2))`
   have hval : cD3 / (16 * C) * (ε : ℝ) / 4
       = 1 / (128000 * (h : ℝ) ^ 2 * (1 + 8 * Real.log 2)) := by
@@ -2539,12 +2403,9 @@ theorem flat_capstone_generic_h_14 (h : ℕ) (hh : 0 < h) (hh14 : Real.log (h : 
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
       DoorRowZeroBase_L_gk K M (A + s) j liouvilleC
@@ -2631,18 +2492,10 @@ theorem flat_capstone_generic_h_14 (h : ℕ) (hh : 0 < h) (hh14 : Real.log (h : 
     rw [hval] at hstep
     have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2
         * (108 / 5 * RSanDoorRhoH ρ h H)) ≤ 2 * δs ^ 2 := by linarith
-    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
-      rw [hδssq]
-      field_simp
-      ring
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 /-! ## ⟦β W1 E4⟧ the stride/cap-9 twins (build freeze v2 v1.1, 2026-09-13)
 

@@ -290,10 +290,12 @@ def render(B, base: str, digest: str) -> str:
     A("- **Regression guard on item 1's `¬`-binder walk:** %d declarations see a corpus Prop ONLY under `¬` "
       "in their binders; **%d of them are AUDITED results that item 1 classes `unconditional`** (this census found "
       "31 on 2026-09-26, when item 1's walk read `¬ P` as head `Not`; item 1 now records such a binder as the "
-      "hypothesis `¬P`). The residue listed at the foot is expected to be binders of shape `¬ P → Q`, where `¬P` sits "
-      "in the binder's ANTECEDENT and the hypothesis is on Q — item 1 reads those correctly and this census's "
-      "positional polarity scan over-counts them (5 such at 2026-09-26, each read at source); a name of any "
-      "other shape at the foot is a regression." % (len(nb), len(au)))
+      "hypothesis `¬P`). The residue listed at the foot is expected to be binders whose `¬P` sits in the binder's "
+      "ANTECEDENT while the hypothesis is on some Q, in three shapes: `¬ P → Q`; `(∀ x, ¬ P x) → Q`; and a "
+      "continuation `(… → ¬ P) → Q`, where `¬P` concludes a premise of the binder. Item 1 reads all three "
+      "correctly and this census's positional polarity scan over-counts them (5 at 2026-09-26; 5 at 2026-10-27, "
+      "each read at source: 1, 2 and 2 of the three shapes); a name whose `¬P` is NOT in its binder's antecedent "
+      "is a regression." % (len(nb), len(au)))
     A("")
     r = B["receipt"]
     cls_n = defaultdict(int)

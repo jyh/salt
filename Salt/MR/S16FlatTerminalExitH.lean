@@ -76,7 +76,7 @@ theorem mrtUniformityXiL2H_mono {h : ℕ} {R : ChowlaRegime} {ρ ρ' : ℝ}
 /-- **⟦THE SECOND ROAD'S TERMINAL REGISTER AT SHIFT `h`, ON THE TERMINAL'S LANE — EXIT FORM⟧**
 (`m4_second_road_L2_H_gk_flatRoot_L_exit`) — the `h`-twin of
 `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L`, composed from the landed
-door-form register (`S16FlatTerminalLinearH.lean:1567`) and the flat head at shift `h`
+door-form register (`S16FlatTerminalLinearH.lean:1574`) and the flat head at shift `h`
 (`HloExportFlatH.lean:210`).
 
 The register supplies `MRTUniformityXiL2H h R (2·Kb·Bceil + δ/2 + 8·2^k/x)`; the budget

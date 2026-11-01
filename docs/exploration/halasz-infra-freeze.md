@@ -35,7 +35,7 @@ grade_EM [B,40] (DES-A graft): 0 <= M -> (1+M)*Real.exp(-M) <= 2*Real.exp(-M/2) 
 n-coordinate: n=0 (ha0), n=1, n<=X (hatK=1 exact), X<n<=X+h ramp (count <= h+1), n>X+h (0) — total, integer-X allowed (hat continuous; no x-not-in-N hypothesis needed, unlike sharp Perron). h: h->0 excluded in-consumer (h = X(logX)^{-1/2} frozen, GROWING #253), h<=X carried. c: 0<c + hsum; c0=1+1/logX-dependent constants GROWING, in-statement. g(p)=0 corner: lambdaLin term 0, factor 1 — covered; f=1: (-1)^{k-1}logp, <= Lambda ✓. Squarefull: C_sq carried. M: M=0 (E=1, trivially true), slow-M Fei-Wei corner UNTOUCHED (all seam errors additive + M-free); grade_EM M->0/M->infty pass. 2^J multiplicity: desmooth per-J, 2^J=(logX)^{o(1)} carried explicitly (REF-B R7).
 
 == CONSUMPTION CERTIFICATES ==
-R2.3: Lambda-identity = L2'/L4' at Re=c0>1 ✓; contour rep = K2' at c0, hsum from 1-bdd ✓; truncation DELETED (exact rep), desmooth (h+1)*2^J <= X(logX)^{-1/2+o(1)} inside frozen error ✓; Euler <= 1 = halasz_cosh_ineq_complex ✓; typical-n = TuranKubilius.lean:288. Residual: S1' internals ([9, Prop 2.1] + [9, proof of Thm 1.1], via 1503.05121v3 pp.25-27; NOT 'Cor 1.2' — REF-A F5b applied).
+R2.3: Lambda-identity = L2'/L4' at Re=c0>1 ✓; contour rep = K2' at c0, hsum from 1-bdd ✓; truncation DELETED (exact rep), desmooth (h+1)*2^J <= X(logX)^{-1/2+o(1)} inside frozen error ✓; Euler <= 1 = halasz_cosh_ineq_complex ✓; typical-n = TuranKubilius.lean:294. Residual: S1' internals ([9, Prop 2.1] + [9, proof of Thm 1.1], via 1503.05121v3 pp.25-27; NOT 'Cor 1.2' — REF-A F5b applied).
 R2.4: S2' + grade_EM + K4' (MVHilbert-free) + Tsplit ledger; R1.1 recentering per flags 07-19 (Koukoulopoulos 13.1 port, C, queued).
 
 == WAVES (single-writer by FILE) ==

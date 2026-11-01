@@ -242,12 +242,12 @@ contribution is the OTHER half of the split, and it is named, not bounded. -/
 noncomputable def Btwin (lvl : ℝ) : ℝ := (⌊lvl⌋₊ : ℝ) * (1 + Real.log (⌊lvl⌋₊ : ℝ))
 
 /-- **B3**: the landed twin remainder, summed over `d ∣ P` below the level, is at most
-`Btwin lvl`.  The chain is `rem_abs_le` (`Salt/Brun/M2.lean:241`, `|rem d| ≤ ρ(d)`) →
+`Btwin lvl`.  The chain is `rem_abs_le` (`Salt/Brun/M2.lean:250`, `|rem d| ≤ ρ(d)`) →
 `rho_squarefree_le` (`:206`, `ρ(d) ≤ 2^ω(d)` for squarefree `d`, and every `d ∣ P` is
-squarefree) → the re-index of `Salt/Brun/M5Assembly.lean:209-239` (`Finset.sum_filter`, then
+squarefree) → the re-index of `Salt/Brun/M5Assembly.lean:226-256` (`Finset.sum_filter`, then
 `Finset.sum_le_sum_of_subset_of_nonneg` onto the level's initial segment) →
 `sum_two_pow_omega_le`.  The `2^ω` route replaces that idiom's `3^ω` constant; the N4.2 `y⁴`
-step of `M5Assembly.lean:240` is NOT used. -/
+step of `M5Assembly.lean:257` is NOT used. -/
 theorem twinRem_sum_le (hPsq : Squarefree P) {lvl : ℝ} (hlvl : 1 ≤ lvl) :
     (∑ d ∈ P.divisors, if (d : ℝ) < lvl then |_root_.rem d N| else 0) ≤ Btwin lvl := by
   have hfl : 1 ≤ ⌊lvl⌋₊ := Nat.le_floor (by exact_mod_cast hlvl)
@@ -317,7 +317,7 @@ build reports: B3's consumer `twinParitySieve_rosserRemainder_le` (`:292`) deman
 `Q · (exp(…·log z) · 2^(2r−1))` — nothing in the tree supplied `1 ≤` that product.
 
 Each of the three factors is `≥ 1` on its own, so no size input is needed and `minLevel`'s
-own lower bound (`Salt/BrunLower/Defs.lean:114`) is NOT consumed: `2 ^ k ≥ 1` holds for
+own lower bound (`Salt/BrunLower/Defs.lean:118`) is NOT consumed: `2 ^ k ≥ 1` holds for
 every `k : ℕ`, truncation included.  `Q` is the door's own `hQ`; the exponent is
 nonnegative because `LamTwin (1/4) z > 0` (`MertensDischarge.lean:124`) makes
 `(exp Λ − 1)⁻¹ > 0`, and `1 < z` (`one_lt_of_zThresh`, `:164`) makes `log z ≥ 0`. -/
@@ -1186,7 +1186,7 @@ stated as `0 ≤ … ≤ 2/d` rather than with `|·|`.  The `d`-dependence of th
 `d`-dependence of the MAIN TERM, which is what makes `∑_d μ(d)·err_d` summable against `W`.
 
 The pointwise identity is `(1/d)(1/m) − 1/(dm+r) = r/(dm(dm+r))`, bounded by `1/(d·m²)` using
-`r ≤ d`; the `m`-sum of `1/m²` is the landed `sum_inv_sq_Icc_le` (`TwinBar/LambdaRate.lean:363`),
+`r ≤ d`; the `m`-sum of `1/m²` is the landed `sum_inv_sq_Icc_le` (`TwinBar/LambdaRate.lean:366`),
 whose range `Icc 1 M` and constant `2` are exactly the ones needed — **reused, not re-derived**.
 
 ✅ Consumed 2026-09-03 by `abs_class_sub_harmonic_le` (`TwinParitySieveLog.lean`), the per-class

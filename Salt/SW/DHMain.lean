@@ -14,7 +14,7 @@ Source: Benlİ–Goel–Twiss–Zaman, arXiv:2410.06082, §§4–5; Graham, *An 
 related to Selberg's sieve* (the Barban–Vehov weight cancellation).
 
 This is the final brick of the DH repulsion. The predecessors ground the campaign to the
-mollified ρ-shift; `DH-2b-v` proved q-only bounds provably cannot reach the ρ-dependent
+mollified ρ-shift; `DH-2b-v` argued, on paper, that q-only bounds cannot reach the ρ-dependent
 target, so the shift is the sole crux. This module builds the FIRST rung of the Zeno
 ladder — the **sharp Barban–Vehov cancellation** `|Σ_{d≤z} θ_d/d| ≤ C/log z`, the
 `GrahamWeights` residual (2), a standalone stone valuable regardless of the higher rungs.

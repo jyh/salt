@@ -110,8 +110,8 @@ For the (4.11)-analog on Σ_{u<n≤v} χ(n)Λ(n)/n, v ≥ u ≥ x ≥ q^{250}:
 | `pretenseSum_le_differenced` | TwistedMertens.lean:646 | the χ(p)=1 kill for (4.7) — NOT the S2−S1 packaging |
 | `hbCoreRate_at_hb_optimum_absorbed` | Lemma3Uncond.lean:116 | the absorbed rate feeding the composite (W0-v) |
 | `LFunction_partialFraction` / `_remainder_diff` | PartialFractions.lean:245 / BCSup.lean:229 (admits 1 ≤ σ) | W1's s = 1 machinery |
-| `mertens_third` via EulerLink | Salt/Mertens/Third.lean:743 / SW/EulerLink.lean:62 | (4.6); ∃C existential + ℕ-indexed — W4 owes the re-indexing |
-| `mertens_second_sharp` (+′) / `mertensB` | Mertens/Second.lean:216 / Third.lean:679 / PrimePower.lean:148 | W3's (4.7) bridging (the "Mertens handles the rest" identity) |
+| `mertens_third` via EulerLink | Salt/Mertens/Third.lean:749 / SW/EulerLink.lean:62 | (4.6); ∃C existential + ℕ-indexed — W4 owes the re-indexing |
+| `mertens_second_sharp` (+′) / `mertensB` | Mertens/Second.lean:216 / Third.lean:685 / PrimePower.lean:148 | W3's (4.7) bridging (the "Mertens handles the rest" identity) |
 | `zero_free_region_all` | (used at TBalTall.lean:2093) | Range B's fallback ceiling |
 
 ## 4. The waves

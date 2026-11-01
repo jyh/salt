@@ -6,9 +6,14 @@ Authors: Jason Hickey, Claude
 import Salt.MR.StridePairReceiptG12b
 import Salt.MR.RegimeHead
 import Mathlib
+import Salt.MR.RegimeFloors
+import Salt.MR.DoorSocket
+import Salt.MR.FlatDesignBound
+import Salt.Entropy.Chowla.WidthWindow
+import Salt.MR.StridePins
 
 -- Needed to transcribe B1/B2/H0/hop1's proofs, the same private names
--- `StridePairReceiptG12b.lean:28-30` opens for the identical purpose.
+-- `StridePairReceiptG12b.lean:32-34` opens for the identical purpose.
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
 open private flatRootCapH_arc_k from Salt.MR.S16ComposeLH
@@ -17,8 +22,8 @@ open private flatRootCapH_arc_k from Salt.MR.S16ComposeLH
 # ⟦TIER S — S-1⟧ THE `∀x'`-BANDED TWIN OF THE `2^12` CHAIN, WITH THE TIGHT CEILING EXPORTED
 (`TierSBand`)
 
-**PROVED AND KERNEL-AUDITED (S-1, salt QUEUE P3 item 11).  HONEST LABEL, FIRST LINE: NO NEW
-UNCONDITIONAL THEOREM.  S-1 restates the landed `2^12` chain with a scale quantifier and two more
+**PROVED AND KERNEL-AUDITED (S-1, salt QUEUE P3 item 11).  HONEST LABEL, FIRST LINE: NO
+NEW MATHEMATICS.  S-1 restates the landed `2^12` chain with a scale quantifier and two more
 exported inequalities.  At fixed `z` Tier S is a SECOND PROOF of a terminal that already lands; E2
 is conditional on `MRTDoorAllGrades`, which has no producer; the `∃ε` tripwire is untouched.
 Nothing here bears on twin primes.**  Its consumer S-3 is unwritten, so this pays only if S-3
@@ -45,7 +50,7 @@ byte otherwise:
          where `xTightCeilArm` = `xTightCeil` + the arm's slack `18 + log 2 + H₊/10²⁰`
          (`s15ArmH_log_le_g12b`, `StrideGrade12bWalls.lean:93`: `log arm ≤ log ω + log h + H₊/10²⁰`,
          spent against (i-ω) and `log a ≤ 9`, `log h ≤ 9`);
-       — `XCeil.lean:494-497`'s `hxu` at the stride builder (`StridePairReceipt.lean`, the
+       — `XCeil.lean:502-505`'s `hxu` at the stride builder (`StridePairReceipt.lean`, the
        `+ 9` is `log a ≤ 9` at `a ≤ 8103`), through the enlargement `x ↦ max x (a·g Hhi ω)`;
   (i′) `V7RatedFormHG_g12b` carries no ceiling: after `StrideScale a R ∧` INSERT the loose ceiling,
        then (i-ω), then (i-x) tier B;
@@ -77,7 +82,7 @@ namespace Salt.MR
 
 /-! ## §0 — the tight ceiling, named once -/
 
-/-- **⟦S-1⟧ THE TIGHT OUTER-SCALE CEILING AT THE STRIDE BUILDER** — `XCeil.lean:494-497`'s `hxu`
+/-- **⟦S-1⟧ THE TIGHT OUTER-SCALE CEILING AT THE STRIDE BUILDER** — `XCeil.lean:502-505`'s `hxu`
 with the stride multiplier's `log a ≤ 9` absorbed (`StridePairReceipt`'s `_b9` builder, `hxu`):
 `log R.x ≤ (30/ε)·log H₊ + 9 + 2·log(4^⌊ε²H₊⌋ + 1)`.  Against the loose `31/ε · H₊` its
 leading term is `2·log 4·ε²·H₊` — smaller by the factor `31/(2·log 4·ε³)` (`1.4·10⁹` at
@@ -87,11 +92,11 @@ def xTightCeil (ε : ℚ) (Hhi : ℕ) : ℝ :=
     + 2 * Real.log (((4 ^ ⌊ε ^ 2 * (Hhi : ℚ)⌋₊ : ℕ) : ℝ) + 1)
 
 /-- **⟦S-1⟧ THE TIGHT CEILING WITH THE ARM'S SLACK** — what survives hop 3's rider inflation
-(`StridePairReceiptG12b.lean:610`, `g ↦ s15ArmH h δ₀ ρ + g`): `log (a · s15ArmH …) ≤ 9 + log ω +
+(`StridePairReceiptG12b.lean:599`, `g ↦ s15ArmH h δ₀ ρ + g`): `log (a · s15ArmH …) ≤ 9 + log ω +
 log h + H₊/10²⁰` (`s15ArmH_log_le_g12b`) with `log ω ≤ xTightCeil ε H₊` (the (i-ω) export) and
 `log h ≤ 9`, plus `log 2` for the sum's larger summand.  The shift's cost is the second `9` in the
 `18`, so the definition takes NO shift argument: at C1 the operative shift is `h`, at C2 and the
-crown it is `a·h` (`StridePairReceiptG12b.lean:1128`); both are covered by `log (·) ≤ 9`. -/
+crown it is `a·h` (`StridePairReceiptG12b.lean:1080`); both are covered by `log (·) ≤ 9`. -/
 def xTightCeilArm (ε : ℚ) (Hhi : ℕ) : ℝ :=
   xTightCeil ε Hhi + 18 + Real.log 2 + ((Hhi : ℕ) : ℝ) / 10 ^ 20
 
@@ -413,7 +418,7 @@ theorem xTightCeilArm_nonneg (ε : ℚ) (hε : 0 < ε) (Hhi : ℕ) (hHhi : 40000
   have hH : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by positivity
   linarith
 
-/-! ## §3 — the builder twins: the tight bound lifted OUT of the proof (`XCeil.lean:494-497`) -/
+/-! ## §3 — the builder twins: the tight bound lifted OUT of the proof (`XCeil.lean:502-505`) -/
 
 /-- **⟦S-1 B1⟧** `chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9` (`StridePairReceipt.lean`)
 with ITS OWN `hxu` exported: body verbatim, one conjunct added. -/
@@ -645,58 +650,8 @@ theorem chowlaRegimeFlat_exists_param_head_xceil_mul_b9_tight (a : ℕ) (ha : 1 
     linarith
   -- ⟦THE WIDTH WINDOW⟧ the majorant field read against the ceiling
   have hωgate : Real.log ((R.ω : ℕ) : ℝ) + (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ)
-      ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) := by
-    set P : ℕ := 4 ^ ⌊R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)⌋₊ with hPdef
-    set n : ℕ := ⌊R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ)⌋₊ with hndef
-    have hPH : 8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ) ≤ ((R.x : ℕ) : ℝ) := R.hPHheadroom
-    have hP1 : (1 : ℝ) ≤ ((P : ℕ) : ℝ) := by
-      rw [hPdef]
-      have : (1 : ℕ) ≤ 4 ^ n := Nat.one_le_pow _ _ (by norm_num)
-      exact_mod_cast this
-    have hω1 : (1 : ℝ) ≤ ((R.ω : ℕ) : ℝ) := by
-      have : (1 : ℕ) ≤ R.ω := le_trans (by norm_num) R.hω
-      exact_mod_cast this
-    -- `log 8 + 2·log P + log ω ≤ log x`
-    have hpos : (0 : ℝ) < 8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ) := by positivity
-    have hlogle : Real.log (8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ))
-        ≤ Real.log ((R.x : ℕ) : ℝ) := Real.log_le_log hpos hPH
-    have hsplit : Real.log (8 * ((P : ℕ) : ℝ) ^ 2 * ((R.ω : ℕ) : ℝ))
-        = Real.log 8 + 2 * Real.log ((P : ℕ) : ℝ) + Real.log ((R.ω : ℕ) : ℝ) := by
-      rw [Real.log_mul (by positivity) (by linarith), Real.log_mul (by norm_num) (by positivity),
-        Real.log_pow]
-      push_cast
-      ring
-    -- `log P = n·log 4 ≥ (ε²H₊ − 1)·log 4`
-    have hlogP : Real.log ((P : ℕ) : ℝ) = (n : ℝ) * Real.log 4 := by
-      rw [hPdef]
-      have h4 : ((4 ^ n : ℕ) : ℝ) = (4 : ℝ) ^ n := by push_cast; ring
-      rw [h4, Real.log_pow]
-    have hnge : (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) - 1 ≤ (n : ℝ) := by
-      have hQ : R.eps ^ 2 * ((R.Hhi : ℕ) : ℚ) < (n : ℚ) + 1 := by
-        rw [hndef]; exact Nat.lt_floor_add_one _
-      have hR : (R.eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) < (n : ℝ) + 1 := by exact_mod_cast hQ
-      rw [hReps] at hR
-      linarith
-    have hlog4 : (1.3862 : ℝ) ≤ Real.log 4 := by
-      have h : Real.log (4 : ℝ) = 2 * Real.log 2 := by
-        rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
-      rw [h]; linarith [Real.log_two_gt_d9]
-    have hlog8 : (2.0794 : ℝ) ≤ Real.log 8 := by
-      have h : Real.log (8 : ℝ) = 3 * Real.log 2 := by
-        rw [show (8 : ℝ) = 2 ^ (3 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
-      rw [h]; linarith [Real.log_two_gt_d9]
-    -- ⟦THE COPRIMALITY FLOOR⟧ `ε²·H₊ ≥ 2`
-    have hcop : (2 : ℝ) ≤ (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) := by
-      have hQ : ((R.a : ℕ) : ℚ) ≤ R.eps ^ 2 * ((R.Hlo : ℕ) : ℚ) / 2 := R.hcoprime
-      have ha1 : (1 : ℚ) ≤ ((R.a : ℕ) : ℚ) := by exact_mod_cast R.ha
-      have hQ2 : (2 : ℚ) ≤ R.eps ^ 2 * ((R.Hlo : ℕ) : ℚ) := by linarith
-      have hR2 : (2 : ℝ) ≤ (R.eps : ℝ) ^ 2 * ((R.Hlo : ℕ) : ℝ) := by exact_mod_cast hQ2
-      rw [hReps] at hR2
-      have hmono : (eps : ℝ) ^ 2 * ((R.Hlo : ℕ) : ℝ) ≤ (eps : ℝ) ^ 2 * ((R.Hhi : ℕ) : ℝ) :=
-        mul_le_mul_of_nonneg_left (by exact_mod_cast R.hHlohi) (sq_nonneg _)
-      linarith
-    have hnn : (0 : ℝ) ≤ (n : ℝ) := Nat.cast_nonneg _
-    nlinarith [hlogle, hsplit, hlogP, hnge, hlog4, hlog8, hRx, hcop, hnn]
+      ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) :=
+    Salt.Entropy.Chowla.ChowlaRegime.width_window _ hReps hRx
   have hgx : Real.log (((a * g R.Hhi R.ω : ℕ)) : ℝ) ≤ 31 / (eps : ℝ) * ((R.Hhi : ℕ) : ℝ) :=
     hg R.Hhi R.ω ⟨hHhi4, hll50, hωgate⟩
   -- ⟦THE PUSH⟧ the scale to `a * max (R.x / a) (g R.Hhi R.ω)`
@@ -753,28 +708,9 @@ theorem flat_door_head_xceil_h_g12b_band (h : ℕ) (hh : 0 < h) (_hh9 : Real.log
   have hhR : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
   have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
   have hhne : (h : ℝ) ≠ 0 := ne_of_gt hhR
-  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
-  -- ⟦THE LEAF NUMERALS, PINNED⟧ `log 4 = 2·log 2`, both `d9` bounds on `log 2`
-  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
-  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
-    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
-  obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = (h : ℝ) * (1 + 2 * (2 * Real.log 4)) := ⟨_, rfl⟩
-  have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
-  have hLpos : (0 : ℝ) < 1 + 8 * Real.log 2 := by linarith
-  have hLne : (1 : ℝ) + 8 * Real.log 2 ≠ 0 := ne_of_gt hLpos
-  have hCval : C = (h : ℝ) * (1 + 8 * Real.log 2) := by rw [hCdef, hlog4eq]; ring
-  have hC : 0 < C := by rw [hCval]; positivity
-  -- ⟦THE PIN⟧ `ε := 1/(500·h)`
-  obtain ⟨ε, hεdef⟩ : ∃ e : ℚ, e = 1 / (500 * (h : ℚ)) := ⟨_, rfl⟩
-  have hεR : ((ε : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) := by rw [hεdef]; push_cast; ring
-  have hεR0 : (0 : ℝ) < (ε : ℝ) := by rw [hεR]; positivity
-  have hεQpos : 0 < ε := by exact_mod_cast hεR0
-  have hεQ1 : ε ≤ 1 / 2 := by
-    have hhQ : (1 : ℚ) ≤ (h : ℚ) := by exact_mod_cast hh
-    rw [hεdef]
-    exact one_div_le_one_div_of_le (by norm_num) (by nlinarith)
+  -- ⟦THE LEAF NUMERALS AND THE PIN⟧ `log 4 = 2·log 2`, the `d9` bounds, `ε := 1/(500·h)`
+  obtain ⟨cD3, C, ε, hcD3def, hCdef, hεdef, hlog4, hlog2lt, hlog2gt, hlog4eq, hcD3, hLpos,
+    hLne, hCval, hC, hεR, hεR0, hεQpos, hεQ1⟩ := stride_pin_facts h hh
   -- ⟦THE MINT, READ BOTH WAYS⟧ `δ₀ = 1/(128000·2^12·h²·(1 + 8·log 2))`
   have hval : cD3 / (16 * C) * (ε : ℝ) / 4 / 2 ^ 12
       = 1 / (128000 * 2 ^ 12 * (h : ℝ) ^ 2 * (1 + 8 * Real.log 2)) := by
@@ -912,12 +848,9 @@ theorem flat_capstone_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.log
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBaseLH h (regimeEnlargeX R hx') M H L q j A s →
       DoorRowZeroBase_L_gk K M (A + s) j liouvilleC
@@ -1005,18 +938,10 @@ theorem flat_capstone_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.log
     rw [hval] at hstep
     have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2
         * (108 / 5 * RSanDoorRhoH ρ h H)) ≤ 2 * δs ^ 2 := by linarith
-    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
-      rw [hδssq]
-      field_simp
-      ring
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 /-- **⟦S-1 H2→H3⟧** `flat_conditional_generic_h_g12b` (`:504`) at the band forms. -/
 theorem flat_conditional_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
@@ -1048,17 +973,13 @@ theorem flat_conditional_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.
     have haR : ((a : ℕ) : ℝ) ≤ 8103 := by exact_mod_cast ha8103
     calc Real.log ((a : ℕ) : ℝ) ≤ Real.log (Real.exp 9) := Real.log_le_log haR0 (by linarith)
       _ = 9 := Real.log_exp 9
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦THE ONE GENUINE ESTIMATE, SPENT AT SHIFT `h`⟧ as in the source, at the `+ 9` split
   have hh1R : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
   have hεR : (1 : ℝ) / (500 * (h : ℝ)) ≤ (ε : ℝ) := by
-    have hq := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rwa [show (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) by
-      push_cast; ring] at hq
+    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   have hεpos : (0 : ℝ) < (ε : ℝ) := by
     have hb : (0 : ℝ) < 1 / (500 * (h : ℝ)) := by positivity
     linarith
@@ -1138,13 +1059,7 @@ theorem flat_conditional_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.
         ≤ a * (s15ArmH h δ₀ ρ R.Hhi R.ω + g R.Hhi R.ω) :=
       Nat.mul_le_mul_left a (by omega)
     omega
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, -⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hstride, hRx, hRωtight, ?_, hRtow, ?_⟩
   · -- ⟦S-1 (i-x) TIER A → TIER B⟧ the rider inflation, paid at the arm's own slack.
     -- `log a ≤ 9` and `log h ≤ 9` make the `18`; the doubling makes the `log 2`; the arm's
@@ -1293,13 +1208,9 @@ theorem flat_kswin_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h
       hzero le_rfl
   have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
   have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
-    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
   have hεR : (1 : ℝ) / (500 * (h : ℝ)) ≤ (ε : ℝ) := by
-    have hq := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rwa [show (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) by
-      push_cast; ring] at hq
+    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   refine ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
     hCgle, hεpin, hδpin, hMflb, hβ, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40, ?_⟩
   intro K
@@ -1436,15 +1347,9 @@ theorem flat_v7_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : 
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   -- ⟦THE `Ks` WINDOW, AT THE SEVENTH ARM⟧ as in the parent
   have hKswin : Real.log (1 / Ks) ≤ 3 * Real.exp (3.2 * A) / 16 := by linarith
-  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
-    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
-      Real.add_one_le_exp _
-    linarith
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
+    Salt.MR.x0_le_exp_exp_of_four_le hx0nn hx0A
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
   obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)
@@ -1466,9 +1371,7 @@ theorem flat_v7_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : 
   have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
   have heps500R : (1 : ℝ) / (500 * (h : ℝ)) ≤ (R.eps : ℝ) := by
     rw [hReps]
-    have hq := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rwa [show (((1 : ℚ) / (500 * (h : ℚ)) : ℚ) : ℝ) = 1 / (500 * (h : ℝ)) by
-      push_cast; ring] at hq
+    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   have h518 : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by nlinarith [hdes, hA162]
   have hfl : loglogFloor50 ≤ R.Hlo := by
     rw [hHlo]
@@ -1652,32 +1555,15 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride_g12b_band (a b h : ℕ) (ha : 0 
     hbody (a * flatDesignBase A) a (fun _ _ => 0) hU hUceil ha ha8103
       (xceilRiderStrict_zero ε)
   obtain ⟨Kc, hKc0, hKcb, hKcount⟩ := hcountD
-  have hahQ : ((a * h : ℕ) : ℚ) ≤ 8103 := by exact_mod_cast hah8103
-  have hahQ1 : (1 : ℚ) ≤ ((a * h : ℕ) : ℚ) := by exact_mod_cast hkpos
-  have heps500 : Rd.eps ≤ 1 / 500 := by
-    rw [hReps, hεeq]
-    exact one_div_le_one_div_of_le (by norm_num) (by linarith)
-  have heps4051500 : (1 : ℚ) / 4051500 ≤ Rd.eps := by
-    rw [hReps, hεeq]
-    exact one_div_le_one_div_of_le (by positivity) (by linarith)
-  have hdiv : a ∣ Rd.a * Rd.Hlo := by
-    rw [hHlo]
-    exact (dvd_mul_right a (flatDesignBase A)).mul_left Rd.a
-  have hquot : Rd.a * Rd.Hlo / a = Rd.a * flatDesignBase A := by
-    rw [hHlo, show Rd.a * (a * flatDesignBase A) = a * (Rd.a * flatDesignBase A) by ring]
-    exact Nat.mul_div_cancel_left _ hapos
-  have hBle : flatDesignBase A ≤ Rd.a * Rd.Hlo / a := by
-    rw [hquot]
-    exact Nat.le_mul_of_pos_left _ Rd.ha
+  obtain ⟨heps500, heps4051500, hdiv, hquot, hBle⟩ :=
+    stride_shrink_facts (L := 4051500) Rd hReps hεeq hkpos hah8103 (by norm_num) hHlo hapos
   obtain ⟨hf1, hf2⟩ := flatDesignBase_clears_stride_floors_b9 hA162 heps4051500
   have hlo4 : 4 * ⌈(1 / Rd.eps : ℚ)⌉₊ ^ 4 ≤ Rd.a * Rd.Hlo / a := le_trans hf1 hBle
   have hloM : 4000000 ≤ Rd.a * Rd.Hlo / a := le_trans hf2 hBle
   have hb0 : b ≤ Rd.a * Rd.Hlo / a := by omega
   have hepsR0 : (0 : ℝ) < (Rd.eps : ℝ) := by exact_mod_cast Rd.heps
   have heps500R : (Rd.eps : ℝ) ≤ 1 / 500 := by
-    have hq := (Rat.cast_le (K := ℝ)).mpr heps500
-    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at hq
-    exact hq
+    simpa using (Rat.cast_le (K := ℝ)).mpr heps500
   have hcop : (2 : ℝ) ≤ (Rd.eps : ℝ) ^ 2 * ((Rd.Hlo : ℕ) : ℝ) := by
     have hQ : ((Rd.a : ℕ) : ℚ) ≤ Rd.eps ^ 2 * ((Rd.Hlo : ℕ) : ℚ) / 2 := Rd.hcoprime
     have ha1 : (1 : ℚ) ≤ ((Rd.a : ℕ) : ℚ) := by exact_mod_cast Rd.ha

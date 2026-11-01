@@ -273,10 +273,10 @@ open Salt.Tactic in
 The remainder majorant and the assembly.  `Btwin lvl = ⌊lvl⌋₊·(1 + log ⌊lvl⌋₊)` is the
 EXPLICIT, unconditional bound for the untwisted half of `rem_split`: `twinRem_sum_le` runs
 `rem_abs_le` (M2.lean:241, `|rem d| ≤ ρ(d)`) → `rho_squarefree_le` (M2.lean:206, `ρ ≤ 2^ω`
-on the squarefree `d ∣ P`) → the M5Assembly.lean:209-239 re-index (`Finset.sum_filter`, then
+on the squarefree `d ∣ P`) → the M5Assembly.lean:226-256 re-index (`Finset.sum_filter`, then
 `Finset.sum_le_sum_of_subset_of_nonneg` onto `Finset.Icc 1 ⌊lvl⌋₊`) → `sum_two_pow_omega_le`
 (GehPp2.lean:113 — a ROOT-level declaration; that file carries no `namespace`).  The `3^ω`
-constant of the landed idiom is replaced by `2^ω`, and its N4.2 `y⁴` step (M5Assembly.lean:240)
+constant of the landed idiom is replaced by `2^ω`, and its N4.2 `y⁴` step (M5Assembly.lean:257)
 is NOT used.
 
 `twinParitySieve_rosserRemainder_le` is the assembly `rosserRemainder ≤ Btwin lvl + B`: the
@@ -302,7 +302,7 @@ INTERFACE between wave 1's two green halves — a gap no build reports: B3's con
 producer `twinParitySieve_brun_lower_ell1` (:206) carries the level
 `Q · (exp((1 + 2(exp Λ − 1)⁻¹)·log z) · 2^(2r−1))`, and nothing in the tree supplied
 `1 ≤` that product.  All three factors are `≥ 1` separately, so no size input is needed
-and `minLevel_mem` (BrunLower/Defs.lean:114) is NOT consumed — `2 ^ k ≥ 1` holds for every
+and `minLevel_mem` (BrunLower/Defs.lean:118) is NOT consumed — `2 ^ k ≥ 1` holds for every
 `k : ℕ`, ℕ-truncation included.  `Q` is `hQ`; the exponent is nonnegative because
 `LamTwin_pos` (MertensDischarge.lean:124) makes `(exp Λ − 1)⁻¹ > 0` and `one_lt_of_zThresh`
 (TwinParitySieve.lean:164) makes `Real.log z ≥ 0`.
@@ -616,7 +616,7 @@ wants the sign, and **both the main term and the error carry `1/d` and nothing e
 — which is what makes `∑_d μ(d)·err_d` summable against `W`.
 
 📌 **REUSED, NOT RE-DERIVED:** the `∑_{m ≤ M} 1/m² ≤ 2` step is the landed
-`Salt.TwinBar.sum_inv_sq_Icc_le` (`TwinBar/LambdaRate.lean:363`) — already in this file's namespace
+`Salt.TwinBar.sum_inv_sq_Icc_le` (`TwinBar/LambdaRate.lean:366`) — already in this file's namespace
 and import closure, with exactly the range `Icc 1 M` and exactly the constant `2`. *A first search
 for it under the `Salt.Chen` spelling found a different copy and would have cost an import.* -/
 open Salt.Tactic in
@@ -824,3 +824,8 @@ open Salt.SW.StandoffCert in
 #assert_not_reaches Salt.TwinBar.noSiegelZeros_of_realZeroGap Salt.SW.siegel_L_one_exceptional
 open Salt.SW.StandoffCert in
 #assert_not_reaches Salt.TwinBar.noSiegelZeros_of_realZeroGap Salt.SW.L1_lower_siegel
+
+-- TwinParityAtomClasses: its two definitions, beside the twelve theorems audited above (O88 batch 30).
+open Salt.Tactic in
+#audit_axioms Salt.TwinBar.admClasses
+  Salt.TwinBar.AffFullRangeAt

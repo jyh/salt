@@ -91,6 +91,13 @@ def Jcal (m : Fin 5) (F : Poly) : ℚ :=
 56 monomials (`m_λ` = the sum over the distinct permutations of the exponent
 vector `λ`). The 7 symmetric orbits contribute `1 + 5 + 5 + 10 + 5 + 20 + 10 = 56`
 monomials. -/
+/-- **The certified optimum `F★`** (card C1): the degree-3 symmetric polynomial
+`7·1 − 19·m₁ + 28·m₂ + 30·m₁₁ − 15·m₃ − 21·m₂₁ − 19·m₁₁₁` in the monomial symmetric functions on
+five variables, expanded to its 56 monomials as `(exponent vector, coefficient)` pairs — the
+seven orbits of sizes `1, 5, 5, 10, 5, 20, 10`. `Fstar.length = 56` and the coefficients sum to
+`F★(1, …, 1) = −333` (the sanity checks below); its certificate is `I_Fstar`, `J_Fstar` and
+`M5_cert` (`2·I(F★) < Σ_m J⁽ᵐ⁾(F★)`). `FstarNorm`'s ℓ¹-normalisation `Fstar1` is built from
+it. -/
 def Fstar : Poly := [
   (![0,0,0,0,0], 7),
   (![0,0,0,0,1], -19),

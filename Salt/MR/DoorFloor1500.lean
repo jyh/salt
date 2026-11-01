@@ -27,7 +27,7 @@ The `δ₀`-hypothesis of the door-floor arm moves `6250000^{-5/4} ≈ 3·10⁻�
 `36000000^{-5/4} ≈ 3.6·10⁻¹⁰`, still ~39 orders above the spine's `δ₀ ≈ 2·10⁻⁴⁹`.
 
 **Everything here is ADDITIVE.**  The landed `B₅ = 5` forms (`DoorFloor.lean:180/200/214`,
-`DoorDischarge.lean:42`, `RegimeHead.lean:358`, and `LandauL1.lean`'s three in-statement
+`DoorDischarge.lean:42`, `RegimeHead.lean:369`, and `LandauL1.lean`'s three in-statement
 `w = 5` sites) are untouched and stay as the historical record; this file adds their
 `B₅ = 12` twins, plus two stones the sweep newly needs:
 
@@ -208,7 +208,7 @@ theorem regime_W_headroom_of_H0door_1500 (R : ChowlaRegime) {δ₀ : ℝ} (hδ�
     (regime_hthr_of_scale_1500 R (le_log_of_H0door_le (by norm_num) hδ₀ hsmall hfloor) heps)
 
 /-- **W-2d — the head, the door floor, the `g`-clearance, and Tao's W-constraint at
-`B₅ = 12`, in ONE statement** (`RegimeHead.lean:358`, re-instantiated).  For any
+`B₅ = 12`, in ONE statement** (`RegimeHead.lean:369`, re-instantiated).  For any
 `ε ∈ (0, 1/2]`, any door threshold `δ₀ > 0` below `36000000^{-5/4}`, any extra floor demand,
 and any CHOICE-JOIN parameters, there is a regime that
 

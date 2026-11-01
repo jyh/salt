@@ -437,7 +437,7 @@ be pricing a different object — but neither reverses the implication.
 
 ⛔ **AND THIS IS NOT A SHORTCUT TO THE DOOR SOCKET.**  What runs backwards is at the `α`-set,
 not here: `NearRatTight (h·arcDen 12 H) H α` admits STRICTLY MORE `α` than the landed cap does
-(`HDoorArc.lean:423-429`), so `M4SievedDoorSqH` is a STRONGER Prop than `M4SievedDoorSq` and
+(`HDoorArc.lean:424-430`), so `M4SievedDoorSqH` is a STRONGER Prop than `M4SievedDoorSq` and
 `nearRatTight_mono` cannot supply it.  The two facts point opposite ways and both are true. -/
 def SocketBaseLH (h : ℕ) (R : ChowlaRegime) (M H L q j A s : ℕ) : Prop :=
   R.Hlo ≤ H ∧ H ≤ R.Hhi ∧ L ≤ H ∧ 0 < q ∧ (q : ℝ) ≤ (h : ℝ) * arcDen 12 H ∧
@@ -555,8 +555,8 @@ discharged at the socket exit `cofkL_capFreeFloor_at_socket_rated_uniform_h` (re
 /-! ## §8 — the exit at the inflated socket, and where the tight margin goes
 
 ⭐⭐ **THE ×1.09 MARGIN NEVER BINDS HERE, AND THE REASON IS NOT AN ESCAPE.**  §4's budget is
-tight because the threshold page is stated at ITS OWN floor `Λ ≥ 1` — the weakest floor in the
-corpus.  The socket carries `hlo : 518 ≤ loglog H₋` **in its own landed binder list**, and
+tight because the threshold page is stated at ITS OWN floor `Λ ≥ 1`, a floor every application
+site exceeds.  The socket carries `hlo : 518 ≤ loglog H₋` **in its own landed binder list**, and
 `H₋ ≤ H`, so at every application site `Λ ≥ 518` and the budget clears by four orders of
 magnitude.
 
