@@ -148,7 +148,7 @@ theorem m4_second_road_L2_hloCap_flat :
 
 /-! ## §4 — the road, pinned, at the flat shape -/
 
-/-- `m4_exit_socket_split_sq_arc_hloCap_pinned` (`HloExportMR.lean:277`) at the
+/-- `m4_exit_socket_split_sq_arc_hloCap_pinned` (`HloExportMR.lean:267`) at the
 FLAT tower conjunct. -/
 theorem m4_exit_socket_split_sq_arc_hloCap_pinned_flat :
     ∃ (ε : ℚ) (K δ₀ : ℝ) (Hcap : ℕ), 0 < ε ∧ 0 < K ∧ 0 < δ₀ ∧
@@ -181,7 +181,7 @@ theorem m4_exit_socket_split_sq_arc_hloCap_pinned_flat :
   exact ⟨R, hReps, hU1, hRg,
     fun h50 => le_trans (hRtow h50) (pow_nine_halves_le_exp_half h50), hRcap, hR⟩
 
-/-- `m4_doorL2_close_split_sq_hloCap_pinned` (`HloExportMR.lean:320`) at the FLAT
+/-- `m4_doorL2_close_split_sq_hloCap_pinned` (`HloExportMR.lean:310`) at the FLAT
 tower conjunct. -/
 theorem m4_doorL2_close_split_sq_hloCap_pinned_flat :
     ∃ (Cg : ℝ) (ε : ℚ) (K δ₀ : ℝ) (Hcap : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
@@ -207,7 +207,7 @@ theorem m4_doorL2_close_split_sq_hloCap_pinned_flat :
   exact ⟨R, hReps, hU1, hRg,
     fun h50 => le_trans (hRtow h50) (pow_nine_halves_le_exp_half h50), hRcap, hR⟩
 
-/-- `m4_second_road_L2_hloCap_pinned` (`HloExportMR.lean:394`) at the FLAT tower
+/-- `m4_second_road_L2_hloCap_pinned` (`HloExportMR.lean:384`) at the FLAT tower
 conjunct.  THE DELIVERABLE of this file: the surface the capstone compose reads
 when it needs the constants AS NUMBERS, now carrying the flat width shape. -/
 theorem m4_second_road_L2_hloCap_pinned_flat :
@@ -248,7 +248,7 @@ theorem m4_second_road_L2_hloCap_pinned_flat :
 
 /-! ## §GK — the G-lever twins, at the flat shape -/
 
-/-- `m4_doorL2_close_split_sq_hloCap_gk` (`HloExportMR.lean:500`) at the FLAT
+/-- `m4_doorL2_close_split_sq_hloCap_gk` (`HloExportMR.lean:480`) at the FLAT
 tower conjunct. -/
 theorem m4_doorL2_close_split_sq_hloCap_gk_flat (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧
@@ -273,7 +273,7 @@ theorem m4_doorL2_close_split_sq_hloCap_gk_flat (K : ℕ) :
   exact ⟨R, hReps, hU1, hRg,
     fun h50 => le_trans (hRtow h50) (pow_nine_halves_le_exp_half h50), hRcap, hR⟩
 
-/-- `m4_second_road_L2_hloCap_gk` (`HloExportMR.lean:556`) at the FLAT tower
+/-- `m4_second_road_L2_hloCap_gk` (`HloExportMR.lean:536`) at the FLAT tower
 conjunct. -/
 theorem m4_second_road_L2_hloCap_gk_flat (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ),
@@ -309,7 +309,7 @@ theorem m4_second_road_L2_hloCap_gk_flat (K : ℕ) :
   exact ⟨R, hReps, hU1, hRg,
     fun h50 => le_trans (hRtow h50) (pow_nine_halves_le_exp_half h50), hRcap, hR⟩
 
-/-- `m4_doorL2_close_split_sq_hloCap_pinned_gk` (`HloExportMR.lean:640`) at the
+/-- `m4_doorL2_close_split_sq_hloCap_pinned_gk` (`HloExportMR.lean:610`) at the
 FLAT tower conjunct. -/
 theorem m4_doorL2_close_split_sq_hloCap_pinned_gk_flat (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
@@ -335,7 +335,7 @@ theorem m4_doorL2_close_split_sq_hloCap_pinned_gk_flat (K : ℕ) :
   exact ⟨R, hReps, hU1, hRg,
     fun h50 => le_trans (hRtow h50) (pow_nine_halves_le_exp_half h50), hRcap, hR⟩
 
-/-- `m4_second_road_L2_hloCap_pinned_gk` (`HloExportMR.lean:698`) at the FLAT
+/-- `m4_second_road_L2_hloCap_pinned_gk` (`HloExportMR.lean:668`) at the FLAT
 tower conjunct — the lever's copy of this file's deliverable. -/
 theorem m4_second_road_L2_hloCap_pinned_gk_flat (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ),

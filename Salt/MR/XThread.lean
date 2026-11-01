@@ -216,7 +216,7 @@ so the charge rises by exactly `log c`: `ρ ≥ 1/(2^580·c)`, hence
 At the `h` lane's own pin (`c = h²`, wave X's exported `1/(838400·h²) ≤ δ₀`) and under the
 `h`-family's binder `hh7 : log h ≤ 7`, `log c = 2·log h ≤ 14`, so the charge is at most `417`.
 ⛔ It is `2·log h` and NOT `4·log h`: the compose pins `doorRhoOfDelta (s12DeltaSock δ₀ Kc)`, and
-`s12DeltaSock`'s square root (`S12Compose.lean:216`) exactly cancels `doorRhoOfDelta`'s square
+`s12DeltaSock`'s square root (`S12Compose.lean:206`) exactly cancels `doorRhoOfDelta`'s square
 (`M4ArithRho.lean:578`). -/
 theorem xt_log_inv_rho_le_scaled {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hδ₀ : 0 < δ₀)
     (hδpin : 1 / (838400 * c) ≤ δ₀) (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) :
