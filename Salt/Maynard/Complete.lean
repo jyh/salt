@@ -142,11 +142,13 @@ theorem W_div_totient_le_explicit (k : ℕ) (hD : 2 ≤ D₀ k) :
 noncomputable def rankinK : ℝ := Real.exp 20
 
 omit [Salt.Maynard.TupleChoice] in
+/-- `1 ≤ rankinK = exp 20`: `1 = exp 0 ≤ exp 20` (`Real.exp_le_exp`). -/
 lemma rankinK_ge_one : 1 ≤ rankinK := by
   rw [rankinK]; calc (1 : ℝ) = Real.exp 0 := Real.exp_zero.symm
     _ ≤ Real.exp 20 := Real.exp_le_exp.mpr (by norm_num)
 
 omit [Salt.Maynard.TupleChoice] in
+/-- `0 ≤ rankinK`, from `rankinK_ge_one`; the sign the explicit cascade's constants spend. -/
 lemma rankinK_nonneg : 0 ≤ rankinK := le_trans zero_le_one rankinK_ge_one
 
 omit [Salt.Maynard.TupleChoice] in
@@ -354,6 +356,9 @@ theorem abs_mainSum_le_K (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
 noncomputable def lemma53KConst : ℝ := rankinK * (2 + 4 * Real.exp 4)
 
 omit [Salt.Maynard.TupleChoice] in
+/-- `0 ≤ lemma53KConst = rankinK · (2 + 4 · exp 4)`: `rankinK_nonneg` and `0 < exp 4`
+(`positivity`); the sign of `C = lemma53KConst · k` in the explicit-constant S₂ main lower bound
+and the capstone's regime check. -/
 lemma lemma53KConst_nonneg : 0 ≤ lemma53KConst := by
   rw [lemma53KConst]
   have := rankinK_nonneg
@@ -886,6 +891,10 @@ theorem lemma53_rel_K (k R : ℕ) (T : ℝ) (m : Fin k)
 
 /-! ### S₂ main lower bound helpers (verbatim copies of the private helpers) -/
 
+/-- `Σ_{am < R} fTilde(am) / φ(am) ≤ B₁`: `fTilde` is `fWt` on `sqfCop R₀ (W k)` and `0` off it,
+so the sum over `range R` is a subsum of `B₁`'s with nonnegative terms
+(`Finset.sum_le_sum_of_subset_of_nonneg`, `fWt_nonneg`). Local copy of `S2MainLowerRel`'s
+private helper. -/
 private lemma sumFTilde_le_B1'' (k R : ℕ) (T : ℝ) (hR : 2 ≤ R) :
     (∑ am ∈ Finset.range R, fTilde k R T am / (Nat.totient am : ℝ)) ≤ B1 k R (W k) T := by
   classical
@@ -910,6 +919,10 @@ private lemma sumFTilde_le_B1'' (k R : ℕ) (T : ℝ) (hR : 2 ≤ R) :
       exact Nat.one_le_iff_ne_zero.mpr ham.2.1.ne_zero
     exact div_nonneg (fWt_nonneg hr hR) (Nat.cast_nonneg _)
 
+/-- `yTensor (update u m am) ≤ fTilde(am) · ∏_{i ≠ m} fTilde(uᵢ)`: when the updated tuple is in
+the index the product splits off its `m`-th factor with equality (`Finset.mul_prod_erase`,
+`Function.update_self`, `Function.update_of_ne`); otherwise `yTensor = 0` and the product is
+nonnegative (`fTilde_nonneg`). Local copy. -/
 private lemma yTensor_update_le'' (k R : ℕ) (T : ℝ) (m : Fin k) (hR : 2 ≤ R)
     (u : Fin k → ℕ) (am : ℕ) :
     yTensor k R T (Function.update u m am)
@@ -928,6 +941,8 @@ private lemma yTensor_update_le'' (k R : ℕ) (T : ℝ) (m : Fin k) (hR : 2 ≤ 
   · exact mul_nonneg (fTilde_nonneg k R T am hR)
       (Finset.prod_nonneg (fun i _ => fTilde_nonneg k R T _ hR))
 
+/-- `0 ≤ Σ_{am < R} yTensor (update u m am) / φ(am)`, termwise by `yTensor_nonneg` and
+`Nat.cast_nonneg`; it discharges the absolute value in `errbox_le''`. Local copy. -/
 private lemma contraction_nonneg'' (k R : ℕ) (T : ℝ) (m : Fin k) (hR : 2 ≤ R)
     (u : Fin k → ℕ) :
     0 ≤ ∑ am ∈ Finset.range R,
@@ -936,6 +951,9 @@ private lemma contraction_nonneg'' (k R : ℕ) (T : ℝ) (m : Fin k) (hR : 2 ≤
   intro am _
   exact div_nonneg (yTensor_nonneg k R T hR _) (Nat.cast_nonneg _)
 
+/-- `Σ_{am < R} yTensor (update u m am) / φ(am) ≤ (∏_{i ≠ m} fTilde(uᵢ)) · B₁`: termwise
+`yTensor_update_le''`, the factor `P = ∏_{i ≠ m} fTilde(uᵢ) ≥ 0` pulled out of the sum, then
+`sumFTilde_le_B1''`. Local copy. -/
 private lemma contraction_le'' (k R : ℕ) (T : ℝ) (m : Fin k) (hR : 2 ≤ R)
     (u : Fin k → ℕ) :
     (∑ am ∈ Finset.range R,
@@ -959,6 +977,13 @@ private lemma contraction_le'' (k R : ℕ) (T : ℝ) (m : Fin k) (hR : 2 ≤ R)
     _ ≤ P * B1 k R (W k) T :=
         mul_le_mul_of_nonneg_left (sumFTilde_le_B1'' k R T hR) hPnn
 
+/-- **The error box.** Under `12 · k² ≤ D₀ k`,
+`Σ_{u ∈ 𝒟, u_m = 1} (∏_{i ≠ m} fTilde(uᵢ)) · |contraction(u)| / ∏ᵢ φ(uᵢ) ≤ B₁ · 2 · A₁^{k−1}`:
+per tuple, `contraction_le''` (and `contraction_nonneg''` for the absolute value) give
+`≤ B₁ · ∏_{i ≠ m} fTilde(uᵢ)² / φ(uᵢ)` (the `m`-th factor is `φ(1) = 1`), and `g(uᵢ) ≤ φ(uᵢ)` at
+primes `≥ 3` (`gMult_le_totient`, `D₀_lt_of_prime_dvd_coord`) turns it into
+`B₁ · ∏ fTilde² / g`; summed over the box that is `B₁ · Gdiag`, and `Gdiag_le` gives
+`2 · A₁^{k−1}`. The error-box term of the explicit-constant S₂ main lower bound. Local copy. -/
 private lemma errbox_le'' (k R : ℕ) (T : ℝ) (m : Fin k) (hR : 2 ≤ R)
     (hD : 12 * k ^ 2 ≤ D₀ k) :
     (∑ u ∈ (kSieveIndex k R (W k)).filter (fun u => u m = 1),

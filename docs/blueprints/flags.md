@@ -1738,7 +1738,7 @@ grinding; the next Fable wave opens by draining this list.
     `|∑_u ∏g(uᵢ)·V(u∨σ)·V(u∨τ)| ≤ 3^ω·∏(p−1)⁻²·Qdiag_gv`, `V = lamPhiContractM y`.
     **The design's "dominate by ONE / monotone in |y|" shortcut is INVALID for the
     S₂ side** — two concrete corrections for the next Fable pass:
-    (1) `s2_inner_bound_N` (`S2Collision.lean:2105`) does NOT discharge
+    (1) `s2_inner_bound_N` (`S2Collision.lean:2108`) does NOT discharge
     `S2InnerBoundQ`: it proves a DIFFERENT bound (RHS `Ndiag`/`(p−2)⁻²`, not
     `Qdiag_gv`/`(p−1)⁻²`), and only for the tensor `yTensor`, via `fTilde`-
     antitonicity + `Gdiag`/`B1` machinery. There is no `f₀≡1` free slot-in.

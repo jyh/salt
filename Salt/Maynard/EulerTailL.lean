@@ -416,6 +416,9 @@ analogue of `A₁`. -/
 noncomputable def Ag (k R : ℕ) (T : ℝ) : ℝ :=
   ∑ r ∈ sqfCop (R0 k R T) (W k), (fWt k R r) ^ 2 / (gMult r : ℝ)
 
+/-- `0 ≤ Ag k R T`: every term `fWt(r)² / g(r)` is nonnegative (`sq_nonneg`, `Nat.cast_nonneg`;
+`Finset.sum_nonneg`), the `g`-weighted twin of `A1_nonneg`; the sign the file's final box
+assembly spends as `hAgnn`. -/
 lemma Ag_nonneg (k R : ℕ) (T : ℝ) : 0 ≤ Ag k R T :=
   Finset.sum_nonneg fun _ _ =>
     div_nonneg (sq_nonneg _) (Nat.cast_nonneg _)
