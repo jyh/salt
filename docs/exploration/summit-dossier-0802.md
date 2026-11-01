@@ -178,7 +178,7 @@ flat-lane conditionals until then.
 
 ## ADDENDUM 2 (2026-08-02 night) — v4 MINTED; BOTH VACUITIES REPAIRED
 
-**`logChowla2_ineffective_v4` (S16ComposeV4.lean:942, 3-axiom,
+**`logChowla2_ineffective_v4` (S16ComposeV4.lean:938, 3-axiom,
 d103766) is the standing summit object.** v1/v2/v3 are marked
 SUPERSEDED in RESULTS.md with the vacuity reason on the row.
 

@@ -242,7 +242,7 @@ theorem s15_gRows_const_at_socket_flat {R : ChowlaRegime} {M H L q j A s : ℕ} 
     linarith [hbud, hQ0, hL50, hlogρ]
   · exact s15_dens_at_zero hρ0.le
 
-/-- `s15_gRows_const_at_socket_gk` (`S15Compose.lean:1819`) — the lever's copy — at
+/-- `s15_gRows_const_at_socket_gk` (`S15Compose.lean:1818`) — the lever's copy — at
 the FLAT tower conjunct.  This is the form `S16Budget`'s HOP 4 fires. -/
 theorem s15_gRows_const_at_socket_gk_flat (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hM : 1 ≤ M)

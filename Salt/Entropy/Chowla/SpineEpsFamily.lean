@@ -25,7 +25,7 @@ What this is NOT: an unconditional `∀ ε` theorem.  The door `MRTUniformityXiL
 and the `MR` lane PRODUCES it at ONE grade (`mrtUniformityXiL2_holds_flat`: `ρ ≤ 1/837782` on
 the flat family at `ε ≥ 1/500`).  Below `ε = 1/500` the demanded grade `δ₀(ε) ∝ ε` falls under
 the produced one — the row's "exchange rate, not a wall" — and only the crown
-`MRTDoorAllGrades` (`Salt/MR/DoorReceipt.lean:1150`, NO producer) supplies it;
+`MRTDoorAllGrades` (`Salt/MR/DoorReceipt.lean:1146`, NO producer) supplies it;
 `Salt/MR/EpsFamilyReceipt.lean` states that composition.  The landed tripwire
 `spine_eps_constant_floor` (`SpineEpsFence.lean:102`) is UNTOUCHED: this head is added BESIDE
 the pinned one (QUEUE item 11, fence (2)), and the tripwire keeps guarding the `∃ ε` terminal.
