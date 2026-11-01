@@ -46,7 +46,7 @@ those hooks through the uniform lane and mints
 * **`Ct`** — `m4_hrowsSlot_at_door_zero'_L_gk_ceiling` drops into
   `m4_closure_fuse_zero'_const_nonneg_L_gk` (§5 here), whose twin then feeds §6–§9.
 * **`Kq`** — ⟦THE ONE CORRECTION TO THE MISSION BRIEF⟧ the `Kq` of the terminal's `∃`-prefix
-  is **not** the one `S16Uniform` :660 opens: that `obtain`'s payload is DISCARDED (`… , -⟩`)
+  is **not** the one `S16Uniform` :654 opens: that `obtain`'s payload is DISCARDED (`… , -⟩`)
   and its five constants are re-exported only to be dropped again by `flat_conditional_*`.
   The terminal's `Kq` is minted by `S16FlatFinal.s15_crossing_supplied_L_gk`, off the LINEAR
   wire `S16FlatTerminalLinear.m4_fuse_hcap_of_capWS_L_gk` → `M4CapWireLinear.

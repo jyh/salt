@@ -7443,7 +7443,7 @@ supplies.  `Kc` rides seven twins (head → socket → door-`L²` → road → w
 windowed conditional → terminal): it enters the head as an UPPER BOUND ON A COUNT and leaves
 the door as a BUDGET COEFFICIENT, so the sign change forbids any short-circuit above the leaf.
 `Ct` enters at the constant-pool fuse.  `Kq` — ⟦THE CORRECTION TO THE WAVE'S CONSUMPTION
-LIST⟧ — is NOT the constant `S16Uniform` :660 opens (that `obtain`'s payload is discarded and
+LIST⟧ — is NOT the constant `S16Uniform` :654 opens (that `obtain`'s payload is discarded and
 its constants are dropped again one hop later): the terminal's `Kq` is minted by
 `s15_crossing_supplied_L_gk` off the LINEAR wire, so §8 re-cuts `m4_hcap_at_door_perBlock_L_gk`
 → `m4_fuse_hcap_of_capWS_L_gk` → `s15_crossing_supplied_L_gk` against the SHARED leaf
@@ -9352,7 +9352,7 @@ cap-9 twins, their two rows dropped here (the twins are audited under ⟦β W1 E
 /-! ## ⟦H2c⟧ — THE CROSSING SUPPLIER AT THE INFLATED SOCKET `SocketBaseLH h`
 
 `Salt/MR/S13CapGateLinearLH.lean` (wave H2c).  The deliverable is
-`s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:960` with the same `∃ Cq cs T₀ Kq Ks C`
+`s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:954` with the same `∃ Cq cs T₀ Kq Ks C`
 prefix and pins, `hblk` at `SocketBaseLH h`, concluding
 `S16CofactorSupply_LH_gk h K Cq R M → S16BaseScaleCap96_LH_gk h K R M →
 S15CrossingBound_LH_gk h K R M`.
@@ -9500,7 +9500,7 @@ no axioms; they are audited anyway so the registry row count matches the declara
 capstones can be ported, and nothing else.
 
 ⭐ **BLOCK U — THE `A`-UNIFORM `h` ROAD IS TWO `intro`s, NOT A DESIGN BLOCK.**  The `A₀` pin has
-exactly ONE origin on the whole `h` lane (`HloExportFlatH:307`), every `obtain` above it is
+exactly ONE origin on the whole `h` lane (`HloExportFlatH:308`), every `obtain` above it is
 `A`-free — wave H2a's count hook takes `h` and `ε` only — and `S16ProducersH`,
 `S16FlatTerminalLinearH` and `HDoorSupply` contain **zero** `A₀`.  `flat_head_uniform_h` is the
 landed head with that line replaced by `intro A hA26 hAge`, exactly as `flat_head_uniform` does
@@ -9512,7 +9512,7 @@ statement at all, so `flat_socket_uniform` and `flat_doorL2_uniform` have nothin
 ⭐ **BLOCK W — AND HERE H2b's PRICE CUT DOES NOT REPEAT, WHICH IS THE POINT.**
 `S16BandLaneCBoundedL` has **no producer anywhere** (34 binder sites, 9 modules, zero
 discharges), so wave H2b re-quantified it for free and left an open rider.  The WINDOWED riders
-are **theorems** (`s16_bandLaneWinL_holds` S16Uniform:1200, `_holdsU` S16ComposeV4:93), so their
+are **theorems** (`s16_bandLaneWinL_holds` S16Uniform:1194, `_holdsU` S16ComposeV4:93), so their
 `h` twins need a producer PORT — and the `h` lane gets a DISCHARGED rider in exchange for it.
 ⭐ **The port is class A, and a projection census says why.**  The mint
 `m4_hband_at_door_slot_split_graded_L_gk` (S11HoistLinear:736) touches its socket in exactly two
