@@ -175,6 +175,8 @@ lemma unitMeasure_Ioc_toReal {a b : ℝ} (ha : 0 ≤ a) (hab : a ≤ b) (hb : b 
 noncomputable def vkBox (k : ℕ) (c δ : Deg k → ℝ) : Set (Deg k → ℝ) :=
   Set.univ.pi (fun j => Set.Ioc (max 0 (c j - δ j)) (min 1 (c j + δ j)))
 
+/-- The clipped box `vkBox k c δ` is measurable: a `Set.univ.pi` of the intervals
+`Ioc (max 0 (c j - δ j)) (min 1 (c j + δ j))`, each `measurableSet_Ioc`. -/
 lemma vkBox_measurable (k : ℕ) (c δ : Deg k → ℝ) : MeasurableSet (vkBox k c δ) :=
   MeasurableSet.univ_pi (fun _ => measurableSet_Ioc)
 

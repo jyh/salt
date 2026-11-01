@@ -10,6 +10,7 @@ import Salt.MR.M4AssemblyPrime
 import Salt.MR.M4RowsChiZero
 import Salt.MR.M4Spine
 import Salt.MR.S11Thread
+import Salt.MR.ArcRegimeWeaken
 
 /-!
 # `M4RowSpineLinear` — THE SECOND ROAD / ARITHMETIC PAGE / SPINE at the LINEAR door
@@ -390,16 +391,8 @@ theorem m4_second_road_L :
   intro δ RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3 hdgate
     hdrift hgrade hrow
   -- ⟦the window floor, read at the two powers the chain spends⟧
-  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
-  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith only [harc1, h1, sq_nonneg (arcDen 12 H)]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN_L R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied_L j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -446,6 +439,8 @@ block `calP (AdoorL M) (3072M) 1 = 2^{AdoorL M}` with `AdoorL M ≥ 2^18 = 26214
 testing. -/
 def truncD_L (δ₀ : ℝ) : ℕ := ⌈2 / Real.sqrt (truncBudget δ₀)⌉₊
 
+/-- `2/√(truncBudget δ₀) ≤ truncD_L δ₀`: `Nat.le_ceil`. Consumed by `truncD_admissible_L`,
+⟦T-1⟧'s admissibility of the truncation ceiling. -/
 theorem truncD_ge_L (δ₀ : ℝ) : 2 / Real.sqrt (truncBudget δ₀) ≤ ((truncD_L δ₀ : ℕ) : ℝ) :=
   Nat.le_ceil _
 
@@ -857,16 +852,8 @@ theorem m4_second_road_L_gk (K : ℕ) :
   intro δ RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3 hdgate
     hdrift hgrade hrow
   -- ⟦the window floor, read at the two powers the chain spends⟧
-  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
-  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith only [harc1, h1, sq_nonneg (arcDen 12 H)]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN_L_gk K R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied_L_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -915,9 +902,15 @@ theorem stratum_sq_le_chiSummed_at_truncD_L_gk (K : ℕ) {M Kw n q d Lw : ℕ} {
   stratum_sq_le_chiSummed_L_gk K hM hq hd0 hdq hdD hgate b hlen
 /-! ## §2 — `M4ArithPage` -/
 
+/-- `calP (AdoorL M) (3072·M) 1 = 2^{AdoorL M}`: `calE_one`. The level-1 door numeral at the
+linear anchor; `calP_door_one_at_lever_L` re-reads it at `s13GK K M`. No proof in `Salt/`
+applies this form. -/
 theorem calP_door_one_L (M : ℕ) : calP (AdoorL M) (3072 * M) 1 = 2 ^ AdoorL M := by
   rw [calP, calE_one]
 
+/-- `calQK (AdoorL M) (3072·M) M 1 = 2^{M·AdoorL M}`: `calE_one` and `norm_num`
+(`1²·M·e₁ = M·AdoorL M`). `calQK_door_one_at_lever_L` re-reads it at `s13GK K M`. No proof in
+`Salt/` applies this form. -/
 theorem calQK_door_one_L (M : ℕ) : calQK (AdoorL M) (3072 * M) M 1 = 2 ^ (M * AdoorL M) := by
   rw [calQK, calE_one]
   norm_num
@@ -1736,16 +1729,8 @@ theorem m4_second_road_tower_L :
   intro δ RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3 hdgate
     hdrift hgrade hrow
   -- ⟦the window floor, read at the two powers the chain spends⟧
-  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
-  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith only [harc1, h1, sq_nonneg (arcDen 12 H)]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN_L R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied_L j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow

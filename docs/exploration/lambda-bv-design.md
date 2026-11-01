@@ -17,7 +17,7 @@ The identity in §1 is fine — *and it is already landed verbatim*, `Salt/TwinB
 - **It is not invariant under a change of variable.** `Salt/Goldbach/A1.lean:51` mirrors that
   sieve with `n ↦ N−n` and gets the OPPOSITE verdict. *A test that flips on a cosmetic
   reparameterisation is not a discriminator.*
-- **It is not exhaustive, and the missing case is the twin case.** `Salt/Brun/Sieve.lean:85` has
+- **It is not exhaustive, and the missing case is the twin case.** `Salt/Brun/Sieve.lean:86` has
   `support = image (n ↦ n(n+2))` — neither interval nor affine. Its `d = 1` term is
   `Σ_{n≤N} λ(n)λ(n+2)`, **the two-point Chowla conjecture — OPEN**; and `d = 1` is squarefree and
   lies in `divisors prodPrimes` for *every* sieve, so it cannot be dropped. ⇒ **There is a THIRD
@@ -38,7 +38,7 @@ either direction and is struck.**
 
 ## R3 — THE REGIME-A BRANCH IS **ALREADY BUILT**, and §3 called it "specified, unbuilt"
 `mmuRate_holds` (`Salt/SW/MobiusRateClose.lean:1059`, no hypotheses) · `Mlambda_rate`
-(`Salt/TwinBar/LambdaRate.lean:451`) · `rosserRemainder_sPlus_le` (`Salt/TwinBar/Wall.lean:356`),
+(`Salt/TwinBar/LambdaRate.lean:454`) · `rosserRemainder_sPlus_le` (`Salt/TwinBar/Wall.lean:356`),
 composed into **`parity_wall_unconditional`** (`Salt/TwinBar/WallUnconditional.lean:31`).
 ⇒ **A regime-A verdict does not produce a two-node bridge; it produces NOTHING TO BUILD.**
 ⛔ **And `Salt/MR/LambdaRateTwisted.lean:131` records this exact stale "unbuilt" claim having been

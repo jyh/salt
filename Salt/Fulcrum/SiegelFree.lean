@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.Fulcrum.ChenCorollary
 import Salt.Chen.SiegelFree
+import Salt.TwinBar.SevenEighthsStandoff
 
 /-!
 # Chen's almost-prime corollary from a Siegel standoff
@@ -12,7 +13,8 @@ import Salt.Chen.SiegelFree
 `chen_omega_prod_le_three` (`Salt/Fulcrum/ChenCorollary.lean`) is `chen_headline` plus counting:
 a prime `p` with `p + 2` a `P₂` has `Ω(p·(p+2)) ≤ 3`. It reaches Siegel's theorem through
 `chen_headline` (O13 census addendum 7, the flagship paper's citations). This module runs the
-same counting on `Salt.Chen.chen_headline_of_standoff`.
+same counting on `Salt.Chen.chen_headline_of_standoff`, and composes it with the 7/8 statement
+(`chen_omega_prod_le_three_of_sevenEighths`).
 
 ## What this does and does not say
 
@@ -53,6 +55,13 @@ theorem chen_omega_prod_le_three_of_standoff {c : ℝ} (hc : 0 < c)
   rw [cardFactors_mul hp0 hp20, hΩp]
   omega
 
+/-- **Chen's almost-prime corollary from the 7/8 statement**, without Siegel's theorem: the
+standoff form at `c = (log 2)/8`, which `noSiegelZerosAt_of_sevenEighths` supplies. -/
+theorem chen_omega_prod_le_three_of_sevenEighths (h : Salt.TwinBar.DirichletSevenEighths) :
+    {p : ℕ | p.Prime ∧ cardFactors (p * (p + 2)) ≤ 3}.Infinite :=
+  chen_omega_prod_le_three_of_standoff (div_pos (Real.log_pos one_lt_two) (by norm_num))
+    (Salt.TwinBar.noSiegelZerosAt_of_sevenEighths h)
+
 end Salt.Fulcrum
 
 open Salt.SW.StandoffCert
@@ -68,11 +77,18 @@ open Salt.SW.StandoffCert
 #assert_not_reaches Salt.Fulcrum.chen_omega_prod_le_three_of_standoff
   Salt.SW.siegel_L_one_exceptional
 #assert_not_reaches Salt.Fulcrum.chen_omega_prod_le_three_of_standoff Salt.SW.L1_lower_siegel
+#assert_not_reaches Salt.Fulcrum.chen_omega_prod_le_three_of_sevenEighths Salt.SW.siegel_theorem
+#assert_not_reaches Salt.Fulcrum.chen_omega_prod_le_three_of_sevenEighths
+  Salt.SW.siegel_L_one_exceptional
+#assert_not_reaches Salt.Fulcrum.chen_omega_prod_le_three_of_sevenEighths Salt.SW.L1_lower_siegel
 
 -- TOKEN CHECK: the conclusion is the landed statement.
 #assert_conclusion_is Salt.Fulcrum.chen_omega_prod_le_three_of_standoff 3
+  Salt.Fulcrum.chen_omega_prod_le_three
+#assert_conclusion_is Salt.Fulcrum.chen_omega_prod_le_three_of_sevenEighths 1
   Salt.Fulcrum.chen_omega_prod_le_three
 
 #closure_report Salt.Fulcrum.chen_omega_prod_le_three_of_standoff
 
 #print axioms Salt.Fulcrum.chen_omega_prod_le_three_of_standoff
+#print axioms Salt.Fulcrum.chen_omega_prod_le_three_of_sevenEighths
