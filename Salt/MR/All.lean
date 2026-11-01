@@ -10510,7 +10510,7 @@ body with ONLY the cap raise `≤ 7 ↦ ≤ 9`, the `_g12b` FORMs / receipt pred
 `837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`, and the stride `a ≤ 1096 ↦ a ≤ 8103` — in the Set floor's and
 THE NAMED LIFT's (`a' ≤ 8103`) statements, and in the crown's body, where it is DERIVED from the
 product cap via `h_le_8103_of_log_le_nine` (no `a ≤ 2310` binder below the composition). Crown
-numerals: `hahQ ≤ 8103`, `1/4051500 ≤ Rd.eps` into `flatDesignBase_clears_stride_floors_b9`,
+numerals: `a·h ≤ 8103`, `1/4051500 ≤ Rd.eps` into `flatDesignBase_clears_stride_floors_b9`,
 `regimeShrinkX_stride_b9` / `mrtUniformityXiL2AffW_of_set_b9` at `a ≤ 8103`; cap-free numerals
 unchanged. No hypothesis added. Nothing here bears on twin primes. 5 obligations, 5 landed. -/
 open Salt.Tactic in

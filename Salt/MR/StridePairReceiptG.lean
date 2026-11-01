@@ -1168,24 +1168,9 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride_g (a b h : ℕ) (ha : 0 < a) (hh
       (xceilRiderStrict_zero ε)
   obtain ⟨Kc, hKc0, hKcb, hKcount⟩ := hcountD
   -- ⟦THE ε PINS⟧ the receipt's own EQUALITY, read both ways
-  have hahQ : ((a * h : ℕ) : ℚ) ≤ 1096 := by exact_mod_cast hah1096
-  have hahQ1 : (1 : ℚ) ≤ ((a * h : ℕ) : ℚ) := by exact_mod_cast hkpos
-  have heps500 : Rd.eps ≤ 1 / 500 := by
-    rw [hReps, hεeq]
-    exact one_div_le_one_div_of_le (by norm_num) (by linarith)
-  have heps548 : (1 : ℚ) / 548000 ≤ Rd.eps := by
-    rw [hReps, hεeq]
-    exact one_div_le_one_div_of_le (by positivity) (by linarith)
+  obtain ⟨heps500, heps548, hdiv, hquot, hBle⟩ :=
+    stride_shrink_facts (L := 548000) Rd hReps hεeq hkpos hah1096 (by norm_num) hHlo hapos
   -- ⟦THE SHRINK'S THREE FLOORS⟧ off `flatDesignBase_clears_stride_floors`
-  have hdiv : a ∣ Rd.a * Rd.Hlo := by
-    rw [hHlo]
-    exact (dvd_mul_right a (flatDesignBase A)).mul_left Rd.a
-  have hquot : Rd.a * Rd.Hlo / a = Rd.a * flatDesignBase A := by
-    rw [hHlo, show Rd.a * (a * flatDesignBase A) = a * (Rd.a * flatDesignBase A) by ring]
-    exact Nat.mul_div_cancel_left _ hapos
-  have hBle : flatDesignBase A ≤ Rd.a * Rd.Hlo / a := by
-    rw [hquot]
-    exact Nat.le_mul_of_pos_left _ Rd.ha
   obtain ⟨hf1, hf2⟩ := flatDesignBase_clears_stride_floors hA162 heps548
   have hlo4 : 4 * ⌈(1 / Rd.eps : ℚ)⌉₊ ^ 4 ≤ Rd.a * Rd.Hlo / a := le_trans hf1 hBle
   have hloM : 4000000 ≤ Rd.a * Rd.Hlo / a := le_trans hf2 hBle
