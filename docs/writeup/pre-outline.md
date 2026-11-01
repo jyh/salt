@@ -226,7 +226,7 @@ Headline theorems (kernel-checked, axioms ⊆ [propext, Classical.choice, Quot.s
   the explicit12 track (gaps ≤ 12).
 - Large-sieve infrastructure: analytic + arithmetic LS, character LS,
   Gauss sums, Vaughan, BDH, dispersion.
-- **Chen's theorem (pending — the PRICE wave):**
+- **Chen's theorem (`chen_headline`, `Salt/Chen/ChenTheorem.lean`, landed 2026-07-15):**
   `{p | p.Prime ∧ IsP2 2 (p+2)}.Infinite`, unconditional.
 
 Numeric certificates worth exhibiting: the kernel-certified razor margin
@@ -402,8 +402,8 @@ precisely; the precision is the value.
 *proofs-as-objects makes hypotheses measurable.* Informal conditionals are
 stated with generous hypotheses because sharpening buys a human nothing;
 formally, the proof tells you what it used. Deliverables: **GEH_min** —
-the weakest precisely-stated equidistribution package that yields
-H₁ ≤ 6 (converts a conditional result into an exact interface; tells
+a precisely-stated weakening of GEH aimed at H₁ ≤ 6 (defined in `Salt/Maynard/GehDoor.lean`;
+whether anything weaker suffices is open, and no theorem yet derives H₁ ≤ 6 from it) (converts a conditional result into an exact interface; tells
 everyone attacking the conjecture precisely what would suffice; never
 written down because it was never cheap to extract). The windowed-BV
 variant we actually proved, stated cleanly and compared against the
@@ -429,8 +429,8 @@ and expensive exploration never gets to try.
    different additive shape). Calibration: the reuse coefficient.
 2. **T1½ — the M_k delimitation atlas**: formal upper bounds for small k;
    Polymath8b's "pure sieve arguments cannot beat H₁ ≤ 6" as a theorem.
-3. **T2 — GEH_min**: the weakest precisely-stated equidistribution package
-   yielding gaps ≤ 6 (the explicit12 branch already carries Maynard
+3. **T2 — GEH_min**: a precisely-stated weakening of GEH aimed at gaps ≤ 6
+   (aim, not yet a theorem; the explicit12 branch already carries Maynard
    variational machinery — the k=105 CertEval gates, mv_I/mv_J).
 4. **T2 — the windowed-BV variant**: state exactly what we proved; sweep
    the literature; unrecorded ⟹ minor new theorem, recorded ⟹ confirmed

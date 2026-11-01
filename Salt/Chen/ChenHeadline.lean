@@ -12,8 +12,8 @@ Design: `docs/blueprints/flags.md`, the `2026-07-14 EDGE` entry (the Fable adjud
 dissolving the coupling obligation — the `kfloor_of_live_box` arithmetic), the `PRICE-3b`
 / `PRICE-1` / `PRICE-GATE` entries.
 
-This is the PRICE wave's summit.  It assembles the landed corpus into the headline theorem
-`chen_headline`.  New file, no edits to landed files.
+This is the PRICE wave's summit; `chen_headline` itself landed later, in `ChenTheorem.lean`.
+This file supplies `kfloor_of_live_box` and `box_hprice_at_2pow_lo`.  New file, no edits.
 
 ## Floor F1 — the k-floor keystone + the piece-parameter rows
 

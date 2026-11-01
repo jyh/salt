@@ -92,7 +92,7 @@ requires the retuned base — that extra tuning is what buys the delimitation.
 * **Route (a), the direct port (TAKEN).** Reuse the clean `k = 2` atoms
   `interval_CS` (sign-agnostic discriminant CS) and the shift-normalisation, at
   base `(slice length)/2`. The analytic heart — `logWeight_half`, the general
-  sharp per-slice CS `log_slice_CS`, the three slice bounds `sliceCS_m3`, the
+  sharp per-slice CS `log_slice_CS`, the three slice bounds `sliceCS₁₃`/`₂₃`/`₃₃`, the
   constant weight-sum `w_sum_three`, and the numeric `(3/2)·log 3 < 2` — is
   landed below, kernel-checked and axiom-clean.
 

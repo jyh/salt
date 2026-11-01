@@ -490,7 +490,7 @@ frozen-conclusion tier — the day's one JYH gate).**  The seam carrier was
 `windowIndicator y (X/y)`; it becomes the trivial indicator `fun _ => 1` at BOTH
 mention sites (the `hfactor` hypothesis and the conclusion).  H-EXIT now delivers
 the identity for the FULL twisted hat-smoothed `Σ f(n)`, exactly GHS (2.2).
-Grounds (CARRIER-SCOPE + REC-V4-REF, all verified): the windowed conclusion is
+Grounds (the CARRIER-SCOPE + REC-V4-REF reviews; no theorem here): the windowed conclusion is
 UNSATISFIABLE (`prop21RHS`'s collapsed main term is the full `Σ f(n)` per P21-3K,
 and the out-of-window difference is `Θ(X·log y)`, undamped — no `E` of MS-EXIT
 grade can absorb it); GHS never windows its main term (the FTC forces the full
@@ -504,7 +504,7 @@ floor use).  Nothing else in the statement changes.
 
 The LHS→contour leg is DISCHARGED (`prop21_contour_leg_unwindowed`, the V5-1 stone);
 the sole hypothesis
-`hfactor` is the genuine residual — the inner factorization of the seam Dirichlet
+`hfactor` is the residual (H-EXIT lands the `f = ellLin g` case) — factoring the seam Dirichlet
 series into the four-series product integrated over `(α,β)` against the CENTERED
 kernel, up to `E` (GHS Lemma 2.1/2.2 → Prop 2.1: the multivariable-Perron
 coefficient identity, the `n^{-it₀}` centering change-of-variables, and the
