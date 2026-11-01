@@ -22,6 +22,8 @@ Modifications for Salt (ported to mathlib v4.32.0-rc1, toolchain
   `Salt.Entropy.Mathlib.LebesgueBasic`/`LebesgueCountable`.
 - Everything else is ported verbatim; drift v4.33-rc1 → v4.32.0-rc1 required no
   statement or proof changes in this file.
+- Docstrings added by Salt (2026-11-01, the O83 documentation lane) to the 45 upstream
+  declarations that carried none; names, statements and bodies are unchanged.
 -/
 import Mathlib
 import Salt.Entropy.Mathlib.LebesgueBasic
