@@ -22,7 +22,7 @@ PLAIN ROAD).  The crown exports a PLAIN `ChowlaRegimeAff` whose tower fits and c
 triple exponential) is paid in the design constant `A`, which the crown quantifies `∀ A₀ ∃ A ≥
 A₀` and which NO consumer caps (price brief §2): `budgetFloor_le_flatDesignBase` and
 `nat_le_flatDesignBase` turn the head's floors into a choice of `A₀`.  Nothing on the MR side
-moves.  The `h`-lane's FLAT head (`HloExportFlatH.lean:220-372`) is the template for the ORDER
+moves.  The `h`-lane's FLAT head (`HloExportFlatH.lean:221-373`) is the template for the ORDER
 of the head's proof (leaves first, then the pin, then the regime, then the decrement, the
 witness, the core); its flat threshold is replaced by the plain one.
 
@@ -231,7 +231,7 @@ theorem log_chowla_two_shell_xi_sq_aff (h : ℕ)
 /-! ## F4-S2 — the spine contradiction core at the affine forms -/
 
 /-- **F4-S2 (class B) — the `L²` spine contradiction core at the affine forms.**
-`spine_False_core_xi_sq_flat_h` (`HloExportFlatH.lean:67`, private) with the seed
+`spine_False_core_xi_sq_flat_h` (`HloExportFlatH.lean:68`, private) with the seed
 `singleCorr_of_failsAff'` (F1-N2), the reduce `hred` in `hreduce_holds_final_aff`'s shape at the
 GATE `ε·a·h ≤ cE/(64·log 4)` and the count slack `64·a ≤ ε·H`, the Mertens leaf `hD3` verbatim,
 the circle SLOT `hcm` at the filtered sum over `bigXiAff`, the shell
@@ -397,7 +397,7 @@ theorem spine_False_core_xi_sq_aff (h : ℕ) (_hh : 0 < h) (R : ChowlaRegimeAff)
 set_option maxHeartbeats 1600000 in
 -- THE HEAD is one large elaboration: the crown's payload, the five-wide reduce leaf and the
 -- circle SLOT all sit in the context while the pin's numerals and the budget witness are
--- discharged, exactly as at the `h`-lane's flat head (`HloExportFlatH.lean:398`, 1000000)
+-- discharged, exactly as at the `h`-lane's flat head (`HloExportFlatH.lean:399`, 1000000)
 -- and the affine budget (`StrideReduce.lean:732`, 1600000); the ceiling here is the latter.
 /-- **The affine shell at a free door ceiling `K`** (`log_chowla_aff_of_door_K`).  The proof of
 `log_chowla_aff_of_door` below never reads the ceiling: it forwards the crown's
@@ -631,7 +631,7 @@ and beside it THE ENTROPY HALF:
 `∀ ρ' ≤ δ₀_aff, MRTUniformityXiL2AffW h Ra ρ' → ¬ logChowlaFailsAff`,
 with `1/(838400·(ah)²) ≤ δ₀_aff` (the road's own re-mint at `k = ah`, F2 §2).
 
-THE ORDER (the `h`-head's, `HloExportFlatH.lean:256-372`, plain threshold): (1) the leaves —
+THE ORDER (the `h`-head's, `HloExportFlatH.lean:257-373`, plain threshold): (1) the leaves —
 `obtain ⟨cE, hcE, hcEge, H₀red, hred⟩ := hreduce_holds_final_aff` (FIVE-WIDE: F4-R6d EXPORTS
 `1/4 ≤ c` since v1.1 — §3 S-7, verdict A1; `hcEge` is READ from the export, never re-derived
 from another existential's `c`),

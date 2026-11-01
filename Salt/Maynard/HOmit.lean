@@ -48,13 +48,20 @@ private noncomputable def owt (k R : ℕ) (m : Fin k) (T : ℝ) (u : Fin k → �
 private def oprod {k : ℕ} (m : Fin k) (u : Fin k → ℕ) : ℕ :=
   ∏ i ∈ Finset.univ.erase m, u i
 
+/-- `∏_{i ≠ m} fTilde(uᵢ)² / φ(uᵢ) = owt k R m T u` by `rfl`: folds the expanded off-`m` product
+into the private `owt`, the `simp only` rewrite that puts the swapped sum in `owt` form. -/
 private lemma owt_eq {k R : ℕ} {m : Fin k} {T : ℝ} (u : Fin k → ℕ) :
     (∏ i ∈ Finset.univ.erase m, (fTilde k R T (u i)) ^ 2 / (Nat.totient (u i) : ℝ))
       = owt k R m T u := rfl
 
+/-- `∏_{i ≠ m} uᵢ = oprod m u` by `rfl`: folds the off-`m` coordinate product into the private
+`oprod`, so a prime dividing the product reads `p ∣ oprod m u` in the `H_box` reindexing. -/
 private lemma oprod_eq {k : ℕ} {m : Fin k} (u : Fin k → ℕ) :
     (∏ i ∈ Finset.univ.erase m, u i) = oprod m u := rfl
 
+/-- `0 ≤ owt k R m T u`: every factor `fTilde(uᵢ)² / φ(uᵢ)` is nonnegative (`sq_nonneg`,
+`Nat.cast_nonneg`), so the product is (`Finset.prod_nonneg`); the sign the guarded-sum
+comparisons of the swap and the coprimality decomposition spend. -/
 private lemma owt_nonneg (k R : ℕ) (m : Fin k) (T : ℝ) (u : Fin k → ℕ) :
     0 ≤ owt k R m T u :=
   Finset.prod_nonneg (fun _ _ => div_nonneg (sq_nonneg _) (Nat.cast_nonneg _))

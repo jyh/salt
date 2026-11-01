@@ -42,7 +42,7 @@ set_option maxHeartbeats 1600000 in
 -- slot all in context while the pin's numerals and the budget witness are discharged); the ceiling
 -- is the landed head's own (`StrideShell.lean:397`, 1600000); the body is now one `_K` instance.
 /-- **F5-β-S3 (class C by size, mechanically A — a `_K` instance) — `log_chowla_aff_of_door_g`.**
-`log_chowla_aff_of_door` (`StrideShell.lean:433-468`, salt `c80481a1`) with `837782 * ((a * h : ℕ) :
+`log_chowla_aff_of_door` (in `StrideShell.lean`, salt `c80481a1`) with `837782 * ((a * h : ℕ) :
 ℝ) ^ 2 ↦ 837782 * 2 ^ 11 * ((a * h : ℕ) : ℝ) ^ 2` at source lines 452 (the `hcrown` binder) and
 461 (the conclusion).  BODY (`_K`'s, here): `StrideShell.lean:442-622` — `hρle` is obtained from
 `hcrown A₀'` (`:474`, the `obtain`) and re-packaged in the `refine` (`:554`); no other line

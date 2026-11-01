@@ -151,6 +151,9 @@ private def vAssignSet (k c : ℕ) :
     Finset ((p : ℕ) → p ∈ c.primeFactors → Fin k) :=
   c.primeFactors.pi (fun _ => (Finset.univ : Finset (Fin k)))
 
+/-- `#(vAssignSet k c) = k^{ω(c)}`: the `pi` over `c.primeFactors` of `univ : Finset (Fin k)`
+(`Finset.card_pi`, `Finset.card_univ`); the `k^{ω(c)}` factor when the sum over assignments is
+bounded by `#(vAssignSet k c) • Σ fTilde / φ`. -/
 private theorem vAssignSet_card (k c : ℕ) :
     (vAssignSet k c).card = k ^ c.primeFactors.card := by
   rw [vAssignSet, Finset.card_pi]

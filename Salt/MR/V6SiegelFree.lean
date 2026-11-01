@@ -29,6 +29,7 @@ import Salt.MR.FlatDesignBound
 import Salt.MR.ArcRegimeWeaken
 import Salt.Entropy.Chowla.RegimeHeadroom
 import Salt.MR.RegimeSupplyFacts
+import Salt.Entropy.Chowla.HeadFloors
 
 /-!
 # The v6 family of log-Chowla theorems under a Siegel standoff (O13)
@@ -66,7 +67,7 @@ section
 open MeasureTheory ProbabilityTheory
 open scoped BigOperators
 open private flatCap_shuffle spine_False_core_xi_sq_flat from Salt.Entropy.Chowla.HloExportFlat
-/-- **⟦STANDOFF TWIN⟧** `log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat` (`Salt/Entropy/Chowla/HloExportFlat.lean:227`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat` (`Salt/Entropy/Chowla/HloExportFlat.lean:228`): its statement under the three standoff
 binders, its proof verbatim with `hreduce_holds_final_bounded` · `primeWindow_sum_inv_ge_bounded` replaced by their twins. -/
 theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
@@ -137,15 +138,8 @@ theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_of_standoff {cS
   obtain ⟨Rf, hReps, hRA, hRHlo, hRg, _hRcapEq, hRwid⟩ :=
     chowlaRegimeFlat_exists_param_head A hA26 ε hεQpos hεQ1
       (max F (max extraFloor U1floor)) g₅
-  have hFlo : F ≤ Rf.Hlo := le_trans (le_max_left _ _) hRHlo
-  have hxiHlo : H₀xi ≤ Rf.Hlo := by
-    rw [hFdef, hOpqdef] at hFlo
-    exact le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hFlo
-  have hbudHlo : budgetFloorFlat (ε : ℝ) β A ≤ Rf.Hlo := by
-    rw [hFdef] at hFlo; exact le_trans (le_max_right _ _) hFlo
-  have hredHlo : max H₀red H₀D3 ≤ Rf.Hlo := by
-    rw [hFdef, hOpqdef] at hFlo
-    exact le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hFlo
+  obtain ⟨hFlo, hxiHlo, hbudHlo, hredHlo⟩ :=
+    Salt.Entropy.Chowla.flatHeadFloors_facts hOpqdef hFdef hRHlo
   refine ⟨Rf.toChowlaRegime, hReps,
     le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRHlo,
     le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, ?_,
