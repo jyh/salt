@@ -35,6 +35,8 @@ Modifications for Salt (ported to mathlib v4.32.0-rc1, toolchain
   Downstream ports (Basic.lean etc.) must use `finSupport`.
 - All other declarations, names, notation, namespaces, and proof bodies are
   verbatim from upstream.
+- Docstrings added by Salt (2026-11-01, the O83 documentation lane) to the 34 upstream
+  declarations that carried none; names, statements and bodies are unchanged.
 -/
 import Mathlib
 import Salt.Entropy.FiniteRange
