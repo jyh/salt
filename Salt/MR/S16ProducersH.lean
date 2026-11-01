@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.S16FlatTerminalLinearH
 import Salt.MR.XThread
 import Salt.Tactic.ExpLogNum
+import Salt.MR.SocketFrame
 
 /-!
 # THE SOCKET'S PRODUCERS AT SHIFT `h` — wave P of the `_L_gk` h-family
@@ -1158,13 +1159,9 @@ theorem m4_hrowsSlot_at_door_zero'H_L_gk (h K : ℕ) (hK : K ≤ 170000000) :
   obtain ⟨Ct, hCt, hrows⟩ := m4_hrowsSum_chi_door_zero'_L_gk K hK
   refine ⟨Ct, hCt, ?_⟩
   intro Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap H L q j A s hb χ T hT hTX2 hTgate hTll
-  have hq : 0 < q := hb.2.2.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  obtain ⟨hq, hA, hAs, hAsR, hN4⟩ := Salt.MR.socketFrame_facts s hb
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hbase H L q j A s hb
-  have hAs : 0 < A + s := lt_of_lt_of_le hA (Nat.le_add_right A s)
-  have hAsR : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by exact_mod_cast hAs
-  have hN4 : (((2 * (A + s) : ℕ)) : ℝ) ≤ 4 * (((A + s : ℕ)) : ℝ) := by push_cast; linarith
   have hslot := hrows Cp hCp q cU bU hb1 hc1
     (2 * (A + s)) (A + s) M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (ε (A + s)) (t₁ q)
     hM hD.Q2_le le_rfl hN4 hD.coefWS hD.reg hD.big
