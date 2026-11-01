@@ -58,10 +58,10 @@ the ball arm's `B := C₁·e^{−M/(2e)}` recovers the original.  The uniform fo
 (`center_halasz_supply_B_uniform`, `∃ X₀` hoisted over the centre `t₁` as in
 `SupStation` §2) is the one proved; the `CenterSupply`-shaped face follows in three lines.
 
-`CenterSupply`'s `center_error_grade` + `rpow_neg_half_eq` + `two_log_le_self` +
-`twentyfive_le_exp_eight` are `private` there, and `SupStation`'s `_st` re-derivations are
-`private` too, so they are re-derived here VERBATIM under a `_B` suffix; `SupClose`'s /
-`GradeConst`'s pin arithmetic likewise under a `W` suffix (the house's re-derivation
+`center_error_grade` + `rpow_neg_half_eq` + `two_log_le_self` + `twentyfive_le_exp_eight`
+are `CenterGrade`'s (until 2026-11 they were `private` and re-derived here under a `_B`
+suffix); `SupClose`'s /
+`GradeConst`'s pin arithmetic is re-derived here under a `W` suffix (the house's re-derivation
 convention).
 
 **LIVE GUARD (inherited).**  Nothing here commits to a route: `hc0`/`hce`/`hc1` are the whole

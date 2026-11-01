@@ -50,9 +50,9 @@ datum-free threshold.  §0 is that hoisting at a free `Y`: `center_halasz_supply
 verbatim transplant of `center_halasz_supply_Y` with `g`, `t₀` moved INSIDE the `∃`.  The
 witness `max (max (XA+1) XB) (e^8)` never mentioned the datum — `prop21_unconditional_uniform_absC`
 and `loglog_absorb_pow_pin` are both datum-hoisted already — so the proof body is unchanged
-byte-for-byte and only the `intro` line moves.  `SupplyGeneric`'s three `CenterSupply`
-privates plus `center_error_grade_Y` are `private` there and are re-derived here verbatim
-under a `_CA` suffix (the house's re-derivation convention).
+byte-for-byte and only the `intro` line moves.  The grade page `center_error_grade_W` and
+the arithmetic helpers it reads are `CenterGrade`'s (until 2026-11 they were `private` and
+re-derived here under a `_CA` suffix).
 
 ## The stones
 

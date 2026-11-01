@@ -53,9 +53,9 @@ the ⟦V5⟧ pin.  That is `caseA_ramR_bound_293`.
   edit.  **This hoisting is FORCED here and is not decoration**: CASE A consumes the supply at
   the one-parameter family `g_x = gxDatum g P Q x`, `x ∈ [0,1]`, and the `[0,1]` average
   (`spolyA_ramRcoeff_le_of_damp`) needs ONE threshold for the whole family — `∀x ∃X₀` does not
-  average.  The four arithmetic helpers are `private` both in `CenterSupply` and in
-  `GradeWindowC` (and in `SupStation`'s `_st` re-derivation), so they are re-derived here
-  verbatim under an `_A` suffix, per the house convention.
+  average.  The grade page and its four arithmetic helpers are `CenterGrade`'s, shared with
+  `CenterSupply`, `GradeWindowC` and `SupStation` (until 2026-11 they were `private` and
+  re-derived here under an `_A` suffix).
 * **§2 (E-1a) `caseA_rhs_socket`** — the per-scale `prop21RHS` socket at a free `c`, in
   window-floor form, with the far arm at `T*`: `rhs_grade_at_scale_windowC` ∘
   `FarClose.far_supF_bound` ∘ `FarStar.far_kernel_bound_star` ∘ `FarStar.hfar_star` ∘
