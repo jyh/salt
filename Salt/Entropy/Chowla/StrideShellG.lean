@@ -6,7 +6,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 # graded sibling lane)
 
 `Salt.Entropy` cannot import `Salt.MR` (the `xceil` fence), so the affine head
-`log_chowla_aff_of_door` (`StrideShell.lean:433`) takes the crown's PAYLOAD as a binder `hcrown`
+`log_chowla_aff_of_door` (in `StrideShell.lean`) takes the crown's PAYLOAD as a binder `hcrown`
 whose shape is the crown's conclusion verbatim, and its own conclusion FORWARDS that payload
 beside the entropy half.  The graded crown (`Salt/MR/StridePairReceiptG.lean`,
 `mrtUniformityXiL2AffW_holds_flat_stride_g`) hands the door out at `ρ ≤ 1/(837782·2^11·(ah)²)`;
@@ -42,7 +42,7 @@ set_option maxHeartbeats 1600000 in
 -- slot all in context while the pin's numerals and the budget witness are discharged); the ceiling
 -- is the landed head's own (`StrideShell.lean:397`, 1600000) — the body is that head's, verbatim.
 /-- **F5-β-S3 (class C by size, mechanically A — a verbatim copy) — `log_chowla_aff_of_door_g`.**
-`log_chowla_aff_of_door` (`StrideShell.lean:433-468`, salt `c80481a1`) with `837782 * ((a * h : ℕ) :
+`log_chowla_aff_of_door` (in `StrideShell.lean`, salt `c80481a1`) with `837782 * ((a * h : ℕ) :
 ℝ) ^ 2 ↦ 837782 * 2 ^ 11 * ((a * h : ℕ) : ℝ) ^ 2` at source lines 452 (the `hcrown` binder) and
 461 (the conclusion).  BODY: `StrideShell.lean:469-649` VERBATIM — `hρle` is obtained from
 `hcrown A₀'` (`:501`, the `obtain`) and re-packaged in the `refine` (`:581`); no other line

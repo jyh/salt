@@ -38,7 +38,7 @@ threshold is `b`-free at the witness (the leaves `hreduce_holds_final_aff` and
 class is fixed) and because the bridge reads it once against S-3's `∀ b` band.
 
 THE ROUTE (as fired, 2026-09-14; every statement and docstring below byte-identical to the freeze
-under its guard): the landed head's body (`StrideShellG.lean:356-536`)
+under its guard): the landed head's body (`log_chowla_aff_of_door_g12b`'s, in `StrideShellG.lean`)
 with step (4) — `hcrown A₀'` — replaced by `intro b hba hgcd Ra hRa hRb hReps hHloB`, the circle
 slot discharged per class by `circle_method_estimate_sq_bounded_aff` under `hgcd`, `A ↦ A₁ :=
 max 162 (max (exp (budgetX ε₀ β')) (loglog (max H₀red H₀D3)))`, and the grade floor read directly
@@ -69,7 +69,7 @@ set_option maxHeartbeats 1600000 in
 -- context while the pin's numerals and the budget witness are discharged); the ceiling is the
 -- landed head's own (`StrideShellG.lean:310`, 1600000) — the body is that head's, step (4) gone.
 /-- **⟦S-4⟧ THE ENTROPY ARROW AT EVERY REGIME** — `log_chowla_aff_of_door_g12b`'s entropy half
-(`StrideShellG.lean:353-355`: `∀ ρ' ≤ δ₀, MRTUniformityXiL2AffW h Ra ρ' → ¬ logChowlaFailsAff a b h
+(in `StrideShellG.lean`: `∀ ρ' ≤ δ₀, MRTUniformityXiL2AffW h Ra ρ' → ¬ logChowlaFailsAff a b h
 Ra.eps Ra.x Ra.ω`) stated at EVERY `Ra : ChowlaRegimeAff` with `Ra.a = a`, `Ra.b = b`, `Ra.eps =
 1/(500·a·h)` and `flatDesignBase A₁ ≤ Ra.Hlo`, for ONE threshold `A₁ ≥ 162` chosen before the class
 `b`, at the explicit grade floor `1/(838400·(a·h)²)` (the landed `∃ δ₀ ≥ floor` collapses to it:
