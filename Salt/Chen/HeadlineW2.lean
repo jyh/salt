@@ -16,15 +16,66 @@ import Salt.Chen.WRatioSharp
 namespace Salt.Chen
 
 -- PREAMBLE (GLU-2W frozen operating point; ε = 2·10⁻⁸ per C0 Amendment 3; A = 13, C0 = 18)
+/-- `ε := 2·10⁻⁸`, the frozen GLU-2W operating point (C0 Amendment 3; `A = 13`, `C0 = 18` ride
+beside it in `PriceOne`). Every `op*` constant and window below is a function of it; its
+`norm_num` rows are `opf_eps_pos`, `opf_eps49`, `opf_eps1000` and the `a12_eps_*` mirrors. Read
+by the twin consumers `AggDiag`, `FinA3c`, `FinLed3`, `Headline4`, `PackB` and the Goldbach side
+(`Op`, `Omega`, `Asm3`, `Asm5`, `Asm6`, `Ledger2`, `Ledger3`). -/
 noncomputable def opEps : ℝ := 2 / 100000000
+/-- `w' := w0N opEps = ⌈exp(40/log(1+ε))⌉₊` (`Hyp4.w0N`), the operating sifting floor: the
+primes of `opQ` lie below it and the sifting products `opP`/`opPs` start at it. Its rows are
+`opf_w'big` (`10⁶ ≤ w'`) and `opf_w'3`; `opf_tower` puts it under `opZ x`. Read by `AggDiag`,
+`FinA3c`, `FinLed`/`FinLed2`, `Headline4`, `PackB` and Goldbach's `Asm2`, `Asm3`, `Asm5`,
+`Asm6`, `Ledger`, `Omega`, `Op`. -/
 noncomputable def opW' : ℕ := w0N opEps
+/-- `Q := Qval opEps = ∏_{p < w', p prime} p` (`Hyp4.Qval`), the operating modulus: the
+primorial of the primes below `opW'`. `opf_Q_le` bounds it by `w'^{w'}`, `a12_Q2` gives `2 ≤ Q`,
+and `opf_tower`'s first row is `Q ≤ log x`. The modulus of the W-instances (`twinA1SieveW`,
+`twinA2SieveW` at `Q`) and of the whole assembly layer: twenty-four files in code, from
+`AssembleA3`, the `CountAtOp`, `FinA3` and `FinLed` families, `Headline4`, `PackB` and
+`TheHeadline` to Goldbach's `Asm2`, `Asm3`, `Asm5`, `Asm6`, `Ledger`–`Ledger3`, `Omega`, `Op`,
+`Op2`. -/
 noncomputable def opQ : ℕ := Qval opEps
+/-- `a := Q − 1`, the operating residue class mod `opQ` (`n ≡ −1`, so `n + 2 ≡ 1 (mod Q)`): the
+progression the W-instances' windows are restricted to. Read beside `opQ` by `AssembleA3`/`A3b`,
+`CountAtOp`, `CountAtOp3`, `FinA3`–`FinA3c`, `FinLed`–`FinLed3`, `Headline4`, `PackB` and
+Goldbach's `Ledger`, `Op`. -/
 noncomputable def opA : ℕ := opQ - 1
+/-- `z(x) := ⌊x^{1/8}⌋₊`, the operating sifting level: `opP x` sifts the primes of `[w', z)`.
+`opf_tower` rows: `w' ≤ z`, `3 ≤ z`, `z ≤ D`, `z ≤ y`, `2 ≤ logRatio z D`; `a12_zyD` gives
+`3 ≤ z` and `z·y + 1 ≤ D`. Read by forty-four files in code, from `AggDiag`, `AssembleA3` and
+the `CountAtOp`/`Fin*` files to Goldbach's `Op` and `Omega`. -/
 noncomputable def opZ (x : ℕ) : ℕ := ⌊(x : ℝ) ^ ((1 : ℝ) / 8)⌋₊
+/-- `y(x) := ⌊x^{1/3}⌋₊`, the operating upper level: the `A₂` per-prime range is `p ∈ [z, y]`
+and `opPs x` sifts `[w', y)`. `opf_tower` rows: `z ≤ y`, `y ≤ x/2`, `x < (y + 1)³`
+(`hyx_at_op`), `logRatio y Dlev ∈ [149/100, 151/100]`; `a12_level2` takes `y ≤ D`. Read by
+forty-five files in code (`AggDiag`, `AssembleA3`, `ChenRows1`, `CountAtOp`–`CountAtOp3`, the
+`Fin*` files, `PriceClose`, `TheHeadline`, …, Goldbach's `Op`/`Omega`). -/
 noncomputable def opY (x : ℕ) : ℕ := ⌊(x : ℝ) ^ ((1 : ℝ) / 3)⌋₊
+/-- `D(x) := ⌊x^{1/2 − 9·10⁻⁵}⌋₊`, the operating `A₁` level, a hair under `√x` (the `9·10⁻⁵`
+pays the polylog in `a12_level`/`a12_close`). `opf_tower`: `z ≤ D`, `1 ≤ D`, `D ≤ x^{1/2}`,
+`2 ≤ logRatio z D`; `a12_zyD`: `z·y + 1 ≤ D`; `a12_cdiv2`/`a12_cdivStop` read `cdiv D p`. Read
+by `FinLed`–`FinLed3`, `Headline4` and Goldbach's `Asm2`, `Asm3`, `Asm5`, `Asm6`, `DSplit`,
+`Ledger2`, `Ledger3`, `Omega`, `Op`. -/
 noncomputable def opD (x : ℕ) : ℕ := ⌊(x : ℝ) ^ ((1 : ℝ) / 2 - 9 / 100000)⌋₊
+/-- `Dlev(x) := ⌊x^{497/1000}⌋₊`, the operating level of the `A₂` conductor
+`D := opQ · opDlev x` (`TheHeadline`). `opf_tower`: `2 ≤ Dlev`, `x^{496/1000} ≤ Dlev ≤ x^{1/2}`
+— the raw `497` floor row is false by a floor hair, so the consumer takes any
+`Dlev ∈ [x^{497/1000}, x^{1/2}]` through the `496` row — and
+`logRatio y Dlev ∈ [149/100, 151/100]`. Read by `FinA3c`, `FinLed`, `FinLed3`, `Headline4`,
+`TheHeadline` and Goldbach's `Asm2`, `Asm3`, `Asm5`, `Ledger2`, `Ledger3`. -/
 noncomputable def opDlev (x : ℕ) : ℕ := ⌊(x : ℝ) ^ ((497 : ℝ) / 1000)⌋₊
+/-- `P(x) := ∏_{w' ≤ p < z(x), p prime} p`, the operating `A₁` sifting modulus: squarefree, odd,
+its primes in `[w', z)` and so coprime to `opQ` (Parts 3 and 5 of this fragment). The
+`prodPrimes` of `twinA1SieveW` at the operating point (`twinA1SieveW_prodPrimes`, read as
+`opP x` in `FinLed2`). Read by `FinA3b`, `FinA3c`, `FinLed`–`FinLed3`, `Headline4`, `PackB` and
+Goldbach's `Ledger`, `Op`. -/
 noncomputable def opP (x : ℕ) : ℕ := ∏ p ∈ (Finset.Ico opW' (opZ x)).filter Nat.Prime, p
+/-- `P⋆(x) := ∏_{w' ≤ p < y(x), p prime} p`, the operating `A₂` sifting modulus: `opP x`
+extended to the upper level `y`; its squarefree, support and coprimality rows are Part 3's.
+`AssembleA3`'s header names `Ps := opPs x` as the `A₂` instance's modulus (with `y := opY x`,
+`Dlev := opDlev x`). Read by `AggDiag`, `FinA3c`, `FinLed`, `FinLed3`, `Headline4`, `PackB` and
+`Goldbach/Op`. -/
 noncomputable def opPs (x : ℕ) : ℕ := ∏ p ∈ (Finset.Ico opW' (opY x)).filter Nat.Prime, p
 -- END PREAMBLE
 
@@ -370,6 +421,17 @@ false by a floor hair — is replaced by the pair `x^{496/1000} ≤ opDlev x` (r
 plus the DIRECT window membership `logRatio (opY x) (opDlev x) ∈ [149/100, 151/100]`
 (un-floored value 1.491, floor loss ≤ 10⁻⁶ against margins ≥ 3·10⁻²), so downstream never
 needs the exact-497 lower bound. -/
+/-- **The tower bundle (deliverable 12)** — the seventeen operating-point rows at once, for all
+`x ≥ x₁ := max ⌈exp(w'^{w'})⌉₊ 10⁴⁸` (and `8 ≤ x₁`): `Q ≤ log x` (row 1, `opf_Q_le` under
+`log x ≥ w'^{w'}`); the `w0R`/`w'`/`3` floors on `z` (rows 2–4, `opf_w'big` and `exp t ≥ t + 1`
+at `x^{1/8}`); the floor monotonicities `z ≤ D`, `1 ≤ D`, `z ≤ y` (5–7); `y ≤ x/2` and
+`x < (y + 1)³` (8–9, `hyx_at_op`); `2 ≤ logRatio z D`, `1 ≤ logRatio y Dlev` and the window
+`logRatio y Dlev ∈ [149/100, 151/100]` (10, 11, 15: `opf_window_floor_bounds` at `γ = 1/8`,
+`1/2 − 9·10⁻⁵`, `1/3`, `497/1000` with `opf_log_ge_96`); `2 ≤ Dlev`, `D ≤ √x`,
+`x^{496/1000} ≤ Dlev ≤ √x` (12–14, 16); `4 ≤ x` (17). The single hypothesis bundle read by
+`CountAtOp`–`CountAtOp3`, `TheHeadline` (`op_floors`), `AggDiag`, `FinA3c`, `FinLed`–`FinLed3`,
+`Headline4`, `PackB` and Goldbach's `Asm3`, `Asm5`, `Asm6`, `Ledger`–`Ledger3`, `Omega`,
+`Op`. -/
 theorem opf_tower : ∃ x₁ : ℕ, 8 ≤ x₁ ∧ ∀ x : ℕ, x₁ ≤ x →
     ((opQ : ℝ) ≤ Real.log x
       ∧ w0R opEps ≤ ((opZ x : ℕ) : ℝ)
@@ -618,10 +680,16 @@ theorem a12_pow27_le_exp (n : ℕ) : ((27 : ℝ) / 10) ^ n ≤ Real.exp n := by
 
 /-! ### Part 1 — the frozen-point ε/Q constants -/
 
+/-- `0 < ε` at `opEps`, by `norm_num` — fragment A1A2's mirror of `opf_eps_pos` (Part 1 keeps
+its own copies of the ε rows). Read by `Goldbach/Omega`. -/
 theorem a12_eps_pos : (0 : ℝ) < opEps := by simp only [opEps]; norm_num
 
+/-- `ε ≤ 1/1000` at `opEps`, by `norm_num` (`opf_eps1000`'s mirror). The `stepHypWPC_sharpB`
+input in `Goldbach/Op`; also read by `Asm5`, `Asm6`, `Omega`. -/
 theorem a12_eps_le_1000 : opEps ≤ 1 / 1000 := by simp only [opEps]; norm_num
 
+/-- `ε < 1/249` at `opEps`, by `norm_num` (`opf_eps49`'s mirror). Read by `Goldbach/Op` (beside
+`a12_hw0`), `Asm6`, `Omega`. -/
 theorem a12_eps_lt_249 : opEps < 1 / 249 := by simp only [opEps]; norm_num
 
 /-- `3 ≤ w0R opEps`: `log(1+ε) ≤ ε ≤ 20` gives `40/log(1+ε) ≥ 2`, so `w0R ≥ e² ≥ 3`.
@@ -683,6 +751,11 @@ theorem a12_omega_le (n : ℕ) : n.primeFactors.card ≤ n := by
 
 Margins at `log x ≥ 200`: `z = ⌊x^{1/8}⌋ ≥ exp 25 − 1`, and `x^γ/x^{11/24} = x^{1/24 − 9/10⁵}
 ≥ exp(8.31) ≥ 3` absorbs `z·y + 2 ≤ x^{11/24} + 2 ≤ 3·x^{11/24} ≤ x^γ`. -/
+/-- **The operating-point floor facts** (Part 2): for `x ≥ x₁` (the threshold of
+`a12_log_ge 200`), `3 ≤ z` and `z·y + 1 ≤ D`. Margins at `log x ≥ 200`: `z ≥ exp 25 − 1`;
+`z·y ≤ x^{1/8}·x^{1/3} = x^{11/24}` and `x^{1/24 − 9·10⁻⁵} ≥ exp 8 ≥ 3` absorb
+`z·y + 2 ≤ 3·x^{11/24} ≤ x^{1/2 − 9·10⁻⁵} < D + 1`. `a12_cdiv2`/`a12_cdivStop` inherit its
+threshold; read by `Goldbach/Op`. -/
 theorem a12_zyD : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     3 ≤ opZ x ∧ opZ x * opY x + 1 ≤ opD x := by
   obtain ⟨x₁, h₁⟩ := a12_log_ge 200
@@ -1067,6 +1140,11 @@ W-CLOSE margin: third term ≤ 2L·(L+2L)·(2L) = 12L³ (ω(Q) ≤ Q ≤ L; log(
 log 3 ≥ 1; (1+ε)·log z ≤ 2L; log w₀ ≥ 1); then 2C·x/L¹¹ ≤ x/(2L¹⁰) at L ≥ 4C and
 12L³ ≤ x/(2L¹⁰) ⟺ 24L¹³ ≤ x ⟸ L¹³ ≤ √x and 24 ≤ √x (both at log x ≥ 200). -/
 
+/-- **The A1 W-LEVEL row** (Part 4, work item (b)): for every `B ≥ 0` there is `x₁` with
+`Q·(Q·D) ≤ √x / (log x)^B` for all `x ≥ x₁` with `Q ≤ log x`. Route: `D ≤ x^{1/2 − 9·10⁻⁵}` (the
+floor), `Q ≤ log x` twice, and `(log x)^{B+2} ≤ x^{9·10⁻⁵}` from `a12_logpow_le_rpow` (polylog
+beats a power), with `log x ≥ 1` from `a12_log_ge 1`. The `hlev` slot of `Goldbach/Op` and
+`Asm6`. -/
 theorem a12_level : ∀ B : ℝ, 0 ≤ B → ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     (opQ : ℝ) ≤ Real.log x →
     (opQ : ℝ) * ((opQ : ℝ) * (opD x : ℝ)) ≤ Real.sqrt x / (Real.log x) ^ B := by
@@ -1108,6 +1186,13 @@ theorem a12_level : ∀ B : ℝ, 0 ≤ B → ∃ x₁ : ℕ, ∀ x : ℕ, x₁ �
           show (9 : ℝ) / 100000 + ((1 : ℝ) / 2 - 9 / 100000) = 1 / 2 by norm_num]
     _ = Real.sqrt (x : ℝ) := (Real.sqrt_eq_rpow (x : ℝ)).symm
 
+/-- **The A1 W-CLOSE row** (Part 4, work item (c)): for every `C ≥ 0` there is `x₁` with
+`2·C·x/L¹¹ + 2L·(ω(Q) + log(Q·D)/log 3)·((1 + ε)·log z / log w₀) ≤ x/L¹⁰` for all `x ≥ x₁` with
+`Q ≤ L := log x`. Route: `L ≥ 4C` makes each `C·x/L¹¹` at most a quarter of `x/L¹⁰`; the third
+term is `≤ 12·L³` (`ω(Q) ≤ Q ≤ L` by `a12_omega_le`, `log(QD) ≤ 2L`, `log 3 ≥ 1`,
+`(1 + ε)·log z ≤ 2L`, `log w₀ ≥ 1` by `a12_logw0_ge_one`); and `24·L¹³ ≤ x` from
+`a12_logpow_le_rpow 13 (1/2)` with `24 ≤ √x` at `log x ≥ 200`. The `hcl` slot of `Goldbach/Op`
+and `Asm6`. -/
 theorem a12_close : ∀ C : ℝ, 0 ≤ C → ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     (opQ : ℝ) ≤ Real.log x →
     C * (x : ℝ) / (Real.log x) ^ (11 : ℝ) + C * (x : ℝ) / (Real.log x) ^ (11 : ℝ)
@@ -1264,6 +1349,11 @@ W2-LEVEL margin: `D + y ≤ 2D` (from `hyD`), and `2·L^{B+2} ≤ x^{9/2·10⁵}
 W2-CLOSE margin: the extra factor `Σ_p 1/(p−1) ≤ 4L` (harmonic), `log(Q(D+y)) ≤ log x³ = 3L`,
 so third ≤ 2L·4L·2L·4L = 64L⁴ and `128·L¹⁴ ≤ x` ⟸ `L¹⁴ ≤ √x`, `128 ≤ (27/10)⁵ ≤ e¹⁰⁰ ≤ √x`. -/
 
+/-- **The A2 W-LEVEL row** (Part 5, work item (d)): for every `B ≥ 0` there is `x₁` with
+`Q·(Q·(D + y)) ≤ √x / (log x)^B` for all `x ≥ x₁` with `Q ≤ log x` and `y ≤ D`. Route:
+`D + y ≤ 2D ≤ 2·x^{1/2 − 9·10⁻⁵}`, `(log x)^{B+2} ≤ x^{9/200000}` (`a12_logpow_le_rpow`) and
+`2 ≤ x^{9/200000}` at `log x ≥ 25000` (`a12_log_ge`), the two small powers recombining to
+`x^{9·10⁻⁵}`. The `hlev` slot of `Goldbach/Omega`. -/
 theorem a12_level2 : ∀ B : ℝ, 0 ≤ B → ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     (opQ : ℝ) ≤ Real.log x → opY x ≤ opD x →
     (opQ : ℝ) * ((opQ : ℝ) * ((opD x : ℝ) + (opY x : ℝ)))
@@ -1323,6 +1413,12 @@ theorem a12_level2 : ∀ B : ℝ, 0 ≤ B → ∃ x₁ : ℕ, ∀ x : ℕ, x₁ 
             by norm_num]
     _ = Real.sqrt (x : ℝ) := (Real.sqrt_eq_rpow (x : ℝ)).symm
 
+/-- **The A2 W-CLOSE row** (Part 5, work item (d)): `a12_close` with `log(Q·(D + y))` in place
+of `log(Q·D)` and the extra factor `Σ_{z ≤ p ≤ y, p prime} 1/(p − 1)`, still `≤ x/L¹⁰`. Route:
+the sum is `≤ 4L` (`a12_primeInv_le`), `log(Q·(D + y)) ≤ 3L`, so the third term is `≤ 64·L⁴`,
+and `128·L¹⁴ ≤ x` from `a12_logpow_le_rpow 14 (1/2)` with `128 ≤ (27/10)⁵ ≤ e¹⁰⁰ ≤ √x`
+(`a12_pow27_le_exp`) at `log x ≥ 200`; the `C` terms as in `a12_close`. The `hcl` slot of
+`Goldbach/Omega`. -/
 theorem a12_close2 : ∀ C : ℝ, 0 ≤ C → ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     (opQ : ℝ) ≤ Real.log x →
     C * (x : ℝ) / (Real.log x) ^ (11 : ℝ) + C * (x : ℝ) / (Real.log x) ^ (11 : ℝ)
@@ -1525,6 +1621,9 @@ theorem a12_close2 : ∀ C : ℝ, 0 ≤ C → ∃ x₁ : ℕ, ∀ x : ℕ, x₁ 
 Margins: `p ≤ y ≤ z·y ≤ D − 1` gives `⌈D/p⌉ ≥ 2`; `(z−1)·p ≤ z·y ≤ D − 1` gives
 `⌈D/p⌉ ≥ z`, hence `logRatio z ⌈D/p⌉ ≥ 1` (true value `≥ 1.33`; only `≥ 1` is owed). -/
 
+/-- **Per-prime A2 operating row** (Part 6, work item (e)): for `x ≥ x₁` (the threshold of
+`a12_zyD`) and every prime `p ∈ [z, y]`, `2 ≤ cdiv D p = (D − 1)/p + 1`: `p ≤ y ≤ z·y ≤ D − 1`
+by `a12_zyD`, and `omega` closes. Read by `Goldbach/Omega`. -/
 theorem a12_cdiv2 : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     ∀ p ∈ (Finset.Icc (opZ x) (opY x)).filter Nat.Prime, 2 ≤ cdiv (opD x) p := by
   obtain ⟨x₁, h₁⟩ := a12_zyD
@@ -1541,6 +1640,10 @@ theorem a12_cdiv2 : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
   have hcd : cdiv (opD x) p = (opD x - 1) / p + 1 := rfl
   omega
 
+/-- **Per-prime A2 operating row** (Part 6, work item (e)): for `x ≥ x₁` (the threshold of
+`a12_zyD`) and every prime `p ∈ [z, y]`, `1 ≤ logRatio z (cdiv D p)`, i.e. `z ≤ ⌈D/p⌉`:
+`(z − 1)·p ≤ z·y ≤ D − 1` by `a12_zyD`, then `log` is monotone (the true value is `≥ 1.33`; only
+`≥ 1` is owed). Read by `FinLed2`, `Goldbach/Ledger2`, `Omega`. -/
 theorem a12_cdivStop : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     ∀ p ∈ (Finset.Icc (opZ x) (opY x)).filter Nat.Prime,
       1 ≤ logRatio (opZ x) (cdiv (opD x) p) := by
