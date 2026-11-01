@@ -6,7 +6,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 # graded sibling lane)
 
 `Salt.Entropy` cannot import `Salt.MR` (the `xceil` fence), so the affine head
-`log_chowla_aff_of_door` (`StrideShell.lean:433`) takes the crown's PAYLOAD as a binder `hcrown`
+`log_chowla_aff_of_door` (`StrideShell.lean:655`) takes the crown's PAYLOAD as a binder `hcrown`
 whose shape is the crown's conclusion verbatim, and its own conclusion FORWARDS that payload
 beside the entropy half.  The graded crown (`Salt/MR/StridePairReceiptG.lean`,
 `mrtUniformityXiL2AffW_holds_flat_stride_g`) hands the door out at `ρ ≤ 1/(837782·2^11·(ah)²)`;
@@ -15,9 +15,9 @@ finer grade must enter the head through its binder and leave through its conclus
 is the landed head with `837782 ↦ 837782 · 2^11` in EXACTLY those two places (the `hcrown` binder
 and the conclusion; the entropy half's own pin `1/(838400·(ah)²) ≤ δ₀_aff` is the HEAD's demand
 and does not move).  The head's proof never reads the ceiling: the crown's `hρle` is obtained
-(`StrideShell.lean:501`, the `obtain … hρle …` from `hcrown A₀'`) and re-packaged untouched
-(`:581`, the `refine` package) — `grep -n 837782` on the landed file hits :452 and :461 only —
-so the body is the landed body VERBATIM.  Its conclusion is `GradedAffHeadAt a b h A₀`
+(`StrideShell.lean:474`, the `obtain … hρle …` from `hcrown A₀'`) and re-packaged untouched
+(`:554`, the `refine` package), and the ceiling occurs nowhere in that body (`grep -n 837782`) —
+so one body serves both (`log_chowla_aff_of_door_K`).  Its conclusion is `GradedAffHeadAt a b h A₀`
 (`StridePrize.lean:166`) byte for byte — the MR one-liner
 `StrideGradeReceipt.log_chowla_aff_of_door_crowned_unslotted_g` checks that identity in the kernel
 by `unfold GradedAffHeadAt; exact …`.
@@ -40,11 +40,11 @@ namespace Salt.Entropy.Chowla
 set_option maxHeartbeats 1600000 in
 -- THE HEAD is one large elaboration (the crown's payload, the five-wide reduce leaf and the circle
 -- slot all in context while the pin's numerals and the budget witness are discharged); the ceiling
--- is the landed head's own (`StrideShell.lean:397`, 1600000) — the body is that head's, verbatim.
-/-- **F5-β-S3 (class C by size, mechanically A — a verbatim copy) — `log_chowla_aff_of_door_g`.**
+-- is the landed head's own (`StrideShell.lean:397`, 1600000); the body is now one `_K` instance.
+/-- **F5-β-S3 (class C by size, mechanically A — a `_K` instance) — `log_chowla_aff_of_door_g`.**
 `log_chowla_aff_of_door` (`StrideShell.lean:433-468`, salt `c80481a1`) with `837782 * ((a * h : ℕ) :
 ℝ) ^ 2 ↦ 837782 * 2 ^ 11 * ((a * h : ℕ) : ℝ) ^ 2` at source lines 452 (the `hcrown` binder) and
-461 (the conclusion).  BODY: `StrideShell.lean:469-649` VERBATIM — `hρle` is obtained from
+461 (the conclusion).  BODY (now `_K`'s): `StrideShell.lean:469-649` — `hρle` is obtained from
 `hcrown A₀'` (`:501`, the `obtain`) and re-packaged in the `refine` (`:581`); no other line
 mentions `ρ`'s ceiling; the `maxHeartbeats 1600000` is the landed head's. -/
 theorem log_chowla_aff_of_door_g (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b < a)
@@ -130,12 +130,12 @@ cap); no hypothesis is added and no conclusion weakened. -/
 set_option maxHeartbeats 1600000 in
 -- THE HEAD is one large elaboration (the crown's payload, the five-wide reduce leaf and the circle
 -- slot all in context while the pin's numerals and the budget witness are discharged); the ceiling
--- is the landed head's own (`StrideShell.lean:397`, 1600000) — the body is that head's, verbatim.
+-- is the landed head's own (`StrideShell.lean:397`, 1600000); the body is now one `_K` instance.
 /-- **⟦β W1 E1⟧ F5-β-S3 at `2^12` and cap 9 — `log_chowla_aff_of_door_g12b`.**
 `log_chowla_aff_of_door_g` with the grade `837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12` in EXACTLY its two
 places (the `hcrown` binder and the conclusion) and its UNUSED product-cap binder
 `_hah7 : log (a·h) ≤ 7 ↦ _hah9 : ≤ 9` (census band 4 row 12: TRANSPORT — `hCnum`, `hepsa`, `hkey`,
-`hcountR` are cap-free).  BODY: the source's VERBATIM — `hρle` is obtained from `hcrown A₀'` and
+`hcountR` are cap-free).  BODY (now `_K`'s): the source's — `hρle` is obtained from `hcrown A₀'` and
 re-packaged untouched; the `maxHeartbeats 1600000` is the source's. -/
 theorem log_chowla_aff_of_door_g12b (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b < a)
     (_hah9 : Real.log ((a * h : ℕ) : ℝ) ≤ 9)
