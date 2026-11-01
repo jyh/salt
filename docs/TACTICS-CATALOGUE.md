@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `62b47324` · source digest `46045ae02fb36db8` (the same digest as items 1–3).
-> Receipt: files 1403 · decls 23390 · with_body 23390 · tactic_lines 316924 · runs 37155 · blocks 1533.
+> Base: last commit touching `Salt/` = `71e61152` · source digest `c64925ba278c2fa6` (the same digest as items 1–3).
+> Receipt: files 1403 · decls 23391 · with_body 23391 · tactic_lines 316652 · runs 37125 · blocks 1515.
 
 ## LIMITS (read before any number below)
 
@@ -100,28 +100,28 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-316924 tactic lines. Top 30:
+316652 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 139481 | 44.0% |
-| 2 | `rw` | 50803 | 16.0% |
-| 3 | `exact` | 18009 | 5.7% |
-| 4 | `intro` | 14613 | 4.6% |
-| 5 | `refine` | 13287 | 4.2% |
-| 6 | `linarith` | 11177 | 3.5% |
-| 7 | `obtain` | 9312 | 2.9% |
+| 1 | `have` | 139333 | 44.0% |
+| 2 | `rw` | 50751 | 16.0% |
+| 3 | `exact` | 17997 | 5.7% |
+| 4 | `intro` | 14611 | 4.6% |
+| 5 | `refine` | 13273 | 4.2% |
+| 6 | `linarith` | 11161 | 3.5% |
+| 7 | `obtain` | 9294 | 2.9% |
 | 8 | `calc` | 8113 | 2.6% |
 | 9 | `set` | 5754 | 1.8% |
 | 10 | `simp` | 5235 | 1.7% |
 | 11 | `apply` | 4600 | 1.5% |
-| 12 | `nlinarith` | 3540 | 1.1% |
+| 12 | `nlinarith` | 3538 | 1.1% |
 | 13 | `unfold` | 2706 | 0.9% |
-| 14 | `exact_mod_cast` | 2575 | 0.8% |
+| 14 | `exact_mod_cast` | 2573 | 0.8% |
 | 15 | `ring` | 2198 | 0.7% |
 | 16 | `rcases` | 2163 | 0.7% |
 | 17 | `push_cast` | 2097 | 0.7% |
-| 18 | `field_simp` | 1922 | 0.6% |
+| 18 | `field_simp` | 1920 | 0.6% |
 | 19 | `by_cases` | 1685 | 0.5% |
 | 20 | `rwa` | 1645 | 0.5% |
 | 21 | `norm_num` | 1486 | 0.5% |
@@ -133,14 +133,14 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 27 | `simpa` | 927 | 0.3% |
 | 28 | `positivity` | 833 | 0.3% |
 | 29 | `constructor` | 670 | 0.2% |
-| 30 | `haveI` | 577 | 0.2% |
+| 30 | `haveI` | 575 | 0.2% |
 
 ### Per method family (top 8 each)
 
 | family | tactic lines | top tactics |
 |---|---:|---|
 | circle method / Fourier | 2728 | `have` 958, `rw` 598, `refine` 214, `exact` 153, `intro` 136, `ring` 79, `simp` 71, `calc` 68 |
-| entropy decrement | 15982 | `have` 6518, `rw` 2811, `exact` 1023, `intro` 589, `refine` 564, `linarith` 481, `simp` 464, `calc` 391 |
+| entropy decrement | 15710 | `have` 6370, `rw` 2759, `exact` 1011, `intro` 587, `refine` 550, `linarith` 465, `simp` 464, `calc` 391 |
 | large sieve | 1719 | `have` 560, `rw` 379, `intro` 108, `refine` 104, `exact` 101, `simp` 56, `apply` 53, `calc` 48 |
 | Selberg/Brun sieve | 70822 | `have` 30431, `rw` 12181, `exact` 3821, `intro` 3290, `calc` 2302, `apply` 2297, `refine` 1685, `linarith` 1486 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 35300 | `have` 15723, `rw` 6588, `exact` 1888, `intro` 1449, `refine` 1439, `linarith` 1109, `calc` 1107, `set` 888 |
@@ -155,7 +155,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
-Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1533 candidates; top 25 by the UPPER-BOUND saving.
+Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1515 candidates; top 25 by the UPPER-BOUND saving.
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 
