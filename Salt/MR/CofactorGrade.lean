@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.CofactorBall
 import Salt.MR.GradeWindowC
 import Salt.MR.FarStar
+import Salt.MR.CenterGrade
 
 /-!
 # CofactorGrade — CASE A of the co-factor dichotomy (U7-E)
@@ -116,139 +117,8 @@ open scoped BigOperators
 /-! ## §1 — the centre supply, UNIFORM IN THE DATUM
 
 `GradeWindowC.center_halasz_supply_B_uniform` with the `∃ X₀` hoisted over `g` (and hence over
-the damping parameter `x`, which is what CASE A needs).  The four arithmetic helpers are
-`private` upstream, so they are re-derived verbatim under an `_A` suffix. -/
-
-/-- `L^{−1/2} = 1/√L`.  (`GradeWindowC.rpow_neg_half_eq_B`, `private` there.) -/
-private lemma rpow_neg_half_eq_A {L : ℝ} (hL : 0 < L) :
-    L ^ (-(1 : ℝ) / 2) = (Real.sqrt L)⁻¹ := by
-  rw [show (-(1 : ℝ) / 2) = -(1 / 2 : ℝ) from by norm_num, Real.rpow_neg hL.le,
-    Real.sqrt_eq_rpow]
-
-/-- `2·log X ≤ X` for `X ≥ 16`.  (`GradeWindowC.two_log_le_self_B`, `private` there.) -/
-private lemma two_log_le_self_A {X : ℝ} (hX : 16 ≤ X) : 2 * Real.log X ≤ X := by
-  have hX0 : (0 : ℝ) < X := by linarith
-  have hs0 : (0 : ℝ) < Real.sqrt X := Real.sqrt_pos.mpr hX0
-  have hs4 : (4 : ℝ) ≤ Real.sqrt X := by
-    have h16 : Real.sqrt 16 = 4 := by
-      rw [show (16 : ℝ) = 4 ^ 2 from by norm_num, Real.sqrt_sq (by norm_num)]
-    rw [← h16]
-    exact Real.sqrt_le_sqrt hX
-  have hlog : Real.log (Real.sqrt X) ≤ Real.sqrt X - 1 := Real.log_le_sub_one_of_pos hs0
-  have hhalf : Real.log (Real.sqrt X) = Real.log X / 2 := Real.log_sqrt hX0.le
-  have hsq : Real.sqrt X * Real.sqrt X = X := Real.mul_self_sqrt hX0.le
-  nlinarith only [hs0, hs4, hsq, hhalf, hlog]
-
-/-- `25 ≤ exp 8`.  (`GradeWindowC.twentyfive_le_exp_eight_B`, `private` there.) -/
-private lemma twentyfive_le_exp_eight_A : (25 : ℝ) ≤ Real.exp 8 := by
-  have h4 : (5 : ℝ) ≤ Real.exp 4 := by linarith [Real.add_one_le_exp (4 : ℝ)]
-  have hpos : (0 : ℝ) < Real.exp 4 := Real.exp_pos 4
-  rw [show (8 : ℝ) = 4 + 4 from by norm_num, Real.exp_add]
-  nlinarith only [h4]
-
-/-- **THE GRADE PAGE** (`GradeWindowC.center_error_grade_B`, `private` there).  The two error
-legs of the centre composition — the desmooth cost `k/√(log k) + 1` and the S1′ `E`-error,
-already reduced to `D·k·loglog k/log k` — become the single `X`-scale term
-`4·k·(log X)^{−1/2+1/1000}`, uniformly over the dyadic window `X−1 < k ≤ 2X`.  DATUM-FREE
-arithmetic: this is why the hoisting of §1 costs no analysis. -/
-private lemma center_error_grade_A {D X : ℝ} {k : ℕ} (hD0 : 0 ≤ D)
-    (hX8 : Real.exp 8 ≤ X) (hk1 : X - 1 < (k : ℝ)) (hk2 : (k : ℝ) ≤ 2 * X)
-    (hB : 4 * D * Real.log (Real.log X) * Real.log X ^ (-(1 : ℝ))
-        ≤ Real.log X ^ (-(1 : ℝ) + 1 / 1000)) :
-    D * ((k : ℝ) * (Real.log (Real.log (k : ℝ)) / Real.log (k : ℝ)))
-        + ((k : ℝ) / Real.sqrt (Real.log (k : ℝ)) + 1)
-      ≤ 4 * ((k : ℝ) * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) := by
-  have hX25 : (25 : ℝ) ≤ X := le_trans twentyfive_le_exp_eight_A hX8
-  have hX0 : (0 : ℝ) < X := by linarith
-  have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
-  have hkX2 : X / 2 ≤ (k : ℝ) := by linarith
-  have hk0 : (0 : ℝ) < (k : ℝ) := by linarith
-  set L := Real.log X with hLdef
-  have hL8 : (8 : ℝ) ≤ L := by
-    rw [hLdef, ← Real.log_exp 8]
-    exact Real.log_le_log (Real.exp_pos 8) hX8
-  have hL0 : (0 : ℝ) < L := by linarith
-  have hL1 : (1 : ℝ) ≤ L := by linarith
-  set Lk := Real.log (k : ℝ) with hLkdef
-  have hLklo : L - Real.log 2 ≤ Lk := by
-    have h1 : Real.log (X / 2) ≤ Lk := Real.log_le_log (by linarith) hkX2
-    rwa [Real.log_div (by linarith) (by norm_num)] at h1
-  have hLkhi : Lk ≤ L + Real.log 2 := by
-    have h1 : Lk ≤ Real.log (2 * X) := Real.log_le_log hk0 hk2
-    rw [Real.log_mul (by norm_num) (by linarith)] at h1
-    linarith
-  have hLk1 : (1 : ℝ) ≤ Lk := by linarith
-  have hLk0 : (0 : ℝ) < Lk := by linarith
-  have hLkhalf : L / 2 ≤ Lk := by linarith
-  have hLk2L : Lk ≤ 2 * L := by linarith
-  have hlogLk0 : (0 : ℝ) ≤ Real.log Lk := Real.log_nonneg hLk1
-  have hlogL0 : (0 : ℝ) ≤ Real.log L := Real.log_nonneg hL1
-  -- STEP A/B/C — `loglog k / log k ≤ 4·loglog X / log X`
-  have hlogLk : Real.log Lk ≤ 2 * Real.log L := by
-    have h1 : Real.log Lk ≤ Real.log (2 * L) := Real.log_le_log hLk0 hLk2L
-    rw [Real.log_mul (by norm_num) (by linarith)] at h1
-    have h2 : Real.log 2 ≤ Real.log L := Real.log_le_log (by norm_num) (by linarith)
-    linarith
-  have hstepC : Real.log Lk / Lk ≤ 4 * (Real.log L / L) := by
-    have hq0 : (0 : ℝ) ≤ 4 * (Real.log L / L) := by positivity
-    have h1 : 4 * (Real.log L / L) * (L / 2) ≤ 4 * (Real.log L / L) * Lk :=
-      mul_le_mul_of_nonneg_left hLkhalf hq0
-    have h2 : 4 * (Real.log L / L) * (L / 2) = 2 * Real.log L := by
-      field_simp
-      ring
-    rw [div_le_iff₀ hLk0]
-    linarith
-  -- STEP D — the A-6 absorption at the pin
-  have hLinv : L ^ (-(1 : ℝ)) = 1 / L := by rw [Real.rpow_neg_one, one_div]
-  have hPmono : L ^ (-(1 : ℝ) + 1 / 1000) ≤ L ^ (-(1 : ℝ) / 2 + 1 / 1000) :=
-    Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-  have hstepD : D * (Real.log Lk / Lk) ≤ L ^ (-(1 : ℝ) / 2 + 1 / 1000) := by
-    have h1 : D * (Real.log Lk / Lk) ≤ D * (4 * (Real.log L / L)) :=
-      mul_le_mul_of_nonneg_left hstepC hD0
-    have h2 : D * (4 * (Real.log L / L)) = 4 * D * Real.log L * L ^ (-(1 : ℝ)) := by
-      rw [hLinv]; field_simp
-    linarith
-  -- STEP E — the desmooth leg
-  have hsqL0 : (0 : ℝ) < Real.sqrt L := Real.sqrt_pos.mpr hL0
-  have hsqL2 : Real.sqrt L / 2 ≤ Real.sqrt Lk := by
-    have hq : Real.sqrt (L / 4) = Real.sqrt L / 2 := by
-      rw [show L / 4 = L * (1 / 2) ^ 2 from by ring, Real.sqrt_mul hL0.le,
-        Real.sqrt_sq (by norm_num : (0 : ℝ) ≤ 1 / 2)]
-      ring
-    calc Real.sqrt L / 2 = Real.sqrt (L / 4) := hq.symm
-      _ ≤ Real.sqrt Lk := Real.sqrt_le_sqrt (by linarith)
-  have hsqL20 : (0 : ℝ) < Real.sqrt L / 2 := by linarith
-  have hdes : (k : ℝ) / Real.sqrt Lk ≤ 2 * ((k : ℝ) * L ^ (-(1 : ℝ) / 2)) := by
-    have h1 : (k : ℝ) / Real.sqrt Lk ≤ (k : ℝ) / (Real.sqrt L / 2) :=
-      div_le_div_of_nonneg_left hk0.le hsqL20 hsqL2
-    have h2 : (k : ℝ) / (Real.sqrt L / 2) = 2 * ((k : ℝ) * L ^ (-(1 : ℝ) / 2)) := by
-      rw [rpow_neg_half_eq_A hL0]
-      field_simp
-    linarith
-  -- STEP F — `1 ≤ k·L^{−1/2}`
-  have hone : (1 : ℝ) ≤ (k : ℝ) * L ^ (-(1 : ℝ) / 2) := by
-    have hsq1 : (1 : ℝ) ≤ Real.sqrt L := by
-      rw [show (1 : ℝ) = Real.sqrt 1 from Real.sqrt_one.symm]
-      exact Real.sqrt_le_sqrt hL1
-    have hsL : Real.sqrt L ≤ L := by nlinarith [Real.mul_self_sqrt hL0.le, hsq1]
-    have h2L : 2 * L ≤ X := by rw [hLdef]; exact two_log_le_self_A (by linarith)
-    have hsk : Real.sqrt L ≤ (k : ℝ) := by linarith
-    rw [rpow_neg_half_eq_A hL0, ← div_eq_mul_inv, le_div_iff₀ hsqL0]
-    linarith
-  -- STEP G — assemble
-  have hPnn : (0 : ℝ) ≤ L ^ (-(1 : ℝ) / 2) := Real.rpow_nonneg hL0.le _
-  have hGmono : L ^ (-(1 : ℝ) / 2) ≤ L ^ (-(1 : ℝ) / 2 + 1 / 1000) :=
-    Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-  have hterm1 : D * ((k : ℝ) * (Real.log Lk / Lk))
-      ≤ (k : ℝ) * L ^ (-(1 : ℝ) / 2 + 1 / 1000) := by
-    have h := mul_le_mul_of_nonneg_left hstepD hk0.le
-    calc D * ((k : ℝ) * (Real.log Lk / Lk)) = (k : ℝ) * (D * (Real.log Lk / Lk)) := by ring
-      _ ≤ (k : ℝ) * L ^ (-(1 : ℝ) / 2 + 1 / 1000) := h
-  have hterm2 : (k : ℝ) * L ^ (-(1 : ℝ) / 2)
-      ≤ (k : ℝ) * L ^ (-(1 : ℝ) / 2 + 1 / 1000) :=
-    mul_le_mul_of_nonneg_left hGmono hk0.le
-  linarith
+the damping parameter `x`, which is what CASE A needs).  The grade page and its
+arithmetic helpers are `CenterGrade`'s. -/
 
 /-- **§1 — THE CENTRE SUPPLY, UNIFORM IN THE DATUM** (`center_halasz_supply_A`).
 `GradeWindowC.center_halasz_supply_B_uniform` with the `∃ X₀` quantified BEFORE the datum `g`
@@ -284,7 +154,7 @@ theorem center_halasz_supply_A :
   have hX8 : Real.exp 8 ≤ X := le_trans (le_max_right _ _) hXlb
   have hXA1 : XA + 1 ≤ X := le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hXlb
   have hXB : XB ≤ X := le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hXlb
-  have hX25 : (25 : ℝ) ≤ X := le_trans twentyfive_le_exp_eight_A hX8
+  have hX25 : (25 : ℝ) ≤ X := le_trans twentyfive_le_exp_eight hX8
   have hX0 : (0 : ℝ) < X := by linarith
   -- the dyadic `k`-window
   have hfl : X < (⌊X⌋₊ : ℝ) + 1 := Nat.lt_floor_add_one X
@@ -371,7 +241,7 @@ theorem center_halasz_supply_A :
       ring
     linarith
   -- the grade page
-  have hgrade := center_error_grade_A (D := 8 * C_E + 4 * C_R) (X := X) (k := k)
+  have hgrade := center_error_grade (D := 8 * C_E + 4 * C_R) (X := X) (k := k)
     (by positivity) hX8 hk1 hk2 (hB X hXB)
   have hexpand : (B + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) * (k : ℝ)
       = B * (k : ℝ) + 4 * ((k : ℝ) * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) := by ring

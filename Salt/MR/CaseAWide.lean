@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.CofactorSupplier
+import Salt.MR.CenterGrade
 
 /-!
 # `CaseAWide` — THE WIDE-WINDOW CASE-A SUPPLY (the supply side's LAST stone)
@@ -23,13 +24,9 @@ wide one is the SAME three-layer stack with the bottom layer swapped for
 `CaseASocket.caseA_rhs_socket2` (§5 there) is a PER-SCALE statement whose only scale gate is
 the family gate `pin2Gate ≤ k`, so it rides the wide window verbatim.
 
-* **§0** the SEVENTH private clone.  `center_halasz_supply_wide`'s grade page
-  `centerErrorGradeWide` and its two numerals (`exp_two_lt_ten_sp`,
-  `twentyfive_le_exp_eight_sp`, plus `rpow_neg_half_eq_sp` which the grade page consumes) are
-  `private` in `SPartStation`; the six precedent clone sites of
-  `CenterSupply.center_error_grade` are enumerated at `SPartStation` :24–32.  Re-derived here
-  verbatim under a `_wd` suffix — the house's private-transplant convention (`StationHoist` §1,
-  `CaseASocket` §0).
+* **§0** the grade page.  `center_halasz_supply_wide`'s grade page
+  `center_error_grade_wide` and its numerals (`exp_two_lt_ten`, `twentyfive_le_exp_eight`,
+  `rpow_neg_half_eq`) are `CenterGrade`'s, shared with every centre supply.
 * **§1** `center_halasz_supply_wideA` — THE X₀ HOIST.  `center_halasz_supply_wide`'s `∃ X₀`
   sits UNDER the datum `g` and the centre `t₀`; the consumer binds the damping parameter
   `x ∈ [0,1]` (a CONTINUUM of data `gxDatum b P Q x`) outside its threshold, so a per-datum
@@ -86,135 +83,9 @@ namespace Salt.MR
 open Complex MeasureTheory Set
 open scoped BigOperators Topology
 
-/-! ## §0 — THE SEVENTH PRIVATE CLONE
+/-! ## §0 — THE GRADE PAGE
 
-`SPartStation`'s §1 privates (`rpow_neg_half_eq_sp`, `twentyfive_le_exp_eight_sp`,
-`exp_two_lt_ten_sp`, `centerErrorGradeWide`), re-derived verbatim under a `_wd` suffix. -/
-
-/-- `L^{−1/2} = 1/√L` for `L > 0` (`CenterSupply.rpow_neg_half_eq`, re-derived — `private`
-there and at all six clone sites). -/
-private lemma rpow_neg_half_eq_wd {Lv : ℝ} (hL : 0 < Lv) :
-    Lv ^ (-(1 : ℝ) / 2) = (Real.sqrt Lv)⁻¹ := by
-  rw [show (-(1 : ℝ) / 2) = -(1 / 2 : ℝ) from by norm_num, Real.rpow_neg hL.le,
-    Real.sqrt_eq_rpow]
-
-/-- `25 ≤ exp 8` (`CenterSupply.twentyfive_le_exp_eight`, re-derived). -/
-private lemma twentyfive_le_exp_eight_wd : (25 : ℝ) ≤ Real.exp 8 := by
-  have h4 : (5 : ℝ) ≤ Real.exp 4 := by linarith [Real.add_one_le_exp (4 : ℝ)]
-  have hpos : (0 : ℝ) < Real.exp 4 := Real.exp_pos 4
-  rw [show (8 : ℝ) = 4 + 4 from by norm_num, Real.exp_add]
-  nlinarith
-
-/-- `exp 2 < 10` — the numeral behind the `S1′` gate `0 < c₀ − 2η` at a free `Y`. -/
-private lemma exp_two_lt_ten_wd : Real.exp 2 < 10 := by
-  have h1 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-  have h0 : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
-  have h2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by
-    rw [← Real.exp_add]; norm_num
-  nlinarith
-
-/-- **THE WIDE-WINDOW GRADE PAGE (`centerErrorGradeWd`) — THE SEVENTH PRIVATE CLONE.**
-
-`SPartStation.centerErrorGradeWide` (:192), re-derived.  The six precedent homes of
-`CenterSupply.center_error_grade`'s page: `CenterSupply` :407 (the original),
-`SupStation` :183 (`_st`), `SupplyGeneric` :114 (`_Y`), `GradeWindowC` :724 (`_B`),
-`CofactorGrade` (`_A`), `SPartStation` :192 (`Wide` — the one cloned here), and
-`CaseASocket` :139 (`_CA`).
-
-  `C·k·(W/log k) + (k/√(log k) + 1) ≤ 4·k·(log X)^{−1/2+1/1000}`   on `√X ≤ k`. -/
-private lemma centerErrorGradeWd {C W X : ℝ} {k : ℕ} (hC0 : 0 ≤ C)
-    (hX8 : Real.exp 8 ≤ X) (hkw : Real.sqrt X ≤ (k : ℝ))
-    (hWcap : W ≤ Real.sqrt (Real.log (k : ℝ)))
-    (hB : 2 * C * Real.log (Real.log X) * Real.log X ^ (-((1 : ℝ) / 2))
-        ≤ Real.log X ^ (-((1 : ℝ) / 2) + 1 / 1000)) :
-    C * ((k : ℝ) * (W / Real.log (k : ℝ)))
-        + ((k : ℝ) / Real.sqrt (Real.log (k : ℝ)) + 1)
-      ≤ 4 * ((k : ℝ) * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) := by
-  rw [show (-((1 : ℝ) / 2) : ℝ) = -(1 : ℝ) / 2 from by norm_num] at hB
-  have hX25 : (25 : ℝ) ≤ X := le_trans twentyfive_le_exp_eight_wd hX8
-  have hX0 : (0 : ℝ) < X := by linarith
-  set Lx := Real.log X with hLdef
-  have hL8 : (8 : ℝ) ≤ Lx := by
-    rw [hLdef, ← Real.log_exp 8]
-    exact Real.log_le_log (Real.exp_pos 8) hX8
-  have hL0 : (0 : ℝ) < Lx := by linarith
-  have hL1 : (1 : ℝ) ≤ Lx := by linarith
-  have hsqX0 : (0 : ℝ) < Real.sqrt X := Real.sqrt_pos.mpr hX0
-  have hk0 : (0 : ℝ) < (k : ℝ) := lt_of_lt_of_le hsqX0 hkw
-  set Lk := Real.log (k : ℝ) with hLkdef
-  -- the WIDE window: `log k ≥ Lx/2`
-  have hLkhalf : Lx / 2 ≤ Lk := by
-    have h1 : Real.log (Real.sqrt X) ≤ Lk := Real.log_le_log hsqX0 hkw
-    rwa [Real.log_sqrt hX0.le] at h1
-  have hLk1 : (1 : ℝ) ≤ Lk := by linarith
-  have hLk0 : (0 : ℝ) < Lk := by linarith
-  have hsqLk0 : (0 : ℝ) < Real.sqrt Lk := Real.sqrt_pos.mpr hLk0
-  -- STEP A — the cap: `W/log k ≤ 1/√(log k)`
-  have hsqk : Real.sqrt Lk * Real.sqrt Lk = Lk := Real.mul_self_sqrt hLk0.le
-  have hcap : W / Lk ≤ 1 / Real.sqrt Lk := by
-    rw [div_le_div_iff₀ hLk0 hsqLk0]
-    have h1 : W * Real.sqrt Lk ≤ Real.sqrt Lk * Real.sqrt Lk :=
-      mul_le_mul_of_nonneg_right hWcap hsqLk0.le
-    rw [hsqk] at h1
-    linarith
-  have hEshape : (k : ℝ) * (W / Lk) ≤ (k : ℝ) / Real.sqrt Lk := by
-    have h1 : (k : ℝ) * (W / Lk) ≤ (k : ℝ) * (1 / Real.sqrt Lk) :=
-      mul_le_mul_of_nonneg_left hcap hk0.le
-    rwa [mul_one_div] at h1
-  -- STEP B — the window: `k/√(log k) ≤ 2·k·Lx^{−1/2}` and `1 ≤ k·Lx^{−1/2}`
-  have hsqL0 : (0 : ℝ) < Real.sqrt Lx := Real.sqrt_pos.mpr hL0
-  have hsqL2 : Real.sqrt Lx / 2 ≤ Real.sqrt Lk := by
-    have hq : Real.sqrt (Lx / 4) = Real.sqrt Lx / 2 := by
-      rw [show Lx / 4 = Lx * (1 / 2) ^ 2 from by ring, Real.sqrt_mul hL0.le,
-        Real.sqrt_sq (by norm_num : (0 : ℝ) ≤ 1 / 2)]
-      ring
-    calc Real.sqrt Lx / 2 = Real.sqrt (Lx / 4) := hq.symm
-      _ ≤ Real.sqrt Lk := Real.sqrt_le_sqrt (by linarith)
-  have hsqL20 : (0 : ℝ) < Real.sqrt Lx / 2 := by linarith
-  have hdes : (k : ℝ) / Real.sqrt Lk ≤ 2 * ((k : ℝ) * Lx ^ (-(1 : ℝ) / 2)) := by
-    have h1 : (k : ℝ) / Real.sqrt Lk ≤ (k : ℝ) / (Real.sqrt Lx / 2) :=
-      div_le_div_of_nonneg_left hk0.le hsqL20 hsqL2
-    have h2 : (k : ℝ) / (Real.sqrt Lx / 2) = 2 * ((k : ℝ) * Lx ^ (-(1 : ℝ) / 2)) := by
-      rw [rpow_neg_half_eq_wd hL0]
-      field_simp
-    linarith
-  have hone : (1 : ℝ) ≤ (k : ℝ) * Lx ^ (-(1 : ℝ) / 2) := by
-    have hLX : Lx ≤ X := by
-      rw [hLdef]; linarith [Real.log_le_sub_one_of_pos hX0]
-    have hsk : Real.sqrt Lx ≤ (k : ℝ) := le_trans (Real.sqrt_le_sqrt hLX) hkw
-    rw [rpow_neg_half_eq_wd hL0, ← div_eq_mul_inv, le_div_iff₀ hsqL0]
-    linarith
-  -- STEP C — the absorption `2C·Lx^{−1/2} ≤ Lx^{−1/2+1/1000}` (`loglog X ≥ 1`)
-  have hPnn : (0 : ℝ) ≤ Lx ^ (-(1 : ℝ) / 2) := Real.rpow_nonneg hL0.le _
-  have hlogL1 : (1 : ℝ) ≤ Real.log Lx := by
-    have hlog2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
-    have h8 : Real.log 8 ≤ Real.log Lx := Real.log_le_log (by norm_num) hL8
-    have h83 : Real.log 8 = 3 * Real.log 2 := by
-      rw [show (8 : ℝ) = 2 ^ 3 from by norm_num, Real.log_pow]
-      push_cast
-      ring
-    linarith
-  have habs : 2 * C * Lx ^ (-(1 : ℝ) / 2) ≤ Lx ^ (-(1 : ℝ) / 2 + 1 / 1000) := by
-    have hCP : (0 : ℝ) ≤ C * Lx ^ (-(1 : ℝ) / 2) := mul_nonneg hC0 hPnn
-    have hprod : (0 : ℝ) ≤ C * Lx ^ (-(1 : ℝ) / 2) * (Real.log Lx - 1) :=
-      mul_nonneg hCP (by linarith)
-    linarith
-  -- STEP D — assemble
-  have hGmono : Lx ^ (-(1 : ℝ) / 2) ≤ Lx ^ (-(1 : ℝ) / 2 + 1 / 1000) :=
-    Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-  have hterm1 : C * ((k : ℝ) * (W / Lk)) ≤ (k : ℝ) * Lx ^ (-(1 : ℝ) / 2 + 1 / 1000) := by
-    have h1 : C * ((k : ℝ) * (W / Lk)) ≤ C * ((k : ℝ) / Real.sqrt Lk) :=
-      mul_le_mul_of_nonneg_left hEshape hC0
-    have h2 : C * ((k : ℝ) / Real.sqrt Lk) ≤ C * (2 * ((k : ℝ) * Lx ^ (-(1 : ℝ) / 2))) :=
-      mul_le_mul_of_nonneg_left hdes hC0
-    have h3 : C * (2 * ((k : ℝ) * Lx ^ (-(1 : ℝ) / 2)))
-        = (k : ℝ) * (2 * C * Lx ^ (-(1 : ℝ) / 2)) := by ring
-    have h4 : (k : ℝ) * (2 * C * Lx ^ (-(1 : ℝ) / 2))
-        ≤ (k : ℝ) * Lx ^ (-(1 : ℝ) / 2 + 1 / 1000) := mul_le_mul_of_nonneg_left habs hk0.le
-    linarith
-  have hterm2 : (k : ℝ) * Lx ^ (-(1 : ℝ) / 2) ≤ (k : ℝ) * Lx ^ (-(1 : ℝ) / 2 + 1 / 1000) :=
-    mul_le_mul_of_nonneg_left hGmono hk0.le
-  linarith
+`center_error_grade_wide` and the numerals it reads are `CenterGrade`'s. -/
 
 /-! ## §1 — THE X₀ HOIST: the wide centre supply with `∃ X₀` BEFORE the datum -/
 
@@ -269,7 +140,7 @@ theorem center_halasz_supply_wideA (Y : ℝ → ℝ) :
   have hsq0 : (0 : ℝ) < Real.sqrt X := lt_of_lt_of_le (Real.exp_pos 8) hsq8
   have hX0 : (0 : ℝ) < X := Real.sqrt_pos.mp hsq0
   have hsqsq : Real.sqrt X * Real.sqrt X = X := Real.mul_self_sqrt hX0.le
-  have hsq25 : (25 : ℝ) ≤ Real.sqrt X := le_trans twentyfive_le_exp_eight_wd hsq8
+  have hsq25 : (25 : ℝ) ≤ Real.sqrt X := le_trans twentyfive_le_exp_eight hsq8
   have hsqX : Real.sqrt X ≤ X := by nlinarith
   have hX8 : Real.exp 8 ≤ X := le_trans hsq8 hsqX
   have hXB : XB ≤ X := le_trans hsqXB hsqX
@@ -295,7 +166,7 @@ theorem center_halasz_supply_wideA (Y : ℝ → ℝ) :
   have hY10k : (10 : ℝ) ≤ Y (k : ℝ) := hY10 k hkXw hkup
   have hlogY2 : (2 : ℝ) ≤ Real.log (Y (k : ℝ)) := by
     have h1 : Real.log (Real.exp 2) ≤ Real.log (Y (k : ℝ)) :=
-      Real.log_le_log (Real.exp_pos 2) (le_trans exp_two_lt_ten_wd.le hY10k)
+      Real.log_le_log (Real.exp_pos 2) (le_trans exp_two_lt_ten.le hY10k)
     rwa [Real.log_exp] at h1
   have hlogY0 : (0 : ℝ) < Real.log (Y (k : ℝ)) := by linarith
   have hc₀ : (1 : ℝ) < 1 + 1 / Real.log (k : ℝ) := by
@@ -362,7 +233,7 @@ theorem center_halasz_supply_wideA (Y : ℝ → ℝ) :
       ring
     linarith
   -- the WIDE grade page
-  have hgrade := centerErrorGradeWd (C := 2 * C_E + C_R) (W := Real.log (Y (k : ℝ)))
+  have hgrade := center_error_grade_wide (C := 2 * C_E + C_R) (W := Real.log (Y (k : ℝ)))
     (X := X) (k := k) (by positivity) hX8 hkw (hYlog k hkXw hkup) (hBabs X hXB)
   have hexpand : (B + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) * (k : ℝ)
       = B * (k : ℝ) + 4 * ((k : ℝ) * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) := by ring
@@ -374,7 +245,7 @@ theorem center_halasz_supply_wideA (Y : ℝ → ℝ) :
 /-- **THE WIDE-WINDOW CASE-A EXIT CONSTANT (`caseASwide`).**  `PinFamily2.caseAS2` with its
 one scale split into the window's TWO: the far arm reads the window BOTTOM `Xw` (it is
 `PinFamily.hfar_star2`'s shifted scale, gated by `Xw ≤ 2k`), while the grade page reads the
-window's ANCHOR `Xa` (`centerErrorGradeWd`'s `X`).  On a dyadic window the two coincide, and
+window's ANCHOR `Xa` (`center_error_grade_wide`'s `X`).  On a dyadic window the two coincide, and
 then `caseASwide c Cb M W W = caseAS2 c Cb M W` definitionally. -/
 def caseASwide (c Cb M Xw Xa : ℝ) : ℝ :=
   gradeAbsConstC c Cb * Real.exp (-c * M)
