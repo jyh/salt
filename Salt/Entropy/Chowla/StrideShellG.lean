@@ -44,8 +44,8 @@ set_option maxHeartbeats 1600000 in
 /-- **F5-β-S3 (class C by size, mechanically A — a `_K` instance) — `log_chowla_aff_of_door_g`.**
 `log_chowla_aff_of_door` (`StrideShell.lean:433-468`, salt `c80481a1`) with `837782 * ((a * h : ℕ) :
 ℝ) ^ 2 ↦ 837782 * 2 ^ 11 * ((a * h : ℕ) : ℝ) ^ 2` at source lines 452 (the `hcrown` binder) and
-461 (the conclusion).  BODY (now `_K`'s): `StrideShell.lean:469-649` — `hρle` is obtained from
-`hcrown A₀'` (`:501`, the `obtain`) and re-packaged in the `refine` (`:581`); no other line
+461 (the conclusion).  BODY (`_K`'s, here): `StrideShell.lean:442-622` — `hρle` is obtained from
+`hcrown A₀'` (`:474`, the `obtain`) and re-packaged in the `refine` (`:554`); no other line
 mentions `ρ`'s ceiling; the `maxHeartbeats 1600000` is the landed head's. -/
 theorem log_chowla_aff_of_door_g (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b < a)
     (_hah7 : Real.log ((a * h : ℕ) : ℝ) ≤ 7)
