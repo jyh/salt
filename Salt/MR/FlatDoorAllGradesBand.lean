@@ -1055,12 +1055,8 @@ theorem flat_conditional_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegim
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm'
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ ((x' : ℕ) : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm')
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ ((x' : ℕ) : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm') hHreg
   have harith := s15_doorArithFrameRho_L_family'' (R := regimeEnlargeX R hx')
     (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1 hsel.anchor hHreg hgarm (fun _ => zero_le_one)
   have hS : MSelect'_L_gk K Cg δ₀ (Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) ρ

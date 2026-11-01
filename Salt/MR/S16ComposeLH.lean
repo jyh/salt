@@ -504,12 +504,8 @@ theorem flat_conditional_uniform_win_ceiling_h (h : ℕ) (hh : 0 < h)
     le_trans (s15ArmH_demoted h δ₀ ρ R.Hhi R.ω) hRarm
   have hhω : (0 : ℝ) ≤ (h : ℝ) * (R.ω : ℝ) := by positivity
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hhω ?_ hhi) (s15ArmH_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hhω (s15ArmH_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family at the inflated socket, arm read at `h·ω`
   have harith := s15_doorArithFrameRho_L_familyH'' (C₁ := fun _ : ℕ => (1 : ℝ)) hh hsel.hM
     hρ0 hρ1 hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -971,12 +967,8 @@ theorem flat_conditional_uniform_win_ceiling_kwide_h (h : ℕ) (hh : 0 < h)
     le_trans (s15ArmH_demoted h δ₀ ρ R.Hhi R.ω) hRarm
   have hhω : (0 : ℝ) ≤ (h : ℝ) * (R.ω : ℝ) := by positivity
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hhω ?_ hhi) (s15ArmH_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hhω (s15ArmH_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family at the inflated socket, arm read at `h·ω`
   have harith := s15_doorArithFrameRho_L_familyH'' (C₁ := fun _ : ℕ => (1 : ℝ)) hh hsel.hM
     hρ0 hρ1 hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -1532,12 +1524,8 @@ theorem flat_conditional_uniform_win_ceiling_kwide_khoist_h (h : ℕ) (hh : 0 < 
     le_trans (s15ArmH_demoted h δ₀ ρ R.Hhi R.ω) hRarm
   have hhω : (0 : ℝ) ≤ (h : ℝ) * (R.ω : ℝ) := by positivity
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hhω ?_ hhi) (s15ArmH_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hhω (s15ArmH_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family at the inflated socket, arm read at `h·ω`
   have harith := s15_doorArithFrameRho_L_familyH'' (C₁ := fun _ : ℕ => (1 : ℝ)) hh hsel.hM
     hρ0 hρ1 hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -2177,12 +2165,8 @@ theorem flat_conditional_uniform_win_xceil_kwide_khoist_h (h : ℕ) (hh : 0 < h)
     le_trans (s15ArmH_demoted h δ₀ ρ R.Hhi R.ω) hRarm
   have hhω : (0 : ℝ) ≤ (h : ℝ) * (R.ω : ℝ) := by positivity
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hhω ?_ hhi) (s15ArmH_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hhω (s15ArmH_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family at the inflated socket, arm read at `h·ω`
   have harith := s15_doorArithFrameRho_L_familyH'' (C₁ := fun _ : ℕ => (1 : ℝ)) hh hsel.hM
     hρ0 hρ1 hsel.anchor hHreg hgarm (fun _ => zero_le_one)
