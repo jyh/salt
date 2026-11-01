@@ -44,10 +44,14 @@ private noncomputable def descentRoot (a b : ZMod p) :
   | (m, false) => localAlpha (kloosterman ((m : ZMod p) * a) ((m : ZMod p) * b)).re p
   | (m, true) => localBeta (kloosterman ((m : ZMod p) * a) ((m : ZMod p) * b)).re p
 
+/-- The `false` arm of the eigenvalue family (`rfl`): `descentRoot a b (m, false)` is
+`localAlpha` of the real part of the twisted Kloosterman sum `S(m·a, m·b; p)`. -/
 private theorem descentRoot_false (a b : ZMod p) (m : {m : ZMod p // m ≠ 0}) :
     descentRoot a b (m, false)
       = localAlpha (kloosterman ((m : ZMod p) * a) ((m : ZMod p) * b)).re p := rfl
 
+/-- The `true` arm of the eigenvalue family (`rfl`): `descentRoot a b (m, true)` is `localBeta`
+of the real part of the twisted Kloosterman sum `S(m·a, m·b; p)`. -/
 private theorem descentRoot_true (a b : ZMod p) (m : {m : ZMod p // m ≠ 0}) :
     descentRoot a b (m, true)
       = localBeta (kloosterman ((m : ZMod p) * a) ((m : ZMod p) * b)).re p := rfl

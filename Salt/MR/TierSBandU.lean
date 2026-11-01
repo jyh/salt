@@ -12,7 +12,7 @@ import Mathlib
 **S-3 (salt QUEUE P1; council 2026-09-14 afternoon ⑩) — FROZEN STATEMENT-ONLY at `74afa591`, PROVED
 in the §6 wave the same day: 6 obligations, 6 landed, every statement byte-identical to the freeze.
 HONEST LABEL, FIRST LINE: NO NEW MATHEMATICS.**  S-3 restates S-1's crown band
-`mrtUniformityXiL2AffW_holds_flat_stride_g12b_band` (`TierSBand.lean:1619`) with the margin `ε`,
+`mrtUniformityXiL2AffW_holds_flat_stride_g12b_band` (`TierSBand.lean:1522`) with the margin `ε`,
 the design constant `A` AND the band `(x₀, ω₀, Hhi₀)` bound ABOVE the class quantifier `∀ b < a`.
 It exports a uniformity that is already TRUE of every landed witness and STATED by no landed
 theorem.  At fixed `z` Tier S is a SECOND PROOF of a terminal that already lands; E2 is
@@ -52,7 +52,7 @@ namespace Salt.MR
 /-! ## §0 — the class-union family and its four class-A gates (the route's owed names) -/
 
 /-- **⟦S-3 U0⟧ (def) — THE CLASS-UNION FAMILY.**  At stride `a` and shift `h`, the union over the
-classes `b < a` of the grid-restricted affine sets `bigXiAffD a b h` (`StridePair.lean:330`).
+classes `b < a` of the grid-restricted affine sets `bigXiAffD a b h` (`StridePair.lean:334`).
 `b`-free by construction; each class's set is a subset (U1).  Off the grid (`¬ a ∣ H`) every
 member is `∅`, so the union is `∅` there too, as the road's `∀ H ∈ [Hlo, Hhi]` door needs. -/
 def bigXiAffU (a h : ℕ) : XiFamily :=
@@ -184,7 +184,7 @@ theorem nearRatTight_of_bigXiAffU {B₅ : ℝ} (harc : BigXiArcTight B₅)
     (nearRatTight_of_bigXiAffD (a := a) (b := b) (h := h) harc heps ha hh) H hle ξ hξb
 
 /-- **⟦S-3 U4⟧ (class A) — THE SET DOOR IS MONOTONE UNDER A POINTWISE-SUBSET FAMILY.**  Each
-summand of `MRTUniformityXiL2Set` (`StridePair.lean:361`) is `(1/H²)·∫‖…‖²`, non-negative
+summand of `MRTUniformityXiL2Set` (`StridePair.lean:365`) is `(1/H²)·∫‖…‖²`, non-negative
 (`integral_nonneg`, `sq_nonneg`, `norm_nonneg`), so `Finset.sum_le_sum_of_subset_of_nonneg` (the
 corpus's own move at `:521`) bounds the sub-family's sum by the family's, at every `H`. -/
 theorem mrtUniformityXiL2Set_of_subset (Xi Xi' : XiFamily)
@@ -198,7 +198,7 @@ theorem mrtUniformityXiL2Set_of_subset (Xi Xi' : XiFamily)
 /-! ## §1 — the C2 band at the union (the route's fifth owed name) -/
 
 /-- **⟦S-3 U5⟧ (class A) — C2 AT THE UNION.**  `mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band`
-(`TierSBand.lean:1578`) with `bigXiAffD a b h ↦ bigXiAffU a h`: C1's band
+(`TierSBand.lean:1481`) with `bigXiAffD a b h ↦ bigXiAffU a h`: C1's band
 (`mrtUniformityXiL2Set_holds_flat_floor_g12b_band`, `:1524`) at shift `a·h`, `harcXi` from U3 at
 `bigXiArcTight_twelve`, `hcount` from U2.  BODY: C2's, with the two per-class suppliers swapped for
 U2/U3.  No class quantifier anywhere — this is the statement that has `b` nowhere in it. -/
@@ -231,7 +231,7 @@ theorem mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band_U (a h : ℕ) (ha : 0
 /-! ## §2 — THE STATEMENT: the crown band with `∀ b < a` moved inward -/
 
 /-- **⟦S-3⟧ THE CLASS-UNIFORM CROWN BAND** — `mrtUniformityXiL2AffW_holds_flat_stride_g12b_band`
-(`TierSBand.lean:1619`) with `∃ ε A` and `∃ x₀ ω₀ Hhi₀` (and the three exported ceilings on
+(`TierSBand.lean:1522`) with `∃ ε A` and `∃ x₀ ω₀ Hhi₀` (and the three exported ceilings on
 them) placed ABOVE `∀ b, b < a →`; below that line the statement is the landed one, byte for byte
 (`Ra.b = b` included).  What it says that no landed statement says: ONE margin, ONE design constant
 and ONE band `[x₀, exp(31·Hhi₀/ε)/a]` at width `ω₀` serve EVERY class `b < a` — which is what D12
@@ -240,7 +240,7 @@ scale `N` for all `r ∈ admClasses P`).
 
 Route (`TierSBandU` header; not fired): C2 at the union (U5) in place of C2 at the class, the
 crown band's body verbatim to the band witnesses `⟨ε, A, …, Rd.x / a, Rd.ω, Rd.Hhi, …⟩`, then
-`intro b hba` and the per-class transport `mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1113`)
+`intro b hba` and the per-class transport `mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1139`)
 with its `hK` from the union's count gate through U1 (`Finset.card_le_card`) and its `hdoor` from
 the union's door through U4 ∘ U1.  Everything else in the crown band's proof is `b`-free or
 `b`-local (`hb0`, `hbRe`).  The witnesses `ε, A, x₀, ω₀, Hhi₀` are the crown band's own, read at
@@ -282,31 +282,14 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride_g12b_band_bU (a h : ℕ) (ha : 0
     hbody (a * flatDesignBase A) a (fun _ _ => 0) hU hUceil ha ha8103
       (xceilRiderStrict_zero ε)
   obtain ⟨Kc, hKc0, hKcb, hKcountU⟩ := hcountD
-  have hahQ : ((a * h : ℕ) : ℚ) ≤ 8103 := by exact_mod_cast hah8103
-  have hahQ1 : (1 : ℚ) ≤ ((a * h : ℕ) : ℚ) := by exact_mod_cast hkpos
-  have heps500 : Rd.eps ≤ 1 / 500 := by
-    rw [hReps, hεeq]
-    exact one_div_le_one_div_of_le (by norm_num) (by linarith)
-  have heps4051500 : (1 : ℚ) / 4051500 ≤ Rd.eps := by
-    rw [hReps, hεeq]
-    exact one_div_le_one_div_of_le (by positivity) (by linarith)
-  have hdiv : a ∣ Rd.a * Rd.Hlo := by
-    rw [hHlo]
-    exact (dvd_mul_right a (flatDesignBase A)).mul_left Rd.a
-  have hquot : Rd.a * Rd.Hlo / a = Rd.a * flatDesignBase A := by
-    rw [hHlo, show Rd.a * (a * flatDesignBase A) = a * (Rd.a * flatDesignBase A) by ring]
-    exact Nat.mul_div_cancel_left _ hapos
-  have hBle : flatDesignBase A ≤ Rd.a * Rd.Hlo / a := by
-    rw [hquot]
-    exact Nat.le_mul_of_pos_left _ Rd.ha
+  obtain ⟨heps500, heps4051500, hdiv, hquot, hBle⟩ :=
+    stride_shrink_facts (L := 4051500) Rd hReps hεeq hkpos hah8103 (by norm_num) hHlo hapos
   obtain ⟨hf1, hf2⟩ := flatDesignBase_clears_stride_floors_b9 hA162 heps4051500
   have hlo4 : 4 * ⌈(1 / Rd.eps : ℚ)⌉₊ ^ 4 ≤ Rd.a * Rd.Hlo / a := le_trans hf1 hBle
   have hloM : 4000000 ≤ Rd.a * Rd.Hlo / a := le_trans hf2 hBle
   have hepsR0 : (0 : ℝ) < (Rd.eps : ℝ) := by exact_mod_cast Rd.heps
   have heps500R : (Rd.eps : ℝ) ≤ 1 / 500 := by
-    have hq := (Rat.cast_le (K := ℝ)).mpr heps500
-    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at hq
-    exact hq
+    simpa using (Rat.cast_le (K := ℝ)).mpr heps500
   have hcop : (2 : ℝ) ≤ (Rd.eps : ℝ) ^ 2 * ((Rd.Hlo : ℕ) : ℝ) := by
     have hQ : ((Rd.a : ℕ) : ℚ) ≤ Rd.eps ^ 2 * ((Rd.Hlo : ℕ) : ℚ) / 2 := Rd.hcoprime
     have ha1 : (1 : ℚ) ≤ ((Rd.a : ℕ) : ℚ) := by exact_mod_cast Rd.ha

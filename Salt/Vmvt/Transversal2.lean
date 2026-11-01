@@ -110,6 +110,10 @@ noncomputable def desigFibre (p k x : ℕ) [NeZero (p ^ k)] (h : Fin k → ZMod 
           (∑ q, ((m q : ℤ) : ZMod (p ^ k)) ^ ((j : ℕ) + 1))
         = ZMod.castHom (pow_dvd_pow p j.2) (ZMod (p ^ ((j : ℕ) + 1))) (h j))
 
+/-- Membership in the designated fibre `desigFibre p k x h`: every coordinate in `(0, x]`,
+pairwise distinct modulo `p` (`i ≠ j → ¬ p ∣ m i - m j`), and for every `j : Fin k` the
+`(j + 1)`-th power sum matches `h j` after casting down to `ZMod (p ^ (j + 1))` (the instance
+`NeZero (p ^ k)` is what the casts need). -/
 theorem mem_desigFibre {p k x : ℕ} [NeZero (p ^ k)] {h : Fin k → ZMod (p ^ k)}
     {m : Fin k → ℤ} :
     m ∈ desigFibre p k x h ↔

@@ -138,6 +138,10 @@ theorem e4a_ne_one_of_sum_zero {q : ℕ} [NeZero q] (χ : DirichletCharacter ℝ
   rw [hsum] at this
   exact lt_irrefl _ this
 
+/-- E3's identity at the complexified real character, with the sum over the UNITS and `ℤ`
+coefficients: `LFunction_one_even_fourier` at `hq`, `hprim` (taken at `e4a_toC χ`) and
+`e4a_toC_even hev`, then `e4a_toC_sum_eq_signOf_sum` collapses the `ZMod q` sum to the units.
+Consumed by `e4a_fourier_signOf_form_real`, which moves `hprim` to the real side. -/
 theorem e4a_fourier_signOf_form {q : ℕ} [NeZero q] (hq : q ≠ 1)
     (χ : DirichletCharacter ℝ q) (hprim : (e4a_toC χ).IsPrimitive) (hev : χ (-1) = 1) :
     gaussSum (e4a_toC χ) ZMod.stdAddChar * DirichletCharacter.LFunction (e4a_toC χ)⁻¹ 1

@@ -9,14 +9,14 @@ import Salt.Tactic.AuditAxioms
 /-!
 # The Keller track (`Keller`) — aggregate import
 
-Topical verification (2026-07-21): the first kernel-certified check of the
+Topical verification (2026-07-21): a kernel-certified check of the
 counterexample to the Jacobian conjecture (Alpöge/Mathew/Fable preprint,
 2026-07-20). `Salt/Keller/Counterexample.lean` is fully self-contained
 (imports Mathlib only): the formal Jacobian determinant identity
 `det Jac F = −2` over ℚ and the three-point fiber collision
 `F(0,0,−1/4) = F(1,−3/2,13/2) = F(−1,3/2,13/2) = (−1/4,0,0)`, hence a
-non-injective Keller map over ℚ and over ℂ. Verified AS STATED in the
-preprint (double-entry transcription). NOT verified here: the preprint's
+non-injective Keller map over ℚ and over ℂ. The statements were transcribed from the
+preprint by double entry and checked against it outside Lean. NOT verified here: the preprint's
 global-geometry sections, properness at infinity, and the stabilization to
 dimensions > 3.
 -/

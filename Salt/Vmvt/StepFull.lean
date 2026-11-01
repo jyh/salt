@@ -195,6 +195,8 @@ lemma vmvtExp_nonneg {k : ℕ} (hk : 2 ≤ k) {r : ℕ} (hr : 1 ≤ r) : 0 ≤ v
 
 /-! ## The collector applied: the bracket bound and the regime constant -/
 
+/-- The cast of the natural `k * (k - 1) / 2` to `ℝ` is `k * (k - 1) / 2` for `1 ≤ k` (`hk`):
+the natural division is exact since `2 ∣ k * (k - 1)`. -/
 lemma cast_choose2 {k : ℕ} (hk : 1 ≤ k) :
     ((k * (k - 1) / 2 : ℕ) : ℝ) = (k : ℝ) * ((k : ℝ) - 1) / 2 := by
   have hdvd : 2 ∣ k * (k - 1) := by
@@ -206,6 +208,8 @@ lemma cast_choose2 {k : ℕ} (hk : 1 ≤ k) :
   rw [Nat.cast_mul, Nat.cast_sub hk, Nat.cast_one]
   norm_num
 
+/-- The cast identity `((2 * (k * (r + 1)) - 2 * k : ℕ) : ℝ) = 2 * k * r`: the natural
+subtraction is exact since `2 * k ≤ 2 * (k * (r + 1))`. -/
 lemma cast_N1 (k r : ℕ) : ((2 * (k * (r + 1)) - 2 * k : ℕ) : ℝ) = 2 * (k : ℝ) * (r : ℝ) := by
   rw [show 2 * (k * (r + 1)) - 2 * k = 2 * k * r by ring_nf; omega]
   push_cast; ring

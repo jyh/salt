@@ -169,7 +169,7 @@ CONSTRAINTS the designers must respect:
 - `twin_almost_prime` (BrunLower/TwinInstance.lean:771): Ω(n(n+2)) ≤ 20 i.o.,
   unconditional — lower-bound sieve exists, but tolerant-grade (no parity break).
 - `bounded_gaps_unconditional` (SW/Gate.lean:376) + the Maynard chain
-  (Maynard/Complete.lean:1472 etc.): the Maynard door is parity-limited to bounded
+  (Maynard/Complete.lean:1497 etc.): the Maynard door is parity-limited to bounded
   gaps at ANY level — never twins (design :739-741). Not a route for F.
 - BV/dispersion stack (Salt/BV/): level ½ exactly, no Kloosterman socket
   (typeII_disc_le closes via large sieve — design :738-740); WP5 must build its own.

@@ -32,6 +32,10 @@ The ℕ-floor a socket's `U1floor` slot eats is `⌈h₀⌉₊`, the idiom alrea
 
 namespace Salt.MR
 
+/-- **D5** — `exp(-M) · M ≤ 2/M` at `hM : 0 < M`: `1 + M + M²/2 ≤ exp M`
+(`Real.quadratic_le_exp_of_nonneg`) gives `M²/2 ≤ exp M`, hence `M / exp M ≤ 2/M`; no
+monotonicity is used. The one link turning a LOWER bound on the quality `mrtM` into an UPPER
+bound on A.1's first error term; the D5 row of `MRTPortA1Const`'s table. -/
 theorem mul_exp_neg_le_two_div {M : ℝ} (hM : 0 < M) :
     Real.exp (-M) * M ≤ 2 / M := by
   have hq := Real.quadratic_le_exp_of_nonneg hM.le
@@ -40,6 +44,11 @@ theorem mul_exp_neg_le_two_div {M : ℝ} (hM : 0 < M) :
   rw [Real.exp_neg, inv_mul_eq_div, div_le_div_iff₀ hE hM]
   linarith only [hq, hM]
 
+/-- **D6** — A.1's second and third RHS summands fall below any `δ > 0` (`hδ`) past ONE floor
+`h₀`: `loglog_absorb` at `C = 1`, `ε = 1/2` (`BridgeAdapt`) bounds `(loglog h)² ≤ log h` with
+its `1 ≤ log h` half keeping the sign, and the floor `exp(T⁵⁰ + T)` at `T = max 1 (2/δ)` puts
+each summand under `δ/2`; `h ≤ X` lets the same floor serve the `X`-summand. Consumed by
+`MRTPortA1Const` at `δ := c / (2 * C)`. -/
 theorem mrtA1_rhs_tail_le {δ : ℝ} (hδ : 0 < δ) :
     ∃ h₀ : ℝ, 0 < h₀ ∧ ∀ h X : ℝ, h₀ ≤ h → h ≤ X →
       Real.log (Real.log h) ^ 2 / Real.log h ^ 2

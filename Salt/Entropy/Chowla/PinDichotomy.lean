@@ -45,8 +45,8 @@ break the build.
   up from `w 1` and `w 2` over every index.
 * `pin_iff_detecting`, together with its two directions `pinned_door` and
   `pin_minimal` — the contrapositive: one pinned sign `w n = -1` at some `n ≥ 1` is
-  already equivalent to detection.  So the weakest pin is the bottom element of the
-  detection-sufficient hypotheses above the slots, dual to
+  already equivalent to detection.  So the weakest pin is implied by every
+  detection-sufficient hypothesis above the slots (`pin_minimal`), dual to
   `no_slot_derived_twin_linkage`.
 * `liouville_pinned` — the class is inhabited away from the constant weight: `λ`
   detects, at the separator `(m, n) = (3, 7)`, where `λ3·λ5 = +1` and `λ7·λ9 = -1`.
@@ -88,6 +88,10 @@ theorem twinDetecting'_imp : ∀ w : ℕ → ℝ, TwinDetecting' w → TwinDetec
 /-- The `n = 0` slack witness: `5` at `0`, `1` everywhere else. -/
 private def slackWitness : ℕ → ℝ := fun n => if n = 0 then 5 else 1
 
+/-- `slackWitness n = 1` at `hn : 1 ≤ n`: the `n ≠ 0` branch of the `if` (`omega`, then `simp`).
+The slack witness is constantly `1` wherever a slot or the guarded notion reads it — consumed by
+`slack_witness_twinDetecting` (both slots), `slack_witness_not_twinDetecting'` (the four guarded
+indices) and `blind_iff_const_fails_unguarded` (the `∀ n, 1 ≤ n → w n = 1` side). -/
 private lemma slackWitness_pos {n : ℕ} (hn : 1 ≤ n) : slackWitness n = 1 := by
   have hne : n ≠ 0 := by omega
   simp [slackWitness, hne]
@@ -238,6 +242,9 @@ theorem pin_minimal (w : ℕ → ℝ) (hb : PmNormalized w) (hc : PairCollapse w
 
 /-! ### The class is inhabited away from the constant weight -/
 
+/-- `λ(p) = -1` in `ℝ` at `hp : p.Prime`: `liouville_apply` at `p ≠ 0`,
+`cardFactors_apply_prime` and `pow_one` give `(-1)^1`, then the cast. The sign at the three
+primes `3`, `5`, `7` in `liouville_pinned`, and the factor `λ(3)` in `liouville_nine`. -/
 private lemma liouville_prime_neg {p : ℕ} (hp : p.Prime) :
     (ArithmeticFunction.liouville p : ℝ) = -1 := by
   have h : ArithmeticFunction.liouville p = -1 := by
@@ -246,6 +253,9 @@ private lemma liouville_prime_neg {p : ℕ} (hp : p.Prime) :
   rw [h]
   norm_num
 
+/-- `λ(9) = 1` in `ℝ`: `9 = 3·3` and `liouville_apply_mul` give `λ(3)·λ(3) = (-1)·(-1)` by
+`liouville_prime_neg`. The composite side of `liouville_pinned`'s non-twin pair `(7, 9)`, where
+`λ7·λ9 = -1` against `λ3·λ5 = +1`. -/
 private lemma liouville_nine : (ArithmeticFunction.liouville 9 : ℝ) = 1 := by
   have h9 : (9 : ℕ) = 3 * 3 := by norm_num
   rw [h9, ArithmeticFunction.liouville_apply_mul]
@@ -334,6 +344,9 @@ theorem delta1w_not_pmNormalized : ¬ PmNormalized delta1w := by
   intro h
   rcases h.1 2 (by norm_num) with h2 | h2 <;> norm_num [delta1w] at h2
 
+/-- `chi4w n = 0` at `h : n % 2 = 0`: an even `n` is neither `1` nor `3` mod `4` (`omega`), so
+both branches of `chi4w` close (`simp`). The zero factor every product in `chi4w_pairCollapse`
+needs — of `N`, `N + 1` one is even, and of `p·N`, `p·N + p` one is even (both at `p = 2`). -/
 private lemma chi4w_even_eq_zero {n : ℕ} (h : n % 2 = 0) : chi4w n = 0 := by
   have h1 : n % 4 ≠ 1 := by omega
   have h3 : n % 4 ≠ 3 := by omega

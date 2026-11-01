@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.Goldbach.GeoSum2
 import Salt.Goldbach.BandPrice
+import Salt.Chen.DyadicWindow
 
 /-!
 # G-BANDWIN — the liveness-FREE band price chain (Goldbach A₃ band leg, sprint Q1, node 1)
@@ -83,28 +84,10 @@ theorem gold_d0_window_band {Ne Nb M X k : ℕ}
   have hx1 : (1 : ℝ) ≤ (x : ℝ) := by linarith
   -- ② the scale facts (annulus-native): `x/2 < X·M ≤ 4x`.
   have hXM4x : X * M ≤ 4 * x := hXMhi
-  have hXMposN : 0 < X * M := by omega
-  have hXMposR : (0 : ℝ) < (X : ℝ) * (M : ℝ) := by exact_mod_cast hXMposN
-  have hXM4xR : (X : ℝ) * (M : ℝ) ≤ 4 * (x : ℝ) := by exact_mod_cast hXM4x
   set L := Real.log ((X : ℝ) * (M : ℝ)) with hLdef
   -- ③ `t − 1 ≤ L ≤ t + 3`.
-  have hL_lo : Real.log x - 1 ≤ L := by
-    have h1 : x < (x / 2 + 1) * 2 := by omega
-    have h1R : (x : ℝ) < ((x / 2 + 1 : ℕ) : ℝ) * 2 := by exact_mod_cast h1
-    have h2R : ((x / 2 + 1 : ℕ) : ℝ) ≤ (X : ℝ) * (M : ℝ) := by exact_mod_cast h2
-    push_cast at h1R h2R
-    have hhalf : (x : ℝ) / 2 < (X : ℝ) * (M : ℝ) := by linarith
-    have hlog : Real.log ((x : ℝ) / 2) ≤ L := Real.log_le_log (by linarith) hhalf.le
-    rw [Real.log_div (ne_of_gt hxpos) (by norm_num : (2 : ℝ) ≠ 0)] at hlog
-    have h2log : Real.log 2 ≤ 1 := by
-      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)]
-    linarith
-  have hL_up : L ≤ Real.log x + 3 := by
-    have h1 : L ≤ Real.log (4 * (x : ℝ)) := Real.log_le_log hXMposR hXM4xR
-    rw [Real.log_mul (by norm_num : (4 : ℝ) ≠ 0) (ne_of_gt hxpos)] at h1
-    have h4log : Real.log 4 ≤ 3 := by
-      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 4 by norm_num)]
-    linarith
+  obtain ⟨hL_lo, hL_up⟩ : Real.log x - 1 ≤ L ∧ L ≤ Real.log x + 3 :=
+    Salt.Chen.xm_log_bounds_of_le hx2 h2 hXM4x
   have hL1 : (1 : ℝ) ≤ L := by linarith
   have hLnn : (0 : ℝ) ≤ L := by linarith
   have hLpos : (0 : ℝ) < L := by linarith
@@ -131,35 +114,11 @@ theorem gold_d0_window_band {Ne Nb M X k : ℕ}
     rw [hc, hWdef]
     linarith
   -- ⑤ the dyadic window: `D0 = 2^{k0} ∈ [L^{17}, 4·L^{17}]`.
-  have hL17_1 : (1 : ℝ) ≤ L ^ ((17 : ℝ)) := Real.one_le_rpow hL1 (by norm_num)
   have hL17_2 : (2 : ℝ) ≤ L ^ ((17 : ℝ)) := by
     calc (2 : ℝ) ≤ L := by linarith
       _ = L ^ ((1 : ℝ)) := (Real.rpow_one L).symm
       _ ≤ L ^ ((17 : ℝ)) := Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-  obtain ⟨n, hn_ge, hn_le⟩ :
-      ∃ n : ℕ, L ^ ((17 : ℝ)) ≤ (n : ℝ) ∧ (n : ℝ) ≤ L ^ ((17 : ℝ)) + 1 :=
-    ⟨⌈L ^ ((17 : ℝ))⌉₊, Nat.le_ceil _,
-      le_of_lt (Nat.ceil_lt_add_one (Real.rpow_nonneg hLnn _))⟩
-  have hn1 : 1 < n := by
-    have h1R : (1 : ℝ) < (n : ℝ) := by linarith
-    exact_mod_cast h1R
-  obtain ⟨k0, hnpow, hpow2n⟩ : ∃ k0 : ℕ, n ≤ 2 ^ k0 ∧ 2 ^ k0 ≤ 2 * n := by
-    refine ⟨Nat.clog 2 n, Nat.le_pow_clog (by norm_num) n, ?_⟩
-    have hk0pos : 0 < Nat.clog 2 n := Nat.clog_pos (by norm_num) hn1
-    have hpow_lt : 2 ^ (Nat.clog 2 n - 1) < n :=
-      Nat.pow_pred_clog_lt_self (by norm_num) hn1
-    have hsplit : 2 * 2 ^ (Nat.clog 2 n - 1) = 2 ^ Nat.clog 2 n := by
-      rw [← pow_succ']
-      congr 1
-      omega
-    rw [← hsplit]
-    exact Nat.mul_le_mul (le_refl 2) (le_of_lt hpow_lt)
-  have hD0_lo : L ^ ((17 : ℝ)) ≤ ((2 ^ k0 : ℕ) : ℝ) := by
-    refine le_trans hn_ge ?_
-    exact_mod_cast hnpow
-  have hD0_hi : ((2 ^ k0 : ℕ) : ℝ) ≤ 4 * L ^ ((17 : ℝ)) := by
-    have h1 : ((2 ^ k0 : ℕ) : ℝ) ≤ 2 * (n : ℝ) := by exact_mod_cast hpow2n
-    linarith
+  obtain ⟨k0, h2k0, hD0_lo, hD0_hi⟩ := Salt.Chen.exists_two_pow_window hL17_2
   have hL18eq : L ^ ((18 : ℝ)) = L * L ^ ((17 : ℝ)) := by
     have hh := Real.rpow_add hLpos 1 17
     rw [Real.rpow_one] at hh
@@ -218,7 +177,7 @@ theorem gold_d0_window_band {Ne Nb M X k : ℕ}
     linarith [hmono]
   -- ⑧ emit the rows.
   have hcast : ((2 ^ k0 : ℕ) : ℝ) = (2 : ℝ) ^ k0 := by push_cast; ring
-  refine ⟨2 ^ k0, k0, rfl, le_trans (by omega : 2 ≤ n) hnpow, ?_, hD0_lo, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨2 ^ k0, k0, rfl, h2k0, ?_, hD0_lo, ?_, ?_, ?_, ?_, ?_⟩
   · -- `hD0lo_main`, the DECOUPLED row (exponent `A+2 = 15`)
     have h15 : L ^ ((15 : ℝ)) ≤ L ^ ((17 : ℝ)) :=
       Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
@@ -548,6 +507,13 @@ geo grade `Cgeo·Kc·goldCut N (ka+1)/(log N)^{12}` (`Cgeo := cr^{12}·gboxConst
 ratio `hNXM : log N ≤ cr·log(X·M)` (holds on the high annuli the high-pass band survivors populate,
 `goldCut(ka+1) ≳ N^{19/24}`; the carrier vanishes on low annuli).  This is the `hgeoSym`/`hgeoLow`
 per-survivor grade the terminal `gold_hBVblocksW_at_op_band` consumes. -/
+/-- **The outer-scale conversion (node 2c).** With `X := 2^{i+1} − 1` and `M := pieceM kp`: for
+a dyadic boundary index `i` of the band carrier (`hi`), under `1 ≤ Kc` (`hKc`), the fold-log
+floor `1 ≤ log(X·M)` (`hL1`), the ratio `(10/31)·log(X·M) ≤ log 2^{kp}` (`hratio`), `0 < log N`
+(`hlogN0`), `1 ≤ cr` (`hcr`) and the outer ratio `log N ≤ cr·log(X·M)` (`hNXM`), a per-survivor
+price `P ≤ boxPriceKerr Kc kp i` (`hbox`) converts to the geo grade
+`P ≤ (cr^{12}·gboxConst)·Kc·goldCut N (ka+1) / (log N)^{12}`, via the landed
+`gold_boxPriceKerr_geoN`. Leg-agnostic: the band mirror of `gold_box_hbox_geoN`. -/
 theorem gold_band_survsum_geoN {N K kp ka i : ℕ} {Kc cr P : ℝ}
     (hKc : 1 ≤ Kc)
     (hi : i ∈ dyadicBoundary (pieceN kp) (pieceM kp)

@@ -20,6 +20,8 @@ lemma sumOdd_succ (φ : ℕ → ℝ) (n : ℕ) :
         + (if Odd (n + 1) then φ (n + 1) else 0) := by
   rw [Finset.sum_filter, Finset.sum_filter, Finset.sum_Icc_succ_top (by omega)]
 
+/-- The recursion of the odd-harmonic partial sum: `oddHarmonicSum (n + 1)` adds `1 / (n + 1)`
+to `oddHarmonicSum n` exactly when `n + 1` is odd. -/
 lemma oddHarmonicSum_succ (n : ℕ) :
     oddHarmonicSum (n + 1) = oddHarmonicSum n
       + (if Odd (n + 1) then ((n + 1 : ℕ) : ℝ)⁻¹ else 0) := by

@@ -92,6 +92,11 @@ def RSanDoorRhoH (ρ : ℝ) (h H : ℕ) : ℝ := ρ / strataResidualH h H ^ 2
 theorem RSanDoorRhoH_one (ρ : ℝ) (H : ℕ) : RSanDoorRhoH ρ 1 H = RSanDoorRho ρ H := by
   simp only [RSanDoorRhoH, RSanDoorRho, strataResidualH_one]
 
+/-- `0 ≤ RSanDoorRhoH ρ h H` at `hρ : 0 ≤ ρ`: `ρ / strataResidualH h H ^ 2`, a nonnegative
+numerator over a square. The envelope-nonnegativity binder `m4_chiSummedN_suppliedH_L_gk` takes
+— in-file at `m4_chiSummedN_supplied_of_rowH_L_gk`, across `Salt/` at the
+`flat_capstone_uniform_win_*_h` family of `S16ComposeLH` and the stride and band pages (25
+sites). -/
 theorem RSanDoorRhoH_nonneg {ρ : ℝ} (hρ : 0 ≤ ρ) (h H : ℕ) : 0 ≤ RSanDoorRhoH ρ h H :=
   div_nonneg hρ (sq_nonneg _)
 
@@ -1062,6 +1067,9 @@ theorem rStrWitness_G1_h (h H : ℕ) :
   rw [mul_pow]
   exact mul_le_mul_of_nonneg_left (rStrWitness_G1 H) (by positivity)
 
+/-- `0 ≤ h^7 · rStrWitness H`: `positivity` on `h^7` and `rStrWitness_nonneg`. The
+`RStr`-nonnegativity binder beside `RSanDoorRhoH_nonneg` (`RStr := h^7·rStrWitness`, ⟦G1⟧'s
+`rStrWitness_G1_h`), at the same consumers. -/
 theorem rStrWitness_mul_nonneg (h H : ℕ) : 0 ≤ (h : ℝ) ^ 7 * rStrWitness H :=
   mul_nonneg (by positivity) (rStrWitness_nonneg H)
 
@@ -1317,7 +1325,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk (h : ℕ) (hh : 0 < h) (hh7 : 
 /-! ## §8 — THE RECEIPT: the register's consumer fires on the fuse's output -/
 
 /-- **⟦THE RECEIPT⟧** (`m4_chiSummedN_supplied_of_rowH_L_gk`) — the register's own consumer
-`m4_chiSummedN_suppliedH_L_gk` (fired at `S16FlatTerminalLinearH.lean:1607` inside the register)
+`m4_chiSummedN_suppliedH_L_gk` (fired at `S16FlatTerminalLinearH.lean:1614` inside the register)
 applied to the socket in the SHAPE the fuse produces, with ⟦G1⟧ at `RStr := h⁷·rStrWitness`
 (`rStrWitness_G1_h`), ⟦G2⟧ at the `j₀`-floor (`g2_of_j0_floor_h`, via
 `RSanDoorRhoH ρ h H ≤ 1 ≤ rSanWitness H`), and `han` at gate 4.  This is the `h`-twin of the

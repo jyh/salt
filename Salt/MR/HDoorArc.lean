@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.M4Window
 import Salt.MR.M4DoorL2
 import Salt.Entropy.Chowla.ShiftFork
+import Salt.Entropy.Chowla.RegimeHeadroom
 
 /-!
 # QUEUE 7b — the arc supply at the TWISTED frequency set (`HDoorArc`)
@@ -520,12 +521,7 @@ theorem m4_doorL2_supply_H (h : ℕ) (hh : 0 < h) :
   have hG : 1 ≤ 3072 * M := by
     have := hgates.hM
     omega
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   -- ⟦THE FUSE⟧ the adapter's `hins`, fired at `Xi := bigXiH h R.eps H`.
   have hins : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
       (1 / (H : ℝ) ^ 2) * ∑ ξ ∈ bigXiH h R.eps H,

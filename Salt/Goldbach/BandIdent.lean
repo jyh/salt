@@ -421,6 +421,9 @@ weight `∑_{p₁} [goldCwin]` is symmetric (drives `sum_symm_ordered_split`). -
 def goldCwin (lo hi : ℕ) (C : ℕ → Prop) (p₁ p q : ℕ) : Prop :=
   C (p₁ * p * q) ∧ lo < p₁ * p * q ∧ p₁ * p * q ≤ hi
 
+/-- `goldCwin lo hi C p₁ a b = goldCwin lo hi C p₁ b a`: the band-window predicate is symmetric
+in its last two primes, since it reads only the product `p₁ · a · b` — the symmetry
+`sum_symm_ordered_split` relies on. -/
 lemma goldCwin_comm (lo hi : ℕ) (C : ℕ → Prop) (p₁ a b : ℕ) :
     goldCwin lo hi C p₁ a b = goldCwin lo hi C p₁ b a := by
   unfold goldCwin; rw [mul_right_comm p₁ a b]

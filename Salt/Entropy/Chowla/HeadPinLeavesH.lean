@@ -16,7 +16,8 @@ recovers the witness; the only route is to re-run the proof with the numeral kep
 `primeWindow_sum_inv_ge`, so `1/4 ≤ cE` is unobtainable by weakening — `hbudget_holds_h_bounded`
 is that body VERBATIM (`HBudget.lean:1182-1465`) over `primeWindow_sum_inv_ge_bounded`, re-emitting
 the conjunct exactly as `hbudget_holds_bounded` does for `h = 1`.
-`circle_method_estimate_sq_bounded_h_core` is `CircleMethod.lean:1366-1508` verbatim with the
+`circle_method_estimate_sq_bounded_h_core` is `circle_method_estimate_sq_h_core`'s body (cited
+by line as 1366–1508 when written) verbatim with the
 cap conjunct `C ≤ h·(1 + 2·C₀)` at the landed `refine` witness (one extra `le_rfl`), and
 `circle_method_estimate_sq_bounded_h` is `ShiftFork.circle_method_estimate_sq_h`'s `bigXiH`
 wrapper over it.  `hreduce_holds_final_h_bounded` is the seven-line carry.
@@ -371,7 +372,7 @@ open private windowVal_c_norm_le T_collapse_h periodization_total_h from
 /-- **THE SQUARED CIRCLE-METHOD ESTIMATE AT SHIFT `h`, CAPPED, CORE**
 (`circle_method_estimate_sq_bounded_h_core`) — `CircleMethod.circle_method_estimate_sq_h_core`
 plus the conjunct `C ≤ h·(1 + 2·C₀)`, at the landed `refine` witness `C = h·(1 + 2·C₀)`.  The
-body is `CircleMethod.lean:1366-1508` verbatim; the only edit is the extra `le_rfl`. -/
+body is `circle_method_estimate_sq_h_core`'s (1366–1508 when written); the one edit is `le_rfl`. -/
 theorem circle_method_estimate_sq_bounded_h_core (h : ℕ) (hh : 0 < h) (C₀ : ℝ) (hC₀ : 0 < C₀) :
     ∃ C : ℝ, 0 < C ∧ C ≤ (h : ℝ) * (1 + 2 * C₀) ∧
       ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),

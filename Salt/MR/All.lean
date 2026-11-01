@@ -8068,10 +8068,10 @@ of record. -/
 
 /-! ⟦KS-RETHREAD — `logChowla2_ineffective_v7_ksarm`⟧ (`V7Ks`, 2026-08-14, waking review 08-15).
 
-⟦WHY A RETHREAD AND NOT A DISCHARGE⟧ V7-A proved `Real.exp (-100) ≤ Ks` is not provable as a
-numeral — it reduces to an explicit lower bound on Siegel's ineffective constant at `ε = 1/16` —
-and supplied the replacement leaf: `capfloor_floor4_of_pos` derives the `floor4` field of
-`S13CapGatePerBlock` from `0 < Ks` plus the WINDOW `log(1/Ks) ≤ 3·log H/16`, no numeral anywhere.
+⟦WHY A RETHREAD AND NOT A DISCHARGE⟧ V7-A argued on paper that `Real.exp (-100) ≤ Ks` cannot be
+proved as a numeral — it reduces to an explicit lower bound on Siegel's ineffective constant at
+`ε = 1/16` — and supplied the replacement leaf: `capfloor_floor4_of_pos` derives the `floor4` field
+of `S13CapGatePerBlock` from `0 < Ks` plus the WINDOW `log(1/Ks) ≤ 3·log H/16`, no numeral anywhere.
 The window is `A`-satisfiable and the numeral is not, so the rider is not discharged where it
 stands: the window is threaded DOWN to the leaf, and met at the top by a new arm of `A`'s `max`.
 
@@ -9179,7 +9179,7 @@ here (the twins are audited under ⟦β W1 E2⟧).  2026-10-11: family 49 retire
 (`S16FlatTerminalExitH`, 2026-09-01, math).  The `h`-twin of
 `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L`: the terminal register on the
 terminal's lane, in `¬ Fails` form, at shift `h`.  Composed from the landed door-form register
-(`S16FlatTerminalLinearH.lean:1567`) and the flat head at shift `h`
+(`S16FlatTerminalLinearH.lean:1574`) and the flat head at shift `h`
 (`Salt/Entropy/Chowla/HloExportFlatH.lean:210`).
 
 ⭐ THE WAVE'S FINDING, AND IT IS A COUNT THAT WENT DOWN.  The commission priced part (iii) as
@@ -9571,8 +9571,8 @@ LEADING BINDER.  The hoist is still pure re-bracketing (`Cg` from parseval, `H�
 the head is `HloExportFlatH.flat_head_uniform_h`, and `Salt/Entropy` CANNOT import `Salt/MR`,
 where the whole `xceil` apparatus lives.  So `flat_head_uniform_xceil_h` is built HERE, beside
 its `h = 1` sibling, off a one-line PUBLIC RE-EXPORT appended to `HloExportFlatH` §5 (a new
-declaration — no landed line touched, no `private` lifted).  The 4-line `flatCapH_shuffle` is
-re-proved locally, as `S16UniformLH` re-proves `flatRootCapH_arc_u` for the same reason.
+declaration — no landed line touched, no `private` lifted).  The 3-line `flatCapH_shuffle` is
+re-proved locally, as `S16UniformLH` re-proves `flatRootCapH_arc` as `flatRootCapH_arc_u`.
 ⭐ **The arithmetic was already paid:** the only inequality spent in the whole block is the
 conditional's `g`-substitution, and H2a word 4's `xceil_arm_split_h` is exactly the statement
 that the thinned margin `H₊/(250000·h²)` still covers the arm's `log h` and the split's `log 2`.
@@ -10510,7 +10510,7 @@ body with ONLY the cap raise `≤ 7 ↦ ≤ 9`, the `_g12b` FORMs / receipt pred
 `837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`, and the stride `a ≤ 1096 ↦ a ≤ 8103` — in the Set floor's and
 THE NAMED LIFT's (`a' ≤ 8103`) statements, and in the crown's body, where it is DERIVED from the
 product cap via `h_le_8103_of_log_le_nine` (no `a ≤ 2310` binder below the composition). Crown
-numerals: `hahQ ≤ 8103`, `1/4051500 ≤ Rd.eps` into `flatDesignBase_clears_stride_floors_b9`,
+numerals: `a·h ≤ 8103`, `1/4051500 ≤ Rd.eps` into `flatDesignBase_clears_stride_floors_b9`,
 `regimeShrinkX_stride_b9` / `mrtUniformityXiL2AffW_of_set_b9` at `a ≤ 8103`; cap-free numerals
 unchanged. No hypothesis added. Nothing here bears on twin primes. 5 obligations, 5 landed. -/
 open Salt.Tactic in
@@ -10544,7 +10544,7 @@ freeze v1.3 §2). Additive only: no landed statement moves. `ArithPageLinear.Soc
 socket as a HYPOTHESIS — so until now each was a claim about a set nobody had shown nonempty.
 `A := 2·R.x` meets all five at every regime and every admissible `(M, H, L, q, j, s)`: `0 < A`
 and `A ≤ 2x` from `R.hx`; `2 ^ j ≤ A` and `√H ≤ A` from the landed headroom chain
-`H ≤ R.Hhi ≤ R.x / R.ω ≤ R.x / 2` (`DoorReceipt.lean:208-214`); the window conjunct
+`H ≤ R.Hhi ≤ R.x / R.ω ≤ R.x / 2` (`DoorReceipt.lean:214-220`); the window conjunct
 `x ≤ 16·ω·arcDen 12 H·A` with a factor of 64 to spare, from `one_le_arcDen_of_regime` and
 `R.hω`. The `L = 0` branch is split out because `Nat.pow_log_le_self` carries the side
 condition `L ≠ 0` and the socket assumes no positivity of `L`; there `j ≤ Nat.log 2 0` forces

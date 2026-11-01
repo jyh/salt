@@ -950,6 +950,7 @@ lemma TmirrorSet_mem (χ : DirichletCharacter ℂ q) {z x m : ℕ} (hm : m ∈ T
   exact Finset.mem_filter.mp hm
 
 open Classical in
+/-- The T2-mirror slice is a filter of the window `l2cWindow χ z x` (`Finset.filter_subset`). -/
 lemma TmirrorSet_subset_window (χ : DirichletCharacter ℂ q) (z x : ℕ) :
     TmirrorSet χ z x ⊆ l2cWindow χ z x := Finset.filter_subset _ _
 

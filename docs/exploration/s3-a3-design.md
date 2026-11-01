@@ -564,7 +564,7 @@ composition above). Then log-Chowla-2 rests on: MRTUniformity
 is OFF BY ONE — a W2-b transcription slip, load-bearing only now.**
 The landed gate `(j : ZMod p) = −r` (0-indexed j) pairs with the
 1-indexed window values λ(n+j+1); Tao (3.14) has gate index =
-product index (house-verified against FBridge.lean:89 + pg-22).
+product index (house-verified against `fBridgeG`'s definition, FBridge line 89 when written, + pg-22).
 Every count-based consumer (boxes, means, Hoeffding, the decoupled
 chain) is residue-independent — hence ten nodes of silence; the
 multiplicativity collapse is the FIRST alignment-sensitive
@@ -1610,3 +1610,5 @@ would break the k↔k+1 overlap). THE FREEZE:
 Est ~300–450 ln, class C, one new file Salt/ExpSum/Window.lean.
 Zeno: stone 1 = the k ≥ 4 window theorem; stone 2 = the k=3
 seam + the overlap lemma.
+
+*Note, 2026-10-26: this is a dated working record. Its priority statements ("first …", "never formalized …") are as of its date; the survey-dated forms are in `docs/RESULTS.md` and the priority surveys (`docs/priority-survey-2026-08-11.md`, `docs/priority-survey-2026-08-17-delta.md`), and several of those rows have since fallen (the delta's rows 7–9; the 2026-10-11 note at the head of the 08-11 survey).*

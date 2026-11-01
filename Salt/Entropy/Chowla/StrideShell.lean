@@ -8,7 +8,7 @@ The `L²` Theorem-2.3 shell at the affine forms — `log_chowla_two_shell_xi_sq_
 (`Theorem23Shell.lean:624`) with the measure `logMeasureAff R.a R.x R.ω`, the F-function
 `fBridgeF_aff`, the FILTERED decoupled correlation in the circle-method slot, the frequency set
 `bigXiAff`, the door `MRTUniformityXiL2AffW` (F3-P9) and the seam at Tao's range
-`contradiction_of_mrtDoorXiL2AffW` (F3-P11, `StridePair.lean:414`) — and above it THE AFFINE
+`contradiction_of_mrtDoorXiL2AffW` (F3-P11, `StridePair.lean:418`) — and above it THE AFFINE
 HEAD: at the crown's regime `Ra` (`mrtUniformityXiL2AffW_holds_flat_stride`,
 `StridePairReceipt.lean`), the door at any grade `ρ' ≤ δ₀_aff` implies `¬ logChowlaFailsAff`.
 
@@ -33,7 +33,7 @@ the hypothesis `hcirc` and the head as the hypothesis `hcm` carrying the CAP `C 
 every
 consumer holds `hdvd`, and the producer needs it; the slot no longer demands the estimate where
 the object is undefined)
-(the `_bounded_h` shape, `HeadPinLeavesH.lean:511`).  The head reads `C` ONLY through that cap
+(the `_bounded_h` shape, `HeadPinLeavesH.lean:512`).  The head reads `C` ONLY through that cap
 (the ε-pin's ε²-arm `hε_D3C`, where `ε·16·a·C ≤ 16·6.55/500 = 0.2096 ≤ 1/4 = cD3` at every
 `(a, h)` because `ε·a·h = 1/500`); if F4b's constant is `a·C(h)` instead, TWO cap reads fail —
 `hε_D3C` and `hδ₀ge`'s `hkey` — and nothing else (v1.1, verdict A8(ii)); M1 is ISOLATED in those
@@ -104,7 +104,7 @@ theorem nat_le_flatDesignBase (n : ℕ) (A : ℝ) (hn : Real.log (Real.log (n : 
 /-! ## F4-S1 — THE `L²` SHELL AT THE AFFINE FORMS -/
 
 -- `windowExpSum_norm_eq_dft` is a `private lemma` of `Theorem23Shell.lean:68` (v1.1, verdict A4;
--- precedent `HeadPinLeavesH.lean:50-51`).
+-- precedent `HeadPinLeavesH.lean:51-52`).
 open private windowExpSum_norm_eq_dft from Salt.Entropy.Chowla.Theorem23Shell in
 /-- **F4-S1 (class B) — THE `L²` SHELL AT THE AFFINE FORMS** (`log_chowla_two_shell_xi_sq_aff`).
 `log_chowla_two_shell_xi_sq_h` (`Theorem23Shell.lean:624`) with the six substitutions: the

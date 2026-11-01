@@ -41,7 +41,7 @@ close; every wave carries that sentence.
   `M4RowMeanSqLam R (doorCount R.ω) MS` (`MRTPortRowLam.lean:49`) plus the sed'd pricing line
   `∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 6 * MS H ≤ c` (`MRTPortExitLamGated.lean:78`; note `MS`
   is `∀`-bound at :77 — the producer picks it) feed E4. **The chain is ONE-WAY: PAD B ⇒
-  PAD A** via `m4_doorSq_of_rowMeanSqLam` (`MRTPortRowLam.lean:59`, modulo the three ladder
+  PAD A** via `m4_doorSq_of_rowMeanSqLam` (`MRTPortRowLam.lean:68`, modulo the three ladder
   gates and the `4·2^k·H/x / Z` tail, absorbed by E4). **The converse does not exist:**
   `M4RowMeanSqLam` has ZERO producers (9-occurrence census, all def/binder/docstring/audit)
   and no DOOR→ROW lemma is landed; L¹⇒L² is false, not unproved.
@@ -189,10 +189,10 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   whole blocker.**
   ⛔⛔ **AND THE RE-ROUTE I TESTED BEFORE PROPOSING IT IS REFUTED — recorded because it is the
   attractive wrong answer.** `SiegelBand.lean`'s design law says an `X`-independent debit is absorbed
-  by regime enlargement, and the terminal's parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:437`)
+  by regime enlargement, and the terminal's parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:435`)
   keeps a live lever `g R.Hhi R.ω ≤ R.x` that `_g0` sets to **zero**. So the obvious move is to re-route
   the cushion from `log H₊/4` onto the outer scale and let `g` absorb it. **The lever has a ceiling.**
-  `XCeilRiderStrict ε g` (`XThread.lean:82`) demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊`, and `ε ≥ 1/500`,
+  `XCeilRiderStrict ε g` (`XThread.lean:90`) demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊`, and `ε ≥ 1/500`,
   so a caller may request at most `log (g H₊ ω) ≤ 15500·H₊`; against the landed floor
   `loglog X ≥ log H₊ − 14` (`cofkL_logX_floor`, LINEAR in `H₊` via `hPHheadroom`) the lever buys
   **≈ +24 additive on `loglog X`, i.e. a constant factor ≤ ~4 in the budget — never a rate.**
@@ -286,7 +286,7 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
 - **F-4 [D] GAP A.1 — the primary's producer. PRECONDITION: H-1 (the A-appendix
   fidelity-and-truth pass) resolves first — F-4's target statement is currently FALSE as
   transcribed (see H-1).** The corpus's named chain (`MRTParsevalConstantMatch` at 𝒥 = ∅ →
-  `MRTThmA2` at 𝒥 = ∅ → `MRTThmA1`, `MRTPropA3.lean:3821-3822, :3898-3901`) is a
+  `MRTThmA2` at 𝒥 = ∅ → `MRTThmA1`, `MRTPropA3.lean:3826-3827, :3910-3913`) is a
   **definitional RESTATEMENT, not a reduction**: at 𝒥 = ∅, `gJ = 1` and A.2's RHS is
   byte-identical to A.1's, so the antecedent is equivalent to `MRTThmA1Statement`. **The
   route with content is the source decomposition** A.1 = A.2 + MR-Thm-3 + density Lemma 2.2
@@ -349,7 +349,7 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   drifted 70 lines and `:788` now holds an unrelated A.1 paragraph. All three claims verified
   at the bytes first (the gate is THREE hypotheses, not one; the second term is
   `4·2^k·H/x / Z`; the landed conclusion is `m4_doorSq_of_rowMeanSqLam`,
-  `MRTPortRowLam.lean:59`). [A, QUEUE amendment]:** the "absolute factor 3, no log and no loglog debit"
+  `MRTPortRowLam.lean:68`). [A, QUEUE amendment]:** the "absolute factor 3, no log and no loglog debit"
   one-liner (QUEUE:788-791) over-compresses: the 3 arrives via `door_count_le_three_mul_norm`
   (`M4Door.lean:648`) under `4 ≤ log ω` (+2 gates), and the composed conclusion carries a
   second term `4·2^k·H/x / Z`. The landed absolute-3 conclusion is

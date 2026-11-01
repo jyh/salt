@@ -64,15 +64,18 @@ noncomputable def z (N : ℕ) : ℕ := ⌊(N : ℝ) ^ (1 / 10 : ℝ)⌋₊
 /-- The modulus to sift by: the primorial of `z N`. -/
 noncomputable def P (N : ℕ) : ℕ := primorial (z N)
 
+/-- The sift modulus `P N = primorial (z N)` is squarefree (`primorial_squarefree`). -/
 lemma P_squarefree (N : ℕ) : Squarefree (P N) := primorial_squarefree (z N)
 
 /-! ## Rpow bookkeeping helpers -/
 
+/-- `(x ^ (1/10)) ^ 2 = x ^ (1/5)` for `0 ≤ x` (`hx`): real powers multiply the exponents. -/
 private lemma rpow_tenth_sq (x : ℝ) (hx : 0 ≤ x) :
     (x ^ (1 / 10 : ℝ)) ^ 2 = x ^ (1 / 5 : ℝ) := by
   rw [← Real.rpow_natCast (x ^ (1 / 10 : ℝ)) 2, ← Real.rpow_mul hx]
   norm_num
 
+/-- `(x ^ (1/10)) ^ 8 = x ^ (4/5)` for `0 ≤ x` (`hx`): real powers multiply the exponents. -/
 private lemma rpow_tenth_pow8 (x : ℝ) (hx : 0 ≤ x) :
     (x ^ (1 / 10 : ℝ)) ^ 8 = x ^ (4 / 5 : ℝ) := by
   rw [← Real.rpow_natCast (x ^ (1 / 10 : ℝ)) 8, ← Real.rpow_mul hx]
@@ -95,30 +98,41 @@ noncomputable def twinSelbergSieve (N : ℕ) (hN : 1 ≤ N) : SelbergSieve where
     unfold y
     exact Real.one_le_rpow (by exact_mod_cast hN) (by norm_num)
 
+/-- The sifting primes of `twinSelbergSieve N hN` are `P N` (`rfl`; `hN : 1 ≤ N`). -/
 @[simp] lemma twinSelbergSieve_prodPrimes (N : ℕ) (hN : 1 ≤ N) :
     (twinSelbergSieve N hN).prodPrimes = P N := rfl
 
+/-- The total mass of `twinSelbergSieve N hN` is `N` (`rfl`). -/
 @[simp] lemma twinSelbergSieve_totalMass (N : ℕ) (hN : 1 ≤ N) :
     (twinSelbergSieve N hN).totalMass = (N : ℝ) := rfl
 
+/-- The level of `twinSelbergSieve N hN` is `y N = N ^ (1/5)` (`rfl`). -/
 @[simp] lemma twinSelbergSieve_level (N : ℕ) (hN : 1 ≤ N) :
     (twinSelbergSieve N hN).level = y N := rfl
 
+/-- The Selberg terms of `twinSelbergSieve N hN` are those of the underlying twin sieve
+`Salt.TwinSieve.sieve N (P N) _`: `selbergTerms` reads only the bounding-sieve fields. -/
 lemma twinSelbergSieve_selbergTerms (N : ℕ) (hN : 1 ≤ N) :
     (twinSelbergSieve N hN).selbergTerms
       = (Salt.TwinSieve.sieve N (P N) (P_squarefree N)).selbergTerms := rfl
 
+/-- The remainder `rem d` of `twinSelbergSieve N hN` is the M2 `rem d N`. -/
 lemma twinSelbergSieve_rem (N : ℕ) (hN : 1 ≤ N) (d : ℕ) :
     (twinSelbergSieve N hN).rem d = rem d N := by
   change (Salt.TwinSieve.sieve N (P N) (P_squarefree N)).rem d = rem d N
   exact Salt.TwinSieve.sieve_rem d
 
+/-- The sifted sum of `twinSelbergSieve N hN` is that of the underlying twin sieve
+`Salt.TwinSieve.sieve N (P N) _`. -/
 lemma twinSelbergSieve_siftedSum (N : ℕ) (hN : 1 ≤ N) :
     (twinSelbergSieve N hN).siftedSum
       = (Salt.TwinSieve.sieve N (P N) (P_squarefree N)).siftedSum := rfl
 
 /-! ## Step 3 — `S ≥ mainTermSum (z N)`, hence `S ≥ c₀(log z)²` -/
 
+/-- The bounding sum of `twinSelbergSieve N hN` is at least `mainTermSum (z N)` (`hN : 1 ≤ N`):
+each odd squarefree `ℓ < z N` divides `P N`, has `ℓ ^ 2 ≤ y N`, and contributes its `gTwin ℓ`;
+the remaining terms are nonnegative. -/
 lemma selbergBoundingSum_ge_mainTermSum (N : ℕ) (hN : 1 ≤ N) :
     Salt.SelbergPort.selbergBoundingSum (twinSelbergSieve N hN)
       ≥ Salt.M3Assembly.mainTermSum (z N) := by
@@ -166,6 +180,9 @@ lemma selbergBoundingSum_ge_mainTermSum (N : ℕ) (hN : 1 ≤ N) :
   rw [hbig, Finset.mem_filter, Nat.mem_divisors] at hl
   exact le_of_lt ((Salt.TwinSieve.sieve N (P N) (P_squarefree N)).selbergTerms_pos hl.1.1)
 
+/-- For `z0 ≤ z N` (`hzbig`), the bounding sum of `twinSelbergSieve N hN` is at least
+`(1/64) · (log (z N)) ^ 2` (`hN : 1 ≤ N`): `selbergBoundingSum_ge_mainTermSum` with the N3.6
+bound at the concrete grade `1/64`. -/
 lemma selbergBoundingSum_ge_log_sq (N : ℕ) (hN : 1 ≤ N) (hzbig : Salt.M3Assembly.z0 ≤ z N) :
     Salt.SelbergPort.selbergBoundingSum (twinSelbergSieve N hN)
       ≥ (1 / 64 : ℝ) * (Real.log (z N)) ^ 2 := by

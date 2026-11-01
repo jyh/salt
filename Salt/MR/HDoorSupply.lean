@@ -437,7 +437,7 @@ be pricing a different object — but neither reverses the implication.
 
 ⛔ **AND THIS IS NOT A SHORTCUT TO THE DOOR SOCKET.**  What runs backwards is at the `α`-set,
 not here: `NearRatTight (h·arcDen 12 H) H α` admits STRICTLY MORE `α` than the landed cap does
-(`HDoorArc.lean:423-429`), so `M4SievedDoorSqH` is a STRONGER Prop than `M4SievedDoorSq` and
+(`HDoorArc.lean:424-430`), so `M4SievedDoorSqH` is a STRONGER Prop than `M4SievedDoorSq` and
 `nearRatTight_mono` cannot supply it.  The two facts point opposite ways and both are true. -/
 def SocketBaseLH (h : ℕ) (R : ChowlaRegime) (M H L q j A s : ℕ) : Prop :=
   R.Hlo ≤ H ∧ H ≤ R.Hhi ∧ L ≤ H ∧ 0 < q ∧ (q : ℝ) ≤ (h : ℝ) * arcDen 12 H ∧

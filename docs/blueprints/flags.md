@@ -1,4 +1,4 @@
-*Erratum, 2026-10-22: this is a dated working record and is kept as written. Line 18924 says more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Line 18924 says more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5). Its priority statements ("first …") are as of its date; the survey-dated forms are in `docs/RESULTS.md` and the priority surveys (`docs/priority-survey-2026-08-11.md`, `docs/priority-survey-2026-08-17-delta.md`), and several of those rows have since fallen (the delta's rows 7–9; the 2026-10-11 note at the head of the 08-11 survey).*
 
 # Flags and claims
 
@@ -1738,7 +1738,7 @@ grinding; the next Fable wave opens by draining this list.
     `|∑_u ∏g(uᵢ)·V(u∨σ)·V(u∨τ)| ≤ 3^ω·∏(p−1)⁻²·Qdiag_gv`, `V = lamPhiContractM y`.
     **The design's "dominate by ONE / monotone in |y|" shortcut is INVALID for the
     S₂ side** — two concrete corrections for the next Fable pass:
-    (1) `s2_inner_bound_N` (`S2Collision.lean:2105`) does NOT discharge
+    (1) `s2_inner_bound_N` (`S2Collision.lean:2108`) does NOT discharge
     `S2InnerBoundQ`: it proves a DIFFERENT bound (RHS `Ndiag`/`(p−2)⁻²`, not
     `Qdiag_gv`/`(p−1)⁻²`), and only for the tensor `yTensor`, via `fTilde`-
     antitonicity + `Gdiag`/`B1` machinery. There is no `f₀≡1` free slot-in.
@@ -7075,7 +7075,7 @@ THE TWO SIDES (verbatim shapes). CONSUMER — `hBVblocksW_discharge'` (PDiag.lea
 its `hprice` for every box in `dyadicBoundary (pieceN k) (pieceM k) (x/2+1) x (z·y) K`
 (N = pieceN k = 2^k − 1). SUPPLIER — every landed box-price terminal
 (`box_hprice_at_2pow`/`sym_`/`low_box_hprice_at_2pow`, PriceThree.lean:217/302/382; underlying
-`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:278, PriceTwo.lean:438/316;
+`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:450, PriceTwo.lean:695/564;
 `medium_survivor_price(_sqrtD)`, MediumFloor.lean:507/SqrtDFold.lean:956) provides a bound
 ONLY for `i ∈ dyadicBoundary (2^k) (pieceM k) (x/2+1) x F Krange` (N = 2^k, forced by the
 terminal's `M ≤ 2N` with M = pieceM k = 2·pieceN k + 1). The only bridge
@@ -7094,7 +7094,7 @@ priceable by either trichotomy route for the pieces with 2^k > x^{7/16}:
   • 2^k-BOUNDARY route (`box_hprice_at_2pow`/`_lo`): its hypothesis `i ∈ dyadicBoundary (2^k)`
     FAILS by construction (edge box ∉ dyadicBoundary (2^k)); concretely the terminal's corner
     clause `2^i·(2^k+1) ≤ x` is violated (edge box: x < 2^i·(2^k+1)). The `_lo` floor relaxation
-    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:438) is met but is orthogonal — it does not restore the
+    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:353) is met but is orthogonal — it does not restore the
     boundary membership. So neither route covers the live edge box.
 The trivial fallback (carrier norm ≤ 1 ⟹ box sum ≤ 2·|Dset|·X·M ≈ x·τ(Ps)) overshoots the
 hSum budget Ccon·K·x/L^{11} by ~x^{1} and cannot be used.
@@ -9330,7 +9330,7 @@ hyperbola: for any `AddCommMonoid` and `F`,
 **LANDED — R4-prereq `sum_abs_grahamGc_div_le` [C] (DHBal.lean:444).** The Barban–Vehov `gc`
 harmonic moment: for `2 ≤ z`, any `M`, `Σ_{m∈Icc 1 M} |grahamGc z m|/m ≤ (1+log M)³`. Restrict
 to the squarefree support (`grahamGc_eq_zero_of_not_squarefree`), bound `|gc| ≤ 3^ω`
-(`abs_grahamGc_le`), and apply the landed **`Salt.HardyLittlewood.tau6W_le`** (Sharp.lean:248,
+(`abs_grahamGc_le`), and apply the landed **`Salt.HardyLittlewood.tau6W_le`** (Sharp.lean:261,
 `Σ_{d≤L,sqfree} k^ω(d)/d ≤ (1+log L)^k`) at `k = 3`. **This RETIRES the R4 Mertens-moment
 sub-wall the prior analysis feared:** mathlib has no quantitative Mertens, but the project's
 `tau6W_le` supplies the `(log z)^k`-grade divisor moment directly. The σ₀-loaded R4 form
@@ -12886,9 +12886,9 @@ one_line_pow_growth (Salt/MR/OneLinePowGrowth.lean:324, 353 ln):
 |t| ≥ exp(exp 100) — LANDED, axiom-clean, sitting on 18,278 lines of
 zero-sorry machinery: Salt/Vmvt/ (5,722 — vmvt at the classical
 Linnik–Karatsuba form, fully general k,r,x, Summit2.lean:151), Salt/Vk/
-(6,919 — vk_block_core at ρ = 1/(16kr), Core.lean:256), Salt/ExpSum/
+(6,919 — vk_block_core at ρ = 1/(16kr), Core.lean:263), Salt/ExpSum/
 (5,637 — IsVdCBound at the Graham–Kolesnik exponents with the k-uniform
-constant 16, DerivTestK.lean:667; Kusmin–Landau; Weyl; the window
+constant 16, DerivTestK.lean:676; Kusmin–Landau; Weyl; the window
 tiling). Mathlib has NONE of this; no proof assistant does
 (PrimeNumberTheoremAnd carries dlVP only). SALT IS THE STATE OF THE ART
 and three of our own agents (M4-JOIN, CAPFREE-REF, the maestro's design
@@ -20102,7 +20102,7 @@ explicit bounds**, not as proved steps:
    ~60-line stone.  **Follow-up: define `logEulerTail χ z` and discharge `hcorr`; the mertensB
    machinery is the right tool and it is already in the corpus.**
 2. `hseg`: the coprime half `∑_{z<n≤X,(n,q)=1} Λ/(n log n) = log log X − log log z + O(1/log z)`.
-   The inputs are all landed (`mertens_second_sharp'` at `Mertens/Third.lean:679`, i.e.
+   The inputs are all landed (`mertens_second_sharp'` at `Mertens/Third.lean:685`, i.e.
    `M = γ − B`), and the `p ∣ q, p ≥ z` correction is the divisor-count row `≤ z₀/z`
    (hb1983-notes:451); what is missing is the ~200 lines of Finset/floor bookkeeping between
    `∑_{p ≤ n} 1/p` and `∑ n ∈ Ioc ⌊z⌋ ⌊X⌋ with (n,q)=1, wLog n · Λ n`.  **Purely mechanical,
@@ -20117,7 +20117,7 @@ it too and any future W4 statement must match.  (b) `mertensB` at `PrimePower.le
 `1/(k p^k)`-weighted constant, i.e. exactly the prime-power correction of HB's step 1 — the brief
 called it "the prime-power correction" and that is right, but note its *tail* lemma
 (`mertensB_tail_le`) is what step 1 actually needs.  (c) `mertens_second_sharp` (Second.lean:216)
-carries an existential `M`; `mertens_second_sharp'` (Third.lean:679) is the one to quote, since
+carries an existential `M`; `mertens_second_sharp'` (Third.lean:685) is the one to quote, since
 only there is `M` identified as `γ − B` — and the `γ` must be the same `Real.eulerMascheroniConstant`
 that §1's integral produces, which it is.
 
@@ -21012,7 +21012,7 @@ audited at `Salt/MR/All.lean:1599`) is Montgomery p.40 eq.(2) with the `‖0‖`
 by `minTerm` (`:271`), and `dist₁` (`Salt/LS/Dist.lean:29`) is literally HB §7's `‖·‖`. The
 restricted sum reindexes as `n = b + qm` ⟹ `e(−sb/k)·Σ_m e((−sq/k)·m)`, i.e. **exactly
 `geom_phase_bound` at `θ = −sq/k`**. Also landed: the exact sawtooth Fourier series
-(`Salt/MR/Sawtooth.lean:358`), `abs_sum_sin_le` (`:329`), Abel (`:65`), Jordan
+(`Salt/MR/Sawtooth.lean:365`), `abs_sum_sin_le` (`:329`), Abel (`:65`), Jordan
 (`MinorArcVaughan.lean:136`), and the `Salt/BV/Completion.lean` kit with its `2 + log H` L¹ mass —
 none of which the WEIL-TRIO dossier's supply table names. **If this holds, W5 is not the class-C
 block it was priced at.**
@@ -21238,7 +21238,7 @@ test-fired:
    with `c = (A−b)/q`, `t = ((B−b)/q − (A−b)/q).toNat` (Euclidean division, `filter_Ioc_dvd_
    eq_image`). The ⚠️ SHAPE-MATCH caveat at `:21027` is **discharged**.
 2. **The sawtooth Fourier series was already in the kernel.** `Salt.MR.tendsto_sum_sin_div_nat`
-   (`Salt/MR/Sawtooth.lean:358`) — landed for the Hurwitz-zeta `k = 0` case of `LandauOdd`, and
+   (`Salt/MR/Sawtooth.lean:365`) — landed for the Hurwitz-zeta `k = 0` case of `LandauOdd`, and
    the one thing mathlib genuinely lacks (`ZetaValues.hasSum_one_div_nat_pow_mul_sin` needs
    exponent `≥ 3`; the `AddCircle` inversion needs summable coefficients). Without it, (7.2)'s
    sharp arm needs either Abel's limit theorem at `e(θ) ≠ 1` plus a `log(1−z)` argument
@@ -23103,7 +23103,7 @@ the arms and the mint take their language from the ruling, so the wording is DET
 drafted. Rung 1a's law binds every row in this sweep: **the rider count LEADS.**
 
 **THE SENTENCE OF RECORD**, now the `RESULTS.md` §8 row for
-`Salt.MR.logChowla2_ineffective_v7` (`Salt/MR/V7E.lean:74`, landed `8548842`, ledger
+`Salt.MR.logChowla2_ineffective_v7` (`Salt/MR/V7E.lean:76`, landed `8548842`, ledger
 `Salt/MR/All.lean:7895`):
 
 > A machine-checked, witnessed-scale instance of the logarithmically averaged two-point
@@ -23122,7 +23122,7 @@ average over `n ≤ x`); the shift is `n + 1` (the `2` counts the factors `λ(n)
 constants are ineffective (`A` produced through `Classical.choice`, `Ks` carrying Siegel's
 constant); and **twins are untouched** — the transport wall stands at this rung.
 
-**THE `g ≡ 0` INSTANCE** has its own row (`logChowla2_ineffective_v7_g0`, `V7E.lean:221`,
+**THE `g ≡ 0` INSTANCE** has its own row (`logChowla2_ineffective_v7_g0`, `V7E.lean:203`,
 `82fedba`, ledger `:7921`): **two** named inner riders (`e^{-100} ≤ Ks`; the `K_vt` cushion),
 outer none. The row states plainly the thing a rider count alone would hide —
 ***the scale-request rider is VOID at `g ≡ 0`, NOT discharged in general*** — and prices it:
@@ -23143,8 +23143,8 @@ sitting**. Two rows added to `RESULTS.md` §8, both dated by pickaxe rather than
 ceremony that followed them:
 
 ```
-logChowla2_ineffective_v6_T0arm   Salt/MR/V7C.lean:177    2026-08-14  8b0bd31  ledger MR/All.lean:7821
-logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1839   2026-08-14  8b03281  ledger MR/All.lean:7856
+logChowla2_ineffective_v6_T0arm   Salt/MR/V7C.lean:179    2026-08-14  8b0bd31  ledger MR/All.lean:7821
+logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1846   2026-08-14  8b03281  ledger MR/All.lean:7856
 ```
 
 **FOUR NAMED INNER RIDERS EACH, outer hypotheses none.** `_csarm` (V7-B): the
@@ -23162,7 +23162,7 @@ discharges a DIFFERENT rider of `v6`, and neither implies the other. No row call
 `logChowla2_ineffective_v7`, registered in the entry above at three riders.
 
 **THE SHARPNESS CLAIM, stated where it is provable.** `_T0arm`'s row carries
-`t0_arm_four_levels_fails` (`V7C.lean:121`): the FOURTH exponential level fails at **every**
+`t0_arm_four_levels_fails` (`V7C.lean:123`): the FOURTH exponential level fails at **every**
 `A ≥ 162`, not only at the design floor — the generalization landed at `02495bc`, after the
 arm itself. So the three-level margin is sharp in tower height rather than merely true.
 
@@ -23415,9 +23415,9 @@ cost a census and not a wave.
 
 **The attractive wrong answer, tested before it was proposed.** `SiegelBand.lean`'s design law
 (*regime enlargement absorbs any `X`-independent debit*) plus the live lever `g R.Hhi R.ω ≤ R.x`
-in the parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:437`, which `_g0` sets to **zero**)
+in the parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:435`, which `_g0` sets to **zero**)
 makes a re-route onto the outer scale look free. **It is not: the lever has a ceiling.**
-`XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:82`); with
+`XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:90`); with
 `ε ≥ 1/500` a caller may request at most `log g ≤ 15500·H₊`, worth **≈ +24 additive on
 `loglog X`** against the landed floor `loglog X ≥ log H₊ − 14` (`cofkL_logX_floor`, linear in
 `H₊` via the regime's `hPHheadroom`) — **a constant factor ≤ ~4 in the budget, never a rate.**
@@ -23511,8 +23511,8 @@ the brief's `≳ 1.17e4` = 11700 FAILS at `−9.18`). So the conjunct demands
 ```
   Salt/Entropy/Chowla/RegimeParam.lean:454      chowlaRegime_exists_param_gen           Hlo₀ param
   Salt/Entropy/Chowla/HloExport.lean:150        chowlaRegime_exists_param_gen_hloCap    Hlo₀ param
-  Salt/Entropy/Chowla/TowerFlatBuilder.lean:322 chowlaRegimeFlat_exists_param_gen       Hlo₀ param
-  Salt/MR/XCeil.lean:502                        chowlaRegimeFlat_exists_param_gen_ceiling Hlo₀ param
+  Salt/Entropy/Chowla/TowerFlatBuilder.lean:351 chowlaRegimeFlat_exists_param_gen       Hlo₀ param
+  Salt/MR/XCeil.lean:510                        chowlaRegimeFlat_exists_param_gen_ceiling Hlo₀ param
   Salt/Entropy/Chowla/RegimeInst.lean:175       regime_exists_of_dropSum          ⛔ Hlo := 4000000
 ```
 **The four parametric sites CAN discharge it.** Each sets `R.Hlo = max … (max Hlo₀ …)`, so the floor
@@ -25305,7 +25305,7 @@ down -- this is NOT the C-class obstacle the wave-1 brief asked me to watch for:
 | 4 | `flat_anchor_line_wide_g14` | `StrideGradeReach.lean:207-212` | 6 | `hc : c <= 439`, entering as `+ c + 33`; slack `449 x` |
 | 5 | `flat_gP1_line_g14` | `StrideGradeReach.lean:216-236` | 21 | `hc : -439 <= c`, entering as `+ c`; slack `5.5e3 x` |
 | 6 | `flat_lvl_line_g14` | `StrideGradeReach.lean:240-293` | 54 | `hc : c <= 439`, entering as `+ c`; slack `457 x` |
-| 7 | `s15_sel''_L_witness_flat_b9` | `S15SelLinear.lean:727-928` | 202 | `hcb : c <= 8103` (`:729`), spent at `:848` (`hcRb`) |
+| 7 | `s15_sel''_L_witness_flat_b9` | `S15SelLinear.lean:737-938` | 202 | `hcb : c <= 8103` (`:729`), spent at `:848` (`hcRb`) |
 | 8 | `s15_sel''_L_witness_flat_wide_g12b` | `StrideGrade12bWalls.lean:162-177` | 16 | carries `hcb`, `hh9c` through |
 | 9 | `s15_sel''_L_gk_witness_flat_wide_g12b` | `StrideGrade12bWalls.lean:183-201` | 19 | carries `hcb`, `hh9c` through |
 
@@ -25431,13 +25431,13 @@ forms, four receipts, `mrtUniformityXiL2Set_mono`, the builder pair, the head, t
 road-exit hop, and the `j`-floor lift `s13_g2_jfloor_of_MSelect'_L_gk_h_L`).
 
 **(1) The capstone reads the twist cap at two sites the freeze does not name.**  G12b's
-`flat_capstone_generic_h_g12b` derives `hh14 : log h <= 14` at `StridePairReceiptG12b.lean:355`
+`flat_capstone_generic_h_g12b` derives `hh14 : log h <= 14` at `StridePairReceiptG12b.lean:359`
 and reads it at exactly two lines, both `_14` suppliers with NO charge-form twin in the corpus
 (measured: `git grep` finds only the base and `_14` variants of each):
 - `:369` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the
   arithmetic gate `m4_arith_henv_constPoolH_L_gk_14` -> `m4_arith_henv_rho_poolH_L_gk_14` ->
   `a2DoorGrade_pool_L_priced_rhoH_gk_14` -> `a2DoorGrade_pool_L_priced_rhoH_14` ->
-  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1468`):
+  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1476`):
   `h * arcDen 12 H * strataResidualH h H ^ 2 <= exp (14 * loglog H)` at `50 <= loglog H`.  With
   `arcDen 12 H = (log H)^12` this needs `h * (1 + 12 loglog H + log h)^2 <= (log H)^2`, which a FREE
   `h` breaks at any fixed tower floor;
@@ -25622,7 +25622,7 @@ the class and the statement of record, the five receipts, the four inversion lem
 U-forms, U-ARM (`s15Arm_le_of_regime`), and the doorL2, road and capstone hops on the U-forms.
 
 **What the hop needs about `R` that its U-form does not give.**  The source
-`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4952`) spends the head's COUNT export
+`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4908`) spends the head's COUNT export
 `∀ H [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → |bigXi R.eps H| ≤ K` (K the head's existential) twice:
 as an input to the head's own slot and as `hcount` of `sum_bigXi_norm_windowExpSum_sq_le_twelve`
 (`M4Window.lean:567`).  Under the brief's rule `FlatHeadFormU` keeps the count as a HYPOTHESIS
@@ -25632,7 +25632,7 @@ one open goal is exactly
 `⊢ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ↑(bigXi R.eps H).card ≤ K`
 with `K` known only through `0 < K` and `K ≤ 2 ^ 283 * c ^ 20`.
 
-**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2235`) needs
+**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2243`) needs
 `ε ≤ 1/500`, which no form carries (only `0 < ε` and the pin), and it yields ITS OWN constant `C`,
 not the head's `K`; the socket's `Hopq`/`Hcap` are the hop's to choose but a floor cannot bound a
 count by a constant the hop did not pick.  So this is a walk finding about the FORMS, not a proof

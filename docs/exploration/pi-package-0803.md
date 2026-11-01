@@ -1,4 +1,4 @@
-*Erratum, 2026-10-22: this is a dated working record and is kept as written. Lines 537–539 and 540 say more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Lines 537–539 and 540 say more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5). Its priority statements ("first …") are as of its date; the survey-dated forms are in `docs/RESULTS.md` and the priority surveys (`docs/priority-survey-2026-08-11.md`, `docs/priority-survey-2026-08-17-delta.md`), and several of those rows have since fallen (the delta's rows 7–9; the 2026-10-11 note at the head of the 08-11 survey).*
 
 # The Fulcrum — submission package (2026-08-03)
 
@@ -230,7 +230,7 @@ against a real declaration under `Salt/`, by a declaration-keyword regex
 
 The other 27, all found: `zeta_zero_free_region_littlewood`
 (`Vk/Littlewood.lean:409`), `zeta_zero_free_region_pow`
-(`Vk/GrowthPow.lean:1044`), `vk_block_core` (`Vk/Core.lean:256`),
+(`Vk/GrowthPow.lean:1044`), `vk_block_core` (`Vk/Core.lean:263`),
 `vmvt` (`Vmvt/Summit2.lean:151`), `FulcrumQualityMin`
 (`Fulcrum/Basic.lean:61`), `fulcrum_zero_real` (`Fulcrum/Basic.lean:93`),
 `not_fulcrum_implies_noSiegelZeros` (`Fulcrum/Dichotomy.lean:82`),

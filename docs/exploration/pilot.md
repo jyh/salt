@@ -1,4 +1,4 @@
-*Erratum, 2026-10-22: this is a dated working record and is kept as written. Lines 2749–2751, 5034–5037, 9039–9041, 9087–9089, 9257–9262, 9300–9302, 9831–9832, 9839–9842 and 10887 say more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5).*
+*Erratum, 2026-10-22: this is a dated working record and is kept as written. Lines 2749–2751, 5034–5037, 9039–9041, 9087–9089, 9257–9262, 9300–9302, 9831–9832, 9839–9842 and 10887 say more than the Lean proves; the corrected statements, each naming its Lean declaration, are in `papers/flagship/ERRATA.md` (C1–C5). Its priority statements ("first …") are as of its date; the survey-dated forms are in `docs/RESULTS.md` and the priority surveys (`docs/priority-survey-2026-08-11.md`, `docs/priority-survey-2026-08-17-delta.md`), and several of those rows have since fallen (the delta's rows 7–9; the 2026-10-11 note at the head of the 08-11 survey).*
 
 # Exploration pilot — the M₂ boundary probe (T3 calibration)
 
@@ -1346,7 +1346,7 @@ decisions per question.
   ec ≪ 0.01 inside the razor's 1/100. THE FLAG (deliverable 1,
   honest and precise): the twin's survivor-price bodies HARD-WIRE
   crtClassW across five files (FinA3/FinA3b/AggSum/PriceOne/
-  PriceClose — verified FinA3.lean:227) and carry a single
+  PriceClose — verified FinA3.lean:259) and carry a single
   T-difference (no annulus axis); no Goldbach crtClassG box-price
   supplier exists; reproducing that + the Σ_k annulus budget in one
   file was correctly out of scope. **G-PRICE COMMISSIONED** (the
@@ -2428,7 +2428,7 @@ decisions per question.
   narrowed door funded ahead of sprint termination. House freeze
   (s2-b3-design.md) with THREE house catches against the recon's
   sketch: (1) the consumable maxDiscrepancy is π-BASED (primesCount,
-  Salt/Maynard.lean:90), not ψ as the recon reported — the trap-iv
+  Salt/Maynard.lean:92), not ψ as the recon reported — the trap-iv
   class caught at freeze; (2) 1_prime is NOT a convolution — the
   "specialize α⋆β := Λ" mechanism cannot carry N-N2; the honest
   route is the corpus's OWN landed Vaughan machinery (BV rung:
@@ -4944,7 +4944,7 @@ decisions per question.
   attach). HMainAssembly.lean: **hreduce_holds** (hseed + hbudget
   ⟹ the frozen hreduce; the HReduce "carrier-gap" hmain is FREE —
   reverse-triangle on the explicit MAIN). THE CATCH
-  (house-verified at FBridge.lean:89 vs Tao pg-22): the gate uses
+  (house-verified at `fBridgeG`'s definition, FBridge line 89 when written, vs Tao pg-22): the gate uses
   0-indexed j against 1-indexed window values — complementary to
   the collapse class; every count-based consumer was
   residue-INDEPENDENT (ten nodes of silence); the p=2 witness

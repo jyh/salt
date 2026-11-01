@@ -107,6 +107,9 @@ open scoped BigOperators
 def blockCoeff (a : ℕ → ℂ) (P : ℕ → ℕ) (j n : ℕ) : ℂ :=
   if P j < n ∧ n ≤ P (j + 1) then a n else 0
 
+/-- `blockCoeff a P j n = 0` off the block: at `h : n ∉ Ioc (P j) (P (j+1))` the `if` in
+`blockCoeff` takes its `else` arm. The `sum_subset` side condition of `dpoly_block_eq` and
+`blockCoeff_l2_eq`. -/
 lemma blockCoeff_of_notMem {a : ℕ → ℂ} {P : ℕ → ℕ} {j n : ℕ}
     (h : n ∉ Finset.Ioc (P j) (P (j + 1))) : blockCoeff a P j n = 0 := by
   rw [Finset.mem_Ioc] at h
@@ -144,6 +147,9 @@ private lemma sum_Ioc_tele {M : Type*} [AddCommMonoid M] {P : ℕ → ℕ} (hmon
       rw [Finset.sum_range_succ, ih,
         Finset.sum_Ioc_consecutive f (hmono (Nat.zero_le J)) (hmono (Nat.le_succ J))]
 
+/-- `Ioc 0 N = Icc 1 N` in `ℕ` — `omega` on the two membership conditions. Turns the telescoped
+sum `sum_Ioc_tele` at `P 0 = 0` into `dpoly`'s index set `Icc 1 (P J)`, in `dpoly_eq_sum_blocks`
+and `sum_dpolyBlockMass_eq`. -/
 private lemma Ioc_zero_eq_Icc_one (N : ℕ) : Finset.Ioc 0 N = Finset.Icc 1 N := by
   ext n
   simp only [Finset.mem_Ioc, Finset.mem_Icc]
@@ -171,6 +177,8 @@ theorem dpoly_eq_sum_blocks (a : ℕ → ℂ) {P : ℕ → ℕ} (hP0 : P 0 = 0) 
 def dpolyBlockMass (a : ℕ → ℂ) (P : ℕ → ℕ) (j : ℕ) : ℝ :=
   ∑ n ∈ Finset.Ioc (P j) (P (j + 1)), ‖a n‖ ^ 2
 
+/-- The block ℓ² mass is a sum of squared norms, so `0 ≤ dpolyBlockMass a P j`. Consumed by
+`winL2Price_nonneg`. -/
 lemma dpolyBlockMass_nonneg (a : ℕ → ℂ) (P : ℕ → ℕ) (j : ℕ) : 0 ≤ dpolyBlockMass a P j :=
   Finset.sum_nonneg (fun _ _ => by positivity)
 
@@ -264,10 +272,16 @@ growth hypothesis, and the only socket is the tail's own integrability. -/
 private def farShell (H : ℝ) (i : ℕ) : Set ℝ :=
   {τ : ℝ | H * 2 ^ i < |τ| ∧ |τ| ≤ H * 2 ^ (i + 1)}
 
+/-- The dyadic shell `farShell H i` is measurable: the far set `{H·2^i < |τ|}`
+(`measurableSet_farAbs`) meets the closed condition `|τ| ≤ H·2^{i+1}`. The `MeasurableSet`
+family `hasSum_integral_iUnion` and `setIntegral_mono_on` take in §3. -/
 private lemma measurableSet_farShell (H : ℝ) (i : ℕ) : MeasurableSet (farShell H i) :=
   (measurableSet_farAbs (H * 2 ^ i)).inter
     (measurableSet_le continuous_abs.measurable measurable_const)
 
+/-- Shells of distinct index are disjoint at `hH : 0 < H`: for `hij : i < j` the upper edge
+`H·2^{i+1}` is at most the lower edge `H·2^j`, so no `|τ|` lies in both. Consumed by
+`pairwise_disjoint_farShell`. -/
 private lemma farShell_disjoint {H : ℝ} (hH : 0 < H) {i j : ℕ} (hij : i < j) :
     Disjoint (farShell H i) (farShell H j) := by
   rw [Set.disjoint_left]
@@ -279,6 +293,9 @@ private lemma farShell_disjoint {H : ℝ} (hH : 0 < H) {i j : ℕ} (hij : i < j)
   have : H * 2 ^ (i + 1) ≤ H * 2 ^ j := mul_le_mul_of_nonneg_left hmono hH.le
   linarith
 
+/-- The shell family is pairwise disjoint at `hH`: `farShell_disjoint` in either order of
+`i ≠ j`. The `Pairwise` hypothesis `hasSum_integral_iUnion` takes in
+`far_weight_le_of_linear_growth`. -/
 private lemma pairwise_disjoint_farShell {H : ℝ} (hH : 0 < H) :
     Pairwise (Function.onFun Disjoint (farShell H)) := by
   intro i j hij
@@ -286,6 +303,10 @@ private lemma pairwise_disjoint_farShell {H : ℝ} (hH : 0 < H) :
   · exact farShell_disjoint hH h
   · exact (farShell_disjoint hH h).symm
 
+/-- The shells exhaust the far region: `⋃ i, farShell H i = {τ | H < |τ|}` at `hH`. Left to
+right by `1 ≤ 2^i`; right to left by the least `i` with `|τ| ≤ H·2^{i+1}`
+(`pow_unbounded_of_one_lt`, `Nat.find`). Rewrites the far integral of
+`far_weight_le_of_linear_growth` into a sum over the shells. -/
 private lemma iUnion_farShell {H : ℝ} (hH : 0 < H) :
     (⋃ i : ℕ, farShell H i) = {τ : ℝ | H < |τ|} := by
   classical
@@ -429,6 +450,9 @@ this is `L`-many terms each of size `(log X)²`, whereas `N·A ≍ k·L^{−8}`.
 def winL2Price (g : ℕ → ℂ) (X y σ : ℝ) (P : ℕ → ℕ) (J : ℕ) : ℝ :=
   ∑ j ∈ Finset.range J, (P (j + 1) : ℝ) * dpolyBlockMass (winL2Coeff g X y σ) P j
 
+/-- The block price `winL2Price` is a sum of `P (j+1) · dpolyBlockMass …`, both factors
+nonnegative (`dpolyBlockMass_nonneg`), so `0 ≤ winL2Price g X y σ P J`. Consumed by
+`farL2Grade_nonneg`. -/
 lemma winL2Price_nonneg (g : ℕ → ℂ) (X y σ : ℝ) (P : ℕ → ℕ) (J : ℕ) :
     0 ≤ winL2Price g X y σ P J :=
   Finset.sum_nonneg (fun _ _ => mul_nonneg (Nat.cast_nonneg _) (dpolyBlockMass_nonneg _ _ _))
@@ -482,6 +506,9 @@ def farL2Grade (g : ℕ → ℂ) (X y σ H : ℝ) (P : ℕ → ℕ) (J : ℕ) : 
   8 * ((J : ℝ) * winL2Mass g X y σ / H)
     + (80 / 3) * ((J : ℝ) * winL2Price g X y σ P J / H ^ 2)
 
+/-- `0 ≤ farL2Grade g X y σ H P J` at `hH : 0 < H`: both summands are quotients of nonnegative
+terms (`winL2Mass_nonneg`, `winL2Price_nonneg`, `0 ≤ J`). Consumed by
+`crossKerFar_polylog_uniform`, where the two moving-line grades are summed. -/
 lemma farL2Grade_nonneg (g : ℕ → ℂ) (X y σ : ℝ) {H : ℝ} (hH : 0 < H) (P : ℕ → ℕ) (J : ℕ) :
     0 ≤ farL2Grade g X y σ H P J := by
   unfold farL2Grade
@@ -727,6 +754,8 @@ truncation height `T`; what `FarL2`'s R1 page could not supply was an INHABITANT
 `hKfar` binder at a poly-log `T` (`FarStar.far_kernel_bound_star` lives only at `Tstar`).
 §7 is that inhabitant, so the twins below are non-vacuous at any `H > 0`. -/
 
+/-- `4 ≤ log 64`: `e < 2.7182818286` (`Real.exp_one_lt_d9`) gives `e⁴ ≤ 64`. The numeral behind
+`fl2_pin_gates`' `4 ≤ log L` at `64 ≤ L`, which feeds the pin's `η ≤ 1/16`. -/
 private lemma fl2_log64 : (4 : ℝ) ≤ Real.log 64 := by
   have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
   have hp : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1

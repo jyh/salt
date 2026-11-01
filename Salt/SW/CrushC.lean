@@ -18,7 +18,7 @@ and the exponent vector `(e_p) = (n.factorization p)` injects into the box
 turn the box sum into `∏_{p∣r} Σ_{e≤z} dhA(p^e)·p^{−e}`, and the per-prime floor R5b
 (`selG_ge_partial_geom`) bounds each factor by `selG χ p`, giving `∏_{p∣r} selG χ p = selGmul χ r`.
 
-NUMERIC TRUTH (verified): at `z=20`, `q=3` (Legendre χ mod 3),
+NUMERIC TRUTH (checked numerically outside Lean): at `z=20`, `q=3` (Legendre χ mod 3),
 `selHSum χ 20 ≈ 2.857 ≥ Σ_{n≤20} dhA(n)/n ≈ 2.385`. True and not tight.
 -/
 

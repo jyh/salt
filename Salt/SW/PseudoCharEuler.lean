@@ -12,7 +12,7 @@ For `Re s > 1`, a square-free level `t` and a multiplicative `f`,
 `Σ_n χ(n) f_t(n) n^{−s} = L(s,χ)·∏_{p ∣ t}(1 + (f(p) − 1)χ(p)p^{−s})` (the local factor
 `jutilaLocal`), and with it Lemma 1's (2.2), p.48:
 `L(s,χ)·M(s,χ,f_r) = Σ_n (Σ_{d∣n} ξ_d) χ(n) f_r(n) n^{−s}`, where `M` (`jutilaM`) is (2.1) with
-`ξ` supported on `[1, Z]` — a FINITE Dirichlet polynomial. Both are `LSeries` identities;
+`ξ` vanishing above `Z` — a FINITE Dirichlet polynomial. Both are `LSeries` identities;
 `LFunction χ s = LSeries (χ ·) s` on `Re s > 1` is mathlib's `LFunction_eq_LSeries`. The
 `r`-summed form of (2.2) over a finite set of square-free levels, with the per-level
 summability it needs, is what Lemma 6 (W7) consumes directly.
@@ -58,7 +58,7 @@ variable {q : ℕ}
 def jutilaLocal (f : ArithmeticFunction ℝ) (χ : DirichletCharacter ℂ q) (t : ℕ) (s : ℂ) : ℂ :=
   ∏ p ∈ t.primeFactors, (1 + (((f p : ℝ) : ℂ) - 1) * χ p * (p : ℂ) ^ (-s))
 
-/-- The mollifier (2.1) with coefficients `ξ` supported on `[1, Z]`:
+/-- The mollifier (2.1) with coefficients `ξ` vanishing above `Z`:
 `M(s,χ,f_r) = Σ_{d ≤ Z} ξ_d χ(d) f_r(d) d^{−s} ∏_{p ∣ r/(r,d)} (1 + (f(p) − 1)χ(p)p^{−s})`. -/
 def jutilaM (ξ : ℕ → ℝ) (Z : ℕ) (f : ArithmeticFunction ℝ) (χ : DirichletCharacter ℂ q)
     (r : ℕ) (s : ℂ) : ℂ :=
@@ -67,19 +67,28 @@ def jutilaM (ξ : ℕ → ℝ) (Z : ℕ) (f : ArithmeticFunction ℝ) (χ : Diri
 
 variable {f : ArithmeticFunction ℝ} (χ : DirichletCharacter ℂ q)
 
+/-- The local factor at level `1` is the empty product `1` (`Nat.primeFactors_one`). -/
 theorem jutilaLocal_one (f : ArithmeticFunction ℝ) (s : ℂ) : jutilaLocal f χ 1 s = 1 := by
   simp only [jutilaLocal, Nat.primeFactors_one, Finset.prod_empty]
 
+/-- At a prime level `p` (`hp`) the local factor is the single term `1 + (f(p) − 1)χ(p)p^{−s}`
+(`Nat.Prime.primeFactors`, `Finset.prod_singleton`). -/
 theorem jutilaLocal_prime (f : ArithmeticFunction ℝ) {p : ℕ} (hp : p.Prime) (s : ℂ) :
     jutilaLocal f χ p s = 1 + (((f p : ℝ) : ℂ) - 1) * χ p * (p : ℂ) ^ (-s) := by
   simp only [jutilaLocal, hp.primeFactors, Finset.prod_singleton]
 
+/-- The local factor is multiplicative in the level: for coprime `t₁, t₂` (`h`) the prime
+factors of `t₁t₂` are the disjoint union of the two sets (`Nat.Coprime.primeFactors_mul`,
+`Finset.prod_union`). -/
 theorem jutilaLocal_mul_of_coprime (f : ArithmeticFunction ℝ) {t₁ t₂ : ℕ}
     (h : Nat.Coprime t₁ t₂) (s : ℂ) :
     jutilaLocal f χ (t₁ * t₂) s = jutilaLocal f χ t₁ s * jutilaLocal f χ t₂ s := by
   simp only [jutilaLocal, h.primeFactors_mul]
   exact Finset.prod_union h.disjoint_primeFactors
 
+/-- `‖jutilaLocal f χ t s‖ ≤ ∏_{p ∣ t} (1 + |f(p) − 1|·p^{−Re s})`: factorwise the triangle
+inequality, with `‖χ(p)‖ ≤ 1` (`DirichletCharacter.norm_le_one`) and `‖p^{−s}‖ = p^{−Re s}`
+(`Complex.norm_natCast_cpow_of_pos`). -/
 theorem norm_jutilaLocal_le (f : ArithmeticFunction ℝ) (t : ℕ) (s : ℂ) :
     ‖jutilaLocal f χ t s‖ ≤ ∏ p ∈ t.primeFactors, (1 + |f p - 1| * (p : ℝ) ^ (-s.re)) := by
   rw [jutilaLocal, Complex.norm_prod]
@@ -100,6 +109,10 @@ theorem norm_jutilaLocal_le (f : ArithmeticFunction ℝ) (t : ℕ) (s : ℂ) :
             mul_nonneg (mul_nonneg (abs_nonneg _) hrpow) (by linarith)
           nlinarith [hkey]
 
+/-- Reindexing a Dirichlet series supported on the multiples of `d ≠ 0` (`hd`):
+`Σ_{d ∣ n} a(n) n^{−s} = d^{−s}·Σ_m a(dm) m^{−s}`. The series vanishes off the range of `m ↦ dm`
+(`Function.Injective.tsum_eq`), and `(dm)^{−s} = d^{−s} m^{−s}`
+(`Complex.natCast_mul_natCast_cpow`). -/
 theorem LSeries_dvd_mul_eq (a : ℕ → ℂ) {d : ℕ} (hd : d ≠ 0) (s : ℂ) :
     LSeries (fun n => if d ∣ n then a n else 0) s
       = (d : ℂ) ^ (-s) * LSeries (fun m => a (d * m)) s := by
@@ -140,6 +153,10 @@ private theorem norm_pseudoChar_twist_le (f : ArithmeticFunction ℝ) (t n : ℕ
         mul_le_mul_of_nonneg_right (DirichletCharacter.norm_le_one χ _) (abs_nonneg _)
     _ = |pseudoChar f t n| := one_mul _
 
+/-- The twisted series `Σ_n χ(n) f_t(n) n^{−s}` converges for `t ≠ 0` (`ht`) and `Re s > 1`
+(`hs`): its coefficient is bounded by `Σ_{e ∣ t} |f(e)|` (`norm_pseudoChar_twist_le`,
+`abs_pseudoChar_le_sum_divisors`), and a bounded coefficient is summable past `Re s = 1`
+(`LSeriesSummable_of_bounded_of_one_lt_re`). -/
 theorem LSeriesSummable_pseudoChar_twist (f : ArithmeticFunction ℝ) {t : ℕ} (ht : t ≠ 0)
     {s : ℂ} (hs : 1 < s.re) :
     LSeriesSummable (fun n => χ n * ((pseudoChar f t n : ℝ) : ℂ)) s :=
@@ -227,6 +244,10 @@ private theorem LSeries_pseudoChar_prod_eq [NeZero q] (hf : f.IsMultiplicative) 
         ih hSp, Finset.prod_insert hpS]
       ring
 
+/-- **The twisted Euler product (Lemma 1, L1′).** For multiplicative `f` (`hf`), square-free `t`
+(`ht`) and `Re s > 1` (`hs`), `Σ_n χ(n) f_t(n) n^{−s} = L(s,χ)·jutilaLocal f χ t s`: the
+prime-peeling induction `LSeries_pseudoChar_prod_eq` over `t.primeFactors`, whose product is `t`
+(`Nat.prod_primeFactors_of_squarefree`). -/
 theorem LSeries_pseudoChar_twist_eq [NeZero q] (hf : f.IsMultiplicative) {t : ℕ}
     (ht : Squarefree t) {s : ℂ} (hs : 1 < s.re) :
     LSeries (fun n => χ n * ((pseudoChar f t n : ℝ) : ℂ)) s
@@ -253,6 +274,13 @@ private theorem sum_divisors_eq_sum_Icc_ite (ξ : ℕ → ℝ) (Z : ℕ) (hξ : 
       exact hd' (Finset.mem_filter.mpr ⟨Finset.mem_Icc.mpr ⟨hd1, not_lt.mp hcon⟩, hdvd⟩)
     exact hξ d hZ
 
+/-- **Jutila's (2.2).** For multiplicative `f` (`hf`), square-free `r` (`hr`), `ξ` vanishing
+above `Z` (`hξ`) and `Re s > 1` (`hs`),
+`Σ_n (Σ_{d ∣ n} ξ_d) χ(n) f_r(n) n^{−s} = L(s,χ)·M(s,χ,f_r)`. The divisor sum becomes a sum over
+the fixed range `Icc 1 Z` with a divisibility detector (`sum_divisors_eq_sum_Icc_ite`), each
+`d`-series reindexes along the multiples of `d` (`LSeries_dvd_mul_eq`), and
+`f_r(dm) = f_r(d)·f_{r/(r,d)}(m)` (`pseudoChar_mul_of_squarefree`) leaves the twisted product at
+the square-free level `r/(r,d)` (`LSeries_pseudoChar_twist_eq`). -/
 theorem LSeries_jutila_coeff_eq [NeZero q] (hf : f.IsMultiplicative) {r : ℕ} (hr : Squarefree r)
     (ξ : ℕ → ℝ) (Z : ℕ) (hξ : ∀ d, Z < d → ξ d = 0) {s : ℂ} (hs : 1 < s.re) :
     LSeries (fun n => ((∑ d ∈ n.divisors, ξ d : ℝ) : ℂ) * χ n * ((pseudoChar f r n : ℝ) : ℂ)) s
@@ -330,6 +358,10 @@ private theorem abs_sum_divisors_le (ξ : ℕ → ℝ) (Z : ℕ) (hξ : ∀ d, Z
   · rw [if_neg hdn]
     exact abs_nonneg _
 
+/-- The series of (2.2) converges for `r ≠ 0` (`hr`), `ξ` vanishing above `Z` (`hξ`) and
+`Re s > 1` (`hs`): its coefficient is bounded by `(Σ_{d ≤ Z} |ξ_d|)·Σ_{e ∣ r} |f(e)|`
+(`abs_sum_divisors_le`, `norm_pseudoChar_twist_le`, `abs_pseudoChar_le_sum_divisors`;
+`LSeriesSummable_of_bounded_of_one_lt_re`). -/
 theorem LSeriesSummable_jutila_coeff (f : ArithmeticFunction ℝ) {r : ℕ} (hr : r ≠ 0)
     (ξ : ℕ → ℝ) (Z : ℕ) (hξ : ∀ d, Z < d → ξ d = 0) {s : ℂ} (hs : 1 < s.re) :
     LSeriesSummable
@@ -341,6 +373,12 @@ theorem LSeriesSummable_jutila_coeff (f : ArithmeticFunction ℝ) {r : ℕ} (hr 
     ((norm_pseudoChar_twist_le χ f r n).trans (abs_pseudoChar_le_sum_divisors hr n))
     (norm_nonneg _) (Finset.sum_nonneg (fun d _ => abs_nonneg _))
 
+/-- **The `r`-summed form of (2.2)**, the shape Lemma 6 consumes: over a finite set `S` of
+square-free levels (`hS`), for multiplicative `f` (`hf`), `ξ` vanishing above `Z` (`hξ`) and
+`Re s > 1` (`hs`), the series with coefficient `(Σ_{d ∣ n} ξ_d) χ(n) Σ_{r ∈ S} r⁻¹ f_r(n)`
+equals `L(s,χ)·Σ_{r ∈ S} r⁻¹ M(s,χ,f_r)`. The coefficient is the `S`-sum of the per-level ones,
+each summable (`LSeriesSummable_jutila_coeff`), so `LSeries_sum` and (2.2) per level
+(`LSeries_jutila_coeff_eq`) finish. -/
 theorem LSeries_jutila_coeff_sum_eq [NeZero q] (hf : f.IsMultiplicative) (S : Finset ℕ)
     (hS : ∀ r ∈ S, Squarefree r) (ξ : ℕ → ℝ) (Z : ℕ) (hξ : ∀ d, Z < d → ξ d = 0) {s : ℂ}
     (hs : 1 < s.re) :

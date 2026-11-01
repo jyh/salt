@@ -176,12 +176,19 @@ theorem s15w_neglog_rho_le' {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
 def s15WitM (Cg δ₀ : ℝ) (x₀ Mfl : ℕ) : ℕ :=
   max (max Mfl x₀) (max 1 ⌈24 * Cg / δ₀⌉₊)
 
+/-- `1 ≤ s15WitM Cg δ₀ x₀ Mfl`: the witness modulus is a join whose last leg is `max 1 …`
+(`le_max_left`, `le_max_right`). Consumed as the `hM1` step of `s15_sel'_witness` and
+`s15_sel'_witness_gk`. -/
 theorem s15WitM_one_le (Cg δ₀ : ℝ) (x₀ Mfl : ℕ) : 1 ≤ s15WitM Cg δ₀ x₀ Mfl :=
   le_trans (le_max_left _ _) (le_max_right _ _)
 
+/-- `Mfl ≤ s15WitM Cg δ₀ x₀ Mfl`: the graded twin's floor is the join's first leg. Consumed as
+the `mfloor` field of `s15_sel'_witness` and `s15_sel'_witness_gk`. -/
 theorem s15WitM_mfl_le (Cg δ₀ : ℝ) (x₀ Mfl : ℕ) : Mfl ≤ s15WitM Cg δ₀ x₀ Mfl :=
   le_trans (le_max_left _ _) (le_max_left _ _)
 
+/-- `x₀ ≤ s15WitM Cg δ₀ x₀ Mfl`: the opaque threshold is the join's second leg. Consumed as the
+`x0M` field of `s15_sel'_witness` and `s15_sel'_witness_gk`. -/
 theorem s15WitM_x0_le (Cg δ₀ : ℝ) (x₀ Mfl : ℕ) : x₀ ≤ s15WitM Cg δ₀ x₀ Mfl :=
   le_trans (le_max_right _ _) (le_max_left _ _)
 
@@ -486,11 +493,17 @@ floor the spine demands, below the `75.29` the `anchor` line allows through the 
 tower. -/
 def s15WitFloor : ℕ := ⌈Real.exp (10 ^ 30)⌉₊
 
+/-- `10^30 ≤ log s15WitFloor`: `e^{10^30} ≤ ⌈e^{10^30}⌉₊` (`Nat.le_ceil`), `log` monotone,
+`Real.log_exp`. Consumed by `s15WitFloor_loglog_ge`, `s15WitFloor_loglog_le` and, as the `hHlo`
+leg, by `logChowla2_conditional_sharp_nonvacuous` and its `_gk` twin. -/
 theorem s15WitFloor_log_ge : (10 : ℝ) ^ 30 ≤ Real.log ((s15WitFloor : ℕ) : ℝ) := by
   have h : Real.exp ((10 : ℝ) ^ 30) ≤ ((s15WitFloor : ℕ) : ℝ) := Nat.le_ceil _
   have h2 := Real.log_le_log (Real.exp_pos _) h
   rwa [Real.log_exp] at h2
 
+/-- `log s15WitFloor ≤ 10^30 + 1`: `⌈e^{10^30}⌉₊ < e^{10^30} + 1 ≤ 2·e^{10^30}`
+(`Nat.ceil_lt_add_one`), so the log is at most `log 2 + 10^30` with `log 2 < 0.7`. Consumed by
+`s15WitFloor_loglog_le`. -/
 theorem s15WitFloor_log_le : Real.log ((s15WitFloor : ℕ) : ℝ) ≤ (10 : ℝ) ^ 30 + 1 := by
   have hc : ((s15WitFloor : ℕ) : ℝ) < Real.exp ((10 : ℝ) ^ 30) + 1 :=
     Nat.ceil_lt_add_one (Real.exp_pos _).le
@@ -786,11 +799,18 @@ against `ConstantsExposed.b_floor_cert` (`2^{603}`) narrows from **529 bits to 2
 spine demands, below the `277.7` the RESTORED `anchor` allows through the `9/2` tower. -/
 def s15WitFloor2 : ℕ := ⌈Real.exp ((2 : ℝ) ^ 400)⌉₊
 
+/-- `2^400 ≤ log s15WitFloor2`: `s15WitFloor_log_ge` at the re-cut scale `⌈e^{2^400}⌉₊`
+(`Nat.le_ceil`, `Real.log_exp`). Consumed by `s15WitFloor2_loglog_ge`, `s15WitFloor2_loglog_le`,
+the `hHlo` leg of `logChowla2_conditional_sharp2_nonvacuous` (and its `_gk`, `_gk'` twins here),
+and of `S16Budget`'s `…_gk'_Mfl` and `…_gk'_Mfl_wide`. -/
 theorem s15WitFloor2_log_ge : (2 : ℝ) ^ 400 ≤ Real.log ((s15WitFloor2 : ℕ) : ℝ) := by
   have h : Real.exp ((2 : ℝ) ^ 400) ≤ ((s15WitFloor2 : ℕ) : ℝ) := Nat.le_ceil _
   have h2 := Real.log_le_log (Real.exp_pos _) h
   rwa [Real.log_exp] at h2
 
+/-- `log s15WitFloor2 ≤ 2^400 + 1`: `s15WitFloor_log_le` at the re-cut scale
+(`Nat.ceil_lt_add_one`, `log 2 < 0.7`). Consumed by `s15WitFloor2_loglog_le` and by
+`S16FlatTerminal.flat_design_window_necessary`. -/
 theorem s15WitFloor2_log_le : Real.log ((s15WitFloor2 : ℕ) : ℝ) ≤ (2 : ℝ) ^ 400 + 1 := by
   have hc : ((s15WitFloor2 : ℕ) : ℝ) < Real.exp ((2 : ℝ) ^ 400) + 1 :=
     Nat.ceil_lt_add_one (Real.exp_pos _).le

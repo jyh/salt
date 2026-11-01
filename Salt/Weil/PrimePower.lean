@@ -61,10 +61,13 @@ def ushift {p m : ℕ} (z : ZMod (p ^ (2 * m))) : (ZMod (p ^ (2 * m)))ˣ where
       = 1 - ((p : ZMod (p ^ (2 * m))) ^ m) ^ 2 * z ^ 2 from by ring, pm_sq_eq_zero, zero_mul,
       sub_zero]
 
+/-- The value of the shift unit: `(ushift z : ZMod (p ^ (2 * m))) = 1 + p ^ m * z` (`rfl`). -/
 @[simp] lemma ushift_val {p m : ℕ} (z : ZMod (p ^ (2 * m))) :
     ((ushift z : (ZMod (p ^ (2 * m)))ˣ) : ZMod (p ^ (2 * m)))
       = 1 + (p : ZMod (p ^ (2 * m))) ^ m * z := rfl
 
+/-- The inverse of the shift unit: `(ushift z)⁻¹ = 1 - p ^ m * z` in `ZMod (p ^ (2 * m))`
+(`rfl`); it is an inverse because `(p ^ m) ^ 2 = 0` there (`pm_sq_eq_zero`). -/
 @[simp] lemma ushift_inv_val {p m : ℕ} (z : ZMod (p ^ (2 * m))) :
     (((ushift z)⁻¹ : (ZMod (p ^ (2 * m)))ˣ) : ZMod (p ^ (2 * m)))
       = 1 - (p : ZMod (p ^ (2 * m))) ^ m * z := rfl

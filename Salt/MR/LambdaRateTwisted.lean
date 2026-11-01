@@ -38,7 +38,7 @@ historical record of the slot's design.
 * **§3 — the twisted summatory functions and the truncation transfer.**
   `MmuChi`, `MlambdaChi` (ℂ-valued), and
   `MlambdaChi_eq_sum_MmuChi : M_{λχ̄}(y) = ∑_{d ≤ √y} χ̄(d²)d^{2it}·M_{μχ̄}(⌊y/d²⌋)`
-  — the twisted `Mlambda_eq_sum_Mmu` (`LambdaRate.lean:298`), unconditional.
+  — the twisted `Mlambda_eq_sum_Mmu` (`LambdaRate.lean:301`), unconditional.
 * **§4 — the rate fold.**  `MmuChiRate` (the honest slot), `LambdaChiSummatory`,
   `MlambdaChi_rate` and the deliverable `LambdaChiSummatory_of_MmuChiRate`.
 
@@ -387,7 +387,7 @@ theorem MmuChi_inner {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) (y d : 
 /-- **The twisted hyperbola fold (UNCONDITIONAL)**:
 `M_{λχ̄}(y) = ∑_{d ≤ √y} χ̄(d²)d^{2it}·M_{μχ̄}(⌊y/d²⌋)`.
 
-The twisted `Salt.TwinBar.Mlambda_eq_sum_Mmu` (`LambdaRate.lean:298`).  The per-`d` factor
+The twisted `Salt.TwinBar.Mlambda_eq_sum_Mmu` (`LambdaRate.lean:301`).  The per-`d` factor
 `w(d²) = χ̄(d²)·d^{2it}` is exactly what complete multiplicativity leaves behind, and it is
 the ONLY difference from the untwisted identity; `‖w(d²)‖ ≤ 1` then makes the rate fold
 character-blind. -/
@@ -713,7 +713,7 @@ theorem MlambdaChi_rate (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
 /-- **⟦O3⟧ THE DELIVERABLE — the twisted `μ → λ` bridge.**  The twisted `λχ̄ n^{it}` window
 rate at every saving `A > 0`, CONDITIONAL on the twisted μ-rate slot `MmuChiRate`.
 
-The twisted twin of `Salt.TwinBar.LambdaSummatory_of_MmuRate` (`LambdaRate.lean:577`).
+The twisted twin of `Salt.TwinBar.LambdaSummatory_of_MmuRate` (`LambdaRate.lean:580`).
 Everything in the *bridge* is unconditional; the hypothesis `MmuChiRate` is
 ⟦LANDED 2026-07-30⟧ (`PortClose.mmuChiRate_holds_gated`) — it was
 exactly the port's obligations **O4** (the `MobiusRateClose` re-run at `L(s,χ)`) and

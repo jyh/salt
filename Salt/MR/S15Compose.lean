@@ -5,6 +5,8 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.S12ConstCompose
 import Salt.MR.S11HoistGrade
+import Salt.MR.RegimeFloors
+import Salt.MR.DoorSocket
 
 /-!
 # ⟦S15-COMPOSE⟧ — THE CONST CAPSTONE, FIRED
@@ -44,7 +46,7 @@ its SIXTEEN residue binders as the landed supply allows, naming every survivor e
 | 6 | `hbf` | `doorBaseFrame_at_socket` | `M4AssemblyFrames.lean` |
 | 7 | `hgP1` | `s15_gP1_of_budget` (CONST-VERDICT §C) | §1 below |
 | 8 | `hgRows` | `s15_gRows_const_at_socket` (CONST-VERDICT §H) | §1 below |
-| 9 | `hthr` | `s12c_eps_threshold_at_socket` | `S12ConstCompose.lean:239` |
+| 9 | `hthr` | `s12c_eps_threshold_at_socket` | `S12ConstCompose.lean:241` |
 | 10 | `_heps293` | `s15_heps293_at_socket` (CONST-VERDICT §F) | §1 below |
 | 11 | `hband4096` | `s15_hband4096_at_socket` (CONST-VERDICT §F) | §1 below |
 | 12 | `_hepsr` | `s13_theta293_margin_lo` + `le_rfl` | `S13MSelect2.lean:66` |
@@ -171,6 +173,11 @@ theorem s15_doorRowFloor_ge {M : ℕ} (hM : 1 ≤ M) : (2 : ℕ) ^ 36 ≤ doorRo
     _ = 1 * Adoor M := (one_mul _).symm
     _ ≤ M * Adoor M := Nat.mul_le_mul_right _ hM
 
+/-- `0 < log 𝒬₁` at the logarithmic door (`𝒬₁ = calQK (Adoor M) (3072·M) M 1`), at `hM : 1 ≤ M`:
+`s15_log_calQK_one` reads it as `doorRowFloor M · log 2` and `s15_doorRowFloor_ge` gives
+`2^36 ≤ doorRowFloor M`. Consumed by `s15_a2Level1_exp` and by the lever twin
+`s15_log_calQK_one_pos_gk`; its linear-door copy is
+`ArithPageLinear.s15_log_calQK_L_one_pos`. -/
 theorem s15_log_calQK_one_pos {M : ℕ} (hM : 1 ≤ M) :
     (0 : ℝ) < Real.log ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) := by
   rw [s15_log_calQK_one]
@@ -179,6 +186,11 @@ theorem s15_log_calQK_one_pos {M : ℕ} (hM : 1 ≤ M) :
   have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
   nlinarith
 
+/-- `0 ≤ log (log 𝒬₁)` at the logarithmic door, at `hM : 1 ≤ M`:
+`log 𝒬₁ = doorRowFloor M · log 2` with `2^36 ≤ doorRowFloor M` and `log 2 > 0.69`, so
+`1 ≤ log 𝒬₁`. Consumed by `s15_gRows_const_at_socket`,
+`FlatConsumers.s15_gRows_const_at_socket_flat` and the lever twin `s15_loglogQ1_nonneg_gk`; its
+linear-door copy is `ArithPageLinear.s15_loglogQ1_L_nonneg`. -/
 theorem s15_loglogQ1_nonneg {M : ℕ} (hM : 1 ≤ M) :
     (0 : ℝ) ≤ Real.log (Real.log ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ)) := by
   refine Real.log_nonneg ?_
@@ -785,7 +797,7 @@ theorem s15_bandGate_of_grade {Cg δ₀ Ct ρ : ℝ} {x₀ : ℕ} {R : ChowlaReg
     exact s15_block_at_socket hb (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
 
 /-- **⟦THE SURVIVOR, NAMED⟧** (`S15CrossingBound R M`) — the ⟦B4⟧ RAW CROSSING BOUND of
-`S12ConstCompose.logChowla2_capstone_final_const'` (`S12ConstCompose.lean:492-509`), written
+`S12ConstCompose.logChowla2_capstone_final_const'` (`S12ConstCompose.lean:494-511`), written
 at the compose's own instantiation (`t₁ ≡ 0`, `cU := liouvilleC`,
 `epsrf ≡ θ₂₉₃ − 1/500`), byte for byte.
 
@@ -857,26 +869,15 @@ theorem logChowla2_conditional :
     hT₀, hKq, hKs, hmain⟩ := logChowla2_capstone_final_const' s13Aexp s13Aexp_pos
   refine ⟨ε, Cg, K, δ₀, Ct, x₀, Hcap, hε, hCg, hK, hδ₀, hCt, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hK
   set δs : ℝ := s12DeltaSock δ₀ K with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hK
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
   -- ⟦THE BASE PIN⟧ `R.Hlo = U1floor`
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
-  have harcfl : arcFloor36 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, harcfl⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
   intro M hsel
   obtain ⟨C', hC'pos, hgo⟩ := hfire M hsel.hM
@@ -1068,26 +1069,15 @@ theorem logChowla2_conditional_graded :
     logChowla2_capstone_final_const'_graded s13Aexp s13Aexp_pos
   refine ⟨ε, Cg, K, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hK, hδ₀, hCt, hMfl, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hK
   set δs : ℝ := s12DeltaSock δ₀ K with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hK
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
   -- ⟦THE BASE PIN⟧ `R.Hlo = U1floor`
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
-  have harcfl : arcFloor36 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, harcfl⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
   intro M hMfloor hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hMfloor
@@ -1303,26 +1293,15 @@ theorem logChowla2_conditional_sharp :
     logChowla2_capstone_final_const'_graded s13Aexp s13Aexp_pos
   refine ⟨ε, Cg, K, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hK, hδ₀, hCt, hMfl, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hK
   set δs : ℝ := s12DeltaSock δ₀ K with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hK
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
   -- ⟦THE BASE PIN⟧ `R.Hlo = U1floor`
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
-  have harcfl : arcFloor36 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, harcfl⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
   intro M hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
@@ -1653,26 +1632,15 @@ theorem logChowla2_conditional_sharp2 :
     logChowla2_capstone_final_const'_graded s13Aexp s13Aexp_pos
   refine ⟨ε, Cg, K, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hK, hδ₀, hCt, hMfl, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hK
   set δs : ℝ := s12DeltaSock δ₀ K with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hK
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
   -- ⟦THE BASE PIN⟧ `R.Hlo = U1floor`
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
-  have harcfl : arcFloor36 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, harcfl⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
   intro M hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
@@ -1753,13 +1721,13 @@ theorem s15_log_calQK_one_gk (K M : ℕ) :
   rw [calQK_gk_one_eq]
   exact s15_log_calQK_one M
 
-/-- `s15_log_calQK_one_pos` (:174) TRANSPORTED to the lever. -/
+/-- `s15_log_calQK_one_pos` TRANSPORTED to the lever. -/
 theorem s15_log_calQK_one_pos_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
     (0 : ℝ) < Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) := by
   rw [calQK_gk_one_eq]
   exact s15_log_calQK_one_pos hM
 
-/-- `s15_loglogQ1_nonneg` (:182) TRANSPORTED to the lever. -/
+/-- `s15_loglogQ1_nonneg` TRANSPORTED to the lever. -/
 theorem s15_loglogQ1_nonneg_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
     (0 : ℝ) ≤ Real.log (Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ)) := by
   rw [calQK_gk_one_eq]
@@ -2055,26 +2023,15 @@ theorem logChowla2_conditional_gk (K : ℕ) (hK : K ≤ 170000000) :
     hT₀, hKq, hKs, hmain⟩ := logChowla2_capstone_final_const'_gk K hK s13Aexp s13Aexp_pos
   refine ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, hε, hCg, hKc, hδ₀, hCt, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
   -- ⟦THE BASE PIN⟧ `R.Hlo = U1floor`
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
-  have harcfl : arcFloor36 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, harcfl⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
   intro M hsel
   obtain ⟨C', hC'pos, hgo⟩ := hfire M hsel.hM
@@ -2210,26 +2167,15 @@ theorem logChowla2_conditional_graded_gk (K : ℕ) (hK : K ≤ 170000000) :
     logChowla2_capstone_final_const'_graded_gk K hK s13Aexp s13Aexp_pos
   refine ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
   -- ⟦THE BASE PIN⟧ `R.Hlo = U1floor`
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
-  have harcfl : arcFloor36 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, harcfl⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
   intro M hMfloor hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hMfloor
@@ -2382,26 +2328,15 @@ theorem logChowla2_conditional_sharp_atK_gk (K : ℕ) (hK : K ≤ 170000000) :
     logChowla2_capstone_final_const'_graded_gk K hK s13Aexp s13Aexp_pos
   refine ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
   -- ⟦THE BASE PIN⟧ `R.Hlo = U1floor`
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
-  have harcfl : arcFloor36 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, harcfl⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
   intro M hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
@@ -2644,26 +2579,15 @@ theorem logChowla2_conditional_sharp2_atK_gk (K : ℕ) (hK : K ≤ 170000000) :
     logChowla2_capstone_final_const'_graded_gk K hK s13Aexp s13Aexp_pos
   refine ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
   -- ⟦THE BASE PIN⟧ `R.Hlo = U1floor`
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
-  have harcfl : arcFloor36 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, harcfl⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
   intro M hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
@@ -2772,26 +2696,15 @@ theorem logChowla2_conditional_sharp2_atK_gk_pinned (K : ℕ) (hK : K ≤ 170000
   refine ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl,
     hCgle, hεpin, hδpin, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
   -- ⟦THE BASE PIN⟧ `R.Hlo = U1floor`
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
-  have harcfl : arcFloor36 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, harcfl⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
   intro M hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
