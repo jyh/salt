@@ -1276,3 +1276,5 @@ o88-2026-10-25-229	Salt/TwinBar/ThreeBar.lean	13c3916cdb25	Salt/TwinBar/ThreeBar
 o88-2026-10-25-230	Salt/Chen/ChenFinal.lean	5c963c7d7033	Salt/Chen/ChenFinal.lean::blockAlphaLow_eq_zero_of_pieceN_le	4f08566fcb7c	paper	math	2026-10-25
 o88-2026-10-25-231	Salt/Chen/PriceClose.lean	cdd0066082ad	Salt/Chen/PriceThree.lean::box_hprice_at_2pow	23096cd07423	paper	math	2026-10-25
 o88-2026-10-25-232	Salt/TwinBar/ThreeBar.lean	f2bd12248cf9	Salt/TwinBar/ThreeBar.lean::sliceCS₁₃	989ced38b00f	paper	math	2026-10-25
+o88-2026-10-26-135	Salt/Vk/Core.lean	3cd08d241922	Salt/Vk/Core.lean::vk_block_core	dd703c5d5933	paper	math	2026-10-26
+o88-2026-10-26-136	Salt/Vk/Core.lean	0d97aaad5629	Salt/Vk/Core.lean::vk_block_core	dd703c5d5933	paper	math	2026-10-26
