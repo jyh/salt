@@ -1558,7 +1558,7 @@ open Salt.Tactic in
 /-! ⟦TIER S S-4 (ENTROPY)⟧ — THE ENTROPY ARROW AT EVERY REGIME (`StrideShellBand`, 2026-09-14,
 h2c — S-4 freeze v1.1, fired on the helm's word after math's non-author pass NO KILL).  Additive
 only: no landed statement moves.  `log_chowla_aff_of_door_at_regime_g12b` (H) is the landed entropy
-head `log_chowla_aff_of_door_g12b` (`StrideShellG.lean:320`) with the REGIME quantifier moved from
+head `log_chowla_aff_of_door_g12b` (`StrideShellG.lean:140`) with the REGIME quantifier moved from
 the crown's `∃ Ra` to `∀ Ra`, at the pin `ε = 1/(500·a·h)` above ONE `b`-uniform threshold `A₁`,
 with the grade floor `1/(838400·(a·h)²)` written out — the body is that head's 181 lines with step
 (4), the crown call `hcrown A₀'`, DELETED, since the landed proof reads its regime only through
