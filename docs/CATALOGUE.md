@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `0f3e158d` · source digest `f0dd2febb4f8ca47` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `9ad94025` · source digest `549a1edefa684ea0` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23392 · corpus Prop-valued names (the hypothesis universe): 678.
+Declarations indexed across the tree: 23393 · corpus Prop-valued names (the hypothesis universe): 678.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -7434,14 +7434,14 @@ Declarations indexed across the tree: 23392 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.log_chowla_aff_composed_of_headG_g12b` | Salt/Entropy/Chowla/StridePrize.lean:321 | entropy | `Salt.Entropy.Chowla.GradedAffHeadAt_g12b` |
 | `Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq_aff` | Salt/Entropy/Chowla/StrideShell.lean:125 | characters, entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
 | `Salt.Entropy.Chowla.spine_False_core_xi_sq_aff` | Salt/Entropy/Chowla/StrideShell.lean:245 | characters, entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW`, `Salt.Entropy.Chowla.logChowlaFailsAff` |
-| `Salt.Entropy.Chowla.log_chowla_aff_of_door` | Salt/Entropy/Chowla/StrideShell.lean:433 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
-| `Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq_aff_one_zero` | Salt/Entropy/Chowla/StrideShell.lean:665 | characters, entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
+| `Salt.Entropy.Chowla.log_chowla_aff_of_door` | Salt/Entropy/Chowla/StrideShell.lean:655 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
+| `Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq_aff_one_zero` | Salt/Entropy/Chowla/StrideShell.lean:707 | characters, entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
 | `Salt.Entropy.Chowla.log_chowla_aff_of_door_at_regime_g12b` | Salt/Entropy/Chowla/StrideShellBand.lean:90 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
 | `Salt.Entropy.Chowla.gradedAffHeadAt_g12b_of_at_regime` | Salt/Entropy/Chowla/StrideShellBand.lean:369 | entropy | `¬Salt.Entropy.Chowla.logChowlaFailsAff`, `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
 | `Salt.Entropy.Chowla.log_chowla_aff_of_door_g` | Salt/Entropy/Chowla/StrideShellG.lean:50 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
-| `Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted_g` | Salt/Entropy/Chowla/StrideShellG.lean:275 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
-| `Salt.Entropy.Chowla.log_chowla_aff_of_door_g12b` | Salt/Entropy/Chowla/StrideShellG.lean:320 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
-| `Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted_g12b` | Salt/Entropy/Chowla/StrideShellG.lean:544 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
+| `Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted_g` | Salt/Entropy/Chowla/StrideShellG.lean:95 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
+| `Salt.Entropy.Chowla.log_chowla_aff_of_door_g12b` | Salt/Entropy/Chowla/StrideShellG.lean:140 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
+| `Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted_g12b` | Salt/Entropy/Chowla/StrideShellG.lean:184 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
 | `Salt.Entropy.Chowla.log_chowla_two_shell` | Salt/Entropy/Chowla/Theorem23Shell.lean:132 | characters, entropy | `Salt.Entropy.Chowla.MRTUniformity` |
 | `Salt.Entropy.Chowla.log_chowla_two_shell_xi` | Salt/Entropy/Chowla/Theorem23Shell.lean:243 | characters, entropy | `Salt.Entropy.Chowla.MRTUniformityXi` |
 | `Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq` | Salt/Entropy/Chowla/Theorem23Shell.lean:362 | characters, entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2` |

@@ -84,7 +84,7 @@ namespace Salt.Entropy.Chowla
 
 set_option maxHeartbeats 1600000 in
 -- THE ARROW is one large elaboration: the ceiling is S-4's own (`StrideShellBand.lean:67`,
--- `1600000`, itself the landed head's, `StrideShellG.lean:310`) — the body is S-4's with its cap
+-- `1600000`, itself the landed head's, `StrideShellG.lean:130`) — the body is S-4's with its cap
 -- binder gone, so the demand is unchanged.
 /-- **S1 — S-4's entropy arrow with its cap binder deleted:**
 `log_chowla_aff_of_door_at_regime_g12b` (`StrideShellBand`) at every stride `ha : 0 < a` and

@@ -8,7 +8,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 2026-09-14 21:0x: H and C PROVED by ONE Opus executor at one attempt each, on the helm's word after
 math's non-author pass (NO KILL); M and K1 were proved at the freeze.  HONEST LABEL, FIRST LINE:
 NO NEW MATHEMATICS (a restatement of landed proofs).**  S-4 restates the landed
-entropy head `log_chowla_aff_of_door_g12b` (`StrideShellG.lean:320`) with the REGIME quantifier
+entropy head `log_chowla_aff_of_door_g12b` (`StrideShellG.lean:140`) with the REGIME quantifier
 moved: the landed head proves `door Ra ρ' → ¬ logChowlaFailsAff` at the ONE regime `Ra` it obtains
 from the crown's payload `hcrown` (`∃ Ra`); S-4 states the same arrow at EVERY affine regime at the
 pin `ε = 1/(500·a·h)` whose lower endpoint clears a design threshold `A₁` (`∀ Ra`), with the
@@ -38,7 +38,7 @@ threshold is `b`-free at the witness (the leaves `hreduce_holds_final_aff` and
 class is fixed) and because the bridge reads it once against S-3's `∀ b` band.
 
 THE ROUTE (as fired, 2026-09-14; every statement and docstring below byte-identical to the freeze
-under its guard): the landed head's body (`log_chowla_aff_of_door_g12b`'s, in `StrideShellG.lean`)
+under its guard): the landed head's body (`StrideShell.lean:442-622`, `log_chowla_aff_of_door_K`)
 with step (4) — `hcrown A₀'` — replaced by `intro b hba hgcd Ra hRa hRb hReps hHloB`, the circle
 slot discharged per class by `circle_method_estimate_sq_bounded_aff` under `hgcd`, `A ↦ A₁ :=
 max 162 (max (exp (budgetX ε₀ β')) (loglog (max H₀red H₀D3)))`, and the grade floor read directly
@@ -67,15 +67,15 @@ theorem flatDesignBase_mono {A A' : ℝ} (h : A ≤ A') : flatDesignBase A ≤ f
 set_option maxHeartbeats 1600000 in
 -- THE ARROW is one large elaboration (the five-wide reduce leaf and the circle slot both in
 -- context while the pin's numerals and the budget witness are discharged); the ceiling is the
--- landed head's own (`StrideShellG.lean:310`, 1600000) — the body is that head's, step (4) gone.
+-- landed head's own (`StrideShellG.lean:130`, 1600000) — the body is that head's, step (4) gone.
 /-- **⟦S-4⟧ THE ENTROPY ARROW AT EVERY REGIME** — `log_chowla_aff_of_door_g12b`'s entropy half
-(in `StrideShellG.lean`: `∀ ρ' ≤ δ₀, MRTUniformityXiL2AffW h Ra ρ' → ¬ logChowlaFailsAff a b h
+(`StrideShellG.lean:173-175`: `∀ ρ' ≤ δ₀, MRTUniformityXiL2AffW h Ra ρ' → ¬ logChowlaFailsAff a b h
 Ra.eps Ra.x Ra.ω`) stated at EVERY `Ra : ChowlaRegimeAff` with `Ra.a = a`, `Ra.b = b`, `Ra.eps =
 1/(500·a·h)` and `flatDesignBase A₁ ≤ Ra.Hlo`, for ONE threshold `A₁ ≥ 162` chosen before the class
 `b`, at the explicit grade floor `1/(838400·(a·h)²)` (the landed `∃ δ₀ ≥ floor` collapses to it:
 the composition reads `δ₀` only through that floor, `StridePrize.lean:353` and `:384`).  The circle
 slot is discharged, so the class carries the entropy side's own binder `hgcd : gcd (b + h) a ∣ h`
-(`log_chowla_aff_of_door_unslotted_g12b`, `StrideShellG.lean:544`).
+(`log_chowla_aff_of_door_unslotted_g12b`, `StrideShellG.lean:184`).
 
 What it says that no landed statement says: the arrow does not depend on WHICH regime the crown
 built — any regime at the pin above the threshold that carries the door at the floor is a window
@@ -361,7 +361,7 @@ theorem affGrade_composes_g12b (a h : ℕ) (ha : 0 < a) (hh : 0 < h)
 
 /-- **⟦S-4 K1⟧ (class A, PROVED) — CONSERVATIVITY: S-4 RECOVERS THE LANDED GRADED HEAD.**  The
 `∀ Ra` arrow, taken as a hypothesis with the statement spelled out, together with the crown's
-payload `hcrown` (the landed head's own binder, `StrideShellG.lean:334-343`, byte for byte), gives
+payload `hcrown` (the landed head's own binder, `StrideShellG.lean:154-163`, byte for byte), gives
 `GradedAffHeadAt_g12b a b h A₀` (`StridePrize.lean:295`) — the landed head's conclusion — at every
 `A₀`: obtain the crown at `max A₀ A₁`, lower its `flatDesignBase A ≤ Ra.Hlo` to `A₁` by
 `flatDesignBase_mono`, and take `δ₀ := floor`.  Stated with the hypothesis spelled out rather than
