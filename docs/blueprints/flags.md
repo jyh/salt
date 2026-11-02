@@ -7075,7 +7075,7 @@ THE TWO SIDES (verbatim shapes). CONSUMER — `hBVblocksW_discharge'` (PDiag.lea
 its `hprice` for every box in `dyadicBoundary (pieceN k) (pieceM k) (x/2+1) x (z·y) K`
 (N = pieceN k = 2^k − 1). SUPPLIER — every landed box-price terminal
 (`box_hprice_at_2pow`/`sym_`/`low_box_hprice_at_2pow`, PriceThree.lean:217/302/382; underlying
-`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:450, PriceTwo.lean:695/564;
+`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:476, PriceTwo.lean:695/564;
 `medium_survivor_price(_sqrtD)`, MediumFloor.lean:507/SqrtDFold.lean:956) provides a bound
 ONLY for `i ∈ dyadicBoundary (2^k) (pieceM k) (x/2+1) x F Krange` (N = 2^k, forced by the
 terminal's `M ≤ 2N` with M = pieceM k = 2·pieceN k + 1). The only bridge
@@ -7113,7 +7113,7 @@ Both are statement-level and belong to a Fable/human-directed session.
 
 WHAT IS VERIFIED WIREABLE (so the repair unblocks the rest): the 12-conjunct skeleton →
 `chen_of_hypotheses_W` (Assembly.lean:707) with witnesses x,z=opZ,P=opP,y=opY,Q=opQ,a=opA,
-w'=opW'; the A1/A2 carriers via `a12_hA1`/`a12_hA2` (HeadlineW2.lean:1524/1569), all their
+w'=opW'; the A1/A2 carriers via `a12_hA1`/`a12_hA2` (HeadlineW2.lean:1620/1672), all their
 hypotheses in the opf_*/opf_tower set; the ledger via `normalized_package`/`hledger_at_certs`
 (GlueNormalized.lean:232 / RazorClose.lean:156) at XW = (twinA1SieveW).totalMass·W =
 (∑_{twinWindow}Λ/φ(opQ))·W; the certs hcertA1 (`fchain_A1_final` ∘ `logRatio_A1_mem`),
