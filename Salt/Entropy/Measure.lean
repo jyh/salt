@@ -296,9 +296,9 @@ lemma measureEntropy_eq_sum {μ : Measure S} {A : Finset S} (hA : μ Aᶜ = 0) :
   rw [Measure.real, measure_mono_null (by simpa) hA]
   simp
 
-/-- `Hm[0] = 0` (`simp [measureEntropy]`). A `simp` lemma; what `simp` reaches in the `μ = 0`
-branches of `measureEntropy_univ_smul`, `measureEntropy_nonneg` and
-`measureMutualInfo_nonneg_aux`. -/
+/-- `Hm[0] = 0` (`simp [measureEntropy]`). A `simp` lemma; what `simp` reaches in both branches
+of `measureEntropy_univ_smul` — the `μ = 0` one, and the non-finite one once `(μ univ)⁻¹ • μ`
+has collapsed to `0` (`ENNReal.inv_top`, `zero_smul`). No named consumer at 884bd7d7. -/
 @[simp]
 lemma measureEntropy_zero : Hm[(0 : Measure S)] = 0 := by simp [measureEntropy]
 
@@ -646,7 +646,8 @@ first rewrite of `measureMutualInfo_of_not_isFiniteMeasure`, `measureMutualInfo_
 lemma measureMutualInfo_def (μ : Measure (S × T)) :
     Im[μ] = Hm[μ.map Prod.fst] + Hm[μ.map Prod.snd] - Hm[μ] := rfl
 
-/-- `Im[0] = 0` (`simp [measureMutualInfo]`). A `simp` lemma; no named consumer at 884bd7d7. -/
+/-- `Im[0] = 0` (`simp [measureMutualInfo]`). A `simp` lemma; what `simp` reaches in the `μ = 0`
+branch of `measureMutualInfo_nonneg_aux`. -/
 @[simp]
 lemma measureMutualInfo_zero_measure : Im[(0 : Measure (S × T))] = 0 := by
   simp [measureMutualInfo]

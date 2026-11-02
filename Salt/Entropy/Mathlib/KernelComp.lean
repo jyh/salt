@@ -241,8 +241,8 @@ lemma swapRight_deleteMiddle_reverse (κ : Kernel α (β × γ × δ)) :
   rfl
 
 /-- `swapRight (snd (reverse κ)) = deleteRight κ`: the last two coordinates of the reversal,
-swapped back, are the first two of `κ` (`map_map`). A `simp` lemma; what `simp` reaches in
-`entropy_triple_add_entropy_le` (`Kernel/MutualInfo`) after `← entropy_swapRight`. -/
+swapped back, are the first two of `κ` (`map_map`). A `simp` lemma with no consumer at 884bd7d7:
+`entropy_triple_add_entropy_le`'s `simp`s fire its `deleteMiddle`/`deleteRight` siblings. -/
 @[simp]
 lemma swapRight_snd_reverse (κ : Kernel α (β × γ × δ)) :
     swapRight (snd (reverse κ)) = deleteRight κ := by
