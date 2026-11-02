@@ -1136,7 +1136,7 @@ set_option maxHeartbeats 1600000 in
 open MeasureTheory in
 open Salt.Entropy.Chowla in
 /-- **⟦Kq BOUNDED TWIN⟧** `m4_fuse_hcap_of_capWS_gk` + the conjunct `Kq ≤ 126848 / 10 ^ 8`.
-⟦THE TOP UNFENCED HOP OF ROUTE 3⟧ — the cap-wire fuse `S16Uniform` :660 opens. -/
+⟦THE TOP UNFENCED HOP OF ROUTE 3⟧ — the cap-wire fuse `S16Uniform` :654 opens. -/
 theorem m4_fuse_hcap_of_capWS_gk_bounded (K : ℕ) :
     ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ Kq ≤ 126848 / 10 ^ 8 ∧ 0 < Ks ∧
       ∀ (R : ChowlaRegime) (M : ℕ) (cU : ℕ → ℂ) (ε : ℕ → ℝ),

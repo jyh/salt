@@ -227,7 +227,7 @@ theorem bigXi_bounded_500_ceiling :
 
 /-- The same hook, stated against an opaque `ε` pinned by an equation — the
 literal drop-in for the flat head's `obtain … := bigXi_bounded ε hεQpos hε2`
-(the head pins `ε := 1/500` at `HloExportFlat` :256 / `S16Uniform` :275). -/
+(the head pins `ε := 1/500` at `HloExportFlat` :257 / `S16Uniform` :276). -/
 theorem bigXi_bounded_ceiling_of_pin (ε : ℚ) (hε : ε = 1 / 500) :
     ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 539 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (H : ℕ) [NeZero H], H₀ ≤ H →
       ((bigXi ε H).card : ℝ) ≤ C := by

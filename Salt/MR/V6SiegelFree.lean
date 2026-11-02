@@ -29,6 +29,8 @@ import Salt.MR.FlatDesignBound
 import Salt.MR.ArcRegimeWeaken
 import Salt.Entropy.Chowla.RegimeHeadroom
 import Salt.MR.RegimeSupplyFacts
+import Salt.Entropy.Chowla.HeadFloors
+import Salt.MR.RegimeScaleReads
 
 /-!
 # The v6 family of log-Chowla theorems under a Siegel standoff (O13)
@@ -66,7 +68,7 @@ section
 open MeasureTheory ProbabilityTheory
 open scoped BigOperators
 open private flatCap_shuffle spine_False_core_xi_sq_flat from Salt.Entropy.Chowla.HloExportFlat
-/-- **⟦STANDOFF TWIN⟧** `log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat` (`Salt/Entropy/Chowla/HloExportFlat.lean:227`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat` (`Salt/Entropy/Chowla/HloExportFlat.lean:228`): its statement under the three standoff
 binders, its proof verbatim with `hreduce_holds_final_bounded` · `primeWindow_sum_inv_ge_bounded` replaced by their twins. -/
 theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
@@ -137,15 +139,8 @@ theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_of_standoff {cS
   obtain ⟨Rf, hReps, hRA, hRHlo, hRg, _hRcapEq, hRwid⟩ :=
     chowlaRegimeFlat_exists_param_head A hA26 ε hεQpos hεQ1
       (max F (max extraFloor U1floor)) g₅
-  have hFlo : F ≤ Rf.Hlo := le_trans (le_max_left _ _) hRHlo
-  have hxiHlo : H₀xi ≤ Rf.Hlo := by
-    rw [hFdef, hOpqdef] at hFlo
-    exact le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hFlo
-  have hbudHlo : budgetFloorFlat (ε : ℝ) β A ≤ Rf.Hlo := by
-    rw [hFdef] at hFlo; exact le_trans (le_max_right _ _) hFlo
-  have hredHlo : max H₀red H₀D3 ≤ Rf.Hlo := by
-    rw [hFdef, hOpqdef] at hFlo
-    exact le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hFlo
+  obtain ⟨hFlo, hxiHlo, hbudHlo, hredHlo⟩ :=
+    Salt.Entropy.Chowla.flatHeadFloors_facts hOpqdef hFdef hRHlo
   refine ⟨Rf.toChowlaRegime, hReps,
     le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRHlo,
     le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, ?_,
@@ -657,7 +652,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `m4_doorL2_close_split_sq_gk_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:186`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_doorL2_close_split_sq_gk_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:187`): its statement under the three standoff
 binders, its proof verbatim with `m4_exit_socket_split_sq_arc_flatRoot` replaced by their twins. -/
 theorem m4_doorL2_close_split_sq_gk_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
@@ -718,7 +713,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `m4_second_road_L2_gk_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:241`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_second_road_L2_gk_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:242`): its statement under the three standoff
 binders, its proof verbatim with `m4_doorL2_close_split_sq_gk_flatRoot_L` replaced by their twins. -/
 theorem m4_second_road_L2_gk_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
@@ -1222,7 +1217,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:339`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:340`): its statement under the three standoff
 binders, its proof verbatim with `m4_second_road_L2_gk_flatRoot_L` · `m4_fuse_hcap_of_capWS_gk` replaced by their twins. -/
 theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ)
@@ -1431,7 +1426,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:991`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:992`): its statement under the three standoff
 binders, its proof verbatim with `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L` replaced by their twins. -/
 theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ)
@@ -1470,23 +1465,15 @@ theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_of_standoff {
   intro M hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
   intro hcap
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  obtain ⟨hlam50, hΛ50, hHreg⟩ := regime_scale_reads R hfl
   have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family, at the LINEAR anchor
   have harith := s15_doorArithFrameRho_L_family'' (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -2418,7 +2405,7 @@ open MeasureTheory
 open Salt.Entropy.Chowla
 set_option maxHeartbeats 1000000 in
 -- The twin re-elaborates the landed proof, so it keeps the landed declaration's heartbeat room.
-/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk` (`Salt/MR/S16FlatTerminalLinear.lean:1886`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk` (`Salt/MR/S16FlatTerminalLinear.lean:1879`): its statement under the three standoff
 binders, its proof verbatim with `m4_hcap_at_door_perBlock_L_gk` replaced by their twins. -/
 theorem m4_fuse_hcap_of_capWS_L_gk_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) :

@@ -76,6 +76,7 @@ import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
 import Salt.MR.StridePins
+import Salt.MR.RegimeScaleReads
 import Salt.MR.DesignEightArms
 
 -- The same three `open private` lines as `StridePairReceipt.lean`'s head — the door-head and the
@@ -469,18 +470,7 @@ theorem flat_capstone_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : �
           simpa using (by linarith : (0:ℝ) ≤ 2 * ((h : ℝ) ^ 7 * rStrWitness H)))
     positivity
   · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
-    intro H hlo hhi
-    have harc1 : (1 : ℝ) ≤ (h : ℝ) * arcDen 12 H := one_le_hArcDen_of_regime hh hlo
-    have hSR1 : (1 : ℝ) ≤ strataResidualH h H := one_le_strataResidualH harc1
-    have hSRsq : (1 : ℝ) ≤ strataResidualH h H ^ 2 := by nlinarith
-    have hRSle : RSanDoorRhoH ρ h H ≤ rSanWitness H := by
-      have h1 : RSanDoorRhoH ρ h H ≤ 1 := by
-        unfold RSanDoorRhoH
-        rw [div_le_one (by nlinarith)]
-        linarith
-      exact le_trans h1 (le_max_left _ _)
-    have hG := g2_of_j0_floor_h h hh H (j₀ := doorRowFloorL M) (hj0 H hlo hhi)
-    linarith
+    exact gate6_rhoH_of_j0_floor hh hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
     have hH0 : 0 < H := by
@@ -645,23 +635,15 @@ theorem flat_conditional_generic_h_g (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h :
   intro M hKw hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor hKw
   intro hcap
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  obtain ⟨hlam50, hΛ50, hHreg⟩ := regime_scale_reads R hfl
   have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15ArmH_demoted h δ₀ ρ R.Hhi R.ω) hRarm
   have hhω : (0 : ℝ) ≤ (h : ℝ) * (R.ω : ℝ) := by positivity
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hhω ?_ hhi) (s15ArmH_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hhω (s15ArmH_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family at the inflated socket, arm read at `h·ω`
   have harith := s15_doorArithFrameRho_L_familyH'' (C₁ := fun _ : ℕ => (1 : ℝ)) hh hsel.hM
     hρ0 hρ1 hsel.anchor hHreg hgarm (fun _ => zero_le_one)
