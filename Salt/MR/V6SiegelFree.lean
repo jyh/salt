@@ -1472,12 +1472,8 @@ theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_of_standoff {
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family, at the LINEAR anchor
   have harith := s15_doorArithFrameRho_L_family'' (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -2409,7 +2405,7 @@ open MeasureTheory
 open Salt.Entropy.Chowla
 set_option maxHeartbeats 1000000 in
 -- The twin re-elaborates the landed proof, so it keeps the landed declaration's heartbeat room.
-/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk` (`Salt/MR/S16FlatTerminalLinear.lean:1883`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk` (`Salt/MR/S16FlatTerminalLinear.lean:1879`): its statement under the three standoff
 binders, its proof verbatim with `m4_hcap_at_door_perBlock_L_gk` replaced by their twins. -/
 theorem m4_fuse_hcap_of_capWS_L_gk_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) :

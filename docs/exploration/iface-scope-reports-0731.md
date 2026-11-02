@@ -193,17 +193,17 @@ stated on abstract sequences — it holds for EVERY tower design, not just `chow
 
 `λ₋ = log log R.Hlo`, `λ₊ = log log R.Hhi`, `Adoor M = 2^36·(L+1)` (`Salt/MR/DoorFrame.lean:84`, cast at `:96`), `doorRowFloor M = M·Adoor M` (`Salt/MR/M4DoorRow.lean:462`), `s13GK K M = 3072·2^K·M` (`Salt/MR/GLever.lean:59`).
 
-The register is `S15Sel''_gk` (`Salt/MR/S15Compose.lean:2472`), the live one on the final object (`Salt/MR/S16Budget.lean:693`).
+The register is `S15Sel''_gk` (`Salt/MR/S15Compose.lean:2459`), the live one on the final object (`Salt/MR/S16Budget.lean:693`).
 
 | face | file:line | exact inequality | what it caps | probe |
 |---|---|---|---|---|
-| **anchor** | `S15Compose.lean:2493`, frame form `M4ArithRho.lean:195` | `14λ₊ + log(1/ρ) + 33 ≤ 3.9e9·(L+1)` | `λ₊ ≤ 2.78571e8·(L+1)` — **SHARPEST register λ₊-cap** | `faceA_anchor` ✅ |
-| **lvl** | `S15Compose.lean:2499` | `26 + 14λ₊ + ⅓·loglog Q₁ + log(1/ρ) ≤ (1/12)·Adoor M·log2` | `λ₊ ≤ 2.83530e8·(L+1)` (1.8% slacker) | `faceB_lvl` ✅ |
-| **gRows** | `S15Compose.lean:2481` | `242·λ₊ ≤ Adoor M` | `λ₊ ≤ 2.83965e8·(L+1)` | `faceC_gRows` ✅ |
-| **gP1** | `S15Compose.lean:2496` | `29 + log Ct + 14λ₊ ≤ Adoor M·log2 + log ρ` | `λ₊ ≤ 3.40234e9·(L+1)` (12× slack) | `faceD_gP1` ✅ |
-| **half/winFit** | `S15Compose.lean:2488`; law at `S14Compose.lean:123,309,346` | `0.7·M·Adoor M + 3log(1/ρ) ≤ (log H₋)/2` | **the ONLY M-upper**: `L+1 ≤ λ₋/log2 − 35` | `faceE_half` ✅ |
+| **anchor** | `S15Compose.lean:2480`, frame form `M4ArithRho.lean:195` | `14λ₊ + log(1/ρ) + 33 ≤ 3.9e9·(L+1)` | `λ₊ ≤ 2.78571e8·(L+1)` — **SHARPEST register λ₊-cap** | `faceA_anchor` ✅ |
+| **lvl** | `S15Compose.lean:2486` | `26 + 14λ₊ + ⅓·loglog Q₁ + log(1/ρ) ≤ (1/12)·Adoor M·log2` | `λ₊ ≤ 2.83530e8·(L+1)` (1.8% slacker) | `faceB_lvl` ✅ |
+| **gRows** | `S15Compose.lean:2468` | `242·λ₊ ≤ Adoor M` | `λ₊ ≤ 2.83965e8·(L+1)` | `faceC_gRows` ✅ |
+| **gP1** | `S15Compose.lean:2483` | `29 + log Ct + 14λ₊ ≤ Adoor M·log2 + log ρ` | `λ₊ ≤ 3.40234e9·(L+1)` (12× slack) | `faceD_gP1` ✅ |
+| **half/winFit** | `S15Compose.lean:2475`; law at `S14Compose.lean:123,309,346` | `0.7·M·Adoor M + 3log(1/ρ) ≤ (log H₋)/2` | **the ONLY M-upper**: `L+1 ≤ λ₋/log2 − 35` | `faceE_half` ✅ |
 | **cap+frame** | `S16Budget.lean:509` + `S13CapGrid.lean:201` + `SeamCalibrationK.lean:173` | `e^{λ₊} = log H₊ ≤ log𝒫₂/12 = 2^K(L+1)M·2^46·log2` | `λ₊ ≤ 1.241e8·(L+1)` — **2.25× sharper than anchor** | `faceF0_size`, `faceF_cap` ✅ |
-| **blk** | `S15Compose.lean:2485`, def `S13FramesA.lean:1129` | `14427+64+8(L+1)+400(A·G·M)² + 1 + 18λ₊ ≤ 4⌊ε²H₊⌋` | K-upper `K ≲ e^{λ₊}/(2log2) ≳ 3.7e21` — **NOT the binder**, ~13 orders looser than the frame | analytic |
+| **blk** | `S15Compose.lean:2472`, def `S13FramesA.lean:1129` | `14427+64+8(L+1)+400(A·G·M)² + 1 + 18λ₊ ≤ 4⌊ε²H₊⌋` | K-upper `K ≲ e^{λ₊}/(2log2) ≳ 3.7e21` — **NOT the binder**, ~13 orders looser than the frame | analytic |
 | **rho / bfloor / mfloor / x0M** | `:2583/:2571/:2569/:2575` | `−log ρ ≤ 1e14`; `24Cg/δ₀ ≤ M`; `Mfl(=2) ≤ M`; `x₀ ≤ 2^{doorRowFloor M}` | no λ-content | — |
 
 **Structure in one line:** every λ₊-cap is `λ₊ ≤ c·Adoor M` (`c` = 1/246.7, 1/242.4, 1/242, 1/20.2, and 1/554 for the cap chain); the single M-upper is `log₂(M·Adoor M) ≤ 1.4427·λ₋ − const`.
@@ -246,7 +246,7 @@ In triple-log terms: register alone `logloglog H₋ ≤ log 20048 = 9.906`; with
 - The anchor's SHAPE — `DoorArithFrameRho.anchor` (`M4ArithRho.lean:195`), supplied by `doorGrade_summand2_priced_rho` (`M4ArithRho.lean:282`), which prices `1787702400·a2Level1 M·e^{14λ}` ≤ ρ/8 with `a2Level1 M = (log Q₁)^{1/3}/P₁^{1/12}`. The `3.9e9·(L+1)` **is** `Adoor M·log2/12` rounded down — so it moves *automatically* with `Adoor`, and the proof is symbolic in `Adoor M` except through `Adoor_cast`.
 
 **SELECTION-REGISTER LINES (cheap):**
-- All 12 fields of `S15Sel''_gk` (`S15Compose.lean:2472-2502`) — demands on the witness `M`, each with a named supplier. At any `λ₋ ≤ 2e4` only `anchor` and `half` are within 10× of binding.
+- All 12 fields of `S15Sel''_gk` (`S15Compose.lean:2459-2489`) — demands on the witness `M`, each with a named supplier. At any `λ₋ ≤ 2e4` only `anchor` and `half` are within 10× of binding.
 - `S16BaseScaleCap_gk` (`S16Budget.lean:509`) — **carried, underived**, at `/24` with a stated 1.5× margin over what `s16_budget_num` spends. Cheapest of all.
 - `K ≤ 170000000` — 94 sites, kernel-proved re-cuttable (P1c).
 

@@ -546,7 +546,7 @@ theorem bigXi_bounded_ceiling_of_cap (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 
 /-- **⟦THE `A`-UNIFORM FLAT HEAD AT GENERIC `ε`, LEAVES PINNED, TAIL KEPT⟧**
 (`flat_head_uniform_xceil_eps`) — `flat_head_uniform_xceil` (`XThread.lean:516`) with the pin
 `ε := 1/500` replaced by the parameter under `0 < ε ≤ 1/500` and the cap, the leaves' witnesses
-PINNED as the door-head pins them (`DoorReceipt.lean:949`, `cD3 = 1/4`, `C = 1 + 2·(2·log 4)`) so
+PINNED as the door-head pins them (`DoorReceipt.lean:945`, `cD3 = 1/4`, `C = 1 + 2·(2·log 4)`) so
 that the mint is the EXACT `ε/(256·(1 + 4·log 4))`, and the head's TAIL — the entropy collision —
 kept, which the door-head drops.  Keeping both is what forces the two transports: the `D3` floor
 and the circle-method grade are stated at the `∃`-witnesses, and each moves to the pinned witness
@@ -575,7 +575,7 @@ theorem flat_head_uniform_xceil_eps (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 /
   have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:949–958`)
+  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:945–954`)
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
@@ -1004,12 +1004,8 @@ theorem flat_conditional_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop) (Awi
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family, at the LINEAR anchor
   have harith := s15_doorArithFrameRho_L_family'' (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -1262,7 +1258,7 @@ theorem flat_v7_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop)
     R, hReps, by rw [hHlo]; exact hbase hopq, hRtow, hdes, hwin, hfireR⟩
 
 /-- **⟦THE CHAIN, AT GENERIC `ε`⟧** (`flat_chain_generic_eps`) — H1 ∘ … ∘ H7 at the cap:
-`flat_chain_generic` (`DoorReceipt.lean:1013`) with every hop's `_eps` sibling.  The cap and the
+`flat_chain_generic` (`DoorReceipt.lean:1009`) with every hop's `_eps` sibling.  The cap and the
 `δ₀` pin travel INSIDE the forms, so no hop takes them as a hypothesis and this composition is
 the landed one token for token. -/
 theorem flat_chain_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop) (h : FlatHeadFormEps ε P)

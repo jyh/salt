@@ -1548,12 +1548,8 @@ theorem flat_conditional_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : �
     le_trans (s15ArmH_demoted h δ₀ ρ R.Hhi R.ω) hRarm
   have hhω : (0 : ℝ) ≤ (h : ℝ) * (R.ω : ℝ) := by positivity
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hhω ?_ hhi) (s15ArmH_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hhω (s15ArmH_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family at the inflated socket, arm read at `h·ω`
   have harith := s15_doorArithFrameRho_L_familyH'' (C₁ := fun _ : ℕ => (1 : ℝ)) hh hsel.hM
     hρ0 hρ1 hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -1855,7 +1851,7 @@ def MRTDoorReceiptSet (h : ℕ) (Xi : XiFamily) (R : ChowlaRegime) : Prop :=
   ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / (837782 * (h : ℝ) ^ 2) ∧ MRTUniformityXiL2Set Xi R ρ
 
 /-- **⟦THE DOOR-HEAD AT `h`, AT A GENERIC SET⟧ (class B).**  `DoorReceipt.flat_door_head_xceil`
-(DoorReceipt.lean:938) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean):
+(DoorReceipt.lean:934) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean):
 the leaves PINNED — `cD3 := 1/4`, `C := h·(1 + 2·(2·log 4))`, `ε := 1/(500·h)` —
 so `δ₀ := cD3/(16·C)·ε/4 = 1/(128000·h²·(1 + 8·log 2))` closes BOTH `1/(838400·h²) ≤ δ₀`
 (`hδ₀ge`, the landed script at `h`) and `δ₀ ≤ 1/(837782·h²)` (`hδ₀le`, `C > 6.5451718·h` by
