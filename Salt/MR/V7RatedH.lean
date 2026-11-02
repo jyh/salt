@@ -10,7 +10,7 @@ import Salt.MR.KLever
 /-!
 # ⟦BLOCK E⟧ — THE `ε` SEAM AT SHIFT `h`, AND THE RATED HEADLINE `logChowla2_v7_rated_h`
 
-Wave H3's block E.  The `h` head pins `ε = 1/(500·h)` (`HloExportFlatH:253`); the rated
+Wave H3's block E.  The `h` head pins `ε = 1/(500·h)` (`HloExportFlatH:254`); the rated
 co-factor lane demanded the FLAT `1/500 ≤ R.eps`, which is **false at `h ≥ 2`**.  This file
 carries the consequences of ruling (a) (`HDoorSupply` §6–§8, re-spelled in place) up to the
 headline:
