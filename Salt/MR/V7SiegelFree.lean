@@ -20,6 +20,7 @@ import Salt.MR.ArcRegimeWeaken
 import Salt.Entropy.Chowla.RegimeHeadroom
 import Salt.MR.RegimeSupplyFacts
 import Salt.Entropy.Chowla.HeadFloors
+import Salt.MR.RegimeScaleReads
 
 /-!
 # The v7 family of log-Chowla theorems under a Siegel standoff (O13)
@@ -56,7 +57,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_head_uniform_xceil` (`XThread.lean:515`): its statement under the
+/-- **⟦STANDOFF TWIN⟧** `flat_head_uniform_xceil` (`XThread.lean:516`): its statement under the
 three standoff binders, its proof verbatim with `hreduce_holds_final_bounded` ·
 `primeWindow_sum_inv_ge_bounded` replaced by their twins. -/
 theorem flat_head_uniform_xceil_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -182,7 +183,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_socket_uniform_xceil` (`XThread.lean:633`): its statement under the
+/-- **⟦STANDOFF TWIN⟧** `flat_socket_uniform_xceil` (`XThread.lean:634`): its statement under the
 three standoff binders, its proof verbatim with `flat_head_uniform_xceil` replaced by their twins.
 -/
 theorem flat_socket_uniform_xceil_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -242,7 +243,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_doorL2_uniform_xceil_khoist` (`XThread.lean:685`): its statement under
+/-- **⟦STANDOFF TWIN⟧** `flat_doorL2_uniform_xceil_khoist` (`XThread.lean:686`): its statement under
 the three standoff binders, its proof verbatim with `flat_socket_uniform_xceil` replaced by their
 twins. -/
 theorem flat_doorL2_uniform_xceil_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -310,7 +311,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_road_uniform_xceil_khoist` (`XThread.lean:745`): its statement under
+/-- **⟦STANDOFF TWIN⟧** `flat_road_uniform_xceil_khoist` (`XThread.lean:746`): its statement under
 the three standoff binders, its proof verbatim with `flat_doorL2_uniform_xceil_khoist` replaced by
 their twins. -/
 theorem flat_road_uniform_xceil_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -392,7 +393,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_capstone_uniform_win_xceil_kwide_khoist` (`XThread.lean:825`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_capstone_uniform_win_xceil_kwide_khoist` (`XThread.lean:826`): its
 statement under the three standoff binders, its proof verbatim with `flat_road_uniform_xceil_khoist`
 replaced by their twins. -/
 theorem flat_capstone_uniform_win_xceil_kwide_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -614,7 +615,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_conditional_uniform_win_xceil_kwide_khoist` (`XThread.lean:1110`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_conditional_uniform_win_xceil_kwide_khoist` (`XThread.lean:1111`): its
 statement under the three standoff binders, its proof verbatim with
 `flat_capstone_uniform_win_xceil_kwide_khoist` replaced by their twins. -/
 theorem flat_conditional_uniform_win_xceil_kwide_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -696,23 +697,15 @@ theorem flat_conditional_uniform_win_xceil_kwide_khoist_of_standoff {cS : ℝ} (
   intro M hsel hKw
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor hKw
   intro hcap
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  obtain ⟨hlam50, hΛ50, hHreg⟩ := regime_scale_reads R hfl
   have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family, at the LINEAR anchor
   have harith := s15_doorArithFrameRho_L_family'' (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)

@@ -11,9 +11,10 @@ import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
 import Salt.Entropy.Chowla.WidthWindow
 import Salt.MR.StridePins
+import Salt.MR.RegimeScaleReads
 
 -- Needed to transcribe B1/B2/H0/hop1's proofs, the same private names
--- `StridePairReceiptG12b.lean:32-34` opens for the identical purpose.
+-- `StridePairReceiptG12b.lean:33-35` opens for the identical purpose.
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
 open private flatRootCapH_arc_k from Salt.MR.S16ComposeLH
@@ -92,11 +93,11 @@ def xTightCeil (ε : ℚ) (Hhi : ℕ) : ℝ :=
     + 2 * Real.log (((4 ^ ⌊ε ^ 2 * (Hhi : ℚ)⌋₊ : ℕ) : ℝ) + 1)
 
 /-- **⟦S-1⟧ THE TIGHT CEILING WITH THE ARM'S SLACK** — what survives hop 3's rider inflation
-(`StridePairReceiptG12b.lean:588`, `g ↦ s15ArmH h δ₀ ρ + g`): `log (a · s15ArmH …) ≤ 9 + log ω +
+(`StridePairReceiptG12b.lean:589`, `g ↦ s15ArmH h δ₀ ρ + g`): `log (a · s15ArmH …) ≤ 9 + log ω +
 log h + H₊/10²⁰` (`s15ArmH_log_le_g12b`) with `log ω ≤ xTightCeil ε H₊` (the (i-ω) export) and
 `log h ≤ 9`, plus `log 2` for the sum's larger summand.  The shift's cost is the second `9` in the
 `18`, so the definition takes NO shift argument: at C1 the operative shift is `h`, at C2 and the
-crown it is `a·h` (`StridePairReceiptG12b.lean:1069`); both are covered by `log (·) ≤ 9`. -/
+crown it is `a·h` (`StridePairReceiptG12b.lean:1062`); both are covered by `log (·) ≤ 9`. -/
 def xTightCeilArm (ε : ℚ) (Hhi : ℕ) : ℝ :=
   xTightCeil ε Hhi + 18 + Real.log 2 + ((Hhi : ℕ) : ℝ) / 10 ^ 20
 
@@ -1104,24 +1105,16 @@ theorem flat_conditional_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.
   intro x' hx' hadvd hxc M hKw hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire x' hx' hadvd hxc M hsel.mfloor hKw
   intro hcapx
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  obtain ⟨hlam50, hΛ50, hHreg⟩ := regime_scale_reads R hfl
   have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
   have hRarm' : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ x' := le_trans hRarm hx'
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ x' :=
     le_trans (s15ArmH_demoted h δ₀ ρ R.Hhi R.ω) hRarm'
   have hhω : (0 : ℝ) ≤ (h : ℝ) * (R.ω : ℝ) := by positivity
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ ((x' : ℕ) : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hhω ?_ hhi) (s15ArmH_rho hRarm')
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ ((x' : ℕ) : ℝ) :=
+    gArm_of_scale hhω (s15ArmH_rho hRarm') hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family at the inflated socket, arm read at `h·ω`
   have harith := s15_doorArithFrameRho_L_familyH'' (C₁ := fun _ : ℕ => (1 : ℝ)) hh hsel.hM
     hρ0 hρ1 hsel.anchor hHreg hgarm (fun _ => zero_le_one)
