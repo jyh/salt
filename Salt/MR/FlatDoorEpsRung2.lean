@@ -4433,7 +4433,7 @@ derived mechanically from the source `def`s rather than typed:
 * after every `budgetAFlat (ε : ℝ) β ≤ A →`, the new binder `10 + 2 * Real.log (c : ℝ) ≤ A`, paid
   once by the ninth arm on the design constant. -/
 
--- derived from `FlatHeadFormEps` (`FlatDoorEpsChain.lean:140–157` @ a5bb7de0)
+-- derived from `FlatHeadFormEps` (`FlatDoorEpsChain.lean:140–157`)
 def FlatHeadFormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (K δ₀ β : ℝ) (Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 283 * (c : ℝ) ^ 20 ∧ 0 < δ₀ ∧
       1 ≤ c ∧ (1 : ℚ) / (500 * (c : ℚ)) ≤ ε ∧ (1 : ℝ) / (838400 * (c : ℝ)) ≤ δ₀ ∧ 0 < β ∧
@@ -4454,7 +4454,7 @@ def FlatHeadFormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :=
             ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ →
               P R
 
--- derived from `FlatSocketFormEps` (`FlatDoorEpsChain.lean:159–186` @ a5bb7de0)
+-- derived from `FlatSocketFormEps` (`FlatDoorEpsChain.lean:159–186`)
 def FlatSocketFormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (K δ₀ β : ℝ) (Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 283 * (c : ℝ) ^ 20 ∧ 0 < δ₀ ∧
       1 ≤ c ∧ (1 : ℚ) / (500 * (c : ℚ)) ≤ ε ∧ (1 : ℝ) / (838400 * (c : ℝ)) ≤ δ₀ ∧ 0 < β ∧
@@ -4484,7 +4484,7 @@ def FlatSocketFormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :
                   K * (2 * Bsieve H) + 2 * Binsert ≤ δ₀) →
                 P R)
 
--- derived from `FlatDoorL2FormEps` (`FlatDoorEpsChain.lean:188–209` @ a5bb7de0)
+-- derived from `FlatDoorL2FormEps` (`FlatDoorEpsChain.lean:188–209`)
 def FlatDoorL2FormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (Cg : ℝ) (Kb δ₀ β : ℝ) (Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
       0 < ε ∧ 0 < Kb ∧ Kb ≤ 2 ^ 283 * (c : ℝ) ^ 20 ∧ 0 < δ₀ ∧
@@ -4509,7 +4509,7 @@ def FlatDoorL2FormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :
                 2 * Kb * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ →
                   P R
 
--- derived from `FlatRoadFormEps` (`FlatDoorEpsChain.lean:211–243` @ a5bb7de0)
+-- derived from `FlatRoadFormEps` (`FlatDoorEpsChain.lean:211–243`)
 def FlatRoadFormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (Cg : ℝ) (Kb δ₀ β : ℝ) (Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
       0 < ε ∧ 0 < Kb ∧ Kb ≤ 2 ^ 283 * (c : ℝ) ^ 20 ∧ 0 < δ₀ ∧
@@ -4545,7 +4545,7 @@ def FlatRoadFormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) : Prop :=
                 M4ChiSummedFreeRow_L_gk K R M RS →
                   P R
 
--- derived from `FlatCapstoneFormEps` (`FlatDoorEpsChain.lean:245–336` @ a5bb7de0)
+-- derived from `FlatCapstoneFormEps` (`FlatDoorEpsChain.lean:245–336`)
 def FlatCapstoneFormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
     ∃ (Cg : ℝ) (Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < Kc ∧ 0 < δ₀ ∧ 1 ≤ Mfl ∧
@@ -4639,7 +4639,7 @@ def FlatCapstoneFormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (Awin 
                           (doorRhoOfDelta (s12DeltaSock δ₀ Kc))) →
                         P R
 
--- derived from `FlatConditionalFormEps` (`FlatDoorEpsChain.lean:338–360` @ a5bb7de0)
+-- derived from `FlatConditionalFormEps` (`FlatDoorEpsChain.lean:338–360`)
 def FlatConditionalFormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
     ∃ (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 1 ≤ Mfl ∧
@@ -4664,7 +4664,7 @@ def FlatConditionalFormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (Aw
                  K ≤ 170000000 * M →
                 S15CrossingBound_L_gk K R M → P R
 
--- derived from `FlatKswinFormEps` (`FlatDoorEpsChain.lean:362–388` @ a5bb7de0)
+-- derived from `FlatKswinFormEps` (`FlatDoorEpsChain.lean:362–388`)
 def FlatKswinFormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
     ∃ (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 1 ≤ Mfl ∧
@@ -4693,7 +4693,7 @@ def FlatKswinFormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (Awin : �
               S16BaseScaleCap96_L_gk K R (flatDoorM A) →
                 P R))
 
--- derived from `V7RatedFormEps` (`FlatDoorEpsChain.lean:390–404` @ a5bb7de0)
+-- derived from `V7RatedFormEps` (`FlatDoorEpsChain.lean:390–404`)
 def V7RatedFormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
     ∃ (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
