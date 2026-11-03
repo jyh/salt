@@ -552,7 +552,7 @@ the hop is free — this twin takes `K ≤ 1.7·10⁸·M` directly, and at `K = 
 `M = flatDoorM A` that hypothesis is `KlevF_le_wideCeiling`.
 
 ⟦THE ROOT OF P2(b)⟧  Every `hK : K ≤ 170000000` on the L chain is spent, ultimately, here (via
-`M4RowSpineLinear:1493` and `A3Middle` · `a2Rows_of_capfree3_end'_gk` / `a2Rows_of_capfree3'_gk`); this twin is where the propagation of the
+`m4_hrowsSlot_at_door_zero_L_gk` (`M4RowSpineLinear`) and `A3Middle` · `a2Rows_of_capfree3_end'_gk` / `a2Rows_of_capfree3'_gk`); this twin is where the propagation of the
 weakened ceiling starts. -/
 theorem calFrameK_doorH1_at_L_gk_kwide (K M Xd : ℕ) (hM : 1 ≤ M) (hK : K ≤ 170000000 * M)
     (hXd : calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd) :

@@ -47,7 +47,7 @@ those hooks through the uniform lane and mints
 * **`Ct`** — `m4_hrowsSlot_at_door_zero'_L_gk_ceiling` drops into
   `m4_closure_fuse_zero'_const_nonneg_L_gk` (§5 here), whose twin then feeds §6–§9.
 * **`Kq`** — ⟦THE ONE CORRECTION TO THE MISSION BRIEF⟧ the `Kq` of the terminal's `∃`-prefix
-  is **not** the one `S16Uniform` :654 opens: that `obtain`'s payload is DISCARDED (`… , -⟩`)
+  is **not** the one `S16Uniform` :638 opens: that `obtain`'s payload is DISCARDED (`… , -⟩`)
   and its five constants are re-exported only to be dropped again by `flat_conditional_*`.
   The terminal's `Kq` is minted by `S16FlatFinal.s15_crossing_supplied_L_gk`, off the LINEAR
   wire `S16FlatTerminalLinear.m4_fuse_hcap_of_capWS_L_gk` → `M4CapWireLinear.
@@ -118,24 +118,8 @@ theorem flat_head_uniform_ceiling :
   have hCnum : C ≤ 655 / 100 := by
     rw [hlog4eq] at hCcap; linarith
   -- ⟦THE PIN⟧ `ε := 1/500`
-  obtain ⟨ε, hεdef⟩ : ∃ e : ℚ, e = 1 / 500 := ⟨_, rfl⟩
-  have hεR : ((ε : ℚ) : ℝ) = 1 / 500 := by rw [hεdef]; norm_num
-  have hεR0 : (0 : ℝ) < (ε : ℝ) := by rw [hεR]; norm_num
-  have hεQpos : 0 < ε := by exact_mod_cast hεR0
-  have hεcE : (ε : ℝ) ≤ cE / (32 * Real.log 4) := by
-    rw [hεR, le_div_iff₀ (by positivity), hlog4eq]
-    linarith
-  have hε_half_lt : (ε : ℝ) < 1 / 2 := by rw [hεR]; norm_num
-  have hε_D3 : (ε : ℝ) ≤ cD3 / 16 := by
-    rw [hεR, le_div_iff₀ (by norm_num : (0 : ℝ) < 16)]; linarith
-  have hε_D3C : (ε : ℝ) ≤ cD3 / (16 * C) := by
-    rw [hεR, le_div_iff₀ (by positivity : (0 : ℝ) < 16 * C)]; linarith
-  have hεQ1 : ε ≤ 1 / 2 := by rw [hεdef]; norm_num
-  -- ⟦THE `δ₀` FLOOR⟧ the binding arm at its worst case
-  have hδ₀ge : (1 : ℝ) / 838400 ≤ cD3 / (16 * C) * (ε : ℝ) / 4 := by
-    have hkey : (5 : ℝ) / 2096 ≤ cD3 / (16 * C) := by
-      rw [le_div_iff₀ (by positivity : (0 : ℝ) < 16 * C)]; linarith
-    rw [hεR]; linarith
+  obtain ⟨ε, hεdef, hεR, hεR0, hεQpos, hεcE, hε_half_lt, hε_D3, hε_D3C, hεQ1, -, hδ₀ge⟩ :=
+    eps500_pin_facts hcEge hcD3ge hC hCnum
   -- ⟦THE ONE EDIT⟧ the count hook at the pin, carrying `Kc ≤ 2^539`
   obtain ⟨K, hK, hKb, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded_ceiling_of_pin ε hεdef
   obtain ⟨β, hβdef⟩ : ∃ b : ℝ, b = cD3 * (ε : ℝ) / (144 * Real.log 4) := ⟨_, rfl⟩

@@ -17,6 +17,7 @@ import Salt.MR.FlatDesignBound
 import Salt.Entropy.Chowla.RegimeHeadroom
 import Salt.Entropy.Chowla.HeadFloors
 import Salt.MR.RegimeScaleReads
+import Salt.MR.SocketFrame
 
 /-!
 # THE UNIFORM CAPSTONES AT SHIFT `h` — wave H3, block C
@@ -112,13 +113,9 @@ theorem m4_hrowsSlot_at_door_zero'H_L_gk_ceiling (h K : ℕ) (hK : K ≤ 1700000
   obtain ⟨Ct, hCt, hCtb, hrows⟩ := m4_hrowsSum_chi_door_zero'_L_gk_bounded K hK
   refine ⟨Ct, hCt, le_trans hCtb six_exp_fourteen_le_two_pow_23, ?_⟩
   intro Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap H L q j A s hb χ T hT hTX2 hTgate hTll
-  have hq : 0 < q := hb.2.2.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  obtain ⟨hq, hA, hAs, hAsR, hN4⟩ := Salt.MR.socketFrame_facts s hb
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hbase H L q j A s hb
-  have hAs : 0 < A + s := lt_of_lt_of_le hA (Nat.le_add_right A s)
-  have hAsR : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by exact_mod_cast hAs
-  have hN4 : (((2 * (A + s) : ℕ)) : ℝ) ≤ 4 * (((A + s : ℕ)) : ℝ) := by push_cast; linarith
   have hslot := hrows Cp hCp q cU bU hb1 hc1
     (2 * (A + s)) (A + s) M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (ε (A + s)) (t₁ q)
     hM hD.Q2_le le_rfl hN4 hD.coefWS hD.reg hD.big
@@ -228,7 +225,7 @@ set_option maxHeartbeats 1600000 in
 -- Same cause as the landed capstone: the ~120-line residue re-elaborates against the re-cut
 -- prefix, here at the inflated socket and with the cap threaded through every gate.
 /-- **⟦THE `A`-UNIFORM CAPSTONE, WINDOWED AND PRICED, AT SHIFT `h`⟧**
-(`flat_capstone_uniform_win_ceiling_h`) — `S16Compose:478` on block U's `A`-uniform road and
+(`flat_capstone_uniform_win_ceiling_h`) — `S16Compose:463` on block U's `A`-uniform road and
 block W's windowed rider, carrying `Kc ≤ 2^539` and `Ct ≤ 2^23`, at `ε` pinned by
 `1/(500·h)` and `δ₀` by `1/(838400·h²)`.  ⛔ Gate 7 is routed off `loglogFloor50`, NOT
 `arcFloor36` — see the file header. -/
@@ -451,7 +448,7 @@ set_option maxHeartbeats 1000000 in
 -- Same cause as the landed conditional: the residue re-elaborates against the prefix.
 -- 2026-10-08, the XY debt lane, family 44: nine calls at the cap 9 (eight twins); the rest at cap 7
 /-- **⟦THE `A`-UNIFORM CONDITIONAL, WINDOWED AND PRICED, AT SHIFT `h`⟧**
-(`flat_conditional_uniform_win_ceiling_h`) — `S16Compose:717` on §2, with wave H2b's `h` fire
+(`flat_conditional_uniform_win_ceiling_h`) — `S16Compose:702` on §2, with wave H2b's `h` fire
 list (`S16FlatTerminalLinearLH` §5) substituted for the `h = 1` one.
 
 ⭐ **`S13BandGate'_L_gk` DISSOLVES RATHER THAN PORTING.**  At `h = 1` the band register is
@@ -607,13 +604,9 @@ theorem m4_hrowsSlot_at_door_zero'H_L_gk_ceiling_kwide (h K : ℕ) :
   refine ⟨Ct, hCt, le_trans hCtb six_exp_fourteen_le_two_pow_23, ?_⟩
   intro Cp hCp R M ε cU bU t₁ hM hKw hb1 hc1 hbase hcap H L q j A s hb χ T hT hTX2 hTgate
     hTll
-  have hq : 0 < q := hb.2.2.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  obtain ⟨hq, hA, hAs, hAsR, hN4⟩ := Salt.MR.socketFrame_facts s hb
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hbase H L q j A s hb
-  have hAs : 0 < A + s := lt_of_lt_of_le hA (Nat.le_add_right A s)
-  have hAsR : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by exact_mod_cast hAs
-  have hN4 : (((2 * (A + s) : ℕ)) : ℝ) ≤ 4 * (((A + s : ℕ)) : ℝ) := by push_cast; linarith
   have hslot := hrows Cp hCp q cU bU hb1 hc1
     (2 * (A + s)) (A + s) M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (ε (A + s)) (t₁ q)
     hM hKw hD.Q2_le le_rfl hN4 hD.coefWS hD.reg hD.big
@@ -1572,7 +1565,7 @@ _gen_ceiling` · `XThread.chowlaRegimeFlat_exists_param_head_xceil`).  So the `h
 head is built HERE, beside its `h = 1` sibling, off the one-line public re-export appended to
 `HloExportFlatH` §5.
 
-⭐ **THE ARITHMETIC WAS ALREADY PAID.**  H2a word 4's `xceil_arm_split_h` (XThread:1147) is this
+⭐ **THE ARITHMETIC WAS ALREADY PAID.**  H2a word 4's `xceil_arm_split_h` (XThread:1132) is this
 row's `ε`-margin repair: at `ε = 1/(500·h)` the compose's margin is `H₊/(250000·h²)` against the
 arm's `H₊/10^20`, and the `log 2 + log h` is bought from `50 ≤ loglog H₊` — a tower against a
 demand of `2.31·10^12` at `h = 1096`.  Nothing in this section re-opens it.
@@ -2617,7 +2610,7 @@ set_option maxHeartbeats 1600000 in
 -- as the landed original: the design constant's arm census re-elaborates against the terminal's
 -- own prefix
 /-- **⟦THE INEFFECTIVE LIMIT, `v3`, AT SHIFT `h`⟧** (`logChowla2_ineffective_v3_h`) —
-`S16Compose:1106` on §7, with the band rider discharged from block W. -/
+`S16Compose:1083` on §7, with the band rider discharged from block W. -/
 theorem logChowla2_ineffective_v3_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (A₀ : ℝ) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),

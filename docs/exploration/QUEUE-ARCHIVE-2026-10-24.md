@@ -1189,7 +1189,7 @@
    ⛔ **PLACED AT THE END OF THE LIST, DELIBERATELY, not beside its three family siblings at `:163-165`**
    (`log_chowla_two_shell`, `…_xi`, `…_xi_h` — it alone of the four was ungated): `#audit_axioms`
    ABORTS the remainder of its list on a throw, so a name whose axioms nobody has measured belongs
-   where a failure can mask nothing. *Consumers verified before the edit: `HloExport.lean:362`,
+   where a failure can mask nothing. *Consumers verified before the edit: `HloExport.lean:363`,
    `HloExportFlat.lean:197`.*
 
 5b. ✅ **LANDED `c4a1a237` (08/20 16:15, math) — DO NOT DISPATCH.** Name the untwisted λ trophy — one theorem composing
@@ -1895,7 +1895,7 @@ RESURRECTS THEM:**
    `M4ChiSummedFreeRow` (~30 sites/18 files) ← `m4_socket_discharged_bandfree` (`M4SocketDischarge.lean:412`)
    ← `DoorCapErrWS` ← `S13CapGatePerBlock_L_gk` **37 fields, PRODUCED** (`S13CapGateLinear.lean:939`) ← D7.
    ⛔ **`M4RowMeanSq_L`'s famous "NO PRODUCER" IS ON A DIFFERENT ROAD** (the `_L` ladder), and
-   `M4SecondRoad.lean:679` says of the split road: *"⟦WALL-D/F5's `DoorRowCarriedT0` bundle is not reached
+   `M4SecondRoad.lean:703` says of the split road: *"⟦WALL-D/F5's `DoorRowCarriedT0` bundle is not reached
    at all.⟧"* ⇒ ***A READER TAKING "THE ROAD BOTTOMS OUT" UNQUALIFIED PRICES THE SOCKET AT DEPTH 3 WHEN
    THE SPLIT ROAD RUNS AT LEAST 7.*** The honest first gap is `hcap` at **depth 4** — landed supplier,
    **not instantiated** (`All.lean:6032`).
@@ -7336,7 +7336,7 @@ numbering is UNVERIFIED.
    the arm evidence flagged). THE RE-TIER CONDITION IS *NOT* MET — ITEM STAYS AT P3.**
    ```
      δ₀   ∝ ε                                              LINEAR   (helm)
-     K    = 9/2, ε absent   HloExport.lean:159, :176        FREE     (evidence)
+     K    = 9/2, ε absent   HloExport.lean:160, :177        FREE     (evidence)
      Hcap := max 4000000 (max A (4·⌈1/ε⌉₊⁴))                QUARTIC  (evidence)
      A    ⊇ budgetFloor ε (cD3·ε/(144·log 4))                        (helm, traced)
             budgetFloor ε β := ⌈exp(exp(exp(budgetX ε β)))⌉₊   BudgetCore.lean:30

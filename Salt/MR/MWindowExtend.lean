@@ -11,7 +11,7 @@ import Salt.MR.FarStar
 
 `MWindowBridge.M_window_bridge_seam` (:323) supplies the station's distance floor on
 MRT's box `|v| ≤ X`.  The station does not consume it there.  **The consumption site,
-read:** `SPartStation.dilated_scale_grade` (:540–558) uses `hM₀` at the frequency
+read:** `SPartStation.dilated_scale_grade` (:407–425) uses `hM₀` at the frequency
 `v = t − t₀` for every `t` in the dilated scale's recentring window
 `|t − (t₀+t₁)| ≤ T*(k, log k)`, so the frequencies actually touched are
 
@@ -251,7 +251,7 @@ The floor's range is `|v| ≤ seamGateRstar X T`, which EXCEEDS `X` — that is 
 the radius the floor is proved on.  The scale gate is `e^e ≤ X` (needed only to put `2X`
 above `Tstar_mono`'s own `e^e`); the station runs at `X ≥ e^{8192}`.
 
-CONSUMER-CHECKED against `SPartStation.seam_ball_leg_station_M_gen` (:879): the pair below
+CONSUMER-CHECKED against `SPartStation.seam_ball_leg_station_M_gen` (:746): the pair below
 discharges that stone's `hRad`/`hM₀` slots at `Rad := seamGateRstar X T` and `M₀ :=` the
 `min`, leaving its other binders untouched.  The check is not carried here — importing the
 station would drag `SPartStation` into this file's surface, which is `MWindowBridge`

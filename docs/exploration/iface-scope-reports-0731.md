@@ -156,7 +156,7 @@ for **every** `k ≥ 1`. Its ONLY `k`-dependence is the error `ε²log4/k`. `tow
 
 **(c) And it is then killed by S1's floor, on the SAME line.** Two independent kills:
 
-*Kill 1 — the ε-axis (the shallow road's own price).* The `k=2` step needs `ε² ≲ 1/(2·log4·log H·logloglog H)`, i.e. `ε ≲ e^{−λ₋/2}` (at `λ₋ = 277`, `ε ≤ e^{−139}`). `budgetX` (`BudgetCore.lean:21`) carries `1/ε⁶`, and its β is `cD3·ε/(144·log 4)` (`HloExport.lean:433,464`; `SpineFinal.lean:604`), making it `ε^{−8}`. KERNEL (`P3.lean:19 probe_shallow_budget_kill`): no `(λ,ε,β)` satisfies both, at **every** `λ ≥ 1` — the `ε^{−6}` alone suffices, `β` never used. KERNEL (`P3.lean:67 probe_shallow_budget_price`): the induced `budgetX ≥ 24000·e^{3λ}`, so the floor then demands `λ ≥ exp(24000·e^{3λ})`. **No fixed point, by an exponential, at every λ.**
+*Kill 1 — the ε-axis (the shallow road's own price).* The `k=2` step needs `ε² ≲ 1/(2·log4·log H·logloglog H)`, i.e. `ε ≲ e^{−λ₋/2}` (at `λ₋ = 277`, `ε ≤ e^{−139}`). `budgetX` (`BudgetCore.lean:21`) carries `1/ε⁶`, and its β is `cD3·ε/(144·log 4)` (`HloExport.lean:434,464`; `SpineFinal.lean:604`), making it `ε^{−8}`. KERNEL (`P3.lean:19 probe_shallow_budget_kill`): no `(λ,ε,β)` satisfies both, at **every** `λ ≥ 1` — the `ε^{−6}` alone suffices, `β` never used. KERNEL (`P3.lean:67 probe_shallow_budget_price`): the induced `budgetX ≥ 24000·e^{3λ}`, so the floor then demands `λ ≥ exp(24000·e^{3λ})`. **No fixed point, by an exponential, at every λ.**
 
 *Kill 2 — the design-independent one (this is the giant).* Forget `ε`. Any tower has multiplier `≥ 2` per level (`step_ineq_3_11` needs the `k`-fold block structure; `k=1` is a no-op in the telescope), and every level pays at most the landed summand `1/(2 L_j v_j)`. KERNEL (`P4.lean:49 probe_window_floor`): then
 > **`λ₊ − λ₋ ≥ (15/8)·(log 2)²·logloglog H₋ = 0.90085 · logloglog H₋`**
@@ -174,7 +174,7 @@ stated on abstract sequences — it holds for EVERY tower design, not just `chow
 ## (5) DIRECTIONS, WITH CLASS AND HONEST PRICE
 
 1. **THE SHALLOW TOWER (`k = 2`), as a construction — SOUND, class C, ~800–1200 ln, and it BUYS NOTHING ALONE.** New recursion + a `towerDropSum₂` potential `u = loglog H` (easier than the landed `w = log v`: `P2.lean:78` is the whole per-step law), new builder, re-point `hJcon`. Dissolves the 7.1448 width collision at `λ₋ ≤ 1690` and the S16 `K`-collision at `λ₋ ≤ 417`. **Priced only as a package with (2) or (3); alone it dies at the ε-price (`P3`).**
-2. **BREAK THE ε-COUPLING (split the residue-window ε from the budget's ε).** The tower's ε is the `𝒫_H` window parameter; the budget's is the same `R.eps` field (`HloExport.lean:464`). A two-ε regime is the only way the shallow road survives Kill 1. Note (favourable, analysis-tier): the Mertens input `cD3/log H ≤ Σ_{p∈𝒫_H} 1/p` (`HloExport.lean:248`) is a DYADIC window sum ≈ `log2/log(ε²H)` — first-order **ε-independent**, so shrinking ε does not obviously kill the D3 leg. **Class D. Does not touch Kill 2.**
+2. **BREAK THE ε-COUPLING (split the residue-window ε from the budget's ε).** The tower's ε is the `𝒫_H` window parameter; the budget's is the same `R.eps` field (`HloExport.lean:465`). A two-ε regime is the only way the shallow road survives Kill 1. Note (favourable, analysis-tier): the Mertens input `cD3/log H ≤ Σ_{p∈𝒫_H} 1/p` (`HloExport.lean:249`) is a DYADIC window sum ≈ `log2/log(ε²H)` — first-order **ε-independent**, so shrinking ε does not obviously kill the D3 leg. **Class D. Does not touch Kill 2.**
 3. **RE-DERIVE `budgetX`'s `ε^{-6}` / the fact-4 ratio line.** The single highest-value object in the campaign under my face: it is what stands between an additive tower and the register's window, and it is the ONLY surviving wall after (1). But `budgetX` is a Captain-tier freeze ("enlargeable, never shrinkable"), and Kill 2 shows even `budgetX`'s DEFINITIONAL minimum `270270` (forced by `ε ≤ 1/2` alone) overshoots the register's `7.94` by 34043×. **So the re-derivation must beat 270270 → 7.94, i.e. kill the `1/ε⁶` factor entirely, not shrink it. Class D, and the target is a shape not a constant.**
 4. **Sharpen the exported `K` (5 → 9/2 → 4.42).** Class A/B, ~30 ln. **DO NOT FLY** (1.8% of exponent).
 5. **IMPOSSIBLE AT THIS DESIGN — name it as such.** Any road that keeps (i) `step_ineq_3_11`'s `ε²·log4/k` error shape, (ii) the `log 2` entropy ceiling, and (iii) `budgetFloor` in the `H₋` floor, has `λ₊ − λ₋ ≥ 243243` as a THEOREM (`P5.lean probe_the_one_line`). No tower redesign, no `C₀`, no `a`, no `J`, no multiplier schedule, no exponent re-export touches it. The register must supply a window of `≥ 243243` in `loglog H`, or one of (i)/(ii)/(iii) must go.
@@ -296,8 +296,8 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 | field | Regime.lean | couples | where read (Salt/MR) | direction |
 |---|---|---|---|---|
 | `hPHheadroom` `8·(4^⌊ε²H₊⌋)²·ω ≤ x` | :116 | **H₊ ↔ x/ω** | `S13MSelect2.lean:112` (`s13_socketBase_xscale`), `:518`, `:634`; `S13FramesA.lean:1039`, `:1528`; `DoorDischarge.lean:113`; `DoorFloor1500.lean:160` | **x-FLOOR, exponential in H₊** |
-| `hheadroom` `Hhi ≤ x/ω` | :86 | H₊ ↔ x/ω | `S14Compose.lean:315` (inside the socket witness), `M4Close.lean:485/731/911/994`, `M4BridgeCover.lean:373`, `HloExportMR.lean:144/354/530/672`, `M4DoorL2.lean:160/623/697/855` | x-FLOOR, linear in H₊ |
-| `hheadroom'` `8H₊(log H₊)² ≤ x/ω` | :103 | H₊ ↔ x/ω | `M4SecondRoad.lean:535`, `:1185` | x-FLOOR, poly in H₊ |
+| `hheadroom` `Hhi ≤ x/ω` | :86 | H₊ ↔ x/ω | `S14Compose.lean:315` (inside the socket witness), `M4Close.lean:485/731/911/994`, `M4BridgeCover.lean:373`, `HloExportMR.lean:144/344/510/642`, `M4DoorL2.lean:160/623/697/855` | x-FLOOR, linear in H₊ |
+| `hheadroom'` `8H₊(log H₊)² ≤ x/ω` | :103 | H₊ ↔ x/ω | `M4SecondRoad.lean:559`, `:1185` | x-FLOOR, poly in H₊ |
 | `hHlo_floor` `4·10⁶ ≤ Hlo` | :80 | H₋ | ~81 sites (`S13CapFloor`, `S14Compose:112/235/353/514`, …) | H₋ floor |
 | `hHlohi` `Hlo ≤ Hhi` | :70 | H₋ ↔ H₊ | ~54 sites | window |
 | `hPNTwindow` `√H₋ ≤ ε²H₋/2` | :127 | H₋ ↔ ε | `S13MSelect2.lean:165` (`s13_socketBase_mFloor`), `S13FramesA.lean:343` | H₋/ε |
@@ -312,7 +312,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 
 **And the one x-CEILING:** `S16BaseScaleCap_gk` (`S16Budget.lean:509`) — `∀ H L q j A s, SocketBase R M H L q j A s → loglog(A+s) ≤ log 𝒫₂/24`. Carried, never discharged (`S16Budget.lean:96`, `:787`).
 
-**Why the base is x-scale at all** (the supply side, named): `doorLadder_ge_x_div_four_omega` (`M4SecondRoad.lean:449`) — every cover rung is ≥ ⌊x/(4ω)⌋, the window's own lower endpoint. That is the physical content of `SocketBase`'s x-scale field.
+**Why the base is x-scale at all** (the supply side, named): `doorLadder_ge_x_div_four_omega` (`M4SecondRoad.lean:473`) — every cover rung is ≥ ⌊x/(4ω)⌋, the window's own lower endpoint. That is the physical content of `SocketBase`'s x-scale field.
 
 **Kernel probe (B):** `probe_cap_is_x_ceiling` — the cap instantiated at the landed inhabitation witness `s14_socketBase_witness` (`S14Compose.lean:311`, tuple `H=L=Hhi, q=1, j=doorRowFloor M, A=2·R.x, s=0`) yields literally `loglog(2·R.x) ≤ log 𝒫₂/24`. The family is non-vacuous on the real chain (`S14Compose.lean:400-402` forces `2^{doorRowFloor M} ≤ R.Hlo` from `MSelect'.winFit`), so this is a genuine ceiling, not a vacuity.
 
@@ -339,7 +339,7 @@ Second consumer, spine-side: `regime_W_headroom_of_floor` (`DoorDischarge.lean:4
 
 ## 3. THE PIGEONHOLE FACE
 
-**Re-verified — `∃H` has no index control, at the statement.** `entropy_decrement` (`Decrement.lean:49-55`): `∃ H, R.Hlo ≤ H ∧ H ≤ R.Hhi ∧ R.a ∣ H ∧ I[…] ≤ H/(log H·logloglog H)`. Six consumers, all `obtain ⟨H, hlo, hhi, _hdvd, hMI⟩` (`SpineFinal.lean:462/558/794/921/1061/1417`, `HloExport.lean:454/589`, `TowerDischarge.lean:117`) — the divisibility conjunct is discarded at every one.
+**Re-verified — `∃H` has no index control, at the statement.** `entropy_decrement` (`Decrement.lean:49-55`): `∃ H, R.Hlo ≤ H ∧ H ≤ R.Hhi ∧ R.a ∣ H ∧ I[…] ≤ H/(log H·logloglog H)`. Six consumers, all `obtain ⟨H, hlo, hhi, _hdvd, hMI⟩` (`SpineFinal.lean:462/558/794/921/1061/1417`, `HloExport.lean:455/573`, `TowerDischarge.lean:117`) — the divisibility conjunct is discarded at every one.
 
 **But it is not dead at *source*.** `decrement_exists_of_tower` (`Endpoints.lean:98`) obtains `⟨j, hjJ, hb⟩` and packages the witness as **`chowlaTower R.C0 R.a R.Hlo j`** (`Endpoints.lean:126-129`). The index exists in the proof term and is thrown away in the statement. An index-carrying restatement is a mechanical **class A/B** re-derivation.
 
@@ -388,7 +388,7 @@ Budget demand: `logloglog H ≥ budgetX(1/500, cD3·ε/(144 log 4)) = 1.036·10�
 
 **I-2 · Raise `log 𝒫₂`. [dead at this design]** The ceiling is `log 𝒫₂/24 = 0.0301·2^{K+413}` — exponential in K, so it *looks* like the free knob. It is not: `K ≤ 1.7·10⁸` is spent at `A_gate_logK` inside `calFrameK_satisfiable_door_gk` (`DoorFrameH1.lean:511-520` names it), which is linear in `Adoor M ∝ log₂M`; and `M` is capped by `half` at `log₂M ≲ 1.4427·λ₋`. So the K-ceiling grows only *linearly in λ₋* while the demand grows like `e^{budgetX}`. **Impossible at this design.**
 
-**I-3 · Restate the family at a scale variable independent of H. [impossible at this design — named]** The socket base is the door ladder's rung and the ladder tiles `(x/ω, x]` (`M4SecondRoad.lean:449`). Any sieve run for the spine must run *on the spine's own window*, whose lower endpoint the spine bounds from below. There is no scale variable to introduce: `X_d`'s floor is `x/ω`, `x/ω`'s floor is a regime field, and the regime has no x-ceiling to trade against. The only structural freedom — `regimeEnlargeX` — points the wrong way.
+**I-3 · Restate the family at a scale variable independent of H. [impossible at this design — named]** The socket base is the door ladder's rung and the ladder tiles `(x/ω, x]` (`M4SecondRoad.lean:473`). Any sieve run for the spine must run *on the spine's own window*, whose lower endpoint the spine bounds from below. There is no scale variable to introduce: `X_d`'s floor is `x/ω`, `x/ω`'s floor is a regime field, and the regime has no x-ceiling to trade against. The only structural freedom — `regimeEnlargeX` — points the wrong way.
 
 **I-4 · Index-carrying `entropy_decrement`. [A/B-tier, and worthless here]** Mechanically available from `Endpoints.lean:126-129`. Buys `H = chowlaTower C0 a Hlo j` for some `j < J`. Does **not** help: `hPHheadroom` is stated at the `Hhi`-majorant by necessity (`Regime.lean:104-116`), so the socket floor never reads the selected H. Only worth doing if some *other* face needs the tower index.
 

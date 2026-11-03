@@ -12,7 +12,7 @@ import Salt.MR.DistHalasz
 The interface `thm_A2′` offers its quality at the SIEVE parameter:
 `M(f; X, W) = inf_{|t| ≤ W} 𝔻²(f, n^{it}; X)` at `W = (log H)^{12}`.  The landed
 station consumes a floor on MRT's OWN window `|v| ≤ X`
-(`SupStation.seam_ball_leg_station_M:723–724`,
+(`SupStation.seam_ball_leg_station_M:589–590`,
 `hM₀ : ∀ v, |v| ≤ X → M₀ ≤ 𝔻²(datum, n^{iv}; X)`).  This file bridges the two:
 the far band `W ≲ |v| ≤ X` is paid by the `f = 1` distance floor
 (`DistHalasz.dist_one_floor_pow`) recentred at a window point through the

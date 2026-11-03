@@ -114,7 +114,7 @@ def FlatHeadForm (P : ChowlaRegime → Prop) : Prop :=
             ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ →
               P R
 
-/-- **⟦H1 FORM⟧** `flat_socket_uniform_xceil`'s statement (XThread.lean:634) with the conclusion
+/-- **⟦H1 FORM⟧** `flat_socket_uniform_xceil`'s statement (XThread.lean:618) with the conclusion
 slot
 `P R`. -/
 def FlatSocketForm (P : ChowlaRegime → Prop) : Prop :=
@@ -146,7 +146,7 @@ def FlatSocketForm (P : ChowlaRegime → Prop) : Prop :=
                   K * (2 * Bsieve H) + 2 * Binsert ≤ δ₀) →
                 P R)
 
-/-- **⟦H1 REPLAY⟧** `flat_socket_uniform_xceil` (XThread.lean:634) from a generic head.  Body
+/-- **⟦H1 REPLAY⟧** `flat_socket_uniform_xceil` (XThread.lean:618) from a generic head.  Body
 verbatim; the only edit is the source of the first `obtain` (the head-form hypothesis `h`). -/
 theorem flat_socket_generic (P : ChowlaRegime → Prop) (h : FlatHeadForm P) :
     FlatSocketForm P := by
@@ -170,7 +170,7 @@ theorem flat_socket_generic (P : ChowlaRegime → Prop) (h : FlatHeadForm P) :
   exact le_trans (hH₀ R hReps harc a e Bsieve K Binsert hsplit hB0 hsock hcount hins
     H hlo hhi) (hρ H hlo hhi)
 
-/-- **⟦H2 FORM⟧** `flat_doorL2_uniform_xceil_khoist`'s statement (XThread.lean:686) with the
+/-- **⟦H2 FORM⟧** `flat_doorL2_uniform_xceil_khoist`'s statement (XThread.lean:670) with the
 conclusion slot `P R`. -/
 def FlatDoorL2Form (P : ChowlaRegime → Prop) : Prop :=
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ β : ℝ) (Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
@@ -194,7 +194,7 @@ def FlatDoorL2Form (P : ChowlaRegime → Prop) : Prop :=
                 2 * Kb * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ →
                   P R
 
-/-- **⟦H2 REPLAY⟧** `flat_doorL2_uniform_xceil_khoist` (XThread.lean:686) from the generic socket.
+/-- **⟦H2 REPLAY⟧** `flat_doorL2_uniform_xceil_khoist` (XThread.lean:670) from the generic socket.
 Body verbatim; `¬ logChowla2Fails` appears only as the codomain of `hR` (refuter R-STOP). -/
 theorem flat_doorL2_generic (P : ChowlaRegime → Prop) (h : FlatSocketForm P) :
     FlatDoorL2Form P := by
@@ -238,7 +238,7 @@ theorem flat_doorL2_generic (P : ChowlaRegime → Prop) (h : FlatSocketForm P) :
       mul_le_mul_of_nonneg_left (hceil H hlo hhi) (by linarith)
     linarith
 
-/-- **⟦H3 FORM⟧** `flat_road_uniform_xceil_khoist`'s statement (XThread.lean:746) with the
+/-- **⟦H3 FORM⟧** `flat_road_uniform_xceil_khoist`'s statement (XThread.lean:730) with the
 conclusion
 slot `P R`. -/
 def FlatRoadForm (P : ChowlaRegime → Prop) : Prop :=
@@ -274,7 +274,7 @@ def FlatRoadForm (P : ChowlaRegime → Prop) : Prop :=
                 M4ChiSummedFreeRow_L_gk K R M RS →
                   P R
 
-/-- **⟦H3 REPLAY⟧** `flat_road_uniform_xceil_khoist` (XThread.lean:746) from the generic closed
+/-- **⟦H3 REPLAY⟧** `flat_road_uniform_xceil_khoist` (XThread.lean:730) from the generic closed
 loop.
 Body verbatim. -/
 theorem flat_road_generic (P : ChowlaRegime → Prop) (h : FlatDoorL2Form P) :
@@ -317,7 +317,7 @@ theorem flat_road_generic (P : ChowlaRegime → Prop) (h : FlatDoorL2Form P) :
     have hB := hBcl0 H
     nlinarith [h]
 
-/-- **⟦H4 FORM⟧** `flat_capstone_uniform_win_xceil_kwide_khoist`'s statement (XThread.lean:826) with
+/-- **⟦H4 FORM⟧** `flat_capstone_uniform_win_xceil_kwide_khoist`'s statement (XThread.lean:810) with
 the conclusion slot `P R`; `Awin` stays a parameter of the form, `hband` is the replay's
 hypothesis. -/
 def FlatCapstoneForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
@@ -414,9 +414,9 @@ def FlatCapstoneForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
                         P R
 
 set_option maxHeartbeats 1600000 in
--- Same cause as the parent (XThread.lean:818): the ~90-line conclusion re-elaborates under the
+-- Same cause as the parent (XThread.lean:802): the ~90-line conclusion re-elaborates under the
 -- extra `∀ K`/`∃ Ct` bracket.
-/-- **⟦H4 REPLAY⟧** `flat_capstone_uniform_win_xceil_kwide_khoist` (XThread.lean:826) from the
+/-- **⟦H4 REPLAY⟧** `flat_capstone_uniform_win_xceil_kwide_khoist` (XThread.lean:810) from the
 generic road.  Body verbatim (the fuse, the share table, the four gate discharges). -/
 theorem flat_capstone_generic (P : ChowlaRegime → Prop) (h : FlatRoadForm P) (Awin : ℝ)
     (hband : S16BandLaneCBoundedL_winU Awin) :
@@ -538,7 +538,7 @@ theorem flat_capstone_generic (P : ChowlaRegime → Prop) (h : FlatRoadForm P) (
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
-/-- **⟦H5 FORM⟧** `flat_conditional_uniform_win_xceil_kwide_khoist`'s statement (XThread.lean:1111)
+/-- **⟦H5 FORM⟧** `flat_conditional_uniform_win_xceil_kwide_khoist`'s statement (XThread.lean:1095)
 with the conclusion slot `P R`. -/
 def FlatConditionalForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
     ∃ (ε : ℚ) (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
@@ -565,9 +565,9 @@ def FlatConditionalForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
                 S15CrossingBound_L_gk K R M → P R
 
 set_option maxHeartbeats 1600000 in
--- Same cause as the parent (XThread.lean:1038): the capstone's monster body is consumed under
+-- Same cause as the parent (XThread.lean:1022): the capstone's monster body is consumed under
 -- one more binder layer.
-/-- **⟦H5 REPLAY⟧** `flat_conditional_uniform_win_xceil_kwide_khoist` (XThread.lean:1111) from the
+/-- **⟦H5 REPLAY⟧** `flat_conditional_uniform_win_xceil_kwide_khoist` (XThread.lean:1095) from the
 generic capstone — the one hop that moves `g` (the `s15Arm` substitution and its rider).  Body
 verbatim; the conclusion is only `hgo`'s codomain (refuter R-STOP). -/
 theorem flat_conditional_generic (P : ChowlaRegime → Prop) (Awin : ℝ)
