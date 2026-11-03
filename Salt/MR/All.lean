@@ -9512,7 +9512,7 @@ statement at all, so `flat_socket_uniform` and `flat_doorL2_uniform` have nothin
 ⭐ **BLOCK W — AND HERE H2b's PRICE CUT DOES NOT REPEAT, WHICH IS THE POINT.**
 `S16BandLaneCBoundedL` has **no producer anywhere** (34 binder sites, 9 modules, zero
 discharges), so wave H2b re-quantified it for free and left an open rider.  The WINDOWED riders
-are **theorems** (`s16_bandLaneWinL_holds` S16Uniform:1170, `_holdsU` S16ComposeV4:93), so their
+are **theorems** (`s16_bandLaneWinL_holds` S16Uniform:1107, `_holdsU` S16ComposeV4:101), so their
 `h` twins need a producer PORT — and the `h` lane gets a DISCHARGED rider in exchange for it.
 ⭐ **The port is class A, and a projection census says why.**  The mint
 `m4_hband_at_door_slot_split_graded_L_gk` (S11HoistLinear:736) touches its socket in exactly two
