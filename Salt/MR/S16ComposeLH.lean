@@ -1024,9 +1024,9 @@ private lemma flatRootCapH_arc_k (d p b c f : ℕ) :
   omega
 
 set_option maxHeartbeats 1000000 in
--- the landed mint's own budget (`S16FlatTerminalLinearH:1482`): the insert budget and the
+-- the landed mint's own budget (`S16FlatTerminalLinearH:1476`): the insert budget and the
 -- arc supply re-elaborate under one more binder layer
-/-- ⟦`K`-HOISTED⟧ (`m4_doorL2_supply_H_L_gk_khoist`) — `S16FlatTerminalLinearH:1482` with `∀ K`
+/-- ⟦`K`-HOISTED⟧ (`m4_doorL2_supply_H_L_gk_khoist`) — `S16FlatTerminalLinearH:1476` with `∀ K`
 moved inside the `∃ Cg`/`∃ H₀` prefix.  Body verbatim plus one `intro K`. -/
 theorem m4_doorL2_supply_H_L_gk_khoist (h : ℕ) (hh : 0 < h) :
     ∃ Cg : ℝ, 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
@@ -1085,9 +1085,9 @@ theorem m4_doorL2_supply_H_L_gk_khoist (h : ℕ) (hh : 0 < h) :
   linarith
 
 set_option maxHeartbeats 1000000 in
--- the landed register's own budget (`S16FlatTerminalLinearH:1595`): the block-mean cover
+-- the landed register's own budget (`S16FlatTerminalLinearH:1589`): the block-mean cover
 -- re-elaborates under one more binder layer
-/-- ⟦`K`-HOISTED⟧ (`m4_second_road_L2_H_gk_flatRoot_L_khoist`) — `S16FlatTerminalLinearH:1595`
+/-- ⟦`K`-HOISTED⟧ (`m4_second_road_L2_H_gk_flatRoot_L_khoist`) — `S16FlatTerminalLinearH:1589`
 likewise, off the mint above. -/
 theorem m4_second_road_L2_H_gk_flatRoot_L_khoist (h : ℕ) (hh : 0 < h) :
     ∃ Cg : ℝ, 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
