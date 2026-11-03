@@ -631,7 +631,7 @@ theorem capfloor_kappa30Q {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : �
 ⟦THE SHARED BINDER⟧ `SocketBase R M H L q j A s` + the capstone's absorbed
 `loglogFloor50 ≤ R.Hlo` + `1 ≤ M` + a base `Nd ≥ A` (in the wire `Nd = A + s`) + the family's
 OWN lower height binder `hTlo : Nd/2^j ≤ T_ann` (`S12Compose:307` at `T_ann = 2T`) + `Q2_reg`
-(supplied at `S12Compose:301-302`).
+(supplied at `S12Compose:307-302`).
 
 ⟦THE CONSTANT REGISTER — three lines, stated not buried⟧
 `hT₀ : T₀ ≤ e^{e^{100}}`, `hKq : Kq ≤ e^{100}`, `hKs : e^{-100} ≤ Ks`.  Nothing is assumed

@@ -26,7 +26,7 @@ The three landed branch files of `hU` are composed here into the single exit the
 
   **THE SPLIT IS EXHAUSTIVE, byte-wise** (§1): `TsetSmall H P Q j c ε 𝒯 =
   𝒯.filter (‖ramQ H P Q j c ·‖ ≤ ε)` (`USetThinTS`:164) and `tLset H P Q j c δ' 𝒯 =
-  𝒯.filter (δ' < ‖ramQ H P Q j c ·‖)` (`USetThinTL`:184).  At `ε := δ'` — the SAME level,
+  𝒯.filter (δ' < ‖ramQ H P Q j c ·‖)` (`USetThinTL`:185).  At `ε := δ'` — the SAME level,
   the SAME `H P Q j c`, the SAME `𝒯` — these are `filter p` and `filter ¬p` of one
   predicate, so `sum_TS_add_TL` is an identity, not an inequality.  Nothing is lost or
   double-counted at the seam of the two branches.
@@ -579,7 +579,7 @@ that §7's exit byte-fits the row's `hU` slot — the set
 `‖spoly N a t‖^2`, and the direction of the inequality are the row's, verbatim.
 
 The plug-point is `prop_A3_T1_row_split_weighted` (`SeamBallWeighted`:248) rather than
-`prop_A3_T1_row_station` (`SupStation`:514): the station's extra content is a PRODUCED `t₁`
+`prop_A3_T1_row_station` (`SupStation`:648): the station's extra content is a PRODUCED `t₁`
 (a near-minimiser it manufactures), whereas §7's exit needs `t₁` as a FREE parameter (the
 far-leg radius `Rrad ≤ |t − t₁|` and the ball datum `pretDistSq … (costwist t₁)` are stated
 about the same `t₁` the `𝒰` integral is centred on).  Composing with the station is a

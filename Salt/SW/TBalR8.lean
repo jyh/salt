@@ -2546,7 +2546,7 @@ theorem dh_repulsion_ordered : ∃ b c k : ℝ, 0 < b ∧ 0 < c ∧ 0 ≤ k ∧
     linarith only [h1, h2]
   -- **THE ARM TABLE** (`log(1/arm)`; the BINDING arm is the largest).  Arms 6, 7, 8, 11 carry the
   -- FREE variable `Z₀`, so this tower cannot be priced numerically; the figures below are that
-  -- pricing **evaluated at `Z₀ ⇝ 5`**, purely for comparison with the tall twin (`TBalTall:2105`),
+  -- pricing **evaluated at `Z₀ ⇝ 5`**, purely for comparison with the tall twin (`TBalTall:2749`),
   -- whose `Eρ` arm is genuinely `Z₀`-free.  REALISED post-TAU-SHARP TS-1 (S1: arm 1
   -- `2^{−250} ⇝ 1/40`; S5(a): `627 ⇝ 248` inside `KEβ`/`KEρ`; S6 is TALL-ONLY — `C2Rho_le` here is
   -- tight already) **and TS-2** (S2: arms 4/6/7 carry each row's own γ-floor in place of the
