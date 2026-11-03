@@ -155,9 +155,9 @@ docstring, verbatim:
 /-! ## §5 — the ε line at shift `h` (wave H2a word 2 — a LINE, not a name) -/
 
 /-- **⟦THE ε LINE AT SHIFT `h`⟧** — the ten `by norm_num` sites that derive
-`(1:ℚ)/2^9 ≤ R.eps` from the head's `1/500 ≤ ε` (S16Compose:1043, XThread:1358, V7Ks:372,
-S16ComposeV4:921, S16Uniform:1629/:1001, V7B:1800, RegisterCompose:287,
-S16FlatTerminalLinear · flat_L_width_priced, S16FlatFinal:200) are a **PASS-THROUGH at `h`**: both sides scale by
+`(1:ℚ)/2^9 ≤ R.eps` from the head's `1/500 ≤ ε` (S16Compose:959, XThread:1310, V7Ks:370,
+S16ComposeV4:857, S16Uniform:1492/:915, V7B:1807, RegisterCompose:287,
+S16FlatTerminalLinear · flat_L_width_priced, S16FlatFinal:196) are a **PASS-THROUGH at `h`**: both sides scale by
 exactly `h`, and `512 > 500`.  This `example` is the check that the line elaborates at a SYMBOLIC
 `h`.
 
