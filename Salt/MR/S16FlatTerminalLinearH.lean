@@ -560,10 +560,7 @@ theorem m4_chiSummedBlockN_of_shiftBlockH_L_gk (h K : ℕ) {R : ChowlaRegime} {M
   have hA4 : 4 ≤ A := by omega
   have hB2A : B ≤ 2 * A := by omega
   have hL2A : (L : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : L ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show L ≤ 2 * A by omega)
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
   set Lg := Nat.log 2 L with hLg
   -- ⟦R-P5, THE LENGTH ANTECEDENT PROPAGATED⟧ every dyadic window of the assembly is at most
@@ -1352,10 +1349,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M 
     have hfit' : (B + m * L) + L ≤ 2 * (A + m * L) := by omega
     have hst := hstrat (A + m * L) (B + m * L) hApos' h2HA' hxA' hcapA' hfit'
     have hbase : ((A + m * L : ℕ) : ℝ) ≤ 2 * (A : ℝ) := by
-      have hnat : A + m * L ≤ 2 * A := by omega
-      have := (Nat.cast_le (α := ℝ)).mpr hnat
-      push_cast at this ⊢
-      linarith
+      exact_mod_cast (show A + m * L ≤ 2 * A by omega)
     have hfac0 : (0 : ℝ) ≤ 4 * strataResidualH h H ^ 2 * Bcl H * (L : ℝ) ^ 2 := by positivity
     linarith only [hst, mul_le_mul_of_nonneg_left hbase hfac0]
   -- ⟦the drift-block sum⟧
