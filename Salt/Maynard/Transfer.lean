@@ -123,17 +123,24 @@ lemma fWt_denom_pos {k R r : ℕ} (hr : 1 ≤ r) (hR : 2 ≤ R) :
   have hlk : 0 ≤ Real.log (k : ℝ) := Real.log_natCast_nonneg k
   nlinarith [mul_nonneg hlk hu]
 
+/-- `0 < fWt k R r` on the support (`1 ≤ r`, `2 ≤ R`): the denominator `1 + log k · u(r)` is
+`≥ 1` (`fWt_denom_pos`), so its reciprocal is positive. -/
 lemma fWt_pos {k R r : ℕ} (hr : 1 ≤ r) (hR : 2 ≤ R) : 0 < fWt k R r := by
   unfold fWt
   have := fWt_denom_pos (k := k) (R := R) (r := r) hr hR
   positivity
 
+/-- `fWt k R r ≤ 1` on the support (`1 ≤ r`, `2 ≤ R`): `1 / d ≤ 1` for a denominator `d ≥ 1`
+(`fWt_denom_pos`, `div_le_one`). The `fWt ≤ 1` drop of the crude upper route (`A1_le_B1`,
+`A1_le_phiAtom`, `B1_le_phiAtom`). -/
 lemma fWt_le_one {k R r : ℕ} (hr : 1 ≤ r) (hR : 2 ≤ R) : fWt k R r ≤ 1 := by
   unfold fWt
   have h := fWt_denom_pos (k := k) (R := R) (r := r) hr hR
   rw [div_le_one (by linarith)]
   linarith
 
+/-- `0 ≤ fWt k R r` on the support (`1 ≤ r`, `2 ≤ R`): `fWt_pos` weakened; the sign `B1_nonneg`
+and the squared-weight comparisons spend. -/
 lemma fWt_nonneg {k R r : ℕ} (hr : 1 ≤ r) (hR : 2 ≤ R) : 0 ≤ fWt k R r :=
   (fWt_pos hr hR).le
 
@@ -170,21 +177,29 @@ lemma mem_support {k R W r : ℕ} {T : ℝ} (hmem : r ∈ sqfCop (R0 k R T) W) :
 
 /-! ## Nonnegativity of the four sums -/
 
+/-- `0 ≤ A1 k R W T`, with no hypothesis: every term `fWt² / φ(r)` is nonnegative
+(`positivity`). -/
 lemma A1_nonneg (k R W : ℕ) (T : ℝ) : 0 ≤ A1 k R W T := by
   apply Finset.sum_nonneg; intro r _; positivity
 
+/-- `0 ≤ B1 k R W T` for `2 ≤ R`: every term `fWt / φ(r)` is nonnegative by `fWt_nonneg` on
+`1 ≤ r` (`mem_support`). -/
 lemma B1_nonneg (k R W : ℕ) (T : ℝ) (hR : 2 ≤ R) : 0 ≤ B1 k R W T := by
   apply Finset.sum_nonneg; intro r hmem
   have hr := (mem_support hmem).1
   have := fWt_nonneg (k := k) (R := R) (r := r) hr hR
   positivity
 
+/-- `0 ≤ A1_1 k R W T` for `2 ≤ R`: every term `fWt² · u(r) / φ(r)` is nonnegative since
+`0 ≤ u(r)` (`uVal_nonneg` on `1 ≤ r`, `mem_support`). -/
 lemma A1_1_nonneg (k R W : ℕ) (T : ℝ) (hR : 2 ≤ R) : 0 ≤ A1_1 k R W T := by
   apply Finset.sum_nonneg; intro r hmem
   have hr := (mem_support hmem).1
   have := uVal_nonneg (k := k) (R := R) (r := r) hr hR
   positivity
 
+/-- `0 ≤ A1_2 k R W T`, with no hypothesis: every term `fWt² · u(r)² / φ(r)` has even powers
+(`positivity`). -/
 lemma A1_2_nonneg (k R W : ℕ) (T : ℝ) : 0 ≤ A1_2 k R W T := by
   apply Finset.sum_nonneg; intro r _; positivity
 

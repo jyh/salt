@@ -178,10 +178,16 @@ noncomputable def mF (t : ℝ) : ℝ := (Real.log t)⁻¹
 /-- The Abel-summation coefficient sequence `c k = (log k)/k · [k prime]`. -/
 noncomputable def mC (k : ℕ) : ℝ := if k.Prime then Real.log k / k else 0
 
+/-- `mC 0 = 0`, since `0` is not prime (`Nat.not_prime_zero`); the `c 0 = 0` side condition of
+`sum_mul_eq_sub_integral_mul₁` in `sum_inv_prime_le_aux`. -/
 theorem mC_zero : mC 0 = 0 := by simp [mC, Nat.not_prime_zero]
 
+/-- `mC 1 = 0`, since `1` is not prime (`Nat.not_prime_one`); the `c 1 = 0` side condition of
+`sum_mul_eq_sub_integral_mul₁` in `sum_inv_prime_le_aux`. -/
 theorem mC_one : mC 1 = 0 := by simp [mC, Nat.not_prime_one]
 
+/-- `0 ≤ mC k`: at a prime `k` the value `log k / k` is nonnegative since `1 ≤ k`
+(`Real.log_nonneg`), and otherwise it is `0`. Behind `sum_mC_Icc_nonneg`. -/
 theorem mC_nonneg (k : ℕ) : 0 ≤ mC k := by
   unfold mC
   split
@@ -204,9 +210,14 @@ theorem hasDerivAt_mF {x : ℝ} (hx : 2 ≤ x) :
   rw [heq] at h2
   exact h2
 
+/-- `mF` is differentiable at every `x ≥ 2` (`hx`), from `hasDerivAt_mF`; the differentiability
+hypothesis of the Abel summation in `sum_inv_prime_le_aux`. -/
 theorem differentiableAt_mF {x : ℝ} (hx : 2 ≤ x) : DifferentiableAt ℝ mF x :=
   (hasDerivAt_mF hx).differentiableAt
 
+/-- `deriv mF x = −(x · (log x)²)⁻¹` for `x ≥ 2` (`hx`), from `hasDerivAt_mF`; it rewrites the
+Abel integrand in `integrableOn_deriv_mF` and in the pointwise bound `hpt` of
+`sum_inv_prime_le_aux`. -/
 theorem deriv_mF {x : ℝ} (hx : 2 ≤ x) : deriv mF x = -(x * Real.log x ^ 2)⁻¹ :=
   (hasDerivAt_mF hx).deriv
 
@@ -246,6 +257,8 @@ theorem sum_mC_Icc_eq (M : ℕ) :
   unfold mC
   rw [Finset.sum_filter]
 
+/-- `0 ≤ Σ_{k ≤ M} mC k`, termwise by `mC_nonneg`; the sign of the boundary term `mF N · Σ mC`
+in `sum_inv_prime_le_aux`. -/
 theorem sum_mC_Icc_nonneg (M : ℕ) : 0 ≤ ∑ k ∈ Finset.Icc 0 M, mC k :=
   Finset.sum_nonneg (fun k _ => mC_nonneg k)
 

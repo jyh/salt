@@ -70,14 +70,25 @@ noncomputable def Km_min (K L logN A C0 : ℝ) : ℝ :=
 noncomputable def Kbeta'_min (K L logN A C0 : ℝ) : ℝ :=
   K * L ^ (A + 1 + 1 + 2 * C0) / logN ^ (A + 1 + 2 * C0)
 
+/-- `0 ≤ Kbeta_min K L logN A C0` at `hK : 0 ≤ K`, `hL : 0 ≤ L`, `hlogN : 0 ≤ logN`: a
+nonnegative product of rpow terms over a nonnegative rpow (`div_nonneg`, `mul_nonneg`). The sign
+`medium_box_price_at_op` hands `medium_survivor_price_sqrtD` as `hKβnn`; read the same way by
+`MiddleK`, `PriceTwo`, `AssembleA3`/`A3b` and Goldbach's `BandWin`, `BoxRows3`,
+`KerrY`/`KerrY2`. -/
 theorem Kbeta_min_nonneg {K L logN A C0 : ℝ} (hK : 0 ≤ K) (hL : 0 ≤ L) (hlogN : 0 ≤ logN) :
     0 ≤ Kbeta_min K L logN A C0 :=
   div_nonneg (mul_nonneg hK (Real.rpow_nonneg hL _)) (Real.rpow_nonneg hlogN _)
 
+/-- `0 ≤ Km_min K L logN A C0` at the same three signs `hK`, `hL`, `hlogN`: `div_nonneg` over
+`mul_nonneg`. The `hKmnn` input of `medium_box_price_at_op`; read by `MiddleK`, `PriceTwo`,
+`AssembleA3`/`A3b` and Goldbach's `BandWin`, `BoxRows3`, `KerrY`/`KerrY2`. -/
 theorem Km_min_nonneg {K L logN A C0 : ℝ} (hK : 0 ≤ K) (hL : 0 ≤ L) (hlogN : 0 ≤ logN) :
     0 ≤ Km_min K L logN A C0 :=
   div_nonneg (mul_nonneg hK (Real.rpow_nonneg hL _)) (Real.rpow_nonneg hlogN _)
 
+/-- `0 ≤ Kbeta'_min K L logN A C0` at `hK`, `hL`, `hlogN`: `div_nonneg` over `mul_nonneg`, as
+for `Kbeta_min`. The `hKβ'nn` input of `medium_box_price_at_op`; read by `MiddleK`, `PriceTwo`,
+`AssembleA3`/`A3b` and Goldbach's `BandWin`, `BoxRows3`, `KerrY`/`KerrY2`. -/
 theorem Kbeta'_min_nonneg {K L logN A C0 : ℝ} (hK : 0 ≤ K) (hL : 0 ≤ L) (hlogN : 0 ≤ logN) :
     0 ≤ Kbeta'_min K L logN A C0 :=
   div_nonneg (mul_nonneg hK (Real.rpow_nonneg hL _)) (Real.rpow_nonneg hlogN _)
@@ -447,6 +458,21 @@ named operating hypothesis — the analytic facts `GlueFinal`/`opf_*` supply —
 convention `A = 13`, `B = 15`, `C0 = 18`.  The conclusion is `medium_survivor_price_sqrtD`'s own
 `Kerr`-shaped bound with the minimal SW constants, on `blockPrimeInd (pieceN k)`
 (`sum_norm_apDiscBilinCutoff_pieceN`). -/
+/-- **PRICE-1's summit: the medium-box price at the operating point.** There are `K > 0` and
+`N₀` such that at every `dyadicBoundary` survivor box `(i, k)` of a window `x ≥ exp(10⁹)` — with
+`X = 2^{i+1} − 1`, `M = pieceM k`, `N' = 2^k ≥ N₀` and `x^{11/24}/8 ≤ 2^k` — and every modulus
+set `Dset ⊆ [1, D]` with coprime residues `r`, `D` in the band `[x^{11/24}/8, √(XM)/L¹⁵]` and
+`D < (2^k + 1)²`, the summed `apDiscBilinCutoff` discrepancy is at most
+`(Kβ + 6·(Km + 448 + 32√26) + (2¹⁸·Kβ' + 15360 + 1)) · XM / L¹³`, with `L := log(XM)` and `Kβ`,
+`Km`, `Kβ'` the minimal couplings `Kbeta_min`, `Km_min`, `Kbeta'_min K L (log 2^k) 13 18`.
+Route: `medium_survivor_price_sqrtD` at `A = 13`, `C0 = 18`; the `D0`-window rows from
+`d0_window_of_XM` (the weak `pieceN` corner, catch #71); the guarded per-`e` rows from
+`bridge_scale`; the three SW couplings from `Kbeta_min_coupling`, `Km_min_coupling`,
+`Kbeta'_min_coupling`; and the `pieceN → 2^k` transport `sum_norm_apDiscBilinCutoff_pieceN`. The
+other hypotheses are the operating facts the section header above names (the box floors, the
+level/scale rows, the `hdiv`-route inputs). Read in code by `PriceThree`; `PriceTwo`
+(`medium_box_price_at_op_lo`), `ChenFinal2`, `ChenHeadline`, `All` and Goldbach's `D0Win`,
+`Price` cite it in their prose. -/
 theorem medium_box_price_at_op :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
       ∀ (x : ℕ) (Lb : ℝ) (F Krange k i : ℕ) (α : ℕ → ℂ) (X T D : ℕ)

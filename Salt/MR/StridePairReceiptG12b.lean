@@ -26,8 +26,10 @@ import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
 import Salt.MR.StridePins
+import Salt.MR.RegimeScaleReads
+import Salt.MR.DesignEightArms
 
--- The same three `open private` lines as `StridePairReceiptG.lean:82-84` — the later replays and
+-- The same three `open private` lines as `StridePairReceiptG.lean:84-86` — the later replays and
 -- the door-head of this lane are the same bodies and reach the same private names.
 open private flatCapH_shuffle from Salt.Entropy.Chowla.HloExportFlatH
 open private xceil_flat_P xceil_flat_step from Salt.MR.XCeil
@@ -46,7 +48,7 @@ namespace Salt.MR
 /-! ## §4 — THE FORMS AT `2^12`: the six graded forms, pin at `838400 · 2^12`, stride `a ≤ 8103` -/
 
 /-- **⟦H0 FORM AT `2^12`⟧ (def) — `FlatHeadFormHG_g12b`.**
-`FlatHeadFormHG` (StridePairReceiptG.lean:102) with the pin `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and
+`FlatHeadFormHG` (StridePairReceiptG.lean:104) with the pin `838400 * 2 ^ 11 ↦ 838400 * 2 ^ 12` and
 the stride `a ≤ 1096 ↦ a ≤ 8103`; nothing else moves. -/
 def FlatHeadFormHG_g12b (h : ℕ) (Xi : XiFamily) (P : ChowlaRegime → Prop) : Prop :=
     ∃ (ε : ℚ) (K δ₀ β : ℝ) (Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 539 ∧ 0 < δ₀ ∧
@@ -318,7 +320,7 @@ HONEST LABEL.  Replays only; nothing here proves a new estimate, and nothing bea
 primes. -/
 
 /-- **⟦H0→H1 REPLAY AT `2^12`⟧ — `flat_roadExit_generic_h_g12b`.** `flat_roadExit_generic_h_g`
-(StridePairReceiptG.lean:352) at the `_g12b` forms, its unused cap binder at `≤ 9`.  BODY verbatim:
+(StridePairReceiptG.lean:354) at the `_g12b` forms, its unused cap binder at `≤ 9`.  BODY verbatim:
 `hδpin` and the stride bound are forwarded opaquely; the road
 `m4_second_road_L2_Set_gk_flatRoot_L_khoist` is cap-free and `δ₀`-generic. -/
 theorem flat_roadExit_generic_h_g12b (h : ℕ) (hh : 0 < h) (_hh9 : Real.log (h : ℝ) ≤ 9)
@@ -442,18 +444,7 @@ theorem flat_capstone_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h :
           simpa using (by linarith : (0:ℝ) ≤ 2 * ((h : ℝ) ^ 7 * rStrWitness H)))
     positivity
   · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
-    intro H hlo hhi
-    have harc1 : (1 : ℝ) ≤ (h : ℝ) * arcDen 12 H := one_le_hArcDen_of_regime hh hlo
-    have hSR1 : (1 : ℝ) ≤ strataResidualH h H := one_le_strataResidualH harc1
-    have hSRsq : (1 : ℝ) ≤ strataResidualH h H ^ 2 := by nlinarith
-    have hRSle : RSanDoorRhoH ρ h H ≤ rSanWitness H := by
-      have h1 : RSanDoorRhoH ρ h H ≤ 1 := by
-        unfold RSanDoorRhoH
-        rw [div_le_one (by nlinarith)]
-        linarith
-      exact le_trans h1 (le_max_left _ _)
-    have hG := g2_of_j0_floor_h h hh H (j₀ := doorRowFloorL M) (hj0 H hlo hhi)
-    linarith
+    exact gate6_rhoH_of_j0_floor hh hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
     have hH0 : 0 < H := by
@@ -491,7 +482,7 @@ theorem flat_capstone_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h :
 `log a ≤ 9` from `8103 ≤ exp 9` via `2.7182818283^9` (margin 0.084) and `haR : a ≤ 8103`, the four
 budget sites `harm'` · `hgb'` · `hsum` · `hprod` moving `− 7 ↦ − 9` together against
 `xceil_arm_split_mul_h_b9`'s `+ 9` (freeze §5.1 (e)); the slot-3 shift `+ 28 ↦ + 36` at
-`s13_g2_jfloor_of_MSelect'_L_gk_shift36` (freeze §3.1 rule 2, `StridePairReceiptG:690,693`), read by
+`s13_g2_jfloor_of_MSelect'_L_gk_shift36` (freeze §3.1 rule 2, `StridePairReceiptG:679,682`), read by
 `s13_g2_jfloor_of_MSelect'_L_gk_h_b9`; and the eleven cap-dependent suppliers at their `_b9` /
 `_g12b` twins (`s15ArmH_log_le_g12b` reads the `2^12` pin). -/
 theorem flat_conditional_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
@@ -614,23 +605,15 @@ theorem flat_conditional_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (
   intro M hKw hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor hKw
   intro hcap
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  obtain ⟨hlam50, hΛ50, hHreg⟩ := regime_scale_reads R hfl
   have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15ArmH_demoted h δ₀ ρ R.Hhi R.ω) hRarm
   have hhω : (0 : ℝ) ≤ (h : ℝ) * (R.ω : ℝ) := by positivity
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hhω ?_ hhi) (s15ArmH_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hhω (s15ArmH_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family at the inflated socket, arm read at `h·ω`
   have harith := s15_doorArithFrameRho_L_familyH'' (C₁ := fun _ : ℕ => (1 : ℝ)) hh hsel.hM
     hρ0 hρ1 hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -800,46 +783,8 @@ theorem flat_v7_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) 
       (max (max (max (max A₀ 162) Awin) (cofkRThr Cq Cb Xsk Y0))
         (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))))) := ⟨_, rfl⟩
   obtain ⟨A, hAdef⟩ : ∃ a : ℝ, a = max (armVt Kvt) A' := ⟨_, rfl⟩
-  have harmA : armVt Kvt ≤ A := by rw [hAdef]; exact le_max_left _ _
-  have hlift : A' ≤ A := by rw [hAdef]; exact le_max_right _ _
-  have hKsA : 16 * Real.log (1 / Ks) / 3 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]; exact le_max_left _ _
-  have hT₀A : T₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_max_left _ _) (le_max_right _ _)
-  have hA162 : (162 : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_right A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hA₀A : A₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_left A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAwinA : Awin ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (max A₀ 162) Awin)
-      (le_max_left _ (cofkRThr Cq Cb Xsk Y0))) (le_max_left _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hthrA : cofkRThr Cq Cb Xsk Y0 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_right (max (max A₀ 162) Awin)
-      (cofkRThr Cq Cb Xsk Y0)) (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAge : budgetAFlat (ε : ℝ) β ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_left (budgetAFlat (ε : ℝ) β) _)
-      (le_max_right _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hx0A : 4 * (x₀ : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_left (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hopqA : ((Hopq : ℕ) : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
+  obtain ⟨harmA, hKsA, hT₀A, hA162, hA₀A, hAwinA, hthrA, hAge, hx0A, hopqA⟩ :=
+    Salt.MR.designEightArms_facts hA'def hAdef
   have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   -- ⟦THE `Ks` WINDOW, AT THE SEVENTH ARM⟧ as in the parent
@@ -992,7 +937,7 @@ HONEST LABEL.  Replays only; nothing here proves a new estimate, and nothing bea
 primes. -/
 
 /-- **⟦THE CHAIN AT `2^12`⟧ — `flat_chain_generic_h_g12b`.** `flat_chain_generic_h_g`
-(StridePairReceiptG.lean:1029) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
+(StridePairReceiptG.lean:974) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
 replays (census band 4 row 23: SUPPLIER-SWAP, no numerals). -/
 theorem flat_chain_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) (Xi : XiFamily)
     (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →

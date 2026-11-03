@@ -551,6 +551,17 @@ bilinear form to a `GEH_min` form.  In full it is a sum over `O(log² x)` dyadic
 block pairs (each in the balanced window at `U = V = x^{1/3}`); this lemma
 packages the single-block idealisation, so `hdom` is the flagged floor (the
 multi-block bookkeeping is the remaining D-N2a content — see the executor report). -/
+/-- **Feeding a piece to `GEH_min`.** From `GEH_min θ`, a balanced family `(α, β, N, M)` with
+`CoeffAt α N k`, `CoeffAt β M k`, `SWAt β M` and the window `hwin` (`x^ε ≤ N x, M x ≤ x^{1−ε}`
+and `N x · M x ≤ x ≤ 4 · N x · M x` for `x ≥ 2`), and a domination `hdom` of `w x`'s summed
+discrepancy over `q ≤ x^θ / (log x)^B` at every prefix `y ≤ x` by the family's
+`dconv (α x) (β x)` discrepancy at cutoff `4 · N x · M x`, the weight `w` has the `y`-uniform
+obligation `PieceObligationU θ w`. Proof: for each `A > 0`, destructure `SWAt` to
+`SWAtData β M j KF` (`sWAtData_of_sWAt`), take `GEH_min`'s `B`, `C` at `(ε, A, k, j, KF)`, and
+chain `hdom` into the GEH bound at `y = 4 · N x · M x`, the window supplying its six side
+conditions. Generic in `w` and non-vacuous; for the Type-II piece `vP3`, `hdom` is the
+single-block dyadic reduction (the flagged floor), and `lambdaLevelU_of_GEH_min` applies it
+there. -/
 theorem pieceObligationU_of_GEH_single {θ ε : ℝ} (hε : 0 < ε)
     (hGEH : GEH_min θ) (w : ℕ → ℕ → ℝ)
     (k : ℕ) (α β : ℕ → ℕ → ℝ) (N M : ℕ → ℕ)

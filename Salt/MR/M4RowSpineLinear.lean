@@ -280,10 +280,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed_L {R : ChowlaRegime} {M k : ℕ} {Bcl : 
     have hfit' : (B + m * L) + L ≤ 2 * (A + m * L) := by omega
     have h := hstrat (A + m * L) (B + m * L) hApos' h2HA' hxA' hcapA' hfit'
     have hbase : ((A + m * L : ℕ) : ℝ) ≤ 2 * (A : ℝ) := by
-      have hnat : A + m * L ≤ 2 * A := by omega
-      have := (Nat.cast_le (α := ℝ)).mpr hnat
-      push_cast at this ⊢
-      linarith
+      exact_mod_cast (show A + m * L ≤ 2 * A by omega)
     have hfac0 : (0 : ℝ) ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 := by positivity
     linarith only [h, mul_le_mul_of_nonneg_left hbase hfac0]
   -- ⟦the drift-block sum⟧
@@ -795,10 +792,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed_L_gk (K : ℕ) {R : ChowlaRegime} {M k :
     have hfit' : (B + m * L) + L ≤ 2 * (A + m * L) := by omega
     have h := hstrat (A + m * L) (B + m * L) hApos' h2HA' hxA' hcapA' hfit'
     have hbase : ((A + m * L : ℕ) : ℝ) ≤ 2 * (A : ℝ) := by
-      have hnat : A + m * L ≤ 2 * A := by omega
-      have := (Nat.cast_le (α := ℝ)).mpr hnat
-      push_cast at this ⊢
-      linarith
+      exact_mod_cast (show A + m * L ≤ 2 * A by omega)
     have hfac0 : (0 : ℝ) ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 := by positivity
     linarith only [h, mul_le_mul_of_nonneg_left hbase hfac0]
   -- ⟦the drift-block sum⟧

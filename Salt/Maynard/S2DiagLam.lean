@@ -48,9 +48,14 @@ noncomputable def nOverPhi : ArithmeticFunction ℝ :=
   ⟨fun n => (n : ℝ) / (Nat.totient n), by simp⟩
 
 omit [TupleChoice] in
+/-- `nOverPhi n = n / φ(n)` in `ℝ` by `rfl` (`simp`; `nOverPhi 0 = 0 / 0 = 0`); `sigmaMuCore`
+rewrites each divisor-sum term through it. -/
 @[simp] lemma nOverPhi_apply (n : ℕ) : nOverPhi n = (n : ℝ) / (Nat.totient n) := rfl
 
 omit [TupleChoice] in
+/-- `nOverPhi` is multiplicative: `nOverPhi 1 = 1` by `simp`, and for coprime `m`, `n`
+`φ(mn) = φ(m) φ(n)` (`Nat.totient_mul`) with `mul_div_mul_comm`; the hypothesis of
+`prodPrimeFactors_one_sub_of_squarefree` in `sigmaMuCore`. -/
 lemma nOverPhi_isMult : nOverPhi.IsMultiplicative := by
   refine ⟨by simp, ?_⟩
   intro m n h
