@@ -225,7 +225,7 @@ set_option maxHeartbeats 1600000 in
 -- Same cause as the landed capstone: the ~120-line residue re-elaborates against the re-cut
 -- prefix, here at the inflated socket and with the cap threaded through every gate.
 /-- **⟦THE `A`-UNIFORM CAPSTONE, WINDOWED AND PRICED, AT SHIFT `h`⟧**
-(`flat_capstone_uniform_win_ceiling_h`) — `S16Compose:463` on block U's `A`-uniform road and
+(`flat_capstone_uniform_win_ceiling_h`) — `S16Compose:446` on block U's `A`-uniform road and
 block W's windowed rider, carrying `Kc ≤ 2^539` and `Ct ≤ 2^23`, at `ε` pinned by
 `1/(500·h)` and `δ₀` by `1/(838400·h²)`.  ⛔ Gate 7 is routed off `loglogFloor50`, NOT
 `arcFloor36` — see the file header. -/
@@ -448,7 +448,7 @@ set_option maxHeartbeats 1000000 in
 -- Same cause as the landed conditional: the residue re-elaborates against the prefix.
 -- 2026-10-08, the XY debt lane, family 44: nine calls at the cap 9 (eight twins); the rest at cap 7
 /-- **⟦THE `A`-UNIFORM CONDITIONAL, WINDOWED AND PRICED, AT SHIFT `h`⟧**
-(`flat_conditional_uniform_win_ceiling_h`) — `S16Compose:702` on §2, with wave H2b's `h` fire
+(`flat_conditional_uniform_win_ceiling_h`) — `S16Compose:660` on §2, with wave H2b's `h` fire
 list (`S16FlatTerminalLinearLH` §5) substituted for the `h = 1` one.
 
 ⭐ **`S13BandGate'_L_gk` DISSOLVES RATHER THAN PORTING.**  At `h = 1` the band register is
@@ -1024,9 +1024,9 @@ private lemma flatRootCapH_arc_k (d p b c f : ℕ) :
   omega
 
 set_option maxHeartbeats 1000000 in
--- the landed mint's own budget (`S16FlatTerminalLinearH:1470`): the insert budget and the
+-- the landed mint's own budget (`S16FlatTerminalLinearH:1482`): the insert budget and the
 -- arc supply re-elaborate under one more binder layer
-/-- ⟦`K`-HOISTED⟧ (`m4_doorL2_supply_H_L_gk_khoist`) — `S16FlatTerminalLinearH:1470` with `∀ K`
+/-- ⟦`K`-HOISTED⟧ (`m4_doorL2_supply_H_L_gk_khoist`) — `S16FlatTerminalLinearH:1482` with `∀ K`
 moved inside the `∃ Cg`/`∃ H₀` prefix.  Body verbatim plus one `intro K`. -/
 theorem m4_doorL2_supply_H_L_gk_khoist (h : ℕ) (hh : 0 < h) :
     ∃ Cg : ℝ, 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
@@ -1085,9 +1085,9 @@ theorem m4_doorL2_supply_H_L_gk_khoist (h : ℕ) (hh : 0 < h) :
   linarith
 
 set_option maxHeartbeats 1000000 in
--- the landed register's own budget (`S16FlatTerminalLinearH:1588`): the block-mean cover
+-- the landed register's own budget (`S16FlatTerminalLinearH:1595`): the block-mean cover
 -- re-elaborates under one more binder layer
-/-- ⟦`K`-HOISTED⟧ (`m4_second_road_L2_H_gk_flatRoot_L_khoist`) — `S16FlatTerminalLinearH:1588`
+/-- ⟦`K`-HOISTED⟧ (`m4_second_road_L2_H_gk_flatRoot_L_khoist`) — `S16FlatTerminalLinearH:1595`
 likewise, off the mint above. -/
 theorem m4_second_road_L2_H_gk_flatRoot_L_khoist (h : ℕ) (hh : 0 < h) :
     ∃ Cg : ℝ, 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
@@ -1565,7 +1565,7 @@ _gen_ceiling` · `XThread.chowlaRegimeFlat_exists_param_head_xceil`).  So the `h
 head is built HERE, beside its `h = 1` sibling, off the one-line public re-export appended to
 `HloExportFlatH` §5.
 
-⭐ **THE ARITHMETIC WAS ALREADY PAID.**  H2a word 4's `xceil_arm_split_h` (XThread:1132) is this
+⭐ **THE ARITHMETIC WAS ALREADY PAID.**  H2a word 4's `xceil_arm_split_h` (XThread:1041) is this
 row's `ε`-margin repair: at `ε = 1/(500·h)` the compose's margin is `H₊/(250000·h²)` against the
 arm's `H₊/10^20`, and the `log 2 + log h` is bought from `50 ≤ loglog H₊` — a tower against a
 demand of `2.31·10^12` at `h = 1096`.  Nothing in this section re-opens it.
@@ -2610,7 +2610,7 @@ set_option maxHeartbeats 1600000 in
 -- as the landed original: the design constant's arm census re-elaborates against the terminal's
 -- own prefix
 /-- **⟦THE INEFFECTIVE LIMIT, `v3`, AT SHIFT `h`⟧** (`logChowla2_ineffective_v3_h`) —
-`S16Compose:1083` on §7, with the band rider discharged from block W. -/
+`S16Compose:1026` on §7, with the band rider discharged from block W. -/
 theorem logChowla2_ineffective_v3_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (A₀ : ℝ) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
@@ -2696,7 +2696,7 @@ directly below).
 
 This page's docstring, verbatim:
 
-⟦`Ks`-WINDOWED, AT SHIFT `h`⟧ (`capfloor_floor4_of_regimeWin_LH`) — `V7Ks:74` at
+⟦`Ks`-WINDOWED, AT SHIFT `h`⟧ (`capfloor_floor4_of_regimeWin_LH`) — `V7Ks:76` at
 `SocketBaseLH h`: the window is read at `R.Hlo` and transported to the socket's own `H`. -/
 
 /-! ### §11.1 — the floor wave and its assembler, `Ks`-windowed at shift `h` (retired 2026-09-27) -/

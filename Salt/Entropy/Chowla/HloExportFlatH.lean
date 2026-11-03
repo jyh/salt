@@ -389,7 +389,7 @@ precisely because every `obtain` above that line is `A`-free."*  At shift `h` th
 returns hits in exactly two — this file (the binder and its three reads) and
 `S16FlatTerminalExitH`, which forwards them.  `S16ProducersH`, `S16FlatTerminalLinearH` and
 `HDoorSupply` contain **zero**, and the door-form register `m4_second_road_L2_H_gk_flatRoot_L`
-(S16FlatTerminalLinearH:1588) has no `A` in its statement at all.  So this one `intro` is what
+(S16FlatTerminalLinearH:1595) has no `A` in its statement at all.  So this one `intro` is what
 the `A`-uniform `h` road costs — wave H2b/H2c's §3 priced it as the design block of H3.
 
 ⛔ It lives HERE rather than in a sibling file because the landed body calls two `private`
