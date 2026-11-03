@@ -4657,7 +4657,7 @@ open Salt.Tactic in
 -- dyadic Shiu sum `blockDiv_sq_div_sq_sum_le` over `shiu_moment_sq`, whose `g` byte-matches
 -- KMT's (READER-A §7).  ⟦THE ONE NEW ALGEBRAIC FACT⟧ twisting commutes with the ℓ-fold
 -- Dirichlet convolution — `multShiuCoeff_chiBar`, via wave P-1's `pmul_mul_of_twist`
--- (`LambdaRateTwisted:153`) instantiated at `chiBarAf` and iterated (`pmul_pow_of_chiBarAf`).
+-- (`LambdaRateTwisted:205`) instantiated at `chiBarAf` and iterated (`pmul_pow_of_chiBarAf`).
 -- ⟦THE `(ℓ+1)!²` ROUTE⟧ the corpus's count page is SHARPER than the paper's: the ℓ-fold
 -- ordered block-prime count is `≤ ℓ!` and the co-factor enters through the 1-bounded
 -- divisor-sum majorant `oneAf`, not as an `(ℓ+1)`-st factor — so `ℓ!²` is delivered and
@@ -7443,7 +7443,7 @@ supplies.  `Kc` rides seven twins (head → socket → door-`L²` → road → w
 windowed conditional → terminal): it enters the head as an UPPER BOUND ON A COUNT and leaves
 the door as a BUDGET COEFFICIENT, so the sign change forbids any short-circuit above the leaf.
 `Ct` enters at the constant-pool fuse.  `Kq` — ⟦THE CORRECTION TO THE WAVE'S CONSUMPTION
-LIST⟧ — is NOT the constant `S16Uniform` :638 opens (that `obtain`'s payload is discarded and
+LIST⟧ — is NOT the constant `S16Uniform` :622 opens (that `obtain`'s payload is discarded and
 its constants are dropped again one hop later): the terminal's `Kq` is minted by
 `s15_crossing_supplied_L_gk` off the LINEAR wire, so §8 re-cuts `m4_hcap_at_door_perBlock_L_gk`
 → `m4_fuse_hcap_of_capWS_L_gk` → `s15_crossing_supplied_L_gk` against the SHARED leaf
@@ -9352,7 +9352,7 @@ cap-9 twins, their two rows dropped here (the twins are audited under ⟦β W1 E
 /-! ## ⟦H2c⟧ — THE CROSSING SUPPLIER AT THE INFLATED SOCKET `SocketBaseLH h`
 
 `Salt/MR/S13CapGateLinearLH.lean` (wave H2c).  The deliverable is
-`s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:931` with the same `∃ Cq cs T₀ Kq Ks C`
+`s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:878` with the same `∃ Cq cs T₀ Kq Ks C`
 prefix and pins, `hblk` at `SocketBaseLH h`, concluding
 `S16CofactorSupply_LH_gk h K Cq R M → S16BaseScaleCap96_LH_gk h K R M →
 S15CrossingBound_LH_gk h K R M`.
@@ -9505,7 +9505,7 @@ exactly ONE origin on the whole `h` lane (`HloExportFlatH:308`), every `obtain` 
 `S16FlatTerminalLinearH` and `HDoorSupply` contain **zero** `A₀`.  `flat_head_uniform_h` is the
 landed head with that line replaced by `intro A hA26 hAge`, exactly as `flat_head_uniform` does
 at `h = 1`.  ⭐ **And at `h` the road is ONE theorem where `h = 1` needs three:** the door-form
-register `m4_second_road_L2_H_gk_flatRoot_L` (S16FlatTerminalLinearH:1588) has no `A` in its
+register `m4_second_road_L2_H_gk_flatRoot_L` (S16FlatTerminalLinearH:1595) has no `A` in its
 statement at all, so `flat_socket_uniform` and `flat_doorL2_uniform` have nothing to hoist.
 `Hopq` leaves the `∀ A` and `Hcap` stays inside — the same split, for the same reason.
 
@@ -9620,7 +9620,7 @@ family 30 retired that piece into its cap-9 twin, `capfloor_T0_Tann_sharp_LH_b9`
 bundle has called since family 20.)
 
 ⛔⛔ **AND THE BLOCK ORDER IS WRONG: H3's HEADLINE `logChowla2_v7_rated_h` IS GATED ON BLOCK E.**
-`logChowla2_v7_rated` (V7Rated:973) obtains `cofkR_cofactorSupply_L_gk_rated` (V7Rated:241) in
+`logChowla2_v7_rated` (V7Rated:976) obtains `cofkR_cofactorSupply_L_gk_rated` (V7Rated:244) in
 its first line, and that supplier DEMANDS `(1 : ℝ)/500 ≤ (R.eps : ℝ)` while the `h` head pins
 `ε = 1/(500·h)` — FALSE at `h ≥ 2`.  Its body consumes `cofkL_capFreeFloor_at_socket_rated_uniform`,
 `cofkL_socket_floors` and `cofkL_mu_floor`, three of the seven `_h` names E is chartered to
@@ -9723,7 +9723,7 @@ because a vacuous supplier and an absent one are indistinguishable from every ga
 day N4s acquires a producer the family needs the `1/(500h)` spelling.
 
 ⭐⭐ **AND THE FAMILY IS PINNED TO THE LANDED OBJECT BY A THEOREM, NOT A DOCSTRING.**
-`logChowla2_v7_rated_h_one` derives a hand-retyped copy of `V7Rated:973`'s statement from
+`logChowla2_v7_rated_h_one` derives a hand-retyped copy of `V7Rated:976`'s statement from
 `logChowla2_v7_rated_h 1`, and the `example` beside it inhabits that same statement with the
 LANDED `logChowla2_v7_rated` itself.  The prize is an `∃` whose content sits under binders: a
 family that had drifted into a WEAKER object would still elaborate at every consumer, and no

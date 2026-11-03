@@ -957,7 +957,7 @@ LANDED-fine (`s15WitFloor2_arc`, `s15WitFloor2_ll`).  `Hcap_road` descends to
 `H₀D3 = H₀red = max (96^8) (⌈e^{64·K_Chen}⌉+1)` with `K_Chen` the Siegel-ineffective PNT
 constant (`Chen.lambda_mass_lower` ← `psiTot_pnt` ← `SW.siegelWalfisz_holds`) — FORMALLY
 UNBOUNDED; `H₀arc`'s own exp-arm is `⌈e^{25^{25}·10^{40}·250001^9}⌉ ≈ e^{3.39·10^{123}}`;
-and `budgetFloor (1/500) β = ⌈e^{e^{e^{1.036·10^{31}}}}⌉` (`BudgetCore` :21) — a HEIGHT-3
+and `budgetFloor (1/500) β = ⌈e^{e^{e^{1.036·10^{31}}}}⌉` (`BudgetCore` :26) — a HEIGHT-3
 TOWER.  Against `s15WitFloor2 = ⌈e^{2^{400}}⌉` (a single exponential, `log = 2.582·10^{120}`)
 the `H₀arc` arm alone overshoots by 1313× IN THE EXPONENT and `budgetFloor` by a whole tower
 level.  ⚠ ⟦THE SECOND WALL⟧ unlike `Kc`/`Ct` this is NOT relaxable: `R.Hlo` must clear

@@ -87,7 +87,7 @@ headroom**, and the `h`-charge (`4·log h ≤ 28`) is the only part of it that i
 
 /-! ## §2 — ⟦THE ITEM THE CENSUS NEVER NAMED⟧ the rated co-factor supply at shift `h`
 
-`logChowla2_v7_rated` (V7Rated:973) obtains `cofkR_cofactorSupply_L_gk_rated` in its FIRST
+`logChowla2_v7_rated` (V7Rated:976) obtains `cofkR_cofactorSupply_L_gk_rated` in its FIRST
 line, and that supplier's statement demands `1/500 ≤ R.eps` — the exact seam.  Its `h`-family
 is therefore the gate on the only object H3 exists to produce.
 
@@ -1349,7 +1349,7 @@ theorem logChowla2_v7_rated_h_one (A₀ : ℝ) :
 
 set_option exponentiation.threshold 4000 in
 /-- **⟦THE RESTATEMENT, TIED TO THE LANDED DECLARATION⟧** — the theorem above retypes
-`V7Rated:973` by hand, so on its own it certifies only that the `h`-family implies THAT TEXT.
+`V7Rated:976` by hand, so on its own it certifies only that the `h`-family implies THAT TEXT.
 This `example`'s type is that statement and its proof term is the landed
 `logChowla2_v7_rated` itself, so the two are the same up to defeq and the copy is
 self-enforcing under future edits to either side. -/
