@@ -31,7 +31,7 @@ DEFERRED (design-tier — genuine analytic work, NOT packaging; confirms the fin
    (`lambda_mass_lower`).  Blocker: bounding the Ifun/hbjs error sums + the `(1+O(1/log Lval))²`
    prefactors into an explicit `ecount`, AND the un-packaged rows `∀ p prime ∣ opQ → p < opZ x`,
    the `Lval` floors, `opQ ≤ (log Lval)^C` (with `opQ ≈ exp(2·10⁹)`, a finite but tower-scale x₀).
-3. **`hcertA2_at_op`** — `A2grid_sharp_le` (A2Weighted:461) requires the EXACT geometry
+3. **`hcertA2_at_op`** — `A2grid_sharp_le` (A2Weighted:473) requires the EXACT geometry
    `log Dtot = 4·log z` with `Dtot, z : ℕ`.  At op `Dtot = opD x = ⌊x^{0.49991}⌋`, so
    `log(opD x) = 0.49991 log x ≠ 0.5 log x = 4·log(opZ x)` — a genuine mismatch (`A2weight`
    depends on `log Dtot − log t`).  Needs a perturbation-tolerant restatement with
