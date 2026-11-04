@@ -27,7 +27,7 @@ open Filter
 
 /-- ⭐ **THE UNTWISTED λ TROPHY, NAMED.**  `LambdaSummatory` at every `A > 0`,
 unconditional: the `MmuRate` slot is discharged by the landed nullary
-`Salt.SW.mmuRate_holds` (`Salt/SW/MobiusRateClose.lean:1059`).
+`Salt.SW.mmuRate_holds` (`Salt/SW/MobiusRateClose.lean:1062`).
 
 Before this, the composition `LambdaSummatory_of_MmuRate Salt.SW.mmuRate_holds`
 was re-spelled inline at four discharge sites (`:39`, `:50`,

@@ -232,7 +232,7 @@ theorem dhDetector_mellin (χ : DirichletCharacter ℂ q) (z : ℕ) {x : ℝ} (h
 
 /-! ## M1b — the Dirichlet-series identity `Σ a(n) n^{-s} = ζ(s)·L(s,χ)`
 
-This closes the seam DH-1 left documented (`dhLSeries_target`, `DHDetector.lean:362`).
+This closes the seam DH-1 left documented (`dhLSeries_target`, `DHDetector.lean:378`).
 The coefficient `a = dhA χ = 1∗χ_ℝ` is the Dirichlet convolution of the constant `1`
 (whose L-series is `ζ`) with the real character `χ_ℝ`; for a real character (`χ² = 1`)
 the values `χ(n) ∈ {0,1,−1}` are their own real parts, so `↑(χ_ℝ n) = χ(n)` and the

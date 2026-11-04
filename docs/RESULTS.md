@@ -138,7 +138,7 @@ machinery beneath them is ledger-audited at `Salt/Vk/All.lean:52`.
 | `Salt.TwinBar.twinB_min_implies_twins` | The door: `TwinB_min → TwinPrimeConjecture` (past the threshold the twin sum is positive, so each `n` yields a survivor). | Salt/TwinBar/TwinDoor.lean:270 | 2026-07-15 | `51d30783` | 3 (Salt/TwinBar/All.lean:79) |
 | `Salt.TwinBar.wall_or_door` | The wall/door partition: any certificate capturing a positive proportion of the prime mass is NOT `SieveAgree`-tolerant at level `D`. | Salt/TwinBar/TwinDoor.lean:294 | 2026-07-15 | `51d30783` | 3 (Salt/TwinBar/All.lean:79) |
 | `Salt.TwinBar.least_k_theorem` | **The least-k theorem**: in the unmodified Maynard–Selberg class the least `k` with `M_k > 2` is `5` (no-go at 2,3,4; rational witness at 5). | Salt/TwinBar/LeastK.lean:127 | 2026-07-15 | `cecf8a0a` | 3 (Salt/TwinBar/All.lean:79) |
-| `Salt.SW.mmuRate_holds` | The effective Möbius summatory rate: for every `A > 0`, `\|M_μ(y)\| ≤ C·y/(log y)^A` past a threshold. On this the parity wall went unconditional. | Salt/SW/MobiusRateClose.lean:1059 | 2026-07-16 | `fd504be3` | 3 (Salt/SW/All.lean:152) |
+| `Salt.SW.mmuRate_holds` | The effective Möbius summatory rate: for every `A > 0`, `\|M_μ(y)\| ≤ C·y/(log y)^A` past a threshold. On this the parity wall went unconditional. | Salt/SW/MobiusRateClose.lean:1062 | 2026-07-16 | `fd504be3` | 3 (Salt/SW/All.lean:152) |
 | `Salt.TwinBar.parity_wall_unconditional` | **The effective parity wall, UNCONDITIONAL** — `parity_wall_effective` with its `LambdaSummatory` slot discharged by `mmuRate_holds`. | Salt/TwinBar/WallUnconditional.lean:43 | 2026-07-16 | `fd504be3` | 3 (Salt/TwinBar/All.lean:79) |
 | `Salt.TwinBar.no_parity_beating_certificate_unconditional` | No tolerant certificate lower-bounds a positive fraction of the sifted sum — full stop, no hypotheses. | Salt/TwinBar/WallUnconditional.lean:56 | 2026-07-16 | `fd504be3` | 3 (Salt/TwinBar/All.lean:79) |
 | `Salt.TwinBar.Sep.wall_of_indistinguishable` | The tolerant separation master: if a decoy `w` is reading-indistinguishable from `u` at budget `B`, then `Φ u ≤ cap w + 2B`. | Salt/TwinBar/Separation.lean:67 | 2026-07-16 | `bfec7172` | 3 (Salt/TwinBar/All.lean:79) |
@@ -276,7 +276,7 @@ machinery beneath them is ledger-audited at `Salt/Vk/All.lean:52`.
     `Salt/Entropy/All.lean:403`, `Salt/Maynard/All.lean:106`,
     `Salt/MR/All.lean:1563-1565`).
 - **`Salt.SW.dh_repulsion_ordered` has a namesake in a doc comment** at
-  `Salt/SW/DHRepulsion.lean:267` (the frozen target contract, inside a fenced
+  `Salt/SW/DHRepulsion.lean:283` (the frozen target contract, inside a fenced
   block). The live declaration is the TBalR8 one in this table.
 - **Superseded rows**: none yet. When the HB engine discharges
   `fulcrum_dichotomy`'s `hEngine` slot unconditionally, mark the conditional

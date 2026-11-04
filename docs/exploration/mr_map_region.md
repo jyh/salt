@@ -143,7 +143,7 @@ polynomials of length ~x, Parseval over frequencies |t| up to x-grade
 - Pow region unconditional (§1c) + classical region all-t (§1d) — the two-range
   ζ-region supply is COMPLETE for the asymptotic chain.
 - Region→consumption template at dlVP grade: `zeta_inv_shallow` →
-  `MobiusRateClose` (trophy `MmuRate`, G: MobiusRateClose.lean:1054) — the
+  `MobiusRateClose` (trophy `MmuRate`, G: MobiusRateClose.lean:1057) — the
   contour/absorption pattern a pow-grade analogue would copy.
 - Borel–Carathéodory/Landau partial fractions: `entire_norm_logDeriv_sub_sum_scaled`
   (G: Vk/Landau.lean:11–12, exported Vk/All.lean:93) + the SW DH* stack.

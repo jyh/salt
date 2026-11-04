@@ -7690,7 +7690,7 @@ decisions per question.
   per-turn output cap; the synthesis ran vacuous.** The maps'
   yield beyond the banked file: (1) T-BAL has NO hypothesis
   slot — it must STATE dh_repulsion itself (prose spec
-  DHRepulsion.lean:261–270; M4 waits to consume the Λ-bound);
+  DHRepulsion.lean:277–286; M4 waits to consume the Λ-bound);
   (2) the Benli 2410.06082 chain is fully explicit AND
   numerically re-verified by the reader, with a PORT TRAP
   caught: the paper's printed rounded J-constant 1.6e8
@@ -8062,7 +8062,7 @@ decisions per question.
   (docs/exploration/tbal-s0-freeze.md) + the five ledger
   scripts (scripts/tbal_ledgers/). RATIFICATION GATE (blocks
   R8 + the contract edit ONLY): σ 9/10 → 16/17 vs the PROSE
-  contract (DHRepulsion.lean:267; grounded NO landed Lean
+  contract (DHRepulsion.lean:283; grounded NO landed Lean
   consumer) — JYH decision, jointly with the downstream
   zero-density budget re-check; register entry OPEN.
   **WAVE 1 DISPATCHED** (R0 re-founding + R1 shift + R3
@@ -9098,7 +9098,7 @@ decisions per question.
   tools, reconciling with the revived R8c's concurrent landing;
   house-verified SW.All 8821 green, the audit prints
   ✓ dh_repulsion_ordered [3 axioms]). THE CONTRACT VERBATIM
-  (DHRepulsion.lean:267–279): ∃ b c k — witnesses b=680, k=14,
+  (DHRepulsion.lean:283–295): ∃ b c k — witnesses b=680, k=14,
   c = c₁⁸ with c₁ the min over the six existential-composed
   thresholds (the realized #242 shape); every ζ/L-zero pair in
   the 16/17 window obeys (1−β₀) ≥ c·(qT)^{−680(1−σ)}/L₂¹⁴.
