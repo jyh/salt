@@ -18,7 +18,7 @@ ported, and nothing else.
 head it calls is.  `HloExportFlatH.flat_head_uniform_h` removed that pin with one `intro`; §1
 here re-brackets the exit onto it.  ⭐ **At `h` this is ONE theorem, not three:** at `h = 1` the
 lane needs `flat_socket_uniform` and `flat_doorL2_uniform` between the head and the road, but the
-`h` door-form register `m4_second_road_L2_H_gk_flatRoot_L` (S16FlatTerminalLinearH:1588) **has no
+`h` door-form register `m4_second_road_L2_H_gk_flatRoot_L` (S16FlatTerminalLinearH:1589) **has no
 `A` in its statement at all**, so the two intermediate hoists have nothing to hoist.
 
 **BLOCK W — the windowed band rider at the inflated socket.**  §2.  This is the row where wave
@@ -163,6 +163,11 @@ theorem s16BandLaneCBoundedLH_win_one_iff (Awin : ℝ) (K : ℕ) :
   unfold S16BandLaneCBoundedLH_win S16BandLaneCBoundedL_win
   simp only [socketBaseLH_one_iff]
 
+/-- The `h = 1` twin law for the witness-uniform rider: `S16BandLaneCBoundedLH_winU 1 Awin` is
+`S16ComposeV4.S16BandLaneCBoundedL_winU Awin`, by unfolding both and `socketBaseLH_one_iff`
+under `simp only`. With `s16BandLaneCBoundedLH_win_one_iff` the anti-drift gate for the two
+`h`-defs, whose socket occurrences sit in hypothesis position where no consumer build would see
+a drift. -/
 theorem s16BandLaneCBoundedLH_winU_one_iff (Awin : ℝ) :
     S16BandLaneCBoundedLH_winU 1 Awin ↔ S16BandLaneCBoundedL_winU Awin := by
   unfold S16BandLaneCBoundedLH_winU S16BandLaneCBoundedL_winU

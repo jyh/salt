@@ -84,50 +84,10 @@ theorem boundary_XM_raw {x k i F K : ℕ}
 
 /-! ## §2 — the real + logarithmic scale facts (F1-rows(a))
 
-From the raw Nat window, `X·M ≍ x` in `ℝ` and `log(X·M) ∈ [log x − 1, log x + 3]`.  The
-derivation is `PriceOne.d0_window_of_XM`'s log paragraph, factored so any consumer of the box rows
-can quote it.  Stated for generic `X, M` from the raw bounds (maximally reusable). -/
-
-/-- **`xm_real_bounds` (F1-rows(a)).**  The real window from the raw Nat window: `0 < X·M`,
-`x/2 < X·M`, `X·M ≤ 4x`. -/
-theorem xm_real_bounds {x X M : ℕ} (hlo : x / 2 + 1 < X * M) (hhi : X * M ≤ 4 * x) :
-    (0 : ℝ) < (X : ℝ) * (M : ℝ)
-      ∧ (x : ℝ) / 2 < (X : ℝ) * (M : ℝ)
-      ∧ (X : ℝ) * (M : ℝ) ≤ 4 * (x : ℝ) := by
-  have hXMposN : 0 < X * M := by omega
-  have hXMposR : (0 : ℝ) < (X : ℝ) * (M : ℝ) := by exact_mod_cast hXMposN
-  have hhiR : (X : ℝ) * (M : ℝ) ≤ 4 * (x : ℝ) := by exact_mod_cast hhi
-  refine ⟨hXMposR, ?_, hhiR⟩
-  have h1 : x < (x / 2 + 1) * 2 := by omega
-  have h2 : x / 2 + 1 ≤ X * M := by omega
-  have h1R : (x : ℝ) < ((x / 2 + 1 : ℕ) : ℝ) * 2 := by exact_mod_cast h1
-  have h2R : ((x / 2 + 1 : ℕ) : ℝ) ≤ (X : ℝ) * (M : ℝ) := by exact_mod_cast h2
-  push_cast at h1R h2R
-  linarith
-
-/-- **`xm_log_bounds` (F1-rows(a)).**  `log x − 1 ≤ log(X·M) ≤ log x + 3` from the raw Nat window
-(`x ≥ 2`).  The `−1`/`+3` come from `log 2 ≤ 1` and `log 4 ≤ 3`. -/
-theorem xm_log_bounds {x X M : ℕ} (hx : 2 ≤ x)
-    (hlo : x / 2 + 1 < X * M) (hhi : X * M ≤ 4 * x) :
-    Real.log x - 1 ≤ Real.log ((X : ℝ) * (M : ℝ))
-      ∧ Real.log ((X : ℝ) * (M : ℝ)) ≤ Real.log x + 3 := by
-  obtain ⟨hXMposR, hhalf, hhiR⟩ := xm_real_bounds hlo hhi
-  have hxpos : (0 : ℝ) < (x : ℝ) := by
-    have : (2 : ℝ) ≤ (x : ℝ) := by exact_mod_cast hx
-    linarith
-  constructor
-  · have hlog : Real.log ((x : ℝ) / 2) ≤ Real.log ((X : ℝ) * (M : ℝ)) :=
-      Real.log_le_log (by linarith) hhalf.le
-    rw [Real.log_div (ne_of_gt hxpos) (by norm_num : (2 : ℝ) ≠ 0)] at hlog
-    have h2log : Real.log 2 ≤ 1 := by
-      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)]
-    linarith
-  · have h1 : Real.log ((X : ℝ) * (M : ℝ)) ≤ Real.log (4 * (x : ℝ)) :=
-      Real.log_le_log hXMposR hhiR
-    rw [Real.log_mul (by norm_num : (4 : ℝ) ≠ 0) (ne_of_gt hxpos)] at h1
-    have h4log : Real.log 4 ≤ 3 := by
-      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 4 by norm_num)]
-    linarith
+From the raw Nat window, `X·M ≍ x` in `ℝ` and `log(X·M) ∈ [log x − 1, log x + 3]`. The two
+generic facts, `xm_real_bounds` and `xm_log_bounds`, live in the Mathlib-only leaf
+`Salt.Chen.DyadicWindow`, beside their `≤`-hypothesis forms, so the Chen and Goldbach band
+assemblies that took them inline can quote them. This section composes them for the box rows. -/
 
 /-- **`boundary_log_bounds` (F1-rows(a), composed).**  The `[log x − 1, log x + 3]` window for a
 pieceN-boundary box at `X = 2^{i+1}−1`, `M = pieceM k` — the exact `Real.log ((X:ℝ)·(pieceM k))`

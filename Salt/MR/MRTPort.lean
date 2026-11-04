@@ -137,7 +137,7 @@ theorem regime_headroom_at_socket :
 /-!
 ## A pointwise floor transports to `mrtQuality`
 
-`mrtQuality g X Q` (`Salt/MR/MRTProp24.lean:187-189`) is the infimum of
+`mrtQuality g X Q` (`Salt/MR/MRTProp24.lean:191-193`) is the infimum of
 `pretDistSq g (chiTwist χ t) X` over the **triple** `(t, q, χ)` cut out by
 `|t| ≤ X ∧ 1 ≤ q ∧ (q : ℝ) ≤ Q`.  This file records the `le_csInf` half of that
 transport: a floor holding **pointwise, uniformly over the whole index set** is a
@@ -262,7 +262,7 @@ theorem pretDistSq_lam_eq_lamCoeff (g : ℕ → ℂ) (X : ℝ) :
 Item 15, node N4 of the MRT port (design block
 `2026-08-24-item15-mrt-port-DESIGN-BLOCK-v6.md`, §4).  One theorem:
 the Liouville coefficient sequence `lamCoeff` (`M4Window.lean:73`) satisfies
-`MrtCompMultDatum` (`MRTProp24.lean:195-201`), the structure that packages MRT's
+`MrtCompMultDatum` (`MRTProp24.lean:199-205`), the structure that packages MRT's
 "1-bounded completely multiplicative" hypothesis.
 
 All three fields come off the `liouvilleC` arm of the corpus, transported by the

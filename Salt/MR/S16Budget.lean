@@ -10,6 +10,10 @@ import Salt.MR.S13CapRbd
 import Salt.MR.S12FuseCompose
 import Salt.MR.S15Compose
 import Salt.MR.S15Witness
+import Salt.MR.RegimeFloors
+import Salt.MR.DoorSocket
+import Salt.MR.RegimeScaleReads
+import Salt.MR.SocketLogFrame
 
 /-!
 # `S16Budget` — the `budget` field, the cap-gate supply, and the crossing bound
@@ -102,9 +106,18 @@ open Real
 
 
 
+/-- `calE A G 2 = 4·(A·G)`: the calibrated exponent `e_j = A·G^{j−1}·(j!)²` at `j = 2`, where
+`(2!)² = 4` — `simp [Nat.factorial]` and `ring`. The §1 shape stone `s16_logP2` and `s16_logQK2`
+unfold. -/
 theorem s16_calE_two (A G : ℕ) : calE A G 2 = 4 * (A * G) := by
   rw [calE]; simp [Nat.factorial]; ring
 
+/-- `log 𝒫₂ = (4·(A·G))·log 2` for `𝒫₂ = calP A G 2 = 2^{e₂}`: `s16_calE_two` and
+`Real.log_pow`. The base log every budget reads — in-file `s16_logQK2`, `s16_budget_field_gk`,
+`s16_budget_field_gk_96`, `s16_logP1_le_logP2`, `s16_recut_logLogP2_ge` and
+`s16_baseScaleCap96_of_baseScaleCap`; across `Salt/` the cap lemmas of `DoorLinear`,
+`RegisterSupply` and `S13CapGateLinear` and the `K`-lever numeral of `KLever` and
+`FlatDoorEpsRung2`. -/
 theorem s16_logP2 (A G : ℕ) :
     Real.log ((calP A G 2 : ℕ) : ℝ) = ((4 * (A * G) : ℕ) : ℝ) * Real.log 2 := by
   rw [calP, s16_calE_two]
@@ -113,6 +126,9 @@ theorem s16_logP2 (A G : ℕ) :
   push_cast
   ring
 
+/-- `log 𝒬K₂ = (4M)·log 𝒫₂` for `𝒬K₂ = calQK A G M 2 = 2^{(2²·M)·e₂}`: unfold, `s16_logP2`,
+`s16_calE_two`, `Real.log_pow`, `ring`. The `hLqval : Lq = 4M·Lp` line of `s16_budget_field_gk`,
+`s16_budget_field_gk_96` and `S13CapGateLinear.s16_budget_field_L_gk_96`. -/
 theorem s16_logQK2 (A G M : ℕ) :
     Real.log ((calQK A G M 2 : ℕ) : ℝ)
       = ((4 * M : ℕ) : ℝ) * Real.log ((calP A G 2 : ℕ) : ℝ) := by
@@ -122,12 +138,19 @@ theorem s16_logQK2 (A G M : ℕ) :
   push_cast
   ring
 
+/-- `log 𝒫₁ = A·log 2` for `𝒫₁ = calP A G 1`: `calE_one` and `Real.log_pow`. The level-1 base of
+`s16_logP1_le_logP2` (`log 𝒫₁ ≤ log 𝒫₂/12288`) and of its linear twin
+`S13CapGateLinear.s16_logP1_le_logP2_L`. -/
 theorem s16_logP1 (A G : ℕ) :
     Real.log ((calP A G 1 : ℕ) : ℝ) = (A : ℝ) * Real.log 2 := by
   rw [calP, calE_one]
   push_cast
   rw [Real.log_pow]
 
+/-- `calH H1 2 = 4·H1`: the calibrated width `H_j = j²·H₁` at `j = 2`, by `norm_num`. Consumed
+by `s16_logH2_le` (`log H₂ ≤ 2 + log 𝒫₂/73728`), by the card factor's `0 < calH (H1door M) 2`
+inside `s16_budget_field_gk` and `s16_budget_field_gk_96`, and by their linear twins in
+`S13CapGateLinear`. -/
 theorem s16_calH_two (H1 : ℝ) : calH H1 2 = 4 * H1 := by
   rw [calH]; norm_num
 
@@ -174,6 +197,15 @@ theorem s16_logH2_le (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
 
 /-! main assembly -/
 
+/-- **The numeric core of the `budget` field, in seven abstract symbols** — `μ = log X_d`,
+`Λ = log μ`, `Lp = log 𝒫₂`, `Lq = log 𝒬K₂`, `lS = log S`, `llS = loglog S`, `lq = log q`: under
+`hΛ : 10^21 ≤ Λ`, `hμΛ`, `hμ`, `hLp0`, `hLpq : 4·Lp ≤ Lq`, `hLq : Lq ≤ √μ`, the base-scale cap
+`hcap : Λ ≤ Lp/24`, `hlq : lq ≤ 12Λ`, `hlS0`, `hlS : lS ≤ μ + 12Λ` and `hllS : llS ≤ Λ + 1`, the
+seven summands `16 + Lp/73728 + Λ/2 + (7/24)Lq + 2(lS/Lp)·llS + (7/24)lq + μ/Λ` sit under
+`(5/24)·μ`. Route: `√μ ≤ μ/10^10` from `hLq` and the cap puts each small term under `μ/10^10`,
+the main leg `2(lS/Lp)·llS` under `μ/8` through `24Λ ≤ Lp`, then `linarith`. Consumed by
+`s16_budget_field_gk`; §6.6's `s16_budget_num_96` is the same statement at the sharp divisor
+`9.60000096`. -/
 theorem s16_budget_num {μ Λ Lp Lq lS llS lq : ℝ}
     (hΛ : (10 : ℝ) ^ (21 : ℕ) ≤ Λ) (hμΛ : Real.log μ = Λ) (hμ : 0 < μ)
     (hLp0 : 0 < Lp) (hLpq : 4 * Lp ≤ Lq) (hLq : Lq ≤ Real.sqrt μ)
@@ -236,6 +268,17 @@ set_option maxHeartbeats 1000000 in
 -- the whole `exp`/`rpow` reduction (card, `VJ²`, the `X`-power, the `Mr` floor) elaborates in
 -- one term against the levered `𝒫₂`/`𝒬K₂` literals; the default budget is spent by the
 -- `thinBundleGChi` unfold
+/-- **The `budget` field of `S13CapGatePerBlock_gk`, supplied verbatim at every ram block**
+`hi : i ∈ ramI (H83 Nd theta293) P Q`: the thin bundle
+`thinBundleGChi (q·Tann) (s13VJ_gk K M) (calH (H1door M) 2) 𝒫₂ 𝒬K₂`, times
+`Nd^{1 − 2·s13Eta + s13EpsD q Nd}`, is at most `s13Mr Nd i`, from the grid wave's own fields
+(`hmu8`, `hLam : 10^21 ≤ loglog Nd`, `hqlog : q ≤ (log Nd)^12`, `hTann1`, `hTannhi`, `hQhigh`,
+`hQ2reg`) plus the ONE new hypothesis `hcap : loglog Nd ≤ log 𝒫₂/24` (`S16BaseScaleCap_gk`'s
+line). Route: set `μ Λ Lp Lq`, derive the seven symbol bounds (`s16_logP2`, `s16_logQK2`,
+`12Λ ≤ μ`, `log S ≤ μ + 12Λ`), hand them to `s16_budget_num`, then the card factor
+(`mrAlpha (1/12) 2 = 7/48`, `s16_calH_two`) and the `exp`/`rpow` reduction against `s13Mr`'s
+floor, in one term under `maxHeartbeats 1000000`. The `budget := …` line of
+`s16_capGate_supply_gk`. -/
 theorem s16_budget_field_gk (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
     (hM : 1 ≤ M) (hq : 1 ≤ q) (hQpos : 0 < Q)
     (hmu8 : 8 ≤ Real.log (Nd : ℝ))
@@ -476,6 +519,17 @@ def S16CofactorSupply_gk (K : ℕ) (Cq : ℝ) (R : ChowlaRegime) (M : ℕ) : Pro
 
 set_option maxHeartbeats 1000000 in
 -- 37 structure fields are checked against the levered per-block gate in one `exact`
+/-- **All 37 fields of `S13CapGatePerBlock_gk` at every socket**: under `hM`,
+`hfl : loglogFloor50 ≤ R.Hlo`, `hcs : 1 ≤ cs`, the block floor `hblk`, the constant riders
+`hT₀`, `hKq`, `hKs`, `hC0`, `hC : log C ≤ 40`, the grade floor `hεr`, the base-scale cap
+`hcap : S16BaseScaleCap_gk K R M` and the cofactor supply
+`hcof : S16CofactorSupply_gk K Cq R M`, every `SocketBase R M H L q j A s` and every `T` in the
+block's window (`hTlo`, `hThi`, `TannGate`, `5 ≤ loglog(2T)`) has `P Q Rrad Rbd CR EP2` with
+`S13CapGatePerBlock_gk K Cq cs T₀ Kq Ks C M (A+s) q P Q H (2T) …`. Route: `hcof` gives
+`Rrad Rbd CR` and the socket line; the grid wave `s13CapGrid_all_gk` (18 fields), the floor wave
+`s13CapFloor_all_gk` (7), the eps wave `s13CapEps_all` (7) and `s16_budget_field_gk` for
+`budget`, assembled in one `exact`. Consumed by `s15_crossing_supplied_gk`; §6.6's
+`s16_capGate_supply_wide_gk` re-cuts the `cs` and cap riders. -/
 theorem s16_capGate_supply_gk (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {R : ChowlaRegime} {M : ℕ}
     {epsf : ℕ → ℝ}
     (hM : 1 ≤ M) (hfl : loglogFloor50 ≤ R.Hlo) (hcs : 1 ≤ cs)
@@ -563,6 +617,16 @@ theorem s16_capGate_supply_gk (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {R : ChowlaRe
 set_option maxHeartbeats 1000000 in
 -- the eighteen-slot `hcapWS` family re-elaborates against the wire's own shape (the same cause
 -- as `S12FuseCompose` §GK, whose statement this consumes)
+/-- **⟦THE LAST WIRE⟧ the crossing bound, supplied**: for every `K` there are `Cq cs T₀ Kq Ks C`
+(each positive, `3 ≤ T₀`) such that, under the five constant riders (`1 ≤ cs`,
+`T₀ ≤ e^{e^{100}}`, `Kq ≤ e^{100}`, `e^{−100} ≤ Ks`, `log C ≤ 40`), every regime `R` and `M ≥ 1`
+with `loglogFloor50 ≤ R.Hlo`, the block floor, `S16CofactorSupply_gk K Cq R M` and
+`S16BaseScaleCap_gk K R M` satisfies `S15CrossingBound_gk K R M`. Route: the constants come from
+the eighteen-slot wire `m4_fuse_hcap_of_capWS_gk` and the band lemma `m4_tail_mass_at_band`;
+`s16_capGate_supply_gk` hands each block its gate, `doorCapBundle_at_workingPoint_perBlock_gk`
+turns it into the wire's demand, and the wire closes. Consumed by
+`logChowla2_witnessed_scale_final` and, at `K = 32000000`, by
+`logChowla2_witnessed_scale_final'`. -/
 theorem s15_crossing_supplied_gk (K : ℕ) :
     ∃ Cq cs T₀ Kq Ks C : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
       (1 ≤ cs → T₀ ≤ Real.exp (Real.exp 100) → Kq ≤ Real.exp 100 →
@@ -580,14 +644,7 @@ theorem s15_crossing_supplied_gk (K : ℕ) :
   refine hwire R M liouvilleC (fun _ => theta293 - 1 / 500) liouvilleC_norm_le_one ?_
   intro H L q j A s hsb T hTlo hThi hTgate hTll
   obtain ⟨P, Q, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
-  have hq : 1 ≤ q := hsb.2.2.2.1
-  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
-  have hNd : 1 ≤ A + s := by omega
-  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_eight; linarith
-  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
-    Real.rpow_pos_of_pos hlogX0 _
-  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
-      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  obtain ⟨hq, hA, hNd, hlogX0, hpow, hexp⟩ := socketLogFrame_facts s hsb hg.logX_eight
   have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
   have hT1 : (1 : ℝ) < 2 * T := by linarith
   exact doorCapBundle_at_workingPoint_perBlock_gk K hband hM hNd hq hg hT1 hThi hTll
@@ -596,6 +653,17 @@ theorem s15_crossing_supplied_gk (K : ℕ) :
 
 set_option maxHeartbeats 1000000 in
 -- the twin's fifteen-binder prefix re-elaborates beside the crossing supply's six constants
+/-- **§5's FINAL OBJECT**: the sharp2 witness `logChowla2_conditional_sharp2_nonvacuous_gk`
+composed with `s15_crossing_supplied_gk` — some `K ε Cg Kc δ₀ Ct x₀ Hcap Mfl` and
+`Cq cs T₀ Kq Ks C` such that, under the witness's eight numeral riders and the five constant
+riders, every `g` has a regime `R` and an `M` with `R.eps = ε`, `R.Hlo = s15WitFloor2`,
+`g R.Hhi R.ω ≤ R.x`, `S15Sel''_gk …` and
+`S16CofactorSupply_gk → S16BaseScaleCap_gk → ¬ logChowla2Fails R.eps R.x R.ω`. Route: the
+witness's body gives `R`, `M`, the selector and the fire; the block floor comes off the
+selector's `blk` line through `s15_block_at_socket_gk`, and the crossing supply fires it.
+Superseded, not consumed: §6's `logChowla2_witnessed_scale_final'` (the repaired terminal at
+`K = 3.2·10^7`) and its `'_Cproven`, `'_v2`, `'_v3` successors are what the lane reads, and no
+proof in `Salt/` applies this one. -/
 theorem logChowla2_witnessed_scale_final :
     ∃ (K : ℕ) (ε : ℚ) (Cg Kc δ₀ Ct : ℝ) (x₀ Hcap Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
@@ -879,11 +947,11 @@ Exported `Hcap = max Hcap_road (max arcFloor36 loglogFloor50)`; the two right ar
 LANDED-fine (`s15WitFloor2_arc`, `s15WitFloor2_ll`).  `Hcap_road` descends to
 `HloExportMR.m4_exit_socket_split_sq_arc_hloCap_pinned` (:303) as `max Hcap_head H₀arc`, with
 `Hcap_head = max 4000000 (max A (4·⌈1/ε⌉^4))`, `A = max (max (max H₀red H₀D3) H₀xi)
-(budgetFloor …)` (`HloExport` :566).  Leaf by leaf: `H₀xi = 2` (benign);
+(budgetFloor …)` (`HloExport` :550).  Leaf by leaf: `H₀xi = 2` (benign);
 `H₀D3 = H₀red = max (96^8) (⌈e^{64·K_Chen}⌉+1)` with `K_Chen` the Siegel-ineffective PNT
 constant (`Chen.lambda_mass_lower` ← `psiTot_pnt` ← `SW.siegelWalfisz_holds`) — FORMALLY
 UNBOUNDED; `H₀arc`'s own exp-arm is `⌈e^{25^{25}·10^{40}·250001^9}⌉ ≈ e^{3.39·10^{123}}`;
-and `budgetFloor (1/500) β = ⌈e^{e^{e^{1.036·10^{31}}}}⌉` (`BudgetCore` :21) — a HEIGHT-3
+and `budgetFloor (1/500) β = ⌈e^{e^{e^{1.036·10^{31}}}}⌉` (`BudgetCore` :26) — a HEIGHT-3
 TOWER.  Against `s15WitFloor2 = ⌈e^{2^{400}}⌉` (a single exponential, `log = 2.582·10^{120}`)
 the `H₀arc` arm alone overshoots by 1313× IN THE EXPONENT and `budgetFloor` by a whole tower
 level.  ⚠ ⟦THE SECOND WALL⟧ unlike `Kc`/`Ct` this is NOT relaxable: `R.Hlo` must clear
@@ -1253,14 +1321,7 @@ theorem s15_crossing_supplied_bounded_gk (K : ℕ) :
   refine hwire R M liouvilleC (fun _ => theta293 - 1 / 500) liouvilleC_norm_le_one ?_
   intro H L q j A s hsb T hTlo hThi hTgate hTll
   obtain ⟨P, Q, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
-  have hq : 1 ≤ q := hsb.2.2.2.1
-  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
-  have hNd : 1 ≤ A + s := by omega
-  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_eight; linarith
-  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
-    Real.rpow_pos_of_pos hlogX0 _
-  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
-      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  obtain ⟨hq, hA, hNd, hlogX0, hpow, hexp⟩ := socketLogFrame_facts s hsb hg.logX_eight
   have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
   have hT1 : (1 : ℝ) < 2 * T := by linarith
   exact doorCapBundle_at_workingPoint_perBlock_gk K hband hM hNd hq hg hT1 hThi hTll
@@ -1594,12 +1655,9 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl (K : ℕ)
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
       DoorRowZeroBase_gk K M (A + s) j liouvilleC
@@ -1685,18 +1743,10 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl (K : ℕ)
     rw [hval] at hstep
     have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
         * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
-    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
-      rw [hδssq]
-      field_simp
-      ring
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 
 
@@ -1725,49 +1775,30 @@ theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl (K : ℕ) (hK : K ≤ 17
   refine ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl,
     hCgle, hεpin, hδpin, hMflb, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
   -- ⟦THE BASE PIN⟧ `R.Hlo = U1floor`
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
-  have harcfl : arcFloor36 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, harcfl⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
   intro M hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
   intro hcap
   -- ⟦the two scale floors⟧
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  obtain ⟨hlam50, hΛ50, hHreg⟩ := regime_scale_reads R hfl
   have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
   -- ⟦the arm, both halves⟧
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family, at the RESTORED anchor
   have harith := s15_doorArithFrameRho_family'' (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -1966,6 +1997,13 @@ face — beside the two Siegel items (`x₀`, `Ks`) and the two carried predicat
 
 **PURELY ADDITIVE.**  No landed declaration is touched. -/
 
+/-- **⟦REPAIRS-LANE ITEM 3⟧ `s16_budget_num` at the relaxed cap** `hcap : Λ ≤ Lp/9.60000096`
+(`9.6·(1 + 10^{−8})`; `9.6` is the sharp divisor, since the leg `2(lS/Lp)·llS` alone is
+`(2/9.6)·μ = (5/24)·μ`): the same seven symbols, the same hypotheses otherwise, the same
+conclusion. Route: `hc : 9.60000096·Λ ≤ Lp` gives `Λ ≤ μ/(38·10^10)`; the main leg is bounded by
+`(5/24)·μ − 7·μ/10^10` through `2(μ + 12Λ)(Λ + 1) ≤ (…)·9.60000096·Λ ≤ (…)·Lp`, the other six
+summands sit under `μ/10^10` each, then `linarith`. Consumed by `s16_budget_field_gk_96` and by
+`S13CapGateLinear.s16_budget_field_L_gk_96`. -/
 theorem s16_budget_num_96 {μ Λ Lp Lq lS llS lq : ℝ}
     (hΛ : (10 : ℝ) ^ (21 : ℕ) ≤ Λ) (hμΛ : Real.log μ = Λ) (hμ : 0 < μ)
     (hLp0 : 0 < Lp) (hLpq : 4 * Lp ≤ Lq) (hLq : Lq ≤ Real.sqrt μ)
@@ -2081,6 +2119,12 @@ theorem s16_baseScaleCap96_of_baseScaleCap (K : ℕ) {R : ChowlaRegime} {M : ℕ
 set_option maxHeartbeats 1000000 in
 -- same cause as the landed `s16_budget_field_gk`: the whole `exp`/`rpow` reduction elaborates
 -- in one term against the levered `𝒫₂`/`𝒬K₂` literals
+/-- **⟦REPAIRS-LANE ITEM 3⟧ `s16_budget_field_gk` at the relaxed divisor**: the same `budget`
+inequality from the same grid-wave fields, with `hcap : loglog Nd ≤ log 𝒫₂/9.60000096`
+(`S16BaseScaleCap96_gk`'s line) in place of `/24`; the proof is the landed one with
+`s16_budget_num_96` as its numeric core, under `maxHeartbeats 1000000`. The `budget := …` line
+of `s16_capGate_supply_wide_gk`; its linear-door twin is
+`S13CapGateLinear.s16_budget_field_L_gk_96`. -/
 theorem s16_budget_field_gk_96 (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
     (hM : 1 ≤ M) (hq : 1 ≤ q) (hQpos : 0 < Q)
     (hmu8 : 8 ≤ Real.log (Nd : ℝ))
@@ -2527,14 +2571,7 @@ theorem s15_crossing_supplied_wide_gk (K : ℕ) :
   refine hwire R M liouvilleC (fun _ => theta293 - 1 / 500) liouvilleC_norm_le_one ?_
   intro H L q j A s hsb T hTlo hThi hTgate hTll
   obtain ⟨P, Q, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
-  have hq : 1 ≤ q := hsb.2.2.2.1
-  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
-  have hNd : 1 ≤ A + s := by omega
-  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_eight; linarith
-  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
-    Real.rpow_pos_of_pos hlogX0 _
-  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
-      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  obtain ⟨hq, hA, hNd, hlogX0, hpow, hexp⟩ := socketLogFrame_facts s hsb hg.logX_eight
   have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
   have hT1 : (1 : ℝ) < 2 * T := by linarith
   exact doorCapBundle_at_workingPoint_perBlock_gk K hband hM hNd hq hg hT1 hThi hTll

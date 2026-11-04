@@ -50,6 +50,7 @@ noncomputable def zS (N : ℕ) : ℕ := ⌊(N : ℝ) ^ (9 / 20 : ℝ)⌋₊
 /-- Sharp sift modulus. -/
 noncomputable def PS (N : ℕ) : ℕ := primorial (zS N)
 
+/-- The sharp sift modulus `PS N = primorial (zS N)` is squarefree (`primorial_squarefree`). -/
 lemma PS_squarefree (N : ℕ) : Squarefree (PS N) := primorial_squarefree (zS N)
 
 /-- The sharp twin Selberg sieve. -/
@@ -60,24 +61,32 @@ noncomputable def twinSieveSharp (N : ℕ) (hN : 1 ≤ N) : SelbergSieve where
     unfold yS
     exact Real.one_le_rpow (by exact_mod_cast hN) (by norm_num)
 
+/-- The sifting primes of `twinSieveSharp N hN` are `PS N` (`rfl`; `hN : 1 ≤ N`). -/
 @[simp] lemma twinSieveSharp_prodPrimes (N : ℕ) (hN : 1 ≤ N) :
     (twinSieveSharp N hN).prodPrimes = PS N := rfl
 
+/-- The total mass of `twinSieveSharp N hN` is `N` (`rfl`). -/
 @[simp] lemma twinSieveSharp_totalMass (N : ℕ) (hN : 1 ≤ N) :
     (twinSieveSharp N hN).totalMass = (N : ℝ) := rfl
 
+/-- The level of `twinSieveSharp N hN` is `yS N = N ^ (9/10)` (`rfl`). -/
 @[simp] lemma twinSieveSharp_level (N : ℕ) (hN : 1 ≤ N) :
     (twinSieveSharp N hN).level = yS N := rfl
 
+/-- The Selberg terms of `twinSieveSharp N hN` are those of the underlying twin sieve
+`Salt.TwinSieve.sieve N (PS N) _`: `selbergTerms` reads only the bounding-sieve fields. -/
 lemma twinSieveSharp_selbergTerms (N : ℕ) (hN : 1 ≤ N) :
     (twinSieveSharp N hN).selbergTerms
       = (Salt.TwinSieve.sieve N (PS N) (PS_squarefree N)).selbergTerms := rfl
 
+/-- The remainder `rem d` of `twinSieveSharp N hN` is the twin sieve's `_root_.rem d N`. -/
 lemma twinSieveSharp_rem (N : ℕ) (hN : 1 ≤ N) (d : ℕ) :
     (twinSieveSharp N hN).rem d = _root_.rem d N := by
   change (Salt.TwinSieve.sieve N (PS N) (PS_squarefree N)).rem d = _root_.rem d N
   exact Salt.TwinSieve.sieve_rem d
 
+/-- The sifted sum of `twinSieveSharp N hN` is that of the underlying twin sieve
+`Salt.TwinSieve.sieve N (PS N) _`. -/
 lemma twinSieveSharp_siftedSum (N : ℕ) (hN : 1 ≤ N) :
     (twinSieveSharp N hN).siftedSum
       = (Salt.TwinSieve.sieve N (PS N) (PS_squarefree N)).siftedSum := rfl
@@ -160,6 +169,8 @@ lemma tau6_tail {L e : ℕ} (he : 1 ≤ e) {A : Finset ℕ}
 noncomputable def tau6W (L k : ℕ) : ℝ :=
   ∑ d ∈ (Finset.Icc 1 L).filter Squarefree, (k : ℝ) ^ (d.primeFactors.card) / (d : ℝ)
 
+/-- `tau6W L 0 ≤ 1`: with `k = 0` only `d = 1` contributes (`0 ^ ω(d) = 0` for `d > 1`), and its
+term is `1`. -/
 lemma tau6W_zero_le (L : ℕ) : tau6W L 0 ≤ 1 := by
   unfold tau6W
   simp only [Nat.cast_zero]
@@ -181,6 +192,8 @@ lemma tau6W_zero_le (L : ℕ) : tau6W L 0 ≤ 1 := by
         rw [Finset.sum_ite_eq']
         split_ifs <;> norm_num
 
+/-- The induction step in `k`: `tau6W L (k + 1) ≤ (1 + log L) · tau6W L k` — raising the divisor
+power by one costs at most a harmonic factor `∑_{d ≤ L} 1/d ≤ 1 + log L`. -/
 lemma tau6W_step (L k : ℕ) : tau6W L (k + 1) ≤ (1 + Real.log L) * tau6W L k := by
   unfold tau6W
   set S := (Finset.Icc 1 L).filter Squarefree with hS
@@ -249,6 +262,7 @@ lemma tau6W_step (L k : ℕ) : tau6W L (k + 1) ≤ (1 + Real.log L) * tau6W L k 
           _ = (1 + Real.log L) * ∑ e ∈ S, (k : ℝ) ^ (e.primeFactors.card) / (e : ℝ) := by
               rw [Finset.mul_sum]
 
+/-- `tau6W L k ≤ (1 + log L) ^ k`: `tau6W_zero_le` and `tau6W_step`, iterated. -/
 lemma tau6W_le (L k : ℕ) : tau6W L k ≤ (1 + Real.log L) ^ k := by
   induction k with
   | zero => rw [pow_zero]; exact tau6W_zero_le L
@@ -289,6 +303,7 @@ theorem sum_six_pow_omega_le (L : ℕ) :
 
 /-! ## Denominator lower bound -/
 
+/-- `(x ^ (9/20)) ^ 2 = x ^ (9/10)` for `0 ≤ x` (`hx`): real powers multiply the exponents. -/
 private lemma rpow_920_sq (x : ℝ) (hx : 0 ≤ x) :
     (x ^ (9 / 20 : ℝ)) ^ 2 = x ^ (9 / 10 : ℝ) := by
   rw [← Real.rpow_natCast (x ^ (9 / 20 : ℝ)) 2, ← Real.rpow_mul hx]
@@ -403,6 +418,7 @@ lemma mainTermSum_ge_sharp {z : ℕ} (hz : Salt.M3Assembly.z0 ≤ z) :
 /-- Master threshold. -/
 def N0S : ℕ := 2 ^ 240
 
+/-- `(N0S : ℝ) = 2 ^ 240`: the master threshold cast to `ℝ`. -/
 lemma N0S_cast : (N0S : ℝ) = (2 : ℝ) ^ (240 : ℕ) := by unfold N0S; push_cast; ring
 
 /-- `(N0S)^(9/20) = 2^108`, computed exactly. -/

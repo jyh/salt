@@ -143,6 +143,9 @@ private lemma level1_shape {Ha Lq Pq R : ℝ} (hH2 : 2 ≤ Ha) (hLq : 1 ≤ Lq)
 atom (the V9c law). -/
 def KdoorL (M : ℕ) : ℕ := 17179869184 * M
 
+/-- `AdoorL M = 4 · KdoorL M`: `2^36·M = 4·(2^34·M)`, by `norm_num` on `2^36 = 4·17179869184`
+and `mul_assoc`. The identity `KdoorL` exists for: consumed by `calP_door_one_rpow_quarter_L`,
+which rewrites `𝒫₁ = 2^{AdoorL M}` as `(2^{KdoorL M})^4` and takes the fourth root exactly. -/
 lemma Adoor_eq_four_mul_L (M : ℕ) : AdoorL M = 4 * KdoorL M := by
   simp only [AdoorL, KdoorL]
   have h : (2 : ℕ) ^ 36 = 4 * 17179869184 := by norm_num

@@ -107,7 +107,7 @@ Raised to the 9th by `logz_factor_pow9_le` (:712-731 [B]).
 
   The 9 itself: `sum_gcW_pairkernel_le` (DHExtractW.lean:923-930 [B]) —
   |gcW| ≤ 3^ω (:946) times the exact pair-count 3^ω (:921, `paircount`), so
-  9^ω, closed by `tau6W_le` (Sharp.lean:248 [B]): Σ_{d≤L sqfree} k^{ω}/d ≤
+  9^ω, closed by `tau6W_le` (Sharp.lean:261 [B]): Σ_{d≤L sqfree} k^{ω}/d ≤
   (1+log L)^k.  **The 9 is STRUCTURAL and tau6W_le is essentially sharp** —
   the Euler-product truth is exp(9·Σ_{p≤L}1/p) = e^{9M}(log L)^9, M = 0.2615,
   so at most e^{2.35} sits between the landed bound and the truth [A].  Do not

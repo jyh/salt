@@ -72,7 +72,7 @@ here by the explicit constant `5/2`.
 **Corpus reuse (the VK-forgetting lesson, `flags.md:21016`).**  The analytic core is already in
 the corpus and is *not* re-proved here:
 
-* `Salt.MR.tendsto_sum_sin_div_nat` (`Salt/MR/Sawtooth.lean:358`) — the sawtooth Fourier series
+* `Salt.MR.tendsto_sum_sin_div_nat` (`Salt/MR/Sawtooth.lean:365`) — the sawtooth Fourier series
   `∑_{n≥1} sin(2πnx)/n → π(1/2 − x)` on `(0,1)`, the conditionally convergent identity mathlib
   lacks (it was landed for the Hurwitz-zeta `k = 0` case of `LandauOdd`);
 * `Salt.MR.abs_sum_sin_le` (`:329`) — `|∑_{n<N} sin(2πnx)| ≤ 1/sin(πx)`;

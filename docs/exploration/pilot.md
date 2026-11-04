@@ -1346,7 +1346,7 @@ decisions per question.
   ec ≪ 0.01 inside the razor's 1/100. THE FLAG (deliverable 1,
   honest and precise): the twin's survivor-price bodies HARD-WIRE
   crtClassW across five files (FinA3/FinA3b/AggSum/PriceOne/
-  PriceClose — verified FinA3.lean:227) and carry a single
+  PriceClose — verified FinA3.lean:259) and carry a single
   T-difference (no annulus axis); no Goldbach crtClassG box-price
   supplier exists; reproducing that + the Σ_k annulus budget in one
   file was correctly out of scope. **G-PRICE COMMISSIONED** (the
@@ -2428,7 +2428,7 @@ decisions per question.
   narrowed door funded ahead of sprint termination. House freeze
   (s2-b3-design.md) with THREE house catches against the recon's
   sketch: (1) the consumable maxDiscrepancy is π-BASED (primesCount,
-  Salt/Maynard.lean:90), not ψ as the recon reported — the trap-iv
+  Salt/Maynard.lean:92), not ψ as the recon reported — the trap-iv
   class caught at freeze; (2) 1_prime is NOT a convolution — the
   "specialize α⋆β := Λ" mechanism cannot carry N-N2; the honest
   route is the corpus's OWN landed Vaughan machinery (BV rung:
@@ -4944,7 +4944,7 @@ decisions per question.
   attach). HMainAssembly.lean: **hreduce_holds** (hseed + hbudget
   ⟹ the frozen hreduce; the HReduce "carrier-gap" hmain is FREE —
   reverse-triangle on the explicit MAIN). THE CATCH
-  (house-verified at FBridge.lean:89 vs Tao pg-22): the gate uses
+  (house-verified at `fBridgeG`'s definition, FBridge line 89 when written, vs Tao pg-22): the gate uses
   0-indexed j against 1-indexed window values — complementary to
   the collapse class; every count-based consumer was
   residue-INDEPENDENT (ten nodes of silence); the p=2 witness

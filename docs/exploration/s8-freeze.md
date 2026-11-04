@@ -25,7 +25,7 @@ HALASZ BLOCK SUB-FREEZE (H2 HalaszCore.lean + H3 PropA3Core.lean — the dominan
 EXIT STONE (frozen interface, consumed by R3.2/R3.4/A2): halasz_ball_decay: f 1-bdd mult, t0 real: the ball |t-t0| <= (logX)^{1/16} contributes U << X(exp(-D(f,p^{it0};X)^2/2) + (logX)^{-1/2+eps}).
 H2 RUNGS (single writer, 1800 lines, dispatch t=0, internal order FIXED):
 R2.2 halasz_cosh_ineq [B,80] FIRST (day-1 warm-up, pure series): 2cosh(a)-2cos(t) <= e^{sqrt(a^2+t^2)}; k=0 terms cancel, a^{2k}+t^{2k} <= rho^{2k} termwise, sum <= 2cosh(rho)-2 <= e^rho.
-R2.3 lambda_ell_decomp [D, FAIL-FAST, 400] DAY 1: the s_J/ell/Lambda_ell Plancherel decomposition of pp.24-25; TuranKubilius.lean:288 supports typical-n bookkeeping. 3 serious attempts -> flags.md + STOP (kill-check K1); fallback = classical Montgomery-route Halasz (also D; Fable/JYH decision, not executor discretion). This IS the freeze's irreducible risk.
+R2.3 lambda_ell_decomp [D, FAIL-FAST, 400] DAY 1: the s_J/ell/Lambda_ell Plancherel decomposition of pp.24-25; TuranKubilius.lean:294 supports typical-n bookkeeping. 3 serious attempts -> flags.md + STOP (kill-check K1); fallback = classical Montgomery-route Halasz (also D; Fable/JYH decision, not executor discretion). This IS the freeze's irreducible risk.
 R2.1 ball_mvt [C,300]: from landed dirichlet_poly_l2_expand/_diagonal (L2MVT.lean:97/127) + elementary off-diagonal; T+NlogN grade ACCEPTABLE here (short prime blocks only — the log-intolerance lives in E1, not the ball).
 R2.4 A.6/A.7 chain [D,700]: iterated moment/decay chain at exp(-M/2) grade.
 R2.5 halasz_ball_decay [C/D,300] LAST (needs H1's R1.1 triangle): assemble R2.1-R2.4 into the exit stone.
@@ -35,7 +35,7 @@ R3.2 T1_pointwise_decay [C,500]: T1 pointwise << X(logX)^{-1/64+o(1)} (= exp(-(1
 R3.3 halasz_R_poly [C,500]: complex A.5-analog; T0 = (logX)^{1/16} — MRT's own choice, REVERTED from the refuted 1/64 (at A2's P,Q the 1/64 version made sec-8.3's first term DIVERGE, exponent +1/192; 1/16 gives (logX)^{-1/24}/loglog -> 0). Distance threshold (logX)^{1/16}/2 unchanged; ball/range separation 1/16 < 1/15 intact.
 R3.4 ball_integrated [B/C,300]: T0-ball integrated packaging via R2.5 + R3.3.
 INTERFACE CONTRACT (extract-granularity discipline): pdf-level mismatches in R2.3/R2.4 INTERNAL lemma shapes do NOT propagate — only halasz_ball_decay, R3.1's frozen conclusion, and prop_A3''s statement are frozen interfaces; executors adjust internals within their own file.
-CONSUMES (all judge- or double-refuter-verified): L2MVT.lean:97/127; Dist.lean:50/120; TuranKubilius.lean:288; NonPret.lean:65 loglog_height_le (+ trivial x^A variant as in-file helper); H1.0's one_line_pow_growth via R1.2; R0.5's two-sided bridge. FEEDS: A2 (sec 8.3 + T0/T1 split), A3b, thence thm_A1'.
+CONSUMES (all judge- or double-refuter-verified): L2MVT.lean:97/127; Dist.lean:50/120; TuranKubilius.lean:294; NonPret.lean:65 loglog_height_le (+ trivial x^A variant as in-file helper); H1.0's one_line_pow_growth via R1.2; R0.5's two-sided bridge. FEEDS: A2 (sec 8.3 + T0/T1 split), A3b, thence thm_A1'.
 RISK POSTURE: R2.3/R2.4 is the irreducible D-mass (mr_extract sec 4.1: Halasz-from-scratch 4-7k dominant; our 1800+1600 sits low in band because ball-MVT + cosh atoms are landed/elementary and the ET machinery is not ported — overrun priced in the 18k quota budget). K1 protocol: an R2.3 stall reaches flags.md within day 1 of dispatch, before any wave-2+ quota is spent.
 
 ## GRAFTS

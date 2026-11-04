@@ -130,18 +130,29 @@ def regimeEnlargeX (R : ChowlaRegime) {x' : ℕ} (h : R.x ≤ x') : ChowlaRegime
   hPHheadroom := le_trans R.hPHheadroom (by exact_mod_cast h)
   hxbig := le_trans R.hxbig (by exact_mod_cast h)
 
+/-- The enlarged regime's outer scale is the new `x'` (`rfl`). With the four projections below,
+the `simp` set that transports a regime's fields across `regimeEnlargeX`; consumed by
+`FlatDoorAllGradesBand` and `TierSBand`. -/
 @[simp] theorem regimeEnlargeX_x (R : ChowlaRegime) {x' : ℕ} (h : R.x ≤ x') :
     (regimeEnlargeX R h).x = x' := rfl
 
+/-- `ω` is carried verbatim by the enlargement (`rfl`): the `g R.Hhi R.ω` demand does not move
+under it. Consumed by `TierSBand`. -/
 @[simp] theorem regimeEnlargeX_omega (R : ChowlaRegime) {x' : ℕ} (h : R.x ≤ x') :
     (regimeEnlargeX R h).ω = R.ω := rfl
 
+/-- `eps` is carried verbatim by the enlargement (`rfl`): how `chowlaRegime_exists_param_head`
+inherits `R.eps = eps`. Consumed by `FlatDoorAllGradesBand` and `TierSBand`. -/
 @[simp] theorem regimeEnlargeX_eps (R : ChowlaRegime) {x' : ℕ} (h : R.x ≤ x') :
     (regimeEnlargeX R h).eps = R.eps := rfl
 
+/-- `Hlo` is carried verbatim by the enlargement (`rfl`): how `chowlaRegime_exists_param_head`
+inherits `Hlo₀ ≤ R.Hlo`. Consumed by `FlatDoorAllGradesBand` and `TierSBand`. -/
 @[simp] theorem regimeEnlargeX_Hlo (R : ChowlaRegime) {x' : ℕ} (h : R.x ≤ x') :
     (regimeEnlargeX R h).Hlo = R.Hlo := rfl
 
+/-- `Hhi` is carried verbatim by the enlargement (`rfl`): the other argument of the `g`-demand
+stays put. Consumed by `FlatDoorAllGradesBand` and `TierSBand`. -/
 @[simp] theorem regimeEnlargeX_Hhi (R : ChowlaRegime) {x' : ℕ} (h : R.x ≤ x') :
     (regimeEnlargeX R h).Hhi = R.Hhi := rfl
 

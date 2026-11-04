@@ -56,8 +56,11 @@ def dk : ℕ → (ℤ → ℝ) → ℤ → ℝ
   | 0, f => f
   | (n + 1), f => fun m => dk n f (m + 1) - dk n f m
 
+/-- `dk 0 f m = f m` (`rfl`): the zeroth forward difference is `f` itself. -/
 @[simp] lemma dk_zero (f : ℤ → ℝ) (m : ℤ) : dk 0 f m = f m := rfl
 
+/-- `dk (n + 1) f m = dk n f (m + 1) - dk n f m` (`rfl`): one step of the recursion defining the
+forward-difference operator. -/
 @[simp] lemma dk_succ (n : ℕ) (f : ℤ → ℝ) (m : ℤ) :
     dk (n + 1) f m = dk n f (m + 1) - dk n f m := rfl
 
@@ -168,6 +171,12 @@ the clamp variable `q = λ^{2α'}·H ∈ [1/2, 1]`, with `s = q^{α}` (`≤ 1`) 
 is pure arithmetic on opaque reals — `A, B, q, C', cg, s, sinv, α` — so `2^K`
 never appears. -/
 
+/-- The abstract `H`-optimisation as pure arithmetic on opaque reals: with `0 ≤ A2` (`hA2`),
+`0 ≤ B2` (`hB2`), the clamp `1 / 2 ≤ q` (`hq2`), `1 ≤ Cp` (`hCp`), `1 ≤ cg` (`hcg`), `s ≤ 1`
+(`hs1`), `sinv ≤ 2` (`hsinv2`) and `α ≤ 1 / 2` (`hα12`), the three terms
+`2 * A2 / q + 4 * Cp * cg * A2 * s + 4 * Cp * cg / (1 - α) * B2 * sinv` collapse to
+`16 * Cp * cg * (A2 + B2)`. The caller supplies `s = q ^ α` and `sinv = q ^ (-α)` only through
+these bounds, so `2 ^ K` never appears. -/
 lemma opt_core_gen (A2 B2 q Cp cg s sinv α : ℝ)
     (hA2 : 0 ≤ A2) (hB2 : 0 ≤ B2) (hq2 : 1 / 2 ≤ q)
     (hCp : 1 ≤ Cp) (hcg : 1 ≤ cg) (hs1 : s ≤ 1) (hsinv2 : sinv ≤ 2) (hα12 : α ≤ 1 / 2) :

@@ -6,6 +6,9 @@ Authors: Jason Hickey, Claude
 import Salt.MR.S16FlatTerminalLinear
 import Salt.MR.S16ProducersH
 import Salt.MR.S16FlatTerminalExitH
+import Salt.MR.RegimeFloors
+import Salt.MR.DoorSocket
+import Salt.MR.RegimeScaleReads
 
 /-!
 # THE FLAT-LINEAR LANE AT THE INFLATED SOCKET — the two riders, re-quantified
@@ -295,12 +298,9 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_LH (h : �
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`; the head's count bound IS the register's `Kc`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKb
   set δs : ℝ := s12DeltaSock δ₀ Kb with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKb
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kb) := s12DeltaSock_sq hδ₀ hKb
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned at LH
   have hbase : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
       DoorRowZeroBase_L_gk K M (A + s) j liouvilleC
@@ -390,11 +390,7 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_LH (h : �
       ring
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly, at the head's `Kb`
-    have hval : 2 * Kb * (δ₀ / (8 * Kb)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kb * (δ₀ / (8 * Kb)) = δ₀ / 4 by field_simp; ring]
 
 /-! ## §4 — THE DISCHARGERS THE `h` FIRE NEEDS (words 4, 6, 7, and the envelope's direction)
 
@@ -1171,43 +1167,27 @@ theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_LH (h : ℕ) (h
   refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, x₀, Hcap, Hopq, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl,
     hCgle, hεpin, hδpin, hMflb, hKcb, hβ, hA26, hA₀A, hAge, hCapLe, ?_⟩
   intro U1floor g hU
+  obtain ⟨hδs, -, hρ0, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
     hmain 0 le_rfl U1floor (fun Hhi ω => s15ArmH h δ₀ ρ Hhi ω + g Hhi ω)
   have hRarm : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
   have hRgg : g R.Hhi R.ω ≤ R.x := by omega
-  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
-  have hHlo : R.Hlo = U1floor := by
-    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
-    omega
-  have hfl : loglogFloor50 ≤ R.Hlo := by
-    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
-    omega
+  obtain ⟨hHlo, hfl, -⟩ := regime_floors_of_U1 hU hU1 hRcap
   refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
   intro M hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
   intro hcap
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  obtain ⟨hlam50, hΛ50, hHreg⟩ := regime_scale_reads R hfl
   have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15ArmH_demoted h δ₀ ρ R.Hhi R.ω) hRarm
   have hhω : (0 : ℝ) ≤ (h : ℝ) * (R.ω : ℝ) := by positivity
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hhω ?_ hhi) (s15ArmH_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 ((h : ℝ) * (R.ω : ℝ)) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hhω (s15ArmH_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family at the inflated socket, arm read at `h·ω`
   have harith := s15_doorArithFrameRho_L_familyH'' (C₁ := fun _ : ℕ => (1 : ℝ)) hh hsel.hM
     hρ0 hρ1 hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -1306,9 +1286,7 @@ theorem logChowla2_witnessed_scale_flat_LH (h : ℕ) (hh : 0 < h) (hh7 : Real.lo
     hbody (flatWitFloor ε β A Hopq) (fun _ _ => 0) (flatCap_le_flatWitFloor hCapLe)
   have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
   have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
-    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
   -- ⟦THE `ε` PIN, CAST⟧ the shift rides inside the denominator
   have hεR : (1 : ℝ) / (500 * (h : ℝ)) ≤ (ε : ℝ) := by
     have hc := (Rat.cast_le (K := ℝ)).mpr hεpin

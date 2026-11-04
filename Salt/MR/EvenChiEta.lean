@@ -56,6 +56,10 @@ theorem e4a_zeta_pow_q (hq : 0 < q) :
 end
 
 
+/-- `ζ_q` is algebraic over `ℚ` at `hq : 0 < q`: `X ^ q - 1` is a nonzero witness (its degree is
+`q`) and `ζ_q ^ q = 1` by `e4a_zeta_pow_q`. Consumed by `e4a_route_b_isCyclotomicExtension`,
+where it lets `adjoin_simple_toSubalgebra_of_isAlgebraic` identify `ℚ⟮ζ⟯` with its
+subalgebra. -/
 theorem e4a_zeta_isAlgebraic {q : ℕ} (hq : 0 < q) :
     IsAlgebraic ℚ (Complex.exp (((2 * Real.pi / q : ℝ) : ℂ) * Complex.I)) := by
   refine ⟨Polynomial.X ^ q - Polynomial.C 1, ?_, ?_⟩
@@ -92,6 +96,11 @@ a ring of integers `𝓞 K` where UNIT-NESS IS NON-VACUOUS.  Carrying ζ there c
 I named at tick 6: probes 1/2/4/14 are stated for any `CommRing`+`IsDomain`, so they apply
 verbatim in `𝓞 K` once ζ is a primitive root THERE. -/
 
+/-- `e4aK q = ℚ⟮ζ_q⟯`, the cyclotomic field the spine lives in, as the `IntermediateField ℚ ℂ`
+adjoining `e4aZeta q`; an `abbrev`, so `e4a_route_b_isCyclotomicExtension` supplies
+`IsCyclotomicExtension {q} ℚ (e4aK q)` and `NumberField (e4aK q)` as instances
+(`e4aK_cyclotomic`, `e4aK_numberField`). It carries `e4aZetaK`, `e4aEta` and the ground
+`e4a_L1_lower_even`. -/
 noncomputable abbrev e4aK (q : ℕ) : IntermediateField ℚ ℂ :=
   IntermediateField.adjoin ℚ ({e4aZeta q} : Set ℂ)
 
@@ -105,6 +114,10 @@ instance e4aK_numberField (q : ℕ) [NeZero q] : NumberField (e4aK q) :=
 noncomputable def e4aZetaK (q : ℕ) : e4aK q :=
   ⟨e4aZeta q, IntermediateField.subset_adjoin ℚ _ rfl⟩
 
+/-- `e4aZetaK q`, ζ as an element of `e4aK q`, is a primitive `q`-th root there:
+`IsPrimitiveRoot.of_map_of_injective` along the injective `algebraMap (e4aK q) ℂ`, from
+`e4a_zeta_isPrimitiveRoot`. It supplies `ζ ^ q = 1` to `e4a_sigma_to_b` and
+`e4a_sigma_prod_reindex`, and `e4aZetaO q` is its `toInteger`. -/
 theorem e4aZetaK_isPrimitiveRoot {q : ℕ} [NeZero q] :
     IsPrimitiveRoot (e4aZetaK q) q := by
   have hq : 0 < q := Nat.pos_of_ne_zero (NeZero.ne q)
@@ -116,6 +129,10 @@ theorem e4aZetaK_isPrimitiveRoot {q : ℕ} [NeZero q] :
 noncomputable def e4aZetaO (q : ℕ) [NeZero q] : NumberField.RingOfIntegers (e4aK q) :=
   (e4aZetaK_isPrimitiveRoot (q := q)).toInteger
 
+/-- `e4aZetaO q`, ζ as an algebraic integer of `e4aK q`, is a primitive `q`-th root in `𝓞 K`:
+`IsPrimitiveRoot.toInteger_isPrimitiveRoot` from `e4aZetaK_isPrimitiveRoot`. It is what lets the
+`CommRing`-generic associate lemmas apply in `𝓞 K` (`e4a_eta_products_associated`,
+`e4a_fibre_prod_ne_zero`, `EvenChiCyclotomic`). -/
 theorem e4aZetaO_isPrimitiveRoot {q : ℕ} [NeZero q] :
     IsPrimitiveRoot (e4aZetaO q) q :=
   (e4aZetaK_isPrimitiveRoot (q := q)).toInteger_isPrimitiveRoot
@@ -175,6 +192,9 @@ identified with `-1`, which is only true because the value set is `{1,-1}` on un
 `_mul` inherits that need through `_cast`.  `_one` needs nothing.
 -/
 
+/-- Every `σ : Gal(e4aK q / ℚ)` acts on ζ as `ζ ↦ ζ ^ b.val` for some unit `b : (ZMod q)ˣ`:
+`IsCyclotomicExtension.Rat.galEquivZMod` supplies `b` and `galEquivZMod_apply_of_pow_eq` the
+equation, from `ζ ^ q = 1` (`e4aZetaK_isPrimitiveRoot`). The first move of `e4a_eta_gal`. -/
 theorem e4a_sigma_to_b {q : ℕ} [NeZero q] (σ : e4aK q ≃ₐ[ℚ] e4aK q) :
     ∃ b : (ZMod q)ˣ, σ (e4aZetaK q) = (e4aZetaK q) ^ ((b : ZMod q)).val :=
   ⟨IsCyclotomicExtension.Rat.galEquivZMod q (e4aK q) σ,
@@ -188,6 +208,10 @@ The spine acts on `K = ℚ⟮ζ⟯`, so the same two facts are needed there.  Ra
 them at `e4aZetaK`, they are proved once for an arbitrary monoid element with `ζ ^ q = 1`
 — the ℂ versions are then the special case, and nothing is q-specific. -/
 
+/-- The transport (probe 35): with `hb : σ ζ = ζ ^ b.val`, `σ` carries a `(ZMod q)ˣ`-indexed
+product of `ζ ^ a.val - 1` to the same product at the index `a * b` — `map_prod`, then per
+factor `map_sub`, `map_pow`, `map_one`, `hb`, and `e4a_pow_val_mul_gen` at `ζ ^ q = 1` to merge
+the exponents. Consumed twice by `e4a_eta_gal`, on η's numerator and denominator. -/
 theorem e4a_sigma_prod_reindex {q : ℕ} [NeZero q] (σ : e4aK q ≃ₐ[ℚ] e4aK q)
     {b : (ZMod q)ˣ} (hb : σ (e4aZetaK q) = (e4aZetaK q) ^ ((b : ZMod q)).val)
     (S : Finset (ZMod q)ˣ) :
@@ -211,12 +235,19 @@ fixes the numerator and says nothing about the denominator.
 Same shape as GAP 4/5: a green half whose partner nobody stated.  Repaired here, in math's
 own style, because the `hgal` disjunction needs BOTH arms. -/
 
+/-- η in `K = e4aK q`: the product of `ζ ^ a.val - 1` over the `+1` fibre of
+`E4aChiBridge.e4a_signOf χ` on `(ZMod q)ˣ`, divided by the same product over the `-1` fibre. Its
+Galois behaviour is `e4a_eta_gal`, its unit-ness `e4a_eta_is_unit_image`, and its norm in `ℂ` is
+the inverse of the ruled sine product (`e4a_sin_prod_eq_eta_norm_inv`). -/
 noncomputable def e4aEta {q : ℕ} [NeZero q] (χ : DirichletCharacter ℝ q) : e4aK q :=
   (∏ a ∈ Finset.univ.filter (fun a : (ZMod q)ˣ => E4aChiBridge.e4a_signOf χ a = 1),
       ((e4aZetaK q) ^ ((a : ZMod q)).val - 1))
     / (∏ a ∈ Finset.univ.filter (fun a : (ZMod q)ˣ => E4aChiBridge.e4a_signOf χ a = -1),
       ((e4aZetaK q) ^ ((a : ZMod q)).val - 1))
 
+/-- `e4aEta χ` unfolded to its quotient of fibre products (`rfl`), so that proofs rewrite with a
+named equation rather than `unfold`. Consumed by `e4a_eta_gal`, `e4a_eta_image` and
+`e4a_eta_ne_zero`. -/
 theorem e4aEta_def {q : ℕ} [NeZero q] (χ : DirichletCharacter ℝ q) :
     e4aEta χ =
       (∏ a ∈ Finset.univ.filter (fun a : (ZMod q)ˣ => E4aChiBridge.e4a_signOf χ a = 1),
@@ -260,6 +291,10 @@ Not a transcription — math's OWN `e4a_spine` (line ~1021 above), instantiated 
 integrality hypotheses remain open, and those are the unit-ness leg's job (probes 14/18/30),
 not the link's. -/
 
+/-- The interface control (probe 38): `e4a_spine` instantiated at `K = e4aK q` and
+`x = e4aEta χ`, with `hgal` discharged by `e4a_eta_gal` and `IsGalois ℚ (e4aK q)` from
+`IsCyclotomicExtension.isGalois`; only the integrality pair `hx`, `hxinv` remains, and
+`e4a_eta_sum_integer_final` supplies it. -/
 theorem e4a_eta_sum_is_integer_concrete {q : ℕ} [NeZero q] (χ : DirichletCharacter ℝ q)
     (hx : IsIntegral ℤ (e4aEta χ)) (hxinv : IsIntegral ℤ (e4aEta χ)⁻¹) :
     ∃ z : ℤ, algebraMap ℤ (e4aK q) z = e4aEta χ + (e4aEta χ)⁻¹ := by
@@ -430,6 +465,9 @@ theorem e4a_fibre_prod_ne_zero {q : ℕ} [NeZero q] (hq : 1 < q)
 `e4aK q` is an `IntermediateField ℚ ℂ`, so η already lives over ℂ — the "bridge" is the
 structure map, and it is a field hom, so it commutes with the quotient and the products. -/
 
+/-- η's image in `ℂ` is the same quotient of fibre products written at the complex root
+`e4aZeta q`: the structure map is a field hom, so `map_div₀` and `map_prod` carry `e4aEta_def`
+across. Consumed by `e4a_eta_norm`. -/
 theorem e4a_eta_image {q : ℕ} [NeZero q] (χ : DirichletCharacter ℝ q) :
     (algebraMap (e4aK q) ℂ) (e4aEta χ)
       = (∏ a ∈ Finset.univ.filter (fun a : (ZMod q)ˣ => E4aChiBridge.e4a_signOf χ a = 1),
@@ -440,6 +478,9 @@ theorem e4a_eta_image {q : ℕ} [NeZero q] (χ : DirichletCharacter ℝ q) :
   rw [e4aEta_def, map_div₀, map_prod, map_prod]
   congr 1
 
+/-- `‖η‖` in `ℂ` is the quotient of the fibre products of `‖ζ ^ a.val - 1‖`: `e4a_eta_image`,
+then `norm_div` and `norm_prod`. Consumed by `e4a_sin_prod_eq_eta_norm_inv`, where the ruled
+sine product is identified with `‖η‖⁻¹`. -/
 theorem e4a_eta_norm {q : ℕ} [NeZero q] (χ : DirichletCharacter ℝ q) :
     ‖(algebraMap (e4aK q) ℂ) (e4aEta χ)‖
       = (∏ a ∈ Finset.univ.filter (fun a : (ZMod q)ˣ => E4aChiBridge.e4a_signOf χ a = 1),
@@ -460,6 +501,13 @@ Four moves, each already built: the sine bridge factor-by-factor · the units↔
 `−signOf` · and the fibre split by the sign.  `norm_sub_rev` absorbs `1 − ζ^v` vs `ζ^v − 1`,
 so NO sign bookkeeping is needed anywhere — working in norms kills it. -/
 
+/-- The ruled statement's real product is `‖η‖⁻¹`: at `hq : 1 < q` and exponents `e` with
+`he : e a = -χ a`, each factor `2 sin(πa/q)` is `‖1 - ζ ^ a‖` (`e4a_step3_sin_bridge`), the
+index moves from `Ioo 0 q` to `(ZMod q)ˣ` because `χ` vanishes off the units
+(`e4a_prod_units_eq_prod_Ioo`, `e4a_char_vanishes_off_units`), the exponent at a unit `u` is
+`-e4a_signOf χ u` (`e4a_signOf_cast'`), and the fibre split meets `e4a_eta_norm`; `norm_sub_rev`
+absorbs the sign of `1 - ζ ^ a`. Consumed by `exists_int_add_inv_sin_prod`,
+`e4a_E5a_cosh_integer` and `EvenChiControls`. -/
 theorem e4a_sin_prod_eq_eta_norm_inv {q : ℕ} [NeZero q] (hq : 1 < q)
     (χ : DirichletCharacter ℝ q) (e : ℕ → ℤ) (he : ∀ a, (e a : ℝ) = -χ a) :
     (∏ a ∈ Finset.Ioo 0 q, (2 * Real.sin (Real.pi * a / q)) ^ (e a))
@@ -527,6 +575,10 @@ is handled as a case rather than assumed away — there `Finset.Ioo 0 1 = ∅`, 
 the empty product `1`, and `1 + 1⁻¹ = 2`.  *I did not add a hypothesis to make this go away;
 statement edits are not mine.* -/
 
+/-- A fibre product of `ζ ^ a.val - 1` is nonzero in `K = e4aK q` at `hq : 1 < q`: a vanishing
+factor would give `ζ ^ a.val = 1`, hence `q ∣ a.val` by `e4aZetaK_isPrimitiveRoot`, against
+`0 < a.val < q` (`e4a_unit_ne_zero_aux`, `ZMod.val_lt`). The field twin of
+`e4a_fibre_prod_ne_zero` in `𝓞 K`; consumed by `e4a_eta_ne_zero`. -/
 theorem e4a_fibre_prod_K_ne_zero {q : ℕ} [NeZero q] (hq : 1 < q)
     (S : Finset ((ZMod q)ˣ)) :
     (∏ a ∈ S, ((e4aZetaK q) ^ ((a : ZMod q)).val - 1)) ≠ 0 := by
@@ -538,6 +590,9 @@ theorem e4a_fibre_prod_K_ne_zero {q : ℕ} [NeZero q] (hq : 1 < q)
   have hpos : 0 < ((a : ZMod q)).val := ZMod.val_pos.mpr (e4a_unit_ne_zero_aux hq a)
   exact absurd (Nat.le_of_dvd hpos hdvd) (not_le.mpr (ZMod.val_lt _))
 
+/-- `η ≠ 0` at `hq : 1 < q`: both fibre products are nonzero by `e4a_fibre_prod_K_ne_zero`, so
+their quotient is (`div_ne_zero`). Consumed by `exists_int_add_inv_sin_prod` and
+`e4a_E5a_cosh_integer` (`‖η‖ > 0` under the structure map) and by `EvenChiControls`. -/
 theorem e4a_eta_ne_zero {q : ℕ} [NeZero q] (hq : 1 < q) (χ : DirichletCharacter ℝ q) :
     e4aEta χ ≠ 0 := by
   classical

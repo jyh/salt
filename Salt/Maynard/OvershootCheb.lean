@@ -458,6 +458,12 @@ theorem overshoot_cheb (k R : ℕ) (m : Fin k) (T c : ℝ) (hk : 3 ≤ k) (hR : 
 its own explicit large-regime side hypotheses, isolated there — never the
 conclusion).  Feeding it into `overshoot_cheb` removes the free ratio hypothesis and
 gives the overshoot `≤ (100·T²/k)·A₁^{k-1} → 0` outright. -/
+/-- **C3b′, composed.** The second-moment Chebyshev overshoot with its ratio hypothesis
+discharged: for `3 ≤ k`, `2 ≤ R`, `0 ≤ T`, `5 · T ≤ k`, `0 < A₁`, and the large-regime side
+hypotheses of `A1_1_le_seven_tenths` (`T = k^{1/8} / log k`, `1 ≤ T`, `4 ≤ R₀`, `300 ≤ log k`,
+`hb4`, `hEA`, `hEB`), the `hmW`-mass of the `hmBox` tuples with `Σ_{i ≠ m} u(uᵢ) ≥ k − T` is at
+most `(100 · T² / k) · A₁^{k−1}`. `A1_1_le_seven_tenths` (with `W k ≠ 0` from `W_squarefree`)
+gives `A₁⁽¹⁾ ≤ (7/10) · A₁`, which `overshoot_cheb` takes at `c = 7/10`. -/
 theorem overshoot_cheb_composed (k R : ℕ) (m : Fin k) (T : ℝ)
     (hk : 3 ≤ k) (hR : 2 ≤ R) (hT0 : 0 ≤ T) (hTk : 5 * T ≤ (k : ℝ))
     (hA1pos : 0 < A1 k R (W k) T)

@@ -58,6 +58,11 @@ section
 
 variable {G : Type*} [Fintype G] [Group G] [DecidableEq G] {M : Type*} [CommMonoid M]
 
+/-- NEGATIVE CONTROL — refutes *the descent works without integrality*: in `ℚ`, where the
+Galois-fixity hypothesis of `e4a_descent_to_int` is vacuous, `1/2 + (1/2)⁻¹ = 5/2` is the image
+of no integer (`2 * z = 5` has no solution in `ℤ`). Its positive arm is
+`e4a_descent_holds_when_integral`; a reader citing this as a result about `L(1,χ)` has misread
+the file. -/
 theorem e4a_descent_needs_integrality :
     ¬ ∃ z : ℤ, algebraMap ℤ ℚ z = (1/2 : ℚ) + (1/2 : ℚ)⁻¹ := by
   rintro ⟨z, hz⟩
@@ -168,6 +173,10 @@ theorem e4a_toC_vanishes_off_units {q : ℕ} [NeZero q] (χ : DirichletCharacter
     {a : ℕ} (hncop : ¬ Nat.Coprime a q) : e4a_toC χ (a : ZMod q) = 0 := by
   rw [e4a_toC_apply, e4a_char_vanishes_off_units χ hncop, Complex.ofReal_zero]
 
+/-- MUTATION CONTROL — refutes *the ℤ sign bridge extends off the units*: at a non-unit `a`
+(`hnu`) the complexified value is `0` (`e4a_toC_apply`, `MulChar.map_nonunit`), which is neither
+`1` nor `-1` (`hz`). It is what makes the `IsUnit` restriction of `e4a_toC_eq_signOf`
+load-bearing. -/
 theorem e4a_toC_signOf_mutant_is_false {q : ℕ} [NeZero q] (χ : DirichletCharacter ℝ q)
     {a : ZMod q} (hnu : ¬ IsUnit a) (z : ℤ) (hz : z = 1 ∨ z = -1) :
     e4a_toC χ a ≠ ((z : ℤ) : ℂ) := by
@@ -212,6 +221,11 @@ It is filed here, with the negative controls, because it is the same speech act 
 about a hypothesis's load rather than about `L(1,χ)`. A reader who cites it as a strengthening
 of E4a has misread the file: see the fence above for why both hypotheses are kept regardless.
 -/
+/-- HYPOTHESIS-CONSUMPTION MEASUREMENT — `exists_int_add_inv_sin_prod` with `hprim` and `heven`
+DELETED and nothing else touched, closed by the same proof (`e4a_eta_sum_integer_final` under
+`e4a_ne_one_of_sum_zero` and `e4a_fibre_prod_ne_zero` at `1 < q`; the empty product at `q = 1`).
+It measures that the E4a route consumes neither hypothesis; it is NOT an argument to amend the
+ruled statement, which keeps both. -/
 theorem e4a_ruled_hypothesis_probe {q : ℕ} [NeZero q]
     (χ : DirichletCharacter ℝ q)
     (hsum : ∑ a : ZMod q, χ a = 0)

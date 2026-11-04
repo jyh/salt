@@ -46,6 +46,8 @@ lemma block_mod_bij (N d : ℕ) (hd : 0 < d) :
 /-- Count of `n ∈ [1,N]` with `n % d ∈ S`. -/
 def congCount (N : ℕ) : ℕ := ((Finset.Icc 1 N).filter (fun n => n % d ∈ S)).card
 
+/-- Any block of `d` consecutive naturals `(N, N + d]` has exactly `|S ∩ range d|` members with
+residue in `S` (`hd : 0 < d`): the block hits every residue once (`block_mod_bij`). -/
 lemma block_count (hd : 0 < d) (N : ℕ) :
     ((Finset.Ico (N + 1) (N + 1 + d)).filter (fun n => n % d ∈ S)).card
       = (S ∩ Finset.range d).card := by
@@ -71,6 +73,8 @@ lemma block_count (hd : 0 < d) (N : ℕ) :
     obtain ⟨n, hn, hnr⟩ := hex
     exact ⟨n, by simp only [Finset.mem_filter]; exact ⟨hn, hnr ▸ hr.1⟩, hnr⟩
 
+/-- `congCount d S (N + d) = congCount d S N + |S ∩ range d|` (`hd : 0 < d`): one more block
+adds its full residue count (`block_count`). -/
 lemma congCount_step (hd : 0 < d) (N : ℕ) :
     congCount d S (N + d) = congCount d S N + (S ∩ Finset.range d).card := by
   unfold congCount
@@ -87,6 +91,8 @@ lemma congCount_step (hd : 0 < d) (N : ℕ) :
       (hdisj.mono (Finset.filter_subset _ _) (Finset.filter_subset _ _))]
   rw [block_count d S hd N]
 
+/-- `congCount d S (q * d + s) = q * |S ∩ range d| + congCount d S s` (`hd : 0 < d`): `q` full
+blocks, then the leftover `s` (`congCount_step`, iterated). -/
 lemma congCount_telescoping (hd : 0 < d) (q s : ℕ) :
     congCount d S (q * d + s) = q * (S ∩ Finset.range d).card + congCount d S s := by
   induction q with
@@ -96,6 +102,8 @@ lemma congCount_telescoping (hd : 0 < d) (q s : ℕ) :
     rw [heq, congCount_step d S hd (q * d + s), ih]
     ring
 
+/-- For the leftover `s < d` (`hs`), `congCount d S s ≤ |S ∩ range d|` as reals: the `n ≤ s` are
+their own residues, distinct, each in `S ∩ range d`. -/
 lemma congCount_base_bound (_hd : 0 < d) (s : ℕ) (hs : s < d) :
     (congCount d S s : ℝ) ≤ (S ∩ Finset.range d).card := by
   unfold congCount

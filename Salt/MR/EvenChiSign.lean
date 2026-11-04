@@ -27,6 +27,10 @@ import Salt.MR.EvenChiSine
 
 namespace Salt.MR
 
+/-- A `{-1, 0, 1}`-valued `f` (`hf`) summing to zero over `s` (`hsum`) has `+1` and `-1` fibres
+of EQUAL cardinality: pointwise `f a = [f a = 1] - [f a = -1]`, summed (`Finset.sum_boole`). The
+R1 amendment's content; consumed by `e4a_dirichlet_card_eq` and `e4a_eta_associated_of_sum_zero`
+(`EvenChiCyclotomic`). -/
 theorem e4a_card_eq_of_sum_zero {α : Type*} (s : Finset α) (f : α → ℤ)
     (hf : ∀ a ∈ s, f a = 1 ∨ f a = 0 ∨ f a = -1)
     (hsum : ∑ a ∈ s, f a = 0) :
@@ -40,11 +44,18 @@ theorem e4a_card_eq_of_sum_zero {α : Type*} (s : Finset α) (f : α → ℤ)
     Finset.sum_boole] at hsum
   omega
 
+/-- A product over all of `(ZMod q)ˣ` is invariant under the translation `a ↦ a * b` —
+`Equiv.prod_comp` at `Equiv.mulRight b`. Consumed by `e4a_prod_units_index`
+(`EvenChiCyclotomic`) and `e4a_middle_reindex` (`EvenChiMiddle`). -/
 theorem e4a_units_reindex {q : ℕ} [NeZero q] {M : Type*} [CommMonoid M]
     (F : (ZMod q)ˣ → M) (b : (ZMod q)ˣ) :
     ∏ a : (ZMod q)ˣ, F (a * b) = ∏ a : (ZMod q)ˣ, F a :=
   Equiv.prod_comp (Equiv.mulRight b) F
 
+/-- A `zpow`-weighted product whose exponent vanishes off the residues coprime to `q` (`hzero`)
+restricts to those residues: `Finset.prod_subset`, the dropped factors being `g a ^ 0 = 1`. The
+composite-`q` discharge in product form; `e4a_char_vanishes_off_units` supplies `hzero` at
+`f = -χ`. -/
 theorem e4a_prod_restrict_coprime {K : Type*} [Field K] (q : ℕ) (s : Finset ℕ)
     (g : ℕ → K) (f : ℕ → ℤ)
     (hzero : ∀ a ∈ s, ¬ Nat.Coprime a q → f a = 0) :
@@ -81,6 +92,11 @@ Galois theory at all.  η is a quotient of two products indexed by the fibres `�
 function on any finite group — no character, no ζ, no σ — because that is all it needs. -/
 variable {G : Type*} [Fintype G] [Group G] [DecidableEq G]
 
+/-- **The fibre swap** — for a multiplicative sign `χ` on a finite group (`hmul`, `hone`) and
+`hb : χ b = -1`, the `+1` fibre translated by `b` is the `-1` fibre: `χ (a * b) = χ a * χ b`
+sends `+1` to `-1`, and the converse direction uses `χ b⁻¹ = -1`, derived from `hb`, `hone` and
+`hmul`. The mechanism of `σ_b(η) = η^{χ(b)}`; consumed by `e4a_prod_fibre_swap`
+(`EvenChiAlgebra`) and `e4a_dirichlet_fibre_swap`. -/
 theorem e4a_fibre_swap (χ : G → ℤ) (hmul : ∀ x y, χ (x * y) = χ x * χ y) (hone : χ 1 = 1)
     (b : G) (hb : χ b = -1) :
     (Finset.univ.filter (fun a => χ a = 1)).image (fun a => a * b)
@@ -266,6 +282,10 @@ amendment's own hypothesis — appears only in binders, and `MulChar.sum_eq_zero
 which my design block v2 §1 names as its discharge, occurs **zero** times in this file.
 Repaired below. -/
 
+/-- `∑_{a ∈ (ZMod q)ˣ} e4a_signOf χ a = 0` at `hχ : χ ≠ 1`, the integer form of the R1
+amendment: cast to `ℝ` through `e4a_signOf_cast'`, the unit sum is the full sum because `χ`
+vanishes off the units, and `MulChar.sum_eq_zero_of_ne_one` closes it. Consumed by
+`e4a_eta_products_associated` (`EvenChiEta`) and `e4a_fibres_nonempty` (`EvenChiCyclotomic`). -/
 theorem e4a_signOf_sum_eq_zero {q : ℕ} [NeZero q] (χ : DirichletCharacter ℝ q)
     (hχ : χ ≠ 1) :
     ∑ a : (ZMod q)ˣ, E4aChiBridge.e4a_signOf χ a = 0 := by

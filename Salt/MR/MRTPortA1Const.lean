@@ -21,8 +21,8 @@ Four landed pieces, no analysis of its own:
 | input | site | role |
 |---|---|---|
 | `mrtThmA1_at_lamCoeff` (D4) | `MRTPortA1.lean:91` | A.1 instantiated at `lamCoeff` |
-| `mul_exp_neg_le_two_div` (D5) | `MRTPortA1Tail.lean:35` | `exp(−M)·M ≤ 2/M`, needs `0 < M` |
-| `mrtA1_rhs_tail_le` (D6) | `MRTPortA1Tail.lean:43` | the other two summands below any `δ > 0` |
+| `mul_exp_neg_le_two_div` (D5) | `MRTPortA1Tail.lean:39` | `exp(−M)·M ≤ 2/M`, needs `0 < M` |
+| `mrtA1_rhs_tail_le` (D6) | `MRTPortA1Tail.lean:52` | the other two summands below any `δ > 0` |
 | `mrtM_lamCoeff_ge` (E3) | `MRTPortMLower.lean:190` | `M(λ; X)` eventually above any constant |
 
 E3 is what makes D5 usable at all: D5's `0 < M` binder — and the quantitative floor

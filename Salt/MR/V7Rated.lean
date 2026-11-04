@@ -5,6 +5,9 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.V7Headline
 import Salt.MR.BandRatedSocket
+import Salt.MR.FlatDesignBound
+import Salt.MR.RegimeSupplyFacts
+import Salt.MR.DesignEightArms
 
 /-!
 # `V7Rated` — R-1 Wave 1: the V7 rethread onto the RATED socket
@@ -962,7 +965,7 @@ the `K_vt` cushion — is discharged inside.
 * nothing here bears on twin primes — the transport wall is untouched at this rung.
 
 ⟦KEPT, FROZEN⟧ the tower conjunct and the `loglog H₊ ≤ 2·e^{1.6A}` export are carried
-verbatim from the parent (`V7Ks.lean:446-450`): the kernel census found zero live kernel
+verbatim from the parent (`V7Ks.lean:444-448`): the kernel census found zero live kernel
 consumers either way, but `arc.md`'s erratum-(a) argument reads the second export off the
 headline, and keeping both is what makes the parent's `_g0` derivable-from-stronger as a
 KERNEL FACT (`logChowla2_ineffective_v7_ksarm_g0_of_rated` below).
@@ -1000,59 +1003,15 @@ theorem logChowla2_v7_rated (A₀ : ℝ) :
       (max (max (max (max A₀ 162) Awin) (cofkRThr Cq Cb Xsk Y0))
         (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))))) := ⟨_, rfl⟩
   obtain ⟨A, hAdef⟩ : ∃ a : ℝ, a = max (armVt Kvt) A' := ⟨_, rfl⟩
-  have harmA : armVt Kvt ≤ A := by rw [hAdef]; exact le_max_left _ _
-  have hlift : A' ≤ A := by rw [hAdef]; exact le_max_right _ _
-  have hKsA : 16 * Real.log (1 / Ks) / 3 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]; exact le_max_left _ _
-  have hT₀A : T₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_max_left _ _) (le_max_right _ _)
-  have hA162 : (162 : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_right A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hA₀A : A₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_left A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAwinA : Awin ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (max A₀ 162) Awin)
-      (le_max_left _ (cofkRThr Cq Cb Xsk Y0))) (le_max_left _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hthrA : cofkRThr Cq Cb Xsk Y0 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_right (max (max A₀ 162) Awin)
-      (cofkRThr Cq Cb Xsk Y0)) (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAge : budgetAFlat (ε : ℝ) β ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_left (budgetAFlat (ε : ℝ) β) _)
-      (le_max_right _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hx0A : 4 * (x₀ : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_left (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hopqA : ((Hopq : ℕ) : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
+  obtain ⟨harmA, hKsA, hT₀A, hA162, hA₀A, hAwinA, hthrA, hAge, hx0A, hopqA⟩ :=
+    Salt.MR.designEightArms_facts hA'def hAdef
   have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   -- ⟦THE `Ks` WINDOW, AT THE SEVENTH ARM⟧ as in the parent
   have hKswin : Real.log (1 / Ks) ≤ 3 * Real.exp (3.2 * A) / 16 := by linarith
-  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
-    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
-      Real.add_one_le_exp _
-    linarith
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
+    Salt.MR.x0_le_exp_exp_of_four_le hx0nn hx0A
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
   obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)
@@ -1065,22 +1024,9 @@ theorem logChowla2_v7_rated (A₀ : ℝ) :
     hfire hx0win hopq (by rw [hbase hopq]; exact hT₀) hKswin (fun _ _ : ℕ => 0)
       (xceilRiderStrict_zero ε)
   -- ⟦THE BASE-SCALE CAP⟧ at `K = KlevF A`, as in the parent
-  have heps500 : (1 : ℚ) / 500 ≤ R.eps := by rw [hReps]; exact hεpin
-  have hxceil : Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (R.eps : ℝ) * ((R.Hhi : ℕ) : ℝ) := by
-    rw [hReps]; exact hRx
   -- ⟦THE RATED SUPPLY, WITH THE CUSHION PAID BY THE EIGHTH ARM⟧
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
-  have heps500R : (1 : ℝ) / 500 ≤ (R.eps : ℝ) := by
-    rw [hReps]
-    have h := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
-    exact h
-  have h518 : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by nlinarith [hdes, hA162]
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA162
-  have hthrgate : cofkRThr Cq Cb Xsk Y0 ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    linarith [hthrA, hlo, hexp1]
+  obtain ⟨heps500, hxceil, hM1, heps500R, h518, hfl, hlo, hthrgate⟩ :=
+    regime_flat_supply_facts hReps hHlo hRx hdes hεpin hA162 hthrA
   have hKvtcush : 32 * Kvt
       + 32 * (2 * Real.log ((flatDoorM A : ℕ) : ℝ) + Real.log 4 + 50)
       ≤ Real.log (R.Hhi : ℝ) / 4 :=

@@ -79,6 +79,8 @@ theorem prod_gt2_one_sub_inv {n : ℕ} (hn : 2 ≤ n) :
 abbrev gt2Primes (n : ℕ) : Finset ℕ :=
   ((Finset.range (n + 1)).filter Nat.Prime).filter (2 < ·)
 
+/-- Membership in the index of the partial twin product:
+`p ∈ gt2Primes n ↔ p ≤ n ∧ p.Prime ∧ 2 < p` (the `range (n + 1)` bound unfolds to `p ≤ n`). -/
 theorem mem_gt2Primes {n p : ℕ} : p ∈ gt2Primes n ↔ p ≤ n ∧ p.Prime ∧ 2 < p := by
   simp only [gt2Primes, Finset.mem_filter, Finset.mem_range]
   constructor

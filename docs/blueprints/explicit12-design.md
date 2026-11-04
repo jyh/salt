@@ -1375,7 +1375,7 @@ real weight), it just needs a new estimate.
    sole source of the `(p−1)⁻²` Euler-tail decay. `yF`'s monomials are divisor-
    INCREASING, so the landed route fails, `|y|≤1` fails, per-monomial fails,
    Cauchy–Schwarz gives a true-but-divergent bound. The tensor dependency bottoms
-   out in ONE atom (`inner_abs_le`, `CollisionQuant.lean:1107`). Node B discharges
+   out in ONE atom (`inner_abs_le`, `CollisionQuant.lean:1111`). Node B discharges
    it via a Lipschitz-smoothness argument — a C/D node needing its OWN design pass.
 5. **ZERO-SLACK on the SHARP constant** (margin `7.6×10⁻⁴`): the factor-2 MUST be
    killed (crude-2 S1 ⟹ ratio `0.50 < 1`, fatal). All errors VANISH (in `N`,
@@ -1410,7 +1410,7 @@ def S1InnerBound (k R W' : ℕ) (y : (Fin k → ℕ) → ℝ) : Prop :=
           * (∏ p ∈ s.primeFactors, ((p:ℝ)-1)⁻¹^2)
           * ∑ r ∈ kSieveIndex k R W', (y r)^2 / ∏ i, (Nat.totient (r i):ℝ)
 ```
-(the EXACT conclusion of `inner_abs_le`, `CollisionQuant.lean:1114–1123` — READ
+(the EXACT conclusion of `inner_abs_le`, `CollisionQuant.lean:1118–1127` — READ
 it and transcribe verbatim). Then land `collision_lower_orderW_of` : the current
 `collision_lower_orderW` (`:2310`) with `hf01`/`hfmono`/`hy` REPLACED by
 `(hInner : S1InnerBound k R W' y)` and `hy0` (off-support). Body UNCHANGED except
@@ -1436,7 +1436,7 @@ threshold — pick it once and thread. PB floor: none (literal swaps + one split
 Free-`W'` mirrors: `abs_S2mW_sub_compatMainW_le` (mirror `S2CompatEH.lean:84`),
 `abs_S2mW_sub_compatMainW_le_disc_R_uniform` (mirror `FrontierDischarge.lean:224`,
 reuse free-`W` `lam_abs_le_sharp_uniform` + landed `s2PrimeCountW_approx'`),
-**`compat_pair_fiber_leW`** (mirror `S2FiberCount.lean:411` — the free-`W'` CRT
+**`compat_pair_fiber_leW`** (mirror `S2FiberCount.lean:415` — the free-`W'` CRT
 `(3k)^{ω(q)}`-multiplicity fiber count, the ONE intricate atom),
 `S2mW_ge_compatMain_theta_uniform` (mirror `:289`/`LevelConsume.lean:326`,
 consuming `lod_error_pow_theta` at level θ₊). `S2mW_lower` itself is already free

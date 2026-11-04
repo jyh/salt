@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.M4MeanSq
 import Salt.MR.ThmA2Pool
+import Salt.MR.LadderScale
 
 /-!
 # ⟦R3-A — THE CAPSTONE AT THE FREE POOL⟧ (`M4MeanSqPool`)
@@ -221,21 +222,9 @@ theorem m4_meansq_per_chi_gen_pool :
     hcoefBand hcoefPin
     hT0band _hcff hpool hgP1 hgRows hgU hgBand
   -- ⟦THE SCALE PAGE⟧
-  have hXe : Real.exp 1 ≤ X := le_trans exp_one_le_exp_exp_one hXee
-  have hX3 : (3 : ℝ) ≤ X := le_of_lt (lt_of_lt_of_le exp_exp_one_gt_three hXee)
-  have hX0 : (0 : ℝ) < X := by linarith
+  obtain ⟨hXe, hX3, hX0, hLX0, hXdX, hXd1, hMN, hNle, hXN, hN2X, hN4⟩ :=
+    ladder_scale_page hXee hlX2 hXd hNXd
   have hh0 : (0 : ℝ) < h := by linarith
-  have hLX0 : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 2) hlX2
-  -- ⟦THE TWO PINS, in every shape the suppliers want⟧
-  have hXdX : X ≤ (Xd : ℝ) := le_of_eq hXd.symm
-  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by rw [hXd]; linarith
-  have hXd1 : 1 ≤ Xd := by exact_mod_cast hXd1'
-  have hNcast : (N : ℝ) = 2 * X := by rw [hNXd]; push_cast; rw [hXd]
-  have hMN : 2 * Xd ≤ N := le_of_eq hNXd.symm
-  have hNle : (N : ℝ) ≤ 2 * (Xd : ℝ) := by rw [hNcast, hXd]
-  have hXN : X ≤ (N : ℝ) := by rw [hNcast]; linarith
-  have hN2X : (N : ℝ) ≤ 2 * X := le_of_eq hNcast
-  have hN4 : (N : ℝ) ≤ 4 * (Xd : ℝ) := by rw [hNcast, hXd]; linarith
   -- ⟦THE FRAME'S REMAINING ARITHMETIC⟧
   have hW4 : ∀ j ∈ ramI (H83 X theta293) P Q, 4 ≤ ramRbot (H83 X theta293) Xd j :=
     fun j hj => by linarith [hW5 j hj]
@@ -431,6 +420,16 @@ ones with `3072 * M` replaced by `s13GK K M`; the suppliers are
 keep their landed names; the side condition `K ≤ 1.7·10⁸` is the frame's. -/
 
 set_option maxHeartbeats 1600000 in
+/-- **§GK — the pooled capstone at the G-lever** `G := s13GK K M`: `m4_meansq_per_chi_gen_pool`
+with `3072·M` replaced by `s13GK K M` in the door's ladder
+(`calP`/`calQK (Adoor M) (s13GK K M)`) and the row gate at `ThmA2.a2RowsSum_gk`; the level-1
+objects (`a2Level1 M`, `calH (H1door M) 2`) keep their landed names, and `hK : K ≤ 170000000` is
+the frame's side condition. The five pool gates (`0 ≤ π₀`, `374784·Cs·e³/𝒫₁ ≤ π₀`,
+`5760·(a2RowsSum_gk K M Xd + Ccc·(2/M)) ≤ π₀`, `(log X)^{−θ₂₉₃+ε} ≤ π₀`,
+`4096·(log X)^{−1+1/500} ≤ π₀`) and the `188133·π₀` summand are §1's. Route: the suppliers
+`a2Rows_of_capfree3_gk` and `thm_a2'_of_rows_pool_gk`, the socket cut `caseASocket2_discharged`
+and the Skolem cut `capFreeFloor3_liouChi_all`; `maxHeartbeats 1600000`. Consumed by
+`m4_meansq_or_trivial_pool_gk` and by `M4DoorClosePool.m4_door_meansq_carried_pool_gk`. -/
 theorem m4_meansq_per_chi_gen_pool_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ (Cq cq T₀ X₀ Cs Ccc : ℝ) (Kfl : ℕ → ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -572,21 +571,9 @@ theorem m4_meansq_per_chi_gen_pool_gk (K : ℕ) (hK : K ≤ 170000000) :
     hcoefBand hcoefPin
     hT0band _hcff hpool hgP1 hgRows hgU hgBand
   -- ⟦THE SCALE PAGE⟧
-  have hXe : Real.exp 1 ≤ X := le_trans exp_one_le_exp_exp_one hXee
-  have hX3 : (3 : ℝ) ≤ X := le_of_lt (lt_of_lt_of_le exp_exp_one_gt_three hXee)
-  have hX0 : (0 : ℝ) < X := by linarith
+  obtain ⟨hXe, hX3, hX0, hLX0, hXdX, hXd1, hMN, hNle, hXN, hN2X, hN4⟩ :=
+    ladder_scale_page hXee hlX2 hXd hNXd
   have hh0 : (0 : ℝ) < h := by linarith
-  have hLX0 : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 2) hlX2
-  -- ⟦THE TWO PINS, in every shape the suppliers want⟧
-  have hXdX : X ≤ (Xd : ℝ) := le_of_eq hXd.symm
-  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by rw [hXd]; linarith
-  have hXd1 : 1 ≤ Xd := by exact_mod_cast hXd1'
-  have hNcast : (N : ℝ) = 2 * X := by rw [hNXd]; push_cast; rw [hXd]
-  have hMN : 2 * Xd ≤ N := le_of_eq hNXd.symm
-  have hNle : (N : ℝ) ≤ 2 * (Xd : ℝ) := by rw [hNcast, hXd]
-  have hXN : X ≤ (N : ℝ) := by rw [hNcast]; linarith
-  have hN2X : (N : ℝ) ≤ 2 * X := le_of_eq hNcast
-  have hN4 : (N : ℝ) ≤ 4 * (Xd : ℝ) := by rw [hNcast, hXd]; linarith
   -- ⟦THE FRAME'S REMAINING ARITHMETIC⟧
   have hW4 : ∀ j ∈ ramI (H83 X theta293) P Q, 4 ≤ ramRbot (H83 X theta293) Xd j :=
     fun j hj => by linarith [hW5 j hj]
@@ -623,6 +610,11 @@ theorem m4_meansq_per_chi_gen_pool_gk (K : ℕ) (hK : K ≤ 170000000) :
     hpool hgP1 hgRows hgU hgBand
 
 set_option maxHeartbeats 1600000 in
+/-- **The per-scale dichotomy at the pool and the G-lever**: `m4_meansq_or_trivial_pool` at
+`s13GK K M` — below the freeze's trivial threshold `trivThresh Hp d₀ W` the window `H'` is
+discarded, above it the pooled five-summand bound of `m4_meansq_per_chi_gen_pool_gk` fires; the
+gates are hypotheses in both branches and `Kfl` is taken at `Qm`. No proof in `Salt/` applies
+it; its linear twin `M4LadderLinear.m4_meansq_or_trivial_pool_L_gk` points here. -/
 theorem m4_meansq_or_trivial_pool_gk (K : ℕ) (hK : K ≤ 170000000) (Qm : ℕ) :
     ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧

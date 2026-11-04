@@ -1012,7 +1012,7 @@ to a landed file — a structural change this node does not own.  Reported, not 
 THE IMPORT CYCLE THAT SHAPED THE STATEMENT.  `singleCorr_of_fails_h`'s hypothesis is the
 INEQUALITY that `logChowlaFails h eps x ω` unfolds to, not the named Prop, because `ShiftFork`
 IMPORTS `ChowlaFailure` and naming it there would close a cycle.  Kernel-checked at a landed
-use: `HloExportFlatH.lean:170` feeds a `logChowlaFails h R.eps R.x R.ω` hypothesis (`:115`)
+use: `HloExportFlatH.lean:171` feeds a `logChowlaFails h R.eps R.x R.ω` hypothesis (`:115`)
 straight into `singleCorr_of_fails_h` with no coercion (the first `example` probe is gone).
 
 THE `h = 1` RECOVERY IS A FOURTH SHAPE, AND THE TWO COMPATS OF THIS NODE ARE NOT ALIKE.  The
@@ -1056,7 +1056,7 @@ claim about Chowla, about the door's supply, or about twins is made or moved her
   Salt.Entropy.Chowla.hreduce_holds_final_h
   -- ⭐ ROLLED IN 2026-08-26 (math), discharging QUEUE P1 item 5c's "REPORTED, NOT FIXED".
   -- `log_chowla_two_shell_xi_sq` (`Theorem23Shell.lean:362`) is a LANDED terminal with two
-  -- consumers (`HloExport.lean:362`, `HloExportFlat.lean:196`), and three of its four family
+  -- consumers (`HloExport.lean:363`, `HloExportFlat.lean:197`), and three of its four family
   -- members were already audited above (`:163-165`) — it alone was gated by no build.
   -- ⛔ PLACED AT THE END OF THE LIST ON PURPOSE, not beside its siblings: `#audit_axioms`
   -- `throwError`s on the first non-whitelisted dependency and ABORTS the rest of its list, so a
@@ -1117,7 +1117,8 @@ consequence of the landed form recovers the witness — the only route is to re-
 with the numeral kept.  `hbudget_holds_h_bounded` replays `HBudget.lean:1182-1465` over the
 PINNED Mertens leaf (`primeWindow_sum_inv_ge_bounded`) because `hbudget_holds_h` draws its `c`
 from the UNPINNED one and `1/4 ≤ cE` is unobtainable by weakening;
-`circle_method_estimate_sq_bounded_h_core` replays `CircleMethod.lean:1366-1508` with the cap
+`circle_method_estimate_sq_bounded_h_core` replays `circle_method_estimate_sq_h_core`'s body
+(cited by line as 1366–1508 when written) with the cap
 `C ≤ h·(1 + 2·C₀)` kept at the witness.
 
 ⟦THE HEAD MOVES BY FOUR SCALINGS AND ONE BINDER, NOTHING ELSE⟧ the pins are `1/(500·h) ≤ ε`
@@ -1545,7 +1546,7 @@ open Salt.Tactic in
 `HloExport`'s pinned head with `ε = 1/500` replaced by the HYPOTHESIS `0 < ε ≤ 1/500`, the four
 smallness arms re-derived by monotonicity, and the exchange rate `ε/1677 ≤ δ₀` exported as a
 conjunct (`δ₀ = cD3/(16C)·ε/4 ≥ 5ε/8384`; `1677` is the SMALLEST integer that works — the pinned
-leaves give `cD3/(16C) ≥ 5/2096` with zero slack, `Salt/Entropy/Chowla/HloExport.lean:561`).
+leaves give `cD3/(16C) ≥ 5/2096` with zero slack, the `hkey` step of that pinned head).
 
 ⚠ NO `K` UPPER BOUND IS EXPORTED (unlike `FlatHeadForm`'s `K ≤ 2^539`): the exchange rate is
 consumable at the L² grade only, so a consumer takes `K` from the same `obtain`, never from a
@@ -1557,7 +1558,7 @@ open Salt.Tactic in
 /-! ⟦TIER S S-4 (ENTROPY)⟧ — THE ENTROPY ARROW AT EVERY REGIME (`StrideShellBand`, 2026-09-14,
 h2c — S-4 freeze v1.1, fired on the helm's word after math's non-author pass NO KILL).  Additive
 only: no landed statement moves.  `log_chowla_aff_of_door_at_regime_g12b` (H) is the landed entropy
-head `log_chowla_aff_of_door_g12b` (`StrideShellG.lean:320`) with the REGIME quantifier moved from
+head `log_chowla_aff_of_door_g12b` (`StrideShellG.lean:140`) with the REGIME quantifier moved from
 the crown's `∃ Ra` to `∀ Ra`, at the pin `ε = 1/(500·a·h)` above ONE `b`-uniform threshold `A₁`,
 with the grade floor `1/(838400·(a·h)²)` written out — the body is that head's 181 lines with step
 (4), the crown call `hcrown A₀'`, DELETED, since the landed proof reads its regime only through

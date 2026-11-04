@@ -230,7 +230,7 @@ against a real declaration under `Salt/`, by a declaration-keyword regex
 
 The other 27, all found: `zeta_zero_free_region_littlewood`
 (`Vk/Littlewood.lean:409`), `zeta_zero_free_region_pow`
-(`Vk/GrowthPow.lean:1044`), `vk_block_core` (`Vk/Core.lean:256`),
+(`Vk/GrowthPow.lean:1044`), `vk_block_core` (`Vk/Core.lean:263`),
 `vmvt` (`Vmvt/Summit2.lean:151`), `FulcrumQualityMin`
 (`Fulcrum/Basic.lean:61`), `fulcrum_zero_real` (`Fulcrum/Basic.lean:93`),
 `not_fulcrum_implies_noSiegelZeros` (`Fulcrum/Dichotomy.lean:82`),

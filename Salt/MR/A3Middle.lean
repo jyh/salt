@@ -928,6 +928,10 @@ level-1 objects (`H1door M`, `a2Level1 M`, the §8.1 decay certificate) keep the
 names, transported by `DoorFrameH1.level1_term_door_decays_gk`.  The frame is
 `ThmA2.calFrameK_doorH1_at_gk`, whence the side condition `K ≤ 1.7·10⁸`. -/
 
+/-- `0 ≤ a2RowsSum'_gk K M Xd` at `hM : 1 ≤ M`, `hXd : 1 ≤ Xd`: the primed row sum at the
+G-lever (`G := s13GK K M`, the `24/𝒫ⱼ` bracket) is a `Finset.sum_nonneg` of summands each a
+product and quotient of nonnegative terms, `calH (H1door M) j > 0` from `H1door_two`. Consumed
+by `a2Rows_of_capfree3_end'_gk` and `a2Rows_of_capfree3'_gk` (their `hRS0` step). -/
 lemma a2RowsSum'_nonneg_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
     0 ≤ a2RowsSum'_gk K M Xd := by
   have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
@@ -956,6 +960,16 @@ lemma a2RowsSum'_nonneg_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd
   linarith
 
 set_option maxHeartbeats 1000000 in
+/-- **THE A3 EXIT (strict/fused) AT THE G-LEVER**: `a2Rows_of_capfree3_end'` with `3072·M`
+replaced by `s13GK K M` under the landed narrow ceiling `hK : K ≤ 1.7·10⁸`. For the frame's
+constants `Cq cq T₀ X₀ Cs C`, under an `A2Frame3` at `(Adoor M, s13GK K M, H1door M)`, the scale
+page, the window ladder, the `V`/`L` gates, the co-factor socket at the window's top with its
+grade `Rbar ≤ gradeCR2 Cb·(log X)^{−ρ₂₉₃}`, the STRICT coefficient window `Xd < p·m`, and every
+`T` with `X/h ≤ T`, `2T ≤ X`, `TannGate X (2T)`: `X/h/T · ∫_{seamAnn X (2T)} ‖spoly N a t‖²`
+`≤ a2Mrow'_gk K Cs C M Xd X ε`. Route: `seam_row_number_capfree3_end'` at `Tann = 2T` under
+`calFrameK_doorH1_at_gk`, then `a3_weight_gates` and `a3_row_weigh` with
+`level1_term_door_decays_gk`. No proof in `Salt/` applies it; its linear twin is
+`ThmA2Linear.a2Rows_of_capfree3_end'_L_gk`. -/
 theorem a2Rows_of_capfree3_end'_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -1071,6 +1085,11 @@ theorem a2Rows_of_capfree3_end'_gk (K : ℕ) (hK : K ≤ 170000000) :
   · exact a3_term4_weigh hZ0 hg32
 
 set_option maxHeartbeats 1000000 in
+/-- **THE A3 EXIT (closed window) AT THE G-LEVER**: `a2Rows_of_capfree3'` at `G := s13GK K M`
+under `hK : K ≤ 1.7·10⁸` — the same hypotheses as `a2Rows_of_capfree3_end'_gk` with the closed
+coefficient window `Xd ≤ p·m`, the same conclusion `≤ a2Mrow'_gk K Cs C M Xd X ε`. Route:
+`seam_row_number_capfree3'` at `Tann = 2T`, then the `a3_*` weighting. Consumed by
+`M4MeanSqPrime.m4_meansq_per_chi_gen_join_gk` as its row supplier. -/
 theorem a2Rows_of_capfree3'_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →

@@ -72,16 +72,21 @@ theorem rho_odd_prime {p : ℕ} (hp : p.Prime) (hodd : p ≠ 2) : rho p = 2 := b
 noncomputable def Rnat (d : ℕ) [NeZero d] : Finset ℕ :=
   (Finset.univ.filter (fun n : ZMod d => n * (n + 2) = 0)).image ZMod.val
 
+/-- `|Rnat d| = rho d`: the roots of `n(n+2) ≡ 0 (mod d)`, listed as naturals, are what `rho`
+counts. -/
 lemma Rnat_card (d : ℕ) [NeZero d] : (Rnat d).card = rho d := by
   rw [rho_pos (NeZero.ne d)]
   exact Finset.card_image_of_injective _ (ZMod.val_injective d)
 
+/-- `Rnat d ⊆ range d`: each root is a `ZMod.val`, hence `< d`. -/
 lemma Rnat_subset_range (d : ℕ) [NeZero d] : Rnat d ⊆ Finset.range d := by
   intro r hr
   simp only [Rnat, Finset.mem_image] at hr
   obtain ⟨n, _, rfl⟩ := hr
   simp [ZMod.val_lt]
 
+/-- `d ∣ n * (n + 2) ↔ n % d ∈ Rnat d`: divisibility is membership of the residue in the root
+set. -/
 lemma dvd_iff_mem_Rnat (d : ℕ) [NeZero d] (n : ℕ) : d ∣ n * (n + 2) ↔ n % d ∈ Rnat d := by
   simp only [Rnat, Finset.mem_image, Finset.mem_filter, Finset.mem_univ, true_and]
   constructor
@@ -101,6 +106,7 @@ lemma dvd_iff_mem_Rnat (d : ℕ) [NeZero d] (n : ℕ) : d ∣ n * (n + 2) ↔ n 
 lemma mem_Rnat_iff {d : ℕ} [NeZero d] (r : ℕ) (hr : r < d) : r ∈ Rnat d ↔ d ∣ r * (r + 2) := by
   rw [dvd_iff_mem_Rnat d r, Nat.mod_eq_of_lt hr]
 
+/-- A root `r ∈ Rnat d` (`hr`) satisfies `r < d` (`Rnat_subset_range`). -/
 lemma Rnat_lt {d : ℕ} [NeZero d] {r : ℕ} (hr : r ∈ Rnat d) : r < d :=
   Finset.mem_range.mp (Rnat_subset_range d hr)
 
@@ -189,11 +195,14 @@ theorem progression_count_bound (d N : ℕ) (hd : d ≠ 0) :
   have hinter : Rnat d ∩ Finset.range d = Rnat d := Finset.inter_eq_left.mpr (Rnat_subset_range d)
   rwa [hinter, Rnat_card d] at hbound
 
+/-- `ω` is additive on coprime nonzero arguments (`hm : m ≠ 0`, `hn : n ≠ 0`,
+`hcop : m.Coprime n`): `ω (m * n) = ω m + ω n`. -/
 lemma omega_mul_coprime {m n : ℕ} (hm : m ≠ 0) (hn : n ≠ 0) (hcop : m.Coprime n) :
     omega (m * n) = omega m + omega n := by
   unfold omega
   rw [Nat.primeFactors_mul hm hn, Finset.card_union_of_disjoint hcop.disjoint_primeFactors]
 
+/-- `ω p = 1` for a prime `p` (`hp`). -/
 lemma omega_prime {p : ℕ} (hp : p.Prime) : omega p = 1 := by
   unfold omega
   rw [hp.primeFactors, Finset.card_singleton]
@@ -241,6 +250,7 @@ in terms of `rem`. -/
 lemma rem_abs_le (d N : ℕ) (hd : d ≠ 0) : |rem d N| ≤ rho d :=
   progression_count_bound d N hd
 
+/-- `∑_{d < y} d ^ 3 ≤ y ^ 4`: `y` terms, each at most `y ^ 3`. -/
 lemma sum_cube_le_pow4 (y : ℕ) : ∑ d ∈ Finset.range y, d ^ 3 ≤ y ^ 4 := by
   calc ∑ d ∈ Finset.range y, d ^ 3
       ≤ ∑ _d ∈ Finset.range y, y ^ 3 := by

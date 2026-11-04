@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.RiderTrace
 import Salt.MR.RegisterCompose
+import Salt.MR.FlatDesignBound
 
 /-!
 # `V7B` — ⟦CS-THREAD⟧ the `e^{-100} ≤ cs` rider of `logChowla2_ineffective_v6`, DISCHARGED
@@ -99,6 +100,16 @@ open Complex Salt.SW Salt.Vk Metric intervalIntegral
 set_option maxHeartbeats 12800000 in
 -- The full contour assembly (four sub-bounds + orientation glue) is heavy; the disc-core-grade
 -- 12.8M budget is warranted for the whole-theorem elaboration.
+/-- **THE PER-PAIR CONTOUR BOUND WITH THE FLOORED `c_vk`**: there are `c_vk C₁ C₂ C₃ T₀` with
+`1/10^9 ≤ c_vk` such that for `T₀ ≤ T`, `2 ≤ P`, `|u| ≤ 2T`, the twisted prime window
+`∑' n, Λ(n)·n^{iu}·primeWindow P n` differs from `windowKernel P 1 u` by at most
+`C₁·P·e^{−(c_vk/2)·log P / D₃}·D₄ + C₂·P·log P / T + C₃·D₄·P / T²`, where
+`D₃ = (log (5T+1))^{3/4}·(log log (5T+1))^3` and `D₄` has the fourth power. Route: the
+`HalaszPrimesCore` contour assembly replayed — the rectangle from `σ₀ = 1 − (c_vk/2)/D₃` to
+`c = 1 + 1/log P` with `|Im| ≤ 3T`, zero-free by `shifted_edge_price_strip_bounded`'s margin
+(which carries the `1/10^9` floor), the pole residue, the four edges, and
+`sum_vonMangoldt_cline_bound` on the right edge. Consumed by
+`halaszPrimesChiGated_of_price_floored` (§2). -/
 theorem per_pair_contour_floored :
     ∃ (c_vk C₁ C₂ C₃ T₀ : ℝ), 0 < c_vk ∧ 1 / 10 ^ 9 ≤ c_vk ∧
       0 < C₁ ∧ 0 < C₂ ∧ 0 < C₃ ∧ 3 ≤ T₀ ∧
@@ -1766,13 +1777,9 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree (A
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
   have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
   have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
-    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
   have hεR : (1 : ℝ) / 500 ≤ (ε : ℝ) := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   refine ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
     hCgle, hεpin, hδpin, hMflb, hβ, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40, ?_⟩
   intro K
@@ -1815,7 +1822,7 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree (A
 
 /-! ## §5 — ⟦THE DELIVERABLE⟧ `v6` WITH THE `cs` RIDER GONE
 
-Body verbatim from `RegisterCompose.lean:345-446`, with the terminal re-pointed at §4's
+Body verbatim from `logChowla2_ineffective_v6`, with the terminal re-pointed at §4's
 `_csfree` twin and the rider's arrow removed.  This is NOT the `v7` mint — four inner items
 remain — it is the demonstration that the carry reaches `v6`'s own statement. -/
 
@@ -1898,15 +1905,9 @@ theorem logChowla2_ineffective_v6_csarm (A₀ : ℝ) :
       (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)
   have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
-  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
-    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
-      Real.add_one_le_exp _
-    linarith
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
+    Salt.MR.x0_le_exp_exp_of_four_le hx0nn hx0A
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
   obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)
@@ -1927,9 +1928,7 @@ theorem logChowla2_ineffective_v6_csarm (A₀ : ℝ) :
   have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
   have heps500R : (1 : ℝ) / 500 ≤ (R.eps : ℝ) := by
     rw [hReps]
-    have h := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   have h518 : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by linarith only [hdes, hA162]
   have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by

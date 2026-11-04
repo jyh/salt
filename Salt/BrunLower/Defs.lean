@@ -59,6 +59,7 @@ namespace Salt.BrunLower
 specialisation, since `bigLambda 2 lam = lam`. -/
 noncomputable def bigLambda (A lam : ℝ) : ℝ := 2 * lam / A
 
+/-- `bigLambda 2 lam = lam`: at `A = 2` the ladder scale `2λ/A` is `λ` itself. -/
 @[simp] lemma bigLambda_two (lam : ℝ) : bigLambda 2 lam = lam := by
   unfold bigLambda; ring
 
@@ -111,6 +112,9 @@ lemma exists_zLev_le_two {Lam z : ℝ} (hLam : 0 < Lam) (hz : 1 < z) :
 Junk value `0` if no such level exists (never, for `Λ > 0`, `z > 1`). -/
 noncomputable def minLevel (Lam z : ℝ) : ℕ := sInf {n : ℕ | 1 ≤ n ∧ zLev Lam z n ≤ 2}
 
+/-- The bottom of the ladder is a genuine level for `0 < Lam` (`hLam`) and `1 < z` (`hz`):
+`1 ≤ minLevel Lam z` and `zLev Lam z (minLevel Lam z) ≤ 2` — the `sInf` of a nonempty set of
+naturals is a member. -/
 lemma minLevel_mem {Lam z : ℝ} (hLam : 0 < Lam) (hz : 1 < z) :
     1 ≤ minLevel Lam z ∧ zLev Lam z (minLevel Lam z) ≤ 2 := by
   have hne : {n : ℕ | 1 ≤ n ∧ zLev Lam z n ≤ 2}.Nonempty := by

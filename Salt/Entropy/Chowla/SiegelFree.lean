@@ -197,6 +197,10 @@ theorem spine_eps_constant_floor_of_standoff {cS : ℝ} (hcS : 0 < cS)
   obtain ⟨ε, δ₀, hε, hδ₀, hbody⟩ := log_chowla_two_budget_head_of_standoff hcS hSieg
   exact ⟨ε, δ₀, hε, hδ₀, hbody, margin_fails_vanishing_demand ε hε W hW⟩
 
+/-- `0 < log 2 / 8`: `Real.log_pos` at `1 < 2`, then `positivity`. The standoff constant
+`cS := log 2 / 8` is the one `noSiegelZerosAt_of_sevenEighths` delivers, so this is the `hcS`
+argument of the three `_of_standoff` heads in the three `_of_sevenEighths` restatements below
+(`log_chowla_two_budget_head`, `log_chowla_two_door_only`, `spine_eps_constant_floor`). -/
 private theorem log_two_div_eight_pos'' : 0 < Real.log 2 / 8 := by
   have := Real.log_pos (by norm_num : (1 : ℝ) < 2); positivity
 

@@ -251,10 +251,14 @@ noncomputable def fpow (s t : ℝ) : ℝ := t ^ (1 - s)
 /-- The Abel coefficient `cS k = mF k · mC k = [k prime]/k`. -/
 noncomputable def cS (k : ℕ) : ℝ := mF k * mC k
 
+/-- `cS 0 = 0`: the Abel coefficient vanishes at `0` (`mC_zero`). -/
 theorem cS_zero : cS 0 = 0 := by rw [cS, mC_zero, mul_zero]
 
+/-- `cS 1 = 0`: the Abel coefficient vanishes at `1` (`mC_one`; `1` is not prime). -/
 theorem cS_one : cS 1 = 0 := by rw [cS, mC_one, mul_zero]
 
+/-- `∑ k ∈ Icc 0 ⌊t⌋₊, cS k = SPartial t`: summing the Abel coefficient `[k prime]/k` up to
+`⌊t⌋₊` gives the real prime-reciprocal partial sum `S(t)` (`SPartial_eq_sum`). -/
 theorem sum_cS_eq_SPartial (t : ℝ) : ∑ k ∈ Finset.Icc 0 ⌊t⌋₊, cS k = SPartial t := by
   rw [SPartial_eq_sum]; exact Finset.sum_congr rfl (fun k _ => rfl)
 
@@ -434,6 +438,8 @@ theorem abel_primeZeta {s : ℝ} (hs : 1 < s) :
 /-- The sharp-Mertens error `E(t) = S(t) − log log t − M`. -/
 noncomputable def Ereal (t : ℝ) : ℝ := SPartial t - Real.log (Real.log t) - mertensM
 
+/-- `Ereal` is measurable: `SPartial` is (`measurable_SPartial`), `log ∘ log` is, and `mertensM`
+is a constant. -/
 theorem measurable_Ereal : Measurable Ereal := by
   unfold Ereal
   exact (measurable_SPartial.sub (Real.measurable_log.comp Real.measurable_log)).sub_const mertensM

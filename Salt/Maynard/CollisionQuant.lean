@@ -160,6 +160,10 @@ def cRad {k : ℕ} (d e : Fin k → ℕ) : ℕ :=
   ∏ ij ∈ (Finset.univ : Finset (Fin k)).offDiag, Nat.gcd (d ij.1) (e ij.2)
 
 omit [TupleChoice] in
+/-- `0 < cRad d e` for a sieve tuple `d` (`hd`; the `e` side is not needed): every cross-gcd
+`gcd(dᵢ, eⱼ)` is positive since `0 < dᵢ` (`kSieveIndex_coord_pos`, `Nat.gcd_pos_of_pos_left`),
+so the `offDiag` product is (`Finset.prod_pos`). It bounds a divisor of `cRad d e` by `cRad d e`
+and lets its divisor sum be re-indexed over a `range` in the P0 assembly. -/
 theorem cRad_pos {k R W : ℕ} {d e : Fin k → ℕ}
     (hd : d ∈ kSieveIndex k R W) (_he : e ∈ kSieveIndex k R W) :
     0 < cRad d e :=

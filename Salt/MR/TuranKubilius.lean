@@ -35,9 +35,15 @@ def primesLE (N : ℕ) : Finset ℕ := (Finset.range (N + 1)).filter Nat.Prime
 /-- `∑_{p ≤ N} 1/p`, the Mertens partial sum. -/
 noncomputable def primeRecip (N : ℕ) : ℝ := ∑ p ∈ primesLE N, (1 : ℝ) / p
 
+/-- Membership in `primesLE N` unfolded: `p ≤ N` and `p` prime (`simp` through the filter and
+the range). Consumed by `primeFactors_eq_filter`, `card_primesLE_le`, `first_moment_ge` and
+`second_moment_le`. -/
 lemma mem_primesLE {N p : ℕ} : p ∈ primesLE N ↔ p ≤ N ∧ p.Prime := by
   simp [primesLE, Finset.mem_filter, Finset.mem_range]
 
+/-- `primeRecip N = ∑_{p ≤ N} 1/p` is nonnegative, a sum of nonnegative terms
+(`Finset.sum_nonneg`). A sign fact kept beside `primeRecip`; the Turán–Kubilius route itself
+spends `0 ≤ μ` on the mean, not this. -/
 lemma primeRecip_nonneg (N : ℕ) : 0 ≤ primeRecip N := by
   refine Finset.sum_nonneg ?_
   intro p _; positivity

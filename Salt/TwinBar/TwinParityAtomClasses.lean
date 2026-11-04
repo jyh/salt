@@ -227,7 +227,7 @@ and `∏_{p∣P} 1/p = 1/P` at squarefree `P` (mathlib's product of `primeFactor
 number).
 
 Recipe: `sum_divisors_moebius_twinNu_eq_W 1 P hP` (`TwinParitySieve.lean:1055`), unfold
-`Salt.BrunLower.W` (`BrunLower/Defs.lean:274`: `∏_{p ∈ prodPrimes.primeFactors} (1 − nu p)`,
+`Salt.BrunLower.W` (`BrunLower/Defs.lean:278`: `∏_{p ∈ prodPrimes.primeFactors} (1 − nu p)`,
 `twinParitySieve_prodPrimes : prodPrimes = P`), `Finset.prod_le_prod` termwise against
 `fun p => 1 / (p : ℝ)`, then the squarefree product identity, cast. -/
 theorem moebius_twinNu_sum_ge_inv {P : ℕ} (hP : Squarefree P) :

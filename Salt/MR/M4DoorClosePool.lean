@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.M4T0Discharge
 import Salt.MR.M4MeanSqPrime
+import Salt.MR.DoorCloseScale
 
 /-!
 # ⟦R4 — THE DOOR-ROW REGISTER AT THE FREE POOL⟧ (`M4DoorClosePool`)
@@ -76,6 +77,15 @@ the calibration, the `kmin`/`Ymax` ladder, the two opaque K6 gates, the coprime-
 cap-free floor, the socket's gates, the endpoint and the `T₀`-band carry — is byte-identical
 to the landed text. -/
 
+/-- **⟦R4⟧ THE PER-INSTANCE DOOR-ROW REGISTER AT ⟦R2⟧'S FREE POOL `π₀`**:
+`M4DoorClose.DoorRowCarried` (98 conjuncts) with three places moved and ninety-five untouched —
+the opaque-real binder block gains `π₀`; the `ε`-window loses `ε ≤ θ₂₉₃ − 1/500`
+(`8640 ≤ (log X)^ε` stays: a `𝒰`-leg gate, not a pool gate); the three `(log X)^{−1/500}`
+grading conjuncts become five bounds by `π₀` (`0 ≤ π₀`, `gP1`, `gRows`, `(log X)^{−θ₂₉₃+ε}`,
+`4096·(log X)^{−1+1/500}`) and the envelope's third summand becomes `188133·π₀`. The `Prop` the
+pooled wave is stated against: consumed by `m4_door_meansq_carried_pool`,
+`m4_dyadicRow_carried_pool`, the bridge `doorRowCarried_of_t0free_pool` and the closer
+`m4_wave_structurally_closed_pool`. The module header carries the diff conjunct by conjunct. -/
 def DoorRowCarriedPool (Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
     {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd j : ℕ) (B : ℝ) : Prop :=
   ∃ (P Q : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
@@ -276,19 +286,7 @@ theorem m4_door_meansq_carried_pool :
   subst hhj
   haveI : NeZero q := ⟨hq.ne'⟩
   -- ⟦the scale's arithmetic⟧
-  have hX0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hXee
-  have h1ee : (1 : ℝ) ≤ Real.exp (Real.exp 1) := by
-    have h1 := Real.add_one_le_exp (Real.exp 1)
-    have h2 := Real.exp_pos 1
-    linarith
-  have hXd1 : 1 ≤ Xd := by
-    have : (1 : ℝ) ≤ ((Xd : ℕ) : ℝ) := le_trans h1ee hXee
-    exact_mod_cast this
-  have hexp2 : (3 : ℝ) ≤ Real.exp 2 := by
-    have := Real.add_one_le_exp (2 : ℝ); linarith
-  have hlog1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
-  have hLXe : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  obtain ⟨hX0, hXd1, hlog1, hLXe⟩ := door_close_scale hXee hlX2
   have hP1 : 1 ≤ P := by omega
   have hP2 : 2 ≤ P := by omega
   -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate
@@ -406,6 +404,12 @@ gates `DoorRowT0Gates` and the register's `(X_d : ℝ) = X`, `0 ≤ Cb`, `ShortI
 and mask-debit conjuncts.  **The discharge is blind to the pool**: it touches no grading
 conjunct and no `ε`-window conjunct. -/
 
+/-- **The pooled register with ARM 1 discharged**: `M4T0Discharge.DoorRowCarriedT0` under the
+same three-place pool diff — its `T₀` conjunct is the discharge's gate list `DoorRowT0Gates`
+(the binders `Kbox X₀w`, the extra `Ddis` and `Xw`) rather than the `T₀`-band integral. The
+hypothesis of the bridge `doorRowCarried_of_t0free_pool`, which hands `DoorRowCarriedPool` back
+with the integral supplied by `M4T0Discharge.m4_t0band_discharged`; the register
+`m4_wave_closed_T0_discharged_pool` reads. -/
 def DoorRowCarriedT0Pool (Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
     {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd j : ℕ) (B : ℝ) : Prop :=
   ∃ (P Q Ddis : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
@@ -593,6 +597,17 @@ read a grading conjunct, so the pool is invisible to them. -/
 set_option maxHeartbeats 1600000 in
 -- `m4_wave_structurally_closed`'s own budget: the register mentions `DoorRowCarriedPool`
 -- under six binders, and that is the whole cost
+/-- **§5's first wave closer, at the pooled register** — `M4DoorClose` §5 with the register name
+swapped and nothing else: for every modulus cap `Qm`, constants `Cg ε δ₀` and the ten pool
+constants such that every `C ≥ 0`, `U1floor` and `g` have a regime `R` (`R.eps = ε`,
+`U1floor ≤ R.Hlo`, `g R.Hhi R.ω ≤ R.x`) under which the door gates `M4DoorGates`, the grade and
+drift lines, the modulus cap `arcDen 12 H ≤ Qm`, the trivial grade below `doorRowFloor M`,
+`DoorRowCarriedPool …` at every door instance above it (ARM 1), ⟦R2⟧'s two gates and the coprime
+supply `M4CoprimeBlockMeanSq` (ARM 2) give `¬ logChowla2Fails R.eps R.x R.ω`. Route:
+`m4_dyadicRow_carried_pool` supplies the dyadic row, `m4_nonCoprime_classMeanSq` the non-coprime
+classes, `m4_wave_closed_of_dyadicRow` closes; under `maxHeartbeats 1600000` (the register under
+six binders). Consumed by `m4_wave_closed_T0_discharged_pool` only; §GK records it as a
+SUPERSEDED road off the compose cone, with no `_gk` sibling. -/
 theorem m4_wave_structurally_closed_pool (Qm : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
@@ -658,6 +673,12 @@ theorem m4_wave_structurally_closed_pool (Qm : ℕ) :
 
 set_option maxHeartbeats 1600000 in
 -- `m4_wave_closed_T0_discharged`'s own budget, at the pooled register
+/-- **§5's second closer: ARM 1 discharged, at the pool** — `m4_wave_structurally_closed_pool`
+with the per-instance register read as `DoorRowCarriedT0Pool` (so `Kbox X₀w` join the
+constants), the coprime supply the only analytic carry left. Route:
+`doorRowCarried_of_t0free_pool` turns each discharged instance into a pooled one under `q ≤ Qm`,
+then the structural closer. No proof in `Salt/` applies it: §GK names it a superseded road off
+the compose cone, with no `_gk` sibling. -/
 theorem m4_wave_closed_T0_discharged_pool (Qm : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
@@ -735,6 +756,15 @@ than `DoorRowCarriedPool` and there is no implication from the pooled register t
 one.  The joined register is what a consumer who has R1's row supplier can meet; that is the
 whole point, and it is why `m4_meansq_per_chi_gen_join` — not `_pool` — is its capstone. -/
 
+/-- **⟦THE FUSE⟧ the register at the R1×R2 JOIN**: `DoorRowCarriedPool` with exactly one
+conjunct primed — `gRows` reads `ThmA2.a2RowsSum'`, i.e.
+`5760·(a2RowsSum' M X_d + C_p·(2/M)) ≤ π₀` with the `X_d`-free `24/𝒫ⱼ` in its `p²` slot (the
+row-layer form of `M4AssemblyPrime.DoorFuseFrame_pool'`'s `gRows` field); every other conjunct
+is byte-identical. ⚠ `a2RowsSum' ≤ a2RowsSum`, so this asks a STRONGER `gRows` than the pooled
+register and nothing implies it from `DoorRowCarriedPool`; its capstone is
+`m4_meansq_per_chi_gen_join`, not `_pool`. Consumed by `m4_door_meansq_carried_join`,
+`m4_dyadicRow_carried_join`, the bridge `doorRowCarried_of_t0free_join` and the closer
+`m4_wave_structurally_closed_join`. -/
 def DoorRowCarriedJoin (Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
     {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd j : ℕ) (B : ℝ) : Prop :=
   ∃ (P Q : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
@@ -882,6 +912,16 @@ def DoorRowCarriedJoin (Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
 
 set_option maxHeartbeats 4000000 in
 -- the same cause as §2, at the joined capstone
+/-- **The workhorse at the joined register**: §2's `m4_door_meansq_carried_pool` with
+`M4MeanSqPrime.m4_meansq_per_chi_gen_join` as the capstone — constants `Cq cq T₀ Xcap Cs Ccc`,
+`Kfl Kcf : ℕ → ℝ`, `Xsk`, `Ctail` such that at every door instance (`0 < q ≤ Qm`, `1 ≤ M`,
+`doorRowFloor M ≤ j`) meeting `DoorRowCarriedJoin …`, the mean square
+`(1/X_d)·∫_{X_d}^{2X_d} ‖h⁻¹ · shortSum (doorChiCoeff χ M) (seamS0 (2X_d) X_d) y h‖²` is at most
+`B`. Route: the ~99-conjunct destructure, the Skolem cut of the masked-floor constant
+(`capFreeFloor3_pieceDatum`), the cut datum `winCutH`, the pin chain and the puncture law, the
+capstone's ~87-argument application, then `shortSum_winCutH_seamS0`; under
+`maxHeartbeats 4000000` (the destructure and the application are the whole cost — no tactic
+search). Consumed by `m4_dyadicRow_carried_join`. -/
 theorem m4_door_meansq_carried_join :
     ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -921,19 +961,7 @@ theorem m4_door_meansq_carried_join :
   subst hhj
   haveI : NeZero q := ⟨hq.ne'⟩
   -- ⟦the scale's arithmetic⟧
-  have hX0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hXee
-  have h1ee : (1 : ℝ) ≤ Real.exp (Real.exp 1) := by
-    have h1 := Real.add_one_le_exp (Real.exp 1)
-    have h2 := Real.exp_pos 1
-    linarith
-  have hXd1 : 1 ≤ Xd := by
-    have : (1 : ℝ) ≤ ((Xd : ℕ) : ℝ) := le_trans h1ee hXee
-    exact_mod_cast this
-  have hexp2 : (3 : ℝ) ≤ Real.exp 2 := by
-    have := Real.add_one_le_exp (2 : ℝ); linarith
-  have hlog1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
-  have hLXe : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  obtain ⟨hX0, hXd1, hlog1, hLXe⟩ := door_close_scale hXee hlX2
   have hP1 : 1 ≤ P := by omega
   have hP2 : 2 ≤ P := by omega
   -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate
@@ -1008,6 +1036,11 @@ theorem m4_door_meansq_carried_join :
 
 /-! ### The graded row datum at the joined register -/
 
+/-- **The graded row datum at the joined register**: `M4Maximal.M4ChiDyadicRowMeanSq R M k MS`
+from the modulus cap `arcDen 12 H ≤ Qm` on the window, the trivial grade `4 ≤ MS j H` below
+`doorRowFloor M` and `DoorRowCarriedJoin …` at every door instance above it — §3's proof over
+`m4_door_meansq_carried_join`, `M4DoorClose.doorRow_trivial_grade` reused below the floor.
+Consumed by `m4_wave_structurally_closed_join`. -/
 theorem m4_dyadicRow_carried_join :
     ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -1056,6 +1089,12 @@ join column with the three declarations §4–§5 supply at the pool:
 
 ⟦PURELY ADDITIVE⟧  Nothing in §1–§6 is touched. -/
 
+/-- **The joined register with ARM 1 discharged**: `DoorRowCarriedT0Pool` with the `gRows`
+conjunct at `ThmA2.a2RowsSum'` (§6's swap) — equivalently `DoorRowCarriedJoin` with its
+`T₀`-band integral replaced by `DoorRowT0Gates` (the binders `Kbox X₀w`). The conjunct count
+does not move (a value swap inside one conjunct), so §4's destructure indices carry over. The
+hypothesis of the bridge `doorRowCarried_of_t0free_join`; the register
+`m4_wave_closed_T0_discharged_join` reads. -/
 def DoorRowCarriedT0Join (Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
     {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd j : ℕ) (B : ℝ) : Prop :=
   ∃ (P Q Ddis : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
@@ -1240,6 +1279,11 @@ theorem doorRowCarried_of_t0free_join (Qm : ℕ) :
 set_option maxHeartbeats 1600000 in
 -- `m4_wave_structurally_closed`'s own budget: the register mentions `DoorRowCarriedJoin`
 -- under six binders, and that is the whole cost
+/-- **§5's first closer at the joined register**: `m4_wave_structurally_closed_pool` with
+`DoorRowCarriedJoin` in the ARM-1 slot and `m4_dyadicRow_carried_join` as the row supplier,
+everything else verbatim (`m4_nonCoprime_classMeanSq`, `m4_wave_closed_of_dyadicRow`);
+`maxHeartbeats 1600000`. Consumed by `m4_wave_closed_T0_discharged_join` only; §GK records it as
+a SUPERSEDED road off the compose cone, with no `_gk` sibling. -/
 theorem m4_wave_structurally_closed_join (Qm : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
@@ -1305,6 +1349,11 @@ theorem m4_wave_structurally_closed_join (Qm : ℕ) :
 
 set_option maxHeartbeats 1600000 in
 -- `m4_wave_closed_T0_discharged`'s own budget, at the joined register
+/-- **§5's second closer at the join**: ARM 1 read as `DoorRowCarriedT0Join`, bridged to the
+joined register by `doorRowCarried_of_t0free_join` under `q ≤ Qm`, over
+`m4_wave_structurally_closed_join`; the coprime supply is the only analytic carry left. No proof
+in `Salt/` applies it: §GK names it a superseded road off the compose cone, with no `_gk`
+sibling. -/
 theorem m4_wave_closed_T0_discharged_join (Qm : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
@@ -1376,8 +1425,8 @@ landed in this group, and `norm_doorChiCoeff_le_one_gk` / `doorRow_trivial_grade
 `M4ChiDyadicRowMeanSq_gk` are landed upstream.
 
 ⟦ABSTAINED, per the dispatch — the superseded roads, off the compose cone⟧
-`m4_wave_structurally_closed_pool` (:596), `m4_wave_closed_T0_discharged_pool` (:661),
-`m4_wave_structurally_closed_join` (:1243), `m4_wave_closed_T0_discharged_join` (:1308).
+`m4_wave_structurally_closed_pool`, `m4_wave_closed_T0_discharged_pool`,
+`m4_wave_structurally_closed_join`, `m4_wave_closed_T0_discharged_join`.
 No `_gk` sibling is minted for any of the four. -/
 
 /-- **THE DOOR ROW'S CARRIED REGISTER, AT THE POOL, AT THE G-LEVER**
@@ -1576,19 +1625,7 @@ theorem m4_door_meansq_carried_pool_gk (K : ℕ) (hK : K ≤ 170000000) :
   subst hhj
   haveI : NeZero q := ⟨hq.ne'⟩
   -- ⟦the scale's arithmetic⟧
-  have hX0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hXee
-  have h1ee : (1 : ℝ) ≤ Real.exp (Real.exp 1) := by
-    have h1 := Real.add_one_le_exp (Real.exp 1)
-    have h2 := Real.exp_pos 1
-    linarith
-  have hXd1 : 1 ≤ Xd := by
-    have : (1 : ℝ) ≤ ((Xd : ℕ) : ℝ) := le_trans h1ee hXee
-    exact_mod_cast this
-  have hexp2 : (3 : ℝ) ≤ Real.exp 2 := by
-    have := Real.add_one_le_exp (2 : ℝ); linarith
-  have hlog1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
-  have hLXe : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  obtain ⟨hX0, hXd1, hlog1, hLXe⟩ := door_close_scale hXee hlX2
   have hP1 : 1 ≤ P := by omega
   have hP2 : 2 ≤ P := by omega
   -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate
@@ -2060,19 +2097,7 @@ theorem m4_door_meansq_carried_join_gk (K : ℕ) (hK : K ≤ 170000000) :
   subst hhj
   haveI : NeZero q := ⟨hq.ne'⟩
   -- ⟦the scale's arithmetic⟧
-  have hX0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hXee
-  have h1ee : (1 : ℝ) ≤ Real.exp (Real.exp 1) := by
-    have h1 := Real.add_one_le_exp (Real.exp 1)
-    have h2 := Real.exp_pos 1
-    linarith
-  have hXd1 : 1 ≤ Xd := by
-    have : (1 : ℝ) ≤ ((Xd : ℕ) : ℝ) := le_trans h1ee hXee
-    exact_mod_cast this
-  have hexp2 : (3 : ℝ) ≤ Real.exp 2 := by
-    have := Real.add_one_le_exp (2 : ℝ); linarith
-  have hlog1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
-  have hLXe : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  obtain ⟨hX0, hXd1, hlog1, hLXe⟩ := door_close_scale hXee hlX2
   have hP1 : 1 ≤ P := by omega
   have hP2 : 2 ≤ P := by omega
   -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate
