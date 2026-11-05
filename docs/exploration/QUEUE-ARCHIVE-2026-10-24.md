@@ -4474,7 +4474,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
       epsh_gate_implies_epssq_h  (the c-ceiling rider, HBudget.lean:450)   ⛔ NO AUDIT LINE
     ```
     🔑 ***A COUNT WOULD HAVE READ "33/34" AND I WOULD HAVE MOVED ON. THE NAMED SET IS WHAT FOUND IT.***
-    *The rider landed at 12:5x, was USED at `HBudget.lean:1475`, and nothing checked its axioms until
+    *The rider landed at 12:5x, was USED at `HBudget.lean:1496`, and nothing checked its axioms until
     01:4x.*
     ⛔ **AND THE NEAR-MISS IS THE DOCSTRING-AS-DECLARATION CLASS AGAIN.** A bare-name grep DOES find
     `epsh_gate_implies_epssq_h` in `Salt/Entropy/All.lean:967` — **but that is PROSE, a docstring
@@ -5867,7 +5867,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    CORRECTION 2: DO NOT ROUTE N5's COUNT THROUGH `bigXiH_bounded`.** It goes via the opaque
    `bigXi_bounded` and **silently regresses `KXi` by ~316 bits while dragging in a second existential
    floor the `_500` mint never had.** ⇒ **Compose instead:** `bigXiH_card_le_mul h hh (1/500) H`
-   (`ShiftFork.lean:238`) with `bigXi_bounded_500`'s THIRD conjunct (`GoldbachEnergyN0.lean:868-871`),
+   (`ShiftFork.lean:238`) with `bigXi_bounded_500`'s THIRD conjunct (`GoldbachEnergyN0.lean:871-874`),
    giving the h-explicit witness
    `KXi := (h:ℝ) * (32·Klcm·((2:ℝ)^35)² / ((1/500:ℚ):ℝ)^10)` — constant exposed, `2 ≤ H` discharged
    from `two_le_regime_Hlo` as at `M4DoorL2.lean:224-226`. **Four lines, class A.**

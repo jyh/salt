@@ -123,10 +123,10 @@ VERDICT: **THE TOWER LAW IS NOT THE WALL — AND IT IS NOT INTRINSIC.** The cubi
 | `towerDropSum` | `Regime.lean:47-51` | `Σ_{j<J} 1/(2·log H_j·logloglog H_j)` |
 | `hfit` | `Regime.lean:94` | `chowlaTower C0 a Hlo J ≤ Hhi` — bounds `H₊` from BELOW |
 | `hJcon` | `Regime.lean:98` | `log 2 < towerDropSum C0 a Hlo J` |
-| crossing law, lower | `TowerExport.lean:502` | `(1−1/20)·½·(w_J−w₀) ≤ S_J` |
-| crossing law, upper | `TowerExport.lean:539` | `S_J ≤ (1+1/20)·½·(w_J−w₀)`, `w = log v`, `v = logloglog H` |
-| companion | `TowerExport.lean:673` | `tower_loglog_ge : λ₋³ ≤ λ₊` |
-| export | `TowerExport.lean:617` | `tower_loglog_le : λ₊ ≤ λ₋⁵` (9/2 twin at `:770-800`) |
+| crossing law, lower | `TowerExport.lean:520` | `(1−1/20)·½·(w_J−w₀) ≤ S_J` |
+| crossing law, upper | `TowerExport.lean:557` | `S_J ≤ (1+1/20)·½·(w_J−w₀)`, `w = log v`, `v = logloglog H` |
+| companion | `TowerExport.lean:691` | `tower_loglog_ge : λ₋³ ≤ λ₊` |
+| export | `TowerExport.lean:635` | `tower_loglog_le : λ₊ ≤ λ₋⁵` (9/2 twin at `:770-800`) |
 
 The forcing re-derives exactly: `log 2 < S_J ≤ (21/40)(w_J−w₀)` ⟹ `w_J−w₀ > (40/21)·log 2 = 1.320280` ⟹ `v_J/v₀ > e^{1.32028} = 3.74366` ⟹ **`λ₊ ≥ λ₋^{3.7436}`**. WIDTH-SCOPE's `probe_regime_width_forced` (`scratchpad/width/probe_width.lean:9`) re-runs green; its `K = 3` spends the budget against `log 3 < 6/5`, a weakening.
 
@@ -169,7 +169,7 @@ stated on abstract sequences — it holds for EVERY tower design, not just `chow
 
 ## (4) THE MINIMAL TOWER — THE BUILDER DOES NOT OVERSHOOT
 
-`chowlaRegime_exists_param_gen` (`RegimeParam.lean:386`) returns `R.Hhi = chowlaTower 2 1 R.Hlo (Jof R.Hlo)` — an EQUATION; at `Jof = towerJmin` (`TowerExport.lean:729 chowlaRegime_exists_param_tower`) `H₊` is *exactly* the minimal crossing tower value. There is no builder slack to recover. And `λ₊ = λ₋³` exactly is impossible: `3 < 3.7436` (kernel, `P1.lean:76`). The only slack is in the EXPORTED upper law: landed `K = 5` and the `9/2` twin against an honest `4.4077`. Re-cutting `9/2 → 4.42` is a 30-line arithmetic twin (`three_halves_lt_log_nine_halves` pattern, `TowerExport.lean:786`) worth 1.8% of exponent — **worthless against a 34043× deficit. Do not fly it.**
+`chowlaRegime_exists_param_gen` (`RegimeParam.lean:386`) returns `R.Hhi = chowlaTower 2 1 R.Hlo (Jof R.Hlo)` — an EQUATION; at `Jof = towerJmin` (`TowerExport.lean:747 chowlaRegime_exists_param_tower`) `H₊` is *exactly* the minimal crossing tower value. There is no builder slack to recover. And `λ₊ = λ₋³` exactly is impossible: `3 < 3.7436` (kernel, `P1.lean:76`). The only slack is in the EXPORTED upper law: landed `K = 5` and the `9/2` twin against an honest `4.4077`. Re-cutting `9/2 → 4.42` is a 30-line arithmetic twin (`three_halves_lt_log_nine_halves` pattern, `TowerExport.lean:804`) worth 1.8% of exponent — **worthless against a 34043× deficit. Do not fly it.**
 
 ## (5) DIRECTIONS, WITH CLASS AND HONEST PRICE
 

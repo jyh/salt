@@ -1114,7 +1114,7 @@ because nothing at `h ≠ 1` consumed a door.  These two files are that exit's l
 ⚠️ THE LEAVES ARE BODY REPLAYS, NOT WRAPPERS, AND THAT IS FORCED.  `HeadPinLeaves.lean:30-37`
 is standing law here: the pinned constant occurs ANTITONICALLY inside each `∃`-leaf, so NO
 consequence of the landed form recovers the witness — the only route is to re-run the proof
-with the numeral kept.  `hbudget_holds_h_bounded` replays `HBudget.lean:1182-1465` over the
+with the numeral kept.  `hbudget_holds_h_bounded` replays `HBudget.lean:1203-1486` over the
 PINNED Mertens leaf (`primeWindow_sum_inv_ge_bounded`) because `hbudget_holds_h` draws its `c`
 from the UNPINNED one and `1/4 ≤ cE` is unobtainable by weakening;
 `circle_method_estimate_sq_bounded_h_core` replays `circle_method_estimate_sq_h_core`'s body
