@@ -224,7 +224,7 @@ set_option maxHeartbeats 1600000 in
 -- Same cause as the landed capstone: the ~120-line residue re-elaborates against the re-cut
 -- prefix, here at the inflated socket and with the cap threaded through every gate.
 /-- **⟦THE `A`-UNIFORM CAPSTONE, WINDOWED AND PRICED, AT SHIFT `h`⟧**
-(`flat_capstone_uniform_win_ceiling_h`) — `S16Compose:445` on block U's `A`-uniform road and
+(`flat_capstone_uniform_win_ceiling_h`) — `S16Compose:446` on block U's `A`-uniform road and
 block W's windowed rider, carrying `Kc ≤ 2^539` and `Ct ≤ 2^23`, at `ε` pinned by
 `1/(500·h)` and `δ₀` by `1/(838400·h²)`.  ⛔ Gate 7 is routed off `loglogFloor50`, NOT
 `arcFloor36` — see the file header. -/
@@ -447,7 +447,7 @@ set_option maxHeartbeats 1000000 in
 -- Same cause as the landed conditional: the residue re-elaborates against the prefix.
 -- 2026-10-08, the XY debt lane, family 44: nine calls at the cap 9 (eight twins); the rest at cap 7
 /-- **⟦THE `A`-UNIFORM CONDITIONAL, WINDOWED AND PRICED, AT SHIFT `h`⟧**
-(`flat_conditional_uniform_win_ceiling_h`) — `S16Compose:659` on §2, with wave H2b's `h` fire
+(`flat_conditional_uniform_win_ceiling_h`) — `S16Compose:660` on §2, with wave H2b's `h` fire
 list (`S16FlatTerminalLinearLH` §5) substituted for the `h = 1` one.
 
 ⭐ **`S13BandGate'_L_gk` DISSOLVES RATHER THAN PORTING.**  At `h = 1` the band register is
@@ -2600,7 +2600,7 @@ set_option maxHeartbeats 1600000 in
 -- as the landed original: the design constant's arm census re-elaborates against the terminal's
 -- own prefix
 /-- **⟦THE INEFFECTIVE LIMIT, `v3`, AT SHIFT `h`⟧** (`logChowla2_ineffective_v3_h`) —
-`S16Compose:1025` on §7, with the band rider discharged from block W. -/
+`S16Compose:1019` on §7, with the band rider discharged from block W. -/
 theorem logChowla2_ineffective_v3_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (A₀ : ℝ) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
@@ -2686,7 +2686,7 @@ directly below).
 
 This page's docstring, verbatim:
 
-⟦`Ks`-WINDOWED, AT SHIFT `h`⟧ (`capfloor_floor4_of_regimeWin_LH`) — `V7Ks:76` at
+⟦`Ks`-WINDOWED, AT SHIFT `h`⟧ (`capfloor_floor4_of_regimeWin_LH`) — `V7Ks:77` at
 `SocketBaseLH h`: the window is read at `R.Hlo` and transported to the socket's own `H`. -/
 
 /-! ### §11.1 — the floor wave and its assembler, `Ks`-windowed at shift `h` (retired 2026-09-27) -/

@@ -1564,7 +1564,7 @@ forwards the now-hypothesis-free shape through the flat terminal — **this is t
 `v7` mint reads in place of
 `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist`.**
 
-Bodies verbatim from `RegisterCompose.lean:52-300`. -/
+Bodies verbatim from `RegisterCompose.lean:53-294`. -/
 
 set_option maxHeartbeats 3200000 in
 -- Same cause as the landed original: one application of a ~45-binder capstone.
