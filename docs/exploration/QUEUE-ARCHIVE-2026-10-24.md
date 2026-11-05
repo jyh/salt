@@ -6094,7 +6094,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    executor head, A/B tier throughout, in parallel with H2b).** New module
    `Salt/MR/S13CapGateLinearLH.lean`, **62 names, every theorem `[3 axioms]`**; audit block in
    `Salt/MR/All.lean`; no landed declaration edited. Deliverable
-   `s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:954`'s `∃`-prefix and pins with `hblk` at
+   `s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:953`'s `∃`-prefix and pins with `hblk` at
    `SocketBaseLH h`, concluding `S16CofactorSupply_LH_gk h → S16BaseScaleCap96_LH_gk h →
    S15CrossingBound_LH_gk h`.
    ⛔ **WHY SIXTY AND NOT THIRTY.** `s16_capGate_supply_L_gk` and `s13CapGrid_all_L_gk` derive

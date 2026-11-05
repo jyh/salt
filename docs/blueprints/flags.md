@@ -18852,7 +18852,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 **THE DEVICE, FOR THE RECORD.** The windowed twins carry, in the numeral conjunct's slot, the `A`-free Pi-statement `forall A, 162 <= A -> Awin <= A -> Mfl <= flatDoorM A` (so the prefix stays hoistable -- an `A`-mentioning rider would re-introduce the circularity the DISCHARGE wave killed), and §9.3's `forall A` binder gains the admissibility line `Awin <= A`. The `Mfl` floor is then spent through `s15_sel''_L_gk_witness_flat_bumped_win` -- at the door modulus directly, never at `2^355`. Bodies otherwise VERBATIM.
 
-**WHAT WAS NOT DONE, AND WHY (stopped loudly).** The mission's `logChowla2_witnessed_scale_flat_L_v2_win` -- the NON-uniform terminal twin -- is NOT landed. It would require windowed twins of `S16FlatTerminalLinear:357` (677 ln, hop 3-L), `:1034` (428 ln) and `:1462`, plus `S16FlatFinal:119`: ~1200 ln of transcription for a road with NO consumer above it (the corollary goes through the uniform lane). The `S16Budget`/`S16BudgetFlat`/`S16FlatTerminal` (non-linear) hops are likewise untouched. If anyone wants the window at the non-uniform terminal the recipe is mechanical and identical: statement conjunct `Mfl <= 2^355` -> the Pi-statement, `hband` -> `S16BandLaneCBoundedL_win Awin K`, `s11_grade_floor_hoistCb_prod_le C h0 h40` -> `fun A hA hAw => flatDoorM_gradeFloor_win hA h0 (by linarith)`, `flatDoorM_Mfl_bump` -> the hypothesis itself.
+**WHAT WAS NOT DONE, AND WHY (stopped loudly).** The mission's `logChowla2_witnessed_scale_flat_L_v2_win` -- the NON-uniform terminal twin -- is NOT landed. It would require windowed twins of `S16FlatTerminalLinear:356` (677 ln, hop 3-L), `:1034` (428 ln) and `:1462`, plus `S16FlatFinal:119`: ~1200 ln of transcription for a road with NO consumer above it (the corollary goes through the uniform lane). The `S16Budget`/`S16BudgetFlat`/`S16FlatTerminal` (non-linear) hops are likewise untouched. If anyone wants the window at the non-uniform terminal the recipe is mechanical and identical: statement conjunct `Mfl <= 2^355` -> the Pi-statement, `hband` -> `S16BandLaneCBoundedL_win Awin K`, `s11_grade_floor_hoistCb_prod_le C h0 h40` -> `fun A hA hAw => flatDoorM_gradeFloor_win hA h0 (by linarith)`, `flatDoorM_Mfl_bump` -> the hypothesis itself.
 
 **MISSION C, FOLDED IN.** D1 (`S16FlatFinal` header): the "both predicates WEAKER than their landed counterparts" claim is now restricted to the BASE-SCALE CAP (which `s16_baseScaleCap96_L_of_baseScaleCap96` proves outright); the CO-FACTOR is stated as a NEW, INCOMPARABLE ask at the linear door (no transport bridge: the socket bounds `||ramR||`, not monotone in the indicator; the block families are non-nested), priced TRANSFERABLE per COFK-L -- ONE shared anchor-blind supplier debt at both doors, the L-vs-landed delta class A. D2 (stale margin prose): the four `lambda+`-reading register rows refreshed to the amended `2E` slot -- anchor `898x -> 449x`, gRows `915x -> 457x`, gP1 `10^4x -> ~5.5e3x`, lvl `913x -> 457x` (`S15SelLinear:29-36` table + the prose after + `:318`; `S15SelLinearWide:121,:147,:347-348`). **CORRECTION TO THE 7/31 SEAL-REPAIR ENTRY (do not edit it; this line is the correction):** that entry's reading of the two carried predicates as "both weaker than landed" was HALF WRONG -- only the cap is; the cofactor is a new ask, transferable but unpaid at BOTH doors.
 
@@ -19142,7 +19142,7 @@ the cap must be re-cut. **This is a design ruling, not an executor's call.**
 ⟦STOPPED LOUDLY⟧ the uniform-lane threading (mission item 2) was NOT performed. The head-ceiling
 twin is the interface; the remaining hops are `S16Uniform:284 → flat_capstone_uniform_win →
 flat_conditional_uniform_win → logChowla2_witnessed_scale_flat_L_v2_uniform_win(_ceiling) →
-S16Compose:133` — a four-hop seven-twin wave (BAND-WINDOW genre, ~450 ln). It is deliberately
+S16Compose:134` — a four-hop seven-twin wave (BAND-WINDOW genre, ~450 ln). It is deliberately
 not spent: the conjunct it would carry cannot discharge the cap at the terminal's `A`, per the
 headline. Thread it only if the redirect lands on the socket side and still wants the ceiling.
 
@@ -19328,7 +19328,7 @@ landed law, one threading wave from being a theorem, with nine orders of coeffic
 * **THE `T₀` RESHAPE.** Traced to the bytes and priced, NOT spent. The consumer chain is exactly
   four hops: `capfloor_T0_Tann` (S13CapFloor:238, sharp sibling `_sharp` at :226 LANDED) ←
   `s13CapFloor_all_L_gk` (S13BandCapLinear:256) ← `s16_capGate_supply_L_gk`
-  (S13CapGateLinear:939) ← `s15_crossing_supplied_L_gk_ceiling` (S16Compose:925) ← the terminal
+  (S13CapGateLinear:939) ← `s15_crossing_supplied_L_gk_ceiling` (S16Compose:924) ← the terminal
   ← `v4`. The sharp form asks `T₀ ≤ exp(√H/2)` at the SOCKET's `H`, and every hop has `R` in
   scope with `R.Hlo ≤ H`, so the uniform carrier is `T₀ ≤ exp(√R.Hlo/2)` with one
   `Real.sqrt` monotonicity step at the leaf; at the terminal it becomes
