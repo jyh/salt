@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `069ed2af` · source digest `14c51debae061009` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `395ed122` · source digest `cd5d4bd921b28d93` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -4941,8 +4941,8 @@ Declarations indexed across the tree: 23375 · corpus Prop-valued names (the hyp
 | `Salt.MR.mrThreshold_le_x` | Salt/MR/RegimeHead.lean:333 | characters |
 | `Salt.MR.heps_arm_of_epsFloor` | Salt/MR/RegimeHead.lean:351 | characters |
 | `Salt.MR.regime_head_W_headroom` | Salt/MR/RegimeHead.lean:374 | characters |
-| `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist` | Salt/MR/RegisterCompose.lean:164 | characters |
-| `Salt.MR.logChowla2_ineffective_v6` | Salt/MR/RegisterCompose.lean:345 | characters |
+| `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist` | Salt/MR/RegisterCompose.lean:165 | characters |
+| `Salt.MR.logChowla2_ineffective_v6` | Salt/MR/RegisterCompose.lean:339 | characters |
 | `Salt.MR.s16cof_exit_decay` | Salt/MR/RegisterInhabit.lean:102 | characters |
 | `Salt.MR.cofk_ramI_bot_mem` | Salt/MR/RegisterInhabit.lean:150 | characters |
 | `Salt.MR.cofkL_bulk_infeasible` | Salt/MR/RegisterInhabit.lean:209 | characters |
@@ -5090,16 +5090,16 @@ Declarations indexed across the tree: 23375 · corpus Prop-valued names (the hyp
 | `Salt.MR.s16_audit_rho_ge_wide_h` | Salt/MR/S16Budget.lean:1049 | characters |
 | `Salt.MR.s16_audit_neglog_rho_le_wide_h` | Salt/MR/S16Budget.lean:1082 | characters |
 | `Salt.MR.s16_audit_neglog_rho_le_417_h` | Salt/MR/S16Budget.lean:1102 | characters |
-| `Salt.MR.flat_socket_uniform_ceiling` | Salt/MR/S16Compose.lean:192 | sieves, characters |
-| `Salt.MR.s15_crossing_supplied_L_gk_ceiling` | Salt/MR/S16Compose.lean:877 | characters |
-| `Salt.MR.logChowla2_ineffective_v3` | Salt/MR/S16Compose.lean:1025 | characters |
+| `Salt.MR.flat_socket_uniform_ceiling` | Salt/MR/S16Compose.lean:193 | sieves, characters |
+| `Salt.MR.s15_crossing_supplied_L_gk_ceiling` | Salt/MR/S16Compose.lean:878 | characters |
+| `Salt.MR.logChowla2_ineffective_v3` | Salt/MR/S16Compose.lean:1019 | characters |
 | `Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0` | Salt/MR/S16ComposeLH.lean:2455 | characters |
 | `Salt.MR.logChowla2_ineffective_v3_h` | Salt/MR/S16ComposeLH.lean:2604 | characters |
 | `Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0_khoist_csfree_kswin_b9` | Salt/MR/S16ComposeLH.lean:3405 | characters |
-| `Salt.MR.s16_bandLaneWinL_holdsU` | Salt/MR/S16ComposeV4.lean:101 | characters |
-| `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0` | Salt/MR/S16ComposeV4.lean:745 | characters |
-| `Salt.MR.logChowla2_ineffective_v4` | Salt/MR/S16ComposeV4.lean:938 | characters |
-| `Salt.MR.s15_crossing_supplied_L_gk` | Salt/MR/S16FlatFinal.lean:65 | characters |
+| `Salt.MR.s16_bandLaneWinL_holdsU` | Salt/MR/S16ComposeV4.lean:102 | characters |
+| `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0` | Salt/MR/S16ComposeV4.lean:746 | characters |
+| `Salt.MR.logChowla2_ineffective_v4` | Salt/MR/S16ComposeV4.lean:932 | characters |
+| `Salt.MR.s15_crossing_supplied_L_gk` | Salt/MR/S16FlatFinal.lean:66 | characters |
 | `Salt.MR.budgetAFlat_spend` | Salt/MR/S16FlatTerminal.lean:79 | characters |
 | `Salt.MR.flat_design_window_demand` | Salt/MR/S16FlatTerminal.lean:88 | characters |
 | `Salt.MR.flatHead_budget_pair` | Salt/MR/S16FlatTerminal.lean:109 | characters |
@@ -5887,13 +5887,13 @@ Declarations indexed across the tree: 23375 · corpus Prop-valued names (the hyp
 | `Salt.MR.ramRcoeff_mass_le` | Salt/MR/USetThinTS.lean:421 | characters |
 | `Salt.MR.exp_neg_le_of_log_inv_le` | Salt/MR/V7A.lean:79 | characters |
 | `Salt.MR.ks_rider_absorbed` | Salt/MR/V7A.lean:89 | characters |
-| `Salt.MR.cs_floor_of_leaves` | Salt/MR/V7B.lean:72 | characters |
-| `Salt.MR.per_pair_contour_floored` | Salt/MR/V7B.lean:113 | sieves, characters |
-| `Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded_cs` | Salt/MR/V7B.lean:1221 | characters |
-| `Salt.MR.usetGChi_window_meansq_gated_family_perBlock_bounded_cs` | Salt/MR/V7B.lean:1248 | characters |
-| `Salt.MR.usetGChi_row_exit_perChi_perBlock_bounded_cs` | Salt/MR/V7B.lean:1330 | characters |
-| `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree` | Salt/MR/V7B.lean:1687 | characters |
-| `Salt.MR.logChowla2_ineffective_v6_csarm` | Salt/MR/V7B.lean:1846 | characters |
+| `Salt.MR.cs_floor_of_leaves` | Salt/MR/V7B.lean:73 | characters |
+| `Salt.MR.per_pair_contour_floored` | Salt/MR/V7B.lean:114 | sieves, characters |
+| `Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded_cs` | Salt/MR/V7B.lean:1222 | characters |
+| `Salt.MR.usetGChi_window_meansq_gated_family_perBlock_bounded_cs` | Salt/MR/V7B.lean:1249 | characters |
+| `Salt.MR.usetGChi_row_exit_perChi_perBlock_bounded_cs` | Salt/MR/V7B.lean:1331 | characters |
+| `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree` | Salt/MR/V7B.lean:1688 | characters |
+| `Salt.MR.logChowla2_ineffective_v6_csarm` | Salt/MR/V7B.lean:1840 | characters |
 | `Salt.MR.flatDesignBase_sqrt_ge` | Salt/MR/V7C.lean:62 | characters |
 | `Salt.MR.t0_arm_two_levels` | Salt/MR/V7C.lean:75 | characters |
 | `Salt.MR.t0_arm_three_levels` | Salt/MR/V7C.lean:98 | characters |
@@ -5904,9 +5904,9 @@ Declarations indexed across the tree: 23375 · corpus Prop-valued names (the hyp
 | `Salt.MR.logChowla2_ineffective_v7_g0` | Salt/MR/V7E.lean:203 | characters |
 | `Salt.MR.xceilRiderStrict_zero` | Salt/MR/V7Headline.lean:91 | characters |
 | `Salt.MR.logChowla2_ineffective_v7_ksarm_g0` | Salt/MR/V7Headline.lean:157 | characters |
-| `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin` | Salt/MR/V7Ks.lean:246 | characters |
-| `Salt.MR.logChowla2_ineffective_v7_ksarm` | Salt/MR/V7Ks.lean:435 | characters |
-| `Salt.MR.logChowla2_ineffective_v7_of_ksarm` | Salt/MR/V7Ks.lean:546 | characters |
+| `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin` | Salt/MR/V7Ks.lean:247 | characters |
+| `Salt.MR.logChowla2_ineffective_v7_ksarm` | Salt/MR/V7Ks.lean:429 | characters |
+| `Salt.MR.logChowla2_ineffective_v7_of_ksarm` | Salt/MR/V7Ks.lean:540 | characters |
 | `Salt.MR.cofkR_cushion_of_armVt` | Salt/MR/V7Rated.lean:165 | characters |
 | `Salt.MR.cofkR_cofactorSupply_L_gk_rated` | Salt/MR/V7Rated.lean:244 | characters |
 | `Salt.MR.logChowla2_v7_rated` | Salt/MR/V7Rated.lean:976 | characters |
@@ -8249,9 +8249,9 @@ Declarations indexed across the tree: 23375 · corpus Prop-valued names (the hyp
 | `Salt.MR.m4_capE_at_door` | Salt/MR/RamErrWS.lean:466 | characters | `Salt.MR.DoorCapErrWS` |
 | `Salt.MR.m4_socket_discharged_capwired_ws` | Salt/MR/RamErrWS.lean:581 | characters | `Salt.MR.MmuChiRate`, `Salt.MR.DoorFuseFrame`, `Salt.MR.DoorRowZeroBase`, `Salt.MR.DoorCapBase`, `Salt.MR.DoorBandBase`, `Salt.MR.DoorArithFrameRho` |
 | `Salt.MR.windowSmooth_dvd_bandPow` | Salt/MR/RamareMassTail.lean:201 | characters | `Salt.MR.WindowSmooth` |
-| `Salt.MR.m4_hcap_at_door_perBlock_L_gk_bounded_khoist` | Salt/MR/RegisterCompose.lean:52 | characters | `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist` | Salt/MR/RegisterCompose.lean:113 | characters | `Salt.MR.DoorCapBasePerBlock_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
-| `Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist` | Salt/MR/RegisterCompose.lean:209 | characters | `Salt.MR.S16BandLaneCBoundedL_winU` |
+| `Salt.MR.m4_hcap_at_door_perBlock_L_gk_bounded_khoist` | Salt/MR/RegisterCompose.lean:53 | characters | `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist` | Salt/MR/RegisterCompose.lean:114 | characters | `Salt.MR.DoorCapBasePerBlock_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
+| `Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist` | Salt/MR/RegisterCompose.lean:203 | characters | `Salt.MR.S16BandLaneCBoundedL_winU` |
 | `Salt.MR.cofkL_bulk_grade_floor` | Salt/MR/RegisterInhabit.lean:161 | characters | `Salt.MR.CofactorBulkL` |
 | `Salt.MR.cofkL_bulk_false_at_socket` | Salt/MR/RegisterInhabit.lean:260 | characters | `Salt.MR.SocketBaseL` |
 | `Salt.MR.cofkL_logX_floor` | Salt/MR/RegisterSupply.lean:323 | characters | `Salt.MR.SocketBaseL` |
@@ -8362,18 +8362,18 @@ Declarations indexed across the tree: 23375 · corpus Prop-valued names (the hyp
 | `Salt.MR.s15_sel''_L_blk_landed` | Salt/MR/S15SelLinearWide.lean:441 | characters | `Salt.MR.S15Sel''_L` |
 | `Salt.MR.s15_sel''_L_half_landed` | Salt/MR/S15SelLinearWide.lean:451 | characters | `Salt.MR.S15Sel''_L` |
 | `Salt.MR.s15_gRows_const_at_socket_flat_doorL` | Salt/MR/S15SelLinearWide.lean:464 | characters | `Salt.MR.SocketBaseL` |
-| `Salt.MR.flat_head_uniform_ceiling` | Salt/MR/S16Compose.lean:92 | characters | `Salt.Entropy.Chowla.MRTUniformityXiL2` |
-| `Salt.MR.flat_doorL2_uniform_ceiling` | Salt/MR/S16Compose.lean:241 | sieves, characters | `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.M4SievedDoorSq_L_gk` |
-| `Salt.MR.flat_road_uniform_ceiling` | Salt/MR/S16Compose.lean:299 | characters | `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.M4ChiSummedFreeRow_L_gk` |
-| `Salt.MR.m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling` | Salt/MR/S16Compose.lean:375 | characters | `Salt.MR.DoorBaseFrame`, `Salt.MR.GRowsZeroGate'''_L_gk`, `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.DoorArithFrameRho_L` |
-| `Salt.MR.flat_capstone_uniform_win_ceiling` | Salt/MR/S16Compose.lean:445 | characters | `Salt.MR.S16BandLaneCBoundedL_win`, `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.m4SmallGradeFits`, `Salt.MR.DoorBaseFrame`, `Salt.MR.GRowsZeroGate'''_L_gk`, `Salt.MR.DoorBandBase_L_gk`, `Salt.MR.DoorArithFrameRho_L` |
-| `Salt.MR.flat_conditional_uniform_win_ceiling` | Salt/MR/S16Compose.lean:659 | characters | `Salt.MR.S16BandLaneCBoundedL_win`, `Salt.MR.S15Sel''_L_gk`, `Salt.MR.S15CrossingBound_L_gk` |
-| `Salt.MR.m4_hcap_at_door_perBlock_L_gk_bounded` | Salt/MR/S16Compose.lean:764 | characters | `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_fuse_hcap_of_capWS_L_gk_ceiling` | Salt/MR/S16Compose.lean:827 | characters | `Salt.MR.DoorCapBasePerBlock_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
-| `Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling` | Salt/MR/S16Compose.lean:921 | characters | `Salt.MR.S16BandLaneCBoundedL_win` |
-| `Salt.MR.m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling_kwide` | Salt/MR/S16Compose.lean:1078 | characters | `Salt.MR.DoorBaseFrame`, `Salt.MR.GRowsZeroGate'''_L_gk`, `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.DoorArithFrameRho_L` |
-| `Salt.MR.flat_capstone_uniform_win_ceiling_kwide` | Salt/MR/S16Compose.lean:1144 | characters | `Salt.MR.S16BandLaneCBoundedL_win`, `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.m4SmallGradeFits`, `Salt.MR.DoorBaseFrame`, `Salt.MR.GRowsZeroGate'''_L_gk`, `Salt.MR.DoorBandBase_L_gk`, `Salt.MR.DoorArithFrameRho_L` |
-| `Salt.MR.flat_conditional_uniform_win_ceiling_kwide` | Salt/MR/S16Compose.lean:1355 | characters | `Salt.MR.S16BandLaneCBoundedL_win`, `Salt.MR.S15Sel''_L_gk`, `Salt.MR.S15CrossingBound_L_gk` |
+| `Salt.MR.flat_head_uniform_ceiling` | Salt/MR/S16Compose.lean:93 | characters | `Salt.Entropy.Chowla.MRTUniformityXiL2` |
+| `Salt.MR.flat_doorL2_uniform_ceiling` | Salt/MR/S16Compose.lean:242 | sieves, characters | `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.M4SievedDoorSq_L_gk` |
+| `Salt.MR.flat_road_uniform_ceiling` | Salt/MR/S16Compose.lean:300 | characters | `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.M4ChiSummedFreeRow_L_gk` |
+| `Salt.MR.m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling` | Salt/MR/S16Compose.lean:376 | characters | `Salt.MR.DoorBaseFrame`, `Salt.MR.GRowsZeroGate'''_L_gk`, `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.DoorArithFrameRho_L` |
+| `Salt.MR.flat_capstone_uniform_win_ceiling` | Salt/MR/S16Compose.lean:446 | characters | `Salt.MR.S16BandLaneCBoundedL_win`, `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.m4SmallGradeFits`, `Salt.MR.DoorBaseFrame`, `Salt.MR.GRowsZeroGate'''_L_gk`, `Salt.MR.DoorBandBase_L_gk`, `Salt.MR.DoorArithFrameRho_L` |
+| `Salt.MR.flat_conditional_uniform_win_ceiling` | Salt/MR/S16Compose.lean:660 | characters | `Salt.MR.S16BandLaneCBoundedL_win`, `Salt.MR.S15Sel''_L_gk`, `Salt.MR.S15CrossingBound_L_gk` |
+| `Salt.MR.m4_hcap_at_door_perBlock_L_gk_bounded` | Salt/MR/S16Compose.lean:765 | characters | `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_fuse_hcap_of_capWS_L_gk_ceiling` | Salt/MR/S16Compose.lean:828 | characters | `Salt.MR.DoorCapBasePerBlock_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
+| `Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling` | Salt/MR/S16Compose.lean:915 | characters | `Salt.MR.S16BandLaneCBoundedL_win` |
+| `Salt.MR.m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling_kwide` | Salt/MR/S16Compose.lean:1072 | characters | `Salt.MR.DoorBaseFrame`, `Salt.MR.GRowsZeroGate'''_L_gk`, `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.DoorArithFrameRho_L` |
+| `Salt.MR.flat_capstone_uniform_win_ceiling_kwide` | Salt/MR/S16Compose.lean:1138 | characters | `Salt.MR.S16BandLaneCBoundedL_win`, `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.m4SmallGradeFits`, `Salt.MR.DoorBaseFrame`, `Salt.MR.GRowsZeroGate'''_L_gk`, `Salt.MR.DoorBandBase_L_gk`, `Salt.MR.DoorArithFrameRho_L` |
+| `Salt.MR.flat_conditional_uniform_win_ceiling_kwide` | Salt/MR/S16Compose.lean:1349 | characters | `Salt.MR.S16BandLaneCBoundedL_win`, `Salt.MR.S15Sel''_L_gk`, `Salt.MR.S15CrossingBound_L_gk` |
 | `Salt.MR.m4_hrowsSlot_at_door_zero'H_L_gk_ceiling` | Salt/MR/S16ComposeLH.lean:83 | characters | `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.SocketBaseLH`, `Salt.MR.TannGate` |
 | `Salt.MR.m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling` | Salt/MR/S16ComposeLH.lean:134 | characters | `Salt.MR.DoorBaseFrame`, `Salt.MR.GRowsZeroGate'''_L_gk`, `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.DoorArithFrameRho_L` |
 | `Salt.MR.flat_capstone_uniform_win_ceiling_h` | Salt/MR/S16ComposeLH.lean:231 | characters | `Salt.MR.S16BandLaneCBoundedLH_win`, `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.m4SmallGradeFits`, `Salt.MR.DoorBaseFrame`, `Salt.MR.GRowsZeroGate'''_L_gk`, `Salt.MR.DoorBandBase_L_gk`, `Salt.MR.DoorArithFrameRho_L` |
@@ -8405,14 +8405,14 @@ Declarations indexed across the tree: 23375 · corpus Prop-valued names (the hyp
 | `Salt.MR.s13CapFloor_all_LH_gk_sharpT0_kswin_b9` | Salt/MR/S16ComposeLH.lean:3261 | characters | `Salt.MR.SocketBaseLH` |
 | `Salt.MR.s16_capGate_supply_LH_gk_sharpT0_kswin_b9` | Salt/MR/S16ComposeLH.lean:3311 | characters | `Salt.MR.S16BaseScaleCap96_LH_gk`, `Salt.MR.S16CofactorSupply_LH_gk`, `Salt.MR.SocketBaseLH`, `Salt.MR.TannGate` |
 | `Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_h` | Salt/MR/S16ComposeLH.lean:3463 | characters | `Salt.MR.S16BandLaneCBoundedLH_winU` |
-| `Salt.MR.flat_doorL2_uniform_ceiling_khoist` | Salt/MR/S16ComposeV4.lean:136 | sieves, characters | `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.M4SievedDoorSq_L_gk` |
-| `Salt.MR.flat_road_uniform_ceiling_khoist` | Salt/MR/S16ComposeV4.lean:195 | characters | `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.M4ChiSummedFreeRow_L_gk` |
-| `Salt.MR.flat_capstone_uniform_win_ceiling_kwide_khoist` | Salt/MR/S16ComposeV4.lean:275 | characters | `Salt.MR.S16BandLaneCBoundedL_winU`, `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.m4SmallGradeFits`, `Salt.MR.DoorBaseFrame`, `Salt.MR.GRowsZeroGate'''_L_gk`, `Salt.MR.DoorBandBase_L_gk`, `Salt.MR.DoorArithFrameRho_L` |
-| `Salt.MR.flat_conditional_uniform_win_ceiling_kwide_khoist` | Salt/MR/S16ComposeV4.lean:491 | characters | `Salt.MR.S16BandLaneCBoundedL_winU`, `Salt.MR.S15Sel''_L_gk`, `Salt.MR.S15CrossingBound_L_gk` |
-| `Salt.MR.s13CapFloor_all_L_gk_sharpT0` | Salt/MR/S16ComposeV4.lean:610 | characters | `Salt.MR.SocketBase` |
-| `Salt.MR.s16_capGate_supply_L_gk_sharpT0` | Salt/MR/S16ComposeV4.lean:654 | characters | `Salt.MR.S16BaseScaleCap96_L_gk`, `Salt.MR.S16CofactorSupply_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
-| `Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_khoist` | Salt/MR/S16ComposeV4.lean:790 | characters | `Salt.MR.S16BandLaneCBoundedL_winU` |
-| `Salt.MR.logChowla2_witnessed_scale_flat_L_v2` | Salt/MR/S16FlatFinal.lean:136 | characters | `Salt.MR.S16BandLaneCBoundedL` |
+| `Salt.MR.flat_doorL2_uniform_ceiling_khoist` | Salt/MR/S16ComposeV4.lean:137 | sieves, characters | `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.M4SievedDoorSq_L_gk` |
+| `Salt.MR.flat_road_uniform_ceiling_khoist` | Salt/MR/S16ComposeV4.lean:196 | characters | `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.M4ChiSummedFreeRow_L_gk` |
+| `Salt.MR.flat_capstone_uniform_win_ceiling_kwide_khoist` | Salt/MR/S16ComposeV4.lean:276 | characters | `Salt.MR.S16BandLaneCBoundedL_winU`, `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.m4SmallGradeFits`, `Salt.MR.DoorBaseFrame`, `Salt.MR.GRowsZeroGate'''_L_gk`, `Salt.MR.DoorBandBase_L_gk`, `Salt.MR.DoorArithFrameRho_L` |
+| `Salt.MR.flat_conditional_uniform_win_ceiling_kwide_khoist` | Salt/MR/S16ComposeV4.lean:492 | characters | `Salt.MR.S16BandLaneCBoundedL_winU`, `Salt.MR.S15Sel''_L_gk`, `Salt.MR.S15CrossingBound_L_gk` |
+| `Salt.MR.s13CapFloor_all_L_gk_sharpT0` | Salt/MR/S16ComposeV4.lean:611 | characters | `Salt.MR.SocketBase` |
+| `Salt.MR.s16_capGate_supply_L_gk_sharpT0` | Salt/MR/S16ComposeV4.lean:655 | characters | `Salt.MR.S16BaseScaleCap96_L_gk`, `Salt.MR.S16CofactorSupply_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
+| `Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_khoist` | Salt/MR/S16ComposeV4.lean:784 | characters | `Salt.MR.S16BandLaneCBoundedL_winU` |
+| `Salt.MR.logChowla2_witnessed_scale_flat_L_v2` | Salt/MR/S16FlatFinal.lean:130 | characters | `Salt.MR.S16BandLaneCBoundedL` |
 | `Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot` | Salt/MR/S16FlatTerminal.lean:318 | characters | `Salt.MR.S16BandLaneCBounded`, `Salt.MR.M4DoorGates_gk`, `Salt.MR.m4SmallGradeFits`, `Salt.MR.DoorBaseFrame`, `Salt.MR.GRowsZeroGate'''_gk`, `Salt.MR.DoorBandBase_gk`, `Salt.MR.DoorArithFrameRho` |
 | `Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot` | Salt/MR/S16FlatTerminal.lean:524 | characters | `Salt.MR.S16BandLaneCBounded`, `Salt.MR.S15Sel''_gk`, `Salt.MR.S15CrossingBound_gk` |
 | `Salt.MR.logChowla2_witnessed_scale_flat` | Salt/MR/S16FlatTerminal.lean:651 | characters | `Salt.MR.S16BandLaneCBounded` |
@@ -8830,17 +8830,17 @@ Declarations indexed across the tree: 23375 · corpus Prop-valued names (the hyp
 | `Salt.MR.capfloor_floor4_of_sharp` | Salt/MR/V7A.lean:202 | characters | `Salt.MR.SocketBase` |
 | `Salt.MR.capfloor_floor4_of_pos` | Salt/MR/V7A.lean:216 | characters | `Salt.MR.SocketBase` |
 | `Salt.MR.capfloor_floor4_of_design` | Salt/MR/V7A.lean:230 | characters | `Salt.MR.SocketBase` |
-| `Salt.MR.halaszPrimesChiGated_of_price_floored` | Salt/MR/V7B.lean:780 | characters | `Salt.MR.TwistedWindowPriceGated` |
-| `Salt.MR.halasz_primes_chi_pair_of_gates_bounded_cs` | Salt/MR/V7B.lean:1133 | characters | `Salt.MR.TwistedWindowPriceGated`, `Salt.MR.FibreWellSpaced` |
-| `Salt.MR.halaszPrimesChi_holds_gated_bounded_cs` | Salt/MR/V7B.lean:1187 | characters | `Salt.MR.FibreWellSpaced` |
-| `Salt.MR.m4_rowChi_capstone_perBlock_bounded_cs` | Salt/MR/V7B.lean:1435 | characters | `Salt.MR.TannGate` |
-| `Salt.MR.m4_hcap_at_door_perBlock_L_gk_bounded_khoist_cs` | Salt/MR/V7B.lean:1572 | characters | `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist_cs` | Salt/MR/V7B.lean:1634 | characters | `Salt.MR.DoorCapBasePerBlock_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
-| `Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree` | Salt/MR/V7B.lean:1733 | characters | `Salt.MR.S16BandLaneCBoundedL_winU` |
-| `Salt.MR.capfloor_floor4_of_regimeWin` | Salt/MR/V7Ks.lean:76 | characters | `Salt.MR.SocketBase` |
-| `Salt.MR.s13CapFloor_all_L_gk_sharpT0_kswin` | Salt/MR/V7Ks.lean:99 | characters | `Salt.MR.SocketBase` |
-| `Salt.MR.s16_capGate_supply_L_gk_sharpT0_kswin` | Salt/MR/V7Ks.lean:147 | characters | `Salt.MR.S16BaseScaleCap96_L_gk`, `Salt.MR.S16CofactorSupply_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
-| `Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin` | Salt/MR/V7Ks.lean:296 | characters | `Salt.MR.S16BandLaneCBoundedL_winU` |
+| `Salt.MR.halaszPrimesChiGated_of_price_floored` | Salt/MR/V7B.lean:781 | characters | `Salt.MR.TwistedWindowPriceGated` |
+| `Salt.MR.halasz_primes_chi_pair_of_gates_bounded_cs` | Salt/MR/V7B.lean:1134 | characters | `Salt.MR.TwistedWindowPriceGated`, `Salt.MR.FibreWellSpaced` |
+| `Salt.MR.halaszPrimesChi_holds_gated_bounded_cs` | Salt/MR/V7B.lean:1188 | characters | `Salt.MR.FibreWellSpaced` |
+| `Salt.MR.m4_rowChi_capstone_perBlock_bounded_cs` | Salt/MR/V7B.lean:1436 | characters | `Salt.MR.TannGate` |
+| `Salt.MR.m4_hcap_at_door_perBlock_L_gk_bounded_khoist_cs` | Salt/MR/V7B.lean:1573 | characters | `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist_cs` | Salt/MR/V7B.lean:1635 | characters | `Salt.MR.DoorCapBasePerBlock_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
+| `Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree` | Salt/MR/V7B.lean:1727 | characters | `Salt.MR.S16BandLaneCBoundedL_winU` |
+| `Salt.MR.capfloor_floor4_of_regimeWin` | Salt/MR/V7Ks.lean:77 | characters | `Salt.MR.SocketBase` |
+| `Salt.MR.s13CapFloor_all_L_gk_sharpT0_kswin` | Salt/MR/V7Ks.lean:100 | characters | `Salt.MR.SocketBase` |
+| `Salt.MR.s16_capGate_supply_L_gk_sharpT0_kswin` | Salt/MR/V7Ks.lean:148 | characters | `Salt.MR.S16BaseScaleCap96_L_gk`, `Salt.MR.S16CofactorSupply_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
+| `Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin` | Salt/MR/V7Ks.lean:290 | characters | `Salt.MR.S16BandLaneCBoundedL_winU` |
 | `Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform` | Salt/MR/V7Rated.lean:76 | characters | `Salt.MR.SocketBaseL` |
 | `Salt.MR.s16_baseScaleCap96_LH_of_end` | Salt/MR/V7RatedH.lean:256 | characters | `Salt.MR.S16BaseScaleCapEnd_LH_gk` |
 | `Salt.MR.cofkL_socket_floors_h_b9` | Salt/MR/V7RatedH.lean:332 | characters | `Salt.MR.SocketBaseLH` |
