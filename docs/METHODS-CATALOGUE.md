@@ -1,7 +1,7 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `45438399` · source digest `574dea27cf5e2132` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `3459f72c` · source digest `e39cb5e3b8e8925a` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
@@ -98,7 +98,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 6 | `Salt.MR.DoorFuseFrame` | 21 | 1 | — | Salt/MR/M4Assembly.lean:440 |
 | 7 | `Salt.TwinBar.DirichletSevenEighths` | 21 | 0 | — | Salt/TwinBar/SevenEighthsClaim.lean:37 |
 | 8 | `Salt.HB.N9Regime` | 19 | 0 | — | Salt/HB/CrownTheorem1.lean:442 |
-| 9 | `Salt.MR.S16BandLaneCBoundedL_winU` | 19 | 0 | `Salt.MR.s16_bandLaneWinL_holdsU` | Salt/MR/S16ComposeV4.lean:82 |
+| 9 | `Salt.MR.S16BandLaneCBoundedL_winU` | 19 | 0 | `Salt.MR.s16_bandLaneWinL_holdsU` | Salt/MR/S16ComposeV4.lean:83 |
 | 10 | `Salt.MR.DoorFuseFrame_L_gk` | 18 | 0 | — | Salt/MR/M4RowAssemblyLinear.lean:282 |
 | 11 | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` | 17 | 5 | `Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride`, `Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride_g` +4 | Salt/Entropy/Chowla/StridePair.lean:389 |
 | 12 | `Salt.MR.S16BandLaneCBoundedL` | 17 | 0 | — | Salt/MR/S16FlatTerminalLinear.lean:57 |
@@ -351,7 +351,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.CalFrame` | DISCHARGED | 4 | `Salt.MR.calFrame_satisfiable` ✓audited (Salt/MR/SeamCalibration.lean:348) |
 | `Salt.MR.FlatDoorEpsFamilyW` | DISCHARGED | 4 | `Salt.MR.flatDoorEpsFamilyW_holds` ✓audited (Salt/MR/FlatDoorEpsRung2.lean:5557) |
 | `Salt.MR.FlatHeadFormEpsW` | DISCHARGED | 4 | `Salt.MR.flat_head_uniform_xceil_epsW` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4742) |
-| `Salt.MR.HalaszPrimesChi` | DISCHARGED | 4 | `Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded` GUARDED (Salt/MR/NumeralKq.lean:751) · `Salt.MR.halaszPrimesChi_pointwise_of_gates` ✓audited GUARDED (Salt/MR/PortClose.lean:230) · `Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded_cs` ✓audited GUARDED (Salt/MR/V7B.lean:1221) |
+| `Salt.MR.HalaszPrimesChi` | DISCHARGED | 4 | `Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded` GUARDED (Salt/MR/NumeralKq.lean:751) · `Salt.MR.halaszPrimesChi_pointwise_of_gates` ✓audited GUARDED (Salt/MR/PortClose.lean:230) · `Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded_cs` ✓audited GUARDED (Salt/MR/V7B.lean:1222) |
 | `Salt.MR.M4BlockMeanSq` | DISCHARGED | 4 | `Salt.MR.m4_blockMeanSq_trivial` ✓audited (Salt/MR/M4BridgeCover.lean:426) |
 | `Salt.MR.M4CoprimeBlockMeanSq` | DISCHARGED | 4 | `Salt.MR.m4_coprimeBlockMeanSq_trivial` ✓audited (Salt/MR/M4NonCoprime.lean:350) |
 | `Salt.MR.M4DoorGates_gk` | DISCHARGED | 4 | `Salt.MR.s13_doorGates_of_arm_gk` GUARDED (Salt/MR/S13FramesA.lean:1320) · `Salt.MR.s13_doorGates_of_arm'_gk` GUARDED (Salt/MR/S13FramesA.lean:1384) |
@@ -1001,10 +1001,10 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Chen.sum_inv_prime_window_ge` | 435 | Salt/Chen/MertensPNT.lean:159 |
 | `Salt.MR.norm_memSCoeff_le_one` | 432 | Salt/MR/M4Sieve.lean:126 |
 | `Salt.MR.two_le_calP` | 333 | Salt/MR/SieveGlue.lean:315 |
-| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 313 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:82 |
-| `Salt.Entropy.Chowla.nuG_mult` | 313 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:57 |
+| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 313 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:77 |
+| `Salt.Entropy.Chowla.nuG_mult` | 313 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:52 |
 | `Salt.Chen.twinWindow_mass_eq` | 310 | Salt/Chen/MertensPNT.lean:248 |
-| `Salt.Entropy.Chowla.goldEnergySieve_siftedSum` | 307 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:172 |
+| `Salt.Entropy.Chowla.goldEnergySieve_siftedSum` | 307 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:156 |
 
 ### Mertens / PNT-type — 1638 external dependents
 
@@ -1124,11 +1124,11 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Entropy.Chowla.dft_parseval` | 364 | Salt/Entropy/Chowla/CircleMethod.lean:126 |
 | `Salt.Entropy.Chowla.not_summable_one_div_nat_loglog` | 318 | Salt/Entropy/Chowla/Diverge.lean:230 |
 | `Salt.Entropy.Chowla.isProbabilityMeasure_logMeasure` | 316 | Salt/Entropy/Chowla/LogMeasure.lean:70 |
-| `Salt.Entropy.Chowla.rhoG_prime_dvd` | 316 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:95 |
-| `Salt.Entropy.Chowla.rhoG_prime_not_dvd` | 316 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:104 |
+| `Salt.Entropy.Chowla.rhoG_prime_dvd` | 316 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:86 |
+| `Salt.Entropy.Chowla.rhoG_prime_not_dvd` | 316 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:95 |
 | `Salt.Entropy.Chowla.dropSum_exceeds_log_two_base` | 315 | Salt/Entropy/Chowla/RegimeParam.lean:219 |
-| `Salt.Entropy.Chowla.rhoG_mul_of_coprime` | 315 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:180 |
-| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 313 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:82 |
+| `Salt.Entropy.Chowla.rhoG_mul_of_coprime` | 315 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:171 |
+| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 313 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:77 |
 
 ### Matomaki-Radziwill / Halasz (short intervals) — 73 external dependents
 
