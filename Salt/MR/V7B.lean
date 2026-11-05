@@ -1118,7 +1118,7 @@ open MeasureTheory
 /-! ## §3 — THE SIX PASS-THROUGHS
 
 `NumeralKq`'s `_bounded` family, each twin re-run with the `cs` floor riding beside the `Kq`
-ceiling.  Bodies verbatim from `NumeralKq.lean:668-1068`; the only edits are the extra
+ceiling.  Bodies verbatim from `NumeralKq.lean:606-1006`; the only edits are the extra
 conjunct in the `∃`-prefix, the extra name in each `obtain`/`refine` tuple, and the callee
 re-pointed at its own `_cs` twin. -/
 
