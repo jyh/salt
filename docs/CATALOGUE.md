@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `5e831e87` · source digest `e7743623bb3494fc` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `59cb25f3` · source digest `5a430f777416ba06` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -1315,7 +1315,7 @@ Declarations indexed across the tree: 23373 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.goldSelbergTerms_prime_dvd` | Salt/Entropy/Chowla/GoldbachEnergyG.lean:62 | sieves, entropy |
 | `Salt.Entropy.Chowla.goldSelbergTerms_prime_not_dvd` | Salt/Entropy/Chowla/GoldbachEnergyG.lean:75 | sieves, entropy |
 | `Salt.Entropy.Chowla.gTwin_le_sCorr_mul_selbergTerms` | Salt/Entropy/Chowla/GoldbachEnergyG.lean:125 | sieves, entropy |
-| `Salt.Entropy.Chowla.goldSelbergBoundingSum_ge_log_sq` | Salt/Entropy/Chowla/GoldbachEnergyG.lean:288 | sieves, entropy |
+| `Salt.Entropy.Chowla.goldSelbergBoundingSum_ge_log_sq` | Salt/Entropy/Chowla/GoldbachEnergyG.lean:299 | sieves, entropy |
 | `Salt.Entropy.Chowla.sTrunc2_pos` | Salt/Entropy/Chowla/GoldbachEnergyGc.lean:81 | entropy |
 | `Salt.Entropy.Chowla.selbergTerms_eq_gTwin_of_coprime` | Salt/Entropy/Chowla/GoldbachEnergyGc.lean:126 | sieves, entropy |
 | `Salt.Entropy.Chowla.goldCarrierSum_ge_log_sq_div_sTrunc2` | Salt/Entropy/Chowla/GoldbachEnergyGc.lean:245 | sieves, entropy |
@@ -1326,10 +1326,10 @@ Declarations indexed across the tree: 23373 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.repCount_even_le_primorial` | Salt/Entropy/Chowla/GoldbachEnergyHpt.lean:240 | entropy |
 | `Salt.Entropy.Chowla.hFac_mul_of_coprime` | Salt/Entropy/Chowla/GoldbachEnergyHsq.lean:77 | entropy |
 | `Salt.Entropy.Chowla.sTrunc_le_prod` | Salt/Entropy/Chowla/GoldbachEnergyHsq.lean:129 | entropy |
-| `Salt.Entropy.Chowla.hFac_lcm_sum_le` | Salt/Entropy/Chowla/GoldbachEnergyHsq.lean:359 | entropy |
+| `Salt.Entropy.Chowla.hFac_lcm_sum_le` | Salt/Entropy/Chowla/GoldbachEnergyHsq.lean:363 | entropy |
 | `Salt.Entropy.Chowla.hFac2_mul_of_coprime` | Salt/Entropy/Chowla/GoldbachEnergyHsq2.lean:53 | entropy |
-| `Salt.Entropy.Chowla.hFac2_lcm_sum_le` | Salt/Entropy/Chowla/GoldbachEnergyHsq2.lean:257 | entropy |
-| `Salt.Entropy.Chowla.hsq_holds2` | Salt/Entropy/Chowla/GoldbachEnergyHsq2.lean:369 | entropy |
+| `Salt.Entropy.Chowla.hFac2_lcm_sum_le` | Salt/Entropy/Chowla/GoldbachEnergyHsq2.lean:261 | entropy |
+| `Salt.Entropy.Chowla.hsq_holds2` | Salt/Entropy/Chowla/GoldbachEnergyHsq2.lean:373 | entropy |
 | `Salt.Entropy.Chowla.sum_sTruncW_sq_le` | Salt/Entropy/Chowla/GoldbachEnergyHsqAsm.lean:90 | entropy |
 | `Salt.Entropy.Chowla.hsq_holds_gen` | Salt/Entropy/Chowla/GoldbachEnergyHsqAsm.lean:152 | entropy |
 | `Salt.Entropy.Chowla.hsq_holds` | Salt/Entropy/Chowla/GoldbachEnergyHsqAsm.lean:199 | entropy |
@@ -1346,33 +1346,33 @@ Declarations indexed across the tree: 23373 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.hpt_const_le_pow35_h_b9` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:207 | entropy |
 | `Salt.Entropy.Chowla.hpt_holds_500h_b9` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:262 | entropy |
 | `Salt.Entropy.Chowla.bigXiH_bounded_ceiling_of_pin` | Salt/Entropy/Chowla/GoldbachEnergyKcH.lean:365 | entropy |
-| `Salt.Entropy.Chowla.rhoG_prime_dvd` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:86 | entropy |
-| `Salt.Entropy.Chowla.rhoG_prime_not_dvd` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:95 | entropy |
-| `Salt.Entropy.Chowla.rhoG_mul_of_coprime` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:171 | entropy |
-| `Salt.Entropy.Chowla.rhoG_squarefree_le` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:222 | entropy |
-| `Salt.Entropy.Chowla.goldProgression_count_bound` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:253 | entropy |
+| `Salt.Entropy.Chowla.rhoG_prime_dvd` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:95 | entropy |
+| `Salt.Entropy.Chowla.rhoG_prime_not_dvd` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:104 | entropy |
+| `Salt.Entropy.Chowla.rhoG_mul_of_coprime` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:180 | entropy |
+| `Salt.Entropy.Chowla.rhoG_squarefree_le` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:231 | entropy |
+| `Salt.Entropy.Chowla.goldProgression_count_bound` | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:262 | entropy |
 | `Salt.Entropy.Chowla.mainTermSum_ge_of_sixteen` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:139 | entropy |
-| `Salt.Entropy.Chowla.logZ_ge_twenty` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:181 | entropy |
-| `Salt.Entropy.Chowla.repCount_even_le_primorial_param` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:289 | entropy |
-| `Salt.Entropy.Chowla.hpt_large_thr` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:340 | sieves, entropy |
-| `Salt.Entropy.Chowla.hpt_holds_thr` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:544 | sieves, entropy |
-| `Salt.Entropy.Chowla.hsq_explicit` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:672 | entropy |
-| `Salt.Entropy.Chowla.bigXi_bounded_explicit` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:718 | entropy |
-| `Salt.Entropy.Chowla.hpt_const_le_pow35` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:809 | entropy |
-| `Salt.Entropy.Chowla.hpt_holds_500` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:829 | entropy |
-| `Salt.Entropy.Chowla.bigXi_bounded_500` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:866 | entropy |
-| `Salt.Entropy.Chowla.nuG_mult` | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:52 | sieves, entropy |
-| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:77 | sieves, entropy |
-| `Salt.Entropy.Chowla.goldEnergySieve_siftedSum` | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:156 | sieves, entropy |
-| `Salt.Entropy.Chowla.goldEnergySieve_abs_rem_le` | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:174 | sieves, entropy |
-| `Salt.Entropy.Chowla.repCount_le_siftedSum` | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:191 | sieves, entropy |
+| `Salt.Entropy.Chowla.logZ_ge_twenty` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:184 | entropy |
+| `Salt.Entropy.Chowla.repCount_even_le_primorial_param` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:292 | entropy |
+| `Salt.Entropy.Chowla.hpt_large_thr` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:343 | sieves, entropy |
+| `Salt.Entropy.Chowla.hpt_holds_thr` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:547 | sieves, entropy |
+| `Salt.Entropy.Chowla.hsq_explicit` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:675 | entropy |
+| `Salt.Entropy.Chowla.bigXi_bounded_explicit` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:721 | entropy |
+| `Salt.Entropy.Chowla.hpt_const_le_pow35` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:812 | entropy |
+| `Salt.Entropy.Chowla.hpt_holds_500` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:832 | entropy |
+| `Salt.Entropy.Chowla.bigXi_bounded_500` | Salt/Entropy/Chowla/GoldbachEnergyN0.lean:869 | entropy |
+| `Salt.Entropy.Chowla.nuG_mult` | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:57 | sieves, entropy |
+| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:82 | sieves, entropy |
+| `Salt.Entropy.Chowla.goldEnergySieve_siftedSum` | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:172 | sieves, entropy |
+| `Salt.Entropy.Chowla.goldEnergySieve_abs_rem_le` | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:190 | sieves, entropy |
+| `Salt.Entropy.Chowla.repCount_le_siftedSum` | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:207 | sieves, entropy |
 | `Salt.Entropy.Chowla.epsh_gate_implies_epssq_h` | Salt/Entropy/Chowla/HBudget.lean:450 | entropy |
 | `Salt.Entropy.Chowla.hbudget_holds` | Salt/Entropy/Chowla/HBudget.lean:475 | entropy |
 | `Salt.Entropy.Chowla.hreduce_holds_final` | Salt/Entropy/Chowla/HBudget.lean:732 | characters, entropy |
-| `Salt.Entropy.Chowla.hbudget_holds_h` | Salt/Entropy/Chowla/HBudget.lean:1182 | entropy |
-| `Salt.Entropy.Chowla.hbudget_h_gate_implies_epssq_h` | Salt/Entropy/Chowla/HBudget.lean:1471 | entropy |
-| `Salt.Entropy.Chowla.hbudget_holds_h_one` | Salt/Entropy/Chowla/HBudget.lean:1489 | entropy |
-| `Salt.Entropy.Chowla.hreduce_holds_final_h` | Salt/Entropy/Chowla/HBudget.lean:1514 | characters, entropy |
+| `Salt.Entropy.Chowla.hbudget_holds_h` | Salt/Entropy/Chowla/HBudget.lean:1203 | entropy |
+| `Salt.Entropy.Chowla.hbudget_h_gate_implies_epssq_h` | Salt/Entropy/Chowla/HBudget.lean:1492 | entropy |
+| `Salt.Entropy.Chowla.hbudget_holds_h_one` | Salt/Entropy/Chowla/HBudget.lean:1510 | entropy |
+| `Salt.Entropy.Chowla.hreduce_holds_final_h` | Salt/Entropy/Chowla/HBudget.lean:1535 | characters, entropy |
 | `Salt.Entropy.Chowla.hreduce_holds` | Salt/Entropy/Chowla/HMainAssembly.lean:103 | characters, entropy |
 | `Salt.Entropy.Chowla.hreduce_holds_h` | Salt/Entropy/Chowla/HMainAssembly.lean:165 | characters, entropy |
 | `Salt.Entropy.Chowla.hreduce_holds_h_one` | Salt/Entropy/Chowla/HMainAssembly.lean:210 | characters, entropy |
@@ -1429,9 +1429,9 @@ Declarations indexed across the tree: 23373 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.fBridgeF_h_liouville_apply_one` | Salt/Entropy/Chowla/Prop26.lean:243 | characters, entropy |
 | `Salt.Entropy.Chowla.perPair_dilation_h` | Salt/Entropy/Chowla/Prop26.lean:257 | entropy |
 | `Salt.Entropy.Chowla.fBridge_of_singleCorr_h` | Salt/Entropy/Chowla/Prop26.lean:286 | characters, entropy |
-| `Salt.Entropy.Chowla.addEnergy_eq_sum_repCount_sq` | Salt/Entropy/Chowla/QuadrupleCount.lean:48 | entropy |
-| `Salt.Entropy.Chowla.addEnergy_le_of_r_bound` | Salt/Entropy/Chowla/QuadrupleCount.lean:60 | entropy |
-| `Salt.Entropy.Chowla.W3_AE_d_of_sieve` | Salt/Entropy/Chowla/QuadrupleCount.lean:83 | entropy |
+| `Salt.Entropy.Chowla.addEnergy_eq_sum_repCount_sq` | Salt/Entropy/Chowla/QuadrupleCount.lean:53 | entropy |
+| `Salt.Entropy.Chowla.addEnergy_le_of_r_bound` | Salt/Entropy/Chowla/QuadrupleCount.lean:65 | entropy |
+| `Salt.Entropy.Chowla.W3_AE_d_of_sieve` | Salt/Entropy/Chowla/QuadrupleCount.lean:88 | entropy |
 | `Salt.Entropy.Chowla.dvd_chowlaTower` | Salt/Entropy/Chowla/Regime.lean:148 | entropy |
 | `Salt.Entropy.Chowla.omega_big_at` | Salt/Entropy/Chowla/Regime.lean:241 | entropy |
 | `Salt.Entropy.Chowla.x_big_at` | Salt/Entropy/Chowla/Regime.lean:261 | entropy |
@@ -1584,23 +1584,23 @@ Declarations indexed across the tree: 23373 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.affGrade_composes_g12b` | Salt/Entropy/Chowla/StrideShellBand.lean:287 | entropy |
 | `Salt.Entropy.Chowla.tower_step` | Salt/Entropy/Chowla/Tower.lean:210 | entropy |
 | `Salt.Entropy.Chowla.tower_telescope` | Salt/Entropy/Chowla/Tower.lean:246 | entropy |
-| `Salt.Entropy.Chowla.towerDropSum_ge_half_log_ratio` | Salt/Entropy/Chowla/TowerExport.lean:502 | entropy |
-| `Salt.Entropy.Chowla.towerDropSum_le_half_log_ratio_mul` | Salt/Entropy/Chowla/TowerExport.lean:539 | entropy |
-| `Salt.Entropy.Chowla.towerJmin_spec` | Salt/Entropy/Chowla/TowerExport.lean:582 | entropy |
-| `Salt.Entropy.Chowla.towerDropSum_le_log_two_of_lt_towerJmin` | Salt/Entropy/Chowla/TowerExport.lean:587 | entropy |
-| `Salt.Entropy.Chowla.tower_loglog_le` | Salt/Entropy/Chowla/TowerExport.lean:617 | entropy |
-| `Salt.Entropy.Chowla.tower_loglog_ge` | Salt/Entropy/Chowla/TowerExport.lean:673 | entropy |
-| `Salt.Entropy.Chowla.chowlaRegime_exists_param_tower` | Salt/Entropy/Chowla/TowerExport.lean:733 | entropy |
-| `Salt.Entropy.Chowla.chowlaRegime_exists_param_head_tower'` | Salt/Entropy/Chowla/TowerExport.lean:755 | entropy |
-| `Salt.Entropy.Chowla.three_halves_lt_log_nine_halves` | Salt/Entropy/Chowla/TowerExport.lean:792 | entropy |
-| `Salt.Entropy.Chowla.rpow_nine_halves_le_pow_five` | Salt/Entropy/Chowla/TowerExport.lean:809 | entropy |
-| `Salt.Entropy.Chowla.tower_loglog_le_45` | Salt/Entropy/Chowla/TowerExport.lean:822 | entropy |
-| `Salt.Entropy.Chowla.chowlaRegime_exists_param_tower_45` | Salt/Entropy/Chowla/TowerExport.lean:876 | entropy |
-| `Salt.Entropy.Chowla.chowlaRegime_exists_param_head_tower45'` | Salt/Entropy/Chowla/TowerExport.lean:892 | entropy |
-| `Salt.Entropy.Chowla.towerDropSumFlat_ge_log_ratio` | Salt/Entropy/Chowla/TowerFlat.lean:419 | entropy |
-| `Salt.Entropy.Chowla.towerDropSumFlat_le_log_ratio_mul` | Salt/Entropy/Chowla/TowerFlat.lean:443 | entropy |
-| `Salt.Entropy.Chowla.towerFlat_width_ge` | Salt/Entropy/Chowla/TowerFlat.lean:585 | entropy |
-| `Salt.Entropy.Chowla.towerFlat_width_le` | Salt/Entropy/Chowla/TowerFlat.lean:625 | entropy |
+| `Salt.Entropy.Chowla.towerDropSum_ge_half_log_ratio` | Salt/Entropy/Chowla/TowerExport.lean:520 | entropy |
+| `Salt.Entropy.Chowla.towerDropSum_le_half_log_ratio_mul` | Salt/Entropy/Chowla/TowerExport.lean:557 | entropy |
+| `Salt.Entropy.Chowla.towerJmin_spec` | Salt/Entropy/Chowla/TowerExport.lean:600 | entropy |
+| `Salt.Entropy.Chowla.towerDropSum_le_log_two_of_lt_towerJmin` | Salt/Entropy/Chowla/TowerExport.lean:605 | entropy |
+| `Salt.Entropy.Chowla.tower_loglog_le` | Salt/Entropy/Chowla/TowerExport.lean:635 | entropy |
+| `Salt.Entropy.Chowla.tower_loglog_ge` | Salt/Entropy/Chowla/TowerExport.lean:691 | entropy |
+| `Salt.Entropy.Chowla.chowlaRegime_exists_param_tower` | Salt/Entropy/Chowla/TowerExport.lean:751 | entropy |
+| `Salt.Entropy.Chowla.chowlaRegime_exists_param_head_tower'` | Salt/Entropy/Chowla/TowerExport.lean:773 | entropy |
+| `Salt.Entropy.Chowla.three_halves_lt_log_nine_halves` | Salt/Entropy/Chowla/TowerExport.lean:810 | entropy |
+| `Salt.Entropy.Chowla.rpow_nine_halves_le_pow_five` | Salt/Entropy/Chowla/TowerExport.lean:827 | entropy |
+| `Salt.Entropy.Chowla.tower_loglog_le_45` | Salt/Entropy/Chowla/TowerExport.lean:840 | entropy |
+| `Salt.Entropy.Chowla.chowlaRegime_exists_param_tower_45` | Salt/Entropy/Chowla/TowerExport.lean:894 | entropy |
+| `Salt.Entropy.Chowla.chowlaRegime_exists_param_head_tower45'` | Salt/Entropy/Chowla/TowerExport.lean:910 | entropy |
+| `Salt.Entropy.Chowla.towerDropSumFlat_ge_log_ratio` | Salt/Entropy/Chowla/TowerFlat.lean:470 | entropy |
+| `Salt.Entropy.Chowla.towerDropSumFlat_le_log_ratio_mul` | Salt/Entropy/Chowla/TowerFlat.lean:494 | entropy |
+| `Salt.Entropy.Chowla.towerFlat_width_ge` | Salt/Entropy/Chowla/TowerFlat.lean:646 | entropy |
+| `Salt.Entropy.Chowla.towerFlat_width_le` | Salt/Entropy/Chowla/TowerFlat.lean:686 | entropy |
 | `Salt.Entropy.Chowla.towerShape_width_ge` | Salt/Entropy/Chowla/TowerShape.lean:403 | entropy |
 | `Salt.Entropy.Chowla.chowlaTowerShape_const` | Salt/Entropy/Chowla/TowerShape.lean:439 | entropy |
 | `Salt.Entropy.Chowla.towerLS_const` | Salt/Entropy/Chowla/TowerShape.lean:448 | entropy |
