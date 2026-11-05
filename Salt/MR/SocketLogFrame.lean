@@ -14,10 +14,10 @@ reads `8 ≤ log (A + s)`. Each instance then derives, by hand, the same six fac
 `1 ≤ A + s`, `0 < log (A + s)`, `0 < (log (A + s))^(1/2)` and
 `30·(log (A + s))^(1/2) + 1 ≤ exp (30·(log (A + s))^(1/2))`. This file states them once.
 
-The 11 call sites that took them inline are in `FlatDoorStandoff`, `S13CapGateLinearLH`,
-`S16Budget`, `S16ComposeLH`, `StrideDoorAllGrades`, `V6SiegelFree` and `V7SiegelFree`. Six more,
-in `RegisterCompose`, `S16Compose`, `S16ComposeV4`, `S16FlatFinal`, `V7B` and `V7Ks`, are left
-inline for now: line cites elsewhere read those files, and moving them would widen this change.
+The 17 call sites that took them inline are in `FlatDoorStandoff`, `RegisterCompose`,
+`S13CapGateLinearLH`, `S16Budget`, `S16Compose`, `S16ComposeLH`, `S16ComposeV4`, `S16FlatFinal`,
+`StrideDoorAllGrades`, `V6SiegelFree`, `V7B`, `V7Ks` and `V7SiegelFree` (eleven in salt #619, six
+in O13-e candidate #38).
 The lemma is over propositions, naturals and reals and imports nothing beyond Mathlib.
 
 ## Main results
