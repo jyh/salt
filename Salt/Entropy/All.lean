@@ -885,7 +885,7 @@ another hit, so the census gets one file harder to read each time somebody does 
     ⚠️ WITHOUT the trailing whitespace class that pattern returns 4 — `defeq`, `definition`,
     `definitionally`, `defect`: ENGLISH PROSE AT COLUMN 0.  The word boundary is load-bearing.)
 
-⛔ AND THE BYTE-IDENTITY CLAIM CARRIES ONE NAMED EXCEPTION — 15/16, NOT 16/16.  `HBudget:1381`
+⛔ AND THE BYTE-IDENTITY CLAIM CARRIES ONE NAMED EXCEPTION — 15/16, NOT 16/16.  `HBudget:1402`
 spells the shifted offset `(j + p * h) : ℝ)` with a BARE `p`, because it faithfully mirrors the
 FROZEN `(j + p) : ℝ)` at `HBudget:664`.  ⇒ THE FROZEN SIDE WAS NEVER BYTE-UNIFORM EITHER: this
 file holds 14 of `(j + (p : ℕ)) : ℝ)` and 1 of `(j + p) : ℝ)`.  The port was right to mirror the
@@ -1147,7 +1147,7 @@ one `obtain` reaching for the unbounded sibling.  The `h` head took the EXISTENT
 ⭐ **THE TWO CASES ARE FORCED, NOT STYLISTIC.**  At `ε = 1/(500·h)`, `T = 2^41·h²` the payoff is
 `C₁'(h) ≤ 1.58277·10^10 + 2.58249·10^10·h²` against `2^35·h²`; the `hh7`-uniform
 `(log T)² ≤ 1799.4564` therefore **FAILS at `h = 1` by 1.212×**, while the landed
-`hpt_const_le_pow35` (`GoldbachEnergyN0:809`) carries `h = 1` on its own tight `(log T)² = 807.70`
+`hpt_const_le_pow35` (`GoldbachEnergyN0:812`) carries `h = 1` on its own tight `(log T)² = 807.70`
 at ratio 0.955.  For `h ≥ 2`: 0.867 at `h = 2`, 0.752 at `h = 1096`.
 ⭐ **`T := 2^41·h²` IS THE CHOICE THAT KEEPS `hTA` `h`-FREE** (`ε²·T = 2^41/250000`); `2^41·h³`
 does not, which is what made the obvious uniform route false at `h = 1, 2`.

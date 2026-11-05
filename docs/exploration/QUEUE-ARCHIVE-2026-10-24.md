@@ -2300,7 +2300,7 @@ RESURRECTS THEM:**
     CircleMethod:675 · CircleMethod:907 · CircleMethod:1239 (FATAL 1's cited site) · HeadPinLeaves:663
   PER-INDEX AND SOUND — the index bound is an EXPLICIT case hypothesis
     HBudget:386   by_cases hbd : H ≤ j + p → dif_neg (show ¬ j+p < H by omega)
-    HBudget:1107  by_cases hbd : H ≤ j + p → dif_neg (Nat.not_lt.mpr hbd)
+    HBudget:1128  by_cases hbd : H ≤ j + p → dif_neg (Nat.not_lt.mpr hbd)
   UNPRICED — reaches dif_neg through `rw [hb]; simp only`, different shape
     CircleMethod:534
 ```
