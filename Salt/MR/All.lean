@@ -9352,7 +9352,7 @@ cap-9 twins, their two rows dropped here (the twins are audited under ⟦β W1 E
 /-! ## ⟦H2c⟧ — THE CROSSING SUPPLIER AT THE INFLATED SOCKET `SocketBaseLH h`
 
 `Salt/MR/S13CapGateLinearLH.lean` (wave H2c).  The deliverable is
-`s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:878` with the same `∃ Cq cs T₀ Kq Ks C`
+`s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:877` with the same `∃ Cq cs T₀ Kq Ks C`
 prefix and pins, `hblk` at `SocketBaseLH h`, concluding
 `S16CofactorSupply_LH_gk h K Cq R M → S16BaseScaleCap96_LH_gk h K R M →
 S15CrossingBound_LH_gk h K R M`.
