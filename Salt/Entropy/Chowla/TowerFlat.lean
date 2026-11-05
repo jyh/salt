@@ -428,9 +428,9 @@ lemma flatStep_dw_ge {L lam w L' lam' w' d c : ℝ}
 
 /-- **The flat per-step sandwich at the tower, upper half**: `w_{j+1} − w_j ≤ 1/L_j`. The
 abstract `flatStep_dw_le` at level `j` with `d = log m_j`, its hypotheses from `towerFlat_inv`
-(the floor `hfl` propagated), `flatLevel_s_ge_three`, `flatStep_logMul_le` and `towerLF_succ`.
-Summed in `towerDropSumFlat_ge_log_ratio`; one extra step of it prices the no-overshoot
-`towerFlat_width_le`. -/
+(the floor `hfl` propagated), `flatLevel_s_ge_three`, `flatStep_logMul_ge` (with the level
+bound, `0 ≤ d`), `flatStep_logMul_le` and `towerLF_succ`. Summed in
+`towerDropSumFlat_ge_log_ratio`; one extra step prices the no-overshoot `towerFlat_width_le`. -/
 lemma towerStepF_dw_le {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 4000000 ≤ B)
     (hfl : 100 * (flatC A + Real.log (Real.log (B : ℝ))) ≤ Real.log (B : ℝ)) (j : ℕ) :
     towerWF A B (j + 1) - towerWF A B j ≤ 1 / towerLF A B j := by

@@ -143,7 +143,7 @@ variable (R : ChowlaRegimeFlat)
 (`DecrementFlat`) takes as `R.hApos` to make `A·log H` positive and `A ≠ 0`. -/
 lemma hApos : 0 < R.A := by have := R.hA; linarith
 
-/-- `1 ≤ R.A`, from `hA : 26 ≤ A`: the `A ≥ 1` hypothesis every `TowerFlat` lemma carries,
+/-- `1 ≤ R.A`, from `hA : 26 ≤ A`: the `A ≥ 1` hypothesis the `TowerFlat` lemmas take,
 supplied at the regime's own constant. Consumed through `flatMul_ge_two R.hA1` by
 `chowlaTowerFlat_ge` and `chowlaTowerFlat_le_succ`. -/
 lemma hA1 : 1 ≤ R.A := by have := R.hA; linarith
