@@ -119,6 +119,9 @@ private lemma s12c_one_le_log_of_three_le {Xd : ℕ} (h : (3 : ℝ) ≤ ((Xd : �
     rwa [Real.log_exp] at this
   linarith
 
+/-- `2.5·10^19 ≤ e^45`: `2.7 < e` (`Real.exp_one_gt_d9`), so `2.7^45 ≤ (e^1)^45 = e^45`, and
+`2.5·10^19 ≤ 2.7^45` by `norm_num`. Consumed once, with `s12c_exp5`, in `s12c_lambda_core`'s
+`hbig` step (`3.575·10^21·W ≤ e^λ` at `λ ≥ 50`). -/
 private lemma s12c_exp45 : (25000000000000000000 : ℝ) ≤ Real.exp 45 := by
   have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
   have h : Real.exp 45 = (Real.exp 1) ^ (45 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
@@ -127,6 +130,8 @@ private lemma s12c_exp45 : (25000000000000000000 : ℝ) ≤ Real.exp 45 := by
   have hn : (25000000000000000000 : ℝ) ≤ (2.7 : ℝ) ^ (45 : ℕ) := by norm_num
   rw [h]; linarith
 
+/-- `143 ≤ e^5`: `2.7 < e`, `2.7^5 ≤ e^5`, `143 ≤ 2.7^5` by `norm_num`. Consumed once, with
+`s12c_exp45`, in `s12c_lambda_core`'s `hbig` step. -/
 private lemma s12c_exp5 : (143 : ℝ) ≤ Real.exp 5 := by
   have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
   have h : Real.exp 5 = (Real.exp 1) ^ (5 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num

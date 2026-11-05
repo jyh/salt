@@ -46,6 +46,10 @@ namespace Salt.SW
 
 /-! ## Real-analysis helpers -/
 
+/-- `x ↦ x^(−σ)` is antitone on `[1, ∞)` for `0 ≤ σ` (`hσ0`): `x^(−σ) = (x^σ)⁻¹` and `x^σ` is
+monotone (`Real.rpow_le_rpow`), so the inverse is antitone (`inv_anti₀`). The comparison
+`∫₁^M t^(−σ) ≤ Σ_{1≤n<M} n^(−σ)` in `neg_logDeriv_zeta_le`
+(`AntitoneOn.integral_le_sum_Ico`). -/
 private lemma zf_antitone {σ : ℝ} (hσ0 : 0 ≤ σ) :
     AntitoneOn (fun x : ℝ => x ^ (-σ)) (Set.Ici 1) := by
   intro a ha b hb hab
@@ -55,6 +59,10 @@ private lemma zf_antitone {σ : ℝ} (hσ0 : 0 ≤ σ) :
   exact inv_anti₀ (Real.rpow_pos_of_pos (by linarith) σ)
     (Real.rpow_le_rpow (by linarith) hab hσ0)
 
+/-- `t ↦ log t · t^(−σ)` is antitone on `[3, ∞)` for `1 < σ` (`hσ`): its derivative is
+`t^(−σ−1) · (1 − σ·log t)`, and `σ·log t ≥ log 3 > 1` there (`antitoneOn_of_deriv_nonpos` on
+`convex_Ici 3`). The tail comparison `Σ_{n≥4} log n · n^(−σ) ≤ ∫₃^∞ log t · t^(−σ)` in
+`neg_logDeriv_zeta_le` (`AntitoneOn.sum_le_integral`). -/
 private lemma glogf_antitone {σ : ℝ} (hσ : 1 < σ) :
     AntitoneOn (fun t : ℝ => Real.log t * t ^ (-σ)) (Set.Ici 3) := by
   have hlog3gt1 : (1:ℝ) < Real.log 3 := by
@@ -91,6 +99,9 @@ private lemma glogf_antitone {σ : ℝ} (hσ : 1 < σ) :
     have hsig : 1 ≤ σ * Real.log x := by nlinarith only [hσ, hlogx]
     exact mul_nonpos_of_nonneg_of_nonpos hpos.le (by linarith)
 
+/-- `t ↦ t^(−σ)` is interval-integrable on `[a, b]` for `0 < a`, `0 < b` (`ha`, `hb`):
+continuous on the interval, which stays in `(0, ∞)` whichever endpoint is larger. The
+integrability side condition of the fundamental theorem of calculus in `integral_zf`. -/
 private lemma zf_intervalIntegrable {σ : ℝ} {a b : ℝ} (ha : 0 < a) (hb : 0 < b) :
     IntervalIntegrable (fun t : ℝ => t ^ (-σ)) volume a b := by
   apply ContinuousOn.intervalIntegrable
@@ -101,6 +112,10 @@ private lemma zf_intervalIntegrable {σ : ℝ} {a b : ℝ} (ha : 0 < a) (hb : 0 
     · rw [Set.uIcc_of_ge hab] at hx; exact lt_of_lt_of_le hb hx.1
   exact (Real.continuousAt_rpow_const x (-σ) (Or.inl hx0.ne')).continuousWithinAt
 
+/-- `t ↦ log t · t^(−σ)` is interval-integrable on `[a, b]` for `0 < a`, `0 < b` (`ha`, `hb`): a
+product of functions continuous on `(0, ∞)`. The side condition of the fundamental theorem of
+calculus in `integral_glogf_le`, and of the adjacent-interval split `∫₁^(3+N) = ∫₁³ + ∫₃^(3+N)`
+in `neg_logDeriv_zeta_le`. -/
 private lemma glogf_intervalIntegrable {σ : ℝ} {a b : ℝ} (ha : 0 < a) (hb : 0 < b) :
     IntervalIntegrable (fun t : ℝ => Real.log t * t ^ (-σ)) volume a b := by
   apply ContinuousOn.intervalIntegrable

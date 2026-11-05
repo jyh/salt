@@ -4,7 +4,7 @@ Every file:line below re-read this session (GROUNDED unless marked MEMORY).
 
 ## 0. The question and the two contracts
 
-- OLD prose contract (GROUNDED DHRepulsion.lean:262–269): `dh_repulsion` covers
+- OLD prose contract (GROUNDED DHRepulsion.lean:278–285): `dh_repulsion` covers
   complex zeros ρ with `9/10 ≤ ρ.re < 1`, `|ρ.im| ≤ 1`, giving
   `1−β₀ ≥ c·(q(|γ|+2))^{−b(1−ρ.re)}/polylog^k` — constants FREE (∃ b c k).
 - NEW frozen target (GROUNDED tbal-s0-freeze.md:14): `dh_repulsion_ordered`,

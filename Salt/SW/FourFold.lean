@@ -151,6 +151,8 @@ lemma fourfoldCoeff_prime_pow (χ₁ χ₂ : DirichletCharacter ℂ N) {p : ℕ}
   refine Finset.sum_congr rfl fun i _ => ?_
   rw [h_prime_pow χ₁ χ₂ hp, ← mul_assoc]
 
+/-- `(−1)^(2n) = 1` in `ℂ` (`Even.neg_one_pow`). The parity step inside `Rval_closed` and
+`Tval_closed`, where an even exponent `2(t+1)` is collapsed. -/
 private lemma neg_one_two_mul (n : ℕ) : (-1 : ℂ) ^ (2 * n) = 1 :=
   Even.neg_one_pow ⟨n, by ring⟩
 
@@ -161,9 +163,16 @@ private noncomputable def Rval (k : ℕ) : ℂ := ∑ i ∈ Finset.range (k + 1)
 private noncomputable def Tval (k : ℕ) : ℂ :=
   ∑ i ∈ Finset.range (k + 1), (-1) ^ i * ((i : ℂ) + 1) * ((k : ℂ) + 1 - (i : ℂ))
 
+/-- The recursion of `Rval`: `Rval (k+1) = Rval k + (−1)^(k+1) · (k+2)` — one more term of
+`Σ_{i≤k} (−1)ⁱ (i+1)` (`Finset.sum_range_succ`). Drives `Tval_succ` and the closed forms
+`Rval_closed`, `Tval_closed`. -/
 private lemma Rval_succ (k : ℕ) : Rval (k + 1) = Rval k + (-1) ^ (k + 1) * ((k : ℂ) + 2) := by
   simp only [Rval]; rw [Finset.sum_range_succ]; push_cast; ring
 
+/-- The recursion of `Tval`: `Tval (k+1) = Tval k + Rval (k+1)`. Each summand
+`(−1)ⁱ (i+1)(k+2−i)` splits as the `Tval k` summand plus `(−1)ⁱ (i+1)`, and those extras
+together with the new `i = k+1` term are `Rval (k+1)` (`Rval_succ`). The step `Tval_closed`
+iterates, behind `altconv_one`'s telescoping. -/
 private lemma Tval_succ (k : ℕ) : Tval (k + 1) = Tval k + Rval (k + 1) := by
   have pt : ∀ i : ℕ, (-1 : ℂ) ^ i * ((i : ℂ) + 1) * (((k + 1 : ℕ) : ℂ) + 1 - (i : ℂ))
       = (-1) ^ i * ((i : ℂ) + 1) * ((k : ℂ) + 1 - (i : ℂ)) + (-1) ^ i * ((i : ℂ) + 1) := by

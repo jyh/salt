@@ -62,7 +62,7 @@ Consumes: QUANTITY — unboundedly many moduli q at the FIXED quality η ≥ C^{
   (the zero forces χ(p) = −1 for almost all small p); `L′/L(1,χ) = ηL + O(·)`;
   `κS₁ → 𝔖C(α)(ηL)^{-2}` — max named η-power A = 2 (sigma_window_budget_analysis.md
   C1/C2, :49-74).
-- Repulsion `dh_repulsion_ordered` (contract in PROSE, DHRepulsion.lean:266-275,
+- Repulsion `dh_repulsion_ordered` (contract in PROSE, DHRepulsion.lean:282-291,
   explicitly "not `sorry`" :254): diagonal Deuring–Heilbronn — β₀ repels the OTHER
   zeros of the SAME L(s,χ); window 16/17 ≤ ρ.re < 1, |ρ.im| ≤ 1, ordering
   ρ.re ≤ β₀ (T-BAL-UNORDERED, grounded harmless: sigma analysis §3). Witnesses

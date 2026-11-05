@@ -77,6 +77,8 @@ Mirrors `Salt.TwinBar.chiRe` and the `Salt.HB.TwistChain` geometric-block positi
 /-- The real quadratic-character value `χ_ℝ(n) = Re χ(n)` (∈ `{−1,0,1}` for χ real). -/
 noncomputable def chiRe (χ : DirichletCharacter ℂ q) (n : ℕ) : ℝ := (χ (n : ZMod q)).re
 
+/-- `χ_ℝ(1) = 1`: `χ(1) = 1`, whose real part is `1`. A `simp` lemma; the base case of
+`chiRe_pow` and the `n = 1` clause of `chiReArith_mult`. -/
 @[simp] lemma chiRe_one (χ : DirichletCharacter ℂ q) : chiRe χ 1 = 1 := by simp [chiRe]
 
 /-- `|χ_ℝ(n)| ≤ 1` (termwise `|Re χ| ≤ ‖χ‖ ≤ 1`; no reality hypothesis). -/
@@ -141,6 +143,9 @@ lemma geomSum_sq_ge_one {r : ℝ} (hr : r = 0 ∨ r = 1 ∨ r = -1) (e : ℕ) :
 /-- The Deuring–Heilbronn detector `a(n) = (1 ∗ χ_ℝ)(n) = Σ_{d ∣ n} χ_ℝ(d)`. -/
 noncomputable def dhA (χ : DirichletCharacter ℂ q) (n : ℕ) : ℝ := ∑ d ∈ n.divisors, chiRe χ d
 
+/-- `a(1) = 1`: the divisors of `1` are `{1}` and `χ_ℝ(1) = 1`. A `simp` lemma; the `n = 1` term
+of every floor — `dhA_log_average_floor` here, `dhDetector_floor`, `dhCoeffW_one`, and the
+`n = 1` seams of `DHCore`, `DHFinal` and `Crush`. -/
 @[simp] lemma dhA_one (χ : DirichletCharacter ℂ q) : dhA χ 1 = 1 := by simp [dhA]
 
 /-- At a prime power, `a(p^k) = Σ_{j≤k} χ_ℝ(p)^j` — the geometric block. -/
@@ -163,9 +168,16 @@ convolution of multiplicative functions, hence multiplicative. Packaged as an
 noncomputable def chiReArith (χ : DirichletCharacter ℂ q) : ArithmeticFunction ℝ :=
   ⟨fun n => if n = 0 then 0 else chiRe χ n, rfl⟩
 
+/-- `chiReArith χ n = if n = 0 then 0 else χ_ℝ(n)` (`rfl`): the bundled `ArithmeticFunction`
+evaluates to `chiRe` off `0`. The `simp` unfolding every evaluation of the bundle goes through
+(`chiReArith_mult`, `dhAArith_apply`, the factorisations in `DHExtractW`). -/
 @[simp] lemma chiReArith_apply (χ : DirichletCharacter ℂ q) (n : ℕ) :
     chiReArith χ n = if n = 0 then 0 else chiRe χ n := rfl
 
+/-- `chiReArith χ` is multiplicative when `χ² = 1` (`hsq`): `1 ↦ 1` by `chiRe_one`, and on
+nonzero `m, n` the value at `m · n` is `χ_ℝ(m) · χ_ℝ(n)` by `chiRe_mul` (complete
+multiplicativity, so coprimality is not used). The factor `dhAArith_mult` convolves with `ζ`;
+`DHExtractW` factors through it too. -/
 lemma chiReArith_mult (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) :
     (chiReArith χ).IsMultiplicative := by
   rw [ArithmeticFunction.IsMultiplicative.iff_ne_zero]
@@ -180,6 +192,10 @@ lemma chiReArith_mult (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) :
 noncomputable def dhAArith (χ : DirichletCharacter ℂ q) : ArithmeticFunction ℝ :=
   ζ * chiReArith χ
 
+/-- `dhAArith χ = ζ * chiReArith χ` is multiplicative when `χ² = 1` (`hsq`): a Dirichlet
+convolution of the multiplicative `ζ` (`isMultiplicative_zeta`) with the multiplicative
+`chiReArith χ` (`chiReArith_mult`). `dhA_nonneg` and `dhA_square_ge_one` run their prime-power
+arguments through its `multiplicative_factorization`; `CrushC` factors the same way. -/
 lemma dhAArith_mult (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) :
     (dhAArith χ).IsMultiplicative := by
   unfold dhAArith

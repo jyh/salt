@@ -7912,7 +7912,7 @@ cushion added as the ONE new inner hypothesis.  Outer: nothing.  Inner: `cs`, `T
 (`NumeralKq:502 → :775 → :958 → RegisterCompose:52 → :117 → :164 → :209 → :345`).  Of the two
 leaves, `c₀` is EFFECTIVE (`NumeralKq.zero_free_region_all'_bounded:450` pins `1/126848 ≤ c₀`,
 so `c₀/32 ≥ 2.46·10^{-7}`) and `1/2` is a literal; the binding leaf is `Cs`, the constant of
-`Salt.SW.siegel_theorem (1/16)` (`SW/SiegelClose.lean:841`), whose own docstring reads
+`Salt.SW.siegel_theorem (1/16)` (`SW/SiegelClose.lean:848`), whose own docstring reads
 "(ineffective)".  **So `e^{-100} ≤ Ks` reduces exactly to `Cs ≥ 3.72·10^{-52}` — an explicit
 numerical lower bound on Siegel's constant at `ε = 1/16`, which neither the corpus nor the
 literature supplies.  The rider is NOT provable as stated** (`docs/blueprints/flags.md`, V7-A).

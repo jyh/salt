@@ -460,7 +460,7 @@ theorem twistedMainSum_lower {q : ℕ} [NeZero q]
 
 - **Reading B (the "smallness is the friend" reading — REFUTED, per Tao).** The
   task's hypothesis (SiegelClose's landed UPPER bound
-  `(L(1,χ)).re ≤ (1−β)·25e(1+log f)²`, `SiegelClose.lean:461`, i.e. L(1,χ) SMALL
+  `(L(1,χ)).re ≤ (1−β)·25e(1+log f)²`, `SiegelClose.lean:464`, i.e. L(1,χ) SMALL
   under the zero) does **NOT** invert to help the main term. Tao is explicit: the
   smallness enters only INDIRECTLY, via **Lemma 5** (`Σ_{p: χ(p)≠−1} 1/p = o(1)`
   — the zero forces `χ(p) = −1` for a density-1 set of small primes), which acts
@@ -472,7 +472,7 @@ theorem twistedMainSum_lower {q : ℕ} [NeZero q]
 - **THE COMBINED VERDICT (this pass).** The D-locus is CONFIRMED at (a3) but
   RE-PRECISED. It is **not** that `L(1,χ) ≫ q^{−O(1)}` is unprovable — the corpus
   has landed a Goldfeld-type EFFECTIVE lower bound `siegel_L_one_lower_near`
-  (`SiegelClose.lean:582`), and Dirichlet's `L(1,χ) ≫ q^{−1/2}` is effective and
+  (`SiegelClose.lean:589`), and Dirichlet's `L(1,χ) ≫ q^{−1/2}` is effective and
   suffices for `q^{−O(1)}`. **The genuine D-difficulty is the CONJUNCTION** of:
   (i) `siegel_L_one_lower_near` requires a DISTINCT target character
   (`hdist : χ₁ ≠ χ`, the Goldfeld/Deuring–Heilbronn mechanism) — but HB's χ IS the
@@ -642,10 +642,10 @@ Lean theorem. No `∀`-strength inversion is introduced by R3c's own statements
 
 ### Charge 4 — direction kill-check: HONEST
 
-`LFunction_one_re_le_mvt_sharp` (`SiegelClose.lean:458–461`) is the UPPER bound
+`LFunction_one_re_le_mvt_sharp` (`SiegelClose.lean:461–464`) is the UPPER bound
 `(LFunction χ 1).re ≤ (1−β)·25e·(1+log f)²` — matches the design's L461 citation.
 The frozen (a3) uses `cLow·(LFunction χ 1).re ≤ twistedMainSum` — the LOWER
-direction. `siegel_L_one_lower_near` (`SiegelClose.lean:582–590`) carries the zero
+direction. `siegel_L_one_lower_near` (`SiegelClose.lean:589–597`) carries the zero
 on `χ₁` (`hz₁`), the lower bound on the DISTINCT target `χ`, and the distinctness
 hypothesis `hdist : ∀ (h : q₁ = q), (h ▸ χ₁) ≠ χ` (L586). So the freeze's
 characterization — "the landed effective lower bound requires a distinct target and
@@ -1200,7 +1200,7 @@ at the frozen-constants layer ONLY; both refuters verified the
 same repairs; all 22 consumed lemmas grounded with compatible
 signatures. THE FREEZE = retune + repairs:
 
-**Target (VERBATIM the DHRepulsion.lean:262–269 contract; no
+**Target (VERBATIM the DHRepulsion.lean:278–285 contract; no
 statement change): `dh_repulsion`** with witnesses
 **b := 40, k := 9, c := 2⁻²⁶** (post-repair; the contract is
 existential in b,c,k — witness drift only).

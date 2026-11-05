@@ -81,7 +81,7 @@ Matomäki hits are bibliographic only [G grep].
   ~:9670–9700). θ = **3/4** exactly, `(loglog)³` correction, power 3.
 - `Salt/SW/` — the classical L(s,χ) zero-theory: `zero_free_region`
   (`ZeroFree.lean:387`), `zero_free_region_real`, Siegel
-  (`SiegelFinal.lean:440`), `ThreeFourOne.lean`, contour machinery
+  (`SiegelFinal.lean:443`), `ThreeFourOne.lean`, contour machinery
   (`ContourShift.lean`, `ZetaEM.lean`), and **`zeta_lower_shallow`**
   (`ZetaLowerShallow.lean:1–35`): `σ ≥ 1 − c₄/log⁹(|t|+2) ⟹ ‖ζ(σ+it)‖ ≥
   c/log⁷(|t|+2)` — the landed **region→lower-bound bridge TEMPLATE**

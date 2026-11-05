@@ -34,7 +34,7 @@ So `Ks = 10^8 · min(min(Cs, c₀/32), 1/2)` at its two leaves:
   imprimitive region.  **EFFECTIVE**: the bounded twin `NumeralKq.zero_free_region_all'_bounded`
   (:450) pins `1/126848 ≤ c₀`, so this leg gives `c₀/32 ≥ 2.46·10^{-7}`, and `1/2` is a
   literal.  Neither of these two legs can bind the rider.
-* `Cs` — the constant of `Salt.SW.siegel_theorem (1/16)` (`SW/SiegelClose.lean:841`), whose own
+* `Cs` — the constant of `Salt.SW.siegel_theorem (1/16)` (`SW/SiegelClose.lean:848`), whose own
   docstring reads *"there is an (ineffective) `C > 0`"*.  Its `∃`-prefix exports `0 < C` and
   nothing else.
 

@@ -9362,7 +9362,7 @@ numeric-only, to be verified-in-Lean at R8.
   → ζ(ρ)-block killed by THE ZERO (`sum_range_filter_dvd_char_eq`+`partial_sum_at_zero_small`) →
   EM remainders Abel'd by the landed R1 `norm_bsum_kernel_zero_decay`. Multi-session.
 - **R7 `dh_balance` [B/C]** (needs R4+R5) → Λ ≤ (L(1,χ)).re — the named Zeno success.
-- **R8 `dh_repulsion` [B/C]** (needs R7) → the DHRepulsion.lean:262 contract; run the small-q checks FIRST.
+- **R8 `dh_repulsion` [B/C]** (needs R7) → the DHRepulsion.lean:278 contract; run the small-q checks FIRST.
 
 **Catches (LOUD).** (#119) R3(a) needs NO reality/positivity — the mass UPPER bound is
 `Re(P_r−L₁) ≤ ‖P_r−L₁‖`; `LFunction_apply_one_pos` is a red herring for the upper direction
@@ -10422,11 +10422,11 @@ built. NOT bankable this session.
 **FLAG — R7 `dh_balance_beta0` [B/C] + R8 `dh_repulsion_ordered` [C] — BLOCKED on R6.** Both consume the
 R6 extraction bound to assemble the master `3/4 ≤ 2x^{β₀−σ}[uX₁logx+2δX₁+1/x+E(β₀)] + 4ux^{1−σ}L₂/c₀ +
 E(ρ)`. Without R6's `D₀ ≤ L₁·V·x^{1−β₀}/(u(2−β₀))+E`, the master cannot be formed, so R8's
-DHRepulsion.lean:267–275 contract (the 16/17 ordered target) cannot be discharged. The M4 inverter
+DHRepulsion.lean:283–291 contract (the 16/17 ordered target) cannot be discharged. The M4 inverter
 (`dh_repulsion_of_LFunction_one_lower`, LANDED) and the shifted floor (`norm_dhDetectorShift_ge`, LANDED)
 are ready; the monotone-cap inversion at τ=cQ^{−b(1−σ)}L₂^{−k} is arithmetically certified (ledger, all
 turning points ≥10^{−39.3} ≫ τ=10^{−114.5}) — so R8 is PURELY gated on R6. Do NOT edit the
-DHRepulsion.lean:267 contract prose (unchanged; the 16/17 window ratification stands).
+DHRepulsion.lean:283 contract prose (unchanged; the 16/17 window ratification stands).
 
 **Catches (LOUD).** (#175) `Finset.sum_comm'` (EXISTS, one `h`-arg) expects the iff `x∈s ∧ y∈t x ↔
 x∈s' y ∧ y∈t'` — the RHS order is `(outer-becomes-inner ∈ s' y) ∧ (new-outer ∈ t')`, NOT `y∈t' ∧ x∈s'
@@ -10784,11 +10784,11 @@ carrying `L(1,χ)` as in the β₀ template, with `zfr_harvest`'s width giving `
 and the zero-cancellation at ρ (seeded by `norm_bsum_kernel_zero_decay`) killing the divergent PV
 term. This is the genuine analog of the R6 CRUX (`dh_extraction_upper_W`, ~1000 ln at β₀) but at
 the complex zero. DO NOT re-dispatch R7/R8 composers until it lands. The contract prose
-`DHRepulsion.lean:267` is UNCHANGED (16/17 window stands; no statement altered — Iron Rule 1).
+`DHRepulsion.lean:283` is UNCHANGED (16/17 window stands; no statement altered — Iron Rule 1).
 
 **Catches (LOUD).** (#221) a LANDED floor is not automatically the RIGHT floor: check the WEIGHT
 SYSTEM. `norm_dhDetectorShift_ge`/`dhDetector_floor` are graham-weighted (`dhCoeff χ z n =
-dhCoeffW χ (grahamTheta z) n`, per the `SelWeight.lean:87` comment); the selWeight chain (R6/R4/R5)
+dhCoeffW χ (grahamTheta z) n`, per the `SelWeight.lean:89` comment); the selWeight chain (R6/R4/R5)
 needs a selWeight-coefficient floor (`dhW_detector_floor_beta0`, a 15-line reverse-triangle /
 single-term-domination, trivial). Two weight families (`dhCoeff`/graham vs `dhCoeffW`/selWeight)
 coexist in the SW tree; a composition silently type-checks against the wrong one only if you don't
@@ -10968,7 +10968,7 @@ the actual model's max-over-σ is at the σ→1 edge, NOT 16/17 (freeze's crude 
   upper_W`-analog assembly gives `E(ρ)=C₂ρ·z·(1+log z²)⁹·Y^{1/2−σ}` (re-priced above, PASSES).
 - **R7/R8 [B/C then C].** UNCHANGED from T-BAL-CLOSE: `dh_balance_beta0_real` (LANDED), the M4
   inverter `dh_repulsion_of_LFunction_one_lower`, `tail_shift_to_beta0`, trivial split, τ-inversion
-  are READY; R8 = the contract `dh_repulsion_ordered` (`DHRepulsion.lean:267`, 16/17 window, verbatim).
+  are READY; R8 = the contract `dh_repulsion_ordered` (`DHRepulsion.lean:283`, 16/17 window, verbatim).
   BLOCKED only on the E(ρ) full ρ-bound (needs R6-4@ρ + collection + E(ρ) assembly above).
 
 **Catches (LOUD).** (#231) `set σ := ρ.re` at the TOP of a ρ-proof ABSTRACTS the hypotheses
@@ -11013,7 +11013,7 @@ rungs; each mirrors the β₀ template in `DHExtractW.lean` re-run at the comple
   `‖main_ρ‖=L₁·selMainTerm·Y^{1−σ}/(‖1−ρ‖‖2−ρ‖)`). The u-mechanism's L₁ carries UNDIVIDED on the
   ρ-side (asymmetry per T-BAL-CLOSE) — this is the balance whose `Λ` M4 inverts.
 
-**REMAINING — R8 (`dh_repulsion_ordered`, the contract, `DHRepulsion.lean:267` VERBATIM).** All the
+**REMAINING — R8 (`dh_repulsion_ordered`, the contract, `DHRepulsion.lean:283` VERBATIM).** All the
 COMPOSITION is done; R8 is the PARAMETER-SELECTION + LEDGER-INVERSION endgame, a distinct large
 effort (NOT a compose). The precise resume map:
 - Witnesses `b=680, k=14, c=2^{−250}`, `σ₀=16/17` (drift allowed + RECORDED per the contract).
@@ -11119,7 +11119,7 @@ EXACT produced form: after `← Real.rpow_mul`, `(Q^a)^b → Q^(a*b)` but `-14*w
 
 **LANDED (sorry-free, `Salt/SW/TBalR8.lean`; `lake build Salt.SW.All` EXIT 0 = 8821 jobs, warning-free;
 `#audit_axioms` ✓ `[propext, Classical.choice, Quot.sound]` on ALL, incl. the contract):**
-- **`dh_repulsion_ordered`** — THE VERBATIM CONTRACT (DHRepulsion.lean:267), `b`/`k` existential in the
+- **`dh_repulsion_ordered`** — THE VERBATIM CONTRACT (DHRepulsion.lean:283), `b`/`k` existential in the
   body. Witnesses **b=680, c=c₁⁸, k=14, σ₀=16/17**.
 - The 2 remaining row caps + companion: **`row_Eβ_cap`, `row_Eρ_cap`, `logz_factor_pow9_le`** (both
   E-rows via `ray_pow_bound`; γ = 291/100−14w resp. 391/100−14w, ε = 10/11; collapse to `c^{1/8}`).
@@ -11247,7 +11247,7 @@ rows consume: `Q^{104}u^{−14} ≤ (Y:ℝ) ≤ 2Q^{104}u^{−14}` (`Nat.le_ceil
    2e/(65536G) ≤ 1/64`; reduces to `hscale`+algebra), **`hcov` THE CRUX** (`crushErr ≤
    0.27u·z^u` at `z`, `crushCut = Nat.sqrt(z·min(⌈1/u⌉,z))`; `D ~ √(z/u)`, each of 4 terms
    `~ Q^{−6}`-small vs target; ~120 ln of `Nat.sqrt` lower/upper bounds + 4 rpow term caps).
-4. **The assembly + contract `dh_repulsion_ordered`** (VERBATIM `DHRepulsion.lean:267`): obtain
+4. **The assembly + contract `dh_repulsion_ordered`** (VERBATIM `DHRepulsion.lean:283`): obtain
    `⟨c₀,…⟩`/`⟨Z₀,…⟩`, define `c` (the min above), `refine ⟨680,c,14,…⟩`; intro; `by_cases
    1/(40L₂) ≤ u` [trivial: `tbal_tau_le_split` with `c ≤ 2^{−250}`] / deep [`by_contra u<τ`, apply
    `dh_master_ray`, split `ROW3 = P3+P4+P5` by `ring`, the 5 caps → `Σ ≤ 5/8 < 3/4 ≤ 1−1/Y`
@@ -18929,7 +18929,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 **THE ARTIFACT.** `docs/RESULTS.md` — the law block (one row per headline result; every row carries a DATE and a COMMIT; **chronology is the date field, NEVER file order**; superseded rows marked `[SUPERSEDED → successor]` IN PLACE and never deleted; every row lint-verified; a new headline theorem adds its row in the SAME commit that lands it; the file states existence, not meaning — the Lean statement is the authority). Then nine per-arc tables, columns `| Theorem (Lean name) | Plain statement | File:line | Date landed | Commit | Axioms |`, sorted **by date inside each arc**: §1 Sieve/Brun (5) · §2 Chen/Goldbach (3) · §3 SW/BV/bounded gaps (5) · §4 Zero theory (7) · §5 VMVT/VK (1) · §6 HB/Fulcrum/T-BAL (5) · §7 TwinBar/Parity (13) · §8 MR/Chowla (16) · §9 Infrastructure firsts (11). **66 rows.**
 
-**EVERY ROW VERIFIED IN THE TREE, NOT COPIED.** File:line by grep on the declaration; date+commit by pickaxe over the file's OWN history (`git log -S"theorem <name>" --reverse -- <file>` — the introducing commit, not the last touch); one-line statements paraphrased from the declaration docstrings. Cross-checks that fired: the seed list's `parity_wall_unconditional` was at :29/:42, the tree says **:31/:44**; the seed list's `thm_a2'` needed disambiguation from five `thm_a2*` neighbours (`Salt/MR/ThmA2Rows.lean:636`, and the date confirms the 7/27 S7/S8 summit); `Salt.SW.dh_repulsion_ordered` has a **namesake inside a fenced doc comment** at `Salt/SW/DHRepulsion.lean:267` (the frozen target contract) — the live decl is TBalR8:1752, and the registry says so in a standing note so the next census does not re-trip on it.
+**EVERY ROW VERIFIED IN THE TREE, NOT COPIED.** File:line by grep on the declaration; date+commit by pickaxe over the file's OWN history (`git log -S"theorem <name>" --reverse -- <file>` — the introducing commit, not the last touch); one-line statements paraphrased from the declaration docstrings. Cross-checks that fired: the seed list's `parity_wall_unconditional` was at :29/:42, the tree says **:31/:44**; the seed list's `thm_a2'` needed disambiguation from five `thm_a2*` neighbours (`Salt/MR/ThmA2Rows.lean:636`, and the date confirms the 7/27 S7/S8 summit); `Salt.SW.dh_repulsion_ordered` has a **namesake inside a fenced doc comment** at `Salt/SW/DHRepulsion.lean:283` (the frozen target contract) — the live decl is TBalR8:1752, and the registry says so in a standing note so the next census does not re-trip on it.
 
 **THE LINT.** `scripts/results_lint.py`, stdlib-only, mirroring `blueprint_lint.py`'s docstring/exit conventions. Per row: (a) the file exists; (b) the file **declares** that name (multiline regex over `theorem|lemma|def|abbrev|structure|instance|inductive|class` with a modifier prefix and an identifier-boundary lookahead that admits primes and Unicode subscripts — `thm_a2'` matches, bare `thm_a2` does NOT; `M₂_squeeze` matches); (c) the date is ISO `YYYY-MM-DD` and the commit is a 7–40 char hex sha. Plus a duplicate-name check (one row per result). Escaped `\|` inside cells is honoured by a hand-rolled row splitter. Exits nonzero listing EVERY violation. **First run: `results_lint: OK — 66 rows`, exit 0.** Deliberately NOT re-run here: axiom checks (the ledgers already certify) and any `lake` invocation.
 
@@ -23047,7 +23047,7 @@ c₀   Salt.SW.zero_free_region_all'   SW/ZeroFreeReal.lean:642
      EFFECTIVE — the bounded twin NumeralKq.zero_free_region_all'_bounded:450 pins
      1/126848 ≤ c₀, so c₀/32 ≥ 2.46·10^{-7}.  The 1/2 leg is a literal.
      ⇒ NEITHER of these two legs can bind the rider.
-Cs   Salt.SW.siegel_theorem (1/16)   SW/SiegelClose.lean:841
+Cs   Salt.SW.siegel_theorem (1/16)   SW/SiegelClose.lean:848
      INEFFECTIVE — its own docstring: "there is an (ineffective) C > 0"; the ∃-prefix
      exports 0 < C and nothing else.
 ```
