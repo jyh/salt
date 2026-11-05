@@ -29,7 +29,7 @@ principal lanes are unconditional with explicit constants. One constant,
 one file, one arm.
 
 **The dive (if we ever go):** any even-χ `L1LowerEffective` production —
-the Siegel-completion ε-form (SiegelFinal.lean:324, two named gaps), the
+the Siegel-completion ε-form (SiegelFinal.lean:327, two named gaps), the
 class-number route, or a CNF/FE port — re-effectivizes B(W) and this
 entry closes. The interface stays open at the register as
 paper-completeness; nothing in the machine-checked chain waits on it.

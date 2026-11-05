@@ -55,7 +55,7 @@ changes NO truth value anywhere in the chain. Kernel-visible gain of ¬F here: Z
 (`SiegelWalfisz` is a bare-∃K Prop and is already a theorem).
 
 **The single ineffectivity point, located.** The landed discharge routes through
-`siegel_theorem` (Salt/SW/SiegelClose.lean:841-844 — ineffective C(ε), the
+`siegel_theorem` (Salt/SW/SiegelClose.lean:848-851 — ineffective C(ε), the
 Goldfeld-dichotomy exceptional branch fixes an unlocatable (χ₁, β₁)), consumed at
 exactly one call site: `psi1AP_main_bound`, Salt/SW/Fold.lean:167 (ε = 1/(4C));
 Cₛ enters `c5 := min (min cc ct) Cₛ` (Fold.lean:170) and flows into x₀ and K.

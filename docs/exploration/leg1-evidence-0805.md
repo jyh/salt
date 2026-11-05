@@ -154,7 +154,7 @@ them (lint has verified that each file exists and declares that name).
 - `Salt.TwinBar.M₂_squeeze` — `1.383 ≤ M₂ ≤ 2·log 2 < 2`. `Salt/TwinBar/Witness.lean:253`
 - `Salt.TwinBar.twinB_min_implies_twins` · `Salt.TwinBar.wall_or_door` — the door and the partition. `Salt/TwinBar/TwinDoor.lean:270`, `:288`
 - `Salt.TwinBar.least_k_theorem` — least `k` with `M_k > 2` is 5. `Salt/TwinBar/LeastK.lean:127`
-- `Salt.SW.mmuRate_holds` — the effective Möbius summatory rate. `Salt/SW/MobiusRateClose.lean:1059`
+- `Salt.SW.mmuRate_holds` — the effective Möbius summatory rate. `Salt/SW/MobiusRateClose.lean:1062`
 - `Salt.TwinBar.parity_wall_unconditional` · `…no_parity_beating_certificate_unconditional` — `Salt/TwinBar/WallUnconditional.lean:31`, `:44`
 - `Salt.TwinBar.Sep.wall_of_indistinguishable` — `Salt/TwinBar/Separation.lean:67`
 - `Salt.Parity.TPC_implies_Z` · `Salt.Parity.sufficient_true_not_parityInv` (THE GAP THEOREM) · `Salt.Parity.Z_implies_TPC` — `Salt/Parity/Z.lean:216`, `:670`, `:687`

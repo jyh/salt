@@ -36,7 +36,7 @@ division).
 
 ## 3. The A-window (the consumer's honest tolerance)
 
-`log Cband ≤ 40` is spent at exactly ONE site (S11HoistGrade.lean:468 →
+`log Cband ≤ 40` is spent at exactly ONE site (S11HoistGrade.lean:473 →
 Mfl ≤ 2³⁵⁵ → FlatFloorBump.lean:124's `flatDoorM_ge_pow355`). Solving
 against flatDoorM A = ⌊e^{1.6A}/310301⌋:
 

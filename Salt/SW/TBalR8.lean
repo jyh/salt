@@ -10,7 +10,7 @@ import Salt.SW.DHBalance
 # T-BAL R8 — `dh_repulsion_ordered` (the parameter-selection + ledger-inversion endgame)
 
 The single remaining rung of the T-BAL campaign.  The target is the reversed-Jutila repulsion
-contract (`DHRepulsion.lean:267`): for a real primitive `χ` with a real zero `β₀ ∈ (1/2, 1)` and a
+contract (`DHRepulsion.lean:283`): for a real primitive `χ` with a real zero `β₀ ∈ (1/2, 1)` and a
 non-real zero `ρ` with `16/17 ≤ Re ρ < 1`, `Re ρ ≤ β₀`,
 
   `1 − β₀ ≥ c·(q(|Im ρ|+2))^{−b(1−Re ρ)}/(log(q(|Im ρ|+2))+2)^k`,   `b=680, k=14`, `c` the

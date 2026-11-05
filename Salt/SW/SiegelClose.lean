@@ -43,6 +43,9 @@ open scoped LSeries.notation Topology ComplexOrder
 /-- The constant in the Euler-correction bound (ii): `exp(19/log 2)/log 2`. -/
 noncomputable def eulerC : ℝ := Real.exp (19 / Real.log 2) / Real.log 2
 
+/-- `0 < eulerC = exp(19/log 2)/log 2`: `0 < log 2` (`Real.log_pos`) and `positivity`. The sign
+the `eulerC·(1 + log N)` factors need in `oneB_pos`, `siegel_L_one_lower_near` and the
+closer. -/
 lemma eulerC_pos : 0 < eulerC := by
   have hlog2 : 0 < Real.log 2 := Real.log_pos one_lt_two
   unfold eulerC; positivity
@@ -567,6 +570,10 @@ private lemma changeLevel_ne_one' {q N : ℕ} [NeZero q] [NeZero N] (hqN : q ∣
 noncomputable def oneB (N : ℕ) : ℝ :=
   5 * Real.exp 1 * (1 + Real.log N) * (eulerC * (1 + Real.log N))
 
+/-- `0 < oneB N = 5e(1+log N) · eulerC(1+log N)` for `1 ≤ N` (`hN`): `0 ≤ log N`, `0 < eulerC`
+(`eulerC_pos`) and `positivity`. The `hBpos` input of `goldfeld_L_one_lower` in
+`siegel_L_one_lower_near`, where `oneB N` is the one-point bound `B₁ = B₂`; the closer reads it
+again at `N = q₁·q`. -/
 lemma oneB_pos {N : ℕ} (hN : 1 ≤ N) : 0 < oneB N := by
   have : (0 : ℝ) ≤ Real.log N := Real.log_nonneg (by exact_mod_cast hN)
   unfold oneB; have := eulerC_pos; positivity
