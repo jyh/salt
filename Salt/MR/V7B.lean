@@ -1563,7 +1563,10 @@ forwards the now-hypothesis-free shape through the flat terminal — **this is t
 `v7` mint reads in place of
 `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist`.**
 
-Bodies verbatim from `RegisterCompose.lean:52-300`. -/
+Bodies verbatim from `RegisterCompose`'s four theorems
+`m4_hcap_at_door_perBlock_L_gk_bounded_khoist`, `m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist`,
+`s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist` and
+`logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist`. -/
 
 set_option maxHeartbeats 3200000 in
 -- Same cause as the landed original: one application of a ~45-binder capstone.
