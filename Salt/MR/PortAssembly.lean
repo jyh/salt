@@ -1274,29 +1274,35 @@ proof re-run verbatim. -/
 set_option maxHeartbeats 1600000 in
 -- The re-derivation carries §7's fold in context; `linarith`'s preprocessing on the
 -- `Real.rpow` gate needs headroom past the default.
-/-- **A2's DELIVERABLE — the carve-free twisted rectangle.**  Same conclusion as
-`twisted_rect_zero_free_split`, with the `(prim² ≠ 1 ∨ Im ρ ≠ 0)` hypothesis replaced by ONE
-`q`-vs-`T` gate whose constant `Ks` carries Siegel's ineffectivity (§7) — the port's single
-ineffective constant, and nothing else. -/
-theorem twisted_rect_zero_free_siegel :
-    ∃ Kq Ks : ℝ, 0 < Kq ∧ 0 < Ks ∧
-      ∀ (q : ℕ) [NeZero q] (ψ : DirichletCharacter ℂ q), ψ ≠ 1 → ∀ (A T : ℝ), 1 ≤ A →
-      Real.exp (Real.exp 100) ≤ T →
-      Real.log (20000 * (vkStripConst q + 8104)) ≤ A * 100 →
-      A + 7 ≤ Real.log (Real.log (5 * T + 1)) →
-      Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
-          ≤ (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
-              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ) →
-      (q : ℝ) ^ ((1 : ℝ) / 16)
-          ≤ Ks * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
-              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) →
-      ∀ ρ : ℂ, LFunction ψ ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
-        ρ.re ≤ 1 - (1 / 10 ^ 8)
-          / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
-              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) := by
-  obtain ⟨c₀, hc₀0, hc₀⟩ := Salt.SW.zero_free_region_all'
-  obtain ⟨Ks, hKs0, hsg⟩ := siegel_real_carve
-  refine ⟨1 / (10 ^ 8 * c₀), 10 ^ 8 * Ks, by positivity, by positivity, ?_⟩
+/-- **The assembly behind the four `twisted_rect_zero_free_siegel*` theorems**, at a given
+zero-free constant `c₀` (the `Salt.SW.zero_free_region_all'` shape) and a given real-zero carve
+`Ks` (the `siegel_real_carve` shape): the rectangle's zero-free conclusion with
+`Kq = 1/(10⁸·c₀)` and the carve constant scaled by `10⁸`. `twisted_rect_zero_free_siegel` and its
+`_bounded`, `_of_standoff` and `_bounded_of_standoff` twins differ only in where `c₀` and `Ks`
+come from (the corpus region or its bounded twin; Siegel's theorem or the standoff), and each is
+this theorem at its own pair. -/
+theorem twisted_rect_zero_free_of_carve {c₀ Ks : ℝ} (hc₀0 : 0 < c₀)
+    (hc₀ : ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
+      ∀ {ρ : ℂ}, LFunction χ ρ = 0 → 1 / 2 ≤ ρ.re →
+        (χ.primitiveCharacter ^ 2 ≠ 1 ∨ ρ.im ≠ 0) →
+        ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)))
+    (hsg : ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
+      ∀ W : ℝ, 0 < W → (q : ℝ) ^ ((1 : ℝ) / 16) * W ≤ Ks →
+      ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ.im = 0 → ρ.re ≤ 1 - W) :
+    ∀ (q : ℕ) [NeZero q] (ψ : DirichletCharacter ℂ q), ψ ≠ 1 → ∀ (A T : ℝ), 1 ≤ A →
+    Real.exp (Real.exp 100) ≤ T →
+    Real.log (20000 * (vkStripConst q + 8104)) ≤ A * 100 →
+    A + 7 ≤ Real.log (Real.log (5 * T + 1)) →
+    1 / (10 ^ 8 * c₀) * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
+        ≤ (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+            * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ) →
+    (q : ℝ) ^ ((1 : ℝ) / 16)
+        ≤ 10 ^ 8 * Ks * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+            * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) →
+    ∀ ρ : ℂ, LFunction ψ ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
+      ρ.re ≤ 1 - (1 / 10 ^ 8)
+        / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+            * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) := by
   intro q hNe ψ hψ1 A T hA1 hTfloor hAq hAabs hKq hSg ρ hρ0 hρim
   -- the `T`-scale quantities
   have hE0 : (0 : ℝ) < Real.exp (Real.exp 100) := Real.exp_pos _
@@ -1372,6 +1378,31 @@ theorem twisted_rect_zero_free_siegel :
           exact mul_le_mul_of_nonneg_left hlowle hc₀0.le
         linarith [hcl, hkey, hshrink]
     · linarith [hWsmall, hre]
+
+/-- **A2's DELIVERABLE — the carve-free twisted rectangle.**  Same conclusion as
+`twisted_rect_zero_free_split`, with the `(prim² ≠ 1 ∨ Im ρ ≠ 0)` hypothesis replaced by ONE
+`q`-vs-`T` gate whose constant `Ks` carries Siegel's ineffectivity (§7) — the port's single
+ineffective constant, and nothing else. -/
+theorem twisted_rect_zero_free_siegel :
+    ∃ Kq Ks : ℝ, 0 < Kq ∧ 0 < Ks ∧
+      ∀ (q : ℕ) [NeZero q] (ψ : DirichletCharacter ℂ q), ψ ≠ 1 → ∀ (A T : ℝ), 1 ≤ A →
+      Real.exp (Real.exp 100) ≤ T →
+      Real.log (20000 * (vkStripConst q + 8104)) ≤ A * 100 →
+      A + 7 ≤ Real.log (Real.log (5 * T + 1)) →
+      Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
+          ≤ (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ) →
+      (q : ℝ) ^ ((1 : ℝ) / 16)
+          ≤ Ks * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) →
+      ∀ ρ : ℂ, LFunction ψ ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
+        ρ.re ≤ 1 - (1 / 10 ^ 8)
+          / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) := by
+  obtain ⟨c₀, hc₀0, hc₀⟩ := Salt.SW.zero_free_region_all'
+  obtain ⟨Ks, hKs0, hsg⟩ := siegel_real_carve
+  refine ⟨1 / (10 ^ 8 * c₀), 10 ^ 8 * Ks, by positivity, by positivity, ?_⟩
+  exact twisted_rect_zero_free_of_carve hc₀0 hc₀ hsg
 
 
 /-! ## §9 — THE COMPOSITION: the `(χ,t)`-pair socket at the GATES ONLY
