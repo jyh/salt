@@ -158,7 +158,7 @@ theorem chowlaRegime_exists_param_gen_hloCap (eps : ℚ) (heps : 0 < eps)
 /-! ### §2 — the two tower twins: the conjunct, PASSED THROUGH -/
 
 /-- **The regime builder at `K = 9/2`, cap-carrying**
-(`chowlaRegime_exists_param_tower_45_hloCap`) — `TowerExport.lean:876`'s statement
+(`chowlaRegime_exists_param_tower_45_hloCap`) — `TowerExport.lean:894`'s statement
 plus the base equation.  The proof is that one verbatim on the §1 builder. -/
 theorem chowlaRegime_exists_param_tower_45_hloCap (eps : ℚ) (heps : 0 < eps)
     (heps1 : eps ≤ 1 / 2) (Hlo₀ : ℕ) :
@@ -175,7 +175,7 @@ theorem chowlaRegime_exists_param_tower_45_hloCap (eps : ℚ) (heps : 0 < eps)
   exact tower_loglog_le_45 R.hHlo_floor hu
 
 /-- **The head-shaped builder at `K = 9/2`, cap-carrying**
-(`chowlaRegime_exists_param_head_tower45'_hloCap`) — `TowerExport.lean:892`'s
+(`chowlaRegime_exists_param_head_tower45'_hloCap`) — `TowerExport.lean:910`'s
 statement plus the base equation.  `regimeEnlargeX'` carries `Hlo` VERBATIM
 (`RegimeParam.lean:506`), so the equation survives the outer-scale push
 untouched, exactly as `Hlo₀ ≤ R.Hlo` does there. -/

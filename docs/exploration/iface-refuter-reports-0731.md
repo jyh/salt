@@ -40,7 +40,7 @@ Freeze numeral slip inside CLAIM 2, kernel-checked: "at L+1 ≈ 155 [with] λ₋
 
 At λ₋ = 448.98 the landed tower gives λ₊ = λ₋^3.7436 = **8.489·10⁹** (cube: 9.05·10⁷).
 
-- **Width face (the kill)**: `p3_branch_a_kill` — even the *weakest* landed law `λ₋³ ≤ λ₊` (`TowerExport.lean:673`) contradicts `λ₊ ≤ λ₋ + 6.94` at every λ₋ ≥ 50. `p3b_branch_a_deficit`: window demand ≥ 9·10⁷ vs budget 6.45 — **deficit 1.3·10⁶× at the honest exponent**. Not repairable by any constant: saving it needs `e^{8.5e9}` of re-pricing, i.e. a shape change in the crossing-bound supply. D1 does not touch this face at all.
+- **Width face (the kill)**: `p3_branch_a_kill` — even the *weakest* landed law `λ₋³ ≤ λ₊` (`TowerExport.lean:691`) contradicts `λ₊ ≤ λ₋ + 6.94` at every λ₋ ≥ 50. `p3b_branch_a_deficit`: window demand ≥ 9·10⁷ vs budget 6.45 — **deficit 1.3·10⁶× at the honest exponent**. Not repairable by any constant: saving it needs `e^{8.5e9}` of re-pricing, i.e. a shape change in the crossing-bound supply. D1 does not touch this face at all.
 - **Anchor face (second, independent kill)**: `p4b_anchor_caps_lambda` — `anchor` + `half` + the compose's only exported λ₊-handle `λ₊ ≤ λ₋^{9/2}` cap **λ₋ ≤ 288**, against the b-floor's 448.98. The honest sharpest export (4.4077, S2 §1) gives only λ₋ ≤ 334.6; the working point needs an export exponent ≤ **4.244**, which is inside the [3.7436, 4.4077] bracket-gap but is not provable from the landed budget line. So branch (a) cannot even host the road's own `bfloor`.
 - Everything else at branch (a) **passes**: anchor RHS 2.35e12 vs LHS 1.19e11; gRows 4.14e13 vs 2.05e12; lvl 2.39e12 vs 1.19e11; cap needs K ≥ 1.226·10¹⁰ vs frame ceiling 1.079·10¹¹ (`p5b_branch_a_cap_K`).
 

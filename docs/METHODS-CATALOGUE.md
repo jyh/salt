@@ -1,7 +1,7 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `3459f72c` · source digest `e39cb5e3b8e8925a` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `e777053e` · source digest `11cee09ab76fc45b` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
@@ -1001,10 +1001,10 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Chen.sum_inv_prime_window_ge` | 435 | Salt/Chen/MertensPNT.lean:159 |
 | `Salt.MR.norm_memSCoeff_le_one` | 432 | Salt/MR/M4Sieve.lean:126 |
 | `Salt.MR.two_le_calP` | 333 | Salt/MR/SieveGlue.lean:315 |
-| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 313 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:77 |
-| `Salt.Entropy.Chowla.nuG_mult` | 313 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:52 |
+| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 313 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:82 |
+| `Salt.Entropy.Chowla.nuG_mult` | 313 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:57 |
 | `Salt.Chen.twinWindow_mass_eq` | 310 | Salt/Chen/MertensPNT.lean:248 |
-| `Salt.Entropy.Chowla.goldEnergySieve_siftedSum` | 307 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:156 |
+| `Salt.Entropy.Chowla.goldEnergySieve_siftedSum` | 307 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:172 |
 
 ### Mertens / PNT-type — 1638 external dependents
 
@@ -1124,11 +1124,11 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Entropy.Chowla.dft_parseval` | 364 | Salt/Entropy/Chowla/CircleMethod.lean:126 |
 | `Salt.Entropy.Chowla.not_summable_one_div_nat_loglog` | 318 | Salt/Entropy/Chowla/Diverge.lean:230 |
 | `Salt.Entropy.Chowla.isProbabilityMeasure_logMeasure` | 316 | Salt/Entropy/Chowla/LogMeasure.lean:70 |
-| `Salt.Entropy.Chowla.rhoG_prime_dvd` | 316 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:86 |
-| `Salt.Entropy.Chowla.rhoG_prime_not_dvd` | 316 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:95 |
+| `Salt.Entropy.Chowla.rhoG_prime_dvd` | 316 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:95 |
+| `Salt.Entropy.Chowla.rhoG_prime_not_dvd` | 316 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:104 |
 | `Salt.Entropy.Chowla.dropSum_exceeds_log_two_base` | 315 | Salt/Entropy/Chowla/RegimeParam.lean:219 |
-| `Salt.Entropy.Chowla.rhoG_mul_of_coprime` | 315 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:171 |
-| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 313 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:77 |
+| `Salt.Entropy.Chowla.rhoG_mul_of_coprime` | 315 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:180 |
+| `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 313 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:82 |
 
 ### Matomaki-Radziwill / Halasz (short intervals) — 73 external dependents
 

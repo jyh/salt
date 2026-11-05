@@ -250,12 +250,23 @@ noncomputable def goldSelbergSieve (n P : ℕ) (hn : 2 ∣ n) (hP : Squarefree P
   level := level
   one_le_level := hlvl
 
+/-- `(goldSelbergSieve n P hn hP level hlvl).prodPrimes = P` (`rfl`; `@[simp]`): the promoted
+sieve keeps the modulus. One of the three projections `carrierSum_le_selbergBoundingSum` and
+`goldSiftedSum_le_main_add_err` (`GoldbachEnergyHpt`) simp through when they unfold
+`selbergBoundingSum` at the gold instance. -/
 @[simp] lemma goldSelbergSieve_prodPrimes (level : ℝ) (hlvl : 1 ≤ level) :
     (goldSelbergSieve n P hn hP level hlvl).prodPrimes = P := rfl
 
+/-- `(goldSelbergSieve n P hn hP level hlvl).level = level` (`rfl`; `@[simp]`): the adjoined
+level is the one supplied. Simp-unfolded beside `goldSelbergSieve_prodPrimes` in
+`carrierSum_le_selbergBoundingSum` and `goldSiftedSum_le_main_add_err`. -/
 @[simp] lemma goldSelbergSieve_level (level : ℝ) (hlvl : 1 ≤ level) :
     (goldSelbergSieve n P hn hP level hlvl).level = level := rfl
 
+/-- The promoted sieve's `selbergTerms` are the `BoundingSieve`'s own,
+`(goldEnergySieve n P hn hP).selbergTerms` (`rfl`; `@[simp]`), so the `g`-function facts at the
+bounding sieve (`goldSelbergTerms_prime_dvd`/`_not_dvd`) apply verbatim at the `SelbergSieve`.
+The third projection `carrierSum_le_selbergBoundingSum` simps through. -/
 @[simp] lemma goldSelbergSieve_selbergTerms (level : ℝ) (hlvl : 1 ≤ level) :
     (goldSelbergSieve n P hn hP level hlvl).selbergTerms
       = (goldEnergySieve n P hn hP).selbergTerms := rfl

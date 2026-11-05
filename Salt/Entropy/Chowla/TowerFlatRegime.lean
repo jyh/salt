@@ -139,8 +139,13 @@ namespace ChowlaRegimeFlat
 
 variable (R : ChowlaRegimeFlat)
 
+/-- `0 < R.A`, from the regime's floor `hA : 26 ≤ A`. The positivity `tower_step_ofFlat`
+(`DecrementFlat`) takes as `R.hApos` to make `A·log H` positive and `A ≠ 0`. -/
 lemma hApos : 0 < R.A := by have := R.hA; linarith
 
+/-- `1 ≤ R.A`, from `hA : 26 ≤ A`: the `A ≥ 1` hypothesis the `TowerFlat` lemmas take,
+supplied at the regime's own constant. Consumed through `flatMul_ge_two R.hA1` by
+`chowlaTowerFlat_ge` and `chowlaTowerFlat_le_succ`. -/
 lemma hA1 : 1 ≤ R.A := by have := R.hA; linarith
 
 /-- The flat tower floor at the regime's own base. -/
@@ -194,10 +199,16 @@ lemma chowlaTowerFlat_ge (R : ChowlaRegimeFlat) (j : ℕ) :
             * ⌊2 * R.A * Real.log (chowlaTowerFlat R.A R.a R.Hlo n : ℝ)⌋₊ := by
           gcongr; omega
 
+/-- `4·10⁶ ≤ H_j` at every level of the regime's flat tower: the house floor `hHlo_floor`
+through `chowlaTowerFlat_ge`. The floor `flatMul_ge_two` needs at each step; taken by
+`chowlaTowerFlat_le_succ` here and by `tower_stepFlat` (`DecrementFlat`). -/
 lemma chowlaTowerFlat_floor (R : ChowlaRegimeFlat) (j : ℕ) :
     4000000 ≤ chowlaTowerFlat R.A R.a R.Hlo j :=
   le_trans R.hHlo_floor (chowlaTowerFlat_ge R j)
 
+/-- `H_j ≤ H_{j+1}` along the regime's flat tower: the multiplier `⌊2·A·log H_j⌋₊` is `≥ 2`
+(`flatMul_ge_two` at `chowlaTowerFlat_floor`), so one `chowlaTowerFlat_succ` and `gcongr`. The
+step of `chowlaTowerFlat_monotone`. -/
 lemma chowlaTowerFlat_le_succ (R : ChowlaRegimeFlat) (j : ℕ) :
     chowlaTowerFlat R.A R.a R.Hlo j ≤ chowlaTowerFlat R.A R.a R.Hlo (j + 1) := by
   have hmult := flatMul_ge_two R.hA1 (chowlaTowerFlat_floor R j)
@@ -208,6 +219,9 @@ lemma chowlaTowerFlat_le_succ (R : ChowlaRegimeFlat) (j : ℕ) :
           * ⌊2 * R.A * Real.log (chowlaTowerFlat R.A R.a R.Hlo j : ℝ)⌋₊ := by
         gcongr; omega
 
+/-- The regime's flat tower `j ↦ H_j` is monotone (`monotone_nat_of_le_succ` on
+`chowlaTowerFlat_le_succ`). What `chowlaTowerFlat_le_Hhi` composes with `hfitF` to fit every
+level `j ≤ Jf` below `H₊`. -/
 lemma chowlaTowerFlat_monotone (R : ChowlaRegimeFlat) :
     Monotone (chowlaTowerFlat R.A R.a R.Hlo) :=
   monotone_nat_of_le_succ (chowlaTowerFlat_le_succ R)
