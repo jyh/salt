@@ -178,7 +178,7 @@ flat-lane conditionals until then.
 
 ## ADDENDUM 2 (2026-08-02 night) — v4 MINTED; BOTH VACUITIES REPAIRED
 
-**`logChowla2_ineffective_v4` (S16ComposeV4.lean:938, 3-axiom,
+**`logChowla2_ineffective_v4` (S16ComposeV4.lean:932, 3-axiom,
 d103766) is the standing summit object.** v1/v2/v3 are marked
 SUPERSEDED in RESULTS.md with the vacuity reason on the row.
 
@@ -212,7 +212,7 @@ the builder sits NINE orders inside the budget, not four.
 
 ## ADDENDUM 3 (2026-08-03) — v6: THE COROLLARY LINE'S FINAL FORM
 
-**`logChowla2_ineffective_v6` (RegisterCompose.lean:345, 3-axiom,
+**`logChowla2_ineffective_v6` (RegisterCompose.lean:339, 3-axiom,
 b36f53a) — outer: NOTHING; conclusion-side: NOTHING.** The cofactor
 predicate is discharged: all seventeen register conjuncts proven at
 the repaired dilation ladder D = ⌈log X⌉ (two were FALSE at the
