@@ -13,6 +13,7 @@ import Salt.MR.FlatDesignBound
 import Salt.Entropy.Chowla.WidthWindow
 import Salt.MR.RegimeScaleReads
 import Salt.MR.SocketLogFrame
+import Salt.MR.SocketFrame
 
 -- Needed to transcribe the stride builder's ceiling step (`StridePairReceipt.lean`'s head opens the
 -- same line for the same body).  MEASURED, not assumed: `#check @xceil_flat_P` and
@@ -1118,9 +1119,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_L (h : ℕ) (hh 
     (fun _ => constPool_nonneg hρ.le)
     (m4_arith_henv_constPoolH_L_gk_L K hh hL0 hhL hfloor hρ.le harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_pos_L_gk K (hbf H L q j A s hb)
     (hgP1 H L q j A s hb) (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd
     (hband4096 H L q j A s hb)

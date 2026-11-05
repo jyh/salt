@@ -1312,9 +1312,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk (h : ℕ) (hh : 0 < h) (hh7 : 
     (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband
     (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPoolH_L_gk K hh hh7 hρ.le harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_pos_L_gk K (hbf H L q j A s hb)
     (hgP1 H L q j A s hb) (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd
     (hband4096 H L q j A s hb)
