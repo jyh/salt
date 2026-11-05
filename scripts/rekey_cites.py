@@ -542,7 +542,7 @@ def report(edited, rows, cls, applied):
             print(f"  UNDECLARED {s}: pinned by its {w}; add it to PUBLISHED")
     for r in rows:
         if r["cls"] in ("RE-KEYED", "REPORTED", "PRE-STALE"):
-            print(f"  {r['cls']:9s} {r['src']}: {r['cite']} -> {r['new'] or '(no head line: read by hand)'}"
+            print(f"  {r['cls']:9s} {r['src']}: {r['cite']} -> {r['new'] or ('(read by hand)' if r.get('why') else '(no head line: read by hand)')}"
                   + (f"  [{r['why']}]" if r.get("why") else ""))
     print(LIMITS)
 
