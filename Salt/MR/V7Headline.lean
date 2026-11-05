@@ -42,7 +42,7 @@ parent; the proof discards the parent's own `hRg` and passes the rest through un
 `log 0 + ε²·H₊ ≤ (31/ε)·H₊`.  `Real.log_zero` collapses the `log 0` summand to `0`, and the
 gate's own third field is `log ω + ε²·H₊ ≤ (31/ε)·H₊` with `log ω ≥ 0` — the ε²·H₊ margin the
 gate already carries is the whole payment.  This is the witness pattern already in-body at
-`RegisterCompose.lean:247-251`, `XThread.lean:1272-1276` and `V7B.lean:1774`, lifted here to the
+`RegisterCompose.lean:241-245`, `XThread.lean:1272-1276` and `V7B.lean:1768`, lifted here to the
 terminal.
 
 ## What this instance does and does not say
@@ -86,7 +86,7 @@ open scoped BigOperators
 
 **⟦THE ZERO CALLER⟧** (`xceilRiderStrict_zero`) — the constant-zero request meets
 `XCeilRiderStrict` at every `ε`.  `log 0 = 0` and the gate's own width window carries the
-`ε²·H₊` margin; `log ω ≥ 0` closes it.  (The witness pattern of `RegisterCompose.lean:247-251`,
+`ε²·H₊` margin; `log ω ≥ 0` closes it.  (The witness pattern of `RegisterCompose.lean:241-245`,
 named here so the terminal can cite it.) -/
 theorem xceilRiderStrict_zero (ε : ℚ) : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
   intro Hhi ω hgate
