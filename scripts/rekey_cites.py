@@ -22,9 +22,11 @@ cite is classed:
 
   KEPT       its line(s) map to the same number
   RE-KEYED   its line(s) map to other numbers (rewritten with --apply)
-  DONE       re-keyed already: at HEAD the citing file has the new cite and not the old
+  DONE       re-keyed already at HEAD (decided per group of re-keys sharing a cite text, so a hand fix
+             beside a stale cite in the same file still reads DONE)
   REPORTED   a cited line has no head line (edited or deleted), a range lost its interior
-             contiguity, or the target was RENAMED: NEVER rewritten, read by hand
+             contiguity, the target was RENAMED, or a re-keyed list RUNS ON in a form not read
+             (`:N,K` / `:N/:K`, so moving the read members would leave the rest): NEVER rewritten, read by hand
   PRE-STALE  the cite was past the base file's end already: printed, not this edit's
   AMBIGUOUS  a bare leaf shared by several files: not read, counted
   NESTED     not a class: KEPT or RE-KEYED cites whose line(s) mapped only through a nested
@@ -64,6 +66,7 @@ import re
 import subprocess
 import sys
 from collections import Counter
+from itertools import product
 
 # This tool's own source quotes cites as examples (salt #570's carry re-keyed two of them into strings that
 # never occurred): a quotation is not a cite, so the file is never read as a citing source.
@@ -148,6 +151,8 @@ def refusals(root, base, head, published=PUBLISHED):
 # `/316` neither re-keyed nor REPORTED).
 TAIL = r"((?:(?:,\s*:|/)\d+(?:[–-]\d+)?)*)"
 MEMBER = re.compile(r"(,\s*:|/)(\d+)(?:([–-])(\d+))?")
+RUNON = re.compile(r",\s*\d|/:\d")     # a member written without its colon, or `/:K`: not read
+
 
 
 def cite_re(leaf):
@@ -286,20 +291,33 @@ def census(root, base, head, published=PUBLISHED):
                     cls["AMBIGUOUS"] += 1
                     continue
                 c, rep = resolve(maps[f], nbase[f], mt)
+                runon = bool(RUNON.match(text, mt.end()))
                 lo = int(mt.group(2)); hi = int(mt.group(4)) if mt.group(4) else lo
                 nest = c in ("KEPT", "RE-KEYED") and any((f, n) in via for n in range(lo, hi + 1))
                 cls[c] += 1
                 cls["NESTED"] += nest
-                rows.append(dict(src=src, target=f, cite=mt.group(0), cls=c, new=rep, nested=nest))
+                rows.append(dict(src=src, target=f, cite=mt.group(0), cls=c, new=rep, nested=nest, runon=runon))
     mark_done(root, base, head, rows, cls)
+    for r in rows:
+        # a list that goes on in a form this tool does not read (`:N,K` / `:N/:K`): re-keying only the members it
+        # reads would leave the rest unmoved and look clean (paper on salt #626). After mark_done, so a list
+        # already fixed by hand still reads DONE.
+        if r["cls"] == "RE-KEYED" and r["runon"]:
+            r.update(cls="REPORTED", new=None, why="the list runs on past the members this tool reads")
+            cls["RE-KEYED"] -= 1
+            cls["REPORTED"] += 1
     return edited, rows, cls
 
 
 def mark_done(root, base, head, rows, cls):
-    """A citing file's re-keys are DONE when HEAD's counts of every cite they touch equal the counts
-    the re-keys predict from BASE. Counted per file, so a CHAIN (one cite's new number is another's
-    old) reads DONE: asking only "is the old cite gone?" misreads it, since the old text is present
-    as the next link's new value."""
+    """A RE-KEYED cite is DONE when HEAD already carries its re-key. Decided per GROUP of re-keys that share a
+    cite text (old or new) inside one citing file, never per file (paper's follow-up on salt #626: per file, one
+    stale short cite in flags.md turned 13 hand-fixed cites back to RE-KEYED, and --apply could then only
+    REPORT them). For a group, the DONE set is the LARGEST subset S whose predicted counts (BASE, with exactly
+    the re-keys in S applied) equal HEAD's counts of every text in the group, counted per distinct re-key (seven
+    copies of one re-key are one choice of 0..7, not 128 subsets); a CHAIN (one cite's new number is another's
+    old) is why counts are compared, not "is the old cite gone?". If two count vectors of that size fit, none is
+    DONE; past SEARCH_MAX vectors, the group is DONE only when all of it fits (the old rule)."""
     by = {}
     for r in rows:
         if r["cls"] == "RE-KEYED":
@@ -308,17 +326,64 @@ def mark_done(root, base, head, rows, cls):
         b, h = show(root, base, src), show(root, head, src)
         if b is None or h is None:
             continue
-        keys = {r["cite"] for r in rs} | {r["new"] for r in rs}
-        want = {k: len(occ_re(k).findall(b)) for k in keys}
-        for r in rs:
-            want[r["cite"]] -= 1
-            want[r["new"]] += 1
-        if all(len(occ_re(k).findall(h)) == want[k] for k in keys) and \
-                any(want[r["cite"]] != len(occ_re(r["cite"]).findall(b)) for r in rs):
-            for r in rs:
-                r["cls"] = "DONE"
-            cls["RE-KEYED"] -= len(rs)
-            cls["DONE"] += len(rs)
+        for grp in _groups(rs):
+            keys = {r["cite"] for r in grp} | {r["new"] for r in grp}
+            nb = {k: len(occ_re(k).findall(b)) for k in keys}
+            nh = {k: len(occ_re(k).findall(h)) for k in keys}
+
+            kinds = Counter((r["cite"], r["new"]) for r in grp)
+            ks = list(kinds)
+
+            def fits(vec):
+                want = dict(nb)
+                for (old, nw), n in zip(ks, vec):
+                    want[old] -= n
+                    want[nw] += n
+                return want == nh and want != nb
+
+            space = 1
+            for k in ks:
+                space *= kinds[k] + 1
+            if space <= SEARCH_MAX:
+                fit = [v for v in product(*(range(kinds[k] + 1) for k in ks)) if fits(v)]
+                top = max((sum(v) for v in fit), default=0)
+                best = [v for v in fit if sum(v) == top]
+                vec = best[0] if len(best) == 1 else None
+            else:
+                vec = tuple(kinds[k] for k in ks) if fits(tuple(kinds[k] for k in ks)) else None
+            take = dict(zip(ks, vec)) if vec else {}
+            for r in grp:
+                k = (r["cite"], r["new"])
+                if take.get(k, 0) > 0:
+                    take[k] -= 1
+                    r["cls"] = "DONE"
+                    cls["RE-KEYED"] -= 1
+                    cls["DONE"] += 1
+
+
+SEARCH_MAX = 4096       # count vectors tried per group; past it, a group is DONE only all at once
+
+
+def _groups(rs):
+    """Partition re-keys into groups linked by a shared cite text (old or new)."""
+    parent = list(range(len(rs)))
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+    seen = {}
+    for i, r in enumerate(rs):
+        for k in (r["cite"], r["new"]):
+            if k in seen:
+                parent[find(i)] = find(seen[k])
+            else:
+                seen[k] = i
+    out = {}
+    for i, r in enumerate(rs):
+        out.setdefault(find(i), []).append(r)
+    return list(out.values())
 
 
 def apply(root, base, head, rows, log=None):
@@ -850,6 +915,42 @@ def self_test():
         check("--apply rewrites the short cites and leaves the REPORTED one as written",
               open(os.path.join(d, "Salt/T.lean")).read() ==
               "S:5 · `S`:6 · `S` :5 · `S:8` · S:4–5 · S:5, :10 · S.lean:5 · S:5 · BS:3 · S:99 · D:3 · S :3\n")
+    with tempfile.TemporaryDirectory() as d:                     # DONE per group · a run-on list (salt #626's read)
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt"))
+        ten = "".join(f"line {i}\n" for i in range(1, 11))
+        open(os.path.join(d, "Salt/X.lean"), "w").write(ten)
+        open(os.path.join(d, "chain.md"), "w").write("a X.lean:3 b X.lean:5\n")
+        open(os.path.join(d, "mixed.md"), "w").write("X.lean:1 · X.lean:2 · X.lean:7\n")
+        open(os.path.join(d, "copies.md"), "w").write("X.lean:6\n" * 7)
+        open(os.path.join(d, "runon.md"), "w").write("X.lean:7,9 · X.lean:8/:9 · X.lean:6, 9\n")
+        open(os.path.join(d, "runfix.md"), "w").write("X.lean:7,9\n")
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        open(os.path.join(d, "Salt/X.lean"), "w").write("p\nq\n" + ten)                 # X moves by two
+        open(os.path.join(d, "chain.md"), "w").write("a X.lean:5 b X.lean:5\n")         # 3→5 by hand; 5→7 owed
+        open(os.path.join(d, "mixed.md"), "w").write("X.lean:3 · X.lean:4 · X.lean:7\n")  # 1→3 · 2→4 by hand; 7→9 owed
+        open(os.path.join(d, "copies.md"), "w").write("X.lean:8\n" * 5 + "X.lean:6\n" * 2)  # 5 of 7 by hand
+        open(os.path.join(d, "runfix.md"), "w").write("X.lean:9,11\n")                  # a run-on list fixed by hand
+        g("commit", "-q", "-am", "edit")
+        _, rs, _ = census(d, "HEAD~1", "HEAD")
+        per = lambda src: [(r["cite"], r["cls"]) for r in rs if r["src"] == src]
+        check("a hand fix beside a stale cite in one file is DONE, the stale one RE-KEYED (per group, not per file)",
+              sorted(per("mixed.md")) == [("X.lean:1", "DONE"), ("X.lean:2", "DONE"), ("X.lean:7", "RE-KEYED")])
+        check("a chain: the hand-fixed link is DONE, the owed link is not",
+              sorted(per("chain.md")) == [("X.lean:3", "DONE"), ("X.lean:5", "RE-KEYED")])
+        check("seven copies, five fixed by hand: exactly five DONE",
+              [c for _, c in per("copies.md")].count("DONE") == 5)
+        check("a list that runs on (`:7,9`, `:8/:9`, `:6, 9`) is REPORTED, never a clean RE-KEYED",
+              sorted(per("runon.md")) == [("X.lean:6", "REPORTED"), ("X.lean:7", "REPORTED"), ("X.lean:8", "REPORTED")])
+        check("... and one already fixed by hand reads DONE", per("runfix.md") == [("X.lean:7", "DONE")])
+        apply(d, "HEAD~1", "HEAD", rs)
+        check("--apply rewrites the owed cite beside the hand fixes, and nothing else",
+              open(os.path.join(d, "mixed.md")).read() == "X.lean:3 · X.lean:4 · X.lean:9\n"
+              and open(os.path.join(d, "runon.md")).read() == "X.lean:7,9 · X.lean:8/:9 · X.lean:6, 9\n")
+        check("... and the chain's owed link, whose text the hand fix doubled, is REPORTED, never guessed",
+              open(os.path.join(d, "chain.md")).read() == "a X.lean:5 b X.lean:5\n"
+              and [r["cls"] for r in rs if r["src"] == "chain.md" and r["cite"] == "X.lean:5"] == ["REPORTED"])
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
