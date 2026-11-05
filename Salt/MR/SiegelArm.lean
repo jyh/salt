@@ -20,10 +20,10 @@ H2 (bounded-band) branch is only a CONSTANT at a REAL nonprincipal `χ`
 The question was whether the SW rung's Siegel family supplies the `L(1,χ)` lower bound that a
 real-χ region transport needs.  It does NOT, and the reason is structural:
 
-* `Salt.SW.siegel_theorem` (`SiegelClose.lean:841`) is UNCONDITIONAL and ε-quantified, but it
+* `Salt.SW.siegel_theorem` (`SiegelClose.lean:848`) is UNCONDITIONAL and ε-quantified, but it
   is the ZERO-FREE form `β ≤ 1 − C/q^ε`; it says nothing about `‖L(s,χ)‖` anywhere.
-* `Salt.SW.siegel_L_one_exceptional` (`SiegelFinal.lean:324`) and its sharpened sibling
-  `Salt.SW.siegel_L_one_lower_near` (`SiegelClose.lean:582`) ARE `L(1,χ)`-lower bounds, but
+* `Salt.SW.siegel_L_one_exceptional` (`SiegelFinal.lean:327`) and its sharpened sibling
+  `Salt.SW.siegel_L_one_lower_near` (`SiegelClose.lean:589`) ARE `L(1,χ)`-lower bounds, but
   both carry the *fixed exceptional data* `(q₁, χ₁, β₁)` as hypotheses and require the target
   `χ` to be DISTINCT from `χ₁` — they live strictly inside the exceptional branch of
   `Salt.SW.siegel_dichotomy`.

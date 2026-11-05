@@ -2435,6 +2435,9 @@ theorem m4_chiBlock_fixed_of_chiRow_L {R : ChowlaRegime} {M k : ℕ} {MS : ℕ �
   rw [heq] at hflat
   exact hflat
 
+/-- `‖∑_{m ∈ doorSievedWindow_L M K n} liouChi χ m‖ ≤ doorChiSup_L χ M H n` at `hK : K ≤ H`: the
+sup over `K ∈ [0, H]` dominates each of its terms (`Finset.le_sup'`). Consumed by
+`classSup_le_inv_totient_sum_doorChiSup_L` and `norm_sq_coprime_window_le_L`. -/
 theorem le_doorChiSup_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {K : ℕ} (hK : K ≤ H) :
     ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖ ≤ doorChiSup_L χ M H n :=
   Finset.le_sup' (f := fun K => ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖)
@@ -2605,6 +2608,9 @@ theorem m4_sievedDoorSq_of_sup_L_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {Braw
     _ ≤ Braw H * (H : ℝ) ^ 2 :=
         mul_le_mul_of_nonneg_right (hgrade H q hlo hhi hq hqQ) (sq_nonneg _)
 
+/-- `le_doorChiSup_L` at the lever: `‖∑_{m ∈ doorSievedWindow_L_gk K M Kw n} liouChi χ m‖` is
+under `doorChiSup_L_gk K χ M H n` at `hK : Kw ≤ H` (`Finset.le_sup'`). Consumed by
+`classSup_le_inv_totient_sum_doorChiSup_L_gk` and `norm_sq_coprime_window_le_L_gk`. -/
 theorem le_doorChiSup_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {Kw : ℕ}
     (hK : Kw ≤ H) :
     ‖∑ m ∈ doorSievedWindow_L_gk K M Kw n, liouChi χ m‖ ≤ doorChiSup_L_gk K χ M H n :=
@@ -4060,15 +4066,9 @@ theorem m4_chiFreeShiftBlock_of_freeRow_L {R : ChowlaRegime} {M : ℕ} {MS : ℕ
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
   -- ⟦the two comparisons the free block affords⟧
   have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    have hnat : B + s ≤ 2 * A + 4 := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
   have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
   have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
   have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
   have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
@@ -4149,10 +4149,7 @@ theorem m4_coprimeChiN_of_freeShiftBlock_L {R : ChowlaRegime} {M : ℕ} {F : ℕ
   have hA4 : 4 ≤ A := by omega
   have hB2A : B ≤ 2 * A := by omega
   have hL2A : (L : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : L ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show L ≤ 2 * A by omega)
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
   set Lg := Nat.log 2 L with hLg
   set X : ℕ → ℕ → ℕ → ℝ := fun j t n =>
@@ -4615,15 +4612,9 @@ theorem m4_chiFreeShiftBlock_of_freeRow_L_gk (K : ℕ) {R : ChowlaRegime} {M : �
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
   -- ⟦the two comparisons the free block affords⟧
   have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    have hnat : B + s ≤ 2 * A + 4 := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
   have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
   have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
   have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
   have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
@@ -4697,10 +4688,7 @@ theorem m4_coprimeChiN_of_freeShiftBlock_L_gk (K : ℕ) {R : ChowlaRegime} {M : 
   have hA4 : 4 ≤ A := by omega
   have hB2A : B ≤ 2 * A := by omega
   have hL2A : (L : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : L ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show L ≤ 2 * A by omega)
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
   set Lg := Nat.log 2 L with hLg
   set X : ℕ → ℕ → ℕ → ℝ := fun j t n =>
@@ -7363,15 +7351,9 @@ theorem chiFreeShift_pointwise_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M : 
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
   -- ⟦the two comparisons the free block affords⟧
   have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    have hnat : B + s ≤ 2 * A + 4 := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
   have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
   have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
   have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
   have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * c)
@@ -7577,10 +7559,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock_L {R : ChowlaRegime} {M : ℕ} {F : ℕ
   have hA4 : 4 ≤ A := by omega
   have hB2A : B ≤ 2 * A := by omega
   have hL2A : (L : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : L ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show L ≤ 2 * A by omega)
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
   set Lg := Nat.log 2 L with hLg
   -- ⟦R-P5, THE LENGTH ANTECEDENT PROPAGATED⟧ every dyadic window of the assembly is at most
@@ -8098,15 +8077,9 @@ theorem chiFreeShift_pointwise_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
   -- ⟦the two comparisons the free block affords⟧
   have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    have hnat : B + s ≤ 2 * A + 4 := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
   have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
   have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
   have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
   have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * c)
@@ -8270,10 +8243,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock_L_gk (K : ℕ) {R : ChowlaRegime} {M : 
   have hA4 : 4 ≤ A := by omega
   have hB2A : B ≤ 2 * A := by omega
   have hL2A : (L : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : L ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show L ≤ 2 * A by omega)
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
   set Lg := Nat.log 2 L with hLg
   -- ⟦R-P5, THE LENGTH ANTECEDENT PROPAGATED⟧ every dyadic window of the assembly is at most

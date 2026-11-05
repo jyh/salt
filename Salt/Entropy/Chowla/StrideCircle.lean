@@ -777,7 +777,7 @@ theorem sum_xiEta_translate_le {a b h : ℕ} (ha : 0 < a) (hgcd : Nat.gcd (b + h
 open private windowVal_c_norm_le from Salt.Entropy.Chowla.CircleMethod in
 /-- **F4b-N10 (class C, THE CROWN, CAPPED — THE BODY) — Tao Lemma 3.4 at the class filter, over
 `bigXiAff`, constant `h·(1 + 2·C₀)`, with the cap conjunct: F4a's slot shape.**  The `h`-lane's
-own move (`circle_method_estimate_sq_bounded_h_core`, `HeadPinLeavesH.lean:371-389`): the core's
+own move (`circle_method_estimate_sq_bounded_h_core`; 371–389 when written): the core's
 proof (`CircleMethod.lean:1366-1498`) with the `η`-expansion, the witness pinned in the `refine` and
 the cap discharged by `le_rfl` there — `refine ⟨(h : ℝ) * (1 + 2 * C₀), mul_pos hhR (by
 positivity), le_rfl, ?_⟩; intro eps H _ x1 hx1 hdvd hcard; by_cases hH2 : 2 ≤ H`.  Main regime:

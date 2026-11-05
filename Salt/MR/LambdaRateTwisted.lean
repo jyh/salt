@@ -132,7 +132,7 @@ half of the height range and one twelfth of the conductor range.
 
 `MmuChiRate` is a hypothesis `Prop`, the twisted twin of `Salt.TwinBar.MmuRate`
 (`LambdaRate.lean:58`).  Like `MmuRate` (`Salt.SW.mmuRate_holds`,
-`Salt/SW/MobiusRateClose.lean:1059`), it is now LANDED — the P-5/SHALLOW/MIRROR/CLOSE
+`Salt/SW/MobiusRateClose.lean:1062`), it is now LANDED — the P-5/SHALLOW/MIRROR/CLOSE
 chain discharged it with no hypotheses.  The prose below is the slot's design record;
 it was exactly the port's two obligations from the freeze:
 

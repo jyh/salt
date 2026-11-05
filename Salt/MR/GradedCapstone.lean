@@ -14,7 +14,7 @@ carried there as the hypothesis
 
   `∀ j ∈ ramI …, ∀ t, CaseASocket2 g P Q (1/e) Cb X θ₂₉₃ (kk j) (Mt j) t`.
 
-`CaseASocket.caseASocket2_discharged` (:1059) PROVES that page.  This file is the composition:
+`CaseASocket.caseASocket2_discharged` (:914) PROVES that page.  This file is the composition:
 the same row, byte-for-byte, with the socket binder GONE.
 
 ## The transplant device

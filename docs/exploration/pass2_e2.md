@@ -55,7 +55,7 @@ changes NO truth value anywhere in the chain. Kernel-visible gain of ¬F here: Z
 (`SiegelWalfisz` is a bare-∃K Prop and is already a theorem).
 
 **The single ineffectivity point, located.** The landed discharge routes through
-`siegel_theorem` (Salt/SW/SiegelClose.lean:841-844 — ineffective C(ε), the
+`siegel_theorem` (Salt/SW/SiegelClose.lean:848-851 — ineffective C(ε), the
 Goldfeld-dichotomy exceptional branch fixes an unlocatable (χ₁, β₁)), consumed at
 exactly one call site: `psi1AP_main_bound`, Salt/SW/Fold.lean:167 (ε = 1/(4C));
 Cₛ enters `c5 := min (min cc ct) Cₛ` (Fold.lean:170) and flows into x₀ and K.
@@ -82,8 +82,8 @@ landed: infinitely many p prime with p+2 prime or a product of two primes
 
 **The keystones' exact level/quality demand (grounded call sites).**
 - `psi_BV_of_siegelWalfisz' Salt.SW.siegelWalfisz_holds 11` — polylog saving A = 11
-  at haircut level √x/(log x)^B: Salt/Chen/BVSum.lean:328, HeadlineW2.lean:819 and
-  :893, TwinA1W.lean:637, TwinA2W.lean:721.
+  at haircut level √x/(log x)^B: Salt/Chen/BVSum.lean:328, HeadlineW2.lean:892 and
+  :893, TwinA1W.lean:637, TwinA2W.lean:731.
 - `siegelWalfisz_psiTot ... (A = 1)` — PNT-grade: Salt/Chen/TripleCount.lean:67.
 - `Salt.SW.siegelWalfisz_holds A C` generic: Salt/Chen/BetaSW.lean:217.
 - Windowed bilinear BV terminals: `general_BV_cutoff_sqrtD`
@@ -95,7 +95,7 @@ haircut — ALREADY supplied by the unconditional gate.
 
 **What ¬F buys Chen (META only).** Same as §1: effectivity of every constant that
 currently inherits Cₛ — in particular the operating-point threshold `op_floors`
-(Chen/TheHeadline.lean:55, ∃ x₁ ...) and the error bundle ≤ 1/200 ledger
+(Chen/TheHeadline.lean:65, ∃ x₁ ...) and the error bundle ≤ 1/200 ledger
 (FinLed3 `hL_bundle`, cited in ChenTheorem.lean:17-19) become effective-in-(Q₀,c(Q₀)).
 **No level upgrade**: ¬F's zero-free ball improves the SAVING side (already
 saturated); the LEVEL 1/2 barrier is large-sieve/dispersion-limited, and ¬F supplies

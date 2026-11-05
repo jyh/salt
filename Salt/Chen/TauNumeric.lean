@@ -111,10 +111,19 @@ noncomputable def tauChen (ε : ℝ) : ℕ → ℝ
   | 1 => 3
   | (n + 2) => cf_const (n + 1) ε / (ε * Real.exp 2) + ch_const (n + 1) ε * tauChen ε (n + 1)
 
+/-- `tauChen ε 0 = 0`, by `rfl`: the placeholder `τ₀` (the base does not recurse). The `0` case
+of `tauChen_nonneg`. -/
 @[simp] theorem tauChen_zero (ε : ℝ) : tauChen ε 0 = 0 := rfl
 
+/-- `tauChen ε 1 = 3`, by `rfl`: the `Lemma11.hlevel_one_upper` anchor `τ₁ = 3`, the `htau1` the
+keystones demand. The `1` case of `tauChen_nonneg` and the base of `tauChen_ge_geom`'s
+induction; registered in `Salt/Chen/All.lean`. -/
 @[simp] theorem tauChen_one (ε : ℝ) : tauChen ε 1 = 3 := rfl
 
+/-- The `n + 2` clause of `tauChen` as a rewrite rule, by `rfl`:
+`τ_{n+2} = cf_const (n+1) ε/(ε·e²) + ch_const (n+1) ε·τ_{n+1}`, the equality recursion on the
+window `n ≥ 1`. Rewritten in `tauChen_nonneg`'s step case, in `tauChen_rec` (the window
+recursion the amended keystones would consume) and in `tauChen_double`. -/
 theorem tauChen_succ_succ (ε : ℝ) (n : ℕ) :
     tauChen ε (n + 2)
       = cf_const (n + 1) ε / (ε * Real.exp 2) + ch_const (n + 1) ε * tauChen ε (n + 1) := rfl

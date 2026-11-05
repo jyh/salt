@@ -37,11 +37,11 @@ window in place of the numeral:
 
 ```
 capfloor_floor4                    (S13CapFloor:449)   -> capfloor_floor4_of_pos      (V7A:216)
-s13CapFloor_all_L_gk_sharpT0       (S16ComposeV4:670)  -> §2  _kswin
-s16_capGate_supply_L_gk_sharpT0    (S16ComposeV4:714)  -> §3  _kswin
-s15_crossing_..._khoist_csfree     (V7B:1676)          -> §4  _kswin
-logChowla2_witnessed_..._csfree    (V7B:1721)          -> §5  _kswin
-logChowla2_ineffective_v7          (V7E:74)            -> §6  _ksarm
+s13CapFloor_all_L_gk_sharpT0       (S16ComposeV4:610)  -> §2  _kswin
+s16_capGate_supply_L_gk_sharpT0    (S16ComposeV4:654)  -> §3  _kswin
+s15_crossing_..._khoist_csfree     (V7B:1687)          -> §4  _kswin
+logChowla2_witnessed_..._csfree    (V7B:1733)          -> §5  _kswin
+logChowla2_ineffective_v7          (V7E:76)            -> §6  _ksarm
 ```
 
 The carried form is `log(1/Ks) ≤ 3·log R.Hlo/16` at the three regime-scoped hops (§2–§4) and
@@ -577,7 +577,7 @@ on its own it certifies only that §6 implies THAT TEXT.  This `example` closes 
 is §7's statement, character for character, and its proof term is the landed
 `V7E.logChowla2_ineffective_v7` itself, so the kernel must accept the landed declaration AT the
 restatement's type — i.e. the two types are the same up to defeq.  Any future drift between the
-copy and `V7E:74` — a reordered conjunct, a changed constant, a silently strengthened bound —
+copy and `V7E:76` — a reordered conjunct, a changed constant, a silently strengthened bound —
 fails to elaborate HERE, which is what makes §7's claim self-enforcing rather than a promise. -/
 example (A₀ : ℝ) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ) (Kvt : ℕ → ℕ → ℝ),

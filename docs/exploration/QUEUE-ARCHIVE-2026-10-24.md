@@ -222,7 +222,7 @@
 ## P1 — THE λ-BV CAMPAIGN (commissioned 08/20) + finish-first fill
 
 ⭐⭐ **S-3 — THE b-FREENESS RE-STATEMENT (chartered at council 2026-09-14 ⑩; STAMPED HERE 09-14 19:0x by the 61st helm head, which is the HOME ⑩ named and the stamp h2c asked for).**
-**CHARTER:** the re-statement that EXPORTS b-freeness of the additive constant A — math's ⑥ census found A b-free at every WITNESS and exported by NO statement, so the gap is a RE-STATEMENT, not new mathematics. DRAFTER **h2c** (author of S-1's freeze, whose crown band `TierSBand.lean:574` S-3 consumes), STATEMENT-ONLY, honest label on line one. REFUTER **math** (non-author). CAP: one drafting shift + one refuter pass. ⛔ **NO PROOF ATTEMPT UNTIL THE STATEMENT SURVIVES.**
+**CHARTER:** the re-statement that EXPORTS b-freeness of the additive constant A — math's ⑥ census found A b-free at every WITNESS and exported by NO statement, so the gap is a RE-STATEMENT, not new mathematics. DRAFTER **h2c** (author of S-1's freeze, whose crown band `TierSBand.lean:576` S-3 consumes), STATEMENT-ONLY, honest label on line one. REFUTER **math** (non-author). CAP: one drafting shift + one refuter pass. ⛔ **NO PROOF ATTEMPT UNTIL THE STATEMENT SURVIVES.**
 ✅ **THE CHARTER IS DISCHARGED AND THE STATEMENT SURVIVED.** h2c froze v1 (18:32, `2c28bc6e8`); math ran the NON-AUTHOR refuter pass **pre-registering its kill-checks before reading the freeze** and returned **SURVIVES, NO KILL** (`6cf7f7e60`, desk MV); h2c folded the verdict into **v1.1 @ `d227b5700`** (R1: the BAND `(x₀, ω₀, Hhi₀)` is the load-bearing export — `ε` is a theorem of the landed statement and a per-class `A` is a finite `max` at D10; R2: every pin re-derived by grep at the tree, six moved, eleven exact). **The Lean is UNCHANGED at `74afa591` (`d354601a0bff`), so math's receipt stands over v1.1.**
 ⚖️ **§6's ONE OPUS WAVE: FIRE** — the helm's word, 09-14 19:0x, on h2c's `blocked-on-helm`. The charter's precondition ("until the statement survives") is MET, and the Captain's ⑩ tempo order is explicit: *"we go for the gold, as fast as possible, the field is accelerating, we are in a race"*, with ⑩(c) *"nothing on the twin-prime path waits on a sitting"*. SHAPE, unchanged from the freeze: six names, ~310 lines, mostly class A (U1 ~5 · U2 ~55), **`sorry` replaced IN PLACE, statements BYTE-IDENTICAL** — so a failure is a failure to prove, never a moved goalpost. ONE registered executor; h2c STAYS LIT while it runs (row GE). The executor rewrites U3's `:520-522` docstring slip in U3's own commit.
 ⛔ **AND THE WAVE DOES NOT FIRE FROM `the all-models pool`** — the helm's own migration error, caught before the word: h2c is a FABLE seat, so it was placed by the FABLE pool, and **an OPUS executor it fires draws the ALL-MODELS pool on the same credential**, which on the all-models pool reads **96 = EVERYONE-OFF**. h2c is moved to `the launcher pool` (all-models 69 ✅ · fable-only 54 ✅ — BOTH axes). ⇒ 🔑 ***A SEAT IS PLACED BY THE POOLS ITS EXECUTORS DRAW, NOT BY ITS OWN MODEL.***
@@ -260,7 +260,7 @@
   - **NEXT: road F's next hop is a STATEMENT, and a statement is the Captain's word at a sitting.** Nothing is commissioned past Z; h2c holds on a gate until one is ruled.
 
 ✅ **ROAD F · CANDIDATE U — THE UNIFORM FLAT DOOR — LANDED 2026-09-25 (h2c; PR #183 → merge `2fb62a98` on `main`, half 1 + half 2; math's non-author read CONFIRM — vacuity PROVED as a separate theorem in its own tree, own kernel pair with a planted control).** `Salt/MR/FlatDoorUniform.lean`: `flatDoorUniformW_holds : FlatDoorUniformW` — the L² MRT door with the crown's quantifier `∃ H₀ ∀ R` on the FLAT CLASS (`FlatClassW ε R`: the window's `ε`, the ceiling `log x ≤ (31/ε)·Hhi`, the width law), at every grade `ρ > 0` and every `ε ∈ (0, 1/500]`; landed receipts: U ⇒ W-δ (`nextHopU_zero_level`) and the crown ⇒ U (`nextHopU_of_crown`). ⛔ **CAVEAT FIRST:** U is implied by the crown and is NOT the crown — the residual is every regime OFF the class (`x` above the ceiling; `Hhi` tower-far above `Hlo`), the EM freeze's roads 2/5; no rate; the ε-range stays `(0, 1/500]`; **nothing bears on twin primes.** The freeze and its two addenda are seat-record artifacts, cited by role.
-  - ⚠️ **CANDIDATE E (the ε-range `(1/500, 1/2]`) — PRICED AT THE OBJECT 2026-09-25 AND REFUSED AS A WAVE (h2c).** The U freeze's §6 priced E as *one lemma* (the count ceiling at `ε ≤ 1/2`); at the object the binding spend is elsewhere: the rung-2 head pins the leaves' constants `cD3 = 1/4` (the prime-window mass) and `C = 1 + 4·log 4` (the circle method) and feeds the spine budget the binder `ε ≤ cD3/(16·C)` ≈ **1/419** (`FlatDoorEpsRung2.lean:4779` → `SpineFlat.lean:144–151`, where `C·ε²·H/log H` must sit under a sixteenth of `cD3·ε·H/log H`); the reduce leaf adds `ε ≤ cE/(32·log 4)` ≤ 1/177. **No re-pin reaches past ~1/192; the crown's `ε ≤ 1/2` is a factor ≥ 96 beyond this device.** The widening the device CAN buy (`1/500 → ≤ 1/419`) is ≈ 100 lines and worth nothing toward the crown's axis; the crown's ε-axis needs a NEW budget device — class D, a statement, the Captain's. The price brief is a seat-record artifact, cited by role.
+  - ⚠️ **CANDIDATE E (the ε-range `(1/500, 1/2]`) — PRICED AT THE OBJECT 2026-09-25 AND REFUSED AS A WAVE (h2c).** The U freeze's §6 priced E as *one lemma* (the count ceiling at `ε ≤ 1/2`); at the object the binding spend is elsewhere: the rung-2 head pins the leaves' constants `cD3 = 1/4` (the prime-window mass) and `C = 1 + 4·log 4` (the circle method) and feeds the spine budget the binder `ε ≤ cD3/(16·C)` ≈ **1/419** (`FlatDoorEpsRung2.lean:4781` → `SpineFlat.lean:144–151`, where `C·ε²·H/log H` must sit under a sixteenth of `cD3·ε·H/log H`); the reduce leaf adds `ε ≤ cE/(32·log 4)` ≤ 1/177. **No re-pin reaches past ~1/192; the crown's `ε ≤ 1/2` is a factor ≥ 96 beyond this device.** The widening the device CAN buy (`1/500 → ≤ 1/419`) is ≈ 100 lines and worth nothing toward the crown's axis; the crown's ε-axis needs a NEW budget device — class D, a statement, the Captain's. The price brief is a seat-record artifact, cited by role.
   - **NEXT: road F's next hop is a STATEMENT, and a statement is the Captain's word at a sitting.** U is the last hop the 09:48 order commissioned ("road F's next hop after arm S"); E is parked here with its read; nothing is commissioned past U. ⛔ Caveat unchanged: U is implied by the crown and is NOT the crown; nothing bears on twin primes.
 
 
@@ -739,7 +739,7 @@
    with `13·10^13` left landed at the wider `c` FAILS at `hstep`'s own `nlinarith`, XThread:476's twin — one step before the
    freeze's predicted :482); the exit test §7.1 whole (the six-path diff against `9a2b3053`, the excluding diff EMPTY, the
    minus lines exactly the 27 `sorry`, statements 14/18/2/3 byte-identical to the freeze, both aggregates `EXIT=0`, lint
-   `OK`). Two lines the recipe did not carry, both ABOVE the arm's `theorem` and copied from the landed `XThread.lean:288`
+   `OK`). Two lines the recipe did not carry, both ABOVE the arm's `theorem` and copied from the landed `XThread.lean:290`
    shape: `open private xt_exp25 from Salt.MR.XThread` and `set_option maxHeartbeats 2000000 in`. salt `math/lbv-w2s-beta`
    off `9a2b3053`: `Salt/MR/StrideGradeWalls.lean` (14) · `Salt/MR/StridePairReceiptG.lean` (7 defs + 11) ·
    `Salt/Entropy/Chowla/StrideShellG.lean` (2) · `Salt/MR/StrideGradeReceipt.lean` (3) = **37 declarations, 27 obligations
@@ -913,7 +913,7 @@
    THIS ROW UNDER-STATED BY 6.33×.** The row above says *"no node needs new mathematics"* — still true — but it did
    not record that **the h-lane stops at `h ≤ 157 931` until one numeral moves**, so a reader priced the reach at
    `1202604` when the corpus delivers `157 931`. Measured at the object from both call sites of `capeps_expbound_60`
-   (`Salt/MR/S13CapGateLinearLH.lean:99`): the spend is `log 3072 + 40 + log h = 48.0301 + log h` against a budget of
+   (`Salt/MR/S13CapGateLinearLH.lean:100`): the spend is `log 3072 + 40 + log h = 48.0301 + log h` against a budget of
    `60`, so at `log h ≤ 14` it reads `62.03 > 60` and **fails by 2.03**. ⇒ `max log h = 11.9699`, `h ≤ 157 931`.
    ✅ **IT IS FREE, NOT A BARRIER — the budget needs `62` for `10⁶` and `63` for `⌊e^14⌋`,** and the corpus prices
    the true admissible value at `~7·10¹⁷`, calling the `60` *"an author's convenience rather than a barrier"* **in
@@ -1021,7 +1021,7 @@
    | the Captain's §8 | *"#1 (A)"*; *"math's gate: (A) + 60↦63; the one-declaration probe first"*; (B1) not granted, no setting | the 2026-09-10 council minute, row "math §8, the h-cap fork": *"#1 (A)"* recorded WITH the 60↦63 node; the disposition string verbatim; no (B1) setting anywhere in the minute | ✅ |
    | cost 1 | PR #101 → `086e6f5f`, four twins, `[3 axioms]`, 306/−0 | `gh pr view 101` MERGED 2026-09-09T22:46:05Z; the merge commit is `d3a1413b` and `086e6f5f` is its second parent (the branch head, an ancestor of main); `git diff --numstat d3a1413b^1 d3a1413b` = All.lean 27 · StridePairReceipt 138 · StridePairReceiptG 141 = **+306 −0**; the All.lean block audits `flat_roadExit_generic_h_14` · `flat_door_head_xceil_h_14` · both `_g14` twins, "4 obligations, 4 landed" | ✅ (the cited sha is the LANDED commit; the merge is `d3a1413b`) |
    | cost 8 | PR #108, NINE twins to `flat_capstone_generic_h_14`, 558/−0 | MERGED 2026-09-11T11:22:03Z → `3b047496`; numstat All.lean 40 · S11Arc36 58 · S16ComposeLH 74 · S16FlatTerminalLinear 51 · S16ProducersH 178 · StridePairReceipt 157 = **+558 −0**; the All.lean block audits **9** names, "9 obligations, 9 landed" | ✅ |
-   | 60↦63 | PR #109: `capeps_master_63` · `capeps_expbound_63` · `capeps_row_phi_h_14` · `capeps_row_tail_h_14`, 254/−0; `capeps_bigexp_63` NOT minted | MERGED 2026-09-11T13:05:41Z → `ee5acff9`; numstat All.lean 29 · S13CapGateLinearLH 225 = **+254 −0**; the four declared at `S13CapGateLinearLH.lean:2019 · :2032 · :2053 · :2101`, audited in All.lean, "4 obligations, 4 landed"; `grep -F capeps_bigexp_63 Salt/` → 0 | ✅ |
+   | 60↦63 | PR #109: `capeps_master_63` · `capeps_expbound_63` · `capeps_row_phi_h_14` · `capeps_row_tail_h_14`, 254/−0; `capeps_bigexp_63` NOT minted | MERGED 2026-09-11T13:05:41Z → `ee5acff9`; numstat All.lean 29 · S13CapGateLinearLH 225 = **+254 −0**; the four declared at `S13CapGateLinearLH.lean:2020 · :2032 · :2053 · :2101`, audited in All.lean, "4 obligations, 4 landed"; `grep -F capeps_bigexp_63 Salt/` → 0 | ✅ |
    | this stamp's own landing | #110 | MERGED 2026-09-11T13:26:34Z → `e8a45989` = `origin/main`; `docs/QUEUE.md` **+81 −0**, nothing else | ✅ |
    | `[3 axioms]` on every name | asserted per PR | `#audit_axioms` is a BUILD ERROR naming the offender (`Salt/Tactic/AuditAxioms.lean`); `main` at `e8a45989` builds green (`Lean Action CI` success 13:26:37Z · `Scrub` success) with all three blocks in `Salt/MR/All.lean` ⇒ the kernel receipt is that green build; not re-run here | ✅ |
    | "no consumers" | all thirteen new names | `grep -F` each name across `Salt/` outside `All.lean`: the capstone and the four cap-gate names have **0** hits outside their declaring file; the four names with outside hits (`…_ceiling_kwide_14` · `m4_arith_henv_constPoolH_L_gk_14` · `arc36_of_regime_h_14` · `arc36_of_floor_h_14`) are read ONLY inside the rung's own supplier chain (StridePairReceipt · S16ComposeLH · S16FlatTerminalLinear) | ✅ as "no consumer outside the rung" |
@@ -1189,8 +1189,8 @@
    ⛔ **PLACED AT THE END OF THE LIST, DELIBERATELY, not beside its three family siblings at `:163-165`**
    (`log_chowla_two_shell`, `…_xi`, `…_xi_h` — it alone of the four was ungated): `#audit_axioms`
    ABORTS the remainder of its list on a throw, so a name whose axioms nobody has measured belongs
-   where a failure can mask nothing. *Consumers verified before the edit: `HloExport.lean:362`,
-   `HloExportFlat.lean:196`.*
+   where a failure can mask nothing. *Consumers verified before the edit: `HloExport.lean:363`,
+   `HloExportFlat.lean:197`.*
 
 5b. ✅ **LANDED `c4a1a237` (08/20 16:15, math) — DO NOT DISPATCH.** Name the untwisted λ trophy — one theorem composing
    `LambdaSummatory_of_MmuRate Salt.SW.mmuRate_holds` so the four inline
@@ -1212,7 +1212,7 @@ DIFFERENT theorem). Both registered in `Salt/MR/All.lean` (1710, 2000) ⇒ both 
 **The "34 dependents" figure is NOT disputed — I did not re-measure it.** Independently verified at
 the source by the helm (Sancho, 2026-08-22 14:4x); rows 17l/17m carry the detail. ⛔ **This does NOT prove
 the door.**
-⚠️ **MEASUREMENT STAMP 2026-08-23 02:5x (math) — THE RATIFIED OBJECT LINE ABOVE IS NOT REWRITTEN; THIS IS A STAMP.** The clause's *"⟦THE CLASS PRICING⟧ open — a design question"* **names the wrong open thing, while being right that something is open.** Measured: (i) ⟦THE CLASS PRICING⟧ **as a design question is ANSWERED IN THE KERNEL** — `Salt/MR/M4ClassPrice.lean` (`⟦PART C⟧ — THE CLASS PRICING`) is 1,114 lines, **41 theorems, ZERO `sorry`** ⚠️ *(ERRATUM 2026-08-25, D-1 pricing wave: this stamp said **42**. It is **41**, and the 42 was NEVER right — it is a GREP ARTIFACT. `grep -cE '^(theorem|lemma)'` returns 42 because **line 553 is PROSE inside a docstring** beginning at column 0 with `lemma's \`hslack\`, at ...`. `grep -cE '^theorem '` returns 41. The file has not changed since `1da25df5` (2026-07-31), so this was a miscount on 08/23, not drift. Reproduced and verified at the bytes by the wave AND independently at the helm.)*, **39 of its 52 declared names registered** in `Salt/MR/All.lean` ⚠️ *(ERRATUM same pass: the **11** was a count of the STRING `M4ClassPrice` in All.lean — 10 prose lines + 1 import — not name registrations. The 13 unregistered are 5 arithmetic helpers and the 8 `_gk` twins. ⛔ And registration licenses **≤ the 3-axiom whitelist**, NOT `= [3 axioms]`: no doc states an axiom count for any name here.)*, 3 importers, and its own header states it *"lands the second, ⟦THE CLASS PRICING⟧, in the shape the residue design v2 froze — at depth 1, with no induction."* (ii) **BUT THE RESIDUE PREDICATE IS UNPRODUCED IN BOTH LANES.** Full-tree census of `M4RowMeanSq_L`: **11 occurrences — 2 defs (`:991`, `_gk :1029`), 2 binders (`:1392`, `:1422`), 1 arrow-antecedent (`:3434`), 6 prose — and NO PRODUCER**, confirming this seat's own earlier row at `MRTPropA3.lean:890`. Same census on the **unprimed** `M4RowMeanSq` / `M4RowMeanSqUnphased`: **also no producer** (1 binder-site, 0 conclusions / 0, 0). ⛔ **SO THERE IS NO LANDED TEMPLATE TO PORT ACROSS — the L lane is not "the unprimed lane's work, re-indexed."** ⛔ `M4ClassPrice` mentions `M4RowMeanSq_L` **ZERO times**; it serves the unprimed residue, and the L lane reaches its machinery only through the socket exit `m4_sievedDoorSq_of_classMeanSq_L` (`M4RowLinear.lean:3186`). ⇒ **THE PRECISE OPEN OBJECT: a producer for `M4RowMeanSq_L` — a per-block mean-square bound on the PHASED sieved short sum over the door ladder** (`M4RowLinear.lean:991`), which its own docstring says should descend from `m4_meansq_per_chi_gen_L`. ⚠️ **NOT CLAIMED: that the descent is routine** — the docstring names two obstructions and this stamp did not price them. ⛔ **AND THE DISCIPLINE NOTE, because it nearly went the other way twice:** this seat twice built toward *"the queue clause is STALE"* and the evidence refused it both times — first the primed/unprimed object test (`M4ClassPrice` serves the unprimed lane), then the producer census (the unprimed lane is unproduced too). **The staleness reading was the one that would have made this seat more right, and it was wrong both times.** The clause stands; only its label is refined. ⇒ Door road unchanged elsewhere: `mrtUniformityXi_of_absWindowBound_twelve` (`M4Window.lean:268`) still concludes the door from ONE `L¹` estimate, arc side unconditional.
+⚠️ **MEASUREMENT STAMP 2026-08-23 02:5x (math) — THE RATIFIED OBJECT LINE ABOVE IS NOT REWRITTEN; THIS IS A STAMP.** The clause's *"⟦THE CLASS PRICING⟧ open — a design question"* **names the wrong open thing, while being right that something is open.** Measured: (i) ⟦THE CLASS PRICING⟧ **as a design question is ANSWERED IN THE KERNEL** — `Salt/MR/M4ClassPrice.lean` (`⟦PART C⟧ — THE CLASS PRICING`) is 1,114 lines, **41 theorems, ZERO `sorry`** ⚠️ *(ERRATUM 2026-08-25, D-1 pricing wave: this stamp said **42**. It is **41**, and the 42 was NEVER right — it is a GREP ARTIFACT. `grep -cE '^(theorem|lemma)'` returns 42 because **line 553 is PROSE inside a docstring** beginning at column 0 with `lemma's \`hslack\`, at ...`. `grep -cE '^theorem '` returns 41. The file has not changed since `1da25df5` (2026-07-31), so this was a miscount on 08/23, not drift. Reproduced and verified at the bytes by the wave AND independently at the helm.)*, **39 of its 52 declared names registered** in `Salt/MR/All.lean` ⚠️ *(ERRATUM same pass: the **11** was a count of the STRING `M4ClassPrice` in All.lean — 10 prose lines + 1 import — not name registrations. The 13 unregistered are 5 arithmetic helpers and the 8 `_gk` twins. ⛔ And registration licenses **≤ the 3-axiom whitelist**, NOT `= [3 axioms]`: no doc states an axiom count for any name here.)*, 3 importers, and its own header states it *"lands the second, ⟦THE CLASS PRICING⟧, in the shape the residue design v2 froze — at depth 1, with no induction."* (ii) **BUT THE RESIDUE PREDICATE IS UNPRODUCED IN BOTH LANES.** Full-tree census of `M4RowMeanSq_L`: **11 occurrences — 2 defs (`:991`, `_gk :1029`), 2 binders (`:1392`, `:1422`), 1 arrow-antecedent (`:3434`), 6 prose — and NO PRODUCER**, confirming this seat's own earlier row at `MRTPropA3.lean:890`. Same census on the **unprimed** `M4RowMeanSq` / `M4RowMeanSqUnphased`: **also no producer** (1 binder-site, 0 conclusions / 0, 0). ⛔ **SO THERE IS NO LANDED TEMPLATE TO PORT ACROSS — the L lane is not "the unprimed lane's work, re-indexed."** ⛔ `M4ClassPrice` mentions `M4RowMeanSq_L` **ZERO times**; it serves the unprimed residue, and the L lane reaches its machinery only through the socket exit `m4_sievedDoorSq_of_classMeanSq_L` (`M4RowLinear.lean:3192`). ⇒ **THE PRECISE OPEN OBJECT: a producer for `M4RowMeanSq_L` — a per-block mean-square bound on the PHASED sieved short sum over the door ladder** (`M4RowLinear.lean:991`), which its own docstring says should descend from `m4_meansq_per_chi_gen_L`. ⚠️ **NOT CLAIMED: that the descent is routine** — the docstring names two obstructions and this stamp did not price them. ⛔ **AND THE DISCIPLINE NOTE, because it nearly went the other way twice:** this seat twice built toward *"the queue clause is STALE"* and the evidence refused it both times — first the primed/unprimed object test (`M4ClassPrice` serves the unprimed lane), then the producer census (the unprimed lane is unproduced too). **The staleness reading was the one that would have made this seat more right, and it was wrong both times.** The clause stands; only its label is refined. ⇒ Door road unchanged elsewhere: `mrtUniformityXi_of_absWindowBound_twelve` (`M4Window.lean:268`) still concludes the door from ONE `L¹` estimate, arc side unconditional.
 ⚠️ **MEASUREMENT STAMP 2026-09-02 18:2x (math, Fable; kernel walk at `980c5c4f`, refuter-passed 3/3, the EM freeze v2) — THE OBJECT LINE IS STALE IN FOUR PLACES AND IS NOT REWRITTEN.** (i) the residue `M4RowMeanSq_L` is the PLAIN route's socket — two consumers, both on that route (`m4_blockMeanSq_of_rowMeanSq_L`, and the route's own terminal `m4_wave_exit_L`, which has ZERO dependents), zero producers, OUT of the class road's cone (`m4_wave_collapsed_L`, "ANALYTIC ARMS — none"), abandoned by design (`M4ClassPrice` ⟦U2⟧); RETIRED as an object, bytes untouched. (ii) ⟦THE CLASS PRICING⟧ is LANDED in the `_L` lane too (`m4_classMeanSq_of_chiMeanSq_L` · `m4_nonCoprime_classMeanSq_N_L` · `m4_classBlockMeanSq_of_rowDatum_L`, 08/01) — behind data-side envelope gates (`han`/`hG1`/`hG2`) whose `H`-uniform inhabitation at `Hhi` is unmeasured (the register's anti-vacuity duty). (iii) the L¹ door has 27 direct / 125 transitive dependents, **0** of them in `logChowla2_v7_rated`'s cone — the live lane walks the L² door `MRTUniformityXiL2`. (iv) the L² door was PROVED inside V7 (`ρ ≤ δ₀`, `ε = 1/500`, `R.Hlo = flatDesignBase A`) and NEVER STATED; **it is NAMED since this stamp: `Salt/MR/DoorReceipt.lean` — `mrtUniformityXiL2_holds_flat` (the L² door at grade `≤ 1/837782` on the flat family, UNCONDITIONAL) and `mrtUniformityXi_holds_flat` (the Tao-faithful L¹ door at `√(1/837782)`, by the bridge `mrtUniformityXi_of_xiL2`)**, each replay tied to its landed hop by kernel receipts (`logChowla2_v7_rated_form`, `logChowla2_v7_rated_of_generic`). The crown object is **`MRTDoorAllGrades`** (the door at EVERY grade, Prop 2.4 for `λ`; a `def`, NO producer — the E-ladder's consumer, so this row and P2 item 9 can re-anchor on a kernel object; that re-anchoring is the helm's). ⇒ A RESIDUE IS PRICED AT THE ROAD THE LIVE HEADLINE WALKS, NOT AT THE ROAD THE ROW WAS WRITTEN ON. Freeze: `2026-09-02-math-EM-door-FREEZE.md` (§11 = v2). **Nothing here bears on twin primes.**
 **Ratification object:** the private record's `2026-08-21-mrt-port-scoping-BRIEF-v2.md` (seat `ce767de6`).
 ⛔ **v1 (`399e40c2`) IS SUPERSEDED — DO NOT SCOPE FROM IT.** Gate passed: 5 independent refuters,
@@ -1895,7 +1895,7 @@ RESURRECTS THEM:**
    `M4ChiSummedFreeRow` (~30 sites/18 files) ← `m4_socket_discharged_bandfree` (`M4SocketDischarge.lean:412`)
    ← `DoorCapErrWS` ← `S13CapGatePerBlock_L_gk` **37 fields, PRODUCED** (`S13CapGateLinear.lean:939`) ← D7.
    ⛔ **`M4RowMeanSq_L`'s famous "NO PRODUCER" IS ON A DIFFERENT ROAD** (the `_L` ladder), and
-   `M4SecondRoad.lean:679` says of the split road: *"⟦WALL-D/F5's `DoorRowCarriedT0` bundle is not reached
+   `M4SecondRoad.lean:703` says of the split road: *"⟦WALL-D/F5's `DoorRowCarriedT0` bundle is not reached
    at all.⟧"* ⇒ ***A READER TAKING "THE ROAD BOTTOMS OUT" UNQUALIFIED PRICES THE SOCKET AT DEPTH 3 WHEN
    THE SPLIT ROAD RUNS AT LEAST 7.*** The honest first gap is `hcap` at **depth 4** — landed supplier,
    **not instantiated** (`All.lean:6032`).
@@ -2223,7 +2223,7 @@ RESURRECTS THEM:**
    chars: a cut would have destroyed a *"no sieve, no cover"* verification and **E3's ENTIRE
    give-up-early instruction.** **Fixed before freezing; restoration verified by positive control.**
    ③ **Wave B's routing of GAP α's core to `M4ChiSummedFreeRow` is FACTUALLY WRONG and struck** — it
-   has five producers (`M4Assembly.lean:407`/`:515`, `S12ConstCompose.lean:398`,
+   has five producers (`M4Assembly.lean:407`/`:515`, `S12ConstCompose.lean:403`,
    `M4SocketDischarge.lean:228`) plus an unconditional witness (`M4ChiSummed.lean:217`), and its
    integrand runs at `doorChiCoeff χ M`, i.e. **sieved**. ④ An unstated ℕ→ℝ cast in E4. ⑤ Tier
    calibration: D8 was rated **C** for structurally the same move these rate **B**.
@@ -2321,7 +2321,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
        arc      bigXiArcTight_twelve      (ExitClose:773)        ✅ UNCONDITIONAL
        Parseval parseval_insert_budget_door (M4ParsevalStone:341) ✅ + terminal twin consumed S16FlatTerminalLinear:198
        ⟦THE WALL⟧ m4_hrowsSum_chi_door_end_L (M4RowLinear:282)   ✅ landed · All.lean:7550 · consumed ×3
-                  (M4RowAssemblyLinear:5067 · :5332 _gk · :6062 _gk_kwide)
+                  (M4RowAssemblyLinear:5049 · :5332 _gk · :6062 _gk_kwide)
        ⟦CLASS PRICING⟧ M4ClassPrice.lean                          ✅ 41 thms, 0 sorry — design question ANSWERED  [42→41 erratum 08/25, see :196]
     ⛔ M4RowMeanSq_L (M4RowLinear:991) — NO PRODUCER; unprimed M4RowMeanSq has none either
 ```
@@ -5294,7 +5294,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    REFUTED BEFORE PROPOSING IT:** re-routing the cushion onto the outer scale so the regime lever
    `g R.Hhi R.ω ≤ R.x` absorbs it — `_g0` sets that lever to zero and the parent
    (`V7Ks.lean:435`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
-   `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:90`) with `ε ≥ 1/500` permits at most
+   `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:92`) with `ε ≥ 1/500` permits at most
    `log g ≤ 15500·H₊`, worth **≈ +24 additive on `loglog X`** against the landed floor
    `loglog X ≥ log H₊ − 14` — a constant factor ≤ ~4, **never a rate.** Full stamp:
    `docs/blueprints/arc.md` §4's R-1 row (and §7 carries the pointer).
@@ -5534,9 +5534,9 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    A MEASUREMENT ONLY — no Lean written, no statement or frozen byte touched, nothing built.
    ⭐⭐ **AND THE ARM THAT STOPPED 08/26 WAS NEVER THE BINDING ONE.** The deferral was correct
    THE DAY IT WAS WRITTEN and its clock ran out on 08/30: R-1 wave 1 landed, and
-   `logChowla2_v7_rated` (`V7Rated.lean:975-987`) carries **no `arcDen`, no `Qm`, no `Kvt`**.
+   `logChowla2_v7_rated` (`V7Rated.lean:976-988`) carries **no `arcDen`, no `Qm`, no `Kvt`**.
    The rated socket's witnesses are hoisted ABOVE `R`, `H` and `q`
-   (`cofkL_capFreeFloor_at_socket_rated_uniform`, `V7Rated.lean:75-79`), so **no instantiation of
+   (`cofkL_capFreeFloor_at_socket_rated_uniform`, `V7Rated.lean:76-80`), so **no instantiation of
    the cap can move them**: on the rated lane the evaluated site is CAP-BLIND and the
    `h`-inflation perturbs the cushion by exactly nothing. *(A structural fact at the bytes. The
    report-not-rule discipline stands: whether the program walks the rated lane is the helm's.)*
@@ -5961,7 +5961,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    `Salt/MR/All.lean` in the same commit. `m4_second_road_L2_H_gk_flatRoot_L_exit` is the
    `h`-twin of `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L` (`:239`): the terminal
    register on the terminal's lane, **in `¬ logChowlaFails h` form**, composed from the landed
-   DOOR-FORM register (`S16FlatTerminalLinearH.lean:1574`) and the new flat head at shift `h`.
+   DOOR-FORM register (`S16FlatTerminalLinearH.lean:1568`) and the new flat head at shift `h`.
    The four scalings and nothing else: the pins `1/(500·h) ≤ ε` and `1/(838400·h²) ≤ δ₀` (under
    which every gate of the landed head takes exactly its `h = 1` value, because `ε·h = 1/500`
    exactly), the cap `C ≤ h·(1 + 2·C₀)`, the count set `bigXiH h` with `K` existential, and the
@@ -6248,7 +6248,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    against a supply `69·e^{2t}`, `t ≥ 10¹⁷`.
    📌 **THE EQUALITY-PIN FAMILY IS OFF THE ROAD (step 0 (ii), three shapes).** The seven
    `R.eps = 1/500` sites (`HDoorSupply:1388` · `HDoorArc:577` · `M4DoorL2:208/:732` ·
-   `HDoorClose:262/:288` · `S16FlatTerminalLinearH:1549`) are heads of the door-`L²` `_500` mint
+   `HDoorClose:262/:288` · `S16FlatTerminalLinearH:1543`) are heads of the door-`L²` `_500` mint
    family whose only consumers are each other; the `h` road reaches `MRTUniformityXiL2H` through
    `m4_doorL2_supply_H_L_gk_khoist`, whose `ε` binder is `∀ (eps : ℚ), 0 < eps` — generic.
    **The STOP CONDITION never fired.** ⚠️ At `ε = 1/(500h)` that family is VACUOUS on the `h`
@@ -6355,7 +6355,7 @@ three days and was carried into a council as an open item before measurement kil
    `linarith`; 82 `maxHeartbeats` overrides in the population; the 24 M site measured 8,034,485 heartbeats.
    **THE CANDIDATE: `explog_num`** (T3's first cut) — closes the four numeral `exp`/`log` forms at integer exponent by
    `exp n = (exp 1)^n` + `exp_one_gt_d9`/`lt_d9` + one `norm_num`; rung (a) is six lemmas (scratch-proven at the three axioms with a
-   planted-sorry control), one line per site. Named proof `s13_smallGradeFits_h_L` (`StrideDoorAllGrades.lean:1545`): lines 175 → 163,
+   planted-sorry control), one line per site. Named proof `s13_smallGradeFits_h_L` (`StrideDoorAllGrades.lean:1536`): lines 175 → 163,
    heartbeats 90,432 → 89,670 (measured at the object). Second candidate, RECORDED for the next pull: `nlinarith?` (certificate
    replay → `linarith [products]`, ~70× per converted call, after unmeasured). Finding that is NOT a tactic: 39 families of copied
    ladder-port proofs, 10,856 redundant lines (30 % of proof lines), bodies byte-identical across sockets — the sibling policy's
@@ -7148,7 +7148,7 @@ numbering is UNVERIFIED.
      mutation control), all `[propext, Classical.choice, Quot.sound]`, `+177/−0`, audit block at
      `Salt/MR/All.lean`. Statements elaborated sorry-bodied BEFORE the executor and byte-identical after.
    * ⛔✅ **S-2 — CLOSED AS SUPPLIED, NOT BUILT.** The form the road consumes is already on `main`:
-     **`mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`Salt/MR/StridePairReceiptG12b.lean:1092`, audited
+     **`mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`Salt/MR/StridePairReceiptG12b.lean:1037`, audited
      `Salt/MR/All.lean:10379`, landed in `e23b45c5` — β W34 H1).** It carries the `ε` pin, `162 ≤ A ∧ A₀ ≤ A`,
      `Ra.a = a`, `Ra.b = b`, the `ρ` cap and the transported grade `a·Zr·ρ + E` with `Zr ≤ 1.02`, `E` bounded.
      ⛔ **The `b`-UNIFORM one-regime form is UNSUPPLIED and UNNEEDED:** every landed supplier is `∀b, ∃R`
@@ -7218,7 +7218,7 @@ numbering is UNVERIFIED.
      (W1 Sonnet 5 · W2 Opus 4 · W3 Sonnet 3 + audit), every name inside budget, **zero flags**.
      ⭐ **THE RESULT WORTH CARRYING OUT OF THIS ROW: the ONE class-C node (hop 3, the tier A → tier B
      estimate) closed in TWO attempts because the freeze's second non-author pass DROVE the estimate
-     rather than judging it** — including the trap that `harm` (`StridePairReceiptG12b.lean:559-561`) is
+     rather than judging it** — including the trap that `harm` (`StridePairReceiptG12b.lean:550-552`) is
      dead at `:630` and must be re-derived at `R`. ⇒ ***a refuter pass that drives an estimate converts a
      class-C node into a transcription.***
      ⚖️ **STATEMENTS BYTE-IDENTICAL TO THE FREEZE, CHECKED AND NOT ASSERTED:** two independent guards
@@ -7243,7 +7243,7 @@ numbering is UNVERIFIED.
      **The substitution to the only `A` the suppliers have — the DESIGN PARAMETER — is FLAGGED, not made
      quietly: if a third `A` was meant, this census has not found it and the charter returns OPEN.**
    * ⭐⭐ **FOR THAT `A`, THE ANSWER IS YES AT THE WITNESS LEVEL.** It is built at
-     `Salt/MR/StridePairReceiptG12b.lean:786` (`flat_v7_generic_h_g12b`) as a `max` of TEN arms. Nine are
+     `Salt/MR/StridePairReceiptG12b.lean:769` (`flat_v7_generic_h_g12b`) as a `max` of TEN arms. Nine are
      closed in `h`, `A₀` and numerals (`cofkR…_b9 h hh hh9` · `s15_crossing…_b9 hh hh9` ·
      `s16_bandLaneWinLH_holdsU h hh` · the pinned `ε = 1/(500·(a·h))` · `β = cD3·ε/(144·log 4)`, `cD3 = 1/4`).
      **The ONE arm that could carry `b` — `Hopq = H₀xi`, from the count gate — is supplied by a LITERAL in
@@ -7336,7 +7336,7 @@ numbering is UNVERIFIED.
    the arm evidence flagged). THE RE-TIER CONDITION IS *NOT* MET — ITEM STAYS AT P3.**
    ```
      δ₀   ∝ ε                                              LINEAR   (helm)
-     K    = 9/2, ε absent   HloExport.lean:159, :176        FREE     (evidence)
+     K    = 9/2, ε absent   HloExport.lean:160, :177        FREE     (evidence)
      Hcap := max 4000000 (max A (4·⌈1/ε⌉₊⁴))                QUARTIC  (evidence)
      A    ⊇ budgetFloor ε (cD3·ε/(144·log 4))                        (helm, traced)
             budgetFloor ε β := ⌈exp(exp(exp(budgetX ε β)))⌉₊   BudgetCore.lean:30

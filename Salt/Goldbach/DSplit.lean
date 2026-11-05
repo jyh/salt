@@ -80,7 +80,7 @@ ONE new file, WITHOUT touching existing files, is not feasible."
 * aggregate: `gold_hSum_at_op` / `gold_hSum_discharged` (Agg / BoxRows3 §3) — the annulus worst-`W`
   fold; consumes a CONSTANT `Price = Ccon_box·Kc·N/L^13` (so any concrete supplier must also carry
   the annulus worst-`W` absorb `boxPriceKerr Kc k' i ≤ Ccon_box·Kc·N/L^13`, the Goldbach mirror of
-  the twin's `boxPriceKerr_worst_le` (`AggSum.lean:135`) — NOT yet wired for the annulus boundary).
+  the twin's `boxPriceKerr_worst_le` (`AggSum.lean:138`) — NOT yet wired for the annulus boundary).
 * terminal: `gold_hBVblocksW_discharge'` (PDiag Part D) — its `hprice`/`hpriceSym`/`hpriceLow` slots
   are still OPEN (never invoked); this file does not fill them.
 * trivial per-modulus AP bound: tractable via `Nat.Ico_filter_modEq_card`

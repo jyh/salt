@@ -123,7 +123,7 @@ them (lint has verified that each file exists and declares that name).
 - `Salt.Chen.no_readable_certificate` — the four-carrier-row no-go. `Salt/Chen/WeightNoGo.lean:82`
 
 **§3 SW / BV / bounded gaps**
-- `Salt.Maynard.bounded_gaps_from_eh_complete` — the Maynard capstone, no residual hypotheses. `Salt/Maynard/Complete.lean:1472`
+- `Salt.Maynard.bounded_gaps_from_eh_complete` — the Maynard capstone, no residual hypotheses. `Salt/Maynard/Complete.lean:1497`
 - `Salt.Twelve.gaps_le_twelve` — explicit bounded gaps ≤ 12 (standing analytic inputs). `Salt/Twelve/GapsUncond.lean:1061`
 - `Salt.BV.bounded_gaps_of_siegelWalfisz` — bounded gaps from Siegel–Walfisz. `Salt/BV/AbelCore.lean:757`
 - `Salt.SW.siegelWalfisz_holds` — Siegel–Walfisz, unconditional. `Salt/SW/Gate.lean:150`
@@ -154,7 +154,7 @@ them (lint has verified that each file exists and declares that name).
 - `Salt.TwinBar.M₂_squeeze` — `1.383 ≤ M₂ ≤ 2·log 2 < 2`. `Salt/TwinBar/Witness.lean:253`
 - `Salt.TwinBar.twinB_min_implies_twins` · `Salt.TwinBar.wall_or_door` — the door and the partition. `Salt/TwinBar/TwinDoor.lean:270`, `:288`
 - `Salt.TwinBar.least_k_theorem` — least `k` with `M_k > 2` is 5. `Salt/TwinBar/LeastK.lean:127`
-- `Salt.SW.mmuRate_holds` — the effective Möbius summatory rate. `Salt/SW/MobiusRateClose.lean:1059`
+- `Salt.SW.mmuRate_holds` — the effective Möbius summatory rate. `Salt/SW/MobiusRateClose.lean:1062`
 - `Salt.TwinBar.parity_wall_unconditional` · `…no_parity_beating_certificate_unconditional` — `Salt/TwinBar/WallUnconditional.lean:31`, `:44`
 - `Salt.TwinBar.Sep.wall_of_indistinguishable` — `Salt/TwinBar/Separation.lean:67`
 - `Salt.Parity.TPC_implies_Z` · `Salt.Parity.sufficient_true_not_parityInv` (THE GAP THEOREM) · `Salt.Parity.Z_implies_TPC` — `Salt/Parity/Z.lean:216`, `:670`, `:687`
@@ -166,7 +166,7 @@ them (lint has verified that each file exists and declares that name).
 - `Salt.MR.halasz_ball_decay` — `Salt/MR/HalaszCore.lean:440`
 - `Salt.MR.thm_a2'` — the S7/S8 summit, Theorem A2′. `Salt/MR/ThmA2Rows.lean:636`
 - `Salt.MR.mmuChiRate_holds_gated` — the χ-twisted `t`-uniform Möbius rate. `Salt/MR/PortClose.lean:157`
-- **THE TOLL** — `towerDropSumFlat_ge_log_ratio` `:419`, `…_le_log_ratio_mul` `:443`, `towerFlat_width_ge` `:585`, `towerFlat_width_le` `:625`, all `Salt/Entropy/Chowla/TowerFlat.lean`; `towerShape_width_ge` `Salt/Entropy/Chowla/TowerShape.lean:362`
+- **THE TOLL** — `towerDropSumFlat_ge_log_ratio` `:419`, `…_le_log_ratio_mul` `:443`, `towerFlat_width_ge` `:585`, `towerFlat_width_le` `:625`, all `Salt/Entropy/Chowla/TowerFlat.lean`; `towerShape_width_ge` `Salt/Entropy/Chowla/TowerShape.lean:403`
 - **THE PEARL** — `Salt.MR.logChowla2_witnessed_scale_flat_L_v2` `Salt/MR/S16FlatFinal.lean:136` (row carries its own 8/02 defect note)
 - `Salt.MR.logChowla2_ineffective_v6` — the terminal, predicate-free, no outer hypotheses. `Salt/MR/RegisterCompose.lean:345`
 - `Salt.MR.cofkR_cofactorSupply_L_gk` — the register, inhabited. `Salt/MR/RegisterRepair.lean:483`

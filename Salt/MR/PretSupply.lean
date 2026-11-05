@@ -458,7 +458,7 @@ theorem supF_pret_majorant_sigma {g : ℕ → ℂ} {y : ℝ} (hg : ∀ p, p.Prim
 
 /-! ## §4 (P3) — the σ-integral: the flat exit
 
-The `halasz_direct` pattern (`HalaszDirect` :245-451), run against the JOINT head's majorant.
+The `halasz_direct` pattern (`HalaszDirect` :321-527), run against the JOINT head's majorant.
 
 **THE DELTA over `halasz_direct_gen` / `halasz_direct_ball`.**  Those exits integrate
 `‖L(ℓ_seam)(1+σ+it)‖/σ` — the BARE L-series at the seam datum, with `M_range` hard-wired into

@@ -101,11 +101,21 @@ noncomputable def flatDesignBase (A : ℝ) : ℕ := ⌈Real.exp (Real.exp (3.2 *
 noncomputable def flatDesignFloor (A : ℝ) : ℕ :=
   max 4000000 (max (flatBase A) (flatDesignBase A))
 
+/-- `4000000 ≤ flatDesignFloor A`: the first arm of the `max` (`le_max_left`). The regime floor
+every builder consumer re-derives for its `Hlo ≥ flatDesignFloor A` (`hHlo_floor`) — in the flat
+builder below and in `StrideFork`, `StrideDoorAllGrades`, `StridePairReceipt`, `TierSBand` and
+`XCeil`. -/
 theorem flatDesignFloor_house (A : ℝ) : 4000000 ≤ flatDesignFloor A := le_max_left _ _
 
+/-- `flatBase A ≤ flatDesignFloor A`: the second arm, through the inner `max` (`le_max_left`,
+then `le_max_right`). Consumed once, in `flatDesignFloor_tower_floor`, where it turns
+`B ≥ flatDesignFloor A` into `flatBase_floor`'s hypothesis. -/
 theorem flatBase_le_flatDesignFloor (A : ℝ) : flatBase A ≤ flatDesignFloor A :=
   le_trans (le_max_left _ _) (le_max_right _ _)
 
+/-- `flatDesignBase A ≤ flatDesignFloor A`: the third arm (`le_max_right` twice). The design-law
+base `⌈e^{e^{3.2·A}}⌉₊` clears at every `B ≥ flatDesignFloor A` — consumed in
+`flatDesignFloor_design` (`hdb`) and by `S16FlatTerminal`. -/
 theorem flatDesignBase_le_flatDesignFloor (A : ℝ) : flatDesignBase A ≤ flatDesignFloor A :=
   le_trans (le_max_right _ _) (le_max_right _ _)
 
@@ -185,21 +195,40 @@ def regimeFlatEnlargeX (R : ChowlaRegimeFlat) {x' : ℕ} (h : R.x ≤ x') : Chow
     hfitF := R.hfitF
     hJconF := R.hJconF }
 
+/-- `(regimeFlatEnlargeX R h).Hlo = R.Hlo` at `h : R.x ≤ x'`, by `rfl` (`@[simp]`): the
+enlargement changes only `x`. One of the six projection simp lemmas of Section 3; no proof in
+`Salt/` names it (the consumers' `simp only` sets pick `_x`, `_Hhi`, `_omega` and `_eps`). -/
 @[simp] lemma regimeFlatEnlargeX_Hlo (R : ChowlaRegimeFlat) {x' : ℕ} (h : R.x ≤ x') :
     (regimeFlatEnlargeX R h).Hlo = R.Hlo := rfl
 
+/-- `(regimeFlatEnlargeX R h).Hhi = R.Hhi` at `h : R.x ≤ x'`, by `rfl` (`@[simp]`). Named in the
+`simp only` sets of the MR door and stride pages — `FlatDoorAllGradesBand`, `FlatDoorEpsRung2`,
+`StrideDoorAllGrades`, `StridePairReceipt`, `TierSBand`, `XCeil`, `XThread` — wherever a regime
+is enlarged to the outer scale and its `Hhi` read back. -/
 @[simp] lemma regimeFlatEnlargeX_Hhi (R : ChowlaRegimeFlat) {x' : ℕ} (h : R.x ≤ x') :
     (regimeFlatEnlargeX R h).Hhi = R.Hhi := rfl
 
+/-- `(regimeFlatEnlargeX R h).eps = R.eps` at `h : R.x ≤ x'`, by `rfl` (`@[simp]`). Named with
+`hdivc` in the stride pages' `simp only` sets (`StrideDoorAllGrades`, `StridePairReceipt`,
+`TierSBand`), where the enlarged regime's `ε` must be the original's. -/
 @[simp] lemma regimeFlatEnlargeX_eps (R : ChowlaRegimeFlat) {x' : ℕ} (h : R.x ≤ x') :
     (regimeFlatEnlargeX R h).eps = R.eps := rfl
 
+/-- `(regimeFlatEnlargeX R h).A = R.A` at `h : R.x ≤ x'`, by `rfl` (`@[simp]`): the flat design
+constant is carried verbatim. No proof in `Salt/` names it. -/
 @[simp] lemma regimeFlatEnlargeX_A (R : ChowlaRegimeFlat) {x' : ℕ} (h : R.x ≤ x') :
     (regimeFlatEnlargeX R h).A = R.A := rfl
 
+/-- `(regimeFlatEnlargeX R h).ω = R.ω` at `h : R.x ≤ x'`, by `rfl` (`@[simp]`). Named in the
+`simp only` sets of `FlatDoorAllGradesBand`, `StrideDoorAllGrades`, `StridePairReceipt`,
+`TierSBand` and `XCeil`, beside `_x` and `_Hhi`. -/
 @[simp] lemma regimeFlatEnlargeX_omega (R : ChowlaRegimeFlat) {x' : ℕ} (h : R.x ≤ x') :
     (regimeFlatEnlargeX R h).ω = R.ω := rfl
 
+/-- `(regimeFlatEnlargeX R h).x = x'` at `h : R.x ≤ x'`, by `rfl` (`@[simp]`): the one field the
+enlargement moves. The most-named of the six — in the `simp only` sets of
+`FlatDoorAllGradesBand`, `FlatDoorEpsRung2`, `StrideDoorAllGrades`, `StridePairReceipt`,
+`TierSBand`, `XCeil` and `XThread`. -/
 @[simp] lemma regimeFlatEnlargeX_x (R : ChowlaRegimeFlat) {x' : ℕ} (h : R.x ≤ x') :
     (regimeFlatEnlargeX R h).x = x' := rfl
 
