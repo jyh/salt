@@ -25,8 +25,8 @@ cite is classed:
   DONE       re-keyed already at HEAD (decided per group of re-keys sharing a cite text, so a hand fix
              beside a stale cite in the same file still reads DONE)
   REPORTED   a cited line has no head line (edited or deleted), a range lost its interior
-             contiguity, the target was RENAMED, or a re-keyed list RUNS ON in a form not read
-             (`:N,K` / `:N/:K`, so moving the read members would leave the rest): NEVER rewritten, read by hand
+             contiguity, the target was RENAMED, or a list RUNS ON in a form not otherwise read
+             (`:N,K` / `:N/:K`) and a member moved, read or unread: NEVER rewritten, read by hand
   PRE-STALE  the cite was past the base file's end already: printed, not this edit's
   AMBIGUOUS  a bare leaf shared by several files: not read, counted
   NESTED     not a class: KEPT or RE-KEYED cites whose line(s) mapped only through a nested
@@ -152,6 +152,35 @@ def refusals(root, base, head, published=PUBLISHED):
 TAIL = r"((?:(?:,\s*:|/)\d+(?:[–-]\d+)?)*)"
 MEMBER = re.compile(r"(,\s*:|/)(\d+)(?:([–-])(\d+))?")
 RUNON = re.compile(r",\s*\d|/:\d")     # a member written without its colon, or `/:K`: not read
+RUNTAIL = re.compile(r"(,\s*|/:)(\d+)(?:([–-])(\d+))?")
+
+
+def runon_kept(m, nb, mt, text, head_text):
+    """A KEPT cite whose list runs on in a form not otherwise read (`X.lean:2,9`, `X.lean:2/:9`): map those
+    members too (paper on salt #627: the read member KEPT hid an unread one that moved). All kept: KEPT. One moved
+    or edited: REPORTED, unless HEAD's citing file already carries the whole list re-keyed and not the old one
+    (DONE, a hand fix). Returns (class, rewritten cite or None, why or None)."""
+    at, parts, old_tail, new_tail, moved = mt.end(), [], "", "", False
+    while True:
+        rm = RUNTAIL.match(text, at)
+        if not rm:
+            break
+        a = int(rm.group(2)); b = int(rm.group(4)) if rm.group(4) else a
+        c, new = span_class(m, nb, a, b, rm.group(3) is not None)
+        if c != "KEPT":
+            moved = True
+        if c in ("KEPT", "RE-KEYED") and new_tail is not None:
+            new_tail += rm.group(1) + str(new[0]) + (f"{rm.group(3)}{new[1]}" if rm.group(3) else "")
+        else:
+            new_tail = None                     # an edited or past-the-end member: no rewrite exists
+        old_tail += rm.group(0)
+        at = rm.end()
+    if not moved:
+        return "KEPT", mt.group(0), None
+    old, new = mt.group(0) + old_tail, (mt.group(0) + new_tail) if new_tail is not None else None
+    if new is not None and head_text is not None and occ_re(new).search(head_text) and not occ_re(old).search(head_text):
+        return "DONE", new, "the unread list members were re-keyed at HEAD"
+    return "REPORTED", None, "the list runs on past the members this tool reads, and one of those moved"
 
 
 
@@ -292,6 +321,13 @@ def census(root, base, head, published=PUBLISHED):
                     continue
                 c, rep = resolve(maps[f], nbase[f], mt)
                 runon = bool(RUNON.match(text, mt.end()))
+                if c == "KEPT" and runon:
+                    c, rep, why = runon_kept(maps[f], nbase[f], mt, text, show(root, head, src))
+                    if why:
+                        cls[c] += 1
+                        rows.append(dict(src=src, target=f, cite=mt.group(0), cls=c, new=rep, why=why,
+                                         nested=False, runon=False))
+                        continue
                 lo = int(mt.group(2)); hi = int(mt.group(4)) if mt.group(4) else lo
                 nest = c in ("KEPT", "RE-KEYED") and any((f, n) in via for n in range(lo, hi + 1))
                 cls[c] += 1
@@ -926,12 +962,17 @@ def self_test():
         open(os.path.join(d, "copies.md"), "w").write("X.lean:6\n" * 7)
         open(os.path.join(d, "runon.md"), "w").write("X.lean:7,9 · X.lean:8/:9 · X.lean:6, 9\n")
         open(os.path.join(d, "runfix.md"), "w").write("X.lean:7,9\n")
+        open(os.path.join(d, "keptrun.md"), "w").write("Y.lean:1,9 · Y.lean:2/:3 · Y.lean:1, 99\n")
+        open(os.path.join(d, "keptfix.md"), "w").write("Y.lean:1,9\n")
+        open(os.path.join(d, "Salt/Y.lean"), "w").write(ten)
         g("add", "-A"); g("commit", "-q", "-m", "base")
         open(os.path.join(d, "Salt/X.lean"), "w").write("p\nq\n" + ten)                 # X moves by two
         open(os.path.join(d, "chain.md"), "w").write("a X.lean:5 b X.lean:5\n")         # 3→5 by hand; 5→7 owed
         open(os.path.join(d, "mixed.md"), "w").write("X.lean:3 · X.lean:4 · X.lean:7\n")  # 1→3 · 2→4 by hand; 7→9 owed
         open(os.path.join(d, "copies.md"), "w").write("X.lean:8\n" * 5 + "X.lean:6\n" * 2)  # 5 of 7 by hand
         open(os.path.join(d, "runfix.md"), "w").write("X.lean:9,11\n")                  # a run-on list fixed by hand
+        open(os.path.join(d, "keptfix.md"), "w").write("Y.lean:1,11\n")                 # a kept head, its unread member fixed by hand
+        open(os.path.join(d, "Salt/Y.lean"), "w").write(ten.replace("line 5\n", "line 5\nr\ns\n"))   # Y: 6.. move by two
         g("commit", "-q", "-am", "edit")
         _, rs, _ = census(d, "HEAD~1", "HEAD")
         per = lambda src: [(r["cite"], r["cls"]) for r in rs if r["src"] == src]
@@ -944,6 +985,11 @@ def self_test():
         check("a list that runs on (`:7,9`, `:8/:9`, `:6, 9`) is REPORTED, never a clean RE-KEYED",
               sorted(per("runon.md")) == [("X.lean:6", "REPORTED"), ("X.lean:7", "REPORTED"), ("X.lean:8", "REPORTED")])
         check("... and one already fixed by hand reads DONE", per("runfix.md") == [("X.lean:7", "DONE")])
+        check("a run-on list whose READ member is kept but an unread one moved is REPORTED (paper on #627)",
+              [c for k, c in per("keptrun.md") if k == "Y.lean:1"][:1] == ["REPORTED"] and ("Y.lean:2", "KEPT") in per("keptrun.md"))
+        check("... an unread member past the end is REPORTED too, never KEPT",
+              [c for k, c in per("keptrun.md") if k == "Y.lean:1"] == ["REPORTED", "REPORTED"])
+        check("... and one whose unread member was re-keyed by hand reads DONE", per("keptfix.md") == [("Y.lean:1", "DONE")])
         apply(d, "HEAD~1", "HEAD", rs)
         check("--apply rewrites the owed cite beside the hand fixes, and nothing else",
               open(os.path.join(d, "mixed.md")).read() == "X.lean:3 · X.lean:4 · X.lean:9\n"
