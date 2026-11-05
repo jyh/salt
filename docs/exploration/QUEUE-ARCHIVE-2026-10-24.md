@@ -2300,7 +2300,7 @@ RESURRECTS THEM:**
     CircleMethod:675 · CircleMethod:907 · CircleMethod:1239 (FATAL 1's cited site) · HeadPinLeaves:663
   PER-INDEX AND SOUND — the index bound is an EXPLICIT case hypothesis
     HBudget:386   by_cases hbd : H ≤ j + p → dif_neg (show ¬ j+p < H by omega)
-    HBudget:1107  by_cases hbd : H ≤ j + p → dif_neg (Nat.not_lt.mpr hbd)
+    HBudget:1128  by_cases hbd : H ≤ j + p → dif_neg (Nat.not_lt.mpr hbd)
   UNPRICED — reaches dif_neg through `rw [hb]; simp only`, different shape
     CircleMethod:534
 ```
@@ -4474,7 +4474,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
       epsh_gate_implies_epssq_h  (the c-ceiling rider, HBudget.lean:450)   ⛔ NO AUDIT LINE
     ```
     🔑 ***A COUNT WOULD HAVE READ "33/34" AND I WOULD HAVE MOVED ON. THE NAMED SET IS WHAT FOUND IT.***
-    *The rider landed at 12:5x, was USED at `HBudget.lean:1475`, and nothing checked its axioms until
+    *The rider landed at 12:5x, was USED at `HBudget.lean:1496`, and nothing checked its axioms until
     01:4x.*
     ⛔ **AND THE NEAR-MISS IS THE DOCSTRING-AS-DECLARATION CLASS AGAIN.** A bare-name grep DOES find
     `epsh_gate_implies_epssq_h` in `Salt/Entropy/All.lean:967` — **but that is PROSE, a docstring
@@ -5293,7 +5293,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    IT IS NOT SLACK, IT IS AN EXPONENT.*** ⛔ **AND THE ATTRACTIVE WRONG ANSWER, TESTED AND
    REFUTED BEFORE PROPOSING IT:** re-routing the cushion onto the outer scale so the regime lever
    `g R.Hhi R.ω ≤ R.x` absorbs it — `_g0` sets that lever to zero and the parent
-   (`V7Ks.lean:435`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
+   (`V7Ks.lean:429`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
    `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:92`) with `ε ≥ 1/500` permits at most
    `log g ≤ 15500·H₊`, worth **≈ +24 additive on `loglog X`** against the landed floor
    `loglog X ≥ log H₊ − 14` — a constant factor ≤ ~4, **never a rate.** Full stamp:
@@ -5867,7 +5867,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    CORRECTION 2: DO NOT ROUTE N5's COUNT THROUGH `bigXiH_bounded`.** It goes via the opaque
    `bigXi_bounded` and **silently regresses `KXi` by ~316 bits while dragging in a second existential
    floor the `_500` mint never had.** ⇒ **Compose instead:** `bigXiH_card_le_mul h hh (1/500) H`
-   (`ShiftFork.lean:238`) with `bigXi_bounded_500`'s THIRD conjunct (`GoldbachEnergyN0.lean:868-871`),
+   (`ShiftFork.lean:238`) with `bigXi_bounded_500`'s THIRD conjunct (`GoldbachEnergyN0.lean:871-874`),
    giving the h-explicit witness
    `KXi := (h:ℝ) * (32·Klcm·((2:ℝ)^35)² / ((1/500:ℚ):ℝ)^10)` — constant exposed, `2 ≤ H` discharged
    from `two_le_regime_Hlo` as at `M4DoorL2.lean:224-226`. **Four lines, class A.**
@@ -6094,7 +6094,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    executor head, A/B tier throughout, in parallel with H2b).** New module
    `Salt/MR/S13CapGateLinearLH.lean`, **62 names, every theorem `[3 axioms]`**; audit block in
    `Salt/MR/All.lean`; no landed declaration edited. Deliverable
-   `s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:959`'s `∃`-prefix and pins with `hblk` at
+   `s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:954`'s `∃`-prefix and pins with `hblk` at
    `SocketBaseLH h`, concluding `S16CofactorSupply_LH_gk h → S16BaseScaleCap96_LH_gk h →
    S15CrossingBound_LH_gk h`.
    ⛔ **WHY SIXTY AND NOT THIRTY.** `s16_capGate_supply_L_gk` and `s13CapGrid_all_L_gk` derive
