@@ -67,7 +67,9 @@ baseline row, so it needs a record (read by hand).
 LIMITS, printed with every verdict: only `.lean` targets; cites in other forms (a list member
 without its colon or slash, `:N, M`; "line N" prose) are not read; a cite written fresh at HEAD is not checked; content equality is per
 line, so a cite of a line whose MEANING moved while its text stayed is KEPT or RE-KEYED as text;
-a line that changed only by this tool's own re-key of a cite inside it counts as unchanged (NESTED).
+a line that changed only by this tool's own re-key of a cite inside it counts as unchanged (NESTED);
+a cite already WRONG at BASE moves with its line and stays wrong: the map is faithful to the number,
+never to the declaration the sentence names (h2c's hand read of salt #636).
 """
 from __future__ import annotations
 
@@ -98,7 +100,9 @@ LIMITS = ("LIMITS: .lean targets only; forms Leaf.lean:N and :N–M / :N-M, and 
           "a slash list Leaf.lean:N/K too; a list member without its colon or slash and prose line numbers are not read; this tool's own source is not read (its cites are quotations); a cite written fresh at HEAD is not checked; content equality is "
           "per line (a line whose meaning moved but whose text did not is not caught); a record is re-hashed only "
           "under --apply (a re-key made by hand, read DONE, leaves its records to the prose check); a line "
-          "changed only by this tool's re-key of a cite inside it counts as unchanged (NESTED).")
+          "changed only by this tool's re-key of a cite inside it counts as unchanged (NESTED); a cite already WRONG at "
+          "BASE moves with its line and stays wrong (the map is faithful to the number, not to the name the sentence "
+          "gives: salt #636, QUEUE-ARCHIVE :5654 and :1586).")
 
 
 LAST = {}                     # the last --apply's record verdicts (read by the self-test)
@@ -1246,6 +1250,8 @@ def self_test():
               and "IF it means Salt/X/T.lean: RE-KEYED" in buf.getvalue())
         apply(d, "HEAD~1", "HEAD", ra)
         check("... --apply never rewrites it", open(os.path.join(d, "amb.md")).read().startswith("moves T.lean:5 "))
+    check("LIMITS says a cite already wrong at BASE stays wrong (printed with every verdict)",
+          "already WRONG at BASE moves with its line and stays wrong" in LIMITS)
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
