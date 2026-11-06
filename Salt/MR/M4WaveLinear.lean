@@ -372,11 +372,7 @@ theorem m4_nonCoprime_classMeanSq_L {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ �
     -- ⟦the modulus gates⟧
     have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
     have h2q : 2 * q ≤ H := by
-      have hR : ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hdA : Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hdA2 : 2 * Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / Nat.gcd r q :=
@@ -494,11 +490,7 @@ theorem m4_nonCoprime_classMeanSq_N_L {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ 
     -- ⟦the modulus gates⟧
     have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
     have h2q : 2 * q ≤ H := by
-      have hR : ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hdA : Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hdA2 : 2 * Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / Nat.gcd r q :=
@@ -635,11 +627,7 @@ theorem m4_nonCoprime_classMeanSq_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} 
     -- ⟦the modulus gates⟧
     have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
     have h2q : 2 * q ≤ H := by
-      have hR : ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hdA : Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hdA2 : 2 * Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / Nat.gcd r q :=
@@ -747,11 +735,7 @@ theorem m4_nonCoprime_classMeanSq_N_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ
     -- ⟦the modulus gates⟧
     have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
     have h2q : 2 * q ≤ H := by
-      have hR : ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hdA : Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hdA2 : 2 * Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / Nat.gcd r q :=
