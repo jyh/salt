@@ -1392,9 +1392,7 @@ theorem m4_blockMeanSq_of_rowMeanSq_L {R : ChowlaRegime} {M k : ℕ} {MS : ℕ �
     (hrow : M4RowMeanSq_L R M k MS) :
     M4BlockMeanSq_L R M k (fun H => 2 * MS H) := by
   intro H hlo hhi α harc i hik
-  have hH0 : 0 < H := by
-    have := R.hHlo_floor
-    omega
+  have hH0 : 0 < H := by have := R.hHlo_floor; omega
   have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
   have hfit := doorLadder_fit R.x H i
   -- ⟦the coverage datum is free at the block's own seam index set⟧
@@ -1422,9 +1420,7 @@ theorem m4_blockMeanSq_of_rowMeanSq_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ
     (hrow : M4RowMeanSq_L_gk K R M k MS) :
     M4BlockMeanSq_L_gk K R M k (fun H => 2 * MS H) := by
   intro H hlo hhi α harc i hik
-  have hH0 : 0 < H := by
-    have := R.hHlo_floor
-    omega
+  have hH0 : 0 < H := by have := R.hHlo_floor; omega
   have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
   have hfit := doorLadder_fit R.x H i
   -- ⟦the coverage datum is free at the block's own seam index set⟧
