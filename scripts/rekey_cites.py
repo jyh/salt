@@ -8,9 +8,11 @@
 BASE and HEAD are git revisions (HEAD defaults to `HEAD`). For every `.lean` file the diff
 BASE..HEAD MODIFIES (not adds or deletes), the base and head texts are aligned with
 `difflib.SequenceMatcher`. A base line inside an `equal` block maps to its head line, and its text
-is the same by construction; a base line in a replaced or deleted block has NO head line, except a
-NESTED re-key: a line whose head text is its base text with this tool's own re-keys applied to the
-cites inside it maps as equal (h2c, salt #567: a re-key inside a cited range never poisons the range).
+is the same by construction; a base line in a replaced or deleted block has NO head line, except
+(a) a MOVED line, whose text occurs exactly once in each file and is at least MOVE_MIN (16) characters
+stripped: it maps to that one head line (salt #629: a body moved above its docstring), and (b) a NESTED
+re-key: a line whose head text is its base text with this tool's own re-keys applied to the cites inside
+it maps as equal (h2c, salt #567: a re-key inside a cited range never poisons the range).
 
 A cite is read from each tracked text file AS IT IS AT BASE, in the forms `Leaf.lean:N`,
 `Leaf.lean:N–M` and `Leaf.lean:N-M`, with or without a directory prefix, and a LIST `Leaf.lean:N, :K–L, :J`
@@ -28,6 +30,11 @@ cite is classed:
              contiguity, the target was RENAMED, or a list RUNS ON in a form not otherwise read
              (`:N,K` / `:N/:K`) and a member moved, read or unread: NEVER rewritten, read by hand
   PRE-STALE  the cite was past the base file's end already: printed, not this edit's
+  AMBIGUOUS  a bare leaf shared by several files: not read, counted
+  NESTED     not a class: KEPT or RE-KEYED cites whose line(s) mapped only through a nested
+             re-key, counted beside the verdict
+  PINNED     the citing file says its citations refer to an ARCHIVED snapshot (a published
+             manuscript): its cites are correct against the archive, so never re-keyed; counted
 
 A DECLARED PIN (the helm's XF ruling, 2026-11-05) pins part of any text page: a row of `.rekey-pins` names the page, a
 phrase that must occur exactly once in it (whitespace-flattened), a scope (`page`, `below` the phrase, or the
@@ -35,15 +42,6 @@ phrase that must occur exactly once in it (whitespace-flattened), a scope (`page
 the tree it was read at). A cite in scope is PINNED and never re-keyed. A row whose phrase is absent or repeated is a
 BROKEN pin, and every cite on that page is REPORTED until the page is read again. Rows are read at BASE, so a pin
 added in the same diff does not yet bind.
-
-A line maps by the diff's `equal` blocks, and also when it MOVED: a line the diff leaves unmatched (a
-body moved above its docstring, salt #629) maps to its head line when its text occurs exactly once in each
-file and is at least MOVE_MIN (16) characters stripped. A duplicated, short or edited line has no head line.
-  AMBIGUOUS  a bare leaf shared by several files: not read, counted
-  NESTED     not a class: KEPT or RE-KEYED cites whose line(s) mapped only through a nested
-             re-key, counted beside the verdict
-  PINNED     the citing file says its citations refer to an ARCHIVED snapshot (a published
-             manuscript): its cites are correct against the archive, so never re-keyed; counted
 
 --apply edits a citing file only where the same cite text is present at HEAD, in its base order;
 a citing file whose cite occurrences differ between BASE and HEAD is REPORTED for that cite.
@@ -124,7 +122,9 @@ def line_map(old: str, new: str) -> dict:
     """base line -> head line. Lines in an `equal` block map by position. A line the differ left unmatched
     (a MOVE: salt #629, a body moved above its docstring, so the docstring sat on opposite sides of the matched
     body) maps to its head line when its text occurs EXACTLY ONCE in each file, is at least MOVE_MIN characters
-    stripped, and that head line is not already mapped. A duplicated, short or edited line still has no head line."""
+    stripped. A duplicated, short or edited line still has no head line. (The `taken` test is a belt, not a
+    condition: a text unique in both files cannot have its head twin inside an equal block, whose base line would
+    be a second copy; paper's read of salt #633.)"""
     a, b = old.split("\n"), new.split("\n")
     m = {}
     for tag, i1, i2, j1, _ in difflib.SequenceMatcher(None, a, b, autojunk=False).get_opcodes():
@@ -1172,6 +1172,21 @@ def self_test():
               open(os.path.join(d, "docs/whole.md")).read() == pages["docs/whole.md"]
               and "| a | P.lean:6 |\n| b | P.lean:7 |" in open(os.path.join(d, "docs/block.md")).read()
               and "pre P.lean:6\n" in open(os.path.join(d, "docs/block.md")).read())
+    # ... and the rows are read at BASE: a pin row ADDED in the same diff as the move does not bind yet (paper's
+    # read of salt #634: no arm held this, and a mutant reading the rows at HEAD survived).
+    with tempfile.TemporaryDirectory() as d:
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt")); os.makedirs(os.path.join(d, "docs"))
+        open(os.path.join(d, "Salt/P.lean"), "w").write("".join(f"line {i}\n" for i in range(1, 11)))
+        open(os.path.join(d, "docs/late.md"), "w").write("Repo numbers are as of HEAD = abc.\nsee P.lean:5\n")
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        open(os.path.join(d, "Salt/P.lean"), "w").write("new top\n" + "".join(f"line {i}\n" for i in range(1, 11)))
+        open(os.path.join(d, PINS_FILE), "w").write("docs/late.md\tRepo numbers are as of HEAD = abc.\tpage\tnumbers\n")
+        g("add", "-A"); g("commit", "-q", "-m", "head")
+        _, rl, _ = census(d, "HEAD~1", "HEAD")
+        check("a pin row ADDED in the same diff does not bind yet (rows are read at BASE)",
+              [(r["cite"], r["cls"]) for r in rl if r["src"] == "docs/late.md"] == [("P.lean:5", "RE-KEYED")])
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
