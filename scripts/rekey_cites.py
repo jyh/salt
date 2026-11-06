@@ -376,6 +376,10 @@ def census(root, base, head, published=PUBLISHED):
     via = nested_map(root, base, head, edited, maps, nbase, leaves)
     rows, cls = [], Counter()
     pins = declared_pins(root, base)
+    for page in sorted(set(pins) - set(files)):          # a row for a page BASE lacks is stale: say so (h2c on #634)
+        cls["REPORTED"] += 1
+        rows.append(dict(src=PINS_FILE, target=page, cite=page, cls="REPORTED", new=None,
+                         why="declared pin's page is absent at BASE: fix or remove the row", nested=False, runon=False))
     for src in files:
         if src in GENERATED or src == SELF or not src.endswith(TEXT):
             continue
@@ -1187,6 +1191,12 @@ def self_test():
         _, rl, _ = census(d, "HEAD~1", "HEAD")
         check("a pin row ADDED in the same diff does not bind yet (rows are read at BASE)",
               [(r["cite"], r["cls"]) for r in rl if r["src"] == "docs/late.md"] == [("P.lean:5", "RE-KEYED")])
+        open(os.path.join(d, PINS_FILE), "a").write("docs/gone.md\tany phrase\tpage\tnumbers\n")
+        g("commit", "-q", "-am", "a row for a page the tree lacks")
+        g("commit", "-q", "--allow-empty", "-m", "noop2")
+        _, ro, co = census(d, "HEAD~1", "HEAD")
+        check("a pin row whose page is ABSENT at BASE is REPORTED, never silent (h2c on #634)",
+              [(r["src"], r["cite"], r["cls"]) for r in ro if r["src"] == PINS_FILE] == [(PINS_FILE, "docs/gone.md", "REPORTED")])
         import io, contextlib
         g("commit", "-q", "--allow-empty", "-m", "noop")
         open(os.path.join(d, "Salt/P.lean"), "w").write("top 2\nnew top\n" + "".join(f"line {i}\n" for i in range(1, 11)))
