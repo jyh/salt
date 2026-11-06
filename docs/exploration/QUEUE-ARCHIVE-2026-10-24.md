@@ -1583,7 +1583,7 @@ RESURRECTS THEM:**
     CHECKER CANNOT TELL YOU WHICH ONE YOU MEANT.***
     ⚠️ **AND DO NOT DERIVE THESE FLOORS FROM THE v2 BRIEF'S §4 TABLE** — it writes the middle term
     `(loglog h)²/(log h)` UNSQUARED; the landed `MRTThmA1.lean:126` is SQUARED, as are
-    `MRTPortA1:95` and `MRTPropA3:3877` (all three checked). The squared form is the EASIER one to
+    `MRTPortA1:95` and `MRTPropA3:4020` (all three checked). The squared form is the EASIER one to
     clear, so a brief-derived floor is too HIGH, not too low — *the direction is a second question
     from the transcription, and it has its own answer.*
     📌 **STILL OPEN on this row:** the third threshold's WIRING (the `W ≤ H^{1/250}` arm's ε-free
