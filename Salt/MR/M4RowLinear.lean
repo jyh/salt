@@ -1957,10 +1957,7 @@ theorem m4_chiShiftBlock_of_dyadicRow_L_gk (K : ℕ) {R : ChowlaRegime} {M k : �
     have : 0 < A + s := by omega
     exact_mod_cast this
   have hBfit : (((B + s : ℕ)) : ℝ) + ((2 ^ j : ℕ) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s + 2 ^ j ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s + 2 ^ j ≤ 2 * (A + s) by omega)
   have hcov : ∀ n ∈ Finset.Ioc (A + s) (B + s), ∀ m ∈ Finset.Ioc n (n + 2 ^ j),
       m ∉ seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ) → doorChiCoeff_L_gk K χ M m = 0 :=
     hcov_of_seamS0 (doorChiCoeff_L_gk K χ M) (A := A + s) (B := B + s) (N := 2 * (A + s))
@@ -2005,10 +2002,7 @@ theorem m4_chiShiftBlock_of_dyadicRow_L_gk (K : ℕ) {R : ChowlaRegime} {M k : �
     rw [← Finset.mul_sum]
     exact mul_le_mul_of_nonneg_left hladder (Nat.cast_nonneg _)
   have hBs : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : B + s ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A by omega)
   have hfinal : ∑ n ∈ Finset.Ioc (A + s) (B + s),
       ‖absWindowSum (doorChiCoeff_L_gk K χ M) (2 ^ j) n 0‖ ^ 2
       ≤ 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) := by
@@ -2043,10 +2037,7 @@ theorem m4_chiShiftBlock_of_dyadicRow_L {R : ChowlaRegime} {M k : ℕ} {MS : ℕ
     have : 0 < A + s := by omega
     exact_mod_cast this
   have hBfit : (((B + s : ℕ)) : ℝ) + ((2 ^ j : ℕ) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s + 2 ^ j ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s + 2 ^ j ≤ 2 * (A + s) by omega)
   have hcov : ∀ n ∈ Finset.Ioc (A + s) (B + s), ∀ m ∈ Finset.Ioc n (n + 2 ^ j),
       m ∉ seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ) → doorChiCoeff_L χ M m = 0 :=
     hcov_of_seamS0 (doorChiCoeff_L χ M) (A := A + s) (B := B + s) (N := 2 * (A + s))
@@ -2091,10 +2082,7 @@ theorem m4_chiShiftBlock_of_dyadicRow_L {R : ChowlaRegime} {M k : ℕ} {MS : ℕ
     rw [← Finset.mul_sum]
     exact mul_le_mul_of_nonneg_left hladder (Nat.cast_nonneg _)
   have hBs : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : B + s ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A by omega)
   have hfinal : ∑ n ∈ Finset.Ioc (A + s) (B + s),
       ‖absWindowSum (doorChiCoeff_L χ M) (2 ^ j) n 0‖ ^ 2
       ≤ 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) := by
