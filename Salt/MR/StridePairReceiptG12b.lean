@@ -447,9 +447,7 @@ theorem flat_capstone_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h :
     exact gate6_rhoH_of_j0_floor hh hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloorL M)
       (Fan := fun H => 2 * RSanDoorRhoH ρ h H)
       (Ftr := fun H => 2 * ((h : ℝ) ^ 7 * rStrWitness H)) hH0
@@ -482,7 +480,7 @@ theorem flat_capstone_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h :
 `log a ≤ 9` from `8103 ≤ exp 9` via `2.7182818283^9` (margin 0.084) and `haR : a ≤ 8103`, the four
 budget sites `harm'` · `hgb'` · `hsum` · `hprod` moving `− 7 ↦ − 9` together against
 `xceil_arm_split_mul_h_b9`'s `+ 9` (freeze §5.1 (e)); the slot-3 shift `+ 28 ↦ + 36` at
-`s13_g2_jfloor_of_MSelect'_L_gk_shift36` (freeze §3.1 rule 2, `StridePairReceiptG:656,659`), read by
+`s13_g2_jfloor_of_MSelect'_L_gk_shift36` (freeze §3.1 rule 2, `StridePairReceiptG:654,657`), read by
 `s13_g2_jfloor_of_MSelect'_L_gk_h_b9`; and the eleven cap-dependent suppliers at their `_b9` /
 `_g12b` twins (`s15ArmH_log_le_g12b` reads the `2^12` pin). -/
 theorem flat_conditional_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
@@ -937,7 +935,7 @@ HONEST LABEL.  Replays only; nothing here proves a new estimate, and nothing bea
 primes. -/
 
 /-- **⟦THE CHAIN AT `2^12`⟧ — `flat_chain_generic_h_g12b`.** `flat_chain_generic_h_g`
-(StridePairReceiptG.lean:974) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
+(StridePairReceiptG.lean:972) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
 replays (census band 4 row 23: SUPPLIER-SWAP, no numerals). -/
 theorem flat_chain_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) (Xi : XiFamily)
     (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →

@@ -38,8 +38,8 @@ window in place of the numeral:
 
 ```
 capfloor_floor4                    (S13CapFloor:449)   -> capfloor_floor4_of_pos      (V7A:216)
-s13CapFloor_all_L_gk_sharpT0       (S16ComposeV4:611)  -> §2  _kswin
-s16_capGate_supply_L_gk_sharpT0    (S16ComposeV4:655)  -> §3  _kswin
+s13CapFloor_all_L_gk_sharpT0       (S16ComposeV4:609)  -> §2  _kswin
+s16_capGate_supply_L_gk_sharpT0    (S16ComposeV4:653)  -> §3  _kswin
 s15_crossing_..._khoist_csfree     (V7B:1691)          -> §4  _kswin
 logChowla2_witnessed_..._csfree    (V7B:1730)          -> §5  _kswin
 logChowla2_ineffective_v7          (V7E:76)            -> §6  _ksarm
