@@ -97,11 +97,11 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 
 ## (1) THE TRUE VARIANCE — the kill
 
-The bridge variable is `X_p = fBridgeG eps H v p (residueProj p ω)` (`fBridgeG`'s definition; cited by line as 88–92 when written, 2026-07-31), `ω` uniform on `ZMod P_H`, CRT-independent across `p` (`Concentration.lean:218`). `G_p(v)(r) = ∑_{j<H, gate} v_j·v_{j+p}` — the gate is rewritten by FBridge's own proof (`FBridge.lean:180-184`, `hset`) to `(j : ZMod p) = -r-1`, i.e. `G_p` sums the CONSECUTIVE PRODUCTS along the arithmetic chain `{j ≡ c (p)} ∩ [0,H)`, of length `m ≈ H/p`.
+The bridge variable is `X_p = fBridgeG eps H v p (residueProj p ω)` (`fBridgeG`'s definition; cited by line as 88–92 when written, 2026-07-31), `ω` uniform on `ZMod P_H`, CRT-independent across `p` (`Concentration.lean:218`). `G_p(v)(r) = ∑_{j<H, gate} v_j·v_{j+p}` — the gate is rewritten by FBridge's own proof (`FBridge.lean:189-193`, `hset`) to `(j : ZMod p) = -r-1`, i.e. `G_p` sums the CONSECUTIVE PRODUCTS along the arithmetic chain `{j ≡ c (p)} ∩ [0,H)`, of length `m ≈ H/p`.
 
 **Those products are freely prescribable per chain, and the chains are disjoint.** Setting `v` constant along even-indexed chains and alternating along odd-indexed chains makes every product `+1` resp. `−1`, so `G_p(r) = ±(m−1)`:
 - kernel (`P1.lean:39-43`, `decide`): at `p=5, H=100` the five class values are `19, −19, 19, −19, 19`; `vadv` is `±1`-valued (`P1.lean:33`, an admissible `hv : ∀ i, |v i| ≤ 1` pattern).
-- `σ² = 19² − (19/5)² = 346.56` vs the Hoeffding half-width `(H/p+1)² = 441` (`fBridge_varTerm`, `FBridge.lean:198-206`): **78.6 % of the range-square** (`P1.lean:46,53`). General form `(m−1)²(1−1/p²)` → `(m+1)²` as `m→∞`; kernel: `≥ (m+1)²/2` for `m ≥ 11, p ≥ 2` (`P1.lean:62`).
+- `σ² = 19² − (19/5)² = 346.56` vs the Hoeffding half-width `(H/p+1)² = 441` (`fBridge_varTerm`, `FBridge.lean:207-215`): **78.6 % of the range-square** (`P1.lean:46,53`). General form `(m−1)²(1−1/p²)` → `(m+1)²` as `m→∞`; kernel: `≥ (m+1)²/2` for `m ≥ 11, p ≥ 2` (`P1.lean:62`).
 
 ⟹ **any uniform-in-`v` variance bound below the range-square is FALSE.** For the worst-case admissible pattern Bennett *is* Hoeffding, gain `O(1)`.
 
@@ -109,7 +109,7 @@ The most that survives is the **first-moment (averaging) floor**, which is a *lo
 
 **S1's `σ_p² ≈ H²/p³` (scope report (5), "honest hazard") is the whole error.** On the window (`ε²H/2 < p ≤ ε²H`, `PrimeWindow.lean:26`) `H²/p³ ≤ 8/(ε⁶H)`, i.e. it is below the honest floor by the factor `ε⁴H/32` — kernel (`P3.lean:66`). `log(ε⁴H/32) ≍ log H`: S1 bought its `log H` cancellation with exactly that missing factor.
 
-**Corpus supply: NONE.** `grep -i variance Salt/Entropy/` returns only "invariance". The corpus has the first moment (`fBridgeG_mean`, `FBridge.lean:337`) and the box bound (`fBridgeG_abs_le`, `FBridge.lean:160`) and nothing else on `G_p`. The `MeanSq` pages are `Salt/MR/*` (M4 rows/door, a different object).
+**Corpus supply: NONE.** `grep -i variance Salt/Entropy/` returns only "invariance". The corpus has the first moment (`fBridgeG_mean`, `FBridge.lean:346`) and the box bound (`fBridgeG_abs_le`, `FBridge.lean:169`) and nothing else on `G_p`. The `MeanSq` pages are `Salt/MR/*` (M4 rows/door, a different object).
 
 ## (2) MATHLIB — nothing, and the sibling must be built
 

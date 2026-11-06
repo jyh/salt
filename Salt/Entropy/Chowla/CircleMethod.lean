@@ -1126,7 +1126,7 @@ private lemma periodization_total_h {eps : ℚ} {H : ℕ} [NeZero H] (h : ℕ) {
         rw [Finset.sum_const, Finset.card_univ, Fintype.card_coe, nsmul_eq_mul, mul_comm]
 
 /-- **The Fourier split at the twisted frequency** — the `fourier_split` clone
-(`CircleMethod.lean:378-437`) whose exponential sum sits at `−((h·ξ).val)/H` and whose
+(`CircleMethod.lean:423-482`) whose exponential sum sits at `−((h·ξ).val)/H` and whose
 major arm is summed over `bigXiTwistFilter h eps H`.
 
 It is a CLONE and not an instance: `fourier_split` pins its frequency at the untwisted

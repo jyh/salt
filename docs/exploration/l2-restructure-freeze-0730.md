@@ -8,7 +8,7 @@ PASS the seven-stone wave fires under the standing grant.*
 ## The finding (one paragraph)
 
 K = |Ξ| (the major-arc frequency count), not energy. The door pays a
-full δ per frequency only because CircleMethod.lean:403 discards the
+full δ per frequency only because CircleMethod.lean:448 discards the
 second Fourier factor at its trivial bound H. Keeping it (real Φ:
 ‖dft(−ξ)‖ = ‖dft ξ‖ — a strict tightening of a landed estimate) turns
 the major arm into (2C₀/log H)·Σ_{ξ∈Ξ}‖dftΦξ‖², and the sieve-insert
