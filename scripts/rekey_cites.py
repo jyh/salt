@@ -41,7 +41,8 @@ cite is classed:
              (`X.lean:5025 · :5332 _gk`), whose line this edit moved or edited: PRINTED with the number the cite's
              file maps it to (or `read by hand`), never rewritten, never counted stale, because a member can mean a
              file named earlier. Read through the cite's line and up to 3 more lines of its paragraph, stopping at
-             the next named cite; one HEAD already carries re-keyed after the same words is not printed (h2c on
+             the next named cite (a capitalised `Word :N` only when Word is a tracked `.lean` stem); one HEAD already
+             carries re-keyed after the same words is not printed (h2c on
              salt #636, #641, #642: the cycle moved the head cite and left these, so a sentence cited one file at
              two trees). The author keys each by the name beside it or by its writing commit.
 
@@ -110,7 +111,7 @@ LIMITS = ("LIMITS: .lean targets only; forms Leaf.lean:N and :N–M / :N-M, and 
           "changed only by this tool's re-key of a cite inside it counts as unchanged (NESTED); a cite already WRONG at "
           "BASE moves with its line and stays wrong (the map is faithful to the number, not to the name the sentence "
           "gives: salt #636, QUEUE-ARCHIVE :5654 and :1586); a BARE member is printed, never rewritten, read only through "
-          "its paragraph's next 3 lines and only up to the next named cite, and mapped on the cite's file whatever "
+          "its paragraph's next 3 lines and only up to the next named cite (a `Word :N` stops it only when Word is a .lean stem), and mapped on the cite's file whatever "
           "file the sentence means (a member already wrong at BASE prints its moved line, not the name's: salt #641, "
           ":6062 _gk_kwide).")
 
@@ -282,11 +283,11 @@ def runon_kept(m, nb, mt, text, head_text):
 # to BARE_LINES more lines (to a blank line), stopping at the next NAMED cite (a member after it is that cite's).
 BARE = re.compile(r"(?<![A-Za-z0-9_.\]/:])(:)(\d+)(?:([–-])(\d+))?(?![0-9:])")
 NAMED_ANY = re.compile(r"(?:[A-Za-z0-9_./-]+\.(?:lean|md|txt|py|tex|tsv|json|yml|sh)`?:\d)"
-                       r"|(?:(?<![A-Za-z0-9_])[A-Z][A-Za-z0-9_]*`? ?:\d)")
+                       r"|(?:(?<![A-Za-z0-9_])([A-Z][A-Za-z0-9_]*)`? ?:\d)")   # group 1: a SHORT-form word, kept only if a stem
 BARE_LINES = 3
 
 
-def bare_members(m, nb, text, mt, head_text, rep):
+def bare_members(m, nb, text, mt, head_text, rep, stems=None):
     """[(member text, class, new member or None)] for the bare `:N` members after cite match `mt` whose line this
     edit moved or edited (RE-KEYED / REPORTED by `span_class`). KEPT and past-the-end members are not listed, and
     neither is a member HEAD already carries re-keyed after the same words (a hand fix: DONE)."""
@@ -299,9 +300,10 @@ def bare_members(m, nb, text, mt, head_text, rep):
             break
         end = nxt
     region = text[mt.end():end]
-    stop = NAMED_ANY.search(region)
-    if stop:
-        region = region[:stop.start()]
+    for stop in NAMED_ANY.finditer(region):         # a capitalised word stops the region only if it is a `.lean` stem
+        if stop.group(1) is None or stems is None or stop.group(1) in stems:   # (paper on #643: `Lemma :15`, `C :17`)
+            region = region[:stop.start()]
+            break
     moved = []                                      # (match, class, new member or None)
     for bm in BARE.finditer(region):
         a = int(bm.group(2)); b = int(bm.group(4)) if bm.group(4) else a
@@ -434,6 +436,7 @@ def census(root, base, head, published=PUBLISHED):
                if ln[:1] in ("R", "D") and ln.split("\t")[1].endswith(".lean")]   # renamed or deleted
     files = git(root, "ls-tree", "-r", "--name-only", base).split()
     leaves = Counter(f.rsplit("/", 1)[-1] for f in files if f.endswith(".lean"))
+    stems = {lf[:-len(".lean")] for lf in leaves}
     maps = {f: line_map(show(root, base, f), show(root, head, f)) for f in edited}
     nbase = {f: show(root, base, f).count("\n") + 1 for f in edited + renamed}
     for f in renamed:
@@ -503,7 +506,7 @@ def census(root, base, head, published=PUBLISHED):
                 if c in ("KEPT", "RE-KEYED"):
                     if head_src is None:
                         head_src = show(root, head, src)
-                    for mem, mc, newm in bare_members(maps[f], nbase[f], text, mt, head_src, rep):
+                    for mem, mc, newm in bare_members(maps[f], nbase[f], text, mt, head_src, rep, stems):
                         cls["BARE"] += 1
                         bare.append(dict(src=src, target=f, cite=f"{mt.group(0)} … {mem}", cls="BARE", new=newm,
                                          why=f"a bare member after the cite; IF it means {f}: {mc}; key it by its name "
@@ -1337,7 +1340,9 @@ def self_test():
             "and on the next line :19\n"                     # a member one line down, same paragraph
             "\n"
             "R.lean:3 alone; :20 later\n"                    # a KEPT head after a blank line; :20 on its own line
-            "at 10:08 the clock R.lean:4\n"                  # a clock is never a member (digits before the colon)
+            "R.lean:4 at 10:15 later\n"                      # a clock is never a member (row 15 moves; paper's LOW 1)
+            "R.lean:6 the Lemma :16 here\n"                  # a capitalised word that is no stem does not stop the read
+            "R.lean:7 then Q :1 and :17 more\n"              # ... a short-form STEM does: :17 is Q's
             "R.lean:5 · :1 (above the edit)\n")             # a member that did not move: not listed
         g("add", "-A"); g("commit", "-q", "-m", "base")
         t = tgt.split("\n"); t = t[:10] + ["ins a", "ins b"] + t[10:]     # two lines inserted after row 10
@@ -1351,8 +1356,12 @@ def self_test():
         check("BARE: a member after another named cite is not this cite's", not any(k.endswith(":17") for k in bare))
         check("BARE: a member on the next line of the paragraph is read", bare.get("R.lean:14 … :19", {}).get("new") == ":21")
         check("BARE: a member on the cite's own line after `;` is read", bare.get("R.lean:3 … :20", {}).get("new") == ":22")
-        check("BARE: a clock and an unmoved member are not listed", not any(k.endswith((":08", ":1")) for k in bare))
-        check("BARE: exactly the five", cls["BARE"] == 5 == len(bare))
+        check("BARE: a clock after a cite is never a member (its minute's row moved)",
+              not any(k.startswith("R.lean:4 ") for k in bare))
+        check("BARE: an unmoved member is not listed", "R.lean:5 … :1" not in bare)
+        check("BARE: a word that is no stem (`Lemma :16`) does not stop the read", bare.get("R.lean:6 … :16", {}).get("new") == ":18")
+        check("BARE: ... while a stem in the short form (`Q :1`) does", not any(k.startswith("R.lean:7 ") for k in bare))
+        check("BARE: exactly the six", cls["BARE"] == 6 == len(bare))
         check("BARE: never rewritten, never counted stale (--apply's rc reads the cites alone)",
               main_rc(d, ["HEAD~1", "HEAD"], applied=True) == 0)
         n = open(os.path.join(d, "n.md")).read()
