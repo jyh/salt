@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.M4CapWireLinear
+import Salt.MR.SocketFrame
 
 /-!
 # ⟦LADDER-L G3 §6⟧ — `M4ClosureRepair` at the LINEAR anchor (`M4ClosureRepairLinear`)
@@ -233,9 +234,7 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_join_cc_L {R : ChowlaRegime} {M : �
     (M₀ := M₀) (ε := ε) (π₀ := π₀) hM ?_ hrows hband (fun A => le_trans zero_le_one (hone A))
     henv
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_cc_L (hbase H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (hone (A + s)) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
 
@@ -430,9 +429,7 @@ theorem m4_closure_fuse_end'_L :
     ?_ hbase hcap hband decayPool_nonneg
     (m4_arith_henv_rho_pool_L decayPool_nonneg harith (price_at_decayPool_socket_L harith))
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_cc_decay_L (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
 
@@ -488,9 +485,7 @@ theorem m4_closure_fuse_zero'_L :
     ?_ hbase hcap hband decayPool_nonneg
     (m4_arith_henv_rho_pool_L decayPool_nonneg harith (price_at_decayPool_socket_L harith))
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_cc_decay_L (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
 
@@ -620,9 +615,7 @@ theorem m4_closure_fuse_end'_const_L :
     hM hb1 hc1 ?_ hbase hcap hband (fun _ => constPool_nonneg hρ)
     (m4_arith_henv_constPool_L hρ harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_L (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (heps293 H L q j A s hb)
     (hband4096 H L q j A s hb)
@@ -682,9 +675,7 @@ theorem m4_closure_fuse_zero'_const_L :
     cU bU t₁ hM hb1 hc1 ?_ hbase hcap hband (fun _ => constPool_nonneg hρ)
     (m4_arith_henv_constPool_L hρ harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_L (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (heps293 H L q j A s hb)
     (hband4096 H L q j A s hb)
@@ -854,9 +845,7 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_join_cc_L_gk (K : ℕ) {R : ChowlaRe
     (M₀ := M₀) (ε := ε) (π₀ := π₀) hM ?_ hrows hband
     (fun A => le_trans zero_le_one (hone A)) henv
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_cc_L_gk K (hbase H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (hone (A + s)) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
 
@@ -1043,9 +1032,7 @@ theorem m4_closure_fuse_end'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     ?_ hbase hcap hband decayPool_nonneg
     (m4_arith_henv_rho_pool_L_gk K decayPool_nonneg harith (price_at_decayPool_socket_L harith))
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_cc_decay_L_gk K (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
 
@@ -1100,9 +1087,7 @@ theorem m4_closure_fuse_zero'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     ?_ hbase hcap hband decayPool_nonneg
     (m4_arith_henv_rho_pool_L_gk K decayPool_nonneg harith (price_at_decayPool_socket_L harith))
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_cc_decay_L_gk K (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
 
@@ -1197,9 +1182,7 @@ theorem m4_closure_fuse_end'_const_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     hM hb1 hc1 ?_ hbase hcap hband (fun _ => constPool_nonneg hρ)
     (m4_arith_henv_constPool_L_gk K hρ harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_L_gk K (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (heps293 H L q j A s hb)
     (hband4096 H L q j A s hb)
@@ -1258,9 +1241,7 @@ theorem m4_closure_fuse_zero'_const_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     cU bU t₁ hM hb1 hc1 ?_ hbase hcap hband (fun _ => constPool_nonneg hρ)
     (m4_arith_henv_constPool_L_gk K hρ harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_L_gk K (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (heps293 H L q j A s hb)
     (hband4096 H L q j A s hb)
@@ -1424,9 +1405,7 @@ theorem m4_closure_fuse_end'_L_gk_kwide (K : ℕ) :
     ?_ hbase hcap hband decayPool_nonneg
     (m4_arith_henv_rho_pool_L_gk K decayPool_nonneg harith (price_at_decayPool_socket_L harith))
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_cc_decay_L_gk K (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
 
@@ -1484,9 +1463,7 @@ theorem m4_closure_fuse_zero'_L_gk_kwide (K : ℕ) :
     ?_ hbase hcap hband decayPool_nonneg
     (m4_arith_henv_rho_pool_L_gk K decayPool_nonneg harith (price_at_decayPool_socket_L harith))
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_cc_decay_L_gk K (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
 
@@ -1547,9 +1524,7 @@ theorem m4_closure_fuse_end'_const_L_gk_kwide (K : ℕ) :
     hM hKw hb1 hc1 ?_ hbase hcap hband (fun _ => constPool_nonneg hρ)
     (m4_arith_henv_constPool_L_gk K hρ harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_L_gk K (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (heps293 H L q j A s hb)
     (hband4096 H L q j A s hb)
@@ -1611,9 +1586,7 @@ theorem m4_closure_fuse_zero'_const_L_gk_kwide (K : ℕ) :
     cU bU t₁ hM hKw hb1 hc1 ?_ hbase hcap hband (fun _ => constPool_nonneg hρ)
     (m4_arith_henv_constPool_L_gk K hρ harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_L_gk K (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (heps293 H L q j A s hb)
     (hband4096 H L q j A s hb)
