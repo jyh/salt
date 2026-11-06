@@ -625,13 +625,13 @@ def report(edited, rows, cls, applied):
           f"RE-KEYED {cls['RE-KEYED']}{' (applied)' if applied else ''} · REPORTED {cls['REPORTED']} · "
           f"PRE-STALE (past the base file's end, not this edit's) {cls['PRE-STALE']} · "
           f"AMBIGUOUS (bare leaf, not read) {cls['AMBIGUOUS']} · "
-          f"PINNED (an archived manuscript's, never re-keyed) {cls['PINNED']} · "
+          f"PINNED (an archived manuscript's or a declared pin's, never re-keyed) {cls['PINNED']} · "
           f"NESTED (KEPT/RE-KEYED through a nested re-key) {cls['NESTED']}")
     pins = sorted({(r["src"], r["road"]) for r in rows if r["cls"] == "PINNED"})
     if pins:
         print(f"  PINNED files ({len(pins)}): " + ", ".join(f"{s} [{w}]" for s, w in pins))
     for s, w in pins:
-        if w != "declared":
+        if w not in ("declared",) and not w.startswith("declared pin"):   # a .rekey-pins row IS a declaration
             print(f"  UNDECLARED {s}: pinned by its {w}; add it to PUBLISHED")
     for r in rows:
         if r["cls"] in ("RE-KEYED", "REPORTED", "PRE-STALE"):
@@ -1187,6 +1187,17 @@ def self_test():
         _, rl, _ = census(d, "HEAD~1", "HEAD")
         check("a pin row ADDED in the same diff does not bind yet (rows are read at BASE)",
               [(r["cite"], r["cls"]) for r in rl if r["src"] == "docs/late.md"] == [("P.lean:5", "RE-KEYED")])
+        import io, contextlib
+        g("commit", "-q", "--allow-empty", "-m", "noop")
+        open(os.path.join(d, "Salt/P.lean"), "w").write("top 2\nnew top\n" + "".join(f"line {i}\n" for i in range(1, 11)))
+        g("commit", "-q", "-am", "move again")
+        e2, r2, c2 = census(d, "HEAD~1", "HEAD")
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            report(e2, r2, c2, False)
+        check("... and once the row is at BASE the cite is PINNED, and the report never calls a declared pin UNDECLARED",
+              [(r["cite"], r["cls"]) for r in r2 if r["src"] == "docs/late.md"] == [("P.lean:5", "PINNED")]
+              and "UNDECLARED" not in buf.getvalue() and "declared pin (numbers)" in buf.getvalue())
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
