@@ -28,6 +28,10 @@ cite is classed:
              contiguity, the target was RENAMED, or a list RUNS ON in a form not otherwise read
              (`:N,K` / `:N/:K`) and a member moved, read or unread: NEVER rewritten, read by hand
   PRE-STALE  the cite was past the base file's end already: printed, not this edit's
+
+A line maps by the diff's `equal` blocks, and also when it MOVED: a line the diff leaves unmatched (a
+body moved above its docstring, salt #629) maps to its head line when its text occurs exactly once in each
+file and is at least MOVE_MIN (16) characters stripped. A duplicated, short or edited line has no head line.
   AMBIGUOUS  a bare leaf shared by several files: not read, counted
   NESTED     not a class: KEPT or RE-KEYED cites whose line(s) mapped only through a nested
              re-key, counted beside the verdict
@@ -105,13 +109,28 @@ def show(root, rev, path):
     return r.stdout if r.returncode == 0 else None
 
 
+MOVE_MIN = 16           # a moved line maps only if its stripped text is at least this long
+
+
 def line_map(old: str, new: str) -> dict:
+    """base line -> head line. Lines in an `equal` block map by position. A line the differ left unmatched
+    (a MOVE: salt #629, a body moved above its docstring, so the docstring sat on opposite sides of the matched
+    body) maps to its head line when its text occurs EXACTLY ONCE in each file, is at least MOVE_MIN characters
+    stripped, and that head line is not already mapped. A duplicated, short or edited line still has no head line."""
     a, b = old.split("\n"), new.split("\n")
     m = {}
     for tag, i1, i2, j1, _ in difflib.SequenceMatcher(None, a, b, autojunk=False).get_opcodes():
         if tag == "equal":
             for k in range(i2 - i1):
                 m[i1 + k + 1] = j1 + k + 1
+    ca, cb = Counter(a), Counter(b)
+    where = {t: j + 1 for j, t in enumerate(b) if cb[t] == 1}
+    taken = set(m.values())
+    for i, t in enumerate(a):
+        if i + 1 in m or len(t.strip()) < MOVE_MIN or ca[t] != 1 or t not in where or where[t] in taken:
+            continue
+        m[i + 1] = where[t]
+        taken.add(where[t])
     return m
 
 
@@ -997,6 +1016,39 @@ def self_test():
         check("... and the chain's owed link, whose text the hand fix doubled, is REPORTED, never guessed",
               open(os.path.join(d, "chain.md")).read() == "a X.lean:5 b X.lean:5\n"
               and [r["cls"] for r in rs if r["src"] == "chain.md" and r["cite"] == "X.lean:5"] == ["REPORTED"])
+    # A MOVED line (salt #629): a body moved ABOVE its docstring makes the differ match the body and leave
+    # the docstring on opposite sides, so the cited docstring line had no head line though its bytes were there.
+    # A line whose text is unique in both files and not trivial maps to its one head line; a duplicated or a
+    # trivial line, and an edited one, still have none.
+    with tempfile.TemporaryDirectory() as d:
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt"))
+        body = [f"  step {k} of the shared body, long enough" for k in range(1, 7)]
+        base = (["header line of the file"] + ["/-- the docstring's own unique sentence -/", "  rfl", "theorem moved_t :", "  a duplicated line, long enough to move",
+                 "  a duplicated line, long enough to move"] + body + ["  ·", "tail line of the file", "the edited line, before"])
+        head = (["header line of the file", "lemma new_core :"] + body
+                + ["/-- the docstring's own unique sentence -/", "  rfl", "theorem moved_t :", "  a duplicated line, long enough to move", "  exact new_core",
+                   "  a duplicated line, long enough to move", "  ·", "tail line of the file", "the edited line, AFTER"])
+        open(os.path.join(d, "Salt/M.lean"), "w").write("\n".join(base) + "\n")
+        open(os.path.join(d, "mv.md"), "w").write("doc M.lean:2 · thm M.lean:4 · short M.lean:3 · dup M.lean:5 · ed M.lean:15\n")
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        open(os.path.join(d, "Salt/M.lean"), "w").write("\n".join(head) + "\n")
+        g("commit", "-q", "-am", "head")
+        _, rm, _ = census(d, "HEAD~1", "HEAD")
+        bym = {r["cite"]: r for r in rm if r["src"] == "mv.md"}
+        check("a MOVED line unique in both files is RE-KEYED to its one head line (salt #629)",
+              bym["M.lean:2"]["cls"] == "RE-KEYED" and bym["M.lean:2"]["new"] == "M.lean:9"
+              and bym["M.lean:4"]["new"] == "M.lean:11")
+        check("... a moved line whose text occurs twice stays REPORTED, never guessed",
+              bym["M.lean:5"]["cls"] == "REPORTED")
+        check("... a moved SHORT line (unique, under MOVE_MIN) stays REPORTED", bym["M.lean:3"]["cls"] == "REPORTED")
+        check("... an EDITED line stays REPORTED (paper LOW 1 stands)", bym["M.lean:15"]["cls"] == "REPORTED")
+        open(os.path.join(d, "mv.md"), "w").write("doc M.lean:9 · thm M.lean:11 · short M.lean:3 · dup M.lean:5 · ed M.lean:15\n")
+        g("commit", "-q", "-am", "hand")
+        _, rm2, _ = census(d, "HEAD~2", "HEAD")
+        check("... and the moved cite fixed by hand at HEAD reads DONE",
+              sorted(r["cls"] for r in rm2 if r["src"] == "mv.md" and r["cite"] in ("M.lean:2", "M.lean:4")) == ["DONE", "DONE"])
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
