@@ -78,9 +78,7 @@ theorem m4_doorSq_of_rowMeanSqLam {R : ChowlaRegime} {k : ℕ} {MS : ℕ → ℝ
                   / ∑ n ∈ Finset.Ioc (R.x / R.ω) R.x, (n : ℝ)⁻¹
 := by
   intro H _ hlo hhi α harc
-  have hH0 : 0 < H := by
-    have := R.hHlo_floor
-    omega
+  have hH0 : 0 < H := by have := R.hHlo_floor; omega
   have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
   have hZ0 : (0 : ℝ) < ∑ n ∈ Finset.Ioc (R.x / R.ω) R.x, (n : ℝ)⁻¹ :=
     door_norm_pos R.hx R.hω
