@@ -411,9 +411,7 @@ theorem flat_capstone_uniform_win_ceiling_h (h : ℕ) (hh : 0 < h) (hh7 : Real.l
     exact gate6_rhoH_of_j0_floor hh hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloorL M)
       (Fan := fun H => 2 * RSanDoorRhoH ρ h H)
       (Ftr := fun H => 2 * ((h : ℝ) ^ 7 * rStrWitness H)) hH0
@@ -870,9 +868,7 @@ theorem flat_capstone_uniform_win_ceiling_kwide_h (h : ℕ) (hh : 0 < h)
     exact gate6_rhoH_of_j0_floor hh hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloorL M)
       (Fan := fun H => 2 * RSanDoorRhoH ρ h H)
       (Ftr := fun H => 2 * ((h : ℝ) ^ 7 * rStrWitness H)) hH0
@@ -1411,9 +1407,7 @@ theorem flat_capstone_uniform_win_ceiling_kwide_khoist_h (h : ℕ) (hh : 0 < h)
     exact gate6_rhoH_of_j0_floor hh hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloorL M)
       (Fan := fun H => 2 * RSanDoorRhoH ρ h H)
       (Ftr := fun H => 2 * ((h : ℝ) ^ 7 * rStrWitness H)) hH0
@@ -1983,9 +1977,7 @@ theorem flat_capstone_uniform_win_xceil_kwide_khoist_h (h : ℕ) (hh : 0 < h)
     exact gate6_rhoH_of_j0_floor hh hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloorL M)
       (Fan := fun H => 2 * RSanDoorRhoH ρ h H)
       (Ftr := fun H => 2 * ((h : ℝ) ^ 7 * rStrWitness H)) hH0

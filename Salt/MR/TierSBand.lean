@@ -904,9 +904,7 @@ theorem flat_capstone_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.log
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
     have hlo' : R.Hlo ≤ H := hlo
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloorL M)
       (Fan := fun H => 2 * RSanDoorRhoH ρ h H)
       (Ftr := fun H => 2 * ((h : ℝ) ^ 7 * rStrWitness H)) hH0
