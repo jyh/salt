@@ -11537,7 +11537,7 @@ lesson re-confirmed: house route sketches are hypotheses, not
 verified designs — the license language ("the shape is what's
 frozen, not the method") is what kept this catch non-blocking.
 
-**Catch #249 (SPINE-BUDGET F0: landed terminal residual unsatisfiable at c₀=1; freeze-panel finding, 2026-07-19).** The t/g/hbudget1 residual of `log_chowla_two_final` (SpineFinal.lean:416) and `log_chowla_two_final_xi` (:508) is unsatisfiable as stated: the statements bake c₀ = 1 (the literal `1 * (R.eps)`), and at the landed witnesses C = 1 + 2·C₀ = 1 + 4·log 4 ≈ 6.545 (CircleMethod.lean:586 at C₀ = 2·log 4) vs c₁ = cD3/4 = 1/16 (WindowMertensLower.lean:62), the first LHS term alone exceeds the whole margin for all t, g (shellError strictly positive). Not rescuable by re-proving either producer (honestly cD3 ≲ log 2 while any triangle-inequality C ≥ 1). TowerDischarge.lean:88-89's hedge 'cD3 ≳ 2(C+1)' is resolved FALSE (0.25 vs ≈15.1). Both terminals remain true, landed, and untouched; they are superseded-as-citation by the SPINE-BUDGET head, which discharges t/g/hbudget1 inside the head at c₀ := cD3/(16·C). Confirmed independently by both panel refuters and by judge witness-extraction. No future consumer should attempt the landed ∀t,g block.
+**Catch #249 (SPINE-BUDGET F0: landed terminal residual unsatisfiable at c₀=1; freeze-panel finding, 2026-07-19).** The t/g/hbudget1 residual of `log_chowla_two_final` (SpineFinal.lean:416) and `log_chowla_two_final_xi` (:508) is unsatisfiable as stated: the statements bake c₀ = 1 (the literal `1 * (R.eps)`), and at the landed witnesses C = 1 + 2·C₀ = 1 + 4·log 4 ≈ 6.545 (CircleMethod.lean:664 at C₀ = 2·log 4) vs c₁ = cD3/4 = 1/16 (WindowMertensLower.lean:62), the first LHS term alone exceeds the whole margin for all t, g (shellError strictly positive). Not rescuable by re-proving either producer (honestly cD3 ≲ log 2 while any triangle-inequality C ≥ 1). TowerDischarge.lean:88-89's hedge 'cD3 ≳ 2(C+1)' is resolved FALSE (0.25 vs ≈15.1). Both terminals remain true, landed, and untouched; they are superseded-as-citation by the SPINE-BUDGET head, which discharges t/g/hbudget1 inside the head at c₀ := cD3/(16·C). Confirmed independently by both panel refuters and by judge witness-extraction. No future consumer should attempt the landed ∀t,g block.
 
 **Catch #251 (the hres over-reduction — the L2c freeze's frozen record,
 landed at W3 per the freeze's W3 spec; 2026-07-19).** hb_lemma2/hres =
@@ -16720,11 +16720,11 @@ first-attempt; ZERO deletions.  THE DAY CLOSES with every agent home:
 the ceiling ladder's free rung built, the floor ladder priced, the
 35-bit residual named, and the council slate drawn.
 
-## (2026-07-30 12:41 PDT) DELTA-SCOPE returns — THE 539-BIT GIANT IS ONE BYTE (CircleMethod:403); the L² restructure: b 602 → 64, closing at the FREE ceiling; + EXPOSE-CERT lands (37/37 clean)
+## (2026-07-30 12:41 PDT) DELTA-SCOPE returns — THE 539-BIT GIANT IS ONE BYTE (CircleMethod:448); the L² restructure: b 602 → 64, closing at the FREE ceiling; + EXPOSE-CERT lands (37/37 clean)
 
 **⟦THE FINDING OF THE CAMPAIGN⟧**  K is NOT an energy constant — it is
 |Ξ|, the major-arc frequency COUNT (bigXi eps H); the door pays a full
-δ once per frequency ONLY because CircleMethod.lean:403 throws the
+δ once per frequency ONLY because CircleMethod.lean:448 throws the
 second Fourier factor away at its trivial bound H (one gcongr byte,
 squared through the spine into 1e162).  THE EXCEEDANCE HYPOTHESIS
 REFUTED BY ARITHMETIC (Parseval mass 1 sits 5 orders ABOVE the target;

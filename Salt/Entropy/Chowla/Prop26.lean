@@ -202,7 +202,7 @@ REUSED unchanged — the shift moves only the SECOND factor's window index, `j +
 (wave A's fixed target spelling), and the gate `p ∣ n+j+1` is `h`-free. -/
 
 /-- **STMT2 at shift `h`, structural spine (2a): the pointwise F-bridge unfold.**  The
-`h`-family port of `fBridgeF_liouville_apply` against `fBridgeF_h` (`FBridge.lean:525`).
+`h`-family port of `fBridgeF_liouville_apply` against `fBridgeF_h` (`FBridge.lean:534`).
 For each window prime `p` and each `j < H` the SAME gate `p ∣ n+j+1` selects
 `λ(n+j+1)·(windowVal … (j + p·h))`; the second factor still carries the junk-zero boundary
 convention, now at the shifted index (`λ(n+j+p·h+1)` when `j + p·h < H`, else `0`).
@@ -238,7 +238,7 @@ lemma fBridgeF_h_liouville_apply (h : ℕ) (eps : ℚ) (H n : ℕ) :
 ⚠️ THE OFFSET IS NOT `rfl`-GRADE HERE.  `(p : ℕ) * 1` is STUCK for a variable `p`
 (`Nat.mul` recurses on its SECOND argument), so the two sides differ syntactically and the
 route matters.  This proof takes the CHEAP route, through the landed definitional compat
-`fBridgeF_h_one` (`FBridge.lean:540`), which absorbs the `Nat.mul_one` once at the level of
+`fBridgeF_h_one` (`FBridge.lean:549`), which absorbs the `Nat.mul_one` once at the level of
 `fBridgeG_h` — so no rewrite under the `∑ p ∑ j` binders is needed at all. -/
 theorem fBridgeF_h_liouville_apply_one (eps : ℚ) (H n : ℕ) :
     fBridgeF_h eps H 1 (liouvilleWindow H n) (residueWindow eps H n)
