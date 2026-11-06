@@ -962,7 +962,7 @@ theorem flat_road_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
 (`FlatDoorEpsRung2.lean:5013`) on the U-forms: the floor hypothesis
 `max Hcap' (max arcFloor36 loglogFloor50) ≤ R.Hlo` (with `Hcap' = max Hcap (max arcFloor36
 loglogFloor50)`) gives the road form its floor `Hcap ≤ R.Hlo` and the two absorbed floors, as at
-the source's `:5113–5116`; the slot's proof is the source's. -/
+the source's `:5111–5114`; the slot's proof is the source's. -/
 theorem flat_capstone_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
     (h : FlatRoadFormU ε c P) (Awin : ℝ) (hband : S16BandLaneCBoundedL_winU Awin) :
     FlatCapstoneFormU ε c P Awin := by
@@ -1281,7 +1281,7 @@ theorem flat_conditional_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pr
     harith
 
 /-- **the kswin hop, uniform** (`flat_kswin_generic_U`) — `flat_kswin_generic_epsW`
-(`FlatDoorEpsRung2.lean:5261`) on the U-forms.  The source's PROBE regime (`:5393–5412`), built only
+(`FlatDoorEpsRung2.lean:5261`) on the U-forms.  The source's PROBE regime (`:5391–5410`), built only
 to read `ε ≤ 1/2` off its `heps1`, is DELETED: a `∀ R` form exhibits no regime.  The ONE site that
 reads `ε ≤ 1/2` with no regime in scope is the form's first conjunct
 (`flat_witFloor_eq_designBase_L`, under `∀ A` and before `∀ R`), so this hop takes it as the

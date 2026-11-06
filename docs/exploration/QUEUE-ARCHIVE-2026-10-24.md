@@ -7219,7 +7219,7 @@ numbering is UNVERIFIED.
      ⭐ **THE RESULT WORTH CARRYING OUT OF THIS ROW: the ONE class-C node (hop 3, the tier A → tier B
      estimate) closed in TWO attempts because the freeze's second non-author pass DROVE the estimate
      rather than judging it** — including the trap that `harm` (`StridePairReceiptG12b.lean:548-550`) is
-     dead at `:630` and must be re-derived at `R`. ⇒ ***a refuter pass that drives an estimate converts a
+     dead at `:628` and must be re-derived at `R`. ⇒ ***a refuter pass that drives an estimate converts a
      class-C node into a transcription.***
      ⚖️ **STATEMENTS BYTE-IDENTICAL TO THE FREEZE, CHECKED AND NOT ASSERTED:** two independent guards
      (`stmt-guard-removed.py` and `stmt-guard-blocks.py`, in the launcher's own toolkit) — every removed

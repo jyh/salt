@@ -245,7 +245,7 @@ theorem xt_log_inv_rho_le_L {c δ₀ Kc Kb : ℝ} (hc1 : 1 ≤ c) (hδ₀ : 0 < 
 /-! ## §3 — ⟦R7⟧ the three S16 flat arms at generic `L`
 
 The two cap sites are `S16FlatTerminalLinear.lean:2354` (`h ≤ 8103`, feeding
-`⌈1/ε⌉₊ ≤ 500·h ≤ 4051500` and `4·4051500⁴ ≤ arcFloor36 = 10¹³⁸`) and `:2489` (the budget chain's
+`⌈1/ε⌉₊ ≤ 500·h ≤ 4051500` and `4·4051500⁴ ≤ arcFloor36 = 10¹³⁸`) and `:2485` (the budget chain's
 `1/ε⁶ ≤ 4.43·10³⁹`).  Neither numeral survives a generic `L`: both are bounds on `h`, so at
 generic `L` they read `4·(500·h)⁴ ≤ e^{27 + 4L}` and `1/ε⁶ ≤ 1.5625·10¹⁶ · e^{6L}`, and the
 FIXED registers they were compared against (`10¹³⁸`, `4·10³⁹·A`) no longer dominate.  Both are
@@ -4347,7 +4347,7 @@ theorem s15_sel''_L_gk_witness_flat_bumped_win_L {A : ℝ} (hA : 162 ≤ A) (Kle
 /-- **⟦THE CONDITIONAL HOP'S SIX READS, ON THE NEW SELECTOR⟧** (`s15_replay_reads_L_gk_T`) —
 this wave's END-TO-END CHECK.  It takes a `S15Sel''_L_gk_T` and the conditional replay's own
 context hypotheses and produces, by calling `s15_bandGate''_of_grade_L_gk_T` and the four `_T`
-readers EXACTLY as `FlatDoorEpsChain.lean:1017` and `:1098-1108` call their sources, the five
+readers EXACTLY as `FlatDoorEpsChain.lean:1017` and `:1096-1106` call their sources, the five
 facts those six lines produce.
 
 ⭐ THE POINT: `hsel.rho` feeds all four `_T` consumers with NO conversion — the register's new
