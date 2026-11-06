@@ -16,7 +16,7 @@ import Salt.HardyLittlewood.Sharp
 # The DH balance capstone (`T-BAL`) — the mollified main-term balance
 
 This module assembles WP2's analytic-core balance, closing the shifted-detector
-repulsion `dh_repulsion` (contract at `DHRepulsion.lean:262`). The design is the
+repulsion `dh_repulsion` (contract at `DHRepulsion.lean:278`). The design is the
 JYH-ratified "T-BAL FREEZE" (`docs/exploration/s3-hb3-design.md`), the survivor
 of a 3-angle adversarial panel with the refuters' repairs applied.
 

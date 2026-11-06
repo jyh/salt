@@ -533,7 +533,7 @@ by asking, of the head's own door hypothesis, *where is it supplied?*:
                                                                   PRODUCED: nowhere
   MRTUniformityXiL2  (L²)  consumed by the `_sq` head family
                            PRODUCED: mrtUniformityXiL2_of_absWindowSqBound (M4Window:606)
-                                     mrtUniformityXiL2H_of_absWindowSqBound (HDoorArc:394)
+                                     mrtUniformityXiL2H_of_absWindowSqBound (HDoorArc:395)
   adapter L² ⇒ L¹                                                 DOES NOT EXIST
   adapter L¹ ⇒ L²          mrtUniformityXiL2_of_xi (MRTDoor:255) — the OTHER direction
 ```

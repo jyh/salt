@@ -53,6 +53,11 @@ set_option maxRecDepth 8000
 set_option linter.style.longLine false
 set_option linter.style.whitespace false
 
+/-- The 201 cumulative trapezoid numerators of the even profile:
+`ebarCumList[m] = Σ_{k<m} (EbarNum k + EbarNum (k+1))`, so
+`∫_2^{2+m/20} Ebar = ebarCumList[m]/400000000` (`Ebar_cum_val`); entry `200` is `225236254`, the
+full `[2, 12]` mass `112618127/200000000` (`Ebar_int_2_12`), and entry `180` is `225236214`,
+leaving `1/10⁷` on `[11, 12]`. Read through `EbarCum`. -/
 def ebarCumList : List ℕ :=
   [0, 19165844, 36714120, 52793807, 67537404, 81063170, 93477000, 104874007, 115339857, 124951915,
    133780219, 141888318, 149334001, 156169922, 162444148, 168200640, 173479671, 178318193, 182750164, 186806835,
@@ -76,11 +81,21 @@ def ebarCumList : List ℕ :=
    225236234, 225236236, 225236238, 225236240, 225236242, 225236244, 225236246, 225236248, 225236250, 225236252,
    225236254]
 
+/-- `EbarCum m = ebarCumList.getD m 0`: the cumulative numerator lookup (natural, zero past the
+table). `EbarCum_rec` is its recurrence, `Ebar_cum_val` reads it as the exact
+`∫_2^{2+m/20} Ebar`, and `hSO_int_reduce` subtracts it from the full mass to leave
+`∫_{w−1}^{12} Ebar`. -/
 def EbarCum (m : ℕ) : ℕ := ebarCumList.getD m 0
 
+/-- `EbarCum (m+1) = EbarCum m + EbarNum m + EbarNum (m+1)` for every `m < 200`, by one `decide`
+over the 201-entry table (the reason for the file's `maxRecDepth 8000`). The step of
+`Ebar_cumsum`'s induction. -/
 theorem EbarCum_rec : ∀ m, m < 200 → EbarCum (m+1) = EbarCum m + EbarNum m + EbarNum (m+1) := by
   decide
 
+/-- `Σ_{k<m} (EbarNum k + EbarNum (k+1)) = EbarCum m` for `m ≤ 200`: induction on `m` with
+`Finset.sum_range_succ` and `EbarCum_rec`. The natural-number half of `Ebar_cum_val`, turning
+the trapezoid partial sum of `Ebar_cumint` into the table entry. -/
 theorem Ebar_cumsum : ∀ m, m ≤ 200 →
     (∑ k ∈ Finset.range m, (EbarNum k + EbarNum (k+1))) = EbarCum m := by
   intro m
@@ -88,6 +103,11 @@ theorem Ebar_cumsum : ∀ m, m ≤ 200 →
   | zero => intro _; simp only [Finset.range_zero, Finset.sum_empty]; rfl
   | succ n ih => intro hm; rw [Finset.sum_range_succ, ih (by omega), EbarCum_rec n (by omega)]; omega
 
+/-- **The cumulative head as an exact rational.** `∫_2^{2+m/20} Ebar = EbarCum m/400000000` at
+`hm : m ≤ 200`: `Ebar_cumint` writes the integral as the trapezoid sum
+`Σ (EbarKnots k + EbarKnots (k+1))/40`, each term is `(EbarNum k + EbarNum (k+1))/400000000`,
+and `Ebar_cumsum` names the sum. The head term of `hSO_int_reduce` (every exact panel) and, at
+`m = 180`, the `∫_{11}^{12} Ebar = 1/10⁷` of `hpt_seam`. -/
 theorem Ebar_cum_val (m : ℕ) (hm : m ≤ 200) :
     (∫ v in (2:ℝ)..(2 + (m:ℝ)/20), Ebar v) = (EbarCum m : ℝ)/400000000 := by
   rw [Ebar_cumint m hm]
@@ -2849,6 +2869,10 @@ theorem hSO_flat_39 (w : ℝ) (hd : (59:ℝ)/20 ≤ w) (hd' : w < 60/20) :
 
 /-! ## Panel dispatch over the two piecewise-linear regions -/
 
+/-- **The exact-panel region of `hpt`**, `w ∈ [3, 12)`:
+`∫_{w−1}^{12} Ebar + 1/2880000 ≤ Obar w·w` at `h3 : 3 ≤ w`, `h12 : w < 12`, dispatched by 180
+`rcases lt_or_ge` cuts at `w = 61/20, 62/20, …, 240/20` to `hSO_ppanel_0 … hSO_ppanel_179`, each
+a rational quadratic on its panel. The `[3, 12)` arm of `hpt_mul`. -/
 theorem hpt_exact (w : ℝ) (h3 : 3 ≤ w) (h12 : w < 12) :
     (∫ u in (w-1)..(12:ℝ), Ebar u) + 1/2880000 ≤ Obar w * w := by
   rcases lt_or_ge w (61/20) with g0 | g0
@@ -3213,6 +3237,11 @@ theorem hpt_exact (w : ℝ) (h3 : 3 ≤ w) (h12 : w < 12) :
   · exact hSO_ppanel_179 w g178 g179
   linarith
 
+/-- **The flat region of `hpt`**, `w ∈ [1, 3)`: `112618127/200000000 + 1/2880000 ≤ Obar w·w` at
+`hw : 1 ≤ w`, `h3 : w < 3` — here `max w 3 = 3` and the tail integral is the constant full mass
+`∫_2^{12} Ebar` — dispatched by forty cuts at `w = 21/20, …, 60/20` to
+`hSO_flat_0 … hSO_flat_39`. The `[1, 3)` arm of `hpt_mul`, after `Ebar_int_2_12` rewrites the
+integral. -/
 theorem hpt_flat (w : ℝ) (hw : 1 ≤ w) (h3 : w < 3) :
     (112618127/200000000 + 1/2880000 : ℝ) ≤ Obar w * w := by
   rcases lt_or_ge w (21/20) with g0 | g0
@@ -3297,6 +3326,11 @@ theorem hpt_flat (w : ℝ) (hw : 1 ≤ w) (h3 : w < 3) :
   · exact hSO_flat_39 w g38 g39
   linarith
 
+/-- **The `[12, 13]` seam of `hpt`**: `∫_{w−1}^{12} Ebar + 1/2880000 ≤ Obar w·w` at
+`h12 : 12 ≤ w`, `h13 : w ≤ 13`. `Ebar_cum_val 180` with `Ebar_int_2_12` gives
+`∫_{11}^{12} Ebar = 1/10⁷`, which bounds the integral (`Ebar_nonneg` on `[11, w−1]`); on the
+right `Obar w = K/w³` (`Obar_tail_eq`), so `Obar w·w = K/w² ≥ 161/360000000` from `w² ≤ 169`.
+The `[12, 13]` arm of `hpt_mul`. -/
 theorem hpt_seam (w : ℝ) (h12 : 12 ≤ w) (h13 : w ≤ 13) :
     (∫ u in (w-1)..(12:ℝ), Ebar u) + 1/2880000 ≤ Obar w * w := by
   have hint11 : (∫ u in (11:ℝ)..12, Ebar u) = 1/10000000 := by
@@ -3330,6 +3364,10 @@ theorem hpt_seam (w : ℝ) (h12 : 12 ≤ w) (h13 : w ≤ 13) :
     linarith [hle, hint11]
   linarith [hbnd, hcomb]
 
+/-- **The `w > 13` power tail of `hpt`**: `K/(2(w−1)²) ≤ Obar w·w` at `h13 : 13 < w`:
+`Obar w = K/w³` (`Obar_tail_eq`), so the claim is `K/(2(w−1)²) ≤ K/w²`, i.e. `w² ≤ 2(w−1)²`,
+which `nlinarith` closes from `(w−13)(w+9) > 0`. The `(13, ∞)` arm of `hpt_mul`, where `TEfun`
+is the pure tail. -/
 theorem hpt_tail (w : ℝ) (h13 : 13 < w) :
     (1/10000)/(2*(w-1)^2) ≤ Obar w * w := by
   have hobar : Obar w = (1/10000)/w^3 := Obar_tail_eq w (by linarith)
@@ -3348,6 +3386,11 @@ noncomputable def TEfun (w : ℝ) : ℝ :=
   if w ≤ 13 then (∫ u in (max w 3 - 1)..12, Ebar u) + 1/2880000
   else (1/10000)/(2*(w-1)^2)
 
+/-- **The `∀ b` tail bound for `hSO_reduce`.** `∫_{max w 3}^b Ebar(t−1) ≤ TEfun w` at
+`hw : 1 ≤ w`, `hb : max w 3 ≤ b`: shift `t ↦ t − 1`; for `w ≤ 13` split at `12` — the finite
+part is `≤ ∫_{max w 3 − 1}^{12} Ebar` by `Ebar_nonneg`, and anything past `12` is the cubic
+tail, `≤ K/(2·12²) = 1/2880000` (`Ebar_tail_eq`, `tail_integral_le`); for `w > 13` the whole
+integral is tail, `≤ K/(2(w−1)²)`. The `hTE` argument of `hSO_holds`. -/
 theorem hTE : ∀ w, (1:ℝ) ≤ w → ∀ b, max w 3 ≤ b →
     (∫ t in (max w 3)..b, Ebar (t - 1)) ≤ TEfun w := by
   intro w hw b hb
@@ -3392,6 +3435,9 @@ theorem hTE : ∀ w, (1:ℝ) ≤ w → ∀ b, max w 3 ≤ b →
     rw [htaileq]
     exact tail_integral_le (K := 1/10000) (W := w-1) (b := b-1) (by norm_num) (by linarith) hbb
 
+/-- `TEfun w ≤ Obar w·w` at `hw : 1 ≤ w`: the four regions of `TEfun` — `[1, 3)` (`max w 3 = 3`,
+`Ebar_int_2_12`, then `hpt_flat`), `[3, 12)` (`hpt_exact`), `[12, 13]` (`hpt_seam`) and
+`(13, ∞)` (`hpt_tail`). The multiplied-out form of `hpt`. -/
 theorem hpt_mul (w : ℝ) (hw : 1 ≤ w) : TEfun w ≤ Obar w * w := by
   unfold TEfun
   rcases le_or_gt w 13 with h13 | h13
@@ -3406,6 +3452,8 @@ theorem hpt_mul (w : ℝ) (hw : 1 ≤ w) : TEfun w ≤ Obar w * w := by
   · rw [if_neg (by linarith)]
     exact hpt_tail w h13
 
+/-- **The panel-local `hSO` check**: `(1/w)·TEfun w ≤ Obar w` at `hw : 1 ≤ w`, from `hpt_mul`
+divided by `w > 0`. The `hpt` argument of `hSO_reduce` in `hSO_holds`, this file's export. -/
 theorem hpt (w : ℝ) (hw : 1 ≤ w) : (1/w) * TEfun w ≤ Obar w := by
   have hw0 : 0 < w := by linarith
   have hmul := hpt_mul w hw

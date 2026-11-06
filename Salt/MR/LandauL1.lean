@@ -57,7 +57,7 @@ convolution identity — a campaign, not a node.  The residue also carries `regu
 The corpus is unusually well stocked here.  `Salt/SW/DHDetector.lean` already has the whole
 lower half of Landau's argument for `a = 1 ∗ χ_ℝ`:
 
-* `dhA` (`DHDetector.lean:142`), `dhA_nonneg` (`:206`), `dhA_square_ge_one` (`:219`),
+* `dhA` (`DHDetector.lean:144`), `dhA_nonneg` (`:206`), `dhA_square_ge_one` (`:219`),
 * `dhA_mass_floor` / `dhA_mass_floor_real` (`:239` / `:264`): `Σ_{n≤N} a(n) ≥ √N − 1`,
 * `dhA_log_average_square_floor` (`:292`), `dhA_hyperbola` (`:325`),
 * `sum_divisors_eq_hyperbola_symm` / `dhA_hyperbola_symm` (`Salt/SW/Hyperbola.lean:55` /

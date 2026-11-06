@@ -1435,6 +1435,9 @@ private def chiOf {k s : ℕ} (α : (p : ℕ) → p ∈ s.primeFactors → Fin k
 private def chiSet (s : ℕ) : Finset ((p : ℕ) → p ∈ s.primeFactors → Fin 3) :=
   s.primeFactors.pi (fun _ => (Finset.univ : Finset (Fin 3)))
 
+/-- `#(chiSet s) = 3^{ω(s)}`: `chiSet s` is the `pi` over `s.primeFactors` of
+`univ : Finset (Fin 3)` (`Finset.card_pi`, `Finset.card_univ`); the `3^{ω(s)}` factor when the
+sum fibred over classifications is bounded by `#(chiSet s) • Gdiag`. -/
 private theorem chiSet_card (s : ℕ) :
     (chiSet s).card = 3 ^ s.primeFactors.card := by
   rw [chiSet, Finset.card_pi]

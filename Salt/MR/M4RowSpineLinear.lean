@@ -11,6 +11,7 @@ import Salt.MR.M4RowsChiZero
 import Salt.MR.M4Spine
 import Salt.MR.S11Thread
 import Salt.MR.ArcRegimeWeaken
+import Salt.MR.SocketFrame
 
 /-!
 # `M4RowSpineLinear` — THE SECOND ROAD / ARITHMETIC PAGE / SPINE at the LINEAR door
@@ -279,10 +280,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed_L {R : ChowlaRegime} {M k : ℕ} {Bcl : 
     have hfit' : (B + m * L) + L ≤ 2 * (A + m * L) := by omega
     have h := hstrat (A + m * L) (B + m * L) hApos' h2HA' hxA' hcapA' hfit'
     have hbase : ((A + m * L : ℕ) : ℝ) ≤ 2 * (A : ℝ) := by
-      have hnat : A + m * L ≤ 2 * A := by omega
-      have := (Nat.cast_le (α := ℝ)).mpr hnat
-      push_cast at this ⊢
-      linarith
+      exact_mod_cast (show A + m * L ≤ 2 * A by omega)
     have hfac0 : (0 : ℝ) ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 := by positivity
     linarith only [h, mul_le_mul_of_nonneg_left hbase hfac0]
   -- ⟦the drift-block sum⟧
@@ -408,20 +406,10 @@ theorem m4_second_road_L :
   -- ⟦the cover, then the socket⟧
   have hcov := m4_cover_assembly_blk2_L hgates hBblk0 hblk2
   refine hR δ Braw M k hgates hBraw0 hgrade ?_
+  obtain ⟨hℓH, hℓcnt, hℓdrift⟩ := blockLen_obligations (R := R) harc
   refine m4_sievedDoorSq_of_blk2_L (ℓ := blockLen)
     (fun H => by have := hBblk0 H; positivity)
-    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
-  · intro H q hlo hhi _ _
-    have h1 := harc H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hH1 : 1 ≤ H := by
-      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
-      exact_mod_cast this
-    exact blockLen_le H q hH1
-  · intro H q hlo hhi _ _
-    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
-  · intro H q hlo hhi hq _
-    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+    (fun H q _ _ _ _ => one_le_blockLen H q) hℓH hℓcnt hℓdrift ?_ hcov
   · intro H hlo hhi
     have h := hdrift H hlo hhi
     have hres0 : (0 : ℝ) ≤ strataResidual H :=
@@ -804,10 +792,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed_L_gk (K : ℕ) {R : ChowlaRegime} {M k :
     have hfit' : (B + m * L) + L ≤ 2 * (A + m * L) := by omega
     have h := hstrat (A + m * L) (B + m * L) hApos' h2HA' hxA' hcapA' hfit'
     have hbase : ((A + m * L : ℕ) : ℝ) ≤ 2 * (A : ℝ) := by
-      have hnat : A + m * L ≤ 2 * A := by omega
-      have := (Nat.cast_le (α := ℝ)).mpr hnat
-      push_cast at this ⊢
-      linarith
+      exact_mod_cast (show A + m * L ≤ 2 * A by omega)
     have hfac0 : (0 : ℝ) ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 := by positivity
     linarith only [h, mul_le_mul_of_nonneg_left hbase hfac0]
   -- ⟦the drift-block sum⟧
@@ -870,20 +855,10 @@ theorem m4_second_road_L_gk (K : ℕ) :
   -- ⟦the cover, then the socket⟧
   have hcov := m4_cover_assembly_blk2_L_gk K hgates hBblk0 hblk2
   refine hR δ Braw M k hgates hBraw0 hgrade ?_
+  obtain ⟨hℓH, hℓcnt, hℓdrift⟩ := blockLen_obligations (R := R) harc
   refine m4_sievedDoorSq_of_blk2_L_gk K (ℓ := blockLen)
     (fun H => by have := hBblk0 H; positivity)
-    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
-  · intro H q hlo hhi _ _
-    have h1 := harc H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hH1 : 1 ≤ H := by
-      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
-      exact_mod_cast this
-    exact blockLen_le H q hH1
-  · intro H q hlo hhi _ _
-    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
-  · intro H q hlo hhi hq _
-    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+    (fun H q _ _ _ _ => one_le_blockLen H q) hℓH hℓcnt hℓdrift ?_ hcov
   · intro H hlo hhi
     have h := hdrift H hlo hhi
     have hres0 : (0 : ℝ) ≤ strataResidual H :=
@@ -1346,13 +1321,9 @@ theorem m4_hrowsSlot_at_door_zero_L :
   obtain ⟨Ct, hCt, hrows⟩ := m4_hrowsSum_chi_door_zero_L
   refine ⟨Ct, hCt, ?_⟩
   intro Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap H L q j A s hb χ T hT hTX2 hTgate hTll
-  have hq : 0 < q := hb.2.2.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  obtain ⟨hq, hA, hAs, hAsR, hN4⟩ := Salt.MR.socketFrame_facts s hb
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hbase H L q j A s hb
-  have hAs : 0 < A + s := lt_of_lt_of_le hA (Nat.le_add_right A s)
-  have hAsR : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by exact_mod_cast hAs
-  have hN4 : (((2 * (A + s) : ℕ)) : ℝ) ≤ 4 * (((A + s : ℕ)) : ℝ) := by push_cast; linarith
   have hslot := hrows Cp hCp q cU bU hb1 hc1
     (2 * (A + s)) (A + s) M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (ε (A + s)) (t₁ q)
     hM hD.Q2_le le_rfl hN4 hD.coefWS hD.reg hD.big
@@ -1525,13 +1496,9 @@ theorem m4_hrowsSlot_at_door_zero_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   obtain ⟨Ct, hCt, hrows⟩ := m4_hrowsSum_chi_door_zero_L_gk K hK
   refine ⟨Ct, hCt, ?_⟩
   intro Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap H L q j A s hb χ T hT hTX2 hTgate hTll
-  have hq : 0 < q := hb.2.2.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  obtain ⟨hq, hA, hAs, hAsR, hN4⟩ := Salt.MR.socketFrame_facts s hb
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hbase H L q j A s hb
-  have hAs : 0 < A + s := lt_of_lt_of_le hA (Nat.le_add_right A s)
-  have hAsR : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by exact_mod_cast hAs
-  have hN4 : (((2 * (A + s) : ℕ)) : ℝ) ≤ 4 * (((A + s : ℕ)) : ℝ) := by push_cast; linarith
   have hslot := hrows Cp hCp q cU bU hb1 hc1
     (2 * (A + s)) (A + s) M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (ε (A + s)) (t₁ q)
     hM hD.Q2_le le_rfl hN4 hD.coefWS hD.reg hD.big
@@ -1746,20 +1713,10 @@ theorem m4_second_road_tower_L :
   -- ⟦the cover, then the socket⟧
   have hcov := m4_cover_assembly_blk2_L hgates hBblk0 hblk2
   refine hR δ Braw M k hgates hBraw0 hgrade ?_
+  obtain ⟨hℓH, hℓcnt, hℓdrift⟩ := blockLen_obligations (R := R) harc
   refine m4_sievedDoorSq_of_blk2_L (ℓ := blockLen)
     (fun H => by have := hBblk0 H; positivity)
-    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
-  · intro H q hlo hhi _ _
-    have h1 := harc H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hH1 : 1 ≤ H := by
-      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
-      exact_mod_cast this
-    exact blockLen_le H q hH1
-  · intro H q hlo hhi _ _
-    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
-  · intro H q hlo hhi hq _
-    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+    (fun H q _ _ _ _ => one_le_blockLen H q) hℓH hℓcnt hℓdrift ?_ hcov
   · intro H hlo hhi
     have h := hdrift H hlo hhi
     have hres0 : (0 : ℝ) ≤ strataResidual H :=
@@ -1867,13 +1824,9 @@ theorem m4_hrowsSlot_at_door_zero_L_gk_kwide (K : ℕ) :
   obtain ⟨Ct, hCt, hrows⟩ := m4_hrowsSum_chi_door_zero_L_gk_kwide K
   refine ⟨Ct, hCt, ?_⟩
   intro Cp hCp R M ε cU bU t₁ hM hKw hb1 hc1 hbase hcap H L q j A s hb χ T hT hTX2 hTgate hTll
-  have hq : 0 < q := hb.2.2.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  obtain ⟨hq, hA, hAs, hAsR, hN4⟩ := Salt.MR.socketFrame_facts s hb
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hbase H L q j A s hb
-  have hAs : 0 < A + s := lt_of_lt_of_le hA (Nat.le_add_right A s)
-  have hAsR : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by exact_mod_cast hAs
-  have hN4 : (((2 * (A + s) : ℕ)) : ℝ) ≤ 4 * (((A + s : ℕ)) : ℝ) := by push_cast; linarith
   have hslot := hrows Cp hCp q cU bU hb1 hc1
     (2 * (A + s)) (A + s) M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (ε (A + s)) (t₁ q)
     hM hKw hD.Q2_le le_rfl hN4 hD.coefWS hD.reg hD.big

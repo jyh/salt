@@ -4657,7 +4657,7 @@ open Salt.Tactic in
 -- dyadic Shiu sum `blockDiv_sq_div_sq_sum_le` over `shiu_moment_sq`, whose `g` byte-matches
 -- KMT's (READER-A §7).  ⟦THE ONE NEW ALGEBRAIC FACT⟧ twisting commutes with the ℓ-fold
 -- Dirichlet convolution — `multShiuCoeff_chiBar`, via wave P-1's `pmul_mul_of_twist`
--- (`LambdaRateTwisted:153`) instantiated at `chiBarAf` and iterated (`pmul_pow_of_chiBarAf`).
+-- (`LambdaRateTwisted:205`) instantiated at `chiBarAf` and iterated (`pmul_pow_of_chiBarAf`).
 -- ⟦THE `(ℓ+1)!²` ROUTE⟧ the corpus's count page is SHARPER than the paper's: the ℓ-fold
 -- ordered block-prime count is `≤ ℓ!` and the co-factor enters through the 1-bounded
 -- divisor-sum majorant `oneAf`, not as an `(ℓ+1)`-st factor — so `ℓ!²` is delivered and
@@ -7443,7 +7443,7 @@ supplies.  `Kc` rides seven twins (head → socket → door-`L²` → road → w
 windowed conditional → terminal): it enters the head as an UPPER BOUND ON A COUNT and leaves
 the door as a BUDGET COEFFICIENT, so the sign change forbids any short-circuit above the leaf.
 `Ct` enters at the constant-pool fuse.  `Kq` — ⟦THE CORRECTION TO THE WAVE'S CONSUMPTION
-LIST⟧ — is NOT the constant `S16Uniform` :660 opens (that `obtain`'s payload is discarded and
+LIST⟧ — is NOT the constant `S16Uniform` :622 opens (that `obtain`'s payload is discarded and
 its constants are dropped again one hop later): the terminal's `Kq` is minted by
 `s15_crossing_supplied_L_gk` off the LINEAR wire, so §8 re-cuts `m4_hcap_at_door_perBlock_L_gk`
 → `m4_fuse_hcap_of_capWS_L_gk` → `s15_crossing_supplied_L_gk` against the SHARED leaf
@@ -7909,10 +7909,10 @@ cushion added as the ONE new inner hypothesis.  Outer: nothing.  Inner: `cs`, `T
 
 ⟦THE TRACE⟧ `Ks` is minted at ONE site — `PortAssembly.siegel_real_carve (:1180)`, as
 `Ks = 10^8 · min(min(Cs, c₀/32), 1/2)` — and travels to `v6` through nine pass-throughs
-(`NumeralKq:502 → :775 → :958 → RegisterCompose:52 → :117 → :164 → :209 → :345`).  Of the two
+(`NumeralKq:502 → :775 → :958 → RegisterCompose:53 → :117 → :164 → :209 → :345`).  Of the two
 leaves, `c₀` is EFFECTIVE (`NumeralKq.zero_free_region_all'_bounded:450` pins `1/126848 ≤ c₀`,
 so `c₀/32 ≥ 2.46·10^{-7}`) and `1/2` is a literal; the binding leaf is `Cs`, the constant of
-`Salt.SW.siegel_theorem (1/16)` (`SW/SiegelClose.lean:841`), whose own docstring reads
+`Salt.SW.siegel_theorem (1/16)` (`SW/SiegelClose.lean:848`), whose own docstring reads
 "(ineffective)".  **So `e^{-100} ≤ Ks` reduces exactly to `Cs ≥ 3.72·10^{-52}` — an explicit
 numerical lower bound on Siegel's constant at `ε = 1/16`, which neither the corpus nor the
 literature supplies.  The rider is NOT provable as stated** (`docs/blueprints/flags.md`, V7-A).
@@ -7926,7 +7926,7 @@ certificate (landed rider ⟹ sharp rider ⟹ landed conclusion): **no trade**.
 
 ⟦THE DISCHARGE ROUTE⟧ unlike the numeral, the sharp rider is `A`-windowed and is met by ANY
 `Ks > 0` at a large enough design base (`ks_rider_absorbed`, `capfloor_floor4_of_pos`).  Since
-the terminal mints `Ks` (`RegisterCompose:242`) BEFORE it chooses `A` (`:246`),
+the terminal mints `Ks` (`RegisterCompose:236`) BEFORE it chooses `A` (`:246`),
 `capfloor_floor4_of_design` discharges the arm against `v6`'s own exported conjunct
 `3.2·A ≤ loglog R.Hlo`, with the Siegel constant carried by name and never by numeral.
 Rethreading the sharp form through the hops is V7-E's landing; V7-A supplies the leaf. -/
@@ -7946,7 +7946,7 @@ effective ceiling** in the corpus (its VK leg bottoms out at `zeta_zero_free_str
 `RiderTrace:54-92`), so the rider cannot be discharged by computing `T₀`.
 
 ⟦THE ARM⟧ it does not have to be.  `v6` mints its six crossing constants — `T₀` among them —
-at `RegisterCompose:368`, BEFORE it chooses the design constant `A` at `:373` as a `max` over
+at `RegisterCompose:362`, BEFORE it chooses the design constant `A` at `:373` as a `max` over
 five absorption thresholds.  `T₀` is a fixed, `A`-independent real, so it joins that `max` as
 a **sixth arm**; then `T₀ ≤ A`, and the tolerance is a THREE-DEEP exponential tower in `A`.
 No numeric value of `T₀` is needed, wanted, or used.
@@ -9179,8 +9179,8 @@ here (the twins are audited under ⟦β W1 E2⟧).  2026-10-11: family 49 retire
 (`S16FlatTerminalExitH`, 2026-09-01, math).  The `h`-twin of
 `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L`: the terminal register on the
 terminal's lane, in `¬ Fails` form, at shift `h`.  Composed from the landed door-form register
-(`S16FlatTerminalLinearH.lean:1574`) and the flat head at shift `h`
-(`Salt/Entropy/Chowla/HloExportFlatH.lean:210`).
+(`S16FlatTerminalLinearH.lean:1589`) and the flat head at shift `h`
+(`Salt/Entropy/Chowla/HloExportFlatH.lean:211`).
 
 ⭐ THE WAVE'S FINDING, AND IT IS A COUNT THAT WENT DOWN.  The commission priced part (iii) as
 `h`-twins of `HloExportMRFlatRoot.m4_exit_socket_split_sq_arc_flatRoot` (`:70`) and
@@ -9352,7 +9352,7 @@ cap-9 twins, their two rows dropped here (the twins are audited under ⟦β W1 E
 /-! ## ⟦H2c⟧ — THE CROSSING SUPPLIER AT THE INFLATED SOCKET `SocketBaseLH h`
 
 `Salt/MR/S13CapGateLinearLH.lean` (wave H2c).  The deliverable is
-`s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:960` with the same `∃ Cq cs T₀ Kq Ks C`
+`s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:878` with the same `∃ Cq cs T₀ Kq Ks C`
 prefix and pins, `hblk` at `SocketBaseLH h`, concluding
 `S16CofactorSupply_LH_gk h K Cq R M → S16BaseScaleCap96_LH_gk h K R M →
 S15CrossingBound_LH_gk h K R M`.
@@ -9500,19 +9500,19 @@ no axioms; they are audited anyway so the registry row count matches the declara
 capstones can be ported, and nothing else.
 
 ⭐ **BLOCK U — THE `A`-UNIFORM `h` ROAD IS TWO `intro`s, NOT A DESIGN BLOCK.**  The `A₀` pin has
-exactly ONE origin on the whole `h` lane (`HloExportFlatH:307`), every `obtain` above it is
+exactly ONE origin on the whole `h` lane (`HloExportFlatH:308`), every `obtain` above it is
 `A`-free — wave H2a's count hook takes `h` and `ε` only — and `S16ProducersH`,
 `S16FlatTerminalLinearH` and `HDoorSupply` contain **zero** `A₀`.  `flat_head_uniform_h` is the
 landed head with that line replaced by `intro A hA26 hAge`, exactly as `flat_head_uniform` does
 at `h = 1`.  ⭐ **And at `h` the road is ONE theorem where `h = 1` needs three:** the door-form
-register `m4_second_road_L2_H_gk_flatRoot_L` (S16FlatTerminalLinearH:1588) has no `A` in its
+register `m4_second_road_L2_H_gk_flatRoot_L` (S16FlatTerminalLinearH:1589) has no `A` in its
 statement at all, so `flat_socket_uniform` and `flat_doorL2_uniform` have nothing to hoist.
 `Hopq` leaves the `∀ A` and `Hcap` stays inside — the same split, for the same reason.
 
 ⭐ **BLOCK W — AND HERE H2b's PRICE CUT DOES NOT REPEAT, WHICH IS THE POINT.**
 `S16BandLaneCBoundedL` has **no producer anywhere** (34 binder sites, 9 modules, zero
 discharges), so wave H2b re-quantified it for free and left an open rider.  The WINDOWED riders
-are **theorems** (`s16_bandLaneWinL_holds` S16Uniform:1200, `_holdsU` S16ComposeV4:93), so their
+are **theorems** (`s16_bandLaneWinL_holds` S16Uniform:1107, `_holdsU` S16ComposeV4:102), so their
 `h` twins need a producer PORT — and the `h` lane gets a DISCHARGED rider in exchange for it.
 ⭐ **The port is class A, and a projection census says why.**  The mint
 `m4_hband_at_door_slot_split_graded_L_gk` (S11HoistLinear:736) touches its socket in exactly two
@@ -9620,7 +9620,7 @@ family 30 retired that piece into its cap-9 twin, `capfloor_T0_Tann_sharp_LH_b9`
 bundle has called since family 20.)
 
 ⛔⛔ **AND THE BLOCK ORDER IS WRONG: H3's HEADLINE `logChowla2_v7_rated_h` IS GATED ON BLOCK E.**
-`logChowla2_v7_rated` (V7Rated:973) obtains `cofkR_cofactorSupply_L_gk_rated` (V7Rated:241) in
+`logChowla2_v7_rated` (V7Rated:976) obtains `cofkR_cofactorSupply_L_gk_rated` (V7Rated:244) in
 its first line, and that supplier DEMANDS `(1 : ℝ)/500 ≤ (R.eps : ℝ)` while the `h` head pins
 `ε = 1/(500·h)` — FALSE at `h ≥ 2`.  Its body consumes `cofkL_capFreeFloor_at_socket_rated_uniform`,
 `cofkL_socket_floors` and `cofkL_mu_floor`, three of the seven `_h` names E is chartered to
@@ -9723,7 +9723,7 @@ because a vacuous supplier and an absent one are indistinguishable from every ga
 day N4s acquires a producer the family needs the `1/(500h)` spelling.
 
 ⭐⭐ **AND THE FAMILY IS PINNED TO THE LANDED OBJECT BY A THEOREM, NOT A DOCSTRING.**
-`logChowla2_v7_rated_h_one` derives a hand-retyped copy of `V7Rated:973`'s statement from
+`logChowla2_v7_rated_h_one` derives a hand-retyped copy of `V7Rated:976`'s statement from
 `logChowla2_v7_rated_h 1`, and the `example` beside it inhabits that same statement with the
 LANDED `logChowla2_v7_rated` itself.  The prize is an `∃` whose content sits under binders: a
 family that had drifted into a WEAKER object would still elaborate at every consumer, and no
@@ -10510,7 +10510,7 @@ body with ONLY the cap raise `≤ 7 ↦ ≤ 9`, the `_g12b` FORMs / receipt pred
 `837782 * 2 ^ 11 ↦ 837782 * 2 ^ 12`, and the stride `a ≤ 1096 ↦ a ≤ 8103` — in the Set floor's and
 THE NAMED LIFT's (`a' ≤ 8103`) statements, and in the crown's body, where it is DERIVED from the
 product cap via `h_le_8103_of_log_le_nine` (no `a ≤ 2310` binder below the composition). Crown
-numerals: `hahQ ≤ 8103`, `1/4051500 ≤ Rd.eps` into `flatDesignBase_clears_stride_floors_b9`,
+numerals: `a·h ≤ 8103`, `1/4051500 ≤ Rd.eps` into `flatDesignBase_clears_stride_floors_b9`,
 `regimeShrinkX_stride_b9` / `mrtUniformityXiL2AffW_of_set_b9` at `a ≤ 8103`; cap-free numerals
 unchanged. No hypothesis added. Nothing here bears on twin primes. 5 obligations, 5 landed. -/
 open Salt.Tactic in
@@ -10544,7 +10544,7 @@ freeze v1.3 §2). Additive only: no landed statement moves. `ArithPageLinear.Soc
 socket as a HYPOTHESIS — so until now each was a claim about a set nobody had shown nonempty.
 `A := 2·R.x` meets all five at every regime and every admissible `(M, H, L, q, j, s)`: `0 < A`
 and `A ≤ 2x` from `R.hx`; `2 ^ j ≤ A` and `√H ≤ A` from the landed headroom chain
-`H ≤ R.Hhi ≤ R.x / R.ω ≤ R.x / 2` (`DoorReceipt.lean:214-220`); the window conjunct
+`H ≤ R.Hhi ≤ R.x / R.ω ≤ R.x / 2` (`DoorReceipt.lean:215-221`); the window conjunct
 `x ≤ 16·ω·arcDen 12 H·A` with a factor of 64 to spare, from `one_le_arcDen_of_regime` and
 `R.hω`. The `L = 0` branch is split out because `Nat.pow_log_le_self` carries the side
 condition `L ≠ 0` and the socket assumes no positivity of `L`; there `j ≤ Nat.log 2 0` forces

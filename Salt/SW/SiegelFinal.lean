@@ -299,6 +299,9 @@ lift both to the common level `N = q₁·q` (`changeLevel`, preserving `χ² = 1
 the now-unconditional `estermannPositivity`). The result is the concrete Goldfeld lower bound on
 the lifted target `(L(χ',1)).re`. -/
 
+/-- `1 ∈ ball 2 (3/2)` in `ℂ`: `dist 1 2 = ‖−1‖ = 1 < 3/2`. Lets `norm_LFunction_ball_le` be
+read at the point `1` for the one-point bounds `B₁ = B₂ = diskConst N` in
+`siegel_L_one_exceptional`. -/
 private lemma mem_ball_one : (1 : ℂ) ∈ ball (2 : ℂ) (3 / 2) := by
   rw [mem_ball, Complex.dist_eq, show (1 : ℂ) - 2 = -1 by ring, norm_neg, norm_one]; norm_num
 

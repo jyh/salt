@@ -66,6 +66,11 @@ noncomputable def plVal (c : ℕ → ℚ) (left : ℝ) (i : ℕ) (x : ℝ) : ℝ
 
 /-! ## The even profile `Ebar` -/
 
+/-- The 201 even knot numerators over `10⁷`, `EbarKnots i = ebarNumList[i]/10⁷` (entry `0` is
+`10007043`; entries `199` and `200` are `1`): the exact-rational certificate of
+`scripts/ss2_profile.py` as a `List ℕ`, so nonnegativity is structural. `EbarNum` reads it,
+`EbarNum_le` bounds it by `decide`, and `Ebar_sum_eq` sums its 200 trapezoid pairs to
+`225236254`. -/
 def ebarNumList : List ℕ :=
   [10007043, 9158801, 8389475, 7690212, 7053385, 6472381, 5941449, 5455558, 5010292, 4601766,
    4226538, 3881561, 3564122, 3271799, 3002427, 2754065, 2524966, 2313556, 2118415, 1938256,
@@ -95,9 +100,13 @@ def EbarNum (i : ℕ) : ℕ := ebarNumList.getD i 0
 /-- Knot value `= numerator / 10⁷` (nonneg by construction). -/
 noncomputable def EbarKnots (i : ℕ) : ℚ := (EbarNum i : ℚ) / 10000000
 
+/-- `0 ≤ EbarKnots i` in `ℝ`: a natural numerator over `10⁷`, `positivity`. The sign of the two
+knots of a panel in `Ebar_nonneg` and on the lower side of `Ebar_bdd`. -/
 theorem EbarKnots_nonneg (i : ℕ) : (0 : ℝ) ≤ (EbarKnots i : ℝ) := by
   unfold EbarKnots; push_cast; positivity
 
+/-- `EbarNum i ≤ 20000000` for every `i`: a `decide` over the table for `i` inside it, and `0`
+past it (`List.getD_eq_default`). The numerator bound behind `EbarKnots_le`. -/
 theorem EbarNum_le (i : ℕ) : EbarNum i ≤ 20000000 := by
   have hall : ∀ x ∈ ebarNumList, x ≤ 20000000 := by decide
   unfold EbarNum
@@ -105,6 +114,8 @@ theorem EbarNum_le (i : ℕ) : EbarNum i ≤ 20000000 := by
   · rw [List.getD_eq_getElem _ _ h]; exact hall _ (List.getElem_mem h)
   · rw [List.getD_eq_default (hn := h)]; exact Nat.zero_le _
 
+/-- `EbarKnots i ≤ 2` in `ℝ`: `EbarNum_le` divided by `10⁷`. With `EbarKnots_nonneg`, the
+two-sided knot bound that gives `Ebar_bdd` its `|Ebar v| ≤ 2` on the PL panels. -/
 theorem EbarKnots_le (i : ℕ) : (EbarKnots i : ℝ) ≤ 2 := by
   have h : (EbarNum i : ℝ) ≤ 20000000 := by exact_mod_cast EbarNum_le i
   unfold EbarKnots; push_cast; rw [div_le_iff₀ (by norm_num)]; linarith
@@ -115,6 +126,10 @@ noncomputable def Ebar (v : ℝ) : ℝ :=
   else if 12 ≤ v then (1/10000) / v^3
   else plVal EbarKnots 2 (⌊(v - 2) * 20⌋).toNat v
 
+/-- `Ebar v = K/v³` (`K = 1/10000`) at `hv : 12 ≤ v`: the `12 ≤ v` branch of `Ebar`, closed on
+`[12, ∞)` by the seam convention (at `v = 12` the tail wins over the last knot). Rewrites the
+tail integrand ahead of `tail_integral_le` in `Ebar_integral_le`,
+`A2Weighted.Ebar_integral_le_sharp`, `SuperPanelsE.hptE_tail` and `SuperPanelsO.hTE`. -/
 theorem Ebar_tail_eq (v : ℝ) (hv : 12 ≤ v) : Ebar v = (1/10000) / v^3 := by
   unfold Ebar; rw [if_neg (by linarith), if_pos hv]
 
@@ -138,6 +153,12 @@ theorem Ebar_panel_eq (i : ℕ) (hi : i < 200) (v : ℝ)
   rw [if_neg (by linarith), if_neg (by linarith), hfloor, Int.toNat_natCast]
   unfold plVal; ring
 
+/-- `0 ≤ Ebar v` for every `v`: `0` below `2`, `positivity` on the tail, and on a panel `plVal`
+is a convex combination of `EbarKnots i` and `EbarKnots (i+1)` (the floor index
+`i = ⌊(v−2)·20⌋₊` places `(v − (2 + i/20))·20` in `[0, 1]`), both nonnegative by
+`EbarKnots_nonneg`. The `hEnn` of `superSol_dominates` and of both ledger closes (`SuperClose`),
+and the sign that discards integral remainders in `Ebar_integral_le`,
+`SuperPanelsO.hpt_seam`/`hTE` and `A2Weighted`. -/
 theorem Ebar_nonneg (v : ℝ) : 0 ≤ Ebar v := by
   unfold Ebar
   split_ifs with h1 h2
@@ -160,6 +181,9 @@ theorem Ebar_nonneg (v : ℝ) : 0 ≤ Ebar v := by
     have hc1 := EbarKnots_nonneg (i+1)
     nlinarith [hc0, hc1, hfrac0, hfrac1]
 
+/-- `|Ebar v| ≤ 2`: the lower side is `Ebar_nonneg`; the upper is `0` below `2`, the tail
+`K/v³ ≤ K/12³`, or on a panel a convex combination of two knots each `≤ 2` (`EbarKnots_le`). The
+bound `M = 2` of `Ebar_intervalIntegrable`. -/
 theorem Ebar_bdd (v : ℝ) : |Ebar v| ≤ 2 := by
   rw [abs_le]
   refine ⟨by linarith [Ebar_nonneg v], ?_⟩
@@ -188,6 +212,10 @@ theorem Ebar_bdd (v : ℝ) : |Ebar v| ≤ 2 := by
     have hc1n := EbarKnots_nonneg (i+1)
     nlinarith [hc0, hc1, hc0n, hc1n, hfrac0, hfrac1]
 
+/-- `Measurable Ebar`: the floor index `v ↦ ⌊(v−2)·20⌋₊` is measurable (`Int.measurable_floor`,
+then `measurable_from_top` on the countable `ℕ`), so the knot lookups and the `plVal` arithmetic
+are, and the two `if`s are `Measurable.ite` on the measurable sets `v < 2` and `12 ≤ v`. The
+measurability half of `Ebar_intervalIntegrable`. -/
 theorem Ebar_measurable : Measurable Ebar := by
   have haff : Measurable (fun v : ℝ => (v - 2) * 20) := by fun_prop
   have hidx : Measurable (fun v : ℝ => (⌊(v - 2) * 20⌋).toNat) :=
@@ -247,6 +275,10 @@ theorem Ebar_cumint (n : ℕ) (hn : n ≤ 200) :
           (Ebar_intervalIntegrable 2 (2 + (m : ℝ) / 20))
           (Ebar_intervalIntegrable (2 + (m : ℝ) / 20) (2 + ((m : ℝ) + 1) / 20)), hcast]
 
+/-- The 200 trapezoid pairs sum exactly:
+`Σ_{i<200} (EbarKnots i + EbarKnots (i+1))/40 = 112618127/200000000`, by evaluating
+`Σ (EbarNum i + EbarNum (i+1)) = 225236254` with `simp` over `Finset.sum_range_succ` and the
+list. Turns `Ebar_cumint 200` into `Ebar_int_2_12`. -/
 theorem Ebar_sum_eq :
     ∑ i ∈ Finset.range 200, ((EbarKnots i : ℝ) + (EbarKnots (i+1) : ℝ)) / 40
       = 112618127/200000000 := by
@@ -263,6 +295,10 @@ theorem Ebar_sum_eq :
       hnat]
   norm_num
 
+/-- **The even profile's PL mass.** `∫_2^{12} Ebar = 112618127/200000000` (≈ `0.56309`):
+`Ebar_cumint 200` and `Ebar_sum_eq`. The head of `Ebar_integral_le`'s budget
+(`+ K/(2·12²) ≤ 43/75`) and of `A2Weighted.Ebar_integral_le_sharp`; `SuperPanelsO` subtracts
+cumulative heads from it in `hSO_int_reduce`, `hpt_seam` and the flat panels. -/
 theorem Ebar_int_2_12 : (∫ v in (2 : ℝ)..12, Ebar v) = 112618127/200000000 := by
   have h := Ebar_cumint 200 (le_refl 200)
   rw [Ebar_sum_eq] at h
@@ -297,6 +333,10 @@ theorem Ebar_integral_le : ∀ b, 2 ≤ b → (∫ v in (2 : ℝ)..b, Ebar v) �
 
 /-! ## The even profile `Obar` -/
 
+/-- The 221 odd knot numerators over `10⁷`, `ObarKnots i = obarNumList[i]/10⁷` (entry `0` is
+`5630910`; entries `219` and `220` are `1`): the exact-rational certificate of
+`scripts/ss2_profile.py` as a `List ℕ`. `ObarNum` reads it, `ObarNum_le` bounds it by `decide`,
+and `Obar_sum_eq_220`/`Obar_sum_eq_40` sum its trapezoid pairs (`282228525` and `247489204`). -/
 def obarNumList : List ℕ :=
   [5630910, 5362772, 5119009, 4896444, 4692425, 4504728, 4331470, 4171045, 4022079, 3883387,
    3753940, 3632846, 3519319, 3412673, 3312300, 3217663, 3128284, 3043736, 2963637, 2887647,
@@ -328,9 +368,13 @@ def ObarNum (i : ℕ) : ℕ := obarNumList.getD i 0
 /-- Knot value `= numerator / 10⁷` (nonneg by construction). -/
 noncomputable def ObarKnots (i : ℕ) : ℚ := (ObarNum i : ℚ) / 10000000
 
+/-- `0 ≤ ObarKnots i` in `ℝ`: a natural numerator over `10⁷`, `positivity`. The sign of the two
+knots of a panel in `Obar_nonneg` and on the lower side of `Obar_bdd`. -/
 theorem ObarKnots_nonneg (i : ℕ) : (0 : ℝ) ≤ (ObarKnots i : ℝ) := by
   unfold ObarKnots; push_cast; positivity
 
+/-- `ObarNum i ≤ 20000000` for every `i`: a `decide` over the table for `i` inside it, and `0`
+past it (`List.getD_eq_default`). The numerator bound behind `ObarKnots_le`. -/
 theorem ObarNum_le (i : ℕ) : ObarNum i ≤ 20000000 := by
   have hall : ∀ x ∈ obarNumList, x ≤ 20000000 := by decide
   unfold ObarNum
@@ -338,6 +382,8 @@ theorem ObarNum_le (i : ℕ) : ObarNum i ≤ 20000000 := by
   · rw [List.getD_eq_getElem _ _ h]; exact hall _ (List.getElem_mem h)
   · rw [List.getD_eq_default (hn := h)]; exact Nat.zero_le _
 
+/-- `ObarKnots i ≤ 2` in `ℝ`: `ObarNum_le` divided by `10⁷`. With `ObarKnots_nonneg`, the
+two-sided knot bound that gives `Obar_bdd` its `|Obar v| ≤ 2` on the PL panels. -/
 theorem ObarKnots_le (i : ℕ) : (ObarKnots i : ℝ) ≤ 2 := by
   have h : (ObarNum i : ℝ) ≤ 20000000 := by exact_mod_cast ObarNum_le i
   unfold ObarKnots; push_cast; rw [div_le_iff₀ (by norm_num)]; linarith
@@ -348,6 +394,9 @@ noncomputable def Obar (v : ℝ) : ℝ :=
   else if 12 ≤ v then (1/10000) / v^3
   else plVal ObarKnots 1 (⌊(v - 1) * 20⌋).toNat v
 
+/-- `Obar v = K/v³` (`K = 1/10000`) at `hv : 12 ≤ v`: the `12 ≤ v` branch of `Obar`, closed on
+`[12, ∞)` by the seam convention. Rewrites the tail integrand in `Obar_integral_le`,
+`SuperPanelsE.TObar_ge` (both branches) and `SuperPanelsO.hpt_seam`/`hpt_tail`. -/
 theorem Obar_tail_eq (v : ℝ) (hv : 12 ≤ v) : Obar v = (1/10000) / v^3 := by
   unfold Obar; rw [if_neg (by linarith), if_pos hv]
 
@@ -371,6 +420,10 @@ theorem Obar_panel_eq (i : ℕ) (hi : i < 220) (v : ℝ)
   rw [if_neg (by linarith), if_neg (by linarith), hfloor, Int.toNat_natCast]
   unfold plVal; ring
 
+/-- `0 ≤ Obar v` for every `v`: as `Ebar_nonneg`, with left edge `1`, floor index `⌊(v−1)·20⌋₊`
+and the knots of `ObarKnots_nonneg`. The `hOnn` of `superSol_dominates` and of both ledger
+closes (`SuperClose`), and the sign that discards integral remainders in `Obar_integral_le` and
+`SuperPanelsE.TObar_ge`/`hptE_tail`. -/
 theorem Obar_nonneg (v : ℝ) : 0 ≤ Obar v := by
   unfold Obar
   split_ifs with h1 h2
@@ -393,6 +446,8 @@ theorem Obar_nonneg (v : ℝ) : 0 ≤ Obar v := by
     have hc1 := ObarKnots_nonneg (i+1)
     nlinarith [hc0, hc1, hfrac0, hfrac1]
 
+/-- `|Obar v| ≤ 2`: as `Ebar_bdd`, with `ObarKnots_le` and `ObarKnots_nonneg` on the panels. The
+bound `M = 2` of `Obar_intervalIntegrable`. -/
 theorem Obar_bdd (v : ℝ) : |Obar v| ≤ 2 := by
   rw [abs_le]
   refine ⟨by linarith [Obar_nonneg v], ?_⟩
@@ -421,6 +476,8 @@ theorem Obar_bdd (v : ℝ) : |Obar v| ≤ 2 := by
     have hc1n := ObarKnots_nonneg (i+1)
     nlinarith [hc0, hc1, hc0n, hc1n, hfrac0, hfrac1]
 
+/-- `Measurable Obar`: as `Ebar_measurable`, with the floor index `⌊(v−1)·20⌋₊` and the sets
+`v < 1`, `12 ≤ v`. The measurability half of `Obar_intervalIntegrable`. -/
 theorem Obar_measurable : Measurable Obar := by
   have haff : Measurable (fun v : ℝ => (v - 1) * 20) := by fun_prop
   have hidx : Measurable (fun v : ℝ => (⌊(v - 1) * 20⌋).toNat) :=
@@ -480,6 +537,9 @@ theorem Obar_cumint (n : ℕ) (hn : n ≤ 220) :
           (Obar_intervalIntegrable 1 (1 + (m : ℝ) / 20))
           (Obar_intervalIntegrable (1 + (m : ℝ) / 20) (1 + ((m : ℝ) + 1) / 20)), hcast]
 
+/-- All 220 trapezoid pairs: `Σ_{i<220} (ObarKnots i + ObarKnots (i+1))/40 = 11289141/16000000`,
+from `Σ (ObarNum i + ObarNum (i+1)) = 282228525` by `simp` over the list. With `Obar_cumint 220`
+it is `∫_1^{12} Obar`, the minuend of `Obar_int_3_12`. -/
 theorem Obar_sum_eq_220 :
     ∑ i ∈ Finset.range 220, ((ObarKnots i : ℝ) + (ObarKnots (i+1) : ℝ)) / 40
       = 11289141/16000000 := by
@@ -496,6 +556,10 @@ theorem Obar_sum_eq_220 :
       hnat]
   norm_num
 
+/-- The first 40 pairs (the `[1, 3)` flat):
+`Σ_{i<40} (ObarKnots i + ObarKnots (i+1))/40 = 61872301/100000000`, from `247489204`. With
+`Obar_cumint 40` it is `∫_1^{3} Obar`, subtracted in `Obar_int_3_12` because the odd budget
+starts at `3`. -/
 theorem Obar_sum_eq_40 :
     ∑ i ∈ Finset.range 40, ((ObarKnots i : ℝ) + (ObarKnots (i+1) : ℝ)) / 40
       = 61872301/100000000 := by

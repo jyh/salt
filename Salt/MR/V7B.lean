@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.RiderTrace
 import Salt.MR.RegisterCompose
 import Salt.MR.FlatDesignBound
+import Salt.MR.SocketLogFrame
 
 /-!
 # `V7B` — ⟦CS-THREAD⟧ the `e^{-100} ≤ cs` rider of `logChowla2_ineffective_v6`, DISCHARGED
@@ -100,6 +101,16 @@ open Complex Salt.SW Salt.Vk Metric intervalIntegral
 set_option maxHeartbeats 12800000 in
 -- The full contour assembly (four sub-bounds + orientation glue) is heavy; the disc-core-grade
 -- 12.8M budget is warranted for the whole-theorem elaboration.
+/-- **THE PER-PAIR CONTOUR BOUND WITH THE FLOORED `c_vk`**: there are `c_vk C₁ C₂ C₃ T₀` with
+`1/10^9 ≤ c_vk` such that for `T₀ ≤ T`, `2 ≤ P`, `|u| ≤ 2T`, the twisted prime window
+`∑' n, Λ(n)·n^{iu}·primeWindow P n` differs from `windowKernel P 1 u` by at most
+`C₁·P·e^{−(c_vk/2)·log P / D₃}·D₄ + C₂·P·log P / T + C₃·D₄·P / T²`, where
+`D₃ = (log (5T+1))^{3/4}·(log log (5T+1))^3` and `D₄` has the fourth power. Route: the
+`HalaszPrimesCore` contour assembly replayed — the rectangle from `σ₀ = 1 − (c_vk/2)/D₃` to
+`c = 1 + 1/log P` with `|Im| ≤ 3T`, zero-free by `shifted_edge_price_strip_bounded`'s margin
+(which carries the `1/10^9` floor), the pole residue, the four edges, and
+`sum_vonMangoldt_cline_bound` on the right edge. Consumed by
+`halaszPrimesChiGated_of_price_floored` (§2). -/
 theorem per_pair_contour_floored :
     ∃ (c_vk C₁ C₂ C₃ T₀ : ℝ), 0 < c_vk ∧ 1 / 10 ^ 9 ≤ c_vk ∧
       0 < C₁ ∧ 0 < C₂ ∧ 0 < C₃ ∧ 3 ≤ T₀ ∧
@@ -1108,7 +1119,7 @@ open MeasureTheory
 /-! ## §3 — THE SIX PASS-THROUGHS
 
 `NumeralKq`'s `_bounded` family, each twin re-run with the `cs` floor riding beside the `Kq`
-ceiling.  Bodies verbatim from `NumeralKq.lean:668-1068`; the only edits are the extra
+ceiling.  Bodies verbatim from `NumeralKq.lean:532-932`; the only edits are the extra
 conjunct in the `∃`-prefix, the extra name in each `obtain`/`refine` tuple, and the callee
 re-pointed at its own `_cs` twin. -/
 
@@ -1553,7 +1564,10 @@ forwards the now-hypothesis-free shape through the flat terminal — **this is t
 `v7` mint reads in place of
 `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist`.**
 
-Bodies verbatim from `RegisterCompose.lean:52-300`. -/
+Bodies verbatim from `RegisterCompose`'s four theorems
+`m4_hcap_at_door_perBlock_L_gk_bounded_khoist`, `m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist`,
+`s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist` and
+`logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist`. -/
 
 set_option maxHeartbeats 3200000 in
 -- Same cause as the landed original: one application of a ~45-binder capstone.
@@ -1696,14 +1710,7 @@ theorem s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree :
   refine hwire K R M liouvilleC (fun _ => theta293 - 1 / 500) liouvilleC_norm_le_one ?_
   intro H L q j A s hsb T hTlo hThi hTgate hTll
   obtain ⟨P, Q, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
-  have hq : 1 ≤ q := hsb.2.2.2.1
-  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
-  have hNd : 1 ≤ A + s := by omega
-  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_eight; linarith
-  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
-    Real.rpow_pos_of_pos hlogX0 _
-  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
-      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  obtain ⟨hq, hA, hNd, hlogX0, hpow, hexp⟩ := socketLogFrame_facts s hsb hg.logX_eight
   have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
   have hT1 : (1 : ℝ) < 2 * T := by linarith
   exact doorCapBundle_at_workingPoint_perBlock_L_gk K hband hM hNd hq hg hT1 hThi hTll
@@ -1812,7 +1819,7 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree (A
 
 /-! ## §5 — ⟦THE DELIVERABLE⟧ `v6` WITH THE `cs` RIDER GONE
 
-Body verbatim from `RegisterCompose.lean:345-446`, with the terminal re-pointed at §4's
+Body verbatim from `logChowla2_ineffective_v6`, with the terminal re-pointed at §4's
 `_csfree` twin and the rider's arrow removed.  This is NOT the `v7` mint — four inner items
 remain — it is the demonstration that the carry reaches `v6`'s own statement. -/
 
@@ -1895,10 +1902,8 @@ theorem logChowla2_ineffective_v6_csarm (A₀ : ℝ) :
       (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)
   have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
-  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
-    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
-      Real.add_one_le_exp _
-    linarith
+  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
+    Salt.MR.x0_le_exp_exp_of_four_le hx0nn hx0A
   have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26

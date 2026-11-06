@@ -93,18 +93,30 @@ noncomputable def towerMulS (φ : ℕ → ℝ) (B j : ℕ) : ℕ := ⌊2 * φ j 
 noncomputable def towerDropSumShape (φ : ℕ → ℝ) (B J : ℕ) : ℝ :=
   ∑ j ∈ Finset.range J, 1 / (2 * φ j * towerLS φ B j)
 
+/-- `H_0 = B`: the schedule tower's base case, by `rfl`. Unfolds the `zero` step of
+`chowlaTowerShape_const` (Section 8, the tie to the flat tower). -/
 lemma chowlaTowerShape_zero (φ : ℕ → ℝ) (B : ℕ) : chowlaTowerShape φ B 0 = B := rfl
 
+/-- `H_{j+1} = H_j · ⌊2·φ_j·log H_j⌋₊` with the multiplier spelled out, by `rfl`: the
+recursion's `succ` clause as written. Rewritten in `chowlaTowerShape_base_ge`'s induction step
+and in `chowlaTowerShape_const`. -/
 lemma chowlaTowerShape_succ_raw (φ : ℕ → ℝ) (B j : ℕ) :
     chowlaTowerShape φ B (j + 1)
       = chowlaTowerShape φ B j *
         ⌊2 * φ j * Real.log (chowlaTowerShape φ B j : ℝ)⌋₊ := rfl
 
+/-- `H_{j+1} = H_j · towerMulS φ B j`, by `rfl`: the `succ` clause in the glyph `towerMulS`
+(`⌊2·φ_j·L_j⌋₊`, with `L_j = log H_j` being `towerLS` by definition). `towerLS_succ` rewrites
+with it before taking `Real.log_mul`. -/
 lemma chowlaTowerShape_succ (φ : ℕ → ℝ) (B j : ℕ) :
     chowlaTowerShape φ B (j + 1) = chowlaTowerShape φ B j * towerMulS φ B j := rfl
 
+/-- `L_0 = log B`, by `rfl`. With `towerLamS_zero`, the base case of `towerShape_inv`'s
+induction, where the flat floor `hfl` is read as `100·(c_b + λ_0) ≤ L_0`. -/
 lemma towerLS_zero (φ : ℕ → ℝ) (B : ℕ) : towerLS φ B 0 = Real.log (B : ℝ) := rfl
 
+/-- `λ_0 = log (log B)`, by `rfl`. With `towerLS_zero`, the base case of `towerShape_inv`: `hfl`
+is exactly `100·(c_b + λ_0) ≤ L_0`. -/
 lemma towerLamS_zero (φ : ℕ → ℝ) (B : ℕ) :
     towerLamS φ B 0 = Real.log (Real.log (B : ℝ)) := rfl
 
@@ -116,6 +128,10 @@ lemma shapeMul_ge_two {Ab p : ℝ} (hAb : 1 ≤ Ab) (hp : Ab ≤ p) {H : ℕ}
     (hH : 4000000 ≤ H) : 2 ≤ ⌊2 * p * Real.log (H : ℝ)⌋₊ :=
   flatMul_ge_two (le_trans hAb hp) hH
 
+/-- `B ≤ H_j` at `hAb : 1 ≤ Ab`, `hφ : ∀ j, Ab ≤ φ j`, `hB : 4000000 ≤ B`: induction on `j`;
+above the regime floor the multiplier is `≥ 2` (`shapeMul_ge_two`), so `H_j ≤ H_{j+1}`
+(`Nat.le_mul_of_pos_right`). The tower never falls below its base; `chowlaTowerShape_base_floor`
+reads the regime floor off it. -/
 lemma chowlaTowerShape_base_ge {Ab : ℝ} (hAb : 1 ≤ Ab) {φ : ℕ → ℝ} (hφ : ∀ j, Ab ≤ φ j)
     {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) : B ≤ chowlaTowerShape φ B j := by
   induction j with
@@ -127,18 +143,30 @@ lemma chowlaTowerShape_base_ge {Ab : ℝ} (hAb : 1 ≤ Ab) {φ : ℕ → ℝ} (h
     rw [chowlaTowerShape_succ_raw]
     exact le_trans ih (Nat.le_mul_of_pos_right _ (by omega))
 
+/-- `4000000 ≤ H_j` under the same `hAb`, `hφ`, `hB`: `hB` through `chowlaTowerShape_base_ge`.
+The regime floor at every level — `towerLS_ge_fifteen` feeds it to `tower_log_bounds`,
+`towerMulS_ge_two` and `towerLS_succ` to `shapeMul_ge_two`. -/
 lemma chowlaTowerShape_base_floor {Ab : ℝ} (hAb : 1 ≤ Ab) {φ : ℕ → ℝ} (hφ : ∀ j, Ab ≤ φ j)
     {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) : 4000000 ≤ chowlaTowerShape φ B j :=
   le_trans hB (chowlaTowerShape_base_ge hAb hφ hB j)
 
+/-- `15 ≤ L_j` under `hAb`, `hφ`, `hB`: unfold `towerLS` and take the lower half of
+`tower_log_bounds` at the floor `chowlaTowerShape_base_floor` (`log (4·10⁶) > 15`). The source
+of `towerLS_pos` and of the `λ_j ≥ 2` bound `towerLamS_ge_two`. -/
 lemma towerLS_ge_fifteen {Ab : ℝ} (hAb : 1 ≤ Ab) {φ : ℕ → ℝ} (hφ : ∀ j, Ab ≤ φ j)
     {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) : 15 ≤ towerLS φ B j := by
   rw [towerLS]; exact (tower_log_bounds (chowlaTowerShape_base_floor hAb hφ hB j)).1
 
+/-- `0 < L_j` under `hAb`, `hφ`, `hB`, from `towerLS_ge_fifteen` by `linarith`. The positivity
+that `towerShape_inv`'s step and `towerShape_dropSum_le`'s per-term bound need before dividing
+by `L_j`. -/
 lemma towerLS_pos {Ab : ℝ} (hAb : 1 ≤ Ab) {φ : ℕ → ℝ} (hφ : ∀ j, Ab ≤ φ j)
     {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) : 0 < towerLS φ B j := by
   linarith [towerLS_ge_fifteen hAb hφ hB j]
 
+/-- `2 ≤ λ_j` under `hAb`, `hφ`, `hB`: `e² ≤ 15 ≤ L_j` (`Real.exp_one_lt_d9`,
+`towerLS_ge_fifteen`), then `Real.le_log_iff_exp_le`. Consumed by `shapeLevel_s_ge_three`, the
+floor `3 ≤ c_b + λ_j` on the potential's argument under the invariant. -/
 lemma towerLamS_ge_two {Ab : ℝ} (hAb : 1 ≤ Ab) {φ : ℕ → ℝ} (hφ : ∀ j, Ab ≤ φ j)
     {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) : 2 ≤ towerLamS φ B j := by
   have hL := towerLS_ge_fifteen hAb hφ hB j
@@ -148,6 +176,10 @@ lemma towerLamS_ge_two {Ab : ℝ} (hAb : 1 ≤ Ab) {φ : ℕ → ℝ} (hφ : ∀
   rw [towerLamS, Real.le_log_iff_exp_le (by linarith)]
   linarith
 
+/-- `2 ≤ towerMulS φ B j` under `hAb`, `hφ`, `hB`: unfold `towerMulS` and `towerLS`, then
+`shapeMul_ge_two` at the floor `chowlaTowerShape_base_floor`. The schedule tower cannot stall:
+`towerLS_succ` needs the multiplier nonzero for `Real.log_mul`, and `towerShape_inv`'s step
+needs `d_j = log (towerMulS φ B j) ≥ 0`. -/
 lemma towerMulS_ge_two {Ab : ℝ} (hAb : 1 ≤ Ab) {φ : ℕ → ℝ} (hφ : ∀ j, Ab ≤ φ j)
     {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) : 2 ≤ towerMulS φ B j := by
   rw [towerMulS, towerLS]
@@ -294,6 +326,12 @@ lemma shapeStep_dw_ge {L lam w L' lam' w' d c : ℝ}
 
 /-! ### Section 5 — the per-step law along the schedule tower -/
 
+/-- `(20/21)/L_j ≤ w_{j+1} − w_j` under `hAb`, `hφ`, `hB` and the flat floor `hfl`: the
+invariant `towerShape_inv` at level `j` supplies `100·(c_b + λ_j) ≤ L_j`, and `shapeStep_dw_ge`
+(Section 4) is instantiated at the tower's own glyphs — `L`, `λ`, `w` at `j` and `j + 1`,
+`d := log (towerMulS φ B j)`, `c := flatC Ab` — with `shapeLevel_s_ge_three`,
+`shapeStep_logMul_ge` and `towerLS_succ` discharging its hypotheses. The per-step law that
+`towerShape_dropSum_le` sums (Section 6). -/
 lemma towerStepS_dw_ge {Ab : ℝ} (hAb : 1 ≤ Ab) {φ : ℕ → ℝ} (hφ : ∀ j, Ab ≤ φ j)
     {B : ℕ} (hB : 4000000 ≤ B)
     (hfl : 100 * (flatC Ab + Real.log (Real.log (B : ℝ))) ≤ Real.log (B : ℝ)) (j : ℕ) :
@@ -307,6 +345,9 @@ lemma towerStepS_dw_ge {Ab : ℝ} (hAb : 1 ≤ Ab) {φ : ℕ → ℝ} (hφ : ∀
 
 /-! ### Section 6 — THE TELESCOPE at the budget constant -/
 
+/-- `towerDropSumShape φ B J = Σ_{j<J} 1/(2·φ_j·L_j)`, by `rfl`: the definition unfolded for a
+`calc`. The first step of `towerShape_dropSum_le` and, with `towerDropSumFlat_eq_sum`, of
+`towerDropSumShape_const`. -/
 lemma towerDropSumShape_eq_sum (φ : ℕ → ℝ) (B J : ℕ) :
     towerDropSumShape φ B J = ∑ j ∈ Finset.range J, 1 / (2 * φ j * towerLS φ B j) := rfl
 
@@ -401,15 +442,28 @@ lemma chowlaTowerShape_const (A : ℝ) (B : ℕ) (j : ℕ) :
   | zero => rw [chowlaTowerShape_zero, chowlaTowerFlat_zero, one_mul]
   | succ n ih => rw [chowlaTowerShape_succ_raw, chowlaTowerFlat_succ, ih]
 
+/-- `towerLS (fun _ => A) B j = towerLF A B j`: the constant schedule's `L_j` is the flat
+tower's, through `chowlaTowerShape_const`. Section 8's tie, glyph by glyph: `towerLamS_const`
+and `towerDropSumShape_const` rewrite with it; listed in `All.lean`'s registry. -/
 lemma towerLS_const (A : ℝ) (B j : ℕ) : towerLS (fun _ => A) B j = towerLF A B j := by
   rw [towerLS, towerLF, chowlaTowerShape_const]
 
+/-- `towerLamS (fun _ => A) B j = towerLamF A B j`, through `towerLS_const`. Rewritten in
+`towerWS_const` and twice in `towerShape_flat_le`, which turns `towerFlat_width_le` into the
+schedule statement at the constant schedule; listed in `All.lean`'s registry. -/
 lemma towerLamS_const (A : ℝ) (B j : ℕ) : towerLamS (fun _ => A) B j = towerLamF A B j := by
   rw [towerLamS, towerLamF, towerLS_const]
 
+/-- `towerWS A (fun _ => A) B j = towerWF A B j`: at the constant schedule `φ ≡ A` with budget
+constant `A_b = A`, the potential is the flat tower's, through `towerLamS_const`. The last of
+the four glyph ties (Section 8); listed in `All.lean`'s registry, no proof applies it. -/
 lemma towerWS_const (A : ℝ) (B j : ℕ) : towerWS A (fun _ => A) B j = towerWF A B j := by
   rw [towerWS, towerWF, towerLamS_const]
 
+/-- `towerDropSumShape (fun _ => A) B J = towerDropSumFlat A 1 B J`: both sides unfold to sums
+over `range J` (`towerDropSumShape_eq_sum`, `towerDropSumFlat_eq_sum`), equal termwise by
+`towerLS_const`. The constant schedule's decrement is the flat tower's at `a = 1`; listed in
+`All.lean`'s registry, no proof applies it. -/
 lemma towerDropSumShape_const (A : ℝ) (B J : ℕ) :
     towerDropSumShape (fun _ => A) B J = towerDropSumFlat A 1 B J := by
   rw [towerDropSumShape_eq_sum, towerDropSumFlat_eq_sum]

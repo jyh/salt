@@ -240,10 +240,16 @@ lemma copHarmonic_le_phiAtomSum (x B : ℕ) : copHarmonic x B ≤ phiAtomSum x B
 /-- The coprime residues mod `B`. -/
 def copRes (B : ℕ) : Finset ℕ := (Finset.range B).filter (fun a => Nat.Coprime a B)
 
+/-- `Nat.Coprime (n % B) B ↔ Nat.Coprime n B`: `gcd (n % B) B = gcd B (n % B) = gcd n B` by
+`Nat.gcd_comm` and `Nat.gcd_rec`; it turns the block count's residue test `n % B ∈ copRes B`
+into `Nat.Coprime n B` in `block_coprime_card`. -/
 lemma coprime_mod_iff {n B : ℕ} : Nat.Coprime (n % B) B ↔ Nat.Coprime n B := by
   unfold Nat.Coprime
   rw [← Nat.gcd_rec, Nat.gcd_comm]
 
+/-- `#(copRes B) = φ(B)`: `Nat.totient_eq_card_coprime` counts the `a < B` with
+`Nat.Coprime B a`, and the filters agree by `Nat.coprime_comm` (`Finset.filter_congr`); the
+`#(copRes B ∩ range B)` of `block_count` in `block_coprime_card`. -/
 lemma copRes_card (B : ℕ) : (copRes B).card = Nat.totient B := by
   rw [Nat.totient_eq_card_coprime]
   unfold copRes

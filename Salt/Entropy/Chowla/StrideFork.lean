@@ -486,7 +486,7 @@ theorem towerDropSum_eq_base_one (C0 a Hlo J : ℕ) :
 
 /-- **F1-R4 (class B) — the flat regime at a general stride EXISTS, with the coprimality floor
 paid by the flat base.**  The mirror of `chowlaRegimeFlat_exists_param_gen`
-(`TowerFlatBuilder.lean:228-330`, which builds at `a := 1` and returns a `ChowlaRegimeFlat`), read
+(`TowerFlatBuilder.lean:257-359`, which builds at `a := 1` and returns a `ChowlaRegimeFlat`), read
 at stride `a` and returned as a plain `ChowlaRegime` with the SAME lower endpoint
 `Hlo = max (flatDesignFloor A) (max Hlo₀ (4·⌈1/ε⌉₊⁴))` — spelled EXACTLY as that builder spells it
 (at `A ≥ 162` the `Salt.MR` side knows `flatDesignFloor A = flatDesignBase A`,
@@ -495,7 +495,7 @@ The two stride-sensitive fields are supplied by the caller at the base they tran
 `hHloa : a ≤ flatDesignFloor A` gives `hHlo` by `flatDesignFloor A ≤ Hlo`; `hcopa :
 (a : ℚ) ≤ ε²·flatDesignFloor A / 2` gives `hcoprime` by the same monotonicity (`ε² ≥ 0`).  The
 tower: `J := towerJmin 2 1 (a * Hlo)` and `Hhi := chowlaTower 2 1 (a * Hlo) J`, so `hfit` is
-`le_of_eq (chowlaTower_eq_base_one …)`, `hJcon` is `towerJmin_spec` (`TowerExport.lean:582`, base
+`le_of_eq (chowlaTower_eq_base_one …)`, `hJcon` is `towerJmin_spec` (`TowerExport.lean:600`, base
 `a * Hlo ≥ Hlo ≥ 4·10⁶` by `Nat.le_mul_of_pos_left`) through `towerDropSum_eq_base_one`, and
 `hHlohi` is `chowlaTower_base_ge` at that base composed with `Hlo ≤ a * Hlo`.  Everything else —
 `hHlo_floor`, `hPNTwindow` (the builder's `hPNT` from `4·m⁴ ≤ Hlo`, verbatim), and the outer scale

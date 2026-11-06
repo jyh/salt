@@ -36,7 +36,7 @@ division).
 
 ## 3. The A-window (the consumer's honest tolerance)
 
-`log Cband ≤ 40` is spent at exactly ONE site (S11HoistGrade.lean:468 →
+`log Cband ≤ 40` is spent at exactly ONE site (S11HoistGrade.lean:473 →
 Mfl ≤ 2³⁵⁵ → FlatFloorBump.lean:124's `flatDoorM_ge_pow355`). Solving
 against flatDoorM A = ⌊e^{1.6A}/310301⌋:
 
@@ -51,7 +51,7 @@ against flatDoorM A = ⌊e^{1.6A}/310301⌋:
 - **(b) BAND-WINDOW — cheap, class A/B, one wave**: generalize
   `flatDoorM_ge_pow355` → `flatDoorM_ge_pow n` under
   A ≥ (n·log2 + log 310301 + 1)/1.6; thread 2³⁵⁵ → 2ⁿ and 162 → A₀(n)
-  through the six consumer hops (S16Budget:1430/1655/1760/2618,
+  through the six consumer hops (S16Budget:1417/1642/1747/2598,
   S16BudgetFlat, S16FlatTerminal(-Linear)); restate the rider as
   **log Cband ≤ 0.64·A₀ − 4.2 with A₀ := 36 000** (~586 nats of margin
   over the traced ceiling). KEY CONSEQUENCE: C_mu is a FIXED real

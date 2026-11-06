@@ -19,10 +19,10 @@ The Siegel zero enters WP1 only through the two named symbolic slots:
 ## Link-by-link ledger
 
 ### L1. TwistChain.lean (HB-1, Lemma 1(a),(b) + the ± factorization)
-- GROUNDED TwistChain.lean:359 `LamStar_nonneg (χ) (hsq : χ^2 = 1) (z n) : 0 ≤ LamStar χ z n`
-- GROUNDED TwistChain.lean:368 `vonMangoldt_le_LamTilde (hsq : χ^2 = 1) : Λ n ≤ LamTilde χ n`
-- GROUNDED TwistChain.lean:408 `eq_nPlus_mul_nMinus` (needs n ≠ 0, Coprime n q)
-- GROUNDED TwistChain.lean:424 `coprime_nPlus_nMinus` (no hypotheses beyond χ)
+- GROUNDED TwistChain.lean:368 `LamStar_nonneg (χ) (hsq : χ^2 = 1) (z n) : 0 ≤ LamStar χ z n`
+- GROUNDED TwistChain.lean:377 `vonMangoldt_le_LamTilde (hsq : χ^2 = 1) : Λ n ≤ LamTilde χ n`
+- GROUNDED TwistChain.lean:417 `eq_nPlus_mul_nMinus` (needs n ≠ 0, Coprime n q)
+- GROUNDED TwistChain.lean:433 `coprime_nPlus_nMinus` (no hypotheses beyond χ)
 - Siegel input consumed: NONE. Only χ²=1 (any real character — not even primitivity,
   not non-principality, not q > 1). z is a free ℕ parameter (the Admissible window
   `p < z, χ(p) = −1` truncation, TwistChain.lean:103).
@@ -37,11 +37,11 @@ The Siegel zero enters WP1 only through the two named symbolic slots:
   χ(p)=+1 primes (the pretense) will be charged downstream. Nothing about the zero yet.
 
 ### L3. Transfer.lean (HB-L2 rung 1, Lemma 2's transfer inequality)
-- GROUNDED Transfer.lean:189 `S1_le_S2 (hsq) : S1 A ≤ S2 χ A` — unconditional per χ²=1.
-- GROUNDED Transfer.lean:199 `S2_sub_S1_le (hsq) (hA : CoprimeSupport q A) :
+- GROUNDED Salt/HB/Transfer.lean:197 `S1_le_S2 (hsq) : S1 A ≤ S2 χ A` — unconditional per χ²=1.
+- GROUNDED Salt/HB/Transfer.lean:207 `S2_sub_S1_le (hsq) (hA : CoprimeSupport q A) :
   S2 − S1 ≤ Σ_{n∈A} (D(n)Λ̃(n+2) + Λ(n)D(n+2))`, D = overshoot.
-- GROUNDED Transfer.lean:185 `CoprimeSupport q A : ∀ n ∈ A, n ≠ 0 ∧ Coprime n q ∧ Coprime (n+2) q`
-- GROUNDED Transfer.lean:223 `coprimeSupport_window` — any (x,2x] window filtered by
+- GROUNDED Salt/HB/Transfer.lean:193 `CoprimeSupport q A : ∀ n ∈ A, n ≠ 0 ∧ Coprime n q ∧ Coprime (n+2) q`
+- GROUNDED Salt/HB/Transfer.lean:231 `coprimeSupport_window` — any (x,2x] window filtered by
   Coprime (n(n+2)) m with q ∣ m feeds CoprimeSupport.
 - Siegel input: NONE. Pure termwise algebra + Lemma 1(b),(c).
 - Slack: `S1_le_S2` needs no support hypothesis at all (Lemma 1(b) is global).
@@ -80,9 +80,9 @@ The Siegel zero enters WP1 only through the two named symbolic slots:
 
 ### L5. StarStep.lean (HB-L4, the S⁽²⁾ → S⁽³⁾ star step)
 - GROUNDED StarStep.lean:86 `LamStar_sub_LamTilde_eq_starDiff` (exact identity, no hyp beyond χ).
-- GROUNDED StarStep.lean:254 `S2_sub_S3_le (hsq) (z) (A) : |S2 − S3| ≤ Σ_{n∈A}
+- GROUNDED StarStep.lean:256 `S2_sub_S3_le (hsq) (z) (A) : |S2 − S3| ≤ Σ_{n∈A}
   (starErrBound·tauLog(n+2) + tauLog·starErrBound(n+2))` — NO coprimality needed.
-- GROUNDED StarStep.lean:328 `S2_sub_S3_bound` — parametric hres slot (Cerr·x/z + junk shape).
+- GROUNDED StarStep.lean:330 `S2_sub_S3_bound` — parametric hres slot (Cerr·x/z + junk shape).
 - Siegel input: NONE. The z-window here is the Λ* truncation parameter (Admissible:
   drop p² for p < z, χ(p) = −1); free ℕ.
 - The honest finding (header lines 39-49): the landed Admissible ALSO leaves small
@@ -96,7 +96,7 @@ The Siegel zero enters WP1 only through the two named symbolic slots:
 - GROUNDED StarWindow.lean:288 `hstar_window (z x) (hz : 1 ≤ z) (A ⊆ Ioc x 2x)
   (hcop : ∀ n∈A, Coprime (n(n+2)) (excPrimorial χ z)) (ε>0) : ∃ C>0, star-majorant sum
   ≤ 2(C(2x+2)^ε log(2x+2))²·(2x/z + √(2x+2))` — grade x^{1+2ε}log²x/z + x^{½+2ε}log²x.
-- GROUNDED StarWindow.lean:429 `S2_sub_S3_honestWindow` — the composed instance on
+- GROUNDED StarWindow.lean:432 `S2_sub_S3_honestWindow` — the composed instance on
   `honestWindow χ z x` (line 408).
 - Siegel input: NONE. Fully discharged: the S⁽²⁾→S⁽³⁾ step has NO remaining slot.
 - Slack: needs only z ≥ 1 and the window coprimality; the τ ≤ C_ε m^ε weight is
@@ -107,7 +107,7 @@ The Siegel zero enters WP1 only through the two named symbolic slots:
 ### L7. PairSieve.lean + PairInstance.lean (Lemma 8, rough case — UNCONDITIONAL)
 - GROUNDED PairSieve.lean:192 `boundingSum_ge_log_sq_of_twinDensity (z ≥ 100, level ≥ z²,
   twin density 2/p) : S ≥ (1/64)(log z)²`.
-- GROUNDED PairInstance.lean:414 `hb_lemma8 (z ≥ 100) (d₁,d₂ > 0 coprime z-rough) :
+- GROUNDED PairInstance.lean:419 `hb_lemma8 (z ≥ 100) (d₁,d₂ > 0 coprime z-rough) :
   S(d₁,d₂;z) ≤ 64(x/(d₁d₂))/(log z)² + 2z⁸`.
 - Siegel input: NONE — not even a character appears. Pure Selberg on the landed
   Brun/M3/M5 engine.

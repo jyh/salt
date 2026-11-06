@@ -157,6 +157,9 @@ theorem mainTermSum_ge_of_sixteen {z : ℕ} (hz : 16 ≤ z) :
 exact — the same design as `N0`, eighty bits lower.) -/
 def N0' : ℕ := 2 ^ 20
 
+/-- `(N0' : ℝ) = 2^20` as a real power (`unfold`, `push_cast`). The cast every honest-threshold
+twin rewrites through: `four_le_rpow_tenth` (`(2^20)^(1/10) = 4`) and `logZ_ge_twenty`
+(`log N0' = 20·log 2`). -/
 lemma N0'_cast : (N0' : ℝ) = (2 : ℝ) ^ (20 : ℕ) := by unfold N0'; push_cast; ring
 
 /-- `H^(1/10) ≥ 4` for `H ≥ N0' = 2^20` (exactly: `(2^20)^(1/10) = 4`). -/
