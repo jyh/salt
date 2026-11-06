@@ -1237,6 +1237,13 @@ def self_test():
         check("... one the edited file would KEEP is counted, not printed", ca["AMBIGUOUS"] == 2 and len(am) == 1)
         check("... and the rc is unchanged by it (nothing stale)",
               ca["REPORTED"] + ca["RE-KEYED"] == 0)
+        import io, contextlib
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            report(ea, ra, ca, False)
+        check("... and the PRINTED report carries it, with its file (paper on #635: an arm on rows is not one on the print)",
+              "  AMBIGUOUS amb.md: T.lean:5 -> T.lean:6" in buf.getvalue()
+              and "IF it means Salt/X/T.lean: RE-KEYED" in buf.getvalue())
         apply(d, "HEAD~1", "HEAD", ra)
         check("... --apply never rewrites it", open(os.path.join(d, "amb.md")).read().startswith("moves T.lean:5 "))
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
