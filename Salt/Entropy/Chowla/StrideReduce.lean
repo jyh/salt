@@ -30,7 +30,7 @@ shift by `k/a` in `n`: `integral_shift_le` (`ShiftCorr.lean:235`, generic `f`, g
 `perPair_collapse_aff` (`StrideBridge.lean:540`) are reused verbatim; (v) THE MAIN TERM is pinned
 to the literal `(H : ℝ)/(a : ℝ)` by the consumer (`StrideBridge.lean:591`), while the class
 `J(p) = {j < H : j + 1 ≡ p·b (a)}` has `H/a ≤ #J(p) ≤ H/a + 1` (`card_class_range_ge`, NEW;
-`card_class_range_le` from `card_filter_natCast_eq_le`, `FBridge.lean:125`) — the `±1` per prime
+`card_class_range_le` from `card_filter_natCast_eq_le`, `FBridge.lean:134`) — the `±1` per prime
 costs `Σ_p (1/p)·|X_aff| ≤ SP` and is a FOURTH slice; (vi) the boundary count is the COARSE
 `boundary_card_le H (p·h) ≤ p·h` (`HBudget.lean:428`, through `Finset.card_le_card`), paying
 `(1/32)·SP·(H/a)·ε` from THE GATE AT `ε·a·h ≤ c/(64·log 4)` (F1-B6 as forecast; under the pin
@@ -180,7 +180,7 @@ theorem gate_residue_aff (a p j : ℕ) (hp : 2 ≤ p) (hcop : Nat.Coprime a p) :
 
 /-- **F4-R1b (class A) — the class count, above.**
 `#{j < H : ((j + 1 : ℕ) : ZMod a) = c} ≤ H/a + 1`:
-`card_filter_natCast_eq_le` (`FBridge.lean:125`, modulus-generic) after the `j + 1 ↦ j` reindex of
+`card_filter_natCast_eq_le` (`FBridge.lean:134`, modulus-generic) after the `j + 1 ↦ j` reindex of
 the predicate (`StrideBridge.lean:163-170`'s `hset` trick at `c − 1`), or directly by the injection
 `j ↦ (j + 1) / a` into `Finset.range (H / a + 2)`… — stated at `H/a + 1`, which the injection
 `j ↦ j / a` into `range (H/a + 1)` gives after `Nat.div_le_div_right`. -/

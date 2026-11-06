@@ -98,7 +98,7 @@ theorem integral_logMeasureAff (a x ω : ℕ) (f : ℕ → ℝ) :
 `Measure.isProbabilityMeasure_map (measurable_from_nat (f := fun n => a * n)).aemeasurable`
 (`MeasureTheory.Measure.isProbabilityMeasure_map`, Probability.lean:124 — NOT the bare
 `isProbabilityMeasure_map`, which resolves to nothing; the corpus spells it right at
-`InvarianceHead.lean:163`). -/
+`InvarianceHead.lean:171`). -/
 instance isProbabilityMeasure_logMeasureAff (a x ω : ℕ)
     [IsProbabilityMeasure (logMeasure x ω)] : IsProbabilityMeasure (logMeasureAff a x ω) := by
   unfold logMeasureAff

@@ -81,6 +81,10 @@ lemma windowVal_prod_eq_zero_of_not_lt {H : ℕ} {v : Fin H → ℤ} {j k : ℕ}
   · rw [windowVal_eq_zero_of_not_lt hj, zero_mul]
   · rw [windowVal_eq_zero_of_not_lt hk, mul_zero]
 
+/-- `|windowVal H v j| ≤ 1` for a `|v| ≤ 1` pattern, at every `j : ℕ` (inside the window it is
+`v ⟨j, _⟩`; outside, `0`). The unit bound on one factor: `windowVal_prod_abs_le` here, the
+complex casts `windowVal_c_norm_le`/`wv_c_norm` in `CircleMethod`, and `StrideCircle`'s
+`periodization_total_twist`. -/
 lemma windowVal_abs_le {H : ℕ} {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1) (j : ℕ) :
     |(windowVal H v j : ℝ)| ≤ 1 := by
   unfold windowVal
@@ -88,6 +92,11 @@ lemma windowVal_abs_le {H : ℕ} {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1) (
   · exact_mod_cast hv ⟨j, h⟩
   · simp
 
+/-- `|windowVal H v j · windowVal H v k| ≤ 1` for a `|v| ≤ 1` pattern, at any two indices
+(`abs_mul` and `windowVal_abs_le` twice). Offset-blind, which is the point: it bounds every
+gated term of `fBridgeG`/`fBridgeG_h`/`fBridgeG_aff` by `1` (`fBridgeG_abs_le`,
+`fBridgeG_h_abs_le`, `StrideBridge.fBridgeG_aff_abs_le`) and the decoupled means in
+`OuterCombine` and `StrideCombine`, whatever the second index. -/
 lemma windowVal_prod_abs_le {H : ℕ} {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1) (j k : ℕ) :
     |(windowVal H v j : ℝ) * (windowVal H v k : ℝ)| ≤ 1 := by
   rw [abs_mul]

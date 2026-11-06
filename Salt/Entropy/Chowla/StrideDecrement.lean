@@ -25,7 +25,7 @@ budget exactly as at stride `1`.  `R.a ∣ H` is CONSUMED here (F1's B7) where t
 carries and discards it (`Step.lean · condEntropy_shift_le` `_ha`, `Tower.lean:161`).  Everything else — the
 concatenation `condEntropy_kwindow_le` (`liouvilleWindow_block` + chain rules), the reduction
 spine, the tower arithmetic, the endpoints (`entropy_liouvilleWindow_le` is already `∀ μ`,
-`Windows.lean:62`) — is a copy with the measure renamed.
+`Salt/Entropy/Chowla/Windows.lean:67`) — is a copy with the measure renamed.
 
 ⛔ Degenerate values (the W4 law): `a = 0` makes `logMeasureAff 0 x ω` the Dirac mass at `0`;
 every statement below reads the stride as `R.a` with `R.ha : 1 ≤ R.a`, and the free-`a` lemmas
@@ -169,7 +169,7 @@ theorem joint_l1_le_aff (R : ChowlaRegime) (H j : ℕ) (hdvd : R.a ∣ H) :
 
 /-! ## F4-D2 — the reduction spine and the Fannes bridge at the stride measure -/
 
-/-- **F4-D2a (class A).**  `condEntropy_shift_reduction` (`InvarianceHead.lean:108`) with the
+/-- **F4-D2a (class A).**  `condEntropy_shift_reduction` (`InvarianceHead.lean:116`) with the
 measure renamed: its only `logMeasure` use is the probability instance (`:114`), supplied here
 by `haveI : IsProbabilityMeasure (logMeasure R.x R.ω) := isProbabilityMeasure_logMeasure R.hx
 R.hω` and the instance `isProbabilityMeasure_logMeasureAff`; the body (`chain_rule`,
@@ -212,7 +212,7 @@ theorem condEntropy_shift_reduction_aff (R : ChowlaRegime) (H j : ℕ) :
       rw [Measure.map_map (measurable_jointWindow R.eps H 0)
           (measurable_of_countable (fun n : ℕ => n + j * H))]; rfl]
 
-/-- **F4-D2b (class A).**  `condEntropy_shift_le_of_l1` (`InvarianceHead.lean:150`) with the
+/-- **F4-D2b (class A).**  `condEntropy_shift_le_of_l1` (`InvarianceHead.lean:158`) with the
 measure renamed (in `hd` too): the two nullities from `jointWindow_mem_jointSupport` and
 `Measure.map_apply`, the Fannes bridge `entropy_sub_le_of_l1` (`Fannes.lean:190`, `μ ν`-generic),
 and `condEntropy_shift_reduction_aff`; the only `logMeasure` use was the instance (`:161`). -/
@@ -413,7 +413,7 @@ theorem condEntropy_kwindow_le_aff (R : ChowlaRegime) (H k : ℕ) :
 /-- **F4-D2e (class A) — the (3.11) per-step inequality at the stride measure.**
 `step_ineq_3_11` (`Step.lean`) with `condEntropy_kwindow_le_aff` and
 `condEntropy_shift_le_aff` (`ha` forwarded, now consumed); the residue ceiling
-`entropy_residueWindow_le_log_PH` (`PrimeWindow.lean:65`) is `∀ μ`. -/
+`entropy_residueWindow_le_log_PH` (`PrimeWindow.lean:78`) is `∀ μ`. -/
 theorem step_ineq_3_11_aff (R : ChowlaRegime) {H k : ℕ}
     (hH : R.Hlo ≤ H) (hcpl : k * H ≤ R.Hhi) (ha : R.a ∣ H) (hk : 1 ≤ k) :
     H[liouvilleWindow (k * H) ; logMeasureAff R.a R.x R.ω] / ((k : ℝ) * H)
@@ -632,7 +632,7 @@ theorem tower_telescope_aff (R : ChowlaRegime)
 
 /-- **F4-D4a (class A).**  `entropy_per_symbol_le` (`Endpoints.lean:41`):
 `entropy_liouvilleWindow_le H (logMeasureAff R.a R.x R.ω)` — the landed lemma is `∀ μ`
-(`Windows.lean:62`). -/
+(`Salt/Entropy/Chowla/Windows.lean:67`). -/
 theorem entropy_per_symbol_le_aff (R : ChowlaRegime) (H : ℕ) (hH : 1 ≤ H) :
     H[liouvilleWindow H ; logMeasureAff R.a R.x R.ω] / (H : ℝ) ≤ Real.log 2 := by
   have hHpos : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH
