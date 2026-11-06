@@ -2321,7 +2321,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
        arc      bigXiArcTight_twelve      (ExitClose:773)        ✅ UNCONDITIONAL
        Parseval parseval_insert_budget_door (M4ParsevalStone:341) ✅ + terminal twin consumed S16FlatTerminalLinear:197
        ⟦THE WALL⟧ m4_hrowsSum_chi_door_end_L (M4RowLinear:282)   ✅ landed · All.lean:7550 · consumed ×3
-                  (M4RowAssemblyLinear:5049 · :5332 _gk · :6062 _gk_kwide)
+                  (M4RowAssemblyLinear:5025 · :5332 _gk · :6062 _gk_kwide)
        ⟦CLASS PRICING⟧ M4ClassPrice.lean                          ✅ 41 thms, 0 sorry — design question ANSWERED  [42→41 erratum 08/25, see :196]
     ⛔ M4RowMeanSq_L (M4RowLinear:991) — NO PRODUCER; unprimed M4RowMeanSq has none either
 ```
