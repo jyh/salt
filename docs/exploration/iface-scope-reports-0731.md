@@ -17,7 +17,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 
 **The demand's two halves** (`Salt/Entropy/Chowla/BudgetCore.lean:138-146`):
 - `κ := H/(log H · logloglog H)` — produced by `entropy_decrement` (`Decrement.lean:49-56`), consumed at `SpineFinal.lean:632` and threaded into fact (iv) at `SpineFinal.lean:576-579, 626`.
-- `gcap := ε⁶H/(18·(2·log 4)·log H) − log 2` — the concentration exponent, born at `Transport.lean:82` as `E = δ²·log H/(2·C₀·ε²H·(2/ε²+1)²)` and specialized at `Transport.lean:128-146` to `δ := ε²H/log H`, giving `ε⁶H/(18·C₀·log H)`; `C₀ = 2·log 4` from `circle_method_estimate` (`CircleMethod.lean:574,586`, witness `C = 1+2C₀`).
+- `gcap := ε⁶H/(18·(2·log 4)·log H) − log 2` — the concentration exponent, born at `Transport.lean:82` as `E = δ²·log H/(2·C₀·ε²H·(2/ε²+1)²)` and specialized at `Transport.lean:128-146` to `δ := ε²H/log H`, giving `ε⁶H/(18·C₀·log H)`; `C₀ = 2·log 4` from `circle_method_estimate` (the theorem in `CircleMethod.lean` and the first line of its proof, witness `C = 1+2C₀`).
 
 **The cancellation (P1, kernel):** `(H/(L·L3)) / (ε⁶H/(18·(2·log4)·L)) = 36·log 4/(ε⁶·L3)` — identically, for all `H, L, L3, ε > 0`. Both sides are `(H/log H) × scalar`. This is the crux: the demand is not "H large", it is a **pure constant inequality on `logloglog H`**.
 
