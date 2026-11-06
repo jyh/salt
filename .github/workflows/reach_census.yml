@@ -5,9 +5,10 @@ name: Reach census
 # REACHES-OWED, so an owed row surfaces without a seat remembering to run the census. It runs:
 #   * nightly, two hours after the Lean job's cron hour, on main's head;
 #   * on demand (workflow_dispatch, inputs `sha` and `drop_by_design`);
-#   * on a pull request that touches the census, RESULTS, or this file. A pull request runs the
-#     census TWICE: clean, which must read rc 0, and planted (`--drop-by-design`, one BY_DESIGN row
-#     left out), which must read rc 1 naming that row. The planted arm is the red-first check, kept.
+#   * on a pull request that touches the census, RESULTS, a Lean file, or this file. A pull
+#     request runs the census TWICE: clean, which must read rc 0, and planted (`--drop-by-design`,
+#     one BY_DESIGN row left out), which must read rc 1 naming that row. The planted arm is the
+#     red-first check, kept. A dispatch runs ONE walk (planted iff `drop_by_design`).
 # Red on an owed row (parse rc 1) or on a run that is not clean (rc 2). It is not a required
 # check and blocks no merge. Not on workflow_run: one walk a night, not one per merge.
 # The build cache is RESTORED from main's Lean job and never saved here.
@@ -33,6 +34,10 @@ on:
       - 'scripts/o13_census.py'
       - 'docs/RESULTS.md'
       - '.github/workflows/reach_census.yml'
+      - 'Salt/**/*.lean'
+      - 'SaltC1/**/*.lean'
+      - 'Salt.lean'
+      - 'SaltC1.lean'
 
 concurrency:
   group: reach-census-${{ github.ref }}

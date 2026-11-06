@@ -73,7 +73,7 @@ caveats preserved verbatim in the appendix).*
   `∑_{q=1}^{⌊x^θ⌋} maxDiscrepancy x q ≤ C·x/(log x)^A` for all `x ≥ 2`.
 - `Salt/Twelve/Params.lean:33` — `EHall : ∀ θ, 0 < θ → θ < 1 → EH θ`.
 - Consumers: `gaps_le_twelve (hPNT : WindowPNT) (hEH : EHall)`
-  (`Salt/Twelve/GapsUncond.lean:1061`) and the headline corollary
+  (`Salt/Twelve/GapsUncond.lean:1098`) and the headline corollary
   `gaps_le_twelve_of_piAsymp (hpi : PiAsymp) (hEH : EHall)`
   (`Salt/Twelve/WindowPNTDischarge.lean:130`). Instantiated at a single θ₊ via
   `EHall_hasEH` → `EH_hasLevel`.

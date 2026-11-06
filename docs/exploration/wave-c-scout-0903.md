@@ -33,10 +33,10 @@ listed in §3); and (iii) an **additive-arithmetic-function predicate** for `A(d
 **no `IsAdditive` at all** (ABSENT, sibling named). What the corpus DOES supply is exactly the two
 regime-killers, both unconditional and both sharper than HB: `sum_class_eq_zero_of_isPrimitive`
 (`Salt/HB/RealPrimitive.lean:415`) kills regime (b) at constant zero, and
-`sum_two_forms_le_gcd_of_isPrimitive` (`Salt/HB/RealPrimStructure.lean:763`) kills regime (c) at
+`sum_two_forms_le_gcd_of_isPrimitive` (`Salt/HB/RealPrimStructure.lean:775`) kills regime (c) at
 constant **one** where HB writes `≪`, with the Δ-fold descent (W4-c′) already landed beside it at
 `Salt/HB/RealPrimitive.lean:129`; and it supplies `κ` and `G(d)` as print-certified kernel objects
-(`Salt/HB/Lemma7Kappa.lean:348`/`:86`) so §6's exit has a target rather than a definition to invent.
+(`Salt/HB/Lemma7Kappa.lean:370`/`:86`) so §6's exit has a target rather than a definition to invent.
 Price: **Wave C-1 (regimes, through (6.11)) 1,450–3,150 ln, class B with two C-clusters; Wave C-2
 (the main term, (6.12)–(6.16) and the σ→1 limit) 4,000–7,900 ln, class C throughout; total
 5,450–11,050 ln** — above the 08/06 dossier's 4,000–9,000, and the excess is the two missing
@@ -55,7 +55,7 @@ CLAUDE.md table. "ln" = executor line estimate for that row alone.
 | **(6.2)** `:693-696` | summand `K^{−1}(w₁w₂)^{−1}A`, `K = δ₁δ₂qΔ^{−1}`, `A(w₁,w₂) = mes{t ∈ [x,2x] : R_i ≤ l_i(t)/(δ_iw_i) ≤ 2R_i}` | the forms `l_i`, Lebesgue measure on ℝ | GAP — **no `l_i(n) = α_i n + β_i` object in `Salt/`** (arms: `roadForm`, `linear form`, `α₁`, `alpha1`, `RoadPair`, `roadPair`; sibling `roadModulus` FOUND ⇒ ABSENT). Measure: mathlib `MeasureTheory.volume` on `Set.Icc` | B | 200–350 |
 | **(6.3)(6.4)** `:698-703` | the `a_i` count: `t₂ ≡ γt₁ (mod q/Δ)`; `a₂ ≡ ca₁+b (mod q/Δ)`; count `= ∏_{p∣q/Δ}(p−2) = qΔ^{−1}M`, `M = ∏_{p∣q/Δ,p∤α}(1−2/p)` | q **cube-free**, (1.9) ⟹ `(α_i,q/Δ)=1`, `(Δ,q/Δ)=1` | GAP for the CRT count; `Δ = (α₂,q)`, `D = α₂qΔ^{−1} = Nat.lcm α₂ q` is **[KERNEL]** `Salt/Weil/RoadModulus.lean:62` (`roadModulus_eq_lcm`) | C | 300–600 |
 | **(6.5)(6.6)** `:709-713` | regime (b): `Σ_{d∣q/Δ}μ(d)Σχ(b₂)` over a class mod `dΔ`; **vanishes unless `dΔ = q`**; (6.6) is `O(1)` | **χ primitive** | ✅ **[KERNEL]** `sum_class_eq_zero_of_isPrimitive`, `Salt/HB/RealPrimitive.lean:415` — see §2(b) | B | 200–400 |
-| **(6.7)(6.8)** `:716-726` | regime (c): `|Σ| = |Σ_{t=1}^{q/Δ} χ(Δγ₁t+β₁)χ(Δγ₂t+β₂)| ≪ Δ^{−1}(q,Δα^{−1}(α₁β₂−α₂β₁)) ≪ 1` | χ **real** primitive; **(1.6)** `α₁β₂−α₂β₁ ≠ 0` | ✅ **[KERNEL]** `sum_two_forms_le_gcd_of_isPrimitive` `Salt/HB/RealPrimStructure.lean:763` **at constant 1** + the Δ-descent `sum_range_eq_nsmul_of_dvd_of_periodic` `Salt/HB/RealPrimitive.lean:129` — see §2(c) | B | 250–450 |
+| **(6.7)(6.8)** `:716-726` | regime (c): `|Σ| = |Σ_{t=1}^{q/Δ} χ(Δγ₁t+β₁)χ(Δγ₂t+β₂)| ≪ Δ^{−1}(q,Δα^{−1}(α₁β₂−α₂β₁)) ≪ 1` | χ **real** primitive; **(1.6)** `α₁β₂−α₂β₁ ≠ 0` | ✅ **[KERNEL]** `sum_two_forms_le_gcd_of_isPrimitive` `Salt/HB/RealPrimStructure.lean:775` **at constant 1** + the Δ-descent `sum_range_eq_nsmul_of_dvd_of_periodic` `Salt/HB/RealPrimitive.lean:129` — see §2(c) | B | 250–450 |
 | **(6.9)** `:728-735` | `S(δ₁,δ₂;V₁,V₂) = Σ_{R_i,S_i}M(δ₁δ₂)^{−1}F(R_i,S_i) + O(xL⁴(qδ₁δ₂)^{−1}) + O(δ₁δ₂q^{13/2}x^{15/16+2ε})` | (6.2)+(6.6)+(6.8) and (5.19)'s error | GAP — the assembly; the three inputs are rows above | C | 300–600 |
 | **(6.10)** `:734` | `Σ_{w∈I,(w,f)=1}χ(w) = Σ_{g∣f}μ(g)Σ_{w∈I,g∣w}χ(w) ≪ q·d(f)`, **PV-free** (`|Σχ| ≤ q` over any interval) | Möbius coprimality expansion; trivial complete-sum bound | ✅ better than needed: **[KERNEL]** `Salt.BV.polya_vinogradov` `Salt/BV/PolyaVinogradov.lean:234` gives `‖Σ_{m<t}χ(m)‖ ≤ √f(1+log f)`. **[SCOUT]** it is over `Finset.range t`, so an arbitrary interval costs one differencing step (~20 ln). GAP: the μ-expansion itself | B | 150–300 |
 | **(6.11)** `:737-742` | `≪ x^{1+ε}q^{−1} + x^{15/16+3ε}q^{14} ≪ x^{1+ε}q^{−1}` **since `δ₁δ₂ ≤ q⁴d²` and `x ≥ q^250`** — the LOWER window edge | (6.9) fed into Lemma 9; `d ≤ q^{1/3}` | GAP — pure real-exponent arithmetic. Notes record ~10 powers of `q` of slack (`:744-746`) | B | 200–400 |
@@ -63,12 +63,12 @@ CLAUDE.md table. "ln" = executor line estimate for that row alone.
 | **(6.13)(6.14)** `:755-757` | the collapsed `S(d;t)` with `(d₁,r₁)(d₂,r₂)` and the four coprimality side conditions | (6.12) + the `h_i`/`j_i` collapse | GAP; elementary but bulky | B | 250–400 |
 | **(6.15)** `:762` | replacement `M(r) → N(r)` (`N(r)=0` iff `p²∣r` for some `χ(p)=−1`), error `≪ L⁴z^{−1}d^{−1}4^{ω(d)}` — **Lemma 5's stated error** | the `Q`-squarefree structure | GAP. `ω(d)` is **[KERNEL]**-adjacent: `ArithmeticFunction.cardDistinctFactors`, used at `Salt/Brun/M5Assembly.lean:85`, `Salt/SW/DHBal.lean:458` | C | 400–800 |
 | **(6.16)** `:765-766` | extension of the `r_i`-sum to ∞ via `S′(d_i;t,σ)`, `σ > 1`, `S′(d;t) = d^{−1}lim_{σ→1}Σ_{d=d₁d₂}S′(d_i;t,σ)`; tail by partial summation + (6.10) again, total `≪ q d x^{ε−1/4}` | (6.10); Abel summation | GAP. Abel summation exists in mathlib (`Finset.sum_Ioc_by_parts`-family); the Dirichlet-series objects do not | C | 400–800 |
-| **F/G** `:770-772` | `f(u,v) = l₁^u l₂^v F(u,v)G(u,v)`; `F` an infinite Euler product over `p∤α` split by `χ(p)=±1`; `G` a **finite** product over `p ∣ d` | Euler-product factorisation of `S(d_i,l_i,σ)` | GAP — see §3. Idiom precedents **[KERNEL]**: `Salt/HB/Lemma7Kappa.lean:339-340` (`tprod` + `Multipliable` witness `:329`), `Salt/HB/Lemma7Prod.lean:169-232` (ordered partial products where `∏'` is wrong) | C | 500–1,000 |
+| **F/G** `:770-772` | `f(u,v) = l₁^u l₂^v F(u,v)G(u,v)`; `F` an infinite Euler product over `p∤α` split by `χ(p)=±1`; `G` a **finite** product over `p ∣ d` | Euler-product factorisation of `S(d_i,l_i,σ)` | GAP — see §3. Idiom precedents **[KERNEL]**: `Salt/HB/Lemma7Kappa.lean:361-362` (`tprod` + `Multipliable` witness `:329`), `Salt/HB/Lemma7Prod.lean:169-232` (ordered partial products where `∏'` is wrong) | C | 500–1,000 |
 | **log-diff** `:774-777` | `F_u/F = F_v/F = L′(σ,χ)/L(σ,χ) + C₁`; `F_{uv} = F((L′/L)² + 2C₁(L′/L) + C₂)`; `G_u = G_v = G·A₁(d)`; `G_{uv} = G(A₂+A₁²)`; `C_i ≪ 1` in `q,t,σ` **but not in `α`**; `A₁(p) ≪ log p`, `A₂(p) ≪ (log p)²` | **the two B.3 formulae** | GAP — the two stones, §3. Reusable **[KERNEL]**: `logDeriv_LFunction_eq` `Salt/SW/EulerBridge.lean:145` and `norm_logDeriv_LFunction_sub_primitive_le` `:245` are exactly the "`L′/L` + bounded finite-prime correction" shape | C | 800–1,600 |
 | **(6.17-eq)** `:790-791` | `Σ_{d=d₁d₂}S(d_i,l_i,σ) = F(0,0)G(0,0){(L′/L)² + A₁(d)² + A₃(d) + L²C₃ + LC₄(L′/L)}` | the four log-diff identities | GAP — the assembly display (HB does not number it) | C | 300–600 |
-| **σ→1 / exit** `:793-795` | `MF(0,0) → κx^{−1}`, `G(0,0) → G(d)`; **Lemma 5 follows on integrating over `t`**, the `t`-integral of `A₃` again additive | continuity in σ; additivity | ✅ targets **[KERNEL]**: `hbKappa` `Salt/HB/Lemma7Kappa.lean:348`, `hbG` `:86`. GAP: the limit itself, and additivity (no `IsAdditive` — §0) | C | 400–800 |
+| **σ→1 / exit** `:793-795` | `MF(0,0) → κx^{−1}`, `G(0,0) → G(d)`; **Lemma 5 follows on integrating over `t`**, the `t`-integral of `A₃` again additive | continuity in σ; additivity | ✅ targets **[KERNEL]**: `hbKappa` `Salt/HB/Lemma7Kappa.lean:370`, `hbG` `:86`. GAP: the limit itself, and additivity (no `IsAdditive` — §0) | C | 400–800 |
 
-**Consumer of the exit, for the statement shape [KERNEL]:** `Salt/HB/RosserDim4Instance.lean:558`
+**Consumer of the exit, for the statement shape [KERNEL]:** `Salt/HB/RosserDim4Instance.lean:578`
 already names what N8 owes — *"(i) **Lemma 5** — the evaluation `S(d) = κ(G(d)/d){(L′/L)² + A²(d) +
 A′(d) + C₀} + O(xL⁴z^{−1}d^{−1}4^{ω(d)})`"*. Wave C's exit statement should be written to that
 consumer, not invented.
@@ -113,7 +113,7 @@ HB reduces to `|Σ_{t=1}^{q/Δ} χ(Δγ₁t+β₁)χ(Δγ₂t+β₂)|`, quotes (
 theorem sum_two_forms_le_gcd_of_isPrimitive {q : ℕ} [NeZero q] (χ : DirichletCharacter ℤ q)
     (hprim : χ.IsPrimitive) (u u' v v' : ZMod q) :
     |∑ t : ZMod q, χ (u * t + u') * χ (v * t + v')|
-      ≤ (Nat.gcd q (u * v' - v * u').val : ℤ)                 -- RealPrimStructure.lean:763
+      ≤ (Nat.gcd q (u * v' - v * u').val : ℤ)                 -- RealPrimStructure.lean:775
 ```
 ```
 theorem sum_range_eq_nsmul_of_dvd_of_periodic (f : ℕ → M) {q Δ : ℕ} (hΔ : Δ ∣ q)
@@ -149,7 +149,7 @@ The corpus holds **two** infinite-product idioms and they are not interchangeabl
 statement must pick deliberately:
 
 - **`tprod` + a genuine `Multipliable` witness** — used where the product converges absolutely.
-  `Salt/HB/Lemma7Kappa.lean:339-340`: `noncomputable def hbKappaTail … := ∏' p :
+  `Salt/HB/Lemma7Kappa.lean:361-362`: `noncomputable def hbKappaTail … := ∏' p :
   Salt.TwinBar.PrimesGt2, hbWfac χ α (p : ℕ)`, backed at `:329-332` by `theorem
   hbWfac_multipliable … := Real.multipliable_of_summable_log (fun p => hbWfac_pos …)
   (hbWfac_log_summable χ α)`, whose docstring says *"so `hbKappaTail` is the honest convergent
@@ -175,7 +175,7 @@ recorded; this scout does not choose.
 convergent — at `χ(p)=1` the factor `(1−p^{−2σ})/(1−p^{−σ})²·(1−p^{−σ})² = 1−p^{−2σ}`, at
 `χ(p)=−1` the factor `(1−2p^{−σ})·(1+p^{−σ})² = 1 − 3p^{−2σ} − 2p^{−3σ}`, at `p∣α` the factor
 `(1−χ(p)/p)²`, at `p∣q` the factor `1`. **That is `hbSfac`/`hbWfac` on the nose**
-(`Salt/HB/Lemma7Kappa.lean:132-140`: `χ_ℝ(p)=1 ↦ 1−1/p²`, `χ_ℝ(p)=−1 ↦ (1−2/p)(1+1/p)²`, `else ↦ 1`;
+(`Salt/HB/Lemma7Kappa.lean:135-143`: `χ_ℝ(p)=1 ↦ 1−1/p²`, `χ_ℝ(p)=−1 ↦ (1−2/p)(1+1/p)²`, `else ↦ 1`;
 `hbWfac = 1` on `p ∣ α`), so **`hbKappaTail` IS the σ→1 limit of `F(0,0)/L(σ,χ)²` restricted to
 `p ∤ α`, factor for factor** — which independently re-derives ADDENDUM B.4's "`κ` is defined by that
 limit" and confirms D.1's partition from the §6 side. Consequence: state `F` **relative to
@@ -289,7 +289,7 @@ Order is executor order. "consumes" cites rows of §1 and kernel pins.
 | C1-03 | (6.1) coprimality bundle | the five conditions as one `Prop` | (5.6) | A | 40–80 |
 | C1-04 | regime (b) | `Σ_{d∣q/Δ}μ(d)·Σ_{class mod dΔ}χ = (the dΔ=q term)` | **`sum_class_eq_zero_of_isPrimitive` `RealPrimitive.lean:415`** | B | 200–400 |
 | C1-05 | regime (c) periodicity | `f(t + q/Δ) = f t` for `f t = χ(Δγ₁t+β₁)χ(Δγ₂t+β₂)` | ZMod arithmetic | A | 60–120 |
-| C1-06 | regime (c) exit | `|Σ_{t<q/Δ} …| ≤ Δ^{−1}(q, …) ≤ 1` | **`sum_two_forms_le_gcd_of_isPrimitive` `RealPrimStructure.lean:763`** + `sum_range_eq_nsmul_of_dvd_of_periodic` `:129` + (1.6) | B | 250–450 |
+| C1-06 | regime (c) exit | `|Σ_{t<q/Δ} …| ≤ Δ^{−1}(q, …) ≤ 1` | **`sum_two_forms_le_gcd_of_isPrimitive` `RealPrimStructure.lean:775`** + `sum_range_eq_nsmul_of_dvd_of_periodic` `:129` + (1.6) | B | 250–450 |
 | C1-07 | (6.3)/(6.4) the `a_i` count | `#{a₁} = ∏_{p∣q/Δ}(p−2) = qΔ^{−1}M`; `M` as a `Finset.prod` | q cube-free, (1.9), `roadModulus_eq_lcm` `RoadModulus.lean:62` | **C** | 300–600 |
 | C1-08 | (6.10) interval char sum | `‖Σ_{w∈I}χ(w)‖ ≤ q` and the μ-coprimality expansion `≪ q·d(f)` | `Salt.BV.polya_vinogradov` `PolyaVinogradov.lean:234` (sharper) + differencing | B | 150–300 |
 | C1-09 | (6.9) assembly | the three-term display | C1-02/04/06/07/08 | **C** | 300–600 |
@@ -302,14 +302,14 @@ Order is executor order. "consumes" cites rows of §1 and kernel pins.
 |---|---|---|---|---|---|
 | **C2-01** | **STONE 1** | `logDeriv (fun u => ∏' m, a m u) u₀ = ∑' m, logDeriv (a m) u₀` in the house idiom | mathlib `logDeriv_tprod_eq_tsum` `LogDerivUniformlyOn.lean:24` + `…MultipliableUniformlyOn.lean:137` + `Log/Summable.lean:216` | B | 200–400 |
 | **C2-02** | **STONE 2** | the mixed second derivative of `∏' m, a m (u,v)` — the B.3 display | **ABSENT everywhere**; built from `fderiv_finsetProd` `FDeriv/Mul.lean:631` + `TendstoLocallyUniformlyOn.deriv` `LocallyUniformLimit.lean:153` + `IsSymmSndFDerivAt` `FDeriv/Symmetric.lean:91` | **C** | 600–1,200 |
-| C2-03 | `F(u,v)`, `G(u,v)` as objects | `F` relative to `L(σ,χ)²` (§3 fork); `G` a `Finset.prod` over `d.primeFactors` | `Lemma7Kappa.lean:339/329` idiom or `Lemma7Prod.lean:169-232` idiom | **C** | 500–1,000 |
+| C2-03 | `F(u,v)`, `G(u,v)` as objects | `F` relative to `L(σ,χ)²` (§3 fork); `G` a `Finset.prod` over `d.primeFactors` | `Lemma7Kappa.lean:361/351` idiom or `Lemma7Prod.lean:169-232` idiom | **C** | 500–1,000 |
 | C2-04 | (6.12)/(6.13)/(6.14) | `S(d;t)`, `S(d_i,r_i)`, `M(r)`, the four coprimality conditions | `ArithmeticFunction.moebius`, Finset divisor sums | **C** | 300–500 |
 | C2-05 | (6.15) `M(r) → N(r)` | error `≪ L⁴z^{−1}d^{−1}4^{ω(d)}`, **no `x`** (§5) | C2-04, `cardDistinctFactors` | **C** | 400–800 |
 | C2-06 | (6.16) + the log-diff display | the `σ>1` extension, tail `≪ qdx^{ε−1/4}`; `F_u/F = L′/L + C₁`, `F_{uv}`, `G_u`, `G_{uv}` — **the `C_i`-in-`α` trap is STATED HERE (§4)** | C2-01, C2-02, C2-03; `logDeriv_LFunction_eq` `EulerBridge.lean:145` as template | **C** | 1,200–2,400 |
 | C2-07 | additivity of `A₁, A₂, A₃` | an additive-arithmetic-function predicate + `A₁(p) ≪ log p`, `A₂(p) ≪ (log p)²`, `A₃(p) ≪ (L+|L′/L|)log p` | **no mathlib `IsAdditive`** (sibling `IsMultiplicative` `ArithmeticFunction/Defs.lean:418`) ⇒ define it | B | 300–600 |
 | C2-08 | the assembly display `:790` | `Σ_{d=d₁d₂}S(d_i,l_i,σ) = FG{(L′/L)² + A₁² + A₃ + L²C₃ + LC₄(L′/L)}` | C2-06, C2-07 | **C** | 300–600 |
-| C2-09 | σ→1 | `M·F(0,0) → κx^{−1}` (target `hbKappa` `Lemma7Kappa.lean:348`), `G(0,0) → G(d)` (target `hbG` `:86`) | C2-03, C2-08; §3's `hbSfac` identification | **C** | 400–800 |
-| C2-10 | the `t`-integration + Lemma 5 | `S(d) = κ(G(d)/d){(L′/L)² + A²(d) + A′(d) + C₀} + O(xL⁴z^{−1}d^{−1}4^{ω(d)})`, written to the consumer at `RosserDim4Instance.lean:558` | C2-05, C2-09, C2-07 (the `t`-integral of `A₃` is again additive) | **C** | 400–800 |
+| C2-09 | σ→1 | `M·F(0,0) → κx^{−1}` (target `hbKappa` `Lemma7Kappa.lean:370`), `G(0,0) → G(d)` (target `hbG` `:86`) | C2-03, C2-08; §3's `hbSfac` identification | **C** | 400–800 |
+| C2-10 | the `t`-integration + Lemma 5 | `S(d) = κ(G(d)/d){(L′/L)² + A²(d) + A′(d) + C₀} + O(xL⁴z^{−1}d^{−1}4^{ω(d)})`, written to the consumer at `RosserDim4Instance.lean:578` | C2-05, C2-09, C2-07 (the `t`-integral of `A₃` is again additive) | **C** | 400–800 |
 
 **Totals.** C-1 1,450–3,150 · C-2 4,000–7,900 · **Wave C 5,450–11,050 ln.** The 08/06 dossier
 priced §6 at 4,000–9,000; this scout is ~25–35% higher at both ends, and the difference is
@@ -338,14 +338,14 @@ freezes' favour. Nothing in the rows themselves changes.
 ## §7 — WHAT I COULD NOT DETERMINE
 
 1. **Which infinite-product idiom `F(u,v)` must take** — `tprod`+`Multipliable`
-   (`Lemma7Kappa.lean:339`) vs the ordered `exp∘limUnder` (`Lemma7Prod.lean:201-205`). Recorded as a
+   (`Lemma7Kappa.lean:361`) vs the ordered `exp∘limUnder` (`Lemma7Prod.lean:201-205`). Recorded as a
    **fork with both arms** in §3, with a third reading (state `F` relative to `L(σ,χ)²`) that may
    dissolve it. **A statement choice is Fable/helm tier; this scout did not choose.**
 2. **Whether HB's `≪ 1` for `C₁` survives at the twin instance with an explicit constant.**
    The freeze rule wants literal constants, not `≪`. HB's `C₁` depends on `α` and on the tail
    `∑_p p^{−2σ}`; a numeral is plausible but I did not derive one.
 3. **Whether `M(r)`'s `Q = ∏_{p<z, χ(p)=−1} p` is finite-product-representable in Lean without a
-   decidable `χ(p) = −1`.** `hbSfac` (`Lemma7Kappa.lean:132`) does exactly this branch with
+   decidable `χ(p) = −1`.** `hbSfac` (`Lemma7Kappa.lean:135`) does exactly this branch with
    `Salt.TwinBar.chiRe`, so the pattern exists; whether it composes under a `Finset.filter` at
    `Q`'s scale I could not check without elaborating.
 4. **The size of the (6.16) tail step.** HB compresses partial summation + a Möbius/character
@@ -383,7 +383,7 @@ on THIS surface so a Wave C executor meets them here, not in another campaign's 
    its error term). **Wave C owes the Λ*-level tail, stated in Wave B's objects:**
    `|S(d) − S_{<q}(d)| ≪ x^{1+ε} q^{−1}`, where `S_{<q}(d) := Σ_{n ∈ window, d ∣ l₁l₂} Λ*_{<q}(l₁ n) Λ*_{<q}(l₂ n)`,
    from `|Λ*(n) − Λ*_{<q}(n)| ≤ d(n) log n · #{m : m² ∣ n, m ≥ q}` per `n` and the corpus's
-   `sq_dvd_count_le` / `sq_recip_tail_le` (`Salt/HB/StarStep.lean:270, :303`). Class B, 150–300.
+   `sq_dvd_count_le` / `sq_recip_tail_le` (`Salt/HB/StarStep.lean:272, :305`). Class B, 150–300.
    It is consumed BEFORE C1-10 — a new row ahead of (6.9)/(6.11) in this ledger, not a tail after it.
 2. **(6.12)'s `M(r)` at `:62` above copies a transcription defect** — the notes' `:753` read
    `Σ_{m ∣ Q, m² ≤ r} μ(m)`; the paper reads `Σ_{m ∣ Q, m² ∣ r, m < q} μ(m)` (corrected in the notes in this

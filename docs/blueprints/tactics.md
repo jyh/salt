@@ -37,7 +37,7 @@ are project code (`Salt/Tactic/`), promotable to mathlib when mature.*
 binary-representation `ℚ`, plus one soundness theorem; certificate checks
 become single kernel computations instead of generic `norm_num` grinds.
 **Evidence:** `J_Fstar_0..4` needed `maxHeartbeats 10000000` EACH for a
-56-coefficient polynomial (3,136-term sums, `Certificate.lean:179-249`);
+56-coefficient polynomial (3,136-term sums, `Certificate.lean:186-256`);
 a single `m` timed out at 200k heartbeats. The k=105 certificate
 (~10⁴–10⁵ terms) is INFEASIBLE on the generic path and plausibly a
 weekend with reflection. **When:** before the k=105 certificate rung;

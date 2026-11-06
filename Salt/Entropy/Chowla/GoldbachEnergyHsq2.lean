@@ -73,8 +73,12 @@ of squarefree odd prime-factor sets `S₁, S₂`, the `u2`-weight of each times 
 private noncomputable def G2 (S₁ S₂ : Finset ℕ) : ℝ :=
   (∏ p ∈ S₁, u2 p) * (∏ p ∈ S₂, u2 p) * ∏ p ∈ S₁ ∪ S₂, v2 p
 
+/-- `0 ≤ v2 p = 1/p` (`positivity`): the lcm factor's sign, the doubled twin of
+`GoldbachEnergyHsq`'s `vv_nonneg`. Taken by `G2_nonneg` and `prod_L2_le_exp`. -/
 private lemma v2_nonneg (p : ℕ) : 0 ≤ v2 p := by simp only [v2]; positivity
 
+/-- `0 ≤ u2 p = 2/(p−2)` for `3 ≤ p` (`div_nonneg` at `p − 2 ≥ 1`), the doubled twin of
+`uu_nonneg`. Pointwise over the index sets in `G2_nonneg` and `prod_L2_le_exp`. -/
 private lemma u2_nonneg {p : ℕ} (hp : 3 ≤ p) : 0 ≤ u2 p := by
   simp only [u2]
   have : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp

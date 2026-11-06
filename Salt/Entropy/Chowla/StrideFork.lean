@@ -495,7 +495,7 @@ The two stride-sensitive fields are supplied by the caller at the base they tran
 `hHloa : a ≤ flatDesignFloor A` gives `hHlo` by `flatDesignFloor A ≤ Hlo`; `hcopa :
 (a : ℚ) ≤ ε²·flatDesignFloor A / 2` gives `hcoprime` by the same monotonicity (`ε² ≥ 0`).  The
 tower: `J := towerJmin 2 1 (a * Hlo)` and `Hhi := chowlaTower 2 1 (a * Hlo) J`, so `hfit` is
-`le_of_eq (chowlaTower_eq_base_one …)`, `hJcon` is `towerJmin_spec` (`TowerExport.lean:582`, base
+`le_of_eq (chowlaTower_eq_base_one …)`, `hJcon` is `towerJmin_spec` (`TowerExport.lean:600`, base
 `a * Hlo ≥ Hlo ≥ 4·10⁶` by `Nat.le_mul_of_pos_left`) through `towerDropSum_eq_base_one`, and
 `hHlohi` is `chowlaTower_base_ge` at that base composed with `Hlo ≤ a * Hlo`.  Everything else —
 `hHlo_floor`, `hPNTwindow` (the builder's `hPNT` from `4·m⁴ ≤ Hlo`, verbatim), and the outer scale

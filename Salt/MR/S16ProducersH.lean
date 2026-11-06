@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.S16FlatTerminalLinearH
 import Salt.MR.XThread
 import Salt.Tactic.ExpLogNum
+import Salt.MR.SocketFrame
 
 /-!
 # THE SOCKET'S PRODUCERS AT SHIFT `h` — wave P of the `_L_gk` h-family
@@ -1120,7 +1121,7 @@ enter only through `henv` (§1) and the framed base's own conjunct 5 (the middle
 `φ(q) ≤ q ≤ h·arcDen`). -/
 
 set_option maxHeartbeats 1000000 in
--- the landed slot's own budget (`M4RowsChiPrimeLinear.lean:622`): the 40-line statement
+-- the landed slot's own budget (`M4RowsChiPrimeLinear.lean:611`): the 40-line statement
 -- re-elaborates the seam integrals at every socket base
 /-- **⟦THE SLOT, MET, DENSITY-FREE, AT THE INFLATED SOCKET⟧** (`m4_hrowsSlot_at_door_zero'_L_gk`
 at `SocketBaseLH h`; conjuncts 4 and 8 only — cap-blind). -/
@@ -1158,13 +1159,9 @@ theorem m4_hrowsSlot_at_door_zero'H_L_gk (h K : ℕ) (hK : K ≤ 170000000) :
   obtain ⟨Ct, hCt, hrows⟩ := m4_hrowsSum_chi_door_zero'_L_gk K hK
   refine ⟨Ct, hCt, ?_⟩
   intro Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap H L q j A s hb χ T hT hTX2 hTgate hTll
-  have hq : 0 < q := hb.2.2.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  obtain ⟨hq, hA, hAs, hAsR, hN4⟩ := Salt.MR.socketFrame_facts s hb
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hbase H L q j A s hb
-  have hAs : 0 < A + s := lt_of_lt_of_le hA (Nat.le_add_right A s)
-  have hAsR : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by exact_mod_cast hAs
-  have hN4 : (((2 * (A + s) : ℕ)) : ℝ) ≤ 4 * (((A + s : ℕ)) : ℝ) := by push_cast; linarith
   have hslot := hrows Cp hCp q cU bU hb1 hc1
     (2 * (A + s)) (A + s) M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (ε (A + s)) (t₁ q)
     hM hD.Q2_le le_rfl hN4 hD.coefWS hD.reg hD.big
@@ -1315,9 +1312,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk (h : ℕ) (hh : 0 < h) (hh7 : 
     (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband
     (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPoolH_L_gk K hh hh7 hρ.le harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_pos_L_gk K (hbf H L q j A s hb)
     (hgP1 H L q j A s hb) (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd
     (hband4096 H L q j A s hb)
@@ -1325,7 +1320,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk (h : ℕ) (hh : 0 < h) (hh7 : 
 /-! ## §8 — THE RECEIPT: the register's consumer fires on the fuse's output -/
 
 /-- **⟦THE RECEIPT⟧** (`m4_chiSummedN_supplied_of_rowH_L_gk`) — the register's own consumer
-`m4_chiSummedN_suppliedH_L_gk` (fired at `S16FlatTerminalLinearH.lean:1614` inside the register)
+`m4_chiSummedN_suppliedH_L_gk` (fired at `S16FlatTerminalLinearH.lean:1608` inside the register)
 applied to the socket in the SHAPE the fuse produces, with ⟦G1⟧ at `RStr := h⁷·rStrWitness`
 (`rStrWitness_G1_h`), ⟦G2⟧ at the `j₀`-floor (`g2_of_j0_floor_h`, via
 `RSanDoorRhoH ρ h H ≤ 1 ≤ rSanWitness H`), and `han` at gate 4.  This is the `h`-twin of the

@@ -46,7 +46,7 @@ STOP AND FLAG.
    (`coprime_sub_two` TwinA1:221 → `Coprime d N` from `Coprime P_N N`;
    consumers: apDisc_le TwinA1:242, crt_class_coprime TwinA1W:208,
    rosserRemainderW_le_split TwinA1W:457, rosserRemainderW2_le_split
-   TwinA2W:426, divisor_cases BVSum:184); **the W-ratio residual
+   TwinA2W:436, divisor_cases BVSum:184); **the W-ratio residual
    (GATE CORRECTION, 2026-07-15): a NEW sibling lemma
    `window_prod_upper_punctured` over `primesInWindow z y \ {q ∣ N}`
    — NOT a reuse of W_ratio_upper, whose `hwin` hypothesis (window

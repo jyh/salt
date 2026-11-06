@@ -10,7 +10,7 @@ import Salt.MR.RegimeSupplyFacts
 /-!
 # `V7C` — ⟦THE `T₀`-ARM⟧: `logChowla2_ineffective_v6`'s SECOND RIDER, DISCHARGED
 
-`logChowla2_ineffective_v6` (`RegisterCompose:345`) carries five inner riders.  The second is
+`logChowla2_ineffective_v6` (`RegisterCompose:339`) carries five inner riders.  The second is
 
   `T₀ ≤ exp(√(flatDesignBase A)/2)`
 
@@ -20,7 +20,7 @@ established that `T₀` has **no effective ceiling** in the corpus (its VK leg b
 computing `T₀`.
 
 ⟦THE ROUTE⟧ it does not have to be.  In `v6`'s own proof the six crossing constants — `T₀`
-among them — are minted at `RegisterCompose:368` **BEFORE** the design constant `A` is chosen
+among them — are minted at `RegisterCompose:362` **BEFORE** the design constant `A` is chosen
 at `:373`; `A` is a `max` over five arms, each an absorption threshold.  `T₀` is a fixed real,
 so it may be made a **sixth arm**.  Then `T₀ ≤ A`, and the tolerance is a THREE-DEEP
 exponential tower in `A`, so it clears with two whole exponentials to spare.  No numeric value
@@ -239,7 +239,6 @@ theorem logChowla2_ineffective_v6_T0arm (A₀ : ℝ) :
     exact le_trans (le_trans (le_trans (le_max_right (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
       (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _)
   have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
-  have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
     Salt.MR.x0_le_exp_exp_of_four_le hx0nn hx0A
   have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA

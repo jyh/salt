@@ -78,13 +78,13 @@ Re-verified by name (line numbers current at HEAD, 2026-08-06):
 | `psiDefect_norm_le_rangeA` | `Salt/HB/Lemma7EF.lean:748` | **NONE.** `Salt/HB/All.lean:212` roll-call only |
 | `one_sub_ceiling_le_dist_one` | `Salt/HB/PretenseSumProof.lean:312` | **NONE.** `Salt/HB/All.lean:179` roll-call only; `:73`, `:338`, `:377`, `TwistedMertens.lean:115`, `:792` are all PROSE |
 
-And the end-to-end (4.12) theorem closes **without** any of it. `Salt/HB/Lemma7EF.lean:2317-2320`
+And the end-to-end (4.12) theorem closes **without** any of it. `Salt/HB/Lemma7EF.lean:2388-2391`
 (docstring of `logChiSum_tendsto_zfr`, PROSE but describing a machine-checked type):
 > "The ONLY remaining binders are the freeze's own named ones: `hZFR` …, `hreal′` …, and the
 > design's numeric `hgap`. **`hN+`, `hord` and the `q^{250} ≤ X` edge do NOT appear — they are
 > Range-A's, and Range B needs neither.**"
 
-Verified at the type: `logChiSum_tendsto_zfr_hundred` (`Salt/HB/Lemma7EF.lean:3136-3149`, USE)
+Verified at the type: `logChiSum_tendsto_zfr_hundred` (`Salt/HB/Lemma7EF.lean:3208-3221`, USE)
 has hypotheses `hZFR` and `hreal` only, both against `efZfrCeil` (`:1953`), and concludes
 `≤ 100/√(log X)`. **The Range-A/efHeight repulsion branch is dead on the landed bytes.**
 
@@ -110,13 +110,13 @@ USE sites, all sorry-free and all `Lp = 2L`, `ell = log η`:
 
 - `hb_L1_one_sided` — **N4b W1's deliverable, (L1)** — `Salt/HB/Lemma7L.lean:231`, binders at
   `:236` (`hSinvC`) and `:240` (`hσ'r : Real.sqrt (Real.log η) / (2 * L) ≤ r0 / 2`).
-- `hb_chiOne_kill_at_window` — **N4b W3's (4.7)** — `Salt/HB/Lemma7F.lean:713`, binders at
+- `hb_chiOne_kill_at_window` — **N4b W3's (4.7)** — `Salt/HB/Lemma7F.lean:724`, binders at
   `:717` and `:721`.
 - `pretenseSum_unconditional_absorbed` — `Salt/HB/Lemma3Uncond.lean:117`.
 - `hb_lemma3_unconditional_absorbed` — `Salt/HB/Lemma3Uncond.lean:213`, binders at `:218`, `:222`.
 
 **Why `efZfrCeil` cannot supply this.** `efZfrCeil q c₀ u = 1 − c₀/log(q(T₀(u)+3))`
-(`Salt/HB/Lemma7EF.lean:1953-1954`, USE). The distance-to-1 floor it yields is
+(`Salt/HB/Lemma7EF.lean:2007-2008`, USE). The distance-to-1 floor it yields is
 `r0 = c₀/log Q ≤ c₀/L`. Substituting into `hσ'r` demands
 
 ```
@@ -134,7 +134,7 @@ what `one_sub_ceiling_le_dist_one` (`Salt/HB/PretenseSumProof.lean:312-316`, USE
 whose numerator is `log η + log L − O(1)`. **This is the answer to the dispatched question:
 the repulsion ceiling discharges `hσ'r`, an `η`-growing distance floor, and `efZfrCeil` provably
 cannot.** Weakening `σ' = 1 + a/L` to fit a ZFR-sized `r0` forces `a ≤ c₀/2`, and
-`hbCoreRate_at_operating_point` (`Salt/HB/TwistedMertens.lean:664-667`, USE) then returns
+`hbCoreRate_at_operating_point` (`Salt/HB/TwistedMertens.lean:666-669`, USE) then returns
 `2 + Rrem + 2(L/a) + …` — a rate of size `≍ L/c₀`, i.e. HB's Lemma 3 becomes vacuous. The
 repulsion input is load-bearing, not decorative.
 
@@ -172,7 +172,7 @@ is worth the `L`-dependence (the `(k−1)·log L` term — visible as the L=250 
 collapsing at `k = 1`), which is a *structural* gain, not a size gain.
 
 **Second, independent confirmation from the delivered constant.** `invSq_sum_split_le`
-(`Salt/HB/TwistedMertens.lean:597-606`, USE) prices `Sinv ≤ C(1/r0² + log(f+2)/r0) + 16J`. At
+(`Salt/HB/TwistedMertens.lean:599-608`, USE) prices `Sinv ≤ C(1/r0² + log(f+2)/r0) + 16J`. At
 `r0 ≍ ℓ/(bL)` this is `Cs ≍ C·b` — and `Cs` is exactly what appears in the delivered rate,
 `K₁ = 1604 + 2m + 8·Cs` (`Salt/HB/Lemma7L.lean:249-251`, USE). So **`b` enters the delivered
 constant linearly and `log(1/c)` does not enter it at all** — `log(1/c)` only shifts the
@@ -202,7 +202,7 @@ Stated so the deferral is not read as "the road needs nothing here":
    `k = 1` the `+1·log(log Q+2)` and the `−log L` from `log(ηL)` cancel to `O(1)`, so this
    obligation *does* become `q`-free at `k = 1`. **This contradicts nothing in TS-0's K3**, which
    was analysing a *different* obligation (the Range-A EF ledger's `10³M³N` prefactor,
-   `Lemma7EF.lean:2626-2632`) — the one §3 shows is dead.
+   `Lemma7EF.lean:2698-2704`) — the one §3 shows is dead.
 2. **If TS-3 is re-scoped as a `b`-wave (S3 alone: `a : 104 → 51`), it clears the (A) bar on the
    `b` axis** — 10.5× on the threshold, ~3× on the delivered `Cs`. That is a different wave with a
    different justification, and it should be priced against K2's corrected `b`-floor of **664.66**

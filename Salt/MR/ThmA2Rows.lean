@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.ThmA2
 import Salt.MR.CapFreeArm3
 import Salt.Tactic.ExpLogNum
+import Salt.MR.WindowEnds
 
 /-!
 # S8 ladder, node A2-7 — **THE ROW SUPPLIERS AND THE GLUE** (`ThmA2Rows`)
@@ -384,11 +385,7 @@ theorem a2Rows_of_capfree :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at M Xd hM hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`⟧
   have hinst := hrow g c a b cf hg hc1 hb1 hcf1 N Xd P Q (Adoor M) (3072 * M) M 2 m₀ Ms Mt kk
     (H1door M) X (2 * T) δ' V VJ L (1 / 12) Cb Rrad kmin Ymax ε EP2
@@ -547,11 +544,7 @@ theorem a2Rows_of_cap :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at M Xd hM hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROUTING WITNESS⟧ the bare-datum cap at `v₀`, and the socket it closes
   obtain ⟨v₀, hv₀box, hv₀cap⟩ := a2_row_cap_of_not_capFreeFloor hLL hnfl
   have hsock : PocketSocket g P Q X theta293 v₀ :=
@@ -960,11 +953,7 @@ theorem a2Rows_of_capfree3 :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at M Xd hM hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (Adoor M) (3072 * M) M 2 m₀ Ms
     Mt kk
@@ -1092,11 +1081,7 @@ theorem a2Rows_of_capfree3_end :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at M Xd hM hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (Adoor M) (3072 * M) M 2 m₀ Ms
     Mt kk
@@ -1328,11 +1313,7 @@ theorem a2Rows_of_capfree_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_gk K M Xd hM hK hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`⟧
   have hinst := hrow g c a b cf hg hc1 hb1 hcf1 N Xd P Q (Adoor M) (s13GK K M) M 2 m₀ Ms Mt kk
     (H1door M) X (2 * T) δ' V VJ L (1 / 12) Cb Rrad kmin Ymax ε EP2
@@ -1457,11 +1438,7 @@ theorem a2Rows_of_cap_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_gk K M Xd hM hK hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROUTING WITNESS⟧ the bare-datum cap at `v₀`, and the socket it closes
   obtain ⟨v₀, hv₀box, hv₀cap⟩ := a2_row_cap_of_not_capFreeFloor hLL hnfl
   have hsock : PocketSocket g P Q X theta293 v₀ :=
@@ -1696,11 +1673,7 @@ theorem a2Rows_of_capfree3_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_gk K M Xd hM hK hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (Adoor M) (s13GK K M) M 2 m₀ Ms
     Mt kk
@@ -1811,11 +1784,7 @@ theorem a2Rows_of_capfree3_end_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_gk K M Xd hM hK hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (Adoor M) (s13GK K M) M 2 m₀ Ms
     Mt kk

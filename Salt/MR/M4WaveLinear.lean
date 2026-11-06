@@ -276,7 +276,7 @@ def M4ChiDyadicRowMeanSq_L (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℕ → 
                         ((doorLadder R.x H (i + 1) + s : ℕ) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
         ≤ MS j H
 
-/-! ### `M4Maximal` :1519 — `M4ChiDyadicRowMeanSq_gk` -/
+/-! ### `M4Maximal` :1513 — `M4ChiDyadicRowMeanSq_gk` -/
 /-- **THE GRADED DYADIC ROW DATUM AT THE LEVER** — `M4ChiDyadicRowMeanSq_L` (:1026). -/
 def M4ChiDyadicRowMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →

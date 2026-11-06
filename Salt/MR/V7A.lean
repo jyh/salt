@@ -34,7 +34,7 @@ So `Ks = 10^8 · min(min(Cs, c₀/32), 1/2)` at its two leaves:
   imprimitive region.  **EFFECTIVE**: the bounded twin `NumeralKq.zero_free_region_all'_bounded`
   (:450) pins `1/126848 ≤ c₀`, so this leg gives `c₀/32 ≥ 2.46·10^{-7}`, and `1/2` is a
   literal.  Neither of these two legs can bind the rider.
-* `Cs` — the constant of `Salt.SW.siegel_theorem (1/16)` (`SW/SiegelClose.lean:841`), whose own
+* `Cs` — the constant of `Salt.SW.siegel_theorem (1/16)` (`SW/SiegelClose.lean:848`), whose own
   docstring reads *"there is an (ineffective) `C > 0`"*.  Its `∃`-prefix exports `0 < C` and
   nothing else.
 
@@ -60,7 +60,7 @@ sharp rider is weaker by `e^{3·10^{21}/16 - 100}`.
 
 ⟦WHY THIS DISCHARGES⟧ unlike `e^{-100} ≤ Ks`, the sharp rider is **`A`-windowed**: it carries no
 numeral and is met by ANY `Ks > 0` once the design base clears `1/Ks` (`ks_rider_absorbed`).
-The terminal mints `Ks` at `RegisterCompose:242` and chooses its design constant `A` at `:246`
+The terminal mints `Ks` at `RegisterCompose:236` and chooses its design constant `A` at `:246`
 — i.e. `A` is chosen AFTER `Ks` — so `capfloor_floor4_of_design` is dischargeable at the
 terminal against `v6`'s own exported conjunct `3.2·A ≤ loglog R.Hlo`, with no lower bound on
 Siegel's constant anywhere.  Rethreading the sharp form through the hops that carry the rider is
@@ -223,7 +223,7 @@ theorem capfloor_floor4_of_pos {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Ks T
   capfloor_floor4_sharp hfl hb hAN hTlo (exp_neg_le_of_log_inv_le hKs0 hwin)
 
 /-- **⟦THE V7-E LEAF⟧** the `Ks` arm discharged against the terminal's OWN design conjunct.
-`logChowla2_ineffective_v6` exports `3.2·A ≤ loglog R.Hlo` (`RegisterCompose:357`) and mints
+`logChowla2_ineffective_v6` exports `3.2·A ≤ loglog R.Hlo` (`RegisterCompose:351`) and mints
 `Ks` (`:242`) BEFORE it chooses `A` (`:246`) — so a terminal may put
 `log(1/Ks) ≤ 3·e^{3.2·A}/16` into its own `max` for `A` and read `floor4` off with no rider at
 all.  The Siegel constant is then carried by name, never by numeral. -/

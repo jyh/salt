@@ -13,7 +13,7 @@ Read-only pass, salt @ `main` (`fb44672`). Every claim below is file:line. Numer
 `Salt/MR/ZetaPowLower.lean:198` `zeta_horiz_lower` uses `ht : 2 ≤ |t|` at **exactly one place** — inside `hzne1`, to derive `(v:ℂ)+(t:ℂ)*I ≠ 1`, i.e. it only needs `t ≠ 0` (the closing tactic is `rw [him] at ht; norm_num at ht` with `him : t = 0`). `zeta_pow_lower_far` (`:247`) uses `ht` only to call `zeta_horiz_lower`. **So `d'/32 ≤ ‖ζ((1+d')+it)‖` holds for every `t ≠ 0`** — the argument is pure Dirichlet series (`zeta_dirichlet_re_le` `:104`, valid for `u > 1`, any `t`) plus the `Re = 2` anchor plus the real-axis pole bound. Nothing in it knows about height. This is a free ~60-line generalisation and it **cuts the shared stone's constant by 715 nats** (see §3).
 
 **F3 — the flags' `δ₀ ~ e^{−14000}` is wrong by a factor ~25 in the exponent.**
-The 8/5 ZETA-INV-SHALLOW entry prices "`Σ_ρ ½·log(20/(a−β)²) ≈ 18.7` per zero against a **Jensen zero-count ~757**". But `757 = 120·log(4·M₀ζ(1))` is the *Borel–Carathéodory constant*, not the zero count. The Jensen count is `log(4M₀)/log(7/6) ≈ 41` (`entire_zero_count_le`, `Salt/SW/ZetaPartialFractions.lean:134`, ratio `7/4 : 3/2 = 7/6`) — **smaller by the factor `120·log(7/6) = 18.5`**. Re-run at the old `c₃ = 10⁻⁷`: `log(1/δ₀) ≈ 1522`, not `1.4e4`. Re-run at EPSILON-SHARP's `c₃ = 1/75712` **and** with F2's anchor: **`log(1/δ₀) ≈ 485`**. The route is an order of magnitude cheaper than banked.
+The 8/5 ZETA-INV-SHALLOW entry prices "`Σ_ρ ½·log(20/(a−β)²) ≈ 18.7` per zero against a **Jensen zero-count ~757**". But `757 = 120·log(4·M₀ζ(1))` is the *Borel–Carathéodory constant*, not the zero count. The Jensen count is `log(4M₀)/log(7/6) ≈ 41` (`entire_zero_count_le`, `Salt/SW/ZetaPartialFractions.lean:140`, ratio `7/4 : 3/2 = 7/6`) — **smaller by the factor `120·log(7/6) = 18.5`**. Re-run at the old `c₃ = 10⁻⁷`: `log(1/δ₀) ≈ 1522`, not `1.4e4`. Re-run at EPSILON-SHARP's `c₃ = 1/75712` **and** with F2's anchor: **`log(1/δ₀) ≈ 485`**. The route is an order of magnitude cheaper than banked.
 
 ---
 
@@ -88,9 +88,9 @@ The answer to "does a ζ version of `LFunction_norm_logDeriv_sub_sum'` exist?" i
 | lemma | file:line | shape |
 |---|---|---|
 | `LFunction_norm_logDeriv_sub_sum'` | `SW/MaxModulus.lean:89` | Dirichlet `L`; radius `3/2`, numeric on `‖s−c‖ ≤ 23/20`, `120·log(4M₀)` |
-| **`entire_norm_logDeriv_sub_sum'`** | `SW/ZetaPartialFractions.lean:171` | **the ζ one**: arbitrary entire `F`, `‖F c‖ ≥ 1/4`, sphere bounds on `7/4` and `3/2` ⇒ same conclusion. Blaschke max-modulus at radius `8/5` carried over verbatim |
+| **`entire_norm_logDeriv_sub_sum'`** | `SW/ZetaPartialFractions.lean:177` | **the ζ one**: arbitrary entire `F`, `‖F c‖ ≥ 1/4`, sphere bounds on `7/4` and `3/2` ⇒ same conclusion. Blaschke max-modulus at radius `8/5` carried over verbatim |
 | `entire_norm_logDeriv_sub_sum_scaled` | `Vk/Landau.lean:35` | the `λ`-scaled twin: radii `7λ/4, 3λ/2, 23λ/20`, numeric `(120/λ)·log(4M₀)` |
-| `entire_zero_count_le` | `SW/ZetaPartialFractions.lean:134` | Jensen: `∑ᶠ divisor F (closedBall c r) ≤ log(4M)/log(R/r)` |
+| `entire_zero_count_le` | `SW/ZetaPartialFractions.lean:140` | Jensen: `∑ᶠ divisor F (closedBall c r) ≤ log(4M)/log(R/r)` |
 
 ζ-side suppliers, all landed and explicit:
 - `Zc` entire, `Zc 1 = 1`, `Zc_eq_of_ne`, `Zc_differentiable`; `Zc_eq_series` `:814`; `Zc_growth` `:851`; `norm_R_le` `:524`.
@@ -98,7 +98,7 @@ The answer to "does a ζ version of `LFunction_norm_logDeriv_sub_sum'` exist?" i
 - `zeta_norm_ge` `:108` — `Re s ≥ 2 ⇒ ‖ζ‖ ≥ 1/4`.
 - `M0zeta` `:867` `= 1+5(19/4+|t₀|)(15/4+|t₀|)`; `Zc_sphere_bound` `:895` (radius `≤ 7/4`).
 - **sharp**: `Zc_sphere_bound_sharp` `EpsilonZero.lean:477`, `Zc_sphere_bound_height_one` `:524` (`≤ 66` at `|t₀|≤1`), `Zc_sphere_bound_height_two` `:535` (`≤ 96` at `|t₀|≤2`) — factor ≈2 off `M0zeta`.
-- Assembled ζ consumers already riding this: `zeta_neg_re_logDeriv_le` `ZetaPartialFractions.lean:942`; `zeta_neg_re_logDeriv_le_keep_of_growth` / `_le_of_growth` `EpsilonZero.lean:553/625` (hypothesis-taking, `120·log(4M)` **un-collapsed** — the right genre to imitate); `ShiftTrivChar.lean:208`.
+- Assembled ζ consumers already riding this: `zeta_neg_re_logDeriv_le` `ZetaPartialFractions.lean:952`; `zeta_neg_re_logDeriv_le_keep_of_growth` / `_le_of_growth` `EpsilonZero.lean:553/625` (hypothesis-taking, `120·log(4M)` **un-collapsed** — the right genre to imitate); `ShiftTrivChar.lean:208`.
 
 **Segment-integration / transport devices (all landed):**
 - `hasDerivAt_log_norm_horiz` — `MR/ChiLLower.lean:87` — `d/dv log‖F(v+c)‖ = Re(logDeriv F)`, `F` arbitrary. (ζ-specialised copy: `MR/ZetaPowLower.lean:144`.)

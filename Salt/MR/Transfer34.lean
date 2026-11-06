@@ -575,7 +575,7 @@ theorem far_transfer_sup_34_of_pocket_cap {M k₀ : ℕ} {a f : ℕ → ℂ} {t 
 
 /-! ## §5 (T-5) — the ambient-gate consumers at the `3/4` denominator
 
-`USetResiduals`:515/:570, re-run at `farErr34`.  These are the shapes ⟦V6b⟧ names as the live
+`USetResiduals`:516/:571, re-run at `farErr34`.  These are the shapes ⟦V6b⟧ names as the live
 route after R1+R2: the far arm's gate is a bound on the ROW HEIGHT's logarithm against
 `(log X)^{3/4}` instead of `(log X)^{1/2}`. -/
 

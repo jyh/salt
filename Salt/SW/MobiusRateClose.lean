@@ -834,6 +834,9 @@ lemma Mmu1_eq_ofReal (x : ℝ) (_hx : x ≠ 0) : Mmu1 x = ((R1 x : ℝ) : ℂ) :
   push_cast
   ring
 
+/-- `‖M₁_μ(x)‖ = |R1 x|` for `x ≠ 0` (`hx`): `Mmu1` is the real Riesz mean cast to `ℂ`
+(`Mmu1_eq_ofReal`), and the norm of a real cast is its absolute value. The bridge from the
+complex contour bound on `Mmu1` to the real de-smoothing of Phase 3 (`mmuRate_of_smoothed`). -/
 lemma norm_Mmu1_eq (x : ℝ) (hx : x ≠ 0) : ‖Mmu1 x‖ = |R1 x| := by
   rw [Mmu1_eq_ofReal x hx, Complex.norm_real, Real.norm_eq_abs]
 

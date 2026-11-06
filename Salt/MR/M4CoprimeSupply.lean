@@ -356,15 +356,9 @@ theorem m4_chiFreeShiftBlock_of_freeRow {R : ChowlaRegime} {M : ℕ} {MS : ℕ �
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
   -- ⟦the two comparisons the free block affords⟧
   have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    have hnat : B + s ≤ 2 * A + 4 := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
   have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
   have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
   have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
   have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
@@ -453,10 +447,7 @@ theorem m4_coprimeChiN_of_freeShiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
   have hA4 : 4 ≤ A := by omega
   have hB2A : B ≤ 2 * A := by omega
   have hL2A : (L : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : L ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show L ≤ 2 * A by omega)
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
   set Lg := Nat.log 2 L with hLg
   set X : ℕ → ℕ → ℕ → ℝ := fun j t n =>
@@ -989,15 +980,9 @@ theorem m4_chiFreeShiftBlock_of_freeRow_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
   -- ⟦the two comparisons the free block affords⟧
   have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    have hnat : B + s ≤ 2 * A + 4 := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
   have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
   have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
   have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
   have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
@@ -1071,10 +1056,7 @@ theorem m4_coprimeChiN_of_freeShiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M : �
   have hA4 : 4 ≤ A := by omega
   have hB2A : B ≤ 2 * A := by omega
   have hL2A : (L : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : L ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show L ≤ 2 * A by omega)
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
   set Lg := Nat.log 2 L with hLg
   set X : ℕ → ℕ → ℕ → ℝ := fun j t n =>

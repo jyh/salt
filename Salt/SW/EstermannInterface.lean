@@ -175,6 +175,11 @@ theorem zeta_nonpos {σ : ℝ} (h1 : (19 : ℝ) / 20 ≤ σ) (h2 : σ < 1) :
 `k`-th derivative at `2` is `f(1)·(−1)^k·k!`. This is the bridge that turns `ψ`'s Cauchy
 coefficients into `F`'s (sign-alternating, nonnegative) Taylor data. -/
 
+/-- The `k`-th derivative of `s ↦ (s − 1)⁻¹` at `2` is `(−1)ᵏ · k!`: by induction, the `n`-th
+derivative is `(−1)ⁿ · n! · ((s − 1)⁻¹)^(n+1)` on the open set `s ≠ 1` (`EventuallyEq.deriv_eq`
+carries the identity across each step), and `(2 − 1)⁻¹ = 1`. The pole term's Taylor data in
+`estermannInterface'`: it turns the Cauchy coefficients of `ψ = ζf − f(1)/(s − 1)` into the
+sign-alternating data of `F = ζf`. -/
 private lemma iteratedDeriv_pole (k : ℕ) :
     iteratedDeriv k (fun s : ℂ => (s - 1)⁻¹) 2 = (-1) ^ k * (k ! : ℂ) := by
   have key : ∀ n, Set.EqOn (iteratedDeriv n (fun s : ℂ => (s - 1)⁻¹))
