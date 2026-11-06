@@ -253,7 +253,7 @@ theorem doorChiCoeff_seamCoefW_at_door_H_L_gk (K : ℕ) {q : ℕ} (χ : Dirichle
   doorChiCoeff_seamCoefW_band_H_L_gk K χ M Xd P Q a
     (door_band_gate_of_log (one_le_s13GK K hM) hX hQlog hPlow) haH ha0 hend
 
-/-! ### `M4Maximal` :1016 — `M4ChiDyadicRowMeanSq` -/
+/-! ### `M4Maximal` :1011 — `M4ChiDyadicRowMeanSq` -/
 /-- **THE ROW INPUT, PER DYADIC LENGTH AND SHIFT** (`M4ChiDyadicRowMeanSq_L`) — the mean square
 of the door's sieved, χ-twisted, UN-PHASED datum in `ThmA2.thm_a2'_of_rows_L`' own currency, at
 the window length `h = 2^j` (`j ≤ log₂H`) and the scale `X = X_{i+1} + s` (`s ≤ H`), with the
@@ -276,7 +276,7 @@ def M4ChiDyadicRowMeanSq_L (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℕ → 
                         ((doorLadder R.x H (i + 1) + s : ℕ) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
         ≤ MS j H
 
-/-! ### `M4Maximal` :1513 — `M4ChiDyadicRowMeanSq_gk` -/
+/-! ### `M4Maximal` :1502 — `M4ChiDyadicRowMeanSq_gk` -/
 /-- **THE GRADED DYADIC ROW DATUM AT THE LEVER** — `M4ChiDyadicRowMeanSq_L` (:1026). -/
 def M4ChiDyadicRowMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
