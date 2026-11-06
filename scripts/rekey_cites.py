@@ -8,9 +8,11 @@
 BASE and HEAD are git revisions (HEAD defaults to `HEAD`). For every `.lean` file the diff
 BASE..HEAD MODIFIES (not adds or deletes), the base and head texts are aligned with
 `difflib.SequenceMatcher`. A base line inside an `equal` block maps to its head line, and its text
-is the same by construction; a base line in a replaced or deleted block has NO head line, except a
-NESTED re-key: a line whose head text is its base text with this tool's own re-keys applied to the
-cites inside it maps as equal (h2c, salt #567: a re-key inside a cited range never poisons the range).
+is the same by construction; a base line in a replaced or deleted block has NO head line, except
+(a) a MOVED line, whose text occurs exactly once in each file and is at least MOVE_MIN (16) characters
+stripped: it maps to that one head line (salt #629: a body moved above its docstring), and (b) a NESTED
+re-key: a line whose head text is its base text with this tool's own re-keys applied to the cites inside
+it maps as equal (h2c, salt #567: a re-key inside a cited range never poisons the range).
 
 A cite is read from each tracked text file AS IT IS AT BASE, in the forms `Leaf.lean:N`,
 `Leaf.lean:N–M` and `Leaf.lean:N-M`, with or without a directory prefix, and a LIST `Leaf.lean:N, :K–L, :J`
@@ -28,10 +30,6 @@ cite is classed:
              contiguity, the target was RENAMED, or a list RUNS ON in a form not otherwise read
              (`:N,K` / `:N/:K`) and a member moved, read or unread: NEVER rewritten, read by hand
   PRE-STALE  the cite was past the base file's end already: printed, not this edit's
-
-A line maps by the diff's `equal` blocks, and also when it MOVED: a line the diff leaves unmatched (a
-body moved above its docstring, salt #629) maps to its head line when its text occurs exactly once in each
-file and is at least MOVE_MIN (16) characters stripped. A duplicated, short or edited line has no head line.
   AMBIGUOUS  a bare leaf shared by several files: not read, counted
   NESTED     not a class: KEPT or RE-KEYED cites whose line(s) mapped only through a nested
              re-key, counted beside the verdict
@@ -116,7 +114,9 @@ def line_map(old: str, new: str) -> dict:
     """base line -> head line. Lines in an `equal` block map by position. A line the differ left unmatched
     (a MOVE: salt #629, a body moved above its docstring, so the docstring sat on opposite sides of the matched
     body) maps to its head line when its text occurs EXACTLY ONCE in each file, is at least MOVE_MIN characters
-    stripped, and that head line is not already mapped. A duplicated, short or edited line still has no head line."""
+    stripped. A duplicated, short or edited line still has no head line. (The `taken` test is a belt, not a
+    condition: a text unique in both files cannot have its head twin inside an equal block, whose base line would
+    be a second copy; paper's read of salt #633.)"""
     a, b = old.split("\n"), new.split("\n")
     m = {}
     for tag, i1, i2, j1, _ in difflib.SequenceMatcher(None, a, b, autojunk=False).get_opcodes():
