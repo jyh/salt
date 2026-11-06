@@ -36,6 +36,13 @@ cite is classed:
   PINNED     the citing file says its citations refer to an ARCHIVED snapshot (a published
              manuscript): its cites are correct against the archive, so never re-keyed; counted
 
+A DECLARED PIN (the helm's XF ruling, 2026-11-05) pins part of any text page: a row of `.rekey-pins` names the page, a
+phrase that must occur exactly once in it (whitespace-flattened), a scope (`page`, `below` the phrase, or the
+`next-block` after it) and a tier (`numbers`: the page says what tree its line numbers belong to; `read-at`: it names
+the tree it was read at). A cite in scope is PINNED and never re-keyed. A row whose phrase is absent or repeated is a
+BROKEN pin, and every cite on that page is REPORTED until the page is read again. Rows are read at BASE, so a pin
+added in the same diff does not yet bind.
+
 --apply edits a citing file only where the same cite text is present at HEAD, in its base order;
 a citing file whose cite occurrences differ between BASE and HEAD is REPORTED for that cite.
 A file is PINNED when it is a DECLARED published manuscript (PUBLISHED), or when, whitespace
@@ -82,6 +89,7 @@ PUBLISHED = ("papers/witness/main.tex",    # Zenodo snapshot; "citations refer t
              "papers/flagship/main.tex")   # its ERRATA: "kept as submitted"
 PIN_PHRASE = "citations refer to the archived snapshot"
 ERRATA_PHRASES = ("kept as published", "kept as submitted")
+PINS_FILE = ".rekey-pins"   # declared pins, one TAB-separated row each: page, phrase, scope, tier (XF, 11-05)
 TEXT = (".lean", ".md", ".tex", ".tsv", ".py", ".txt", ".yml")
 LIMITS = ("LIMITS: .lean targets only; forms Leaf.lean:N and :N–M / :N-M, and a list Leaf.lean:N, :K as ONE cite; "
           "the short form Leaf:N / `Leaf`:N / `Leaf` :N for a unique leaf (not Leaf :N, not Dir/Leaf:N); "
@@ -155,6 +163,55 @@ def pin_road(root, rev, src, text, published):
         if any(ph in flat(er) for ph in ERRATA_PHRASES):
             return "ERRATA"
     return None
+
+
+def declared_pins(root, rev):
+    """{page: (phrase, scope, tier)} from PINS_FILE at rev ('#' lines and blank lines skipped)."""
+    out = {}
+    for ln in (show(root, rev, PINS_FILE) or "").split("\n"):
+        if ln.strip() and not ln.startswith("#"):
+            page, phrase, scope, tier = ln.split("\t")
+            out[page] = (phrase, scope, tier)
+    return out
+
+
+def pin_scope(text, phrase, scope):
+    """The 1-based lines a declared pin covers. The phrase must occur EXACTLY ONCE, whitespace-flattened (a hard
+    wrap cannot hide it); scope `page` is every line, `below` every line after the phrase, `next-block` the first
+    non-blank block after the phrase's paragraph (the table a lead-in sentence introduces). Raises ValueError on an
+    absent or repeated phrase. Ported from h2c's declared_pins.py (salt-cites sweep, 2026-11-05)."""
+    flat_, idx, prev = [], [], True
+    for ln, line in enumerate(text.split("\n"), 1):
+        for ch in line + "\n":
+            if ch.isspace():
+                if not prev:
+                    flat_.append(" "); idx.append(ln); prev = True
+            else:
+                flat_.append(ch); idx.append(ln); prev = False
+    s, p = "".join(flat_), " ".join(phrase.split())
+    k = s.find(p)
+    if k < 0:
+        raise ValueError("its phrase is absent")
+    if s.find(p, k + 1) >= 0:
+        raise ValueError("its phrase occurs more than once")
+    lines, b = text.split("\n"), idx[k + len(p) - 1]
+    if scope == "page":
+        return set(range(1, len(lines) + 1))
+    if scope == "below":
+        return set(range(b + 1, len(lines) + 1))
+    if scope == "next-block":
+        i = b
+        while i < len(lines) and lines[i].strip():
+            i += 1
+        while i < len(lines) and not lines[i].strip():
+            i += 1
+        j = i
+        while j < len(lines) and lines[j].strip():
+            j += 1
+        if i == j:
+            raise ValueError("no block follows its phrase")
+        return set(range(i + 1, j + 1))
+    raise ValueError("unknown scope " + scope)
 
 
 def refusals(root, base, head, published=PUBLISHED):
@@ -318,6 +375,11 @@ def census(root, base, head, published=PUBLISHED):
         maps[f] = {}
     via = nested_map(root, base, head, edited, maps, nbase, leaves)
     rows, cls = [], Counter()
+    pins = declared_pins(root, base)
+    for page in sorted(set(pins) - set(files)):          # a row for a page BASE lacks is stale: say so (h2c on #634)
+        cls["REPORTED"] += 1
+        rows.append(dict(src=PINS_FILE, target=page, cite=page, cls="REPORTED", new=None,
+                         why="declared pin's page is absent at BASE: fix or remove the row", nested=False, runon=False))
     for src in files:
         if src in GENERATED or src == SELF or not src.endswith(TEXT):
             continue
@@ -325,6 +387,12 @@ def census(root, base, head, published=PUBLISHED):
         if text is None:
             continue
         road = pin_road(root, base, src, text, published)
+        scope, broken = None, None
+        if src in pins and not road:
+            try:
+                scope = pin_scope(text, pins[src][0], pins[src][1])
+            except ValueError as e:
+                broken = f"declared pin broken ({PINS_FILE}): {e}; read the page again"
         for f in edited + renamed:
             leaf = f.rsplit("/", 1)[-1]
             for mt in (m for pat in cite_res(leaf) for m in pat.finditer(text)):
@@ -334,6 +402,16 @@ def census(root, base, head, published=PUBLISHED):
                 if road:
                     cls["PINNED"] += 1
                     rows.append(dict(src=src, target=f, cite=mt.group(0), cls="PINNED", new=None, road=road))
+                    continue
+                if broken:
+                    cls["REPORTED"] += 1
+                    rows.append(dict(src=src, target=f, cite=mt.group(0), cls="REPORTED", new=None, why=broken,
+                                     nested=False, runon=False))
+                    continue
+                if scope and text.count("\n", 0, mt.start()) + 1 in scope:
+                    cls["PINNED"] += 1
+                    rows.append(dict(src=src, target=f, cite=mt.group(0), cls="PINNED", new=None,
+                                     road=f"declared pin ({pins[src][2]})"))
                     continue
                 if not pre and leaves[leaf] > 1:
                     cls["AMBIGUOUS"] += 1
@@ -551,13 +629,13 @@ def report(edited, rows, cls, applied):
           f"RE-KEYED {cls['RE-KEYED']}{' (applied)' if applied else ''} · REPORTED {cls['REPORTED']} · "
           f"PRE-STALE (past the base file's end, not this edit's) {cls['PRE-STALE']} · "
           f"AMBIGUOUS (bare leaf, not read) {cls['AMBIGUOUS']} · "
-          f"PINNED (an archived manuscript's, never re-keyed) {cls['PINNED']} · "
+          f"PINNED (an archived manuscript's or a declared pin's, never re-keyed) {cls['PINNED']} · "
           f"NESTED (KEPT/RE-KEYED through a nested re-key) {cls['NESTED']}")
     pins = sorted({(r["src"], r["road"]) for r in rows if r["cls"] == "PINNED"})
     if pins:
         print(f"  PINNED files ({len(pins)}): " + ", ".join(f"{s} [{w}]" for s, w in pins))
     for s, w in pins:
-        if w != "declared":
+        if w not in ("declared",) and not w.startswith("declared pin"):   # a .rekey-pins row IS a declaration
             print(f"  UNDECLARED {s}: pinned by its {w}; add it to PUBLISHED")
     for r in rows:
         if r["cls"] in ("RE-KEYED", "REPORTED", "PRE-STALE"):
@@ -1049,6 +1127,87 @@ def self_test():
         _, rm2, _ = census(d, "HEAD~2", "HEAD")
         check("... and the moved cite fixed by hand at HEAD reads DONE",
               sorted(r["cls"] for r in rm2 if r["src"] == "mv.md" and r["cite"] in ("M.lean:2", "M.lean:4")) == ["DONE", "DONE"])
+    # DECLARED PINS (the helm's XF ruling, 11-05): a page whose own sentence states which tree its line numbers
+    # belong to is pinned under that sentence, by a `.rekey-pins` row (page, phrase occurring exactly once
+    # whitespace-flattened, scope page | below | next-block, tier). A cite in scope is PINNED, never re-keyed;
+    # a cite outside scope, or on a page that names a sha for something else (ERRATA's case), is read as usual;
+    # a phrase absent or repeated is a broken pin: every cite on that page is REPORTED, never silently re-keyed.
+    with tempfile.TemporaryDirectory() as d:
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt")); os.makedirs(os.path.join(d, "docs"))
+        open(os.path.join(d, "Salt/P.lean"), "w").write("".join(f"line {i}\n" for i in range(1, 11)))
+        pages = {
+            "docs/whole.md": "Repo numbers are as of HEAD = abc,\n2026-08-03.\nsee P.lean:5\n",
+            "docs/below.md": "intro P.lean:5\nEvery pin below was re-verified at 8/11\nlater P.lean:6\n",
+            "docs/block.md": "pre P.lean:5\nline numbers current at HEAD:\n\n| a | P.lean:6 |\n| b | P.lean:7 |\n\nafter P.lean:8\n",
+            "docs/errata.md": "Statements are as of salt 4844dbc6.\ncite P.lean:5\n",
+            "docs/broken.md": "no phrase here\ncite P.lean:5\n",
+            "docs/twice.md": "X-PIN once\nX-PIN twice\ncite P.lean:5\n",
+        }
+        for k, v in pages.items():
+            open(os.path.join(d, k), "w").write(v)
+        open(os.path.join(d, PINS_FILE), "w").write(
+            "# page\tphrase\tscope\ttier\n"
+            "docs/whole.md\tRepo numbers are as of HEAD = abc, 2026-08-03\tpage\tnumbers\n"
+            "docs/below.md\tEvery pin below was re-verified at 8/11\tbelow\tnumbers\n"
+            "docs/block.md\tline numbers current at HEAD:\tnext-block\tnumbers\n"
+            "docs/broken.md\tRepo numbers are as of HEAD = zzz\tpage\tnumbers\n"
+            "docs/twice.md\tX-PIN\tpage\tread-at\n")
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        open(os.path.join(d, "Salt/P.lean"), "w").write("new top\n" + "".join(f"line {i}\n" for i in range(1, 11)))
+        g("commit", "-q", "-am", "head")
+        _, rp, cp = census(d, "HEAD~1", "HEAD")
+        per = lambda src: sorted((r["cite"], r["cls"]) for r in rp if r["src"] == src)
+        check("a cite on a page whose own sentence pins its numbers (scope page) is PINNED, never re-keyed",
+              per("docs/whole.md") == [("P.lean:5", "PINNED")])
+        check("... scope below: the cite above the phrase is RE-KEYED, the one below PINNED",
+              per("docs/below.md") == [("P.lean:5", "RE-KEYED"), ("P.lean:6", "PINNED")])
+        check("... scope next-block: the table's two cites PINNED, the lines before and after RE-KEYED",
+              per("docs/block.md") == [("P.lean:5", "RE-KEYED"), ("P.lean:6", "PINNED"), ("P.lean:7", "PINNED"),
+                                       ("P.lean:8", "RE-KEYED")])
+        check("... a page naming a sha for its STATEMENTS, with no row, is read as usual (ERRATA's case)",
+              per("docs/errata.md") == [("P.lean:5", "RE-KEYED")])
+        check("... a row whose phrase is ABSENT makes the page's cites REPORTED, never silently re-keyed",
+              per("docs/broken.md") == [("P.lean:5", "REPORTED")])
+        check("... and one whose phrase occurs TWICE likewise", per("docs/twice.md") == [("P.lean:5", "REPORTED")])
+        apply(d, "HEAD~1", "HEAD", rp)
+        check("--apply leaves every pinned cite as written",
+              open(os.path.join(d, "docs/whole.md")).read() == pages["docs/whole.md"]
+              and "| a | P.lean:6 |\n| b | P.lean:7 |" in open(os.path.join(d, "docs/block.md")).read()
+              and "pre P.lean:6\n" in open(os.path.join(d, "docs/block.md")).read())
+    # ... and the rows are read at BASE: a pin row ADDED in the same diff as the move does not bind yet (paper's
+    # read of salt #634: no arm held this, and a mutant reading the rows at HEAD survived).
+    with tempfile.TemporaryDirectory() as d:
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt")); os.makedirs(os.path.join(d, "docs"))
+        open(os.path.join(d, "Salt/P.lean"), "w").write("".join(f"line {i}\n" for i in range(1, 11)))
+        open(os.path.join(d, "docs/late.md"), "w").write("Repo numbers are as of HEAD = abc.\nsee P.lean:5\n")
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        open(os.path.join(d, "Salt/P.lean"), "w").write("new top\n" + "".join(f"line {i}\n" for i in range(1, 11)))
+        open(os.path.join(d, PINS_FILE), "w").write("docs/late.md\tRepo numbers are as of HEAD = abc.\tpage\tnumbers\n")
+        g("add", "-A"); g("commit", "-q", "-m", "head")
+        _, rl, _ = census(d, "HEAD~1", "HEAD")
+        check("a pin row ADDED in the same diff does not bind yet (rows are read at BASE)",
+              [(r["cite"], r["cls"]) for r in rl if r["src"] == "docs/late.md"] == [("P.lean:5", "RE-KEYED")])
+        open(os.path.join(d, PINS_FILE), "a").write("docs/gone.md\tany phrase\tpage\tnumbers\n")
+        g("commit", "-q", "-am", "a row for a page the tree lacks")
+        g("commit", "-q", "--allow-empty", "-m", "noop2")
+        _, ro, co = census(d, "HEAD~1", "HEAD")
+        check("a pin row whose page is ABSENT at BASE is REPORTED, never silent (h2c on #634)",
+              [(r["src"], r["cite"], r["cls"]) for r in ro if r["src"] == PINS_FILE] == [(PINS_FILE, "docs/gone.md", "REPORTED")])
+        import io, contextlib
+        g("commit", "-q", "--allow-empty", "-m", "noop")
+        open(os.path.join(d, "Salt/P.lean"), "w").write("top 2\nnew top\n" + "".join(f"line {i}\n" for i in range(1, 11)))
+        g("commit", "-q", "-am", "move again")
+        e2, r2, c2 = census(d, "HEAD~1", "HEAD")
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            report(e2, r2, c2, False)
+        check("... and once the row is at BASE the cite is PINNED, and the report never calls a declared pin UNDECLARED",
+              [(r["cite"], r["cls"]) for r in r2 if r["src"] == "docs/late.md"] == [("P.lean:5", "PINNED")]
+              and "UNDECLARED" not in buf.getvalue() and "declared pin (numbers)" in buf.getvalue())
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
