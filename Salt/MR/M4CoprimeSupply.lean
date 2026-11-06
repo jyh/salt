@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.M4NonCoprime
 import Salt.MR.M4DoorRow
+import Salt.MR.SumSwapWeighted
 
 /-!
 # `M4CoprimeSupply` — THE COPRIME-SUPPLY ARM, SUPPLIED
@@ -466,14 +467,8 @@ theorem m4_coprimeChiN_of_freeShiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
       = SL * ∑ j ∈ Finset.range (Lg + 1),
           (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [← Finset.sum_mul]
-    congr 1
-    exact Finset.sum_comm
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
+    sum_mul_weighted_sum_comm _ _ _ _ _ _
   -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
   have hsle : ∀ j t : ℕ, t ≤ L / 2 ^ (j + 1) → 2 ^ (j + 1) * t ≤ L := by
     intro j t ht
@@ -1075,14 +1070,8 @@ theorem m4_coprimeChiN_of_freeShiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M : �
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
       = SL * ∑ j ∈ Finset.range (Lg + 1),
           (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [← Finset.sum_mul]
-    congr 1
-    exact Finset.sum_comm
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
+    sum_mul_weighted_sum_comm _ _ _ _ _ _
   -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
   have hsle : ∀ j t : ℕ, t ≤ L / 2 ^ (j + 1) → 2 ^ (j + 1) * t ≤ L := by
     intro j t ht

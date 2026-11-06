@@ -12,6 +12,7 @@ import Salt.MR.M4Join
 import Salt.MR.M4CapWire
 import Salt.MR.M4SecondRoad
 import Salt.MR.M4WaveLinear
+import Salt.MR.SumSwapWeighted
 
 /-!
 # `M4RowLinear` — THE ROW / `T₀` LAYER at the LINEAR door (`AdoorL M = 2^36·M`)
@@ -2833,14 +2834,8 @@ theorem m4_chiBlockMeanSq_of_shiftBlock_L_gk (K : ℕ) {R : ChowlaRegime} {M k :
             (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
       = S * ∑ j ∈ Finset.range (L + 1),
           (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [← Finset.sum_mul]
-    congr 1
-    exact Finset.sum_comm
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
+    sum_mul_weighted_sum_comm _ _ _ _ _ _
   -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
   have hjt : ∀ j ∈ Finset.range (L + 1), ∀ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
       ∑ n ∈ Finset.Ioc A B, X j t n ≤ F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) := by
@@ -3015,14 +3010,8 @@ theorem m4_chiBlockMeanSq_of_shiftBlock_L {R : ChowlaRegime} {M k : ℕ} {F : �
             (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
       = S * ∑ j ∈ Finset.range (L + 1),
           (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [← Finset.sum_mul]
-    congr 1
-    exact Finset.sum_comm
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
+    sum_mul_weighted_sum_comm _ _ _ _ _ _
   -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
   have hjt : ∀ j ∈ Finset.range (L + 1), ∀ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
       ∑ n ∈ Finset.Ioc A B, X j t n ≤ F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) := by
@@ -4152,14 +4141,8 @@ theorem m4_coprimeChiN_of_freeShiftBlock_L {R : ChowlaRegime} {M : ℕ} {F : ℕ
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
       = SL * ∑ j ∈ Finset.range (Lg + 1),
           (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [← Finset.sum_mul]
-    congr 1
-    exact Finset.sum_comm
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
+    sum_mul_weighted_sum_comm _ _ _ _ _ _
   -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
   have hsle : ∀ j t : ℕ, t ≤ L / 2 ^ (j + 1) → 2 ^ (j + 1) * t ≤ L := by
     intro j t ht
@@ -4691,14 +4674,8 @@ theorem m4_coprimeChiN_of_freeShiftBlock_L_gk (K : ℕ) {R : ChowlaRegime} {M : 
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
       = SL * ∑ j ∈ Finset.range (Lg + 1),
           (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [← Finset.sum_mul]
-    congr 1
-    exact Finset.sum_comm
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
+    sum_mul_weighted_sum_comm _ _ _ _ _ _
   -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
   have hsle : ∀ j t : ℕ, t ≤ L / 2 ^ (j + 1) → 2 ^ (j + 1) * t ≤ L := by
     intro j t ht
@@ -7576,14 +7553,8 @@ theorem m4_chiSummedBlockN_of_shiftBlock_L {R : ChowlaRegime} {M : ℕ} {F : ℕ
               (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X χ j t n) * (2 / 3 : ℝ) ^ j
         = SL * ∑ j ∈ Finset.range (Lg + 1),
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-              ∑ n ∈ Finset.Ioc A B, X χ j t n) * (2 / 3 : ℝ) ^ j := by
-      rw [← Finset.mul_sum]
-      congr 1
-      rw [Finset.sum_comm]
-      refine Finset.sum_congr rfl fun j _ => ?_
-      rw [← Finset.sum_mul]
-      congr 1
-      exact Finset.sum_comm
+              ∑ n ∈ Finset.Ioc A B, X χ j t n) * (2 / 3 : ℝ) ^ j :=
+      sum_mul_weighted_sum_comm _ _ _ _ _ _
     exact hswap ▸ hstep1
   -- ⟦STEP 1′⟧ the character sum, taken through the assembly
   have hsummed : ∑ χ : DirichletCharacter ℂ q, ∑ n ∈ Finset.Ioc A B, (doorChiSup_L χ M L n) ^ 2
@@ -8260,14 +8231,8 @@ theorem m4_chiSummedBlockN_of_shiftBlock_L_gk (K : ℕ) {R : ChowlaRegime} {M : 
               (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X χ j t n) * (2 / 3 : ℝ) ^ j
         = SL * ∑ j ∈ Finset.range (Lg + 1),
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-              ∑ n ∈ Finset.Ioc A B, X χ j t n) * (2 / 3 : ℝ) ^ j := by
-      rw [← Finset.mul_sum]
-      congr 1
-      rw [Finset.sum_comm]
-      refine Finset.sum_congr rfl fun j _ => ?_
-      rw [← Finset.sum_mul]
-      congr 1
-      exact Finset.sum_comm
+              ∑ n ∈ Finset.Ioc A B, X χ j t n) * (2 / 3 : ℝ) ^ j :=
+      sum_mul_weighted_sum_comm _ _ _ _ _ _
     exact hswap ▸ hstep1
   -- ⟦STEP 1′⟧ the character sum, taken through the assembly
   have hsummed : ∑ χ : DirichletCharacter ℂ q, ∑ n ∈ Finset.Ioc A B, (doorChiSup_L_gk K χ M L n) ^ 2

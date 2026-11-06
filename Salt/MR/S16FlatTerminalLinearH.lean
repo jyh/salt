@@ -7,6 +7,7 @@ import Salt.MR.S16FlatTerminalLinear
 import Salt.MR.HDoorArc
 import Salt.MR.HDoorSupply
 import Salt.Entropy.Chowla.RegimeHeadroom
+import Salt.MR.SumSwapWeighted
 
 /-!
 # THE SECOND ROAD AT SHIFT `h`, ON THE TERMINAL'S LANE — the `_L_gk` h-family
@@ -593,14 +594,8 @@ theorem m4_chiSummedBlockN_of_shiftBlockH_L_gk (h K : ℕ) {R : ChowlaRegime} {M
               (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X χ j t n) * (2 / 3 : ℝ) ^ j
         = SL * ∑ j ∈ Finset.range (Lg + 1),
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-              ∑ n ∈ Finset.Ioc A B, X χ j t n) * (2 / 3 : ℝ) ^ j := by
-      rw [← Finset.mul_sum]
-      congr 1
-      rw [Finset.sum_comm]
-      refine Finset.sum_congr rfl fun j _ => ?_
-      rw [← Finset.sum_mul]
-      congr 1
-      exact Finset.sum_comm
+              ∑ n ∈ Finset.Ioc A B, X χ j t n) * (2 / 3 : ℝ) ^ j :=
+      sum_mul_weighted_sum_comm _ _ _ _ _ _
     exact hswap ▸ hstep1
   -- ⟦STEP 1′⟧ the character sum, taken through the assembly
   have hsummed : ∑ χ : DirichletCharacter ℂ q, ∑ n ∈ Finset.Ioc A B, (doorChiSup_L_gk K χ M L n) ^ 2
