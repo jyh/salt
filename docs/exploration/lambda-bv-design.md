@@ -9,7 +9,7 @@ survives as. **The verify-posture law worked exactly as intended: this cost two 
 stopped waves aimed at already-landed work, at an open problem, and at the wrong object.**
 
 ## R1 — §1's DISCRIMINATOR TESTS THE WRONG FIELD. **Support shape is irrelevant.**
-The identity in §1 is fine — *and it is already landed verbatim*, `Salt/TwinBar/ParityWall.lean:309`
+The identity in §1 is fine — *and it is already landed verbatim*, `Salt/TwinBar/ParityWall.lean:335`
 `lambda_mult_sum`. **But the dichotomy fails three ways against the corpus's own live sieves:**
 - **It returns REGIME A on the flagship BV consumer.** `Salt/Chen/TwinA1.lean:121` has
   `support = Icc(x/2+2, x)` — an interval — with `weights = Λ(m−2)`. K1 would say "no BV"; the
@@ -53,7 +53,7 @@ a **level cap** (`Q` is a free widening knob with only `hQ : 1 ≤ Q`; `|M_λ(�
 once `x/d = O(1)` — needs `Q·D ≤ x^{1−δ}`) · **`ν = 1/d`** (Chen/Goldbach carry `nuChen = 1/φ(d)`,
 where `⌊x/d⌋ − x/φ(d)` is main-term sized, not a crumb) · and **§0's decomposition is NOT a sieve
 decomposition** — `λ·w` is signed and `BoundingSieve.weights_nonneg` forbids it; the corpus does
-it correctly as `weights := 1 ± liouville n` (`ParityWall.lean:139/152`).
+it correctly as `weights := 1 ± liouville n` (`ParityWall.lean:144/157`).
 
 ## R5 — SCOPING GAP, noted by the refuter outside its lens
 `1_{Ω odd} = (1−λ)/2` pins Ω **odd**, not Ω **= 1**. A parity-pinned survivor still admits

@@ -1785,7 +1785,7 @@ theorem yside_ge_cM (F : Poly) : ∃ c : ℝ, 0 < c ∧ ∀ W' D : ℕ, Squarefr
 Route: `yside = X⁵·Ical F ± mv_I err` (landed `mv_I`); `M = X⁵·simplexInt(1)
 ± err = X⁵/120 ± err` (`mv_I` at `F ≡ 1`, `simplexInt(sq(ofPoly 1)) = DInt'(0,0)
 = 1/120`); ratio `→ 120·Ical F`. `c = 100·Ical F` (after absorbing `o(1)`);
-`Ical_Fstar1_pos` (landed `WinCore.lean:127`). NEEDS `PhiUpperAtom` — discharge
+`Ical_Fstar1_pos` (landed `WinCore.lean:140`). NEEDS `PhiUpperAtom` — discharge
 it via the landed `phiUpperAtom_final` (W4-0, UNCONDITIONAL) so `yside_ge_cM` is
 hypothesis-free at `Fstar1`. PB floor: none.
 
