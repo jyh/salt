@@ -320,7 +320,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 
 ## 2. THE DECOUPLING QUESTION
 
-**(a) Which spine lemma consumes `hPHheadroom`, at what strength?** Exactly one, through `pH_headroom_at` (`Regime.lean:161`): `deficit_le_log_two` (`BudgetDeficit.lean:46-69`). Its whole use is `u := 8·P_H²·ω/x ≤ 1`, so that `log(1+u) ≤ log 2` in `entropy_residueWindow_ge` (`ResidueUniform.lean:536-539`). Consumed at **one** H per spine run: `SpineFinal.lean:641`, inside `hbudget1_witness` (`SpineFinal.lean:592`, hypothesis `hhi : H ≤ R.Hhi`) — the pigeonhole's H, *not* every tower level. (The per-level telescope reads `hheadroom'` only: `Step.lean:454`.)
+**(a) Which spine lemma consumes `hPHheadroom`, at what strength?** Exactly one, through `pH_headroom_at` (`Regime.lean:161`): `deficit_le_log_two` (`BudgetDeficit.lean:46-69`). Its whole use is `u := 8·P_H²·ω/x ≤ 1`, so that `log(1+u) ≤ log 2` in `entropy_residueWindow_ge` (`ResidueUniform.lean:536-539`). Consumed at **one** H per spine run: `SpineFinal.lean:641`, inside `hbudget1_witness` (`SpineFinal.lean:592`, hypothesis `hhi : H ≤ R.Hhi`) — the pigeonhole's H, *not* every tower level. (The per-level telescope reads `hheadroom'` only: `Salt/Entropy/Chowla/Step.lean:469`.)
 
 Second consumer, spine-side: `regime_W_headroom_of_floor` (`DoorDischarge.lean:42`) — Tao's W-constraint `(log H₊)^625 ≤ log(x/2ω)`. **Polynomial** in `log H₊`; funded by `hPHheadroom` with astronomic slack. Nothing else in the corpus needs an exponential-in-H₊ x-floor.
 

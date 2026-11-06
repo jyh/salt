@@ -25,7 +25,7 @@ budget exactly as at stride `1`.  `R.a ∣ H` is CONSUMED here (F1's B7) where t
 carries and discards it (`Step.lean · condEntropy_shift_le` `_ha`, `Tower.lean:161`).  Everything else — the
 concatenation `condEntropy_kwindow_le` (`liouvilleWindow_block` + chain rules), the reduction
 spine, the tower arithmetic, the endpoints (`entropy_liouvilleWindow_le` is already `∀ μ`,
-`Windows.lean:62`) — is a copy with the measure renamed.
+`Salt/Entropy/Chowla/Windows.lean:67`) — is a copy with the measure renamed.
 
 ⛔ Degenerate values (the W4 law): `a = 0` makes `logMeasureAff 0 x ω` the Dirac mass at `0`;
 every statement below reads the stride as `R.a` with `R.ha : 1 ≤ R.a`, and the free-`a` lemmas
@@ -632,7 +632,7 @@ theorem tower_telescope_aff (R : ChowlaRegime)
 
 /-- **F4-D4a (class A).**  `entropy_per_symbol_le` (`Endpoints.lean:41`):
 `entropy_liouvilleWindow_le H (logMeasureAff R.a R.x R.ω)` — the landed lemma is `∀ μ`
-(`Windows.lean:62`). -/
+(`Salt/Entropy/Chowla/Windows.lean:67`). -/
 theorem entropy_per_symbol_le_aff (R : ChowlaRegime) (H : ℕ) (hH : 1 ≤ H) :
     H[liouvilleWindow H ; logMeasureAff R.a R.x R.ω] / (H : ℝ) ≤ Real.log 2 := by
   have hHpos : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH
