@@ -1,0 +1,12 @@
+# Declared pins for scripts/rekey_cites.py: a page whose own sentence states which tree its line numbers
+# belong to (tier numbers), or the tree it was read at (tier read-at), is PINNED under that sentence and never
+# re-keyed (the helm's XF ruling, 2026-11-05). One TAB-separated row each: page, a phrase that occurs EXACTLY
+# ONCE in the page (whitespace-flattened), scope (page | below | next-block), tier. First list: h2c's sweep.
+# NOT here on purpose: papers/flagship/ERRATA.md names a sha for its statements and is main-keyed.
+docs/exploration/pi-package-0803.md	Repo numbers are as of `HEAD = b828cf1`, 2026-08-03	page	numbers
+docs/exploration/pi-prep-0731.md	Repo numbers are as of HEAD = `main`, 2026-07-31	page	numbers
+docs/exploration/n7-assembly-gate-0811.md	Every pin below was re-verified against the working tree at read time, 8/11	below	numbers
+docs/exploration/n4-n8-obligation-trace-0806.md	Re-verified by name (line numbers current at HEAD, 2026-08-06):	next-block	numbers
+docs/exploration/leg1-evidence-0805.md	Harvest state: branch `main`, HEAD `127de71`	page	read-at
+docs/exploration/weil-trio-audit-0806.md	**Scope:** committed tree only, at HEAD `f6e0c12`.	page	read-at
+docs/exploration/n6-scout-dossier-0805.md	READ-ONLY scout, salt @ main (working tree untouched). 2026-08-05.	page	read-at
