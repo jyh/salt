@@ -52,7 +52,7 @@ this sitting) or records ABSENT with its sibling control. `ln` is a [DESIGN] est
 | eq | notes | what it says (one clause) | [KERNEL] pins consumed, or ABSENT | class | ln |
 |---|---|---|---|---|---|
 | — | `:526-527` | **the object**: `S(δ₁,δ₂;V₁,V₂)`, a bilinear sum over `x<n≤2x` with `δ_i ∣ l_i` and inner `Σ_{w v = l_i/δ_i, v>V_i} χ(w)` | **ABSENT** — no two-variable bilinear carrier in `Salt/`. Sibling control FOUND: the one-variable `Salt/SW/Hyperbola.lean` `sum_divisors_eq_hyperbola_symm` (`:55`) is the same convention at one variable ⇒ ABSENT, not merely unfound | C | 150–300 |
-| — | `:531-537` | **Λ\* as the μ-sieve of `Λ′`**, truncated at `m < q`, error `≪ x^{1+ε}q^{−1}` | Lemma 1 **supplied**: `LamStar_nonneg` (`Salt/HB/TwistChain.lean:368`), `vonMangoldt_le_LamTilde` (`:368`) — both in the roll-call (`Salt/HB/All.lean:98-99`). ⚠ the dossier pins the second at `:367`; it is at `:368` at `4deb0c32` | B | 120–250 |
+| — | `:531-537` | **Λ\* as the μ-sieve of `Λ′`**, truncated at `m < q`, error `≪ x^{1+ε}q^{−1}` | Lemma 1 **supplied**: `LamStar_nonneg` (`Salt/HB/TwistChain.lean:368`), `vonMangoldt_le_LamTilde` (`:377`) — both in the roll-call (`Salt/HB/All.lean:98-99`). ⚠ the dossier pins the second at `:367`; it is at `:368` at `4deb0c32` | B | 120–250 |
 | — | `:539-546` | **LEMMA 9** (p.211): the hyperbola manipulation, giving `S(d)` as a `μ`-weighted double integral of `S(m₁²d₁j₁, m₂²d₂j₂; V₁,V₂)` + `O(x^{1+ε}q^{−1})` | consumes the carrier above; hyperbola sibling as noted | C | 250–450 |
 | **(5.1)** | `:548-549` | support: `S` vanishes unless `(δ_i,q) = (δ_i,α) = (δ₁,δ₂) = 1` | a definitional side condition on the carrier | A | 20–40 |
 | **(5.2)** | `:551-553` | **dyadic decomposition** `R_i<v_i≤2R_i`, `S_i<w_i≤2S_i`, powers of 2, `R_i ≥ V_i`, `x ≪ δ_iR_iS_i ≪ x` | dyadic idiom is landed in the same file family (`lem10_dyadic_bound` sums over `Finset.Ioc M (2*M)`, `:1005`) | B | 100–200 |
@@ -244,7 +244,7 @@ ingredients provide and what (5.17) can supply.
 **(a) The μ-sieve of `Λ*` (p.210) and the hyperbola step (p.211).** `Λ*(n) = Σ*_{u∣n} χ(u) log(n/u)`
 is re-expressed by Möbius over `m ∣ Q` and truncated at `m < q`, error `≪ x^{1+ε}q^{−1}`
 (`hb1983-notes.md:531-537`). **Lemma 1 is supplied** — `LamStar_nonneg`
-(`Salt/HB/TwistChain.lean:368`) and `vonMangoldt_le_LamTilde` (`:368`), both in the roll-call
+(`Salt/HB/TwistChain.lean:368`) and `vonMangoldt_le_LamTilde` (`:377`), both in the roll-call
 (`Salt/HB/All.lean:98-99`) [KERNEL]. The hyperbola manipulation into the `Σ_{v>V} χ(w)` shape has a
 **one-variable sibling** landed — `sum_divisors_eq_hyperbola_symm` (`Salt/SW/Hyperbola.lean:55`,
 generic over a `CommRing`) and `dhA_hyperbola_symm` (`:184`) [KERNEL] — so the two-variable version

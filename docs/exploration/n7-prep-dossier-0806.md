@@ -207,10 +207,10 @@ Note also D2's own inequality `v₂(k) ≤ v₂(α₂)+3` (`:99-100`) is loose/g
 ### 4a. Kloosterman [KERNEL unless marked]
 `kloosterman` (`Kloosterman.lean:49`, modulus need not be prime) · `norm_kloosterman_le_modulus`
 (`CompositeTail.lean:65`) · `norm_kloosterman_two_pow` (`:73`, the crude 2-part) ·
-`norm_kloosterman_le_two_sqrt(')` (`Descent.lean:206/:222`, Weil, `2√p`) ·
+`norm_kloosterman_le_two_sqrt(')` (`Descent.lean:210/:226`, Weil, `2√p`) ·
 `norm_kloosterman_prime_pow_even` (`Salt/Weil/PrimePower.lean:231`) · `norm_kloosterman_prime_pow_ge_two`
-(`CompositeFull.lean:234`) · `norm_kloosterman_prime_pow_odd` (`:299`, crude, `√p` above sharp) ·
-`kloosterman_zero_right` (`:309`) · `norm_kloosterman_le_tau_sqrt` (`:384`, **needs
+(`CompositeFull.lean:234`) · `norm_kloosterman_prime_pow_odd` (`:303`, crude, `√p` above sharp) ·
+`kloosterman_zero_right` (`:313`) · `norm_kloosterman_le_tau_sqrt` (`:388`, **needs
 `Squarefree c` AND `IsUnit a`**) · `kloosterman_mul_of_coprime` (`Composite.lean:107`, twisted
 multiplicativity) · `norm_kloosterman_le_mul_of_coprime(_unit)` (`Composite.lean:190` /
 `CompositeTail.lean:224`) · `norm_incomplete_kloosterman_le` (`Incomplete.lean:181`, **prime
@@ -262,7 +262,7 @@ HYPOTHESIS** · **`sum_class_eq_zero_of_isPrimitive` (`:413`) — the p.216 exit
 
 ### 4c. Λ* / Lemma 1 — **already supplied** [KERNEL]
 `Salt.HB.LamStar_nonneg` (`TwistChain.lean:368`, Lemma 1(a)) and
-`Salt.HB.vonMangoldt_le_LamTilde` (`:367`, Lemma 1(b)), both in the committed roll-call
+`Salt.HB.vonMangoldt_le_LamTilde` (`:377`, Lemma 1(b)), both in the committed roll-call
 (`Salt/HB/All.lean:87-88`). **The road table's "N7 also needs Λ* positivity from Lemma 1" is
 already discharged.**
 
@@ -274,8 +274,8 @@ already discharged.**
 > (dist₁ θ 0)`, Montgomery p.40 eq.(2), with `minTerm` (`:271`) carrying the `1/‖0‖ = ∞` case
 > honestly; `dist₁` (`Salt/LS/Dist.lean:34`) is exactly HB §7's `‖·‖`;
 > `two_mul_dist₁_le_abs_sin` (`:136`, Jordan); `Salt.MR.tendsto_sum_sin_div_nat`
-> (`Sawtooth.lean:358`) — **the exact sawtooth Fourier series**; `abs_sum_sin_le` (`:329`);
-> `abs_sum_mul_le_of_bounded` (`:65`, Abel); `hurwitzZeta_apply_zero` (`:579`); and the
+> (`Salt/MR/Sawtooth.lean:399`) — **the exact sawtooth Fourier series**; `abs_sum_sin_le` (`:336`);
+> `abs_sum_mul_le_of_bounded` (`:65`, Abel); `hurwitzZeta_apply_zero` (`:620`); and the
 > `Salt.BV` completion kit (`Completion.lean:76/134/141/191/237`) with its `2 + log H` L¹ mass.
 > **(7.7b) reindexes as `n = b + qm` ⟹ `e(−sb/k)·Σ_m e((−sq/k)m)`, which IS `geom_phase_bound` at
 > `θ = −sq/k`** — a reindex plus `dist₁` bookkeeping, plausibly class A/B, **not** the class-C
@@ -306,7 +306,7 @@ already discharged.**
 | 6 | p.217 real-primitive two-forms, composite `q` | W4-c + W4-c′ | **[IN FLIGHT]** `RealPrimitive.lean:381`, **split as a hypothesis** until W4-a lands |
 | 7 | p.216 `Σχ(b₂)` vanishing | W4-d | **[IN FLIGHT]** `RealPrimitive.lean:413` |
 | 8 | `q = 2^a m`, `a ∈ {0,2,3}` structure | W4-a | **[DESIGN]**, 1,300–2,600 ln — **and on the critical path for FINDING #1** |
-| 9 | Λ* positivity (Lemma 1) | corpus | **✅ [KERNEL]** `TwistChain.lean:359/:367` |
+| 9 | Λ* positivity (Lemma 1) | corpus | **✅ [KERNEL]** `TwistChain.lean:368/:377` |
 | 10 | `q ∣ k` discharge (`q ∣ D`) | W5 depot #3 | **[KERNEL] 2026-08-08** — `Salt/Weil/RoadModulus.lean`: `dvd_roadModulus`, ~~`dvd_roadLevel`~~ **`dvd_roadModulus_mul`** (RENAMED at `588f3b4`, 08-08 20:55, the "three names tightened" pass; the old name CEASES TO EXIST — corrected here 08-11 during N7 pre-flight), hypothesis-free. **The row was MISPRICED**: with `Δ = (α₂,q)`, HB's `D = α₂qΔ^{−1}` **is** `Nat.lcm α₂ q` (`roadModulus_eq_lcm` is `rfl`), so the discharge is `Nat.dvd_lcm_right`. Was: supplier **nobody**, *[GENUINELY OPEN] — HB leaves it implicit; N7 owes it*; the honest class is `A` |
 | 11 | (5.14) double-sum recovery; the `:611` residual; `(log Kk)³→(log 2k)³` | the source notes | **ALL THREE CLOSED — verified 2026-08-08, and this row was STALE FROM THE DAY IT WAS WRITTEN.** (i) the (5.14) `w₂` double sum: *"now closed at the source"*, `hb1983-notes.md` correction block dated 2026-08-06 — it was ours, not HB's; (ii) the `:611` residual: **RECLASSIFIED, not merely fixed** — it is *"an ERRATUM IN THE PUBLISHED PAPER, not a transcription error"* (HB prints `x^{1/4}`; three independent terms of his own next display each force `θ = 1/2`, re-derived here); (iii) `(log Kk)³→(log 2k)³`: corrected 2026-08-06 and **independently re-derived 2026-08-08** while landing the (7.8) fold. Was: supplier **nobody**, *[GENUINELY OPEN] — §2's three transcription defects* |
 

@@ -168,7 +168,7 @@ even primitivity), support windows, and parametric slots. Under ¬F every landed
 theorem still runs, for every real χ, including all q > Q₀.
 
 **What the unconditional half delivers against ¬F-fed inputs.**
-`S1_le_S2` (Salt/HB/Transfer.lean:189-193): S1(A) = Σ_{n∈A} Λ(n)Λ(n+2) ≤
+`S1_le_S2` (Salt/HB/Transfer.lean:197-200): S1(A) = Σ_{n∈A} Λ(n)Λ(n+2) ≤
 S2(χ,A) = Σ Λ̃χ(n)Λ̃χ(n+2) (Salt/HB/Transfer.lean:184-188) for EVERY quadratic χ — an
 unconditional UPPER-bound transfer on the twin sum. Under ¬F-fed effective-SW
 (Form C), Λ̃χ is a μ²χ-weighted divisor sum whose twisted sums become effectively
