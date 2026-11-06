@@ -28,7 +28,7 @@ half (F4) has a `(c₁, h211)` pair to consume at `(a, b, h)`, exactly as `outer
   A CONJUNCT ON THE SUMMATION INDEX `(j, p)` AND NEVER TOUCHES THE RESIDUE DATUM.**  Tao's gate
   `an + j ≡ pb (mod ap)` (the display at :741, the statement from :732) splits by CRT
   (`gcd(a, p) = 1`: `a ≤ ε²H₋/2 < p` by the regime's `hcoprime`; the kernel receipt is
-  `coprime_PH_of_le`, `PrimeWindow.lean:143-160`) into `p ∣ an + j`
+  `coprime_PH_of_le`, `PrimeWindow.lean:163-180`) into `p ∣ an + j`
   — the landed gate on `y = m mod P_H` at `m = a·n` — and `j ≡ pb (mod a)`, which reads no `y`.
   So the carrier `ZMod (PH eps H)` is UNCHANGED and F1's STOP ("the filter cannot be carried through
   `fBridgeF`'s carrier without a new carrier") is cleared by inspection, not by a construction.
@@ -123,7 +123,7 @@ theorem fBridgeF_aff_one_zero (h : ℕ) (v : Fin H → ℤ) :
 /-- **F2-B5 (class B) — the deterministic box bound at `(a, b, h)`**:
 `|G_p^{(a,b,h)}(v)(r)| ≤ H/p + 1`
 for a `‖·‖ ≤ 1` pattern, uniformly in `a, b, h`.  The `h`-script (`fBridgeG_h_abs_le`,
-`FBridge.lean:572`) with ONE extra step: each summand `|if gate ∧ filter then t else 0|` is
+`FBridge.lean:581`) with ONE extra step: each summand `|if gate ∧ filter then t else 0|` is
 `≤ if gate then 1 else 0` (`split_ifs` on the conjunction; the filtered-out terms are `0 ≤ 1`, the
 kept ones are `windowVal_prod_abs_le`), after which the residue-class count
 `card_filter_natCast_eq_le H (-r - 1)` is the landed line.  The filter only REMOVES terms, so no
@@ -184,7 +184,7 @@ lemma fBridgeG_aff_mem_Icc (a b h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| 
 
 /-- **F2-B7 (class B) — the residue-sum identity at `(a, b, h)`** (the mean's numerator):
 `∑_{r ∈ ZMod p} G_p^{(a,b,h)}(v)(r) = ∑_{j < H} 1_{j+1 ≡ pb (a)} · v_j·v_{j+ph}`.  The `h`-script
-(`fBridgeG_h_sum_over_residues`, `FBridge.lean:648`): `Finset.sum_comm`, then per `j` the
+(`fBridgeG_h_sum_over_residues`, `FBridge.lean:657`): `Finset.sum_comm`, then per `j` the
 `r`-sum of `if gate r ∧ filter then t else 0` is `if filter then (∑_r if gate r then t else 0)
 else 0` (`by_cases hf : filter` and `simp only [hf, and_true, and_false, if_false,
 Finset.sum_const_zero]`), and the inner sum collapses at `r = -(j+1)` exactly as at `h`
@@ -226,7 +226,7 @@ lemma fBridgeG_aff_sum_over_residues (a b h : ℕ) {v : Fin H → ℤ} (p : prim
 
 /-- **F2-B8 (class B) — the mean identity at `(a, b, h)`**:
 `E_y[G_p^{(a,b,h)}(v)(y mod p)] = (1/p)·∑_{j} 1_{j+1 ≡ pb (a)} v_j v_{j+ph}`.  The `h`-script
-(`fBridgeG_h_mean`, `FBridge.lean:671`) VERBATIM — `residueProj_fiber_card` never sees `v`, the
+(`fBridgeG_h_mean`, `FBridge.lean:680`) VERBATIM — `residueProj_fiber_card` never sees `v`, the
 fibre equidistribution is filter-blind — with `fBridgeG_aff_sum_over_residues` in place of
 `fBridgeG_h_sum_over_residues` at the one `rw`.  This is the decoupled `y`-mean that the affine
 circle-method estimate (F3/F4's `hcirc_aff`) bounds. -/
@@ -271,7 +271,7 @@ lemma fBridgeG_aff_mean (a b h : ℕ) {v : Fin H → ℤ} (p : primeWindow eps H
 /-- **F2-B9 (class A) — the raw concentration bound at `(a, b, h)`**: `hoeffding_residueProj eps H
 (fBridgeG_aff eps H a b h v) (fun i x => fBridgeG_aff_mem_Icc eps H a b h hv i x) hδ` — the SAME
 box, so the `h`-proof term transfers with the name changed (`fBridge_h_concentration_raw`,
-`FBridge.lean:711`). -/
+`FBridge.lean:720`). -/
 theorem fBridge_aff_concentration_raw (a b h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1)
     {δ : ℝ} (hδ : 0 ≤ δ) :
     (uniformOn (Set.univ : Set (ZMod (PH eps H)))).real
@@ -285,7 +285,7 @@ theorem fBridge_aff_concentration_raw (a b h : ℕ) {v : Fin H → ℤ} (hv : �
 
 /-- **F2-B10 (class A) — the usable concentration bound at `(a, b, h)`**, exponent
 `2·exp(−δ²/(2(ε²H+1)(2/ε²+1)²))` UNCHANGED (`fBridge_var_le` is `v`-, `h`- and `a`-free).  The
-`h`-script (`fBridge_h_concentration`, `FBridge.lean:726`) with the raw bound's name moved. -/
+`h`-script (`fBridge_h_concentration`, `FBridge.lean:735`) with the raw bound's name moved. -/
 theorem fBridge_aff_concentration (a b h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1)
     (heps : 0 < eps) (hne : (primeWindow eps H).Nonempty) {δ : ℝ} (hδ : 0 ≤ δ) :
     (uniformOn (Set.univ : Set (ZMod (PH eps H)))).real
@@ -308,7 +308,7 @@ theorem fBridge_aff_concentration (a b h : ℕ) {v : Fin H → ℤ} (hv : ∀ i,
   nlinarith [sq_nonneg δ, hSle, hSpos]
 
 /-- **F2-B11 (class A) — the sharp (one-log) concentration bound at `(a, b, h)`**: the
-`h`-script (`fBridge_h_concentration_sharp`, `FBridge.lean:752`) verbatim; `fBridge_var_le_sharp`
+`h`-script (`fBridge_h_concentration_sharp`, `FBridge.lean:761`) verbatim; `fBridge_var_le_sharp`
 is reused and the exponent is IDENTICAL — the stride and the offset cost nothing in the
 concentration grade. -/
 theorem fBridge_aff_concentration_sharp (a b h : ℕ) {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1)
@@ -358,7 +358,7 @@ theorem fBridge_aff_concentration_sharp (a b h : ℕ) {v : Fin H → ℤ} (hv : 
 /-- **F2-B12 (class A) — the sharp decoupled-mean corollary at `(a, b, h)`** — the deviation set
 written with the FILTERED decoupled mean `∑_p (1/p) ∑_j 1_{j+1 ≡ pb (a)} v_j v_{j+ph}`
 (`fBridgeG_aff_mean` substituted into `fBridge_aff_concentration_sharp`, as
-`fBridge_h_concentration_decoupled_sharp`, `FBridge.lean:801`).  ⚠ SITE 2 of the synchronised
+`fBridge_h_concentration_decoupled_sharp`, `FBridge.lean:810`).  ⚠ SITE 2 of the synchronised
 offset spellings: `badSet_aff` (F4) must spell this set byte-identically. -/
 theorem fBridge_aff_concentration_decoupled_sharp (a b h : ℕ)
     {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1) (heps : 0 < eps)

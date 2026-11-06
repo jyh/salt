@@ -248,7 +248,7 @@ theorem singleCorr_of_fails_h_one (eps : ℚ) {x ω : ℕ}
 /-- **Stmt 3 at shift `h` (compose to `h211`).**  The `h`-family port of
 `h211_of_logChowla2Fails`: feed Stmt 1 at shift `h` (`δ := ε/2`) into the shift-`h`
 Prop-2.6 conclusion `hprop26`, and take `c₁ := c/2`.  The F-bridge is `fBridgeF_h eps H h`
-(`FBridge.lean:525`), the offset-`h` member of the family whose `h = 1` compat is
+(`FBridge.lean:534`), the offset-`h` member of the family whose `h = 1` compat is
 `fBridgeF_h_one`.  The `h`-dependence is entirely inside the two carried objects; the
 glue arithmetic is the `h = 1` script verbatim. -/
 theorem h211_of_logChowla2Fails_h (h : ℕ) (eps : ℚ) (H : ℕ) {x ω : ℕ}

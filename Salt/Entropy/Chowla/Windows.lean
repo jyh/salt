@@ -27,6 +27,11 @@ open MeasureTheory ProbabilityTheory Real
 def liouvilleWindow (H : ℕ) (n : ℕ) : Fin H → ℤ :=
   fun i => ArithmeticFunction.liouville (n + i + 1)
 
+/-- `liouvilleWindow H n i = λ(n + i + 1)` (`rfl`; `@[simp]`): the window's entries. Rewritten
+wherever a window entry is read as a Liouville value: `liouvilleWindow_mem_piFinset` and
+`liouvilleWindow_block` here, `abs_liouvilleWindow_le_one` (`FBridge`),
+`windowVal_liouvilleWindow` (`Prop26`), and in `Salt/MR` (`crownK6_window_sum_odd`,
+`windowExpSum_eq_offWindowSum`). -/
 @[simp] lemma liouvilleWindow_apply (H n : ℕ) (i : Fin H) :
     liouvilleWindow H n i = ArithmeticFunction.liouville (n + i + 1) := rfl
 
