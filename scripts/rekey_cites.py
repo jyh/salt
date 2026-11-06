@@ -30,7 +30,9 @@ cite is classed:
              contiguity, the target was RENAMED, or a list RUNS ON in a form not otherwise read
              (`:N,K` / `:N/:K`) and a member moved, read or unread: NEVER rewritten, read by hand
   PRE-STALE  the cite was past the base file's end already: printed, not this edit's
-  AMBIGUOUS  a bare leaf shared by several files: not read, counted
+  AMBIGUOUS  a bare leaf shared by several files: not re-keyed, counted; one the EDITED file's map would move
+             or report is PRINTED with that file and its class (`write the path and it is read`), never
+             rewritten and never counted stale (h2c's census, 11-05: 27 of 98 such cites meant the moved file)
   NESTED     not a class: KEPT or RE-KEYED cites whose line(s) mapped only through a nested
              re-key, counted beside the verdict
   PINNED     the citing file says its citations refer to an ARCHIVED snapshot (a published
@@ -415,6 +417,11 @@ def census(root, base, head, published=PUBLISHED):
                     continue
                 if not pre and leaves[leaf] > 1:
                     cls["AMBIGUOUS"] += 1
+                    c, rep = resolve(maps[f], nbase[f], mt)
+                    if c in ("RE-KEYED", "REPORTED"):     # printed, never rewritten, never counted stale
+                        rows.append(dict(src=src, target=f, cite=mt.group(0), cls="AMBIGUOUS", new=rep,
+                                         why=f"bare leaf shared by {leaves[leaf]} files; IF it means {f}: {c}; "
+                                             f"write the path and it is read", nested=False, runon=False))
                     continue
                 c, rep = resolve(maps[f], nbase[f], mt)
                 runon = bool(RUNON.match(text, mt.end()))
@@ -638,7 +645,7 @@ def report(edited, rows, cls, applied):
         if w not in ("declared",) and not w.startswith("declared pin"):   # a .rekey-pins row IS a declaration
             print(f"  UNDECLARED {s}: pinned by its {w}; add it to PUBLISHED")
     for r in rows:
-        if r["cls"] in ("RE-KEYED", "REPORTED", "PRE-STALE"):
+        if r["cls"] in ("RE-KEYED", "REPORTED", "PRE-STALE", "AMBIGUOUS"):
             print(f"  {r['cls']:9s} {r['src']}: {r['cite']} -> {r['new'] or ('(read by hand)' if r.get('why') else '(no head line: read by hand)')}"
                   + (f"  [{r['why']}]" if r.get("why") else ""))
     print(LIMITS)
@@ -1043,7 +1050,7 @@ def self_test():
               not any(c.startswith(("BS", "S :")) for c in ks))
         check("... past the end is PRE-STALE", ks.get("S:99", {}).get("cls") == "PRE-STALE")
         check("... a short leaf two files share (D) is AMBIGUOUS, never rewritten",
-              "D:3" not in ks and cls["AMBIGUOUS"] >= 1)
+              ks.get("D:3", {}).get("cls", "AMBIGUOUS") == "AMBIGUOUS" and cls["AMBIGUOUS"] >= 1)
         apply(d, "HEAD~1", "HEAD", rs)
         check("--apply rewrites the short cites and leaves the REPORTED one as written",
               open(os.path.join(d, "Salt/T.lean")).read() ==
@@ -1208,6 +1215,30 @@ def self_test():
         check("... and once the row is at BASE the cite is PINNED, and the report never calls a declared pin UNDECLARED",
               [(r["cite"], r["cls"]) for r in r2 if r["src"] == "docs/late.md"] == [("P.lean:5", "PINNED")]
               and "UNDECLARED" not in buf.getvalue() and "declared pin (numbers)" in buf.getvalue())
+    # AMBIGUOUS MADE READABLE (h2c's census, 11-05: 27 of 98 shared-leaf cites meant the file a merge moved and
+    # went stale unseen). A bare leaf two files share is still not read as a re-key, but when the edited file's
+    # map would move or report it, it is PRINTED with that file's class; never rewritten, and the rc is unchanged
+    # (failing on it would be ~70 % false reds by that census).
+    with tempfile.TemporaryDirectory() as d:
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt/X")); os.makedirs(os.path.join(d, "Salt/Y"))
+        body = "".join(f"line {i}\n" for i in range(1, 11))
+        open(os.path.join(d, "Salt/X/T.lean"), "w").write(body); open(os.path.join(d, "Salt/Y/T.lean"), "w").write(body)
+        open(os.path.join(d, "amb.md"), "w").write("moves T.lean:5 · above T.lean:1 · full Salt/Y/T.lean:5\n")
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        open(os.path.join(d, "Salt/X/T.lean"), "w").write("line 1\nline 2\nnew line\n" + body.split("\n", 2)[2])
+        g("commit", "-q", "-am", "head")
+        ea, ra, ca = census(d, "HEAD~1", "HEAD")
+        am = [r for r in ra if r["src"] == "amb.md" and r["cls"] == "AMBIGUOUS"]
+        check("a shared-leaf cite the edited file would MOVE is PRINTED as AMBIGUOUS with that file and its class",
+              [(r["cite"], r["target"], r["new"]) for r in am] == [("T.lean:5", "Salt/X/T.lean", "T.lean:6")]
+              and "Salt/X/T.lean: RE-KEYED" in am[0]["why"])
+        check("... one the edited file would KEEP is counted, not printed", ca["AMBIGUOUS"] == 2 and len(am) == 1)
+        check("... and the rc is unchanged by it (nothing stale)",
+              ca["REPORTED"] + ca["RE-KEYED"] == 0)
+        apply(d, "HEAD~1", "HEAD", ra)
+        check("... --apply never rewrites it", open(os.path.join(d, "amb.md")).read().startswith("moves T.lean:5 "))
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
