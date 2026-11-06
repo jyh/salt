@@ -176,7 +176,7 @@ theorem s16BandLaneCBoundedLH_winU_one_iff (Awin : ℝ) :
 set_option maxHeartbeats 1000000 in
 -- The landed mint's own budget: the band body re-elaborates at every socket base.
 /-- **⟦THE BAND MINT AT THE INFLATED SOCKET⟧** (`m4_hband_at_door_slot_split_graded_LH_gk`) —
-`S11HoistLinear:736` with both socket quantifiers at `SocketBaseLH h`.  **The proof body is the
+`S11HoistLinear:726` with both socket quantifiers at `SocketBaseLH h`.  **The proof body is the
 landed one verbatim**: it projects conjunct 4 (`0 < q`) and passes `hb` to its own antecedent,
 and `SocketBaseLH` moves neither. -/
 theorem m4_hband_at_door_slot_split_graded_LH_gk (h : ℕ) (_hh : 0 < h) (K : ℕ)
@@ -232,16 +232,14 @@ theorem m4_hband_at_door_slot_split_graded_LH_gk (h : ℕ) (_hh : 0 < h) (K : �
     haveI : NeZero q := ⟨hq.ne'⟩
     have hD := hgates H L q j A s hb
     have h16 : 16 ≤ A + s := by
-      have h400 : (400 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := hD.X400
-      have : (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by linarith
-      exact_mod_cast this
+      exact_mod_cast (show (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) by linarith [hD.X400])
     exact hband q χ M (A + s) (2 * (A + s)) rfl hD.X400 (by omega) le_rfl hD.C₁_one
       hD.x₀_le h16 hD.qfit hcovP hcovQ hcovB hD.gHalf hD.gO1 hD.gWin hD.grade hD.err
 
 set_option maxHeartbeats 1000000 in
 -- Same cause as the landed `_uniform` mint.
 /-- **⟦THE BAND MINT AT THE INFLATED SOCKET, WITNESS-UNIFORM⟧**
-(`m4_hband_at_door_slot_split_graded_LH_gk_uniform`) — `S11HoistLinear:861` with both socket
+(`m4_hband_at_door_slot_split_graded_LH_gk_uniform`) — `S11HoistLinear:849` with both socket
 quantifiers at `SocketBaseLH h`; body verbatim, for the same reason as the `K`-fixed twin. -/
 theorem m4_hband_at_door_slot_split_graded_LH_gk_uniform (h : ℕ) (_hh : 0 < h)
     (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp : 0 < Aexp) :
@@ -296,9 +294,7 @@ theorem m4_hband_at_door_slot_split_graded_LH_gk_uniform (h : ℕ) (_hh : 0 < h)
     haveI : NeZero q := ⟨hq.ne'⟩
     have hD := hgates H L q j A s hb
     have h16 : 16 ≤ A + s := by
-      have h400 : (400 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := hD.X400
-      have : (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by linarith
-      exact_mod_cast this
+      exact_mod_cast (show (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) by linarith [hD.X400])
     exact hband q χ M (A + s) (2 * (A + s)) rfl hD.X400 (by omega) le_rfl hD.C₁_one
       hD.x₀_le h16 hD.qfit hcovP hcovQ hcovB hD.gHalf hD.gO1 hD.gWin hD.grade hD.err
 
