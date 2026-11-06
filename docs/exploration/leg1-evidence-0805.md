@@ -164,7 +164,7 @@ them (lint has verified that each file exists and declares that name).
 - `Salt.MR.lambda_nonpret` — λ-non-pretentiousness, unconditional. `Salt/MR/NonPretClose.lean:49`
 - `Salt.Entropy.Chowla.log_chowla_two_budget_head` · `…_door_only` — `Salt/Entropy/Chowla/SpineFinal.lean:750`, `:981`
 - `Salt.MR.halasz_ball_decay` — `Salt/MR/HalaszCore.lean:440`
-- `Salt.MR.thm_a2'` — the S7/S8 summit, Theorem A2′. `Salt/MR/ThmA2Rows.lean:636`
+- `Salt.MR.thm_a2'` — the S7/S8 summit, Theorem A2′. `Salt/MR/ThmA2Rows.lean:629`
 - `Salt.MR.mmuChiRate_holds_gated` — the χ-twisted `t`-uniform Möbius rate. `Salt/MR/PortClose.lean:157`
 - **THE TOLL** — `towerDropSumFlat_ge_log_ratio` `:419`, `…_le_log_ratio_mul` `:443`, `towerFlat_width_ge` `:585`, `towerFlat_width_le` `:625`, all `Salt/Entropy/Chowla/TowerFlat.lean`; `towerShape_width_ge` `Salt/Entropy/Chowla/TowerShape.lean:403`
 - **THE PEARL** — `Salt.MR.logChowla2_witnessed_scale_flat_L_v2` `Salt/MR/S16FlatFinal.lean:130` (row carries its own 8/02 defect note)

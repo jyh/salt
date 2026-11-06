@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.ThmA2Prime
 import Salt.Tactic.ExpLogNum
+import Salt.MR.WindowEnds
 
 /-!
 # ⟦R3-A — THE A3 MIDDLE⟧: the primed row thread (`A3Middle`)
@@ -507,11 +508,7 @@ theorem a2Rows_of_capfree3_end' :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at M Xd hM hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint, at the PRIMED bracket⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (Adoor M) (3072 * M) M 2 m₀ Ms
     Mt kk
@@ -874,11 +871,7 @@ theorem a2Rows_of_capfree3' :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at M Xd hM hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (Adoor M) (3072 * M) M 2 m₀ Ms
     Mt kk
@@ -1042,11 +1035,7 @@ theorem a2Rows_of_capfree3_end'_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_gk K M Xd hM hK hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint, at the PRIMED bracket⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (Adoor M) (s13GK K M) M 2 m₀ Ms
     Mt kk
@@ -1163,11 +1152,7 @@ theorem a2Rows_of_capfree3'_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_gk K M Xd hM hK hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (Adoor M) (s13GK K M) M 2 m₀ Ms
     Mt kk

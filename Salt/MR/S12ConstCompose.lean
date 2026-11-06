@@ -7,6 +7,7 @@ import Salt.MR.S14Compose
 import Salt.MR.S11HoistGrade
 import Salt.MR.StrataBounds
 import Salt.MR.DoorSocket
+import Salt.MR.SocketFrame
 
 /-!
 # ⟦S12-CONST⟧ — THE CAPSTONE TWIN AT THE CONSTANT POOL, WITH `εr` FREED POSITIVE
@@ -411,9 +412,7 @@ theorem m4_closure_fuse_zero'_const_nonneg :
     (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband
     (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPool hρ.le harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_pos (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd (hband4096 H L q j A s hb)
 
@@ -952,9 +951,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_gk (K : ℕ) (hK : K ≤ 170000000) :
     (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband
     (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPool_gk K hρ.le harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_pos_gk K (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd (hband4096 H L q j A s hb)
 
