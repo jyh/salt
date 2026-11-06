@@ -52,7 +52,7 @@ off ALREADY-LANDED compats), plus the `Theorem23Shell` import.
 
 ## A1 — MY KILL-CONDITION WAS A PHANTOM
 J1 asked whether the budget survives the `h·(1+2·C₀)` constant. **The constant is real**
-(`CircleMethod.lean:1139` witnesses `⟨(h:ℝ)*(1+2*C₀), …⟩`) **and INERT**: the shell takes
+(`CircleMethod.lean:1233` witnesses `⟨(h:ℝ)*(1+2*C₀), …⟩`) **and INERT**: the shell takes
 `{C : ℝ} (hC : 0 < C)` **universally** (`Theorem23Shell.lean:147, 255`) with `hcirc` as a
 hypothesis, so **the h-shell never instantiates `C`** and the budget cannot inherit anything.
 *My J1 was aimed at a step that does not occur in this object. The arithmetic, done anyway for the

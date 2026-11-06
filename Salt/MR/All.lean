@@ -9515,7 +9515,7 @@ discharges), so wave H2b re-quantified it for free and left an open rider.  The 
 are **theorems** (`s16_bandLaneWinL_holds` S16Uniform:1105, `_holdsU` S16ComposeV4:102), so their
 `h` twins need a producer PORT — and the `h` lane gets a DISCHARGED rider in exchange for it.
 ⭐ **The port is class A, and a projection census says why.**  The mint
-`m4_hband_at_door_slot_split_graded_L_gk` (S11HoistLinear:736) touches its socket in exactly two
+`m4_hband_at_door_slot_split_graded_L_gk` (S11HoistLinear:726) touches its socket in exactly two
 ways: it projects **conjunct 4** (`0 < q`) and passes `hb` to its own antecedent.  Across
 `S11HoistLinear`'s 59 socket occurrences there are **zero** projections of conjuncts 5 and 11 —
 the only two `SocketBaseLH h` relaxes.  **Every proof body here is the landed one verbatim; only

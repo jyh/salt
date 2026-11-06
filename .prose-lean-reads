@@ -1010,7 +1010,7 @@ o88-2026-10-26-200	Salt/HB/RosserDim4FL.lean	440c5ad278c0	Salt/HB/RosserDim4FL.l
 o88-2026-10-26-201	scripts/search/README.md	107a17fcff3c	Salt/Parity/Z.lean::ParityBarrier	3d406b47c683	paper	math	2026-10-26
 o88-2026-10-26-202	docs/reports/dichotomy-day-report.md	a3c2cb125db9	Salt/Entropy/Chowla/SpineFinal.lean::log_chowla_two_door_only_xi	3c894103a88b	paper	math	2026-10-26
 o88-math-2026-10-26-206	Salt/Entropy/All.lean	6bfbec3cf98b	Salt/Entropy/Chowla/ChowlaFailure.lean::singleCorr_of_fails_h	bff5f32502ea	math	paper	2026-10-26
-o88-math-2026-10-26-207	Salt/Entropy/All.lean	5dbb08686432	Salt/Entropy/Chowla/OuterCombine.lean::outer_combine_h	8123bae45b2b	math	paper	2026-10-26
+o88-math-2026-10-26-207	Salt/Entropy/All.lean	e916a2b23d0e	Salt/Entropy/Chowla/OuterCombine.lean::outer_combine_h	8123bae45b2b	math	paper	2026-10-26
 o88-math-2026-10-26-208	Salt/Entropy/All.lean	7c09afd0a23b	Salt/Entropy/Chowla/SignSplit.lean::sign_split_of_not_fails	c0b7d9c1c03e	math	paper	2026-10-26
 o88-math-2026-10-26-209	Salt/Entropy/All.lean	8bdcfd611719	Salt/Entropy/Chowla/ShiftFork.lean::liouville_collapse_h	84b9f4aa0131	math	paper	2026-10-26
 o88-math-2026-10-26-210	Salt/Entropy/All.lean	a16fa6e0a6fb	Salt/Entropy/Chowla/SpineFinal.lean::log_chowla_two_budget_head	19d0a28fc924	math	paper	2026-10-26
@@ -1211,7 +1211,7 @@ o88-math-2026-10-26-291	Salt/Entropy/Chowla/GoldbachEnergyKcH.lean	6c62792d6327	
 o88-math-2026-10-26-292	Salt/Entropy/Chowla/GoldbachEnergyKcH.lean	ca23b24298c6	Salt/Entropy/Chowla/GoldbachEnergyKcH.lean::hpt_holds_500h_b9	87a45b701ae3	math	paper	2026-10-26
 o88-math-2026-10-26-293	Salt/Entropy/Chowla/GoldbachEnergyKcH.lean	ed03915d6bc3	Salt/Entropy/Chowla/GoldbachEnergyKcH.lean::bigXiH_bounded_ceiling_of_pin	67db11abe8e4	math	paper	2026-10-26
 o88-math-2026-10-26-294	Salt/Entropy/Chowla/SpineFlat.lean	c0fb06e523f0	Salt/Entropy/Chowla/SpineFlat.lean::log_chowla_two_of_doorFlat	1108c7c6648e	math	paper	2026-10-26
-o88-math-2026-10-26-295	Salt/Entropy/Chowla/StrideCircle.lean	8fc9dba8a01e	Salt/Entropy/Chowla/StrideCircle.lean::periodization_total_twist	620a556dbfdf	math	paper	2026-10-26
+o88-math-2026-10-26-295	Salt/Entropy/Chowla/StrideCircle.lean	17fd7ed91e1a	Salt/Entropy/Chowla/StrideCircle.lean::periodization_total_twist	620a556dbfdf	math	paper	2026-10-26
 o88-math-2026-10-26-296	Salt/Entropy/Chowla/StridePair.lean	c7fb3c5e827e	Salt/Entropy/Chowla/StridePair.lean::regimeShrinkX_stride_x_mul_b9	e6d16d355c54	math	paper	2026-10-26
 o13-paper-2026-10-27-01	Salt/MR/BlockLenDoor.lean	61ee6176af81	Salt/MR/BlockLenDoor.lean::m4_sievedDoorSq_of_blk2_blockLen_L_gk	38f3f3cdc143	math	paper	2026-10-27
 o88-math-2026-10-27-332	Salt/Chen/All.lean	78ab3ce1bfb8	Salt/Chen/CbarCert.lean::cbar_lt	2097ffcda324	math	paper	2026-10-27

@@ -34,7 +34,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 Three candidate births; I checked all three at the bytes.
 
 - **Tower step size** (`Tower.lean:87-90`): `H_{j+1} = H_j·⌊C₀·log H_j·logloglog H_j⌋₊`. Downstream of the threshold, not upstream: it exists to satisfy `hkey : ε²log4/m ≤ 1/(4·lg·L3)` (`Tower.lean:192`), i.e. the multiplier must beat the threshold.
-- **Tao's shift/Fannes loss** — **NOT the source.** `budget_real` (`Step.lean:330-333`) proves the honest Fannes budget is `(3/2)·H·log2/(log H)² + log 2`, and *inflates* it to `H/(4·log H·logloglog H)`. The Fannes side permits any `φ(H) ≲ log H/4.16`; it is nowhere near binding.
+- **Tao's shift/Fannes loss** — **NOT the source.** `budget_real` (`Step.lean:330-333` when written, 2026-07-31; the name is the live pointer) proves the honest Fannes budget is `(3/2)·H·log2/(log H)² + log 2`, and *inflates* it to `H/(4·log H·logloglog H)`. The Fannes side permits any `φ(H) ≲ log H/4.16`; it is nowhere near binding.
 - **The drop-sum divergence** (`Regime.lean:46-49, 98`) — **THIS is the birthplace.** With threshold `H/(log H·φ)`, `tower_step` (`Tower.lean:210-250`) yields drop `1/(2 log H_j·φ_j)` and forces multiplier `m ≳ C₀·log H_j·φ_j`. Writing `L = log H`, `u = log L`, the telescoped sum is `≈ ∫ du/(2·u·φ(u))`. `φ = logloglog H = log u` gives `(1/2)·logloglog u` — divergent, barely. `φ = loglog H = u` gives `∫du/(2u²)` — **convergent**, total `≈ 1/(2u₀) ≪ log 2`, so `hJcon` becomes unsatisfiable. (Derivation mine, not kernel-probed; the two ingredients — the step law and the summand — are at the cited lines.)
 
 **Verdict (1): INTRINSIC to the entropy-decrement method as implemented, and not fixable by growing `φ`.** `φ` must sit on the `∫du/(u·φ)` divergence borderline. The admissible family is `lll H · llll H · lllll H · …`, each factor buying only `log`/`loglog` of the demand: stacking every iterated log gains ≈ `45 × 3.8 × 1.3 ≈ 220`, against a gap of `10^19`. Dead.
@@ -47,9 +47,9 @@ Three candidate births; I checked all three at the bytes.
 
 **`ε⁶` — all of it from the concentration side, and it is a Hoeffding artifact in one factor.** `Transport.lean:82`: `E = δ²·log H/(2·C₀·ε²H·(2/ε²+1)²)`. Decomposition at `δ = ε²H/log H`:
 - `δ² → ε⁴`,
-- `÷ |P_H| ≤ C₀ε²H/log H → ×ε^{-2}` (PNT-sharp; `fBridge_var_le_sharp`, `FBridge.lean:375-386`),
+- `÷ |P_H| ≤ C₀ε²H/log H → ×ε^{-2}` (PNT-sharp; `fBridge_var_le_sharp`, `FBridge.lean:384-395`),
 - `÷ R² = (H/p+1)² ≤ (2/ε²+1)² → ×ε⁴`.
-Net `ε⁶`. **`R` is a RANGE, not a variance**: `fBridge_varTerm` (`FBridge.lean:198-206`) literally computes the Hoeffding half-width `((hi−lo)/2)² = (H/p+1)²`. The file's "sharp" refers only to the *cardinality* upgrade (`FBridge.lean:372-374`), never the tail.
+Net `ε⁶`. **`R` is a RANGE, not a variance**: `fBridge_varTerm` (`FBridge.lean:207-215`) literally computes the Hoeffding half-width `((hi−lo)/2)² = (H/p+1)²`. The file's "sharp" refers only to the *cardinality* upgrade (`FBridge.lean:381-383`), never the tail.
 
 **`β²` — the mass-slice bookkeeping.** `β := cD3·ε/(144·log 4)` (`SpineFinal.lean:621`). It is **not the door grade** — that is `c₀ = cD3/(16C)`, `δ₀ = c₀ε/(2K)` (`ConstantsExposed.lean:26-33`). `β` occurs ONLY as `budgetFloor`'s second argument and inside `hbudget1_witness`. It is `(S4 mass slice)/(2·boxGrade)`: `2·boxGrade·bracket ≤ (cD3/16)(εH/log H)` with `boxGrade = 2·log4·(2+ε²)·(H/log H)` (`OuterCombine.lean:42-43`), and `(2+ε²) ≤ 9/4` gives the 144. `β` enters squared because `bracket_close` (`BudgetCore.lean:83-113`) is an **AM–GM square root**: `2√(κ/g) + 2log2/g ≤ β`.
 
@@ -95,7 +95,7 @@ One genuine, uncounted slack: `δ` is *calibrated* to `ε²H/log H` (`Transport.
 ## (5) REPAIR DIRECTIONS, WITH HONEST PRICES
 
 **D1 — BENNETT/BERNSTEIN TAIL FOR THE F-BRIDGE. [D-tier. THE ONLY DIRECTION THAT CHANGES THE HEIGHT.]**
-Replace `hoeffding_residueProj` (`Concentration.lean:218`) / `fBridge_varTerm` (`FBridge.lean:198`) — which charge the full range `(H/p+1)²` — by a Bennett bound using the true variance. The `residueProj` components across distinct window primes are CRT-independent, so the hypothesis is in place. Mechanism: at `δ = ρεH/log H` the deviation is deep in the Poisson regime (`Rδ/(Nσ²) ∼ ε³H`), where the Bennett exponent is `≈ (δ/R)·log(Rδ/Nσ²) ≈ (ρε³H/(2log H))·log H = ρε³H/2` — **the `log H` cancels**, so `g` gains a full `log H` and `κ/g ∝ 1/(log H·logloglog H)`. The demand moves to the SINGLE log, where the register has `10^{223}` of room. Price: a Bennett/Bernstein inequality for independent bounded variables — not in mathlib (`Mathlib/Probability/Moments/` has `SubGaussian` only); salt's own Hoeffding kernel would need a sibling. Then `Transport.lean`, `FBridge.lean`, `BudgetCore.lean`, `SpineFinal.lean`'s witness all re-derive. **UNVERIFIED — my heuristic, flagged as such; the exponent computation is the thing a refuter must kill first.** (Honest hazard: the variance bound must be uniform over the adversarial Liouville pattern `v`; the worst-case pattern gives `σ_p² ≈ H²/p³`, a factor `p ≈ ε²H/2` below `R²` — enough to enter the Poisson regime, which is where the `log H` cancellation lives.)
+Replace `hoeffding_residueProj` (`Concentration.lean:218`) / `fBridge_varTerm` (`FBridge.lean:207`) — which charge the full range `(H/p+1)²` — by a Bennett bound using the true variance. The `residueProj` components across distinct window primes are CRT-independent, so the hypothesis is in place. Mechanism: at `δ = ρεH/log H` the deviation is deep in the Poisson regime (`Rδ/(Nσ²) ∼ ε³H`), where the Bennett exponent is `≈ (δ/R)·log(Rδ/Nσ²) ≈ (ρε³H/(2log H))·log H = ρε³H/2` — **the `log H` cancels**, so `g` gains a full `log H` and `κ/g ∝ 1/(log H·logloglog H)`. The demand moves to the SINGLE log, where the register has `10^{223}` of room. Price: a Bennett/Bernstein inequality for independent bounded variables — not in mathlib (`Mathlib/Probability/Moments/` has `SubGaussian` only); salt's own Hoeffding kernel would need a sibling. Then `Transport.lean`, `FBridge.lean`, `BudgetCore.lean`, `SpineFinal.lean`'s witness all re-derive. **UNVERIFIED — my heuristic, flagged as such; the exponent computation is the thing a refuter must kill first.** (Honest hazard: the variance bound must be uniform over the adversarial Liouville pattern `v`; the worst-case pattern gives `σ_p² ≈ H²/p³`, a factor `p ≈ ε²H/2` below `R²` — enough to enter the Poisson regime, which is where the `log H` cancellation lives.)
 
 **D2 — DECOUPLE `κ` FROM `H/log H`. [D-tier, the tower scoper's face.]** The cancellation is exact because `κ` and `gcap` are both `(H/log H) × scalar`. Anything that gives `κ` a smaller `H`-order kills the tower. Blocked from the entropy side by the drop-sum divergence (question 1). Only live if the MI budget is consumed at a *different* scale from the mass — i.e. the `S16BaseScaleCap` decoupling named in `flags.md:18667-18669`.
 
@@ -136,7 +136,7 @@ The forcing re-derives exactly: `log 2 < S_J ≤ (21/40)(w_J−w₀)` ⟹ `w_J�
 
 The pigeonhole (`Endpoints.lean:98-128`, consumed at `Decrement.lean:49`) needs exactly three things: `e(H₀) ≤ log 2`, `e(H_J) ≥ 0`, `log 2 < towerDropSum`. **Nothing in it mentions `J` or depth.** The depth is entirely an artifact of the exchange rate between drop and growth.
 
-The decisive reduction, at the bytes: `step_ineq_3_11` (`Salt/Entropy/Chowla/Step.lean:696-706`) is
+The decisive reduction, at the bytes: `step_ineq_3_11` (`Salt/Entropy/Chowla/Step.lean:710-720`) is
 ```
 e(kH) ≤ e(H) − I/H + (ε²·log 4)/k + 1/(4·log H·logloglog H)
 ```
@@ -320,7 +320,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 
 ## 2. THE DECOUPLING QUESTION
 
-**(a) Which spine lemma consumes `hPHheadroom`, at what strength?** Exactly one, through `pH_headroom_at` (`Regime.lean:161`): `deficit_le_log_two` (`BudgetDeficit.lean:46-69`). Its whole use is `u := 8·P_H²·ω/x ≤ 1`, so that `log(1+u) ≤ log 2` in `entropy_residueWindow_ge` (`ResidueUniform.lean:536-539`). Consumed at **one** H per spine run: `SpineFinal.lean:641`, inside `hbudget1_witness` (`SpineFinal.lean:592`, hypothesis `hhi : H ≤ R.Hhi`) — the pigeonhole's H, *not* every tower level. (The per-level telescope reads `hheadroom'` only: `Step.lean:454`.)
+**(a) Which spine lemma consumes `hPHheadroom`, at what strength?** Exactly one, through `pH_headroom_at` (`Regime.lean:161`): `deficit_le_log_two` (`BudgetDeficit.lean:46-69`). Its whole use is `u := 8·P_H²·ω/x ≤ 1`, so that `log(1+u) ≤ log 2` in `entropy_residueWindow_ge` (`ResidueUniform.lean:536-539`). Consumed at **one** H per spine run: `SpineFinal.lean:641`, inside `hbudget1_witness` (`SpineFinal.lean:592`, hypothesis `hhi : H ≤ R.Hhi`) — the pigeonhole's H, *not* every tower level. (The per-level telescope reads `hheadroom'` only: `Salt/Entropy/Chowla/Step.lean:469`.)
 
 Second consumer, spine-side: `regime_W_headroom_of_floor` (`DoorDischarge.lean:42`) — Tao's W-constraint `(log H₊)^625 ≤ log(x/2ω)`. **Polynomial** in `log H₊`; funded by `hPHheadroom` with astronomic slack. Nothing else in the corpus needs an exponential-in-H₊ x-floor.
 

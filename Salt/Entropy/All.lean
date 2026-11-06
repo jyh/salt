@@ -544,7 +544,7 @@ The pairing/consumer census behind the fork ruling is re-derived mechanically by
 THE ENGINE, AT OFFSET `p·h`.  `circle_method_estimate_h_core` is Tao's Lemma 3.4 (3.18)
 run at the correlation offset `p·h`, and `circle_method_estimate_h` is the same statement
 over the fork's own set: line for line the landed `circle_method_estimate`
-(`CircleMethod.lean:574-585`) with exactly two changes — the offset `j + p` becomes
+(`CircleMethod.lean:652-663`) with exactly two changes — the offset `j + p` becomes
 `j + p·h`, and the Fourier mass is summed over `bigXiH h eps H` instead of `bigXi eps H`.
 The DFT factor stays at the UNTWISTED `ξ`, so the twist still lives only in the membership
 predicate, and the seam's spelling is untouched.
@@ -854,7 +854,7 @@ concentration deviation sets, `FBridge`/`Decoupled`); at `h = 1` it reads
 `windowVal H (liouvilleWindow H n) (j + (p : ℕ))`, with no `* h`.  `outer_combine_h` writes
 wave A's fixed target spelling `windowVal H v (j + (p : ℕ) * h)` (`OuterCombine.lean:150`).
 VERIFIED BY `grep -F` ON THE LITERAL, NOT BY EYE: the string `(j + (p : ℕ) * h) : ℝ)` occurs at
-site 1 (`Transport.lean:203`), site 2 (`FBridge.lean:811`, `Decoupled.lean:107`) and site 3
+site 1 (`Transport.lean:203`), site 2 (`FBridge.lean:820`, `Decoupled.lean:107`) and site 3
 (`OuterCombine.lean:642`); after `OuterCombine.lean:440` — the whole B-4 block — the unshifted
 literal `(j + (p : ℕ)) : ℝ)` occurs ZERO times.
 
@@ -862,7 +862,7 @@ literal `(j + (p : ℕ)) : ℝ)` occurs ZERO times.
 POPULATION IS **SIX FILES**, NOT THREE.  Measured (`grep -rF '(j + (p : ℕ) * h) : ℝ)' Salt/`):
 `CircleMethod` · `FBridge` · `OuterCombine` · `Decoupled` · `Transport` · `ShiftFork`.  Two of
 them — `circle_method_estimate_h` (`ShiftFork.lean:405`) and `circle_method_estimate_h_core`
-(`CircleMethod.lean:1133`) — already carried the identical literal BEFORE wave A opened.
+(`CircleMethod.lean:1227`) — already carried the identical literal BEFORE wave A opened.
 ⇒ "THREE SITES" COUNTED WHAT THE ENTROPY CONE HAD TO **MOVE**; IT NEVER COUNTED WHAT MUST
 **AGREE**.  The migration population and the agreement population are different sets, and this
 file asserted the second while enumerating the first.
@@ -912,7 +912,7 @@ a regression: check WHICH declaration owns the new line before reading a rise as
 ⚠️ THE THREE-SITE ROSTER UNDERCOUNTS THE SHIFT-`h` OFFSET POPULATION — census finding, not a
 defect.  Two MORE declarations already spelled the offset at shift `h` before wave A opened:
 `circle_method_estimate_h` (`ShiftFork.lean:397`) and `circle_method_estimate_h_core`
-(`CircleMethod.lean:1125`), both in the TWO-pattern `x1`/`x2` family.  Both already use the
+(`CircleMethod.lean:1219`), both in the TWO-pattern `x1`/`x2` family.  Both already use the
 identical literal, so byte-identity in fact holds across FIVE sites.  The wave's "three sites"
 counts the sites the entropy cone had to MOVE; it is not the census of the sites that must
 AGREE.  A future shift-`h` port should enumerate by the literal, not by the roster.

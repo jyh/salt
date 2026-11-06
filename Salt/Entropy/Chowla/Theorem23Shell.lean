@@ -464,7 +464,7 @@ ingredient was already landed by wave B; the mirror substitutes, uniformly:
 
 * `outer_combine` → `outer_combine_h` (`OuterCombine.lean:620`), whose conclusion carries
   the shifted product `windowVal · j * windowVal · (j + p*h)`;
-* `fBridgeF` → `fBridgeF_h` in the `h211` slot (`FBridge.lean:547`);
+* `fBridgeF` → `fBridgeF_h` in the `h211` slot (`FBridge.lean:556`);
 * `bigXi R.eps H` → `bigXiH h R.eps H` (`ShiftFork.lean:93`);
 * `MRTUniformityXi` → `MRTUniformityXiH h` (`ShiftFork.lean:296`);
 * `contradiction_of_mrtDoorXi` → `contradiction_of_mrtDoorXiH h` (`ShiftFork.lean:338`).
@@ -584,7 +584,7 @@ mirror substitutes, uniformly:
 
 * `outer_combine` → `outer_combine_h` (`OuterCombine.lean:620`), whose conclusion carries
   the shifted product `windowVal · j * windowVal · (j + p*h)`;
-* `fBridgeF` → `fBridgeF_h` in the `h211` slot (`FBridge.lean:547`);
+* `fBridgeF` → `fBridgeF_h` in the `h211` slot (`FBridge.lean:556`);
 * `bigXi R.eps H` → `bigXiH h R.eps H` (`ShiftFork.lean:93`);
 * `MRTUniformityXiL2` → `MRTUniformityXiL2H h` (`ShiftFork.lean:535`);
 * `contradiction_of_mrtDoorXiL2` → `contradiction_of_mrtDoorXiL2H h` (`ShiftFork.lean:569`).
