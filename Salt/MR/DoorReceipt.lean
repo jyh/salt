@@ -683,7 +683,7 @@ theorem flat_conditional_generic (P : ChowlaRegime → Prop) (Awin : ℝ)
     harith
 
 /-- **⟦H6 FORM⟧** `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin`'s
-statement (V7Ks.lean:296) with the conclusion slot `P R`. -/
+statement (V7Ks.lean:290) with the conclusion slot `P R`. -/
 def FlatKswinForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
     ∃ (ε : ℚ) (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 1 ≤ Mfl ∧
@@ -714,10 +714,10 @@ def FlatKswinForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
 
 set_option exponentiation.threshold 4000 in
 set_option maxHeartbeats 3200000 in
--- Same cause as the parent (V7Ks.lean:288): the hoisted prefix plus the three window discharges
+-- Same cause as the parent (V7Ks.lean:282): the hoisted prefix plus the three window discharges
 -- re-elaborate the terminal's conclusion.
 /-- **⟦H6 REPLAY⟧** `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin`
-(V7Ks.lean:296) from the generic conditional.  Body verbatim. -/
+(V7Ks.lean:290) from the generic conditional.  Body verbatim. -/
 theorem flat_kswin_generic (P : ChowlaRegime → Prop) (Awin : ℝ)
     (h : FlatConditionalForm P Awin) :
     FlatKswinForm P Awin := by

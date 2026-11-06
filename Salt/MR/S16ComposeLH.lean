@@ -190,9 +190,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling (h : ℕ) (hh : 0 < h)
     (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband
     (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPoolH_L_gk K hh hh7 hρ.le harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_pos_L_gk K (hbf H L q j A s hb)
     (hgP1 H L q j A s hb) (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd
     (hband4096 H L q j A s hb)
@@ -680,9 +678,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide (h : ℕ) (hh : 
     (hslot Cp hCp R M ε cU bU t₁ hM hKw hb1 hc1 hbase hcap) hband
     (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPoolH_L_gk K hh hh7 hρ.le harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_pos_L_gk K (hbf H L q j A s hb)
     (hgP1 H L q j A s hb) (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd
     (hband4096 H L q j A s hb)
@@ -2604,7 +2600,7 @@ set_option maxHeartbeats 1600000 in
 -- as the landed original: the design constant's arm census re-elaborates against the terminal's
 -- own prefix
 /-- **⟦THE INEFFECTIVE LIMIT, `v3`, AT SHIFT `h`⟧** (`logChowla2_ineffective_v3_h`) —
-`S16Compose:1026` on §7, with the band rider discharged from block W. -/
+`S16Compose:1019` on §7, with the band rider discharged from block W. -/
 theorem logChowla2_ineffective_v3_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (A₀ : ℝ) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
@@ -2690,7 +2686,7 @@ directly below).
 
 This page's docstring, verbatim:
 
-⟦`Ks`-WINDOWED, AT SHIFT `h`⟧ (`capfloor_floor4_of_regimeWin_LH`) — `V7Ks:76` at
+⟦`Ks`-WINDOWED, AT SHIFT `h`⟧ (`capfloor_floor4_of_regimeWin_LH`) — `V7Ks:77` at
 `SocketBaseLH h`: the window is read at `R.Hlo` and transported to the socket's own `H`. -/
 
 /-! ### §11.1 — the floor wave and its assembler, `Ks`-windowed at shift `h` (retired 2026-09-27) -/
@@ -2987,9 +2983,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14 (h : ℕ) (hh
     (hslot Cp hCp R M ε cU bU t₁ hM hKw hb1 hc1 hbase hcap) hband
     (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPoolH_L_gk_14 K hh hh14 hρ.le harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_pos_L_gk K (hbf H L q j A s hb)
     (hgP1 H L q j A s hb) (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd
     (hband4096 H L q j A s hb)

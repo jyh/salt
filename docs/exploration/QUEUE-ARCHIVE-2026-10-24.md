@@ -2223,7 +2223,7 @@ RESURRECTS THEM:**
    chars: a cut would have destroyed a *"no sieve, no cover"* verification and **E3's ENTIRE
    give-up-early instruction.** **Fixed before freezing; restoration verified by positive control.**
    ③ **Wave B's routing of GAP α's core to `M4ChiSummedFreeRow` is FACTUALLY WRONG and struck** — it
-   has five producers (`M4Assembly.lean:407`/`:515`, `S12ConstCompose.lean:403`,
+   has five producers (`M4Assembly.lean:407`/`:515`, `S12ConstCompose.lean:404`,
    `M4SocketDischarge.lean:228`) plus an unconditional witness (`M4ChiSummed.lean:217`), and its
    integrand runs at `doorChiCoeff χ M`, i.e. **sieved**. ④ An unstated ℕ→ℝ cast in E4. ⑤ Tier
    calibration: D8 was rated **C** for structurally the same move these rate **B**.
@@ -2300,7 +2300,7 @@ RESURRECTS THEM:**
     CircleMethod:675 · CircleMethod:907 · CircleMethod:1239 (FATAL 1's cited site) · HeadPinLeaves:663
   PER-INDEX AND SOUND — the index bound is an EXPLICIT case hypothesis
     HBudget:386   by_cases hbd : H ≤ j + p → dif_neg (show ¬ j+p < H by omega)
-    HBudget:1107  by_cases hbd : H ≤ j + p → dif_neg (Nat.not_lt.mpr hbd)
+    HBudget:1128  by_cases hbd : H ≤ j + p → dif_neg (Nat.not_lt.mpr hbd)
   UNPRICED — reaches dif_neg through `rw [hb]; simp only`, different shape
     CircleMethod:534
 ```
@@ -2319,7 +2319,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
   MRTUniformityXi
     ← mrtUniformityXi_of_absWindowBound_twelve  (M4Window:268)   — concludes the door from ONE L¹ estimate
        arc      bigXiArcTight_twelve      (ExitClose:773)        ✅ UNCONDITIONAL
-       Parseval parseval_insert_budget_door (M4ParsevalStone:341) ✅ + terminal twin consumed S16FlatTerminalLinear:198
+       Parseval parseval_insert_budget_door (M4ParsevalStone:341) ✅ + terminal twin consumed S16FlatTerminalLinear:197
        ⟦THE WALL⟧ m4_hrowsSum_chi_door_end_L (M4RowLinear:282)   ✅ landed · All.lean:7550 · consumed ×3
                   (M4RowAssemblyLinear:5049 · :5332 _gk · :6062 _gk_kwide)
        ⟦CLASS PRICING⟧ M4ClassPrice.lean                          ✅ 41 thms, 0 sorry — design question ANSWERED  [42→41 erratum 08/25, see :196]
@@ -2436,7 +2436,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
 
 17r. ⭐⭐⛔⛔ **FIVE LINKS DEEP, EVERY ONE POPULATED — AND THE OPEN QUESTION IS COMPOSITION, NOT A MISSING LEMMA.** `DoorRowCarried`: **8 exact producer-shaped sites** (`M4T0Discharge:738`, `M4DoorClose:395/533/607`, `M4Collapse:216`, `M4ChiSocketWire:184/240`, `M4BaseNarrow:935`); the capstone: **6**. ⇒ the road `absWindowSum→subWindowSup→strata→doorChiSup→dyadic→capstone→DoorRowCarried` has producers at **every** link. ⛔⛔ **I DO NOT CLAIM THE ROAD IS COMPLETE — that is my own three-beat error wearing the opposite sign.** Measured: each link has producer-shaped declarations. **NOT measured: whether they COMPOSE** across the seams (constants, `doorRowFloor M`, `j₀`, the `arcDen 12 H ≤ Qm` cap, the regime fields). ⇒ **THAT is the genuinely open question, and it is not "a missing lemma"** — it is the banked class *the kernel checks theorems, not that they compose*: `lake build` is green on every link today and would stay green with a seam that never joins. ⭐ **PRODUCER PROBE CALIBRATED (v4):** exact-name with an adjacency boundary, killing the 24 `DoorRowCarried*` prefix twins and `MRTUniformityXiL2`; **control `MRTUniformityXi` → 6 real sites, 0 twins.** v1→0 on that control, v2→15 (inflated), v3→0 on everything. **The control caught all three defects; the probe caught none.** ⛔ **BUILD-LAW VIOLATION, SIXTH, SELF-REPORTED:** two `saltbuild` invocations on one line — the predicted symptom fired exactly (second run printed **no `Built` line**). Repaired: olean deleted, ONE bare build to a persisted log → `✔ Built (6.0s)`, EXIT=0, zero diagnostics from this file. attempts 1/3 · `b09cef48` · stamped 08/22 15:33:15
 
-17q. ⭐⭐⛔ **THE DOOR'S CAPSTONE IDENTIFIED — AND *TWO* OBJECTS WEAR THAT NAME.** (a) The trivial supplier `norm_sum_doorSievedWindow_le` (`M4CoprimeSupply.lean:105`) is the SMALL-length half; its own docstring says the capstone *"is silent"* there (split `j<j₀` trivial / `j₀≤j` capstone). (b) ⛔ **`logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:530`, S12 lane) is the one carrying `S14Compose.lean:429`'s `⚠ NOT DERIVED … refuted at ⟦B1'-3⟧ by §3` — and it is NOT the door's.** The door's is `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1026`, M4 lane). **Checked, not assumed** — the predecessor already lost a day to two different objects both named "Prop 2.4". (c) That capstone is an **L² MEAN VALUE OBLIGATION** on χ-twisted short sums, graded per dyadic length — same family as `dpolyS_l2_mvt_final`; 69 refs, 13 files, decoy 0. (d) ⭐ **AND IT HAS A PRODUCER:** `m4_dyadicRow_carried` (`M4DoorClose.lean:535`) reduces it to `DoorRowCarried` + the trivial small-length grade, constants **CONSTRUCTED** (`∃ Cq cq T₀ Xcap Cs Ccc …` via `m4_door_meansq_carried`), not assumed. ⇒ **A FOURTH LINK; I NAME NO FRONTIER AGAIN — and this row is the evidence the rule works: I was one command from calling the capstone the frontier, and the producer sits two files away.** Next object: `DoorRowCarried`. ⛔ **INSTRUMENT DEFECT DISCLOSED: my conclusion-position probe found 3 producer sites; its control (`MRTUniformityXi`, a Prop with a KNOWN producer) scored 0 ⇒ the probe misses real producers, so 3 is a LOWER BOUND and is recorded as one.** attempts 1/3 · `0bb5883f` · stamped 08/22 15:23:07
+17q. ⭐⭐⛔ **THE DOOR'S CAPSTONE IDENTIFIED — AND *TWO* OBJECTS WEAR THAT NAME.** (a) The trivial supplier `norm_sum_doorSievedWindow_le` (`M4CoprimeSupply.lean:105`) is the SMALL-length half; its own docstring says the capstone *"is silent"* there (split `j<j₀` trivial / `j₀≤j` capstone). (b) ⛔ **`logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:529`, S12 lane) is the one carrying `S14Compose.lean:429`'s `⚠ NOT DERIVED … refuted at ⟦B1'-3⟧ by §3` — and it is NOT the door's.** The door's is `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1026`, M4 lane). **Checked, not assumed** — the predecessor already lost a day to two different objects both named "Prop 2.4". (c) That capstone is an **L² MEAN VALUE OBLIGATION** on χ-twisted short sums, graded per dyadic length — same family as `dpolyS_l2_mvt_final`; 69 refs, 13 files, decoy 0. (d) ⭐ **AND IT HAS A PRODUCER:** `m4_dyadicRow_carried` (`M4DoorClose.lean:535`) reduces it to `DoorRowCarried` + the trivial small-length grade, constants **CONSTRUCTED** (`∃ Cq cq T₀ Xcap Cs Ccc …` via `m4_door_meansq_carried`), not assumed. ⇒ **A FOURTH LINK; I NAME NO FRONTIER AGAIN — and this row is the evidence the rule works: I was one command from calling the capstone the frontier, and the producer sits two files away.** Next object: `DoorRowCarried`. ⛔ **INSTRUMENT DEFECT DISCLOSED: my conclusion-position probe found 3 producer sites; its control (`MRTUniformityXi`, a Prop with a KNOWN producer) scored 0 ⇒ the probe misses real producers, so 3 is a LOWER BOUND and is recorded as one.** attempts 1/3 · `0bb5883f` · stamped 08/22 15:23:07
 
 17p. ⛔⛔⛔⭐⭐ **THE DOOR'S ROAD WALKED TO ITS END — AND I RETRACT MY OWN FRONTIER CLAIM, THIRD BEAT RUNNING.** Chain: `norm_absWindowSum_le_drift_tight` (`M4BridgePhase.lean:310`) → `subWindowSup_sq_le_strata` (`M4Gauss.lean:577`, **stated AT `doorSievedCoeff M`, the door's own coefficient**) → `strataTerm = ∑_χ (doorChiSup χ …)²` → `doorChiSup_sq_le_dyadic` (`M4Maximal.lean:396`, a **K-free dyadic maximal inequality**, Rademacher–Menshov shape) → a dyadic mean square of `liouChi`-twisted sieved window sums. **MEASURED: 20+ consumption sites for that one lemma across six files** (`M4BaseNarrow`/`M4RowLinear`/`M4ChiSummed`/`M4CoprimeSupply`/`M4RowAssemblyLinear`/`M4Maximal`); decoy control 0. **Not a frontier — a highway.** ⛔⛔ **THREE CLAIMS, THREE BEATS, EVERY ONE A LINK TOO EARLY, EVERY ONE MINE:** (1) *"no producer"* → it exists; (2) *"the corpus lacks the ANALYTIC estimates"* → `drift_tight`/`class_sum`; (3) *"what is missing is the TERMINAL CANCELLATION"* → strata→doorChiSup→dyadic. ⇒ **THE DEFECT IS IN MY METHOD: "MISSING" IS A CLAIM ABOUT A LEAF AND I KEPT MEASURING A LINK.** ⭐ **The one-command test I had never run: `grep` the CONSUMERS — a frontier has few downstream, this had twenty.** 📌 **I deliberately NAME NO FRONTIER here**; that would be the fourth instance of the error diagnosed. Docstring-only, no new declaration; introduced a `longLine` warning and cleared it (`⚠`→`✔` on the `Built` line). attempts 2/3 · `632e48ca` · stamped 08/22 15:17:12
 
@@ -4474,7 +4474,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
       epsh_gate_implies_epssq_h  (the c-ceiling rider, HBudget.lean:450)   ⛔ NO AUDIT LINE
     ```
     🔑 ***A COUNT WOULD HAVE READ "33/34" AND I WOULD HAVE MOVED ON. THE NAMED SET IS WHAT FOUND IT.***
-    *The rider landed at 12:5x, was USED at `HBudget.lean:1475`, and nothing checked its axioms until
+    *The rider landed at 12:5x, was USED at `HBudget.lean:1496`, and nothing checked its axioms until
     01:4x.*
     ⛔ **AND THE NEAR-MISS IS THE DOCSTRING-AS-DECLARATION CLASS AGAIN.** A bare-name grep DOES find
     `epsh_gate_implies_epssq_h` in `Salt/Entropy/All.lean:967` — **but that is PROSE, a docstring
@@ -5293,7 +5293,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    IT IS NOT SLACK, IT IS AN EXPONENT.*** ⛔ **AND THE ATTRACTIVE WRONG ANSWER, TESTED AND
    REFUTED BEFORE PROPOSING IT:** re-routing the cushion onto the outer scale so the regime lever
    `g R.Hhi R.ω ≤ R.x` absorbs it — `_g0` sets that lever to zero and the parent
-   (`V7Ks.lean:435`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
+   (`V7Ks.lean:429`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
    `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:92`) with `ε ≥ 1/500` permits at most
    `log g ≤ 15500·H₊`, worth **≈ +24 additive on `loglog X`** against the landed floor
    `loglog X ≥ log H₊ − 14` — a constant factor ≤ ~4, **never a rate.** Full stamp:
@@ -5867,7 +5867,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    CORRECTION 2: DO NOT ROUTE N5's COUNT THROUGH `bigXiH_bounded`.** It goes via the opaque
    `bigXi_bounded` and **silently regresses `KXi` by ~316 bits while dragging in a second existential
    floor the `_500` mint never had.** ⇒ **Compose instead:** `bigXiH_card_le_mul h hh (1/500) H`
-   (`ShiftFork.lean:238`) with `bigXi_bounded_500`'s THIRD conjunct (`GoldbachEnergyN0.lean:868-871`),
+   (`ShiftFork.lean:238`) with `bigXi_bounded_500`'s THIRD conjunct (`GoldbachEnergyN0.lean:871-874`),
    giving the h-explicit witness
    `KXi := (h:ℝ) * (32·Klcm·((2:ℝ)^35)² / ((1/500:ℚ):ℝ)^10)` — constant exposed, `2 ≤ H` discharged
    from `two_le_regime_Hlo` as at `M4DoorL2.lean:224-226`. **Four lines, class A.**
@@ -6094,7 +6094,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    executor head, A/B tier throughout, in parallel with H2b).** New module
    `Salt/MR/S13CapGateLinearLH.lean`, **62 names, every theorem `[3 axioms]`**; audit block in
    `Salt/MR/All.lean`; no landed declaration edited. Deliverable
-   `s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:960`'s `∃`-prefix and pins with `hblk` at
+   `s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:953`'s `∃`-prefix and pins with `hblk` at
    `SocketBaseLH h`, concluding `S16CofactorSupply_LH_gk h → S16BaseScaleCap96_LH_gk h →
    S15CrossingBound_LH_gk h`.
    ⛔ **WHY SIXTY AND NOT THIRTY.** `s16_capGate_supply_L_gk` and `s13CapGrid_all_L_gk` derive
@@ -6355,7 +6355,7 @@ three days and was carried into a council as an open item before measurement kil
    `linarith`; 82 `maxHeartbeats` overrides in the population; the 24 M site measured 8,034,485 heartbeats.
    **THE CANDIDATE: `explog_num`** (T3's first cut) — closes the four numeral `exp`/`log` forms at integer exponent by
    `exp n = (exp 1)^n` + `exp_one_gt_d9`/`lt_d9` + one `norm_num`; rung (a) is six lemmas (scratch-proven at the three axioms with a
-   planted-sorry control), one line per site. Named proof `s13_smallGradeFits_h_L` (`StrideDoorAllGrades.lean:1536`): lines 175 → 163,
+   planted-sorry control), one line per site. Named proof `s13_smallGradeFits_h_L` (`StrideDoorAllGrades.lean:1535`): lines 175 → 163,
    heartbeats 90,432 → 89,670 (measured at the object). Second candidate, RECORDED for the next pull: `nlinarith?` (certificate
    replay → `linarith [products]`, ~70× per converted call, after unmeasured). Finding that is NOT a tactic: 39 families of copied
    ladder-port proofs, 10,856 redundant lines (30 % of proof lines), bodies byte-identical across sockets — the sibling policy's

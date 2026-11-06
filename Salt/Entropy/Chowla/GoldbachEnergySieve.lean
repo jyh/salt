@@ -46,6 +46,11 @@ namespace Salt.Entropy.Chowla
 noncomputable def nuG (n : ℕ) : ArithmeticFunction ℝ :=
   ⟨fun d => (rhoG n d : ℝ) / d, by simp [rhoG]⟩
 
+/-- `nuG n d = ρ_n(d)/d` (`rfl`; `@[simp]`): the local density unfolded. Rewritten in
+`nuG_mult`, `nuG_pos_of_prime`, `nuG_lt_one_of_prime`, the remainder bound
+`goldEnergySieve_abs_rem_le`, and the prime split `goldSelbergTerms_prime_dvd`/`_not_dvd`
+(`GoldbachEnergyG`). (`Salt.HB.RosserDim4Instance` has its own `nuG_apply`, for its own
+`nuG`.) -/
 @[simp] lemma nuG_apply (n d : ℕ) : nuG n d = (rhoG n d : ℝ) / d := rfl
 
 /-- `ν_n` is multiplicative on coprime moduli (from `rhoG_mul_of_coprime`). -/
@@ -109,8 +114,19 @@ noncomputable def goldEnergySieve (n P : ℕ) (hn : 2 ∣ n) (hP : Squarefree P)
 
 variable {n P : ℕ} {hn : 2 ∣ n} {hP : Squarefree P}
 
+/-- `(goldEnergySieve n P hn hP).prodPrimes = P` (`rfl`; `@[simp]`): the sifting modulus of the
+gold `BoundingSieve` is the supplied squarefree `P`. The projection API beside
+`goldEnergySieve_nu` and `goldEnergySieve_totalMass`; the `selbergBoundingSum` bridge reads the
+modulus through `goldSelbergSieve_prodPrimes` instead. -/
 @[simp] lemma goldEnergySieve_prodPrimes : (goldEnergySieve n P hn hP).prodPrimes = P := rfl
+/-- `(goldEnergySieve n P hn hP).nu = nuG n` (`rfl`; `@[simp]`): the sieve's density is `nuG n`.
+Rewritten in `goldEnergySieve_rem` and in `goldSelbergTerms_prime` (`GoldbachEnergyG`), which
+reads the sieve's `selbergTerms` at a prime through `nuG`. -/
 @[simp] lemma goldEnergySieve_nu : (goldEnergySieve n P hn hP).nu = nuG n := rfl
+/-- `(goldEnergySieve n P hn hP).totalMass = n` (`rfl`; `@[simp]`): the gold sieve's total mass
+is `n` itself (the `m ∈ [1,n]` count with multiplicity). Rewritten in `goldEnergySieve_rem` and
+in `goldSiftedSum_le_main_add_err` (`GoldbachEnergyHpt`), where `selberg_bound_simple`'s
+`totalMass / selbergBoundingSum` becomes `n / …`. -/
 @[simp] lemma goldEnergySieve_totalMass : (goldEnergySieve n P hn hP).totalMass = (n : ℝ) := rfl
 
 /-! ## The multiplicity-weight fibre identity -/

@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.M4ArithZero
 import Salt.MR.M4AssemblyPrime
+import Salt.MR.SocketFrame
 
 /-!
 # ⟦R3-A — THE LAST `μ/500` GONE⟧ (`M4ArithPrime`)
@@ -242,9 +243,7 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_join {R : ChowlaRegime} {M : ℕ}
     (M₀ := M₀) (ε := ε) (π₀ := π₀) hM ?_ hrows hband (fun A => le_trans zero_le_one (hone A))
     henv
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates (hbase H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (hone (A + s)) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
 
@@ -368,9 +367,7 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_join_gk (K : ℕ) {R : ChowlaRegime}
     (C₁ := C₁) (M₀ := M₀) (ε := ε) (π₀ := π₀) hM ?_ hrows hband
     (fun A => le_trans zero_le_one (hone A)) henv
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_gk K (hbase H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (hone (A + s)) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
 

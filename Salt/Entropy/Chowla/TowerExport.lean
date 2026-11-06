@@ -205,11 +205,17 @@ noncomputable def towerW (B j : ℕ) : ℝ := Real.log (towerV B j)
 /-- The tower multiplier `⌊2 L_j v_j⌋₊`. -/
 noncomputable def towerMul (B j : ℕ) : ℕ := ⌊2 * towerL B j * towerV B j⌋₊
 
+/-- `H₀ = a·H₋`: the landed tower's base case (`chowlaTower`, `Regime.lean`) as a rewrite rule
+(`rfl`). Unfolds `towerL B 0` in `towerL_zero`. -/
 lemma chowlaTower_zero (C0 a Hlo : ℕ) : chowlaTower C0 a Hlo 0 = a * Hlo := rfl
 
+/-- `L₀ = log B` at `C₀ = 2`, stride `1`: `towerL` at `chowlaTower_zero` with `one_mul`. The
+base of `towerU_zero`. -/
 lemma towerL_zero (B : ℕ) : towerL B 0 = Real.log (B : ℝ) := by
   rw [towerL, chowlaTower_zero, one_mul]
 
+/-- `u₀ = loglog B`: `towerU` at `towerL_zero`. Where the three exports `tower_loglog_le`,
+`tower_loglog_ge` and `tower_loglog_le_45` read the base's `loglog` off the glyph `u`. -/
 lemma towerU_zero (B : ℕ) : towerU B 0 = Real.log (Real.log (B : ℝ)) := by
   rw [towerU, towerL_zero]
 
@@ -217,6 +223,8 @@ lemma towerU_zero (B : ℕ) : towerU B 0 = Real.log (Real.log (B : ℝ)) := by
 lemma towerL_ge_fifteen {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) : 15 ≤ towerL B j := by
   rw [towerL]; exact (tower_log_bounds (chowlaTower_base_floor hB j)).1
 
+/-- `0 < L_j`, from the regime floor `towerL_ge_fifteen`. The positivity `towerStep_dw_le` and
+`towerStep_dw_ge` hand to the abstract step laws `logStep_dw_le`/`_ge`. -/
 lemma towerL_pos {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) : 0 < towerL B j := by
   linarith [towerL_ge_fifteen hB j]
 
@@ -233,12 +241,18 @@ lemma towerU_ge {B : ℕ} (hB : 4000000 ≤ B) (hu : 50 ≤ Real.log (Real.log (
   rw [towerU]
   exact le_trans hu (Real.log_le_log (by linarith) h1)
 
+/-- `3 ≤ v_j = logloglog H_j` under the base hypothesis `50 ≤ loglog B`: `towerU_ge` gives
+`50 ≤ u_j`, and `e³ ≤ 50` (`exp_three_le_fifty`). The floor on the summand's second factor:
+positivity (`towerV_pos`), the multiplier floor `towerMul_ge`, both halves of the sharp crossing
+law, and the three `tower_loglog_*` exports at `j = 0` and `j = Jmin`. -/
 lemma towerV_ge_three {B : ℕ} (hB : 4000000 ≤ B) (hu : 50 ≤ Real.log (Real.log (B : ℝ)))
     (j : ℕ) : 3 ≤ towerV B j := by
   have h50 := towerU_ge hB hu j
   rw [towerV, Real.le_log_iff_exp_le (by linarith)]
   exact le_trans exp_three_le_fifty (by linarith)
 
+/-- `0 < v_j`, from `towerV_ge_three`. What `towerW_sub_eq_log_div` needs to write
+`w_J − w₀ = log (v_J/v₀)`. -/
 lemma towerV_pos {B : ℕ} (hB : 4000000 ≤ B) (hu : 50 ≤ Real.log (Real.log (B : ℝ))) (j : ℕ) :
     0 < towerV B j := by linarith [towerV_ge_three hB hu j]
 
@@ -482,6 +496,10 @@ lemma towerStep_dw_ge {B : ℕ} (hB : 4000000 ≤ B) (hu : 50 ≤ Real.log (Real
 
 /-! ### Section 5 — THE SHARP CROSSING LAW -/
 
+/-- `towerDropSum 2 1 B J = Σ_{j<J} 1/(2·L_j·v_j)`: the landed decrement at `C₀ = 2`, stride
+`1`, in the glyphs `L_j = towerL B j`, `v_j = towerV B j` (`rfl`). The bridge both halves of the
+sharp crossing law (`towerDropSum_ge_half_log_ratio`, `towerDropSum_le_half_log_ratio_mul`)
+rewrite through. -/
 lemma towerDropSum_eq_sum (B J : ℕ) :
     towerDropSum 2 1 B J = ∑ j ∈ Finset.range J, 1 / (2 * towerL B j * towerV B j) := rfl
 

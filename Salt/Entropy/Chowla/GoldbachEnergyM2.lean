@@ -45,16 +45,25 @@ lemma rhoG_pos {n d : ℕ} (hd : d ≠ 0) [NeZero d] :
 noncomputable def RnatG (n d : ℕ) [NeZero d] : Finset ℕ :=
   (Finset.univ.filter (fun m : ZMod d => m * ((n : ZMod d) - m) = 0)).image ZMod.val
 
+/-- `(RnatG n d).card = rhoG n d`: the natural-number roots are the `ZMod.val` image of the
+residue roots and `ZMod.val` is injective (`Finset.card_image_of_injective`). Converts the CRT
+bijection of `rhoG_mul_of_coprime` (GB-3) into the density identity and closes
+`goldProgression_count_bound` (GB-4). -/
 lemma RnatG_card (n d : ℕ) [NeZero d] : (RnatG n d).card = rhoG n d := by
   rw [rhoG_pos (NeZero.ne d)]
   exact Finset.card_image_of_injective _ (ZMod.val_injective d)
 
+/-- `RnatG n d ⊆ Finset.range d`: every root is a `ZMod.val`, hence `< d` (`ZMod.val_lt`).
+Behind `RnatG_lt` and the `RnatG n d ∩ range d = RnatG n d` step of
+`goldProgression_count_bound`. -/
 lemma RnatG_subset_range (n d : ℕ) [NeZero d] : RnatG n d ⊆ Finset.range d := by
   intro r hr
   simp only [RnatG, Finset.mem_image] at hr
   obtain ⟨m, _, rfl⟩ := hr
   simp [ZMod.val_lt]
 
+/-- `r ∈ RnatG n d` gives `r < d`: the membership form of `RnatG_subset_range`. The bound the
+CRT map `r ↦ (r % a, r % b)` of `rhoG_mul_of_coprime` needs on both sides (five sites). -/
 lemma RnatG_lt {n d : ℕ} [NeZero d] {r : ℕ} (hr : r ∈ RnatG n d) : r < d :=
   Finset.mem_range.mp (RnatG_subset_range n d hr)
 

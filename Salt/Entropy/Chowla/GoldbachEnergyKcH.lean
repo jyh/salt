@@ -26,7 +26,7 @@ must move with the shift.  `T := 2^41·h²` is the choice that keeps `hTA : 4 �
 which holds for every `h ≥ 2` (ratio 0.867 at `h = 2`, 0.752 at `h = 1096`) and **FAILS at
 `h = 1` by 1.212×** — because at `h = 1` the uniform `(log T)² ≤ 1799.4` is far looser than the
 true `807.70`.  So `h = 1` is discharged by the LANDED `hpt_const_le_pow35`
-(`GoldbachEnergyN0.lean:809`, ratio 0.955) and `h ≥ 2` by the uniform bound.  Two cases, forced.
+(`GoldbachEnergyN0.lean:812`, ratio 0.955) and `h ≥ 2` by the uniform bound.  Two cases, forced.
 (2026-10-02: the numerals of ⟦THE ARITHMETIC, AND WHY IT IS TWO CASES AND NOT ONE⟧ above are those
 of the cap-7 page `hpt_const_le_pow35_h`, which the XY debt lane's family 37 retired into its cap-9
 twin `hpt_const_le_pow35_h_b9` (§6), noted in §1.  The twin's are in its docstring:
@@ -74,7 +74,7 @@ code calls, none is left without a caller.
 The page's docstring, verbatim:
 
 **⟦THE `C₁` NUMERAL AT SHIFT `h`⟧** (`hpt_const_le_pow35_h`) — `hpt_const_le_pow35`
-(`GoldbachEnergyN0.lean:809`) at `ε = 1/(500·h)`, `T = 2^41·h²`, `c₀ = 1/256`.
+(`GoldbachEnergyN0.lean:812`) at `ε = 1/(500·h)`, `T = 2^41·h²`, `c₀ = 1/256`.
 
 The two cases are forced, not stylistic: the `hh7`-uniform `(log T)² ≤ 1799.4` overshoots at
 `h = 1` (giving `4.166·10^10 > 3.436·10^10`), while at `h = 1` the landed lemma's own tight
@@ -141,7 +141,7 @@ The page stood under the line `set_option exponentiation.threshold 4000 in`; the
 docstring, verbatim:
 
 **⟦THE `hpt` TWIN AT SHIFT `h`⟧** (`hpt_holds_500h`) — `hpt_holds_500`
-(`GoldbachEnergyN0.lean:829`) at `ε = 1/(500·h)` and `T = 2^41·h²`, with the numeral constant
+(`GoldbachEnergyN0.lean:832`) at `ε = 1/(500·h)` and `T = 2^41·h²`, with the numeral constant
 `2^35·h²` from §1.  The four threshold side conditions and their `h`-powers:
 `hT0 : 2^20 ≤ 2^41·h²` (h², slack `2^21·h²`) · **`hTA : 4 ≤ ε²·T = 2^41/250000 = 8 796 093.02`
 — `h`-FREE, and that is exactly what `T := 2^41·h²` buys over `2^41·h³`** ·
@@ -155,9 +155,9 @@ docstring, verbatim:
 /-! ## §5 — the ε line at shift `h` (wave H2a word 2 — a LINE, not a name) -/
 
 /-- **⟦THE ε LINE AT SHIFT `h`⟧** — the ten `by norm_num` sites that derive
-`(1:ℚ)/2^9 ≤ R.eps` from the head's `1/500 ≤ ε` (S16Compose:986, XThread:1310, V7Ks:370,
-S16ComposeV4:857, S16Uniform:1526/:915, V7B:1807, RegisterCompose:287,
-S16FlatTerminalLinear · flat_L_width_priced, S16FlatFinal:196) are a **PASS-THROUGH at `h`**: both sides scale by
+`(1:ℚ)/2^9 ≤ R.eps` from the head's `1/500 ≤ ε` (S16Compose:979, XThread:1310, V7Ks:364,
+S16ComposeV4:851, S16Uniform:1526/:915, V7B:1804, RegisterCompose:281,
+S16FlatTerminalLinear · flat_L_width_priced, S16FlatFinal:190) are a **PASS-THROUGH at `h`**: both sides scale by
 exactly `h`, and `512 > 500`.  This `example` is the check that the line elaborates at a SYMBOLIC
 `h`.
 

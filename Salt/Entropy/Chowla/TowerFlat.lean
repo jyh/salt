@@ -79,8 +79,14 @@ noncomputable def chowlaTowerFlat (A : ℝ) (a Hlo : ℕ) : ℕ → ℕ
 noncomputable def towerDropSumFlat (A : ℝ) (a Hlo J : ℕ) : ℝ :=
   ∑ j ∈ Finset.range J, 1 / (2 * A * Real.log (chowlaTowerFlat A a Hlo j : ℝ))
 
+/-- `H₀ = a·H₋`: the flat tower's base case as a rewrite rule (`rfl`). Unfolds `towerLF A B 0`
+in `towerLF_zero` and the `zero` case of `chowlaTowerShape_const` (`TowerShape`). -/
 lemma chowlaTowerFlat_zero (A : ℝ) (a Hlo : ℕ) : chowlaTowerFlat A a Hlo 0 = a * Hlo := rfl
 
+/-- `H_{j+1} = H_j·⌊2·A·log H_j⌋₊`: the flat tower's recursion as a rewrite rule (`rfl`). The
+step every induction along the flat tower opens with: `chowlaTowerFlat_base_ge` and
+`towerLF_succ` here, the regime's `chowlaTowerFlat_rebase`/`_ge`/`_le_succ`, `tower_stepFlat`
+(`DecrementFlat`) and `chowlaTowerShape_const` (`TowerShape`). -/
 lemma chowlaTowerFlat_succ (A : ℝ) (a Hlo j : ℕ) :
     chowlaTowerFlat A a Hlo (j + 1)
       = chowlaTowerFlat A a Hlo j *
@@ -101,9 +107,14 @@ noncomputable def towerWF (A : ℝ) (B j : ℕ) : ℝ := Real.log (flatC A + tow
 /-- The flat tower multiplier `⌊2·A·L_j⌋₊`. -/
 noncomputable def towerMulF (A : ℝ) (B j : ℕ) : ℕ := ⌊2 * A * towerLF A B j⌋₊
 
+/-- `L₀ = log B` at stride `1`: `towerLF` unfolded at `chowlaTowerFlat_zero` with `one_mul`. The
+base of `towerLamF_zero` and of the induction `towerFlat_inv`. -/
 lemma towerLF_zero (A : ℝ) (B : ℕ) : towerLF A B 0 = Real.log (B : ℝ) := by
   rw [towerLF, chowlaTowerFlat_zero, one_mul]
 
+/-- `λ₀ = loglog B`: `towerLamF` at `towerLF_zero`. The base case of `towerFlat_inv` and the
+`j = 0` reading of the potential in `towerFlat_crossing_at_Jstar`, `towerFlat_width_export`
+(`TowerFlatExport`) and `flat_endpoint_loglog_gt_lever` (`XCeil`). -/
 lemma towerLamF_zero (A : ℝ) (B : ℕ) : towerLamF A B 0 = Real.log (Real.log (B : ℝ)) := by
   rw [towerLamF, towerLF_zero]
 
@@ -113,10 +124,16 @@ lemma towerLamF_zero (A : ℝ) (B : ℕ) : towerLamF A B 0 = Real.log (Real.log 
 lemma flat_log_four : Real.log 4 = 2 * Real.log 2 := by
   rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
 
+/-- `log 2 ≤ c = log (2A)` for `A ≥ 1`: `Real.log_le_log` at `2 ≤ 2A`. Makes the shift positive
+(`flatC_pos`) and feeds the level bound `flatLevel_s_ge_three` (`3 ≤ c + λ_j`) and its shape
+twin `shapeLevel_s_ge_three` (`TowerShape`). -/
 lemma flatC_ge_log_two {A : ℝ} (hA : 1 ≤ A) : Real.log 2 ≤ flatC A := by
   rw [flatC]
   exact Real.log_le_log (by norm_num) (by linarith)
 
+/-- `0 < flatC A` for `A ≥ 1`: `0 < log 2 ≤ c` (`flatC_ge_log_two`). The sign of the shift
+wherever `c` is added to a log: `towerFlat_crossing_at_Jstar` here, `flatBase_floor` and
+`flatDesignFloor_le_ceil_exp` (`TowerFlatBuilder`), `towerFlat_width_export`, `XCeil`. -/
 lemma flatC_pos {A : ℝ} (hA : 1 ≤ A) : 0 < flatC A :=
   lt_of_lt_of_le (Real.log_pos (by norm_num)) (flatC_ge_log_two hA)
 
@@ -147,6 +164,9 @@ lemma flat_hkey {eps A L m : ℝ} (heps : 0 < eps) (heps1 : eps ≤ 1 / 2) (hA :
   rw [h4]
   nlinarith [mul_le_mul_of_nonneg_right heps2 hl2pos.le, hAL, hmpos]
 
+/-- `B ≤ H_j` at stride `1` from the house floor `4·10⁶ ≤ B`: induction, each step multiplying
+by `⌊2·A·log H_j⌋₊ ≥ 2` (`flatMul_ge_two`, whose floor is the inductive `B ≤ H_j` itself). The
+content of `chowlaTowerFlat_base_floor`. -/
 lemma chowlaTowerFlat_base_ge {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) :
     B ≤ chowlaTowerFlat A 1 B j := by
   induction j with
@@ -157,17 +177,27 @@ lemma chowlaTowerFlat_base_ge {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 4000000 �
     rw [chowlaTowerFlat_succ]
     exact le_trans ih (Nat.le_mul_of_pos_right _ (by omega))
 
+/-- `4·10⁶ ≤ H_j` at every level (`hB` through `chowlaTowerFlat_base_ge`): the regime floor in
+the form `tower_log_bounds` and `flatMul_ge_two` read. Taken by `towerLF_ge_fifteen`,
+`towerMulF_ge_two` and `towerLF_succ`. -/
 lemma chowlaTowerFlat_base_floor {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) :
     4000000 ≤ chowlaTowerFlat A 1 B j :=
   le_trans hB (chowlaTowerFlat_base_ge hA hB j)
 
+/-- `15 ≤ L_j = log H_j` at every level: `tower_log_bounds` at `chowlaTowerFlat_base_floor`. The
+floor behind `towerLF_pos`, `towerLamF_ge_two` and the multiplier bound `towerMulF_le`. -/
 lemma towerLF_ge_fifteen {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) :
     15 ≤ towerLF A B j := by
   rw [towerLF]; exact (tower_log_bounds (chowlaTowerFlat_base_floor hA hB j)).1
 
+/-- `0 < L_j`, from `towerLF_ge_fifteen`. The positivity the floor prices
+(`flatStep_logMul_le`/`_ge`), the invariant `towerFlat_inv`, the sandwich step
+`towerStepF_dw_le` and both halves of the master law divide by. -/
 lemma towerLF_pos {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) :
     0 < towerLF A B j := by linarith [towerLF_ge_fifteen hA hB j]
 
+/-- `2 ≤ λ_j = log L_j`: `L_j ≥ 15 ≥ e²` (`towerLF_ge_fifteen`, `Real.exp_one_lt_d9`). Feeds
+`flatLevel_s_ge_three`, which lifts it to `3 ≤ c + λ_j` under the flat floor. -/
 lemma towerLamF_ge_two {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) :
     2 ≤ towerLamF A B j := by
   have hL := towerLF_ge_fifteen hA hB j
@@ -182,16 +212,25 @@ lemma flatLog_prod {A L : ℝ} (hA : 1 ≤ A) (hL : 0 < L) :
     Real.log (2 * A * L) = flatC A + Real.log L := by
   rw [flatC, ← Real.log_mul (by positivity) (ne_of_gt hL)]
 
+/-- The floor price, upper half, at the multiplier: `⌊2·A·L_j⌋₊ ≤ 2·A·L_j` (`Nat.floor_le`; the
+argument is nonnegative by `towerLF_ge_fifteen`). What `flatStep_logMul_le` logs to get
+`log m_j ≤ c + λ_j`. -/
 lemma towerMulF_le {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) :
     ((towerMulF A B j : ℕ) : ℝ) ≤ 2 * A * towerLF A B j := by
   refine Nat.floor_le ?_
   have hL := towerLF_ge_fifteen hA hB j
   nlinarith
 
+/-- The floor price, lower half, at the multiplier: `2·A·L_j − 1 < ⌊2·A·L_j⌋₊`
+(`Nat.sub_one_lt_floor`; no hypotheses). What `flatStep_logMul_ge` logs to get
+`c + λ_j − 1/500 ≤ log m_j`. -/
 lemma towerMulF_gt {A : ℝ} (B j : ℕ) :
     2 * A * towerLF A B j - 1 < ((towerMulF A B j : ℕ) : ℝ) :=
   Nat.sub_one_lt_floor _
 
+/-- `2 ≤ m_j = ⌊2·A·L_j⌋₊`: `flatMul_ge_two` at `chowlaTowerFlat_base_floor`, unfolding
+`towerMulF` and `towerLF`. Makes the multiplier's cast nonzero in `towerLF_succ` and positive in
+`flatStep_logMul_le`. -/
 lemma towerMulF_ge_two {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) :
     2 ≤ towerMulF A B j := by
   rw [towerMulF, towerLF]
@@ -387,6 +426,11 @@ lemma flatStep_dw_ge {L lam w L' lam' w' d c : ℝ}
 
 /-! ### Section 5 — the sandwich along the flat tower -/
 
+/-- **The flat per-step sandwich at the tower, upper half**: `w_{j+1} − w_j ≤ 1/L_j`. The
+abstract `flatStep_dw_le` at level `j` with `d = log m_j`, its hypotheses from `towerFlat_inv`
+(the floor `hfl` propagated), `flatLevel_s_ge_three`, `flatStep_logMul_ge` (with the level
+bound, `0 ≤ d`), `flatStep_logMul_le` and `towerLF_succ`. Summed in
+`towerDropSumFlat_ge_log_ratio`; one extra step prices the no-overshoot `towerFlat_width_le`. -/
 lemma towerStepF_dw_le {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 4000000 ≤ B)
     (hfl : 100 * (flatC A + Real.log (Real.log (B : ℝ))) ≤ Real.log (B : ℝ)) (j : ℕ) :
     towerWF A B (j + 1) - towerWF A B j ≤ 1 / towerLF A B j := by
@@ -399,6 +443,10 @@ lemma towerStepF_dw_le {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 4000000 ≤ B)
     (towerLF_pos hA hB j) rfl rfl (by linarith) (by linarith)
     (flatStep_logMul_le hA hB j) (towerLF_succ hA hB j) rfl rfl
 
+/-- **The flat per-step sandwich at the tower, lower half**: `(20/21)/L_j ≤ w_{j+1} − w_j`. The
+abstract `flatStep_dw_ge` at level `j`, with the floor invariant `towerFlat_inv` supplying both
+the level bound `flatLevel_s_ge_three` and the lower floor price `flatStep_logMul_ge`. Summed in
+`towerDropSumFlat_le_log_ratio_mul`. -/
 lemma towerStepF_dw_ge {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 4000000 ≤ B)
     (hfl : 100 * (flatC A + Real.log (Real.log (B : ℝ))) ≤ Real.log (B : ℝ)) (j : ℕ) :
     (20 / 21) / towerLF A B j ≤ towerWF A B (j + 1) - towerWF A B j := by
@@ -411,6 +459,9 @@ lemma towerStepF_dw_ge {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 4000000 ≤ B)
 
 /-! ### Section 6 — THE MASTER LAW (the two-sided crossing law) -/
 
+/-- `towerDropSumFlat A 1 B J = Σ_{j<J} 1/(2·A·L_j)`: the decrement at stride `1` written in the
+glyph `L_j = towerLF A B j` (`rfl`). The bridge from the definition to the telescoped potential
+in both halves of the master law, and in `towerDropSumShape_const` (`TowerShape`). -/
 lemma towerDropSumFlat_eq_sum (A : ℝ) (B J : ℕ) :
     towerDropSumFlat A 1 B J = ∑ j ∈ Finset.range J, 1 / (2 * A * towerLF A B j) := rfl
 
@@ -549,11 +600,19 @@ theorem towerFlat_crossing_exists {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 40000
     ∃ J : ℕ, Real.log 2 < towerDropSumFlat A 1 B J :=
   ⟨towerFlatJstar A B, towerFlat_crossing_at_Jstar hA hB hfl⟩
 
+/-- **The minimal flat length crosses**: `log 2 < S_{Jmin}` at `Jmin = towerFlatJmin A 1 B`
+(`Nat.sInf_mem` on `towerFlat_crossing_exists`). Supplies the regime field `hJconF` in every
+flat builder — `chowlaRegimeFlat_exists_param_gen` (`TowerFlatBuilder`) and its ceiling variants
+in `XCeil`, `StrideDoorAllGrades`, `StridePairReceipt` and `TierSBand`; `towerFlatJmin_pos`
+reads it at `J = 0`. -/
 theorem towerFlatJmin_spec {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 4000000 ≤ B)
     (hfl : 100 * (flatC A + Real.log (Real.log (B : ℝ))) ≤ Real.log (B : ℝ)) :
     Real.log 2 < towerDropSumFlat A 1 B (towerFlatJmin A 1 B) :=
   Nat.sInf_mem (towerFlat_crossing_exists hA hB hfl)
 
+/-- Below the minimal length the decrement has NOT crossed: `k < towerFlatJmin A a B` gives
+`S_k ≤ log 2` (the contrapositive of `Nat.sInf_le`; any stride `a`). The step
+`towerFlat_width_le` takes at `k = Jmin − 1` to bound the width one step before the crossing. -/
 theorem towerDropSumFlat_le_log_two_of_lt_Jmin {A : ℝ} {a B k : ℕ}
     (hk : k < towerFlatJmin A a B) : towerDropSumFlat A a B k ≤ Real.log 2 := by
   by_contra hcon
@@ -561,6 +620,8 @@ theorem towerDropSumFlat_le_log_two_of_lt_Jmin {A : ℝ} {a B k : ℕ}
       (show k ∈ {J : ℕ | Real.log 2 < towerDropSumFlat A a B J} from not_le.mp hcon))
     (not_le.mpr hk)
 
+/-- `0 < towerFlatJmin A 1 B`: the empty sum `S₀ = 0` cannot exceed `log 2`, so the crossing
+level of `towerFlatJmin_spec` is not `0`. Lets `towerFlat_width_le` write `Jmin = k + 1`. -/
 lemma towerFlatJmin_pos {A : ℝ} (hA : 1 ≤ A) {B : ℕ} (hB : 4000000 ≤ B)
     (hfl : 100 * (flatC A + Real.log (Real.log (B : ℝ))) ≤ Real.log (B : ℝ)) :
     0 < towerFlatJmin A 1 B := by

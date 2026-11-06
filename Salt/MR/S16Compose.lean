@@ -16,6 +16,8 @@ import Salt.MR.ArcRegimeWeaken
 import Salt.Entropy.Chowla.RegimeHeadroom
 import Salt.Entropy.Chowla.HeadFloors
 import Salt.MR.RegimeScaleReads
+import Salt.MR.SocketFrame
+import Salt.MR.SocketLogFrame
 
 /-!
 # `S16Compose` — ⟦THE BAR-2 CLOSING PASS⟧ AND `logChowla2_ineffective_v3`
@@ -428,9 +430,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling (K : ℕ) (hK : K ≤ 17
     (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband
     (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPool_L_gk K hρ.le harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_pos_L_gk K (hbf H L q j A s hb)
     (hgP1 H L q j A s hb) (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd
     (hband4096 H L q j A s hb)
@@ -894,14 +894,7 @@ theorem s15_crossing_supplied_L_gk_ceiling (K : ℕ) :
   refine hwire R M liouvilleC (fun _ => theta293 - 1 / 500) liouvilleC_norm_le_one ?_
   intro H L q j A s hsb T hTlo hThi hTgate hTll
   obtain ⟨P, Q, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
-  have hq : 1 ≤ q := hsb.2.2.2.1
-  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
-  have hNd : 1 ≤ A + s := by omega
-  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_eight; linarith
-  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
-    Real.rpow_pos_of_pos hlogX0 _
-  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
-      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  obtain ⟨hq, hA, hNd, hlogX0, hpow, hexp⟩ := socketLogFrame_facts s hsb hg.logX_eight
   have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
   have hT1 : (1 : ℝ) < 2 * T := by linarith
   exact doorCapBundle_at_workingPoint_perBlock_L_gk K hband hM hNd hq hg hT1 hThi hTll
@@ -1133,9 +1126,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling_kwide (K : ℕ) :
     (hslot Cp hCp R M ε cU bU t₁ hM hKw hb1 hc1 hbase hcap) hband
     (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPool_L_gk K hρ.le harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_pos_L_gk K (hbf H L q j A s hb)
     (hgP1 H L q j A s hb) (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd
     (hband4096 H L q j A s hb)
