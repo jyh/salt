@@ -15,7 +15,7 @@ consumers only need per-q effective SW? **Answer: NO — deflation KILLED, C1 HO
 | W6 | `Dispersion.lean:428-482` (`smallEnergy_le`) | sums the per-χ bound over `#T ≤ (log x)^C` conductors × `φ(f)` primitive χ each; count argument needs the conductor-uniform `K`; the (potential) exceptional χ is NOT separated | **uniform-in-q, NOT summable** (see §2) |
 | W7 | `SWChar.lean:100` (`psiChi_le_of_siegelWalfisz`) | one `hSW A C` call → `K` used at every `(f,a)`, `f ≤ (log x)^C` | uniform-in-q |
 | W8 | `Defs.lean:79` (`siegelWalfisz_psiTot`, q=1) → `Chen/TripleCount.lean:67`, `TwinBar/LambdaRate.lean:15-57` | q=1 instance only | **per-q** — effective PNT serves these WITHOUT C1 (the only genuine per-q consumers) |
-| W9 | `Goldbach/A1.lean:332`, `A1W.lean:382`, `Op.lean:217` | `psi_BV_...' 11` — BV at FIXED saving A=11 | uniform-in-q (11 > 2, see §2) |
+| W9 | `Goldbach/A1.lean:332`, `A1W.lean:382`, `Op.lean:229` | `psi_BV_...' 11` — BV at FIXED saving A=11 | uniform-in-q (11 > 2, see §2) |
 | W10 | `Maynard/LevelConsume.lean:39` (`lod_error_pow`) | `hLoD (9k² + 2B)`; at :339 `B = 2k+4`; k = k₀ with `hk3072 : 3072 ≤ k₀` (:614) and `k₀ ≥ ⌈e³⁰⁰⌉` (:616-621) | **the demanded BV saving: A ≥ 9·3072² = 84,934,656; in fact A ≥ 9e⁶⁰⁰** |
 
 ## 2. The kill arithmetic (against MNT Thm 24.22's explicit E₁)

@@ -255,7 +255,7 @@ binder** exactly as hN+ does. Two road nodes minted:
   `psi1_contour_shift_finsetM`'s +2 box margin is load-bearing in its
   proof — if the socket restates at a δ-margin (δ ≍ 1/log qT), the
   landed unit-window count `efMultTotal_halfbox_le`
-  (EFSharpMult.lean:1075) discharges hsep by pigeonhole in [T₀,T₀+1].
+  (EFSharpMult.lean:1140) discharges hsep by pigeonhole in [T₀,T₀+1].
   Read-only scout, then class B/C wave if viable.
 - **N2-DENSITY** (the fallback and the road's eventual asset): Jutila
   Thm 1, N(σ,T,χ) ≪ (qT)^{(5/2)(1−σ)} — which ALSO reopens HB's
@@ -276,7 +276,7 @@ executor.
 - (i) the β₀ erase-split of efZeroSumM — Finset.add_sum_erase at the
   :140-142 def; the corpus pattern at TwistedMertens.lean:406-410.
   Class A. ✔ verified
-- (ii) the A3-BATCHED erased spend (v3 form, per D4): the :356-365
+- (ii) the A3-BATCHED erased spend (v3 form, per D4): the :358-367
   body with the a-division deleted, + the subset-monotonicity
   one-liner. Class A/B. ✔ recipe corrected
 - (iii) A3 batching Σ m_ρ/‖ρ‖ ≪ log(qT)·log T (sharper than the v2

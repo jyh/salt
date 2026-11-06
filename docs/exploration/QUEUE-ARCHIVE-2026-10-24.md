@@ -487,7 +487,7 @@
    constant that survives a route change is exactly the thing a later reader will assume was
    re-derived.*
    📌 **Both halves were already landed and only needed composing** — `sum_divisors_eq_sum_powerset`
-   (`Lemma3.lean:108`) with `sum_powerset_prod_neg_nu` (`:151`), `moebius_nu_prod_eq` (`:141`)
+   (`Lemma3.lean:108`) with `sum_powerset_prod_neg_nu` (`:154`), `moebius_nu_prod_eq` (`:144`)
    folding `μ`'s sign in setwise. *One attempt after one mechanical miss: `BoundingSieve` is
    MATHLIB's, not `Salt.BrunLower`'s — the file's own docstring says so and I qualified it anyway.*
    ✅⭐ **AND THE PER-CLASS HARMONIC COUNT — `sum_inv_class_le`, `[3 axioms]` (18:4x):**
@@ -5651,7 +5651,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    night (math, on the helm's poke). Report `2026-08-31-math-REPORT-7b-door-slot-measurement.md`.**
    ✅ **The class-price → χ-average chain is CAP-FREE, SIX FOR SIX** (`arcDen` count 0 in every
    signature): `classSup` (`M4WaveClosed:141`) · `classSup_le_inv_totient_sum_doorChiSup_L`
-   (`M4RowLinear:3276`) · `le_doorChiSup_L` (`:2438`) · `doorChiSup_sq_le_dyadic_L` (`:1905`) ·
+   (`M4RowLinear:3282`) · `le_doorChiSup_L` (`:2429`) · `doorChiSup_sq_le_dyadic_L` (`:1905`) ·
    `sum_windowClass_memSCoeff` (`M4ClassPrice:202`) · `norm_sum_residueClassOn_liou_le`
    (`M4BridgeResidue:367`). ⇒ **the remaining slot reduces to the χ side by machinery that never
    reads the cap — and the χ side is what §1–§8 of the wave ported.**
@@ -6255,7 +6255,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    lane; recorded because **a pin is an antecedent: at the wrong value it does not FAIL, it
    DISAPPEARS**, and a vacuous supplier is indistinguishable from an absent one at every gate.
    📌 **(iii) the `h ≤ 1096` crossing, per lemma:** E reads `Salt.MR.h_le_1096_of_hh7`
-   (`S16ProducersH:766`) at ONE site, `klevF_capNumeral_h`; every other E leg needs only its own
+   (`S16ProducersH:737`) at ONE site, `klevF_capNumeral_h`; every other E leg needs only its own
    `hh7` binder.
    ⭐⭐ **AND THE PRIZE IS PINNED TO THE LANDED OBJECT BY A THEOREM:**
    `logChowla2_v7_rated_h_one` derives a hand-retyped copy of `V7Rated:973`'s statement from
