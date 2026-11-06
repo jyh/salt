@@ -294,7 +294,7 @@ sources, both byte-grounded.
    `efEnvelope_le_ledger_sharp` (`Lemma7EF.lean:2696-2704`) prices the Range-A
    erased-spend row as `10^3·M^3·N·u^{bceil−1}`, `M = log(qu)+2`,
    `N = log q + 11·log M`, against the consumer's target grade `(m+255)/log u`
-   (`:2907-2908`) inside the byte-fixed window `250·log q ≤ log u` (`:2844`).
+   (`:2979-2980`) inside the byte-fixed window `250·log q ≤ log u` (`:2916`).
    That forces `𝒩 ≥ (b/250)·(5·log L + 29)` — a demand that **grows like log L**
    and is **entirely k-independent**. Hence
    `log η ≥ log(1/c) + [(k−1) + 5b/s]·log L + O(1)`.
@@ -315,8 +315,8 @@ unreachable in this skeleton by ANY (b, c, k).**
 
 **(d) "no consumer exists yet": FALSE at the bytes.** Four kernel-landed
 consumers, three in the road's own file — `Lemma7EF.lean:673`
-(`re_le_repulsionCeiling_of_ne`), `:696` (`exists_repulsion_ceiling_of_ne`, which
-`obtain`s `dh_repulsion_tall` at `:709`), `:748` (`psiDefect_norm_le_rangeA`) —
+(`re_le_repulsionCeiling_of_ne`), `:708` (`exists_repulsion_ceiling_of_ne`, which
+`obtain`s `dh_repulsion_tall` at `:721`), `:760` (`psiDefect_norm_le_rangeA`) —
 plus `TBalTall.lean:2199` (`boxZeros_re_le_at_efHeight`). The freeze also names
 the **wrong prefactor** as the risk: `efZeroSumM_spend_at_repulsion`'s
 `4110·(log q+2)^5` (`TauExt:320`) is the count-form route **retired by design D4**

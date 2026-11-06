@@ -85,7 +85,7 @@ And the end-to-end (4.12) theorem closes **without** any of it. `Salt/HB/Lemma7E
 > Range-A's, and Range B needs neither.**"
 
 Verified at the type: `logChiSum_tendsto_zfr_hundred` (`Salt/HB/Lemma7EF.lean:3208-3221`, USE)
-has hypotheses `hZFR` and `hreal` only, both against `efZfrCeil` (`:1953`), and concludes
+has hypotheses `hZFR` and `hreal` only, both against `efZfrCeil` (`:2007`), and concludes
 `≤ 100/√(log X)`. **The Range-A/efHeight repulsion branch is dead on the landed bytes.**
 
 *(The open item is recorded, not owed: `flags.md:20762-20768` — the two-window assembly
@@ -111,7 +111,7 @@ USE sites, all sorry-free and all `Lp = 2L`, `ell = log η`:
 - `hb_L1_one_sided` — **N4b W1's deliverable, (L1)** — `Salt/HB/Lemma7L.lean:231`, binders at
   `:236` (`hSinvC`) and `:240` (`hσ'r : Real.sqrt (Real.log η) / (2 * L) ≤ r0 / 2`).
 - `hb_chiOne_kill_at_window` — **N4b W3's (4.7)** — `Salt/HB/Lemma7F.lean:724`, binders at
-  `:717` and `:721`.
+  `:728` and `:732`.
 - `pretenseSum_unconditional_absorbed` — `Salt/HB/Lemma3Uncond.lean:117`.
 - `hb_lemma3_unconditional_absorbed` — `Salt/HB/Lemma3Uncond.lean:213`, binders at `:218`, `:222`.
 
@@ -226,7 +226,7 @@ Stated plainly; each of these is a real gap in this trace, not a hedge.
    and the numbers in the §5 table shift — the *ratio* between the `c`-lever and the `b`-lever
    would not, since it is `b²`-vs-additive, but I did not prove that robustly at every base.
 2. **I could not tell whether the road's endgame is sensitive to the SIZE of `K₁ = 1604+2m+8Cs`.**
-   It flows into `hsmall` (`Lemma7Kappa.lean:958`, a hard `≤ 1` side condition) and thence to
+   It flows into `hsmall` (`Lemma7Kappa.lean:999`, a hard `≤ 1` side condition) and thence to
    N9/N10, but the `z`-window feasibility that decides it is not written anywhere I found. If it
    *is* sensitive, that is a second argument for a `b`-wave — and still not for a `c`-wave.
 3. **I could not determine whether the two-window Range-A assembly (`flags.md:20762-20768`) is

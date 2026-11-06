@@ -2150,7 +2150,7 @@ entry above:
    `simplexInt`-positivity lemma needed.
 2. **The frozen `hQd` interface needs NO statement surgery (no "R1-IF").**
    `s2_inner_yF` is quantifier plumbing; the content is `s2_inner_termwise`
-   (`InnerS2.lean:1065`), POINTWISE in `(R, W', D)` with only `300 ≤ D`. The
+   (`InnerS2.lean:1093`), POINTWISE in `(R, W', D)` with only `300 ≤ D`. The
    universally-quantified `hQd` (which demands the qdiag comparison down to
    `D = 300`, where the landed `κ⁻¹ ≤ 5√D` bound cannot close it) is BYPASSED:
    R1 proves the comparison only at `(primorial Dfin, Dfin)` and feeds
@@ -7130,7 +7130,7 @@ created, as it would require a sorry at the edge-box row).
 
 **2026-07-14 EDGE+fin3 Part 1 ✅ FULL (Opus executor, Fable warrant) — CATCH #71 REPAIRED
 via ratified option (a): the corner-clause relaxation.** The 6 PRICE-wave application lemmas
-carrying a `dyadicBoundary (2^k)` membership (`medium_box_price_at_op` PriceOne:278;
+carrying a `dyadicBoundary (2^k)` membership (`medium_box_price_at_op` PriceOne:476;
 `medium_box_price_core`/`medium_box_price_at_op_lo` PriceTwo:316/438; `box_/sym_/low_box_hprice_at_2pow`
 PriceThree) now take the pieceN-boundary membership directly (weak corner `2^i·2^k ≤ x`). KEY
 FINDING (sharper than the warrant's worry): there is **NO degradation** — `d0_window_nonempty`'s
@@ -7405,7 +7405,7 @@ STILL-UNPACKAGED analytic rows, each a fresh operating-point estimate (NOT wirin
   `twinA1SieveW_W_eq`, cf. `switchSieveW_W_eq` SwitchW:179), **hcount** (`log x·tripleSum/φ(Q)
   ≤ (cbar+ecount)·totalMass` — only the SYMBOLIC typecheck `example` CountW:749 exists, and it
   is about `tripleSumW` not `tripleSum/φ(Q)`; must compose `tripleSum_le_cbar_final` +
-  `lambda_mass_lower` MertensPNT:261), **hcertA2** (`A2grid_sharp_le` A2Weighted:461, 6 hyps to
+  `lambda_mass_lower` MertensPNT:261), **hcertA2** (`A2grid_sharp_le` A2Weighted:473, 6 hyps to
   discharge at op), **XW>0** + **hEbundle ≤ 1/200** (eight O(1/log z)/x^{−1/8} error shares at
   a concrete x₀, via `W_twinA1_ge` WLower:51 through the rfl bridge) — ALL un-packaged.
 • **Step-4** 12 conjuncts: witnesses (P=opP/Q=opQ/z=opZ/y=opY/a=opA/w'=opW'/Ps=opPs) +
@@ -18219,7 +18219,7 @@ CAPTAIN'S RULING REQUIRED.
 
 ## (2026-07-31 07:45 PDT) SEL-WITNESS lands (723 ln, 33 decls): THE PEARL BANKED -- S15Sel' DISCHARGED at numerals, S15CrossingBound THE ONLY SURVIVING OBJECT; + the loud-stop theorem DIAGNOSED STALE by the maestro; + a ledger correction (J-REF was claimed dispatched before the dispatch)
 
-⟦THE PEARL⟧ logChowla2_conditional_sharp_nonvacuous (S15Witness:544):
+⟦THE PEARL⟧ logChowla2_conditional_sharp_nonvacuous (S15Witness:617):
 the witness tuple (Hlo = ⌈e^{10³⁰}⌉, λ₋ ∈ [50, 69.3], M = the max of
 the floors ≤ 2^56, ρ ≥ 2⁻⁵¹) discharges ALL ELEVEN S15Sel' lines at
 numerals — the register vacuity CLOSED with a kernel witness;
@@ -20656,8 +20656,8 @@ DOUBLED `log(1/c)` (an ξ=1 shape) but the `(k−1)` power of `:218`'s `(e^{632}
 **⛔ K3 CONFIRMED-FATAL — THE N11 DOOR DOES NOT CLOSE AT `k = 1`, AND `k` IS NOT THE LEVER.**
 A **k-INDEPENDENT** L-power survives, from the LANDED ledger, not from the margin:
 `efEnvelope_le_ledger_sharp` (`Salt/HB/Lemma7EF.lean:2696-2704`) prices the Range-A erased-spend
-row at `10^3·M^3·N·u^{bceil−1}` against the consumer's target grade `(m+255)/log u` (`:2907-2908`)
-inside the byte-fixed window `250·log q ≤ log u` (`:2844`), forcing
+row at `10^3·M^3·N·u^{bceil−1}` against the consumer's target grade `(m+255)/log u` (`:2979-2980`)
+inside the byte-fixed window `250·log q ≤ log u` (`:2916`), forcing
 `𝒩 ≥ (b/250)·(5·log L + 29)`, hence
 `log η ≥ log(1/c) + [(k−1) + 5b/s]·log L + O(1)`. At TS-3's own target `(k=1, b=174,
 log(1/c)=52)` that is `log η` = 102.2 at L=250, 120.0 at L=10⁶, 168.1 at L=10¹² — i.e.
@@ -21920,7 +21920,7 @@ shape 1, proofs 2 (one build round of three tactic repairs). Full `saltbuild.sh`
 
 This composition kernel-checks the **`hσ'r` obligation only**. There is a *second, independent*
 demand on `log η` from the Range-A EF ledger (`efEnvelope_le_ledger_sharp`,
-`Salt/HB/Lemma7EF.lean:2696-2704`, inside the byte-fixed window at `:2844`), which contributes a
+`Salt/HB/Lemma7EF.lean:2696-2704`, inside the byte-fixed window at `:2916`), which contributes a
 `5b/s·log L` term that is **entirely `k`-independent**. **Nothing here certifies the door, or
 `q`-freeness, or the full threshold. It certifies one of two conjoined obligations.** The same
 fence is written into the new file's header and into both delivered docstrings.
@@ -22827,7 +22827,7 @@ exactly as written: GREP THE LIKELY NAMES FIRST — every time, it existed.*
 ### ⛔ AMENDMENT, 20 MINUTES LATER — THE HAZARD IS REAL AND **NOT ON THE CRITICAL PATH**
 
 I analysed the reindex before reading the row the supply table NAMES for it. **`congrExpSum`
-(`Salt/Weil/Sawtooth.lean:1128`) and `norm_congrExpSum_le` (`:1227`) are stated ENTIRELY OVER
+(`Salt/Weil/Sawtooth.lean:1128`) and `norm_congrExpSum_le` (`:1241`) are stated ENTIRELY OVER
 ℤ** — `Finset.Ioc A B` with `A B : ℤ`, filter `(q:ℤ) ∣ n - b` — and proved via
 `Salt.BV.geom_e_bound`, geometrically. **They never form `M₁`/`M₂` at all.** Corpus-wide grep
 for a hand-rolled `(A-b)/q` reindex: **ZERO sites.**
@@ -24225,8 +24225,8 @@ that summand may have a different supplier, and **this seat has not censused its
 Stated so the design tier checks exactly one thing: **which term supplies the `1/50`.**
 
 ### ⚖️ AND THE HELM'S THREE ITEMS, MEASURED AT THE OBJECTS RATHER THAN QUOTED FROM MY BANK
-① `¬MRTLemmaA7` + `MRTLemmaA7Fixed` — ✅ **LANDED**: `not_mrtLemmaA7Statement` (`MRTPropA3:4085`,
-audited `All.lean:8563`), `MRTLemmaA7Fixed`/`…Statement` (`:4040`/`:4050`).
+① `¬MRTLemmaA7` + `MRTLemmaA7Fixed` — ✅ **LANDED**: `not_mrtLemmaA7Statement` (`MRTPropA3:4187`,
+audited `Salt/MR/All.lean:8689`), `MRTLemmaA7Fixed`/`…Statement` (`:4142`/`:4152`).
 ② A5 at `θ = 3/4` — ✅ **LANDED**: five constants `MRTPropA3:4243–4274`, audited `All.lean:8566–8570`.
 ③ W1-E3 port track — ✅ **WAVE B COMPLETE 08/25** (`45da8f7f`, five nodes, one attempt each). Its
 named residue is `GAP α`, `GAP A.1`, `GAP X`, the `6·MS H ≤ c` pricing line and `M4RowMeanSq_L` —
@@ -25161,7 +25161,7 @@ discharged from the regime alone.
 corpus is a hypothesis … Class **C**, cap 300. Red-first: …"* — the red-first PLAN of the row, left standing above the theorem that
 closed it. Measured cost, 2026-09-09: the sentence was read as a corpus census by one route freeze (v2.1 §7(a) — *"`hbL1_split_indep :204`
 needs CHAR-TRIO"*) and by two of eight refuter arms, each concluding that κ's transfer between split points owed a second unpaid credit.
-It does not: `hbL1_split_indep` (`Salt/HB/CharTrio.lean:204-209`) takes two `Tendsto` binders and this theorem supplies both from
+It does not: `hbL1_split_indep` (`Salt/HB/CharTrio.lean:208-212`) takes two `Tendsto` binders and this theorem supplies both from
 `N9Regime`; the transfer `hbKappaN9 χ x z = hbKappaN9 χ x z′` closes in ~8 lines from it (the signer's probe, 09/09). A cap-docstring
 is a plan, and reading one as a census cost one freeze a whole slot and two arms their central answer.
 
