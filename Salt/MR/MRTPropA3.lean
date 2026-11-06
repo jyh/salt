@@ -778,7 +778,7 @@ lengths, *"where the capstone is silent"*.  So the dyadic split is `j < j₀` tr
 `j₀ ≤ j` capstone (`M4CoprimeSupply.lean:38`, `M4Maximal.lean:1024`).
 
 **2. ⛔ TWO DIFFERENT OBJECTS ARE CALLED "THE CAPSTONE". THEY ARE NOT THE SAME.**
-* `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:529`) — the **S12** lane.  This is
+* `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:527`) — the **S12** lane.  This is
   the one carrying `S14Compose.lean:429`'s **`⚠ NOT DERIVED` … "refuted at ⟦B1'-3⟧ by §3"**.
 * `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1026`) — the **M4** lane, and *this* is the one the
   door's dyadic split consumes (`M4Maximal.lean:116`, length-graded `MS j H`).
@@ -937,7 +937,7 @@ produces it from **two explicit inequalities and NO other gate**:
 *It bottoms out in arithmetic about the delivered grade, not in another Prop socket.*
 
 **`M4SievedDoorSq_L`** (`M4LadderLinear.lean:860`) — `m4_cover_assembly_L`
-(`M4RowLinear.lean:1530`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
+(`M4RowLinear.lean:1526`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
 Its own docstring states the gate bundle is *"the same bundle `m4_hbd_of_live_L` reads, so the
 join needs no new hypothesis"* — so this reduction is free at the seam.  ⇒ **it reduces to the
 BLOCK MEAN SQUARE**, which is what `M4Maximal.m4_chiBlockMeanSq_of_shiftBlock` produces.

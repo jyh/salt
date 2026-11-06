@@ -1407,7 +1407,7 @@ weaker, since it would export a constant no consumer can identify.  The form cho
 threads ONE proposition and converts the terminal's `Mfl ≤ 2^355` into a PROVEN prefix
 conjunct at every hop, which is what "removed-because-proven" means.
 
-⟦THE SIX HOPS⟧ `S11Hoist:1329` (the re-witness, landed) → the rider + its bridge (this
+⟦THE SIX HOPS⟧ `S11Hoist:1319` (the re-witness, landed) → the rider + its bridge (this
 section) →
 `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl` (the cost centre: the ~120-line
 statement, at `Aexp := s13Aexp`) → `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl` →

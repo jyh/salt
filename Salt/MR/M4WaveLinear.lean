@@ -445,7 +445,7 @@ theorem m4_nonCoprime_classMeanSq_L {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ �
       _ ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) :=
           d0_ledger hd hH'H (hBcl0 H)
 
-/-! ### `M4NonCoprime` :506 — `M4CoprimeBlockMeanSqN` -/
+/-! ### `M4NonCoprime` :502 — `M4CoprimeBlockMeanSqN` -/
 /-- **THE NARROWED COPRIME FAMILY** (`M4CoprimeBlockMeanSqN_L`) — `M4CoprimeBlockMeanSq_L` with
 ⟦THE NARROWING⟧ `(H : ℝ) ≤ arcDen 12 H · L` inserted directly after `L ≤ H`, and NOTHING
 else changed.  Strictly weaker as a hypothesis on a supplier, strictly stronger as a demand
@@ -457,7 +457,7 @@ def M4CoprimeBlockMeanSqN_L (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : P
         ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L M) L n q r) ^ 2
           ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
 
-/-! ### `M4NonCoprime` :543 — `m4_nonCoprime_classMeanSq_N` -/
+/-! ### `M4NonCoprime` :539 — `m4_nonCoprime_classMeanSq_N` -/
 /-- **⟦R2⟧, AT THE NARROWED TWIN** (`m4_nonCoprime_classMeanSq_N_L`).  Byte-for-byte
 `m4_nonCoprime_classMeanSq_L` with its coprime datum read at `M4CoprimeBlockMeanSqN_L`: the SAME
 hypothesis list, the SAME conclusion `M4ClassBlockMeanSq_L R M k Bcl`, the SAME grade — the
@@ -582,7 +582,7 @@ theorem m4_nonCoprime_classMeanSq_N_L {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ 
       _ ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) :=
           d0_ledger hd hH'H (hBcl0 H)
 
-/-! ### `M4NonCoprime` :676 — `classSup_le_dilate_gk` -/
+/-! ### `M4NonCoprime` :668 — `classSup_le_dilate_gk` -/
 /-- **THE POINTWISE TRANSPORT AT THE LEVER** — `classSup_le_dilate_L` (:304). -/
 theorem classSup_le_dilate_L_gk (K : ℕ) {M H q r n : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
     (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) :
@@ -599,7 +599,7 @@ theorem classSup_le_dilate_L_gk (K : ℕ) {M H q r n : ℕ} {W : ℝ} (hM : 1 �
   rw [heq]
   exact le_classSup _ _ _ _ _ hlen
 
-/-! ### `M4NonCoprime` :692 — `M4CoprimeBlockMeanSq_gk` -/
+/-! ### `M4NonCoprime` :684 — `M4CoprimeBlockMeanSq_gk` -/
 /-- **THE COPRIME FAMILY AT THE LEVER** — `M4CoprimeBlockMeanSq_L` (:339). -/
 def M4CoprimeBlockMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H →
@@ -608,7 +608,7 @@ def M4CoprimeBlockMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ 
         ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L_gk K M) L n q r) ^ 2
           ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
 
-/-! ### `M4NonCoprime` :723 — `m4_nonCoprime_classMeanSq_gk` -/
+/-! ### `M4NonCoprime` :715 — `m4_nonCoprime_classMeanSq_gk` -/
 /-- **⟦R2⟧ AT THE LEVER** — `m4_nonCoprime_classMeanSq_L` (:384). -/
 theorem m4_nonCoprime_classMeanSq_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
     (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
@@ -708,7 +708,7 @@ theorem m4_nonCoprime_classMeanSq_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} 
       _ ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) :=
           d0_ledger hd hH'H (hBcl0 H)
 
-/-! ### `M4NonCoprime` :822 — `M4CoprimeBlockMeanSqN_gk` -/
+/-! ### `M4NonCoprime` :810 — `M4CoprimeBlockMeanSqN_gk` -/
 /-- **THE NARROWED COPRIME FAMILY AT THE LEVER** — `M4CoprimeBlockMeanSqN_L` (:510). -/
 def M4CoprimeBlockMeanSqN_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → (H : ℝ) ≤ arcDen 12 H * (L : ℝ) →
@@ -717,7 +717,7 @@ def M4CoprimeBlockMeanSqN_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ
         ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L_gk K M) L n q r) ^ 2
           ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
 
-/-! ### `M4NonCoprime` :843 — `m4_nonCoprime_classMeanSq_N_gk` -/
+/-! ### `M4NonCoprime` :831 — `m4_nonCoprime_classMeanSq_N_gk` -/
 /-- **⟦R2⟧, AT THE NARROWED TWIN, AT THE LEVER** — `m4_nonCoprime_classMeanSq_N_L` (:551). -/
 theorem m4_nonCoprime_classMeanSq_N_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
     (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
