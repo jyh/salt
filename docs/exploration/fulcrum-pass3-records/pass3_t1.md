@@ -9,13 +9,13 @@ consumers only need per-q effective SW? **Answer: NO — deflation KILLED, C1 HO
 |---|---|---|---|
 | W1 | `Salt/BV/Defs.lean:35-38` | The Prop: ONE `K` for ALL `q ≤ (log x)^C` | uniform-in-q by statement |
 | W2 | `Salt/SW/Gate.lean:376` → `AbelCore.lean:757` → `PsiToPi.lean:144` → `DispersionClose.lean:443` | full Prop threaded to `psi_BV_of_siegelWalfisz'` (∀A form) | pass-through |
-| W3 | `Dispersion.lean:778` `psi_BV_of_siegelWalfisz (_hSW ...)` | `_hSW` UNUSED — SW enters ONLY via the `hlargeY` slot | localizes the audit |
+| W3 | `Dispersion.lean:781` `psi_BV_of_siegelWalfisz (_hSW ...)` | `_hSW` UNUSED — SW enters ONLY via the `hlargeY` slot | localizes the audit |
 | W4 | `DispersionClose.lean:181-182` (`largeY_bound`) | extracts ONE `K` from `psiChi_le_of_siegelWalfisz_absorbed` at saving `4A+19`, cutoff `C_sw = 2(A+6)` | **uniform-in-q** |
 | W5 | `DispersionClose.lean:268-276` (`hSWloc`) | that single `K` asserted for ALL conductors `2 ≤ f ≤ (log x)^{A+6}`, ALL non-principal χ mod f | **uniform-in-q** (unbounded family, grows with x) |
-| W6 | `Dispersion.lean:425-479` (`smallEnergy_le`) | sums the per-χ bound over `#T ≤ (log x)^C` conductors × `φ(f)` primitive χ each; count argument needs the conductor-uniform `K`; the (potential) exceptional χ is NOT separated | **uniform-in-q, NOT summable** (see §2) |
+| W6 | `Dispersion.lean:428-482` (`smallEnergy_le`) | sums the per-χ bound over `#T ≤ (log x)^C` conductors × `φ(f)` primitive χ each; count argument needs the conductor-uniform `K`; the (potential) exceptional χ is NOT separated | **uniform-in-q, NOT summable** (see §2) |
 | W7 | `SWChar.lean:100` (`psiChi_le_of_siegelWalfisz`) | one `hSW A C` call → `K` used at every `(f,a)`, `f ≤ (log x)^C` | uniform-in-q |
 | W8 | `Defs.lean:79` (`siegelWalfisz_psiTot`, q=1) → `Chen/TripleCount.lean:67`, `TwinBar/LambdaRate.lean:15-57` | q=1 instance only | **per-q** — effective PNT serves these WITHOUT C1 (the only genuine per-q consumers) |
-| W9 | `Goldbach/A1.lean:328`, `A1W.lean:371`, `Op.lean:217` | `psi_BV_...' 11` — BV at FIXED saving A=11 | uniform-in-q (11 > 2, see §2) |
+| W9 | `Goldbach/A1.lean:332`, `A1W.lean:382`, `Op.lean:217` | `psi_BV_...' 11` — BV at FIXED saving A=11 | uniform-in-q (11 > 2, see §2) |
 | W10 | `Maynard/LevelConsume.lean:39` (`lod_error_pow`) | `hLoD (9k² + 2B)`; at :339 `B = 2k+4`; k = k₀ with `hk3072 : 3072 ≤ k₀` (:614) and `k₀ ≥ ⌈e³⁰⁰⌉` (:616-621) | **the demanded BV saving: A ≥ 9·3072² = 84,934,656; in fact A ≥ 9e⁶⁰⁰** |
 
 ## 2. The kill arithmetic (against MNT Thm 24.22's explicit E₁)
@@ -27,7 +27,7 @@ montgomery3.txt:7576-7614: "c₁ is effective... x₀(A) is not"). Non-exception
 f ≤ (log y)^{A+6} the error is ≪ y·exp(−c(log y)^{3/5-ε}) — beats every log power,
 effective. Fine. Exceptional part: at most one exceptional χ₁ of conductor f₁ in the
 range (Page uniqueness, GROUNDED montgomery3.txt:7329, 21688-21710); its slot in
-smallEnergy_le (weight 1/φ(f₁), `Dispersion.lean:430`) receives y^{β₁}/β₁.
+smallEnergy_le (weight 1/φ(f₁), `Dispersion.lean:433`) receives y^{β₁}/β₁.
 
 Effective repulsion (MEMORY, classical Landau/h(−d)≥1): 1−β₁ ≫_eff f₁^{−1/2}(log f₁)^{−2}.
 Write f₁ ≍ (log y)^θ. Then (1−β₁)·log y ≫ (log y)^{1−θ/2}/(log log y)²:
@@ -47,7 +47,7 @@ every consumption site W4-W7, W9, W10.
 
 Carrying the E₁ term in the approximant (Linnik-style: dispDisc against
 x/φ(q) − χ₁(a)y^{β₁}/(φ(q)β₁)) is NOT a deflation of the landed consumers: it rewrites
-`dispDisc` (`Dispersion.lean:153`) and forces the Maynard main-term calc
+`dispDisc` (`Dispersion.lean:154`) and forces the Maynard main-term calc
 (`LevelConsume.lean` L2-L4b) to absorb a χ₁-twisted secondary term — a redesign whose
 viability is exactly the H-B/Siegel-zero dichotomy (the ¬F horn itself), not
 "already-effective per-q SW". Honest-shape law: not presentable as an existing route.

@@ -223,7 +223,7 @@ decisions per question.
 
 - 2026-07-15 ~10:15: **Q3-recon COMPLETE** (cost ≈ 97k tokens / 23
   tools / ~6 min): the ENTIRE gaps ≤ 12 chain consumes EHall at
-  EXACTLY ONE LINE (FrontierM.lean:171), reducing to the landed
+  EXACTLY ONE LINE (FrontierM.lean:180), reducing to the landed
   HasLevel (3999/4000) — strictly weaker in FORM (single level +
   BV-shaped haircut; the honest caveat: θ ≈ 1 is EH-strength in
   DEPTH). Option (b) EH_min ⟹ H₁ ≤ 12 = 1–2 nodes of pure
@@ -325,7 +325,7 @@ decisions per question.
   N4-ASM-a (size-s 3-D reductions, C-tier, critical path for J₃/J₄);
   est. ~1200–1700 lines / 700k–1M tokens aggregate — assembly debt
   MAY extend past the sprint (registration permits). (2) **k=5**: the
-  landed M5_cert (Salt/Twelve/Certificate.lean:265) is an EXACT ℚ
+  landed M5_cert (Salt/Twelve/Certificate.lean:272) is an EXACT ℚ
   bilinear ratio on Poly (191881/95820 ≈ 2.00251 > 2) — NOT the real-
   integral functional; a single-object bracket 2 < M₅ ≤ (5/4)log5
   needs the k-D real Dirichlet-integral bridge (does not exist in the
@@ -7398,7 +7398,7 @@ decisions per question.
   its own design block after T-BAL** — no executor burn on it
   tonight. (2) The Maynard side is grounded composition:
   `hshiu` (GehAnchor.lean:450) is shape-identical to
-  `shiu_for_blocks_of_core`'s conclusion (ShiuBlocks.lean:312),
+  `shiu_for_blocks_of_core`'s conclusion (ShiuBlocks.lean:314),
   θ = 3999/4000 matching ppLevel_holds; the block-alignment
   (α/β vs muBlock/tiiBlock) is the one risk. **N-HDOM
   DISPATCHED** (Opus; recon-first brief; new
@@ -9770,7 +9770,7 @@ decisions per question.
 
 - 2026-07-19 09:12 PDT: ██ **D4-c LANDS — THE Z CHAIN IS COMPLETE
   (L0–L6); THE GAP THEOREM IS KERNEL-REAL** ██ (Opus, 101k, both
-  first-attempt): sufficient_true_not_parityInv (Z.lean:670) —
+  first-attempt): sufficient_true_not_parityInv (Z.lean:681) —
   a TRUE, TWIN-SUFFICIENT, PARITY-INVARIANT completion predicate
   CANNOT EXIST (the route: ParityInv carries E to twinFree; the
   keystone certifies twinFree ∈ Completion; sufficiency forces

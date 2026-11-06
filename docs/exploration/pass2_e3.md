@@ -190,7 +190,7 @@ would demand — real but distant. HONEST-SHAPE: no ¬F-to-spine claim.
 
 `ShiuCore` (def GROUNDED ShiuBlocks.lean:292-297; landed as `sum_tau_in_ap_le`,
 ShiuS5b.lean:628) has NO zero-theoretic input — dichotomy-invariant, serves both
-branches unchanged (consumers: `shiu_for_blocks_of_core` ShiuBlocks.lean:312, the
+branches unchanged (consumers: `shiu_for_blocks_of_core` ShiuBlocks.lean:314, the
 Maynard/GehShiuWire blocks). Under ¬F it remains the AP-divisor workhorse for any
 effective sieve re-run (pairs with D6's effective SW).
 THE MISSING NODE that would let ¬F feed L(1)-grade consumers (χ-legs of nonpret at

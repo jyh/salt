@@ -11,7 +11,7 @@ Honest-shape law: S1 is a priced lottery ticket throughout; nothing below is a t
   The engine consumes f ONLY at squarefree d (the μ² factor), i.e. only prime values
   of f matter; `chiRe` enters pointwise with `|χ_ℝ| ≤ 1` (TwistChain.lean:49) and
   `χ_ℝ(aᵏ) = χ_ℝ(a)ᵏ` from `hsq : χ² = 1` (TwistChain.lean:55-59).
-- Transfer lower half `S1 ≤ S2`: GROUNDED Transfer.lean:189-192; hypotheses are
+- Transfer lower half `S1 ≤ S2`: GROUNDED Salt/HB/Transfer.lean:197-200; hypotheses are
   `hsq : χ² = 1` only — pointwise, hence re-typable to any f with f² = 1 (the
   KC1-discharged B-class re-typing).
 - The demand: `hb_lemma2` (GROUNDED TransferFull.lean:204-214) squeezes
@@ -51,7 +51,7 @@ engine's own currency:
 TransferFull.lean:184 is empty — perfect pretense). But for squarefree d with k prime
 factors, λ(d) = (−1)^k = μ(d), so μ(d)²λ(d) = μ(d) and (TwistChain.lean:98-99, verbatim
 substitution) `Λ̃_λ = μ∗log = Λ` (classical Möbius–von Mangoldt identity). Hence
-S2(λ,A) ≡ S1(A): Transfer.lean:189-192 reads S1 ≤ S1; hb_lemma2's squeeze reads 0 ≤ slot.
+S2(λ,A) ≡ S1(A): Salt/HB/Transfer.lean:197-200 reads S1 ≤ S1; hb_lemma2's squeeze reads 0 ≤ slot.
 Evaluating S2(λ) is VERBATIM the twin problem — and the k=2 kernel witness prices this
 corner as parity-hard (twin_bar Impossibility.lean:173, twin_gate_fails :262 —
 GROUNDED-inherited, fulcrum-pass2.md:41). Corner: (pretQ = 1, evalQ = 0).
