@@ -18991,7 +18991,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 **CONSEQUENCE FOR THE ACCOUNTING.** COFK-L's headline ("the two carried predicates are BOTH priced") needs one amendment: the CO-FACTOR is priced and its anchor half is now PAID; the BASE-SCALE CAP is NOT priced -- it is unprovable as stated from the terminal's exports and needs the `x`-ceiling export first. The predicate-free classical terminal therefore costs: (1) the `x`-ceiling threading pass (BAND-WINDOW genre), (2) the co-factor bulk (transcription), (3) the cs/T0/Ks riders (the sibling arm + the named Siegel caveat).
 
-## () ROAD-B ARM 1 HOME (REGISTER-SUPPLY, 31c14c6+7ef684a) + CATCH #104 + THE ACCOUNTING AMENDMENT: W1's anchor-reading half PAID in kernel (the cancellation log QK = i^2*M*log P at the bytes; the debit 2logM+log4+50 anchor-identical; the mu-floor loglog(A+s) >= log H+ - 14 via hPHheadroom -- the ONE step carrying the whole margin; the vt-threshold discharged from the terminal's OWN exports; the capFreeFloor exit closes the supplier's only anchor+character-reading binder; K_vt carried under the explicit cushion 32K_vt+32D <= logH+/4, admits ~10^222). STOPPED LOUDLY on the bulk (c)+(d): the ~98-conjunct register carried-never-discharged at both doors (M4RowLinear:5760) -- transcription not mathematics, ~300 ln class B, ONE wave. W2 HEADLINE: the base-scale cap is NOT dischargeable from the terminal's current exports -- the terminal exports x-FLOORS only; the cap needs an x-CEILING export (the builder holds x in closed form; BAND-WINDOW-genre threading, the landed reductions s16_baseScaleCap96_L_of_xwindow/_of_x_small await it). ⟦CATCH #104 (operational)⟧: the quiescence guard `pgrep -f "leanchecker|lake build"` SELF-MATCHES its own bash cmdline and never terminates (both arms deadlocked ~30 min past ceremony end) -- future briefs: pattern-narrow to bin/-prefixed + exclude $$. ⟦All.lean = shared-write hazard between parallel arms -- Road-B follow-ons go SEQUENTIAL⟧. Road-B remaining: X-CEIL threading + COFACTOR-BULK + the riders (RIDER-TRACE in flight, T0 tripwire already fired).
+## () ROAD-B ARM 1 HOME (REGISTER-SUPPLY, 31c14c6+7ef684a) + CATCH #104 + THE ACCOUNTING AMENDMENT: W1's anchor-reading half PAID in kernel (the cancellation log QK = i^2*M*log P at the bytes; the debit 2logM+log4+50 anchor-identical; the mu-floor loglog(A+s) >= log H+ - 14 via hPHheadroom -- the ONE step carrying the whole margin; the vt-threshold discharged from the terminal's OWN exports; the capFreeFloor exit closes the supplier's only anchor+character-reading binder; K_vt carried under the explicit cushion 32K_vt+32D <= logH+/4, admits ~10^222). STOPPED LOUDLY on the bulk (c)+(d): the ~98-conjunct register carried-never-discharged at both doors (M4RowLinear:5753) -- transcription not mathematics, ~300 ln class B, ONE wave. W2 HEADLINE: the base-scale cap is NOT dischargeable from the terminal's current exports -- the terminal exports x-FLOORS only; the cap needs an x-CEILING export (the builder holds x in closed form; BAND-WINDOW-genre threading, the landed reductions s16_baseScaleCap96_L_of_xwindow/_of_x_small await it). ⟦CATCH #104 (operational)⟧: the quiescence guard `pgrep -f "leanchecker|lake build"` SELF-MATCHES its own bash cmdline and never terminates (both arms deadlocked ~30 min past ceremony end) -- future briefs: pattern-narrow to bin/-prefixed + exclude $$. ⟦All.lean = shared-write hazard between parallel arms -- Road-B follow-ons go SEQUENTIAL⟧. Road-B remaining: X-CEIL threading + COFACTOR-BULK + the riders (RIDER-TRACE in flight, T0 tripwire already fired).
 
 ## 2026-08-02 RIDER-TRACE Opus done — ⟦THE cs RIDER IS EFFECTIVE AT EVERY LEAF; THE T₀ RIDER IS A MIS-SIZED NUMERAL, UNREACHABLE AT THE CORPUS'S OWN WITNESS⟧ `Salt/MR/RiderTrace.lean` (three rungs + the cs arithmetic, exit 0)
 
@@ -24313,7 +24313,7 @@ At 05:0x I posted M2 with a named residual: *"whether the `1/16` reaches the MAS
 remaining half and I have not proved it."* **Looked. It was answered and wired before tonight.**
 ```
   FarL2 §12  box_floor_M0_pieceDatum   boxM0 (K+D) q X ≤ 𝔻²(pieceDatum χ 𝒥 …, costwist v; X)
-             LANDED · AUDITED All.lean:3488 · CONSUMED M4T0Discharge:34 · M4RowLinear:10028
+             LANDED · AUDITED All.lean:3488 · CONSUMED M4T0Discharge:34 · M4RowLinear:10014
   FarL2      box_floor_clears_gate_45  AUDITED All.lean:3489; All.lean:3449 records
              "⟦T₀-SUPPLIER CONSUMES⟧ … floor + mask + gate in one implication"
   M4T0Datum  winCutH_doorChiCoeff_split_L splits the DOOR's cut datum into exactly those pieces
@@ -24570,8 +24570,8 @@ branch threshold. Nothing here bears on twin primes.
 
 **Object:** the QUEUE P1b residue `M4RowMeanSq_L` (M4RowLinear.lean:992) — "⟦THE CLASS PRICING⟧ open, a
 design question". **Measured at `980c5c4f` (kernel reverse-dependency walk, refuter-reproduced ±1):** it
-is the PLAIN route's socket — two consumers, both on that route (`m4_blockMeanSq_of_rowMeanSq_L` :1392,
-hypothesis position; `m4_wave_exit_L` :3434, in its statement, itself with ZERO dependents), zero
+is the PLAIN route's socket — two consumers, both on that route (`m4_blockMeanSq_of_rowMeanSq_L` :1393,
+hypothesis position; `m4_wave_exit_L` :3419, in its statement, itself with ZERO dependents), zero
 producers, OUT of the class road's cone (`m4_wave_collapsed_L`, "(c) ANALYTIC ARMS — none") and of the
 second road's (`m4_second_road_tower_L`). `M4ClassPrice` ⟦U2⟧ abandoned the interface on purpose 07-31.
 The class pricing is LANDED in `_L` (08/01: `m4_classMeanSq_of_chiMeanSq_L`, `m4_nonCoprime_classMeanSq_N_L`,

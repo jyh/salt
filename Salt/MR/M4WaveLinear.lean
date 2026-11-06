@@ -277,7 +277,7 @@ def M4ChiDyadicRowMeanSq_L (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℕ → 
         ≤ MS j H
 
 /-! ### `M4Maximal` :1502 — `M4ChiDyadicRowMeanSq_gk` -/
-/-- **THE GRADED DYADIC ROW DATUM AT THE LEVER** — `M4ChiDyadicRowMeanSq_L` (:1026). -/
+/-- **THE GRADED DYADIC ROW DATUM AT THE LEVER** — `M4ChiDyadicRowMeanSq_L` (:1021). -/
 def M4ChiDyadicRowMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
     ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H, ∀ s ≤ H,
@@ -697,7 +697,7 @@ theorem m4_nonCoprime_classMeanSq_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} 
           d0_ledger hd hH'H (hBcl0 H)
 
 /-! ### `M4NonCoprime` :810 — `M4CoprimeBlockMeanSqN_gk` -/
-/-- **THE NARROWED COPRIME FAMILY AT THE LEVER** — `M4CoprimeBlockMeanSqN_L` (:510). -/
+/-- **THE NARROWED COPRIME FAMILY AT THE LEVER** — `M4CoprimeBlockMeanSqN_L` (:506). -/
 def M4CoprimeBlockMeanSqN_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → (H : ℝ) ≤ arcDen 12 H * (L : ℝ) →
     ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H → ∀ r, r < q → Nat.Coprime q r →
@@ -706,7 +706,7 @@ def M4CoprimeBlockMeanSqN_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ
           ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
 
 /-! ### `M4NonCoprime` :831 — `m4_nonCoprime_classMeanSq_N_gk` -/
-/-- **⟦R2⟧, AT THE NARROWED TWIN, AT THE LEVER** — `m4_nonCoprime_classMeanSq_N_L` (:551). -/
+/-- **⟦R2⟧, AT THE NARROWED TWIN, AT THE LEVER** — `m4_nonCoprime_classMeanSq_N_L` (:547). -/
 theorem m4_nonCoprime_classMeanSq_N_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
     (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
     (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →

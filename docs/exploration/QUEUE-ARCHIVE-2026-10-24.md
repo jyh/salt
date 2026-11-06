@@ -2025,7 +2025,7 @@ RESURRECTS THEM:**
    unsquared integral — i.e. as the REASON the twin is not needed.** Measured:
    ```
    $ grep -rn -a -F 'integral_logMeasure_le_sqrt_of_sq' Salt/ --include=*.lean
-   → 8 CALL SITES: M4Close.lean:494 :740 :920 :1003 · M4RowLinear.lean:1643 :1695 :2365 :2473
+   → 8 CALL SITES: M4Close.lean:494 :740 :920 :1003 · M4RowLinear.lean:1643 :1692 :2365 :2470
      (+ the decl at M4Close.lean:191, a docstring at M4DoorL2.lean:585, the audit roster All.lean:2364)
    ```
    ⇒ **THE CAUCHY–SCHWARZ STEP IS NOT CONSUMER-LESS; IT IS ONE OF THE MOST-CONSUMED BRIDGES ON THIS
@@ -2321,7 +2321,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
        arc      bigXiArcTight_twelve      (ExitClose:773)        ✅ UNCONDITIONAL
        Parseval parseval_insert_budget_door (M4ParsevalStone:341) ✅ + terminal twin consumed S16FlatTerminalLinear:197
        ⟦THE WALL⟧ m4_hrowsSum_chi_door_end_L (M4RowLinear:283)   ✅ landed · All.lean:7550 · consumed ×3
-                  (M4RowAssemblyLinear:5014 · :5332 _gk · :6062 _gk_kwide)
+                  (M4RowAssemblyLinear:5014 · :5297 _gk · :5993 _gk_kwide)
        ⟦CLASS PRICING⟧ M4ClassPrice.lean                          ✅ 41 thms, 0 sorry — design question ANSWERED  [42→41 erratum 08/25, see :196]
     ⛔ M4RowMeanSq_L (M4RowLinear:992) — NO PRODUCER; unprimed M4RowMeanSq has none either
 ```
@@ -5651,7 +5651,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    night (math, on the helm's poke). Report `2026-08-31-math-REPORT-7b-door-slot-measurement.md`.**
    ✅ **The class-price → χ-average chain is CAP-FREE, SIX FOR SIX** (`arcDen` count 0 in every
    signature): `classSup` (`M4WaveClosed:141`) · `classSup_le_inv_totient_sum_doorChiSup_L`
-   (`M4RowLinear:3261`) · `le_doorChiSup_L` (`:2438`) · `doorChiSup_sq_le_dyadic_L` (`:1905`) ·
+   (`M4RowLinear:3267`) · `le_doorChiSup_L` (`:2426`) · `doorChiSup_sq_le_dyadic_L` (`:1902`) ·
    `sum_windowClass_memSCoeff` (`M4ClassPrice:202`) · `norm_sum_residueClassOn_liou_le`
    (`M4BridgeResidue:367`). ⇒ **the remaining slot reduces to the χ side by machinery that never
    reads the cap — and the χ side is what §1–§8 of the wave ported.**

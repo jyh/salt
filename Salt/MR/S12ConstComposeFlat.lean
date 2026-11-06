@@ -11,7 +11,7 @@ import Salt.Entropy.Chowla.TowerFlatExport
 
 The two most downstream carriers of the tower conjunct on the second road:
 `logChowla2_capstone_final_const'_graded_gk` (`S12ConstCompose.lean:1148`) and its
-pinned twin (`:1460`), restated with
+pinned twin (`:1364`), restated with
 
 ```
 (50 ≤ loglog H₋ → loglog H₊ ≤ exp (loglog H₋ / 2))
