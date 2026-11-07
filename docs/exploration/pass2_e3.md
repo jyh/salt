@@ -198,7 +198,7 @@ growing q, class-number-grade bounds): the classical converse cash-out
 "no real zero in (1−δ, 1) ⟹ L(1,χ) ≫ δ" — the corpus holds only the OTHER direction
 (`LFunction_one_re_le_mvt_sharp`: (L(1,χ)).re ≤ (1−β₀)·25e(1+log f)², cited
 DHRepulsion.lean:333-335). The positivity substrate it needs is LANDED (dhA = 1∗χ
-nonnegativity + detector floor, DHRepulsion.lean:36-41, M2 landed per :256-257).
+nonnegativity + detector floor, DHRepulsion.lean:36-41, M2 landed per :272-273).
 New C-class node; classical route MEMORY-tier. With it: ¬F ⟹ L(1,χ) ≫ 1/(C⋆ log q)
 uniformly for q > Q₀.
 
