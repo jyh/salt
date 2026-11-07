@@ -11735,7 +11735,7 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 - The entry at ~:11429 ("S5 BRIDGE — the single residual, truncation BLOCKED",
   2026-07-18/MR-W3) was SUPERSEDED 2026-07-19 by the entries at ~:11566
   (CLOSED CONDITIONAL) and ~:11595 (FULLY CLOSED): `euler_osc_bridge_unconditional`
-  (PrimeTail.lean:436) + `lambda_nonpret` UNCONDITIONAL (NonPretClose.lean;
+  (PrimeTail.lean:433) + `lambda_nonpret` UNCONDITIONAL (NonPretClose.lean;
   commit 60537ef). Both "missing" estimates landed (`mertens_first_upper`,
   `sigma_shift`, `prime_tail_shift`); the oscillating main term is Re/cos-native
   (`euler_osc_truncation` at arbitrary 1-bounded g). Verified by EULER-SCOPE
@@ -12640,7 +12640,7 @@ SeamNumber, SeamTerminal, GradedCapstone, ThmA2, ThmA2Rows), one sweep,
 full MR-tower rebuild [B, 300–600]. Statement change ⇒ Fable design block
 + JYH gate (iron rule 1).
 
-**R2 — A2Frame.box unsatisfiable outright.** ThmA2.lean:738–739 demands
+**R2 — A2Frame.box unsatisfiable outright.** ThmA2.lean:735–736 demands
 |t| + Tstar2(Mt j, log Mt j) ≤ X for all |t| ≤ X; at |t| = X this is
 X + (positive) ≤ X, FALSE (ramI nonempty, Tstar2 > 0). NOT a
 transcription slip — the ≤ X (vs the 3X used at four sibling sites) is
@@ -14010,8 +14010,8 @@ re-thread, not two.**
 **VERDICT: UNDELIVERABLE at all three cut points.** The polarity is
 asymmetric — :712 is carried (strengthening costs no proof but pays
 nothing: the M cancels off the sieve term leaving Ccc ≤
-(log X)^{-1/500}/11520, false for large X, DEAD); :717's cut must be
-EARNED in hMrowLe (ThmA2:558-564). The honest recount: the a2RowsSum
+(log X)^{-1/500}/11520, false for large X, DEAD); :714's cut must be
+EARNED in hMrowLe (ThmA2:555-561). The honest recount: the a2RowsSum
 half DOES have a thrown-away 1/M (every term ≥M-graded except
 (2e+2)/Xd), but **the Ccc·(2/M) half is the Mertens block-free mass
 with its 1/M EXACT** — `log_calP_div_log_calQK : log P_j/log Q_j =
@@ -19557,8 +19557,8 @@ here, not previously on the ledger.**
 ⟦THE `K_vt` VERDICT (traced this wave — the brief's item 2)⟧ **GENUINELY OPAQUE, and the
 obstruction is Siegel.**  `capFreeFloor3_margin_all_chi_vt`'s witness is
 `max 0 (max Kvk (max Kbulk Kband))`: leg 1 `Kvk` is CLOSED FORM
-(`12 + cpeel + primeTailConst + 5 + log 4 − mertensM ≈ 44.8`, `ChiEuler:346` → `PrimeTail:384`);
-leg 2 `Kbulk` is CLOSED FORM but astronomical (`DistHalasz:194`, `≈ log(2e^{e^{100}}) ≈ 2.7·10^{43}`,
+(`12 + cpeel + primeTailConst + 5 + log 4 − mertensM ≈ 44.8`, `ChiEuler:345` → `PrimeTail:381`);
+leg 2 `Kbulk` is CLOSED FORM but astronomical (`DistHalasz:192`, `≈ log(2e^{e^{100}}) ≈ 2.7·10^{43}`,
 and pinning it needs one mechanical re-freeze of `one_line_pow_growth`'s unpinned witnesses
 `⟨8000005, exp(exp 100)⟩`); leg 3 `Kband` bottoms out at `SiegelArm:166`
 `bandBox_isCompact.exists_isMinOn` — the EVT minimum of `‖L(s,χ)‖` on `[1,2]×[−1,1]`, uniform over
@@ -20729,7 +20729,7 @@ shortfall — and S4's four-move list does not name it.
 
 **WHAT SURVIVED THE ATTACK, UNBROKEN.** Headline (i) is byte-exact: all ten arms reproduce
 (`631.5764` landed on the `(c₀/KEρ)^8` arm; `86.2267` post-S2 on `(c₀/32)^{17/3}`; `c₀ = 1/126848`
-confirmed at `ZeroFreeReal.lean:392/:605`). The `htriv` guard claim is right — `htriv : u <
+confirmed at `ZeroFreeReal.lean:392/:604`). The `htriv` guard claim is right — `htriv : u <
 1/(40·L₂)` (`TBalTall:1920`) is live through the whole deep bullet and gives `u·L₂ < 1/40` with no
 `L₂` lower bound needed, so `hc_t9 : c ≤ 1/18` is genuinely redundant in BOTH assemblies (but
 worth **0.00**, since `1/576` at 6.36 already dominates `1/18` at 2.89 — do not spend on it).
@@ -23144,7 +23144,7 @@ ceremony that followed them:
 
 ```
 logChowla2_ineffective_v6_T0arm   Salt/MR/V7C.lean:179    2026-08-14  8b0bd31  ledger MR/All.lean:7967
-logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1843   2026-08-14  8b03281  ledger MR/All.lean:8002
+logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1840   2026-08-14  8b03281  ledger MR/All.lean:8002
 ```
 
 **FOUR NAMED INNER RIDERS EACH, outer hypotheses none.** `_csarm` (V7-B): the
@@ -25604,7 +25604,7 @@ Out of lane or already done: `N7Exit` (the live crown campaign; window and quali
 
 **Correction to a ledger line.** `docs/exploration/fulcrum-pass2.md` C1 calls `Fold.lean:167` the *sole* consumer of
 `siegel_theorem`. That was true for Siegel-Walfisz and is not true for the corpus: at `431c1887` there are three code
-consumers (`SW/Fold.lean:167`, `HB/CrownTheorem1.lean:6638`, `MR/PortAssembly.lean:1185`).
+consumers (`SW/Fold.lean:167`, `HB/CrownTheorem1.lean:6638`, `MR/PortAssembly.lean:1183`).
 
 **What survived (a proposal, not a flag).** Siegel-Walfisz reads Siegel at ONE site (`Fold.lean:167`,
 `ε = 1/(4C)`), and one fixed standoff `β ≤ 1 − c/log q` serves every `(A, C)`. A Siegel-free
