@@ -143,7 +143,7 @@ three lines — no uniformity trap.
 | `1/576` | 6.36 | 6.36 |
 | **MAX** | **631.58** | **86.23** |
 
-`c₀ = 1/126848` (`ZeroFreeReal.lean:392/:605`), `log(1/c₀) = 11.7507`;
+`c₀ = 1/126848` (`ZeroFreeReal.lean:392/:604`), `log(1/c₀) = 11.7507`;
 `KEβ = 16·(328+48·5)·627^9`, `KEρ = 16·636·627^9` (`TBalTall:2097-2098`).
 
 **Read this before budgeting effort:** **S1 is the load-bearing stone.** Without it the

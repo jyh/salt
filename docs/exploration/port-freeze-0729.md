@@ -55,7 +55,7 @@ honest price is stated last and plainly.*
    16 worst, never 4^J) — the two floor-leg repairs ⟦CORRECTED at
    P-1's landing⟧: VT-7's tail had ALREADY covered both
    (`capFreeFloor3_margin_all_chi_vt` + `_pieceDatum_vt`,
-   VkMidSharp:505/:559 — both improvements folded, conclusions
+   VkMidSharp:503/:557 — both improvements folded, conclusions
    byte-identical); REF-P-SHAPE's kills #1/#2 rested on a stale
    premise (a VK-forgetting-class miss) and zero lines were owed;
    the pieceDatum floor at the four data is LANDED (the D-slot

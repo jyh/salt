@@ -44,7 +44,7 @@ computation, and its ingredients are substantially LANDED:
 - The distance identification: pretDistSq_principal_eval + Mertens
   (mertens_second_sharp) + rough_prime_tail — LANDED.
 - The ball uniformization: PretentiousTriangle (LANDED module) +
-  M_range (DistHalasz:262, LANDED).
+  M_range (DistHalasz:259, LANDED).
 - The single genuinely-new content: the Euler-log bridge (the S1
   MR-W1 residual, long flagged) — C-grade, not D.
 

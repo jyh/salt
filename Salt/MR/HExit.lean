@@ -633,8 +633,7 @@ theorem prop21_unconditional_final (g : ℕ → ℂ) (hg : ∀ p, p.Prime → �
   have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hX
   have he1 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
   have hX1 : (1 : ℝ) ≤ X := le_trans (by linarith) hX
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hsqlogX : (0 : ℝ) < Real.sqrt (Real.log X) := Real.sqrt_pos.mpr (by linarith)
   have hsqge1 : (1 : ℝ) ≤ Real.sqrt (Real.log X) := by
     rw [show (1 : ℝ) = Real.sqrt 1 by simp]; exact Real.sqrt_le_sqrt hlogX1
@@ -747,8 +746,7 @@ theorem prop21_unconditional_clean (g : ℕ → ℂ) (hg : ∀ p, p.Prime → �
   have hX : Real.exp 1 ≤ X :=
     (Real.exp_one_lt_d9.le.trans (by norm_num : (2.7182818286 : ℝ) ≤ 17179869184)).trans hXbig
   have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hX
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hsqlogX : (0 : ℝ) < Real.sqrt (Real.log X) := Real.sqrt_pos.mpr hlogXpos
   have hsqge1 : (1 : ℝ) ≤ Real.sqrt (Real.log X) := by

@@ -63,10 +63,8 @@ lemma prime_recip_window_bounds {X Y : ℝ} (heY : Real.exp 1 ≤ Y) (hYX : Y �
   have h2e : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
   have h2Y : (2 : ℝ) ≤ Y := le_trans h2e heY
   have h2X : (2 : ℝ) ≤ X := le_trans h2Y hYX
-  have hlogY1 : (1 : ℝ) ≤ Real.log Y := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) heY
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) heX
+  have hlogY1 : (1 : ℝ) ≤ Real.log Y := le_log_of_exp_le heY
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le heX
   rw [prime_sum_filter_gt_sub _ (by linarith) hYX]
   have hmX := abs_le.mp (Salt.Mertens.mertens_second_sharp_real (t := X) h2X)
   have hmY := abs_le.mp (Salt.Mertens.mertens_second_sharp_real (t := Y) h2Y)
@@ -117,15 +115,13 @@ theorem mrt_mid_range_parametric :
   have hπpos : 0 < Real.pi := by linarith
   have h2π : 2 / Real.pi < 1 := by rw [div_lt_one hπpos]; linarith
   have h2π0 : 0 < 2 / Real.pi := by positivity
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) heX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le heX
   have hlogXpos : 0 < Real.log X := by linarith
   set lam : ℝ := Real.log (Real.log X) with hlam
   have hlam0 : 0 ≤ lam := Real.log_nonneg hlogX1
   -- `1 ≤ log Y` (from `e ≤ Y`; note the floor alone gives only `e ≤ |Y|`, mathlib's `log`
   -- being even — which is why `e ≤ Y` is a separate hypothesis)
-  have hlogY1 : (1 : ℝ) ≤ Real.log Y := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) heY
+  have hlogY1 : (1 : ℝ) ≤ Real.log Y := le_log_of_exp_le heY
   have hlogYpos : 0 < Real.log Y := by linarith
   -- the demand is capped by `lam/3` (the Y-floor)
   set Δ : ℝ := Real.log (Real.log X / Real.log Y) with hΔ
@@ -415,8 +411,7 @@ theorem mrtShortSegmentSplitting_holds : MRTShortSegmentSplitting := by
   obtain ⟨C, hC0, hmain⟩ := mrt_mid_range_parametric
   refine ⟨C, hC0, ?_⟩
   intro X Y u ε hε heX hY hlo hhi
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) heX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le heX
   have hfloor : (Real.log X) ^ ((2 : ℝ) / 3) ≤ Real.log Y := by
     rw [hY, Real.log_exp]
     exact Real.rpow_le_rpow_of_exponent_le hlogX1 (by linarith)
@@ -438,8 +433,7 @@ theorem mrt_mid_range_34 :
   obtain ⟨C, hC0, hmain⟩ := mrt_mid_range_parametric
   refine ⟨C, hC0, ?_⟩
   intro X u ε hε heX hlo hhi
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) heX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le heX
   have hfloor : (Real.log X) ^ ((2 : ℝ) / 3)
       ≤ Real.log (Real.exp ((Real.log X) ^ ((3 : ℝ) / 4 + ε))) := by
     rw [Real.log_exp]

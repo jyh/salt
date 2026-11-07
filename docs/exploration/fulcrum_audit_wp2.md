@@ -66,7 +66,7 @@ item, gated on the consuming node.]**
   crush chain. Extending to |γ| ≤ T₀ = a taller zetaHol box + re-ledger; NOT demanded
   by any consumer (both contracts use |γ| ≤ 1; T = |γ|+2 ≤ 3, budget analysis §2 C1).
 - **The ZFR consumption** (`zfr_harvest`, DHBal.lean:62–69): `ρ.im ≠ 0`, `9/10 ≤ ρ.re`
-  (implied by 16/17 — budget C6) harvest `zero_free_region_all` (ZeroFreeReal.lean:605,
+  (implied by 16/17 — budget C6) harvest `zero_free_region_all` (ZeroFreeReal.lean:604,
   c₀ = 1/126848, ∃-form in Lean) into `1/‖1−ρ‖ ≤ log(qT)/c₀`, `‖2−ρ‖ ≥ 1`. Quality
   consumed: a POLYLOG-grade zero-free region only, and it lands in the CONSTANT: the
   row-cap gate is `4/c₀·c^{3/17} ≤ 1/8` (row_rho_main_cap:605) = 2^{17+2−44.1} ≈

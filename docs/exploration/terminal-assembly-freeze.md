@@ -312,7 +312,7 @@ The truncation-tail corner at P = T^10 exactly (REF-B's R-4 audit).
   SURVIVE re-validation; the sharp MVT (dirichlet_poly_l2_mvt_final)
   is a strengthening over the freeze's feared T+NlogN.)
 - **T-3** [C, 500] `thm_A2′` (`Salt/MR/ThmA2.lean`, NEW): the f-arm +
-  f = 1-arm via R1.4's capped M_range (landed, DistHalasz:262).
+  f = 1-arm via R1.4's capped M_range (landed, DistHalasz:259).
 - **T-4** [B, 300] `thm_A1′` (`Salt/MR/ThmA1.lean`, NEW): ⟦R (TERM-REF):
   built to the s8-freeze's PROVISIONAL shape — (1/X)∫|…|² ≤
   C(exp(−M/2) + (480 loglog h/log h)² + (logX)^{−c₀}), P₁ = (log h)^{480},

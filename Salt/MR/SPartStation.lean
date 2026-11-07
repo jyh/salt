@@ -208,8 +208,7 @@ theorem center_halasz_supply_wide {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖
   have hk0 : (0 : ℝ) < (k : ℝ) := lt_of_lt_of_le hsq0 hkw
   have hk1le : (1 : ℝ) ≤ (k : ℝ) := by linarith [le_trans hsq25 hkw]
   -- the wide window's log floor: `log k ≥ (log X)/2 ≥ 4`
-  have hLX8 : (8 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 8]; exact Real.log_le_log (Real.exp_pos 8) hX8
+  have hLX8 : (8 : ℝ) ≤ Real.log X := le_log_of_exp_le hX8
   have hLklo : Real.log X / 2 ≤ Real.log (k : ℝ) := by
     have h1 : Real.log (Real.sqrt X) ≤ Real.log (k : ℝ) := Real.log_le_log hsq0 hkw
     rwa [Real.log_sqrt hX0.le] at h1
@@ -386,8 +385,7 @@ theorem dilated_scale_grade {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖
       ≤ gradeAbsConstC c Cb * (k : ℝ) * Real.exp (-c * (M₀ - dilGap X Xd))
         + farCStar * (k : ℝ) * Real.log (k : ℝ) ^ (-(1 / (32 * Real.exp 1))) := by
   have hk0 : (0 : ℝ) < (k : ℝ) := lt_of_lt_of_le (Real.exp_pos 64) hk64
-  have hLk64 : (64 : ℝ) ≤ Real.log (k : ℝ) := by
-    rw [← Real.log_exp 64]; exact Real.log_le_log (Real.exp_pos 64) hk64
+  have hLk64 : (64 : ℝ) ≤ Real.log (k : ℝ) := le_log_of_exp_le hk64
   have hLk0 : (0 : ℝ) < Real.log (k : ℝ) := by linarith
   have hke : Real.exp 1 ≤ (k : ℝ) :=
     le_trans (Real.exp_le_exp.mpr (by linarith [Real.exp_one_lt_d9])) hk64
@@ -655,8 +653,7 @@ private lemma ypin4_gates_sp {k : ℝ} (hk : Real.exp 4096 ≤ k) :
       ∧ Real.sqrt (Real.log k) ≤ Real.log k ^ 4
       ∧ Real.log (Real.log k ^ 4) ≤ Real.sqrt (Real.log k) := by
   have hk0 : (0 : ℝ) < k := lt_of_lt_of_le (Real.exp_pos _) hk
-  have hL : (4096 : ℝ) ≤ Real.log k := by
-    rw [← Real.log_exp 4096]; exact Real.log_le_log (Real.exp_pos _) hk
+  have hL : (4096 : ℝ) ≤ Real.log k := le_log_of_exp_le hk
   have hL0 : (0 : ℝ) < Real.log k := by linarith
   have hL1 : (1 : ℝ) ≤ Real.log k := by linarith
   have hL4 : Real.log k ≤ Real.log k ^ 4 := le_self_pow₀ hL1 (by norm_num)
@@ -803,8 +800,7 @@ theorem seam_ball_leg_station_M_gen {F : ℕ → ℂ}
     have hsplit : Real.exp 8192 = Real.exp 4096 * Real.exp 4096 := by
       rw [← Real.exp_add]; norm_num
     nlinarith only [hsq4096, hexp4097, hX1lb, hc1, hc0, hX₁0, hsplit, hsqsq]
-  have hLX : (8192 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 8192]; exact Real.log_le_log (Real.exp_pos _) hXexp
+  have hLX : (8192 : ℝ) ≤ Real.log X := le_log_of_exp_le hXexp
   have hLhalf0 : (0 : ℝ) < Real.log X / 2 := by linarith
   have hXd2 : (2 : ℝ) ≤ Xd := by linarith [le_trans hsq4096 hsqXd]
   -- the datum facts (all datum-free interfaces of `ball_sup_of_center`)

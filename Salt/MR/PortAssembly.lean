@@ -841,11 +841,9 @@ theorem halaszPrimesChiGated_of_price {c_vk C₁ C₂ C₃ T₀e : ℝ}
   have hT0 : (0 : ℝ) < T := by linarith
   have hP0 : (0 : ℝ) < P := by linarith
   have hlogP : 0 < Real.log P := Real.log_pos (by linarith)
-  have hLT100 : Real.exp 100 ≤ Real.log T := by
-    rw [← Real.log_exp (Real.exp 100)]; exact Real.log_le_log (Real.exp_pos _) hTE
+  have hLT100 : Real.exp 100 ≤ Real.log T := le_log_of_exp_le hTE
   have hLT1 : (1 : ℝ) ≤ Real.log T := by linarith
-  have hllT100 : (100 : ℝ) ≤ Real.log (Real.log T) := by
-    rw [← Real.log_exp 100]; exact Real.log_le_log (Real.exp_pos _) hLT100
+  have hllT100 : (100 : ℝ) ≤ Real.log (Real.log T) := le_log_of_exp_le hLT100
   have hllT1 : (1 : ℝ) ≤ Real.log (Real.log T) := by linarith
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   have hqT : T ≤ (q : ℝ) * T := by nlinarith only [hT₀z', hq1, hc10, hc0, hT₀z]
@@ -1423,7 +1421,7 @@ arithmetic `16 = 12/(3/4)` with the whole `(loglog)^4` as margin).
 
 ⟦THE ONE HYPOTHESIS THAT REMAINS, and why it is a one-line exposure⟧ the theorem takes the
 twisted edge price at the LITERAL width `1/10⁸`.  `TwistedEdge.twisted_edge_price_strip`
-proves exactly that (`refine ⟨1 / 10 ^ 8, …⟩`, TwistedEdge.lean:895) and
+proves exactly that (`refine ⟨1 / 10 ^ 8, …⟩`, TwistedEdge.lean:896) and
 `twisted_window_price_gated_holds` passes the same constant through — but both package it
 behind `∃ c_vk`, and the region (§8, like stone C's split) delivers its width at the literal
 `1/10⁸`, so the kernel cannot see that the two match.  Exposing the numeral in either `∃`

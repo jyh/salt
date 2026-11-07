@@ -207,7 +207,7 @@ Full treatment in §4.
 
 --- 2.8  c₀ = 1/126848  ----------------------------------------------------
 
-`zero_free_region_all`, ZeroFreeReal.lean:604-605 [B], obtained at
+`zero_free_region_all`, ZeroFreeReal.lean:603-604 [B], obtained at
 TBalTall:2089 [B], entering through the pole floors 1/‖1−ρ‖, 1/(1−σ) ≤ L₂/c₀
 (TBalTall:1893-1896 [B]).  log(1/c₀) = 11.75.
   VERDICT: STRUCTURAL for this wave (a better ZFR constant is its own

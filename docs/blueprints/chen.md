@@ -593,7 +593,7 @@ The adversarial gate falsified two design-text claims (both kernel-certain, both
 pre-freeze): **CATCH #66** — the `h4` supplier slot (`∀ s' z' D', 1 ≤ D' → Vlow s' D' ≤
 (3K/logRatio z' D')·W s'`) is FALSE for every K (at z'=1, D'=1: Vlow = 1, RHS = 0 by
 division-by-zero conventions; also false at honest z' = 2 via hKe); the actual use sites
-(T_le_of_peel_step_w base case, WindowedStep.lean:282; hh_sharp_of_window, SharpH2.lean:870)
+(T_le_of_peel_step_w base case, WindowedStep.lean:282; hh_sharp_of_window, SharpH2.lean:871)
 apply it flat-cell-only with full guards in scope. **CATCH #67** — D4's `Q ≤ e^{w₀}` is
 unprovable (SW's K is ineffective); the corpus bound is `Nat.primorial_le_four_pow`:
 Q ≤ 4^{w₀}. Ratified corrections:

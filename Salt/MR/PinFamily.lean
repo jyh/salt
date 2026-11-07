@@ -791,8 +791,7 @@ theorem far_kfar_star2_le {d : ℕ → ℂ} (hd : ∀ p, p.Prime → ‖d p‖ �
 private lemma log_price_floor2 {X L : ℝ} (hXe : Real.exp 1 ≤ X) (hXL : Real.log X ≤ 2 * L) :
     1 / (2 * L) ≤ Real.log X ^ (-(1 / (32 * Real.exp 1))) := by
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
-  have hu1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hXe
+  have hu1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hXe
   have hu0 : (0 : ℝ) < Real.log X := by linarith
   have he1 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
   have ha1 : 1 / (32 * Real.exp 1) ≤ 1 := by

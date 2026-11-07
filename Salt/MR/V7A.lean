@@ -30,9 +30,9 @@ PortAssembly.siegel_real_carve (:1180)      K  := min (min Cs (c₀/32)) (1/2)
 
 So `Ks = 10^8 · min(min(Cs, c₀/32), 1/2)` at its two leaves:
 
-* `c₀` — `Salt.SW.zero_free_region_all'` (`SW/ZeroFreeReal.lean:642`), the classical
+* `c₀` — `Salt.SW.zero_free_region_all'` (`SW/ZeroFreeReal.lean:641`), the classical
   imprimitive region.  **EFFECTIVE**: the bounded twin `NumeralKq.zero_free_region_all'_bounded`
-  (:450) pins `1/126848 ≤ c₀`, so this leg gives `c₀/32 ≥ 2.46·10^{-7}`, and `1/2` is a
+  (:448) pins `1/126848 ≤ c₀`, so this leg gives `c₀/32 ≥ 2.46·10^{-7}`, and `1/2` is a
   literal.  Neither of these two legs can bind the rider.
 * `Cs` — the constant of `Salt.SW.siegel_theorem (1/16)` (`SW/SiegelClose.lean:848`), whose own
   docstring reads *"there is an (ineffective) `C > 0`"*.  Its `∃`-prefix exports `0 < C` and

@@ -193,8 +193,7 @@ theorem dist_split_A4_frozen :
       mul_nonneg (by norm_num) hκnn
     linarith [hs, hm]
   · intro f hf t₀ y Y t t₁ X W hX hloss hbranch
-    have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-      rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+    have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
     have hℓnn : 0 ≤ Real.log (Real.log X) := Real.log_nonneg hlogX1
     have hL3nn : 0 ≤ Real.log (Real.log (Real.log (2 * X + 16))) := logloglog_two_X_nonneg hX
     have hκnn : 0 ≤ Real.log (1 + Real.log (1 + 3)) :=
@@ -250,8 +249,7 @@ floor converts `e^{−cM} ≤ (log X)^{−c/32}`).  Kept LANDED as heritage. -/
 theorem expEM_le_of_floor {X M : ℝ} (hX : Real.exp 1 ≤ X)
     (hM : (1 / 32) * Real.log (Real.log X) ≤ M) :
     Real.exp (-M / 2) ≤ (Real.log X) ^ (-(1 : ℝ) / 64) := by
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hstep : -M / 2 ≤ Real.log (Real.log X) * (-(1 : ℝ) / 64) := by
     set ℓ := Real.log (Real.log X); linarith [hM]
@@ -272,8 +270,7 @@ monotone and `Real.rpow_def_of_pos` folds `exp(ℓ·(−c/32)) = (log X)^{−c/3
 theorem expEM_le_of_floor_c {X M : ℝ} (hX : Real.exp 1 ≤ X)
     (hM : (1 / 32) * Real.log (Real.log X) ≤ M) :
     Real.exp (-(1 / Real.exp 1) * M) ≤ (Real.log X) ^ (-(1 / Real.exp 1) / 32) := by
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hc : (0 : ℝ) ≤ 1 / Real.exp 1 := by positivity
   have hstep : -(1 / Real.exp 1) * M
@@ -291,8 +288,7 @@ existential `c₀` downstream. -/
 theorem T1_mass_floor {X M : ℝ} (hX : Real.exp 1 ≤ X)
     (hM : M ≤ (1 / 16) * Real.log (Real.log X)) :
     (Real.log X) ^ (-(1 : ℝ) / 32) ≤ Real.exp (-M / 2) := by
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hstep : Real.log (Real.log X) * (-(1 : ℝ) / 32) ≤ -M / 2 := by
     set ℓ := Real.log (Real.log X); linarith [hM]

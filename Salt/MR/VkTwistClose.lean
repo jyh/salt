@@ -179,8 +179,7 @@ theorem chi_Llower_341_of_ub {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q
     -(2 * Real.log 4 + (3 / 4) * Real.log (1 + Real.log X) + (1 / 4) * Real.log U)
       ≤ Real.log ‖DirichletCharacter.LFunction χ
           (((1 + 1 / Real.log X : ℝ) : ℂ) - (t : ℝ) * Complex.I)‖ := by
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hd0 : (0 : ℝ) < 1 / Real.log X := one_div_pos.mpr hlogXpos
   have hd1 : 1 / Real.log X ≤ 1 := by rw [div_le_one hlogXpos]; linarith
@@ -256,8 +255,7 @@ theorem chi_Llower_341_height {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ 
         + (1 / 4) * Real.log (3 * (3 + 2 * T₀) * (q : ℝ) ^ 2 * (1 + Real.log q)))
       ≤ Real.log ‖DirichletCharacter.LFunction χ
           (((1 + 1 / Real.log X : ℝ) : ℂ) - (t : ℝ) * Complex.I)‖ := by
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hd0 : (0 : ℝ) < 1 / Real.log X := one_div_pos.mpr hlogXpos
   have hd1 : 1 / Real.log X ≤ 1 := by rw [div_le_one hlogXpos]; linarith
@@ -420,8 +418,7 @@ theorem vkTwistUB_of_primitive {C : ℝ} {q : ℕ} [NeZero q] (ψ : DirichletCha
     (hprim : ‖LFunction ψ.primitiveCharacter
         (((1 + 1 / Real.log X : ℝ) : ℂ) - (t : ℝ) * Complex.I)‖ ≤ vkProfile C q t) :
     VkTwistUB (vkEulerCorr q * C) ψ X t := by
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hre0 : ((((1 + 1 / Real.log X : ℝ) : ℂ)) - (t : ℝ) * Complex.I).re
       = 1 + 1 / Real.log X := by simp
@@ -484,8 +481,7 @@ lemma vkDebitConst_vkEulerCorr {C : ℝ} (hC : 0 < C) (q : ℕ) :
 
 private lemma vk_log_one_add_log_le {X : ℝ} (hX : Real.exp 1 ≤ X) :
     Real.log (1 + Real.log X) ≤ Real.log 2 + Real.log (Real.log X) := by
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have h1 : (0 : ℝ) < 1 + Real.log X := by linarith
   have h2 : 1 + Real.log X ≤ 2 * Real.log X := by linarith
   calc Real.log (1 + Real.log X) ≤ Real.log (2 * Real.log X) := Real.log_le_log h1 h2

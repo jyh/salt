@@ -193,8 +193,7 @@ lemma glue_hLz0 {x : ℕ} (hL : (20 : ℝ) ^ 6 ≤ Lwin x) :
   have hZ1 : (1 : ℝ) ≤ Real.exp (u ^ 4) := by
     rw [← Real.exp_zero]; exact Real.exp_le_exp.mpr (by positivity)
   have hzpos : (0 : ℝ) < (zwit x : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hzge
-  have hlogzge : u ^ 4 ≤ Real.log (zwit x) := by
-    rw [← Real.log_exp (u ^ 4)]; exact Real.log_le_log (Real.exp_pos _) hzge
+  have hlogzge : u ^ 4 ≤ Real.log (zwit x) := le_log_of_exp_le hzge
   have hlogzpos : 0 < Real.log (zwit x) := lt_of_lt_of_le (by positivity) hlogzge
   have hlogzle : Real.log (zwit x) ≤ u ^ 4 + Real.log 2 := by
     have h2z : (zwit x : ℝ) ≤ 2 * Real.exp (u ^ 4) := by linarith
@@ -244,8 +243,7 @@ lemma glue_junk_le {x : ℕ} (hL : (20 : ℝ) ^ 6 ≤ Lwin x) :
   have hexp6 : Real.exp (u ^ 6) = 2 * (x : ℝ) + 2 := by rw [← hLu6, hexpL]
   have hzge : Real.exp (u ^ 4) ≤ (zwit x : ℝ) := by rw [← hLu4]; exact zwit_ge x
   have hzpos : (0 : ℝ) < (zwit x : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hzge
-  have hlogzge : u ^ 4 ≤ Real.log (zwit x) := by
-    rw [← Real.log_exp (u ^ 4)]; exact Real.log_le_log (Real.exp_pos _) hzge
+  have hlogzge : u ^ 4 ≤ Real.log (zwit x) := le_log_of_exp_le hzge
   have hlogzpos : 0 < Real.log (zwit x) := lt_of_lt_of_le (by positivity) hlogzge
   have hu2 : (400 : ℝ) ≤ u ^ 2 := by
     have := pow_le_pow_left₀ (by norm_num : (0 : ℝ) ≤ 20) hu20 2; norm_num at this ⊢; linarith

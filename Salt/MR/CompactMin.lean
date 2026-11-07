@@ -77,7 +77,7 @@ large `X`).  This is carried as the named hypothesis `hgap`, never assumed.
 No statement anywhere else is touched; this file only ADDS.  Everything is stated
 for arbitrary 1-bounded `f`, arbitrary compact radius `R`, and a named cap `S`;
 the analytic input is exactly the two LANDED stones `dist_one_floor_pow`
-(`DistHalasz.lean:179`) and `pretDist_triangle` (`PretentiousTriangle.lean:172`),
+(`DistHalasz.lean:177`) and `pretDist_triangle` (`PretentiousTriangle.lean:172`),
 plus `mertens_first_upper` (`PrimeSigmaShift.lean:45`) for C3a.
 -/
 

@@ -79,8 +79,7 @@ theorem loglog_height_le {Q : ℝ} (hQ : 1 ≤ Q) {x t : ℝ}
   have hlog1 : Real.log (|t| + 3) ≤ Real.log (Q + 3) + Real.log x := by
     rw [← hlogmul]; exact Real.log_le_log htp3 hle1
   -- `log x ≥ 1`, `log(Q+3) ≥ 0`, `log(|t|+3) > 0`
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   have hlogQ3nn : (0 : ℝ) ≤ Real.log (Q + 3) := Real.log_nonneg (by linarith)
   have hloglt : (0 : ℝ) < Real.log (|t| + 3) := Real.log_pos (by linarith)
@@ -128,8 +127,7 @@ theorem lambda_nonpret_of_bridge {K : ℝ}
   intro x t hx ht
   -- scale setup: `d' = 1/log x ∈ (0,1]`, so the pole point is excluded
   have hxpos : 0 < x := lt_of_lt_of_le (Real.exp_pos 1) hx
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   have hd'0 : (0 : ℝ) ≤ 1 / Real.log x := by positivity
   have hd'1 : 1 / Real.log x ≤ 1 := (div_le_one hLpos).mpr hlogx1

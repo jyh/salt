@@ -148,8 +148,7 @@ theorem center_halasz_supply_wideA (Y : ℝ → ℝ) :
   have hk0 : (0 : ℝ) < (k : ℝ) := lt_of_lt_of_le hsq0 hkw
   have hk1le : (1 : ℝ) ≤ (k : ℝ) := by linarith [le_trans hsq25 hkw]
   -- the wide window's log floor: `log k ≥ (log X)/2 ≥ 4`
-  have hLX8 : (8 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 8]; exact Real.log_le_log (Real.exp_pos 8) hX8
+  have hLX8 : (8 : ℝ) ≤ Real.log X := le_log_of_exp_le hX8
   have hLklo : Real.log X / 2 ≤ Real.log (k : ℝ) := by
     have h1 : Real.log (Real.sqrt X) ≤ Real.log (k : ℝ) := Real.log_le_log hsq0 hkw
     rwa [Real.log_sqrt hX0.le] at h1
