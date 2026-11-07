@@ -2025,7 +2025,7 @@ RESURRECTS THEM:**
    unsquared integral — i.e. as the REASON the twin is not needed.** Measured:
    ```
    $ grep -rn -a -F 'integral_logMeasure_le_sqrt_of_sq' Salt/ --include=*.lean
-   → 8 CALL SITES: M4Close.lean:494 :740 :920 :1003 · M4RowLinear.lean:1643 :1692 :2365 :2470
+   → 8 CALL SITES: M4Close.lean:494 :740 :920 :1003 · M4RowLinear.lean:1643 :1692 :2362 :2470
      (+ the decl at M4Close.lean:191, a docstring at M4DoorL2.lean:585, the audit roster All.lean:2364)
    ```
    ⇒ **THE CAUCHY–SCHWARZ STEP IS NOT CONSUMER-LESS; IT IS ONE OF THE MOST-CONSUMED BRIDGES ON THIS
