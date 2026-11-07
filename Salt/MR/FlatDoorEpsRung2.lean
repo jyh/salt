@@ -244,8 +244,8 @@ theorem xt_log_inv_rho_le_L {c δ₀ Kc Kb : ℝ} (hc1 : 1 ≤ c) (hδ₀ : 0 < 
 
 /-! ## §3 — ⟦R7⟧ the three S16 flat arms at generic `L`
 
-The two cap sites are `S16FlatTerminalLinear.lean:2354` (`h ≤ 8103`, feeding
-`⌈1/ε⌉₊ ≤ 500·h ≤ 4051500` and `4·4051500⁴ ≤ arcFloor36 = 10¹³⁸`) and `:2374` (the budget chain's
+The two cap sites are `S16FlatTerminalLinear.lean:2350` (`h ≤ 8103`, feeding
+`⌈1/ε⌉₊ ≤ 500·h ≤ 4051500` and `4·4051500⁴ ≤ arcFloor36 = 10¹³⁸`) and `:2370` (the budget chain's
 `1/ε⁶ ≤ 4.43·10³⁹`).  Neither numeral survives a generic `L`: both are bounds on `h`, so at
 generic `L` they read `4·(500·h)⁴ ≤ e^{27 + 4L}` and `1/ε⁶ ≤ 1.5625·10¹⁶ · e^{6L}`, and the
 FIXED registers they were compared against (`10¹³⁸`, `4·10³⁹·A`) no longer dominate.  Both are
@@ -4347,7 +4347,7 @@ theorem s15_sel''_L_gk_witness_flat_bumped_win_L {A : ℝ} (hA : 162 ≤ A) (Kle
 /-- **⟦THE CONDITIONAL HOP'S SIX READS, ON THE NEW SELECTOR⟧** (`s15_replay_reads_L_gk_T`) —
 this wave's END-TO-END CHECK.  It takes a `S15Sel''_L_gk_T` and the conditional replay's own
 context hypotheses and produces, by calling `s15_bandGate''_of_grade_L_gk_T` and the four `_T`
-readers EXACTLY as `FlatDoorEpsChain.lean:1017` and `:1096-1106` call their sources, the five
+readers EXACTLY as `FlatDoorEpsChain.lean:1015` and `:1094-1104` call their sources, the five
 facts those six lines produce.
 
 ⭐ THE POINT: `hsel.rho` feeds all four `_T` consumers with NO conversion — the register's new
@@ -5237,7 +5237,7 @@ theorem flat_conditional_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime →
 /-! ### §W6.5 — ⟦THE TERMINAL HOP AT THE CHARGE⟧ -/
 
 /-- **⟦flat_kswin_generic, AT THE CHARGE⟧** (`flat_kswin_generic_epsW`) — the source's body
-(`FlatDoorEpsChain.lean:1052`), the two threadings, and the EIGHT sites where rung 1 spent the
+(`FlatDoorEpsChain.lean:1050`), the two threadings, and the EIGHT sites where rung 1 spent the
 cap, each at the charge:
 
 * `:1132–1134` **the `ε`-ceiling probe's OWN design constant** — the one place in the whole
@@ -5353,7 +5353,7 @@ theorem flat_kswin_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
 
 /-! ### §W6.6 — ⟦THE NINTH ARM AND THE RATED HOP⟧
 
-The design constant `A` is minted in exactly one place on the road (`FlatDoorEpsChain.lean:1157`),
+The design constant `A` is minted in exactly one place on the road (`FlatDoorEpsChain.lean:1155`),
 as a `max` of eight arms.  This is where the whole charge is paid: a NINTH arm `162 + 2·Lc`, put
 OUTERMOST, with the source's eight verbatim inside it.  It is a `max`, so it costs nothing anyone
 downstream can see — every consumer reads `A` through an inequality — and it pays five demands:
@@ -5521,7 +5521,7 @@ theorem flat_v7_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
 /-! ### §W6.7 — ⟦THE CHAIN AND THE THEOREM⟧ -/
 
 /-- **⟦THE CHAIN, AT THE CHARGE⟧** (`flat_chain_generic_epsW`) — `flat_chain_generic_eps`
-(`FlatDoorEpsChain.lean:1225`) with every hop's `W` sibling and `c` threaded beside `ε`.  The
+(`FlatDoorEpsChain.lean:1223`) with every hop's `W` sibling and `c` threaded beside `ε`.  The
 charge and the `δ₀` pin travel INSIDE the forms, so no hop takes either as a hypothesis and this
 composition is the landed one token for token. -/
 theorem flat_chain_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)

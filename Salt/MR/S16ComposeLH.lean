@@ -2584,7 +2584,7 @@ set_option maxHeartbeats 1600000 in
 -- as the landed original: the design constant's arm census re-elaborates against the terminal's
 -- own prefix
 /-- **⟦THE INEFFECTIVE LIMIT, `v3`, AT SHIFT `h`⟧** (`logChowla2_ineffective_v3_h`) —
-`S16Compose:1017` on §7, with the band rider discharged from block W. -/
+`S16Compose:1015` on §7, with the band rider discharged from block W. -/
 theorem logChowla2_ineffective_v3_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (A₀ : ℝ) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
