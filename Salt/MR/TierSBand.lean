@@ -1104,9 +1104,7 @@ theorem flat_conditional_generic_h_g12b_band (h : ℕ) (hh : 0 < h) (hh9 : Real.
   intro x' hx' hadvd hxc M hKw hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire x' hx' hadvd hxc M hsel.mfloor hKw
   intro hcapx
-  obtain ⟨hlam50, hΛ50, hHreg⟩ := regime_scale_reads R hfl
-  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
+  obtain ⟨hlam50, hΛ50, hHreg, htow⟩ := regime_scale_reads_tow_exp R hfl hRtow
   have hRarm' : s15ArmH h δ₀ ρ R.Hhi R.ω ≤ x' := le_trans hRarm hx'
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ x' :=
     le_trans (s15ArmH_demoted h δ₀ ρ R.Hhi R.ω) hRarm'

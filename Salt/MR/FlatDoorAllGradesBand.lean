@@ -1047,9 +1047,7 @@ theorem flat_conditional_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegim
   intro x' hx' hxc M hsel hKw
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire x' hx' hxc M hsel.mfloor hKw
   intro hcap
-  obtain ⟨hlam50, hΛ50, hHreg⟩ := regime_scale_reads R hfl
-  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
+  obtain ⟨hlam50, hΛ50, hHreg, htow⟩ := regime_scale_reads_tow_exp R hfl hRtow
   have hRarm' : s15Arm δ₀ ρ R.Hhi R.ω ≤ x' := le_trans hRarm hx'
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ x' :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm'
