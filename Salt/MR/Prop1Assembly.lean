@@ -24,7 +24,7 @@ toward the terminal `prop_A3'` (M_range form, capped domain).
 
 * **T-2b — `expEM_le_of_floor_corrected` + `T1_pointwise_decay_corrected`.**  The
   absorption lemma the freeze mandated: the landed `T1_pointwise_decay`
-  (`PropA3Core.lean:287`) demands the CLEAN floor `(1/32)loglog X ≤ M` and does NOT
+  (`PropA3Core.lean:284`) demands the CLEAN floor `(1/32)loglog X ≤ M` and does NOT
   compose with the *corrected* R3.1 floor
   `(1/32)loglog X − 5·logloglog(2X+16) − C ≤ M` (the frozen N2 shape now landed
   W-free in `DistWindow.dist_split_A4_N2`).  T-2b absorbs the `−5·logloglog − C` slack

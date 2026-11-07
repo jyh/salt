@@ -15,7 +15,7 @@ The stone that retires stone 9's last `D`-risk (`docs/exploration/chi-check-0724
 `|t| ≥ 1/(2·ord χ)`.  Taking `k = 2·ord(χ)` (even), the `k`-th power of the `λ·χ̄` datum is
 the PRINCIPAL character `χ₀` (`λ(p)^k = 1`; `χ̄(p)^k = χ₀(p)`, exact at `p | q` too), and the
 `k`-fold power inequality transfers the ALREADY-LANDED `ζ`-side floor `dist_one_floor_pow`
-(`DistHalasz.lean:179`, no upper cap on `|b|`) back down at the cost of a `1/k²` factor and the
+(`DistHalasz.lean:177`, no upper cap on `|b|`) back down at the cost of a `1/k²` factor and the
 `p | q` deficit `∑_{p | q, p ≤ X} 1/p`.
 
 ## Contents

@@ -15,7 +15,7 @@ The LAST stone of ROUTE A (`docs/exploration/chi-check-0724.md`, the "BIGGER FIN
 
 ## The honest supply verdict (recorded, not guessed)
 
-The floor-side bridge `chi_dist_bridge` (`ChiEuler.lean:339`) reduces H2 to ONE analytic
+The floor-side bridge `chi_dist_bridge` (`ChiEuler.lean:338`) reduces H2 to ONE analytic
 input — a LOWER bound on `log‖L(1 + 1/log X − it, χ)‖` at bounded height.  A census of the
 landed SW zero-theory chain gives:
 
@@ -89,7 +89,7 @@ This is the EXACT interface the H2 leg needs: the sign-pinned argument
 enters additively, so an `L`-lower of grade `q^{−ε}` gives a debit `ε·log q` and an
 `L`-lower of grade `(log(q(|t|+2)))^{−A}` gives `A·log log(q(|t|+2))`.
 
-One `linarith` off the landed `chi_dist_bridge` (`ChiEuler.lean:339`); `K` is that bridge's
+One `linarith` off the landed `chi_dist_bridge` (`ChiEuler.lean:338`); `K` is that bridge's
 constant verbatim, so it is `q`-free, `χ`-free, `X`-free and `t`-free. -/
 theorem chi_floor_low_of_Llower :
     ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (X t B : ℝ),

@@ -12,7 +12,7 @@ Rung card (S8 MR-CORE FREEZE v2, H0 `PrimeSigmaShift`): the elementary compariso
 between the `σ = 1` truncated prime sums `∑_{p≤x} …/p` and the shifted full prime
 sums `∑'_p …·p^{-1-1/log x}` that turns the log-Euler product of `ζ` into the
 truncated pretentious-distance sum.  Feeds S5's `lambda_nonpret_of_bridge`
-(NonPret.lean:114) and the LOG-EULER-OSC flagged node.
+(NonPret.lean:113) and the LOG-EULER-OSC flagged node.
 
 Rungs (freeze §WAVE 1 [H0], numerals binding, `−C·logloglog` carried in-statement):
 * `mertens_first_upper` (R0.1) — the real-`x` Mertens-1 upper bound, a wrapper on
@@ -503,7 +503,7 @@ Given the R0.2 tail bound, for `e ≤ x` and all `t`, the truncated oscillation 
 is controlled by the log-modulus of ζ on the `1+1/log x` line:
 `∑_{p≤x} cos(t·log p)/p ≤ log‖ζ(1+1/log x+it)‖ + K` uniformly.  This is the λ-side
 `≥` direction of the two-sided `euler_osc_bridge` (the log-Euler-oscillation
-identity, modulo `O(1)`), the H0 half of NonPret.lean:114's Euler bridge. -/
+identity, modulo `O(1)`), the H0 half of NonPret.lean:113's Euler bridge. -/
 theorem log_euler_osc_zeta (hPTS : PrimeTailShiftBounded) :
     ∃ K : ℝ, ∀ x t : ℝ, Real.exp 1 ≤ x →
       (∑ p ∈ (Finset.range (⌊x⌋₊ + 1)).filter Nat.Prime,

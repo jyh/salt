@@ -21,7 +21,7 @@ c₃ (ζ-region), and δ_fin(Q₀) — the finite-range real-zero gap over condu
 (computable in principle; Lean shape = the unproven gadget, see D2).
 
 **Marginal content of ¬F** (scope-diff, catch-#224 class): the landed
-`zero_free_region_all` (`Salt/SW/ZeroFreeReal.lean:605-608`, effective) already excludes
+`zero_free_region_all` (`Salt/SW/ZeroFreeReal.lean:604-607`, effective) already excludes
 every zero with `χ² ≠ 1 ∨ Im ρ ≠ 0` from a c₀/log(q(|Im ρ|+2)) neighborhood. So inside
 the ¬F ball the only zeros not already excluded are REAL zeros of QUADRATIC primitive χ.
 ¬F's entire marginal content is: **no real zero β with 1−β ≤ 1/(C⋆ log q), q > Q₀** —
@@ -33,7 +33,7 @@ derives reality of F-witnesses from the same landed ZFR.
 | Piece | Where | Direction |
 |---|---|---|
 | `FulcrumQualityMin`, `SiegelModulusUnbounded` (interface, UNPROVEN), `imsz_implies_fulcrum_of_gadget` | `Salt/Fulcrum/Basic.lean:61,73,193` | statement layer |
-| `zero_free_region_all` | `Salt/SW/ZeroFreeReal.lean:605` | complex/non-quadratic ZFR, effective |
+| `zero_free_region_all` | `Salt/SW/ZeroFreeReal.lean:604` | complex/non-quadratic ZFR, effective |
 | `siegel_theorem` (ε-quantified, INEFFECTIVE C) | `Salt/SW/SiegelClose.lean:848-851`; ineffective choice at :850 via `siegel_dichotomy` (`Salt/SW/Siegel.lean:227-238`, `Classical.em`) | zero-free, q^{-ε} |
 | `LFunction_one_re_le_mvt` / `_sharp` | `Salt/SW/SiegelFinal.lean:106-109` (27√f(1+log f)); `Salt/SW/SiegelClose.lean:461-464` ((1−β)·25e(1+log f)²) | zero ⟹ L(1) CAP |
 | `L1_lower_siegel` | `Salt/SW/DHCore.lean:808-816` | deep zero ⟹ L(1) ≥ 0.27(1−β₀)(2−β₀), guard-gated |

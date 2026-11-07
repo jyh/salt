@@ -28,7 +28,7 @@ joined by a `min`.
   the assembled `min`, in the hypothesis form, in the infimum form (unconditional,
   stated at the interface object `M_win`), and at the station's own seam datum.
 * **B-3 `M_rangeCap` + `Mrange_cap_one_floor` + `contour_height_le_two_mul`** (§5) —
-  the D10 repair: `M_range`'s domain caps at `|t| ≤ X` (`DistHalasz:262–265`) while
+  the D10 repair: `M_range`'s domain caps at `|t| ≤ X` (`DistHalasz:259–262`) while
   MRT p. 25's contour reaches `|t'| ≤ X + (log X)²`.  The capped twin `M_rangeCap`
   carries the height cap as a parameter, its floor is the same `1/4 − o(1)` grade,
   and `contour_height_le_two_mul` puts the contour reach inside the doubled cap.
@@ -336,7 +336,7 @@ theorem M_window_bridge_seam :
 
 /-! ## §5 — B-3: the D10 repair (the max-modulus reach)
 
-`M_range` (`DistHalasz:262–265`) caps its window at `|t| ≤ X`, while MRT p. 25's contour
+`M_range` (`DistHalasz:259–262`) caps its window at `|t| ≤ X`, while MRT p. 25's contour
 reaches `|t'| ≤ X + (log X)²` (the THIRD object wearing the `T₀` glyph — not `seamT0`,
 not MRT's set `𝒯₀`).  The repair is ADDITIVE: a capped twin `M_rangeCap` carrying the
 height as a parameter, with the same `1/4 − o(1)` floor.  Nothing landed is edited, and
@@ -397,7 +397,7 @@ lemma M_rangeCap_le_M_range {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) {X T
   `pretFloorShape X K − C ≤ M_rangeCap (1; X, T, K)`,
 
 i.e. `loglog X − (3/4)·loglog(K+3) − 5·logloglog(K+16) − C`.  At `K = X` this is
-`Mrange_one_floor` (`DistHalasz:276`) re-derived; at `K = 2X` it is the same
+`Mrange_one_floor` (`DistHalasz:273`) re-derived; at `K = 2X` it is the same
 `(1/4 − o(1))·loglog X` grade with the correction read at the doubled height — the floor
 is `dist_one_floor_pow`-driven and that stone holds at EVERY `|b| ≥ 1`, so widening the
 cap costs only the shape's own monotonicity (`pretFloorShape_le_of_le`). -/

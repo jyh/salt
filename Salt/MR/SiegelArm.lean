@@ -38,7 +38,7 @@ mathlib nor Salt.  **That port is NOT what the growing floor needs, however** �
 
 ## What the growing floor actually needs (and what is landed here)
 
-The consumer is `chi_floor_all_of_Llower` (`ChiFloorLow.lean:262`): a lower bound
+The consumer is `chi_floor_all_of_Llower` (`ChiFloorLow.lean:261`): a lower bound
 `−B ≤ log‖L(1 + 1/log X − it, χ)‖` on the bounded band, with `B` allowed to be ANY expression.
 The floor it returns is `loglog X − B − CH2`, so the floor GROWS as soon as `B` is
 `X`-INDEPENDENT.  And an `X`-independent `B` is available for EVERY nonprincipal character,
@@ -267,7 +267,7 @@ theorem LFunction_band_lower_principal (q : ℕ) [NeZero q] :
 
   `−B ≤ log‖L(1 + 1/log X − it, χ)‖`   for every `X ≥ e` and every `|t| ≤ 1`.
 
-This is EXACTLY the hypothesis shape of `chi_floor_all_of_Llower` (`ChiFloorLow.lean:262`),
+This is EXACTLY the hypothesis shape of `chi_floor_all_of_Llower` (`ChiFloorLow.lean:261`),
 with a `B` that does not grow with `X` — which is what turns the H2 floor `loglog X − B − CH2`
 from a constant into an unbounded function of `X`.  Nonprincipal: `LFunction_band_lower`
 (`B = −log m`, ineffective in `q`).  Principal: `LFunction_band_lower_principal`

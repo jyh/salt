@@ -882,7 +882,7 @@ theorem thm_a2'_of_rows_pool_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁
   rw [hw]
   linarith
 
-/-! ### `ThmA2Pool` :214 — `thm_a2'_of_rows_chiSummed_pool` -/
+/-! ### `ThmA2Pool` :213 — `thm_a2'_of_rows_chiSummed_pool` -/
 /-- **⟦R2 — THE `Σ_χ` FROZEN INTERFACE AT A FREE POOL⟧** (`thm_a2'_of_rows_chiSummed_pool_L`).
 The character sum of §1's five-summand bound, at a GENERIC `χ`-indexed coefficient family,
 INDEXED constant families `Cs Ccc C₁' M₀ ε`, and a **`χ`-FREE pool `π₀`**:
@@ -957,7 +957,7 @@ theorem thm_a2'_of_rows_chiSummed_pool_L {q : ℕ} [NeZero q] {N M Xd : ℕ}
   refine le_trans (Finset.sum_le_sum hper) ?_
   rw [a2_sum_head_split]
 
-/-! ### `ThmA2Pool` :295 — `thm_a2'_of_rows_pool_gk` -/
+/-! ### `ThmA2Pool` :294 — `thm_a2'_of_rows_pool_gk` -/
 /-- **thm_A2′ AT THE FREE POOL, AT THE G-LEVER** (`thm_a2'_of_rows_pool_L_gk`). -/
 theorem thm_a2'_of_rows_pool_L_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ}
     {X h Cs Ccc C₁' M₀ ε π₀ : ℝ}
@@ -997,7 +997,7 @@ theorem thm_a2'_of_rows_pool_L_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ}
   · rw [a2RowsSum_shift_L_gk K Ccc (M := M) Xd hM]
     exact hgRows
 
-/-! ### `ThmA2Pool` :334 — `thm_a2'_of_rows_chiSummed_pool_gk` -/
+/-! ### `ThmA2Pool` :333 — `thm_a2'_of_rows_chiSummed_pool_gk` -/
 /-- **thm_A2′ χ-SUMMED AT THE FREE POOL, AT THE G-LEVER**
 (`thm_a2'_of_rows_chiSummed_pool_L_gk`). -/
 theorem thm_a2'_of_rows_chiSummed_pool_L_gk (K : ℕ) {q : ℕ} [NeZero q] {N M Xd : ℕ}
@@ -2616,7 +2616,7 @@ theorem thm_a2'_of_rows_pool'_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C�
   rw [hw]
   linarith
 
-/-! ### `ThmA2Prime` :239 — `thm_a2'_of_rows_chiSummed_pool'` -/
+/-! ### `ThmA2Prime` :238 — `thm_a2'_of_rows_chiSummed_pool'` -/
 /-- **⟦THE R1×R2 JOIN, `Σ_χ`⟧** (`thm_a2'_of_rows_chiSummed_pool'_L`).  §2's character sum, at
 a generic `χ`-indexed coefficient family, INDEXED constant families `Cs Ccc C₁' M₀ ε`, and a
 `χ`-FREE pool `π₀`:
@@ -2687,7 +2687,7 @@ theorem thm_a2'_of_rows_chiSummed_pool'_L {q : ℕ} [NeZero q] {N M Xd : ℕ}
   refine le_trans (Finset.sum_le_sum hper) ?_
   rw [a2_sum_head_split]
 
-/-! ### `ThmA2Prime` :317 — `thm_a2'_of_rows'` -/
+/-! ### `ThmA2Prime` :316 — `thm_a2'_of_rows'` -/
 /-- **thm_A2′ AT THE PRIMED ROW SUM** (`thm_a2'_of_rows'_L`) — `ThmA2.thm_a2'_of_rows_L` with
 `a2Mrow_L ↦ a2Mrow'_L` and `a2RowsSum_L ↦ a2RowsSum'_L`, the frozen conclusion BYTE-IDENTICAL.
 
@@ -2740,7 +2740,7 @@ theorem thm_a2'_of_rows'_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M�
   exact thm_a2'_of_rows_pool'_L hM hX hX3 hh4 hhX ha hsupp hN2 hTann hceil hrows hT0band
     hrp500.le hgP1 hgRows hgU hgBand
 
-/-! ### `ThmA2Prime` :377 — `a2Mrow'_gk` -/
+/-! ### `ThmA2Prime` :375 — `a2Mrow'_gk` -/
 /-- **THE FLAT ROW NUMBER — R1, AT THE G-LEVER** (`a2Mrow'_L_gk`). -/
 noncomputable def a2Mrow'_L_gk (K : ℕ) (Cs C : ℝ) (M Xd : ℕ) (X ε : ℝ) : ℝ :=
   47520 * a2Level1_L M
@@ -2748,7 +2748,7 @@ noncomputable def a2Mrow'_L_gk (K : ℕ) (Cs C : ℝ) (M Xd : ℕ) (X ε : ℝ) 
     + 5760 * (a2RowsSum'_L_gk K M Xd + C * (2 / (M : ℝ)))
     + 3 * (Real.log X) ^ (-theta293 + ε)
 
-/-! ### `ThmA2Prime` :391 — `a2RowsSum'_shift_gk` -/
+/-! ### `ThmA2Prime` :389 — `a2RowsSum'_shift_gk` -/
 /-- ⟦THE `Ccc`-SHIFT⟧ at the primed row sum. -/
 lemma a2RowsSum'_shift_L_gk (K : ℕ) (C : ℝ) {M : ℕ} (Xd : ℕ) (hM : 1 ≤ M) :
     a2RowsSum'_L M Xd + (C + (M : ℝ) / 2 * (a2RowsSum'_L_gk K M Xd - a2RowsSum'_L M Xd))
@@ -2763,14 +2763,14 @@ lemma a2RowsSum'_shift_L_gk (K : ℕ) (C : ℝ) {M : ℕ} (Xd : ℕ) (hM : 1 ≤
   rw [hexp, hcancel]
   ring
 
-/-! ### `ThmA2Prime` :405 — `a2Mrow'_shift_gk` -/
+/-! ### `ThmA2Prime` :403 — `a2Mrow'_shift_gk` -/
 /-- ⟦THE `Ccc`-SHIFT⟧ at the primed row number. -/
 lemma a2Mrow'_shift_L_gk (K : ℕ) (Cs C : ℝ) {M : ℕ} (Xd : ℕ) (X ε : ℝ) (hM : 1 ≤ M) :
     a2Mrow'_L Cs (C + (M : ℝ) / 2 * (a2RowsSum'_L_gk K M Xd - a2RowsSum'_L M Xd)) M Xd X ε
       = a2Mrow'_L_gk K Cs C M Xd X ε := by
   rw [a2Mrow'_L, a2Mrow'_L_gk, calP_doorL_one_gk, a2RowsSum'_shift_L_gk K C Xd hM]
 
-/-! ### `ThmA2Prime` :411 — `thm_a2'_of_rows_pool'_gk` -/
+/-! ### `ThmA2Prime` :409 — `thm_a2'_of_rows_pool'_gk` -/
 /-- **⟦THE R1×R2 JOIN⟧ AT THE G-LEVER** (`thm_a2'_of_rows_pool'_L_gk`). -/
 theorem thm_a2'_of_rows_pool'_L_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ}
     {X h Cs Ccc C₁' M₀ ε π₀ : ℝ}
@@ -2810,7 +2810,7 @@ theorem thm_a2'_of_rows_pool'_L_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ}
   · rw [a2RowsSum'_shift_L_gk K Ccc (M := M) Xd hM]
     exact hgRows
 
-/-! ### `ThmA2Prime` :450 — `thm_a2'_of_rows_chiSummed_pool'_gk` -/
+/-! ### `ThmA2Prime` :448 — `thm_a2'_of_rows_chiSummed_pool'_gk` -/
 /-- **⟦THE R1×R2 JOIN, χ-SUMMED⟧ AT THE G-LEVER**
 (`thm_a2'_of_rows_chiSummed_pool'_L_gk`). -/
 theorem thm_a2'_of_rows_chiSummed_pool'_L_gk (K : ℕ) {q : ℕ} [NeZero q] {N M Xd : ℕ}
@@ -2862,7 +2862,7 @@ theorem thm_a2'_of_rows_chiSummed_pool'_L_gk (K : ℕ) {q : ℕ} [NeZero q] {N M
     rw [a2RowsSum'_shift_L_gk K (Ccc χ) (M := M) Xd hM]
     exact hgRows χ
 
-/-! ### `ThmA2Prime` :501 — `thm_a2'_of_rows'_gk` -/
+/-! ### `ThmA2Prime` :499 — `thm_a2'_of_rows'_gk` -/
 /-- **thm_A2′ AT THE PRIMED ROW SUM, AT THE G-LEVER** (`thm_a2'_of_rows'_L_gk`) — the frozen
 five-summand conclusion, BYTE-IDENTICAL, carrying the two WEAKEST gates of the whole family:
 the primed row sum AND the lever's larger `𝒫₂`. -/

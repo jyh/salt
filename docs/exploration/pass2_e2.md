@@ -30,7 +30,7 @@ finite-check effective in principle (MEMORY — classical: finitely many χ, eac
 L(1,χ) ≠ 0 numerically verifiable) but the landed Lean proof extracts no number.
 
 **Form C (full-region tiling, meta-level).** ¬F's ball covers exactly the carve-out
-of the landed effective ZFR: `zero_free_region_all` (Salt/SW/ZeroFreeReal.lean:605)
+of the landed effective ZFR: `zero_free_region_all` (Salt/SW/ZeroFreeReal.lean:604)
 handles (χ² ≠ 1 ∨ Im ρ ≠ 0); ¬F handles (χ² = 1 ∧ Im ρ = 0) beyond Q₀. Together:
 classical-shape effective zero-free region near s = 1 for ALL primitive χ mod
 q > Q₀. This tiling is the corpus's own structure (`fulcrum_zero_real` consumes the

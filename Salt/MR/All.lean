@@ -7909,7 +7909,7 @@ cushion added as the ONE new inner hypothesis.  Outer: nothing.  Inner: `cs`, `T
 
 ⟦THE TRACE⟧ `Ks` is minted at ONE site — `PortAssembly.siegel_real_carve (:1180)`, as
 `Ks = 10^8 · min(min(Cs, c₀/32), 1/2)` — and travels to `v6` through nine pass-throughs
-(`NumeralKq:502 → :775 → :958 → RegisterCompose:53 → :117 → :164 → :209 → :345`).  Of the two
+(`NumeralKq:500 → :775 → :958 → RegisterCompose:53 → :117 → :164 → :209 → :345`).  Of the two
 leaves, `c₀` is EFFECTIVE (`NumeralKq.zero_free_region_all'_bounded:450` pins `1/126848 ≤ c₀`,
 so `c₀/32 ≥ 2.46·10^{-7}`) and `1/2` is a literal; the binding leaf is `Cs`, the constant of
 `Salt.SW.siegel_theorem (1/16)` (`SW/SiegelClose.lean:848`), whose own docstring reads

@@ -207,7 +207,7 @@ section
 open scoped BigOperators
 open Complex MeasureTheory Set ArithmeticFunction DirichletCharacter
 open scoped LSeries.notation
-/-- **⟦STANDOFF TWIN⟧** `halasz_primes_chi_pair_of_gates` (`Salt/MR/PortAssembly.lean:1437`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `halasz_primes_chi_pair_of_gates` (`Salt/MR/PortAssembly.lean:1435`): its statement under the three standoff
 binders, its proof verbatim with `twisted_rect_zero_free_siegel` replaced by their twins. -/
 theorem halasz_primes_chi_pair_of_gates_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) {C₁ C₂ C₃ T₀e : ℝ}
@@ -298,7 +298,7 @@ open scoped BigOperators
 set_option linter.style.longLine false
 open scoped BigOperators
 open MeasureTheory
-/-- **⟦STANDOFF TWIN⟧** `halasz_primes_chi_pair_of_gates_bounded` (`Salt/MR/NumeralKq.lean:532`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `halasz_primes_chi_pair_of_gates_bounded` (`Salt/MR/NumeralKq.lean:530`): its statement under the three standoff
 binders, its proof verbatim with `twisted_rect_zero_free_siegel_bounded` replaced by their twins. -/
 theorem halasz_primes_chi_pair_of_gates_bounded_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) {C₁ C₂ C₃ T₀e : ℝ}
@@ -354,7 +354,7 @@ open scoped BigOperators
 set_option linter.style.longLine false
 open scoped BigOperators
 open MeasureTheory
-/-- **⟦STANDOFF TWIN⟧** `halaszPrimesChi_holds_gated_bounded` (`Salt/MR/NumeralKq.lean:583`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `halaszPrimesChi_holds_gated_bounded` (`Salt/MR/NumeralKq.lean:581`): its statement under the three standoff
 binders, its proof verbatim with `halasz_primes_chi_pair_of_gates_bounded` replaced by their twins. -/
 theorem halaszPrimesChi_holds_gated_bounded_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -418,7 +418,7 @@ open scoped BigOperators
 set_option linter.style.longLine false
 open scoped BigOperators
 open MeasureTheory
-/-- **⟦STANDOFF TWIN⟧** `halaszPrimesChi_pointwise_of_gates_bounded` (`Salt/MR/NumeralKq.lean:615`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `halaszPrimesChi_pointwise_of_gates_bounded` (`Salt/MR/NumeralKq.lean:613`): its statement under the three standoff
 binders, its proof verbatim with `halaszPrimesChi_holds_gated_bounded` replaced by their twins. -/
 theorem halaszPrimesChi_pointwise_of_gates_bounded_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -1367,7 +1367,7 @@ open scoped BigOperators
 set_option linter.style.longLine false
 open scoped BigOperators
 open MeasureTheory
-/-- **⟦STANDOFF TWIN⟧** `usetGChi_window_meansq_gated_family_perBlock_bounded` (`Salt/MR/NumeralKq.lean:639`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `usetGChi_window_meansq_gated_family_perBlock_bounded` (`Salt/MR/NumeralKq.lean:637`): its statement under the three standoff
 binders, its proof verbatim with `halaszPrimesChi_pointwise_of_gates_bounded` replaced by their twins. -/
 theorem usetGChi_window_meansq_gated_family_perBlock_bounded_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -1452,7 +1452,7 @@ open scoped BigOperators
 set_option linter.style.longLine false
 open scoped BigOperators
 open MeasureTheory
-/-- **⟦STANDOFF TWIN⟧** `usetGChi_row_exit_perChi_perBlock_bounded` (`Salt/MR/NumeralKq.lean:719`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `usetGChi_row_exit_perChi_perBlock_bounded` (`Salt/MR/NumeralKq.lean:717`): its statement under the three standoff
 binders, its proof verbatim with `usetGChi_window_meansq_gated_family_perBlock_bounded` replaced by their twins. -/
 theorem usetGChi_row_exit_perChi_perBlock_bounded_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -1560,7 +1560,7 @@ open scoped BigOperators
 set_option linter.style.longLine false
 open scoped BigOperators
 open MeasureTheory
-/-- **⟦STANDOFF TWIN⟧** `m4_rowChi_capstone_perBlock_bounded` (`Salt/MR/NumeralKq.lean:822`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_rowChi_capstone_perBlock_bounded` (`Salt/MR/NumeralKq.lean:820`): its statement under the three standoff
 binders, its proof verbatim with `usetGChi_row_exit_perChi_perBlock_bounded` replaced by their twins. -/
 theorem m4_rowChi_capstone_perBlock_bounded_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :

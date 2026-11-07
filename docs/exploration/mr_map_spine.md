@@ -149,7 +149,7 @@ Plancherel height range is UNRESOLVED — do not assume (s3-a3-design.md:962-968
   quantization θ ∈ {1, ≤ 3/4} (s3-a3-design.md:973-1012) that means
   Vinogradov machinery, full stop.
 - **THE GATE IS NOW CLEARED IN-CORPUS:** `zeta_zero_free_region_pow` —
-  Salt/Vk/GrowthPow.lean:1044-1048, on the Vk audit list (Salt/Vk/All.lean:133):
+  Salt/Vk/GrowthPow.lean:1042-1046, on the Vk audit list (Salt/Vk/All.lean:133):
   `∃ c T₀, 0 < c ∧ 3 ≤ T₀ ∧ ∀ ρ, ζ(ρ) = 0 → T₀ ≤ |ρ.im| → ρ.re ≤ 1 −
   c/((log|ρ.im|)^{3/4}·(loglog|ρ.im|)³)` — θ = 3/4 < 1, exactly the
   vk-freeze.md:34 target ("MR gate satisfied"). CONSUMPTION WARNING
@@ -204,6 +204,6 @@ is MR-RESHAPE's open question (s3-a3-design.md:962-968).
 What MR does NOT owe the spine: |Ξ_H| ≤ K, the budgets hbudget1/2, the mass
 lower bound, t/g — all spine-internal (SPINE-BUDGET's node). What the corpus
 now holds toward MR that it did not at MR-R0 pricing: the θ = 3/4 power
-zero-free region (Salt/Vk/GrowthPow.lean:1044) + VMVT track + LS suppliers
+zero-free region (Salt/Vk/GrowthPow.lean:1042) + VMVT track + LS suppliers
 for MR-A. The re-pricing of the 12–16M central under a landed VK is exactly
 the queued "MR gate design block" (gold-window-report.md:113).
