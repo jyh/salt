@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `a4a1b24d` · source digest `6e0581cfdd8b143d` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `da6def53` · source digest `d05faa92a6203416` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 

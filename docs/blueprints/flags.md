@@ -18797,7 +18797,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 **BOTH NEW PREDICATES ARE WEAKER THAN THEIR LANDED COUNTERPARTS**, and one of the two directions is kernel: `s16_baseScaleCap96_L_of_baseScaleCap96` proves `S16BaseScaleCap96_gk K R M -> S16BaseScaleCap96_L_gk K R M` at `1 <= M`, off two independent slacknesses that compose -- `SocketBaseL -> SocketBase` (the linear row floor is the higher one) and `Adoor M <= AdoorL M` (the anchor is larger by `M/(floor(log2 M)+1)`). So whatever ever discharges ⟦ITEM 3⟧ at the landed door discharges it here; the re-cut is not a new ask.
 
-**THE SOFT/HARD CENSUS HELD.** The 55 SOFT decls (SocketBase-only) composed through `socketBase_of_socketBaseL` exactly as REF-FLAT-SAT priced; the CONTRAVARIANT positions (S16Budget:2364's genre -- `hblk`, `S16BaseScaleCap96`, `S16CofactorSupply`, all quantified over sockets in a hypothesis) were TWINNED at `SocketBaseL`, never composed, which is why the resulting riders came out weaker rather than stronger.
+**THE SOFT/HARD CENSUS HELD.** The 55 SOFT decls (SocketBase-only) composed through `socketBase_of_socketBaseL` exactly as REF-FLAT-SAT priced; the CONTRAVARIANT positions (S16Budget:2464's genre -- `hblk`, `S16BaseScaleCap96`, `S16CofactorSupply`, all quantified over sockets in a hypothesis) were TWINNED at `SocketBaseL`, never composed, which is why the resulting riders came out weaker rather than stronger.
 
 Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a pipe), 9674 jobs, **186 warnings -- byte-identical to the pre-wave count -- 0 errors**. `#audit_axioms` in All.lean carries all nine new top decls; `logChowla2_witnessed_scale_flat_L_v2` audits **3 axioms** (`propext, Classical.choice, Quot.sound`). Files: `Salt/MR/S13CapGateLinear.lean` (new), `Salt/MR/S16FlatFinal.lean` (new), `Salt/MR/All.lean` (imports + ledger). Purely additive: no landed declaration touched; the sibling HONEST-FIX's files (`S16FlatTerminalLinear`, `S15SelLinear*`, `FlatFloorBump`) were read, never written.
 
@@ -24571,7 +24571,7 @@ branch threshold. Nothing here bears on twin primes.
 **Object:** the QUEUE P1b residue `M4RowMeanSq_L` (M4RowLinear.lean:992) — "⟦THE CLASS PRICING⟧ open, a
 design question". **Measured at `980c5c4f` (kernel reverse-dependency walk, refuter-reproduced ±1):** it
 is the PLAIN route's socket — two consumers, both on that route (`m4_blockMeanSq_of_rowMeanSq_L` :1393,
-hypothesis position; `m4_wave_exit_L` :3419, in its statement, itself with ZERO dependents), zero
+hypothesis position; `m4_wave_exit_L` :3413, in its statement, itself with ZERO dependents), zero
 producers, OUT of the class road's cone (`m4_wave_collapsed_L`, "(c) ANALYTIC ARMS — none") and of the
 second road's (`m4_second_road_tower_L`). `M4ClassPrice` ⟦U2⟧ abandoned the interface on purpose 07-31.
 The class pricing is LANDED in `_L` (08/01: `m4_classMeanSq_of_chiMeanSq_L`, `m4_nonCoprime_classMeanSq_N_L`,
