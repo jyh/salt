@@ -30,6 +30,9 @@ cite is classed:
              contiguity, the target was RENAMED, or a list RUNS ON in a form not otherwise read
              (`:N,K` / `:N/:K`) and a member moved, read or unread: NEVER rewritten, read by hand
   PRE-STALE  the cite was past the base file's end already: printed, not this edit's
+  HAND       a range that would be REPORTED (an edited line INSIDE it) whose two ENDPOINTS map, and whose citing
+             file at HEAD carries that endpoint image instead of the old cite: a re-key made by hand. Printed and
+             counted, never stale; whether the range still spans what its sentence means is read by hand (salt #645)
   AMBIGUOUS  a bare leaf shared by several files: not re-keyed, counted; one the EDITED file's map would move
              or report is PRINTED with that file and its class (`write the path and it is read`), never
              rewritten and never counted stale (h2c's census, 11-05: 27 of 98 such cites meant the moved file)
@@ -113,7 +116,7 @@ LIMITS = ("LIMITS: .lean targets only; forms Leaf.lean:N and :N–M / :N-M, and 
           "gives: salt #636, QUEUE-ARCHIVE :5654 and :1586); a BARE member is printed, never rewritten, read only through "
           "its paragraph's next 3 lines and only up to the next named cite (a `Word :N` stops it only when Word is a .lean stem), and mapped on the cite's file whatever "
           "file the sentence means (a member already wrong at BASE prints its moved line, not the name's: salt #641, "
-          ":6062 _gk_kwide).")
+          ":6062 _gk_kwide); a HAND range is checked at its two endpoints only, never its interior.")
 
 
 LAST = {}                     # the last --apply's record verdicts (read by the self-test)
@@ -327,6 +330,21 @@ def bare_members(m, nb, text, mt, head_text, rep, stems=None):
     return out
 
 
+def hand_image(m, mt):
+    """The endpoint image of a REPORTED RANGE cite (`X.lean:N–M`, no list members), or None. A range is REPORTED when a
+    line INSIDE it was edited; its two endpoints can still map, and a by-hand re-key to that image is right and was read
+    as stale on every run (math's salt #645: flags.md `M4BaseNarrow:259-493` -> `260-488`, `M4CoprimeSupply:408-637`
+    -> `409-632`). `mark_hand` decides whether HEAD carries it. Only the ENDPOINTS are checked: whether the range still
+    spans what its sentence means is the reader's, which is why the row is printed."""
+    if not mt.group(3) or (mt.re.groups >= 5 and mt.group(5)):
+        return None
+    a, b = m.get(int(mt.group(2))), m.get(int(mt.group(4)))
+    if a is None or b is None or a >= b:
+        return None
+    new = mt.group(0).split(":")[0] + f":{a}{mt.group(3)}{b}"
+    return None if new == mt.group(0) else new     # unmoved endpoints: HEAD carrying it proves nothing
+
+
 def cite_re(leaf):
     return re.compile(r"(?<![A-Za-z0-9_./])((?:[A-Za-z0-9_.]+/)*)" + re.escape(leaf) + r":(\d+)(?:([–-])(\d+))?" + TAIL)
 
@@ -499,10 +517,11 @@ def census(root, base, head, published=PUBLISHED):
                                          nested=False, runon=False))
                         continue
                 lo = int(mt.group(2)); hi = int(mt.group(4)) if mt.group(4) else lo
+                img = hand_image(maps[f], mt) if c == "REPORTED" and not runon else None
                 nest = c in ("KEPT", "RE-KEYED") and any((f, n) in via for n in range(lo, hi + 1))
                 cls[c] += 1
                 cls["NESTED"] += nest
-                rows.append(dict(src=src, target=f, cite=mt.group(0), cls=c, new=rep, nested=nest, runon=runon))
+                rows.append(dict(src=src, target=f, cite=mt.group(0), cls=c, new=rep, nested=nest, runon=runon, img=img))
                 if c in ("KEPT", "RE-KEYED"):
                     if head_src is None:
                         head_src = show(root, head, src)
@@ -512,6 +531,7 @@ def census(root, base, head, published=PUBLISHED):
                                          why=f"a bare member after the cite; IF it means {f}: {mc}; key it by its name "
                                              "or its writing commit", nested=False, runon=False))
     mark_done(root, base, head, rows, cls)
+    mark_hand(root, base, head, rows, cls)
     rows += bare
     for r in rows:
         # a list that goes on in a form this tool does not read (`:N,K` / `:N/:K`): re-keying only the members it
@@ -522,6 +542,44 @@ def census(root, base, head, published=PUBLISHED):
             cls["RE-KEYED"] -= 1
             cls["REPORTED"] += 1
     return edited, rows, cls
+
+
+def mark_hand(root, base, head, rows, cls):
+    """A REPORTED range with an endpoint image is HAND when HEAD carries the image in its place. Counted like
+    mark_done, per GROUP of such cites sharing a text (old or image) in one citing file, so a CHAIN of hand re-keys
+    (one range's image is the next one's old text) reads HAND, and a wrong hand number elsewhere spoils only its own
+    group."""
+    by = {}
+    for r in rows:
+        if r["cls"] == "REPORTED" and r.get("img"):
+            by.setdefault(r["src"], []).append(r)
+    for src, rs in by.items():
+        b, h = show(root, base, src), show(root, head, src)
+        if b is None or h is None:
+            continue
+        parent = {}
+
+        def find(x):
+            while parent.setdefault(x, x) != x:
+                x = parent[x]
+            return x
+        for r in rs:
+            parent[find(r["cite"])] = find(r["img"])
+        groups = {}
+        for r in rs:
+            groups.setdefault(find(r["cite"]), []).append(r)
+        for g in groups.values():
+            keys = {r["cite"] for r in g} | {r["img"] for r in g}
+            want = {k: len(occ_re(k).findall(b)) for k in keys}
+            for r in g:
+                want[r["cite"]] -= 1
+                want[r["img"]] += 1
+            if all(len(occ_re(k).findall(h)) == want[k] for k in keys):
+                for r in g:
+                    r.update(cls="HAND", new=r["img"], why="a range whose interior this edit changed; HEAD already "
+                             "carries its exact endpoint image (a hand re-key): read it, not stale")
+                cls["REPORTED"] -= len(g)
+                cls["HAND"] += len(g)
 
 
 def mark_done(root, base, head, rows, cls):
@@ -713,7 +771,8 @@ def report(edited, rows, cls, applied):
           f"AMBIGUOUS (bare leaf, not read) {cls['AMBIGUOUS']} · "
           f"PINNED (an archived manuscript's or a declared pin's, never re-keyed) {cls['PINNED']} · "
           f"NESTED (KEPT/RE-KEYED through a nested re-key) {cls['NESTED']} · "
-          f"BARE (a later `:N` in the cite's sentence that this edit moved: printed, never rewritten) {cls['BARE']}")
+          f"BARE (a later `:N` in the cite's sentence that this edit moved: printed, never rewritten) {cls['BARE']} · "
+          f"HAND (a REPORTED range HEAD already carries at its endpoint image: printed, not stale) {cls['HAND']}")
     pins = sorted({(r["src"], r["road"]) for r in rows if r["cls"] == "PINNED"})
     if pins:
         print(f"  PINNED files ({len(pins)}): " + ", ".join(f"{s} [{w}]" for s, w in pins))
@@ -721,7 +780,7 @@ def report(edited, rows, cls, applied):
         if w not in ("declared",) and not w.startswith("declared pin"):   # a .rekey-pins row IS a declaration
             print(f"  UNDECLARED {s}: pinned by its {w}; add it to PUBLISHED")
     for r in rows:
-        if r["cls"] in ("RE-KEYED", "REPORTED", "PRE-STALE", "AMBIGUOUS", "BARE"):
+        if r["cls"] in ("RE-KEYED", "REPORTED", "PRE-STALE", "AMBIGUOUS", "BARE", "HAND"):
             print(f"  {r['cls']:9s} {r['src']}: {r['cite']} -> {r['new'] or ('(read by hand)' if r.get('why') else '(no head line: read by hand)')}"
                   + (f"  [{r['why']}]" if r.get("why") else ""))
     print(LIMITS)
@@ -1381,6 +1440,45 @@ def self_test():
         _, rows5, _ = census(d, "HEAD~4", "HEAD")
         check("BARE: a later member fixed after an earlier one reads DONE too",
               "R.lean:12 … :18" not in {r["cite"] for r in rows5 if r["cls"] == "BARE"})
+
+    # HAND (salt #645): a REPORTED range re-keyed by hand to its endpoint image is not stale
+    with tempfile.TemporaryDirectory() as d:
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt"))
+        tgt = "".join(f"r{i}\n" for i in range(1, 41))
+        open(os.path.join(d, "Salt/W.lean"), "w").write(tgt)
+        open(os.path.join(d, "h.md"), "w").write(
+            "a W.lean:5-20 x\nb W.lean:9-15 x\nc W.lean:2-11 x\n"          # three independent ranges round row 10
+            "d W.lean:7-22 x\ne W.lean:8-23 x\n")                           # a CHAIN: d's image is e's old text
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        t = tgt.split("\n"); t[9] = "r10 EDITED"; t = t[:2] + ["top"] + t[2:]  # +1 after row 2, row 10 edited
+        open(os.path.join(d, "Salt/W.lean"), "w").write("\n".join(t))
+        g("commit", "-q", "-am", "edit")
+        _, r0, c0 = census(d, "HEAD~1", "HEAD")
+        check("HAND: unfixed ranges with an edited interior are REPORTED (stale)", c0["REPORTED"] == 5 and c0["HAND"] == 0)
+        h = open(os.path.join(d, "h.md")).read()
+        h = h.replace("W.lean:5-20", "W.lean:6-21")        # a: the right image
+        h = h.replace("W.lean:9-15", "W.lean:10-17")       # b: a WRONG hand number (the image is 10-16)
+        h = h.replace("W.lean:7-22", "W.lean:8-23", 1)     # d fixed, e not yet: the chain is ambiguous by counts
+        open(os.path.join(d, "h.md"), "w").write(h)
+        g("commit", "-q", "-am", "hand")
+        _, r1, c1 = census(d, "HEAD~2", "HEAD")
+        by = {r["cite"]: r for r in r1}
+        check("HAND: the right endpoint image at HEAD reads HAND", by["W.lean:5-20"]["cls"] == "HAND"
+              and by["W.lean:5-20"]["new"] == "W.lean:6-21")
+        check("HAND: a wrong hand number stays REPORTED", by["W.lean:9-15"]["cls"] == "REPORTED")
+        check("HAND: an unfixed range stays REPORTED", by["W.lean:2-11"]["cls"] == "REPORTED")
+        check("HAND: a half-fixed CHAIN stays REPORTED (counts cannot say which occurrence moved)",
+              by["W.lean:7-22"]["cls"] == by["W.lean:8-23"]["cls"] == "REPORTED")
+        check("HAND: counted, not stale", c1["HAND"] == 1 and c1["REPORTED"] == 4)
+        h = h.replace("W.lean:10-17", "W.lean:10-16").replace("W.lean:2-11", "W.lean:2-12")
+        h = h.replace("e W.lean:8-23", "e W.lean:9-24")
+        open(os.path.join(d, "h.md"), "w").write(h)
+        g("commit", "-q", "-am", "all by hand")
+        _, r2, c2 = census(d, "HEAD~3", "HEAD")
+        check("HAND: a fully fixed CHAIN reads HAND, both links", c2["HAND"] == 5 and c2["REPORTED"] == 0)
+        check("HAND: every range fixed by hand => rc 0", main_rc(d, ["HEAD~3", "HEAD"]) == 0)
 
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
