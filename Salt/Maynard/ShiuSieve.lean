@@ -466,9 +466,7 @@ lemma qsmoothSum_le {q : ℕ} (hq : 1 ≤ q) (x : ℕ) :
         exact fun h => hp (hpf_sub b hb h)
       rw [hqa, hqb]
   have hsub : F.image e ⊆ q.primeFactors.pi (fun _ => Finset.Icc 0 x) := by
-    intro g hg
-    rw [Finset.mem_image] at hg
-    obtain ⟨b, hbF, rfl⟩ := hg
+    refine Finset.forall_mem_image.2 fun b hbF => ?_
     have hb0 := hF0 b hbF
     have hbx : b < x := by rw [hFdef, Finset.mem_filter, Finset.mem_range] at hbF; exact hbF.1
     rw [Finset.mem_pi]
@@ -544,9 +542,7 @@ lemma coprime_factor_le (q x : ℕ) :
     have hb0 : b ≠ 0 := by omega
     rw [← coPart_mul_qPart ha0, ← coPart_mul_qPart hb0, hab.1, hab.2]
   have hmaps : dom.image φmap ⊆ A ×ˢ B := by
-    intro p hp
-    rw [Finset.mem_image] at hp
-    obtain ⟨n, hn, rfl⟩ := hp
+    refine Finset.forall_mem_image.2 fun n hn => ?_
     rw [hdom, Finset.mem_filter, Finset.mem_range] at hn
     have hn0 : n ≠ 0 := by omega
     rw [Finset.mem_product]

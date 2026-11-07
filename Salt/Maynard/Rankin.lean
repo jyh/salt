@@ -87,9 +87,7 @@ theorem rankin_bound (L : ℕ) :
     rw [← hx', hxy, Nat.prod_primeFactors_of_squarefree hy.2]
   -- The image of `primeFactors` lands in the powerset of the primes `< Q`.
   have hsub : SF.image Nat.primeFactors ⊆ P.powerset := by
-    intro t ht
-    rw [Finset.mem_image] at ht
-    obtain ⟨q, hq, rfl⟩ := ht
+    refine Finset.forall_mem_image.2 fun q hq => ?_
     rw [hSF, Finset.mem_filter] at hq
     rw [Finset.mem_powerset]
     intro p hp

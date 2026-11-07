@@ -235,9 +235,7 @@ private lemma tail_erase_le (D M : ℕ) (hD : 3 ≤ D) :
     have hx' := Nat.prod_primeFactors_of_squarefree hx.2.2.1
     rw [← hx', hxy, Nat.prod_primeFactors_of_squarefree hy.2.2.1]
   have hsub : SF.image Nat.primeFactors ⊆ PP.powerset.erase ∅ := by
-    intro S hS
-    rw [Finset.mem_image] at hS
-    obtain ⟨t, ht, rfl⟩ := hS
+    refine Finset.forall_mem_image.2 fun t ht => ?_
     rw [hSF, Finset.mem_erase, Finset.mem_filter, Finset.mem_range] at ht
     obtain ⟨hne1, htM, hsq, hbig⟩ := ht
     rw [Finset.mem_erase, Finset.mem_powerset]
@@ -525,9 +523,7 @@ theorem marked_sqf_g_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
       have hh : r1 / s = r2 / s := heq
       rw [← e1, ← e2, hh]
     have himg_sub : Fs.image (fun r => r / s) ⊆ B := by
-      intro b hb
-      rw [Finset.mem_image] at hb
-      obtain ⟨r, hr, rfl⟩ := hb
+      refine Finset.forall_mem_image.2 fun r hr => ?_
       rw [hFs, Finset.mem_filter, Finset.mem_range] at hr
       obtain ⟨hrz, hrsf, hrW', hsr⟩ := hr
       have hrsb : r = s * (r / s) := (Nat.mul_div_cancel' hsr).symm

@@ -425,9 +425,7 @@ theorem norm_ramSeamCoeff_le_one (H : ℝ) (hH : 0 < H) (N X P Q : ℕ) (hP : 1 
     subst h1; subst hxy; subst h2; rfl
   have himg : ((ramSeamDom H N X P Q).filter (fun σ => σ.2.1 * σ.2.2 = n)).image
       (fun σ => σ.2.1) ⊆ BlockPrimeDivs P Q n := by
-    intro p hp
-    rw [Finset.mem_image] at hp
-    obtain ⟨σ, hσ, rfl⟩ := hp
+    refine Finset.forall_mem_image.2 fun σ hσ => ?_
     obtain ⟨hpp, hpP, hpQ, -, hn, -⟩ := hmem σ hσ
     exact mem_blockPrimeDivs.mpr ⟨hpp, ⟨σ.2.2, hn.symm⟩, hn0, hpP, hpQ⟩
   have hweight : ∀ p ∈ BlockPrimeDivs P Q n,

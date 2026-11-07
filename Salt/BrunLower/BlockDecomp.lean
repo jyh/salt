@@ -141,9 +141,7 @@ lemma esymm_le {α : Type*} (S : Finset α) (x : α → ℝ)
     _ = ∑ ν ∈ (S.powersetCard k).image indic, g ν := (Finset.sum_image hinj).symm
     _ ≤ ∑ ν ∈ Finset.piAntidiag S k, g ν := by
         refine Finset.sum_le_sum_of_subset_of_nonneg ?_ (fun ν _ _ => hgnn ν)
-        intro ν hν
-        rw [Finset.mem_image] at hν
-        obtain ⟨T, hT, rfl⟩ := hν
+        refine Finset.forall_mem_image.2 fun T hT => ?_
         exact hmem T hT
     _ = (∑ i ∈ S, x i) ^ k := by rw [Finset.sum_pow_eq_sum_piAntidiag]
 
