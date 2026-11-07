@@ -414,10 +414,10 @@ set_option maxHeartbeats 2000000 in
 `c = 2^11·h²`: both binders fail (`log(2^11·1201216) = 21.62`).  ⚠ `2460090368 = 2^11·1096²`
 EXACTLY — the `c`-ceiling has ZERO margin; it is safe only because its sole supplier (`h ≤ 1096`
 in `s15ArmH_log_le_g`) is itself the exact `⌊e^7⌋` bound, and a raise of `h`'s cap re-cuts it.
-BODY: `XThread.lean:311-494` verbatim — from `have hc0 : 0 < c` and `set ρ := …` (:351-352) to
-the closing `linarith [hlog, hprod, hω1, hclose]` (:534) — with NINE numeral sites moved in THREE
+BODY: `XThread.lean:311-494` verbatim — from `have hc0 : 0 < c` and `set ρ := …` (:311-312) to
+the closing `linarith [hlog, hprod, hω1, hclose]` (:494) — with NINE numeral sites moved in THREE
 families, each anchored by its `have`-name (the line numbers are at `main 9a2b3053`):
-  · `hρlog : log(1/ρ) ≤ 417 ↦ ≤ 425` (:355-356; `xt_log_inv_rho_le_scaled` gives `403 + log c`
+  · `hρlog : log(1/ρ) ≤ 417 ↦ ≤ 425` (:315-316; `xt_log_inv_rho_le_scaled` gives `403 + log c`
     and `hlogc` gives `log c ≤ 22`);
   · EVERY `1201216 ↦ 2460090368` — FOUR sites: `hceil1`'s statement (:421), `hdiv` (:425),
     `hpin'` (:427), and `hstep`'s LHS (:472).  ⛔ The fourth is not optional: with :472 left at

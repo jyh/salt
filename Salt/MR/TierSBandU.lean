@@ -186,7 +186,7 @@ theorem nearRatTight_of_bigXiAffU {B₅ : ℝ} (harc : BigXiArcTight B₅)
 /-- **⟦S-3 U4⟧ (class A) — THE SET DOOR IS MONOTONE UNDER A POINTWISE-SUBSET FAMILY.**  Each
 summand of `MRTUniformityXiL2Set` (`StridePair.lean:365`) is `(1/H²)·∫‖…‖²`, non-negative
 (`integral_nonneg`, `sq_nonneg`, `norm_nonneg`), so `Finset.sum_le_sum_of_subset_of_nonneg` (the
-corpus's own move at `:521`) bounds the sub-family's sum by the family's, at every `H`. -/
+corpus's own move at `:525`) bounds the sub-family's sum by the family's, at every `H`. -/
 theorem mrtUniformityXiL2Set_of_subset (Xi Xi' : XiFamily)
     (hsub : ∀ (eps : ℚ) (H : ℕ) [NeZero H], Xi eps H ⊆ Xi' eps H) (R : ChowlaRegime) (ρ : ℝ)
     (hd : MRTUniformityXiL2Set Xi' R ρ) : MRTUniformityXiL2Set Xi R ρ := by

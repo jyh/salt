@@ -84,7 +84,7 @@ needed: every `d ∈ P.divisors` is positive (`Nat.pos_of_mem_divisors`) and `|�
 
 Recipe (class B): `rw [Finset.sum_mul, Finset.mul_sum, ← Finset.sum_sub_distrib]`;
 `refine Finset.sum_le_sum fun d hd => ?_`; `have hd0 := Nat.pos_of_mem_divisors hd`;
-`have h := remLogCount_abs_le (N := N) hd0` (`TwinParitySieveLog.lean:291`,
+`have h := remLogCount_abs_le (N := N) hd0` (`TwinParitySieveLog.lean:300`,
 `|remLogCount d N| ≤ 4 * rho d`); `rw [remLogCount, Clog_one] at h; unfold Clog at h` (now
 `h : |C_d − ν(d) * H_N| ≤ 4 * ρ(d)` with `C_d` the filtered sum, syntactically the goal's);
 `have hμ : |(ArithmeticFunction.moebius d : ℝ)| ≤ 1 := by exact_mod_cast
@@ -172,11 +172,11 @@ re-composition. -/
 `twinLogWeight_support_infinite_of_atom` is the case `ε = 0`.
 
 Recipe (class B — mirror the five-line body of `twinLogWeight_support_infinite_of_win`,
-`TwinParitySieve.lean:1332`): `have hW := sum_divisors_moebius_twinNu_pos P hP`;
+`TwinParitySieve.lean:1341`): `have hW := sum_divisors_moebius_twinNu_pos P hP`;
 `refine support_infinite_of_partialSums_unbounded (twinLogWeight_nonneg P) fun M => ?_`;
 `obtain ⟨N, hN⟩ := hdiv_of_log_growth (sub_pos.mpr hε) (A := 0)
   (Hmain := fun N => (W - ε) * Real.log N - (4 * ∑ρ + A)) (fun N => le_rfl) M`
-(`hdiv_of_log_growth`, `TwinParitySieve.lean:1410`: `{c C A} (hc : 0 < c) {Hmain}
+(`hdiv_of_log_growth`, `TwinParitySieve.lean:1418`: `{c C A} (hc : 0 < c) {Hmain}
 (hgrow : ∀ N, c * log N - C ≤ Hmain N) : ∀ M, ∃ N, M < Hmain N - A`); `refine ⟨N + 1, ?_⟩`;
 `rw [sum_twinLogWeight_range]`; then
 `logSifted_lower_of_count_and_atoms hP (moebius_sum_inv_dvd_ge P N) (hatom N)` (its `A` is

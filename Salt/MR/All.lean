@@ -5528,7 +5528,7 @@ open Salt.Tactic in
 -- discharged, in front of FOUR gates (edge `q`-scale; the region's `A`-absorption at
 -- `A := 1 + log(20000(Cq+8104))/100`; the below-floor comparison `Kq`; the Siegel gate `Ks`) and
 -- nothing else.  It takes the edge price at the LITERAL width `1/10⁸` —
--- `twisted_edge_price_strip` proves exactly that (TwistedEdge.lean:895) and
+-- `twisted_edge_price_strip` proves exactly that (TwistedEdge.lean:896) and
 -- `twisted_window_price_gated_holds` passes the same constant through, but both hide it behind
 -- `∃ c_vk`, so the kernel cannot see that it matches the region's own `1/10⁸`.
 --
@@ -7909,8 +7909,8 @@ cushion added as the ONE new inner hypothesis.  Outer: nothing.  Inner: `cs`, `T
 
 ⟦THE TRACE⟧ `Ks` is minted at ONE site — `PortAssembly.siegel_real_carve (:1180)`, as
 `Ks = 10^8 · min(min(Cs, c₀/32), 1/2)` — and travels to `v6` through nine pass-throughs
-(`NumeralKq:500 → :775 → :958 → RegisterCompose:53 → :117 → :164 → :209 → :345`).  Of the two
-leaves, `c₀` is EFFECTIVE (`NumeralKq.zero_free_region_all'_bounded:450` pins `1/126848 ≤ c₀`,
+(`NumeralKq:500 → :637 → :820 → RegisterCompose:53 → :118 → :165 → :203 → :339`).  Of the two
+leaves, `c₀` is EFFECTIVE (`NumeralKq.zero_free_region_all'_bounded:448` pins `1/126848 ≤ c₀`,
 so `c₀/32 ≥ 2.46·10^{-7}`) and `1/2` is a literal; the binding leaf is `Cs`, the constant of
 `Salt.SW.siegel_theorem (1/16)` (`SW/SiegelClose.lean:848`), whose own docstring reads
 "(ineffective)".  **So `e^{-100} ≤ Ks` reduces exactly to `Cs ≥ 3.72·10^{-52}` — an explicit
@@ -7926,7 +7926,7 @@ certificate (landed rider ⟹ sharp rider ⟹ landed conclusion): **no trade**.
 
 ⟦THE DISCHARGE ROUTE⟧ unlike the numeral, the sharp rider is `A`-windowed and is met by ANY
 `Ks > 0` at a large enough design base (`ks_rider_absorbed`, `capfloor_floor4_of_pos`).  Since
-the terminal mints `Ks` (`RegisterCompose:236`) BEFORE it chooses `A` (`:246`),
+the terminal mints `Ks` (`RegisterCompose:236`) BEFORE it chooses `A` (`:240`),
 `capfloor_floor4_of_design` discharges the arm against `v6`'s own exported conjunct
 `3.2·A ≤ loglog R.Hlo`, with the Siegel constant carried by name and never by numeral.
 Rethreading the sharp form through the hops is V7-E's landing; V7-A supplies the leaf. -/
@@ -7946,7 +7946,7 @@ effective ceiling** in the corpus (its VK leg bottoms out at `zeta_zero_free_str
 `RiderTrace:54-92`), so the rider cannot be discharged by computing `T₀`.
 
 ⟦THE ARM⟧ it does not have to be.  `v6` mints its six crossing constants — `T₀` among them —
-at `RegisterCompose:362`, BEFORE it chooses the design constant `A` at `:373` as a `max` over
+at `RegisterCompose:362`, BEFORE it chooses the design constant `A` at `:367` as a `max` over
 five absorption thresholds.  `T₀` is a fixed, `A`-independent real, so it joins that `max` as
 a **sixth arm**; then `T₀ ≤ A`, and the tolerance is a THREE-DEEP exponential tower in `A`.
 No numeric value of `T₀` is needed, wanted, or used.

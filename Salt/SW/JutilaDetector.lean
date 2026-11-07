@@ -318,7 +318,7 @@ theorem norm_jutilaLocal_selbergPsi_le (χ : DirichletCharacter ℂ q) {t : ℕ}
         rw [← Nat.cast_prod]
         exact_mod_cast Nat.le_of_dvd (Nat.pos_of_ne_zero ht) (Nat.prod_primeFactors_dvd t)
 
-/-- The telescoping step of `Σ d^{-1/2}` (`GrahamHard2.lean:607`'s recipe, re-derived). -/
+/-- The telescoping step of `Σ d^{-1/2}` (`GrahamHard2.lean:614`'s recipe, re-derived). -/
 private lemma rpow_step_half_aux (t : ℝ) (ht : 0 ≤ t) :
     (t + 1) ^ (-(1 / 2) : ℝ) ≤ 2 * (t + 1) ^ ((1 / 2) : ℝ) - 2 * t ^ ((1 / 2) : ℝ) := by
   have ht1 : (0 : ℝ) < t + 1 := by linarith
