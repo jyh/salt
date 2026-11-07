@@ -316,8 +316,7 @@ lemma smooth_ratio_factor {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ �
   have hpℂ : (p : ℂ) ≠ 0 := by exact_mod_cast hp.pos.ne'
   have hlogp_nn : 0 ≤ Real.log p := Real.log_nonneg hp1
   have hlogp_le : Real.log p ≤ Real.log y := Real.log_le_log hp0 hpy
-  have hL1 : (1 : ℝ) ≤ Real.log y := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hy
+  have hL1 : (1 : ℝ) ≤ Real.log y := le_log_of_exp_le hy
   have hL_pos : (0 : ℝ) < Real.log y := by linarith
   -- P := p^(α+2β): between 1 and e³
   have hαβsum : α + 2 * β ≤ 3 / Real.log y := by
@@ -407,8 +406,7 @@ theorem smooth_ratio_bound {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ 
       ≤ Real.exp (6 * Real.exp 3 * (1 + (Real.log 4 + 4)))
         * ‖smoothEuler y g (s + (β : ℂ))‖ := by
   have hy1 : (1 : ℝ) ≤ y := by linarith [Real.add_one_le_exp (1 : ℝ)]
-  have hL1 : (1 : ℝ) ≤ Real.log y := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hy
+  have hL1 : (1 : ℝ) ≤ Real.log y := le_log_of_exp_le hy
   have hL_pos : (0 : ℝ) < Real.log y := by linarith
   have hy0 : (0 : ℝ) ≤ y := by linarith
   have hpy : ∀ p ∈ (Finset.range (⌊y⌋₊ + 1)).filter Nat.Prime, (p : ℝ) ≤ y := by

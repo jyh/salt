@@ -279,7 +279,7 @@ input) and the tail ledger `htail` — both carried as hypotheses exactly as the
 `SupF.head_sigma_bound` (+ `SupF.scale_floor_Mrange_seam`)— carries the seam head in the
 `LSeries (ellLin …)` form throughout, priced by `SupF.euler_log_bound` (`SupF.lean:186`, the
 absolutely-convergent Euler-product log estimate at `Re = 1 + σ > 1`).  It NEVER invokes
-`smoothSeries`/`smoothEuler`: those (`SupF.lean:250–421`) are the finite-Euler-product
+`smoothSeries`/`smoothEuler`: those (`SupF.lean:250–419`) are the finite-Euler-product
 analytic continuation used only by the SEPARATE short-interval/"corpus" path, where the
 `smoothSeries` `tsum` is non-summable and one continues via the finite product.  On the
 `Re = 1 + σ` annular route the L-series is consumed directly (the B-pin crosses the seam on

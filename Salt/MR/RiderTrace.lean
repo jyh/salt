@@ -37,7 +37,7 @@ halaszPrimesChiGated_of_price          cs := min (min (c_vk/(2·K₄)) (c₀/(2�
   invoked on `TwistedWindowPriceGated (1/10^8)` (`TwistedEdge.twisted_window_price_gated_holds`,
   whose own `twisted_edge_price_strip` exports `c_vk = 1/10^8` as an equation).
 * `K₄ = 2^{3/4}·16` and `Cκ = 2^{3/4}·8` — CLOSED-FORM `noncomputable def`s
-  (`PortAssembly.lean:637`, `HalaszPrimesCore.lean:3456`).  ⟦ERRATUM to the 0802 summit dossier
+  (`PortAssembly.lean:637`, `HalaszPrimesCore.lean:3450`).  ⟦ERRATUM to the 0802 summit dossier
   §3, which called `K₄`/`Cκ` "compactness existentials of our own port"⟧ — they are not
   existentials at all.
 * `c₀` — `per_pair_contour`'s `c_vk`, a pass-through of `shifted_edge_price_strip`'s, itself a
@@ -300,8 +300,7 @@ theorem rect_zero_free_margin_bounded :
   have hL5e : Real.exp 1 ≤ Real.log (5 * T) := by linarith
   have hL5_1 : (1 : ℝ) < Real.log (5 * T) := by linarith
   have hL5pos : (0 : ℝ) < Real.log (5 * T) := by linarith
-  have hℓ5 : (1 : ℝ) ≤ Real.log (Real.log (5 * T)) := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hL5e
+  have hℓ5 : (1 : ℝ) ≤ Real.log (Real.log (5 * T)) := le_log_of_exp_le hL5e
   have hℓ5cube : (1 : ℝ) ≤ (Real.log (Real.log (5 * T))) ^ (3 : ℕ) := one_le_pow₀ hℓ5
   have hL534pos : (0 : ℝ) < (Real.log (5 * T)) ^ ((3 : ℝ) / 4) := Real.rpow_pos_of_pos hL5pos _
   set D : ℝ := (Real.log (5 * T)) ^ ((3 : ℝ) / 4)
@@ -366,7 +365,7 @@ open Complex Salt.SW Salt.Vk Metric Set
 `e^{e^{Cbig}}`, `Cbig = 9000·c_vk + c_vk/(2·δ₀) + 1`, enters here with `δ₀` the opaque
 compactness constant of `logDeriv_Zc_compact_bound` at height `H = e^{e^{A}}`.  That second
 floor is why `T₀` has no effective ceiling today.  Body verbatim from
-`HalaszPrimesCore.lean:2246`. -/
+`HalaszPrimesCore.lean:2243`. -/
 
 set_option maxHeartbeats 800000 in
 -- Body verbatim from the landed `shifted_edge_price_strip`; the packaged case split needs the
@@ -418,10 +417,8 @@ theorem shifted_edge_price_strip_bounded :
     have ha5 : 0 < Real.log (5 * T + 1) :=
       lt_of_lt_of_le (Real.exp_pos _) (by
         rw [← Real.log_exp (Real.exp Cbig)]; exact Real.log_le_log (Real.exp_pos _) h5T1exp)
-    have hlog5T1 : Real.exp Cbig ≤ Real.log (5 * T + 1) := by
-      rw [← Real.log_exp (Real.exp Cbig)]; exact Real.log_le_log (Real.exp_pos _) h5T1exp
-    have hloglog : Cbig ≤ Real.log (Real.log (5 * T + 1)) := by
-      rw [← Real.log_exp Cbig]; exact Real.log_le_log (Real.exp_pos _) hlog5T1
+    have hlog5T1 : Real.exp Cbig ≤ Real.log (5 * T + 1) := le_log_of_exp_le h5T1exp
+    have hloglog : Cbig ≤ Real.log (Real.log (5 * T + 1)) := le_log_of_exp_le hlog5T1
     -- the reused margin fact at 5T+1
     have hmargT : ∀ ρ : ℂ, riemannZeta ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
         ρ.re ≤ 1 - c_vk / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)

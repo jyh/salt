@@ -243,8 +243,7 @@ theorem zeta_zero_free_region_explicit {ρ : ℂ} (hρ : riemannZeta ρ = 0) (hr
     have hL1 : (1 : ℝ) ≤ Lv := by
       rw [hLdef]
       have hexp : Real.exp 1 ≤ 3 := le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))
-      have h3 : (1 : ℝ) ≤ Real.log 3 := by
-        rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hexp
+      have h3 : (1 : ℝ) ≤ Real.log 3 := le_log_of_exp_le hexp
       exact le_trans h3 (Real.log_le_log (by norm_num) (by linarith [hγ1]))
     rcases le_or_gt ρ.re (1 / 2) with hβ | hβ
     · have hc₃Lv : (1 / 10 ^ 7 : ℝ) / Lv ≤ 1 / 2 := by
@@ -334,7 +333,7 @@ theorem zeta_zero_free_region_bounded :
 
 /-! ## 5. ZETA-INV-SHALLOW — explicit `‖Zc‖` floors on the pole patch
 
-CMU-HUNT leaf #2 (`Salt/SW/ZetaInvShallow.lean:53`, `Zc_patch_lower`): `‖Zc‖` attains a
+CMU-HUNT leaf #2 (`Salt/SW/ZetaInvShallow.lean:58`, `Zc_patch_lower`): `‖Zc‖` attains a
 positive minimum `δ` on the rectangle `R = {a ≤ Re ≤ 3, |Im| ≤ 2}` by
 `IsCompact.exists_isMinOn`, and `δ` sits under a division in `zeta_inv_shallow`'s `C`.
 
@@ -843,8 +842,7 @@ theorem zeta_zero_free_region_sharp {ρ : ℂ} (hρ : riemannZeta ρ = 0) (hre :
     have hL1 : (1 : ℝ) ≤ Lv := by
       rw [hLdef]
       have hexp : Real.exp 1 ≤ 3 := le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))
-      have h3 : (1 : ℝ) ≤ Real.log 3 := by
-        rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hexp
+      have h3 : (1 : ℝ) ≤ Real.log 3 := le_log_of_exp_le hexp
       exact le_trans h3 (Real.log_le_log (by norm_num) (by linarith [hγ1]))
     rcases le_or_gt ρ.re (1 / 2) with hβ | hβ
     · have hc₃Lv : (1 / 75712 : ℝ) / Lv ≤ 1 / 2 := by

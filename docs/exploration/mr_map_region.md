@@ -11,16 +11,16 @@ square on the loglog. Note the STRIP half-width has (loglog)²; the REGION ends
 up with (loglog)³ — the extra power is bought by the `Lq` width algebra
 (`Lq ≤ 2.25e7·L^{3/4}·ℓ³`, PowRegion.lean:313), not by the strip.
 
-### 1b. The growth `zeta_growth_pow` (G: Salt/Vk/GrowthPow.lean:977–1036)
+### 1b. The growth `zeta_growth_pow` (G: Salt/Vk/GrowthPow.lean:976–1034)
 `ZetaGrowthPow` (G: PowRegion.lean:78–81) is
 `∃ K t₀, 1 ≤ K ∧ 3 ≤ t₀ ∧ ∀ σ t, t₀ ≤ t → 1 − vkTheta t ≤ σ → σ ≤ 3 →
  ‖ζ(σ+it)‖ ≤ K·log t`.
-Proven witnesses (G: GrowthPow.lean:978): **K = 8104, t₀ = exp(exp 100)**.
+Proven witnesses (G: GrowthPow.lean:977): **K = 8104, t₀ = exp(exp 100)**.
 Growth FORM: `K·log t` — dlVP-GRADE growth on a VK-WIDE strip. The VK content
 is the strip WIDTH (vkTheta), not the growth exponent; there is NO landed
 `|ζ(1+it)| ≪ (log t)^{3/4}`-grade pointwise bound (see §4, gap Q2).
 
-### 1c. The region (G: GrowthPow.lean:1044–1048; emission PowRegion.lean:354–401)
+### 1c. The region (G: GrowthPow.lean:1042–1046; emission PowRegion.lean:354–401)
 `zeta_zero_free_region_pow :
  ∃ c T₀, 0 < c ∧ 3 ≤ T₀ ∧ ∀ ρ, ζ ρ = 0 → T₀ ≤ |ρ.im| →
    ρ.re ≤ 1 − c / ((log|ρ.im|)^(3/4) * (log log|ρ.im|)^3)`
@@ -111,7 +111,7 @@ polynomials of length ~x, Parseval over frequencies |t| up to x-grade
 |---|---|---|---|
 | all t (incl. 0, compact ranges) | `zeta_zero_free_region` (ZetaZeroFree.lean:235) + `zeta_inv_shallow` (ZetaInvShallow.lean:116) | c₃/log(|t|+2) | log ζ ≤ loglog t + O(1) |
 | t ≤ T₀ ≈ exp(exp 1251) | same classical region | same | loglog t ≤ loglog T₀ ≈ **1251** ⇒ 𝔻² ≥ loglog x − O(1251): an ABSOLUTE additive constant — better than needed |
-| t ≥ T₀ | `zeta_zero_free_region_pow` (GrowthPow.lean:1044) | c/((log t)^{3/4}(llt)³) | log(1/η) = (3/4)loglog t + 3 logloglog t ⇒ 𝔻² ≥ (1/4 − o(1))loglog x up to t = x |
+| t ≥ T₀ | `zeta_zero_free_region_pow` (GrowthPow.lean:1042) | c/((log t)^{3/4}(llt)³) | log(1/η) = (3/4)loglog t + 3 logloglog t ⇒ 𝔻² ≥ (1/4 − o(1))loglog x up to t = x |
 
 - **Does T₀ = exp(exp ~1251) hurt?** For any ASYMPTOTIC consumer: NO. The
   T₀-split costs one additive constant ≈ loglog T₀ ≈ 1251 in the 𝔻² lower

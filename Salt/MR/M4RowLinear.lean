@@ -9947,8 +9947,7 @@ private lemma ypin4_gates_t0d {k : ℝ} (hk : Real.exp 4096 ≤ k) :
       ∧ Real.sqrt (Real.log k) ≤ Real.log k ^ 4
       ∧ Real.log (Real.log k ^ 4) ≤ Real.sqrt (Real.log k) := by
   have hk0 : (0 : ℝ) < k := lt_of_lt_of_le (Real.exp_pos _) hk
-  have hL : (4096 : ℝ) ≤ Real.log k := by
-    rw [← Real.log_exp 4096]; exact Real.log_le_log (Real.exp_pos _) hk
+  have hL : (4096 : ℝ) ≤ Real.log k := Salt.le_log_of_exp_le hk
   have hL0 : (0 : ℝ) < Real.log k := by linarith
   have hL1 : (1 : ℝ) ≤ Real.log k := by linarith
   have hL4 : Real.log k ≤ Real.log k ^ 4 := le_self_pow₀ hL1 (by norm_num)
@@ -10050,8 +10049,7 @@ theorem m4_t0band_discharged_L (Q : ℕ) :
     have hsplit : Real.exp 8192 = Real.exp 4096 * Real.exp 4096 := by
       rw [← Real.exp_add]; norm_num
     nlinarith only [hsq4096, hexp4097, hX₀, hX₀0, hsplit, hsqsq]
-  have hLX : (8192 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 8192]; exact Real.log_le_log (Real.exp_pos _) hXexp
+  have hLX : (8192 : ℝ) ≤ Real.log X := Salt.le_log_of_exp_le hXexp
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have hX3 : (3 : ℝ) ≤ X := by
     have : (4097 : ℝ) ≤ X := le_trans (le_trans hexp4097 hsq4096) hsqX
@@ -10547,8 +10545,7 @@ theorem m4_t0band_discharged_L_gk (K : ℕ) (Q : ℕ) :
     have hsplit : Real.exp 8192 = Real.exp 4096 * Real.exp 4096 := by
       rw [← Real.exp_add]; norm_num
     nlinarith only [hsq4096, hexp4097, hX₀, hX₀0, hsplit, hsqsq]
-  have hLX : (8192 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 8192]; exact Real.log_le_log (Real.exp_pos _) hXexp
+  have hLX : (8192 : ℝ) ≤ Real.log X := Salt.le_log_of_exp_le hXexp
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have hX3 : (3 : ℝ) ≤ X := by
     have : (4097 : ℝ) ≤ X := le_trans (le_trans hexp4097 hsq4096) hsqX

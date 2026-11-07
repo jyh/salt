@@ -12,7 +12,7 @@ import Mathlib.NumberTheory.LSeries.DirichletContinuation
 # ROUTE A leg H2 — the χ-Euler bridge (`ChiEuler`)
 
 The character analogue of the LANDED `euler_osc_bridge_unconditional`
-(`Salt/MR/PrimeTail.lean:410`): for every Dirichlet character `χ mod q` and every real `t`,
+(`Salt/MR/PrimeTail.lean:407`): for every Dirichlet character `χ mod q` and every real `t`,
 the truncated χ-twisted oscillation sum agrees with `log‖L(1+1/log x − it, χ)‖` up to a
 constant that is UNIFORM in `q`, `χ`, `x` and `t`.
 
@@ -21,7 +21,7 @@ correction block): the q = 1 λ-Euler bridge closed 2026-07-19, and the χ-twist
 a [B]-grade clone because (i) mathlib holds the χ log-Euler form
 (`DirichletCharacter.LSeries_eulerProduct_exp_log`), (ii) the `σ`-shift head, the `p > x`
 tail and the `k ≥ 2` Mercator peel are all χ-FREE, and (iii) the landed
-`euler_osc_truncation` (`PrimeSigmaShift.lean:242`) is already stated for an ARBITRARY
+`euler_osc_truncation` (`PrimeSigmaShift.lean:240`) is already stated for an ARBITRARY
 1-bounded `g : ℕ → ℂ`, so the χ-twist is an *instance*, not a new estimate.
 
 ## Contents
@@ -100,7 +100,7 @@ theorem summable_chi_cpow {q : ℕ} (χ : DirichletCharacter ℂ q) {s : ℂ} (h
 /-- **E1 — the χ bridge down-payment (`log_norm_L_eq_re_tsum`).**  For `Re s > 1`,
 `log‖L(s,χ)‖ = ∑'_p Re(−log(1 − χ(p)·p^{−s}))`: the real part of the χ log-Euler product.
 
-Byte-parallel to the q = 1 `log_norm_zeta_eq_re_tsum` (`NonPret.lean:189`), on mathlib's
+Byte-parallel to the q = 1 `log_norm_zeta_eq_re_tsum` (`NonPret.lean:187`), on mathlib's
 `DirichletCharacter.LSeries_eulerProduct_exp_log` via `‖exp z‖ = exp(Re z)` and
 `Re ∘ ∑' = ∑' ∘ Re`.  Stated on the corpus's L-object `DirichletCharacter.LFunction` (the
 one `Salt.SW.zero_free_region_all'` quantifies over), through `LFunction_eq_LSeries`. -/
@@ -123,7 +123,7 @@ theorem log_norm_L_eq_re_tsum {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ 
 
 /-- **The per-prime Euler `k ≥ 2` peel, at arbitrary `z`.**  For `p ≥ 2` and `‖z‖ ≤ 1/p`,
 `|Re(−log(1−z)) − Re z| ≤ 1/p²`.  This is `peel_term_bound`
-(`PrimeSigmaShift.lean:300`) with the base point freed: the landed version fixes
+(`PrimeSigmaShift.lean:297`) with the base point freed: the landed version fixes
 `z = p^{−s}`, and the χ-twisted case needs `z = χ(p)·p^{−s}`.  Same mathlib Taylor
 remainder `Complex.norm_log_one_sub_inv_sub_self_le`. -/
 theorem peel_term_bound_gen {p : ℕ} (hp : 2 ≤ p) {z : ℂ} (hz : ‖z‖ ≤ 1 / (p : ℝ)) :
@@ -210,7 +210,7 @@ theorem chi_peel_sum_bound {q : ℕ} (χ : DirichletCharacter ℂ q) {s : ℂ} (
 
 /-- **The `σ`-`it` split of the χ-twisted Euler summand.**  For a prime `p` and reals `σ, t`,
 `Re(χ(p)·p^{−(σ−it)}) = p^{−σ}·Re(χ(p)·p^{it})`.  This is the χ-analogue of `cpow_neg_re`
-(`PrimeSigmaShift.lean:341`); note the `−it` in the exponent, which is what makes the twist
+(`PrimeSigmaShift.lean:338`); note the `−it` in the exponent, which is what makes the twist
 appear UNCONJUGATED on the right (see the file header's sign page). -/
 theorem chi_cpow_re {q : ℕ} (χ : DirichletCharacter ℂ q) {p : ℕ} (hp : 0 < p) (σ t : ℝ) :
     (χ ((p : ℕ) : ZMod q) * (p : ℂ) ^ (-((σ : ℂ) - (t : ℂ) * Complex.I))).re
@@ -241,7 +241,7 @@ every Dirichlet character `χ mod q`, every `x ≥ e` and every real `t`,
 enters only through `‖χ(a)‖ ≤ 1`, and every constant on the route (`cpeel = ∑'_p 1/p²`, the
 `p > x` tail `Ctail`, the Mertens-1 `σ`-shift) is χ-free.
 
-Assembled exactly as the q = 1 `euler_osc_bridge` (`PrimeSigmaShift.lean:414`): the χ
+Assembled exactly as the q = 1 `euler_osc_bridge` (`PrimeSigmaShift.lean:411`): the χ
 log-Euler product (`log_norm_L_eq_re_tsum`), the `k ≥ 2` peel (`chi_peel_sum_bound`), the
 `σ`-`it` split (`chi_cpow_re`), and the LANDED general-`g` truncation
 `euler_osc_truncation` at `g = chiTwist χ t`. -/
@@ -254,8 +254,7 @@ theorem chi_euler_osc_bridge (hPTS : PrimeTailShiftBounded) :
   obtain ⟨Ctail, hCtail⟩ := hPTS
   refine ⟨cpeel + (Ctail + (1 + (Real.log 4 + 4))), ?_⟩
   intro q _ χ x t hx
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   set s : ℂ := ((1 + 1 / Real.log x : ℝ) : ℂ) - (t : ℝ) * Complex.I with hsdef
   have hsre : s.re = 1 + 1 / Real.log x := by
@@ -291,7 +290,7 @@ theorem chi_euler_osc_bridge (hPTS : PrimeTailShiftBounded) :
     _ = cpeel + (Ctail + (1 + (Real.log 4 + 4))) := by ring
 
 /-- **E3 (unconditional) — `chi_euler_osc_bridge_unconditional`.**  The R0.2 discharge
-(`prime_tail_shift`, `PrimeTail.lean:357`, χ-free) makes the χ-Euler bridge unconditional.
+(`prime_tail_shift`, `PrimeTail.lean:354`, χ-free) makes the χ-Euler bridge unconditional.
 This is ROUTE A's H2 leg: the exact χ-analogue of `euler_osc_bridge_unconditional`. -/
 theorem chi_euler_osc_bridge_unconditional :
     ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (x t : ℝ), Real.exp 1 ≤ x →
@@ -347,8 +346,7 @@ theorem chi_dist_bridge :
   intro q _ χ X t hX
   have h2e : (2 : ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1 : ℝ); linarith
   have hX2 : (2 : ℝ) ≤ X := le_trans h2e hX
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hmert := abs_le.mp (Salt.Mertens.mertens_second_sharp_real hX2)
   have h12 : 12 / Real.log X ≤ 12 := by
     rw [div_le_iff₀ (by linarith)]; nlinarith
@@ -370,8 +368,7 @@ theorem chi_dist_bridge_le :
   intro q _ χ X t hX
   have h2e : (2 : ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1 : ℝ); linarith
   have hX2 : (2 : ℝ) ≤ X := le_trans h2e hX
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hmert := abs_le.mp (Salt.Mertens.mertens_second_sharp_real hX2)
   have h12 : 12 / Real.log X ≤ 12 := by
     rw [div_le_iff₀ (by linarith)]; nlinarith

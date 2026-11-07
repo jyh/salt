@@ -437,12 +437,10 @@ lemma log_Tstar_self {Y : ℝ} (hY : Real.exp (Real.exp 1) ≤ Y) :
     Real.log (Tstar Y (Real.log Y))
       = 4 * Real.log (Real.log Y) + Real.log Y / (4 * Real.log (Real.log Y)) := by
   have hY0 : (0 : ℝ) < Y := lt_of_lt_of_le (Real.exp_pos _) hY
-  have hLe : Real.exp 1 ≤ Real.log Y := by
-    rw [← Real.log_exp (Real.exp 1)]; exact Real.log_le_log (Real.exp_pos _) hY
+  have hLe : Real.exp 1 ≤ Real.log Y := le_log_of_exp_le hY
   have hL1 : (1 : ℝ) < Real.log Y := lt_of_lt_of_le (by linarith [Real.exp_one_gt_d9]) hLe
   have hL0 : (0 : ℝ) < Real.log Y := by linarith
-  have hll1 : (1 : ℝ) ≤ Real.log (Real.log Y) := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hLe
+  have hll1 : (1 : ℝ) ≤ Real.log (Real.log Y) := le_log_of_exp_le hLe
   have hll0 : (0 : ℝ) < Real.log (Real.log Y) := by linarith
   have hp0 : (Real.log Y : ℝ) ^ 4 ≠ 0 := by positivity
   have hr0 : (Y : ℝ) ^ (1 / (4 * Real.log (Real.log Y))) ≠ 0 :=
@@ -471,12 +469,10 @@ theorem farErr_local_le {W Y : ℝ} (hY : Real.exp (Real.exp 1) ≤ Y) :
   have hY1 : (1 : ℝ) ≤ Y := by
     have h : (1 : ℝ) ≤ Real.exp (Real.exp 1) := Real.one_le_exp (Real.exp_pos 1).le
     linarith
-  have hLe : Real.exp 1 ≤ Real.log Y := by
-    rw [← Real.log_exp (Real.exp 1)]; exact Real.log_le_log (Real.exp_pos _) hY
+  have hLe : Real.exp 1 ≤ Real.log Y := le_log_of_exp_le hY
   have hL2 : (2 : ℝ) < Real.log Y := lt_of_lt_of_le (by linarith [Real.exp_one_gt_d9]) hLe
   have hL0 : (0 : ℝ) < Real.log Y := by linarith
-  have hll1 : (1 : ℝ) ≤ Real.log (Real.log Y) := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hLe
+  have hll1 : (1 : ℝ) ≤ Real.log (Real.log Y) := le_log_of_exp_le hLe
   have hll0 : (0 : ℝ) < Real.log (Real.log Y) := by linarith
   -- the truncation height itself
   have hT4 : Real.log Y ^ 4 ≤ Tstar Y (Real.log Y) := Tstar_ge hY1 (by linarith)
@@ -545,12 +541,10 @@ theorem farErr_local_window_ge {W Y : ℝ} (hY : Real.exp (Real.exp 1) ≤ Y)
   have hY1 : (1 : ℝ) ≤ Y := by
     have h : (1 : ℝ) ≤ Real.exp (Real.exp 1) := Real.one_le_exp (Real.exp_pos 1).le
     linarith
-  have hLe : Real.exp 1 ≤ Real.log Y := by
-    rw [← Real.log_exp (Real.exp 1)]; exact Real.log_le_log (Real.exp_pos _) hY
+  have hLe : Real.exp 1 ≤ Real.log Y := le_log_of_exp_le hY
   have hL2 : (2 : ℝ) < Real.log Y := lt_of_lt_of_le (by linarith [Real.exp_one_gt_d9]) hLe
   have hL0 : (0 : ℝ) < Real.log Y := by linarith
-  have hll1 : (1 : ℝ) ≤ Real.log (Real.log Y) := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hLe
+  have hll1 : (1 : ℝ) ≤ Real.log (Real.log Y) := le_log_of_exp_le hLe
   have hll0 : (0 : ℝ) < Real.log (Real.log Y) := by linarith
   -- the window forces `log W > 1`, so `loglog W > 0`
   have hΛ1 : (1 : ℝ) < Real.log W := by linarith

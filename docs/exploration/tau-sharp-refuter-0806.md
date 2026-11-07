@@ -387,7 +387,7 @@ site already discharges its side goal with the window in hand. The window is
 `ray_pow_bound`'s hα/hε. Nothing new enters scope.
 
 **ARM ARITHMETIC: UNFOUNDED — all ten arms reproduce.** `c₀ = 1/126848` confirmed
-(`ZeroFreeReal.lean:392/:605`; `TBalTall:2090` takes `min c₀' 1`),
+(`ZeroFreeReal.lean:392/:604`; `TBalTall:2090` takes `min c₀' 1`),
 `log(1/c₀) = 11.7507`. As `log(1/arm)`: `2^{−250}` 173.2868 · `(c₀/32)^{17/3}`
 **86.2267** · `(1/805)^{50/49}` 6.8274 · `(1/(8·1610·e))^8` 83.7074 · `1/2`
 0.6931 · `(1/KEβ)^8` 536.6658 · `(c₀/KEρ)^8` **631.5764** · `1/(3A₀)` 4.8527 ·

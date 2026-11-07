@@ -239,8 +239,7 @@ theorem chi_Llower_band_realclass_rated :
   obtain ⟨δ, hδ, hprin⟩ := LFunction_band_lower_principal_uniform
   refine ⟨Z, δ, hZ1, hδ, ?_⟩
   intro q _ χ hsq X t hX ht hgate
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   by_cases hχ1 : χ = 1
   · -- principal: the hoisted `δ/q`, then weaken into the `max`
@@ -306,8 +305,7 @@ theorem chi_floor_band_realclass_rated :
 the idiom those two files already established for it. -/
 private lemma br_log_one_add_log_le {X : ℝ} (hX : Real.exp 1 ≤ X) :
     Real.log (1 + Real.log X) ≤ Real.log 2 + Real.log (Real.log X) := by
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   calc Real.log (1 + Real.log X) ≤ Real.log (2 * Real.log X) :=
         Real.log_le_log (by linarith) (by linarith)
     _ = Real.log 2 + Real.log (Real.log X) := Real.log_mul (by norm_num) (by linarith)
