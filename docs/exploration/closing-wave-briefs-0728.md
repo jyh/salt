@@ -28,8 +28,8 @@ DELIVERABLES:
 1. THE p²-MASS STONE at ramP2domMR [~30–60 ln]: the max-half port of
 ramP2coeff_norm_div_le (SeamCalibrationK.lean:759–825) with the
 by_cases hmem replaced by the fibre-emptiness split reading the window
-from ramHonMR membership (RamareMR.lean:668–670;
-RamareErr.lean:743–745); ramP2_term_norm_le supplies the 2; compose
+from ramHonMR membership (RamareMR.lean:666–668;
+RamareErr.lean:741–743); ramP2_term_norm_le supplies the 2; compose
 with the landed Σ-half (SmallStones' ramP2mass_le route, the 8/P) →
 ramP2massMR_direct : ∑‖ramP2coeffMR …‖²/n² ≤ 16·logb 2 (2X)/(X·P)-
 shaped. NO hwin anywhere.
@@ -37,7 +37,7 @@ shaped. NO hwin anywhere.
 2. THE ERR RE-ROUTE: err_at_witness_mr — the twin of
 FrameWitness.err_at_witness consuming ramErr_moment_split_mr_windowed
 (SeamRowWindowed.lean:340–361; binders SeamCoefW + hasupp) +
-seam_rows_grade (RamareMR.lean:863–867, at the Xd slot with
+seam_rows_grade (RamareMR.lean:861–865, at the Xd slot with
 hXd : X ≤ Xd — the glyph resolution the refuter verified) + your stone.
 The grade fit: 4·(520·g + EP2') ≤ 3·(720·g + EP2) at g ≥ 0 — carried as
 the witEP2-bumped inequality. AUTHORIZED IN-PLACE: re-route
