@@ -234,8 +234,7 @@ theorem chi_Llower_341_height_sharp {q : ℕ} [NeZero q] (χ : DirichletCharacte
         + (1 / 4) * Real.log (7 / 2 + Real.log 2 + Real.log q + Real.log (2 * T₀ + 2)))
       ≤ Real.log ‖DirichletCharacter.LFunction χ
           (((1 + 1 / Real.log X : ℝ) : ℂ) - (t : ℝ) * Complex.I)‖ := by
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hd0 : (0 : ℝ) < 1 / Real.log X := one_div_pos.mpr hlogXpos
   have hd1 : 1 / Real.log X ≤ 1 := by rw [div_le_one hlogXpos]; linarith
@@ -291,8 +290,7 @@ lemma vkMidDebitSharp_nonneg (q : ℕ) [NeZero q] : 0 ≤ vkMidDebitSharp q := b
 /-- `VkTwistClose.vk_log_one_add_log_le` is `private`; the same three lines. -/
 private lemma vt_log_one_add_log_le {X : ℝ} (hX : Real.exp 1 ≤ X) :
     Real.log (1 + Real.log X) ≤ Real.log 2 + Real.log (Real.log X) := by
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   calc Real.log (1 + Real.log X) ≤ Real.log (2 * Real.log X) :=
         Real.log_le_log (by linarith) (by linarith)
     _ = Real.log 2 + Real.log (Real.log X) := Real.log_mul (by norm_num) (by linarith)

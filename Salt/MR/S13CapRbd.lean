@@ -30,7 +30,7 @@ This file is wave **W-RBD**: the bundle's four co-factor fields, at the shared b
 
 ⟦MAESTRO RULING 9⟧ `Rbd_grade` and `Cq_gate` are carried as SUPPLIER HYPOTHESES — they are
 hypotheses at all six landed sites already (`M4DoorClose:265`/`:211`,
-`M4DoorClosePool:208/532/887/1217`, `M4T0Discharge:700`), so the corpus posture is
+`M4DoorClosePool:208/532/887/1217`, `M4T0Discharge:697`), so the corpus posture is
 unchanged.  They are stated here VERBATIM at the pin `C_R := gradeCR2 Cb`, which is the
 spelling every one of those sites uses; the wide-arm grading page (which would DERIVE them)
 is a separate later wave.

@@ -12,7 +12,7 @@ Rung card (S8 MR-CORE FREEZE v2, H0 `PrimeSigmaShift`): the elementary compariso
 between the `σ = 1` truncated prime sums `∑_{p≤x} …/p` and the shifted full prime
 sums `∑'_p …·p^{-1-1/log x}` that turns the log-Euler product of `ζ` into the
 truncated pretentious-distance sum.  Feeds S5's `lambda_nonpret_of_bridge`
-(NonPret.lean:114) and the LOG-EULER-OSC flagged node.
+(NonPret.lean:113) and the LOG-EULER-OSC flagged node.
 
 Rungs (freeze §WAVE 1 [H0], numerals binding, `−C·logloglog` carried in-statement):
 * `mertens_first_upper` (R0.1) — the real-`x` Mertens-1 upper bound, a wrapper on
@@ -97,8 +97,7 @@ theorem sigma_shift {x : ℝ} (hx : Real.exp 1 ≤ x) :
         ((p : ℝ)⁻¹ - (p : ℝ) ^ (-1 - 1 / Real.log x : ℝ))
       ≤ 1 + (Real.log 4 + 4) := by
   have hx1 : (1 : ℝ) ≤ x := le_trans (Real.one_le_exp (by norm_num)) hx
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   have hδ0 : 0 ≤ 1 / Real.log x := div_nonneg (by norm_num) hLpos.le
   -- termwise: p^{-1} − p^{-1-δ} ≤ δ·(log p)/p
@@ -177,8 +176,7 @@ theorem euler_osc_head_shift {x : ℝ} (hx : Real.exp 1 ≤ x)
           (g p).re * (p : ℝ) ^ (-1 - 1 / Real.log x : ℝ))
         - ∑ p ∈ (Finset.range (⌊x⌋₊ + 1)).filter Nat.Prime, (g p).re / p|
       ≤ 1 + (Real.log 4 + 4) := by
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   have hδ0 : 0 ≤ 1 / Real.log x := div_nonneg (by norm_num) hLpos.le
   rw [← Finset.sum_sub_distrib]
@@ -245,8 +243,7 @@ theorem euler_osc_truncation {x : ℝ} (hx : Real.exp 1 ≤ x) {Ctail : ℝ}
     |(∑' p : Nat.Primes, (g p).re * (p : ℝ) ^ (-1 - 1 / Real.log x : ℝ))
         - ∑ p ∈ (Finset.range (⌊x⌋₊ + 1)).filter Nat.Prime, (g p).re / p|
       ≤ Ctail + (1 + (Real.log 4 + 4)) := by
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   have hδpos : (0 : ℝ) < 1 / Real.log x := by rw [one_div]; exact inv_pos.mpr hLpos
   have hF : Summable (Set.indicator {p : ℕ | Nat.Prime p}
@@ -450,8 +447,7 @@ theorem euler_osc_bridge (hPTS : PrimeTailShiftBounded) :
         ≤ K := by
   obtain ⟨Ctail, hCtail⟩ := hPTS
   refine ⟨cpeel + (Ctail + (1 + (Real.log 4 + 4))), fun x t hx => ?_⟩
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   set s : ℂ := ((1 + 1 / Real.log x : ℝ) : ℂ) + (t : ℝ) * Complex.I with hsdef
   have hsre : s.re = 1 + 1 / Real.log x := by
@@ -507,7 +503,7 @@ Given the R0.2 tail bound, for `e ≤ x` and all `t`, the truncated oscillation 
 is controlled by the log-modulus of ζ on the `1+1/log x` line:
 `∑_{p≤x} cos(t·log p)/p ≤ log‖ζ(1+1/log x+it)‖ + K` uniformly.  This is the λ-side
 `≥` direction of the two-sided `euler_osc_bridge` (the log-Euler-oscillation
-identity, modulo `O(1)`), the H0 half of NonPret.lean:114's Euler bridge. -/
+identity, modulo `O(1)`), the H0 half of NonPret.lean:113's Euler bridge. -/
 theorem log_euler_osc_zeta (hPTS : PrimeTailShiftBounded) :
     ∃ K : ℝ, ∀ x t : ℝ, Real.exp 1 ≤ x →
       (∑ p ∈ (Finset.range (⌊x⌋₊ + 1)).filter Nat.Prime,

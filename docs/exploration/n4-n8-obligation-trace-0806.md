@@ -155,7 +155,7 @@ Compose the supply (§4) into the demand `hσ'r` at the unit-scale box (`Z ⊂ b
 ```
 
 Solving `ℓ − b√ℓ ≥ log(1/c) + (k−1)·log L + O(1)` at the landed and proposed parameter sets
-(`c₀ = 1/126848` at `ZeroFreeReal.lean:604`; the arm table at
+(`c₀ = 1/126848` at `ZeroFreeReal.lean:603`; the arm table at
 `tau-sharp-ts1-ts2-briefs-0806.md:128-147`):
 
 | state | `b` | `log(1/c)` | `k` | threshold `log η ≥` (L = 250) | (L = 10⁴) |

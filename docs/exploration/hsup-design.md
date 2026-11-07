@@ -235,7 +235,7 @@ report, byte-compatible with BallSup:479 at f := seamCoeff (ellLin g) 1 t0
 general multiplicative f has NO supply and must not be instantiated).
 The y-pin free in the gates; y = (logX)^4 recommended (E/X = (logX)^{-1+o(1)},
 margin 0.99 powers), e^{sqrt L} the fallback if the eta-box tightens.
-X0 is g/t0-independent (HExit:741 -- recorded, nobody re-derives it).
+X0 is g/t0-independent (HExit:740 -- recorded, nobody re-derives it).
 
 **REFUTERS on this freeze** (2, firing): SHAPE-REF (the A-5 honest-target
 page + the A-9 binder byte-compat + the datum gate) + GRADE-REF (the full
@@ -412,7 +412,7 @@ numeral shift. Seam geometry closes it: on the ball leg's own domain
 (t ∈ seamAnn ∩ seamBall) the intersection being nonempty forces
 **|t₁| ≤ T_ann + seamRad X** (the outer companion of the landed inner cut
 CenterCore:490 — ~8 ln, the shape M_range already encodes at
-DistHalasz:264). Instantiate exists_min_dist_abs at
+DistHalasz:261). Instantiate exists_min_dist_abs at
 **R := T_ann + seamRad X + (log 2X)⁴ + 1**: hgate discharges outright; if
 the intersection is EMPTY, hSup is vacuous (its guards ARE membership) and
 the row applies with any S. Acid test passed in BOTH regimes — in T_ann ≈ X
@@ -660,7 +660,7 @@ joint_supF_pinC (RHSGrade:248) [B,120]; W4-3 beta_integral_pin_constC
 rhs_grade_at_scale in WINDOW-FLOOR form (GradeConst:1089 + SupClose:334;
 hMwin replaces hmin/hgate) [C,300]; W4-5 JointIntegrableAtC + the JointPlumb
 clone (30 sites; σ^{2c−1} integrable at c > 0) [B,250–350]; W4-6
-center_halasz_supply B-ABSTRACT (CenterSupply:296; the exponent opaque —
+center_halasz_supply B-ABSTRACT (CenterSupply:295; the exponent opaque —
 c-free forever after) [B,150]. C-FREE VERBATIM (do NOT clone): the whole
 amplitude side (crossKer_width_sigma_bound_uniform, widthKamp,
 rhsAgradeConst/gradeAbsConst chains), the FarClose/FarStar far arm,

@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Mathlib
+import Salt.LogExp -- not used here: it carries `Salt.le_log_of_exp_le` to the modules below
 
 /-!
 # The SW rung, node S3c — the ζ/χ₀ pole bound

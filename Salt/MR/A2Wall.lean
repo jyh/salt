@@ -239,7 +239,7 @@ is `theta83 ρ = ρ/3`, which is the EXPONENT in `H83 X θ = (log X)^θ`.  A fac
 IMPROVE APPEARS NOT TO BE LIVE.**  `a2wall_floor32_89` below is conditioned on *"if the `1/16` box
 floor **cannot** be transported to the door's masked piece"* — and it can, and it is:
 `FarL2.box_floor_M0_pieceDatum` states the `1/16` floor at `pretDistSq (pieceDatum χ 𝒥 …)`, is
-AUDITED (`All.lean:3488`) and CONSUMED (`M4T0Discharge:34`, `M4RowLinear:10014`), the mask costing
+AUDITED (`All.lean:3488`) and CONSUMED (`M4T0Discharge:34`, `M4RowLinear:10013`), the mask costing
 only an additive Mertens debit `D` at factor `1`; `box_floor_clears_gate_45` composes it with the
 `n = 45` gate, and `All.lean:3449` records the `T₀`-supplier consuming that composition.
 `M4T0Datum.winCutH_doorChiCoeff_split_L` splits the door's cut datum into exactly those pieces.

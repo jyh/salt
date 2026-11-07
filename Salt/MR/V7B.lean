@@ -92,7 +92,7 @@ open scoped LSeries.notation
 
 `per_pair_contour` passes `shifted_edge_price_strip`'s `c_vk` through verbatim, so
 `RiderTrace.shifted_edge_price_strip_bounded`'s `1/10^9 ≤ c_vk` survives the whole assembly.
-Body verbatim from `HalaszPrimesCore.lean:2403`, with the one `obtain` re-pointed at the
+Body verbatim from `HalaszPrimesCore.lean:2398`, with the one `obtain` re-pointed at the
 bounded twin and the new conjunct threaded through the `refine`. -/
 
 section V7BPerPair
@@ -161,8 +161,7 @@ theorem per_pair_contour_floored :
   have h5T1 : (1 : ℝ) < 5 * T + 1 := by linarith
   have hLTpos : 0 < LT := Real.log_pos h5T1
   -- loglog bound from the threshold
-  have hTlogexp : Real.exp (c_vk + 1) ≤ Real.log T := by
-    rw [← Real.log_exp (Real.exp (c_vk + 1))]; exact Real.log_le_log (Real.exp_pos _) hTexp
+  have hTlogexp : Real.exp (c_vk + 1) ≤ Real.log T := le_log_of_exp_le hTexp
   have hLTge : Real.exp (c_vk + 1) ≤ LT := by
     rw [hLTdef]; exact le_trans hTlogexp (Real.log_le_log hT0 (by linarith))
   have hℓTge : c_vk + 1 ≤ ℓT := by
@@ -825,11 +824,9 @@ theorem halaszPrimesChiGated_of_price_floored {c_vk C₁ C₂ C₃ T₀e : ℝ}
   have hT0 : (0 : ℝ) < T := by linarith
   have hP0 : (0 : ℝ) < P := by linarith
   have hlogP : 0 < Real.log P := Real.log_pos (by linarith)
-  have hLT100 : Real.exp 100 ≤ Real.log T := by
-    rw [← Real.log_exp (Real.exp 100)]; exact Real.log_le_log (Real.exp_pos _) hTE
+  have hLT100 : Real.exp 100 ≤ Real.log T := le_log_of_exp_le hTE
   have hLT1 : (1 : ℝ) ≤ Real.log T := by linarith
-  have hllT100 : (100 : ℝ) ≤ Real.log (Real.log T) := by
-    rw [← Real.log_exp 100]; exact Real.log_le_log (Real.exp_pos _) hLT100
+  have hllT100 : (100 : ℝ) ≤ Real.log (Real.log T) := le_log_of_exp_le hLT100
   have hllT1 : (1 : ℝ) ≤ Real.log (Real.log T) := by linarith
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   have hqT : T ≤ (q : ℝ) * T := by nlinarith only [hT₀z', hq1, hc10, hc0, hT₀z]
@@ -1119,7 +1116,7 @@ open MeasureTheory
 /-! ## §3 — THE SIX PASS-THROUGHS
 
 `NumeralKq`'s `_bounded` family, each twin re-run with the `cs` floor riding beside the `Kq`
-ceiling.  Bodies verbatim from `NumeralKq.lean:532-932`; the only edits are the extra
+ceiling.  Bodies verbatim from `NumeralKq.lean:530-930`; the only edits are the extra
 conjunct in the `∃`-prefix, the extra name in each `obtain`/`refine` tuple, and the callee
 re-pointed at its own `_cs` twin. -/
 

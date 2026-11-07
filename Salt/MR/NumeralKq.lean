@@ -82,8 +82,7 @@ theorem zero_free_region_primitive_bounded :
   have hQ4 : (4 : ℝ) ≤ (q : ℝ) * (|ρ.im| + 2) := by
     linarith only [hqR2, mul_nonneg (show (0 : ℝ) ≤ (q : ℝ) by linarith) (abs_nonneg ρ.im)]
   have hexp4 : Real.exp 1 ≤ 4 := le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))
-  have h4 : (1 : ℝ) ≤ Real.log 4 := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hexp4
+  have h4 : (1 : ℝ) ≤ Real.log 4 := le_log_of_exp_le hexp4
   have hL1 : (1 : ℝ) ≤ Lval := le_trans h4 (Real.log_le_log (by norm_num) hQ4)
   have hLpos : (0 : ℝ) < Lval := by linarith
   have hLne : Lval ≠ 0 := ne_of_gt hLpos
@@ -210,8 +209,7 @@ theorem zero_free_region_real_bounded :
     linarith only [hqR2,
         mul_nonneg (show (0 : ℝ) ≤ (q : ℝ) by linarith) (abs_nonneg ρ.im)]
   have hexp4 : Real.exp 1 ≤ 4 := le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))
-  have h4 : (1 : ℝ) ≤ Real.log 4 := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hexp4
+  have h4 : (1 : ℝ) ≤ Real.log 4 := le_log_of_exp_le hexp4
   have hL1 : (1 : ℝ) ≤ Lval := le_trans h4 (Real.log_le_log (by norm_num) hQ4)
   have hLpos : (0 : ℝ) < Lval := by linarith
   have hβ1 : ρ.re < 1 := by

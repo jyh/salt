@@ -167,8 +167,7 @@ theorem center_halasz_supply_A :
   have hk1le : (1 : ℝ) ≤ (k : ℝ) := by linarith
   -- `log k ≥ 1` (the window: `log k ≥ log X − log 2 ≥ 8 − 0.7`)
   have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hL8 : (8 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 8]; exact Real.log_le_log (Real.exp_pos 8) hX8
+  have hL8 : (8 : ℝ) ≤ Real.log X := le_log_of_exp_le hX8
   have hLklo : Real.log X - Real.log 2 ≤ Real.log (k : ℝ) := by
     have h1 : Real.log (X / 2) ≤ Real.log (k : ℝ) :=
       Real.log_le_log (by linarith) (by linarith)
@@ -321,8 +320,7 @@ theorem caseA_rhs_socket {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ �
   have hk0 : (0 : ℝ) < (k : ℝ) := lt_of_lt_of_le (Real.exp_pos 64) hk
   have hk3 : Real.exp 3 ≤ (k : ℝ) :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hk
-  have hL64 : (64 : ℝ) ≤ Real.log (k : ℝ) := by
-    rw [← Real.log_exp 64]; exact Real.log_le_log (Real.exp_pos 64) hk
+  have hL64 : (64 : ℝ) ≤ Real.log (k : ℝ) := le_log_of_exp_le hk
   have hL0 : (0 : ℝ) < Real.log (k : ℝ) := by linarith
   -- the window-floor grade at a free `c`, far arm carried additively
   have hmain := rhs_grade_at_scale_windowC (g := gxDatum g P Q x) (c := c) (Cb := Cb)
@@ -626,8 +624,7 @@ theorem caseA_grade_numeral {W : ℝ} (hW : Real.exp 1 ≤ W) :
     Real.exp (-(1 / Real.exp 1) * ((1 / 32 - theta293) * Real.log (Real.log W)))
       = Real.log W ^ (-rho293) := by
   have hW0 : (0 : ℝ) < W := lt_of_lt_of_le (Real.exp_pos 1) hW
-  have hlogW1 : (1 : ℝ) ≤ Real.log W := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hW
+  have hlogW1 : (1 : ℝ) ≤ Real.log W := le_log_of_exp_le hW
   have hlogW0 : (0 : ℝ) < Real.log W := by linarith
   rw [Real.rpow_def_of_pos hlogW0, balance_exponent_293]
   congr 1

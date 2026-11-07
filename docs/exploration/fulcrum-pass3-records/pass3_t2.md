@@ -16,7 +16,7 @@ architecture.
 - The sole residual door of `log_chowla_two_final` (SpineFinal.lean:416-427) is
   `MRTUniformity R δ` (MRTDoor.lean:48-50): an `e(αj)`-twisted window exponential sum,
   ∀α real — **no characters, no moduli**. GROUNDED.
-- The S5 split form (Salt/MR/NonPret.lean:104-123) is `pretDistSq lam (costwist t) x` —
+- The S5 split form (Salt/MR/NonPret.lean:103-122) is `pretDistSq lam (costwist t) x` —
   the q=1 twist family n^{it} only; bound `(1/4)loglog x − 4·logloglog(|t|+16) − C`,
   heights |t| ≤ Q·x. GROUNDED.
 
@@ -34,7 +34,7 @@ as the demand size grows.
 **(b) Satisfiability cap: A ≤ 2·loglog x + O(1).** For g₁ = λ and χ₀ mod 1, t = 0:
 𝔻(λ,1;x)² = Σ_{p≤x} 2/p = 2loglog x + O(1) (Mertens; MEMORY, elementary). Hypothesis
 (2.3) with larger A is unsatisfiable — the theorem goes vacuous. Sharper: the landed
-q=1 supply floor is (1/4)loglog x − o (NonPret.lean:114-118 + ZetaLowerAllT.lean:270-273,
+q=1 supply floor is (1/4)loglog x − o (NonPret.lean:113-117 + ZetaLowerAllT.lean:270-273,
 GROUNDED), so the *usable* A is ≤ (1/4)loglog x. Either constant kills.
 
 **(c) Where the proof consults characters: W := log⁵H.** Prop 2.4's proof
@@ -47,7 +47,7 @@ H₊ ≪ A. So the operative conductor range of the entire architecture is
 
 **(d) Supply comparison at triple-log moduli.** In 𝔻(λ, χn^{it}; x)² = loglog x +
 log|L(1+1/log x+it, χ)| + O(1) (standard Euler-product split; the q=1 instance is the
-repo's own bridge stone, NonPret.lean:114-118):
+repo's own bridge stone, NonPret.lean:113-117):
 - Unconditional effective L(1,χ) ≫ q^{-1/2} (Landau/class-number; MEMORY): additive loss
   (1/2)log q ≤ (5/2)·log₄x. Complex-χ / t-away regime: unconditional zero-free-region
   floors, log₃-grade loss (the landed q=1 VK shape already pays the dominant

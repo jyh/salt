@@ -210,7 +210,7 @@ Route instead:
   250/700 was over-claimed and is retired).
 - The honest grade: log(1/c) ≥ 631.6 — the binding arm is
   (c₀/KErho)⁸, KErho = 16·636·627⁹, c₀ = 1/126848
-  (ZeroFreeReal.lean:604) — NOT the 2^{−250} arm. hN+ ⟺
+  (ZeroFreeReal.lean:603) — NOT the 2^{−250} arm. hN+ ⟺
   η ≳ e^{1264+26·log L}-grade. **TAU-SHARP re-scoped accordingly: the
   KErho arm is the target, and k must go to 0, not merely shrink.**
 - hN+ ∧ hηq is empty below q ≈ e^{250}: said aloud so no executor
@@ -238,7 +238,7 @@ the ledger closes with ∫_x^∞ (log t)^{−2}-grade margin.
   norm_sum_le + per-term ‖y^ρ/ρ‖ ≤ y^{β̄}/‖ρ‖);
 - the tail grade stated with its constant: ≈ 1.27e5·L^{−19}-grade
   (the freeze's own explicit-constant discipline);
-- `zero_free_region_all` (decl ZeroFreeReal.lean:605; obtained at
+- `zero_free_region_all` (decl ZeroFreeReal.lean:604; obtained at
   TBalTall.lean:2089) covers ONLY complex zeros (side condition
   χ² ≠ 1 ∨ Im ρ ≠ 0; our χ is real) — hreal′ is carried height-free
   at the repulsion ceiling (the stronger of the two), one binder

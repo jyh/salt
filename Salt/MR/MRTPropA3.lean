@@ -741,7 +741,7 @@ and fixing them edits A.6's/A.7's STATEMENTS (Fable/Captain tier).  `DoorRoadCom
 /-! ### FIVE LINKS DEEP, EVERY ONE POPULATED — AND THE REAL OPEN QUESTION IS NOT A MISSING LEMMA
 
 Continuing the walk.  `DoorRowCarried` (the capstone producer's remaining input) is itself
-populated: **8 exact producer-shaped sites**, including `M4T0Discharge.lean:738`,
+populated: **8 exact producer-shaped sites**, including `M4T0Discharge.lean:735`,
 `M4DoorClose.lean:{395,533,607}`, `M4Collapse.lean:216`, `M4ChiSocketWire.lean:{184,240}`.
 The capstone `M4ChiDyadicRowMeanSq` has **6** (three of them `… := by` in
 `M4DoorClose`/`M4DoorClosePool`).
@@ -1092,7 +1092,7 @@ The set sweep reported *"A.6's estimate — OPEN → 61 landed `halasz*` theorem
 count is real and it is **not** evidence A.6 is servable.  Measuring the closest one shows
 why, and it corrects my own framing one beat old.
 
-`T1_pointwise_decay` (`PropA3Core.lean:330`) is the nearest landed relative:
+`T1_pointwise_decay` (`PropA3Core.lean:326`) is the nearest landed relative:
 ```
   U ≤ (C₁+C₂)·X·( (log X)^{−1/(32e)} + (log X)^{−1/2+ε} )
       from  Uhead ≤ C₁·X·exp(−(1/e)·M_range f X T),  Utail ≤ C₂·X·(log X)^{−1/2},
@@ -1513,7 +1513,7 @@ With `MRTLemmaA4ii`'s `t₁` repaired (constrained to the minimiser), the far
 branch has an obvious route through objects that are already landed:
 
 ```
-  dist_one_floor_pow   DistHalasz.lean:179   L ≤ 𝔻²(1, n^{i(t−t₁)}; X),  unconditional
+  dist_one_floor_pow   DistHalasz.lean:177   L ≤ 𝔻²(1, n^{i(t−t₁)}; X),  unconditional
                        the 1/4-grounding: for |b| ≤ 2X the −(3/4)loglog correction
                        eats 3/4 of the leading loglog, leaving L = (1/4)·loglog X − o(1)
   dist_recenter_sq     DistSplit.lean:140    (√L − √S)² ≤ 𝔻²(f, n^{it}; X)

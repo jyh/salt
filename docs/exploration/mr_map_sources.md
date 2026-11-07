@@ -74,13 +74,13 @@ Matomäki hits are bibliographic only [G grep].
 - Regime floor: `H ≥ 4,000,000` (`SpineFinal.lean:298`, via `R.hHlo_floor`).
 
 **The region side (the MR gate's key opened 2026-07-18):**
-- `Salt/Vk/GrowthPow.lean:1044` — `zeta_zero_free_region_pow`
+- `Salt/Vk/GrowthPow.lean:1042` — `zeta_zero_free_region_pow`
   (**UNCONDITIONAL**, commit 65d361d "THE MR GATE OPENS"): every ζ-zero with
   `|Im ρ| ≥ T₀` has `Re ρ ≤ 1 − c/((log|Im ρ|)^{3/4}·(loglog|Im ρ|)³)`,
   `c = 10⁻⁹`, `T₀ = exp(exp(8·log(20000K)+1100))+t₀+3` (flags.md VK-7 block
   ~:9670–9700). θ = **3/4** exactly, `(loglog)³` correction, power 3.
 - `Salt/SW/` — the classical L(s,χ) zero-theory: `zero_free_region`
-  (`ZeroFree.lean:387`), `zero_free_region_real`, Siegel
+  (`ZeroFree.lean:386`), `zero_free_region_real`, Siegel
   (`SiegelFinal.lean:443`), `ThreeFourOne.lean`, contour machinery
   (`ContourShift.lean`, `ZetaEM.lean`), and **`zeta_lower_shallow`**
   (`ZetaLowerShallow.lean:1–35`): `σ ≥ 1 − c₄/log⁹(|t|+2) ⟹ ‖ζ(σ+it)‖ ≥
@@ -288,7 +288,7 @@ details = map #1.)
 
 | quantity | value | status |
 |---|---|---|
-| region log-power θ | **3/4** exactly | [G] GrowthPow.lean:1044 |
+| region log-power θ | **3/4** exactly | [G] GrowthPow.lean:1042 |
 | region loglog-correction power | **3** | [G] ibid. |
 | region constant c | 10⁻⁹ | [G] flags.md VK-7 block |
 | region threshold T₀ | exp(exp(8·log(20000K)+1100))+t₀+3 ("exp(exp ~100)"-grade) | [G] flags + pilot.md:8679 |

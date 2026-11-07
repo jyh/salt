@@ -198,8 +198,7 @@ lemma bandLterm_seamT0_le {X : ℝ} (hX : 3 ≤ X) :
     bandLterm X (seamT0 X) ≤ 3 * (1 + Real.log (Real.log X)) := by
   have hX0 : (0 : ℝ) < X := by linarith
   have hXe : Real.exp 1 ≤ X := by linarith [Real.exp_one_lt_d9]
-  have hL1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hXe
+  have hL1 : (1 : ℝ) ≤ Real.log X := Salt.le_log_of_exp_le hXe
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have hLL0 : (0 : ℝ) ≤ Real.log (Real.log X) := Real.log_nonneg hL1
   have hT0 : seamT0 X = (Real.log X) ^ ((1 : ℝ) / 45) := rfl
@@ -268,8 +267,7 @@ theorem t0BandB_grade {X C₁ M₀ : ℝ} (hX : 3 ≤ X) :
             * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2) := by
   have hX0 : (0 : ℝ) < X := by linarith
   have hXe : Real.exp 1 ≤ X := by linarith [Real.exp_one_lt_d9]
-  have hL1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hXe
+  have hL1 : (1 : ℝ) ≤ Real.log X := Salt.le_log_of_exp_le hXe
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have hLL0 : (0 : ℝ) ≤ Real.log (Real.log X) := Real.log_nonneg hL1
   set E : ℝ := Real.exp (-(1 / (2 * Real.exp 1)) * M₀) with hEdef
@@ -538,8 +536,7 @@ theorem thm_a2'_of_rows {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M₀ 
         + 6315000 / h := by
   have hX0 : (0 : ℝ) < X := by linarith
   have hh0 : (0 : ℝ) < h := by linarith
-  have hL1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hL1 : (1 : ℝ) ≤ Real.log X := Salt.le_log_of_exp_le hX
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have hLL0 : (0 : ℝ) ≤ Real.log (Real.log X) := Real.log_nonneg hL1
   have hrp500 : (0 : ℝ) < (Real.log X) ^ (-(1 : ℝ) / 500) := Real.rpow_pos_of_pos hL0 _
