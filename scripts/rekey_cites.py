@@ -1479,6 +1479,27 @@ def self_test():
         _, r2, c2 = census(d, "HEAD~3", "HEAD")
         check("HAND: a fully fixed CHAIN reads HAND, both links", c2["HAND"] == 5 and c2["REPORTED"] == 0)
         check("HAND: every range fixed by hand => rc 0", main_rc(d, ["HEAD~3", "HEAD"]) == 0)
+    # paper's LOW 1 on #646: the count must need the OLD cite gone, not only the image present
+    with tempfile.TemporaryDirectory() as d:
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt"))
+        tgt = "".join(f"r{i}\n" for i in range(1, 41))
+        open(os.path.join(d, "Salt/W.lean"), "w").write(tgt)
+        open(os.path.join(d, "twice.md"), "w").write("a W.lean:5-20 x\nb W.lean:5-20 y\n")
+        open(os.path.join(d, "pre.md"), "w").write("c W.lean:9-15 x\nd W.lean:10-16 is unrelated\n")
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        t = tgt.split("\n"); t[9] = "r10 EDITED"; t = t[:2] + ["top"] + t[2:]
+        open(os.path.join(d, "Salt/W.lean"), "w").write("\n".join(t))
+        open(os.path.join(d, "twice.md"), "w").write("a W.lean:6-21 x\nb W.lean:5-20 y\n")   # ONE of two fixed
+        open(os.path.join(d, "pre.md"), "w").write("c W.lean:9-15 x\nd W.lean:10-16 is unrelated\n")  # c NOT fixed
+        g("add", "-A"); g("commit", "-q", "-m", "head")
+        _, rows6, cls6 = census(d, "HEAD~1", "HEAD")
+        tw = [r["cls"] for r in rows6 if r["src"] == "twice.md"]
+        check("HAND: one of two identical ranges fixed stays REPORTED, both (paper LOW 1)", tw == ["REPORTED", "REPORTED"])
+        pre = [r for r in rows6 if r["src"] == "pre.md" and r["cite"] == "W.lean:9-15"]
+        check("HAND: an image already standing at BASE as another cite is not a fix", pre and pre[0]["cls"] == "REPORTED")
+        check("HAND: ... so the run stays stale (rc 1)", main_rc(d, ["HEAD~1", "HEAD"]) == 1)
 
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
