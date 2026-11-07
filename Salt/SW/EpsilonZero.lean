@@ -333,7 +333,7 @@ theorem zeta_zero_free_region_bounded :
 
 /-! ## 5. ZETA-INV-SHALLOW — explicit `‖Zc‖` floors on the pole patch
 
-CMU-HUNT leaf #2 (`Salt/SW/ZetaInvShallow.lean:53`, `Zc_patch_lower`): `‖Zc‖` attains a
+CMU-HUNT leaf #2 (`Salt/SW/ZetaInvShallow.lean:58`, `Zc_patch_lower`): `‖Zc‖` attains a
 positive minimum `δ` on the rectangle `R = {a ≤ Re ≤ 3, |Im| ≤ 2}` by
 `IsCompact.exists_isMinOn`, and `δ` sits under a division in `zeta_inv_shallow`'s `C`.
 
