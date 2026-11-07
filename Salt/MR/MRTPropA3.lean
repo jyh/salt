@@ -778,7 +778,7 @@ lengths, *"where the capstone is silent"*.  So the dyadic split is `j < j₀` tr
 `j₀ ≤ j` capstone (`M4CoprimeSupply.lean:39`, `M4Maximal.lean:1019`).
 
 **2. ⛔ TWO DIFFERENT OBJECTS ARE CALLED "THE CAPSTONE". THEY ARE NOT THE SAME.**
-* `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:527`) — the **S12** lane.  This is
+* `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:508`) — the **S12** lane.  This is
   the one carrying `S14Compose.lean:429`'s **`⚠ NOT DERIVED` … "refuted at ⟦B1'-3⟧ by §3"**.
 * `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1021`) — the **M4** lane, and *this* is the one the
   door's dyadic split consumes (`M4Maximal.lean:117`, length-graded `MS j H`).
