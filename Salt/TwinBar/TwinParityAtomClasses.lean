@@ -105,7 +105,7 @@ theorem coprime_twinProd_iff_mod (P n : ℕ) :
 /-- **D2 (class B).**  The coprime-filtered sum splits over the admissible classes, fiberwise by
 `n % P`.
 
-Recipe: the idiom of `remLogCount_abs_le` (`TwinParitySieveLog.lean:291`, its `hfib`):
+Recipe: the idiom of `remLogCount_abs_le` (`TwinParitySieveLog.lean:300`, its `hfib`):
 `Finset.sum_fiberwise_of_maps_to` with `g := (· % P)`, `t := admClasses P` (`maps_to` from
 `Nat.mod_lt` + D1), then `Finset.sum_congr` and, per fiber, `ext n; simp only [Finset.mem_filter]`
 with D1 closing `Coprime (n(n+2)) P ∧ n % P = r ↔ n % P = r ∧ r ∈ admClasses P`. -/

@@ -209,7 +209,7 @@ structure MrtCompMultDatum (g : ℕ → ℂ) : Prop where
 
 /-- **Proposition 2.4's inner exponential sum**:
 `∑_{x/d ≤ n ≤ x/d + H/d} 1_S(n) g(n) e(αn)`, with `e(·)` the corpus's normalised
-additive character `Salt.ExpSum.eR` (`ExpSum/Basic.lean:43`).
+additive character `Salt.ExpSum.eR` (`ExpSum/Basic.lean:44`).
 
 The window `x/d ≤ n ≤ x/d + H/d` is realised over `ℕ` as
 `Finset.Icc ⌈x/d⌉₊ ⌊x/d + H/d⌋₊`.  For `n ≥ 1` this is exactly MRT's range

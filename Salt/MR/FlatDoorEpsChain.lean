@@ -410,7 +410,7 @@ def V7RatedFormEps (ε : ℚ) (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
 replaced by the interval
 `1/(500·8103) ≤ ε ≤ 1/500`.  The route is the pinned lemma's own: `bigXi_bounded_explicit`
 (`GoldbachEnergyN0.lean:721`) at `K := e^40` (`ε`-free) and `C₁` read off the GENERIC
-`hpt_holds_thr` (`:544`) at the `ε`-free threshold `T := 2^68`.
+`hpt_holds_thr` (`:547`) at the `ε`-free threshold `T := 2^68`.
 
 ⟦THE WITNESS AND ITS SIZE⟧ `32·e^40·(2^63)²·4051500^10`.  `1/ε² ≤ 4051500² = 1.6415·10^13` carries
 `C₁ ≤ 204800 + 1.681·10^18 + 1.1888·10^15·(68·log 2)² = 4.323·10^18 ≤ 2^63`, and `ε^{-10}` gives

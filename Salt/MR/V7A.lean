@@ -224,7 +224,7 @@ theorem capfloor_floor4_of_pos {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Ks T
 
 /-- **⟦THE V7-E LEAF⟧** the `Ks` arm discharged against the terminal's OWN design conjunct.
 `logChowla2_ineffective_v6` exports `3.2·A ≤ loglog R.Hlo` (`RegisterCompose:351`) and mints
-`Ks` (`:242`) BEFORE it chooses `A` (`:246`) — so a terminal may put
+`Ks` (`:236`) BEFORE it chooses `A` (`:240`) — so a terminal may put
 `log(1/Ks) ≤ 3·e^{3.2·A}/16` into its own `max` for `A` and read `floor4` off with no rider at
 all.  The Siegel constant is then carried by name, never by numeral. -/
 theorem capfloor_floor4_of_design {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Ks Tann Ad : ℝ}
