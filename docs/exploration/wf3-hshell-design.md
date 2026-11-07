@@ -89,7 +89,7 @@ cannot all hold.** *No instrument catches this — only reading my own paragraph
 says of itself *"NOT `rfl`-grade"*; the door compat is proved by `propext`). It reduces by a
 **3-lemma rewrite** — cheap, and it does not fork the corpus. ⛔ **But I wrote "mirror the L² compat
 pattern, do not invent one" when the L¹ compat I actually need is ALREADY LANDED:**
-`bigXi_eq_bigXiH_one` (`ShiftFork.lean:105`) and `mrtUniformityXi_eq_xiH_one` (`:307`).
+`bigXi_eq_bigXiH_one` (`ShiftFork.lean:105`) and `mrtUniformityXi_eq_xiH_one` (`:314`).
 *Nothing to mirror and nothing to invent — I sent an executor to build what exists.*
 
 ## A5 — J5 SURVIVES, independently re-verified with a positive control

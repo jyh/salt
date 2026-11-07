@@ -298,7 +298,7 @@ The survivor condition is NOT `p ≤ H/h`. `windowVal H x (j + p*h) = 0` unless 
 i.e. **STRICT**. ⛔ **CITATION CORRECTED 2026-08-21 (independent-gate fatal 1): the anchor is the
 DEFINITION `windowVal` at `FBridge.lean:60`** — `if h : j < H then v ⟨j,h⟩ else 0`, per-index, no
 case hypothesis. *The former anchor `CircleMethod.lean:1332` is a local `have` inside the branch
-the file labels `-- degenerate: H = 1` at `:1227`, where the ramp collapses to the constant 0 and
+the file labels `-- degenerate: H = 1` at `:1410`, where the ramp collapses to the constant 0 and
 the rule's whole content is invisible. Right rule, wrong line.* ⇒
 - **K1 STANDS, with an exact witness:** at `ε² = 1/4, H = 1996, h = 4` the window is `(249.5, 499]`,
   its top element `499` is prime, and `499·4 = 1996 = H`, so `p·h < H` is **false** — the prime
