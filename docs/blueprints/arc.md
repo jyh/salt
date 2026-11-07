@@ -55,7 +55,7 @@ close; every wave carries that sentence.
 
 **VERDICT (a): THE SIEVED ROAD.** The pricing wave's adversarial gate broke the five-reader
 default at the bytes: the sieved supply is LANDED end-to-end — `m4_doorL2_close_split_sq`
-(`M4DoorL2.lean:597`, legs 1/3/4 in place) → `m4_second_road_L2` (`S12Compose.lean:98`,
+(`M4DoorL2.lean:597`, legs 1/3/4 in place) → `m4_second_road_L2` (`S12Compose.lean:99`,
 11-item register, ONE analytic item, that item carrying FIVE producers + an unconditional
 witness) → grade MET → `logChowla2_ineffective_v7_ksarm_g0` (`V7Headline.lean:157`, no outer
 hypotheses, ONE open rider). The rider (`Kvt` cushion) measured at its flip-point: no second
