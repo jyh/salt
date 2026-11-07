@@ -87,7 +87,7 @@ noncomputable def lem10ExpSumZ (k q : ℕ) (b : ℤ) (I : Finset ℤ) (m : ℤ) 
 /-- **The one explicit `±m` conjugation bridge R-A6 mandates**, as a NORM equality.
 
 For `0 ≤ m` this is a cast; for `m < 0` it is the landed `norm_lem10ExpSum_neg`
-(`Salt/HB/Lemma10Chain.lean:1269`) after an `Int.cast`/`Neg` congruence step.  ⛔ It is NOT
+(`Salt/HB/Lemma10Chain.lean:1276`) after an `Int.cast`/`Neg` congruence step.  ⛔ It is NOT
 `rfl`: `Int.cast m` and `Nat.cast m.natAbs` are not defeq for a variable `m`. -/
 theorem norm_lem10ExpSumZ (k q : ℕ) (b : ℤ) (I : Finset ℤ) (m : ℤ) (f : ℤ → ℝ) :
     ‖lem10ExpSumZ k q b I m f‖ = ‖lem10ExpSum k q b I m.natAbs f‖ := by
@@ -823,7 +823,7 @@ private lemma majorant_tail_range_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0
 
 ⛔ Without this the row above would be true and EMPTY: in Lean `∑' n, f n = 0` by definition
 when `f` is not summable, so a `tsum` bound on a non-summable family says nothing.  The corpus
-names the trap at `Salt/Weil/Sawtooth.lean:1420-1423`; it is answered here by the same range
+names the trap at `Salt/Weil/Sawtooth.lean:1438-1441`; it is answered here by the same range
 bound the row itself consumes. -/
 private lemma majorant_tail_summable [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
     (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)

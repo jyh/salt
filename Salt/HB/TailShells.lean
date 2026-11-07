@@ -295,7 +295,7 @@ noncomputable def efEnvelopeB3 (q : ℕ) (β₀ bceil : ℝ) (m : ℕ) (σa σb 
   + efShellRow q bceil u
 
 /-- The raw form: `psiDefect_norm_le_of_ef` cut at `hkey`. No ceiling binder; the box's lower
-edge `9/10 ≤ σ₀ − w` EXPORTED (R2's K3 repair — it is `hσ₀w` at `Lemma7EF.lean:404`, from
+edge `9/10 ≤ σ₀ − w` EXPORTED (R2's K3 repair — it is `hσ₀w` at `Lemma7EF.lean:416`, from
 `DensityCrude.lean:870`; the shell lemma's `hσa` and `hbar` need it). Class B. -/
 theorem psiDefect_norm_le_raw {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
     (hχ : χ.IsPrimitive) (hq : 2 ≤ q) {β₀ u h σa σb T₀ : ℝ}

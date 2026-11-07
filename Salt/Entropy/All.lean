@@ -497,13 +497,13 @@ WHERE THE TWIST LIVES.  Tao's `Ξ_H` carries the frequency twist `−hξ/H`
 (`chowla.txt:1296-1300`), and it is INVISIBLE at `h = 1` rather than absent.  It goes
 into `bigXiH`'s membership predicate and NOWHERE ELSE: the door's `α` stays at the
 untwisted `−ξ.val/H`, because the seam consumes the circle method's surviving DFT
-factor at the untwisted `ξ` (`Theorem23Shell.lean:188-193`).  A door twisted to
+factor at the untwisted `ξ` (`Theorem23Shell.lean:189-194`).  A door twisted to
 `−(h·ξ.val)/H` would elaborate cleanly and then fail to compose.
 
 THE TRIPWIRE.  No `h = 1` compat can police that spelling — at `h = 1` the twist
 vanishes under `Nat.cast_one`, so `mrtUniformityXi_eq_xiH_one` is provable either way.
 `contradiction_of_mrtDoorXiH` is the `h`-GENERAL clone of the landed seam
-`contradiction_of_mrtDoorXi` (`MRTDoor.lean:127-157`); its termwise step fires the door
+`contradiction_of_mrtDoorXi` (`MRTDoor.lean:132-162`); its termwise step fires the door
 at `ξ` against the sum's own integrand, so it closes at general `h` under the untwisted
 door and cannot close under a twisted one.  It landed last, and it landed green.
 
@@ -576,7 +576,7 @@ certifies nothing about the door's spelling — `contradiction_of_mrtDoorXiH` re
 only tripwire that can.
 
 THE `L²` FORK.  `MRTUniformityXiL2H h` is the Ξ-summed `L²` door
-(`MRTDoor.lean:187-190`) over `bigXiH h R.eps H`, `mrtUniformityXiL2_eq_xiL2H_one` pins
+(`MRTDoor.lean:192-195`) over `bigXiH h R.eps H`, `mrtUniformityXiL2_eq_xiL2H_one` pins
 the landed door as its `h = 1` member, and `contradiction_of_mrtDoorXiL2H` is its seam
 with the lower bound transcribed from the landed one at the untwisted `−ξ.val/H`.  For
 `h ≥ 2` it binds the `μ_h`-PREIMAGE of `Ξ_H` — INCOMPARABLE to `Ξ_H` in general, of
@@ -761,7 +761,7 @@ first place wave A's declared boundary ("no `badSet` at `h`") is crossed on purp
 ⚠️ THE THREE SYNCHRONISED SITES.  Byte-identity at shift `h` is not a property of one
 definition.  The offset is spelled independently at three places: this predicate, the
 concentration lemma's deviation set (wave B-2/B-3), and `outer_combine`'s own conclusion
-(`OuterCombine.lean:363-364`, which today reads `j + (p : ℕ)` with NO `* h`).  Wave A fixed
+(`OuterCombine.lean:367-368`, which today reads `j + (p : ℕ)` with NO `* h`).  Wave A fixed
 the target spelling at `OuterCombine.lean:150` as `windowVal H v (j + (p : ℕ) * h)`; `badSet_h`
 matches it verbatim, and the remaining two sites are B-2/B-3 and B-4's obligation, not this
 node's.  B-1 lands site 1 only, and says so.
@@ -805,7 +805,7 @@ changed; no estimate was re-derived and none was weakened.
 `fBridge_h_concentration_decoupled` and `fBridge_h_concentration_decoupled_sharp` spell the
 offset independently of `badSet_h`; all three use wave A's fixed target spelling
 `windowVal H v (j + (p : ℕ) * h)` (`OuterCombine.lean:150`), byte-identical to site 1.
-SITE 3 — `outer_combine`'s own conclusion (`OuterCombine.lean:363-364`) — still reads
+SITE 3 — `outer_combine`'s own conclusion (`OuterCombine.lean:367-368`) — still reads
 `j + (p : ℕ)` with no `* h` and is UNTOUCHED: it is node B-4's obligation.
 
 THE `h = 1` RECOVERIES: EXACTLY TWO REWRITES EACH, BUT NOT THE SAME TWO.  B-2/B-3 introduce
@@ -861,7 +861,7 @@ literal `(j + (p : ℕ)) : ℝ)` occurs ZERO times.
 ⛔⛔ CORRECTED 2026-08-21: THIS PARAGRAPH SAID "ALL THREE SITES AGREE" AND THE AGREEMENT
 POPULATION IS **SIX FILES**, NOT THREE.  Measured (`grep -rF '(j + (p : ℕ) * h) : ℝ)' Salt/`):
 `CircleMethod` · `FBridge` · `OuterCombine` · `Decoupled` · `Transport` · `ShiftFork`.  Two of
-them — `circle_method_estimate_h` (`ShiftFork.lean:405`) and `circle_method_estimate_h_core`
+them — `circle_method_estimate_h` (`ShiftFork.lean:412`) and `circle_method_estimate_h_core`
 (`CircleMethod.lean:1227`) — already carried the identical literal BEFORE wave A opened.
 ⇒ "THREE SITES" COUNTED WHAT THE ENTROPY CONE HAD TO **MOVE**; IT NEVER COUNTED WHAT MUST
 **AGREE**.  The migration population and the agreement population are different sets, and this
@@ -911,7 +911,7 @@ a regression: check WHICH declaration owns the new line before reading a rise as
 
 ⚠️ THE THREE-SITE ROSTER UNDERCOUNTS THE SHIFT-`h` OFFSET POPULATION — census finding, not a
 defect.  Two MORE declarations already spelled the offset at shift `h` before wave A opened:
-`circle_method_estimate_h` (`ShiftFork.lean:397`) and `circle_method_estimate_h_core`
+`circle_method_estimate_h` (`ShiftFork.lean:404`) and `circle_method_estimate_h_core`
 (`CircleMethod.lean:1219`), both in the TWO-pattern `x1`/`x2` family.  Both already use the
 identical literal, so byte-identity in fact holds across FIVE sites.  The wave's "three sites"
 counts the sites the entropy cone had to MOVE; it is not the census of the sites that must
@@ -1012,7 +1012,7 @@ to a landed file — a structural change this node does not own.  Reported, not 
 THE IMPORT CYCLE THAT SHAPED THE STATEMENT.  `singleCorr_of_fails_h`'s hypothesis is the
 INEQUALITY that `logChowlaFails h eps x ω` unfolds to, not the named Prop, because `ShiftFork`
 IMPORTS `ChowlaFailure` and naming it there would close a cycle.  Kernel-checked at a landed
-use: `HloExportFlatH.lean:171` feeds a `logChowlaFails h R.eps R.x R.ω` hypothesis (`:115`)
+use: `HloExportFlatH.lean:171` feeds a `logChowlaFails h R.eps R.x R.ω` hypothesis (`:116`)
 straight into `singleCorr_of_fails_h` with no coercion (the first `example` probe is gone).
 
 THE `h = 1` RECOVERY IS A FOURTH SHAPE, AND THE TWO COMPATS OF THIS NODE ARE NOT ALIKE.  The
