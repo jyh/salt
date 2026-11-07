@@ -96,8 +96,7 @@ theorem expEM_le_of_floor_corrected {X M C : ℝ} (hX : Real.exp 1 ≤ X)
     Real.exp (-(1 / Real.exp 1) * M) ≤ (Real.log X) ^ (-(1 / Real.exp 1) / 32)
         * Real.exp ((1 / Real.exp 1)
             * (5 * Real.log (Real.log (Real.log (2 * X + 16))) + C)) := by
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hc : (0 : ℝ) ≤ 1 / Real.exp 1 := by positivity
   have hstep : -(1 / Real.exp 1) * M ≤ Real.log (Real.log X) * (-(1 / Real.exp 1) / 32)

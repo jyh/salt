@@ -159,8 +159,7 @@ theorem abs_log_zeta_near_one_bounded_height {T : ℝ} (hT : 2 ≤ T) :
   refine ⟨max (Real.log (5 + 2 * T)) (7 * Real.log (Real.log (T + 2)) - Real.log c),
     le_trans (Real.log_nonneg (by linarith)) (le_max_left _ _), ?_⟩
   intro x t hx h2t htT
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hup : Real.log ‖riemannZeta (((1 + 1 / Real.log x : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖
       ≤ Real.log (5 + 2 * T) :=
     log_zeta_small_b_le (by linarith : (1 : ℝ) ≤ T) hx (by linarith) htT
@@ -234,10 +233,8 @@ theorem harmonic_prime_sum_abs_le_vk :
   intro X Y t heY hYX hTt hwin
   have heX : Real.exp 1 ≤ X := le_trans heY hYX
   have hY0 : (0 : ℝ) ≤ Y := le_trans (Real.exp_pos 1).le heY
-  have hlogY1 : (1 : ℝ) ≤ Real.log Y := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) heY
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) heX
+  have hlogY1 : (1 : ℝ) ≤ Real.log Y := le_log_of_exp_le heY
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le heX
   have hlogYX : Real.log Y ≤ Real.log X := Real.log_le_log (by linarith [Real.exp_pos 1]) hYX
   set D : ℝ := (Real.log |t|) ^ ((3 : ℝ) / 4) * (Real.log (Real.log |t|)) ^ (4 : ℕ) with hD
   have habs3 : (3 : ℝ) ≤ |t| := le_trans hT₀3 hTt

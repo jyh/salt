@@ -57,8 +57,7 @@ theorem lambda_nonpret :
   -- basic scale facts (`x ≥ e ≥ 2`, `log x ≥ 1`)
   have h2e : (2 : ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1 : ℝ); linarith
   have hx2 : (2 : ℝ) ≤ x := le_trans h2e hx
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   -- the λ-side `≥` corollary from the UNCONDITIONAL Euler bridge
   have hbr := hK x t hx

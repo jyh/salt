@@ -168,8 +168,7 @@ theorem chi_floor_low_principal :
   intro q X t hX ht3
   have h2e : (2 : ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1 : ℝ); linarith
   have hX2 : (2 : ℝ) ≤ X := le_trans h2e hX
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hd0 : (0 : ℝ) < 1 / Real.log X := one_div_pos.mpr hlogXpos
   have hd1 : 1 / Real.log X ≤ 1 := by rw [div_le_one hlogXpos]; linarith

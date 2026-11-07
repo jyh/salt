@@ -362,8 +362,7 @@ lemma M_rangeCap_window_nonempty {X T K : ℝ} (hX : Real.exp 1 ≤ X)
     ({t : ℝ | (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
       ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ K}).Nonempty := by
   have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hX
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hLXpos : (0 : ℝ) < Real.log X := by linarith
   have hr15X : (Real.log X) ^ (1 / 45 : ℝ) ≤ X := by
     calc (Real.log X) ^ (1 / 45 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
@@ -407,8 +406,7 @@ theorem Mrange_cap_one_floor :
       pretFloorShape X K - C ≤ M_rangeCap (fun _ => 1) X T K := by
   obtain ⟨C, hC⟩ := dist_one_floor_pow
   refine ⟨C, fun X T K hX hT hXK => ?_⟩
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hr15_1 : (1 : ℝ) ≤ (Real.log X) ^ (1 / 45 : ℝ) := Real.one_le_rpow hlogX1 (by norm_num)
   have hfloor : ∀ t : ℝ,
       (Real.log X) ^ (1 / 45 : ℝ) ≤ |t| ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ K →

@@ -291,8 +291,7 @@ theorem chi_Llower_band {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) :
   obtain ⟨m, hm, hbnd⟩ := hband
   refine ⟨-Real.log m, ?_⟩
   intro X t hX ht
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hd0 : (0 : ℝ) < 1 / Real.log X := one_div_pos.mpr hlogXpos
   have hd1 : 1 / Real.log X ≤ 1 := by rw [div_le_one hlogXpos]; linarith
@@ -521,8 +520,7 @@ theorem chi_Llower_real_far :
   intro q _ χ hsq X t hX ht ht0
   have hqpos : 0 < q := Nat.pos_of_ne_zero (NeZero.ne q)
   have hq1R : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hqpos
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hd0 : (0 : ℝ) < 1 / Real.log X := one_div_pos.mpr hlogXpos
   have hd1 : 1 / Real.log X ≤ 1 := by rw [div_le_one hlogXpos]; linarith
@@ -632,8 +630,7 @@ theorem chi_Llower_real_of_L1 :
   have hq1R : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hqpos
   have hD1 : (1 : ℝ) ≤ diskConst q := one_le_diskConst
   have hDpos : (0 : ℝ) < diskConst q := by linarith
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hd0 : (0 : ℝ) < 1 / Real.log X := one_div_pos.mpr hlogXpos
   set δ : ℝ := L₁ / (32 * diskConst q) with hδdef

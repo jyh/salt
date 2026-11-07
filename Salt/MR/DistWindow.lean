@@ -213,8 +213,7 @@ theorem lowerTail_le {X y A : ℝ} (hX : Real.exp 1 ≤ X) (hA : 0 < A) (hy2 : 2
       = ∑ p ∈ (Finset.range (n + 1)).filter Nat.Prime, (1 : ℝ) / p := by
     rw [← Finset.sum_filter, hfeq]
   -- log positivity chain (the y-regime forces `log X > 1`, hence `loglog X > 0`)
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hlogXgt1 : (1 : ℝ) < Real.log X := by
     by_contra hcon
@@ -275,8 +274,7 @@ theorem out_of_window_mass_le {X y A : ℝ} (hX : Real.exp 1 ≤ X) (hA : 0 < A)
   have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hX
   have hred := outWindowMass_le_tails y (X / y) X
   -- the y-regime forces `log X > 1`, hence `loglog X > 0`
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hlogXgt1 : (1 : ℝ) < Real.log X := by
     by_contra hcon
@@ -335,8 +333,7 @@ theorem dist_split_A4_N2 {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (t₀ y
           - 5 * Real.log (Real.log (Real.log (2 * X + 16))) - C
       ≤ pretDistSq (fgJ f t₀ y Y) (costwist t) X := by
   have hwin := dist_window_restrict hf t₀ y Y t X
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hℓnn : 0 ≤ Real.log (Real.log X) := Real.log_nonneg hlogX1
   set ℓ := Real.log (Real.log X) with hℓdef
   set L3 := Real.log (Real.log (Real.log (2 * X + 16))) with hL3def

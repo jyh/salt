@@ -97,8 +97,7 @@ theorem sigma_shift {x : ℝ} (hx : Real.exp 1 ≤ x) :
         ((p : ℝ)⁻¹ - (p : ℝ) ^ (-1 - 1 / Real.log x : ℝ))
       ≤ 1 + (Real.log 4 + 4) := by
   have hx1 : (1 : ℝ) ≤ x := le_trans (Real.one_le_exp (by norm_num)) hx
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   have hδ0 : 0 ≤ 1 / Real.log x := div_nonneg (by norm_num) hLpos.le
   -- termwise: p^{-1} − p^{-1-δ} ≤ δ·(log p)/p
@@ -177,8 +176,7 @@ theorem euler_osc_head_shift {x : ℝ} (hx : Real.exp 1 ≤ x)
           (g p).re * (p : ℝ) ^ (-1 - 1 / Real.log x : ℝ))
         - ∑ p ∈ (Finset.range (⌊x⌋₊ + 1)).filter Nat.Prime, (g p).re / p|
       ≤ 1 + (Real.log 4 + 4) := by
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   have hδ0 : 0 ≤ 1 / Real.log x := div_nonneg (by norm_num) hLpos.le
   rw [← Finset.sum_sub_distrib]
@@ -245,8 +243,7 @@ theorem euler_osc_truncation {x : ℝ} (hx : Real.exp 1 ≤ x) {Ctail : ℝ}
     |(∑' p : Nat.Primes, (g p).re * (p : ℝ) ^ (-1 - 1 / Real.log x : ℝ))
         - ∑ p ∈ (Finset.range (⌊x⌋₊ + 1)).filter Nat.Prime, (g p).re / p|
       ≤ Ctail + (1 + (Real.log 4 + 4)) := by
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   have hδpos : (0 : ℝ) < 1 / Real.log x := by rw [one_div]; exact inv_pos.mpr hLpos
   have hF : Summable (Set.indicator {p : ℕ | Nat.Prime p}
@@ -450,8 +447,7 @@ theorem euler_osc_bridge (hPTS : PrimeTailShiftBounded) :
         ≤ K := by
   obtain ⟨Ctail, hCtail⟩ := hPTS
   refine ⟨cpeel + (Ctail + (1 + (Real.log 4 + 4))), fun x t hx => ?_⟩
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   set s : ℂ := ((1 + 1 / Real.log x : ℝ) : ℂ) + (t : ℝ) * Complex.I with hsdef
   have hsre : s.re = 1 + 1 / Real.log x := by

@@ -254,8 +254,7 @@ theorem chi_euler_osc_bridge (hPTS : PrimeTailShiftBounded) :
   obtain ⟨Ctail, hCtail⟩ := hPTS
   refine ⟨cpeel + (Ctail + (1 + (Real.log 4 + 4))), ?_⟩
   intro q _ χ x t hx
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   set s : ℂ := ((1 + 1 / Real.log x : ℝ) : ℂ) - (t : ℝ) * Complex.I with hsdef
   have hsre : s.re = 1 + 1 / Real.log x := by
@@ -347,8 +346,7 @@ theorem chi_dist_bridge :
   intro q _ χ X t hX
   have h2e : (2 : ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1 : ℝ); linarith
   have hX2 : (2 : ℝ) ≤ X := le_trans h2e hX
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hmert := abs_le.mp (Salt.Mertens.mertens_second_sharp_real hX2)
   have h12 : 12 / Real.log X ≤ 12 := by
     rw [div_le_iff₀ (by linarith)]; nlinarith
@@ -370,8 +368,7 @@ theorem chi_dist_bridge_le :
   intro q _ χ X t hX
   have h2e : (2 : ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1 : ℝ); linarith
   have hX2 : (2 : ℝ) ≤ X := le_trans h2e hX
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hmert := abs_le.mp (Salt.Mertens.mertens_second_sharp_real hX2)
   have h12 : 12 / Real.log X ≤ 12 := by
     rw [div_le_iff₀ (by linarith)]; nlinarith

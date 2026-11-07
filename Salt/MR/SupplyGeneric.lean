@@ -148,8 +148,7 @@ theorem center_halasz_supply_Y {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p
   have hk1le : (1 : ℝ) ≤ (k : ℝ) := by linarith
   -- `log k ≥ 1` (the window: `log k ≥ log X − log 2 ≥ 8 − 0.7`)
   have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hL8 : (8 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 8]; exact Real.log_le_log (Real.exp_pos 8) hX8
+  have hL8 : (8 : ℝ) ≤ Real.log X := le_log_of_exp_le hX8
   have hLklo : Real.log X - Real.log 2 ≤ Real.log (k : ℝ) := by
     have h1 : Real.log (X / 2) ≤ Real.log (k : ℝ) :=
       Real.log_le_log (by linarith) (by linarith)

@@ -887,8 +887,7 @@ theorem dilated_scale_grade_polylog {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
                 * farKfarPolylog (fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I))
                     (k : ℝ) H P J)) := by
   have hk0 : (0 : ℝ) < (k : ℝ) := lt_of_lt_of_le (Real.exp_pos 64) hk64
-  have hLk64 : (64 : ℝ) ≤ Real.log (k : ℝ) := by
-    rw [← Real.log_exp 64]; exact Real.log_le_log (Real.exp_pos 64) hk64
+  have hLk64 : (64 : ℝ) ≤ Real.log (k : ℝ) := le_log_of_exp_le hk64
   have hLk0 : (0 : ℝ) < Real.log (k : ℝ) := by linarith
   have hk3 : Real.exp 3 ≤ (k : ℝ) :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hk64
