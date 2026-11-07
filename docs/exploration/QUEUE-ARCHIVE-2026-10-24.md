@@ -6247,8 +6247,8 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    arithmetic that moves is the pin's numeral: `log(1/ε) ≤ 7` → `≤ 14` (`500·1096 < 2²⁰`)
    against a supply `69·e^{2t}`, `t ≥ 10¹⁷`.
    📌 **THE EQUALITY-PIN FAMILY IS OFF THE ROAD (step 0 (ii), three shapes).** The seven
-   `R.eps = 1/500` sites (`HDoorSupply:1388` · `HDoorArc:577` · `M4DoorL2:208/:732` ·
-   `HDoorClose:262/:288` · `S16FlatTerminalLinearH:1543`) are heads of the door-`L²` `_500` mint
+   `R.eps = 1/500` sites (`HDoorSupply:934` · `HDoorArc:573` · `M4DoorL2:208/:732` ·
+   `HDoorClose:262/:288` · `S16FlatTerminalLinearH:1545`) are heads of the door-`L²` `_500` mint
    family whose only consumers are each other; the `h` road reaches `MRTUniformityXiL2H` through
    `m4_doorL2_supply_H_L_gk_khoist`, whose `ε` binder is `∀ (eps : ℚ), 0 < eps` — generic.
    **The STOP CONDITION never fired.** ⚠️ At `ε = 1/(500h)` that family is VACUOUS on the `h`
