@@ -199,7 +199,7 @@ theorem mrtUniformityXiL2Set_of_subset (Xi Xi' : XiFamily)
 
 /-- **⟦S-3 U5⟧ (class A) — C2 AT THE UNION.**  `mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band`
 (`TierSBand.lean:1424`) with `bigXiAffD a b h ↦ bigXiAffU a h`: C1's band
-(`mrtUniformityXiL2Set_holds_flat_floor_g12b_band`, `:1522`) at shift `a·h`, `harcXi` from U3 at
+(`mrtUniformityXiL2Set_holds_flat_floor_g12b_band`, `:1370`) at shift `a·h`, `harcXi` from U3 at
 `bigXiArcTight_twelve`, `hcount` from U2.  BODY: C2's, with the two per-class suppliers swapped for
 U2/U3.  No class quantifier anywhere — this is the statement that has `b` nowhere in it. -/
 theorem mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band_U (a h : ℕ) (ha : 0 < a) (hh : 0 < h)

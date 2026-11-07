@@ -125,7 +125,7 @@ now CLOSED:
    **UNPRIMED** residue — the object this file states — and mentions `M4RowMeanSq_L` **zero**
    times (measured; QUEUE P1b's 08/23 stamp and its 08/25 erratum).  **Nothing here says the
    `_L` lane's residue is produced.**  It is not: the `L` lane reaches this machinery only
-   through the socket exit `m4_sievedDoorSq_of_classMeanSq_L` (`M4RowLinear.lean:3180`), and a
+   through the socket exit `m4_sievedDoorSq_of_classMeanSq_L` (`M4RowLinear.lean:3165`), and a
    producer for `M4RowMeanSq_L` remains the precise open object.
 
    *A file that correctly scopes a negative to itself still publishes that negative to every
@@ -359,9 +359,7 @@ theorem m4_blockMeanSq_of_rowMeanSq {R : ChowlaRegime} {M k : ℕ} {MS : ℕ →
     (hrow : M4RowMeanSq R M k MS) :
     M4BlockMeanSq R M k (fun H => 2 * MS H) := by
   intro H hlo hhi α harc i hik
-  have hH0 : 0 < H := by
-    have := R.hHlo_floor
-    omega
+  have hH0 : 0 < H := by have := R.hHlo_floor; omega
   have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
   have hfit := doorLadder_fit R.x H i
   -- ⟦the coverage datum is free at the block's own seam index set⟧
@@ -716,9 +714,7 @@ theorem m4_blockMeanSq_of_rowMeanSq_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} 
     (hrow : M4RowMeanSq_gk K R M k MS) :
     M4BlockMeanSq_gk K R M k (fun H => 2 * MS H) := by
   intro H hlo hhi α harc i hik
-  have hH0 : 0 < H := by
-    have := R.hHlo_floor
-    omega
+  have hH0 : 0 < H := by have := R.hHlo_floor; omega
   have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
   have hfit := doorLadder_fit R.x H i
   -- ⟦the coverage datum is free at the block's own seam index set⟧
