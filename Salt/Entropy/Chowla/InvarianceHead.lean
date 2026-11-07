@@ -37,6 +37,9 @@ namespace Salt.Entropy.Chowla
 def jointWindow (eps : ℚ) (H j : ℕ) : ℕ → (Fin H → ℤ) × ZMod (PH eps H) :=
   fun n => (liouvilleWindowShift H j n, residueWindow eps H n)
 
+/-- `jointWindow eps H j n = (liouvilleWindowShift H j n, residueWindow eps H n)` (`rfl`;
+`@[simp]`): the joint variable unfolded. The simp normal form for the pair; no consumer names it
+at this commit. -/
 @[simp] lemma jointWindow_apply (eps : ℚ) (H j n : ℕ) :
     jointWindow eps H j n = (liouvilleWindowShift H j n, residueWindow eps H n) := rfl
 
@@ -44,6 +47,11 @@ def jointWindow (eps : ℚ) (H j : ℕ) : ℕ → (Fin H → ℤ) × ZMod (PH ep
 def jointSupport (eps : ℚ) (H : ℕ) : Finset ((Fin H → ℤ) × ZMod (PH eps H)) :=
   (Fintype.piFinset (fun _ : Fin H => ({-1, 1} : Finset ℤ))) ×ˢ Finset.univ
 
+/-- The joint variable takes values in `jointSupport eps H = {−1,1}^H ×ˢ univ`: the shifted
+window is `±1`-valued (`liouvilleWindowShift_mem_piFinset`) and every residue is in `univ`. The
+`FiniteRange` instance of `jointWindow`, and the support membership every `ℓ¹`-to-entropy step
+feeds `map_real_l1_le`: `condEntropy_shift_le_of_l1` here, `joint_l1_le` (`Step`), and the flat
+and stride twins (`StepFlat`, `StrideDecrement`). -/
 lemma jointWindow_mem_jointSupport (eps : ℚ) (H j n : ℕ) :
     jointWindow eps H j n ∈ jointSupport eps H := by
   rw [jointSupport, Finset.mem_product]

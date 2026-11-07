@@ -118,7 +118,7 @@ artillery (repelling zeros NEAR a deep β₀ that F supplies); it cannot amplify
 The landed SW chain's only flagged ineffectivity is Siegel (GROUNDED All.lean:118
 "Siegel's intrinsic ineffective constant"; the ineffective choice: Siegel.lean:220-224
 exceptional-branch dichotomy; consumer slot: Fold.lean:167 `siegel_theorem ε`).
-Statement (GROUNDED SiegelClose.lean:841-844): ∀ε>0 ∃C>0, primitive quadratic real
+Statement (GROUNDED SiegelClose.lean:848-851): ∀ε>0 ∃C>0, primitive quadratic real
 zeros obey β ≤ 1 − C/q^ε.
 Under ¬F, D1's standoff β ≤ 1 − c₁/log q implies this with **effective**
 C(ε) = c₁·inf_{q≥3}(q^ε/log q) > 0 (inf attained, explicit in ε and c₁) — for large q,
@@ -166,7 +166,7 @@ Resulting family region under ¬F + future VK-L: THREE-ZONE — ball at 1 (¬F),
 ## D8 — ¬F ⟹ HeathBrownStatement, vacuously
 
 `HeathBrownStatement ≡ IMSZ → TwinPrimeConjecture` (def GROUNDED SiegelTwin.lean:92-93).
-D1 gives ¬IMSZ, so the HB-ENGINE campaign target (DHRepulsion.lean:331-333 honesty
+D1 gives ¬IMSZ, so the HB-ENGINE campaign target (DHRepulsion.lean:347-349 honesty
 block; MEMORY project — HB-ENGINE registered future campaign) is TRUE-BUT-INERT on the
 ¬F side: the engine can never fire. Dichotomy bookkeeping made exact: F-side = the HB
 engine manufactures twins; ¬F-side = effectivity harvest (D1/D2/D6), NOT a known route
@@ -190,14 +190,14 @@ would demand — real but distant. HONEST-SHAPE: no ¬F-to-spine claim.
 
 `ShiuCore` (def GROUNDED ShiuBlocks.lean:292-297; landed as `sum_tau_in_ap_le`,
 ShiuS5b.lean:628) has NO zero-theoretic input — dichotomy-invariant, serves both
-branches unchanged (consumers: `shiu_for_blocks_of_core` ShiuBlocks.lean:312, the
+branches unchanged (consumers: `shiu_for_blocks_of_core` ShiuBlocks.lean:314, the
 Maynard/GehShiuWire blocks). Under ¬F it remains the AP-divisor workhorse for any
 effective sieve re-run (pairs with D6's effective SW).
 THE MISSING NODE that would let ¬F feed L(1)-grade consumers (χ-legs of nonpret at
 growing q, class-number-grade bounds): the classical converse cash-out
 "no real zero in (1−δ, 1) ⟹ L(1,χ) ≫ δ" — the corpus holds only the OTHER direction
 (`LFunction_one_re_le_mvt_sharp`: (L(1,χ)).re ≤ (1−β₀)·25e(1+log f)², cited
-DHRepulsion.lean:317-319). The positivity substrate it needs is LANDED (dhA = 1∗χ
+DHRepulsion.lean:333-335). The positivity substrate it needs is LANDED (dhA = 1∗χ
 nonnegativity + detector floor, DHRepulsion.lean:36-41, M2 landed per :256-257).
 New C-class node; classical route MEMORY-tier. With it: ¬F ⟹ L(1,χ) ≫ 1/(C⋆ log q)
 uniformly for q > Q₀.

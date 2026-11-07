@@ -34,8 +34,8 @@ derives reality of F-witnesses from the same landed ZFR.
 |---|---|---|
 | `FulcrumQualityMin`, `SiegelModulusUnbounded` (interface, UNPROVEN), `imsz_implies_fulcrum_of_gadget` | `Salt/Fulcrum/Basic.lean:61,73,193` | statement layer |
 | `zero_free_region_all` | `Salt/SW/ZeroFreeReal.lean:605` | complex/non-quadratic ZFR, effective |
-| `siegel_theorem` (ε-quantified, INEFFECTIVE C) | `Salt/SW/SiegelClose.lean:841-844`; ineffective choice at :850 via `siegel_dichotomy` (`Salt/SW/Siegel.lean:227-238`, `Classical.em`) | zero-free, q^{-ε} |
-| `LFunction_one_re_le_mvt` / `_sharp` | `Salt/SW/SiegelFinal.lean:106-109` (27√f(1+log f)); `Salt/SW/SiegelClose.lean:458-461` ((1−β)·25e(1+log f)²) | zero ⟹ L(1) CAP |
+| `siegel_theorem` (ε-quantified, INEFFECTIVE C) | `Salt/SW/SiegelClose.lean:848-851`; ineffective choice at :850 via `siegel_dichotomy` (`Salt/SW/Siegel.lean:227-238`, `Classical.em`) | zero-free, q^{-ε} |
+| `LFunction_one_re_le_mvt` / `_sharp` | `Salt/SW/SiegelFinal.lean:106-109` (27√f(1+log f)); `Salt/SW/SiegelClose.lean:461-464` ((1−β)·25e(1+log f)²) | zero ⟹ L(1) CAP |
 | `L1_lower_siegel` | `Salt/SW/DHCore.lean:808-816` | deep zero ⟹ L(1) ≥ 0.27(1−β₀)(2−β₀), guard-gated |
 | `LFunction_one_re_ge_partial`, `dh_repulsion_partial` | `Salt/SW/DHClose.lean:105-109,154-160` | unconditional truncation/repulsion |
 | `dh_repulsion_ordered` (effective b,c,k) | `Salt/SW/TBalR8.lean:1752-1759` (constants built :1768-1779) | real zero repels complex zeros |
@@ -100,7 +100,7 @@ Classical grounding: MV Cor 24.25 + the effectivity remark montgomery3.txt:7612-
 ∃K-ineffective to effective-K): `bounded_gaps_unconditional` (`Gate.lean`, audit
 `SW/All.lean:226`) — effective localization of bounded-gap prime pairs;
 `Salt.BV.bounded_gaps_of_siegelWalfisz` (BV chain); Chen (`Salt/Chen/BetaSW.lean:217`);
-Maynard (`Salt/Maynard/GehSW.lean:214`); Goldbach (`Salt/Goldbach/A1.lean:328`,
+Maynard (`Salt/Maynard/GehSW.lean:214`); Goldbach (`Salt/Goldbach/A1.lean:332`,
 `psi_BV_of_siegelWalfisz'` at saving 11); the Chowla spine's PNT input
 (`Salt/Entropy/Chowla/WindowMertensLower.lean:14`, via `Salt.Chen.psiTot_pnt`).
 
@@ -144,7 +144,7 @@ effective class-number bounds h(−d) ≫ √d/log d (MEMORY; no corpus consumer
   of extreme quality boosting the ZFR — has no witnesses above Q₀. Classical mirror:
   Cor 28.15 (montgomery3.txt:21743-21757) becomes vacuous when β₁ doesn't exist.
 - `siegel_theorem` itself is SUPERSEDED, not effectivized: ¬F does not shrink the
-  dichotomy window δ = min(ε/36,1/20) (SiegelClose.lean:846), and zeros in
+  dichotomy window δ = min(ε/36,1/20) (SiegelClose.lean:853), and zeros in
   [1−δ, 1−1/(C⋆ log q)] remain possible at every q — the ε-statement's constant stays
   ineffective under ¬F. Its one load-bearing use (Fold.lean:167) is what D3 replaces.
 

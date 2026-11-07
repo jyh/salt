@@ -301,6 +301,9 @@ theorem joint_l1_le (R : ChowlaRegime) (H j : ℕ) :
 
 /-! ### Obligation (2): the Fannes budget arithmetic -/
 
+/-- `log t ≤ t/2` for `t > 0`: `log √t ≤ √t − 1` (`Real.log_le_sub_one_of_pos`) doubled, with
+`(√t − 2)² ≥ 0` closing the gap. Twice in `budget_real`: at `log a` for `loglog a ≤ a/10`, and
+at `√H` for `(log H)² ≤ H`. -/
 private lemma log_le_half (t : ℝ) (ht : 0 < t) : Real.log t ≤ t / 2 := by
   have hsqrt : (0:ℝ) < Real.sqrt t := Real.sqrt_pos.mpr ht
   have hls : Real.log (Real.sqrt t) = Real.log t / 2 := Real.log_sqrt ht.le
@@ -308,6 +311,8 @@ private lemma log_le_half (t : ℝ) (ht : 0 < t) : Real.log t ≤ t / 2 := by
   have hsq : Real.sqrt t ^ 2 = t := Real.sq_sqrt ht.le
   nlinarith [sq_nonneg (Real.sqrt t - 2), hls, hle, hsq]
 
+/-- `e¹⁵ ≤ 4·10⁶`: `e ≤ 2.7182818286` (`Real.exp_one_lt_d9`) raised to the fifth (`≤ 148.42`)
+and then cubed. Turns the house floor `4·10⁶ ≤ H` into `15 ≤ log H` in `budget_real`. -/
 private lemma exp15_le : Real.exp 15 ≤ 4000000 := by
   have h1 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
   have h5 : Real.exp 5 = (Real.exp 1) ^ 5 := by rw [← Real.exp_nat_mul]; norm_num
@@ -320,6 +325,9 @@ private lemma exp15_le : Real.exp 15 ≤ 4000000 := by
   calc (Real.exp 5) ^ 3 ≤ (148.42 : ℝ) ^ 3 := by gcongr
     _ ≤ 4000000 := by norm_num
 
+/-- `log 15 ≤ 3`: `15 ≤ 2.7182818283³ ≤ e³` (`Real.exp_one_gt_d9`). The constant in
+`budget_real`'s `log a ≤ 2 + a/15` step (`log a = log 15 + log (a/15)` with
+`log (a/15) ≤ a/15 − 1`). -/
 private lemma log15_le : Real.log 15 ≤ 3 := by
   rw [Real.log_le_iff_le_exp (by norm_num : (0:ℝ) < 15)]
   have h3 : Real.exp 3 = (Real.exp 1) ^ 3 := by rw [← Real.exp_nat_mul]; norm_num
@@ -328,6 +336,12 @@ private lemma log15_le : Real.log 15 ≤ 3 := by
   calc (15:ℝ) ≤ (2.7182818283 : ℝ) ^ 3 := by norm_num
     _ ≤ (Real.exp 1) ^ 3 := by gcongr
 
+/-- The budget inequality: for `4·10⁶ ≤ H`, the Fannes side `(3/2)·H·log 2/(log H)² + log 2`
+is at most the threshold `H/(4·log H·logloglog H)`. With `a = log H ≥ 15` (`exp15_le`):
+`log a ≤ a/5` (`log15_le`), `loglog a ≤ a/10` (`log_le_half`), `a² ≤ H` (`log_le_half` at `√H`),
+and `log 2 < 0.6931471808`; the chain closes through `5H/(2a²)` by `nlinarith`. Consumed by
+`condEntropy_shift_le` (the D-d headline, below) and `condEntropy_shift_le_aff`
+(`StrideDecrement`); its flat twin is `budget_realFlat` (`StepFlat`). -/
 theorem budget_real {H : ℕ} (hH : 4000000 ≤ H) :
     (3/2) * (H:ℝ) * Real.log 2 / (Real.log H)^2 + Real.log 2
       ≤ (H:ℝ) / (4 * Real.log H * Real.log (Real.log (Real.log H))) := by

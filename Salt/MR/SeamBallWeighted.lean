@@ -405,8 +405,8 @@ EITHER EXISTING ARM.**  The family is already partitioned by a live guard (freez
 arm cites `_half` (c = 1/(2e)); a citation of `_half` in any §8.3 consumer is a STOP."*  Measured
 by APPLICATION (not by prose citation):
 ```
-  _of_gen  c = 1/e      HalaszDirect:346 (§8.3/L3 arm) · CenterCore:397
-  _half    c = 1/(2e)   HalaszDirect:411 (ball arm)    · CenterCore:333
+  _of_gen  c = 1/e      HalaszDirect:422 (§8.3/L3 arm) · CenterCore:397
+  _half    c = 1/(2e)   HalaszDirect:487 (ball arm)    · CenterCore:333
   _gen     parametric   PretSupply:508 (caller's own c) · SeamBallWeighted:450, :473
   _crit    c = 1/2      ⛔ NO CONSUMERS. New, and deliberately unwired.
 ```

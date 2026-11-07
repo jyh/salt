@@ -100,9 +100,7 @@ theorem m4_exit_lam_of_rowMeanSqLam :
   refine hR ?_
   intro H hH hlo hhi α harc
   haveI : NeZero H := hH
-  have hH0 : 0 < H := by
-    have := R.hHlo_floor
-    omega
+  have hH0 : 0 < H := by have := R.hHlo_floor; omega
   have hHR : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH0
   have hx0 : (0 : ℝ) < (R.x : ℝ) := by
     have := R.hx

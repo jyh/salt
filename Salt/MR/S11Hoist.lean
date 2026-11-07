@@ -78,9 +78,7 @@ theorem m4_hband_at_door_slot_hoisted (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp : 
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hgates H L q j A s hb
   have h16 : 16 ≤ A + s := by
-    have h400 : (400 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := hD.X400
-    have : (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by linarith
-    exact_mod_cast this
+    exact_mod_cast (show (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) by linarith [hD.X400])
   exact hband q χ M (A + s) (2 * (A + s)) rfl hD.X400 (by omega) le_rfl hD.C₁_one
     hD.x₀_le h16 hD.qfit hcovP hcovQ hD.gHalf hD.gO1 hD.gWin hD.grade hD.err
 
@@ -330,9 +328,7 @@ theorem m4_hband_at_door_slot_split (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp : 0 
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hgates H L q j A s hb
   have h16 : 16 ≤ A + s := by
-    have h400 : (400 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := hD.X400
-    have : (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by linarith
-    exact_mod_cast this
+    exact_mod_cast (show (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) by linarith [hD.X400])
   exact hband q χ M (A + s) (2 * (A + s)) rfl hD.X400 (by omega) le_rfl hD.C₁_one
     hD.x₀_le h16 hD.qfit hcovP hcovQ hD.gHalf hD.gO1 hD.gWin hD.grade hD.err
 
@@ -623,9 +619,7 @@ theorem m4_hband_at_door_slot_split_graded (hMmu : MmuChiRate) (Aexp : ℝ) (hAe
     haveI : NeZero q := ⟨hq.ne'⟩
     have hD := hgates H L q j A s hb
     have h16 : 16 ≤ A + s := by
-      have h400 : (400 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := hD.X400
-      have : (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by linarith
-      exact_mod_cast this
+      exact_mod_cast (show (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) by linarith [hD.X400])
     exact hband q χ M (A + s) (2 * (A + s)) rfl hD.X400 (by omega) le_rfl hD.C₁_one
       hD.x₀_le h16 hD.qfit hcovP hcovQ hD.gHalf hD.gO1 hD.gWin hD.grade hD.err
 
@@ -973,9 +967,7 @@ theorem m4_hband_at_door_slot_hoisted_gk (K : ℕ) (hMmu : MmuChiRate) (Aexp : �
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hgates H L q j A s hb
   have h16 : 16 ≤ A + s := by
-    have h400 : (400 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := hD.X400
-    have : (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by linarith
-    exact_mod_cast this
+    exact_mod_cast (show (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) by linarith [hD.X400])
   exact hband q χ M (A + s) (2 * (A + s)) rfl hD.X400 (by omega) le_rfl hD.C₁_one
     hD.x₀_le h16 hD.qfit hcovP hcovQ hD.gHalf hD.gO1 hD.gWin hD.grade hD.err
 
@@ -1190,9 +1182,7 @@ theorem m4_hband_at_door_slot_split_gk (K : ℕ) (hMmu : MmuChiRate) (Aexp : ℝ
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hgates H L q j A s hb
   have h16 : 16 ≤ A + s := by
-    have h400 : (400 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := hD.X400
-    have : (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by linarith
-    exact_mod_cast this
+    exact_mod_cast (show (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) by linarith [hD.X400])
   exact hband q χ M (A + s) (2 * (A + s)) rfl hD.X400 (by omega) le_rfl hD.C₁_one
     hD.x₀_le h16 hD.qfit hcovP hcovQ hD.gHalf hD.gO1 hD.gWin hD.grade hD.err
 
@@ -1381,9 +1371,7 @@ theorem m4_hband_at_door_slot_split_graded_gk (K : ℕ) (hMmu : MmuChiRate) (Aex
     haveI : NeZero q := ⟨hq.ne'⟩
     have hD := hgates H L q j A s hb
     have h16 : 16 ≤ A + s := by
-      have h400 : (400 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := hD.X400
-      have : (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by linarith
-      exact_mod_cast this
+      exact_mod_cast (show (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) by linarith [hD.X400])
     exact hband q χ M (A + s) (2 * (A + s)) rfl hD.X400 (by omega) le_rfl hD.C₁_one
       hD.x₀_le h16 hD.qfit hcovP hcovQ hcovB hD.gHalf hD.gO1 hD.gWin hD.grade hD.err
 

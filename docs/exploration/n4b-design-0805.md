@@ -106,8 +106,8 @@ For the (4.11)-analog on Σ_{u<n≤v} χ(n)Λ(n)/n, v ≥ u ≥ x ≥ q^{250}:
 | `boxZeros_re_le_of_repulsion` (general T) / `_at_efHeight` | TauExt.lean:259 / TBalTall.lean:2199 | the ceiling; the ∃-obtain-then-feed composition is WAVE WORK, stated in briefs |
 | `efZeroSumM_spend_le` (general T) / `_at_efHeight` | DensityCrude.lean:371 / :403 | the spend (N2's deliverable, NOT EFSharp's) |
 | `zeroCountM_efHeight_le` / `efZeroSumM_norm_le` (Z-general) | DensityCrude.lean:289 / :352 | the counts |
-| `psi_explicit_sharpM` (T, h free) + `psi_explicit_sharpM_of_riesz_residues` (σ free) + `psi1_contour_shift_finsetM` outputs | EFSharpMult.lean:968 / (σ-general variant) / contour stack | the EF; the packaged `psi_sharp_at_efHeightM` is NOT used (vacuous — R1-U1/R4-U1) |
-| `pretenseSum_le_differenced` | TwistedMertens.lean:646 | the χ(p)=1 kill for (4.7) — NOT the S2−S1 packaging |
+| `psi_explicit_sharpM` (T, h free) + `psi_explicit_sharpM_of_riesz_residues` (σ free) + `psi1_contour_shift_finsetM` outputs | EFSharpMult.lean:1033 / (σ-general variant) / contour stack | the EF; the packaged `psi_sharp_at_efHeightM` is NOT used (vacuous — R1-U1/R4-U1) |
+| `pretenseSum_le_differenced` | TwistedMertens.lean:761 | the χ(p)=1 kill for (4.7) — NOT the S2−S1 packaging |
 | `hbCoreRate_at_hb_optimum_absorbed` | Lemma3Uncond.lean:116 | the absorbed rate feeding the composite (W0-v) |
 | `LFunction_partialFraction` / `_remainder_diff` | PartialFractions.lean:245 / BCSup.lean:229 (admits 1 ≤ σ) | W1's s = 1 machinery |
 | `mertens_third` via EulerLink | Salt/Mertens/Third.lean:749 / SW/EulerLink.lean:62 | (4.6); ∃C existential + ℕ-indexed — W4 owes the re-indexing |
@@ -187,9 +187,9 @@ term rides the collapsed count (rel(B)·rel(C) = 948·log u·log qT,
 T-free and h-free). The A3 batching was the WRONG TOOL for that term
 (no 1/‖ρ‖ weight exists there); A3's role is the ZERO SUM only.
 Route instead:
-- fire `psi_sharp_of_riesz_bounds` (Salt/SW/EFSharp.lean:322 — the
+- fire `psi_sharp_of_riesz_bounds` (Salt/SW/EFSharp.lean:324 — the
   order-blind socket, A₁/A₂ free) directly on the two
-  `psi1_contour_shift_finsetM` outputs (EFSharpMult.lean:235),
+  `psi1_contour_shift_finsetM` outputs (EFSharpMult.lean:907),
   A_i := −efRieszSumM χ Z (y or y+h);
 - bound the difference quotient ‖(𝓡_M(y+h) − 𝓡_M(y))/h‖ DIRECTLY:
   (y+h)^{ρ+1} − y^{ρ+1} = ∫_y^{y+h} (ρ+1)t^ρ dt gives the per-zero
@@ -255,7 +255,7 @@ binder** exactly as hN+ does. Two road nodes minted:
   `psi1_contour_shift_finsetM`'s +2 box margin is load-bearing in its
   proof — if the socket restates at a δ-margin (δ ≍ 1/log qT), the
   landed unit-window count `efMultTotal_halfbox_le`
-  (EFSharpMult.lean:1075) discharges hsep by pigeonhole in [T₀,T₀+1].
+  (EFSharpMult.lean:1140) discharges hsep by pigeonhole in [T₀,T₀+1].
   Read-only scout, then class B/C wave if viable.
 - **N2-DENSITY** (the fallback and the road's eventual asset): Jutila
   Thm 1, N(σ,T,χ) ≪ (qT)^{(5/2)(1−σ)} — which ALSO reopens HB's
@@ -274,13 +274,13 @@ In-place authorizations: EFSharpMult.lean, DensityCrude.lean,
 TwistedMertens.lean, Lemma3Uncond.lean, flags.md. Sequential, one
 executor.
 - (i) the β₀ erase-split of efZeroSumM — Finset.add_sum_erase at the
-  :140-142 def; the corpus pattern at TwistedMertens.lean:404-408.
+  :140-142 def; the corpus pattern at TwistedMertens.lean:406-410.
   Class A. ✔ verified
-- (ii) the A3-BATCHED erased spend (v3 form, per D4): the :356-365
+- (ii) the A3-BATCHED erased spend (v3 form, per D4): the :358-367
   body with the a-division deleted, + the subset-monotonicity
   one-liner. Class A/B. ✔ recipe corrected
 - (iii) A3 batching Σ m_ρ/‖ρ‖ ≪ log(qT)·log T (sharper than the v2
-  claim): `efMultTotal_halfbox_le` (EFSharpMult.lean:1075) + the
+  claim): `efMultTotal_halfbox_le` (EFSharpMult.lean:1140) + the
   fibring of DensityCrude.lean:100-176 (Finset.sum_fiberwise_of_maps_to)
   + `harmonic_floor_le_one_add_log` (in use at Goldbach/Final.lean:143).
   Class B. ✔ verified derivable, NO new analytic input

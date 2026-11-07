@@ -162,7 +162,7 @@ linearly ordered ring are `±1`.  The rider is FREE, not assumed.
 
 ⛔ AND THE MISS IS THE SHAPE I ALREADY BANKED TODAY: mathlib's name for my predicate is
 `MulChar.IsQuadratic`, and **salt itself already consumes it** — measured just now, 14
-occurrences across 8 files (`HB/RealPrimStructure.lean:64`, `SW/DHDetector.lean:91`, …),
+occurrences across 8 files (`HB/RealPrimStructure.lean:64`, `SW/DHDetector.lean:93`, …),
 with `Salt.HB.isQuadratic_of_int` as the ℤ-valued precedent I had walked past.  I searched
 for `IsReal`, hedged the claim to "that I found", and the hedge was true while the search
 was aimed at the wrong name.  Same failure as `cyclotomicUnit` this morning, twelve hours

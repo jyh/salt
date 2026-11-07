@@ -23,7 +23,7 @@ The kill-check asked whether the corpus's centre chain survives at the WIDER rad
 (`seamRad X = (log X)^{1/46} < (log X)^{1/45} = seamT0 X` — `CenterCore.seamRad_lt_seamT0`).
 Reading the chain end to end:
 
-* **`SupplyGeneric.center_halasz_supply_Y` (:257) mentions no radius at all.**  Its subject is
+* **`SupplyGeneric.center_halasz_supply_Y` (:111) mentions no radius at all.**  Its subject is
   the CENTRE partial sum `∑_{n≤k} f(n)·e^{−it₁ log n}`; `t₁` is a top-level `∀`-bound real and
   the four `Y`-gates, `hRHS` and the grade page are radius-blind.  So the chain is
   *centre-uniform AND radius-free*, exactly as the verdict said — nothing to repair.
@@ -342,7 +342,7 @@ theorem band_sup_of_center {N : ℕ} {a f : ℕ → ℂ} {X R t₁ S₀ : ℝ}
 
 /-! ## §3 (B-1′) — the crown: the free-centre, free-radius, `y`-generic supply -/
 
-/-- **B-1′ — `band_sup_supplied_Y`.**  `SupplyGeneric.ball_sup_supplied_Y` (:409) with the
+/-- **B-1′ — `band_sup_supplied_Y`.**  `SupplyGeneric.ball_sup_supplied_Y` (:263) with the
 radius FREED and the annulus binders dropped: §2 fed by the `y`-generic, centre-uniform
 centre supply `SupplyGeneric.center_halasz_supply_Y`.
 

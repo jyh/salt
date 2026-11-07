@@ -62,7 +62,7 @@ Consumes: QUANTITY — unboundedly many moduli q at the FIXED quality η ≥ C^{
   (the zero forces χ(p) = −1 for almost all small p); `L′/L(1,χ) = ηL + O(·)`;
   `κS₁ → 𝔖C(α)(ηL)^{-2}` — max named η-power A = 2 (sigma_window_budget_analysis.md
   C1/C2, :49-74).
-- Repulsion `dh_repulsion_ordered` (contract in PROSE, DHRepulsion.lean:266-275,
+- Repulsion `dh_repulsion_ordered` (contract in PROSE, DHRepulsion.lean:282-291,
   explicitly "not `sorry`" :254): diagonal Deuring–Heilbronn — β₀ repels the OTHER
   zeros of the SAME L(s,χ); window 16/17 ≤ ρ.re < 1, |ρ.im| ≤ 1, ordering
   ρ.re ≤ β₀ (T-BAL-UNORDERED, grounded harmless: sigma analysis §3). Witnesses
@@ -97,10 +97,10 @@ gold-window; SHIU-W5 composition, pilot.md:7176-7179).
 ### L5 — WP3/WP4/WP5/WP6 (the engine's middle — mostly Siegel-free tools)
 - WP3 sieve: Iwaniec Rosser dim 4, D = z³ = q^{1/3} (design :829-835) — import-vs-
   Selberg-re-derivation decision OPEN. Landed adjacent: the pair/mixed sieve counting
-  surface `hb_lemma8` family (HB/PairInstance.lean:414, PairSieveMixed, MixedCount —
+  surface `hb_lemma8` family (HB/PairInstance.lean:419, PairSieveMixed, MixedCount —
   audited HB/All.lean:37-48).
 - WP4 Kloosterman completion: Weil toolkit BANKED (norm_kloosterman_le_two_sqrt
-  Weil/Descent.lean:206; composite/prime-power assembly Composite.lean:107-190,
+  Weil/Descent.lean:210; composite/prime-power assembly Composite.lean:107-190,
   CompositeTail.lean:65-224; Incomplete.lean). Deltas owed: gcd factor
   (k,u,v)^{1/2}, cube-free assembly, Lemma 10's congruence-conditioned interval
   completion (design :806-813). Estermann d(k)√k over-satisfied by Weil.
@@ -166,7 +166,7 @@ CONSTRAINTS the designers must respect:
 - `chen_headline` (Chen/ChenTheorem.lean:32, UNCONDITIONAL): assembly-plumbing
   template + parity-wall escape proof-of-life. Cannot substitute for the twin door
   (P₂ ≠ prime).
-- `twin_almost_prime` (BrunLower/TwinInstance.lean:771): Ω(n(n+2)) ≤ 20 i.o.,
+- `twin_almost_prime` (BrunLower/TwinInstance.lean:795): Ω(n(n+2)) ≤ 20 i.o.,
   unconditional — lower-bound sieve exists, but tolerant-grade (no parity break).
 - `bounded_gaps_unconditional` (SW/Gate.lean:376) + the Maynard chain
   (Maynard/Complete.lean:1497 etc.): the Maynard door is parity-limited to bounded

@@ -29,6 +29,9 @@ import Salt.MR.FlatDesignBound
 import Salt.MR.ArcRegimeWeaken
 import Salt.Entropy.Chowla.RegimeHeadroom
 import Salt.MR.RegimeSupplyFacts
+import Salt.Entropy.Chowla.HeadFloors
+import Salt.MR.RegimeScaleReads
+import Salt.MR.SocketLogFrame
 
 /-!
 # The v6 family of log-Chowla theorems under a Siegel standoff (O13)
@@ -66,7 +69,7 @@ section
 open MeasureTheory ProbabilityTheory
 open scoped BigOperators
 open private flatCap_shuffle spine_False_core_xi_sq_flat from Salt.Entropy.Chowla.HloExportFlat
-/-- **⟦STANDOFF TWIN⟧** `log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat` (`Salt/Entropy/Chowla/HloExportFlat.lean:227`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat` (`Salt/Entropy/Chowla/HloExportFlat.lean:228`): its statement under the three standoff
 binders, its proof verbatim with `hreduce_holds_final_bounded` · `primeWindow_sum_inv_ge_bounded` replaced by their twins. -/
 theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
@@ -98,25 +101,8 @@ theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_of_standoff {cS
   have hCnum : C ≤ 655 / 100 := by
     rw [hlog4eq] at hCcap; linarith
   -- ⟦THE PIN⟧ `ε := 1/500`
-  obtain ⟨ε, hεdef⟩ : ∃ e : ℚ, e = 1 / 500 := ⟨_, rfl⟩
-  have hεR : ((ε : ℚ) : ℝ) = 1 / 500 := by rw [hεdef]; norm_num
-  have hεR0 : (0 : ℝ) < (ε : ℝ) := by rw [hεR]; norm_num
-  have hεQpos : 0 < ε := by exact_mod_cast hεR0
-  have hεcE : (ε : ℝ) ≤ cE / (32 * Real.log 4) := by
-    rw [hεR, le_div_iff₀ (by positivity), hlog4eq]
-    linarith
-  have hε_half_lt : (ε : ℝ) < 1 / 2 := by rw [hεR]; norm_num
-  have hε_D3 : (ε : ℝ) ≤ cD3 / 16 := by
-    rw [hεR, le_div_iff₀ (by norm_num : (0 : ℝ) < 16)]; linarith
-  have hε_D3C : (ε : ℝ) ≤ cD3 / (16 * C) := by
-    rw [hεR, le_div_iff₀ (by positivity : (0 : ℝ) < 16 * C)]; linarith
-  have hεQ1 : ε ≤ 1 / 2 := by rw [hεdef]; norm_num
-  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by rw [hεR]; norm_num
-  -- ⟦THE `δ₀` FLOOR⟧ the binding arm at its worst case
-  have hδ₀ge : (1 : ℝ) / 838400 ≤ cD3 / (16 * C) * (ε : ℝ) / 4 := by
-    have hkey : (5 : ℝ) / 2096 ≤ cD3 / (16 * C) := by
-      rw [le_div_iff₀ (by positivity : (0 : ℝ) < 16 * C)]; linarith
-    rw [hεR]; linarith
+  obtain ⟨ε, hεdef, hεR, hεR0, hεQpos, hεcE, hε_half_lt, hε_D3, hε_D3C, hεQ1, hε2, hδ₀ge⟩ :=
+    eps500_pin_facts hcEge hcD3ge hC hCnum
   obtain ⟨K, hK, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded ε hεQpos hε2
   -- ⟦THE FLAT DESIGN CONSTANT⟧ symbolic: the caller's `A₀`, raised to the budget demand
   obtain ⟨β, hβdef⟩ : ∃ b : ℝ, b = cD3 * (ε : ℝ) / (144 * Real.log 4) := ⟨_, rfl⟩
@@ -137,15 +123,8 @@ theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_of_standoff {cS
   obtain ⟨Rf, hReps, hRA, hRHlo, hRg, _hRcapEq, hRwid⟩ :=
     chowlaRegimeFlat_exists_param_head A hA26 ε hεQpos hεQ1
       (max F (max extraFloor U1floor)) g₅
-  have hFlo : F ≤ Rf.Hlo := le_trans (le_max_left _ _) hRHlo
-  have hxiHlo : H₀xi ≤ Rf.Hlo := by
-    rw [hFdef, hOpqdef] at hFlo
-    exact le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hFlo
-  have hbudHlo : budgetFloorFlat (ε : ℝ) β A ≤ Rf.Hlo := by
-    rw [hFdef] at hFlo; exact le_trans (le_max_right _ _) hFlo
-  have hredHlo : max H₀red H₀D3 ≤ Rf.Hlo := by
-    rw [hFdef, hOpqdef] at hFlo
-    exact le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hFlo
+  obtain ⟨hFlo, hxiHlo, hbudHlo, hredHlo⟩ :=
+    Salt.Entropy.Chowla.flatHeadFloors_facts hOpqdef hFdef hRHlo
   refine ⟨Rf.toChowlaRegime, hReps,
     le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRHlo,
     le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, ?_,
@@ -197,7 +176,7 @@ section
 open scoped BigOperators
 open Complex MeasureTheory Set ArithmeticFunction DirichletCharacter
 open scoped LSeries.notation
-/-- **⟦STANDOFF TWIN⟧** `twisted_rect_zero_free_siegel` (`Salt/MR/PortAssembly.lean:1281`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `twisted_rect_zero_free_siegel` (`Salt/MR/PortAssembly.lean`): its statement under the three standoff
 binders, its proof verbatim with `siegel_real_carve` replaced by their twins. -/
 theorem twisted_rect_zero_free_siegel_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -219,143 +198,7 @@ theorem twisted_rect_zero_free_siegel_of_standoff {cS : ℝ} (hcS : 0 < cS)
   obtain ⟨c₀, hc₀0, hc₀⟩ := Salt.SW.zero_free_region_all'
   obtain ⟨Ks, hKs0, hsg⟩ := (standoff_real_carve hcS hSieg)
   refine ⟨1 / (10 ^ 8 * c₀), 10 ^ 8 * Ks, by positivity, by positivity, ?_⟩
-  intro q hNe ψ hψ1 A T hA1 hTfloor hAq hAabs hKq hSg ρ hρ0 hρim
-  -- the `T`-scale quantities
-  have hE0 : (0 : ℝ) < Real.exp (Real.exp 100) := Real.exp_pos _
-  have hT0 : (0 : ℝ) < T := lt_of_lt_of_le hE0 hTfloor
-  have h5T : Real.exp (Real.exp 100) ≤ 5 * T + 1 := by linarith
-  have h5T0 : (0 : ℝ) < 5 * T + 1 := by linarith
-  have hLg100 : Real.exp 100 ≤ Real.log (5 * T + 1) := by
-    have h := Real.log_le_log hE0 h5T; rwa [Real.log_exp] at h
-  have hexp100 : (1 : ℝ) ≤ Real.exp 100 := by
-    have := Real.add_one_le_exp (100 : ℝ); linarith
-  have hLg1 : (1 : ℝ) ≤ Real.log (5 * T + 1) := by linarith
-  have hLg0 : 0 < Real.log (5 * T + 1) := by linarith
-  have hℓ100 : (100 : ℝ) ≤ Real.log (Real.log (5 * T + 1)) := by
-    have h := Real.log_le_log (Real.exp_pos 100) hLg100; rwa [Real.log_exp] at h
-  have hℓ1 : (1 : ℝ) ≤ Real.log (Real.log (5 * T + 1)) := by linarith
-  set Lg : ℝ := Real.log (5 * T + 1) with hLgdef
-  set ℓ : ℝ := Real.log (Real.log (5 * T + 1)) with hℓdef
-  have hLg34 : (1 : ℝ) ≤ Lg ^ ((3 : ℝ) / 4) := Real.one_le_rpow hLg1 (by norm_num)
-  have hLg34pos : 0 < Lg ^ ((3 : ℝ) / 4) := by linarith
-  have hD3pos : 0 < Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ) := by positivity
-  have hD4pos : 0 < Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by positivity
-  have hD4ge1 : (1 : ℝ) ≤ Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by
-    have h1 : (1 : ℝ) ≤ ℓ ^ (4 : ℕ) := one_le_pow₀ hℓ1
-    nlinarith only [hLg34, h1]
-  -- the target width is tiny
-  have hWsmall : (1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ)) ≤ 1 / 2 := by
-    rw [div_le_div_iff₀ hD4pos (by norm_num : (0:ℝ) < 2)]
-    linarith only [hD4ge1, hD4pos]
-  by_cases hcase : Real.exp (Real.exp 100) + 1 ≤ |ρ.im|
-  · -- ABOVE the floor: stones A+B
-    have hβ1 : ρ.re < 1 := by
-      by_contra hge
-      exact LFunction_ne_zero_of_one_le_re ψ (Or.inl hψ1) (by linarith [not_lt.mp hge]) hρ0
-    have hℓγ100 : (100 : ℝ) ≤ Real.log (Real.log |ρ.im|) := loglog_ge_hundred hcase
-    have hgate : Real.log (20000 * (vkStripConst q + 8104))
-        ≤ A * Real.log (Real.log |ρ.im|) := by
-      have : A * 100 ≤ A * Real.log (Real.log |ρ.im|) :=
-        mul_le_mul_of_nonneg_left hℓγ100 (by linarith)
-      linarith
-    -- the two arms deliver the same D₃-shaped width at the zero's own height
-    have hstone : ρ.re ≤ 1 - (1 / (10 ^ 8 * (A + 7)))
-        * (1 / ((Real.log |ρ.im|) ^ ((3 : ℝ) / 4)
-            * (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ))) := by
-      by_cases hsq : ψ ^ 2 = 1
-      · refine LFunction_real_zero_free_region_vk hψ1 hsq hA1 hρ0 hβ1 hcase ?_
-        exact hgate
-      · refine LFunction_zero_free_region_vk hψ1 hsq hA1 hρ0 hβ1 hcase ?_
-        have hvk : (1 : ℝ) ≤ vkStripConst q := one_le_vkStripConst
-        exact le_trans (Real.log_le_log (by linarith) (by linarith)) hgate
-      -- (both arms take the SAME gate: `vkStripConst q ≤ vkStripConst q + 8104`)
-    -- compare the two widths
-    have hEexp1 : Real.exp 1 ≤ |ρ.im| := by
-      have h1 : Real.exp 1 ≤ Real.exp (Real.exp 100) :=
-        Real.exp_le_exp.mpr (by linarith)
-      linarith
-    have hmono := logDn_mono 3 hEexp1 hρim
-    have hDγpos : 0 < (Real.log |ρ.im|) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ) := by
-      have hL1 : (1 : ℝ) ≤ Real.log |ρ.im| := by
-        have h := Real.log_le_log (Real.exp_pos 1) hEexp1; rwa [Real.log_exp] at h
-      have h1 : 0 < (Real.log |ρ.im|) ^ ((3 : ℝ) / 4) :=
-        Real.rpow_pos_of_pos (by linarith) _
-      have h2 : 0 < (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ) := by positivity
-      exact mul_pos h1 h2
-    have hstep1 : (1 / (10 ^ 8 * (A + 7)) : ℝ) * (1 / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)))
-        ≤ (1 / (10 ^ 8 * (A + 7)) : ℝ)
-          * (1 / ((Real.log |ρ.im|) ^ ((3 : ℝ) / 4)
-              * (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ))) := by
-      refine mul_le_mul_of_nonneg_left ?_ (by positivity)
-      exact one_div_le_one_div_of_le hDγpos hmono
-    have hstep2 : (1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ))
-        ≤ (1 / (10 ^ 8 * (A + 7)) : ℝ) * (1 / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))) := by
-      have hA7 : (0 : ℝ) < A + 7 := by linarith
-      have hL : (1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ))
-          = 1 / (10 ^ 8 * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ))) := by rw [div_div]
-      have hR : (1 / (10 ^ 8 * (A + 7)) : ℝ) * (1 / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)))
-          = 1 / (10 ^ 8 * (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))) := by
-        rw [div_mul_div_comm, one_mul]
-      have hden : (0 : ℝ) < 10 ^ 8 * (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)) :=
-        mul_pos (mul_pos (by norm_num) hA7) hD3pos
-      have hkey : (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))
-          ≤ Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by
-        calc (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))
-            ≤ ℓ * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)) :=
-              mul_le_mul_of_nonneg_right hAabs hD3pos.le
-          _ = Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by ring
-      rw [hL, hR]
-      refine one_div_le_one_div_of_le hden ?_
-      calc 10 ^ 8 * (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))
-          = 10 ^ 8 * ((A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))) := by ring
-        _ ≤ 10 ^ 8 * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ)) := by linarith [hkey]
-    linarith [hstone, hstep1, hstep2]
-  · -- BELOW the floor: the classical effective region
-    rw [not_le] at hcase
-    rcases le_or_gt (1 / 2 : ℝ) ρ.re with hre | hre
-    · by_cases him : ρ.im = 0
-      · -- THE REAL-ZERO CORNER: §7's Siegel arm gives the conclusion outright
-        have hW0 : (0 : ℝ) < (1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ)) :=
-          div_pos (by norm_num) hD4pos
-        have hgate : (q : ℝ) ^ ((1 : ℝ) / 16)
-            * ((1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ))) ≤ Ks := by
-          have heq : (q : ℝ) ^ ((1 : ℝ) / 16)
-              * ((1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ)))
-              = ((q : ℝ) ^ ((1 : ℝ) / 16) * (1 / 10 ^ 8 : ℝ))
-                / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ)) := by ring
-          rw [heq, div_le_iff₀ hD4pos]
-          linarith only [hSg]
-        exact hsg q ψ hψ1 _ hW0 hgate ρ hρ0 him
-      · have hcv : ψ.primitiveCharacter ^ 2 ≠ 1 ∨ ρ.im ≠ 0 := Or.inr him
-        have hcl := hc₀ q ψ hψ1 hρ0 hre hcv
-        have hq1 : (1 : ℝ) ≤ (q : ℝ) := by
-          have := Nat.pos_of_ne_zero (NeZero.ne q); exact_mod_cast this
-        have hEq : |ρ.im| + 2 ≤ Real.exp (Real.exp 100) + 3 := by linarith
-        have hlow0 : 0 < Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
-          apply Real.log_pos; nlinarith only [hq1, abs_nonneg ρ.im, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
-        have hlowle : Real.log ((q : ℝ) * (|ρ.im| + 2))
-            ≤ Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3)) := by
-          apply Real.log_le_log (by nlinarith [abs_nonneg ρ.im])
-          exact mul_le_mul_of_nonneg_left hEq (by linarith)
-        have hlowE0 : 0 < Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3)) := by
-          linarith
-        -- the gate converts the fixed classical width into the VK-shaped one
-        have hkey : (1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ))
-            ≤ c₀ / Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3)) := by
-          rw [div_le_div_iff₀ hD4pos hlowE0]
-          have hgate' : Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
-              ≤ 10 ^ 8 * c₀ * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ)) := by
-            have h := hKq
-            rw [div_mul_eq_mul_div, one_mul, div_le_iff₀ (by positivity)] at h
-            linarith
-          linarith only [hgate']
-        have hshrink : c₀ / Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
-            ≤ c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
-          rw [div_le_div_iff₀ hlowE0 hlow0]
-          exact mul_le_mul_of_nonneg_left hlowle hc₀0.le
-        linarith [hcl, hkey, hshrink]
-    · linarith [hWsmall, hre]
+  exact twisted_rect_zero_free_of_carve hc₀0 hc₀ hsg
 end
 end Salt.MR
 
@@ -364,7 +207,7 @@ section
 open scoped BigOperators
 open Complex MeasureTheory Set ArithmeticFunction DirichletCharacter
 open scoped LSeries.notation
-/-- **⟦STANDOFF TWIN⟧** `halasz_primes_chi_pair_of_gates` (`Salt/MR/PortAssembly.lean:1468`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `halasz_primes_chi_pair_of_gates` (`Salt/MR/PortAssembly.lean:1437`): its statement under the three standoff
 binders, its proof verbatim with `twisted_rect_zero_free_siegel` replaced by their twins. -/
 theorem halasz_primes_chi_pair_of_gates_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) {C₁ C₂ C₃ T₀e : ℝ}
@@ -455,7 +298,7 @@ open scoped BigOperators
 set_option linter.style.longLine false
 open scoped BigOperators
 open MeasureTheory
-/-- **⟦STANDOFF TWIN⟧** `halasz_primes_chi_pair_of_gates_bounded` (`Salt/MR/NumeralKq.lean:668`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `halasz_primes_chi_pair_of_gates_bounded` (`Salt/MR/NumeralKq.lean:532`): its statement under the three standoff
 binders, its proof verbatim with `twisted_rect_zero_free_siegel_bounded` replaced by their twins. -/
 theorem halasz_primes_chi_pair_of_gates_bounded_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) {C₁ C₂ C₃ T₀e : ℝ}
@@ -511,7 +354,7 @@ open scoped BigOperators
 set_option linter.style.longLine false
 open scoped BigOperators
 open MeasureTheory
-/-- **⟦STANDOFF TWIN⟧** `halaszPrimesChi_holds_gated_bounded` (`Salt/MR/NumeralKq.lean:719`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `halaszPrimesChi_holds_gated_bounded` (`Salt/MR/NumeralKq.lean:583`): its statement under the three standoff
 binders, its proof verbatim with `halasz_primes_chi_pair_of_gates_bounded` replaced by their twins. -/
 theorem halaszPrimesChi_holds_gated_bounded_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -575,7 +418,7 @@ open scoped BigOperators
 set_option linter.style.longLine false
 open scoped BigOperators
 open MeasureTheory
-/-- **⟦STANDOFF TWIN⟧** `halaszPrimesChi_pointwise_of_gates_bounded` (`Salt/MR/NumeralKq.lean:751`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `halaszPrimesChi_pointwise_of_gates_bounded` (`Salt/MR/NumeralKq.lean:615`): its statement under the three standoff
 binders, its proof verbatim with `halaszPrimesChi_holds_gated_bounded` replaced by their twins. -/
 theorem halaszPrimesChi_pointwise_of_gates_bounded_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -1169,7 +1012,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_gk` (`Salt/MR/S12FuseCompose.lean:754`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_gk` (`Salt/MR/S12FuseCompose.lean:749`): its statement under the three standoff
 binders, its proof verbatim with `m4_hcap_at_door_perBlock_gk` replaced by their twins. -/
 theorem m4_fuse_hcap_of_capWS_gk_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) :
@@ -1395,9 +1238,7 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L_of_stan
     exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloorL M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -1431,7 +1272,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:991`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:989`): its statement under the three standoff
 binders, its proof verbatim with `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L` replaced by their twins. -/
 theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ)
@@ -1470,23 +1311,13 @@ theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_of_standoff {
   intro M hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
   intro hcap
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
-  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  obtain ⟨hlam50, hΛ50, hHreg, htow⟩ := regime_scale_reads_tow_exp R hfl hRtow
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family, at the LINEAR anchor
   have harith := s15_doorArithFrameRho_L_family'' (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -1536,7 +1367,7 @@ open scoped BigOperators
 set_option linter.style.longLine false
 open scoped BigOperators
 open MeasureTheory
-/-- **⟦STANDOFF TWIN⟧** `usetGChi_window_meansq_gated_family_perBlock_bounded` (`Salt/MR/NumeralKq.lean:775`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `usetGChi_window_meansq_gated_family_perBlock_bounded` (`Salt/MR/NumeralKq.lean:639`): its statement under the three standoff
 binders, its proof verbatim with `halaszPrimesChi_pointwise_of_gates_bounded` replaced by their twins. -/
 theorem usetGChi_window_meansq_gated_family_perBlock_bounded_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -1621,7 +1452,7 @@ open scoped BigOperators
 set_option linter.style.longLine false
 open scoped BigOperators
 open MeasureTheory
-/-- **⟦STANDOFF TWIN⟧** `usetGChi_row_exit_perChi_perBlock_bounded` (`Salt/MR/NumeralKq.lean:855`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `usetGChi_row_exit_perChi_perBlock_bounded` (`Salt/MR/NumeralKq.lean:719`): its statement under the three standoff
 binders, its proof verbatim with `usetGChi_window_meansq_gated_family_perBlock_bounded` replaced by their twins. -/
 theorem usetGChi_row_exit_perChi_perBlock_bounded_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -1729,7 +1560,7 @@ open scoped BigOperators
 set_option linter.style.longLine false
 open scoped BigOperators
 open MeasureTheory
-/-- **⟦STANDOFF TWIN⟧** `m4_rowChi_capstone_perBlock_bounded` (`Salt/MR/NumeralKq.lean:958`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_rowChi_capstone_perBlock_bounded` (`Salt/MR/NumeralKq.lean:822`): its statement under the three standoff
 binders, its proof verbatim with `usetGChi_row_exit_perChi_perBlock_bounded` replaced by their twins. -/
 theorem m4_rowChi_capstone_perBlock_bounded_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -1850,7 +1681,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `m4_hcap_at_door_perBlock_L_gk_bounded_khoist` (`Salt/MR/RegisterCompose.lean:52`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_hcap_at_door_perBlock_L_gk_bounded_khoist` (`Salt/MR/RegisterCompose.lean:53`): its statement under the three standoff
 binders, its proof verbatim with `m4_rowChi_capstone_perBlock_bounded` replaced by their twins. -/
 theorem m4_hcap_at_door_perBlock_L_gk_bounded_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -1916,7 +1747,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist` (`Salt/MR/RegisterCompose.lean:113`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist` (`Salt/MR/RegisterCompose.lean:114`): its statement under the three standoff
 binders, its proof verbatim with `m4_hcap_at_door_perBlock_L_gk_bounded_khoist` replaced by their twins. -/
 theorem m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -1970,7 +1801,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist` (`Salt/MR/RegisterCompose.lean:164`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist` (`Salt/MR/RegisterCompose.lean:165`): its statement under the three standoff
 binders, its proof verbatim with `m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist` replaced by their twins. -/
 theorem s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -1994,14 +1825,7 @@ theorem s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_of_standoff {cS : ℝ}
   refine hwire K R M liouvilleC (fun _ => theta293 - 1 / 500) liouvilleC_norm_le_one ?_
   intro H L q j A s hsb T hTlo hThi hTgate hTll
   obtain ⟨P, Q, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
-  have hq : 1 ≤ q := hsb.2.2.2.1
-  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
-  have hNd : 1 ≤ A + s := by omega
-  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_eight; linarith
-  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
-    Real.rpow_pos_of_pos hlogX0 _
-  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
-      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  obtain ⟨hq, hA, hNd, hlogX0, hpow, hexp⟩ := socketLogFrame_facts s hsb hg.logX_eight
   have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
   have hT1 : (1 : ℝ) < 2 * T := by linarith
   exact doorCapBundle_at_workingPoint_perBlock_L_gk K hband hM hNd hq hg hT1 hThi hTll
@@ -2012,7 +1836,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist` (`Salt/MR/RegisterCompose.lean:209`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist` (`Salt/MR/RegisterCompose.lean:203`): its statement under the three standoff
 binders, its proof verbatim with `flat_conditional_uniform_win_xceil_kwide_khoist` · `s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist` replaced by their twins. -/
 theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (Awin : ℝ)
@@ -2110,7 +1934,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6` (`Salt/MR/RegisterCompose.lean:345`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6` (`Salt/MR/RegisterCompose.lean:339`): its statement under the three standoff
 binders, its proof verbatim with `s16_bandLaneWinL_holdsU` · `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist` replaced by their twins. -/
 theorem logChowla2_ineffective_v6_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) :
@@ -2418,7 +2242,7 @@ open MeasureTheory
 open Salt.Entropy.Chowla
 set_option maxHeartbeats 1000000 in
 -- The twin re-elaborates the landed proof, so it keeps the landed declaration's heartbeat room.
-/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk` (`Salt/MR/S16FlatTerminalLinear.lean:1886`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk` (`Salt/MR/S16FlatTerminalLinear.lean:1874`): its statement under the three standoff
 binders, its proof verbatim with `m4_hcap_at_door_perBlock_L_gk` replaced by their twins. -/
 theorem m4_fuse_hcap_of_capWS_L_gk_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) :
@@ -2469,7 +2293,7 @@ end Salt.MR
 namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `s15_crossing_supplied_L_gk` (`Salt/MR/S16FlatFinal.lean:65`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `s15_crossing_supplied_L_gk` (`Salt/MR/S16FlatFinal.lean:66`): its statement under the three standoff
 binders, its proof verbatim with `m4_fuse_hcap_of_capWS_L_gk` replaced by their twins. -/
 theorem s15_crossing_supplied_L_gk_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) :
@@ -2491,14 +2315,7 @@ theorem s15_crossing_supplied_L_gk_of_standoff {cS : ℝ} (hcS : 0 < cS)
   refine hwire R M liouvilleC (fun _ => theta293 - 1 / 500) liouvilleC_norm_le_one ?_
   intro H L q j A s hsb T hTlo hThi hTgate hTll
   obtain ⟨P, Q, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
-  have hq : 1 ≤ q := hsb.2.2.2.1
-  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
-  have hNd : 1 ≤ A + s := by omega
-  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_eight; linarith
-  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
-    Real.rpow_pos_of_pos hlogX0 _
-  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
-      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  obtain ⟨hq, hA, hNd, hlogX0, hpow, hexp⟩ := socketLogFrame_facts s hsb hg.logX_eight
   have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
   have hT1 : (1 : ℝ) < 2 * T := by linarith
   exact doorCapBundle_at_workingPoint_perBlock_L_gk K hband hM hNd hq hg hT1 hThi hTll
@@ -2508,7 +2325,7 @@ end Salt.MR
 namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_witnessed_scale_flat_L_v2` (`Salt/MR/S16FlatFinal.lean:136`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_witnessed_scale_flat_L_v2` (`Salt/MR/S16FlatFinal.lean:130`): its statement under the three standoff
 binders, its proof verbatim with `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L` · `s15_crossing_supplied_L_gk` replaced by their twins. -/
 theorem logChowla2_witnessed_scale_flat_L_v2_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (hband : S16BandLaneCBoundedL 32000000)

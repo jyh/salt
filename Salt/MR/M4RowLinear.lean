@@ -12,6 +12,7 @@ import Salt.MR.M4Join
 import Salt.MR.M4CapWire
 import Salt.MR.M4SecondRoad
 import Salt.MR.M4WaveLinear
+import Salt.MR.SumSwapWeighted
 
 /-!
 # `M4RowLinear` — THE ROW / `T₀` LAYER at the LINEAR door (`AdoorL M = 2^36·M`)
@@ -1392,9 +1393,7 @@ theorem m4_blockMeanSq_of_rowMeanSq_L {R : ChowlaRegime} {M k : ℕ} {MS : ℕ �
     (hrow : M4RowMeanSq_L R M k MS) :
     M4BlockMeanSq_L R M k (fun H => 2 * MS H) := by
   intro H hlo hhi α harc i hik
-  have hH0 : 0 < H := by
-    have := R.hHlo_floor
-    omega
+  have hH0 : 0 < H := by have := R.hHlo_floor; omega
   have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
   have hfit := doorLadder_fit R.x H i
   -- ⟦the coverage datum is free at the block's own seam index set⟧
@@ -1422,9 +1421,7 @@ theorem m4_blockMeanSq_of_rowMeanSq_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ
     (hrow : M4RowMeanSq_L_gk K R M k MS) :
     M4BlockMeanSq_L_gk K R M k (fun H => 2 * MS H) := by
   intro H hlo hhi α harc i hik
-  have hH0 : 0 < H := by
-    have := R.hHlo_floor
-    omega
+  have hH0 : 0 < H := by have := R.hHlo_floor; omega
   have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
   have hfit := doorLadder_fit R.x H i
   -- ⟦the coverage datum is free at the block's own seam index set⟧
@@ -1957,10 +1954,7 @@ theorem m4_chiShiftBlock_of_dyadicRow_L_gk (K : ℕ) {R : ChowlaRegime} {M k : �
     have : 0 < A + s := by omega
     exact_mod_cast this
   have hBfit : (((B + s : ℕ)) : ℝ) + ((2 ^ j : ℕ) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s + 2 ^ j ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s + 2 ^ j ≤ 2 * (A + s) by omega)
   have hcov : ∀ n ∈ Finset.Ioc (A + s) (B + s), ∀ m ∈ Finset.Ioc n (n + 2 ^ j),
       m ∉ seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ) → doorChiCoeff_L_gk K χ M m = 0 :=
     hcov_of_seamS0 (doorChiCoeff_L_gk K χ M) (A := A + s) (B := B + s) (N := 2 * (A + s))
@@ -2005,10 +1999,7 @@ theorem m4_chiShiftBlock_of_dyadicRow_L_gk (K : ℕ) {R : ChowlaRegime} {M k : �
     rw [← Finset.mul_sum]
     exact mul_le_mul_of_nonneg_left hladder (Nat.cast_nonneg _)
   have hBs : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : B + s ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A by omega)
   have hfinal : ∑ n ∈ Finset.Ioc (A + s) (B + s),
       ‖absWindowSum (doorChiCoeff_L_gk K χ M) (2 ^ j) n 0‖ ^ 2
       ≤ 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) := by
@@ -2043,10 +2034,7 @@ theorem m4_chiShiftBlock_of_dyadicRow_L {R : ChowlaRegime} {M k : ℕ} {MS : ℕ
     have : 0 < A + s := by omega
     exact_mod_cast this
   have hBfit : (((B + s : ℕ)) : ℝ) + ((2 ^ j : ℕ) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s + 2 ^ j ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s + 2 ^ j ≤ 2 * (A + s) by omega)
   have hcov : ∀ n ∈ Finset.Ioc (A + s) (B + s), ∀ m ∈ Finset.Ioc n (n + 2 ^ j),
       m ∉ seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ) → doorChiCoeff_L χ M m = 0 :=
     hcov_of_seamS0 (doorChiCoeff_L χ M) (A := A + s) (B := B + s) (N := 2 * (A + s))
@@ -2091,10 +2079,7 @@ theorem m4_chiShiftBlock_of_dyadicRow_L {R : ChowlaRegime} {M k : ℕ} {MS : ℕ
     rw [← Finset.mul_sum]
     exact mul_le_mul_of_nonneg_left hladder (Nat.cast_nonneg _)
   have hBs : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : B + s ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A by omega)
   have hfinal : ∑ n ∈ Finset.Ioc (A + s) (B + s),
       ‖absWindowSum (doorChiCoeff_L χ M) (2 ^ j) n 0‖ ^ 2
       ≤ 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) := by
@@ -2435,6 +2420,9 @@ theorem m4_chiBlock_fixed_of_chiRow_L {R : ChowlaRegime} {M k : ℕ} {MS : ℕ �
   rw [heq] at hflat
   exact hflat
 
+/-- `‖∑_{m ∈ doorSievedWindow_L M K n} liouChi χ m‖ ≤ doorChiSup_L χ M H n` at `hK : K ≤ H`: the
+sup over `K ∈ [0, H]` dominates each of its terms (`Finset.le_sup'`). Consumed by
+`classSup_le_inv_totient_sum_doorChiSup_L` and `norm_sq_coprime_window_le_L`. -/
 theorem le_doorChiSup_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {K : ℕ} (hK : K ≤ H) :
     ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖ ≤ doorChiSup_L χ M H n :=
   Finset.le_sup' (f := fun K => ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖)
@@ -2605,6 +2593,9 @@ theorem m4_sievedDoorSq_of_sup_L_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {Braw
     _ ≤ Braw H * (H : ℝ) ^ 2 :=
         mul_le_mul_of_nonneg_right (hgrade H q hlo hhi hq hqQ) (sq_nonneg _)
 
+/-- `le_doorChiSup_L` at the lever: `‖∑_{m ∈ doorSievedWindow_L_gk K M Kw n} liouChi χ m‖` is
+under `doorChiSup_L_gk K χ M H n` at `hK : Kw ≤ H` (`Finset.le_sup'`). Consumed by
+`classSup_le_inv_totient_sum_doorChiSup_L_gk` and `norm_sq_coprime_window_le_L_gk`. -/
 theorem le_doorChiSup_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {Kw : ℕ}
     (hK : Kw ≤ H) :
     ‖∑ m ∈ doorSievedWindow_L_gk K M Kw n, liouChi χ m‖ ≤ doorChiSup_L_gk K χ M H n :=
@@ -2843,14 +2834,8 @@ theorem m4_chiBlockMeanSq_of_shiftBlock_L_gk (K : ℕ) {R : ChowlaRegime} {M k :
             (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
       = S * ∑ j ∈ Finset.range (L + 1),
           (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [← Finset.sum_mul]
-    congr 1
-    exact Finset.sum_comm
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
+    sum_mul_weighted_sum_comm _ _ _ _ _ _
   -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
   have hjt : ∀ j ∈ Finset.range (L + 1), ∀ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
       ∑ n ∈ Finset.Ioc A B, X j t n ≤ F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) := by
@@ -3025,14 +3010,8 @@ theorem m4_chiBlockMeanSq_of_shiftBlock_L {R : ChowlaRegime} {M k : ℕ} {F : �
             (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
       = S * ∑ j ∈ Finset.range (L + 1),
           (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [← Finset.sum_mul]
-    congr 1
-    exact Finset.sum_comm
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
+    sum_mul_weighted_sum_comm _ _ _ _ _ _
   -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
   have hjt : ∀ j ∈ Finset.range (L + 1), ∀ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
       ∑ n ∈ Finset.Ioc A B, X j t n ≤ F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) := by
@@ -4060,15 +4039,9 @@ theorem m4_chiFreeShiftBlock_of_freeRow_L {R : ChowlaRegime} {M : ℕ} {MS : ℕ
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
   -- ⟦the two comparisons the free block affords⟧
   have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    have hnat : B + s ≤ 2 * A + 4 := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
   have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
   have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
   have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
   have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
@@ -4149,10 +4122,7 @@ theorem m4_coprimeChiN_of_freeShiftBlock_L {R : ChowlaRegime} {M : ℕ} {F : ℕ
   have hA4 : 4 ≤ A := by omega
   have hB2A : B ≤ 2 * A := by omega
   have hL2A : (L : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : L ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show L ≤ 2 * A by omega)
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
   set Lg := Nat.log 2 L with hLg
   set X : ℕ → ℕ → ℕ → ℝ := fun j t n =>
@@ -4171,14 +4141,8 @@ theorem m4_coprimeChiN_of_freeShiftBlock_L {R : ChowlaRegime} {M : ℕ} {F : ℕ
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
       = SL * ∑ j ∈ Finset.range (Lg + 1),
           (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [← Finset.sum_mul]
-    congr 1
-    exact Finset.sum_comm
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
+    sum_mul_weighted_sum_comm _ _ _ _ _ _
   -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
   have hsle : ∀ j t : ℕ, t ≤ L / 2 ^ (j + 1) → 2 ^ (j + 1) * t ≤ L := by
     intro j t ht
@@ -4615,15 +4579,9 @@ theorem m4_chiFreeShiftBlock_of_freeRow_L_gk (K : ℕ) {R : ChowlaRegime} {M : �
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
   -- ⟦the two comparisons the free block affords⟧
   have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    have hnat : B + s ≤ 2 * A + 4 := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
   have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
   have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
   have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
   have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
@@ -4697,10 +4655,7 @@ theorem m4_coprimeChiN_of_freeShiftBlock_L_gk (K : ℕ) {R : ChowlaRegime} {M : 
   have hA4 : 4 ≤ A := by omega
   have hB2A : B ≤ 2 * A := by omega
   have hL2A : (L : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : L ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show L ≤ 2 * A by omega)
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
   set Lg := Nat.log 2 L with hLg
   set X : ℕ → ℕ → ℕ → ℝ := fun j t n =>
@@ -4719,14 +4674,8 @@ theorem m4_coprimeChiN_of_freeShiftBlock_L_gk (K : ℕ) {R : ChowlaRegime} {M : 
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
       = SL * ∑ j ∈ Finset.range (Lg + 1),
           (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [← Finset.sum_mul]
-    congr 1
-    exact Finset.sum_comm
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
+    sum_mul_weighted_sum_comm _ _ _ _ _ _
   -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
   have hsle : ∀ j t : ℕ, t ≤ L / 2 ^ (j + 1) → 2 ^ (j + 1) * t ≤ L := by
     intro j t ht
@@ -7363,15 +7312,9 @@ theorem chiFreeShift_pointwise_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M : 
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
   -- ⟦the two comparisons the free block affords⟧
   have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    have hnat : B + s ≤ 2 * A + 4 := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
   have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
   have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
   have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
   have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * c)
@@ -7577,10 +7520,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock_L {R : ChowlaRegime} {M : ℕ} {F : ℕ
   have hA4 : 4 ≤ A := by omega
   have hB2A : B ≤ 2 * A := by omega
   have hL2A : (L : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : L ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show L ≤ 2 * A by omega)
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
   set Lg := Nat.log 2 L with hLg
   -- ⟦R-P5, THE LENGTH ANTECEDENT PROPAGATED⟧ every dyadic window of the assembly is at most
@@ -7613,14 +7553,8 @@ theorem m4_chiSummedBlockN_of_shiftBlock_L {R : ChowlaRegime} {M : ℕ} {F : ℕ
               (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X χ j t n) * (2 / 3 : ℝ) ^ j
         = SL * ∑ j ∈ Finset.range (Lg + 1),
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-              ∑ n ∈ Finset.Ioc A B, X χ j t n) * (2 / 3 : ℝ) ^ j := by
-      rw [← Finset.mul_sum]
-      congr 1
-      rw [Finset.sum_comm]
-      refine Finset.sum_congr rfl fun j _ => ?_
-      rw [← Finset.sum_mul]
-      congr 1
-      exact Finset.sum_comm
+              ∑ n ∈ Finset.Ioc A B, X χ j t n) * (2 / 3 : ℝ) ^ j :=
+      sum_mul_weighted_sum_comm _ _ _ _ _ _
     exact hswap ▸ hstep1
   -- ⟦STEP 1′⟧ the character sum, taken through the assembly
   have hsummed : ∑ χ : DirichletCharacter ℂ q, ∑ n ∈ Finset.Ioc A B, (doorChiSup_L χ M L n) ^ 2
@@ -8098,15 +8032,9 @@ theorem chiFreeShift_pointwise_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
   -- ⟦the two comparisons the free block affords⟧
   have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    have hnat : B + s ≤ 2 * A + 4 := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
   have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
   have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
   have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
   have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * c)
@@ -8270,10 +8198,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock_L_gk (K : ℕ) {R : ChowlaRegime} {M : 
   have hA4 : 4 ≤ A := by omega
   have hB2A : B ≤ 2 * A := by omega
   have hL2A : (L : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : L ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show L ≤ 2 * A by omega)
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
   set Lg := Nat.log 2 L with hLg
   -- ⟦R-P5, THE LENGTH ANTECEDENT PROPAGATED⟧ every dyadic window of the assembly is at most
@@ -8306,14 +8231,8 @@ theorem m4_chiSummedBlockN_of_shiftBlock_L_gk (K : ℕ) {R : ChowlaRegime} {M : 
               (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X χ j t n) * (2 / 3 : ℝ) ^ j
         = SL * ∑ j ∈ Finset.range (Lg + 1),
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-              ∑ n ∈ Finset.Ioc A B, X χ j t n) * (2 / 3 : ℝ) ^ j := by
-      rw [← Finset.mul_sum]
-      congr 1
-      rw [Finset.sum_comm]
-      refine Finset.sum_congr rfl fun j _ => ?_
-      rw [← Finset.sum_mul]
-      congr 1
-      exact Finset.sum_comm
+              ∑ n ∈ Finset.Ioc A B, X χ j t n) * (2 / 3 : ℝ) ^ j :=
+      sum_mul_weighted_sum_comm _ _ _ _ _ _
     exact hswap ▸ hstep1
   -- ⟦STEP 1′⟧ the character sum, taken through the assembly
   have hsummed : ∑ χ : DirichletCharacter ℂ q, ∑ n ∈ Finset.Ioc A B, (doorChiSup_L_gk K χ M L n) ^ 2

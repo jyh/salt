@@ -34,8 +34,8 @@ produces the wrong object and `le_trans hoc (le_trans hB …)` will not typechec
 **`M4DoorL2.lean:408` IS PROSE inside a `/-! … -/` section-doc block, and `Salt/MR/M4DoorL2.lean`
 does not import `Theorem23Shell` at all.** ***Docstring-as-declaration — the exact defect in my own
 banked six-corrections law — written into a design block whose J-gates cite that law.***
-The real consumers: `SpineFinal.lean:1302` · `S16Uniform.lean:227` · `HloExport.lean:362` ·
-`HloExportFlat.lean:196`. And `_sq` consumes **`MRTUniformityXiL2`**, is **`K`-free**, and would
+The real consumers: `SpineFinal.lean:1302` · `S16Uniform.lean:229` · `HloExport.lean:363` ·
+`HloExportFlat.lean:197`. And `_sq` consumes **`MRTUniformityXiL2`**, is **`K`-free**, and would
 need `MRTUniformityXiL2H`/`contradiction_of_mrtDoorXiL2H` — objects my §2 delta never mentions.
 **§1 lists the L² object as in-scope while §2 specifies only the L¹ path. Pick one.**
 
@@ -52,7 +52,7 @@ off ALREADY-LANDED compats), plus the `Theorem23Shell` import.
 
 ## A1 — MY KILL-CONDITION WAS A PHANTOM
 J1 asked whether the budget survives the `h·(1+2·C₀)` constant. **The constant is real**
-(`CircleMethod.lean:1139` witnesses `⟨(h:ℝ)*(1+2*C₀), …⟩`) **and INERT**: the shell takes
+(`CircleMethod.lean:1233` witnesses `⟨(h:ℝ)*(1+2*C₀), …⟩`) **and INERT**: the shell takes
 `{C : ℝ} (hC : 0 < C)` **universally** (`Theorem23Shell.lean:147, 255`) with `hcirc` as a
 hypothesis, so **the h-shell never instantiates `C`** and the budget cannot inherit anything.
 *My J1 was aimed at a step that does not occur in this object. The arithmetic, done anyway for the

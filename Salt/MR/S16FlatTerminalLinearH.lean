@@ -7,6 +7,7 @@ import Salt.MR.S16FlatTerminalLinear
 import Salt.MR.HDoorArc
 import Salt.MR.HDoorSupply
 import Salt.Entropy.Chowla.RegimeHeadroom
+import Salt.MR.SumSwapWeighted
 
 /-!
 # THE SECOND ROAD AT SHIFT `h`, ON THE TERMINAL'S LANE — the `_L_gk` h-family
@@ -352,7 +353,7 @@ inflated cap, the x-scale floor `R.x ≤ 16·ω·(h·arcDen 12 H)·A` (see the h
 count `8·(h·arcDen)`. -/
 
 /-- **THE DEBT LINE, ON THE TERMINAL'S LANE** — `M4ChiSummedFreeRow_L_gk`
-(`M4RowLinear.lean:8007`) with the modulus cap `(q : ℝ) ≤ h · arcDen 12 H` and the x-scale
+(`M4RowLinear.lean:7941`) with the modulus cap `(q : ℝ) ≤ h · arcDen 12 H` and the x-scale
 floor at `16·ω·(h·arcDen 12 H)·A`. -/
 def M4ChiSummedFreeRowH_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) (RS : ℕ → ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
@@ -362,7 +363,7 @@ def M4ChiSummedFreeRowH_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) (RS : ℕ 
       ∀ s ≤ L,
         ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq_L_gk K χ M j (A + s) ≤ RS j H
 
-/-- `M4ChiSummedFreeShiftBlock_L_gk` (`M4RowLinear.lean:8144`) at the inflated cap; the
+/-- `M4ChiSummedFreeShiftBlock_L_gk` (`M4RowLinear.lean:8072`) at the inflated cap; the
 `8·arcDen` is the φ(q)-ledger's character count and inflates with the cap. -/
 def M4ChiSummedFreeShiftBlockH_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) (F : ℕ → ℕ → ℝ) :
     Prop :=
@@ -376,7 +377,7 @@ def M4ChiSummedFreeShiftBlockH_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) (F 
           ≤ F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
             + (2 * F j H + 8 * ((h : ℝ) * arcDen 12 H)) * ((2 ^ j : ℕ) : ℝ) ^ 2
 
-/-- `M4ChiSummedBlockMeanSqN_L_gk` (`M4RowLinear.lean:8216`) at the inflated cap; the
+/-- `M4ChiSummedBlockMeanSqN_L_gk` (`M4RowLinear.lean:8144`) at the inflated cap; the
 NARROWING `H ≤ cap³·L` is the count binder at the cap and inflates. -/
 def M4ChiSummedBlockMeanSqNH_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H →
@@ -388,7 +389,7 @@ def M4ChiSummedBlockMeanSqNH_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl 
         ∑ χ : DirichletCharacter ℂ q, ∑ n ∈ Finset.Ioc A B, (doorChiSup_L_gk K χ M L n) ^ 2
           ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
 
-/-- `M4BlockMeanSqBlk2_L_gk` (`M4RowSpineLinear.lean:660`) at the inflated cap. -/
+/-- `M4BlockMeanSqBlk2_L_gk` (`M4RowSpineLinear.lean:648`) at the inflated cap. -/
 def M4BlockMeanSqBlk2H_L_gk (h K : ℕ) (R : ChowlaRegime) (M k : ℕ) (ℓ : ℕ → ℕ → ℕ)
     (Bblk : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ (b : ℤ) (q : ℕ), 0 < q →
@@ -400,7 +401,7 @@ def M4BlockMeanSqBlk2H_L_gk (h K : ℕ) (R : ChowlaRegime) (M k : ℕ) (ℓ : �
         ≤ Bblk H * (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2
             * (doorLadder R.x H (i + 1) : ℝ)
 
-/-- `M4SievedDoorSqBlk2_L_gk` (`M4RowSpineLinear.lean:579`) at the inflated cap. -/
+/-- `M4SievedDoorSqBlk2_L_gk` (`M4RowSpineLinear.lean:567`) at the inflated cap. -/
 def M4SievedDoorSqBlk2H_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) (ℓ : ℕ → ℕ → ℕ)
     (Bblk : ℕ → ℝ) : Prop :=
   M4BandTransport →
@@ -434,7 +435,7 @@ theorem m4_sievedDoorSq_L_gk_of_H {h : ℕ} (hh : 1 ≤ h) {K : ℕ} {R : Chowla
 /-! ## §3 — the link theorems, socket → door (transcription, the cap threaded) -/
 
 /-- **3.1 ANTI-VACUITY at the inflated cap** — the trivial witness is `4·h·arcDen`
-(`φ(q) ≤ q ≤ h·arcDen`, absolute grade `4`); `M4RowLinear.lean:8016`. -/
+(`φ(q) ≤ q ≤ h·arcDen`, absolute grade `4`); `M4RowLinear.lean:7950`. -/
 theorem m4_chiSummedFreeRow_trivialH_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) :
     M4ChiSummedFreeRowH_L_gk h K R M (fun _ H => 4 * ((h : ℝ) * arcDen 12 H)) := by
   intro H _ _ L _ q hq hqQ j _ A hA _ _ _ _ s _
@@ -452,7 +453,7 @@ theorem m4_chiSummedFreeRow_trivialH_L_gk (h K : ℕ) (R : ChowlaRegime) (M : �
   have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
   linarith
 
-/-- **3.2** `m4_chiSummedShiftBlock_of_freeRow_L_gk` (`M4RowLinear.lean:8156`), the cap
+/-- **3.2** `m4_chiSummedShiftBlock_of_freeRow_L_gk` (`M4RowLinear.lean:8084`), the cap
 threaded. -/
 theorem m4_chiSummedShiftBlock_of_freeRowH_L_gk (h K : ℕ) {R : ChowlaRegime} {M : ℕ}
     {RS : ℕ → ℕ → ℝ} (hrow : M4ChiSummedFreeRowH_L_gk h K R M RS) :
@@ -515,8 +516,8 @@ theorem m4_chiSummedShiftBlock_of_freeRowH_L_gk (h K : ℕ) {R : ChowlaRegime} {
 
 set_option maxHeartbeats 3200000 in
 -- the dyadic assembly is re-elaborated against `∑_χ` as well as the free `(A, B]` and `L` —
--- exactly as at `M4RowLinear.lean:8225` (no tactic search below is unbounded)
-/-- **3.3** `m4_chiSummedBlockN_of_shiftBlock_L_gk` (`M4RowLinear.lean:8232`): the φ(q)-ledger's
+-- exactly as at `M4RowLinear.lean:8153` (no tactic search below is unbounded)
+/-- **3.3** `m4_chiSummedBlockN_of_shiftBlock_L_gk` (`M4RowLinear.lean:8160`): the φ(q)-ledger's
 two constants inflate with the cap (`2·arcDen⁷ → 2·(h·arcDen)⁷`, `432/5·arcDen →
 432/5·(h·arcDen)`), the NARROWING gate `8·arcDen³ ≤ H` likewise. -/
 theorem m4_chiSummedBlockN_of_shiftBlockH_L_gk (h K : ℕ) {R : ChowlaRegime} {M : ℕ}
@@ -560,10 +561,7 @@ theorem m4_chiSummedBlockN_of_shiftBlockH_L_gk (h K : ℕ) {R : ChowlaRegime} {M
   have hA4 : 4 ≤ A := by omega
   have hB2A : B ≤ 2 * A := by omega
   have hL2A : (L : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : L ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show L ≤ 2 * A by omega)
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
   set Lg := Nat.log 2 L with hLg
   -- ⟦R-P5, THE LENGTH ANTECEDENT PROPAGATED⟧ every dyadic window of the assembly is at most
@@ -596,14 +594,8 @@ theorem m4_chiSummedBlockN_of_shiftBlockH_L_gk (h K : ℕ) {R : ChowlaRegime} {M
               (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X χ j t n) * (2 / 3 : ℝ) ^ j
         = SL * ∑ j ∈ Finset.range (Lg + 1),
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-              ∑ n ∈ Finset.Ioc A B, X χ j t n) * (2 / 3 : ℝ) ^ j := by
-      rw [← Finset.mul_sum]
-      congr 1
-      rw [Finset.sum_comm]
-      refine Finset.sum_congr rfl fun j _ => ?_
-      rw [← Finset.sum_mul]
-      congr 1
-      exact Finset.sum_comm
+              ∑ n ∈ Finset.Ioc A B, X χ j t n) * (2 / 3 : ℝ) ^ j :=
+      sum_mul_weighted_sum_comm _ _ _ _ _ _
     exact hswap ▸ hstep1
   -- ⟦STEP 1′⟧ the character sum, taken through the assembly
   have hsummed : ∑ χ : DirichletCharacter ℂ q, ∑ n ∈ Finset.Ioc A B, (doorChiSup_L_gk K χ M L n) ^ 2
@@ -956,7 +948,7 @@ theorem m4_chiSummedBlockN_of_shiftBlockH_L_gk (h K : ℕ) {R : ChowlaRegime} {M
         linarith
     _ ≤ m4BclGraded j₀ Fan Ftr H * (L : ℝ) ^ 2 * (A : ℝ) := hfinal
 
-/-- **3.4** `m4_chiSummedN_supplied_L_gk` (`M4RowLinear.lean:8653`): 3.2 and 3.3 composed
+/-- **3.4** `m4_chiSummedN_supplied_L_gk` (`M4RowLinear.lean:8572`): 3.2 and 3.3 composed
 (`87 → 174` at `h = 2`). -/
 theorem m4_chiSummedN_suppliedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M : ℕ} {RS : ℕ → ℕ → ℝ}
     {RSan RStr : ℕ → ℝ} (j₀ : ℕ)
@@ -986,9 +978,9 @@ theorem m4_chiSummedN_suppliedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M : ℕ} {R
 
 set_option maxHeartbeats 1600000 in
 -- the stratified assembly re-elaborates the divisor sum, the fibre count, the χ-datum and
--- the ledger at every stratum, as at `M4RowLinear.lean:9752`
+-- the ledger at every stratum, as at `M4RowLinear.lean:9671`
 /-- **THE STRATIFIED CONSUMER AT THE INFLATED CAP** — `m4_freeBlockSup_of_chiSummed_L_gk`
-(`M4RowLinear.lean:9757`).  The Gauss strata's harmonic sum `∑_{d ∣ q} 1/d ≤ 1 + log q` is
+(`M4RowLinear.lean:9676`).  The Gauss strata's harmonic sum `∑_{d ∣ q} 1/d ≤ 1 + log q` is
 bounded through `q ≤ h·arcDen` by `strataResidualH h H` and by nothing smaller; the dilated
 base's x-floor (step (iii)) is where the x-scale floor's inflation is SPENT (`d ≤ h·arcDen`). -/
 theorem m4_freeBlockSup_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ → ℝ}
@@ -1234,8 +1226,8 @@ theorem m4_freeBlockSup_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M : �
 
 set_option maxHeartbeats 1200000 in
 -- the block sum is re-associated over the drift blocks and then over the ladder block, as at
--- `M4RowSpineLinear.lean:690`
-/-- **3.5** `m4_blockMeanSqBlk2_of_chiSummed_L_gk` (`M4RowSpineLinear.lean:694`) at the witness
+-- `M4RowSpineLinear.lean:678`
+/-- **3.5** `m4_blockMeanSqBlk2_of_chiSummed_L_gk` (`M4RowSpineLinear.lean:682`) at the witness
 `blockLenH h`; `hgate` is the door gate `h·(log H)^12 < P₁`, a HYPOTHESIS here as at `h = 1`. -/
 theorem m4_blockMeanSqBlk2_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M k : ℕ}
     {Bcl : ℕ → ℝ} (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
@@ -1352,10 +1344,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M 
     have hfit' : (B + m * L) + L ≤ 2 * (A + m * L) := by omega
     have hst := hstrat (A + m * L) (B + m * L) hApos' h2HA' hxA' hcapA' hfit'
     have hbase : ((A + m * L : ℕ) : ℝ) ≤ 2 * (A : ℝ) := by
-      have hnat : A + m * L ≤ 2 * A := by omega
-      have := (Nat.cast_le (α := ℝ)).mpr hnat
-      push_cast at this ⊢
-      linarith
+      exact_mod_cast (show A + m * L ≤ 2 * A by omega)
     have hfac0 : (0 : ℝ) ≤ 4 * strataResidualH h H ^ 2 * Bcl H * (L : ℝ) ^ 2 := by positivity
     linarith only [hst, mul_le_mul_of_nonneg_left hbase hfac0]
   -- ⟦the drift-block sum⟧
@@ -1370,7 +1359,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M 
   refine le_of_eq ?_
   ring
 
-/-- **3.6** `m4_cover_assembly_blk2_L_gk` (`M4RowSpineLinear.lean:671`), verbatim
+/-- **3.6** `m4_cover_assembly_blk2_L_gk` (`M4RowSpineLinear.lean:659`), verbatim
 (`integral_door_cover_le_clean` reads no cap). -/
 theorem m4_cover_assembly_blk2H_L_gk (h K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ} {δ : ℝ}
     {ℓ : ℕ → ℕ → ℕ} {Bblk : ℕ → ℝ}
@@ -1391,7 +1380,7 @@ theorem m4_cover_assembly_blk2H_L_gk (h K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {
   ring
 
 /-- **3.7 THE BLOCKED DRIFT AT THE INFLATED `α`-SET** — `m4_sievedDoorSq_of_blk2_L_gk`
-(`M4RowSpineLinear.lean:590`) with the drift lemma fired at the opaque cap
+(`M4RowSpineLinear.lean:578`) with the drift lemma fired at the opaque cap
 `Q := h · arcDen 12 H` (§1′); `h`-general. -/
 theorem m4_sievedDoorSq_of_blk2H_L_gk (h K : ℕ) {R : ChowlaRegime} {M : ℕ} {ℓ : ℕ → ℕ → ℕ}
     {Bblk Braw : ℕ → ℝ}
@@ -1542,8 +1531,8 @@ constant `KXi = h · 32·K_lcm·(2^35)² / ε^10` at `ε = 1/500`, `h`-explicit 
 ⚠️ **READ THE `ε` PIN BEFORE READING THE `h`-CHARGE OFF THIS WITNESS (H1 step 0, 2026-09-01).**
 Here the charge really is `h × (the h = 1 value)` — ONE factor of `h` — but only because this
 lemma pins `R.eps = 1/500`.  The `h` lane's own exit pins `ε = 1/(500·h)`
-(`HloExportFlatH.lean:250`), and the count constant carries `ε^{-10}`
-(`bigXi_bounded_explicit`, `GoldbachEnergyN0.lean:726`), so THERE the charge is `h^11`, not `h`.
+(`HloExportFlatH.lean:251`), and the count constant carries `ε^{-10}`
+(`bigXi_bounded_explicit`, `GoldbachEnergyN0.lean:729`), so THERE the charge is `h^11`, not `h`.
 Both are correct at their own pin; only the second is the exit's.  (Step 0's number: `h = 1`
 witness ≤ `2^228.06`, `+111.08` bits at `h ≤ 1096`, total `2^339.14` against the `2^539` pin.)
 
@@ -1671,7 +1660,7 @@ theorem m4_second_road_L2_H_gk_flatRoot_L (h : ℕ) (hh : 0 < h) (K : ℕ) :
 
 /-! ## §6 — the three named extras: the splice, the framed base, the ceiling -/
 
-/-- **THE SPLICED GRADE AT THE INFLATED CAP** (`m4ChiRowGraded_L`, `M4RowLinear.lean:8936`) —
+/-- **THE SPLICED GRADE AT THE INFLATED CAP** (`m4ChiRowGraded_L`, `M4RowLinear.lean:8855`) —
 the analytic grade above the door's floor, the absolute grade `4·h·arcDen 12 H` below it. -/
 def m4ChiRowGradedH_L (h M : ℕ) (RSbig : ℕ → ℕ → ℝ) : ℕ → ℕ → ℝ :=
   fun j H => if doorRowFloorL M ≤ j then RSbig j H else 4 * ((h : ℝ) * arcDen 12 H)
@@ -1697,7 +1686,7 @@ theorem m4ChiRowGradedH_an_L {h M : ℕ} {RSbig : ℕ → ℕ → ℝ} {RSan : �
   rw [m4ChiRowGradedH_big_L h M RSbig H hj]
   exact han j H hj
 
-/-- `M4ChiSummedFreeRowBig_L_gk` (`M4RowLinear.lean:8975`) at the inflated cap — the
+/-- `M4ChiSummedFreeRowBig_L_gk` (`M4RowLinear.lean:8894`) at the inflated cap — the
 producer-facing surface: what the socket's producers supply at moduli up to `h·arcDen`. -/
 def M4ChiSummedFreeRowBigH_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) (RSbig : ℕ → ℕ → ℝ) :
     Prop :=
@@ -1708,7 +1697,7 @@ def M4ChiSummedFreeRowBigH_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) (RSbig 
       ∀ s ≤ L,
         ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq_L_gk K χ M j (A + s) ≤ RSbig j H
 
-/-- **THE GRADED SPLICE** (`m4_chiSummedFreeRow_of_big_L_gk`, `M4RowLinear.lean:8985`) at the
+/-- **THE GRADED SPLICE** (`m4_chiSummedFreeRow_of_big_L_gk`, `M4RowLinear.lean:8904`) at the
 inflated cap: above the floor the hypothesis fires verbatim, below it the anti-vacuity witness
 (3.1) carries the socket at `4·h·arcDen 12 H`. -/
 theorem m4_chiSummedFreeRow_of_bigH_L_gk (h K : ℕ) {R : ChowlaRegime} {M : ℕ}

@@ -12,9 +12,9 @@ is `h`-blind and REUSED; the two others are replayed here.
 ⟦WHY THE BODIES ARE REPLAYED, AGAIN⟧  `HeadPinLeaves.lean:30-37` is standing law: the
 constant occurs ANTITONICALLY in every pinned `∃`-leaf, so no consequence of the landed form
 recovers the witness; the only route is to re-run the proof with the numeral kept.
-`hbudget_holds_h` (`HBudget.lean:1182`) draws its `c` from the UNPINNED
+`hbudget_holds_h` (`HBudget.lean:1203`) draws its `c` from the UNPINNED
 `primeWindow_sum_inv_ge`, so `1/4 ≤ cE` is unobtainable by weakening — `hbudget_holds_h_bounded`
-is that body VERBATIM (`HBudget.lean:1182-1465`) over `primeWindow_sum_inv_ge_bounded`, re-emitting
+is that body VERBATIM (`HBudget.lean:1203-1486`) over `primeWindow_sum_inv_ge_bounded`, re-emitting
 the conjunct exactly as `hbudget_holds_bounded` does for `h = 1`.
 `circle_method_estimate_sq_bounded_h_core` is `circle_method_estimate_sq_h_core`'s body (cited
 by line as 1366–1508 when written) verbatim with the
@@ -46,14 +46,14 @@ namespace Salt.Entropy.Chowla
 
 set_option maxHeartbeats 1600000 in
 -- The replayed budget aggregation (∫F unfold + three window totals + double-sum
--- reduction) is a large single elaboration, as at the landed `HBudget.lean:1182` and
+-- reduction) is a large single elaboration, as at the landed `HBudget.lean:1203` and
 -- `HeadPinLeaves.lean:258`; the ceiling here is those declarations', unchanged.
 open private window_Z_pos absXh_le_one window_sum_inv_sq IF_unfold_h per_term_h boundary_card_le
   from Salt.Entropy.Chowla.HBudget in
 /-- **HBUDGET AT SHIFT `h`, PINNED** (`hbudget_holds_h_bounded`) — `HBudget.hbudget_holds_h`
 plus `1/4 ≤ c`.  A pure carry: the landed proof reads `primeWindow_sum_inv_ge_bounded` in place
 of `primeWindow_sum_inv_ge` and re-emits the conjunct; the rest of the body is
-`HBudget.lean:1182-1465` verbatim (the gate is `ε·h ≤ c/(32·log 4)`, linear in `ε·h`). -/
+`HBudget.lean:1203-1486` verbatim (the gate is `ε·h ≤ c/(32·log 4)`, linear in `ε·h`). -/
 theorem hbudget_holds_h_bounded :
     ∃ c : ℝ, 0 < c ∧ 1 / 4 ≤ c ∧ ∃ H₀ : ℕ, ∀ (h : ℕ) (eps : ℚ) (H x ω : ℕ),
       0 < h → 2 ≤ x → 2 ≤ ω → ω ≤ x → 0 < eps → (eps : ℝ) ^ 2 ≤ 1 →
