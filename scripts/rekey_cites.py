@@ -33,6 +33,10 @@ cite is classed:
   HAND       a range that would be REPORTED (an edited line INSIDE it) whose two ENDPOINTS map, and whose citing
              file at HEAD carries that endpoint image instead of the old cite: a re-key made by hand. Printed and
              counted, never stale; whether the range still spans what its sentence means is read by hand (salt #645)
+  INTERIOR   a range with an edited line INSIDE it whose two endpoints map to THEMSELVES (so the interior kept its
+             line count): the only image is the old cite, so no hand number can fix it. Printed and counted, never
+             stale, never rewritten; whether it still spans what its sentence means is read by hand (paper on salt
+             #462, AnnHead:424-490). In a list beside a member that MOVED, the whole list is REPORTED
   AMBIGUOUS  a bare leaf shared by several files: not re-keyed, counted; one the EDITED file's map would move
              or report is PRINTED with that file and its class (`write the path and it is read`), never
              rewritten and never counted stale (h2c's census, 11-05: 27 of 98 such cites meant the moved file)
@@ -116,7 +120,9 @@ LIMITS = ("LIMITS: .lean targets only; forms Leaf.lean:N and :N–M / :N-M, and 
           "gives: salt #636, QUEUE-ARCHIVE :5654 and :1586); a BARE member is printed, never rewritten, read only through "
           "its paragraph's next 3 lines and only up to the next named cite (a `Word :N` stops it only when Word is a .lean stem), and mapped on the cite's file whatever "
           "file the sentence means (a member already wrong at BASE prints its moved line, not the name's: salt #641, "
-          ":6062 _gk_kwide); a HAND range is checked at its two endpoints only, never its interior.")
+          ":6062 _gk_kwide); a HAND range is checked at its two endpoints only, never its interior; an INTERIOR "
+          "range is not checked at all: its endpoints did not move and its interior changed, so rc 0 says nothing about "
+          "whether it still spans what its sentence means (read each printed INTERIOR row by hand).")
 
 
 LAST = {}                     # the last --apply's record verdicts (read by the self-test)
@@ -370,6 +376,8 @@ def span_class(m, nb, lo, hi, ranged):
     if hi > nb:
         return "PRE-STALE", None                    # past the base file's end: not this edit's
     if any(x is None for x in span) or (span and span[-1] - span[0] != hi - lo):
+        if ranged and new == nums:                  # both endpoints map to THEMSELVES: the interior kept its count,
+            return "INTERIOR", new                  # and the only image is the old cite (paper on salt #462)
         return "REPORTED", None                     # an edited, deleted or inserted line inside
     return ("KEPT" if new == nums else "RE-KEYED"), new
 
@@ -395,6 +403,8 @@ def resolve(m, nb, mt):
         return "PRE-STALE", None
     if all(c == "KEPT" for c in classes):
         return "KEPT", mt.group(0)
+    if "INTERIOR" in classes:                       # beside a member that MOVED, the whole list is read by hand
+        return ("INTERIOR", mt.group(0)) if all(c in ("KEPT", "INTERIOR") for c in classes) else ("REPORTED", None)
     return "RE-KEYED", "".join(out)
 
 
@@ -522,7 +532,7 @@ def census(root, base, head, published=PUBLISHED):
                 cls[c] += 1
                 cls["NESTED"] += nest
                 rows.append(dict(src=src, target=f, cite=mt.group(0), cls=c, new=rep, nested=nest, runon=runon, img=img))
-                if c in ("KEPT", "RE-KEYED"):
+                if c in ("KEPT", "RE-KEYED", "INTERIOR"):
                     if head_src is None:
                         head_src = show(root, head, src)
                     for mem, mc, newm in bare_members(maps[f], nbase[f], text, mt, head_src, rep, stems):
@@ -772,7 +782,9 @@ def report(edited, rows, cls, applied):
           f"PINNED (an archived manuscript's or a declared pin's, never re-keyed) {cls['PINNED']} · "
           f"NESTED (KEPT/RE-KEYED through a nested re-key) {cls['NESTED']} · "
           f"BARE (a later `:N` in the cite's sentence that this edit moved: printed, never rewritten) {cls['BARE']} · "
-          f"HAND (a REPORTED range HEAD already carries at its endpoint image: printed, not stale) {cls['HAND']}")
+          f"HAND (a REPORTED range HEAD already carries at its endpoint image: printed, not stale) {cls['HAND']} · "
+          f"INTERIOR (a range edited inside whose endpoints did not move: printed, read by hand, not stale) "
+          f"{cls['INTERIOR']}")
     pins = sorted({(r["src"], r["road"]) for r in rows if r["cls"] == "PINNED"})
     if pins:
         print(f"  PINNED files ({len(pins)}): " + ", ".join(f"{s} [{w}]" for s, w in pins))
@@ -780,7 +792,7 @@ def report(edited, rows, cls, applied):
         if w not in ("declared",) and not w.startswith("declared pin"):   # a .rekey-pins row IS a declaration
             print(f"  UNDECLARED {s}: pinned by its {w}; add it to PUBLISHED")
     for r in rows:
-        if r["cls"] in ("RE-KEYED", "REPORTED", "PRE-STALE", "AMBIGUOUS", "BARE", "HAND"):
+        if r["cls"] in ("RE-KEYED", "REPORTED", "PRE-STALE", "AMBIGUOUS", "BARE", "HAND", "INTERIOR"):
             print(f"  {r['cls']:9s} {r['src']}: {r['cite']} -> {r['new'] or ('(read by hand)' if r.get('why') else '(no head line: read by hand)')}"
                   + (f"  [{r['why']}]" if r.get("why") else ""))
     print(LIMITS)
@@ -904,8 +916,8 @@ def self_test():
         g("commit", "-q", "-am", "head")
         _, rows4, cls4 = census(d, "HEAD~1", "HEAD")
         b4 = {r["cite"]: r for r in rows4}
-        check("a range whose INTERIOR line was edited is REPORTED (paper LOW 1)",
-              b4.get("C.lean:3–6", {}).get("cls") == "REPORTED")
+        check("a range whose INTERIOR line was edited in place is never KEPT: INTERIOR, printed (paper LOW 1; #462)",
+              b4.get("C.lean:3–6", {}).get("cls") == "INTERIOR")
         check("a range that gained an INTERIOR line is REPORTED (paper LOW 1)",
               b4.get("E.lean:3–6", {}).get("cls") == "REPORTED")
         check("a cite into a RENAMED target is REPORTED, never skipped (paper LOW 2)",
@@ -940,8 +952,11 @@ def self_test():
         check("... and so is a cite of that line itself",
               k7.get(("z.md", "Y.lean:5"), {}).get("cls") == "KEPT")
         check("... counted apart, so the verdict says it", cls7["NESTED"] == 2)
-        check("the same line edited to ANOTHER number is still REPORTED (LOW 1 stands)",
-              k7.get(("z.md", "W.lean:3–7"), {}).get("cls") == "REPORTED")
+        check("the same line edited to ANOTHER number is never KEPT: INTERIOR, printed (LOW 1 stands; #462)",
+              k7.get(("z.md", "W.lean:3–7"), {}).get("cls") == "INTERIOR")
+        check("... and the wrong hand number itself still reads stale, on its own row",
+              k7.get(("Salt/W.lean", "X.lean:9"), {}).get("cls") in ("RE-KEYED", "REPORTED")
+              and main_rc(d, ["HEAD~2", "HEAD"]) == 1)
         check("... and the nested cite itself reads DONE in Y",
               k7.get(("Salt/Y.lean", "X.lean:8"), {}).get("cls") == "DONE")
     with tempfile.TemporaryDirectory() as d:
@@ -1500,6 +1515,61 @@ def self_test():
         pre = [r for r in rows6 if r["src"] == "pre.md" and r["cite"] == "W.lean:9-15"]
         check("HAND: an image already standing at BASE as another cite is not a fix", pre and pre[0]["cls"] == "REPORTED")
         check("HAND: ... so the run stays stale (rc 1)", main_rc(d, ["HEAD~1", "HEAD"]) == 1)
+
+    # INTERIOR (paper on salt #462, AnnHead:424-490): a line edited IN PLACE inside a range whose endpoints do not move
+    # leaves the author no number to write (the image IS the old cite), so it must not read stale
+    with tempfile.TemporaryDirectory() as d:
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt"))
+        tgt = "".join(f"r{i}\n" for i in range(1, 41))
+        open(os.path.join(d, "Salt/W.lean"), "w").write(tgt)
+        open(os.path.join(d, "i.md"), "w").write(
+            "a W.lean:5-20 x\n"                       # row 10 edited in place inside: INTERIOR
+            "b W.lean:25-30 x\n"                      # untouched: KEPT
+            "c W.lean:3, :8-12 x\n"                   # a list whose range member has the edited interior: INTERIOR
+            "d W.lean:10 x\n")                        # the edited line itself: REPORTED, as before
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        t = tgt.split("\n"); t[9] = "r10 EDITED"
+        open(os.path.join(d, "Salt/W.lean"), "w").write("\n".join(t))
+        g("commit", "-q", "-am", "edit in place")
+        _, ri, ci = census(d, "HEAD~1", "HEAD")
+        by = {r["cite"]: r for r in ri}
+        check("INTERIOR: an in-place edit inside a range with unmoved endpoints reads INTERIOR",
+              by.get("W.lean:5-20", {}).get("cls") == "INTERIOR")
+        check("INTERIOR: a list whose range member has such an interior reads INTERIOR",
+              by.get("W.lean:3, :8-12", {}).get("cls") == "INTERIOR")
+        check("INTERIOR: the edited line cited alone stays REPORTED", by.get("W.lean:10", {}).get("cls") == "REPORTED")
+        check("INTERIOR: counted, and the untouched range is KEPT (not printed)", ci["INTERIOR"] == 2 and ci["KEPT"] == 1)
+        check("INTERIOR: never rewritten by --apply", by["W.lean:5-20"]["new"] == "W.lean:5-20")
+        # and NOT when an endpoint moves: a line inserted inside the range is HAND territory, never INTERIOR
+        t2 = list(t); t2 = t2[:12] + ["ins"] + t2[12:]
+        open(os.path.join(d, "Salt/W.lean"), "w").write("\n".join(t2))
+        g("commit", "-q", "-am", "insert inside")
+        _, rj, _ = census(d, "HEAD~2", "HEAD")
+        byj = {r["cite"]: r for r in rj}
+        check("INTERIOR: a moved endpoint is REPORTED, not INTERIOR", byj.get("W.lean:5-20", {}).get("cls") == "REPORTED")
+        # paper's NIT on #652: a deletion AND an insertion inside one range (net count 0, endpoints unmoved)
+        t3 = list(t); del t3[11]; t3 = t3[:15] + ["ins"] + t3[15:]
+        open(os.path.join(d, "Salt/W.lean"), "w").write("\n".join(t3))
+        g("commit", "-q", "-am", "delete and insert inside")
+        _, rk, _ = census(d, "HEAD~3", "HEAD")
+        byk = {r["cite"]: r for r in rk}
+        check("INTERIOR: a deletion plus an insertion inside (net 0, endpoints unmoved) reads INTERIOR",
+              byk.get("W.lean:5-20", {}).get("cls") == "INTERIOR")
+        check("... and the LIMITS printed beside every verdict name INTERIOR's limit", "INTERIOR" in LIMITS)
+    with tempfile.TemporaryDirectory() as d:             # cites are read at BASE: a run with ONLY these is clean
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt"))
+        tgt = "".join(f"r{i}\n" for i in range(1, 41))
+        open(os.path.join(d, "Salt/W.lean"), "w").write(tgt)
+        open(os.path.join(d, "i.md"), "w").write("a W.lean:5-20 x\nb W.lean:25-30 x\nc W.lean:3, :8-12 x\n")
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        t = tgt.split("\n"); t[9] = "r10 EDITED"
+        open(os.path.join(d, "Salt/W.lean"), "w").write("\n".join(t))
+        g("commit", "-q", "-am", "edit in place")
+        check("INTERIOR: not stale (rc 0 when nothing else is)", main_rc(d, ["HEAD~1", "HEAD"]) == 0)
 
     print("rekey_cites self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
