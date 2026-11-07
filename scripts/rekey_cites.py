@@ -120,7 +120,9 @@ LIMITS = ("LIMITS: .lean targets only; forms Leaf.lean:N and :N–M / :N-M, and 
           "gives: salt #636, QUEUE-ARCHIVE :5654 and :1586); a BARE member is printed, never rewritten, read only through "
           "its paragraph's next 3 lines and only up to the next named cite (a `Word :N` stops it only when Word is a .lean stem), and mapped on the cite's file whatever "
           "file the sentence means (a member already wrong at BASE prints its moved line, not the name's: salt #641, "
-          ":6062 _gk_kwide); a HAND range is checked at its two endpoints only, never its interior.")
+          ":6062 _gk_kwide); a HAND range is checked at its two endpoints only, never its interior; an INTERIOR "
+          "range is not checked at all: its endpoints did not move and its interior changed, so rc 0 says nothing about "
+          "whether it still spans what its sentence means (read each printed INTERIOR row by hand).")
 
 
 LAST = {}                     # the last --apply's record verdicts (read by the self-test)
@@ -1547,6 +1549,15 @@ def self_test():
         _, rj, _ = census(d, "HEAD~2", "HEAD")
         byj = {r["cite"]: r for r in rj}
         check("INTERIOR: a moved endpoint is REPORTED, not INTERIOR", byj.get("W.lean:5-20", {}).get("cls") == "REPORTED")
+        # paper's NIT on #652: a deletion AND an insertion inside one range (net count 0, endpoints unmoved)
+        t3 = list(t); del t3[11]; t3 = t3[:15] + ["ins"] + t3[15:]
+        open(os.path.join(d, "Salt/W.lean"), "w").write("\n".join(t3))
+        g("commit", "-q", "-am", "delete and insert inside")
+        _, rk, _ = census(d, "HEAD~3", "HEAD")
+        byk = {r["cite"]: r for r in rk}
+        check("INTERIOR: a deletion plus an insertion inside (net 0, endpoints unmoved) reads INTERIOR",
+              byk.get("W.lean:5-20", {}).get("cls") == "INTERIOR")
+        check("... and the LIMITS printed beside every verdict name INTERIOR's limit", "INTERIOR" in LIMITS)
     with tempfile.TemporaryDirectory() as d:             # cites are read at BASE: a run with ONLY these is clean
         g = lambda *a: git(d, *a)
         g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
