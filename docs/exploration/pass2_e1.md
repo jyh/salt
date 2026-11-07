@@ -34,7 +34,7 @@ derives reality of F-witnesses from the same landed ZFR.
 |---|---|---|
 | `FulcrumQualityMin`, `SiegelModulusUnbounded` (interface, UNPROVEN), `imsz_implies_fulcrum_of_gadget` | `Salt/Fulcrum/Basic.lean:61,73,193` | statement layer |
 | `zero_free_region_all` | `Salt/SW/ZeroFreeReal.lean:605` | complex/non-quadratic ZFR, effective |
-| `siegel_theorem` (ε-quantified, INEFFECTIVE C) | `Salt/SW/SiegelClose.lean:848-851`; ineffective choice at :850 via `siegel_dichotomy` (`Salt/SW/Siegel.lean:227-238`, `Classical.em`) | zero-free, q^{-ε} |
+| `siegel_theorem` (ε-quantified, INEFFECTIVE C) | `Salt/SW/SiegelClose.lean:848-851`; ineffective choice at :857 via `siegel_dichotomy` (`Salt/SW/Siegel.lean:227-238`, `Classical.em`) | zero-free, q^{-ε} |
 | `LFunction_one_re_le_mvt` / `_sharp` | `Salt/SW/SiegelFinal.lean:106-109` (27√f(1+log f)); `Salt/SW/SiegelClose.lean:461-464` ((1−β)·25e(1+log f)²) | zero ⟹ L(1) CAP |
 | `L1_lower_siegel` | `Salt/SW/DHCore.lean:808-816` | deep zero ⟹ L(1) ≥ 0.27(1−β₀)(2−β₀), guard-gated |
 | `LFunction_one_re_ge_partial`, `dh_repulsion_partial` | `Salt/SW/DHClose.lean:105-109,154-160` | unconditional truncation/repulsion |

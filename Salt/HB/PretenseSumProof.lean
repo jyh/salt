@@ -186,7 +186,7 @@ lemma vmPair_eq_add (χ : DirichletCharacter ℂ q) (N : ℕ) :
   exact Finset.sum_congr rfl fun n _ => by ring
 
 /-- **The stone folded against the landed Mertens bound.**  `mertens_vonMangoldt_div_le`
-(`Salt/HB/L2cCore.lean:437`, unconditional) discharges the untwisted half, leaving the
+(`Salt/HB/L2cCore.lean:441`, unconditional) discharges the untwisted half, leaving the
 twisted half as the only analytic unknown:
 
     2·PretenseSum χ N ≤ log N + (log 4 + 4) + twistedMertens χ N.

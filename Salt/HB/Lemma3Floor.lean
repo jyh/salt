@@ -42,12 +42,12 @@ The third binder `1/L ≤ r0/2` is then free: `1 ≤ √(log η)` (from `hell`) 
 * `hceil` is an **interface, not a theorem proved here**: it is the tall-box shape the
   TAU-EXT artillery supplies — at the `|γ| ≤ 1` range Lemma 3 actually needs, by
   `Salt.SW.boxZeros_re_le_unit_box` (`Salt/SW/TauExt.lean:340`, this file's import); at
-  EF height, by `Salt.SW.boxZeros_re_le_at_efHeight` (`Salt/SW/TBalTall.lean:2231`, NOT
+  EF height, by `Salt.SW.boxZeros_re_le_at_efHeight` (`Salt/SW/TBalTall.lean:3128`, NOT
   imported here).  Nothing about the door, `q`-freeness, or the tall re-thread is settled
   here, and no `hceil` is *produced* — it is consumed.
 * the **`Sinv` antecedent is deliberately still carried**.  The error sum
   `∑_{ρ ≠ β₀} m_ρ/‖ρ − 1‖² ≤ Sinv` is priced by `Salt.HB.invSq_sum_split_le`
-  (`Salt/HB/TwistedMertens.lean:597`), and that composition is **out of scope for this
+  (`Salt/HB/TwistedMertens.lean:599`), and that composition is **out of scope for this
   file**: only the *floor* antecedent is discharged.
 * as with `HSigmaComp`, the largeness hypothesis `hlarge` is genuine — the obligation is a
   quadratic in `√(log η)` and is false for small `η`.  No vacuity check is re-run here; the

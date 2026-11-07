@@ -14,7 +14,7 @@ weakest precisely-stated equidistribution interface that the landed gaps ≤ 12
 chain actually consumes.*
 
 **The find (Q3-recon, verbatim from the ledger).**  The ENTIRE gaps ≤ 12 chain
-consumes `EHall` at EXACTLY ONE LINE (`Salt/Twelve/FrontierM.lean:171`), reducing
+consumes `EHall` at EXACTLY ONE LINE (`Salt/Twelve/FrontierM.lean:180`), reducing
 to the landed `HasLevel (3999/4000)` — strictly weaker in FORM (single level +
 BV-shaped haircut; the honest caveat: θ ≈ 1 is EH-strength in DEPTH).
 
@@ -286,7 +286,7 @@ every `N` there are two primes `p ≠ q > N` with `|q − p| ≤ 12`, assuming o
 
 This is the equidistribution interface that the landed gaps ≤ 12 chain consumes
 (sufficient; not proved minimal): the chain touches `EHall` at exactly one point
-(`FrontierM.lean:171`), and that point needs only `HasLevel (3999/4000)`.
+(`FrontierM.lean:180`), and that point needs only `HasLevel (3999/4000)`.
 
 **θ-caveat (see the module docstring):** `θ★ = 3999/4000` is near `1`, so this
 hypothesis is EH-strength *in analytic depth*.  The extraction's content is a
