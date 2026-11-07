@@ -168,7 +168,7 @@ theorem m4_doorL2_close_split_sq_hloCap :
 /-! ## §3 — THE TERMINAL: the second road's register, cap-carrying -/
 
 /-- **⟦THE SECOND ROAD'S TERMINAL REGISTER, AT THE `L²` DOOR, WITH THE BASE CAP⟧**
-(`m4_second_road_L2_hloCap`) — `S12Compose.m4_second_road_L2` (`S12Compose.lean:100`)
+(`m4_second_road_L2_hloCap`) — `S12Compose.m4_second_road_L2` (`S12Compose.lean:101`)
 plus `(Hcap : ℕ)` in the `∃`-prefix and the payload conjunct
 
 ```
