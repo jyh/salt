@@ -65,7 +65,7 @@ Same genre: `P = {Re ∈ [1,2], |Im| ≤ 3}`, **`exists_isMinOn` on `‖Zc‖` a
 Grade needed: any explicit `δ`; box `Re ∈ [1,2]`, `|Im| ≤ 3`; **σ ≥ 1 exactly**, so `η = 0` and the separation is the full `c₃/log(|γ|+2)` — *easier* than mask (a).
 
 ### Bonus mask (same box, ceiling side)
-`zeta_upper_band` — `Salt/MR/SiegelArm.lean:391`, `exists_isMaxOn` at `:397`, `Z := max ‖Zc z₀‖ 1`. **Free kill**: bandBox `= {Re∈[1,2], |Im|≤1}` sits inside `‖z − 2‖ ≤ √2 ≤ 7/4`, so `Zc_sphere_bound_sharp` (`EpsilonZero.lean:476`) at `t₀ = 0, a = 1, b = 2` gives `‖Zc‖ ≤ 1 + 5·(11/4)·(15/4) = 52.6`, i.e. **`Z = 53`**, ~12 lines.
+`zeta_upper_band` — `Salt/MR/SiegelArm.lean:391`, `exists_isMaxOn` at `:396`, `Z := max ‖Zc z₀‖ 1`. **Free kill**: bandBox `= {Re∈[1,2], |Im|≤1}` sits inside `‖z − 2‖ ≤ √2 ≤ 7/4`, so `Zc_sphere_bound_sharp` (`EpsilonZero.lean:476`) at `t₀ = 0, a = 1, b = 2` gives `‖Zc‖ ≤ 1 + 5·(11/4)·(15/4) = 52.6`, i.e. **`Z = 53`**, ~12 lines.
 
 ### Corpus census of the same leaf (for completeness)
 | site | what | status |
@@ -97,7 +97,7 @@ The answer to "does a ζ version of `LFunction_norm_logDeriv_sub_sum'` exist?" i
 - `Zc_center_lower` `:114` — `‖Zc(2+it₀)‖ ≥ 1/4` (the `hFc` slot, free).
 - `zeta_norm_ge` `:108` — `Re s ≥ 2 ⇒ ‖ζ‖ ≥ 1/4`.
 - `M0zeta` `:867` `= 1+5(19/4+|t₀|)(15/4+|t₀|)`; `Zc_sphere_bound` `:895` (radius `≤ 7/4`).
-- **sharp**: `Zc_sphere_bound_sharp` `EpsilonZero.lean:476`, `Zc_sphere_bound_height_one` `:524` (`≤ 66` at `|t₀|≤1`), `Zc_sphere_bound_height_two` `:535` (`≤ 96` at `|t₀|≤2`) — factor ≈2 off `M0zeta`.
+- **sharp**: `Zc_sphere_bound_sharp` `EpsilonZero.lean:476`, `Zc_sphere_bound_height_one` `:523` (`≤ 66` at `|t₀|≤1`), `Zc_sphere_bound_height_two` `:534` (`≤ 96` at `|t₀|≤2`) — factor ≈2 off `M0zeta`.
 - Assembled ζ consumers already riding this: `zeta_neg_re_logDeriv_le` `ZetaPartialFractions.lean:952`; `zeta_neg_re_logDeriv_le_keep_of_growth` / `_le_of_growth` `EpsilonZero.lean:552/624` (hypothesis-taking, `120·log(4M)` **un-collapsed** — the right genre to imitate); `ShiftTrivChar.lean:208`.
 
 **Segment-integration / transport devices (all landed):**
@@ -168,7 +168,7 @@ Where the EPSILON-SHARP separation buys: `sep` enters as `N·log(1/sep)`, i.e. `
 
 ### 3.5 Per-mask consumption
 
-- **(a)** `Zc_band_lower` at `T=2`, `η := c₄/log2⁹` → feeds `hband` of `Zc_patch_lower_bounded_of_band` (`EpsilonZero.lean:428`, note the `1/5 ≤ ‖z−1‖` hypothesis is exactly what the stone assumes) → floor `min δ₀ (1/4)` on the whole `Zc_patch_lower` rectangle → `zeta_inv_shallow_explicit` with `C = max(1/c, 4/(δ₀ log2⁷), 4/log2⁷)` fully explicit. **Caveat:** the explicit `a` requires re-deriving `zeta_inv_shallow` off `zeta_zero_free_region_sharp_bounded` (`:929`) rather than the opaque `zeta_zero_free_region` at `ZetaInvShallow.lean:120`. That is a re-run of `:116–234` with two `obtain`s changed, not a new proof.
+- **(a)** `Zc_band_lower` at `T=2`, `η := c₄/log2⁹` → feeds `hband` of `Zc_patch_lower_bounded_of_band` (`EpsilonZero.lean:428`, note the `1/5 ≤ ‖z−1‖` hypothesis is exactly what the stone assumes) → floor `min δ₀ (1/4)` on the whole `Zc_patch_lower` rectangle → `zeta_inv_shallow_explicit` with `C = max(1/c, 4/(δ₀ log2⁷), 4/log2⁷)` fully explicit. **Caveat:** the explicit `a` requires re-deriving `zeta_inv_shallow` off `zeta_zero_free_region_sharp_bounded` (`:927`) rather than the opaque `zeta_zero_free_region` at `ZetaInvShallow.lean:120`. That is a re-run of `:116–234` with two `obtain`s changed, not a new proof.
 - **(b)** does **not** consume the stone. `zeta_lower_compact_mid_explicit` off `zeta_lower_shallow` (F1).
 - **(b′)** `Zc_band_lower` at `T=3, η=0`, plus `Zc_lower_near_pole` for `‖z−1‖ ≤ 1/5` and `Zc_lower_of_two_le_re` for `Re ≥ 2` → `zeta_lower_small_t_explicit` with `δ = min δ₀ (7/25) / 4`. Also de-opaques `SiegelArm.lean:235`.
 - Both feed `zeta_lower_all_t_of_pow` (`ZetaLowerAllT.lean:185`), whose `c'' = min c' (min ε₀ δ)` then becomes explicit modulo `zeta_pow_lower`'s own `c'`. Downstream consumer: `MR/NonPret.lean:123`.

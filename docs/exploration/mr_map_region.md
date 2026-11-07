@@ -11,7 +11,7 @@ square on the loglog. Note the STRIP half-width has (loglog)²; the REGION ends
 up with (loglog)³ — the extra power is bought by the `Lq` width algebra
 (`Lq ≤ 2.25e7·L^{3/4}·ℓ³`, PowRegion.lean:313), not by the strip.
 
-### 1b. The growth `zeta_growth_pow` (G: Salt/Vk/GrowthPow.lean:977–1036)
+### 1b. The growth `zeta_growth_pow` (G: Salt/Vk/GrowthPow.lean:976–1034)
 `ZetaGrowthPow` (G: PowRegion.lean:78–81) is
 `∃ K t₀, 1 ≤ K ∧ 3 ≤ t₀ ∧ ∀ σ t, t₀ ≤ t → 1 − vkTheta t ≤ σ → σ ≤ 3 →
  ‖ζ(σ+it)‖ ≤ K·log t`.
