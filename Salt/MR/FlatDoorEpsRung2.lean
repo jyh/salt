@@ -189,7 +189,7 @@ theorem s16_baseScaleCap96_LH_at_klevF_L {h : ℕ} (hh : 0 < h) {L : ℝ} (hL0 :
 
 `xt_log_inv_rho_le_scaled`'s cap is NOT on `h` but on the socket's count parameter,
 `hKcb : Kc ≤ 2 ^ 539`, and its ONE spending site is the split
-`2 ^ 580 = 2 ^ 41 · 2 ^ 539` inside `hlo` (`XThread.lean:231`, `:283`).  At a generic real
+`2 ^ 580 = 2 ^ 41 · 2 ^ 539` inside `hlo` (`XThread.lean:231`, `:243`).  At a generic real
 ceiling `Kb ≥ 1` the split is `2 ^ 41 · Kb`, the `Kb` CANCELS EXACTLY in `hval`
 (`110525 · 16 · Kb / (2 ^ 41 · Kb · c) = 1768400 / (2 ^ 41 · c)`), and the conclusion's `403`
 becomes `29 + log Kb` — `29` is `41 · log 2 = 28.4190…` rounded up, and nothing else. -/

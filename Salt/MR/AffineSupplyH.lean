@@ -29,7 +29,7 @@ namespace Salt.MR
 
 /-- **S2 (class A/B).**  The `a = 1` instance of the supply demand is a corollary of the landed
 prize `logChowla2_v7_rated_h` (`V7RatedH.lean:1211`) at every `h ≤ 1096`.  Its `∃ R`
-conjunct (`:1218-1225`) carries SIX conjuncts — `R.eps = ε`, `R.Hlo = flatDesignBase A`, two
+conjunct (`:1219-1226`) carries SIX conjuncts — `R.eps = ε`, `R.Hlo = flatDesignBase A`, two
 loglog band conditions, `3.2·A ≤ loglog R.Hlo`, and `¬ logChowlaFails h R.eps R.x R.ω` — so
 the `obtain` keeps `162 ≤ A`, `A₀ ≤ A`, `R.Hlo = …` and the last conjunct and discards the
 rest; the transfer is `mt (logChowlaFailsAff_one_zero h R.eps R.x R.ω).mp` (the `¬` reverses

@@ -107,7 +107,7 @@ carried to the crown's window by the bridge `hbDataHB_S3_le_S3_window`.
    real from `q^250` on.
 4. **THE TAIL CARRIES A `k`-INDEPENDENT POWER OF `log q`, AND THE REGIME MUST PAY IT (v3).**  The
    Range-A ledger's row (iv) is `10³·M³·N·u^{bceil−1}` (`efEnvelope_le_ledger_sharp`,
-   `Lemma7EF.lean:2624-2632`; `M = log(qu)+2 ≈ 251·L` at `u = q^250`, `N ≈ L`) — the CRUDE zero
+   `Lemma7EF.lean:2696-2704`; `M = log(qu)+2 ≈ 251·L` at `u = q^250`, `N ≈ L`) — the CRUDE zero
    count of the near-1 strip (`DensityCrude.lean:459`: on `16/17 < σ ≤ 1` the density shape
    degenerates and `N(σ,T) ≤` the count, polylog in `L`) — against the repulsion decay
    `exp(−0.368·ℓ′)` at the window edge.  The grade needs `exp(0.368·ℓ′) ≥ 10^{10}·L^{4.5}`, i.e.
@@ -162,7 +162,7 @@ variable {q : ℕ}
 /-! ## §1 — the operating point (definitions; no obligation) -/
 
 /-- The Deuring–Heilbronn exponent `b` of the landed contract (`dh_repulsion_tall`'s witness,
-`TBalTall.lean:2194`: `⟨680, c, 14, …⟩`). -/
+`TBalTall.lean:2829`: `⟨680, c, 14, …⟩`). -/
 noncomputable def dhB : ℝ := 680
 
 /-- The Deuring–Heilbronn log-exponent `k` of the contract this file consumes — **THE COUPLING,
@@ -1138,7 +1138,7 @@ private lemma n9_regime_facts [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ 
 /-- **THE REPULSION CEILING OVER A BOX — `hceil` discharged at every height at which the
 contract speaks.**  Every zero `ρ ≠ β₀` in the strip `9/10 ≤ Re ρ ≤ 1`, `|Im ρ| ≤ T` has
 `Re ρ ≤ repulsionCeiling dhB dhC dhK (q(T+2)) (1−β₀)`, provided the numerator at the box top is
-non-negative (`hN`).  This is `re_le_repulsionCeiling_of_ne` (`Lemma7EF.lean:661`) with its four
+non-negative (`hN`).  This is `re_le_repulsionCeiling_of_ne` (`Lemma7EF.lean:673`) with its four
 binders paid: `hrep` ← `dh_spec`'s first arm (the contract, height-free, in the `≤ 1 − β₀`
 direction); `hord` ← `re_le_beta0_of_ne`; `hreal` ← for a real `ρ ≠ β₀`, Landau's window
 (`landau_one_exceptional_at`, contrapositive; `β₀` is inside it by `ellBig`) then
@@ -1798,7 +1798,7 @@ theorem hb_L1_lower_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β�
 /-- **The `s′`-side input, LOWER form** — the mirror of `neg_re_logDeriv_LFunction_le`:
 `−Re L′/L(σ,χ) ≥ −(1/(σ−1) + 1)` on `1 < σ ≤ 2`.  Class **A**, cap 60.  Red-first (the verdict's
 A6 — the `tsum` route runs through four `private` lemmas of `TwistedMertens.lean` and cannot be
-cited from here): the PUBLIC `vmPairS_le_pole` (`TwistedMertens.lean:252`) at `N := 0`,
+cited from here): the PUBLIC `vmPairS_le_pole` (`TwistedMertens.lean:254`) at `N := 0`,
 `0 ≤ vmPairS χ 0 σ` by `Finset.sum_nonneg` from `one_add_chiRe_nonneg` and `vonMangoldt_nonneg`,
 and `linarith`.  Consumer: `neg_re_logDeriv_differenced_mult_ge`. -/
 theorem neg_re_logDeriv_LFunction_ge {f : ℕ} [NeZero f] (χ : DirichletCharacter ℂ f)
@@ -1810,7 +1810,7 @@ theorem neg_re_logDeriv_LFunction_ge {f : ℕ} [NeZero f] (χ : DirichletCharact
   linarith
 
 /-- **The differencing, LOWER form** — the mirror of `neg_re_logDeriv_differenced_mult`
-(`TwistedMertens.lean:486`): the same partial-fraction difference with every inequality reversed;
+(`TwistedMertens.lean:488`): the same partial-fraction difference with every inequality reversed;
 the zero-difference sum is bounded in ABSOLUTE value by `4(σ′−σ)·Sinv` there already, and the
 remainder is a norm.  Class **B**, cap 250.  Consumer: `hb_L1_upper_at_hb_point`. -/
 theorem neg_re_logDeriv_differenced_mult_ge {Lf : ℂ → ℂ} {Z : Finset ℂ} {m : ℂ → ℕ}
@@ -3607,7 +3607,7 @@ non-negative and bounded by `2/⌊z⌋` (`hbEulerLog_sub_primeSum_termwise` +
 `(logChiSum χ z Y).re` converges because `logChiSum_tendsto_zfr_hundred` at its OWN existential
 `X₀` (any `X ≥ max X₀ z`, however large — `hreal` from `real_zeros_below_zfrCeil`, `hZFR` from
 `zero_free_region_all_numeral`, `250 ≤ L` from the regime, `σa = 9/10`, `σb = 19/20 ≤ β₀`) plus
-`logChiSum_add` (`Lemma7EF.lean:1155`) moves the base point down to `z`.
+`logChiSum_add` (`Lemma7EF.lean:1204`) moves the base point down to `z`.
 Consumer: `hcorr_at_split`. -/
 theorem hbEulerLog_tendsto [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) {z : ℝ} (hz : 3 ≤ z) :
@@ -3851,7 +3851,7 @@ theorem hbEulerLog_tendsto [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η 
 
 /-- **`hcorr` at the split point** — the bridge `hb_hcorr_closed` lacks: its `A′` is the limit of
 `(logChiSum χ z Y).re`, while `(L2)` wants `(logChiSum χ z X).re + Stail.re`; `logChiSum_add`
-(`Lemma7EF.lean:1155`) splits `[z, Y] = [z, X] ∪ [X, Y]` and the tail limit is `S`
+(`Lemma7EF.lean:1204`) splits `[z, Y] = [z, X] ∪ [X, Y]` and the tail limit is `S`
 (`hS`, produced by `logChiSum_tail_at_window` at `X = x`).  Class **B**, cap 200.
 Consumer: `hb_L2_at_hb_point`. -/
 theorem hcorr_at_split [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
@@ -5362,7 +5362,7 @@ private lemma n9_calpha_four : hbCalpha 4 = 2 := by
   simp [hbCalpha, h4, Finset.filter_singleton]
 
 /-- **A NUMERAL LOWER BOUND ON THE TWIN SINGULAR SERIES** — the corpus carries only
-`twinSingularSeries_pos` and `twinSingularSeries_lt_two` (`HardyLittlewood/Frame.lean:103,107`),
+`twinSingularSeries_pos` and `twinSingularSeries_lt_two` (`HardyLittlewood/Frame.lean:113,117`),
 and Theorem 1 CANNOT convert Lemma 4's ABSOLUTE error `2^40·x/z₀` into a relative error against
 `x·𝔖·C(4)` without one.  `log(1 − (p−1)^{−2}) ≥ −8/p²` (`abs_log_twinFactor_le`) and the tail
 `tsum_tail_inv_sq_le` at `K = 8`, `N = 2` give `∑' log ≥ −4`, so `Π₂ = exp(∑' log) ≥ e^{−4}`
@@ -5423,7 +5423,7 @@ LOWER half at HB's own Lemma 5 instance `hbDataHB`, carried to the crown's windo
 Red-first: `hb_p200_lower_HB` at `hbZ_packet`'s binders, `lam := 1/4`, `sRatio := hbS`,
 `kappa := hbKappaN9`, `LL := hbLL`, plus the two side conditions it demands:
 `hPα : Nat.Coprime (hbDataHB …).P 4` (from `HBSieveData.P_odd`) and `hκ : 0 ≤ hbKappaN9 χ x z`
-(no landed `hbKappa_nonneg`; built from `hbWfac_pos`, `Lemma7Kappa.lean:307`, and the
+(no landed `hbKappa_nonneg`; built from `hbWfac_pos`, `Lemma7Kappa.lean:324`, and the
 multipliability at `:330`); `hbS1_eq_W_HB` turns `κ·W` into `(L2)`'s left side
 (`hb_L2_at_hb_point`); the `(L1)` sides bound `LL² = (ηL)²(1 ± 2(1606+8n9Cs)/(η√ℓ′) + …)` —
 the RELATIVE deviation is `η` times smaller than `1/√ℓ′` and belongs under the `1/η` shape —

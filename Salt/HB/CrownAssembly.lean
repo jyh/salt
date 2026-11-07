@@ -1174,7 +1174,7 @@ theorem hb_transfer_sq_additive (P : ℕ) (hP : Squarefree P)
 /-! ## §6 — HB Lemma 5 as an INTERFACE (N7's exit) and the p.200 assembly -/
 
 /-- **HB LEMMA 5, AS THE INTERFACE N7 FILLS AND N8 CONSUMES** (p.199; the Wave C scout's §1
-says "write the exit to the consumer at `RosserDim4Instance.lean:558`, not invented" — this
+says "write the exit to the consumer at `RosserDim4Instance.lean:578`, not invented" — this
 is that consumer, made explicit).  For a sieve situation `H` (in practice `hbDataN8 …`):
 
     S(d) = κ·(G(d)/d)·{LL² + A(d)² + A′(d) + C₀} + O(x·L⁴·z⁻¹·d⁻¹·4^{ω(d)})
