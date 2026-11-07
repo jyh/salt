@@ -30,4 +30,34 @@ theorem regime_scale_reads (R : ChowlaRegime) (hfl : loglogFloor50 ≤ R.Hlo) :
     (regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)).2,
     fun _ hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)⟩
 
+/-- The scale reads with the regime's tower read attached, in its `exp (· / 2)` shape:
+the three reads of `regime_scale_reads`, then `loglog R.Hhi ≤ exp (loglog R.Hlo / 2)` from the
+regime's tower hypothesis `hRtow` at the first read. -/
+theorem regime_scale_reads_tow_exp (R : ChowlaRegime) (hfl : loglogFloor50 ≤ R.Hlo)
+    (hRtow : 50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) →
+      Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+        ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2)) :
+    50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ∧ 50 ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ∧
+      (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+        0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ))) ∧
+      Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+        ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) :=
+  let h := regime_scale_reads R hfl
+  ⟨h.1, h.2.1, h.2.2, hRtow h.1⟩
+
+/-- The scale reads with the regime's tower read attached, in its `(·) ^ (9/2)` shape:
+the three reads of `regime_scale_reads`, then `loglog R.Hhi ≤ (loglog R.Hlo) ^ (9/2)` from the
+regime's tower hypothesis `hRtow` at the first read. -/
+theorem regime_scale_reads_tow_pow (R : ChowlaRegime) (hfl : loglogFloor50 ≤ R.Hlo)
+    (hRtow : 50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) →
+      Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+        ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2)) :
+    50 ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ∧ 50 ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ∧
+      (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+        0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ))) ∧
+      Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+        ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) :=
+  let h := regime_scale_reads R hfl
+  ⟨h.1, h.2.1, h.2.2, hRtow h.1⟩
+
 end Salt.MR

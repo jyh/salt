@@ -480,7 +480,7 @@ theorem flat_capstone_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h :
 `log a ≤ 9` from `8103 ≤ exp 9` via `2.7182818283^9` (margin 0.084) and `haR : a ≤ 8103`, the four
 budget sites `harm'` · `hgb'` · `hsum` · `hprod` moving `− 7 ↦ − 9` together against
 `xceil_arm_split_mul_h_b9`'s `+ 9` (freeze §5.1 (e)); the slot-3 shift `+ 28 ↦ + 36` at
-`s13_g2_jfloor_of_MSelect'_L_gk_shift36` (freeze §3.1 rule 2, `StridePairReceiptG:654,657`), read by
+`s13_g2_jfloor_of_MSelect'_L_gk_shift36` (freeze §3.1 rule 2, `StridePairReceiptG:652,655`), read by
 `s13_g2_jfloor_of_MSelect'_L_gk_h_b9`; and the eleven cap-dependent suppliers at their `_b9` /
 `_g12b` twins (`s15ArmH_log_le_g12b` reads the `2^12` pin). -/
 theorem flat_conditional_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9)
@@ -603,9 +603,7 @@ theorem flat_conditional_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (
   intro M hKw hsel
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor hKw
   intro hcap
-  obtain ⟨hlam50, hΛ50, hHreg⟩ := regime_scale_reads R hfl
-  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
+  obtain ⟨hlam50, hΛ50, hHreg, htow⟩ := regime_scale_reads_tow_exp R hfl hRtow
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15ArmH_demoted h δ₀ ρ R.Hhi R.ω) hRarm
   have hhω : (0 : ℝ) ≤ (h : ℝ) * (R.ω : ℝ) := by positivity
@@ -935,7 +933,7 @@ HONEST LABEL.  Replays only; nothing here proves a new estimate, and nothing bea
 primes. -/
 
 /-- **⟦THE CHAIN AT `2^12`⟧ — `flat_chain_generic_h_g12b`.** `flat_chain_generic_h_g`
-(StridePairReceiptG.lean:972) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
+(StridePairReceiptG.lean:970) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
 replays (census band 4 row 23: SUPPLIER-SWAP, no numerals). -/
 theorem flat_chain_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) (Xi : XiFamily)
     (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →

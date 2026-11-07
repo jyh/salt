@@ -1230,9 +1230,7 @@ theorem flat_conditional_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pr
   intro M hsel hKw
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor hKw
   intro hcap
-  obtain ⟨hlam50, hΛ50, hHreg⟩ := regime_scale_reads R hfl
-  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) / 2) := hRtow hlam50
+  obtain ⟨hlam50, hΛ50, hHreg, htow⟩ := regime_scale_reads_tow_exp R hfl hRtow
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
@@ -1281,7 +1279,7 @@ theorem flat_conditional_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pr
     harith
 
 /-- **the kswin hop, uniform** (`flat_kswin_generic_U`) — `flat_kswin_generic_epsW`
-(`FlatDoorEpsRung2.lean:5261`) on the U-forms.  The source's PROBE regime (`:5271–5287`), built only
+(`FlatDoorEpsRung2.lean:5259`) on the U-forms.  The source's PROBE regime (`:5269–5285`), built only
 to read `ε ≤ 1/2` off its `heps1`, is DELETED: a `∀ R` form exhibits no regime.  The ONE site that
 reads `ε ≤ 1/2` with no regime in scope is the form's first conjunct
 (`flat_witFloor_eq_designBase_L`, under `∀ A` and before `∀ R`), so this hop takes it as the
@@ -1360,7 +1358,7 @@ theorem flat_kswin_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (A
       hcapsc)
 
 /-- **the rated hop, uniform** (`flat_v7_generic_U`) — `flat_v7_generic_epsW`
-(`FlatDoorEpsRung2.lean:5384`) on the re-cut V7 U-form.  The supplies and the nine arms are the
+(`FlatDoorEpsRung2.lean:5382`) on the re-cut V7 U-form.  The supplies and the nine arms are the
 source's, minted BEFORE the lever (the seven landed arms at `A₀ := 0`, `armVt Kvt`, and
 `162 + 2·log c` outermost), into `A*`; the form's floor is `Hfl := flatDesignBase A*`.  For a
 given regime above it the design constant is `A := loglog Hlo / 3.2` (the INVERSION): `A* ≤ A`
@@ -1526,7 +1524,7 @@ theorem flat_v7_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
         hA26 hLt (flatDoorM_one_le hA26) heps500 hxceil hwin))
 
 /-- **the chain, uniform** (`flat_chain_U`) — `flat_chain_generic_epsW`
-(`FlatDoorEpsRung2.lean:5529`) on the U-forms: the seven U-hops composed.  ONE binder beyond the
+(`FlatDoorEpsRung2.lean:5527`) on the U-forms: the seven U-hops composed.  ONE binder beyond the
 source's, `hε2 : ε ≤ 1 / 2`, for the kswin hop's first conjunct (see `flat_kswin_generic_U`). -/
 theorem flat_chain_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (hε2 : ε ≤ 1 / 2)
     (h : FlatHeadFormU ε c P) : V7RatedFormU ε c P :=
