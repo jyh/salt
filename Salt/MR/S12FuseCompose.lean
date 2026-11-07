@@ -472,9 +472,7 @@ theorem logChowla2_capstone_final' (Aexp : ℝ) (hAexp : 0 < Aexp) :
     linarith
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -680,9 +678,7 @@ theorem logChowla2_capstone_final_rawcap' (Aexp : ℝ) (hAexp : 0 < Aexp) :
     have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
     linarith
   · intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -1033,9 +1029,7 @@ theorem logChowla2_capstone_final'_gk (K : ℕ) (hK : K ≤ 170000000)
     linarith
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -1230,9 +1224,7 @@ theorem logChowla2_capstone_final_rawcap'_gk (K : ℕ) (hK : K ≤ 170000000)
     have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
     linarith
   · intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)

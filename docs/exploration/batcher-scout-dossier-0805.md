@@ -81,7 +81,7 @@ Note the negative result: the "obvious" optimization (enumerate bitmasks instead
 
 MITIGATION for N=16: ship the **pairwise** exhaustive (8s) — given sortedness it is logically the full content of the theorem — plus the **configuration**-exhaustive at N=8 (0.2s) plus a handful of named N=16 configs (free). Gate the 6-minute N=16 configuration-exhaustive behind a separate slow target, or drop it.
 
-Salt precedents supporting this: `docs/blueprints/tactics.md:47-56` (`decide +kernel` MANDATORY — plain `decide`/`rfl` stall in the elaborator; 2285× over `norm_num`), `Salt/Tactic/CertEval.lean:222,227` (`maxRecDepth 8000` + `decide +kernel`). maxRecDepth ceilings in the corpus: `Salt/MR/S11Hoist.lean:876` and `Salt/Chen/SuperPanelsE.lean:43` at 100000.
+Salt precedents supporting this: `docs/blueprints/tactics.md:47-56` (`decide +kernel` MANDATORY — plain `decide`/`rfl` stall in the elaborator; 2285× over `norm_num`), `Salt/Tactic/CertEval.lean:222,227` (`maxRecDepth 8000` + `decide +kernel`). maxRecDepth ceilings in the corpus: `Salt/MR/S11Hoist.lean:870` and `Salt/Chen/SuperPanelsE.lean:43` at 100000.
 
 ════════════════════════════════════════
 4. SALT'S REUSABLE MACHINERY

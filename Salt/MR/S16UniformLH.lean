@@ -18,7 +18,7 @@ ported, and nothing else.
 head it calls is.  `HloExportFlatH.flat_head_uniform_h` removed that pin with one `intro`; §1
 here re-brackets the exit onto it.  ⭐ **At `h` this is ONE theorem, not three:** at `h = 1` the
 lane needs `flat_socket_uniform` and `flat_doorL2_uniform` between the head and the road, but the
-`h` door-form register `m4_second_road_L2_H_gk_flatRoot_L` (S16FlatTerminalLinearH:1589) **has no
+`h` door-form register `m4_second_road_L2_H_gk_flatRoot_L` (S16FlatTerminalLinearH:1584) **has no
 `A` in its statement at all**, so the two intermediate hoists have nothing to hoist.
 
 **BLOCK W — the windowed band rider at the inflated socket.**  §2.  This is the row where wave

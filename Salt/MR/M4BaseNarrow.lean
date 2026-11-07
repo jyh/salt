@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.M4Collapse
+import Salt.MR.SumSwapWeighted
 
 /-!
 # `M4BaseNarrow` — ⟦BASE-NARROW⟧: the row datum's FREE BASE tied to the ladder, and THE COLLAPSE
@@ -320,14 +321,8 @@ theorem m4_chiBlock_at {R : ChowlaRegime} {M H L q : ℕ} {χ : DirichletCharact
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
       = SL * ∑ j ∈ Finset.range (Lg + 1),
           (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [← Finset.sum_mul]
-    congr 1
-    exact Finset.sum_comm
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
+    sum_mul_weighted_sum_comm _ _ _ _ _ _
   -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
   have hsle : ∀ j t : ℕ, t ≤ L / 2 ^ (j + 1) → 2 ^ (j + 1) * t ≤ L := by
     intro j t ht
@@ -703,11 +698,7 @@ theorem m4_classBlockMeanSq_of_rowDatum {R : ChowlaRegime} {M k : ℕ} {MS : ℕ
     have hd2 : 2 ≤ Nat.gcd r q := by omega
     have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
     have h2q : 2 * q ≤ H := by
-      have hR : ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hdA : Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hdA2 : 2 * Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / Nat.gcd r q :=
@@ -960,11 +951,7 @@ theorem m4_rowDatum_dilated :
     have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
     have hAfl : H + 1 ≤ doorLadder R.x H (i + 1) := doorLadder_floor hxH (i + 1)
     have h2d : 2 * d ≤ H := by
-      have hR : ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / d :=
       (Nat.le_div_iff_mul_le hd).mpr (by omega)
     have hXpos : 0 < doorLadder R.x H (i + 1) / d - 1 + s := by omega
@@ -992,11 +979,7 @@ theorem m4_rowDatum_dilated :
     intro H hlo hhi q hq hqQ i hik χ d hd2 hdA j hjL s hsL
     have hH2 : H / d + 1 ≤ H := by
       have h2d : 2 * d ≤ H := by
-        have hR : ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) := by
-          push_cast
-          have := harc H hlo hhi
-          linarith
-        exact_mod_cast hR
+        exact_mod_cast (show ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
       have hstep : H / d ≤ H / 2 := Nat.div_le_div_left hd2 (by norm_num)
       omega
     exact hms H hlo hhi q hq hqQ i hik χ j (le_trans hjL (Nat.log_mono_right hH2)) d
@@ -1427,14 +1410,8 @@ theorem m4_chiBlock_at_gk (K : ℕ) {R : ChowlaRegime} {M H L q : ℕ} {χ : Dir
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
       = SL * ∑ j ∈ Finset.range (Lg + 1),
           (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [← Finset.sum_mul]
-    congr 1
-    exact Finset.sum_comm
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
+    sum_mul_weighted_sum_comm _ _ _ _ _ _
   -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
   have hsle : ∀ j t : ℕ, t ≤ L / 2 ^ (j + 1) → 2 ^ (j + 1) * t ≤ L := by
     intro j t ht
@@ -1790,11 +1767,7 @@ theorem m4_classBlockMeanSq_of_rowDatum_gk (K : ℕ) {R : ChowlaRegime} {M k : �
     have hd2 : 2 ≤ Nat.gcd r q := by omega
     have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
     have h2q : 2 * q ≤ H := by
-      have hR : ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hdA : Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hdA2 : 2 * Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / Nat.gcd r q :=
@@ -1995,11 +1968,7 @@ theorem m4_rowDatum_dilated_gk (K : ℕ) (hK : K ≤ 170000000) :
     have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
     have hAfl : H + 1 ≤ doorLadder R.x H (i + 1) := doorLadder_floor hxH (i + 1)
     have h2d : 2 * d ≤ H := by
-      have hR : ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / d :=
       (Nat.le_div_iff_mul_le hd).mpr (by omega)
     have hXpos : 0 < doorLadder R.x H (i + 1) / d - 1 + s := by omega
@@ -2027,11 +1996,7 @@ theorem m4_rowDatum_dilated_gk (K : ℕ) (hK : K ≤ 170000000) :
     intro H hlo hhi q hq hqQ i hik χ d hd2 hdA j hjL s hsL
     have hH2 : H / d + 1 ≤ H := by
       have h2d : 2 * d ≤ H := by
-        have hR : ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) := by
-          push_cast
-          have := harc H hlo hhi
-          linarith
-        exact_mod_cast hR
+        exact_mod_cast (show ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
       have hstep : H / d ≤ H / 2 := Nat.div_le_div_left hd2 (by norm_num)
       omega
     exact hms H hlo hhi q hq hqQ i hik χ j (le_trans hjL (Nat.log_mono_right hH2)) d
