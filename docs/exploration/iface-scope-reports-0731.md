@@ -235,7 +235,7 @@ S15Sel''_gk K … R M  +  S16BaseScaleCap_gk K R M  +  (K ≤ 1.789e8·(log₂M+
 ```
 It routes through the corpus's real machinery: `s13_MSelect'_of_halfWindow_gk` → `s14_window_floor_of_winFit` → `s14_socketBase_witness` → `s13CapGrid_Lambda_sharp` (the SHARP floor `½·log H ≤ loglog X_d`, catch #100 honored — NOT the arm's `7000λ₊`) → `s16_logP2` → `half`. Axioms of every landed input: `[propext, Classical.choice, Quot.sound]` (AX.lean).
 
-In triple-log terms: register alone `logloglog H₋ ≤ log 20048 = 9.906`; with the carried cap `≤ log 13381 = 9.502`. Against `budgetX`'s `6.5e19`. The working point sits at `λ₋ = 277.2589` (`S15Witness.lean:844`, `s15WitFloor2 = ⌈e^{2^400}⌉` at `:787`) — **72× below the register's own ceiling**, so the register is *not* what pins the working point.
+In triple-log terms: register alone `logloglog H₋ ≤ log 20048 = 9.906`; with the carried cap `≤ log 13381 = 9.502`. Against `budgetX`'s `6.5e19`. The working point sits at `λ₋ = 277.2589` (`S15Witness.lean:844`, `s15WitFloor2 = ⌈e^{2^400}⌉` at `:800`) — **72× below the register's own ceiling**, so the register is *not* what pins the working point.
 
 ## 4. Statements vs selection lines
 
@@ -310,7 +310,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 - `s13GArm_gk K M δ Hhi ω = 2ω(Hhi+2) + 8ω + 4ω·s13BlockFloor_gk K M + ⌈128ω/δ⌉₊` (`S13FramesA.lean:1316`), consumed via the witness conjunct `g R.Hhi R.ω ≤ R.x` (`S15Witness.lean:1885`). `s13BlockFloor_gk = 2^{s13BlockExp_gk}` with `s13BlockExp_gk K M = 14427 + (64+8(log₂M+1)) + 400·(Adoor M·s13GK K M·M)²` (`S13FramesA.lean:1129`) — **double-exponential in K**, linear in H₊.
 - `s13GK K M = 3072·2^K·M` (`GLever.lean:59`); `Adoor M = 2^36(log₂M+1)` (`DoorFrame.lean:84`).
 
-**And the one x-CEILING:** `S16BaseScaleCap_gk` (`S16Budget.lean:510`) — `∀ H L q j A s, SocketBase R M H L q j A s → loglog(A+s) ≤ log 𝒫₂/24`. Carried, never discharged (`S16Budget.lean:97`, `:787`).
+**And the one x-CEILING:** `S16BaseScaleCap_gk` (`S16Budget.lean:510`) — `∀ H L q j A s, SocketBase R M H L q j A s → loglog(A+s) ≤ log 𝒫₂/24`. Carried, never discharged (`S16Budget.lean:97`, `:846`).
 
 **Why the base is x-scale at all** (the supply side, named): `doorLadder_ge_x_div_four_omega` (`M4SecondRoad.lean:473`) — every cover rung is ≥ ⌊x/(4ω)⌋, the window's own lower endpoint. That is the physical content of `SocketBase`'s x-scale field.
 

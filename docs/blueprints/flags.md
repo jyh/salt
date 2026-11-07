@@ -23080,7 +23080,7 @@ capfloor_floor4_of_design  the same against 3.2·A ≤ loglog R.Hlo — v6's OWN
 ```
 
 🔑 ***THE DISCHARGE ROUTE, NAMED: the sharp rider is `A`-WINDOWED, not numeric, and the
-terminal mints `Ks` (RegisterCompose:236) BEFORE it chooses `A` (:246). So a terminal may put
+terminal mints `Ks` (RegisterCompose:236) BEFORE it chooses `A` (:240). So a terminal may put
 `log(1/Ks) ≤ 3·e^{3.2A}/16` into its own `max` for `A` and read `floor4` off with no rider at
 all — Siegel's constant carried by NAME, never by NUMERAL.*** The rethread of the sharp form
 through the hops that carry the rider is **V7-E's landing, not this node's**; V7-A supplies
@@ -25434,7 +25434,7 @@ road-exit hop, and the `j`-floor lift `s13_g2_jfloor_of_MSelect'_L_gk_h_L`).
 `flat_capstone_generic_h_g12b` derives `hh14 : log h <= 14` at `StridePairReceiptG12b.lean:361`
 and reads it at exactly two lines, both `_14` suppliers with NO charge-form twin in the corpus
 (measured: `git grep` finds only the base and `_14` variants of each):
-- `:369` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the
+- `:375` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the
   arithmetic gate `m4_arith_henv_constPoolH_L_gk_14` -> `m4_arith_henv_rho_poolH_L_gk_14` ->
   `a2DoorGrade_pool_L_priced_rhoH_gk_14` -> `a2DoorGrade_pool_L_priced_rhoH_14` ->
   `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1469`):
