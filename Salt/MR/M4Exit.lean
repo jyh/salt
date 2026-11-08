@@ -38,7 +38,7 @@ The last stone of the MRT §4 port (`docs/exploration/s9-freeze-0726.md`,
 3. **The `∀ξ`-outside preservation** (§4–§5).  The per-`(H, α)` bound is
    weakened to the pin (`absWindowBound_le_pin`) and handed to M4-0's adapter
    `mrtUniformityXi_of_absWindowBound_twelve` (`M4Window.lean:267`) unchanged.
-   The `∀ ξ` of `MRTUniformityXi` (`MRTDoor.lean:109–111`) stays OUTSIDE the
+   The `∀ ξ` of `MRTUniformityXi` (`MRTDoor.lean`) stays OUTSIDE the
    integral throughout: nothing in this file introduces a `sup`, and the only
    `intro` over `ξ` is the adapter's own.  `MRTDoor` lives in
    `Salt/Entropy/Chowla/`, not `Salt/MR/`.
