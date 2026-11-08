@@ -51,7 +51,10 @@ against flatDoorM A = ⌊e^{1.6A}/310301⌋:
 - **(b) BAND-WINDOW — cheap, class A/B, one wave**: generalize
   `flatDoorM_ge_pow355` → `flatDoorM_ge_pow n` under
   A ≥ (n·log2 + log 310301 + 1)/1.6; thread 2³⁵⁵ → 2ⁿ and 162 → A₀(n)
-  through the six consumer hops (S16Budget:1417/1640/1743/2592,
+  through the six consumer hops (S16Budget's
+  `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl`,
+  `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl`,
+  `logChowla2_conditional_sharp2_nonvacuous_gk'_Mfl` and `…_Mfl_wide`,
   S16BudgetFlat, S16FlatTerminal(-Linear)); restate the rider as
   **log Cband ≤ 0.64·A₀ − 4.2 with A₀ := 36 000** (~586 nats of margin
   over the traced ceiling). KEY CONSEQUENCE: C_mu is a FIXED real

@@ -11,7 +11,7 @@ import Salt.Chen.MediumFloor
 Design: `docs/blueprints/flags.md`, the `2026-07-14 GBV4 … ★ CATCH #62 ★` entry and its
 `FABLE ADJUDICATION + FIX (= GBV5)`.
 
-## STEP 0 — the verified `D < N` use-table (traced from the LANDED files)
+## STEP 0 — the `D < N` use-table (traced from the LANDED files)
 
 The terminal theorem is `WindowSmallChi.general_BV_cutoff_unconditional`; its proof runs on
 the CUTOFF chain (WBV4/WBV5/WBV7), not the bilinear PE chain.  Every use of `D < N` in that
