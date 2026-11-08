@@ -466,7 +466,7 @@ ingredient was already landed by wave B; the mirror substitutes, uniformly:
   the shifted product `windowVal · j * windowVal · (j + p*h)`;
 * `fBridgeF` → `fBridgeF_h` in the `h211` slot (`FBridge.lean:556`);
 * `bigXi R.eps H` → `bigXiH h R.eps H` (`ShiftFork.lean:93`);
-* `MRTUniformityXi` → `MRTUniformityXiH h` (`ShiftFork.lean:296`);
+* `MRTUniformityXi` → `MRTUniformityXiH h` (`ShiftFork.lean`);
 * `contradiction_of_mrtDoorXi` → `contradiction_of_mrtDoorXiH h` (`ShiftFork.lean:338`).
 
 ⭐ **`shellError` IS REUSED UNSHIFTED AND THAT IS CORRECT, NOT AN OVERSIGHT.**  It is a

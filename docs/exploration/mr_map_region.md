@@ -62,7 +62,7 @@ The terminal surface `log_chowla_two_final`
 (G: Salt/Entropy/Chowla/SpineFinal.lean:260–272) is conditional ONLY on
 `MRTUniformity R δ` (δ ≤ δ₀ = R.eps/(2K)) plus the explicit entropy-decrement
 residuals (t, g, shellError budget). `MRTUniformity R δ`
-(G: Salt/Entropy/Chowla/MRTDoor.lean:48–50):
+(G: Salt/Entropy/Chowla/MRTDoor.lean):
 `∀ H ∈ [R.Hlo, R.Hhi], ∀ α : ℝ, ∫ ‖windowExpSum H n α‖ d(logMeasure R.x R.ω) ≤ δ·H`
 — Tao arXiv:1509.05422v2 Prop 2.4, a THEOREM in the literature (from MRT 1503.05121),
 OPEN in the corpus. Weakened Ξ_H-restricted form `MRTUniformityXi` +
