@@ -177,7 +177,7 @@ to TPC. No known classical route derives twins from ¬F — the honest death map
 `lambda_nonpret_of_bridge` (GROUNDED NonPret.lean:113-122) is the ζ-only (χ=1) leg,
 conditional only on the Euler-bridge residual — untouched by ¬F. The spine terminal
 `log_chowla_two_final` (GROUNDED SpineFinal.lean:416-428) is gated on `MRTUniformity`
-(def GROUNDED MRTDoor.lean:48-50, exponential-sum L¹ door) + the AM-GM residual —
+(def GROUNDED MRTDoor.lean, exponential-sum L¹ door) + the AM-GM residual —
 no Dirichlet-character family input at growing modulus. The S5 split form fixes Q
 BEFORE x₀ (GROUNDED NonPret.lean:119: ∀ Q ≥ 1, ∃ x₀ C, …), so future χ-legs need only
 FIXED-q L-lower bounds: compact-min per character (pattern GROUNDED
