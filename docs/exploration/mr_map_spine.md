@@ -48,7 +48,7 @@ unconditional, full stop.** Axiom base of everything landed:
 
 ### 2a. The full door (what the terminal surface consumes today)
 
-`MRTUniformity` — Salt/Entropy/Chowla/MRTDoor.lean:48-50:
+`MRTUniformity` — Salt/Entropy/Chowla/MRTDoor.lean:
 
 ```lean
 noncomputable def MRTUniformity (R : ChowlaRegime) (δ : ℝ) : Prop :=
@@ -76,7 +76,7 @@ scale (POLE-2 memo, s3-a3-design.md:933-971).
 
 ### 2b. The registered CHEAPER honest target (Xi door)
 
-`MRTUniformityXi` — MRTDoor.lean:109-111:
+`MRTUniformityXi` — MRTDoor.lean:
 
 ```lean
 ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ ξ ∈ bigXi R.eps H,

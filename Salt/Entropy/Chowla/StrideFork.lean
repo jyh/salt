@@ -587,7 +587,7 @@ theorem chowlaRegime_exists_flat_stride (a : ℕ) (ha : 1 ≤ a) (A : ℝ) (_hA 
 /-! ## F1-D — the `Ξ`-restricted MRT door at the affine forms, and its seam -/
 
 /-- **F1-D1 (def).**  The `Ξ`-restricted MRT uniformity door at `(a, b, h)`:
-`MRTUniformityXiH h` (`ShiftFork.lean:296`) with the binder over `bigXiAff a b h R.eps H` and
+`MRTUniformityXiH h` (`ShiftFork.lean`) with the binder over `bigXiAff a b h R.eps H` and
 the integral against the STRIDE measure `logMeasureAff a R.x R.ω` — the window's DFT is read at
 `m = a·n`, which is Tao's (2.8) (textdump:672-679, the Fourier-uniformity at the dilated
 variable, obtained from (2.7) by Lemma 2.5).  The frequency `α = −ξ.val/H` is UNTWISTED and the

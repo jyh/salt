@@ -238,7 +238,7 @@ the `Ξ_H`-restricted MRT door `MRTUniformityXi R δ` holds.  The `∀ ξ`-outsi
 doctrine is preserved verbatim: `hbd`'s `∀ α` is outside its integral, and the
 conclusion's `∀ ξ` is outside the door's.
 
-Binder shapes are byte-matched to `MRTUniformityXi` (`MRTDoor.lean:114–116`):
+Binder shapes are byte-matched to `MRTUniformityXi` (`MRTDoor.lean`):
 `∀ H, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → …`. -/
 theorem mrtUniformityXi_of_absWindowBound (R : ChowlaRegime) (δ : ℝ) {B₅ : ℝ} {H₀ : ℕ}
     (hfloor : H₀ ≤ R.Hlo)
