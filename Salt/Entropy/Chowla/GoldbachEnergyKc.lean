@@ -128,9 +128,7 @@ theorem hFac2_lcm_sum_le_exp40 : ∀ (X : ℕ),
     Finset.sum_congr rfl (fun d₁ hd₁ =>
       Finset.sum_congr rfl (fun d₂ hd₂ => hterm d₁ hd₁ d₂ hd₂))
   have hsubP : D.image Nat.primeFactors ⊆ P.powerset := by
-    intro S hS
-    rw [Finset.mem_image] at hS
-    obtain ⟨d, hd, rfl⟩ := hS
+    refine Finset.forall_mem_image.2 fun d hd => ?_
     rw [Finset.mem_powerset]
     exact hpfsub d hd
   have hGnn : ∀ S₁ ∈ P.powerset, ∀ S₂ ∈ P.powerset, 0 ≤ G2 S₁ S₂ := by

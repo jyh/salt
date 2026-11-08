@@ -228,9 +228,7 @@ theorem euler_tail_LW (M : ℕ) (L : ℝ) (D : ℕ) (hL : 1 ≤ L)
     have hx' := Nat.prod_primeFactors_of_squarefree hx.2.2.1
     rw [← hx', hxy, Nat.prod_primeFactors_of_squarefree hy.2.2.1]
   have hsub : SF.image Nat.primeFactors ⊆ PP.powerset.erase ∅ := by
-    intro S hS
-    rw [Finset.mem_image] at hS
-    obtain ⟨t, ht, rfl⟩ := hS
+    refine Finset.forall_mem_image.2 fun t ht => ?_
     rw [hSF, Finset.mem_erase, Finset.mem_filter, Finset.mem_range] at ht
     obtain ⟨hne1, htM, hsq, hbig⟩ := ht
     rw [Finset.mem_erase, Finset.mem_powerset]
@@ -383,9 +381,7 @@ theorem phiSq_dvd_ne_tightW (R D : ℕ) (hD : 4 ≤ D)
     simp only at hxy
     rw [← e1, ← e2, hxy]
   have himg : S.image (fun x => x / ρ) ⊆ T := by
-    intro c hc
-    rw [Finset.mem_image] at hc
-    obtain ⟨x, hx, rfl⟩ := hc
+    refine Finset.forall_mem_image.2 fun x hx => ?_
     obtain ⟨hdvd, hxsq, hxR, hxp, hxne⟩ := hxmem x hx
     have hxeq : ρ * (x / ρ) = x := Nat.mul_div_cancel' hdvd
     have hcdvd : (x / ρ) ∣ x := ⟨ρ, by rw [mul_comm]; exact hxeq.symm⟩
@@ -895,9 +891,7 @@ theorem stepB_identityW (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
     simp only at hab
     rw [hab]
   have hsubR : 𝒟f.image (fun a => a m) ⊆ Finset.range R := by
-    intro am ham
-    rw [Finset.mem_image] at ham
-    obtain ⟨a, ha, rfl⟩ := ham
+    refine Finset.forall_mem_image.2 fun a ha => ?_
     rw [h𝒟f, Finset.mem_filter] at ha
     rw [Finset.mem_range]
     exact kSieveIndex_coord_lt ha.1 m

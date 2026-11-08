@@ -471,9 +471,7 @@ theorem sum_inv_le_one_add_log {α : Type*} (F : Finset α) (M : ℕ) (g : α �
       Finset.sum_image hginj
     rw [← himg]
     have hsub : F.image g ⊆ Finset.Icc 1 M := by
-      intro j hj
-      rw [Finset.mem_image] at hj
-      obtain ⟨m, hm, rfl⟩ := hj
+      refine Finset.forall_mem_image.2 fun m hm => ?_
       rw [Finset.mem_Icc]
       exact ⟨hg1 m hm, hgM m hm⟩
     refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg hsub

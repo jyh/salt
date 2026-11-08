@@ -5423,8 +5423,8 @@ LOWER half at HB's own Lemma 5 instance `hbDataHB`, carried to the crown's windo
 Red-first: `hb_p200_lower_HB` at `hbZ_packet`'s binders, `lam := 1/4`, `sRatio := hbS`,
 `kappa := hbKappaN9`, `LL := hbLL`, plus the two side conditions it demands:
 `hPα : Nat.Coprime (hbDataHB …).P 4` (from `HBSieveData.P_odd`) and `hκ : 0 ≤ hbKappaN9 χ x z`
-(no landed `hbKappa_nonneg`; built from `hbWfac_pos`, `Lemma7Kappa.lean:324`, and the
-multipliability at `:330`); `hbS1_eq_W_HB` turns `κ·W` into `(L2)`'s left side
+(no landed `hbKappa_nonneg`; built from `hbWfac_pos`, `Lemma7Kappa.lean:322`, and the
+multipliability at `:349`); `hbS1_eq_W_HB` turns `κ·W` into `(L2)`'s left side
 (`hb_L2_at_hb_point`); the `(L1)` sides bound `LL² = (ηL)²(1 ± 2(1606+8n9Cs)/(η√ℓ′) + …)` —
 the RELATIVE deviation is `η` times smaller than `1/√ℓ′` and belongs under the `1/η` shape —
 and `B = L + |LL| ≤ 3ηL` (`η ≥ 2`); `n8ErrSum_le` prices the sieve error

@@ -250,9 +250,7 @@ lemma tsum_tail_inv_sq_le {ι : Type*} (e : ι → ℕ) (he : Function.Injective
   have himg : ∑ i ∈ s, K * (((e i : ℝ)) ^ 2)⁻¹ = K * ∑ k ∈ s.image e, (((k : ℝ)) ^ 2)⁻¹ := by
     rw [Finset.mul_sum, Finset.sum_image hinj]
   have hsub : s.image e ⊆ Finset.Ioc N M := by
-    intro k hk
-    rw [Finset.mem_image] at hk
-    obtain ⟨i, his, rfl⟩ := hk
+    refine Finset.forall_mem_image.2 fun i his => ?_
     rw [Finset.mem_Ioc]
     exact ⟨hlt i, Finset.le_sup (f := id) (Finset.mem_image.mpr ⟨i, his, rfl⟩)⟩
   have hNM : N ≤ M := by

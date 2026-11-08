@@ -1486,10 +1486,10 @@ CompatFrontier = the compat main-term lower bound
 i.e. s2CompatFormM_ge_sixteenth's regime 32*C*logR <= B1*D0, where C is the
 s2main_lower_rel/lemma53_rel/lemma53 error constant.
 
-FINDING: lemma53's constant is C ~ 12*k^3*2^k (Lemma53.lean:1018, htail_bound).
+FINDING: lemma53's constant is C ~ 12*k^3*2^k (Lemma53.lean:1014, htail_bound).
 The 2^k is from prod_{i!=m,j}(gMult*U) <= 2^k (line 963-981, each factor <= 2).
 The k^2 in the deviating-coordinate factor is from phiSq_dvd_ne_bound
-(Lemma53.lean:647, bound 12*k^2/D0). So the item6->(1/16) regime
+(Lemma53.lean:645, bound 12*k^2/D0). So the item6->(1/16) regime
 32*C*logR <= B1*D0 becomes 6912*k*2^k <= phiW/W < 1 -- IMPOSSIBLE. The error
 term (4C logR/D0)B1 A1^{k-1} ~ 2^k * main, so s2CompatFormM_ge_cheb's
 (1/4 - error) is NEGATIVE. This is why CompatFrontier can't be discharged.
@@ -1738,7 +1738,7 @@ grinding; the next Fable wave opens by draining this list.
     `|∑_u ∏g(uᵢ)·V(u∨σ)·V(u∨τ)| ≤ 3^ω·∏(p−1)⁻²·Qdiag_gv`, `V = lamPhiContractM y`.
     **The design's "dominate by ONE / monotone in |y|" shortcut is INVALID for the
     S₂ side** — two concrete corrections for the next Fable pass:
-    (1) `s2_inner_bound_N` (`S2Collision.lean:2108`) does NOT discharge
+    (1) `s2_inner_bound_N` (`S2Collision.lean:2104`) does NOT discharge
     `S2InnerBoundQ`: it proves a DIFFERENT bound (RHS `Ndiag`/`(p−2)⁻²`, not
     `Qdiag_gv`/`(p−1)⁻²`), and only for the tensor `yTensor`, via `fTilde`-
     antitonicity + `Gdiag`/`B1` machinery. There is no `f₀≡1` free slot-in.
@@ -11884,7 +11884,7 @@ predicate — the pin-free collision δ ≲ Q_j^{−1/2} (𝒯-side) vs
 the full hU chain remain VALID (hU is non-vacuous at the live pin) — the
 wall is about the 𝒯-side only.
 
-**Docstring correction (informational)**: USetThin.lean:634's "the ratified
+**Docstring correction (informational)**: USetThin.lean:630's "the ratified
 pin δ := P_J^{−α_J}" is NOT simultaneously satisfiable with hlogV at
 super-polylog P_J; the LIVE pin under the landed statements is
 δ ≈ K₀(log X)^{−100}. hU non-vacuous either way. No future wave should
@@ -14844,7 +14844,7 @@ with a quasi-power decay. That pairing IS the corpus's landed q=1
 𝒰-leg (USetThinTL's 𝒯_L kill: large_value_count at V = (log X)^100
 beaten by the VK-width decay, θ < 1/8). **And the corpus's 𝒯_S
 branch ROUTES AROUND Lemma 6.4 ENTIRELY** (the |𝒯|·√T razor via the
-sup-norm Halász + thinness — USetThinTS:354/388; no
+sup-norm Halász + thinness — USetThinTS:352/386; no
 Halász–Montgomery anywhere). Route (iii) REJECTED as dominated: its
 irreducible core (7.9 Case 4 at our conductor) IS the χ-VK region —
 KMT's own words certify §8 exists only because THEIR conductors are

@@ -154,9 +154,7 @@ lemma fiber_sum_le_inv_totient {x r : ℕ} (hr : Squarefree r) (F : Finset ℕ)
         exact hq
       rw [hqa, hqb]
   have hsub : F.image φe ⊆ r.primeFactors.pi (fun _ => Finset.Icc 1 x) := by
-    intro e he
-    rw [Finset.mem_image] at he
-    obtain ⟨n, hnF, rfl⟩ := he
+    refine Finset.forall_mem_image.2 fun n hnF => ?_
     obtain ⟨hn0, hnx, hnrad⟩ := hF n hnF
     have hpf : n.primeFactors = r.primeFactors := rad_eq_primeFactors hnrad
     rw [Finset.mem_pi]

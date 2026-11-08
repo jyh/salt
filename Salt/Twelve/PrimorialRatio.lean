@@ -110,9 +110,7 @@ theorem sum_inv_prime_sub_one_le (D : ℕ) (hD : 2 ≤ D) :
     omega
   -- the image lands in `Icc 1 M`
   have himg : (S.erase 2).image i ⊆ Finset.Icc 1 M := by
-    intro j hj
-    rw [Finset.mem_image] at hj
-    obtain ⟨p, hp, rfl⟩ := hj
+    refine Finset.forall_mem_image.2 fun p hp => ?_
     simp only [Finset.mem_erase] at hp
     obtain ⟨hp2, hpS⟩ := hp
     rw [hSdef, Finset.mem_filter, Finset.mem_range] at hpS

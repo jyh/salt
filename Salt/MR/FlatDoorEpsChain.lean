@@ -406,7 +406,7 @@ def V7RatedFormEps (ε : ℚ) (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
 /-! ## §2 — ⟦THE COUNT LEAF⟧ `|Ξ_H| ≤ 2^539` at every `ε` in the cap, not at a pin -/
 
 /-- **⟦THE COUNT HOOK AT THE CAP⟧** (`bigXi_bounded_ceiling_of_cap`) —
-`bigXi_bounded_ceiling_of_pin` (`GoldbachEnergyKc.lean:231`, at `ε = 1/500`) with the pin
+`bigXi_bounded_ceiling_of_pin` (`GoldbachEnergyKc.lean:229`, at `ε = 1/500`) with the pin
 replaced by the interval
 `1/(500·8103) ≤ ε ≤ 1/500`.  The route is the pinned lemma's own: `bigXi_bounded_explicit`
 (`GoldbachEnergyN0.lean:721`) at `K := e^40` (`ε`-free) and `C₁` read off the GENERIC

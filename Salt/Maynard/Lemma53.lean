@@ -480,9 +480,7 @@ theorem stepB_identity (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
     rw [hab]
   -- image ⊆ range R, and `INNER (update r m am) = 0` for `am ∈ range R \ image`
   have hsubR : 𝒟f.image (fun a => a m) ⊆ Finset.range R := by
-    intro am ham
-    rw [Finset.mem_image] at ham
-    obtain ⟨a, ha, rfl⟩ := ham
+    refine Finset.forall_mem_image.2 fun a ha => ?_
     rw [h𝒟f, Finset.mem_filter] at ha
     rw [Finset.mem_range]
     exact kSieveIndex_coord_lt ha.1 m
@@ -681,9 +679,7 @@ private theorem phiSq_dvd_ne_bound (k R : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 �
     simp only at hxy
     rw [← e1, ← e2, hxy]
   have himg : S.image (fun x => x / ρ) ⊆ T := by
-    intro c hc
-    rw [Finset.mem_image] at hc
-    obtain ⟨x, hx, rfl⟩ := hc
+    refine Finset.forall_mem_image.2 fun x hx => ?_
     obtain ⟨hdvd, hxsq, hxR, hxp, hxne⟩ := hxmem x hx
     have hxeq : ρ * (x / ρ) = x := Nat.mul_div_cancel' hdvd
     have hcdvd : (x / ρ) ∣ x := ⟨ρ, by rw [mul_comm]; exact hxeq.symm⟩

@@ -579,9 +579,7 @@ theorem euler_tail (k M : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D₀ k) :
     have hx' := Nat.prod_primeFactors_of_squarefree hx.2.2.1
     rw [← hx', hxy, Nat.prod_primeFactors_of_squarefree hy.2.2.1]
   have hsub : SF.image Nat.primeFactors ⊆ PP.powerset.erase ∅ := by
-    intro S hS
-    rw [Finset.mem_image] at hS
-    obtain ⟨t, ht, rfl⟩ := hS
+    refine Finset.forall_mem_image.2 fun t ht => ?_
     rw [hSF, Finset.mem_erase, Finset.mem_filter, Finset.mem_range] at ht
     obtain ⟨hne1, htM, hsq, hbig⟩ := ht
     rw [Finset.mem_erase, Finset.mem_powerset]
@@ -2241,9 +2239,7 @@ theorem euler_tailW (k M D : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D) :
     have hx' := Nat.prod_primeFactors_of_squarefree hx.2.2.1
     rw [← hx', hxy, Nat.prod_primeFactors_of_squarefree hy.2.2.1]
   have hsub : SF.image Nat.primeFactors ⊆ PP.powerset.erase ∅ := by
-    intro S hS
-    rw [Finset.mem_image] at hS
-    obtain ⟨t, ht, rfl⟩ := hS
+    refine Finset.forall_mem_image.2 fun t ht => ?_
     rw [hSF, Finset.mem_erase, Finset.mem_filter, Finset.mem_range] at ht
     obtain ⟨hne1, htM, hsq, hbig⟩ := ht
     rw [Finset.mem_erase, Finset.mem_powerset]

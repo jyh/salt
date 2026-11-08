@@ -190,9 +190,7 @@ theorem evenSum_le_of_massSums (N : ℕ) (hN : 2 ≤ N) (ME MO : ℝ)
       (Finset.sum_image hinj).symm
     rw [himg]
     refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg ?_ (fun i _ _ => massE_nonneg i)) hME
-    intro i hi
-    rw [Finset.mem_image] at hi
-    obtain ⟨k, hkK, rfl⟩ := hi
+    refine Finset.forall_mem_image.2 fun k hkK => ?_
     rw [hK, Finset.mem_filter, Finset.mem_range] at hkK
     obtain ⟨hkN, hke, hk4⟩ := hkK
     rw [Finset.mem_filter, Finset.mem_range]
@@ -208,9 +206,7 @@ theorem evenSum_le_of_massSums (N : ℕ) (hN : 2 ≤ N) (ME MO : ℝ)
       (Finset.sum_image hinj).symm
     rw [himg]
     refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg ?_ (fun j _ _ => massO_nonneg j)) hMO
-    intro j hj
-    rw [Finset.mem_image] at hj
-    obtain ⟨k, hkK, rfl⟩ := hj
+    refine Finset.forall_mem_image.2 fun k hkK => ?_
     rw [hK, Finset.mem_filter, Finset.mem_range] at hkK
     obtain ⟨hkN, hke, hk4⟩ := hkK
     rw [Finset.mem_filter, Finset.mem_range]

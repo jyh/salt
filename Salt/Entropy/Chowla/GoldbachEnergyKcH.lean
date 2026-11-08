@@ -10,7 +10,7 @@ import Salt.Tactic.ExpLogNum
 /-!
 # ⟦THE LARGE-SPECTRUM COUNT CONSTANT AT SHIFT `h`⟧ — wave H2a, word 1(a)–(c)
 
-`bigXi_bounded_ceiling_of_pin` (`GoldbachEnergyKc.lean:231`) carries the terminal road's rider
+`bigXi_bounded_ceiling_of_pin` (`GoldbachEnergyKc.lean:229`) carries the terminal road's rider
 `C ≤ 2^539`, and it is pinned BY HYPOTHESIS at the literal `ε = 1/500`.  The `h` lane pins
 `ε = 1/(500·h)`, so that lemma does not apply and the `h` head reached instead for the
 EXISTENTIAL `bigXi_bounded` — which exports only `0 < C`.  That is why `Kc ≤ 2^539` was
@@ -346,7 +346,7 @@ proved there from `hh7`; the docstring gains one dated paragraph. -/
 
 set_option exponentiation.threshold 4000 in
 /-- **⟦THE COMPOSE HOOK AT SHIFT `h`⟧** (`bigXiH_bounded_ceiling_of_pin`) —
-`bigXi_bounded_ceiling_of_pin` (`GoldbachEnergyKc.lean:231`) at the `h` lane's own pin
+`bigXi_bounded_ceiling_of_pin` (`GoldbachEnergyKc.lean:229`) at the `h` lane's own pin
 `ε = 1/(500·h)`, carrying the terminal road's rider `C ≤ 2^539`.
 
 **This is the lemma whose absence made `Kc ≤ 2^539` unreachable at `h`.** The `h` head obtains

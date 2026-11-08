@@ -194,9 +194,7 @@ theorem phiSq_dvd_ne_tight (k R : ℕ) (hD : 4 ≤ D₀ k)
     simp only at hxy
     rw [← e1, ← e2, hxy]
   have himg : S.image (fun x => x / ρ) ⊆ T := by
-    intro c hc
-    rw [Finset.mem_image] at hc
-    obtain ⟨x, hx, rfl⟩ := hc
+    refine Finset.forall_mem_image.2 fun x hx => ?_
     obtain ⟨hdvd, hxsq, hxR, hxp, hxne⟩ := hxmem x hx
     have hxeq : ρ * (x / ρ) = x := Nat.mul_div_cancel' hdvd
     have hcdvd : (x / ρ) ∣ x := ⟨ρ, by rw [mul_comm]; exact hxeq.symm⟩
