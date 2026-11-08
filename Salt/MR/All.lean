@@ -9035,7 +9035,7 @@ The residual enters once (`m4_freeBlockSup_of_chiSummedH_L_gk`) at `strataResidu
 strataResidual H + log h`, the grades stay in the base residual, and the `h = 2` ceiling lemma
 pays the `log 2` under the LANDED `110525` at `Real.pi_lt_d4` (ratio² < 1.00231).  The
 `ℓ`-witness `blockLenH` halves with the cap (the landed `blockLen` pinches at `q = 1` under cap
-`2·arcDen`).  The three `_Q` drift lemmas are `M4BridgeBlock:222/268/300` at an opaque cap (the
+`2·arcDen`).  The three `_Q` drift lemmas are `M4BridgeBlock:247/293/325` at an opaque cap (the
 helm's RESPELL of the rpow identity).  The framed base `SocketBaseLH` is REUSED from
 `HDoorSupply` (byte-identical to the draft's, x-floor inflated — an independent confirmation).
 ⛔ NOT here: the `SocketBaseL`-framed producer population re-quantified over `SocketBaseLH h`,
@@ -9179,7 +9179,7 @@ here (the twins are audited under ⟦β W1 E2⟧).  2026-10-11: family 49 retire
 (`S16FlatTerminalExitH`, 2026-09-01, math).  The `h`-twin of
 `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L`: the terminal register on the
 terminal's lane, in `¬ Fails` form, at shift `h`.  Composed from the landed door-form register
-(`S16FlatTerminalLinearH.lean:1584`) and the flat head at shift `h`
+(`S16FlatTerminalLinearH.lean:1562`) and the flat head at shift `h`
 (`Salt/Entropy/Chowla/HloExportFlatH.lean:211`).
 
 ⭐ THE WAVE'S FINDING, AND IT IS A COUNT THAT WENT DOWN.  The commission priced part (iii) as
@@ -9505,7 +9505,7 @@ exactly ONE origin on the whole `h` lane (`HloExportFlatH:308`), every `obtain` 
 `S16FlatTerminalLinearH` and `HDoorSupply` contain **zero** `A₀`.  `flat_head_uniform_h` is the
 landed head with that line replaced by `intro A hA26 hAge`, exactly as `flat_head_uniform` does
 at `h = 1`.  ⭐ **And at `h` the road is ONE theorem where `h = 1` needs three:** the door-form
-register `m4_second_road_L2_H_gk_flatRoot_L` (S16FlatTerminalLinearH:1584) has no `A` in its
+register `m4_second_road_L2_H_gk_flatRoot_L` (S16FlatTerminalLinearH:1562) has no `A` in its
 statement at all, so `flat_socket_uniform` and `flat_doorL2_uniform` have nothing to hoist.
 `Hopq` leaves the `∀ A` and `Hcap` stays inside — the same split, for the same reason.
 
