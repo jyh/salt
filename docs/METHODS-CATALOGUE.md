@@ -1,7 +1,7 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `a63ad185` · source digest `2ad0f5a7a35272a5` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `2dd14938` · source digest `e778b0fea0dbe261` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
@@ -660,7 +660,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 | hypothesis | status | producer(s) |
 |---|---|---|
-| `BoundedGapsFromEH` | DISCHARGED | `Salt.Maynard.bounded_gaps_from_eh_complete` ✓audited (Salt/Maynard/Complete.lean:1507) · `Salt.Maynard.bounded_gaps_from_eh'` (Salt/Maynard/LevelConsume.lean:663) |
+| `BoundedGapsFromEH` | DISCHARGED | `Salt.Maynard.bounded_gaps_from_eh_complete` ✓audited (Salt/Maynard/Complete.lean:1505) · `Salt.Maynard.bounded_gaps_from_eh'` (Salt/Maynard/LevelConsume.lean:663) |
 | `BrunStatement` | DISCHARGED | `Salt.N6.N6_2` (Salt/Brun/N6.lean:231) |
 | `PpLevel` | DISCHARGED | `Salt.Maynard.ppLevel_holds` ✓audited (Salt/Maynard/PpAssembly.lean:928) |
 | `ProbabilityTheory.Kernel.FiniteKernelSupport` | DISCHARGED | `ProbabilityTheory.Kernel.finiteKernelSupport_zero` (Salt/Entropy/Mathlib/KernelDisintegration.lean:603) · `ProbabilityTheory.Kernel.finiteKernelSupport_of_finite_range` (Salt/Entropy/Mathlib/KernelDisintegration.lean:721) · `ProbabilityTheory.Kernel.FiniteKernelSupport.deterministic` (Salt/Entropy/Mathlib/KernelDisintegration.lean:728) |
@@ -710,8 +710,8 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.SeamCoefWLevels` | DISCHARGED | `Salt.MR.seamCoefWLevels_of_global` ✓audited GUARDED (Salt/MR/SeamRowWindowed.lean:163) |
 | `Salt.MR.V7RatedForm` | DISCHARGED | `Salt.MR.logChowla2_v7_rated_form` ✓audited (Salt/MR/DoorReceipt.lean:980) · `Salt.MR.logChowla2_v7_rated_of_generic` ✓audited (Salt/MR/DoorReceipt.lean:988) · `Salt.MR.mrtDoorReceipt_v7_form` ✓audited (Salt/MR/DoorReceipt.lean:994) |
 | `Salt.Maynard.Admissible` | DISCHARGED | `Salt.Maynard.admissible_of_small_primes` GUARDED (Salt/Maynard/Tuple.lean:49) · `Salt.Maynard.std_admissible` (Salt/Maynard/Tuple.lean:130) · `Salt.Maynard.H_admissible` (Salt/Maynard/Tuple.lean:245) · +1 |
-| `Salt.Maynard.CompatFrontier` | DISCHARGED | `Salt.Maynard.compatFrontier_holds` GUARDED (Salt/Maynard/Complete.lean:1446) |
-| `Salt.Maynard.CrossCollisionControlled` | DISCHARGED | `Salt.Maynard.crossCollisionControlled_holds` GUARDED (Salt/Maynard/CollisionQuant.lean:2123) · `Salt.Maynard.crossCollisionControlled_holdsW` GUARDED (Salt/Maynard/CollisionQuant.lean:2575) |
+| `Salt.Maynard.CompatFrontier` | DISCHARGED | `Salt.Maynard.compatFrontier_holds` GUARDED (Salt/Maynard/Complete.lean:1444) |
+| `Salt.Maynard.CrossCollisionControlled` | DISCHARGED | `Salt.Maynard.crossCollisionControlled_holds` GUARDED (Salt/Maynard/CollisionQuant.lean:2121) · `Salt.Maynard.crossCollisionControlled_holdsW` GUARDED (Salt/Maynard/CollisionQuant.lean:2571) |
 | `Salt.Maynard.ShiuCore` | DISCHARGED | `Salt.Maynard.sum_tau_in_ap_le` (Salt/Maynard/ShiuS5b.lean:628) |
 | `Salt.MaynardK.BasisEvalM` | DISCHARGED | `Salt.MaynardK.basisEvalM_holds` (Salt/MaynardK/BridgeM.lean:21) |
 | `Salt.MaynardK.BasisIntM` | DISCHARGED | `Salt.MaynardK.basisIntM_holds` (Salt/MaynardK/BridgeM.lean:25) |
