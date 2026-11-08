@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `350112ec` · source digest `ee24bdcdb3cdb5b4` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `a34894ce` · source digest `ede5bc4e8caf2ae7` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -1255,7 +1255,7 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.Chen.stepHypWP_const` | Salt/Chen/WindowedStepP.lean:78 | sieves |
 | `Salt.Chen.bjs_theorem6_windowed_upper_via_p` | Salt/Chen/WindowedStepP.lean:293 | sieves |
 | `Salt.Chen.bjs_theorem6_windowed_lower_via_p` | Salt/Chen/WindowedStepP.lean:319 | sieves |
-| `ProbabilityTheory.entropy_le_log_card` | Salt/Entropy/Basic.lean:116 | entropy |
+| `ProbabilityTheory.entropy_le_log_card` | Salt/Entropy/Basic.lean:118 | entropy |
 | `Salt.Entropy.Chowla.liouville_shift_two_eq_neg_one_iff` | Salt/Entropy/Chowla/AffineFork.lean:198 | characters, entropy |
 | `Salt.Entropy.Chowla.coprime_twinProd_of_affine` | Salt/Entropy/Chowla/AffineFork.lean:225 | entropy |
 | `Salt.Entropy.Chowla.exists_admissible_class` | Salt/Entropy/Chowla/AffineFork.lean:242 | entropy |
@@ -1621,15 +1621,15 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `entropy_liouvilleWindow_le` | Salt/Entropy/Chowla/Windows.lean:67 | characters, entropy |
 | `liouvilleWindow_block` | Salt/Entropy/Chowla/Windows.lean:92 | characters, entropy |
 | `ProbabilityTheory.cond_real_apply` | Salt/Entropy/Mathlib/ConditionalProbability.lean:33 | entropy |
-| `ProbabilityTheory.Kernel.disintegration` | Salt/Entropy/Mathlib/KernelDisintegration.lean:101 | entropy |
-| `ProbabilityTheory.Kernel.condKernel_prod_ae_eq` | Salt/Entropy/Mathlib/KernelDisintegration.lean:160 | entropy |
-| `MeasureTheory.Measure.dirac_real_apply'` | Salt/Entropy/Mathlib/MeasureDirac.lean:27 | entropy |
-| `MeasureTheory.Measure.prod_real_singleton` | Salt/Entropy/Mathlib/MeasureReal.lean:49 | entropy |
+| `ProbabilityTheory.Kernel.disintegration` | Salt/Entropy/Mathlib/KernelDisintegration.lean:123 | entropy |
+| `ProbabilityTheory.Kernel.condKernel_prod_ae_eq` | Salt/Entropy/Mathlib/KernelDisintegration.lean:193 | entropy |
+| `MeasureTheory.Measure.dirac_real_apply'` | Salt/Entropy/Mathlib/MeasureDirac.lean:33 | entropy |
+| `MeasureTheory.Measure.prod_real_singleton` | Salt/Entropy/Mathlib/MeasureReal.lean:64 | entropy |
 | `Set.ncard_singleton_inter'` | Salt/Entropy/Mathlib/SetCard.lean:35 | entropy |
 | `Set.ncard_inter_singleton` | Salt/Entropy/Mathlib/SetCard.lean:44 | entropy |
-| `ProbabilityTheory.uniformOn_real_singleton` | Salt/Entropy/Mathlib/UniformOn.lean:68 | entropy |
-| `ProbabilityTheory.measureEntropy_dirac` | Salt/Entropy/Measure.lean:272 | entropy |
-| `ProbabilityTheory.measureEntropy_le_log_card` | Salt/Entropy/Measure.lean:406 | entropy |
+| `ProbabilityTheory.uniformOn_real_singleton` | Salt/Entropy/Mathlib/UniformOn.lean:97 | entropy |
+| `ProbabilityTheory.measureEntropy_dirac` | Salt/Entropy/Measure.lean:309 | entropy |
+| `ProbabilityTheory.measureEntropy_le_log_card` | Salt/Entropy/Measure.lean:482 | entropy |
 | `Salt.ExpSum.norm_eR` | Salt/ExpSum/Basic.lean:47 | exponential sums |
 | `Salt.ExpSum.eR_mul_conj` | Salt/ExpSum/Basic.lean:65 | exponential sums |
 | `Salt.ExpSum.weyl_vdC_sq` | Salt/ExpSum/Basic.lean:136 | exponential sums |
@@ -7357,9 +7357,9 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.Chen.bjs_theorem6_windowed_p_lower` | Salt/Chen/WindowedStepP.lean:262 | sieves | `Salt.Chen.StepHypWP` |
 | `Salt.Chen.bjs_theorem6_windowed_sharp_upper` | Salt/Chen/WindowedStepP.lean:354 | sieves | `Salt.Chen.StepHypWP` |
 | `Salt.Chen.bjs_theorem6_windowed_sharp_lower` | Salt/Chen/WindowedStepP.lean:380 | sieves | `Salt.Chen.StepHypWP` |
-| `ProbabilityTheory.chain_rule'` | Salt/Entropy/Basic.lean:219 | entropy | `FiniteRange` |
-| `ProbabilityTheory.mutualInfo_eq_entropy_sub_condEntropy` | Salt/Entropy/Basic.lean:311 | entropy | `FiniteRange` |
-| `ProbabilityTheory.condMutualInfo_nonneg` | Salt/Entropy/Basic.lean:325 | entropy | `FiniteRange` |
+| `ProbabilityTheory.chain_rule'` | Salt/Entropy/Basic.lean:230 | entropy | `FiniteRange` |
+| `ProbabilityTheory.mutualInfo_eq_entropy_sub_condEntropy` | Salt/Entropy/Basic.lean:330 | entropy | `FiniteRange` |
+| `ProbabilityTheory.condMutualInfo_nonneg` | Salt/Entropy/Basic.lean:344 | entropy | `FiniteRange` |
 | `Salt.Entropy.Chowla.affWindow_survivorMass_ge` | Salt/Entropy/Chowla/AffineFork.lean:107 | characters, entropy | `¬Salt.Entropy.Chowla.logChowlaFailsAff` |
 | `Salt.Entropy.Chowla.exists_affSurvivor_of_not_failsAff` | Salt/Entropy/Chowla/AffineFork.lean:153 | characters, entropy | `¬Salt.Entropy.Chowla.logChowlaFailsAff` |
 | `Salt.Entropy.Chowla.zRough_oddOmega_infinite_of_affSupply` | Salt/Entropy/Chowla/AffineFork.lean:308 | entropy | `Salt.Entropy.Chowla.LogChowlaAffSupply` |
@@ -7451,13 +7451,13 @@ Declarations indexed across the tree: 23380 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.slots_iff_completelyMult` | Salt/Entropy/Chowla/TransportWall.lean:109 | entropy | `Salt.Entropy.Chowla.PmNormalized` |
 | `Salt.Entropy.Chowla.orthogonality_wall` | Salt/Entropy/Chowla/TransportWall.lean:143 | entropy | `Salt.Entropy.Chowla.PairCollapse` |
 | `Salt.Entropy.Chowla.no_slot_derived_twin_linkage` | Salt/Entropy/Chowla/TransportWall.lean:155 | entropy | `Salt.Entropy.Chowla.TwinDetecting` |
-| `FiniteRange.real_full` | Salt/Entropy/FiniteRange.lean:159 | entropy | `FiniteRange` |
-| `FiniteRange.null_of_compl` | Salt/Entropy/FiniteRange.lean:164 | entropy | `FiniteRange` |
-| `ProbabilityTheory.Kernel.entropy_compProd` | Salt/Entropy/Kernel/Basic.lean:309 | entropy | `ProbabilityTheory.FiniteSupport`, `ProbabilityTheory.Kernel.AEFiniteKernelSupport` |
-| `ProbabilityTheory.Kernel.chain_rule` | Salt/Entropy/Kernel/Basic.lean:350 | entropy | `ProbabilityTheory.FiniteSupport`, `ProbabilityTheory.Kernel.AEFiniteKernelSupport` |
-| `ProbabilityTheory.Kernel.entropy_triple_add_entropy_le'` | Salt/Entropy/Kernel/MutualInfo.lean:360 | entropy | `ProbabilityTheory.FiniteSupport`, `ProbabilityTheory.Kernel.AEFiniteKernelSupport` |
-| `ProbabilityTheory.measureEntropy_prod` | Salt/Entropy/Measure.lean:505 | entropy | `ProbabilityTheory.FiniteSupport` |
-| `ProbabilityTheory.measureMutualInfo_nonneg` | Salt/Entropy/Measure.lean:813 | entropy | `ProbabilityTheory.FiniteSupport` |
+| `FiniteRange.real_full` | Salt/Entropy/FiniteRange.lean:179 | entropy | `FiniteRange` |
+| `FiniteRange.null_of_compl` | Salt/Entropy/FiniteRange.lean:189 | entropy | `FiniteRange` |
+| `ProbabilityTheory.Kernel.entropy_compProd` | Salt/Entropy/Kernel/Basic.lean:388 | entropy | `ProbabilityTheory.FiniteSupport`, `ProbabilityTheory.Kernel.AEFiniteKernelSupport` |
+| `ProbabilityTheory.Kernel.chain_rule` | Salt/Entropy/Kernel/Basic.lean:447 | entropy | `ProbabilityTheory.FiniteSupport`, `ProbabilityTheory.Kernel.AEFiniteKernelSupport` |
+| `ProbabilityTheory.Kernel.entropy_triple_add_entropy_le'` | Salt/Entropy/Kernel/MutualInfo.lean:438 | entropy | `ProbabilityTheory.FiniteSupport`, `ProbabilityTheory.Kernel.AEFiniteKernelSupport` |
+| `ProbabilityTheory.measureEntropy_prod` | Salt/Entropy/Measure.lean:598 | entropy | `ProbabilityTheory.FiniteSupport` |
+| `ProbabilityTheory.measureMutualInfo_nonneg` | Salt/Entropy/Measure.lean:928 | entropy | `ProbabilityTheory.FiniteSupport` |
 | `Salt.ExpSum.isVdCBound_affine` | Salt/ExpSum/Twist.lean:143 | exponential sums | `Salt.ExpSum.IsVdCBound` |
 | `Salt.Fulcrum.imsz_implies_fulcrum_of_gadget` | Salt/Fulcrum/Basic.lean:193 | other | `Salt.Fulcrum.SiegelModulusUnbounded`, `Salt.TwinBar.InfinitelyManySiegelZeros` |
 | `Salt.Fulcrum.not_fulcrum_implies_noSiegelZeros` | Salt/Fulcrum/Dichotomy.lean:82 | other | `¬Salt.Fulcrum.FulcrumQualityMin` |
