@@ -116,8 +116,7 @@ theorem thm_a2'_of_rows_pool {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' 
         + 6315000 / h := by
   have hX0 : (0 : ℝ) < X := by linarith
   have hh0 : (0 : ℝ) < h := by linarith
-  have hL1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hL1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have hLL0 : (0 : ℝ) ≤ Real.log (Real.log X) := Real.log_nonneg hL1
   have hrp13 : (0 : ℝ) < (Real.log X) ^ (-(43 : ℝ) / 45) := Real.rpow_pos_of_pos hL0 _

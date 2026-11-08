@@ -219,7 +219,7 @@ open Salt.Tactic in
 
 `L N d` is the Liouville sum over the twin values `n(n+2)`, `n ∈ [1,N]`, that `d` divides.
 `rem_split` reads the twisted sieve's remainder as the LANDED twin remainder
-`_root_.rem d N` (M2.lean:236) minus the Liouville discrepancy `L N d − ν(d)·L N 1` — for
+`_root_.rem d N` (Brun/M2.lean:245) minus the Liouville discrepancy `L N d − ν(d)·L N 1` — for
 EVERY `d`, with no side condition.  The `d = 0` atom is not a special case: `ν 0 = 0`,
 `L N 0 = 0` and `rem 0 N = 0`, and the proof's final `ring` closes uniformly because
 `(d : ℝ)⁻¹` is an atom to it.  `twinParitySieve_multSum` and `L_one` are its two readings.
@@ -246,7 +246,7 @@ The ten hypotheses of `Salt.Chen.brun_lower_ell1` (BrunEll1.lean:191), discharge
 `Λ = LamTwin (1/4) z`, `κ = 2λ`.
 
 `htotalMass` is the pointwise-trivial one: every weight `1 − λ(m)` is nonnegative because
-`λ(m) ≤ 1` (`liouville_real_le`, ParityWall.lean:98) — no sign, no size and no
+`λ(m) ≤ 1` (`liouville_real_le`, ParityWall.lean:103) — no sign, no size and no
 cancellation is claimed for any Liouville sum (F-THIRD-REGIME).  `hMert` is the landed
 `hMert_twinSieve` (MertensDischarge.lean:660) after a bare `change` — defeq only, the
 brief's `exact`-after-`show` with `show` swapped out for the linter: `Wratio` reads only
@@ -272,18 +272,18 @@ open Salt.Tactic in
 
 The remainder majorant and the assembly.  `Btwin lvl = ⌊lvl⌋₊·(1 + log ⌊lvl⌋₊)` is the
 EXPLICIT, unconditional bound for the untwisted half of `rem_split`: `twinRem_sum_le` runs
-`rem_abs_le` (M2.lean:241, `|rem d| ≤ ρ(d)`) → `rho_squarefree_le` (M2.lean:206, `ρ ≤ 2^ω`
-on the squarefree `d ∣ P`) → the M5Assembly.lean:209-239 re-index (`Finset.sum_filter`, then
+`rem_abs_le` (Brun/M2.lean:250, `|rem d| ≤ ρ(d)`) → `rho_squarefree_le` (Brun/M2.lean:215, `ρ ≤ 2^ω`
+on the squarefree `d ∣ P`) → the M5Assembly.lean:226-256 re-index (`Finset.sum_filter`, then
 `Finset.sum_le_sum_of_subset_of_nonneg` onto `Finset.Icc 1 ⌊lvl⌋₊`) → `sum_two_pow_omega_le`
 (GehPp2.lean:113 — a ROOT-level declaration; that file carries no `namespace`).  The `3^ω`
-constant of the landed idiom is replaced by `2^ω`, and its N4.2 `y⁴` step (M5Assembly.lean:240)
+constant of the landed idiom is replaced by `2^ω`, and its N4.2 `y⁴` step (M5Assembly.lean:257)
 is NOT used.
 
 `twinParitySieve_rosserRemainder_le` is the assembly `rosserRemainder ≤ Btwin lvl + B`: the
-landed `rem_split` (TwinParitySieve.lean:131) plus the triangle inequality, term-by-term under
+landed `rem_split` (TwinParitySieve.lean:132) plus the triangle inequality, term-by-term under
 `Finset.sum_le_sum` — the pairing works because B1 gave `LiouvilleTwinDisp`
 `rosserRemainder`'s shape verbatim (an `ite` over the FULL divisor index, never a `filter`).
-The idiom is `goldBVSum_le_split` (A1.lean:286, body from :293); the second landed instance is
+The idiom is `goldBVSum_le_split` (A1.lean:290, body from :293); the second landed instance is
 `switchSieve_rosserRemainder_split_le` (SwitchBV.lean:316, body from :321).
 
 Scope: a DOOR still.  `Btwin` is explicit and unconditional; `B` is a PARAMETER, and wave 1
@@ -298,14 +298,14 @@ open Salt.Tactic in
 
 The terminal, and the interface nobody had proved.  `one_le_ell1_level` is the DANGLING
 INTERFACE between wave 1's two green halves — a gap no build reports: B3's consumer
-`twinParitySieve_rosserRemainder_le` (TwinParitySieve.lean:292) demands `1 ≤ lvl`, B2's
+`twinParitySieve_rosserRemainder_le` (TwinParitySieve.lean:293) demands `1 ≤ lvl`, B2's
 producer `twinParitySieve_brun_lower_ell1` (:206) carries the level
 `Q · (exp((1 + 2(exp Λ − 1)⁻¹)·log z) · 2^(2r−1))`, and nothing in the tree supplied
 `1 ≤` that product.  All three factors are `≥ 1` separately, so no size input is needed
 and `minLevel_mem` (BrunLower/Defs.lean:118) is NOT consumed — `2 ^ k ≥ 1` holds for every
 `k : ℕ`, ℕ-truncation included.  `Q` is `hQ`; the exponent is nonnegative because
 `LamTwin_pos` (MertensDischarge.lean:124) makes `(exp Λ − 1)⁻¹ > 0` and `one_lt_of_zThresh`
-(TwinParitySieve.lean:164) makes `Real.log z ≥ 0`.
+(TwinParitySieve.lean:165) makes `Real.log z ≥ 0`.
 
 `twin_parity_survivor_or_chowla_of_liouvilleTwinDisp` is then `le_or_gt` on `siftedSum` and
 `linarith`: B2's `mainTerm − rosserRemainder ≤ siftedSum` against B3's

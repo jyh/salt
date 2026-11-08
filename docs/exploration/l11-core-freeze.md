@@ -37,7 +37,7 @@ Then per pair, u := t−t' (well-spaced ⟹ |u| ≥ 1 off-diagonal):
 ## THE TWO HOUSE RULINGS (statement layer — surfaced at council 2026-07-21)
 
 1. **The coefficient-1 exp NEEDS NO AMENDMENT.** Landed region
-   (`zeta_zero_free_region_pow`, Vk/GrowthPow.lean:1044): zeros with
+   (`zeta_zero_free_region_pow`, Vk/GrowthPow.lean:1042): zeros with
    |γ| ≥ T₀ have β ≤ 1 − c/((log|γ|)^{3/4}·**(loglog|γ|)³**). The frozen
    decay's **(loglog T)⁴** is one full loglog power WEAKER — the ε-slack
    slot, exactly MR's (log T)^{2/3+ε} device at θ=3/4. Contour at depth
@@ -191,7 +191,7 @@ rect, no disc). No frozen conclusion shape changes.
 
 ## INVENTORY (verified present this session)
 
-`zeta_zero_free_region_pow` Vk/GrowthPow.lean:1044 ((loglog)³ — the slack
+`zeta_zero_free_region_pow` Vk/GrowthPow.lean:1042 ((loglog)³ — the slack
 source); `vkTheta`/`vkTheta_anti` Vk/PowRegion.lean:35/40;
 `near_norm_logDeriv_Zc_le` MR/ZetaPowLower.lean:301 (disc core, hdist
 hypothesis) + the :641 hdist-construction template + `zeta_near_logDeriv_bound`

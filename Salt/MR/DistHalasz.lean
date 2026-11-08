@@ -62,8 +62,7 @@ theorem log_zeta_growth_le {C T₀ : ℝ} (hCpos : 0 < C)
     Real.log ‖riemannZeta (((1 + 1 / Real.log x : ℝ) : ℂ) + (b : ℝ) * Complex.I)‖
       ≤ Real.log C + (3 / 4) * Real.log (Real.log |b|)
           + 4 * Real.log (Real.log (Real.log |b|)) := by
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   have hd0 : (0 : ℝ) ≤ 1 / Real.log x := by positivity
   have hd1 : 1 / Real.log x ≤ 1 := (div_le_one hLpos).mpr hlogx1
@@ -113,8 +112,7 @@ theorem log_zeta_small_b_le {Bhi : ℝ} (hBhi1 : 1 ≤ Bhi) {x b : ℝ}
     (hx : Real.exp 1 ≤ x) (hb1 : 1 ≤ |b|) (hbBhi : |b| ≤ Bhi) :
     Real.log ‖riemannZeta (((1 + 1 / Real.log x : ℝ) : ℂ) + (b : ℝ) * Complex.I)‖
       ≤ Real.log (5 + 2 * Bhi) := by
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   have hdpos : (0 : ℝ) < 1 / Real.log x := div_pos one_pos hLpos
   have hd1 : 1 / Real.log x ≤ 1 := (div_le_one hLpos).mpr hlogx1
@@ -198,8 +196,7 @@ theorem dist_one_floor_pow :
   -- common facts
   have h2e : (2 : ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1 : ℝ); linarith
   have hx2 : (2 : ℝ) ≤ x := le_trans h2e hx
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   have h12 : 12 / Real.log x ≤ 12 := by rw [div_le_iff₀ hLpos]; nlinarith [hlogx1]
   have hmert := abs_le.mp (Salt.Mertens.mertens_second_sharp_real hx2)
@@ -281,8 +278,7 @@ theorem Mrange_one_floor :
         ≤ M_range (fun _ => 1) X T := by
   obtain ⟨C, hC⟩ := dist_one_floor_pow
   refine ⟨C, fun X T hX hT hTX => ?_⟩
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hLXpos : (0 : ℝ) < Real.log X := by linarith
   have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hX
   have hr15_1 : (1 : ℝ) ≤ (Real.log X) ^ (1 / 45 : ℝ) := Real.one_le_rpow hlogX1 (by norm_num)

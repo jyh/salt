@@ -20,10 +20,10 @@ H2 (bounded-band) branch is only a CONSTANT at a REAL nonprincipal `χ`
 The question was whether the SW rung's Siegel family supplies the `L(1,χ)` lower bound that a
 real-χ region transport needs.  It does NOT, and the reason is structural:
 
-* `Salt.SW.siegel_theorem` (`SiegelClose.lean:841`) is UNCONDITIONAL and ε-quantified, but it
+* `Salt.SW.siegel_theorem` (`SiegelClose.lean:848`) is UNCONDITIONAL and ε-quantified, but it
   is the ZERO-FREE form `β ≤ 1 − C/q^ε`; it says nothing about `‖L(s,χ)‖` anywhere.
-* `Salt.SW.siegel_L_one_exceptional` (`SiegelFinal.lean:324`) and its sharpened sibling
-  `Salt.SW.siegel_L_one_lower_near` (`SiegelClose.lean:582`) ARE `L(1,χ)`-lower bounds, but
+* `Salt.SW.siegel_L_one_exceptional` (`SiegelFinal.lean:327`) and its sharpened sibling
+  `Salt.SW.siegel_L_one_lower_near` (`SiegelClose.lean:589`) ARE `L(1,χ)`-lower bounds, but
   both carry the *fixed exceptional data* `(q₁, χ₁, β₁)` as hypotheses and require the target
   `χ` to be DISTINCT from `χ₁` — they live strictly inside the exceptional branch of
   `Salt.SW.siegel_dichotomy`.
@@ -38,7 +38,7 @@ mathlib nor Salt.  **That port is NOT what the growing floor needs, however** �
 
 ## What the growing floor actually needs (and what is landed here)
 
-The consumer is `chi_floor_all_of_Llower` (`ChiFloorLow.lean:262`): a lower bound
+The consumer is `chi_floor_all_of_Llower` (`ChiFloorLow.lean:261`): a lower bound
 `−B ≤ log‖L(1 + 1/log X − it, χ)‖` on the bounded band, with `B` allowed to be ANY expression.
 The floor it returns is `loglog X − B − CH2`, so the floor GROWS as soon as `B` is
 `X`-INDEPENDENT.  And an `X`-independent `B` is available for EVERY nonprincipal character,
@@ -267,7 +267,7 @@ theorem LFunction_band_lower_principal (q : ℕ) [NeZero q] :
 
   `−B ≤ log‖L(1 + 1/log X − it, χ)‖`   for every `X ≥ e` and every `|t| ≤ 1`.
 
-This is EXACTLY the hypothesis shape of `chi_floor_all_of_Llower` (`ChiFloorLow.lean:262`),
+This is EXACTLY the hypothesis shape of `chi_floor_all_of_Llower` (`ChiFloorLow.lean:261`),
 with a `B` that does not grow with `X` — which is what turns the H2 floor `loglog X − B − CH2`
 from a constant into an unbounded function of `X`.  Nonprincipal: `LFunction_band_lower`
 (`B = −log m`, ineffective in `q`).  Principal: `LFunction_band_lower_principal`
@@ -291,8 +291,7 @@ theorem chi_Llower_band {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) :
   obtain ⟨m, hm, hbnd⟩ := hband
   refine ⟨-Real.log m, ?_⟩
   intro X t hX ht
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hd0 : (0 : ℝ) < 1 / Real.log X := one_div_pos.mpr hlogXpos
   have hd1 : 1 / Real.log X ≤ 1 := by rw [div_le_one hlogXpos]; linarith
@@ -521,8 +520,7 @@ theorem chi_Llower_real_far :
   intro q _ χ hsq X t hX ht ht0
   have hqpos : 0 < q := Nat.pos_of_ne_zero (NeZero.ne q)
   have hq1R : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hqpos
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hd0 : (0 : ℝ) < 1 / Real.log X := one_div_pos.mpr hlogXpos
   have hd1 : 1 / Real.log X ≤ 1 := by rw [div_le_one hlogXpos]; linarith
@@ -632,8 +630,7 @@ theorem chi_Llower_real_of_L1 :
   have hq1R : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hqpos
   have hD1 : (1 : ℝ) ≤ diskConst q := one_le_diskConst
   have hDpos : (0 : ℝ) < diskConst q := by linarith
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hd0 : (0 : ℝ) < 1 / Real.log X := one_div_pos.mpr hlogXpos
   set δ : ℝ := L₁ / (32 * diskConst q) with hδdef

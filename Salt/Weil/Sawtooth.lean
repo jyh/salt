@@ -36,7 +36,7 @@ Conventions, both load-bearing (`hb1983-notes.md:883-903`, the notation hazard s
 
 * `e x = exp(2πi x)` is `Salt.LS.e` (`Salt/LS/Defs.lean:31`) — the same additive character the
   completion kernel `Salt.BV.sum_e_eq` (`Salt/BV/Completion.lean:76`) is built on.
-* `‖θ‖` (distance to the nearest integer) is `Salt.LS.dist₁ θ 0` (`Salt/LS/Dist.lean:29`), the
+* `‖θ‖` (distance to the nearest integer) is `Salt.LS.dist₁ θ 0` (`Salt/LS/Dist.lean:34`), the
   corpus's `dist₁` apparatus reused verbatim.
 -/
 
@@ -72,7 +72,7 @@ here by the explicit constant `5/2`.
 **Corpus reuse (the VK-forgetting lesson, `flags.md:21016`).**  The analytic core is already in
 the corpus and is *not* re-proved here:
 
-* `Salt.MR.tendsto_sum_sin_div_nat` (`Salt/MR/Sawtooth.lean:358`) — the sawtooth Fourier series
+* `Salt.MR.tendsto_sum_sin_div_nat` (`Salt/MR/Sawtooth.lean:365`) — the sawtooth Fourier series
   `∑_{n≥1} sin(2πnx)/n → π(1/2 − x)` on `(0,1)`, the conditionally convergent identity mathlib
   lacks (it was landed for the Hurwitz-zeta `k = 0` case of `LandauOdd`);
 * `Salt.MR.abs_sum_sin_le` (`:329`) — `|∑_{n<N} sin(2πnx)| ≤ 1/sin(πx)`;

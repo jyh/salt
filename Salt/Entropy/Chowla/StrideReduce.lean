@@ -5,7 +5,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 # λ-BV wave 2-S, step F4a — THE `hreduce_aff` DISCHARGE (the R-block)
 
 The main-term extraction (Tao arXiv:1509.05422 Prop 2.6's reduction, spine node HREDUCE) at the
-affine forms: the twins of `HBudget.hbudget_holds_h` (`HBudget.lean:1182`) and
+affine forms: the twins of `HBudget.hbudget_holds_h` (`HBudget.lean:1203`) and
 `HMainAssembly.hreduce_holds_h` (`HMainAssembly.lean:165`) at the affine F-function
 `fBridgeF_aff eps H a b h` (`StrideBridge.lean:96`) under the stride measure `logMeasureAff a x
 ω`, discharging the hypothesis `hreduce` of `fBridge_of_singleCorr_aff` (F2-C1,
@@ -30,7 +30,7 @@ shift by `k/a` in `n`: `integral_shift_le` (`ShiftCorr.lean:235`, generic `f`, g
 `perPair_collapse_aff` (`StrideBridge.lean:540`) are reused verbatim; (v) THE MAIN TERM is pinned
 to the literal `(H : ℝ)/(a : ℝ)` by the consumer (`StrideBridge.lean:591`), while the class
 `J(p) = {j < H : j + 1 ≡ p·b (a)}` has `H/a ≤ #J(p) ≤ H/a + 1` (`card_class_range_ge`, NEW;
-`card_class_range_le` from `card_filter_natCast_eq_le`, `FBridge.lean:125`) — the `±1` per prime
+`card_class_range_le` from `card_filter_natCast_eq_le`, `FBridge.lean:134`) — the `±1` per prime
 costs `Σ_p (1/p)·|X_aff| ≤ SP` and is a FOURTH slice; (vi) the boundary count is the COARSE
 `boundary_card_le H (p·h) ≤ p·h` (`HBudget.lean:428`, through `Finset.card_le_card`), paying
 `(1/32)·SP·(H/a)·ε` from THE GATE AT `ε·a·h ≤ c/(64·log 4)` (F1-B6 as forecast; under the pin
@@ -180,7 +180,7 @@ theorem gate_residue_aff (a p j : ℕ) (hp : 2 ≤ p) (hcop : Nat.Coprime a p) :
 
 /-- **F4-R1b (class A) — the class count, above.**
 `#{j < H : ((j + 1 : ℕ) : ZMod a) = c} ≤ H/a + 1`:
-`card_filter_natCast_eq_le` (`FBridge.lean:125`, modulus-generic) after the `j + 1 ↦ j` reindex of
+`card_filter_natCast_eq_le` (`FBridge.lean:134`, modulus-generic) after the `j + 1 ↦ j` reindex of
 the predicate (`StrideBridge.lean:163-170`'s `hset` trick at `c − 1`), or directly by the injection
 `j ↦ (j + 1) / a` into `Finset.range (H / a + 2)`… — stated at `H/a + 1`, which the injection
 `j ↦ j / a` into `range (H/a + 1)` gives after `Nat.div_le_div_right`. -/
@@ -407,7 +407,7 @@ theorem perPair_collapse_aff_collapsed {x ω : ℕ} (a h p j r k : ℕ) (hp : 1 
     _ = 2 * (r : ℝ) / (p : ℝ) ^ 2 / Z := by ring
 
 /-- **F4-R3b (class C) — THE PER-PAIR BOUND AT STRIDE `a`.**  The twin of `perPair_bound_h`
-(`HBudget.lean:945`) with the SAME right side.  Chain: `perPair_collapse_aff_collapsed` (dilation
+(`HBudget.lean:952`) with the SAME right side.  Chain: `perPair_collapse_aff_collapsed` (dilation
 defect `2r/p²/Z ≤ 2/(pZ)` since `r < p`); `dilated_window_stability` (`DilationStability.lean:178`)
 at `g m := λ(a·m + k)·λ(a·m + k + h)` (swap defect `(2·log p + 6)/Z`, divided by `p`); the base
 window sum `÷ Z` is `∫ g dμ = shiftCorrAff a x ω k h` (`integral_logMeasure_eq`,
@@ -562,9 +562,9 @@ theorem perPair_bound_aff {x ω : ℕ} (a b h H : ℕ) (hx : 2 ≤ x) (hω : 2 �
 
 /-! ## F4-R4 — the F-bridge integral unfolded, and the per-term bound -/
 
-/-- **F4-R4a (class C) — `IF_unfold_h` (`HBudget.lean:1040`) at the affine forms.**  The pointwise
+/-- **F4-R4a (class C) — `IF_unfold_h` (`HBudget.lean:1054`) at the affine forms.**  The pointwise
 half is landed (`fBridgeF_aff_liouville_apply`, `StrideBridge.lean:453`: the gate AND the class
-filter in one `if`); then `IF_unfold_h`'s own script (`HBudget.lean:1040-1075`) at `m = a·n`:
+filter in one `if`); then `IF_unfold_h`'s own script (`HBudget.lean:1054-1089`) at `m = a·n`:
 `integral_logMeasureAff` (unconditional) + `integral_logMeasure_eq` (unconditional) +
 `Finset.sum_comm` twice.  ⛔ NOT `integral_finsetSum` via `integrable_of_finiteSupport _`: that
 route also demands `[IsFiniteMeasure (logMeasureAff a x ω)]`, which the `FiniteSupport` instance
@@ -619,9 +619,9 @@ theorem IF_unfold_aff (a b h : ℕ) (eps : ℚ) (H : ℕ) {x ω : ℕ} :
   rw [Finset.mul_sum]
 
 /-- **F4-R4b (class C) — THE PER-TERM BOUND AT THE AFFINE FORMS.**  The twin of `per_term_h`
-(`HBudget.lean:1077`) with THREE branches: the class filter fails (both sides `0`: `if_neg` on the
+(`HBudget.lean:1098`) with THREE branches: the class filter fails (both sides `0`: `if_neg` on the
 gate-conjunction via `hfilt` zeroes the INTEGRAND pointwise, then `MeasureTheory.integral_zero`
-closes `∫ 0` — as `per_term_h`, `HBudget.lean:1113-1116`; the RHS `if`s collapse by `if_neg
+closes `∫ 0` — as `per_term_h`, `HBudget.lean:1134-1137`; the RHS `if`s collapse by `if_neg
 hfilt`; v1.1, verdict A5); the boundary `H ≤ j + p·h` (the window product is junk-zero, the whole
 `(1/p)·X_aff` is lost); the interior (`integral_logMeasureAff`, `gate_residue_aff` for the class
 `rⱼ`, `integral_logMeasure_eq`, the class sum, `perPair_bound_aff`, `hkH` from `r < p ≤ H`).
@@ -733,9 +733,9 @@ theorem per_term_aff (a b h : ℕ) (hh : 0 < h) (ha : 1 ≤ a) (hblt : b < a) (e
 
 set_option maxHeartbeats 1600000 in
 -- The budget aggregation is a single large elaboration, as at the landed
--- `HBudget.lean:1182` (`hbudget_holds_h`); the ceiling here is that
+-- `HBudget.lean:1203` (`hbudget_holds_h`); the ceiling here is that
 -- declaration's, unchanged.
-/-- **F4-R5 (class C, THE CAPSTONE) — `hbudget_holds_h` (`HBudget.lean:1182`) at the affine
+/-- **F4-R5 (class C, THE CAPSTONE) — `hbudget_holds_h` (`HBudget.lean:1203`) at the affine
 forms.**  The error budget with the main term pinned at the literal `(H/a)/p` per prime (R5's OWN
 form: the consumer `StrideBridge.lean:591` carries `H/a` OUTSIDE the sum, and R6a's `hSPH` bridges
 the two spellings — v1.1, verdict A8(iii)).  THE FIVE SLICES (module
@@ -753,7 +753,7 @@ distributed, `Finset.abs_sum_le_sum_abs` twice, `per_term_aff` termwise, the bou
 `card_class_boundary_le H a (p*h)`, `linarith` on the five slices.  `c`, `1/4 ≤ c` and `H₀` are
 `primeWindow_sum_inv_ge_bounded`'s (`HeadPinLeaves.lean:61`, imported for this):
 `obtain ⟨c, hc, hcge, H₀, hD3⟩ := primeWindow_sum_inv_ge_bounded; refine ⟨c, hc, hcge, H₀, ?_⟩`
-(`HeadPinLeavesH.lean:70-71`) — NEVER the unbounded `primeWindow_sum_inv_ge`
+(`HeadPinLeavesH.lean:71-72`) — NEVER the unbounded `primeWindow_sum_inv_ge`
 (`WindowMertensLower.lean:56`), whose `1/4` is a witness inside a proof, invisible after `obtain`
 (v1.1, verdict A1; §3 S-7: the `cE` carry the head's gate reads). -/
 theorem hbudget_holds_aff :
@@ -1331,10 +1331,10 @@ theorem consumability_probe_aff (a b h : ℕ) (ha : 0 < a) (eps : ℚ) (H : ℕ)
   intro δ hδ hseed
   exact fBridge_of_singleCorr_aff' eps H a b h ha hlog hcM hmert HRED hδ hseed
 
-/-- **F4-R6d (class A) — THE CAPSTONE COMPOSED: `hreduce_holds_final_h` (`HBudget.lean:1514`) at the
+/-- **F4-R6d (class A) — THE CAPSTONE COMPOSED: `hreduce_holds_final_h` (`HBudget.lean:1535`) at the
 affine forms.**  `obtain ⟨c, hc, hcge, H₀, hbud⟩ := hbudget_holds_aff;
 refine ⟨c, hc, hcge, H₀, ?_⟩` (the
-`1/4 ≤ c` carry FORWARDED, as `HeadPinLeavesH.lean:360-361`), then `hreduce_holds_aff` at the
+`1/4 ≤ c` carry FORWARDED, as `HeadPinLeavesH.lean:361-362`), then `hreduce_holds_aff` at the
 budget.  This is the `hred` the affine head consumes (its `cE`, WITH `1/4 ≤ cE` — v1.1, verdict
 A1, §3 S-7). -/
 theorem hreduce_holds_final_aff :

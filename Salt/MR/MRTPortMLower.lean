@@ -185,7 +185,7 @@ theorem mrtM_lamCoeff_loglog_floor :
 /-- **E3 (3) — the floor read as "eventually above any constant".**
 
 `(1/8)·loglog X ≥ B` as soon as `X ≥ exp (exp (8·B))`.  This is the currency node E5
-consumes: `mul_exp_neg_le_two_div` (`MRTPortA1Tail.lean:35`) needs `0 < M` and a
+consumes: `mul_exp_neg_le_two_div` (`MRTPortA1Tail.lean:39`) needs `0 < M` and a
 quantitative floor on `M` to turn `exp(−M)·M` into an arbitrarily small constant. -/
 theorem mrtM_lamCoeff_ge (B : ℝ) :
     ∃ X₀ : ℝ, 0 < X₀ ∧ ∀ X : ℝ, X₀ ≤ X → B ≤ mrtM lamCoeff X := by

@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # ⟦THE PRICED LEAVES⟧ — the three head constants, CITABLE FROM BELOW (node EPSPIN)
 
-`log_chowla_two_budget_head_g_sq_count_hloCap` (`HloExport.lean:389`) chooses its
+`log_chowla_two_budget_head_g_sq_count_hloCap` (`HloExport.lean:390`) chooses its
 `ε` by `exists_rat_btwn` under a four-arm `min` built from three `∃`-delivered
 leaf constants, and emits `δ₀ = cD3/(16·C)·ε/4`.  Every one of those leaves is
 destructed by `obtain`, i.e. is a `Classical.choose` the kernel cannot evaluate —
@@ -21,7 +21,7 @@ witness, with the landed body replayed verbatim underneath:
 | `primeWindow_sum_inv_ge_bounded` | `WindowMertensLower.lean:56` | `1/4 ≤ c` |
 | `hbudget_holds_bounded` | `HBudget.lean:448` | `1/4 ≤ c` (carry) |
 | `hreduce_holds_final_bounded` | `HBudget.lean:705` | `1/4 ≤ c` (carry) |
-| `circle_method_estimate_sq_bounded` | `CircleMethod.lean:795` | `C ≤ 1 + 2·C₀` |
+| `circle_method_estimate_sq_bounded` | `CircleMethod.lean:873` | `C ≤ 1 + 2·C₀` |
 
 Nothing landed is touched; the two carries are the landed proofs reading the
 previous twin (the `c` of `hbudget_holds`/`hreduce_holds_final` IS D3's `c`,
@@ -546,7 +546,7 @@ open private windowVal_c_norm_le T_collapse periodization_total from
 /-- **THE SQUARED CIRCLE-METHOD ESTIMATE, CAPPED**
 (`circle_method_estimate_sq_bounded`) — `CircleMethod.circle_method_estimate_sq`
 plus the conjunct `C ≤ 1 + 2·C₀`, at the landed `refine` witness `C = 1 + 2·C₀`.
-The body is `CircleMethod.lean:808–911` verbatim; the only edit is the extra
+The body is `CircleMethod.lean:886–989` verbatim; the only edit is the extra
 `le_rfl`. -/
 theorem circle_method_estimate_sq_bounded (C₀ : ℝ) (hC₀ : 0 < C₀) :
     ∃ C : ℝ, 0 < C ∧ C ≤ 1 + 2 * C₀ ∧

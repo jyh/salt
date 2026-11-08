@@ -52,6 +52,16 @@ The conductor `D := opQ · opDlev x` and the band floor `opZ x · opY x`, framed
 (`opDlev x ≥ x^{496/1000}`, `opQ ≤ log x`, `opZ·opY ≥ x^{11/24}/4` via `zy_floor_ge`) and the
 polylog-beats-power threshold `log x ≤ x^{1/500}` (`a12_logpow_le_rpow`) for the `D`-upper bound
 `opQ · opDlev x ≤ log x · x^{497/1000} ≤ x^{499/1000}`. -/
+/-- **Step 1 — the operating-point floors**, for every
+`x ≥ max (max (max xt xl) 10^48) ⌈e^200⌉₊` (`xt` from `opf_tower`, `xl` from
+`a12_logpow_le_rpow 1 (1/500)`): the conductor `D = opQ·opDlev x` lies in
+`[x^{11/24}/8, x^{499/1000}]` — below by `opDlev x ≥ x^{496/1000}` and `opQ ≥ 1`, above by
+`opQ ≤ log x ≤ x^{1/500}` and `opDlev x ≤ x^{497/1000}` with the exponents added through
+`Real.rpow_add`; the band `opZ x·opY x` is `≥ x^{11/24}/8` (`zy_floor_ge` at `e^200 ≤ x`,
+halved) and `≥ 2`; and `opY x ≥ x^{1/3}/8` from `x^{1/3} < opY x + 1` with `opY x ≥ 3`. The five
+rpow rows the conductor-range and band-floor hypotheses of
+`box_price_at_op`/`sym_price_at_op`/`low_price_at_op` ask for; taken by
+`FinA3c.hA3_bundle_of_SW` as `hfloors`, through which this file's composition reaches it. -/
 theorem op_floors : ∃ x₁ : ℕ, ∀ x : ℕ, x₁ ≤ x →
     (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ ((opQ * opDlev x : ℕ) : ℝ)
       ∧ ((opQ * opDlev x : ℕ) : ℝ) ≤ (x : ℝ) ^ ((499 : ℝ) / 1000)

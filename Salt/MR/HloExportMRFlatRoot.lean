@@ -6,6 +6,8 @@ Authors: Jason Hickey, Claude
 import Salt.MR.HloExportMRFlat
 import Salt.MR.S15Witness
 import Salt.Entropy.Chowla.HloExportFlat
+import Salt.MR.ArcRegimeWeaken
+import Salt.Entropy.Chowla.RegimeHeadroom
 
 /-!
 # THE ROAD AT THE FLAT ROOT — `HloExportMR`'s chain re-rooted (freeze F-1..F-5)
@@ -149,12 +151,7 @@ theorem m4_doorL2_close_split_sq_flatRoot (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
   have hG : 1 ≤ 3072 * M := by
     have := hgates.hM
     omega
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   refine hR (memSCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 liouvilleC)
     (fun m => lamCoeff m - memSCoeff (calP (Adoor M) (3072 * M))
       (calQK (Adoor M) (3072 * M) M) 2 liouvilleC m)
@@ -211,12 +208,7 @@ theorem m4_doorL2_close_split_sq_gk_flatRoot (K : ℕ) (A₀ : ℝ) (hA₀ : 162
     have h := Adoor_ge M
     omega
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   refine hR (memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2
       liouvilleC)
     (fun m => lamCoeff m - memSCoeff (calP (Adoor M) (s13GK K M))
@@ -282,16 +274,8 @@ theorem m4_second_road_L2_flatRoot (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
   refine ⟨R, hReps, hU1, hRg, hRtow, hRcap, ?_⟩
   intro δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3
     hdgate hdrift hceil hbudget hrow
-  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
-  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -305,20 +289,10 @@ theorem m4_second_road_L2_flatRoot (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
     positivity
   have hcov := m4_cover_assembly_blk2 hgates hBblk0 hblk2
   refine hR Braw Bceil δ M k hgates hBraw0 ?_ hceil hbudget
+  obtain ⟨hℓH, hℓcnt, hℓdrift⟩ := blockLen_obligations (R := R) harc
   refine m4_sievedDoorSq_of_blk2 (ℓ := blockLen)
     (fun H => by have := hBblk0 H; positivity)
-    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
-  · intro H q hlo hhi _ _
-    have h1 := harc H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hH1 : 1 ≤ H := by
-      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
-      exact_mod_cast this
-    exact blockLen_le H q hH1
-  · intro H q hlo hhi _ _
-    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
-  · intro H q hlo hhi hq _
-    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+    (fun H q _ _ _ _ => one_le_blockLen H q) hℓH hℓcnt hℓdrift ?_ hcov
   · intro H hlo hhi
     have h := hdrift H hlo hhi
     have hres0 : (0 : ℝ) ≤ strataResidual H :=
@@ -380,16 +354,8 @@ theorem m4_second_road_L2_gk_flatRoot (K : ℕ) (A₀ : ℝ) (hA₀ : 162 ≤ A�
   refine ⟨R, hReps, hU1, hRg, hRtow, hRcap, ?_⟩
   intro δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3
     hdgate hdrift hceil hbudget hrow
-  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
-  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN_gk K R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -404,20 +370,10 @@ theorem m4_second_road_L2_gk_flatRoot (K : ℕ) (A₀ : ℝ) (hA₀ : 162 ≤ A�
     positivity
   have hcov := m4_cover_assembly_blk2_gk K hgates hBblk0 hblk2
   refine hR Braw Bceil δ M k hgates hBraw0 ?_ hceil hbudget
+  obtain ⟨hℓH, hℓcnt, hℓdrift⟩ := blockLen_obligations (R := R) harc
   refine m4_sievedDoorSq_of_blk2_gk (ℓ := blockLen) K
     (fun H => by have := hBblk0 H; positivity)
-    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
-  · intro H q hlo hhi _ _
-    have h1 := harc H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hH1 : 1 ≤ H := by
-      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
-      exact_mod_cast this
-    exact blockLen_le H q hH1
-  · intro H q hlo hhi _ _
-    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
-  · intro H q hlo hhi hq _
-    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+    (fun H q _ _ _ _ => one_le_blockLen H q) hℓH hℓcnt hℓdrift ?_ hcov
   · intro H hlo hhi
     have h := hdrift H hlo hhi
     have hres0 : (0 : ℝ) ≤ strataResidual H :=

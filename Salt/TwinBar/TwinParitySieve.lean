@@ -149,7 +149,7 @@ def LiouvilleTwinDisp (N P : ℕ) (lvl B : ℝ) : Prop :=
 
 /-- **B2 (`htotalMass`)**: the twisted total mass is nonnegative.  Every weight
 `1 − λ(m)` is, because `λ(m) ≤ 1` pointwise (`liouville_real_le`,
-`Salt/TwinBar/ParityWall.lean:98`).  This is the ONLY bound wave 1 places on a Liouville
+`Salt/TwinBar/ParityWall.lean:103`).  This is the ONLY bound wave 1 places on a Liouville
 sum, and it is the pointwise-trivial one — no sign, no size, no cancellation
 (F-THIRD-REGIME). -/
 theorem twinParitySieve_totalMass_nonneg :
@@ -242,12 +242,12 @@ contribution is the OTHER half of the split, and it is named, not bounded. -/
 noncomputable def Btwin (lvl : ℝ) : ℝ := (⌊lvl⌋₊ : ℝ) * (1 + Real.log (⌊lvl⌋₊ : ℝ))
 
 /-- **B3**: the landed twin remainder, summed over `d ∣ P` below the level, is at most
-`Btwin lvl`.  The chain is `rem_abs_le` (`Salt/Brun/M2.lean:241`, `|rem d| ≤ ρ(d)`) →
-`rho_squarefree_le` (`:206`, `ρ(d) ≤ 2^ω(d)` for squarefree `d`, and every `d ∣ P` is
-squarefree) → the re-index of `Salt/Brun/M5Assembly.lean:209-239` (`Finset.sum_filter`, then
+`Btwin lvl`.  The chain is `rem_abs_le` (`Salt/Brun/M2.lean:250`, `|rem d| ≤ ρ(d)`) →
+`rho_squarefree_le` (`:215`, `ρ(d) ≤ 2^ω(d)` for squarefree `d`, and every `d ∣ P` is
+squarefree) → the re-index of `Salt/Brun/M5Assembly.lean:226-256` (`Finset.sum_filter`, then
 `Finset.sum_le_sum_of_subset_of_nonneg` onto the level's initial segment) →
 `sum_two_pow_omega_le`.  The `2^ω` route replaces that idiom's `3^ω` constant; the N4.2 `y⁴`
-step of `M5Assembly.lean:240` is NOT used. -/
+step of `M5Assembly.lean:257` is NOT used. -/
 theorem twinRem_sum_le (hPsq : Squarefree P) {lvl : ℝ} (hlvl : 1 ≤ lvl) :
     (∑ d ∈ P.divisors, if (d : ℝ) < lvl then |_root_.rem d N| else 0) ≤ Btwin lvl := by
   have hfl : 1 ≤ ⌊lvl⌋₊ := Nat.le_floor (by exact_mod_cast hlvl)
@@ -285,7 +285,7 @@ theorem twinRem_sum_le (hPsq : Squarefree P) {lvl : ℝ} (hlvl : 1 ≤ lvl) :
 `rem_split` (`:131`) and the triangle inequality, then `Finset.sum_le_sum` — the two sums pair
 because `LiouvilleTwinDisp` was given `rosserRemainder`'s shape verbatim (an `ite` over the
 FULL divisor index, not a `filter`).  The idiom is `goldBVSum_le_split`
-(`Salt/Goldbach/A1.lean:286`, body from `:293`); the second landed instance is
+(`Salt/Goldbach/A1.lean:290`, body from `:293`); the second landed instance is
 `switchSieve_rosserRemainder_split_le` (`Salt/Chen/SwitchBV.lean:316`, body from `:321`).
 
 Scope: still a DOOR.  `Btwin` is explicit and unconditional, but `B` is a PARAMETER — wave 1

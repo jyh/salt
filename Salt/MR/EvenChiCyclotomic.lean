@@ -68,6 +68,12 @@ end
 
 /-! ### The product form, and equal cardinality ⇒ associated -/
 
+/-- **Step 3 of the associate route** — for a primitive `n`-th root `ζ` of a domain (`hζ`) and
+an index set `S` of exponents coprime to `n` (`hS`), the product of `ζ ^ a - 1` over `S` is
+associated to `(ζ - 1) ^ S.card`: induction on `S`, each factor associated to `ζ - 1` by
+`IsPrimitiveRoot.associated_sub_one_pow_sub_one_of_coprime` (step 1). Consumed by
+`e4a_step4_equal_card_associated` and `e4a_prod_associated_concrete`; the index-generic form is
+`e4a_prod_associated_gen` (`EvenChiAlgebra`). -/
 theorem e4a_prod_associated {A : Type*} [CommRing A] [IsDomain A] {ζ : A} {n : ℕ}
     (hζ : IsPrimitiveRoot ζ n) (S : Finset ℕ)
     (hS : ∀ a ∈ S, Nat.Coprime a n) :
@@ -85,6 +91,10 @@ theorem e4a_prod_associated {A : Type*} [CommRing A] [IsDomain A] {ζ : A} {n : 
         mul_comm ((ζ - 1) ^ S.card) (ζ - 1)]
       exact h1.mul_mul h2
 
+/-- **Step 4** — two coprime-indexed products of `ζ ^ a - 1` with equal cardinality (`hcard`)
+are associated: each is associated to `(ζ - 1) ^ card` by `e4a_prod_associated`, and
+`Associated` is transitive. Consumed by `e4a_step5_unit_witness` and
+`e4a_eta_associated_of_sum_zero`. -/
 theorem e4a_step4_equal_card_associated {A : Type*} [CommRing A] [IsDomain A]
     {ζ : A} {n : ℕ} (hζ : IsPrimitiveRoot ζ n) (S T : Finset ℕ)
     (hS : ∀ a ∈ S, Nat.Coprime a n) (hT : ∀ a ∈ T, Nat.Coprime a n)
@@ -135,6 +145,10 @@ theorem e4a_conj_eq_pair (hq : 0 < q) (haq : a ≤ q) :
 
 end
 
+/-- **Step 7** — the pair `a ↔ q - a` multiplies to a real square at `ha : 0 < a`,
+`haq : a < q`: `ζ ^ (q - a)` is `conj (ζ ^ a)` (`e4a_conj_eq_pair`), so the product is
+`‖1 - ζ ^ a‖ ^ 2` (`Complex.mul_conj`), which is `(2 sin(πa/q)) ^ 2` by `e4a_step3_sin_bridge`.
+Consumed by `e4a_prod_sin_sq_eq_q`. -/
 theorem e4a_step7_pair_product {q a : ℕ} (ha : 0 < a) (haq : a < q) :
     (1 - (Complex.exp (((2 * Real.pi / q : ℝ) : ℂ) * Complex.I)) ^ a)
       * (1 - (Complex.exp (((2 * Real.pi / q : ℝ) : ℂ) * Complex.I)) ^ (q - a))
@@ -158,6 +172,9 @@ theorem e4a_prod_associated_concrete {q : ℕ} (hq : 0 < q) (S : Finset ℕ)
       ((Complex.exp (((2 * Real.pi / q : ℝ) : ℂ) * Complex.I) - 1) ^ S.card) :=
   e4a_prod_associated (e4a_zeta_isPrimitiveRoot hq) S hS
 
+/-- The classical `∏_{k=1}^{q-1} (1 - ζ ^ k) = q` at `hq : 0 < q`: mathlib's
+`IsPrimitiveRoot.prod_one_sub_pow_eq_order` at `e4a_zeta_isPrimitiveRoot`, after writing
+`q = n + 1`. Consumed by `e4a_prod_sin_sq_eq_q`. -/
 theorem e4a_prod_one_sub_eq_q {q : ℕ} (hq : 0 < q) :
     ∏ k ∈ Finset.range (q - 1),
         (1 - (Complex.exp (((2 * Real.pi / q : ℝ) : ℂ) * Complex.I)) ^ (k + 1))
@@ -166,6 +183,9 @@ theorem e4a_prod_one_sub_eq_q {q : ℕ} (hq : 0 < q) :
   have h := (e4a_zeta_isPrimitiveRoot (q := n + 1) (Nat.succ_pos n)).prod_one_sub_pow_eq_order
   simpa using h
 
+/-- A product over `range (2 * m)` regrouped into `m` pairs `k ↔ 2 * m - 1 - k`: split the range
+in two (`Finset.prod_range_add`) and reflect the upper half (`Finset.prod_range_reflect`). The
+pairing step of `e4a_prod_sin_sq_eq_q`. -/
 theorem e4a_range_pair_split {M : Type*} [CommMonoid M] (g : ℕ → M) (m : ℕ) :
     ∏ k ∈ Finset.range (2 * m), g k
       = ∏ k ∈ Finset.range m, (g k * g (2 * m - 1 - k)) := by
@@ -179,6 +199,9 @@ theorem e4a_range_pair_split {M : Type*} [CommMonoid M] (g : ℕ → M) (m : ℕ
 
 /-! ### ⭐ `∏ 2 sin(πa/q) = √q` -/
 
+/-- `∏_{k=1}^{m} (2 sin(πk/(2m+1)))^2 = 2m + 1`: `e4a_prod_one_sub_eq_q` at `q = 2m + 1`, paired
+by `e4a_range_pair_split`, each pair a real square by `e4a_step7_pair_product`, then cast down
+from `ℂ`. Its square root is `e4a_prod_sin_eq_sqrt_q`, the `√q` of `2 log φ / √q`. -/
 theorem e4a_prod_sin_sq_eq_q {m : ℕ} :
     ∏ k ∈ Finset.range m,
         ((2 * Real.sin (Real.pi * (((k + 1 : ℕ) : ℝ) / ((2 * m + 1 : ℕ) : ℝ)))) ^ 2 : ℝ)
@@ -253,6 +276,10 @@ theorem e4a_eta_associated_of_sum_zero {A : Type*} [CommRing A] [IsDomain A]
     (fun a ha => hcop a (Finset.mem_filter.mp ha).1)
     (e4a_card_eq_of_sum_zero s f hf hsum)
 
+/-- A `zpow`-weighted product with `{-1, 0, 1}` exponents (`hf`) over nonzero factors (`hg`) is
+the quotient of the `+1` fibre's product by the `-1` fibre's: induction on `s`, a three-way case
+split on `f a` at each insertion. Instantiated at the real sine factors by
+`e4a_eta_eq_quotient`. -/
 theorem e4a_zpow_prod_split {K : Type*} [Field K] (s : Finset ℕ) (g : ℕ → K) (f : ℕ → ℤ)
     (hf : ∀ a ∈ s, f a = 1 ∨ f a = 0 ∨ f a = -1) (hg : ∀ a ∈ s, g a ≠ 0) :
     ∏ a ∈ s, (g a) ^ (f a)
@@ -328,6 +355,9 @@ theorem e4a_real_char_inv {q : ℕ} (χ : DirichletCharacter ℝ q) {b : ZMod q}
 
 /-! ### Pushing a ring map through `∏ (ζ^a − 1)` -/
 
+/-- **Step 1 of pushing a ring map through `∏ (ζ ^ a - 1)`** — `map_prod`, then `map_sub`,
+`map_pow`, `map_one` per factor, at an `ℕ`-indexed product. Consumed by
+`e4a_map_prod_sub_one_pow`; the index-generic form is `e4a_map_prod_sub_one_gen`. -/
 theorem e4a_map_prod_sub_one {A B : Type*} [CommRing A] [CommRing B] (f : A →+* B)
     (ζ : A) (S : Finset ℕ) :
     f (∏ a ∈ S, (ζ ^ a - 1)) = ∏ a ∈ S, ((f ζ) ^ a - 1) := by
@@ -506,6 +536,11 @@ theorem e4a_galois_eta_swap {q : ℕ} [NeZero q] [DecidableEq (ZMod q)ˣ]
 
 /-! ### Two small facts the layer wants nearby -/
 
+/-- At `hχ : χ ≠ 1` neither fibre of `E4aChiBridge.e4a_signOf χ` is empty: the `+1` fibre
+contains `1` (`e4a_signOf_one`), and the `-1` fibre has the same cardinality by
+`e4a_dirichlet_card_eq` fed by `e4a_signOf_sum_eq_zero`. The non-degeneracy certificate of probe
+39 (`EvenChiEta`): the swap arm of `e4a_eta_gal` is exercised exactly when `χ` is
+non-principal. -/
 theorem e4a_fibres_nonempty {q : ℕ} [NeZero q] (χ : DirichletCharacter ℝ q) (hχ : χ ≠ 1) :
     0 < (Finset.univ.filter
           (fun a : (ZMod q)ˣ => E4aChiBridge.e4a_signOf χ a = 1)).card

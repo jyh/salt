@@ -1486,10 +1486,10 @@ CompatFrontier = the compat main-term lower bound
 i.e. s2CompatFormM_ge_sixteenth's regime 32*C*logR <= B1*D0, where C is the
 s2main_lower_rel/lemma53_rel/lemma53 error constant.
 
-FINDING: lemma53's constant is C ~ 12*k^3*2^k (Lemma53.lean:1013, htail_bound).
+FINDING: lemma53's constant is C ~ 12*k^3*2^k (Lemma53.lean:1018, htail_bound).
 The 2^k is from prod_{i!=m,j}(gMult*U) <= 2^k (line 963-981, each factor <= 2).
 The k^2 in the deviating-coordinate factor is from phiSq_dvd_ne_bound
-(Lemma53.lean:642, bound 12*k^2/D0). So the item6->(1/16) regime
+(Lemma53.lean:647, bound 12*k^2/D0). So the item6->(1/16) regime
 32*C*logR <= B1*D0 becomes 6912*k*2^k <= phiW/W < 1 -- IMPOSSIBLE. The error
 term (4C logR/D0)B1 A1^{k-1} ~ 2^k * main, so s2CompatFormM_ge_cheb's
 (1/4 - error) is NEGATIVE. This is why CompatFrontier can't be discharged.
@@ -1595,7 +1595,7 @@ feasible): expose explicit rankinC/mertensC bounds using the explicit witness in
 Mertens.lean's sum_inv_prime_le_aux (prove mertensC <= 18), get explicit
 lemma53Const <= exp 50-ish, discharge k-largeness (1728*lemma53Const*logk <= k
 for logk>=300 via L<=exp(L-50)), then replicate analyticFrontier_holds'
-(FrontierFinal.lean:668-720) eventually-N' setup to feed hcheb
+(FrontierFinal.lean:694-746) eventually-N' setup to feed hcheb
 (s2_tensor_lower_cheb)+B1pos+A1nn+regime to s2CompatFormM_ge_sixteenth_tight ->
 CompatFrontier -> feed bounded_gaps_from_eh_final -> bounded_gaps_from_eh_complete.
 
@@ -1668,7 +1668,7 @@ grinding; the next Fable wave opens by draining this list.
     fact as its own atom); (b) **the S2-collision total
     `Σ_m Δπ/φW'·(Qdiag − s2CompatForm)` (folded into `errEH`) needs an
     S2-collision estimate** — the `s2_collision_le_QdiagW`/`S2InnerBoundQ`
-    compat↔full-form passage (`S2Collision.lean:795`), not landed for `yF Fstar1`
+    compat↔full-form passage (`S2Collision.lean:805`), not landed for `yF Fstar1`
     (the S2 analog of Node B; `¬` cleanly in the landed free-`W'` `herr` chain,
     which is compat-pairs-only). Both are budgeted-vanishing per the design's
     error sheet (`Dstar` budget + `∀ᶠ`), so `hslackEv` is TRUE; only its Lean
@@ -1715,7 +1715,7 @@ grinding; the next Fable wave opens by draining this list.
     structural layer — `compat_moebius_expansion_M`/`inner_collision_expand_M`/
     `inner_exact_S2`/`s2_diag_lam_restricted` were already free-W).
   - `s2_collision_le_QdiagW` — the free-`(D,W')` mirror of `s2_collision_le_Qdiag`
-    (`S2Collision.lean:808`): `|s2CollisionForm| ≤ (Cs·k²/D)·Qdiag_gv`, CONDITIONAL
+    (`S2Collision.lean:818`): `|s2CollisionForm| ≤ (Cs·k²/D)·Qdiag_gv`, CONDITIONAL
     on the abstract atom `S2InnerBoundQ k R W' m y` (exactly as the landed W k
     version is). Proof = landed body with 3 swaps: no `subst hW`;
     `inner_collision_zero_MW`; `euler_tailW` (free-D). The vestigial tensor
@@ -1738,7 +1738,7 @@ grinding; the next Fable wave opens by draining this list.
     `|∑_u ∏g(uᵢ)·V(u∨σ)·V(u∨τ)| ≤ 3^ω·∏(p−1)⁻²·Qdiag_gv`, `V = lamPhiContractM y`.
     **The design's "dominate by ONE / monotone in |y|" shortcut is INVALID for the
     S₂ side** — two concrete corrections for the next Fable pass:
-    (1) `s2_inner_bound_N` (`S2Collision.lean:2105`) does NOT discharge
+    (1) `s2_inner_bound_N` (`S2Collision.lean:2108`) does NOT discharge
     `S2InnerBoundQ`: it proves a DIFFERENT bound (RHS `Ndiag`/`(p−2)⁻²`, not
     `Qdiag_gv`/`(p−1)⁻²`), and only for the tensor `yTensor`, via `fTilde`-
     antitonicity + `Gdiag`/`B1` machinery. There is no `f₀≡1` free slot-in.
@@ -1746,7 +1746,7 @@ grinding; the next Fable wave opens by draining this list.
     quadratic form `yᵀMy` bounded by the quadratic form `yᵀNy = Qdiag_gv` — a
     SPECTRAL statement (`−cN ⪯ M ⪯ cN`), NOT monotone in `|y|` and NOT reducible
     to the single vector `y=ONE` (the forced side does not collapse — the
-    documented `PORT-BLOCKER` at `S2Collision.lean:462,782`). So `S2InnerBoundQ
+    documented `PORT-BLOCKER` at `S2Collision.lean:470,792`). So `S2InnerBoundQ
     yF ≤ S2InnerBoundQ ONE` is FALSE as a route.
     **Real content:** a weighted Cauchy–Schwarz shift bound `∑_u ∏g·V(u∨σ)² ≤
     ∏_{p|σ}(…)·Qdiag_gv` (design open-question (c), "the full double-sieve
@@ -1940,7 +1940,7 @@ Quot.sound]`, builds with 0 warnings, 0 sorry/native_decide/admit, 0 new axioms.
   (`slot` maps `Q` into `univ.erase m`) + `gMult_cast` + `Nat.primeFactors_prod`.
   ~110 lines.
 - **`S2InnerBoundQC`** (deliverable 2) — the CF-slotted atom. LHS verified
-  **BYTE-IDENTICAL** to `S2InnerBoundQ` (`S2Collision.lean:795`) modulo the
+  **BYTE-IDENTICAL** to `S2InnerBoundQ` (`S2Collision.lean:805`) modulo the
   binder name `W`/`W'` (compiler-confirmed: `s2_collision_le_QdiagW_C`
   typechecks against `inner_exact_S2`'s output). RHS gains the `CF` slot:
   `≤ 3^ω(s)·(∏_{p|s}(p−1)⁻²)·CF·Qdiag_gv`.
@@ -1953,7 +1953,7 @@ Quot.sound]`, builds with 0 warnings, 0 sorry/native_decide/admit, 0 new axioms.
 **FLAGGED — `s2_inner_yF` (deliverable 4): NOT landed (would require sorry).**
 This is the termwise + contamination-partition + qdiag-conversion discharge of
 the *signed, non-collapsing* S2 inner form — the previously-open analytic core
-(the `S2Collision.lean:782` PORT-BLOCKER, `CollisionYF_S2.lean` header's "open
+(the `S2Collision.lean:792` PORT-BLOCKER, `CollisionYF_S2.lean` header's "open
 Cauchy–Schwarz shift"), whose S1 mirror (NC-1 `inner_abs_le`) is **also not yet
 landed**. The full proof is ~500–900 lines of new intricate Finset/contamination
 work; it did not fit this session's budget. All INPUTS it needs are in place:
@@ -1984,7 +1984,7 @@ the shared contamination-partition helper FIRST, then porting to the g/V S2 side
 
 Round-1's partition blocker was resolved (NC-1 `s1_inner_bounded`/`box_marked_moment`
 landed). Porting that S₁ structure to the g/V side surfaced a **constant-shape
-inconsistency in the frozen `S2InnerBoundQ`** (`S2Collision.lean:795`).
+inconsistency in the frozen `S2InnerBoundQ`** (`S2Collision.lean:805`).
 
 **The finding (high confidence, verified against the LANDED S₁ discharge).**
 In the PROVED `s1_inner_bounded`, the moment weight is `1/∏φ` and the atom
@@ -2143,14 +2143,14 @@ entry above:
 
 1. **RESIDUAL 1(a) is STALE — per-m `Jcal` positivity is ALREADY LANDED.**
    `J_Fstar_0..J_Fstar_4` (each `= 191881/119750400`) are in
-   `Certificate.lean:197-249` (10M-heartbeat `norm_num`, wave 1). With
-   `Fstar1_eq_scaleW` + `Jcal_scaleW` (the `WinCore.lean:90-93` pattern),
+   `Certificate.lean:204-256` (10M-heartbeat `norm_num`, wave 1). With
+   `Fstar1_eq_scaleW` + `Jcal_scaleW` (the `WinCore.lean:103-106` pattern),
    per-m `Jcal m Fstar1 = (191881/119750400)/1227² > 0` is a ~15-line
    class-A composition. No symmetry lemma, heartbeat bump, or
    `simplexInt`-positivity lemma needed.
 2. **The frozen `hQd` interface needs NO statement surgery (no "R1-IF").**
    `s2_inner_yF` is quantifier plumbing; the content is `s2_inner_termwise`
-   (`InnerS2.lean:1065`), POINTWISE in `(R, W', D)` with only `300 ≤ D`. The
+   (`InnerS2.lean:1093`), POINTWISE in `(R, W', D)` with only `300 ≤ D`. The
    universally-quantified `hQd` (which demands the qdiag comparison down to
    `D = 300`, where the landed `κ⁻¹ ≤ 5√D` bound cannot close it) is BYPASSED:
    R1 proves the comparison only at `(primorial Dfin, Dfin)` and feeds
@@ -3673,7 +3673,7 @@ the edge log-deriv bound only holds for |Im|≤T, so the left-edge pointwise est
 `π/σ₀` via `setIntegral_le_integral`.
 
 **FLAG — exceptional variant NOT attempted (rule 4: flag over grind).** Intended route:
-`kernel_residue` (landed in `ContourShift.lean:356`) supplies
+`kernel_residue` (landed in `ContourShift.lean:358`) supplies
 `∮_{∂R} x^{s+1}/(s(s+1))·1/(s−β) = 2πi·x^{β+1}/(β(β+1))`, so the exceptional main term is
 `m·x^{β₁+1}/(β₁(β₁+1))`. Obstructions making it a full second C-construction, not a cheap compose:
 (1) **Removable-singularity / global de-singularization.** Goursat (`rectBI_right_split`) needs
@@ -5193,7 +5193,7 @@ The final-margin gate (end-to-end re-derivation of hledger at all achieved const
 BEFORE the H-glue dispatch) found the C5 assembly's A₃ glue WRONG BY A FACTOR OF log x — the
 hledger slot as shaped is FALSE at every operating point (razor/U = 0.1338 − 0.1491·log x → −∞).
 
-**ROOT CAUSE (Fable-confirmed against the Lean definitions):** `tripleSet` (TripleCount.lean:176)
+**ROOT CAUSE (Fable-confirmed against the Lean definitions):** `tripleSet` (TripleCount.lean:183)
 does NOT require n = prod−2 prime, so `tripleSum` ~ 0.298·x/(2 log z) sits at x/log x SCALE;
 `triplePrimeSum_le` (Assembly.lean:262) converts the Λ-weighted A₃ carrier via Λ(n) ≤ log x,
 DROPPING Λ's prime support (a 1/log x density) — the bound log x·tripleSum is x-SCALE against
@@ -6633,8 +6633,8 @@ the mandated STEP-0 inventory BEFORE any proof attempt burned against it.
 **2026-07-14 D0W ✅ FULL (Opus executor attempt 1, Fable statement-change warrant, survived
 one API stream drop) — CATCH #64 REPAIRED IN PLACE.** hD0lo_main weakened L^{C0} → L^{A+2}
 through the full chain (four_term_scale_le root at EnergyClose:488 with the proof patched at
-its unique use; pass-throughs WindowErrFold:82/1275, WindowSmallChi:468 + the H-glue
-threshold-list docstring, SqrtDFold:747/829/954, MediumFloor:518, GlueBV:195; the row is fed
+its unique use; pass-throughs WindowErrFold:82/1294, WindowSmallChi:527 + the H-glue
+threshold-list docstring, SqrtDFold:824/994/1117, MediumFloor:520, GlueBV:198; the row is fed
 positionally so pass-through proofs needed NO edits). general_BV_cutoff_final carries no
 hD0lo row (verified); hMainEnergy_discharge (non-cutoff path, outside warrant) kept its
 statement — proof-body adapter only. **herr_D0E verdict: no decoupling needed or possible**
@@ -6908,7 +6908,7 @@ couplings; honest per-box price 2^{18}c^{−50}K·XM/L^{12}, one L worse than sk
 honest aggregate ≈ 3.5·10²³·K·x/t^{11} ≤ x/t^{10} ⟺ t ≥ 3.5·10²³·K — dwarfed by the
 tower (log x₀ ≥ w'^{w'}, w' ~ exp(2·10⁹)). Note (c) is DISCARDED; the gate's aggregate
 derivation replaces it. **CATCH #69 (NEW, kernel-certain): the terminal's per-e rows
-(herr_LEpos/herr_scale/herr_D0E at SqrtDFold:966–971) are FALSE for e ∈ (X, D]** — nat
+(herr_LEpos/herr_scale/herr_D0E at SqrtDFold:1129–1134) are FALSE for e ∈ (X, D]** — nat
 division gives ⌊X/e⌋ = 0, log(0·M) = 0, and the rows read 0 < 0 / L ≤ 0 / D0 ≤ 0^{18}.
 Every medium-band box has D ~ x^{0.497} > X (≥ z·y = x^{0.4583} at the floor, up to
 x^{0.497}) — the rows are unsatisfiable at the needed level. SOUND UNDERNEATH: for e > X
@@ -7074,12 +7074,12 @@ It is not a pricing-mechanism choice but a genuine gap in the landed corpus.
 THE TWO SIDES (verbatim shapes). CONSUMER — `hBVblocksW_discharge'` (PDiag.lean:691) requires
 its `hprice` for every box in `dyadicBoundary (pieceN k) (pieceM k) (x/2+1) x (z·y) K`
 (N = pieceN k = 2^k − 1). SUPPLIER — every landed box-price terminal
-(`box_hprice_at_2pow`/`sym_`/`low_box_hprice_at_2pow`, PriceThree.lean:217/302/382; underlying
-`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:278, PriceTwo.lean:438/316;
+(`box_hprice_at_2pow`/`sym_`/`low_box_hprice_at_2pow`, PriceThree.lean:228/313/393; underlying
+`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:476, PriceTwo.lean:695/564;
 `medium_survivor_price(_sqrtD)`, MediumFloor.lean:507/SqrtDFold.lean:956) provides a bound
 ONLY for `i ∈ dyadicBoundary (2^k) (pieceM k) (x/2+1) x F Krange` (N = 2^k, forced by the
 terminal's `M ≤ 2N` with M = pieceM k = 2·pieceN k + 1). The only bridge
-`boundary_2pow_subset_pieceN` (PriceThree.lean:187) gives `dyadicBoundary (2^k) ⊆
+`boundary_2pow_subset_pieceN` (PriceThree.lean:196) gives `dyadicBoundary (2^k) ⊆
 dyadicBoundary (pieceN k)` — the WRONG way. Corpus-wide grep: every `dyadicBoundary (pieceN k)`
 site on the "supplier" side is a CONSUMER wrapper (`sym_`/`low_box_price_at_op`,
 `hBlock_of_window_prices`, PDiag's discharge) that takes the per-box `Price` as a hypothesis;
@@ -7094,7 +7094,7 @@ priceable by either trichotomy route for the pieces with 2^k > x^{7/16}:
   • 2^k-BOUNDARY route (`box_hprice_at_2pow`/`_lo`): its hypothesis `i ∈ dyadicBoundary (2^k)`
     FAILS by construction (edge box ∉ dyadicBoundary (2^k)); concretely the terminal's corner
     clause `2^i·(2^k+1) ≤ x` is violated (edge box: x < 2^i·(2^k+1)). The `_lo` floor relaxation
-    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:438) is met but is orthogonal — it does not restore the
+    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:353) is met but is orthogonal — it does not restore the
     boundary membership. So neither route covers the live edge box.
 The trivial fallback (carrier norm ≤ 1 ⟹ box sum ≤ 2·|Dset|·X·M ≈ x·τ(Ps)) overshoots the
 hSum budget Ccon·K·x/L^{11} by ~x^{1} and cannot be used.
@@ -7113,7 +7113,7 @@ Both are statement-level and belong to a Fable/human-directed session.
 
 WHAT IS VERIFIED WIREABLE (so the repair unblocks the rest): the 12-conjunct skeleton →
 `chen_of_hypotheses_W` (Assembly.lean:707) with witnesses x,z=opZ,P=opP,y=opY,Q=opQ,a=opA,
-w'=opW'; the A1/A2 carriers via `a12_hA1`/`a12_hA2` (HeadlineW2.lean:1524/1569), all their
+w'=opW'; the A1/A2 carriers via `a12_hA1`/`a12_hA2` (HeadlineW2.lean:1620/1672), all their
 hypotheses in the opf_*/opf_tower set; the ledger via `normalized_package`/`hledger_at_certs`
 (GlueNormalized.lean:232 / RazorClose.lean:156) at XW = (twinA1SieveW).totalMass·W =
 (∑_{twinWindow}Λ/φ(opQ))·W; the certs hcertA1 (`fchain_A1_final` ∘ `logRatio_A1_mem`),
@@ -7130,8 +7130,8 @@ created, as it would require a sorry at the edge-box row).
 
 **2026-07-14 EDGE+fin3 Part 1 ✅ FULL (Opus executor, Fable warrant) — CATCH #71 REPAIRED
 via ratified option (a): the corner-clause relaxation.** The 6 PRICE-wave application lemmas
-carrying a `dyadicBoundary (2^k)` membership (`medium_box_price_at_op` PriceOne:278;
-`medium_box_price_core`/`medium_box_price_at_op_lo` PriceTwo:316/438; `box_/sym_/low_box_hprice_at_2pow`
+carrying a `dyadicBoundary (2^k)` membership (`medium_box_price_at_op` PriceOne:476;
+`medium_box_price_core`/`medium_box_price_at_op_lo` PriceTwo:564/695; `box_/sym_/low_box_hprice_at_2pow`
 PriceThree) now take the pieceN-boundary membership directly (weak corner `2^i·2^k ≤ x`). KEY
 FINDING (sharper than the warrant's worry): there is **NO degradation** — `d0_window_nonempty`'s
 ONLY use of the corner is to bound `X·M ≤ 4x`, and the WEAK corner gives the SAME `4x`
@@ -7172,7 +7172,7 @@ still-UNPACKAGED analytic corpus, and one NEW coupling obligation surfaced. STAT
   mainA3_of_block_remainders_W (SwitchW:340) → hA3` is verified-wireable, but its leaves (hSum
   aggregation over pieces × ≤3 boxes × the F1 rows; hCE; hdiag; hNum via `hNum_close_of_tower` under
   `hK_tower` at x₀(K)) are un-built and depend on F1.
-• F3 (chen_headline): A1/A2 slots ARE packaged (`a12_hA1`/`a12_hA2`, HeadlineW2:1524/1569); the
+• F3 (chen_headline): A1/A2 slots ARE packaged (`a12_hA1`/`a12_hA2`, HeadlineW2:1725/1856); the
   ledger conjunct (normalized_package/hledger_at_certs + the still-inline hcount + hEbundle) and the
   12-conjunct → `chen_of_hypotheses_W` (Assembly:707) remain. NOT attempted: would require F1/F2 and
   the 27 rows first; forcing it now risks the "0 wrong proofs" invariant given the coupling above.
@@ -7386,7 +7386,7 @@ DICHOTOMY dischargers ARE landed (box/sym/low_price_at_op, hSum_at_op, hCE_at_op
 hdiag_slot_at_op, hNum_close_of_tower), but composing them + the ledger needs these
 STILL-UNPACKAGED analytic rows, each a fresh operating-point estimate (NOT wiring):
 • **Step-2 hSum unification** (feed `hSum_at_op`'s uniform `W`, single `Kc`):
-  (a) `boxPriceKerrY_worst_le` — DOES NOT EXIST (only `boxPriceKerr_worst_le`, AggSum:135, for
+  (a) `boxPriceKerrY_worst_le` — DOES NOT EXIST (only `boxPriceKerr_worst_le`, AggSum:138, for
   the plain price; the middle-k `boxPriceKerrY` (AssembleA3b:65) has ONLY `_nonneg`). Must be
   written (mirror of the plain one, `logN := log y`, floor `(10/31)·L ≤ log y` holds since
   `log y ≈ (1/3)log x > (10/31)log x`).  (b) `symPriceK`/`lowPriceK` → uniform-`W` collapse
@@ -7403,9 +7403,9 @@ STILL-UNPACKAGED analytic rows, each a fresh operating-point estimate (NOT wirin
   WRatioSharp:315 LANDED but needs at-op `hdvd opP∣opPs`/`hwin` window-primeFactors identity/
   `hz38`/real endpoints + the UNNAMED `rfl` bridge `W(twinA1SieveW)=W(twinA1Sieve)` — no named
   `twinA1SieveW_W_eq`, cf. `switchSieveW_W_eq` SwitchW:179), **hcount** (`log x·tripleSum/φ(Q)
-  ≤ (cbar+ecount)·totalMass` — only the SYMBOLIC typecheck `example` CountW:749 exists, and it
+  ≤ (cbar+ecount)·totalMass` — only the SYMBOLIC typecheck `example` CountW:763 exists, and it
   is about `tripleSumW` not `tripleSum/φ(Q)`; must compose `tripleSum_le_cbar_final` +
-  `lambda_mass_lower` MertensPNT:261), **hcertA2** (`A2grid_sharp_le` A2Weighted:461, 6 hyps to
+  `lambda_mass_lower` MertensPNT:310), **hcertA2** (`A2grid_sharp_le` A2Weighted:473, 6 hyps to
   discharge at op), **XW>0** + **hEbundle ≤ 1/200** (eight O(1/log z)/x^{−1/8} error shares at
   a concrete x₀, via `W_twinA1_ge` WLower:51 through the rfl bridge) — ALL un-packaged.
 • **Step-4** 12 conjuncts: witnesses (P=opP/Q=opQ/z=opZ/y=opY/a=opA/w'=opW'/Ps=opPs) +
@@ -7448,7 +7448,7 @@ wiring).**
 geometry rows EXACT at op — Real.log_rpow gives log zR = log x/8 exactly, the count
 geometry is reachable unlike #75's A₂), hcount_op_AP3, and hcount_at_op with ecount pinned
 to ecountOp C x = C/log(opZ x), honest C = cbar·(11K + 12·log2)/4 ≪ 0.01 at the tower —
-inside the razor's M ≥ 1/100. Slot example mirrors CountW:749. REMAINING (= HCOUNT-2,
+inside the razor's M ≥ 1/100. Slot example mirrors CountW:763. REMAINING (= HCOUNT-2,
 three self-contained sub-rows, enumerated in-file): Lval floors (x^{1/6}-scale, easy),
 CORR (the Abel-error bound — three missing pieces: the Ifun upper C_I/log x from Ifun_cf,
 the hbjs boundary 2/log x, the windowed-Mertens Σ1/p₁), SLACK (LF·WF−1 + the E_SW
@@ -8821,7 +8821,7 @@ N i=nScale (aIdx i), M i=nScale (bIdx i)` (`GehShiuWire.lean` convention).
   `rpow_quarter_le`/`le_rpow_three_quarter`.
 
 **★ THE OBSTRUCTION (rung 3 `hanch` does NOT close — factor-2 anchor-cap boundary) ★**
-`hanch` (GehAnchor.lean:448-453) demands FIVE conjuncts for EVERY `i < m x`; the
+`hanch` (GehAnchor.lean:514-519) demands FIVE conjuncts for EVERY `i < m x`; the
 fifth, **`2·N·M ≤ x`**, is jointly UNSATISFIABLE with `hdecomp_double`:
 - `hdecomp_double` needs the family to include every block that is NONZERO on
   `[1, x]`. A block `(a,b)` has convolution support `n ∈ (N·M, 4·N·M]`
@@ -9162,7 +9162,7 @@ primitive: stated on the UNSHIFTED character `χ(·:ZMod q)` (matching
 assembly (`chiRe_ofReal` + `sum_range_filter_dvd_char_eq`).
 
 **LANDED — R6 `zfr_harvest` [B].** The ZFR harvest wiring `zero_free_region_all`
-(ZeroFreeReal.lean:605) to the contract hypotheses. Exact statement: for a real
+(ZeroFreeReal.lean:604) to the contract hypotheses. Exact statement: for a real
 primitive `χ≠1` and a non-real zero `ρ` (`9/10≤Re ρ<1`), `∃ c₀>0` with
 `c₀/log(q(|ρ.im|+2)) ≤ 1−ρ.re`, `1/‖1−ρ‖ ≤ log(q(|ρ.im|+2))/c₀`, `1≤‖2−ρ‖`.
 Existential in `c₀` (the landed region hides `c₀=1/126848`); the disjunct fed is
@@ -9330,7 +9330,7 @@ hyperbola: for any `AddCommMonoid` and `F`,
 **LANDED — R4-prereq `sum_abs_grahamGc_div_le` [C] (DHBal.lean:444).** The Barban–Vehov `gc`
 harmonic moment: for `2 ≤ z`, any `M`, `Σ_{m∈Icc 1 M} |grahamGc z m|/m ≤ (1+log M)³`. Restrict
 to the squarefree support (`grahamGc_eq_zero_of_not_squarefree`), bound `|gc| ≤ 3^ω`
-(`abs_grahamGc_le`), and apply the landed **`Salt.HardyLittlewood.tau6W_le`** (Sharp.lean:248,
+(`abs_grahamGc_le`), and apply the landed **`Salt.HardyLittlewood.tau6W_le`** (Sharp.lean:261,
 `Σ_{d≤L,sqfree} k^ω(d)/d ≤ (1+log L)^k`) at `k = 3`. **This RETIRES the R4 Mertens-moment
 sub-wall the prior analysis feared:** mathlib has no quantitative Mertens, but the project's
 `tau6W_le` supplies the `(log z)^k`-grade divisor moment directly. The σ₀-loaded R4 form
@@ -9362,7 +9362,7 @@ numeric-only, to be verified-in-Lean at R8.
   → ζ(ρ)-block killed by THE ZERO (`sum_range_filter_dvd_char_eq`+`partial_sum_at_zero_small`) →
   EM remainders Abel'd by the landed R1 `norm_bsum_kernel_zero_decay`. Multi-session.
 - **R7 `dh_balance` [B/C]** (needs R4+R5) → Λ ≤ (L(1,χ)).re — the named Zeno success.
-- **R8 `dh_repulsion` [B/C]** (needs R7) → the DHRepulsion.lean:262 contract; run the small-q checks FIRST.
+- **R8 `dh_repulsion` [B/C]** (needs R7) → the DHRepulsion.lean:278 contract; run the small-q checks FIRST.
 
 **Catches (LOUD).** (#119) R3(a) needs NO reality/positivity — the mass UPPER bound is
 `Re(P_r−L₁) ≤ ‖P_r−L₁‖`; `LFunction_apply_one_pos` is a red herring for the upper direction
@@ -10422,11 +10422,11 @@ built. NOT bankable this session.
 **FLAG — R7 `dh_balance_beta0` [B/C] + R8 `dh_repulsion_ordered` [C] — BLOCKED on R6.** Both consume the
 R6 extraction bound to assemble the master `3/4 ≤ 2x^{β₀−σ}[uX₁logx+2δX₁+1/x+E(β₀)] + 4ux^{1−σ}L₂/c₀ +
 E(ρ)`. Without R6's `D₀ ≤ L₁·V·x^{1−β₀}/(u(2−β₀))+E`, the master cannot be formed, so R8's
-DHRepulsion.lean:267–275 contract (the 16/17 ordered target) cannot be discharged. The M4 inverter
+DHRepulsion.lean:283–291 contract (the 16/17 ordered target) cannot be discharged. The M4 inverter
 (`dh_repulsion_of_LFunction_one_lower`, LANDED) and the shifted floor (`norm_dhDetectorShift_ge`, LANDED)
 are ready; the monotone-cap inversion at τ=cQ^{−b(1−σ)}L₂^{−k} is arithmetically certified (ledger, all
 turning points ≥10^{−39.3} ≫ τ=10^{−114.5}) — so R8 is PURELY gated on R6. Do NOT edit the
-DHRepulsion.lean:267 contract prose (unchanged; the 16/17 window ratification stands).
+DHRepulsion.lean:283 contract prose (unchanged; the 16/17 window ratification stands).
 
 **Catches (LOUD).** (#175) `Finset.sum_comm'` (EXISTS, one `h`-arg) expects the iff `x∈s ∧ y∈t x ↔
 x∈s' y ∧ y∈t'` — the RHS order is `(outer-becomes-inner ∈ s' y) ∧ (new-outer ∈ t')`, NOT `y∈t' ∧ x∈s'
@@ -10784,11 +10784,11 @@ carrying `L(1,χ)` as in the β₀ template, with `zfr_harvest`'s width giving `
 and the zero-cancellation at ρ (seeded by `norm_bsum_kernel_zero_decay`) killing the divergent PV
 term. This is the genuine analog of the R6 CRUX (`dh_extraction_upper_W`, ~1000 ln at β₀) but at
 the complex zero. DO NOT re-dispatch R7/R8 composers until it lands. The contract prose
-`DHRepulsion.lean:267` is UNCHANGED (16/17 window stands; no statement altered — Iron Rule 1).
+`DHRepulsion.lean:283` is UNCHANGED (16/17 window stands; no statement altered — Iron Rule 1).
 
 **Catches (LOUD).** (#221) a LANDED floor is not automatically the RIGHT floor: check the WEIGHT
 SYSTEM. `norm_dhDetectorShift_ge`/`dhDetector_floor` are graham-weighted (`dhCoeff χ z n =
-dhCoeffW χ (grahamTheta z) n`, per the `SelWeight.lean:87` comment); the selWeight chain (R6/R4/R5)
+dhCoeffW χ (grahamTheta z) n`, per the `SelWeight.lean:89` comment); the selWeight chain (R6/R4/R5)
 needs a selWeight-coefficient floor (`dhW_detector_floor_beta0`, a 15-line reverse-triangle /
 single-term-domination, trivial). Two weight families (`dhCoeff`/graham vs `dhCoeffW`/selWeight)
 coexist in the SW tree; a composition silently type-checks against the wrong one only if you don't
@@ -10968,7 +10968,7 @@ the actual model's max-over-σ is at the σ→1 edge, NOT 16/17 (freeze's crude 
   upper_W`-analog assembly gives `E(ρ)=C₂ρ·z·(1+log z²)⁹·Y^{1/2−σ}` (re-priced above, PASSES).
 - **R7/R8 [B/C then C].** UNCHANGED from T-BAL-CLOSE: `dh_balance_beta0_real` (LANDED), the M4
   inverter `dh_repulsion_of_LFunction_one_lower`, `tail_shift_to_beta0`, trivial split, τ-inversion
-  are READY; R8 = the contract `dh_repulsion_ordered` (`DHRepulsion.lean:267`, 16/17 window, verbatim).
+  are READY; R8 = the contract `dh_repulsion_ordered` (`DHRepulsion.lean:283`, 16/17 window, verbatim).
   BLOCKED only on the E(ρ) full ρ-bound (needs R6-4@ρ + collection + E(ρ) assembly above).
 
 **Catches (LOUD).** (#231) `set σ := ρ.re` at the TOP of a ρ-proof ABSTRACTS the hypotheses
@@ -11013,7 +11013,7 @@ rungs; each mirrors the β₀ template in `DHExtractW.lean` re-run at the comple
   `‖main_ρ‖=L₁·selMainTerm·Y^{1−σ}/(‖1−ρ‖‖2−ρ‖)`). The u-mechanism's L₁ carries UNDIVIDED on the
   ρ-side (asymmetry per T-BAL-CLOSE) — this is the balance whose `Λ` M4 inverts.
 
-**REMAINING — R8 (`dh_repulsion_ordered`, the contract, `DHRepulsion.lean:267` VERBATIM).** All the
+**REMAINING — R8 (`dh_repulsion_ordered`, the contract, `DHRepulsion.lean:283` VERBATIM).** All the
 COMPOSITION is done; R8 is the PARAMETER-SELECTION + LEDGER-INVERSION endgame, a distinct large
 effort (NOT a compose). The precise resume map:
 - Witnesses `b=680, k=14, c=2^{−250}`, `σ₀=16/17` (drift allowed + RECORDED per the contract).
@@ -11119,7 +11119,7 @@ EXACT produced form: after `← Real.rpow_mul`, `(Q^a)^b → Q^(a*b)` but `-14*w
 
 **LANDED (sorry-free, `Salt/SW/TBalR8.lean`; `lake build Salt.SW.All` EXIT 0 = 8821 jobs, warning-free;
 `#audit_axioms` ✓ `[propext, Classical.choice, Quot.sound]` on ALL, incl. the contract):**
-- **`dh_repulsion_ordered`** — THE VERBATIM CONTRACT (DHRepulsion.lean:267), `b`/`k` existential in the
+- **`dh_repulsion_ordered`** — THE VERBATIM CONTRACT (DHRepulsion.lean:283), `b`/`k` existential in the
   body. Witnesses **b=680, c=c₁⁸, k=14, σ₀=16/17**.
 - The 2 remaining row caps + companion: **`row_Eβ_cap`, `row_Eρ_cap`, `logz_factor_pow9_le`** (both
   E-rows via `ray_pow_bound`; γ = 291/100−14w resp. 391/100−14w, ε = 10/11; collapse to `c^{1/8}`).
@@ -11247,7 +11247,7 @@ rows consume: `Q^{104}u^{−14} ≤ (Y:ℝ) ≤ 2Q^{104}u^{−14}` (`Nat.le_ceil
    2e/(65536G) ≤ 1/64`; reduces to `hscale`+algebra), **`hcov` THE CRUX** (`crushErr ≤
    0.27u·z^u` at `z`, `crushCut = Nat.sqrt(z·min(⌈1/u⌉,z))`; `D ~ √(z/u)`, each of 4 terms
    `~ Q^{−6}`-small vs target; ~120 ln of `Nat.sqrt` lower/upper bounds + 4 rpow term caps).
-4. **The assembly + contract `dh_repulsion_ordered`** (VERBATIM `DHRepulsion.lean:267`): obtain
+4. **The assembly + contract `dh_repulsion_ordered`** (VERBATIM `DHRepulsion.lean:283`): obtain
    `⟨c₀,…⟩`/`⟨Z₀,…⟩`, define `c` (the min above), `refine ⟨680,c,14,…⟩`; intro; `by_cases
    1/(40L₂) ≤ u` [trivial: `tbal_tau_le_split` with `c ≤ 2^{−250}`] / deep [`by_contra u<τ`, apply
    `dh_master_ray`, split `ROW3 = P3+P4+P5` by `ring`, the 5 caps → `Σ ≤ 5/8 < 3/4 ≤ 1−1/Y`
@@ -11537,7 +11537,7 @@ lesson re-confirmed: house route sketches are hypotheses, not
 verified designs — the license language ("the shape is what's
 frozen, not the method") is what kept this catch non-blocking.
 
-**Catch #249 (SPINE-BUDGET F0: landed terminal residual unsatisfiable at c₀=1; freeze-panel finding, 2026-07-19).** The t/g/hbudget1 residual of `log_chowla_two_final` (SpineFinal.lean:416) and `log_chowla_two_final_xi` (:508) is unsatisfiable as stated: the statements bake c₀ = 1 (the literal `1 * (R.eps)`), and at the landed witnesses C = 1 + 2·C₀ = 1 + 4·log 4 ≈ 6.545 (CircleMethod.lean:586 at C₀ = 2·log 4) vs c₁ = cD3/4 = 1/16 (WindowMertensLower.lean:62), the first LHS term alone exceeds the whole margin for all t, g (shellError strictly positive). Not rescuable by re-proving either producer (honestly cD3 ≲ log 2 while any triangle-inequality C ≥ 1). TowerDischarge.lean:88-89's hedge 'cD3 ≳ 2(C+1)' is resolved FALSE (0.25 vs ≈15.1). Both terminals remain true, landed, and untouched; they are superseded-as-citation by the SPINE-BUDGET head, which discharges t/g/hbudget1 inside the head at c₀ := cD3/(16·C). Confirmed independently by both panel refuters and by judge witness-extraction. No future consumer should attempt the landed ∀t,g block.
+**Catch #249 (SPINE-BUDGET F0: landed terminal residual unsatisfiable at c₀=1; freeze-panel finding, 2026-07-19).** The t/g/hbudget1 residual of `log_chowla_two_final` (SpineFinal.lean:425) and `log_chowla_two_final_xi` (:508) is unsatisfiable as stated: the statements bake c₀ = 1 (the literal `1 * (R.eps)`), and at the landed witnesses C = 1 + 2·C₀ = 1 + 4·log 4 ≈ 6.545 (CircleMethod.lean:664 at C₀ = 2·log 4) vs c₁ = cD3/4 = 1/16 (WindowMertensLower.lean:62), the first LHS term alone exceeds the whole margin for all t, g (shellError strictly positive). Not rescuable by re-proving either producer (honestly cD3 ≲ log 2 while any triangle-inequality C ≥ 1). TowerDischarge.lean:88-89's hedge 'cD3 ≳ 2(C+1)' is resolved FALSE (0.25 vs ≈15.1). Both terminals remain true, landed, and untouched; they are superseded-as-citation by the SPINE-BUDGET head, which discharges t/g/hbudget1 inside the head at c₀ := cD3/(16·C). Confirmed independently by both panel refuters and by judge witness-extraction. No future consumer should attempt the landed ∀t,g block.
 
 **Catch #251 (the hres over-reduction — the L2c freeze's frozen record,
 landed at W3 per the freeze's W3 spec; 2026-07-19).** hb_lemma2/hres =
@@ -11603,7 +11603,7 @@ PrimeTailShiftBounded discharged (Salt.MR.prime_tail_shift, dyadic
 route, certified constant 2e⁻¹(log2+24)/log2 ≈ 26.2; half-open
 tiling eliminated the scout's boundary term). The H0 bridge exports
 are unconditional: log_euler_osc_zeta_unconditional /
-euler_osc_bridge(_le)_unconditional. Downstream: NonPret.lean:114's
+euler_osc_bridge(_le)_unconditional. Downstream: NonPret.lean:113's
 hbridge consumers can now route hypothesis-free (wave-2 R1.3's
 remaining glue is the ~40-line λ-side piece per the scout).
 
@@ -11710,7 +11710,7 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 ## 2026-07-24 — the hsplit/annHead object mismatch (statement-layer, caught pre-consumption)
 
 - **Where**: the hsplit binders of `prop_A3_T1_row_annular` (AnnHead:339),
-  `prop_A3_T1_row_moment` (Prop1Assembly:404), and `prop_A3'_assembly`'s Iunit
+  `prop_A3_T1_row_moment` (Prop1Assembly:403), and `prop_A3'_assembly`'s Iunit
   socket semantics; the annHead S4 pin (JYH-ratified 2026-07-23).
 - **Finding** (SEAM-SCOPE 2026-07-24): annHead — the FULL seam L-series at
   1+σ — has true L²-size ≍ T (ellLin's support is all squarefree n with
@@ -11735,7 +11735,7 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 - The entry at ~:11429 ("S5 BRIDGE — the single residual, truncation BLOCKED",
   2026-07-18/MR-W3) was SUPERSEDED 2026-07-19 by the entries at ~:11566
   (CLOSED CONDITIONAL) and ~:11595 (FULLY CLOSED): `euler_osc_bridge_unconditional`
-  (PrimeTail.lean:410) + `lambda_nonpret` UNCONDITIONAL (NonPretClose.lean;
+  (PrimeTail.lean:433) + `lambda_nonpret` UNCONDITIONAL (NonPretClose.lean;
   commit 60537ef). Both "missing" estimates landed (`mertens_first_upper`,
   `sigma_shift`, `prime_tail_shift`); the oscillating main term is Re/cos-native
   (`euler_osc_truncation` at arbitrary 1-bounded g). Verified by EULER-SCOPE
@@ -11815,7 +11815,7 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 
 - PropA3Core's docstring says the (1/32)loglog floor is "Mrange_one_floor-
   supplied"; that stone is proved at the datum (fun _ => 1), while hfloor
-  (HExit:1465) is at the SEAM datum — the seam-datum floor still routes
+  (HExit:1463) is at the SEAM datum — the seam-datum floor still routes
   through dist_split_A4_frozen's branch structure (the W-loss). The HCENTER
   wave leans on this exponent; the honest supply chain is the A.4 dichotomy
   + the per-t floor step (the V2 amendment's A-10), not the sInf stone.
@@ -12571,7 +12571,7 @@ residual), Lemma 4 (paper-completeness, register), S11's compose.
 NON-pretentious — 𝔻²(λχ̄, n^{it}; X) ≳ loglog X at EVERY centre — so the
 (1/16)loglog X pretentiousness cap carried by BOTH landed suppliers of
 the summit's cap branch (t0_band_supply's hMcap, T0Band :539–541;
-a2_station_supply_pointwise's hMcap, ThmA2Rows :753–755 — the SAME cap)
+a2_station_supply_pointwise's hMcap, ThmA2Rows :746–748 — the SAME cap)
 is FALSE for the M4 datum at every centre. The wave takes the CAP-FREE
 branch by necessity: prove CapFreeFloor (λχ̄) + a2Rows_of_capfree +
 thm_a2'_of_rows directly. New sub-stones: the cap-free T₀-band
@@ -12623,7 +12623,7 @@ orientation fixed ONCE).
 
 ## ⚠⚠ TLGATES-SCOPE: thm_a2' HAS NO MODELS as stated — two statement repairs required BEFORE the M4 wave (2026-07-27 19:57 PDT)
 
-**R1 — the ∀ j : ℕ contradiction (CRITICAL).** ThmA2Rows.lean:627–628
+**R1 — the ∀ j : ℕ contradiction (CRITICAL).** ThmA2Rows.lean:620–621
 demands ∀ j : ℕ, 2 ≤ m₀ j AND ∀ j : ℕ, (m₀ j : ℝ) ≤ ramRbot (H83 X
 theta293) Xd j. Since ramRbot H Xd j = Xd·exp(−j/H) → 0, any j >
 H·log(Xd/2) gives ramRbot < 2 ≤ m₀ j: the hypotheses are jointly
@@ -12640,7 +12640,7 @@ SeamNumber, SeamTerminal, GradedCapstone, ThmA2, ThmA2Rows), one sweep,
 full MR-tower rebuild [B, 300–600]. Statement change ⇒ Fable design block
 + JYH gate (iron rule 1).
 
-**R2 — A2Frame.box unsatisfiable outright.** ThmA2.lean:690–691 demands
+**R2 — A2Frame.box unsatisfiable outright.** ThmA2.lean:735–736 demands
 |t| + Tstar2(Mt j, log Mt j) ≤ X for all |t| ≤ X; at |t| = X this is
 X + (positive) ≤ X, FALSE (ramI nonempty, Tstar2 > 0). NOT a
 transcription slip — the ≤ X (vs the 3X used at four sibling sites) is
@@ -12712,7 +12712,7 @@ briefs must pin |t₀+v| vs |v| or the box silently moves.
 weighted-sup mirror target does not exist: the 1/(1+|t|) weight comes
 only from transfer_at_scale (BallSup:307) whose hypothesis IS the
 pretentiousness cap (D² ≤ SPartial/8 — false-for-λ by ~8×). The
-repair route: per-frequency center_halasz_supply_Y (SupplyGeneric:257,
+repair route: per-frequency center_halasz_supply_Y (in SupplyGeneric,
 genuinely cap-free) + unweighted sup + crude 2T₀ integral; C₁' then
 acquires (log X)^{1/30} (catch #253) and the gate demands
 **M₀ ≥ e·(1/15+1/500)·loglog X = 0.1867·loglog X in-statement** —
@@ -12746,11 +12746,11 @@ or add a Cq max-arm).
 **K7 — REGIME-CUT mechanics corrected (band survives ~150):** the fifth
 arm goes OUTERMOST-RIGHT paired with extraFloor — max(4-tower,
 max extraFloor U1floor) — keeping the left spine byte-identical
-(SpineFinal:805-810's le_max chains + spine_False_core_xi's :243 shape);
+(SpineFinal:806-811's le_max chains + spine_False_core_xi's :243 shape);
 DUPLICATE (~33 ln, primed names) into Salt/Entropy/Chowla/RegimeParam
 .lean, never relocate (All.lean ledger cites + RegimeHead's open-
 namespace refs); SECOND private blocker mutualInfo_window_comm'
-(SpineFinal:35, consumed :798); cite SpineFinal:749-829 (RegimeHead:76's
+(SpineFinal:36, consumed :798); cite SpineFinal:750-830 (RegimeHead:76's
 "294-323" is STALE — wrong theorem); use g := 2·ω·⌈…⌉₊ (real-division
 exact, no Nat-floor step); numerology all UNFOUNDED-safe (1300·L^25 ≥
 1308·L^24·log L for ALL L>0 since min L/log L = e).
@@ -12881,7 +12881,7 @@ Wave 0's R2 (the additive 3X mint) dispatched on the post-R1 base.
 
 ## VK-SCOPE: THE VK ROAD IS ~90% LANDED — zeta at alpha=3/4 IS ALREADY IN THE KERNEL (2026-07-28 07:19 PDT)
 
-one_line_pow_growth (Salt/MR/OneLinePowGrowth.lean:324, 353 ln):
+one_line_pow_growth (Salt/MR/OneLinePowGrowth.lean:323, 353 ln):
 ‖ζ((1+d')+it)‖ ≤ 8000005·(log|t|)^{3/4}·(loglog|t|)^4 for 0 ≤ d' ≤ 1,
 |t| ≥ exp(exp 100) — LANDED, axiom-clean, sitting on 18,278 lines of
 zero-sorry machinery: Salt/Vmvt/ (5,722 — vmvt at the classical
@@ -12908,7 +12908,7 @@ parallel); VT-3 the β-thread through Vk/{Core,Window,Windows,Mid} (~39
 phi sites) [C, 1.2–2.0k, critical path]; VT-4 the twisted ladder
 (Gauss completion + norm_LFunction_sub_partial_le truncation + the
 σ₀ = 1−Θ/2 Abel fold, mirroring OneLinePowGrowth) [C, 0.5–0.8k];
-VT-5 the ChiLLower.lean:653 swap + widening chi_Llower_341 past |t| ≤ 1
+VT-5 the ChiLLower.lean:651 swap + widening chi_Llower_341 past |t| ≤ 1
 [B, 0.2–0.4k, socket-shaped — dispatchable NOW against an assumed B];
 VT-6 the close into CapFreeFloor [B, 0.1–0.3k, parallel]. TOTAL NEW:
 2.3–4.1k, 3–5 days. THE PINNED TARGET SHAPE:
@@ -13068,7 +13068,7 @@ paper-completeness arc (GS-INV 7/27: "ONLY the paper arc, zero door-road
 consumers" — the earlier flags line conflating the eq-26 composition
 with the A2-5 seam is hereby corrected; they are DIFFERENT register
 items). THE DEEPER FINDING: hlive/M4LiveAgree as stated is JOINTLY
-UNSATISFIABLE with the row's sieve support (M4MeanSq.lean:83–85 admits
+UNSATISFIABLE with the row's sieve support (M4MeanSq.lean:106–108 admits
 it: any squarefree n in (X,N] coprime to qP gets a n = 0 from homega
 but ‖seamCoeff‖ = 1) — it is a dead-end NAME for a real obligation.
 The transport M4BandTransport is landed and a no-op at the exit; the
@@ -13188,7 +13188,7 @@ is now the documented LOSSY route.
 
 **THE REGISTER AFTER THE WAVE (three items):**
 1. **THE b-SLOT CUT** (W's honest blocker, Fable design): A2Frame3.err
-   pins b := ellLin g (CapFreeArm3:1093–1098); the door's doorCofactor
+   pins b := ellLin g (CapFreeArm3:1089–1094); the door's doorCofactor
    (carrying 1_𝒮(P·) + the phase) cannot inhabit it. Freeing b is a
    CapFreeArm3 statement change AND needs the Halász main term
    (ramMain … b c) checked at generic b — the refuter's genericity
@@ -13356,7 +13356,7 @@ points at block primes THROUGHOUT by construction; bfam ≡ 0 doesn't
 escape (hcoefBand then kills the whole support). THE WALL's second
 head: the R3 surgery deleted hwinPin (the Ramaré pin chain) but
 hwinBand (the K-block chain, a2Rows_of_capfree3's hcoef/hwin at
-Icc 1 Jb, ThmA2Rows:914–918) still stands. WALL1-SCOPE dispatched:
+Icc 1 Jb, ThmA2Rows:907–911) still stands. WALL1-SCOPE dispatched:
 the consumption census — can it fall to the hwinPin playbook (price
 what it protects instead of pinning)?
 
@@ -13837,7 +13837,7 @@ The verdict: **the priced residual dissolves WALL B**, with one design
 correction and three couplings, all named with bytes.
 
 **THE ONE CHANGED LINE:** `hcoefW` is consumed at exactly ONE point in
-the whole MR chain — SeamRowWindowed.lean:310's `sum_congr` over
+the whole MR chain — SeamRowWindowed.lean:333's `sum_congr` over
 `ramHonMR` (closed at bottom: `X ≤ p·m`). The endpoint defect at
 `p·m = X`, coprime `m`, is `(a X − b m·c p)/((ω(m)+1)·X^{1+it})` —
 byte-identical in shape to `ramP2corrMR`'s summand.
@@ -13865,7 +13865,7 @@ byte-untouched; four sites. The ε-window headroom VERIFIED from
 crumb needs 2688 via one new A-class stone `3(log X)³ ≤ X` →
 `673 + 2688 = 3361 ≤ 4320` — **fits with 959 to spare, no new named
 threshold**. ⚠ COUPLING 2: the ROW side moves one numeral — the
-register grading conjunct (M4DoorClose:278/M4T0Discharge:712) gains
+register grading conjunct (M4DoorClose:279/M4T0Discharge:712) gains
 `+ 8·(logb 2 (2Xd))²/Xd` (in-place register-conjunct strengthening,
 clears by ~10⁻¹⁰²).
 
@@ -13898,7 +13898,7 @@ targets (verify-posture law).
 ## ⟦BUDGET-SPLIT-SCOPE⟧: the third lever REFUTED — the premise CONFIRMED, WALL A dissolves under it, but ⟦WALL D — THE Ccc FLOOR⟧ found (scale-free, kills the current register too); the repair NAMED (2026-07-29 00:45 PDT)
 
 **THE PREMISE IS RIGHT (bank this):** the door's true contract is
-CONSTANT-capped — the head's slot (SpineFinal:861-863) is
+CONSTANT-capped — the head's slot (SpineFinal:880-882) is
 `∀δ, 0 < δ → δ ≤ δ₀ → MRTUniformityXi R δ → ¬logChowla2Fails` with δ₀
 fixed BEFORE `∀ extraFloor U1floor g`; `m4_exit_of_hbd` consumes hbd at
 the decaying `mrtDeliveredGrade C H` and IMMEDIATELY discards the decay
@@ -13921,8 +13921,8 @@ never runs; C drops out; incidentally log Hlo ≥ 3.6·10⁵⁷ puts gate 12's
 **BUT: ⟦WALL D — THE Ccc FLOOR⟧ (the refutation — NEW, scale-free,
 kernel-shaped, and it kills the UN-split register too).** Two
 DoorRowCarriedT0 conjuncts are keyed to the SAME (log X)^{-1/500} at
-the same instance: :712's threshold
-`5760·(a2RowsSum M Xd + Ccc·(2/M)) ≤ (log X)^{-1/500}` and :717's
+the same instance: :709's threshold
+`5760·(a2RowsSum M Xd + Ccc·(2/M)) ≤ (log X)^{-1/500}` and :714's
 envelope `… + 188133·(log X)^{-1/500} + … ≤ B` ⟹ the invariant
 **B·M ≥ 2.167·10⁹·Ccc** — no lever moves it (x cancels; g cancels).
 Instantiated at q=1,d=1,s=0,j:=j₀ through hdrift + m4BclGraded + han +
@@ -13932,10 +13932,10 @@ Against δ₀/2 ≈ 10⁻⁴⁹ the gap is ~10¹¹⁴. Ccc is exported only as
 0 < Ccc (from m4_door_meansq_carried) — no spine can rely on it small.
 Stronger than WALL A: no H-dependence at all.
 
-**THE NAMED REPAIR (the pivot: M4T0Discharge:710-712 vs :717 — the
+**THE NAMED REPAIR (the pivot: M4T0Discharge:707-709 vs :714 — the
 assembly capping each a2Mrow piece by the same (log X)^{-1/500}):** one
 factor of 1/M in the envelope's summand (or a strictly smaller exponent
-at :712 than :717) turns B·M ≥ K into B·M² ≥ K, whence
+at :709 than :714) turns B·M ≥ K into B·M² ≥ K, whence
 G² ≥ 2^38·18·K/log₂H → 0 — the wall becomes a FLOOR ON H, i.e. it
 CLOSES. **UNVERIFIED: whether the supply side can DELIVER the
 1/M-strengthened threshold** — a2RowsSum's honest magnitude in M and
@@ -13986,7 +13986,7 @@ the datum AT Xd; the Spine kill theorems have no proof consumers.
 
 THE OTHER AMENDMENTS (v2): (2) All.lean joins the touched list (the
 audit block :3595-3596 + prose :3573-3579); (3) hEP2 sites are FIVE
-(M4DoorRow:306 the missed re-export) + the E_priced_mr pair; (4) the
+(M4DoorRow:318 the missed re-export) + the E_priced_mr pair; (4) the
 3(log X)³ ≤ X stone inline from hL : 256 ≤ log X (no new binder — via
 e^{u/5} ≥ u/5); (5) rcases m BEFORE the agreement law in the
 band/puncture proofs (the m=0 absurdity precedes the rw); (6) sibling
@@ -14010,8 +14010,8 @@ re-thread, not two.**
 **VERDICT: UNDELIVERABLE at all three cut points.** The polarity is
 asymmetric — :712 is carried (strengthening costs no proof but pays
 nothing: the M cancels off the sieve term leaving Ccc ≤
-(log X)^{-1/500}/11520, false for large X, DEAD); :717's cut must be
-EARNED in hMrowLe (ThmA2:511-517). The honest recount: the a2RowsSum
+(log X)^{-1/500}/11520, false for large X, DEAD); :714's cut must be
+EARNED in hMrowLe (ThmA2:555-561). The honest recount: the a2RowsSum
 half DOES have a thrown-away 1/M (every term ≥M-graded except
 (2e+2)/Xd), but **the Ccc·(2/M) half is the Mertens block-free mass
 with its 1/M EXACT** — `log_calP_div_log_calQK : log P_j/log Q_j =
@@ -14024,7 +14024,7 @@ dies at the same object. The ∀d line is uniform (single register M).
 **THE DEEP FORM (verified, reproduces 2.04e16·Ccc):** the wall is
 **conjugacy, not bookkeeping** — block-free mass ≍ 1/depth against the
 length floor depth·2^18 ≤ log₂H, with the drift line charging
-≍ log₂H (m4Cmax H = 3(log₂H+1), M4Maximal:471 — the SOLE source of
+≍ log₂H (m4Cmax H = 3(log₂H+1), M4Maximal:472 — the SOLE source of
 the log₂H that cancels the floor EXACTLY). Re-calibrating calQK to
 depth M² buys 1/M² in the mass and pays it back in the floor — the
 product is invariant. No supply-side re-cut at any depth produces the
@@ -14101,7 +14101,7 @@ Hlo ≥ f(M); M is post-R but U1floor is pre-R, and ChowlaRegime exports
 NO Hhi upper bound (hfit forces Hhi UP only). A refuter sets
 log Hhi = 2^{10^9} and breaks any pre-fixed Hlo. REPAIR: export
 log R.Hhi ≤ f(log R.Hlo) from the tower construction
-(chowlaRegime_exists_param_head', RegimeParam:510; benign in fact —
+(chowlaRegime_exists_param_head', RegimeParam:543; benign in fact —
 log Hhi ≈ (log Hlo)^{1+o(1)} — but NOT exported). ~200–500 ln + 3
 conjuncts, **Fable/JYH-tier statement change** (SpineFinal/regime
 territory). Schedule REGARDLESS of design choice.
@@ -14149,8 +14149,8 @@ absorbed. Free to witness, harmless to the wall, but a register
 statement change at 6 sites — **rule at council; belongs in the ONE
 combined register re-thread with E-7/E-8/the split**. ⟦A3⟧ the honest
 census: **6 files ~1000–1400 ln** — the maximal assembly has THREE
-copies (M4Maximal + M4CoprimeSupply:414-646 live via M4Collapse:233 +
-M4BaseNarrow:265-502) and M4Spine:335-444 reads the head's exact
+copies (M4Maximal + M4CoprimeSupply:409-632 live via M4Collapse:234 +
+M4BaseNarrow:260-488) and M4Spine:345-461 reads the head's exact
 bytes (defeq — build-breaks on the def change, ~80 ln re-cut);
 M4DoorRow:461-476 collides with the E-EXECUTOR set — sequence it.
 FREE WINS: the Engel-form lemma; c = 3/2 over 25/16 (10.80, head
@@ -14233,7 +14233,7 @@ shapes move** — everything else consumes the anchor through Adoor_ge
 (monotone, verbatim). Every anchor-sensitive gate moves FAVOURABLY
 (A_gate_logK margin 221× → 895265×; a2Level1 shrinks; H1_two easier;
 the arc floor anchor-independent). The x-floor rises log x ≥ 10^{473}
-→ 10^{480} — one-sided (RegimeParam:498-517 states the law; g is
+→ 10^{480} — one-sided (RegimeParam:531-550 states the law; g is
 spine-choosable after R) and 2.9e9 ORDERS below the floor hheadroom
 already imposes. **The anchor re-pin is cheap; it re-pins the
 JYH-ratified 7/26 B₅/door design (DoorFrame) — council ruling
@@ -14345,15 +14345,15 @@ byte-identical to capFreeFloor3_liouChi_all's hypothesis — the VK
 zero-free-region debit); nothing narrows q; no branch avoids it (the
 only case split is row-length, not modulus). **SCOPE AMENDMENT: F5 is
 the FOURTH wall on m4_wave_collapsed's register (A, B, D, F5), NOT a
-new kill of a live object — M4Spine:51 already banks the register as
+new kill of a live object — M4Spine:54 already banks the register as
 true-but-vacuous. F5 does NOT touch m4_wave_exit (M4Join's six-item
 register; residue M4RowMeanSq). What F5 kills is THE PER-χ DOOR
 SUPPLY ROUTE (thm_a2' + capFreeFloor3) — precisely the route D-1's
 KMT port REPLACES.**
 
 **R3 the arithmetic — the coefficient is EXACTLY 28 = 32·(1/8 + 1/4
-+ 1/2)** (the VK debit pieces at VkTwistClose:442/447 +
-VkTwistLadder:545); the e^{e^100} block contributes an X-free floor
++ 1/2)** (the VK debit pieces at VkTwistClose:439/444 +
+VkTwistLadder:544); the e^{e^100} block contributes an X-free floor
 2.15e44 the corpus already knows (CapFreeAssembly:96 — VT-7 drops it
 to ~10³). With F4 repaired AND VT-7 granted AND every dial set in
 F5's disfavour: **fails 9.79e4× at the global optimum (k=18), 1.76e7×
@@ -15222,7 +15222,7 @@ VK-forgetting-class miss, now fenced: §6's header carries the counter-wave poin
 route (`thm_a2'` + `capFreeFloor3`) pays `q`-linear thresholds at TWO places:
 `m4_meansq_per_chi_gen`'s `32·((1/8)·log q + (1/4)·q + …) < loglog X`
 (`M4MeanSq.lean:626-630`) and the T₀-band's coefficient-700 twin
-(`M4T0Discharge.lean:308/:441/:574`).  At `q ≤ arcDen 12 H = (log H)^{12}` that IS
+(`M4T0Discharge.lean:307/:439/:571`).  At `q ≤ arcDen 12 H = (log H)^{12}` that IS
 F5 (fails ×9.79e4 at its best point; F4 repairs only the `(1/4)q` half of ONE of
 the two).  The erratum to the A4 STOP entry above: replace "meets M4DoorRow's two
 walls" with "meets the F5/F4 q-linear gates" — which is precisely the route the
@@ -15514,9 +15514,9 @@ per-ordinate; there is no collision geometry, no φ(q) balls, no
 Landau-Page count.  (`CofactorSupply`'s dichotomy is the OLDER q=1
 branch, superseded at the door by `CofactorSupplier`/`CaseAWide`.)
 (2) The `(1/4)q` gate has the LANDED F4+VT-7 sibling
-`capFreeFloor3_pieceDatum_vt` (VkMidSharp:559, byte-identical
+`capFreeFloor3_pieceDatum_vt` (VkMidSharp:557, byte-identical
 conclusion, audited at All.lean:3812-3868).  DECISIVE:
-`m4_supplier_complete` (CaseAWide:810)'s ONLY χ-dependent hypothesis is
+`m4_supplier_complete` (in CaseAWide)'s ONLY χ-dependent hypothesis is
 the `∀𝒥` cap-free floor at `pieceDatum χ` — the numeric bound
 `2^J·Rbar0` is CHARACTER-UNIFORM BY CONSTRUCTION.  **Rbd contributes
 ZERO φ(q)** (A3's binder is pointwise in `(χ,t)` — no Σ_χ), confirming
@@ -15533,7 +15533,7 @@ has no second horn.
 **⟦ERRATUM TO REF-A4-MATH (refuter-refutes-refuter, banked honestly)⟧**
 The "category error" verdict on the `144λ + 2e3` baseline was ITSELF in
 error: `144λ = 32·(3/8)·log q` at `log q ≤ 12λ` is the LIVE VT-7
-cap-free threshold (VkMidSharp:559), not a dead route's artifact.  The
+cap-free threshold (VkMidSharp:557), not a dead route's artifact.  The
 resolution of the apparent conflict: **F5 killed the floor's ROW-SUPPLY
 consumer (`a2Rows_of_capfree3` against `hgRows`'s upper cap); it never
 killed the CO-FACTOR-SOCKET consumer** — a different consumer of the
@@ -16720,11 +16720,11 @@ first-attempt; ZERO deletions.  THE DAY CLOSES with every agent home:
 the ceiling ladder's free rung built, the floor ladder priced, the
 35-bit residual named, and the council slate drawn.
 
-## (2026-07-30 12:41 PDT) DELTA-SCOPE returns — THE 539-BIT GIANT IS ONE BYTE (CircleMethod:403); the L² restructure: b 602 → 64, closing at the FREE ceiling; + EXPOSE-CERT lands (37/37 clean)
+## (2026-07-30 12:41 PDT) DELTA-SCOPE returns — THE 539-BIT GIANT IS ONE BYTE (CircleMethod:448); the L² restructure: b 602 → 64, closing at the FREE ceiling; + EXPOSE-CERT lands (37/37 clean)
 
 **⟦THE FINDING OF THE CAMPAIGN⟧**  K is NOT an energy constant — it is
 |Ξ|, the major-arc frequency COUNT (bigXi eps H); the door pays a full
-δ once per frequency ONLY because CircleMethod.lean:403 throws the
+δ once per frequency ONLY because CircleMethod.lean:448 throws the
 second Fourier factor away at its trivial bound H (one gcongr byte,
 squared through the spine into 1e162).  THE EXCEEDANCE HYPOTHESIS
 REFUTED BY ARITHMETIC (Parseval mass 1 sits 5 orders ABOVE the target;
@@ -17456,7 +17456,7 @@ once.  One amendment: the consumer pays BOTH ε-windows via
 doorFuseFrame_reEps (sound, redundant, not a defect).
 
 **THE FIVE DEFECTS.**
-⟦D1 THE POOL PINCH, kernel⟧ hone : 1 ≤ π₀ (M4ArithPrime:152)
+⟦D1 THE POOL PINCH, kernel⟧ hone : 1 ≤ π₀ (M4ArithPrime:153)
 contradicts the summand-3 price 188133·π₀·e^{14λ} ≤ ρ/2 —
 m4_chiSummedFreeRow_of_doorAssembly_join UNINSTANTIABLE as landed
 (the R4 exits bypass it; the closure keeps a live path).  REPAIR
@@ -17827,7 +17827,7 @@ the convergent road = constPool + positive εr + B4 through the cap
 bundle (abs8640 then honest — and MSelect2's x-scale discharge, the
 RESERVE, becomes load-bearing exactly as designed).
 ⟦ITEM 2 — THE B5 HOIST: READY⟧ seven links mapped (the separation
-point = S11Hoist:323-325, the ONLY place M enters); the ~40-line
+point = S11Hoist:321-323, the ONLY place M enters); the ~40-line
 escape DEAD (log 𝒬₂/log 𝒫₁ = 49152·M² EXACTLY — no M-uniform mass
 bound) BUT the absorption WORKS: windowMassConst ≤ e^{26.25}·
 49152^{1.05}·M^{2.1} (kernel-green, probe_absorb) vs the grade RHS
@@ -18050,7 +18050,7 @@ Captain's coffee, with the width law as its wall map.
 
 ## (2026-07-30 23:24 PDT) COMPOSE-2 LANDS: logChowla2_conditional FIRED (15/16 discharged; S15Compose 1022 ln, 30/30 axioms) -- the capstone MODULO the named crossing bound; the 2484 catch; a CLAIMED second width leg (refuter dispatched)
 
-⟦THE FIRE⟧ logChowla2_conditional (S15Compose:839): the const
+⟦THE FIRE⟧ logChowla2_conditional (S15Compose:869): the const
 capstone at the working point — Cp := 0, epsrf ≡ θ₂₉₃−1/500 (fired
 at the UPPER endpoint, the reserve paying abs8640), C₁ ≡ 1, M₀ :=
 s13BandM0, U1floor ≥ max Hcap (arcFloor36, loglogFloor50) PINNING
@@ -18219,7 +18219,7 @@ CAPTAIN'S RULING REQUIRED.
 
 ## (2026-07-31 07:45 PDT) SEL-WITNESS lands (723 ln, 33 decls): THE PEARL BANKED -- S15Sel' DISCHARGED at numerals, S15CrossingBound THE ONLY SURVIVING OBJECT; + the loud-stop theorem DIAGNOSED STALE by the maestro; + a ledger correction (J-REF was claimed dispatched before the dispatch)
 
-⟦THE PEARL⟧ logChowla2_conditional_sharp_nonvacuous (S15Witness:544):
+⟦THE PEARL⟧ logChowla2_conditional_sharp_nonvacuous (S15Witness:617):
 the witness tuple (Hlo = ⌈e^{10³⁰}⌉, λ₋ ∈ [50, 69.3], M = the max of
 the floors ≤ 2^56, ρ ≥ 2⁻⁵¹) discharges ALL ELEVEN S15Sel' lines at
 numerals — the register vacuity CLOSED with a kernel witness;
@@ -18254,7 +18254,7 @@ at large J).
 
 ## () WITNESS-LIVE: STALE CONFIRMED -- the register NON-EMPTY at the live forms (kernel, probe_live_sel'_witness); the margin corrected to ~1 BIT; the 2.63x prose slip caught and fixed; the reachability price COLLAPSES (3 leaves, K-free) -- EPSPIN + X0MFL fly
 
-THE VERDICT at the bytes: the live head (HloExport:433) emits δ₀ =
+THE VERDICT at the bytes: the live head (HloExport:434) emits δ₀ =
 cD3/(16C)·ε/4 — K-FREE, /4 not /(2K); delta0Expr certifies the OLD
 L¹ head (SpineFinal:873, /(2K), 2^-556.89) which the live road NEVER
 consumes.  The live closed form s13Delta0 = 2^-19.676; the live
@@ -18532,10 +18532,10 @@ lower bounds compete, the reduction must be probed at the STRONGER.
 ⟦THE REPAIR, exact⟧ K was never re-cut when X0MFL's witness moved
 λ₋ 69 → 277: the demand is K ≈ 3.075e7 — INSIDE the frame's own
 ceiling 1.7e8 (the lever ceiling J-REF certified).  One numeral at
-S15Witness:1649 (500000 → 30800000) + hK norm_num + the M-window
+S15Witness:1705 (500000 → 30800000) + hK norm_num + the M-window
 re-verify (blk is a λ₊-lower of 12.4, benign) + the S16 supply
 re-verified at the new K.  ⟦REF-REPAIR AMENDED mid-flight⟧: + the
-K re-cut + the prose corrections (S16Budget:41's weak-floor line;
+K re-cut + the prose corrections (S16Budget:42's weak-floor line;
 the 2.4×→1.5× margin honesty; the eight-incl-hx0win wording).
 ⟦THE STRUCTURAL NOTE for the dossier⟧ the summit object's shape
 ∃c, P c ∧ (Q c → R c) asserts Q nowhere — a COMPANION NON-VACUITY
@@ -18607,7 +18607,7 @@ register.  THE WAVE (L2-PROD, ~700-1000, zero twins re-cut): W1 the
 prime-set-generic Euler-product engine (~200, C — THE ONE RISK,
 read-verified not compiled); W2 jMask_mass_le_prod (~150, B); W3
 the _prod twins (~250, B); W4 lift P6 + re-witness Cb (~120, A/B —
-the statement at S11Hoist:1244 UNCHANGED, only the witness moves);
+the statement at S11Hoist:1234 UNCHANGED, only the witness moves);
 W5 optional: Mfl removed-because-proven under log C ≤ 40 (the C2
 companion lane).  THE SCOPE'S ERRATUM banked: M4T0DatumDischarge:50
 ("both enter C' linearly, so the exit is indifferent") — TRUE
@@ -18636,7 +18636,7 @@ forced-equality tell noted.  The new terminal:
 logChowla2_witnessed_scale_final'_Cproven (C in the prefix).
 Build 9635 exit-0 maestro-verified; 15/15 axioms.
 
-## () HCAP-SCOPE: THE THIRD FACE IS REAL -- a GIANT, kernel-certified, definitional (BudgetCore:21: the height-3 tower is IN THE DEF; budgetX >= 270270 at EVERY admissible eps/beta -- 12 probes); the streak holds at three-of-three; the two live directions are D-TIER -- THE DESIGN COUNCIL'S NEXT MOUNTAIN
+## () HCAP-SCOPE: THE THIRD FACE IS REAL -- a GIANT, kernel-certified, definitional (BudgetCore:26: the height-3 tower is IN THE DEF; budgetX >= 270270 at EVERY admissible eps/beta -- 12 probes); the streak holds at three-of-three; the two live directions are D-TIER -- THE DESIGN COUNCIL'S NEXT MOUNTAIN
 
 THE CLEAN FORM: the entropy budget demands logloglog H >= 6.5e19;
 the register's lambda-ceiling permits logloglog H <= 6.24 — a factor
@@ -18655,7 +18655,7 @@ originates in ONE ratio line (logloglog H >~ 3000·log4/(eps^6·beta^2))
 — the spine-side design question; (ii) decouple the socket base
 scale from H so the cap stops being cubic in lambda — the carried,
 underived S16BaseScaleCap is the symptom.  The honest residual: the
-lambda-cubed link lives as design prose (S16Budget:50), but the
+lambda-cubed link lives as design prose (S16Budget:51), but the
 verdict is independent of it (the anchor ceiling 277.7 + the_third_
 face kill any ceiling <= 512).  CONSEQUENCE FOR THE BOARD: even
 after L2-PROD lands (the Mfl face dies), the final object stays
@@ -18685,7 +18685,7 @@ scopers establish the honest facts under each face before any freeze.
 
 THE WAVE: the prime-set-generic Euler engine (P,Q entered only
 through membership — the scoper exact); jMask_mass_le_prod + the
-_prod twins; P6 lifted verbatim; the re-witness at S11Hoist:1329
+_prod twins; P6 lifted verbatim; the re-witness at S11Hoist:1319
 STATEMENT-BYTE-IDENTICAL (only the ∃-witness moved: Cb = C·4^Aexp·
 (e^{52.5}·4^{1.05}) + 1, ~1.7e25·C, NO K); both consumers fire
 unchanged; whole-corpus green.  Mfl no longer sees K: the first
@@ -18759,7 +18759,7 @@ maestro-verified; 12/12 axioms.
 
 ## () H2-CONSTANTS: HARD -- the chase's honest max A ~ 5.4e14 (fantasy+redesigns 1.8e5) vs the 86.65 window; THE KERNEL FLOOR A >= 1.7e6-3.9e7 (a THEOREM about the dyadic window; cD3 <= log2 is the Mertens TRUTH; closing at the landed shape needs eps >= 6 vs <= 1/2). THE MASTER FORMULA banked (the couplings: cD3 at exponent 10; C0 = 2log4 -> 1/2 the biggest unlisted item at 2.2e6; the window-width K the only lever past the log2 ceiling, D-tier). BUT ⟦THE SYNTHESIS -- H1 x H2⟧: THE 86.65 WINDOW IS ITSELF THE WITNESS-FLOOR ARTIFACT (the frozen s15WitFloor2, chosen for the OLD road): the flat road pins ITS OWN floor (flatWitFloor -- the Hcap comparison is a landed THEOREM there), and H1's p9 proves the LINEAR door hosts the full flat width UNIFORMLY IN A -- so A does NOT need to shrink: λ₋ = 3.2A grows with it and NOTHING at the linear door caps λ₋ from above (H1: blk/x0M/bfloor/mfloor/rho all clear or eased; lvl/gRows at 55 orders). THE FACE DISSOLVES BY UNFREEZING, NOT BY CHASING. THE ROAD: the _L arithmetic-page wave (H1's repair, ALREADY-RATIFIED as the mandatory Adoor re-cut's unfinished half) -> the register witness at λ₋ = 3.2A -> the flat compose re-fired at the linear door. H2's S1-tier gains (f=1, q=2: 16x, class B) ride along as freebies; the deep chase NOT load-bearing. ⟦LINEAR-PAGE dispatched⟧
 
-## () H3-SHAPE: **THE WIDTH LAW IS A THEOREM** (kernelized shape-free, 19 probes): ANY threshold with phi >= A_b crossing log2 forces (c+lambda+) >= 2^{(20/21)A_b}(c+lambda-) -- THE FLAT TOWER IS EXTREMAL (no shape beats it by more than 2x in the exponent base; the landed logloglog pays the SAME A_b on the scale axis -- the height-3 budgetFloor IS that bill); the mixed-design question CLOSED; the cheap-levels escape CLOSED (the pigeonhole discharge is uniform-at-the-base: HloExport:464); the Q-ary escape priced absurd; THE ONE STRUCTURAL DOOR LEFT: a step lemma whose concatenation error is not eps^2/m. FREEBIES: eps <= cD3/16 (not 1/500) = 1.4e7 free in A_b; the Fannes UPPER phi <= L/(6log2) noted (free at the design law). ⟦THE RECONCILIATION -- maestro note⟧ H3's "H1 buys only 350 bits" ran at the FROZEN M = 2^355 and did NOT ingest H1's design-law scaling (M = e^{lambda-/2}/3e5 GROWS): H1's p9 is kernel -- the linear pair hosts lambda+ = lambda-*4^{0.95A} UNIFORM IN A -- the register supplies B = 1.9A bits exactly when the law demands A_b <= B. THE SYNTHESIS STANDS: flat tower + linear door + growing M = the road; H2's chase not load-bearing; H3's law = the publishable by-product (the entropy-decrement width law -- The Witness's companion theorem). THE COMPOSE REFUTER MUST VERIFY THE JOINT POINT EXPLICITLY (lambda- = 3.2A, M = e^{lambda-/2}/3e5, anchor-linear, the width law, the budget, Fannes -- ALL simultaneously; the three hunts ran parallel and never met in one kernel statement). LINEAR-PAGE aloft; COMPOSE-FLAT-2 + the joint refuter after.
+## () H3-SHAPE: **THE WIDTH LAW IS A THEOREM** (kernelized shape-free, 19 probes): ANY threshold with phi >= A_b crossing log2 forces (c+lambda+) >= 2^{(20/21)A_b}(c+lambda-) -- THE FLAT TOWER IS EXTREMAL (no shape beats it by more than 2x in the exponent base; the landed logloglog pays the SAME A_b on the scale axis -- the height-3 budgetFloor IS that bill); the mixed-design question CLOSED; the cheap-levels escape CLOSED (the pigeonhole discharge is uniform-at-the-base: HloExport:465); the Q-ary escape priced absurd; THE ONE STRUCTURAL DOOR LEFT: a step lemma whose concatenation error is not eps^2/m. FREEBIES: eps <= cD3/16 (not 1/500) = 1.4e7 free in A_b; the Fannes UPPER phi <= L/(6log2) noted (free at the design law). ⟦THE RECONCILIATION -- maestro note⟧ H3's "H1 buys only 350 bits" ran at the FROZEN M = 2^355 and did NOT ingest H1's design-law scaling (M = e^{lambda-/2}/3e5 GROWS): H1's p9 is kernel -- the linear pair hosts lambda+ = lambda-*4^{0.95A} UNIFORM IN A -- the register supplies B = 1.9A bits exactly when the law demands A_b <= B. THE SYNTHESIS STANDS: flat tower + linear door + growing M = the road; H2's chase not load-bearing; H3's law = the publishable by-product (the entropy-decrement width law -- The Witness's companion theorem). THE COMPOSE REFUTER MUST VERIFY THE JOINT POINT EXPLICITLY (lambda- = 3.2A, M = e^{lambda-/2}/3e5, anchor-linear, the width law, the budget, Fannes -- ALL simultaneously; the three hunts ran parallel and never met in one kernel statement). LINEAR-PAGE aloft; COMPOSE-FLAT-2 + the joint refuter after.
 
 ## () LINEAR-PAGE LANDS (2 files, 9653 exit-0): THE ACCEPTANCE THEOREM s15_sel_L_witness_flat -- the register AT THE FLAT DESIGN POINT, **NO UPPER BOUND ON A ANYWHERE** (H1xH2's synthesis kernelized); the two transport-freenesses (linear anchor WEAKER -> supply transports down; linear socket STRONGER -> consumption transports up -- the ~97 floor-sites need NO twin); half binding by design (M at its ceiling); x0M second-tightest at 1.24x (A REAL design constraint on the x0 window, flagged); the blk line = one inequality (y^4/256 <= e^y). RESIDUE for the re-fire: M4ArithPrime/_L + M4AssemblyFrames/_L twins + the socket form. ⚠ MAESTRO CATCH: the acceptance witness carries the OLD narrow riders (1/2^10 delta0 -- FALSE at the pinned 1/838400! -- and Kc/Ct at 2^20): THE RE-FIRE MUST USE THE WIDE FORMS (S16Budget §6.6: 1/2^20 + charge 403 + 2^539/2^23). ⟦COMPOSE-FLAT-2 dispatched⟧
 
@@ -18769,17 +18769,17 @@ maestro-verified; 12/12 axioms.
 
 ## () CATCH #103 + THE HONEST REVERT: the LADDER-L seal pushed RED (the pipe swallowed lake's exit -- catch #96 re-violated at the worst moment) -- ONE missing cross-group lemma (m4_hrowsSlot_at_door_zero'_L_gk: G2 minted the _L slot, G3 assumed the _gk twin) breaks M4ClosureRepairLinear's fuse chain; excision cascades (two consumers), so MAIN IS REVERTED TO GREEN (f190f64; the ~660-twin wave PRESERVED in history at 7fced40 -- recoverable by revert-of-revert + the one lemma). THE RE-LAND next sitting: mint the _gk slot twin (~40 ln, the _L body at the levered pool), revert the revert, build-gate with $? NEVER the pipe, seal. The terminal logChowla2_witnessed_scale_flat_L and its whole chain are IN 7fced40, one lemma from green.
 
-## (2026-08-01 20:54 PDT) RELAND: **CATCH #103 CLOSED -- THE LADDER-L WAVE IS BACK IN THE TREE, GREEN** (revert-of-revert f190f64 + FOUR minted cross-group twins, +203 ln in M4RowsChiPrimeLinear, build 9672 exit-0 VERIFIED BY $?): the named missing lemma `m4_hrowsSlot_at_door_zero'_L_gk` (consumed at M4ClosureRepairLinear:990 and S16FlatTerminalLinear:156) + its engine instance `m4_hrowsSum_chi_door_zero'_L_gk` (G = s13GK K M, frame calFrameK_doorH1_at_L_gk, whence K <= 1.7e8); THEN the first build surfaced TWO MORE of the same genre -- `m4_chiSummedFreeRow_of_doorAssembly_pool_end'_L_gk` and `_pool_zero'_L_gk`, named by All.lean's #audit_axioms (which FAILS on an unknown constant, so a decl the ledger claims but the tree lacks is a build error, not a silent gap) -- minted from :220/:368 the same way. All four are PURE SUBSTITUTION twins of their un-levered originals (3072*M -> s13GK K M; doorCoeffU_L/doorChiCoeff_L/DoorRowZeroBase_L/a2Mrow'_L/a2DoorGrade_pool_L/M4ChiSummedFreeRow_L/DoorFuseFrame_pool'_L at their _gk forms; m4MrowChiEnd'_le_a2Mrow'_L_gk and blockLive_winCutH_doorCoeffU_L_gk the levered helpers) -- NO new design, no statement moved. logChowla2_witnessed_scale_flat_L audits ✓ 3 axioms; 186 warnings, byte-identical to the pre-reland count; 0 errors. THE EXIT-CODE LAW HELD: lake's status taken from $? through redirection only, never a pipe.
+## (2026-08-01 20:54 PDT) RELAND: **CATCH #103 CLOSED -- THE LADDER-L WAVE IS BACK IN THE TREE, GREEN** (revert-of-revert f190f64 + FOUR minted cross-group twins, +203 ln in M4RowsChiPrimeLinear, build 9672 exit-0 VERIFIED BY $?): the named missing lemma `m4_hrowsSlot_at_door_zero'_L_gk` (consumed at M4ClosureRepairLinear:979 and S16FlatTerminalLinear:157) + its engine instance `m4_hrowsSum_chi_door_zero'_L_gk` (G = s13GK K M, frame calFrameK_doorH1_at_L_gk, whence K <= 1.7e8); THEN the first build surfaced TWO MORE of the same genre -- `m4_chiSummedFreeRow_of_doorAssembly_pool_end'_L_gk` and `_pool_zero'_L_gk`, named by All.lean's #audit_axioms (which FAILS on an unknown constant, so a decl the ledger claims but the tree lacks is a build error, not a silent gap) -- minted from :220/:368 the same way. All four are PURE SUBSTITUTION twins of their un-levered originals (3072*M -> s13GK K M; doorCoeffU_L/doorChiCoeff_L/DoorRowZeroBase_L/a2Mrow'_L/a2DoorGrade_pool_L/M4ChiSummedFreeRow_L/DoorFuseFrame_pool'_L at their _gk forms; m4MrowChiEnd'_le_a2Mrow'_L_gk and blockLive_winCutH_doorCoeffU_L_gk the levered helpers) -- NO new design, no statement moved. logChowla2_witnessed_scale_flat_L audits ✓ 3 axioms; 186 warnings, byte-identical to the pre-reland count; 0 errors. THE EXIT-CODE LAW HELD: lake's status taken from $? through redirection only, never a pipe.
 
 ## (2026-08-01 21:26 PDT) **THE FLAT TERMINAL'S THREE FREE REPAIRS -- both refuters' defects closed, build 9672-scale exit-0 VERIFIED BY $?** (HONEST-FIX, executing REF-FLAT-HONEST + REF-FLAT-SAT)
 
 **REFUTER VERDICTS.** REF-FLAT-HONEST: *"HONEST on the conclusion; NOT VACUOUS -- the decisive check PASSES with margin. Two exact statement-level DEFECTS, both repairable, neither touching soundness."*  REF-FLAT-SAT: *"SATISFIABLE modulo the named opaques -- certificate `rfs_joint_certificate` kernel-elaborated, 3 axioms -- with ONE EXACT DEFECT on survivor 4 (the width demand), in two independent parts, both repairable, neither analytic."*
 
-**REPAIR 1 (HONEST DEFECT 1) -- the dropped width certificate, restored.** `S16FlatTerminalLinear:1211` bound `hRtow : 50 <= loglog H- -> loglog H+ <= e^{loglog H-/2}` and the `refine` at `:1215` DISCARDED it -- the only handle on `R.Hhi` (`ChowlaRegime` carries no upper bound on `Hhi` in terms of `Hlo`), so rider 4 was un-dischargeable from the terminal's own exports and §7's pricing lemma was dead code relative to §6. The terminal's statement is AMENDED IN PLACE (it landed today, consumed nowhere but §7): the width certificate is conjunct 4 of the regime's export list. Also ported HONEST's sharper brick `rfh_flat_arm_sharp` as `flat_arm_width_sharp` + a base-free generalization `flat_arm_width_sharp_tolerant` (any `loglog H- <= e^{A/10}`, ~10^7 at A=162 vs the design law's 518.4) and the pricing lemma `flat_L_width_of_flat_arm` off `towerFlat_width_le` -- no equality demand on the base, unlike the width-law route.
+**REPAIR 1 (HONEST DEFECT 1) -- the dropped width certificate, restored.** `S16FlatTerminalLinear:1208` bound `hRtow : 50 <= loglog H- -> loglog H+ <= e^{loglog H-/2}` and the `refine` at `:1213` DISCARDED it -- the only handle on `R.Hhi` (`ChowlaRegime` carries no upper bound on `Hhi` in terms of `Hlo`), so rider 4 was un-dischargeable from the terminal's own exports and §7's pricing lemma was dead code relative to §6. The terminal's statement is AMENDED IN PLACE (it landed today, consumed nowhere but §7): the width certificate is conjunct 4 of the regime's export list. Also ported HONEST's sharper brick `rfh_flat_arm_sharp` as `flat_arm_width_sharp` + a base-free generalization `flat_arm_width_sharp_tolerant` (any `loglog H- <= e^{A/10}`, ~10^7 at A=162 vs the design law's 518.4) and the pricing lemma `flat_L_width_of_flat_arm` off `towerFlat_width_le` -- no equality demand on the base, unlike the width-law route.
 
-**REPAIR 2 (HONEST DEFECT 2) -- the prose.** §7's "nothing analytic is asked" and §6's "asks the base to sit AT its design law" are REPLACED by the true content: the width rider is a quantitative bound on the SIEGEL-INEFFECTIVE `K_Chen` inside `Hopq` (`H0red = H0D3 = max(96^8, ceil(e^{64 K_Chen})+1)`, FORMALLY UNBOUNDED at S16Budget:887) -- the same genre as the `x0` window, not a free lunch. §6's riders 1-2 "TRUE at the chain's witness" softened to "true at the CLOSED FORMS `KExpr`/`6e^14`; the chain's `Kc`/`Ct`/`x0` are opaque exists-constants exporting ONLY positivity, and the identification with the closed form is prose, not kernel".
+**REPAIR 2 (HONEST DEFECT 2) -- the prose.** §7's "nothing analytic is asked" and §6's "asks the base to sit AT its design law" are REPLACED by the true content: the width rider is a quantitative bound on the SIEGEL-INEFFECTIVE `K_Chen` inside `Hopq` (`H0red = H0D3 = max(96^8, ceil(e^{64 K_Chen})+1)`, FORMALLY UNBOUNDED at S16Budget:881) -- the same genre as the `x0` window, not a free lunch. §6's riders 1-2 "TRUE at the chain's witness" softened to "true at the CLOSED FORMS `KExpr`/`6e^14`; the chain's `Kc`/`Ct`/`x0` are opaque exists-constants exporting ONLY positivity, and the identification with the closed form is prose, not kernel".
 
-**REPAIR 3 (SAT's defect part b) -- the `Nat.ceil` overshoot, PRICED.** The pinned base `flatDesignBase A = ceil(e^{e^{3.2A}})` overshoots: kernel-provable is `loglog <= 3.2A + log 2`, NOT `<= 3.2A`, so the road's export `e^{lam-/2}` lands at `2*e^{1.6A}` and misses the literal rider by a factor <= 2. The register's Lambda slot is WIDENED to `2 * Real.exp (3.2*A/2)` at the 10 named sites (S15SelLinear:272,532; S15SelLinearWide:114,138,211,254,266,288 + the new `flat_anchor_line_wide`; FlatFloorBump:162); the four Lambda-spending lines re-verified (gRows 915x -> 457x, anchor 898x -> 449x, lvl 913x -> 455x, gP1 10^4x); two internal constants moved with them (`s15_sel''_L_witness_flat`'s blk: hlhs `19 -> 55`, hbig `6 -> 15` with `E^2 >= 1.0066e9`). §5b ports SAT's ARM CENSUS (`flat_arm_arcFloor_le`, `flat_arm_loglogFloor_le`, `flat_arm_flatBase_le`, `flat_arm_eps_le`, `flat_arm_budget_le`, `flat_designFloor_eq_designBase`, `flat_witFloor_eq_designBase`) + `flatDesignBase_loglog_le` + `flat_L_width_priced`. **Net: the width demand is REMOVED-BECAUSE-PROVEN** -- exported as a FACT (`loglog H+ <= 2*e^{1.6A}`), and the surviving Siegel-honest condition is `Hopq <= flatDesignBase A`, hoisted to the antecedent list. The terminal's inner implication now carries EXACTLY ONE hypothesis: the crossing bound.
+**REPAIR 3 (SAT's defect part b) -- the `Nat.ceil` overshoot, PRICED.** The pinned base `flatDesignBase A = ceil(e^{e^{3.2A}})` overshoots: kernel-provable is `loglog <= 3.2A + log 2`, NOT `<= 3.2A`, so the road's export `e^{lam-/2}` lands at `2*e^{1.6A}` and misses the literal rider by a factor <= 2. The register's Lambda slot is WIDENED to `2 * Real.exp (3.2*A/2)` at the 10 named sites (S15SelLinear:291,572; S15SelLinearWide:117,142,216,259,272,296 + the new `flat_anchor_line_wide`; FlatFloorBump:393); the four Lambda-spending lines re-verified (gRows 915x -> 457x, anchor 898x -> 449x, lvl 913x -> 455x, gP1 10^4x); two internal constants moved with them (`s15_sel''_L_witness_flat`'s blk: hlhs `19 -> 55`, hbig `6 -> 15` with `E^2 >= 1.0066e9`). §5b ports SAT's ARM CENSUS (`flat_arm_arcFloor_le`, `flat_arm_loglogFloor_le`, `flat_arm_flatBase_le`, `flat_arm_eps_le`, `flat_arm_budget_le`, `flat_designFloor_eq_designBase`, `flat_witFloor_eq_designBase`) + `flatDesignBase_loglog_le` + `flat_L_width_priced`. **Net: the width demand is REMOVED-BECAUSE-PROVEN** -- exported as a FACT (`loglog H+ <= 2*e^{1.6A}`), and the surviving Siegel-honest condition is `Hopq <= flatDesignBase A`, hoisted to the antecedent list. The terminal's inner implication now carries EXACTLY ONE hypothesis: the crossing bound.
 
 **THE AMENDED EXPORT LIST** (`logChowla2_witnessed_scale_flat_L`): prefix unchanged (`0<eps, 1<=Cg, 0<Kc, 0<delta0, 0<Ct, 1<=Mfl, Cg<=2e12, 1/500<=eps, 1/838400<=delta0, Mfl<=2^355, 0<beta, 162<=A, A0<=A, budgetAFlat eps beta <= A`) **+ the arm census `Hopq <= flatDesignBase A -> flatWitFloor eps beta A Hopq = flatDesignBase A`**; then `Kc<=2^539 -> Ct<=2^23 -> x0<=e^{e^{3.2A}/10} -> **Hopq <= flatDesignBase A** -> forall g, exists R: `R.eps=eps`, `R.Hlo=flatWitFloor...`, `g R.Hhi R.omega <= R.x`, **the width certificate**, `3.2A <= loglog H-`, **`loglog H+ <= 2*e^{1.6A}`**, and (`S15CrossingBound_L_gk 32000000 R (flatDoorM A)` -> not logChowla2Fails).
 
@@ -18797,7 +18797,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 **BOTH NEW PREDICATES ARE WEAKER THAN THEIR LANDED COUNTERPARTS**, and one of the two directions is kernel: `s16_baseScaleCap96_L_of_baseScaleCap96` proves `S16BaseScaleCap96_gk K R M -> S16BaseScaleCap96_L_gk K R M` at `1 <= M`, off two independent slacknesses that compose -- `SocketBaseL -> SocketBase` (the linear row floor is the higher one) and `Adoor M <= AdoorL M` (the anchor is larger by `M/(floor(log2 M)+1)`). So whatever ever discharges ⟦ITEM 3⟧ at the landed door discharges it here; the re-cut is not a new ask.
 
-**THE SOFT/HARD CENSUS HELD.** The 55 SOFT decls (SocketBase-only) composed through `socketBase_of_socketBaseL` exactly as REF-FLAT-SAT priced; the CONTRAVARIANT positions (S16Budget:2381's genre -- `hblk`, `S16BaseScaleCap96`, `S16CofactorSupply`, all quantified over sockets in a hypothesis) were TWINNED at `SocketBaseL`, never composed, which is why the resulting riders came out weaker rather than stronger.
+**THE SOFT/HARD CENSUS HELD.** The 55 SOFT decls (SocketBase-only) composed through `socketBase_of_socketBaseL` exactly as REF-FLAT-SAT priced; the CONTRAVARIANT positions (S16Budget:2462's genre -- `hblk`, `S16BaseScaleCap96`, `S16CofactorSupply`, all quantified over sockets in a hypothesis) were TWINNED at `SocketBaseL`, never composed, which is why the resulting riders came out weaker rather than stronger.
 
 Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a pipe), 9674 jobs, **186 warnings -- byte-identical to the pre-wave count -- 0 errors**. `#audit_axioms` in All.lean carries all nine new top decls; `logChowla2_witnessed_scale_flat_L_v2` audits **3 axioms** (`propext, Classical.choice, Quot.sound`). Files: `Salt/MR/S13CapGateLinear.lean` (new), `Salt/MR/S16FlatFinal.lean` (new), `Salt/MR/All.lean` (imports + ledger). Purely additive: no landed declaration touched; the sibling HONEST-FIX's files (`S16FlatTerminalLinear`, `S15SelLinear*`, `FlatFloorBump`) were read, never written.
 
@@ -18808,7 +18808,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 **THE STRUCTURAL FINDING THAT GATED EVERYTHING (report it to the council).** The council's classical-limit argument -- "the constants are fixed, the windows grow in `A`, so `∃A₀ ∀A ≥ A₀` they hold" -- is NOT AVAILABLE at the landed terminal's quantifier order. `logChowla2_witnessed_scale_flat_L_v2` reads `∀ A₀ ≥ 162, ∃ (… x₀ Hopq A …), …`: every constant is chosen AFTER the caller's `A₀`, so nothing in the statement says `x₀` and `Hopq` do not MOVE when `A₀` moves, and no consumer can recover it (`Classical.choose` at two different `A₀` are choices from two DIFFERENT propositions -- proof irrelevance does not bridge them, because `A₀` occurs in the proposition via `A₀ ≤ A`). **The A-windowing insight requires a quantifier hoist first.** Every other route in this wave inherits the same gate.
 
 **THE HOIST, LANDED (`Salt/MR/S16Uniform.lean`, new, 1113 ln, 11 decls).** At the bytes the constants ARE `A₀`-free: in `HloExportFlat.log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat` the caller's `A₀` enters at EXACTLY ONE line (`A := max A₀ (budgetAFlat ε β)`, :280) and `ε`/`K`(=`Kc`)/`δ₀`/`β`/`Hopq = max (max H₀red H₀D3) H₀xi` are all minted strictly ABOVE it; `x₀`/`Cband` (hence `Mfl`) come from `hband`, which has no `A` at all; `Ct` and `Cq`/`cs`/`T₀`/`Kq`/`Ks` from `A`-free fuses. So the flat linear road re-cuts as `∃ (constants), … ∧ ∀ A, 162 ≤ A → budgetAFlat ε β ≤ A → ∃ Hcap, … (the same body)`. SEVEN additive twins, each the landed statement with `A`/`Hcap` moved out of the `∃` and `intro A hA hAge` moved to where the landed proof chose `A`; every body verbatim:
-`flat_head_uniform` (← HloExportFlat :227) -> `flat_socket_uniform` (← HloExportMRFlatRoot :70) -> `flat_doorL2_uniform` (← S16FlatTerminalLinear :179) -> `flat_road_uniform` (:239) -> `flat_capstone_uniform` (:356) -> `flat_conditional_uniform` (:1033) -> `logChowla2_witnessed_scale_flat_L_v2_uniform` (← S16FlatFinal :125). Two `private` helpers (`flatCap_shuffle`, `spine_False_core_xi_sq_flat`) re-stated in-file under fresh names -- the corpus's own sanctioned device (`spine_False_core_xi_sq` -> `_cap` -> `_flat` -> `_uniform`, the fourth transcription).
+`flat_head_uniform` (← HloExportFlat :228) -> `flat_socket_uniform` (← HloExportMRFlatRoot :70) -> `flat_doorL2_uniform` (← S16FlatTerminalLinear :179) -> `flat_road_uniform` (:239) -> `flat_capstone_uniform` (:356) -> `flat_conditional_uniform` (:1033) -> `logChowla2_witnessed_scale_flat_L_v2_uniform` (← S16FlatFinal :119). Two `private` helpers (`flatCap_shuffle`, `spine_False_core_xi_sq_flat`) re-stated in-file under fresh names -- the corpus's own sanctioned device (`spine_False_core_xi_sq` -> `_cap` -> `_flat` -> `_uniform`, the fourth transcription).
 
 **THE COROLLARY (`logChowla2_ineffective`, 3 axioms).** `∀ A₀, ∃ (ε Cg Kc δ₀ Ct A β Mfl Cq cs T₀ Kq Ks C), … ∧ 162 ≤ A ∧ A₀ ≤ A ∧ (Kc ≤ 2^539 → Ct ≤ 2^23 → e^{-100} ≤ cs → T₀ ≤ e^{e^100} → Kq ≤ e^100 → e^{-100} ≤ Ks → ∀ g, ∃ R, R.eps = ε ∧ **R.Hlo = flatDesignBase A** ∧ g R.Hhi R.ω ≤ R.x ∧ (tower) ∧ 3.2A ≤ loglog H₋ ∧ loglog H₊ ≤ 2e^{1.6A} ∧ (S16CofactorSupply_L_gk → S16BaseScaleCap96_L_gk → ¬ logChowla2Fails R.eps R.x R.ω))`. The two Siegel riders are GONE, discharged not assumed: `A := max (max A₀ 162) (max (budgetAFlat ε β) (max (4x₀) Hopq))`, then `x₀ ≤ e^{e^{3.2A}/10}` and `Hopq ≤ ⌈e^{e^{3.2A}}⌉₊` each fall to TWO applications of `Real.add_one_le_exp` (the windows are double-exponential; the constants are fixed). `R.Hlo` is exported as an EQUATION (`= flatDesignBase A`), not a bound -- the base is PINNED at `⌈e^{e^{3.2A}}⌉₊` and `A` is unbounded. Price: effectivity only -- `A` is `Classical.choice`-bound, exactly the caveat the analytic literature carries for Siegel.
 
@@ -18820,7 +18820,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 ## (2026-08-02 10:22 PDT) **ROUTE 1 (`Kc ≤ 2^539`) PRICED TO THE LINE AND STOPPED LOUDLY -- the rider is TRUE with 317 BITS OF ROOM and the twin is a ~15-LINE JOB, blocked ONLY by `private` + a full-corpus rebuild** (DISCHARGE, route-1 scope)
 
-**THE EXACT PATH (walk it, it is short).** The flat head pins `ε := 1/500` LITERALLY (`HloExportFlat` :256), and the corpus already has the count at that literal: `GoldbachEnergyN0.bigXi_bounded_explicit` (:718, **PUBLIC**) gives `∀ H [NeZero H], 2 ≤ H → |Ξ_eps H| ≤ 32·K·C₁²/eps^10` from `(K, 0 < K, ∀X, Σ hFac2 d₁ hFac2 d₂ / lcm ≤ K)` and `hpt`; `bigXi_bounded_500` (:866) is that instance at `C₁ = 2^35`, `eps = 1/500`. So the head's `obtain ⟨K, hK, H₀xi, _, hxi⟩ := bigXi_bounded ε hεQpos hε2` can be REPLACED (in a twin) by the 500-instance with `H₀xi := 2`, and the exported constant becomes the CLOSED FORM `Kc = 32·K·(2^35)²·500^10`.
+**THE EXACT PATH (walk it, it is short).** The flat head pins `ε := 1/500` LITERALLY (`HloExportFlat` :257), and the corpus already has the count at that literal: `GoldbachEnergyN0.bigXi_bounded_explicit` (:718, **PUBLIC**) gives `∀ H [NeZero H], 2 ≤ H → |Ξ_eps H| ≤ 32·K·C₁²/eps^10` from `(K, 0 < K, ∀X, Σ hFac2 d₁ hFac2 d₂ / lcm ≤ K)` and `hpt`; `bigXi_bounded_500` (:866) is that instance at `C₁ = 2^35`, `eps = 1/500`. So the head's `obtain ⟨K, hK, H₀xi, _, hxi⟩ := bigXi_bounded ε hεQpos hε2` can be REPLACED (in a twin) by the 500-instance with `H₀xi := 2`, and the exported constant becomes the CLOSED FORM `Kc = 32·K·(2^35)²·500^10`.
 
 **THE NUMERAL.** `K` is `GoldbachEnergyHsq2.hFac2_lcm_sum_le`'s witness, and it is EXPLICIT IN THE PROOF TERM: `Real.exp (24 · Σ' n:ℕ, 1/n²) = exp(24·ζ(2)) = exp(4π²) = e^{39.478}`. Mathlib closes it in two lines: `hasSum_zeta_two : HasSum (fun n:ℕ => 1/(n:ℝ)^2) (π²/6)` (`Mathlib/NumberTheory/ZetaValues.lean` :452, the tsum is over ℕ with the `n = 0` term `1/0 = 0`, i.e. EXACTLY this sum) plus `Real.pi_lt_315` gives `24·Σ' ≤ 4·(3.15)² = 39.69 ≤ 40`, so `K ≤ e^40` -- and `S11HoistGrade.s11_exp40_le : e^40 ≤ 2.4·10^17` is ALREADY LANDED. Bits: `K ≤ 2^{57.0}`, `32 = 2^5`, `(2^35)² = 2^70`, `500^10 = 2^{89.7}` ⟹ **`Kc ≤ 2^{221.7}`** -- which is the corpus's own `221.6` figure (`GoldbachEnergyN0` :58). Against the rider `2^539` that is **317 bits of room**; against `KExpr_le`'s `2^{538.42}` it is 317 bits BETTER, because the 500-instance is a genuinely sharper count, not the same constant re-read.
 
@@ -18842,7 +18842,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 ## (2026-08-02 10:40 PDT) **BAND-WINDOW: THE LAST OUTER HYPOTHESIS IS GONE -- `logChowla2_ineffective_v2` carries NO `hband`, NO Siegel, NO outer rider of any kind; the band-lane rider is not a NUMBER but a WINDOW (`log Cband <= 0.64*A - 20`), and the window discharges itself** (BAND-WINDOW, missions A+B+C, 3 axioms)
 
-**THE FINDING THAT MADE IT CHEAP.** CMU-HUNT priced the honest tolerance at `log Cband <= 0.64*A - 4.2` and the council's route (b) budgeted the thread through ~16 hops (S16Budget:1430/1655/1760/2618, S16BudgetFlat, S16FlatTerminal(-Linear), ~2100 ln of transcription). At the bytes the path to the COROLLARY is shorter: the DISCHARGE wave's uniform lane (`S16Uniform` §5-§7) is a SELF-CONTAINED parallel road that destructs `hband` directly (:661) and never routes through `S16FlatTerminalLinear`'s 677-line hop 3. So the windowed thread is THREE twins, not sixteen -- 452 ln, one file.
+**THE FINDING THAT MADE IT CHEAP.** CMU-HUNT priced the honest tolerance at `log Cband <= 0.64*A - 4.2` and the council's route (b) budgeted the thread through ~16 hops (S16Budget's `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl`, `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl`, `logChowla2_conditional_sharp2_nonvacuous_gk'_Mfl` and `…_Mfl_wide`, S16BudgetFlat, S16FlatTerminal(-Linear), ~2100 ln of transcription). At the bytes the path to the COROLLARY is shorter: the DISCHARGE wave's uniform lane (`S16Uniform` §5-§7) is a SELF-CONTAINED parallel road that destructs `hband` directly (:661) and never routes through `S16FlatTerminalLinear`'s 677-line hop 3. So the windowed thread is THREE twins, not sixteen -- 452 ln, one file.
 
 **THE WINDOW, PROVEN AT THE BYTES** (`FlatFloorBump.flatDoorM_gradeFloor_win`): `162 <= A -> 0 < C -> log C <= 0.64*A - 20 -> s11GradeFloor (C*4^Aexp*(e^{52.5}*4^{1.05}) + 1) <= flatDoorM A`. **THE WINDOW CONSTANT ACTUALLY PROVED IS 20** (against CMU-HUNT's ideal 4.2 and the landed route's ~16.4): 15.8 nats of rounding, all of it in three crude exponential brackets (`e^{62} >= 4.6e26`, `e^{48} <= 1.6e21`, `e^{15} >= 3e6`), and the leading term still clears by `10.5x`. Consequences: at `A = 162` the tolerance is `83.68` (the corpus asks 40, so the landed rider is the window at `Awin = 93.75` exactly -- `s16_bandLaneWinL_of_bandL`); CMU-HUNT's traced ceiling `22 661` needs `A >= 35 439`, so the doc's recommended `A0 = 36 000` clears it by 359 nats. The whole accounting is inside `exp` (no numeral `rpow` anywhere): `8*Cb <= e^{62+W}`, charged against `N >= e^{48}`, gives `u <= e^{14+W}`; the `5/2` power gives `Mfl <= e^{35+2.5W} + 2`; and `35 + 2.5W = 1.6A - 15` at `W = 0.64A - 20`. Also landed: `flatDoorM_ge_pow (n)` -- the same trade in the `2^n` currency the landed pin uses (`A >= (n*log2 + log 310301 + 1)/1.6`; at `n = 355` it asks `162.32` where the hand-tuned `flatDoorM_ge_pow355` asks `162`).
 
@@ -18852,9 +18852,9 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 **THE DEVICE, FOR THE RECORD.** The windowed twins carry, in the numeral conjunct's slot, the `A`-free Pi-statement `forall A, 162 <= A -> Awin <= A -> Mfl <= flatDoorM A` (so the prefix stays hoistable -- an `A`-mentioning rider would re-introduce the circularity the DISCHARGE wave killed), and §9.3's `forall A` binder gains the admissibility line `Awin <= A`. The `Mfl` floor is then spent through `s15_sel''_L_gk_witness_flat_bumped_win` -- at the door modulus directly, never at `2^355`. Bodies otherwise VERBATIM.
 
-**WHAT WAS NOT DONE, AND WHY (stopped loudly).** The mission's `logChowla2_witnessed_scale_flat_L_v2_win` -- the NON-uniform terminal twin -- is NOT landed. It would require windowed twins of `S16FlatTerminalLinear:357` (677 ln, hop 3-L), `:1034` (428 ln) and `:1462`, plus `S16FlatFinal:125`: ~1200 ln of transcription for a road with NO consumer above it (the corollary goes through the uniform lane). The `S16Budget`/`S16BudgetFlat`/`S16FlatTerminal` (non-linear) hops are likewise untouched. If anyone wants the window at the non-uniform terminal the recipe is mechanical and identical: statement conjunct `Mfl <= 2^355` -> the Pi-statement, `hband` -> `S16BandLaneCBoundedL_win Awin K`, `s11_grade_floor_hoistCb_prod_le C h0 h40` -> `fun A hA hAw => flatDoorM_gradeFloor_win hA h0 (by linarith)`, `flatDoorM_Mfl_bump` -> the hypothesis itself.
+**WHAT WAS NOT DONE, AND WHY (stopped loudly).** The mission's `logChowla2_witnessed_scale_flat_L_v2_win` -- the NON-uniform terminal twin -- is NOT landed. It would require windowed twins of `S16FlatTerminalLinear:356` (677 ln, hop 3-L), `:1032` (428 ln) and `:1460`, plus `S16FlatFinal:119`: ~1200 ln of transcription for a road with NO consumer above it (the corollary goes through the uniform lane). The `S16Budget`/`S16BudgetFlat`/`S16FlatTerminal` (non-linear) hops are likewise untouched. If anyone wants the window at the non-uniform terminal the recipe is mechanical and identical: statement conjunct `Mfl <= 2^355` -> the Pi-statement, `hband` -> `S16BandLaneCBoundedL_win Awin K`, `s11_grade_floor_hoistCb_prod_le C h0 h40` -> `fun A hA hAw => flatDoorM_gradeFloor_win hA h0 (by linarith)`, `flatDoorM_Mfl_bump` -> the hypothesis itself.
 
-**MISSION C, FOLDED IN.** D1 (`S16FlatFinal` header): the "both predicates WEAKER than their landed counterparts" claim is now restricted to the BASE-SCALE CAP (which `s16_baseScaleCap96_L_of_baseScaleCap96` proves outright); the CO-FACTOR is stated as a NEW, INCOMPARABLE ask at the linear door (no transport bridge: the socket bounds `||ramR||`, not monotone in the indicator; the block families are non-nested), priced TRANSFERABLE per COFK-L -- ONE shared anchor-blind supplier debt at both doors, the L-vs-landed delta class A. D2 (stale margin prose): the four `lambda+`-reading register rows refreshed to the amended `2E` slot -- anchor `898x -> 449x`, gRows `915x -> 457x`, gP1 `10^4x -> ~5.5e3x`, lvl `913x -> 457x` (`S15SelLinear:29-36` table + the prose after + `:318`; `S15SelLinearWide:121,:147,:347-348`). **CORRECTION TO THE 7/31 SEAL-REPAIR ENTRY (do not edit it; this line is the correction):** that entry's reading of the two carried predicates as "both weaker than landed" was HALF WRONG -- only the cap is; the cofactor is a new ask, transferable but unpaid at BOTH doors.
+**MISSION C, FOLDED IN.** D1 (`S16FlatFinal` header): the "both predicates WEAKER than their landed counterparts" claim is now restricted to the BASE-SCALE CAP (which `s16_baseScaleCap96_L_of_baseScaleCap96` proves outright); the CO-FACTOR is stated as a NEW, INCOMPARABLE ask at the linear door (no transport bridge: the socket bounds `||ramR||`, not monotone in the indicator; the block families are non-nested), priced TRANSFERABLE per COFK-L -- ONE shared anchor-blind supplier debt at both doors, the L-vs-landed delta class A. D2 (stale margin prose): the four `lambda+`-reading register rows refreshed to the amended `2E` slot -- anchor `898x -> 449x`, gRows `915x -> 457x`, gP1 `10^4x -> ~5.5e3x`, lvl `913x -> 457x` (`S15SelLinear:29-36` table + the prose after + `:318`; `S15SelLinearWide:124,:150,:355-356`). **CORRECTION TO THE 7/31 SEAL-REPAIR ENTRY (do not edit it; this line is the correction):** that entry's reading of the two carried predicates as "both weaker than landed" was HALF WRONG -- only the cap is; the cofactor is a new ask, transferable but unpaid at BOTH doors.
 
 **Build: full `lake build` EXIT 0 taken from `$?` through redirection (NEVER a pipe), 9675 jobs, 0 errors, warning set byte-identical to baseline (186 = 186), 0 sorries.** All 9 new top decls carried in `Salt/MR/All.lean`'s `#audit_axioms` ledger; every one at **3 axioms** (`propext, Classical.choice, Quot.sound`). Files: `Salt/MR/FlatFloorBump.lean` (+§2b), `Salt/MR/S16Uniform.lean` (+§9, 648 ln), `Salt/MR/All.lean` (ledger), and comment-only edits to `S16FlatFinal`/`S15SelLinear`/`S15SelLinearWide`. Purely additive: no landed declaration touched.
 
@@ -18871,9 +18871,9 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 **ROUTE 3 — `Kq`. `Salt/MR/NumeralKq.lean` (new, 14 decls, 13 hops).** The chain runs DEEPER than the brief said: below `PortAssembly.halasz_primes_chi_pair_of_gates` sits `twisted_rect_zero_free_siegel`, which sets `Kq := 1/(10^8·c₀)` off `Salt.SW.zero_free_region_all'`, and THAT bottoms out at `min (1/50456) (1/126848)` at LITERAL `refine` witnesses (`ZeroFree.lean` :262, `ZeroFreeReal.lean` :392). ⟦THE POLARITY, NOTED⟧ a ceiling on `Kq` is a FLOOR on `c₀` — precisely the direction a zero-free region's `∃` does not export (shrinking `c₀` only weakens the region), which is why the two SW leaves needed full 120/209-line body replays and why no `min`/`max` trick shortcuts them. Chain: `zero_free_region_primitive` / `zero_free_region_real` → `zero_free_region_all` (`le_min`) → `zero_free_region_all'` → `twisted_rect_zero_free_siegel` (the reciprocal rescale) → `halasz_primes_chi_pair_of_gates` → `halaszPrimesChi_holds_gated` → `halaszPrimesChi_pointwise_of_gates` → `usetGChi_window_meansq_gated_family_perBlock` → `usetGChi_row_exit_perChi_perBlock` → `m4_rowChi_capstone_perBlock` → `m4_hcap_at_door_perBlock_gk` → `m4_fuse_hcap_of_capWS_gk`. **`Kq = 126848/10^8 = 1.26848·10^{-3}` against `e^100 ≈ 2.7·10^43` — forty-six orders of room.**
 
 **THE COMPOSE PASS'S CONSUMPTION LIST (exact, three hooks).**
-* `Salt.Entropy.Chowla.bigXi_bounded_ceiling_of_pin (ε : ℚ) (hε : ε = 1/500) : ∃ C : ℝ, 0 < C ∧ C ≤ 2^539 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (H : ℕ) [NeZero H], H₀ ≤ H → ((bigXi ε H).card : ℝ) ≤ C` — `bigXi_bounded`'s EXACT shape plus the ceiling; drops in at `S16Uniform` :284 (`bigXi_bounded ε hεQpos hε2`, where `hεdef : ε = 1/500` is already in scope). The unpinned twin `bigXi_bounded_500_ceiling` is the same at the literal.
+* `Salt.Entropy.Chowla.bigXi_bounded_ceiling_of_pin (ε : ℚ) (hε : ε = 1/500) : ∃ C : ℝ, 0 < C ∧ C ≤ 2^539 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (H : ℕ) [NeZero H], H₀ ≤ H → ((bigXi ε H).card : ℝ) ≤ C` — `bigXi_bounded`'s EXACT shape plus the ceiling; drops in at `S16Uniform` :285 (`bigXi_bounded ε hεQpos hε2`, where `hεdef : ε = 1/500` is already in scope). The unpinned twin `bigXi_bounded_500_ceiling` is the same at the literal.
 * `Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_ceiling (K : ℕ) (hK : K ≤ 170000000) : ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 2^23 ∧ …` (statement otherwise byte-identical to the landed slot) — consumed by `S16FlatTerminalLinear.m4_closure_fuse_zero'_const_nonneg_L_gk` :156, one `obtain`/`refine` edit. The `6·e^14`-sharp form is `m4_hrowsSlot_at_door_zero'_L_gk_bounded`.
-* `Salt.MR.m4_fuse_hcap_of_capWS_gk_ceiling (K : ℕ) : ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ Kq ≤ Real.exp 100 ∧ 0 < Ks ∧ …` — consumed at `S16Uniform` :660, one `obtain`/`refine` edit. The `126848/10^8`-sharp form is `m4_fuse_hcap_of_capWS_gk_bounded`.
+* `Salt.MR.m4_fuse_hcap_of_capWS_gk_ceiling (K : ℕ) : ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ Kq ≤ Real.exp 100 ∧ 0 < Ks ∧ …` — consumed at `S16Uniform` :638, one `obtain`/`refine` edit. The `126848/10^8`-sharp form is `m4_fuse_hcap_of_capWS_gk_bounded`.
 
 **THE FENCE, HONORED.** `S16Uniform.lean`, `S16FlatTerminalLinear.lean`, `S16FlatFinal.lean`, `FlatFloorBump.lean`, `S16Budget.lean`, `S16BudgetFlat.lean`, `S15SelLinear*.lean` were NOT touched (BAND-WINDOW's). The three remaining hops — `m4_closure_fuse_zero'_const_nonneg_L_gk` (Ct), and the two `S16Uniform` opens (Kc at :284, Kq at :660) — plus the seven uniform twins' conjunct threading are the compose pass's, each a one-token `refine` widening.
 
@@ -18898,7 +18898,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 **Build: full `~/.elan/bin/lake build` EXIT 0 taken from `$?` through redirection (never a pipe), 9679 jobs, 0 errors, 186 warnings = baseline 186, zero warnings from the new file.** Axiom check on all new theorems via a scratch file (removed, not committed): every one at 3 axioms (`propext, Classical.choice, Quot.sound`). One-line import registered in `Salt/Entropy/All.lean` after NUMERAL quiescence (no `#audit_axioms` row added — the landed TowerFlat toll decls are not in that ledger either).
 
-## () HB-CENSUS VERDICT + THE RECORDS CORRECTION + ERRATUM (Sancho): the HB repulsion lane is CLOSED, not dormant-with-residual -- dh_repulsion_ordered LANDED 2026-07-18 f1b92ca (TBalR8.lean:1752, b=680 k=14 sigma0=16/17, c=c1^8), audit-registered All.lean:305, RE-VERIFIED this session (lake build Salt.SW.All exit 0, 3 axioms). The campaign: 30 files, 12903 ln, 313 decls, 0 sorries. ERRATUM: my same-day answer to JYH ("dormant since 7/18; residual = 2 rows + 6 guards + assembly") was WRONG -- sourced from the stale R8b flags entry + the stale memory. THE FORGETTING MECHANISM (structural, now disarmed): the R8b PARTIAL entry sits BELOW the R8c CLOSER entry in this file (~:11174 vs ~:11112) -- append-order inversion; readers treating file order as chronology land on the stale residual. CORRECTIONS APPLIED: the seat memory rewritten (LANDED + the trap named); MEMORY.md hook updated; fulcrum_audit_wp2.md:22 stale-marked in place. NOTE FOR READERS: R8b (:11174) is SUPERSEDED by R8c (:11112) above it. The lane's true residual: T-BAL-BUDGET (demand-side audit, Fable design block, GATED on the consuming node -- not now); T-BAL-UNORDERED harmless/WLOG; SIGMA-SLIVER vacuous-in-use. dh_repulsion_ordered has NO Lean consumer today (terminal in the graph; F-side artillery; under not-F fully subsumed per pass2_e3 D5). NO REVIVAL NEEDED -- the third banner has been flying since 7/18.
+## () HB-CENSUS VERDICT + THE RECORDS CORRECTION + ERRATUM (Sancho): the HB repulsion lane is CLOSED, not dormant-with-residual -- dh_repulsion_ordered LANDED 2026-07-18 f1b92ca (TBalR8.lean:2523, b=680 k=14 sigma0=16/17, c=c1^8), audit-registered All.lean:305, RE-VERIFIED this session (lake build Salt.SW.All exit 0, 3 axioms). The campaign: 30 files, 12903 ln, 313 decls, 0 sorries. ERRATUM: my same-day answer to JYH ("dormant since 7/18; residual = 2 rows + 6 guards + assembly") was WRONG -- sourced from the stale R8b flags entry + the stale memory. THE FORGETTING MECHANISM (structural, now disarmed): the R8b PARTIAL entry sits BELOW the R8c CLOSER entry in this file (~:11174 vs ~:11112) -- append-order inversion; readers treating file order as chronology land on the stale residual. CORRECTIONS APPLIED: the seat memory rewritten (LANDED + the trap named); MEMORY.md hook updated; fulcrum_audit_wp2.md:22 stale-marked in place. NOTE FOR READERS: R8b (:11174) is SUPERSEDED by R8c (:11112) above it. The lane's true residual: T-BAL-BUDGET (demand-side audit, Fable design block, GATED on the consuming node -- not now); T-BAL-UNORDERED harmless/WLOG; SIGMA-SLIVER vacuous-in-use. dh_repulsion_ordered has NO Lean consumer today (terminal in the graph; F-side artillery; under not-F fully subsumed per pass2_e3 D5). NO REVIVAL NEEDED -- the third banner has been flying since 7/18.
 
 ## (2026-08-02 11:18 PDT) **THE BAR-2 CLOSING PASS LANDS — `logChowla2_ineffective_v3`: `Kc ≤ 2^539`, `Ct ≤ 2^23`, `Kq ≤ e^100` REMOVED-BECAUSE-PROVEN; SIX INNER RIDERS DOWN TO THREE, OUTER STILL NOTHING; 12 twins in ONE new file, build 9680 EXIT-0 from `$?`, warning set byte-identical (186 = 186, two All.lean line numbers shifted by the one added import), every new decl at 3 axioms** (COMPOSE)
 
@@ -18907,7 +18907,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 **PER-HOOK THREADING, EXACT.**
 * **`Kc` — THREADED, seven twins.** `Salt.Entropy.Chowla.bigXi_bounded_ceiling_of_pin ε hεdef` drops in at the flat head's `bigXi_bounded ε hεQpos hε2` (the pin `ε = 1/500` is already an EQUATION in scope). The conjunct then rides `flat_head_uniform_ceiling` → `flat_socket_uniform_ceiling` → `flat_doorL2_uniform_ceiling` → `flat_road_uniform_ceiling` → `flat_capstone_uniform_win_ceiling` → `flat_conditional_uniform_win_ceiling` → `logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling`. ⟦WHY NO SHORT-CIRCUIT⟧ `K` enters §1 as an UPPER BOUND ON A COUNT (`card (bigXi R.eps H) ≤ K`, monotone UP) and leaves §3 as a BUDGET COEFFICIENT in a hypothesis (`2·Kb·Bceil + … ≤ δ₀`, monotone DOWN). The sign flips at §2's `sum_bigXi_norm_windowExpSum_sq_le_twelve`, so no `min K C` device survives above the leaf and the full-body replay is forced. Bodies verbatim; the ONE edit per hop is the `obtain`/`refine` widening.
 * **`Ct` — THREADED, one extra hop.** `NumeralCt.m4_hrowsSlot_at_door_zero'_L_gk_ceiling` drops into `S16FlatTerminalLinear.m4_closure_fuse_zero'_const_nonneg_L_gk` :156, replayed here as `m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling` (16-line body, verbatim), then rides §6–§9 beside `Kc`. Consumption inside the uniform lane confirmed: `Ct` is exported by `flat_capstone_uniform_win` → `flat_conditional_uniform_win` → the terminal, and is spent at `s15_sel''_L_gk_witness_flat_bumped_win`. It does NOT live outside the lane, so the mission's contingency (STOP LOUDLY on `Ct`) did not fire.
-* **`Kq` — THREADED, but NOT through the named hook.** ⟦THE CORRECTION TO NUMERAL's CONSUMPTION LIST⟧ the brief's drop-in site `S16Uniform` :660 (`m4_fuse_hcap_of_capWS_gk K`) is a DEAD END for the ceiling: that `obtain` ends in `… , -⟩` — its payload is DISCARDED — and the five constants it re-exports are dropped again one hop later by `flat_conditional_uniform_win`. The terminal's `Kq` is minted by `S16FlatFinal.s15_crossing_supplied_L_gk` off the **LINEAR** wire `S16FlatTerminalLinear.m4_fuse_hcap_of_capWS_L_gk` → `M4CapWireLinear.m4_hcap_at_door_perBlock_L_gk` → `M4RowsChi.m4_rowChi_capstone_perBlock`, whereas NUMERAL's route 3 bounded the **WIDE** lane (`SocketBase`/`Adoor`/`doorChiCoeff_gk`). The LEAF IS SHARED, so §8 re-cuts the three linear hops against `NumeralKq.m4_rowChi_capstone_perBlock_bounded` — `m4_hcap_at_door_perBlock_L_gk_bounded` (28-line body verbatim), `m4_fuse_hcap_of_capWS_L_gk_ceiling` (`le_trans hKqb kq_closed_form_le_exp_hundred`), `s15_crossing_supplied_L_gk_ceiling` (20-line body verbatim) — and the ceiling lands where the terminal actually reads it. **`m4_fuse_hcap_of_capWS_gk_ceiling` (the wide hook) is NOT consumed by anything**; it remains a correct, audited, currently-unused twin for the wide terminal `S16Budget.logChowla2_witnessed_scale_final'_v3`.
+* **`Kq` — THREADED, but NOT through the named hook.** ⟦THE CORRECTION TO NUMERAL's CONSUMPTION LIST⟧ the brief's drop-in site `S16Uniform` :638 (`m4_fuse_hcap_of_capWS_gk K`) is a DEAD END for the ceiling: that `obtain` ends in `… , -⟩` — its payload is DISCARDED — and the five constants it re-exports are dropped again one hop later by `flat_conditional_uniform_win`. The terminal's `Kq` is minted by `S16FlatFinal.s15_crossing_supplied_L_gk` off the **LINEAR** wire `S16FlatTerminalLinear.m4_fuse_hcap_of_capWS_L_gk` → `M4CapWireLinear.m4_hcap_at_door_perBlock_L_gk` → `M4RowsChi.m4_rowChi_capstone_perBlock`, whereas NUMERAL's route 3 bounded the **WIDE** lane (`SocketBase`/`Adoor`/`doorChiCoeff_gk`). The LEAF IS SHARED, so §8 re-cuts the three linear hops against `NumeralKq.m4_rowChi_capstone_perBlock_bounded` — `m4_hcap_at_door_perBlock_L_gk_bounded` (28-line body verbatim), `m4_fuse_hcap_of_capWS_L_gk_ceiling` (`le_trans hKqb kq_closed_form_le_exp_hundred`), `s15_crossing_supplied_L_gk_ceiling` (20-line body verbatim) — and the ceiling lands where the terminal actually reads it. **`m4_fuse_hcap_of_capWS_gk_ceiling` (the wide hook) is NOT consumed by anything**; it remains a correct, audited, currently-unused twin for the wide terminal `S16Budget.logChowla2_witnessed_scale_final'_v3`.
 
 **THE DEVICE.** `S16Uniform`'s three §0 helpers (`spine_False_core_xi_sq_uniform`, `uniformCap_arc`, `uniformCap_shuffle`) are `private`; they are reached with Batteries' `open private … from Salt.MR.S16Uniform`, the corpus's sanctioned device (`GoldbachEnergyKc`, `HeadPinLeaves`). **NO LANDED FILE GAINS A DECLARATION** and `S16Uniform.lean` is not touched at all — the whole pass is one new module plus the `Salt/MR/All.lean` import + ledger.
 
@@ -18929,13 +18929,13 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 **THE ARTIFACT.** `docs/RESULTS.md` — the law block (one row per headline result; every row carries a DATE and a COMMIT; **chronology is the date field, NEVER file order**; superseded rows marked `[SUPERSEDED → successor]` IN PLACE and never deleted; every row lint-verified; a new headline theorem adds its row in the SAME commit that lands it; the file states existence, not meaning — the Lean statement is the authority). Then nine per-arc tables, columns `| Theorem (Lean name) | Plain statement | File:line | Date landed | Commit | Axioms |`, sorted **by date inside each arc**: §1 Sieve/Brun (5) · §2 Chen/Goldbach (3) · §3 SW/BV/bounded gaps (5) · §4 Zero theory (7) · §5 VMVT/VK (1) · §6 HB/Fulcrum/T-BAL (5) · §7 TwinBar/Parity (13) · §8 MR/Chowla (16) · §9 Infrastructure firsts (11). **66 rows.**
 
-**EVERY ROW VERIFIED IN THE TREE, NOT COPIED.** File:line by grep on the declaration; date+commit by pickaxe over the file's OWN history (`git log -S"theorem <name>" --reverse -- <file>` — the introducing commit, not the last touch); one-line statements paraphrased from the declaration docstrings. Cross-checks that fired: the seed list's `parity_wall_unconditional` was at :29/:42, the tree says **:31/:44**; the seed list's `thm_a2'` needed disambiguation from five `thm_a2*` neighbours (`Salt/MR/ThmA2Rows.lean:636`, and the date confirms the 7/27 S7/S8 summit); `Salt.SW.dh_repulsion_ordered` has a **namesake inside a fenced doc comment** at `Salt/SW/DHRepulsion.lean:267` (the frozen target contract) — the live decl is TBalR8:1752, and the registry says so in a standing note so the next census does not re-trip on it.
+**EVERY ROW VERIFIED IN THE TREE, NOT COPIED.** File:line by grep on the declaration; date+commit by pickaxe over the file's OWN history (`git log -S"theorem <name>" --reverse -- <file>` — the introducing commit, not the last touch); one-line statements paraphrased from the declaration docstrings. Cross-checks that fired: the seed list's `parity_wall_unconditional` was at :29/:42, the tree says **:31/:44**; the seed list's `thm_a2'` needed disambiguation from five `thm_a2*` neighbours (`Salt/MR/ThmA2Rows.lean:629`, and the date confirms the 7/27 S7/S8 summit); `Salt.SW.dh_repulsion_ordered` has a **namesake inside a fenced doc comment** at `Salt/SW/DHRepulsion.lean:283` (the frozen target contract) — the live decl is TBalR8:2523, and the registry says so in a standing note so the next census does not re-trip on it.
 
 **THE LINT.** `scripts/results_lint.py`, stdlib-only, mirroring `blueprint_lint.py`'s docstring/exit conventions. Per row: (a) the file exists; (b) the file **declares** that name (multiline regex over `theorem|lemma|def|abbrev|structure|instance|inductive|class` with a modifier prefix and an identifier-boundary lookahead that admits primes and Unicode subscripts — `thm_a2'` matches, bare `thm_a2` does NOT; `M₂_squeeze` matches); (c) the date is ISO `YYYY-MM-DD` and the commit is a 7–40 char hex sha. Plus a duplicate-name check (one row per result). Escaped `\|` inside cells is honoured by a hand-rolled row splitter. Exits nonzero listing EVERY violation. **First run: `results_lint: OK — 66 rows`, exit 0.** Deliberately NOT re-run here: axiom checks (the ledgers already certify) and any `lake` invocation.
 
 **THE FINDING — EIGHT ROWS ARE `⚠ unaudited`.** Building the Axioms column meant mapping each name to the `#audit_axioms` block that certifies it (nearest preceding block in each `Salt/*/All.lean`, plus `blueprint_lint.py`'s HEADLINERS for phase-3 and the brun-guide cards for phase-1). Eight headline theorems are named by **no ledger and no known audited dependent**: `Salt.Maynard.bounded_gaps_from_eh_complete` (**`Salt/Maynard/All.lean` has no `#audit_axioms` block at all**), `Salt.Entropy.Chowla.log_chowla_two_budget_head` and `…log_chowla_two_door_only` (the Entropy ledger carries only the `_g` / `_g_45` / `_xi`-adjacent variants, not these two), and all five tower laws (`towerDropSumFlat_ge_log_ratio`, `…_le_log_ratio_mul`, `towerFlat_width_ge`, `towerFlat_width_le`, `towerShape_width_ge` — consistent with the TowerShape entry above, which recorded that no ledger row was added). Their consumers `budget_head_at_H0door` / `budget_head_grade_closed` (`Salt/MR/DoorFloor.lean`) are not in the MR ledger either, so there is no transitive cover. These are sorry-free and were scratch-verified at 3 axioms when they landed; what is missing is the STANDING certification. Recorded as a standing chore at the foot of RESULTS.md rather than papered over — the registry's first job is to make gaps visible.
 
-⟦**CLOSED 08/15 at the sitting — STALE-ON-ARRIVAL**⟧ The standing certification this entry demands was added THE SAME DAY it was written. At the bytes: the `⟦AUDIT-ROWS 0802⟧` blocks at `Salt/Entropy/All.lean:381-396` (both spine terminals + the five tower laws), `Salt/Maynard/All.lean:106-108` (the capstone — **the "`Salt/Maynard/All.lean` has no `#audit_axioms` block at all" claim above NO LONGER HOLDS**), and `Salt/MR/All.lean:1433-1435` (all three consumers: `budget_head_at_H0door`, `budget_head_grade_closed`, `budget_head_grade_closed_g` — so the "no transitive cover" reading is retired too). **FRESH RE-VERIFICATION 08/15**, not a replayed ledger line: `lake env lean` through the wrapper's AUDIT arm (the green-exit-≠-verification law honoured — the audit EXECUTED on these bytes) — **ALL TWELVE declarations at `[propext, Classical.choice, Quot.sound]`**. Receipt in `.saltbuild-audit.log`: `2026-08-15 11:27:03 | audit | /Users/jyh/projects/claude/salt | sha256=5a7fcbafb580 | HEAD=82fedba | EXIT=0`, `saltbuild EXIT=0`. THE ONE COSMETIC RESIDUAL, closed in THIS SAME COMMIT: `Salt.Entropy.Chowla.log_chowla_two_door_only_xi` — the Ξ_H-restricted door-only terminal that `log_chowla_two_door_only` (Pi's `thm:spine` surface, certified at `Salt/Certs/ChowlaSpine.lean:14`) is derived from — was covered only TRANSITIVELY; it now carries its own ledger row in the Entropy block. Nothing mathematical moved; this entry's finding was a bookkeeping lag, and the lag is the thing that was real.
+⟦**CLOSED 08/15 at the sitting — STALE-ON-ARRIVAL**⟧ The standing certification this entry demands was added THE SAME DAY it was written. At the bytes: the `⟦AUDIT-ROWS 0802⟧` blocks at `Salt/Entropy/All.lean:403-418` (both spine terminals + the five tower laws), `Salt/Maynard/All.lean:106-133` (the capstone — **the "`Salt/Maynard/All.lean` has no `#audit_axioms` block at all" claim above NO LONGER HOLDS**), and `Salt/MR/All.lean:1563-1565` (all three consumers: `budget_head_at_H0door`, `budget_head_grade_closed`, `budget_head_grade_closed_g` — so the "no transitive cover" reading is retired too). **FRESH RE-VERIFICATION 08/15**, not a replayed ledger line: `lake env lean` through the wrapper's AUDIT arm (the green-exit-≠-verification law honoured — the audit EXECUTED on these bytes) — **ALL TWELVE declarations at `[propext, Classical.choice, Quot.sound]`**. Receipt in `.saltbuild-audit.log`: `2026-08-15 11:27:03 | audit | /Users/jyh/projects/claude/salt | sha256=5a7fcbafb580 | HEAD=82fedba | EXIT=0`, `saltbuild EXIT=0`. THE ONE COSMETIC RESIDUAL, closed in THIS SAME COMMIT: `Salt.Entropy.Chowla.log_chowla_two_door_only_xi` — the Ξ_H-restricted door-only terminal that `log_chowla_two_door_only` (Pi's `thm:spine` surface, certified at `Salt/Certs/ChowlaSpine.lean:14`) is derived from — was covered only TRANSITIVELY; it now carries its own ledger row in the Entropy block. Nothing mathematical moved; this entry's finding was a bookkeeping lag, and the lag is the thing that was real.
 
 **ALSO.** `docs/CAMPAIGNS.md` gained one pointer line under its header (append-only, no restructure): *Headline registry: docs/RESULTS.md (lint: scripts/results_lint.py) — read before asserting absence.* No Lean file touched.
 
@@ -18951,7 +18951,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 **RANKING.** RRF over: exact declaration name (+0.30 flat), all-terms AND (3.0), any-term OR (1.5), per-term name-column (2.5), per-term full-text (1.0), alias-expanded (×0.55 — an expansion is a guess, priced below what was typed), vector (1.2). Exact-name is a flat bonus, not a ranked pass, sized to clear a typical RRF stack: asking about the Toll must return `towerFlat_width_ge`, not the six memos that mention it. Names of ≤3 chars (`Z`, `MR`, `HB`, `SW`) match **case-sensitively** — real objects, but lowercased they collide with every bound variable in the corpus, and case is the only signal separating `Salt.Parity.Z` from a local `z`.
 
-**ACCEPTANCE — 4/4 PASS, lexical+alias mode, no vectors required.** (a) `"Matomäki"` → `MRTUniformityXiL2` / `MRTUniformityXi` / `MRTUniformity` (`Salt/Entropy/Chowla/MRTDoor.lean`) at ranks **1–3**, reached **through the alias table alone** — the literal string appears nowhere in those files. That is the motivating failure, inverted. (b) `"Heath-Brown repulsion"` → `dh_repulsion_ordered` (`Salt/SW/TBalR8.lean:1752`) at rank 3, under the ledger entry recording it landing and the RESULTS.md row naming it. (c) `"parity barrier"` → `ParityBarrier` (`Salt/Parity/Z.lean:107`) rank 1. (d) `"width law"` → `towerFlat_width_ge` / `towerFlat_width_le` / `towerShape_width_ge` at ranks 2–4, under the ⟦THE TOLL CHRISTENED⟧ ruling that named them.
+**ACCEPTANCE — 4/4 PASS, lexical+alias mode, no vectors required.** (a) `"Matomäki"` → `MRTUniformityXiL2` / `MRTUniformityXi` / `MRTUniformity` (`Salt/Entropy/Chowla/MRTDoor.lean`) at ranks **1–3**, reached **through the alias table alone** — the literal string appears nowhere in those files. That is the motivating failure, inverted. (b) `"Heath-Brown repulsion"` → `dh_repulsion_ordered` (`Salt/SW/TBalR8.lean:2523`) at rank 3, under the ledger entry recording it landing and the RESULTS.md row naming it. (c) `"parity barrier"` → `ParityBarrier` (`Salt/Parity/Z.lean:110`) rank 1. (d) `"width law"` → `towerFlat_width_ge` / `towerFlat_width_le` / `towerShape_width_ge` at ranks 2–4, under the ⟦THE TOLL CHRISTENED⟧ ruling that named them.
 
 **PRIVACY LAW HONOURED.** Corpus content never leaves the machine; both backends run locally; no code path sends corpus text anywhere. The only network traffic possible is a one-time download of model WEIGHTS — weights in, nothing out — and once cached `HF_HUB_OFFLINE=1` is set so the network is not touched again.
 
@@ -18969,7 +18969,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 **THE MINT.** `Salt/MR/RegisterSupply.lean` (new, ~540 ln, 12 decls, imports `S13CapGateLinear` + `RbdSupply`). Registered in `Salt/MR/All.lean` (import + one `#audit_axioms` block of 8 rows). PURELY ADDITIVE -- no landed declaration touched.
 
-**W2 -- THE FINDING, AND WHY THE CAP CANNOT BE PROVED AS ASKED.** `S16BaseScaleCap96_L_gk K R M` (`S13CapGateLinear.lean:891`) asks `loglog(A+s) <= log P_2/9.60000096` for EVERY socket instance at a FIXED `R` and `M`. At the bytes: the ONLY upper bound on the socket's scale `A` is `SocketBaseL`'s own `(A : R) <= 2*R.x`; `ChowlaRegime` bounds `R.x` from BELOW only (`hheadroom`, `hheadroom'`, `hPHheadroom`, `hxbig` -- all lower bounds, and the builder `regime_outer_param` sets `x = K*omega` then ENLARGES it by `regimeFlatEnlargeX` to clear the caller's `g`); and the cap's right side `4*A_L(M)*GK*log2/9.60000096` reads only `M` and the lever `K`, never the regime. `logChowla2_ineffective_v3` exports `g R.Hhi R.omega <= R.x` for a CALLER-CHOSEN `g` -- a FLOOR. So a caller who knows `A` (hence `M = flatDoorM A`) may pick `g := fun _ _ => N` with `N > exp exp (4*A_L(M)*GK*log2/9.60000096)` and the returned regime FALSIFIES the predicate (the socket is non-vacuous there: `doorRowFloorL M <= j <= log_2 L` needs only `log_2 H_lo >= 2^36*M^2`, and `loglog H_lo >= 3.2A` gives `log_2 H_lo >= 1.44*e^{3.2A} >= 0.72*e^{3.2A} >= 2^36*M^2`). **THE CAP IS THEREFORE NOT DISCHARGEABLE FROM THE TERMINAL'S CURRENT EXPORT LIST.** The gap is ONE missing export, named exactly: an `x`-CEILING beside the `x`-floor (the builder has it in closed form -- `x = (8*H+^3 + 8*P^2 + Ce)*omega` enlarged to `max` with `g H+ omega` -- so the repair is a threading pass in the BAND-WINDOW genre, ~16 hops, NOT new mathematics).
+**W2 -- THE FINDING, AND WHY THE CAP CANNOT BE PROVED AS ASKED.** `S16BaseScaleCap96_L_gk K R M` (`S13CapGateLinear.lean:883`) asks `loglog(A+s) <= log P_2/9.60000096` for EVERY socket instance at a FIXED `R` and `M`. At the bytes: the ONLY upper bound on the socket's scale `A` is `SocketBaseL`'s own `(A : R) <= 2*R.x`; `ChowlaRegime` bounds `R.x` from BELOW only (`hheadroom`, `hheadroom'`, `hPHheadroom`, `hxbig` -- all lower bounds, and the builder `regime_outer_param` sets `x = K*omega` then ENLARGES it by `regimeFlatEnlargeX` to clear the caller's `g`); and the cap's right side `4*A_L(M)*GK*log2/9.60000096` reads only `M` and the lever `K`, never the regime. `logChowla2_ineffective_v3` exports `g R.Hhi R.omega <= R.x` for a CALLER-CHOSEN `g` -- a FLOOR. So a caller who knows `A` (hence `M = flatDoorM A`) may pick `g := fun _ _ => N` with `N > exp exp (4*A_L(M)*GK*log2/9.60000096)` and the returned regime FALSIFIES the predicate (the socket is non-vacuous there: `doorRowFloorL M <= j <= log_2 L` needs only `log_2 H_lo >= 2^36*M^2`, and `loglog H_lo >= 3.2A` gives `log_2 H_lo >= 1.44*e^{3.2A} >= 0.72*e^{3.2A} >= 2^36*M^2`). **THE CAP IS THEREFORE NOT DISCHARGEABLE FROM THE TERMINAL'S CURRENT EXPORT LIST.** The gap is ONE missing export, named exactly: an `x`-CEILING beside the `x`-floor (the builder has it in closed form -- `x = (8*H+^3 + 8*P^2 + Ce)*omega` enlarged to `max` with `g H+ omega` -- so the repair is a threading pass in the BAND-WINDOW genre, ~16 hops, NOT new mathematics).
 
 **W2 -- WHAT LANDED INSTEAD (the honest reduction, kernel-checked).** `s16_baseScaleCap96_L_of_xwindow (K) (hx : loglog(3*R.x) <= log P_2/9.60000096) : S16BaseScaleCap96_L_gk K R M` -- the socket's scale is `A+s <= 2x + H+ <= 3x` (off `A <= 2x`, `s <= L <= H <= H+`, `omega*H+ <= x`, `omega >= 2`), and the degenerate corner `log(A+s) <= 1` is handled separately. Plus the friendlier `s16_baseScaleCap96_L_of_x_small (hM : 1 <= M) (hx : loglog(3*R.x) <= GK) : ...` -- the cap's right side beats the lever's own numeral by `4*2^36*log2/9.60000096 ~ 1.9e10`, so at `K = 32000000` the window permits every outer scale below `exp exp (3072*2^{32000000}*M)`. Via the LANDED bridge `s16_baseScaleCap96_L_of_baseScaleCap96` the same window discharges the wide door too.
 
@@ -18985,13 +18985,13 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 **K_vt, HONEST (mission item (e)).** No effective bound was traced -- `capFreeFloor3_margin_all_chi_vt`'s witness remains symbolic, as COFK-L banked. The K-free law is threaded instead: `cofkL_threshold_at_socket` and `cofkL_capFreeFloor_at_socket` carry `K_vt` under the single explicit cushion `32*K_vt + 32*D <= log H+/4`. At the terminal's regime `log H+ >= e^{518}`, so the cushion admits `K_vt <= e^{518}/128 ~ 10^{222}` -- the traced-shape verification COFK-L asked for, now a kernel-checked hypothesis rather than a doc claim.
 
-**BUILD.** `lake build` EXIT-0 read from `$?` via redirection (never a pipe); 9681 jobs; **warnings 186 = 186 baseline**, none from `RegisterSupply.lean` or from the `All.lean` additions; `#print axioms` on all 9 new top-level decls: `[propext, Classical.choice, Quot.sound]`. NOTE: an intermediate full build failed on `Salt/MR/RiderTrace.lean:317` (`Unknown identifier logD3_mono`) -- the SIBLING arm's in-flight file, not this one; the green build above is at this arm's `All.lean` alone (the sibling's `import Salt.MR.RiderTrace` line is left uncommitted in the working tree for their own commit). Also banked: `All.lean` is a SHARED-WRITE HAZARD between parallel arms -- this arm's import line was silently overwritten once by the sibling's whole-file write and had to be re-added.
+**BUILD.** `lake build` EXIT-0 read from `$?` via redirection (never a pipe); 9681 jobs; **warnings 186 = 186 baseline**, none from `RegisterSupply.lean` or from the `All.lean` additions; `#print axioms` on all 9 new top-level decls: `[propext, Classical.choice, Quot.sound]`. NOTE: an intermediate full build failed on `Salt/MR/RiderTrace.lean:316` (`Unknown identifier logD3_mono`) -- the SIBLING arm's in-flight file, not this one; the green build above is at this arm's `All.lean` alone (the sibling's `import Salt.MR.RiderTrace` line is left uncommitted in the working tree for their own commit). Also banked: `All.lean` is a SHARED-WRITE HAZARD between parallel arms -- this arm's import line was silently overwritten once by the sibling's whole-file write and had to be re-added.
 
 **HONESTY LABEL ON THE W2 FINDING.** Two halves, different status. (i) *The cap is not provable from the terminal's exports* -- this is a statement about the export list and is CERTAIN: no export bounds `R.x` from above, and `loglog(A+s)` has no other upper bound in `SocketBaseL`. (ii) *The adversarial `g` refutes it* -- this is a PAPER argument, NOT kernel-checked: it needs the socket to be non-vacuous at the returned regime (the `doorRowFloorL M <= j <= log_2 L` chain above), which was verified by hand at the numerals, not in Lean. No witness was constructed. The landed reduction (`s16_baseScaleCap96_L_of_xwindow`) is what the kernel certifies.
 
 **CONSEQUENCE FOR THE ACCOUNTING.** COFK-L's headline ("the two carried predicates are BOTH priced") needs one amendment: the CO-FACTOR is priced and its anchor half is now PAID; the BASE-SCALE CAP is NOT priced -- it is unprovable as stated from the terminal's exports and needs the `x`-ceiling export first. The predicate-free classical terminal therefore costs: (1) the `x`-ceiling threading pass (BAND-WINDOW genre), (2) the co-factor bulk (transcription), (3) the cs/T0/Ks riders (the sibling arm + the named Siegel caveat).
 
-## () ROAD-B ARM 1 HOME (REGISTER-SUPPLY, 31c14c6+7ef684a) + CATCH #104 + THE ACCOUNTING AMENDMENT: W1's anchor-reading half PAID in kernel (the cancellation log QK = i^2*M*log P at the bytes; the debit 2logM+log4+50 anchor-identical; the mu-floor loglog(A+s) >= log H+ - 14 via hPHheadroom -- the ONE step carrying the whole margin; the vt-threshold discharged from the terminal's OWN exports; the capFreeFloor exit closes the supplier's only anchor+character-reading binder; K_vt carried under the explicit cushion 32K_vt+32D <= logH+/4, admits ~10^222). STOPPED LOUDLY on the bulk (c)+(d): the ~98-conjunct register carried-never-discharged at both doors (M4RowLinear:5799) -- transcription not mathematics, ~300 ln class B, ONE wave. W2 HEADLINE: the base-scale cap is NOT dischargeable from the terminal's current exports -- the terminal exports x-FLOORS only; the cap needs an x-CEILING export (the builder holds x in closed form; BAND-WINDOW-genre threading, the landed reductions s16_baseScaleCap96_L_of_xwindow/_of_x_small await it). ⟦CATCH #104 (operational)⟧: the quiescence guard `pgrep -f "leanchecker|lake build"` SELF-MATCHES its own bash cmdline and never terminates (both arms deadlocked ~30 min past ceremony end) -- future briefs: pattern-narrow to bin/-prefixed + exclude $$. ⟦All.lean = shared-write hazard between parallel arms -- Road-B follow-ons go SEQUENTIAL⟧. Road-B remaining: X-CEIL threading + COFACTOR-BULK + the riders (RIDER-TRACE in flight, T0 tripwire already fired).
+## () ROAD-B ARM 1 HOME (REGISTER-SUPPLY, 31c14c6+7ef684a) + CATCH #104 + THE ACCOUNTING AMENDMENT: W1's anchor-reading half PAID in kernel (the cancellation log QK = i^2*M*log P at the bytes; the debit 2logM+log4+50 anchor-identical; the mu-floor loglog(A+s) >= log H+ - 14 via hPHheadroom -- the ONE step carrying the whole margin; the vt-threshold discharged from the terminal's OWN exports; the capFreeFloor exit closes the supplier's only anchor+character-reading binder; K_vt carried under the explicit cushion 32K_vt+32D <= logH+/4, admits ~10^222). STOPPED LOUDLY on the bulk (c)+(d): the ~98-conjunct register carried-never-discharged at both doors (M4RowLinear:5753) -- transcription not mathematics, ~300 ln class B, ONE wave. W2 HEADLINE: the base-scale cap is NOT dischargeable from the terminal's current exports -- the terminal exports x-FLOORS only; the cap needs an x-CEILING export (the builder holds x in closed form; BAND-WINDOW-genre threading, the landed reductions s16_baseScaleCap96_L_of_xwindow/_of_x_small await it). ⟦CATCH #104 (operational)⟧: the quiescence guard `pgrep -f "leanchecker|lake build"` SELF-MATCHES its own bash cmdline and never terminates (both arms deadlocked ~30 min past ceremony end) -- future briefs: pattern-narrow to bin/-prefixed + exclude $$. ⟦All.lean = shared-write hazard between parallel arms -- Road-B follow-ons go SEQUENTIAL⟧. Road-B remaining: X-CEIL threading + COFACTOR-BULK + the riders (RIDER-TRACE in flight, T0 tripwire already fired).
 
 ## 2026-08-02 RIDER-TRACE Opus done — ⟦THE cs RIDER IS EFFECTIVE AT EVERY LEAF; THE T₀ RIDER IS A MIS-SIZED NUMERAL, UNREACHABLE AT THE CORPUS'S OWN WITNESS⟧ `Salt/MR/RiderTrace.lean` (three rungs + the cs arithmetic, exit 0)
 
@@ -19009,7 +19009,7 @@ carry above the mint is conjunct-arithmetic with no analysis in it.
 **⟦FINDING 1 — `cs` IS EFFECTIVE AT EVERY LEAF; THE DOSSIER'S §3 IS IN ERROR⟧** the 0802 summit
 dossier calls `cs`'s leaves "(K₄, Cκ) … compactness existentials of our own port". **They are not
 existentials at all** — `K₄ = 2^{3/4}·16` (`PortAssembly.lean:637`) and `Cκ = 2^{3/4}·8`
-(`HalaszPrimesCore.lean:3456`) are closed-form `noncomputable def`s. The other two leaves are
+(`HalaszPrimesCore.lean:3450`) are closed-form `noncomputable def`s. The other two leaves are
 literals in the source: `c_vk = 1/10^8` (visible AT THE CALL SITE — the mint is invoked on
 `TwistedWindowPriceGated (1/10^8)`) and `c₀ = 1/10^9` (`Vk/PowRegion.lean:365`, hidden only by the
 `∃`-prefixes, which export positivity alone). Hence
@@ -19073,7 +19073,7 @@ consumer tolerates `10^{10^{225}}` and the truth is `e^{e^{1251}}`. Repair:
 | `exp_exp_hundred_lt_exp_exp_1100` | **⟦THE T₀ VIOLATION⟧** `e^{e^{100}} < e^{e^{1100}}` |
 | `zeta_zero_free_region_pow_of_growth_bounded` / `_pow_bounded` | **RUNG 1** — the VK region with `1/10^9 ≤ c` AND `e^{e^{1100}} ≤ T₀` exported (body verbatim from `Vk/PowRegion.lean:354`); ONE twin serving BOTH riders |
 | `rect_zero_free_margin_bounded` | **RUNG 2** — ZFREE-RECT carrying both (body verbatim from `HalaszPrimesCore.lean:618`) |
-| `shifted_edge_price_strip_bounded` | **RUNG 3** — the shifted edge strip carrying both (body verbatim from `HalaszPrimesCore.lean:2246`) |
+| `shifted_edge_price_strip_bounded` | **RUNG 3** — the shifted edge strip carrying both (body verbatim from `HalaszPrimesCore.lean:2243`) |
 
 **⟦THE PRICE OF FINISHING cs⟧** two big replays remain below the ladder —
 `per_pair_contour` (647 ln, 12.8M heartbeats) and `halaszPrimesChiGated_of_price` (377 ln) — plus
@@ -19140,9 +19140,9 @@ theorem and XCeil §1–§2 are NOT on its path), or ⟦ITEM 3⟧ is FALSE at th
 the cap must be re-cut. **This is a design ruling, not an executor's call.**
 
 ⟦STOPPED LOUDLY⟧ the uniform-lane threading (mission item 2) was NOT performed. The head-ceiling
-twin is the interface; the remaining hops are `S16Uniform:299 → flat_capstone_uniform_win →
+twin is the interface; the remaining hops are `S16Uniform:284 → flat_capstone_uniform_win →
 flat_conditional_uniform_win → logChowla2_witnessed_scale_flat_L_v2_uniform_win(_ceiling) →
-S16Compose:146` — a four-hop seven-twin wave (BAND-WINDOW genre, ~450 ln). It is deliberately
+S16Compose:134` — a four-hop seven-twin wave (BAND-WINDOW genre, ~450 ln). It is deliberately
 not spent: the conjunct it would carry cannot discharge the cap at the terminal's `A`, per the
 headline. Thread it only if the redirect lands on the socket side and still wants the ceiling.
 
@@ -19252,7 +19252,7 @@ additions; all 13 new top-level decls at `[propext, Classical.choice, Quot.sound
 
 ## () COFACTOR-BULK HOME (f4ec2b1, exit-0, 13 decls 3-axiom): ⟦RULING 9⟧ instantiated END-TO-END at the L door -- cofkL_cofactorSupply_L_gk_flat concludes S16CofactorSupply_L_gk 32000000 Cq R (flatDoorM A) at the terminal's own numerals; ALL SEVENTEEN TLBlockGates34 conjuncts discharged none-resisted (C6 collapses -- cq is instantiation-free; C4 one charge covers every block); the ladder off the landed witnesses; the head off exists_shortIntervalDatum; arm 1's capFreeFloor consumed verbatim as hfloor; the register shrank 19->17 (the band-bottom pays the anchor ceiling free). THE ACCOUNTING HEADLINE KERNELIZED: not one carried conjunct mentions AdoorL/s13GK/calP/calQK/chi -- COFK-L's anchor-blindness is now kernel fact. K_vt symbolic under the explicit cushion; the Qm slot CLOSED via cofkL_q_le_arcCap. HONEST RESIDUAL: CofactorBulkL is a REGISTER not a theorem -- its inhabitation at the flat scale (C7 wants X >~ e^{e^165}; the mu-floor supplies loglog X ~ 10^95 -- looks free, unproven) is COMPOSE-2's to close. Road-B chain: BAND-K-PROBE (aloft) -> CAP-RECUT -> COMPOSE-2 v4.
 
-## () BAND-K-PROBE: **GATE OPEN** (pure byte-read, no kernel probes): K enters the band lane at exactly TWO sites, both through s13GK; the supplier chain is PARAMETRIC (no hK ceiling anywhere on it); the minted Cband = 64C + e^{-52.5}4^{-1.05} is K-FREE AND A-FREE (witness obtained before every intro, traced hop-by-hop) -- Awin ~ 35439 unchanged by the raise. ⟦LOAD-BEARING CREDIT⟧: the K-freeness was BOUGHT by the 7/31 LEVEL2-PROD reprice (per-block gaps log M / log 4M at every G -- the lever cancels in-block); on the old covering-window witness the raise would be DEAD (log Cband >= 0.728K). THE ONE RESIDUAL: the forall-K/exists-Awin SWAP (four binder-hoists, ~170 ln, bodies verbatim: M4RowLinear:7103/:7169, S11HoistLinear:736, S16Uniform:1200). CENSUS: 167 hK binders all pure forwards; the L spend sites ALREADY at the linear ceiling (DoorLinear:300, DoorLadderLinear:393/:403/:581); the kwide widener (ThmA2Linear:39, spent :540) is the one hop to delete; CAVEAT: ~8 twins quantify M internally -- the ceiling moves INSIDE as an antecedent (body edits, sites named). THE REGISTER HOSTS ANY Klev <= 548e^{1.6A} uniformly (S15SelLinear:529 derivation; margin 137x at the pinned ceiling). DESIGN NOTE ADOPTED: Klev := ceil(kcap*e^{1.6A}) with kcap a NAMED design constant (:= 4; budget 547; the demand-side coefficient margin is 1.386x -- one bad constant away, so the dial gets a name). The cap direction: raising K makes the cap RHS ~10^{4.5e112} -- clears CAP-SCOPE's demand by 10^112 orders in the exponent. BULK's product verified K-parametric (forall-K outside the witness prefix) -- survives the raise as-is. ⟦CAP-RECUT fires: hoists + weakenings + kwide deletion + Klev(kcap) + the g-rider + the iii-B re-cut + discharge⟧
+## () BAND-K-PROBE: **GATE OPEN** (pure byte-read, no kernel probes): K enters the band lane at exactly TWO sites, both through s13GK; the supplier chain is PARAMETRIC (no hK ceiling anywhere on it); the minted Cband = 64C + e^{-52.5}4^{-1.05} is K-FREE AND A-FREE (witness obtained before every intro, traced hop-by-hop) -- Awin ~ 35439 unchanged by the raise. ⟦LOAD-BEARING CREDIT⟧: the K-freeness was BOUGHT by the 7/31 LEVEL2-PROD reprice (per-block gaps log M / log 4M at every G -- the lever cancels in-block); on the old covering-window witness the raise would be DEAD (log Cband >= 0.728K). THE ONE RESIDUAL: the forall-K/exists-Awin SWAP (four binder-hoists, ~170 ln, bodies verbatim: M4RowLinear:7051/:7117, S11HoistLinear:726, S16Uniform:1103). CENSUS: 167 hK binders all pure forwards; the L spend sites ALREADY at the linear ceiling (DoorLinear:311, DoorLadderLinear:396/:406/:584); the kwide widener (ThmA2Linear:41, spent :540) is the one hop to delete; CAVEAT: ~8 twins quantify M internally -- the ceiling moves INSIDE as an antecedent (body edits, sites named). THE REGISTER HOSTS ANY Klev <= 548e^{1.6A} uniformly (S15SelLinear:563 derivation; margin 137x at the pinned ceiling). DESIGN NOTE ADOPTED: Klev := ceil(kcap*e^{1.6A}) with kcap a NAMED design constant (:= 4; budget 547; the demand-side coefficient margin is 1.386x -- one bad constant away, so the dial gets a name). The cap direction: raising K makes the cap RHS ~10^{4.5e112} -- clears CAP-SCOPE's demand by 10^112 orders in the exponent. BULK's product verified K-parametric (forall-K outside the witness prefix) -- survives the raise as-is. ⟦CAP-RECUT fires: hoists + weakenings + kwide deletion + Klev(kcap) + the g-rider + the iii-B re-cut + discharge⟧
 
 ## () CAP-RECUT HOME (exit-0, 19 decls 3-axiom, ~640 ln): **⟦ITEM 3 IS A THEOREM AT THE RAISED LEVER⟧** — `s16_baseScaleCap96_L_at_klevF` lands `S16BaseScaleCap96_L_gk (KlevF A) R M` on the flat builder's two exported ceilings (the `x`-ceiling under the `g`-rider; the endpoint ceiling `loglog H₊ ≤ 2e^{1.6A}`) plus `ε ≥ 1/500`. The vacuity CAP-SCOPE found is repaired exactly where the ruling said. **P1 (4/4)** the uniform hoists land bodies-verbatim — `m4_hpiece…_uniform`, `m4_hT0band…_uniform`, `m4_hband_at_door_slot…_uniform`, and the prize `s16_bandLaneWinL_holds_uniform : ∃ Awin, 162 ≤ Awin ∧ ∀ K, S16BandLaneCBoundedL_win Awin K`: ONE `Awin` for EVERY `K`, BAND-K-PROBE's gate confirmed at the kernel. **P2(a)** `kcap := 4` (NAMED dial) + `KlevF A := ⌈kcap·e^{1.6A}⌉₊`; `KlevF_le_wideCeiling` proves admissibility inside the register's own `1.7e8·flatDoorM A` at every `A ≥ 26` (137× margin, uniform). **P2(c)** the `kwide` hop DELETED — `calFrameK_doorH1_at_L_gk_kwide` (ThmA2Linear, beside its original) takes `K ≤ 1.7e8·M` straight into the landed wide frame `calFrameK_satisfiable_doorH1_L_gk`; `calFrameK_doorH1_at_L_gk_flat` is its flat-design-point instance. **P3** `chowlaRegimeFlat_exists_param_head_gceil` collapses XCeil's `max`-shaped head ceiling for any caller `g` with `log(g H₊ ω) ≤ (31/ε)·H₊`. ⟦HONEST COEFFICIENT, CORRECTED AT THE BYTES⟧ the builder's own `x` has `log x ≈ 1.386·ε²·H₊` against the rider's `31·H₊/ε`, a ratio `22.4/ε³ ≥ 2.8·10^9` at `ε ≤ 1/500` — **NINE** orders in the coefficient, not the four the 0802 dossier addendum estimated. **P4** `S16BaseScaleCapEnd_L_gk` is the `K`-FREE endpoint form (`loglog(A+s) ≤ log H₊ + log(1/ε) + 5`), a THEOREM off the `x`-ceiling (`s16_baseScaleCapEnd_L_of_xceil`); `s16_baseScaleCap96_L_of_end` is ⟦iii-A⟧ in one lemma (the door-vs-endpoint numeral as an EXPLICIT hypothesis, so no consumer statement changes); `klevF_capNumeral` proves that numeral at `K = KlevF A`; `s16_capGate_supply_L_gk_{end,klevF}` are the cap gate on the re-cut route. ⟦THE WHOLE QUESTION IS ONE COEFFICIENT⟧ demand `loglog H₊ ≤ 2·e^{1.6A}` against supply `K·log 2 = kcap·log 2·e^{1.6A} = 2.7724·e^{1.6A}` — margin **1.386×**, one bad constant away, which is why `kcap` is a named dial and not an inline numeral (the residual `e^{0.7724t}`, `t ≥ 10^{17}`, is pure slack). ⟦THE ONE STOPPED ITEM: P2(b)⟧ the signature weakenings. The brief priced ~25; the **verified census is 67 decls across 14 files** transitively on the `calFrameK_doorH1_at_L_gk` chain (177 flat-ceiling decls exist in `Salt/MR` overall). TWO landed as the pattern — `m4_hrowsSum_chi_door_zero_L_gk_kwide`, `m4_hrowsSlot_at_door_zero_L_gk_kwide` (the deepest pair, six consumers between them) — showing the mechanical recipe: delete `(hK : K ≤ 170000000)` from the binder list, insert `K ≤ 170000000 * M →` immediately after the INTERNAL `1 ≤ M →` (M is internally quantified at every one of the 67), re-point at the `_kwide` frame. 65 remain: M4ArithZeroLinear(4) M4ClosureRepairLinear(6) M4LadderLinear(6) M4RowAssemblyLinear(10) M4RowLinear(5) M4RowSpineLinear(2 left) M4RowsChiPrimeLinear(6) M4SocketLinear(3) NumeralCt(3) S11HoistLinear(3) S16Compose(3) S16FlatTerminalLinear(3) S16Uniform(4) ThmA2Linear(7). STOPPED not because it is hard but because it is BULK (~4000 ln of verbatim restatement) — a dedicated mechanical wave, not a design item. ⟦COMPOSE-2's INGREDIENT LIST⟧ `KlevF`/`kcap`/`KlevF_le_wideCeiling`; `s16_baseScaleCap96_L_at_klevF` (⟦ITEM 3⟧); `s16_capGate_supply_L_gk_klevF`; `chowlaRegimeFlat_exists_param_head_gceil` (the `g`-rider the v4 terminal must state); `s16_bandLaneWinL_holds_uniform` (the `A`-uniform band rider); `calFrameK_doorH1_at_L_gk_kwide` + the two spine twins; and the 65-decl widening as its prerequisite.
 
@@ -19328,7 +19328,7 @@ landed law, one threading wave from being a theorem, with nine orders of coeffic
 * **THE `T₀` RESHAPE.** Traced to the bytes and priced, NOT spent. The consumer chain is exactly
   four hops: `capfloor_T0_Tann` (S13CapFloor:238, sharp sibling `_sharp` at :226 LANDED) ←
   `s13CapFloor_all_L_gk` (S13BandCapLinear:256) ← `s16_capGate_supply_L_gk`
-  (S13CapGateLinear:939) ← `s15_crossing_supplied_L_gk_ceiling` (S16Compose:960) ← the terminal
+  (S13CapGateLinear:931) ← `s15_crossing_supplied_L_gk_ceiling` (S16Compose:920) ← the terminal
   ← `v4`. The sharp form asks `T₀ ≤ exp(√H/2)` at the SOCKET's `H`, and every hop has `R` in
   scope with `R.Hlo ≤ H`, so the uniform carrier is `T₀ ≤ exp(√R.Hlo/2)` with one
   `Real.sqrt` monotonicity step at the leaf; at the terminal it becomes
@@ -19505,7 +19505,7 @@ EXACTLY `(log X)^{−ρ₂₉₃}`, the identity `(1/32 − θ₂₉₃)/e = 3·
 `2θ₂₉₃` the predicate demands.
 
 ⟦THE REGISTER'S TRUE LAW, AND THE PRICE OF THE REPAIR⟧ `S16CofactorSupply_L_gk` does NOT ask for
-`C_R = gradeCR2 Cb` — its `C_R` is EXISTENTIAL (`S13CapGateLinear:897`), constrained only by
+`C_R = gradeCR2 Cb` — its `C_R` is EXISTENTIAL (`S13CapGateLinear:889`), constrained only by
 `Rbd ≤ C_R·(log X)^{−ρ₂₉₃}` and `1728·C_q·C_R² ≤ (log X)^{2θ₂₉₃}`.  Eliminating `C_R` between the
 two (`s16cof_exit_decay`) gives the law the register was hiding:
 
@@ -19545,7 +19545,7 @@ which the design constant `A` can absorb — see the `C_q` verdict.
 (`S16Compose.m4_rowChi_capstone_perBlock_bounded` takes no `K`), and the mint is
 `PortAssembly:827` — `Cq = (3/2)·(44π + Cε)` with `Cε = C₁K₅ + 10C₂ + C₃K₅ + E₁K₂ + 10E₂ + E₃K₂ + 9`,
 a closed arithmetic form whose leaves are explicit numerals EXCEPT one: `logDeriv_Zc_compact_bound`
-(`HalaszPrimesCore:1094`, `hKcompact.exists_bound_of_continuousOn`) — a compactness existential.
+(`HalaszPrimesCore:1093`, `hKcompact.exists_bound_of_continuousOn`) — a compactness existential.
 So `Cq` is opaque-but-`K`-free, and NO landed lemma bounds it (`grep "Cq ≤"` = zero hits).
 CONSEQUENCE FOR `v6`: conjunct 17 needs `A` chosen after `Cq`; the terminal's own shape is
 `∀K, ∃Cq, ∀A`, but `v5`'s proof must choose `A` BEFORE the lever `K = KlevF A` (the base-scale cap
@@ -19557,8 +19557,8 @@ here, not previously on the ledger.**
 ⟦THE `K_vt` VERDICT (traced this wave — the brief's item 2)⟧ **GENUINELY OPAQUE, and the
 obstruction is Siegel.**  `capFreeFloor3_margin_all_chi_vt`'s witness is
 `max 0 (max Kvk (max Kbulk Kband))`: leg 1 `Kvk` is CLOSED FORM
-(`12 + cpeel + primeTailConst + 5 + log 4 − mertensM ≈ 44.8`, `ChiEuler:346` → `PrimeTail:358`);
-leg 2 `Kbulk` is CLOSED FORM but astronomical (`DistHalasz:194`, `≈ log(2e^{e^{100}}) ≈ 2.7·10^{43}`,
+(`12 + cpeel + primeTailConst + 5 + log 4 − mertensM ≈ 44.8`, `ChiEuler:345` → `PrimeTail:381`);
+leg 2 `Kbulk` is CLOSED FORM but astronomical (`DistHalasz:192`, `≈ log(2e^{e^{100}}) ≈ 2.7·10^{43}`,
 and pinning it needs one mechanical re-freeze of `one_line_pow_growth`'s unpinned witnesses
 `⟨8000005, exp(exp 100)⟩`); leg 3 `Kband` bottoms out at `SiegelArm:166`
 `bandBox_isCompact.exists_isMinOn` — the EVT minimum of `‖L(s,χ)‖` on `[1,2]×[−1,1]`, uniform over
@@ -19589,7 +19589,7 @@ hypothesis this wave refutes).
 
 ## () FOR THE RECORD (JYH, fleet method note): the outside reviewer initially priced verification "infeasible given the time we have"; the Captain pushed (his words: "just as I have pushed you"), and the 6.5-minute agility measurement turned the skeptic into a believer. The pattern named: the Captain's method is pushing seats past their conservative priors and letting the kernel arbitrate -- the same push that produced this campaign's standing order. A believer who began as a skeptic is the strongest kind; the anecdote is itself pitch-grade evidence (the instrument converts its own operators).
 
-## () K_vt TRACE ADDENDUM (the deep trace child completes): legs 1-2 CONFIRMED closed-form with two missing numeral lemmas noted (cpeel has only summability, primeTailConst has NO <= lemma -- the 44.8 needs norm_num-grade work + cpeel <= pi^2/6; Kbulk ~ e^100 needs the one witness re-freeze at OneLinePowGrowth:328); leg 3 Kband CONFIRMED the sole obstruction (SiegelArm:166 EVT min of ||L|| on the box, running max over q <= Qm, no closed form -- the corpus's own POISON 2 + the council's recorded grant at flags:15555). The named-cushion disposition REGISTER-REPAIR carries is unchanged and now fully sourced.
+## () K_vt TRACE ADDENDUM (the deep trace child completes): legs 1-2 CONFIRMED closed-form with two missing numeral lemmas noted (cpeel has only summability, primeTailConst has NO <= lemma -- the 44.8 needs norm_num-grade work + cpeel <= pi^2/6; Kbulk ~ e^100 needs the one witness re-freeze at OneLinePowGrowth:327); leg 3 Kband CONFIRMED the sole obstruction (SiegelArm:166 EVT min of ||L|| on the box, running max over q <= Qm, no closed form -- the corpus's own POISON 2 + the council's recorded grant at flags:15555). The named-cushion disposition REGISTER-REPAIR carries is unchanged and now fully sourced.
 
 ## () ⟦CATCH (mine) -- THE CORRESPONDENCE MAP WENT STALE⟧ two catches land on this seat from an outside review; the salt lesson is the freshness law: a map cited from memory is stale by construction
 
@@ -19601,9 +19601,9 @@ hypothesis this wave refutes).
 
 **⟦THE TRIM-PATCH FINDING — a mis-bucketed council line, propagated twice⟧** There is **no flagship trim patch and there never was one**. "The trim patch" is `docs/exploration/jacobian-trim-preview.patch` (101 ln, created `387f330` 7/31 08:00, refreshed `55e825c` 7/31 08:35) — a **mathlib-PR docstring trim** targeting `Counterexamples/JacobianConjecture.lean`, in the Jacobian lane, with zero relation to `papers/flagship/main.tex`. The ledger banked it correctly (`flags.md:18247`: "the PR module-fix pushed + the trim PREPARED-unpushed"); `council-0801.md:69` then filed it under the **Fulcrum** bullet ("trim patch standing by"), and from there it reached this executor's brief as a flagship item. Nothing was owed on length either: **Pi states no page limit and no word limit** (PREP-PI, `pi-prep-0731.md:204-207`); the paper is 10 pages.
 
-**WHAT WAS APPLIED INSTEAD (the dossier's own G16, the only trim-genre item; 793 → 820 ln).** (1) **THE ONE CUT** — `\bibitem{companion}` ("J. Hickey, *The Salt method*, in preparation") deleted: Pi's IFC bars not-yet-submitted work from the reference list, and it was **uncited** (mechanically confirmed); the prose mention at `main.tex:703-705` survives, which is exactly Pi's prescribed handling. (2) **REORDER** — the 9 remaining `\bibitem`s alphabetized by first-author surname per Pi (keys unchanged, every `\cite` still resolves, `amsart` renumbers). (3) **THE C⋆ NOTE** — a new `remark` in §4 after the existing one, FULCRUM-ROAD's flagged item (`fleet-meeting-0803-brief.md:50`): only the `2/c₀ = 253696` arm of `C⋆ = max(C⁽¹⁾, 2/c₀)` is a numeral; `C⁽¹⁾ = exp exp{2A/(𝔖C(α))}` is a double exponential (inner exponent 10 already gives ≈ e^22026 against 2.5×10⁵), so the paper's numeral is the **reality floor** and not any engine's operating threshold — and **no statement depends on the gap**, because `fulcrum_dichotomy` (`Dichotomy.lean:102`) is stated `{C : ℝ} (hC : 0 < C)` and consumes `hEngine` at that same `C`. Every clause grounded before writing (`fulcrum_audit_source.md:33-36`, `pass3_t4.md:79-92`, `CZeroNumeral.lean:410/:427`, `Basic.lean:93`). Voice laws held (no "honest"/"load-bearing"; both strong adjectives paid by numbers).
+**WHAT WAS APPLIED INSTEAD (the dossier's own G16, the only trim-genre item; 793 → 820 ln).** (1) **THE ONE CUT** — `\bibitem{companion}` ("J. Hickey, *The Salt method*, in preparation") deleted: Pi's IFC bars not-yet-submitted work from the reference list, and it was **uncited** (mechanically confirmed); the prose mention at `main.tex:703-705` survives, which is exactly Pi's prescribed handling. (2) **REORDER** — the 9 remaining `\bibitem`s alphabetized by first-author surname per Pi (keys unchanged, every `\cite` still resolves, `amsart` renumbers). (3) **THE C⋆ NOTE** — a new `remark` in §4 after the existing one, FULCRUM-ROAD's flagged item (`fleet-meeting-0803-brief.md:50`): only the `2/c₀ = 253696` arm of `C⋆ = max(C⁽¹⁾, 2/c₀)` is a numeral; `C⁽¹⁾ = exp exp{2A/(𝔖C(α))}` is a double exponential (inner exponent 10 already gives ≈ e^22026 against 2.5×10⁵), so the paper's numeral is the **reality floor** and not any engine's operating threshold — and **no statement depends on the gap**, because `fulcrum_dichotomy` (`Dichotomy.lean:102`) is stated `{C : ℝ} (hC : 0 < C)` and consumes `hEngine` at that same `C`. Every clause grounded before writing (`fulcrum_audit_source.md:33-36`, `pass3_t4.md:79-92`, `CZeroNumeral.lean:408/:425`, `Basic.lean:93`). Voice laws held (no "honest"/"load-bearing"; both strong adjectives paid by numbers).
 
-**VERIFICATION (no LaTeX toolchain on this machine — by script and inspection).** LaTeX balance **CLEAN**: environments nest and close; 404 unescaped `$` = 202 pairs with no pair spanning a blank line; `\[`/`\]` 14/14; brace depth returns to 0; **no dangling `\ref`, no dangling `\cite`**. `\leanname` inventory: **32/32 declaration names verified in the tree** by declaration-keyword regex — not a spot check (e.g. `dh_repulsion_ordered` `SW/TBalR8.lean:1752`; `fulcrum_dichotomy` `Fulcrum/Dichotomy.lean:102`; `hb_l2c_master_unconditional` `HB/L2cMasterUncond.lean:85`; `sufficient_true_not_parityInv` `Parity/Z.lean:670`; `log_chowla_two_door_only` `Entropy/Chowla/SpineFinal.lean:981`). The paper's two count-claims re-verified exact (59 sign-function decls; 10 census decls). **The λ(n)λ(n+1) shift-display fix CONFIRMED AT THE BYTES** — `main.tex:635` against `logChowla2Fails` (`ChowlaFailure.lean:59`, shift +1); the von Mangoldt twin sums at `:398-399` correctly stay `n+2`. `\thanks` (`:32-34`) and Acknowledgments (`:745-758`) **intact and byte-unchanged**, all five components present.
+**VERIFICATION (no LaTeX toolchain on this machine — by script and inspection).** LaTeX balance **CLEAN**: environments nest and close; 404 unescaped `$` = 202 pairs with no pair spanning a blank line; `\[`/`\]` 14/14; brace depth returns to 0; **no dangling `\ref`, no dangling `\cite`**. `\leanname` inventory: **32/32 declaration names verified in the tree** by declaration-keyword regex — not a spot check (e.g. `dh_repulsion_ordered` `SW/TBalR8.lean:2523`; `fulcrum_dichotomy` `Fulcrum/Dichotomy.lean:102`; `hb_l2c_master_unconditional` `HB/L2cMasterUncond.lean:85`; `sufficient_true_not_parityInv` `Parity/Z.lean:681`; `log_chowla_two_door_only` `Entropy/Chowla/SpineFinal.lean:981`). The paper's two count-claims re-verified exact (59 sign-function decls; 10 census decls). **The λ(n)λ(n+1) shift-display fix CONFIRMED AT THE BYTES** — `main.tex:635` against `logChowla2Fails` (`ChowlaFailure.lean:59`, shift +1); the von Mangoldt twin sums at `:398-399` correctly stay `n+2`. `\thanks` (`:32-34`) and Acknowledgments (`:745-758`) **intact and byte-unchanged**, all five components present.
 
 **THE PACKAGE DOC** carries: the ordered post-endorsement sequence (pdflatex → number refresh → leanchecker re-run → arXiv `math.NT` primary / `cs.LO` cross → ID → EditFlow at `cup.msp.org/submit_new.php?jpath=pi`, article type Research Article); the step-0 consent gate answered item by item (COI, the AI tick, the APC waiver route); the first-page field table; the data-availability facts consistent with the salt-public gate; and the covering-letter **facts/bullets only** (community-voice law — JYH voices it; scrupulous silence on editors held). **THE NUMBERS WERE DELIBERATELY NOT PATCHED**: measured today at `HEAD=b828cf1` as **631,947 ln / 1,107 files / 1,847 commits / 18,953 decls / 147 audit invocations over 23 manifests / 9,680 jobs**, banked in §4 with the exact commands and the exact `main.tex` sites, to be pasted **at posting time** rather than frozen now (they move daily). Declaration counts must come from the comment-masked extractor (18,953), never grep (19,025) — the `flags.md:18959` finding. `#256` stands as the highest **numbered** catch, so all three of the paper's phrasings remain exact; only `:122`'s bare "256 catches" undercounts, one word from correct.
 
@@ -19676,7 +19676,7 @@ landed body plus ONE `intro K`, legal because `C_q` is `K`-independent from hop 
 constants outside the flat terminal's lever binder, leaving only `Ct` moving with `K` — the
 mixed shape the 8/02 hoist already used.  **All four landed first-attempt.**
 
-⟦`v6` (item 4), MINTED⟧ `logChowla2_ineffective_v6` (`RegisterCompose:345`).  `v5` with the
+⟦`v6` (item 4), MINTED⟧ `logChowla2_ineffective_v6` (`RegisterCompose:339`).  `v5` with the
 co-factor predicate GONE.  THE EXACT LIST — outer: **NOTHING**.  Inner, five:
 `e^{-100} ≤ cs`; `T₀ ≤ exp(√(flatDesignBase A)/2)`; `e^{-100} ≤ Ks`; the caller's own
 `XCeilRiderStrict ε g`; and **`32·K_vt(KlevF A, Q_m) + 32·(2 log M + log 4 + 50) ≤ (log H₊)/4`**
@@ -19703,19 +19703,19 @@ and `v5` remains true (it is now marked `[SUPERSEDED → v6]` in place).
 
 ## () ⟦V6 -- ROAD B IS DONE⟧ REGISTER-REPAIR home (b36f53a+b9c363e, exit-0, 17 decls 3-axiom, 71 Trophy rows, all lints green): logChowla2_ineffective_v6 -- OUTER NOTHING, CONCLUSION-SIDE NOTHING; the seventeen register conjuncts ALL discharged at D = ceil(log X) (conjuncts 2/3 were FALSE at the T-bottom until capfloor_core's socket forcing was found -- CHECKED BEFORE PROVING; conjuncts 9/10 turned out THEOREMS -- the stale morning reading corrected in-wave; the keystone cofkR_window_lower off the band's true bottom); the exists-Cq forall-K hoist all first-attempt; the quantifier circle CLOSED. THE FIVE INNER RIDERS FINAL: cs (33 orders, pinned) / T0-sharp (satisfiable, 2 exp levels) / Ks (Siegel) / the caller's XCeilRiderStrict (met by g==0) / the K_vt cushion BY NAME (its third leg = SiegelArm:166's EVT min of ||L|| -- THE SIEGEL OBSTRUCTION ITSELF). THE HONEST SENTENCE: beyond its own satisfiable bookkeeping, the corollary carries EXACTLY the Siegel obstruction, named twice, nothing else -- the wall met honestly on 7/29 is the only thing left inside the statement. Dossier ADDENDUM 3 sealed: **(e) IS RIPE on the Captain's read of v6.** ⟦N5 wave-1 queues on N0-AUDIT's return; the writer slot is free⟧
 
-## () ⟦JUTILA-STAGE — the 1977 companion notes staged (docs/sources/jutila1977-notes.md), and the recorded reading CORRECTED TWICE⟧ Fair-use research notes only; the PDF never entered the repo (and cannot — the scan has NO text layer, `pdftotext` returns 0 bytes, so every formula was read from page images with the seven delicate glyphs re-rendered at 600 dpi: Thm 1′ (1.9), Thm 2 (1.10), Thm 3, the effectivity sentence, Lemma 5's hypothesis, (2.8), §6's (6.2)+Y/R). Sections §0 headline results · §1 the pseudocharacter apparatus · §2 Theorem 2 (the repulsion) · §3 the density side + §7's road to the constant · §4 a page-cited constants census (33 rows) · §5 the crosswalk. **⚠ CORRECTION 1 (the real one).** `s3-hb3-design.md:951–953` records "Jutila's own Thm 2 proof is NEW (not Turán power-sum; via the Graham/Halász lemma apparatus)". The second half is WRONG: Graham (Lemma 4) and Halász (Lemma 7) are §2 lemmas spent in **§3, the proof of Theorem 1**. Theorem 2's proof is **§5 Lemmas 9–12 + §6** and uses NEITHER — its apparatus is the `1∗χ₁` detector `a_n = Σ_{d|n}χ₁(d)` (p.54, non-negative, `= 2^{ω(n)}` on squarefree `n`), the pseudocharacter mollifier `f(n) = μ(n)2^{−ω(n)}n`, the factorization `G_{r,r'}(s,χ) = L(s,χ)L(s,χχ₁)P_{r,r'}(s,χ)Q(s,χ)` (5.1), Mellin + a shift to `Re s = 1/2+ε` in which **the zero `β₁` cancels the `Γ`-pole at `s=0`** while `L(s,χ₀)`'s pole at `s=1` gives the `Γ(δ₁)Y^{δ₁}S` main term (5.2), Hölder + mean-fourth-power for the `S`-floor (Lemma 11), and the `n=1`-term dichotomy (Lemma 12). A future re-derivation must read **§5–§6, not §2–§3**. Turán does appear — but only in §7's kernel `K(w)=e^{kw}(e^w−e^{−w})/2w`, on the road from the two theorems to the constant. **⚠ CORRECTION 2 (scope).** "Jutila 1977 = L ≤ 550" is wrong wherever it appears (including this node's own tasking): 550 is Jutila [7],[8] 1969/70 BY the Turán power-sum method, and **this paper supersedes it with Theorem 3: L ≤ 80** (`4k+4` at `k=19`, p.47/p.61). **GAP (not an error):** Theorem 1′ (`N(λ) ≤ 10e^{11λ}`, p.47) — the weak form §7 actually consumes — was never in our record; its in-house analogue is the LANDED `LFunction_zero_count_near_one` (ZeroCountNearOne.lean:98–102, C=7200). **VERIFIED CORRECT in our record:** (1.10) character-by-character (`δ₁ ≥ (1−6δ)D^{−(2+ε)δ/(1−6δ)}/8 log D`), Theorem 1's `4/5 ≤ α ≤ 1` / `(qT)^{(2+ε)(1−α)}`, and the effectivity sentence AT p.47 ("We do not appeal to Siegel's theorem, so that everything can be made explicit", the paragraph after Thm 3; a second operational statement sits at p.61). Effectivity is *in principle* only — `D₀(ε)` and every `≪_ε` are uncomputed. **⟦THE DIAGONAL FORK, OPEN SINCE 7/17, IS ANSWERED FROM THE SOURCE⟧** s3-hb3-design.md:1014–1031 asked "how his Thm 2 statement still covers the diagonal at log η quality must be read from his §§5–6". Read: the diagonal `χ ∈ {χ₀,χ₁}` is INSIDE Theorem 2's statement and costs **a factor 2** — Lemma 12 branches to (5.4) (identical to (5.3) but with `½Y^{(1+ε)(β−β₁)}`; §6 p.59: "the resulting lower bound for δ₁ is half of that in (6.2)") or to (5.5) `δ₁ ≥ ½Y^{β−1}|Γ(1−ρ)|^{−1}{1+O(...)}`, closed by (6.4) `|1−ρ| ≥ 0.28/log q` (Miech [13] Lemma 12 for ρ real, Jutila [7] Lemma 3b for ρ non-real). No quality loss on the diagonal; and Jutila's own diagonal route is the PRODUCT detector `L(s,χ)L(s,χχ₁)` with explicit pole bookkeeping — the same shape the house recorded from Benli–Goel–Twiss–Zaman (s3:1036–1046). **THE CROSSWALK to `dh_repulsion_ordered` (TBalR8.lean:1752, b=680/c=2^{−250}/k=14/σ₀=16/17):** ours realizes (1.10) **at Jutila's diagonal only** (both zeros of the SAME real primitive χ — which is exactly what HB consumes), with his δ-dependent exponent `(2+ε)/(1−6δ)` (= 3.09 at δ=1/17) flattened to the uniform `b=680` (**≈220× worse**), his `8 log D` to `(log Q+2)^{14}`, his `1−6δ ≥ 0.647` to `2^{−250}`, on a NARROWER window (`σ ≥ 16/17 = 0.941` vs his `σ > 5/6 = 0.833`), with `|Im ρ| ≤ 1` where he is τ-uniform, and requiring primitivity where he does not. What we buy for all that: **his `D ≥ D₀(ε)` is an uncomputed ineffective threshold and ours does not exist** — the contract is unconditional in `q ≥ 2`, kernel-checked, 3 axioms. The b=680 grade stays absorbable per the 7/19 T4 ledger; residual unchanged = T-BAL-BUDGET/N0. **THE CONSUMER CHAIN (naming correction):** the tasking said "the L2/L5 links"; the ledger (pass3_t4.md:38–50) has NO L5 repulsion link (Lemma 5/K = the Kloosterman block, audited to consume NO η) and L2 is not a direct consumer. The chain is **L3-ii → (L2 multiplies the rate) → L7**: L3-ii is the sole direct consumer (`r₀ ≫ L^{−1}log η`, LOG-only, node N3, Lean slot `Salt.HB.PretenseSum` TransferFull.lean:183), and Jutila's §6 `Y^{δ₁}/K(Y,δ₁)` inversion CONFIRMS AT THE SOURCE that log-order is the shape D–H methods give — the pass3 "SHAPE NOT absorbable" ruling is now source-grounded, not audit-derived. On the density side Jutila Thm 1 maps to node N2, where `D ≤ 83` is tolerated against his `2+ε` — we may be ~40× cruder, so his §3 route (Graham + Halász + the ξ,η-integration device, the paper's own stated novelty) need NOT be reproduced. ONE ⚠ FLAG banked: the `(log q)^{1/2}` exponent in Lemma 5/(2.8) is a glyph-level read (matched against the `(qT)^{1/2}` one line below); it is a range condition, nothing downstream depends on it.
+## () ⟦JUTILA-STAGE — the 1977 companion notes staged (docs/sources/jutila1977-notes.md), and the recorded reading CORRECTED TWICE⟧ Fair-use research notes only; the PDF never entered the repo (and cannot — the scan has NO text layer, `pdftotext` returns 0 bytes, so every formula was read from page images with the seven delicate glyphs re-rendered at 600 dpi: Thm 1′ (1.9), Thm 2 (1.10), Thm 3, the effectivity sentence, Lemma 5's hypothesis, (2.8), §6's (6.2)+Y/R). Sections §0 headline results · §1 the pseudocharacter apparatus · §2 Theorem 2 (the repulsion) · §3 the density side + §7's road to the constant · §4 a page-cited constants census (33 rows) · §5 the crosswalk. **⚠ CORRECTION 1 (the real one).** `s3-hb3-design.md:951–953` records "Jutila's own Thm 2 proof is NEW (not Turán power-sum; via the Graham/Halász lemma apparatus)". The second half is WRONG: Graham (Lemma 4) and Halász (Lemma 7) are §2 lemmas spent in **§3, the proof of Theorem 1**. Theorem 2's proof is **§5 Lemmas 9–12 + §6** and uses NEITHER — its apparatus is the `1∗χ₁` detector `a_n = Σ_{d|n}χ₁(d)` (p.54, non-negative, `= 2^{ω(n)}` on squarefree `n`), the pseudocharacter mollifier `f(n) = μ(n)2^{−ω(n)}n`, the factorization `G_{r,r'}(s,χ) = L(s,χ)L(s,χχ₁)P_{r,r'}(s,χ)Q(s,χ)` (5.1), Mellin + a shift to `Re s = 1/2+ε` in which **the zero `β₁` cancels the `Γ`-pole at `s=0`** while `L(s,χ₀)`'s pole at `s=1` gives the `Γ(δ₁)Y^{δ₁}S` main term (5.2), Hölder + mean-fourth-power for the `S`-floor (Lemma 11), and the `n=1`-term dichotomy (Lemma 12). A future re-derivation must read **§5–§6, not §2–§3**. Turán does appear — but only in §7's kernel `K(w)=e^{kw}(e^w−e^{−w})/2w`, on the road from the two theorems to the constant. **⚠ CORRECTION 2 (scope).** "Jutila 1977 = L ≤ 550" is wrong wherever it appears (including this node's own tasking): 550 is Jutila [7],[8] 1969/70 BY the Turán power-sum method, and **this paper supersedes it with Theorem 3: L ≤ 80** (`4k+4` at `k=19`, p.47/p.61). **GAP (not an error):** Theorem 1′ (`N(λ) ≤ 10e^{11λ}`, p.47) — the weak form §7 actually consumes — was never in our record; its in-house analogue is the LANDED `LFunction_zero_count_near_one` (ZeroCountNearOne.lean:98–102, C=7200). **VERIFIED CORRECT in our record:** (1.10) character-by-character (`δ₁ ≥ (1−6δ)D^{−(2+ε)δ/(1−6δ)}/8 log D`), Theorem 1's `4/5 ≤ α ≤ 1` / `(qT)^{(2+ε)(1−α)}`, and the effectivity sentence AT p.47 ("We do not appeal to Siegel's theorem, so that everything can be made explicit", the paragraph after Thm 3; a second operational statement sits at p.61). Effectivity is *in principle* only — `D₀(ε)` and every `≪_ε` are uncomputed. **⟦THE DIAGONAL FORK, OPEN SINCE 7/17, IS ANSWERED FROM THE SOURCE⟧** s3-hb3-design.md:1014–1031 asked "how his Thm 2 statement still covers the diagonal at log η quality must be read from his §§5–6". Read: the diagonal `χ ∈ {χ₀,χ₁}` is INSIDE Theorem 2's statement and costs **a factor 2** — Lemma 12 branches to (5.4) (identical to (5.3) but with `½Y^{(1+ε)(β−β₁)}`; §6 p.59: "the resulting lower bound for δ₁ is half of that in (6.2)") or to (5.5) `δ₁ ≥ ½Y^{β−1}|Γ(1−ρ)|^{−1}{1+O(...)}`, closed by (6.4) `|1−ρ| ≥ 0.28/log q` (Miech [13] Lemma 12 for ρ real, Jutila [7] Lemma 3b for ρ non-real). No quality loss on the diagonal; and Jutila's own diagonal route is the PRODUCT detector `L(s,χ)L(s,χχ₁)` with explicit pole bookkeeping — the same shape the house recorded from Benli–Goel–Twiss–Zaman (s3:1036–1046). **THE CROSSWALK to `dh_repulsion_ordered` (TBalR8.lean:2523, b=680/c=2^{−250}/k=14/σ₀=16/17):** ours realizes (1.10) **at Jutila's diagonal only** (both zeros of the SAME real primitive χ — which is exactly what HB consumes), with his δ-dependent exponent `(2+ε)/(1−6δ)` (= 3.09 at δ=1/17) flattened to the uniform `b=680` (**≈220× worse**), his `8 log D` to `(log Q+2)^{14}`, his `1−6δ ≥ 0.647` to `2^{−250}`, on a NARROWER window (`σ ≥ 16/17 = 0.941` vs his `σ > 5/6 = 0.833`), with `|Im ρ| ≤ 1` where he is τ-uniform, and requiring primitivity where he does not. What we buy for all that: **his `D ≥ D₀(ε)` is an uncomputed ineffective threshold and ours does not exist** — the contract is unconditional in `q ≥ 2`, kernel-checked, 3 axioms. The b=680 grade stays absorbable per the 7/19 T4 ledger; residual unchanged = T-BAL-BUDGET/N0. **THE CONSUMER CHAIN (naming correction):** the tasking said "the L2/L5 links"; the ledger (pass3_t4.md:38–50) has NO L5 repulsion link (Lemma 5/K = the Kloosterman block, audited to consume NO η) and L2 is not a direct consumer. The chain is **L3-ii → (L2 multiplies the rate) → L7**: L3-ii is the sole direct consumer (`r₀ ≫ L^{−1}log η`, LOG-only, node N3, Lean slot `Salt.HB.PretenseSum` TransferFull.lean:183), and Jutila's §6 `Y^{δ₁}/K(Y,δ₁)` inversion CONFIRMS AT THE SOURCE that log-order is the shape D–H methods give — the pass3 "SHAPE NOT absorbable" ruling is now source-grounded, not audit-derived. On the density side Jutila Thm 1 maps to node N2, where `D ≤ 83` is tolerated against his `2+ε` — we may be ~40× cruder, so his §3 route (Graham + Halász + the ξ,η-integration device, the paper's own stated novelty) need NOT be reproduced. ONE ⚠ FLAG banked: the `(log q)^{1/2}` exponent in Lemma 5/(2.8) is a glyph-level read (matched against the `(qT)^{1/2}` one line below); it is a range condition, nothing downstream depends on it.
 
 ## () JUTILA-STAGE HOME (244ba62, 601-ln notes off a NO-TEXT-LAYER scan -- seven load-bearing glyphs re-read at 600dpi): TWO SOURCE CORRECTIONS (both annotated in place at s3-hb3-design.md): (1) LOUD -- Thm 2's proof is NOT Graham/Halasz (those are Thm-1/§3 apparatus): it is §5 L9-12 + §6 -- the 1*chi1 detector (OUR DH-1 detector!), the mu*2^{-omega}*n mollifier, Mellin-shift with beta1 cancelling the Gamma-pole; any re-derivation reads §5-6. (2) L<=550 is Jutila 1969/70; THIS paper proves L<=80. GAP: Thm 1-prime (N(lambda) <= 10e^{11lambda}) -- the form §7 consumes -- was never in our record. THE DIAGONAL FORK (open since 7/17) ANSWERED FROM SOURCE: inside the statement, costs a factor 2 (L12 branches; (6.4)'s |1-rho| >= 0.28/log q), NO quality loss. CROSSWALK: dh_repulsion_ordered realizes (1.10) at the diagonal exactly where HB consumes it -- b=680 is ~220x coarser than Jutila's 3.09 exponent BUT his D0(eps) is uncomputed and OURS DOES NOT EXIST; consumer-chain naming corrected (no L5 repulsion link; the chain is L3-ii -> L7 -> node N3, the PretenseSum slot); the pass3 "log-shape NOT absorbable" ruling now SOURCE-GROUNDED (§6's Y^{delta1}/K inversion). The staging debt is fully retired -- both papers noted, page-cited, crosswalked.
 
-## () ⟦HB-STAGE HOME -- THE STAGING DEBT IS RETIRED⟧ `docs/sources/hb1983-notes.md` (938 ln, fair-use research extract; the PDF stays OUT of the repo, per the copyright fence): the WHOLE of Heath-Brown 1983 (Proc. LMS (3) 47, 193-224) read this session in four page-image chunks, with eight formula-critical regions re-rendered at 400 dpi and re-read to defeat OCR risk (Thm 1 + (1.12)/(1.13), Cor 1, Lemma 5's kappa/G(d)/A/A'/C_0, the Iwaniec S-set identity + the beta>=3 sentence, Lemma 6, S_1's Euler product + (4.4)-(4.6), (4.2) + a = (log eta)^{1/2}, and the p.223 corollary derivation). STRUCTURE: S0 results w/ exact windows -- and the paper carries THREE, all correct as printed (Thm 1 q^250<=x<=q^500 (1.13); the SS8 dyadic intermediate q^250<=x<=q^500/2 p.223; Cor 1 q^300<=X<=q^500) which RESOLVES the "250-vs-300 discrepancy" flagged at fulcrum-pass2:53,92 -- it was never a source defect, and pass3's ratification is confirmed by the bytes; S1 skeleton; S2 THE SIEVE PAGES verbatim-grade (lambda^pm properties, (2.2) BOTH signs, Lemma 5 exact, the S-set identity, Lemma 6's three densities, the p.200 assembly + the per-delta transfer); S3 Lemmas 1/2/6/8 proof summaries; S4 Lemmas 3/7 (incl. the log F integral where t_0 = (1-beta_0)log x <= 500/eta consumes the upper edge); S5-S7 the Kloosterman core (the two-variable S(delta_1,delta_2;V_1,V_2), the CRT reduction to the single congruence (5.11) w/ D = alpha_2 q Delta^{-1}, Lemmas 9/10/11, SS6's three regimes + (6.11) where x>=q^250 is consumed, SS7's Estermann-to-psi chain); S8 a 40-row constants census; S9 THE N0-N12 CROSSWALK; S10 the notation-hazard sheet for the port (**S has ELEVEN distinct meanings**; D collides between the sieve level q^{1/3} and (5.12); A is a FLOATING existential -- "not the same at each occurrence"); S11 the check against fulcrum_audit_source.md. THE BIG RE-CONFIRMATION: **no beta_0, no eta anywhere in SS5-7** -- re-verified page by page, so Lemma 5 ports WITHOUT (1.11) despite the p.196 standing assumption; the audit's de-scoping stands. THREE CORRECTIONS banked, none touching a ruling: (1) ⚠ fulcrum_audit_source:95 drops the `v` from the p.217 real-primitive bound -- the paper has Sum_t chi(ut+u')chi(vt+v') << (q, uv'-vu'), and our copy's arguments do not match its own bound (FIX BEFORE N6 QUOTES IT); (2) :84 states Lemma 8 without its hypothesis Z << (x/d_1d_2)^2 (a Lean statement omitting it would be FALSE); (3) :99 gives SS6 as pp.214-218, actually pp.215-221. The N5 gate check's three verdicts are confirmed verbatim. ONE PRICING FLAG RAISED: the road's node list names no home for **Lemmas 1/2/4/8** (the Lambda-tilde/Lambda-star reduction + the Selberg count) -- they sit in N8's tray unless split out. ⟦THE ONE NEW GAP -- LOUD, and it is OURS not the paper's⟧ **HB uses Deuring-Heilbronn at TWO sites with DIFFERENT tau-ranges**: p.206 (Lemma 3) needs `r_0 = min|1-rho| >> L^{-1} log eta` over `|gamma| <= 1`, but **p.209 (Lemma 7) needs `sigma_0 = max_{|rho| <= q^2, rho != beta_0} beta <= 1 - A L^{-1} log eta` -- uniformly over the disc |rho| <= q^2** (re-read at 400dpi to be sure). Our landed `dh_repulsion_ordered` (TBalR8:1752) hypothesizes `|Im rho| <= 1` and therefore serves the FIRST site ONLY. The recorded consumer chain (pass3_t4:38-50, restated by JUTILA-STAGE as "L3-ii the sole direct consumer, L2 multiplies the rate, L7") reads p.209 as DOWNSTREAM of Lemma 3; at the bytes it is an INDEPENDENT invocation of the same Jutila theorem with a different conclusion shape (a zero-free strip out to |rho| <= q^2, not a repulsion radius at s=1). Jutila's Thm 2 IS tau-uniform so nothing is mathematically missing -- the gap sits on our side of the interface and belongs to **N0's audit + N4's dependency list, not N3**. Three candidate closures listed in the notes (S11); note the cheap one FAILS: the classical region (1.10) gives only `1 - A L^{-1}` for `1 < |gamma| <= q^2`, weaker than `1 - AL^{-1} log eta`. NOT adjudicated -- HB-STAGE is a scribe. CROSS-SOURCE RECONCILIATION with the same-day `jutila1977-notes.md`: HB's density exponent `(qT)^{(5/2)(1-sigma)}` IS Jutila Thm 1's `(2+eps)(1-alpha)` at eps = 1/2 (they agree; our N2 tolerance D<=83 is far coarser than either), and both HB sites need only LOG-order repulsion -- the pass3 log-shape ruling source-grounded from the HB side too. STAGING STATUS: Jutila [11] staged today; **Iwaniec [10] (Acta Arith. 36 (1980) 171-202) is now the ONE unstaged source on the fulcrum road -- and it is N5's source** (SS3 = the lambda_d construction + the S-set with its sigma_d, Thm 4 = the fundamental lemma, the beta>=3 sieving-limit fact at dimension 4): every N5 quotation is transcribed in the notes' S2, but the proofs behind them are not.
+## () ⟦HB-STAGE HOME -- THE STAGING DEBT IS RETIRED⟧ `docs/sources/hb1983-notes.md` (938 ln, fair-use research extract; the PDF stays OUT of the repo, per the copyright fence): the WHOLE of Heath-Brown 1983 (Proc. LMS (3) 47, 193-224) read this session in four page-image chunks, with eight formula-critical regions re-rendered at 400 dpi and re-read to defeat OCR risk (Thm 1 + (1.12)/(1.13), Cor 1, Lemma 5's kappa/G(d)/A/A'/C_0, the Iwaniec S-set identity + the beta>=3 sentence, Lemma 6, S_1's Euler product + (4.4)-(4.6), (4.2) + a = (log eta)^{1/2}, and the p.223 corollary derivation). STRUCTURE: S0 results w/ exact windows -- and the paper carries THREE, all correct as printed (Thm 1 q^250<=x<=q^500 (1.13); the SS8 dyadic intermediate q^250<=x<=q^500/2 p.223; Cor 1 q^300<=X<=q^500) which RESOLVES the "250-vs-300 discrepancy" flagged at fulcrum-pass2:53,92 -- it was never a source defect, and pass3's ratification is confirmed by the bytes; S1 skeleton; S2 THE SIEVE PAGES verbatim-grade (lambda^pm properties, (2.2) BOTH signs, Lemma 5 exact, the S-set identity, Lemma 6's three densities, the p.200 assembly + the per-delta transfer); S3 Lemmas 1/2/6/8 proof summaries; S4 Lemmas 3/7 (incl. the log F integral where t_0 = (1-beta_0)log x <= 500/eta consumes the upper edge); S5-S7 the Kloosterman core (the two-variable S(delta_1,delta_2;V_1,V_2), the CRT reduction to the single congruence (5.11) w/ D = alpha_2 q Delta^{-1}, Lemmas 9/10/11, SS6's three regimes + (6.11) where x>=q^250 is consumed, SS7's Estermann-to-psi chain); S8 a 40-row constants census; S9 THE N0-N12 CROSSWALK; S10 the notation-hazard sheet for the port (**S has ELEVEN distinct meanings**; D collides between the sieve level q^{1/3} and (5.12); A is a FLOATING existential -- "not the same at each occurrence"); S11 the check against fulcrum_audit_source.md. THE BIG RE-CONFIRMATION: **no beta_0, no eta anywhere in SS5-7** -- re-verified page by page, so Lemma 5 ports WITHOUT (1.11) despite the p.196 standing assumption; the audit's de-scoping stands. THREE CORRECTIONS banked, none touching a ruling: (1) ⚠ fulcrum_audit_source:95 drops the `v` from the p.217 real-primitive bound -- the paper has Sum_t chi(ut+u')chi(vt+v') << (q, uv'-vu'), and our copy's arguments do not match its own bound (FIX BEFORE N6 QUOTES IT); (2) :84 states Lemma 8 without its hypothesis Z << (x/d_1d_2)^2 (a Lean statement omitting it would be FALSE); (3) :99 gives SS6 as pp.214-218, actually pp.215-221. The N5 gate check's three verdicts are confirmed verbatim. ONE PRICING FLAG RAISED: the road's node list names no home for **Lemmas 1/2/4/8** (the Lambda-tilde/Lambda-star reduction + the Selberg count) -- they sit in N8's tray unless split out. ⟦THE ONE NEW GAP -- LOUD, and it is OURS not the paper's⟧ **HB uses Deuring-Heilbronn at TWO sites with DIFFERENT tau-ranges**: p.206 (Lemma 3) needs `r_0 = min|1-rho| >> L^{-1} log eta` over `|gamma| <= 1`, but **p.209 (Lemma 7) needs `sigma_0 = max_{|rho| <= q^2, rho != beta_0} beta <= 1 - A L^{-1} log eta` -- uniformly over the disc |rho| <= q^2** (re-read at 400dpi to be sure). Our landed `dh_repulsion_ordered` (TBalR8:2523) hypothesizes `|Im rho| <= 1` and therefore serves the FIRST site ONLY. The recorded consumer chain (pass3_t4:38-50, restated by JUTILA-STAGE as "L3-ii the sole direct consumer, L2 multiplies the rate, L7") reads p.209 as DOWNSTREAM of Lemma 3; at the bytes it is an INDEPENDENT invocation of the same Jutila theorem with a different conclusion shape (a zero-free strip out to |rho| <= q^2, not a repulsion radius at s=1). Jutila's Thm 2 IS tau-uniform so nothing is mathematically missing -- the gap sits on our side of the interface and belongs to **N0's audit + N4's dependency list, not N3**. Three candidate closures listed in the notes (S11); note the cheap one FAILS: the classical region (1.10) gives only `1 - A L^{-1}` for `1 < |gamma| <= q^2`, weaker than `1 - AL^{-1} log eta`. NOT adjudicated -- HB-STAGE is a scribe. CROSS-SOURCE RECONCILIATION with the same-day `jutila1977-notes.md`: HB's density exponent `(qT)^{(5/2)(1-sigma)}` IS Jutila Thm 1's `(2+eps)(1-alpha)` at eps = 1/2 (they agree; our N2 tolerance D<=83 is far coarser than either), and both HB sites need only LOG-order repulsion -- the pass3 log-shape ruling source-grounded from the HB side too. STAGING STATUS: Jutila [11] staged today; **Iwaniec [10] (Acta Arith. 36 (1980) 171-202) is now the ONE unstaged source on the fulcrum road -- and it is N5's source** (SS3 = the lambda_d construction + the S-set with its sigma_d, Thm 4 = the fundamental lemma, the beta>=3 sieving-limit fact at dimension 4): every N5 quotation is transcribed in the notes' S2, but the proofs behind them are not.
 
-## () ⟦APPENDIX-A — THE SIDE-BY-SIDE RENDERINGS LAND, THE PROMISE IS KEPT⟧ 2026-08-03 11:11 PDT, at `HEAD = 244ba62`. `main.tex:227-229` (cited as `:180-182` before today's preamble insert) has promised since v0.1 that Appendix A "renders every headline statement in Lean and in prose side by side"; it carried a 12-row table and nothing else (dossier item G14, `pi-package-0803.md:384` — "the single promise in the manuscript most visible to a referee"). **NOW BUILT** (`main.tex:843-1309`, nine `\subsection`s A.1–A.9 after the untouched table): **24 code blocks, 63 declarations, 16 numbered paper statements** — Thm 3.1–3.4, Def 4.1, Thm 4.2, Thm 5.1, Thm 6.1, Def 7.1, Thm 7.2, Thm 7.3, Def 8.1, Thm 8.2, Thm 8.3, Prop 8.4, Thm 9.1 — plus §3's two inherited almost-prime statements and §8's grade guard, each entry = paper pointer + `file:line` + the audit-manifest line + the declaration, with the vocabulary each statement depends on rendered beneath it so an entry closes over itself. **FIDELITY IS MECHANICAL, NOT ASSERTED**: every line was cut from the tree by script (declaration source lines, proof body removed, nothing else), then re-checked by an independent pass that unescapes each listing line and matches it against the set of all `Salt/**.lean` lines — **180/180 byte-for-byte**, zero unmatched. Three LaTeX escapes exist inside a listing (`\{`, `\}`, `\textbackslash{}`) and a check confirms no fourth. Balance after the edit: environments balanced, brace depth 0, `$` 472 (even), `\[`14 = `\]`14, no dangling `\ref`/`\cite`; six previously-unused labels now referenced. **ONE PACKAGE ADDED — `alltt`** (base LaTeX) + 36 `\DeclareUnicodeCharacter` mappings + the `\lchar` box macro (`main.tex:23-68`): Lean carries 36 distinct non-ASCII codepoints and `verbatim` makes UTF-8 lead bytes catcode-12 (breaks under pdfLaTeX), while `alltt` leaves them active so the mappings fire; `\lchar` sets each glyph in one tt-character box measured off the current font, so a listing line is exactly chars × charwidth — 93 max × 4.725pt = 439pt against the 454.5pt measure at `\footnotesize`, i.e. **no listing can overflow**, by computation (the compile of §6 step 1 is still owed; no LaTeX on this machine). The rest of `main.tex` is pure ASCII (0 non-ASCII bytes pre-change), so the mappings touch the appendix only; the 2018+ kernel requirement and its one-line fallback are stated in the preamble comment. **THREE THINGS THE RENDERINGS EXPOSE, ALL STATED IN THE APPENDIX RATHER THAN SMOOTHED**: (1) `dh_repulsion_ordered` (`TBalR8.lean:1752`) binds `b c k` **existentially** — the paper's §3 numerals reach them only at `:1836` (`refine ⟨680, c, 14, …⟩`, `c` the `min`-tower `set` at `:1776`), so A.2 says the constants are proof data and where to read them; (2) **no Lean declaration asserts the fulcrum's minimality** — the corpus has `FulcrumQualityMin` (`Fulcrum/Basic.lean:61`) and the reality derivation (`:93`), and minimality is a property of the demand audit recorded in the exploration ledger, which A.3 states in as many words; (3) **four of Prop 8.4's ten census declarations sit in no audit block** — `Parity/All.lean:22` names six, while `parityInv_twin_gate_fails` / `parityInv_no_twin_weight` / `parityInv_noSiegel_iff` / `parityInv_N6_2` (`Parity/Instances.lean:53, 62, 72, 93`) appear in no `#audit_axioms` across all 23 manifests, so the appendix reports the 6/10 split. **THE REPAIR IS FOUR NAMES** appended to that block — not applied here (this agent touched no `.lean`; a Lean writer holds the tree). ONE INVENTORY CORRECTION: `pi-package-0803.md:236` cites `twin_almost_prime` at `BrunLower/TwinInstance.lean:16`, which is inside the module docstring's code fence — the declaration is at **`:771`**. MSC-SUGGESTIONS for G2 banked at `pi-package-0803.md` §9.2 (two candidate primaries 11N05/11N36, four secondaries 11M20/11M26/68V20/68V15, three alternates, and 68V05 excluded with its reason — the corpus forbids `native_decide` and claims no proof by exhaustion); marked SUGGESTIONS, the Captain picks.
+## () ⟦APPENDIX-A — THE SIDE-BY-SIDE RENDERINGS LAND, THE PROMISE IS KEPT⟧ 2026-08-03 11:11 PDT, at `HEAD = 244ba62`. `main.tex:227-229` (cited as `:180-182` before today's preamble insert) has promised since v0.1 that Appendix A "renders every headline statement in Lean and in prose side by side"; it carried a 12-row table and nothing else (dossier item G14, `pi-package-0803.md:384` — "the single promise in the manuscript most visible to a referee"). **NOW BUILT** (`main.tex:843-1309`, nine `\subsection`s A.1–A.9 after the untouched table): **24 code blocks, 63 declarations, 16 numbered paper statements** — Thm 3.1–3.4, Def 4.1, Thm 4.2, Thm 5.1, Thm 6.1, Def 7.1, Thm 7.2, Thm 7.3, Def 8.1, Thm 8.2, Thm 8.3, Prop 8.4, Thm 9.1 — plus §3's two inherited almost-prime statements and §8's grade guard, each entry = paper pointer + `file:line` + the audit-manifest line + the declaration, with the vocabulary each statement depends on rendered beneath it so an entry closes over itself. **FIDELITY IS MECHANICAL, NOT ASSERTED**: every line was cut from the tree by script (declaration source lines, proof body removed, nothing else), then re-checked by an independent pass that unescapes each listing line and matches it against the set of all `Salt/**.lean` lines — **180/180 byte-for-byte**, zero unmatched. Three LaTeX escapes exist inside a listing (`\{`, `\}`, `\textbackslash{}`) and a check confirms no fourth. Balance after the edit: environments balanced, brace depth 0, `$` 472 (even), `\[`14 = `\]`14, no dangling `\ref`/`\cite`; six previously-unused labels now referenced. **ONE PACKAGE ADDED — `alltt`** (base LaTeX) + 36 `\DeclareUnicodeCharacter` mappings + the `\lchar` box macro (`main.tex:23-68`): Lean carries 36 distinct non-ASCII codepoints and `verbatim` makes UTF-8 lead bytes catcode-12 (breaks under pdfLaTeX), while `alltt` leaves them active so the mappings fire; `\lchar` sets each glyph in one tt-character box measured off the current font, so a listing line is exactly chars × charwidth — 93 max × 4.725pt = 439pt against the 454.5pt measure at `\footnotesize`, i.e. **no listing can overflow**, by computation (the compile of §6 step 1 is still owed; no LaTeX on this machine). The rest of `main.tex` is pure ASCII (0 non-ASCII bytes pre-change), so the mappings touch the appendix only; the 2018+ kernel requirement and its one-line fallback are stated in the preamble comment. **THREE THINGS THE RENDERINGS EXPOSE, ALL STATED IN THE APPENDIX RATHER THAN SMOOTHED**: (1) `dh_repulsion_ordered` (`TBalR8.lean:2523`) binds `b c k` **existentially** — the paper's §3 numerals reach them only at `:1836` (`refine ⟨680, c, 14, …⟩`, `c` the `min`-tower `set` at `:1776`), so A.2 says the constants are proof data and where to read them; (2) **no Lean declaration asserts the fulcrum's minimality** — the corpus has `FulcrumQualityMin` (`Fulcrum/Basic.lean:61`) and the reality derivation (`:93`), and minimality is a property of the demand audit recorded in the exploration ledger, which A.3 states in as many words; (3) **four of Prop 8.4's ten census declarations sit in no audit block** — `Parity/All.lean:23` names six, while `parityInv_twin_gate_fails` / `parityInv_no_twin_weight` / `parityInv_noSiegel_iff` / `parityInv_N6_2` (`Parity/Instances.lean:53, 62, 72, 93`) appear in no `#audit_axioms` across all 23 manifests, so the appendix reports the 6/10 split. **THE REPAIR IS FOUR NAMES** appended to that block — not applied here (this agent touched no `.lean`; a Lean writer holds the tree). ONE INVENTORY CORRECTION: `pi-package-0803.md:236` cites `twin_almost_prime` at `BrunLower/TwinInstance.lean:17`, which is inside the module docstring's code fence — the declaration is at **`:771`**. MSC-SUGGESTIONS for G2 banked at `pi-package-0803.md` §9.2 (two candidate primaries 11N05/11N36, four secondaries 11M20/11M26/68V20/68V15, three alternates, and 68V05 excluded with its reason — the corpus forbids `native_decide` and claims no proof by exhaustion); marked SUGGESTIONS, the Captain picks.
 
 ## () HB-STAGE HOME (a74ef8a, 986-ln notes, nine formula regions re-read at 400dpi; NOTHING contradicts the N5 gate check -- its three verdicts confirmed verbatim; §§5-7 re-verified beta0/eta-free page by page). ⟦🔴 THE TWO-SITE DEURING-HEILBRONN FINDING -- a NEW gap, OURS⟧: HB consumes D-H at TWO sites with different tau-ranges -- Lemma 3 (p.206, r0 over |gamma| <= 1: SERVED by dh_repulsion_ordered) and Lemma 7 (p.209, sigma0 over the DISC |rho| <= q^2: **NOT served** -- the landed contract hypothesizes |Im rho| <= 1; the cheap closure via (1.10) fails at 1 < |gamma| <= q^2). Jutila's Thm 2 is tau-uniform so the MATHEMATICS exists; the ARTILLERY needs either a tau-extended second contract or a disc variant -- assigned to N0's audit + N4's dependency list (the HB-CENSUS "revival price zero" verdict gains this asterisk: the landed contract serves one of two consumption sites). THREE source corrections annotated in place at fulcrum_audit_source.md (the Lemma-8 hypothesis omission = a FALSENESS hazard for any Lean statement). The port-hazard sheet banked (S carries ELEVEN meanings; D collides; A floats). **Iwaniec [10] is now the ONE unstaged source on the road -- and it is N5's** (the fetch ask goes to JYH). The staging debt otherwise fully retired.
 
 ## () ⟦N0 CLEAR -- THE FULCRUM CAMPAIGN'S GATES ARE BOTH OPEN⟧ N0-AUDIT home: the budget verified at **3465 / 4158 / 6932 decimal orders** (s=250/300/500) at the HONEST regime floor (log eta >= e^10; clearance increasing in eta -- the floor is worst-case); the b=680/k=14/c=2^-250 witness grade is **INVISIBLE in the final constant** (the dressing threshold 10^135.6 absorbed by C^(1) seventy-fold) -- the 7/19 T4 ruling CONFIRMED NUMERICALLY; (d) verified in EXACT RATIONALS; SELF-REFUTED by an independent no-log-algebra route: **60-digit dual-route agreement** (1-sigma* to 4.7e-62; the Q2 product ratio to 60 digits; mutations M1 DESTROYED / M2 FATAL exactly as predicted). Q2: NOTHING charges (etaL)^-2 absolutely -- the cancellation is an IDENTITY (L*(L'/L) = L' eta-free) -- but TWO MANDATES minted: ⟦N4: state (2.4) MULTIPLICATIVELY (kappa S1 = (1+theta)x*S*(etaL)^-2; the additive idiom amplifies by 10^19141 -- mutation-tested)⟧ and ⟦N8/N9: the B-degree <= 2 port invariant⟧. ⟦THE CONVERGENT FINDING⟧: N0's EF-truncation computation (T >= (log q)^3.9 forced; T=(log q)^4 safe) meets HB-STAGE's p.209 disc reading FROM THE OTHER SIDE -- the honest artillery demand is **POLYLOG height (log q)^4, NOT the disc q^2** (T=q^2 is independently NOT VIABLE for the density: the band top collapses to q^-0.059); the extension costs **0.095% of the clearance** (3.28/3465 orders) and the Lean route is SCOPED (the height-free EM estimates norm_zeta_sub_approx_le_strip ARE landed; zetaHol_bound's |Im s|<=1 box is a RE-PACKAGING not new analysis; Z0 enters linearly). ⟦RULING RECORDED for N1/N2: truncate the EF at T = (log q)^4; D <= 83 carries 3x more slack than recorded⟧. Wp2:63-67's "not demanded by any consumer" = an unverified-negative (the MR-CENSUS genre), corrected. ⟦N5 WAVE-1 FIRES: a1 the level bound + a3 the dim-4 Mertens⟧
 
-## () APPENDIX-A HOME (e484956): the manuscript's most visible unkept promise KEPT -- A.1-A.9, 63 declarations, 180 transcribed lines verified **180/180 byte-for-byte** against the tree by an independent unescape-and-match pass; all 16 numbered statements of §§3-9 covered; the resisting signatures handled honestly (ChowlaRegime's 19 invariant fields elided BY NAME; the repulsion's min-tower witnesses cited not transcribed); ONE package added (alltt + 36 unicode mappings + a fixed-width box macro making overflow impossible BY CONSTRUCTION -- 93 chars x 4.725pt < the measure). THREE exposures stated in the appendix, not smoothed: the Thm-3.3 constants are proof data (existentially bound, witnesses at TBalR8:1836); NO declaration asserts the fulcrum's minimality (a demand-audit property -- A.3 says so); **four of Prop 8.4's census decls are in NO audit block** (parityInv_{twin_gate_fails,no_twin_weight,noSiegel_iff,N6_2} -- Parity/Instances:53/62/72/93) -- ⟦CHORE QUEUED: four names to Salt/Parity/All.lean + build, post-N5-wave (the writer slot is occupied)⟧. pi-package gains §9.2 MSC-SUGGESTIONS (11N05/11N36 primary; 68V05 excluded WITH reason -- no native_decide, no exhaustion). One pdflatex still owed author-side. The Pi package is now COMPLETE modulo the Captain's form fields.
+## () APPENDIX-A HOME (e484956): the manuscript's most visible unkept promise KEPT -- A.1-A.9, 63 declarations, 180 transcribed lines verified **180/180 byte-for-byte** against the tree by an independent unescape-and-match pass; all 16 numbered statements of §§3-9 covered; the resisting signatures handled honestly (ChowlaRegime's 19 invariant fields elided BY NAME; the repulsion's min-tower witnesses cited not transcribed); ONE package added (alltt + 36 unicode mappings + a fixed-width box macro making overflow impossible BY CONSTRUCTION -- 93 chars x 4.725pt < the measure). THREE exposures stated in the appendix, not smoothed: the Thm-3.3 constants are proof data (existentially bound, witnesses at TBalR8:2631); NO declaration asserts the fulcrum's minimality (a demand-audit property -- A.3 says so); **four of Prop 8.4's census decls are in NO audit block** (parityInv_{twin_gate_fails,no_twin_weight,noSiegel_iff,N6_2} -- Parity/Instances:53/62/72/93) -- ⟦CHORE QUEUED: four names to Salt/Parity/All.lean + build, post-N5-wave (the writer slot is occupied)⟧. pi-package gains §9.2 MSC-SUGGESTIONS (11N05/11N36 primary; 68V05 excluded WITH reason -- no native_decide, no exhaustion). One pdflatex still owed author-side. The Pi package is now COMPLETE modulo the Captain's form fields.
 
 ## (2026-08-03 11:30 PDT) **N5-WAVE-1 LANDS BOTH NODES: a1's LEVEL BOUND AT THE SCOUT'S EXACT EXPONENT (NO DELTA) + a3's DIM-4 MERTENS PACKAGE, AND THE `A = 4` ENDPOINTS ARE PACKAGED WHOLE.** `Salt/HB/RosserDim4.lean`, 805 ln, 27 top-level decls, `lake build` EXIT 0 from `$?`, warnings 186 = 186 baseline, all 8 audited names at 3 axioms.
 
@@ -19834,7 +19834,7 @@ Vocabulary the exit is stated in (all new, all nameable by N8): `lamBB Lam z sid
 
 ## () N2-WAVE HOME WHOLE (2cb9bb8, 429 ln, 11/11 audited, exit-0): THE STRUCTURAL INSIGHT SAID OUT LOUD -- at our truncation height (efHeight = polylog, the N0 ruling) **HB's above-q^2 block is EMPTY: (4.10)'s site does not exist on our road**; the "density theorem" at this node IS the trivial count (constant in sigma), the dyadic question COLLAPSES (the sup bound telescopes lossless), and **beta -- the repulsion ceiling -- is the ENTIRE interface to the artillery: one real number**. THE EXIT LEMMA (N4's spend shape, not the textbook N(sigma)): efZeroSumM_spend_at_efHeight -- ||the box zero sum at y|| <= 4110*(log q+2)^5*y^beta given the ceiling hbeta. The batched box count 2055*(log q+2)^5 w/ multiplicity; D=83 log-free on [4/5,16/17] at q>=8 (the honest thresholds minted; 137 not 133 -- the sharp constant REFUSED by 2e-6); the caveat RECORDED: worthless at T >> polylog -- if the height ruling reopens, N2 is redone as genuine density (Jutila's refinement stayed reference-only). ⟦TAU-EXT fires: the artillery at the tall box -- the beta-supplier⟧
 
-## (2026-08-03 20:16 PDT) ⟦TAU-EXT HOME — **THE SCOPE VERDICT IS (a): THE HEIGHT-1 BOX IS PACKAGING, AND THE PACKAGING IS NOW GONE**⟧ (`Salt/SW/TauExt.lean`, 366 ln, 9 decls + 1 def, 9/9 audited at 3 axioms; `~/.elan/bin/lake build` EXIT 0 from `$?` via redirection, warnings 186 = 186 baseline, zero from the new file; purely additive — `TBalR8.lean` and the whole DH chain UNTOUCHED, `All.lean` gains one import row + 9 audit names). **THE TRACE, AT THE BYTES** (the brief's 30-60 min scope read, done first): `dh_repulsion_ordered`'s `|Im ρ| ≤ 1` is consumed in its PROOF at exactly five sites, and every one is packaging — `DHExtractRho.lean:59,283,412` feed `hZ ρ …` (`‖zetaHol ρ‖ ≤ Z₀`) **at the point ρ itself**, never a contour, never a strip integral; `:169` feeds `zeta_partial_em`'s height slot **which that lemma IGNORES** (`ZetaEM.lean:123`, the binder is literally `_him`, because it reduces to the height-free `norm_zeta_sub_approx_le_strip`); `TBalR8.lean:1591` (`C2Rho_le`) reads only the crude `‖ρ‖ ≤ 2`. Every `β₀`-side `hZ` use is at a REAL point (`DHCore:352,713`, `DHExtractW:319,1187`, `CrushE:225`) — height 0, height-free already. **The engine — detector floor, R1 shift, row caps, exponent balance — never sees `Im ρ` except through `Q = q(|Im ρ|+2)`, the contract's own base, which is already height-adaptive.** ⟦LANDED — THE PACKAGING, AND IT IS BETTER THAN A RE-PACKAGING⟧ `zetaHol_bound` (`ZetaEM:152`) was compactness on `[1/2,1]×[−1,1]`: an OPAQUE `Z₀`, and un-raisable without making `Z₀` depend on `q` (which would destroy the uniformity of `c`, quantified outside `q`). Both defects removed by ONE observation: take the landed height-free EM estimate at **`N = 1`**, where the tail term `N^{1−s}/(s−1)` is EXACTLY the Laurent pole `zetaHol` subtracts — **they cancel**, leaving `zetaHol s = 1 + O(‖s‖/σ)`. Hence `zetaHol_norm_le` : `‖zetaHol s‖ ≤ 3 + 2|Im s|` on the whole CLOSED strip `1/2 ≤ Re s ≤ 1` — height-FREE, explicit, no compactness (the closed edge `Re s = 1` by continuity along the real direction, `𝓝[<] 1`). Corollaries `zetaHol_bound_tall T` (`Z₀ = 3 + 2T`, the drop-in `hZ` shape at ANY height) and **`zetaHol_bound_five`** (the CURRENT height-1 `hZ` shape with the compactness existential replaced by the numeral **5** — every `Z₀`-carrying constant downstream is now computable, e.g. `C_w = 34+12M+12M·Z₀+36M/(1−β₀) ≤ 34+72M+36M/(1−β₀)` at `DHCore:688`). ⟦LANDED — THE β INTERFACE (N4 CONSUMES β HERE)⟧ `repulsionCeiling b c k Q u = 1 − (log(1/u) − log(1/c) − k·log(log Q+2))/(b·log Q)` — HB's `σ₀ = 1 − A·L⁻¹·log η` in the contract's own letters; `repulsion_ceiling_of_contract` (the inversion, one zero, pure log algebra); `repulsionCeiling_mono` (monotone in the base ⇒ the box-uniform β is the ceiling at the box TOP `Q = q(T+2)`, with the regime hypothesis "the numerator is nonneg at the top" = "η is small enough for the contract to say anything"); **`boxZeros_re_le_of_repulsion` — the `hβ` of `efZeroSumM_spend_at_efHeight` VERBATIM**; `efZeroSumM_spend_at_repulsion` — the composite, `‖box zero sum‖ ≤ 4110(log q+2)⁵·y^{ceiling}`. THREE side hypotheses carried EXPLICITLY because each names a real obligation, not a hidden gap: `hord` (the contract's named `T-BAL-UNORDERED` deviation `Re ρ ≤ β₀`), `hreal` (**the exceptional zero β₀ itself does NOT satisfy the ceiling and must be split off first — exactly HB (4.11)'s `−y^{β₀}/β₀` term**), `hceil` (the ceiling clears the contract's window floor 16/17, so the discarded strip is free). ⟦LANDED — THE SEAM TEST⟧ `boxZeros_re_le_unit_box`: the same β-supplier fired off the **LANDED** `dh_repulsion_ordered` at `T = 1`, unconditional. The artillery's emitted contract shape IS the shape the inversion consumes — so the residual re-thread has nothing left to discover at the seam. ⟦THE RESIDUAL, NAMED AND PRICED — TAU-EXT-2⟧ `dh_repulsion_tall` is NOT landed, and NOT because of mathematics: it is an EDIT of ten existing statements and this executor was additive-only. Full enumeration in `docs/exploration/tau-ext-scope.md`: (1) the height binder `≤ 1 ⇝ ≤ T` in `norm_zeta_rho_le`, `emrho_perterm` (free — its `_him` is unused), `dhAbel_leg1_rho`, `unmoll_extraction_rho`, `dh_extraction_per_m_rho`, `dh_extraction_upper_rho`, `dhAbel_inner_rho`, `dh_master_ray`, `dh_repulsion_inst`, `dh_repulsion_ordered`; (2) the `hZ` gate, discharged at the call site by `zetaHol_bound_tall`; (3) `C2Rho_le`'s `‖ρ‖ ≤ 2 ⇝ ≤ 1+T ≤ Q` (bump its conclusion `Q^{1/2} ⇝ Q^{3/2}`); (4) `KEβ`/`KEρ`/`A₀` take `Z₀ ⇝ 3+2T ≤ 3Q`, absorbed by the `Q`-exponent slack (**`b = 680` against the `104` actually spent**). The only genuine fights are the `nlinarith` re-checks in `row_Eρ_cap`/`row_Eβ_cap`; the rest is binder plumbing. ⟦N0 CLEAR's 0.095% price CONFIRMED STRUCTURALLY: the growth is `Z₀ ≍ T` linear, and `T ≤ Q` — the polylog height ruling is what makes it free; at the disc `q²` the whole exponent budget would need re-auditing from scratch⟧
+## (2026-08-03 20:16 PDT) ⟦TAU-EXT HOME — **THE SCOPE VERDICT IS (a): THE HEIGHT-1 BOX IS PACKAGING, AND THE PACKAGING IS NOW GONE**⟧ (`Salt/SW/TauExt.lean`, 366 ln, 9 decls + 1 def, 9/9 audited at 3 axioms; `~/.elan/bin/lake build` EXIT 0 from `$?` via redirection, warnings 186 = 186 baseline, zero from the new file; purely additive — `TBalR8.lean` and the whole DH chain UNTOUCHED, `All.lean` gains one import row + 9 audit names). **THE TRACE, AT THE BYTES** (the brief's 30-60 min scope read, done first): `dh_repulsion_ordered`'s `|Im ρ| ≤ 1` is consumed in its PROOF at exactly five sites, and every one is packaging — `DHExtractRho.lean:59,283,412` feed `hZ ρ …` (`‖zetaHol ρ‖ ≤ Z₀`) **at the point ρ itself**, never a contour, never a strip integral; `:169` feeds `zeta_partial_em`'s height slot **which that lemma IGNORES** (`ZetaEM.lean:123`, the binder is literally `_him`, because it reduces to the height-free `norm_zeta_sub_approx_le_strip`); `TBalR8.lean:2330` (`C2Rho_le`) reads only the crude `‖ρ‖ ≤ 2`. Every `β₀`-side `hZ` use is at a REAL point (`DHCore:352,713`, `DHExtractW:319,1187`, `CrushE:225`) — height 0, height-free already. **The engine — detector floor, R1 shift, row caps, exponent balance — never sees `Im ρ` except through `Q = q(|Im ρ|+2)`, the contract's own base, which is already height-adaptive.** ⟦LANDED — THE PACKAGING, AND IT IS BETTER THAN A RE-PACKAGING⟧ `zetaHol_bound` (`ZetaEM:152`) was compactness on `[1/2,1]×[−1,1]`: an OPAQUE `Z₀`, and un-raisable without making `Z₀` depend on `q` (which would destroy the uniformity of `c`, quantified outside `q`). Both defects removed by ONE observation: take the landed height-free EM estimate at **`N = 1`**, where the tail term `N^{1−s}/(s−1)` is EXACTLY the Laurent pole `zetaHol` subtracts — **they cancel**, leaving `zetaHol s = 1 + O(‖s‖/σ)`. Hence `zetaHol_norm_le` : `‖zetaHol s‖ ≤ 3 + 2|Im s|` on the whole CLOSED strip `1/2 ≤ Re s ≤ 1` — height-FREE, explicit, no compactness (the closed edge `Re s = 1` by continuity along the real direction, `𝓝[<] 1`). Corollaries `zetaHol_bound_tall T` (`Z₀ = 3 + 2T`, the drop-in `hZ` shape at ANY height) and **`zetaHol_bound_five`** (the CURRENT height-1 `hZ` shape with the compactness existential replaced by the numeral **5** — every `Z₀`-carrying constant downstream is now computable, e.g. `C_w = 34+12M+12M·Z₀+36M/(1−β₀) ≤ 34+72M+36M/(1−β₀)` at `DHCore:688`). ⟦LANDED — THE β INTERFACE (N4 CONSUMES β HERE)⟧ `repulsionCeiling b c k Q u = 1 − (log(1/u) − log(1/c) − k·log(log Q+2))/(b·log Q)` — HB's `σ₀ = 1 − A·L⁻¹·log η` in the contract's own letters; `repulsion_ceiling_of_contract` (the inversion, one zero, pure log algebra); `repulsionCeiling_mono` (monotone in the base ⇒ the box-uniform β is the ceiling at the box TOP `Q = q(T+2)`, with the regime hypothesis "the numerator is nonneg at the top" = "η is small enough for the contract to say anything"); **`boxZeros_re_le_of_repulsion` — the `hβ` of `efZeroSumM_spend_at_efHeight` VERBATIM**; `efZeroSumM_spend_at_repulsion` — the composite, `‖box zero sum‖ ≤ 4110(log q+2)⁵·y^{ceiling}`. THREE side hypotheses carried EXPLICITLY because each names a real obligation, not a hidden gap: `hord` (the contract's named `T-BAL-UNORDERED` deviation `Re ρ ≤ β₀`), `hreal` (**the exceptional zero β₀ itself does NOT satisfy the ceiling and must be split off first — exactly HB (4.11)'s `−y^{β₀}/β₀` term**), `hceil` (the ceiling clears the contract's window floor 16/17, so the discarded strip is free). ⟦LANDED — THE SEAM TEST⟧ `boxZeros_re_le_unit_box`: the same β-supplier fired off the **LANDED** `dh_repulsion_ordered` at `T = 1`, unconditional. The artillery's emitted contract shape IS the shape the inversion consumes — so the residual re-thread has nothing left to discover at the seam. ⟦THE RESIDUAL, NAMED AND PRICED — TAU-EXT-2⟧ `dh_repulsion_tall` is NOT landed, and NOT because of mathematics: it is an EDIT of ten existing statements and this executor was additive-only. Full enumeration in `docs/exploration/tau-ext-scope.md`: (1) the height binder `≤ 1 ⇝ ≤ T` in `norm_zeta_rho_le`, `emrho_perterm` (free — its `_him` is unused), `dhAbel_leg1_rho`, `unmoll_extraction_rho`, `dh_extraction_per_m_rho`, `dh_extraction_upper_rho`, `dhAbel_inner_rho`, `dh_master_ray`, `dh_repulsion_inst`, `dh_repulsion_ordered`; (2) the `hZ` gate, discharged at the call site by `zetaHol_bound_tall`; (3) `C2Rho_le`'s `‖ρ‖ ≤ 2 ⇝ ≤ 1+T ≤ Q` (bump its conclusion `Q^{1/2} ⇝ Q^{3/2}`); (4) `KEβ`/`KEρ`/`A₀` take `Z₀ ⇝ 3+2T ≤ 3Q`, absorbed by the `Q`-exponent slack (**`b = 680` against the `104` actually spent**). The only genuine fights are the `nlinarith` re-checks in `row_Eρ_cap`/`row_Eβ_cap`; the rest is binder plumbing. ⟦N0 CLEAR's 0.095% price CONFIRMED STRUCTURALLY: the growth is `Z₀ ≍ T` linear, and `T ≤ Q` — the polylog height ruling is what makes it free; at the disc `q²` the whole exponent budget would need re-auditing from scratch⟧
 
 ## () TAU-EXT HOME (7b90adc, 366 ln, 9/9 audited, exit-0): VERDICT (a) KERNEL-TRACED -- the height-1 box is PACKAGING (five consumption sites enumerated, every one packaging; the engine never sees Im rho except through Q, which is height-adaptive). THE LANDING BETTER THAN ASKED: the compactness Z0 REPLACED OUTRIGHT -- zetaHol_norm_le: ||zetaHol|| <= 3+2|Im s| on the whole closed strip, height-free, explicit, no compactness (the N=1 EM tail cancels the Laurent pole EXACTLY -- the observation that removes both defects at once); zetaHol_bound_five makes every Z0-carrying downstream constant COMPUTABLE (the numeral 5 at height 1). THE BETA INTERFACE COMPLETE: the inversion, the box-uniform ceiling, boxZeros_re_le_of_repulsion = N2's hbeta VERBATIM, the composite spend, and THE SEAM TEST (the whole supplier fired off the LANDED contract at T=1 unconditionally -- the emitted shape IS the consumed shape). The three side hypotheses carried BY NAME (hord = T-BAL-UNORDERED; hreal = the beta0 split-off, HB (4.11)'s -y^{beta0}/beta0 term; hceil). ⟦TAU-EXT-2 NAMED + PRICED (tau-ext-scope.md): dh_repulsion_tall = ten statement-edits as kwide-genre additive twins (the hZ gate discharged by zetaHol_bound_tall; C2Rho's crude bound bumps Q^{1/2}->Q^{3/2}; Z0 -> 3+2T <= 3Q absorbed by the 680-vs-104 exponent slack); the only genuine fights: two nlinarith re-checks. N0's 0.095% price CONFIRMED STRUCTURALLY⟧. THE NIGHT PLAN IS COMPLETE (N1 x3, N2, TAU-EXT -- five waves, all whole). ⟦TAU-EXT-2 fires as the night's coda⟧
 
@@ -19848,11 +19848,11 @@ Vocabulary the exit is stated in (all new, all nameable by N8): `lamBB Lam z sid
 
 ## () OUTSIDE-CAMPAIGN PHASE A COMPLETE — closed inside its ceiling; the salt lesson is the denominator law: compiled is not accepted, and an admitted goal is not a proof
 
-## (2026-08-04 08:18 PDT) ⟦THE WITNESS: §4 THE PEARL + §5 THE CLASSICAL LIMIT, FINALIZED AGAINST THE FINAL OBJECTS⟧ WITNESS-PEARL home -- `papers/witness/main.tex` ONLY (no `.lean`, no other doc; the Lean-lane sibling's slot untouched). **§4 DRAFTED IN FULL**: the target (`logChowla2Fails` unfolded + `ChowlaRegime`/`ChowlaRegimeFlat`), **Thm 4.1 = the Pearl (`logChowla2_witnessed_scale_flat_L_v2`) stated faithfully** with all four blocks (a) sign/size (b) design constant (c) the arm census (d) the eight riders + the two carried predicates -- conditionality AT the statement per the house law; the three tower lines traced back to §2 (the design law, the A-free width export, `2e^{1.6A}` off `flat_L_width_priced`); the hypothesis list item-by-item with each item's genre (the band-lane numeral `40` recorded as UNPAYABLE at the corpus's own witness, `log Cband ≈ 22661`); **§4.4 THE TWO VACUITIES OF 8/02, WRITTEN AS THE PAPER'S OWN STORY** -- the base-scale cap FALSE at the produced regime with **the paper's own Thm 2.3 (`towerFlat_width_ge`) named as the refuter** (10^{1.76e95} demand vs 10^{9.6e6} ceiling), the consequence stated plainly ("its inner implication has a false antecedent at the regime it produces"), and the GENRE DISTINCTION drawn explicitly: the cap refutation is probe arithmetic over kernel inputs, NOT a kernel theorem, whereas the register refutation of §5 IS (`cofkL_bulk_false_at_socket`); plus the mis-sized `T₀` (e^{e^1100} floor vs the e^{e^100} numeral; the sharp form clears by two exponential levels); then **Thm 4.2 = the repaired terminal at an arbitrary admissible lever** (`..._uniform_win_xceil_cqhoist`, RegisterCompose:209) with `KlevF`/`kcap := 4`, the 137x admissibility margin and the 1.386x demand margin both named. **§5 DRAFTED IN FULL**: containment + the hoist finding KEPT verbatim, then **the chain v1->v6 as six priced discharges** (the Siegel pair by the max-trick; the band by its A-window off the K-free constant; Kc/Ct/Kq by conjunct-carry with the leaf numerals; the cap at the raised lever + the T₀ reshape; the x-ceiling by threading at the cost of the caller-side g-rider; the co-factor supply by the D = ⌈log X⌉ register repair + the ∃Cq∀K hoist), **Cor 5.x = `logChowla2_ineffective_v6` stated exactly** (outer NOTHING, no carried predicate, the K_vt cushion written out), the FIVE riders by nature (three met at the corpus's own witnesses -- cs 33 orders kernel-pinned, the sharp T₀, `XCeilRiderStrict`; two = the Siegel obstruction -- Ks and the cushion whose third leg is `LFunction_band_lower`, SiegelArm:161, "not effective in q" said at the declaration), a "what the corollary does not say" block (not (1.1); not unconditional simpliciter; no numeral), and the closing sentence in the ordered genre -- the wall met in July is the only hypothesis left standing. **APPENDIX**: 24 pearl rows filled in the index table (decl + file:line + the 3-axiom column), `tab:conditional` REGENERATED (8 rows; Thm 4.1's row carries the cap-arm note), and a NEW **Appendix B: the two headline signatures** -- `v2` and `v6` transcribed **byte-exact from the tree** (script-verified against S16FlatFinal:136-158 and RegisterCompose:345-364, proof bodies cut) per the flagship's Appendix-A convention, with source + audit citations (All.lean:7195 / :7736). **PREAMBLE**: `alltt` + `\lchar` + 17 `\DeclareUnicodeCharacter` lines added (the paper had none; exactly the characters the two signatures use, ⌈⌉ beyond the flagship's list). **CONSISTENCY EDITS OUTSIDE THE ASSIGNED CHAPTERS, REPORTED**: the abstract's corollary sentence and §1.2's surviving-hypothesis list were FALSE against v6 (they named the v1 six-rider list) -- both rewritten; the paper's own §5 TODO demanded exactly this (items (ii)+(iii)); `\date` moved 8/02 -> 8/04 (the text now cites 8/03 results); the section-status header block updated. **NO COMPILE** (no toolchain, per the file's own header): balance verified by script -- braces 0, all environments closed, 36/36 displays, ZERO dangling refs, and every `\leaninline` moved OUT of display math (two sites). ⟦TWO ITEMS FLAGGED, NOT TOUCHED⟧ (1) **RESULTS.md:150, the Pearl row, carries NO vacuity note** although the v1/v2/v3 rows all do and the 8/02 dossier addendum names the Pearl explicitly ("the FLAT-lane terminals -- THE PEARL v2 AND logChowla2_ineffective v1/v2/v3 -- is currently VACUOUS"); the registry and the dossier disagree on the Pearl's row and the paper now says in print what the addendum says. Registry decision, Lean-lane slot. (2) the 8/02 dossier's "Kc proven at ≈2^228 (**317** bits room)" -- 539 − 228.2 = 310.8; the paper says "more than 300 bits" rather than reprint the figure. VOICE: the two banned words absent from the body; every strong adjective paid by a number.
+## (2026-08-04 08:18 PDT) ⟦THE WITNESS: §4 THE PEARL + §5 THE CLASSICAL LIMIT, FINALIZED AGAINST THE FINAL OBJECTS⟧ WITNESS-PEARL home -- `papers/witness/main.tex` ONLY (no `.lean`, no other doc; the Lean-lane sibling's slot untouched). **§4 DRAFTED IN FULL**: the target (`logChowla2Fails` unfolded + `ChowlaRegime`/`ChowlaRegimeFlat`), **Thm 4.1 = the Pearl (`logChowla2_witnessed_scale_flat_L_v2`) stated faithfully** with all four blocks (a) sign/size (b) design constant (c) the arm census (d) the eight riders + the two carried predicates -- conditionality AT the statement per the house law; the three tower lines traced back to §2 (the design law, the A-free width export, `2e^{1.6A}` off `flat_L_width_priced`); the hypothesis list item-by-item with each item's genre (the band-lane numeral `40` recorded as UNPAYABLE at the corpus's own witness, `log Cband ≈ 22661`); **§4.4 THE TWO VACUITIES OF 8/02, WRITTEN AS THE PAPER'S OWN STORY** -- the base-scale cap FALSE at the produced regime with **the paper's own Thm 2.3 (`towerFlat_width_ge`) named as the refuter** (10^{1.76e95} demand vs 10^{9.6e6} ceiling), the consequence stated plainly ("its inner implication has a false antecedent at the regime it produces"), and the GENRE DISTINCTION drawn explicitly: the cap refutation is probe arithmetic over kernel inputs, NOT a kernel theorem, whereas the register refutation of §5 IS (`cofkL_bulk_false_at_socket`); plus the mis-sized `T₀` (e^{e^1100} floor vs the e^{e^100} numeral; the sharp form clears by two exponential levels); then **Thm 4.2 = the repaired terminal at an arbitrary admissible lever** (`..._uniform_win_xceil_cqhoist`, RegisterCompose:203) with `KlevF`/`kcap := 4`, the 137x admissibility margin and the 1.386x demand margin both named. **§5 DRAFTED IN FULL**: containment + the hoist finding KEPT verbatim, then **the chain v1->v6 as six priced discharges** (the Siegel pair by the max-trick; the band by its A-window off the K-free constant; Kc/Ct/Kq by conjunct-carry with the leaf numerals; the cap at the raised lever + the T₀ reshape; the x-ceiling by threading at the cost of the caller-side g-rider; the co-factor supply by the D = ⌈log X⌉ register repair + the ∃Cq∀K hoist), **Cor 5.x = `logChowla2_ineffective_v6` stated exactly** (outer NOTHING, no carried predicate, the K_vt cushion written out), the FIVE riders by nature (three met at the corpus's own witnesses -- cs 33 orders kernel-pinned, the sharp T₀, `XCeilRiderStrict`; two = the Siegel obstruction -- Ks and the cushion whose third leg is `LFunction_band_lower`, SiegelArm:161, "not effective in q" said at the declaration), a "what the corollary does not say" block (not (1.1); not unconditional simpliciter; no numeral), and the closing sentence in the ordered genre -- the wall met in July is the only hypothesis left standing. **APPENDIX**: 24 pearl rows filled in the index table (decl + file:line + the 3-axiom column), `tab:conditional` REGENERATED (8 rows; Thm 4.1's row carries the cap-arm note), and a NEW **Appendix B: the two headline signatures** -- `v2` and `v6` transcribed **byte-exact from the tree** (script-verified against S16FlatFinal:130-152 and RegisterCompose:339-358, proof bodies cut) per the flagship's Appendix-A convention, with source + audit citations (All.lean:7195 / :7736). **PREAMBLE**: `alltt` + `\lchar` + 17 `\DeclareUnicodeCharacter` lines added (the paper had none; exactly the characters the two signatures use, ⌈⌉ beyond the flagship's list). **CONSISTENCY EDITS OUTSIDE THE ASSIGNED CHAPTERS, REPORTED**: the abstract's corollary sentence and §1.2's surviving-hypothesis list were FALSE against v6 (they named the v1 six-rider list) -- both rewritten; the paper's own §5 TODO demanded exactly this (items (ii)+(iii)); `\date` moved 8/02 -> 8/04 (the text now cites 8/03 results); the section-status header block updated. **NO COMPILE** (no toolchain, per the file's own header): balance verified by script -- braces 0, all environments closed, 36/36 displays, ZERO dangling refs, and every `\leaninline` moved OUT of display math (two sites). ⟦TWO ITEMS FLAGGED, NOT TOUCHED⟧ (1) **RESULTS.md:150, the Pearl row, carries NO vacuity note** although the v1/v2/v3 rows all do and the 8/02 dossier addendum names the Pearl explicitly ("the FLAT-lane terminals -- THE PEARL v2 AND logChowla2_ineffective v1/v2/v3 -- is currently VACUOUS"); the registry and the dossier disagree on the Pearl's row and the paper now says in print what the addendum says. Registry decision, Lean-lane slot. (2) the 8/02 dossier's "Kc proven at ≈2^228 (**317** bits room)" -- 539 − 228.2 = 310.8; the paper says "more than 300 bits" rather than reprint the figure. VOICE: the two banned words absent from the body; every strong adjective paid by a number.
 
 ## () WITNESS-PEARL HOME (a4af4f9, +731/-124): §4 THE PEARL drafted whole (the theorem in four blocks, conditionality at the statement; THE TWO 8/02 DEFECTS WRITTEN AS THE PAPER'S OWN STORY -- the paper's Thm 2.3 named as the refuter of its own terminal; the probe-vs-kernel genre distinction drawn explicitly); §5 finalized (the v1->v6 chain as six priced discharges; v6 stated exactly; the five riders by nature; the what-it-does-not-say block; the plain closing); Appendix B byte-exact (script-verified). REPORTED-NOT-SILENT: the abstract + §1.2 were FALSE against v6 (v1's list) -- rewritten. TWO FLAGS FIXED IN-REPO NOW: the RESULTS Pearl row gains the vacuity/repair note (registry-dossier agreement restored; lint green); the dossier's 317-bits slip corrected to 310.8 with the records-law marker.
 
-## (2026-08-04 08:20 PDT) ⟦N3-WAVE HOME — **HB LEMMA 3 LANDS, AND THE BRIEF'S ROUTE IS REFUTED**⟧ (`Salt/HB/PretenseSumProof.lean`, 646 ln, 28 decls, 18/18 audited names at 3 axioms; `~/.elan/bin/lake build` EXIT 0 from `$?` via redirection, warnings 186 = 186 baseline, ZERO from the new file; purely additive — `TransferFull.lean` UNTOUCHED, `HB/All.lean` gains one import row + 18 audit names). **🔴 THE DESIGN FINDING, LOUD: the dispatched route cannot prove this node.** The brief asked for partial summation of `ψ(y,χ)` against the sharp EF, the `−y^{β₀}/β₀` split-off, and the residual zero sum spent at the repulsion ceiling — **that is HB's Lemma 7 route (pp.207-210), and it is structurally wrong for Lemma 3**. `∑_{n≤N} χ(n)Λ(n)/n` carries real mass at SMALL `n`, where the EF is worthless (error `O(yT^{−1}(log qy)²)`); any `y`-split at `Y` bounds the low part only by `+(log Y+O(1))` in absolute value while the high part supplies `−(log N−log Y)`, so **the cancellation Lemma 3 lives on loses `2 log Y ≍ L` — the whole quantity being estimated**. HB's actual route (p.206) is the **Dirichlet-series** route with NO truncation: Davenport ch.12 (17) for `L′/L` at `s = 1+L^{−1}` vs `s′ = 1+aL^{−1}`, the `−ζ′/ζ` pole cancelled against `−1/(s−β₀)`. Its three inputs are the `|γ|≥1` tail, **Prachar's disc count**, and **Deuring-Heilbronn at `|γ| ≤ 1`** — and that τ-range is the one our LANDED artillery already covers (the τ-range flag at `hb1983-notes.md:487` is about Lemma **7**, not this node; N3 has no τ gap). SECOND CORRECTION: the brief's rate `(log η)^{−1/4}` is not the source's — pp.198/206 give `L(log η)^{−1/2}` at `a = (log η)^{1/2}` (`hb1983-notes.md:429,809`); we mint at **−1/2** and ship the `−1/4` shape as a free corollary (`pretenseSum_le_quarter_rate`), so a consumer written against either normalization composes. ⟦WHAT LANDED, ALL KERNEL-CHECKED⟧ **§1 THE STONE** `two_mul_pretenseSum_le_vmPairW`: `2·PretenseSum χ N ≤ ∑_{0<n≤N}(1+χ_ℝ(n))·Λ(n)·w(n)` for any nonnegative `w` dominating `1/p` at primes — HB's "the `χ(p)=1` primes are where `Λ+χΛ` concentrates" made exact (the detector `1+χ_ℝ ≥ 0` needs NO reality hypothesis, off `chiRe_abs_le_one`; at a `χ(p)=+1` prime it is exactly 2). Two instances: the Mertens weight (`vmPair`) and HB's own `n^{−s}` (`vmPairS`), the latter through the currency conversion `1/n ≤ N^{s−1}n^{−s}` (`inv_le_rpow_mul_rpow_neg`; on the window `N ≤ q^{500}` at `s = 1+L^{−1}` the prefactor is `≤ e^{500}`). **THE SURPRISE SUPPLY**: `mertens_vonMangoldt_div_le` (`L2cCore.lean:437`, landed, unconditional) discharges the UNTWISTED half outright — `two_mul_pretenseSum_le_mertens` reduces the node to the twisted Mertens sum alone, with the explicit constant `log 4 + 4`. **§2** `pole_cancel_le`: HB's p.207 line `1/(s−1) − 1/(s−β₀) = (1−β₀)/((s−1)(s−β₀)) ≤ (1−β₀)/(s−1)²`, i.e. `L·η^{−1}` at the operating point — the Siegel zero's existence spent as a main term, here and only here. **§3 THE OPTIMIZATION IS PROVED, NOT ASSUMED**: `hb_rate_at_optimal_a` (`L/√ℓ + √ℓL/ℓ = 2L/√ℓ`) plus `hb_rate_optimal` (AM-GM: `2√(AB) ≤ A/a + Ba` for EVERY `a>0`) — so `(log η)^{−1/2}` is shown optimal, not merely a choice. **§4 BOTH ARTILLERY INTERFACES CONSUMED**: `one_sub_ceiling_le_dist_one` turns `Salt.SW.repulsionCeiling` into HB's input (3), the repulsion floor `|1−ρ| ≥ 1−Re ρ ≥ r₀ ≫ L^{−1}log η`; `nearOne_multTotal_le` turns `LFunction_zero_count_near_one` (Prachar, UNCONDITIONAL) into HB's input (2) **as a Finset statement with multiplicity** — route `efMultTotal_le_divisor` (N1 wave-3's divisor bridge) then the count, so it composes directly with the EF-side vocabulary. **§4b — THE RESIDUE WAS TAKEN TOO**: `nearOne_invSq_sum_le`, HB's (4.1) error sum `∑_ρ m_ρ|ρ−1|^{−2} ≤ C(r₀^{−2} + log(f+2)·r₀^{−1})` on the annulus `r₀ ≤ |ρ−1| < 1/4` — the dyadic decomposition HB leaves implicit, proved by fibring on `j = Nat.log 2 ⌊|ρ−1|/r₀⌋` (a NATURAL-log index: **no real `logb`/floor bookkeeping enters at all** — `Nat.pow_log_le_self` + `Nat.lt_pow_succ_log_self` give both shell walls), pricing each shell by Prachar at radius `min(r₀2^{j+1}, 1/4)` (the `min` removes the empty-fibre case AND the `r < 1/2` side condition in one stroke), and summing `∑4^{−j} ≤ 4/3`, `∑2^{−j} ≤ 2`. **§5-§6 THE NODE + THE SLOT BRIDGE**: `pretenseSum_le` (truncated currency), `pretenseSum_le_series` (HB's own currency, `hcore` = (4.2)+(4.3) verbatim), `pretenseSum_le_hb_rate` / `_rpow` / `_quarter_rate`, and `hb_lemma2_of_pretenseSum_le` + `hb_lemma2_at_hb_rate` — **the slot needed NO re-normalization**: `TransferFull.lean:183`'s `PretenseSum` is consumed linearly with a nonnegative coefficient, so an upper bound transports verbatim, and `hb_lemma2_at_hb_rate` states HB (3.3) with **no symbolic slot left in it**. ⟦THE ONE CARRIED HYPOTHESIS, NAMED⟧ `hchi : twistedMertens χ N ≤ −log N + Rate` (equivalently `hcore` on the series side) — HB (4.2)+(4.3) added. NOTHING ELSE is carried: no `β₀` existence, no `1/2<β₀<1`, no `hord`/`hreal`/`hceil`/`hN` — those live inside `hchi`'s obligation, where N4/N8's assembly discharges them once from the F-side context. What still owes: the partial-fraction differencing at `s` vs `s′` (off the landed `LFunction_partialFraction` + `norm_logDeriv_sub_sum_le`), the `|γ| ≥ 1` tail (Davenport ch.14 (3)), and the `−L′/L = ∑χΛn^{−s}` series identity — §4/§4b's three lemmas are the analytic core's remaining inputs and are DONE. ⟦PROCESS⟧ catch #105 guarded: all 18 signatures `#check`ed at the bytes, zero stray auto-bound variables. Three `field_simp`-closed-it-already traps (a trailing `ring` on a closed goal errors "No goals"), one `nlinarith`-on-`√ell*√ell` miss fixed by stating the hypothesis as `√ell^2 = ell` (`Real.sq_sqrt`, not `Real.mul_self_sqrt`) so `rw` applies.
+## (2026-08-04 08:20 PDT) ⟦N3-WAVE HOME — **HB LEMMA 3 LANDS, AND THE BRIEF'S ROUTE IS REFUTED**⟧ (`Salt/HB/PretenseSumProof.lean`, 646 ln, 28 decls, 18/18 audited names at 3 axioms; `~/.elan/bin/lake build` EXIT 0 from `$?` via redirection, warnings 186 = 186 baseline, ZERO from the new file; purely additive — `TransferFull.lean` UNTOUCHED, `HB/All.lean` gains one import row + 18 audit names). **🔴 THE DESIGN FINDING, LOUD: the dispatched route cannot prove this node.** The brief asked for partial summation of `ψ(y,χ)` against the sharp EF, the `−y^{β₀}/β₀` split-off, and the residual zero sum spent at the repulsion ceiling — **that is HB's Lemma 7 route (pp.207-210), and it is structurally wrong for Lemma 3**. `∑_{n≤N} χ(n)Λ(n)/n` carries real mass at SMALL `n`, where the EF is worthless (error `O(yT^{−1}(log qy)²)`); any `y`-split at `Y` bounds the low part only by `+(log Y+O(1))` in absolute value while the high part supplies `−(log N−log Y)`, so **the cancellation Lemma 3 lives on loses `2 log Y ≍ L` — the whole quantity being estimated**. HB's actual route (p.206) is the **Dirichlet-series** route with NO truncation: Davenport ch.12 (17) for `L′/L` at `s = 1+L^{−1}` vs `s′ = 1+aL^{−1}`, the `−ζ′/ζ` pole cancelled against `−1/(s−β₀)`. Its three inputs are the `|γ|≥1` tail, **Prachar's disc count**, and **Deuring-Heilbronn at `|γ| ≤ 1`** — and that τ-range is the one our LANDED artillery already covers (the τ-range flag at `hb1983-notes.md:487` is about Lemma **7**, not this node; N3 has no τ gap). SECOND CORRECTION: the brief's rate `(log η)^{−1/4}` is not the source's — pp.198/206 give `L(log η)^{−1/2}` at `a = (log η)^{1/2}` (`hb1983-notes.md:429,809`); we mint at **−1/2** and ship the `−1/4` shape as a free corollary (`pretenseSum_le_quarter_rate`), so a consumer written against either normalization composes. ⟦WHAT LANDED, ALL KERNEL-CHECKED⟧ **§1 THE STONE** `two_mul_pretenseSum_le_vmPairW`: `2·PretenseSum χ N ≤ ∑_{0<n≤N}(1+χ_ℝ(n))·Λ(n)·w(n)` for any nonnegative `w` dominating `1/p` at primes — HB's "the `χ(p)=1` primes are where `Λ+χΛ` concentrates" made exact (the detector `1+χ_ℝ ≥ 0` needs NO reality hypothesis, off `chiRe_abs_le_one`; at a `χ(p)=+1` prime it is exactly 2). Two instances: the Mertens weight (`vmPair`) and HB's own `n^{−s}` (`vmPairS`), the latter through the currency conversion `1/n ≤ N^{s−1}n^{−s}` (`inv_le_rpow_mul_rpow_neg`; on the window `N ≤ q^{500}` at `s = 1+L^{−1}` the prefactor is `≤ e^{500}`). **THE SURPRISE SUPPLY**: `mertens_vonMangoldt_div_le` (`L2cCore.lean:441`, landed, unconditional) discharges the UNTWISTED half outright — `two_mul_pretenseSum_le_mertens` reduces the node to the twisted Mertens sum alone, with the explicit constant `log 4 + 4`. **§2** `pole_cancel_le`: HB's p.207 line `1/(s−1) − 1/(s−β₀) = (1−β₀)/((s−1)(s−β₀)) ≤ (1−β₀)/(s−1)²`, i.e. `L·η^{−1}` at the operating point — the Siegel zero's existence spent as a main term, here and only here. **§3 THE OPTIMIZATION IS PROVED, NOT ASSUMED**: `hb_rate_at_optimal_a` (`L/√ℓ + √ℓL/ℓ = 2L/√ℓ`) plus `hb_rate_optimal` (AM-GM: `2√(AB) ≤ A/a + Ba` for EVERY `a>0`) — so `(log η)^{−1/2}` is shown optimal, not merely a choice. **§4 BOTH ARTILLERY INTERFACES CONSUMED**: `one_sub_ceiling_le_dist_one` turns `Salt.SW.repulsionCeiling` into HB's input (3), the repulsion floor `|1−ρ| ≥ 1−Re ρ ≥ r₀ ≫ L^{−1}log η`; `nearOne_multTotal_le` turns `LFunction_zero_count_near_one` (Prachar, UNCONDITIONAL) into HB's input (2) **as a Finset statement with multiplicity** — route `efMultTotal_le_divisor` (N1 wave-3's divisor bridge) then the count, so it composes directly with the EF-side vocabulary. **§4b — THE RESIDUE WAS TAKEN TOO**: `nearOne_invSq_sum_le`, HB's (4.1) error sum `∑_ρ m_ρ|ρ−1|^{−2} ≤ C(r₀^{−2} + log(f+2)·r₀^{−1})` on the annulus `r₀ ≤ |ρ−1| < 1/4` — the dyadic decomposition HB leaves implicit, proved by fibring on `j = Nat.log 2 ⌊|ρ−1|/r₀⌋` (a NATURAL-log index: **no real `logb`/floor bookkeeping enters at all** — `Nat.pow_log_le_self` + `Nat.lt_pow_succ_log_self` give both shell walls), pricing each shell by Prachar at radius `min(r₀2^{j+1}, 1/4)` (the `min` removes the empty-fibre case AND the `r < 1/2` side condition in one stroke), and summing `∑4^{−j} ≤ 4/3`, `∑2^{−j} ≤ 2`. **§5-§6 THE NODE + THE SLOT BRIDGE**: `pretenseSum_le` (truncated currency), `pretenseSum_le_series` (HB's own currency, `hcore` = (4.2)+(4.3) verbatim), `pretenseSum_le_hb_rate` / `_rpow` / `_quarter_rate`, and `hb_lemma2_of_pretenseSum_le` + `hb_lemma2_at_hb_rate` — **the slot needed NO re-normalization**: `TransferFull.lean:183`'s `PretenseSum` is consumed linearly with a nonnegative coefficient, so an upper bound transports verbatim, and `hb_lemma2_at_hb_rate` states HB (3.3) with **no symbolic slot left in it**. ⟦THE ONE CARRIED HYPOTHESIS, NAMED⟧ `hchi : twistedMertens χ N ≤ −log N + Rate` (equivalently `hcore` on the series side) — HB (4.2)+(4.3) added. NOTHING ELSE is carried: no `β₀` existence, no `1/2<β₀<1`, no `hord`/`hreal`/`hceil`/`hN` — those live inside `hchi`'s obligation, where N4/N8's assembly discharges them once from the F-side context. What still owes: the partial-fraction differencing at `s` vs `s′` (off the landed `LFunction_partialFraction` + `norm_logDeriv_sub_sum_le`), the `|γ| ≥ 1` tail (Davenport ch.14 (3)), and the `−L′/L = ∑χΛn^{−s}` series identity — §4/§4b's three lemmas are the analytic core's remaining inputs and are DONE. ⟦PROCESS⟧ catch #105 guarded: all 18 signatures `#check`ed at the bytes, zero stray auto-bound variables. Three `field_simp`-closed-it-already traps (a trailing `ring` on a closed goal errors "No goals"), one `nlinarith`-on-`√ell*√ell` miss fixed by stating the hypothesis as `√ell^2 = ell` (`Real.sq_sqrt`, not `Real.mul_self_sqrt`) so `rw` applies.
 
 ## () N3-WAVE HOME (d753c03, 646 ln, 18/18 audited, exit-0) + ⟦THE BRIEF-ROUTE REFUTED -- my catch, the executor's save⟧: the dispatched route (partial summation vs the sharp EF + the beta0 split) is LEMMA 7'S route and CANNOT prove Lemma 3 (the sum carries real mass at small n where the EF error is worthless; the y-split loses 2logY ~ L -- the whole quantity); HB's actual Lemma-3 route is the DIRICHLET-SERIES route at s = 1+1/L, no truncation, D-H at |gamma| <= 1 = the LANDED artillery -- **N3 has NO tau gap; the tau-range flag belongs to Lemma 7 alone**. Rate corrected at the source: -1/2 (the -1/4 ships as a free corollary). LANDED: the detector stone (no reality hypothesis needed); THE SURPRISE SUPPLY (the landed unconditional Mertens bound discharges the untwisted half outright -- the node reduces to the twisted sum alone); the pole cancellation; the optimization PROVED (AM-GM at every a); both artillery interfaces consumed; the dyadic (4.1) residue sum. **EXACTLY ONE carried hypothesis: hchi = HB (4.2)+(4.3)** (no beta0 existence, no side quartet -- they live inside hchi's obligation); the slot bridge CLEAN (hb_lemma2_at_hb_rate with no symbolic PretenseSum left; TransferFull untouched). Owed toward hchi: the s-vs-s' partial-fraction differencing (off the landed LFunction_partialFraction), the |gamma|>=1 tail (the TALL artillery's job), the -L'/L identity. ⟦N4a fires: the hchi completion -> Lemma 3 unconditional at the slot; N4b (Lemma 7 under the multiplicative mandate) behind it⟧
 
@@ -19876,11 +19876,11 @@ Vocabulary the exit is stated in (all new, all nameable by N8): `lamBB Lam z sid
 
 ## () EPSILON-ZERO LANDS — THE ε₀ FLOOR IS EXPLICIT (`Salt/SW/EpsilonZero.lean`, 5 decls, all 3-axiom, `lake build` exit 0, zero new warnings): the class-C stone the council queued at C4 (2026-08-04) and RIDER-TRACE named "THE ONE GENUINELY OPEN STONE … ONE STONE, THREE RIDERS" is **closed by an explicit numeral**. `zeta_zero_free_strip`'s compactness constant (`IsCompact.exists_isMinOn` on the `Re = 1` segment, `ZetaZeroFree.lean:180`, CMU-HUNT leaf #1) is replaced by `zeta_zero_free_strip_explicit : ζ ρ = 0 → |Im ρ| ≤ 1 → Re ρ ≤ 1 − 10⁻⁶`. ⟦THE ROUTE — TWO BRANCHES, SPLIT AT `|γ| = 1/5`⟧ (1) **pole dominance** (the new reusable lemma `zeta_ne_zero_of_pole_dominant`): the corpus's OWN Abel identity `Zc_eq_series` gives `(s−1)ζ(s) = 1 + (s−1)R(s)` on `Re s > 0` with `‖R‖ ≤ ‖s‖(1+1/Re s)` (`norm_R_le`), so a zero forces `‖s−1‖·‖R‖ = 1` and `ζ` cannot vanish where the product `< 1` — on the sub-box `Re > 1−10⁻⁶`, `|Im| ≤ 1/5` the product is `≤ (1/5+10⁻⁶)(6/5)(3) = 0.72`. **This is the compactness abolition**: an explicit disk about the pole where the EVT minimum used to be. (2) `1/5 < |γ| ≤ 1` — the 3-4-1 keep-one chain verbatim from `zeta_zero_free_region`'s `|γ| ≥ 1` branch, the ONLY change being the pole real parts `Re(1/(s₁−1)) ≤ 1/|γ| ≤ 5`, `Re(1/(s₂−1)) ≤ 1/(2|γ|) ≤ 5/2` (was `≤ 1`) and `log(|γ|+2) ≤ log 4 ≤ 1.4`; at `σ = 1 + 1/15200` the chain reads `4/(σ−β) ≤ 3/(σ−1) + 53186`, incompatible with `β > 1−10⁻⁶`. The `1/5` split point IS the trade: branch 1 wants `|γ|` small, branch 2 wants it away from `0`. ⟦THE CIRCULARITY GUARD, DISCHARGED MECHANICALLY⟧ the brief's critical constraint (the floor must not run through the region it feeds). A transitive constant-closure walk over all five new declarations (Scratch meta command, **4829 constants visited**) reports **ZERO hits** on `zeta_zero_free_strip`, `zeta_zero_free_region`, `IsCompact.exists_isMinOn`, `Metric.infDist`, `riemannZetaZeros`. Not an argument from imports — a scan of the proof terms. ⟦THE CONSUMER TWIN — WHAT THE THREE RIDERS SPEND⟧ `zeta_zero_free_region_explicit : ζ ρ = 0 → 1/2 ≤ Re ρ → Re ρ ≤ 1 − 10⁻⁷/log(|Im ρ|+2)` — **a fully explicit classical ζ zero-free region, `c₃ = 10⁻⁷`, no `min`, no opaque leaf**. The numeral clears both branch demands: `10⁻⁷ ≤ 1/75712` (the Davenport extraction `dd/7`) and `10⁻⁷ ≤ 10⁻⁶·log 2` (the strip). `|γ| ≥ 1` body verbatim from `zeta_zero_free_region`. Plus the two `∃`-shaped `_bounded` conjunct-carry twins (`zeta_zero_free_strip_bounded`, `zeta_zero_free_region_bounded`) for drop-in use at the existing call shapes. ⟦THE HONEST GAP⟧ CMU-HUNT §2 asked `ε₀ ≥ 1.9e-5` to make the leaf "vanish into existing literals" (i.e. keep `c₃ = 1/75712` unchanged); **we deliver `10⁻⁶`, a factor ~19 short of that**, so `c₃` drops `1/75712 → 10⁻⁷` — effectivity achieved, the numeral not preserved. The gap is entirely the `5400·log(|γ|+2)` zero-theory remainder carried by `zeta_neg_re_logDeriv_le_keep`'s pre-collapsed `1080·log(|γ|+2)`; using the SHARP `120·log(4·M₀ζ(γ))` at `|γ| ≤ 1` (≈757 vs 1186) would give `ε₀ ≈ 1.87e-5` — still just under 1.9e-5, and it costs a re-derivation of the keep-one lemma. REGISTER as a sharpening, not a blocker: every downstream `_bounded` twin only needs A floor, and `10⁻⁷` is one. ⟦OWED⟧ the ~12 `_bounded` conjunct-carry twins down the chain (the EPSPIN genre, no new analysis) now have their base case; `Cbig = 9000·c_vk + c_vk/(2δ₀) + 1` with `δ₀ = ε₀/2` is the first consumer, and the `T₀z` ceiling behind it. The second CMU-HUNT compactness leaf (`ZetaInvShallow.lean:53`, `δ = ‖Zc z₀‖`, "δ easy — explicit `|(s−1)ζ|` floor on a box") is UNTOUCHED and is the natural next stone — and `zeta_ne_zero_of_pole_dominant` is likely the tool for it. Opus executor, 2 attempts (one `nlinarith` degradation on the disk product, repaired by explicit `mul_le_mul` staging).
 
-## () ZETA-INV-SHALLOW — CMU-HUNT LEAF #2 PARTIALLY EXPLICIT, AND THE RESIDUE NAMED (`Salt/SW/EpsilonZero.lean` §5, 4 decls, all 3-axiom, `lake build` exit 0, zero new warnings): the δ leaf (`ZetaInvShallow.lean:53` `Zc_patch_lower`, `‖Zc‖` min on `{a ≤ Re ≤ 3, |Im| ≤ 2}` by `IsCompact.exists_isMinOn`) is **two-thirds abolished; the remaining third is a genuine low-height wall, priced below**. ⟦THE DESIGN WRINKLE — SETTLED, NOT A FINDING⟧ the brief asked whether the new smaller `c₃ = 10⁻⁷` narrows the admissible `a`-window past a consumer. **It does not.** `Zc_patch_lower` has exactly ONE Lean call site (`zeta_inv_shallow`, `ZetaInvShallow.lean:151`) and that consumer **derives `a` FROM `c₃`**: `c₄ := min c₄₀ (min (log2⁹/2) (c₃·log2⁹/(2·log 4)))`, `a := 1 − c₄/log2⁹`, so `1 − a ≤ c₃/(2 log 4) < c₃/log 4` — the compatibility is STRUCTURAL and holds for any `c₃ > 0`. At `c₃ = 10⁻⁷` the window is `1 − a ≤ 3.6e−8`; nothing breaks, only narrows. (Doc references in `Salt/MR/ZetaLowerAllT.lean:25` and `MobiusChiRateClose.lean:1758` are prose, not call sites.) ⟦WHAT LANDED⟧ the rectangle splits in three; two pieces fall to compactness-free arguments with generous explicit floors: `Zc_lower_of_two_le_re` (`Re z ≥ 2 ⟹ ‖Zc z‖ = ‖z−1‖·‖ζ z‖ ≥ 1·(1/4)`) and **`Zc_lower_near_pole`** (`‖z−1‖ ≤ 1/5 ∧ Re z ≥ 1/2 ⟹ ‖Zc z‖ ≥ 7/25`) — the latter is `zeta_ne_zero_of_pole_dominant`'s arithmetic **reused as a lower bound instead of a non-vanishing statement**, exactly as the ratified strategy predicted. Assembled: `Zc_patch_lower_of_band` / `Zc_patch_lower_bounded_of_band` deliver the floor `min δ₁ (1/4)` on the WHOLE rectangle given any band floor `δ₁`, in the corpus's `_of_strip`/`_of_contour` hypothesis-taking genre. Note what the twin does NOT need: `Hzfr`/`hcompat`. A quantitative band floor subsumes non-vanishing, so **the twin is independent of `c₃` altogether** — the wrinkle cannot recur downstream. ⟦THE RESIDUAL BAND = THE WALL⟧ `{a ≤ Re z ≤ 2, |Im z| ≤ 2, ‖z−1‖ ≥ 1/5}`: an explicit lower bound for `|ζ|` on a box abutting `Re = 1` at heights up to 2. THREE routes checked and each structurally blocked: (i) `zeta_lower_shallow` carries a standing `2 ≤ |t|` (`ZetaLowerShallow.lean:324`) inherited from `zeta_log_bound` — the pole intrudes below, so it cannot serve the patch, which is WHY the patch exists; (ii) the 3-4-1 modulus route gives `|ζ(σ+it)| ≥ 1/ζ(σ) ≥ (σ−1)/σ` for `σ > 1`, which **degenerates exactly at `σ = 1`**, and the derivative transfer across the line costs `(σ₀−σ)·|ζ′|` with `|ζ′| ≈ 1/|s−1|² ≈ 25` at `|t| = 0.2`, swamping the gain `≈ η` for every `η` — it cannot cross; (iii) enlarging the pole disk caps at `r(1+r)·2 < 1 ⟹ r < 0.366` even with a perfect `‖R‖` bound, while the band needs `r ≥ 2`. ⟦THE TWO PRICED ROUTES FOR A FUTURE WAVE⟧ **(a) Borel–Carathéodory/Jensen on `Zc` at low height** — the landed `entire_norm_logDeriv_sub_sum'` plus the NEW explicit zero separation (zeros have `Re ρ ≤ 1 − 10⁻⁷/log 4`, patch points have `Re ≥ 1 − 3.6e−8`, so the gap is `≥ 3.6e−8` and is now a NUMERAL, which it was not before EPSILON-ZERO): integrate `Re logDeriv Zc` along the horizontal segment from `Re = 2`. Estimate `Σ_ρ ½·log(20/(a−β)²) ≈ 18.7` per zero against a Jensen zero-count `~757` gives `log δ₀ ≳ log(1/4) − 1.4e4`, i.e. **δ₀ ~ e^{−14000}** — explicit, effective, and ~6000 orders BELOW the 7.7e−16 hunt target, but it does make `zeta_inv_shallow`'s `C = max(1/c, 4/(δ·log2⁷), …)` effective, which is the whole point. Cost: new class-C analysis (segment integration + the zero-sum integral evaluation), est. 400+ ln, multi-wave. **(b) interval-arithmetic verification of `|ζ|` on the band** — a different genre with no corpus precedent. ⟦THE HONEST GAP⟧ the hunt target was `δ₀ ≥ 7.7e−16`. We deliver `1/4` (fourteen orders of OVERSHOOT) but **conditionally on the band**, and `nothing` unconditionally on the band itself. Route (a) says the unconditional number, when it comes, will look like `e^{−14000}`, not `7.7e−16` — CMU-HUNT §2's `7.7e−16` is what the constant WOULD need to vanish into existing literals, not what this proof technique yields. Register that expectation now. ⟦ALSO REGISTERED⟧ `Salt/MR/ZetaLowerAllT.lean`'s `[3,T1]` range is a THIRD compact-min discharge of the same genre (per `mr-freeze.md:13`) — the low-height/mid-height `|ζ|` floor is ONE recurring wall wearing three masks (`Zc_patch`, `ZetaLowerAllT [3,T1]`, and this band), and route (a) is the common key. Opus executor, 2 attempts (one round: an unused binder plus a bare `δ` colliding with scoped notation — renamed `δ₀`).
+## () ZETA-INV-SHALLOW — CMU-HUNT LEAF #2 PARTIALLY EXPLICIT, AND THE RESIDUE NAMED (`Salt/SW/EpsilonZero.lean` §5, 4 decls, all 3-axiom, `lake build` exit 0, zero new warnings): the δ leaf (`ZetaInvShallow.lean:53` `Zc_patch_lower`, `‖Zc‖` min on `{a ≤ Re ≤ 3, |Im| ≤ 2}` by `IsCompact.exists_isMinOn`) is **two-thirds abolished; the remaining third is a genuine low-height wall, priced below**. ⟦THE DESIGN WRINKLE — SETTLED, NOT A FINDING⟧ the brief asked whether the new smaller `c₃ = 10⁻⁷` narrows the admissible `a`-window past a consumer. **It does not.** `Zc_patch_lower` has exactly ONE Lean call site (`zeta_inv_shallow`, `ZetaInvShallow.lean:151`) and that consumer **derives `a` FROM `c₃`**: `c₄ := min c₄₀ (min (log2⁹/2) (c₃·log2⁹/(2·log 4)))`, `a := 1 − c₄/log2⁹`, so `1 − a ≤ c₃/(2 log 4) < c₃/log 4` — the compatibility is STRUCTURAL and holds for any `c₃ > 0`. At `c₃ = 10⁻⁷` the window is `1 − a ≤ 3.6e−8`; nothing breaks, only narrows. (Doc references in `Salt/MR/ZetaLowerAllT.lean:25` and `MobiusChiRateClose.lean:1758` are prose, not call sites.) ⟦WHAT LANDED⟧ the rectangle splits in three; two pieces fall to compactness-free arguments with generous explicit floors: `Zc_lower_of_two_le_re` (`Re z ≥ 2 ⟹ ‖Zc z‖ = ‖z−1‖·‖ζ z‖ ≥ 1·(1/4)`) and **`Zc_lower_near_pole`** (`‖z−1‖ ≤ 1/5 ∧ Re z ≥ 1/2 ⟹ ‖Zc z‖ ≥ 7/25`) — the latter is `zeta_ne_zero_of_pole_dominant`'s arithmetic **reused as a lower bound instead of a non-vanishing statement**, exactly as the ratified strategy predicted. Assembled: `Zc_patch_lower_of_band` / `Zc_patch_lower_bounded_of_band` deliver the floor `min δ₁ (1/4)` on the WHOLE rectangle given any band floor `δ₁`, in the corpus's `_of_strip`/`_of_contour` hypothesis-taking genre. Note what the twin does NOT need: `Hzfr`/`hcompat`. A quantitative band floor subsumes non-vanishing, so **the twin is independent of `c₃` altogether** — the wrinkle cannot recur downstream. ⟦THE RESIDUAL BAND = THE WALL⟧ `{a ≤ Re z ≤ 2, |Im z| ≤ 2, ‖z−1‖ ≥ 1/5}`: an explicit lower bound for `|ζ|` on a box abutting `Re = 1` at heights up to 2. THREE routes checked and each structurally blocked: (i) `zeta_lower_shallow` carries a standing `2 ≤ |t|` (`ZetaLowerShallow.lean:329`) inherited from `zeta_log_bound` — the pole intrudes below, so it cannot serve the patch, which is WHY the patch exists; (ii) the 3-4-1 modulus route gives `|ζ(σ+it)| ≥ 1/ζ(σ) ≥ (σ−1)/σ` for `σ > 1`, which **degenerates exactly at `σ = 1`**, and the derivative transfer across the line costs `(σ₀−σ)·|ζ′|` with `|ζ′| ≈ 1/|s−1|² ≈ 25` at `|t| = 0.2`, swamping the gain `≈ η` for every `η` — it cannot cross; (iii) enlarging the pole disk caps at `r(1+r)·2 < 1 ⟹ r < 0.366` even with a perfect `‖R‖` bound, while the band needs `r ≥ 2`. ⟦THE TWO PRICED ROUTES FOR A FUTURE WAVE⟧ **(a) Borel–Carathéodory/Jensen on `Zc` at low height** — the landed `entire_norm_logDeriv_sub_sum'` plus the NEW explicit zero separation (zeros have `Re ρ ≤ 1 − 10⁻⁷/log 4`, patch points have `Re ≥ 1 − 3.6e−8`, so the gap is `≥ 3.6e−8` and is now a NUMERAL, which it was not before EPSILON-ZERO): integrate `Re logDeriv Zc` along the horizontal segment from `Re = 2`. Estimate `Σ_ρ ½·log(20/(a−β)²) ≈ 18.7` per zero against a Jensen zero-count `~757` gives `log δ₀ ≳ log(1/4) − 1.4e4`, i.e. **δ₀ ~ e^{−14000}** — explicit, effective, and ~6000 orders BELOW the 7.7e−16 hunt target, but it does make `zeta_inv_shallow`'s `C = max(1/c, 4/(δ·log2⁷), …)` effective, which is the whole point. Cost: new class-C analysis (segment integration + the zero-sum integral evaluation), est. 400+ ln, multi-wave. **(b) interval-arithmetic verification of `|ζ|` on the band** — a different genre with no corpus precedent. ⟦THE HONEST GAP⟧ the hunt target was `δ₀ ≥ 7.7e−16`. We deliver `1/4` (fourteen orders of OVERSHOOT) but **conditionally on the band**, and `nothing` unconditionally on the band itself. Route (a) says the unconditional number, when it comes, will look like `e^{−14000}`, not `7.7e−16` — CMU-HUNT §2's `7.7e−16` is what the constant WOULD need to vanish into existing literals, not what this proof technique yields. Register that expectation now. ⟦ALSO REGISTERED⟧ `Salt/MR/ZetaLowerAllT.lean`'s `[3,T1]` range is a THIRD compact-min discharge of the same genre (per `mr-freeze.md:13`) — the low-height/mid-height `|ζ|` floor is ONE recurring wall wearing three masks (`Zc_patch`, `ZetaLowerAllT [3,T1]`, and this band), and route (a) is the common key. Opus executor, 2 attempts (one round: an unused binder plus a bare `δ` colliding with scoped notation — renamed `δ₀`).
 
 ## () EPSILON-SHARP — **THE ε₀ SHARPENING CLOSES, AND THE `c₃` LITERAL COMES BACK** (`Salt/SW/EpsilonZero.lean` §6, 11 decls, 11/11 audited at 3 axioms, `~/.elan/bin/lake build` EXIT 0 from `$?`, warnings 188 = baseline, **zero** from the new section; purely additive — no landed statement touched, no other file touched, `All.lean` untouched): the sharpening EPSILON-ZERO registered on 8/5 is done, and it overshoots its own target. **`ε₀ : 10⁻⁶ → 2·10⁻⁵` (20×, past CMU-HUNT §2's `1.9·10⁻⁵`), `c₃ : 10⁻⁷ → 1/75712` (132×).** ⟦THE PREDICTION WAS RIGHT ABOUT THE CULPRIT AND CONSERVATIVE ABOUT THE PRICE⟧ the flag named the pre-collapsed `1080·log(|γ|+2)` inside `zeta_neg_re_logDeriv_le_keep` and priced the sharp `120·log(4·M₀ζ(γ))` at `≈757` vs `≈1186`, forecasting `ε₀ ≈ 1.87e-5` — *just* under target. That forecast holds exactly (`4K₁+K₂ = 3828` ⟹ `ε₀ = 1.863e-5`), but it prices only ONE of the two slacks. The second is inside `M₀ζ` itself: `Zc_sphere_bound` estimates the growth-disk factors **from the origin** (`‖z‖ ≤ 2+|t₀|+7/4`, then `‖z−1‖ ≤ ‖z‖+1`) where the honest estimate is **from the centre** `c = 2+t₀i` (`‖z‖ ≤ ‖c‖+R` with `‖c‖ = √(4+t₀²)`, `‖z−1‖ ≤ ‖c−1‖+R` with `‖c−1‖ = √(1+t₀²)`). That is `Zc_sphere_bound_sharp` (:477) with its two instances `Zc_sphere_bound_height_one` (:524, `‖Zc‖ ≤ 66` at `|t₀| ≤ 1`, against `M₀ζ(1) = 137.6`) and `Zc_sphere_bound_height_two` (:535, `≤ 96` at `|t₀| ≤ 2`, against `195.1`) — a clean factor `≈ 2` in `M₀`, i.e. `≈ 88` off each `120·log(4M)`. ⟦THE NUMERALS, AT THE BYTES⟧ `K₁ = 120·log 264 ≤ 669.2` (was `1080·log 3 = 1186`, and `757` at the flag's `M₀ζ`), `K₂ = 120·log 384 ≤ 718.6`; both log bounds are `Real.log_le_sub_one_of_pos` off a power of two (`log_264_le` :673, `log_384_le` :685 — `264 = 256·33/32`, `384 = 512·3/4`). The chain constant excluding the pole is `C = 3 + 4·5 + 5/2 + 4K₁ + K₂ ≤ 3420.8` (was `7585.5`), the offset is re-optimised to `σ = 1 + 1/7700` (the maximum of `d(1−Cd)/(3+Cd)` sits at `C·d = √12−3 = 0.464`, and the landed `1/15200` was already near-optimal *for its own C*), and the 3-4-1 reads `4/(σ−β) ≤ 26521` against `4/(1/7700+1/50000) = 26689.8` — a 0.63% margin, exact-rational, and the theoretical ceiling of this route is `ε₀ = 0.0718/C = 2.099e-5`, so `2·10⁻⁵` spends 95% of what the constants allow. ⟦THE DELIVERABLES⟧ `zeta_neg_re_logDeriv_le_keep_of_growth` (:553) and `zeta_neg_re_logDeriv_le_of_growth` (:625) are the keep-one and drop-all bounds in the corpus's **hypothesis-taking genre** — the growth majorant `M` on `‖z−(2+t₀i)‖ ≤ 7/4` is an input and the conclusion carries `120·log(4M)` un-collapsed; `M := M0zeta t₀` reproduces the landed lemmas verbatim, so this is a strict generalisation, not a fork. Then `zeta_zero_free_strip_sharp` (:708, `Re ρ ≤ 1 − 2·10⁻⁵` at `|Im ρ| ≤ 1`), `zeta_zero_free_strip_sharp_bounded` (:817), `zeta_zero_free_region_sharp` (:833), `zeta_zero_free_region_sharp_bounded` (:929). ⟦WHY `1/75712` IS THE POINT⟧ `zeta_zero_free_region`'s constant is `c₃ = min(1/75712, ε₀·log 2)`, and `(1/75712)/log 2 = 1.9055e-5` — **that** is where CMU-HUNT's `1.9e-5` target came from, and it is a threshold, not a preference: below it the `min` flips and the compactness leaf leaves a scar on the numeral; at or above it the `min` is its first argument and the leaf vanishes into an existing literal. At `ε₀ = 2e-5` the second argument is `1.386e-5 > 1.3208e-5`, so `zeta_zero_free_region_sharp` carries **the same `1/75712` the opaque version had**. EPSILON-ZERO made the region effective; EPSILON-SHARP makes it effective *at no cost in the constant*. §4's `zeta_zero_free_region_explicit` (`c₃ = 10⁻⁷`) stays landed and is now strictly dominated — consumers should prefer the `_sharp` twins. ⟦WHAT THIS RE-PRICES DOWNSTREAM⟧ every `_bounded` rider that divides by `ε₀` or `c₃` improves by the same factors: `Cbig = 9000·c_vk + c_vk/(2δ₀) + 1` with `δ₀ = ε₀/2` drops its second term **20×**, and the `T₀z` ceiling behind it follows; ZETA-INV-SHALLOW's route-(a) estimate should be re-run at the new separation (`Re ρ ≤ 1 − (1/75712)/log 4` instead of `1 − 10⁻⁷/log 4` — a 132× wider gap, which enters that estimate logarithmically, so expect `e^{−14000} → e^{−13000}`-ish, an improvement but not a change of genre). ⟦NOT DONE, AND PRICED⟧ (1) the pole real parts are still bounded crudely (`Re(1/(s₁−1)) ≤ 1/|γ| ≤ 5` where the honest value is `(σ−1)/((σ−1)²+γ²) ≈ 0.003`) — worth `22.5` of `3420.8`, i.e. `ε₀ → 2.11e-5`, and it needs one `Complex.inv_re` computation; (2) the `1+1/Re z ≤ 5` factor in the sphere bound is attained only at the leftmost point of the disk, where `‖z‖` is *small* — a joint optimisation over the disk gives `M ≈ 16` rather than `66` (another `≈ 200` off `K₁`, i.e. `ε₀ ≈ 2.6e-5`), but it is a genuine two-variable estimate, not a triangle inequality; (3) the `120` in `120·log(4M)` is the Borel–Carathéodory pipeline's own constant (`entire_norm_logDeriv_sub_sum'`) and is untouched — that is where the next factor of two lives, and it is a shared-machinery edit, not a leaf. None of the three is needed: the threshold that mattered has been crossed. Opus executor, 1 attempt (every declaration first-attempt clean; no tactic degradations).
 
-## () ⟦N4B-W0 COMPLETE — SEVEN FOR SEVEN⟧ (2026-08-05, Opus executor, one commit per stone/pair, full `lake build` exit 0, every new decl at `[propext, Classical.choice, Quot.sound]`). The prerequisite wave of the N4b block (design: `docs/exploration/n4b-design-0805.md`, v3 DELTA §D6), all seven byte-verified recipes landed first-attempt, additive only — no landed statement altered anywhere. **Landed**: (i) `efZeroSumM_erase_split` (EFSharpMult.lean:199); (ii) `efZeroSumM_norm_le_harmonic` + `efZeroSumM_erase_norm_le_harmonic` (DensityCrude.lean:565/585); (iii) `efMultHarmonic_box_le` + `sum_range_inv_succ_eq_harmonic` (DensityCrude.lean:201/181) — `∑ m_ρ/‖ρ‖ ≤ 137·log(q(T+3))·(8 + 4·log(T+1))`, the `log(qT)·log T` grade, no new analytic input; (iv) `neg_re_logDeriv_differenced_mult` (TwistedMertens.lean:486); (v) `pretenseSum_unconditional_absorbed` (Lemma3Uncond.lean:117); (vi) `efRieszSumM_diff_sub_efZeroSumM_le_perZero` + `psi_explicit_sharpM_of_riesz_residues_perZero` + `psi_explicit_sharpM_perZero` (EFSharpMult.lean:1117/1150/1184, new §7); (vii) `cpow_riesz_diff_norm_le` + `efRieszSumM_diff_norm_le` + `efRieszSumM_diff_quotient_norm_le` (EFSharpMult.lean:1221/1270/1307). **THREE RECIPE-vs-BYTES DELTAS, all in the executor's favour**: (a) W0-iv's briefed new binder `hσ'1 : 1 < σ'` is NOT needed — `0 < σ'−β₀` follows from `β₀ < 1 ≤ σ ≤ σ'`, so adding it would have been an unused binder (a warning under this repo's linter); (b) W0-iv's `hmβ : 1 ≤ m β₀` also drops — once the `β₀` term is kept at EQUALITY the `m ≥ 1` collapse is never read, so the new theorem has strictly fewer hypotheses than briefed; (c) W0-vii did NOT need the complex-power integral identity `(y+h)^{ρ+1} − y^{ρ+1} = ∫_y^{y+h}(ρ+1)t^ρ dt` — the elementary MVT (`Convex.norm_image_sub_le_of_norm_hasDerivWithin_le` on `φ(u) = u^{ρ+1}/(ρ(ρ+1))`, `‖φ'(u)‖ = u^{Re ρ}/‖ρ‖`), i.e. the very route the landed `cpow_riesz_residue_desmooth` takes, delivers the same per-zero grade `h·(y+h)^{Re ρ}/‖ρ‖` in ~30 lines. Minor: W0-iii used mathlib's `harmonic_le_one_add_log` rather than the briefed `harmonic_floor_le_one_add_log` — the fibre index is already a `ℕ`, so the floor version's `⌊·⌋₊` is a detour. Classes as experienced matched the brief throughout except (iii), which was the wave's only real work (the `round∘Im` fibring re-run with a per-fibre WEIGHT, plus the `Icc(−n,n) ⊆ image ∪ image` harmonic reindex).
+## () ⟦N4B-W0 COMPLETE — SEVEN FOR SEVEN⟧ (2026-08-05, Opus executor, one commit per stone/pair, full `lake build` exit 0, every new decl at `[propext, Classical.choice, Quot.sound]`). The prerequisite wave of the N4b block (design: `docs/exploration/n4b-design-0805.md`, v3 DELTA §D6), all seven byte-verified recipes landed first-attempt, additive only — no landed statement altered anywhere. **Landed**: (i) `efZeroSumM_erase_split` (EFSharpMult.lean:201); (ii) `efZeroSumM_norm_le_harmonic` + `efZeroSumM_erase_norm_le_harmonic` (DensityCrude.lean:565/585); (iii) `efMultHarmonic_box_le` + `sum_range_inv_succ_eq_harmonic` (DensityCrude.lean:201/181) — `∑ m_ρ/‖ρ‖ ≤ 137·log(q(T+3))·(8 + 4·log(T+1))`, the `log(qT)·log T` grade, no new analytic input; (iv) `neg_re_logDeriv_differenced_mult` (TwistedMertens.lean:488); (v) `pretenseSum_unconditional_absorbed` (Lemma3Uncond.lean:117); (vi) `efRieszSumM_diff_sub_efZeroSumM_le_perZero` + `psi_explicit_sharpM_of_riesz_residues_perZero` + `psi_explicit_sharpM_perZero` (EFSharpMult.lean:1178/1211/1245, new §7); (vii) `cpow_riesz_diff_norm_le` + `efRieszSumM_diff_norm_le` + `efRieszSumM_diff_quotient_norm_le` (EFSharpMult.lean:1282/1331/1368). **THREE RECIPE-vs-BYTES DELTAS, all in the executor's favour**: (a) W0-iv's briefed new binder `hσ'1 : 1 < σ'` is NOT needed — `0 < σ'−β₀` follows from `β₀ < 1 ≤ σ ≤ σ'`, so adding it would have been an unused binder (a warning under this repo's linter); (b) W0-iv's `hmβ : 1 ≤ m β₀` also drops — once the `β₀` term is kept at EQUALITY the `m ≥ 1` collapse is never read, so the new theorem has strictly fewer hypotheses than briefed; (c) W0-vii did NOT need the complex-power integral identity `(y+h)^{ρ+1} − y^{ρ+1} = ∫_y^{y+h}(ρ+1)t^ρ dt` — the elementary MVT (`Convex.norm_image_sub_le_of_norm_hasDerivWithin_le` on `φ(u) = u^{ρ+1}/(ρ(ρ+1))`, `‖φ'(u)‖ = u^{Re ρ}/‖ρ‖`), i.e. the very route the landed `cpow_riesz_residue_desmooth` takes, delivers the same per-zero grade `h·(y+h)^{Re ρ}/‖ρ‖` in ~30 lines. Minor: W0-iii used mathlib's `harmonic_le_one_add_log` rather than the briefed `harmonic_floor_le_one_add_log` — the fibre index is already a `ℕ`, so the floor version's `⌊·⌋₊` is a detour. Classes as experienced matched the brief throughout except (iii), which was the wave's only real work (the `round∘Im` fibring re-run with a per-fibre WEIGHT, plus the `Icc(−n,n) ⊆ image ∪ image` harmonic reindex).
 
 ## ⟦N4B-W2 — THE MANDATORY PRE-PROOF LEDGER ROW: VERDICT **CLOSES AT T-EXPONENT 6** (no raise)⟧
 
@@ -20291,7 +20291,7 @@ inside, so the block's whole binder set is visible in one statement):
 row).  Three points of substance:
 
 1. **`𝔖` is not a parameter.**  It is the corpus's own
-   `Salt.HardyLittlewood.twinSingularSeries` (`= 2·twinC2`, `Frame.lean:46`), i.e. HB's `(1.2)`
+   `Salt.HardyLittlewood.twinSingularSeries` (`= 2·twinC2`, `Frame.lean:56`), i.e. HB's `(1.2)`
    constant.  `S₁` is *defined* (`hbS1`, HB p.207's `∏_{p<z,χ(p)=1,p∤α}(p−1)(p−2)/(p(p+1))`).
 2. **`(4.6)` is PROVED, not assumed** — `hb_mertens_third_real`, the freeze's owed re-indexing:
    `mertens_third_log` is `∃C` and `ℕ`-indexed, and the real-cutoff form costs `C ↦ 2C₀+1`.
@@ -20352,7 +20352,7 @@ itself, and pushing its coefficient below `2` is precisely the optimized-radius 
 argument — i.e. the disc count, sharpened enough to prove simplicity, ceases to be a disc count.
 
 ⟦AND IT WAS ALREADY IN THE KERNEL — a third VK-forgetting, caught before the spend⟧
-`Salt.SW.landau_one_exceptional_at` (`Salt/SW/LandauPage.lean:194`, landed with the S3e wave)
+`Salt.SW.landau_one_exceptional_at` (`Salt/SW/LandauPage.lean:195`, landed with the S3e wave)
 evaluates the partial fraction at `σ = 1 + (3/5000)/log(4q)` — the radius tuned so a double
 zero's kept term `2/(σ−β₀) ≥ 2500·log(4q)` overruns the whole budget
 `1/(σ−1) + 1 + 720·log(4q)` — and returns `analyticOrderAt (LFunction χ) β₀ = 1` for **any**
@@ -20534,7 +20534,7 @@ two are one `χ² = 1` unfolding away; `hL1` is the standard L-function Euler pr
 `hbF`.  Flagged here so the N5/N6 consumer wiring knows the exact shape it owes.
 
 **RECIPE-VS-BYTES DELTAS.**  (a) The corpus already owns `one_sub_chiRe_div_pos`
-(`Lemma7Prod.lean:177`, no character hypothesis needed — it runs off `|χ_ℝ(p)| ≤ 1`); a
+(`Lemma7Prod.lean:181`, no character hypothesis needed — it runs off `|χ_ℝ(p)| ≤ 1`); a
 duplicate was written and deleted.  (b) `Salt.Mertens.gt2Primes` is an `abbrev`, so `simp only`
 unfolds it past `mem_gt2Primes` — index-set `ext` proofs must reach for
 `Finset.mem_range`/`Nat.lt_succ_iff` instead.  (c) `hb_hsing` carries `32 ≤ z` (not W4's
@@ -20597,7 +20597,7 @@ silently assume the convergence it is meant to prove, so it is flagged, not forc
 
 1. *(convergence, class B/C)* Discharge the `Tendsto (hbEulerLog χ z ·)` hypothesis itself —
    the corpus is one comparison away: `logChiSum_tendsto_zfr_hundred`
-   (`Salt/HB/Lemma7EF.lean:3136`) already delivers `Tendsto (fun Y => logChiSum χ X Y) atTop`
+   (`Salt/HB/Lemma7EF.lean:3208`) already delivers `Tendsto (fun Y => logChiSum χ X Y) atTop`
    **with the rate `100/√log X`** off the zero-free region, and
    `hbEulerLog_sub_primeSum_termwise` + `logChiSum_re_sub_primeSum_le` bound the difference by
    an absolutely convergent `∑ 2/p²` tail.  Cauchy criterion closes it.
@@ -20655,9 +20655,9 @@ DOUBLED `log(1/c)` (an ξ=1 shape) but the `(k−1)` power of `:218`'s `(e^{632}
 
 **⛔ K3 CONFIRMED-FATAL — THE N11 DOOR DOES NOT CLOSE AT `k = 1`, AND `k` IS NOT THE LEVER.**
 A **k-INDEPENDENT** L-power survives, from the LANDED ledger, not from the margin:
-`efEnvelope_le_ledger_sharp` (`Salt/HB/Lemma7EF.lean:2624-2632`) prices the Range-A erased-spend
-row at `10^3·M^3·N·u^{bceil−1}` against the consumer's target grade `(m+255)/log u` (`:2907-2908`)
-inside the byte-fixed window `250·log q ≤ log u` (`:2844`), forcing
+`efEnvelope_le_ledger_sharp` (`Salt/HB/Lemma7EF.lean:2696-2704`) prices the Range-A erased-spend
+row at `10^3·M^3·N·u^{bceil−1}` against the consumer's target grade `(m+255)/log u` (`:2979-2980`)
+inside the byte-fixed window `250·log q ≤ log u` (`:2916`), forcing
 `𝒩 ≥ (b/250)·(5·log L + 29)`, hence
 `log η ≥ log(1/c) + [(k−1) + 5b/s]·log L + O(1)`. At TS-3's own target `(k=1, b=174,
 log(1/c)=52)` that is `log η` = 102.2 at L=250, 120.0 at L=10⁶, 168.1 at L=10¹² — i.e.
@@ -20677,7 +20677,7 @@ explicit-constant hygiene and (through `b`) the θ ledger. Recorded so no later 
 TS-2 landing for door progress.
 
 **AND TS-3's PREMISE IS UNVERIFIED.** The landed end-to-end consumer
-`logChiSum_tendsto_zfr_hundred` (`Lemma7EF.lean:3136`) closes HB's (4.12) tail at `K = 100` using
+`logChiSum_tendsto_zfr_hundred` (`Lemma7EF.lean:3208`) closes HB's (4.12) tail at `K = 100` using
 the CLASSICAL ZFR ceiling `efZfrCeil` at every `u`, and `logChiSum_tendsto_zfr`'s own docstring
 says in the open that "`hN+`, `hord` and the `q^{250} ≤ X` edge do NOT appear — they are
 Range-A's". **On the landed bytes the repulsion contract is currently not load-bearing for
@@ -20690,10 +20690,10 @@ obligation the repulsion ceiling discharges that `efZfrCeil` cannot. (It cannot 
 1. **THE DOSSIER'S S1/S2 EDIT LISTS OMIT THE ENTIRE TWIN.** §2.4 says `hc_t1` is "consumed at
    EXACTLY ONE site". FALSE: there is a second, identical site at **`TBalR8.lean:1425-1428`**,
    inside `dh_repulsion_inst` (`:1373`), the body of the **LANDED `dh_repulsion_ordered`**
-   (`:1752`) — consumed at `TauExt.lean:353`, audited in `Salt/SW/All.lean:313`. Four of the five
+   (`:1752`) — consumed at `TauExt.lean:353`, audited in `Salt/SW/All.lean:339`. Four of the five
    row caps are SHARED verbatim by both assemblies (`row_rho_main_cap`, `row_A_cap`, `row_1x_cap`,
    `row_Eβ_cap`); only the Eρ row is forked. There are **two** `c`-min towers, an **11-fold** at
-   `TBalR8:1776-1833` and a **10-fold** at `TBalTall:2105-2156`, and TBalR8's KEβ/KEρ arms carry a
+   `TBalR8:2571-2628` and a **10-fold** at `TBalTall:2772-2823`, and TBalR8's KEβ/KEρ arms carry a
    free `Z₀` (`:1387-1388`) so the dossier's §3 arm table — computed at the tall numerals — does
    not price that tower at all. Following S1 literally turns a landed theorem red. S1 as specified
    re-priced at **~123 ln / 2 files / 5 declarations**, against the dossier's ~15 ln.
@@ -20729,8 +20729,8 @@ shortfall — and S4's four-move list does not name it.
 
 **WHAT SURVIVED THE ATTACK, UNBROKEN.** Headline (i) is byte-exact: all ten arms reproduce
 (`631.5764` landed on the `(c₀/KEρ)^8` arm; `86.2267` post-S2 on `(c₀/32)^{17/3}`; `c₀ = 1/126848`
-confirmed at `ZeroFreeReal.lean:392/:605`). The `htriv` guard claim is right — `htriv : u <
-1/(40·L₂)` (`TBalTall:1735`) is live through the whole deep bullet and gives `u·L₂ < 1/40` with no
+confirmed at `ZeroFreeReal.lean:392/:604`). The `htriv` guard claim is right — `htriv : u <
+1/(40·L₂)` (`TBalTall:1920`) is live through the whole deep bullet and gives `u·L₂ < 1/40` with no
 `L₂` lower bound needed, so `hc_t9 : c ≤ 1/18` is genuinely redundant in BOTH assemblies (but
 worth **0.00**, since `1/576` at 6.36 already dominates `1/18` at 2.89 — do not spend on it).
 `tbal_tau_le_split` really does need only `c ≤ 1` (`c ≤ 204.8` suffices). The rpow sign convention
@@ -20741,7 +20741,7 @@ is correct and does not invert. The window `hσlo` is already in scope at all th
 K1+K4 repairs: **both towers always**; S1 by **numeral replacement** (`2^{−250}` → `1/40`) rather
 than arm deletion, which keeps every hand-built min-projection chain index-stable (~20 ln instead
 of ~123) and pre-pays S4; γ-floors as **exact rationals**; and the shared writer-slot block is
-`TBalR8:1776-1833` **AND** `TBalTall:2105-2156`, which is what forces TS-1 strictly before TS-2.
+`TBalR8:2571-2628` **AND** `TBalTall:2772-2823`, which is what forces TS-1 strictly before TS-2.
 Honest delivery, stated in advance: **631.58 → 86.23** (`e^{1264}` → `e^{172}`), no parameter
 changed, no statement outside the two files — and, per the corollary above, **zero door progress**.
 ⛔ Both waves are HELD until 20:00 by the fleet's third-OOM standing order (math seat pauses all
@@ -20860,7 +20860,7 @@ through `/Users/jyh/projects/claude/saltbuild.sh` (fleet lock), judged on its pr
 
 **One residue for W3, named not hidden:** this wave closes the **odd** prime-power branch only.
 The `p = 2` prime-power branch is still the landed placeholder `norm_kloosterman_two_pow`
-(`CompositeTail.lean:73`, the trivial `2^k`) — which is exactly what D2/D3 intend, since W1-d shows
+(`CompositeTail.lean:76`, the trivial `2^k`) — which is exactly what D2/D3 intend, since W1-d shows
 the road's 2-part is bounded (`v₂(k) = v₂(D) ≤ v₂(α₂)+3`) and the constant `2^{κ₀/2} ≈ 2.83` is
 paid once. W3's assembly must therefore carry the `2^{v₂(k)/2}` factor explicitly, as D3 already
 states it.
@@ -20977,7 +20977,7 @@ verbatim":
 The `2^{v₂(k)/2}` is **not a bookkeeping decoration — it is unbounded at general `k`, growing to
 `√k`.** So the W3 exit is a **strictly weaker theorem than (7.1)**, not a restatement of it. It
 arises from D2 deleting W2: the 2-part is then served by the crude placeholder
-`norm_kloosterman_two_pow` (`Salt/Weil/CompositeTail.lean:73`, `‖S‖ ≤ 2^κ`), which sits `2^{κ/2}`
+`norm_kloosterman_two_pow` (`Salt/Weil/CompositeTail.lean:76`, `‖S‖ ≤ 2^κ`), which sits `2^{κ/2}`
 above the target `√(2^κ)`. (The odd part is fine — W1-c landed at `θ = 0`, and the implied
 constant is explicit and equal to 1, which is *sharper* than HB. The loss is the 2-part alone.)
 
@@ -21008,11 +21008,11 @@ odd_cofactors`, `GcdBranch.lean:355`) whose numeric collapse is gated elsewhere.
 congruence-restricted completion `Σ_{n∈I₀, q∣n−b} e(−sn/k) ≪ Min(E, ‖sq/k‖^{−1})` (`hb1983-notes:
 776`) — is recorded as "nothing serving" in both `n6-scout-dossier-0805.md:410-413` and D5. That
 looks too pessimistic: `Salt.MR.geom_phase_bound` (`Salt/MR/MinorArcVaughan.lean:298`, landed AND
-audited at `Salt/MR/All.lean:1599`) is Montgomery p.40 eq.(2) with the `‖0‖` case carried honestly
-by `minTerm` (`:271`), and `dist₁` (`Salt/LS/Dist.lean:29`) is literally HB §7's `‖·‖`. The
+audited at `Salt/MR/All.lean:1733`) is Montgomery p.40 eq.(2) with the `‖0‖` case carried honestly
+by `minTerm` (`:271`), and `dist₁` (`Salt/LS/Dist.lean:34`) is literally HB §7's `‖·‖`. The
 restricted sum reindexes as `n = b + qm` ⟹ `e(−sb/k)·Σ_m e((−sq/k)·m)`, i.e. **exactly
 `geom_phase_bound` at `θ = −sq/k`**. Also landed: the exact sawtooth Fourier series
-(`Salt/MR/Sawtooth.lean:358`), `abs_sum_sin_le` (`:329`), Abel (`:65`), Jordan
+(`Salt/MR/Sawtooth.lean:365`), `abs_sum_sin_le` (`:329`), Abel (`:65`), Jordan
 (`MinorArcVaughan.lean:136`), and the `Salt/BV/Completion.lean` kit with its `2 + log H` L¹ mass —
 none of which the WEIL-TRIO dossier's supply table names. **If this holds, W5 is not the class-C
 block it was priced at.**
@@ -21057,7 +21057,7 @@ discharges it. `norm_kloosterman_estermann_road` (the `k = D·δ₁·w₁` corol
 touched — that is the WEIL-TRIO seat's and the maestro's call.
 
 **A SUPPLY REPAIR WORTH KNOWING (corpus hygiene).** `kloosterman_mul_of_coprime_unit`
-(`Salt/Weil/CompositeTail.lean:139`) carries an `IsUnit a` hypothesis that is used **only** to
+(`Salt/Weil/CompositeTail.lean:225`) carries an `IsUnit a` hypothesis that is used **only** to
 state `IsUnit` of the *products* `lᵢ·(e a).ᵢ`; the twisted-multiplicativity computation itself
 never touches it. The non-unit branch (all of W3) needs unit **twists**, not a unit `a`, so the
 proof was re-landed as `kloosterman_mul_of_coprime_unit_twist` in `EstermannGlobal.lean:61`
@@ -21238,7 +21238,7 @@ test-fired:
    with `c = (A−b)/q`, `t = ((B−b)/q − (A−b)/q).toNat` (Euclidean division, `filter_Ioc_dvd_
    eq_image`). The ⚠️ SHAPE-MATCH caveat at `:21027` is **discharged**.
 2. **The sawtooth Fourier series was already in the kernel.** `Salt.MR.tendsto_sum_sin_div_nat`
-   (`Salt/MR/Sawtooth.lean:358`) — landed for the Hurwitz-zeta `k = 0` case of `LandauOdd`, and
+   (`Salt/MR/Sawtooth.lean:365`) — landed for the Hurwitz-zeta `k = 0` case of `LandauOdd`, and
    the one thing mathlib genuinely lacks (`ZetaValues.hasSum_one_div_nat_pow_mul_sin` needs
    exponent `≥ 3`; the `AddCircle` inversion needs summable coefficients). Without it, (7.2)'s
    sharp arm needs either Abel's limit theorem at `e(θ) ≠ 1` plus a `log(1−z)` argument
@@ -21267,7 +21267,7 @@ bookkeeping — the *bound* never uses it), `‖·‖ ≤ if ‖sq/k‖ = 0 then
 (2‖sq/k‖)⁻¹)`. `C′ = 1/2`. `dist₁_mul_div_eq_zero_iff` names the degenerate locus as `k ∣ sq`,
 which is the shape N7 tests when it splits the `s`-sum of (7.7). The length arm is
 `Finset.card_filter_le`-cheap and needs no reindex; the geometric arm is `Salt.BV.geom_e_bound`
-(`Salt/BV/PolyaVinogradov.lean:80`) at `θ = −sq/k`, i.e. the corpus's PV kernel, not `Salt.MR`'s.
+(`Salt/BV/PolyaVinogradov.lean:81`) at `θ = −sq/k`, i.e. the corpus's PV kernel, not `Salt.MR`'s.
 
 **CONVENTION CHECK (the notation hazard sheet, `hb1983-notes.md:883-903`).** `e` is
 `Salt.LS.e = exp(2πix)` — the *same* character `Salt.BV.sum_e_eq` is built on — and `‖·‖` is
@@ -21351,24 +21351,24 @@ else, no statement outside these two towers.
   which is the honest hypothesis set the refuter's §1 identified. `b = 680`, `k = 14` stay
   hardwired (parametrising them is TS-3's).
   Landed **by numeral replacement, not arm deletion**: the head arm of the `c`-min becomes
-  `1/40` in **both** towers (`TBalR8:1831`, `TBalTall:2124`), `hp1` becomes `by norm_num`
-  (`TBalR8:1835`, `TBalTall:2128`), `hc_t1 : c ≤ 1/40` (binders `TBalR8:1421`, `TBalTall:1688`;
-  locals `TBalR8:1851`, `TBalTall:2143`). **Every `min`-projection index below is
+  `1/40` in **both** towers (`TBalR8:2571`, `TBalTall:2772`), `hp1` becomes `by norm_num`
+  (`TBalR8:2575`, `TBalTall:2776`), `hc_t1 : c ≤ 1/40` (binders `TBalR8:2126`, `TBalTall:1873`;
+  locals `TBalR8:2591`, `TBalTall:2791`). **Every `min`-projection index below is
   unchanged** — the ~123-line re-index the refuter priced was avoided in full.
-- **S5(a) — the sharp crude-log.** New `neg_log_le_rpow'` (`TBalR8:264`):
+- **S5(a) — the sharp crude-log.** New `neg_log_le_rpow'` (`TBalR8:290`):
   `−log u ≤ u^{−δ}/(e·δ)`, a factor `e` better than the landed `neg_log_le_rpow` (which keeps its
   other callers at `δ = 1/50`, `δ = 1/2`, untouched). Route: `Real.log_le_sub_one_of_pos` at `y/e`
   gives `log y ≤ y/e`; then `Real.log_rpow` + `le_div_iff₀`; `Real.exp_one_gt_d9` turns `600/e`
   into the numeral `221`, so `logz_factor_le`'s constant is `3 + 24 + 221 = 248`, **was `627`**.
   Propagated through `logz_factor_pow9_le` (`248^9`) into `row_Eβ_cap`, `row_Eρ_cap`,
-  `row_Eρ_cap_tall`, and both `KEβ`/`KEρ`. Roll-call row added at `Salt/SW/All.lean:308`.
+  `row_Eρ_cap_tall`, and both `KEβ`/`KEρ`. Roll-call row added at `Salt/SW/All.lean:331`.
 - **S6 — `C2Rho_le_tall` `636 → 570`** (`TBalTall:1463`). Its own `hfold2` always proved
   `102 + 108 + 162 + 198 = 570`; the `636` was slack the assembly never read.
   `hfold2`/`hfold2r`/`hfinaleq` are numeral-agnostic, so the retirement cost **zero** proof steps.
 
 ### ⛔ S6 IS TALL-ONLY BY NATURE — **`TBalR8`'s `C2Rho_le` DOES NOT OVER-COUNT** (the brief's open question, ANSWERED)
 
-`TBalR8:1292` states `C2Rho q Z₀ ρ ≤ (564 + 72·Z₀)·(Q^{1/2}·L₂²)·(1/c₀)`, and its own `hfold2`
+`TBalR8:2035` states `C2Rho q Z₀ ρ ≤ (564 + 72·Z₀)·(Q^{1/2}·L₂²)·(1/c₀)`, and its own `hfold2`
 (`R8:1349`) proves `150 + 414·M + 72·M·Z₀ ≤ (564 + 72·Z₀)·B`. **`150 + 414 = 564` exactly**, and
 the `Z₀` term is exactly `72·Z₀` — **the coefficient IS its own fold total, tight by construction,
 with no slack to retire.** The tall slack existed only because the tall *statement* inherited R8's
@@ -21397,7 +21397,7 @@ Per Addendum Amendment 4, `1/40 → 1` is a no-op (`c ≤ 1` holds at equality),
 
 - **`saltbuild.sh Salt.SW.TBalR8` ⇒ EXIT=1**, and the file genuinely **re-elaborated**
   (`✖ [8816/8816] Building Salt.SW.TBalR8 (72s)` — not a cached no-op; Amendment 4's third guard).
-- It failed at **exactly the intended site**: `Salt/SW/TBalR8.lean:1460:80: unsolved goals … ⊢ False`
+- It failed at **exactly the intended site**: `Salt/SW/TBalR8.lean:2165:80: unsolved goals … ⊢ False`
   — the `(by norm_num)` inside `le_trans hc_t1 (by norm_num)`, now asked for `(2 : ℝ) ≤ 1`.
 - Restored to the byte-identical green file; the full corpus rebuilt EXIT=0.
 
@@ -21422,7 +21422,7 @@ linarith only [hsplit, htriv]
 ```
 
 `le_trans hc_t1 (by norm_num) : c ≤ 1` **consumes `hc_t1`**, so the binder stays live at both
-`TBalR8:1421` and `TBalTall:1688`, and **no binder was renamed to `_hc_t1`** — Amendment 5's own
+`TBalR8:2126` and `TBalTall:1873`, and **no binder was renamed to `_hc_t1`** — Amendment 5's own
 instruction ("if the build turns out not to warn, drop step 2 and say so"). Both towers built with
 `✔` (no diagnostics at all), and the full corpus's 190 warnings contain **zero** lines matching
 `Salt/SW/{TBalR8,TBalTall,All}`. Amendment 5 was right about the mechanism and right to flag it;
@@ -21447,7 +21447,7 @@ above produce a signal instead of a silent pass.
 | 10 | `1/576` | 6.3561 | 6.3561 | 6.3561 |
 | — | **MAX** | **631.5764** | **563.9186** | **86.2267** |
 
-This is the **TALL** tower (`TBalTall:2105`), the only one that prices numerically: `KEβ =
+This is the **TALL** tower (`TBalTall:2749`), the only one that prices numerically: `KEβ =
 16·(328+48·5)·248⁹`, `KEρ = 16·570·248⁹`. TS-1's delivery is **631.5764 → 563.9186**, i.e.
 `−66.7813` from S5(a) (`8·9·log(627/248)`) and `−0.8765` from S6 (`8·log(636/570)`); S1 contributes
 **0.00** to the MAX because its arm was never binding — its value is that it removes the
@@ -21507,7 +21507,7 @@ executor's comment used the tall figure here too, also corrected), MAX `567.7832
    the "no uniformity trap" ruling extends to the fourth site unchanged. Use `linarith [hσlo]` for
    the tight-but-true endpoint, per the brief.
 6. **The `−9/100` exponent is UNCHANGED** (S5(b) not attempted), so TS-2's floors stand as written.
-7. **Arm-table comments now exist beside both `c`-min blocks** (`TBalR8:1810`, `TBalTall:2105`) and
+7. **Arm-table comments now exist beside both `c`-min blocks** (`TBalR8:2547`, `TBalTall:2749`) and
    both carry the projected post-TS-2 figures. Update them, do not re-derive them.
 
 ### THE HONEST LINE COUNT — the dossier's `~120 ln` is **~2.7× low** on churn
@@ -21552,7 +21552,7 @@ leave behind. **The rule of thumb TS-2 should use: a single constant change in t
 1. `saltbuild.sh Salt.SW.TBalR8` ✔ (94 s, no diagnostics) → `saltbuild.sh Salt.SW.TBalTall` ✔
    (37 s, no diagnostics) → full `saltbuild.sh` **EXIT=0, 9718 jobs, 0 errors**, and none of the
    190 corpus warnings is in a file this wave touched.
-2. **Both** `dh_repulsion_ordered` (`TBalR8:1891`) and `dh_repulsion_tall` (`TBalTall:2181`) build,
+2. **Both** `dh_repulsion_ordered` (`TBalR8:2631`) and `dh_repulsion_tall` (`TBalTall:2829`) build,
    with the byte-identical witness `refine ⟨680, c, 14, by norm_num, hcpos, by norm_num, ?_⟩`.
 3. `#print axioms` on all ten touched/new declarations = `[propext, Classical.choice, Quot.sound]`
    (via `saltbuild.sh ScratchTS1.lean`, not committed), and `Salt/SW/All.lean`'s own
@@ -21668,7 +21668,7 @@ different in kind: the goal becomes arithmetically false, so there is nothing to
 ### 📊 THE REALISED ARM TABLES — RECOMPUTED, NOT COPIED; THEY MATCH THE PROJECTION EXACTLY
 
 `log(1/arm)`; `c` is a `min`, so `log(1/c)` is the **MAX**. `c₀ = 1/126848`, `log(1/c₀) = 11.7507`.
-**TALL tower** (`TBalTall:2114`, the only one that prices numerically):
+**TALL tower** (`TBalTall:2749`, the only one that prices numerically):
 `KEβ = 16·(328+48·5)·248⁹`, `KEρ = 16·570·248⁹`.
 
 | # | arm | landed | after TS-1 | **after TS-2 (REALISED)** | TS-1's projection |
@@ -21690,7 +21690,7 @@ corrections (`28.15`, `22.84`, against the brief's stale `32.15`/`25.58`) are co
 measured post-wave figures. Formula used, for re-derivation: with `γ₀` the row's floor the arm is
 `(1/(8K))^{1/γ₀}`, so `log(1/arm) = (1/γ₀)·log(8K)`.
 
-**R8 tower** (`TBalR8:1827`) — arms 6, 7, 8, 11 carry the **free `Z₀`**, so it does not price; the
+**R8 tower** (`TBalR8:2547`) — arms 6, 7, 8, 11 carry the **free `Z₀`**, so it does not price; the
 figures are that pricing **evaluated at `Z₀ ⇝ 5`**, purely for comparison. Post-TS-2: arm 4
 **66.8716**, arm 6 **28.1507**, arm 7 **22.9948**, arm 11 `1/(Z₀+1)` 1.7918, **MAX = 86.2267**
 (was 567.7832 after TS-1). ⚠️ **R8's arm 7 is 22.9948, not the tall 22.8383** — the difference is
@@ -21760,15 +21760,15 @@ mathematics; it never budgeted the ledger or the numeral carriage.
 1. `saltbuild.sh Salt.SW.TBalR8` ✔ → `saltbuild.sh Salt.SW.TBalTall` ✔ → full `saltbuild.sh`
    **EXIT=0, 9718 jobs, 0 errors**. The corpus's **190** warnings are unchanged and **none** is in
    `Salt/SW/TBalR8.lean`, `Salt/SW/TBalTall.lean` or `Salt/SW/All.lean`.
-2. **Both** `dh_repulsion_ordered` (`TBalR8:1911`) and `dh_repulsion_tall` (`TBalTall:2194`) build,
+2. **Both** `dh_repulsion_ordered` (`TBalR8:2631`) and `dh_repulsion_tall` (`TBalTall:2829`) build,
    with the byte-identical witness `refine ⟨680, c, 14, by norm_num, hcpos, by norm_num, ?_⟩`.
 3. `#print axioms` on all six touched declarations = `[propext, Classical.choice, Quot.sound]`
    (via `saltbuild.sh ScratchTS2.lean`, **not committed**), and `Salt/SW/All.lean`'s `#audit_axioms`
    roll-call reports `✓ … [3 axioms]` for every one of them in the full build.
 4. The γ_Eρ mutation: run, failed at the intended goal with the error text quoted above, restored
    byte-exactly (SHA verified), rebuilt green. **Both outcomes recorded.**
-5. **Both arm-table comments carry REALISED figures, not projections** (`TBalR8:1827`,
-   `TBalTall:2114`), with the after-TS-1 and after-TS-2 columns side by side and the binding arm
+5. **Both arm-table comments carry REALISED figures, not projections** (`TBalR8:2547`,
+   `TBalTall:2749`), with the after-TS-1 and after-TS-2 columns side by side and the binding arm
    marked. Amendment 6's defect — a projection left sitting in a post-wave column — is not repeated.
 
 ### THE HONEST STATEMENT OF WHAT THIS BUYS (do not let a later reader misread it)
@@ -21792,7 +21792,7 @@ and the roll-call already carries every touched name.
 
 ### WHAT CHANGED — THE STATEMENT, AND SEVEN CALL SITES
 
-`ray_pow_bound` (`TBalR8:390` pre-wave → `TBalR8:395` post-wave) had `680` and `14` as **hardcoded
+`ray_pow_bound` (`TBalR8:390` pre-wave → `TBalR8:361` post-wave) had `680` and `14` as **hardcoded
 numerals in three places in its statement**, not two: TS-0 named the two side conditions
 (`hα : α ≤ 680·w·γ`, `hε : ε ≤ 14·γ`) but the ray hypothesis `huτ` carried them as well
 (`u ≤ c·Q^{−(680w)}/L₂^{(14:ℝ)}`). All three are now the bound variables `b`, `k`:
@@ -21880,17 +21880,17 @@ TS-0 predicted `680` at ~63 sites and `(14 : ℝ)` at ~101. Measured (lines, `gr
 1. `saltbuild.sh Salt.SW.TBalR8` ✔ (**92 s** elaboration) → `saltbuild.sh Salt.SW.TBalTall` ✔
    (**187 s**, unchanged from TS-2's post-wave cost — the parametrization is free) → full
    `saltbuild.sh` **EXIT=0, 9718 jobs, 0 errors**.
-2. **Both** `dh_repulsion_ordered` (`TBalR8:1921`) and `dh_repulsion_tall` (`TBalTall:2194`) build,
+2. **Both** `dh_repulsion_ordered` (`TBalR8:2631`) and `dh_repulsion_tall` (`TBalTall:2829`) build,
    with the **byte-identical** witness `refine ⟨680, c, 14, by norm_num, hcpos, by norm_num, ?_⟩` —
    the line does not appear in `git diff` at all. `#check` confirms both delivered statements are
    character-for-character the pre-wave existentials.
 3. The corpus's **190** warnings are unchanged and **none** is in `Salt/SW/TBalR8.lean`,
    `Salt/SW/TBalTall.lean` or `Salt/SW/All.lean` (grepped by filename on the full build log).
 4. `#print axioms` on all **nine** touched/delivered declarations = `[propext, Classical.choice,
-   Quot.sound]`, via `saltbuild.sh ScratchTS3P.lean` (**not committed**); `Salt/SW/All.lean:132`'s
+   Quot.sound]`, via `saltbuild.sh ScratchTS3P.lean` (**not committed**); `Salt/SW/All.lean:152`'s
    roll-call independently reports `✓ … [3 axioms]` for every one in the full build. (The two
    per-instance bodies are `private`, so they are audited transitively through the contracts.)
-5. **Neither arm table moved by one digit.** `TBalR8:1846`/`TBalTall:2121` still read
+5. **Neither arm table moved by one digit.** `TBalR8:2556`/`TBalTall:2756` still read
    `2. (c₀/32)^{17/3}  86.2267 ← BINDING`, and both `log(1/c)` MAX lines still read **86.2267**.
    Neither table is in the diff.
 6. `git diff` sanity: the diff is **parametrization + re-threading and nothing else**. The only
@@ -21920,7 +21920,7 @@ shape 1, proofs 2 (one build round of three tactic repairs). Full `saltbuild.sh`
 
 This composition kernel-checks the **`hσ'r` obligation only**. There is a *second, independent*
 demand on `log η` from the Range-A EF ledger (`efEnvelope_le_ledger_sharp`,
-`Salt/HB/Lemma7EF.lean:2624-2632`, inside the byte-fixed window at `:2844`), which contributes a
+`Salt/HB/Lemma7EF.lean:2696-2704`, inside the byte-fixed window at `:2916`), which contributes a
 `5b/s·log L` term that is **entirely `k`-independent**. **Nothing here certifies the door, or
 `q`-freeness, or the full threshold. It certifies one of two conjoined obligations.** The same
 fence is written into the new file's header and into both delivered docstrings.
@@ -22827,7 +22827,7 @@ exactly as written: GREP THE LIKELY NAMES FIRST — every time, it existed.*
 ### ⛔ AMENDMENT, 20 MINUTES LATER — THE HAZARD IS REAL AND **NOT ON THE CRITICAL PATH**
 
 I analysed the reindex before reading the row the supply table NAMES for it. **`congrExpSum`
-(`Salt/Weil/Sawtooth.lean:1114`) and `norm_congrExpSum_le` (`:1227`) are stated ENTIRELY OVER
+(`Salt/Weil/Sawtooth.lean:1128`) and `norm_congrExpSum_le` (`:1241`) are stated ENTIRELY OVER
 ℤ** — `Finset.Ioc A B` with `A B : ℤ`, filter `(q:ℤ) ∣ n - b` — and proved via
 `Salt.BV.geom_e_bound`, geometrically. **They never form `M₁`/`M₂` at all.** Corpus-wide grep
 for a hand-rolled `(A-b)/q` reindex: **ZERO sites.**
@@ -23009,7 +23009,7 @@ the tree then. *Surfaced incidentally while measuring something else; the six we
 not guessed.*
 
 📌 **AND A CAUTION FOR WHOEVER PAYS IT: the linter's OTHER suggestion in this family does not
-compile.** At `Salt/Certs/LargeSieve.lean:86` it advises `(tac1; tac2)` in place of
+compile.** At `Salt/Certs/LargeSieve.lean:87` it advises `(tac1; tac2)` in place of
 `tac1 <;> tac2`; the rewrite BREAKS THE BUILD, because `<;> (a; b)` applies the pair to each
 goal while `<;> a <;> b` distributes. Tried, failed, reverted (8/12). **A linter suggestion
 is not a proof** — apply this class one file at a time, with a build between.
@@ -23030,7 +23030,7 @@ TO-BE-DISCHARGED with its route ABSENT).
 ```
 PortAssembly.siegel_real_carve            :1180   K  := min (min Cs (c₀/32)) (1/2)
 NumeralKq.twisted_rect_zero_free_siegel_bounded          :502   Ks := 10^8 · K
-  (its unbounded sibling twisted_rect_zero_free_siegel  PortAssembly:1279)
+  (its unbounded sibling twisted_rect_zero_free_siegel  PortAssembly:1382)
 NumeralKq.usetGChi_window_meansq_gated_family_perBlock_bounded  :775   pass-through
 NumeralKq.m4_rowChi_capstone_perBlock_bounded                   :958   pass-through
 RegisterCompose.m4_hcap_at_door_perBlock_L_gk_bounded_khoist     :52   pass-through
@@ -23043,11 +23043,11 @@ RegisterCompose.logChowla2_ineffective_v6                       :345   THE RIDER
 **`Ks = 10^8 · min(min(Cs, c₀/32), 1/2)`** at its two leaves:
 
 ```
-c₀   Salt.SW.zero_free_region_all'   SW/ZeroFreeReal.lean:642
+c₀   Salt.SW.zero_free_region_all'   SW/ZeroFreeReal.lean:641
      EFFECTIVE — the bounded twin NumeralKq.zero_free_region_all'_bounded:450 pins
      1/126848 ≤ c₀, so c₀/32 ≥ 2.46·10^{-7}.  The 1/2 leg is a literal.
      ⇒ NEITHER of these two legs can bind the rider.
-Cs   Salt.SW.siegel_theorem (1/16)   SW/SiegelClose.lean:841
+Cs   Salt.SW.siegel_theorem (1/16)   SW/SiegelClose.lean:848
      INEFFECTIVE — its own docstring: "there is an (ineffective) C > 0"; the ∃-prefix
      exports 0 < C and nothing else.
 ```
@@ -23080,7 +23080,7 @@ capfloor_floor4_of_design  the same against 3.2·A ≤ loglog R.Hlo — v6's OWN
 ```
 
 🔑 ***THE DISCHARGE ROUTE, NAMED: the sharp rider is `A`-WINDOWED, not numeric, and the
-terminal mints `Ks` (RegisterCompose:242) BEFORE it chooses `A` (:246). So a terminal may put
+terminal mints `Ks` (RegisterCompose:236) BEFORE it chooses `A` (:240). So a terminal may put
 `log(1/Ks) ≤ 3·e^{3.2A}/16` into its own `max` for `A` and read `floor4` off with no rider at
 all — Siegel's constant carried by NAME, never by NUMERAL.*** The rethread of the sharp form
 through the hops that carry the rider is **V7-E's landing, not this node's**; V7-A supplies
@@ -23103,7 +23103,7 @@ the arms and the mint take their language from the ruling, so the wording is DET
 drafted. Rung 1a's law binds every row in this sweep: **the rider count LEADS.**
 
 **THE SENTENCE OF RECORD**, now the `RESULTS.md` §8 row for
-`Salt.MR.logChowla2_ineffective_v7` (`Salt/MR/V7E.lean:74`, landed `8548842`, ledger
+`Salt.MR.logChowla2_ineffective_v7` (`Salt/MR/V7E.lean:76`, landed `8548842`, ledger
 `Salt/MR/All.lean:7895`):
 
 > A machine-checked, witnessed-scale instance of the logarithmically averaged two-point
@@ -23122,7 +23122,7 @@ average over `n ≤ x`); the shift is `n + 1` (the `2` counts the factors `λ(n)
 constants are ineffective (`A` produced through `Classical.choice`, `Ks` carrying Siegel's
 constant); and **twins are untouched** — the transport wall stands at this rung.
 
-**THE `g ≡ 0` INSTANCE** has its own row (`logChowla2_ineffective_v7_g0`, `V7E.lean:221`,
+**THE `g ≡ 0` INSTANCE** has its own row (`logChowla2_ineffective_v7_g0`, `V7E.lean:203`,
 `82fedba`, ledger `:7921`): **two** named inner riders (`e^{-100} ≤ Ks`; the `K_vt` cushion),
 outer none. The row states plainly the thing a rider count alone would hide —
 ***the scale-request rider is VOID at `g ≡ 0`, NOT discharged in general*** — and prices it:
@@ -23143,8 +23143,8 @@ sitting**. Two rows added to `RESULTS.md` §8, both dated by pickaxe rather than
 ceremony that followed them:
 
 ```
-logChowla2_ineffective_v6_T0arm   Salt/MR/V7C.lean:177    2026-08-14  8b0bd31  ledger MR/All.lean:7821
-logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1839   2026-08-14  8b03281  ledger MR/All.lean:7856
+logChowla2_ineffective_v6_T0arm   Salt/MR/V7C.lean:179    2026-08-14  8b0bd31  ledger MR/All.lean:7967
+logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1840   2026-08-14  8b03281  ledger MR/All.lean:8002
 ```
 
 **FOUR NAMED INNER RIDERS EACH, outer hypotheses none.** `_csarm` (V7-B): the
@@ -23162,7 +23162,7 @@ discharges a DIFFERENT rider of `v6`, and neither implies the other. No row call
 `logChowla2_ineffective_v7`, registered in the entry above at three riders.
 
 **THE SHARPNESS CLAIM, stated where it is provable.** `_T0arm`'s row carries
-`t0_arm_four_levels_fails` (`V7C.lean:121`): the FOURTH exponential level fails at **every**
+`t0_arm_four_levels_fails` (`V7C.lean:123`): the FOURTH exponential level fails at **every**
 `A ≥ 162`, not only at the design floor — the generalization landed at `02495bc`, after the
 arm itself. So the three-level margin is sharp in tower height rather than merely true.
 
@@ -23191,7 +23191,7 @@ the `λλ` cross-term cancels between `s₊`/`s₋` and the surviving one-point 
 it: no lower bound, no positive rung, no statement about twin primes.***
 
 **`Salt.Entropy.Chowla.spine_eps_constant_floor`** (`Salt/Entropy/Chowla/SpineEpsFence.lean:102`,
-ledger `Salt/Entropy/All.lean:420`) — the row is written as a **consumption fence**. The
+ledger `Salt/Entropy/All.lean:440`) — the row is written as a **consumption fence**. The
 certificate is a CONSTANT: `log_chowla_two_budget_head`'s conclusion is restated verbatim (so
 a change of shape from a single `ε` to an `∀ ε`-family would stop type-checking there), and
 the fence is adjoined at that same `ε` — for any consumer demand `W` with `W z → 0`, the
@@ -23211,7 +23211,7 @@ about Chowla, or about the wall is made or implied.
 **Opus executor, docs only.** Authority: **T2-A Option A, the Captain's word at the 08/15
 sitting**. All five landed at `6332c2d` in `Salt/Entropy/Chowla/PinDichotomy.lean`, and all
 five rows sit in `RESULTS.md` §7 (TwinBar / Parity) beside the wall they complete, with the
-ledger `Salt/Entropy/All.lean:454`:
+ledger `Salt/Entropy/All.lean:474`:
 
 ```
 twinDetecting'_imp                 :82    the strength law — TwinDetecting' ⟹ TwinDetecting
@@ -23267,7 +23267,7 @@ and `Salt/Entropy/Chowla/CircleMethod.lean` (`git diff --numstat` shows zero del
 Salt/Entropy/Chowla/ShiftFork.lean:281-284   MRTUniformityXiH's docstring
     "**STRENGTH, WITH ITS DIRECTION NAMED.**  For `h ≥ 2` this is a STRICTLY STRONGER
      hypothesis than the landed `MRTUniformityXi`: `bigXiH h` is the larger set …"
-Salt/Entropy/All.lean:502-505                the ⟦L3-FORK FOUNDATION⟧ stanza
+Salt/Entropy/All.lean:521-526                the ⟦L3-FORK FOUNDATION⟧ stanza
     "`MRTUniformityXiH h` is the `h`-family's OPEN HYPOTHESIS — for `h ≥ 2` a STRICTLY
      STRONGER one than the landed `Ξ`-door —"
 ```
@@ -23307,7 +23307,7 @@ docstring were measured stale at the tree (`395786f0`) and re-worded in the same
 "exactly as `MRTUniformityXi` is for `h = 1`" (`mrtUniformityXi_holds_flat`,
 `Salt/MR/DoorReceipt.lean`, 2026-09-02, produces it at flat regimes). Left standing because
 still true: `MRTUniformity` (the `∀ α` door) is produced nowhere — 11 hits, all binders, 0
-conclusions; `MRTUniformityXiH h` itself has no producer (`StrideFork.lean:668` is a compat
+conclusions; `MRTUniformityXiH h` itself has no producer (`StrideFork.lean:627` is a compat
 EQUALITY, not a supply).
 
 ## ⚠️ (2026-08-16, wave BRUN-ELL1) ⟦THE `Buchstab.lean` HEADER FLAG IS STALE AT HEAD — THE `_div` LEMMAS ARE NOW EXACT DUPLICATES; DISPOSITION DEFERRED⟧
@@ -23328,9 +23328,9 @@ Salt/Chen/Buchstab.lean:283-287  "## Part E — the corrected divisor-restricted
 🔑 ***WHY IT IS STALE.*** All three named statements are ALREADY divisor-restricted at HEAD:
 
 ```
-Salt/Chen/LinearSieve.lean:313-314  errSum_lam_le        (hsupp : ∀ d, d ∣ s.prodPrimes → S.P d → (d:ℝ) < bound)
-Salt/Chen/LinearSieve.lean:349-351  linear_sieve_lower   (same hypothesis)
-Salt/Chen/LinearSieve.lean:389-390  linear_sieve_lower_chain (same hypothesis)
+Salt/Chen/LinearSieve.lean:316-317  errSum_lam_le        (hsupp : ∀ d, d ∣ s.prodPrimes → S.P d → (d:ℝ) < bound)
+Salt/Chen/LinearSieve.lean:352-354  linear_sieve_lower   (same hypothesis)
+Salt/Chen/LinearSieve.lean:392-393  linear_sieve_lower_chain (same hypothesis)
 ```
 
 The MATHEMATICS of the finding is untouched and still correct — the unconditional bound is
@@ -23415,9 +23415,9 @@ cost a census and not a wave.
 
 **The attractive wrong answer, tested before it was proposed.** `SiegelBand.lean`'s design law
 (*regime enlargement absorbs any `X`-independent debit*) plus the live lever `g R.Hhi R.ω ≤ R.x`
-in the parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:437`, which `_g0` sets to **zero**)
+in the parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:429`, which `_g0` sets to **zero**)
 makes a re-route onto the outer scale look free. **It is not: the lever has a ceiling.**
-`XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:82`); with
+`XCeilRiderStrict ε g` demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:92`); with
 `ε ≥ 1/500` a caller may request at most `log g ≤ 15500·H₊`, worth **≈ +24 additive on
 `loglog X`** against the landed floor `loglog X ≥ log H₊ − 14` (`cofkL_logX_floor`, linear in
 `H₊` via the regime's `hPHheadroom`) — **a constant factor ≤ ~4 in the budget, never a rate.**
@@ -23510,9 +23510,9 @@ the brief's `≳ 1.17e4` = 11700 FAILS at `−9.18`). So the conjunct demands
 ### 📐 THE CENSUS — 5 construction sites (three search shapes; structure-instance form is the only one used)
 ```
   Salt/Entropy/Chowla/RegimeParam.lean:454      chowlaRegime_exists_param_gen           Hlo₀ param
-  Salt/Entropy/Chowla/HloExport.lean:150        chowlaRegime_exists_param_gen_hloCap    Hlo₀ param
-  Salt/Entropy/Chowla/TowerFlatBuilder.lean:322 chowlaRegimeFlat_exists_param_gen       Hlo₀ param
-  Salt/MR/XCeil.lean:502                        chowlaRegimeFlat_exists_param_gen_ceiling Hlo₀ param
+  Salt/Entropy/Chowla/HloExport.lean:151        chowlaRegime_exists_param_gen_hloCap    Hlo₀ param
+  Salt/Entropy/Chowla/TowerFlatBuilder.lean:351 chowlaRegimeFlat_exists_param_gen       Hlo₀ param
+  Salt/MR/XCeil.lean:510                        chowlaRegimeFlat_exists_param_gen_ceiling Hlo₀ param
   Salt/Entropy/Chowla/RegimeInst.lean:175       regime_exists_of_dropSum          ⛔ Hlo := 4000000
 ```
 **The four parametric sites CAN discharge it.** Each sets `R.Hlo = max … (max Hlo₀ …)`, so the floor
@@ -23522,7 +23522,7 @@ is caller-driven and unboundedly raisable.
 It hardcodes `Hlo := 4000000` with `hHlo_floor := le_refl _`, and **it is the corpus's ANTI-VACUITY
 WITNESS** — the proof that a `ChowlaRegime` exists at all. Chain:
 `Diverge.lean:450 dropSum_exceeds_log_two → regime_exists_of_dropSum_exists (:201) →
-regime_exists_of_dropSum`, audited at `Salt/Entropy/All.lean:251`.
+regime_exists_of_dropSum`, audited at `Salt/Entropy/All.lean:268`.
 
 Raising its `Hlo` to `10^5086` is **not a mechanical edit**: its own hypothesis is
 `hJ : log 2 < towerDropSum 2 1 4000000 J`, **stated at the literal `4000000`**, and whether the
@@ -23587,7 +23587,7 @@ and no statement was authored.**
   name grep for *A2*        finds only the S8 ladder (thm_a2', a2Level1, a2RowsSum, thm_a2_spine)
                             and ThmA2Open.lean — ⚠️ A DIFFERENT A2, the corpus's own S8 node
   A.2's distinctive term    (log h)^{1/3}/P₁^{1/6−η} appears only inside A.3's OWN statement
-                            (`MRTPropA3.lean:2694`, `:12`), never as an A.2 def
+                            (`MRTPropA3.lean:2816`, `:12`), never as an A.2 def
   the η binder              only in A.3's def (`:96`) — A.1 has none, and no third def carries it
   CONTROL                   `MRTThmA1` (`MRTThmA1.lean:120`) and `MRTPropA3` (`:92`) both resolve,
                             so the probe can find a stated spine node when one exists
@@ -23625,7 +23625,7 @@ E-5c condition stands."*  **Both conditions fire on A4ii and A5, and they fire t
 
 ### ⛔ ① THE MACHINERY IS ABSENT — A4ii's OPEN HALF NEEDS TWO THINGS THE CORPUS LACKS
 A4ii's hypothesis is a disjunction and **its first branch is already PROVED**: `mrtA4ii_high_M` and
-`mrtA4ii_high_M_target` (`MRTPropA3.lean:517`, `:536`) discharge `M ≥ ⅛loglog X` from the landed
+`mrtA4ii_high_M_target` (`MRTPropA3.lean:522`, `:536`) discharge `M ≥ ⅛loglog X` from the landed
 part (i).  The open half is `M < ⅛loglog X` **and** `|t−t₁| > (log X)^{1/16}/2`, and MRT prove it in
 two sub-cases (`mrt_extract.md:228-232`, source p.23, eq A.5/A.6):
 ```
@@ -23683,7 +23683,7 @@ Halász bound:
   the `exp(−(1/2)·mrtM)` shape occurs ONLY in MRTPropA3.lean's own def (:382) and its
       CONSUMERS (:1900, :2230, :2239) — there is NO landed PRODUCER at that constant
 ```
-📌 **The `1/(1+|t−t₁|)` decay factor IS available** (`BallSup.lean:211,219,232`; `A3Middle.lean:242,611`)
+📌 **The `1/(1+|t−t₁|)` decay factor IS available** (`BallSup.lean:211,219,232`; `A3Middle.lean:243,608`)
 — **the gap is the constant, not the shape.**  MRT get `1/2` from the sharp Granville–Harper–
 Soundararajan proof of Halász; our corpus holds an explicit peel at `1/(2e)`.
 ⇒ 🔑 ***THE SAME LAW, THIRD INSTANCE: A CONSTANT IS A RECORD OF WHICH EXTERNAL THEOREM ITS AUTHOR
@@ -23702,7 +23702,7 @@ FORM, AND IN ALL THREE CASES THE STATEMENT TYPECHECKS ANYWAY.***
 ⚖️ *Zero proof attempts spent on any of the three blocked lemmas — all priced by reading.*
 
 ### ⛔⛔⛔ CORRECTION 03:1x — **I FILED A4ii AS "CONSTANT-BLOCKED". IT IS WORSE: `MRTLemmaA4ii` IS REFUTED IN THE KERNEL.**
-`not_mrtLemmaA4ii : ¬ MRTLemmaA4ii` (`MRTPropA3.lean:1378`) — **a landed theorem**, witness `f ≡ 1`
+`not_mrtLemmaA4ii : ¬ MRTLemmaA4ii` (`MRTPropA3.lean:1475`) — **a landed theorem**, witness `f ≡ 1`
 with `t₁ = (log X)^{1/16}/2 + 1`, where `mrtM f X = 0` is attained at `s = 0` while
 `pretDistSq f (costwist t₁) X > 0`, **so that `t₁` is not a minimiser and `t₁` floats free.**
 The live object is **`MRTLemmaA4iiFixed`** (`:…`), which pins `t₁`:
@@ -23906,7 +23906,7 @@ were.**  Traced upward:
   sigma_cutoff_pretentious_gen   hc1 : 2c < 1      wall at c = 1/2   ⇒ PASSABLE (node 1: it is a log)
   halasz_direct_reduce           hce : c ≤ 1/e     wall at c ≈ 0.368 ⇐ TIGHTER, and UPSTREAM
   window_sup_decay_gen           hce : c ≤ 1/e     same cap, same reason
-  head_sigma_bound (SupF:818)    exponent 1/e      ⇐ THE ACTUAL CONSTANT
+  head_sigma_bound (SupF:816)    exponent 1/e      ⇐ THE ACTUAL CONSTANT
         `‖F(1+σ+it)‖ ≤ C·(1/σ)·exp(−(1/e)·𝔻²(1, g·p^{−it}; e^{1/σ}))`
 ```
 `window_sup_decay_gen`'s own docstring says why `c ≤ 1/e` is there, in its own words: *"the exponent
@@ -23934,9 +23934,9 @@ was "fire the σ-cutoff at the critical `c`"; that is step two, and step one is 
 Chasing `head_sigma_bound`'s `1/e` to its birth:
 ```
   euler_log_bound (SupF:186)          ‖L‖ ≤ exp(cpeel)·exp(∑'_p Re(g p · p^{−s}))   NO 1/e — clean
-  dist_identification_sigma (:757)    ∑'_p Re(g p)p^{−1−σ}
+  dist_identification_sigma (:755)    ∑'_p Re(g p)p^{−1−σ}
                                         ≤ (log(1/σ) + (log4+cpeel)) − (1/e)·𝔻²(1,g; e^{1/σ})
-  ⇒ THE CONSTANT IS BORN AT :728-733, three lines:
+  ⇒ THE CONSTANT IS BORN AT :726-731, three lines:
         hYσ     : Y ^ σ = Real.exp 1              (Y = e^{1/σ})
         hpσ_le  : (p:ℝ) ^ σ ≤ Real.exp 1          (for p ≤ Y)
         hcut_p  : 1 / Real.exp 1 ≤ (p:ℝ) ^ (-σ)   ⇐ THE WHOLE CONSTANT
@@ -23959,7 +23959,7 @@ away — it is the crudest available move, and it is the only place the constant
 `hcut_p` is the shared node for BOTH lemmas the constants grant covers.
 
 ### ⛔⛔ 13:5x — **`hcut_p` IS SHARP. MY "ONE-LINE TARGET" FRAMING WAS WRONG.**
-At 11:5x I filed that A6's whole `1/e → 1/2` question is one inequality (`SupF:733`) and that the
+At 11:5x I filed that A6's whole `1/e → 1/2` question is one inequality (`SupF:731`) and that the
 port's target is *"replace `hcut_p`'s uniform step with a `p`-aware one, and every consumer inherits
 the sharper constant"*.  **Measured, and that is FALSE: the step cannot be improved in place.**
 
@@ -24084,7 +24084,7 @@ at all.**  My routing ask named objects the arc does not use.
 *scope to where the ANSWER lives, not the SUBJECT.*)
 
 **② WHERE `c` IS ACTUALLY CHOSEN — two sites, identical, and both DISCHARGE `hce` rather than
-assume it:** `StationHoist:196` and `SPartStation:912`, `set c : ℝ := 1 / (2 * Real.exp 1)`.
+assume it:** `StationHoist:195` and `SPartStation:776`, `set c : ℝ := 1 / (2 * Real.exp 1)`.
 **The station takes EXACTLY HALF the cap** (`c = (1/2)·(1/e)`), so cap and choice move together.
 📌 Of ~40 `hce : c ≤ 1/e` sites across 18 files, these two are the only ones that discharge it —
 ⇒ ***THE NUMERAL LIVES WHERE A HYPOTHESIS IS DISCHARGED, NOT WHERE IT IS DECLARED***, and grepping
@@ -24156,7 +24156,7 @@ adverse, and a survey that reported "all favourable" would have been the wrong s
 
 ### ⛔⛔⛔ 20:1x — **THE CONSUMER CENSUS ANSWERED, AND IT IS A HARD NEGATIVE. READ `MRTLemmaA6`'s RHS.**
 I said in the last entry that measuring *"is A.6 consumed at its M-rate, at its grade, or at both?"*
-was my tier. Measured, and the answer is in the statement's own bytes (`MRTPropA3:376`):
+was my tier. Measured, and the answer is in the statement's own bytes (`MRTPropA3:381`):
 ```
   ‖…‖ ≤ C * ( Real.exp (-(1/2) * mrtM f X) / (1 + |t - t₁|)   +   (Real.log X) ^ (-(1:ℝ)/16) )
                         ⇧ the M-RATE summand                        ⇧ the GRADE summand
@@ -24225,9 +24225,9 @@ that summand may have a different supplier, and **this seat has not censused its
 Stated so the design tier checks exactly one thing: **which term supplies the `1/50`.**
 
 ### ⚖️ AND THE HELM'S THREE ITEMS, MEASURED AT THE OBJECTS RATHER THAN QUOTED FROM MY BANK
-① `¬MRTLemmaA7` + `MRTLemmaA7Fixed` — ✅ **LANDED**: `not_mrtLemmaA7Statement` (`MRTPropA3:4085`,
-audited `All.lean:8563`), `MRTLemmaA7Fixed`/`…Statement` (`:4040`/`:4050`).
-② A5 at `θ = 3/4` — ✅ **LANDED**: five constants `MRTPropA3:4243–4274`, audited `All.lean:8566–8570`.
+① `¬MRTLemmaA7` + `MRTLemmaA7Fixed` — ✅ **LANDED**: `not_mrtLemmaA7Statement` (`MRTPropA3:4187`,
+audited `Salt/MR/All.lean:8689`), `MRTLemmaA7Fixed`/`…Statement` (`:4142`/`:4152`).
+② A5 at `θ = 3/4` — ✅ **LANDED**: five constants `MRTPropA3:4316–4347`, audited `All.lean:8566–8570`.
 ③ W1-E3 port track — ✅ **WAVE B COMPLETE 08/25** (`45da8f7f`, five nodes, one attempt each). Its
 named residue is `GAP α`, `GAP A.1`, `GAP X`, the `6·MS H ≤ c` pricing line and `M4RowMeanSq_L` —
 **all class D or design-tier by the queue's own rows**, none at executor tier.
@@ -24313,7 +24313,7 @@ At 05:0x I posted M2 with a named residual: *"whether the `1/16` reaches the MAS
 remaining half and I have not proved it."* **Looked. It was answered and wired before tonight.**
 ```
   FarL2 §12  box_floor_M0_pieceDatum   boxM0 (K+D) q X ≤ 𝔻²(pieceDatum χ 𝒥 …, costwist v; X)
-             LANDED · AUDITED All.lean:3488 · CONSUMED M4T0Discharge:34 · M4RowLinear:10079
+             LANDED · AUDITED All.lean:3488 · CONSUMED M4T0Discharge:34 · M4RowLinear:10013
   FarL2      box_floor_clears_gate_45  AUDITED All.lean:3489; All.lean:3449 records
              "⟦T₀-SUPPLIER CONSUMES⟧ … floor + mask + gate in one implication"
   M4T0Datum  winCutH_doorChiCoeff_split_L splits the DOOR's cut datum into exactly those pieces
@@ -24500,7 +24500,7 @@ lands beside it. The def is not improvised; the conditional is flagged here for 
 ### 📥 09-01 — `zeta_neg_re_logDeriv_ge` is a STANDALONE DEPOSIT: true, kernel-clean, consumed by nothing
 DESK row AX, the PR #5/#6 review's second finding, recorded rather than wired — and the choice is
 the finding, not a shrug. `Salt.MR.zeta_neg_re_logDeriv_ge` (`ZetaNegLogDerivLower.lean:53`) is
-landed and audited (`Salt/MR/All.lean:8573`, `[3 axioms]`); its ONLY appearances in the corpus are
+landed and audited (`Salt/MR/All.lean:8640`, `[3 axioms]`); its ONLY appearances in the corpus are
 its own declaration and that registry row — **zero consumers, zero docs mentions** (three search
 shapes, re-run at the bytes 09-01: the fully-qualified name, the `logDeriv_ge` substring, and
 `ZetaNegLogDerivLower` as an import). ⚠️ **The import shape is not silent and the count matters:**
@@ -24568,10 +24568,10 @@ branch threshold. Nothing here bears on twin primes.
 
 ### 📥 09-02 — EM: `M4RowMeanSq_L` is RETIRED as an object (not refuted); the spine door is NAMED at the flat family; the crown `MRTDoorAllGrades` is minted with no producer
 
-**Object:** the QUEUE P1b residue `M4RowMeanSq_L` (M4RowLinear.lean:991) — "⟦THE CLASS PRICING⟧ open, a
+**Object:** the QUEUE P1b residue `M4RowMeanSq_L` (M4RowLinear.lean:992) — "⟦THE CLASS PRICING⟧ open, a
 design question". **Measured at `980c5c4f` (kernel reverse-dependency walk, refuter-reproduced ±1):** it
-is the PLAIN route's socket — two consumers, both on that route (`m4_blockMeanSq_of_rowMeanSq_L` :1392,
-hypothesis position; `m4_wave_exit_L` :3434, in its statement, itself with ZERO dependents), zero
+is the PLAIN route's socket — two consumers, both on that route (`m4_blockMeanSq_of_rowMeanSq_L` :1393,
+hypothesis position; `m4_wave_exit_L` :3413, in its statement, itself with ZERO dependents), zero
 producers, OUT of the class road's cone (`m4_wave_collapsed_L`, "(c) ANALYTIC ARMS — none") and of the
 second road's (`m4_second_road_tower_L`). `M4ClassPrice` ⟦U2⟧ abandoned the interface on purpose 07-31.
 The class pricing is LANDED in `_L` (08/01: `m4_classMeanSq_of_chiMeanSq_L`, `m4_nonCoprime_classMeanSq_N_L`,
@@ -25152,7 +25152,7 @@ leaves precisely because it is assumed.
 
 ## 2026-09-09 hbEulerLog_tendsto — a RED-FIRST CAP-DOCSTRING STANDING ABOVE A LANDED THEOREM (h2c, Fable; found by the helm's signed non-author pass over the N7 route freeze v2.1)
 
-**The object.** `Salt/HB/CrownTheorem1.lean:3586-3588` — `theorem hbEulerLog_tendsto [NeZero q] {χ} {β₀ η} (hR : N9Regime q χ β₀ η)
+**The object.** `Salt/HB/CrownTheorem1.lean:3612-3614` — `theorem hbEulerLog_tendsto [NeZero q] {χ} {β₀ η} (hR : N9Regime q χ β₀ η)
 {z : ℝ} (hz : 3 ≤ z) : ∃ A, Tendsto (fun Y => hbEulerLog χ z Y) atTop (𝓝 A)` — is LANDED, sorry-free, and audits at
 `[propext, Classical.choice, Quot.sound]`. It is the ⟦CHAR-TRIO⟧ flag's **step 1** (`hlimP`, the ordered Euler log-product converges),
 discharged from the regime alone.
@@ -25161,7 +25161,7 @@ discharged from the regime alone.
 corpus is a hypothesis … Class **C**, cap 300. Red-first: …"* — the red-first PLAN of the row, left standing above the theorem that
 closed it. Measured cost, 2026-09-09: the sentence was read as a corpus census by one route freeze (v2.1 §7(a) — *"`hbL1_split_indep :204`
 needs CHAR-TRIO"*) and by two of eight refuter arms, each concluding that κ's transfer between split points owed a second unpaid credit.
-It does not: `hbL1_split_indep` (`Salt/HB/CharTrio.lean:204-209`) takes two `Tendsto` binders and this theorem supplies both from
+It does not: `hbL1_split_indep` (`Salt/HB/CharTrio.lean:208-212`) takes two `Tendsto` binders and this theorem supplies both from
 `N9Regime`; the transfer `hbKappaN9 χ x z = hbKappaN9 χ x z′` closes in ~8 lines from it (the signer's probe, 09/09). A cap-docstring
 is a plan, and reading one as a census cost one freeze a whole slot and two arms their central answer.
 
@@ -25210,7 +25210,7 @@ astronomically large and carries no information, and the swept minimum was
 **What would close it, stated so the next session does not re-derive it — NOT DONE HERE.** The
 `K`-carrying terms are exactly the two rows that spend the `K/m²` arm of (7.4) where the uniform
 arm `2(1 + log K)/K` is the better one. That arm is `norm_majorantCoeff_le`
-(`Salt/Weil/Sawtooth.lean:666`), it is landed, and it holds at every `m`. Against the same
+(`Salt/Weil/Sawtooth.lean:680`), it is landed, and it holds at every `m`. Against the same
 machine it gives a `V`-free head of `≍ 4(1 + log K)·C = O(L·C)`, which the `512 L²` budget
 carries at every `k`. The freeze's ground for the `K/m²` arm — that it is the min at `m = 1`
 and on the head — is TRUE only for `K ≤ 7`, i.e. `k < 1296`, and it says so; what was not
@@ -25301,11 +25301,11 @@ down -- this is NOT the C-class obstacle the wave-1 brief asked me to watch for:
 |---|---|---|---|---|
 | 1 | `s16_audit_neglog_rho_le_425_h_g12b` | `StrideGrade12bWalls.lean:151-155` | 5 | conclusion `-log rho <= 429` is `411 + 2*9`; the supplier `s16_audit_neglog_rho_le_wide_h_g12` already proves `<= 411 + 2*log c`, **grade-free and already affine** |
 | 2 | `s15_sel''_L_witness_flat_charge_g12b` | `StrideGrade12bWalls.lean:49-84` | 36 | `hcb : c <= 8103` (`:50`) and `hrholog : -log rho <= 429` (`:51`), widened at `:64` to `<= 439` |
-| 3 | `flat_half_line_g14` | `StrideGradeReach.lean:183-203` | 21 | `hc : c <= 439`, entering as `3*c` against `e^{3.2A}/2`; slack `10^31 x` |
-| 4 | `flat_anchor_line_wide_g14` | `StrideGradeReach.lean:207-212` | 6 | `hc : c <= 439`, entering as `+ c + 33`; slack `449 x` |
-| 5 | `flat_gP1_line_g14` | `StrideGradeReach.lean:216-236` | 21 | `hc : -439 <= c`, entering as `+ c`; slack `5.5e3 x` |
-| 6 | `flat_lvl_line_g14` | `StrideGradeReach.lean:240-293` | 54 | `hc : c <= 439`, entering as `+ c`; slack `457 x` |
-| 7 | `s15_sel''_L_witness_flat_b9` | `S15SelLinear.lean:727-928` | 202 | `hcb : c <= 8103` (`:729`), spent at `:848` (`hcRb`) |
+| 3 | `flat_half_line_g14` | `StrideGradeReach.lean:193-213` | 21 | `hc : c <= 439`, entering as `3*c` against `e^{3.2A}/2`; slack `10^31 x` |
+| 4 | `flat_anchor_line_wide_g14` | `StrideGradeReach.lean:217-222` | 6 | `hc : c <= 439`, entering as `+ c + 33`; slack `449 x` |
+| 5 | `flat_gP1_line_g14` | `StrideGradeReach.lean:226-246` | 21 | `hc : -439 <= c`, entering as `+ c`; slack `5.5e3 x` |
+| 6 | `flat_lvl_line_g14` | `StrideGradeReach.lean:250-303` | 54 | `hc : c <= 439`, entering as `+ c`; slack `457 x` |
+| 7 | `s15_sel''_L_witness_flat_b9` | `S15SelLinear.lean:737-938` | 202 | `hcb : c <= 8103` (`:729`), spent at `:848` (`hcRb`) |
 | 8 | `s15_sel''_L_witness_flat_wide_g12b` | `StrideGrade12bWalls.lean:162-177` | 16 | carries `hcb`, `hh9c` through |
 | 9 | `s15_sel''_L_gk_witness_flat_wide_g12b` | `StrideGrade12bWalls.lean:183-201` | 19 | carries `hcb`, `hh9c` through |
 
@@ -25431,13 +25431,13 @@ forms, four receipts, `mrtUniformityXiL2Set_mono`, the builder pair, the head, t
 road-exit hop, and the `j`-floor lift `s13_g2_jfloor_of_MSelect'_L_gk_h_L`).
 
 **(1) The capstone reads the twist cap at two sites the freeze does not name.**  G12b's
-`flat_capstone_generic_h_g12b` derives `hh14 : log h <= 14` at `StridePairReceiptG12b.lean:355`
+`flat_capstone_generic_h_g12b` derives `hh14 : log h <= 14` at `StridePairReceiptG12b.lean:361`
 and reads it at exactly two lines, both `_14` suppliers with NO charge-form twin in the corpus
 (measured: `git grep` finds only the base and `_14` variants of each):
-- `:369` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the
+- `:375` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the
   arithmetic gate `m4_arith_henv_constPoolH_L_gk_14` -> `m4_arith_henv_rho_poolH_L_gk_14` ->
   `a2DoorGrade_pool_L_priced_rhoH_gk_14` -> `a2DoorGrade_pool_L_priced_rhoH_14` ->
-  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1468`):
+  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1469`):
   `h * arcDen 12 H * strataResidualH h H ^ 2 <= exp (14 * loglog H)` at `50 <= loglog H`.  With
   `arcDen 12 H = (log H)^12` this needs `h * (1 + 12 loglog H + log h)^2 <= (log H)^2`, which a FREE
   `h` breaks at any fixed tower floor;
@@ -25447,7 +25447,7 @@ Neither is paid from `hhL : log h <= L` by one `linarith`: both need an `h`-depe
 floor.  The brief's STOP condition "a cap site the two lifts do not cover" fired.
 
 **(2) The split lift is FALSE as specified.**  `xceil_arm_split_mul_h_b9`
-(`StridePairReceipt.lean:2870`) concludes `log 2 + log h + 9 <= H/(250000 h^2) - H/10^20`.  With
+(`StridePairReceipt.lean:2449`) concludes `log 2 + log h + 9 <= H/(250000 h^2) - H/10^20`.  With
 `L` for `9` and the cap gone, the right side is `H * (1/(250000 h^2) - 10^-20)`, NEGATIVE once
 `250000 h^2 > 10^20`, i.e. `h > 2*10^7` (`log h > 16.81`), while the left side is positive.
 Kernel-checked at `h = 10^8`: the right side equals `H * (-96/10^22) < 0` for every `H > 0`, and
@@ -25475,7 +25475,7 @@ else in half 2 landed in `Salt/MR/StrideDoorAllGrades.lean`: ten of the eleven t
 `_L` helpers (§I), the conditional with Z1 and its re-statement (§J), and v7 (§K).
 
 **The finding: a SCOPE stop, not an arithmetic one.**  The brief priced twin 9 at its source's
-38 lines (`S16ComposeLH.lean:3915`, "SUPPLIER-SWAP").  The source's body calls two capped
+38 lines (`S16ComposeLH.lean:3389`, "SUPPLIER-SWAP").  The source's body calls two capped
 suppliers (`m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9`,
 `s16_capGate_supply_LH_gk_sharpT0_kswin_b9`), and their capped dependency tree, walked by name
 at `881de30f` (every identifier ending `_b9`/`_g12b`/`_14` in each body, recursively), is
@@ -25589,11 +25589,11 @@ one strength the consumers read (W1), move what a landed theorem already implies
 quantity to what is counted (W5). The negation then gets stronger (`not_fulcrum_implies_noSiegelZeros`).
 
 **Dead ends.**
-- `gaps_le_twelve_of_hasLevel` (`Salt/Twelve/GapsOfLevel.lean:288`): already fulcrum-shaped before the fulcrum (Q3b,
+- `gaps_le_twelve_of_hasLevel` (`Salt/Twelve/GapsOfLevel.lean:296`): already fulcrum-shaped before the fulcrum (Q3b,
   07-15, `EHall` consumed at one line; `WindowPNT` discharged by `windowPNT_holds`). The remaining `∀A` binder of
   `HasLevel (3999/4000)` can collapse to one saving, but that is FORM only: `θ★ ≈ 1` stays EH in depth, as the file's own
   θ-caveat says.
-- The crown's twin-horn use of `siegel_theorem` (`Salt/HB/CrownTheorem1.lean:6673`): the wrong horn. Under `F` a Siegel zero
+- The crown's twin-horn use of `siegel_theorem` (`Salt/HB/CrownTheorem1.lean:6638`): the wrong horn. Under `F` a Siegel zero
   exists, so the fixed standoff that would replace Siegel is false there by construction.
 
 **Honest zeros (the trade has nothing to act on).** Maynard under `EH (1/2)` (BV, unconditional) · `TwinB_min` (already
@@ -25604,7 +25604,7 @@ Out of lane or already done: `N7Exit` (the live crown campaign; window and quali
 
 **Correction to a ledger line.** `docs/exploration/fulcrum-pass2.md` C1 calls `Fold.lean:167` the *sole* consumer of
 `siegel_theorem`. That was true for Siegel-Walfisz and is not true for the corpus: at `431c1887` there are three code
-consumers (`SW/Fold.lean:167`, `HB/CrownTheorem1.lean:6673`, `MR/PortAssembly.lean:1185`).
+consumers (`SW/Fold.lean:167`, `HB/CrownTheorem1.lean:6638`, `MR/PortAssembly.lean:1183`).
 
 **What survived (a proposal, not a flag).** Siegel-Walfisz reads Siegel at ONE site (`Fold.lean:167`,
 `ε = 1/(4C)`), and one fixed standoff `β ≤ 1 − c/log q` serves every `(A, C)`. A Siegel-free
@@ -25622,7 +25622,7 @@ the class and the statement of record, the five receipts, the four inversion lem
 U-forms, U-ARM (`s15Arm_le_of_regime`), and the doorL2, road and capstone hops on the U-forms.
 
 **What the hop needs about `R` that its U-form does not give.**  The source
-`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4952`) spends the head's COUNT export
+`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4903`) spends the head's COUNT export
 `∀ H [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → |bigXi R.eps H| ≤ K` (K the head's existential) twice:
 as an input to the head's own slot and as `hcount` of `sum_bigXi_norm_windowExpSum_sq_le_twelve`
 (`M4Window.lean:567`).  Under the brief's rule `FlatHeadFormU` keeps the count as a HYPOTHESIS
@@ -25632,7 +25632,7 @@ one open goal is exactly
 `⊢ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ↑(bigXi R.eps H).card ≤ K`
 with `K` known only through `0 < K` and `K ≤ 2 ^ 283 * c ^ 20`.
 
-**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2235`) needs
+**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2245`) needs
 `ε ≤ 1/500`, which no form carries (only `0 < ε` and the pin), and it yields ITS OWN constant `C`,
 not the head's `K`; the socket's `Hopq`/`Hcap` are the hop's to choose but a floor cannot bound a
 count by a constant the hop did not pick.  So this is a walk finding about the FORMS, not a proof
@@ -25656,7 +25656,7 @@ strengthening of a NEGATIVE theorem" for "the strictly larger class of certifica
 respect to `SieveAgreeCorr`. The class is the same one. `SieveAgreeCorr s t D B B₂` is
 `SieveAgree s t D B ∧ |corr2 s - corr2 t| ≤ B₂`, and the theorem's `htol` quantifies over every
 `B₂`; at `B₂ := |corr2 s - corr2 t|` it is `SieveAgree`-tolerance, and `tolerant_corr_of_tolerant`
-(`WallCorr.lean:87`) gives the converse. So `parity_wall_corr_stable` follows from
+(`WallCorr.lean:97`) gives the converse. So `parity_wall_corr_stable` follows from
 `parity_wall_unconditional` in one line (paper drove it on 2026-10-25 through `saltbuild`,
 EXIT=0, axioms `[propext, Classical.choice, Quot.sound]`; the file is not in this repository).
 The fixed-`B₂` form, with tolerance asked at one `(D, B, B₂)`, is `parity_wall_corr`, the per-`x`

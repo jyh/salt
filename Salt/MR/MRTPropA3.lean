@@ -729,7 +729,7 @@ bound on the UNTWISTED, NORM-form prime sum**; `mrtM` provably runs the wrong wa
 (`pretDistSq_one_le_sum_norm`), and at `f = λ` the route is vacuous by `(log x)^{2+1/10}`
 (`sum_norm_one_sub_liouvilleC`).
 
-**The door — walked to the corpus's own named residue.**  `M4RowMeanSq_L` (`M4RowLinear:991`),
+**The door — walked to the corpus's own named residue.**  `M4RowMeanSq_L` (`M4RowLinear:992`),
 labelled the wave's ⟦RESIDUE⟧ at its own definition site; of its two obstructions ⟦THE WALL⟧ is
 REPAIRED (07-28) and ⟦THE CLASS PRICING⟧ is OPEN and design-tier.
 
@@ -741,7 +741,7 @@ and fixing them edits A.6's/A.7's STATEMENTS (Fable/Captain tier).  `DoorRoadCom
 /-! ### FIVE LINKS DEEP, EVERY ONE POPULATED — AND THE REAL OPEN QUESTION IS NOT A MISSING LEMMA
 
 Continuing the walk.  `DoorRowCarried` (the capstone producer's remaining input) is itself
-populated: **8 exact producer-shaped sites**, including `M4T0Discharge.lean:738`,
+populated: **8 exact producer-shaped sites**, including `M4T0Discharge.lean:735`,
 `M4DoorClose.lean:{395,533,607}`, `M4Collapse.lean:216`, `M4ChiSocketWire.lean:{184,240}`.
 The capstone `M4ChiDyadicRowMeanSq` has **6** (three of them `… := by` in
 `M4DoorClose`/`M4DoorClosePool`).
@@ -772,16 +772,16 @@ caught none of them.**  *Three versions in, the control has done more work than 
 Continuing the walk, under the rule set in the section below: name no frontier, keep going.
 
 **1. THE TRIVIAL SUPPLIER IS THE SMALL-LENGTH HALF, AND IT SAYS SO.**
-`norm_sum_doorSievedWindow_le` (`M4CoprimeSupply.lean:105`) is the window-length bound
+`norm_sum_doorSievedWindow_le` (`M4CoprimeSupply.lean:106`) is the window-length bound
 `‖∑_{m ∈ doorSievedWindow M K n} liouChi χ m‖ ≤ K`.  Its docstring: used at the SMALL dyadic
 lengths, *"where the capstone is silent"*.  So the dyadic split is `j < j₀` trivial grade,
-`j₀ ≤ j` capstone (`M4CoprimeSupply.lean:38`, `M4Maximal.lean:1024`).
+`j₀ ≤ j` capstone (`M4CoprimeSupply.lean:39`, `M4Maximal.lean:1019`).
 
 **2. ⛔ TWO DIFFERENT OBJECTS ARE CALLED "THE CAPSTONE". THEY ARE NOT THE SAME.**
-* `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:530`) — the **S12** lane.  This is
+* `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:527`) — the **S12** lane.  This is
   the one carrying `S14Compose.lean:429`'s **`⚠ NOT DERIVED` … "refuted at ⟦B1'-3⟧ by §3"**.
-* `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1026`) — the **M4** lane, and *this* is the one the
-  door's dyadic split consumes (`M4Maximal.lean:116`, length-graded `MS j H`).
+* `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1021`) — the **M4** lane, and *this* is the one the
+  door's dyadic split consumes (`M4Maximal.lean:117`, length-graded `MS j H`).
 
 **The `⚠ NOT DERIVED` marker does NOT lie on the door's chain.**  Checked, not assumed — the
 predecessor already lost a day to two different objects both called "Prop 2.4".
@@ -892,9 +892,9 @@ earlier were all published first and corrected after.  **Fencing is cheap; retra
 /-! ### THE ROAD BOTTOMS OUT — AND THE CORPUS NAMES ITS OWN FRONTIER
 
 Walked the gates down: `M4SievedDoorSq_L → M4BlockMeanSq_L → M4RowMeanSq_L`.
-`M4RowMeanSq_L` (`M4RowLinear.lean:991`) has **no producer** — established by reading **all six
-of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1392`) ·
-an enumeration entry (`:3419`) · one arrow (`:3434`).
+`M4RowMeanSq_L` (`M4RowLinear.lean:992`) has **no producer** — established by reading **all six
+of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1393`) ·
+an enumeration entry (`:3398`) · one arrow (`:3413`).
 
 ⭐ **AND THIS TIME IT IS NOT MY INFERENCE — THE CORPUS SAYS SO AT THE DEFINITION SITE:**
 *"**THE WAVE'S REMAINING INPUT**… This predicate is the wave's ⟦RESIDUE⟧: see the module header
@@ -936,13 +936,13 @@ produces it from **two explicit inequalities and NO other gate**:
 `√(Braw H) ≤ mrtDeliveredGrade (C/2) H` and `δ/4 + 4·2^k/x ≤ mrtDeliveredGrade (C/2) H`.
 *It bottoms out in arithmetic about the delivered grade, not in another Prop socket.*
 
-**`M4SievedDoorSq_L`** (`M4LadderLinear.lean:854`) — `m4_cover_assembly_L`
-(`M4RowLinear.lean:1530`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
+**`M4SievedDoorSq_L`** (`M4LadderLinear.lean:860`) — `m4_cover_assembly_L`
+(`M4RowLinear.lean:1527`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
 Its own docstring states the gate bundle is *"the same bundle `m4_hbd_of_live_L` reads, so the
 join needs no new hypothesis"* — so this reduction is free at the seam.  ⇒ **it reduces to the
 BLOCK MEAN SQUARE**, which is what `M4Maximal.m4_chiBlockMeanSq_of_shiftBlock` produces.
 
-**`M4DoorGates_L`** (`M4LadderLinear.lean:872`) is a **structure** — a bundle of regime data, so
+**`M4DoorGates_L`** (`M4LadderLinear.lean:878`) is a **structure** — a bundle of regime data, so
 its "producer" is an instance construction rather than a theorem.  Not measured here.
 
 ⛔ **I AM NOT CALLING THE GATES CLOSED.**  Today I made four same-signed errors reading the
@@ -961,7 +961,7 @@ wrong, and it is wrong in the same direction as the two claims before it.**  Wal
   norm_absWindowSum_le_drift_tight     M4BridgePhase.lean:310   (phase drift → rational b/q)
     ⟹ subWindowSup_sq_le_strata       M4Gauss.lean:577         (Gauss/strata, at doorSievedCoeff M)
         ⟹ strataTerm = ∑_χ (doorChiSup χ …)²
-            ⟹ doorChiSup_sq_le_dyadic  M4Maximal.lean:396      (DYADIC MAXIMAL INEQUALITY, K-free)
+            ⟹ doorChiSup_sq_le_dyadic  M4Maximal.lean:397      (DYADIC MAXIMAL INEQUALITY, K-free)
                 ⟹ ∑_t ‖∑_{m ∈ doorSievedWindow M 2^j (n+2^{j+1}t)} liouChi χ m‖²
 ```
 `subWindowSup_sq_le_strata` is stated **at the door's own coefficient** `doorSievedCoeff M`, not at
@@ -1092,7 +1092,7 @@ The set sweep reported *"A.6's estimate — OPEN → 61 landed `halasz*` theorem
 count is real and it is **not** evidence A.6 is servable.  Measuring the closest one shows
 why, and it corrects my own framing one beat old.
 
-`T1_pointwise_decay` (`PropA3Core.lean:330`) is the nearest landed relative:
+`T1_pointwise_decay` (`PropA3Core.lean:326`) is the nearest landed relative:
 ```
   U ≤ (C₁+C₂)·X·( (log X)^{−1/(32e)} + (log X)^{−1/2+ε} )
       from  Uhead ≤ C₁·X·exp(−(1/e)·M_range f X T),  Utail ≤ C₂·X·(log X)^{−1/2},
@@ -1513,7 +1513,7 @@ With `MRTLemmaA4ii`'s `t₁` repaired (constrained to the minimiser), the far
 branch has an obvious route through objects that are already landed:
 
 ```
-  dist_one_floor_pow   DistHalasz.lean:179   L ≤ 𝔻²(1, n^{i(t−t₁)}; X),  unconditional
+  dist_one_floor_pow   DistHalasz.lean:177   L ≤ 𝔻²(1, n^{i(t−t₁)}; X),  unconditional
                        the 1/4-grounding: for |b| ≤ 2X the −(3/4)loglog correction
                        eats 3/4 of the leading loglog, leaving L = (1/4)·loglog X − o(1)
   dist_recenter_sq     DistSplit.lean:140    (√L − √S)² ≤ 𝔻²(f, n^{it}; X)
@@ -3408,6 +3408,11 @@ where `1/6 − 1/(3π)` has to come from, and it is sieve arithmetic, not a
 pretentious-distance estimate.  *This is the orientation the wrong reason would
 have cost: the next hand should not go hunting for a better constant inside a
 landed floor.* -/
+/-- The sieved-out primes alone floor the sifted pretentious distance: at `hf : ‖f n‖ ≤ 1`, the
+sum of `1/p` over primes `p ≤ X` with `gJ 𝒥 Pseq Qseq p = 0` is at most
+`pretDistSq (f · gJ 𝒥 Pseq Qseq) (costwist t) X`. Where `gJ p = 0` the summand is exactly `1/p`
+with `f` annihilated; elsewhere `Re(f p · gJ p · conj (costwist t p)) ≤ 1` keeps it `≥ 0`. The
+`f`-free reduction of A.4(ii)'s floor drawn in the section above; no consumer in `Salt/` yet. -/
 theorem sieved_primes_floor_le_pretDistSq_sifted
     (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X t : ℝ)
     (hf : ∀ n, ‖f n‖ ≤ 1) :
@@ -3850,6 +3855,13 @@ mid-range module (a LATER module — nothing in this file proves it, so the line
 true here): the exact-series majorization of `|cos|`, the Mertens window, and the harmonic
 sums through the landed zeta massif; its pin is an instance of the Y-floor
 `(log X)^{2/3} ≤ log Y`. -/
+/-- **MRT's short-segment splitting, display (A.5), as a named statement**: some `C ≥ 0` such
+that for `X ≥ e`, the pinned `Y = exp((log X)^{2/3+ε})` and
+`(log X)^{1/16}/2 ≤ |u| ≤ (log X)^20`,
+`(1 − 2/π)·log(log X / log Y) − C ≤ ∑_{Y < p ≤ X} (1 − |cos(u·log p / 2)|)/p`. A.4(ii)'s
+mid-range debt made citable: the hypothesis of `mrtA4ii_far_of_named_splitting` and one arm of
+`mrtA4ii_far_of_either_estimate`; DISCHARGED by `mrtShortSegmentSplitting_holds`
+(`A4FMidRange`). -/
 def MRTShortSegmentSplitting : Prop :=
   ∃ C : ℝ, 0 ≤ C ∧ ∀ (X Y u ε : ℝ), 0 < ε → Real.exp 1 ≤ X →
     Y = Real.exp ((Real.log X) ^ ((2 : ℝ) / 3 + ε)) →
@@ -3905,6 +3917,11 @@ arm, including Kusmin–Landau in the very directory the target would live in).
 
 ⛔ **A STATEMENT, NOT A THEOREM.  NOTHING HERE PROVES IT** — and note the conclusion is written
 in the SAME shape as the mid-range Prop, so a discharger of either feeds the same consumer. -/
+/-- **MRT's large-`|t − t₁|` equidistribution as a named statement — byte-frozen and REFUTED**:
+some `C ≥ 0` with the (A.5)-shaped lower bound for `X ≥ e`, `(log X)^20 < |u| ≤ 2X` and EVERY
+real `Y`. The free `Y` is the defect: `not_mrtLargeRangeEquidistribution` below exhibits a small
+`Y` whose demand exceeds Mertens' cap. Kept as the refuted object (the other arm of
+`mrtA4ii_far_of_either_estimate`); the live target is `MRTLargeRangeEquidistributionFixed`. -/
 def MRTLargeRangeEquidistribution : Prop :=
   ∃ C : ℝ, 0 ≤ C ∧ ∀ (X Y u : ℝ), Real.exp 1 ≤ X → |u| ≤ 2 * X →
     (Real.log X) ^ (20 : ℕ) < |u| →
@@ -3987,6 +4004,12 @@ over by a name.
 ⛔ **A STATEMENT, NOT A THEOREM, AND THE BRIDGES ARE NOT ATTEMPTED.** MRT get A.3 ⇒ A.2 by a
 **Parseval bound** (*"the proof proceeds as [17, Theorem 3]; the first step is a Parseval
 bound"*, line 1243) — named here so it can be dispatched, not discharged here. -/
+/-- **A.1's bound for the `g_𝒥`-sifted datum** (formerly misnamed `MRTThmA2`; the erratum
+above): for every 1-bounded multiplicative `f` with `f 1 = 1`, at `10 ≤ h ≤ X`, the mean square
+of `mrtShortMean (f · gJ 𝒥 Pseq Qseq) h` over `[X, 2X]` is at most
+`C·(e^{−M(f;X)} + (log log h)²/(log h)² + (log X)^{−1/50})`. At `𝒥 = ∅` it is `MRTThmA1` itself
+(`mrtThmA1_of_mrtThmA1GJ_empty`); the body of `MRTParsevalConstantMatch`. A statement, not
+proved here. -/
 def MRTThmA1GJ (C : ℝ) (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) : Prop :=
   ∀ f : ℕ → ℂ, (∀ n, ‖f n‖ ≤ 1) → f 1 = 1 →
     (∀ m n : ℕ, Nat.Coprime m n → f (m * n) = f m * f n) →
@@ -4029,6 +4052,10 @@ the two sums differ by **at most one term**, and the two MEANS by at most `1/h`.
 ⇒ this is the whole convention gap between the landed Parseval bound and `MRTThmA1GJ`'s LHS,
 priced.  ⛔ It does not close the bridge — the constant-matching to A.2's RHS is separate and
 untouched. -/
+/-- At most one natural `n ∈ Icc ⌈x⌉₊ ⌊x+h⌋₊` fails `x < n`: any two such are `≤ x` and
+`≥ ⌈x⌉₊ ≥ x`, hence equal. The whole gap between the closed window `[x, x+h]` and the half-open
+`(x, x+h]`, priced for `shortWindow_closed_sub_open_norm_le` (one term, `1/h` in the mean);
+cited by `MRTThmA2Stmt`. -/
 theorem closed_open_window_card_le_one (x h : ℝ) :
     ((Finset.Icc ⌈x⌉₊ ⌊x + h⌋₊).filter (fun n : ℕ => ¬ (x < (n : ℝ)))).card ≤ 1 := by
   refine Finset.card_le_one.mpr ?_
@@ -4071,6 +4098,10 @@ one term by `shortWindow_closed_sub_open_norm_le`).
 
 ⛔ **A STATEMENT.  NOT PROVED HERE, AND DELIBERATELY WEAK: it asks only that SOME admissible
 constant exists**, because the discharger picks it — the same shape the door's `δ` has. -/
+/-- **The constant match on A.3 ⇒ A.2, as a named obligation**: some `C > 0` with
+`MRTThmA1GJ C Pseq Qseq 𝒥`. Deliberately weak — only existence, the discharger picks `C`. Its
+instance at `𝒥 = ∅` yields the campaign's primary (`mrtThmA1Statement_of_constantMatch`);
+`MRTPortA1` names it as the open stack beneath its port. A statement, not proved here. -/
 def MRTParsevalConstantMatch (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) : Prop :=
   ∃ C : ℝ, 0 < C ∧ MRTThmA1GJ C Pseq Qseq 𝒥
 
@@ -4609,6 +4640,11 @@ branch was given its own name.  The repair is a statement act at the frozen laye
 
 Found by A4F-2 due diligence: that node was commissioned to carry this Prop as its named
 far-arm hypothesis, and a false hypothesis makes every consumer vacuously true. -/
+/-- **The frozen large-range statement is FALSE**, in the kernel. Given its `C`, take
+`L = max ((C + mertensM + 12)/35 + 1) 100`, `T = e^L`, `X = e^T`, `u = 2X` and the small
+`Y = exp(T^{−100})`, so `log(log X / log Y) = 101·L`: the demand `(1 − 2/π)·101·L − C` exceeds
+the Mertens cap on the sum over `Y < p ≤ X`. Retires the frozen Prop in favour of
+`MRTLargeRangeEquidistributionFixed`; recorded in `flags.md` (the A4F wave). No consumer. -/
 theorem not_mrtLargeRangeEquidistribution : ¬ MRTLargeRangeEquidistribution := by
   rintro ⟨C, hC0, h⟩
   -- the witness scale: `loglog X = L`, `log X = T = exp L`, `X = exp T`

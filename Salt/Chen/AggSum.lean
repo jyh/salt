@@ -125,6 +125,9 @@ transfer. -/
 noncomputable def CconBox : ℝ :=
   2250816 * ((31 : ℝ) / 10) ^ (50 : ℝ) / ((9 : ℝ) / 10) ^ (12 : ℝ)
 
+/-- `0 ≤ CconBox`: `positivity` after unfolding (a product and quotient of positive rpow terms).
+The sign every consumer of `boxPriceKerr_worst_le`'s constant needs when it multiplies the bound
+by `Kc`, `x` or `1/L^{12}`: `PackA` (four sites) and `FinA3c` (five). -/
 theorem CconBox_nonneg : 0 ≤ CconBox := by
   unfold CconBox; positivity
 

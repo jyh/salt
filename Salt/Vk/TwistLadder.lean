@@ -1164,8 +1164,7 @@ theorem vk_dirichlet_block_twist_le {σ t β : ℝ} {M x' : ℕ}
     rw [vkTheta]
     have h1 : (1 : ℝ) ≤ (Real.log t) ^ ((3 : ℝ) / 4) :=
       Real.one_le_rpow (by linarith) (by norm_num)
-    have h2 : (100 : ℝ) ≤ Real.log (Real.log t) := by
-      rw [← Real.log_exp 100]; exact Real.log_le_log (Real.exp_pos _) hL100
+    have h2 : (100 : ℝ) ≤ Real.log (Real.log t) := le_log_of_exp_le hL100
     have h3 : (10000 : ℝ) ≤ (Real.log (Real.log t)) ^ (2 : ℕ) := by nlinarith only [h2]
     have hDpos : 0 < (Real.log t) ^ ((3 : ℝ) / 4) * (Real.log (Real.log t)) ^ (2 : ℕ) := by
       positivity

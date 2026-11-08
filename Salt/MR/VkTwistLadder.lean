@@ -276,8 +276,7 @@ theorem vk_twist_head_le {σ t β : ℝ} {N : ℕ}
   have hlogt1 : 1 < Real.log t := by linarith [hL100, hexp100]
   have hL1 : (1 : ℝ) ≤ Real.log t := le_of_lt hlogt1
   have hℓ1 : (1 : ℝ) ≤ Real.log (Real.log t) := by
-    have h100 : (100 : ℝ) ≤ Real.log (Real.log t) := by
-      rw [← Real.log_exp 100]; exact Real.log_le_log (Real.exp_pos _) hL100
+    have h100 : (100 : ℝ) ≤ Real.log (Real.log t) := le_log_of_exp_le hL100
     linarith
   have hΘpos : 0 < vkTheta t := vkTheta_pos hlogt1
   have hblock : ∀ M x' : ℕ, 1 ≤ M → M < x' → x' ≤ 2 * M → x' ≤ N →
@@ -597,8 +596,7 @@ theorem vk_LFunction_bridge_le_primitive {q : ℕ} [NeZero q] (ψ : DirichletCha
   have hsqq : Real.sqrt q ≤ (q : ℝ) := by
     nlinarith only [hsq1, hq1, Real.sq_sqrt (le_trans zero_le_one hq1)]
   -- the bridge point
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hd0 : (0 : ℝ) < 1 / Real.log X := one_div_pos.mpr hlogXpos
   have hd1 : 1 / Real.log X ≤ 1 := by rw [div_le_one hlogXpos]; linarith

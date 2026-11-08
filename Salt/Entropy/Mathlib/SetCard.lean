@@ -27,10 +27,20 @@ variable {α : Type*}
 
 -- TODO: Rename `ncard_singleton_inter` to `ncard_singleton_inter_le_one`
 
+/-- `({a} ∩ s).ncard = if a ∈ s then 1 else 0` at `[Decidable (a ∈ s)]`: `split_ifs`, then
+`simp` with the branch hypothesis (`{a} ∩ s` is `{a}` or `∅`). Verbatim from PFR's
+`Mathlib/Data/Set/Card.lean` (the header); the primed name steps around mathlib's
+`Set.ncard_singleton_inter`, which only bounds by `1` (the TODO above). No proof in `Salt/`
+applies it; audited in `Salt/Entropy/All.lean`. -/
 lemma ncard_singleton_inter' (a : α) (s : Set α) [Decidable (a ∈ s)] :
     ({a} ∩ s).ncard = if a ∈ s then 1 else 0 := by
   split_ifs <;> simp [*]
 
+/-- `(s ∩ {a}).ncard = if a ∈ s then 1 else 0` at `[Decidable (a ∈ s)]`, the mirror of
+`ncard_singleton_inter'` by the same `split_ifs <;> simp [*]`. Verbatim from PFR; upstream
+`uniformOn_real_singleton` used it, and the Salt port of `UniformOn.lean` inlines the fact as a
+local `have` instead (its header). No proof in `Salt/` applies it; audited in
+`Salt/Entropy/All.lean`. -/
 lemma ncard_inter_singleton (a : α) (s : Set α) [Decidable (a ∈ s)] :
     (s ∩ {a}).ncard = if a ∈ s then 1 else 0 := by
   split_ifs <;> simp [*]

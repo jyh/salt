@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.S12Compose
 import Salt.MR.M4ClosureRepair
 import Salt.MR.HloExportMR
+import Salt.MR.SocketFrame
 
 /-!
 # ⟦S12-FUSE⟧ — THE CAPSTONE TWIN THAT COMPOSES FROM THE FUSES
@@ -273,9 +274,7 @@ theorem m4_closure_fuse_zero'_nonneg :
     (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband decayPool_nonneg
     (m4_arith_henv_rho_pool decayPool_nonneg harith (price_at_decayPool_socket harith))
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_cc_decay (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
 
@@ -473,9 +472,7 @@ theorem logChowla2_capstone_final' (Aexp : ℝ) (hAexp : 0 < Aexp) :
     linarith
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -681,9 +678,7 @@ theorem logChowla2_capstone_final_rawcap' (Aexp : ℝ) (hAexp : 0 < Aexp) :
     have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
     linarith
   · intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -865,9 +860,7 @@ theorem m4_closure_fuse_zero'_nonneg_gk (K : ℕ) (hK : K ≤ 170000000) :
     (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband decayPool_nonneg
     (m4_arith_henv_rho_pool_gk K decayPool_nonneg harith (price_at_decayPool_socket harith))
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_cc_decay_gk K (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
 
@@ -1036,9 +1029,7 @@ theorem logChowla2_capstone_final'_gk (K : ℕ) (hK : K ≤ 170000000)
     linarith
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -1233,9 +1224,7 @@ theorem logChowla2_capstone_final_rawcap'_gk (K : ℕ) (hK : K ≤ 170000000)
     have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
     linarith
   · intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)

@@ -68,6 +68,8 @@ open scoped ArithmeticFunction.omega
 structure lives entirely in `λ`; `grahamTheta`'s `dhWeightSq` is the case `λ = grahamTheta z`. -/
 def dhWeightSqW (lam : ℕ → ℝ) (n : ℕ) : ℝ := (∑ d ∈ n.divisors, lam d) ^ 2
 
+/-- `0 ≤ w_λ(n)`: a square (`sq_nonneg`), for any weight `λ`. A `simp` lemma; the weight sign in
+`dhCoeffW_nonneg`. -/
 @[simp] lemma dhWeightSqW_nonneg (lam : ℕ → ℝ) (n : ℕ) : 0 ≤ dhWeightSqW lam n := sq_nonneg _
 
 /-- **Floor port (weight side).** `w_λ(1) = (λ 1)²` (the divisors of `1` are `{1}`). -/

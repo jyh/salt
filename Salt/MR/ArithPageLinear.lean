@@ -77,6 +77,10 @@ theorem s15_doorRowFloorL_ge {M : ℕ} (hM : 1 ≤ M) : (2 : ℕ) ^ 36 ≤ doorR
     _ = 1 * AdoorL M := (one_mul _).symm
     _ ≤ M * AdoorL M := Nat.mul_le_mul_right _ hM
 
+/-- `0 < log 𝒬₁` at the linear door (`𝒬₁ = calQK (AdoorL M) (3072·M) M 1`), at `hM : 1 ≤ M`:
+`s15_log_calQK_L_one` reads it as `doorRowFloorL M · log 2`, and `s15_doorRowFloorL_ge` gives
+the floor `2^36 ≤ doorRowFloorL M`. Consumed by `a2Level1_L_pos`, `s15_a2Level1_L_exp` and
+`doorGrade_summand2_priced_rho_L`. -/
 theorem s15_log_calQK_L_one_pos {M : ℕ} (hM : 1 ≤ M) :
     (0 : ℝ) < Real.log ((calQK (AdoorL M) (3072 * M) M 1 : ℕ) : ℝ) := by
   rw [s15_log_calQK_L_one]
@@ -85,6 +89,10 @@ theorem s15_log_calQK_L_one_pos {M : ℕ} (hM : 1 ≤ M) :
   have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
   nlinarith
 
+/-- `0 ≤ log (log 𝒬₁)` at the linear door, at `hM : 1 ≤ M`: `log 𝒬₁ = doorRowFloorL M · log 2`
+with `2^36 ≤ doorRowFloorL M` and `log 2 > 0.69`, so `1 ≤ log 𝒬₁`. Consumed, through
+`calQK_L_one_gk_eq`, at one site each in `FlatDoorEpsRung2`, `S16FlatTerminalLinear`,
+`S16FlatTerminalLinearLH` and `StrideDoorAllGrades`. -/
 theorem s15_loglogQ1_L_nonneg {M : ℕ} (hM : 1 ≤ M) :
     (0 : ℝ) ≤ Real.log (Real.log ((calQK (AdoorL M) (3072 * M) M 1 : ℕ) : ℝ)) := by
   refine Real.log_nonneg ?_
@@ -94,6 +102,9 @@ theorem s15_loglogQ1_L_nonneg {M : ℕ} (hM : 1 ≤ M) :
   have hlog2 : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
   nlinarith
 
+/-- `0 < 𝒫₁` at the linear door (`𝒫₁ = calP (AdoorL M) (3072·M) 1`, cast to `ℝ`): `calP` unfolds
+to a power of two. Consumed by `a2Level1_L_pos`, `s15_a2Level1_L_exp`,
+`doorGrade_summand2_priced_rho_L` and `S13BandCapLinear.s14_p2_in_logs_L`. -/
 theorem s15_calP_L_one_pos (M : ℕ) : (0 : ℝ) < ((calP (AdoorL M) (3072 * M) 1 : ℕ) : ℝ) := by
   have h : 0 < calP (AdoorL M) (3072 * M) 1 := by rw [calP]; exact Nat.two_pow_pos _
   exact_mod_cast h
@@ -127,11 +138,18 @@ def H1doorL (M : ℕ) : ℝ :=
   ((calP (AdoorL M) (3072 * M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 12)
     / (Real.log ((calQK (AdoorL M) (3072 * M) M 1 : ℕ) : ℝ)) ^ ((1 : ℝ) / 3)
 
+/-- `0 < a2Level1_L M` at `hM : 1 ≤ M`: the level-1 grade is `(log 𝒬₁)^{1/3} / 𝒫₁^{1/12}`, a
+quotient of two positive real powers (`s15_log_calQK_L_one_pos`, `s15_calP_L_one_pos`). Consumed
+by `a2Level1_L_nonneg`. -/
 theorem a2Level1_L_pos {M : ℕ} (hM : 1 ≤ M) : 0 < a2Level1_L M := by
   rw [a2Level1_L]
   exact div_pos (Real.rpow_pos_of_pos (s15_log_calQK_L_one_pos hM) _)
     (Real.rpow_pos_of_pos (s15_calP_L_one_pos M) _)
 
+/-- `0 ≤ a2Level1_L M` at `hM : 1 ≤ M`, the `.le` of `a2Level1_L_pos`. Consumed by
+`a2DoorGrade_L_nonneg`, `a2DoorGrade_pool_L_nonneg`, and as the `hlvl0` step of every
+`ThmA2Linear` row and capstone twin at the G-lever (twelve sites, the `_kwide` siblings
+included). -/
 theorem a2Level1_L_nonneg {M : ℕ} (hM : 1 ≤ M) : 0 ≤ a2Level1_L M := (a2Level1_L_pos hM).le
 
 /-- **THE LEVEL-1 GRADE IS K-INVARIANT AT THE LINEAR DOOR** (`a2Level1_gk_eq` twin): level 1
@@ -346,13 +364,27 @@ namespace DoorArithFrameRho_L
 
 variable {M H j : ℕ} {X C₁ M₀ K ρ : ℝ}
 
+/-- `0 ≤ log (1/ρ)` from the frame's `rho_pos` and `rho_le_one` (`log_one_div_nonneg`) — the
+linear frame's copy of `M4ArithRho.DoorArithFrameRho.logInvRho_nonneg`. Consumed by `loglogX_ge`
+below and by `a2DoorGrade_L_priced_rho` / `a2DoorGrade_pool_L_priced_rho` (§3, §5); outside this
+file every holder of a `DoorArithFrameRho_L` reaches it as `hfr.logInvRho_nonneg`. -/
 theorem logInvRho_nonneg (h : DoorArithFrameRho_L M H j X C₁ M₀ K ρ) :
     0 ≤ Real.log (1 / ρ) :=
   log_one_div_nonneg h.rho_pos h.rho_le_one
 
+/-- `1 < log H` from the frame's `logH_nonneg` and `Hfloor : 50 ≤ log (log H)`
+(`one_lt_log_of_loglog_ge`) — the linear frame's copy of
+`M4ArithRho.DoorArithFrameRho.one_lt_logH`. Consumed by `a2DoorGrade_L_priced_rho` and
+`a2DoorGrade_pool_L_priced_rho` in this file, and as `hfr.one_lt_logH` wherever a
+`DoorArithFrameRho_L` is held. -/
 theorem one_lt_logH (h : DoorArithFrameRho_L M H j X C₁ M₀ K ρ) : 1 < Real.log (H : ℝ) :=
   one_lt_log_of_loglog_ge h.logH_nonneg (by norm_num) h.Hfloor
 
+/-- The frame's `arm` field with its `36·K` summand dropped by `Knonneg`:
+`7000·log (log H) + 500·log (1/ρ) + 6600 ≤ log (log X)` — the linear frame's copy of
+`M4ArithRho.DoorArithFrameRho.armWeak`. Consumed by `loglogX_ge` below, by the two priced grades
+of this file (the `doorGrade_summand3/4_priced_rho` steps), and as `hfr.armWeak` wherever a
+`DoorArithFrameRho_L` is held. -/
 theorem armWeak (h : DoorArithFrameRho_L M H j X C₁ M₀ K ρ) :
     7000 * Real.log (Real.log (H : ℝ)) + 500 * Real.log (1 / ρ) + 6600
       ≤ Real.log (Real.log X) := by
@@ -360,6 +392,11 @@ theorem armWeak (h : DoorArithFrameRho_L M H j X C₁ M₀ K ρ) :
   have := h.Knonneg
   linarith
 
+/-- `356600 ≤ log (log X)`: `armWeak` at `Hfloor` (`7000·50`) and `logInvRho_nonneg`, plus the
+`6600`. The linear frame's copy of `M4ArithRho.DoorArithFrameRho.loglogX_ge` (the logarithmic
+`DoorArithFrame` reads `475000` here). Consumed by `one_lt_logX` below and as `hfr.loglogX_ge`
+wherever a `DoorArithFrameRho_L` is held (`M4AssemblyFrames`, `S13BandBase`, the S16
+terminals). -/
 theorem loglogX_ge (h : DoorArithFrameRho_L M H j X C₁ M₀ K ρ) :
     356600 ≤ Real.log (Real.log X) := by
   have h1 := h.armWeak
@@ -367,6 +404,9 @@ theorem loglogX_ge (h : DoorArithFrameRho_L M H j X C₁ M₀ K ρ) :
   have h3 := h.logInvRho_nonneg
   linarith
 
+/-- `1 < log X` from the frame's `logX_nonneg` and `loglogX_ge` (`one_lt_log_of_loglog_ge`) —
+the linear frame's copy of `M4ArithRho.DoorArithFrameRho.one_lt_logX`. Consumed by the two
+priced grades of this file and as `hfr.one_lt_logX` wherever a `DoorArithFrameRho_L` is held. -/
 theorem one_lt_logX (h : DoorArithFrameRho_L M H j X C₁ M₀ K ρ) : 1 < Real.log X :=
   one_lt_log_of_loglog_ge h.logX_nonneg (show (0:ℝ) < 356600 by norm_num) h.loglogX_ge
 
@@ -504,6 +544,11 @@ def a2DoorGrade_L (M : ℕ) (X h C₁ M₀ : ℝ) : ℝ :=
         * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
     + 6315000 / h
 
+/-- `0 ≤ a2DoorGrade_L M X h C₁ M₀` at `hM : 1 ≤ M`, `hX : 0 ≤ log X`, `hh : 0 < h`: each of the
+five summands is nonnegative — `positivity` on four, `a2Level1_L_nonneg` on the level-1 term.
+Consumed by `a2DoorGrade_L_priced_rho`, by `M4RowAssemblyLinear`
+(`m4_chiSummedFreeRowBig_of_doorGrade_L` and the lever copy `a2DoorGrade_nonneg_L_gk`) and by
+`M4RowSpineLinear.m4_chiSummedFreeRowBig_of_doorGradeGated_L`. -/
 theorem a2DoorGrade_L_nonneg {M : ℕ} (hM : 1 ≤ M) {X h C₁ M₀ : ℝ} (hX : 0 ≤ Real.log X)
     (hh : 0 < h) : 0 ≤ a2DoorGrade_L M X h C₁ M₀ := by
   have hlvl := a2Level1_L_nonneg hM
@@ -800,6 +845,12 @@ theorem a2DoorGrade_pool_L_at_decay (M : ℕ) (X h C₁ M₀ : ℝ) :
     a2DoorGrade_pool_L M X h C₁ M₀ ((Real.log X) ^ (-(1 : ℝ) / 500))
       = a2DoorGrade_L M X h C₁ M₀ := rfl
 
+/-- `0 ≤ a2DoorGrade_pool_L M X h C₁ M₀ π₀` at `hM`, `hX : 0 ≤ log X`, `hh : 0 < h`,
+`hπ : 0 ≤ π₀`: the pooled linear grade (`188133·π₀` in the decay slot) is a sum of nonnegative
+summands, `a2Level1_L_nonneg` on the level-1 term. Consumed by `a2DoorGrade_pool_L_priced_rho`,
+by `M4RowAssemblyLinear` (`m4_chiSummedFreeRowBig_of_doorGrade_pool_L`, the lever copy
+`a2DoorGrade_pool_nonneg_L_gk`), `M4ArithZeroLinear`, `S16ProducersH` (two priced-`ρH` grades)
+and `StrideDoorAllGrades`. -/
 theorem a2DoorGrade_pool_L_nonneg {M : ℕ} (hM : 1 ≤ M) {X h C₁ M₀ π₀ : ℝ}
     (hX : 0 ≤ Real.log X) (hh : 0 < h) (hπ : 0 ≤ π₀) :
     0 ≤ a2DoorGrade_pool_L M X h C₁ M₀ π₀ := by

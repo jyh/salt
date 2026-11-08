@@ -10,6 +10,9 @@ import Salt.MR.M4DoorClosePool
 import Salt.MR.M4AssemblyPool
 import Salt.MR.M4BaseNarrow
 import Salt.MR.M4RowsChiEnd
+import Salt.MR.DoorCloseScale
+import Salt.MR.SocketFrame
+import Salt.MR.SumSwapWeighted
 
 /-!
 # `M4RowAssemblyLinear` — THE ASSEMBLY LAYER at the LINEAR door
@@ -687,6 +690,12 @@ theorem m4_wave_closed_coprime_discharged_False_L_gk (K : ℕ) (hK : K ≤ 17000
     hK0, hX₀0, hmain⟩
 /-! ## §3 — `M4DoorClosePool` -/
 
+/-- `M4DoorClosePool.DoorRowCarriedPool` at the LINEAR door: the same conjuncts with
+`Adoor → AdoorL` and `H1door → H1doorL` wherever the door is read (the `calP`/`calQK` ladders,
+the `thinBundleG` floor, the `VJ` gate), the pool diff unchanged (`π₀`, the five grading bounds,
+the `188133·π₀` summand). Consumed by `m4_door_meansq_carried_pool_L`,
+`m4_dyadicRow_carried_pool_L`, the bridge `doorRowCarried_of_t0free_pool_L` and the closer
+`m4_wave_structurally_closed_pool_L`. -/
 def DoorRowCarriedPool_L (Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
     {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd j : ℕ) (B : ℝ) : Prop :=
   ∃ (P Q : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
@@ -880,19 +889,7 @@ theorem m4_door_meansq_carried_pool_L :
   subst hhj
   haveI : NeZero q := ⟨hq.ne'⟩
   -- ⟦the scale's arithmetic⟧
-  have hX0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hXee
-  have h1ee : (1 : ℝ) ≤ Real.exp (Real.exp 1) := by
-    have h1 := Real.add_one_le_exp (Real.exp 1)
-    have h2 := Real.exp_pos 1
-    linarith
-  have hXd1 : 1 ≤ Xd := by
-    have : (1 : ℝ) ≤ ((Xd : ℕ) : ℝ) := le_trans h1ee hXee
-    exact_mod_cast this
-  have hexp2 : (3 : ℝ) ≤ Real.exp 2 := by
-    have := Real.add_one_le_exp (2 : ℝ); linarith
-  have hlog1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
-  have hLXe : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  obtain ⟨hX0, hXd1, hlog1, hLXe⟩ := door_close_scale hXee hlX2
   have hP1 : 1 ≤ P := by omega
   have hP2 : 2 ≤ P := by omega
   -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate
@@ -996,6 +993,10 @@ theorem m4_dyadicRow_carried_pool_L :
       (hcar H hlo hhi q hq hqQ i hik χ j hjL hcase s hsH)
   · exact le_trans (doorRow_trivial_grade_L χ M j hApos) (htriv j H (not_le.mp hcase))
 
+/-- `M4DoorClosePool.DoorRowCarriedT0Pool` at the LINEAR door — ARM 1 discharged: the `T₀`
+conjunct is `DoorRowT0Gates` (the binders `Kbox X₀w`) in place of the band integral, the door
+read at `AdoorL` and `H1doorL`. The hypothesis of `doorRowCarried_of_t0free_pool_L`; the
+register `m4_wave_closed_T0_discharged_pool_L` reads. -/
 def DoorRowCarriedT0Pool_L (Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
     {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd j : ℕ) (B : ℝ) : Prop :=
   ∃ (P Q Ddis : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
@@ -1176,6 +1177,12 @@ theorem doorRowCarried_of_t0free_pool_L (Qm : ℕ) :
 set_option maxHeartbeats 1600000 in
 -- `m4_wave_structurally_closed_L`'s own budget: the register mentions `DoorRowCarriedPool_L`
 -- under six binders, and that is the whole cost
+/-- `M4DoorClosePool.m4_wave_structurally_closed_pool` at the LINEAR door: `M4DoorGates_L`,
+`doorRowFloorL M`, `DoorRowCarriedPool_L` in the ARM-1 slot, ⟦R2⟧'s gate at `calP (AdoorL M) …`
+and `M4CoprimeBlockMeanSq_L` as ARM 2, concluding `¬ logChowla2Fails R.eps R.x R.ω`; over
+`m4_dyadicRow_carried_pool_L`, `m4_nonCoprime_classMeanSq_L` and
+`m4_wave_closed_of_dyadicRow_L`, under `maxHeartbeats 1600000`. Consumed by
+`m4_wave_closed_T0_discharged_pool_L` only. -/
 theorem m4_wave_structurally_closed_pool_L (Qm : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
@@ -1241,6 +1248,11 @@ theorem m4_wave_structurally_closed_pool_L (Qm : ℕ) :
 
 set_option maxHeartbeats 1600000 in
 -- `m4_wave_closed_T0_discharged_L`'s own budget, at the pooled register
+/-- The discharged closer at the LINEAR door: ARM 1 read as `DoorRowCarriedT0Pool_L`, bridged by
+`doorRowCarried_of_t0free_pool_L` under `q ≤ Qm`, over `m4_wave_structurally_closed_pool_L`; the
+coprime supply `M4CoprimeBlockMeanSq_L` is the only analytic carry left. No proof in `Salt/`
+applies it; the lever's closers are §2's `m4_wave_closed_coprime_discharged_L_gk` and its
+`False` form. -/
 theorem m4_wave_closed_T0_discharged_pool_L (Qm : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
@@ -1299,6 +1311,11 @@ theorem m4_wave_closed_T0_discharged_pool_L (Qm : ℕ) :
     (doorLadder R.x H (i + 1) + s) j (MS j H) hqQm
     (hcar H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH)
 
+/-- `M4DoorClosePool.DoorRowCarriedJoin` at the LINEAR door: `DoorRowCarriedPool_L` with the one
+primed conjunct — `gRows` at `ThmA2.a2RowsSum'` (STRONGER than the pooled one; nothing implies
+it from the pool). Consumed by `m4_door_meansq_carried_join_L`, `m4_dyadicRow_carried_join_L`,
+the bridge `doorRowCarried_of_t0free_join_L` and the closer
+`m4_wave_structurally_closed_join_L`. -/
 def DoorRowCarriedJoin_L (Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
     {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd j : ℕ) (B : ℝ) : Prop :=
   ∃ (P Q : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
@@ -1446,6 +1463,13 @@ def DoorRowCarriedJoin_L (Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
 
 set_option maxHeartbeats 4000000 in
 -- the same cause as §2, at the joined capstone
+/-- `M4DoorClosePool.m4_door_meansq_carried_join` at the LINEAR door: the capstone
+`m4_meansq_per_chi_gen_join_L`, the tail `m4_door_tail_supply_L`, the datum `doorChiCoeff_L`,
+the pin chain `doorChiCoeff_seamCoefW_at_door_H_L` / `_punct_H_L`, the length gate
+`doorL_length_gate_iff` and `AdoorL_ge_old`; the same ~99-conjunct destructure and ~87-argument
+application under `maxHeartbeats 4000000`. At every joined instance with `doorRowFloorL M ≤ j`
+the door's mean square at `doorChiCoeff_L χ M` is at most `B`. Consumed by
+`m4_dyadicRow_carried_join_L`. -/
 theorem m4_door_meansq_carried_join_L :
     ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -1485,19 +1509,7 @@ theorem m4_door_meansq_carried_join_L :
   subst hhj
   haveI : NeZero q := ⟨hq.ne'⟩
   -- ⟦the scale's arithmetic⟧
-  have hX0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hXee
-  have h1ee : (1 : ℝ) ≤ Real.exp (Real.exp 1) := by
-    have h1 := Real.add_one_le_exp (Real.exp 1)
-    have h2 := Real.exp_pos 1
-    linarith
-  have hXd1 : 1 ≤ Xd := by
-    have : (1 : ℝ) ≤ ((Xd : ℕ) : ℝ) := le_trans h1ee hXee
-    exact_mod_cast this
-  have hexp2 : (3 : ℝ) ≤ Real.exp 2 := by
-    have := Real.add_one_le_exp (2 : ℝ); linarith
-  have hlog1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
-  have hLXe : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  obtain ⟨hX0, hXd1, hlog1, hLXe⟩ := door_close_scale hXee hlX2
   have hP1 : 1 ≤ P := by omega
   have hP2 : 2 ≤ P := by omega
   -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate
@@ -1570,6 +1582,10 @@ theorem m4_door_meansq_carried_join_L :
   simp only [shortSum_winCutH_seamS0] at hres
   exact le_trans hres henv
 
+/-- `M4ChiDyadicRowMeanSq_L R M k MS` from the modulus cap, the trivial grade below
+`doorRowFloorL M` (`doorRow_trivial_grade_L`) and `DoorRowCarriedJoin_L …` at every door
+instance above it, over `m4_door_meansq_carried_join_L`. Consumed by
+`m4_wave_structurally_closed_join_L`. -/
 theorem m4_dyadicRow_carried_join_L :
     ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -1600,6 +1616,10 @@ theorem m4_dyadicRow_carried_join_L :
       (hcar H hlo hhi q hq hqQ i hik χ j hjL hcase s hsH)
   · exact le_trans (doorRow_trivial_grade_L χ M j hApos) (htriv j H (not_le.mp hcase))
 
+/-- `M4DoorClosePool.DoorRowCarriedT0Join` at the LINEAR door: `gRows` at `ThmA2.a2RowsSum'`,
+the `T₀` conjunct as `DoorRowT0Gates` (the binders `Kbox X₀w`), the door read at `AdoorL` and
+`H1doorL`. The hypothesis of `doorRowCarried_of_t0free_join_L`; the register
+`m4_wave_closed_T0_discharged_join_L` reads. -/
 def DoorRowCarriedT0Join_L (Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
     {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd j : ℕ) (B : ℝ) : Prop :=
   ∃ (P Q Ddis : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
@@ -1783,6 +1803,9 @@ theorem doorRowCarried_of_t0free_join_L (Qm : ℕ) :
 set_option maxHeartbeats 1600000 in
 -- `m4_wave_structurally_closed_L`'s own budget: the register mentions `DoorRowCarriedJoin_L`
 -- under six binders, and that is the whole cost
+/-- `m4_wave_structurally_closed_pool_L` with `DoorRowCarriedJoin_L` in the ARM-1 slot over
+`m4_dyadicRow_carried_join_L`, everything else verbatim; `maxHeartbeats 1600000`. Consumed by
+`m4_wave_closed_T0_discharged_join_L` only. -/
 theorem m4_wave_structurally_closed_join_L (Qm : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
@@ -1848,6 +1871,10 @@ theorem m4_wave_structurally_closed_join_L (Qm : ℕ) :
 
 set_option maxHeartbeats 1600000 in
 -- `m4_wave_closed_T0_discharged_L`'s own budget, at the joined register
+/-- ARM 1 read as `DoorRowCarriedT0Join_L`, bridged by `doorRowCarried_of_t0free_join_L` under
+`q ≤ Qm`, over `m4_wave_structurally_closed_join_L`; the coprime supply `M4CoprimeBlockMeanSq_L`
+is the only analytic carry left. No proof in `Salt/` applies it; the lever's closers are §2's
+`m4_wave_closed_coprime_discharged_L_gk` and its `False` form. -/
 theorem m4_wave_closed_T0_discharged_join_L (Qm : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
@@ -2102,19 +2129,7 @@ theorem m4_door_meansq_carried_pool_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   subst hhj
   haveI : NeZero q := ⟨hq.ne'⟩
   -- ⟦the scale's arithmetic⟧
-  have hX0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hXee
-  have h1ee : (1 : ℝ) ≤ Real.exp (Real.exp 1) := by
-    have h1 := Real.add_one_le_exp (Real.exp 1)
-    have h2 := Real.exp_pos 1
-    linarith
-  have hXd1 : 1 ≤ Xd := by
-    have : (1 : ℝ) ≤ ((Xd : ℕ) : ℝ) := le_trans h1ee hXee
-    exact_mod_cast this
-  have hexp2 : (3 : ℝ) ≤ Real.exp 2 := by
-    have := Real.add_one_le_exp (2 : ℝ); linarith
-  have hlog1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
-  have hLXe : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  obtain ⟨hX0, hXd1, hlog1, hLXe⟩ := door_close_scale hXee hlX2
   have hP1 : 1 ≤ P := by omega
   have hP2 : 2 ≤ P := by omega
   -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate
@@ -2586,19 +2601,7 @@ theorem m4_door_meansq_carried_join_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   subst hhj
   haveI : NeZero q := ⟨hq.ne'⟩
   -- ⟦the scale's arithmetic⟧
-  have hX0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hXee
-  have h1ee : (1 : ℝ) ≤ Real.exp (Real.exp 1) := by
-    have h1 := Real.add_one_le_exp (Real.exp 1)
-    have h2 := Real.exp_pos 1
-    linarith
-  have hXd1 : 1 ≤ Xd := by
-    have : (1 : ℝ) ≤ ((Xd : ℕ) : ℝ) := le_trans h1ee hXee
-    exact_mod_cast this
-  have hexp2 : (3 : ℝ) ≤ Real.exp 2 := by
-    have := Real.add_one_le_exp (2 : ℝ); linarith
-  have hlog1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
-  have hLXe : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  obtain ⟨hX0, hXd1, hlog1, hLXe⟩ := door_close_scale hXee hlX2
   have hP1 : 1 ≤ P := by omega
   have hP2 : 2 ≤ P := by omega
   -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate
@@ -3360,15 +3363,9 @@ theorem m4_freeShiftBlock_at_L {M H L q : ℕ} {χ : DirichletCharacter ℂ q} {
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
   -- ⟦the two comparisons the free block affords⟧
   have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    have hnat : B + s ≤ 2 * A + 4 := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
   have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
   have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
   have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
   have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
@@ -3446,10 +3443,7 @@ theorem m4_chiBlock_at_L {R : ChowlaRegime} {M H L q : ℕ} {χ : DirichletChara
   have hA4 : 4 ≤ A := by omega
   have hB2A : B ≤ 2 * A := by omega
   have hL2A : (L : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : L ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show L ≤ 2 * A by omega)
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
   set Lg := Nat.log 2 L with hLg
   set X : ℕ → ℕ → ℕ → ℝ := fun j t n =>
@@ -3468,14 +3462,8 @@ theorem m4_chiBlock_at_L {R : ChowlaRegime} {M H L q : ℕ} {χ : DirichletChara
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
       = SL * ∑ j ∈ Finset.range (Lg + 1),
           (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [← Finset.sum_mul]
-    congr 1
-    exact Finset.sum_comm
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
+    sum_mul_weighted_sum_comm _ _ _ _ _ _
   -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
   have hsle : ∀ j t : ℕ, t ≤ L / 2 ^ (j + 1) → 2 ^ (j + 1) * t ≤ L := by
     intro j t ht
@@ -3838,11 +3826,7 @@ theorem m4_classBlockMeanSq_of_rowDatum_L {R : ChowlaRegime} {M k : ℕ} {MS : �
     have hd2 : 2 ≤ Nat.gcd r q := by omega
     have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
     have h2q : 2 * q ≤ H := by
-      have hR : ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hdA : Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hdA2 : 2 * Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / Nat.gcd r q :=
@@ -4009,11 +3993,7 @@ theorem m4_rowDatum_dilated_L :
     have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
     have hAfl : H + 1 ≤ doorLadder R.x H (i + 1) := doorLadder_floor hxH (i + 1)
     have h2d : 2 * d ≤ H := by
-      have hR : ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / d :=
       (Nat.le_div_iff_mul_le hd).mpr (by omega)
     have hXpos : 0 < doorLadder R.x H (i + 1) / d - 1 + s := by omega
@@ -4041,11 +4021,7 @@ theorem m4_rowDatum_dilated_L :
     intro H hlo hhi q hq hqQ i hik χ d hd2 hdA j hjL s hsL
     have hH2 : H / d + 1 ≤ H := by
       have h2d : 2 * d ≤ H := by
-        have hR : ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) := by
-          push_cast
-          have := harc H hlo hhi
-          linarith
-        exact_mod_cast hR
+        exact_mod_cast (show ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
       have hstep : H / d ≤ H / 2 := Nat.div_le_div_left hd2 (by norm_num)
       omega
     exact hms H hlo hhi q hq hqQ i hik χ j (le_trans hjL (Nat.log_mono_right hH2)) d
@@ -4322,15 +4298,9 @@ theorem m4_freeShiftBlock_at_L_gk (K : ℕ) {M H L q : ℕ} {χ : DirichletChara
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
   -- ⟦the two comparisons the free block affords⟧
   have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    have hnat : B + s ≤ 2 * A + 4 := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
   have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    have hnat : B + s ≤ 2 * (A + s) := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
   have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
   have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
   have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
@@ -4406,10 +4376,7 @@ theorem m4_chiBlock_at_L_gk (K : ℕ) {R : ChowlaRegime} {M H L q : ℕ} {χ : D
   have hA4 : 4 ≤ A := by omega
   have hB2A : B ≤ 2 * A := by omega
   have hL2A : (L : ℝ) ≤ 2 * (A : ℝ) := by
-    have hnat : L ≤ 2 * A := by omega
-    have := (Nat.cast_le (α := ℝ)).mpr hnat
-    push_cast at this ⊢
-    linarith
+    exact_mod_cast (show L ≤ 2 * A by omega)
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
   set Lg := Nat.log 2 L with hLg
   set X : ℕ → ℕ → ℕ → ℝ := fun j t n =>
@@ -4428,14 +4395,8 @@ theorem m4_chiBlock_at_L_gk (K : ℕ) {R : ChowlaRegime} {M H L q : ℕ} {χ : D
             (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
       = SL * ∑ j ∈ Finset.range (Lg + 1),
           (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [← Finset.sum_mul]
-    congr 1
-    exact Finset.sum_comm
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
+    sum_mul_weighted_sum_comm _ _ _ _ _ _
   -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
   have hsle : ∀ j t : ℕ, t ≤ L / 2 ^ (j + 1) → 2 ^ (j + 1) * t ≤ L := by
     intro j t ht
@@ -4791,11 +4752,7 @@ theorem m4_classBlockMeanSq_of_rowDatum_L_gk (K : ℕ) {R : ChowlaRegime} {M k :
     have hd2 : 2 ≤ Nat.gcd r q := by omega
     have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
     have h2q : 2 * q ≤ H := by
-      have hR : ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hdA : Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hdA2 : 2 * Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / Nat.gcd r q :=
@@ -4955,11 +4912,7 @@ theorem m4_rowDatum_dilated_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
     have hAfl : H + 1 ≤ doorLadder R.x H (i + 1) := doorLadder_floor hxH (i + 1)
     have h2d : 2 * d ≤ H := by
-      have hR : ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / d :=
       (Nat.le_div_iff_mul_le hd).mpr (by omega)
     have hXpos : 0 < doorLadder R.x H (i + 1) / d - 1 + s := by omega
@@ -4987,11 +4940,7 @@ theorem m4_rowDatum_dilated_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     intro H hlo hhi q hq hqQ i hik χ d hd2 hdA j hjL s hsL
     have hH2 : H / d + 1 ≤ H := by
       have h2d : 2 * d ≤ H := by
-        have hR : ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) := by
-          push_cast
-          have := harc H hlo hhi
-          linarith
-        exact_mod_cast hR
+        exact_mod_cast (show ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
       have hstep : H / d ≤ H / 2 := Nat.div_le_div_left hd2 (by norm_num)
       omega
     exact hms H hlo hhi q hq hqQ i hik χ j (le_trans hjL (Nat.log_mono_right hH2)) d
@@ -5067,14 +5016,10 @@ theorem m4_hrowsSlot_at_door_end_L :
   obtain ⟨Ct, Cp, hCt, hCp, hrows⟩ := m4_hrowsSum_chi_door_end_L
   refine ⟨Ct, Cp, hCt, hCp, ?_⟩
   intro R M ε cU bU t₁ hM hb1 hc1 hbase hcap H L q j A s hb χ T hT hTX2 hTgate hTll
-  have hq : 0 < q := hb.2.2.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  obtain ⟨hq, hA, hAs, hAsR, hN4⟩ := Salt.MR.socketFrame_facts s hb
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hbase H L q j A s hb
   -- ⟦THE DOOR INSTANCE'S OWN FRAME⟧
-  have hAs : 0 < A + s := lt_of_lt_of_le hA (Nat.le_add_right A s)
-  have hAsR : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by exact_mod_cast hAs
-  have hN4 : (((2 * (A + s) : ℕ)) : ℝ) ≤ 4 * (((A + s : ℕ)) : ℝ) := by push_cast; linarith
   have ha1 : ∀ n : ℕ, ‖winCutH (A + s) (doorCoeffU_L M) n‖ ≤ 1 :=
     fun n => norm_winCutH_le
       (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ 2 m) n
@@ -5332,14 +5277,10 @@ theorem m4_hrowsSlot_at_door_end_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   obtain ⟨Ct, Cp, hCt, hCp, hrows⟩ := m4_hrowsSum_chi_door_end_L_gk K hK
   refine ⟨Ct, Cp, hCt, hCp, ?_⟩
   intro R M ε cU bU t₁ hM hb1 hc1 hbase hcap H L q j A s hb χ T hT hTX2 hTgate hTll
-  have hq : 0 < q := hb.2.2.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  obtain ⟨hq, hA, hAs, hAsR, hN4⟩ := Salt.MR.socketFrame_facts s hb
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hbase H L q j A s hb
   -- ⟦THE DOOR INSTANCE'S OWN FRAME⟧
-  have hAs : 0 < A + s := lt_of_lt_of_le hA (Nat.le_add_right A s)
-  have hAsR : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by exact_mod_cast hAs
-  have hN4 : (((2 * (A + s) : ℕ)) : ℝ) ≤ 4 * (((A + s : ℕ)) : ℝ) := by push_cast; linarith
   have ha1 : ∀ n : ℕ, ‖winCutH (A + s) (doorCoeffU_L_gk K M) n‖ ≤ 1 :=
     fun n => norm_winCutH_le
       (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ 2 m) n
@@ -5582,19 +5523,7 @@ theorem m4_door_meansq_carried_pool_L_gk_kwide (K : ℕ) :
   subst hhj
   haveI : NeZero q := ⟨hq.ne'⟩
   -- ⟦the scale's arithmetic⟧
-  have hX0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hXee
-  have h1ee : (1 : ℝ) ≤ Real.exp (Real.exp 1) := by
-    have h1 := Real.add_one_le_exp (Real.exp 1)
-    have h2 := Real.exp_pos 1
-    linarith
-  have hXd1 : 1 ≤ Xd := by
-    have : (1 : ℝ) ≤ ((Xd : ℕ) : ℝ) := le_trans h1ee hXee
-    exact_mod_cast this
-  have hexp2 : (3 : ℝ) ≤ Real.exp 2 := by
-    have := Real.add_one_le_exp (2 : ℝ); linarith
-  have hlog1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
-  have hLXe : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  obtain ⟨hX0, hXd1, hlog1, hLXe⟩ := door_close_scale hXee hlX2
   have hP1 : 1 ≤ P := by omega
   have hP2 : 2 ≤ P := by omega
   -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate
@@ -5744,19 +5673,7 @@ theorem m4_door_meansq_carried_join_L_gk_kwide (K : ℕ) :
   subst hhj
   haveI : NeZero q := ⟨hq.ne'⟩
   -- ⟦the scale's arithmetic⟧
-  have hX0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hXee
-  have h1ee : (1 : ℝ) ≤ Real.exp (Real.exp 1) := by
-    have h1 := Real.add_one_le_exp (Real.exp 1)
-    have h2 := Real.exp_pos 1
-    linarith
-  have hXd1 : 1 ≤ Xd := by
-    have : (1 : ℝ) ≤ ((Xd : ℕ) : ℝ) := le_trans h1ee hXee
-    exact_mod_cast this
-  have hexp2 : (3 : ℝ) ≤ Real.exp 2 := by
-    have := Real.add_one_le_exp (2 : ℝ); linarith
-  have hlog1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
-  have hLXe : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  obtain ⟨hX0, hXd1, hlog1, hLXe⟩ := door_close_scale hXee hlX2
   have hP1 : 1 ≤ P := by omega
   have hP2 : 2 ≤ P := by omega
   -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate
@@ -5932,11 +5849,7 @@ theorem m4_rowDatum_dilated_L_gk_kwide (K : ℕ) :
     have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
     have hAfl : H + 1 ≤ doorLadder R.x H (i + 1) := doorLadder_floor hxH (i + 1)
     have h2d : 2 * d ≤ H := by
-      have hR : ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / d :=
       (Nat.le_div_iff_mul_le hd).mpr (by omega)
     have hXpos : 0 < doorLadder R.x H (i + 1) / d - 1 + s := by omega
@@ -5964,11 +5877,7 @@ theorem m4_rowDatum_dilated_L_gk_kwide (K : ℕ) :
     intro H hlo hhi q hq hqQ i hik χ d hd2 hdA j hjL s hsL
     have hH2 : H / d + 1 ≤ H := by
       have h2d : 2 * d ≤ H := by
-        have hR : ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) := by
-          push_cast
-          have := harc H hlo hhi
-          linarith
-        exact_mod_cast hR
+        exact_mod_cast (show ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
       have hstep : H / d ≤ H / 2 := Nat.div_le_div_left hd2 (by norm_num)
       omega
     exact hms H hlo hhi q hq hqQ i hik χ j (le_trans hjL (Nat.log_mono_right hH2)) d
@@ -6062,14 +5971,10 @@ theorem m4_hrowsSlot_at_door_end_L_gk_kwide (K : ℕ) :
   obtain ⟨Ct, Cp, hCt, hCp, hrows⟩ := m4_hrowsSum_chi_door_end_L_gk_kwide K
   refine ⟨Ct, Cp, hCt, hCp, ?_⟩
   intro R M ε cU bU t₁ hM hKw hb1 hc1 hbase hcap H L q j A s hb χ T hT hTX2 hTgate hTll
-  have hq : 0 < q := hb.2.2.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  obtain ⟨hq, hA, hAs, hAsR, hN4⟩ := Salt.MR.socketFrame_facts s hb
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hbase H L q j A s hb
   -- ⟦THE DOOR INSTANCE'S OWN FRAME⟧
-  have hAs : 0 < A + s := lt_of_lt_of_le hA (Nat.le_add_right A s)
-  have hAsR : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by exact_mod_cast hAs
-  have hN4 : (((2 * (A + s) : ℕ)) : ℝ) ≤ 4 * (((A + s : ℕ)) : ℝ) := by push_cast; linarith
   have ha1 : ∀ n : ℕ, ‖winCutH (A + s) (doorCoeffU_L_gk K M) n‖ ≤ 1 :=
     fun n => norm_winCutH_le
       (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ 2 m) n

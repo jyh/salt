@@ -15,7 +15,7 @@ whole family above Q₀. (Negation shape verified against the def: the ∃-witne
 
 Calibration constant: C⋆ ≥ 2/c₀ with c₀ = 1/126848, i.e. C⋆ ≈ 253696 ≈ 2^18.
 GROUNDED-as-doc: Basic.lean:166-169 (hcal residual, "c₀ = 1/126848, risk R6 numeral
-extraction owed") + ZeroFreeReal.lean:600-604 (docstring "c₀ = min(1/50456,1/126848)
+extraction owed") + ZeroFreeReal.lean:599-603 (docstring "c₀ = min(1/50456,1/126848)
 = 1/126848"; the theorem itself is ∃-shaped — the numeral is design-grade, NOT
 kernel-extracted).
 
@@ -52,7 +52,7 @@ MEMORY, ungrounded.)
 
 ## D2 — The three-zone composite: the classical NO-EXCEPTIONAL-ZERO region
 
-¬F(C⋆) + `zero_free_region_all` (GROUNDED ZeroFreeReal.lean:605-608: c₀-region for
+¬F(C⋆) + `zero_free_region_all` (GROUNDED ZeroFreeReal.lean:604-607: c₀-region for
 (χ²≠1 ∨ Im ρ≠0), Re ρ ≥ 1/2, radius c₀/log(q(|Im ρ|+2))) + gadget ⟹
 
 ∃ c₁ > 0, ∀ q [NeZero q], ∀ primitive quadratic χ ≠ 1 mod q, ∀ ρ:
@@ -63,7 +63,7 @@ gadget arm (real form suffices — no complex-ball need below Q₀ for THIS shap
 Im ρ = 0, q > Q₀ → ¬F arm; conversion 1−β > 1/(C⋆ log q) ≥ c₁/log(2q) holds for
 c₁ ≤ 1/C⋆ since log(2q) ≥ log q. Take c₁ = min(c₀, 1/C⋆, c_iso(Q₀)).
 This is the FULL classical zero-free region with the Siegel carve-out (S3e territory,
-ZeroFreeReal.lean:603) CLOSED — the exact analytic input for effective PNT-in-APs.
+ZeroFreeReal.lean:602) CLOSED — the exact analytic input for effective PNT-in-APs.
 New Lean: B-class glue. Effectivity: as D1 (single nonconstructive c_iso).
 
 ## D3 — The complex ball at 1 for ALL q (the brief's composite, scope-corrected)
@@ -118,7 +118,7 @@ artillery (repelling zeros NEAR a deep β₀ that F supplies); it cannot amplify
 The landed SW chain's only flagged ineffectivity is Siegel (GROUNDED All.lean:118
 "Siegel's intrinsic ineffective constant"; the ineffective choice: Siegel.lean:220-224
 exceptional-branch dichotomy; consumer slot: Fold.lean:167 `siegel_theorem ε`).
-Statement (GROUNDED SiegelClose.lean:841-844): ∀ε>0 ∃C>0, primitive quadratic real
+Statement (GROUNDED SiegelClose.lean:848-851): ∀ε>0 ∃C>0, primitive quadratic real
 zeros obey β ≤ 1 − C/q^ε.
 Under ¬F, D1's standoff β ≤ 1 − c₁/log q implies this with **effective**
 C(ε) = c₁·inf_{q≥3}(q^ε/log q) > 0 (inf attained, explicit in ε and c₁) — for large q,
@@ -135,7 +135,7 @@ artifact as of 2026-07" — falsified by Gate.lean:150.
 
 ## D7 — The χ-twist question (Vk chain × ¬F): NO direct combination; the four needs
 
-`zeta_zero_free_region_pow` (GROUNDED GrowthPow.lean:1044-1047: ζ-zeros of height
+`zeta_zero_free_region_pow` (GROUNDED GrowthPow.lean:1042-1045: ζ-zeros of height
 ≥ T₀ obey Re ρ ≤ 1 − c/((log|Im ρ|)^(3/4)(loglog|Im ρ|)^3)) and `zeta_lower_all_t`
 (GROUNDED ZetaLowerAllT.lean:273-277: c''/((log(|t|+3))^(3/4)(loglog(|t|+16))^4) ≤
 ‖ζ(1+d'+it)‖, d' ∈ [0,1], pole point excluded) are ζ-ONLY, t-aspect statements; ¬F is
@@ -166,7 +166,7 @@ Resulting family region under ¬F + future VK-L: THREE-ZONE — ball at 1 (¬F),
 ## D8 — ¬F ⟹ HeathBrownStatement, vacuously
 
 `HeathBrownStatement ≡ IMSZ → TwinPrimeConjecture` (def GROUNDED SiegelTwin.lean:92-93).
-D1 gives ¬IMSZ, so the HB-ENGINE campaign target (DHRepulsion.lean:331-333 honesty
+D1 gives ¬IMSZ, so the HB-ENGINE campaign target (DHRepulsion.lean:347-349 honesty
 block; MEMORY project — HB-ENGINE registered future campaign) is TRUE-BUT-INERT on the
 ¬F side: the engine can never fire. Dichotomy bookkeeping made exact: F-side = the HB
 engine manufactures twins; ¬F-side = effectivity harvest (D1/D2/D6), NOT a known route
@@ -174,12 +174,12 @@ to TPC. No known classical route derives twins from ¬F — the honest death map
 
 ## D9 — The spine and λ-nonpret: dichotomy-INVARIANT; do not oversell ¬F
 
-`lambda_nonpret_of_bridge` (GROUNDED NonPret.lean:114-123) is the ζ-only (χ=1) leg,
+`lambda_nonpret_of_bridge` (GROUNDED NonPret.lean:113-122) is the ζ-only (χ=1) leg,
 conditional only on the Euler-bridge residual — untouched by ¬F. The spine terminal
 `log_chowla_two_final` (GROUNDED SpineFinal.lean:416-428) is gated on `MRTUniformity`
 (def GROUNDED MRTDoor.lean:48-50, exponential-sum L¹ door) + the AM-GM residual —
 no Dirichlet-character family input at growing modulus. The S5 split form fixes Q
-BEFORE x₀ (GROUNDED NonPret.lean:120: ∀ Q ≥ 1, ∃ x₀ C, …), so future χ-legs need only
+BEFORE x₀ (GROUNDED NonPret.lean:119: ∀ Q ≥ 1, ∃ x₀ C, …), so future χ-legs need only
 FIXED-q L-lower bounds: compact-min per character (pattern GROUNDED
 ZetaLowerAllT.lean:44-47) + a fixed-q VK-L twist (class-splitting cost q = O_Q(1) —
 cheap instance of D7(ii)). **¬F is NOT needed anywhere on the spine.** ¬F buys only
@@ -190,15 +190,15 @@ would demand — real but distant. HONEST-SHAPE: no ¬F-to-spine claim.
 
 `ShiuCore` (def GROUNDED ShiuBlocks.lean:292-297; landed as `sum_tau_in_ap_le`,
 ShiuS5b.lean:628) has NO zero-theoretic input — dichotomy-invariant, serves both
-branches unchanged (consumers: `shiu_for_blocks_of_core` ShiuBlocks.lean:312, the
+branches unchanged (consumers: `shiu_for_blocks_of_core` ShiuBlocks.lean:314, the
 Maynard/GehShiuWire blocks). Under ¬F it remains the AP-divisor workhorse for any
 effective sieve re-run (pairs with D6's effective SW).
 THE MISSING NODE that would let ¬F feed L(1)-grade consumers (χ-legs of nonpret at
 growing q, class-number-grade bounds): the classical converse cash-out
 "no real zero in (1−δ, 1) ⟹ L(1,χ) ≫ δ" — the corpus holds only the OTHER direction
 (`LFunction_one_re_le_mvt_sharp`: (L(1,χ)).re ≤ (1−β₀)·25e(1+log f)², cited
-DHRepulsion.lean:317-319). The positivity substrate it needs is LANDED (dhA = 1∗χ
-nonnegativity + detector floor, DHRepulsion.lean:36-41, M2 landed per :256-257).
+DHRepulsion.lean:333-335). The positivity substrate it needs is LANDED (dhA = 1∗χ
+nonnegativity + detector floor, DHRepulsion.lean:36-41, M2 landed per :272-273).
 New C-class node; classical route MEMORY-tier. With it: ¬F ⟹ L(1,χ) ≫ 1/(C⋆ log q)
 uniformly for q > Q₀.
 
@@ -209,7 +209,7 @@ uniformly for q > Q₀.
 | piece | constant | status |
 |---|---|---|
 | ¬F ball | 1/(C⋆ log q), C⋆ ≈ 253696 = 2/c₀ | explicit given calibration; numeral extraction owed (Basic.lean:169) |
-| ZFR | c₀ = 1/126848 | ∃-shaped; numeral in docstring only (ZeroFreeReal.lean:604) |
+| ZFR | c₀ = 1/126848 | ∃-shaped; numeral in docstring only (ZeroFreeReal.lean:603) |
 | gadget below Q₀ | c_iso(Q₀) | nonconstructive (eventually_ne), finite min |
 | repulsion | b=680, k=14, c ≤ 2^(−250) | fully explicit min-tower (TBalR8.lean:1776-1796) |
 | zeta_lower_all_t | c'' | ∃-shaped; compact-min nonconstructive arm (ZetaLowerAllT.lean:44) |

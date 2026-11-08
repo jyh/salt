@@ -31,6 +31,9 @@ import Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp
 
 namespace Salt.MR
 
+/-- `2 cosh (log x) = x + x⁻¹` at `hx : 0 < x`: `Real.cosh_eq` and `Real.exp_log`. The identity
+under `e4a_cosh_integer_of_sum`, which turns the integrality of `η + η⁻¹` into that of
+`2 cosh (log η)`. -/
 theorem e4a_two_cosh_log (x : ℝ) (hx : 0 < x) :
     2 * Real.cosh (Real.log x) = x + x⁻¹ := by
   rw [Real.cosh_eq, Real.exp_neg, Real.exp_log hx]
@@ -110,6 +113,8 @@ entire reason the ladder routes through `∃ T : ℤ` instead of proving a real 
 directly: the arithmetic of ℤ converts a strict inequality with no quantitative content into
 a bounded one, and the bound is what becomes `2 log φ / √q` downstream. -/
 
+/-- `2 < 2 cosh y` at `hy : y ≠ 0` — `Real.one_lt_cosh`. The strict inequality that integrality
+turns into `3 ≤ T` in `e4a_int_ge_three_of_two_lt`: a gap rather than an epsilon. -/
 theorem e4a_two_lt_two_cosh {y : ℝ} (hy : y ≠ 0) : 2 < 2 * Real.cosh y := by
   have := Real.one_lt_cosh.mpr hy
   linarith
@@ -144,6 +149,8 @@ what makes the right-hand side a character sum.
 Proved generally in `EvenChiSine` (`e4a_log_zpow_prod`); `Real.log_zpow` is unconditional, so
 only nonvanishing of the base is needed. -/
 
+/-- `2 cosh (-y) = 2 cosh y` (`Real.cosh_neg`): the evenness that absorbs the Gauss sum's sign.
+Consumed by `e4a_cosh_of_pm`. -/
 theorem e4a_cosh_neg_free (y : ℝ) : 2 * Real.cosh (-y) = 2 * Real.cosh y := by
   rw [Real.cosh_neg]
 

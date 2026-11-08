@@ -5,6 +5,9 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.V7A
 import Salt.MR.V7E
+import Salt.MR.FlatDesignBound
+import Salt.MR.RegimeSupplyFacts
+import Salt.MR.SocketLogFrame
 
 /-!
 # `V7Ks` — ⟦DREAM-SPACE⟧ the `Ks` rethread: `logChowla2_ineffective_v7_ksarm`
@@ -35,11 +38,11 @@ window in place of the numeral:
 
 ```
 capfloor_floor4                    (S13CapFloor:449)   -> capfloor_floor4_of_pos      (V7A:216)
-s13CapFloor_all_L_gk_sharpT0       (S16ComposeV4:670)  -> §2  _kswin
-s16_capGate_supply_L_gk_sharpT0    (S16ComposeV4:714)  -> §3  _kswin
-s15_crossing_..._khoist_csfree     (V7B:1676)          -> §4  _kswin
-logChowla2_witnessed_..._csfree    (V7B:1721)          -> §5  _kswin
-logChowla2_ineffective_v7          (V7E:74)            -> §6  _ksarm
+s13CapFloor_all_L_gk_sharpT0       (S16ComposeV4:607)  -> §2  _kswin
+s16_capGate_supply_L_gk_sharpT0    (S16ComposeV4:651)  -> §3  _kswin
+s15_crossing_..._khoist_csfree     (V7B:1688)          -> §4  _kswin
+logChowla2_witnessed_..._csfree    (V7B:1727)          -> §5  _kswin
+logChowla2_ineffective_v7          (V7E:76)            -> §6  _ksarm
 ```
 
 The carried form is `log(1/Ks) ≤ 3·log R.Hlo/16` at the three regime-scoped hops (§2–§4) and
@@ -264,14 +267,7 @@ theorem s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin :
   refine hwire K R M liouvilleC (fun _ => theta293 - 1 / 500) liouvilleC_norm_le_one ?_
   intro H L q j A s hsb T hTlo hThi hTgate hTll
   obtain ⟨P, Q, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
-  have hq : 1 ≤ q := hsb.2.2.2.1
-  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
-  have hNd : 1 ≤ A + s := by omega
-  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_eight; linarith
-  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
-    Real.rpow_pos_of_pos hlogX0 _
-  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
-      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  obtain ⟨hq, hA, hNd, hlogX0, hpow, hexp⟩ := socketLogFrame_facts s hsb hg.logX_eight
   have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
   have hT1 : (1 : ℝ) < 2 * T := by linarith
   exact doorCapBundle_at_workingPoint_perBlock_L_gk K hband hM hNd hq hg hT1 hThi hTll
@@ -338,13 +334,9 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_ks
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
   have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
   have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
-    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
   have hεR : (1 : ℝ) / 500 ≤ (ε : ℝ) := by
-    have h := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
-    exact h
+    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   refine ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
     hCgle, hεpin, hδpin, hMflb, hβ, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40, ?_⟩
   intro K
@@ -505,15 +497,9 @@ theorem logChowla2_ineffective_v7_ksarm (A₀ : ℝ) :
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   -- ⟦RIDER 3, DISCHARGED AT THE ARM⟧ the seventh `max` slot clears the window outright
   have hKswin : Real.log (1 / Ks) ≤ 3 * Real.exp (3.2 * A) / 16 := by linarith
-  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) := by
-    have h2 : Real.exp (3.2 * A) / 10 + 1 ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
-      Real.add_one_le_exp _
-    linarith
-  have hopq : Hopq ≤ flatDesignBase A := by
-    have h2 : Real.exp (3.2 * A) + 1 ≤ Real.exp (Real.exp (3.2 * A)) := Real.add_one_le_exp _
-    have hR : ((Hopq : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by linarith
-    have hceil := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
-    rw [flatDesignBase]; exact_mod_cast hceil
+  have hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) :=
+    Salt.MR.x0_le_exp_exp_of_four_le hx0nn hx0A
+  have hopq : Hopq ≤ flatDesignBase A := le_flatDesignBase_of_le hopqA
   have hA26 : (26 : ℝ) ≤ A := by linarith
   have hKw : KlevF A ≤ 170000000 * flatDoorM A := KlevF_le_wideCeiling hA26
   obtain ⟨Ct, hCt, hmain⟩ := hmainU (KlevF A)
@@ -530,22 +516,9 @@ theorem logChowla2_ineffective_v7_ksarm (A₀ : ℝ) :
   refine ⟨R, hReps, by rw [hHlo]; exact hbase hopq, hRg, hRtow, hdes, hwin, ?_⟩
   intro hKvtcush
   -- ⟦ITEM 3, DISCHARGED⟧ the base-scale cap at `K = KlevF A`
-  have heps500 : (1 : ℚ) / 500 ≤ R.eps := by rw [hReps]; exact hεpin
-  have hxceil : Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (R.eps : ℝ) * ((R.Hhi : ℕ) : ℝ) := by
-    rw [hReps]; exact hRx
   -- ⟦RULING 9, DISCHARGED⟧ the co-factor supply at the repaired ladder
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
-  have heps500R : (1 : ℝ) / 500 ≤ (R.eps : ℝ) := by
-    rw [hReps]
-    have h := (Rat.cast_le (K := ℝ)).mpr hεpin
-    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
-    exact h
-  have h518 : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by nlinarith [hdes, hA162]
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA162
-  have hthrgate : cofkRThr Cq Cb Xsk Y0 ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    linarith [hthrA, hlo, hexp1]
+  obtain ⟨heps500, hxceil, hM1, heps500R, h518, hfl, hlo, hthrgate⟩ :=
+    regime_flat_supply_facts hReps hHlo hRx hdes hεpin hA162 hthrA
   have hcofsupply : S16CofactorSupply_L_gk (KlevF A) Cq R (flatDoorM A) :=
     hcofR (KlevF A) Cq R (flatDoorM A) hM1 hCq heps500R h518 hfl hthrgate hKvtcush
   exact hfire2 hcofsupply
@@ -598,7 +571,7 @@ on its own it certifies only that §6 implies THAT TEXT.  This `example` closes 
 is §7's statement, character for character, and its proof term is the landed
 `V7E.logChowla2_ineffective_v7` itself, so the kernel must accept the landed declaration AT the
 restatement's type — i.e. the two types are the same up to defeq.  Any future drift between the
-copy and `V7E:74` — a reordered conjunct, a changed constant, a silently strengthened bound —
+copy and `V7E:76` — a reordered conjunct, a changed constant, a silently strengthened bound —
 fails to elaborate HERE, which is what makes §7's claim self-enforcing rather than a promise. -/
 example (A₀ : ℝ) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ) (Kvt : ℕ → ℕ → ℝ),

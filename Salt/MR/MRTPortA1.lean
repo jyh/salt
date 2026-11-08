@@ -46,7 +46,7 @@ namespace Salt.MR
 /-- **D2 — `M(lam; X) = M(lamCoeff; X)`.**
 
 `mrtM g X = sInf {m | ∃ t, |t| ≤ X ∧ m = pretDistSq g (costwist t) X}`
-(`MRTProp24.lean:175-176`) places `g` in `pretDistSq`'s **left** slot, and
+(`MRTProp24.lean:179-180`) places `g` in `pretDistSq`'s **left** slot, and
 `pretDistSq_lam_eq_lamCoeff` (`MRTPort.lean:255`, node N3) rewrites exactly that slot for
 every twist.  The two `sInf` index sets are therefore literally equal: one `Set.ext`, no
 analysis and no `sInf` theory.  This is what lets the S5 non-pretentiousness stone (stated

@@ -252,6 +252,30 @@ theorem blockLen_narrow {R : ChowlaRegime} {H q : ℕ} (hlo : R.Hlo ≤ H)
     nlinarith only [hD2, hmulR, (Nat.cast_nonneg _ : 0 ≤ ↑(blockLen H q))]
   nlinarith only [harc4, hchain, hgate, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
 
+/-- **THE THREE BLOCK-LENGTH OBLIGATIONS** of `m4_sievedDoorSq_of_blk2` and its `_gk` · `_L` ·
+`_L_gk` twins at `ℓ := blockLen` (`hℓH`, `hℓcnt`, `hℓdrift`), from the arc gate
+`128·arcDen 12 H² ≤ H` on the window: `blockLen_le` (with `1 ≤ H` off the gate and
+`one_le_arcDen_of_regime`), `blockLen_narrow` and `blockLen_drift`. -/
+theorem blockLen_obligations {R : ChowlaRegime}
+    (harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ)) :
+    (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H → blockLen H q ≤ H) ∧
+    (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      (H : ℝ) ≤ arcDen 12 H ^ 2 * (blockLen H q : ℝ)) ∧
+    (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      arcDen 12 H * (blockLen H q : ℝ) ≤ (q : ℝ) * (H : ℝ)) := by
+  refine ⟨?_, ?_, ?_⟩
+  · intro H q hlo hhi _ _
+    have h1 := harc H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hH1 : 1 ≤ H := by
+      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
+      exact_mod_cast this
+    exact blockLen_le H q hH1
+  · intro H q hlo hhi _ _
+    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
+  · intro H q hlo hhi hq _
+    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+
 /-- **THE ARC FLOOR AT THE WITNESS** — `32·arcDen 12 H ≤ ℓ`.  What the stratified consumer
 reads to keep every stratum's re-indexed block non-degenerate. -/
 theorem blockLen_arc_floor {R : ChowlaRegime} {H q : ℕ} (hlo : R.Hlo ≤ H)
@@ -595,10 +619,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed {R : ChowlaRegime} {M k : ℕ} {Bcl : �
     have hfit' : (B + m * L) + L ≤ 2 * (A + m * L) := by omega
     have h := hstrat (A + m * L) (B + m * L) hApos' h2HA' hxA' hcapA' hfit'
     have hbase : ((A + m * L : ℕ) : ℝ) ≤ 2 * (A : ℝ) := by
-      have hnat : A + m * L ≤ 2 * A := by omega
-      have := (Nat.cast_le (α := ℝ)).mpr hnat
-      push_cast at this ⊢
-      linarith
+      exact_mod_cast (show A + m * L ≤ 2 * A by omega)
     have hfac0 : (0 : ℝ) ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 := by positivity
     linarith only [h, mul_le_mul_of_nonneg_left hbase hfac0]
   -- ⟦the drift-block sum⟧
@@ -734,20 +755,10 @@ theorem m4_second_road :
   -- ⟦the cover, then the socket⟧
   have hcov := m4_cover_assembly_blk2 hgates hBblk0 hblk2
   refine hR δ Braw M k hgates hBraw0 hgrade ?_
+  obtain ⟨hℓH, hℓcnt, hℓdrift⟩ := blockLen_obligations (R := R) harc
   refine m4_sievedDoorSq_of_blk2 (ℓ := blockLen)
     (fun H => by have := hBblk0 H; positivity)
-    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
-  · intro H q hlo hhi _ _
-    have h1 := harc H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hH1 : 1 ≤ H := by
-      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
-      exact_mod_cast this
-    exact blockLen_le H q hH1
-  · intro H q hlo hhi _ _
-    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
-  · intro H q hlo hhi hq _
-    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+    (fun H q _ _ _ _ => one_le_blockLen H q) hℓH hℓcnt hℓdrift ?_ hcov
   · intro H hlo hhi
     have h := hdrift H hlo hhi
     have hres0 : (0 : ℝ) ≤ strataResidual H :=
@@ -1245,10 +1256,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed_gk (K : ℕ) {R : ChowlaRegime} {M k : �
     have hfit' : (B + m * L) + L ≤ 2 * (A + m * L) := by omega
     have h := hstrat (A + m * L) (B + m * L) hApos' h2HA' hxA' hcapA' hfit'
     have hbase : ((A + m * L : ℕ) : ℝ) ≤ 2 * (A : ℝ) := by
-      have hnat : A + m * L ≤ 2 * A := by omega
-      have := (Nat.cast_le (α := ℝ)).mpr hnat
-      push_cast at this ⊢
-      linarith
+      exact_mod_cast (show A + m * L ≤ 2 * A by omega)
     have hfac0 : (0 : ℝ) ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 := by positivity
     linarith only [h, mul_le_mul_of_nonneg_left hbase hfac0]
   -- ⟦the drift-block sum⟧
@@ -1319,20 +1327,10 @@ theorem m4_second_road_gk (K : ℕ) :
   -- ⟦the cover, then the socket⟧
   have hcov := m4_cover_assembly_blk2_gk K hgates hBblk0 hblk2
   refine hR δ Braw M k hgates hBraw0 hgrade ?_
+  obtain ⟨hℓH, hℓcnt, hℓdrift⟩ := blockLen_obligations (R := R) harc
   refine m4_sievedDoorSq_of_blk2_gk K (ℓ := blockLen)
     (fun H => by have := hBblk0 H; positivity)
-    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
-  · intro H q hlo hhi _ _
-    have h1 := harc H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hH1 : 1 ≤ H := by
-      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
-      exact_mod_cast this
-    exact blockLen_le H q hH1
-  · intro H q hlo hhi _ _
-    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
-  · intro H q hlo hhi hq _
-    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+    (fun H q _ _ _ _ => one_le_blockLen H q) hℓH hℓcnt hℓdrift ?_ hcov
   · intro H hlo hhi
     have h := hdrift H hlo hhi
     have hres0 : (0 : ℝ) ≤ strataResidual H :=

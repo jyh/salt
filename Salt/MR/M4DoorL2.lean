@@ -189,7 +189,7 @@ theorem m4_doorL2_supply :
 
 /-- **THE `L²` DOOR SUPPLY AT THE IMPROVED COUNT** (`m4_doorL2_supply_500`) — `§1`'s
 composition with the `|Ξ_H| ≤ K` gate discharged from `bigXi_bounded_500`
-(`GoldbachEnergyN0.lean:866`, the N0-RETHREAD payoff: **the constant IS IN THE STATEMENT**,
+(`GoldbachEnergyN0.lean:869`, the N0-RETHREAD payoff: **the constant IS IN THE STATEMENT**,
 `32·K_lcm·(2^35)²/ε¹⁰`, against the landed chain's three nested `∃`s).
 
 ⟦WHICH COUNT, AND WHY⟧  The improved bound is pinned at `ε = 1/500`, so it fits exactly when

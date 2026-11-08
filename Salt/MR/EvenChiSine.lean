@@ -30,6 +30,11 @@ import Salt.MR.Sawtooth
 
 namespace Salt.MR
 
+/-- **The sine bridge** — `‖1 - ζ_q ^ a‖ = 2 sin(πa/q)` for `ha : 0 < a`, `haq : a < q`:
+`ζ ^ a = exp(2πi · a/q)` and `norm_one_sub_exp` (`Sawtooth`) at `a/q ∈ (0, 1)`. The joint
+between the analytic and arithmetic sides; consumed by `e4a_sin_prod_eq_norm`,
+`e4a_sum_clog_re_sin`, `e4a_sin_bridge_zmod`, `e4a_step7_pair_product` (`EvenChiCyclotomic`) and
+`e4a_sin_prod_eq_eta_norm_inv` (`EvenChiEta`). -/
 theorem e4a_step3_sin_bridge {q a : ℕ} (ha : 0 < a) (haq : a < q) :
     ‖1 - (Complex.exp (((2 * Real.pi / q : ℝ) : ℂ) * Complex.I)) ^ a‖
       = 2 * Real.sin (Real.pi * ((a : ℝ) / q)) := by
@@ -63,6 +68,8 @@ computation, and UNIFORMLY IN q — no prime-power branch.  v1 sought this throu
 `Norm = 1 ⇒ unit`, which is false off the integers because η is a quotient; the
 associate route never leaves the ring. -/
 
+/-- The norm of a `zpow`-weighted product is the weighted product of norms — `norm_prod` and
+`norm_zpow`, over any index type. Consumed by `e4a_sin_prod_eq_norm`. -/
 theorem e4a_norm_zpow_prod {ι : Type*} (S : Finset ι) (f : ι → ℂ) (e : ι → ℤ) :
     ‖∏ a ∈ S, (f a) ^ (e a)‖ = ∏ a ∈ S, ‖f a‖ ^ (e a) := by
   rw [norm_prod]
@@ -110,6 +117,7 @@ that it does what its name says — `σ x = x ^ (galEquivZMod n K σ).val.val` f
 is right that it forbids applying this lemma to η.  It does not forbid applying it to ζ,
 which is all the link needs — the transport to η goes through the product, below. -/
 
+/-- `Re(-log z) = -log ‖z‖` — `Complex.log_re`. The per-term step of `e4a_sum_clog_re`. -/
 theorem e4a_neg_clog_re (z : ℂ) : (-(Complex.log z)).re = -Real.log ‖z‖ := by
   rw [Complex.neg_re, Complex.log_re]
 
@@ -166,6 +174,9 @@ its proof uses no field structure — so it is UNAVAILABLE at `ZMod q` for compo
 
 open Complex
 
+/-- `log` of a `zpow`-weighted real product with nonzero factors (`hg`) is the weighted sum of
+logs — `Real.log_prod` and `Real.log_zpow`, over any index type. Consumed by
+`e4a_log_eta_eq_sum` and `e4a_log_eta_units` (`EvenChiMiddle`). -/
 theorem e4a_log_zpow_prod {ι : Type*} (S : Finset ι) (g : ι → ℝ) (e : ι → ℤ)
     (hg : ∀ a ∈ S, g a ≠ 0) :
     Real.log (∏ a ∈ S, (g a) ^ (e a)) = ∑ a ∈ S, (e a : ℝ) * Real.log (g a) := by

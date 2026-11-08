@@ -2,7 +2,7 @@
 
 *Read-only recon for the eq-(24) seam freeze. MAESTRO CORRECTION APPLIED at §3′:
 the scoper's "L11 NOT landed" claim is FALSE — `halasz_primes_pow`
-(HalaszPrimesCore.lean:3641, All-wired) is exactly MR Lemma 11's well-spaced
+(HalaszPrimesCore.lean:3635, All-wired) is exactly MR Lemma 11's well-spaced
 discrete shape at the frozen θ=3/4 header. The rest is banked as reported.*
 
 ## 1. THE §8.3 MECHANISM (MR v4 pp.24–29, verbatim-grounded)
@@ -86,7 +86,7 @@ integrability [B,150–250]; annulus-restricted exhaustiveness [A/B,50].
 
 ### 3′. MAESTRO CORRECTION — the §8.3 corpus status
 The scoper's residual list said "L11 NOT landed" — **FALSE**:
-`halasz_primes_pow` (HalaszPrimesCore.lean:3641, All.lean:328) is precisely
+`halasz_primes_pow` (HalaszPrimesCore.lean:3635, All.lean:328) is precisely
 MR Lemma 11's discrete well-spaced shape — prime-supported blocks, WellSpaced
 𝒯, the C·(P + |𝒯|·P·exp(−c·logP/((logT)^{3/4}(loglogT)⁴))·(logT)²)/logP
 grade with the 1/logP prime-window gain, P ≤ T^10, at the frozen θ=3/4

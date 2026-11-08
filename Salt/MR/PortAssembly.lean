@@ -841,11 +841,9 @@ theorem halaszPrimesChiGated_of_price {c_vk C₁ C₂ C₃ T₀e : ℝ}
   have hT0 : (0 : ℝ) < T := by linarith
   have hP0 : (0 : ℝ) < P := by linarith
   have hlogP : 0 < Real.log P := Real.log_pos (by linarith)
-  have hLT100 : Real.exp 100 ≤ Real.log T := by
-    rw [← Real.log_exp (Real.exp 100)]; exact Real.log_le_log (Real.exp_pos _) hTE
+  have hLT100 : Real.exp 100 ≤ Real.log T := le_log_of_exp_le hTE
   have hLT1 : (1 : ℝ) ≤ Real.log T := by linarith
-  have hllT100 : (100 : ℝ) ≤ Real.log (Real.log T) := by
-    rw [← Real.log_exp 100]; exact Real.log_le_log (Real.exp_pos _) hLT100
+  have hllT100 : (100 : ℝ) ≤ Real.log (Real.log T) := le_log_of_exp_le hLT100
   have hllT1 : (1 : ℝ) ≤ Real.log (Real.log T) := by linarith
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   have hqT : T ≤ (q : ℝ) * T := by nlinarith only [hT₀z', hq1, hc10, hc0, hT₀z]
@@ -1274,29 +1272,35 @@ proof re-run verbatim. -/
 set_option maxHeartbeats 1600000 in
 -- The re-derivation carries §7's fold in context; `linarith`'s preprocessing on the
 -- `Real.rpow` gate needs headroom past the default.
-/-- **A2's DELIVERABLE — the carve-free twisted rectangle.**  Same conclusion as
-`twisted_rect_zero_free_split`, with the `(prim² ≠ 1 ∨ Im ρ ≠ 0)` hypothesis replaced by ONE
-`q`-vs-`T` gate whose constant `Ks` carries Siegel's ineffectivity (§7) — the port's single
-ineffective constant, and nothing else. -/
-theorem twisted_rect_zero_free_siegel :
-    ∃ Kq Ks : ℝ, 0 < Kq ∧ 0 < Ks ∧
-      ∀ (q : ℕ) [NeZero q] (ψ : DirichletCharacter ℂ q), ψ ≠ 1 → ∀ (A T : ℝ), 1 ≤ A →
-      Real.exp (Real.exp 100) ≤ T →
-      Real.log (20000 * (vkStripConst q + 8104)) ≤ A * 100 →
-      A + 7 ≤ Real.log (Real.log (5 * T + 1)) →
-      Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
-          ≤ (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
-              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ) →
-      (q : ℝ) ^ ((1 : ℝ) / 16)
-          ≤ Ks * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
-              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) →
-      ∀ ρ : ℂ, LFunction ψ ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
-        ρ.re ≤ 1 - (1 / 10 ^ 8)
-          / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
-              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) := by
-  obtain ⟨c₀, hc₀0, hc₀⟩ := Salt.SW.zero_free_region_all'
-  obtain ⟨Ks, hKs0, hsg⟩ := siegel_real_carve
-  refine ⟨1 / (10 ^ 8 * c₀), 10 ^ 8 * Ks, by positivity, by positivity, ?_⟩
+/-- **The assembly behind the four `twisted_rect_zero_free_siegel*` theorems**, at a given
+zero-free constant `c₀` (the `Salt.SW.zero_free_region_all'` shape) and a given real-zero carve
+`Ks` (the `siegel_real_carve` shape): the rectangle's zero-free conclusion with
+`Kq = 1/(10⁸·c₀)` and the carve constant scaled by `10⁸`. `twisted_rect_zero_free_siegel` and its
+`_bounded`, `_of_standoff` and `_bounded_of_standoff` twins differ only in where `c₀` and `Ks`
+come from (the corpus region or its bounded twin; Siegel's theorem or the standoff), and each is
+this theorem at its own pair. -/
+theorem twisted_rect_zero_free_of_carve {c₀ Ks : ℝ} (hc₀0 : 0 < c₀)
+    (hc₀ : ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
+      ∀ {ρ : ℂ}, LFunction χ ρ = 0 → 1 / 2 ≤ ρ.re →
+        (χ.primitiveCharacter ^ 2 ≠ 1 ∨ ρ.im ≠ 0) →
+        ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)))
+    (hsg : ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
+      ∀ W : ℝ, 0 < W → (q : ℝ) ^ ((1 : ℝ) / 16) * W ≤ Ks →
+      ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ.im = 0 → ρ.re ≤ 1 - W) :
+    ∀ (q : ℕ) [NeZero q] (ψ : DirichletCharacter ℂ q), ψ ≠ 1 → ∀ (A T : ℝ), 1 ≤ A →
+    Real.exp (Real.exp 100) ≤ T →
+    Real.log (20000 * (vkStripConst q + 8104)) ≤ A * 100 →
+    A + 7 ≤ Real.log (Real.log (5 * T + 1)) →
+    1 / (10 ^ 8 * c₀) * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
+        ≤ (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+            * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ) →
+    (q : ℝ) ^ ((1 : ℝ) / 16)
+        ≤ 10 ^ 8 * Ks * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+            * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) →
+    ∀ ρ : ℂ, LFunction ψ ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
+      ρ.re ≤ 1 - (1 / 10 ^ 8)
+        / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+            * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) := by
   intro q hNe ψ hψ1 A T hA1 hTfloor hAq hAabs hKq hSg ρ hρ0 hρim
   -- the `T`-scale quantities
   have hE0 : (0 : ℝ) < Real.exp (Real.exp 100) := Real.exp_pos _
@@ -1326,69 +1330,7 @@ theorem twisted_rect_zero_free_siegel :
     rw [div_le_div_iff₀ hD4pos (by norm_num : (0:ℝ) < 2)]
     linarith only [hD4ge1, hD4pos]
   by_cases hcase : Real.exp (Real.exp 100) + 1 ≤ |ρ.im|
-  · -- ABOVE the floor: stones A+B
-    have hβ1 : ρ.re < 1 := by
-      by_contra hge
-      exact LFunction_ne_zero_of_one_le_re ψ (Or.inl hψ1) (by linarith [not_lt.mp hge]) hρ0
-    have hℓγ100 : (100 : ℝ) ≤ Real.log (Real.log |ρ.im|) := loglog_ge_hundred hcase
-    have hgate : Real.log (20000 * (vkStripConst q + 8104))
-        ≤ A * Real.log (Real.log |ρ.im|) := by
-      have : A * 100 ≤ A * Real.log (Real.log |ρ.im|) :=
-        mul_le_mul_of_nonneg_left hℓγ100 (by linarith)
-      linarith
-    -- the two arms deliver the same D₃-shaped width at the zero's own height
-    have hstone : ρ.re ≤ 1 - (1 / (10 ^ 8 * (A + 7)))
-        * (1 / ((Real.log |ρ.im|) ^ ((3 : ℝ) / 4)
-            * (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ))) := by
-      by_cases hsq : ψ ^ 2 = 1
-      · refine LFunction_real_zero_free_region_vk hψ1 hsq hA1 hρ0 hβ1 hcase ?_
-        exact hgate
-      · refine LFunction_zero_free_region_vk hψ1 hsq hA1 hρ0 hβ1 hcase ?_
-        have hvk : (1 : ℝ) ≤ vkStripConst q := one_le_vkStripConst
-        exact le_trans (Real.log_le_log (by linarith) (by linarith)) hgate
-      -- (both arms take the SAME gate: `vkStripConst q ≤ vkStripConst q + 8104`)
-    -- compare the two widths
-    have hEexp1 : Real.exp 1 ≤ |ρ.im| := by
-      have h1 : Real.exp 1 ≤ Real.exp (Real.exp 100) :=
-        Real.exp_le_exp.mpr (by linarith)
-      linarith
-    have hmono := logDn_mono 3 hEexp1 hρim
-    have hDγpos : 0 < (Real.log |ρ.im|) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ) := by
-      have hL1 : (1 : ℝ) ≤ Real.log |ρ.im| := by
-        have h := Real.log_le_log (Real.exp_pos 1) hEexp1; rwa [Real.log_exp] at h
-      have h1 : 0 < (Real.log |ρ.im|) ^ ((3 : ℝ) / 4) :=
-        Real.rpow_pos_of_pos (by linarith) _
-      have h2 : 0 < (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ) := by positivity
-      exact mul_pos h1 h2
-    have hstep1 : (1 / (10 ^ 8 * (A + 7)) : ℝ) * (1 / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)))
-        ≤ (1 / (10 ^ 8 * (A + 7)) : ℝ)
-          * (1 / ((Real.log |ρ.im|) ^ ((3 : ℝ) / 4)
-              * (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ))) := by
-      refine mul_le_mul_of_nonneg_left ?_ (by positivity)
-      exact one_div_le_one_div_of_le hDγpos hmono
-    have hstep2 : (1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ))
-        ≤ (1 / (10 ^ 8 * (A + 7)) : ℝ) * (1 / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))) := by
-      have hA7 : (0 : ℝ) < A + 7 := by linarith
-      have hL : (1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ))
-          = 1 / (10 ^ 8 * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ))) := by rw [div_div]
-      have hR : (1 / (10 ^ 8 * (A + 7)) : ℝ) * (1 / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)))
-          = 1 / (10 ^ 8 * (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))) := by
-        rw [div_mul_div_comm, one_mul]
-      have hden : (0 : ℝ) < 10 ^ 8 * (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)) :=
-        mul_pos (mul_pos (by norm_num) hA7) hD3pos
-      have hkey : (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))
-          ≤ Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by
-        calc (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))
-            ≤ ℓ * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)) :=
-              mul_le_mul_of_nonneg_right hAabs hD3pos.le
-          _ = Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by ring
-      rw [hL, hR]
-      refine one_div_le_one_div_of_le hden ?_
-      calc 10 ^ 8 * (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))
-          = 10 ^ 8 * ((A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))) := by ring
-        _ ≤ 10 ^ 8 * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ)) := by linarith [hkey]
-    linarith [hstone, hstep1, hstep2]
+  · exact twistedRect_above_floor hψ1 hA1 hTfloor hAq hAabs hρ0 hρim hcase
   · -- BELOW the floor: the classical effective region
     rw [not_le] at hcase
     rcases le_or_gt (1 / 2 : ℝ) ρ.re with hre | hre
@@ -1435,6 +1377,31 @@ theorem twisted_rect_zero_free_siegel :
         linarith [hcl, hkey, hshrink]
     · linarith [hWsmall, hre]
 
+/-- **A2's DELIVERABLE — the carve-free twisted rectangle.**  Same conclusion as
+`twisted_rect_zero_free_split`, with the `(prim² ≠ 1 ∨ Im ρ ≠ 0)` hypothesis replaced by ONE
+`q`-vs-`T` gate whose constant `Ks` carries Siegel's ineffectivity (§7) — the port's single
+ineffective constant, and nothing else. -/
+theorem twisted_rect_zero_free_siegel :
+    ∃ Kq Ks : ℝ, 0 < Kq ∧ 0 < Ks ∧
+      ∀ (q : ℕ) [NeZero q] (ψ : DirichletCharacter ℂ q), ψ ≠ 1 → ∀ (A T : ℝ), 1 ≤ A →
+      Real.exp (Real.exp 100) ≤ T →
+      Real.log (20000 * (vkStripConst q + 8104)) ≤ A * 100 →
+      A + 7 ≤ Real.log (Real.log (5 * T + 1)) →
+      Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
+          ≤ (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ) →
+      (q : ℝ) ^ ((1 : ℝ) / 16)
+          ≤ Ks * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) →
+      ∀ ρ : ℂ, LFunction ψ ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
+        ρ.re ≤ 1 - (1 / 10 ^ 8)
+          / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) := by
+  obtain ⟨c₀, hc₀0, hc₀⟩ := Salt.SW.zero_free_region_all'
+  obtain ⟨Ks, hKs0, hsg⟩ := siegel_real_carve
+  refine ⟨1 / (10 ^ 8 * c₀), 10 ^ 8 * Ks, by positivity, by positivity, ?_⟩
+  exact twisted_rect_zero_free_of_carve hc₀0 hc₀ hsg
+
 
 /-! ## §9 — THE COMPOSITION: the `(χ,t)`-pair socket at the GATES ONLY
 
@@ -1454,7 +1421,7 @@ arithmetic `16 = 12/(3/4)` with the whole `(loglog)^4` as margin).
 
 ⟦THE ONE HYPOTHESIS THAT REMAINS, and why it is a one-line exposure⟧ the theorem takes the
 twisted edge price at the LITERAL width `1/10⁸`.  `TwistedEdge.twisted_edge_price_strip`
-proves exactly that (`refine ⟨1 / 10 ^ 8, …⟩`, TwistedEdge.lean:895) and
+proves exactly that (`refine ⟨1 / 10 ^ 8, …⟩`, TwistedEdge.lean:896) and
 `twisted_window_price_gated_holds` passes the same constant through — but both package it
 behind `∃ c_vk`, and the region (§8, like stone C's split) delivers its width at the literal
 `1/10⁸`, so the kernel cannot see that the two match.  Exposing the numeral in either `∃`

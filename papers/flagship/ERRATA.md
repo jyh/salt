@@ -40,11 +40,11 @@ manuscript's framing of F(C) as a live hypothesis is what the claim, if it holds
 and one regime R (one x, one ω, one ε) such that, if `MRTUniformity R δ` holds for some 0 < δ ≤ δ₀, then
 |Σ_{x/ω < n ≤ x} λ(n)λ(n+1)/n| ≤ ε·log ω (that inequality is `¬ logChowla2Fails`, ChowlaFailure.lean:59).
 `log_chowla_two_budget_head` (SpineFinal.lean:750) gives, at one fixed ε, such a regime above every floor on
-`R.Hlo`, under the weaker hypothesis `MRTUniformityXi` (`mrtUniformity_implies_xi`, MRTDoor.lean:120). Neither
+`R.Hlo`, under the weaker hypothesis `MRTUniformityXi` (`mrtUniformity_implies_xi`, MRTDoor.lean:121). Neither
 states the logarithmic two-point Chowla statement (the limit as x → ∞, which is Tao's theorem), and the hypothesis
 is assumed at the constructed regime, not proved.
 **Added 2026-10-21:** a later declaration, `logChowla2_v7_rated`
-(Salt/MR/V7Rated.lean:973, landed 2026-08-30, in MR/All.lean's `#audit_axioms` list, no `sorry`), proves the same
+(Salt/MR/V7Rated.lean:976, landed 2026-08-30, in MR/All.lean's `#audit_axioms` list, no `sorry`), proves the same
 window inequality **with no hypothesis**: for every floor `A₀`, at an opaque ε ≥ 1/500 (which the statement lets
 depend on `A₀`) and a regime above `A₀`. It is still a
 single-scale bound and does not state the limit. So the short form below is exact for `log_chowla_two_door_only`
@@ -71,15 +71,15 @@ is a bare existential reached by contradiction; no numeral is extracted (its doc
 unconditional, its constant not computed".
 
 **C4, rate / census.** `neutrality_rate` (Salt/HB/SignRate.lean:53) proves S₁ ≤ S₂(f) for every sign function f
-(`S1_le_S2Gen`, SignChain.lean:511) and returns its own hypothesis `hbudget` as the upper bound, through the ring
-identity `S2Gen_sub_S1_eq` (SignChain.lean:519). For a general sign function no upper bound on S₂ − S₁ is proved
+(`S1_le_S2Gen`, SignChain.lean:516) and returns its own hypothesis `hbudget` as the upper bound, through the ring
+identity `S2Gen_sub_S1_eq` (SignChain.lean:524). For a general sign function no upper bound on S₂ − S₁ is proved
 (the generic master `hb_l2c_masterGen` exists only in a comment, SignRate.lean:66–78). For real characters,
 `hb_l2c_master_unconditional` (Salt/HB/L2cMasterUncond.lean:85) bounds S₂ − S₁ unconditionally, in the range
 100¹⁶ ≤ z, Lwin(x)⁸ ≤ z, z³ ≤ x, by a row that does
 not involve the pretense sum, plus a row proportional to `PretenseSum χ`, plus an error row; so no Lean statement
 makes the price "exactly a pretense sum". At f = λ the difference is zero (`S2Gen_lamR_eq_S1`,
 SignLiouville.lean:97; λ's pretense sum is zero, `PretenseSumGen_lamR_eq_zero`, :109). The census
-(Salt/Parity/Instances.lean) applies `parityInv_of_closed` (Salt/Parity/Z.lean:117), which holds for every true
+(Salt/Parity/Instances.lean) applies `parityInv_of_closed` (Salt/Parity/Z.lean:120), which holds for every true
 proposition, to ten theorems; it carries no information about them (Instances.lean:25–28).
 *Short form:* "the transfer inequality S₁ ≤ S₂(f)"; the census is not cited as a result.
 

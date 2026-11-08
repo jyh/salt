@@ -67,6 +67,8 @@ def halaszB (S : Finset ℕ) (b : ℕ → ℝ) (χ₁ χ₂ : DirichletCharacter
 def halaszBTsum (b : ℕ → ℝ) (χ₁ χ₂ : DirichletCharacter ℂ q) (s : ℂ) : ℂ :=
   ∑' n : ℕ, (b n : ℂ) * (starRingEnd ℂ) (χ₁ n) * χ₂ n * (n : ℂ) ^ (-s)
 
+/-- Every `z : ℂ` has a unimodular `η` with `η * z = ‖z‖`: `η = ‖z‖ / z` at `z ≠ 0`, and `η = 1`
+at `z = 0`. The `η_j` of Jutila's Lemma 7; consumed by `Salt.SW.JutilaRatio`. -/
 theorem exists_unimodular_mul_eq_norm (z : ℂ) : ∃ η : ℂ, ‖η‖ = 1 ∧ η * z = ‖z‖ := by
   by_cases hz : z = 0
   · exact ⟨1, by simp, by simp [hz]⟩
@@ -75,6 +77,9 @@ theorem exists_unimodular_mul_eq_norm (z : ℂ) : ∃ η : ℂ, ‖η‖ = 1 ∧
         div_self (norm_ne_zero_iff.mpr hz)]
     · exact div_mul_cancel₀ _ hz
 
+/-- The first move of Lemma 7: with `hη` (each `η_j` turns `f(s_j, χ_j)` into its norm),
+`∑_j |f_j| = ∑_j η_j f_j = ∑_{n ∈ S} a_n ∑_j η_j χ_j(n) n^{-s_j}` — unfold `dirichletPolyChi`,
+distribute, and swap the two finite sums. Consumed by `sq_sum_norm_dirichletPolyChi_le`. -/
 theorem sum_norm_dirichletPolyChi_eq {J : ℕ} (S : Finset ℕ) (a : ℕ → ℂ)
     (χ : Fin J → DirichletCharacter ℂ q) (s : Fin J → ℂ) (η : Fin J → ℂ)
     (hη : ∀ j, η j * dirichletPolyChi S a (χ j) (s j) = ‖dirichletPolyChi S a (χ j) (s j)‖) :
@@ -125,6 +130,10 @@ private lemma sq_le_of_norm_sum (S : Finset ℕ) (a c : ℕ → ℂ) {b : ℕ �
           * ∑ n ∈ S, (Real.sqrt (b n) * ‖c n‖) ^ 2 := hCS
     _ = (∑ n ∈ S, ‖a n‖ ^ 2 / b n) * ∑ n ∈ S, b n * ‖c n‖ ^ 2 := by rw [hL, hR]
 
+/-- Cauchy–Schwarz on `sum_norm_dirichletPolyChi_eq`:
+`(∑_j |f_j|)² ≤ ∑_n |a_n|²/b_n · ∑_n b_n |∑_j η_j χ_j(n) n^{-s_j}|²`, with `hb` (positive
+weights where `a_n ≠ 0`) and `hb0` (nonnegative on `S`) as `sq_le_of_norm_sum` reads them.
+Consumed by `halasz_weighted` and the `J = 1` exit row. -/
 theorem sq_sum_norm_dirichletPolyChi_le {J : ℕ} (S : Finset ℕ) (a : ℕ → ℂ) {b : ℕ → ℝ}
     (hb : ∀ n ∈ S, a n ≠ 0 → 0 < b n) (hb0 : ∀ n ∈ S, 0 ≤ b n)
     (χ : Fin J → DirichletCharacter ℂ q) (s : Fin J → ℂ) (η : Fin J → ℂ)
@@ -165,6 +174,11 @@ private lemma ofReal_mul_norm_sq_eq {J : ℕ} {n : ℕ} (hn : n ≠ 0) (b : ℕ 
   rw [hconj, neg_add, Complex.cpow_add _ _ hn0]
   ring
 
+/-- The expansion of the weighted square:
+`∑_n b_n |∑_j η_j χ_j(n) n^{-s_j}|² = ∑_{j,k} η̄_j η_k B(s̄_j + s_k; χ_j, χ_k)` with
+`B = halaszB` — per `n` by `ofReal_mul_norm_sq_eq` (which spends `hS : 0 ∉ S` on
+`n^{-s̄_j} n^{-s_k} = n^{-(s̄_j + s_k)}`), then the three sums swapped. Consumed by
+`halasz_weighted` and `halasz_weighted_tsum`. -/
 theorem sum_mul_norm_sq_eq_halaszB {J : ℕ} {S : Finset ℕ} (hS : 0 ∉ S) (b : ℕ → ℝ)
     (χ : Fin J → DirichletCharacter ℂ q) (s : Fin J → ℂ) (η : Fin J → ℂ) :
     ((∑ n ∈ S, b n * ‖∑ j, η j * χ j n * (n : ℂ) ^ (-(s j))‖ ^ 2 : ℝ) : ℂ)
@@ -185,6 +199,11 @@ theorem sum_mul_norm_sq_eq_halaszB {J : ℕ} {S : Finset ℕ} (hS : 0 ∉ S) (b 
           * (n : ℂ) ^ (-((starRingEnd ℂ) (s j) + s k)) := rfl
   rw [hd, Finset.mul_sum]
 
+/-- **Jutila's Lemma 7, finite form** — Halász's inequality with the unimodular `η_j` retained:
+`(∑_j |f(s_j, χ_j)|)² ≤ ∑_n |a_n|² b_n⁻¹ · Re ∑_{j,k} η̄_j η_k B(s̄_j + s_k; χ_j, χ_k)` under
+`hS : 0 ∉ S`, `hb`, `hb0`, `hη`: `sq_sum_norm_dirichletPolyChi_le` and
+`sum_mul_norm_sq_eq_halaszB`, the latter read off through `Complex.ofReal_re`. Consumed by
+`halasz_weighted_tsum`. -/
 theorem halasz_weighted {J : ℕ} {S : Finset ℕ} (hS : 0 ∉ S) (a : ℕ → ℂ) {b : ℕ → ℝ}
     (hb : ∀ n ∈ S, a n ≠ 0 → 0 < b n) (hb0 : ∀ n ∈ S, 0 ≤ b n)
     (χ : Fin J → DirichletCharacter ℂ q) (s : Fin J → ℂ) (η : Fin J → ℂ)
@@ -201,6 +220,11 @@ theorem halasz_weighted {J : ℕ} {S : Finset ℕ} (hS : 0 ∉ S) (a : ℕ → �
   rw [← h3]
   exact sq_sum_norm_dirichletPolyChi_le S a hb hb0 χ s η hη
 
+/-- **Lemma 7 with `B` summed over ALL `n`** — the form W9 consumes: under `hb0` everywhere,
+`hb00 : b 0 = 0` (the `n = 0` junk value) and the summability `hsum` of each `(j, k)`-series,
+the finite `halaszB` of `halasz_weighted` is dominated by `halaszBTsum` because every term
+`b_n |…|²` is nonnegative (`sum_le_hasSum`, the real parts matched termwise by
+`ofReal_mul_norm_sq_eq`). Consumed by `Salt.SW.JutilaHalasz`. -/
 theorem halasz_weighted_tsum {J : ℕ} {S : Finset ℕ} (hS : 0 ∉ S) (a : ℕ → ℂ) {b : ℕ → ℝ}
     (hb : ∀ n ∈ S, a n ≠ 0 → 0 < b n) (hb0 : ∀ n, 0 ≤ b n) (hb00 : b 0 = 0)
     (χ : Fin J → DirichletCharacter ℂ q) (s : Fin J → ℂ) (η : Fin J → ℂ)
@@ -256,6 +280,9 @@ theorem halasz_weighted_tsum {J : ℕ} {S : Finset ℕ} (hS : 0 ∉ S) (a : ℕ 
   exact mul_le_mul_of_nonneg_left
     (sum_le_hasSum S (fun n _ => mul_nonneg (hb0 n) (sq_nonneg _)) hgs) hP
 
+/-- `halaszBTsum` as the L-series of the single character `χ₁⁻¹ * χ₂`, termwise and non-units
+included: `conj(χ₁ n) · χ₂ n = (χ₁⁻¹ * χ₂) n` by `MulChar.star_apply'`. So W9 rewrites `B`
+without touching a `tsum` binder; consumed by `Salt.SW.JutilaResidue`. -/
 theorem halaszBTsum_eq (b : ℕ → ℝ) (χ₁ χ₂ : DirichletCharacter ℂ q) (s : ℂ) :
     halaszBTsum b χ₁ χ₂ s = ∑' n : ℕ, (b n : ℂ) * ((χ₁⁻¹ * χ₂) n) * (n : ℂ) ^ (-s) := by
   have hd : halaszBTsum b χ₁ χ₂ s

@@ -111,7 +111,7 @@ badHyp_false in-probe). Charges: quantifier audit PASS (the ≤/<
 pairing is exactly right — the boundary belongs to the same side
 in both Props); Tao Thm 1 match PASS (+ A5: the closed-interval
 endpoint nuance, absorbed by the existential c — docstring note);
-citations PASS (the carve-out at ZeroFreeReal.lean:605-608 is
+citations PASS (the carve-out at ZeroFreeReal.lean:604-607 is
 literally (χ² ≠ 1 ∨ im ≠ 0); siegel_theorem's q^ε gap is WEAKER
 than the log-q gap, so the corpus genuinely does not decide the
 hypothesis); R4 PASS (the MmuRate ζ-vs-L(χ) honesty verified at

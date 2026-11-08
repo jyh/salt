@@ -227,15 +227,25 @@ theorem flat_exp_ge_quartic {y : ℝ} (hy : 0 ≤ y) : y ^ 4 / 256 ≤ Real.exp 
   rw [hid] at h
   exact h
 
+/-- `flatDoorM A ≤ e^{1.6A}/310301` as reals: `Nat.floor_le` on the definition. The `hMle` step
+of the flat and stride regime pages — `FlatDoorEpsRung2`, this file's four sel theorems,
+`S15SelLinearWide`, `StrideGradeReach`, `StrideGradeWalls`, `V7Rated` (sixteen sites). -/
 theorem flatDoorM_le (A : ℝ) : ((flatDoorM A : ℕ) : ℝ) ≤ Real.exp (3.2 * A / 2) / 310301 :=
   Nat.floor_le (by positivity)
 
+/-- `e^{1.6A}/310301 − 1 ≤ flatDoorM A`: `Nat.lt_floor_add_one`, the `−1` the floor costs. The
+`hMge` step of the same regime pages (`FlatDoorEpsRung2`, this file, `S15SelLinearWide`,
+`StrideGradeReach`, `StrideGradeWalls`) and of `FlatFloorBump` and `KLever`. -/
 theorem flatDoorM_ge (A : ℝ) :
     Real.exp (3.2 * A / 2) / 310301 - 1 ≤ ((flatDoorM A : ℕ) : ℝ) := by
   have := Nat.lt_floor_add_one (Real.exp (3.2 * A / 2) / 310301)
   simp only [flatDoorM]
   linarith
 
+/-- `1 ≤ flatDoorM A` at `hA : 26 ≤ A`: `Nat.le_floor` with `flat_exp_half_ge hA`
+(`e^{1.6A} ≥ 10^17 ≥ 310301`). The `hM1` every compose, receipt and terminal page opens with,
+often through `flat162_ge_26` — about ninety sites across the flat, stride, S16, V6 and V7
+pages. Listed in `All.lean`'s registry. -/
 theorem flatDoorM_one_le {A : ℝ} (hA : 26 ≤ A) : 1 ≤ flatDoorM A := by
   refine Nat.le_floor ?_
   have h := flat_exp_half_ge hA

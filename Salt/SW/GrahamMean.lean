@@ -15,7 +15,7 @@ import Salt.Maynard.PhiAtom
 An 2022 §4 argument with every asymptotic replaced by a one-sided bound: the
 lcm-collection regroup (`GrahamL2.lean`), the Selberg diagonalisation, the sharp
 pointwise decay `|innerG z g| ≤ C₀/(φ(g)·log z)` (`BvL.lean`, S4), and the landed
-`μ²/φ` atom `Σ_{g ≤ z, μ²} 1/φ(g) ≤ 4·log(z+1) + C'` (`Maynard/PhiAtom.lean:861`).
+`μ²/φ` atom `Σ_{g ≤ z, μ²} 1/φ(g) ≤ 4·log(z+1) + C'` (`Maynard/PhiAtom.lean:867`).
 
 ## ⚠ THE HONEST LABEL — this proves strictly LESS than Graham's theorem
 

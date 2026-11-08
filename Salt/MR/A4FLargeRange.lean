@@ -104,8 +104,7 @@ theorem largeRangeFixedEps_of_fixed (hFix : MRTLargeRangeEquidistributionFixed) 
   obtain ⟨C, hC, h⟩ := hFix
   refine ⟨C, hC, ?_⟩
   intro X Y u hXe _heY hu2X hulo hfl
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hXe
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hXe
   exact h X Y u hXe hu2X hulo
     (le_trans (Real.rpow_le_rpow_of_exponent_le hlogX1 (by linarith)) hfl)
 
@@ -156,15 +155,13 @@ theorem mrt_large_range_parametric :
   have h2π : 2 / Real.pi < 1 := by rw [div_lt_one hπpos]; linarith
   have h2π0 : 0 < 2 / Real.pi := by positivity
   have hXpos : 0 < X := lt_of_lt_of_le (Real.exp_pos 1) heX
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) heX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le heX
   have hlogXpos : 0 < Real.log X := by linarith
   set lam : ℝ := Real.log (Real.log X) with hlam
   have hlam0 : 0 ≤ lam := Real.log_nonneg hlogX1
   -- `1 ≤ log Y` (from `e ≤ Y`; the floor alone gives only `e ≤ |Y|`, mathlib's `log` being
   -- even — and the floor VANISHES at `X = e`, so `e ≤ Y` is load-bearing here)
-  have hlogY1 : (1 : ℝ) ≤ Real.log Y := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) heY
+  have hlogY1 : (1 : ℝ) ≤ Real.log Y := le_log_of_exp_le heY
   have hlogYpos : 0 < Real.log Y := by linarith
   set Δ : ℝ := Real.log (Real.log X / Real.log Y) with hΔ
   -- the demand is capped by `lam` at every `X` (from `1 ≤ log Y` alone)
@@ -463,13 +460,11 @@ theorem mrtLargeRangeEquidistributionFixedEps_holds : MRTLargeRangeEquidistribut
   intro ε hε
   refine ⟨C + (7 / ε) ^ (7 : ℕ) + 1, by positivity, ?_⟩
   intro X Y u heX heY hu2X hulo hfl
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) heX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le heX
   have hlogXpos : 0 < Real.log X := by linarith
   set lam : ℝ := Real.log (Real.log X) with hlam
   have hlam0 : 0 ≤ lam := Real.log_nonneg hlogX1
-  have hlogY1 : (1 : ℝ) ≤ Real.log Y := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) heY
+  have hlogY1 : (1 : ℝ) ≤ Real.log Y := le_log_of_exp_le heY
   have hlogYpos : 0 < Real.log Y := by linarith
   set Δ : ℝ := Real.log (Real.log X / Real.log Y) with hΔ
   have hΔlam : Δ ≤ lam := by

@@ -62,23 +62,37 @@ noncomputable def absCosCircle : C(AddCircle Real.pi, ℂ) where
     rw [(QuotientAddGroup.isQuotientMap_mk (AddSubgroup.zmultiples Real.pi)).continuous_iff]
     exact Complex.continuous_ofReal.comp (_root_.continuous_abs.comp Real.continuous_cos)
 
+/-- `absCosCircle` at the class of `θ` is `|cos θ|` cast to `ℂ` (`rfl`, the `lift` unfolding).
+The `simp` lemma through which `fourierCoeff_absCosCircle` and `hasSum_absCos_harmonics` read
+the circle function back on `ℝ`. -/
 @[simp] lemma absCosCircle_coe (θ : ℝ) :
     absCosCircle (θ : AddCircle Real.pi) = ((|Real.cos θ| : ℝ) : ℂ) := rfl
 
 /-! ## Powers of `I` at odd integer exponents -/
 
+/-- `(-1) ^ n` is its own inverse in `ℂ` for every integer `n`:
+`(-1) ^ n * (-1) ^ n = (-1) ^ (2n) = 1`. Consumed by `I_zpow_one_sub_two_mul` and
+`fourierCoeff_absCosCircle`. -/
 lemma neg_one_zpow_inv (n : ℤ) : ((-1 : ℂ) ^ n)⁻¹ = (-1 : ℂ) ^ n := by
   refine inv_eq_of_mul_eq_one_left ?_
   rw [← zpow_add₀ (by norm_num : (-1 : ℂ) ≠ 0), show n + n = 2 * n by ring, zpow_mul,
     show ((-1 : ℂ)) ^ (2 : ℤ) = 1 by norm_num, one_zpow]
 
+/-- `I ^ (2n) = (-1) ^ n` — `zpow_mul` and `I ^ 2 = -1`. Consumed by
+`I_zpow_one_add_two_mul`. -/
 lemma I_zpow_two_mul (n : ℤ) : (I : ℂ) ^ (2 * n) = (-1 : ℂ) ^ n := by
   rw [zpow_mul, show (I : ℂ) ^ (2 : ℤ) = -1 by
     rw [show (2 : ℤ) = ((2 : ℕ) : ℤ) from rfl, zpow_natCast, Complex.I_sq]]
 
+/-- `I ^ (1 + 2n) = (-1) ^ n * I` — `zpow_add₀` and `I_zpow_two_mul`. One of the two
+odd-exponent evaluations `fourierCoeff_absCosCircle` meets at the endpoints `±π/2`; consumed
+there and by `I_zpow_one_sub_two_mul`. -/
 lemma I_zpow_one_add_two_mul (n : ℤ) : (I : ℂ) ^ (1 + 2 * n) = (-1 : ℂ) ^ n * I := by
   rw [zpow_add₀ Complex.I_ne_zero, zpow_one, I_zpow_two_mul, mul_comm]
 
+/-- `I ^ (1 - 2n) = (-1) ^ n * I` — write `1 - 2n = 1 + 2(-n)`, apply `I_zpow_one_add_two_mul`,
+and absorb the inverse by `neg_one_zpow_inv`. The other odd-exponent evaluation of
+`fourierCoeff_absCosCircle`. -/
 lemma I_zpow_one_sub_two_mul (n : ℤ) : (I : ℂ) ^ (1 - 2 * n) = (-1 : ℂ) ^ n * I := by
   rw [show (1 - 2 * n) = 1 + 2 * (-n) by ring, I_zpow_one_add_two_mul, zpow_neg,
     neg_one_zpow_inv]
@@ -188,6 +202,10 @@ theorem fourierCoeff_absCosCircle (n : ℤ) :
 
 /-! ## Summability of the coefficients -/
 
+/-- The Fourier coefficients of `|cos|` are summable over `ℤ`: by `fourierCoeff_absCosCircle`
+each has norm `(2/π) / |4n² - 1|`, dominated by `1/(n+1)²` on `ℕ`
+(`Real.summable_one_div_nat_pow`) and glued over `ℤ` by `Summable.of_nat_of_neg`. The hypothesis
+`has_pointwise_sum_fourier_series_of_summable` needs in `hasSum_absCos_harmonics`. -/
 theorem summable_fourierCoeff_absCosCircle :
     Summable (fun n : ℤ => fourierCoeff (⇑absCosCircle) n) := by
   refine Summable.of_norm ?_
@@ -226,6 +244,9 @@ theorem summable_fourierCoeff_absCosCircle :
 
 /-! ## The pointwise identity, paired into real harmonics -/
 
+/-- `(-1) ^ (-m + 1) = (-1) ^ (m + 1)` in `ℝ`: the exponents differ by `2m`, and
+`(-1) ^ (2m) = 1`. Pairs the signs of the `n` and `-n` coefficients in
+`hasSum_absCos_harmonics`. -/
 lemma neg_one_zpow_real_neg_add_one (m : ℤ) : (-1 : ℝ) ^ (-m + 1) = (-1 : ℝ) ^ (m + 1) := by
   rw [show -m + 1 = (m + 1) + 2 * (-m) by ring, zpow_add₀ (by norm_num : (-1 : ℝ) ≠ 0),
     zpow_mul, show ((-1 : ℝ)) ^ (2 : ℤ) = 1 by norm_num, one_zpow, mul_one]

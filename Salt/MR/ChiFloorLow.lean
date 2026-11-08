@@ -15,7 +15,7 @@ The LAST stone of ROUTE A (`docs/exploration/chi-check-0724.md`, the "BIGGER FIN
 
 ## The honest supply verdict (recorded, not guessed)
 
-The floor-side bridge `chi_dist_bridge` (`ChiEuler.lean:339`) reduces H2 to ONE analytic
+The floor-side bridge `chi_dist_bridge` (`ChiEuler.lean:338`) reduces H2 to ONE analytic
 input — a LOWER bound on `log‖L(1 + 1/log X − it, χ)‖` at bounded height.  A census of the
 landed SW zero-theory chain gives:
 
@@ -89,7 +89,7 @@ This is the EXACT interface the H2 leg needs: the sign-pinned argument
 enters additively, so an `L`-lower of grade `q^{−ε}` gives a debit `ε·log q` and an
 `L`-lower of grade `(log(q(|t|+2)))^{−A}` gives `A·log log(q(|t|+2))`.
 
-One `linarith` off the landed `chi_dist_bridge` (`ChiEuler.lean:339`); `K` is that bridge's
+One `linarith` off the landed `chi_dist_bridge` (`ChiEuler.lean:338`); `K` is that bridge's
 constant verbatim, so it is `q`-free, `χ`-free, `X`-free and `t`-free. -/
 theorem chi_floor_low_of_Llower :
     ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (X t B : ℝ),
@@ -168,8 +168,7 @@ theorem chi_floor_low_principal :
   intro q X t hX ht3
   have h2e : (2 : ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1 : ℝ); linarith
   have hX2 : (2 : ℝ) ≤ X := le_trans h2e hX
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hd0 : (0 : ℝ) < 1 / Real.log X := one_div_pos.mpr hlogXpos
   have hd1 : 1 / Real.log X ≤ 1 := by rw [div_le_one hlogXpos]; linarith

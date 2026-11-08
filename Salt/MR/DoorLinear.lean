@@ -81,6 +81,12 @@ gate-12/length-floor pair, with ~64× beyond); the `M` in place of `⌊log₂ M�
 FLAT-REF amendment 0.  `M` is still never evaluated — at the door it is `⌈8C/δ₀⌉`-shaped. -/
 def AdoorL (M : ℕ) : ℕ := 2 ^ 36 * M
 
+/-- `2^36 ≤ AdoorL M` at `hM : 1 ≤ M` (`Nat.le_mul_of_pos_right`): the landed anchor size is the
+linear anchor's floor, so every statement that read `Adoor M` only through `Adoor_ge` holds at
+`AdoorL M` by this lemma. Consumed by `one_le_AdoorL` and `AdoorL_ge_old` below and by the
+frames' `A_floor` fields here; across `Salt/` by `ArithPageLinear.s15_doorRowFloorL_ge`,
+`DoorLadderLinear`, `M4RowLinear` (the four gate readers), `M4WaveLinear`, `S13BandCapLinear`
+and `S13FramesLinear`. -/
 lemma AdoorL_ge {M : ℕ} (hM : 1 ≤ M) : 2 ^ 36 ≤ AdoorL M :=
   Nat.le_mul_of_pos_right _ (by omega)
 
@@ -89,6 +95,11 @@ consumer written against the old anchor survives verbatim at the linear cut too.
 lemma AdoorL_ge_old {M : ℕ} (hM : 1 ≤ M) : 2 ^ 18 ≤ AdoorL M :=
   le_trans (by norm_num) (AdoorL_ge hM)
 
+/-- `1 ≤ AdoorL M` at `hM : 1 ≤ M`, through `AdoorL_ge`. The `hA : 1 ≤ AdoorL M` every compose,
+receipt and terminal page opens with (`hgates.hM`), the anchor argument of the `_gen` capfloor
+lemmas in `S13BandCapLinear`, `S13CapGateLinearLH` and `StrideDoorAllGrades`, of
+`eq28_clears_of_M` here and of `calQK_one_lt_calP_two` in `M4WaveLinear` — about forty-five
+sites. Listed in `All.lean`'s registry. -/
 lemma one_le_AdoorL {M : ℕ} (hM : 1 ≤ M) : 1 ≤ AdoorL M :=
   le_trans (by norm_num) (AdoorL_ge hM)
 
@@ -529,6 +540,10 @@ it is `calE_one` plus `Nat.pow_le_pow_iff_right`, both anchor-agnostic. -/
 /-- **THE LINEAR DOOR'S LENGTH FLOOR** `doorRowFloorL M := M·A_L(M) = 2^36·M²`. -/
 def doorRowFloorL (M : ℕ) : ℕ := M * AdoorL M
 
+/-- `doorRowFloorL M = 2^36·(M·M)`: unfold `doorRowFloorL` and `AdoorL`, then `ring` — the
+length floor is quadratic in `M` at the linear door, where the landed cut's was
+`M·log M`-shaped. No proof in `Salt/` applies it (the gate `doorL_length_gate_iff` keeps
+`M · AdoorL M` unexpanded); listed in `All.lean`'s registry. -/
 lemma doorRowFloorL_eq (M : ℕ) : doorRowFloorL M = 2 ^ 36 * (M * M) := by
   simp only [doorRowFloorL, AdoorL]
   ring

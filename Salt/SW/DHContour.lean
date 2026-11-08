@@ -65,9 +65,17 @@ across `s = 1` by its limit `γ` (the Euler–Mascheroni constant). Entire (M3-1
 def zetaHol : ℂ → ℂ :=
   Function.update (fun s => riemannZeta s - 1 / (s - 1)) 1 (Real.eulerMascheroniConstant : ℂ)
 
+/-- `zetaHol s = ζ(s) − 1/(s − 1)` away from the pole (`hs : s ≠ 1`): the `Function.update` is
+inert there (`Function.update_of_ne`). The unfolding every pointwise fact about `zetaHol` starts
+from — `riemannZeta_eq_add_zetaHol`, `zetaHol_continuousAt_one`,
+`zetaHol_differentiableAt_of_ne`, and `TauExt`'s use of the split. -/
 lemma zetaHol_of_ne {s : ℂ} (hs : s ≠ 1) : zetaHol s = riemannZeta s - 1 / (s - 1) :=
   Function.update_of_ne hs _ _
 
+/-- `zetaHol 1 = γ` (the Euler–Mascheroni constant, cast to `ℂ`): the value the
+`Function.update` plants at the removed pole (`Function.update_self`). Consumed by
+`zetaHol_continuousAt_one`, where the limit `tendsto_riemannZeta_sub_one_div` is matched against
+this value. -/
 lemma zetaHol_one : zetaHol 1 = (Real.eulerMascheroniConstant : ℂ) :=
   Function.update_self 1 _ _
 
@@ -86,6 +94,11 @@ lemma zetaHol_continuousAt_one : ContinuousAt zetaHol 1 := by
     tendsto_riemannZeta_sub_one_div.congr' hEq
   simpa [ContinuousWithinAt, zetaHol_one] using h
 
+/-- `zetaHol` is differentiable at every `s ≠ 1` (`hs`): it agrees with `ζ − 1/(· − 1)` on the
+open set `{1}ᶜ` (`zetaHol_of_ne`), and that difference is differentiable there
+(`differentiableAt_riemannZeta`, the quotient rule with `s − 1 ≠ 0`). The off-pole half of
+`zetaHol_differentiableAt`, and the punctured-neighbourhood input of
+`zetaHol_analyticAt_one`. -/
 lemma zetaHol_differentiableAt_of_ne {s : ℂ} (hs : s ≠ 1) : DifferentiableAt ℂ zetaHol s := by
   have hraw : DifferentiableAt ℂ (fun z => riemannZeta z - 1 / (z - 1)) s :=
     (differentiableAt_riemannZeta hs).sub
@@ -95,6 +108,10 @@ lemma zetaHol_differentiableAt_of_ne {s : ℂ} (hs : s ≠ 1) : DifferentiableAt
     exact zetaHol_of_ne (by simpa using hz)
   exact hraw.congr_of_eventuallyEq hloc
 
+/-- `zetaHol` is analytic at the removed pole `1`: differentiable on a punctured neighbourhood
+(`zetaHol_differentiableAt_of_ne`) and continuous at `1` (`zetaHol_continuousAt_one`), so the
+removable-singularity theorem `analyticAt_of_differentiable_on_punctured_nhds_of_continuousAt`
+applies. The `s = 1` half of `zetaHol_differentiableAt` (M3-1). -/
 lemma zetaHol_analyticAt_one : AnalyticAt ℂ zetaHol 1 := by
   apply analyticAt_of_differentiable_on_punctured_nhds_of_continuousAt _ zetaHol_continuousAt_one
   filter_upwards [self_mem_nhdsWithin] with z hz
@@ -107,6 +124,9 @@ lemma zetaHol_differentiableAt (s : ℂ) : DifferentiableAt ℂ zetaHol s := by
   · exact zetaHol_analyticAt_one.differentiableAt
   · exact zetaHol_differentiableAt_of_ne hs
 
+/-- `zetaHol` is entire, as a `Differentiable ℂ` term (`zetaHol_differentiableAt` at every
+point). The form the rectangle integrands take: `rectBI_zeta_mul` and `rectBI_zeta_shift_mul`
+restrict it to the closed rectangle, and `ZetaEM` and `TauExt` take its continuity. -/
 lemma zetaHol_differentiable : Differentiable ℂ zetaHol := zetaHol_differentiableAt
 
 /-! ## M3-1 — the pole-extracting form of `F(s) = ζ(s)·L(s,χ)`

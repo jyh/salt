@@ -27,7 +27,7 @@ support condition.  That single observation adjudicates the two named routes.
 ### ROUTE A — REJECTED, category mismatch
 (the "new Prop 8.3": the all-χ pretentious floors → `halasz_ball_decay`)
 
-`capFreeFloor3_margin_all_chi_vt` / `capFreeFloor3_pieceDatum_vt` (`VkMidSharp`:505/559)
+`capFreeFloor3_margin_all_chi_vt` / `capFreeFloor3_pieceDatum_vt` (`VkMidSharp`:503/557)
 bound `pretDistSq (lamChi χ) (costwist v) X` from below, and `halasz_ball_decay`
 (`HalaszCore`:440) converts such a floor into `U ≤ (C₁+C₂)·X·(e^{−cM_range} + (log X)^{−1/2+ε})`
 — a decay statement for the **summatory function of ONE multiplicative datum** (`lamChi χ`,

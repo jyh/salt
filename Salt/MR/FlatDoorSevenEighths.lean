@@ -32,6 +32,10 @@ namespace Salt.MR
 
 open Salt.Entropy.Chowla
 
+/-- `0 < log 2 / 8` — `Real.log_pos` at `1 < 2` and `positivity`: the standoff constant
+`cS = (log 2)/8` at which `noSiegelZerosAt_of_sevenEighths` is read. Consumed by
+`logChowla2_epsFamily_flatDoor_floor_of_sevenEighths`; the primed name avoids the same-named
+twins in `SevenEighthsGaps` and `SiegelFree`. -/
 private theorem log_two_div_eight_pos' : 0 < Real.log 2 / 8 := by
   have := Real.log_pos (by norm_num : (1 : ℝ) < 2); positivity
 

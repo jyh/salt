@@ -253,12 +253,12 @@ def measure(files: list[tuple[str, str]]) -> dict:
 
     return {"files": len(files), "decls": len(decls), "theorems": len(thms), "definitions": len(defs),
             "depth": depth, "fanout_max": max(fan, default=0),
-            "fanout_mean": round(sum(fan) / len(fan), 3) if fan else 0.0,
+            "fanout_mean": round(sum(fan) / len(fan), 3) if fan else None,
             "prose_chars": prose_chars, "formal_chars": formal_chars,
             "prose_formal": round(prose_chars / formal_chars, 4) if formal_chars else 0.0,
             "defs_documented": share(defs), "forward_prose_refs": forward,
             "role_lines": share(thms), "automation": automation,
-            "automation_per_decl": round(automation / len(decls), 3) if decls else 0.0,
+            "automation_per_decl": round(automation / len(decls), 3) if decls else None,
             "kernel_comp": kernel_comp,
             "numeral_density": round(100 * big_numerals / num_tokens, 3) if num_tokens else 0.0}
 
@@ -461,6 +461,13 @@ def selftest() -> int:
                 and r1["role_lines"] == 1.0 and r2["defs_documented"] == 1.0,
                 f"defs_documented(no defs) {r1['defs_documented']} · role_lines(no theorems) {r2['role_lines']}")
     arm("empty-population-is-none", _empty_population)
+
+    # the same for the two means over declarations: an import-only file has no mean
+    def _empty_means():
+        r = measure([("a.lean", "import Mathlib\n")])
+        return (r["fanout_mean"] is None and r["automation_per_decl"] is None,
+                f"fanout_mean {r['fanout_mean']} · automation_per_decl {r['automation_per_decl']}")
+    arm("empty-means-are-none", _empty_means)
 
     print(f"selftest: {len(fails)} FAIL")
     return 1 if fails else 0

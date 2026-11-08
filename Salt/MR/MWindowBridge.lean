@@ -12,7 +12,7 @@ import Salt.MR.DistHalasz
 The interface `thm_A2′` offers its quality at the SIEVE parameter:
 `M(f; X, W) = inf_{|t| ≤ W} 𝔻²(f, n^{it}; X)` at `W = (log H)^{12}`.  The landed
 station consumes a floor on MRT's OWN window `|v| ≤ X`
-(`SupStation.seam_ball_leg_station_M:723–724`,
+(`SupStation.seam_ball_leg_station_M:589–590`,
 `hM₀ : ∀ v, |v| ≤ X → M₀ ≤ 𝔻²(datum, n^{iv}; X)`).  This file bridges the two:
 the far band `W ≲ |v| ≤ X` is paid by the `f = 1` distance floor
 (`DistHalasz.dist_one_floor_pow`) recentred at a window point through the
@@ -28,7 +28,7 @@ joined by a `min`.
   the assembled `min`, in the hypothesis form, in the infimum form (unconditional,
   stated at the interface object `M_win`), and at the station's own seam datum.
 * **B-3 `M_rangeCap` + `Mrange_cap_one_floor` + `contour_height_le_two_mul`** (§5) —
-  the D10 repair: `M_range`'s domain caps at `|t| ≤ X` (`DistHalasz:262–265`) while
+  the D10 repair: `M_range`'s domain caps at `|t| ≤ X` (`DistHalasz:259–262`) while
   MRT p. 25's contour reaches `|t'| ≤ X + (log X)²`.  The capped twin `M_rangeCap`
   carries the height cap as a parameter, its floor is the same `1/4 − o(1)` grade,
   and `contour_height_le_two_mul` puts the contour reach inside the doubled cap.
@@ -336,7 +336,7 @@ theorem M_window_bridge_seam :
 
 /-! ## §5 — B-3: the D10 repair (the max-modulus reach)
 
-`M_range` (`DistHalasz:262–265`) caps its window at `|t| ≤ X`, while MRT p. 25's contour
+`M_range` (`DistHalasz:259–262`) caps its window at `|t| ≤ X`, while MRT p. 25's contour
 reaches `|t'| ≤ X + (log X)²` (the THIRD object wearing the `T₀` glyph — not `seamT0`,
 not MRT's set `𝒯₀`).  The repair is ADDITIVE: a capped twin `M_rangeCap` carrying the
 height as a parameter, with the same `1/4 − o(1)` floor.  Nothing landed is edited, and
@@ -362,8 +362,7 @@ lemma M_rangeCap_window_nonempty {X T K : ℝ} (hX : Real.exp 1 ≤ X)
     ({t : ℝ | (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
       ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ K}).Nonempty := by
   have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hX
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hLXpos : (0 : ℝ) < Real.log X := by linarith
   have hr15X : (Real.log X) ^ (1 / 45 : ℝ) ≤ X := by
     calc (Real.log X) ^ (1 / 45 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
@@ -398,7 +397,7 @@ lemma M_rangeCap_le_M_range {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) {X T
   `pretFloorShape X K − C ≤ M_rangeCap (1; X, T, K)`,
 
 i.e. `loglog X − (3/4)·loglog(K+3) − 5·logloglog(K+16) − C`.  At `K = X` this is
-`Mrange_one_floor` (`DistHalasz:276`) re-derived; at `K = 2X` it is the same
+`Mrange_one_floor` (`DistHalasz:273`) re-derived; at `K = 2X` it is the same
 `(1/4 − o(1))·loglog X` grade with the correction read at the doubled height — the floor
 is `dist_one_floor_pow`-driven and that stone holds at EVERY `|b| ≥ 1`, so widening the
 cap costs only the shape's own monotonicity (`pretFloorShape_le_of_le`). -/
@@ -407,8 +406,7 @@ theorem Mrange_cap_one_floor :
       pretFloorShape X K - C ≤ M_rangeCap (fun _ => 1) X T K := by
   obtain ⟨C, hC⟩ := dist_one_floor_pow
   refine ⟨C, fun X T K hX hT hXK => ?_⟩
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hr15_1 : (1 : ℝ) ≤ (Real.log X) ^ (1 / 45 : ℝ) := Real.one_le_rpow hlogX1 (by norm_num)
   have hfloor : ∀ t : ℝ,
       (Real.log X) ^ (1 / 45 : ℝ) ≤ |t| ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ K →

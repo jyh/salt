@@ -82,7 +82,7 @@ the definition), `ε` is universally quantified outermost, and the threshold
   datum, with the order `⌈H/(log H)^{B₅}⌉` chosen so the radius matches.
 * `mem_bigXi_iff`, `not_mem_bigXi_of_norm_lt`, `norm_expSum_le_sum`,
   `threshold_le_sum_inv_of_mem` — the `Ξ_H` interface.  The first and third are
-  verbatim transplants of `Salt/Entropy/Chowla/CircleMethod.lean:351-361` and
+  verbatim transplants of `Salt/Entropy/Chowla/CircleMethod.lean:381-391` and
   `:371-375`, which are `private` there and hence unusable from here.
 * `primeWindow_bounds`, `inv_p_le_of_mem`, `le_inv_p_of_mem`,
   `norm_expSum_le_card` — the dyadic weight normalisation `1/p ≍ 1/(ε²H)`, the
@@ -368,7 +368,7 @@ theorem exists_large_den_of_minor {B₅ : ℝ} (hB : 0 ≤ B₅) {H : ℕ} (hH :
 trivial `S_H` bound `private` (`:351`, `:371`), so both are re-derived here — the
 proofs are the source proofs byte-for-byte. -/
 
-/-- **`Ξ_H` membership** (transplant of the `private` `CircleMethod.lean:371-375`):
+/-- **`Ξ_H` membership** (transplant of the `private` `CircleMethod.lean:409-413`):
 `ξ ∈ Ξ_H` iff the exponential sum at `−ξ/H` clears the threshold `ε²/log H`. -/
 theorem mem_bigXi_iff {eps : ℚ} {H : ℕ} [NeZero H] {ξ : ZMod H} :
     ξ ∈ bigXi eps H ↔
@@ -383,7 +383,7 @@ theorem not_mem_bigXi_of_norm_lt {eps : ℚ} {H : ℕ} [NeZero H] {ξ : ZMod H}
     (h : ‖expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖ < (eps : ℝ) ^ 2 / Real.log (H : ℝ)) :
     ξ ∉ bigXi eps H := fun hξ => absurd (mem_bigXi_iff.mp hξ) (not_le.mpr h)
 
-/-- **The trivial bound** (transplant of the `private` `CircleMethod.lean:351-361`):
+/-- **The trivial bound** (transplant of the `private` `CircleMethod.lean:381-391`):
 `‖S_H(α)‖ ≤ ∑_{p ∈ 𝒫_H} 1/p`, each phase having modulus one. -/
 theorem norm_expSum_le_sum {eps : ℚ} {H : ℕ} [NeZero H] (α : ℝ) :
     ‖expSum eps H α‖ ≤ ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℝ)) := by

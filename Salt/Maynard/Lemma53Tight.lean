@@ -48,12 +48,17 @@ fixed real (not hidden in an `∃`) so the tight error constants are explicit. -
 noncomputable def rankinC : ℝ := (rankin_bound 1).choose
 
 omit [TupleChoice] in
+/-- `1 ≤ rankinC`: the first conjunct of `rankin_bound 1`'s `choose_spec`. -/
 lemma rankinC_ge_one : 1 ≤ rankinC := (rankin_bound 1).choose_spec.1
 
 omit [TupleChoice] in
+/-- `0 ≤ rankinC`, from `rankinC_ge_one`; the sign the tight cascade's constants spend. -/
 lemma rankinC_nonneg : 0 ≤ rankinC := le_trans zero_le_one rankinC_ge_one
 
 omit [TupleChoice] in
+/-- `Σ_{q < Q, squarefree} 1 / φ(q) ≤ rankinC · log Q` for `2 ≤ Q`: `rankin_bound 1`'s
+`choose_spec.2` with `1^{ω(q)} = 1` simplified away; spent at `Q = R` to bound the
+`m`-contraction of a bounded tensor by `rankinC · log R`. -/
 lemma rankinC_bound (Q : ℕ) (hQ : 2 ≤ Q) :
     ∑ q ∈ (Finset.range Q).filter Squarefree, 1 / (Nat.totient q : ℝ)
       ≤ rankinC * Real.log Q := by
@@ -623,6 +628,8 @@ theorem abs_mainSum_le_tight (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → �
 noncomputable def lemma53Const : ℝ := rankinC * (2 + 4 * Real.exp 4)
 
 omit [TupleChoice] in
+/-- `0 ≤ lemma53Const = rankinC · (2 + 4 · exp 4)`: `rankinC_nonneg` and `0 < exp 4`
+(`positivity`); the sign of `C = lemma53Const · k` in `s2main_lower_rel_tight`. -/
 lemma lemma53Const_nonneg : 0 ≤ lemma53Const := by
   rw [lemma53Const]
   have := rankinC_nonneg
@@ -850,6 +857,10 @@ Local copies of the constant-independent private helpers of
 `contraction_nonneg`, `contraction_le`, `errbox_le`), then `s2main_lower_rel_tight`
 with the fixed explicit constant `C = lemma53Const·k`. -/
 
+/-- `Σ_{am < R} fTilde(am) / φ(am) ≤ B₁`: `fTilde` is `fWt` on `sqfCop R₀ (W k)` and `0` off it,
+so the sum over `range R` is a subsum of `B₁`'s with nonnegative terms
+(`Finset.sum_le_sum_of_subset_of_nonneg`, `fWt_nonneg`). Local copy of `S2MainLowerRel`'s
+private helper. -/
 private lemma sumFTilde_le_B1' (k R : ℕ) (T : ℝ) (hR : 2 ≤ R) :
     (∑ am ∈ Finset.range R, fTilde k R T am / (Nat.totient am : ℝ)) ≤ B1 k R (W k) T := by
   classical
@@ -874,6 +885,10 @@ private lemma sumFTilde_le_B1' (k R : ℕ) (T : ℝ) (hR : 2 ≤ R) :
       exact Nat.one_le_iff_ne_zero.mpr ham.2.1.ne_zero
     exact div_nonneg (fWt_nonneg hr hR) (Nat.cast_nonneg _)
 
+/-- `yTensor (update u m am) ≤ fTilde(am) · ∏_{i ≠ m} fTilde(uᵢ)`: when the updated tuple is in
+the index the product splits off its `m`-th factor with equality (`Finset.mul_prod_erase`,
+`Function.update_self`, `Function.update_of_ne`); otherwise `yTensor = 0` and the product is
+nonnegative (`fTilde_nonneg`). Local copy. -/
 private lemma yTensor_update_le' (k R : ℕ) (T : ℝ) (m : Fin k) (hR : 2 ≤ R)
     (u : Fin k → ℕ) (am : ℕ) :
     yTensor k R T (Function.update u m am)
@@ -892,6 +907,8 @@ private lemma yTensor_update_le' (k R : ℕ) (T : ℝ) (m : Fin k) (hR : 2 ≤ R
   · exact mul_nonneg (fTilde_nonneg k R T am hR)
       (Finset.prod_nonneg (fun i _ => fTilde_nonneg k R T _ hR))
 
+/-- `0 ≤ Σ_{am < R} yTensor (update u m am) / φ(am)`, termwise by `yTensor_nonneg` and
+`Nat.cast_nonneg`; it discharges the absolute value in `errbox_le'`. Local copy. -/
 private lemma contraction_nonneg' (k R : ℕ) (T : ℝ) (m : Fin k) (hR : 2 ≤ R)
     (u : Fin k → ℕ) :
     0 ≤ ∑ am ∈ Finset.range R,
@@ -900,6 +917,9 @@ private lemma contraction_nonneg' (k R : ℕ) (T : ℝ) (m : Fin k) (hR : 2 ≤ 
   intro am _
   exact div_nonneg (yTensor_nonneg k R T hR _) (Nat.cast_nonneg _)
 
+/-- `Σ_{am < R} yTensor (update u m am) / φ(am) ≤ (∏_{i ≠ m} fTilde(uᵢ)) · B₁`: termwise
+`yTensor_update_le'`, the factor `P = ∏_{i ≠ m} fTilde(uᵢ) ≥ 0` pulled out of the sum, then
+`sumFTilde_le_B1'`. Local copy. -/
 private lemma contraction_le' (k R : ℕ) (T : ℝ) (m : Fin k) (hR : 2 ≤ R)
     (u : Fin k → ℕ) :
     (∑ am ∈ Finset.range R,
@@ -923,6 +943,13 @@ private lemma contraction_le' (k R : ℕ) (T : ℝ) (m : Fin k) (hR : 2 ≤ R)
     _ ≤ P * B1 k R (W k) T :=
         mul_le_mul_of_nonneg_left (sumFTilde_le_B1' k R T hR) hPnn
 
+/-- **The error box.** Under `12 · k² ≤ D₀ k`,
+`Σ_{u ∈ 𝒟, u_m = 1} (∏_{i ≠ m} fTilde(uᵢ)) · |contraction(u)| / ∏ᵢ φ(uᵢ) ≤ B₁ · 2 · A₁^{k−1}`:
+per tuple, `contraction_le'` (and `contraction_nonneg'` for the absolute value) give
+`≤ B₁ · ∏_{i ≠ m} fTilde(uᵢ)² / φ(uᵢ)` (the `m`-th factor is `φ(1) = 1`), and `g(uᵢ) ≤ φ(uᵢ)` at
+primes `≥ 3` (`gMult_le_totient`, `D₀_lt_of_prime_dvd_coord`) turns it into
+`B₁ · ∏ fTilde² / g`; summed over the box that is `B₁ · Gdiag`, and `Gdiag_le` gives
+`2 · A₁^{k−1}`. The error-box term of the tight-constant S₂ main lower bound. Local copy. -/
 private lemma errbox_le' (k R : ℕ) (T : ℝ) (m : Fin k) (hR : 2 ≤ R)
     (hD : 12 * k ^ 2 ≤ D₀ k) :
     (∑ u ∈ (kSieveIndex k R (W k)).filter (fun u => u m = 1),

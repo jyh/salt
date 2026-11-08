@@ -15,7 +15,7 @@ suffixes `<root>_of_standoff` / `<root>_of_sevenEighths`:
          §10 row with the root `X` it twins. Extra roots (a paper's citations) come from --names.
   parse  read the saltbuild log of that scratch and print the classes and totals. Exit 0 only if
          every REACHES row is by design; exit 1 on an owed row; exit 2 if the log is not a clean
-         run of THIS scratch (no `saltbuild EXIT=0`, a tagged error, a control that did not print,
+         run of THIS scratch (no `saltbuild EXIT=0` / `o13-ci EXIT=0`, a tagged error, a control that did not print,
          a count that does not match the manifest).
 
 The build between them is `../saltbuild.sh <scratch>` (never bare lake, never piped). A scratch run cannot
@@ -26,6 +26,11 @@ build its dependencies, so build the scratch's imports first, through the build 
   python3 scripts/o13_census.py parse census.log [--manifest Scratch.lean.json]
   python3 scripts/o13_census.py texnames papers/witness/main.tex > names.txt   (read it, then --names)
   python3 scripts/o13_census.py --self-test
+In CI (.github/workflows/reach_census.yml) the scratch runs under `lake env lean` and the step appends
+its own exit line, `o13-ci EXIT=<rc>`, which parse reads exactly as it reads the wrapper's. The
+red-first plant is `gen --drop-by-design NAME`: that BY_DESIGN row is left out of the scratch, so the
+run must read it REACHES-OWED (rc 1); parse prints the plant above the verdict so a planted red is
+never read as a real one.
 
 Classes, per root (the walk is `Salt.SW.StandoffCert.closureOf`, the relation behind
 `#assert_not_reaches`; the targets are its three Siegel names):
@@ -39,7 +44,8 @@ Classes, per root (the walk is `Salt.SW.StandoffCert.closureOf`, the relation be
 LIMITS, printed with every verdict:
   - The roots are RESULTS's table rows (and --names); a result with no row is not walked. An
     undotted name resolves only to constants declared in a Salt/SaltC1/Keller module, so a bare
-    binder or a core axiom named in prose reads UNRESOLVED rather than walking a foreign constant.
+    binder or an undotted core axiom (`propext`) named in prose reads UNRESOLVED rather than walking
+    a foreign constant; a dotted one (`Classical.choice`, `Quot.sound`) resolves and is walked.
   - "Reaches" is constant reference over types and values, the relation `#print axioms` uses. FREE
     means free of the three names only, not of any other hypothesis, and says nothing on effectivity.
   - `L1_lower_siegel` is effective; a REACHES row is not by itself a claim of ineffectivity.
@@ -257,8 +263,16 @@ def decl_index():
     return idx
 
 
+def drop_by_design(names):
+    """BY_DESIGN without `names`; a name that is not a BY_DESIGN key is refused (a void plant)."""
+    unknown = [n for n in names if n not in BY_DESIGN]
+    if unknown:
+        raise KeyError(f"not a BY_DESIGN row: {' '.join(unknown)}")
+    return {k: v for k, v in BY_DESIGN.items() if k not in names}
+
+
 def gen(args):
-    out, names_file, imports = "Scratch.lean", None, []
+    out, names_file, imports, drops = "Scratch.lean", None, [], []
     i = 0
     while i < len(args):
         a = args[i]
@@ -268,8 +282,14 @@ def gen(args):
             names_file = args[i + 1]; i += 2
         elif a == "--import":
             imports.append(args[i + 1]); i += 2
+        elif a == "--drop-by-design":
+            drops.append(args[i + 1]); i += 2
         else:
             sys.exit(f"o13_census gen: unknown argument {a}")
+    try:
+        by_design = drop_by_design(drops)
+    except KeyError as e:
+        sys.exit(f"o13_census gen: --drop-by-design: {e.args[0]}")
     rows = parse_results(open(RESULTS, encoding="utf-8").read())
     tm, unresolved = twin_map(rows)
     mods = {r["module"] for r in rows if r["module"]} | set(imports) | {"Salt.SW.StandoffCert"}
@@ -300,14 +320,14 @@ def gen(args):
     L.append(",\n".join(f"  ({lean_str(k)}, {lean_str(t)})" for k, t in pairs))
     L.append("]")
     L.append("def o13ByDesign : List (String × String) := [")
-    L.append(",\n".join(f"  ({lean_str(k)}, {lean_str(v)})" for k, v in sorted(BY_DESIGN.items())))
+    L.append(",\n".join(f"  ({lean_str(k)}, {lean_str(v)})" for k, v in sorted(by_design.items())))
     L.append("]")
     L.append(ELAB.replace("__CTRL_ROOT__", CONTROL_TWIN[0]).replace("__CTRL_TWIN__", CONTROL_TWIN[1]))
     with open(out, "w", encoding="utf-8") as f:
         f.write("\n".join(L))
     manifest = {"roots": len(roots), "results_rows": len(rows), "twin_pairs": len(pairs),
                 "imports": len(mods), "unresolved_s10": unresolved,
-                "control": list(CONTROL_TWIN)}
+                "control": list(CONTROL_TWIN), "dropped_by_design": drops}
     with open(out + ".json", "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=1)
     print(f"o13_census gen: {out}: {len(roots)} roots ({len(rows)} RESULTS rows), "
@@ -334,9 +354,12 @@ TOTAL = re.compile(r"O13 TOTAL entries=(\d+) roots=(\d+) FREE=(\d+) TWIN-EXISTS=
 def classify_log(text: str, manifest: dict):
     """(rc, report lines). rc 0 clean, 1 owed rows, 2 the log is not a clean run of this scratch."""
     out, bad = [], []
-    exits = re.findall(r"saltbuild EXIT=(\d+)", text)
+    exits = re.findall(r"^(?:saltbuild|o13-ci) EXIT=(\d+)$", text, re.M)
     if exits != ["0"]:
-        bad.append(f"saltbuild EXIT lines {exits or 'none'}, want exactly one EXIT=0")
+        bad.append(f"EXIT lines (saltbuild / o13-ci) {exits or 'none'}, want exactly one EXIT=0")
+    for n in manifest.get("dropped_by_design", []):
+        out.append(f"PLANT: {n} was dropped from BY_DESIGN for this run (red-first); its REACHES-OWED "
+                   f"is the plant, not a finding")
     nerr = sum(1 for ln in text.splitlines() if ERR.search(ln))
     if nerr:
         bad.append(f"{nerr} tagged error line(s)")
@@ -453,6 +476,23 @@ def self_test():
         ("per-row counts off the TOTAL read rc 2", good.replace("O13 FREE Salt.A.a", "O13 FREEX")),
     ]:
         check(what, classify_log(mut, man)[0] == 2)
+    ci = good.replace("saltbuild EXIT=0", "o13-ci EXIT=0")
+    check("the CI exit line reads as the wrapper's (rc 0)", classify_log(ci, man)[0] == 0)
+    check("a CI EXIT=1 reads rc 2", classify_log(ci.replace("EXIT=0", "EXIT=1"), man)[0] == 2)
+    check("two exit lines read rc 2", classify_log(good + "o13-ci EXIT=0\n", man)[0] == 2)
+    check("an exit line quoted mid-line is not an exit line",
+          classify_log(good.replace("saltbuild EXIT=0", "said saltbuild EXIT=0"), man)[0] == 2)
+    prc, pout = classify_log(owed, dict(man, dropped_by_design=["Salt.X.old"]))
+    check("a planted owed row reads rc 1 and prints the plant",
+          prc == 1 and any(ln.startswith("PLANT: Salt.X.old") for ln in pout))
+    k0 = sorted(BY_DESIGN)[0]
+    check("a plant drops exactly its row",
+          k0 not in drop_by_design([k0]) and len(drop_by_design([k0])) == len(BY_DESIGN) - 1)
+    try:
+        drop_by_design(["Salt.not_by_design"]); refused = False
+    except KeyError:
+        refused = True
+    check("a plant naming no BY_DESIGN row is refused", refused)
     print("o13_census self-test:", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 

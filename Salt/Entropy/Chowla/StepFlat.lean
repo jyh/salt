@@ -42,6 +42,10 @@ namespace Salt.Entropy.Chowla
 
 /-! ### Section 1 — the flat Fannes budget -/
 
+/-- `log t ≤ t/2` at `ht : 0 < t`: `log t = 2·log √t ≤ 2·(√t − 1)` (`Real.log_sqrt`,
+`Real.log_le_sub_one_of_pos`), and `2·(√t − 1) ≤ t/2` is `(√t − 2)² ≥ 0` (`nlinarith` with
+`Real.sq_sqrt`). Applied once, at `√t`, in `flat_log_sq_le` (`(log t)² ≤ t` for `t ≥ 1`), the
+next lemma of Section 1. -/
 private lemma flat_log_le_half {t : ℝ} (ht : 0 < t) : Real.log t ≤ t / 2 := by
   have hsqrt : (0 : ℝ) < Real.sqrt t := Real.sqrt_pos.mpr ht
   have hls : Real.log (Real.sqrt t) = Real.log t / 2 := Real.log_sqrt ht.le

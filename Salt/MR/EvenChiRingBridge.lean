@@ -35,6 +35,9 @@ namespace Salt.MR
 noncomputable def e4a_toC {q : ℕ} (χ : DirichletCharacter ℝ q) : DirichletCharacter ℂ q :=
   χ.ringHomComp Complex.ofRealHom
 
+/-- `e4a_toC χ a = ↑(χ a)` (`rfl`): the complexification evaluates to the cast of the real
+value. The `simp` lemma the transports unfold through — `e4a_toC_even`, `e4a_toC_eq_signOf` and
+the kernel lemma here, and `EvenChiControls` and `EvenChiDescent` across the tree. -/
 @[simp] theorem e4a_toC_apply {q : ℕ} (χ : DirichletCharacter ℝ q) (a : ZMod q) :
     e4a_toC χ a = ((χ a : ℝ) : ℂ) := rfl
 

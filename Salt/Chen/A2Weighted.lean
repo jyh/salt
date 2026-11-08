@@ -64,9 +64,16 @@ landed budget `SuperClose.massSum_le_A2_final` gives `M_N ≤ 43/75` for every `
 noncomputable def A2massSum (N : ℕ) : ℝ :=
   ∑ k ∈ (Finset.range N).filter (fun k => Even k ∧ 2 ≤ k), massE k
 
+/-- `0 ≤ A2massSum N`: `Finset.sum_nonneg` over `massE_nonneg`. The `hMnn` step of
+`A2grid_le_weighted`, which places the ledger scalar `M_p = A2massSum (Nf p)` in `[0, Cmass]`
+before dominating `(3 + M_p)/s_p`. -/
 theorem A2massSum_nonneg (N : ℕ) : 0 ≤ A2massSum N :=
   Finset.sum_nonneg (fun k _ => massE_nonneg k)
 
+/-- `A2massSum N ≤ 43/75` for every `N`: `SuperClose.massSum_le_A2_final N` under this file's
+name for the ledger scalar. The `Cmass := 43/75` instance of `A2grid_le_weighted`'s `hCmass`,
+taken by `FinLed2.A2grid_topwindow_le` and `Goldbach/Ledger2`; the sharp value is
+`massSum_le_A2_sharp`. -/
 theorem A2massSum_le_final (N : ℕ) : A2massSum N ≤ 43 / 75 := massSum_le_A2_final N
 
 /-- **The sharp A₂ even-mass budget.**  `A2massSum N ≤ 112618127/200000000 + (1/10000)/(2·12²) ≈
@@ -99,6 +106,11 @@ theorem Ebar_integral_le_sharp : ∀ b, 2 ≤ b →
     have h212 := Ebar_int_2_12
     linarith
 
+/-- **The sharp A₂ even-mass bound.** `A2massSum N ≤ 112618127/200000000 + (1/10000)/(2·12²)` (≈
+`0.56309`) for every `N`: at `N = K + 1`, `massE_sum_eq` writes the sum as `∫_2^{K+2} Xe K`,
+`superSol_dominates` (with `hSE_holds`/`hSO_holds`) gives `Xe K ≤ Ebar` pointwise, and
+`Ebar_integral_le_sharp` prices the integral; `N = 0` is the empty sum. The `Cmass` instance for
+the razor's tight A₂ sub-budget (`RazorClose`), tighter than `A2massSum_le_final`'s `43/75`. -/
 theorem massSum_le_A2_sharp (N : ℕ) :
     A2massSum N ≤ 112618127 / 200000000 + (1 / 10000) / (2 * 12 ^ 2) := by
   have hdom := superSol_dominates Ebar Obar Ebar_nonneg Obar_nonneg

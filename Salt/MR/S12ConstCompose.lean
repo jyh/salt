@@ -5,6 +5,9 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.S14Compose
 import Salt.MR.S11HoistGrade
+import Salt.MR.StrataBounds
+import Salt.MR.DoorSocket
+import Salt.MR.SocketFrame
 
 /-!
 # ⟦S12-CONST⟧ — THE CAPSTONE TWIN AT THE CONSTANT POOL, WITH `εr` FREED POSITIVE
@@ -117,6 +120,9 @@ private lemma s12c_one_le_log_of_three_le {Xd : ℕ} (h : (3 : ℝ) ≤ ((Xd : �
     rwa [Real.log_exp] at this
   linarith
 
+/-- `2.5·10^19 ≤ e^45`: `2.7 < e` (`Real.exp_one_gt_d9`), so `2.7^45 ≤ (e^1)^45 = e^45`, and
+`2.5·10^19 ≤ 2.7^45` by `norm_num`. Consumed once, with `s12c_exp5`, in `s12c_lambda_core`'s
+`hbig` step (`3.575·10^21·W ≤ e^λ` at `λ ≥ 50`). -/
 private lemma s12c_exp45 : (25000000000000000000 : ℝ) ≤ Real.exp 45 := by
   have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
   have h : Real.exp 45 = (Real.exp 1) ^ (45 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
@@ -125,6 +131,8 @@ private lemma s12c_exp45 : (25000000000000000000 : ℝ) ≤ Real.exp 45 := by
   have hn : (25000000000000000000 : ℝ) ≤ (2.7 : ℝ) ^ (45 : ℕ) := by norm_num
   rw [h]; linarith
 
+/-- `143 ≤ e^5`: `2.7 < e`, `2.7^5 ≤ e^5`, `143 ≤ 2.7^5` by `norm_num`. Consumed once, with
+`s12c_exp45`, in `s12c_lambda_core`'s `hbig` step. -/
 private lemma s12c_exp5 : (143 : ℝ) ≤ Real.exp 5 := by
   have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
   have h : Real.exp 5 = (Real.exp 1) ^ (5 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
@@ -404,9 +412,7 @@ theorem m4_closure_fuse_zero'_const_nonneg :
     (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband
     (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPool hρ.le harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_pos (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd (hband4096 H L q j A s hb)
 
@@ -550,12 +556,9 @@ theorem logChowla2_capstone_final_const' (Aexp : ℝ) (hAexp : 0 < Aexp) :
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hK
   set δs : ℝ := s12DeltaSock δ₀ K with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hK
-  have hδssq : δs ^ 2 = δ₀ / (16 * K) := s12DeltaSock_sq hδ₀ hK
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
       DoorRowZeroBase M (A + s) j liouvilleC
@@ -600,26 +603,10 @@ theorem logChowla2_capstone_final_const' (Aexp : ℝ) (hAexp : 0 < Aexp) :
           simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
     positivity
   · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
-    intro H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
-      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
-      unfold strataResidual
-      linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
-    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
-      have h1 : RSanDoorRho ρ H ≤ 1 := by
-        unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
-        linarith
-      exact le_trans h1 (le_max_left _ _)
-    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
-    linarith
+    exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -648,11 +635,7 @@ theorem logChowla2_capstone_final_const' (Aexp : ℝ) (hAexp : 0 < Aexp) :
       ring
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * K * (δ₀ / (8 * K)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * K * (δ₀ / (8 * K)) = δ₀ / 4 by field_simp; ring]
 
 /-! ## §5 — ⟦PIECE 5⟧ THE TWIN AT THE GRADED BAND WIRE (⟦B5 `grade`⟧ PAID) -/
 
@@ -797,12 +780,9 @@ theorem logChowla2_capstone_final_const'_graded (Aexp : ℝ) (hAexp : 0 < Aexp) 
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hK
   set δs : ℝ := s12DeltaSock δ₀ K with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hK
-  have hδssq : δs ^ 2 = δ₀ / (16 * K) := s12DeltaSock_sq hδ₀ hK
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
       DoorRowZeroBase M (A + s) j liouvilleC
@@ -847,26 +827,10 @@ theorem logChowla2_capstone_final_const'_graded (Aexp : ℝ) (hAexp : 0 < Aexp) 
           simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
     positivity
   · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
-    intro H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
-      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
-      unfold strataResidual
-      linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
-    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
-      have h1 : RSanDoorRho ρ H ≤ 1 := by
-        unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
-        linarith
-      exact le_trans h1 (le_max_left _ _)
-    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
-    linarith
+    exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -895,11 +859,7 @@ theorem logChowla2_capstone_final_const'_graded (Aexp : ℝ) (hAexp : 0 < Aexp) 
       ring
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * K * (δ₀ / (8 * K)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * K * (δ₀ / (8 * K)) = δ₀ / 4 by field_simp; ring]
 
 /-! ## §GK — the G-lever twin -/
 
@@ -987,9 +947,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_gk (K : ℕ) (hK : K ≤ 170000000) :
     (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband
     (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPool_gk K hρ.le harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_pos_gk K (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd (hband4096 H L q j A s hb)
 
@@ -1104,12 +1062,9 @@ theorem logChowla2_capstone_final_const'_gk (K : ℕ) (hK : K ≤ 170000000)
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
       DoorRowZeroBase_gk K M (A + s) j liouvilleC
@@ -1154,26 +1109,10 @@ theorem logChowla2_capstone_final_const'_gk (K : ℕ) (hK : K ≤ 170000000)
           simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
     positivity
   · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
-    intro H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
-      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
-      unfold strataResidual
-      linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
-    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
-      have h1 : RSanDoorRho ρ H ≤ 1 := by
-        unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
-        linarith
-      exact le_trans h1 (le_max_left _ _)
-    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
-    linarith
+    exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -1195,18 +1134,10 @@ theorem logChowla2_capstone_final_const'_gk (K : ℕ) (hK : K ≤ 170000000)
     rw [hval] at hstep
     have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
         * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
-    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
-      rw [hδssq]
-      field_simp
-      ring
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 /-! ## §5 — ⟦PIECE 5⟧ THE TWIN AT THE GRADED BAND WIRE (⟦B5 `grade`⟧ PAID) -/
 
@@ -1324,12 +1255,9 @@ theorem logChowla2_capstone_final_const'_graded_gk (K : ℕ) (hK : K ≤ 1700000
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
       DoorRowZeroBase_gk K M (A + s) j liouvilleC
@@ -1374,26 +1302,10 @@ theorem logChowla2_capstone_final_const'_graded_gk (K : ℕ) (hK : K ≤ 1700000
           simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
     positivity
   · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
-    intro H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
-      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
-      unfold strataResidual
-      linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
-    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
-      have h1 : RSanDoorRho ρ H ≤ 1 := by
-        unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
-        linarith
-      exact le_trans h1 (le_max_left _ _)
-    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
-    linarith
+    exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -1415,18 +1327,10 @@ theorem logChowla2_capstone_final_const'_graded_gk (K : ℕ) (hK : K ≤ 1700000
     rw [hval] at hstep
     have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
         * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
-    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
-      rw [hδssq]
-      field_simp
-      ring
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 /-! ## §GK-PINNED — ⟦REF-REPAIR (b) + THE `Mfl` WIRE⟧ THE GRADED CAPSTONE ON THE **PINNED**
 ROAD
@@ -1568,12 +1472,9 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned (K : ℕ) (hK : K ≤ 
       0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
     fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
   -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
   set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
-  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
   set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
   -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
   have hbase : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
       DoorRowZeroBase_gk K M (A + s) j liouvilleC
@@ -1618,26 +1519,10 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned (K : ℕ) (hK : K ≤ 
           simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
     positivity
   · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
-    intro H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
-      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
-      unfold strataResidual
-      linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
-    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
-      have h1 : RSanDoorRho ρ H ≤ 1 := by
-        unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
-        linarith
-      exact le_trans h1 (le_max_left _ _)
-    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
-    linarith
+    exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -1659,18 +1544,10 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned (K : ℕ) (hK : K ≤ 
     rw [hval] at hstep
     have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
         * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
-    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
-      rw [hδssq]
-      field_simp
-      ring
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
-      field_simp
-      ring
-    rw [hval]
-    linarith [hend]
+    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 
 end Salt.MR

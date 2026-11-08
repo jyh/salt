@@ -81,7 +81,7 @@ lemma rhsSigmaG_eq_rhsSigmaGC (M L : ℝ) :
     rhsSigmaG M L = rhsSigmaGC (1 / (2 * Real.exp 1)) M L := rfl
 
 /-- **The `M`-slot of `rhsFboundC` is a constant factor** — the `c`-generic twin of
-`SupStation.rhsFbound_eq_exp_mul` (:84).  `M` enters the exponential additively and σ-freely,
+`SupStation.rhsFbound_eq_exp_mul` (:85).  `M` enters the exponential additively and σ-freely,
 so every `M`-indexed integrability socket is the `M = 0` one scaled by `e^{−cM}`. -/
 lemma rhsFboundC_eq_exp_mul (c M L σ : ℝ) :
     rhsFboundC c M L σ = Real.exp (-c * M) * rhsFboundC c 0 L σ := by
