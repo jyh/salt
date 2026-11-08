@@ -115,9 +115,7 @@ lemma wellSpaced_neg_image {𝒮 : Finset ℝ} (hws : WellSpaced 𝒮) :
 /-- `Set.Icc (-T) T` is `t ↦ −t` stable. -/
 lemma neg_image_subset_Icc {𝒮 : Finset ℝ} {T : ℝ} (hsub : ∀ t ∈ 𝒮, t ∈ Set.Icc (-T) T) :
     ∀ s ∈ 𝒮.image (fun t => -t), s ∈ Set.Icc (-T) T := by
-  intro s hs
-  rw [Finset.mem_image] at hs
-  obtain ⟨t, ht, rfl⟩ := hs
+  refine Finset.forall_mem_image.2 fun t ht => ?_
   have h := Set.mem_Icc.mp (hsub t ht)
   exact Set.mem_Icc.mpr ⟨by linarith [h.2], by linarith [h.1]⟩
 

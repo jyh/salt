@@ -421,9 +421,7 @@ theorem largeblock_count (f : ℕ → ℂ) (hf1 : ∀ n : ℕ, ‖f n‖ ≤ 1) 
     have h := hws t ht u hu htu
     rwa [show -t - -u = -(t - u) by ring, abs_neg]
   have hsub' : ∀ s ∈ 𝒯.image (fun t => -t), s ∈ Set.Icc (-T) T := by
-    intro s hs
-    rw [Finset.mem_image] at hs
-    obtain ⟨t, ht, rfl⟩ := hs
+    refine Finset.forall_mem_image.2 fun t ht => ?_
     have h := Set.mem_Icc.mp (hsub t ht)
     exact Set.mem_Icc.mpr ⟨by linarith [h.2], by linarith [h.1]⟩
   have hsupp : ∀ m, (fun n => blockSrc f p q n / (n : ℂ)) m ≠ 0 → m.Prime ∧ p ≤ m := by
@@ -444,9 +442,7 @@ theorem largeblock_count (f : ℕ → ℂ) (hf1 : ∀ n : ℕ, ‖f n‖ ≤ 1) 
     · exfalso; apply hm; simp only [blockSrc, if_neg hcond, zero_div]
   have hlb' : ∀ s ∈ 𝒯.image (fun t => -t),
       V⁻¹ ≤ ‖dpoly (2 * p) (fun n => blockSrc f p q n / (n : ℂ)) s‖ := by
-    intro s hs
-    rw [Finset.mem_image] at hs
-    obtain ⟨t, ht, rfl⟩ := hs
+    refine Finset.forall_mem_image.2 fun t ht => ?_
     rw [← primeBlockPoly_eq_dpoly f p q (2 * p) hp1 hq2p t]
     exact hlb t ht
   have h := large_value_count p (fun n => blockSrc f p q n / (n : ℂ)) T V hp3 hT hpT hV hκ30

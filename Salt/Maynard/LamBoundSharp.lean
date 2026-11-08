@@ -202,9 +202,7 @@ theorem coord_sum_le {a R : ℕ} (_ha : Squarefree a) :
       _ = y := Nat.mul_div_cancel' hya
   -- `T.image (·/a) ⊆ U`.
   have himg : T.image (fun s => s / a) ⊆ U := by
-    intro t ht
-    rw [Finset.mem_image] at ht
-    obtain ⟨s, hs, rfl⟩ := ht
+    refine Finset.forall_mem_image.2 fun s hs => ?_
     rw [hT, Finset.mem_filter, Finset.mem_range] at hs
     obtain ⟨hsR, hssf, hadvd⟩ := hs
     rw [hU, Finset.mem_filter, Finset.mem_range]

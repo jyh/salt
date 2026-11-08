@@ -151,7 +151,7 @@ M4MeanSq ×1 + the def). The pre-3X twins are OFF the chain — untouched.
 **THE ISOLATED REMAINDER — the socket's supplier at the door's b
 (= 1_𝒮(P·)·λχ̄):** prod_one_sub_gJ reduces it to 4 COMPLETELY
 MULTIPLICATIVE pieces λχ̄·g_𝒥 (each meets Transfer34's binder shape);
-the CASE-A supply chain is ellLin-shaped from CaseASocket:918 down —
+the CASE-A supply chain is ellLin-shaped from CaseASocket:917 down —
 the question CASEA-GENERICITY now scopes: is the ENGINE underneath
 (prop21_unconditional_uniform_absC — GHS prop 2.1, classically stated
 at general multiplicative f) already general, with only the supply
@@ -167,7 +167,7 @@ supply chain is the price (scoped before dispatch).
 **MIXED, favorably:** the engine (prop21 chain) is ellLin-specialized
 LOAD-BEARING (the κ=1 disarmament — no re-proof attempted), but the
 general-multiplicative face is ALREADY LANDED as Route III:
-hCenter_dissected (SPartStation:608, general 1-bounded multiplicative
+hCenter_dissected (SPartStation:606, general 1-bounded multiplicative
 F), center_halasz_supply_wide (:302, Y-GENERIC), the sPart dissection
 at cSq = 20736. The damped datum b·x^ω is multiplicative-on-coprimes
 (NOT CM — the cheap constant 3 does NOT apply; pay 20736). The floor

@@ -45,7 +45,7 @@ and would not claim. Nothing here is new; every line cites the ledger.*
   > **ERRATUM (RIDER-TRACE, 2026-08-02).** K₄ and Cκ are NOT compactness
   > existentials — they are closed-form `noncomputable def`s
   > (`K₄ = 2^{3/4}·16`, PortAssembly:637; `Cκ = 2^{3/4}·8`,
-  > HalaszPrimesCore:3456). Every cs leaf is effective: `c_vk = 1/10^8`
+  > HalaszPrimesCore:3450). Every cs leaf is effective: `c_vk = 1/10^8`
   > literal, `c₀ = 1/10^9` literal (PowRegion:365). cs = 3.716e-11
   > against e^{-100} = 3.72e-44 — **33 orders of room**, kernel-pinned at
   > `MR/RiderTrace.cs_closed_form_ge_exp_neg_hundred`. The discharge is
@@ -178,7 +178,7 @@ flat-lane conditionals until then.
 
 ## ADDENDUM 2 (2026-08-02 night) — v4 MINTED; BOTH VACUITIES REPAIRED
 
-**`logChowla2_ineffective_v4` (S16ComposeV4.lean:945, 3-axiom,
+**`logChowla2_ineffective_v4` (S16ComposeV4.lean:928, 3-axiom,
 d103766) is the standing summit object.** v1/v2/v3 are marked
 SUPERSEDED in RESULTS.md with the vacuity reason on the row.
 
@@ -212,7 +212,7 @@ the builder sits NINE orders inside the budget, not four.
 
 ## ADDENDUM 3 (2026-08-03) — v6: THE COROLLARY LINE'S FINAL FORM
 
-**`logChowla2_ineffective_v6` (RegisterCompose.lean:345, 3-axiom,
+**`logChowla2_ineffective_v6` (RegisterCompose.lean:339, 3-axiom,
 b36f53a) — outer: NOTHING; conclusion-side: NOTHING.** The cofactor
 predicate is discharged: all seventeen register conjuncts proven at
 the repaired dilation ladder D = ⌈log X⌉ (two were FALSE at the

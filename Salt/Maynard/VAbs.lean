@@ -324,9 +324,7 @@ private theorem fiber_count_le (k R : ℕ) (T : ℝ) (m : Fin k) (v : Fin k → 
       _ ≤ ∑ x ∈ Finset.range R, fTilde k R T x / (Nat.totient x : ℝ) := by
           refine Finset.sum_le_sum_of_subset_of_nonneg ?_ (fun x _ _ =>
             div_nonneg (fTilde_nonneg k R T x hR) (Nat.cast_nonneg _))
-          intro x hx
-          rw [Finset.mem_image] at hx
-          obtain ⟨a, haf, rfl⟩ := hx
+          refine Finset.forall_mem_image.2 fun a haf => ?_
           obtain ⟨haK, -, -⟩ := hS a (Finset.mem_filter.mp haf).1
           exact Finset.mem_range.mpr (kSieveIndex_coord_lt haK m)
   calc (∑ θ ∈ vAssignSet k c, ∑ a ∈ S.filter

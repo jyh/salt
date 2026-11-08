@@ -156,9 +156,7 @@ theorem nuChen_sum_dvd_le {Ps : ℕ} (hPs : Squarefree Ps) {p : ℕ} (hp : p.Pri
     rw [hF, Finset.mem_filter] at h₁ h₂
     rw [← Nat.mul_div_cancel' h₁.2, ← Nat.mul_div_cancel' h₂.2, heq]
   have himg : F.image (fun d => d / p) ⊆ Nat.divisors Ps := by
-    intro e he
-    rw [Finset.mem_image] at he
-    obtain ⟨d, hdF, rfl⟩ := he
+    refine Finset.forall_mem_image.2 fun d hdF => ?_
     rw [hF, Finset.mem_filter] at hdF
     obtain ⟨hd, hpd⟩ := hdF
     obtain ⟨hdPs, hPs0⟩ := Nat.mem_divisors.mp hd

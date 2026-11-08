@@ -10,7 +10,7 @@ import Salt.Tactic.ExpLogNum
 /-!
 # ⟦THE LARGE-SPECTRUM COUNT CONSTANT AT SHIFT `h`⟧ — wave H2a, word 1(a)–(c)
 
-`bigXi_bounded_ceiling_of_pin` (`GoldbachEnergyKc.lean:231`) carries the terminal road's rider
+`bigXi_bounded_ceiling_of_pin` (`GoldbachEnergyKc.lean:229`) carries the terminal road's rider
 `C ≤ 2^539`, and it is pinned BY HYPOTHESIS at the literal `ε = 1/500`.  The `h` lane pins
 `ε = 1/(500·h)`, so that lemma does not apply and the `h` head reached instead for the
 EXISTENTIAL `bigXi_bounded` — which exports only `0 < C`.  That is why `Kc ≤ 2^539` was
@@ -26,7 +26,7 @@ must move with the shift.  `T := 2^41·h²` is the choice that keeps `hTA : 4 �
 which holds for every `h ≥ 2` (ratio 0.867 at `h = 2`, 0.752 at `h = 1096`) and **FAILS at
 `h = 1` by 1.212×** — because at `h = 1` the uniform `(log T)² ≤ 1799.4` is far looser than the
 true `807.70`.  So `h = 1` is discharged by the LANDED `hpt_const_le_pow35`
-(`GoldbachEnergyN0.lean:809`, ratio 0.955) and `h ≥ 2` by the uniform bound.  Two cases, forced.
+(`GoldbachEnergyN0.lean:812`, ratio 0.955) and `h ≥ 2` by the uniform bound.  Two cases, forced.
 (2026-10-02: the numerals of ⟦THE ARITHMETIC, AND WHY IT IS TWO CASES AND NOT ONE⟧ above are those
 of the cap-7 page `hpt_const_le_pow35_h`, which the XY debt lane's family 37 retired into its cap-9
 twin `hpt_const_le_pow35_h_b9` (§6), noted in §1.  The twin's are in its docstring:
@@ -74,7 +74,7 @@ code calls, none is left without a caller.
 The page's docstring, verbatim:
 
 **⟦THE `C₁` NUMERAL AT SHIFT `h`⟧** (`hpt_const_le_pow35_h`) — `hpt_const_le_pow35`
-(`GoldbachEnergyN0.lean:809`) at `ε = 1/(500·h)`, `T = 2^41·h²`, `c₀ = 1/256`.
+(`GoldbachEnergyN0.lean:812`) at `ε = 1/(500·h)`, `T = 2^41·h²`, `c₀ = 1/256`.
 
 The two cases are forced, not stylistic: the `hh7`-uniform `(log T)² ≤ 1799.4` overshoots at
 `h = 1` (giving `4.166·10^10 > 3.436·10^10`), while at `h = 1` the landed lemma's own tight
@@ -141,7 +141,7 @@ The page stood under the line `set_option exponentiation.threshold 4000 in`; the
 docstring, verbatim:
 
 **⟦THE `hpt` TWIN AT SHIFT `h`⟧** (`hpt_holds_500h`) — `hpt_holds_500`
-(`GoldbachEnergyN0.lean:829`) at `ε = 1/(500·h)` and `T = 2^41·h²`, with the numeral constant
+(`GoldbachEnergyN0.lean:832`) at `ε = 1/(500·h)` and `T = 2^41·h²`, with the numeral constant
 `2^35·h²` from §1.  The four threshold side conditions and their `h`-powers:
 `hT0 : 2^20 ≤ 2^41·h²` (h², slack `2^21·h²`) · **`hTA : 4 ≤ ε²·T = 2^41/250000 = 8 796 093.02`
 — `h`-FREE, and that is exactly what `T := 2^41·h²` buys over `2^41·h³`** ·
@@ -155,9 +155,9 @@ docstring, verbatim:
 /-! ## §5 — the ε line at shift `h` (wave H2a word 2 — a LINE, not a name) -/
 
 /-- **⟦THE ε LINE AT SHIFT `h`⟧** — the ten `by norm_num` sites that derive
-`(1:ℚ)/2^9 ≤ R.eps` from the head's `1/500 ≤ ε` (S16Compose:1072, XThread:1387, V7Ks:372,
-S16ComposeV4:921, S16Uniform:1667/:1001, V7B:1800, RegisterCompose:287,
-S16FlatTerminalLinear · flat_L_width_priced, S16FlatFinal:200) are a **PASS-THROUGH at `h`**: both sides scale by
+`(1:ℚ)/2^9 ≤ R.eps` from the head's `1/500 ≤ ε` (S16Compose:975, XThread:1306, V7Ks:364,
+S16ComposeV4:847, S16Uniform:1518/:911, V7B:1801, RegisterCompose:281,
+S16FlatTerminalLinear · flat_L_width_priced, S16FlatFinal:190) are a **PASS-THROUGH at `h`**: both sides scale by
 exactly `h`, and `512 > 500`.  This `example` is the check that the line elaborates at a SYMBOLIC
 `h`.
 
@@ -346,7 +346,7 @@ proved there from `hh7`; the docstring gains one dated paragraph. -/
 
 set_option exponentiation.threshold 4000 in
 /-- **⟦THE COMPOSE HOOK AT SHIFT `h`⟧** (`bigXiH_bounded_ceiling_of_pin`) —
-`bigXi_bounded_ceiling_of_pin` (`GoldbachEnergyKc.lean:231`) at the `h` lane's own pin
+`bigXi_bounded_ceiling_of_pin` (`GoldbachEnergyKc.lean:229`) at the `h` lane's own pin
 `ε = 1/(500·h)`, carrying the terminal road's rider `C ≤ 2^539`.
 
 **This is the lemma whose absence made `Kc ≤ 2^539` unreachable at `h`.** The `h` head obtains

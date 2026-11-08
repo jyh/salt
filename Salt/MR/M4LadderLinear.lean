@@ -928,7 +928,7 @@ structure M4DoorGates_L_gk (K : ℕ) (Cg : ℝ) (R : ChowlaRegime) (M k : ℕ) (
   hblocks : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ i < k,
     SieveBlockGate (AdoorL M) (s13GK K M) M 2 (doorLadder R.x H (i + 1))
 
-/-! ### `M4MeanSqPool` :59 — `m4_meansq_per_chi_gen_pool` -/
+/-! ### `M4MeanSqPool` :60 — `m4_meansq_per_chi_gen_pool` -/
 set_option maxHeartbeats 1600000 in
 -- same cause as `M4MeanSq.m4_meansq_per_chi_gen_L`: elaborating the ~75-binder list against
 -- one statement is what costs the heartbeats, not any tactic search
@@ -1132,7 +1132,7 @@ theorem m4_meansq_per_chi_gen_pool_L :
   exact thm_a2'_of_rows_pool_L hM hXe hX3 hh4 hhX ha1 hsupp0 hN2X hTann hceil5 hrows hT0band
     hpool hgP1 hgRows hgU hgBand
 
-/-! ### `M4MeanSqPool` :276 — `m4_meansq_or_trivial_pool` -/
+/-! ### `M4MeanSqPool` :265 — `m4_meansq_or_trivial_pool` -/
 set_option maxHeartbeats 1600000 in
 -- same cause as §1: the binder list is re-elaborated once per branch
 set_option maxHeartbeats 1600000 in
@@ -1283,7 +1283,7 @@ theorem m4_meansq_or_trivial_pool_L (Qm : ℕ) :
       hcoefBand hcoefPin
       hT0band hcff hpool hgP1 hgRows hgU hgBand
 
-/-! ### `M4MeanSqPool` :433 — `m4_meansq_per_chi_gen_pool_gk` -/
+/-! ### `M4MeanSqPool` :422 — `m4_meansq_per_chi_gen_pool_gk` -/
 set_option maxHeartbeats 1600000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
@@ -1476,7 +1476,7 @@ theorem m4_meansq_per_chi_gen_pool_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   exact thm_a2'_of_rows_pool_L_gk K hM hXe hX3 hh4 hhX ha1 hsupp0 hN2X hTann hceil5 hrows hT0band
     hpool hgP1 hgRows hgU hgBand
 
-/-! ### `M4MeanSqPool` :625 — `m4_meansq_or_trivial_pool_gk` -/
+/-! ### `M4MeanSqPool` :612 — `m4_meansq_or_trivial_pool_gk` -/
 set_option maxHeartbeats 1600000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
@@ -1673,7 +1673,7 @@ def M4SievedDoorSqSup_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Braw : ℕ �
             ∂(logMeasure R.x R.ω))
           ≤ Braw H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2
 
-/-! ### `M4MeanSqPrime` :56 — `m4_meansq_per_chi_gen_join` -/
+/-! ### `M4MeanSqPrime` :57 — `m4_meansq_per_chi_gen_join` -/
 set_option maxHeartbeats 1600000 in
 -- same cause as `M4MeanSq.m4_meansq_per_chi_gen_L`: elaborating the ~75-binder list against
 -- one statement is what costs the heartbeats, not any tactic search
@@ -1871,7 +1871,7 @@ theorem m4_meansq_per_chi_gen_join_L :
   exact thm_a2'_of_rows_pool'_L hM hXe hX3 hh4 hhX ha1 hsupp0 hN2X hTann hceil5 hrows hT0band
     hpool hgP1 hgRows hgU hgBand
 
-/-! ### `M4MeanSqPrime` :267 — `m4_meansq_or_trivial_join` -/
+/-! ### `M4MeanSqPrime` :256 — `m4_meansq_or_trivial_join` -/
 set_option maxHeartbeats 1600000 in
 -- same cause as §1: the binder list is re-elaborated once per branch
 set_option maxHeartbeats 1600000 in
@@ -2021,7 +2021,7 @@ theorem m4_meansq_or_trivial_join_L (Qm : ℕ) :
       hcoefBand hcoefPin
       hT0band hcff hpool hgP1 hgRows hgU hgBand
 
-/-! ### `M4MeanSqPrime` :422 — `m4_meansq_per_chi_gen_join_gk` -/
+/-! ### `M4MeanSqPrime` :411 — `m4_meansq_per_chi_gen_join_gk` -/
 set_option maxHeartbeats 1600000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
@@ -2212,7 +2212,7 @@ theorem m4_meansq_per_chi_gen_join_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   exact thm_a2'_of_rows_pool'_L_gk K hM hXe hX3 hh4 hhX ha1 hsupp0 hN2X hTann hceil5 hrows hT0band
     hpool hgP1 hgRows hgU hgBand
 
-/-! ### `M4MeanSqPrime` :614 — `m4_meansq_or_trivial_join_gk` -/
+/-! ### `M4MeanSqPrime` :600 — `m4_meansq_or_trivial_join_gk` -/
 set_option maxHeartbeats 1600000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof

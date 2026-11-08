@@ -7,6 +7,7 @@ import Salt.MR.S12ConstCompose
 import Salt.MR.S11HoistGrade
 import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
+import Salt.MR.RegimeScaleReads
 
 /-!
 # ⟦S15-COMPOSE⟧ — THE CONST CAPSTONE, FIRED
@@ -46,7 +47,7 @@ its SIXTEEN residue binders as the landed supply allows, naming every survivor e
 | 6 | `hbf` | `doorBaseFrame_at_socket` | `M4AssemblyFrames.lean` |
 | 7 | `hgP1` | `s15_gP1_of_budget` (CONST-VERDICT §C) | §1 below |
 | 8 | `hgRows` | `s15_gRows_const_at_socket` (CONST-VERDICT §H) | §1 below |
-| 9 | `hthr` | `s12c_eps_threshold_at_socket` | `S12ConstCompose.lean:241` |
+| 9 | `hthr` | `s12c_eps_threshold_at_socket` | `S12ConstCompose.lean:247` |
 | 10 | `_heps293` | `s15_heps293_at_socket` (CONST-VERDICT §F) | §1 below |
 | 11 | `hband4096` | `s15_hband4096_at_socket` (CONST-VERDICT §F) | §1 below |
 | 12 | `_hepsr` | `s13_theta293_margin_lo` + `le_rfl` | `S13MSelect2.lean:66` |
@@ -648,6 +649,21 @@ theorem s15_gArmDoorRho_mono {ω ρ : ℝ} {H H' : ℕ} (hω : 0 ≤ ω)
   nlinarith [h1, h2, hE, Real.exp_pos (Real.exp (7000 * Real.log (Real.log ((H : ℕ) : ℝ))
     + 500 * Real.log (1 / ρ) + 6600 + 36 * 0))]
 
+/-- **⟦THE `ρ`-ARM UNDER A CEILING ACROSS THE WINDOW⟧** (`gArm_of_scale`) — a bound `htop` on
+`gArmDoorRho 0 0 w ρ` at the window's top `Hhi`, with the register `hHreg` (`0 ≤ log H` and
+`50 ≤ loglog H` on `[Hlo, Hhi]`), holds at every `H` of the window: `s15_gArmDoorRho_mono` at
+`1 < log H` (`one_lt_log_of_loglog_ge`). The capstone consumers' `hgarm`, stated once. -/
+theorem gArm_of_scale {w ρ X : ℝ} {Hlo Hhi : ℕ} (hw : 0 ≤ w)
+    (htop : gArmDoorRho 0 0 w ρ Hhi ≤ X)
+    (hHreg : ∀ H : ℕ, Hlo ≤ H → H ≤ Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ))) :
+    ∀ H : ℕ, Hlo ≤ H → H ≤ Hhi → gArmDoorRho 0 0 w ρ H ≤ X := by
+  intro H hlo hhi
+  refine le_trans (s15_gArmDoorRho_mono hw ?_ hhi) htop
+  have hreg := hHreg H hlo hhi
+  have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
+  linarith
+
 /-! ## §3b — ⟦F3⟧ THE BLOCK FLOOR AT THE SOCKET, AND THE OPAQUE THRESHOLD
 
 `S13BandGate`'s `block` (`s13BlockFloor M ≤ X_d`) and `x0_le` (`x₀ ≤ 2^{doorRowFloor M}`) are
@@ -797,7 +813,7 @@ theorem s15_bandGate_of_grade {Cg δ₀ Ct ρ : ℝ} {x₀ : ℕ} {R : ChowlaReg
     exact s15_block_at_socket hb (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
 
 /-- **⟦THE SURVIVOR, NAMED⟧** (`S15CrossingBound R M`) — the ⟦B4⟧ RAW CROSSING BOUND of
-`S12ConstCompose.logChowla2_capstone_final_const'` (`S12ConstCompose.lean:494-511`), written
+`S12ConstCompose.logChowla2_capstone_final_const'` (`S12ConstCompose.lean:498-515`), written
 at the compose's own instantiation (`t₁ ≡ 0`, `cU := liouvilleC`,
 `epsrf ≡ θ₂₉₃ − 1/500`), byte for byte.
 
@@ -884,24 +900,14 @@ theorem logChowla2_conditional :
   refine ⟨C', hC'pos, ?_⟩
   intro hgrade hcap
   -- ⟦the two scale floors⟧
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
-  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  obtain ⟨hlam50, hΛ50, hHreg, htow⟩ := regime_scale_reads_tow_pow R hfl hRtow
   -- ⟦the arm, both halves⟧
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family
   have harith := s15_doorArithFrameRho_family (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -1083,24 +1089,14 @@ theorem logChowla2_conditional_graded :
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hMfloor
   intro hcap
   -- ⟦the two scale floors⟧
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
-  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  obtain ⟨hlam50, hΛ50, hHreg, htow⟩ := regime_scale_reads_tow_pow R hfl hRtow
   -- ⟦the arm, both halves⟧
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family
   have harith := s15_doorArithFrameRho_family (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -1307,24 +1303,14 @@ theorem logChowla2_conditional_sharp :
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
   intro hcap
   -- ⟦the two scale floors⟧
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
-  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  obtain ⟨hlam50, hΛ50, hHreg, htow⟩ := regime_scale_reads_tow_pow R hfl hRtow
   -- ⟦the arm, both halves⟧
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family
   have harith := s15_doorArithFrameRho_family (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -1646,24 +1632,14 @@ theorem logChowla2_conditional_sharp2 :
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
   intro hcap
   -- ⟦the two scale floors⟧
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
-  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  obtain ⟨hlam50, hΛ50, hHreg, htow⟩ := regime_scale_reads_tow_pow R hfl hRtow
   -- ⟦the arm, both halves⟧
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family, at the RESTORED anchor
   have harith := s15_doorArithFrameRho_family'' (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -2038,24 +2014,14 @@ theorem logChowla2_conditional_gk (K : ℕ) (hK : K ≤ 170000000) :
   refine ⟨C', hC'pos, ?_⟩
   intro hgrade hcap
   -- ⟦the two scale floors⟧
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
-  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  obtain ⟨hlam50, hΛ50, hHreg, htow⟩ := regime_scale_reads_tow_pow R hfl hRtow
   -- ⟦the arm, both halves⟧
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family
   have harith := s15_doorArithFrameRho_family (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -2181,24 +2147,14 @@ theorem logChowla2_conditional_graded_gk (K : ℕ) (hK : K ≤ 170000000) :
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hMfloor
   intro hcap
   -- ⟦the two scale floors⟧
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
-  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  obtain ⟨hlam50, hΛ50, hHreg, htow⟩ := regime_scale_reads_tow_pow R hfl hRtow
   -- ⟦the arm, both halves⟧
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family
   have harith := s15_doorArithFrameRho_family (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -2342,24 +2298,14 @@ theorem logChowla2_conditional_sharp_atK_gk (K : ℕ) (hK : K ≤ 170000000) :
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
   intro hcap
   -- ⟦the two scale floors⟧
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
-  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  obtain ⟨hlam50, hΛ50, hHreg, htow⟩ := regime_scale_reads_tow_pow R hfl hRtow
   -- ⟦the arm, both halves⟧
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family
   have harith := s15_doorArithFrameRho_family (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -2593,24 +2539,14 @@ theorem logChowla2_conditional_sharp2_atK_gk (K : ℕ) (hK : K ≤ 170000000) :
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
   intro hcap
   -- ⟦the two scale floors⟧
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
-  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  obtain ⟨hlam50, hΛ50, hHreg, htow⟩ := regime_scale_reads_tow_pow R hfl hRtow
   -- ⟦the arm, both halves⟧
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family, at the RESTORED anchor
   have harith := s15_doorArithFrameRho_family'' (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -2710,24 +2646,14 @@ theorem logChowla2_conditional_sharp2_atK_gk_pinned (K : ℕ) (hK : K ≤ 170000
   obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
   intro hcap
   -- ⟦the two scale floors⟧
-  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
-  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
-  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
-      ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := hRtow hlam50
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  obtain ⟨hlam50, hΛ50, hHreg, htow⟩ := regime_scale_reads_tow_pow R hfl hRtow
   -- ⟦the arm, both halves⟧
   have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family, at the RESTORED anchor
   have harith := s15_doorArithFrameRho_family'' (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)

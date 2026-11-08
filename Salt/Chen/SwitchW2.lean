@@ -847,9 +847,7 @@ theorem hrW_discharge {Q a Ps : ℕ} (hQ1 : 1 ≤ Q) (hPs : Squarefree Ps)
     (hPodd : ∀ p ∈ Ps.primeFactors, 3 ≤ p) (hQPs : Nat.Coprime Q Ps)
     (hQa2 : Nat.Coprime Q (a + 2)) {S : Finset ℕ} (hS : ∀ d ∈ S, d ∣ Ps) :
     ∀ m ∈ S.image (fun d => Q * d), Nat.Coprime (crtClassW Q (m / Q) a) m := by
-  intro m hm
-  rw [Finset.mem_image] at hm
-  obtain ⟨d, hd, rfl⟩ := hm
+  refine Finset.forall_mem_image.2 fun d hd => ?_
   have hdPs : d ∣ Ps := hS d hd
   have hQd : Nat.Coprime Q d := hQPs.coprime_dvd_right hdPs
   have h2d : Nat.Coprime 2 d := switch_dvd_coprime_two hPs hPodd hdPs
@@ -860,9 +858,7 @@ theorem hrW_discharge {Q a Ps : ℕ} (hQ1 : 1 ≤ Q) (hPs : Squarefree Ps)
 theorem hDge1W {Q Ps : ℕ} (hQ1 : 1 ≤ Q) (hPs0 : Ps ≠ 0) {S : Finset ℕ}
     (hS : ∀ d ∈ S, d ∣ Ps) :
     ∀ m ∈ S.image (fun d => Q * d), 1 ≤ m := by
-  intro m hm
-  rw [Finset.mem_image] at hm
-  obtain ⟨d, hd, rfl⟩ := hm
+  refine Finset.forall_mem_image.2 fun d hd => ?_
   have hd0 : 0 < d := Nat.pos_of_dvd_of_pos (hS d hd) (Nat.pos_of_ne_zero hPs0)
   exact Nat.mul_pos hQ1 hd0
 
@@ -871,9 +867,7 @@ the base family sits under `D` (GLU-2W row 1's structural half; the numeric half
 `Q·D ≤ √(XM)/L^B` at the tower `Q ≤ L`). -/
 theorem hDlevW {Q D : ℕ} {S : Finset ℕ} (hSD : ∀ d ∈ S, d ≤ D) :
     ∀ m ∈ S.image (fun d => Q * d), m ≤ Q * D := by
-  intro m hm
-  rw [Finset.mem_image] at hm
-  obtain ⟨d, hd, rfl⟩ := hm
+  refine Finset.forall_mem_image.2 fun d hd => ?_
   exact Nat.mul_le_mul le_rfl (hSD d hd)
 
 open Classical in

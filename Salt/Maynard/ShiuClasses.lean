@@ -194,9 +194,7 @@ theorem class_tau_sum_le_prod (z q a w : ℕ)
       _ = m := shiuC_mul_shiuD hm0 w
   -- Step 3: `S.image φ ⊆ BigT`.
   have hsub : S.image φ ⊆ BigT := by
-    intro p hp
-    rw [Finset.mem_image] at hp
-    obtain ⟨n, hn, rfl⟩ := hp
+    refine Finset.forall_mem_image.2 fun n hn => ?_
     obtain ⟨hn1, hnz, hnq, hnP⟩ := hmemS n hn
     have hn0 : n ≠ 0 := by omega
     obtain ⟨hc1, hcw, hDd⟩ := hcov n hn1 hnz hnq hnP

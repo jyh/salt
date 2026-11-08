@@ -8,7 +8,7 @@ import Salt.MR.CenterSupply
 /-!
 # RHS-GRADE — the `hRHS` socket of `center_halasz_supply` (the joint-head composition)
 
-`CenterSupply.center_halasz_supply` (:296) carries ONE named hypothesis, `hRHS`:
+`CenterSupply.center_halasz_supply` (:164) carries ONE named hypothesis, `hRHS`:
 
 ```
 ∀ k ∈ [⌊X⌋₊, N],

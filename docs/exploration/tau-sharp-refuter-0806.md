@@ -279,7 +279,7 @@ is **not o(1)** at the landed window — at `L = 250` and the consumer's real ba
 so the residual is **+3.4** in the binder at k=14 (+0.24 at k=1). The freeze
 prices it at the **RETIRED** height `efHeight q = (log q+2)^4` (`TauExt:315`)
 rather than the design's landed `T₀(u) = (log(qu)+2)^6`
-(`n4b-design-0805.md:202`, `Lemma7EF.lean:794`).
+(`n4b-design-0805.md:202`, `Lemma7EF.lean:806`).
 
 **(b) §D2's numerals: 1264 confirmed verbatim (`:214`), 26 WRONG.** Detailed in
 §0 above.
@@ -291,10 +291,10 @@ sources, both byte-grounded.
    not available — the freeze's own `θ = s·ξ/((1+ξ)·b)` vanishes at ξ=0, so the
    consumer gets no saving at all. At §D2's own ξ=1 the surviving power is `L^1`.
 2. **The ledger's polylog prefactor, read at the LANDED consumer.**
-   `efEnvelope_le_ledger_sharp` (`Lemma7EF.lean:2624-2632`) prices the Range-A
+   `efEnvelope_le_ledger_sharp` (`Lemma7EF.lean:2696-2704`) prices the Range-A
    erased-spend row as `10^3·M^3·N·u^{bceil−1}`, `M = log(qu)+2`,
    `N = log q + 11·log M`, against the consumer's target grade `(m+255)/log u`
-   (`:2907-2908`) inside the byte-fixed window `250·log q ≤ log u` (`:2844`).
+   (`:2979-2980`) inside the byte-fixed window `250·log q ≤ log u` (`:2916`).
    That forces `𝒩 ≥ (b/250)·(5·log L + 29)` — a demand that **grows like log L**
    and is **entirely k-independent**. Hence
    `log η ≥ log(1/c) + [(k−1) + 5b/s]·log L + O(1)`.
@@ -314,14 +314,14 @@ produced by moving `k`. The lever is `b/s`, not `k`** — the surviving power is
 unreachable in this skeleton by ANY (b, c, k).**
 
 **(d) "no consumer exists yet": FALSE at the bytes.** Four kernel-landed
-consumers, three in the road's own file — `Lemma7EF.lean:661`
-(`re_le_repulsionCeiling_of_ne`), `:696` (`exists_repulsion_ceiling_of_ne`, which
-`obtain`s `dh_repulsion_tall` at `:709`), `:748` (`psiDefect_norm_le_rangeA`) —
+consumers, three in the road's own file — `Lemma7EF.lean:673`
+(`re_le_repulsionCeiling_of_ne`), `:708` (`exists_repulsion_ceiling_of_ne`, which
+`obtain`s `dh_repulsion_tall` at `:721`), `:760` (`psiDefect_norm_le_rangeA`) —
 plus `TBalTall.lean:2199` (`boxZeros_re_le_at_efHeight`). The freeze also names
 the **wrong prefactor** as the risk: `efZeroSumM_spend_at_repulsion`'s
 `4110·(log q+2)^5` (`TauExt:320`) is the count-form route **retired by design D4**
 (`n4b-design-0805.md:236-238`); the operative prefactor is `10^3·M^3·N`
-(`Lemma7EF.lean:2632`).
+(`Lemma7EF.lean:2704`).
 *(Reconciles with this seat's own grep: `dh_repulsion_tall` has no consumer in
 `Salt/SW/`; the consumers are in `Salt/HB/`.)*
 
@@ -335,7 +335,7 @@ the **wrong prefactor** as the risk: `efZeroSumM_spend_at_repulsion`'s
   of S3 — i.e. **all of TS-1 and all of TS-2** — buy the N11 door **exactly
   nothing**. They buy explicit-constant hygiene and (through `b`) the θ ledger.
 - **TS-3's PREMISE IS UNVERIFIED.** The landed end-to-end consumer
-  `logChiSum_tendsto_zfr_hundred` (`Lemma7EF.lean:3136-3149`) closes HB's (4.12)
+  `logChiSum_tendsto_zfr_hundred` (`Lemma7EF.lean:3208-3221`) closes HB's (4.12)
   tail at `K = 100` using the CLASSICAL ZFR ceiling `efZfrCeil` at every `u`, and
   `logChiSum_tendsto_zfr`'s docstring says in the open that "`hN+`, `hord` and the
   `q^{250} ≤ X` edge do NOT appear — they are Range-A's". **On the landed bytes
@@ -387,7 +387,7 @@ site already discharges its side goal with the window in hand. The window is
 `ray_pow_bound`'s hα/hε. Nothing new enters scope.
 
 **ARM ARITHMETIC: UNFOUNDED — all ten arms reproduce.** `c₀ = 1/126848` confirmed
-(`ZeroFreeReal.lean:392/:605`; `TBalTall:2090` takes `min c₀' 1`),
+(`ZeroFreeReal.lean:392/:604`; `TBalTall:2090` takes `min c₀' 1`),
 `log(1/c₀) = 11.7507`. As `log(1/arm)`: `2^{−250}` 173.2868 · `(c₀/32)^{17/3}`
 **86.2267** · `(1/805)^{50/49}` 6.8274 · `(1/(8·1610·e))^8` 83.7074 · `1/2`
 0.6931 · `(1/KEβ)^8` 536.6658 · `(c₀/KEρ)^8` **631.5764** · `1/(3A₀)` 4.8527 ·

@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.RiderTrace
 import Salt.MR.RegisterCompose
 import Salt.MR.FlatDesignBound
+import Salt.MR.SocketLogFrame
 
 /-!
 # `V7B` — ⟦CS-THREAD⟧ the `e^{-100} ≤ cs` rider of `logChowla2_ineffective_v6`, DISCHARGED
@@ -91,7 +92,7 @@ open scoped LSeries.notation
 
 `per_pair_contour` passes `shifted_edge_price_strip`'s `c_vk` through verbatim, so
 `RiderTrace.shifted_edge_price_strip_bounded`'s `1/10^9 ≤ c_vk` survives the whole assembly.
-Body verbatim from `HalaszPrimesCore.lean:2403`, with the one `obtain` re-pointed at the
+Body verbatim from `HalaszPrimesCore.lean:2398`, with the one `obtain` re-pointed at the
 bounded twin and the new conjunct threaded through the `refine`. -/
 
 section V7BPerPair
@@ -160,8 +161,7 @@ theorem per_pair_contour_floored :
   have h5T1 : (1 : ℝ) < 5 * T + 1 := by linarith
   have hLTpos : 0 < LT := Real.log_pos h5T1
   -- loglog bound from the threshold
-  have hTlogexp : Real.exp (c_vk + 1) ≤ Real.log T := by
-    rw [← Real.log_exp (Real.exp (c_vk + 1))]; exact Real.log_le_log (Real.exp_pos _) hTexp
+  have hTlogexp : Real.exp (c_vk + 1) ≤ Real.log T := le_log_of_exp_le hTexp
   have hLTge : Real.exp (c_vk + 1) ≤ LT := by
     rw [hLTdef]; exact le_trans hTlogexp (Real.log_le_log hT0 (by linarith))
   have hℓTge : c_vk + 1 ≤ ℓT := by
@@ -824,11 +824,9 @@ theorem halaszPrimesChiGated_of_price_floored {c_vk C₁ C₂ C₃ T₀e : ℝ}
   have hT0 : (0 : ℝ) < T := by linarith
   have hP0 : (0 : ℝ) < P := by linarith
   have hlogP : 0 < Real.log P := Real.log_pos (by linarith)
-  have hLT100 : Real.exp 100 ≤ Real.log T := by
-    rw [← Real.log_exp (Real.exp 100)]; exact Real.log_le_log (Real.exp_pos _) hTE
+  have hLT100 : Real.exp 100 ≤ Real.log T := le_log_of_exp_le hTE
   have hLT1 : (1 : ℝ) ≤ Real.log T := by linarith
-  have hllT100 : (100 : ℝ) ≤ Real.log (Real.log T) := by
-    rw [← Real.log_exp 100]; exact Real.log_le_log (Real.exp_pos _) hLT100
+  have hllT100 : (100 : ℝ) ≤ Real.log (Real.log T) := le_log_of_exp_le hLT100
   have hllT1 : (1 : ℝ) ≤ Real.log (Real.log T) := by linarith
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   have hqT : T ≤ (q : ℝ) * T := by nlinarith only [hT₀z', hq1, hc10, hc0, hT₀z]
@@ -1118,7 +1116,7 @@ open MeasureTheory
 /-! ## §3 — THE SIX PASS-THROUGHS
 
 `NumeralKq`'s `_bounded` family, each twin re-run with the `cs` floor riding beside the `Kq`
-ceiling.  Bodies verbatim from `NumeralKq.lean:668-1068`; the only edits are the extra
+ceiling.  Bodies verbatim from `NumeralKq.lean:530-930`; the only edits are the extra
 conjunct in the `∃`-prefix, the extra name in each `obtain`/`refine` tuple, and the callee
 re-pointed at its own `_cs` twin. -/
 
@@ -1563,7 +1561,10 @@ forwards the now-hypothesis-free shape through the flat terminal — **this is t
 `v7` mint reads in place of
 `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist`.**
 
-Bodies verbatim from `RegisterCompose.lean:52-300`. -/
+Bodies verbatim from `RegisterCompose`'s four theorems
+`m4_hcap_at_door_perBlock_L_gk_bounded_khoist`, `m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist`,
+`s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist` and
+`logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist`. -/
 
 set_option maxHeartbeats 3200000 in
 -- Same cause as the landed original: one application of a ~45-binder capstone.
@@ -1706,14 +1707,7 @@ theorem s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree :
   refine hwire K R M liouvilleC (fun _ => theta293 - 1 / 500) liouvilleC_norm_le_one ?_
   intro H L q j A s hsb T hTlo hThi hTgate hTll
   obtain ⟨P, Q, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
-  have hq : 1 ≤ q := hsb.2.2.2.1
-  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
-  have hNd : 1 ≤ A + s := by omega
-  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_eight; linarith
-  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
-    Real.rpow_pos_of_pos hlogX0 _
-  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
-      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  obtain ⟨hq, hA, hNd, hlogX0, hpow, hexp⟩ := socketLogFrame_facts s hsb hg.logX_eight
   have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
   have hT1 : (1 : ℝ) < 2 * T := by linarith
   exact doorCapBundle_at_workingPoint_perBlock_L_gk K hband hM hNd hq hg hT1 hThi hTll

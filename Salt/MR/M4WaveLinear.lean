@@ -253,7 +253,7 @@ theorem doorChiCoeff_seamCoefW_at_door_H_L_gk (K : ℕ) {q : ℕ} (χ : Dirichle
   doorChiCoeff_seamCoefW_band_H_L_gk K χ M Xd P Q a
     (door_band_gate_of_log (one_le_s13GK K hM) hX hQlog hPlow) haH ha0 hend
 
-/-! ### `M4Maximal` :1016 — `M4ChiDyadicRowMeanSq` -/
+/-! ### `M4Maximal` :1011 — `M4ChiDyadicRowMeanSq` -/
 /-- **THE ROW INPUT, PER DYADIC LENGTH AND SHIFT** (`M4ChiDyadicRowMeanSq_L`) — the mean square
 of the door's sieved, χ-twisted, UN-PHASED datum in `ThmA2.thm_a2'_of_rows_L`' own currency, at
 the window length `h = 2^j` (`j ≤ log₂H`) and the scale `X = X_{i+1} + s` (`s ≤ H`), with the
@@ -276,8 +276,8 @@ def M4ChiDyadicRowMeanSq_L (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℕ → 
                         ((doorLadder R.x H (i + 1) + s : ℕ) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
         ≤ MS j H
 
-/-! ### `M4Maximal` :1519 — `M4ChiDyadicRowMeanSq_gk` -/
-/-- **THE GRADED DYADIC ROW DATUM AT THE LEVER** — `M4ChiDyadicRowMeanSq_L` (:1026). -/
+/-! ### `M4Maximal` :1502 — `M4ChiDyadicRowMeanSq_gk` -/
+/-- **THE GRADED DYADIC ROW DATUM AT THE LEVER** — `M4ChiDyadicRowMeanSq_L` (:1021). -/
 def M4ChiDyadicRowMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
     ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H, ∀ s ≤ H,
@@ -372,11 +372,7 @@ theorem m4_nonCoprime_classMeanSq_L {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ �
     -- ⟦the modulus gates⟧
     have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
     have h2q : 2 * q ≤ H := by
-      have hR : ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hdA : Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hdA2 : 2 * Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / Nat.gcd r q :=
@@ -445,7 +441,7 @@ theorem m4_nonCoprime_classMeanSq_L {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ �
       _ ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) :=
           d0_ledger hd hH'H (hBcl0 H)
 
-/-! ### `M4NonCoprime` :506 — `M4CoprimeBlockMeanSqN` -/
+/-! ### `M4NonCoprime` :502 — `M4CoprimeBlockMeanSqN` -/
 /-- **THE NARROWED COPRIME FAMILY** (`M4CoprimeBlockMeanSqN_L`) — `M4CoprimeBlockMeanSq_L` with
 ⟦THE NARROWING⟧ `(H : ℝ) ≤ arcDen 12 H · L` inserted directly after `L ≤ H`, and NOTHING
 else changed.  Strictly weaker as a hypothesis on a supplier, strictly stronger as a demand
@@ -457,7 +453,7 @@ def M4CoprimeBlockMeanSqN_L (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : P
         ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L M) L n q r) ^ 2
           ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
 
-/-! ### `M4NonCoprime` :543 — `m4_nonCoprime_classMeanSq_N` -/
+/-! ### `M4NonCoprime` :539 — `m4_nonCoprime_classMeanSq_N` -/
 /-- **⟦R2⟧, AT THE NARROWED TWIN** (`m4_nonCoprime_classMeanSq_N_L`).  Byte-for-byte
 `m4_nonCoprime_classMeanSq_L` with its coprime datum read at `M4CoprimeBlockMeanSqN_L`: the SAME
 hypothesis list, the SAME conclusion `M4ClassBlockMeanSq_L R M k Bcl`, the SAME grade — the
@@ -494,11 +490,7 @@ theorem m4_nonCoprime_classMeanSq_N_L {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ 
     -- ⟦the modulus gates⟧
     have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
     have h2q : 2 * q ≤ H := by
-      have hR : ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hdA : Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hdA2 : 2 * Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / Nat.gcd r q :=
@@ -582,7 +574,7 @@ theorem m4_nonCoprime_classMeanSq_N_L {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ 
       _ ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) :=
           d0_ledger hd hH'H (hBcl0 H)
 
-/-! ### `M4NonCoprime` :676 — `classSup_le_dilate_gk` -/
+/-! ### `M4NonCoprime` :668 — `classSup_le_dilate_gk` -/
 /-- **THE POINTWISE TRANSPORT AT THE LEVER** — `classSup_le_dilate_L` (:304). -/
 theorem classSup_le_dilate_L_gk (K : ℕ) {M H q r n : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
     (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) :
@@ -599,7 +591,7 @@ theorem classSup_le_dilate_L_gk (K : ℕ) {M H q r n : ℕ} {W : ℝ} (hM : 1 �
   rw [heq]
   exact le_classSup _ _ _ _ _ hlen
 
-/-! ### `M4NonCoprime` :692 — `M4CoprimeBlockMeanSq_gk` -/
+/-! ### `M4NonCoprime` :684 — `M4CoprimeBlockMeanSq_gk` -/
 /-- **THE COPRIME FAMILY AT THE LEVER** — `M4CoprimeBlockMeanSq_L` (:339). -/
 def M4CoprimeBlockMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H →
@@ -608,7 +600,7 @@ def M4CoprimeBlockMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ 
         ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L_gk K M) L n q r) ^ 2
           ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
 
-/-! ### `M4NonCoprime` :723 — `m4_nonCoprime_classMeanSq_gk` -/
+/-! ### `M4NonCoprime` :715 — `m4_nonCoprime_classMeanSq_gk` -/
 /-- **⟦R2⟧ AT THE LEVER** — `m4_nonCoprime_classMeanSq_L` (:384). -/
 theorem m4_nonCoprime_classMeanSq_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
     (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
@@ -635,11 +627,7 @@ theorem m4_nonCoprime_classMeanSq_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} 
     -- ⟦the modulus gates⟧
     have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
     have h2q : 2 * q ≤ H := by
-      have hR : ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hdA : Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hdA2 : 2 * Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / Nat.gcd r q :=
@@ -708,8 +696,8 @@ theorem m4_nonCoprime_classMeanSq_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} 
       _ ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) :=
           d0_ledger hd hH'H (hBcl0 H)
 
-/-! ### `M4NonCoprime` :822 — `M4CoprimeBlockMeanSqN_gk` -/
-/-- **THE NARROWED COPRIME FAMILY AT THE LEVER** — `M4CoprimeBlockMeanSqN_L` (:510). -/
+/-! ### `M4NonCoprime` :810 — `M4CoprimeBlockMeanSqN_gk` -/
+/-- **THE NARROWED COPRIME FAMILY AT THE LEVER** — `M4CoprimeBlockMeanSqN_L` (:506). -/
 def M4CoprimeBlockMeanSqN_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → (H : ℝ) ≤ arcDen 12 H * (L : ℝ) →
     ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H → ∀ r, r < q → Nat.Coprime q r →
@@ -717,8 +705,8 @@ def M4CoprimeBlockMeanSqN_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ
         ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L_gk K M) L n q r) ^ 2
           ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
 
-/-! ### `M4NonCoprime` :843 — `m4_nonCoprime_classMeanSq_N_gk` -/
-/-- **⟦R2⟧, AT THE NARROWED TWIN, AT THE LEVER** — `m4_nonCoprime_classMeanSq_N_L` (:551). -/
+/-! ### `M4NonCoprime` :831 — `m4_nonCoprime_classMeanSq_N_gk` -/
+/-- **⟦R2⟧, AT THE NARROWED TWIN, AT THE LEVER** — `m4_nonCoprime_classMeanSq_N_L` (:547). -/
 theorem m4_nonCoprime_classMeanSq_N_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
     (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
     (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
@@ -747,11 +735,7 @@ theorem m4_nonCoprime_classMeanSq_N_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ
     -- ⟦the modulus gates⟧
     have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
     have h2q : 2 * q ≤ H := by
-      have hR : ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) := by
-        push_cast
-        have := harc H hlo hhi
-        linarith
-      exact_mod_cast hR
+      exact_mod_cast (show ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
     have hdA : Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hdA2 : 2 * Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
     have hA2 : 2 ≤ doorLadder R.x H (i + 1) / Nat.gcd r q :=

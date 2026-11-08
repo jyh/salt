@@ -220,9 +220,7 @@ theorem orbit_prod_eq_minpoly_map {n : ℕ} (hn : n ≠ 0) (x : GaloisField p n)
   have hRnodup : R.Nodup := nodup_roots hsep
   have hSsub : (Finset.range (minpoly (ZMod p) x).natDegree).image (fun i => x ^ p ^ i)
       ⊆ R.toFinset := by
-    intro a ha
-    rw [Finset.mem_image] at ha
-    obtain ⟨i, -, rfl⟩ := ha
+    refine Finset.forall_mem_image.2 fun i _ => ?_
     rw [Multiset.mem_toFinset, hR, mem_roots hmapne, IsRoot.def, eval_map, ← aeval_def]
     exact galoisField_frobenius_orbit_isRoot n x i
   have hStF : (Finset.range (minpoly (ZMod p) x).natDegree).image (fun i => x ^ p ^ i)

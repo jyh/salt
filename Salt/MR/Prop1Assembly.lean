@@ -24,7 +24,7 @@ toward the terminal `prop_A3'` (M_range form, capped domain).
 
 * **T-2b — `expEM_le_of_floor_corrected` + `T1_pointwise_decay_corrected`.**  The
   absorption lemma the freeze mandated: the landed `T1_pointwise_decay`
-  (`PropA3Core.lean:287`) demands the CLEAN floor `(1/32)loglog X ≤ M` and does NOT
+  (`PropA3Core.lean:326`) demands the CLEAN floor `(1/32)loglog X ≤ M` and does NOT
   compose with the *corrected* R3.1 floor
   `(1/32)loglog X − 5·logloglog(2X+16) − C ≤ M` (the frozen N2 shape now landed
   W-free in `DistWindow.dist_split_A4_N2`).  T-2b absorbs the `−5·logloglog − C` slack
@@ -96,8 +96,7 @@ theorem expEM_le_of_floor_corrected {X M C : ℝ} (hX : Real.exp 1 ≤ X)
     Real.exp (-(1 / Real.exp 1) * M) ≤ (Real.log X) ^ (-(1 / Real.exp 1) / 32)
         * Real.exp ((1 / Real.exp 1)
             * (5 * Real.log (Real.log (Real.log (2 * X + 16))) + C)) := by
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hc : (0 : ℝ) ≤ 1 / Real.exp 1 := by positivity
   have hstep : -(1 / Real.exp 1) * M ≤ Real.log (Real.log X) * (-(1 / Real.exp 1) / 32)

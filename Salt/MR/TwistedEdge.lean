@@ -907,8 +907,7 @@ theorem twisted_edge_price_strip :
     have := hT; linarith only [hEpos, hT]
   have hLT100 : Real.exp 100 ≤ Real.log (5 * T + 1) := by
     rw [← Real.log_exp (Real.exp 100)]; exact Real.log_le_log hEpos hE5T
-  have hℓT100 : (100 : ℝ) ≤ Real.log (Real.log (5 * T + 1)) := by
-    rw [← Real.log_exp (100 : ℝ)]; exact Real.log_le_log (Real.exp_pos _) hLT100
+  have hℓT100 : (100 : ℝ) ≤ Real.log (Real.log (5 * T + 1)) := le_log_of_exp_le hLT100
   have hsc_thr : 9000 * (1 / 10 ^ 8 : ℝ) ≤ Real.log (Real.log (5 * T + 1)) := by
     norm_num; linarith [hℓT100]
   set D5 : ℝ := (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
@@ -1093,8 +1092,7 @@ lemma twisted_gate_of_height {q : ℕ} [NeZero q] {T : ℝ}
   set A : ℝ := 8 * Real.log (40000 * vkStripConst q) with hAdef
   have hE : Real.exp (Real.exp A) ≤ 5 * T + 1 := by
     have h := Real.exp_pos (Real.exp A); linarith
-  have h1 : Real.exp A ≤ Real.log (5 * T + 1) := by
-    rw [← Real.log_exp (Real.exp A)]; exact Real.log_le_log (Real.exp_pos _) hE
+  have h1 : Real.exp A ≤ Real.log (5 * T + 1) := le_log_of_exp_le hE
   have h2 := Real.log_le_log (Real.exp_pos A) h1
   rwa [Real.log_exp] at h2
 

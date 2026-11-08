@@ -245,8 +245,7 @@ theorem Mrange_floor_of_center_floor_radius {f : ℕ → ℂ} {X T R t₁ : ℝ}
     (hfloor : (1 / 32) * Real.log (Real.log X) ≤ pretDistSq f (costwist t₁) X) :
     (1 / 32) * Real.log (Real.log X) ≤ M_range f X T := by
   have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
-  have hL1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hXe
+  have hL1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hXe
   have hLnn : (0 : ℝ) ≤ Real.log X := by linarith
   have hr15 : (0 : ℝ) ≤ (Real.log X) ^ (1 / 45 : ℝ) := Real.rpow_nonneg hLnn _
   have hr16 : (0 : ℝ) ≤ (Real.log X) ^ (1 / 46 : ℝ) := Real.rpow_nonneg hLnn _

@@ -144,8 +144,7 @@ theorem blockWindow_mertens_const (P Q : ℕ) (X : ℝ)
   have hP2R : (2 : ℝ) ≤ (P : ℝ) := le_trans h2e hP
   have hP2 : 2 ≤ P := by exact_mod_cast hP2R
   have hPQR : (P : ℝ) ≤ (Q : ℝ) := by exact_mod_cast hPQ
-  have hlogP : (1 : ℝ) ≤ Real.log (P : ℝ) := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hP
+  have hlogP : (1 : ℝ) ≤ Real.log (P : ℝ) := le_log_of_exp_le hP
   have hlogQ : (1 : ℝ) ≤ Real.log (Q : ℝ) := le_trans hlogP
     (Real.log_le_log (by linarith) hPQR)
   have e1 : 12 / Real.log (P : ℝ) ≤ 12 := by

@@ -11,7 +11,7 @@ import Salt.MR.HExit
 
 **The repair of `flags.md`'s "hfloor's seam-datum provenance" entry (2026-07-25,
 GRADE-REF UNASSIGNED-2).**  The prop-A3 column's floor binder — byte-for-byte
-`Prop1Assembly:406`, `HExit:1465`, `HalaszHead:455`, `AnnHead:306`… —
+`Prop1Assembly:405`, `HExit:1463`, `HalaszHead:455`, `AnnHead:306`… —
 
   `(1/32)·loglog X ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T`
 
@@ -208,8 +208,7 @@ theorem seam_floor_of_cap_pointwise :
   obtain ⟨C, hC0, hone⟩ := dist_one_floor_uniform
   refine ⟨C, hC0, ?_⟩
   intro f hf t₀ t t₁ X hX hb1 hbX hcap hgate
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hℓnn : 0 ≤ Real.log (Real.log X) := Real.log_nonneg hlogX1
   have hL3nn : 0 ≤ Real.log (Real.log (Real.log (2 * X + 16))) := fp_logloglog_two_X_nonneg hX
   -- the height, in the bare frame: the `t₀`-shift cancels
@@ -278,8 +277,7 @@ theorem Mrange_seam_floor_of_cap :
   refine ⟨C, hC0, ?_⟩
   intro f hf t₀ t₁ X T W hX hT15 hsep htop hW hcap hgate
   have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hX
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hLXpos : (0 : ℝ) < Real.log X := by linarith
   have hℓnn : 0 ≤ Real.log (Real.log X) := Real.log_nonneg hlogX1
   have hr15nn : (0 : ℝ) ≤ (Real.log X) ^ (1 / 45 : ℝ) := Real.rpow_nonneg hLXpos.le _
@@ -328,8 +326,7 @@ gate (an explicit `X₀` tower) — that is carried, not hidden. -/
 theorem cap_gate_satisfiable {X : ℝ} (hX : Real.exp 1 ≤ X) :
     pretDistSq (seamCoeff (fun _ => 1) (fun _ => 1) 0) (costwist 0) X
       ≤ (1 / 16) * Real.log (Real.log X) := by
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hℓnn : 0 ≤ Real.log (Real.log X) := Real.log_nonneg hlogX1
   have hz : pretDistSq (seamCoeff (fun _ => (1 : ℂ)) (fun _ => 1) 0) (costwist 0) X = 0 := by
     unfold pretDistSq
@@ -350,7 +347,7 @@ theorem cap_gate_satisfiable {X : ℝ} (hX : Real.exp 1 ≤ X) :
 /-- **F-3 — THE COLUMN'S BINDER (`Mrange_seam_floor_column`).**  `Mrange_seam_floor_of_cap` at
 the column's datum `f = ellLin g` (1-bounded by `ellLin_norm_le_one` from the corpus-standard
 PRIME bound on `g`).  The conclusion is the prop-A3 column's `hfloor` binder BYTE-FOR-BYTE
-(`Prop1Assembly:406`, `HExit:1465`, `HalaszHead:455`, `AnnHead:306/343/401/…`):
+(`Prop1Assembly:405`, `HExit:1463`, `HalaszHead:455`, `AnnHead:306/343/401/…`):
 
   `(1 / 32) * Real.log (Real.log X) ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T`.
 

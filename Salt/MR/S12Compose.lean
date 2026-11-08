@@ -8,6 +8,7 @@ import Salt.MR.S11Hoist
 import Salt.MR.S11Arc36
 import Salt.MR.S11CoefWS
 import Salt.MR.M4DoorL2
+import Salt.MR.StrataBounds
 
 /-!
 # ⟦S12⟧ — THE ROAD-THREADING TWIN AT THE `L²` DOOR, AND THE COMPOSE
@@ -155,20 +156,10 @@ theorem m4_second_road_L2 :
   -- ⟦the cover, then the socket⟧
   have hcov := m4_cover_assembly_blk2 hgates hBblk0 hblk2
   refine hR Braw Bceil δ M k hgates hBraw0 ?_ hceil hbudget
+  obtain ⟨hℓH, hℓcnt, hℓdrift⟩ := blockLen_obligations (R := R) harc
   refine m4_sievedDoorSq_of_blk2 (ℓ := blockLen)
     (fun H => by have := hBblk0 H; positivity)
-    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
-  · intro H q hlo hhi _ _
-    have h1 := harc H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hH1 : 1 ≤ H := by
-      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
-      exact_mod_cast this
-    exact blockLen_le H q hH1
-  · intro H q hlo hhi _ _
-    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
-  · intro H q hlo hhi hq _
-    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+    (fun H q _ _ _ _ => one_le_blockLen H q) hℓH hℓcnt hℓdrift ?_ hcov
   · intro H hlo hhi
     have h := hdrift H hlo hhi
     have hres0 : (0 : ℝ) ≤ strataResidual H :=
@@ -391,26 +382,10 @@ theorem logChowla2_capstone_conditional (Aexp : ℝ) (hAexp : 0 < Aexp) :
       (by have := rStrWitness_nonneg H; simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
     positivity
   · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
-    intro H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
-      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
-      unfold strataResidual
-      linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
-    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
-      have h1 : RSanDoorRho ρ H ≤ 1 := by
-        unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
-        linarith
-      exact le_trans h1 (le_max_left _ _)
-    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
-    linarith
+    exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -581,26 +556,10 @@ theorem logChowla2_capstone_conditional_perBlock (Aexp : ℝ) (hAexp : 0 < Aexp)
           simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
     positivity
   · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
-    intro H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
-      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
-      unfold strataResidual
-      linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
-    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
-      have h1 : RSanDoorRho ρ H ≤ 1 := by
-        unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
-        linarith
-      exact le_trans h1 (le_max_left _ _)
-    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
-    linarith
+    exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -831,26 +790,10 @@ theorem logChowla2_capstone_final (Aexp : ℝ) (hAexp : 0 < Aexp) :
           simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
     positivity
   · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
-    intro H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
-      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
-      unfold strataResidual
-      linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
-    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
-      have h1 : RSanDoorRho ρ H ≤ 1 := by
-        unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
-        linarith
-      exact le_trans h1 (le_max_left _ _)
-    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
-    linarith
+    exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -945,20 +888,10 @@ theorem m4_second_road_L2_gk (K : ℕ) :
     positivity
   have hcov := m4_cover_assembly_blk2_gk K hgates hBblk0 hblk2
   refine hR Braw Bceil δ M k hgates hBraw0 ?_ hceil hbudget
+  obtain ⟨hℓH, hℓcnt, hℓdrift⟩ := blockLen_obligations (R := R) harc
   refine m4_sievedDoorSq_of_blk2_gk K (ℓ := blockLen)
     (fun H => by have := hBblk0 H; positivity)
-    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
-  · intro H q hlo hhi _ _
-    have h1 := harc H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hH1 : 1 ≤ H := by
-      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
-      exact_mod_cast this
-    exact blockLen_le H q hH1
-  · intro H q hlo hhi _ _
-    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
-  · intro H q hlo hhi hq _
-    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+    (fun H q _ _ _ _ => one_le_blockLen H q) hℓH hℓcnt hℓdrift ?_ hcov
   · intro H hlo hhi
     have h := hdrift H hlo hhi
     have hres0 : (0 : ℝ) ≤ strataResidual H :=
@@ -1085,25 +1018,9 @@ theorem logChowla2_capstone_conditional_gk (K : ℕ) (hK : K ≤ 170000000)
       (by have := rStrWitness_nonneg H
           simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
     positivity
+  · exact gate6_of_j0_floor R hρ1 hj0
   · intro H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
-      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
-      unfold strataResidual
-      linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
-    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
-      have h1 : RSanDoorRho ρ H ≤ 1 := by
-        unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
-        linarith
-      exact le_trans h1 (le_max_left _ _)
-    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
-    linarith
-  · intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -1245,25 +1162,9 @@ theorem logChowla2_capstone_conditional_perBlock_gk (K : ℕ) (hK : K ≤ 170000
       (by have := rStrWitness_nonneg H
           simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
     positivity
+  · exact gate6_of_j0_floor R hρ1 hj0
   · intro H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
-      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
-      unfold strataResidual
-      linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
-    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
-      have h1 : RSanDoorRho ρ H ≤ 1 := by
-        unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
-        linarith
-      exact le_trans h1 (le_max_left _ _)
-    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
-    linarith
-  · intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -1416,25 +1317,9 @@ theorem logChowla2_capstone_final_gk (K : ℕ) (hK : K ≤ 170000000)
       (by have := rStrWitness_nonneg H
           simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
     positivity
+  · exact gate6_of_j0_floor R hρ1 hj0
   · intro H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
-      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
-      unfold strataResidual
-      linarith
-    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
-    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
-      have h1 : RSanDoorRho ρ H ≤ 1 := by
-        unfold RSanDoorRho
-        rw [div_le_one (by nlinarith)]
-        linarith
-      exact le_trans h1 (le_max_left _ _)
-    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
-    linarith
-  · intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)

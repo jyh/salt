@@ -90,8 +90,7 @@ theorem mertens_block_diff_le {x : ℝ} (hx : Real.exp 1 ≤ x) (k : ℕ) :
   have h2e : (2:ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp 1; linarith
   have hx2 : (2:ℝ) ≤ x := le_trans h2e hx
   have hxpos : (0:ℝ) < x := by linarith
-  have hlogx1 : (1:ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1:ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0:ℝ) < Real.log x := by linarith
   have hlog2pos : (0:ℝ) < Real.log 2 := Real.log_pos (by norm_num)
   have h1k : (1:ℝ) ≤ (2:ℝ)^k := one_le_pow₀ (by norm_num)
@@ -202,8 +201,7 @@ theorem block_full_le {x : ℝ} (hx : Real.exp 1 ≤ x) (k : ℕ) (G : Finset �
   have h2e : (2:ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp 1; linarith
   have hx2 : (2:ℝ) ≤ x := le_trans h2e hx
   have hxpos : (0:ℝ) < x := by linarith
-  have hlogx1 : (1:ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1:ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0:ℝ) < Real.log x := by linarith
   have hapos : (0:ℝ) < (2:ℝ)^k * x := by positivity
   have hdnn : (0:ℝ) ≤ 1 / Real.log x := le_of_lt (div_pos one_pos hLpos)
@@ -287,8 +285,7 @@ theorem prime_tail_finite_le {x : ℝ} (hx : Real.exp 1 ≤ x) (P : Finset ℕ)
   have h2e : (2:ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp 1; linarith
   have hx2 : (2:ℝ) ≤ x := le_trans h2e hx
   have hxpos : (0:ℝ) < x := by linarith
-  have hlogx1 : (1:ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1:ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0:ℝ) < Real.log x := by linarith
   have hlog2pos : (0:ℝ) < Real.log 2 := Real.log_pos (by norm_num)
   set r := Real.exp (-(Real.log 2) / Real.log x) with hrdef

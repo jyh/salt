@@ -49,7 +49,7 @@ re-proved: the derivation is the landed one, transcribed.  Composed with the sto
 `Salt.Entropy.Chowla.MRTUniformityXiL2` is stated to consume exactly this shape.
 
 ⟦ADDITIVE⟧ No landed declaration is touched; `norm_dft_neg_of_real` (the reality check the
-`L²` major arm needs) is NOT duplicated here — stone 1 landed it in `CircleMethod.lean:700`.
+`L²` major arm needs) is NOT duplicated here — stone 1 landed it in `CircleMethod.lean:778`.
 -/
 
 noncomputable section

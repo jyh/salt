@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.M4Assembly
+import Salt.MR.SocketFrame
 
 /-!
 # ⟦D5 — THE ENDPOINT-WALL REPAIR ON THE `χ` PAGE⟧ (`M4RowsChiEnd`)
@@ -839,14 +840,10 @@ theorem m4_hrowsSlot_at_door_end :
   obtain ⟨Ct, Cp, hCt, hCp, hrows⟩ := m4_hrowsSum_chi_door_end
   refine ⟨Ct, Cp, hCt, hCp, ?_⟩
   intro R M ε cU bU t₁ hM hb1 hc1 hbase hcap H L q j A s hb χ T hT hTX2 hTgate hTll
-  have hq : 0 < q := hb.2.2.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  obtain ⟨hq, hA, hAs, hAsR, hN4⟩ := Salt.MR.socketFrame_facts s hb
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hbase H L q j A s hb
   -- ⟦THE DOOR INSTANCE'S OWN FRAME⟧
-  have hAs : 0 < A + s := lt_of_lt_of_le hA (Nat.le_add_right A s)
-  have hAsR : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by exact_mod_cast hAs
-  have hN4 : (((2 * (A + s) : ℕ)) : ℝ) ≤ 4 * (((A + s : ℕ)) : ℝ) := by push_cast; linarith
   have ha1 : ∀ n : ℕ, ‖winCutH (A + s) (doorCoeffU M) n‖ ≤ 1 :=
     fun n => norm_winCutH_le
       (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ 2 m) n
@@ -1134,14 +1131,10 @@ theorem m4_hrowsSlot_at_door_end_gk (K : ℕ) (hK : K ≤ 170000000) :
   obtain ⟨Ct, Cp, hCt, hCp, hrows⟩ := m4_hrowsSum_chi_door_end_gk K hK
   refine ⟨Ct, Cp, hCt, hCp, ?_⟩
   intro R M ε cU bU t₁ hM hb1 hc1 hbase hcap H L q j A s hb χ T hT hTX2 hTgate hTll
-  have hq : 0 < q := hb.2.2.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  obtain ⟨hq, hA, hAs, hAsR, hN4⟩ := Salt.MR.socketFrame_facts s hb
   haveI : NeZero q := ⟨hq.ne'⟩
   have hD := hbase H L q j A s hb
   -- ⟦THE DOOR INSTANCE'S OWN FRAME⟧
-  have hAs : 0 < A + s := lt_of_lt_of_le hA (Nat.le_add_right A s)
-  have hAsR : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by exact_mod_cast hAs
-  have hN4 : (((2 * (A + s) : ℕ)) : ℝ) ≤ 4 * (((A + s : ℕ)) : ℝ) := by push_cast; linarith
   have ha1 : ∀ n : ℕ, ‖winCutH (A + s) (doorCoeffU_gk K M) n‖ ≤ 1 :=
     fun n => norm_winCutH_le
       (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ 2 m) n

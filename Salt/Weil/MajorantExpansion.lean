@@ -34,7 +34,7 @@ before a line of proof was written, and each is quoted here in the shape it actu
 * `summable_norm_majorantCoeff {K : ℕ} (hK : 2 ≤ K) : Summable (fun m : ℤ => ‖majorantCoeff K m‖)`
   (`:1428`).
 
-**From `Salt/LS/Dist.lean:29`:** `dist₁ (x y : ℝ) : ℝ := |x - y - round (x - y)|`.
+**From `Salt/LS/Dist.lean:34`:** `dist₁ (x y : ℝ) : ℝ := |x - y - round (x - y)|`.
 
 **From mathlib:** `has_pointwise_sum_fourier_series_of_summable`
 (`Mathlib/Analysis/Fourier/AddCircle.lean:503`, root namespace),

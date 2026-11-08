@@ -126,20 +126,10 @@ theorem m4_second_road_tower :
   -- ⟦the cover, then the socket⟧
   have hcov := m4_cover_assembly_blk2 hgates hBblk0 hblk2
   refine hR δ Braw M k hgates hBraw0 hgrade ?_
+  obtain ⟨hℓH, hℓcnt, hℓdrift⟩ := blockLen_obligations (R := R) harc
   refine m4_sievedDoorSq_of_blk2 (ℓ := blockLen)
     (fun H => by have := hBblk0 H; positivity)
-    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
-  · intro H q hlo hhi _ _
-    have h1 := harc H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hH1 : 1 ≤ H := by
-      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
-      exact_mod_cast this
-    exact blockLen_le H q hH1
-  · intro H q hlo hhi _ _
-    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
-  · intro H q hlo hhi hq _
-    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+    (fun H q _ _ _ _ => one_le_blockLen H q) hℓH hℓcnt hℓdrift ?_ hcov
   · intro H hlo hhi
     have h := hdrift H hlo hhi
     have hres0 : (0 : ℝ) ≤ strataResidual H :=

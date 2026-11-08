@@ -159,9 +159,7 @@ theorem sTrunc_le_prod (n : ℕ) :
     exact Finset.sum_congr rfl (fun d _ => rfl)
   rw [hStr]
   have hsub : Dn.image Nat.primeFactors ⊆ P.powerset := by
-    intro S hS
-    rw [Finset.mem_image] at hS
-    obtain ⟨d, hd, rfl⟩ := hS
+    refine Finset.forall_mem_image.2 fun d hd => ?_
     rw [Finset.mem_powerset]
     exact hmem d hd
   have hnn : ∀ S ∈ P.powerset, 0 ≤ ∏ p ∈ S, (1 / ((p : ℝ) - 2)) := by
@@ -204,8 +202,12 @@ of squarefree odd prime-factor sets `S₁, S₂`, the `uu`-weight of each times 
 private noncomputable def Gterm (S₁ S₂ : Finset ℕ) : ℝ :=
   (∏ p ∈ S₁, uu p) * (∏ p ∈ S₂, uu p) * ∏ p ∈ S₁ ∪ S₂, vv p
 
+/-- `0 ≤ vv p = 1/p` for every `p : ℕ` (`positivity`). The sign of the lcm factor in
+`Gterm_nonneg` and in the exp-majorant step of `prod_L_le_exp`. -/
 private lemma vv_nonneg (p : ℕ) : 0 ≤ vv p := by simp only [vv]; positivity
 
+/-- `0 ≤ uu p = 1/(p−2)` for `3 ≤ p`: the denominator is `≥ 1`. Why GB-14 indexes over primes
+`≥ 3` — the sign `Gterm_nonneg` and `prod_L_le_exp` need pointwise over the index sets. -/
 private lemma uu_nonneg {p : ℕ} (hp : 3 ≤ p) : 0 ≤ uu p := by
   simp only [uu]
   have : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp
@@ -414,9 +416,7 @@ theorem hFac_lcm_sum_le :
     Finset.sum_congr rfl (fun d₁ hd₁ =>
       Finset.sum_congr rfl (fun d₂ hd₂ => hterm d₁ hd₁ d₂ hd₂))
   have hsubP : D.image Nat.primeFactors ⊆ P.powerset := by
-    intro S hS
-    rw [Finset.mem_image] at hS
-    obtain ⟨d, hd, rfl⟩ := hS
+    refine Finset.forall_mem_image.2 fun d hd => ?_
     rw [Finset.mem_powerset]
     exact hpfsub d hd
   have hGnn : ∀ S₁ ∈ P.powerset, ∀ S₂ ∈ P.powerset, 0 ≤ Gterm S₁ S₂ := by

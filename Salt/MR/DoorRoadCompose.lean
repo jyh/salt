@@ -296,7 +296,7 @@ artifact of the route *I* invented, not a gap in the corpus.  **The corpus's own
 asks the containment question at all:**
 
 ```
-  M4BaseNarrow.lean:322 / M4ChiSummed.lean:673   ⟦STEP 1⟧ then ⟦STEP 2⟧
+  M4BaseNarrow.lean:314 / M4ChiSummed.lean:665   ⟦STEP 1⟧ then ⟦STEP 2⟧
     ∑_{n ∈ Ioc A B} (doorChiSup χ M L n)²   ≤   ∑_{n ∈ Ioc A B} SL · ∑_j (∑_t X j t n)·(2/3)^j
     then the sums COMMUTE:  ∑_n ∑_j ∑_t  ⟶  ∑_j ∑_t ∑_{n ∈ Ioc A B}
 ```
@@ -385,7 +385,7 @@ Same summand; the offset `2^(j+1)·t` sits on the **base** in one and on the **i
 other.  So the join is a reindexing, and `M4ChiShiftBlockMeanSq`'s `s` parameter is exactly
 that offset — which is why the family is called *shifted*.
 
-Following `Salt/ExpSum/Basic.lean:71`'s idiom (`map_add_right_Ioc` + `Finset.sum_map`) rather
+Following `Salt/ExpSum/Basic.lean:76`'s idiom (`map_add_right_Ioc` + `Finset.sum_map`) rather
 than inventing one.
 
 ⛔ **AND THE CORPUS ALREADY HAS THE REINDEXING.**  I wrote it out here and the compiler

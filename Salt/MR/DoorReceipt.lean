@@ -10,14 +10,15 @@ import Salt.MR.RegimeFloors
 import Salt.MR.DoorSocket
 import Salt.MR.FlatDesignBound
 import Salt.MR.ArcRegimeWeaken
+import Salt.MR.DesignEightArms
 
 /-!
 # `DoorReceipt` — the spine door, NAMED: the `L²` door at a numeral grade on the flat family
 
 **The finding this file answers** (the EM freeze, refuter-passed 2026-09-02): the live headline
-`logChowla2_v7_rated` (V7Rated.lean:975) PROVES the `L²` MRT door — `MRTUniformityXiL2 R ρ` at
+`logChowla2_v7_rated` (V7Rated.lean:976) PROVES the `L²` MRT door — `MRTUniformityXiL2 R ρ` at
 `ρ ≤ δ₀`, `ε = 1/500`, on every regime of the flat family — inside its own proof, and no theorem
-STATES it.  The head `flat_head_uniform_xceil` (XThread.lean:514) carries the door as a SLOT
+STATES it.  The head `flat_head_uniform_xceil` (XThread.lean:516) carries the door as a SLOT
 (`∀ ρ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ → ¬ logChowla2Fails …`); the road-side hops
 H1–H7 (`flat_socket_uniform_xceil` → … → `logChowla2_v7_rated`) manufacture the door and hand it
 to that slot, and none of them reads the slot's conclusion (refuter R5/R-STOP: the `¬ Fails` is
@@ -90,7 +91,7 @@ a numeral, and it does. -/
 def MRTDoorReceipt (R : ChowlaRegime) : Prop :=
   ∃ ρ : ℝ, 0 < ρ ∧ ρ ≤ 1 / 837782 ∧ MRTUniformityXiL2 R ρ
 
-/-- **⟦H0 FORM⟧** `flat_head_uniform_xceil`'s statement (XThread.lean:514) with the door slot's
+/-- **⟦H0 FORM⟧** `flat_head_uniform_xceil`'s statement (XThread.lean:516) with the door slot's
 conclusion `¬ logChowla2Fails R.eps R.x R.ω` replaced by `P R`.  At `P := (¬ logChowla2Fails ·)` the
 landed head inhabits it by `rfl`-unfolding (`logChowla2_v7_rated_of_generic` reads it that way); at
 `P := MRTDoorReceipt` the door-head §2 does. -/
@@ -113,7 +114,7 @@ def FlatHeadForm (P : ChowlaRegime → Prop) : Prop :=
             ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ →
               P R
 
-/-- **⟦H1 FORM⟧** `flat_socket_uniform_xceil`'s statement (XThread.lean:639) with the conclusion
+/-- **⟦H1 FORM⟧** `flat_socket_uniform_xceil`'s statement (XThread.lean:618) with the conclusion
 slot
 `P R`. -/
 def FlatSocketForm (P : ChowlaRegime → Prop) : Prop :=
@@ -145,7 +146,7 @@ def FlatSocketForm (P : ChowlaRegime → Prop) : Prop :=
                   K * (2 * Bsieve H) + 2 * Binsert ≤ δ₀) →
                 P R)
 
-/-- **⟦H1 REPLAY⟧** `flat_socket_uniform_xceil` (XThread.lean:639) from a generic head.  Body
+/-- **⟦H1 REPLAY⟧** `flat_socket_uniform_xceil` (XThread.lean:618) from a generic head.  Body
 verbatim; the only edit is the source of the first `obtain` (the head-form hypothesis `h`). -/
 theorem flat_socket_generic (P : ChowlaRegime → Prop) (h : FlatHeadForm P) :
     FlatSocketForm P := by
@@ -169,7 +170,7 @@ theorem flat_socket_generic (P : ChowlaRegime → Prop) (h : FlatHeadForm P) :
   exact le_trans (hH₀ R hReps harc a e Bsieve K Binsert hsplit hB0 hsock hcount hins
     H hlo hhi) (hρ H hlo hhi)
 
-/-- **⟦H2 FORM⟧** `flat_doorL2_uniform_xceil_khoist`'s statement (XThread.lean:691) with the
+/-- **⟦H2 FORM⟧** `flat_doorL2_uniform_xceil_khoist`'s statement (XThread.lean:670) with the
 conclusion slot `P R`. -/
 def FlatDoorL2Form (P : ChowlaRegime → Prop) : Prop :=
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ β : ℝ) (Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
@@ -193,7 +194,7 @@ def FlatDoorL2Form (P : ChowlaRegime → Prop) : Prop :=
                 2 * Kb * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ →
                   P R
 
-/-- **⟦H2 REPLAY⟧** `flat_doorL2_uniform_xceil_khoist` (XThread.lean:691) from the generic socket.
+/-- **⟦H2 REPLAY⟧** `flat_doorL2_uniform_xceil_khoist` (XThread.lean:670) from the generic socket.
 Body verbatim; `¬ logChowla2Fails` appears only as the codomain of `hR` (refuter R-STOP). -/
 theorem flat_doorL2_generic (P : ChowlaRegime → Prop) (h : FlatSocketForm P) :
     FlatDoorL2Form P := by
@@ -237,7 +238,7 @@ theorem flat_doorL2_generic (P : ChowlaRegime → Prop) (h : FlatSocketForm P) :
       mul_le_mul_of_nonneg_left (hceil H hlo hhi) (by linarith)
     linarith
 
-/-- **⟦H3 FORM⟧** `flat_road_uniform_xceil_khoist`'s statement (XThread.lean:751) with the
+/-- **⟦H3 FORM⟧** `flat_road_uniform_xceil_khoist`'s statement (XThread.lean:730) with the
 conclusion
 slot `P R`. -/
 def FlatRoadForm (P : ChowlaRegime → Prop) : Prop :=
@@ -273,7 +274,7 @@ def FlatRoadForm (P : ChowlaRegime → Prop) : Prop :=
                 M4ChiSummedFreeRow_L_gk K R M RS →
                   P R
 
-/-- **⟦H3 REPLAY⟧** `flat_road_uniform_xceil_khoist` (XThread.lean:751) from the generic closed
+/-- **⟦H3 REPLAY⟧** `flat_road_uniform_xceil_khoist` (XThread.lean:730) from the generic closed
 loop.
 Body verbatim. -/
 theorem flat_road_generic (P : ChowlaRegime → Prop) (h : FlatDoorL2Form P) :
@@ -316,7 +317,7 @@ theorem flat_road_generic (P : ChowlaRegime → Prop) (h : FlatDoorL2Form P) :
     have hB := hBcl0 H
     nlinarith [h]
 
-/-- **⟦H4 FORM⟧** `flat_capstone_uniform_win_xceil_kwide_khoist`'s statement (XThread.lean:831) with
+/-- **⟦H4 FORM⟧** `flat_capstone_uniform_win_xceil_kwide_khoist`'s statement (XThread.lean:810) with
 the conclusion slot `P R`; `Awin` stays a parameter of the form, `hband` is the replay's
 hypothesis. -/
 def FlatCapstoneForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
@@ -413,9 +414,9 @@ def FlatCapstoneForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
                         P R
 
 set_option maxHeartbeats 1600000 in
--- Same cause as the parent (XThread.lean:823): the ~90-line conclusion re-elaborates under the
+-- Same cause as the parent (XThread.lean:802): the ~90-line conclusion re-elaborates under the
 -- extra `∀ K`/`∃ Ct` bracket.
-/-- **⟦H4 REPLAY⟧** `flat_capstone_uniform_win_xceil_kwide_khoist` (XThread.lean:831) from the
+/-- **⟦H4 REPLAY⟧** `flat_capstone_uniform_win_xceil_kwide_khoist` (XThread.lean:810) from the
 generic road.  Body verbatim (the fuse, the share table, the four gate discharges). -/
 theorem flat_capstone_generic (P : ChowlaRegime → Prop) (h : FlatRoadForm P) (Awin : ℝ)
     (hband : S16BandLaneCBoundedL_winU Awin) :
@@ -508,9 +509,7 @@ theorem flat_capstone_generic (P : ChowlaRegime → Prop) (h : FlatRoadForm P) (
     exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloorL M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -537,7 +536,7 @@ theorem flat_capstone_generic (P : ChowlaRegime → Prop) (h : FlatRoadForm P) (
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
-/-- **⟦H5 FORM⟧** `flat_conditional_uniform_win_xceil_kwide_khoist`'s statement (XThread.lean:1116)
+/-- **⟦H5 FORM⟧** `flat_conditional_uniform_win_xceil_kwide_khoist`'s statement (XThread.lean:1093)
 with the conclusion slot `P R`. -/
 def FlatConditionalForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
     ∃ (ε : ℚ) (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
@@ -564,9 +563,9 @@ def FlatConditionalForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
                 S15CrossingBound_L_gk K R M → P R
 
 set_option maxHeartbeats 1600000 in
--- Same cause as the parent (XThread.lean:1043): the capstone's monster body is consumed under
+-- Same cause as the parent (XThread.lean:1020): the capstone's monster body is consumed under
 -- one more binder layer.
-/-- **⟦H5 REPLAY⟧** `flat_conditional_uniform_win_xceil_kwide_khoist` (XThread.lean:1116) from the
+/-- **⟦H5 REPLAY⟧** `flat_conditional_uniform_win_xceil_kwide_khoist` (XThread.lean:1093) from the
 generic capstone — the one hop that moves `g` (the `s15Arm` substitution and its rider).  Body
 verbatim; the conclusion is only `hgo`'s codomain (refuter R-STOP). -/
 theorem flat_conditional_generic (P : ChowlaRegime → Prop) (Awin : ℝ)
@@ -638,12 +637,8 @@ theorem flat_conditional_generic (P : ChowlaRegime → Prop) (Awin : ℝ)
     le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
   have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
   have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
-    intro H hlo hhi
-    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
-    have hreg := hHreg H hlo hhi
-    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
-    linarith
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) :=
+    gArm_of_scale hωpos (s15Arm_rho hRarm) hHreg
   -- ⟦ITEM 16⟧ the arithmetic frame family, at the LINEAR anchor
   have harith := s15_doorArithFrameRho_L_family'' (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
     hsel.anchor hHreg hgarm (fun _ => zero_le_one)
@@ -686,7 +681,7 @@ theorem flat_conditional_generic (P : ChowlaRegime → Prop) (Awin : ℝ)
     harith
 
 /-- **⟦H6 FORM⟧** `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin`'s
-statement (V7Ks.lean:296) with the conclusion slot `P R`. -/
+statement (V7Ks.lean:290) with the conclusion slot `P R`. -/
 def FlatKswinForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
     ∃ (ε : ℚ) (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 1 ≤ Mfl ∧
@@ -717,10 +712,10 @@ def FlatKswinForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
 
 set_option exponentiation.threshold 4000 in
 set_option maxHeartbeats 3200000 in
--- Same cause as the parent (V7Ks.lean:288): the hoisted prefix plus the three window discharges
+-- Same cause as the parent (V7Ks.lean:282): the hoisted prefix plus the three window discharges
 -- re-elaborate the terminal's conclusion.
 /-- **⟦H6 REPLAY⟧** `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin`
-(V7Ks.lean:296) from the generic conditional.  Body verbatim. -/
+(V7Ks.lean:290) from the generic conditional.  Body verbatim. -/
 theorem flat_kswin_generic (P : ChowlaRegime → Prop) (Awin : ℝ)
     (h : FlatConditionalForm P Awin) :
     FlatKswinForm P Awin := by
@@ -789,7 +784,7 @@ theorem flat_kswin_generic (P : ChowlaRegime → Prop) (Awin : ℝ)
   exact hfire (flatDoorM A) hsel hKw
     (hsupply hKqb R (flatDoorM A) hM1 hfl hKswR (by rw [hHlo]; exact hT₀) hblk hcof hcapsc)
 
-/-- **⟦H7 FORM⟧** `logChowla2_v7_rated`'s statement (V7Rated.lean:975) with the terminal conjunct `¬
+/-- **⟦H7 FORM⟧** `logChowla2_v7_rated`'s statement (V7Rated.lean:976) with the terminal conjunct `¬
 logChowla2Fails R.eps R.x R.ω` replaced by `P R`.  At `P := (¬ logChowla2Fails ·)` this IS the
 landed headline's statement — `logChowla2_v7_rated_form` below is the kernel's word on that. -/
 def V7RatedForm (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
@@ -809,10 +804,10 @@ def V7RatedForm (P : ChowlaRegime → Prop) (A₀ : ℝ) : Prop :=
 
 set_option exponentiation.threshold 4000 in
 set_option maxHeartbeats 3200000 in
--- Same cause as the parent (V7Rated.lean:937): the `∃`-prefix and the window discharges
+-- Same cause as the parent (V7Rated.lean:938): the `∃`-prefix and the window discharges
 -- re-elaborate
 -- the conclusion under the raised lever.
-/-- **⟦H7 REPLAY⟧** `logChowla2_v7_rated` (V7Rated.lean:975) from the generic windowed terminal: the
+/-- **⟦H7 REPLAY⟧** `logChowla2_v7_rated` (V7Rated.lean:976) from the generic windowed terminal: the
 rated co-factor supply, the eight-arm design constant, `g ≡ 0`, the base-scale cap — body
 verbatim, with `hfireR : P R` where the parent has `¬ logChowla2Fails`. -/
 theorem flat_v7_generic (P : ChowlaRegime → Prop)
@@ -836,46 +831,8 @@ theorem flat_v7_generic (P : ChowlaRegime → Prop)
       (max (max (max (max A₀ 162) Awin) (cofkRThr Cq Cb Xsk Y0))
         (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))))) := ⟨_, rfl⟩
   obtain ⟨A, hAdef⟩ : ∃ a : ℝ, a = max (armVt Kvt) A' := ⟨_, rfl⟩
-  have harmA : armVt Kvt ≤ A := by rw [hAdef]; exact le_max_left _ _
-  have hlift : A' ≤ A := by rw [hAdef]; exact le_max_right _ _
-  have hKsA : 16 * Real.log (1 / Ks) / 3 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]; exact le_max_left _ _
-  have hT₀A : T₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_max_left _ _) (le_max_right _ _)
-  have hA162 : (162 : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_right A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hA₀A : A₀ ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_trans (le_max_left A₀ 162)
-      (le_max_left (max A₀ 162) Awin)) (le_max_left _ (cofkRThr Cq Cb Xsk Y0)))
-      (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAwinA : Awin ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (max A₀ 162) Awin)
-      (le_max_left _ (cofkRThr Cq Cb Xsk Y0))) (le_max_left _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hthrA : cofkRThr Cq Cb Xsk Y0 ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_right (max (max A₀ 162) Awin)
-      (cofkRThr Cq Cb Xsk Y0)) (le_max_left _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hAge : budgetAFlat (ε : ℝ) β ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_max_left (budgetAFlat (ε : ℝ) β) _)
-      (le_max_right _ _)) (le_max_right _ _)) (le_max_right _ _)
-  have hx0A : 4 * (x₀ : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_left (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
-  have hopqA : ((Hopq : ℕ) : ℝ) ≤ A := by
-    refine le_trans ?_ hlift; rw [hA'def]
-    exact le_trans (le_trans (le_trans (le_trans (le_max_right (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))
-      (le_max_right (budgetAFlat (ε : ℝ) β) _)) (le_max_right _ _)) (le_max_right _ _))
-      (le_max_right _ _)
+  obtain ⟨harmA, hKsA, hT₀A, hA162, hA₀A, hAwinA, hthrA, hAge, hx0A, hopqA⟩ :=
+    Salt.MR.designEightArms_facts hA'def hAdef
   have hx0nn : (0 : ℝ) ≤ (x₀ : ℝ) := Nat.cast_nonneg _
   have hexp1 : 3.2 * A + 1 ≤ Real.exp (3.2 * A) := Real.add_one_le_exp _
   -- ⟦THE `Ks` WINDOW, AT THE SEVENTH ARM⟧ as in the parent
@@ -925,7 +882,7 @@ theorem flat_v7_generic (P : ChowlaRegime → Prop)
 
 /-! ## §2 — ⟦THE DOOR-HEAD⟧ the head's mint with the leaves pinned, both `δ₀` bounds closed -/
 
-/-- **⟦THE DOOR-HEAD⟧** (`flat_door_head_xceil`) — `flat_head_uniform_xceil` (XThread.lean:514)
+/-- **⟦THE DOOR-HEAD⟧** (`flat_door_head_xceil`) — `flat_head_uniform_xceil` (XThread.lean:516)
 at the conclusion slot `MRTDoorReceipt`: the same builder
 (`chowlaRegimeFlat_exists_param_head_xceil`), the same `ε := 1/500` pin, the same count hook
 (`bigXi_bounded_ceiling_of_pin`), the same mint `δ₀ := cD3/(16·C)·ε/4` and `β := cD3·ε/(144·log 4)`
@@ -1019,7 +976,7 @@ theorem flat_chain_generic (P : ChowlaRegime → Prop) (h : FlatHeadForm P) (A�
 
 /-- **⟦RECEIPT 1 — THE FORM IS THE HEADLINE⟧** (`logChowla2_v7_rated_form`) — the landed
 `logChowla2_v7_rated` inhabits `V7RatedForm` at `P := (¬ logChowla2Fails ·)` by definitional
-unfolding.  Any drift between the form and V7Rated.lean:975 fails to elaborate HERE. -/
+unfolding.  Any drift between the form and V7Rated.lean:976 fails to elaborate HERE. -/
 theorem logChowla2_v7_rated_form (A₀ : ℝ) :
     V7RatedForm (fun R => ¬ logChowla2Fails R.eps R.x R.ω) A₀ :=
   logChowla2_v7_rated A₀
@@ -1043,7 +1000,7 @@ theorem mrtDoorReceipt_v7_form (A₀ : ℝ) : V7RatedForm MRTDoorReceipt A₀ :=
 `A₀` a regime of the flat family (`R.Hlo = flatDesignBase A`, `162 ≤ A`, `A₀ ≤ A`,
 `3.2·A ≤ loglog R.Hlo`) at `ε ≥ 1/500` carrying the Ξ-summed `L²` MRT door at a grade
 `ρ ≤ 1/837782`.  UNCONDITIONAL.  The payload conjuncts are a subset of `logChowla2_v7_rated`'s
-(V7Rated.lean:976–987), read at the same witnesses. -/
+(V7Rated.lean:977–988), read at the same witnesses. -/
 theorem mrtUniformityXiL2_holds_flat (A₀ : ℝ) :
     ∃ (ε : ℚ) (A : ℝ), 0 < ε ∧ 1 / 500 ≤ ε ∧ 162 ≤ A ∧ A₀ ≤ A ∧
       ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = flatDesignBase A ∧
