@@ -297,7 +297,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 |---|---|---|---|---|
 | `hPHheadroom` `8·(4^⌊ε²H₊⌋)²·ω ≤ x` | :116 | **H₊ ↔ x/ω** | `S13MSelect2.lean:112` (`s13_socketBase_xscale`), `:518`, `:634`; `S13FramesA.lean:1039`, `:1528`; `DoorDischarge.lean:113`; `DoorFloor1500.lean:160` | **x-FLOOR, exponential in H₊** |
 | `hheadroom` `Hhi ≤ x/ω` | :86 | H₊ ↔ x/ω | `S14Compose.lean:315` (inside the socket witness), `M4Close.lean:485/731/911/994`, `M4BridgeCover.lean:373`, `HloExportMR.lean:144/344/510/642`, `M4DoorL2.lean:160/623/697/855` | x-FLOOR, linear in H₊ |
-| `hheadroom'` `8H₊(log H₊)² ≤ x/ω` | :103 | H₊ ↔ x/ω | `M4SecondRoad.lean:537`, `:1185` | x-FLOOR, poly in H₊ |
+| `hheadroom'` `8H₊(log H₊)² ≤ x/ω` | :103 | H₊ ↔ x/ω | `M4SecondRoad.lean:537`, `:1141` | x-FLOOR, poly in H₊ |
 | `hHlo_floor` `4·10⁶ ≤ Hlo` | :80 | H₋ | ~81 sites (`S13CapFloor`, `S14Compose:112/235/353/514`, …) | H₋ floor |
 | `hHlohi` `Hlo ≤ Hhi` | :70 | H₋ ↔ H₊ | ~54 sites | window |
 | `hPNTwindow` `√H₋ ≤ ε²H₋/2` | :127 | H₋ ↔ ε | `S13MSelect2.lean:165` (`s13_socketBase_mFloor`), `S13FramesA.lean:343` | H₋/ε |
