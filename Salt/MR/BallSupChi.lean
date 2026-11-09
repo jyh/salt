@@ -171,12 +171,17 @@ theorem sum_pieceDatum_twist_eq_MlambdaChi {q : ℕ} (χ : DirichletCharacter �
 BOTTOM of the dyadic `k`-window `[⌊X⌋₊, N]`, which is where `(log k)^{−A}` is largest. -/
 def pieceCenterS0 (C X A : ℝ) : ℝ := C / Real.log (X / 2) ^ A
 
+/-- `0 < pieceCenterS0 C X A` at `0 < C`, `8 ≤ X`: `C/(log(X/2))^A` with `log(X/2) > 0` since
+`X/2 > 1` (`Real.log_pos`, `positivity`). Read once in this file (`pieceCenterS0_nonneg`); no
+consumer outside it. -/
 lemma pieceCenterS0_pos {C X A : ℝ} (hC : 0 < C) (hX : (8 : ℝ) ≤ X) :
     0 < pieceCenterS0 C X A := by
   have hlog : (0 : ℝ) < Real.log (X / 2) := Real.log_pos (by linarith)
   unfold pieceCenterS0
   positivity
 
+/-- `0 ≤ pieceCenterS0 C X A` at `0 < C`, `8 ≤ X`: `pieceCenterS0_pos` weakened (`.le`) — the
+sign the exit centre constant is read at. Read once in this file; no consumer outside it. -/
 lemma pieceCenterS0_nonneg {C X A : ℝ} (hC : 0 < C) (hX : (8 : ℝ) ≤ X) :
     0 ≤ pieceCenterS0 C X A := (pieceCenterS0_pos hC hX).le
 

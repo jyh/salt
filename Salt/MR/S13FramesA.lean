@@ -62,6 +62,8 @@ theorem s13Delta0_eq : s13Delta0 = 1 / (128000 * CcmExpr) := by
   field_simp
   ring
 
+/-- `0 < s13Delta0`: the collapsed form `1/(128000·C_cm)` (`s13Delta0_eq`) is positive because
+`C_cm` is (`CcmExpr_pos`, `positivity`). No consumer at `main`, in this file or outside it. -/
 theorem s13Delta0_pos : 0 < s13Delta0 := by
   have hC := CcmExpr_pos
   rw [s13Delta0_eq]; positivity
@@ -87,6 +89,8 @@ theorem s13M_log : Nat.log 2 s13M + 1 = 66 := by
     refine Nat.log_eq_of_pow_le_of_lt_pow ?_ ?_ <;> · rw [s13M]; norm_num
   omega
 
+/-- `1 ≤ s13M` (`s13M = 4.5·10¹⁹`), by `norm_num` on the numeral: the working modulus is at
+least one, the shape every `M`-floor asks. No consumer at `main`, in this file or outside it. -/
 theorem s13M_pos : 1 ≤ s13M := by rw [s13M]; norm_num
 
 /-- **THE `b`-FLOOR CERTIFICATE AT THE `L²` THRESHOLD** (`s13_b_floor_cert`) —

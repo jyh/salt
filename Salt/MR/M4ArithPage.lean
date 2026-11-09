@@ -143,30 +143,42 @@ theorem log_le_div_exp_one {y : ℝ} (hy : 0 < y) : Real.log y ≤ y / Real.exp 
   have h := Real.log_le_sub_one_of_pos (show (0 : ℝ) < y / Real.exp 1 by positivity)
   rwa [Real.log_div hy.ne' (Real.exp_ne_zero 1), Real.log_exp, sub_le_sub_iff_right] at h
 
+/-- `log 188133 ≤ 12.5`, by `log_le_of_le_pow27` at `n = 12`, `r = 0.5` (`188133 ≤ 2.7¹²·1.5`,
+`norm_num`): one of the five numeral logarithms the six-debit page reads. Read once in this file
+and by `M4ArithRho`. -/
 theorem log_188133_le : Real.log 188133 ≤ 12.5 := by
   have := log_le_of_le_pow27 (c := (188133 : ℝ)) (by norm_num) 12 (r := 0.5) (by norm_num)
     (by norm_num)
   norm_num at this ⊢
   linarith
 
+/-- `log 8448 ≤ 9.2`, by `log_le_of_le_pow27` at `n = 9`, `r = 0.2` (`8448 ≤ 2.7⁹·1.2`,
+`norm_num`). Read once in this file and by `M4ArithRho`. -/
 theorem log_8448_le : Real.log 8448 ≤ 9.2 := by
   have := log_le_of_le_pow27 (c := (8448 : ℝ)) (by norm_num) 9 (r := 0.2) (by norm_num)
     (by norm_num)
   norm_num at this ⊢
   linarith
 
+/-- `log 1787702400 ≤ 21.6`, by `log_le_of_le_pow27` at `n = 21`, `r = 0.6`
+(`1787702400 ≤ 2.7²¹·1.6`, `norm_num`). Read once in this file and by `ArithPageLinear` and
+`M4ArithRho`. -/
 theorem log_1787702400_le : Real.log 1787702400 ≤ 21.6 := by
   have := log_le_of_le_pow27 (c := (1787702400 : ℝ)) (by norm_num) 21 (r := 0.6) (by norm_num)
     (by norm_num)
   norm_num at this ⊢
   linarith
 
+/-- `log 304128 ≤ 13`, by `log_le_of_le_pow27` at `n = 13`, `r = 0` (`304128 ≤ 2.7¹³`,
+`norm_num`). Read once in this file and by `M4ArithRho`. -/
 theorem log_304128_le : Real.log 304128 ≤ 13 := by
   have := log_le_of_le_pow27 (c := (304128 : ℝ)) (by norm_num) 13 (r := 0) (by norm_num)
     (by norm_num)
   norm_num at this ⊢
   linarith
 
+/-- `log 6315000 ≤ 16`, by `log_le_of_le_pow27` at `n = 16`, `r = 0` (`6315000 ≤ 2.7¹⁶`,
+`norm_num`). Read once in this file and by `M4ArithRho`. -/
 theorem log_6315000_le : Real.log 6315000 ≤ 16 := by
   have := log_le_of_le_pow27 (c := (6315000 : ℝ)) (by norm_num) 16 (r := 0) (by norm_num)
     (by norm_num)
@@ -179,6 +191,10 @@ theorem log_6315000_le : Real.log 6315000 ≤ 16 := by
 `renormaliseConst = 28(1 + 2(log 4 + 36))·e⁸` (`Renormalise.lean:749`) and the landed
 Meissel–Mertens numeral `RbdSupply.mertensM_le_two_thirds`. -/
 
+/-- `renormaliseConst ≤ e¹⁷`: the exit constant `28·(1 + 2(log 4 + 36))·e⁸`
+(`Renormalise.renormaliseConst`) has coefficient `≤ 2123` once `log 4 ≤ 1.4`
+(`Real.log_two_lt_d9`), and `2123 ≤ e⁹` (`Salt.Tactic.le_exp_nat_of_le_pow`), so the whole is
+`≤ e⁹·e⁸`. Read once in this file; no consumer outside it. -/
 theorem renormaliseConst_le_exp17 : renormaliseConst ≤ Real.exp 17 := by
   have hlog4 : Real.log 4 ≤ 1.4 := by
     have h : Real.log 4 = 2 * Real.log 2 := by
@@ -198,6 +214,8 @@ theorem renormaliseConst_le_exp17 : renormaliseConst ≤ Real.exp 17 := by
         exact mul_le_mul_of_nonneg_right h9 (Real.exp_pos 8).le
     _ = Real.exp 17 := by rw [← Real.exp_add]; norm_num
 
+/-- `0 < renormaliseConst`: a product of positive factors (`log 4 > 0`, `e⁸ > 0`, `positivity`).
+No consumer at `main`, in this file or outside it. -/
 theorem renormaliseConst_pos : 0 < renormaliseConst := by
   rw [renormaliseConst]
   have h4 : (0 : ℝ) < Real.log 4 := Real.log_pos (by norm_num)
@@ -315,20 +333,33 @@ namespace DoorArithFrame
 
 variable {M H j : ℕ} {X C₁ M₀ K : ℝ}
 
+/-- `1 < log H` from the frame: `Hfloor` (`50 ≤ loglog H`) and `logH_nonneg` through
+`one_lt_log_of_loglog_ge`. Read as `hfr.one_lt_logH` by the page's gate in this file;
+`M4ArithRho`'s `DoorArithFrameRho` and `ArithPageLinear`'s frame carry their own copies. -/
 theorem one_lt_logH (h : DoorArithFrame M H j X C₁ M₀ K) : 1 < Real.log (H : ℝ) :=
   one_lt_log_of_loglog_ge h.logH_nonneg (by norm_num) h.Hfloor
 
+/-- `7000·loglog H + 125000 ≤ loglog X` from the frame: the `arm` field with its `36·K` summand
+dropped (`Knonneg`, `linarith`). Read as `h.armWeak` by `loglogX_ge` and by the two priced
+grades (`doorGrade_summand3_priced`, `doorGrade_summand4_priced`), all in this file; the
+ρ-frame's twin is `M4ArithRho`'s. -/
 theorem armWeak (h : DoorArithFrame M H j X C₁ M₀ K) :
     7000 * Real.log (Real.log (H : ℝ)) + 125000 ≤ Real.log (Real.log X) := by
   have := h.arm
   have := h.Knonneg
   linarith
 
+/-- `475000 ≤ loglog X` from the frame: `armWeak` at `Hfloor` (`linarith`) — the absolute floor
+on the base (the ρ-frame reads `356600`). Read as `h.loglogX_ge` by `one_lt_logX` in this
+file. -/
 theorem loglogX_ge (h : DoorArithFrame M H j X C₁ M₀ K) : 475000 ≤ Real.log (Real.log X) := by
   have h1 := h.armWeak
   have h2 := h.Hfloor
   linarith
 
+/-- `1 < log X` from the frame: `loglogX_ge` and `logX_nonneg` through
+`one_lt_log_of_loglog_ge`. Read as `hfr.one_lt_logX` by the page's gate in this file; the
+ρ-frame's twin is `M4ArithRho`'s. -/
 theorem one_lt_logX (h : DoorArithFrame M H j X C₁ M₀ K) : 1 < Real.log X :=
   one_lt_log_of_loglog_ge h.logX_nonneg (show (0:ℝ) < 475000 by norm_num) h.loglogX_ge
 
@@ -475,9 +506,13 @@ theorem doorGrade_summand5_priced {H j : ℕ}
 `Adoor M = 2³⁶(log₂M+1)`.  The `1/12` against `P₁` (not `P₁^{1/6}`) is the whole reason
 ⟦C1⟧'s ask is exactly 12×. -/
 
+/-- `calP (Adoor M) (3072M) 1 = 2^{Adoor M}`: the door's `P₁` is `2^{e₁}` with `e₁ = A`
+(`calE_one`). Read once in this file and by `M4ArithRho`. -/
 theorem calP_door_one (M : ℕ) : calP (Adoor M) (3072 * M) 1 = 2 ^ Adoor M := by
   rw [calP, calE_one]
 
+/-- `calQK (Adoor M) (3072M) M 1 = 2^{M·Adoor M}`: the door's `Q₁ = P₁^M` with `e₁ = A`
+(`calE_one`, `norm_num` on the exponent). Read once in this file and by `M4ArithRho`. -/
 theorem calQK_door_one (M : ℕ) : calQK (Adoor M) (3072 * M) M 1 = 2 ^ (M * Adoor M) := by
   rw [calQK, calE_one]
   norm_num
@@ -586,6 +621,8 @@ a factor `1.59` to spare, and its logarithm is `−341·log 2` — a numeral thi
 exactly, which is why it is a power of two and not a power of ten. -/
 def doorRho : ℝ := 1 / 2 ^ 341
 
+/-- `0 < doorRho` (`2⁻³⁴¹`), by `positivity`: the clearing constant's sign. Read once in this
+file; no consumer outside it. -/
 theorem doorRho_pos : 0 < doorRho := by rw [doorRho]; positivity
 
 /-- **⟦THE DOOR'S ANALYTIC ENVELOPE⟧** (`RSanDoor H`) — the value ⟦gate 4⟧ reads and the
@@ -593,6 +630,8 @@ ceiling must accept: `doorRho/strataResidual H²`.  The `strataResidual` denomin
 the `(1 + 12·loglog H)²` the second road's demand carries. -/
 def RSanDoor (H : ℕ) : ℝ := doorRho / strataResidual H ^ 2
 
+/-- `0 ≤ RSanDoor H`: `doorRho/strataResidual H²` is a positive numeral over a square
+(`positivity`). No consumer at `main`, in this file or outside it. -/
 theorem RSanDoor_nonneg (H : ℕ) : 0 ≤ RSanDoor H := by
   rw [RSanDoor, doorRho]
   positivity

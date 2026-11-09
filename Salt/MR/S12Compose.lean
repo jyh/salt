@@ -206,10 +206,19 @@ fails).  The `16` rather than `8` is the graded price's `H`-decaying head — on
 the terminal's ceiling conjunct, one for `M4Maximal.m4SmallGradeFits`'s half. -/
 def s12DeltaSock (δ₀ K : ℝ) : ℝ := Real.sqrt (δ₀ / (16 * K))
 
+/-- `0 < s12DeltaSock δ₀ K` at `hδ : 0 < δ₀`, `hK : 0 < K`: `√(δ₀/(16K))` of a positive quotient
+(`Real.sqrt_pos`). Read by `DoorSocket`, `FlatDoorEpsRung2`, `FlatDoorUniform`,
+`S12FuseCompose`, `S15Compose`, `S15Witness`, `StrideGradeReach`, `StrideGradeWalls` and
+`XThread`, and six times in this file. -/
 theorem s12DeltaSock_pos {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K) : 0 < s12DeltaSock δ₀ K := by
   unfold s12DeltaSock
   exact Real.sqrt_pos.mpr (by positivity)
 
+/-- `s12DeltaSock δ₀ K ^ 2 = δ₀/(16K)` at `hδ : 0 < δ₀`, `hK : 0 < K`: the socket threshold
+squared is its radicand (`Real.sq_sqrt`) — the form the `A4` ceiling conjunct is read at. Read
+by `DoorSocket`, `FlatDoorEpsRung2`, `FlatDoorUniform`, `S12FuseCompose`, `S15Witness`,
+`S16Budget`, `StrideGrade12Walls`, `StrideGradeWalls` and `XThread`, and six times in this
+file. -/
 theorem s12DeltaSock_sq {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K) :
     s12DeltaSock δ₀ K ^ 2 = δ₀ / (16 * K) := by
   unfold s12DeltaSock
