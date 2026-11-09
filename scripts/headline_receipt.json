@@ -1,0 +1,111 @@
+{
+ "axioms": {
+  "Keller.jacobian_conjecture_counterexample": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Salt.BrunLower.twin_almost_prime": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Salt.Chen.chen_headline": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Salt.Goldbach.chen_goldbach": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Salt.HeadlineAudit.sorry_control": [
+   "sorryAx"
+  ],
+  "Salt.MR.lambda_nonpret": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Salt.MaynardK.gaps_le_600": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Salt.N6.N6_2": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Salt.SW.bounded_gaps_unconditional": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Salt.SW.siegelWalfisz_holds": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Salt.ThreePrimes.three_primes": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Salt.TwinBar.M₂_squeeze": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Salt.TwinBar.parity_wall_unconditional": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Salt.Vk.zeta_zero_free_region_pow": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Salt.Vmvt.vmvt": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Salt.Weil.norm_kloosterman_le_two_sqrt": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "SaltC1.MaynardK.gaps_le_270": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ]
+ },
+ "built_at": "e7d9a19067",
+ "date": "2026-11-09",
+ "digests": {
+  "Keller.jacobian_conjecture_counterexample": "f86d5f9e67d09bbd",
+  "Salt.BrunLower.twin_almost_prime": "fd681cb58d72661f",
+  "Salt.Chen.chen_headline": "ec9afddb870b54bc",
+  "Salt.Goldbach.chen_goldbach": "759d46291ca3ba01",
+  "Salt.MR.lambda_nonpret": "6ee92842a0287bd0",
+  "Salt.MaynardK.gaps_le_600": "39db05910253e7be",
+  "Salt.N6.N6_2": "e33c98a92aac14ac",
+  "Salt.SW.bounded_gaps_unconditional": "84a747e89a7565f7",
+  "Salt.SW.siegelWalfisz_holds": "1d8d4986f8980ba5",
+  "Salt.ThreePrimes.three_primes": "50ccf1779c17871f",
+  "Salt.TwinBar.M₂_squeeze": "cd86bdfa2b4ee9da",
+  "Salt.TwinBar.parity_wall_unconditional": "d6af502667cff181",
+  "Salt.Vk.zeta_zero_free_region_pow": "8ac31c3377253e6a",
+  "Salt.Vmvt.vmvt": "c8fa65e621e4b57e",
+  "Salt.Weil.norm_kloosterman_le_two_sqrt": "ca6f6c5baf705e29",
+  "SaltC1.MaynardK.gaps_le_270": "e67140b140ccd894"
+ },
+ "exit": "0",
+ "log_sha256": "80639d1599692bed",
+ "plain_error_lines": 0,
+ "tagged_errors": 0
+}

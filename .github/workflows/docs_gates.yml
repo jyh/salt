@@ -55,6 +55,7 @@ jobs:
           python scripts/tactics_catalogue.py --self-test
           python scripts/fulcrum_census.py --self-test
           python scripts/rekey_cites.py --self-test
+          python scripts/headline_theorems.py --self-test
       # One step per page, so a red names the stale page in the step list.
       - name: docs/CATALOGUE.md is current
         if: ${{ !cancelled() }}
@@ -68,6 +69,11 @@ jobs:
       - name: docs/FULCRUM-CENSUS.md is current
         if: ${{ !cancelled() }}
         run: python scripts/fulcrum_census.py --check
+      # O47: the headline-theorems page, and its axiom receipt (a statement that changed
+      # since the receipt, or a theorem with no #audit_axioms line, turns this red).
+      - name: docs/HEADLINE-THEOREMS.md and its axiom receipt are current
+        if: ${{ !cancelled() }}
+        run: python scripts/headline_theorems.py --check
       # The helm's fifth condition for an edit to merged proofs: no hand-written
       # `File.lean:N` cite that this PR moves is left pointing at the wrong line, and no
       # published manuscript is edited (rc 3). Measured from the MERGE-BASE, because a diff
