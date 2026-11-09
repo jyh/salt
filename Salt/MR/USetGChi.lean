@@ -345,6 +345,8 @@ noncomputable def thinBundleGChi (S VJ H : ℝ) (Pj Qj : ℕ) : ℝ :=
   ((ramI H Pj Qj).card : ℝ)
     * (1680 * VJ ^ 2 * Real.exp (2 * (Real.log S / Real.log Pj) * Real.log (Real.log S)))
 
+/-- `0 ≤ thinBundleGChi S VJ H Pj Qj`: a block count times `1680·VJ²·exp(…)`, every factor
+nonnegative (`Real.exp_pos`, `positivity`). Read twice in this file; no consumer outside it. -/
 lemma thinBundleGChi_nonneg (S VJ H : ℝ) (Pj Qj : ℕ) : 0 ≤ thinBundleGChi S VJ H Pj Qj := by
   rw [thinBundleGChi]
   have h := Real.exp_pos (2 * (Real.log S / Real.log Pj) * Real.log (Real.log S))

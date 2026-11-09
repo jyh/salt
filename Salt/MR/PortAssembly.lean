@@ -160,6 +160,9 @@ lemma window_lambda_support {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q)
     linarith
   rw [primeWindow_eq_zero_upper hP0 hge, Complex.ofReal_zero, mul_zero]
 
+/-- The windowed twisted `Λ`-series `n ↦ ψ(n)·Λ(n)·n^{iu}·primeWindow P n` is summable at
+`0 < P`: its support lies in `range (⌊3P⌋₊ + 1)` (`window_lambda_support`), so
+`summable_of_ne_finset_zero`. Read twice in this file; no consumer outside it. -/
 lemma summable_window_lambda_chi {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q) {P : ℝ}
     (hP0 : 0 < P) (u : ℝ) :
     Summable (fun n : ℕ => ((ψ (n : ZMod q) * (vonMangoldt n : ℂ)) * (n : ℂ) ^ ((u : ℂ) * I))

@@ -303,10 +303,17 @@ theorem geom_weight_sum (n : ℕ) :
   rw [pow_succ]
   ring
 
+/-- `0 < ∑_{j ≤ n} (3/2)^j`: a sum of positive terms with the `j = 0` term present
+(`Finset.sum_pos`). Read by `M4BaseNarrow`, `M4ChiSummed`, `M4CoprimeSupply`,
+`M4RowAssemblyLinear`, `M4RowLinear` and `S16FlatTerminalLinearH`, and five times in this
+file. -/
 theorem geom_weight_sum_pos (n : ℕ) :
     (0 : ℝ) < ∑ j ∈ Finset.range (n + 1), (3 / 2 : ℝ) ^ j :=
   Finset.sum_pos (fun j _ => by positivity) ⟨0, Finset.mem_range.mpr (by omega)⟩
 
+/-- `∑_{j ≤ n} (3/2)^j ≤ 3·(3/2)^n`: the closed form `geom_weight_sum` (`2·((3/2)^{n+1} − 1)`)
+sits under `3·(3/2)^n` (`linarith`) — the geometric weights' total, which is what keeps the
+maximal price a constant. Read twice in this file; no consumer outside it. -/
 theorem geom_weight_sum_le (n : ℕ) :
     ∑ j ∈ Finset.range (n + 1), (3 / 2 : ℝ) ^ j ≤ 3 * (3 / 2 : ℝ) ^ n := by
   rw [geom_weight_sum n]; linarith
@@ -674,6 +681,8 @@ keeps its `H` (every consumer reads `m4Cmax H`), and the body no longer uses it:
 content of the lever. -/
 def m4Cmax (_H : ℕ) : ℝ := 54 / 5
 
+/-- `0 ≤ m4Cmax H` (`= 54/5`), by `positivity`: the maximal price's sign. Read by `M4Spine` and
+once in this file. -/
 theorem m4Cmax_nonneg (H : ℕ) : 0 ≤ m4Cmax H := by
   unfold m4Cmax
   positivity
@@ -701,6 +710,17 @@ def m4BclGraded (j₀ : ℕ) (Fan Ftr : ℕ → ℝ) (H : ℕ) : ℝ :=
     + (9 / 2 * (3 / 2 : ℝ) ^ Nat.log 2 H * (4 / 3 : ℝ) ^ j₀ / (H : ℝ)
         + 9 / 5 * (3 / 2 : ℝ) ^ Nat.log 2 H * (8 / 3 : ℝ) ^ j₀ / (H : ℝ) ^ 2) * Ftr H
 
+/-- `0 ≤ m4BclGraded j₀ Fan Ftr H` at `0 ≤ Fan H`, `0 ≤ Ftr H`: both summands of the graded
+block price are products of nonnegatives (`m4Cmax_nonneg`, `positivity` on the `(3/2)^{log₂H}`
+terms). Read by `DoorReceipt`, the `FlatDoor*` files (`AllGradesBand` · `EpsChain` · `EpsRung2`
+· `Uniform`), `HloExportMR`, `HloExportMRFlatRoot`, `M4BaseNarrow`, `M4ChiSummed`, `M4Collapse`,
+`M4CoprimeSupply`, `M4DoorClose`, `M4DoorClosePool`, `M4RowAssemblyLinear`, `M4RowLinear`,
+`M4RowSpineLinear`, `M4SecondRoad`, `S11Thread`, the `S12*` composes (`Compose` · `ConstCompose`
+· `FuseCompose`), the `S16*` files (`Budget` · `Compose` · `ComposeLH` · `ComposeV4` ·
+`FlatTerminal` · `FlatTerminalLinear` · `FlatTerminalLinearH` · `FlatTerminalLinearLH` ·
+`Uniform`), `StrideDoorAllGrades`, `StridePairReceipt`, `StridePairReceiptG`,
+`StridePairReceiptG12b`, `TierSBand`, `V6SiegelFree`, `V7SiegelFree` and `XThread` —
+thirty-eight files — and four times in this file. -/
 theorem m4BclGraded_nonneg {j₀ : ℕ} {Fan Ftr : ℕ → ℝ} {H : ℕ}
     (hFan : 0 ≤ Fan H) (hFtr : 0 ≤ Ftr H) : 0 ≤ m4BclGraded j₀ Fan Ftr H := by
   have h1 : (0 : ℝ) ≤ m4Cmax H * Fan H := mul_nonneg (m4Cmax_nonneg H) hFan

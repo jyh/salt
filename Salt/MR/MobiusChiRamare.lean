@@ -140,6 +140,9 @@ namespace Salt.MR
 
 /-! ## §1 — the damped Möbius datum `μ·g_r` -/
 
+/-- `ω(1; P, Q) = 0` (private): `1` has no prime factors (`simp`);
+`LambdaChiRamare.blockOmega_one_lam` is a private copy. Read three times in this file; no
+consumer outside it. -/
 private lemma blockOmega_one_eq_zero (P Q : ℕ) : blockOmega P Q 1 = 0 := by
   simp [blockOmega, BlockPrimeDivs]
 
@@ -150,6 +153,8 @@ write `r`.  Unconditional: at `m = 0` the value is `0` because `μ 0 = 0`. -/
 noncomputable def muGr (P Q : ℕ) (r : ℝ) : ArithmeticFunction ℝ :=
   ⟨fun m => ((ArithmeticFunction.moebius m : ℤ) : ℝ) * r ^ blockOmega P Q m, by simp⟩
 
+/-- `muGr P Q r m = μ(m)·r^{ω(m;P,Q)}` (`@[simp]`), by `rfl`: the damped Möbius datum evaluated.
+Read by `MobiusChiRamareUnion` and eight times in this file. -/
 @[simp] lemma muGr_apply (P Q : ℕ) (r : ℝ) (m : ℕ) :
     muGr P Q r m = ((ArithmeticFunction.moebius m : ℤ) : ℝ) * r ^ blockOmega P Q m := rfl
 
@@ -193,18 +198,27 @@ antitonicity in `r` one-liners. -/
 noncomputable def ramTailWeight (P Q : ℕ) (r : ℝ) : ArithmeticFunction ℝ :=
   ⟨fun n => if n ≠ 0 ∧ WindowSmooth P Q n then (1 - r) ^ blockOmega P Q n else 0, by simp⟩
 
+/-- `ramTailWeight P Q r n = if n ≠ 0 ∧ WindowSmooth P Q n then (1 − r)^{ω(n;P,Q)} else 0`
+(`@[simp]`), by `rfl`: the tail weight's closed form, guard included. Read by
+`MobiusChiRamareUnion` and five times in this file. -/
 @[simp] lemma ramTailWeight_apply (P Q : ℕ) (r : ℝ) (n : ℕ) :
     ramTailWeight P Q r n
       = if n ≠ 0 ∧ WindowSmooth P Q n then (1 - r) ^ blockOmega P Q n else 0 := rfl
 
+/-- `ramTailWeight P Q r n = (1 − r)^{ω(n;P,Q)}` at `n ≠ 0` and `WindowSmooth P Q n`: the guard
+discharged (`simp`). Read by `LambdaChiRamare` and five times in this file. -/
 lemma ramTailWeight_apply_of {P Q : ℕ} (r : ℝ) {n : ℕ} (hn : n ≠ 0) (hs : WindowSmooth P Q n) :
     ramTailWeight P Q r n = (1 - r) ^ blockOmega P Q n := by
   simp [hn, hs]
 
+/-- `ramTailWeight P Q r n = 0` at `¬ WindowSmooth P Q n`: the weight vanishes off the
+window-smooth integers (`simp`). Read by `LambdaChiRamare` and five times in this file. -/
 lemma ramTailWeight_eq_zero_of_not_smooth {P Q : ℕ} (r : ℝ) {n : ℕ}
     (hs : ¬ WindowSmooth P Q n) : ramTailWeight P Q r n = 0 := by
   simp [hs]
 
+/-- `WindowSmooth P Q 1`: vacuous, since `Nat.primeFactors 1 = ∅`. Read once in this file; no
+consumer outside it. -/
 lemma windowSmooth_one (P Q : ℕ) : WindowSmooth P Q 1 := by
   intro p hp; simp at hp
 
@@ -285,6 +299,10 @@ theorem ramTailWeight_isMultiplicative (P Q : ℕ) (r : ℝ) :
 
 /-! ## §3 — THE CONVOLUTION IDENTITY `μ·g_r = μ ∗ w_r` -/
 
+/-- `ω(p^k; P, Q) = if P ≤ p ∧ p ≤ Q then 1 else 0` at `p` prime, `k ≠ 0` (private): the only
+prime factor is `p` (`Nat.primeFactors_prime_pow`, `Finset.filter_singleton`). Read twice in
+this file; the same-named lemmas in `CofactorSupplier`, `Eq26Bridge`, `MRTPropA3` and `Sec9Glue`
+are their own private copies, as is `LambdaChiRamare.blockOmega_prime_pow_lam`. -/
 private lemma blockOmega_prime_pow {P Q p k : ℕ} (hp : p.Prime) (hk : k ≠ 0) :
     blockOmega P Q (p ^ k) = if P ≤ p ∧ p ≤ Q then 1 else 0 := by
   unfold blockOmega BlockPrimeDivs
@@ -293,6 +311,9 @@ private lemma blockOmega_prime_pow {P Q p k : ℕ} (hp : p.Prime) (hk : k ≠ 0)
   · rw [if_pos h, if_pos h, Finset.card_singleton]
   · rw [if_neg h, if_neg h, Finset.card_empty]
 
+/-- `WindowSmooth P Q (p^k) ↔ P ≤ p ∧ p ≤ Q` at `p` prime, `k ≠ 0` (private): the only prime
+factor is `p` (`Nat.primeFactors_prime_pow`). Read twice in this file; no consumer outside
+it. -/
 private lemma windowSmooth_prime_pow_iff {P Q p k : ℕ} (hp : p.Prime) (hk : k ≠ 0) :
     WindowSmooth P Q (p ^ k) ↔ (P ≤ p ∧ p ≤ Q) := by
   unfold WindowSmooth

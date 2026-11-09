@@ -169,10 +169,17 @@ The image of the half-open block `(A, B]` under `n ↦ ⌊n/d⌋` is the CLOSED 
 half-open, that is `(⌊A/d⌋ − 1, ⌊B/d⌋]`, and the `−1` is legitimate exactly when
 `⌊A/d⌋ ≥ 1`, i.e. `d ≤ A`. -/
 
+/-- `2e < 2d` from `e < d` (private, `omega`): the doubling step of the dilated block's
+re-index. Read once in this file; no consumer outside it. -/
 private lemma two_mul_lt {e d : ℕ} (h : e < d) : 2 * e < 2 * d := by omega
 
+/-- `u + v ≤ u + 1` from `v < 2` (private, `omega`): a `{0, 1}`-remainder adds at most one. Read
+once in this file; no consumer outside it. -/
 private lemma add_le_of_lt_two {u v : ℕ} (h : v < 2) : u + v ≤ u + 1 := by omega
 
+/-- `b + (h + 1) ≤ 2(a − 1) + 4` from `1 ≤ a` and `b + h ≤ 2a + 1` (private, `omega`): the one
+arithmetic fit of the `d₀`-to-one re-index of the block. Read once in this file; no consumer
+outside it. -/
 private lemma fit_arith {a b h : ℕ} (h1 : 1 ≤ a) (hkey : b + h ≤ 2 * a + 1) :
     b + (h + 1) ≤ 2 * (a - 1) + 4 := by omega
 

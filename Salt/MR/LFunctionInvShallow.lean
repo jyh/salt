@@ -298,6 +298,9 @@ by the floor itself. -/
 def shallowGrowth (q : ℕ) (H : ℝ) : ℝ :=
   5000 * (q : ℝ) ^ 3 * (Real.exp (Real.exp 100) + 5) * (1 + Real.log (H + 1))
 
+/-- `1 ≤ shallowGrowth q H` at `exp(exp 100) + 1 ≤ H`:
+`5000·q³·(e^{e^100} + 5)·(1 + log(H + 1))` is a product of factors each `≥ 1` (`q ≥ 1` from
+`NeZero q`, `Real.log_nonneg`, `nlinarith`). Read twice in this file; no consumer outside it. -/
 lemma one_le_shallowGrowth {q : ℕ} [NeZero q] {H : ℝ}
     (hH : Real.exp (Real.exp 100) + 1 ≤ H) : 1 ≤ shallowGrowth q H := by
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by
@@ -499,12 +502,19 @@ lemma vkShallowWidthSharp_le {c₄ : ℝ} (hc₄ : 0 < c₄) {q : ℕ} {H : ℝ}
 `LFunction_no_zero_in_box` admits, plus the slack that makes `1 ≤ A` free. -/
 def shallowA (q : ℕ) : ℝ := 1 + Real.log (20000 * (vkStripConst q + 8104)) / 100
 
+/-- `1 ≤ shallowA q`: `1 + log(20000·(vkStripConst q + 8104))/100` with the logarithm
+nonnegative (`Real.log_nonneg`, `vkStripConst q = 5000·q ≥ 5000`). Read by `MobiusChiRateClose`
+and three times in this file. -/
 lemma one_le_shallowA {q : ℕ} [NeZero q] : 1 ≤ shallowA q := by
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   have h1 : (1 : ℝ) ≤ 20000 * (vkStripConst q + 8104) := by rw [vkStripConst]; linarith only [hq1]
   have h2 := Real.log_nonneg h1
   rw [shallowA]; linarith
 
+/-- `log(20000·(vkStripConst q + 8104)) ≤ 100·shallowA q`: `100·shallowA q = 100 + log(…)` by
+`ring`, so the gate holds with `100` to spare (`linarith`) — the collapsed two-arm gate of
+`LFunction_no_zero_in_box` at the canonical base. Read by `MobiusChiRateClose` and once in this
+file. -/
 lemma shallowA_gate {q : ℕ} [NeZero q] :
     Real.log (20000 * (vkStripConst q + 8104)) ≤ 100 * shallowA q := by
   rw [shallowA]
@@ -514,12 +524,19 @@ lemma shallowA_gate {q : ℕ} [NeZero q] :
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   linarith
 
+/-- `1 + log q/100 ≤ shallowA q`: `q ≤ 20000·(vkStripConst q + 8104)`
+(`vkStripConst q = 5000·q`), and `log` is monotone (`Real.log_le_log`). Read once in this file;
+no consumer outside it. -/
 lemma shallowA_lb {q : ℕ} [NeZero q] : 1 + Real.log (q : ℝ) / 100 ≤ shallowA q := by
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   have h : (q : ℝ) ≤ 20000 * (vkStripConst q + 8104) := by rw [vkStripConst]; linarith only [hq1]
   have h2 := Real.log_le_log (by linarith) h
   rw [shallowA]; linarith
 
+/-- `shallowA q + 7 ≤ 9·(log q + 1)`: `20000·(vkStripConst q + 8104) ≤ 2²⁸·q` at `q ≥ 1`, so
+`log(…) ≤ 28·log 2 + log q` (`Real.log_le_log`, `Real.log_mul`, `Real.log_pow`) with
+`log 2 < 0.6931471808` (`Real.log_two_lt_d9`), and `linarith` closes. Read once in this file; no
+consumer outside it. -/
 lemma shallowA_ub {q : ℕ} [NeZero q] : shallowA q + 7 ≤ 9 * (Real.log (q : ℝ) + 1) := by
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   have hlogq : (0 : ℝ) ≤ Real.log (q : ℝ) := Real.log_nonneg hq1
