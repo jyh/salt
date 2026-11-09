@@ -139,6 +139,8 @@ is `rosserCond`). -/
 noncomputable def TruncSieve.lam (S : TruncSieve) (d : ℕ) : ℝ :=
   (μ d : ℝ) * (if S.P d then 1 else 0)
 
+/-- `S.lam d = 0` at `¬ S.P d`: the truncated Möbius weight `μ(d)·[P d]` vanishes off the
+predicate (`if_neg`). No consumer at `main`, in this file or outside it. -/
 lemma TruncSieve.lam_eq_zero_of_not (S : TruncSieve) {d : ℕ} (h : ¬ S.P d) :
     S.lam d = 0 := by
   simp [TruncSieve.lam, if_neg h]
@@ -437,11 +439,24 @@ open List
 /-- Descending sorted list of the distinct prime factors of `d` (BJS `p₁ > ⋯ > pᵣ`). -/
 noncomputable def rlist (d : ℕ) : List ℕ := d.primeFactors.sort (· ≥ ·)
 
+/-- `(rlist d).length = d.primeFactors.card`: the descending list of distinct prime factors has
+one entry per factor (`Finset.length_sort`). Read by `Lemma11`, `TnInduction` and
+`WindowedStep`, and once in this file. -/
 lemma rlist_length (d : ℕ) : (rlist d).length = d.primeFactors.card := Finset.length_sort _
+/-- `(rlist d).Nodup`: a sorted `Finset` has no repeats (`Finset.sort_nodup`). Read by
+`TnInduction` and once in this file. -/
 lemma rlist_nodup (d : ℕ) : (rlist d).Nodup := Finset.sort_nodup _ _
+/-- `(rlist d).SortedGE`: the list is sorted by `≥` — descending, BJS's `p₁ > ⋯ > pᵣ`
+(`Finset.sortedGT_sort`). Read by `TnInduction` and five times in this file. -/
 lemma rlist_sortedGE (d : ℕ) : (rlist d).SortedGE := (Finset.sortedGT_sort _).sortedGE
+/-- `p ∈ rlist d ↔ p ∈ d.primeFactors` (`Finset.mem_sort`). Read by `Buchstab`, `Peeling`,
+`TnInduction` and `WindowedStep`, and three times in this file. -/
 lemma rlist_mem {d p : ℕ} : p ∈ rlist d ↔ p ∈ d.primeFactors := Finset.mem_sort _
 
+/-- `rlist t <+ rlist d` at `t.primeFactors ⊆ d.primeFactors`: a descending nodup list over a
+subset is a sublist of the descending list over the superset
+(`List.sublist_of_subperm_of_pairwise` from `rlist_nodup`, `rlist_sortedGE`, `rlist_mem`). Read
+four times in this file; no consumer outside it. -/
 lemma rlist_sublist {t d : ℕ} (hsub : t.primeFactors ⊆ d.primeFactors) :
     rlist t <+ rlist d := by
   have hsub' : (rlist t) ⊆ (rlist d) := fun p hp => rlist_mem.mpr (hsub (rlist_mem.mp hp))

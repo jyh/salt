@@ -86,6 +86,8 @@ theorem two_le_relem {d i : ℕ} (hi : i < (rlist d).length) : 2 ≤ relem d i :
   rw [relem, List.getD_eq_getElem _ _ hi]
   exact (Nat.prime_of_mem_primeFactors (rlist_mem.mp (List.getElem_mem hi))).two_le
 
+/-- `0 < relem d i` at `i < (rlist d).length`: a listed prime factor is `≥ 2` (`two_le_relem`).
+Read three times in this file; no consumer outside it. -/
 theorem relem_pos {d i : ℕ} (hi : i < (rlist d).length) : 0 < relem d i := by
   have := two_le_relem hi; omega
 
@@ -246,9 +248,14 @@ noncomputable def rosserSquarefreeSieve (side D : ℕ) (hside : side = 1 ∨ sid
     exact (Nat.squarefree_mul_iff.mpr
       ⟨(hp.coprime_iff_not_dvd).mpr hpt, hp.squarefree, hc.2⟩)
 
+/-- `(rosserSquarefreeSieve side D hside).P d = (rosserCond side D d ∧ Squarefree d)`
+(`@[simp]`), by `rfl`: the predicate of the squarefree-folded Rosser sieve unfolded. Read by
+`TnInduction`; not in this file beyond its proof. -/
 @[simp] theorem rosserSquarefreeSieve_P (side D : ℕ) (hside : side = 1 ∨ side = 2) (d : ℕ) :
     (rosserSquarefreeSieve side D hside).P d = (rosserCond side D d ∧ Squarefree d) := rfl
 
+/-- `(rosserSquarefreeSieve side D hside).side = side` (`@[simp]`), by `rfl`. No consumer at
+`main`, in this file or outside it. -/
 @[simp] theorem rosserSquarefreeSieve_side (side D : ℕ) (hside : side = 1 ∨ side = 2) :
     (rosserSquarefreeSieve side D hside).side = side := rfl
 
