@@ -887,6 +887,11 @@ now PLACED:
    ANNULAR object: the M_range-window L² mass of the seam polynomial,
    `annHead` (`Salt/MR/AnnHead.lean`), graded by `annHead_grade` and
    over-satisfying this bare-X socket via `annHead_le_socket`. -/
+/-- The head wire: for `g` bounded by `1` on primes there is `X₀` such that, in the stated
+regime, a bound on `‖prop21RHS‖` at the twisted datum by `C₁ * X * exp (-(1 / e) * M_range …)`
+passes to the `hatK`-weighted sum of `seamCoeff (ellLin g) 1 t₀`, at the cost of two `log y`
+error terms (`prop21_unconditional_clean`, then the triangle inequality). Read once in this
+file; no consumer outside it. -/
 theorem T1_head_wire (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ T : ℝ) :
     ∃ X₀ : ℝ, ∀ {X h c₀ y η C₁ : ℝ}, X₀ ≤ X →
         h = X / Real.sqrt (Real.log X) → 1 < c₀ → η = 1 / Real.log y →

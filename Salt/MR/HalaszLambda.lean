@@ -96,9 +96,13 @@ so the standard `eq_iff_eq_on_prime_powers` machinery applies. -/
 lemma toAF_apply (f : ℕ → ℂ) (k : ℕ) :
     toArithmeticFunction f k = if k = 0 then 0 else f k := rfl
 
+/-- `ellLin g 1 = 1` (`@[local simp]`): `1` has no prime factor. Read three times in this file
+and by `CofactorBall`, `HExit`, `HalaszRepAsm`, `MultShiu`, `SupF` and `USetGradedPrice`. -/
 @[local simp] lemma ellLin_one : ellLin g 1 = 1 := by
   simp [ellLin, Nat.primeFactors_one]
 
+/-- `ellLinInv g 1 = 1` (`@[local simp]`): `1` has no prime factor. Read by `SPartCore`; not
+read by name in this file. -/
 @[local simp] lemma ellLinInv_one : ellLinInv g 1 = 1 := by
   simp [ellLinInv, Nat.primeFactors_one]
 
@@ -166,12 +170,16 @@ lemma ellLinInv_mul_coprime {m n : ℕ} (hm : m ≠ 0) (hn : n ≠ 0) (hco : m.C
     rw [show (m * n).factorization p = n.factorization p by
       rw [hfac, Finsupp.add_apply, hzero, zero_add]]
 
+/-- `ellLin g`, as an arithmetic function, is multiplicative (`ellLin_mul_coprime`). Read once
+in this file and by `HalaszRepAsm`. -/
 lemma isMult_ellLin : (toArithmeticFunction (ellLin g)).IsMultiplicative := by
   rw [ArithmeticFunction.IsMultiplicative.iff_ne_zero]
   refine ⟨by simp [toAF_apply], fun {m n} hm hn hco => ?_⟩
   simp only [toAF_apply, if_neg (Nat.mul_ne_zero hm hn), if_neg hm, if_neg hn]
   exact ellLin_mul_coprime g hm hn hco
 
+/-- `ellLinInv g`, as an arithmetic function, is multiplicative (`ellLinInv_mul_coprime`). Read
+once in this file and by `SPartCore`. -/
 lemma isMult_ellLinInv : (toArithmeticFunction (ellLinInv g)).IsMultiplicative := by
   rw [ArithmeticFunction.IsMultiplicative.iff_ne_zero]
   refine ⟨by simp [toAF_apply], fun {m n} hm hn hco => ?_⟩

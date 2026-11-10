@@ -61,14 +61,19 @@ summing it over `(2Y₁+1)`-smooth numbers picks out exactly the block-smooth `d
 noncomputable def wt (Y₁ n : ℕ) : ℝ :=
   if BlockSmooth Y₁ n then (n.divisors.card : ℝ) ^ 2 / (n : ℝ) else 0
 
+/-- `0 ≤ wt Y₁ n`: the weight is `0` off the block-smooth numbers and a quotient of reals `≥ 0`
+on them. Read three times in this file; no consumer outside it. -/
 lemma wt_nonneg (Y₁ n : ℕ) : 0 ≤ wt Y₁ n := by
   unfold wt; split
   · positivity
   · exact le_refl 0
 
+/-- `BlockSmooth Y₁ 1`: vacuous, `1` has no prime factor. Read twice in this file and by
+`MultShiuBridge`. -/
 lemma blockSmooth_one (Y₁ : ℕ) : BlockSmooth Y₁ 1 := by
   intro p hp; simp at hp
 
+/-- `wt Y₁ 1 = 1` (`blockSmooth_one`). Read three times in this file; no consumer outside it. -/
 lemma wt_one (Y₁ : ℕ) : wt Y₁ 1 = 1 := by
   unfold wt; rw [if_pos (blockSmooth_one Y₁)]; simp
 
@@ -313,6 +318,8 @@ factorization filtered to block primes. -/
 noncomputable def blockPart (Y₁ n : ℕ) : ℕ :=
   (n.factorization.filter (fun p => Y₁ ≤ p ∧ p ≤ 2 * Y₁)).prod (· ^ ·)
 
+/-- The block-filtered factorization of `n` (primes `p` with `Y₁ ≤ p ≤ 2 * Y₁`) is `≤` the
+factorization of `n`, pointwise. Private; read twice in this file. -/
 private lemma blockFactor_le (Y₁ n : ℕ) :
     n.factorization.filter (fun p => Y₁ ≤ p ∧ p ≤ 2 * Y₁) ≤ n.factorization := by
   rw [Finsupp.le_def]
@@ -322,14 +329,20 @@ private lemma blockFactor_le (Y₁ n : ℕ) :
   · exact le_refl _
   · exact Nat.zero_le _
 
+/-- The factorization of `blockPart Y₁ n` is the factorization of `n` filtered to the block
+`Y₁ ≤ p ≤ 2 * Y₁` (`blockFactor_le`). Read twice in this file; no consumer outside it. -/
 lemma blockPart_factorization (Y₁ n : ℕ) :
     (blockPart Y₁ n).factorization
       = n.factorization.filter (fun p => Y₁ ≤ p ∧ p ≤ 2 * Y₁) :=
   Nat.factorization_prod_pow_eq_self_of_le_factorization (blockFactor_le Y₁ n)
 
+/-- `blockPart Y₁ n ∣ n` (`blockFactor_le`). Read three times in this file; no consumer outside
+it. -/
 lemma blockPart_dvd (Y₁ n : ℕ) : blockPart Y₁ n ∣ n :=
   Nat.prod_pow_dvd_of_le_factorization (blockFactor_le Y₁ n)
 
+/-- `0 < blockPart Y₁ n`: a product of positive prime powers. Read four times in this file; no
+consumer outside it. -/
 lemma blockPart_pos (Y₁ n : ℕ) : 0 < blockPart Y₁ n := by
   rw [blockPart, Finsupp.prod]
   apply Finset.prod_pos
@@ -337,6 +350,8 @@ lemma blockPart_pos (Y₁ n : ℕ) : 0 < blockPart Y₁ n := by
   rw [Finsupp.support_filter, Finset.mem_filter, Nat.support_factorization] at hp
   exact pow_pos (Nat.prime_of_mem_primeFactors hp.1).pos _
 
+/-- `BlockSmooth Y₁ (blockPart Y₁ n)`: every prime factor of the block part lies in the block
+(`blockPart_factorization`). Read twice in this file; no consumer outside it. -/
 lemma blockSmooth_blockPart (Y₁ n : ℕ) : BlockSmooth Y₁ (blockPart Y₁ n) := by
   intro q hq
   rw [← Nat.support_factorization, blockPart_factorization, Finsupp.support_filter,

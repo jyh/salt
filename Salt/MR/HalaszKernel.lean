@@ -197,6 +197,12 @@ private lemma kterm_norm_integral (w : ℂ) {b : ℝ} (hb : 0 ≤ b) {c : ℝ} (
   dsimp only
   rw [norm_div, norm_mul, Salt.SW.norm_ofReal_cpow_vert hb hc, norm_inv]; ring
 
+/-- **K2'**, the exact vertical-line representation: for `a 0 = 0`, `1 ≤ X`, `0 < h`, `0 < c`
+and the stated absolute summability, `∑' n, a n * hatK X h n` equals `1 / (2π)` times the
+integral over `t` of the Dirichlet series of `a` at `c + t * I` against the kernel
+`((X + h) ^ (s + 1) - X ^ (s + 1)) / (h * s * (s + 1))`. Termwise (`kernel_identity`), then sum
+and integral exchanged. Read by `HalaszIdentity`, `HalaszPrimesCore` and `HalaszRepAsm`; not
+read in this file. -/
 theorem hat_contour_rep (a : ℕ → ℂ) (ha0 : a 0 = 0) {X h c : ℝ}
     (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c)
     (hsum : Summable fun n => ‖a n‖ * ((X + h) / n) ^ c) :
@@ -376,6 +382,9 @@ def hatKernel (X h c t : ℝ) : ℂ :=
 
 
 -- segment (MVT) bound on the numerator
+/-- `‖(X + h) ^ (s + 1) - X ^ (s + 1)‖ ≤ ‖s + 1‖ * (X + h) ^ c * h` at `s = c + t * I`, `1 ≤ X`,
+`0 < h`, `0 < c`: the mean value inequality on `[X, X + h]`. Read once in this file; no consumer
+outside it. -/
 lemma cpow_seg_bound {X h c : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c) (t : ℝ) :
     ‖((X + h : ℝ) : ℂ) ^ (((c : ℂ) + (t : ℂ) * I) + 1)
         - ((X : ℝ) : ℂ) ^ (((c : ℂ) + (t : ℂ) * I) + 1)‖
@@ -407,6 +416,10 @@ lemma cpow_seg_bound {X h c : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c) (t :
       ≤ ‖s + 1‖ * (X + h) ^ c * ‖(X + h) - X‖ := hmvt
     _ = ‖s + 1‖ * (X + h) ^ c * h := by rw [show (X + h) - X = h by ring, Real.norm_of_nonneg hh.le]
 
+/-- `‖hatKernel X h c t‖` is at most `(X + h) ^ c` times the smaller of `2 / ‖s‖` and
+`2 * (X + h) / (h * ‖s‖ ^ 2)`, `s = c + t * I`: the two branches bounded separately, then
+`le_min`. Read by `HExit`, `HalaszPrimesCore`, `HalaszRepAsm`, `JointHead` and `JointPlumb`; not
+read in this file. -/
 theorem hat_mellin_bound {X h c : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c) (t : ℝ) :
     ‖hatKernel X h c t‖
       ≤ (X + h) ^ c * min (2 / ‖(c : ℂ) + (t : ℂ) * I‖)

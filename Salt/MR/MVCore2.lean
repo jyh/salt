@@ -44,9 +44,13 @@ open scoped BigOperators Matrix
 /-- The λ-kernel `1/(λ_r − λ_i)` as a complex number (real-valued). -/
 private noncomputable def mvKer (lam : ℕ → ℝ) (r i : ℕ) : ℂ := ((lam r : ℂ) - (lam i : ℂ))⁻¹
 
+/-- `mvKer lam i i = 0`: the kernel vanishes on the diagonal. Private; read six times in this
+file. -/
 private lemma mvKer_self (lam : ℕ → ℝ) (i : ℕ) : mvKer lam i i = 0 := by
   simp [mvKer]
 
+/-- `mvKer lam t r = - mvKer lam r t`: the kernel is antisymmetric. Private; read three times in
+this file. -/
 private lemma mvKer_swap (lam : ℕ → ℝ) (r t : ℕ) : mvKer lam t r = - mvKer lam r t := by
   rw [mvKer, mvKer, ← neg_sub ((lam r : ℂ)) ((lam t : ℂ)), inv_neg]
 
@@ -124,6 +128,8 @@ term vanishes by the Lean division-by-zero convention, so this equals the `Σ_{r
 private noncomputable def mvAu (s : Finset ℕ) (lam : ℕ → ℝ) (u : ℕ → ℂ) (i : ℕ) : ℂ :=
   ∑ r ∈ s, u r * mvKer lam r i
 
+/-- The conjugate of `I * μ * z` is `-(I * μ * conj z)` for a real `μ`. Private; read once in
+this file. -/
 private lemma conj_Imu (μ : ℝ) (z : ℂ) :
     (starRingEnd ℂ) (Complex.I * (μ : ℂ) * z)
       = - (Complex.I * (μ : ℂ) * (starRingEnd ℂ) z) := by
@@ -181,6 +187,9 @@ private noncomputable def mvPfR (s : Finset ℕ) (lam : ℕ → ℝ) (r t : ℕ)
   mvKer lam t r * (∑ i ∈ s, mvKer lam r i) - mvKer lam t r * (∑ i ∈ s, mvKer lam t i)
     + 2 * mvKer lam t r ^ 2
 
+/-- The partial-fraction identity at a `δ`-separated `lam`: for `r ≠ t` in `s`,
+`∑ i ∈ s, mvKer lam r i * mvKer lam t i = mvPfR s lam r t` — `mvPF` restated. Private; read once
+in this file. -/
 private lemma mvPF2 (s : Finset ℕ) (lam : ℕ → ℝ) {δ : ℝ} (hδ : 0 < δ)
     (hsep : ∀ i ∈ s, ∀ j ∈ s, i ≠ j → δ ≤ |lam i - lam j|)
     {r t : ℕ} (hr : r ∈ s) (ht : t ∈ s) (hrt : r ≠ t) :
@@ -426,6 +435,8 @@ gives `|B(x)| ≤ (π/δ)‖x‖²`. -/
 private noncomputable def mvMat (s : Finset ℕ) (lam : ℕ → ℝ) :
     Matrix {i // i ∈ s} {i // i ∈ s} ℂ := fun a b => Complex.I * mvKer lam b.val a.val
 
+/-- `mvMat s lam` is Hermitian (`mvKer_conj`, `mvKer_swap`). Private; read three times in this
+file. -/
 private lemma mvMat_isHermitian (s : Finset ℕ) (lam : ℕ → ℝ) : (mvMat s lam).IsHermitian := by
   refine Matrix.IsHermitian.ext fun a b => ?_
   simp only [mvMat, ← starRingEnd_apply, map_mul, Complex.conj_I, mvKer_conj]
@@ -445,10 +456,14 @@ private lemma mvMat_mulVec (s : Finset ℕ) (lam : ℕ → ℝ) (w : {i // i ∈
 private noncomputable def mvExtend (s : Finset ℕ) (b : {i // i ∈ s} → ℂ) : ℕ → ℂ :=
   fun j => if h : j ∈ s then b ⟨j, h⟩ else 0
 
+/-- `mvExtend s b c.val = b c` for `c` in the subtype of `s`. Private; read twice in this
+file. -/
 private lemma mvExtend_val (s : Finset ℕ) (b : {i // i ∈ s} → ℂ) (c : {i // i ∈ s}) :
     mvExtend s b c.val = b c := by
   simp only [mvExtend, c.property, dif_pos]
 
+/-- A sum over the subtype of `s` of `f c.val` is the sum of `f` over `s`
+(`Finset.sum_subtype`). Private; read five times in this file. -/
 private lemma mv_sum_reindex {M : Type*} [AddCommMonoid M] (s : Finset ℕ) (f : ℕ → M) :
     ∑ c : {i // i ∈ s}, f c.val = ∑ r ∈ s, f r :=
   (Finset.sum_subtype s (fun _ => Iff.rfl) f).symm
