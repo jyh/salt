@@ -25,7 +25,7 @@ lands the same conclusion WITHOUT the cap, by the route the M4-plan refuter pass
 * the band integral is then the **crude fold** `∫_{−T₀}^{T₀} ≤ 2T₀·sup²`.
 
 The price is exactly one factor `T₀ = seamT0 X = (log X)^{1/45}` on the main term, i.e.
-`(log X)^{1/30}` inside the interface's `C₁′` (catch #253: an `X`-DEPENDENT `C₁′`, named and
+`(log X)^{1/90}` inside the interface's `C₁′` (catch #253: an `X`-DEPENDENT `C₁′`, named and
 carried symbolically — `cfbC₁`).  The gate that pays for it is in-statement.
 
 ## The five stones
@@ -647,13 +647,13 @@ theorem cfb_ballerr_le {X M₀ : ℝ} (hX : Real.exp (Real.exp 1) ≤ X)
 /-! ## §5 — THE EXIT
 
 `cfbC₁` is the `C₁′` of the interface: the `X`-DEPENDENT coefficient catch #253 predicted,
-carried symbolically with its `(log X)^{1/30}` factor explicit. -/
+carried symbolically with its `(log X)^{1/90}` factor explicit. -/
 
 /-- **THE CAP-FREE BAND COEFFICIENT** (`cfbC₁`).  `C₁′ = (C₁ + 1)·√(seamT0 X)`, i.e.
 
-  `cfbC₁ X C₁ = (C₁ + 1)·(log X)^{1/30}`.
+  `cfbC₁ X C₁ = (C₁ + 1)·(log X)^{1/90}`.
 
-The `(log X)^{1/30}` is the crude fold's whole price (`√` of the band's length `2T₀`), and
+The `(log X)^{1/90}` is the crude fold's whole price (`√` of the band's length `2T₀`), and
 the `+1` absorbs the centre bound's additive error term `4(log X)^{−1/2+1/1000}` under the
 side condition `cfb_ballerr_le`.  Catch #253: an `X`-dependent interface constant is
 EXPECTED here — it is named, not hidden, and the gate of §4 is what pays for it. -/
@@ -676,7 +676,7 @@ summand of `ThmA2Rows.thm_a2'_of_rows`'s conclusion, read at this file's `C₁�
 
 (`cfbC₁_sq`), and the gate `M₀ ≥ (1009/45000)·e·loglog X` sends it under
 `8448·(C₁+1)²·(log X)^{−1/5000}` — the interface's own third-summand shape.  This is the whole
-arithmetic purpose of the `(log X)^{1/30}` inside `cfbC₁`: it is paid for, in-statement, by
+arithmetic purpose of the `(log X)^{1/90}` inside `cfbC₁`: it is paid for, in-statement, by
 the gate, and `cfb_floor_clears_gate` is what makes the gate available from the band floor. -/
 theorem cfb_exit_summand_le {X C₁ M₀ : ℝ} (hX : Real.exp (Real.exp 1) ≤ X) (hC₁ : 1 ≤ C₁)
     (hgate : 1009 / 45000 * Real.exp 1 * Real.log (Real.log X) ≤ M₀) :
@@ -862,7 +862,7 @@ with `g := liouChi χ` and the floor slot DISCHARGED from §3: for every finite 
 `Q` there is a `K ≥ 0` (the assembled band constant) such that, past the scale floor and the
 band's own threshold, the `hT0band` datum holds at
 
-  `C₁′ = cfbC₁ X C₁ = (C₁+1)(log X)^{1/30}`,  `M₀ = cfbM0 K q X`.
+  `C₁′ = cfbC₁ X C₁ = (C₁+1)(log X)^{1/90}`,  `M₀ = cfbM0 K q X`.
 
 The remaining binders are upstream's (`Y`-gates, `hRHS` per band frequency) plus the two
 band-geometry hypotheses `|t₀| ≤ seamT0 X + 1` and the `cfb_ballerr_le` side condition.  This

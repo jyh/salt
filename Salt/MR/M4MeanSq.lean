@@ -712,7 +712,7 @@ theorem m4_meansq_per_chi_gen :
 `cfb_t0band_supply_chi` with its two coefficient slots discharged by §2.  What comes out is
 *literally* `m4_meansq_per_chi_gen`'s `hT0band` slot at
 
-  `C₁′ = cfbC₁ X C₁ = (C₁+1)(log X)^{1/30}`,   `M₀ = cfbM0 K q X`,
+  `C₁′ = cfbC₁ X C₁ = (C₁+1)(log X)^{1/90}`,   `M₀ = cfbM0 K q X`,
 
 so the plug is an instantiation, not a re-statement.  Two binders fewer than upstream: the
 band datum's own support and datum laws are `rfl`-level. -/
