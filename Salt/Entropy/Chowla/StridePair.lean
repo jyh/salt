@@ -505,9 +505,7 @@ theorem sum_window_image_le (a x' ω : ℕ) (ha : 0 < a) (f : ℕ → ℝ) (M : 
           + M / ((a : ℝ) * ((x' / ω : ℕ) : ℝ) + 1) := by
   have hsub : (Finset.Ioc (x' / ω) x').image (fun n => a * n)
       ⊆ Finset.Ioc (a * x' / ω) (a * x') := by
-    intro p hp
-    rw [Finset.mem_image] at hp
-    obtain ⟨n, hn, rfl⟩ := hp
+    refine Finset.forall_mem_image.2 fun n hn => ?_
     rw [Finset.mem_Ioc] at hn ⊢
     refine ⟨?_, Nat.mul_le_mul (le_refl a) hn.2⟩
     rcases Nat.eq_zero_or_pos ω with hω0 | hωp

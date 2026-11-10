@@ -1396,7 +1396,7 @@ decisions per question.
   brief's first task, delivered): the twin's hA3_bundle composes
   box/low/sym_price_indep → hSum_at_op → hCE/hRCE → hdiag →
   hNum_close → hBVblocksW_discharge' →
-  **mainA3_of_block_remainders_W (SwitchW:340) — the W-route
+  **mainA3_of_block_remainders_W (SwitchW:366) — the W-route
   terminal, φ(Q)-normalized**. THE CATCH: gold_mainA3_of_hBVswitch/
   gold_mainA3_at_op carry the NON-W goldSwitchSieve with no /φ(Q) —
   the entire landed pricing chain (PDiag/SW2, all φ(Q)-normalized

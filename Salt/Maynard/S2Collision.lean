@@ -1503,9 +1503,7 @@ private theorem eDiv_dvd {k s R W' : ℕ}
   have hsub : (s.primeFactors.attach.filter
       (fun q : {x // x ∈ s.primeFactors} => χ q.1 q.2 ≠ 0 ∧ chiSlot α χ q = i)).image
         (fun q : {x // x ∈ s.primeFactors} => (q : ℕ)) ⊆ (u i).primeFactors := by
-    intro p hp
-    rw [Finset.mem_image] at hp
-    obtain ⟨q, hq, rfl⟩ := hp
+    refine Finset.forall_mem_image.2 fun q hq => ?_
     exact Nat.mem_primeFactors.mpr
       ⟨Nat.prime_of_mem_primeFactors q.2, hdvd q hq, hupos.ne'⟩
   calc eDiv α χ i
@@ -1744,9 +1742,7 @@ private theorem sum_gweight_occ_le (k R : ℕ) (T : ℝ) (m : Fin k)
     have hsub : (((kSieveIndex k R (W k)).filter (fun u => u m = 1)).filter
           (fun u => chiOf α u = χ)).image (fun u i => u i / eDiv α χ i)
         ⊆ (kSieveIndex k R (W k)).filter (fun u => u m = 1) := by
-      intro d hd
-      rw [Finset.mem_image] at hd
-      obtain ⟨u, hu, rfl⟩ := hd
+      refine Finset.forall_mem_image.2 fun u hu => ?_
       rw [Finset.mem_filter] at hu
       obtain ⟨hu𝒮, hχu⟩ := hu
       rw [Finset.mem_filter] at hu𝒮

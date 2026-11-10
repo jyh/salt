@@ -180,9 +180,7 @@ lemma mainTermSum_le_sTrunc2_mul_coprimeSum (z : ℕ) (hn0 : n ≠ 0) :
       _ = y := Nat.mul_div_cancel' (Nat.gcd_dvd_left y n)
   -- (C) `F.image φ ⊆ Dn ×ˢ Fcop`
   have himgsub : F.image φ ⊆ Dn ×ˢ Fcop := by
-    intro q hq
-    rw [Finset.mem_image] at hq
-    obtain ⟨ℓ, hℓF, rfl⟩ := hq
+    refine Finset.forall_mem_image.2 fun ℓ hℓF => ?_
     have hℓF' := hℓF
     rw [hF, Finset.mem_filter, Finset.mem_range] at hℓF'
     obtain ⟨hℓz, hℓodd, hℓsq⟩ := hℓF'

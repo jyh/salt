@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `f0a98aec` · source digest `7fb18d7bff36aa49` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `e8a95e03` · source digest `1bd80cc867818f5f` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -116,7 +116,7 @@ A FRAME is a bundle of order relations over its own parameters; ¬P is 'the para
 | `Salt.MR.CofactorBulkL` | OPEN | HALF | 3 | 2/1/0 | `Salt.MR.cofkL_bulk_infeasible` (Salt/MR/RegisterInhabit.lean:209), `Salt.MR.cofkL_bulk_infeasible_loglog` (Salt/MR/RegisterInhabit.lean:229) +1 |
 | `Salt.MR.TannGate` | DISCHARGED | - | 491 | 3/0/0 | `Salt.MR.TannGate_fails_polylog` (Salt/MR/USetPins.lean:380), `Salt.MR.TannGate_fails_polylog_deg` (Salt/MR/USetPins.lean:394) +1 |
 | `Salt.Parity.ParityInv` | DISCHARGED | - | 0 | 1/2/0 | `Salt.Certs.cert_parity_gap_witness` (Salt/Certs/ParityGap.lean:97), `Salt.Certs.cert_parity_gap` (Salt/Certs/ParityGap.lean:74) +1 |
-| `Salt.Chen.ProductInWindow` | DISCHARGED | - | 0 | 2/0/0 | `Salt.Chen.not_productInWindow_of_above` (Salt/Chen/SwitchStrip.lean:272), `Salt.Chen.not_productInWindow_of_below` (Salt/Chen/SwitchStrip.lean:268) |
+| `Salt.Chen.ProductInWindow` | DISCHARGED | - | 0 | 2/0/0 | `Salt.Chen.not_productInWindow_of_above` (Salt/Chen/SwitchStrip.lean:275), `Salt.Chen.not_productInWindow_of_below` (Salt/Chen/SwitchStrip.lean:268) |
 | `Salt.Entropy.Chowla.MRTUniformityXiH` | OPEN | - | 0 | 0/0/2 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiH` (Salt/Entropy/Chowla/ShiftFork.lean:345), `Salt.Entropy.Chowla.log_chowla_two_shell_xi_h` (Salt/Entropy/Chowla/Theorem23Shell.lean:488) |
 | `Salt.MR.BlockSmallG` | DISCHARGED | - | 0 | 2/0/0 | `Salt.MR.mem_UsetGChi` (Salt/MR/USetGChi.lean:110), `Salt.MR.not_blockSmallG_pred_of_mem_TsetG` (Salt/MR/TLegCover.lean:99) |
 | `Salt.MR.DoorRowCarriedT0` | OPEN | HALF | 7 | 0/0/2 | `Salt.MR.m4_wave_closed_coprime_discharged_False` (Salt/MR/M4Collapse.lean:254), `Salt.MR.m4_wave_collapsed_False` (Salt/MR/M4BaseNarrow.lean:1166) |
@@ -171,13 +171,13 @@ By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.BrunLower.peel_term_nonneg` | Salt/BrunLower/Pointwise.lean:122 | `Salt.BrunLower.chi` |
 | case split `by_cases` | `Salt.BrunLower.remainder_prod_bound_of_R` | Salt/BrunLower/Remainder.lean:580 | `Salt.BrunLower.chi` |
 | case split `by_cases` | `Salt.Chen.triplePrimeSum_le` | Salt/Chen/Assembly.lean:328 | `Salt.Chen.TripleP` |
-| case split `by_cases` | `Salt.Chen.diagSum_le_bandDiagCount` | Salt/Chen/BandClose.lean:260 | `Salt.Chen.cwin` |
+| case split `by_cases` | `Salt.Chen.diagSum_le_bandDiagCount` | Salt/Chen/BandClose.lean:264 | `Salt.Chen.cwin` |
 | case split `by_cases` | `Salt.Chen.symRectCount_eq_card` | Salt/Chen/BandIdent.lean:414 | `Salt.Chen.cwin` |
 | case split `by_cases` | `Salt.Chen.diagSum_eq_card` | Salt/Chen/PDiag.lean:97 | `Salt.Chen.cwin` |
 | case split `by_cases` | `Salt.Chen.diagSum_le_diagSum_true` | Salt/Chen/PDiag.lean:106 | `Salt.Chen.cwin` |
 | case split `by_cases` | `Salt.Chen.diagAggW_le_honest` | Salt/Chen/PDiag.lean:447 | `Salt.Chen.cwin` |
-| case split `by_cases` | `Salt.Chen.triplePrimeSum_le_sifted` | Salt/Chen/SwitchSieve.lean:240 | `Salt.Chen.TripleP` |
-| case split `by_cases` | `Salt.Chen.triplePrimeSumW_le_sifted` | Salt/Chen/SwitchW.lean:234 | `Salt.Chen.TripleP` |
+| case split `by_cases` | `Salt.Chen.triplePrimeSum_le_sifted` | Salt/Chen/SwitchSieve.lean:250 | `Salt.Chen.TripleP` |
+| case split `by_cases` | `Salt.Chen.triplePrimeSumW_le_sifted` | Salt/Chen/SwitchW.lean:260 | `Salt.Chen.TripleP` |
 | case split `by_cases` | `Salt.Chen.buchstab_defect` | Salt/Chen/TnInduction.lean:597 | `Salt.Chen.rosserCond` |
 | case split `by_cases` | `Salt.Chen.p2Ind_split` | Salt/Chen/TwinDeficit.lean:162 | `Salt.Chen.IsE2` |
 | case split `by_cases` | `Salt.Chen.chenWeightA_le_indicator_of_sifted` | Salt/Chen/WeightFamily.lean:123 | `Salt.Chen.IsP2` |
@@ -219,7 +219,7 @@ By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.MR.thm_a2'_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:3845 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.MR.thm_a2'` | Salt/MR/ThmA2Rows.lean:728 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.MR.thm_a2'_gk` | Salt/MR/ThmA2Rows.lean:1587 | `Salt.MR.CapFreeFloor` |
-| case split `by_cases` | `Salt.Maynard.compat_moebius_expansion` | Salt/Maynard/CollisionQuant.lean:1677 | `Salt.Maynard.IsCollisionPair` |
+| case split `by_cases` | `Salt.Maynard.compat_moebius_expansion` | Salt/Maynard/CollisionQuant.lean:1675 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.abs_S2m_sub_compatMain_le_disc_R_uniform` | Salt/Maynard/FrontierDischarge.lean:258 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.S2m_ge_compatMain_eh_uniform` | Salt/Maynard/FrontierDischarge.lean:402 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.S2m_ge_compatMain_lod_uniform` | Salt/Maynard/LevelConsume.lean:451 | `Salt.Maynard.IsCollisionPair` |

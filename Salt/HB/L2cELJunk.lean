@@ -83,9 +83,7 @@ lemma cJunk_dvd_count_shift (x d : ℕ) (_hd : 0 < d) :
   have hinj : Function.Injective (fun n => n + 2) := add_left_injective 2
   have himg : S.image (fun n => n + 2)
       ⊆ (Finset.Ioc 0 (2 * x + 2)).filter (fun m => d ∣ m) := by
-    intro m hm
-    rw [Finset.mem_image] at hm
-    obtain ⟨n, hnS, rfl⟩ := hm
+    refine Finset.forall_mem_image.2 fun n hnS => ?_
     rw [hS, Finset.mem_filter, Finset.mem_Ioc] at hnS
     rw [Finset.mem_filter, Finset.mem_Ioc]
     obtain ⟨⟨hxn, hn2x⟩, hdvd⟩ := hnS

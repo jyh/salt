@@ -123,7 +123,7 @@ publishable object in its own right; the method paper (later).
 ## 5. RECORDS HYGIENE (this week)
 
 CAMPAIGNS.md refresh (stale since 7/20: "19 MR modules", MULT-SHIU
-"sole residual", S8 "climbing" — all wrong); the HalaszIntegers.lean:900
+"sole residual", S8 "climbing" — all wrong); the HalaszIntegers.lean:898
 stale docstring; fulcrum_audit_glue.md §3 + fulcrum_audit_wp2.md §3
 date-marks; the Trophy Room maintenance law (row in the same commit);
 the canonical-name law (every ledger entry names the literature name

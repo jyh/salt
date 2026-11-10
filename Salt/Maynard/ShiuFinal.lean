@@ -267,9 +267,7 @@ theorem class_tau_sum_le_prod' (z q a w : ℕ) (Sc : Finset ℕ)
       _ = shiuC w m * shiuD w m := by rw [hnm.1, hnm.2]
       _ = m := shiuC_mul_shiuD hm0 w
   have hsub : S.image φ ⊆ BigT := by
-    intro p hp
-    rw [Finset.mem_image] at hp
-    obtain ⟨n, hn, rfl⟩ := hp
+    refine Finset.forall_mem_image.2 fun n hn => ?_
     obtain ⟨hn1, hnz, hnq, hnP⟩ := hmemS n hn
     have hn0 : n ≠ 0 := by omega
     have hcSc := hcov n hn1 hnz hnq hnP

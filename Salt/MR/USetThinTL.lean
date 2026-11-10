@@ -232,9 +232,7 @@ theorem ramQ_large_count {H : ℝ} (hH : 2 ≤ H) (P Q j : ℕ) (c : ℕ → ℂ
     have h := hws t ht u hu htu
     rwa [show -t - -u = -(t - u) by ring, abs_neg]
   have hsub' : ∀ s ∈ 𝒮.image (fun t => -t), s ∈ Set.Icc (-T) T := by
-    intro s hs
-    rw [Finset.mem_image] at hs
-    obtain ⟨t, ht, rfl⟩ := hs
+    refine Finset.forall_mem_image.2 fun t ht => ?_
     have h := Set.mem_Icc.mp (hsub t ht)
     exact Set.mem_Icc.mpr ⟨by linarith [h.2], by linarith [h.1]⟩
   -- the Lemma-8 coefficient gates
@@ -254,9 +252,7 @@ theorem ramQ_large_count {H : ℝ} (hH : 2 ≤ H) (P Q j : ℕ) (c : ℕ → ℂ
       exact hc1 m
     · exact absurd (by simp only [hsrcdef, ramQsrc_eq_zero hmem, zero_div]) hm
   have hlb' : ∀ s ∈ 𝒮.image (fun t => -t), V⁻¹ ≤ ‖dpoly (2 * B) src s‖ := by
-    intro s hs
-    rw [Finset.mem_image] at hs
-    obtain ⟨t, ht, rfl⟩ := hs
+    refine Finset.forall_mem_image.2 fun t ht => ?_
     rw [← ramQ_eq_dpoly H P Q (2 * B) j c hN t]
     exact hlb t ht
   have h := large_value_count B src T V hB3 hT hBT hV hκ30 hLL5

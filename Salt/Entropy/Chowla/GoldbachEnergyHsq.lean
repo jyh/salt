@@ -159,9 +159,7 @@ theorem sTrunc_le_prod (n : ℕ) :
     exact Finset.sum_congr rfl (fun d _ => rfl)
   rw [hStr]
   have hsub : Dn.image Nat.primeFactors ⊆ P.powerset := by
-    intro S hS
-    rw [Finset.mem_image] at hS
-    obtain ⟨d, hd, rfl⟩ := hS
+    refine Finset.forall_mem_image.2 fun d hd => ?_
     rw [Finset.mem_powerset]
     exact hmem d hd
   have hnn : ∀ S ∈ P.powerset, 0 ≤ ∏ p ∈ S, (1 / ((p : ℝ) - 2)) := by
@@ -418,9 +416,7 @@ theorem hFac_lcm_sum_le :
     Finset.sum_congr rfl (fun d₁ hd₁ =>
       Finset.sum_congr rfl (fun d₂ hd₂ => hterm d₁ hd₁ d₂ hd₂))
   have hsubP : D.image Nat.primeFactors ⊆ P.powerset := by
-    intro S hS
-    rw [Finset.mem_image] at hS
-    obtain ⟨d, hd, rfl⟩ := hS
+    refine Finset.forall_mem_image.2 fun d hd => ?_
     rw [Finset.mem_powerset]
     exact hpfsub d hd
   have hGnn : ∀ S₁ ∈ P.powerset, ∀ S₂ ∈ P.powerset, 0 ≤ Gterm S₁ S₂ := by

@@ -4754,7 +4754,7 @@ replace each such site by a binder or by the design base, and are the sources' b
 elsewhere.  These lifts did not touch the landed `StridePair.lean`. -/
 
 /-- **⟦F3-P19 AT THE CHARGE⟧** (`loglog_mul_flatDesignBase_le_L`) —
-`loglog_mul_flatDesignBase_le_b9` (`StridePair.lean:875`) with `ha9 : log a ≤ 9` REPLACED by
+`loglog_mul_flatDesignBase_le_b9` (`StridePair.lean:873`) with `ha9 : log a ≤ 9` REPLACED by
 `haL : log a ≤ L` and `hLA : L ≤ A`.  The cap was read only in `hub`
 (`log a + log 2 + E ≤ 2E`); at the charge it closes from
 `hE519' : A + 1 ≤ exp (3.2·A)` (`Real.add_one_le_exp` and `A ≤ 3.2·A`):
@@ -4802,7 +4802,7 @@ theorem loglog_mul_flatDesignBase_le_L {A : ℝ} (hA : 162 ≤ A) {a : ℕ} (ha 
         rw [Real.log_mul (by norm_num) (Real.exp_ne_zero _), Real.log_exp]; ring
 
 /-- **⟦F3-P20 AT THE CHARGE⟧** (`flatDesignBase_clears_stride_floors_L`) —
-`flatDesignBase_clears_stride_floors_b9` (`StridePair.lean:918`) with the pin floor
+`flatDesignBase_clears_stride_floors_b9` (`StridePair.lean:916`) with the pin floor
 `1/4051500 = 1/(500·8103)` REPLACED by the form's own pin at the MULTIPLIER `k`,
 `1/(500·k) ≤ eps`, and `k` bounded through the charge (`log k ≤ L ≤ A`), plus the third floor
 `500000·k³ ≤ flatDesignBase A` that pays the shrink's `hcop` and `hHlo` at the terminal.  DERIVED:
@@ -4879,7 +4879,7 @@ theorem flatDesignBase_clears_stride_floors_L {A : ℝ} (hA : 162 ≤ A) {k : �
   exact Nat.mul_le_mul (le_refl 4) (Nat.pow_le_pow_left hceil 4)
 
 /-- **⟦F3-P3 AT THE CHARGE⟧ (def)** (`regimeShrinkX_stride_L`) — `regimeShrinkX_stride_b9`
-(`StridePair.lean:950`) with the stride cap `ha8103 : a ≤ 8103` GONE.  The source read it at exactly
+(`StridePair.lean:948`) with the stride cap `ha8103 : a ≤ 8103` GONE.  The source read it at exactly
 two sites, and BOTH are now HYPOTHESES of the def, paid by the caller at the terminal
 (`strideDoorAllGradesW_holds`, from `flatDesignBase_clears_stride_floors_L`'s third floor
 `500000·k³ ≤ flatDesignBase A` and the multiplier pin `1/(500·k) ≤ ε`): `hcop`
@@ -5032,7 +5032,7 @@ theorem regimeShrinkX_stride_J_L (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
     (regimeShrinkX_stride_L R a ha heps500 hs hdiv hlo4 hloM hcop hHlo).J = R.J := by
   rfl
 
-/-- **⟦F3-P6 AT THE CHARGE⟧** — `regimeShrinkX_stride_x_mul_b9` (`StridePair.lean:1121`) at the
+/-- **⟦F3-P6 AT THE CHARGE⟧** — `regimeShrinkX_stride_x_mul_b9` (`StridePair.lean:1119`) at the
 lift, read through `regimeShrinkX_stride_x_L`. -/
 theorem regimeShrinkX_stride_x_mul_L (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
@@ -5044,7 +5044,7 @@ theorem regimeShrinkX_stride_x_mul_L (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
   exact Nat.div_mul_cancel hs.1
 
 /-- **⟦F3-P16 AT THE CHARGE⟧** (`mrtUniformityXiL2AffW_of_set_L`) —
-`mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1139`), which reads its stride cap ONLY inside
+`mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1137`), which reads its stride cap ONLY inside
 the regime terms (its `omega` for `hω2` does not spend it): the binder list is the def's
 (`hcop hHlo` where the source has `ha8103`), `regimeShrinkX_stride_b9 ↦ regimeShrinkX_stride_L` in
 `hb` and in the conclusion's regime.  BODY: the source's, verbatim. -/

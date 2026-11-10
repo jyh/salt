@@ -119,38 +119,64 @@ section WFacts
 variable (x z y : ℕ) (ε₀ : ℝ) (j Q a Ps : ℕ) (hPs : Squarefree Ps)
   (hPodd : ∀ p ∈ Ps.primeFactors, 3 ≤ p)
 
+/-- `(switchSieveW x z y Q a Ps hPs hPodd).support = (twinWindow x).filter (n % Q = a % Q)`, by
+`rfl` (`@[simp]`): the W-switched sieve's support is the window restricted to the residue class
+`n ≡ a (mod Q)` (D2). No consumer at `main`. -/
 @[simp] lemma switchSieveW_support :
     (switchSieveW x z y Q a Ps hPs hPodd).support
       = (twinWindow x).filter (fun n => n % Q = a % Q) := rfl
 
+/-- `(switchSieveW …).prodPrimes = Ps`, by `rfl` (`@[simp]`): the sifting modulus is unchanged
+by the W-switch. No consumer at `main`. -/
 @[simp] lemma switchSieveW_prodPrimes :
     (switchSieveW x z y Q a Ps hPs hPodd).prodPrimes = Ps := rfl
 
+/-- `(switchSieveW …).nu = nuChen`, by `rfl` (`@[simp]`): the density is unchanged by the
+W-switch — the AP density cancels in the ν-ratio. No consumer at `main`. -/
 @[simp] lemma switchSieveW_nu : (switchSieveW x z y Q a Ps hPs hPodd).nu = nuChen := rfl
 
+/-- `(switchSieveW …).totalMass = tripleSum x z y / φ(Q)`, by `rfl` (`@[simp]`): the smooth
+`totalMass` convention (C3) — the plain triple count divided by `φ(Q)`, not the AP-restricted
+count — which makes `rem d` exactly the `Q·d`-discrepancy (Part C). No consumer at `main`. -/
 @[simp] lemma switchSieveW_totalMass :
     (switchSieveW x z y Q a Ps hPs hPodd).totalMass
       = tripleSum x z y / (Q.totient : ℝ) := rfl
 
+/-- `(switchSieveW …).siftedSum = ∑_{n ∈ window, n ≡ a (Q)} [Ps ⊥ n]·aCount x z y n`, by `rfl`:
+the sifted sum of the W-switched instance is the switch multiplicity over the class's window
+points coprime to `Ps`. Read twice in this file; no consumer outside it. -/
 lemma switchSieveW_siftedSum :
     (switchSieveW x z y Q a Ps hPs hPodd).siftedSum
       = ∑ n ∈ (twinWindow x).filter (fun n => n % Q = a % Q),
           if Nat.Coprime Ps n then aCount x z y n else 0 := rfl
 
+/-- `(blockSwitchSieveW x z y ε₀ j Q a Ps hPs hPodd).support` is
+`(twinWindow x).filter (n % Q = a % Q)`, by `rfl` (`@[simp]`): the per-block W-switched sieve
+has the same class-restricted support as `switchSieveW`, the block entering through
+`blockACount`. No consumer at `main`. -/
 @[simp] lemma blockSwitchSieveW_support :
     (blockSwitchSieveW x z y ε₀ j Q a Ps hPs hPodd).support
       = (twinWindow x).filter (fun n => n % Q = a % Q) := rfl
 
+/-- `(blockSwitchSieveW …).prodPrimes = Ps`, by `rfl` (`@[simp]`): block- and `Q`-independent.
+Read once in this file; no consumer outside it. -/
 @[simp] lemma blockSwitchSieveW_prodPrimes :
     (blockSwitchSieveW x z y ε₀ j Q a Ps hPs hPodd).prodPrimes = Ps := rfl
 
+/-- `(blockSwitchSieveW …).nu = nuChen`, by `rfl` (`@[simp]`): block- and `Q`-independent. Read
+once in this file; no consumer outside it. -/
 @[simp] lemma blockSwitchSieveW_nu :
     (blockSwitchSieveW x z y ε₀ j Q a Ps hPs hPodd).nu = nuChen := rfl
 
+/-- `(blockSwitchSieveW …).totalMass = blockTripleSum x z y ε₀ j / φ(Q)`, by `rfl` (`@[simp]`):
+the smooth block mass — the block-`j` triple count divided by `φ(Q)`. Read twice in this file;
+no consumer outside it. -/
 @[simp] lemma blockSwitchSieveW_totalMass :
     (blockSwitchSieveW x z y ε₀ j Q a Ps hPs hPodd).totalMass
       = blockTripleSum x z y ε₀ j / (Q.totient : ℝ) := rfl
 
+/-- `(blockSwitchSieveW …).siftedSum = ∑_{n ∈ window, n ≡ a (Q)} [Ps ⊥ n]·blockACount j n`, by
+`rfl`: the per-block W-switched sifted sum. Read once in this file; no consumer outside it. -/
 lemma blockSwitchSieveW_siftedSum :
     (blockSwitchSieveW x z y ε₀ j Q a Ps hPs hPodd).siftedSum
       = ∑ n ∈ (twinWindow x).filter (fun n => n % Q = a % Q),
@@ -416,12 +442,18 @@ open Classical in
 noncomputable def crtClassW (Q d a : ℕ) : ℕ :=
   if h : Nat.Coprime Q d then (Nat.chineseRemainder h (a + 2) 2).1 else 0
 
+/-- `crtClassW Q d a ≡ a + 2 [MOD Q]` at `h : Nat.Coprime Q d`: the first congruence of the CRT
+residue (D3), read off `Nat.chineseRemainder h (a + 2) 2` after `dif_pos h`. Read three times in
+this file; no consumer outside it. -/
 lemma crtClassW_modEq_left {Q d : ℕ} (a : ℕ) (h : Nat.Coprime Q d) :
     crtClassW Q d a ≡ a + 2 [MOD Q] := by
   unfold crtClassW
   rw [dif_pos h]
   exact (Nat.chineseRemainder h (a + 2) 2).2.1
 
+/-- `crtClassW Q d a ≡ 2 [MOD d]` at `h : Nat.Coprime Q d`: the second congruence of the CRT
+residue (the switch congruence `d ∣ n`), the other half of `Nat.chineseRemainder h (a + 2) 2`.
+Read by `PDiag` and three times in this file. -/
 lemma crtClassW_modEq_right {Q d : ℕ} (a : ℕ) (h : Nat.Coprime Q d) :
     crtClassW Q d a ≡ 2 [MOD d] := by
   unfold crtClassW

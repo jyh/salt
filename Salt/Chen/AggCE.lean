@@ -20,13 +20,13 @@ hypothesis of `hBVblocksW_discharge'` (`Salt/Chen/PDiag.lean`).
     if (d : ℝ) < QR * Dlev then blockConvErrW x z y ε₀ j Q d else 0) ≤ RCE)
 ```
 
-with (`Salt/Chen/SwitchW.lean:602`)
+with (`Salt/Chen/SwitchW.lean:634`)
 
 ```
 blockConvErrW x z y ε₀ j Q d = nuChen (Q * d) * blockNonUnitCountM x z y ε₀ j (Q * d)
 ```
 
-and (`Salt/Chen/SwitchW.lean:489`)
+and (`Salt/Chen/SwitchW.lean:521`)
 
 ```
 blockNonUnitCountM x z y ε₀ j m
@@ -156,9 +156,7 @@ theorem nuChen_sum_dvd_le {Ps : ℕ} (hPs : Squarefree Ps) {p : ℕ} (hp : p.Pri
     rw [hF, Finset.mem_filter] at h₁ h₂
     rw [← Nat.mul_div_cancel' h₁.2, ← Nat.mul_div_cancel' h₂.2, heq]
   have himg : F.image (fun d => d / p) ⊆ Nat.divisors Ps := by
-    intro e he
-    rw [Finset.mem_image] at he
-    obtain ⟨d, hdF, rfl⟩ := he
+    refine Finset.forall_mem_image.2 fun d hdF => ?_
     rw [hF, Finset.mem_filter] at hdF
     obtain ⟨hd, hpd⟩ := hdF
     obtain ⟨hdPs, hPs0⟩ := Nat.mem_divisors.mp hd

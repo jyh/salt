@@ -765,9 +765,7 @@ theorem sum_xiEta_translate_le {a b h : ℕ} (ha : 0 < a) (hgcd : Nat.gcd (b + h
           exact add_right_cancel hxy
         rw [← Finset.sum_image hinj]
         refine Finset.sum_le_sum_of_subset_of_nonneg ?_ (fun ξ _ _ => hf ξ)
-        intro ζ hζ
-        rw [Finset.mem_image] at hζ
-        obtain ⟨ξ, hξ, rfl⟩ := hζ
+        refine Finset.forall_mem_image.2 fun ξ hξ => ?_
         exact xiEta_translate_mem_bigXiAff ha hgcd hdvd hηa hξ
     _ = (a : ℝ) * ∑ ξ ∈ bigXiAff a b h eps H, f ξ := by
         rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul]

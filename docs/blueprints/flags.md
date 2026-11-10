@@ -1486,10 +1486,10 @@ CompatFrontier = the compat main-term lower bound
 i.e. s2CompatFormM_ge_sixteenth's regime 32*C*logR <= B1*D0, where C is the
 s2main_lower_rel/lemma53_rel/lemma53 error constant.
 
-FINDING: lemma53's constant is C ~ 12*k^3*2^k (Lemma53.lean:1018, htail_bound).
+FINDING: lemma53's constant is C ~ 12*k^3*2^k (Lemma53.lean:1014, htail_bound).
 The 2^k is from prod_{i!=m,j}(gMult*U) <= 2^k (line 963-981, each factor <= 2).
 The k^2 in the deviating-coordinate factor is from phiSq_dvd_ne_bound
-(Lemma53.lean:647, bound 12*k^2/D0). So the item6->(1/16) regime
+(Lemma53.lean:645, bound 12*k^2/D0). So the item6->(1/16) regime
 32*C*logR <= B1*D0 becomes 6912*k*2^k <= phiW/W < 1 -- IMPOSSIBLE. The error
 term (4C logR/D0)B1 A1^{k-1} ~ 2^k * main, so s2CompatFormM_ge_cheb's
 (1/4 - error) is NEGATIVE. This is why CompatFrontier can't be discharged.
@@ -1738,7 +1738,7 @@ grinding; the next Fable wave opens by draining this list.
     `|∑_u ∏g(uᵢ)·V(u∨σ)·V(u∨τ)| ≤ 3^ω·∏(p−1)⁻²·Qdiag_gv`, `V = lamPhiContractM y`.
     **The design's "dominate by ONE / monotone in |y|" shortcut is INVALID for the
     S₂ side** — two concrete corrections for the next Fable pass:
-    (1) `s2_inner_bound_N` (`S2Collision.lean:2108`) does NOT discharge
+    (1) `s2_inner_bound_N` (`S2Collision.lean:2104`) does NOT discharge
     `S2InnerBoundQ`: it proves a DIFFERENT bound (RHS `Ndiag`/`(p−2)⁻²`, not
     `Qdiag_gv`/`(p−1)⁻²`), and only for the tensor `yTensor`, via `fTilde`-
     antitonicity + `Gdiag`/`B1` machinery. There is no `f₀≡1` free slot-in.
@@ -6634,7 +6634,7 @@ the mandated STEP-0 inventory BEFORE any proof attempt burned against it.
 one API stream drop) — CATCH #64 REPAIRED IN PLACE.** hD0lo_main weakened L^{C0} → L^{A+2}
 through the full chain (four_term_scale_le root at EnergyClose:488 with the proof patched at
 its unique use; pass-throughs WindowErrFold:82/1294, WindowSmallChi:527 + the H-glue
-threshold-list docstring, SqrtDFold:824/994/1117, MediumFloor:520, GlueBV:198; the row is fed
+threshold-list docstring, SqrtDFold:826/996/1119, MediumFloor:520, GlueBV:198; the row is fed
 positionally so pass-through proofs needed NO edits). general_BV_cutoff_final carries no
 hD0lo row (verified); hMainEnergy_discharge (non-cutoff path, outside warrant) kept its
 statement — proof-body adapter only. **herr_D0E verdict: no decoupling needed or possible**
@@ -6908,7 +6908,7 @@ couplings; honest per-box price 2^{18}c^{−50}K·XM/L^{12}, one L worse than sk
 honest aggregate ≈ 3.5·10²³·K·x/t^{11} ≤ x/t^{10} ⟺ t ≥ 3.5·10²³·K — dwarfed by the
 tower (log x₀ ≥ w'^{w'}, w' ~ exp(2·10⁹)). Note (c) is DISCARDED; the gate's aggregate
 derivation replaces it. **CATCH #69 (NEW, kernel-certain): the terminal's per-e rows
-(herr_LEpos/herr_scale/herr_D0E at SqrtDFold:1129–1134) are FALSE for e ∈ (X, D]** — nat
+(herr_LEpos/herr_scale/herr_D0E at SqrtDFold:1131–1136) are FALSE for e ∈ (X, D]** — nat
 division gives ⌊X/e⌋ = 0, log(0·M) = 0, and the rows read 0 < 0 / L ≤ 0 / D0 ≤ 0^{18}.
 Every medium-band box has D ~ x^{0.497} > X (≥ z·y = x^{0.4583} at the floor, up to
 x^{0.497}) — the rows are unsatisfiable at the needed level. SOUND UNDERNEATH: for e > X
@@ -7169,7 +7169,7 @@ still-UNPACKAGED analytic corpus, and one NEW coupling obligation surfaced. STAT
   non-cancelling medium boxes vs. which vanish or belong to another band), NOT a defect in Part 1
   (F0 is orthogonal — hNfloor stays a named hypothesis). Flagged so it is not glossed at assembly.
 • F2 (hBVblocksW_at_op + hA3): the wiring `hBVblocksW_discharge' (PDiag:682, already pieceN) →
-  mainA3_of_block_remainders_W (SwitchW:340) → hA3` is verified-wireable, but its leaves (hSum
+  mainA3_of_block_remainders_W (SwitchW:366) → hA3` is verified-wireable, but its leaves (hSum
   aggregation over pieces × ≤3 boxes × the F1 rows; hCE; hdiag; hNum via `hNum_close_of_tower` under
   `hK_tower` at x₀(K)) are un-built and depend on F1.
 • F3 (chen_headline): A1/A2 slots ARE packaged (`a12_hA1`/`a12_hA2`, HeadlineW2:1725/1856); the
@@ -7402,7 +7402,7 @@ STILL-UNPACKAGED analytic rows, each a fresh operating-point estimate (NOT wirin
   (`Fchain_switch_le ∘ opf_tower` :486 Icc(1.49,1.51)) READY; but **hWy** (`W_ratio_upper`,
   WRatioSharp:315 LANDED but needs at-op `hdvd opP∣opPs`/`hwin` window-primeFactors identity/
   `hz38`/real endpoints + the UNNAMED `rfl` bridge `W(twinA1SieveW)=W(twinA1Sieve)` — no named
-  `twinA1SieveW_W_eq`, cf. `switchSieveW_W_eq` SwitchW:179), **hcount** (`log x·tripleSum/φ(Q)
+  `twinA1SieveW_W_eq`, cf. `switchSieveW_W_eq` SwitchW:205), **hcount** (`log x·tripleSum/φ(Q)
   ≤ (cbar+ecount)·totalMass` — only the SYMBOLIC typecheck `example` CountW:763 exists, and it
   is about `tripleSumW` not `tripleSum/φ(Q)`; must compose `tripleSum_le_cbar_final` +
   `lambda_mass_lower` MertensPNT:310), **hcertA2** (`A2grid_sharp_le` A2Weighted:473, 6 hyps to
@@ -11884,7 +11884,7 @@ predicate — the pin-free collision δ ≲ Q_j^{−1/2} (𝒯-side) vs
 the full hU chain remain VALID (hU is non-vacuous at the live pin) — the
 wall is about the 𝒯-side only.
 
-**Docstring correction (informational)**: USetThin.lean:634's "the ratified
+**Docstring correction (informational)**: USetThin.lean:630's "the ratified
 pin δ := P_J^{−α_J}" is NOT simultaneously satisfiable with hlogV at
 super-polylog P_J; the LIVE pin under the landed statements is
 δ ≈ K₀(log X)^{−100}. hU non-vacuous either way. No future wave should
@@ -14844,7 +14844,7 @@ with a quasi-power decay. That pairing IS the corpus's landed q=1
 𝒰-leg (USetThinTL's 𝒯_L kill: large_value_count at V = (log X)^100
 beaten by the VK-width decay, θ < 1/8). **And the corpus's 𝒯_S
 branch ROUTES AROUND Lemma 6.4 ENTIRELY** (the |𝒯|·√T razor via the
-sup-norm Halász + thinness — USetThinTS:354/388; no
+sup-norm Halász + thinness — USetThinTS:352/386; no
 Halász–Montgomery anywhere). Route (iii) REJECTED as dominated: its
 irreducible core (7.9 Case 4 at our conductor) IS the χ-VK region —
 KMT's own words certify §8 exists only because THEIR conductors are
@@ -19601,7 +19601,7 @@ hypothesis this wave refutes).
 
 **⟦THE TRIM-PATCH FINDING — a mis-bucketed council line, propagated twice⟧** There is **no flagship trim patch and there never was one**. "The trim patch" is `docs/exploration/jacobian-trim-preview.patch` (101 ln, created `387f330` 7/31 08:00, refreshed `55e825c` 7/31 08:35) — a **mathlib-PR docstring trim** targeting `Counterexamples/JacobianConjecture.lean`, in the Jacobian lane, with zero relation to `papers/flagship/main.tex`. The ledger banked it correctly (`flags.md:18247`: "the PR module-fix pushed + the trim PREPARED-unpushed"); `council-0801.md:69` then filed it under the **Fulcrum** bullet ("trim patch standing by"), and from there it reached this executor's brief as a flagship item. Nothing was owed on length either: **Pi states no page limit and no word limit** (PREP-PI, `pi-prep-0731.md:204-207`); the paper is 10 pages.
 
-**WHAT WAS APPLIED INSTEAD (the dossier's own G16, the only trim-genre item; 793 → 820 ln).** (1) **THE ONE CUT** — `\bibitem{companion}` ("J. Hickey, *The Salt method*, in preparation") deleted: Pi's IFC bars not-yet-submitted work from the reference list, and it was **uncited** (mechanically confirmed); the prose mention at `main.tex:703-705` survives, which is exactly Pi's prescribed handling. (2) **REORDER** — the 9 remaining `\bibitem`s alphabetized by first-author surname per Pi (keys unchanged, every `\cite` still resolves, `amsart` renumbers). (3) **THE C⋆ NOTE** — a new `remark` in §4 after the existing one, FULCRUM-ROAD's flagged item (`fleet-meeting-0803-brief.md:50`): only the `2/c₀ = 253696` arm of `C⋆ = max(C⁽¹⁾, 2/c₀)` is a numeral; `C⁽¹⁾ = exp exp{2A/(𝔖C(α))}` is a double exponential (inner exponent 10 already gives ≈ e^22026 against 2.5×10⁵), so the paper's numeral is the **reality floor** and not any engine's operating threshold — and **no statement depends on the gap**, because `fulcrum_dichotomy` (`Dichotomy.lean:102`) is stated `{C : ℝ} (hC : 0 < C)` and consumes `hEngine` at that same `C`. Every clause grounded before writing (`fulcrum_audit_source.md:33-36`, `pass3_t4.md:79-92`, `CZeroNumeral.lean:408/:425`, `Basic.lean:93`). Voice laws held (no "honest"/"load-bearing"; both strong adjectives paid by numbers).
+**WHAT WAS APPLIED INSTEAD (the dossier's own G16, the only trim-genre item; 793 → 820 ln).** (1) **THE ONE CUT** — `\bibitem{companion}` ("J. Hickey, *The Salt method*, in preparation") deleted: Pi's IFC bars not-yet-submitted work from the reference list, and it was **uncited** (mechanically confirmed); the prose mention at `main.tex:703-705` survives, which is exactly Pi's prescribed handling. (2) **REORDER** — the 9 remaining `\bibitem`s alphabetized by first-author surname per Pi (keys unchanged, every `\cite` still resolves, `amsart` renumbers). (3) **THE C⋆ NOTE** — a new `remark` in §4 after the existing one, FULCRUM-ROAD's flagged item (`fleet-meeting-0803-brief.md:50`): only the `2/c₀ = 253696` arm of `C⋆ = max(C⁽¹⁾, 2/c₀)` is a numeral; `C⁽¹⁾ = exp exp{2A/(𝔖C(α))}` is a double exponential (inner exponent 10 already gives ≈ e^22026 against 2.5×10⁵), so the paper's numeral is the **reality floor** and not any engine's operating threshold — and **no statement depends on the gap**, because `fulcrum_dichotomy` (`Dichotomy.lean:102`) is stated `{C : ℝ} (hC : 0 < C)` and consumes `hEngine` at that same `C`. Every clause grounded before writing (`fulcrum_audit_source.md:33-36`, `pass3_t4.md:79-92`, `CZeroNumeral.lean:411/:425`, `Basic.lean:93`). Voice laws held (no "honest"/"load-bearing"; both strong adjectives paid by numbers).
 
 **VERIFICATION (no LaTeX toolchain on this machine — by script and inspection).** LaTeX balance **CLEAN**: environments nest and close; 404 unescaped `$` = 202 pairs with no pair spanning a blank line; `\[`/`\]` 14/14; brace depth returns to 0; **no dangling `\ref`, no dangling `\cite`**. `\leanname` inventory: **32/32 declaration names verified in the tree** by declaration-keyword regex — not a spot check (e.g. `dh_repulsion_ordered` `SW/TBalR8.lean:2523`; `fulcrum_dichotomy` `Fulcrum/Dichotomy.lean:102`; `hb_l2c_master_unconditional` `HB/L2cMasterUncond.lean:85`; `sufficient_true_not_parityInv` `Parity/Z.lean:681`; `log_chowla_two_door_only` `Entropy/Chowla/SpineFinal.lean:981`). The paper's two count-claims re-verified exact (59 sign-function decls; 10 census decls). **The λ(n)λ(n+1) shift-display fix CONFIRMED AT THE BYTES** — `main.tex:635` against `logChowla2Fails` (`ChowlaFailure.lean:59`, shift +1); the von Mangoldt twin sums at `:398-399` correctly stay `n+2`. `\thanks` (`:32-34`) and Acknowledgments (`:745-758`) **intact and byte-unchanged**, all five components present.
 

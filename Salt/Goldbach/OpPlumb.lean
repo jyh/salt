@@ -264,9 +264,7 @@ theorem gold_box_hprice_op_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kc : �
   intro N hN ε₀ j k' k i K Q a D Ps Dlev QR ka hQPs hQNa hPsN hQ1 hi hDge hDwide hDsetD
   have hd1 : ∀ d ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
       (fun d => Q * d), 1 ≤ d := by
-    intro d hd
-    rw [Finset.mem_image] at hd
-    obtain ⟨d', hd', rfl⟩ := hd
+    refine Finset.forall_mem_image.2 fun d' hd' => ?_
     rw [Finset.mem_filter] at hd'
     have hpos : 0 < d' := Nat.pos_of_mem_divisors hd'.1
     have : 0 < Q * d' := Nat.mul_pos (by omega) hpos

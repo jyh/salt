@@ -592,7 +592,7 @@ that is not there.
 dense single line of small type and my page rendering is not sharp enough to certify each factor's
 subscript (`p ∣ q, p∤α` / `p ∣ α` / `p∤α, χ(p)=1` / `p∤α, χ(p)=−1`) and exponent individually. The
 **structure** matches the notes — four products, in that order, with those factor shapes — and
-nothing above depends on `κ`'s internals. But `Salt/HB/Lemma7Kappa.lean:370`'s `hbKappa` **does**,
+nothing above depends on `κ`'s internals. But `Salt/HB/Lemma7Kappa.lean:368`'s `hbKappa` **does**,
 and W4.5 built it from Lemma 5. **Recommend one careful re-read of p.199's `κ` against `hbKappa`
 by whoever owns `Lemma7Kappa`** — it is a five-minute check against a definition already in the
 kernel, and it is the one place in this sweep where I am reporting "structure matches" rather than
@@ -609,7 +609,7 @@ necessarily in `α`" on the `C_i`; the over-stated log power in (7.8)). Two bloc
 I cannot certify `κ` against the print, but I can check our **two internal records against each
 other**, and I can attack the definition's branch structure. Both done:
 
-**(i) `hbKappa` and the notes agree exactly.** `Salt/HB/Lemma7Kappa.lean:370` *(corrected — I
+**(i) `hbKappa` and the notes agree exactly.** `Salt/HB/Lemma7Kappa.lean:368` *(corrected — I
 first wrote `:346`, which is the docstring's κ display, not the `def`; the maestro caught it in
 D.3)* carries κ's
 four-product form in its docstring verbatim as `hb1983-notes.md:225-226` has it, and the Lean body
@@ -658,7 +658,7 @@ are now exhausted and documented.
 
 The maestro's own page-image read of the staged PDF (p.199 = PDF page 7) resolved the display
 at full resolution: every subscript and every exponent of κ's four products is individually
-legible. Against `hbKappa` (`Salt/HB/Lemma7Kappa.lean:370`):
+legible. Against `hbKappa` (`Salt/HB/Lemma7Kappa.lean:368`):
 
 1. `∏_{p|q, p∤α}(1−2/p)` — stacked subscript `p|q` over `p∤α`, exactly as rendered. **VERIFIED.**
 2. `∏_{p|α}(1−χ(p)/p)²` — square OUTSIDE the parenthesis. **VERIFIED.**
