@@ -169,6 +169,9 @@ theorem norm_sum_windowClass_le_of_norm_le_one {a : ℕ → ℂ} (ha : ∀ m, �
     rwa [Nat.card_Ioc, Nat.add_sub_cancel_left] at h
   exact_mod_cast hcard
 
+/-- `classSup a H n q r ≤ H` for a datum with `‖a m‖ ≤ 1`: each class sum over a sub-window of
+length `K ≤ H` has norm `≤ K` (`norm_sum_windowClass_le_of_norm_le_one`), and `classSup_le`
+takes the sup. Read twice in this file and by `HDoorClose` and `M4NonCoprime`. -/
 theorem classSup_le_of_norm_le_one {a : ℕ → ℂ} (ha : ∀ m, ‖a m‖ ≤ 1) (H n q r : ℕ) :
     classSup a H n q r ≤ (H : ℝ) :=
   classSup_le fun K hK =>
@@ -375,6 +378,8 @@ theorem le_doorChiSup {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {K
   Finset.le_sup' (f := fun K => ‖∑ m ∈ doorSievedWindow M K n, liouChi χ m‖)
     (Finset.mem_Icc.mpr ⟨Nat.zero_le K, hK⟩)
 
+/-- `0 ≤ doorChiSup χ M H n`: a norm is `≥ 0`, and `le_doorChiSup` at `K = 0` puts it below the
+sup. Read by `HDoorClose`, `M4ChiSummed` and `M4CoprimeSupply`; not read in this file. -/
 theorem doorChiSup_nonneg {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) :
     0 ≤ doorChiSup χ M H n :=
   le_trans (norm_nonneg _) (le_doorChiSup χ M H n (Nat.zero_le H))
@@ -1004,12 +1009,18 @@ def doorChiSup_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : �
   (Finset.Icc 0 H).sup' ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
     (fun Kw => ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖)
 
+/-- The lever twin of `le_doorChiSup`: for `Kw ≤ H`, the norm of `∑ liouChi χ m` over
+`doorSievedWindow_gk K M Kw n` is `≤ doorChiSup_gk K χ M H n`: `le_doorChiSupAZ` at
+`(Adoor M, s13GK K M)`. Read once in this file and by `M4Gauss`. -/
 theorem le_doorChiSup_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {Kw : ℕ}
     (hK : Kw ≤ H) :
     ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖ ≤ doorChiSup_gk K χ M H n :=
   Finset.le_sup' (f := fun Kw => ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖)
     (Finset.mem_Icc.mpr ⟨Nat.zero_le Kw, hK⟩)
 
+/-- The lever twin of `doorChiSup_nonneg`: `0 ≤ doorChiSup_gk K χ M H n`, from
+`le_doorChiSup_gk` at `Kw = 0`. Read by `M4ChiSummed` and `M4CoprimeSupply`; not read in this
+file. -/
 theorem doorChiSup_nonneg_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) :
     0 ≤ doorChiSup_gk K χ M H n :=
   le_trans (norm_nonneg _) (le_doorChiSup_gk K χ M H n (Nat.zero_le H))

@@ -284,8 +284,13 @@ def doorLadder (x H : ℕ) : ℕ → ℕ
   | 0 => x
   | i + 1 => (doorLadder x H i + H + 1) / 2
 
+/-- `doorLadder x H 0 = x` (`@[simp]`), by `rfl`: the ladder's base. Read twice in this file and
+by `M4BridgeCover`, `M4BridgeIntegral` and `MRTPortRowLam`. -/
 @[simp] theorem doorLadder_zero (x H : ℕ) : doorLadder x H 0 = x := rfl
 
+/-- `doorLadder x H (i + 1) = (doorLadder x H i + H + 1) / 2`, by `rfl`: the ladder's step, in
+`ℕ` division. Read five times in this file and by `DoorRoadCompose`, `M4BridgeIntegral`,
+`M4Collapse` and `M4SecondRoad`. -/
 theorem doorLadder_succ (x H i : ℕ) :
     doorLadder x H (i + 1) = (doorLadder x H i + H + 1) / 2 := rfl
 
