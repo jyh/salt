@@ -1,7 +1,7 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `350112ec` · source digest `ee24bdcdb3cdb5b4` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `a34894ce` · source digest `ede5bc4e8caf2ae7` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
@@ -334,7 +334,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.S15Sel''_L` | DISCHARGED | 6 | `Salt.MR.s15_sel''_L_witness_flat_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:3280) · `Salt.MR.s15_sel''_L_witness_flat` ✓audited GUARDED (Salt/MR/S15SelLinear.lean:280) · `Salt.MR.s15_sel''_L_witness_flat_b9` ✓audited GUARDED (Salt/MR/S15SelLinear.lean:740) · +6 |
 | `Salt.MR.SawtoothOdd` | DISCHARGED | 6 | `Salt.MR.sawtoothOdd` ✓audited (Salt/MR/Sawtooth.lean:842) |
 | `Salt.MR.SieveBlockGate` | DISCHARGED | 6 | `Salt.MR.s13_sieveBlockGate` ✓audited GUARDED (Salt/MR/S13FramesA.lean:145) · `Salt.MR.s13_sieveBlockGate_gk` GUARDED (Salt/MR/S13FramesA.lean:1141) · `Salt.MR.s13_sieveBlockGate_gen` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:77) · +2 |
-| `ProbabilityTheory.FiniteSupport` | DISCHARGED | 5 | `Salt.Entropy.Chowla.instFiniteSupport` (Salt/Entropy/Chowla/LogMeasure.lean:80) · `Salt.Entropy.Chowla.finiteSupport_logMeasureAff` ✓audited (Salt/Entropy/Chowla/StrideDecrement.lean:63) · `ProbabilityTheory.finiteSupport_zero` (Salt/Entropy/Measure.lean:130) · +2 |
+| `ProbabilityTheory.FiniteSupport` | DISCHARGED | 5 | `Salt.Entropy.Chowla.instFiniteSupport` (Salt/Entropy/Chowla/LogMeasure.lean:80) · `Salt.Entropy.Chowla.finiteSupport_logMeasureAff` ✓audited (Salt/Entropy/Chowla/StrideDecrement.lean:63) · `ProbabilityTheory.finiteSupport_zero` (Salt/Entropy/Measure.lean:145) · +2 |
 | `Salt.MR.GRowsZeroGate'''_L` | DISCHARGED | 5 | `Salt.MR.gRowsZeroGate'''_L_of_budget` ✓audited GUARDED (Salt/MR/ArithPageLinear.lean:945) |
 | `Salt.MR.JointIntegrableAtC` | DISCHARGED | 5 | `Salt.MR.jointIntegrableAtC_pin2_free` ✓audited GUARDED (Salt/MR/CaseASocket.lean:449) · `Salt.MR.jointIntegrableAtC_pin_free` ✓audited GUARDED (Salt/MR/GradeWindowC.lean:235) |
 | `Salt.MR.L1LowerEffective` | DISCHARGED | 5 | `Salt.MR.l1LowerEffective_goldenGate` ✓audited (Salt/MR/EvenChiDescent.lean:248) · `Salt.MR.L1LowerEffective_descend` ✓audited GUARDED (Salt/MR/LandauDescent.lean:197) |
@@ -357,7 +357,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.M4DoorGates_gk` | DISCHARGED | 4 | `Salt.MR.s13_doorGates_of_arm_gk` GUARDED (Salt/MR/S13FramesA.lean:1320) · `Salt.MR.s13_doorGates_of_arm'_gk` GUARDED (Salt/MR/S13FramesA.lean:1384) |
 | `Salt.TwinBar.LiouvilleTwinDisp` | DISCHARGED | 4 | `Salt.TwinBar.liouvilleTwinDisp_of_two_objects` ✓audited GUARDED (Salt/TwinBar/TwinParitySieve.lean:812) |
 | `WindowPNT` | DISCHARGED | 4 | `Salt.Maynard.windowPNT_holds` ✓audited (Salt/Maynard/GehWindowPnt.lean:271) |
-| `ProbabilityTheory.Kernel.AEFiniteKernelSupport` | DISCHARGED | 3 | `ProbabilityTheory.Kernel.aefiniteKernelSupport_zero` (Salt/Entropy/Mathlib/KernelDisintegration.lean:606) |
+| `ProbabilityTheory.Kernel.AEFiniteKernelSupport` | DISCHARGED | 3 | `ProbabilityTheory.Kernel.aefiniteKernelSupport_zero` (Salt/Entropy/Mathlib/KernelDisintegration.lean:714) |
 | `Salt.Entropy.Chowla.LogChowlaAffSupply` | DISCHARGED | 3 | `Salt.MR.logChowlaAffSupply_one_zero` ✓audited GUARDED (Salt/MR/AffineSupplyH.lean:37) |
 | `Salt.MR.ExitClose` | DISCHARGED | 3 | `Salt.MR.exitClose_twelve` ✓audited (Salt/MR/ExitClose.lean:742) |
 | `Salt.MR.FlatDoorAllGradesW` | DISCHARGED | 3 | `Salt.MR.flatDoorAllGradesW_holds` ✓audited (Salt/MR/FlatDoorAllGrades.lean:107) · `Salt.MR.flatDoorAllGradesW_of_uniform` ✓audited (Salt/MR/FlatDoorUniform.lean:1556) |
@@ -663,7 +663,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `BoundedGapsFromEH` | DISCHARGED | `Salt.Maynard.bounded_gaps_from_eh_complete` ✓audited (Salt/Maynard/Complete.lean:1505) · `Salt.Maynard.bounded_gaps_from_eh'` (Salt/Maynard/LevelConsume.lean:663) |
 | `BrunStatement` | DISCHARGED | `Salt.N6.N6_2` (Salt/Brun/N6.lean:231) |
 | `PpLevel` | DISCHARGED | `Salt.Maynard.ppLevel_holds` ✓audited (Salt/Maynard/PpAssembly.lean:928) |
-| `ProbabilityTheory.Kernel.FiniteKernelSupport` | DISCHARGED | `ProbabilityTheory.Kernel.finiteKernelSupport_zero` (Salt/Entropy/Mathlib/KernelDisintegration.lean:603) · `ProbabilityTheory.Kernel.finiteKernelSupport_of_finite_range` (Salt/Entropy/Mathlib/KernelDisintegration.lean:721) · `ProbabilityTheory.Kernel.FiniteKernelSupport.deterministic` (Salt/Entropy/Mathlib/KernelDisintegration.lean:728) |
+| `ProbabilityTheory.Kernel.FiniteKernelSupport` | DISCHARGED | `ProbabilityTheory.Kernel.finiteKernelSupport_zero` (Salt/Entropy/Mathlib/KernelDisintegration.lean:708) · `ProbabilityTheory.Kernel.finiteKernelSupport_of_finite_range` (Salt/Entropy/Mathlib/KernelDisintegration.lean:852) · `ProbabilityTheory.Kernel.FiniteKernelSupport.deterministic` (Salt/Entropy/Mathlib/KernelDisintegration.lean:859) |
 | `Salt.BV.PsiToPiCore'` | DISCHARGED | `Salt.BV.psiToPiCore'_holds` (Salt/BV/AbelCore.lean:448) |
 | `Salt.Chen.ProductInWindow` | DISCHARGED | `Salt.Chen.productInWindow_of_corners` ✓audited GUARDED (Salt/Chen/SwitchStrip.lean:247) |
 | `Salt.Chen.isViolPrefix` | DISCHARGED | `Salt.Chen.isViolPrefix_peel_iff` ✓audited GUARDED (Salt/Chen/Peeling.lean:223) · `Salt.Chen.isViolPrefix_prefixMap` (Salt/Chen/TnInduction.lean:357) |
