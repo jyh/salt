@@ -74,6 +74,8 @@ bridge.  Note it is `0` (not unimodular) at `p | q`; every stone in this file is
 noncomputable def chiTwist {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) : ℕ → ℂ :=
   fun n => χ (n : ZMod q) * costwist t n
 
+/-- `chiTwist χ t n = χ n * costwist t n` (`@[simp]`), by `rfl`, with `n` cast to `ZMod q`. Read
+once in this file and by `ChiFloorLow`. -/
 @[simp] theorem chiTwist_apply {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) (n : ℕ) :
     chiTwist χ t n = χ (n : ZMod q) * costwist t n := rfl
 

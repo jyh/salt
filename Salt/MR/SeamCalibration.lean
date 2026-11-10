@@ -110,9 +110,15 @@ def calQ (A G j : ℕ) : ℕ := 2 ^ (2 * calE A G j)
 /-- **The calibrated width ladder** `H_j := j²·H₁` (⟦V6⟧'s shape; MR p.24's table). -/
 noncomputable def calH (H1 : ℝ) (j : ℕ) : ℝ := (j : ℝ) ^ 2 * H1
 
+/-- `calE A G 1 = A`: the exponent ladder starts at the anchor (`G ^ 0 = 1`, `1! = 1`). Read
+four times in this file and by 30 files outside it (`ArithPageLinear`, `CapFreeArm`,
+`CapFreeArm3` the first three). -/
 lemma calE_one (A G : ℕ) : calE A G 1 = A := by
   simp [calE, Nat.factorial]
 
+/-- `calE A G` is monotone in `j` at `1 ≤ G`: both `G ^ (j - 1)` and `(j !) ^ 2` grow. Read
+three times in this file and by 11 files outside it (`CapFreeArm`, `CapFreeArm3`,
+`DoorLadderLinear` the first three). -/
 lemma calE_mono (A : ℕ) {G : ℕ} (hG : 1 ≤ G) : Monotone (calE A G) := by
   intro i j hij
   refine Nat.mul_le_mul (Nat.mul_le_mul (le_refl A) (Nat.pow_le_pow_right hG (by omega))) ?_
@@ -127,16 +133,23 @@ lemma calE_step (A G : ℕ) {j : ℕ} (hj : 2 ≤ j) :
   simp only [calE, h1, Nat.add_sub_cancel, Nat.factorial_succ]
   ring
 
+/-- `calQ A G` is monotone in `j` at `1 ≤ G`: a power of `2` with a monotone exponent
+(`calE_mono`). Read three times in this file; no consumer outside it. -/
 lemma calQ_mono (A : ℕ) {G : ℕ} (hG : 1 ≤ G) : Monotone (calQ A G) := by
   intro i j hij
   exact Nat.pow_le_pow_right (by norm_num) (by have := calE_mono A hG hij; omega)
 
+/-- `log (calP A G j) = calE A G j * log 2`: the logarithm of a power of `2` (`Real.log_pow`).
+Read seven times in this file and by `CofactorSupplier`, `S13FramesA`, `S13FramesLinear`,
+`SeamCalibrationK`, `SieveGlue` and `TypicalPrice`. -/
 lemma log_calP (A G j : ℕ) :
     Real.log ((calP A G j : ℕ) : ℝ) = (calE A G j : ℝ) * Real.log 2 := by
   rw [calP]
   push_cast
   rw [Real.log_pow]
 
+/-- `log (calQ A G j) = 2 * calE A G j * log 2`: the logarithm of a power of `2`
+(`Real.log_pow`). Read six times in this file and by `TypicalPrice`. -/
 lemma log_calQ (A G j : ℕ) :
     Real.log ((calQ A G j : ℕ) : ℝ) = 2 * (calE A G j : ℝ) * Real.log 2 := by
   rw [calQ]
