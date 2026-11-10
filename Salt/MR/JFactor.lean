@@ -96,6 +96,8 @@ while their p. 21 construction writes the closed `[P_j, Q_j]`; **the corpus's cl
 convention wins** (see the module docstring). -/
 def jBlock (P Q : ℕ) : Finset ℕ := (Finset.Icc P Q).filter Nat.Prime
 
+/-- `p ∈ jBlock P Q ↔ (P ≤ p ∧ p ≤ Q) ∧ p.Prime`: the filter unfolded. Read once in this file
+and by `Eq26Bridge` and `Sec9Glue`. -/
 lemma mem_jBlock {P Q p : ℕ} : p ∈ jBlock P Q ↔ (P ≤ p ∧ p ≤ Q) ∧ p.Prime := by
   rw [jBlock, Finset.mem_filter, Finset.mem_Icc]
 
@@ -277,6 +279,8 @@ lemma blockSum_one_eq_primeBlockPoly (f : ℕ → ℂ) (P Q : ℕ) (t : ℝ) :
     blockSum f (jBlock P Q) 1 t = primeBlockPoly f P Q t := by
   simp only [blockSum, jBlock, primeBlockPoly, Complex.ofReal_one]
 
+/-- `0 ≤ blockMass B σ`: a sum of real powers of naturals, each `≥ 0`. No consumer at `main`, in
+this file or outside it. -/
 lemma blockMass_nonneg (B : Finset ℕ) (σ : ℝ) : 0 ≤ blockMass B σ :=
   Finset.sum_nonneg (fun p _ => Real.rpow_nonneg (Nat.cast_nonneg p) _)
 
@@ -418,6 +422,8 @@ lemma norm_le_sqrt_mul_sqrt {E : ℂ} {W : ℝ} (h : ‖E‖ ≤ W) :
   calc ‖E‖ = Real.sqrt (‖E‖ * ‖E‖) := (Real.sqrt_mul_self (norm_nonneg E)).symm
     _ ≤ Real.sqrt (‖E‖ * W) := Real.sqrt_le_sqrt (mul_le_mul_of_nonneg_left h (norm_nonneg E))
 
+/-- `0 ≤ smoothMass y σ`: a product of factors `1 + p ^ (-σ)`, each `≥ 0`. No consumer at
+`main`, in this file or outside it. -/
 lemma smoothMass_nonneg (y : ℕ) (σ : ℝ) : 0 ≤ smoothMass y σ := by
   refine Finset.prod_nonneg (fun p _ => ?_)
   have : (0 : ℝ) ≤ (p : ℝ) ^ (-σ) := Real.rpow_nonneg (Nat.cast_nonneg p) _

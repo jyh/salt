@@ -103,6 +103,8 @@ open Complex DirichletCharacter Salt.SW
 (`X ≥ e`, `|t| ≤ 1`). -/
 private def bandBox : Set ℂ := {z : ℂ | (1 ≤ z.re ∧ z.re ≤ 2) ∧ |z.im| ≤ 1}
 
+/-- `bandBox` is compact: closed (an intersection of three closed half-conditions on `re` and
+`im`) and inside the closed ball of radius `3`. Private; read twice in this file. -/
 private lemma bandBox_isCompact : IsCompact bandBox := by
   have heq : bandBox = ({z : ℂ | 1 ≤ z.re} ∩ {z : ℂ | z.re ≤ 2}) ∩ {z : ℂ | |z.im| ≤ 1} := by
     ext z
@@ -123,18 +125,25 @@ private lemma bandBox_isCompact : IsCompact bandBox := by
     linarith
   exact (isCompact_closedBall (0 : ℂ) 3).of_isClosed_subset hclosed hsub
 
+/-- `bandBox` is nonempty: it holds `1`. Private; read twice in this file. -/
 private lemma bandBox_nonempty : bandBox.Nonempty := by
   refine ⟨(1 : ℂ), ⟨⟨?_, ?_⟩, ?_⟩⟩
   · rw [Complex.one_re]
   · rw [Complex.one_re]; norm_num
   · rw [Complex.one_im, abs_zero]; norm_num
 
+/-- The real part of the bridge point `(1 + d) - t * I` is `1 + d` (`simp`). Private; read four
+times in this file. -/
 private lemma bandBox_re {d t : ℝ} :
     (((1 + d : ℝ) : ℂ) - (t : ℝ) * Complex.I).re = 1 + d := by simp
 
+/-- The imaginary part of the bridge point `(1 + d) - t * I` is `-t` (`simp`). Private; read
+twice in this file. -/
 private lemma bandBox_im {d t : ℝ} :
     (((1 + d : ℝ) : ℂ) - (t : ℝ) * Complex.I).im = -t := by simp
 
+/-- The bridge point `(1 + d) - t * I` lies in `bandBox` for `0 ≤ d ≤ 1` and `|t| ≤ 1`
+(`bandBox_re`, `bandBox_im`). Private; read once in this file. -/
 private lemma bandBox_mem {d t : ℝ} (hd0 : 0 ≤ d) (hd1 : d ≤ 1) (ht : |t| ≤ 1) :
     ((1 + d : ℝ) : ℂ) - (t : ℝ) * Complex.I ∈ bandBox := by
   refine ⟨⟨?_, ?_⟩, ?_⟩
@@ -142,6 +151,8 @@ private lemma bandBox_mem {d t : ℝ} (hd0 : 0 ≤ d) (hd1 : d ≤ 1) (ht : |t| 
   · rw [bandBox_re]; linarith
   · rw [bandBox_im, abs_neg]; exact ht
 
+/-- The conjugate point `(1 + d) + τ * I` lies in `bandBox` for `0 ≤ d ≤ 1` and `|τ| ≤ 1`.
+Private; read once in this file. -/
 private lemma bandBox_mem_add {d τ : ℝ} (hd0 : 0 ≤ d) (hd1 : d ≤ 1) (hτ : |τ| ≤ 1) :
     ((1 + d : ℝ) : ℂ) + (τ : ℝ) * Complex.I ∈ bandBox := by
   have hre : (((1 + d : ℝ) : ℂ) + (τ : ℝ) * Complex.I).re = 1 + d := by simp
