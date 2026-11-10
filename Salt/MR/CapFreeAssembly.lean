@@ -425,6 +425,9 @@ takes a `Bfun : ℕ → ℝ` parameter slot, and this is the inhabitant for the 
 construction (it inherits `siegelBandB`'s EVT minimum). -/
 def cffK (Q : ℕ) : ℝ := Classical.choose (capFreeFloor3_all_chi Q)
 
+/-- `0 ≤ cffK Q`: the first conjunct of the `Classical.choose_spec` of
+`capFreeFloor3_all_chi Q`, the theorem `cffK` is chosen from. No consumer at `main`, in this
+file or outside it. -/
 theorem cffK_nonneg (Q : ℕ) : 0 ≤ cffK Q :=
   (Classical.choose_spec (capFreeFloor3_all_chi Q)).1
 

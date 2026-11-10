@@ -96,6 +96,12 @@ The atoms are, at the call site,
 `lm = log M`, `lw = log W`, `l2w = log 2W`, `lww = log W²`, `l2ww = log 2W²`,
 `lq = log q`, `kk = K`, `E = 1 + ε⁻²`. -/
 
+/-- **The collection lemma** (§1): the whole of `exitBd` over plain reals, with every logarithm,
+root and parameter an atom. Under the scale hypotheses (`8 ≤ L`, `m ≤ n ≤ 3 * m`, `w ^ 4 ≤ n`,
+`L ^ 12 ≤ Q`, `Q * L ^ 12 ≤ 4 * E * n`, each log atom at most a multiple of `L`) the collected
+numerator over `m * lm` is at most `12000 * L ^ 2 / √w + 60000 * E / L ^ 4`. Seven pieces
+bounded one by one, then one division by `n * L / 12 ≤ m * lm`. Read once in this file; no
+consumer outside it. -/
 theorem exit_collect {n m w hi Q L ln lm lw l2w lww l2ww lq kk E : ℝ}
     (hE : 1 ≤ E) (hL : 8 ≤ L)
     (hm : 2 ≤ m) (hw : 1 ≤ w) (hnm : n ≤ 3 * m) (hmn : m ≤ n)

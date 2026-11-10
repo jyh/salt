@@ -1201,6 +1201,9 @@ The proofs are the landed ones verbatim: `CapFreeArm.seam_row_number_capfree` /
 `seam_row_number_nocap` are PARAMETRIC in `(A, G)`, so the lever is passed straight through
 and no estimate is re-run.  `thm_a2'_gk`'s conclusion is BYTE-IDENTICAL to `thm_a2'`'s. -/
 
+/-- `0 ≤ a2RowsSum_gk K M Xd` at `1 ≤ M` and `1 ≤ Xd`: each summand over `j` is a sum of three
+terms `≥ 0` (`calH (H1door M) j > 0`, the lever's `calP` is `≥ 1`, `logb 2 (2 * Xd) ≥ 0`). Read
+four times in this file; no consumer outside it. -/
 lemma a2RowsSum_nonneg_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
     0 ≤ a2RowsSum_gk K M Xd := by
   have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
@@ -1232,6 +1235,11 @@ lemma a2RowsSum_nonneg_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd)
   linarith
 
 set_option maxHeartbeats 1000000 in
+/-- The G-lever twin of `a2Rows_of_capfree`, at `K ≤ 170000000`: the cap-free weighted seam-row
+family with the door read at `s13GK K M` — for every `T` with `X / h ≤ T`, `2 * T ≤ X` passing
+the gates, `X / h / T` times the integral of `‖spoly N a t‖ ^ 2` over `seamAnn X (2 * T)` is at
+most `a2Mrow_gk K Cs C M Xd X ε`. The landed proof with the lever passed through, closed by the
+four weighing lemmas. Read once in this file (by `thm_a2'_gk`); no consumer outside it. -/
 theorem a2Rows_of_capfree_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -1352,6 +1360,10 @@ theorem a2Rows_of_capfree_gk (K : ℕ) (hK : K ≤ 170000000) :
   · exact a2_term4_weigh hZ0 hg32
 
 set_option maxHeartbeats 1000000 in
+/-- The G-lever twin of `a2Rows_of_cap`, at `K ≤ 170000000`: the socketed seam-row family of the
+`¬ CapFreeFloor` branch with the door read at `s13GK K M`, conditional in statement on the same
+named inputs, with the bound `a2Mrow_gk K Cs Ccc M Xd X ε`. The landed proof with the lever
+passed through. Read once in this file (by `thm_a2'_gk`); no consumer outside it. -/
 theorem a2Rows_of_cap_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C Ccol : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -1484,6 +1496,11 @@ theorem a2Rows_of_cap_gk (K : ℕ) (hK : K ≤ 170000000) :
   · exact a2_term4_weigh hZ0 hg32
 
 set_option maxHeartbeats 1000000 in
+/-- The G-lever twin of `thm_a2'`, at `K ≤ 170000000`: the `by_cases` glue on
+`CapFreeFloor g X`, each branch feeding its row family (`a2Rows_of_capfree_gk`,
+`a2Rows_of_cap_gk`) to `ThmA2.thm_a2'_of_rows_gk`. The conclusion — the five-summand bound on
+the short-interval mean square of `a` over `[X, 2X]` — is that of `thm_a2'` byte for byte. No
+consumer at `main`, in this file or outside it. -/
 theorem thm_a2'_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq₁ cq₁ T₀₁ X₀₁ Cs₁ C₁ Cq₂ cq₂ T₀₂ X₀₂ Cs₂ C₂ Ccol : ℝ,
       0 < Cq₁ ∧ 0 < cq₁ ∧ 3 ≤ T₀₁ ∧ 0 < X₀₁ ∧ 0 < Cs₁ ∧ 0 < C₁ ∧
@@ -1601,6 +1618,10 @@ theorem thm_a2'_gk (K : ℕ) (hK : K ≤ 170000000) :
       hT0band hgP1₂ hgRows₂ hεwin hL4096
 
 set_option maxHeartbeats 1000000 in
+/-- The G-lever twin of `a2Rows_of_capfree3`, at `K ≤ 170000000`: the cap-free row family at the
+`3X` mint (frame `A2Frame3`, the carried `CofactorSocket` and its grade) with the door read at
+`s13GK K M`; same conclusion as `a2Rows_of_capfree_gk`. The landed proof with the lever passed
+through. Read by `M4MeanSq` and `M4MeanSqPool`; not read in this file. -/
 theorem a2Rows_of_capfree3_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -1712,6 +1733,10 @@ theorem a2Rows_of_capfree3_gk (K : ℕ) (hK : K ≤ 170000000) :
   · exact a2_term4_weigh hZ0 hg32
 
 set_option maxHeartbeats 1000000 in
+/-- The G-lever twin of `a2Rows_of_capfree3_end`, at `K ≤ 170000000`: the strict/fused form of
+the `3X`-mint row family (the pair-law binder carries the strict antecedent `Xd < p * m`) with
+the door read at `s13GK K M`; same conclusion as `a2Rows_of_capfree3_gk`. No consumer at `main`,
+in this file or outside it. -/
 theorem a2Rows_of_capfree3_end_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →

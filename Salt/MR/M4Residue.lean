@@ -90,9 +90,12 @@ datum of MR §4 at the campaign's instantiation `g := λ`.
 ⚠ Not to be confused with `Salt.MR.lam` — see the module docstring. -/
 noncomputable def liouvilleC : ℕ → ℂ := fun n => ((ArithmeticFunction.liouville n : ℤ) : ℂ)
 
+/-- `liouvilleC 0 = 0` (`@[simp]`). Not read by name at `main`, in this file or outside it. -/
 @[simp] lemma liouvilleC_zero : liouvilleC 0 = 0 := by
   simp [liouvilleC]
 
+/-- `liouvilleC 1 = 1` (`@[simp]`), from `ArithmeticFunction.liouville_apply_one`. Read by
+`MRTPort`; not read by name in this file. -/
 @[simp] lemma liouvilleC_one : liouvilleC 1 = 1 := by
   simp [liouvilleC, ArithmeticFunction.liouville_apply_one]
 
