@@ -265,7 +265,7 @@ theorem bigXiH_bounded (h : ℕ) (hh : 0 < h) (eps : ℚ) (heps : 0 < eps)
 /-! ## D3 — the `Ξ`-restricted MRT door at shift `h` -/
 
 /-- **The `Ξ`-restricted MRT uniformity door at shift `h`** — `MRTUniformityXi`
-(`MRTDoor.lean:109-111`) with the binder ranging over `bigXiH h R.eps H`.
+(`MRTDoor.lean`) with the binder ranging over `bigXiH h R.eps H`.
 
 THE `∀ ξ ∈ Ξ_H(h)` STAYS OUTSIDE THE INTEGRAL, and **the frequency `α` is
 UNTWISTED**.  Both are load-bearing and neither is policed by the kernel:
@@ -391,7 +391,7 @@ theorem bigXiH_eq_twistFilter (h : ℕ) (eps : ℚ) (H : ℕ) [NeZero H] :
 
 /-- **The circle-method estimate at shift `h`, over the fork's own set** — the
 `bigXiH`-facing restatement of `circle_method_estimate_h_core` (`CircleMethod.lean`), the
-`h`-family twin of `circle_method_estimate` (`CircleMethod.lean:574-585`).
+`h`-family twin of `circle_method_estimate` (`CircleMethod.lean:652-663`).
 
 Every byte of the conclusion matches the landed estimate's except two: the correlation's
 offset is `p·h` rather than `p`, and the Fourier mass is summed over `bigXiH h eps H`

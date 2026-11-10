@@ -75,8 +75,7 @@ theorem zeta_strip_growth_explicit {σ t : ℝ} (ht : Real.exp (Real.exp 100) �
   have hexp101 : (101 : ℝ) ≤ Real.exp 100 := by linarith [Real.add_one_le_exp (100 : ℝ)]
   have hlogt1 : (1 : ℝ) ≤ Real.log t := by linarith
   have hℓ1 : (1 : ℝ) ≤ Real.log (Real.log t) := by
-    have h100 : (100 : ℝ) ≤ Real.log (Real.log t) := by
-      rw [← Real.log_exp 100]; exact Real.log_le_log (Real.exp_pos _) hL100
+    have h100 : (100 : ℝ) ≤ Real.log (Real.log t) := le_log_of_exp_le hL100
     linarith
   have ht100 : (100 : ℝ) ≤ t := by
     have h1 : (100 : ℝ) ≤ Real.exp (Real.exp 100) := by

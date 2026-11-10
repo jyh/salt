@@ -12,7 +12,7 @@ import Mathlib
 **S-3 (salt QUEUE P1; council 2026-09-14 afternoon ⑩) — FROZEN STATEMENT-ONLY at `74afa591`, PROVED
 in the §6 wave the same day: 6 obligations, 6 landed, every statement byte-identical to the freeze.
 HONEST LABEL, FIRST LINE: NO NEW MATHEMATICS.**  S-3 restates S-1's crown band
-`mrtUniformityXiL2AffW_holds_flat_stride_g12b_band` (`TierSBand.lean:1522`) with the margin `ε`,
+`mrtUniformityXiL2AffW_holds_flat_stride_g12b_band` (`TierSBand.lean:1463`) with the margin `ε`,
 the design constant `A` AND the band `(x₀, ω₀, Hhi₀)` bound ABOVE the class quantifier `∀ b < a`.
 It exports a uniformity that is already TRUE of every landed witness and STATED by no landed
 theorem.  At fixed `z` Tier S is a SECOND PROOF of a terminal that already lands; E2 is
@@ -186,7 +186,7 @@ theorem nearRatTight_of_bigXiAffU {B₅ : ℝ} (harc : BigXiArcTight B₅)
 /-- **⟦S-3 U4⟧ (class A) — THE SET DOOR IS MONOTONE UNDER A POINTWISE-SUBSET FAMILY.**  Each
 summand of `MRTUniformityXiL2Set` (`StridePair.lean:365`) is `(1/H²)·∫‖…‖²`, non-negative
 (`integral_nonneg`, `sq_nonneg`, `norm_nonneg`), so `Finset.sum_le_sum_of_subset_of_nonneg` (the
-corpus's own move at `:521`) bounds the sub-family's sum by the family's, at every `H`. -/
+corpus's own move at `:523`) bounds the sub-family's sum by the family's, at every `H`. -/
 theorem mrtUniformityXiL2Set_of_subset (Xi Xi' : XiFamily)
     (hsub : ∀ (eps : ℚ) (H : ℕ) [NeZero H], Xi eps H ⊆ Xi' eps H) (R : ChowlaRegime) (ρ : ℝ)
     (hd : MRTUniformityXiL2Set Xi' R ρ) : MRTUniformityXiL2Set Xi R ρ := by
@@ -198,8 +198,8 @@ theorem mrtUniformityXiL2Set_of_subset (Xi Xi' : XiFamily)
 /-! ## §1 — the C2 band at the union (the route's fifth owed name) -/
 
 /-- **⟦S-3 U5⟧ (class A) — C2 AT THE UNION.**  `mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band`
-(`TierSBand.lean:1481`) with `bigXiAffD a b h ↦ bigXiAffU a h`: C1's band
-(`mrtUniformityXiL2Set_holds_flat_floor_g12b_band`, `:1524`) at shift `a·h`, `harcXi` from U3 at
+(`TierSBand.lean:1422`) with `bigXiAffD a b h ↦ bigXiAffU a h`: C1's band
+(`mrtUniformityXiL2Set_holds_flat_floor_g12b_band`, `:1368`) at shift `a·h`, `harcXi` from U3 at
 `bigXiArcTight_twelve`, `hcount` from U2.  BODY: C2's, with the two per-class suppliers swapped for
 U2/U3.  No class quantifier anywhere — this is the statement that has `b` nowhere in it. -/
 theorem mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band_U (a h : ℕ) (ha : 0 < a) (hh : 0 < h)
@@ -231,7 +231,7 @@ theorem mrtUniformityXiL2AffSet_holds_flat_floor_g12b_band_U (a h : ℕ) (ha : 0
 /-! ## §2 — THE STATEMENT: the crown band with `∀ b < a` moved inward -/
 
 /-- **⟦S-3⟧ THE CLASS-UNIFORM CROWN BAND** — `mrtUniformityXiL2AffW_holds_flat_stride_g12b_band`
-(`TierSBand.lean:1522`) with `∃ ε A` and `∃ x₀ ω₀ Hhi₀` (and the three exported ceilings on
+(`TierSBand.lean:1463`) with `∃ ε A` and `∃ x₀ ω₀ Hhi₀` (and the three exported ceilings on
 them) placed ABOVE `∀ b, b < a →`; below that line the statement is the landed one, byte for byte
 (`Ra.b = b` included).  What it says that no landed statement says: ONE margin, ONE design constant
 and ONE band `[x₀, exp(31·Hhi₀/ε)/a]` at width `ω₀` serve EVERY class `b < a` — which is what D12
@@ -240,7 +240,7 @@ scale `N` for all `r ∈ admClasses P`).
 
 Route (`TierSBandU` header; not fired): C2 at the union (U5) in place of C2 at the class, the
 crown band's body verbatim to the band witnesses `⟨ε, A, …, Rd.x / a, Rd.ω, Rd.Hhi, …⟩`, then
-`intro b hba` and the per-class transport `mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1139`)
+`intro b hba` and the per-class transport `mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1137`)
 with its `hK` from the union's count gate through U1 (`Finset.card_le_card`) and its `hdoor` from
 the union's door through U4 ∘ U1.  Everything else in the crown band's proof is `b`-free or
 `b`-local (`hb0`, `hbRe`).  The witnesses `ε, A, x₀, ω₀, Hhi₀` are the crown band's own, read at

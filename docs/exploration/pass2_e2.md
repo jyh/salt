@@ -30,7 +30,7 @@ finite-check effective in principle (MEMORY — classical: finitely many χ, eac
 L(1,χ) ≠ 0 numerically verifiable) but the landed Lean proof extracts no number.
 
 **Form C (full-region tiling, meta-level).** ¬F's ball covers exactly the carve-out
-of the landed effective ZFR: `zero_free_region_all` (Salt/SW/ZeroFreeReal.lean:605)
+of the landed effective ZFR: `zero_free_region_all` (Salt/SW/ZeroFreeReal.lean:604)
 handles (χ² ≠ 1 ∨ Im ρ ≠ 0); ¬F handles (χ² = 1 ∧ Im ρ = 0) beyond Q₀. Together:
 classical-shape effective zero-free region near s = 1 for ALL primitive χ mod
 q > Q₀. This tiling is the corpus's own structure (`fulcrum_zero_real` consumes the
@@ -55,7 +55,7 @@ changes NO truth value anywhere in the chain. Kernel-visible gain of ¬F here: Z
 (`SiegelWalfisz` is a bare-∃K Prop and is already a theorem).
 
 **The single ineffectivity point, located.** The landed discharge routes through
-`siegel_theorem` (Salt/SW/SiegelClose.lean:841-844 — ineffective C(ε), the
+`siegel_theorem` (Salt/SW/SiegelClose.lean:848-851 — ineffective C(ε), the
 Goldfeld-dichotomy exceptional branch fixes an unlocatable (χ₁, β₁)), consumed at
 exactly one call site: `psi1AP_main_bound`, Salt/SW/Fold.lean:167 (ε = 1/(4C));
 Cₛ enters `c5 := min (min cc ct) Cₛ` (Fold.lean:170) and flows into x₀ and K.
@@ -82,8 +82,8 @@ landed: infinitely many p prime with p+2 prime or a product of two primes
 
 **The keystones' exact level/quality demand (grounded call sites).**
 - `psi_BV_of_siegelWalfisz' Salt.SW.siegelWalfisz_holds 11` — polylog saving A = 11
-  at haircut level √x/(log x)^B: Salt/Chen/BVSum.lean:328, HeadlineW2.lean:819 and
-  :893, TwinA1W.lean:637, TwinA2W.lean:721.
+  at haircut level √x/(log x)^B: Salt/Chen/BVSum.lean:328, HeadlineW2.lean:892 and
+  :893, TwinA1W.lean:637, TwinA2W.lean:731.
 - `siegelWalfisz_psiTot ... (A = 1)` — PNT-grade: Salt/Chen/TripleCount.lean:67.
 - `Salt.SW.siegelWalfisz_holds A C` generic: Salt/Chen/BetaSW.lean:217.
 - Windowed bilinear BV terminals: `general_BV_cutoff_sqrtD`
@@ -107,7 +107,7 @@ engine's fuel).
 
 ## §3 — twin_almost_prime: what would ¬F IMPROVE? Nothing.
 
-`twin_almost_prime` (Salt/BrunLower/TwinInstance.lean:771): {n | Ω(n(n+2)) ≤ 20}
+`twin_almost_prime` (Salt/BrunLower/TwinInstance.lean:795): {n | Ω(n(n+2)) ≤ 20}
 infinite, unconditional. Input profile (TwinInstance.lean:20-40): both-sided Brun
 sieve `brun_lower` at (b,λ,A) = (2, 1/4, 2) + windowed Mertens (PM1/PM2). It
 consumes NO character, NO L-function, NO AP-distribution input — Brun's remainder is
@@ -168,8 +168,8 @@ even primitivity), support windows, and parametric slots. Under ¬F every landed
 theorem still runs, for every real χ, including all q > Q₀.
 
 **What the unconditional half delivers against ¬F-fed inputs.**
-`S1_le_S2` (Salt/HB/Transfer.lean:189-193): S1(A) = Σ_{n∈A} Λ(n)Λ(n+2) ≤
-S2(χ,A) = Σ Λ̃χ(n)Λ̃χ(n+2) (Transfer.lean:176-180) for EVERY quadratic χ — an
+`S1_le_S2` (Salt/HB/Transfer.lean:197-200): S1(A) = Σ_{n∈A} Λ(n)Λ(n+2) ≤
+S2(χ,A) = Σ Λ̃χ(n)Λ̃χ(n+2) (Salt/HB/Transfer.lean:184-188) for EVERY quadratic χ — an
 unconditional UPPER-bound transfer on the twin sum. Under ¬F-fed effective-SW
 (Form C), Λ̃χ is a μ²χ-weighted divisor sum whose twisted sums become effectively
 evaluable — so the surviving ¬F-compatible WP1 output is an effective per-χ UPPER
@@ -193,7 +193,7 @@ producer (upper bounds don't make twins).
   demand is not merely unsupplied but UNSATISFIABLE for q > Q₀ (the RHS with large
   PretenseSum exceeds x-scale — vacuous). The twin-producing half of WP1 is dead
   under ¬F; only the S1 ≤ S2 upper-bound half survives.
-- Adjacent slot check: the S⁽²⁾→S⁽³⁾ star-step residual (StarStep.lean:319-333) is
+- Adjacent slot check: the S⁽²⁾→S⁽³⁾ star-step residual (StarStep.lean:321-335) is
   fully discharged per audit:101 — no second slot hides there.
 
 ---

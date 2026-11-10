@@ -54,7 +54,7 @@ import Mathlib
 -- v2 (refuter verdict A5): the transport's integrand bound `‖windowExpSum H n α‖ ≤ H` lives in
 -- `MRTDoor.lean` as a `private` lemma (its `Salt.MR` twin `norm_windowExpSum_le` is unreachable
 -- from an Entropy module).  Reached by `open private`, the corpus's sanctioned device
--- (`DoorReceipt.lean:70` does the same for `uniformCap_shuffle`).
+-- (`DoorReceipt.lean:71` does the same for `uniformCap_shuffle`).
 open private norm_windowExpSum_trivial from Salt.Entropy.Chowla.MRTDoor
 
 open MeasureTheory
@@ -505,9 +505,7 @@ theorem sum_window_image_le (a x' ω : ℕ) (ha : 0 < a) (f : ℕ → ℝ) (M : 
           + M / ((a : ℝ) * ((x' / ω : ℕ) : ℝ) + 1) := by
   have hsub : (Finset.Ioc (x' / ω) x').image (fun n => a * n)
       ⊆ Finset.Ioc (a * x' / ω) (a * x') := by
-    intro p hp
-    rw [Finset.mem_image] at hp
-    obtain ⟨n, hn, rfl⟩ := hp
+    refine Finset.forall_mem_image.2 fun n hn => ?_
     rw [Finset.mem_Ioc] at hn ⊢
     refine ⟨?_, Nat.mul_le_mul (le_refl a) hn.2⟩
     rcases Nat.eq_zero_or_pos ω with hω0 | hωp

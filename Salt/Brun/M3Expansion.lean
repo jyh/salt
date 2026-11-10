@@ -156,9 +156,7 @@ lemma radical_fiber_bound (z ℓ : ℕ) (hℓodd : Odd ℓ) :
       rw [hqa, hqb]
   -- image of the fiber lands in the exponent grid
   have hsub : F.image φ ⊆ ℓ.primeFactors.pi (fun _ => Finset.Icc 1 z) := by
-    intro e he
-    rw [Finset.mem_image] at he
-    obtain ⟨m, hmF, rfl⟩ := he
+    refine Finset.forall_mem_image.2 fun m hmF => ?_
     obtain ⟨hmodd, hmz, hmrad⟩ := hFprop m hmF
     have hm0 : m ≠ 0 := by rintro rfl; simp at hmodd
     have hpfm : m.primeFactors = ℓ.primeFactors := rad_eq_primeFactors hmrad

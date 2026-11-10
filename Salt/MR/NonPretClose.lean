@@ -10,7 +10,7 @@ import Salt.MR.PrimeTail
 # S8 MR-CORE wave-2 rung R1.3 — the UNCONDITIONAL λ-non-pretentiousness (`lambda_nonpret`)
 
 This file CLOSES the campaign's oldest open hypothesis: the Euler bridge residual of
-`Salt/MR/NonPret.lean`.  The landed `lambda_nonpret_of_bridge` (NonPret.lean:114) took the
+`Salt/MR/NonPret.lean`.  The landed `lambda_nonpret_of_bridge` (NonPret.lean:113) took the
 λ-Euler bridge `𝔻² ≥ loglog x + log‖ζ(1+1/logx+it)‖ − K` as a *named hypothesis*; the H0
 wave discharged that bridge UNCONDITIONALLY (`euler_osc_bridge_unconditional`,
 `Salt/MR/PrimeTail.lean`, via the R0.2 dyadic tail).  Here we compose the two to obtain the
@@ -57,8 +57,7 @@ theorem lambda_nonpret :
   -- basic scale facts (`x ≥ e ≥ 2`, `log x ≥ 1`)
   have h2e : (2 : ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1 : ℝ); linarith
   have hx2 : (2 : ℝ) ≤ x := le_trans h2e hx
-  have hlogx1 : (1 : ℝ) ≤ Real.log x := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hx
+  have hlogx1 : (1 : ℝ) ≤ Real.log x := le_log_of_exp_le hx
   have hLpos : (0 : ℝ) < Real.log x := by linarith
   -- the λ-side `≥` corollary from the UNCONDITIONAL Euler bridge
   have hbr := hK x t hx

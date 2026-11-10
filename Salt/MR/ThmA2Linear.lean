@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.DoorLadderLinear
 import Salt.MR.A3Middle
 import Salt.Tactic.ExpLogNum
+import Salt.MR.WindowEnds
 
 /-!
 # `ThmA2Linear` — the `thm_A2′` ladder at `AdoorL M = 2^36·M`
@@ -385,8 +386,7 @@ theorem thm_a2'_of_rows_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M�
         + 6315000 / h := by
   have hX0 : (0 : ℝ) < X := by linarith
   have hh0 : (0 : ℝ) < h := by linarith
-  have hL1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hL1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have hLL0 : (0 : ℝ) ≤ Real.log (Real.log X) := Real.log_nonneg hL1
   have hrp500 : (0 : ℝ) < (Real.log X) ^ (-(1 : ℝ) / 500) := Real.rpow_pos_of_pos hL0 _
@@ -552,7 +552,7 @@ the hop is free — this twin takes `K ≤ 1.7·10⁸·M` directly, and at `K = 
 `M = flatDoorM A` that hypothesis is `KlevF_le_wideCeiling`.
 
 ⟦THE ROOT OF P2(b)⟧  Every `hK : K ≤ 170000000` on the L chain is spent, ultimately, here (via
-`M4RowSpineLinear:1493` and `A3Middle` · `a2Rows_of_capfree3_end'_gk` / `a2Rows_of_capfree3'_gk`); this twin is where the propagation of the
+`m4_hrowsSlot_at_door_zero_L_gk` (`M4RowSpineLinear`) and `A3Middle` · `a2Rows_of_capfree3_end'_gk` / `a2Rows_of_capfree3'_gk`); this twin is where the propagation of the
 weakened ceiling starts. -/
 theorem calFrameK_doorH1_at_L_gk_kwide (K M Xd : ℕ) (hM : 1 ≤ M) (hK : K ≤ 170000000 * M)
     (hXd : calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd) :
@@ -793,8 +793,7 @@ theorem thm_a2'_of_rows_pool_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁
         + 6315000 / h := by
   have hX0 : (0 : ℝ) < X := by linarith
   have hh0 : (0 : ℝ) < h := by linarith
-  have hL1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hL1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have hLL0 : (0 : ℝ) ≤ Real.log (Real.log X) := Real.log_nonneg hL1
   have hrp13 : (0 : ℝ) < (Real.log X) ^ (-(43 : ℝ) / 45) := Real.rpow_pos_of_pos hL0 _
@@ -883,7 +882,7 @@ theorem thm_a2'_of_rows_pool_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁
   rw [hw]
   linarith
 
-/-! ### `ThmA2Pool` :214 — `thm_a2'_of_rows_chiSummed_pool` -/
+/-! ### `ThmA2Pool` :213 — `thm_a2'_of_rows_chiSummed_pool` -/
 /-- **⟦R2 — THE `Σ_χ` FROZEN INTERFACE AT A FREE POOL⟧** (`thm_a2'_of_rows_chiSummed_pool_L`).
 The character sum of §1's five-summand bound, at a GENERIC `χ`-indexed coefficient family,
 INDEXED constant families `Cs Ccc C₁' M₀ ε`, and a **`χ`-FREE pool `π₀`**:
@@ -958,7 +957,7 @@ theorem thm_a2'_of_rows_chiSummed_pool_L {q : ℕ} [NeZero q] {N M Xd : ℕ}
   refine le_trans (Finset.sum_le_sum hper) ?_
   rw [a2_sum_head_split]
 
-/-! ### `ThmA2Pool` :295 — `thm_a2'_of_rows_pool_gk` -/
+/-! ### `ThmA2Pool` :294 — `thm_a2'_of_rows_pool_gk` -/
 /-- **thm_A2′ AT THE FREE POOL, AT THE G-LEVER** (`thm_a2'_of_rows_pool_L_gk`). -/
 theorem thm_a2'_of_rows_pool_L_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ}
     {X h Cs Ccc C₁' M₀ ε π₀ : ℝ}
@@ -998,7 +997,7 @@ theorem thm_a2'_of_rows_pool_L_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ}
   · rw [a2RowsSum_shift_L_gk K Ccc (M := M) Xd hM]
     exact hgRows
 
-/-! ### `ThmA2Pool` :334 — `thm_a2'_of_rows_chiSummed_pool_gk` -/
+/-! ### `ThmA2Pool` :333 — `thm_a2'_of_rows_chiSummed_pool_gk` -/
 /-- **thm_A2′ χ-SUMMED AT THE FREE POOL, AT THE G-LEVER**
 (`thm_a2'_of_rows_chiSummed_pool_L_gk`). -/
 theorem thm_a2'_of_rows_chiSummed_pool_L_gk (K : ℕ) {q : ℕ} [NeZero q] {N M Xd : ℕ}
@@ -1177,11 +1176,7 @@ theorem a2Rows_of_capfree_L :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L M Xd hM hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`⟧
   have hinst := hrow g c a b cf hg hc1 hb1 hcf1 N Xd P Q (AdoorL M) (3072 * M) M 2 m₀ Ms Mt kk
     (H1doorL M) X (2 * T) δ' V VJ L (1 / 12) Cb Rrad kmin Ymax ε EP2
@@ -1334,11 +1329,7 @@ theorem a2Rows_of_cap_L :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L M Xd hM hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROUTING WITNESS⟧ the bare-datum cap at `v₀`, and the socket it closes
   obtain ⟨v₀, hv₀box, hv₀cap⟩ := a2_row_cap_of_not_capFreeFloor hLL hnfl
   have hsock : PocketSocket g P Q X theta293 v₀ :=
@@ -1614,11 +1605,7 @@ theorem a2Rows_of_capfree3_L :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L M Xd hM hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (3072 * M) M 2 m₀ Ms
     Mt kk
@@ -1747,11 +1734,7 @@ theorem a2Rows_of_capfree3_end_L :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L M Xd hM hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (3072 * M) M 2 m₀ Ms
     Mt kk
@@ -1924,11 +1907,7 @@ theorem a2Rows_of_capfree_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L_gk K M Xd hM hK hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`⟧
   have hinst := hrow g c a b cf hg hc1 hb1 hcf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms Mt kk
     (H1doorL M) X (2 * T) δ' V VJ L (1 / 12) Cb Rrad kmin Ymax ε EP2
@@ -2066,11 +2045,7 @@ theorem a2Rows_of_cap_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L_gk K M Xd hM hK hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROUTING WITNESS⟧ the bare-datum cap at `v₀`, and the socket it closes
   obtain ⟨v₀, hv₀box, hv₀cap⟩ := a2_row_cap_of_not_capFreeFloor hLL hnfl
   have hsock : PocketSocket g P Q X theta293 v₀ :=
@@ -2333,11 +2308,7 @@ theorem a2Rows_of_capfree3_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L_gk K M Xd hM hK hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms
     Mt kk
@@ -2457,11 +2428,7 @@ theorem a2Rows_of_capfree3_end_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L_gk K M Xd hM hK hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms
     Mt kk
@@ -2560,8 +2527,7 @@ theorem thm_a2'_of_rows_pool'_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C�
         + 6315000 / h := by
   have hX0 : (0 : ℝ) < X := by linarith
   have hh0 : (0 : ℝ) < h := by linarith
-  have hL1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hL1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have hLL0 : (0 : ℝ) ≤ Real.log (Real.log X) := Real.log_nonneg hL1
   have hrp13 : (0 : ℝ) < (Real.log X) ^ (-(43 : ℝ) / 45) := Real.rpow_pos_of_pos hL0 _
@@ -2650,7 +2616,7 @@ theorem thm_a2'_of_rows_pool'_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C�
   rw [hw]
   linarith
 
-/-! ### `ThmA2Prime` :239 — `thm_a2'_of_rows_chiSummed_pool'` -/
+/-! ### `ThmA2Prime` :238 — `thm_a2'_of_rows_chiSummed_pool'` -/
 /-- **⟦THE R1×R2 JOIN, `Σ_χ`⟧** (`thm_a2'_of_rows_chiSummed_pool'_L`).  §2's character sum, at
 a generic `χ`-indexed coefficient family, INDEXED constant families `Cs Ccc C₁' M₀ ε`, and a
 `χ`-FREE pool `π₀`:
@@ -2721,7 +2687,7 @@ theorem thm_a2'_of_rows_chiSummed_pool'_L {q : ℕ} [NeZero q] {N M Xd : ℕ}
   refine le_trans (Finset.sum_le_sum hper) ?_
   rw [a2_sum_head_split]
 
-/-! ### `ThmA2Prime` :317 — `thm_a2'_of_rows'` -/
+/-! ### `ThmA2Prime` :316 — `thm_a2'_of_rows'` -/
 /-- **thm_A2′ AT THE PRIMED ROW SUM** (`thm_a2'_of_rows'_L`) — `ThmA2.thm_a2'_of_rows_L` with
 `a2Mrow_L ↦ a2Mrow'_L` and `a2RowsSum_L ↦ a2RowsSum'_L`, the frozen conclusion BYTE-IDENTICAL.
 
@@ -2755,8 +2721,7 @@ theorem thm_a2'_of_rows'_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M�
         + 304128 * ballSupC ^ 2
             * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
         + 6315000 / h := by
-  have hL1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hL1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have hrp500 : (0 : ℝ) < (Real.log X) ^ (-(1 : ℝ) / 500) := Real.rpow_pos_of_pos hL0 _
   -- ⟦the `𝒰`-leg gate⟧ the landed derivation from `hεwin`
@@ -2775,7 +2740,7 @@ theorem thm_a2'_of_rows'_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M�
   exact thm_a2'_of_rows_pool'_L hM hX hX3 hh4 hhX ha hsupp hN2 hTann hceil hrows hT0band
     hrp500.le hgP1 hgRows hgU hgBand
 
-/-! ### `ThmA2Prime` :377 — `a2Mrow'_gk` -/
+/-! ### `ThmA2Prime` :375 — `a2Mrow'_gk` -/
 /-- **THE FLAT ROW NUMBER — R1, AT THE G-LEVER** (`a2Mrow'_L_gk`). -/
 noncomputable def a2Mrow'_L_gk (K : ℕ) (Cs C : ℝ) (M Xd : ℕ) (X ε : ℝ) : ℝ :=
   47520 * a2Level1_L M
@@ -2783,7 +2748,7 @@ noncomputable def a2Mrow'_L_gk (K : ℕ) (Cs C : ℝ) (M Xd : ℕ) (X ε : ℝ) 
     + 5760 * (a2RowsSum'_L_gk K M Xd + C * (2 / (M : ℝ)))
     + 3 * (Real.log X) ^ (-theta293 + ε)
 
-/-! ### `ThmA2Prime` :391 — `a2RowsSum'_shift_gk` -/
+/-! ### `ThmA2Prime` :389 — `a2RowsSum'_shift_gk` -/
 /-- ⟦THE `Ccc`-SHIFT⟧ at the primed row sum. -/
 lemma a2RowsSum'_shift_L_gk (K : ℕ) (C : ℝ) {M : ℕ} (Xd : ℕ) (hM : 1 ≤ M) :
     a2RowsSum'_L M Xd + (C + (M : ℝ) / 2 * (a2RowsSum'_L_gk K M Xd - a2RowsSum'_L M Xd))
@@ -2798,14 +2763,14 @@ lemma a2RowsSum'_shift_L_gk (K : ℕ) (C : ℝ) {M : ℕ} (Xd : ℕ) (hM : 1 ≤
   rw [hexp, hcancel]
   ring
 
-/-! ### `ThmA2Prime` :405 — `a2Mrow'_shift_gk` -/
+/-! ### `ThmA2Prime` :403 — `a2Mrow'_shift_gk` -/
 /-- ⟦THE `Ccc`-SHIFT⟧ at the primed row number. -/
 lemma a2Mrow'_shift_L_gk (K : ℕ) (Cs C : ℝ) {M : ℕ} (Xd : ℕ) (X ε : ℝ) (hM : 1 ≤ M) :
     a2Mrow'_L Cs (C + (M : ℝ) / 2 * (a2RowsSum'_L_gk K M Xd - a2RowsSum'_L M Xd)) M Xd X ε
       = a2Mrow'_L_gk K Cs C M Xd X ε := by
   rw [a2Mrow'_L, a2Mrow'_L_gk, calP_doorL_one_gk, a2RowsSum'_shift_L_gk K C Xd hM]
 
-/-! ### `ThmA2Prime` :411 — `thm_a2'_of_rows_pool'_gk` -/
+/-! ### `ThmA2Prime` :409 — `thm_a2'_of_rows_pool'_gk` -/
 /-- **⟦THE R1×R2 JOIN⟧ AT THE G-LEVER** (`thm_a2'_of_rows_pool'_L_gk`). -/
 theorem thm_a2'_of_rows_pool'_L_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ}
     {X h Cs Ccc C₁' M₀ ε π₀ : ℝ}
@@ -2845,7 +2810,7 @@ theorem thm_a2'_of_rows_pool'_L_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ}
   · rw [a2RowsSum'_shift_L_gk K Ccc (M := M) Xd hM]
     exact hgRows
 
-/-! ### `ThmA2Prime` :450 — `thm_a2'_of_rows_chiSummed_pool'_gk` -/
+/-! ### `ThmA2Prime` :448 — `thm_a2'_of_rows_chiSummed_pool'_gk` -/
 /-- **⟦THE R1×R2 JOIN, χ-SUMMED⟧ AT THE G-LEVER**
 (`thm_a2'_of_rows_chiSummed_pool'_L_gk`). -/
 theorem thm_a2'_of_rows_chiSummed_pool'_L_gk (K : ℕ) {q : ℕ} [NeZero q] {N M Xd : ℕ}
@@ -2897,7 +2862,7 @@ theorem thm_a2'_of_rows_chiSummed_pool'_L_gk (K : ℕ) {q : ℕ} [NeZero q] {N M
     rw [a2RowsSum'_shift_L_gk K (Ccc χ) (M := M) Xd hM]
     exact hgRows χ
 
-/-! ### `ThmA2Prime` :501 — `thm_a2'_of_rows'_gk` -/
+/-! ### `ThmA2Prime` :499 — `thm_a2'_of_rows'_gk` -/
 /-- **thm_A2′ AT THE PRIMED ROW SUM, AT THE G-LEVER** (`thm_a2'_of_rows'_L_gk`) — the frozen
 five-summand conclusion, BYTE-IDENTICAL, carrying the two WEAKEST gates of the whole family:
 the primed row sum AND the lever's larger `𝒫₂`. -/
@@ -2928,8 +2893,7 @@ theorem thm_a2'_of_rows'_L_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs
         + 304128 * ballSupC ^ 2
             * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
         + 6315000 / h := by
-  have hL1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hL1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have hrp500 : (0 : ℝ) < (Real.log X) ^ (-(1 : ℝ) / 500) := Real.rpow_pos_of_pos hL0 _
   have hgU : (Real.log X) ^ (-theta293 + ε) ≤ (Real.log X) ^ (-(1 : ℝ) / 500) := by
@@ -3063,11 +3027,7 @@ theorem a2Rows_of_capfree3_end'_L :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L M Xd hM hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint, at the PRIMED bracket⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (3072 * M) M 2 m₀ Ms
     Mt kk
@@ -3196,11 +3156,7 @@ theorem a2Rows_of_capfree3'_L :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L M Xd hM hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (3072 * M) M 2 m₀ Ms
     Mt kk
@@ -3357,11 +3313,7 @@ theorem a2Rows_of_capfree3_end'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L_gk K M Xd hM hK hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint, at the PRIMED bracket⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms
     Mt kk
@@ -3482,11 +3434,7 @@ theorem a2Rows_of_capfree3'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L_gk K M Xd hM hK hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms
     Mt kk
@@ -3617,11 +3565,7 @@ theorem a2Rows_of_capfree_L_gk_kwide (K : ℕ) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L_gk_kwide K M Xd hM hKw hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`⟧
   have hinst := hrow g c a b cf hg hc1 hb1 hcf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms Mt kk
     (H1doorL M) X (2 * T) δ' V VJ L (1 / 12) Cb Rrad kmin Ymax ε EP2
@@ -3749,11 +3693,7 @@ theorem a2Rows_of_cap_L_gk_kwide (K : ℕ) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L_gk_kwide K M Xd hM hKw hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROUTING WITNESS⟧ the bare-datum cap at `v₀`, and the socket it closes
   obtain ⟨v₀, hv₀box, hv₀cap⟩ := a2_row_cap_of_not_capFreeFloor hLL hnfl
   have hsock : PocketSocket g P Q X theta293 v₀ :=
@@ -3994,11 +3934,7 @@ theorem a2Rows_of_capfree3_L_gk_kwide (K : ℕ) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L_gk_kwide K M Xd hM hKw hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms
     Mt kk
@@ -4112,11 +4048,7 @@ theorem a2Rows_of_capfree3_end_L_gk_kwide (K : ℕ) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L_gk_kwide K M Xd hM hKw hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms
     Mt kk
@@ -4230,11 +4162,7 @@ theorem a2Rows_of_capfree3_end'_L_gk_kwide (K : ℕ) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L_gk_kwide K M Xd hM hKw hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint, at the PRIMED bracket⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms
     Mt kk
@@ -4349,11 +4277,7 @@ theorem a2Rows_of_capfree3'_L_gk_kwide (K : ℕ) :
   -- ⟦the frame at the row's own scale⟧
   have hF := calFrameK_doorH1_at_L_gk_kwide K M Xd hM hKw hXdQ
   -- ⟦the window's two endpoints, at `Tann = 2T`⟧
-  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
-  have h2b : (2 : ℝ) * T ≤ X := hTX2
-  have h2T0 : (0 : ℝ) < 2 * T := by
-    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
-    linarith
+  obtain ⟨h2a, h2b, h2T0⟩ := windowEnds_facts (h := h) hX0 (by linarith) (by linarith) hTX2
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
   have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms
     Mt kk

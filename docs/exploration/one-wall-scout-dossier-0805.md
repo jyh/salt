@@ -13,7 +13,7 @@ Read-only pass, salt @ `main` (`fb44672`). Every claim below is file:line. Numer
 `Salt/MR/ZetaPowLower.lean:198` `zeta_horiz_lower` uses `ht : 2 ≤ |t|` at **exactly one place** — inside `hzne1`, to derive `(v:ℂ)+(t:ℂ)*I ≠ 1`, i.e. it only needs `t ≠ 0` (the closing tactic is `rw [him] at ht; norm_num at ht` with `him : t = 0`). `zeta_pow_lower_far` (`:247`) uses `ht` only to call `zeta_horiz_lower`. **So `d'/32 ≤ ‖ζ((1+d')+it)‖` holds for every `t ≠ 0`** — the argument is pure Dirichlet series (`zeta_dirichlet_re_le` `:104`, valid for `u > 1`, any `t`) plus the `Re = 2` anchor plus the real-axis pole bound. Nothing in it knows about height. This is a free ~60-line generalisation and it **cuts the shared stone's constant by 715 nats** (see §3).
 
 **F3 — the flags' `δ₀ ~ e^{−14000}` is wrong by a factor ~25 in the exponent.**
-The 8/5 ZETA-INV-SHALLOW entry prices "`Σ_ρ ½·log(20/(a−β)²) ≈ 18.7` per zero against a **Jensen zero-count ~757**". But `757 = 120·log(4·M₀ζ(1))` is the *Borel–Carathéodory constant*, not the zero count. The Jensen count is `log(4M₀)/log(7/6) ≈ 41` (`entire_zero_count_le`, `Salt/SW/ZetaPartialFractions.lean:134`, ratio `7/4 : 3/2 = 7/6`) — **smaller by the factor `120·log(7/6) = 18.5`**. Re-run at the old `c₃ = 10⁻⁷`: `log(1/δ₀) ≈ 1522`, not `1.4e4`. Re-run at EPSILON-SHARP's `c₃ = 1/75712` **and** with F2's anchor: **`log(1/δ₀) ≈ 485`**. The route is an order of magnitude cheaper than banked.
+The 8/5 ZETA-INV-SHALLOW entry prices "`Σ_ρ ½·log(20/(a−β)²) ≈ 18.7` per zero against a **Jensen zero-count ~757**". But `757 = 120·log(4·M₀ζ(1))` is the *Borel–Carathéodory constant*, not the zero count. The Jensen count is `log(4M₀)/log(7/6) ≈ 41` (`entire_zero_count_le`, `Salt/SW/ZetaPartialFractions.lean:140`, ratio `7/4 : 3/2 = 7/6`) — **smaller by the factor `120·log(7/6) = 18.5`**. Re-run at the old `c₃ = 10⁻⁷`: `log(1/δ₀) ≈ 1522`, not `1.4e4`. Re-run at EPSILON-SHARP's `c₃ = 1/75712` **and** with F2's anchor: **`log(1/δ₀) ≈ 485`**. The route is an order of magnitude cheaper than banked.
 
 ---
 
@@ -65,17 +65,17 @@ Same genre: `P = {Re ∈ [1,2], |Im| ≤ 3}`, **`exists_isMinOn` on `‖Zc‖` a
 Grade needed: any explicit `δ`; box `Re ∈ [1,2]`, `|Im| ≤ 3`; **σ ≥ 1 exactly**, so `η = 0` and the separation is the full `c₃/log(|γ|+2)` — *easier* than mask (a).
 
 ### Bonus mask (same box, ceiling side)
-`zeta_upper_band` — `Salt/MR/SiegelArm.lean:392`, `exists_isMaxOn` at `:397`, `Z := max ‖Zc z₀‖ 1`. **Free kill**: bandBox `= {Re∈[1,2], |Im|≤1}` sits inside `‖z − 2‖ ≤ √2 ≤ 7/4`, so `Zc_sphere_bound_sharp` (`EpsilonZero.lean:477`) at `t₀ = 0, a = 1, b = 2` gives `‖Zc‖ ≤ 1 + 5·(11/4)·(15/4) = 52.6`, i.e. **`Z = 53`**, ~12 lines.
+`zeta_upper_band` — `Salt/MR/SiegelArm.lean:391`, `exists_isMaxOn` at `:396`, `Z := max ‖Zc z₀‖ 1`. **Free kill**: bandBox `= {Re∈[1,2], |Im|≤1}` sits inside `‖z − 2‖ ≤ √2 ≤ 7/4`, so `Zc_sphere_bound_sharp` (`EpsilonZero.lean:476`) at `t₀ = 0, a = 1, b = 2` gives `‖Zc‖ ≤ 1 + 5·(11/4)·(15/4) = 52.6`, i.e. **`Z = 53`**, ~12 lines.
 
 ### Corpus census of the same leaf (for completeness)
 | site | what | status |
 |---|---|---|
-| `SW/ZetaZeroFree.lean:203` | `ε₀` = infDist to zeros on `Re=1`, `|t|≤1` | **abolished** by `zeta_zero_free_strip_sharp` (`EpsilonZero.lean:708`, `2·10⁻⁵`) |
+| `SW/ZetaZeroFree.lean:203` | `ε₀` = infDist to zeros on `Re=1`, `|t|≤1` | **abolished** by `zeta_zero_free_strip_sharp` (`EpsilonZero.lean:707`, `2·10⁻⁵`) |
 | `SW/ZetaInvShallow.lean:105` | mask (a) | 2/3 abolished; band open |
 | `MR/ZetaLowerAllT.lean:83` | mask (b) | **F1** |
 | `MR/ZetaLowerAllT.lean:140` | mask (b′) | new stone |
 | `MR/SiegelArm.lean:166` | `LFunction_band_lower`, χ≠1 | **genuinely ineffective** (Siegel; `:161` docstring says so) — not this wall |
-| `MR/SiegelArm.lean:397` | `zeta_upper_band` | free kill above |
+| `MR/SiegelArm.lean:396` | `zeta_upper_band` | free kill above |
 | `MR/HalaszPrimesCore.lean:589` | `zeta_zero_free_strip_height {M}` (`:570`), infDist on `|t| ≤ M` | same genre as `ZetaZeroFree:203`, height-parametric; not yet re-based on the sharp strip |
 | `MR/CompactMin.lean:127` | `isCompact_Icc` min, different genre | out of scope |
 
@@ -88,17 +88,17 @@ The answer to "does a ζ version of `LFunction_norm_logDeriv_sub_sum'` exist?" i
 | lemma | file:line | shape |
 |---|---|---|
 | `LFunction_norm_logDeriv_sub_sum'` | `SW/MaxModulus.lean:89` | Dirichlet `L`; radius `3/2`, numeric on `‖s−c‖ ≤ 23/20`, `120·log(4M₀)` |
-| **`entire_norm_logDeriv_sub_sum'`** | `SW/ZetaPartialFractions.lean:171` | **the ζ one**: arbitrary entire `F`, `‖F c‖ ≥ 1/4`, sphere bounds on `7/4` and `3/2` ⇒ same conclusion. Blaschke max-modulus at radius `8/5` carried over verbatim |
+| **`entire_norm_logDeriv_sub_sum'`** | `SW/ZetaPartialFractions.lean:177` | **the ζ one**: arbitrary entire `F`, `‖F c‖ ≥ 1/4`, sphere bounds on `7/4` and `3/2` ⇒ same conclusion. Blaschke max-modulus at radius `8/5` carried over verbatim |
 | `entire_norm_logDeriv_sub_sum_scaled` | `Vk/Landau.lean:35` | the `λ`-scaled twin: radii `7λ/4, 3λ/2, 23λ/20`, numeric `(120/λ)·log(4M₀)` |
-| `entire_zero_count_le` | `SW/ZetaPartialFractions.lean:134` | Jensen: `∑ᶠ divisor F (closedBall c r) ≤ log(4M)/log(R/r)` |
+| `entire_zero_count_le` | `SW/ZetaPartialFractions.lean:140` | Jensen: `∑ᶠ divisor F (closedBall c r) ≤ log(4M)/log(R/r)` |
 
 ζ-side suppliers, all landed and explicit:
 - `Zc` entire, `Zc 1 = 1`, `Zc_eq_of_ne`, `Zc_differentiable`; `Zc_eq_series` `:814`; `Zc_growth` `:851`; `norm_R_le` `:524`.
 - `Zc_center_lower` `:114` — `‖Zc(2+it₀)‖ ≥ 1/4` (the `hFc` slot, free).
 - `zeta_norm_ge` `:108` — `Re s ≥ 2 ⇒ ‖ζ‖ ≥ 1/4`.
 - `M0zeta` `:867` `= 1+5(19/4+|t₀|)(15/4+|t₀|)`; `Zc_sphere_bound` `:895` (radius `≤ 7/4`).
-- **sharp**: `Zc_sphere_bound_sharp` `EpsilonZero.lean:477`, `Zc_sphere_bound_height_one` `:524` (`≤ 66` at `|t₀|≤1`), `Zc_sphere_bound_height_two` `:535` (`≤ 96` at `|t₀|≤2`) — factor ≈2 off `M0zeta`.
-- Assembled ζ consumers already riding this: `zeta_neg_re_logDeriv_le` `ZetaPartialFractions.lean:942`; `zeta_neg_re_logDeriv_le_keep_of_growth` / `_le_of_growth` `EpsilonZero.lean:553/625` (hypothesis-taking, `120·log(4M)` **un-collapsed** — the right genre to imitate); `ShiftTrivChar.lean:208`.
+- **sharp**: `Zc_sphere_bound_sharp` `EpsilonZero.lean:476`, `Zc_sphere_bound_height_one` `:523` (`≤ 66` at `|t₀|≤1`), `Zc_sphere_bound_height_two` `:534` (`≤ 96` at `|t₀|≤2`) — factor ≈2 off `M0zeta`.
+- Assembled ζ consumers already riding this: `zeta_neg_re_logDeriv_le` `ZetaPartialFractions.lean:952`; `zeta_neg_re_logDeriv_le_keep_of_growth` / `_le_of_growth` `EpsilonZero.lean:552/624` (hypothesis-taking, `120·log(4M)` **un-collapsed** — the right genre to imitate); `ShiftTrivChar.lean:208`.
 
 **Segment-integration / transport devices (all landed):**
 - `hasDerivAt_log_norm_horiz` — `MR/ChiLLower.lean:87` — `d/dv log‖F(v+c)‖ = Re(logDeriv F)`, `F` arbitrary. (ζ-specialised copy: `MR/ZetaPowLower.lean:144`.)
@@ -144,7 +144,7 @@ plus a numeral instantiation `Zc_band_lower` at `T = 2, η = c₃/(2 log 4), M =
    *Without F2 this step must anchor at `Re = 2` with `Zc_center_lower` (`‖Zc‖ ≥ 1/4`) and the segment length jumps from `d₀+η ≈ 1.4e−3` to `1+η`, costing **+715 nats**.*
 2. **Landau ball** `entire_norm_logDeriv_sub_sum'` at `F = Zc`, `c = 2+it₀`: `hFc` = `Zc_center_lower`, spheres = `Zc_sphere_bound_sharp`. The whole segment `[1−η, 1+d₀]+it₀` sits in `‖s−c‖ ≤ 1+η < 23/20` ✓ (the geometry closes with room: `1.0000000000000007 < 1.15`).
 3. **Count** `∑_{ρ∈Z} m_ρ ≤ log(4M)/log(7/6)` — lift `ZetaPowLower.lean:334–390`.
-4. **Separation** every `ρ ∈ Z` has `‖ρ−c‖ < 3/2` ⇒ `1/2 < Re ρ < 7/2` and `|Im ρ| < T+3/2`; `Re ρ < 1` (`riemannZeta_ne_zero_of_one_le_re`); `zeta_zero_free_region_sharp` (`EpsilonZero.lean:833`) ⇒ `Re ρ ≤ 1 − (1/75712)/log(|Im ρ|+2)`. Hence `Re z − Re ρ ≥ sep > 0`, so `Zc ≠ 0` on the segment and each `u − β > 0`.
+4. **Separation** every `ρ ∈ Z` has `‖ρ−c‖ < 3/2` ⇒ `1/2 < Re ρ < 7/2` and `|Im ρ| < T+3/2`; `Re ρ < 1` (`riemannZeta_ne_zero_of_one_le_re`); `zeta_zero_free_region_sharp` (`EpsilonZero.lean:832`) ⇒ `Re ρ ≤ 1 − (1/75712)/log(|Im ρ|+2)`. Hence `Re z − Re ρ ≥ sep > 0`, so `Zc ≠ 0` on the segment and each `u − β > 0`.
 5. **Transport** `Φ(u) := log‖Zc(u+it₀)‖ − ∑_ρ m_ρ·½·log((u−β_ρ)²+g_ρ²)` has `Φ'(u) = Re(logDeriv Zc − ∑ m_ρ/(s−ρ))`, so `|Φ'| ≤ K := 120·log(4M)`; MVT (`ZetaInvShallow.lean:305`'s device) gives `|Φ(σ)−Φ(u₁)| ≤ K·(u₁−σ)`; exponentiate.
 
 ### 3.4 The constant — the table
@@ -168,10 +168,10 @@ Where the EPSILON-SHARP separation buys: `sep` enters as `N·log(1/sep)`, i.e. `
 
 ### 3.5 Per-mask consumption
 
-- **(a)** `Zc_band_lower` at `T=2`, `η := c₄/log2⁹` → feeds `hband` of `Zc_patch_lower_bounded_of_band` (`EpsilonZero.lean:429`, note the `1/5 ≤ ‖z−1‖` hypothesis is exactly what the stone assumes) → floor `min δ₀ (1/4)` on the whole `Zc_patch_lower` rectangle → `zeta_inv_shallow_explicit` with `C = max(1/c, 4/(δ₀ log2⁷), 4/log2⁷)` fully explicit. **Caveat:** the explicit `a` requires re-deriving `zeta_inv_shallow` off `zeta_zero_free_region_sharp_bounded` (`:929`) rather than the opaque `zeta_zero_free_region` at `ZetaInvShallow.lean:120`. That is a re-run of `:116–234` with two `obtain`s changed, not a new proof.
+- **(a)** `Zc_band_lower` at `T=2`, `η := c₄/log2⁹` → feeds `hband` of `Zc_patch_lower_bounded_of_band` (`EpsilonZero.lean:428`, note the `1/5 ≤ ‖z−1‖` hypothesis is exactly what the stone assumes) → floor `min δ₀ (1/4)` on the whole `Zc_patch_lower` rectangle → `zeta_inv_shallow_explicit` with `C = max(1/c, 4/(δ₀ log2⁷), 4/log2⁷)` fully explicit. **Caveat:** the explicit `a` requires re-deriving `zeta_inv_shallow` off `zeta_zero_free_region_sharp_bounded` (`:927`) rather than the opaque `zeta_zero_free_region` at `ZetaInvShallow.lean:120`. That is a re-run of `:116–234` with two `obtain`s changed, not a new proof.
 - **(b)** does **not** consume the stone. `zeta_lower_compact_mid_explicit` off `zeta_lower_shallow` (F1).
 - **(b′)** `Zc_band_lower` at `T=3, η=0`, plus `Zc_lower_near_pole` for `‖z−1‖ ≤ 1/5` and `Zc_lower_of_two_le_re` for `Re ≥ 2` → `zeta_lower_small_t_explicit` with `δ = min δ₀ (7/25) / 4`. Also de-opaques `SiegelArm.lean:235`.
-- Both feed `zeta_lower_all_t_of_pow` (`ZetaLowerAllT.lean:185`), whose `c'' = min c' (min ε₀ δ)` then becomes explicit modulo `zeta_pow_lower`'s own `c'`. Downstream consumer: `MR/NonPret.lean:124`.
+- Both feed `zeta_lower_all_t_of_pow` (`ZetaLowerAllT.lean:185`), whose `c'' = min c' (min ε₀ δ)` then becomes explicit modulo `zeta_pow_lower`'s own `c'`. Downstream consumer: `MR/NonPret.lean:123`.
 
 ### 3.6 Effectivity twins owed (the EPSPIN genre, no new analysis)
 

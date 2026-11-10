@@ -35,7 +35,7 @@ WITHOUT it (pin at Re = 1): + one C/D line-shift stone.
 
 ## Also on the docket
 - The coda pass (comment-tier): the stale HalaszSeam Fubini note; the
-  stale HLOSS-WINDOW freeze note; HExit:842-845's ABSENT-list (the
+  stale HLOSS-WINDOW freeze note; HExit:840-843's ABSENT-list (the
   mass half landed since — LEG-II/RAMP; the decay half correctly
   routes through the ball).
 - Verify BRIDGE-CHECK's "hsliver open" read (prop21_unconditional_

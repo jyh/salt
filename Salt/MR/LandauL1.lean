@@ -10,7 +10,7 @@ import Salt.SW.Hyperbola
 # The `L₁` slot — the effective `L(1,χ)` lower bound at real `χ`, and its absorption
 
 `Salt/MR/SiegelArm.lean` closes ROUTE A's real-character branch **modulo one slot**: its
-`chi_floor_real_of_L1` (`SiegelArm.lean:725`) takes a number `L₁` with
+`chi_floor_real_of_L1` (`SiegelArm.lean:722`) takes a number `L₁` with
 
   `0 < L₁`,  `L₁ ≤ 1`,  `L₁ ≤ (L(1,χ)).re`,  `32·diskConst q/L₁ ≤ log X`
 
@@ -57,7 +57,7 @@ convolution identity — a campaign, not a node.  The residue also carries `regu
 The corpus is unusually well stocked here.  `Salt/SW/DHDetector.lean` already has the whole
 lower half of Landau's argument for `a = 1 ∗ χ_ℝ`:
 
-* `dhA` (`DHDetector.lean:142`), `dhA_nonneg` (`:206`), `dhA_square_ge_one` (`:219`),
+* `dhA` (`DHDetector.lean:144`), `dhA_nonneg` (`:206`), `dhA_square_ge_one` (`:219`),
 * `dhA_mass_floor` / `dhA_mass_floor_real` (`:239` / `:264`): `Σ_{n≤N} a(n) ≥ √N − 1`,
 * `dhA_log_average_square_floor` (`:292`), `dhA_hyperbola` (`:325`),
 * `sum_divisors_eq_hyperbola_symm` / `dhA_hyperbola_symm` (`Salt/SW/Hyperbola.lean:55` /
@@ -391,7 +391,7 @@ theorem door_L1_debit_absorbed {c A Z ε : ℝ} (hc : 0 < c) (hA : 0 ≤ A) (hZ 
 /-! ## §3 — the consumer plug: the `q`-uniform ROUTE-A floor -/
 
 /-- **`chi_floor_real_uniform` — the door's shape, from the `L₁` interface alone.**
-`chi_floor_real_of_L1` (`SiegelArm.lean:725`) instantiated at the uniform slot value
+`chi_floor_real_of_L1` (`SiegelArm.lean:722`) instantiated at the uniform slot value
 `L₁ := c·q^{−A}`.  The three side conditions are discharged here: `0 < c·q^{−A}` and
 `c·q^{−A} ≤ 1` (from `c ≤ 1`, `q ≥ 1`, `A ≥ 0`) and the interface supplies
 `c·q^{−A} ≤ (L(1,χ)).re`.  What remains a hypothesis of the CONCLUSION is the `diskConst`

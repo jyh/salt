@@ -212,8 +212,7 @@ private lemma div_log_monoT {L M : ℝ} (hL : Real.exp 1 ≤ L) (hLM : L ≤ M) 
     L / Real.log L ≤ M / Real.log M := by
   have hL0 : (0 : ℝ) < L := lt_of_lt_of_le (Real.exp_pos 1) hL
   have hM0 : (0 : ℝ) < M := lt_of_lt_of_le hL0 hLM
-  have hlogL : (1 : ℝ) ≤ Real.log L := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hL
+  have hlogL : (1 : ℝ) ≤ Real.log L := le_log_of_exp_le hL
   have hlogM : (1 : ℝ) ≤ Real.log M := le_trans hlogL (Real.log_le_log hL0 hLM)
   have hstep : Real.log M - Real.log L ≤ (M - L) / L := by
     have h1 : Real.log (M / L) ≤ M / L - 1 := Real.log_le_sub_one_of_pos (by positivity)
@@ -273,13 +272,11 @@ theorem Tstar_mono {k K : ℝ} (hk : Real.exp (Real.exp 1) ≤ k) (hkK : k ≤ K
     Tstar k (Real.log k) ≤ Tstar K (Real.log K) := by
   have hk0 : (0 : ℝ) < k := lt_of_lt_of_le (Real.exp_pos _) hk
   have hK0 : (0 : ℝ) < K := lt_of_lt_of_le hk0 hkK
-  have hLk : Real.exp 1 ≤ Real.log k := by
-    rw [← Real.log_exp (Real.exp 1)]; exact Real.log_le_log (Real.exp_pos _) hk
+  have hLk : Real.exp 1 ≤ Real.log k := le_log_of_exp_le hk
   have hLkK : Real.log k ≤ Real.log K := Real.log_le_log hk0 hkK
   have hLk0 : (0 : ℝ) < Real.log k := lt_of_lt_of_le (Real.exp_pos 1) hLk
   have hLK0 : (0 : ℝ) < Real.log K := lt_of_lt_of_le hLk0 hLkK
-  have hllk : (1 : ℝ) ≤ Real.log (Real.log k) := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hLk
+  have hllk : (1 : ℝ) ≤ Real.log (Real.log k) := le_log_of_exp_le hLk
   have hllK : (1 : ℝ) ≤ Real.log (Real.log K) :=
     le_trans hllk (Real.log_le_log hLk0 hLkK)
   have hllk0 : Real.log (Real.log k) ≠ 0 := by linarith
@@ -485,8 +482,7 @@ enormously lossy and still leaves the far page a `√L·log L` margin. -/
 private lemma log_price_floor {X L : ℝ} (hXe : Real.exp 1 ≤ X) (hXL : Real.log X ≤ 2 * L) :
     1 / (2 * L) ≤ Real.log X ^ (-(1 / (32 * Real.exp 1))) := by
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
-  have hu1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hXe
+  have hu1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hXe
   have hu0 : (0 : ℝ) < Real.log X := by linarith
   have he1 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
   have ha1 : 1 / (32 * Real.exp 1) ≤ 1 := by
@@ -515,8 +511,7 @@ the private record).  Nothing consuming the `1/(32e)` form moves — these are s
 theorem far_price_floor_16 {X L : ℝ} (hXe : Real.exp 1 ≤ X) (hXL : Real.log X ≤ 2 * L) :
     1 / (2 * L) ≤ Real.log X ^ (-(1 / 16 : ℝ)) := by
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
-  have hu1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hXe
+  have hu1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hXe
   have hu0 : (0 : ℝ) < Real.log X := by linarith
   have ha1 : (1 : ℝ) / 16 ≤ 1 := by norm_num
   have h1 : Real.log X ^ (-(1 : ℝ)) ≤ Real.log X ^ (-(1 / 16 : ℝ)) :=

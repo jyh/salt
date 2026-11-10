@@ -180,7 +180,7 @@ discharged `hc1`, record that as a routing fact, and **do not treat it as a defe
 | `1/576` | 6.36 | 6.36 |
 | **MAX** | **631.58** | **86.23** |
 
-`c₀ = 1/126848` (`ZeroFreeReal.lean:392/:605`), `log(1/c₀) = 11.7507`.
+`c₀ = 1/126848` (`ZeroFreeReal.lean:392/:604`), `log(1/c₀) = 11.7507`.
 **Recompute the two Eρ/Eβ rows against the actual post-TS-1 constants** (TS-1 changes `627 → 248`
 and, tall-side, `636 → 570`) rather than copying these figures — and say so in the flags entry if
 they differ from the predictions above.

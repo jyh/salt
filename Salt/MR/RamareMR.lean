@@ -21,9 +21,9 @@ This file retires it.  The cause of `hwin` is that `RamareWindows.spoly_ramare_s
 extends the clean summand over the FULL eq (16) cofactor range `{m : pm ∈ [1,N]}`, while MR
 sums over `{m : X ≤ pm ≤ 2X}`.  Re-running the split at MR's own range
 
-  `ramHonMR N X p = {m ∈ [1,N] : X ≤ pm ≤ 2X}`   (`RamareErr`:743)
+  `ramHonMR N X p = {m ∈ [1,N] : X ≤ pm ≤ 2X}`   (`RamareErr`:741)
 
-makes the seam identity `seam_sum_identity_mr` (`RamareErr`:761) — which is UNCONDITIONAL in
+makes the seam identity `seam_sum_identity_mr` (`RamareErr`:759) — which is UNCONDITIONAL in
 the coefficients — available, and the only hypothesis that survives is MR's own dyadic
 support of `a`:
 
@@ -211,9 +211,7 @@ theorem norm_ramGenCoeff_le_one (H : ℝ) (hH : 0 < H) (N P Q : ℕ) (hP : 1 ≤
     subst h1; subst hxy; subst h2; rfl
   have himg : ((ramGenDom H N P Q W).filter (fun σ => σ.2.1 * σ.2.2 = n)).image
       (fun σ => σ.2.1) ⊆ BlockPrimeDivs P Q n := by
-    intro p hp
-    rw [Finset.mem_image] at hp
-    obtain ⟨σ, hσ, rfl⟩ := hp
+    refine Finset.forall_mem_image.2 fun σ hσ => ?_
     obtain ⟨hpp, hpP, hpQ, -, hn, -⟩ := hmem σ hσ
     exact mem_blockPrimeDivs.mpr ⟨hpp, ⟨σ.2.2, hn.symm⟩, hn0, hpP, hpQ⟩
   have hweight : ∀ p ∈ BlockPrimeDivs P Q n,

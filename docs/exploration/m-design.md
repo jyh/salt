@@ -37,7 +37,7 @@ clean, EXIT 0.
 ## 1. THE FOUR BINDING BLOCKS (corrections to the M-R0 recon — non-negotiable)
 
 **BLOCK 1 (charge 2 — the master is TOLERANT, not equality).**  `SieveAgree`
-(ParityWall.lean:414) is a 5-clause relation — three exact equalities
+(ParityWall.lean:442) is a 5-clause relation — three exact equalities
 (`prodPrimes`, `nu`, `totalMass`) **plus a shared remainder budget `B`** on both
 sieves — and the W2 certificate is controlled only to within `2·B`
 (`|Φ s − Φ t| ≤ 2·B`).  The equality-shaped master the recon probe-compiled

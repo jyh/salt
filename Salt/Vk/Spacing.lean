@@ -241,9 +241,7 @@ lemma orbit_tail_geom_le (js k : ℕ) :
     intro x hx y hy hxy
     rw [Finset.mem_Icc] at hx hy; omega
   have himg : (Finset.Icc (js + 2) k).image (fun j => j - js - 1) ⊆ Finset.Icc 1 k := by
-    intro i hi
-    rw [Finset.mem_image] at hi
-    obtain ⟨j, hj, rfl⟩ := hi
+    refine Finset.forall_mem_image.2 fun j hj => ?_
     rw [Finset.mem_Icc] at hj ⊢; omega
   calc ∑ j ∈ Finset.Icc (js + 2) k, (1 / 4 : ℝ) ^ (j - js - 1)
       = ∑ i ∈ (Finset.Icc (js + 2) k).image (fun j => j - js - 1), (1 / 4 : ℝ) ^ i :=

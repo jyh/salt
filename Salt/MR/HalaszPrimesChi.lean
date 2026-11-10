@@ -554,6 +554,111 @@ lemma logDn_mono (n : ℕ) {γ₁ γ₂ : ℝ} (h1 : Real.exp 1 ≤ γ₁) (h12 
     (pow_nonneg (Real.log_nonneg hL1) n) ?_
   exact le_of_lt (Real.rpow_pos_of_pos (by linarith) _)
 
+/-- **The above-floor arm of the twisted zero-free rectangle.** For `ψ ≠ 1` mod `q`, `1 ≤ A`,
+`exp(exp 100) ≤ T` and `A + 7 ≤ loglog(5T + 1)`, a zero `ρ` of `L(·, ψ)` with
+`exp(exp 100) + 1 ≤ |Im ρ| ≤ 5T + 1` obeys `Re ρ ≤ 1 − (1/10⁸)/((log(5T+1))^{3/4}·(loglog(5T+1))⁴)`.
+The two VK regions (`LFunction_real_zero_free_region_vk` at a real `ψ`,
+`LFunction_zero_free_region_vk` otherwise) give the width at the zero's own height, and
+`logDn_mono` moves it to the box height. Shared by the five `twisted_rect_zero_free_*` assemblies
+(`twisted_rect_zero_free_split` here, and those in `PortAssembly`, `NumeralKq`, `FlatDoorStandoff`,
+`V6SiegelFree`), whose above-floor branch is exactly this. -/
+theorem twistedRect_above_floor {q : ℕ} [NeZero q] {ψ : DirichletCharacter ℂ q} (hψ1 : ψ ≠ 1)
+    {A T : ℝ} (hA1 : 1 ≤ A) (hTfloor : Real.exp (Real.exp 100) ≤ T)
+    (hAq : Real.log (20000 * (vkStripConst q + 8104)) ≤ A * 100)
+    (hAabs : A + 7 ≤ Real.log (Real.log (5 * T + 1))) {ρ : ℂ} (hρ0 : LFunction ψ ρ = 0)
+    (hρim : |ρ.im| ≤ 5 * T + 1) (hcase : Real.exp (Real.exp 100) + 1 ≤ |ρ.im|) :
+    ρ.re ≤ 1 - (1 / 10 ^ 8)
+      / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+          * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) := by
+  have hE0 : (0 : ℝ) < Real.exp (Real.exp 100) := Real.exp_pos _
+  have hT0 : (0 : ℝ) < T := lt_of_lt_of_le hE0 hTfloor
+  have h5T : Real.exp (Real.exp 100) ≤ 5 * T + 1 := by linarith
+  have h5T0 : (0 : ℝ) < 5 * T + 1 := by linarith
+  have hLg100 : Real.exp 100 ≤ Real.log (5 * T + 1) := by
+    have h := Real.log_le_log hE0 h5T; rwa [Real.log_exp] at h
+  have hexp100 : (1 : ℝ) ≤ Real.exp 100 := by
+    have := Real.add_one_le_exp (100 : ℝ); linarith
+  have hLg1 : (1 : ℝ) ≤ Real.log (5 * T + 1) := by linarith
+  have hLg0 : 0 < Real.log (5 * T + 1) := by linarith
+  have hℓ100 : (100 : ℝ) ≤ Real.log (Real.log (5 * T + 1)) := by
+    have h := Real.log_le_log (Real.exp_pos 100) hLg100; rwa [Real.log_exp] at h
+  have hℓ1 : (1 : ℝ) ≤ Real.log (Real.log (5 * T + 1)) := by linarith
+  set Lg : ℝ := Real.log (5 * T + 1) with hLgdef
+  set ℓ : ℝ := Real.log (Real.log (5 * T + 1)) with hℓdef
+  have hLg34 : (1 : ℝ) ≤ Lg ^ ((3 : ℝ) / 4) := Real.one_le_rpow hLg1 (by norm_num)
+  have hLg34pos : 0 < Lg ^ ((3 : ℝ) / 4) := by linarith
+  have hD3pos : 0 < Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ) := by positivity
+  have hD4pos : 0 < Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by positivity
+  have hD4ge1 : (1 : ℝ) ≤ Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by
+    have h1 : (1 : ℝ) ≤ ℓ ^ (4 : ℕ) := one_le_pow₀ hℓ1
+    nlinarith only [hLg34, h1]
+  -- the target width is tiny
+  have hWsmall : (1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ)) ≤ 1 / 2 := by
+    rw [div_le_div_iff₀ hD4pos (by norm_num : (0:ℝ) < 2)]
+    linarith only [hD4ge1, hD4pos]
+  have hβ1 : ρ.re < 1 := by
+    by_contra hge
+    exact LFunction_ne_zero_of_one_le_re ψ (Or.inl hψ1) (by linarith [not_lt.mp hge]) hρ0
+  have hℓγ100 : (100 : ℝ) ≤ Real.log (Real.log |ρ.im|) := loglog_ge_hundred hcase
+  have hgate : Real.log (20000 * (vkStripConst q + 8104))
+      ≤ A * Real.log (Real.log |ρ.im|) := by
+    have : A * 100 ≤ A * Real.log (Real.log |ρ.im|) :=
+      mul_le_mul_of_nonneg_left hℓγ100 (by linarith)
+    linarith
+  -- the two arms deliver the same D₃-shaped width at the zero's own height
+  have hstone : ρ.re ≤ 1 - (1 / (10 ^ 8 * (A + 7)))
+      * (1 / ((Real.log |ρ.im|) ^ ((3 : ℝ) / 4)
+          * (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ))) := by
+    by_cases hsq : ψ ^ 2 = 1
+    · refine LFunction_real_zero_free_region_vk hψ1 hsq hA1 hρ0 hβ1 hcase ?_
+      exact hgate
+    · refine LFunction_zero_free_region_vk hψ1 hsq hA1 hρ0 hβ1 hcase ?_
+      have hvk : (1 : ℝ) ≤ vkStripConst q := one_le_vkStripConst
+      exact le_trans (Real.log_le_log (by linarith) (by linarith)) hgate
+    -- (both arms take the SAME gate: `vkStripConst q ≤ vkStripConst q + 8104`)
+  -- compare the two widths
+  have hEexp1 : Real.exp 1 ≤ |ρ.im| := by
+    have h1 : Real.exp 1 ≤ Real.exp (Real.exp 100) :=
+      Real.exp_le_exp.mpr (by linarith)
+    linarith
+  have hmono := logDn_mono 3 hEexp1 hρim
+  have hDγpos : 0 < (Real.log |ρ.im|) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ) := by
+    have hL1 : (1 : ℝ) ≤ Real.log |ρ.im| := by
+      have h := Real.log_le_log (Real.exp_pos 1) hEexp1; rwa [Real.log_exp] at h
+    have h1 : 0 < (Real.log |ρ.im|) ^ ((3 : ℝ) / 4) :=
+      Real.rpow_pos_of_pos (by linarith) _
+    have h2 : 0 < (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ) := by positivity
+    exact mul_pos h1 h2
+  have hstep1 : (1 / (10 ^ 8 * (A + 7)) : ℝ) * (1 / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)))
+      ≤ (1 / (10 ^ 8 * (A + 7)) : ℝ)
+        * (1 / ((Real.log |ρ.im|) ^ ((3 : ℝ) / 4)
+            * (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ))) := by
+    refine mul_le_mul_of_nonneg_left ?_ (by positivity)
+    exact one_div_le_one_div_of_le hDγpos hmono
+  have hstep2 : (1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ))
+      ≤ (1 / (10 ^ 8 * (A + 7)) : ℝ) * (1 / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))) := by
+    have hA7 : (0 : ℝ) < A + 7 := by linarith
+    have hL : (1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ))
+        = 1 / (10 ^ 8 * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ))) := by rw [div_div]
+    have hR : (1 / (10 ^ 8 * (A + 7)) : ℝ) * (1 / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)))
+        = 1 / (10 ^ 8 * (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))) := by
+      rw [div_mul_div_comm, one_mul]
+    have hden : (0 : ℝ) < 10 ^ 8 * (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)) :=
+      mul_pos (mul_pos (by norm_num) hA7) hD3pos
+    have hkey : (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))
+        ≤ Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by
+      calc (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))
+          ≤ ℓ * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)) :=
+            mul_le_mul_of_nonneg_right hAabs hD3pos.le
+        _ = Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by ring
+    rw [hL, hR]
+    refine one_div_le_one_div_of_le hden ?_
+    calc 10 ^ 8 * (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))
+        = 10 ^ 8 * ((A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))) := by ring
+      _ ≤ 10 ^ 8 * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ)) := by linarith [hkey]
+  linarith [hstone, hstep1, hstep2]
+
 /-- **RULING (i) LANDED — the assembled twisted zero-free rectangle.**  For every `q > 0`,
 every `ψ mod q` with `ψ ≠ 1`, every `A ≥ 1` and every `T ≥ exp(exp 100)` satisfying the two
 gates, and under the Siegel carve-out below the floor, EVERY zero of `L(·,ψ)` in the contour
@@ -611,69 +716,7 @@ theorem twisted_rect_zero_free_split :
     rw [div_le_div_iff₀ hD4pos (by norm_num : (0:ℝ) < 2)]
     linarith only [hD4ge1, hD4pos]
   by_cases hcase : Real.exp (Real.exp 100) + 1 ≤ |ρ.im|
-  · -- ABOVE the floor: stones A+B
-    have hβ1 : ρ.re < 1 := by
-      by_contra hge
-      exact LFunction_ne_zero_of_one_le_re ψ (Or.inl hψ1) (by linarith [not_lt.mp hge]) hρ0
-    have hℓγ100 : (100 : ℝ) ≤ Real.log (Real.log |ρ.im|) := loglog_ge_hundred hcase
-    have hgate : Real.log (20000 * (vkStripConst q + 8104))
-        ≤ A * Real.log (Real.log |ρ.im|) := by
-      have : A * 100 ≤ A * Real.log (Real.log |ρ.im|) :=
-        mul_le_mul_of_nonneg_left hℓγ100 (by linarith)
-      linarith
-    -- the two arms deliver the same D₃-shaped width at the zero's own height
-    have hstone : ρ.re ≤ 1 - (1 / (10 ^ 8 * (A + 7)))
-        * (1 / ((Real.log |ρ.im|) ^ ((3 : ℝ) / 4)
-            * (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ))) := by
-      by_cases hsq : ψ ^ 2 = 1
-      · refine LFunction_real_zero_free_region_vk hψ1 hsq hA1 hρ0 hβ1 hcase ?_
-        exact hgate
-      · refine LFunction_zero_free_region_vk hψ1 hsq hA1 hρ0 hβ1 hcase ?_
-        have hvk : (1 : ℝ) ≤ vkStripConst q := one_le_vkStripConst
-        exact le_trans (Real.log_le_log (by linarith) (by linarith)) hgate
-      -- (both arms take the SAME gate: `vkStripConst q ≤ vkStripConst q + 8104`)
-    -- compare the two widths
-    have hEexp1 : Real.exp 1 ≤ |ρ.im| := by
-      have h1 : Real.exp 1 ≤ Real.exp (Real.exp 100) :=
-        Real.exp_le_exp.mpr (by linarith)
-      linarith
-    have hmono := logDn_mono 3 hEexp1 hρim
-    have hDγpos : 0 < (Real.log |ρ.im|) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ) := by
-      have hL1 : (1 : ℝ) ≤ Real.log |ρ.im| := by
-        have h := Real.log_le_log (Real.exp_pos 1) hEexp1; rwa [Real.log_exp] at h
-      have h1 : 0 < (Real.log |ρ.im|) ^ ((3 : ℝ) / 4) :=
-        Real.rpow_pos_of_pos (by linarith) _
-      have h2 : 0 < (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ) := by positivity
-      exact mul_pos h1 h2
-    have hstep1 : (1 / (10 ^ 8 * (A + 7)) : ℝ) * (1 / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)))
-        ≤ (1 / (10 ^ 8 * (A + 7)) : ℝ)
-          * (1 / ((Real.log |ρ.im|) ^ ((3 : ℝ) / 4)
-              * (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ))) := by
-      refine mul_le_mul_of_nonneg_left ?_ (by positivity)
-      exact one_div_le_one_div_of_le hDγpos hmono
-    have hstep2 : (1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ))
-        ≤ (1 / (10 ^ 8 * (A + 7)) : ℝ) * (1 / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))) := by
-      have hA7 : (0 : ℝ) < A + 7 := by linarith
-      have hL : (1 / 10 ^ 8 : ℝ) / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ))
-          = 1 / (10 ^ 8 * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ))) := by rw [div_div]
-      have hR : (1 / (10 ^ 8 * (A + 7)) : ℝ) * (1 / (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)))
-          = 1 / (10 ^ 8 * (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))) := by
-        rw [div_mul_div_comm, one_mul]
-      have hden : (0 : ℝ) < 10 ^ 8 * (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)) :=
-        mul_pos (mul_pos (by norm_num) hA7) hD3pos
-      have hkey : (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))
-          ≤ Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by
-        calc (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))
-            ≤ ℓ * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ)) :=
-              mul_le_mul_of_nonneg_right hAabs hD3pos.le
-          _ = Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ) := by ring
-      rw [hL, hR]
-      refine one_div_le_one_div_of_le hden ?_
-      calc 10 ^ 8 * (A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))
-          = 10 ^ 8 * ((A + 7) * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (3 : ℕ))) := by ring
-        _ ≤ 10 ^ 8 * (Lg ^ ((3 : ℝ) / 4) * ℓ ^ (4 : ℕ)) := by linarith [hkey]
-    linarith [hstone, hstep1, hstep2]
+  · exact twistedRect_above_floor hψ1 hA1 hTfloor hAq hAabs hρ0 hρim hcase
   · -- BELOW the floor: the classical effective region
     rw [not_le] at hcase
     rcases le_or_gt (1 / 2 : ℝ) ρ.re with hre | hre
@@ -710,7 +753,7 @@ theorem twisted_rect_zero_free_split :
 /-! ## §5 — THE RESIDUE, pinned: the cross-character twisted per-pair price
 
 What §3 leaves is ONE analytic statement — the `ζ`-engine's `per_pair_contour`
-(`HalaszPrimesCore.lean:2403`) with
+(`HalaszPrimesCore.lean:2398`) with
 
 * the coefficient twisted by a NON-PRINCIPAL `ψ mod q` (`ψ = χ·χ̄′` on a cross-character
   pair), and

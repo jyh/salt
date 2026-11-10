@@ -316,8 +316,7 @@ theorem chi_Llower_trivial {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) 
     -(Real.log 32 + Real.log (Real.log X))
       ≤ Real.log ‖DirichletCharacter.LFunction χ
           (((1 + 1 / Real.log X : ℝ) : ℂ) - (t : ℝ) * Complex.I)‖ := by
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hd0 : (0 : ℝ) < 1 / Real.log X := one_div_pos.mpr hlogXpos
   have hd1 : 1 / Real.log X ≤ 1 := by rw [div_le_one hlogXpos]; linarith
@@ -583,8 +582,7 @@ theorem chi_Llower_341 {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) (hχ
         + (1 / 4) * Real.log (15 * (q : ℝ) ^ 2 * (1 + Real.log q)))
       ≤ Real.log ‖DirichletCharacter.LFunction χ
           (((1 + 1 / Real.log X : ℝ) : ℂ) - (t : ℝ) * Complex.I)‖ := by
-  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
   have hd0 : (0 : ℝ) < 1 / Real.log X := one_div_pos.mpr hlogXpos
   have hd1 : 1 / Real.log X ≤ 1 := by rw [div_le_one hlogXpos]; linarith

@@ -98,7 +98,7 @@ theorem integral_logMeasureAff (a x ω : ℕ) (f : ℕ → ℝ) :
 `Measure.isProbabilityMeasure_map (measurable_from_nat (f := fun n => a * n)).aemeasurable`
 (`MeasureTheory.Measure.isProbabilityMeasure_map`, Probability.lean:124 — NOT the bare
 `isProbabilityMeasure_map`, which resolves to nothing; the corpus spells it right at
-`InvarianceHead.lean:163`). -/
+`InvarianceHead.lean:171`). -/
 instance isProbabilityMeasure_logMeasureAff (a x ω : ℕ)
     [IsProbabilityMeasure (logMeasure x ω)] : IsProbabilityMeasure (logMeasureAff a x ω) := by
   unfold logMeasureAff
@@ -495,7 +495,7 @@ The two stride-sensitive fields are supplied by the caller at the base they tran
 `hHloa : a ≤ flatDesignFloor A` gives `hHlo` by `flatDesignFloor A ≤ Hlo`; `hcopa :
 (a : ℚ) ≤ ε²·flatDesignFloor A / 2` gives `hcoprime` by the same monotonicity (`ε² ≥ 0`).  The
 tower: `J := towerJmin 2 1 (a * Hlo)` and `Hhi := chowlaTower 2 1 (a * Hlo) J`, so `hfit` is
-`le_of_eq (chowlaTower_eq_base_one …)`, `hJcon` is `towerJmin_spec` (`TowerExport.lean:582`, base
+`le_of_eq (chowlaTower_eq_base_one …)`, `hJcon` is `towerJmin_spec` (`TowerExport.lean:600`, base
 `a * Hlo ≥ Hlo ≥ 4·10⁶` by `Nat.le_mul_of_pos_left`) through `towerDropSum_eq_base_one`, and
 `hHlohi` is `chowlaTower_base_ge` at that base composed with `Hlo ≤ a * Hlo`.  Everything else —
 `hHlo_floor`, `hPNTwindow` (the builder's `hPNT` from `4·m⁴ ≤ Hlo`, verbatim), and the outer scale
@@ -587,7 +587,7 @@ theorem chowlaRegime_exists_flat_stride (a : ℕ) (ha : 1 ≤ a) (A : ℝ) (_hA 
 /-! ## F1-D — the `Ξ`-restricted MRT door at the affine forms, and its seam -/
 
 /-- **F1-D1 (def).**  The `Ξ`-restricted MRT uniformity door at `(a, b, h)`:
-`MRTUniformityXiH h` (`ShiftFork.lean:296`) with the binder over `bigXiAff a b h R.eps H` and
+`MRTUniformityXiH h` (`ShiftFork.lean`) with the binder over `bigXiAff a b h R.eps H` and
 the integral against the STRIDE measure `logMeasureAff a R.x R.ω` — the window's DFT is read at
 `m = a·n`, which is Tao's (2.8) (textdump:672-679, the Fourier-uniformity at the dilated
 variable, obtained from (2.7) by Lemma 2.5).  The frequency `α = −ξ.val/H` is UNTWISTED and the

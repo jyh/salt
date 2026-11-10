@@ -128,9 +128,7 @@ theorem hFac2_lcm_sum_le_exp40 : ∀ (X : ℕ),
     Finset.sum_congr rfl (fun d₁ hd₁ =>
       Finset.sum_congr rfl (fun d₂ hd₂ => hterm d₁ hd₁ d₂ hd₂))
   have hsubP : D.image Nat.primeFactors ⊆ P.powerset := by
-    intro S hS
-    rw [Finset.mem_image] at hS
-    obtain ⟨d, hd, rfl⟩ := hS
+    refine Finset.forall_mem_image.2 fun d hd => ?_
     rw [Finset.mem_powerset]
     exact hpfsub d hd
   have hGnn : ∀ S₁ ∈ P.powerset, ∀ S₂ ∈ P.powerset, 0 ≤ G2 S₁ S₂ := by
@@ -227,7 +225,7 @@ theorem bigXi_bounded_500_ceiling :
 
 /-- The same hook, stated against an opaque `ε` pinned by an equation — the
 literal drop-in for the flat head's `obtain … := bigXi_bounded ε hεQpos hε2`
-(the head pins `ε := 1/500` at `HloExportFlat` :256 / `S16Uniform` :275). -/
+(the head pins `ε := 1/500` by `eps500_pin_facts` in `HloExportFlat` / `S16Uniform`). -/
 theorem bigXi_bounded_ceiling_of_pin (ε : ℚ) (hε : ε = 1 / 500) :
     ∃ C : ℝ, 0 < C ∧ C ≤ 2 ^ 539 ∧ ∃ H₀ : ℕ, 2 ≤ H₀ ∧ ∀ (H : ℕ) [NeZero H], H₀ ≤ H →
       ((bigXi ε H).card : ℝ) ≤ C := by

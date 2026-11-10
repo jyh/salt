@@ -570,8 +570,7 @@ theorem jointIntegrableAt_pin {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p�
       (Real.log (k : ℝ)) (1 + 1 / Real.log (k : ℝ)) (Real.log (k : ℝ) ^ 4)
       (1 / Real.log (Real.log (k : ℝ) ^ 4)) ((k : ℝ) / Real.sqrt (Real.log (k : ℝ))) := by
   have hk0 : (0 : ℝ) < (k : ℝ) := lt_of_lt_of_le (Real.exp_pos 64) hk64
-  have hL64 : (64 : ℝ) ≤ Real.log (k : ℝ) := by
-    rw [← Real.log_exp 64]; exact Real.log_le_log (Real.exp_pos 64) hk64
+  have hL64 : (64 : ℝ) ≤ Real.log (k : ℝ) := le_log_of_exp_le hk64
   have hh : (0 : ℝ) < (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) := by
     have : (0 : ℝ) < Real.sqrt (Real.log (k : ℝ)) := Real.sqrt_pos.mpr (by linarith)
     positivity

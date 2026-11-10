@@ -16,9 +16,9 @@ chain `outer_combine_h → Transport → WeakUniform → ResidueUniform` touches
 structurally at ONE leaf, `entropy_residueWindow_ge` (`ResidueUniform.lean:536`, consumed at
 `WeakUniform.lean:197`).  Under the pushforward by `a * ·` the residue `(a·n : ZMod (PH eps H))`
 is a UNIT multiple of `(n : ZMod (PH eps H))` — `Nat.Coprime a (PH eps H)` is the regime's own
-receipt `coprime_PH_of_le` (`PrimeWindow.lean:145`, from `ha`/`hcoprime`/`Hlo ≤ H`) — so the
+receipt `coprime_PH_of_le` (`PrimeWindow.lean:165`, from `ha`/`hcoprime`/`Hlo ≤ H`) — so the
 residue entropy at the stride measure EQUALS the landed one (`entropy_comp_of_injective`,
-`Salt/Entropy/Basic.lean:124`, an equality): ResidueUniform's 91 `logMeasure` sites are
+`Salt/Entropy/Basic.lean:126`, an equality): ResidueUniform's 91 `logMeasure` sites are
 untouched, and the error term `κ + (log P_H − H[Y])` is numerically the landed one — there is
 NO `shellError_aff`.  `hI` enters only at `decrement_markov_fintype` (`MarkovExtract.lean:150`,
 `μ`-generic).  The Hoeffding/concentration substrate reads no measure on `ℕ` and F2 already

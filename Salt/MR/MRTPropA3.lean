@@ -729,7 +729,7 @@ bound on the UNTWISTED, NORM-form prime sum**; `mrtM` provably runs the wrong wa
 (`pretDistSq_one_le_sum_norm`), and at `f = λ` the route is vacuous by `(log x)^{2+1/10}`
 (`sum_norm_one_sub_liouvilleC`).
 
-**The door — walked to the corpus's own named residue.**  `M4RowMeanSq_L` (`M4RowLinear:991`),
+**The door — walked to the corpus's own named residue.**  `M4RowMeanSq_L` (`M4RowLinear:992`),
 labelled the wave's ⟦RESIDUE⟧ at its own definition site; of its two obstructions ⟦THE WALL⟧ is
 REPAIRED (07-28) and ⟦THE CLASS PRICING⟧ is OPEN and design-tier.
 
@@ -741,7 +741,7 @@ and fixing them edits A.6's/A.7's STATEMENTS (Fable/Captain tier).  `DoorRoadCom
 /-! ### FIVE LINKS DEEP, EVERY ONE POPULATED — AND THE REAL OPEN QUESTION IS NOT A MISSING LEMMA
 
 Continuing the walk.  `DoorRowCarried` (the capstone producer's remaining input) is itself
-populated: **8 exact producer-shaped sites**, including `M4T0Discharge.lean:738`,
+populated: **8 exact producer-shaped sites**, including `M4T0Discharge.lean:735`,
 `M4DoorClose.lean:{395,533,607}`, `M4Collapse.lean:216`, `M4ChiSocketWire.lean:{184,240}`.
 The capstone `M4ChiDyadicRowMeanSq` has **6** (three of them `… := by` in
 `M4DoorClose`/`M4DoorClosePool`).
@@ -772,16 +772,16 @@ caught none of them.**  *Three versions in, the control has done more work than 
 Continuing the walk, under the rule set in the section below: name no frontier, keep going.
 
 **1. THE TRIVIAL SUPPLIER IS THE SMALL-LENGTH HALF, AND IT SAYS SO.**
-`norm_sum_doorSievedWindow_le` (`M4CoprimeSupply.lean:105`) is the window-length bound
+`norm_sum_doorSievedWindow_le` (`M4CoprimeSupply.lean:106`) is the window-length bound
 `‖∑_{m ∈ doorSievedWindow M K n} liouChi χ m‖ ≤ K`.  Its docstring: used at the SMALL dyadic
 lengths, *"where the capstone is silent"*.  So the dyadic split is `j < j₀` trivial grade,
-`j₀ ≤ j` capstone (`M4CoprimeSupply.lean:38`, `M4Maximal.lean:1024`).
+`j₀ ≤ j` capstone (`M4CoprimeSupply.lean:39`, `M4Maximal.lean:1019`).
 
 **2. ⛔ TWO DIFFERENT OBJECTS ARE CALLED "THE CAPSTONE". THEY ARE NOT THE SAME.**
-* `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:530`) — the **S12** lane.  This is
+* `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:527`) — the **S12** lane.  This is
   the one carrying `S14Compose.lean:429`'s **`⚠ NOT DERIVED` … "refuted at ⟦B1'-3⟧ by §3"**.
-* `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1026`) — the **M4** lane, and *this* is the one the
-  door's dyadic split consumes (`M4Maximal.lean:116`, length-graded `MS j H`).
+* `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1021`) — the **M4** lane, and *this* is the one the
+  door's dyadic split consumes (`M4Maximal.lean:117`, length-graded `MS j H`).
 
 **The `⚠ NOT DERIVED` marker does NOT lie on the door's chain.**  Checked, not assumed — the
 predecessor already lost a day to two different objects both called "Prop 2.4".
@@ -892,9 +892,9 @@ earlier were all published first and corrected after.  **Fencing is cheap; retra
 /-! ### THE ROAD BOTTOMS OUT — AND THE CORPUS NAMES ITS OWN FRONTIER
 
 Walked the gates down: `M4SievedDoorSq_L → M4BlockMeanSq_L → M4RowMeanSq_L`.
-`M4RowMeanSq_L` (`M4RowLinear.lean:991`) has **no producer** — established by reading **all six
-of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1392`) ·
-an enumeration entry (`:3419`) · one arrow (`:3434`).
+`M4RowMeanSq_L` (`M4RowLinear.lean:992`) has **no producer** — established by reading **all six
+of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1393`) ·
+an enumeration entry (`:3398`) · one arrow (`:3413`).
 
 ⭐ **AND THIS TIME IT IS NOT MY INFERENCE — THE CORPUS SAYS SO AT THE DEFINITION SITE:**
 *"**THE WAVE'S REMAINING INPUT**… This predicate is the wave's ⟦RESIDUE⟧: see the module header
@@ -937,7 +937,7 @@ produces it from **two explicit inequalities and NO other gate**:
 *It bottoms out in arithmetic about the delivered grade, not in another Prop socket.*
 
 **`M4SievedDoorSq_L`** (`M4LadderLinear.lean:860`) — `m4_cover_assembly_L`
-(`M4RowLinear.lean:1530`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
+(`M4RowLinear.lean:1527`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
 Its own docstring states the gate bundle is *"the same bundle `m4_hbd_of_live_L` reads, so the
 join needs no new hypothesis"* — so this reduction is free at the seam.  ⇒ **it reduces to the
 BLOCK MEAN SQUARE**, which is what `M4Maximal.m4_chiBlockMeanSq_of_shiftBlock` produces.
@@ -961,7 +961,7 @@ wrong, and it is wrong in the same direction as the two claims before it.**  Wal
   norm_absWindowSum_le_drift_tight     M4BridgePhase.lean:310   (phase drift → rational b/q)
     ⟹ subWindowSup_sq_le_strata       M4Gauss.lean:577         (Gauss/strata, at doorSievedCoeff M)
         ⟹ strataTerm = ∑_χ (doorChiSup χ …)²
-            ⟹ doorChiSup_sq_le_dyadic  M4Maximal.lean:396      (DYADIC MAXIMAL INEQUALITY, K-free)
+            ⟹ doorChiSup_sq_le_dyadic  M4Maximal.lean:397      (DYADIC MAXIMAL INEQUALITY, K-free)
                 ⟹ ∑_t ‖∑_{m ∈ doorSievedWindow M 2^j (n+2^{j+1}t)} liouChi χ m‖²
 ```
 `subWindowSup_sq_le_strata` is stated **at the door's own coefficient** `doorSievedCoeff M`, not at
@@ -1092,7 +1092,7 @@ The set sweep reported *"A.6's estimate — OPEN → 61 landed `halasz*` theorem
 count is real and it is **not** evidence A.6 is servable.  Measuring the closest one shows
 why, and it corrects my own framing one beat old.
 
-`T1_pointwise_decay` (`PropA3Core.lean:330`) is the nearest landed relative:
+`T1_pointwise_decay` (`PropA3Core.lean:326`) is the nearest landed relative:
 ```
   U ≤ (C₁+C₂)·X·( (log X)^{−1/(32e)} + (log X)^{−1/2+ε} )
       from  Uhead ≤ C₁·X·exp(−(1/e)·M_range f X T),  Utail ≤ C₂·X·(log X)^{−1/2},
@@ -1513,7 +1513,7 @@ With `MRTLemmaA4ii`'s `t₁` repaired (constrained to the minimiser), the far
 branch has an obvious route through objects that are already landed:
 
 ```
-  dist_one_floor_pow   DistHalasz.lean:179   L ≤ 𝔻²(1, n^{i(t−t₁)}; X),  unconditional
+  dist_one_floor_pow   DistHalasz.lean:177   L ≤ 𝔻²(1, n^{i(t−t₁)}; X),  unconditional
                        the 1/4-grounding: for |b| ≤ 2X the −(3/4)loglog correction
                        eats 3/4 of the leading loglog, leaving L = (1/4)·loglog X − o(1)
   dist_recenter_sq     DistSplit.lean:140    (√L − √S)² ≤ 𝔻²(f, n^{it}; X)

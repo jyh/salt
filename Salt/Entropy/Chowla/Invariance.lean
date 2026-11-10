@@ -33,10 +33,15 @@ namespace Salt.Entropy.Chowla
     it is `liouvilleWindow H`. -/
 def liouvilleWindowShift (H j : ℕ) (n : ℕ) : Fin H → ℤ := liouvilleWindow H (n + j * H)
 
+/-- `liouvilleWindowShift H 0 = liouvilleWindow H` (`funext`, `simp`; `@[simp]`): the shift at
+`j = 0` is the window itself. The simp normal form for the unshifted case; no consumer names it
+at this commit. -/
 @[simp] lemma liouvilleWindowShift_zero (H : ℕ) :
     liouvilleWindowShift H 0 = liouvilleWindow H := by
   funext n; simp [liouvilleWindowShift]
 
+/-- `liouvilleWindowShift H j n i = λ(n + j·H + i + 1)` (`rfl`; `@[simp]`): the shifted window's
+entries. The simp normal form; no consumer names it at this commit. -/
 @[simp] lemma liouvilleWindowShift_apply (H j n : ℕ) (i : Fin H) :
     liouvilleWindowShift H j n i = ArithmeticFunction.liouville (n + j * H + i + 1) := rfl
 

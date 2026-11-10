@@ -36,7 +36,7 @@ Conventions, both load-bearing (`hb1983-notes.md:883-903`, the notation hazard s
 
 * `e x = exp(2πi x)` is `Salt.LS.e` (`Salt/LS/Defs.lean:31`) — the same additive character the
   completion kernel `Salt.BV.sum_e_eq` (`Salt/BV/Completion.lean:76`) is built on.
-* `‖θ‖` (distance to the nearest integer) is `Salt.LS.dist₁ θ 0` (`Salt/LS/Dist.lean:29`), the
+* `‖θ‖` (distance to the nearest integer) is `Salt.LS.dist₁ θ 0` (`Salt/LS/Dist.lean:34`), the
   corpus's `dist₁` apparatus reused verbatim.
 -/
 

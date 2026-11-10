@@ -114,9 +114,7 @@ theorem entire_norm_logDeriv_sub_sum_scaled {F : ℂ → ℂ} (hF : Differentiab
     rw [hLD, hSum]; ring
   refine ⟨ZG.image A, fun ρ => mG (B ρ), fun z => kprod⁻¹ * hGrem (B z), ?_, ?_, ?_, ?_, ?_, ?_⟩
   · -- zeros
-    intro ρ hρ
-    rw [Finset.mem_image] at hρ
-    obtain ⟨ρ', hρ'ZG, rfl⟩ := hρ
+    refine Finset.forall_mem_image.2 fun ρ' hρ'ZG => ?_
     obtain ⟨hρ'ball, hGρ'⟩ := hZmemG ρ' hρ'ZG
     refine ⟨?_, hGρ'⟩
     rw [mem_ball, dist_eq_norm]

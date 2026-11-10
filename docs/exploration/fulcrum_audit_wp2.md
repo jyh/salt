@@ -5,7 +5,7 @@ Scope: the T-BAL landed chain in `Salt/SW/` + freeze `docs/exploration/tbal-s0-f
 
 ## 0. The contract (what the engine promises)
 
-GROUNDED DHRepulsion.lean:262–275 (prose contract, 16/17 window ratified 2026-07-18
+GROUNDED DHRepulsion.lean:278–291 (prose contract, 16/17 window ratified 2026-07-18
 contingent on the σ-budget analysis; ordering `ρ.re ≤ β₀` = T-BAL-UNORDERED):
 
     dh_repulsion_ordered: ∃ b c k (witnesses b=680, c=2^{−250}, k=14, freeze:9/AM.1):
@@ -17,7 +17,7 @@ caps + `ray_pow_bound` engine (TBalR8.lean:268–955), guard discharges `tbal_hs
 tbal_hguard/tbal_hcov` (TBalR8.lean:959–1305), `dh_balance` (TBalR7.lean:100), `H_lower`
 (CrushH.lean:65), `L1_lower_siegel` (DHCore.lean:808), extractions (DHExtractW.lean:1163,
 TBalCompose.lean:489), `zfr_harvest` (DHBal.lean:62), `selberg_opt_eq` (SelOpt.lean:440),
-`tail_shift_to_beta0` (SelWeight.lean:381). The ONLY unlanded producer piece: the R8c
+`tail_shift_to_beta0` (SelWeight.lean:383). The ONLY unlanded producer piece: the R8c
 final assembly (trivial split + by_contra inversion into the contract ∃-shape) —
 dispatched per flags/git (cf2f0c0), no `theorem dh_repulsion_ordered` in Lean yet.
 **[STALE — corrected 2026-08-02 by HB-CENSUS: this line was written at cf2f0c0,
@@ -43,7 +43,7 @@ item, gated on the consuming node.]**
 - **FOSSIL CHECK (catch-#224 genre, CONFIRMED against corpus catch #239,
   flags.md:11095–11097):** the β₀-range `1−1/(4(1+log q)) ≤ β` named in the task brief
   belongs to the OLD M4 inverter `dh_repulsion_of_LFunction_one_lower`
-  (DHBalance.lean:196–201) / `LFunction_one_re_le_mvt_sharp` (SiegelClose.lean:458–461).
+  (DHBalance.lean:196–201) / `LFunction_one_re_le_mvt_sharp` (SiegelClose.lean:461–464).
   The live R8 route does NOT consume it — R8 inverts by contradiction on the ray; "M4
   plays NO role" (flags.md:11097). The engine's true β₀-range demand is `1/2 < β₀ < 1`.
 
@@ -66,13 +66,13 @@ item, gated on the consuming node.]**
   crush chain. Extending to |γ| ≤ T₀ = a taller zetaHol box + re-ledger; NOT demanded
   by any consumer (both contracts use |γ| ≤ 1; T = |γ|+2 ≤ 3, budget analysis §2 C1).
 - **The ZFR consumption** (`zfr_harvest`, DHBal.lean:62–69): `ρ.im ≠ 0`, `9/10 ≤ ρ.re`
-  (implied by 16/17 — budget C6) harvest `zero_free_region_all` (ZeroFreeReal.lean:605,
+  (implied by 16/17 — budget C6) harvest `zero_free_region_all` (ZeroFreeReal.lean:604,
   c₀ = 1/126848, ∃-form in Lean) into `1/‖1−ρ‖ ≤ log(qT)/c₀`, `‖2−ρ‖ ≥ 1`. Quality
   consumed: a POLYLOG-grade zero-free region only, and it lands in the CONSTANT: the
   row-cap gate is `4/c₀·c^{3/17} ≤ 1/8` (row_rho_main_cap:605) = 2^{17+2−44.1} ≈
   2^{−25} vs 2^{−3} — ~22 binary orders of slack. The ZFR is nowhere near binding.
 - **The ordering `ρ.re ≤ β₀`** (T-BAL-UNORDERED): consumed by `tail_shift_to_beta0`
-  (SelWeight.lean:381, the exact termwise R1 shift). Grounded harmless downstream:
+  (SelWeight.lean:383, the exact termwise R1 shift). Grounded harmless downstream:
   ordering is automatic once η ≳ 1.4e5 via the landed ZFR, and for bounded η it matches
   Jutila Thm 2's own `β ≤ β₁`, which is what HB consumes (budget analysis §3;
   s3-hb3-design.md:940).

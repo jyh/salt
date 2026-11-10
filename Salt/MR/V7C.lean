@@ -10,7 +10,7 @@ import Salt.MR.RegimeSupplyFacts
 /-!
 # `V7C` — ⟦THE `T₀`-ARM⟧: `logChowla2_ineffective_v6`'s SECOND RIDER, DISCHARGED
 
-`logChowla2_ineffective_v6` (`RegisterCompose:345`) carries five inner riders.  The second is
+`logChowla2_ineffective_v6` (`RegisterCompose:339`) carries five inner riders.  The second is
 
   `T₀ ≤ exp(√(flatDesignBase A)/2)`
 
@@ -20,8 +20,8 @@ established that `T₀` has **no effective ceiling** in the corpus (its VK leg b
 computing `T₀`.
 
 ⟦THE ROUTE⟧ it does not have to be.  In `v6`'s own proof the six crossing constants — `T₀`
-among them — are minted at `RegisterCompose:368` **BEFORE** the design constant `A` is chosen
-at `:373`; `A` is a `max` over five arms, each an absorption threshold.  `T₀` is a fixed real,
+among them — are minted at `RegisterCompose:362` **BEFORE** the design constant `A` is chosen
+at `:367`; `A` is a `max` over five arms, each an absorption threshold.  `T₀` is a fixed real,
 so it may be made a **sixth arm**.  Then `T₀ ≤ A`, and the tolerance is a THREE-DEEP
 exponential tower in `A`, so it clears with two whole exponentials to spare.  No numeric value
 of `T₀` is needed, wanted, or used.

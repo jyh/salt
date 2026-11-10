@@ -257,8 +257,7 @@ private lemma one_line_pow_growth_pos {d' t : ℝ} (hd0 : 0 ≤ d') (hd1 : d' �
   have hlogt1 : 1 < Real.log t := by linarith [hL100, hexp100]
   have hL1 : (1 : ℝ) ≤ Real.log t := le_of_lt hlogt1
   have hℓ1 : (1 : ℝ) ≤ Real.log (Real.log t) := by
-    have h100 : (100 : ℝ) ≤ Real.log (Real.log t) := by
-      rw [← Real.log_exp 100]; exact Real.log_le_log (Real.exp_pos _) hL100
+    have h100 : (100 : ℝ) ≤ Real.log (Real.log t) := le_log_of_exp_le hL100
     linarith
   have ht100 : (100 : ℝ) ≤ t := by
     have h2 : Real.exp 100 ≤ Real.exp (Real.exp 100) :=

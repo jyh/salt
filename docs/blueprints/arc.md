@@ -36,10 +36,10 @@ close; every wave carries that sentence.
   the conclusion it yields is `¬ logChowla2Fails R.eps R.x R.ω` **at the ∃-chosen R**
   (GAP X open), and nothing is unconditional. The producer's lever: the `∀ (U1floor) (g)`
   binder (`MRTPortTrivialSplit.lean:50`) lets the supply demand `R.x`, `R.Hlo` arbitrarily
-  large — E4 spends the same lever at `MRTPortExitLamGated.lean:87-97`.
+  large — E4 spends the same lever at `MRTPortExitLamGated.lean:97-107`.
 - **The row currency (PAD B) is STRICTLY UPSTREAM, not an alternative.**
   `M4RowMeanSqLam R (doorCount R.ω) MS` (`MRTPortRowLam.lean:49`) plus the sed'd pricing line
-  `∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 6 * MS H ≤ c` (`MRTPortExitLamGated.lean:78`; note `MS`
+  `∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 6 * MS H ≤ c` (`MRTPortExitLamGated.lean:88`; note `MS`
   is `∀`-bound at :77 — the producer picks it) feed E4. **The chain is ONE-WAY: PAD B ⇒
   PAD A** via `m4_doorSq_of_rowMeanSqLam` (`MRTPortRowLam.lean:68`, modulo the three ladder
   gates and the `4·2^k·H/x / Z` tail, absorbed by E4). **The converse does not exist:**
@@ -55,7 +55,7 @@ close; every wave carries that sentence.
 
 **VERDICT (a): THE SIEVED ROAD.** The pricing wave's adversarial gate broke the five-reader
 default at the bytes: the sieved supply is LANDED end-to-end — `m4_doorL2_close_split_sq`
-(`M4DoorL2.lean:597`, legs 1/3/4 in place) → `m4_second_road_L2` (`S12Compose.lean:98`,
+(`M4DoorL2.lean:597`, legs 1/3/4 in place) → `m4_second_road_L2` (`S12Compose.lean:99`,
 11-item register, ONE analytic item, that item carrying FIVE producers + an unconditional
 witness) → grade MET → `logChowla2_ineffective_v7_ksarm_g0` (`V7Headline.lean:157`, no outer
 hypotheses, ONE open rider). The rider (`Kvt` cushion) measured at its flip-point: no second
@@ -189,10 +189,10 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   whole blocker.**
   ⛔⛔ **AND THE RE-ROUTE I TESTED BEFORE PROPOSING IT IS REFUTED — recorded because it is the
   attractive wrong answer.** `SiegelBand.lean`'s design law says an `X`-independent debit is absorbed
-  by regime enlargement, and the terminal's parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:435`)
+  by regime enlargement, and the terminal's parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:429`)
   keeps a live lever `g R.Hhi R.ω ≤ R.x` that `_g0` sets to **zero**. So the obvious move is to re-route
   the cushion from `log H₊/4` onto the outer scale and let `g` absorb it. **The lever has a ceiling.**
-  `XCeilRiderStrict ε g` (`XThread.lean:90`) demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊`, and `ε ≥ 1/500`,
+  `XCeilRiderStrict ε g` (`XThread.lean:92`) demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊`, and `ε ≥ 1/500`,
   so a caller may request at most `log (g H₊ ω) ≤ 15500·H₊`; against the landed floor
   `loglog X ≥ log H₊ − 14` (`cofkL_logX_floor`, LINEAR in `H₊` via `hPHheadroom`) the lever buys
   **≈ +24 additive on `loglog X`, i.e. a constant factor ≤ ~4 in the budget — never a rate.**
@@ -295,7 +295,7 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   θ=3/4) bars copying quantitative exponents (extract:326-329); the PUBLISHED Prop A.3
   proof is incorrect for slowly-growing M — only the arXiv-v3 corrected proof ports
   (extract:212-217, re-verified at the PDF); A.1's file already holds proof-route
-  arithmetic (`MRTThmA1.lean:159-173`). **F-4 is NOT on the seal's chain** (frozen brief
+  arithmetic (`MRTThmA1.lean:191-205`). **F-4 is NOT on the seal's chain** (frozen brief
   :255 — A.1 cannot serve the phased arc datum): it is a separate campaign against the
   ratified primary, not the next link.
 - **F-5 [B/C] GAP X — the investigation node.** The register measured the mechanism (the

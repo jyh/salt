@@ -23,7 +23,7 @@ This file instantiates `r0` at the repulsion floor and kernel-checks the join.
 
 It certifies the **`hσ'r` obligation only**.  There is a *second, independent* demand on
 `log η` from the Range-A EF ledger (`efEnvelope_le_ledger_sharp`,
-`Salt/HB/Lemma7EF.lean:2624-2632`, inside the byte-fixed window at `:2844`), which contributes
+`Salt/HB/Lemma7EF.lean:2696-2704`, inside the byte-fixed window at `:2844`), which contributes
 a `5b/s·log L` term that is **entirely `k`-independent**.  Nothing here certifies the door,
 `q`-freeness, or the full threshold: this is **one of two conjoined obligations**.
 

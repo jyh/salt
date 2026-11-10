@@ -7,6 +7,7 @@ import Salt.MR.S14Compose
 import Salt.MR.S11HoistGrade
 import Salt.MR.StrataBounds
 import Salt.MR.DoorSocket
+import Salt.MR.SocketFrame
 
 /-!
 # ⟦S12-CONST⟧ — THE CAPSTONE TWIN AT THE CONSTANT POOL, WITH `εr` FREED POSITIVE
@@ -119,6 +120,9 @@ private lemma s12c_one_le_log_of_three_le {Xd : ℕ} (h : (3 : ℝ) ≤ ((Xd : �
     rwa [Real.log_exp] at this
   linarith
 
+/-- `2.5·10^19 ≤ e^45`: `2.7 < e` (`Real.exp_one_gt_d9`), so `2.7^45 ≤ (e^1)^45 = e^45`, and
+`2.5·10^19 ≤ 2.7^45` by `norm_num`. Consumed once, with `s12c_exp5`, in `s12c_lambda_core`'s
+`hbig` step (`3.575·10^21·W ≤ e^λ` at `λ ≥ 50`). -/
 private lemma s12c_exp45 : (25000000000000000000 : ℝ) ≤ Real.exp 45 := by
   have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
   have h : Real.exp 45 = (Real.exp 1) ^ (45 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
@@ -127,6 +131,8 @@ private lemma s12c_exp45 : (25000000000000000000 : ℝ) ≤ Real.exp 45 := by
   have hn : (25000000000000000000 : ℝ) ≤ (2.7 : ℝ) ^ (45 : ℕ) := by norm_num
   rw [h]; linarith
 
+/-- `143 ≤ e^5`: `2.7 < e`, `2.7^5 ≤ e^5`, `143 ≤ 2.7^5` by `norm_num`. Consumed once, with
+`s12c_exp45`, in `s12c_lambda_core`'s `hbig` step. -/
 private lemma s12c_exp5 : (143 : ℝ) ≤ Real.exp 5 := by
   have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
   have h : Real.exp 5 = (Real.exp 1) ^ (5 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
@@ -406,9 +412,7 @@ theorem m4_closure_fuse_zero'_const_nonneg :
     (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband
     (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPool hρ.le harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_pos (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd (hband4096 H L q j A s hb)
 
@@ -602,9 +606,7 @@ theorem logChowla2_capstone_final_const' (Aexp : ℝ) (hAexp : 0 < Aexp) :
     exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -828,9 +830,7 @@ theorem logChowla2_capstone_final_const'_graded (Aexp : ℝ) (hAexp : 0 < Aexp) 
     exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -947,9 +947,7 @@ theorem m4_closure_fuse_zero'_const_nonneg_gk (K : ℕ) (hK : K ≤ 170000000) :
     (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband
     (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPool_gk K hρ.le harith)
   intro H L q j A s hb
-  have hXd : 1 ≤ A + s := by
-    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-    omega
+  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_pos_gk K (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd (hband4096 H L q j A s hb)
 
@@ -1114,9 +1112,7 @@ theorem logChowla2_capstone_final_const'_gk (K : ℕ) (hK : K ≤ 170000000)
     exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -1309,9 +1305,7 @@ theorem logChowla2_capstone_final_const'_graded_gk (K : ℕ) (hK : K ≤ 1700000
     exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)
@@ -1528,9 +1522,7 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned (K : ℕ) (hK : K ≤ 
     exact gate6_of_j0_floor R hρ1 hj0
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
-    have hH0 : 0 < H := by
-      have := R.hHlo_floor
-      omega
+    have hH0 : 0 < H := by have := R.hHlo_floor; omega
     have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
       (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
       (hfit H hlo hhi)

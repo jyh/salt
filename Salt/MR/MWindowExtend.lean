@@ -11,7 +11,7 @@ import Salt.MR.FarStar
 
 `MWindowBridge.M_window_bridge_seam` (:323) supplies the station's distance floor on
 MRT's box `|v| ≤ X`.  The station does not consume it there.  **The consumption site,
-read:** `SPartStation.dilated_scale_grade` (:540–558) uses `hM₀` at the frequency
+read:** `SPartStation.dilated_scale_grade` (:407–425) uses `hM₀` at the frequency
 `v = t − t₀` for every `t` in the dilated scale's recentring window
 `|t − (t₀+t₁)| ≤ T*(k, log k)`, so the frequencies actually touched are
 
@@ -251,7 +251,7 @@ The floor's range is `|v| ≤ seamGateRstar X T`, which EXCEEDS `X` — that is 
 the radius the floor is proved on.  The scale gate is `e^e ≤ X` (needed only to put `2X`
 above `Tstar_mono`'s own `e^e`); the station runs at `X ≥ e^{8192}`.
 
-CONSUMER-CHECKED against `SPartStation.seam_ball_leg_station_M_gen` (:879): the pair below
+CONSUMER-CHECKED against `SPartStation.seam_ball_leg_station_M_gen` (:746): the pair below
 discharges that stone's `hRad`/`hM₀` slots at `Rad := seamGateRstar X T` and `M₀ :=` the
 `min`, leaving its other binders untouched.  The check is not carried here — importing the
 station would drag `SPartStation` into this file's surface, which is `MWindowBridge`
@@ -303,11 +303,9 @@ theorem pretFloorShape_quarter_at_pow {X b A : ℝ}
   have h1e : (1 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
   have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos _) hX
   -- the two scale facts the `e^e` gate buys
-  have hLX : Real.exp 1 ≤ Real.log X := by
-    rw [← Real.log_exp (Real.exp 1)]; exact Real.log_le_log (Real.exp_pos _) hX
+  have hLX : Real.exp 1 ≤ Real.log X := le_log_of_exp_le hX
   have hLXpos : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 1) hLX
-  have hL2 : (1 : ℝ) ≤ Real.log (Real.log X) := by
-    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hLX
+  have hL2 : (1 : ℝ) ≤ Real.log (Real.log X) := le_log_of_exp_le hLX
   have hL2pos : (0 : ℝ) < Real.log (Real.log X) := by linarith
   have hLA : (0 : ℝ) ≤ Real.log A := Real.log_nonneg hA
   -- the height, through `log (X^A) = A log X`
@@ -377,8 +375,7 @@ theorem Tstar_two_mul_le_quarter {X : ℝ} (hX : Real.exp 8192 ≤ X) :
     Tstar (2 * X) (Real.log (2 * X)) ≤ X / 4 := by
   have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos _) hX
   have h2Xpos : (0 : ℝ) < 2 * X := by linarith
-  have hlogX : (8192 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 8192]; exact Real.log_le_log (Real.exp_pos _) hX
+  have hlogX : (8192 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hlog2pos : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
   have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
   have hu : Real.log (2 * X) = Real.log 2 + Real.log X :=
@@ -445,8 +442,7 @@ the remainder fit. -/
 theorem seamGateRstar_le_two_mul {X T : ℝ} (hX : Real.exp 8192 ≤ X) (hT : T ≤ X) :
     seamGateRstar X T ≤ 2 * X := by
   have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos _) hX
-  have hlogX : (8192 : ℝ) ≤ Real.log X := by
-    rw [← Real.log_exp 8192]; exact Real.log_le_log (Real.exp_pos _) hX
+  have hlogX : (8192 : ℝ) ≤ Real.log X := le_log_of_exp_le hX
   have hLpos : (0 : ℝ) < Real.log X := by linarith
   have hXbig : (8100 : ℝ) ≤ X := by linarith [Real.add_one_le_exp (8192 : ℝ)]
   -- the collar: `(log X)^{1/46} ≤ log X ≤ 2(√X − 1)`

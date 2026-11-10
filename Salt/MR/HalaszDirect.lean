@@ -396,7 +396,7 @@ max-modulus step and WITHOUT the `(1+M)` factor (see the file header).
 **THE CITATION GUARD (freeze v2, verbatim): "L3's arm cites `sigma_cutoff_pretentious_of_gen`
 (c = 1/e); the ball's arm cites `_half` (c = 1/(2e)); a citation of `_half` in any §8.3
 consumer is a STOP."**  THIS is the §8.3/L3 arm's supply — the un-halved ledger
-(ρ = 1/(32e)); it cites `sigma_cutoff_pretentious_of_gen` (`SeamBallWeighted` :416) and nothing
+(ρ = 1/(32e)); it cites `sigma_cutoff_pretentious_of_gen` (`SeamBallWeighted` :483) and nothing
 halved. -/
 theorem halasz_direct_gen {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
     {t₀ t X T b : ℝ} (hL : 3 ≤ Real.log X) (hb : 1 / Real.log X ≤ b) (hb1 : b ≤ 1)

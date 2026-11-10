@@ -57,7 +57,7 @@ produces and two windows of Siegel genre. \S\ref{sec:limit} removes the two wind
 removal is Siegel's ineffective constant, carried by the rider $e^{-100} \le K_s$ and the cushion.
 ```
 
-(`logChowla2_ineffective_v6` (`Salt/MR/RegisterCompose.lean:345`), the end of §sec:limit's chain, has neither window
+(`logChowla2_ineffective_v6` (`Salt/MR/RegisterCompose.lean:339`), the end of §sec:limit's chain, has neither window
 among its hypotheses: they are `x₀ ≤ e^{e^{3.2A}/10}` and `H_opq ≤ ⌈e^{e^{3.2A}}⌉`, and its statement binds no `x₀` or
 `H_opq`. The manuscript's own §sec:limit, :1278, opens the chain with "Step 1: the Siegel pair, by the limit", and
 :295–297 names the surviving pair as `K_s` and the cushion.)
@@ -80,10 +80,10 @@ fail at the witnessed scale, on a list of hypotheses given in full in \S\ref{sec
 band lane, eight numeric riders on constants the theorem itself produces, and two carried predicates.
 ```
 
-(`logChowla2_witnessed_scale_flat_L_v2` (`Salt/MR/S16FlatFinal.lean:136`), Theorem thm:pearl, takes `A₀` with
+(`logChowla2_witnessed_scale_flat_L_v2` (`Salt/MR/S16FlatFinal.lean:130`), Theorem thm:pearl, takes `A₀` with
 `162 ≤ A₀` and produces one `A` with `A₀ ≤ A`; the manuscript's own :1201–1202 says "the theorem produces, for every
 `A₀`, some `A ≥ A₀`". The hoisted form of §sec:limit, `logChowla2_witnessed_scale_flat_L_v2_uniform`
-(`Salt/MR/S16Uniform.lean:881`), does hold at every `A` with `162 ≤ A` and `budgetAFlat ε β ≤ A`, but
+(`Salt/MR/S16Uniform.lean:847`), does hold at every `A` with `162 ≤ A` and `budgetAFlat ε β ≤ A`, but
 `budgetAFlat ε β = 2304·log 4/(ε⁶β²)` is computed from constants the theorem produces, and only `0 < β` is known of
 `β`, so that floor is not explicit.)
 
@@ -107,5 +107,5 @@ behind it rather than a bound.
 (The declaration, `Salt.MR.LFunction_band_lower` (`Salt/MR/SiegelArm.lean:161`), uses no Siegel input. Its docstring
 says the minimum "is NOT effective in `q`: that, and only that, is where Siegel's ineffective constant would enter".
 Siegel's theorem itself enters the corollary elsewhere: `xiCarveWidth_of_siegel` (`Salt/MR/PortClose.lean:76`)
-obtains `siegel_real_carve` (`Salt/MR/PortAssembly.lean:1180`), which obtains `Salt.SW.siegel_theorem`. The
+obtains `siegel_real_carve` (`Salt/MR/PortAssembly.lean:1178`), which obtains `Salt.SW.siegel_theorem`. The
 sentence holds only inside its own paragraph. Found by math's reach census, salt #525.)

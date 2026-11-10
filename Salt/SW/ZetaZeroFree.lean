@@ -251,8 +251,7 @@ theorem zeta_zero_free_region :
     have hL1 : (1 : ℝ) ≤ Lv := by
       rw [hLdef]
       have hexp : Real.exp 1 ≤ 3 := le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))
-      have h3 : (1 : ℝ) ≤ Real.log 3 := by
-        rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hexp
+      have h3 : (1 : ℝ) ≤ Real.log 3 := le_log_of_exp_le hexp
       exact le_trans h3 (Real.log_le_log (by norm_num) (by linarith [hγ1]))
     rcases le_or_gt ρ.re (1 / 2) with hβ | hβ
     · -- `Re ρ ≤ 1/2`: trivial (`c₃/Lv ≤ 1/2`)
