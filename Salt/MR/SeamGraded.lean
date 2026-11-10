@@ -227,6 +227,8 @@ interval bounds would be a false economy (catch #253). -/
 def seamTtotG (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ) (J : ℕ) : Set ℝ :=
   ⋃ j ∈ Finset.Icc 1 J, TsetG f Pseq Qseq Hseq αseq J j
 
+/-- `seamTtotG f Pseq Qseq Hseq αseq J` is measurable: a finite union of the measurable `TsetG`
+pieces (`measurableSet_TsetG`). Read once in this file; no consumer outside it. -/
 lemma measurableSet_seamTtotG (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ) (J : ℕ) :
     MeasurableSet (seamTtotG f Pseq Qseq Hseq αseq J) :=
   Finset.measurableSet_biUnion _

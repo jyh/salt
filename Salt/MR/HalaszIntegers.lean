@@ -623,6 +623,8 @@ noncomputable def vdcKernel (N : ℕ) (r s : ℝ) : ℝ :=
   (N : ℝ) / Real.sqrt (1 + (r - s) ^ 2)
     + Real.sqrt (1 + |r - s|) * (1 + Real.log (2 + |r - s|))
 
+/-- `0 ≤ vdcKernel N r s`: both summands are `≥ 0`, the logarithm's argument `2 + |r - s|` being
+`≥ 1`. Read twice in this file; no consumer outside it. -/
 lemma vdcKernel_nonneg (N : ℕ) (r s : ℝ) : 0 ≤ vdcKernel N r s := by
   unfold vdcKernel
   have hlog : 0 ≤ 1 + Real.log (2 + |r - s|) := by
@@ -633,6 +635,8 @@ lemma vdcKernel_nonneg (N : ℕ) (r s : ℝ) : 0 ≤ vdcKernel N r s := by
     mul_nonneg (Real.sqrt_nonneg _) hlog
   linarith
 
+/-- `vdcKernel N r s = vdcKernel N s r`: the kernel depends on `r`, `s` through `(r - s) ^ 2`
+and `|r - s|` only. Read once in this file; no consumer outside it. -/
 lemma vdcKernel_symm (N : ℕ) (r s : ℝ) : vdcKernel N r s = vdcKernel N s r := by
   unfold vdcKernel
   rw [show (s - r) ^ 2 = (r - s) ^ 2 by ring, abs_sub_comm]

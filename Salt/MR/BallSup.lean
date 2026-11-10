@@ -243,6 +243,9 @@ theorem center_to_ball_transfer {f : ℕ → ℂ} (hf1 : f 1 = 1)
 /-- The plain-datum error constant: GS 7.1's `C` times the Mertens exponential. -/
 noncomputable def ballSupC : ℝ := renormaliseConst * Real.exp (Salt.Mertens.mertensM / 2 + 6)
 
+/-- `0 < ballSupC`: a product of an exponential and a factor made positive by
+`28 ≤ renormaliseConst`. Read twice in this file and by `CofactorBall`, `CofactorLocal`,
+`M4ArithPage`, `M4ArithRho`, `T0Band`, `ThmA2`, `USetPrice` and `USetResiduals`. -/
 lemma ballSupC_pos : 0 < ballSupC := by
   have h28 : (28 : ℝ) ≤ renormaliseConst := by
     rw [renormaliseConst_eq]
@@ -271,6 +274,8 @@ i.e. a `(log X)^{−7/16+o(1)}` second term. -/
 noncomputable def ballSupS (X S₀ : ℝ) : ℝ :=
   2 * Real.sqrt 2 * S₀ + ballTail X * (1 + seamRad X)
 
+/-- `0 < ballLterm X` at `3 ≤ X`: the logarithm's argument `3 + seamRad X * (1 + log (2 * X))`
+is `≥ 1`. Read twice in this file; no consumer outside it. -/
 lemma ballLterm_pos {X : ℝ} (hX : 3 ≤ X) : 0 < ballLterm X := by
   have hrad : 0 ≤ seamRad X := seamRad_nonneg (Real.log_nonneg (by linarith))
   have hlog : 0 ≤ Real.log (2 * X) := Real.log_nonneg (by linarith)
@@ -279,12 +284,16 @@ lemma ballLterm_pos {X : ℝ} (hX : 3 ≤ X) : 0 < ballLterm X := by
   unfold ballLterm
   linarith
 
+/-- `0 ≤ ballTail X` at `3 ≤ X`, from `ballLterm_pos` and `ballSupC_pos` (`positivity`). Read
+five times in this file; no consumer outside it. -/
 lemma ballTail_nonneg {X : ℝ} (hX : 3 ≤ X) : 0 ≤ ballTail X := by
   have h1 := ballLterm_pos hX
   have h2 := ballSupC_pos
   unfold ballTail
   positivity
 
+/-- `0 ≤ ballSupS X S₀` at `3 ≤ X` and `0 ≤ S₀`: both summands are `≥ 0` (`ballTail_nonneg`,
+`seamRad_nonneg`). Read once in this file; no consumer outside it. -/
 lemma ballSupS_nonneg {X S₀ : ℝ} (hX : 3 ≤ X) (hS₀ : 0 ≤ S₀) : 0 ≤ ballSupS X S₀ := by
   have h1 := ballTail_nonneg hX
   have hrad : 0 ≤ seamRad X := seamRad_nonneg (Real.log_nonneg (by linarith))

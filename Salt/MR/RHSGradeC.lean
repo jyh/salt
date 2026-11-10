@@ -59,6 +59,8 @@ This is `supF_pret_majorant_sigma`'s right-hand side at a general `c`, so `hFb`/
 def rhsFboundC (c M L σ : ℝ) : ℝ :=
   rhsCSF * (1 / σ) * Real.exp (-c * (M - 2 * Real.log (σ * L) - 48))
 
+/-- `0 ≤ rhsFboundC c M L σ` at `0 < σ`: a product of `rhsCSF`, a factor `≥ 0` and an
+exponential. Read twice in this file and by `CaseASocket` and `GradeWindowC`. -/
 lemma rhsFboundC_nonneg (c M L : ℝ) {σ : ℝ} (hσ : 0 < σ) : 0 ≤ rhsFboundC c M L σ :=
   mul_nonneg (mul_nonneg rhsCSF_pos.le (by positivity)) (Real.exp_nonneg _)
 

@@ -188,6 +188,9 @@ lemma log_natCast_nonneg (M : ℕ) : 0 ≤ Real.log (M : ℝ) := by
   · simp
   · exact Real.log_nonneg (by exact_mod_cast h)
 
+/-- `0 ≤ farErr W Y Rmax` at `0 ≤ log Y` and `0 ≤ Rmax`: the logarithm's argument
+`3 + Rmax * (1 + log Y)` is `≥ 1`, and `ballSupC` is positive. Read once in this file and by
+`A2Wall`. -/
 lemma farErr_nonneg {W Y Rmax : ℝ} (hY : 0 ≤ Real.log Y) (hRmax : 0 ≤ Rmax) :
     0 ≤ farErr W Y Rmax := by
   have h1 : (1 : ℝ) ≤ 3 + Rmax * (1 + Real.log Y) := by nlinarith only [hY, hRmax]
@@ -196,6 +199,9 @@ lemma farErr_nonneg {W Y Rmax : ℝ} (hY : 0 ≤ Real.log Y) (hRmax : 0 ≤ Rmax
   unfold farErr
   positivity
 
+/-- `0 ≤ farSupS W Y Rmax R` at `0 < R`, `0 ≤ log Y`, `0 ≤ Rmax`: the error term
+(`farErr_nonneg`) and `2 * √2 / R` are both `≥ 0`. Read once in this file; no consumer outside
+it. -/
 lemma farSupS_nonneg {W Y Rmax R : ℝ} (hR : 0 < R) (hY : 0 ≤ Real.log Y) (hRmax : 0 ≤ Rmax) :
     0 ≤ farSupS W Y Rmax R := by
   have h1 := farErr_nonneg (W := W) hY hRmax
@@ -368,6 +374,9 @@ replaced by the multiplicative monomial `x^ω` (the coefficient of `RamWeight.ra
 noncomputable def ramRdampCoeff (H : ℝ) (N X P Q j : ℕ) (b : ℕ → ℂ) (x : ℝ) (m : ℕ) : ℂ :=
   if m ∈ ramRrange H N X j then b m * ((x : ℝ) : ℂ) ^ blockOmega P Q m else 0
 
+/-- `ramRdampCoeff H N X P Q j b x m` is the masked datum (`b m` on `ramRrange H N X j`, `0` off
+it) times the damping `x ^ blockOmega P Q m`. Read twice in this file; no consumer outside
+it. -/
 lemma ramRdampCoeff_eq_mask (H : ℝ) (N X P Q j : ℕ) (b : ℕ → ℂ) (x : ℝ) (m : ℕ) :
     ramRdampCoeff H N X P Q j b x m
       = (if m ∈ ramRrange H N X j then b m else 0) * ((x : ℝ) : ℂ) ^ blockOmega P Q m := by
@@ -376,6 +385,8 @@ lemma ramRdampCoeff_eq_mask (H : ℝ) (N X P Q j : ℕ) (b : ℕ → ℂ) (x : �
   · rfl
   · rw [zero_mul]
 
+/-- `ramRcoeff H N X P Q j b m` is the masked datum (`b m` on `ramRrange H N X j`, `0` off it)
+times the inverse of `blockOmega P Q m + 1`. Read once in this file; no consumer outside it. -/
 lemma ramRcoeff_eq_mask (H : ℝ) (N X P Q j : ℕ) (b : ℕ → ℂ) (m : ℕ) :
     ramRcoeff H N X P Q j b m
       = (if m ∈ ramRrange H N X j then b m else 0) * ((blockOmega P Q m : ℂ) + 1)⁻¹ := by

@@ -107,6 +107,8 @@ theorem mertensM_ge_neg_seventeen : (-17 : ℝ) ≤ Salt.Mertens.mertensM := by
 `exp (exp 40)` (so `loglog X ≥ 40`). -/
 noncomputable def ballMertensThreshold : ℝ := Real.exp (Real.exp 40)
 
+/-- `41 ≤ exp 40`, from `x + 1 ≤ exp x` (`Real.add_one_le_exp`). Read four times in this file
+and by `BallSupChi`. -/
 lemma exp_forty_ge : (41 : ℝ) ≤ Real.exp 40 := by
   have := Real.add_one_le_exp (40 : ℝ); linarith
 

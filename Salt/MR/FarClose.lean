@@ -159,6 +159,9 @@ maximized over the pin's `σ = β + 1/L ∈ [1/L, η + 1/L]`:
 The `σ`-sup of `(1/σ)·(σL)^{1/e}` is `L`, attained at `σ = 1/L`; the `L`-power is sharp. -/
 def farFbound (L : ℝ) : ℝ := rhsCSF * Real.exp (24 / Real.exp 1) * L
 
+/-- `0 ≤ farFbound L` at `0 ≤ L`: the bound unfolded, with `rhsCSF` positive (`positivity`).
+Read once in this file and by `CaseASocket`, `CofactorGrade`, `FarL2Dyadic`, `FarStar`,
+`PinFamily`, `PinFamily2` and `SPartStation`. -/
 lemma farFbound_nonneg {L : ℝ} (hL : 0 ≤ L) : 0 ≤ farFbound L := by
   have h := rhsCSF_pos
   unfold farFbound

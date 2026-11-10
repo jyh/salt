@@ -496,11 +496,17 @@ so the long displays below stay readable; it is *definitionally* the corpus form
 `exp (I·u·log y)` form. -/
 noncomputable def eIu (u y : ℝ) : ℂ := Complex.exp (Complex.I * (u : ℂ) * (Real.log y : ℂ))
 
+/-- `eIu u y = exp (I * u * log y)`, by `rfl`: the phase `y ^ (i u)` unfolded. Read eight times
+in this file and by `BallSup`, `BallSupChi` and `CenterSupply`. -/
 theorem eIu_eq (u y : ℝ) :
     eIu u y = Complex.exp (Complex.I * (u : ℂ) * (Real.log y : ℂ)) := rfl
 
+/-- `‖eIu u y‖ = 1` (`@[simp]`): a unimodular phase (`norm_exp_Iu_log`). Read eight times in
+this file and by `BallSup`, `CofactorBall`, `SPartStation` and `Transfer34`. -/
 @[simp] theorem norm_eIu (u y : ℝ) : ‖eIu u y‖ = 1 := norm_exp_Iu_log u y
 
+/-- `eIu u 1 = 1` (`@[simp]`): `log 1 = 0`. Not read by name at `main`, in this file or outside
+it. -/
 @[simp] theorem eIu_one (u : ℝ) : eIu u 1 = 1 := by
   rw [eIu_eq, Real.log_one]; simp
 
@@ -534,6 +540,8 @@ theorem norm_div_one_add_Iu_le (u : ℝ) (w : ℂ) :
 
 /-! ### Bridges: the `HalaszIntegers` stones restated in `eIu` form -/
 
+/-- `t ↦ eIu u t` is interval integrable on `[a, b]` for `0 < a`, `0 < b`: it is continuous
+there (`continuousOn_expILog`). Read twice in this file; no consumer outside it. -/
 theorem eIu_intervalIntegrable (u : ℝ) {a b : ℝ} (ha : 0 < a) (hb : 0 < b) :
     IntervalIntegrable (fun t => eIu u t) MeasureTheory.volume a b :=
   (continuousOn_expILog u a b ha hb).intervalIntegrable
@@ -672,6 +680,8 @@ theorem sum_conv_unfold (u : ℝ) (g : ℕ → ℂ) (N : ℕ) :
 noncomputable def afOf (f : ℕ → ℂ) : ArithmeticFunction ℂ :=
   ⟨fun n => if n = 0 then 0 else f n, by simp⟩
 
+/-- `afOf f n` is `0` at `n = 0` and `f n` otherwise, by `rfl`. Read five times in this file; no
+consumer outside it. -/
 theorem afOf_apply (f : ℕ → ℂ) (n : ℕ) : afOf f n = if n = 0 then 0 else f n := rfl
 
 /-- **GS's datum `g`** (p. 22): the multiplicative function with
@@ -690,6 +700,9 @@ theorem mobDatum_conv (f : ℕ → ℂ) {n : ℕ} (hn : n ≠ 0) :
   rw [ArithmeticFunction.coe_zeta_mul_apply, afOf_apply, if_neg hn] at h2
   exact h2.symm
 
+/-- `mobDatum f` is multiplicative when `f 1 = 1` and `f` is multiplicative on coprimes: the
+product of the Möbius function and `afOf f`, both multiplicative. Read twice in this file; no
+consumer outside it. -/
 theorem mobDatum_mult {f : ℕ → ℂ} (hf1 : f 1 = 1)
     (hfmul : ∀ a b, Nat.Coprime a b → f (a * b) = f a * f b) :
     (mobDatum f).IsMultiplicative := by
@@ -718,13 +731,19 @@ theorem mobDatum_prime_pow (f : ℕ → ℂ) {p k : ℕ} (hp : p.Prime) (hk : 1 
 /-- `h = ‖g‖` — the non-negative multiplicative datum fed to the κ = 2 sieve stones. -/
 noncomputable def mobNorm (f : ℕ → ℂ) (n : ℕ) : ℝ := ‖mobDatum f n‖
 
+/-- `0 ≤ mobNorm f n`: a norm. Read four times in this file; no consumer outside it. -/
 theorem mobNorm_nonneg (f : ℕ → ℂ) (n : ℕ) : 0 ≤ mobNorm f n := norm_nonneg _
 
+/-- `mobNorm f (a * b) = mobNorm f a * mobNorm f b` on coprime `a`, `b`, for `f` with `f 1 = 1`
+multiplicative on coprimes (`mobDatum_mult`). Read twice in this file; no consumer outside
+it. -/
 theorem mobNorm_mul {f : ℕ → ℂ} (hf1 : f 1 = 1)
     (hfmul : ∀ a b, Nat.Coprime a b → f (a * b) = f a * f b) (a b : ℕ)
     (hab : Nat.Coprime a b) : mobNorm f (a * b) = mobNorm f a * mobNorm f b := by
   rw [mobNorm, mobNorm, mobNorm, (mobDatum_mult hf1 hfmul).map_mul_of_coprime hab, norm_mul]
 
+/-- `mobNorm f 1 = 1` for `f` with `f 1 = 1` multiplicative on coprimes (`mobDatum_mult`). Read
+once in this file; no consumer outside it. -/
 theorem mobNorm_one {f : ℕ → ℂ} (hf1 : f 1 = 1)
     (hfmul : ∀ a b, Nat.Coprime a b → f (a * b) = f a * f b) : mobNorm f 1 = 1 := by
   rw [mobNorm, (mobDatum_mult hf1 hfmul).map_one, norm_one]
@@ -954,13 +973,19 @@ theorem renormalise_aux {f : ℕ → ℂ} (hf1 : f 1 = 1)
       = 2 * C₁ * (5 + 2 * Real.log y) * (x / Real.log x) * Wh := by ring
   linarith [hsmall, hlarge, hfinal]
 
+/-- `renormaliseConst = 28 * (1 + 2 * (log 4 + 36)) * exp 8`, by `rfl`. Read twice in this file
+and by `BallSup` and `Transfer34`. -/
 theorem renormaliseConst_eq :
     renormaliseConst = 28 * (1 + 2 * (Real.log 4 + 36)) * Real.exp 8 := rfl
 
+/-- `1 ≤ exp 8`: `exp` is monotone and `exp 0 = 1`. Read once in this file and by `BallSup` and
+`Transfer34`. -/
 theorem one_le_exp_eight : (1 : ℝ) ≤ Real.exp 8 := by
   rw [show (1 : ℝ) = Real.exp 0 by simp]
   exact Real.exp_le_exp.mpr (by norm_num)
 
+/-- `eIu 0 v = 1` (`@[simp]`): the exponent is `0`. Read once in this file; no consumer outside
+it. -/
 @[simp] theorem eIu_zero (v : ℝ) : eIu 0 v = 1 := by
   rw [eIu_eq]; norm_num
 
@@ -1126,10 +1151,14 @@ theorem renormalise {f : ℕ → ℂ} (hf1 : f 1 = 1)
 
 /-! ## The modulus page (`(1+u²)^{−1/2} ≤ √2/(1+|u|)`) and the MRT-shaped corollary -/
 
+/-- `‖eIu v z / (1 + I * v)‖ = 1 / √(1 + v ^ 2)`: the phase has norm `1` (`norm_eIu`,
+`norm_one_add_Iu`). Read by `BallSup`; not read in this file. -/
 theorem renormalise_factor_norm (v z : ℝ) :
     ‖eIu v z / (1 + Complex.I * (v : ℂ))‖ = 1 / Real.sqrt (1 + v ^ 2) := by
   rw [norm_div, norm_eIu, norm_one_add_Iu]
 
+/-- `1 / √(1 + v ^ 2) ≤ √2 / (1 + |v|)`: cross-multiplied, it is
+`(1 + |v|) ^ 2 ≤ 2 * (1 + v ^ 2)`. Read by `BallSup`; not read in this file. -/
 theorem renormalise_factor_norm_le (v : ℝ) :
     (1 : ℝ) / Real.sqrt (1 + v ^ 2) ≤ Real.sqrt 2 / (1 + |v|) := by
   have h1 : (0 : ℝ) < Real.sqrt (1 + v ^ 2) := Real.sqrt_pos.mpr (by positivity)
