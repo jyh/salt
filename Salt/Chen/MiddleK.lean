@@ -24,7 +24,7 @@ New file; NO edits to any landed file; `All.lean` NOT wired.
 
 ## Enumerated spec of `medium_survivor_price_sqrtD` at `N := y` (mandate item 1)
 
-The terminal (`SqrtDFold.lean:956`) is generic in `N`.  Instantiating `A := 13`, `C0 := 18`,
+The terminal (`SqrtDFold.lean:958`) is generic in `N`.  Instantiating `A := 13`, `C0 := 18`,
 `B := 15`, `X := 2^{i+1}−1`, `M := pieceM k`, `N := y`, in the middle-`k` regime
 (`pieceN k < y < pieceM k`, so `2^k ≤ y < 2^{k+1}`), its ~35 hypotheses classify as:
 
