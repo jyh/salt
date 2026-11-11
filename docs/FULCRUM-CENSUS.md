@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `08dcc341` · source digest `4a871427a01cffe7` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `cd6340ea` · source digest `927813d840d88a40` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -40,7 +40,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | `Salt.Fulcrum.FulcrumQualityMin` | Salt/Fulcrum/Basic.lean:61 | OPEN | 3 (2/1) | 2 (2/0) | 0/2/0 | 0/0/0 | 0/1 | `Salt.Fulcrum.not_fulcrum_implies_noSiegelZeros` (Salt/Fulcrum/Dichotomy.lean:82), `Salt.SW.not_fulcrum_siegelFree_SW` (Salt/SW/StandoffGate.lean:803) | `Salt.Fulcrum.fulcrum_dichotomy` (Salt/Fulcrum/Dichotomy.lean:102), `Salt.HB.crown_handover_k1` (Salt/HB/CrownTheorem1.lean:6577), `Salt.HB.hEngine_of_N7` (Salt/HB/CrownTheorem1.lean:6925) |
 | `Salt.HB.FulcrumQualityPoly` | Salt/HB/CrownTheorem1.lean:6338 | OPEN | 4 (3/1) | 1 (1/0) | 0/0/0 | 0/0/0 | 0/1 | `Salt.HB.not_fulcrumPoly_implies_noSiegelZerosPoly` (Salt/HB/CrownTheorem1.lean:6414) | `Salt.HB.crown_handover` (Salt/HB/CrownTheorem1.lean:6902), `Salt.HB.fulcrumQualityMin_of_poly` (Salt/HB/CrownTheorem1.lean:6519), `Salt.HB.fulcrum_dichotomy_poly` (Salt/HB/CrownTheorem1.lean:6463) +1 |
 | `Salt.MR.WindowSmooth` | Salt/MR/MobiusChiRamare.lean:175 | DISCHARGED | 3 (3/0) | 2 (2/0) | 4/0/0 | 0/0/0 | 0/1 | `Salt.MR.lamTailWeight_eq_zero_of_not_smooth` (Salt/MR/LambdaChiRamare.lean:192), `Salt.MR.ramTailWeight_eq_zero_of_not_smooth` (Salt/MR/MobiusChiRamare.lean:204) | `Salt.MR.lamTailWeight_apply_of` (Salt/MR/LambdaChiRamare.lean:177), `Salt.MR.ramTailWeight_apply_of` (Salt/MR/MobiusChiRamare.lean:200), `Salt.MR.windowSmooth_dvd_bandPow` (Salt/MR/RamareMassTail.lean:201) |
-| `Salt.Chen.IsP2` | Salt/Chen/WeightTrivia.lean:270 | OPEN | 1 (1/0) | 3 (2/1) | 0/1/6 | 1/0/0 | 0/2 | `Salt.Chen.chen_weight_le_indicator` (Salt/Chen/WeightTrivia.lean:373), `Salt.Chen.chen_weight_struct` (Salt/Chen/WeightTrivia.lean:391), `Salt.Chen.not_isP2_cardFactors_ge_three` (Salt/Chen/WeightTrivia.lean:353) | `Salt.Chen.isP2_mono` (Salt/Chen/Assembly.lean:375) |
+| `Salt.Chen.IsP2` | Salt/Chen/WeightTrivia.lean:270 | OPEN | 1 (1/0) | 3 (2/1) | 0/1/6 | 1/0/0 | 0/2 | `Salt.Chen.chen_weight_le_indicator` (Salt/Chen/WeightTrivia.lean:373), `Salt.Chen.chen_weight_struct` (Salt/Chen/WeightTrivia.lean:391), `Salt.Chen.not_isP2_cardFactors_ge_three` (Salt/Chen/WeightTrivia.lean:353) | `Salt.Chen.isP2_mono` (Salt/Chen/Assembly.lean:384) |
 | `Salt.MR.MaskSmooth` | Salt/MR/MobiusChiRamareUnion.lean:116 | DISCHARGED | 2 (2/0) | 2 (2/0) | 4/0/0 | 0/0/0 | 0/1 | `Salt.MR.lamTailWeightMask_eq_zero_of_not_smooth` (Salt/MR/LambdaChiMask.lean:150), `Salt.MR.maskTailWeight_eq_zero_of_not_smooth` (Salt/MR/MobiusChiRamareUnion.lean:204) | `Salt.MR.lamTailWeightMask_apply_of` (Salt/MR/LambdaChiMask.lean:134), `Salt.MR.maskTailWeight_apply_of` (Salt/MR/MobiusChiRamareUnion.lean:200) |
 | `Salt.MR.Squarefull` | Salt/MR/HalaszSeam.lean:154 | DISCHARGED | 3 (3/0) | 1 (1/0) | 3/0/0 | 1/0/0 | 0/0 | `Salt.MR.sPart_eq_zero_of_not_squarefull` (Salt/MR/SPartCore.lean:170) | `Salt.MR.cubePartOf_le` (Salt/MR/SPartCore.lean:714), `Salt.MR.sqPartOf_le` (Salt/MR/SPartCore.lean:706), `Salt.MR.sqPartOf_sq_mul_cubePartOf_cube` (Salt/MR/SPartCore.lean:682) |
 | `Salt.MR.NearRat` | Salt/MR/BigXiArc.lean:144 | DISCHARGED | 1 (1/0) | 2 (2/0) | 3/3/0 | 0/0/0 | 0/0 | `Salt.MR.exists_large_den_of_minor` (Salt/MR/BigXiArc.lean:331), `Salt.MR.exists_large_den_of_not_nearRat` (Salt/MR/BigXiArc.lean:274) | `Salt.MR.nearRat_mono` (Salt/MR/BigXiArc.lean:188) |
@@ -111,7 +111,7 @@ A FRAME is a bundle of order relations over its own parameters; ¬P is 'the para
 | `Salt.Entropy.Chowla.TwinDetecting` | DISCHARGED | - | 0 | 3/0/1 | `Salt.Entropy.Chowla.const_twin_blind` (Salt/Entropy/Chowla/TransportWall.lean:131), `Salt.Entropy.Chowla.corr_zero_blind` (Salt/Entropy/Chowla/PinDichotomy.lean:313) +2 |
 | `Salt.MR.M4GradeGate` | DISCHARGED | - | 15 | 0/0/4 | `Salt.MR.m4_door_False_of_blockMeanSq` (Salt/MR/M4BridgeCover.lean:506), `Salt.MR.m4_door_False_of_blockMeanSq_gk` (Salt/MR/M4BridgeCover.lean:669) +2 |
 | `Salt.MR.SocketBase` | DISCHARGED | - | 275 | 0/2/2 | `Salt.MR.s14_socket_empty_of_gRows` (Salt/MR/S14Compose.lean:288), `Salt.MR.s14_socket_empty_of_gRows_gk` (Salt/MR/S14Compose.lean:562) +2 |
-| `Salt.Chen.TripleP` | OPEN | HALF | 3 | 3/0/0 | `Salt.Chen.not_tripleP_30` (Salt/Chen/WeightFamily.lean:155), `Salt.Chen.not_tripleP_of_heavy` (Salt/Chen/TwinDeficit.lean:214) +1 |
+| `Salt.Chen.TripleP` | OPEN | HALF | 3 | 3/0/0 | `Salt.Chen.not_tripleP_30` (Salt/Chen/WeightFamily.lean:155), `Salt.Chen.not_tripleP_of_heavy` (Salt/Chen/TwinDeficit.lean:218) +1 |
 | `Salt.Entropy.Chowla.MRTUniformityXiL2H` | OPEN | HALF | 4 | 0/0/3 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2H` (Salt/Entropy/Chowla/ShiftFork.lean:579), `Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq_h` (Salt/Entropy/Chowla/Theorem23Shell.lean:627) +1 |
 | `Salt.MR.CofactorBulkL` | OPEN | HALF | 3 | 2/1/0 | `Salt.MR.cofkL_bulk_infeasible` (Salt/MR/RegisterInhabit.lean:209), `Salt.MR.cofkL_bulk_infeasible_loglog` (Salt/MR/RegisterInhabit.lean:229) +1 |
 | `Salt.MR.TannGate` | DISCHARGED | - | 491 | 3/0/0 | `Salt.MR.TannGate_fails_polylog` (Salt/MR/USetPins.lean:380), `Salt.MR.TannGate_fails_polylog_deg` (Salt/MR/USetPins.lean:394) +1 |
@@ -170,7 +170,7 @@ By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.BrunLower.peel_term_nonneg` | Salt/BrunLower/Pointwise.lean:116 | `Salt.BrunLower.chi` |
 | case split `by_cases` | `Salt.BrunLower.peel_term_nonneg` | Salt/BrunLower/Pointwise.lean:122 | `Salt.BrunLower.chi` |
 | case split `by_cases` | `Salt.BrunLower.remainder_prod_bound_of_R` | Salt/BrunLower/Remainder.lean:580 | `Salt.BrunLower.chi` |
-| case split `by_cases` | `Salt.Chen.triplePrimeSum_le` | Salt/Chen/Assembly.lean:328 | `Salt.Chen.TripleP` |
+| case split `by_cases` | `Salt.Chen.triplePrimeSum_le` | Salt/Chen/Assembly.lean:337 | `Salt.Chen.TripleP` |
 | case split `by_cases` | `Salt.Chen.diagSum_le_bandDiagCount` | Salt/Chen/BandClose.lean:264 | `Salt.Chen.cwin` |
 | case split `by_cases` | `Salt.Chen.symRectCount_eq_card` | Salt/Chen/BandIdent.lean:414 | `Salt.Chen.cwin` |
 | case split `by_cases` | `Salt.Chen.diagSum_eq_card` | Salt/Chen/PDiag.lean:97 | `Salt.Chen.cwin` |
@@ -178,8 +178,8 @@ By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.Chen.diagAggW_le_honest` | Salt/Chen/PDiag.lean:447 | `Salt.Chen.cwin` |
 | case split `by_cases` | `Salt.Chen.triplePrimeSum_le_sifted` | Salt/Chen/SwitchSieve.lean:250 | `Salt.Chen.TripleP` |
 | case split `by_cases` | `Salt.Chen.triplePrimeSumW_le_sifted` | Salt/Chen/SwitchW.lean:260 | `Salt.Chen.TripleP` |
-| case split `by_cases` | `Salt.Chen.buchstab_defect` | Salt/Chen/TnInduction.lean:597 | `Salt.Chen.rosserCond` |
-| case split `by_cases` | `Salt.Chen.p2Ind_split` | Salt/Chen/TwinDeficit.lean:162 | `Salt.Chen.IsE2` |
+| case split `by_cases` | `Salt.Chen.buchstab_defect` | Salt/Chen/TnInduction.lean:617 | `Salt.Chen.rosserCond` |
+| case split `by_cases` | `Salt.Chen.p2Ind_split` | Salt/Chen/TwinDeficit.lean:166 | `Salt.Chen.IsE2` |
 | case split `by_cases` | `Salt.Chen.chenWeightA_le_indicator_of_sifted` | Salt/Chen/WeightFamily.lean:123 | `Salt.Chen.IsP2` |
 | case split `by_cases` | `Salt.Chen.chen_weight_le_indicator` | Salt/Chen/WeightTrivia.lean:378 | `Salt.Chen.IsP2` |
 | case split `by_cases` | `Salt.Fulcrum.fulcrum_dichotomy` | Salt/Fulcrum/Dichotomy.lean:105 | `Salt.Fulcrum.FulcrumQualityMin` |

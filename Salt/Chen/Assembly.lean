@@ -123,16 +123,25 @@ makes a survivor genuinely prime (the P₂ headline needs `p.Prime`); the coprim
 with `hPfull`, forces every prime factor of `n+2` to be `≥ z`, so Chen's weight (C4b) applies. -/
 noncomputable def keepR (P n : ℕ) : ℝ := if Nat.Prime n ∧ Nat.Coprime P (n + 2) then 1 else 0
 
+/-- `0 ≤ keepR P n`: the keep indicator is `0` or `1` (`split_ifs`, `norm_num`). Read by
+`Headline`, `TwinDeficit`, `WeightNoGo` and `HB/DoorBridge`, and twice in this file. -/
 lemma keepR_nonneg (P n : ℕ) : 0 ≤ keepR P n := by unfold keepR; split_ifs <;> norm_num
 
+/-- `keepR P n ≤ 1`: the keep indicator is `0` or `1`. No consumer at `main`, in this file or
+outside it. -/
 lemma keepR_le_one (P n : ℕ) : keepR P n ≤ 1 := by unfold keepR; split_ifs <;> norm_num
 
+/-- `keepR P n = 1` whenever `keepR P n ≠ 0`: a `{0, 1}`-indicator that is not `0` is `1` (by
+cases on the keep condition). Read by `TwinBar/TwinDoor` and once in this file. -/
 lemma keepR_eq_one_of_ne_zero {P n : ℕ} (h : keepR P n ≠ 0) : keepR P n = 1 := by
   unfold keepR at h ⊢
   by_cases hh : Nat.Prime n ∧ Nat.Coprime P (n + 2)
   · rw [if_pos hh]
   · rw [if_neg hh] at h; exact absurd rfl h
 
+/-- `keepR P n = 1 ↔ n.Prime ∧ Coprime P (n + 2)`: the keep indicator's `1` is exactly its
+condition (by cases; `1 ≠ 0` by `norm_num`). Read by `SwitchSieve`, `HB/DoorBridge` and
+`TwinBar/TwinDoor`, and once in this file. -/
 lemma keepR_eq_one_iff {P n : ℕ} : keepR P n = 1 ↔ Nat.Prime n ∧ Nat.Coprime P (n + 2) := by
   unfold keepR
   by_cases hh : Nat.Prime n ∧ Nat.Coprime P (n + 2)
@@ -451,16 +460,25 @@ factor `< w'` of `n+2` out (Part I), while the coprimality cut handles `[w', z)`
 noncomputable def keepW (Q a P n : ℕ) : ℝ :=
   if Nat.Prime n ∧ Nat.Coprime P (n + 2) ∧ n % Q = a % Q then 1 else 0
 
+/-- `0 ≤ keepW Q a P n`: the W-keep indicator is `0` or `1`. Read by `TwinA1W` and
+`TwinDeficit`, and once in this file. -/
 lemma keepW_nonneg (Q a P n : ℕ) : 0 ≤ keepW Q a P n := by unfold keepW; split_ifs <;> norm_num
 
+/-- `keepW Q a P n ≤ 1`: the W-keep indicator is `0` or `1`. No consumer at `main`, in this file
+or outside it. -/
 lemma keepW_le_one (Q a P n : ℕ) : keepW Q a P n ≤ 1 := by unfold keepW; split_ifs <;> norm_num
 
+/-- `keepW Q a P n = 1` whenever it is `≠ 0`: a `{0, 1}`-indicator that is not `0` is `1` (by
+cases on the W-keep condition). Read once in this file; no consumer outside it. -/
 lemma keepW_eq_one_of_ne_zero {Q a P n : ℕ} (h : keepW Q a P n ≠ 0) : keepW Q a P n = 1 := by
   unfold keepW at h ⊢
   by_cases hh : Nat.Prime n ∧ Nat.Coprime P (n + 2) ∧ n % Q = a % Q
   · rw [if_pos hh]
   · rw [if_neg hh] at h; exact absurd rfl h
 
+/-- `keepW Q a P n = 1 ↔ n.Prime ∧ Coprime P (n + 2) ∧ n % Q = a % Q`: the W-keep indicator's
+`1` is exactly its condition (by cases). Read by `SwitchW`, `TwinA1W` and `TwinA2W`, and once in
+this file. -/
 lemma keepW_eq_one_iff {Q a P n : ℕ} :
     keepW Q a P n = 1 ↔ Nat.Prime n ∧ Nat.Coprime P (n + 2) ∧ n % Q = a % Q := by
   unfold keepW

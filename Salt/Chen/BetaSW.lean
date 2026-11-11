@@ -66,11 +66,17 @@ noncomputable def stripMass (x : ℕ) : ℝ :=
 
 /-! ## Small nonnegativity helpers -/
 
+/-- `0 ≤ if p ∣ n then Λ(n) else 0` (private): each branch is nonnegative (`vonMangoldt_nonneg`)
+— the sign of the `p ∣ n` prime-power pieces the ψ→θ step sums. Read three times in this file;
+no consumer outside it. -/
 private lemma ite_dvd_nonneg (p n : ℕ) : (0 : ℝ) ≤ if p ∣ n then vonMangoldt n else 0 := by
   split_ifs with h
   · exact vonMangoldt_nonneg
   · exact le_refl 0
 
+/-- `0 ≤ if n.Prime then 0 else Λ(n)` (private): each branch is nonnegative
+(`vonMangoldt_nonneg`) — the sign of the non-prime remainder of `ψ − θ`. Read once in this file;
+no consumer outside it. -/
 private lemma ite_notprime_nonneg (n : ℕ) :
     (0 : ℝ) ≤ if n.Prime then 0 else vonMangoldt n := by
   split_ifs with h
