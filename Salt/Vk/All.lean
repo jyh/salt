@@ -32,7 +32,7 @@ import Salt.Tactic.AuditAxioms
 # The Vinogradov–Korobov track (`Vk`) — aggregate import
 
 THE VMVT-VK CAMPAIGN (JYH ratified 2026-07-18: the power zero-free region
-`σ ≥ 1 − c/((log t)^{3/4}(log log t)^3)` from the machine-checked
+`σ > 1 − c/((log t)^{3/4}(log log t)^3)` from the machine-checked
 `Salt.Vmvt.vmvt`, merged with the Littlewood chain; the minimal-power
 route θ = 3/4 < 1, MR-gate-satisfying). Freeze: `docs/exploration/vk-freeze.md`;
 numeric refuter `scripts/vk_minpow_check.py`.

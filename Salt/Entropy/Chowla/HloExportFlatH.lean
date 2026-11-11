@@ -217,7 +217,7 @@ of the file header and nothing else.  The proof is the landed body with those su
 `A`, `β`, `Hopq`, the cap equation and the regime witness are byte-identical, and every numeral
 of the landed head is recovered at the pinned `ε` because `ε·h = 1/500` exactly.
 
-⚠ THE SEAM WARNING rides this statement unchanged (`MRTDoor.lean:174–182`). -/
+⚠ THE SEAM WARNING rides this statement unchanged (`MRTDoor.lean:179–187`). -/
 theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_h (h : ℕ) (hh : 0 < h)
     (hh7 : Real.log (h : ℝ) ≤ 7) (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
     ∃ (ε : ℚ) (K δ₀ A β : ℝ) (Hcap Hopq : ℕ), 0 < ε ∧ 0 < K ∧ K ≤ 2 ^ 539 ∧ 0 < δ₀ ∧
