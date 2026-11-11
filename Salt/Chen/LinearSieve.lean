@@ -140,7 +140,7 @@ noncomputable def TruncSieve.lam (S : TruncSieve) (d : ℕ) : ℝ :=
   (μ d : ℝ) * (if S.P d then 1 else 0)
 
 /-- `S.lam d = 0` at `¬ S.P d`: the truncated Möbius weight `μ(d)·[P d]` vanishes off the
-predicate (`if_neg`). No consumer at `main`, in this file or outside it. -/
+predicate (`if_neg`). Read by `Buchstab` and once in this file. -/
 lemma TruncSieve.lam_eq_zero_of_not (S : TruncSieve) {d : ℕ} (h : ¬ S.P d) :
     S.lam d = 0 := by
   simp [TruncSieve.lam, if_neg h]
