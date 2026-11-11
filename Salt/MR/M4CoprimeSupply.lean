@@ -103,22 +103,28 @@ The datum is `1`-bounded and the sieve only deletes, so a window sum is bounded 
 window length.  Both statements below are used at the SMALL dyadic lengths, where the
 capstone is silent and the absolute grade is what the split charges. -/
 
-/-- A sieved χ-twisted window sum is bounded by its window length. -/
-theorem norm_sum_doorSievedWindow_le {q : ℕ} (χ : DirichletCharacter ℂ q) (M K n : ℕ) :
-    ‖∑ m ∈ doorSievedWindow M K n, liouChi χ m‖ ≤ (K : ℝ) := by
-  have hsub : doorSievedWindow M K n ⊆ Finset.Ioc n (n + K) := by
-    simp only [doorSievedWindow, sievedWindow]
+/-- **⟦O13-e row 145⟧ THE TRIVIAL WINDOW BOUND OVER THE DOOR PARAMETERS** —
+`norm_sum_doorSievedWindow_le` at any `(Ad, zd)`; the four door windows are its instances. -/
+theorem norm_sum_doorWinAZ_le (Ad zd : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M K n : ℕ) :
+    ‖∑ m ∈ doorWinAZ Ad zd M K n, liouChi χ m‖ ≤ (K : ℝ) := by
+  have hsub : doorWinAZ Ad zd M K n ⊆ Finset.Ioc n (n + K) := by
+    simp only [doorWinAZ, sievedWindow]
     exact Finset.filter_subset _ _
-  have hcard : (doorSievedWindow M K n).card ≤ K := by
-    calc (doorSievedWindow M K n).card ≤ (Finset.Ioc n (n + K)).card :=
+  have hcard : (doorWinAZ Ad zd M K n).card ≤ K := by
+    calc (doorWinAZ Ad zd M K n).card ≤ (Finset.Ioc n (n + K)).card :=
           Finset.card_le_card hsub
       _ = K := by simp [Nat.card_Ioc]
   refine le_trans (norm_sum_le _ _) ?_
-  calc ∑ m ∈ doorSievedWindow M K n, ‖liouChi χ m‖
-      ≤ ∑ _m ∈ doorSievedWindow M K n, (1 : ℝ) :=
+  calc ∑ m ∈ doorWinAZ Ad zd M K n, ‖liouChi χ m‖
+      ≤ ∑ _m ∈ doorWinAZ Ad zd M K n, (1 : ℝ) :=
         Finset.sum_le_sum fun m _ => norm_liouChi_le_one χ m
-    _ = ((doorSievedWindow M K n).card : ℝ) := by simp
+    _ = ((doorWinAZ Ad zd M K n).card : ℝ) := by simp
     _ ≤ (K : ℝ) := by exact_mod_cast hcard
+
+/-- A sieved χ-twisted window sum is bounded by its window length. -/
+theorem norm_sum_doorSievedWindow_le {q : ℕ} (χ : DirichletCharacter ℂ q) (M K n : ℕ) :
+    ‖∑ m ∈ doorSievedWindow M K n, liouChi χ m‖ ≤ (K : ℝ) :=
+  norm_sum_doorWinAZ_le (Adoor M) (3072 * M) χ M K n
 
 /-- The χ-twisted sub-window sup is bounded by the window length — the length-`L` mirror of
 `M4Maximal.m4_chiShiftBlock_trivial`'s inner estimate. -/
@@ -749,20 +755,8 @@ ONE deviation, forced by the import graph: `M4DoorRow.norm_doorChiCoeff_le_one`'
 /-- A sieved χ-twisted window sum at the lever is bounded by its window length —
 `norm_sum_doorSievedWindow_le` (:105). -/
 theorem norm_sum_doorSievedWindow_le_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M Kw n : ℕ) :
-    ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖ ≤ (Kw : ℝ) := by
-  have hsub : doorSievedWindow_gk K M Kw n ⊆ Finset.Ioc n (n + Kw) := by
-    simp only [doorSievedWindow_gk, sievedWindow]
-    exact Finset.filter_subset _ _
-  have hcard : (doorSievedWindow_gk K M Kw n).card ≤ Kw := by
-    calc (doorSievedWindow_gk K M Kw n).card ≤ (Finset.Ioc n (n + Kw)).card :=
-          Finset.card_le_card hsub
-      _ = Kw := by simp [Nat.card_Ioc]
-  refine le_trans (norm_sum_le _ _) ?_
-  calc ∑ m ∈ doorSievedWindow_gk K M Kw n, ‖liouChi χ m‖
-      ≤ ∑ _m ∈ doorSievedWindow_gk K M Kw n, (1 : ℝ) :=
-        Finset.sum_le_sum fun m _ => norm_liouChi_le_one χ m
-    _ = ((doorSievedWindow_gk K M Kw n).card : ℝ) := by simp
-    _ ≤ (Kw : ℝ) := by exact_mod_cast hcard
+    ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖ ≤ (Kw : ℝ) :=
+  norm_sum_doorWinAZ_le (Adoor M) (s13GK K M) χ M Kw n
 
 /-- The levered χ-twisted sub-window sup is bounded by the window length —
 `doorChiSup_le_len` (:123). -/

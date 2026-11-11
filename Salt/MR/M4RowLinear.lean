@@ -1839,17 +1839,8 @@ theorem doorChiSup_sq_le_dyadic_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacte
         * ∑ j ∈ Finset.range (Nat.log 2 H + 1),
             (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
               ‖∑ m ∈ doorSievedWindow_L_gk K M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2)
-              * (2 / 3 : ℝ) ^ j := by
-  obtain ⟨Kw, hKmem, hKeq⟩ :=
-    Finset.exists_mem_eq_sup' (s := Finset.Icc 0 H)
-      ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
-      (fun Kw => ‖∑ m ∈ doorSievedWindow_L_gk K M Kw n, liouChi χ m‖)
-  have hKH : Kw ≤ H := (Finset.mem_Icc.mp hKmem).2
-  have hval : doorChiSup_L_gk K χ M H n
-      = ‖∑ m ∈ doorSievedWindow_L_gk K M Kw n, liouChi χ m‖ := hKeq
-  rw [hval]
-  simp only [doorSievedWindow_L_gk]
-  exact norm_sum_sievedWindow_sq_le_dyadic _ (liouChi χ) H Kw n hKH
+              * (2 / 3 : ℝ) ^ j :=
+  doorChiSupAZ_sq_le_dyadic (AdoorL M) (s13GK K M) χ M H n
 
 /-- **THE SUB-WINDOW SUP, PRICED** — `doorChiSup_L`'s square against the aligned dyadic
 family, at the geometric weights.  The sup is over a nonempty finite set, hence attained
@@ -1860,16 +1851,8 @@ theorem doorChiSup_sq_le_dyadic_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M H
         * ∑ j ∈ Finset.range (Nat.log 2 H + 1),
             (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
               ‖∑ m ∈ doorSievedWindow_L M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2)
-              * (2 / 3 : ℝ) ^ j := by
-  obtain ⟨K, hKmem, hKeq⟩ :=
-    Finset.exists_mem_eq_sup' (s := Finset.Icc 0 H)
-      ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
-      (fun K => ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖)
-  have hKH : K ≤ H := (Finset.mem_Icc.mp hKmem).2
-  have hval : doorChiSup_L χ M H n = ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖ := hKeq
-  rw [hval]
-  simp only [doorSievedWindow_L]
-  exact norm_sum_sievedWindow_sq_le_dyadic _ (liouChi χ) H K n hKH
+              * (2 / 3 : ℝ) ^ j :=
+  doorChiSupAZ_sq_le_dyadic (AdoorL M) (3072 * M) χ M H n
 
 /-- **THE χ-UNIFORM BLOCK MEAN SQUARE** — the shape the M4/MRT capstone natively produces
 (per character, over one ladder block), with the sub-window sup inside. -/
@@ -3820,20 +3803,8 @@ open G2Scaffold
 
 /-- A sieved χ-twisted window sum is bounded by its window length. -/
 theorem norm_sum_doorSievedWindow_le_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M K n : ℕ) :
-    ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖ ≤ (K : ℝ) := by
-  have hsub : doorSievedWindow_L M K n ⊆ Finset.Ioc n (n + K) := by
-    simp only [doorSievedWindow_L, sievedWindow]
-    exact Finset.filter_subset _ _
-  have hcard : (doorSievedWindow_L M K n).card ≤ K := by
-    calc (doorSievedWindow_L M K n).card ≤ (Finset.Ioc n (n + K)).card :=
-          Finset.card_le_card hsub
-      _ = K := by simp [Nat.card_Ioc]
-  refine le_trans (norm_sum_le _ _) ?_
-  calc ∑ m ∈ doorSievedWindow_L M K n, ‖liouChi χ m‖
-      ≤ ∑ _m ∈ doorSievedWindow_L M K n, (1 : ℝ) :=
-        Finset.sum_le_sum fun m _ => norm_liouChi_le_one χ m
-    _ = ((doorSievedWindow_L M K n).card : ℝ) := by simp
-    _ ≤ (K : ℝ) := by exact_mod_cast hcard
+    ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖ ≤ (K : ℝ) :=
+  norm_sum_doorWinAZ_le (AdoorL M) (3072 * M) χ M K n
 
 /-- **THE χ-UNIFORM FREE BLOCK MEAN SQUARE, NARROWED** — `M4CoprimeBlockMeanSqN_L`'s χ-layer:
 the same free half-open block `(A, B]`, the same free window length `L` with ⟦THE
@@ -4358,20 +4329,8 @@ theorem m4_coprimeN_supplied_L {R : ChowlaRegime} {M : ℕ} {MS : ℕ → ℕ �
 `norm_sum_doorSievedWindow_le_L` (:105). -/
 theorem norm_sum_doorSievedWindow_le_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
     (M Kw n : ℕ) :
-    ‖∑ m ∈ doorSievedWindow_L_gk K M Kw n, liouChi χ m‖ ≤ (Kw : ℝ) := by
-  have hsub : doorSievedWindow_L_gk K M Kw n ⊆ Finset.Ioc n (n + Kw) := by
-    simp only [doorSievedWindow_L_gk, sievedWindow]
-    exact Finset.filter_subset _ _
-  have hcard : (doorSievedWindow_L_gk K M Kw n).card ≤ Kw := by
-    calc (doorSievedWindow_L_gk K M Kw n).card ≤ (Finset.Ioc n (n + Kw)).card :=
-          Finset.card_le_card hsub
-      _ = Kw := by simp [Nat.card_Ioc]
-  refine le_trans (norm_sum_le _ _) ?_
-  calc ∑ m ∈ doorSievedWindow_L_gk K M Kw n, ‖liouChi χ m‖
-      ≤ ∑ _m ∈ doorSievedWindow_L_gk K M Kw n, (1 : ℝ) :=
-        Finset.sum_le_sum fun m _ => norm_liouChi_le_one χ m
-    _ = ((doorSievedWindow_L_gk K M Kw n).card : ℝ) := by simp
-    _ ≤ (Kw : ℝ) := by exact_mod_cast hcard
+    ‖∑ m ∈ doorSievedWindow_L_gk K M Kw n, liouChi χ m‖ ≤ (Kw : ℝ) :=
+  norm_sum_doorWinAZ_le (AdoorL M) (s13GK K M) χ M Kw n
 
 /-- **THE χ-UNIFORM FREE BLOCK MEAN SQUARE, NARROWED, AT THE LEVER** —
 `M4CoprimeChiBlockMeanSqN_L` (:142). -/
