@@ -294,9 +294,9 @@ for the `BoundingSieve`/`TruncSieve` API + `Salt.TwinBar.SiegelCorrStrong` for
 signed); (2) `nu_pos_of_prime` AND `nu_lt_one_of_prime` (any ν built to carry
 the χ-sign is signed / can exceed 1 — the positivity that the corpus's
 `nuChen = 1/φ` gets ANALYTICALLY is here COMBINATORIAL, the recon's headline);
-(3) `abs_lam_le_one` (`LinearSieve.lean:144`) — `|λ_χ(d)| ≤ τ(d)`, NOT `≤ 1`;
+(3) `abs_lam_le_one` (`LinearSieve.lean:146`) — `|λ_χ(d)| ≤ τ(d)`, NOT `≤ 1`;
 (4) `TruncSieve.isLowerMoebius` — λ_χ is not a Möbius truncation `μ·[P]`, so
-the whole `linear_sieve_lower` (`LinearSieve.lean:349`) closure is unavailable.
+the whole `linear_sieve_lower` (`LinearSieve.lean:351`) closure is unavailable.
 
 **THE REUSE SEAM (this pass's sharpening of the recon).** `mainSum`/`errSum`
 are `(ℕ → ℝ) → ℝ`, i.e. **WEIGHT-GENERIC**. So the twisted main/error sums are
@@ -305,7 +305,7 @@ on any LANDED `BoundingSieve s` (the twin/Chen carriers reuse verbatim):
 `twistedMainSum s χ := s.mainSum (lamChi χ)`,
 `twistedErrSum s χ := s.errSum (lamChi χ)` (both elaborate clean, this pass).
 **The obstruction is therefore NOT the stratum-0 bookkeeping (free) but the
-two DOWNSTREAM consumers**: `errSum_lam_le` (`LinearSieve.lean:313`, consumes
+two DOWNSTREAM consumers**: `errSum_lam_le` (`LinearSieve.lean:315`, consumes
 `abs_lam_le_one`) → node (b) re-derive with `τ(d)` for `1`; and
 `linear_sieve_lower` (consumes `abs_lam_le_one` + `isLowerMoebius`) → node (c)
 re-derive for the signed weight. This re-scopes "stratum-0 re-instantiation"
@@ -356,7 +356,7 @@ lemma abs_lamChi_le_tau {q : ℕ} (χ : DirichletCharacter ℂ q) (d : ℕ) :
     |lamChi χ d| ≤ (d.divisors.card : ℝ)
 
 /-- **(b.2)** `E_χ(s) ≤ Σ_{d∣P, d<bound} τ(d)·|rem(d)|` — the τ-weighted Rosser
-    remainder, the signed analogue of `errSum_lam_le` (`LinearSieve.lean:313`),
+    remainder, the signed analogue of `errSum_lam_le` (`LinearSieve.lean:315`),
     `τ(d)` replacing the `1`. λ_χ is supported on ALL of `divisors P` (unlike
     the Rosser truncation), so the support hypothesis is only the level cap. -/
 lemma twistedErrSum_le_tauRemainder {q : ℕ}
@@ -616,7 +616,7 @@ seam holds AT the real API: `twistedMainSum s χ := s.mainSum (lamChi χ)` and
 `twistedErrSum s χ := s.errSum (lamChi χ)` elaborate with `lamChi χ : ℕ → ℝ`
 (ProbeR3c, clean). All §1 defs and the (b.1)/(b.2)/(a1)/(a3) statement SHAPES
 type-check. `errSum` unfolds to `Σ_{d∈divisors P} |w d|·|rem d|`
-(`LinearSieve.lean:316`), so (b.2)'s RHS index (`s.prodPrimes.divisors`) and abs
+(`LinearSieve.lean:318`), so (b.2)'s RHS index (`s.prodPrimes.divisors`) and abs
 structure match; (b.1)+(b.2) are termwise-sound as frozen (and correctly carry NO
 reality hypothesis — see BLOCK-1 for why (b) is right where (a1) is wrong).
 
@@ -691,7 +691,7 @@ not on a plain function. **BLOCK-3:** the executor picks the multiplicativity ve
 
 ### Node (c) sign-flow sub-charge: DEFERRAL ACCEPTED
 
-`linear_sieve_lower` (`LinearSieve.lean:349`) rides on
+`linear_sieve_lower` (`LinearSieve.lean:351`) rides on
 `Salt.BrunLower.siftedSum_ge_mainSum_errSum_of_lowerMoebius` via `S.isLowerMoebius`
 (a Möbius-truncation SIGN lemma) + `abs_lam_le_one` — both FALSE for `λ_χ`
 (`λ_χ` is neither a Möbius truncation nor `|·| ≤ 1`). The design flags this correctly:

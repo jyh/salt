@@ -99,7 +99,7 @@ Classical grounding: MV Cor 24.25 + the effectivity remark montgomery3.txt:7612-
 **Eat list** (every landed consumer of `siegelWalfisz_holds` upgrades from
 ∃K-ineffective to effective-K): `bounded_gaps_unconditional` (`Gate.lean`, audit
 `SW/All.lean:226`) — effective localization of bounded-gap prime pairs;
-`Salt.BV.bounded_gaps_of_siegelWalfisz` (BV chain); Chen (`Salt/Chen/BetaSW.lean:217`);
+`Salt.BV.bounded_gaps_of_siegelWalfisz` (BV chain); Chen (`Salt/Chen/BetaSW.lean:223`);
 Maynard (`Salt/Maynard/GehSW.lean:214`); Goldbach (`Salt/Goldbach/A1.lean:332`,
 `psi_BV_of_siegelWalfisz'` at saving 11); the Chowla spine's PNT input
 (`Salt/Entropy/Chowla/WindowMertensLower.lean:14`, via `Salt.Chen.psiTot_pnt`).

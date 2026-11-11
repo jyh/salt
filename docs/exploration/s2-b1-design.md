@@ -7,7 +7,7 @@ def / nonneg / split / the LARGE side of `p1RazorValue ≤ p1PrimeSum`
 — no operating-point lower bound exists in the corpus; the only `0 <`
 fact is the toy-point `p1_carrier_inhabited` at x=35, disclaimed by
 TwinDeficit.lean:91), the heavy vanishing triple
-(TwinDeficit.lean:200/207/214), the split (:175), the y-capped
+(TwinDeficit.lean:204/211/218), the split (:175), the y-capped
 decorations (WeightTrivia.lean:133/278/286).
 
 ## The theorem
@@ -106,7 +106,7 @@ theorem corpus_feasible … :
 ```
 
 (Exact hypothesis spelling is the executor's to mirror from
-`p2RazorLHS_ge_of_certs` at TwinDeficit.lean:431 — statement content
+`p2RazorLHS_ge_of_certs` at TwinDeficit.lean:450 — statement content
 above is frozen; hypothesis names/order are not. If a cap clause
 needs a different reflexive instantiation, widen the PARAMETER, never
 the clause.)
@@ -304,7 +304,7 @@ body above is unchanged, per the transparent-amendment protocol):
   unconditional operating-point p₁ lower bound anywhere in Salt/)
   is CONFIRMED repo-wide by the gate.
 - **A2 (N4 route, binding on EXEC-2).** Prove bigOmegaGt_heavy
-  UNIFORMLY: heavy_semiprime_factors (TwinDeficit.lean:190) → the
+  UNIFORMLY: heavy_semiprime_factors (TwinDeficit.lean:194) → the
   filter keeps ALL of primeFactors → cardFactors_eq_sum_pf
   (WeightTrivia.lean:320) → cardFactors_mul +
   cardFactors_apply_prime. NO p = q case split (the frozen

@@ -43,8 +43,8 @@ STOP AND FLAG.
 
 1. **G-DENS (B).** `P_N = ∏_{w' ≤ q < z, q ∤ N} q` (prodPrimes is
    consumed opaquely — confirmed); the reduced-residue re-threading
-   (`coprime_sub_two` TwinA1:221 → `Coprime d N` from `Coprime P_N N`;
-   consumers: apDisc_le TwinA1:242, crt_class_coprime TwinA1W:225,
+   (`coprime_sub_two` TwinA1:233 → `Coprime d N` from `Coprime P_N N`;
+   consumers: apDisc_le TwinA1:254, crt_class_coprime TwinA1W:225,
    rosserRemainderW_le_split TwinA1W:474, rosserRemainderW2_le_split
    TwinA2W:436, divisor_cases BVSum:188); **the W-ratio residual
    (GATE CORRECTION, 2026-07-15): a NEW sibling lemma

@@ -6632,7 +6632,7 @@ the mandated STEP-0 inventory BEFORE any proof attempt burned against it.
 
 **2026-07-14 D0W ✅ FULL (Opus executor attempt 1, Fable statement-change warrant, survived
 one API stream drop) — CATCH #64 REPAIRED IN PLACE.** hD0lo_main weakened L^{C0} → L^{A+2}
-through the full chain (four_term_scale_le root at EnergyClose:488 with the proof patched at
+through the full chain (four_term_scale_le root at EnergyClose:491 with the proof patched at
 its unique use; pass-throughs WindowErrFold:82/1294, WindowSmallChi:527 + the H-glue
 threshold-list docstring, SqrtDFold:826/996/1119, MediumFloor:520, GlueBV:198; the row is fed
 positionally so pass-through proofs needed NO edits). general_BV_cutoff_final carries no
@@ -23320,7 +23320,7 @@ hub and this ledger, and the defect is in PROSE about landed statements.
 Salt/Chen/Buchstab.lean:37-48   "## The structural finding on `linear_sieve_lower` (flagged)"
     "`LinearSieve.errSum_lam_le` (hence `linear_sieve_lower`/`_chain`) demands the support
      bound `∀ d, S.P d → (d:ℝ) < bound` **unconditionally in `d`**."
-Salt/Chen/Buchstab.lean:283-287  "## Part E — the corrected divisor-restricted lower plumbing"
+Salt/Chen/Buchstab.lean:290-294  "## Part E — the corrected divisor-restricted lower plumbing"
     "`errSum_lam_le` in `LinearSieve.lean` demands an *unconditional* support bound, which
      is unsatisfiable for `side = 2` (see the header flag)."
 ```
@@ -23328,9 +23328,9 @@ Salt/Chen/Buchstab.lean:283-287  "## Part E — the corrected divisor-restricted
 🔑 ***WHY IT IS STALE.*** All three named statements are ALREADY divisor-restricted at HEAD:
 
 ```
-Salt/Chen/LinearSieve.lean:316-317  errSum_lam_le        (hsupp : ∀ d, d ∣ s.prodPrimes → S.P d → (d:ℝ) < bound)
-Salt/Chen/LinearSieve.lean:352-354  linear_sieve_lower   (same hypothesis)
-Salt/Chen/LinearSieve.lean:392-393  linear_sieve_lower_chain (same hypothesis)
+Salt/Chen/LinearSieve.lean:318-319  errSum_lam_le        (hsupp : ∀ d, d ∣ s.prodPrimes → S.P d → (d:ℝ) < bound)
+Salt/Chen/LinearSieve.lean:354-356  linear_sieve_lower   (same hypothesis)
+Salt/Chen/LinearSieve.lean:394-395  linear_sieve_lower_chain (same hypothesis)
 ```
 
 The MATHEMATICS of the finding is untouched and still correct — the unconditional bound is
@@ -23340,12 +23340,12 @@ is the header's description of the CURRENT bytes, and the reader it misleads is 
 choosing which lemma to call.
 
 📌 ***THE CONSEQUENCE — A DEDUP QUESTION, NOT A BUG.*** With the repair landed upstream,
-`Salt/Chen/Buchstab.lean:292` `errSum_lam_le_div` and `:310` `linear_sieve_lower_div` are
+`Salt/Chen/Buchstab.lean:299` `errSum_lam_le_div` and `:310` `linear_sieve_lower_div` are
 statement-for-statement duplicates of `LinearSieve.errSum_lam_le` / `linear_sieve_lower`
 (binders, implicit/explicit split, and hypothesis text all identical; the proofs differ only
 in how `d ∣ prodPrimes` is pulled out of `Nat.mem_divisors`). Nothing is wrong with either;
 the corpus simply carries each twice. BRUN-ELL1 deliberately composed through the `_div`
-name — the one the Rosser twin `linear_sieve_lower_rosser` (`Buchstab.lean:327`) already
+name — the one the Rosser twin `linear_sieve_lower_rosser` (`Buchstab.lean:334`) already
 uses — so that a later dedup wave has ONE call site convention to collapse.
 
 ⚖️ **Disposition DEFERRED to a wave licensed to edit landed prose and to retire landed
