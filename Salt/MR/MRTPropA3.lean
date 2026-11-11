@@ -778,7 +778,7 @@ lengths, *"where the capstone is silent"*.  So the dyadic split is `j < j₀` tr
 `j₀ ≤ j` capstone (`M4CoprimeSupply.lean:39`, `M4Maximal.lean:1019`).
 
 **2. ⛔ TWO DIFFERENT OBJECTS ARE CALLED "THE CAPSTONE". THEY ARE NOT THE SAME.**
-* `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:527`) — the **S12** lane.  This is
+* `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:508`) — the **S12** lane.  This is
   the one carrying `S14Compose.lean:429`'s **`⚠ NOT DERIVED` … "refuted at ⟦B1'-3⟧ by §3"**.
 * `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1021`) — the **M4** lane, and *this* is the one the
   door's dyadic split consumes (`M4Maximal.lean:117`, length-graded `MS j H`).
@@ -894,7 +894,7 @@ earlier were all published first and corrected after.  **Fencing is cheap; retra
 Walked the gates down: `M4SievedDoorSq_L → M4BlockMeanSq_L → M4RowMeanSq_L`.
 `M4RowMeanSq_L` (`M4RowLinear.lean:992`) has **no producer** — established by reading **all six
 of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1393`) ·
-an enumeration entry (`:3398`) · one arrow (`:3413`).
+an enumeration entry (`:3352`) · one arrow (`:3367`).
 
 ⭐ **AND THIS TIME IT IS NOT MY INFERENCE — THE CORPUS SAYS SO AT THE DEFINITION SITE:**
 *"**THE WAVE'S REMAINING INPUT**… This predicate is the wave's ⟦RESIDUE⟧: see the module header

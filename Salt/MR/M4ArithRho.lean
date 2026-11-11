@@ -1057,6 +1057,30 @@ theorem m4_arith_door_exit_of_delta_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
   m4_arith_door_exit_rho_gk K hM (doorRhoOfDelta_pos hδ₀.ne') (doorRhoOfDelta_spec δ₀) hHreg
     hframe hrows hband harith
 
+/-- **⟦GATE 10a⟧ THE DOOR SOCKET'S CEILING** (`door_socket_ceiling_of_fits`) — under the
+small-grade fit, the socket's graded price at the doubled rows is at most `2 δ_sock²`, read off
+the ungraded ceiling `hceil`.  The split costs its factor `2` (`m4BclGraded_le_of_fits`) and
+`m4Cmax` folds into `108/5`.  The 25-line body every gate-10a socket repeated, stated once. -/
+theorem door_socket_ceiling_of_fits {j₀ : ℕ} {ρ δs : ℝ} {H : ℕ} (hH : 0 < H)
+    (hfit : m4SmallGradeFits j₀ (fun H => 2 * RSanDoorRho ρ H) (fun H => 2 * rStrWitness H) H)
+    (hceil : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 * (108 / 5 * RSanDoorRho ρ H)
+      ≤ δs ^ 2) :
+    96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * m4BclGraded j₀ (fun H => 2 * RSanDoorRho ρ H) (fun H => 2 * rStrWitness H) H
+      ≤ 2 * δs ^ 2 := by
+  have hle := m4BclGraded_le_of_fits hH hfit
+  have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
+  have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
+      = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+          * (108 / 5 * RSanDoorRho ρ H)) := by
+    unfold m4Cmax
+    ring
+  calc _ ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) := mul_le_mul_of_nonneg_left hle hfac0
+    _ = _ := hval
+    _ ≤ 2 * δs ^ 2 := by linarith
+
 end Salt.MR
 
 -- #audit (temporary)
