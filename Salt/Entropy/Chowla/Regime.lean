@@ -96,8 +96,8 @@ structure ChowlaRegime where
       decrement `Σ` exceeds the Liouville entropy ceiling `ℍ(X_H)/H ≤ log 2`,
       forcing the contradiction. -/
   hJcon : Real.log 2 < towerDropSum C0 a Hlo J
-  /-- **wave-II strengthening** (S3-A2-W2GATE, `C = 8`, `p = 2`; verified
-      independently at 3.65× slack).  The per-shift `ℓ¹` error times `H·log 2`
+  /-- **wave-II strengthening** (S3-A2-W2GATE, `C = 8`, `p = 2`; checked
+      numerically at 3.65× slack, outside Lean).  The per-shift `ℓ¹` error times `H·log 2`
       (Fannes at `|S| ≤ 2^H`) stays below half the per-step decrement — the
       explicit replacement for Tao's `o_{A→∞}(1)`. -/
   hheadroom' : 8 * (Hhi : ℝ) * Real.log Hhi * Real.log Hhi ≤ ((x / ω : ℕ) : ℝ)

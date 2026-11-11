@@ -14,8 +14,8 @@ import Salt.Chen.TwinA1
 Design: `docs/blueprints/chen.md`, the C3d row + its DESIGN NOTE. The switch
 carrier `A₃` sifts `aₙ = ∑ 1_{n = p₁p₂p₃}` with `z ≤ p₁ ≤ y < p₂ ≤ p₃`; the
 count `∑_{n ∈ window} aₙ` must land under the LITERAL ledger constant
-`0.363084` in the normalisation `x/(2 log z)` (so `cbar_lt`, dilog-blocked, is
-never consumed — C5 pairs this with `two_log_three_sub_log_six_sub_cbar_pos`).
+`0.363084` in the normalisation `x/(2 log z)` (so this count does not need `cbar_lt`,
+now proved in `CbarCert`; C5 pairs this with `two_log_three_sub_log_six_sub_cbar_pos`).
 
 ## The PNT source (design-note "genuine PNT error term REQUIRED")
 

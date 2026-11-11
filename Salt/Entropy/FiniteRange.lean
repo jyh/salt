@@ -17,6 +17,8 @@ Modifications for Salt (ported to mathlib v4.32.0-rc1, toolchain
   `import Mathlib`.
 - All declarations, names, instances, notation, and proof bodies are otherwise
   verbatim from upstream.
+- Docstrings added by Salt (2026-11-01, the O83 documentation lane) to the 7 upstream
+  declarations that carried none; names, statements and bodies are unchanged.
 -/
 import Mathlib
 
@@ -48,13 +50,24 @@ lemma finiteRange_of_finset {Ω G : Type*} (f : Ω → G) (A : Finset G) (h : �
   rcases hy with ⟨ω, rfl⟩
   exact h ω
 
+/-- `Set.range X = ↑(FiniteRange.toFinset X)`: the range of a finite-range map is its own range
+finset, coerced — `Set.coe_toFinset` through `toFinset`'s definition (`simp`). The bridge
+`FiniteRange.mem` and `FiniteRange.mem_iff` both rewrite along; no consumer outside this file at
+884bd7d7. -/
 lemma FiniteRange.range {Ω G : Type*} (X : Ω → G) [hX : FiniteRange X] :
     Set.range X = FiniteRange.toFinset X := by simp [FiniteRange.toFinset]
 
+/-- `X ω ∈ FiniteRange.toFinset X`: every value of a finite-range map lies in its range finset —
+`FiniteRange.range` read at `X ω`, the witness being `ω` itself (`Set.mem_range`). Read by the
+`X ∘ f` instance below and, twice, by `condEntropy_finPi_le` (`Chowla/Step`), to place `W b ω`
+in `toFinset (W b)`. -/
 lemma FiniteRange.mem {Ω G : Type*} (X : Ω → G) [FiniteRange X] (ω : Ω) :
     X ω ∈ FiniteRange.toFinset X := by
   simp_rw [← Finset.mem_coe, ← FiniteRange.range X, Set.mem_range, exists_apply_eq_apply]
 
+/-- `x ∈ FiniteRange.toFinset X ↔ ∃ ω, X ω = x`: membership in the range finset is being a value
+— `FiniteRange.range` with `Set.mem_range`. A `simp` lemma (it is what closes
+`FiniteRange.full`'s preimage goal); no consumer names it at 884bd7d7. -/
 @[simp]
 lemma FiniteRange.mem_iff {Ω G : Type*} (X : Ω → G) [FiniteRange X] (x : G) :
     x ∈ FiniteRange.toFinset X ↔ ∃ ω, X ω = x := by
@@ -148,6 +161,10 @@ instance FiniteRange.finprod {Ω G I : Type*} [CommMonoid G] {s : Finset I} (X :
 
 open MeasureTheory
 
+/-- `(μ.map X) ↑(FiniteRange.toFinset X) = μ Set.univ` for a measurable `X` of finite range: the
+pushforward puts all of `μ`'s mass on the range finset — `Measure.map_apply`, and the preimage
+of the range finset is `univ` (`simp`, through `FiniteRange.mem_iff`). Read by
+`FiniteRange.real_full` only. -/
 lemma FiniteRange.full {Ω G : Type*} [MeasurableSpace Ω] [MeasurableSpace G]
     [MeasurableSingletonClass G] {X : Ω → G} (hX : Measurable X) [FiniteRange X] (μ : Measure Ω) :
     (μ.map X) (FiniteRange.toFinset X) = μ Set.univ := by
@@ -156,11 +173,19 @@ lemma FiniteRange.full {Ω G : Type*} [MeasurableSpace Ω] [MeasurableSpace G]
   ext ω
   simp
 
+/-- `(μ.map X).real ↑(FiniteRange.toFinset X) = μ.real Set.univ`: `FiniteRange.full` at real
+masses (`measureReal_def`). Registered in `Salt/Entropy/All`'s axiom audit; no other consumer at
+884bd7d7. -/
 lemma FiniteRange.real_full {Ω G : Type*} [MeasurableSpace Ω] [MeasurableSpace G]
     [MeasurableSingletonClass G] {X : Ω → G} (hX : Measurable X) [FiniteRange X] (μ : Measure Ω) :
     (μ.map X).real (FiniteRange.toFinset X) = μ.real Set.univ := by
   simp [measureReal_def, FiniteRange.full hX]
 
+/-- `(μ.map X) (↑(FiniteRange.toFinset X))ᶜ = 0`: the pushforward of ANY `μ` under a
+finite-range `X` gives the complement of the range finset no mass — for an a.e.-measurable `X`
+by `Measure.map_apply₀` on an empty preimage, and otherwise because `μ.map X = 0`. Read by
+`FiniteRange.ae_mem_toFinset` below and by `finiteSupport_of_finiteRange` (`Measure`);
+registered in `Salt/Entropy/All`'s axiom audit. -/
 lemma FiniteRange.null_of_compl {Ω G : Type*} [MeasurableSpace Ω] [MeasurableSpace G]
     [MeasurableSingletonClass G] (μ : Measure Ω) (X : Ω → G) [FiniteRange X] :
     (μ.map X) (FiniteRange.toFinset X : Set G)ᶜ = 0 := by
@@ -171,6 +196,9 @@ lemma FiniteRange.null_of_compl {Ω G : Type*} [MeasurableSpace Ω] [MeasurableS
     simp
   · simp [hX]
 
+/-- `∀ᵐ x ∂(μ.map X), x ∈ ↑(FiniteRange.toFinset X)`: `FiniteRange.null_of_compl` read as an
+a.e. statement (a null complement IS a.e. membership). No consumer at 884bd7d7; `Measure`'s
+`ae_mem_of_finiteRange` states the same at a `Set.Finite` witness's `toFinset`. -/
 lemma FiniteRange.ae_mem_toFinset {Ω G : Type*} [MeasurableSpace Ω] [MeasurableSpace G]
     [MeasurableSingletonClass G] (μ : Measure Ω) (X : Ω → G) [FiniteRange X] :
     ∀ᵐ x ∂(μ.map X), x ∈ (FiniteRange.toFinset X : Set G) := FiniteRange.null_of_compl ..

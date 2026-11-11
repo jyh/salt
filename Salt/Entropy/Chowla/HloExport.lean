@@ -385,7 +385,7 @@ final `spine_False_core_xi_sq` discharge — `private`, hence uncitable here —
 INLINED as its own body (`SpineFinal.lean:1214–1303`), which is a public
 assembly ending at `log_chowla_two_shell_xi_sq`.
 
-⚠ THE SEAM WARNING rides this statement unchanged (`MRTDoor.lean:174–182`):
+⚠ THE SEAM WARNING rides this statement unchanged (`MRTDoor.lean:179–187`):
 `MRTUniformityXiL2 R ρ` is a FINITE SUM OF INTEGRALS, `∑` outside `∫`, no `sup`
 inside; the `L²` door is SUPPLIED by the road, never claimed from Prop 2.4. -/
 theorem log_chowla_two_budget_head_g_sq_count_hloCap :
