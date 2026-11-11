@@ -6634,7 +6634,7 @@ the mandated STEP-0 inventory BEFORE any proof attempt burned against it.
 one API stream drop) — CATCH #64 REPAIRED IN PLACE.** hD0lo_main weakened L^{C0} → L^{A+2}
 through the full chain (four_term_scale_le root at EnergyClose:488 with the proof patched at
 its unique use; pass-throughs WindowErrFold:82/1294, WindowSmallChi:527 + the H-glue
-threshold-list docstring, SqrtDFold:824/994/1117, MediumFloor:520, GlueBV:198; the row is fed
+threshold-list docstring, SqrtDFold:826/996/1119, MediumFloor:520, GlueBV:198; the row is fed
 positionally so pass-through proofs needed NO edits). general_BV_cutoff_final carries no
 hD0lo row (verified); hMainEnergy_discharge (non-cutoff path, outside warrant) kept its
 statement — proof-body adapter only. **herr_D0E verdict: no decoupling needed or possible**
@@ -6908,7 +6908,7 @@ couplings; honest per-box price 2^{18}c^{−50}K·XM/L^{12}, one L worse than sk
 honest aggregate ≈ 3.5·10²³·K·x/t^{11} ≤ x/t^{10} ⟺ t ≥ 3.5·10²³·K — dwarfed by the
 tower (log x₀ ≥ w'^{w'}, w' ~ exp(2·10⁹)). Note (c) is DISCARDED; the gate's aggregate
 derivation replaces it. **CATCH #69 (NEW, kernel-certain): the terminal's per-e rows
-(herr_LEpos/herr_scale/herr_D0E at SqrtDFold:1129–1134) are FALSE for e ∈ (X, D]** — nat
+(herr_LEpos/herr_scale/herr_D0E at SqrtDFold:1131–1136) are FALSE for e ∈ (X, D]** — nat
 division gives ⌊X/e⌋ = 0, log(0·M) = 0, and the rows read 0 < 0 / L ≤ 0 / D0 ≤ 0^{18}.
 Every medium-band box has D ~ x^{0.497} > X (≥ z·y = x^{0.4583} at the floor, up to
 x^{0.497}) — the rows are unsatisfiable at the needed level. SOUND UNDERNEATH: for e > X
@@ -7169,7 +7169,7 @@ still-UNPACKAGED analytic corpus, and one NEW coupling obligation surfaced. STAT
   non-cancelling medium boxes vs. which vanish or belong to another band), NOT a defect in Part 1
   (F0 is orthogonal — hNfloor stays a named hypothesis). Flagged so it is not glossed at assembly.
 • F2 (hBVblocksW_at_op + hA3): the wiring `hBVblocksW_discharge' (PDiag:682, already pieceN) →
-  mainA3_of_block_remainders_W (SwitchW:340) → hA3` is verified-wireable, but its leaves (hSum
+  mainA3_of_block_remainders_W (SwitchW:366) → hA3` is verified-wireable, but its leaves (hSum
   aggregation over pieces × ≤3 boxes × the F1 rows; hCE; hdiag; hNum via `hNum_close_of_tower` under
   `hK_tower` at x₀(K)) are un-built and depend on F1.
 • F3 (chen_headline): A1/A2 slots ARE packaged (`a12_hA1`/`a12_hA2`, HeadlineW2:1725/1856); the
@@ -7402,7 +7402,7 @@ STILL-UNPACKAGED analytic rows, each a fresh operating-point estimate (NOT wirin
   (`Fchain_switch_le ∘ opf_tower` :486 Icc(1.49,1.51)) READY; but **hWy** (`W_ratio_upper`,
   WRatioSharp:315 LANDED but needs at-op `hdvd opP∣opPs`/`hwin` window-primeFactors identity/
   `hz38`/real endpoints + the UNNAMED `rfl` bridge `W(twinA1SieveW)=W(twinA1Sieve)` — no named
-  `twinA1SieveW_W_eq`, cf. `switchSieveW_W_eq` SwitchW:179), **hcount** (`log x·tripleSum/φ(Q)
+  `twinA1SieveW_W_eq`, cf. `switchSieveW_W_eq` SwitchW:205), **hcount** (`log x·tripleSum/φ(Q)
   ≤ (cbar+ecount)·totalMass` — only the SYMBOLIC typecheck `example` CountW:763 exists, and it
   is about `tripleSumW` not `tripleSum/φ(Q)`; must compose `tripleSum_le_cbar_final` +
   `lambda_mass_lower` MertensPNT:310), **hcertA2** (`A2grid_sharp_le` A2Weighted:473, 6 hyps to
