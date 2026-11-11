@@ -15,7 +15,7 @@ The first stone of the MRT §4 port (`docs/exploration/s9-freeze-0726.md`,
 
 1. **The phase re-basing** (`offWindowSum_eq_rebase`, `windowExpSum_eq_rebase`).
    The MRT door's carrier is the *offset-indexed* window sum
-   `∑_{i<H} λ(n+i+1) e(α(i+1))` (`windowExpSum`, `MRTDoor.lean:37`); every
+   `∑_{i<H} λ(n+i+1) e(α(i+1))` (`windowExpSum`, `MRTDoor.lean:42`); every
    line of MRT §4 is written for the *absolute-indexed* sum
    `∑_{n<m≤n+H} λ(m) e(αm)`.  They differ by the unit-modulus factor `e(−αn)`.
    The freeze (`:151–156`) rules that this modulus-1 factor must be a NAMED
@@ -29,7 +29,7 @@ The first stone of the MRT §4 port (`docs/exploration/s9-freeze-0726.md`,
    is CONSUMED here, never re-derived.  The adapter turns the remaining M4
    obligation — a bound on the *absolute-indexed* λ-window sum at every
    tight-major frequency — into the door shape `MRTUniformityXi`
-   (`MRTDoor.lean:109`) that the spine head consumes.
+   (`MRTDoor.lean:114`) that the spine head consumes.
 
 ## Conventions pinned in this file
 
@@ -213,7 +213,7 @@ theorem norm_windowExpSum_le (H n : ℕ) (α : ℝ) : ‖windowExpSum H n α‖ 
 
 /-- **The sign seam, fired once.**  `BigXiArcTight B₅` states the tight
 Dirichlet approximant at `+ξ.val/H`; the MRT door is fired at `−ξ.val/H`
-(`MRTDoor.lean:102, 110`).  `nearRatTight_neg` (`BigXiArc.lean:614`) transports
+(`MRTDoor.lean:107, 115`).  `nearRatTight_neg` (`BigXiArc.lean:614`) transports
 it, the witness denominator `q` unchanged.  This is the only place in the M4
 chain where the door frequency's sign is touched. -/
 theorem nearRatTight_of_bigXiArcTight {B₅ : ℝ} (harc : BigXiArcTight B₅)
@@ -304,7 +304,7 @@ The split is the refuter's re-derivation `(a+b)² ≤ 2a² + 2b²` — hence the
 `2`s, and hence `2·K·Bsieve` (not `K·Bsieve`) in the freeze's budget line.
 
 ⟦THE FUSE, LIVE⟧ The conclusion is byte-shaped to the payload of
-`MRTUniformityXiL2` (`MRTDoor.lean:187`, the sibling stone, LANDED): Σ-form,
+`MRTUniformityXiL2` (`MRTDoor.lean:192`, the sibling stone, LANDED): Σ-form,
 `(1/H²)` normalisation, `‖·‖ ^ 2`, the `∀ ξ` *inside* the Σ and the Σ *outside*
 the integral — the MRTDoor seam warning applies verbatim, this is a finite sum
 of integrals with no sup inside, implied by the per-`α` door.
@@ -593,7 +593,7 @@ theorem sum_bigXi_norm_windowExpSum_sq_le_twelve (eps : ℚ) (heps : 0 < eps) :
   exact hH₀ H hH ξ hξ
 
 /-- **THE CLOSE ONTO THE SUMMED DOOR** — this adapter, delivered as the sibling
-stone's predicate `MRTUniformityXiL2 R ρ` (`MRTDoor.lean:187`).
+stone's predicate `MRTUniformityXiL2 R ρ` (`MRTDoor.lean:192`).
 
 `hρ` is the one thing the adapter itself cannot supply: the door's grade `ρ` is
 `H`-free, while the adapter's right-hand side carries the socket grade at the

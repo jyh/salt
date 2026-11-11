@@ -41,6 +41,10 @@ namespace Salt.Chen
 noncomputable def Kh (v : ℝ) : ℝ :=
   if v ≤ 2 then 0 else if v ≤ 3 then Real.exp (-v) else 3 * (v⁻¹ + v⁻¹ ^ 2) * Real.exp (-v)
 
+/-- `0 ≤ Kh v` for every `v`: the kernel's three branches — `0`; `e^{−v}`; `3(v⁻¹ + v⁻²)e^{−v}`
+at `v > 3`, where `v > 0` makes `v⁻¹ > 0` — are each nonnegative, by `split_ifs` and
+`positivity`. The sign the integrals against `Kh` take; read four times in this file, no
+consumer outside it. -/
 theorem Kh_nonneg (v : ℝ) : 0 ≤ Kh v := by
   unfold Kh
   split_ifs with h1 h2
@@ -66,6 +70,10 @@ theorem Kh_le (v : ℝ) : Kh v ≤ (4 / 3) * hBJS v := by
       rw [mul_comm v v⁻¹, hvv] at h; exact h
     nlinarith only [he, mul_le_mul_of_nonneg_right hkey hi.le]
 
+/-- `Measurable Kh`: the two `ite` branches by `Measurable.ite` on the measurable sets `{v ≤ 2}`
+and `{v ≤ 3}`, the pieces `exp ∘ neg` and `3·(v⁻¹ + v⁻²)·exp(−v)` by `Real.measurable_exp`,
+`measurable_inv` and `pow_const`. What integrating against `Kh` needs; read twice in this file,
+no consumer outside it. -/
 theorem Kh_measurable : Measurable Kh := by
   unfold Kh
   refine Measurable.ite (measurableSet_le measurable_id measurable_const) measurable_const ?_

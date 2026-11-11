@@ -21,6 +21,8 @@ Modifications for Salt (ported to mathlib v4.32.0-rc1, toolchain
   from upstream; drift v4.33-rc1 → v4.32.0-rc1 required no statement or proof
   changes, and this file has no measure-finite-support `.support` projections,
   so the `Measure.finSupport` rename does not apply.
+- Docstrings added by Salt (2026-11-01, the O83 documentation lane) to the 22 upstream
+  declarations that carried none; names, statements and bodies are unchanged.
 -/
 import Mathlib
 import Salt.Entropy.Mathlib.KernelComp
@@ -65,17 +67,27 @@ def mutualInfo (κ : Kernel T (S × U)) (μ : Measure T) : ℝ :=
 /-- Mutual information of a kernel into a product space with respect to a measure. -/
 notation3:100 "Ik[" κ " , " μ "]" => Kernel.mutualInfo κ μ
 
+/-- `Ik[κ, μ] = Hk[fst κ, μ] + Hk[snd κ, μ] - Hk[κ, μ]`, by `rfl`: `mutualInfo` unfolded. The
+kernel twin of the random-variable `mutualInfo_def` of `Salt/Entropy/Basic`; the lemmas below
+unfold `mutualInfo` directly, and this form has no consumer at 884bd7d7. -/
 lemma mutualInfo_def (κ : Kernel T (S × U)) (μ : Measure T) :
     Ik[κ, μ] = Hk[fst κ, μ] + Hk[snd κ, μ] - Hk[κ, μ] := rfl
 
+/-- `Ik[κ, 0] = 0` (`simp [mutualInfo]`: the three entropies vanish against the zero measure). A
+`simp` lemma; the `μ = 0` branches of the lemmas below. -/
 @[simp]
 lemma mutualInfo_zero_measure (κ : Kernel T (S × U)) : Ik[κ, (0 : Measure T)] = 0 := by
   simp [mutualInfo]
 
+/-- `Ik[0, μ] = 0` (`simp [mutualInfo]`: `fst 0 = 0`, `snd 0 = 0`, the entropies vanish). A
+`simp` lemma; the `κ = 0` branches of `mutualInfo_prod` and of the lemmas that split on
+`eq_zero_or_isMarkovKernel`. -/
 @[simp]
 lemma mutualInfo_zero_kernel (μ : Measure T) : Ik[(0 : Kernel T (S × U)), μ] = 0 := by
   simp [mutualInfo]
 
+/-- Kernels equal `μ`-a.e. have the same mutual information: `entropy_congr` on `κ`, `fst κ` and
+`snd κ`. Lifts `mutualInfo_nonneg'` to a.e. supports in `mutualInfo_nonneg`. -/
 lemma mutualInfo_congr {κ η : Kernel T (S × U)} {μ : Measure T} (h : κ =ᵐ[μ] η) :
     Ik[κ, μ] = Ik[η, μ] := by
   rw [mutualInfo, mutualInfo]
@@ -87,6 +99,10 @@ lemma mutualInfo_congr {κ η : Kernel T (S × U)} {μ : Measure T} (h : κ =ᵐ
     rw [snd_apply, ht, snd_apply]
   rw [entropy_congr h1, entropy_congr h2, entropy_congr h]
 
+/-- Associativity of kernel composition up to `MeasurableEquiv.prodAssoc`:
+`map ((ξ ⊗ₖ κ) ⊗ₖ η) prodAssoc = ξ ⊗ₖ (κ ⊗ₖ comap η prodAssoc)`, by `ext` and
+`lintegral_compProd`. Re-associates the disintegrated triple in
+`entropy_triple_add_entropy_le'`. -/
 lemma compProd_assoc' (ξ : Kernel T S) [IsSFiniteKernel ξ]
     (κ : Kernel (T × S) U) [IsSFiniteKernel κ] (η : Kernel (T × S × U) V) [IsSFiniteKernel η] :
     map ((ξ ⊗ₖ κ) ⊗ₖ η) MeasurableEquiv.prodAssoc
@@ -101,6 +117,9 @@ lemma compProd_assoc' (ξ : Kernel T S) [IsSFiniteKernel ξ]
   swap; · exact measurable_prodMk_left hs
   congr
 
+/-- `μ ⊗ₘ (ξ ⊗ₖ κ) = (μ ⊗ₘ ξ ⊗ₘ κ).map prodAssoc`: associativity at the measure level, by `ext`
+and `Measure.lintegral_compProd`. The base of its two restatements `Measure.compProd_compProd'`
+and `Measure.compProd_compProd''`. -/
 lemma Measure.compProd_compProd (μ : Measure T)
     (ξ : Kernel T S) [IsSFiniteKernel ξ] (κ : Kernel (T × S) U) [IsSFiniteKernel κ] :
     μ ⊗ₘ (ξ ⊗ₖ κ) = (μ ⊗ₘ ξ ⊗ₘ κ).map MeasurableEquiv.prodAssoc := by
@@ -115,12 +134,18 @@ lemma Measure.compProd_compProd (μ : Measure T)
   rw [compProd_apply (measurable_prodMk_left hs)]
   congr
 
+/-- `Measure.compProd_compProd` with the right-hand side written as a comap along
+`prodAssoc.symm` (`MeasurableEquiv.comap_symm`). The step to `Measure.compProd_compProd''`. -/
 lemma Measure.compProd_compProd' (μ : Measure T)
     (ξ : Kernel T S) [IsSFiniteKernel ξ] (κ : Kernel (T × S) U) [IsSFiniteKernel κ] :
     μ ⊗ₘ (ξ ⊗ₖ κ) = (μ ⊗ₘ ξ ⊗ₘ κ).comap
       (MeasurableEquiv.prodAssoc.symm : T × S × U ≃ᵐ (T × S) × U) := by
   rw [MeasurableEquiv.comap_symm, Measure.compProd_compProd]
 
+/-- `μ ⊗ₘ ξ ⊗ₘ κ = Measure.comap prodAssoc (μ ⊗ₘ (ξ ⊗ₖ κ))`: `Measure.compProd_compProd`
+inverted (`MeasurableEquiv.map_symm`, `Measure.map_map`). The form `entropy_submodular_compProd`
+and `entropy_compProd_triple_add_entropy_le` rewrite the base measure with, ahead of
+`entropy_comap_equiv` and `AEFiniteKernelSupport.comap_equiv`. -/
 lemma Measure.compProd_compProd'' (μ : Measure T)
     (ξ : Kernel T S) [IsSFiniteKernel ξ] (κ : Kernel (T × S) U) [IsSFiniteKernel κ] :
     μ ⊗ₘ ξ ⊗ₘ κ = Measure.comap MeasurableEquiv.prodAssoc (μ ⊗ₘ (ξ ⊗ₖ κ)) := by
@@ -133,6 +158,8 @@ section
 
 variable [MeasurableSingletonClass S] [MeasurableSingletonClass U]
 
+/-- `Ik[swapRight κ, μ] = Ik[κ, μ]`: `fst_swapRight`, `snd_swapRight`, `entropy_swapRight` and
+`add_comm`. A `simp` lemma; no named consumer at 884bd7d7. -/
 @[simp]
 lemma mutualInfo_swapRight
     (κ : Kernel T (S × U)) (μ : Measure T) :
@@ -142,6 +169,9 @@ lemma mutualInfo_swapRight
 
 variable [MeasurableSingletonClass T]
 
+/-- `0 ≤ Ik[κ, μ]` under finite kernel support everywhere: the three entropies become finite
+sums over the support of `μ`, and each fibre's term is `measureMutualInfo_nonneg` scaled by the
+mass. `mutualInfo_nonneg` lifts it to a.e. supports. -/
 lemma mutualInfo_nonneg' {κ : Kernel T (S × U)} {μ : Measure T} [IsFiniteMeasure μ]
     [FiniteSupport μ] (hκ : FiniteKernelSupport κ) :
     0 ≤ Ik[κ, μ] := by
@@ -152,6 +182,10 @@ lemma mutualInfo_nonneg' {κ : Kernel T (S × U)} {μ : Measure T} [IsFiniteMeas
   have (x : T) : FiniteSupport (κ x) := ⟨hκ x⟩
   exact Finset.sum_nonneg fun x _ ↦ mul_nonneg ENNReal.toReal_nonneg measureMutualInfo_nonneg
 
+/-- `0 ≤ Ik[κ, μ]` for an a.e.-finitely-supported kernel: `mutualInfo_congr` to the modification
+`hκ.mk`, then `mutualInfo_nonneg'`. Closes `entropy_condKernel_le_entropy_fst` and
+`entropy_condKernel_le_entropy_snd`; the random-variable `mutualInfo_nonneg` of
+`Salt/Entropy/Basic`, the one the `Chowla` files read, is its twin at the measure level. -/
 lemma mutualInfo_nonneg [Countable T] {κ : Kernel T (S × U)} {μ : Measure T} [IsFiniteMeasure μ]
     [FiniteSupport μ] (hκ : AEFiniteKernelSupport κ μ) :
     0 ≤ Ik[κ, μ] := by
@@ -161,6 +195,8 @@ lemma mutualInfo_nonneg [Countable T] {κ : Kernel T (S × U)} {μ : Measure T} 
 
 variable [Countable S] [Countable T]
 
+/-- `Ik[κ ⊗ₖ η, μ] = Hk[κ, μ] + Hk[snd (κ ⊗ₖ η), μ] - Hk[κ ⊗ₖ η, μ]`: `mutualInfo` with
+`fst (κ ⊗ₖ η) = κ` (`fst_compProd`), through `entropy_compProd`. No consumer at 884bd7d7. -/
 lemma mutualInfo_compProd
     {κ : Kernel T S} [IsZeroOrMarkovKernel κ]
     {η : Kernel (T × S) U} [IsMarkovKernel η] {μ : Measure T} [IsZeroOrProbabilityMeasure μ]
@@ -170,6 +206,9 @@ lemma mutualInfo_compProd
 
 variable [Countable U]
 
+/-- `Ik[κ, μ] = Hk[fst κ, μ] - Hk[condKernel (swapRight κ), μ ⊗ₘ snd κ]`: `chain_rule'`
+substituted for `Hk[κ, μ]` in `mutualInfo`, then `ring`. The identity behind
+`entropy_condKernel_le_entropy_fst`. -/
 lemma mutualInfo_eq_fst_sub [Nonempty S] {κ : Kernel T (S × U)} [IsZeroOrMarkovKernel κ]
     {μ : Measure T} [IsZeroOrProbabilityMeasure μ] [FiniteSupport μ]
     (hκ : AEFiniteKernelSupport κ μ) :
@@ -177,6 +216,9 @@ lemma mutualInfo_eq_fst_sub [Nonempty S] {κ : Kernel T (S × U)} [IsZeroOrMarko
   rw [mutualInfo, chain_rule' hκ]
   ring
 
+/-- A product kernel carries no mutual information: `Ik[κ ×ₖ η, μ] = 0`, from `entropy_prod`
+(`fst_prod`, `snd_prod`, `sub_self`) after the zero-kernel splits. A `simp` lemma; no named
+consumer at 884bd7d7. -/
 @[simp]
 lemma mutualInfo_prod {κ : Kernel T S} {η : Kernel T U}
     [IsZeroOrMarkovKernel κ] [IsZeroOrMarkovKernel η]
@@ -189,6 +231,9 @@ lemma mutualInfo_prod {κ : Kernel T S} {η : Kernel T U}
   · simp
   rw [mutualInfo, snd_prod, fst_prod, entropy_prod hκ hη, sub_self]
 
+/-- `Ik[κ, μ] = Hk[snd κ, μ] - Hk[condKernel κ, μ ⊗ₘ fst κ]`: `chain_rule` substituted in
+`mutualInfo`, then `ring`. Read by `entropy_condKernel_le_entropy_snd` and
+`entropy_snd_sub_mutualInfo_le_entropy_map_of_injective`. -/
 lemma mutualInfo_eq_snd_sub [Nonempty U]
     {κ : Kernel T (S × U)} [IsZeroOrMarkovKernel κ]
     {μ : Measure T} [IsZeroOrProbabilityMeasure μ] [FiniteSupport μ]
@@ -197,6 +242,10 @@ lemma mutualInfo_eq_snd_sub [Nonempty U]
   rw [mutualInfo, chain_rule hκ]
   ring
 
+/-- Conditioning reduces entropy, first coordinate:
+`Hk[condKernel (swapRight κ), μ ⊗ₘ snd κ] ≤ Hk[fst κ, μ]`, i.e. `mutualInfo_eq_fst_sub` with
+`mutualInfo_nonneg`. Named in the module header; no consumer at 884bd7d7 (`entropy_submodular`
+reads the `_snd` twin). -/
 lemma entropy_condKernel_le_entropy_fst [Nonempty S]
     (κ : Kernel T (S × U)) [IsZeroOrMarkovKernel κ]
     (μ : Measure T) [IsZeroOrProbabilityMeasure μ] [FiniteSupport μ]
@@ -205,6 +254,11 @@ lemma entropy_condKernel_le_entropy_fst [Nonempty S]
   rw [← sub_nonneg, ← mutualInfo_eq_fst_sub hκ]
   exact mutualInfo_nonneg hκ
 
+/-- Conditioning reduces entropy, second coordinate:
+`Hk[condKernel κ, μ ⊗ₘ fst κ] ≤ Hk[snd κ, μ]`, i.e. `mutualInfo_eq_snd_sub` with
+`mutualInfo_nonneg`. Read by `entropy_snd_sub_mutualInfo_le_entropy_map_of_injective` and
+`entropy_submodular_compProd` here, and by `entropy_submodular` of `Salt/Entropy/Basic`
+(`H[X | Y, Z] ≤ H[X | Z]`). -/
 lemma entropy_condKernel_le_entropy_snd [Nonempty U]
     {κ : Kernel T (S × U)} [IsZeroOrMarkovKernel κ]
     {μ : Measure T} [IsZeroOrProbabilityMeasure μ] [FiniteSupport μ]
@@ -214,6 +268,12 @@ lemma entropy_condKernel_le_entropy_snd [Nonempty U]
   exact mutualInfo_nonneg hκ
 
 -- TODO: extract lemma(s) from this:
+/-- `Hk[snd κ, μ] - Ik[κ, μ] ≤ Hk[map κ f, μ]` for `f : S × U → V` injective in its second
+argument: the left side is `Hk[condKernel κ, μ ⊗ₘ fst κ]` (`mutualInfo_eq_snd_sub`), which
+`entropy_snd_compProd_deterministic_of_injective` rewrites as the conditional kernel of
+`map κ (p ↦ (p.1, f p))` (`condKernel_map_prodMk_left`), bounded by that kernel's second
+marginal (`entropy_condKernel_le_entropy_snd`). No consumer at 884bd7d7; upstream's note to
+extract lemmas from it stands. -/
 lemma entropy_snd_sub_mutualInfo_le_entropy_map_of_injective {V : Type*} [Countable V]
     [MeasurableSpace V] [MeasurableSingletonClass V]
     (κ : Kernel T (S × U)) [IsZeroOrMarkovKernel κ] (μ : Measure T) [IsZeroOrProbabilityMeasure μ]
@@ -256,6 +316,9 @@ variable [Countable S] [MeasurableSingletonClass S]
   [Countable U] [MeasurableSingletonClass U]
   [Countable V] [MeasurableSingletonClass V]
 
+/-- `Hk[reverse κ, μ] = Hk[κ, μ]` for `κ : Kernel T (S × U × V)`: `entropy_map_le` both ways
+(`reverse` is a `map`, and `reverse_reverse`). Turns `entropy_triple_add_entropy_le'` into
+`entropy_triple_add_entropy_le`. -/
 lemma entropy_reverse {κ : Kernel T (S × U × V)} [IsZeroOrMarkovKernel κ]
     {μ : Measure T} [IsZeroOrProbabilityMeasure μ] [FiniteSupport μ]
     (hκ : AEFiniteKernelSupport κ μ) :
@@ -275,6 +338,9 @@ instance IsZeroOrProbabilityMeasure.compProd
   · simp only [Measure.compProd_zero_left]; infer_instance
   infer_instance
 
+/-- `Hk[condKernel (ξ ⊗ₖ κ ⊗ₖ η), μ ⊗ₘ (ξ ⊗ₖ κ)] = Hk[η, μ ⊗ₘ (ξ ⊗ₖ κ)]`: the conditional kernel
+of a composition is its last factor a.e. (`condKernel_compProd_ae_eq`), under `entropy_congr`.
+Read by `entropy_compProd_triple_add_entropy_le`. -/
 lemma entropy_condKernel_compProd_triple [Nonempty V] (ξ : Kernel T S) [IsZeroOrMarkovKernel ξ]
     (κ : Kernel (T × S) U) [IsMarkovKernel κ] (η : Kernel (T × S × U) V) [IsMarkovKernel η]
     (μ : Measure T) :
@@ -283,6 +349,12 @@ lemma entropy_condKernel_compProd_triple [Nonempty V] (ξ : Kernel T S) [IsZeroO
 
 -- from kernel (T × S × U) V ; Measure (T × S × U)
 -- to kernel (T × S) V ; Measure (T × S)
+/-- Submodularity in kernel form:
+`Hk[η, μ ⊗ₘ (ξ ⊗ₖ κ)] ≤ Hk[snd (κ ⊗ₖ comap η prodAssoc), μ ⊗ₘ ξ]` — conditioning `η` on the
+extra coordinate `U` costs nothing. `entropy_condKernel_le_entropy_snd` at the kernel
+`κ ⊗ₖ comap η prodAssoc` over `μ ⊗ₘ ξ`, its conditional kernel identified
+(`condKernel_compProd_ae_eq`) and the base measure re-associated (`Measure.compProd_compProd''`,
+`entropy_comap_equiv`). The middle step of `entropy_compProd_triple_add_entropy_le`. -/
 lemma entropy_submodular_compProd {ξ : Kernel T S} [IsZeroOrMarkovKernel ξ]
     {κ : Kernel (T × S) U} [IsZeroOrMarkovKernel κ] {η : Kernel (T × S × U) V} [IsMarkovKernel η]
     {μ : Measure T} [IsZeroOrProbabilityMeasure μ] [FiniteSupport μ]
@@ -318,6 +390,12 @@ lemma entropy_submodular_compProd {ξ : Kernel T S} [IsZeroOrMarkovKernel ξ]
     exact Measure.compProd_compProd'' _ _ _
 
 /- $$ H[X,Y,Z] + H[X] \leq H[Z,X] + H[Y,X].$$ -/
+/-- The submodularity inequality for a composed triple `(ξ ⊗ₖ κ) ⊗ₖ η`, the kernel form of
+`H[X,Y,Z] + H[X] ≤ H[Z,X] + H[Y,X]`:
+`Hk[(ξ ⊗ₖ κ) ⊗ₖ η, μ] + Hk[ξ, μ] ≤ Hk[ξ ⊗ₖ snd (κ ⊗ₖ comap η prodAssoc), μ] + Hk[ξ ⊗ₖ κ, μ]`.
+Two `chain_rule`s, `entropy_condKernel_compProd_triple`, and `entropy_submodular_compProd` on
+the middle term. `entropy_triple_add_entropy_le'` applies it after disintegrating `κ` into
+`ξ ⊗ₖ κ'' ⊗ₖ η`. -/
 lemma entropy_compProd_triple_add_entropy_le {ξ : Kernel T S} [IsZeroOrMarkovKernel ξ]
     {κ : Kernel (T × S) U} [IsMarkovKernel κ]
     {η : Kernel (T × S × U) V} [IsMarkovKernel η]

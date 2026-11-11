@@ -295,7 +295,7 @@ theorem m4_exit_of_hbd (R : ChowlaRegime) (C : ℝ) (hC : 0 ≤ C)
   hadapt (doorGrade R.Hlo) (absWindowBound_le_pin R C hC hgate hbd)
 
 /-- **The collision at the pinned grade.**  `contradiction_of_mrtDoorXi`
-(`MRTDoor.lean:127`) fired at `δ := doorGrade R.Hlo`; its `0 ≤ δ` binder — the
+(`MRTDoor.lean:132`) fired at `δ := doorGrade R.Hlo`; its `0 ≤ δ` binder — the
 one obligation the `Ξ_H`-weakened door cannot derive for itself — is discharged
 by `doorGrade_regime_pos`. -/
 theorem m4_exit_collision (R : ChowlaRegime) {c₀ ε K : ℝ} {H : ℕ} [NeZero H]
