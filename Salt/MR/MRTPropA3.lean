@@ -729,7 +729,7 @@ bound on the UNTWISTED, NORM-form prime sum**; `mrtM` provably runs the wrong wa
 (`pretDistSq_one_le_sum_norm`), and at `f = λ` the route is vacuous by `(log x)^{2+1/10}`
 (`sum_norm_one_sub_liouvilleC`).
 
-**The door — walked to the corpus's own named residue.**  `M4RowMeanSq_L` (`M4RowLinear:992`),
+**The door — walked to the corpus's own named residue.**  `M4RowMeanSq_L` (`M4RowLinear:993`),
 labelled the wave's ⟦RESIDUE⟧ at its own definition site; of its two obstructions ⟦THE WALL⟧ is
 REPAIRED (07-28) and ⟦THE CLASS PRICING⟧ is OPEN and design-tier.
 
@@ -772,10 +772,10 @@ caught none of them.**  *Three versions in, the control has done more work than 
 Continuing the walk, under the rule set in the section below: name no frontier, keep going.
 
 **1. THE TRIVIAL SUPPLIER IS THE SMALL-LENGTH HALF, AND IT SAYS SO.**
-`norm_sum_doorSievedWindow_le` (`M4CoprimeSupply.lean:106`) is the window-length bound
+`norm_sum_doorSievedWindow_le` (`M4CoprimeSupply.lean:107`) is the window-length bound
 `‖∑_{m ∈ doorSievedWindow M K n} liouChi χ m‖ ≤ K`.  Its docstring: used at the SMALL dyadic
 lengths, *"where the capstone is silent"*.  So the dyadic split is `j < j₀` trivial grade,
-`j₀ ≤ j` capstone (`M4CoprimeSupply.lean:39`, `M4Maximal.lean:1019`).
+`j₀ ≤ j` capstone (`M4CoprimeSupply.lean:40`, `M4Maximal.lean:1019`).
 
 **2. ⛔ TWO DIFFERENT OBJECTS ARE CALLED "THE CAPSTONE". THEY ARE NOT THE SAME.**
 * `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:508`) — the **S12** lane.  This is
@@ -892,9 +892,9 @@ earlier were all published first and corrected after.  **Fencing is cheap; retra
 /-! ### THE ROAD BOTTOMS OUT — AND THE CORPUS NAMES ITS OWN FRONTIER
 
 Walked the gates down: `M4SievedDoorSq_L → M4BlockMeanSq_L → M4RowMeanSq_L`.
-`M4RowMeanSq_L` (`M4RowLinear.lean:992`) has **no producer** — established by reading **all six
-of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1393`) ·
-an enumeration entry (`:3352`) · one arrow (`:3367`).
+`M4RowMeanSq_L` (`M4RowLinear.lean:993`) has **no producer** — established by reading **all six
+of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1394`) ·
+an enumeration entry (`:3353`) · one arrow (`:3368`).
 
 ⭐ **AND THIS TIME IT IS NOT MY INFERENCE — THE CORPUS SAYS SO AT THE DEFINITION SITE:**
 *"**THE WAVE'S REMAINING INPUT**… This predicate is the wave's ⟦RESIDUE⟧: see the module header
@@ -937,7 +937,7 @@ produces it from **two explicit inequalities and NO other gate**:
 *It bottoms out in arithmetic about the delivered grade, not in another Prop socket.*
 
 **`M4SievedDoorSq_L`** (`M4LadderLinear.lean:860`) — `m4_cover_assembly_L`
-(`M4RowLinear.lean:1527`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
+(`M4RowLinear.lean:1528`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
 Its own docstring states the gate bundle is *"the same bundle `m4_hbd_of_live_L` reads, so the
 join needs no new hypothesis"* — so this reduction is free at the seam.  ⇒ **it reduces to the
 BLOCK MEAN SQUARE**, which is what `M4Maximal.m4_chiBlockMeanSq_of_shiftBlock` produces.
