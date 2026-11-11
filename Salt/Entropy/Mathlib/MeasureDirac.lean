@@ -17,12 +17,18 @@ Modifications for Salt (ported to mathlib v4.32.0-rc1, toolchain
   `import Mathlib`.
 - The lemma `dirac_real_apply'` is genuinely absent from mathlib v4.32.0-rc1,
   so its statement and proof are ported verbatim.
+- Docstrings added by Salt (2026-11-01, the O83 documentation lane) to the one upstream
+  declaration that carried none; its name, statement and body are unchanged.
 -/
 import Mathlib
 
 namespace MeasureTheory.Measure
 variable {α : Type*} [MeasurableSpace α] {s : Set α} {a : α}
 
+/-- `(dirac a).real s = s.indicator 1 a` for a measurable `s`: the real mass a Dirac measure
+gives a set is the indicator of its point — by cases on `a ∈ s`, each a `simp` through
+`Measure.real`. A `simp` lemma; registered in `Salt/Entropy/All`'s axiom audit; no other
+consumer names it at 884bd7d7. -/
 @[simp]
 lemma dirac_real_apply' (a : α) (hs : MeasurableSet s) : (dirac a).real s = s.indicator 1 a := by
   by_cases ha : a ∈ s <;> simp [Measure.real, *]

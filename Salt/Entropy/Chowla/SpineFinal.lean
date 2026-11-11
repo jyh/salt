@@ -499,8 +499,8 @@ EXACTLY ONE binder: the MR obligation is the Tao-faithful `MRTUniformityXi R δ`
 `ξ ∈ Ξ_H = bigXi R.eps H`) rather than the full `∀ α`-outside `MRTUniformity R δ`.
 This is the licensed weakening for the Liouville case (`c_p = 1`, major arcs
 only; Tao arXiv:1509.05422v2, chowla.txt:743–750, riding [17] Theorem A.1) — it shrinks
-the MR SURFACE (drops the minor-arc package), not its DEPTH (`ξ = 0 ∈ Ξ_H` is
-already full short-interval strength; W4-MAJOR-R0 RED).  Every other input — the
+the MR SURFACE (drops the minor-arc package), not its DEPTH (`ξ = 0`, in `Ξ_H` above a
+floor, is full short-interval strength; W4-MAJOR-R0 RED).  Every other input — the
 entropy decrement, circle method, large-spectrum bound, sieve machinery, regime
 numerics — is proven in this repository, axioms
 `[propext, Classical.choice, Quot.sound]`.  The three explicit residuals (`t`,
@@ -515,8 +515,8 @@ obligation `hbudget2 : K·δ < c₀·R.eps` fires at `c₀ = 1`: for any `δ ≤
 `K·δ ≤ K·(R.eps/(2K)) = R.eps/2 < R.eps = 1·R.eps` — a strict margin of factor 2,
 identical arithmetic to `log_chowla_two_final` (the Ξ_H restriction alters the
 door PREDICATE, never the δ-budget).  The one obligation the weakened door adds,
-`0 ≤ δ` (no longer derivable from the door — the derivation fired at `α = 0`,
-which `MRTUniformityXi` drops), is discharged FOR FREE from the ambient `0 < δ`
+`0 ≤ δ` (not derivable from this door alone — it fires at `α = 0` only when `0 ∈ Ξ_H`,
+a floor fact), is discharged FOR FREE from the ambient `0 < δ`
 via `le_of_lt`; so the hypothesis list is genuinely door-only different. -/
 theorem log_chowla_two_final_xi :
     ∃ (δ₀ : ℝ) (R : ChowlaRegime) (H : ℕ) (c₁ C : ℝ),
@@ -976,8 +976,8 @@ theorem log_chowla_two_door_only_xi :
 `MRTUniformity R δ`, derived from the Ξ_H-restricted terminal via the landed
 kernel-checked implication `mrtUniformity_implies_xi` (MRTDoor).  The full door
 implies its Ξ_H restriction, so this is a strict corollary — no second core
-replay, no statement change.  Both Chowla terminals are now door-only-conditional
-with the `t`/`g`/`hbudget1` residual gone from every surface. -/
+replay, no statement change.  Both door-only terminals are free of the `t`/`g`/`hbudget1`
+residual; it survives only in the superseded `log_chowla_two_final(_xi)`. -/
 theorem log_chowla_two_door_only :
     ∃ (δ₀ : ℝ) (R : ChowlaRegime), 0 < δ₀ ∧
       ∀ δ : ℝ, 0 < δ → δ ≤ δ₀ → MRTUniformity R δ →
@@ -1149,12 +1149,12 @@ Three binder-list changes, all forced by the shell twin, none optional:
 * `hδ : 0 ≤ δ` is ABSENT: the summed seam derives its collision from
   `ρ < c₀·ε ≤ (the summed L² mass)` alone.
 
-⚠ **THE SEAM WARNING** (`MRTDoor.lean:174–182`, re-stated per REF-L2 mandate R4).
+⚠ **THE SEAM WARNING** (`MRTDoor.lean:179–187`, re-stated per REF-L2 mandate R4).
 THE QUANTIFIERS STAY OUTSIDE THE INTEGRAL.  `MRTUniformityXiL2` is a FINITE SUM OF
 INTEGRALS — the frequency quantifier is a `∑` over `Ξ_H` sitting outside `∫`, and
 there is no `sup` anywhere inside the integral.  The sup-inside form is Tao
 arXiv:1509.05422v2 (4.1), which is OPEN; moving a quantifier inside silently downgrades a
-theorem-door (Prop 2.4, PROVEN in Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into
+theorem-door (Prop 2.4, PROVEN from Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into
 an open conjecture.  The `L²` door is SUPPLIED BY THE ROAD (`M4Window`'s adapter
 `mrtUniformityXiL2_of_absWindowSqBound`, over the socket + Parseval stone), never
 claimed from Prop 2.4; `MRTDoor.mrtUniformityXiL2_of_xi` is the standing proof
@@ -1338,12 +1338,12 @@ exactly as the landed head does.  `K` NEVER touches `δ₀`.
 `log_chowla_two_budget_head_g_45`; `Salt.MR.tower_conjunct_45_le_five` downgrades
 it to `^5` for consumers wired to the landed exponent.
 
-⚠ **THE SEAM WARNING** (`MRTDoor.lean:174–182`, REF-L2 mandate R4, re-stated on
+⚠ **THE SEAM WARNING** (`MRTDoor.lean:179–187`, REF-L2 mandate R4, re-stated on
 the twin per the doctrine).  THE QUANTIFIERS STAY OUTSIDE THE INTEGRAL.
 `MRTUniformityXiL2 R ρ` is a FINITE SUM OF INTEGRALS — the frequency quantifier is
 a `∑` over `Ξ_H` outside `∫`, with no `sup` inside.  The sup-inside form is Tao
 arXiv:1509.05422v2 (4.1), which is OPEN; moving a quantifier inside silently downgrades a
-theorem-door (Prop 2.4, PROVEN in Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into
+theorem-door (Prop 2.4, PROVEN from Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into
 an open conjecture.  This head does not CLAIM the `L²` door from Prop 2.4: it is
 supplied by the ROAD (`Salt.MR.mrtUniformityXiL2_of_absWindowSqBound`, over the
 sieved socket and the Parseval insert stone), and

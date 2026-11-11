@@ -74,6 +74,10 @@ weight `∑_{p₁} [cwin]` is symmetric. -/
 def cwin (x : ℕ) (C : ℕ → Prop) (p₁ p q : ℕ) : Prop :=
   C (p₁ * p * q) ∧ x / 2 + 2 ≤ p₁ * p * q ∧ p₁ * p * q ≤ x
 
+/-- `cwin x C p₁ a b = cwin x C p₁ b a`: the class×window pair predicate is symmetric in its
+last two arguments, by `mul_right_comm` on the product `p₁·a·b` after unfolding — the reason the
+symmetric part's weight `∑_{p₁} [cwin]` is symmetric. Read once in this file; no consumer
+outside it. -/
 lemma cwin_comm (x : ℕ) (C : ℕ → Prop) (p₁ a b : ℕ) :
     cwin x C p₁ a b = cwin x C p₁ b a := by
   unfold cwin; rw [mul_right_comm p₁ a b]
@@ -276,6 +280,9 @@ theorem diagSum_le_bandDiagCount (x z y : ℕ) (ε₀ : ℝ) (j N M : ℕ) (C : 
     simp only [Prod.mk.injEq] at heq
     exact Prod.ext heq.1 heq.2.1
 
+/-- `0 ≤ diagSum x z y ε₀ j N M C`: the diagonal count is a double sum of `{0, 1}`-indicator
+terms, `Finset.sum_nonneg` twice with `positivity` inside. Read by `PDiag` and `SwitchW2`, and
+twice in this file. -/
 lemma diagSum_nonneg (x z y : ℕ) (ε₀ : ℝ) (j N M : ℕ) (C : ℕ → Prop) :
     0 ≤ diagSum x z y ε₀ j N M C := by
   classical

@@ -224,7 +224,7 @@ TRIPLE exponential; `budgetFloorFlat ε β A = ⌈e^{max (4X) (2·log A + 2)}⌉
 SINGLE one.  `Hopq` — the three leaf floors `H₀red`, `H₀D3`, `H₀xi` — is
 IDENTICAL to the landed head's, arm for arm.
 
-⚠ THE SEAM WARNING rides this statement unchanged (`MRTDoor.lean:174–182`). -/
+⚠ THE SEAM WARNING rides this statement unchanged (`MRTDoor.lean:179–187`). -/
 theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
     ∃ (ε : ℚ) (K δ₀ A β : ℝ) (Hcap Hopq : ℕ), 0 < ε ∧ 0 < K ∧ 0 < δ₀ ∧
       1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧ 0 < β ∧ 26 ≤ A ∧ A₀ ≤ A ∧

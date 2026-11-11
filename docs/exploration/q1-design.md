@@ -44,9 +44,9 @@ STOP AND FLAG.
 1. **G-DENS (B).** `P_N = ∏_{w' ≤ q < z, q ∤ N} q` (prodPrimes is
    consumed opaquely — confirmed); the reduced-residue re-threading
    (`coprime_sub_two` TwinA1:221 → `Coprime d N` from `Coprime P_N N`;
-   consumers: apDisc_le TwinA1:242, crt_class_coprime TwinA1W:208,
-   rosserRemainderW_le_split TwinA1W:457, rosserRemainderW2_le_split
-   TwinA2W:436, divisor_cases BVSum:184); **the W-ratio residual
+   consumers: apDisc_le TwinA1:242, crt_class_coprime TwinA1W:225,
+   rosserRemainderW_le_split TwinA1W:474, rosserRemainderW2_le_split
+   TwinA2W:436, divisor_cases BVSum:188); **the W-ratio residual
    (GATE CORRECTION, 2026-07-15): a NEW sibling lemma
    `window_prod_upper_punctured` over `primesInWindow z y \ {q ∣ N}`
    — NOT a reuse of W_ratio_upper, whose `hwin` hypothesis (window
@@ -102,8 +102,8 @@ four nodes:** | | |
 
 Critical path: G-DENS → (G-A1 ∥ G-SW) → (G-COUNT ∥ G-BAND) → G-OP →
 G-ASM. Total est. ≈2.9M (→ ~2.2M at rfl-transfer productivity: the
-W/maxDepth transfers are rfl — switchSieveW_W_eq SwitchW:179,
-blockSwitchSieve_W_eq SwitchBlocks:254). All executors Opus; every
+W/maxDepth transfers are rfl — switchSieveW_W_eq SwitchW:205,
+blockSwitchSieve_W_eq SwitchBlocks:267). All executors Opus; every
 node ceremonied individually; actuals vs estimates recorded per node
 (THE MEASUREMENT).
 

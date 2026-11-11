@@ -111,14 +111,24 @@ section Facts
 
 variable (x z y Ps : ℕ) (hPs : Squarefree Ps) (hPodd : ∀ p ∈ Ps.primeFactors, 3 ≤ p)
 
+/-- `(switchSieve x z y Ps hPs hPodd).support = twinWindow x`, by `rfl` (`@[simp]`): the
+switched sieve is supported on the whole twin window (no coprimality filter, unlike
+`twinA1Sieve`). No consumer at `main`. -/
 @[simp] lemma switchSieve_support :
     (switchSieve x z y Ps hPs hPodd).support = twinWindow x := rfl
 
+/-- `(switchSieve …).prodPrimes = Ps`, by `rfl` (`@[simp]`): the sifting modulus is the
+`[w₀, y)` window product supplied at application time. Read by `FinLed`, `SwitchBV`,
+`WRatioSharp`. -/
 @[simp] lemma switchSieve_prodPrimes :
     (switchSieve x z y Ps hPs hPodd).prodPrimes = Ps := rfl
 
+/-- `(switchSieve …).nu = nuChen`, by `rfl` (`@[simp]`): the density `1/φ` of one residue class
+on the product. Read by `PDiag`, `SwitchBV`, `WRatioSharp`. -/
 @[simp] lemma switchSieve_nu : (switchSieve x z y Ps hPs hPodd).nu = nuChen := rfl
 
+/-- `(switchSieve …).totalMass = tripleSum x z y`, by `rfl` (`@[simp]`): the total mass is the
+C3d triple count. Read by `SwitchBV` and once in this file. -/
 @[simp] lemma switchSieve_totalMass :
     (switchSieve x z y Ps hPs hPodd).totalMass = tripleSum x z y := rfl
 
