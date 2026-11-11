@@ -13,6 +13,7 @@ import Salt.MR.M4CapWire
 import Salt.MR.M4SecondRoad
 import Salt.MR.M4WaveLinear
 import Salt.MR.SumSwapWeighted
+import Salt.MR.FreeBlockTail
 
 /-!
 # `M4RowLinear` — THE ROW / `T₀` LAYER at the LINEAR door (`AdoorL M = 2^36·M`)
@@ -1762,30 +1763,7 @@ theorem m4_sievedDoorSq_of_blk_L {R : ChowlaRegime} {M : ℕ} {ℓ : ℕ → ℕ
       ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := by
     rw [hconst] at hmono
     exact le_trans hmono (mul_le_mul_of_nonneg_left hsupply hfac0)
-  -- ⟦`N²ℓ² ≤ 4H²`: the blocking is loss-free up to the absolute factor `4`⟧
-  have hNL : N * L ≤ 2 * H := by
-    have h1 : N * L ≤ H + L := by rw [hN]; exact numBlocks_mul_le H L
-    omega
-  have hNLR : (N : ℝ) * (L : ℝ) ≤ 2 * (H : ℝ) := by
-    have : ((N * L : ℕ) : ℝ) ≤ ((2 * H : ℕ) : ℝ) := by exact_mod_cast hNL
-    push_cast at this
-    linarith
-  have hNL0 : (0 : ℝ) ≤ (N : ℝ) * (L : ℝ) := by positivity
-  have hsq : ((N : ℝ) * (L : ℝ)) ^ 2 ≤ 4 * (H : ℝ) ^ 2 := by nlinarith
-  have hB := hB0 H
-  have hpi2 : (0 : ℝ) ≤ (1 + 2 * Real.pi) ^ 2 := sq_nonneg _
-  have hfin : (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-      ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by
-    calc (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-        = (1 + 2 * Real.pi) ^ 2 * Bblk H * (((N : ℝ) * (L : ℝ)) ^ 2) := by ring
-      _ ≤ (1 + 2 * Real.pi) ^ 2 * Bblk H * (4 * (H : ℝ) ^ 2) :=
-          mul_le_mul_of_nonneg_left hsq (mul_nonneg hpi2 hB)
-      _ = 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by ring
-  have hgr := hgrade H hlo hhi
-  calc (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
-      ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := hstep
-    _ ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := hfin
-    _ ≤ Braw H * (H : ℝ) ^ 2 := mul_le_mul_of_nonneg_right hgr (sq_nonneg _)
+  exact blocked_close_of_step hN (by omega) (hB0 H) (hgrade H hlo hhi) hstep
 
 /-- **THE BLOCKED SOCKET THEOREM AT THE LEVER** — `m4_sievedDoorSq_of_blk_L` (:386). -/
 theorem m4_sievedDoorSq_of_blk_L_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {ℓ : ℕ → ℕ → ℕ}
@@ -1835,30 +1813,7 @@ theorem m4_sievedDoorSq_of_blk_L_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {ℓ 
       ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := by
     rw [hconst] at hmono
     exact le_trans hmono (mul_le_mul_of_nonneg_left hsupply hfac0)
-  -- ⟦`N²ℓ² ≤ 4H²`: the blocking is loss-free up to the absolute factor `4`⟧
-  have hNL : N * L ≤ 2 * H := by
-    have h1 : N * L ≤ H + L := by rw [hN]; exact numBlocks_mul_le H L
-    omega
-  have hNLR : (N : ℝ) * (L : ℝ) ≤ 2 * (H : ℝ) := by
-    have : ((N * L : ℕ) : ℝ) ≤ ((2 * H : ℕ) : ℝ) := by exact_mod_cast hNL
-    push_cast at this
-    linarith
-  have hNL0 : (0 : ℝ) ≤ (N : ℝ) * (L : ℝ) := by positivity
-  have hsq : ((N : ℝ) * (L : ℝ)) ^ 2 ≤ 4 * (H : ℝ) ^ 2 := by nlinarith
-  have hB := hB0 H
-  have hpi2 : (0 : ℝ) ≤ (1 + 2 * Real.pi) ^ 2 := sq_nonneg _
-  have hfin : (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-      ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by
-    calc (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-        = (1 + 2 * Real.pi) ^ 2 * Bblk H * (((N : ℝ) * (L : ℝ)) ^ 2) := by ring
-      _ ≤ (1 + 2 * Real.pi) ^ 2 * Bblk H * (4 * (H : ℝ) ^ 2) :=
-          mul_le_mul_of_nonneg_left hsq (mul_nonneg hpi2 hB)
-      _ = 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by ring
-  have hgr := hgrade H hlo hhi
-  calc (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
-      ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := hstep
-    _ ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := hfin
-    _ ≤ Braw H * (H : ℝ) ^ 2 := mul_le_mul_of_nonneg_right hgr (sq_nonneg _)
+  exact blocked_close_of_step hN (by omega) (hB0 H) (hgrade H hlo hhi) hstep
 
 /-- The untwisted door coefficient is `1`-bounded (`memSCoeff` only deletes terms). -/
 theorem norm_doorCoeffU_le_one_L (M n : ℕ) : ‖doorCoeffU_L M n‖ ≤ 1 :=
@@ -4037,42 +3992,12 @@ theorem m4_chiFreeShiftBlock_of_freeRow_L {R : ChowlaRegime} {M : ℕ} {MS : ℕ
     refine le_trans (Finset.sum_le_sum hterm) ?_
     rw [← Finset.mul_sum]
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
-  -- ⟦the two comparisons the free block affords⟧
-  have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
-  have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
-  have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
-  have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
-  have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
-      ≤ (2 * (A : ℝ) + 4) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H) :=
-    mul_le_mul_of_nonneg_right hBs2 (by positivity)
-  have h2 : (((B + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ)))
-      ≤ 2 * (((A + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ))) :=
-    mul_le_mul_of_nonneg_right hBAs (by positivity)
-  have h3 : 2 * (((A + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ)))
-      = 8 * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
-    field_simp
-    ring
-  have hsplit : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H
-        + 4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ)))
-      = (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
-        + (((B + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ))) := by
-    ring
-  have hr : (2 * (A : ℝ) + 4) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
-      = 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-        + 4 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 := by ring
   have hfinal : ∑ n ∈ Finset.Ioc (A + s) (B + s),
       ‖absWindowSum (doorChiCoeff_L χ M) (2 ^ j) n 0‖ ^ 2
       ≤ 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-        + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
-    rw [hsplit] at hex
-    have hgoal : 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-        + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2
-        = (2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-            + 4 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2) + 8 * ((2 ^ j : ℕ) : ℝ) ^ 2 := by ring
-    rw [hgoal, ← hr, ← h3]
-    linarith
+        + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 :=
+    (free_block_tail (A := (A : ℝ)) hex (by exact_mod_cast (show B + s ≤ 2 * A + 4 by omega))
+      (by exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)) hAsR hMS0).trans_eq (by ring)
   simpa only [absWindowSum_doorChiCoeff_zero_L] using hfinal
 
 set_option maxHeartbeats 1600000 in
@@ -4577,42 +4502,12 @@ theorem m4_chiFreeShiftBlock_of_freeRow_L_gk (K : ℕ) {R : ChowlaRegime} {M : �
     refine le_trans (Finset.sum_le_sum hterm) ?_
     rw [← Finset.mul_sum]
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
-  -- ⟦the two comparisons the free block affords⟧
-  have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
-  have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
-  have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
-  have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
-  have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
-      ≤ (2 * (A : ℝ) + 4) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H) :=
-    mul_le_mul_of_nonneg_right hBs2 (by positivity)
-  have h2 : (((B + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ)))
-      ≤ 2 * (((A + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ))) :=
-    mul_le_mul_of_nonneg_right hBAs (by positivity)
-  have h3 : 2 * (((A + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ)))
-      = 8 * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
-    field_simp
-    ring
-  have hsplit : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H
-        + 4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ)))
-      = (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
-        + (((B + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ))) := by
-    ring
-  have hr : (2 * (A : ℝ) + 4) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
-      = 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-        + 4 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 := by ring
   have hfinal : ∑ n ∈ Finset.Ioc (A + s) (B + s),
       ‖absWindowSum (doorChiCoeff_L_gk K χ M) (2 ^ j) n 0‖ ^ 2
       ≤ 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-        + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
-    rw [hsplit] at hex
-    have hgoal : 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-        + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2
-        = (2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-            + 4 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2) + 8 * ((2 ^ j : ℕ) : ℝ) ^ 2 := by ring
-    rw [hgoal, ← hr, ← h3]
-    linarith
+        + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 :=
+    (free_block_tail (A := (A : ℝ)) hex (by exact_mod_cast (show B + s ≤ 2 * A + 4 by omega))
+      (by exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)) hAsR hMS0).trans_eq (by ring)
   simpa only [absWindowSum_doorChiCoeff_zero_L_gk K] using hfinal
 
 set_option maxHeartbeats 1600000 in
@@ -7310,42 +7205,12 @@ theorem chiFreeShift_pointwise_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M : 
     refine le_trans (Finset.sum_le_sum hterm) ?_
     rw [← Finset.mul_sum]
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
-  -- ⟦the two comparisons the free block affords⟧
-  have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
-  have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
-  have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
-  have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
-  have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * c)
-      ≤ (2 * (A : ℝ) + 4) * (((2 ^ j : ℕ) : ℝ) ^ 2 * c) :=
-    mul_le_mul_of_nonneg_right hBs2 (by positivity)
-  have h2 : (((B + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ)))
-      ≤ 2 * (((A + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ))) :=
-    mul_le_mul_of_nonneg_right hBAs (by positivity)
-  have h3 : 2 * (((A + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ)))
-      = 8 * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
-    field_simp
-    ring
-  have hsplit : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * c
-        + 4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ)))
-      = (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * c)
-        + (((B + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ))) := by
-    ring
-  have hr : (2 * (A : ℝ) + 4) * (((2 ^ j : ℕ) : ℝ) ^ 2 * c)
-      = 2 * c * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-        + 4 * c * ((2 ^ j : ℕ) : ℝ) ^ 2 := by ring
   have hfinal : ∑ n ∈ Finset.Ioc (A + s) (B + s),
       ‖absWindowSum (doorChiCoeff_L χ M) (2 ^ j) n 0‖ ^ 2
       ≤ 2 * c * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-        + (4 * c + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
-    rw [hsplit] at hex
-    have hgoal : 2 * c * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-        + (4 * c + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2
-        = (2 * c * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-            + 4 * c * ((2 ^ j : ℕ) : ℝ) ^ 2) + 8 * ((2 ^ j : ℕ) : ℝ) ^ 2 := by ring
-    rw [hgoal, ← hr, ← h3]
-    linarith
+        + (4 * c + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 :=
+    (free_block_tail (A := (A : ℝ)) hex (by exact_mod_cast (show B + s ≤ 2 * A + 4 by omega))
+      (by exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)) hAsR hc0).trans_eq (by ring)
   simpa only [absWindowSum_doorChiCoeff_zero_L] using hfinal
 
 /-- **THE χ-SUMMED SHIFTED FIXED-LENGTH DATUM** (`M4ChiSummedFreeShiftBlock_L`) — the `Σ_χ`
@@ -8030,42 +7895,12 @@ theorem chiFreeShift_pointwise_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter
     refine le_trans (Finset.sum_le_sum hterm) ?_
     rw [← Finset.mul_sum]
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
-  -- ⟦the two comparisons the free block affords⟧
-  have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
-    exact_mod_cast (show B + s ≤ 2 * A + 4 by omega)
-  have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
-    exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)
-  have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
-  have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
-  have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * c)
-      ≤ (2 * (A : ℝ) + 4) * (((2 ^ j : ℕ) : ℝ) ^ 2 * c) :=
-    mul_le_mul_of_nonneg_right hBs2 (by positivity)
-  have h2 : (((B + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ)))
-      ≤ 2 * (((A + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ))) :=
-    mul_le_mul_of_nonneg_right hBAs (by positivity)
-  have h3 : 2 * (((A + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ)))
-      = 8 * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
-    field_simp
-    ring
-  have hsplit : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * c
-        + 4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ)))
-      = (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * c)
-        + (((B + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ))) := by
-    ring
-  have hr : (2 * (A : ℝ) + 4) * (((2 ^ j : ℕ) : ℝ) ^ 2 * c)
-      = 2 * c * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-        + 4 * c * ((2 ^ j : ℕ) : ℝ) ^ 2 := by ring
   have hfinal : ∑ n ∈ Finset.Ioc (A + s) (B + s),
       ‖absWindowSum (doorChiCoeff_L_gk K χ M) (2 ^ j) n 0‖ ^ 2
       ≤ 2 * c * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-        + (4 * c + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
-    rw [hsplit] at hex
-    have hgoal : 2 * c * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-        + (4 * c + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2
-        = (2 * c * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-            + 4 * c * ((2 ^ j : ℕ) : ℝ) ^ 2) + 8 * ((2 ^ j : ℕ) : ℝ) ^ 2 := by ring
-    rw [hgoal, ← hr, ← h3]
-    linarith
+        + (4 * c + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 :=
+    (free_block_tail (A := (A : ℝ)) hex (by exact_mod_cast (show B + s ≤ 2 * A + 4 by omega))
+      (by exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)) hAsR hc0).trans_eq (by ring)
   simpa only [absWindowSum_doorChiCoeff_zero_L_gk K] using hfinal
 
 /-- `M4ChiSummedFreeShiftBlock_L` (:397), at the lever. -/

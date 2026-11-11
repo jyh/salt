@@ -54,7 +54,7 @@ namespace Salt.Entropy.Chowla
 /-! ## F4-D0 — the two plumbing facts every twin needs -/
 
 /-- **F4-D0a (class A, LANDED AT THE FREEZE — an `instance`).**  The stride measure has finite
-support: `finiteSupport_of_comp` (`Salt/Entropy/Measure.lean:150`, a LEMMA, not an instance —
+support: `finiteSupport_of_comp` (`Salt/Entropy/Measure.lean:168`, a LEMMA, not an instance —
 so this declaration is mandatory: without it every `integrable_of_finiteSupport _` at
 `logMeasureAff` fails to resolve) at the landed `instFiniteSupport (logMeasure x ω)`
 (`LogMeasure.lean:80`).  ⛔ It gives `FiniteSupport` ONLY, not `IsFiniteMeasure`:

@@ -1012,7 +1012,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_gk` (`Salt/MR/S12FuseCompose.lean:749`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_gk` (`Salt/MR/S12FuseCompose.lean:711`): its statement under the three standoff
 binders, its proof verbatim with `m4_hcap_at_door_perBlock_gk` replaced by their twins. -/
 theorem m4_fuse_hcap_of_capWS_gk_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) :
@@ -1239,29 +1239,10 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L_of_stan
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
     have hH0 : 0 < H := by have := R.hHlo_floor; omega
-    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloorL M)
-      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
-      (hfit H hlo hhi)
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
-    have hceil := hceilconj H hlo hhi
-    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * m4BclGraded (doorRowFloorL M) (fun H => 2 * RSanDoorRho ρ H)
-            (fun H => 2 * rStrWitness H) H
-        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) :=
-      mul_le_mul_of_nonneg_left hle hfac0
-    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
-        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (108 / 5 * RSanDoorRho ρ H)) := by
-      unfold m4Cmax
-      ring
-    rw [hval] at hstep
-    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
+    have h2 := door_socket_ceiling_of_fits (j₀ := doorRowFloorL M) hH0 (hfit H hlo hhi)
+      (hceilconj H hlo hhi)
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
-    linarith [hstep, h2, hval2.le, hval2.ge]
+    linarith [h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 end
@@ -1272,7 +1253,7 @@ noncomputable section
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:989`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:970`): its statement under the three standoff
 binders, its proof verbatim with `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L` replaced by their twins. -/
 theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ)
@@ -2242,7 +2223,7 @@ open MeasureTheory
 open Salt.Entropy.Chowla
 set_option maxHeartbeats 1000000 in
 -- The twin re-elaborates the landed proof, so it keeps the landed declaration's heartbeat room.
-/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk` (`Salt/MR/S16FlatTerminalLinear.lean:1874`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk` (`Salt/MR/S16FlatTerminalLinear.lean:1855`): its statement under the three standoff
 binders, its proof verbatim with `m4_hcap_at_door_perBlock_L_gk` replaced by their twins. -/
 theorem m4_fuse_hcap_of_capWS_L_gk_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) :
