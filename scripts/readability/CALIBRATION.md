@@ -121,7 +121,7 @@ both readers from `MajorArc.lean`'s stated Siegel–Walfisz range).
 code beneath them: `MinorArc.lean:33` says K ≤ 3 log N where the code uses K ≤ 4 log N; `MinorArc.lean:34` says
 the q > N case uses ψ(N) ≤ 2N where the code uses N log N; `MinorArc.lean:25` states a Step-7 inequality that is
 not the one `Assembly.lean` consumes; `Count.lean:24–25` accounts for the third logarithm differently from the
-proof, which pads (log N)² to (log N)³; the docstring at `Assembly.lean:232–233` promises three facts and the
+proof, which pads (log N)² to (log N)³; the docstring at `Salt/Chen/Assembly.lean:241–242` promises three facts and the
 statement gives one; `Arcs.lean:18` says N ≥ 2P² where the theorem needs 2P² < N; `MajorArc.lean:44–45` says
 A + 2B + 1 where the code asks A + 2B. Fixing them, with the four missing sentences above, is a docs-only change
 owed by the Lean's author. Both readers' closing paragraphs add what no pre-registered why asked: the

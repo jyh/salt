@@ -16,7 +16,7 @@ theorem chen_goldbach :
 
 Additive form (no ℕ-subtraction), explicit threshold (house bundle
 style), `IsP2 2` unchanged (`WeightTrivia.lean:270`; the survivor
-arrives at `IsP2 (opZ N)` and relaxes via `isP2_mono`, Assembly:375).
+arrives at `IsP2 (opZ N)` and relaxes via `isP2_mono`, Salt/Chen/Assembly.lean:384).
 The alternatives (subtraction / ∀ᶠ / exceptional-set forms) are
 recorded in the inventory; corollaries may restate, the primary is
 frozen as above. NOTE the quantifier inversion vs the twin
@@ -62,7 +62,7 @@ STOP AND FLAG.
    ∀ q ∈ Q.primeFactors, a % q ∉ {0, N % q}` — CRT over the FIXED
    opQ; nonvacuity q ≥ 3 ⟹ ≥ q−2 free classes (q ∣ N ⟹ q−1); q = 2
    with N even ⟹ both forbidden classes are 0, a odd works. Feeds the
-   hQa2 slot of chen_of_hypotheses_W (Assembly:720) via crtClassG.
+   hQa2 slot of chen_of_hypotheses_W (Salt/Chen/Assembly.lean:738) via crtClassG.
 3. **G-ASM's ∀N wrapper (A/B).** opQ = Qval opEps, opEps = 2/10⁸
    FIXED ⟹ opQ ≤ log N for N ≥ e^{opQ}, absorbed into N₀. Per-N razor
    instantiation at x := N (z = N^{1/8}, y = N^{1/3}), positivity →

@@ -5195,7 +5195,7 @@ hledger slot as shaped is FALSE at every operating point (razor/U = 0.1338 − 0
 
 **ROOT CAUSE (Fable-confirmed against the Lean definitions):** `tripleSet` (TripleCount.lean:183)
 does NOT require n = prod−2 prime, so `tripleSum` ~ 0.298·x/(2 log z) sits at x/log x SCALE;
-`triplePrimeSum_le` (Assembly.lean:262) converts the Λ-weighted A₃ carrier via Λ(n) ≤ log x,
+`triplePrimeSum_le` (Salt/Chen/Assembly.lean:271) converts the Λ-weighted A₃ carrier via Λ(n) ≤ log x,
 DROPPING Λ's prime support (a 1/log x density) — the bound log x·tripleSum is x-SCALE against
 x/log x-scale main terms. My C5 design note said it out loud: "the switched-sequence sieve is
 never applied, because the C3d count (0.298) is already below the ledger line (0.363)" — the
@@ -7112,7 +7112,7 @@ term via the bilinear/large-sieve core directly (PRICE-1-level re-derivation, no
 Both are statement-level and belong to a Fable/human-directed session.
 
 WHAT IS VERIFIED WIREABLE (so the repair unblocks the rest): the 12-conjunct skeleton →
-`chen_of_hypotheses_W` (Assembly.lean:707) with witnesses x,z=opZ,P=opP,y=opY,Q=opQ,a=opA,
+`chen_of_hypotheses_W` (Salt/Chen/Assembly.lean:725) with witnesses x,z=opZ,P=opP,y=opY,Q=opQ,a=opA,
 w'=opW'; the A1/A2 carriers via `a12_hA1`/`a12_hA2` (HeadlineW2.lean:1620/1672), all their
 hypotheses in the opf_*/opf_tower set; the ledger via `normalized_package`/`hledger_at_certs`
 (GlueNormalized.lean:232 / RazorClose.lean:156) at XW = (twinA1SieveW).totalMass·W =
@@ -7174,7 +7174,7 @@ still-UNPACKAGED analytic corpus, and one NEW coupling obligation surfaced. STAT
   `hK_tower` at x₀(K)) are un-built and depend on F1.
 • F3 (chen_headline): A1/A2 slots ARE packaged (`a12_hA1`/`a12_hA2`, HeadlineW2:1725/1856); the
   ledger conjunct (normalized_package/hledger_at_certs + the still-inline hcount + hEbundle) and the
-  12-conjunct → `chen_of_hypotheses_W` (Assembly:707) remain. NOT attempted: would require F1/F2 and
+  12-conjunct → `chen_of_hypotheses_W` (Salt/Chen/Assembly.lean:725) remain. NOT attempted: would require F1/F2 and
   the 27 rows first; forcing it now risks the "0 wrong proofs" invariant given the coupling above.
 DECISION (anti-grind discipline): Part 1 is the safe warranted deliverable and it resolves the
 catch that stopped GLU-2W-fin2; Part 2 is genuine design work (un-packaged rows + the floor coupling)
@@ -7409,7 +7409,7 @@ STILL-UNPACKAGED analytic rows, each a fresh operating-point estimate (NOT wirin
   discharge at op), **XW>0** + **hEbundle ≤ 1/200** (eight O(1/log z)/x^{−1/8} error shares at
   a concrete x₀, via `W_twinA1_ge` WLower:51 through the rfl bridge) — ALL un-packaged.
 • **Step-4** 12 conjuncts: witnesses (P=opP/Q=opQ/z=opZ/y=opY/a=opA/w'=opW'/Ps=opPs) +
-  `chen_of_hypotheses_W` (Assembly:707) + `residue_witness` + `hyx_at_op`/`sievePrimorial_dvd`
+  `chen_of_hypotheses_W` (Salt/Chen/Assembly.lean:725) + `residue_witness` + `hyx_at_op`/`sievePrimorial_dvd`
   are wireable, BUT need a12_hA1/a12_hA2's ~13/~17 hyps discharged at op + a12_hA3 (step 2).
 No existing assembly anywhere (normalized_package/hledger_at_certs/a12_hA1/a12_hA2 have ZERO
 external callers; no a12_hA3). **RECOMMENDATION (Fable/human-tier): re-scope fin8c into ~10
@@ -23340,7 +23340,7 @@ is the header's description of the CURRENT bytes, and the reader it misleads is 
 choosing which lemma to call.
 
 📌 ***THE CONSEQUENCE — A DEDUP QUESTION, NOT A BUG.*** With the repair landed upstream,
-`Salt/Chen/Buchstab.lean:299` `errSum_lam_le_div` and `:310` `linear_sieve_lower_div` are
+`Salt/Chen/Buchstab.lean:299` `errSum_lam_le_div` and `:317` `linear_sieve_lower_div` are
 statement-for-statement duplicates of `LinearSieve.errSum_lam_le` / `linear_sieve_lower`
 (binders, implicit/explicit split, and hypothesis text all identical; the proofs differ only
 in how `d ∣ prodPrimes` is pulled out of `Nat.mem_divisors`). Nothing is wrong with either;

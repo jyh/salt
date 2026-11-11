@@ -7,7 +7,7 @@ def / nonneg / split / the LARGE side of `p1RazorValue ≤ p1PrimeSum`
 — no operating-point lower bound exists in the corpus; the only `0 <`
 fact is the toy-point `p1_carrier_inhabited` at x=35, disclaimed by
 TwinDeficit.lean:91), the heavy vanishing triple
-(TwinDeficit.lean:204/211/218), the split (:175), the y-capped
+(TwinDeficit.lean:204/211/218), the split (:179), the y-capped
 decorations (WeightTrivia.lean:133/278/286).
 
 ## The theorem
@@ -128,7 +128,7 @@ theorem no_affine_certificate …
 ```
 
 The carrier sum in `affine_carrier_identity` is spelled over the SAME
-index set and weight (`Λ·keep`) as `A1primeSum` (Assembly.lean:143) —
+index set and weight (`Λ·keep`) as `A1primeSum` (Salt/Chen/Assembly.lean:152) —
 pure `Finset.sum_add_distrib` + `mul_sum`. `chenWeightA α` must be a
 definitional instance (`c₀=1, c₁=c₂=c₃=−α`) — state that as a `rfl`
 or `simp` lemma, `readableAffineWeight_chenWeightA`.
