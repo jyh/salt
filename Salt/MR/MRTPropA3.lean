@@ -772,15 +772,15 @@ caught none of them.**  *Three versions in, the control has done more work than 
 Continuing the walk, under the rule set in the section below: name no frontier, keep going.
 
 **1. THE TRIVIAL SUPPLIER IS THE SMALL-LENGTH HALF, AND IT SAYS SO.**
-`norm_sum_doorSievedWindow_le` (`M4CoprimeSupply.lean:107`) is the window-length bound
+`norm_sum_doorSievedWindow_le` (`M4CoprimeSupply.lean:125`) is the window-length bound
 `‖∑_{m ∈ doorSievedWindow M K n} liouChi χ m‖ ≤ K`.  Its docstring: used at the SMALL dyadic
 lengths, *"where the capstone is silent"*.  So the dyadic split is `j < j₀` trivial grade,
-`j₀ ≤ j` capstone (`M4CoprimeSupply.lean:40`, `M4Maximal.lean:1019`).
+`j₀ ≤ j` capstone (`M4CoprimeSupply.lean:40`, `M4Maximal.lean:1030`).
 
 **2. ⛔ TWO DIFFERENT OBJECTS ARE CALLED "THE CAPSTONE". THEY ARE NOT THE SAME.**
 * `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:508`) — the **S12** lane.  This is
   the one carrying `S14Compose.lean:429`'s **`⚠ NOT DERIVED` … "refuted at ⟦B1'-3⟧ by §3"**.
-* `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1021`) — the **M4** lane, and *this* is the one the
+* `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1032`) — the **M4** lane, and *this* is the one the
   door's dyadic split consumes (`M4Maximal.lean:117`, length-graded `MS j H`).
 
 **The `⚠ NOT DERIVED` marker does NOT lie on the door's chain.**  Checked, not assumed — the
@@ -894,7 +894,7 @@ earlier were all published first and corrected after.  **Fencing is cheap; retra
 Walked the gates down: `M4SievedDoorSq_L → M4BlockMeanSq_L → M4RowMeanSq_L`.
 `M4RowMeanSq_L` (`M4RowLinear.lean:993`) has **no producer** — established by reading **all six
 of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1394`) ·
-an enumeration entry (`:3353`) · one arrow (`:3368`).
+an enumeration entry (`:3336`) · one arrow (`:3351`).
 
 ⭐ **AND THIS TIME IT IS NOT MY INFERENCE — THE CORPUS SAYS SO AT THE DEFINITION SITE:**
 *"**THE WAVE'S REMAINING INPUT**… This predicate is the wave's ⟦RESIDUE⟧: see the module header
@@ -961,7 +961,7 @@ wrong, and it is wrong in the same direction as the two claims before it.**  Wal
   norm_absWindowSum_le_drift_tight     M4BridgePhase.lean:310   (phase drift → rational b/q)
     ⟹ subWindowSup_sq_le_strata       M4Gauss.lean:577         (Gauss/strata, at doorSievedCoeff M)
         ⟹ strataTerm = ∑_χ (doorChiSup χ …)²
-            ⟹ doorChiSup_sq_le_dyadic  M4Maximal.lean:397      (DYADIC MAXIMAL INEQUALITY, K-free)
+            ⟹ doorChiSup_sq_le_dyadic  M4Maximal.lean:416      (DYADIC MAXIMAL INEQUALITY, K-free)
                 ⟹ ∑_t ‖∑_{m ∈ doorSievedWindow M 2^j (n+2^{j+1}t)} liouChi χ m‖²
 ```
 `subWindowSup_sq_le_strata` is stated **at the door's own coefficient** `doorSievedCoeff M`, not at
