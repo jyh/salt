@@ -54,8 +54,8 @@ discharge them without a numeric handle, so this page carries three explicit reg
 * `hKs : exp (-100) ≤ Ks`     — `Ks ≥ 3.7·10^{-44}` (the Siegel constant is not zero-ish).
 
 ⟦THE HONEST AFFORDANCE⟧ these numerals are FAR inside what the working point can pay.  The
-sharp forms are `T₀ ≤ exp(√H/2)` (proved separately as `capfloor_T0_Tann_sharp`, and
-`√H ≥ e^{5·10^{20}}`), `Kq ≤ e^{3v/16}` and `Ks ≥ e^{-3v/16}` with `3v/16 ≥ 1.8·10^{20}`.  The
+sharp forms are `T₀ ≤ exp(√H/2)` (that it suffices is `capfloor_T0_Tann_sharp`), `Kq ≤ e^{3v/16}`
+and `Ks ≥ e^{-3v/16}`; the margins `√H ≥ e^{5·10^{20}}`, `3v/16 ≥ 1.8·10^{20}` are arithmetic.  The
 round `100`s are chosen for legibility, not for tightness.
 
 `Q2_reg` is NOT proved here: it is a genuine `M`-vs-`H` comparison, and it is already supplied
