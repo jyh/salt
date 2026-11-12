@@ -741,7 +741,7 @@ and fixing them edits A.6's/A.7's STATEMENTS (Fable/Captain tier).  `DoorRoadCom
 /-! ### FIVE LINKS DEEP, EVERY ONE POPULATED — AND THE REAL OPEN QUESTION IS NOT A MISSING LEMMA
 
 Continuing the walk.  `DoorRowCarried` (the capstone producer's remaining input) is itself
-populated: **8 exact producer-shaped sites**, including `M4T0Discharge.lean:735`,
+populated: **8 exact producer-shaped sites**, including `M4T0Discharge.lean:744`,
 `M4DoorClose.lean:{395,533,607}`, `M4Collapse.lean:216`, `M4ChiSocketWire.lean:{184,240}`.
 The capstone `M4ChiDyadicRowMeanSq` has **6** (three of them `… := by` in
 `M4DoorClose`/`M4DoorClosePool`).
@@ -959,7 +959,7 @@ wrong, and it is wrong in the same direction as the two claims before it.**  Wal
 
 ```
   norm_absWindowSum_le_drift_tight     M4BridgePhase.lean:310   (phase drift → rational b/q)
-    ⟹ subWindowSup_sq_le_strata       M4Gauss.lean:577         (Gauss/strata, at doorSievedCoeff M)
+    ⟹ subWindowSup_sq_le_strata       M4Gauss.lean:588         (Gauss/strata, at doorSievedCoeff M)
         ⟹ strataTerm = ∑_χ (doorChiSup χ …)²
             ⟹ doorChiSup_sq_le_dyadic  M4Maximal.lean:416      (DYADIC MAXIMAL INEQUALITY, K-free)
                 ⟹ ∑_t ‖∑_{m ∈ doorSievedWindow M 2^j (n+2^{j+1}t)} liouChi χ m‖²

@@ -273,7 +273,7 @@ theorem blockLenH_arc_floor {h : ℕ} (hh : 1 ≤ h) {R : ChowlaRegime} {H q : �
 
 /-! ## §1′ — the blocked drift at an OPAQUE cap (the helm's RESPELL of the rpow identity)
 
-`M4BridgeBlock.lean:247/293/325` read `arcDen B₅ H` as an opaque nonnegative real; the three
+`M4BridgeBlock.lean:252/298/330` read `arcDen B₅ H` as an opaque nonnegative real; the three
 siblings below take that real as a binder `Q`, so the drift lemmas fire at `Q := h · arcDen 12 H`
 with no rpow identity and no pin to `h = 2`.  Proof bodies verbatim. -/
 
@@ -1697,7 +1697,7 @@ collision, and the landed one is REUSED here rather than redefined — which als
 independent wave, that the x-scale floor moves with the cap. -/
 
 /-- **⟦THE CEILING, MET AT `ρ` AND `h = 2`⟧** — `m4_arith_rs_ceiling_met_rho`
-(`M4ArithRho.lean:548`) with the drift gate's residual at `strataResidualH 2 H`.  The grades
+(`M4ArithRho.lean:573`) with the drift gate's residual at `strataResidualH 2 H`.  The grades
 stay in the base residual, so `hcancel` leaves `(strataResidualH 2 H / strataResidual H)² ·
 108/5 · ρ`; `strataResidualH 2 H = strataResidual H + log 2` exactly and at this page's own
 floor `50 ≤ loglog H` (where `strataResidual H ≥ 601`) the ratio² is below `1.00231`, so the

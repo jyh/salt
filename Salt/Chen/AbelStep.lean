@@ -127,6 +127,11 @@ The crude majorant `M·mass` that the sharp comparison must *beat* — recorded 
 `h`-part slack ledger uses it as the trivial fallback, and because it is the honest witness
 that no *uniform* crude bound can discharge `StepHyp` (the mass `1 − ∏` has no uniform ratio
 to the target `W·fₙ₊₁`; see the flag). -/
+/-- The Stieltjes tail-mass comparison: for weights `0 ≤ a p ≤ 1` on `S` and `g ≤ M` on `S`,
+`∑_{p ∈ S} (a p·∏_{q ∈ S, q < p}(1 − a q))·g p ≤ M·(1 − ∏_{p ∈ S}(1 − a p))`. Each increment
+`a p·∏_{q<p}(1 − a q)` is nonnegative, so `g ≤ M` passes through the sum (`Finset.sum_le_sum`),
+and the increments telescope to `1 − ∏(1 − a p)` (`Lemma11.prod_telescope`) — the peel weight
+`ν(p)·V(p)` is this increment at `a = ν`. No consumer at `main`, in this file or outside it. -/
 theorem stieltjes_sum_le_of_le {S : Finset ℕ} {a g : ℕ → ℝ} {M : ℝ}
     (ha0 : ∀ p ∈ S, 0 ≤ a p) (ha1 : ∀ p ∈ S, a p ≤ 1)
     (hgM : ∀ p ∈ S, g p ≤ M) :

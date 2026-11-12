@@ -5195,7 +5195,7 @@ hledger slot as shaped is FALSE at every operating point (razor/U = 0.1338 − 0
 
 **ROOT CAUSE (Fable-confirmed against the Lean definitions):** `tripleSet` (TripleCount.lean:183)
 does NOT require n = prod−2 prime, so `tripleSum` ~ 0.298·x/(2 log z) sits at x/log x SCALE;
-`triplePrimeSum_le` (Assembly.lean:262) converts the Λ-weighted A₃ carrier via Λ(n) ≤ log x,
+`triplePrimeSum_le` (Salt/Chen/Assembly.lean:271) converts the Λ-weighted A₃ carrier via Λ(n) ≤ log x,
 DROPPING Λ's prime support (a 1/log x density) — the bound log x·tripleSum is x-SCALE against
 x/log x-scale main terms. My C5 design note said it out loud: "the switched-sequence sieve is
 never applied, because the C3d count (0.298) is already below the ledger line (0.363)" — the
@@ -6632,7 +6632,7 @@ the mandated STEP-0 inventory BEFORE any proof attempt burned against it.
 
 **2026-07-14 D0W ✅ FULL (Opus executor attempt 1, Fable statement-change warrant, survived
 one API stream drop) — CATCH #64 REPAIRED IN PLACE.** hD0lo_main weakened L^{C0} → L^{A+2}
-through the full chain (four_term_scale_le root at EnergyClose:488 with the proof patched at
+through the full chain (four_term_scale_le root at EnergyClose:491 with the proof patched at
 its unique use; pass-throughs WindowErrFold:82/1294, WindowSmallChi:527 + the H-glue
 threshold-list docstring, SqrtDFold:826/996/1119, MediumFloor:520, GlueBV:198; the row is fed
 positionally so pass-through proofs needed NO edits). general_BV_cutoff_final carries no
@@ -7112,7 +7112,7 @@ term via the bilinear/large-sieve core directly (PRICE-1-level re-derivation, no
 Both are statement-level and belong to a Fable/human-directed session.
 
 WHAT IS VERIFIED WIREABLE (so the repair unblocks the rest): the 12-conjunct skeleton →
-`chen_of_hypotheses_W` (Assembly.lean:707) with witnesses x,z=opZ,P=opP,y=opY,Q=opQ,a=opA,
+`chen_of_hypotheses_W` (Salt/Chen/Assembly.lean:725) with witnesses x,z=opZ,P=opP,y=opY,Q=opQ,a=opA,
 w'=opW'; the A1/A2 carriers via `a12_hA1`/`a12_hA2` (HeadlineW2.lean:1620/1672), all their
 hypotheses in the opf_*/opf_tower set; the ledger via `normalized_package`/`hledger_at_certs`
 (GlueNormalized.lean:232 / RazorClose.lean:156) at XW = (twinA1SieveW).totalMass·W =
@@ -7174,7 +7174,7 @@ still-UNPACKAGED analytic corpus, and one NEW coupling obligation surfaced. STAT
   `hK_tower` at x₀(K)) are un-built and depend on F1.
 • F3 (chen_headline): A1/A2 slots ARE packaged (`a12_hA1`/`a12_hA2`, HeadlineW2:1725/1856); the
   ledger conjunct (normalized_package/hledger_at_certs + the still-inline hcount + hEbundle) and the
-  12-conjunct → `chen_of_hypotheses_W` (Assembly:707) remain. NOT attempted: would require F1/F2 and
+  12-conjunct → `chen_of_hypotheses_W` (Salt/Chen/Assembly.lean:725) remain. NOT attempted: would require F1/F2 and
   the 27 rows first; forcing it now risks the "0 wrong proofs" invariant given the coupling above.
 DECISION (anti-grind discipline): Part 1 is the safe warranted deliverable and it resolves the
 catch that stopped GLU-2W-fin2; Part 2 is genuine design work (un-packaged rows + the floor coupling)
@@ -7409,7 +7409,7 @@ STILL-UNPACKAGED analytic rows, each a fresh operating-point estimate (NOT wirin
   discharge at op), **XW>0** + **hEbundle ≤ 1/200** (eight O(1/log z)/x^{−1/8} error shares at
   a concrete x₀, via `W_twinA1_ge` WLower:51 through the rfl bridge) — ALL un-packaged.
 • **Step-4** 12 conjuncts: witnesses (P=opP/Q=opQ/z=opZ/y=opY/a=opA/w'=opW'/Ps=opPs) +
-  `chen_of_hypotheses_W` (Assembly:707) + `residue_witness` + `hyx_at_op`/`sievePrimorial_dvd`
+  `chen_of_hypotheses_W` (Salt/Chen/Assembly.lean:725) + `residue_witness` + `hyx_at_op`/`sievePrimorial_dvd`
   are wireable, BUT need a12_hA1/a12_hA2's ~13/~17 hyps discharged at op + a12_hA3 (step 2).
 No existing assembly anywhere (normalized_package/hledger_at_certs/a12_hA1/a12_hA2 have ZERO
 external callers; no a12_hA3). **RECOMMENDATION (Fable/human-tier): re-scope fin8c into ~10
@@ -13932,10 +13932,10 @@ Against δ₀/2 ≈ 10⁻⁴⁹ the gap is ~10¹¹⁴. Ccc is exported only as
 0 < Ccc (from m4_door_meansq_carried) — no spine can rely on it small.
 Stronger than WALL A: no H-dependence at all.
 
-**THE NAMED REPAIR (the pivot: M4T0Discharge:707-709 vs :714 — the
+**THE NAMED REPAIR (the pivot: M4T0Discharge:716-718 vs Salt/MR/M4T0Discharge.lean:723 — the
 assembly capping each a2Mrow piece by the same (log X)^{-1/500}):** one
 factor of 1/M in the envelope's summand (or a strictly smaller exponent
-at :709 than :714) turns B·M ≥ K into B·M² ≥ K, whence
+at Salt/MR/M4T0Discharge.lean:718 than Salt/MR/M4T0Discharge.lean:723) turns B·M ≥ K into B·M² ≥ K, whence
 G² ≥ 2^38·18·K/log₂H → 0 — the wall becomes a FLOOR ON H, i.e. it
 CLOSES. **UNVERIFIED: whether the supply side can DELIVER the
 1/M-strengthened threshold** — a2RowsSum's honest magnitude in M and
@@ -15222,7 +15222,7 @@ VK-forgetting-class miss, now fenced: §6's header carries the counter-wave poin
 route (`thm_a2'` + `capFreeFloor3`) pays `q`-linear thresholds at TWO places:
 `m4_meansq_per_chi_gen`'s `32·((1/8)·log q + (1/4)·q + …) < loglog X`
 (`M4MeanSq.lean:626-630`) and the T₀-band's coefficient-700 twin
-(`M4T0Discharge.lean:307/:439/:571`).  At `q ≤ arcDen 12 H = (log H)^{12}` that IS
+(`M4T0Discharge.lean:316/:448/:580`).  At `q ≤ arcDen 12 H = (log H)^{12}` that IS
 F5 (fails ×9.79e4 at its best point; F4 repairs only the `(1/4)q` half of ONE of
 the two).  The erratum to the A4 STOP entry above: replace "meets M4DoorRow's two
 walls" with "meets the F5/F4 q-linear gates" — which is precisely the route the
@@ -18268,7 +18268,7 @@ the refined ceiling is M ≤ 2^66.07 (not 2^74 crude, not 2^64.6 —
 the slip): 0.94 bits over the certified floor; tightest lines at
 3.8-5.9%.  ⟦ERRATA FIXED by maestro hand⟧ S15Witness:51's e^{75.28}
 prose (1.87e32 → 4.92e32; 2^64.6 → 2^66.05 — LOAD-BEARING: at the
-wrong numeral the verdict flips) + S13FramesA:95's "true value"
+wrong numeral the verdict flips) + S13FramesA:99's "true value"
 phrasing.  Docstring-only edits; build re-verified.
 ⟦REACHABILITY, priced⟧ the head's δ₀ reads THREE leaves: cD3 ≥ 1/4
 (literal), C ≤ 1+2C₀ (literal), ε (exists_rat_btwn — unbounded
@@ -18587,10 +18587,10 @@ DESIGN COUNCIL, not an executor.
 ## () LEVEL2-SCOPE: **WINDMILL** -- THE CAPTAIN WINS AGAIN. The literal exit dies at a hard pin (the cover forces block 1) BUT the goal is LIVE by the per-block PRODUCT route the corpus itself named "the SHARP value" and declined to mint -- kernel-certified K-FREE reprice (P6), M^2.1 slope unchanged, Mfl = 2^141 at 214 bits spare, ZERO twin re-instantiation, wave ~700-1000 ln
 
 THE PIN (honest): any SINGLE covering window must contain block 1
-(M4T0DatumDischarge:613/:984) whose left edge 𝒫₁ is K-invariant —
+(M4T0DatumDischarge:615/:986) whose left edge 𝒫₁ is K-invariant —
 no single-window instantiation is K-free.  THE PIVOT: the mask's
 (P,Q) is a DEVICE for two rows; the mass budget M is a free abstract
-parameter (LambdaChiMask:803's top-block C is K-free) — price the
+parameter (LambdaChiMask:827's top-block C is K-free) — price the
 mask PER BLOCK and the cover dissolves.  THE REPRICE, kernel (P6):
 windowMassConst 𝒫₁ 𝒬₁ · windowMassConst 𝒫₂ 𝒬₂ ≤ e^{52.5}·4^{1.05}·
 M^{2.1} — K-FREE (P1/P2: the loglog gaps are log(4M) and log M at
@@ -19386,7 +19386,7 @@ class-B/C estimate) and the co-factor register inhabitation.
 ## (2026-08-02 16:40 PDT) **X-THREAD: THE `x`-CEILING IS A THEOREM — `logChowla2_ineffective_v5` MINTED, THE CO-FACTOR PREDICATE IS THE ONLY CONCLUSION-SIDE ASK LEFT. 12 decls, 1 new file (1448 ln), full `lake build` 9276 EXIT-0 from `$?`, warnings 186 = 186 baseline, every new decl at 3 axioms** (X-THREAD)
 
 ⟦THE TRUE `gArmDoorRho` SHAPE, READ AT THE BYTES⟧ the report's "7000" is RIGHT but the shape is
-one level deeper than the summary reads.  `M4ArithRho:665` gives
+one level deeper than the summary reads.  `M4ArithRho:699` gives
 `gArmDoorRho x₀ K ω ρ H = max x₀ (16·ω·(log H)^{12}·exp(exp(7000·loglog H + 500·log(1/ρ) + 6600
 + 36K)))` — a **DOUBLE** exponential, consumed at `x₀ = K = 0`.  So
 `log (gArmDoorRho 0 0 ω ρ H) = log(16ω) + 12·loglog H + (log H)^{7000}·ρ^{-500}·e^{6600}`: the
@@ -23320,7 +23320,7 @@ hub and this ledger, and the defect is in PROSE about landed statements.
 Salt/Chen/Buchstab.lean:37-48   "## The structural finding on `linear_sieve_lower` (flagged)"
     "`LinearSieve.errSum_lam_le` (hence `linear_sieve_lower`/`_chain`) demands the support
      bound `∀ d, S.P d → (d:ℝ) < bound` **unconditionally in `d`**."
-Salt/Chen/Buchstab.lean:283-287  "## Part E — the corrected divisor-restricted lower plumbing"
+Salt/Chen/Buchstab.lean:290-294  "## Part E — the corrected divisor-restricted lower plumbing"
     "`errSum_lam_le` in `LinearSieve.lean` demands an *unconditional* support bound, which
      is unsatisfiable for `side = 2` (see the header flag)."
 ```
@@ -23328,9 +23328,9 @@ Salt/Chen/Buchstab.lean:283-287  "## Part E — the corrected divisor-restricted
 🔑 ***WHY IT IS STALE.*** All three named statements are ALREADY divisor-restricted at HEAD:
 
 ```
-Salt/Chen/LinearSieve.lean:316-317  errSum_lam_le        (hsupp : ∀ d, d ∣ s.prodPrimes → S.P d → (d:ℝ) < bound)
-Salt/Chen/LinearSieve.lean:352-354  linear_sieve_lower   (same hypothesis)
-Salt/Chen/LinearSieve.lean:392-393  linear_sieve_lower_chain (same hypothesis)
+Salt/Chen/LinearSieve.lean:318-319  errSum_lam_le        (hsupp : ∀ d, d ∣ s.prodPrimes → S.P d → (d:ℝ) < bound)
+Salt/Chen/LinearSieve.lean:354-356  linear_sieve_lower   (same hypothesis)
+Salt/Chen/LinearSieve.lean:394-395  linear_sieve_lower_chain (same hypothesis)
 ```
 
 The MATHEMATICS of the finding is untouched and still correct — the unconditional bound is
@@ -23340,12 +23340,12 @@ is the header's description of the CURRENT bytes, and the reader it misleads is 
 choosing which lemma to call.
 
 📌 ***THE CONSEQUENCE — A DEDUP QUESTION, NOT A BUG.*** With the repair landed upstream,
-`Salt/Chen/Buchstab.lean:292` `errSum_lam_le_div` and `:310` `linear_sieve_lower_div` are
+`Salt/Chen/Buchstab.lean:299` `errSum_lam_le_div` and `:317` `linear_sieve_lower_div` are
 statement-for-statement duplicates of `LinearSieve.errSum_lam_le` / `linear_sieve_lower`
 (binders, implicit/explicit split, and hypothesis text all identical; the proofs differ only
 in how `d ∣ prodPrimes` is pulled out of `Nat.mem_divisors`). Nothing is wrong with either;
 the corpus simply carries each twice. BRUN-ELL1 deliberately composed through the `_div`
-name — the one the Rosser twin `linear_sieve_lower_rosser` (`Buchstab.lean:327`) already
+name — the one the Rosser twin `linear_sieve_lower_rosser` (`Buchstab.lean:334`) already
 uses — so that a later dedup wave has ONE call site convention to collapse.
 
 ⚖️ **Disposition DEFERRED to a wave licensed to edit landed prose and to retire landed

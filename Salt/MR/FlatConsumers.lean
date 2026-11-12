@@ -313,7 +313,7 @@ theorem flat_exp_window_81 : Real.exp (81184 / 1000 / 2) ≤ 660000000000000000 
   rw [h41] at hmono
   linarith
 
-/-- **⟦THE WINDOW CEILING, FLAT⟧** — `s13_loglogHhi_le` (`S13FramesA.lean:450`) at
+/-- **⟦THE WINDOW CEILING, FLAT⟧** — `s13_loglogHhi_le` (`S13FramesA.lean:454`) at
 the FLAT tower conjunct.  The window `λ₋ ≤ 83.66` is the landed one; the exported
 ceiling is NOT: `4.481·10⁸` becomes `1.79·10¹⁸`.  See this file's ⚠ note — every
 register face calibrated to the `9/2` ceiling must be re-priced against
@@ -330,7 +330,7 @@ theorem s13_loglogHhi_le_flat {R : ChowlaRegime}
   linarith
 
 /-- **⟦THE WINDOW CEILING, FLAT, AT THE HONEST `λ₋`⟧** — `s13_loglogHhi_le_tight`
-(`S13FramesA.lean:1094`) at the FLAT tower conjunct: the census window
+(`S13FramesA.lean:1098`) at the FLAT tower conjunct: the census window
 `λ₋ ≤ 81.184` exports `6.6·10¹⁷` in place of `3.92·10⁸`.  `s13_g2_jfloor` and
 `s13_gate8` take `Λ` as a parameter, so they need no twin — they are instantiated
 at this ceiling. -/

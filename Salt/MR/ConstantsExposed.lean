@@ -186,12 +186,19 @@ theorem typical_density_le_bounded :
 four-fold `min`; `eps_admissible` certifies that `1/500` is a legal choice. -/
 def epsPin : ℚ := 1 / 500
 
+/-- `((epsPin : ℚ) : ℝ) = 1/500` (`@[simp]`), by `norm_num [epsPin]`: the pinned `ε` cast to the
+reals, so the numeral bounds below read `1/500` directly. Read nine times in this file and by
+`S13FramesA`. -/
 @[simp] lemma epsPin_cast : ((epsPin : ℚ) : ℝ) = 1 / 500 := by norm_num [epsPin]
 
 /-- **`C`**, the circle-method constant: `circle_method_estimate`'s witness
 `1 + 2·C₀` at the spine's `C₀ = 2·log 4`. -/
 noncomputable def CcmExpr : ℝ := 1 + 2 * (2 * Real.log 4)
 
+/-- `log 4 = 2·log 2` (private), by `4 = 2²` and `Real.log_pow`: the step that turns the
+circle-method constant's `log 4` into the `log 2` the decimal bound `Real.log_two_lt_d9` prices.
+Read twice in this file; the same-named lemmas in `L2cEngineRoute` and `RbdSupply` are their own
+private copies. -/
 private lemma log_four_eq : Real.log 4 = 2 * Real.log 2 := by
   rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
 
