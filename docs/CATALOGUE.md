@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `100662c8` · source digest `965502551bf86638` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `e8b2cfbe` · source digest `413eb523d8582f47` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23410 · corpus Prop-valued names (the hypothesis universe): 685.
+Declarations indexed across the tree: 23413 · corpus Prop-valued names (the hypothesis universe): 686.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -3701,9 +3701,9 @@ Declarations indexed across the tree: 23410 · corpus Prop-valued names (the hyp
 | `Salt.MR.doorChiCoeff_seamCoefW_at_door_H` | Salt/MR/M4Band.lean:348 | characters |
 | `Salt.MR.m4_chiBlock_at` | Salt/MR/M4BaseNarrow.lean:575 | sieves, characters |
 | `Salt.MR.m4_classBlock_at` | Salt/MR/M4BaseNarrow.lean:632 | sieves, characters |
-| `Salt.MR.narrow_dilate` | Salt/MR/M4BaseNarrow.lean:871 | characters |
-| `Salt.MR.arcDen_le_arcDen_Hhi` | Salt/MR/M4BaseNarrow.lean:1015 | characters |
-| `Salt.MR.m4_modulusCap_discharged` | Salt/MR/M4BaseNarrow.lean:1045 | characters |
+| `Salt.MR.narrow_dilate` | Salt/MR/M4BaseNarrow.lean:913 | characters |
+| `Salt.MR.arcDen_le_arcDen_Hhi` | Salt/MR/M4BaseNarrow.lean:1057 | characters |
+| `Salt.MR.m4_modulusCap_discharged` | Salt/MR/M4BaseNarrow.lean:1087 | characters |
 | `Salt.MR.le_numBlocks_mul` | Salt/MR/M4BridgeBlock.lean:128 | characters |
 | `Salt.MR.numBlocks_mul_le` | Salt/MR/M4BridgeBlock.lean:136 | characters |
 | `Salt.MR.mul_le_of_lt_numBlocks` | Salt/MR/M4BridgeBlock.lean:168 | characters |
@@ -4329,12 +4329,12 @@ Declarations indexed across the tree: 23410 · corpus Prop-valued names (the hyp
 | `Salt.MR.subWindowSup_le_sum_classSup` | Salt/MR/M4WaveClosed.lean:180 | characters |
 | `Salt.MR.m4_classBlockMeanSq_trivial` | Salt/MR/M4WaveClosed.lean:210 | characters |
 | `Salt.MR.sq_inv_totient_sum_le_sum_sq` | Salt/MR/M4WaveClosed.lean:339 | characters |
-| `Salt.MR.le_doorChiSup` | Salt/MR/M4WaveClosed.lean:396 | sieves, characters |
-| `Salt.MR.doorChiSup_nonneg` | Salt/MR/M4WaveClosed.lean:400 | characters |
-| `Salt.MR.classSup_le_inv_totient_sum_doorChiSup` | Salt/MR/M4WaveClosed.lean:435 | sieves, characters |
-| `Salt.MR.m4_rawMS_priced_decay` | Salt/MR/M4WaveClosed.lean:494 | characters |
-| `Salt.MR.m4DecayGrade_le_debit` | Salt/MR/M4WaveClosed.lean:512 | characters |
-| `Salt.MR.absWindowSum_doorChiCoeff_zero` | Salt/MR/M4WaveClosed.lean:742 | sieves, characters |
+| `Salt.MR.le_doorChiSup` | Salt/MR/M4WaveClosed.lean:405 | sieves, characters |
+| `Salt.MR.doorChiSup_nonneg` | Salt/MR/M4WaveClosed.lean:409 | characters |
+| `Salt.MR.classSup_le_inv_totient_sum_doorChiSup` | Salt/MR/M4WaveClosed.lean:444 | sieves, characters |
+| `Salt.MR.m4_rawMS_priced_decay` | Salt/MR/M4WaveClosed.lean:503 | characters |
+| `Salt.MR.m4DecayGrade_le_debit` | Salt/MR/M4WaveClosed.lean:521 | characters |
+| `Salt.MR.absWindowSum_doorChiCoeff_zero` | Salt/MR/M4WaveClosed.lean:751 | sieves, characters |
 | `Salt.MR.absWindowSum_doorChiCoeff_zero_L` | Salt/MR/M4WaveLinear.lean:69 | sieves, characters |
 | `Salt.MR.doorChiCoeff_seamCoefW_at_door_L` | Salt/MR/M4WaveLinear.lean:868 | characters |
 | `Salt.MR.m4_door_tail_supply_end_L` | Salt/MR/M4WaveLinear.lean:913 | characters |
@@ -7932,13 +7932,13 @@ Declarations indexed across the tree: 23410 · corpus Prop-valued names (the hyp
 | `Salt.MR.seamCoefW_endpoint_forced` | Salt/MR/M4Band.lean:366 | characters | `Salt.MR.SeamCoefW` |
 | `Salt.MR.memSCoeff_endpoint_zero_of_seamCoefW` | Salt/MR/M4Band.lean:381 | characters | `Salt.MR.SeamCoefW` |
 | `Salt.MR.m4_freeShiftBlock_at` | Salt/MR/M4BaseNarrow.lean:236 | sieves, characters | `Salt.MR.M4RowDatumAt` |
-| `Salt.MR.m4_coprimeBlock_at` | Salt/MR/M4BaseNarrow.lean:644 | sieves, characters | `Salt.MR.M4RowDatumAt` |
-| `Salt.MR.m4_classBlockMeanSq_of_rowDatum` | Salt/MR/M4BaseNarrow.lean:686 | characters | `Salt.MR.M4RowDatumAt` |
-| `Salt.MR.m4_rowDatumAt_of_freeRowN` | Salt/MR/M4BaseNarrow.lean:831 | characters | `Salt.MR.M4ChiFreeRowMeanSqN` |
-| `Salt.MR.m4_coprimeNN_supplied` | Salt/MR/M4BaseNarrow.lean:851 | characters | `Salt.MR.M4ChiFreeRowMeanSqN` |
-| `Salt.MR.m4_rowDatum_dilated` | Salt/MR/M4BaseNarrow.lean:914 | characters | `Salt.MR.DoorRowCarriedT0` |
-| `Salt.MR.m4_wave_collapsed` | Salt/MR/M4BaseNarrow.lean:1115 | characters | `Salt.MR.M4DoorGates`, `Salt.MR.DoorRowCarriedT0` |
-| `Salt.MR.m4_wave_collapsed_False` | Salt/MR/M4BaseNarrow.lean:1191 | characters | `Salt.MR.M4DoorGates`, `Salt.MR.DoorRowCarriedT0`, `Salt.Entropy.Chowla.logChowla2Fails` |
+| `Salt.MR.m4_coprimeBlock_at` | Salt/MR/M4BaseNarrow.lean:673 | sieves, characters | `Salt.MR.M4RowDatumAt` |
+| `Salt.MR.m4_classBlockMeanSq_of_rowDatum` | Salt/MR/M4BaseNarrow.lean:825 | characters | `Salt.MR.M4RowDatumAt` |
+| `Salt.MR.m4_rowDatumAt_of_freeRowN` | Salt/MR/M4BaseNarrow.lean:873 | characters | `Salt.MR.M4ChiFreeRowMeanSqN` |
+| `Salt.MR.m4_coprimeNN_supplied` | Salt/MR/M4BaseNarrow.lean:893 | characters | `Salt.MR.M4ChiFreeRowMeanSqN` |
+| `Salt.MR.m4_rowDatum_dilated` | Salt/MR/M4BaseNarrow.lean:956 | characters | `Salt.MR.DoorRowCarriedT0` |
+| `Salt.MR.m4_wave_collapsed` | Salt/MR/M4BaseNarrow.lean:1157 | characters | `Salt.MR.M4DoorGates`, `Salt.MR.DoorRowCarriedT0` |
+| `Salt.MR.m4_wave_collapsed_False` | Salt/MR/M4BaseNarrow.lean:1233 | characters | `Salt.MR.M4DoorGates`, `Salt.MR.DoorRowCarriedT0`, `Salt.Entropy.Chowla.logChowla2Fails` |
 | `Salt.MR.m4_sievedDoorSq_of_blk` | Salt/MR/M4BridgeBlock.lean:419 | sieves, characters | `Salt.MR.M4SievedDoorSqBlk` |
 | `Salt.MR.m4_cover_assembly_blk` | Salt/MR/M4BridgeBlock.lean:509 | sieves, characters | `Salt.MR.M4DoorGates`, `Salt.MR.M4BlockMeanSqBlk` |
 | `Salt.MR.m4_cover_assembly` | Salt/MR/M4BridgeCover.lean:404 | sieves, characters | `Salt.MR.M4DoorGates`, `Salt.MR.M4BlockMeanSq` |
@@ -8054,19 +8054,19 @@ Declarations indexed across the tree: 23410 · corpus Prop-valued names (the hyp
 | `Salt.MR.m4_wave_closed_coprime_discharged_L` | Salt/MR/M4RowAssemblyLinear.lean:426 | characters | `Salt.MR.M4DoorGates_L`, `Salt.MR.DoorRowCarriedT0_L`, `Salt.MR.M4ChiFreeRowMeanSq_L` |
 | `Salt.MR.m4_wave_closed_coprime_discharged_False_L` | Salt/MR/M4RowAssemblyLinear.lean:517 | characters | `Salt.MR.M4DoorGates_L`, `Salt.MR.DoorRowCarriedT0_L`, `Salt.MR.M4ChiFreeRowMeanSq_L`, `Salt.Entropy.Chowla.logChowla2Fails` |
 | `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_L` | Salt/MR/M4RowAssemblyLinear.lean:3060 | characters | `Salt.MR.DoorFuseFrame_pool_L` |
-| `Salt.MR.m4_wave_collapsed_L` | Salt/MR/M4RowAssemblyLinear.lean:3686 | characters | `Salt.MR.M4DoorGates_L`, `Salt.MR.DoorRowCarriedT0_L` |
-| `Salt.MR.m4_wave_collapsed_False_L` | Salt/MR/M4RowAssemblyLinear.lean:3762 | characters | `Salt.MR.M4DoorGates_L`, `Salt.MR.DoorRowCarriedT0_L`, `Salt.Entropy.Chowla.logChowla2Fails` |
-| `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end_L` | Salt/MR/M4RowAssemblyLinear.lean:4237 | characters | `Salt.MR.DoorFuseFrame_L`, `Salt.MR.DoorRowEndBase_L` |
-| `Salt.MR.m4_wave_closed_coprime_discharged_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4529 | characters | `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.DoorRowCarriedT0_L_gk`, `Salt.MR.M4ChiFreeRowMeanSq_L_gk` |
-| `Salt.MR.m4_wave_closed_coprime_discharged_False_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4618 | characters | `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.DoorRowCarriedT0_L_gk`, `Salt.MR.M4ChiFreeRowMeanSq_L_gk`, `Salt.Entropy.Chowla.logChowla2Fails` |
-| `Salt.MR.m4_door_meansq_carried_pool_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4666 | characters | `Salt.MR.DoorRowCarriedPool_L_gk` |
-| `Salt.MR.m4_dyadicRow_carried_pool_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4782 | characters | `Salt.MR.DoorRowCarriedPool_L_gk` |
-| `Salt.MR.m4_door_meansq_carried_join_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4816 | characters | `Salt.MR.DoorRowCarriedJoin_L_gk` |
-| `Salt.MR.m4_dyadicRow_carried_join_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4932 | characters | `Salt.MR.DoorRowCarriedJoin_L_gk` |
-| `Salt.MR.m4_rowDatum_dilated_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4966 | characters | `Salt.MR.DoorRowCarriedT0_L_gk` |
-| `Salt.MR.m4_hrowsSum_chi_door_end_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:5069 | characters | `Salt.MR.SeamCoefWS`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_hrowsSlot_at_door_end_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:5120 | characters | `Salt.MR.DoorRowEndBase_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:5172 | characters | `Salt.MR.DoorFuseFrame_L_gk`, `Salt.MR.DoorRowEndBase_L_gk` |
+| `Salt.MR.m4_wave_collapsed_L` | Salt/MR/M4RowAssemblyLinear.lean:3574 | characters | `Salt.MR.M4DoorGates_L`, `Salt.MR.DoorRowCarriedT0_L` |
+| `Salt.MR.m4_wave_collapsed_False_L` | Salt/MR/M4RowAssemblyLinear.lean:3650 | characters | `Salt.MR.M4DoorGates_L`, `Salt.MR.DoorRowCarriedT0_L`, `Salt.Entropy.Chowla.logChowla2Fails` |
+| `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end_L` | Salt/MR/M4RowAssemblyLinear.lean:4013 | characters | `Salt.MR.DoorFuseFrame_L`, `Salt.MR.DoorRowEndBase_L` |
+| `Salt.MR.m4_wave_closed_coprime_discharged_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4305 | characters | `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.DoorRowCarriedT0_L_gk`, `Salt.MR.M4ChiFreeRowMeanSq_L_gk` |
+| `Salt.MR.m4_wave_closed_coprime_discharged_False_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4394 | characters | `Salt.MR.M4DoorGates_L_gk`, `Salt.MR.DoorRowCarriedT0_L_gk`, `Salt.MR.M4ChiFreeRowMeanSq_L_gk`, `Salt.Entropy.Chowla.logChowla2Fails` |
+| `Salt.MR.m4_door_meansq_carried_pool_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4442 | characters | `Salt.MR.DoorRowCarriedPool_L_gk` |
+| `Salt.MR.m4_dyadicRow_carried_pool_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4558 | characters | `Salt.MR.DoorRowCarriedPool_L_gk` |
+| `Salt.MR.m4_door_meansq_carried_join_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4592 | characters | `Salt.MR.DoorRowCarriedJoin_L_gk` |
+| `Salt.MR.m4_dyadicRow_carried_join_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4708 | characters | `Salt.MR.DoorRowCarriedJoin_L_gk` |
+| `Salt.MR.m4_rowDatum_dilated_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4742 | characters | `Salt.MR.DoorRowCarriedT0_L_gk` |
+| `Salt.MR.m4_hrowsSum_chi_door_end_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4845 | characters | `Salt.MR.SeamCoefWS`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_hrowsSlot_at_door_end_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4896 | characters | `Salt.MR.DoorRowEndBase_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end_L_gk_kwide` | Salt/MR/M4RowAssemblyLinear.lean:4948 | characters | `Salt.MR.DoorFuseFrame_L_gk`, `Salt.MR.DoorRowEndBase_L_gk` |
 | `Salt.MR.m4_door_meansq_carried_L` | Salt/MR/M4RowLinear.lean:4594 | characters | `Salt.MR.DoorRowCarried_L` |
 | `Salt.MR.m4_wave_structurally_closed_L` | Salt/MR/M4RowLinear.lean:4771 | characters | `Salt.MR.M4DoorGates_L`, `Salt.MR.DoorRowCarried_L`, `Salt.MR.M4CoprimeBlockMeanSq_L` |
 | `Salt.MR.m4_door_meansq_carried_L_gk` | Salt/MR/M4RowLinear.lean:5058 | characters | `Salt.MR.DoorRowCarried_L_gk` |
@@ -8153,15 +8153,15 @@ Declarations indexed across the tree: 23410 · corpus Prop-valued names (the hyp
 | `Salt.MR.m4_wave_closed_T0_discharged` | Salt/MR/M4T0Discharge.lean:782 | characters | `Salt.MR.M4DoorGates`, `Salt.MR.DoorRowCarriedT0`, `Salt.MR.M4CoprimeBlockMeanSq` |
 | `Salt.MR.m4_blockMeanSqSupQ_of_classMeanSq` | Salt/MR/M4WaveClosed.lean:256 | characters | `Salt.MR.M4ClassBlockMeanSq` |
 | `Salt.MR.m4_sievedDoorSq_of_classMeanSq` | Salt/MR/M4WaveClosed.lean:318 | sieves, characters | `Salt.MR.M4DoorGates`, `Salt.MR.M4ClassBlockMeanSq` |
-| `Salt.MR.m4_classMeanSq_of_chiMeanSq` | Salt/MR/M4WaveClosed.lean:446 | sieves, characters | `Salt.MR.M4ChiBlockMeanSq` |
-| `Salt.MR.m4_wave_closed` | Salt/MR/M4WaveClosed.lean:555 | characters | `Salt.MR.M4DoorGates`, `Salt.MR.M4ClassBlockMeanSq` |
-| `Salt.MR.m4_wave_closed_False` | Salt/MR/M4WaveClosed.lean:582 | characters | `Salt.MR.M4DoorGates`, `Salt.MR.M4ClassBlockMeanSq`, `Salt.Entropy.Chowla.logChowla2Fails` |
-| `Salt.MR.m4_wave_closed_of_chi` | Salt/MR/M4WaveClosed.lean:613 | sieves, characters | `Salt.MR.M4DoorGates`, `Salt.MR.M4ChiBlockMeanSq` |
-| `Salt.MR.m4_wave_closed_split` | Salt/MR/M4WaveClosed.lean:665 | characters | `Salt.MR.M4DoorGates`, `Salt.MR.M4ClassBlockMeanSq` |
-| `Salt.MR.m4_wave_closed_of_chi_split` | Salt/MR/M4WaveClosed.lean:693 | sieves, characters | `Salt.MR.M4DoorGates`, `Salt.MR.M4ChiBlockMeanSq` |
-| `Salt.MR.m4_chiBlock_fixed_of_chiRow` | Salt/MR/M4WaveClosed.lean:778 | sieves, characters | `Salt.MR.M4ChiRowMeanSq` |
-| `Salt.MR.m4_chiBlockMeanSq_of_row` | Salt/MR/M4WaveClosed.lean:840 | characters | `Salt.MR.M4ChiMaximalStep`, `Salt.MR.M4ChiRowMeanSq` |
-| `Salt.MR.m4_wave_closed_of_row` | Salt/MR/M4WaveClosed.lean:870 | sieves, characters | `Salt.MR.M4DoorGates`, `Salt.MR.M4ChiMaximalStep`, `Salt.MR.M4ChiRowMeanSq` |
+| `Salt.MR.m4_classMeanSq_of_chiMeanSq` | Salt/MR/M4WaveClosed.lean:455 | sieves, characters | `Salt.MR.M4ChiBlockMeanSq` |
+| `Salt.MR.m4_wave_closed` | Salt/MR/M4WaveClosed.lean:564 | characters | `Salt.MR.M4DoorGates`, `Salt.MR.M4ClassBlockMeanSq` |
+| `Salt.MR.m4_wave_closed_False` | Salt/MR/M4WaveClosed.lean:591 | characters | `Salt.MR.M4DoorGates`, `Salt.MR.M4ClassBlockMeanSq`, `Salt.Entropy.Chowla.logChowla2Fails` |
+| `Salt.MR.m4_wave_closed_of_chi` | Salt/MR/M4WaveClosed.lean:622 | sieves, characters | `Salt.MR.M4DoorGates`, `Salt.MR.M4ChiBlockMeanSq` |
+| `Salt.MR.m4_wave_closed_split` | Salt/MR/M4WaveClosed.lean:674 | characters | `Salt.MR.M4DoorGates`, `Salt.MR.M4ClassBlockMeanSq` |
+| `Salt.MR.m4_wave_closed_of_chi_split` | Salt/MR/M4WaveClosed.lean:702 | sieves, characters | `Salt.MR.M4DoorGates`, `Salt.MR.M4ChiBlockMeanSq` |
+| `Salt.MR.m4_chiBlock_fixed_of_chiRow` | Salt/MR/M4WaveClosed.lean:787 | sieves, characters | `Salt.MR.M4ChiRowMeanSq` |
+| `Salt.MR.m4_chiBlockMeanSq_of_row` | Salt/MR/M4WaveClosed.lean:849 | characters | `Salt.MR.M4ChiMaximalStep`, `Salt.MR.M4ChiRowMeanSq` |
+| `Salt.MR.m4_wave_closed_of_row` | Salt/MR/M4WaveClosed.lean:879 | sieves, characters | `Salt.MR.M4DoorGates`, `Salt.MR.M4ChiMaximalStep`, `Salt.MR.M4ChiRowMeanSq` |
 | `Salt.MR.m4_nonCoprime_classMeanSq_N_L` | Salt/MR/M4WaveLinear.lean:465 | characters | `Salt.MR.M4CoprimeBlockMeanSqN_L` |
 | `Salt.MR.nearRatTight_of_bigXiArcTight` | Salt/MR/M4Window.lean:219 | characters | `Salt.MR.BigXiArcTight` |
 | `Salt.MR.mrtUniformityXi_of_absWindowBound` | Salt/MR/M4Window.lean:243 | characters | `Salt.MR.NearRatTight` |
@@ -9050,8 +9050,8 @@ Declarations indexed across the tree: 23410 · corpus Prop-valued names (the hyp
 | `Salt.MR.SocketBase` | Salt/MR/M4Assembly.lean:431 | characters |
 | `Salt.MR.DoorFuseFrame` | Salt/MR/M4Assembly.lean:440 | characters |
 | `Salt.MR.M4RowDatumAt` | Salt/MR/M4BaseNarrow.lean:126 | characters |
-| `Salt.MR.M4ChiFreeRowMeanSqN` | Salt/MR/M4BaseNarrow.lean:818 | characters |
-| `Salt.MR.M4CoprimeBlockMeanSqNN` | Salt/MR/M4BaseNarrow.lean:841 | characters |
+| `Salt.MR.M4ChiFreeRowMeanSqN` | Salt/MR/M4BaseNarrow.lean:860 | characters |
+| `Salt.MR.M4CoprimeBlockMeanSqNN` | Salt/MR/M4BaseNarrow.lean:883 | characters |
 | `Salt.MR.M4SievedDoorSqBlk` | Salt/MR/M4BridgeBlock.lean:402 | characters |
 | `Salt.MR.M4BlockMeanSqBlk` | Salt/MR/M4BridgeBlock.lean:495 | characters |
 | `Salt.MR.M4BlockMeanSq` | Salt/MR/M4BridgeCover.lean:386 | characters |
@@ -9086,9 +9086,9 @@ Declarations indexed across the tree: 23410 · corpus Prop-valued names (the hyp
 | `Salt.MR.DoorRowT0Gates` | Salt/MR/M4T0Discharge.lean:577 | characters |
 | `Salt.MR.DoorRowCarriedT0` | Salt/MR/M4T0Discharge.lean:587 | characters |
 | `Salt.MR.M4ClassBlockMeanSq` | Salt/MR/M4WaveClosed.lean:198 | characters |
-| `Salt.MR.M4ChiBlockMeanSq` | Salt/MR/M4WaveClosed.lean:406 | characters |
-| `Salt.MR.M4ChiRowMeanSq` | Salt/MR/M4WaveClosed.lean:756 | characters |
-| `Salt.MR.M4ChiMaximalStep` | Salt/MR/M4WaveClosed.lean:827 | characters |
+| `Salt.MR.M4ChiBlockMeanSq` | Salt/MR/M4WaveClosed.lean:415 | characters |
+| `Salt.MR.M4ChiRowMeanSq` | Salt/MR/M4WaveClosed.lean:765 | characters |
+| `Salt.MR.M4ChiMaximalStep` | Salt/MR/M4WaveClosed.lean:836 | characters |
 | `Salt.MR.M4RowMeanSqLam` | Salt/MR/MRTPortRowLam.lean:49 | characters |
 | `Salt.MR.MrtCompMultDatum` | Salt/MR/MRTProp24.lean:200 | characters |
 | `Salt.MR.MRTProp24` | Salt/MR/MRTProp24.lean:271 | characters |
@@ -9495,7 +9495,7 @@ Declarations indexed across the tree: 23410 · corpus Prop-valued names (the hyp
 | `Salt.MR.classSup` | Salt/MR/M4WaveClosed.lean:141 | characters |
 | `Salt.MR.doorSievedWindow` | Salt/MR/M4WaveClosed.lean:364 | characters |
 | `Salt.MR.doorChiSup` | Salt/MR/M4WaveClosed.lean:369 | characters |
-| `Salt.MR.doorChiCoeff` | Salt/MR/M4WaveClosed.lean:738 | characters |
+| `Salt.MR.doorChiCoeff` | Salt/MR/M4WaveClosed.lean:747 | characters |
 | `Salt.MR.windowExpSum_eq_offWindowSum` | Salt/MR/M4Window.lean:100 | characters, exponential sums |
 | `Salt.MR.offWindowSum_eq_rebase` | Salt/MR/M4Window.lean:151 | characters |
 | `Salt.MR.absWindowSum_add_coeff` | Salt/MR/M4Window.lean:325 | characters |
