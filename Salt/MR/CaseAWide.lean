@@ -256,7 +256,7 @@ lemma caseASwide_eq_caseAS2 (c Cb M W : ℝ) : caseASwide c Cb M W W = caseAS2 c
 
 /-- `0 ≤ caseASwide c Cb M Xw Xa` at `2c < 1`, `0 ≤ Cb`, `1 ≤ Xw`, `1 ≤ Xa`: each of the three
 arms is a product of nonnegatives — `gradeAbsConstC_nonneg · exp(−cM)`,
-`farCStar2_nonneg · (log Xw)^{−…}`, and `(log Xa)^{−1/2+1/1000}` (`Real.rpow_nonneg` of
+`farCStar2_nonneg · (log Xw)^{−…}`, and `4·(log Xa)^{−1/2+1/1000}` (`Real.rpow_nonneg` of
 `Real.log_nonneg`). Read by `RegisterInhabit` and once in this file. -/
 lemma caseASwide_nonneg {c Cb M Xw Xa : ℝ} (hc1 : 2 * c < 1) (hCb0 : 0 ≤ Cb)
     (hXw : 1 ≤ Xw) (hXa : 1 ≤ Xa) : 0 ≤ caseASwide c Cb M Xw Xa := by

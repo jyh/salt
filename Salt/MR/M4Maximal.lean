@@ -311,7 +311,7 @@ theorem geom_weight_sum_pos (n : ℕ) :
     (0 : ℝ) < ∑ j ∈ Finset.range (n + 1), (3 / 2 : ℝ) ^ j :=
   Finset.sum_pos (fun j _ => by positivity) ⟨0, Finset.mem_range.mpr (by omega)⟩
 
-/-- `∑_{j ≤ n} (3/2)^j ≤ 3·(3/2)^n`: the closed form `geom_weight_sum` (`2·((3/2)^{n+1} − 1)`)
+/-- `∑_{j ≤ n} (3/2)^j ≤ 3·(3/2)^n`: the closed form `geom_weight_sum` (`3·(3/2)^n − 2`)
 sits under `3·(3/2)^n` (`linarith`) — the geometric weights' total, which is what keeps the
 maximal price a constant. Read twice in this file; no consumer outside it. -/
 theorem geom_weight_sum_le (n : ℕ) :
