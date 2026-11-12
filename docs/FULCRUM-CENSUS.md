@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `1307de0a` · source digest `cd4e113f4d4829c7` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `96bb4771` · source digest `b0822312d88be5af` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,9 +22,9 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 23388 | 678 | 22699 | 9148 | 13 | 283 | 40 | 342 | 87 |
+| 23394 | 682 | 22701 | 9148 | 13 | 285 | 40 | 344 | 87 |
 
-Per-polarity totals over the 678 Props: with F-consumers 528 · with ¬F-consumers 21 · with F-producers (any kind) 444 · with ¬F-producers (any kind) 59.
+Per-polarity totals over the 682 Props: with F-consumers 530 · with ¬F-consumers 21 · with F-producers (any kind) 446 · with ¬F-producers (any kind) 59.
 
 ## FULCRUM-SHAPED (13) — both polarities consumed
 
@@ -46,7 +46,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | `Salt.MR.NearRat` | Salt/MR/BigXiArc.lean:144 | DISCHARGED | 1 (1/0) | 2 (2/0) | 3/3/0 | 0/0/0 | 0/0 | `Salt.MR.exists_large_den_of_minor` (Salt/MR/BigXiArc.lean:331), `Salt.MR.exists_large_den_of_not_nearRat` (Salt/MR/BigXiArc.lean:274) | `Salt.MR.nearRat_mono` (Salt/MR/BigXiArc.lean:188) |
 | `Salt.MR.MemS` | Salt/MR/Sec9Glue.lean:118 | OPEN | 1 (1/0) | 1 (1/0) | 0/0/0 | 4/0/0 | 0/6 | `Salt.MR.memSCoeff_eq_zero_of_not_memS` (Salt/MR/M4Band.lean:359) | `Salt.MR.memSPunct_of_memS` (Salt/MR/M4Puncture.lean:69) |
 
-## HALF-SHAPED SOCKETS — top 40 of 283 by F-consumer count (status OPEN, not FRAME, no ¬F-consumer: *what would ¬P give?*)
+## HALF-SHAPED SOCKETS — top 40 of 285 by F-consumer count (status OPEN, not FRAME, no ¬F-consumer: *what would ¬P give?*)
 
 | # | P | defined at | status | F-cons (direct/engine) | audited hang (item 2) | ∃-witness producers | cond. producers | ¬F-prod | sites | F-consumer examples |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -87,7 +87,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | 35 | `Salt.MR.DoorRowEndBase_L` | Salt/MR/M4RowLinear.lean:338 | OPEN | 10 (10/0) | 5 | - | 0 | 0 | 0 | `Salt.MR.m4_chiSummedFreeRow_of_doorArith_end_L` (Salt/MR/M4SocketLinear.lean:155), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end_L` (Salt/MR/M4RowAssemblyLinear.lean:4409), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_end'_L` (Salt/MR/M4RowsChiPrimeLinear.lean:217) +7 |
 | 36 | `Salt.MR.S16BandLaneCBoundedL_win` | Salt/MR/S16Uniform.lean:1047 | OPEN | 10 (10/0) | 10 | `Salt.MR.s16_bandLaneWinL_holds` (Salt/MR/S16Uniform.lean:1084), `Salt.MR.s16_bandLaneWinL_holds_uniform` (Salt/MR/S16Uniform.lean:1570) | 1 | 0 | 0 | `Salt.MR.flat_capstone_uniform_win` (Salt/MR/S16Uniform.lean:1123), `Salt.MR.flat_capstone_uniform_win_ceiling` (Salt/MR/S16Compose.lean:446), `Salt.MR.flat_capstone_uniform_win_ceiling_kwide` (Salt/MR/S16Compose.lean:1115) +7 |
 | 37 | `Salt.HB.N7Exit` | Salt/HB/CrownTheorem1.lean:512 | OPEN | 9 (9/0) | 9 | - | 0 | 0 | 0 | `Salt.HB.crown_handover` (Salt/HB/CrownTheorem1.lean:6902), `Salt.HB.crown_handover_k1` (Salt/HB/CrownTheorem1.lean:6577), `Salt.HB.hEngine_of_N7` (Salt/HB/CrownTheorem1.lean:6925) +6 |
-| 38 | `Salt.MR.DoorRowCarriedT0_L_gk` | Salt/MR/M4RowLinear.lean:10160 | OPEN | 9 (9/0) | 5 | - | 0 | 2 | 0 | `Salt.MR.doorRowCarriedT0_endpoint_L_gk` (Salt/MR/M4RowSpineLinear.lean:1560), `Salt.MR.doorRowCarried_of_t0free_L_gk` (Salt/MR/M4RowLinear.lean:10404), `Salt.MR.m4_register_forces_endpoint_interval_L_gk` (Salt/MR/M4RowSpineLinear.lean:1570) +6 |
+| 38 | `Salt.MR.DoorRowCarriedT0_L_gk` | Salt/MR/M4RowLinear.lean:8747 | OPEN | 9 (9/0) | 5 | - | 0 | 2 | 0 | `Salt.MR.doorRowCarriedT0_endpoint_L_gk` (Salt/MR/M4RowSpineLinear.lean:1560), `Salt.MR.doorRowCarried_of_t0free_L_gk` (Salt/MR/M4RowLinear.lean:8991), `Salt.MR.m4_register_forces_endpoint_interval_L_gk` (Salt/MR/M4RowSpineLinear.lean:1570) +6 |
 | 39 | `Salt.MR.S15CrossingBound_gk` | Salt/MR/S15Compose.lean:1960 | OPEN | 9 (9/0) | 1 | `Salt.MR.s15_crossing_supplied_gk` (Salt/MR/S16Budget.lean:630), `Salt.MR.s15_crossing_supplied_bounded_gk` (Salt/MR/S16Budget.lean:1306) +1 | 0 | 0 | 0 | `Salt.MR.logChowla2_conditional_graded_gk` (Salt/MR/S15Compose.lean:2119), `Salt.MR.logChowla2_conditional_sharp2_atK_gk` (Salt/MR/S15Compose.lean:2512), `Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned` (Salt/MR/S15Compose.lean:2617) +6 |
 | 40 | `Salt.Maynard.S1InnerBound` | Salt/Maynard/CollisionQuantW.lean:50 | OPEN | 9 (9/0) | 0 | - | 0 | 0 | 0 | `Salt.Maynard.S1_le_of` (Salt/Maynard/CollisionQuantW.lean:340), `Salt.Maynard.S1_upper_of` (Salt/Maynard/CollisionQuantW.lean:373), `Salt.Maynard.collision_lower_orderW_of` (Salt/Maynard/CollisionQuantW.lean:71) +6 |
 
