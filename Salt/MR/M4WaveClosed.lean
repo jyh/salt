@@ -385,6 +385,15 @@ def doorChiSupAZ (Ad zd : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n 
 def doorSievedCoeffAZ (Ad zd M : ℕ) : ℕ → ℂ :=
   memSCoeff (calP Ad zd) (calQK Ad zd M) 2 liouvilleC
 
+/-- **⟦O13-e row 145, L5⟧** `M4ClassBlockMeanSq` over the door parameters `(Ad, zd)`: the base,
+`_gk`, `_L` and `_L_gk` per-class block mean squares are its four corners. -/
+def M4ClassBlockMeanSqAZ (Ad zd : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bcl : ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+    ∀ i < k, ∀ r, r < q →
+      ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          (classSup (doorSievedCoeffAZ Ad zd M) H n q r) ^ 2
+        ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
+
 /-- `le_doorChiSup` at any `(Ad, zd)`. -/
 theorem le_doorChiSupAZ (Ad zd : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {K : ℕ}
     (hK : K ≤ H) :
