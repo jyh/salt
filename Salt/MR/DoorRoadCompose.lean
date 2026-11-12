@@ -296,7 +296,7 @@ artifact of the route *I* invented, not a gap in the corpus.  **The corpus's own
 asks the containment question at all:**
 
 ```
-  M4BaseNarrow.lean:285 / M4ChiSummed.lean:636   ⟦STEP 1⟧ then ⟦STEP 2⟧
+  M4BaseNarrow.lean:284 / M4ChiSummed.lean:636   ⟦STEP 1⟧ then ⟦STEP 2⟧
     ∑_{n ∈ Ioc A B} (doorChiSup χ M L n)²   ≤   ∑_{n ∈ Ioc A B} SL · ∑_j (∑_t X j t n)·(2/3)^j
     then the sums COMMUTE:  ∑_n ∑_j ∑_t  ⟶  ∑_j ∑_t ∑_{n ∈ Ioc A B}
 ```
