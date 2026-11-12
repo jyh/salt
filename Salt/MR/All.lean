@@ -5528,7 +5528,7 @@ open Salt.Tactic in
 -- discharged, in front of FOUR gates (edge `q`-scale; the region's `A`-absorption at
 -- `A := 1 + log(20000(Cq+8104))/100`; the below-floor comparison `Kq`; the Siegel gate `Ks`) and
 -- nothing else.  It takes the edge price at the LITERAL width `1/10⁸` —
--- `twisted_edge_price_strip` proves exactly that (TwistedEdge.lean:896) and
+-- `twisted_edge_price_strip` proves exactly that (TwistedEdge.lean:899) and
 -- `twisted_window_price_gated_holds` passes the same constant through, but both hide it behind
 -- `∃ c_vk`, so the kernel cannot see that it matches the region's own `1/10⁸`.
 --
@@ -9035,7 +9035,7 @@ The residual enters once (`m4_freeBlockSup_of_chiSummedH_L_gk`) at `strataResidu
 strataResidual H + log h`, the grades stay in the base residual, and the `h = 2` ceiling lemma
 pays the `log 2` under the LANDED `110525` at `Real.pi_lt_d4` (ratio² < 1.00231).  The
 `ℓ`-witness `blockLenH` halves with the cap (the landed `blockLen` pinches at `q = 1` under cap
-`2·arcDen`).  The three `_Q` drift lemmas are `M4BridgeBlock:247/293/325` at an opaque cap (the
+`2·arcDen`).  The three `_Q` drift lemmas are `M4BridgeBlock:252/298/330` at an opaque cap (the
 helm's RESPELL of the rpow identity).  The framed base `SocketBaseLH` is REUSED from
 `HDoorSupply` (byte-identical to the draft's, x-floor inflated — an independent confirmation).
 ⛔ NOT here: the `SocketBaseL`-framed producer population re-quantified over `SocketBaseLH h`,

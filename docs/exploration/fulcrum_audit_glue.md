@@ -25,7 +25,7 @@ The docs' "H-glue" is the CHEN assembly glue (docs/blueprints/chen.md:461-470:
 discharge map for `chen_of_hypotheses`'s H). It LANDED: `chen_headline :
 {p | p.Prime ∧ IsP2 2 (p+2)}.Infinite` — Salt/Chen/ChenTheorem.lean:32,
 sorry-free, axioms audited (docstring :24-26). Relevance to the fulcrum: (a) the
-H-glue's `∀X ∃ operating point` plumbing (Chen/Assembly.lean:425-440 →
+H-glue's `∀X ∃ operating point` plumbing (Chen/Assembly.lean:434-449 →
 `Set.infinite_of_forall_exists_gt`) is EXACTLY the WP7 windowed-door shape HB needs;
 (b) chen_headline is the corpus's proof-of-life that signed-resolution reading
 escapes the parity wall (TwinDoor.lean:40-44).

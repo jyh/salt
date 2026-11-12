@@ -40,9 +40,9 @@ its SIXTEEN residue binders as the landed supply allows, naming every survivor e
 | # | binder | discharged from | where |
 |---|---|---|---|
 | 1 | `hgates` | `s13_doorGates_of_MSelect'` + `S15Sel` | `S13MSelect2.lean:406` |
-| 2 | `hend` | `s13_endpoint_of_arm'` (the demoted arm) | `S13FramesA.lean:892` |
-| 3 | `hj0` | `s13_g2_jfloor` at `Λ := loglog H₊` | `S13FramesA.lean:500` |
-| 4 | `hdgate` | `s13_gate8` at `Λ := loglog H₊` | `S13FramesA.lean:528` |
+| 2 | `hend` | `s13_endpoint_of_arm'` (the demoted arm) | `S13FramesA.lean:896` |
+| 3 | `hj0` | `s13_g2_jfloor` at `Λ := loglog H₊` | `S13FramesA.lean:504` |
+| 4 | `hdgate` | `s13_gate8` at `Λ := loglog H₊` | `S13FramesA.lean:532` |
 | 5 | `hfit` | `s13_smallGradeFits_of_MSelect'` | `S13MSelect2.lean:420` |
 | 6 | `hbf` | `doorBaseFrame_at_socket` | `M4AssemblyFrames.lean` |
 | 7 | `hgP1` | `s15_gP1_of_budget` (CONST-VERDICT §C) | §1 below |
@@ -51,7 +51,7 @@ its SIXTEEN residue binders as the landed supply allows, naming every survivor e
 | 10 | `_heps293` | `s15_heps293_at_socket` (CONST-VERDICT §F) | §1 below |
 | 11 | `hband4096` | `s15_hband4096_at_socket` (CONST-VERDICT §F) | §1 below |
 | 12 | `_hepsr` | `s13_theta293_margin_lo` + `le_rfl` | `S13MSelect2.lean:66` |
-| 13 | `hbase5` | `s13_doorRowZeroBase_five` + `s15_block_at_socket` | `S13FramesA.lean:760` |
+| 13 | `hbase5` | `s13_doorRowZeroBase_five` + `s15_block_at_socket` | `S13FramesA.lean:764` |
 | 14 | `hcapraw` | **THE SURVIVOR** — see §C | — |
 | 15 | `hbandbase` | `doorBandBase_family` + `s15_bandGate_of_grade` | `S13BandBase.lean:509` |
 | 16 | `harith` | `s15_doorArithFrameRho_family` | §2 below |
@@ -1432,7 +1432,7 @@ suppliers carry, and each discard is a wall:
   `≥ exp (exp 100)`, so at the weak form no window admits it and at the tolerant form the
   room is `doorRowFloor M` DOUBLE-LOG units.
 * **`anchor`** reads the `ρ`-frame's ⟦C1⟧ line at `log₂M + 1 ≥ 1` (§2's own note) — but
-  `M4ArithRho.DoorArithFrameRho.anchor` carries the factor `(log₂M + 1)` (`M4ArithRho:194`).
+  `M4ArithRho.DoorArithFrameRho.anchor` carries the factor `(log₂M + 1)` (`M4ArithRho:200`).
   Restored, the register's `λ₊`-cap grows WITH `M` and the `M`-ceiling moves from `2^{66}`
   to `2^{356}`.
 

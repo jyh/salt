@@ -122,6 +122,8 @@ definition). -/
 def muChiTw {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) : ℕ → ℂ :=
   fun n => ((ArithmeticFunction.moebius n : ℤ) : ℂ) * chiBarTwist χ t n
 
+/-- `muChiTw χ t 0 = 0` (`@[simp]`): `μ(0) = 0` (`simp [muChiTw]`). Read once in this file; no
+consumer outside it. -/
 @[simp] lemma muChiTw_zero {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) :
     muChiTw χ t 0 = 0 := by
   simp [muChiTw]
@@ -378,12 +380,21 @@ the classical region's `1/2 ≤ Re ρ` hypothesis is available for free. -/
 def boxWidth (c₀ A : ℝ) (q : ℕ) (H : ℝ) : ℝ :=
   min (1 / 2) (min (vkBoxWidth A H) (clBoxWidth c₀ q))
 
+/-- `boxWidth c₀ A q H ≤ 1/2`: the outer `min` (`min_le_left`) — the cap that keeps the
+classical region's `1/2 ≤ Re ρ` hypothesis free. Read by `LFunctionInvShallow` and
+`MobiusChiRateClose`, and once in this file. -/
 lemma boxWidth_le_half (c₀ A : ℝ) (q : ℕ) (H : ℝ) : boxWidth c₀ A q H ≤ 1 / 2 :=
   min_le_left _ _
 
+/-- `boxWidth c₀ A q H ≤ vkBoxWidth A H`: the inner `min`'s left arm (`min_le_right`,
+`min_le_left`) — the shallow width sits under the χ-VK arm's. Read by `LFunctionInvShallow` and
+once in this file. -/
 lemma boxWidth_le_vk (c₀ A : ℝ) (q : ℕ) (H : ℝ) : boxWidth c₀ A q H ≤ vkBoxWidth A H :=
   le_trans (min_le_right _ _) (min_le_left _ _)
 
+/-- `boxWidth c₀ A q H ≤ clBoxWidth c₀ q`: the inner `min`'s right arm (`min_le_right` twice) —
+the shallow width sits under the classical below-floor width. Read once in this file; no
+consumer outside it. -/
 lemma boxWidth_le_cl (c₀ A : ℝ) (q : ℕ) (H : ℝ) : boxWidth c₀ A q H ≤ clBoxWidth c₀ q :=
   le_trans (min_le_right _ _) (min_le_right _ _)
 
@@ -680,6 +691,11 @@ def vkShallowWidth (c₄ : ℝ) (q : ℕ) (H : ℝ) : ℝ :=
   c₄ / ((Real.log (q : ℝ) + 1) * Real.log H ^ ((3 : ℝ) / 4)
           * Real.log (Real.log H) ^ (3 : ℕ))
 
+/-- `0 < vkShallowWidth c₄ q H` at `0 < c₄` and `exp(exp 100) + 1 ≤ H`: the denominator
+`(log q + 1)·(log H)^{3/4}·(loglog H)³` is positive because `log H ≥ exp 100` and
+`loglog H ≥ 100` there (`Real.log_le_log` through `Real.log_exp`, `Real.rpow_pos_of_pos`,
+`Real.log_natCast_nonneg`), so `div_pos`. Read by `FlatDoorStandoff` and `PortClose`; not in
+this file beyond its proof. -/
 lemma vkShallowWidth_pos {c₄ H : ℝ} (hc₄ : 0 < c₄) {q : ℕ}
     (hH : Real.exp (Real.exp 100) + 1 ≤ H) : 0 < vkShallowWidth c₄ q H := by
   have hexp100 : (101 : ℝ) ≤ Real.exp 100 := by linarith [Real.add_one_le_exp (100 : ℝ)]
