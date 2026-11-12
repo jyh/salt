@@ -52,26 +52,26 @@ def M4ClassBlockMeanSq_L (R : ChowlaRegime) (M k : ℕ) (Bcl : ℕ → ℝ) : Pr
           (classSup (doorSievedCoeff_L M) H n q r) ^ 2
         ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
 
-/-! ### `M4WaveClosed` :362 — `doorSievedWindow` -/
+/-! ### `M4WaveClosed` :390 — `doorSievedWindow` -/
 /-- **THE DOOR'S SIEVED WINDOW**, named once: `{n < m ≤ n+K : m ∈ 𝒮}` at the door's own
 K-family.  `M4ClassPrice.sievedWindow` at `p := MemS (calP …) (calQK …) 2`. -/
 def doorSievedWindow_L (M K n : ℕ) : Finset ℕ :=
   sievedWindow (MemS (calP (AdoorL M) (3072 * M)) (calQK (AdoorL M) (3072 * M) M) 2) K n
 
-/-! ### `M4WaveClosed` :745 — `doorChiCoeff` -/
+/-! ### `M4WaveClosed` :759 — `doorChiCoeff` -/
 /-- **THE SIEVED, χ-TWISTED DATUM** `doorChiCoeff_L χ M = 1_𝒮·λχ̄` at the door's own K-family.
 The ⟦lam collision⟧: `liouChi`, never `lamChi` — the sum runs over integers. -/
 def doorChiCoeff_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M : ℕ) : ℕ → ℂ :=
   memSCoeff (calP (AdoorL M) (3072 * M)) (calQK (AdoorL M) (3072 * M) M) 2 (liouChi χ)
 
-/-! ### `M4WaveClosed` :750 — `absWindowSum_doorChiCoeff_zero` -/
+/-! ### `M4WaveClosed` :764 — `absWindowSum_doorChiCoeff_zero` -/
 /-- The indicator-restricted window sum IS the sum over the sieved window. -/
 theorem absWindowSum_doorChiCoeff_zero_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) :
     absWindowSum (doorChiCoeff_L χ M) H n 0 = ∑ m ∈ doorSievedWindow_L M H n, liouChi χ m := by
   rw [absWindowSum_zero, doorSievedWindow_L, sievedWindow, Finset.sum_filter]
   rfl
 
-/-! ### `M4WaveClosed` :756 — `M4ChiRowMeanSq` -/
+/-! ### `M4WaveClosed` :770 — `M4ChiRowMeanSq` -/
 /-- **THE ROW INPUT, PER CHARACTER** (`M4ChiRowMeanSq_L`) — the mean square of the door's
 sieved, χ-twisted, UN-PHASED datum on one ladder block, in `ThmA2.thm_a2'_of_rows_L`' own
 currency (`1/X·∫_X^{2X}‖(1/H)·shortSum a (seamS0 N X) y H‖²` at `X = X_{i+1}`, `N = 2X_{i+1}`,
@@ -92,7 +92,7 @@ def M4ChiRowMeanSq_L (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℝ) : Prop :=
                         (doorLadder R.x H (i + 1) : ℝ)) y (H : ℝ)‖ ^ 2)
         ≤ MS H
 
-/-! ### `M4WaveClosed` :928 — `M4ClassBlockMeanSq_gk` -/
+/-! ### `M4WaveClosed` :942 — `M4ClassBlockMeanSq_gk` -/
 /-- **THE ANALYTIC ITEM AT THE LEVER** — `M4ClassBlockMeanSq_L` (:198). -/
 def M4ClassBlockMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bcl : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
@@ -101,21 +101,21 @@ def M4ClassBlockMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bcl : ℕ 
           (classSup (doorSievedCoeff_L_gk K M) H n q r) ^ 2
         ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
 
-/-! ### `M4WaveClosed` :1035 — `doorSievedWindow_gk` -/
-/-- **THE DOOR'S SIEVED WINDOW AT THE LEVER** — `doorSievedWindow_L` (:364), with the
+/-! ### `M4WaveClosed` :999 — `doorSievedWindow_gk` -/
+/-- **THE DOOR'S SIEVED WINDOW AT THE LEVER** — `doorSievedWindow_L` (:392), with the
 sub-window binder α-renamed `K ↦ Kw`.  THE SIEVE SET GENUINELY MOVES: `𝒫`, `𝒬` grow with the
 lever, so this is a different `Finset`. -/
 def doorSievedWindow_L_gk (K M Kw n : ℕ) : Finset ℕ :=
   sievedWindow (MemS (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) 2) Kw n
 
-/-! ### `M4WaveClosed` :1269 — `doorChiCoeff_gk` -/
-/-- **THE SIEVED, χ-TWISTED DATUM AT THE LEVER** — `doorChiCoeff_L` (:747). -/
+/-! ### `M4WaveClosed` :1233 — `doorChiCoeff_gk` -/
+/-- **THE SIEVED, χ-TWISTED DATUM AT THE LEVER** — `doorChiCoeff_L` (:761). -/
 def doorChiCoeff_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M : ℕ) : ℕ → ℂ :=
   memSCoeff (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) 2 (liouChi χ)
 
-/-! ### `M4WaveClosed` :1273 — `absWindowSum_doorChiCoeff_zero_gk` -/
+/-! ### `M4WaveClosed` :1237 — `absWindowSum_doorChiCoeff_zero_gk` -/
 /-- The indicator-restricted window sum IS the sum over the levered sieved window —
-`absWindowSum_doorChiCoeff_zero_L` (:751). -/
+`absWindowSum_doorChiCoeff_zero_L` (:765). -/
 theorem absWindowSum_doorChiCoeff_zero_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
     (M H n : ℕ) :
     absWindowSum (doorChiCoeff_L_gk K χ M) H n 0
@@ -123,8 +123,8 @@ theorem absWindowSum_doorChiCoeff_zero_L_gk (K : ℕ) {q : ℕ} (χ : DirichletC
   rw [absWindowSum_zero, doorSievedWindow_L_gk, sievedWindow, Finset.sum_filter]
   rfl
 
-/-! ### `M4WaveClosed` :1282 — `M4ChiRowMeanSq_gk` -/
-/-- **THE ROW INPUT, PER CHARACTER, AT THE LEVER** — `M4ChiRowMeanSq_L` (:765). -/
+/-! ### `M4WaveClosed` :1246 — `M4ChiRowMeanSq_gk` -/
+/-- **THE ROW INPUT, PER CHARACTER, AT THE LEVER** — `M4ChiRowMeanSq_L` (:779). -/
 def M4ChiRowMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
     ∀ i < k, ∀ χ : DirichletCharacter ℂ q,
@@ -334,7 +334,7 @@ def M4CoprimeBlockMeanSq_L (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : Pr
         ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L M) L n q r) ^ 2
           ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
 
-/-! ### `M4NonCoprime` :379 — `m4_nonCoprime_classMeanSq` -/
+/-! ### `M4NonCoprime` :388 — `m4_nonCoprime_classMeanSq` -/
 /-- **⟦R2⟧ — `m4_nonCoprime_classMeanSq_L`.**  The coprime family gives `M4ClassBlockMeanSq_L` at
 EVERY class of `q`, at the SAME grade:
 
@@ -357,7 +357,7 @@ theorem m4_nonCoprime_classMeanSq_L {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ �
   m4_nonCoprime_classMeanSq_AZ (AdoorL M) (3072 * M) hBcl0
     (fun H hlo hhi _ _ _ hq hqQ => classSup_le_dilate_L hM hq hqQ (hgate H hlo hhi)) harc hcp
 
-/-! ### `M4NonCoprime` :509 — `M4CoprimeBlockMeanSqN` -/
+/-! ### `M4NonCoprime` :530 — `M4CoprimeBlockMeanSqN` -/
 /-- **THE NARROWED COPRIME FAMILY** (`M4CoprimeBlockMeanSqN_L`) — `M4CoprimeBlockMeanSq_L` with
 ⟦THE NARROWING⟧ `(H : ℝ) ≤ arcDen 12 H · L` inserted directly after `L ≤ H`, and NOTHING
 else changed.  Strictly weaker as a hypothesis on a supplier, strictly stronger as a demand
@@ -369,7 +369,7 @@ def M4CoprimeBlockMeanSqN_L (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : P
         ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L M) L n q r) ^ 2
           ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
 
-/-! ### `M4NonCoprime` :546 — `m4_nonCoprime_classMeanSq_N` -/
+/-! ### `M4NonCoprime` :576 — `m4_nonCoprime_classMeanSq_N` -/
 /-- **⟦R2⟧, AT THE NARROWED TWIN** (`m4_nonCoprime_classMeanSq_N_L`).  Byte-for-byte
 `m4_nonCoprime_classMeanSq_L` with its coprime datum read at `M4CoprimeBlockMeanSqN_L`: the SAME
 hypothesis list, the SAME conclusion `M4ClassBlockMeanSq_L R M k Bcl`, the SAME grade — the
@@ -388,7 +388,7 @@ theorem m4_nonCoprime_classMeanSq_N_L {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ 
   m4_nonCoprime_classMeanSq_N_AZ (AdoorL M) (3072 * M) hBcl0
     (fun H hlo hhi _ _ _ hq hqQ => classSup_le_dilate_L hM hq hqQ (hgate H hlo hhi)) harc hcp
 
-/-! ### `M4NonCoprime` :675 — `classSup_le_dilate_gk` -/
+/-! ### `M4NonCoprime` :717 — `classSup_le_dilate_gk` -/
 /-- **THE POINTWISE TRANSPORT AT THE LEVER** — `classSup_le_dilate_L` (:304). -/
 theorem classSup_le_dilate_L_gk (K : ℕ) {M H q r n : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
     (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) :
@@ -405,7 +405,7 @@ theorem classSup_le_dilate_L_gk (K : ℕ) {M H q r n : ℕ} {W : ℝ} (hM : 1 �
   rw [heq]
   exact le_classSup _ _ _ _ _ hlen
 
-/-! ### `M4NonCoprime` :691 — `M4CoprimeBlockMeanSq_gk` -/
+/-! ### `M4NonCoprime` :733 — `M4CoprimeBlockMeanSq_gk` -/
 /-- **THE COPRIME FAMILY AT THE LEVER** — `M4CoprimeBlockMeanSq_L` (:339). -/
 def M4CoprimeBlockMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H →
@@ -414,8 +414,8 @@ def M4CoprimeBlockMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ 
         ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L_gk K M) L n q r) ^ 2
           ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
 
-/-! ### `M4NonCoprime` :722 — `m4_nonCoprime_classMeanSq_gk` -/
-/-- **⟦R2⟧ AT THE LEVER** — `m4_nonCoprime_classMeanSq_L` (:384). -/
+/-! ### `M4NonCoprime` :764 — `m4_nonCoprime_classMeanSq_gk` -/
+/-- **⟦R2⟧ AT THE LEVER** — `m4_nonCoprime_classMeanSq_L` (:393). -/
 theorem m4_nonCoprime_classMeanSq_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
     (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
     (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
@@ -426,8 +426,8 @@ theorem m4_nonCoprime_classMeanSq_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} 
   m4_nonCoprime_classMeanSq_AZ (AdoorL M) (s13GK K M) hBcl0
     (fun H hlo hhi _ _ _ hq hqQ => classSup_le_dilate_L_gk K hM hq hqQ (hgate H hlo hhi)) harc hcp
 
-/-! ### `M4NonCoprime` :817 — `M4CoprimeBlockMeanSqN_gk` -/
-/-- **THE NARROWED COPRIME FAMILY AT THE LEVER** — `M4CoprimeBlockMeanSqN_L` (:506). -/
+/-! ### `M4NonCoprime` :775 — `M4CoprimeBlockMeanSqN_gk` -/
+/-- **THE NARROWED COPRIME FAMILY AT THE LEVER** — `M4CoprimeBlockMeanSqN_L` (:527). -/
 def M4CoprimeBlockMeanSqN_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → (H : ℝ) ≤ arcDen 12 H * (L : ℝ) →
     ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H → ∀ r, r < q → Nat.Coprime q r →
@@ -435,8 +435,8 @@ def M4CoprimeBlockMeanSqN_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ
         ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L_gk K M) L n q r) ^ 2
           ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
 
-/-! ### `M4NonCoprime` :838 — `m4_nonCoprime_classMeanSq_N_gk` -/
-/-- **⟦R2⟧, AT THE NARROWED TWIN, AT THE LEVER** — `m4_nonCoprime_classMeanSq_N_L` (:547). -/
+/-! ### `M4NonCoprime` :796 — `m4_nonCoprime_classMeanSq_N_gk` -/
+/-- **⟦R2⟧, AT THE NARROWED TWIN, AT THE LEVER** — `m4_nonCoprime_classMeanSq_N_L` (:577). -/
 theorem m4_nonCoprime_classMeanSq_N_L_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
     (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
     (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
