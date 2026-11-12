@@ -254,6 +254,37 @@ def M4ChiFreeRowMeanSq (R : ChowlaRegime) (M : ℕ) (MS : ℕ → ℕ → ℝ) :
                         (seamS0 (2 * (A + s)) ((A + s : ℕ) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
           ≤ MS j H
 
+/-- **⟦O13-e row 145, batch 3⟧** `M4WaveClosed.doorChiCoeff` over the door parameters
+`(Ad, zd)`: the base, `_gk`, `_L` and `_L_gk` coefficients are its four corners. -/
+def doorChiCoeffAZ (Ad zd : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M : ℕ) : ℕ → ℂ :=
+  memSCoeff (calP Ad zd) (calQK Ad zd M) 2 (liouChi χ)
+
+/-- `doorChiCoeffAZ` is 1-bounded: `norm_doorChiCoeff_le_one` at any `(Ad, zd)`. -/
+theorem norm_doorChiCoeffAZ_le_one (Ad zd : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M n : ℕ) :
+    ‖doorChiCoeffAZ Ad zd χ M n‖ ≤ 1 :=
+  norm_memSCoeff_le_one (norm_liouChi_le_one χ) _ _ 2 n
+
+/-- The indicator-restricted window sum IS the sum over `doorWinAZ`:
+`absWindowSum_doorChiCoeff_zero` at any `(Ad, zd)`. -/
+theorem absWindowSum_doorChiCoeffAZ_zero (Ad zd : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
+    (M H n : ℕ) :
+    absWindowSum (doorChiCoeffAZ Ad zd χ M) H n 0 = ∑ m ∈ doorWinAZ Ad zd M H n, liouChi χ m := by
+  rw [absWindowSum_zero, doorWinAZ, sievedWindow, Finset.sum_filter]
+  rfl
+
+/-- **⟦O13-e row 145, batch 3⟧** `M4ChiFreeRowMeanSq` over the door parameters `(Ad, zd)`:
+the base, `_gk`, `_L` and `_L_gk` are its four corners. -/
+def M4ChiFreeRowMeanSqAZ (Ad zd : ℕ) (R : ChowlaRegime) (M : ℕ) (MS : ℕ → ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
+    (q : ℝ) ≤ arcDen 12 H → ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 L,
+      ∀ A : ℕ, 0 < A → ∀ s ≤ L,
+        1 / ((A + s : ℕ) : ℝ)
+            * (∫ y in ((A + s : ℕ) : ℝ)..(2 * ((A + s : ℕ) : ℝ)),
+                ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
+                    * shortSum (doorChiCoeffAZ Ad zd χ M)
+                        (seamS0 (2 * (A + s)) ((A + s : ℕ) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
+          ≤ MS j H
+
 /-- **THE FREE SHIFTED FIXED-LENGTH DATUM** (`M4ChiFreeShiftBlockMeanSq`) — the block mean
 square of the sieved, χ-twisted window sums at the dyadic lengths `2^j ≤ L` and at every
 shift `s ≤ L` of the FREE block `(A, B]`, LENGTH-GRADED.
@@ -303,7 +334,7 @@ theorem m4_chiFreeShiftBlock_trivial (R : ChowlaRegime) (M : ℕ) :
   have h2j : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := by positivity
   nlinarith only [hcast, sq_nonneg ↑(2 ^ j), sq_nonneg ↑(2 ^ j)]
 
-/-- **⟦W3⟧ THE FREE SHIFTED BRIDGE** (`m4_chiFreeShiftBlock_of_freeRow`) — the free-base,
+/-- **⟦W3⟧ THE FREE SHIFTED BRIDGE** (`m4_chiFreeShiftBlock_of_freeRow_AZ`) — the free-base,
 per-length row mean square becomes the shifted block sum of squared sieved-twisted window
 sums, at the grade `2·MS` plus the explicit slack residue.
 
@@ -315,9 +346,9 @@ The route is `M4Maximal.m4_chiShiftBlock_of_dyadicRow`'s with its two ladder fac
   where `M4BridgeIntegral.hcov_of_seamS0` discharges it;
 * the harmonic→flat exchange against `B + s ≤ 2(A+s)`, which is `4 ≤ L` and nothing else.
 -/
-theorem m4_chiFreeShiftBlock_of_freeRow {R : ChowlaRegime} {M : ℕ} {MS : ℕ → ℕ → ℝ}
-    (hrow : M4ChiFreeRowMeanSq R M MS) :
-    M4ChiFreeShiftBlockMeanSq R M (fun j H => 2 * MS j H) := by
+theorem m4_chiFreeShiftBlock_of_freeRow_AZ (Ad zd : ℕ) {R : ChowlaRegime} {M : ℕ} {MS : ℕ → ℕ → ℝ}
+    (hrow : M4ChiFreeRowMeanSqAZ Ad zd R M MS) :
+    M4ChiFreeShiftBlockMeanSqAZ Ad zd R M (fun j H => 2 * MS j H) := by
   intro H hlo hhi L hLH q hq hqQ χ j hjL s hsL A B hA hL4 hfit
   have hL0 : 0 < L := by omega
   have h2j : 2 ^ j ≤ L :=
@@ -332,7 +363,7 @@ theorem m4_chiFreeShiftBlock_of_freeRow {R : ChowlaRegime} {M : ℕ} {MS : ℕ �
   -- INHABITED — at `A = 1`, `L = 4`, `B = 2`, `s = 0` it fails and the block is empty, so
   -- the membership is read first and the fit derived from it)
   have hcov : ∀ n ∈ Finset.Ioc (A + s) (B + s - 4), ∀ m ∈ Finset.Ioc n (n + 2 ^ j),
-      m ∉ seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ) → doorChiCoeff χ M m = 0 := by
+      m ∉ seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ) → doorChiCoeffAZ Ad zd χ M m = 0 := by
     intro n hn m hm hns
     have hn' := Finset.mem_Ioc.mp hn
     have hne : A + s < B + s - 4 := lt_of_lt_of_le hn'.1 hn'.2
@@ -342,52 +373,58 @@ theorem m4_chiFreeShiftBlock_of_freeRow {R : ChowlaRegime} {M : ℕ} {MS : ℕ �
   have hMSrow : 1 / (((A + s : ℕ)) : ℝ)
       * (∫ y in (((A + s : ℕ)) : ℝ)..(2 * (((A + s : ℕ)) : ℝ)),
           ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
-              * shortSum (doorCoeffPhase (doorChiCoeff χ M) 0)
+              * shortSum (doorCoeffPhase (doorChiCoeffAZ Ad zd χ M) 0)
                   (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
       ≤ MS j H := by
     rw [doorCoeffPhase_zero]
     exact hrow H hlo hhi L hLH q hq hqQ χ j hjL A hA s hsL
   have hMS0 : (0 : ℝ) ≤ MS j H :=
-    le_trans (meanSq_nonneg (doorCoeffPhase (doorChiCoeff χ M) 0)
+    le_trans (meanSq_nonneg (doorCoeffPhase (doorChiCoeffAZ Ad zd χ M) 0)
       (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) ((2 ^ j : ℕ) : ℝ) hAsR) hMSrow
   -- ⟦the slack-`4` block bound⟧
   have hslack := sum_Ioc_absWindowSum_sq_div_le_slack4
-    (c := doorChiCoeff χ M) (fun m => norm_doorChiCoeff_le_one χ M m)
+    (c := doorChiCoeffAZ Ad zd χ M) (fun m => norm_doorChiCoeffAZ_le_one Ad zd χ M m)
     (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) 0 (H := 2 ^ j) (A := A + s) (B := B + s)
     (MS := MS j H) hh0 hAs hfitS hcov hMSrow
   -- ⟦the exchange at the shifted block⟧
   have hterm : ∀ n ∈ Finset.Ioc (A + s) (B + s),
-      ‖absWindowSum (doorChiCoeff χ M) (2 ^ j) n 0‖ ^ 2
+      ‖absWindowSum (doorChiCoeffAZ Ad zd χ M) (2 ^ j) n 0‖ ^ 2
         ≤ (((B + s : ℕ)) : ℝ)
-            * (‖absWindowSum (doorChiCoeff χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) := by
+            * (‖absWindowSum (doorChiCoeffAZ Ad zd χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) := by
     intro n hn
     obtain ⟨hn1, hn2⟩ := Finset.mem_Ioc.mp hn
     have hn0 : (0 : ℝ) < (n : ℝ) := by
       have : 0 < n := by omega
       exact_mod_cast this
     have hnB : (n : ℝ) ≤ (((B + s : ℕ)) : ℝ) := by exact_mod_cast hn2
-    have hvnn : (0 : ℝ) ≤ ‖absWindowSum (doorChiCoeff χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ) := by
+    have hvnn : (0 : ℝ) ≤ ‖absWindowSum (doorChiCoeffAZ Ad zd χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ) := by
       positivity
-    calc ‖absWindowSum (doorChiCoeff χ M) (2 ^ j) n 0‖ ^ 2
-        = (n : ℝ) * (‖absWindowSum (doorChiCoeff χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) := by
+    calc ‖absWindowSum (doorChiCoeffAZ Ad zd χ M) (2 ^ j) n 0‖ ^ 2
+        = (n : ℝ) * (‖absWindowSum (doorChiCoeffAZ Ad zd χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) := by
           field_simp
       _ ≤ (((B + s : ℕ)) : ℝ)
-            * (‖absWindowSum (doorChiCoeff χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) :=
+            * (‖absWindowSum (doorChiCoeffAZ Ad zd χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) :=
           mul_le_mul_of_nonneg_right hnB hvnn
   have hex : ∑ n ∈ Finset.Ioc (A + s) (B + s),
-      ‖absWindowSum (doorChiCoeff χ M) (2 ^ j) n 0‖ ^ 2
+      ‖absWindowSum (doorChiCoeffAZ Ad zd χ M) (2 ^ j) n 0‖ ^ 2
       ≤ (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H
           + 4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ))) := by
     refine le_trans (Finset.sum_le_sum hterm) ?_
     rw [← Finset.mul_sum]
     exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
   have hfinal : ∑ n ∈ Finset.Ioc (A + s) (B + s),
-      ‖absWindowSum (doorChiCoeff χ M) (2 ^ j) n 0‖ ^ 2
+      ‖absWindowSum (doorChiCoeffAZ Ad zd χ M) (2 ^ j) n 0‖ ^ 2
       ≤ 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
         + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 :=
     (free_block_tail (A := (A : ℝ)) hex (by exact_mod_cast (show B + s ≤ 2 * A + 4 by omega))
       (by exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)) hAsR hMS0).trans_eq (by ring)
-  simpa only [absWindowSum_doorChiCoeff_zero] using hfinal
+  simpa only [absWindowSum_doorChiCoeffAZ_zero Ad zd] using hfinal
+
+/-- `m4_chiFreeShiftBlock_of_freeRow_AZ` at the door `(Adoor M, 3072·M)`: the base corner. -/
+theorem m4_chiFreeShiftBlock_of_freeRow {R : ChowlaRegime} {M : ℕ} {MS : ℕ → ℕ → ℝ}
+    (hrow : M4ChiFreeRowMeanSq R M MS) :
+    M4ChiFreeShiftBlockMeanSq R M (fun j H => 2 * MS j H) :=
+  m4_chiFreeShiftBlock_of_freeRow_AZ (Adoor M) (3072 * M) hrow
 
 /-! ## §3 — THE MAXIMAL STEP AT A FREE BLOCK AND A FREE LENGTH (⟦W4⟧)
 
@@ -906,77 +943,8 @@ theorem m4_chiFreeShiftBlock_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) :
 `m4_chiFreeShiftBlock_of_freeRow` (:291). -/
 theorem m4_chiFreeShiftBlock_of_freeRow_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {MS : ℕ → ℕ → ℝ}
     (hrow : M4ChiFreeRowMeanSq_gk K R M MS) :
-    M4ChiFreeShiftBlockMeanSq_gk K R M (fun j H => 2 * MS j H) := by
-  intro H hlo hhi L hLH q hq hqQ χ j hjL s hsL A B hA hL4 hfit
-  have hL0 : 0 < L := by omega
-  have h2j : 2 ^ j ≤ L :=
-    le_trans (Nat.pow_le_pow_right (by norm_num) hjL) (Nat.pow_log_le_self 2 hL0.ne')
-  have hh0 : 0 < 2 ^ j := Nat.two_pow_pos _
-  have hAs : 0 < A + s := by omega
-  have hAsR : (0 : ℝ) < ((A + s : ℕ) : ℝ) := by exact_mod_cast hAs
-  -- ⟦the fit, at the interface's slack⟧
-  have hfitS : (B + s) + 2 ^ j ≤ 2 * (A + s) + 4 := by omega
-  -- ⟦the coverage, on the DROPPED block⟧
-  -- (the fit `(B+s−4) + 2^j ≤ 2(A+s)` is available only when the dropped block is
-  -- INHABITED — at `A = 1`, `L = 4`, `B = 2`, `s = 0` it fails and the block is empty, so
-  -- the membership is read first and the fit derived from it)
-  have hcov : ∀ n ∈ Finset.Ioc (A + s) (B + s - 4), ∀ m ∈ Finset.Ioc n (n + 2 ^ j),
-      m ∉ seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ) → doorChiCoeff_gk K χ M m = 0 := by
-    intro n hn m hm hns
-    have hn' := Finset.mem_Ioc.mp hn
-    have hne : A + s < B + s - 4 := lt_of_lt_of_le hn'.1 hn'.2
-    exact absurd (mem_seamS0_of_block_window (X := (((A + s : ℕ)) : ℝ))
-      (N := 2 * (A + s)) le_rfl (by omega) hn hm) hns
-  -- ⟦the row datum, read at the removed phase⟧
-  have hMSrow : 1 / (((A + s : ℕ)) : ℝ)
-      * (∫ y in (((A + s : ℕ)) : ℝ)..(2 * (((A + s : ℕ)) : ℝ)),
-          ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
-              * shortSum (doorCoeffPhase (doorChiCoeff_gk K χ M) 0)
-                  (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
-      ≤ MS j H := by
-    rw [doorCoeffPhase_zero]
-    exact hrow H hlo hhi L hLH q hq hqQ χ j hjL A hA s hsL
-  have hMS0 : (0 : ℝ) ≤ MS j H :=
-    le_trans (meanSq_nonneg (doorCoeffPhase (doorChiCoeff_gk K χ M) 0)
-      (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) ((2 ^ j : ℕ) : ℝ) hAsR) hMSrow
-  -- ⟦the slack-`4` block bound⟧
-  have hslack := sum_Ioc_absWindowSum_sq_div_le_slack4
-    (c := doorChiCoeff_gk K χ M) (fun m => norm_memSCoeff_le_one (norm_liouChi_le_one χ) _ _ 2 m)
-    (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) 0 (H := 2 ^ j) (A := A + s) (B := B + s)
-    (MS := MS j H) hh0 hAs hfitS hcov hMSrow
-  -- ⟦the exchange at the shifted block⟧
-  have hterm : ∀ n ∈ Finset.Ioc (A + s) (B + s),
-      ‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2
-        ≤ (((B + s : ℕ)) : ℝ)
-            * (‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) := by
-    intro n hn
-    obtain ⟨hn1, hn2⟩ := Finset.mem_Ioc.mp hn
-    have hn0 : (0 : ℝ) < (n : ℝ) := by
-      have : 0 < n := by omega
-      exact_mod_cast this
-    have hnB : (n : ℝ) ≤ (((B + s : ℕ)) : ℝ) := by exact_mod_cast hn2
-    have hvnn : (0 : ℝ) ≤ ‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ) := by
-      positivity
-    calc ‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2
-        = (n : ℝ) * (‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) := by
-          field_simp
-      _ ≤ (((B + s : ℕ)) : ℝ)
-            * (‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) :=
-          mul_le_mul_of_nonneg_right hnB hvnn
-  have hex : ∑ n ∈ Finset.Ioc (A + s) (B + s),
-      ‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2
-      ≤ (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H
-          + 4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ))) := by
-    refine le_trans (Finset.sum_le_sum hterm) ?_
-    rw [← Finset.mul_sum]
-    exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
-  have hfinal : ∑ n ∈ Finset.Ioc (A + s) (B + s),
-      ‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2
-      ≤ 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-        + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 :=
-    (free_block_tail (A := (A : ℝ)) hex (by exact_mod_cast (show B + s ≤ 2 * A + 4 by omega))
-      (by exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)) hAsR hMS0).trans_eq (by ring)
-  simpa only [absWindowSum_doorChiCoeff_zero_gk K] using hfinal
+    M4ChiFreeShiftBlockMeanSq_gk K R M (fun j H => 2 * MS j H) :=
+  m4_chiFreeShiftBlock_of_freeRow_AZ (Adoor M) (s13GK K M) hrow
 
 /-- **⟦W4⟧ THE FREE MAXIMAL STEP AT THE LEVER** —
 `m4_coprimeChiN_of_freeShiftBlock` (:422). -/
