@@ -15222,7 +15222,7 @@ VK-forgetting-class miss, now fenced: §6's header carries the counter-wave poin
 route (`thm_a2'` + `capFreeFloor3`) pays `q`-linear thresholds at TWO places:
 `m4_meansq_per_chi_gen`'s `32·((1/8)·log q + (1/4)·q + …) < loglog X`
 (`M4MeanSq.lean:626-630`) and the T₀-band's coefficient-700 twin
-(`M4T0Discharge.lean:307/:439/:571`).  At `q ≤ arcDen 12 H = (log H)^{12}` that IS
+(`M4T0Discharge.lean:316/:448/:580`).  At `q ≤ arcDen 12 H = (log H)^{12}` that IS
 F5 (fails ×9.79e4 at its best point; F4 repairs only the `(1/4)q` half of ONE of
 the two).  The erratum to the A4 STOP entry above: replace "meets M4DoorRow's two
 walls" with "meets the F5/F4 q-linear gates" — which is precisely the route the
@@ -18587,7 +18587,7 @@ DESIGN COUNCIL, not an executor.
 ## () LEVEL2-SCOPE: **WINDMILL** -- THE CAPTAIN WINS AGAIN. The literal exit dies at a hard pin (the cover forces block 1) BUT the goal is LIVE by the per-block PRODUCT route the corpus itself named "the SHARP value" and declined to mint -- kernel-certified K-FREE reprice (P6), M^2.1 slope unchanged, Mfl = 2^141 at 214 bits spare, ZERO twin re-instantiation, wave ~700-1000 ln
 
 THE PIN (honest): any SINGLE covering window must contain block 1
-(M4T0DatumDischarge:613/:984) whose left edge 𝒫₁ is K-invariant —
+(M4T0DatumDischarge:615/:986) whose left edge 𝒫₁ is K-invariant —
 no single-window instantiation is K-free.  THE PIVOT: the mask's
 (P,Q) is a DEVICE for two rows; the mass budget M is a free abstract
 parameter (LambdaChiMask:803's top-block C is K-free) — price the
