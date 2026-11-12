@@ -85,7 +85,7 @@ landed: infinitely many p prime with p+2 prime or a product of two primes
   at haircut level √x/(log x)^B: Salt/Chen/BVSum.lean:332, HeadlineW2.lean:892 and
   :893, TwinA1W.lean:654, TwinA2W.lean:731.
 - `siegelWalfisz_psiTot ... (A = 1)` — PNT-grade: Salt/Chen/TripleCount.lean:67.
-- `Salt.SW.siegelWalfisz_holds A C` generic: Salt/Chen/BetaSW.lean:217.
+- `Salt.SW.siegelWalfisz_holds A C` generic: Salt/Chen/BetaSW.lean:223.
 - Windowed bilinear BV terminals: `general_BV_cutoff_sqrtD`
   (Chen/SqrtDFold.lean:820, √D structural level) and
   `general_BV_cutoff_unconditional` (Chen/WindowSmallChi.lean:458), packaged at

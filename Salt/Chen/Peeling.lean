@@ -111,8 +111,13 @@ noncomputable def sieveBelow (s : BoundingSieve) (p : ℕ) : BoundingSieve where
   nu_lt_one_of_prime := fun q hq hqd =>
     s.nu_lt_one_of_prime q hq (hqd.trans (Pbelow_dvd_prodPrimes s p))
 
+/-- `(sieveBelow s p).nu = s.nu` (`@[simp]`), by `rfl`: the restricted sieve inherits the
+density. Read by `WindowedStep`, `WindowedStepC` and `WindowedStepP`, and three times in this
+file. -/
 @[simp] lemma sieveBelow_nu (s : BoundingSieve) (p : ℕ) : (sieveBelow s p).nu = s.nu := rfl
 
+/-- `(sieveBelow s p).prodPrimes = Pbelow s p` (`@[simp]`), by `rfl`: the restricted sieve sifts
+exactly the primes of `s` below `p`. Read once in this file; no consumer outside it. -/
 @[simp] lemma sieveBelow_prodPrimes (s : BoundingSieve) (p : ℕ) :
     (sieveBelow s p).prodPrimes = Pbelow s p := rfl
 

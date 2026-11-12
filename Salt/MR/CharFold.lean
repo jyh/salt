@@ -164,10 +164,14 @@ theorem char_plancherel (q : ℕ) [NeZero q] (S : ZMod q → ℂ) :
 def classSet (q : ℕ) (s : Finset ℕ) (b : ZMod q) : Finset ℕ :=
   s.filter (fun n : ℕ => (n : ZMod q) = b)
 
+/-- `n ∈ classSet q s b ↔ n ∈ s ∧ (n : ZMod q) = b`: the residue-class slice's membership
+unfolded (`simp [classSet]`). Read by `HybridMVT`; not in this file beyond its proof. -/
 lemma mem_classSet {q : ℕ} {s : Finset ℕ} {b : ZMod q} {n : ℕ} :
     n ∈ classSet q s b ↔ n ∈ s ∧ (n : ZMod q) = b := by
   simp [classSet]
 
+/-- `classSet q s b ⊆ s`: a filter of `s` (`Finset.filter_subset`). Read by `HybridMVT`; not in
+this file beyond its proof. -/
 lemma classSet_subset {q : ℕ} {s : Finset ℕ} {b : ZMod q} : classSet q s b ⊆ s :=
   Finset.filter_subset _ _
 
