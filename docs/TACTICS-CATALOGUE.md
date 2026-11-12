@@ -1,7 +1,7 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `4c03c3a7` · source digest `c959af4ffdcc1dbe` (the same digest as items 1–3).
+> Base: last commit touching `Salt/` = `69590cd4` · source digest `eec3a1c48d2f4de2` (the same digest as items 1–3).
 > Receipt: files 1414 · decls 23388 · with_body 23388 · tactic_lines 312572 · runs 36733 · blocks 1431.
 
 ## LIMITS (read before any number below)
@@ -222,7 +222,7 @@ have $23 : Real.log $2 - Real.log # ≤ Real.log ($12 : ℝ) := by
 have $24 : Real.log ($2 / #) ≤ Real.log ($12 : ℝ) :=
 ```
 
-**5.** 20 lines × 5 occurrences in 3 files · lines saved ≤ **95** · e.g. `Salt/MR/M4RowSpineLinear.lean:181` · `Salt/MR/M4SecondRoad.lean:520`
+**5.** 20 lines × 5 occurrences in 3 files · lines saved ≤ **95** · e.g. `Salt/MR/M4RowSpineLinear.lean:181` · `Salt/MR/M4SecondRoad.lean:528`
 
 ```lean
 exact_mod_cast $1
@@ -247,7 +247,7 @@ have $18 : # * ($3.Hhi : ℝ) ≤ ($3.x : ℝ) / ($3.ω : ℝ) := by
 calc # * ($3.Hhi : ℝ) = # * ($3.Hhi : ℝ) * # := by ring
 ```
 
-**6.** 20 lines × 5 occurrences in 3 files · lines saved ≤ **95** · e.g. `Salt/MR/M4RowSpineLinear.lean:178` · `Salt/MR/M4SecondRoad.lean:517` · ⚠️ shares source lines with #5
+**6.** 20 lines × 5 occurrences in 3 files · lines saved ≤ **95** · e.g. `Salt/MR/M4RowSpineLinear.lean:178` · `Salt/MR/M4SecondRoad.lean:525` · ⚠️ shares source lines with #5
 
 ```lean
 have $1 : # < # * $2.ω := by have := $2.hω; omega
@@ -272,7 +272,7 @@ have $18 : ((($2.x / $2.ω : ℕ)) : ℝ) ≤ ($2.x : ℝ) / ($2.ω : ℝ) := Na
 have $19 : (# : ℝ) ≤ Real.log ($2.Hhi : ℝ) * Real.log ($2.Hhi : ℝ) := by
 ```
 
-**7.** 20 lines × 5 occurrences in 3 files · lines saved ≤ **95** · e.g. `Salt/MR/M4RowSpineLinear.lean:180` · `Salt/MR/M4SecondRoad.lean:519` · ⚠️ shares source lines with #5, #6
+**7.** 20 lines × 5 occurrences in 3 files · lines saved ≤ **95** · e.g. `Salt/MR/M4RowSpineLinear.lean:180` · `Salt/MR/M4SecondRoad.lean:527` · ⚠️ shares source lines with #5, #6
 
 ```lean
 have $1 : # < $2.ω := by have := $2.hω; omega
@@ -297,7 +297,7 @@ nlinarith only [$12]
 have $18 : # * ($2.Hhi : ℝ) ≤ ($2.x : ℝ) / ($2.ω : ℝ) := by
 ```
 
-**8.** 20 lines × 5 occurrences in 3 files · lines saved ≤ **95** · e.g. `Salt/MR/M4RowSpineLinear.lean:179` · `Salt/MR/M4SecondRoad.lean:518` · ⚠️ shares source lines with #5, #6, #7
+**8.** 20 lines × 5 occurrences in 3 files · lines saved ≤ **95** · e.g. `Salt/MR/M4RowSpineLinear.lean:179` · `Salt/MR/M4SecondRoad.lean:526` · ⚠️ shares source lines with #5, #6, #7
 
 ```lean
 have $1 : (# : ℝ) < ($2.ω : ℝ) := by
@@ -322,7 +322,7 @@ have $18 : (# : ℝ) ≤ Real.log ($2.Hhi : ℝ) * Real.log ($2.Hhi : ℝ) := by
 nlinarith only [$13]
 ```
 
-**9.** 20 lines × 5 occurrences in 3 files · lines saved ≤ **95** · e.g. `Salt/MR/M4Gauss.lean:877` · `Salt/MR/M4RowLinear.lean:9126`
+**9.** 20 lines × 5 occurrences in 3 files · lines saved ≤ **95** · e.g. `Salt/MR/M4Gauss.lean:900` · `Salt/MR/M4RowLinear.lean:9126`
 
 ```lean
 linarith [$1]
@@ -347,7 +347,7 @@ have $22 : # * ($4 : ℝ) ≤ Real.sqrt ($21 : ℝ) := by linarith
 have $23 := mul_le_mul_of_nonneg_right $22
 ```
 
-**10.** 20 lines × 5 occurrences in 3 files · lines saved ≤ **95** · e.g. `Salt/MR/M4RowSpineLinear.lean:172` · `Salt/MR/M4SecondRoad.lean:511` · ⚠️ shares source lines with #5, #6, #7, #8
+**10.** 20 lines × 5 occurrences in 3 files · lines saved ≤ **95** · e.g. `Salt/MR/M4RowSpineLinear.lean:172` · `Salt/MR/M4SecondRoad.lean:519` · ⚠️ shares source lines with #5, #6, #7, #8
 
 ```lean
 linarith only [$1, (Nat.cast_nonneg _ : # ≤ ↑$2)]
@@ -372,7 +372,7 @@ have $18 := $4.hheadroom'
 have $19 : ((($4.x / $4.ω : ℕ)) : ℝ) ≤ ($4.x : ℝ) / ($4.ω : ℝ) := Nat.cast_div_le
 ```
 
-**11.** 20 lines × 5 occurrences in 3 files · lines saved ≤ **95** · e.g. `Salt/MR/M4Gauss.lean:876` · `Salt/MR/M4RowLinear.lean:9125` · ⚠️ shares source lines with #9
+**11.** 20 lines × 5 occurrences in 3 files · lines saved ≤ **95** · e.g. `Salt/MR/M4Gauss.lean:899` · `Salt/MR/M4RowLinear.lean:9125` · ⚠️ shares source lines with #9
 
 ```lean
 rw [$1] at $2
@@ -444,7 +444,7 @@ have $19 : Real.log ($2.Hlo : ℝ) ≤ Real.log ($3 : ℝ) := Real.log_le_log $1
 have $20 : Real.log ($3 : ℝ) ≤ Real.log ($2.Hhi : ℝ) :=
 ```
 
-**15.** 18 lines × 5 occurrences in 3 files · lines saved ≤ **85** · e.g. `Salt/MR/M4Gauss.lean:790` · `Salt/MR/M4RowLinear.lean:9039`
+**15.** 18 lines × 5 occurrences in 3 files · lines saved ≤ **85** · e.g. `Salt/MR/M4Gauss.lean:813` · `Salt/MR/M4RowLinear.lean:9039`
 
 ```lean
 have $1 : (# : ℝ) ≤ ($2 : ℝ) := by exact_mod_cast $3
