@@ -380,10 +380,22 @@ def doorChiSupAZ (Ad zd : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n 
   (Finset.Icc 0 H).sup' ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
     (fun K => ‖∑ m ∈ doorWinAZ Ad zd M K n, liouChi χ m‖)
 
+/-- **⟦O13-e row 145, batch 4⟧** `M4BridgeCover.doorSievedCoeff` over the door parameters
+`(Ad, zd)`: the base, `_gk`, `_L` and `_L_gk` sieved coefficients are its four corners. -/
+def doorSievedCoeffAZ (Ad zd M : ℕ) : ℕ → ℂ :=
+  memSCoeff (calP Ad zd) (calQK Ad zd M) 2 liouvilleC
+
+/-- `le_doorChiSup` at any `(Ad, zd)`. -/
+theorem le_doorChiSupAZ (Ad zd : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {K : ℕ}
+    (hK : K ≤ H) :
+    ‖∑ m ∈ doorWinAZ Ad zd M K n, liouChi χ m‖ ≤ doorChiSupAZ Ad zd χ M H n :=
+  Finset.le_sup' (f := fun K => ‖∑ m ∈ doorWinAZ Ad zd M K n, liouChi χ m‖)
+    (Finset.mem_Icc.mpr ⟨Nat.zero_le K, hK⟩)
+
+/-- `le_doorChiSupAZ` at the door `(Adoor M, 3072·M)`: the base corner. -/
 theorem le_doorChiSup {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {K : ℕ} (hK : K ≤ H) :
     ‖∑ m ∈ doorSievedWindow M K n, liouChi χ m‖ ≤ doorChiSup χ M H n :=
-  Finset.le_sup' (f := fun K => ‖∑ m ∈ doorSievedWindow M K n, liouChi χ m‖)
-    (Finset.mem_Icc.mpr ⟨Nat.zero_le K, hK⟩)
+  le_doorChiSupAZ (Adoor M) (3072 * M) χ M H n hK
 
 theorem doorChiSup_nonneg {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) :
     0 ≤ doorChiSup χ M H n :=
@@ -402,21 +414,29 @@ def M4ChiBlockMeanSq (R : ChowlaRegime) (M k : ℕ) (Bcl : ℕ → ℝ) : Prop :
 to `q`, the class sup is under the χ-average of the twisted sups.  Route, at each length `K`:
 `M4ClassPrice.sum_windowClass_memSCoeff` (the two filters commute) then
 `M4BridgeResidue.norm_sum_residueClassOn_liou_le` (the decomposition, `χ(r)` unimodular). -/
+theorem classSup_le_inv_totient_sum_doorChiSup_AZ (Ad zd : ℕ) {q : ℕ} [NeZero q] {r : ℕ}
+    (hcop : Nat.Coprime q r) (M H n : ℕ) :
+    classSup (doorSievedCoeffAZ Ad zd M) H n q r
+      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSupAZ Ad zd χ M H n := by
+  refine classSup_le fun K hK => ?_
+  have hfilt : ∑ m ∈ windowClass K n q r, doorSievedCoeffAZ Ad zd M m
+      = ∑ m ∈ residueClassOn q r (doorWinAZ Ad zd M K n), liouvilleC m := by
+    simpa only [doorSievedCoeffAZ, doorWinAZ] using
+      sum_windowClass_memSCoeff (calP Ad zd)
+        (calQK Ad zd M) 2 liouvilleC K n q r
+  rw [hfilt]
+  refine le_trans (norm_sum_residueClassOn_liou_le hcop (doorWinAZ Ad zd M K n)) ?_
+  have hφ : (0 : ℝ) < (q.totient : ℝ) := totient_cast_pos q
+  refine mul_le_mul_of_nonneg_left ?_ (by positivity)
+  exact Finset.sum_le_sum fun χ _ => le_doorChiSupAZ Ad zd χ M H n hK
+
+/-- `classSup_le_inv_totient_sum_doorChiSup_AZ` at the door `(Adoor M, 3072·M)`: the base
+corner. -/
 theorem classSup_le_inv_totient_sum_doorChiSup {q : ℕ} [NeZero q] {r : ℕ}
     (hcop : Nat.Coprime q r) (M H n : ℕ) :
     classSup (doorSievedCoeff M) H n q r
-      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup χ M H n := by
-  refine classSup_le fun K hK => ?_
-  have hfilt : ∑ m ∈ windowClass K n q r, doorSievedCoeff M m
-      = ∑ m ∈ residueClassOn q r (doorSievedWindow M K n), liouvilleC m := by
-    simpa only [doorSievedCoeff, doorSievedWindow] using
-      sum_windowClass_memSCoeff (calP (Adoor M) (3072 * M))
-        (calQK (Adoor M) (3072 * M) M) 2 liouvilleC K n q r
-  rw [hfilt]
-  refine le_trans (norm_sum_residueClassOn_liou_le hcop (doorSievedWindow M K n)) ?_
-  have hφ : (0 : ℝ) < (q.totient : ℝ) := totient_cast_pos q
-  refine mul_le_mul_of_nonneg_left ?_ (by positivity)
-  exact Finset.sum_le_sum fun χ _ => le_doorChiSup χ M H n hK
+      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup χ M H n :=
+  classSup_le_inv_totient_sum_doorChiSup_AZ (Adoor M) (3072 * M) hcop M H n
 
 /-- **THE χ-REDUCTION** (`m4_classMeanSq_of_chiMeanSq`) — the coprime half of
 `M4ClassBlockMeanSq`, from `M4ChiBlockMeanSq`, at the SAME grade.  **No loss at all**: the
@@ -1017,8 +1037,7 @@ def doorChiSup_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : �
 theorem le_doorChiSup_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {Kw : ℕ}
     (hK : Kw ≤ H) :
     ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖ ≤ doorChiSup_gk K χ M H n :=
-  Finset.le_sup' (f := fun Kw => ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖)
-    (Finset.mem_Icc.mpr ⟨Nat.zero_le Kw, hK⟩)
+  le_doorChiSupAZ (Adoor M) (s13GK K M) χ M H n hK
 
 theorem doorChiSup_nonneg_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) :
     0 ≤ doorChiSup_gk K χ M H n :=
@@ -1037,18 +1056,8 @@ def M4ChiBlockMeanSq_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bcl : ℕ → 
 theorem classSup_le_inv_totient_sum_doorChiSup_gk (K : ℕ) {q : ℕ} [NeZero q] {r : ℕ}
     (hcop : Nat.Coprime q r) (M H n : ℕ) :
     classSup (doorSievedCoeff_gk K M) H n q r
-      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup_gk K χ M H n := by
-  refine classSup_le fun Kw hKw => ?_
-  have hfilt : ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m
-      = ∑ m ∈ residueClassOn q r (doorSievedWindow_gk K M Kw n), liouvilleC m := by
-    simpa only [doorSievedCoeff_gk, doorSievedWindow_gk] using
-      sum_windowClass_memSCoeff (calP (Adoor M) (s13GK K M))
-        (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC Kw n q r
-  rw [hfilt]
-  refine le_trans (norm_sum_residueClassOn_liou_le hcop (doorSievedWindow_gk K M Kw n)) ?_
-  have hφ : (0 : ℝ) < (q.totient : ℝ) := totient_cast_pos q
-  refine mul_le_mul_of_nonneg_left ?_ (by positivity)
-  exact Finset.sum_le_sum fun χ _ => le_doorChiSup_gk K χ M H n hKw
+      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup_gk K χ M H n :=
+  classSup_le_inv_totient_sum_doorChiSup_AZ (Adoor M) (s13GK K M) hcop M H n
 
 /-- **THE χ-REDUCTION AT THE LEVER** — `m4_classMeanSq_of_chiMeanSq` (:416). -/
 theorem m4_classMeanSq_of_chiMeanSq_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}

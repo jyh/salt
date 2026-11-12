@@ -894,7 +894,7 @@ earlier were all published first and corrected after.  **Fencing is cheap; retra
 Walked the gates down: `M4SievedDoorSq_L → M4BlockMeanSq_L → M4RowMeanSq_L`.
 `M4RowMeanSq_L` (`M4RowLinear.lean:993`) has **no producer** — established by reading **all six
 of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1394`) ·
-an enumeration entry (`:3336`) · one arrow (`:3351`).
+an enumeration entry (`:3314`) · one arrow (`:3329`).
 
 ⭐ **AND THIS TIME IT IS NOT MY INFERENCE — THE CORPUS SAYS SO AT THE DEFINITION SITE:**
 *"**THE WAVE'S REMAINING INPUT**… This predicate is the wave's ⟦RESIDUE⟧: see the module header

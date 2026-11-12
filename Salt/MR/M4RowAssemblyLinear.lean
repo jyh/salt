@@ -3301,74 +3301,8 @@ theorem m4_freeShiftBlock_at_L {M H L q : ℕ} {χ : DirichletCharacter ℂ q} {
       ∑ n ∈ Finset.Ioc (A + s) (B + s),
           ‖∑ m ∈ doorSievedWindow_L M (2 ^ j) n, liouChi χ m‖ ^ 2
         ≤ 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-          + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
-  intro j hjL s hsL
-  have hL0 : 0 < L := by omega
-  have h2j : 2 ^ j ≤ L :=
-    le_trans (Nat.pow_le_pow_right (by norm_num) hjL) (Nat.pow_log_le_self 2 hL0.ne')
-  have hh0 : 0 < 2 ^ j := Nat.two_pow_pos _
-  have hAs : 0 < A + s := by omega
-  have hAsR : (0 : ℝ) < ((A + s : ℕ) : ℝ) := by exact_mod_cast hAs
-  -- ⟦the fit, at the interface's slack⟧
-  have hfitS : (B + s) + 2 ^ j ≤ 2 * (A + s) + 4 := by omega
-  -- ⟦the coverage, on the DROPPED block⟧
-  have hcov : ∀ n ∈ Finset.Ioc (A + s) (B + s - 4), ∀ m ∈ Finset.Ioc n (n + 2 ^ j),
-      m ∉ seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ) → doorChiCoeff_L χ M m = 0 := by
-    intro n hn m hm hns
-    have hn' := Finset.mem_Ioc.mp hn
-    have hne : A + s < B + s - 4 := lt_of_lt_of_le hn'.1 hn'.2
-    exact absurd (mem_seamS0_of_block_window (X := (((A + s : ℕ)) : ℝ))
-      (N := 2 * (A + s)) le_rfl (by omega) hn hm) hns
-  -- ⟦the row datum, read at the removed phase⟧
-  have hMSrow : 1 / (((A + s : ℕ)) : ℝ)
-      * (∫ y in (((A + s : ℕ)) : ℝ)..(2 * (((A + s : ℕ)) : ℝ)),
-          ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
-              * shortSum (doorCoeffPhase (doorChiCoeff_L χ M) 0)
-                  (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
-      ≤ MS j H := by
-    rw [doorCoeffPhase_zero]
-    exact hrow j hjL s hsL
-  have hMS0 : (0 : ℝ) ≤ MS j H :=
-    le_trans (meanSq_nonneg (doorCoeffPhase (doorChiCoeff_L χ M) 0)
-      (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) ((2 ^ j : ℕ) : ℝ) hAsR) hMSrow
-  -- ⟦the slack-`4` block bound⟧
-  have hslack := sum_Ioc_absWindowSum_sq_div_le_slack4
-    (c := doorChiCoeff_L χ M) (fun m => norm_doorChiCoeff_le_one_L χ M m)
-    (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) 0 (H := 2 ^ j) (A := A + s) (B := B + s)
-    (MS := MS j H) hh0 hAs hfitS hcov hMSrow
-  -- ⟦the exchange at the shifted block⟧
-  have hterm : ∀ n ∈ Finset.Ioc (A + s) (B + s),
-      ‖absWindowSum (doorChiCoeff_L χ M) (2 ^ j) n 0‖ ^ 2
-        ≤ (((B + s : ℕ)) : ℝ)
-            * (‖absWindowSum (doorChiCoeff_L χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) := by
-    intro n hn
-    obtain ⟨hn1, hn2⟩ := Finset.mem_Ioc.mp hn
-    have hn0 : (0 : ℝ) < (n : ℝ) := by
-      have : 0 < n := by omega
-      exact_mod_cast this
-    have hnB : (n : ℝ) ≤ (((B + s : ℕ)) : ℝ) := by exact_mod_cast hn2
-    have hvnn : (0 : ℝ) ≤ ‖absWindowSum (doorChiCoeff_L χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ) := by
-      positivity
-    calc ‖absWindowSum (doorChiCoeff_L χ M) (2 ^ j) n 0‖ ^ 2
-        = (n : ℝ) * (‖absWindowSum (doorChiCoeff_L χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) := by
-          field_simp
-      _ ≤ (((B + s : ℕ)) : ℝ)
-            * (‖absWindowSum (doorChiCoeff_L χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) :=
-          mul_le_mul_of_nonneg_right hnB hvnn
-  have hex : ∑ n ∈ Finset.Ioc (A + s) (B + s),
-      ‖absWindowSum (doorChiCoeff_L χ M) (2 ^ j) n 0‖ ^ 2
-      ≤ (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H
-          + 4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ))) := by
-    refine le_trans (Finset.sum_le_sum hterm) ?_
-    rw [← Finset.mul_sum]
-    exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
-  have hfinal : ∑ n ∈ Finset.Ioc (A + s) (B + s),
-      ‖absWindowSum (doorChiCoeff_L χ M) (2 ^ j) n 0‖ ^ 2
-      ≤ 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-        + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 :=
-    (free_block_tail (A := (A : ℝ)) hex (by exact_mod_cast (show B + s ≤ 2 * A + 4 by omega))
-      (by exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)) hAsR hMS0).trans_eq (by ring)
-  simpa only [absWindowSum_doorChiCoeff_zero_L] using hfinal
+          + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 :=
+  m4_freeShiftBlock_at_AZ (AdoorL M) (3072 * M) hA hL4 hfit hrow
 
 /-- **THE FREE MAXIMAL STEP, AT ONE BASE** (`m4_chiBlock_at_L`).  The χ-layer of the narrowed
 coprime family at a fixed base, from the shifted fixed-length datum, at the graded price
@@ -3400,28 +3334,8 @@ theorem m4_classBlock_at_L {M L q : ℕ} (hq : 0 < q) {r : ℕ} (hcop : Nat.Copr
     (hchi : ∀ χ : DirichletCharacter ℂ q,
       ∑ n ∈ Finset.Ioc A B, (doorChiSup_L χ M L n) ^ 2 ≤ Bc * (L : ℝ) ^ 2 * (A : ℝ)) :
     ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L M) L n q r) ^ 2
-      ≤ Bc * (L : ℝ) ^ 2 * (A : ℝ) := by
-  haveI : NeZero q := ⟨hq.ne'⟩
-  have hpt : ∀ n : ℕ, (classSup (doorSievedCoeff_L M) L n q r) ^ 2
-      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_L χ M L n) ^ 2 := by
-    intro n
-    have hle := classSup_le_inv_totient_sum_doorChiSup_L hcop M L n
-    have h0 := classSup_nonneg (doorSievedCoeff_L M) L n q r
-    have hsq : (classSup (doorSievedCoeff_L M) L n q r) ^ 2
-        ≤ ((q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup_L χ M L n) ^ 2 := by
-      nlinarith only [hle, h0]
-    exact hsq.trans (sq_inv_totient_sum_le_sum_sq (fun χ => doorChiSup_L χ M L n))
-  have hstep1 : ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L M) L n q r) ^ 2
-      ≤ ∑ n ∈ Finset.Ioc A B,
-          (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_L χ M L n) ^ 2 :=
-    Finset.sum_le_sum fun n _ => hpt n
-  have hswap : ∑ n ∈ Finset.Ioc A B,
-      (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_L χ M L n) ^ 2
-      = (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q,
-          ∑ n ∈ Finset.Ioc A B, (doorChiSup_L χ M L n) ^ 2 := by
-    rw [← Finset.mul_sum, Finset.sum_comm]
-  rw [hswap] at hstep1
-  exact hstep1.trans (inv_totient_sum_le hchi)
+      ≤ Bc * (L : ℝ) ^ 2 * (A : ℝ) :=
+  m4_classBlock_at_AZ (AdoorL M) (3072 * M) hq hcop hchi
 
 /-- **THE COPRIME BLOCK MEAN SQUARE, AT ONE BASE** (`m4_coprimeBlock_at_L`) — §2 ∘ §3 ∘ §4
 composed at a fixed `(H, L, q, r, A, B)`, at the grade
@@ -3911,74 +3825,8 @@ theorem m4_freeShiftBlock_at_L_gk (K : ℕ) {M H L q : ℕ} {χ : DirichletChara
       ∑ n ∈ Finset.Ioc (A + s) (B + s),
           ‖∑ m ∈ doorSievedWindow_L_gk K M (2 ^ j) n, liouChi χ m‖ ^ 2
         ≤ 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-          + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
-  intro j hjL s hsL
-  have hL0 : 0 < L := by omega
-  have h2j : 2 ^ j ≤ L :=
-    le_trans (Nat.pow_le_pow_right (by norm_num) hjL) (Nat.pow_log_le_self 2 hL0.ne')
-  have hh0 : 0 < 2 ^ j := Nat.two_pow_pos _
-  have hAs : 0 < A + s := by omega
-  have hAsR : (0 : ℝ) < ((A + s : ℕ) : ℝ) := by exact_mod_cast hAs
-  -- ⟦the fit, at the interface's slack⟧
-  have hfitS : (B + s) + 2 ^ j ≤ 2 * (A + s) + 4 := by omega
-  -- ⟦the coverage, on the DROPPED block⟧
-  have hcov : ∀ n ∈ Finset.Ioc (A + s) (B + s - 4), ∀ m ∈ Finset.Ioc n (n + 2 ^ j),
-      m ∉ seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ) → doorChiCoeff_L_gk K χ M m = 0 := by
-    intro n hn m hm hns
-    have hn' := Finset.mem_Ioc.mp hn
-    have hne : A + s < B + s - 4 := lt_of_lt_of_le hn'.1 hn'.2
-    exact absurd (mem_seamS0_of_block_window (X := (((A + s : ℕ)) : ℝ))
-      (N := 2 * (A + s)) le_rfl (by omega) hn hm) hns
-  -- ⟦the row datum, read at the removed phase⟧
-  have hMSrow : 1 / (((A + s : ℕ)) : ℝ)
-      * (∫ y in (((A + s : ℕ)) : ℝ)..(2 * (((A + s : ℕ)) : ℝ)),
-          ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
-              * shortSum (doorCoeffPhase (doorChiCoeff_L_gk K χ M) 0)
-                  (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
-      ≤ MS j H := by
-    rw [doorCoeffPhase_zero]
-    exact hrow j hjL s hsL
-  have hMS0 : (0 : ℝ) ≤ MS j H :=
-    le_trans (meanSq_nonneg (doorCoeffPhase (doorChiCoeff_L_gk K χ M) 0)
-      (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) ((2 ^ j : ℕ) : ℝ) hAsR) hMSrow
-  -- ⟦the slack-`4` block bound⟧
-  have hslack := sum_Ioc_absWindowSum_sq_div_le_slack4
-    (c := doorChiCoeff_L_gk K χ M) (fun m => norm_doorChiCoeff_le_one_L_gk K χ M m)
-    (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) 0 (H := 2 ^ j) (A := A + s) (B := B + s)
-    (MS := MS j H) hh0 hAs hfitS hcov hMSrow
-  -- ⟦the exchange at the shifted block⟧
-  have hterm : ∀ n ∈ Finset.Ioc (A + s) (B + s),
-      ‖absWindowSum (doorChiCoeff_L_gk K χ M) (2 ^ j) n 0‖ ^ 2
-        ≤ (((B + s : ℕ)) : ℝ)
-            * (‖absWindowSum (doorChiCoeff_L_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) := by
-    intro n hn
-    obtain ⟨hn1, hn2⟩ := Finset.mem_Ioc.mp hn
-    have hn0 : (0 : ℝ) < (n : ℝ) := by
-      have : 0 < n := by omega
-      exact_mod_cast this
-    have hnB : (n : ℝ) ≤ (((B + s : ℕ)) : ℝ) := by exact_mod_cast hn2
-    have hvnn : (0 : ℝ) ≤ ‖absWindowSum (doorChiCoeff_L_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ) := by
-      positivity
-    calc ‖absWindowSum (doorChiCoeff_L_gk K χ M) (2 ^ j) n 0‖ ^ 2
-        = (n : ℝ) * (‖absWindowSum (doorChiCoeff_L_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) := by
-          field_simp
-      _ ≤ (((B + s : ℕ)) : ℝ)
-            * (‖absWindowSum (doorChiCoeff_L_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) :=
-          mul_le_mul_of_nonneg_right hnB hvnn
-  have hex : ∑ n ∈ Finset.Ioc (A + s) (B + s),
-      ‖absWindowSum (doorChiCoeff_L_gk K χ M) (2 ^ j) n 0‖ ^ 2
-      ≤ (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H
-          + 4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ))) := by
-    refine le_trans (Finset.sum_le_sum hterm) ?_
-    rw [← Finset.mul_sum]
-    exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
-  have hfinal : ∑ n ∈ Finset.Ioc (A + s) (B + s),
-      ‖absWindowSum (doorChiCoeff_L_gk K χ M) (2 ^ j) n 0‖ ^ 2
-      ≤ 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
-        + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 :=
-    (free_block_tail (A := (A : ℝ)) hex (by exact_mod_cast (show B + s ≤ 2 * A + 4 by omega))
-      (by exact_mod_cast (show B + s ≤ 2 * (A + s) by omega)) hAsR hMS0).trans_eq (by ring)
-  simpa only [absWindowSum_doorChiCoeff_zero_L_gk K] using hfinal
+          + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 :=
+  m4_freeShiftBlock_at_AZ (AdoorL M) (s13GK K M) hA hL4 hfit hrow
 
 /-- `m4_chiBlock_at_L` (:272), at the lever. -/
 theorem m4_chiBlock_at_L_gk (K : ℕ) {R : ChowlaRegime} {M H L q : ℕ} {χ : DirichletCharacter ℂ q}
@@ -4007,28 +3855,8 @@ theorem m4_classBlock_at_L_gk (K : ℕ) {M L q : ℕ} (hq : 0 < q) {r : ℕ} (hc
     (hchi : ∀ χ : DirichletCharacter ℂ q,
       ∑ n ∈ Finset.Ioc A B, (doorChiSup_L_gk K χ M L n) ^ 2 ≤ Bc * (L : ℝ) ^ 2 * (A : ℝ)) :
     ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L_gk K M) L n q r) ^ 2
-      ≤ Bc * (L : ℝ) ^ 2 * (A : ℝ) := by
-  haveI : NeZero q := ⟨hq.ne'⟩
-  have hpt : ∀ n : ℕ, (classSup (doorSievedCoeff_L_gk K M) L n q r) ^ 2
-      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_L_gk K χ M L n) ^ 2 := by
-    intro n
-    have hle := classSup_le_inv_totient_sum_doorChiSup_L_gk K hcop M L n
-    have h0 := classSup_nonneg (doorSievedCoeff_L_gk K M) L n q r
-    have hsq : (classSup (doorSievedCoeff_L_gk K M) L n q r) ^ 2
-        ≤ ((q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup_L_gk K χ M L n) ^ 2 := by
-      nlinarith only [hle, h0]
-    exact hsq.trans (sq_inv_totient_sum_le_sum_sq (fun χ => doorChiSup_L_gk K χ M L n))
-  have hstep1 : ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L_gk K M) L n q r) ^ 2
-      ≤ ∑ n ∈ Finset.Ioc A B,
-          (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_L_gk K χ M L n) ^ 2 :=
-    Finset.sum_le_sum fun n _ => hpt n
-  have hswap : ∑ n ∈ Finset.Ioc A B,
-      (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_L_gk K χ M L n) ^ 2
-      = (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q,
-          ∑ n ∈ Finset.Ioc A B, (doorChiSup_L_gk K χ M L n) ^ 2 := by
-    rw [← Finset.mul_sum, Finset.sum_comm]
-  rw [hswap] at hstep1
-  exact hstep1.trans (inv_totient_sum_le hchi)
+      ≤ Bc * (L : ℝ) ^ 2 * (A : ℝ) :=
+  m4_classBlock_at_AZ (AdoorL M) (s13GK K M) hq hcop hchi
 
 /-- `m4_coprimeBlock_at_L` (:633), at the lever. -/
 theorem m4_coprimeBlock_at_L_gk (K : ℕ) {R : ChowlaRegime} {M H L q r A B : ℕ} {MS : ℕ → ℕ → ℝ}
