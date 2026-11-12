@@ -301,8 +301,8 @@ theorem ramTailWeight_isMultiplicative (P Q : ℕ) (r : ℝ) :
 
 /-- `ω(p^k; P, Q) = if P ≤ p ∧ p ≤ Q then 1 else 0` at `p` prime, `k ≠ 0` (private): the only
 prime factor is `p` (`Nat.primeFactors_prime_pow`, `Finset.filter_singleton`). Read twice in
-this file; the same-named lemmas in `CofactorSupplier`, `Eq26Bridge`, `MRTPropA3` and `Sec9Glue`
-are their own private copies, as is `LambdaChiRamare.blockOmega_prime_pow_lam`. -/
+this file. `Sec9Glue` has a public lemma of this name and statement, read by `CofactorSupplier`,
+`Eq26Bridge` and `MRTPropA3`; `LambdaChiRamare.blockOmega_prime_pow_lam` is a private copy. -/
 private lemma blockOmega_prime_pow {P Q p k : ℕ} (hp : p.Prime) (hk : k ≠ 0) :
     blockOmega P Q (p ^ k) = if P ≤ p ∧ p ≤ Q then 1 else 0 := by
   unfold blockOmega BlockPrimeDivs

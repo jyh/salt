@@ -305,7 +305,7 @@ theorem geom_weight_sum (n : ℕ) :
 
 /-- `0 < ∑_{j ≤ n} (3/2)^j`: a sum of positive terms with the `j = 0` term present
 (`Finset.sum_pos`). Read by `M4BaseNarrow`, `M4ChiSummed`, `M4CoprimeSupply`,
-`M4RowAssemblyLinear`, `M4RowLinear` and `S16FlatTerminalLinearH`, and five times in this
+`M4RowLinear` and `S16FlatTerminalLinearH`, and five times in this
 file. -/
 theorem geom_weight_sum_pos (n : ℕ) :
     (0 : ℝ) < ∑ j ∈ Finset.range (n + 1), (3 / 2 : ℝ) ^ j :=
