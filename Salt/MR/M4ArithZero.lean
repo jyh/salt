@@ -343,6 +343,12 @@ private lemma window_row_eq {Xd H : ℝ} (hXd : 0 < Xd) (hH : 0 < H) :
       = 2 * Real.exp 1 ^ 2 / H + Real.exp 1 / Xd := by
   field_simp
 
+/-- `a2RowsSum M Xd` at `1 ≤ M`, `1 ≤ Xd`, written out at the door family
+(`P_j = calP (Adoor M) (3072M) j`):
+`(5/2)e²·a2Level1 M + (2e+2)/Xd + 16·log₂(2Xd)·(1/P₁ + 1/P₂)`. The two rows `j = 1, 2` of the
+Lemma-12 sum are unfolded (`calH` at `H₁` and `4H₁`, `window_row_eq`) and `1/H1door M` is read
+as `a2Level1 M` (`one_div_H1door_eq_a2Level1`), with `H1door_two` for `0 < H₁`. Read once in
+this file; no consumer outside it. -/
 theorem a2RowsSum_door_decomp {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
     a2RowsSum M Xd
       = 5 / 2 * Real.exp 1 ^ 2 * a2Level1 M

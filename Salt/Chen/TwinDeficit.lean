@@ -122,9 +122,13 @@ noncomputable def p1Ind (m : ℕ) : ℝ := by
 noncomputable def e2Ind (z m : ℕ) : ℝ := by
   classical exact if IsE2 z m then 1 else 0
 
+/-- `0 ≤ p1Ind m`: the prime indicator is `0` or `1`. Read by `HB/DoorBridge` and twice in this
+file. -/
 theorem p1Ind_nonneg (m : ℕ) : 0 ≤ p1Ind m := by
   unfold p1Ind; split_ifs <;> norm_num
 
+/-- `0 ≤ e2Ind z m`: the two-factor indicator is `0` or `1`. Read twice in this file; no
+consumer outside it. -/
 theorem e2Ind_nonneg (z m : ℕ) : 0 ≤ e2Ind z m := by
   unfold e2Ind; split_ifs <;> norm_num
 
@@ -240,26 +244,41 @@ theorem heavy_semiprime_obstruction {z y p q : ℕ} (hp : p.Prime) (hq : q.Prime
 
 /-! ## Part D — the P₁-razor reduction (unconditional, from landed material) -/
 
+/-- `0 ≤ omegaPrimeSum x P y`: each term `Λ(n)·keepR P n·ω_{≤y}(n+2)` is a product of
+nonnegatives (`vonMangoldt_nonneg`, `keepR_nonneg`, a cast count). Read by `Headline` and
+`WeightNoGo`, and once in this file. -/
 theorem omegaPrimeSum_nonneg (x P y : ℕ) : 0 ≤ omegaPrimeSum x P y := by
   rw [omegaPrimeSum]
   exact Finset.sum_nonneg fun n _ =>
     mul_nonneg (mul_nonneg vonMangoldt_nonneg (keepR_nonneg P n)) (Nat.cast_nonneg _)
 
+/-- `0 ≤ triplePrimeSum x P y`: each term `Λ(n)·keepR P n·1_T(n+2)` is nonnegative
+(`vonMangoldt_nonneg`, `keepR_nonneg`, `tripleT_nonneg`). Read by `Headline` and `WeightNoGo`,
+and once in this file. -/
 theorem triplePrimeSum_nonneg (x P y : ℕ) : 0 ≤ triplePrimeSum x P y := by
   rw [triplePrimeSum]
   exact Finset.sum_nonneg fun n _ =>
     mul_nonneg (mul_nonneg vonMangoldt_nonneg (keepR_nonneg P n)) (tripleT_nonneg y (n + 2))
 
+/-- `0 ≤ stripPrimeSum x P y`: each term `Λ(n)·keepR P n·S(n+2)` is nonnegative
+(`vonMangoldt_nonneg`, `keepR_nonneg`, a cast count). Read by `WeightNoGo` and once in this
+file. -/
 theorem stripPrimeSum_nonneg (x P y : ℕ) : 0 ≤ stripPrimeSum x P y := by
   rw [stripPrimeSum]
   exact Finset.sum_nonneg fun n _ =>
     mul_nonneg (mul_nonneg vonMangoldt_nonneg (keepR_nonneg P n)) (Nat.cast_nonneg _)
 
+/-- `0 ≤ e2PrimeSum x z P`: each term `Λ(n)·keepR P n·1_{E2,z}(n+2)` is nonnegative
+(`vonMangoldt_nonneg`, `keepR_nonneg`, `e2Ind_nonneg`). Read by `WeightNoGo`; not in this file
+beyond its proof. -/
 theorem e2PrimeSum_nonneg (x z P : ℕ) : 0 ≤ e2PrimeSum x z P := by
   rw [e2PrimeSum]
   exact Finset.sum_nonneg fun n _ =>
     mul_nonneg (mul_nonneg vonMangoldt_nonneg (keepR_nonneg P n)) (e2Ind_nonneg z (n + 2))
 
+/-- `0 ≤ p1PrimeSum x P`: each term `Λ(n)·keepR P n·1_{P₁}(n+2)` is nonnegative
+(`vonMangoldt_nonneg`, `keepR_nonneg`, `p1Ind_nonneg`). Read by `WeightNoGo`; not in this file
+beyond its proof. -/
 theorem p1PrimeSum_nonneg (x P : ℕ) : 0 ≤ p1PrimeSum x P := by
   rw [p1PrimeSum]
   exact Finset.sum_nonneg fun n _ =>
@@ -529,16 +548,25 @@ theorem p2PrimeSumW_split (Q a x z P : ℕ) :
   rw [p2PrimeSumW, p1PrimeSumW, e2PrimeSumW, ← Finset.sum_add_distrib]
   exact Finset.sum_congr rfl fun n _ => by rw [p2Ind_split, mul_add]
 
+/-- `0 ≤ omegaPrimeSumW Q a x P y`: the W-restricted `ω`-carrier, termwise
+`Λ(n)·keepW Q a P n·ω_{≤y}(n+2) ≥ 0` (`vonMangoldt_nonneg`, `keepW_nonneg`). Read once in this
+file; no consumer outside it. -/
 theorem omegaPrimeSumW_nonneg (Q a x P y : ℕ) : 0 ≤ omegaPrimeSumW Q a x P y := by
   rw [omegaPrimeSumW]
   exact Finset.sum_nonneg fun n _ =>
     mul_nonneg (mul_nonneg vonMangoldt_nonneg (keepW_nonneg Q a P n)) (Nat.cast_nonneg _)
 
+/-- `0 ≤ triplePrimeSumW Q a x P y`: termwise `Λ(n)·keepW Q a P n·1_T(n+2) ≥ 0`
+(`vonMangoldt_nonneg`, `keepW_nonneg`, `tripleT_nonneg`). Read once in this file; no consumer
+outside it. -/
 theorem triplePrimeSumW_nonneg (Q a x P y : ℕ) : 0 ≤ triplePrimeSumW Q a x P y := by
   rw [triplePrimeSumW]
   exact Finset.sum_nonneg fun n _ =>
     mul_nonneg (mul_nonneg vonMangoldt_nonneg (keepW_nonneg Q a P n)) (tripleT_nonneg y (n + 2))
 
+/-- `0 ≤ stripPrimeSumW Q a x P y`: termwise `Λ(n)·keepW Q a P n·S(n+2) ≥ 0`
+(`vonMangoldt_nonneg`, `keepW_nonneg`, a cast count). Read once in this file; no consumer
+outside it. -/
 theorem stripPrimeSumW_nonneg (Q a x P y : ℕ) : 0 ≤ stripPrimeSumW Q a x P y := by
   rw [stripPrimeSumW]
   exact Finset.sum_nonneg fun n _ =>

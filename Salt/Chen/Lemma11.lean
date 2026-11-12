@@ -144,6 +144,9 @@ first-check threshold `D^{1/3}`. -/
 noncomputable def Vlow (s : BoundingSieve) (D : ℕ) : ℝ :=
   ∏ p ∈ s.prodPrimes.primeFactors.filter (fun p => p ^ 3 < D), (1 - s.nu p)
 
+/-- `0 < Vlow s D`: `∏_{p³ < D}(1 − ν(p))` over the sifting primes, each factor positive because
+`ν(p) < 1` at a prime `p ∣ P(z)` (`s.nu_lt_one_of_prime`, `Finset.prod_pos`). Read by `SharpF`
+and `SharpH2`; not in this file beyond its proof. -/
 theorem Vlow_pos (s : BoundingSieve) (D : ℕ) : 0 < Vlow s D := by
   apply Finset.prod_pos
   intro p hp
@@ -232,6 +235,11 @@ BJS's majorant `h(s)` (`hBJS`, sharper than C1b's exponential `hbar`) satisfies
 `τ₁ = 3` base bound close.  (The C1b `hbar`, decaying at rate `6/5`, fails this near
 `s = 3`; this is why the per-level bounds are phrased against `hBJS`.) -/
 
+/-- `0 < hBJS s`: each branch of BJS's `h(s)` is positive — `e⁻²`, `e⁻ˢ`, and `3s⁻¹e⁻ˢ` at
+`s > 3` (`Real.exp_pos`, `positivity`). Read by `AbelStep`, `DecayMass`, `FinLed3`,
+`HeadlineW2`, `Peeling`, `SharpClose`, `SharpF`, `SharpFuncbound`, `SharpH2`, `SharpStep`,
+`StepBound`, `StepBound2`, `TwinA2W`, `WindowedStep`, `WindowedStepC`, `WindowedStepP` and
+`Goldbach/Omega`, and twice in this file. -/
 theorem hBJS_pos (s : ℝ) : 0 < hBJS s := by
   unfold hBJS
   split_ifs with h2 h3

@@ -101,6 +101,9 @@ theorem hBJS_le_exp2 (u : ℝ) : hBJS u ≤ Real.exp (-2) := by
   · rw [hBJS_le2 h2]
   · exact (hBJS_le_exp_of_ge h2).trans (Real.exp_le_exp.mpr (by linarith))
 
+/-- `Measurable hBJS`: BJS's `h(s)` is two `ite`s on measurable sets (`measurableSet_le`) with
+measurable branches — constants, `exp ∘ neg`, and `3·s⁻¹·exp(−s)` (`Measurable.ite`,
+`Real.measurable_exp`, `measurable_inv`). Read once in this file; no consumer outside it. -/
 theorem hBJS_measurable : Measurable hBJS := by
   unfold hBJS
   refine Measurable.ite (measurableSet_le measurable_id measurable_const) measurable_const ?_

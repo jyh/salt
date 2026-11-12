@@ -398,6 +398,25 @@ theorem norm_sum_sievedWindow_sq_le_dyadic (p : ℕ → Prop) [DecidablePred p] 
                 * (2 / 3 : ℝ) ^ j :=
         mul_le_mul_of_nonneg_left (Finset.sum_le_sum hpick) hSpos.le
 
+/-- **⟦O13-e row 145⟧ THE DYADIC SPLIT OVER THE DOOR PARAMETERS** — `doorChiSup_sq_le_dyadic` at
+any `(Ad, zd)`; the four door windows (`_gk`, `_L`, `_L_gk`) are its instances. -/
+theorem doorChiSupAZ_sq_le_dyadic (Ad zd : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) :
+    (doorChiSupAZ Ad zd χ M H n) ^ 2
+      ≤ (∑ j ∈ Finset.range (Nat.log 2 H + 1), (3 / 2 : ℝ) ^ j)
+        * ∑ j ∈ Finset.range (Nat.log 2 H + 1),
+            (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
+              ‖∑ m ∈ doorWinAZ Ad zd M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2)
+              * (2 / 3 : ℝ) ^ j := by
+  obtain ⟨K, hKmem, hKeq⟩ :=
+    Finset.exists_mem_eq_sup' (s := Finset.Icc 0 H)
+      ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
+      (fun K => ‖∑ m ∈ doorWinAZ Ad zd M K n, liouChi χ m‖)
+  have hKH : K ≤ H := (Finset.mem_Icc.mp hKmem).2
+  have hval : doorChiSupAZ Ad zd χ M H n = ‖∑ m ∈ doorWinAZ Ad zd M K n, liouChi χ m‖ := hKeq
+  rw [hval]
+  simp only [doorWinAZ]
+  exact norm_sum_sievedWindow_sq_le_dyadic _ (liouChi χ) H K n hKH
+
 /-- **THE SUB-WINDOW SUP, PRICED** — `doorChiSup`'s square against the aligned dyadic
 family, at the geometric weights.  The sup is over a nonempty finite set, hence attained
 (`Finset.exists_mem_eq_sup'`), and the bound is `K`-free. -/
@@ -407,16 +426,8 @@ theorem doorChiSup_sq_le_dyadic {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n
         * ∑ j ∈ Finset.range (Nat.log 2 H + 1),
             (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
               ‖∑ m ∈ doorSievedWindow M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2)
-              * (2 / 3 : ℝ) ^ j := by
-  obtain ⟨K, hKmem, hKeq⟩ :=
-    Finset.exists_mem_eq_sup' (s := Finset.Icc 0 H)
-      ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
-      (fun K => ‖∑ m ∈ doorSievedWindow M K n, liouChi χ m‖)
-  have hKH : K ≤ H := (Finset.mem_Icc.mp hKmem).2
-  have hval : doorChiSup χ M H n = ‖∑ m ∈ doorSievedWindow M K n, liouChi χ m‖ := hKeq
-  rw [hval]
-  simp only [doorSievedWindow]
-  exact norm_sum_sievedWindow_sq_le_dyadic _ (liouChi χ) H K n hKH
+              * (2 / 3 : ℝ) ^ j :=
+  doorChiSupAZ_sq_le_dyadic (Adoor M) (3072 * M) χ M H n
 
 /-! ## §4 — THE BLOCK SUM: THE SHIFT, AND THE COUNT
 
@@ -1297,16 +1308,8 @@ theorem doorChiSup_sq_le_dyadic_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter 
         * ∑ j ∈ Finset.range (Nat.log 2 H + 1),
             (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
               ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2)
-              * (2 / 3 : ℝ) ^ j := by
-  obtain ⟨Kw, hKmem, hKeq⟩ :=
-    Finset.exists_mem_eq_sup' (s := Finset.Icc 0 H)
-      ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
-      (fun Kw => ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖)
-  have hKH : Kw ≤ H := (Finset.mem_Icc.mp hKmem).2
-  have hval : doorChiSup_gk K χ M H n = ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖ := hKeq
-  rw [hval]
-  simp only [doorSievedWindow_gk]
-  exact norm_sum_sievedWindow_sq_le_dyadic _ (liouChi χ) H Kw n hKH
+              * (2 / 3 : ℝ) ^ j :=
+  doorChiSupAZ_sq_le_dyadic (Adoor M) (s13GK K M) χ M H n
 
 /-- **THE SHIFTED FIXED-LENGTH FAMILY AT THE LEVER** — `M4ChiShiftBlockMeanSq` (:776). -/
 def M4ChiShiftBlockMeanSq_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (F : ℕ → ℕ → ℝ) : Prop :=

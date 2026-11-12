@@ -18,13 +18,13 @@ fixed modulus `Q` with BOTH `a` and `N − a` reduced (so `n ≡ a (mod Q)` make
 * `goldbach_residue_witness` — D2.2's frozen shape: `∃ a < Q, Coprime Q a ∧
   Coprime Q (N − a) ∧ ∀ q ∈ Q.primeFactors, a % q ≠ 0 ∧ a % q ≠ N % q`.  The
   `Coprime Q (N − a)` conjunct is the Goldbach `hQa2` slot of `chen_of_hypotheses_W`
-  (`Salt/Chen/Assembly.lean:720`), consumed through `crtClassG`.
+  (`Salt/Chen/Assembly.lean:738`), consumed through `crtClassG`.
 * `crtClassG` + `crtClassG_coprime` — the Goldbach mirror of `crtClassW`
-  (`Salt/Chen/SwitchW.lean:416`): the unique class mod `Q·d` fusing `N − a (mod Q)` with
+  (`Salt/Chen/SwitchW.lean:442`): the unique class mod `Q·d` fusing `N − a (mod Q)` with
   `N (mod d)` (the switch congruence `d ∣ n` gives `N − n ≡ N (mod d)`), reduced from
   `Coprime Q (N − a)` and `Coprime d N`.
 * `crt_class_coprimeG` — the hypotheses-parametrized coprimality of a fused class, the
-  Goldbach mirror of `crt_class_coprime` (`Salt/Chen/TwinA1W.lean:208`) as consumed by the
+  Goldbach mirror of `crt_class_coprime` (`Salt/Chen/TwinA1W.lean:225`) as consumed by the
   `rosserRemainderW_le_split` residue routing.
 
 Class B.  No `sorry`, no `native_decide`, no new axioms.

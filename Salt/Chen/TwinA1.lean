@@ -70,6 +70,11 @@ namespace Salt.Chen
 noncomputable def nuChen : ArithmeticFunction ℝ :=
   ⟨fun d => 1 / (d.totient : ℝ), by simp⟩
 
+/-- `nuChen d = 1/φ(d)` (`@[simp]`), by `rfl`: the Chen density evaluated. Read by `AggCE`,
+`BVSum`, `BandClose`, `BandIdent`, `BlockPricing`, `HeadlineW`, `MediumFloor`, `PDiag`, `PackA`,
+`PairBijection`, `PieceDecomp`, `SwitchBV`, `SwitchPricing`, `SwitchW`, `SwitchW2`, `TwinA1W`,
+`TwinA2W`, `WindowClose` and Goldbach's `A1`, `A1W`, `A2W`, `Asm3`, `BandIdent`, `PDiag`,
+`SwitchBV`, `WindowSW`, and four times in this file. -/
 @[simp] lemma nuChen_apply (d : ℕ) : nuChen d = 1 / (d.totient : ℝ) := rfl
 
 /-- `ν` is multiplicative: `1/φ(mn) = 1/(φm·φn) = (1/φm)(1/φn)` for coprime `m, n`. -/
@@ -132,12 +137,19 @@ noncomputable def twinA1Sieve (x P : ℕ) (hP : Squarefree P)
 
 section Facts
 
+/-- `(twinA1Sieve x P hP hPodd).prodPrimes = P` (`@[simp]`), by `rfl`: the twin `A₁` sieve's
+sifting modulus is `P`. Read by `BVSum`, `WLower` and `WRatioSharp`; not in this file beyond its
+proof. -/
 @[simp] lemma twinA1Sieve_prodPrimes (x P : ℕ) (hP : Squarefree P)
     (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p) : (twinA1Sieve x P hP hPodd).prodPrimes = P := rfl
 
+/-- `(twinA1Sieve x P hP hPodd).nu = nuChen` (`@[simp]`), by `rfl`: the twin `A₁` sieve's
+density is `1/φ`. Read by `WLower` and `WRatioSharp`, and once in this file. -/
 @[simp] lemma twinA1Sieve_nu (x P : ℕ) (hP : Squarefree P)
     (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p) : (twinA1Sieve x P hP hPodd).nu = nuChen := rfl
 
+/-- `(twinA1Sieve x P hP hPodd).totalMass = ∑_{n ∈ twinWindow x} Λ(n)` (`@[simp]`), by `rfl`:
+the exact window `Λ`-mass. Read by `TwinSharp` and twice in this file. -/
 @[simp] lemma twinA1Sieve_totalMass (x P : ℕ) (hP : Squarefree P)
     (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p) :
     (twinA1Sieve x P hP hPodd).totalMass = ∑ n ∈ twinWindow x, vonMangoldt n := rfl
@@ -299,9 +311,13 @@ theorem apSum_eq_psiAP {d : ℕ} (hd3 : 3 ≤ d) (y : ℕ) :
   intro n _
   exact dvd_add_two_iff hd3 n
 
+/-- `Finset.Icc 1 y = Finset.Ioc 0 y` (`omega` on the membership). Read twice in this file; no
+consumer outside it. -/
 theorem Icc_one_eq_Ioc (y : ℕ) : Finset.Icc 1 y = Finset.Ioc 0 y := by
   ext n; simp only [Finset.mem_Icc, Finset.mem_Ioc]; omega
 
+/-- `Finset.Icc a b = Finset.Ioc (a − 1) b` at `1 ≤ a` (`omega` on the membership) — the
+half-open shape the Abel pass's sums take. Read once in this file; no consumer outside it. -/
 theorem Icc_eq_Ioc_pred {a : ℕ} (b : ℕ) (ha : 1 ≤ a) :
     Finset.Icc a b = Finset.Ioc (a - 1) b := by
   ext n; simp only [Finset.mem_Icc, Finset.mem_Ioc]; omega

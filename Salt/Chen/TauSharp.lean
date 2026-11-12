@@ -118,8 +118,12 @@ namespace Salt.Chen
 /-- The `f`-side geometric ratio (`Tail.fseq_le`'s certified `99/100`). -/
 noncomputable def rf : ℝ := 99 / 100
 
+/-- `0 ≤ rf` (`rf = 99/100`), by `norm_num`: the sign of the geometric ratio. Read three times
+in this file (`cfSharp_nonneg`, `tauSharp_nonneg`, …); no consumer outside it. -/
 theorem rf_nonneg : (0 : ℝ) ≤ rf := by norm_num [rf]
 
+/-- `rf < 1`, by `norm_num`: the ratio contracts, which is what makes the `f`-forcing sum
+geometric. Read once in this file; no consumer outside it. -/
 theorem rf_lt_one : rf < 1 := by norm_num [rf]
 
 /-- **The sharp `f`-forcing** `cfSharp n ε = 3·ε·e²·rf^n`.  The `ε` is the `(K−1) ≤ ε`
@@ -133,11 +137,15 @@ noncomputable def cfSharp (n : ℕ) (ε : ℝ) : ℝ := 3 * ε * Real.exp 2 * rf
 Contracts (`< 1`) for `ε < 1/49` — NO `e^{n+3}` window conversion.  Contrast `ch_const ≥ 24`. -/
 noncomputable def chSharp (ε : ℝ) : ℝ := (1 + ε) * (49 / 50)
 
+/-- `0 ≤ cfSharp n ε` at `hε : 0 ≤ ε`: `3·ε·e²·rf^n` is a product of nonnegative factors
+(`Real.exp_pos`, `pow_nonneg rf_nonneg`). No consumer at `main`, in this file or outside it. -/
 theorem cfSharp_nonneg (n : ℕ) {ε : ℝ} (hε : 0 ≤ ε) : 0 ≤ cfSharp n ε := by
   unfold cfSharp
   exact mul_nonneg (mul_nonneg (mul_nonneg (by norm_num) hε) (Real.exp_pos 2).le)
     (pow_nonneg rf_nonneg n)
 
+/-- `0 ≤ chSharp ε` at `hε : 0 ≤ ε`: `(1 + ε)·(49/50)` with `1 + ε ≥ 0`. Read twice in this file
+(`tauSharp_nonneg` among them); no consumer outside it. -/
 theorem chSharp_nonneg {ε : ℝ} (hε : 0 ≤ ε) : 0 ≤ chSharp ε := by
   unfold chSharp; exact mul_nonneg (by linarith) (by norm_num)
 
@@ -184,14 +192,25 @@ noncomputable def tauSharp (ε : ℝ) : ℕ → ℝ
   | 0 => 0
   | (n + 1) => 3 * rf ^ n + chSharp ε * tauSharp ε n
 
+/-- `tauSharp ε 0 = 0`, by `rfl` (`@[simp]`): the closing recursion's base. Read four times in
+this file; no consumer outside it. -/
 @[simp] theorem tauSharp_zero (ε : ℝ) : tauSharp ε 0 = 0 := rfl
 
+/-- `tauSharp ε (n + 1) = 3·rf^n + chSharp ε·tauSharp ε n`, by `rfl`: the closing recursion's
+step, unfolded by name. Read four times in this file (`tauSharp_one`, `tauSharp_nonneg`, …); no
+consumer outside it. -/
 theorem tauSharp_succ (ε : ℝ) (n : ℕ) :
     tauSharp ε (n + 1) = 3 * rf ^ n + chSharp ε * tauSharp ε n := rfl
 
+/-- `tauSharp ε 1 = 3` (`@[simp]`): one step of the recursion from `τ₀ = 0` (`tauSharp_succ`,
+`tauSharp_zero`, `simp`) — the `τ₁ = 3` anchor of `Lemma11.hlevel_one_upper`'s base. Read by
+`WindowedStepP` and twice in this file. -/
 @[simp] theorem tauSharp_one (ε : ℝ) : tauSharp ε 1 = 3 := by
   rw [tauSharp_succ, tauSharp_zero]; simp
 
+/-- `0 ≤ tauSharp ε n` for every `n` at `hε : 0 ≤ ε`, by induction on the recursion: the base is
+`0`; the step adds `3·rf^n ≥ 0` (`rf_nonneg`) to `chSharp ε·τₙ ≥ 0` (`chSharp_nonneg`). Read by
+`All` and `WindowedStepP`, and four times in this file. -/
 theorem tauSharp_nonneg {ε : ℝ} (hε : 0 ≤ ε) : ∀ n, 0 ≤ tauSharp ε n
   | 0 => by rw [tauSharp_zero]
   | (n + 1) => by

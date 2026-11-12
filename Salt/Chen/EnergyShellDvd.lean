@@ -150,6 +150,9 @@ noncomputable def shellBoundDvd (X Y Q δ : ℕ) : ℝ :=
     * Real.sqrt ((Q : ℝ) ^ 2 / δ + 13 * ((Y : ℝ) + 1))
     * Real.sqrt (X : ℝ) * Real.sqrt (Y : ℝ)
 
+/-- `0 ≤ shellBoundDvd X Y Q δ` at `0 < Y`: the δ-shell `2(1 + log Y)·√(Q²/δ + 13(X+1))·…` with
+`1 + log Y ≥ 0` (`Real.log_nonneg` at `1 ≤ Y`) and the rest by `positivity`. No consumer at
+`main`, in this file or outside it. -/
 lemma shellBoundDvd_nonneg {X Y Q δ : ℕ} (hY : 0 < Y) : 0 ≤ shellBoundDvd X Y Q δ := by
   unfold shellBoundDvd
   have h1logY : (0 : ℝ) ≤ 1 + Real.log Y :=

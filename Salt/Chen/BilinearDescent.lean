@@ -127,6 +127,9 @@ noncomputable def bilinPrimEnergy (α β : ℕ → ℂ) (X Y f : ℕ) : ℝ :=
   ∑ ψ ∈ Finset.univ.filter (fun ψ : DirichletCharacter ℂ f => ψ.IsPrimitive),
     ‖bilinTwist α X f ψ‖ * ‖bilinTwist β Y f ψ‖
 
+/-- `0 ≤ bilinPrimEnergy α β X Y f`: a sum over primitive `ψ mod f` of products of norms
+(`Finset.sum_nonneg`, `mul_nonneg`, `norm_nonneg`). Read by `AlphaClose`, `AlphaSide`,
+`DyadicDvd` and `EnergyClose`, and three times in this file. -/
 lemma bilinPrimEnergy_nonneg (α β : ℕ → ℂ) (X Y f : ℕ) : 0 ≤ bilinPrimEnergy α β X Y f :=
   Finset.sum_nonneg fun _ _ => mul_nonneg (norm_nonneg _) (norm_nonneg _)
 

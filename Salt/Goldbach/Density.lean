@@ -22,9 +22,9 @@ the sifting modulus is *punctured* — the primes `q ∣ N` are removed — so t
   `d ∣ goldPs → Coprime d N` (`coprime_of_dvd_goldPs`) that the whole Goldbach remainder
   analysis consumes.
 * **Part B — the reduced-residue re-threading.**  The Goldbach replacements for
-  `coprime_sub_two` (TwinA1:221): from `Coprime d N` the residue class `N mod d` is a unit
+  `coprime_sub_two` (TwinA1:233): from `Coprime d N` the residue class `N mod d` is a unit
   (`coprime_mod_of_coprime`), and the CRT-class-coprimality mirror
-  (`crtClass_coprime_gold`, mirroring `crt_class_coprime` TwinA1W:208).
+  (`crtClass_coprime_gold`, mirroring `crt_class_coprime` TwinA1W:225).
 * **Part C — THE GATE-CORRECTED KEYSTONE `window_prod_upper_punctured`.**  For the punctured
   window `primesInWindow z y \ {q ∣ N}` the density product `∏(1 − ν(q))` obeys the full-window
   upper bound (`Salt.Chen.window_prod_upper`) times a correction `≤ exp(8/(z−2))`.  Route (per
@@ -121,14 +121,14 @@ theorem goldPs_primeFactors_facts {N z w' : ℕ} :
 
 /-- **The Goldbach `coprime_sub_two` analogue.**  From `Coprime d N`, the residue class
 `N mod d` (the class the Goldbach sieve sifts: `q ∣ N − n ↔ n ≡ N (mod q)`) is a unit mod `d`.
-Replaces `coprime_sub_two` (TwinA1:221, `Coprime d (d−2)`) in the Goldbach `apDisc`/CRT
+Replaces `coprime_sub_two` (TwinA1:233, `Coprime d (d−2)`) in the Goldbach `apDisc`/CRT
 mirrors. -/
 theorem coprime_mod_of_coprime {d N : ℕ} (h : Nat.Coprime d N) : Nat.Coprime d (N % d) := by
   have hg : Nat.gcd (N % d) d = Nat.gcd N d := Nat.ModEq.gcd_eq (Nat.mod_modEq N d)
   rw [Nat.Coprime, Nat.gcd_comm, hg, Nat.gcd_comm]
   exact h
 
-/-- **The Goldbach CRT-class-coprimality** (mirroring `crt_class_coprime` TwinA1W:208).  The
+/-- **The Goldbach CRT-class-coprimality** (mirroring `crt_class_coprime` TwinA1W:225).  The
 fused residue `c` — `c ≡ a (mod Q)` (the `Q`-side class of G-RES) and `c ≡ N (mod d)` (the
 `d`-side class) — is reduced mod `Q·d`.  `gcd(c, Q) = gcd(a, Q) = 1` from `hQa`; `gcd(c, d) =
 gcd(N mod d, d) = 1` from `Coprime d N` via `coprime_mod_of_coprime`. -/
