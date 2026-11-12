@@ -370,6 +370,16 @@ def doorChiSup {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) : ℝ :=
   (Finset.Icc 0 H).sup' ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
     (fun K => ‖∑ m ∈ doorSievedWindow M K n, liouChi χ m‖)
 
+/-- **⟦O13-e row 145⟧ THE DOOR WINDOW AT PARAMETERS `(Ad, zd)`** — `doorSievedWindow` (:364) is
+`doorWinAZ (Adoor M) (3072 * M)`, and `_gk`, `_L`, `_L_gk` are the other three corners. -/
+def doorWinAZ (Ad zd M K n : ℕ) : Finset ℕ :=
+  sievedWindow (MemS (calP Ad zd) (calQK Ad zd M) 2) K n
+
+/-- **⟦O13-e row 145⟧ THE χ-TWISTED SUP OVER `doorWinAZ`** — `doorChiSup` at any `(Ad, zd)`. -/
+def doorChiSupAZ (Ad zd : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) : ℝ :=
+  (Finset.Icc 0 H).sup' ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
+    (fun K => ‖∑ m ∈ doorWinAZ Ad zd M K n, liouChi χ m‖)
+
 theorem le_doorChiSup {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {K : ℕ} (hK : K ≤ H) :
     ‖∑ m ∈ doorSievedWindow M K n, liouChi χ m‖ ≤ doorChiSup χ M H n :=
   Finset.le_sup' (f := fun K => ‖∑ m ∈ doorSievedWindow M K n, liouChi χ m‖)

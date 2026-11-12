@@ -34,7 +34,7 @@ weight `selWeight` (Benli–Goel–Twiss–Zaman (4.8), `arXiv:2410.06082`).
   (`|gcW|·σ₀² ≤ 3^ω·4^ω = 12^ω`, via the landed `tau6W_le`);
 * **cpow-reality** `norm_dhCoeffW_term` — the per-term norm identity (`n^{-ρ}` twist
   contributes only `n^{-Re ρ}`), ported from `norm_dhDetectorShift_term`;
-* **`dhCoeff_nonneg`** `dhCoeffW_nonneg` — `0 ≤ dhCoeffW` for real `χ`.
+* **nonnegativity** `dhCoeffW_nonneg` — `0 ≤ dhCoeffW` for real `χ`.
 
 ## The Selberg local factors and `selWeight` (defs; properties are R4/R5)
 
@@ -96,7 +96,7 @@ lemma dhCoeffW_one {q : ℕ} (χ : DirichletCharacter ℂ q) (lam : ℕ → ℝ)
     dhCoeffW χ lam 1 = (lam 1) ^ 2 := by
   rw [dhCoeffW, dhA_one, dhWeightSqW_one, one_mul]
 
-/-- **`dhCoeff_nonneg` port.** For real `χ` (`χ² = 1`) and `n ≠ 0`, `0 ≤ a_λ(n)`
+/-- **Nonnegativity port.** For real `χ` (`χ² = 1`) and `n ≠ 0`, `0 ≤ a_λ(n)`
 (`dhA ≥ 0`, `w_λ ≥ 0`). -/
 lemma dhCoeffW_nonneg {q : ℕ} (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) (lam : ℕ → ℝ)
     {n : ℕ} (hn : n ≠ 0) : 0 ≤ dhCoeffW χ lam n :=
@@ -252,8 +252,8 @@ lemma norm_dhCoeffW_term {q : ℕ} (χ : DirichletCharacter ℂ q) (lam : ℕ �
 The exact local residue density `h(p) = 1 + χ_ℝ(p) − χ_ℝ(p)/p` (Benli §4) and its Selberg
 reciprocal `g = h/(p−h)`. For real `χ` and `p` prime, `h(p) ∈ {2−1/p, 1, 1/p}` (per
 `χ_ℝ(p) ∈ {1,0,−1}`) — all in `(0,2]` with `h(p) < p`, so `g(p) > 0` (no degeneracy). These are
-DEFS with the range proven here; the optimality algebra (`selberg_opt_eq`, `selweight_abs_le_one`,
-the mean lower bound `H_lower`) is R4/R5 (wave 2). -/
+DEFS with the range proven here; the optimality algebra landed later: `selberg_opt_eq` and
+`selweight_abs_le_one` in `SelOpt.lean` (R4), the lower bound `H_lower` in `CrushH.lean` (R5). -/
 
 /-- **The exact local residue density** `h(p) = 1 + χ_ℝ(p) − χ_ℝ(p)/p`. -/
 def selH {q : ℕ} (χ : DirichletCharacter ℂ q) (p : ℕ) : ℝ := 1 + chiRe χ p - chiRe χ p / p

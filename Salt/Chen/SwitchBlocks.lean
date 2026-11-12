@@ -226,18 +226,31 @@ section BlockFacts
 variable (x z y : ℕ) (ε₀ : ℝ) (j Ps : ℕ) (hPs : Squarefree Ps)
   (hPodd : ∀ p ∈ Ps.primeFactors, 3 ≤ p)
 
+/-- `(blockSwitchSieve …).support = twinWindow x`, by `rfl` (`@[simp]`): the per-block switched
+sieve keeps the whole window as its support, the block entering only through the weight
+`blockACount`. No consumer at `main` (the `simp` normal form of the instance). -/
 @[simp] lemma blockSwitchSieve_support :
     (blockSwitchSieve x z y ε₀ j Ps hPs hPodd).support = twinWindow x := rfl
 
+/-- `(blockSwitchSieve …).prodPrimes = Ps`, by `rfl` (`@[simp]`): the sifting modulus is
+block-independent — the W-factoring premise. Read by `BlockPricing`. -/
 @[simp] lemma blockSwitchSieve_prodPrimes :
     (blockSwitchSieve x z y ε₀ j Ps hPs hPodd).prodPrimes = Ps := rfl
 
+/-- `(blockSwitchSieve …).nu = nuChen`, by `rfl` (`@[simp]`): the density is block-independent,
+as the modulus is. Read by `BlockPricing`. -/
 @[simp] lemma blockSwitchSieve_nu :
     (blockSwitchSieve x z y ε₀ j Ps hPs hPodd).nu = nuChen := rfl
 
+/-- `(blockSwitchSieve …).totalMass = blockTripleSum x z y ε₀ j`, by `rfl` (`@[simp]`): the
+block's total mass is the block-`j` triple count. Read by `BlockPricing` and once in this
+file. -/
 @[simp] lemma blockSwitchSieve_totalMass :
     (blockSwitchSieve x z y ε₀ j Ps hPs hPodd).totalMass = blockTripleSum x z y ε₀ j := rfl
 
+/-- `(blockSwitchSieve …).siftedSum = ∑_{n ∈ twinWindow x} [Ps ⊥ n]·blockACount j n`, by `rfl`:
+the sifted sum of the per-block instance is the block multiplicity over the window points
+coprime to `Ps`. Read once in this file; no consumer outside it. -/
 lemma blockSwitchSieve_siftedSum :
     (blockSwitchSieve x z y ε₀ j Ps hPs hPodd).siftedSum
       = ∑ n ∈ twinWindow x, if Nat.Coprime Ps n then blockACount x z y ε₀ j n else 0 := rfl

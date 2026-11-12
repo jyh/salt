@@ -75,6 +75,8 @@ noncomputable def Pbelow (s : BoundingSieve) (q : ℕ) : ℕ := ∏ p ∈ belowP
 density at cutoff `u`.  Equals `W s` at `q > z`. -/
 noncomputable def Vbelow (s : BoundingSieve) (q : ℕ) : ℝ := ∏ p ∈ belowPrimes s q, (1 - s.nu p)
 
+/-- `p.Prime` at `p ∈ belowPrimes s q`: the sifting primes below `q` are prime factors of `P(z)`
+(`Nat.prime_of_mem_primeFactors`). Read twice in this file; no consumer outside it. -/
 lemma belowPrimes_prime {s : BoundingSieve} {q p : ℕ} (hp : p ∈ belowPrimes s q) : p.Prime :=
   Nat.prime_of_mem_primeFactors (Finset.mem_filter.mp hp).1
 
@@ -88,6 +90,8 @@ lemma Pbelow_squarefree (s : BoundingSieve) (q : ℕ) : Squarefree (Pbelow s q) 
       _ = s.prodPrimes := Nat.prod_primeFactors_of_squarefree s.prodPrimes_squarefree
   exact s.prodPrimes_squarefree.squarefree_of_dvd hdvd
 
+/-- `Pbelow s q ≠ 0`: a squarefree number is nonzero (`Pbelow_squarefree`,
+`Squarefree.ne_zero`). Read by `Peeling` and twice in this file. -/
 lemma Pbelow_ne_zero (s : BoundingSieve) (q : ℕ) : Pbelow s q ≠ 0 :=
   (Pbelow_squarefree s q).ne_zero
 
@@ -106,6 +110,9 @@ lemma Vbelow_eq (s : BoundingSieve) (q : ℕ) :
   rw [primeFactors_Pbelow] at h
   rw [← h, Vbelow]
 
+/-- `0 < Vbelow s q`: `∏_{p < q}(1 − ν(p))` over the sifting primes, each factor positive
+because `ν(p) < 1` at a prime `p ∣ P(z)` (`belowPrimes_prime`, `s.nu_lt_one_of_prime`,
+`Finset.prod_pos`). Read by `SharpF` and `SharpH2`, and once in this file. -/
 lemma Vbelow_pos (s : BoundingSieve) (q : ℕ) : 0 < Vbelow s q := by
   unfold Vbelow
   apply Finset.prod_pos
@@ -198,13 +205,22 @@ theorem rprefix_mul_rsuffix {d : ℕ} (hd : Squarefree d) (n : ℕ) :
     rprefix d n * rsuffix d n = d := by
   rw [rprefix_eq_take, rsuffix, ← List.prod_append, List.take_append_drop, rlist_prod hd]
 
+/-- `((rlist d).take n).Nodup`: a prefix of the nodup descending list (`rlist_nodup`,
+`List.take_sublist`). Read once in this file; no consumer outside it. -/
 lemma take_nodup (d n : ℕ) : ((rlist d).take n).Nodup :=
   (rlist_nodup d).sublist (List.take_sublist n _)
+/-- `((rlist d).take n).SortedGE`: a prefix of a `≥`-sorted list is `≥`-sorted
+(`rlist_sortedGE`, `List.Pairwise.sublist`). Read once in this file; no consumer outside it. -/
 lemma take_sortedGE (d n : ℕ) : ((rlist d).take n).SortedGE :=
   List.sortedGE_iff_pairwise.mpr
     (List.Pairwise.sublist (List.take_sublist n _) (rlist_sortedGE d).pairwise)
+/-- `p.Prime` at `p ∈ (rlist d).take n`: a member of a prefix is a member of `rlist d`, hence a
+prime factor of `d` (`List.mem_of_mem_take`, `rlist_mem`). Read once in this file; no consumer
+outside it. -/
 lemma take_prime {d n p : ℕ} (hp : p ∈ (rlist d).take n) : p.Prime :=
   Nat.prime_of_mem_primeFactors (rlist_mem.mp (List.mem_of_mem_take hp))
+/-- `((rlist d).drop n).SortedGE`: a suffix of a `≥`-sorted list is `≥`-sorted
+(`rlist_sortedGE`, `List.drop_sublist`). Read once in this file; no consumer outside it. -/
 lemma drop_sortedGE (d n : ℕ) : ((rlist d).drop n).SortedGE :=
   List.sortedGE_iff_pairwise.mpr
     (List.Pairwise.sublist (List.drop_sublist n _) (rlist_sortedGE d).pairwise)
@@ -285,6 +301,10 @@ noncomputable def failIdx (side D d : ℕ) : Finset ℕ :=
   (Finset.range (rlist d).length).filter
     (fun i => (i + 1) % 2 = side % 2 ∧ D ≤ rprefix d (i + 1) * (relem d i) ^ 2)
 
+/-- `i ∈ failIdx side D d` iff `i < (rlist d).length`, the position is checked
+(`(i + 1) % 2 = side % 2`) and it violates (`D ≤ rprefix d (i+1)·(relem d i)²`): membership in
+the failing checked positions unfolded (`Finset.mem_filter`, `Finset.mem_range`). Read six times
+in this file; no consumer outside it. -/
 theorem mem_failIdx {side D d i : ℕ} :
     i ∈ failIdx side D d ↔
       i < (rlist d).length ∧ (i + 1) % 2 = side % 2 ∧ D ≤ rprefix d (i + 1) * (relem d i) ^ 2 := by

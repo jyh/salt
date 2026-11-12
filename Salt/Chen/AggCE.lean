@@ -20,13 +20,13 @@ hypothesis of `hBVblocksW_discharge'` (`Salt/Chen/PDiag.lean`).
     if (d : ℝ) < QR * Dlev then blockConvErrW x z y ε₀ j Q d else 0) ≤ RCE)
 ```
 
-with (`Salt/Chen/SwitchW.lean:602`)
+with (`Salt/Chen/SwitchW.lean:634`)
 
 ```
 blockConvErrW x z y ε₀ j Q d = nuChen (Q * d) * blockNonUnitCountM x z y ε₀ j (Q * d)
 ```
 
-and (`Salt/Chen/SwitchW.lean:489`)
+and (`Salt/Chen/SwitchW.lean:521`)
 
 ```
 blockNonUnitCountM x z y ε₀ j m

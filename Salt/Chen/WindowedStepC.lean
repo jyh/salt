@@ -309,13 +309,20 @@ pad envelopes the (36)-boundary defect `(K−1)g(s−1) ≤ ε·γ₃ʰ·g(s)` (
 `(1+ε)(49/50)`.  Contracts (`< 1`) exactly for `ε < 1/249` (NOT `ε < 1/49`). -/
 noncomputable def chSharpB (ε : ℝ) : ℝ := (1 + ε) * (49 / 50) + 4 * ε
 
+/-- `cfSharpB 0 ε = 3·ε·e²`: the `n = 0` anchor of the boundary-padded forcing (matching
+`τ₁ = 3`), by unfolding and `if_pos`. Read once in this file; no consumer outside it. -/
 theorem cfSharpB_zero (ε : ℝ) : cfSharpB 0 ε = 3 * ε * Real.exp 2 := by
   unfold cfSharpB; rw [if_pos rfl]
 
+/-- `cfSharpB n ε = 20·ε·e²·(99/100)^n` at `hn : n ≠ 0`: the `n ≥ 1` branch of the
+boundary-padded forcing, by unfolding and `if_neg`. Read by `SharpF` and once in this file. -/
 theorem cfSharpB_of_pos {n : ℕ} (hn : n ≠ 0) (ε : ℝ) :
     cfSharpB n ε = 20 * ε * Real.exp 2 * (99 / 100) ^ n := by
   unfold cfSharpB; rw [if_neg hn]
 
+/-- `0 ≤ cfSharpB n ε` at `hε : 0 ≤ ε`: both branches are products of nonnegative factors
+(`Real.exp_pos`, `positivity` on the power). No consumer at `main`, in this file or outside
+it. -/
 theorem cfSharpB_nonneg (n : ℕ) {ε : ℝ} (hε : 0 ≤ ε) : 0 ≤ cfSharpB n ε := by
   unfold cfSharpB
   split
@@ -323,6 +330,8 @@ theorem cfSharpB_nonneg (n : ℕ) {ε : ℝ} (hε : 0 ≤ ε) : 0 ≤ cfSharpB n
   · exact mul_nonneg (mul_nonneg (mul_nonneg (by norm_num) hε) (Real.exp_pos 2).le)
       (by positivity)
 
+/-- `0 ≤ chSharpB ε` at `hε : 0 ≤ ε`: `(1 + ε)(49/50) + 4ε` is linear in `ε ≥ 0` (`linarith`).
+Read twice in this file (`tauSharpB_nonneg` among them); no consumer outside it. -/
 theorem chSharpB_nonneg {ε : ℝ} (hε : 0 ≤ ε) : 0 ≤ chSharpB ε := by
   unfold chSharpB; linarith only [hε]
 
@@ -338,8 +347,13 @@ noncomputable def tauSharpB (ε : ℝ) : ℕ → ℝ
   | 0 => 0
   | (n + 1) => (if n = 0 then 3 else 20 * (99 / 100) ^ n) + chSharpB ε * tauSharpB ε n
 
+/-- `tauSharpB ε 0 = 0`, by `rfl` (`@[simp]`): the B-mirror recursion's base. Read five times in
+this file; no consumer outside it. -/
 @[simp] theorem tauSharpB_zero (ε : ℝ) : tauSharpB ε 0 = 0 := rfl
 
+/-- `tauSharpB ε (n + 1) = (if n = 0 then 3 else 20·(99/100)^n) + chSharpB ε·tauSharpB ε n`, by
+`rfl`: the B-mirror recursion's step, with the `n = 0` forcing anchor `3` (not `20`) — the case
+split the gate flagged. Read four times in this file; no consumer outside it. -/
 theorem tauSharpB_succ (ε : ℝ) (n : ℕ) :
     tauSharpB ε (n + 1)
       = (if n = 0 then 3 else 20 * (99 / 100) ^ n) + chSharpB ε * tauSharpB ε n := rfl
@@ -355,6 +369,10 @@ theorem tauSharpB_succ_of_pos {n : ℕ} (hn : n ≠ 0) (ε : ℝ) :
     tauSharpB ε (n + 1) = 20 * (99 / 100) ^ n + chSharpB ε * tauSharpB ε n := by
   rw [tauSharpB_succ, if_neg hn]
 
+/-- `0 ≤ tauSharpB ε n` for every `n` at `hε : 0 ≤ ε`, by induction on the recursion: the base
+is `0`; the step's forcing term is `3` or `20·(99/100)^n` (`norm_num`, `positivity`) and the
+carried term `chSharpB ε·τₙ ≥ 0` (`chSharpB_nonneg`). Read by `TwinA1W`, `TwinSharp` and
+Goldbach's `A1`, `A1W`, and five times in this file. -/
 theorem tauSharpB_nonneg {ε : ℝ} (hε : 0 ≤ ε) : ∀ n, 0 ≤ tauSharpB ε n
   | 0 => by rw [tauSharpB_zero]
   | (n + 1) => by
