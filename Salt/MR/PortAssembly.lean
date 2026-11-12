@@ -1424,7 +1424,7 @@ arithmetic `16 = 12/(3/4)` with the whole `(loglog)^4` as margin).
 
 ⟦THE ONE HYPOTHESIS THAT REMAINS, and why it is a one-line exposure⟧ the theorem takes the
 twisted edge price at the LITERAL width `1/10⁸`.  `TwistedEdge.twisted_edge_price_strip`
-proves exactly that (`refine ⟨1 / 10 ^ 8, …⟩`, TwistedEdge.lean:896) and
+proves exactly that (`refine ⟨1 / 10 ^ 8, …⟩`, TwistedEdge.lean:899) and
 `twisted_window_price_gated_holds` passes the same constant through — but both package it
 behind `∃ c_vk`, and the region (§8, like stone C's split) delivers its width at the literal
 `1/10⁸`, so the kernel cannot see that the two match.  Exposing the numeral in either `∃`

@@ -20,7 +20,7 @@ constant `A` is what has to clear it — so `A` must be chosen AFTER `C_q`.
 therefore circular as the lane stands.  `REGISTER-INHABIT` named the fix and proved it
 possible: `C_q` is **`K`-independent** — the lever is a dead argument that drops at hop 3
 (`NumeralKq.m4_rowChi_capstone_perBlock_bounded` takes no `K`), and the mint is
-`PortAssembly:827`.
+`PortAssembly:830`.
 
 §1 performs the surgery: three twins of the ⟦COMPOSE-2 `∀K` hoist⟧ genre (8/02), each the
 landed body with ONE extra `intro K`, moving the `∀ K` binder inside the `∃`-prefix:

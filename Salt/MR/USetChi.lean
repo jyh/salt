@@ -22,7 +22,7 @@ the block objects at `χ̄`-twisted data, and the `𝒯_L` branch; `USetChiTS.le
   `FibreWellSpaced` (`HybridLargeValues`:90) is THE per-fibre spacing — ordinates sharing a
   character are `≥ 1` apart, ordinates on different characters unconstrained;
   `hybrid_large_value_count` (KMT Lemma 6.5 at `qT`) is THE count;
-  `chiBarCoeff`/`spoly_chiBarCoeff_eq_dpolyChi` (`HybridMoments`:113/157) are THE twisted
+  `chiBarCoeff`/`spoly_chiBarCoeff_eq_dpolyChi` (`HybridMoments`:113/161) are THE twisted
   carriers.  The twisted block objects are the LANDED `ramQ`/`ramR`/`ramMain` applied to
   `chiBarCoeff q χ ·` — no new block carrier is minted.
 * **Retyped here** (proofs near-verbatim, the datum being character-blind):
