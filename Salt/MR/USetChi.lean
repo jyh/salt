@@ -22,7 +22,7 @@ the block objects at `χ̄`-twisted data, and the `𝒯_L` branch; `USetChiTS.le
   `FibreWellSpaced` (`HybridLargeValues`:90) is THE per-fibre spacing — ordinates sharing a
   character are `≥ 1` apart, ordinates on different characters unconstrained;
   `hybrid_large_value_count` (KMT Lemma 6.5 at `qT`) is THE count;
-  `chiBarCoeff`/`spoly_chiBarCoeff_eq_dpolyChi` (`HybridMoments`:113/157) are THE twisted
+  `chiBarCoeff`/`spoly_chiBarCoeff_eq_dpolyChi` (`HybridMoments`:113/161) are THE twisted
   carriers.  The twisted block objects are the LANDED `ramQ`/`ramR`/`ramMain` applied to
   `chiBarCoeff q χ ·` — no new block carrier is minted.
 * **Retyped here** (proofs near-verbatim, the datum being character-blind):
@@ -95,11 +95,16 @@ noncomputable def reflectChi {q : ℕ} (ℰ : Finset (DirichletCharacter ℂ q �
     Finset (DirichletCharacter ℂ q × ℝ) :=
   ℰ.map (reflectPair q).toEmbedding
 
+/-- `r ∈ reflectChi ℰ ↔ (r.1⁻¹, −r.2) ∈ ℰ` (`@[simp]`): membership in the reflected index set,
+through the reflection equivalence (`Finset.mem_map_equiv`). Read four times in this file; no
+consumer outside it. -/
 @[simp] lemma mem_reflectChi {q : ℕ} {ℰ : Finset (DirichletCharacter ℂ q × ℝ)}
     {r : DirichletCharacter ℂ q × ℝ} : r ∈ reflectChi ℰ ↔ (r.1⁻¹, -r.2) ∈ ℰ := by
   rw [reflectChi, Finset.mem_map_equiv]
   rfl
 
+/-- `(reflectChi ℰ).card = ℰ.card` (`@[simp]`): reflection is an embedding (`Finset.card_map`).
+Read by `HalaszIntegersChiClose` and `USetChiTS`, and twice in this file. -/
 @[simp] lemma card_reflectChi {q : ℕ} (ℰ : Finset (DirichletCharacter ℂ q × ℝ)) :
     (reflectChi ℰ).card = ℰ.card := Finset.card_map _
 
@@ -279,6 +284,10 @@ def UsetChi (q : ℕ) (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (δ : ℝ) (J 
     Set (DirichletCharacter ℂ q × ℝ) :=
   {r | r.2 ∈ Uset (chiBarCoeff q r.1 f) Pseq Qseq δ J}
 
+/-- `r ∈ UsetChi q f Pseq Qseq δ J` iff for every block index `j ∈ [1, J]` the `χ̄`-twisted
+datum `chiBarCoeff q r.1 f` is NOT `BlockSmallAt … δ j r.2`: the pair set's defining predicate,
+by `Iff.rfl` — `Decomp.Uset` at the twisted datum, fibre by fibre. Read once in this file; no
+consumer outside it. -/
 lemma mem_UsetChi {q : ℕ} {f : ℕ → ℂ} {Pseq Qseq : ℕ → ℕ} {δ : ℝ} {J : ℕ}
     {r : DirichletCharacter ℂ q × ℝ} :
     r ∈ UsetChi q f Pseq Qseq δ J
@@ -417,10 +426,15 @@ noncomputable def tLsetChi (q : ℕ) (H : ℝ) (P Q j : ℕ) (c : ℕ → ℂ) (
     (ℰ : Finset (DirichletCharacter ℂ q × ℝ)) : Finset (DirichletCharacter ℂ q × ℝ) :=
   ℰ.filter (fun r => δ' < ‖ramQ H P Q j (chiBarCoeff q r.1 c) r.2‖)
 
+/-- `tLsetChi q H P Q j c δ' ℰ ⊆ ℰ`: a filter of `ℰ` (`Finset.filter_subset`). Read by
+`PortClose` and `USetGChiTS`, and twice in this file. -/
 lemma tLsetChi_subset (q : ℕ) (H : ℝ) (P Q j : ℕ) (c : ℕ → ℂ) (δ' : ℝ)
     (ℰ : Finset (DirichletCharacter ℂ q × ℝ)) : tLsetChi q H P Q j c δ' ℰ ⊆ ℰ :=
   Finset.filter_subset _ _
 
+/-- `r ∈ tLsetChi q H P Q j c δ' ℰ` gives
+`r ∈ ℰ ∧ δ' < ‖ramQ H P Q j (chiBarCoeff q r.1 c) r.2‖`: the `𝒯_L` filter's membership unfolded
+(`Finset.mem_filter`). Read once in this file; no consumer outside it. -/
 lemma mem_tLsetChi {q : ℕ} {H : ℝ} {P Q j : ℕ} {c : ℕ → ℂ} {δ' : ℝ}
     {ℰ : Finset (DirichletCharacter ℂ q × ℝ)} {r : DirichletCharacter ℂ q × ℝ}
     (hr : r ∈ tLsetChi q H P Q j c δ' ℰ) :
@@ -428,6 +442,9 @@ lemma mem_tLsetChi {q : ℕ} {H : ℝ} {P Q j : ℕ} {c : ℕ → ℂ} {δ' : �
   rw [tLsetChi, Finset.mem_filter] at hr
   exact hr
 
+/-- `FibreWellSpaced (tLsetChi q H P Q j c δ' ℰ)` at `FibreWellSpaced ℰ`: well-spacing passes to
+a subset (`fibreWellSpaced_of_subset`, `tLsetChi_subset`). Read once in this file; no consumer
+outside it. -/
 lemma tLsetChi_fibreWellSpaced {q : ℕ} {H : ℝ} {P Q j : ℕ} {c : ℕ → ℂ} {δ' : ℝ}
     {ℰ : Finset (DirichletCharacter ℂ q × ℝ)} (hws : FibreWellSpaced ℰ) :
     FibreWellSpaced (tLsetChi q H P Q j c δ' ℰ) :=

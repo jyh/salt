@@ -670,6 +670,9 @@ the `log` of the crude ceiling at the VK floor.  (`ζ`'s counterpart is the NON-
 `logDeriv_Zc_compact_bound` constant; this one is a closed form.) -/
 def twistedEdgeLowConst : ℝ := Real.log (40 * (2 + 3 * (Real.exp (Real.exp 100) + 4)))
 
+/-- `0 < twistedEdgeLowConst`: `log(40·(2 + 3·(exp(exp 100) + 4))) > 0` because the argument
+exceeds `1` (`Real.log_pos`, `Real.exp_pos`). Read three times in this file; no consumer outside
+it. -/
 lemma twistedEdgeLowConst_pos : 0 < twistedEdgeLowConst := by
   rw [twistedEdgeLowConst]
   apply Real.log_pos

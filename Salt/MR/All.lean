@@ -5528,7 +5528,7 @@ open Salt.Tactic in
 -- discharged, in front of FOUR gates (edge `q`-scale; the region's `A`-absorption at
 -- `A := 1 + log(20000(Cq+8104))/100`; the below-floor comparison `Kq`; the Siegel gate `Ks`) and
 -- nothing else.  It takes the edge price at the LITERAL width `1/10⁸` —
--- `twisted_edge_price_strip` proves exactly that (TwistedEdge.lean:896) and
+-- `twisted_edge_price_strip` proves exactly that (TwistedEdge.lean:899) and
 -- `twisted_window_price_gated_holds` passes the same constant through, but both hide it behind
 -- `∃ c_vk`, so the kernel cannot see that it matches the region's own `1/10⁸`.
 --
