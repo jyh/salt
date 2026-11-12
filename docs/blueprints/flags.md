@@ -13932,7 +13932,7 @@ Against δ₀/2 ≈ 10⁻⁴⁹ the gap is ~10¹¹⁴. Ccc is exported only as
 0 < Ccc (from m4_door_meansq_carried) — no spine can rely on it small.
 Stronger than WALL A: no H-dependence at all.
 
-**THE NAMED REPAIR (the pivot: M4T0Discharge:707-709 vs :714 — the
+**THE NAMED REPAIR (the pivot: M4T0Discharge:716-718 vs :714 — the
 assembly capping each a2Mrow piece by the same (log X)^{-1/500}):** one
 factor of 1/M in the envelope's summand (or a strictly smaller exponent
 at :709 than :714) turns B·M ≥ K into B·M² ≥ K, whence
@@ -18268,7 +18268,7 @@ the refined ceiling is M ≤ 2^66.07 (not 2^74 crude, not 2^64.6 —
 the slip): 0.94 bits over the certified floor; tightest lines at
 3.8-5.9%.  ⟦ERRATA FIXED by maestro hand⟧ S15Witness:51's e^{75.28}
 prose (1.87e32 → 4.92e32; 2^64.6 → 2^66.05 — LOAD-BEARING: at the
-wrong numeral the verdict flips) + S13FramesA:95's "true value"
+wrong numeral the verdict flips) + S13FramesA:99's "true value"
 phrasing.  Docstring-only edits; build re-verified.
 ⟦REACHABILITY, priced⟧ the head's δ₀ reads THREE leaves: cD3 ≥ 1/4
 (literal), C ≤ 1+2C₀ (literal), ε (exists_rat_btwn — unbounded
@@ -18590,7 +18590,7 @@ THE PIN (honest): any SINGLE covering window must contain block 1
 (M4T0DatumDischarge:615/:986) whose left edge 𝒫₁ is K-invariant —
 no single-window instantiation is K-free.  THE PIVOT: the mask's
 (P,Q) is a DEVICE for two rows; the mass budget M is a free abstract
-parameter (LambdaChiMask:803's top-block C is K-free) — price the
+parameter (LambdaChiMask:827's top-block C is K-free) — price the
 mask PER BLOCK and the cover dissolves.  THE REPRICE, kernel (P6):
 windowMassConst 𝒫₁ 𝒬₁ · windowMassConst 𝒫₂ 𝒬₂ ≤ e^{52.5}·4^{1.05}·
 M^{2.1} — K-FREE (P1/P2: the loglog gaps are log(4M) and log M at
@@ -19386,7 +19386,7 @@ class-B/C estimate) and the co-factor register inhabitation.
 ## (2026-08-02 16:40 PDT) **X-THREAD: THE `x`-CEILING IS A THEOREM — `logChowla2_ineffective_v5` MINTED, THE CO-FACTOR PREDICATE IS THE ONLY CONCLUSION-SIDE ASK LEFT. 12 decls, 1 new file (1448 ln), full `lake build` 9276 EXIT-0 from `$?`, warnings 186 = 186 baseline, every new decl at 3 axioms** (X-THREAD)
 
 ⟦THE TRUE `gArmDoorRho` SHAPE, READ AT THE BYTES⟧ the report's "7000" is RIGHT but the shape is
-one level deeper than the summary reads.  `M4ArithRho:665` gives
+one level deeper than the summary reads.  `M4ArithRho:699` gives
 `gArmDoorRho x₀ K ω ρ H = max x₀ (16·ω·(log H)^{12}·exp(exp(7000·loglog H + 500·log(1/ρ) + 6600
 + 36K)))` — a **DOUBLE** exponential, consumed at `x₀ = K = 0`.  So
 `log (gArmDoorRho 0 0 ω ρ H) = log(16ω) + 12·loglog H + (log H)^{7000}·ρ^{-500}·e^{6600}`: the

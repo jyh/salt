@@ -1056,7 +1056,7 @@ THEM IS VISIBLE IN A SIGNATURE.***  *Stated here so the claim stops being a clai
 coprimality to the band product.
 
 ⚠️ **A SIBLING EXISTS AND I FOUND IT ONLY AFTER PROVING THIS — RECORDED SO A CENSUS DOES NOT READ
-TWO SIMILAR NAMES AS A DUPLICATE.**  `blockOmega_eq_zero_iff` (`M4T0DatumDischarge.lean:119`) gives
+TWO SIMILAR NAMES AS A DUPLICATE.**  `blockOmega_eq_zero_iff` (`M4T0DatumDischarge.lean:121`) gives
 the **`n.primeFactors` face**: `blockOmega P Q n = 0 ↔ ∀ p ∈ n.primeFactors, ¬(P ≤ p ∧ p ≤ Q)`.
 This lemma gives the **`bandProd`-coprimality face**, which is the predicate `typical_density_le`'s
 filter actually consumes — a different statement, and both are wanted.
