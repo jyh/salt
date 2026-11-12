@@ -175,6 +175,8 @@ window `(n, n+H]`, truncated at the top so that the family is constant at `n + H
 last block. -/
 def blockCut (n H ℓ m : ℕ) : ℕ := n + min H (m * ℓ)
 
+/-- `blockCut n H ℓ 0 = n` (`@[simp]`): the zeroth cut point is the window's base
+(`min H 0 = 0`, `simp`). Read by `S16FlatTerminalLinearH` and once in this file. -/
 @[simp] theorem blockCut_zero (n H ℓ : ℕ) : blockCut n H ℓ 0 = n := by simp [blockCut]
 
 /-- Below the block count the truncation is inactive: the cut point is the plain shift. -/
@@ -189,6 +191,9 @@ theorem blockCut_numBlocks {H ℓ : ℕ} (hℓ : 0 < ℓ) (n : ℕ) :
   have h := le_numBlocks_mul H hℓ
   simp [blockCut, Nat.min_eq_left h]
 
+/-- `Monotone (blockCut n H ℓ)`: the cut points increase with `m` because `m·ℓ` does and
+`min H ·` is monotone (`Nat.mul_le_mul_right`, `omega`). Read by `S16FlatTerminalLinearH` and
+twice in this file. -/
 theorem blockCut_mono (n H ℓ : ℕ) : Monotone (blockCut n H ℓ) := by
   intro i j hij
   have h : i * ℓ ≤ j * ℓ := Nat.mul_le_mul_right ℓ hij
@@ -355,6 +360,9 @@ the object wave ④'s χ-summed free-base row supplies, one blocked base at a ti
 def blockSupSq (a : ℕ → ℂ) (H ℓ n : ℕ) (β : ℝ) : ℝ :=
   ∑ m ∈ Finset.range (numBlocks H ℓ), (subWindowSup a ℓ (n + m * ℓ) β) ^ 2
 
+/-- `0 ≤ blockSupSq a H ℓ n β`: the blocked integrand is a sum of squares (`Finset.sum_nonneg`,
+`sq_nonneg`). Read by `M4RowLinear`, `M4RowSpineLinear`, `M4SecondRoad` and
+`S16FlatTerminalLinearH`, and twice in this file. -/
 theorem blockSupSq_nonneg (a : ℕ → ℂ) (H ℓ n : ℕ) (β : ℝ) : 0 ≤ blockSupSq a H ℓ n β :=
   Finset.sum_nonneg fun _ _ => sq_nonneg _
 

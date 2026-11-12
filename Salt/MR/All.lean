@@ -9035,7 +9035,7 @@ The residual enters once (`m4_freeBlockSup_of_chiSummedH_L_gk`) at `strataResidu
 strataResidual H + log h`, the grades stay in the base residual, and the `h = 2` ceiling lemma
 pays the `log 2` under the LANDED `110525` at `Real.pi_lt_d4` (ratio² < 1.00231).  The
 `ℓ`-witness `blockLenH` halves with the cap (the landed `blockLen` pinches at `q = 1` under cap
-`2·arcDen`).  The three `_Q` drift lemmas are `M4BridgeBlock:247/293/325` at an opaque cap (the
+`2·arcDen`).  The three `_Q` drift lemmas are `M4BridgeBlock:252/298/330` at an opaque cap (the
 helm's RESPELL of the rpow identity).  The framed base `SocketBaseLH` is REUSED from
 `HDoorSupply` (byte-identical to the draft's, x-floor inflated — an independent confirmation).
 ⛔ NOT here: the `SocketBaseL`-framed producer population re-quantified over `SocketBaseLH h`,

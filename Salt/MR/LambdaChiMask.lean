@@ -91,6 +91,8 @@ namespace Salt.MR
 noncomputable def lamGrMask (mask : ℕ → Bool) (r : ℝ) : ArithmeticFunction ℝ :=
   ⟨fun m => ((ArithmeticFunction.liouville m : ℤ) : ℝ) * r ^ maskOmega mask m, by simp⟩
 
+/-- `lamGrMask mask r m = λ(m)·r^{ω(m;mask)}` (`@[simp]`), by `rfl`: the masked damped Liouville
+datum evaluated. Read by `M4T0DatumDischarge` and six times in this file. -/
 @[simp] lemma lamGrMask_apply (mask : ℕ → Bool) (r : ℝ) (m : ℕ) :
     lamGrMask mask r m = ((ArithmeticFunction.liouville m : ℤ) : ℝ) * r ^ maskOmega mask m := rfl
 
@@ -125,6 +127,9 @@ fresh closed form) is what makes positivity, the support, antitonicity in `r` an
 noncomputable def lamTailWeightMask (mask : ℕ → Bool) (r : ℝ) : ArithmeticFunction ℝ :=
   ⟨fun n => ((ArithmeticFunction.moebius n : ℤ) : ℝ) ^ 2 * maskTailWeight mask r n, by simp⟩
 
+/-- `lamTailWeightMask mask r n = μ(n)²·maskTailWeight mask r n` (`@[simp]`), by `rfl`: the
+λ-side carrier evaluated as the squarefree restriction of the mask tail weight. Read twelve
+times in this file; no consumer outside it. -/
 @[simp] lemma lamTailWeightMask_apply (mask : ℕ → Bool) (r : ℝ) (n : ℕ) :
     lamTailWeightMask mask r n
       = ((ArithmeticFunction.moebius n : ℤ) : ℝ) ^ 2 * maskTailWeight mask r n := rfl
@@ -142,11 +147,18 @@ theorem lamTailWeightMask_apply_of {mask : ℕ → Bool} (r : ℝ) {n : ℕ} (hn
     norm_num
   rw [hsq, one_mul]
 
+/-- `lamTailWeightMask mask r n = 0` at `¬ Squarefree n`: the `μ(n)²` factor vanishes
+(`ArithmeticFunction.moebius_eq_zero_of_not_squarefree`). Read once in this file; no consumer
+outside it. -/
 theorem lamTailWeightMask_eq_zero_of_not_squarefree {mask : ℕ → Bool} (r : ℝ) {n : ℕ}
     (hn : ¬ Squarefree n) : lamTailWeightMask mask r n = 0 := by
   rw [lamTailWeightMask_apply, ArithmeticFunction.moebius_eq_zero_of_not_squarefree hn]
   norm_num
 
+/-- `lamTailWeightMask mask r n = 0` at `¬ MaskSmooth mask n`: the `maskTailWeight` factor
+vanishes off the mask-smooth integers
+(`MobiusChiRamareUnion.maskTailWeight_eq_zero_of_not_smooth`). No consumer at `main`, in this
+file or outside it. -/
 theorem lamTailWeightMask_eq_zero_of_not_smooth {mask : ℕ → Bool} (r : ℝ) {n : ℕ}
     (hs : ¬ MaskSmooth mask n) : lamTailWeightMask mask r n = 0 := by
   rw [lamTailWeightMask_apply, maskTailWeight_eq_zero_of_not_smooth r hs, mul_zero]
@@ -223,6 +235,9 @@ theorem lamTailWeightMask_prime_pow {mask : ℕ → Bool} {p k : ℕ} (r : ℝ) 
 
 /-! ## §3 — THE CONVOLUTION IDENTITY `λ·g_r = λ ∗ v_r` AT THE MASK -/
 
+/-- `λ(p^j) = (−1)^j` (in `ℝ`) at `p` prime (private): `ArithmeticFunction.liouville_apply` with
+`Ω(p^j) = j` (`cardFactors_apply_prime_pow`) — the local factor the mask Euler product reads.
+Read twice in this file; no consumer outside it. -/
 private lemma liouville_prime_pow_real_mask {p : ℕ} (hp : p.Prime) (j : ℕ) :
     ((ArithmeticFunction.liouville (p ^ j) : ℤ) : ℝ) = (-1) ^ j := by
   rw [ArithmeticFunction.liouville_apply (pow_ne_zero j hp.ne_zero),
@@ -641,16 +656,25 @@ theorem MlamGrChiMask_rate (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) {M : ℝ} 
 
 /-! ## §6 — TWIN FIDELITY: the LANDED single-window λ page IS the `blockMask` instance -/
 
+/-- `lamGrMask (blockMask P Q) r = lamGr P Q r`: at the single-block mask the masked datum is
+the unmasked `LambdaChiRamare.lamGr` (`maskOmega_blockMask`, pointwise by `ext`). Read once in
+this file; no consumer outside it. -/
 theorem lamGrMask_blockMask (P Q : ℕ) (r : ℝ) :
     lamGrMask (blockMask P Q) r = lamGr P Q r := by
   ext n
   rw [lamGrMask_apply, lamGr_apply, maskOmega_blockMask]
 
+/-- `lamTailWeightMask (blockMask P Q) r = lamTailWeight P Q r`: at the single-block mask the
+λ-side carrier is the unmasked `LambdaChiRamare.lamTailWeight` (`maskTailWeight_blockMask`,
+pointwise by `ext`). No consumer at `main`, in this file or outside it. -/
 theorem lamTailWeightMask_blockMask (P Q : ℕ) (r : ℝ) :
     lamTailWeightMask (blockMask P Q) r = lamTailWeight P Q r := by
   ext n
   rw [lamTailWeightMask_apply, lamTailWeight_apply, maskTailWeight_blockMask]
 
+/-- `MlamGrChiMask χ t (blockMask P Q) r y = MlamGrChi χ t P Q r y`: at the single-block mask
+the masked twisted summatory function is the unmasked `LambdaChiRamare.MlamGrChi`
+(`lamGrMask_blockMask`). No consumer at `main`, in this file or outside it. -/
 theorem MlamGrChiMask_blockMask {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) (P Q : ℕ) (r : ℝ)
     (y : ℕ) : MlamGrChiMask χ t (blockMask P Q) r y = MlamGrChi χ t P Q r y := by
   rw [MlamGrChiMask, MlamGrChi, lamGrMask_blockMask]

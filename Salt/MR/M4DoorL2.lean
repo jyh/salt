@@ -246,7 +246,7 @@ it to the door glue's `δ`; unifying them is a plumbing choice, not a constraint
 /-- **⟦A1, THE SOCKET SIDE⟧** (`m4_doorL2_socket_ceiling_at_sock`) — the terminals' ceiling
 conjunct, read at `δ_sock` and at `δ_sock` ONLY.  This is `m4_arith_rs_ceiling_met_of_delta`
 fired at the socket's own threshold: the `ρ` the terminals are instantiated at is
-`doorRhoOfDelta δ_sock` (`M4ArithRho.lean:578`), NOT `doorRhoOfDelta δ₀'`.
+`doorRhoOfDelta δ_sock` (`M4ArithRho.lean:603`), NOT `doorRhoOfDelta δ₀'`.
 
 Nothing here mentions the glue `δ₀'`.  That absence IS the amendment. -/
 theorem m4_doorL2_socket_ceiling_at_sock {δsock : ℝ} (hδ : δsock ≠ 0) {H : ℕ}

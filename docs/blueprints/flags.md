@@ -13932,10 +13932,10 @@ Against δ₀/2 ≈ 10⁻⁴⁹ the gap is ~10¹¹⁴. Ccc is exported only as
 0 < Ccc (from m4_door_meansq_carried) — no spine can rely on it small.
 Stronger than WALL A: no H-dependence at all.
 
-**THE NAMED REPAIR (the pivot: M4T0Discharge:707-709 vs :714 — the
+**THE NAMED REPAIR (the pivot: M4T0Discharge:716-718 vs Salt/MR/M4T0Discharge.lean:723 — the
 assembly capping each a2Mrow piece by the same (log X)^{-1/500}):** one
 factor of 1/M in the envelope's summand (or a strictly smaller exponent
-at :709 than :714) turns B·M ≥ K into B·M² ≥ K, whence
+at Salt/MR/M4T0Discharge.lean:718 than Salt/MR/M4T0Discharge.lean:723) turns B·M ≥ K into B·M² ≥ K, whence
 G² ≥ 2^38·18·K/log₂H → 0 — the wall becomes a FLOOR ON H, i.e. it
 CLOSES. **UNVERIFIED: whether the supply side can DELIVER the
 1/M-strengthened threshold** — a2RowsSum's honest magnitude in M and
@@ -15222,7 +15222,7 @@ VK-forgetting-class miss, now fenced: §6's header carries the counter-wave poin
 route (`thm_a2'` + `capFreeFloor3`) pays `q`-linear thresholds at TWO places:
 `m4_meansq_per_chi_gen`'s `32·((1/8)·log q + (1/4)·q + …) < loglog X`
 (`M4MeanSq.lean:626-630`) and the T₀-band's coefficient-700 twin
-(`M4T0Discharge.lean:307/:439/:571`).  At `q ≤ arcDen 12 H = (log H)^{12}` that IS
+(`M4T0Discharge.lean:316/:448/:580`).  At `q ≤ arcDen 12 H = (log H)^{12}` that IS
 F5 (fails ×9.79e4 at its best point; F4 repairs only the `(1/4)q` half of ONE of
 the two).  The erratum to the A4 STOP entry above: replace "meets M4DoorRow's two
 walls" with "meets the F5/F4 q-linear gates" — which is precisely the route the
@@ -18268,7 +18268,7 @@ the refined ceiling is M ≤ 2^66.07 (not 2^74 crude, not 2^64.6 —
 the slip): 0.94 bits over the certified floor; tightest lines at
 3.8-5.9%.  ⟦ERRATA FIXED by maestro hand⟧ S15Witness:51's e^{75.28}
 prose (1.87e32 → 4.92e32; 2^64.6 → 2^66.05 — LOAD-BEARING: at the
-wrong numeral the verdict flips) + S13FramesA:95's "true value"
+wrong numeral the verdict flips) + S13FramesA:99's "true value"
 phrasing.  Docstring-only edits; build re-verified.
 ⟦REACHABILITY, priced⟧ the head's δ₀ reads THREE leaves: cD3 ≥ 1/4
 (literal), C ≤ 1+2C₀ (literal), ε (exists_rat_btwn — unbounded
@@ -18587,10 +18587,10 @@ DESIGN COUNCIL, not an executor.
 ## () LEVEL2-SCOPE: **WINDMILL** -- THE CAPTAIN WINS AGAIN. The literal exit dies at a hard pin (the cover forces block 1) BUT the goal is LIVE by the per-block PRODUCT route the corpus itself named "the SHARP value" and declined to mint -- kernel-certified K-FREE reprice (P6), M^2.1 slope unchanged, Mfl = 2^141 at 214 bits spare, ZERO twin re-instantiation, wave ~700-1000 ln
 
 THE PIN (honest): any SINGLE covering window must contain block 1
-(M4T0DatumDischarge:613/:984) whose left edge 𝒫₁ is K-invariant —
+(M4T0DatumDischarge:615/:986) whose left edge 𝒫₁ is K-invariant —
 no single-window instantiation is K-free.  THE PIVOT: the mask's
 (P,Q) is a DEVICE for two rows; the mass budget M is a free abstract
-parameter (LambdaChiMask:803's top-block C is K-free) — price the
+parameter (LambdaChiMask:827's top-block C is K-free) — price the
 mask PER BLOCK and the cover dissolves.  THE REPRICE, kernel (P6):
 windowMassConst 𝒫₁ 𝒬₁ · windowMassConst 𝒫₂ 𝒬₂ ≤ e^{52.5}·4^{1.05}·
 M^{2.1} — K-FREE (P1/P2: the loglog gaps are log(4M) and log M at
@@ -19386,7 +19386,7 @@ class-B/C estimate) and the co-factor register inhabitation.
 ## (2026-08-02 16:40 PDT) **X-THREAD: THE `x`-CEILING IS A THEOREM — `logChowla2_ineffective_v5` MINTED, THE CO-FACTOR PREDICATE IS THE ONLY CONCLUSION-SIDE ASK LEFT. 12 decls, 1 new file (1448 ln), full `lake build` 9276 EXIT-0 from `$?`, warnings 186 = 186 baseline, every new decl at 3 axioms** (X-THREAD)
 
 ⟦THE TRUE `gArmDoorRho` SHAPE, READ AT THE BYTES⟧ the report's "7000" is RIGHT but the shape is
-one level deeper than the summary reads.  `M4ArithRho:665` gives
+one level deeper than the summary reads.  `M4ArithRho:699` gives
 `gArmDoorRho x₀ K ω ρ H = max x₀ (16·ω·(log H)^{12}·exp(exp(7000·loglog H + 500·log(1/ρ) + 6600
 + 36K)))` — a **DOUBLE** exponential, consumed at `x₀ = K = 0`.  So
 `log (gArmDoorRho 0 0 ω ρ H) = log(16ω) + 12·loglog H + (log H)^{7000}·ρ^{-500}·e^{6600}`: the
