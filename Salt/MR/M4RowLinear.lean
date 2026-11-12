@@ -2363,8 +2363,7 @@ sup over `K ∈ [0, H]` dominates each of its terms (`Finset.le_sup'`). Consumed
 `classSup_le_inv_totient_sum_doorChiSup_L` and `norm_sq_coprime_window_le_L`. -/
 theorem le_doorChiSup_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {K : ℕ} (hK : K ≤ H) :
     ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖ ≤ doorChiSup_L χ M H n :=
-  Finset.le_sup' (f := fun K => ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖)
-    (Finset.mem_Icc.mpr ⟨Nat.zero_le K, hK⟩)
+  le_doorChiSupAZ (AdoorL M) (3072 * M) χ M H n hK
 
 /-- **THE M4-7 DELIVERABLE AT THE LEVER** — `m4_hbd_of_live_L` (:464).  The one proof diff:
 `1 ≤ s13GK K M` comes from `one_le_s13GK` where the landed line used `omega`. -/
@@ -2537,8 +2536,7 @@ under `doorChiSup_L_gk K χ M H n` at `hK : Kw ≤ H` (`Finset.le_sup'`). Consum
 theorem le_doorChiSup_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {Kw : ℕ}
     (hK : Kw ≤ H) :
     ‖∑ m ∈ doorSievedWindow_L_gk K M Kw n, liouChi χ m‖ ≤ doorChiSup_L_gk K χ M H n :=
-  Finset.le_sup' (f := fun Kw => ‖∑ m ∈ doorSievedWindow_L_gk K M Kw n, liouChi χ m‖)
-    (Finset.mem_Icc.mpr ⟨Nat.zero_le Kw, hK⟩)
+  le_doorChiSupAZ (AdoorL M) (s13GK K M) χ M H n hK
 
 /-- **⟦R1⟧, STATED** (`M4ChiMaximalStep_L`).  The one inequality between §6's fixed-length
 block bound and §3's input: the sub-window sup's block mean square against the fixed-length
@@ -3205,18 +3203,8 @@ to `q`, the class sup is under the χ-average of the twisted sups.  Route, at ea
 theorem classSup_le_inv_totient_sum_doorChiSup_L {q : ℕ} [NeZero q] {r : ℕ}
     (hcop : Nat.Coprime q r) (M H n : ℕ) :
     classSup (doorSievedCoeff_L M) H n q r
-      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup_L χ M H n := by
-  refine classSup_le fun K hK => ?_
-  have hfilt : ∑ m ∈ windowClass K n q r, doorSievedCoeff_L M m
-      = ∑ m ∈ residueClassOn q r (doorSievedWindow_L M K n), liouvilleC m := by
-    simpa only [doorSievedCoeff_L, doorSievedWindow_L] using
-      sum_windowClass_memSCoeff (calP (AdoorL M) (3072 * M))
-        (calQK (AdoorL M) (3072 * M) M) 2 liouvilleC K n q r
-  rw [hfilt]
-  refine le_trans (norm_sum_residueClassOn_liou_le hcop (doorSievedWindow_L M K n)) ?_
-  have hφ : (0 : ℝ) < (q.totient : ℝ) := totient_cast_pos q
-  refine mul_le_mul_of_nonneg_left ?_ (by positivity)
-  exact Finset.sum_le_sum fun χ _ => le_doorChiSup_L χ M H n hK
+      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup_L χ M H n :=
+  classSup_le_inv_totient_sum_doorChiSup_AZ (AdoorL M) (3072 * M) hcop M H n
 
 /-- **THE WAVE'S EXIT AT THE LEVER** — `m4_door_contradiction_of_live_L` (:537). -/
 theorem m4_door_contradiction_of_live_L_gk (K : ℕ) :
@@ -3252,18 +3240,8 @@ theorem m4_sievedDoorSq_of_classMeanSq_L_gk (K : ℕ) {Cg : ℝ} {R : ChowlaRegi
 theorem classSup_le_inv_totient_sum_doorChiSup_L_gk (K : ℕ) {q : ℕ} [NeZero q] {r : ℕ}
     (hcop : Nat.Coprime q r) (M H n : ℕ) :
     classSup (doorSievedCoeff_L_gk K M) H n q r
-      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup_L_gk K χ M H n := by
-  refine classSup_le fun Kw hKw => ?_
-  have hfilt : ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_L_gk K M m
-      = ∑ m ∈ residueClassOn q r (doorSievedWindow_L_gk K M Kw n), liouvilleC m := by
-    simpa only [doorSievedCoeff_L_gk, doorSievedWindow_L_gk] using
-      sum_windowClass_memSCoeff (calP (AdoorL M) (s13GK K M))
-        (calQK (AdoorL M) (s13GK K M) M) 2 liouvilleC Kw n q r
-  rw [hfilt]
-  refine le_trans (norm_sum_residueClassOn_liou_le hcop (doorSievedWindow_L_gk K M Kw n)) ?_
-  have hφ : (0 : ℝ) < (q.totient : ℝ) := totient_cast_pos q
-  refine mul_le_mul_of_nonneg_left ?_ (by positivity)
-  exact Finset.sum_le_sum fun χ _ => le_doorChiSup_L_gk K χ M H n hKw
+      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup_L_gk K χ M H n :=
+  classSup_le_inv_totient_sum_doorChiSup_AZ (AdoorL M) (s13GK K M) hcop M H n
 
 /-- **THE WAVE'S EXIT, AT THE PER-BLOCK HYPOTHESIS.**  `m4_door_contradiction_of_live_L` with
 its socket replaced by `M4BlockMeanSq_L`: for every `C_MRT ≥ 0` and every floor/outer-scale

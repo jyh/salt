@@ -3334,28 +3334,8 @@ theorem m4_classBlock_at_L {M L q : ℕ} (hq : 0 < q) {r : ℕ} (hcop : Nat.Copr
     (hchi : ∀ χ : DirichletCharacter ℂ q,
       ∑ n ∈ Finset.Ioc A B, (doorChiSup_L χ M L n) ^ 2 ≤ Bc * (L : ℝ) ^ 2 * (A : ℝ)) :
     ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L M) L n q r) ^ 2
-      ≤ Bc * (L : ℝ) ^ 2 * (A : ℝ) := by
-  haveI : NeZero q := ⟨hq.ne'⟩
-  have hpt : ∀ n : ℕ, (classSup (doorSievedCoeff_L M) L n q r) ^ 2
-      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_L χ M L n) ^ 2 := by
-    intro n
-    have hle := classSup_le_inv_totient_sum_doorChiSup_L hcop M L n
-    have h0 := classSup_nonneg (doorSievedCoeff_L M) L n q r
-    have hsq : (classSup (doorSievedCoeff_L M) L n q r) ^ 2
-        ≤ ((q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup_L χ M L n) ^ 2 := by
-      nlinarith only [hle, h0]
-    exact hsq.trans (sq_inv_totient_sum_le_sum_sq (fun χ => doorChiSup_L χ M L n))
-  have hstep1 : ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L M) L n q r) ^ 2
-      ≤ ∑ n ∈ Finset.Ioc A B,
-          (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_L χ M L n) ^ 2 :=
-    Finset.sum_le_sum fun n _ => hpt n
-  have hswap : ∑ n ∈ Finset.Ioc A B,
-      (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_L χ M L n) ^ 2
-      = (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q,
-          ∑ n ∈ Finset.Ioc A B, (doorChiSup_L χ M L n) ^ 2 := by
-    rw [← Finset.mul_sum, Finset.sum_comm]
-  rw [hswap] at hstep1
-  exact hstep1.trans (inv_totient_sum_le hchi)
+      ≤ Bc * (L : ℝ) ^ 2 * (A : ℝ) :=
+  m4_classBlock_at_AZ (AdoorL M) (3072 * M) hq hcop hchi
 
 /-- **THE COPRIME BLOCK MEAN SQUARE, AT ONE BASE** (`m4_coprimeBlock_at_L`) — §2 ∘ §3 ∘ §4
 composed at a fixed `(H, L, q, r, A, B)`, at the grade
@@ -3875,28 +3855,8 @@ theorem m4_classBlock_at_L_gk (K : ℕ) {M L q : ℕ} (hq : 0 < q) {r : ℕ} (hc
     (hchi : ∀ χ : DirichletCharacter ℂ q,
       ∑ n ∈ Finset.Ioc A B, (doorChiSup_L_gk K χ M L n) ^ 2 ≤ Bc * (L : ℝ) ^ 2 * (A : ℝ)) :
     ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L_gk K M) L n q r) ^ 2
-      ≤ Bc * (L : ℝ) ^ 2 * (A : ℝ) := by
-  haveI : NeZero q := ⟨hq.ne'⟩
-  have hpt : ∀ n : ℕ, (classSup (doorSievedCoeff_L_gk K M) L n q r) ^ 2
-      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_L_gk K χ M L n) ^ 2 := by
-    intro n
-    have hle := classSup_le_inv_totient_sum_doorChiSup_L_gk K hcop M L n
-    have h0 := classSup_nonneg (doorSievedCoeff_L_gk K M) L n q r
-    have hsq : (classSup (doorSievedCoeff_L_gk K M) L n q r) ^ 2
-        ≤ ((q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup_L_gk K χ M L n) ^ 2 := by
-      nlinarith only [hle, h0]
-    exact hsq.trans (sq_inv_totient_sum_le_sum_sq (fun χ => doorChiSup_L_gk K χ M L n))
-  have hstep1 : ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_L_gk K M) L n q r) ^ 2
-      ≤ ∑ n ∈ Finset.Ioc A B,
-          (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_L_gk K χ M L n) ^ 2 :=
-    Finset.sum_le_sum fun n _ => hpt n
-  have hswap : ∑ n ∈ Finset.Ioc A B,
-      (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_L_gk K χ M L n) ^ 2
-      = (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q,
-          ∑ n ∈ Finset.Ioc A B, (doorChiSup_L_gk K χ M L n) ^ 2 := by
-    rw [← Finset.mul_sum, Finset.sum_comm]
-  rw [hswap] at hstep1
-  exact hstep1.trans (inv_totient_sum_le hchi)
+      ≤ Bc * (L : ℝ) ^ 2 * (A : ℝ) :=
+  m4_classBlock_at_AZ (AdoorL M) (s13GK K M) hq hcop hchi
 
 /-- `m4_coprimeBlock_at_L` (:633), at the lever. -/
 theorem m4_coprimeBlock_at_L_gk (K : ℕ) {R : ChowlaRegime} {M H L q r A B : ℕ} {MS : ℕ → ℕ → ℝ}
