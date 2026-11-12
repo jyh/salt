@@ -213,25 +213,25 @@ namespace DoorArithFrameRho
 
 variable {M H j : ℕ} {X C₁ M₀ K ρ : ℝ}
 
-/-- `0 ≤ log(1/ρ)` from the frame: `rho_pos` and `rho_le_one` through `log_one_div_nonneg` — the
-frame's own reading of the one place `ρ ≤ 1` is spent. Read as `h.logInvRho_nonneg` by
-`loglogX_ge` and once more in the page's ρ-gate, both in this file; `ArithPageLinear`'s
-`DoorArithFrameRho_L` carries its own copy. -/
+/-- `0 ≤ log(1/ρ)` from the frame: `rho_pos`, `rho_le_one`, `log_one_div_nonneg` — the one place
+`ρ ≤ 1` is spent. Read as `h.logInvRho_nonneg` by `loglogX_ge` and the page's ρ-gate here, and by
+`M4ArithPool`'s `a2DoorGrade_pool_priced_rho`, `M4AssemblyFrames`' `doorBaseFrame_at_socket` and
+`S13BandBase`'s four `doorBandBase_family` forms; `DoorArithFrameRho_L` carries its own copy. -/
 theorem logInvRho_nonneg (h : DoorArithFrameRho M H j X C₁ M₀ K ρ) :
     0 ≤ Real.log (1 / ρ) :=
   log_one_div_nonneg h.rho_pos h.rho_le_one
 
-/-- `1 < log H` from the frame: `Hfloor` (`50 ≤ loglog H`) and `logH_nonneg` through
-`one_lt_log_of_loglog_ge`. Read as `hfr.one_lt_logH` by the page's ρ-gate in this file;
-`ArithPageLinear`'s frame carries its own copy. -/
+/-- `1 < log H` from the frame: `Hfloor`, `logH_nonneg`, `one_lt_log_of_loglog_ge`. Read as
+`hfr.one_lt_logH` by the ρ-gate here, and in `M4ArithPool`, `M4AssemblyFrames`, `M4ClosureRepair`
+(`price_at_constPool_socket`) and `S13BandBase` (four); `ArithPageLinear`'s frame has its copy. -/
 theorem one_lt_logH (h : DoorArithFrameRho M H j X C₁ M₀ K ρ) : 1 < Real.log (H : ℝ) :=
   one_lt_log_of_loglog_ge h.logH_nonneg (by norm_num) h.Hfloor
 
 /-- `7000·loglog H + 500·log(1/ρ) + 6600 ≤ loglog X` from the frame: the `arm` field with its
 `36·K` summand dropped (`Knonneg`, `linarith`) — the arm as the summand prices read it. Read as
-`h.armWeak` by `loglogX_ge` and by the two priced grades of the page
-(`doorGrade_summand3_priced_rho`, `doorGrade_summand4_priced_rho`), all in this file;
-`ArithPageLinear`'s frame carries its own copy. -/
+`h.armWeak` by `loglogX_ge` and the page's two priced grades (`doorGrade_summand3_priced_rho`,
+`doorGrade_summand4_priced_rho`) here, and in `M4ArithPool`, `M4AssemblyFrames`, `M4ClosureRepair`
+(`price_at_decayPool_socket`) and `S13BandBase` (four); `ArithPageLinear`'s frame has its copy. -/
 theorem armWeak (h : DoorArithFrameRho M H j X C₁ M₀ K ρ) :
     7000 * Real.log (Real.log (H : ℝ)) + 500 * Real.log (1 / ρ) + 6600
       ≤ Real.log (Real.log X) := by
@@ -241,8 +241,8 @@ theorem armWeak (h : DoorArithFrameRho M H j X C₁ M₀ K ρ) :
 
 /-- `356600 ≤ loglog X` from the frame: `armWeak` at `Hfloor` (`50 ≤ loglog H`) with
 `logInvRho_nonneg` (`linarith`) — the absolute floor on the base. Read as `h.loglogX_ge` by
-`one_lt_logX` in this file; `ArithPageLinear`'s frame reads the same `356600` from its own
-copy. -/
+`one_lt_logX` here, by `M4AssemblyFrames`' `frames_logX_ge` and `hL4096_of_frame`, and by
+`S13BandBase`'s four families; `ArithPageLinear`'s frame reads `356600` from its own copy. -/
 theorem loglogX_ge (h : DoorArithFrameRho M H j X C₁ M₀ K ρ) :
     356600 ≤ Real.log (Real.log X) := by
   have h1 := h.armWeak
@@ -250,9 +250,9 @@ theorem loglogX_ge (h : DoorArithFrameRho M H j X C₁ M₀ K ρ) :
   have h3 := h.logInvRho_nonneg
   linarith
 
-/-- `1 < log X` from the frame: `loglogX_ge` and `logX_nonneg` through
-`one_lt_log_of_loglog_ge`. Read as `hfr.one_lt_logX` by the page's ρ-gate in this file;
-`ArithPageLinear`'s frame carries its own copy. -/
+/-- `1 < log X` from the frame: `loglogX_ge`, `logX_nonneg`, `one_lt_log_of_loglog_ge`. Read as
+`hfr.one_lt_logX` by the ρ-gate here, and in `M4ArithPool`, `M4AssemblyFrames`, `M4ClosureRepair`
+(`price_at_decayPool_socket`) and `S13BandBase` (four); `ArithPageLinear`'s frame has its copy. -/
 theorem one_lt_logX (h : DoorArithFrameRho M H j X C₁ M₀ K ρ) : 1 < Real.log X :=
   one_lt_log_of_loglog_ge h.logX_nonneg (show (0:ℝ) < 356600 by norm_num) h.loglogX_ge
 

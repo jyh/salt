@@ -189,8 +189,8 @@ theorem arcDen_lt_floor_succ (H : ℕ) :
   push_cast
   exact Nat.lt_floor_add_one _
 
-/-- `⌊arcDen 12 H⌋₊ + 1 ≤ 2·arcDen 12 H` (in `ℝ`) at `1 ≤ arcDen 12 H`: `Nat.floor_le` and the
-floor at least `1` (`linarith`) — the step that reads `H/(⌊arcDen⌋₊ + 1)` against
+/-- `⌊arcDen 12 H⌋₊ + 1 ≤ 2·arcDen 12 H` (in `ℝ`) at `1 ≤ arcDen 12 H`: `Nat.floor_le` and
+`1 ≤ arcDen 12 H` (`linarith`) — the step that reads `H/(⌊arcDen⌋₊ + 1)` against
 `H/(2·arcDen)`. Read twice in this file; no consumer outside it. -/
 theorem floor_succ_le_two_mul {H : ℕ} (h1 : (1 : ℝ) ≤ arcDen 12 H) :
     ((⌊arcDen 12 H⌋₊ + 1 : ℕ) : ℝ) ≤ 2 * arcDen 12 H := by

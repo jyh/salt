@@ -333,16 +333,16 @@ namespace DoorArithFrame
 
 variable {M H j : ℕ} {X C₁ M₀ K : ℝ}
 
-/-- `1 < log H` from the frame: `Hfloor` (`50 ≤ loglog H`) and `logH_nonneg` through
-`one_lt_log_of_loglog_ge`. Read as `hfr.one_lt_logH` by the page's gate in this file;
-`M4ArithRho`'s `DoorArithFrameRho` and `ArithPageLinear`'s frame carry their own copies. -/
+/-- `1 < log H` from the frame: `Hfloor`, `logH_nonneg`, `one_lt_log_of_loglog_ge`. Read as
+`hfr.one_lt_logH` by the page's gate here, `M4ArithPool`'s `a2DoorGrade_pool_priced` and
+`M4SocketLinear`'s `a2DoorGrade_L_priced`; the ρ-frame and `ArithPageLinear`'s carry copies. -/
 theorem one_lt_logH (h : DoorArithFrame M H j X C₁ M₀ K) : 1 < Real.log (H : ℝ) :=
   one_lt_log_of_loglog_ge h.logH_nonneg (by norm_num) h.Hfloor
 
 /-- `7000·loglog H + 125000 ≤ loglog X` from the frame: the `arm` field with its `36·K` summand
 dropped (`Knonneg`, `linarith`). Read as `h.armWeak` by `loglogX_ge` and by the two priced
-grades (`doorGrade_summand3_priced`, `doorGrade_summand4_priced`), all in this file; the
-ρ-frame's twin is `M4ArithRho`'s. -/
+grades (`doorGrade_summand3_priced`, `doorGrade_summand4_priced`) in this file, and by
+`M4ArithPool`'s `a2DoorGrade_pool_priced`; the ρ-frame's twin is `M4ArithRho`'s. -/
 theorem armWeak (h : DoorArithFrame M H j X C₁ M₀ K) :
     7000 * Real.log (Real.log (H : ℝ)) + 125000 ≤ Real.log (Real.log X) := by
   have := h.arm
@@ -358,8 +358,8 @@ theorem loglogX_ge (h : DoorArithFrame M H j X C₁ M₀ K) : 475000 ≤ Real.lo
   linarith
 
 /-- `1 < log X` from the frame: `loglogX_ge` and `logX_nonneg` through
-`one_lt_log_of_loglog_ge`. Read as `hfr.one_lt_logX` by the page's gate in this file; the
-ρ-frame's twin is `M4ArithRho`'s. -/
+`one_lt_log_of_loglog_ge`. Read as `hfr.one_lt_logX` by the page's gate in this file and by
+`M4ArithPool`'s `a2DoorGrade_pool_priced`; the ρ-frame's twin is `M4ArithRho`'s. -/
 theorem one_lt_logX (h : DoorArithFrame M H j X C₁ M₀ K) : 1 < Real.log X :=
   one_lt_log_of_loglog_ge h.logX_nonneg (show (0:ℝ) < 475000 by norm_num) h.loglogX_ge
 
