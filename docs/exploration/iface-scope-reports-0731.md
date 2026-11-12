@@ -191,7 +191,7 @@ stated on abstract sequences — it holds for EVERY tower design, not just `chow
 
 ## 1. The faces, at symbolic `(λ₋, λ₊, L = Nat.log 2 M, K)`
 
-`λ₋ = log log R.Hlo`, `λ₊ = log log R.Hhi`, `Adoor M = 2^36·(L+1)` (`Salt/MR/DoorFrame.lean:84`, cast at `:96`), `doorRowFloor M = M·Adoor M` (`Salt/MR/M4DoorRow.lean:462`), `s13GK K M = 3072·2^K·M` (`Salt/MR/GLever.lean:59`).
+`λ₋ = log log R.Hlo`, `λ₊ = log log R.Hhi`, `Adoor M = 2^36·(L+1)` (`Salt/MR/DoorFrame.lean:84`, cast at `:96`), `doorRowFloor M = M·Adoor M` (`Salt/MR/M4DoorRow.lean:472`), `s13GK K M = 3072·2^K·M` (`Salt/MR/GLever.lean:59`).
 
 The register is `S15Sel''_gk` (`Salt/MR/S15Compose.lean:2445`), the live one on the final object (`Salt/MR/S16Budget.lean:687`).
 
@@ -250,7 +250,7 @@ In triple-log terms: register alone `logloglog H₋ ≤ log 20048 = 9.906`; with
 - `S16BaseScaleCap_gk` (`S16Budget.lean:510`) — **carried, underived**, at `/24` with a stated 1.5× margin over what `s16_budget_num` spends. Cheapest of all.
 - `K ≤ 170000000` — 94 sites, kernel-proved re-cuttable (P1c).
 
-**DEFINITIONS = the real knobs:** `Adoor` (`DoorFrame.lean:84`), `doorRowFloor` (`M4DoorRow.lean:462`), `s13GK` (`GLever.lean:59`), `s13BlockExp_gk` (`S13FramesA.lean:1133`).
+**DEFINITIONS = the real knobs:** `Adoor` (`DoorFrame.lean:84`), `doorRowFloor` (`M4DoorRow.lean:472`), `s13GK` (`GLever.lean:59`), `s13BlockExp_gk` (`S13FramesA.lean:1133`).
 
 ## 5. Directions, with honest prices
 
