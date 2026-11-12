@@ -13932,10 +13932,10 @@ Against δ₀/2 ≈ 10⁻⁴⁹ the gap is ~10¹¹⁴. Ccc is exported only as
 0 < Ccc (from m4_door_meansq_carried) — no spine can rely on it small.
 Stronger than WALL A: no H-dependence at all.
 
-**THE NAMED REPAIR (the pivot: M4T0Discharge:716-718 vs :714 — the
+**THE NAMED REPAIR (the pivot: M4T0Discharge:716-718 vs Salt/MR/M4T0Discharge.lean:723 — the
 assembly capping each a2Mrow piece by the same (log X)^{-1/500}):** one
 factor of 1/M in the envelope's summand (or a strictly smaller exponent
-at :709 than :714) turns B·M ≥ K into B·M² ≥ K, whence
+at Salt/MR/M4T0Discharge.lean:718 than Salt/MR/M4T0Discharge.lean:723) turns B·M ≥ K into B·M² ≥ K, whence
 G² ≥ 2^38·18·K/log₂H → 0 — the wall becomes a FLOOR ON H, i.e. it
 CLOSES. **UNVERIFIED: whether the supply side can DELIVER the
 1/M-strengthened threshold** — a2RowsSum's honest magnitude in M and
