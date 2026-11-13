@@ -104,6 +104,9 @@ landed `hone : 1 ≤ π₀` picks the other side of the pinch and is unsatisfiab
 price. -/
 def decayPool (A : ℕ) : ℝ := (Real.log ((A : ℕ) : ℝ)) ^ (-theta293)
 
+/-- `decayPool A = (log A)^{−θ₂₉₃}`, by `rfl`: the decaying pool's defining equation exposed by
+name (the pin `θ₂₉₃ = 1/(32(3e+1))` is `CofactorDist.theta293`). Read by `M4AssemblyFrames`,
+`S13BandCapLinear` and `S14Compose`, and twice in this file. -/
 theorem decayPool_def (A : ℕ) : decayPool A = (Real.log ((A : ℕ) : ℝ)) ^ (-theta293) := rfl
 
 /-- The decaying pool is nonnegative at EVERY natural base — no threshold needed, since
@@ -814,6 +817,10 @@ argument is the regime's UPPER `H`-endpoint, never `X_d`. -/
 def constPool (ρ : ℝ) (Hhi : ℕ) : ℝ :=
   ρ / (376266 * Real.exp (14 * Real.log (Real.log (Hhi : ℝ))))
 
+/-- `constPool ρ Hhi = ρ/(376266·e^{14·loglog Hhi})`, by `rfl`: the constant pool's defining
+equation exposed by name. Read by `ArithPageLinear`, `FlatConsumers`, `FlatDoorEpsRung2`,
+`S12ConstCompose`, `S15Compose`, `S16ProducersH` and `StrideDoorAllGrades`, and once in this
+file. -/
 theorem constPool_def (ρ : ℝ) (Hhi : ℕ) :
     constPool ρ Hhi = ρ / (376266 * Real.exp (14 * Real.log (Real.log (Hhi : ℝ)))) := rfl
 

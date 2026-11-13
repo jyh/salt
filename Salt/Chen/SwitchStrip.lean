@@ -269,6 +269,9 @@ theorem not_productInWindow_of_below {x m n : ℕ} (h : m * n < x / 2 + 2) :
     ¬ ProductInWindow x m n := by
   rintro ⟨hlo, _⟩; omega
 
+/-- `¬ ProductInWindow x m n` at `h : x < m·n`: the product-window membership
+`x/2 + 2 ≤ m·n ≤ x` fails at its upper bound, by `omega` on the second conjunct. The 'above'
+side of the decided/crossing classification (Part D); no consumer at `main`. -/
 theorem not_productInWindow_of_above {x m n : ℕ} (h : x < m * n) :
     ¬ ProductInWindow x m n := by
   rintro ⟨_, hhi⟩; omega

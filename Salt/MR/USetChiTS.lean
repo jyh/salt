@@ -191,6 +191,8 @@ noncomputable def thinBundleChi (S V : ℝ) (Pj Qj : ℕ) : ℝ :=
   ((dyadicPairs Pj Qj).card : ℝ)
     * (1680 * V ^ 2 * Real.exp (2 * (Real.log S / Real.log Pj) * Real.log (Real.log S)))
 
+/-- `0 ≤ thinBundleChi S V Pj Qj`: a pair count times `1680·V²·exp(…)`, every factor nonnegative
+(`Real.exp_pos`, `positivity`). Read twice in this file; no consumer outside it. -/
 lemma thinBundleChi_nonneg (S V : ℝ) (Pj Qj : ℕ) : 0 ≤ thinBundleChi S V Pj Qj := by
   rw [thinBundleChi]
   have h := Real.exp_pos (2 * (Real.log S / Real.log Pj) * Real.log (Real.log S))
@@ -413,12 +415,17 @@ noncomputable def TsetSmallChi (q : ℕ) (H : ℝ) (P Q j : ℕ) (c : ℕ → �
     (ℰ : Finset (DirichletCharacter ℂ q × ℝ)) : Finset (DirichletCharacter ℂ q × ℝ) :=
   ℰ.filter (fun r => ‖ramQ H P Q j (chiBarCoeff q r.1 c) r.2‖ ≤ ε)
 
+/-- `r ∈ TsetSmallChi q H P Q j c ε ℰ ↔ r ∈ ℰ ∧ ‖ramQ H P Q j (chiBarCoeff q r.1 c) r.2‖ ≤ ε`:
+the `𝒯_S` filter's membership unfolded (`Finset.mem_filter`). Read by `HalaszIntegersChiClose`
+and once in this file. -/
 lemma mem_TsetSmallChi {q : ℕ} {H : ℝ} {P Q j : ℕ} {c : ℕ → ℂ} {ε : ℝ}
     {ℰ : Finset (DirichletCharacter ℂ q × ℝ)} {r : DirichletCharacter ℂ q × ℝ} :
     r ∈ TsetSmallChi q H P Q j c ε ℰ
       ↔ r ∈ ℰ ∧ ‖ramQ H P Q j (chiBarCoeff q r.1 c) r.2‖ ≤ ε := by
   rw [TsetSmallChi, Finset.mem_filter]
 
+/-- `TsetSmallChi q H P Q j c ε ℰ ⊆ ℰ`: a filter of `ℰ` (`Finset.filter_subset`). Read by
+`HalaszIntegersChiClose` and once in this file. -/
 lemma TsetSmallChi_subset (q : ℕ) (H : ℝ) (P Q j : ℕ) (c : ℕ → ℂ) (ε : ℝ)
     (ℰ : Finset (DirichletCharacter ℂ q × ℝ)) : TsetSmallChi q H P Q j c ε ℰ ⊆ ℰ :=
   Finset.filter_subset _ _
@@ -555,6 +562,9 @@ noncomputable def fibrePack {q : ℕ} (𝒯 : DirichletCharacter ℂ q → Finse
       rintro r ⟨t, _, rfl⟩ ⟨u, _, hu⟩
       exact hne (by simpa using (Prod.mk.injEq _ _ _ _).mp hu.symm |>.1))
 
+/-- `r ∈ fibrePack 𝒯 ↔ r.2 ∈ 𝒯 r.1` (`@[simp]`): a pair lies in the fibre packing iff its
+ordinate lies in its character's fibre — `Finset.mem_disjiUnion` and `Finset.mem_map`, the
+pair's components read off `Prod.mk.injEq`. Read by `USetGChiTS` and twice in this file. -/
 @[simp] lemma mem_fibrePack {q : ℕ} {𝒯 : DirichletCharacter ℂ q → Finset ℝ}
     {r : DirichletCharacter ℂ q × ℝ} : r ∈ fibrePack 𝒯 ↔ r.2 ∈ 𝒯 r.1 := by
   rw [fibrePack, Finset.mem_disjiUnion]

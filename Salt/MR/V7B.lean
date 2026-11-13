@@ -761,7 +761,7 @@ open scoped LSeries.notation
 `halaszPrimesChiGated_of_price` is where `cs` is born, as
 `min (min (c_vk/(2·K₄)) (c₀/(2·Cκ))) (1/10)`.  This twin asks the call site's own literal
 `1/10^8 ≤ c_vk` instead of bare positivity, reads `1/10^9 ≤ c₀` off §1, and exports the floor.
-Body verbatim from `PortAssembly.lean:802`. -/
+Body verbatim from `PortAssembly.lean:805`. -/
 
 set_option maxHeartbeats 6400000 in
 -- The assembly threads seven absorption bounds against one `∃`-packaged constant; the

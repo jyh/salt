@@ -213,13 +213,19 @@ two endpoints coincide, so the index set is a singleton and `ramQbase H P j = P`
 lemma ramI_self (H : ℝ) (P : ℕ) : ramI H P P = {⌊H * Real.log (P : ℝ)⌋₊} := by
   rw [ramI]; exact Finset.Icc_self _
 
+/-- At `P = Q` the block window is one point: `j ∈ ramI H P P` gives `j = ⌊H * log P⌋₊`
+(`ramI_self`). Read twice in this file; no consumer outside it. -/
 lemma mem_ramI_self {H : ℝ} {P j : ℕ} (hj : j ∈ ramI H P P) :
     j = ⌊H * Real.log (P : ℝ)⌋₊ := by
   rw [ramI_self] at hj; exact Finset.mem_singleton.mp hj
 
+/-- `⌊H * log P⌋₊ ∈ ramI H P P`: the one point of the singleton `ramI_self`. Read once in this
+file; no consumer outside it. -/
 lemma ramI_self_mem (H : ℝ) (P : ℕ) : ⌊H * Real.log (P : ℝ)⌋₊ ∈ ramI H P P := by
   rw [ramI_self]; exact Finset.mem_singleton_self _
 
+/-- `(ramI H P P).Nonempty`, witnessed by `ramI_self_mem`. No consumer at `main`, in this file
+or outside it. -/
 lemma ramI_self_nonempty (H : ℝ) (P : ℕ) : (ramI H P P).Nonempty :=
   ⟨_, ramI_self_mem H P⟩
 
@@ -770,6 +776,9 @@ noncomputable def witEP2 (X : ℝ) (N Xd P : ℕ) : ℝ :=
 noncomputable def witEP2raw (X : ℝ) (N Xd P : ℕ) : ℝ :=
   (2 * X + 20 * (N : ℝ)) * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))
 
+/-- `0 ≤ witEP2raw X N Xd P` at `0 ≤ X` and `1 ≤ Xd`: both factors are `≥ 0`, the second because
+`logb 2 (2 * Xd) ≥ 0` from `1 ≤ 2 * Xd`. Read once in this file (by `witEP2_nonneg`); no
+consumer outside it. -/
 lemma witEP2raw_nonneg {X : ℝ} {N Xd P : ℕ} (hX0 : 0 ≤ X) (hXd1 : 1 ≤ Xd) :
     0 ≤ witEP2raw X N Xd P := by
   have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
@@ -784,6 +793,9 @@ lemma witEP2raw_nonneg {X : ℝ} {N Xd P : ℕ} (hX0 : 0 ≤ X) (hXd1 : 1 ≤ Xd
 /-- `witEP2 = (4/3)·witEP2raw` — the inflation, as an identity. -/
 lemma witEP2_eq (X : ℝ) (N Xd P : ℕ) : witEP2 X N Xd P = (4 / 3) * witEP2raw X N Xd P := rfl
 
+/-- `0 ≤ witEP2 X N Xd P` at `0 ≤ X` and `1 ≤ Xd`: `witEP2_eq` reads it as
+`(4 / 3) * witEP2raw`, and `witEP2raw_nonneg` applies. No consumer at `main`, in this file or
+outside it. -/
 lemma witEP2_nonneg {X : ℝ} {N Xd P : ℕ} (hX0 : 0 ≤ X) (hXd1 : 1 ≤ Xd) :
     0 ≤ witEP2 X N Xd P := by
   rw [witEP2_eq]

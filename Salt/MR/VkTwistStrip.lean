@@ -238,6 +238,10 @@ theorem vk_char_strip_head_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ 
 everywhere downstream: SPECTRUM-SCOPE's iron rule forbids absorbing the `q`-cost. -/
 def vkStripConst (q : ℕ) : ℝ := 5000 * (q : ℝ)
 
+/-- `1 ≤ vkStripConst q` (`= 5000·q`) at `NeZero q`: `q ≥ 1` (`linarith`). Read by
+`FlatDoorStandoff`, `HalaszPrimesChi`, `MobiusChiRate`, `NumeralKq`, `PortAssembly`,
+`TwistedEdge`, `V6SiegelFree`, `V7B`, `VkTwistRegion` and `VkTwistRegionReal`, and once in this
+file. -/
 lemma one_le_vkStripConst {q : ℕ} [NeZero q] : 1 ≤ vkStripConst q := by
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   rw [vkStripConst]; linarith

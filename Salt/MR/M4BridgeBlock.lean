@@ -138,6 +138,31 @@ theorem numBlocks_mul_le (H ℓ : ℕ) : numBlocks H ℓ * ℓ ≤ H + ℓ := by
   calc numBlocks H ℓ * ℓ = H / ℓ * ℓ + ℓ := by rw [numBlocks, Nat.add_mul, one_mul]
     _ ≤ H + ℓ := Nat.add_le_add_right h ℓ
 
+/-- **⟦THE BLOCKED CLOSE⟧** (`blocked_close_of_step`) — the blocked supply at `N = numBlocks H L`
+blocks of length `L ≤ H` closes at the composed price: `N·L ≤ 2H` makes `N²L² ≤ 4H²`, and the
+grade `4·(1 + 2π)²·Bb ≤ Br` absorbs the absolute factor.  The 24-line tail every blocked door
+repeated, stated once. -/
+theorem blocked_close_of_step {H L N : ℕ} {I Bb Br : ℝ} (hN : N = numBlocks H L) (hLH : L ≤ H)
+    (hB : 0 ≤ Bb) (hgr : 4 * (1 + 2 * Real.pi) ^ 2 * Bb ≤ Br)
+    (hstep : I ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bb * (N : ℝ) * (L : ℝ) ^ 2)) :
+    I ≤ Br * (H : ℝ) ^ 2 := by
+  have hNL : N * L ≤ 2 * H := by
+    have h1 : N * L ≤ H + L := by rw [hN]; exact numBlocks_mul_le H L
+    omega
+  have hNLR : (N : ℝ) * (L : ℝ) ≤ 2 * (H : ℝ) := by
+    have : ((N * L : ℕ) : ℝ) ≤ ((2 * H : ℕ) : ℝ) := by exact_mod_cast hNL
+    push_cast at this
+    linarith
+  have hNL0 : (0 : ℝ) ≤ (N : ℝ) * (L : ℝ) := by positivity
+  have hsq : ((N : ℝ) * (L : ℝ)) ^ 2 ≤ 4 * (H : ℝ) ^ 2 := by nlinarith
+  have hpi2 : (0 : ℝ) ≤ (1 + 2 * Real.pi) ^ 2 := sq_nonneg _
+  calc I ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bb * (N : ℝ) * (L : ℝ) ^ 2) := hstep
+    _ = (1 + 2 * Real.pi) ^ 2 * Bb * (((N : ℝ) * (L : ℝ)) ^ 2) := by ring
+    _ ≤ (1 + 2 * Real.pi) ^ 2 * Bb * (4 * (H : ℝ) ^ 2) :=
+        mul_le_mul_of_nonneg_left hsq (mul_nonneg hpi2 hB)
+    _ = 4 * (1 + 2 * Real.pi) ^ 2 * Bb * (H : ℝ) ^ 2 := by ring
+    _ ≤ Br * (H : ℝ) ^ 2 := mul_le_mul_of_nonneg_right hgr (sq_nonneg _)
+
 /-- Every block base stays inside the window: `m < N` gives `m·ℓ ≤ H`.  This is what makes the
 cut points `n + min H (m·ℓ)` read as the plain shifts `n + m·ℓ` (`blockCut_eq_of_lt`). -/
 theorem mul_le_of_lt_numBlocks {H ℓ m : ℕ} (hm : m < numBlocks H ℓ) : m * ℓ ≤ H := by
@@ -150,6 +175,8 @@ window `(n, n+H]`, truncated at the top so that the family is constant at `n + H
 last block. -/
 def blockCut (n H ℓ m : ℕ) : ℕ := n + min H (m * ℓ)
 
+/-- `blockCut n H ℓ 0 = n` (`@[simp]`): the zeroth cut point is the window's base
+(`min H 0 = 0`, `simp`). Read by `S16FlatTerminalLinearH` and once in this file. -/
 @[simp] theorem blockCut_zero (n H ℓ : ℕ) : blockCut n H ℓ 0 = n := by simp [blockCut]
 
 /-- Below the block count the truncation is inactive: the cut point is the plain shift. -/
@@ -164,6 +191,9 @@ theorem blockCut_numBlocks {H ℓ : ℕ} (hℓ : 0 < ℓ) (n : ℕ) :
   have h := le_numBlocks_mul H hℓ
   simp [blockCut, Nat.min_eq_left h]
 
+/-- `Monotone (blockCut n H ℓ)`: the cut points increase with `m` because `m·ℓ` does and
+`min H ·` is monotone (`Nat.mul_le_mul_right`, `omega`). Read by `S16FlatTerminalLinearH` and
+twice in this file. -/
 theorem blockCut_mono (n H ℓ : ℕ) : Monotone (blockCut n H ℓ) := by
   intro i j hij
   have h : i * ℓ ≤ j * ℓ := Nat.mul_le_mul_right ℓ hij
@@ -330,6 +360,9 @@ the object wave ④'s χ-summed free-base row supplies, one blocked base at a ti
 def blockSupSq (a : ℕ → ℂ) (H ℓ n : ℕ) (β : ℝ) : ℝ :=
   ∑ m ∈ Finset.range (numBlocks H ℓ), (subWindowSup a ℓ (n + m * ℓ) β) ^ 2
 
+/-- `0 ≤ blockSupSq a H ℓ n β`: the blocked integrand is a sum of squares (`Finset.sum_nonneg`,
+`sq_nonneg`). Read by `M4RowLinear`, `M4RowSpineLinear`, `M4SecondRoad` and
+`S16FlatTerminalLinearH`, and twice in this file. -/
 theorem blockSupSq_nonneg (a : ℕ → ℂ) (H ℓ n : ℕ) (β : ℝ) : 0 ≤ blockSupSq a H ℓ n β :=
   Finset.sum_nonneg fun _ _ => sq_nonneg _
 
@@ -429,30 +462,7 @@ theorem m4_sievedDoorSq_of_blk {R : ChowlaRegime} {M : ℕ} {ℓ : ℕ → ℕ �
       ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := by
     rw [hconst] at hmono
     exact le_trans hmono (mul_le_mul_of_nonneg_left hsupply hfac0)
-  -- ⟦`N²ℓ² ≤ 4H²`: the blocking is loss-free up to the absolute factor `4`⟧
-  have hNL : N * L ≤ 2 * H := by
-    have h1 : N * L ≤ H + L := by rw [hN]; exact numBlocks_mul_le H L
-    omega
-  have hNLR : (N : ℝ) * (L : ℝ) ≤ 2 * (H : ℝ) := by
-    have : ((N * L : ℕ) : ℝ) ≤ ((2 * H : ℕ) : ℝ) := by exact_mod_cast hNL
-    push_cast at this
-    linarith
-  have hNL0 : (0 : ℝ) ≤ (N : ℝ) * (L : ℝ) := by positivity
-  have hsq : ((N : ℝ) * (L : ℝ)) ^ 2 ≤ 4 * (H : ℝ) ^ 2 := by nlinarith
-  have hB := hB0 H
-  have hpi2 : (0 : ℝ) ≤ (1 + 2 * Real.pi) ^ 2 := sq_nonneg _
-  have hfin : (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-      ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by
-    calc (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-        = (1 + 2 * Real.pi) ^ 2 * Bblk H * (((N : ℝ) * (L : ℝ)) ^ 2) := by ring
-      _ ≤ (1 + 2 * Real.pi) ^ 2 * Bblk H * (4 * (H : ℝ) ^ 2) :=
-          mul_le_mul_of_nonneg_left hsq (mul_nonneg hpi2 hB)
-      _ = 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by ring
-  have hgr := hgrade H hlo hhi
-  calc (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
-      ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := hstep
-    _ ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := hfin
-    _ ≤ Braw H * (H : ℝ) ^ 2 := mul_le_mul_of_nonneg_right hgr (sq_nonneg _)
+  exact blocked_close_of_step hN (by omega) (hB0 H) (hgrade H hlo hhi) hstep
 
 /-- **THE BLOCKED SOCKET IS INHABITED** (the anti-vacuity duty, mirroring
 `M4Close.m4_sievedDoorSq_trivial` and `M4BridgePhase.m4_sievedDoorSqSup_trivial`).
@@ -650,30 +660,7 @@ theorem m4_sievedDoorSq_of_blk_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {ℓ : 
       ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := by
     rw [hconst] at hmono
     exact le_trans hmono (mul_le_mul_of_nonneg_left hsupply hfac0)
-  -- ⟦`N²ℓ² ≤ 4H²`: the blocking is loss-free up to the absolute factor `4`⟧
-  have hNL : N * L ≤ 2 * H := by
-    have h1 : N * L ≤ H + L := by rw [hN]; exact numBlocks_mul_le H L
-    omega
-  have hNLR : (N : ℝ) * (L : ℝ) ≤ 2 * (H : ℝ) := by
-    have : ((N * L : ℕ) : ℝ) ≤ ((2 * H : ℕ) : ℝ) := by exact_mod_cast hNL
-    push_cast at this
-    linarith
-  have hNL0 : (0 : ℝ) ≤ (N : ℝ) * (L : ℝ) := by positivity
-  have hsq : ((N : ℝ) * (L : ℝ)) ^ 2 ≤ 4 * (H : ℝ) ^ 2 := by nlinarith
-  have hB := hB0 H
-  have hpi2 : (0 : ℝ) ≤ (1 + 2 * Real.pi) ^ 2 := sq_nonneg _
-  have hfin : (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-      ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by
-    calc (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-        = (1 + 2 * Real.pi) ^ 2 * Bblk H * (((N : ℝ) * (L : ℝ)) ^ 2) := by ring
-      _ ≤ (1 + 2 * Real.pi) ^ 2 * Bblk H * (4 * (H : ℝ) ^ 2) :=
-          mul_le_mul_of_nonneg_left hsq (mul_nonneg hpi2 hB)
-      _ = 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by ring
-  have hgr := hgrade H hlo hhi
-  calc (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
-      ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := hstep
-    _ ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := hfin
-    _ ≤ Braw H * (H : ℝ) ^ 2 := mul_le_mul_of_nonneg_right hgr (sq_nonneg _)
+  exact blocked_close_of_step hN (by omega) (hB0 H) (hgrade H hlo hhi) hstep
 
 /-- **THE LEVER'S BLOCKED SOCKET IS INHABITED** — `m4_sievedDoorSqBlk_trivial` (:463). -/
 theorem m4_sievedDoorSqBlk_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ)

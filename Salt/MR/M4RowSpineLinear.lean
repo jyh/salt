@@ -101,29 +101,7 @@ theorem m4_sievedDoorSq_of_blk2_L {R : ChowlaRegime} {M : ℕ} {ℓ : ℕ → �
       ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := by
     rw [hconst] at hmono
     exact le_trans hmono (mul_le_mul_of_nonneg_left hsupply hfac0)
-  have hNL : N * L ≤ 2 * H := by
-    have h1 : N * L ≤ H + L := by rw [hN]; exact numBlocks_mul_le H L
-    omega
-  have hNLR : (N : ℝ) * (L : ℝ) ≤ 2 * (H : ℝ) := by
-    have : ((N * L : ℕ) : ℝ) ≤ ((2 * H : ℕ) : ℝ) := by exact_mod_cast hNL
-    push_cast at this
-    linarith
-  have hNL0 : (0 : ℝ) ≤ (N : ℝ) * (L : ℝ) := by positivity
-  have hsq : ((N : ℝ) * (L : ℝ)) ^ 2 ≤ 4 * (H : ℝ) ^ 2 := by nlinarith
-  have hB := hB0 H
-  have hpi2 : (0 : ℝ) ≤ (1 + 2 * Real.pi) ^ 2 := sq_nonneg _
-  have hfin : (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-      ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by
-    calc (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-        = (1 + 2 * Real.pi) ^ 2 * Bblk H * (((N : ℝ) * (L : ℝ)) ^ 2) := by ring
-      _ ≤ (1 + 2 * Real.pi) ^ 2 * Bblk H * (4 * (H : ℝ) ^ 2) :=
-          mul_le_mul_of_nonneg_left hsq (mul_nonneg hpi2 hB)
-      _ = 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by ring
-  have hgr := hgrade H hlo hhi
-  calc (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
-      ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := hstep
-    _ ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := hfin
-    _ ≤ Braw H * (H : ℝ) ^ 2 := mul_le_mul_of_nonneg_right hgr (sq_nonneg _)
+  exact blocked_close_of_step hN (by omega) (hB0 H) (hgrade H hlo hhi) hstep
 
 /-- `M4BridgeBlock.M4BlockMeanSqBlk` at the weakened count binder. -/
 def M4BlockMeanSqBlk2_L (R : ChowlaRegime) (M k : ℕ) (ℓ : ℕ → ℕ → ℕ) (Bblk : ℕ → ℝ) : Prop :=
@@ -620,29 +598,7 @@ theorem m4_sievedDoorSq_of_blk2_L_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {ℓ
       ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := by
     rw [hconst] at hmono
     exact le_trans hmono (mul_le_mul_of_nonneg_left hsupply hfac0)
-  have hNL : N * L ≤ 2 * H := by
-    have h1 : N * L ≤ H + L := by rw [hN]; exact numBlocks_mul_le H L
-    omega
-  have hNLR : (N : ℝ) * (L : ℝ) ≤ 2 * (H : ℝ) := by
-    have : ((N * L : ℕ) : ℝ) ≤ ((2 * H : ℕ) : ℝ) := by exact_mod_cast hNL
-    push_cast at this
-    linarith
-  have hNL0 : (0 : ℝ) ≤ (N : ℝ) * (L : ℝ) := by positivity
-  have hsq : ((N : ℝ) * (L : ℝ)) ^ 2 ≤ 4 * (H : ℝ) ^ 2 := by nlinarith
-  have hB := hB0 H
-  have hpi2 : (0 : ℝ) ≤ (1 + 2 * Real.pi) ^ 2 := sq_nonneg _
-  have hfin : (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-      ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by
-    calc (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-        = (1 + 2 * Real.pi) ^ 2 * Bblk H * (((N : ℝ) * (L : ℝ)) ^ 2) := by ring
-      _ ≤ (1 + 2 * Real.pi) ^ 2 * Bblk H * (4 * (H : ℝ) ^ 2) :=
-          mul_le_mul_of_nonneg_left hsq (mul_nonneg hpi2 hB)
-      _ = 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by ring
-  have hgr := hgrade H hlo hhi
-  calc (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
-      ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := hstep
-    _ ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := hfin
-    _ ≤ Braw H * (H : ℝ) ^ 2 := mul_le_mul_of_nonneg_right hgr (sq_nonneg _)
+  exact blocked_close_of_step hN (by omega) (hB0 H) (hgrade H hlo hhi) hstep
 
 /-- `M4BlockMeanSqBlk2_L` (:372), at the lever. -/
 def M4BlockMeanSqBlk2_L_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (ℓ : ℕ → ℕ → ℕ)

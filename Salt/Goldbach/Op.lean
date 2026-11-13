@@ -441,7 +441,7 @@ theorem gold_op_hCE : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N → ∀ (QR : ℝ)
 /-! ## Part 10 — the `goldbach_of_hypotheses_W` consumption interface (for `G-ASM`)
 
 The terminal node `G-ASM` composes an `H`-provider for `goldbach_of_hypotheses_W`,
-the Goldbach analogue of `Salt.Chen.chen_of_hypotheses_W` (`Assembly.lean:715`).
+the Goldbach analogue of `Salt.Chen.chen_of_hypotheses_W` (`Assembly.lean:733`).
 That headline consumes, for every threshold `X`, an operating-point witness tuple
 `(x, z, P, y, Q, a, w')` with three main terms `(mainA1, mainA2, mainA3)` and the
 split hypotheses + ledger positivity.  At the Goldbach op point the slots are

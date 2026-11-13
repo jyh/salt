@@ -50,12 +50,12 @@ open MeasureTheory
 open Salt.ExpSum
 open Salt.Entropy.Chowla
 
-/-! ### `M4MeanSq` :408 — `m4_cofactorSocket_at_witness` — RETIRED INTO ITS GENERIC
+/-! ### `M4MeanSq` :417 — `m4_cofactorSocket_at_witness` — RETIRED INTO ITS GENERIC
 
 ⟦XY debt lane, family 01 (2026-09-26)⟧  `m4_cofactorSocket_at_witness_L` — the `_L` twin of
 `M4MeanSq`'s `m4_cofactorSocket_at_witness` at the linear door — stood here, its `A2Frame3`
 binder reading the ladder at `3072 * M`.  It is `m4_cofactorSocket_at_witness_L_gk` (below,
-§`M4MeanSq` :945) at `K = 0`: `s13GK 0 M = 3072 * M` (`s13GK_zero`), and every other binder and
+§`M4MeanSq` :960) at `K = 0`: `s13GK 0 M = 3072 * M` (`s13GK_zero`), and every other binder and
 the conclusion are token-identical.  The implication generic ⇒ sibling was kernel-checked from
 the retired statement's own bytes, in a scratch whose log rides with the retiring PR, before the
 81 lines (this heading, the docstring and the theorem, `ddecb6bf` :50–130) were removed; the
@@ -63,7 +63,7 @@ sibling had no consumer.  Comment mentions of `m4_cofactorSocket_at_witness_L` b
 lists and in proof bodies) are the historical name — read `m4_cofactorSocket_at_witness_L_gk` at
 `K = 0`. -/
 
-/-! ### `M4MeanSq` :494 — `m4_meansq_per_chi_gen` -/
+/-! ### `M4MeanSq` :503 — `m4_meansq_per_chi_gen` -/
 set_option maxHeartbeats 1600000 in
 -- the ~75-binder joint instantiation: elaborating the three suppliers' argument lists
 -- against one statement is what costs the heartbeats, not any tactic search
@@ -267,7 +267,7 @@ theorem m4_meansq_per_chi_gen_L :
   exact thm_a2'_of_rows_L hM hXe hX3 hh4 hhX ha1 hsupp0 hN2X hTann hceil5 hrows hT0band
     hgP1 hgRows ⟨hε0, hεup⟩ hL4096
 
-/-! ### `M4MeanSq` :789 — `m4_meansq_or_trivial` -/
+/-! ### `M4MeanSq` :798 — `m4_meansq_or_trivial` -/
 set_option maxHeartbeats 1600000 in
 -- same cause as `m4_meansq_per_chi_gen_L`: the binder list is re-elaborated once per branch
 /-- **THE M4 PER-SCALE DICHOTOMY** (`m4_meansq_or_trivial_L`).  At a fixed scale the consumer
@@ -416,7 +416,7 @@ theorem m4_meansq_or_trivial_L (Qm : ℕ) :
       hcoefBand hcoefPin
       hT0band hcff hgP1 hgRows hL4096
 
-/-! ### `M4MeanSq` :945 — `m4_cofactorSocket_at_witness_gk` -/
+/-! ### `M4MeanSq` :960 — `m4_cofactorSocket_at_witness_gk` -/
 /-- **The co-factor socket at the witness ladder, at the LINEAR door and the G-lever**
 (`M4MeanSq.m4_cofactorSocket_at_witness_gk` with the frame at `AdoorL M`, `H1doorL M`): under
 the CASE-A supplier `hsockA` (the body of `caseASocket2_discharged` at the capstone's own `X₀`),
@@ -506,7 +506,7 @@ theorem m4_cofactorSocket_at_witness_L_gk (K : ℕ) {q : ℕ} [NeZero q]
     (by linarith) hMtpin hkk hMt1 hMtY
   exact cofactorSocket_of_ellLin hgl hc1 hCb0 hRrad0 hsockP hblkX F.box hA2 hRbdU
 
-/-! ### `M4MeanSq` :1021 — `m4_meansq_per_chi_gen_gk` -/
+/-! ### `M4MeanSq` :1036 — `m4_meansq_per_chi_gen_gk` -/
 set_option maxHeartbeats 1600000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
@@ -698,7 +698,7 @@ theorem m4_meansq_per_chi_gen_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   exact thm_a2'_of_rows_L_gk K hM hXe hX3 hh4 hhX ha1 hsupp0 hN2X hTann hceil5 hrows hT0band
     hgP1 hgRows ⟨hε0, hεup⟩ hL4096
 
-/-! ### `M4MeanSq` :1213 — `m4_meansq_or_trivial_gk` -/
+/-! ### `M4MeanSq` :1235 — `m4_meansq_or_trivial_gk` -/
 set_option maxHeartbeats 1600000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
 -- application once more at the linear anchor; the cost is the binder list, not the proof
@@ -2362,7 +2362,7 @@ theorem m4_meansq_or_trivial_join_L_gk (K : ℕ) (hK : K ≤ 170000000) (Qm : �
       hcoefBand hcoefPin
       hT0band hcff hpool hgP1 hgRows hgU hgBand
 
-/-! ### `M4BridgeDilate` :355 — `door_gate_blocks` -/
+/-! ### `M4BridgeDilate` :357 — `door_gate_blocks` -/
 /-- **The door gate at every block index.**  `M4Residue.door_dilation_gate'_L` gives `d < P₁`;
 `calP_door_mono_L` lifts it to `d < P_j` for all `j ∈ [1,J]` — the exact hypothesis
 `indicator_mul_dilate_liouville` demands.  STRICT throughout (`d₀ ≤ q ≤ W < P₁`).
@@ -2377,7 +2377,7 @@ theorem door_gate_blocks_L {M J d q : ℕ} {W : ℝ} (hM : 1 ≤ M) (hdq : d ≤
   lt_of_lt_of_le (door_dilation_gate_calP_L (M := M) hdq hqW hW)
     (calP_door_mono_L hM (Finset.mem_Icc.mp hj).1)
 
-/-! ### `M4BridgeDilate` :369 — `dilCoeff_memS_door` -/
+/-! ### `M4BridgeDilate` :371 — `dilCoeff_memS_door` -/
 /-- **THE DILATED DATUM FACTORS** (MRT step (b) at the door, pointwise):
 
 ```
@@ -2400,7 +2400,7 @@ theorem dilCoeff_memS_door_L {M J d q q₀ r₀ : ℕ} {W : ℝ} (hM : 1 ≤ M) 
     exact indicator_mul_dilate_liouville hd hk (door_gate_blocks_L hM hdq hqW hW)
   · rw [if_neg hmod, if_neg hmod, mul_zero]
 
-/-! ### `M4BridgeDilate` :391 — `absWindowSum_dilCoeff_memS_door` -/
+/-! ### `M4BridgeDilate` :393 — `absWindowSum_dilCoeff_memS_door` -/
 /-- **The factorisation under the window sum**: `λ(d₀)` comes out of the whole dilated
 window sum, because every index of `Ioc n₀ (n₀+H₀)` is `≥ 1`. -/
 theorem absWindowSum_dilCoeff_memS_door_L {M J d q q₀ r₀ H₀ n₀ : ℕ} {W : ℝ} (hM : 1 ≤ M)
@@ -2419,7 +2419,7 @@ theorem absWindowSum_dilCoeff_memS_door_L {M J d q q₀ r₀ H₀ n₀ : ℕ} {W
   rw [dilCoeff_memS_door_L (J := J) hM hd hdq hqW hW hk0]
   ring
 
-/-! ### `M4BridgeDilate` :409 — `norm_absWindowSum_dilCoeff_memS_door` -/
+/-! ### `M4BridgeDilate` :411 — `norm_absWindowSum_dilCoeff_memS_door` -/
 /-- **The dilation is invisible to the modulus**: `‖λ(d₀)‖ = 1`, so the transported window
 sum's norm is the norm of the *reduced* datum's window sum. -/
 theorem norm_absWindowSum_dilCoeff_memS_door_L {M J d q q₀ r₀ H₀ n₀ : ℕ} {W : ℝ} (hM : 1 ≤ M)
@@ -2432,7 +2432,7 @@ theorem norm_absWindowSum_dilCoeff_memS_door_L {M J d q q₀ r₀ H₀ n₀ : �
   rw [absWindowSum_dilCoeff_memS_door_L (J := J) (H₀ := H₀) (n₀ := n₀) hM hd hdq hqW hW β,
     norm_mul, liouvilleC_norm hd, one_mul]
 
-/-! ### `M4BridgeDilate` :621 — `m4_class_dilate_exit` -/
+/-! ### `M4BridgeDilate` :623 — `m4_class_dilate_exit` -/
 /-- **THE ROW'S EXIT — the per-class dilated statement.**  For the door's sieved Liouville
 datum `1_𝒮·λ`, at a class `r` mod `q` with `d₀ = (r,q)` under the door gate
 `d₀ ≤ q ≤ W < P₁` (`W` free — the cap is the door's own `P₁`, `M4Residue.door_dilation_gate'_L`):
@@ -2469,7 +2469,7 @@ theorem m4_class_dilate_exit_L {M J q r H n : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq 
     exact norm_classWindowSum_le_thresh
       (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ J m) hq r H n α hthr
 
-/-! ### `M4BridgeDilate` :737 — `door_gate_blocks_gk` -/
+/-! ### `M4BridgeDilate` :739 — `door_gate_blocks_gk` -/
 /-- **The door gate at every block index, at the lever** — `door_gate_blocks_L` (:363). -/
 theorem door_gate_blocks_L_gk (K : ℕ) {M J d q : ℕ} {W : ℝ} (hM : 1 ≤ M) (hdq : d ≤ q)
     (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) :
@@ -2479,7 +2479,7 @@ theorem door_gate_blocks_L_gk (K : ℕ) {M J d q : ℕ} {W : ℝ} (hM : 1 ≤ M)
   rw [calP_gk_one_eq] at hW ⊢
   exact door_dilation_gate_calP_L (M := M) hdq hqW hW
 
-/-! ### `M4BridgeDilate` :746 — `dilCoeff_memS_door_gk` -/
+/-! ### `M4BridgeDilate` :748 — `dilCoeff_memS_door_gk` -/
 /-- **THE DILATED DATUM FACTORS, AT THE LEVER** — `dilCoeff_memS_door_L` (:378). -/
 theorem dilCoeff_memS_door_L_gk (K : ℕ) {M J d q q₀ r₀ : ℕ} {W : ℝ} (hM : 1 ≤ M) (hd : d ≠ 0)
     (hdq : d ≤ q) (hqW : (q : ℝ) ≤ W)
@@ -2495,7 +2495,7 @@ theorem dilCoeff_memS_door_L_gk (K : ℕ) {M J d q q₀ r₀ : ℕ} {W : ℝ} (h
     exact indicator_mul_dilate_liouville hd hk (door_gate_blocks_L_gk K hM hdq hqW hW)
   · rw [if_neg hmod, if_neg hmod, mul_zero]
 
-/-! ### `M4BridgeDilate` :761 — `absWindowSum_dilCoeff_memS_door_gk` -/
+/-! ### `M4BridgeDilate` :763 — `absWindowSum_dilCoeff_memS_door_gk` -/
 /-- **The factorisation under the window sum, at the lever** —
 `absWindowSum_dilCoeff_memS_door_L` (:393). -/
 theorem absWindowSum_dilCoeff_memS_door_L_gk (K : ℕ) {M J d q q₀ r₀ H₀ n₀ : ℕ} {W : ℝ}
@@ -2514,7 +2514,7 @@ theorem absWindowSum_dilCoeff_memS_door_L_gk (K : ℕ) {M J d q q₀ r₀ H₀ n
   rw [dilCoeff_memS_door_L_gk K (J := J) hM hd hdq hqW hW hk0]
   ring
 
-/-! ### `M4BridgeDilate` :779 — `norm_absWindowSum_dilCoeff_memS_door_gk` -/
+/-! ### `M4BridgeDilate` :781 — `norm_absWindowSum_dilCoeff_memS_door_gk` -/
 /-- **The dilation is invisible to the modulus, at the lever** —
 `norm_absWindowSum_dilCoeff_memS_door_L` (:411). -/
 theorem norm_absWindowSum_dilCoeff_memS_door_L_gk (K : ℕ) {M J d q q₀ r₀ H₀ n₀ : ℕ} {W : ℝ}
@@ -2527,7 +2527,7 @@ theorem norm_absWindowSum_dilCoeff_memS_door_L_gk (K : ℕ) {M J d q q₀ r₀ H
   rw [absWindowSum_dilCoeff_memS_door_L_gk K (J := J) (H₀ := H₀) (n₀ := n₀) hM hd hdq hqW hW β,
     norm_mul, liouvilleC_norm hd, one_mul]
 
-/-! ### `M4BridgeDilate` :791 — `m4_class_dilate_exit_gk` -/
+/-! ### `M4BridgeDilate` :793 — `m4_class_dilate_exit_gk` -/
 /-- **THE ROW'S EXIT AT THE LEVER — the per-class dilated statement** —
 `m4_class_dilate_exit_L` (:633). -/
 theorem m4_class_dilate_exit_L_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
@@ -2554,7 +2554,7 @@ theorem m4_class_dilate_exit_L_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} (hM : 
     exact norm_classWindowSum_le_thresh
       (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ J m) hq r H n α hthr
 
-/-! ### `M4ClassPrice` :227 — `norm_sum_windowClass_memS_dilate` -/
+/-! ### `M4ClassPrice` :229 — `norm_sum_windowClass_memS_dilate` -/
 /-- **THE NON-COPRIME BRANCH — ONE DILATION, AN EQUALITY.**  At the residual frequency `0`,
 `M4BridgeDilate.m4_class_dilate_exit_L` reads as a pure re-indexing of the bare class sum: the
 class mod `q` of the window `(n, n+H]` is the class `r₀` mod `q₀` of the DILATED window
@@ -2582,7 +2582,7 @@ theorem norm_sum_windowClass_memS_dilate_L {M J q r H n : ℕ} {W : ℝ} (hM : 1
           (q / Nat.gcd r q) (r / Nat.gcd r q), c m‖ := by
         rw [absWindowSum_classCoeff_zero]
 
-/-! ### `M4ClassPrice` :254 — `m4_class_price` -/
+/-! ### `M4ClassPrice` :256 — `m4_class_price` -/
 /-- **`m4_class_price_L` — THE PER-CLASS PRICE, both cases.**
 
 For a class `r` mod `q` of the door's sieved `λ`-window sum at a tight-major rational `b/q`:
@@ -2622,7 +2622,7 @@ theorem m4_class_price_L {M J q r H n : ℕ} {W : ℝ} {B : ℝ} (hM : 1 ≤ M) 
       (m4_class_dilate_coprime hq r).symm
     exact norm_sum_windowClass_memS_le_of_uniform hcop₀ _ _ J _ _ hdil
 
-/-! ### `M4ClassPrice` :939 — `norm_sum_windowClass_memS_dilate_gk` -/
+/-! ### `M4ClassPrice` :951 — `norm_sum_windowClass_memS_dilate_gk` -/
 /-- **THE NON-COPRIME BRANCH AT THE LEVER** — `norm_sum_windowClass_memS_dilate_L` (:232). -/
 theorem norm_sum_windowClass_memS_dilate_L_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} (hM : 1 ≤ M)
     (hq : 0 < q) (hqW : (q : ℝ) ≤ W)
@@ -2647,7 +2647,7 @@ theorem norm_sum_windowClass_memS_dilate_L_gk (K : ℕ) {M J q r H n : ℕ} {W :
           (q / Nat.gcd r q) (r / Nat.gcd r q), c m‖ := by
         rw [absWindowSum_classCoeff_zero]
 
-/-! ### `M4ClassPrice` :963 — `m4_class_price_gk` -/
+/-! ### `M4ClassPrice` :975 — `m4_class_price_gk` -/
 /-- **THE PER-CLASS PRICE AT THE LEVER, both cases** — `m4_class_price_L` (:265). -/
 theorem m4_class_price_L_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} {B : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
     (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ))

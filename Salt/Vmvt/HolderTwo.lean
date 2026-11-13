@@ -17,10 +17,10 @@ shape**.  The end product is
 
 for any off-diagonal pair with `e ab.1 ≠ e ab.2` (catch #74: the injectivity of the
 designated coordinates is REQUIRED — without it `pairEqBox = solBox` and the count is
-`J_k`, so the bound is false).  The house has re-verified that this `x²`-carrying,
-`θ = 2/(kr)` form closes R4 in the `S₂`-dominant branch for `r ≥ (k+1)/2`; it does
-**not** fit `PairEqFracBound` (whose `Cc` is `x`-free), so it stands as its own named
-theorem that R4 consumes directly.
+`J_k`, so the bound is false).  R4's `S₂`-dominant branch consumes this `x²`-carrying,
+`θ = 2/(kr)` form (`degen_dominant_self_improve`, `Step.lean`).  It does **not** fit
+`PairEqFracBound` (whose `Cc` is `x`-free), so it stands as its own named theorem that R4
+consumes directly.
 
 ## The two rungs
 
@@ -332,8 +332,8 @@ theorem holder_step (k x b : ℕ) (hb : 2 ≤ b) :
 /-- **The honest `γ = 2` fractional `S₂` bound.**  For an off-diagonal pair with distinct
 designated coordinates,
 `Ncount(pairEqBox) ≤ x² · J_k(x, kr)^{1 − 2/(kr)}`.
-This is the `θ = 2/(kr)`, `Cc = 1`, `x²`-carrying shape re-verified by the house to close R4
-in the `S₂`-dominant branch (`r ≥ (k+1)/2`).  It does **not** fit `PairEqFracBound` (`Cc`
+This is the `θ = 2/(kr)`, `Cc = 1`, `x²`-carrying shape that R4's `S₂`-dominant branch
+consumes (`degen_dominant_self_improve`).  It does **not** fit `PairEqFracBound` (`Cc`
 `x`-free); R4 consumes this directly. -/
 theorem pairEq_Ncount_le_frac {k r : ℕ} (x : ℕ) (e : Fin k → Fin (k * r))
     (ab : Fin k × Fin k) (he : e ab.1 ≠ e ab.2) (hb : 2 ≤ k * r) :
