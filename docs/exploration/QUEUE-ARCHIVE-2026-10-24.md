@@ -1206,7 +1206,7 @@ IS A STAMP.** *"no producer" is wrong as measured.* `mrtUniformityXi_of_absWindo
 (`Salt/MR/M4Window.lean:268`) **CONCLUDES `MRTUniformityXi R δ`** from ONE remaining hypothesis —
 the `L¹` bound `∫‖absWindowSum lamCoeff H n α‖ dμ ≤ δ·H` on `R.Hlo ≤ H ≤ R.Hhi` at
 `NearRatTight (arcDen 12 H)` — and the ARC side is already unconditional
-(`bigXiArcTight_twelve`, `Salt/MR/ExitClose.lean:773`, no hypotheses; the `_of_close` twin is a
+(`bigXiArcTight_twelve`, `Salt/MR/ExitClose.lean:779`, no hypotheses; the `_of_close` twin is a
 DIFFERENT theorem). Both registered in `Salt/MR/All.lean` (1710, 2000) ⇒ both carry the audit.
 ⇒ **the door's price is ONE NAMED ESTIMATE, not a formalisation of Tao Prop 2.4 from scratch.**
 **The "34 dependents" figure is NOT disputed — I did not re-measure it.** Independently verified at
@@ -1614,7 +1614,7 @@ RESURRECTS THEM:**
     `L²` MR short-interval mean-value theorem: **no `1_S`, no `W`, no `d`, no (2.1)/(2.3), no
     exponential twist.** ⭐ **PARTS ARE LANDED, ASSEMBLY IS NOT** (probe 2): the short-interval
     mean-square family `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:914`) / `_concrete`
-    (`:1045`) / `_kernel` (`KernelCarry.lean:1153`) is A.1's own shape; Halász in 65 files with
+    (`:1045`) / `_kernel` (`KernelCarry.lean:1162`) is A.1's own shape; Halász in 65 files with
     closed numeric instances. **CLASS: assigned after a targeted read (B/C expected). NOT `D`.**
 14. ✅✅ **BLOCK-C REWIRE — LANDED `3c6bd64f` 2026-08-21.** New file `Salt/MR/MRTQualityLam.lean`
     (94 ln, 2 theorems), rooted in `MR/All.lean` **with both names registered in the audit list AS the
@@ -2116,7 +2116,7 @@ RESURRECTS THEM:**
    ⛔ **AND A DEFECT IN MY OWN REFEREEING, RECORDED BECAUSE IT NEARLY SHIPPED:** checking the gate's
    names I ran `grep -E "(theorem|def|lemma)$name"` — **no space before `$name`, so it required
    `theoremFoo`** — and got three NOT FOUND. **All three exist** (`lamCoeff_eq_liouvilleC`
-   `M4Exit.lean:99` · `liouvilleC_mul` `M4Residue.lean:103` · `pretDistSq_lam_eq_lamCoeff`
+   `M4Exit.lean:99` · `liouvilleC_mul` `M4Residue.lean:106` · `pretDistSq_lam_eq_lamCoeff`
    `MRTPort.lean:255`). *I nearly published three false absences while refereeing a gate FOR false
    absences.* ⇒ 🔑 ***TEST A PATTERN ON A CASE YOU KNOW MATCHES BEFORE TRUSTING A ZERO*** — now rule 9
    of the frozen brief, in my own hand, with this as the worked example.
@@ -2318,7 +2318,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
 ```
   MRTUniformityXi
     ← mrtUniformityXi_of_absWindowBound_twelve  (M4Window:268)   — concludes the door from ONE L¹ estimate
-       arc      bigXiArcTight_twelve      (ExitClose:773)        ✅ UNCONDITIONAL
+       arc      bigXiArcTight_twelve      (ExitClose:779)        ✅ UNCONDITIONAL
        Parseval parseval_insert_budget_door (M4ParsevalStone:341) ✅ + terminal twin consumed S16FlatTerminalLinear:197
        ⟦THE WALL⟧ m4_hrowsSum_chi_door_end_L (M4RowLinear:284)   ✅ landed · All.lean:7550 · consumed ×3
                   (M4RowAssemblyLinear:3969 · :4252 _gk · :4948 _gk_kwide)
@@ -2388,11 +2388,11 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
 
 18p. ⛔⭐⭐ **compiler's `coreShort` LESSON APPLIED TO MY OWN HANDS — I HAVE THE SAME DEFECT. FLAGGED, NOT FIXED.** compiler (19:04/19:09, `b9d0737`): `C4.lean`'s `coreShort` HARDCODED `List.range 1055` as an off-by-one control against 1056; after the widening it silently becomes an **off-by-258** test **while still proving** — a wrong count is still wrong. Sibling `coreNarrow` DERIVES from `stWidth` and cannot degrade. ⇒ ***derive the witness from the quantity it is testing against.*** **I hunted the class in my own hands the hour they posted it and I have it:** `landed_halasz_exponent_weaker_than_a6 : 1/(32·e) < 1/16` has **BOTH SIDES AS LITERALS** — neither read from its source — so if either exponent moves **the theorem keeps proving forever** while its NAME asserts a dead relationship. **Green build, silent degradation. Exactly `coreShort`.** 📊 **RISK MEASURED, NOT ESTIMATED: A.6's exponent occurs as a bare literal `(1 : ℝ) / 16` THIRTY-TWO times in the file**, including inside `MRTLemmaA6`'s own statement ⇒ a future change is a **32-site edit with no mechanical guard**. *(Re-measured AFTER writing the docstring, in case my own prose inflated the count; it did not.)* ⛔ **FLAGGED NOT FIXED:** the real repair abstracts A.6's exponent and derives both sides — but that edits `MRTLemmaA6`'s **STATEMENT**, iron rule 1, Fable/Captain tier; the 17:4x ruling covered the ambient hypotheses and nothing else. **A half-fix that merely LOOKS derived would be WORSE than the flag — it would read as a guard while guarding nothing.** `47e5368f` · stamped 08/22 19:12:37
 
-18o. ⛔⭐⭐⭐ **THE WITNESS — `renormalise`'S ROUTE CANNOT DELIVER A.7 AT `f = λ`, SO RESIDUE (2) IS STRUCTURAL.** 18n showed `mrtM` runs the wrong way; this exhibits a **concrete `f`** at which the error factor is provably divergent. At Liouville `liouvilleC p = -1` on every prime (`M4Residue.lean:109`) ⇒ `‖1 − liouvilleC p‖ = 2` **EXACTLY, no asymptotics** ⇒ `∑_{p≤x} ‖1−λ p‖/p = 2·∑_{p≤x} 1/p`. **AND THE CORPUS ALREADY HAS THE SHARP DIVERGENCE:** `Dist.pretDistSq_principal_eval` gives `𝔻(f,1;x)² = 2·loglog⌊x⌋ + 2M + O(1/log⌊x⌋)` off `Mertens.mertens_second_sharp`; with 18n's `pretDistSq_one_le_sum_norm` the chain closes ⇒ **`exp(∑ ‖1−λ p‖/p) ≳ (log x)²`.** ⇒ `renormalise`'s bound at `λ` is `≳ (x/log x)·(log x)² = x·log x` against A.7's `C·X/(log X)^{1/10}` — **vacuous by `(log x)^{2+1/10}`.** ⛔ **THE CLAIM IS ABOUT THE ROUTE, NOT ABOUT A.7: this does NOT refute Lemma A.7** — MRT prove it, by other means. It says `renormalise` ALONE cannot be the supplier. *Naming the `f` that breaks a route is worth more than another attempt to walk it.* Landed: `norm_one_sub_liouvilleC_prime` · `sum_norm_one_sub_liouvilleC`, both `[3 axioms]`, first attempt; EXIT=0, zero diagnostics. `ac2a9bbf` · stamped 08/22 19:03:19
+18o. ⛔⭐⭐⭐ **THE WITNESS — `renormalise`'S ROUTE CANNOT DELIVER A.7 AT `f = λ`, SO RESIDUE (2) IS STRUCTURAL.** 18n showed `mrtM` runs the wrong way; this exhibits a **concrete `f`** at which the error factor is provably divergent. At Liouville `liouvilleC p = -1` on every prime (`M4Residue.lean:112`) ⇒ `‖1 − liouvilleC p‖ = 2` **EXACTLY, no asymptotics** ⇒ `∑_{p≤x} ‖1−λ p‖/p = 2·∑_{p≤x} 1/p`. **AND THE CORPUS ALREADY HAS THE SHARP DIVERGENCE:** `Dist.pretDistSq_principal_eval` gives `𝔻(f,1;x)² = 2·loglog⌊x⌋ + 2M + O(1/log⌊x⌋)` off `Mertens.mertens_second_sharp`; with 18n's `pretDistSq_one_le_sum_norm` the chain closes ⇒ **`exp(∑ ‖1−λ p‖/p) ≳ (log x)²`.** ⇒ `renormalise`'s bound at `λ` is `≳ (x/log x)·(log x)² = x·log x` against A.7's `C·X/(log X)^{1/10}` — **vacuous by `(log x)^{2+1/10}`.** ⛔ **THE CLAIM IS ABOUT THE ROUTE, NOT ABOUT A.7: this does NOT refute Lemma A.7** — MRT prove it, by other means. It says `renormalise` ALONE cannot be the supplier. *Naming the `f` that breaks a route is worth more than another attempt to walk it.* Landed: `norm_one_sub_liouvilleC_prime` · `sum_norm_one_sub_liouvilleC`, both `[3 axioms]`, first attempt; EXIT=0, zero diagnostics. `ac2a9bbf` · stamped 08/22 19:03:19
 
 18n. ⛔⭐⭐⭐ **A.7'S ERROR FACTOR IS NOT CONTROLLED BY `mrtM` — THE INEQUALITY RUNS THE WRONG WAY.** Residue (2) is `exp(∑_{p≤x} ‖1 − f p‖/p)`, and the obvious hope is that `mrtM` — the campaign's own pretentious quantity — bounds it. **It does not.** `pretDistSq f g x = ∑_{p≤x}(1 − Re(f p·conj(g p)))/p`, `mrtM f X = sInf {pretDistSq f (costwist t) X : |t| ≤ X}`. Two steps: `1 − Re z ≤ ‖1 − z‖` ⇒ `pretDistSq f 1 x ≤ ∑ ‖1−f p‖/p`; and `costwist 0 = 1`, `|0| ≤ X` ⇒ `mrtM f X ≤ pretDistSq f 1 X` (an `sInf` is below any member). ⇒ **`mrtM ≤ pretDistSq f 1 ≤ ∑ ‖1−f p‖/p`: BOTH STEPS RUN *FROM* `mrtM` TOWARD THE FACTOR A.7 NEEDS BOUNDED *ABOVE*.** A small `mrtM` says **nothing** about `∑ ‖1−f p‖/p`; the chain is useless in the required direction. ⇒ **RESIDUE (2) NEEDS A GENUINELY DIFFERENT INPUT** — an upper bound on the UNTWISTED, NORM-form prime sum — **and cannot be discharged by the `M`-smallness the rest of A.3 runs on.** ⭐ Landed so the direction is a THEOREM, not a memory: `one_sub_re_le_norm_one_sub` (the corpus proves it INLINE at `SW/DHBal.lean:85` for one specific `ρ`; this is the reusable form) · `pretDistSq_one_le_sum_norm` (the comparison, in the unusable direction). *Naming which inequality is unavailable is worth more than another attempt to use it.* Both `[3 axioms]`, first attempt; EXIT=0, zero diagnostics. `b2bc8742` · stamped 08/22 18:45:26
 
-18m. ✅⭐⭐ **A.7'S SUMMAND IN `renormalise`'S OWN HYPOTHESIS FORM — COPRIME, NOT COMPLETE — AND TWO INSTRUMENT TRAPS FROM THE STANDING ORDERS FIRED LIVE.** `renormalise`'s `hfmul` is the **COPRIME** form (read, not assumed), so 18l's completely-stated composite did not match. `gJ_f_costwist_mul_coprime` is the form it asks for; the degenerate pairs ARE the content (`Coprime 0 b ⇒ b = 1`, `Coprime a 0 ⇒ a = 1`, closed by `gJ_one` + `f 1 = 1` + `costwist_one`; off zero it is `gJ_mul` + `hfmul` + `costwist_mul`). ⛔ **(1) THE `@[simp]` TRAP:** `gJ_one` is declared `@[simp] lemma`, so my anchored `^(theorem|lemma) gJ_one` probe returned **ZERO** while the looser grep found it at `CofactorSupplier.lean:106` — **two probes disagreed and the GAP was the finding**; trusting the anchored one would have re-proved a landed lemma. ⛔ **(2) IN THE CORPUS IS NOT IN SCOPE:** finding it did not make it usable — the build failed `Unknown identifier gJ_one` because `MRTPropA3` did not import `CofactorSupplier`. **Existence and reachability are two questions and I had checked only one.** ⭐ **CONSUMING BEATS DUPLICATING, AND THE PRICE IS MEASURED:** added the import rather than re-proving the 4-line lemma — **module count 8977 → 9061, i.e. 84 additional modules for one lemma.** Reported because a reader deserves the price, not just the principle. `[3 axioms]`, attempts 2/3, EXIT=0, zero diagnostics. `4b87a754` · stamped 08/22 18:38:29
+18m. ✅⭐⭐ **A.7'S SUMMAND IN `renormalise`'S OWN HYPOTHESIS FORM — COPRIME, NOT COMPLETE — AND TWO INSTRUMENT TRAPS FROM THE STANDING ORDERS FIRED LIVE.** `renormalise`'s `hfmul` is the **COPRIME** form (read, not assumed), so 18l's completely-stated composite did not match. `gJ_f_costwist_mul_coprime` is the form it asks for; the degenerate pairs ARE the content (`Coprime 0 b ⇒ b = 1`, `Coprime a 0 ⇒ a = 1`, closed by `gJ_one` + `f 1 = 1` + `costwist_one`; off zero it is `gJ_mul` + `hfmul` + `costwist_mul`). ⛔ **(1) THE `@[simp]` TRAP:** `gJ_one` is declared `@[simp] lemma`, so my anchored `^(theorem|lemma) gJ_one` probe returned **ZERO** while the looser grep found it at `CofactorSupplier.lean:115` — **two probes disagreed and the GAP was the finding**; trusting the anchored one would have re-proved a landed lemma. ⛔ **(2) IN THE CORPUS IS NOT IN SCOPE:** finding it did not make it usable — the build failed `Unknown identifier gJ_one` because `MRTPropA3` did not import `CofactorSupplier`. **Existence and reachability are two questions and I had checked only one.** ⭐ **CONSUMING BEATS DUPLICATING, AND THE PRICE IS MEASURED:** added the import rather than re-proving the 4-line lemma — **module count 8977 → 9061, i.e. 84 additional modules for one lemma.** Reported because a reader deserves the price, not just the principle. `[3 axioms]`, attempts 2/3, EXIT=0, zero diagnostics. `4b87a754` · stamped 08/22 18:38:29
 
 18l. ✅⭐⭐ **A.7'S SUMMAND MATCH — CENSUSED; TWO PIECES WERE GENUINELY MISSING AND ARE NOW LANDED.** 18k named residue (1) as the summand match. **Censused each factor rather than assuming:** `gJ` — **`gJ_mul` (`Sec9Glue.lean:183`) is COMPLETE multiplicativity** (`m,n ≠ 0`, no coprimality) + `norm_gJ_le_one`, LANDED; `f` — A.7's own hypotheses; **`costwist` — `costwist_norm` landed, but multiplicativity IN THE ARGUMENT and the value at `1` were BOTH ABSENT** (measured 0 hits, decoy control 0). Landed: `costwist_one` · `costwist_mul` (`m,n ≠ 0`) · `gJ_f_costwist_mul` (**A.7's summand is completely multiplicative away from zero** — the shape `renormalise` asks for). ⛔ **AND THE ABSENT ONE CARRIES A JUNK-VALUE TRAP:** `Real.log 0 = 0` ⇒ `costwist t 0 = 1`, so `costwist t (0·n) = 1` while `costwist t 0 · costwist t n = costwist t n`. **Multiplicativity is FALSE at `m = 0`** — witness `t=1, n=2` gives `exp(i·log 2) ≠ 1`. That is exactly why `gJ_mul` carries `m,n ≠ 0`: **the nonzero hypotheses are load-bearing, not decoration.** All three `[3 axioms]`, first attempt; genuine `✔ Built` after olean deletion, EXIT=0, zero diagnostics. `8ec406fc` · stamped 08/22 18:28:41
 
@@ -2440,7 +2440,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
 
 17p. ⛔⛔⛔⭐⭐ **THE DOOR'S ROAD WALKED TO ITS END — AND I RETRACT MY OWN FRONTIER CLAIM, THIRD BEAT RUNNING.** Chain: `norm_absWindowSum_le_drift_tight` (`M4BridgePhase.lean:310`) → `subWindowSup_sq_le_strata` (`M4Gauss.lean:588`, **stated AT `doorSievedCoeff M`, the door's own coefficient**) → `strataTerm = ∑_χ (doorChiSup χ …)²` → `doorChiSup_sq_le_dyadic` (`M4Maximal.lean:423`, a **K-free dyadic maximal inequality**, Rademacher–Menshov shape) → a dyadic mean square of `liouChi`-twisted sieved window sums. **MEASURED: 20+ consumption sites for that one lemma across six files** (`M4BaseNarrow`/`M4RowLinear`/`M4ChiSummed`/`M4CoprimeSupply`/`M4RowAssemblyLinear`/`M4Maximal`); decoy control 0. **Not a frontier — a highway.** ⛔⛔ **THREE CLAIMS, THREE BEATS, EVERY ONE A LINK TOO EARLY, EVERY ONE MINE:** (1) *"no producer"* → it exists; (2) *"the corpus lacks the ANALYTIC estimates"* → `drift_tight`/`class_sum`; (3) *"what is missing is the TERMINAL CANCELLATION"* → strata→doorChiSup→dyadic. ⇒ **THE DEFECT IS IN MY METHOD: "MISSING" IS A CLAIM ABOUT A LEAF AND I KEPT MEASURING A LINK.** ⭐ **The one-command test I had never run: `grep` the CONSUMERS — a frontier has few downstream, this had twenty.** 📌 **I deliberately NAME NO FRONTIER here**; that would be the fourth instance of the error diagnosed. Docstring-only, no new declaration; introduced a `longLine` warning and cleared it (`⚠`→`✔` on the `Built` line). attempts 2/3 · `632e48ca` · stamped 08/22 15:17:12
 
-17o. ✅⭐⭐⛔ **THE DOOR'S `absWindowSum` RESIDUE OPENED — LAST SWEEP ROW, AND IT REFUTES MY OWN GENERALISATION.** Measured: **57 landed `absWindowSum` theorems across 14 files.** `integral_logMeasure_absWindowSum_le_thresh` (`M4Dyadic.lean:665`) has the door's `hbd` shape EXACTLY — but its OWN docstring calls it *"THE TRIVIAL CUT… discharged with no analysis at all"*, and at `thr := δ·H` its hypothesis forces `δ ≥ 1`, the OPPOSITE regime from the door's (pinned: `trivial_cut_needs_delta_ge_one`, [3 axioms]). ⛔⛔ **BUT MY ONE-BEAT-OLD GENERALISATION — *"the corpus holds the ALGEBRAIC identities and lacks the ANALYTIC estimates"* — IS TOO STRONG.** Two landed theorems refute it, both at the door's OWN `NearRatTight` hypothesis, neither trivial: `norm_absWindowSum_le_drift_tight` (`M4BridgePhase.lean:310`, phase-drift from arbitrary `α` down to a rational `b/q`) and `norm_absWindowSum_le_class_sum_of_nearRatTight` (`M4BridgeResidue.lean:287`, class-sum split). ⇒ **CORRECTED: the corpus holds the algebra AND the analytic REDUCTIONS; what is missing is the TERMINAL CANCELLATION** — the estimate making `subWindowSup` / the class sums actually small at small `δ`. Strictly narrower and more useful than either "no producer" or "no analysis". 🔑 *Found by opening the name most likely to refute me IMMEDIATELY AFTER the trivial-cut theorem CONFIRMED my prediction — an agreeing result is the one to doubt, and here the doubt paid inside one beat.* ✅ **ALL FOUR SWEEP ROWS NOW OPENED; NONE LEFT NAMED-BUT-UNOPENED.** attempts 1/3 · `f501c56a` · stamped 08/22 15:06:24
+17o. ✅⭐⭐⛔ **THE DOOR'S `absWindowSum` RESIDUE OPENED — LAST SWEEP ROW, AND IT REFUTES MY OWN GENERALISATION.** Measured: **57 landed `absWindowSum` theorems across 14 files.** `integral_logMeasure_absWindowSum_le_thresh` (`M4Dyadic.lean:684`) has the door's `hbd` shape EXACTLY — but its OWN docstring calls it *"THE TRIVIAL CUT… discharged with no analysis at all"*, and at `thr := δ·H` its hypothesis forces `δ ≥ 1`, the OPPOSITE regime from the door's (pinned: `trivial_cut_needs_delta_ge_one`, [3 axioms]). ⛔⛔ **BUT MY ONE-BEAT-OLD GENERALISATION — *"the corpus holds the ALGEBRAIC identities and lacks the ANALYTIC estimates"* — IS TOO STRONG.** Two landed theorems refute it, both at the door's OWN `NearRatTight` hypothesis, neither trivial: `norm_absWindowSum_le_drift_tight` (`M4BridgePhase.lean:310`, phase-drift from arbitrary `α` down to a rational `b/q`) and `norm_absWindowSum_le_class_sum_of_nearRatTight` (`M4BridgeResidue.lean:287`, class-sum split). ⇒ **CORRECTED: the corpus holds the algebra AND the analytic REDUCTIONS; what is missing is the TERMINAL CANCELLATION** — the estimate making `subWindowSup` / the class sums actually small at small `δ`. Strictly narrower and more useful than either "no producer" or "no analysis". 🔑 *Found by opening the name most likely to refute me IMMEDIATELY AFTER the trivial-cut theorem CONFIRMED my prediction — an agreeing result is the one to doubt, and here the doubt paid inside one beat.* ✅ **ALL FOUR SWEEP ROWS NOW OPENED; NONE LEFT NAMED-BUT-UNOPENED.** attempts 1/3 · `f501c56a` · stamped 08/22 15:06:24
 
 17n. ✅⭐⭐ **A.7 vs `Renormalise.lean` OPENED — THE RENORMALISATION FACTOR IS *LITERALLY* THE SAME
     OBJECT. `509a921d` 2026-08-22 14:5x. `[3 axioms]`, `EXIT=0`, zero errors, genuine `Built (6.1s)`,
@@ -2517,7 +2517,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     Measured at the source, not quoted from a docstring:
     ```
       mrtUniformityXi_of_absWindowBound_twelve  M4Window.lean:268  CONCLUDES MRTUniformityXi R δ
-      bigXiArcTight_twelve                      ExitClose.lean:773  NO HYPOTHESES — unconditional
+      bigXiArcTight_twelve                      ExitClose.lean:779  NO HYPOTHESES — unconditional
       both REGISTERED in Salt/MR/All.lean (1710, 2000) ⇒ inside the axiom audit
     ```
     The adapter reduces the door to **ONE** remaining hypothesis — an `L¹` bound
@@ -3861,7 +3861,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     IS NOT ABSORBED: the transport from `lemma14`'s TWO-SCALE form to A.1's SINGLE-SCALE statement"*
     as the live gap. **It is closed TWICE OVER:**
     ```
-      parseval_single_h   ParsevalSingle.lean:876   "S8 ladder A2-1 — THE SINGLE-h PARSEVAL"
+      parseval_single_h   ParsevalSingle.lean:881   "S8 ladder A2-1 — THE SINGLE-h PARSEVAL"
         landed; consumed by MY OWN MRTPropA3Bridge (6 sites) and by ThmA2Spine
         its header states the exact mechanism: the U/V Taylor split "is what forces the
         two-scale difference"; drop the split and run the V-argument from t = 0
@@ -4747,7 +4747,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     `Salt/MR/ParsevalSingle.lean` — *"S8 ladder, node A2-1 — THE SINGLE-`h` PARSEVAL … read against
     **MRT p. 21**'s own license for the single-window form"*, whose header explicitly contrasts itself
     with the landed Lemma-14 DIFFERENCE chain.
-    ⭐⭐ **`parseval_single_h` (`ParsevalSingle.lean:876`) CONCLUDES A.2's LEFT-HAND SIDE:**
+    ⭐⭐ **`parseval_single_h` (`ParsevalSingle.lean:881`) CONCLUDES A.2's LEFT-HAND SIDE:**
     `(1/X)·∫_X^{2X} ‖(1/h)·shortSum a s0 x h‖² ≤ [dpolyA integrals] + 236160π·Msup + [δ,N tail]`
     ⇒ **SINGLE SCALE, over `[X,2X]`, bounded by exactly the objects A.3 controls.**
     🔑🔑 **AND ITS `hMsup` IS CHARACTER-FOR-CHARACTER THE ONE `hMsup_of_propA3_shape` DISCHARGES**
@@ -4757,7 +4757,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     ```
       MRT Prop A.3            STATED (MRTPropA3, 6159b715)              ⛔ PROOF OPEN
         ──[hMsup_of_propA3_shape  PROVED tonight, 3ec62940]──▶  hMsup
-        ──[parseval_single_h      LANDED, ParsevalSingle.lean:876]──▶  A.2's LHS
+        ──[parseval_single_h      LANDED, ParsevalSingle.lean:881]──▶  A.2's LHS
         ──[hsieve_of_engine + sum_ratioK_le_basel  LANDED]──▶  the complement side
         ──▶ MRT Theorem A.1     STATED (MRTThmA1, 5f8eba2b)
     ```
@@ -5034,7 +5034,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
       *(The family below is real and useful; only its identification with A.1 is retracted.)*
       The landed short-interval mean-square family:
       `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:914`) · `_concrete` (`:1045`) ·
-      `_kernel` (`KernelCarry.lean:1153`) · `shortInterval_vonMangoldt_le`
+      `_kernel` (`KernelCarry.lean:1162`) · `shortInterval_vonMangoldt_le`
       (`ShortIntervalPsi.lean:407`).
       ⛔ **No ASSEMBLED "MR short-interval mean value" statement exists** (searched
       `MRShort`/`mrCore`/`MRgate`). ⇒ **THE PARTS ARE LANDED; THE ASSEMBLY IS NOT.**
@@ -5058,7 +5058,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     variant (`:1045`) discharges **three**: `hGint` by `gapMaj_sq_intervalIntegrable`, `hPerron` by
     `perron_gap_le_gapMaj` + `perron_guards_ae`, and `hGsq` by folding `Egap` into an explicit
     `34560·δ·(…)² + 1152·(…)²` term. ⇒ **`hMsup` IS THE ONLY SURVIVOR, and ALL THREE family members
-    carry it** (`_kernel` `KernelCarry.lean:1153` too; at the live application `Eq26Compose.lean:493`
+    carry it** (`_kernel` `KernelCarry.lean:1162` too; at the live application `Eq26Compose.lean:493`
     it is passed **upward**, not discharged).
     ⭐ **AND `hMsup`'s PRODUCER IS LANDED AND UNCONDITIONAL:** `dirichlet_poly_l2_mvt_final`
     (`MVCore2.lean:620`) — **no hypotheses at all** beyond the data — resting on

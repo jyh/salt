@@ -210,7 +210,7 @@ The register is `S15Sel''_gk` (`Salt/MR/S15Compose.lean:2445`), the live one on 
 
 ## 2. The frame ceiling DOES scale (the brief's explicit question)
 
-`A_gate_logK` (`Salt/MR/SeamCalibrationK.lean:173`) at the door+lever instance (`Salt/MR/DoorFrame.lean:352`, `DoorFrameH1.lean:520`) closes as
+`A_gate_logK` (`Salt/MR/SeamCalibrationK.lean:173`) at the door+lever instance (`Salt/MR/DoorFrame.lean:352`, `DoorFrameH1.lean:522`) closes as
 ```
 16·((L+3)log2 + (2L+52+K)log2)  ≤  (1/24)·(68719476736·(L+1)·log2 − 1)
 ```
@@ -386,7 +386,7 @@ Budget demand: `logloglog H ≥ budgetX(1/500, cD3·ε/(144 log 4)) = 1.036·10�
 
 **I-1 · Re-cut `entropy_residueWindow_ge`'s error from `8·P_H²·ω/x` to a form not read at the window's floor. [D-tier, spine-side]** This is the only change that moves my face's shape. The error is an ℓ¹/total-variation union bound over `P_H` residue classes evaluated at the window's *lower* endpoint `x/ω`; the logarithmic measure puts only a `1/log ω` fraction of its mass there. Payoff: `x/ω` freed from `P_H²`, socket floor drops `Λ ≥ e^{λ₊} → Λ ≥ λ₊` (probe E is the exact stopping point — `hheadroom` alone still gives `λ₊`). **Price:** a genuine re-proof of `ResidueUniform.lean:536` plus a re-derivation of `hPHheadroom` and its 7 register reads. **Residual after success: `K ≥ 1.5·10³¹` vs the frame's `1.7·10⁸` — 23 orders short.** So I-1 is necessary-but-nowhere-near-sufficient. Recommend: do not fire on its own.
 
-**I-2 · Raise `log 𝒫₂`. [dead at this design]** The ceiling is `log 𝒫₂/24 = 0.0301·2^{K+413}` — exponential in K, so it *looks* like the free knob. It is not: `K ≤ 1.7·10⁸` is spent at `A_gate_logK` inside `calFrameK_satisfiable_door_gk` (`DoorFrameH1.lean:511-520` names it), which is linear in `Adoor M ∝ log₂M`; and `M` is capped by `half` at `log₂M ≲ 1.4427·λ₋`. So the K-ceiling grows only *linearly in λ₋* while the demand grows like `e^{budgetX}`. **Impossible at this design.**
+**I-2 · Raise `log 𝒫₂`. [dead at this design]** The ceiling is `log 𝒫₂/24 = 0.0301·2^{K+413}` — exponential in K, so it *looks* like the free knob. It is not: `K ≤ 1.7·10⁸` is spent at `A_gate_logK` inside `calFrameK_satisfiable_door_gk` (`DoorFrameH1.lean:513-522` names it), which is linear in `Adoor M ∝ log₂M`; and `M` is capped by `half` at `log₂M ≲ 1.4427·λ₋`. So the K-ceiling grows only *linearly in λ₋* while the demand grows like `e^{budgetX}`. **Impossible at this design.**
 
 **I-3 · Restate the family at a scale variable independent of H. [impossible at this design — named]** The socket base is the door ladder's rung and the ladder tiles `(x/ω, x]` (`M4SecondRoad.lean:459`). Any sieve run for the spine must run *on the spine's own window*, whose lower endpoint the spine bounds from below. There is no scale variable to introduce: `X_d`'s floor is `x/ω`, `x/ω`'s floor is a regime field, and the regime has no x-ceiling to trade against. The only structural freedom — `regimeEnlargeX` — points the wrong way.
 

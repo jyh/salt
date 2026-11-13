@@ -14352,7 +14352,7 @@ SUPPLY ROUTE (thm_a2' + capFreeFloor3) — precisely the route D-1's
 KMT port REPLACES.**
 
 **R3 the arithmetic — the coefficient is EXACTLY 28 = 32·(1/8 + 1/4
-+ 1/2)** (the VK debit pieces at VkTwistClose:439/444 +
++ 1/2)** (the VK debit pieces at VkTwistClose:444/449 +
 VkTwistLadder:544); the e^{e^100} block contributes an X-free floor
 2.15e44 the corpus already knows (CapFreeAssembly:96 — VT-7 drops it
 to ~10³). With F4 repaired AND VT-7 granted AND every dial set in
