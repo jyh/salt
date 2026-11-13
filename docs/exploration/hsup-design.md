@@ -660,7 +660,7 @@ joint_supF_pinC (RHSGrade:248) [B,120]; W4-3 beta_integral_pin_constC
 rhs_grade_at_scale in WINDOW-FLOOR form (GradeConst:1089 + SupClose:334;
 hMwin replaces hmin/hgate) [C,300]; W4-5 JointIntegrableAtC + the JointPlumb
 clone (30 sites; σ^{2c−1} integrable at c > 0) [B,250–350]; W4-6
-center_halasz_supply B-ABSTRACT (CenterSupply:295; the exponent opaque —
+center_halasz_supply B-ABSTRACT (CenterSupply:267; the exponent opaque —
 c-free forever after) [B,150]. C-FREE VERBATIM (do NOT clone): the whole
 amplitude side (crossKer_width_sigma_bound_uniform, widthKamp,
 rhsAgradeConst/gradeAbsConst chains), the FarClose/FarStar far arm,
