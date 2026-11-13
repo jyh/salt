@@ -30,7 +30,7 @@ docstrings for the post-repair run.
 
 `hPodd` is NOT an incidental convention: the sieve density is `ν = 1/φ`, and
 `nuChen 2 = 1/φ(2) = 1`, so `BoundingSieve.nu_lt_one_of_prime` structurally excludes `2`
-from every modulus (TwinA1.lean:102, `nuChen_lt_one` requires `3 ≤ p`).  For `z ≥ 3`:
+from every modulus (TwinA1.lean:107, `nuChen_lt_one` requires `3 ≤ p`).  For `z ≥ 3`:
 
 * `hPfull` at `q = 2` forces `2 ∣ P`; with `hPodd` this forces **`P = 0`**
   (`catch65_slot_torn` below — in ℕ, `q ∣ 0` for all `q`, so `P = 0` is the unique

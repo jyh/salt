@@ -16,6 +16,12 @@ name: Reach census
 # most of main's prefix cache and rebuilds the corpus inside this job (measured 10-27: #544's imports
 # took 146 min and the 150-min cap cancelled the walk). A cancelled run reaches no verdict; the
 # "No verdict" step below writes that to the summary, so a cancel never reads as a clean census.
+# ROOT TRAINS (census owner, 2026-11-11): a PR census restores the NEWEST SAVED main cache, and in a
+# train of root PRs that cache lags the PR's base by one or more merges, so the import build pays every
+# root cone since that save (#665: 730 modules, 4 h 24 m; walks 20 min each). Neither a longer cap
+# (GitHub's hosted ceiling is 360) nor a split planted job (it pays the build again) fixes that. So a
+# PR whose `gen` is byte-identical to main's rides the advisory road BY DESIGN (rule below), and a
+# cancelled run parses a finished clean walk in its No-verdict step.
 # WHEN A PULL REQUEST'S RUN IS ADVISORY (census owner's ruling, 2026-10-31): the pull-request trigger
 # keys on PATHS, and a PR most often sets it off only because rekey_cites moved cite digits in
 # RESULTS.md. `gen` reads each RESULTS row's name and the MODULE of its File column, never the line,
@@ -161,6 +167,21 @@ jobs:
             echo 'This run was cancelled (the job timeout, or a newer run on the same ref) before the Verdict step.';
             echo 'It is not a clean census. Re-run it, or read the next run on this ref.'; } >> "$GITHUB_STEP_SUMMARY"
           echo "::warning::Reach census cancelled before its verdict: NO VERDICT, not a pass"
+          # SALVAGE (census owner, 2026-11-11): on a pull request the import build dominates (#665:
+          # 730 modules, 4 h 24 m of 5 h 00 m) and the planted walk is the step the cap cuts, so the
+          # CLEAN walk has often finished. Parse it if its exit line is there. It is the clean walk
+          # ONLY, with no red-first arm, so the run stays NO VERDICT; the tree is printed so the
+          # census-of-record rule in the header (test-merge tree == main's tree after the merge) can
+          # be applied to it by hand.
+          if grep -qF 'o13-ci EXIT=' census.log 2>/dev/null; then
+            rc=0; python3 scripts/o13_census.py parse census.log --manifest O13Census.lean.json > verdict.txt || rc=$?
+            { echo; echo '### Clean walk only (it finished before the cancel; the planted arm did not)'; echo;
+              echo "parse rc=$rc at ${{ steps.sha.outputs.sha }}, tree $(git rev-parse HEAD^{tree})"; echo;
+              echo '```'; cat verdict.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+            echo "clean walk only: parse rc=$rc, tree $(git rev-parse HEAD^{tree})"
+          else
+            echo 'clean walk did not finish: nothing to salvage'
+          fi
       - name: Upload the logs
         if: ${{ always() }}
         uses: actions/upload-artifact@v4

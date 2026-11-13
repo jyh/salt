@@ -67,7 +67,7 @@ twin per link.  The chains were traced (2026-07-31) and priced:
 * `Cg`: EIGHT `∃ C`-links, `typical_density_le` (`TypicalDensity.lean:873`) →
   `card_blockfree_le` (`SieveGlue.lean:183`) → `hsieve_of_engine` (`SieveGlue.lean:438`) →
   `notMemS_window_count_le` (`M4Sieve.lean:468`) → `m4_sieve_block_mass` (`M4Sieve.lean:588`)
-  → `m4_door_sieve_mass` (`M4Door.lean:616`) → `m4_door_insert_mass_integral`
+  → `m4_door_sieve_mass` (`M4Door.lean:621`) → `m4_door_insert_mass_integral`
   (`M4ParsevalStone.lean:281`) → `parseval_insert_budget_door` (`M4ParsevalStone.lean:341`).
   Links 2–8 are verbatim re-emits; link 1→2 raises to `max C₀ 1` (harmless above `1`).
   `ConstantsExposed.typical_density_le_bounded` is the wired root, so this chain is TWINNABLE.

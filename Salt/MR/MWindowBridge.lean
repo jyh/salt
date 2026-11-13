@@ -94,6 +94,8 @@ noncomputable def pretFloorShape (x b : ℝ) : ℝ :=
   Real.log (Real.log x) - (3 / 4) * Real.log (Real.log (b + 3))
     - 5 * Real.log (Real.log (Real.log (b + 16)))
 
+/-- `pretFloorShape x b` unfolded, by `rfl`: `log (log x)` minus `(3 / 4) * log (log (b + 3))`
+minus `5 * log (log (log (b + 16)))`. Read four times in this file and by `MWindowExtend`. -/
 lemma pretFloorShape_def (x b : ℝ) :
     pretFloorShape x b = Real.log (Real.log x) - (3 / 4) * Real.log (Real.log (b + 3))
       - 5 * Real.log (Real.log (Real.log (b + 16))) := rfl
@@ -200,12 +202,17 @@ once `0 ≤ W`. -/
 noncomputable def M_win (f : ℕ → ℂ) (X W : ℝ) : ℝ :=
   sInf ((fun t : ℝ => pretDistSq f (costwist t) X) '' {t : ℝ | |t| ≤ W})
 
+/-- For a `1`-bounded `f`, the values `pretDistSq f (costwist t) X` over the window `|t| ≤ W`
+are bounded below, by `0` (`pretDistSq_nonneg`). Read twice in this file; no consumer outside
+it. -/
 lemma M_win_bddBelow {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (X W : ℝ) :
     BddBelow ((fun t : ℝ => pretDistSq f (costwist t) X) '' {t : ℝ | |t| ≤ W}) := by
   refine ⟨0, ?_⟩
   rintro v ⟨t, _, rfl⟩
   exact pretDistSq_nonneg f (costwist t) X hf (norm_costwist_le t)
 
+/-- The window `{t | |t| ≤ W}` is nonempty at `0 ≤ W`: it holds `0`. Read twice in this file; no
+consumer outside it. -/
 lemma M_win_window_nonempty {W : ℝ} (hW : 0 ≤ W) : ({t : ℝ | |t| ≤ W}).Nonempty :=
   ⟨0, by simpa using hW⟩
 

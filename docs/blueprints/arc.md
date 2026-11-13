@@ -128,7 +128,7 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   :177); **B = W4/W5→W6** (W5 strictly before W6; W4 independent, consumed at the same
   place). One file per node.
 - **W0 — THE BINDING PRE-DISPATCH GATE (critic defect 4, unchanged):** before lane B
-  dispatches, read `M4BridgeResidue.lean:383, :407, :424` and report whether the LOSSLESS
+  dispatches, read `M4BridgeResidue.lean:389, :413, :430` and report whether the LOSSLESS
   landed route supersedes the χ-SUMMED route. W0's report goes to the helm first.
 - **Deliverable, sed'd from brief :252 (the paraphrase the refuters caught is struck):**
   *"a REDUCTION of the split road's residual, in one direction only: from 'for every
@@ -351,7 +351,7 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   `4·2^k·H/x / Z`; the landed conclusion is `m4_doorSq_of_rowMeanSqLam`,
   `MRTPortRowLam.lean:68`). [A, QUEUE amendment]:** the "absolute factor 3, no log and no loglog debit"
   one-liner (QUEUE:788-791) over-compresses: the 3 arrives via `door_count_le_three_mul_norm`
-  (`M4Door.lean:648`) under `4 ≤ log ω` (+2 gates), and the composed conclusion carries a
+  (`M4Door.lean:653`) under `4 ≤ log ω` (+2 gates), and the composed conclusion carries a
   second term `4·2^k·H/x / Z`. The landed absolute-3 conclusion is
   `m4_doorSq_of_rowMeanSqLam`. Amend to name the gate and the term.
 - **H-4 ✅ DONE 2026-08-26 (math) — status-corrected in `M4Join.lean`'s own STATUS-CORRECTED

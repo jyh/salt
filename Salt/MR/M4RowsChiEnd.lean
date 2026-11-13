@@ -344,8 +344,8 @@ CHARACTER-BLIND and ROW-BLIND arithmetic; what moves is only the Lemma-12 summan
 prefactor, `960·3 = 2880` where the three-row chain has `480·3 = 1440`.
 
 `M4RowsChi`'s own helpers are `private` to that file (as `ThmA2Rows`' are to theirs), so the
-page is re-derived here at its own names.  No content is re-proved: the arithmetic is
-`(X/h)/X_d ≤ 4/h` and `w ≤ 1`, twice each. -/
+page is re-derived here at its own names, from two facts only: `(X/h)/X_d ≤ 4/h`, used in three
+of the four numerals, and `w ≤ 1`, used in all four. -/
 
 /-- **THE FOUR NUMERALS** (`d5_weight_gates`) — `M4RowsChi.m4_weight_gates` at its own name
 (that one is `private`).  With `w := (X/h)/T`: `0 ≤ w ≤ 1`, and the four `T`-linear factors

@@ -666,11 +666,15 @@ theorem prime_of_mem_factorization_support {n p : ℕ} (hp : p ∈ n.factorizati
     p.Prime :=
   Nat.prime_of_mem_primeFactors (by rwa [Nat.support_factorization] at hp)
 
+/-- `1 ≤ sqPartOf n`: a product of prime powers, each `≥ 1` (`Finset.one_le_prod'`). Read four
+times in this file; no consumer outside it. -/
 theorem one_le_sqPartOf (n : ℕ) : 1 ≤ sqPartOf n := by
   rw [sqPartOf, Finsupp.prod]
   exact Finset.one_le_prod' fun p hp =>
     Nat.one_le_pow _ _ (prime_of_mem_factorization_support hp).pos
 
+/-- `1 ≤ cubePartOf n`: a product of prime powers, each `≥ 1` (`Finset.one_le_prod'`). Read
+three times in this file; no consumer outside it. -/
 theorem one_le_cubePartOf (n : ℕ) : 1 ≤ cubePartOf n := by
   rw [cubePartOf, Finsupp.prod]
   exact Finset.one_le_prod' fun p hp =>
@@ -703,6 +707,9 @@ theorem sqPartOf_sq_mul_cubePartOf_cube {n : ℕ} (hn0 : n ≠ 0) (hsf : Squaref
         rw [Finsupp.prod] at h
         exact h
 
+/-- `sqPartOf n ≤ n` for a squarefull `n ≠ 0`: with `a := sqPartOf n`, `b := cubePartOf n`,
+`a ≤ a ^ 2 ≤ a ^ 2 * b ^ 3 = n` (`sqPartOf_sq_mul_cubePartOf_cube`, `one_le_cubePartOf`). Read
+once in this file; no consumer outside it. -/
 theorem sqPartOf_le {n : ℕ} (hn0 : n ≠ 0) (hsf : Squarefull n) : sqPartOf n ≤ n := by
   have h := sqPartOf_sq_mul_cubePartOf_cube hn0 hsf
   have hb : 0 < cubePartOf n := one_le_cubePartOf n
@@ -711,6 +718,9 @@ theorem sqPartOf_le {n : ℕ} (hn0 : n ≠ 0) (hsf : Squarefull n) : sqPartOf n 
         Nat.le_mul_of_pos_right _ (pow_pos hb 3)
     _ = n := h
 
+/-- `cubePartOf n ≤ n` for a squarefull `n ≠ 0`: with `a := sqPartOf n`, `b := cubePartOf n`,
+`b ≤ b ^ 3 ≤ a ^ 2 * b ^ 3 = n` (`sqPartOf_sq_mul_cubePartOf_cube`, `one_le_sqPartOf`). Read
+once in this file; no consumer outside it. -/
 theorem cubePartOf_le {n : ℕ} (hn0 : n ≠ 0) (hsf : Squarefull n) : cubePartOf n ≤ n := by
   have h := sqPartOf_sq_mul_cubePartOf_cube hn0 hsf
   have ha : 0 < sqPartOf n := one_le_sqPartOf n

@@ -9,7 +9,7 @@ A-WINDOWING, exactly the dissolving-class move the council named.
 ## 1. The mint census (every ∃-hop walked)
 
 `C_mu = max C₁ C₂` (MobiusChiRateClose.lean:1339), both rows A-free;
-`Cband = 2·C_mu·4³ + 1` (LambdaRateTwisted.lean:715 at s13Aexp = 3),
+`Cband = 2·C_mu·4³ + 1` (LambdaRateTwisted.lean:717 at s13Aexp = 3),
 passed through unchanged to the rider.
 
 - **Row 1 (χ≠1): 100% closed form** — every leaf a literal

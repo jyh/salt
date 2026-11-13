@@ -48,8 +48,8 @@ KMT print the twist **unbarred** (`χ(n)·n^{-it}`).  **This file follows the CO
 bars it**: the corpus's twisted Liouville datum is
 `Salt.MR.lamChi χ n = lam n · conj (χ n)` (`Salt/MR/ChiFloor.lean:184`) and its
 integer-correct sibling `Salt.MR.liouChi χ n = liouvilleC n · conj (χ n)`
-(`Salt/MR/CapFreeAssembly.lean:454`, completely multiplicative by
-`Salt.MR.liouChi_mul`, `Salt/MR/M4ErrRewire.lean:289`).  The character-sum orientation that
+(`Salt/MR/CapFreeAssembly.lean:457`, completely multiplicative by
+`Salt.MR.liouChi_mul`, `Salt/MR/M4ErrRewire.lean:291`).  The character-sum orientation that
 forces the bar is recorded at `Salt/MR/M4Chars.lean:29–60`: the residue-class decomposition
 `λ(m)·1_{m ≡ b₀} = (1/φ(q))·∑_χ χ(b₀)·lamChi χ m` puts the **unconjugated** character on the
 COEFFICIENT and the conjugate on the DATUM.  So the datum here is `λ·χ̄` and the sums are
@@ -300,6 +300,8 @@ noncomputable def MmuChi {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) (y 
 noncomputable def MlambdaChi {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) (y : ℕ) : ℂ :=
   ∑ n ∈ Finset.Icc 1 y, ((ArithmeticFunction.liouville n : ℤ) : ℂ) * chiBarTwist χ t n
 
+/-- `MmuChi χ t 0 = 0` (`@[simp]`): the sum over `Finset.Icc 1 0` is empty. Read once in this
+file; no consumer outside it. -/
 @[simp] theorem MmuChi_zero {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) :
     MmuChi χ t 0 = 0 := by
   simp [MmuChi]

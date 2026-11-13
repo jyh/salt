@@ -95,9 +95,13 @@ scale below `X`.  (Trap: this is the OUTER cover's index — not the Perron dept
 `K`-family's parameter.) -/
 def dyadScale (X : ℝ) (i : ℕ) : ℝ := X / 2 ^ i
 
+/-- `dyadScale X 0 = X` (`@[simp]`): the scale family starts at `X`. Read twice in this file; no
+consumer outside it. -/
 @[simp] theorem dyadScale_zero (X : ℝ) : dyadScale X 0 = X := by
   simp [dyadScale]
 
+/-- `dyadScale X (i + 1) = dyadScale X i / 2`: one more halving (`pow_succ`). Read twice in this
+file; no consumer outside it. -/
 theorem dyadScale_succ (X : ℝ) (i : ℕ) : dyadScale X (i + 1) = dyadScale X i / 2 := by
   unfold dyadScale
   rw [pow_succ]
@@ -109,20 +113,27 @@ theorem two_mul_dyadScale_succ (X : ℝ) (i : ℕ) : 2 * dyadScale X (i + 1) = d
   rw [dyadScale_succ]
   ring
 
+/-- `1 ≤ 2 ^ i` in `ℝ`, by induction on `i`. Read once in this file; no consumer outside it. -/
 theorem one_le_two_pow_real (i : ℕ) : (1 : ℝ) ≤ 2 ^ i := by
   induction i with
   | zero => norm_num
   | succ k ih => rw [pow_succ]; linarith only [ih]
 
+/-- `0 < dyadScale X i` at `0 < X`. Read twice in this file; no consumer outside it. -/
 theorem dyadScale_pos {X : ℝ} (hX : 0 < X) (i : ℕ) : 0 < dyadScale X i :=
   div_pos hX (by positivity)
 
+/-- `0 ≤ dyadScale X i` at `0 ≤ X`. Read once in this file; no consumer outside it. -/
 theorem dyadScale_nonneg {X : ℝ} (hX : 0 ≤ X) (i : ℕ) : 0 ≤ dyadScale X i :=
   div_nonneg hX (by positivity)
 
+/-- `dyadScale X i ≤ X` at `0 ≤ X`: a division by `2 ^ i ≥ 1` (`one_le_two_pow_real`). Read once
+in this file; no consumer outside it. -/
 theorem dyadScale_le_self {X : ℝ} (hX : 0 ≤ X) (i : ℕ) : dyadScale X i ≤ X :=
   div_le_self hX (one_le_two_pow_real i)
 
+/-- `dyadScale X (i + 1) ≤ dyadScale X i` at `0 ≤ X`: the scales decrease (`dyadScale_succ`,
+`dyadScale_nonneg`). Read once in this file; no consumer outside it. -/
 theorem dyadScale_succ_le {X : ℝ} (hX : 0 ≤ X) (i : ℕ) :
     dyadScale X (i + 1) ≤ dyadScale X i := by
   rw [dyadScale_succ]
@@ -139,8 +150,12 @@ def dyadIdx (W : ℝ) : ℕ := ⌈10 * Real.log W / Real.log 2⌉₊
 runs over `dyadCount W` values, index `0` included.) -/
 def dyadCount (W : ℝ) : ℕ := dyadIdx W + 1
 
+/-- `0 < dyadCount W`: it is `dyadIdx W + 1`. No consumer at `main`, in this file or outside
+it. -/
 theorem dyadCount_pos (W : ℝ) : 0 < dyadCount W := Nat.succ_pos _
 
+/-- `dyadIdx W < dyadCount W`: the top index of the cover is an admissible one. Read four times
+in this file; no consumer outside it. -/
 theorem dyadIdx_lt_dyadCount (W : ℝ) : dyadIdx W < dyadCount W := Nat.lt_succ_self _
 
 /-- **THE COUNT BOUND, in-statement** (law #253): `⌈10·log W/log 2⌉₊ ≤ 10·log W/log 2 + 1`. -/
@@ -224,11 +239,15 @@ scale family — half-open at the bottom, matching `logMeasure`'s `Finset.Ioc (x
 def dyadPart (S : Finset ℕ) (X : ℝ) (i : ℕ) : Finset ℕ :=
   S.filter (fun n : ℕ => dyadScale X (i + 1) < (n : ℝ) ∧ (n : ℝ) ≤ dyadScale X i)
 
+/-- `n ∈ dyadPart S X i` iff `n ∈ S` and `dyadScale X (i + 1) < n ≤ dyadScale X i`: the filter
+unfolded (`simp`). Read five times in this file; no consumer outside it. -/
 theorem mem_dyadPart {S : Finset ℕ} {X : ℝ} {i n : ℕ} :
     n ∈ dyadPart S X i ↔
       n ∈ S ∧ dyadScale X (i + 1) < (n : ℝ) ∧ (n : ℝ) ≤ dyadScale X i := by
   simp [dyadPart, Finset.mem_filter]
 
+/-- `dyadPart S X i ⊆ S`: a filter is a subset (`Finset.filter_subset`). Read twice in this
+file; no consumer outside it. -/
 theorem dyadPart_subset (S : Finset ℕ) (X : ℝ) (i : ℕ) : dyadPart S X i ⊆ S :=
   Finset.filter_subset _ _
 

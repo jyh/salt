@@ -302,6 +302,8 @@ theorem norm_classCoeff_le_one {a : ℕ → ℂ} (ha : ∀ m, ‖a m‖ ≤ 1) (
   · exact ha m
   · simp
 
+/-- `‖dilCoeff a d q₀ r₀ k‖ ≤ 1` for a datum with `‖a m‖ ≤ 1`: the value is `a (d * k)` on the
+class `k ≡ r₀ [MOD q₀]` and `0` off it. Read once in this file; no consumer outside it. -/
 theorem norm_dilCoeff_le_one {a : ℕ → ℂ} (ha : ∀ m, ‖a m‖ ≤ 1) (d q₀ r₀ k : ℕ) :
     ‖dilCoeff a d q₀ r₀ k‖ ≤ 1 := by
   unfold dilCoeff

@@ -118,6 +118,9 @@ open scoped BigOperators
 The `P`-ladder is `SeamCalibration.calP`, unchanged. -/
 def calQK (A G M j : ℕ) : ℕ := 2 ^ ((j ^ 2 * M) * calE A G j)
 
+/-- `log (calQK A G M j) = (j ^ 2 * M) * calE A G j * log 2`: the logarithm of a power of `2`
+(`Real.log_pow`). Read seven times in this file and by 10 files outside it (`ArithPageLinear`,
+`CofactorSupplier`, `DoorFrame` the first three). -/
 lemma log_calQK (A G M j : ℕ) :
     Real.log ((calQK A G M j : ℕ) : ℝ)
       = ((j : ℝ) ^ 2 * (M : ℝ)) * ((calE A G j : ℕ) : ℝ) * Real.log 2 := by
@@ -127,11 +130,16 @@ lemma log_calQK (A G M j : ℕ) :
   push_cast
   ring
 
+/-- `calQK A G M` is monotone in `j` at `1 ≤ G`: both `j ^ 2 * M` and `calE A G j` grow
+(`calE_mono`). Read three times in this file and by 10 files outside it (`A3Middle`,
+`CapFreeArm`, `CapFreeArm3` the first three). -/
 lemma calQK_mono (A : ℕ) {G M : ℕ} (hG : 1 ≤ G) : Monotone (calQK A G M) := by
   intro i j hij
   refine Nat.pow_le_pow_right (by norm_num) (Nat.mul_le_mul ?_ (calE_mono A hG hij))
   exact Nat.mul_le_mul_right M (Nat.pow_le_pow_left hij 2)
 
+/-- `1 ≤ calQK A G M j`: a power of `2` (`Nat.one_le_two_pow`). Read once in this file and by 21
+files outside it (`A3Middle`, `CapFreeArm`, `CapFreeArm3` the first three). -/
 lemma one_le_calQK (A G M j : ℕ) : 1 ≤ calQK A G M j := Nat.one_le_two_pow
 
 /-- `K_j ≥ 1` is all it takes for the re-pin to be a genuine widening: `P_j ≤ Q_j`. -/

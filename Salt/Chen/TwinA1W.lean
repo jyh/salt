@@ -110,14 +110,25 @@ noncomputable def twinA1SieveW (Q a x P : ℕ) (hP : Squarefree P)
 
 section FactsW
 
+/-- `(twinA1SieveW Q a x P hP hPodd).prodPrimes = P`, by `rfl` (`@[simp]`): the AP-restricted
+`A₁` instance sifts by exactly the modulus it is built on. Read by `FinLed`, `FinLed2` (the
+depth comparison with `twinA2SieveW_prodPrimes`) and Goldbach's `Ledger`, and once in this
+file. -/
 @[simp] lemma twinA1SieveW_prodPrimes (Q a x P : ℕ) (hP : Squarefree P)
     (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p) :
     (twinA1SieveW Q a x P hP hPodd).prodPrimes = P := rfl
 
+/-- `(twinA1SieveW …).nu = nuChen`, by `rfl` (`@[simp]`): the density is the Chen density `1/φ`,
+unchanged by the AP restriction (the AP density cancels in the ν-ratio). Read by Goldbach's
+`Ledger` and once in this file. -/
 @[simp] lemma twinA1SieveW_nu (Q a x P : ℕ) (hP : Squarefree P)
     (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p) :
     (twinA1SieveW Q a x P hP hPodd).nu = nuChen := rfl
 
+/-- `(twinA1SieveW …).totalMass = (∑_{n ∈ twinWindow x} Λ(n)) / φ(Q)`, by `rfl` (`@[simp]`): the
+C3-(ii) smooth total mass — the plain window `Λ`-mass divided by `φ(Q)`, not the AP-restricted
+sum — so that `rem d` is exactly the `Q·d`-discrepancy (`twinA1W_rem_eq`). Read by `FinLed`,
+`FinLed3`, `PackB`, `TwinA2W` and Goldbach's `Ledger`, and three times in this file. -/
 @[simp] lemma twinA1SieveW_totalMass (Q a x P : ℕ) (hP : Squarefree P)
     (hPodd : ∀ p ∈ P.primeFactors, 3 ≤ p) :
     (twinA1SieveW Q a x P hP hPodd).totalMass
@@ -183,10 +194,16 @@ theorem dvd_add_two_iff' {d : ℕ} (hd1 : 1 ≤ d) (n : ℕ) :
 def crtClass (Q a d : ℕ) (h : Nat.Coprime Q d) : ℕ :=
   (Nat.chineseRemainder h a (d - 2) : ℕ)
 
+/-- `crtClass Q a d h % Q = a % Q` at `h : Nat.Coprime Q d`: the first congruence of the fused
+CRT class `c(d)` (`c ≡ a (mod Q)`), read off `Nat.chineseRemainder h a (d − 2)`. Read by
+`TwinA2W` and once in this file. -/
 lemma crtClass_mod_left (Q a d : ℕ) (h : Nat.Coprime Q d) :
     crtClass Q a d h % Q = a % Q :=
   (Nat.chineseRemainder h a (d - 2)).2.1
 
+/-- `crtClass Q a d h % d = (d − 2) % d` at `h : Nat.Coprime Q d`: the second congruence
+(`c ≡ d − 2 (mod d)`, the `d ∣ n + 2` side), the other half of
+`Nat.chineseRemainder h a (d − 2)`. Read by `TwinA2W` and once in this file. -/
 lemma crtClass_mod_right (Q a d : ℕ) (h : Nat.Coprime Q d) :
     crtClass Q a d h % d = (d - 2) % d :=
   (Nat.chineseRemainder h a (d - 2)).2.2

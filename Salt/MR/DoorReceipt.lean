@@ -62,8 +62,8 @@ retired as an object: two consumers, both on the dead plain route, zero producer
 live cone), does not inhabit the class road's register, does not advance the E-ladder, and does
 not prove the crown.  Every landed name is byte-untouched; every declaration here is a sibling.
 Nothing here bears on twin primes: the door is one input of the log-Chowla-2 spine at ONE fixed
-`ε`, and the `∀ε` APEX is blocked at the spine (`log_chowla_two_budget_head` chooses one `ε`), not
-at the door.
+`ε`.  `EpsFamilyReceipt` (09-05) derives the `∀ε` arm, every `ε ≤ 1/500`, from the door at all
+grades (`MRTDoorAllGrades`), so that arm is priced at the door, not on the spine.
 -/
 
 -- The head reaches `uniformCap_shuffle` (and the socket `uniformCap_arc`) by `open private`, the
@@ -510,33 +510,14 @@ theorem flat_capstone_generic (P : ChowlaRegime → Prop) (h : FlatRoadForm P) (
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
     have hH0 : 0 < H := by have := R.hHlo_floor; omega
-    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloorL M)
-      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
-      (hfit H hlo hhi)
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
-    have hceil := hceilconj H hlo hhi
-    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * m4BclGraded (doorRowFloorL M) (fun H => 2 * RSanDoorRho ρ H)
-            (fun H => 2 * rStrWitness H) H
-        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) :=
-      mul_le_mul_of_nonneg_left hle hfac0
-    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
-        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (108 / 5 * RSanDoorRho ρ H)) := by
-      unfold m4Cmax
-      ring
-    rw [hval] at hstep
-    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
+    have h2 := door_socket_ceiling_of_fits (j₀ := doorRowFloorL M) hH0 (hfit H hlo hhi)
+      (hceilconj H hlo hhi)
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
-    linarith [hstep, h2, hval2.le, hval2.ge]
+    linarith [h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
-/-- **⟦H5 FORM⟧** `flat_conditional_uniform_win_xceil_kwide_khoist`'s statement (XThread.lean:1093)
+/-- **⟦H5 FORM⟧** `flat_conditional_uniform_win_xceil_kwide_khoist`'s statement (XThread.lean:1074)
 with the conclusion slot `P R`. -/
 def FlatConditionalForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
     ∃ (ε : ℚ) (Cg Kc δ₀ β : ℝ) (x₀ Hopq Mfl : ℕ),
@@ -563,9 +544,9 @@ def FlatConditionalForm (P : ChowlaRegime → Prop) (Awin : ℝ) : Prop :=
                 S15CrossingBound_L_gk K R M → P R
 
 set_option maxHeartbeats 1600000 in
--- Same cause as the parent (XThread.lean:1020): the capstone's monster body is consumed under
+-- Same cause as the parent (XThread.lean:1001): the capstone's monster body is consumed under
 -- one more binder layer.
-/-- **⟦H5 REPLAY⟧** `flat_conditional_uniform_win_xceil_kwide_khoist` (XThread.lean:1093) from the
+/-- **⟦H5 REPLAY⟧** `flat_conditional_uniform_win_xceil_kwide_khoist` (XThread.lean:1074) from the
 generic capstone — the one hop that moves `g` (the `s15Arm` substitution and its rider).  Body
 verbatim; the conclusion is only `hgo`'s codomain (refuter R-STOP). -/
 theorem flat_conditional_generic (P : ChowlaRegime → Prop) (Awin : ℝ)

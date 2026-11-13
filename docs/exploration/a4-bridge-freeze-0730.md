@@ -15,7 +15,7 @@ The A4 STOP cited `M4DoorRow`'s two walls.  Both are DOWN at HEAD
 (⟦WALL 1⟧ `hwinBand` deleted by the 7/28 counter-wave; ⟦WALL 2⟧ the
 length gate is the landed graded split's own partition boundary).  The
 real blocker of the per-χ route is the F5/F4 `q`-LINEAR gate pair
-(`M4MeanSq.lean:626-630` at coefficient 32; `M4T0Discharge` at
+(`M4MeanSq.lean:635-639` at coefficient 32; `M4T0Discharge` at
 coefficient 700) — precisely the route the port replaces.  So A4 is not
 a stalled composition; it is the port's one unpriced stone, and its
 design is the q=1 crossing χ-summed with the ordinate side fed by the
@@ -270,7 +270,7 @@ untouched by every finding — in flight at this writing.
 
 ⟦THE Rbd HOLE⟧ of v2's A3′ table DISSOLVES: the pocket chain fires
 VACUOUSLY at the landed door road (the floor is per-datum, never
-per-ordinate — M4MeanSq.lean:451); the landed F4+VT-7 sibling
+per-ordinate — M4MeanSq.lean:460); the landed F4+VT-7 sibling
 `capFreeFloor3_pieceDatum_vt` supplies the socket at 43× headroom under
 the v2.1 arm; the value `2^J·Rbar0` is character-uniform by
 construction (ZERO φ(q) — A3's binder is pointwise in (χ,t)).  The

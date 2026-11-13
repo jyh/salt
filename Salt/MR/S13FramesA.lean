@@ -26,9 +26,9 @@ compose only at the call site:
 
 * §1 the numeral certificate `s13_b_floor_cert` — `24·CgExpr/s13Delta0 ≤ s13M`, proved from
   `ConstantsExposed.Cg_le` and the `c₀` chain, with `s13M` in the `m = 66` window;
-* §2 the assembly `s13_doorGates_of_arm`, which takes `24·Cg/δ ≤ M` as ONE hypothesis (that
-  is the field `hMδ` itself) and discharges the OTHER SEVEN fields of `M4DoorGates` from the
-  regime, the count, and the `g`-arm.
+* §2 the assembly `s13_doorGates_of_arm`, which takes `24·Cg/δ ≤ M` as a hypothesis (the field
+  `hMδ` itself), passes `hM` and `hδ` through, and discharges the other FIVE fields of
+  `M4DoorGates` from the regime, the count, and the `g`-arm.
 
 Likewise `λ₊` is an upper bound on the regime the compose HANDS us; `U1floor` controls only
 `λ₋` from below.  So §4/§5's pages carry the window ceiling as a named hypothesis
@@ -62,6 +62,8 @@ theorem s13Delta0_eq : s13Delta0 = 1 / (128000 * CcmExpr) := by
   field_simp
   ring
 
+/-- `0 < s13Delta0`: the collapsed form `1/(128000·C_cm)` (`s13Delta0_eq`) is positive because
+`C_cm` is (`CcmExpr_pos`, `positivity`). No consumer at `main`, in this file or outside it. -/
 theorem s13Delta0_pos : 0 < s13Delta0 := by
   have hC := CcmExpr_pos
   rw [s13Delta0_eq]; positivity
@@ -87,6 +89,8 @@ theorem s13M_log : Nat.log 2 s13M + 1 = 66 := by
     refine Nat.log_eq_of_pow_le_of_lt_pow ?_ ?_ <;> · rw [s13M]; norm_num
   omega
 
+/-- `1 ≤ s13M` (`s13M = 4.5·10¹⁹`), by `norm_num` on the numeral: the working modulus is at
+least one, the shape every `M`-floor asks. No consumer at `main`, in this file or outside it. -/
 theorem s13M_pos : 1 ≤ s13M := by rw [s13M]; norm_num
 
 /-- **THE `b`-FLOOR CERTIFICATE AT THE `L²` THRESHOLD** (`s13_b_floor_cert`) —
