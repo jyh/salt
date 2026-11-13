@@ -235,6 +235,9 @@ private lemma cfb_seamT0_one_le {X : ℝ} (hX : Real.exp (Real.exp 1) ≤ X) :
   calc (1 : ℝ) = Real.log X ^ (0 : ℝ) := (Real.rpow_zero _).symm
     _ ≤ Real.log X ^ (1 / 45 : ℝ) := Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
 
+/-- `log (seamT0 X) = (1 / 45) * log (log X)` at `exp (exp 1) ≤ X`: `seamT0 X` is `log X` to the
+power `1 / 45`, and `Real.log_rpow` applies at `0 < log X` (from `cff_scale_facts`). Private;
+read three times in this file. -/
 private lemma cfb_seamT0_log {X : ℝ} (hX : Real.exp (Real.exp 1) ≤ X) :
     Real.log (seamT0 X) = (1 / 45) * Real.log (Real.log X) := by
   obtain ⟨_, hlogX, _, _⟩ := cff_scale_facts hX
@@ -659,11 +662,16 @@ side condition `cfb_ballerr_le`.  Catch #253: an `X`-dependent interface constan
 EXPECTED here — it is named, not hidden, and the gate of §4 is what pays for it. -/
 def cfbC₁ (X C₁ : ℝ) : ℝ := (C₁ + 1) * Real.sqrt (seamT0 X)
 
+/-- `cfbC₁ X C₁ ^ 2 = (C₁ + 1) ^ 2 * seamT0 X` at `0 ≤ log X`: the square of `√(seamT0 X)` is
+`seamT0 X` (`Real.sq_sqrt`, `seamT0_nonneg`). Read twice in this file and by `M4ArithPage`,
+`M4ArithRho`, `M4ClassPrice` and `M4Seam`. -/
 lemma cfbC₁_sq {X C₁ : ℝ} (hX : 0 ≤ Real.log X) :
     cfbC₁ X C₁ ^ 2 = (C₁ + 1) ^ 2 * seamT0 X := by
   unfold cfbC₁
   rw [mul_pow, Real.sq_sqrt (seamT0_nonneg hX)]
 
+/-- `0 ≤ cfbC₁ X C₁` at `1 ≤ C₁`: a product of `C₁ + 1 ≥ 0` and a square root (`positivity`).
+Read once in this file and by `M4Seam`. -/
 lemma cfbC₁_nonneg {X C₁ : ℝ} (hC₁ : 1 ≤ C₁) : 0 ≤ cfbC₁ X C₁ := by
   unfold cfbC₁
   have : (0 : ℝ) ≤ C₁ + 1 := by linarith

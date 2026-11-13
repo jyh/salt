@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `25f12864` · source digest `c92bb974afe8f392` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `c916ff2a` · source digest `e58dd9beb6cbad63` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -139,8 +139,8 @@ A FRAME is a bundle of order relations over its own parameters; ¬P is 'the para
 | `Salt.MR.M4ChiFreeRowMeanSq` | OPEN | HALF | 3 | 0/0/1 | `Salt.MR.m4_wave_closed_coprime_discharged_False` (Salt/MR/M4Collapse.lean:254) |
 | `Salt.MR.M4ChiFreeRowMeanSq_L` | OPEN | HALF | 3 | 0/0/1 | `Salt.MR.m4_wave_closed_coprime_discharged_False_L` (Salt/MR/M4RowAssemblyLinear.lean:517) |
 | `Salt.MR.M4ChiFreeRowMeanSq_gk` | OPEN | HALF | 3 | 0/0/1 | `Salt.MR.m4_wave_closed_coprime_discharged_False_gk` (Salt/MR/M4Collapse.lean:432) |
-| `Salt.MR.M4ClassBlockMeanSq` | DISCHARGED | - | 4 | 0/0/1 | `Salt.MR.m4_wave_closed_False` (Salt/MR/M4WaveClosed.lean:605) |
-| `Salt.MR.M4ClassBlockMeanSq_gk` | DISCHARGED | - | 4 | 0/0/1 | `Salt.MR.m4_wave_closed_False_gk` (Salt/MR/M4WaveClosed.lean:1114) |
+| `Salt.MR.M4ClassBlockMeanSq` | DISCHARGED | - | 4 | 0/0/1 | `Salt.MR.m4_wave_closed_False` (Salt/MR/M4WaveClosed.lean:610) |
+| `Salt.MR.M4ClassBlockMeanSq_gk` | DISCHARGED | - | 4 | 0/0/1 | `Salt.MR.m4_wave_closed_False_gk` (Salt/MR/M4WaveClosed.lean:1125) |
 | `Salt.MR.M4RowMeanSq` | OPEN | HALF | 3 | 0/0/1 | `Salt.MR.m4_wave_False` (Salt/MR/M4Join.lean:461) |
 | `Salt.MR.M4RowMeanSq_gk` | OPEN | HALF | 3 | 0/0/1 | `Salt.MR.m4_wave_False_gk` (Salt/MR/M4Join.lean:761) |
 | `Salt.MR.M4SievedDoorSq` | DISCHARGED | - | 16 | 0/0/1 | `Salt.MR.m4_door_False_of_live` (Salt/MR/M4Close.lean:555) |

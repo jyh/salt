@@ -14052,7 +14052,7 @@ DRIFT-SCOPE dispatched to price both levers + the synthesis.
 a PRODUCT of four factors — F0 the decaying cap (gate 7,
 mrtDeliveredGrade = C(log H)^{-11/4}loglog); F1 the dyadic-length
 flattening (m4Cmax = 3(log₂H+1)); F2 the residue-class flattening (q²,
-M4WaveClosed:280-323); F3 the phase-drift flattening ((2πarcDen/q)²,
+M4WaveClosed:283-326); F3 the phase-drift flattening ((2πarcDen/q)²,
 M4BridgePhase:403). F2·F3 fuse into gate 6's (q+2πarcDen)² ≥
 arcDen² = **(log H)^24** — BUDGET-SPLIT/SUPPLY-SCOPE dropped this as
 "≥ 1" (legit for necessity, fatal for repair). One line: the door
@@ -14161,7 +14161,7 @@ H^{-0.415}, materially easier norm_num/geom_sum bookkeeping).
 ## ⟦ARC-SCOPE⟧: F2's ceiling is ONE q (the composition as banked DOES NOT CLOSE); the tower law corrected; THE M-SANDWICH LOOKS NON-BENIGN — the Adoor anchor is the knob (2026-07-29 ~03:00 PDT)
 
 **Q1 — F2:** the class object is genuinely at H² (the two q's born at
-M4WaveClosed:294-296 Chebyshev + :313-321 sum_const; the ∀d arm dilates
+M4WaveClosed:297-299 Chebyshev + :316-324 sum_const; the ∀d arm dilates
 by gcd r q NOT q, and d0_ledger discards the d₀² anyway). The honest
 Parseval recount (per fixed K + the maximizer step — Parseval does NOT
 commute with sup_K) kills **q#2 ONLY**: the sum over classes costs one
@@ -15221,7 +15221,7 @@ VK-forgetting-class miss, now fenced: §6's header carries the counter-wave poin
 **⟦THE REAL BLOCKER, kernel-located: the F5/F4 q-LINEAR gates.⟧**  The per-χ door
 route (`thm_a2'` + `capFreeFloor3`) pays `q`-linear thresholds at TWO places:
 `m4_meansq_per_chi_gen`'s `32·((1/8)·log q + (1/4)·q + …) < loglog X`
-(`M4MeanSq.lean:626-630`) and the T₀-band's coefficient-700 twin
+(`M4MeanSq.lean:635-639`) and the T₀-band's coefficient-700 twin
 (`M4T0Discharge.lean:316/:448/:580`).  At `q ≤ arcDen 12 H = (log H)^{12}` that IS
 F5 (fails ×9.79e4 at its best point; F4 repairs only the `(1/4)q` half of ONE of
 the two).  The erratum to the A4 STOP entry above: replace "meets M4DoorRow's two
@@ -15507,14 +15507,14 @@ discipline as `m4_dyadicRow_carried`.  Build 9567 jobs green; axioms
 
 **⟦THE DISSOLUTION — the v2 census claim false twice.⟧**  (1) At the
 landed door road, `pocket_collision_window` is NOT the Rbd supplier:
-`M4MeanSq.lean:451` fires the collision socket VACUOUSLY via
+`M4MeanSq.lean:460` fires the collision socket VACUOUSLY via
 `pocketSocket_of_floor3` — the cap-free floor kills the pocket on the
 whole `3X` box; the pretentious floor is consumed per-DATUM, never
 per-ordinate; there is no collision geometry, no φ(q) balls, no
 Landau-Page count.  (`CofactorSupply`'s dichotomy is the OLDER q=1
 branch, superseded at the door by `CofactorSupplier`/`CaseAWide`.)
 (2) The `(1/4)q` gate has the LANDED F4+VT-7 sibling
-`capFreeFloor3_pieceDatum_vt` (VkMidSharp:557, byte-identical
+`capFreeFloor3_pieceDatum_vt` (VkMidSharp:563, byte-identical
 conclusion, audited at All.lean:3812-3868).  DECISIVE:
 `m4_supplier_complete` (in CaseAWide)'s ONLY χ-dependent hypothesis is
 the `∀𝒥` cap-free floor at `pieceDatum χ` — the numeric bound
@@ -15533,7 +15533,7 @@ has no second horn.
 **⟦ERRATUM TO REF-A4-MATH (refuter-refutes-refuter, banked honestly)⟧**
 The "category error" verdict on the `144λ + 2e3` baseline was ITSELF in
 error: `144λ = 32·(3/8)·log q` at `log q ≤ 12λ` is the LIVE VT-7
-cap-free threshold (VkMidSharp:557), not a dead route's artifact.  The
+cap-free threshold (VkMidSharp:563), not a dead route's artifact.  The
 resolution of the apparent conflict: **F5 killed the floor's ROW-SUPPLY
 consumer (`a2Rows_of_capfree3` against `hgRows`'s upper cap); it never
 killed the CO-FACTOR-SOCKET consumer** — a different consumer of the

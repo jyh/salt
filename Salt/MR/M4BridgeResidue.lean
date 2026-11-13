@@ -112,14 +112,20 @@ def residueClassOn (q r : ℕ) (S : Finset ℕ) : Finset ℕ :=
 def windowClass (H n q r : ℕ) : Finset ℕ :=
   residueClassOn q r (Finset.Ioc n (n + H))
 
+/-- `m ∈ residueClassOn q r S ↔ m ∈ S ∧ m ≡ r [MOD q]`: the filter unfolded (`simp`). Read once
+in this file and by `M4ClassPrice`. -/
 theorem mem_residueClassOn {q r : ℕ} {S : Finset ℕ} {m : ℕ} :
     m ∈ residueClassOn q r S ↔ m ∈ S ∧ m ≡ r [MOD q] := by
   simp [residueClassOn]
 
+/-- `m ∈ windowClass H n q r ↔ (n < m ∧ m ≤ n + H) ∧ m ≡ r [MOD q]`: `mem_residueClassOn` at the
+door window `Finset.Ioc n (n + H)`, by `simp`. Read twice in this file and by `M4ClassPrice`. -/
 theorem mem_windowClass {H n q r m : ℕ} :
     m ∈ windowClass H n q r ↔ (n < m ∧ m ≤ n + H) ∧ m ≡ r [MOD q] := by
   simp [windowClass, residueClassOn, Finset.mem_Ioc, and_assoc]
 
+/-- `windowClass H n q r ⊆ Finset.Ioc n (n + H)`: a filter is a subset (`Finset.filter_subset`).
+Read by `HDoorSupply` and `M4WaveClosed`; not read in this file. -/
 theorem windowClass_subset (H n q r : ℕ) : windowClass H n q r ⊆ Finset.Ioc n (n + H) :=
   Finset.filter_subset _ _
 

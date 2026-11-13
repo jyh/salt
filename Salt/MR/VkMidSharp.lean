@@ -271,6 +271,9 @@ def vkMidDebitSharp (q : ℕ) : ℝ :=
     + (1 / 4) * Real.log (7 / 2 + Real.log 2 + Real.log q
         + Real.log (2 * Real.exp (Real.exp 100) + 2))
 
+/-- `0 ≤ vkMidDebitSharp q` at `q ≠ 0`: every summand is a logarithm of a real `≥ 1`
+(`log q ≥ 0` from `1 ≤ q`, and the inner argument is `≥ 7/2`), so `linarith` closes after
+unfolding. Read three times in this file and by `BandRatedAssembly`. -/
 lemma vkMidDebitSharp_nonneg (q : ℕ) [NeZero q] : 0 ≤ vkMidDebitSharp q := by
   have h4 : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
   have h2 : (0 : ℝ) ≤ Real.log 2 := Real.log_nonneg (by norm_num)
@@ -472,6 +475,9 @@ theorem capFreeFloor_all_chi_vt (Q : ℕ) :
 /-- **The F4 + VT-7 assembled constant, named** (`cffKVt`). -/
 def cffKVt (Q : ℕ) : ℝ := Classical.choose (capFreeFloor3_all_chi_vt Q)
 
+/-- `0 ≤ cffKVt Q`: the first conjunct of the `Classical.choose_spec` of
+`capFreeFloor3_all_chi_vt Q`, the theorem `cffKVt` is chosen from. No consumer at `main`, in
+this file or outside it. -/
 theorem cffKVt_nonneg (Q : ℕ) : 0 ≤ cffKVt Q :=
   (Classical.choose_spec (capFreeFloor3_all_chi_vt Q)).1
 

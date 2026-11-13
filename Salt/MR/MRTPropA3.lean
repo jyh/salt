@@ -931,7 +931,7 @@ own standing rule is a trigger to check, not a finding.  **UNTESTED.** -/
 `M4RowLinear.m4_hbd_of_live_L` (`:2335`) delivers the door's `hbd` from four bundles.  Probed
 each with the calibrated producer probe (control `MRTUniformityXi` → 6; decoy → 0):
 
-**`M4GradeGate`** (`M4Close.lean:425`) — `m4_gradeGate_direct` (`M4ClassPrice.lean:709`)
+**`M4GradeGate`** (`M4Close.lean:425`) — `m4_gradeGate_direct` (`M4ClassPrice.lean:721`)
 produces it from **two explicit inequalities and NO other gate**:
 `√(Braw H) ≤ mrtDeliveredGrade (C/2) H` and `δ/4 + 4·2^k/x ≤ mrtDeliveredGrade (C/2) H`.
 *It bottoms out in arithmetic about the delivered grade, not in another Prop socket.*
@@ -1009,7 +1009,7 @@ ANALYTIC estimates."*  That is **too strong**:
   norm_absWindowSum_le_drift_tight            M4BridgePhase.lean:310
       at NearRatTight (arcDen B₅ H) H α  ⟹  ‖absWindowSum a H n α‖
           ≤ (1 + 2π·(arcDen B₅ H / q))·subWindowSup a H n (b/q)
-  norm_absWindowSum_le_class_sum_of_nearRatTight   M4BridgeResidue.lean:281
+  norm_absWindowSum_le_class_sum_of_nearRatTight   M4BridgeResidue.lean:287
       at NearRatTight Q H α  ⟹  ‖absWindowSum‖ ≤ ∑_r ‖classPhaseSum …‖
 ```
 **Both are genuine ANALYTIC reductions, at the door's OWN hypothesis** — a phase-drift
