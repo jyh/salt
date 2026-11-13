@@ -40,7 +40,7 @@ open MeasureTheory
 open Salt.ExpSum
 open Salt.Entropy.Chowla
 
-/-! ### `M4WaveClosed` :194 — `M4ClassBlockMeanSq` -/
+/-! ### `M4WaveClosed` :197 — `M4ClassBlockMeanSq` -/
 /-- **THE ANALYTIC ITEM** (`M4ClassBlockMeanSq_L`) — the per-class block mean square of the
 door's sieved `λ`, at the arc's own modulus range.  This is what the M4 wave's supply side
 must deliver, and it is the mean-square shape: the sum over the block's door indices of the
@@ -52,26 +52,26 @@ def M4ClassBlockMeanSq_L (R : ChowlaRegime) (M k : ℕ) (Bcl : ℕ → ℝ) : Pr
           (classSup (doorSievedCoeff_L M) H n q r) ^ 2
         ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
 
-/-! ### `M4WaveClosed` :390 — `doorSievedWindow` -/
+/-! ### `M4WaveClosed` :393 — `doorSievedWindow` -/
 /-- **THE DOOR'S SIEVED WINDOW**, named once: `{n < m ≤ n+K : m ∈ 𝒮}` at the door's own
 K-family.  `M4ClassPrice.sievedWindow` at `p := MemS (calP …) (calQK …) 2`. -/
 def doorSievedWindow_L (M K n : ℕ) : Finset ℕ :=
   sievedWindow (MemS (calP (AdoorL M) (3072 * M)) (calQK (AdoorL M) (3072 * M) M) 2) K n
 
-/-! ### `M4WaveClosed` :759 — `doorChiCoeff` -/
+/-! ### `M4WaveClosed` :764 — `doorChiCoeff` -/
 /-- **THE SIEVED, χ-TWISTED DATUM** `doorChiCoeff_L χ M = 1_𝒮·λχ̄` at the door's own K-family.
 The ⟦lam collision⟧: `liouChi`, never `lamChi` — the sum runs over integers. -/
 def doorChiCoeff_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M : ℕ) : ℕ → ℂ :=
   memSCoeff (calP (AdoorL M) (3072 * M)) (calQK (AdoorL M) (3072 * M) M) 2 (liouChi χ)
 
-/-! ### `M4WaveClosed` :764 — `absWindowSum_doorChiCoeff_zero` -/
+/-! ### `M4WaveClosed` :769 — `absWindowSum_doorChiCoeff_zero` -/
 /-- The indicator-restricted window sum IS the sum over the sieved window. -/
 theorem absWindowSum_doorChiCoeff_zero_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) :
     absWindowSum (doorChiCoeff_L χ M) H n 0 = ∑ m ∈ doorSievedWindow_L M H n, liouChi χ m := by
   rw [absWindowSum_zero, doorSievedWindow_L, sievedWindow, Finset.sum_filter]
   rfl
 
-/-! ### `M4WaveClosed` :770 — `M4ChiRowMeanSq` -/
+/-! ### `M4WaveClosed` :775 — `M4ChiRowMeanSq` -/
 /-- **THE ROW INPUT, PER CHARACTER** (`M4ChiRowMeanSq_L`) — the mean square of the door's
 sieved, χ-twisted, UN-PHASED datum on one ladder block, in `ThmA2.thm_a2'_of_rows_L`' own
 currency (`1/X·∫_X^{2X}‖(1/H)·shortSum a (seamS0 N X) y H‖²` at `X = X_{i+1}`, `N = 2X_{i+1}`,
@@ -92,7 +92,7 @@ def M4ChiRowMeanSq_L (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℝ) : Prop :=
                         (doorLadder R.x H (i + 1) : ℝ)) y (H : ℝ)‖ ^ 2)
         ≤ MS H
 
-/-! ### `M4WaveClosed` :942 — `M4ClassBlockMeanSq_gk` -/
+/-! ### `M4WaveClosed` :947 — `M4ClassBlockMeanSq_gk` -/
 /-- **THE ANALYTIC ITEM AT THE LEVER** — `M4ClassBlockMeanSq_L` (:198). -/
 def M4ClassBlockMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bcl : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
@@ -101,19 +101,19 @@ def M4ClassBlockMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bcl : ℕ 
           (classSup (doorSievedCoeff_L_gk K M) H n q r) ^ 2
         ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
 
-/-! ### `M4WaveClosed` :999 — `doorSievedWindow_gk` -/
+/-! ### `M4WaveClosed` :1004 — `doorSievedWindow_gk` -/
 /-- **THE DOOR'S SIEVED WINDOW AT THE LEVER** — `doorSievedWindow_L` (:392), with the
 sub-window binder α-renamed `K ↦ Kw`.  THE SIEVE SET GENUINELY MOVES: `𝒫`, `𝒬` grow with the
 lever, so this is a different `Finset`. -/
 def doorSievedWindow_L_gk (K M Kw n : ℕ) : Finset ℕ :=
   sievedWindow (MemS (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) 2) Kw n
 
-/-! ### `M4WaveClosed` :1233 — `doorChiCoeff_gk` -/
+/-! ### `M4WaveClosed` :1244 — `doorChiCoeff_gk` -/
 /-- **THE SIEVED, χ-TWISTED DATUM AT THE LEVER** — `doorChiCoeff_L` (:761). -/
 def doorChiCoeff_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M : ℕ) : ℕ → ℂ :=
   memSCoeff (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) 2 (liouChi χ)
 
-/-! ### `M4WaveClosed` :1237 — `absWindowSum_doorChiCoeff_zero_gk` -/
+/-! ### `M4WaveClosed` :1248 — `absWindowSum_doorChiCoeff_zero_gk` -/
 /-- The indicator-restricted window sum IS the sum over the levered sieved window —
 `absWindowSum_doorChiCoeff_zero_L` (:765). -/
 theorem absWindowSum_doorChiCoeff_zero_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
@@ -123,7 +123,7 @@ theorem absWindowSum_doorChiCoeff_zero_L_gk (K : ℕ) {q : ℕ} (χ : DirichletC
   rw [absWindowSum_zero, doorSievedWindow_L_gk, sievedWindow, Finset.sum_filter]
   rfl
 
-/-! ### `M4WaveClosed` :1246 — `M4ChiRowMeanSq_gk` -/
+/-! ### `M4WaveClosed` :1257 — `M4ChiRowMeanSq_gk` -/
 /-- **THE ROW INPUT, PER CHARACTER, AT THE LEVER** — `M4ChiRowMeanSq_L` (:779). -/
 def M4ChiRowMeanSq_L_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
