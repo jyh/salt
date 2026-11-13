@@ -65,7 +65,7 @@ Same genre: `P = {Re ∈ [1,2], |Im| ≤ 3}`, **`exists_isMinOn` on `‖Zc‖` a
 Grade needed: any explicit `δ`; box `Re ∈ [1,2]`, `|Im| ≤ 3`; **σ ≥ 1 exactly**, so `η = 0` and the separation is the full `c₃/log(|γ|+2)` — *easier* than mask (a).
 
 ### Bonus mask (same box, ceiling side)
-`zeta_upper_band` — `Salt/MR/SiegelArm.lean:402`, `exists_isMaxOn` at `:396`, `Z := max ‖Zc z₀‖ 1`. **Free kill**: bandBox `= {Re∈[1,2], |Im|≤1}` sits inside `‖z − 2‖ ≤ √2 ≤ 7/4`, so `Zc_sphere_bound_sharp` (`EpsilonZero.lean:476`) at `t₀ = 0, a = 1, b = 2` gives `‖Zc‖ ≤ 1 + 5·(11/4)·(15/4) = 52.6`, i.e. **`Z = 53`**, ~12 lines.
+`zeta_upper_band` — `Salt/MR/SiegelArm.lean:402`, `exists_isMaxOn` at `:407`, `Z := max ‖Zc z₀‖ 1`. **Free kill**: bandBox `= {Re∈[1,2], |Im|≤1}` sits inside `‖z − 2‖ ≤ √2 ≤ 7/4`, so `Zc_sphere_bound_sharp` (`EpsilonZero.lean:476`) at `t₀ = 0, a = 1, b = 2` gives `‖Zc‖ ≤ 1 + 5·(11/4)·(15/4) = 52.6`, i.e. **`Z = 53`**, ~12 lines.
 
 ### Corpus census of the same leaf (for completeness)
 | site | what | status |
@@ -74,7 +74,7 @@ Grade needed: any explicit `δ`; box `Re ∈ [1,2]`, `|Im| ≤ 3`; **σ ≥ 1 ex
 | `SW/ZetaInvShallow.lean:105` | mask (a) | 2/3 abolished; band open |
 | `MR/ZetaLowerAllT.lean:83` | mask (b) | **F1** |
 | `MR/ZetaLowerAllT.lean:140` | mask (b′) | new stone |
-| `MR/SiegelArm.lean:177` | `LFunction_band_lower`, χ≠1 | **genuinely ineffective** (Siegel; `:161` docstring says so) — not this wall |
+| `MR/SiegelArm.lean:177` | `LFunction_band_lower`, χ≠1 | **genuinely ineffective** (Siegel; `:172` docstring says so) — not this wall |
 | `MR/SiegelArm.lean:407` | `zeta_upper_band` | free kill above |
 | `MR/HalaszPrimesCore.lean:589` | `zeta_zero_free_strip_height {M}` (`:570`), infDist on `|t| ≤ M` | same genre as `ZetaZeroFree:203`, height-parametric; not yet re-based on the sharp strip |
 | `MR/CompactMin.lean:127` | `isCompact_Icc` min, different genre | out of scope |

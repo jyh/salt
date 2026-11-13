@@ -1614,7 +1614,7 @@ RESURRECTS THEM:**
     `L²` MR short-interval mean-value theorem: **no `1_S`, no `W`, no `d`, no (2.1)/(2.3), no
     exponential twist.** ⭐ **PARTS ARE LANDED, ASSEMBLY IS NOT** (probe 2): the short-interval
     mean-square family `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:948`) / `_concrete`
-    (`:1045`) / `_kernel` (`KernelCarry.lean:1162`) is A.1's own shape; Halász in 65 files with
+    (`:1079`) / `_kernel` (`KernelCarry.lean:1162`) is A.1's own shape; Halász in 65 files with
     closed numeric instances. **CLASS: assigned after a targeted read (B/C expected). NOT `D`.**
 14. ✅✅ **BLOCK-C REWIRE — LANDED `3c6bd64f` 2026-08-21.** New file `Salt/MR/MRTQualityLam.lean`
     (94 ln, 2 theorems), rooted in `MR/All.lean` **with both names registered in the audit list AS the
@@ -5033,7 +5033,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
       "B/C expected" was partly resting on the claim I have just withdrawn.**
       *(The family below is real and useful; only its identification with A.1 is retracted.)*
       The landed short-interval mean-square family:
-      `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:948`) · `_concrete` (`:1045`) ·
+      `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:948`) · `_concrete` (`:1079`) ·
       `_kernel` (`KernelCarry.lean:1162`) · `shortInterval_vonMangoldt_le`
       (`ShortIntervalPsi.lean:407`).
       ⛔ **No ASSEMBLED "MR short-interval mean value" statement exists** (searched
@@ -5055,7 +5055,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     ⭐⭐ **THE JOIN'S COST IS NO LONGER UNMEASURED — MEASURED 2026-08-21 18:0x, math seat.**
     **SUPPLY SIDE, 3 OF 4 ANALYTIC HYPOTHESES ARE ALREADY DISCHARGED.** `lemma14_shortInterval_meansq`
     (`PerronMeanSq.lean:948`) carries four — `hMsup`, `hGint`, `hPerron`, `hGsq`. The `_concrete`
-    variant (`:1045`) discharges **three**: `hGint` by `gapMaj_sq_intervalIntegrable`, `hPerron` by
+    variant (`:1079`) discharges **three**: `hGint` by `gapMaj_sq_intervalIntegrable`, `hPerron` by
     `perron_gap_le_gapMaj` + `perron_guards_ae`, and `hGsq` by folding `Egap` into an explicit
     `34560·δ·(…)² + 1152·(…)²` term. ⇒ **`hMsup` IS THE ONLY SURVIVOR, and ALL THREE family members
     carry it** (`_kernel` `KernelCarry.lean:1162` too; at the live application `Eq26Compose.lean:493`
