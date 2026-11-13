@@ -20,6 +20,8 @@ conversion and of the elementary facts it uses. They are stated here once.
 * `center_error_grade_wide` — the window `√X ≤ k`, error `C·k·W/log k` with `W ≤ √(log k)`.
 * the elementary facts: `rpow_neg_half_eq`, `two_log_le_self`, `twentyfive_le_exp_eight`,
   `exp_two_lt_ten`.
+* `dyadic_window_facts` — the threshold split and the dyadic `k`-window of the six narrow-window
+  supplies, stated once.
 -/
 
 namespace Salt.MR
@@ -59,6 +61,57 @@ theorem exp_two_lt_ten : Real.exp 2 < 10 := by
   have h2 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by
     rw [← Real.exp_add]; norm_num
   nlinarith only [h1, h0, h2]
+
+/-- **The threshold split and the dyadic `k`-window**, the elementary facts the six narrow-window
+centre supplies (`CaseASocket` · `CenterSupply` · `CofactorGrade` · `GradeWindowC` · `SupStation` ·
+`SupplyGeneric`) derive at the top of each proof. From the threshold
+`max (max (XA + 1) XB) (exp 8) ≤ X` and the window `⌊X⌋₊ ≤ k ≤ N ≤ 2X`: the three pieces of the
+threshold, `X − 1 < k ≤ 2X`, and `log k ≥ log X − log 2 ≥ 8 − 0.7 ≥ 1`, with the two facts about
+`h = k/√(log k)` that the desmooth cost needs. The conjuncts are in the order the call sites name
+them. -/
+theorem dyadic_window_facts {XA XB X : ℝ} {k N : ℕ}
+    (hXlb : max (max (XA + 1) XB) (Real.exp 8) ≤ X) (hkfl : ⌊X⌋₊ ≤ k) (hkN : k ≤ N)
+    (hN2 : (N : ℝ) ≤ 2 * X) :
+    Real.exp 8 ≤ X ∧ XA + 1 ≤ X ∧ XB ≤ X ∧ (25 : ℝ) ≤ X ∧ (0 : ℝ) < X ∧
+    X < (⌊X⌋₊ : ℝ) + 1 ∧ X - 1 < (k : ℝ) ∧ (k : ℝ) ≤ 2 * X ∧ XA ≤ (k : ℝ) ∧
+    (0 : ℝ) < (k : ℝ) ∧ (1 : ℝ) ≤ (k : ℝ) ∧ Real.log 2 < 0.6931471808 ∧
+    (8 : ℝ) ≤ Real.log X ∧ Real.log X - Real.log 2 ≤ Real.log (k : ℝ) ∧
+    (1 : ℝ) ≤ Real.log (k : ℝ) ∧ (0 : ℝ) < Real.log (k : ℝ) ∧
+    (1 : ℝ) ≤ Real.sqrt (Real.log (k : ℝ)) ∧ (0 : ℝ) < Real.sqrt (Real.log (k : ℝ)) ∧
+    (0 : ℝ) < (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) ∧
+    (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) ≤ (k : ℝ) := by
+  have hX8 : Real.exp 8 ≤ X := le_trans (le_max_right _ _) hXlb
+  have hXA1 : XA + 1 ≤ X := le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hXlb
+  have hXB : XB ≤ X := le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hXlb
+  have hX25 : (25 : ℝ) ≤ X := le_trans twentyfive_le_exp_eight hX8
+  have hX0 : (0 : ℝ) < X := by linarith
+  have hfl : X < (⌊X⌋₊ : ℝ) + 1 := Nat.lt_floor_add_one X
+  have hk1 : X - 1 < (k : ℝ) := by
+    have h : ((⌊X⌋₊ : ℕ) : ℝ) ≤ (k : ℝ) := Nat.cast_le.mpr hkfl
+    linarith
+  have hk2 : (k : ℝ) ≤ 2 * X := le_trans (Nat.cast_le.mpr hkN) hN2
+  have hkXA : XA ≤ (k : ℝ) := by linarith
+  have hk0 : (0 : ℝ) < (k : ℝ) := by linarith
+  have hk1le : (1 : ℝ) ≤ (k : ℝ) := by linarith
+  have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hL8 : (8 : ℝ) ≤ Real.log X := by
+    rw [← Real.log_exp 8]
+    exact Real.log_le_log (Real.exp_pos 8) hX8
+  have hLklo : Real.log X - Real.log 2 ≤ Real.log (k : ℝ) := by
+    have h1 : Real.log (X / 2) ≤ Real.log (k : ℝ) :=
+      Real.log_le_log (by linarith) (by linarith)
+    rwa [Real.log_div (by linarith) (by norm_num)] at h1
+  have hLk1 : (1 : ℝ) ≤ Real.log (k : ℝ) := by linarith
+  have hLk0 : (0 : ℝ) < Real.log (k : ℝ) := by linarith
+  have hsqLk1 : (1 : ℝ) ≤ Real.sqrt (Real.log (k : ℝ)) := by
+    rw [show (1 : ℝ) = Real.sqrt 1 from Real.sqrt_one.symm]
+    exact Real.sqrt_le_sqrt hLk1
+  have hsqLk0 : (0 : ℝ) < Real.sqrt (Real.log (k : ℝ)) := by linarith
+  have hh0 : (0 : ℝ) < (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) := by positivity
+  have hhX : (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) ≤ (k : ℝ) := by
+    rw [div_le_iff₀ hsqLk0]; nlinarith only [hsqLk1, (Nat.cast_nonneg _ : 0 ≤ ↑k)]
+  exact ⟨hX8, hXA1, hXB, hX25, hX0, hfl, hk1, hk2, hkXA, hk0, hk1le, hlog2hi, hL8, hLklo, hLk1,
+    hLk0, hsqLk1, hsqLk0, hh0, hhX⟩
 
 /-- **THE GRADE PAGE (`center_error_grade`).**  The two error legs of the centre
 composition — the desmooth cost `h+1 = k/√(log k) + 1` and the S1′ `E`-error, already

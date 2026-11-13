@@ -131,37 +131,9 @@ theorem center_halasz_supply_Y {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p
   refine ⟨max (max (XA + 1) XB) (Real.exp 8),
     lt_of_lt_of_le (Real.exp_pos 8) (le_max_right _ _), ?_⟩
   intro t₁ X N B hXlb hXN hN2 hB0 hY10 hYsq hYlow hYlog hRHS k hkfl hkN
-  -- the threshold split
-  have hX8 : Real.exp 8 ≤ X := le_trans (le_max_right _ _) hXlb
-  have hXA1 : XA + 1 ≤ X := le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hXlb
-  have hXB : XB ≤ X := le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hXlb
-  have hX25 : (25 : ℝ) ≤ X := le_trans twentyfive_le_exp_eight hX8
-  have hX0 : (0 : ℝ) < X := by linarith
-  -- the dyadic `k`-window
-  have hfl : X < (⌊X⌋₊ : ℝ) + 1 := Nat.lt_floor_add_one X
-  have hk1 : X - 1 < (k : ℝ) := by
-    have h : ((⌊X⌋₊ : ℕ) : ℝ) ≤ (k : ℝ) := Nat.cast_le.mpr hkfl
-    linarith
-  have hk2 : (k : ℝ) ≤ 2 * X := le_trans (Nat.cast_le.mpr hkN) hN2
-  have hkXA : XA ≤ (k : ℝ) := by linarith
-  have hk0 : (0 : ℝ) < (k : ℝ) := by linarith
-  have hk1le : (1 : ℝ) ≤ (k : ℝ) := by linarith
-  -- `log k ≥ 1` (the window: `log k ≥ log X − log 2 ≥ 8 − 0.7`)
-  have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hL8 : (8 : ℝ) ≤ Real.log X := le_log_of_exp_le hX8
-  have hLklo : Real.log X - Real.log 2 ≤ Real.log (k : ℝ) := by
-    have h1 : Real.log (X / 2) ≤ Real.log (k : ℝ) :=
-      Real.log_le_log (by linarith) (by linarith)
-    rwa [Real.log_div (by linarith) (by norm_num)] at h1
-  have hLk1 : (1 : ℝ) ≤ Real.log (k : ℝ) := by linarith
-  have hLk0 : (0 : ℝ) < Real.log (k : ℝ) := by linarith
-  have hsqLk1 : (1 : ℝ) ≤ Real.sqrt (Real.log (k : ℝ)) := by
-    rw [show (1 : ℝ) = Real.sqrt 1 from Real.sqrt_one.symm]
-    exact Real.sqrt_le_sqrt hLk1
-  have hsqLk0 : (0 : ℝ) < Real.sqrt (Real.log (k : ℝ)) := by linarith
-  have hh0 : (0 : ℝ) < (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) := by positivity
-  have hhX : (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) ≤ (k : ℝ) := by
-    rw [div_le_iff₀ hsqLk0]; nlinarith
+  -- the threshold split and the dyadic `k`-window (`dyadic_window_facts`)
+  obtain ⟨hX8, hXA1, hXB, hX25, hX0, hfl, hk1, hk2, hkXA, hk0, hk1le, hlog2hi, hL8, hLklo, hLk1,
+    hLk0, hsqLk1, hsqLk0, hh0, hhX⟩ := dyadic_window_facts hXlb hkfl hkN hN2
   -- THE `Y`-PAGE at this scale
   have hY10k : (10 : ℝ) ≤ Y (k : ℝ) := hY10 k hkfl hkN
   have hlogY2 : (2 : ℝ) ≤ Real.log (Y (k : ℝ)) := by
