@@ -641,6 +641,35 @@ theorem m4_classBlock_at {M L q : ℕ} (hq : 0 < q) {r : ℕ} (hcop : Nat.Coprim
 composed at a fixed `(H, L, q, r, A, B)`, at the grade
 `m4BclGraded (doorRowFloor M) (2·MSan) (2·MStr)` — **verbatim** the grade the register
 carries, so no register line moves. -/
+theorem m4_coprimeBlock_at_AZ (Ad zd : ℕ) {R : ChowlaRegime} {M H L q r A B : ℕ} {MS : ℕ → ℕ → ℝ}
+    {MSan MStr : ℕ → ℝ}
+    (hlo : R.Hlo ≤ H) (hLH : L ≤ H) (hnar : (H : ℝ) ≤ arcDen 12 H * (L : ℝ))
+    (hq : 0 < q) (hcop : Nat.Coprime q r) (hA : 0 < A) (hfit : B + L ≤ 2 * A + 4)
+    (hMSan0 : 0 ≤ MSan H) (hMStr0 : 0 ≤ MStr H)
+    (han : ∀ j : ℕ, (M * Ad) ≤ j → MS j H ≤ MSan H)
+    (hG1 : arcDen 12 H ^ 2 ≤ MStr H)
+    (hG2 : 44 * MSan H + 87 ≤ (4 / 3 : ℝ) ^ (M * Ad))
+    (harc8 : 8 * arcDen 12 H ≤ (H : ℝ))
+    (hrow : ∀ χ : DirichletCharacter ℂ q, M4RowDatumAtAZ Ad zd M MS H L χ A) :
+    ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeffAZ Ad zd M) L n q r) ^ 2
+      ≤ m4BclGraded (M * Ad) (fun H => 2 * MSan H) (fun H => 2 * MStr H) H
+          * (L : ℝ) ^ 2 * (A : ℝ) := by
+  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+  have harc0 : (0 : ℝ) < arcDen 12 H := by linarith
+  have hL8R : (8 : ℝ) ≤ (L : ℝ) :=
+    le_of_mul_le_mul_left (by linarith : arcDen 12 H * 8 ≤ arcDen 12 H * (L : ℝ)) harc0
+  have hL8 : 8 ≤ L := by exact_mod_cast hL8R
+  have hFan0 : (0 : ℝ) ≤ 2 * MSan H := mul_nonneg (by norm_num) hMSan0
+  have hFtr0 : (0 : ℝ) ≤ 2 * MStr H := mul_nonneg (by norm_num) hMStr0
+  have hG1' : 2 * arcDen 12 H ^ 2 ≤ 2 * MStr H := by linarith
+  have hG2' : 108 / 5 * (2 * MSan H) + 432 / 5 ≤ (4 / 3 : ℝ) ^ (M * Ad) := by linarith
+  refine m4_classBlock_at_AZ Ad zd hq hcop (fun χ => ?_)
+  refine m4_chiBlock_at_AZ Ad zd (R := R) (F := fun j _ => 2 * MS j H) (M * Ad)
+    hlo hnar hA hfit hFan0 hFtr0 (fun j hj => ?_) hG1' hG2' harc8 ?_ hLH
+  · have := han j hj; linarith
+  · exact m4_freeShiftBlock_at_AZ Ad zd hA (by omega) hfit (hrow χ)
+
+/-- `m4_coprimeBlock_at_AZ` at the door `(Adoor M, 3072·M)`: the base corner. -/
 theorem m4_coprimeBlock_at {R : ChowlaRegime} {M H L q r A B : ℕ} {MS : ℕ → ℕ → ℝ}
     {MSan MStr : ℕ → ℝ}
     (hlo : R.Hlo ≤ H) (hLH : L ≤ H) (hnar : (H : ℝ) ≤ arcDen 12 H * (L : ℝ))
@@ -653,21 +682,9 @@ theorem m4_coprimeBlock_at {R : ChowlaRegime} {M H L q r A B : ℕ} {MS : ℕ �
     (hrow : ∀ χ : DirichletCharacter ℂ q, M4RowDatumAt M MS H L χ A) :
     ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff M) L n q r) ^ 2
       ≤ m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H) H
-          * (L : ℝ) ^ 2 * (A : ℝ) := by
-  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-  have harc0 : (0 : ℝ) < arcDen 12 H := by linarith
-  have hL8R : (8 : ℝ) ≤ (L : ℝ) :=
-    le_of_mul_le_mul_left (by linarith : arcDen 12 H * 8 ≤ arcDen 12 H * (L : ℝ)) harc0
-  have hL8 : 8 ≤ L := by exact_mod_cast hL8R
-  have hFan0 : (0 : ℝ) ≤ 2 * MSan H := mul_nonneg (by norm_num) hMSan0
-  have hFtr0 : (0 : ℝ) ≤ 2 * MStr H := mul_nonneg (by norm_num) hMStr0
-  have hG1' : 2 * arcDen 12 H ^ 2 ≤ 2 * MStr H := by linarith
-  have hG2' : 108 / 5 * (2 * MSan H) + 432 / 5 ≤ (4 / 3 : ℝ) ^ doorRowFloor M := by linarith
-  refine m4_classBlock_at hq hcop (fun χ => ?_)
-  refine m4_chiBlock_at (R := R) (F := fun j _ => 2 * MS j H) (doorRowFloor M)
-    hlo hnar hA hfit hFan0 hFtr0 (fun j hj => ?_) hG1' hG2' harc8 ?_ hLH
-  · have := han j hj; linarith
-  · exact m4_freeShiftBlock_at hA (by omega) hfit (hrow χ)
+          * (L : ℝ) ^ 2 * (A : ℝ) :=
+  m4_coprimeBlock_at_AZ (Adoor M) (3072 * M) (R := R) hlo hLH hnar hq hcop hA hfit
+    hMSan0 hMStr0 han hG1 hG2 harc8 hrow
 
 /-! ## §5 — ⟦R2⟧ AT THE LADDER AND ITS DILATIONS
 
@@ -683,25 +700,27 @@ set_option maxHeartbeats 1600000 in
 `M4ClassBlockMeanSq` at EVERY class of `q`, from the row datum at the ladder bases and at
 their dilations.  The two consumption sites of `m4_nonCoprime_classMeanSq_N`, and nothing
 else, are what the two hypotheses `hrow1`/`hrowd` feed. -/
-theorem m4_classBlockMeanSq_of_rowDatum {R : ChowlaRegime} {M k : ℕ} {MS : ℕ → ℕ → ℝ}
+theorem m4_classBlockMeanSq_of_rowDatum_AZ (Ad zd : ℕ) {R : ChowlaRegime} {M k : ℕ} {MS : ℕ → ℕ → ℝ}
     {MSan MStr : ℕ → ℝ}
-    (hM : 1 ≤ M) (hMSan0 : ∀ H : ℕ, 0 ≤ MSan H) (hMStr0 : ∀ H : ℕ, 0 ≤ MStr H)
-    (han : ∀ j H : ℕ, doorRowFloor M ≤ j → MS j H ≤ MSan H)
+    (hMSan0 : ∀ H : ℕ, 0 ≤ MSan H) (hMStr0 : ∀ H : ℕ, 0 ≤ MStr H)
+    (han : ∀ j H : ℕ, (M * Ad) ≤ j → MS j H ≤ MSan H)
     (hG1 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ^ 2 ≤ MStr H)
     (hG2 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      44 * MSan H + 87 ≤ (4 / 3 : ℝ) ^ doorRowFloor M)
+      44 * MSan H + 87 ≤ (4 / 3 : ℝ) ^ (M * Ad))
     (harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ≤ (H : ℝ))
-    (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
+    (hdil : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q r n : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      classSup (doorSievedCoeffAZ Ad zd M) H n q r
+        ≤ classSup (doorSievedCoeffAZ Ad zd M) (H / Nat.gcd r q + 1) (n / Nat.gcd r q)
+            (q / Nat.gcd r q) (r / Nat.gcd r q))
     (harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ))
     (hrow1 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
       ∀ i < k, ∀ χ : DirichletCharacter ℂ q,
-        M4RowDatumAt M MS H H χ (doorLadder R.x H (i + 1)))
+        M4RowDatumAtAZ Ad zd M MS H H χ (doorLadder R.x H (i + 1)))
     (hrowd : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
       ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ d : ℕ, 2 ≤ d → (d : ℝ) ≤ arcDen 12 H →
-        M4RowDatumAt M MS H (H / d + 1) χ (doorLadder R.x H (i + 1) / d - 1)) :
-    M4ClassBlockMeanSq R M k
-      (m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) := by
+        M4RowDatumAtAZ Ad zd M MS H (H / d + 1) χ (doorLadder R.x H (i + 1) / d - 1)) :
+    M4ClassBlockMeanSqAZ Ad zd R M k
+      (m4BclGraded (M * Ad) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) := by
   intro H hlo hhi q hq hqQ i hik r hrq
   -- ⟦the block, and the ladder's two facts⟧
   have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
@@ -716,7 +735,7 @@ theorem m4_classBlockMeanSq_of_rowDatum {R : ChowlaRegime} {M k : ℕ} {MS : ℕ
     have hcopqr : Nat.Coprime q r := by
       rw [Nat.Coprime, Nat.gcd_comm]; exact hcase
     have hnarrow : (H : ℝ) ≤ arcDen 12 H * (H : ℝ) := by nlinarith
-    exact m4_coprimeBlock_at (R := R) hlo le_rfl hnarrow hq hcopqr hApos (by omega)
+    exact m4_coprimeBlock_at_AZ Ad zd (R := R) hlo le_rfl hnarrow hq hcopqr hApos (by omega)
       (hMSan0 H) (hMStr0 H) (fun j hj => han j H hj) (hG1 H hlo hhi) (hG2 H hlo hhi)
       (harc8 H hlo hhi) (fun χ => hrow1 H hlo hhi q hq hqQ i hik χ)
   · -- ⟦d₀ > 1⟧ ONE dilation, then the `d₀`-to-one re-index of the block
@@ -758,50 +777,73 @@ theorem m4_classBlockMeanSq_of_rowDatum {R : ChowlaRegime} {M k : ℕ} {MS : ℕ
       nlinarith only [hdR, hR, (Nat.cast_nonneg _ : 0 ≤ ↑(H / r.gcd q + 1))]
     -- ⟦the pointwise transport, then the fibre count, then the datum, then the ledger⟧
     have hpt : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-        (classSup (doorSievedCoeff M) H n q r) ^ 2
-          ≤ (fun n' => (classSup (doorSievedCoeff M) (H / Nat.gcd r q + 1) n'
+        (classSup (doorSievedCoeffAZ Ad zd M) H n q r) ^ 2
+          ≤ (fun n' => (classSup (doorSievedCoeffAZ Ad zd M) (H / Nat.gcd r q + 1) n'
                 (q / Nat.gcd r q) (r / Nat.gcd r q)) ^ 2) (n / Nat.gcd r q) := by
       intro n _
-      have hle := classSup_le_dilate (M := M) (H := H) (q := q) (r := r) (n := n)
-        (W := arcDen 12 H) hM hq hqQ (hgate H hlo hhi)
-      have h0 := classSup_nonneg (doorSievedCoeff M) H n q r
+      have hle := hdil H hlo hhi q r n hq hqQ
+      have h0 := classSup_nonneg (doorSievedCoeffAZ Ad zd M) H n q r
       simp only
       nlinarith only [hle, h0]
     have hmaps : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
         n / Nat.gcd r q ∈ Finset.Ioc (doorLadder R.x H (i + 1) / Nat.gcd r q - 1)
           (doorLadder R.x H i / Nat.gcd r q) := fun n hn => div_mem_reindexed hd hdA hn
-    have hdatum := m4_coprimeBlock_at (R := R) (MS := MS) (MSan := MSan) (MStr := MStr)
+    have hdatum := m4_coprimeBlock_at_AZ Ad zd (R := R) (MS := MS) (MSan := MSan) (MStr := MStr)
       hlo hH'H hnarrow hq₀ hcop₀ hA'pos (dilBlock_reindex_fit hd hdA hfit)
       (hMSan0 H) (hMStr0 H) (fun j hj => han j H hj) (hG1 H hlo hhi) (hG2 H hlo hhi)
       (harc8 H hlo hhi)
       (fun χ => hrowd H hlo hhi (q / Nat.gcd r q) hq₀ hq₀Q i hik χ (Nat.gcd r q) hd2 hdR)
     have hd0R : (0 : ℝ) ≤ (Nat.gcd r q : ℝ) := Nat.cast_nonneg _
-    have hBcl0 : (0 : ℝ) ≤ m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H)
+    have hBcl0 : (0 : ℝ) ≤ m4BclGraded (M * Ad) (fun H => 2 * MSan H)
         (fun H => 2 * MStr H) H :=
       m4BclGraded_nonneg (show (0 : ℝ) ≤ 2 * MSan H by have := hMSan0 H; linarith)
         (show (0 : ℝ) ≤ 2 * MStr H by have := hMStr0 H; linarith)
     calc ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-          (classSup (doorSievedCoeff M) H n q r) ^ 2
+          (classSup (doorSievedCoeffAZ Ad zd M) H n q r) ^ 2
         ≤ ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-            (classSup (doorSievedCoeff M) (H / Nat.gcd r q + 1) (n / Nat.gcd r q)
+            (classSup (doorSievedCoeffAZ Ad zd M) (H / Nat.gcd r q + 1) (n / Nat.gcd r q)
               (q / Nat.gcd r q) (r / Nat.gcd r q)) ^ 2 := Finset.sum_le_sum hpt
       _ ≤ (Nat.gcd r q : ℝ)
             * ∑ n' ∈ Finset.Ioc (doorLadder R.x H (i + 1) / Nat.gcd r q - 1)
                 (doorLadder R.x H i / Nat.gcd r q),
-              (classSup (doorSievedCoeff M) (H / Nat.gcd r q + 1) n'
+              (classSup (doorSievedCoeffAZ Ad zd M) (H / Nat.gcd r q + 1) n'
                 (q / Nat.gcd r q) (r / Nat.gcd r q)) ^ 2 :=
           sum_Ioc_comp_div_le
-            (f := fun n' => (classSup (doorSievedCoeff M) (H / Nat.gcd r q + 1) n'
+            (f := fun n' => (classSup (doorSievedCoeffAZ Ad zd M) (H / Nat.gcd r q + 1) n'
               (q / Nat.gcd r q) (r / Nat.gcd r q)) ^ 2)
             (fun _ => sq_nonneg _) (d := Nat.gcd r q) hd hmaps
       _ ≤ (Nat.gcd r q : ℝ)
-            * (m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H) H
+            * (m4BclGraded (M * Ad) (fun H => 2 * MSan H) (fun H => 2 * MStr H) H
                 * ((H / Nat.gcd r q + 1 : ℕ) : ℝ) ^ 2
                 * ((doorLadder R.x H (i + 1) / Nat.gcd r q - 1 : ℕ) : ℝ)) :=
           mul_le_mul_of_nonneg_left hdatum hd0R
-      _ ≤ m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H) H
+      _ ≤ m4BclGraded (M * Ad) (fun H => 2 * MSan H) (fun H => 2 * MStr H) H
             * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) :=
           d0_ledger hd hH'H hBcl0
+
+/-- `m4_classBlockMeanSq_of_rowDatum_AZ` at the door `(Adoor M, 3072·M)`: the base corner. -/
+theorem m4_classBlockMeanSq_of_rowDatum {R : ChowlaRegime} {M k : ℕ} {MS : ℕ → ℕ → ℝ}
+    {MSan MStr : ℕ → ℝ}
+    (hM : 1 ≤ M) (hMSan0 : ∀ H : ℕ, 0 ≤ MSan H) (hMStr0 : ∀ H : ℕ, 0 ≤ MStr H)
+    (han : ∀ j H : ℕ, doorRowFloor M ≤ j → MS j H ≤ MSan H)
+    (hG1 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ^ 2 ≤ MStr H)
+    (hG2 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      44 * MSan H + 87 ≤ (4 / 3 : ℝ) ^ doorRowFloor M)
+    (harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ≤ (H : ℝ))
+    (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
+    (harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ))
+    (hrow1 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      ∀ i < k, ∀ χ : DirichletCharacter ℂ q,
+        M4RowDatumAt M MS H H χ (doorLadder R.x H (i + 1)))
+    (hrowd : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ d : ℕ, 2 ≤ d → (d : ℝ) ≤ arcDen 12 H →
+        M4RowDatumAt M MS H (H / d + 1) χ (doorLadder R.x H (i + 1) / d - 1)) :
+    M4ClassBlockMeanSq R M k
+      (m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) :=
+  m4_classBlockMeanSq_of_rowDatum_AZ (Adoor M) (3072 * M) hMSan0 hMStr0 han hG1 hG2 harc8
+    (fun H hlo hhi _ _ _ hq hqQ => classSup_le_dilate hM hq hqQ (hgate H hlo hhi))
+    harc hrow1 hrowd
 
 /-! ## §6 — ⟦THE BASE-NARROWED TWIN⟧ (the ruled interface, and the chain at it)
 
@@ -1321,25 +1363,10 @@ theorem m4_coprimeBlock_at_gk (K : ℕ) {R : ChowlaRegime} {M H L q r A B : ℕ}
     (hrow : ∀ χ : DirichletCharacter ℂ q, M4RowDatumAt_gk K M MS H L χ A) :
     ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_gk K M) L n q r) ^ 2
       ≤ m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H) H
-          * (L : ℝ) ^ 2 * (A : ℝ) := by
-  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-  have harc0 : (0 : ℝ) < arcDen 12 H := by linarith
-  have hL8R : (8 : ℝ) ≤ (L : ℝ) :=
-    le_of_mul_le_mul_left (by linarith : arcDen 12 H * 8 ≤ arcDen 12 H * (L : ℝ)) harc0
-  have hL8 : 8 ≤ L := by exact_mod_cast hL8R
-  have hFan0 : (0 : ℝ) ≤ 2 * MSan H := mul_nonneg (by norm_num) hMSan0
-  have hFtr0 : (0 : ℝ) ≤ 2 * MStr H := mul_nonneg (by norm_num) hMStr0
-  have hG1' : 2 * arcDen 12 H ^ 2 ≤ 2 * MStr H := by linarith
-  have hG2' : 108 / 5 * (2 * MSan H) + 432 / 5 ≤ (4 / 3 : ℝ) ^ doorRowFloor M := by linarith
-  refine m4_classBlock_at_gk K hq hcop (fun χ => ?_)
-  refine m4_chiBlock_at_gk K (R := R) (F := fun j _ => 2 * MS j H) (doorRowFloor M)
-    hlo hnar hA hfit hFan0 hFtr0 (fun j hj => ?_) hG1' hG2' harc8 ?_ hLH
-  · have := han j hj; linarith
-  · exact m4_freeShiftBlock_at_gk K hA (by omega) hfit (hrow χ)
+          * (L : ℝ) ^ 2 * (A : ℝ) :=
+  m4_coprimeBlock_at_AZ (Adoor M) (s13GK K M) (R := R) hlo hLH hnar hq hcop hA hfit
+    hMSan0 hMStr0 han hG1 hG2 harc8 hrow
 
-set_option maxHeartbeats 1600000 in
--- `M4NonCoprime.m4_nonCoprime_classMeanSq_N`'s own cause: the dilated branch's `calc` carries
--- four nested `classSup` sums over re-indexed blocks; no tactic search happens below
 /-- `m4_classBlockMeanSq_of_rowDatum` (:675), at the lever. -/
 theorem m4_classBlockMeanSq_of_rowDatum_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {MS : ℕ → ℕ → ℝ}
     {MSan MStr : ℕ → ℝ}
@@ -1359,107 +1386,10 @@ theorem m4_classBlockMeanSq_of_rowDatum_gk (K : ℕ) {R : ChowlaRegime} {M k : �
       ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ d : ℕ, 2 ≤ d → (d : ℝ) ≤ arcDen 12 H →
         M4RowDatumAt_gk K M MS H (H / d + 1) χ (doorLadder R.x H (i + 1) / d - 1)) :
     M4ClassBlockMeanSq_gk K R M k
-      (m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) := by
-  intro H hlo hhi q hq hqQ i hik r hrq
-  -- ⟦the block, and the ladder's two facts⟧
-  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
-  have hAfl : H + 1 ≤ doorLadder R.x H (i + 1) := doorLadder_floor hxH (i + 1)
-  have hfit : doorLadder R.x H i + H ≤ 2 * doorLadder R.x H (i + 1) := doorLadder_fit R.x H i
-  have hApos : 0 < doorLadder R.x H (i + 1) := by omega
-  have hd : 0 < Nat.gcd r q := Nat.gcd_pos_of_pos_right r hq
-  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-  have hH0R : (0 : ℝ) ≤ (H : ℝ) := Nat.cast_nonneg _
-  by_cases hcase : Nat.gcd r q = 1
-  · -- ⟦d₀ = 1⟧ the class is already coprime: the datum at the door block, `L = H`
-    have hcopqr : Nat.Coprime q r := by
-      rw [Nat.Coprime, Nat.gcd_comm]; exact hcase
-    have hnarrow : (H : ℝ) ≤ arcDen 12 H * (H : ℝ) := by nlinarith
-    exact m4_coprimeBlock_at_gk K (R := R) hlo le_rfl hnarrow hq hcopqr hApos (by omega)
-      (hMSan0 H) (hMStr0 H) (fun j hj => han j H hj) (hG1 H hlo hhi) (hG2 H hlo hhi)
-      (harc8 H hlo hhi) (fun χ => hrow1 H hlo hhi q hq hqQ i hik χ)
-  · -- ⟦d₀ > 1⟧ ONE dilation, then the `d₀`-to-one re-index of the block
-    have hd2 : 2 ≤ Nat.gcd r q := by omega
-    have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
-    have h2q : 2 * q ≤ H := by
-      exact_mod_cast (show ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) by push_cast; linarith [harc H hlo hhi])
-    have hdA : Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
-    have hdA2 : 2 * Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
-    have hA2 : 2 ≤ doorLadder R.x H (i + 1) / Nat.gcd r q :=
-      (Nat.le_div_iff_mul_le hd).mpr (by omega)
-    have hA'pos : 0 < doorLadder R.x H (i + 1) / Nat.gcd r q - 1 := by omega
-    -- ⟦the reduced pair⟧
-    have hq₀ : 0 < q / Nat.gcd r q :=
-      Nat.div_pos (Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)) hd
-    have hq₀Q : ((q / Nat.gcd r q : ℕ) : ℝ) ≤ arcDen 12 H := by
-      refine le_trans ?_ hqQ
-      exact_mod_cast Nat.div_le_self q (Nat.gcd r q)
-    have hcop₀ : Nat.Coprime (q / Nat.gcd r q) (r / Nat.gcd r q) :=
-      (m4_class_dilate_coprime hq r).symm
-    -- ⟦the dilated window length⟧
-    have hH'H : H / Nat.gcd r q + 1 ≤ H := by
-      have hstep : H / Nat.gcd r q ≤ H / 2 := Nat.div_le_div_left hd2 (by norm_num)
-      omega
-    -- ⟦THE NARROWING, at the dilated length: `H ≤ d₀·L ≤ arcDen·L`⟧
-    have hdR : (Nat.gcd r q : ℝ) ≤ arcDen 12 H := by
-      refine le_trans ?_ hqQ
-      exact_mod_cast hdq
-    have hnarrow : (H : ℝ) ≤ arcDen 12 H * ((H / Nat.gcd r q + 1 : ℕ) : ℝ) := by
-      have hexp : Nat.gcd r q * (H / Nat.gcd r q + 1)
-          = Nat.gcd r q * (H / Nat.gcd r q) + Nat.gcd r q := by ring
-      have hdm : Nat.gcd r q * (H / Nat.gcd r q) + H % Nat.gcd r q = H :=
-        Nat.div_add_mod H (Nat.gcd r q)
-      have hmod : H % Nat.gcd r q < Nat.gcd r q := Nat.mod_lt _ hd
-      have hnat : H ≤ Nat.gcd r q * (H / Nat.gcd r q + 1) := by omega
-      have hR : (H : ℝ) ≤ (Nat.gcd r q : ℝ) * ((H / Nat.gcd r q + 1 : ℕ) : ℝ) := by
-        exact_mod_cast hnat
-      have hL0 : (0 : ℝ) ≤ ((H / Nat.gcd r q + 1 : ℕ) : ℝ) := Nat.cast_nonneg _
-      nlinarith only [hdR, hR, (Nat.cast_nonneg _ : 0 ≤ ↑(H / r.gcd q + 1))]
-    -- ⟦the pointwise transport, then the fibre count, then the datum, then the ledger⟧
-    have hpt : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-        (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
-          ≤ (fun n' => (classSup (doorSievedCoeff_gk K M) (H / Nat.gcd r q + 1) n'
-                (q / Nat.gcd r q) (r / Nat.gcd r q)) ^ 2) (n / Nat.gcd r q) := by
-      intro n _
-      have hle := classSup_le_dilate_gk K (M := M) (H := H) (q := q) (r := r) (n := n)
-        (W := arcDen 12 H) hM hq hqQ (hgate H hlo hhi)
-      have h0 := classSup_nonneg (doorSievedCoeff_gk K M) H n q r
-      simp only
-      nlinarith only [hle, h0]
-    have hmaps : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-        n / Nat.gcd r q ∈ Finset.Ioc (doorLadder R.x H (i + 1) / Nat.gcd r q - 1)
-          (doorLadder R.x H i / Nat.gcd r q) := fun n hn => div_mem_reindexed hd hdA hn
-    have hdatum := m4_coprimeBlock_at_gk K (R := R) (MS := MS) (MSan := MSan) (MStr := MStr)
-      hlo hH'H hnarrow hq₀ hcop₀ hA'pos (dilBlock_reindex_fit hd hdA hfit)
-      (hMSan0 H) (hMStr0 H) (fun j hj => han j H hj) (hG1 H hlo hhi) (hG2 H hlo hhi)
-      (harc8 H hlo hhi)
-      (fun χ => hrowd H hlo hhi (q / Nat.gcd r q) hq₀ hq₀Q i hik χ (Nat.gcd r q) hd2 hdR)
-    have hd0R : (0 : ℝ) ≤ (Nat.gcd r q : ℝ) := Nat.cast_nonneg _
-    have hBcl0 : (0 : ℝ) ≤ m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H)
-        (fun H => 2 * MStr H) H :=
-      m4BclGraded_nonneg (show (0 : ℝ) ≤ 2 * MSan H by have := hMSan0 H; linarith)
-        (show (0 : ℝ) ≤ 2 * MStr H by have := hMStr0 H; linarith)
-    calc ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-          (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
-        ≤ ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-            (classSup (doorSievedCoeff_gk K M) (H / Nat.gcd r q + 1) (n / Nat.gcd r q)
-              (q / Nat.gcd r q) (r / Nat.gcd r q)) ^ 2 := Finset.sum_le_sum hpt
-      _ ≤ (Nat.gcd r q : ℝ)
-            * ∑ n' ∈ Finset.Ioc (doorLadder R.x H (i + 1) / Nat.gcd r q - 1)
-                (doorLadder R.x H i / Nat.gcd r q),
-              (classSup (doorSievedCoeff_gk K M) (H / Nat.gcd r q + 1) n'
-                (q / Nat.gcd r q) (r / Nat.gcd r q)) ^ 2 :=
-          sum_Ioc_comp_div_le
-            (f := fun n' => (classSup (doorSievedCoeff_gk K M) (H / Nat.gcd r q + 1) n'
-              (q / Nat.gcd r q) (r / Nat.gcd r q)) ^ 2)
-            (fun _ => sq_nonneg _) (d := Nat.gcd r q) hd hmaps
-      _ ≤ (Nat.gcd r q : ℝ)
-            * (m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H) H
-                * ((H / Nat.gcd r q + 1 : ℕ) : ℝ) ^ 2
-                * ((doorLadder R.x H (i + 1) / Nat.gcd r q - 1 : ℕ) : ℝ)) :=
-          mul_le_mul_of_nonneg_left hdatum hd0R
-      _ ≤ m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H) H
-            * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) :=
-          d0_ledger hd hH'H hBcl0
+      (m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) :=
+  m4_classBlockMeanSq_of_rowDatum_AZ (Adoor M) (s13GK K M) hMSan0 hMStr0 han hG1 hG2 harc8
+    (fun H hlo hhi _ _ _ hq hqQ => classSup_le_dilate_gk K hM hq hqQ (hgate H hlo hhi))
+    harc hrow1 hrowd
 
 /-- `M4ChiFreeRowMeanSqN` (:811), at the lever. -/
 def M4ChiFreeRowMeanSqN_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (MS : ℕ → ℕ → ℝ) (Φ : ℕ → ℝ) : Prop :=
