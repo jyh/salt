@@ -1117,29 +1117,26 @@ section ShiftedEdge
 open Complex Salt.SW Salt.Vk Metric Set
 
 set_option maxHeartbeats 12800000 in
--- The tuned disc-core mirror threads the sphere discharge, the region `Pinv/W/Mζ` numerics, the
--- LEFT-point constant-chase and the closing `D₄` assembly through one declaration; the default
--- heartbeat budget dies in the closing arithmetic (the template `zeta_near_bound_core` needs 12.8M).
-/-- **EDGE disc-core high half** (STONE 1).  At the left spine point `s = σ₀ + iγ`, `σ₀ =
-1 − (c_vk/2)/D₃(5T+1)`, height `γ ≤ 5T` above the astronomically-lazy strip threshold, the entire
-factor `logDeriv Zc` is `D₄(5T+1)`-grade: `‖logDeriv Zc s‖ ≤ (10⁸ + 200/c_vk)·(log(5T+1))^{3/4}
-(loglog(5T+1))⁴`.  Rides `near_norm_logDeriv_Zc_le` on the pow-region disc (scale
-`Θ = vkTheta(3γ)`); the sphere discharge / region numerics mirror `zeta_near_bound_core`; the
-`hsc`/`hZcs`/`hdist`
-adapt to the LEFT point via the supplied margin `hmargin`. -/
-lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤ t₀K)
+-- The σ-generalized disc core: the sphere discharge, the `Pinv/W/Mζ` region numerics and the
+-- closing `D₄` assembly at a general real part `x ∈ [1 − w, 1 + w]`. `shifted_edge_disc_core`
+-- (below) is its instance at the LEFT point `x = 1 − w` (O13-e: it was a verbatim copy). The
+-- closing arithmetic needs the 12.8M budget of its template `zeta_near_bound_core`.
+lemma shifted_edge_disc_core_gen {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤ t₀K)
     (hg : ∀ σ t : ℝ, t₀K ≤ t → 1 - vkTheta t ≤ σ → σ ≤ 3 →
       ‖riemannZeta ((σ : ℂ) + (t : ℂ) * Complex.I)‖ ≤ K * Real.log t)
     (hc_vk : 0 < c_vk)
-    {T γ : ℝ}
+    {T γ x : ℝ}
+    (hxlb : 1 - (c_vk / 2) / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)) ≤ x)
+    (hxub : x ≤ 1 + (c_vk / 2) / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)))
     (hγ : Real.exp (Real.exp (8 * Real.log (20000 * K) + 1100)) + t₀K + 3 ≤ γ)
     (hγT : γ ≤ 5 * T)
     (hsc_thr : 9000 * c_vk ≤ Real.log (Real.log (5 * T + 1)))
     (hmargin : ∀ ρ : ℂ, riemannZeta ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
         ρ.re ≤ 1 - c_vk / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
           * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ))) :
-    ‖logDeriv Zc ((1 - (c_vk / 2) / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
-          * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)) : ℝ) + (γ : ℂ) * Complex.I)‖
+    ‖logDeriv Zc ((x : ℂ) + (γ : ℂ) * Complex.I)‖
       ≤ (10 ^ 8 + 200 / c_vk) * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
           * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) := by
   -- the 5T+1 denominators (fold the goal)
@@ -1147,7 +1144,7 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
   set ℓT : ℝ := Real.log LT with hℓTdef
   set D3T : ℝ := LT ^ ((3 : ℝ) / 4) * ℓT ^ (3 : ℕ) with hD3Tdef
   set w : ℝ := (c_vk / 2) / D3T with hwdef
-  set s : ℂ := ((1 - w : ℝ) : ℂ) + (γ : ℂ) * Complex.I with hsdef
+  set s : ℂ := (x : ℂ) + (γ : ℂ) * Complex.I with hsdef
   -- === template height thresholds (γ-only, verbatim + inlined `pow_height_facts`) ===
   have hKpos : 0 < K := lt_of_lt_of_le one_pos hK
   set A : ℝ := 8 * Real.log (20000 * K) + 1100 with hAdef
@@ -1282,7 +1279,7 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
   have hℓT1 : (1:ℝ) ≤ ℓT := by linarith [hℓT1100]
   have hD3Tpos : 0 < D3T := by rw [hD3Tdef]; positivity
   have hw0 : 0 < w := by rw [hwdef]; exact div_pos (by linarith [hc_vk]) hD3Tpos
-  have hsre : s.re = 1 - w := by rw [hsdef]; simp
+  have hsre : s.re = x := by rw [hsdef]; simp
   have hsim : s.im = γ := by rw [hsdef]; simp
   -- L3 ≤ 2 LT, ℓ3 ≤ 2 ℓT (the constant-chase monotonicity)
   have hTpos : 0 < T := by linarith [hγpos, hγT]
@@ -1319,12 +1316,9 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
   -- === centering, zero-freeness, min-distance (the LEFT-point adaptations) ===
   have hsc : ‖s - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I)‖ ≤ 23 / 20 * (6 * Θ / 7) := by
     have hsub : s - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I)
-        = (((1 - w) - (1 + Θ / 2) : ℝ) : ℂ) := by
+        = ((x - (1 + Θ / 2) : ℝ) : ℂ) := by
       rw [hsdef]; push_cast; ring
     rw [hsub, Complex.norm_real, Real.norm_eq_abs]
-    have hnp : (1 - w) - (1 + Θ / 2) ≤ 0 := by linarith only [hw0, hΘ0]
-    rw [abs_of_nonpos hnp]
-    -- goal: -(1 - w - (1 + Θ/2)) ≤ 23/20*(6Θ/7), i.e. w + Θ/2 ≤ 69Θ/70; use w ≤ 17Θ/35
     have hwPinv : w * Pinv ≤ 17 / 35 := by
       rw [hwdef, div_mul_eq_mul_div, div_le_iff₀ hD3Tpos, hD3Tdef]
       have hcc : (4000:ℝ) * c_vk ≤ 17 / 35 * ℓT := by linarith only [hsc_thr, hc_vk]
@@ -1336,7 +1330,8 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
       rw [hΘPinv, show (17:ℝ) * (1 / Pinv) / 35 = 17 / (35 * Pinv) by field_simp]
       rw [le_div_iff₀ (by positivity)]
       linarith only [hwPinv]
-    linarith only [hsc_key]
+    rw [abs_le]
+    exact ⟨by linarith only [hsc_key, hxlb], by linarith only [hsc_key, hw0, hxub]⟩
   have hs1 : s ≠ 1 := by
     rw [hsdef]; intro h
     have := congrArg Complex.im h; simp at this; linarith [hγ2, this]
@@ -1348,7 +1343,7 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
     rw [hsre] at hmr
     have hlt : w < c_vk / D3T := by
       rw [hwdef, div_lt_div_iff₀ hD3Tpos hD3Tpos]; nlinarith only [hc_vk, hD3Tpos]
-    linarith [hmr, hlt]
+    linarith [hmr, hlt, hxlb]
   have hZcs : Zc s ≠ 0 := Zc_ne_zero_of_zeta_ne hζs
   have hdist : ∀ ρ : ℂ, Zc ρ = 0 →
       ρ ∈ ball (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I) (3 / 2 * (6 * Θ / 7)) →
@@ -1373,7 +1368,7 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
     have hdist_re : w ≤ s.re - ρ.re := by
       rw [hsre]
       have hww : w = c_vk / D3T - (c_vk / 2) / D3T := by rw [hwdef]; field_simp; ring
-      linarith [hmr, hww]
+      linarith [hmr, hww, hxlb]
     have h := Complex.abs_re_le_norm (s - ρ)
     rw [Complex.sub_re] at h
     linarith [h, le_abs_self (s.re - ρ.re), hdist_re]
@@ -1430,6 +1425,49 @@ lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤
     _ ≤ 10 ^ 8 * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) + 200 / c_vk * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by
         linarith [hterm1, hterm2]
     _ = (10 ^ 8 + 200 / c_vk) * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by ring
+
+
+/-- **EDGE disc-core high half** (STONE 1).  At the left spine point `s = σ₀ + iγ`, `σ₀ =
+1 − (c_vk/2)/D₃(5T+1)`, height `γ ≤ 5T` above the astronomically-lazy strip threshold, the entire
+factor `logDeriv Zc` is `D₄(5T+1)`-grade: `‖logDeriv Zc s‖ ≤ (10⁸ + 200/c_vk)·(log(5T+1))^{3/4}
+(loglog(5T+1))⁴`.  Rides `near_norm_logDeriv_Zc_le` on the pow-region disc (scale
+`Θ = vkTheta(3γ)`); the sphere discharge / region numerics mirror `zeta_near_bound_core`; the
+`hsc`/`hZcs`/`hdist`
+adapt to the LEFT point via the supplied margin `hmargin`. -/
+lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤ t₀K)
+    (hg : ∀ σ t : ℝ, t₀K ≤ t → 1 - vkTheta t ≤ σ → σ ≤ 3 →
+      ‖riemannZeta ((σ : ℂ) + (t : ℂ) * Complex.I)‖ ≤ K * Real.log t)
+    (hc_vk : 0 < c_vk)
+    {T γ : ℝ}
+    (hγ : Real.exp (Real.exp (8 * Real.log (20000 * K) + 1100)) + t₀K + 3 ≤ γ)
+    (hγT : γ ≤ 5 * T)
+    (hsc_thr : 9000 * c_vk ≤ Real.log (Real.log (5 * T + 1)))
+    (hmargin : ∀ ρ : ℂ, riemannZeta ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
+        ρ.re ≤ 1 - c_vk / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+          * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ))) :
+    ‖logDeriv Zc ((1 - (c_vk / 2) / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+          * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)) : ℝ) + (γ : ℂ) * Complex.I)‖
+      ≤ (10 ^ 8 + 200 / c_vk) * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+          * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) := by
+  -- the base is `shifted_edge_disc_core_gen` at the LEFT point `x = 1 - w`; only `0 ≤ w` is owed,
+  -- and it follows from the height gate alone: `5T + 1 > γ ≥ exp (exp 1100)`, so `log (5T+1) > 1`
+  have hA : (1100 : ℝ) ≤ 8 * Real.log (20000 * K) + 1100 := by
+    have : (0 : ℝ) ≤ Real.log (20000 * K) := Real.log_nonneg (by linarith only [hK])
+    linarith
+  have hE : Real.exp (Real.exp 1100) ≤ Real.exp (Real.exp (8 * Real.log (20000 * K) + 1100)) :=
+    Real.exp_le_exp.mpr (Real.exp_le_exp.mpr hA)
+  have hT : Real.exp (Real.exp 1100) < 5 * T + 1 := by linarith
+  have h1100 : (1 : ℝ) < Real.exp 1100 := by linarith [Real.add_one_le_exp (1100 : ℝ)]
+  have hL : Real.exp 1100 < Real.log (5 * T + 1) :=
+    (Real.lt_log_iff_exp_lt (by linarith [Real.exp_pos (Real.exp 1100)])).mpr hT
+  have hℓ : 0 < Real.log (Real.log (5 * T + 1)) := Real.log_pos (by linarith)
+  have hD : 0 < (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ) := by
+    have hL0 : 0 < Real.log (5 * T + 1) := by linarith
+    positivity
+  have hw : 0 ≤ (c_vk / 2) / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)) := div_nonneg (by linarith) hD.le
+  exact shifted_edge_disc_core_gen hK ht₀K hg hc_vk (le_refl _) (by linarith) hγ hγT hsc_thr hmargin
 
 /-- `Zc` commutes with complex conjugation (`Zc = (·−1)ζ` has real Taylor coefficients;
 `riemannZeta_conj` off the pole, `Zc 1 = 1` real at it). -/
@@ -1926,316 +1964,6 @@ lemma truncKernel_const_le {P : ℝ} (hP : 2 ≤ P) :
       ≤ 2 * (9 * (3:ℝ) ^ ((Real.log 2)⁻¹)) * P ^ c + 4 * P ^ c := by linarith [hkey]
   refine le_trans hstep ?_
   rw [hPc]; apply le_of_eq; ring
-
-set_option maxHeartbeats 12800000 in
--- The σ-generalized disc-core copies `shifted_edge_disc_core`'s sphere discharge + `Pinv/W/Mζ`
--- region numerics + closing `D₄` assembly verbatim (only `hsc`/`hζs`/`hdist` adapt to the general
--- real part `x ∈ [σ₀, 1+w]`); the closing arithmetic needs the same 12.8M budget as its template.
-lemma shifted_edge_disc_core_gen {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤ t₀K)
-    (hg : ∀ σ t : ℝ, t₀K ≤ t → 1 - vkTheta t ≤ σ → σ ≤ 3 →
-      ‖riemannZeta ((σ : ℂ) + (t : ℂ) * Complex.I)‖ ≤ K * Real.log t)
-    (hc_vk : 0 < c_vk)
-    {T γ x : ℝ}
-    (hxlb : 1 - (c_vk / 2) / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)) ≤ x)
-    (hxub : x ≤ 1 + (c_vk / 2) / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)))
-    (hγ : Real.exp (Real.exp (8 * Real.log (20000 * K) + 1100)) + t₀K + 3 ≤ γ)
-    (hγT : γ ≤ 5 * T)
-    (hsc_thr : 9000 * c_vk ≤ Real.log (Real.log (5 * T + 1)))
-    (hmargin : ∀ ρ : ℂ, riemannZeta ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
-        ρ.re ≤ 1 - c_vk / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
-          * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ))) :
-    ‖logDeriv Zc ((x : ℂ) + (γ : ℂ) * Complex.I)‖
-      ≤ (10 ^ 8 + 200 / c_vk) * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
-          * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) := by
-  -- the 5T+1 denominators (fold the goal)
-  set LT : ℝ := Real.log (5 * T + 1) with hLTdef
-  set ℓT : ℝ := Real.log LT with hℓTdef
-  set D3T : ℝ := LT ^ ((3 : ℝ) / 4) * ℓT ^ (3 : ℕ) with hD3Tdef
-  set w : ℝ := (c_vk / 2) / D3T with hwdef
-  set s : ℂ := (x : ℂ) + (γ : ℂ) * Complex.I with hsdef
-  -- === template height thresholds (γ-only, verbatim + inlined `pow_height_facts`) ===
-  have hKpos : 0 < K := lt_of_lt_of_le one_pos hK
-  set A : ℝ := 8 * Real.log (20000 * K) + 1100 with hAdef
-  have hA1100 : 1100 ≤ A := by
-    have : (0:ℝ) ≤ Real.log (20000 * K) := Real.log_nonneg (by linarith only [hK])
-    rw [hAdef]; linarith
-  have hEpos : 0 < Real.exp (Real.exp A) := Real.exp_pos _
-  have hγim : Real.exp (Real.exp A) + t₀K + 3 ≤ γ := hγ
-  have hσimE : Real.exp (Real.exp A) ≤ γ := by linarith [ht₀K, hγim]
-  have hγpos : 0 < γ := lt_of_lt_of_le hEpos hσimE
-  have hγ2 : (2:ℝ) ≤ γ := by linarith [hEpos, ht₀K, hγim]
-  have hexpA1 : 1 < Real.exp A := by
-    rw [← Real.exp_zero]; exact Real.exp_lt_exp.mpr (by linarith [hA1100])
-  have hEe : Real.exp 1 < Real.exp (Real.exp A) := Real.exp_lt_exp.mpr hexpA1
-  have hγe : Real.exp 1 < γ - 1 := by linarith [hEe, hγim, ht₀K, hEpos]
-  have hγt₀ : t₀K ≤ γ - 1 := by linarith [hEpos, hγim]
-  have hfactsγ : 3 ≤ Real.log γ ∧ A ≤ Real.log (Real.log γ) := by
-    have hlogE : Real.log (Real.exp (Real.exp A)) = Real.exp A := Real.log_exp _
-    have hlogx : Real.exp A ≤ Real.log γ := by rw [← hlogE]; exact Real.log_le_log hEpos hσimE
-    have hexp2 : (3:ℝ) ≤ Real.exp 2 := by linarith [Real.add_one_le_exp (2:ℝ)]
-    have hexpA3 : (3:ℝ) ≤ Real.exp A := le_trans hexp2 (Real.exp_le_exp.mpr (by linarith [hA1100]))
-    refine ⟨le_trans hexpA3 hlogx, ?_⟩
-    calc A = Real.log (Real.exp A) := (Real.log_exp A).symm
-      _ ≤ Real.log (Real.log γ) := Real.log_le_log (Real.exp_pos A) hlogx
-  -- abbreviations
-  set Lg : ℝ := Real.log γ with hLdef
-  set ℓ : ℝ := Real.log Lg with hℓdef
-  have hL3 : (3:ℝ) ≤ Lg := hfactsγ.1
-  have hℓA : A ≤ ℓ := hfactsγ.2
-  have hℓ1100 : (1100:ℝ) ≤ ℓ := le_trans hA1100 hℓA
-  have hL0 : 0 < Lg := by linarith [hL3]
-  have hℓ0 : 0 < ℓ := by linarith [hℓ1100]
-  -- log 3γ facts
-  set L3 : ℝ := Real.log (3 * γ) with hL3def
-  have hlog3le2 : Real.log 3 ≤ 2 := by
-    linarith [Real.log_le_sub_one_of_pos (show (0:ℝ) < 3 by norm_num)]
-  have hL3eq : L3 = Real.log 3 + Lg := by rw [hL3def, Real.log_mul (by norm_num) hγpos.ne']
-  have hL3lb : Lg ≤ L3 := by rw [hL3eq]; linarith [Real.log_nonneg (show (1:ℝ) ≤ 3 by norm_num)]
-  have hL3ub : L3 ≤ 2 * Lg := by rw [hL3eq]; linarith [hlog3le2, hL3]
-  have hL30 : 0 < L3 := by linarith [hL3lb, hL0]
-  set ℓ3 : ℝ := Real.log L3 with hℓ3def
-  have hℓ3lb : ℓ ≤ ℓ3 := by rw [hℓ3def, hℓdef]; exact Real.log_le_log hL0 hL3lb
-  have hlog2le1 : Real.log 2 ≤ 1 := by
-    linarith [Real.log_le_sub_one_of_pos (show (0:ℝ) < 2 by norm_num)]
-  have hℓ3ub : ℓ3 ≤ 2 * ℓ := by
-    rw [hℓ3def]
-    calc Real.log L3 ≤ Real.log (2 * Lg) := Real.log_le_log hL30 hL3ub
-      _ = Real.log 2 + ℓ := by rw [Real.log_mul (by norm_num) hL0.ne', ← hℓdef]
-      _ ≤ 2 * ℓ := by linarith [hlog2le1, hℓ1100]
-  have hℓ30 : 0 < ℓ3 := by linarith [hℓ3lb, hℓ0]
-  have hℓ31100 : (1100:ℝ) ≤ ℓ3 := by linarith [hℓ3lb, hℓ1100]
-  -- region parameters (verbatim)
-  set Θ : ℝ := vkTheta (3 * γ) with hΘdef
-  set Pinv : ℝ := 1000 * L3 ^ ((3:ℝ)/4) * ℓ3 ^ (2:ℕ) with hPinvdef
-  have hL34pos : 0 < L3 ^ ((3:ℝ)/4) := Real.rpow_pos_of_pos hL30 _
-  have hPinvpos : 0 < Pinv := by rw [hPinvdef]; positivity
-  have hΘval : Θ = 1 / 1000 / (L3 ^ ((3:ℝ)/4) * ℓ3 ^ (2:ℕ)) := by
-    rw [hΘdef, vkTheta, ← hL3def, ← hℓ3def]
-  have hΘPinv : Θ = 1 / Pinv := by
-    rw [eq_div_iff (ne_of_gt hPinvpos), hΘval, hPinvdef]
-    field_simp [ne_of_gt hL34pos, ne_of_gt hℓ30]
-  have hΘ0 : 0 < Θ := by rw [hΘPinv]; positivity
-  set Mζ : ℝ := K * L3 with hMζdef
-  have hMζpos : 0 < Mζ := by rw [hMζdef]; positivity
-  have hMζ1 : (1:ℝ) ≤ Mζ := by rw [hMζdef]; nlinarith only [hK, hL3lb, hfactsγ, hMζpos]
-  have hPinv2 : (2:ℝ) ≤ Pinv := by
-    rw [hPinvdef]
-    have h1 : (1:ℝ) ≤ L3 ^ ((3:ℝ)/4) := Real.one_le_rpow (by linarith [hL3lb, hL3]) (by norm_num)
-    have h2 : (1:ℝ) ≤ ℓ3 ^ (2:ℕ) := one_le_pow₀ (by linarith [hℓ31100])
-    nlinarith only [h1, h2, sq_nonneg ℓ3]
-  have hΘ12 : Θ ≤ 1 / 2 := by
-    rw [hΘPinv]; rw [div_le_div_iff₀ hPinvpos (by norm_num)]; linarith [hPinv2]
-  have hgrowth : ∀ z : ℂ, 1 - Θ ≤ z.re → z.re ≤ 2 → γ - 1 ≤ z.im → z.im ≤ 3 * γ →
-      ‖riemannZeta z‖ ≤ Mζ := by
-    intro z h1 h2 h3 h4
-    rw [hΘdef] at h1; rw [hMζdef]
-    exact pow_uniform_growth hK ht₀K hg hγe hγt₀ z h1 h2 h3 h4
-  set W : ℝ := Real.log (20 * Pinv * Mζ) with hWdef
-  have hWeq : W = Real.log (20000 * K) + (7 / 4) * ℓ3 + 2 * Real.log ℓ3 := by
-    have hPinvne : Pinv ≠ 0 := ne_of_gt hPinvpos
-    have hL3ne : L3 ≠ 0 := ne_of_gt hL30
-    have hℓ3ne : ℓ3 ≠ 0 := ne_of_gt hℓ30
-    have h20000 : Real.log (20000 * K) = Real.log 20 + Real.log 1000 + Real.log K := by
-      rw [show (20000:ℝ) * K = 20 * 1000 * K by ring, Real.log_mul (by norm_num) hKpos.ne',
-        Real.log_mul (by norm_num) (by norm_num)]
-    rw [hWdef, Real.log_mul (by positivity) (ne_of_gt hMζpos),
-      Real.log_mul (by norm_num) hPinvne, hMζdef, Real.log_mul hKpos.ne' hL3ne,
-      hPinvdef, Real.log_mul (by positivity) (pow_ne_zero 2 hℓ3ne),
-      Real.log_mul (by norm_num) (ne_of_gt hL34pos), Real.log_rpow hL30, Real.log_pow,
-      ← hℓ3def, h20000]
-    push_cast; ring
-  have hlog20K : Real.log (20000 * K) ≤ ℓ / 8 := by rw [hAdef] at hℓA; linarith
-  have hlogℓ3le : Real.log ℓ3 ≤ ℓ3 := by linarith [Real.log_le_sub_one_of_pos hℓ30]
-  have hWub : W ≤ 8 * ℓ := by
-    rw [hWeq]; linarith [hlog20K, hℓ3ub, hlogℓ3le]
-  have hW0 : 0 ≤ W := by
-    rw [hWdef]; apply Real.log_nonneg
-    nlinarith only [hPinvpos, hMζ1, hMζpos, hPinv2]
-  have hγ1 : (1:ℝ) ≤ |γ| := by rw [abs_of_nonneg hγpos.le]; linarith [hγ2]
-  -- sphere discharge (verbatim, height γ)
-  have hsph : ∀ R : ℝ, 0 ≤ R → R ≤ 3 / 2 * Θ →
-      ∀ z ∈ sphere (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I) R,
-        ‖Zc z / Zc (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I)‖ ≤ 5 * Mζ / Θ := by
-    intro R hR0 hR z hz
-    have hzc : ‖z - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I)‖ = R := by
-      rw [← dist_eq_norm, ← mem_sphere]; exact hz
-    have hcre : (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I).re = 1 + Θ / 2 := by simp
-    have hcim : (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I).im = γ := by simp
-    have hreb : |z.re - (1 + Θ / 2)| ≤ R := by
-      have h := Complex.abs_re_le_norm (z - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I))
-      rw [Complex.sub_re, hcre, hzc] at h; exact h
-    have himb : |z.im - γ| ≤ R := by
-      have h := Complex.abs_im_le_norm (z - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I))
-      rw [Complex.sub_im, hcim, hzc] at h; exact h
-    have hre1 : 1 - Θ ≤ z.re := by have := (abs_le.mp hreb).1; linarith only [this, hR]
-    have hre2 : z.re ≤ 2 := by have := (abs_le.mp hreb).2; linarith only [this, hR, hΘ12]
-    have him1 : γ - 1 ≤ z.im := by have := (abs_le.mp himb).1; linarith only [this, hR, hΘ12, hΘ0]
-    have him2 : z.im ≤ 3 * γ := by have := (abs_le.mp himb).2; nlinarith [hR, hΘ12, hγ2]
-    exact Zc_ratio_sphere_bound hΘ0 hΘ12 hγ1 hMζ1 hR0 hR hz (hgrowth z hre1 hre2 him1 him2)
-  have hR74 : (7:ℝ) / 4 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by linarith only []
-  have hR32 : (3:ℝ) / 2 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by linarith only [hΘ0]
-  have hsphere74 := hsph (7 / 4 * (6 * Θ / 7)) (by positivity) hR74
-  have hsphere32 := hsph (3 / 2 * (6 * Θ / 7)) (by positivity) hR32
-  have hM₀1 : (1:ℝ) ≤ 5 * Mζ / Θ := by rw [le_div_iff₀ hΘ0]; linarith only [hΘ12, hMζ1, hΘ0]
-  -- === the 5T+1 denominators: positivity + monotonicity ===
-  have hγ5T1 : γ ≤ 5 * T + 1 := by linarith [hγT]
-  have hLTpos : 0 < LT := by rw [hLTdef]; exact Real.log_pos (by linarith [hγ2, hγT])
-  have hLgLT : Lg ≤ LT := by rw [hLdef, hLTdef]; exact Real.log_le_log hγpos hγ5T1
-  have hℓTpos : 0 < ℓT := by rw [hℓTdef]; exact Real.log_pos (by linarith [hL3, hLgLT])
-  have hℓℓT : ℓ ≤ ℓT := by rw [hℓdef, hℓTdef]; exact Real.log_le_log hL0 hLgLT
-  have hℓT1100 : (1100:ℝ) ≤ ℓT := le_trans hℓ1100 hℓℓT
-  have hℓT1 : (1:ℝ) ≤ ℓT := by linarith [hℓT1100]
-  have hD3Tpos : 0 < D3T := by rw [hD3Tdef]; positivity
-  have hw0 : 0 < w := by rw [hwdef]; exact div_pos (by linarith [hc_vk]) hD3Tpos
-  have hsre : s.re = x := by rw [hsdef]; simp
-  have hsim : s.im = γ := by rw [hsdef]; simp
-  -- L3 ≤ 2 LT, ℓ3 ≤ 2 ℓT (the constant-chase monotonicity)
-  have hTpos : 0 < T := by linarith [hγpos, hγT]
-  have hL3_2LT : L3 ≤ 2 * LT := by
-    have h1 : (3:ℝ) * γ ≤ (5 * T + 1) ^ 2 := by nlinarith [hγT, hTpos, sq_nonneg (5 * T - 1)]
-    have h2 : Real.log (3 * γ) ≤ Real.log ((5 * T + 1) ^ 2) := Real.log_le_log (by positivity) h1
-    rw [hL3def]
-    calc Real.log (3 * γ) ≤ Real.log ((5 * T + 1) ^ 2) := h2
-      _ = 2 * LT := by rw [Real.log_pow, ← hLTdef]; push_cast; ring
-  have hℓ3_2ℓT : ℓ3 ≤ 2 * ℓT := by
-    rw [hℓ3def]
-    calc Real.log L3 ≤ Real.log (2 * LT) := Real.log_le_log hL30 hL3_2LT
-      _ = Real.log 2 + ℓT := by rw [Real.log_mul (by norm_num) hLTpos.ne', ← hℓTdef]
-      _ ≤ 2 * ℓT := by linarith [hlog2le1, hℓT1]
-  -- Pinv ≤ 8000 · LT^{3/4} · ℓT²
-  have hPinv5 : Pinv ≤ 8000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (2:ℕ)) := by
-    have hL34 : L3 ^ ((3:ℝ)/4) ≤ 2 * LT ^ ((3:ℝ)/4) := by
-      calc L3 ^ ((3:ℝ)/4) ≤ (2 * LT) ^ ((3:ℝ)/4) := Real.rpow_le_rpow hL30.le hL3_2LT (by norm_num)
-        _ = 2 ^ ((3:ℝ)/4) * LT ^ ((3:ℝ)/4) := Real.mul_rpow (by norm_num) hLTpos.le
-        _ ≤ 2 * LT ^ ((3:ℝ)/4) := by
-            have h2 : (2:ℝ) ^ ((3:ℝ)/4) ≤ 2 := by
-              calc (2:ℝ) ^ ((3:ℝ)/4) ≤ (2:ℝ) ^ (1:ℝ) :=
-                    Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
-                _ = 2 := Real.rpow_one 2
-            nlinarith only [h2, hΘ12, hΘ0, Real.rpow_nonneg hLTpos.le ((3 : ℝ) / 4)]
-    have hℓ3sq : ℓ3 ^ (2:ℕ) ≤ 4 * ℓT ^ (2:ℕ) := by
-      calc ℓ3 ^ (2:ℕ) ≤ (2 * ℓT) ^ (2:ℕ) := pow_le_pow_left₀ hℓ30.le hℓ3_2ℓT 2
-        _ = 4 * ℓT ^ (2:ℕ) := by ring
-    calc Pinv = 1000 * (L3 ^ ((3:ℝ)/4) * ℓ3 ^ (2:ℕ)) := by rw [hPinvdef]; ring
-      _ ≤ 1000 * ((2 * LT ^ ((3:ℝ)/4)) * (4 * ℓT ^ (2:ℕ))) := by
-          apply mul_le_mul_of_nonneg_left _ (by norm_num)
-          exact mul_le_mul hL34 hℓ3sq (by positivity) (by positivity)
-      _ = 8000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (2:ℕ)) := by ring
-  -- === centering, zero-freeness, min-distance (the LEFT-point adaptations) ===
-  have hsc : ‖s - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I)‖ ≤ 23 / 20 * (6 * Θ / 7) := by
-    have hsub : s - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I)
-        = ((x - (1 + Θ / 2) : ℝ) : ℂ) := by
-      rw [hsdef]; push_cast; ring
-    rw [hsub, Complex.norm_real, Real.norm_eq_abs]
-    have hwPinv : w * Pinv ≤ 17 / 35 := by
-      rw [hwdef, div_mul_eq_mul_div, div_le_iff₀ hD3Tpos, hD3Tdef]
-      have hcc : (4000:ℝ) * c_vk ≤ 17 / 35 * ℓT := by linarith only [hsc_thr, hc_vk]
-      have hAle : c_vk / 2 * Pinv ≤ c_vk / 2 * (8000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (2:ℕ))) :=
-        mul_le_mul_of_nonneg_left hPinv5 (by linarith [hc_vk])
-      nlinarith only [hsc_thr, hPinv5, hPinvpos,
-          hc_vk, hΘ12, hPinv2, hΘ0, hAle]
-    have hsc_key : w ≤ 17 * Θ / 35 := by
-      rw [hΘPinv, show (17:ℝ) * (1 / Pinv) / 35 = 17 / (35 * Pinv) by field_simp]
-      rw [le_div_iff₀ (by positivity)]
-      linarith only [hwPinv]
-    rw [abs_le]
-    exact ⟨by linarith only [hsc_key, hxlb], by linarith only [hsc_key, hw0, hxub]⟩
-  have hs1 : s ≠ 1 := by
-    rw [hsdef]; intro h
-    have := congrArg Complex.im h; simp at this; linarith [hγ2, this]
-  have hζs : riemannZeta s ≠ 0 := by
-    intro hζ0
-    have him : |s.im| ≤ 5 * T + 1 := by
-      rw [hsim, abs_of_nonneg hγpos.le]; linarith [hγT]
-    have hmr := hmargin s hζ0 him
-    rw [hsre] at hmr
-    have hlt : w < c_vk / D3T := by
-      rw [hwdef, div_lt_div_iff₀ hD3Tpos hD3Tpos]; nlinarith only [hc_vk, hD3Tpos]
-    linarith [hmr, hlt, hxlb]
-  have hZcs : Zc s ≠ 0 := Zc_ne_zero_of_zeta_ne hζs
-  have hdist : ∀ ρ : ℂ, Zc ρ = 0 →
-      ρ ∈ ball (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I) (3 / 2 * (6 * Θ / 7)) →
-        w ≤ ‖s - ρ‖ := by
-    intro ρ hZcρ hρball
-    rw [mem_ball, dist_eq_norm] at hρball
-    have hcim : (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I).im = γ := by simp
-    have himb : |ρ.im - γ| ≤ 3 / 2 * (6 * Θ / 7) := by
-      have h := Complex.abs_im_le_norm (ρ - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I))
-      rw [Complex.sub_im, hcim] at h; linarith [h, hρball]
-    have hrad : 3 / 2 * (6 * Θ / 7) ≤ 9 / 14 := by linarith only [hΘ12]
-    have hρim_lb : γ - 9 / 14 ≤ ρ.im := by have := (abs_le.mp himb).1; linarith [hrad]
-    have hρim_ub : ρ.im ≤ γ + 9 / 14 := by have := (abs_le.mp himb).2; linarith [hrad]
-    have hρimpos : 0 < ρ.im := by linarith [hρim_lb, hγ2]
-    have hρ1 : ρ ≠ 1 := by intro h; rw [h] at hρimpos; simp at hρimpos
-    have hζρ : riemannZeta ρ = 0 := by
-      rw [Zc_eq_of_ne hρ1] at hZcρ
-      exact (mul_eq_zero.mp hZcρ).resolve_left (sub_ne_zero.mpr hρ1)
-    have hρimabs : |ρ.im| ≤ 5 * T + 1 := by
-      rw [abs_of_nonneg hρimpos.le]; linarith [hρim_ub, hγT]
-    have hmr := hmargin ρ hζρ hρimabs
-    have hdist_re : w ≤ s.re - ρ.re := by
-      rw [hsre]
-      have hww : w = c_vk / D3T - (c_vk / 2) / D3T := by rw [hwdef]; field_simp; ring
-      linarith [hmr, hww, hxlb]
-    have h := Complex.abs_re_le_norm (s - ρ)
-    rw [Complex.sub_re] at h
-    linarith [h, le_abs_self (s.re - ρ.re), hdist_re]
-  -- === run the near-region lemma + the rewrites (verbatim) ===
-  have hnear := near_norm_logDeriv_Zc_le hΘ0 hM₀1 hw0 hsc hZcs hsphere74 hsphere32 hdist
-  have h140 : (120:ℝ) / (6 * Θ / 7) = 140 * Pinv := by
-    rw [hΘPinv]; field_simp [ne_of_gt hPinvpos]; ring
-  have h4M : (4:ℝ) * (5 * Mζ / Θ) = 20 * Pinv * Mζ := by
-    rw [hΘPinv]; field_simp [ne_of_gt hPinvpos]; ring
-  have hlog4M : Real.log (4 * (5 * Mζ / Θ)) = W := by rw [h4M]
-  rw [h140, hlog4M] at hnear
-  -- hnear : ‖logDeriv Zc s‖ ≤ 140 * Pinv * W + W / Real.log (7/6) / w
-  -- === the final D₄(5T+1) numeric ===
-  have hD4nn : (0:ℝ) ≤ LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ) :=
-    mul_nonneg (Real.rpow_nonneg hLTpos.le _) (pow_nonneg hℓTpos.le _)
-  have hℓT34 : LT ^ ((3:ℝ)/4) * ℓT ^ (3:ℕ) ≤ LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ) := by
-    apply mul_le_mul_of_nonneg_left _ (Real.rpow_nonneg hLTpos.le _)
-    exact pow_le_pow_right₀ hℓT1 (by norm_num)
-  have hW8ℓT : W ≤ 8 * ℓT := le_trans hWub (by linarith [hℓℓT])
-  have hterm1 : 140 * Pinv * W ≤ 10 ^ 8 * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by
-    have hPW : Pinv * W ≤ 64000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (3:ℕ)) := by
-      calc Pinv * W ≤ (8000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (2:ℕ))) * (8 * ℓT) :=
-            mul_le_mul hPinv5 hW8ℓT hW0 (by positivity)
-        _ = 64000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (3:ℕ)) := by ring
-    calc 140 * Pinv * W = 140 * (Pinv * W) := by ring
-      _ ≤ 140 * (64000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (3:ℕ))) :=
-          mul_le_mul_of_nonneg_left hPW (by norm_num)
-      _ = 8960000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (3:ℕ)) := by ring
-      _ ≤ 8960000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := mul_le_mul_of_nonneg_left hℓT34 (by norm_num)
-      _ ≤ 10 ^ 8 * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by linarith only [hℓT34, hD3Tpos]
-  have h76pos : 0 < Real.log (7 / 6) := Real.log_pos (by norm_num)
-  have h76ge : (1:ℝ) / 7 ≤ Real.log (7 / 6) := by
-    have h := Real.log_le_sub_one_of_pos (show (0:ℝ) < 6 / 7 by norm_num)
-    rw [show (6:ℝ) / 7 = (7 / 6)⁻¹ by norm_num, Real.log_inv] at h
-    linarith
-  have hWlog : W / Real.log (7 / 6) ≤ 56 * ℓT := by
-    rw [div_le_iff₀ h76pos]
-    nlinarith [hW8ℓT, mul_nonneg (by positivity : (0:ℝ) ≤ 56 * ℓT) (sub_nonneg.mpr h76ge), hℓTpos]
-  have h1overw : (1:ℝ) / w = 2 * D3T / c_vk := by
-    rw [hwdef]; field_simp
-  have hterm2 : W / Real.log (7 / 6) / w ≤ 200 / c_vk * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by
-    rw [div_eq_mul_one_div (W / Real.log (7 / 6)) w, h1overw]
-    have hstep : W / Real.log (7 / 6) * (2 * D3T / c_vk) ≤ 56 * ℓT * (2 * D3T / c_vk) :=
-      mul_le_mul_of_nonneg_right hWlog (by positivity)
-    refine le_trans hstep ?_
-    rw [hD3Tdef]
-    have hXc : (0:ℝ) ≤ (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) / c_vk := div_nonneg hD4nn hc_vk.le
-    calc 56 * ℓT * (2 * (LT ^ ((3:ℝ)/4) * ℓT ^ (3:ℕ)) / c_vk)
-        = 112 * ((LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) / c_vk) := by ring
-      _ ≤ 200 * ((LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) / c_vk) :=
-          mul_le_mul_of_nonneg_right (by norm_num) hXc
-      _ = 200 / c_vk * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by ring
-  calc ‖logDeriv Zc s‖ ≤ 140 * Pinv * W + W / Real.log (7 / 6) / w := hnear
-    _ ≤ 10 ^ 8 * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) + 200 / c_vk * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by
-        linarith [hterm1, hterm2]
-    _ = (10 ^ 8 + 200 / c_vk) * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by ring
-
 
 set_option maxHeartbeats 800000 in
 -- The strip generalization threads the same threshold/disc-core assembly as `shifted_edge_price`
