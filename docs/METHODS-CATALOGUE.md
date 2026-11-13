@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `c3859eb9` · source digest `1fde899823457ad2` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `64cff3d4` · source digest `049ea25b76b550b8` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23419 · with a proof/definition body: 23419 · direct corpus references (edges): 87592 · audited results: 9148 · corpus Prop-valued names: 689.
+Declarations indexed: 23419 · with a proof/definition body: 23419 · direct corpus references (edges): 87538 · audited results: 9148 · corpus Prop-valued names: 689.
 
 ## Hypothesis status (Deliverable A)
 
@@ -116,11 +116,11 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 24 | `Salt.MR.DoorRowCarriedT0` | 9 | 0 | — | Salt/MR/M4T0Discharge.lean:587 |
 | 25 | `Salt.HB.IsAdditiveOn` | 8 | 0 | — | Salt/HB/CrownAssembly.lean:175 |
 | 26 | `Salt.MR.DoorFuseFrame_L` | 8 | 0 | — | Salt/MR/M4RowLinear.lean:200 |
-| 27 | `Salt.MR.M4DoorGates_L` | 8 | 0 | — | Salt/MR/M4LadderLinear.lean:878 |
+| 27 | `Salt.MR.M4DoorGates_L` | 8 | 0 | — | Salt/MR/M4LadderLinear.lean:1792 |
 | 28 | `Salt.MR.PocketSocket` | 8 | 2 | — | Salt/MR/CapFreeArm.lean:195 |
 | 29 | `Salt.MR.DoorFuseFrame_pool'_L_gk` | 7 | 6 | — | Salt/MR/M4RowSpineLinear.lean:1070 |
 | 30 | `Salt.MR.DoorRowZeroBase_L` | 7 | 0 | — | Salt/MR/M4RowLinear.lean:385 |
-| 31 | `Salt.MR.M4SievedDoorSq_L_gk` | 7 | 8 | — | Salt/MR/M4LadderLinear.lean:900 |
+| 31 | `Salt.MR.M4SievedDoorSq_L_gk` | 7 | 8 | — | Salt/MR/M4LadderLinear.lean:1814 |
 | 32 | `Salt.MR.TwistedWindowPriceGated` | 7 | 0 | `Salt.MR.twisted_window_price_gated_holds` | Salt/MR/TwistedEdge.lean:1070 |
 | 33 | `Salt.Entropy.Chowla.MRTUniformityXiL2H` | 6 | 12 | `Salt.MR.mrtUniformityXiL2H_holds_flat`, `Salt.MR.mrtUniformityXiL2H_holds_flat_g` | Salt/Entropy/Chowla/ShiftFork.lean:545 |
 | 34 | `Salt.MR.DoorRowCarriedT0_L` | 6 | 0 | — | Salt/MR/M4RowLinear.lean:7998 |
