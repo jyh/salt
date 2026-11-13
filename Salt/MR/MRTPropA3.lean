@@ -729,7 +729,7 @@ bound on the UNTWISTED, NORM-form prime sum**; `mrtM` provably runs the wrong wa
 (`pretDistSq_one_le_sum_norm`), and at `f = λ` the route is vacuous by `(log x)^{2+1/10}`
 (`sum_norm_one_sub_liouvilleC`).
 
-**The door — walked to the corpus's own named residue.**  `M4RowMeanSq_L` (`M4RowLinear:992`),
+**The door — walked to the corpus's own named residue.**  `M4RowMeanSq_L` (`M4RowLinear:993`),
 labelled the wave's ⟦RESIDUE⟧ at its own definition site; of its two obstructions ⟦THE WALL⟧ is
 REPAIRED (07-28) and ⟦THE CLASS PRICING⟧ is OPEN and design-tier.
 
@@ -741,7 +741,7 @@ and fixing them edits A.6's/A.7's STATEMENTS (Fable/Captain tier).  `DoorRoadCom
 /-! ### FIVE LINKS DEEP, EVERY ONE POPULATED — AND THE REAL OPEN QUESTION IS NOT A MISSING LEMMA
 
 Continuing the walk.  `DoorRowCarried` (the capstone producer's remaining input) is itself
-populated: **8 exact producer-shaped sites**, including `M4T0Discharge.lean:735`,
+populated: **8 exact producer-shaped sites**, including `M4T0Discharge.lean:744`,
 `M4DoorClose.lean:{395,533,607}`, `M4Collapse.lean:216`, `M4ChiSocketWire.lean:{184,240}`.
 The capstone `M4ChiDyadicRowMeanSq` has **6** (three of them `… := by` in
 `M4DoorClose`/`M4DoorClosePool`).
@@ -772,15 +772,15 @@ caught none of them.**  *Three versions in, the control has done more work than 
 Continuing the walk, under the rule set in the section below: name no frontier, keep going.
 
 **1. THE TRIVIAL SUPPLIER IS THE SMALL-LENGTH HALF, AND IT SAYS SO.**
-`norm_sum_doorSievedWindow_le` (`M4CoprimeSupply.lean:106`) is the window-length bound
+`norm_sum_doorSievedWindow_le` (`M4CoprimeSupply.lean:125`) is the window-length bound
 `‖∑_{m ∈ doorSievedWindow M K n} liouChi χ m‖ ≤ K`.  Its docstring: used at the SMALL dyadic
 lengths, *"where the capstone is silent"*.  So the dyadic split is `j < j₀` trivial grade,
-`j₀ ≤ j` capstone (`M4CoprimeSupply.lean:39`, `M4Maximal.lean:1019`).
+`j₀ ≤ j` capstone (`M4CoprimeSupply.lean:40`, `M4Maximal.lean:1050`).
 
 **2. ⛔ TWO DIFFERENT OBJECTS ARE CALLED "THE CAPSTONE". THEY ARE NOT THE SAME.**
-* `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:527`) — the **S12** lane.  This is
+* `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:508`) — the **S12** lane.  This is
   the one carrying `S14Compose.lean:429`'s **`⚠ NOT DERIVED` … "refuted at ⟦B1'-3⟧ by §3"**.
-* `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1021`) — the **M4** lane, and *this* is the one the
+* `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1052`) — the **M4** lane, and *this* is the one the
   door's dyadic split consumes (`M4Maximal.lean:117`, length-graded `MS j H`).
 
 **The `⚠ NOT DERIVED` marker does NOT lie on the door's chain.**  Checked, not assumed — the
@@ -892,9 +892,9 @@ earlier were all published first and corrected after.  **Fencing is cheap; retra
 /-! ### THE ROAD BOTTOMS OUT — AND THE CORPUS NAMES ITS OWN FRONTIER
 
 Walked the gates down: `M4SievedDoorSq_L → M4BlockMeanSq_L → M4RowMeanSq_L`.
-`M4RowMeanSq_L` (`M4RowLinear.lean:992`) has **no producer** — established by reading **all six
-of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1393`) ·
-an enumeration entry (`:3398`) · one arrow (`:3413`).
+`M4RowMeanSq_L` (`M4RowLinear.lean:993`) has **no producer** — established by reading **all six
+of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1394`) ·
+an enumeration entry (`:3216`) · one arrow (`:3231`).
 
 ⭐ **AND THIS TIME IT IS NOT MY INFERENCE — THE CORPUS SAYS SO AT THE DEFINITION SITE:**
 *"**THE WAVE'S REMAINING INPUT**… This predicate is the wave's ⟦RESIDUE⟧: see the module header
@@ -931,13 +931,13 @@ own standing rule is a trigger to check, not a finding.  **UNTESTED.** -/
 `M4RowLinear.m4_hbd_of_live_L` (`:2335`) delivers the door's `hbd` from four bundles.  Probed
 each with the calibrated producer probe (control `MRTUniformityXi` → 6; decoy → 0):
 
-**`M4GradeGate`** (`M4Close.lean:425`) — `m4_gradeGate_direct` (`M4ClassPrice.lean:709`)
+**`M4GradeGate`** (`M4Close.lean:425`) — `m4_gradeGate_direct` (`M4ClassPrice.lean:721`)
 produces it from **two explicit inequalities and NO other gate**:
 `√(Braw H) ≤ mrtDeliveredGrade (C/2) H` and `δ/4 + 4·2^k/x ≤ mrtDeliveredGrade (C/2) H`.
 *It bottoms out in arithmetic about the delivered grade, not in another Prop socket.*
 
 **`M4SievedDoorSq_L`** (`M4LadderLinear.lean:860`) — `m4_cover_assembly_L`
-(`M4RowLinear.lean:1527`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
+(`M4RowLinear.lean:1528`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
 Its own docstring states the gate bundle is *"the same bundle `m4_hbd_of_live_L` reads, so the
 join needs no new hypothesis"* — so this reduction is free at the seam.  ⇒ **it reduces to the
 BLOCK MEAN SQUARE**, which is what `M4Maximal.m4_chiBlockMeanSq_of_shiftBlock` produces.
@@ -959,9 +959,9 @@ wrong, and it is wrong in the same direction as the two claims before it.**  Wal
 
 ```
   norm_absWindowSum_le_drift_tight     M4BridgePhase.lean:310   (phase drift → rational b/q)
-    ⟹ subWindowSup_sq_le_strata       M4Gauss.lean:577         (Gauss/strata, at doorSievedCoeff M)
+    ⟹ subWindowSup_sq_le_strata       M4Gauss.lean:588         (Gauss/strata, at doorSievedCoeff M)
         ⟹ strataTerm = ∑_χ (doorChiSup χ …)²
-            ⟹ doorChiSup_sq_le_dyadic  M4Maximal.lean:397      (DYADIC MAXIMAL INEQUALITY, K-free)
+            ⟹ doorChiSup_sq_le_dyadic  M4Maximal.lean:423      (DYADIC MAXIMAL INEQUALITY, K-free)
                 ⟹ ∑_t ‖∑_{m ∈ doorSievedWindow M 2^j (n+2^{j+1}t)} liouChi χ m‖²
 ```
 `subWindowSup_sq_le_strata` is stated **at the door's own coefficient** `doorSievedCoeff M`, not at
@@ -994,7 +994,7 @@ Last of the four sweep rows.  Measured: **57 landed `absWindowSum` theorems acro
 files.**  Opening the two that matter:
 
 ```
-  integral_logMeasure_absWindowSum_le_thresh   M4Dyadic.lean:665
+  integral_logMeasure_absWindowSum_le_thresh   M4Dyadic.lean:684
       (∫ n, ‖absWindowSum a H' n α‖ ∂(logMeasure x ω)) ≤ thr      from (H' : ℝ) ≤ thr
 ```
 This is the door's `hbd` shape **exactly** — and its own docstring calls it *"THE TRIVIAL
@@ -1009,7 +1009,7 @@ ANALYTIC estimates."*  That is **too strong**:
   norm_absWindowSum_le_drift_tight            M4BridgePhase.lean:310
       at NearRatTight (arcDen B₅ H) H α  ⟹  ‖absWindowSum a H n α‖
           ≤ (1 + 2π·(arcDen B₅ H / q))·subWindowSup a H n (b/q)
-  norm_absWindowSum_le_class_sum_of_nearRatTight   M4BridgeResidue.lean:281
+  norm_absWindowSum_le_class_sum_of_nearRatTight   M4BridgeResidue.lean:287
       at NearRatTight Q H α  ⟹  ‖absWindowSum‖ ≤ ∑_r ‖classPhaseSum …‖
 ```
 **Both are genuine ANALYTIC reductions, at the door's OWN hypothesis** — a phase-drift
@@ -1268,7 +1268,7 @@ claim in this campaign fires on **all three**:
 
 ```
   mrtUniformityXi_of_absWindowBound_twelve   M4Window.lean:268   CONCLUDES MRTUniformityXi R δ
-  bigXiArcTight_twelve                       ExitClose.lean:773   NO HYPOTHESES — unconditional
+  bigXiArcTight_twelve                       ExitClose.lean:779   NO HYPOTHESES — unconditional
   both REGISTERED in Salt/MR/All.lean (lines 1821, 2111) ⇒ inside the axiom audit
 ```
 
@@ -3110,7 +3110,7 @@ and `‖f n‖ ≤ 1`.  A.7's summand is `gJ 𝒥 Pseq Qseq n · f n · costwist
 needs those three properties for each factor.  Censused:
 
 * `gJ` — **`gJ_mul` (`Sec9Glue.lean:183`) is COMPLETE multiplicativity** (`m,n ≠ 0`, no
-  coprimality), and `norm_gJ_le_one` (`CofactorSupplier.lean:85`) bounds it.  Landed.
+  coprimality), and `norm_gJ_le_one` (`CofactorSupplier.lean:87`) bounds it.  Landed.
 * `f` — hypotheses of A.7 itself.
 * `costwist` — `costwist_norm` is landed, but **multiplicativity IN THE ARGUMENT and the value
   at `1` were both ABSENT** (measured: 0 hits, decoy control 0).  They are below.
@@ -3161,7 +3161,7 @@ The degenerate coprime pairs are the whole content: `Nat.Coprime 0 b` forces `b 
 `Nat.Coprime a 0` forces `a = 1`, and there the identity holds by the three `= 1` facts —
 `gJ_one`, `f 1 = 1`, `costwist_one`.  Off zero it is `gJ_mul` + `hfmul` + `costwist_mul`.
 
-⭐ `gJ_one` is landed (`CofactorSupplier.lean:106`) — and *finding* it required the looser probe:
+⭐ `gJ_one` is landed (`CofactorSupplier.lean:115`) — and *finding* it required the looser probe:
 it is declared `@[simp] lemma`, so a `^(theorem|lemma)` anchor reports ZERO.  **That is the
 `@[simp] theorem` instrument trap, live**; two probes disagreed and the gap was the finding. -/
 theorem gJ_f_costwist_mul_coprime {f : ℕ → ℂ} (hf1 : f 1 = 1)
@@ -3231,7 +3231,7 @@ The section above shows `mrtM` runs the wrong way for residue (2).  This exhibit
 `f` at which `renormalise`'s error factor is not merely unbounded-in-principle but provably
 divergent, so residue (2) is **structural, not a matter of constants.**
 
-At Liouville, `liouvilleC p = -1` on every prime (`M4Residue.lean:109`), so
+At Liouville, `liouvilleC p = -1` on every prime (`M4Residue.lean:112`), so
 `‖1 − liouvilleC p‖ = ‖1 − (−1)‖ = 2` **exactly** — no asymptotics — and therefore
 `∑_{p≤x} ‖1 − liouvilleC p‖/p = 2·∑_{p≤x} 1/p`.
 

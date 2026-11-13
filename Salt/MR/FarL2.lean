@@ -95,6 +95,9 @@ open scoped BigOperators
 
 /-! ## §1 — the numeric stones -/
 
+/-- `log 5 ≤ 2` (private): `5 ≤ e²` since `e² > 7` from `e > 2.718…` (`Real.exp_one_gt_d9`,
+`nlinarith`), then `Real.log_le_log` — one of the three numeral logarithms the poly-log floor's
+height debit prices. Read once in this file; no consumer outside it. -/
 private lemma plog_log_five_le : Real.log 5 ≤ 2 := by
   have he : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
   have hsq : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
@@ -102,6 +105,8 @@ private lemma plog_log_five_le : Real.log 5 ≤ 2 := by
   have := Real.log_le_log (by norm_num : (0 : ℝ) < 5) (by linarith : (5 : ℝ) ≤ Real.exp 2)
   rwa [Real.log_exp] at this
 
+/-- `log 18 ≤ 3` (private): `18 ≤ e³ = e²·e` with `e² > 7` and `e > 2.718…` (`nlinarith`), then
+`Real.log_le_log`. Read once in this file; no consumer outside it. -/
 private lemma plog_log_eighteen_le : Real.log 18 ≤ 3 := by
   have he : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
   have hsq : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
@@ -111,6 +116,8 @@ private lemma plog_log_eighteen_le : Real.log 18 ≤ 3 := by
   have := Real.log_le_log (by norm_num : (0 : ℝ) < 18) (by linarith : (18 : ℝ) ≤ Real.exp 3)
   rwa [Real.log_exp] at this
 
+/-- `log 2 ≤ 1` (private): `log 2 ≤ 2 − 1` (`Real.log_le_sub_one_of_pos`). Read twice in this
+file; no consumer outside it. -/
 private lemma plog_log_two_le : Real.log 2 ≤ 1 := by
   have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 2); linarith
 
@@ -774,6 +781,9 @@ def winL2Mass (g : ℕ → ℂ) (X y σ : ℝ) : ℝ :=
   ∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
     ‖lambdaLin (restrictAbove y g) n‖ ^ 2 / ((n : ℝ) ^ σ) ^ 2
 
+/-- `0 ≤ winL2Mass g X y σ`: the ℓ² coefficient mass is a sum of nonnegative quotients
+(`Finset.sum_nonneg`, `positivity`). Read by `FarL2Dyadic`; not in this file beyond its
+proof. -/
 lemma winL2Mass_nonneg (g : ℕ → ℂ) (X y σ : ℝ) : 0 ≤ winL2Mass g X y σ :=
   Finset.sum_nonneg (fun n _ => by positivity)
 

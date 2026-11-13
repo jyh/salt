@@ -168,6 +168,8 @@ lower endpoint from the pair law, i.e. `M4P2MR.ramP2massEndMR_direct`'s excess o
 noncomputable def endMass (Xd : ℕ) : ℝ :=
   4 * (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 / (Xd : ℝ) ^ 2
 
+/-- `0 ≤ endMass Xd`: a square over a square (`positivity`). Read by `FrameWitness`; not read in
+this file. -/
 lemma endMass_nonneg (Xd : ℕ) : 0 ≤ endMass Xd := by
   rw [endMass]; positivity
 

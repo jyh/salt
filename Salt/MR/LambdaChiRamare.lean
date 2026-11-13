@@ -112,9 +112,16 @@ namespace Salt.MR
 
 /-! ## §1 — the damped Liouville datum `λ·g_r` -/
 
+/-- `ω(1; P, Q) = 0` (private): `1` has no prime factors (`simp`) — this file's copy of the
+private `MobiusChiRamare.blockOmega_one_eq_zero`. Read once in this file; no consumer outside
+it. -/
 private lemma blockOmega_one_lam (P Q : ℕ) : blockOmega P Q 1 = 0 := by
   simp [blockOmega, BlockPrimeDivs]
 
+/-- `ω(p^k; P, Q) = if P ≤ p ∧ p ≤ Q then 1 else 0` at `p` prime, `k ≠ 0` (private): the only
+prime factor is `p` (`Nat.primeFactors_prime_pow`, `Finset.filter_singleton`) — this file's copy
+of the private `MobiusChiRamare.blockOmega_prime_pow`. Read once in this file; no consumer
+outside it. -/
 private lemma blockOmega_prime_pow_lam {P Q p k : ℕ} (hp : p.Prime) (hk : k ≠ 0) :
     blockOmega P Q (p ^ k) = if P ≤ p ∧ p ≤ Q then 1 else 0 := by
   unfold blockOmega BlockPrimeDivs
@@ -130,6 +137,8 @@ this file write `r`.  At `m = 0` the value is `0` because `λ 0 = 0`. -/
 noncomputable def lamGr (P Q : ℕ) (r : ℝ) : ArithmeticFunction ℝ :=
   ⟨fun m => ((ArithmeticFunction.liouville m : ℤ) : ℝ) * r ^ blockOmega P Q m, by simp⟩
 
+/-- `lamGr P Q r m = λ(m)·r^{ω(m;P,Q)}` (`@[simp]`), by `rfl`: the damped Liouville datum
+evaluated. Read by `BallSupChi` and `LambdaChiMask`, and six times in this file. -/
 @[simp] lemma lamGr_apply (P Q : ℕ) (r : ℝ) (m : ℕ) :
     lamGr P Q r m = ((ArithmeticFunction.liouville m : ℤ) : ℝ) * r ^ blockOmega P Q m := rfl
 
@@ -167,6 +176,9 @@ O6 facts, so that no new mass or tail hypothesis is created. -/
 noncomputable def lamTailWeight (P Q : ℕ) (r : ℝ) : ArithmeticFunction ℝ :=
   ⟨fun n => ((ArithmeticFunction.moebius n : ℤ) : ℝ) ^ 2 * ramTailWeight P Q r n, by simp⟩
 
+/-- `lamTailWeight P Q r n = μ(n)²·ramTailWeight P Q r n` (`@[simp]`), by `rfl`: the λ-side
+carrier evaluated as the squarefree restriction of O6's tail weight. Read by `LambdaChiMask` and
+eleven times in this file. -/
 @[simp] lemma lamTailWeight_apply (P Q : ℕ) (r : ℝ) (n : ℕ) :
     lamTailWeight P Q r n
       = ((ArithmeticFunction.moebius n : ℤ) : ℝ) ^ 2 * ramTailWeight P Q r n := rfl
@@ -184,11 +196,17 @@ theorem lamTailWeight_apply_of {P Q : ℕ} (r : ℝ) {n : ℕ} (hn : Squarefree 
     norm_num
   rw [hsq, one_mul]
 
+/-- `lamTailWeight P Q r n = 0` at `¬ Squarefree n`: the `μ(n)²` factor vanishes
+(`ArithmeticFunction.moebius_eq_zero_of_not_squarefree`). Read once in this file; no consumer
+outside it. -/
 theorem lamTailWeight_eq_zero_of_not_squarefree {P Q : ℕ} (r : ℝ) {n : ℕ}
     (hn : ¬ Squarefree n) : lamTailWeight P Q r n = 0 := by
   rw [lamTailWeight_apply, ArithmeticFunction.moebius_eq_zero_of_not_squarefree hn]
   norm_num
 
+/-- `lamTailWeight P Q r n = 0` at `¬ WindowSmooth P Q n`: the `ramTailWeight` factor vanishes
+off the window-smooth integers (`MobiusChiRamare.ramTailWeight_eq_zero_of_not_smooth`). No
+consumer at `main`, in this file or outside it. -/
 theorem lamTailWeight_eq_zero_of_not_smooth {P Q : ℕ} (r : ℝ) {n : ℕ}
     (hs : ¬ WindowSmooth P Q n) : lamTailWeight P Q r n = 0 := by
   rw [lamTailWeight_apply, ramTailWeight_eq_zero_of_not_smooth r hs, mul_zero]
@@ -269,6 +287,10 @@ theorem lamTailWeight_prime_pow {P Q p k : ℕ} (r : ℝ) (hp : p.Prime) (hk : k
 
 /-! ## §3 — THE CONVOLUTION IDENTITY `λ·g_r = λ ∗ v_r` -/
 
+/-- `λ(p^j) = (−1)^j` (in `ℝ`) at `p` prime (private): `ArithmeticFunction.liouville_apply` with
+`Ω(p^j) = j` (`cardFactors_apply_prime_pow`) — the local factor the λ-side Euler product reads;
+`LambdaChiMask.liouville_prime_pow_real_mask` is its private copy. Read twice in this file; no
+consumer outside it. -/
 private lemma liouville_prime_pow_real {p : ℕ} (hp : p.Prime) (j : ℕ) :
     ((ArithmeticFunction.liouville (p ^ j) : ℤ) : ℝ) = (-1) ^ j := by
   rw [ArithmeticFunction.liouville_apply (pow_ne_zero j hp.ne_zero),

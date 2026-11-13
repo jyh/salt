@@ -16,7 +16,7 @@ theorem chen_goldbach :
 
 Additive form (no ℕ-subtraction), explicit threshold (house bundle
 style), `IsP2 2` unchanged (`WeightTrivia.lean:270`; the survivor
-arrives at `IsP2 (opZ N)` and relaxes via `isP2_mono`, Assembly:375).
+arrives at `IsP2 (opZ N)` and relaxes via `isP2_mono`, Salt/Chen/Assembly.lean:384).
 The alternatives (subtraction / ∀ᶠ / exceptional-set forms) are
 recorded in the inventory; corollaries may restate, the primary is
 frozen as above. NOTE the quantifier inversion vs the twin
@@ -43,10 +43,10 @@ STOP AND FLAG.
 
 1. **G-DENS (B).** `P_N = ∏_{w' ≤ q < z, q ∤ N} q` (prodPrimes is
    consumed opaquely — confirmed); the reduced-residue re-threading
-   (`coprime_sub_two` TwinA1:221 → `Coprime d N` from `Coprime P_N N`;
-   consumers: apDisc_le TwinA1:242, crt_class_coprime TwinA1W:208,
-   rosserRemainderW_le_split TwinA1W:457, rosserRemainderW2_le_split
-   TwinA2W:436, divisor_cases BVSum:184); **the W-ratio residual
+   (`coprime_sub_two` TwinA1:233 → `Coprime d N` from `Coprime P_N N`;
+   consumers: apDisc_le TwinA1:254, crt_class_coprime TwinA1W:225,
+   rosserRemainderW_le_split TwinA1W:474, rosserRemainderW2_le_split
+   TwinA2W:436, divisor_cases BVSum:188); **the W-ratio residual
    (GATE CORRECTION, 2026-07-15): a NEW sibling lemma
    `window_prod_upper_punctured` over `primesInWindow z y \ {q ∣ N}`
    — NOT a reuse of W_ratio_upper, whose `hwin` hypothesis (window
@@ -62,7 +62,7 @@ STOP AND FLAG.
    ∀ q ∈ Q.primeFactors, a % q ∉ {0, N % q}` — CRT over the FIXED
    opQ; nonvacuity q ≥ 3 ⟹ ≥ q−2 free classes (q ∣ N ⟹ q−1); q = 2
    with N even ⟹ both forbidden classes are 0, a odd works. Feeds the
-   hQa2 slot of chen_of_hypotheses_W (Assembly:720) via crtClassG.
+   hQa2 slot of chen_of_hypotheses_W (Salt/Chen/Assembly.lean:738) via crtClassG.
 3. **G-ASM's ∀N wrapper (A/B).** opQ = Qval opEps, opEps = 2/10⁸
    FIXED ⟹ opQ ≤ log N for N ≥ e^{opQ}, absorbed into N₀. Per-N razor
    instantiation at x := N (z = N^{1/8}, y = N^{1/3}), positivity →
@@ -102,8 +102,8 @@ four nodes:** | | |
 
 Critical path: G-DENS → (G-A1 ∥ G-SW) → (G-COUNT ∥ G-BAND) → G-OP →
 G-ASM. Total est. ≈2.9M (→ ~2.2M at rfl-transfer productivity: the
-W/maxDepth transfers are rfl — switchSieveW_W_eq SwitchW:179,
-blockSwitchSieve_W_eq SwitchBlocks:254). All executors Opus; every
+W/maxDepth transfers are rfl — switchSieveW_W_eq SwitchW:205,
+blockSwitchSieve_W_eq SwitchBlocks:267). All executors Opus; every
 node ceremonied individually; actuals vs estimates recorded per node
 (THE MEASUREMENT).
 

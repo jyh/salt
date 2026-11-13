@@ -139,18 +139,28 @@ at `0` is `0`). -/
 noncomputable def invRpow (u : ℝ) : ArithmeticFunction ℝ :=
   ⟨fun n => if n = 0 then 0 else (n : ℝ) ^ (-u), by simp⟩
 
+/-- `invRpow u n = if n = 0 then 0 else n^{−u}` (`@[simp]`), by `rfl`: the weight evaluated.
+Read twice in this file; no consumer outside it. -/
 @[simp] lemma invRpow_apply (u : ℝ) (n : ℕ) :
     invRpow u n = if n = 0 then 0 else (n : ℝ) ^ (-u) := rfl
 
+/-- `invRpow u n = n^{−u}` at `n ≠ 0`: the `if` discharged (`simp [hn]`). Read six times in this
+file; no consumer outside it. -/
 lemma invRpow_apply_of {u : ℝ} {n : ℕ} (hn : n ≠ 0) : invRpow u n = (n : ℝ) ^ (-u) := by
   simp [hn]
 
+/-- `0 ≤ invRpow u n`: `0` at `n = 0`, else `n^{−u} ≥ 0` (`Real.rpow_nonneg`). Read three times
+in this file; no consumer outside it. -/
 lemma invRpow_nonneg (u : ℝ) (n : ℕ) : 0 ≤ invRpow u n := by
   rw [invRpow_apply]
   split_ifs
   · exact le_refl 0
   · exact Real.rpow_nonneg (Nat.cast_nonneg n) _
 
+/-- `(invRpow u).IsMultiplicative`: `invRpow u 1 = 1`, and at coprime `m, n ≠ 0` the value at
+`mn` is the product (`Real.mul_rpow`) — completely multiplicative in fact, stated in the form
+`divisorRpow_isMultiplicative` needs (`IsMultiplicative.iff_ne_zero`). Read once in this file;
+no consumer outside it. -/
 lemma invRpow_isMultiplicative (u : ℝ) : (invRpow u).IsMultiplicative := by
   rw [ArithmeticFunction.IsMultiplicative.iff_ne_zero]
   refine ⟨by simp [invRpow_apply], ?_⟩
@@ -164,13 +174,21 @@ this is the object the divisor domination evaluates. -/
 noncomputable def divisorRpow (u : ℝ) : ArithmeticFunction ℝ :=
   ((ArithmeticFunction.zeta : ArithmeticFunction ℕ) : ArithmeticFunction ℝ) * invRpow u
 
+/-- `divisorRpow u n = ∑_{d ∣ n} invRpow u d`: the convolution `ζ ∗ n^{−u}` evaluated
+(`ArithmeticFunction.coe_zeta_mul_apply`). Read four times in this file; no consumer outside
+it. -/
 lemma divisorRpow_apply (u : ℝ) (n : ℕ) :
     divisorRpow u n = ∑ d ∈ n.divisors, invRpow u d :=
   ArithmeticFunction.coe_zeta_mul_apply
 
+/-- `(divisorRpow u).IsMultiplicative`: a product of multiplicative functions
+(`isMultiplicative_zeta.natCast`, `invRpow_isMultiplicative`) — what lets the divisor domination
+be read at prime powers. Read twice in this file; no consumer outside it. -/
 lemma divisorRpow_isMultiplicative (u : ℝ) : (divisorRpow u).IsMultiplicative :=
   (ArithmeticFunction.isMultiplicative_zeta.natCast).mul (invRpow_isMultiplicative u)
 
+/-- `0 ≤ divisorRpow u n`: a sum of nonnegative terms (`divisorRpow_apply`, `invRpow_nonneg`).
+Read twice in this file; no consumer outside it. -/
 lemma divisorRpow_nonneg (u : ℝ) (n : ℕ) : 0 ≤ divisorRpow u n := by
   rw [divisorRpow_apply]
   exact Finset.sum_nonneg fun d _ => invRpow_nonneg u d

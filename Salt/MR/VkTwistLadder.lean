@@ -543,12 +543,17 @@ Against `vkProfile`'s own `√q` this is the honest `q^{3/2}(1+log q)` grade; se
 docstring on why the campaign has room for it. -/
 noncomputable def vkTwistConst (q : ℕ) : ℝ := 10000000 * (q : ℝ) * (1 + Real.log q)
 
+/-- `1 ≤ vkTwistConst q` at `q ≠ 0`: `1 ≤ q` and `0 ≤ log q` (`nlinarith`). Read twice in this
+file and by `BandRatedAssembly`, `CapFreeAssembly`, `CapFreeSharp`, `CofactorSupplier`, `FarL2`,
+`RbdSupply` and `VkMidSharp`. -/
 lemma one_le_vkTwistConst {q : ℕ} [NeZero q] : 1 ≤ vkTwistConst q := by
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   have hlq : (0 : ℝ) ≤ Real.log q := Real.log_nonneg hq1
   unfold vkTwistConst
   nlinarith only [hlq, hq1, (Nat.cast_nonneg _ : 0 ≤ ↑q)]
 
+/-- `vkTwistConst f ≤ vkTwistConst q` for `1 ≤ f ≤ q`: both `q` and `log q` grow. Read once in
+this file; no consumer outside it. -/
 lemma vkTwistConst_mono {f q : ℕ} (hf : 1 ≤ f) (hfq : f ≤ q) :
     vkTwistConst f ≤ vkTwistConst q := by
   have hf1 : (1 : ℝ) ≤ (f : ℝ) := by exact_mod_cast hf
