@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `c916ff2a` · source digest `e58dd9beb6cbad63` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `5c6b9ee9` · source digest `e27de618b486c337` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23419 · with a proof/definition body: 23419 · direct corpus references (edges): 87592 · audited results: 9148 · corpus Prop-valued names: 689.
+Declarations indexed: 23412 · with a proof/definition body: 23412 · direct corpus references (edges): 87592 · audited results: 9148 · corpus Prop-valued names: 689.
 
 ## Hypothesis status (Deliverable A)
 
@@ -996,7 +996,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | Mertens / PNT-type | 254 | 67 | 883 | 792 | 4 | 16 | 0 | 1695 | 1638 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
 | explog/lognum numeral tactic | 53 | 0 | 669 | 763 | 1 | 5 | 0 | 1438 | 1438 |
-| Matomaki-Radziwill / Halasz (short intervals) | 9813 | 5428 | 2960 | 1300 | 168 | 189 | 0 | 4617 | 73 |
+| Matomaki-Radziwill / Halasz (short intervals) | 9806 | 5428 | 2960 | 1300 | 168 | 189 | 0 | 4617 | 73 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
 
@@ -1176,7 +1176,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | family | external dependents | audited members | decls |
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
-| Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9813 |
+| Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9806 |
 | entropy decrement | 650 | 534 | 1404 |
 | character sums / L-functions | 966 | 2196 | 4329 |
 | circle method / Fourier | 1171 | 83 | 181 |
