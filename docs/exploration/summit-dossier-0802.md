@@ -230,7 +230,7 @@ log B_v ≥ (1−1/loglog X)·log X survives the division by D). The
 4. `XCeilRiderStrict ε g` — the caller's own growth condition, met
    by g ≡ 0 and by the compose's own arm.
 5. The K_vt cushion (32·K_vt + 32·D̂ ≤ log H₊/4) — carried BY NAME
-   because its third leg is SiegelArm:166's EVT minimum of ‖L(s,χ)‖
+   because its third leg is SiegelArm:177's EVT minimum of ‖L(s,χ)‖
    uniform in q: **the Siegel-zero obstruction itself**. K_vt sits
    in the ∃-prefix so the caller can state the cushion.
 

@@ -235,6 +235,8 @@ window arrives from the coefficient support through this indicator. -/
 noncomputable def winTerm (Xd p m : ℕ) : ℝ :=
   if (Xd ≤ p * m ∧ p * m ≤ 2 * Xd) then 2 / ((p * m : ℕ) : ℝ) else 0
 
+/-- `0 ≤ winTerm Xd p m`: the weight is `2 / (p * m)` on the window and `0` off it. Read once in
+this file; no consumer outside it. -/
 lemma winTerm_nonneg (Xd p m : ℕ) : 0 ≤ winTerm Xd p m := by
   rw [winTerm]; split_ifs <;> positivity
 

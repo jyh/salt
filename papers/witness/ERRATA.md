@@ -104,7 +104,7 @@ is where a Siegel-type ineffectivity would enter, and the cushion is therefore c
 behind it rather than a bound.
 ```
 
-(The declaration, `Salt.MR.LFunction_band_lower` (`Salt/MR/SiegelArm.lean:161`), uses no Siegel input. Its docstring
+(The declaration, `Salt.MR.LFunction_band_lower` (`Salt/MR/SiegelArm.lean:172`), uses no Siegel input. Its docstring
 says the minimum "is NOT effective in `q`: that, and only that, is where Siegel's ineffective constant would enter".
 Siegel's theorem itself enters the corollary elsewhere: `xiCarveWidth_of_siegel` (`Salt/MR/PortClose.lean:76`)
 obtains `siegel_real_carve` (`Salt/MR/PortAssembly.lean:1181`), which obtains `Salt.SW.siegel_theorem`. The

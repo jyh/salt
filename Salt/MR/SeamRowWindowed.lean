@@ -52,7 +52,7 @@ implies the relativized one, so every model of the landed contract is a model of
 
 * `hwin` (1) `RamareErr.ramWindowErr_eq_seamPoly`:201, through `seam_sum_identity`:107;
 * `hwin` (2) `TypicalPrice.ramP2_term_norm_le_win`:245, through `ramP2mass_direct`
-  (`SeamCalibrationK`:678) into `TypicalPriceK.lemma12Rows_pricedK`:84;
+  (`SeamCalibrationK`:686) into `TypicalPriceK.lemma12Rows_pricedK`:84;
 * `hcoef` (3) `RamareWindows.spoly_ramare_split`, through `RamareErr.ramErr_moment_split`:667;
 * row 3 of `lemma12Rows` (`TypicalDensity.blockfree_sum_le`) uses `hasupp`/`‖a‖ ≤ 1` only —
   contract-free.

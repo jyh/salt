@@ -26,7 +26,7 @@ cited bytes as you go (the re-grep law).
 DELIVERABLES:
 
 1. THE p²-MASS STONE at ramP2domMR [~30–60 ln]: the max-half port of
-ramP2coeff_norm_div_le (SeamCalibrationK.lean:759–825) with the
+ramP2coeff_norm_div_le (SeamCalibrationK.lean:767–833) with the
 by_cases hmem replaced by the fibre-emptiness split reading the window
 from ramHonMR membership (RamareMR.lean:666–668;
 RamareErr.lean:741–743); ramP2_term_norm_le supplies the 2; compose
