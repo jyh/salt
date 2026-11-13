@@ -628,7 +628,7 @@ theorem mrtUniformityXiL2_of_absWindowSqBound (R : ChowlaRegime) (a e : ℕ → 
 
 /-- **THE FREEZE'S BUDGET LINE, named** (`l2-restructure-freeze-0730.md:21`).
 At the insert budget `Binsert := δ/4 + 4·2^k/x` — the glue spelling the `L¹`
-road already carries (`M4Close.lean:506`, `M4ClassPrice.lean:708`) — this
+road already carries (`M4Close.lean:506`, `M4ClassPrice.lean:720`) — this
 adapter's right-hand side IS `2·K·Braw + δ/2 + 8·2^k/x`.  The `δ` the summed
 door reads is therefore `K`-FREE, which is the entire content of the
 restructure. -/

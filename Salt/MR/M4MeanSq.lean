@@ -243,9 +243,13 @@ the centre `t₀`, forced to `0` on `n ≤ X`. -/
 def m4BandDatum {q : ℕ} (χ : DirichletCharacter ℂ q) (t₀ X : ℝ) : ℕ → ℂ :=
   fun n => if (n : ℝ) ≤ X then 0 else seamCoeff (ellLin (liouChi χ)) (fun _ => 1) t₀ n
 
+/-- `m4BandDatum χ t₀ X n = 0` for `n ≤ X`: the first branch of the `if`. Read once in this
+file; no consumer outside it. -/
 theorem m4BandDatum_supp {q : ℕ} (χ : DirichletCharacter ℂ q) (t₀ X : ℝ) :
     ∀ n : ℕ, (n : ℝ) ≤ X → m4BandDatum χ t₀ X n = 0 := fun _ hn => if_pos hn
 
+/-- For `X < n`, `m4BandDatum χ t₀ X n` is `seamCoeff (ellLin (liouChi χ)) (fun _ => 1) t₀ n`:
+the second branch of the `if`. Read twice in this file; no consumer outside it. -/
 theorem m4BandDatum_eq {q : ℕ} (χ : DirichletCharacter ℂ q) (t₀ X : ℝ) :
     ∀ n : ℕ, X < (n : ℝ) →
       m4BandDatum χ t₀ X n = seamCoeff (ellLin (liouChi χ)) (fun _ => 1) t₀ n :=
@@ -267,11 +271,16 @@ theorem dpolyA_seamS0_bandDatum {q : ℕ} (χ : DirichletCharacter ℂ q) {t₀ 
 Three facts extracted from `e^e ≤ X` alone (`thm_a2'_of_rows` wants `3 ≤ X`, the row wants
 `e ≤ X`, and the frame wants `0 < X`). -/
 
+/-- `3 < exp (exp 1)`: `exp 1 + 1 ≤ exp (exp 1)` (`Real.add_one_le_exp`) and
+`2.7182818283 < exp 1` (`Real.exp_one_gt_d9`). Read twice in this file and by `LadderScale` and
+`M4Seam`. -/
 theorem exp_exp_one_gt_three : (3 : ℝ) < Real.exp (Real.exp 1) := by
   have h1 : Real.exp 1 + 1 ≤ Real.exp (Real.exp 1) := Real.add_one_le_exp _
   have h2 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
   linarith
 
+/-- `exp 1 ≤ exp (exp 1)`: `exp` is monotone and `1 ≤ exp 1`. Read twice in this file and by
+`LadderScale`. -/
 theorem exp_one_le_exp_exp_one : Real.exp 1 ≤ Real.exp (Real.exp 1) :=
   Real.exp_le_exp.mpr (Real.one_le_exp (by norm_num))
 
@@ -942,6 +951,12 @@ ones with `3072 * M` replaced by `s13GK K M`; the suppliers are the levered ones
 (`H1door M`, `a2Level1 M`) keeps its landed name.  The side condition `K ≤ 1.7·10⁸` is the
 frame's, inherited through `ThmA2.calFrameK_doorH1_at_gk`. -/
 
+/-- The G-lever twin of `m4_cofactorSocket_at_witness`: the `CofactorSocket` of
+`ellLin (liouChi χ)` at the witness ladder and centre `0`, with the frame `A2Frame3` read at
+`s13GK K M`. Three suppliers: the collision socket from `CapFreeFloor3`
+(`pocketSocket_of_floor3`), CASE A from the carried `hsockA` at each block of the frame, and the
+uniform ceiling `Rbd34loc_uniform`; closed by `cofactorSocket_of_ellLin`. No consumer at `main`,
+in this file or outside it. -/
 theorem m4_cofactorSocket_at_witness_gk (K : ℕ) {q : ℕ} [NeZero q]
     (χ : DirichletCharacter ℂ q)
     {cf a : ℕ → ℂ} {N Xd P Q M : ℕ}
@@ -1019,6 +1034,13 @@ theorem m4_cofactorSocket_at_witness_gk (K : ℕ) {q : ℕ} [NeZero q]
   exact cofactorSocket_of_ellLin hgl hc1 hCb0 hRrad0 hsockP hblkX F.box hA2 hRbdU
 
 set_option maxHeartbeats 1600000 in
+/-- The G-lever twin of `m4_meansq_per_chi_gen`, at `K ≤ 170000000`: constants
+`Cq cq T₀ X₀ Cs Ccc` and a floor family `Kfl` such that, for every modulus range `Qm`, every
+character mod `q ≤ Qm` and every datum meeting the listed gates (the door's read at
+`s13GK K M`), the short-interval mean square of `a` over `[X, 2X]` is at most the five-summand
+bound. Route: `a2Rows_of_capfree3_gk` for the rows, `a2Frame3_witness` and
+`row_ladder_at_witness` for the frame, closed by `ThmA2.thm_a2'_of_rows_gk`. Read once in this
+file (by `m4_meansq_or_trivial_gk`) and by `M4DoorClose`. -/
 theorem m4_meansq_per_chi_gen_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ (Cq cq T₀ X₀ Cs Ccc : ℝ) (Kfl : ℕ → ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -1211,6 +1233,11 @@ theorem m4_meansq_per_chi_gen_gk (K : ℕ) (hK : K ≤ 170000000) :
     hgP1 hgRows ⟨hε0, hεup⟩ hL4096
 
 set_option maxHeartbeats 1600000 in
+/-- The G-lever twin of `m4_meansq_or_trivial`, at a fixed modulus range `Qm` (so `Kfl` is one
+real): either the window is short, `H' ≤ trivThresh Hp d₀ W`, and the `logMeasure` mean of
+`‖absWindowSum a H' n α‖` is below that threshold (`m4_trivial_branch`), or it is long and the
+mean-square bound of `m4_meansq_per_chi_gen_gk` holds. A case split on `H'`. No consumer at
+`main`, in this file or outside it. -/
 theorem m4_meansq_or_trivial_gk (K : ℕ) (hK : K ≤ 170000000) (Qm : ℕ) :
     ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧

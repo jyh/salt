@@ -216,7 +216,7 @@ theorem m4_sieve_block_mass_bounded :
   rw [hNcdef] at hwt
   linarith
 
-/-- **Link 6** — `M4Door.m4_door_sieve_mass` (`M4Door.lean:616`), verbatim re-emit. -/
+/-- **Link 6** — `M4Door.m4_door_sieve_mass` (`M4Door.lean:621`), verbatim re-emit. -/
 theorem m4_door_sieve_mass_bounded :
     ∃ C : ℝ, 1 ≤ C ∧ C ≤ 2 * 10 ^ 12 ∧ ∀ (A G M J x ω H k : ℕ) (δ : ℝ),
       1 ≤ A → 1 ≤ G → 1 ≤ M → 0 < δ → 8 * C / δ ≤ (M : ℝ) →
