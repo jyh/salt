@@ -656,8 +656,8 @@ theta83/rhoB4 are DEFS (not frozen) — the amended-pin twins land with U7-C.
 **W4 CORRECTED (my ruling's estimate was low 3×): 1100–1400 ln**, the exact
 list: W4-1 rhsFboundC/rhsSigmaGC defs + identities [A,60]; W4-2
 joint_supF_pinC (RHSGrade:248) [B,120]; W4-3 beta_integral_pin_constC
-(GradeConst:1025, cites sigma_cutoff_pretentious_gen at c) [B/C,250]; W4-4
-rhs_grade_at_scale in WINDOW-FLOOR form (GradeConst:1089 + SupClose:334;
+(GradeConst:1011, cites sigma_cutoff_pretentious_gen at c) [B/C,250]; W4-4
+rhs_grade_at_scale in WINDOW-FLOOR form (GradeConst:1075 + SupClose:319;
 hMwin replaces hmin/hgate) [C,300]; W4-5 JointIntegrableAtC + the JointPlumb
 clone (30 sites; σ^{2c−1} integrable at c > 0) [B,250–350]; W4-6
 center_halasz_supply B-ABSTRACT (CenterSupply:295; the exponent opaque —
