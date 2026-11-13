@@ -753,7 +753,7 @@ theorem twisted_rect_zero_free_split :
 /-! ## §5 — THE RESIDUE, pinned: the cross-character twisted per-pair price
 
 What §3 leaves is ONE analytic statement — the `ζ`-engine's `per_pair_contour`
-(`HalaszPrimesCore.lean:2398`) with
+(`HalaszPrimesCore.lean:2126`) with
 
 * the coefficient twisted by a NON-PRINCIPAL `ψ mod q` (`ψ = χ·χ̄′` on a cross-character
   pair), and

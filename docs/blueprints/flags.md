@@ -19009,7 +19009,7 @@ carry above the mint is conjunct-arithmetic with no analysis in it.
 **⟦FINDING 1 — `cs` IS EFFECTIVE AT EVERY LEAF; THE DOSSIER'S §3 IS IN ERROR⟧** the 0802 summit
 dossier calls `cs`'s leaves "(K₄, Cκ) … compactness existentials of our own port". **They are not
 existentials at all** — `K₄ = 2^{3/4}·16` (`PortAssembly.lean:640`) and `Cκ = 2^{3/4}·8`
-(`HalaszPrimesCore.lean:3450`) are closed-form `noncomputable def`s. The other two leaves are
+(`HalaszPrimesCore.lean:3178`) are closed-form `noncomputable def`s. The other two leaves are
 literals in the source: `c_vk = 1/10^8` (visible AT THE CALL SITE — the mint is invoked on
 `TwistedWindowPriceGated (1/10^8)`) and `c₀ = 1/10^9` (`Vk/PowRegion.lean:365`, hidden only by the
 `∃`-prefixes, which export positivity alone). Hence
@@ -19073,7 +19073,7 @@ consumer tolerates `10^{10^{225}}` and the truth is `e^{e^{1251}}`. Repair:
 | `exp_exp_hundred_lt_exp_exp_1100` | **⟦THE T₀ VIOLATION⟧** `e^{e^{100}} < e^{e^{1100}}` |
 | `zeta_zero_free_region_pow_of_growth_bounded` / `_pow_bounded` | **RUNG 1** — the VK region with `1/10^9 ≤ c` AND `e^{e^{1100}} ≤ T₀` exported (body verbatim from `Vk/PowRegion.lean:354`); ONE twin serving BOTH riders |
 | `rect_zero_free_margin_bounded` | **RUNG 2** — ZFREE-RECT carrying both (body verbatim from `HalaszPrimesCore.lean:618`) |
-| `shifted_edge_price_strip_bounded` | **RUNG 3** — the shifted edge strip carrying both (body verbatim from `HalaszPrimesCore.lean:2243`) |
+| `shifted_edge_price_strip_bounded` | **RUNG 3** — the shifted edge strip carrying both (body verbatim from `HalaszPrimesCore.lean:1971`) |
 
 **⟦THE PRICE OF FINISHING cs⟧** two big replays remain below the ladder —
 `per_pair_contour` (647 ln, 12.8M heartbeats) and `halaszPrimesChiGated_of_price` (377 ln) — plus
