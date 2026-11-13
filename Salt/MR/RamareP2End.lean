@@ -75,6 +75,10 @@ noncomputable def ramP2coeffEndMR (N X P Q : ℕ) (a b c : ℕ → ℂ) (n : ℕ
 filter predicate outright — it reads only `ramHonMR`'s own window — so the transplant is
 byte-for-byte. -/
 
+/-- The fused `p²`-correction is a Dirichlet polynomial: at `1 ≤ X` and `2 * X ≤ N`,
+`ramP2corrEndMR N X P Q a b c t = spoly N (ramP2coeffEndMR N X P Q a b c) t`, by fibering the
+double sum over the product `p * m`, which lies in `Finset.Icc 1 N`. Read once in this file and
+by `RamErrWS`. -/
 theorem ramP2corrEndMR_eq_spoly (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ N) (a b c : ℕ → ℂ)
     (t : ℝ) :
     ramP2corrEndMR N X P Q a b c t = spoly N (ramP2coeffEndMR N X P Q a b c) t := by
@@ -116,6 +120,8 @@ theorem ramP2corrEndMR_moment (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ N) 
   rw [hcongr]
   exact moment_core_bound N (ramP2coeffEndMR N X P Q a b c) T
 
+/-- `ramP2corrEndMR N X P Q a b c` is continuous in `t`: a finite sum of `continuous_cterm`
+terms at `p * m ≠ 0`. Read by `SeamRowWindowed`; not read in this file. -/
 lemma continuous_ramP2corrEndMR (N X P Q : ℕ) (a b c : ℕ → ℂ) :
     Continuous (ramP2corrEndMR N X P Q a b c) := by
   classical

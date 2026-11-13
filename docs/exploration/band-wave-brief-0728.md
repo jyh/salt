@@ -41,14 +41,14 @@ at P suffices); C3/C4 transport DOWN from Q; everything else P P →
 P Q. blocks/thin/Tstar2_box/row_ladder/err_at_witness_mr (its
 supplier E_priced_mr_row_scale is ALREADY P Q — a binder rename)/
 a2Frame3_witness (12 slots).
-C-1 the socket shift decoupling (CofactorSupplier:222, CaseAWide:746/
+C-1 the socket shift decoupling (CofactorSupplier:233, CaseAWide:746/
 807): P's double duty (band-bottom vs the shift in doorCofactor0)
 split — fresh binder Ps with 1 ≤ Ps; conclusion at doorCofactor0 χ
 Pseq Qseq J Ps; plus doorCofactor0_at_one : doorCofactor0 … 1 =
 memSCoeff Pseq Qseq J (liouChi χ) (3 ln — one_mul + the if-algebra).
 Instantiate the band at Ps := 1. ~10 ln.
 C-2 the band pair law (new, ~50 ln — the UPWARD mirror of
-M4Residue:145–225, same proofs with < flipped):
+M4Residue:148–228, same proofs with < flipped):
 blockPrimeDivs_eq_empty_of_large → blockOmega_shift_up →
 memS_shift_up → indicator_mul_shift_up →
 **doorChiCoeff_seamCoefW_band** : (∀ j ∈ Icc 1 2, calQK … j < P) →
