@@ -300,6 +300,8 @@ noncomputable def MmuChi {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) (y 
 noncomputable def MlambdaChi {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) (y : ℕ) : ℂ :=
   ∑ n ∈ Finset.Icc 1 y, ((ArithmeticFunction.liouville n : ℤ) : ℂ) * chiBarTwist χ t n
 
+/-- `MmuChi χ t 0 = 0` (`@[simp]`): the sum over `Finset.Icc 1 0` is empty. Read once in this
+file; no consumer outside it. -/
 @[simp] theorem MmuChi_zero {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) :
     MmuChi χ t 0 = 0 := by
   simp [MmuChi]

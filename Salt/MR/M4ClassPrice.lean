@@ -181,6 +181,8 @@ this is the door's own `1_𝒮`-restricted window. -/
 def sievedWindow (p : ℕ → Prop) [DecidablePred p] (H n : ℕ) : Finset ℕ :=
   (Finset.Ioc n (n + H)).filter p
 
+/-- `m ∈ sievedWindow p H n ↔ (n < m ∧ m ≤ n + H) ∧ p m`: membership in the filtered
+`Finset.Ioc`, unfolded by `simp`. Read once in this file; no consumer outside it. -/
 theorem mem_sievedWindow {p : ℕ → Prop} [DecidablePred p] {H n m : ℕ} :
     m ∈ sievedWindow p H n ↔ (n < m ∧ m ≤ n + H) ∧ p m := by
   simp [sievedWindow, Finset.mem_Ioc, and_assoc]
@@ -422,13 +424,21 @@ ladder — the ⟦THE CLASS PRICING⟧ obstruction `M4Join`'s header named.  Wha
 scale `X` are already free) once its TIGHT fit `B' + H' ≤ 2A'` holds.  The dilated block
 misses that fit by at most `3` units, and dropping the top `≤ 3` indices restores it. -/
 
+/-- `ℕ` arithmetic of the endpoint drop (§5): from `a₁ ≤ c₁` and `b₁ + c₁ ≤ 3 * a₁ + 2`,
+`b₁ + (c₁ - a₁) ≤ 2 * a₁ + 3` (`omega`). Private; read once in this file. -/
 private lemma slack_arith {a₁ b₁ c₁ : ℕ} (hca : a₁ ≤ c₁) (hkey : b₁ + c₁ ≤ 3 * a₁ + 2) :
     b₁ + (c₁ - a₁) ≤ 2 * a₁ + 3 := by omega
 
+/-- `e < d → 3 * e < 3 * d` in `ℕ` (`omega`), a step of the endpoint drop (§5). Private; read
+once in this file. -/
 private lemma three_mul_lt {e d : ℕ} (h : e < d) : 3 * e < 3 * d := by omega
 
+/-- `v < 3 → u + v ≤ u + 2` in `ℕ` (`omega`), a step of the endpoint drop (§5). Private; read
+once in this file. -/
 private lemma add_le_of_lt_three {u v : ℕ} (h : v < 3) : u + v ≤ u + 2 := by omega
 
+/-- Dropping three indices restores the tight fit: from `u + v ≤ 2 * w + 3` and `3 ≤ u`, both
+`(u - 3) + v ≤ 2 * w` and `u ≤ (u - 3) + 3` (`omega`). Private; read once in this file. -/
 private lemma drop_arith {u v w : ℕ} (h : u + v ≤ 2 * w + 3) (h3 : 3 ≤ u) :
     (u - 3) + v ≤ 2 * w ∧ u ≤ (u - 3) + 3 := by omega
 
@@ -544,6 +554,8 @@ fact, still carried symbolically), and the same free-`A,B` block lemma
 `M4BridgeIntegral.sum_Ioc_absWindowSum_sq_div_le` underneath.  Only the endpoint constant is
 `4` in place of `3`. -/
 
+/-- `drop_arith` at slack `4`: from `u + v ≤ 2 * w + 4` and `4 ≤ u`, both `(u - 4) + v ≤ 2 * w`
+and `u ≤ (u - 4) + 4` (`omega`). Private; read once in this file. -/
 private lemma drop_arith_four {u v w : ℕ} (h : u + v ≤ 2 * w + 4) (h4 : 4 ≤ u) :
     (u - 4) + v ≤ 2 * w ∧ u ≤ (u - 4) + 4 := by omega
 

@@ -11,7 +11,7 @@ branch with the untouched bulk/VK branches."*
 
 ## What is and is not new here
 
-`capFreeFloor3_margin_all_chi_vt` (`VkMidSharp.lean:503`) splits three ways and only one of the
+`capFreeFloor3_margin_all_chi_vt` (`VkMidSharp.lean:509`) splits three ways and only one of the
 three carries the ineffectivity:
 
 * `χ² ≠ 1` → `chi_floor_vk_pointwise_sharp` — **effective** (Wave K).

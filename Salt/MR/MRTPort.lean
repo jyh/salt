@@ -169,7 +169,7 @@ family member's non-uniformity was generalised to the family, and
 * `chi_floor_all_unconditional_twisted` (`Salt/MR/ChiLLower.lean:718-726`) really does
   carry `((2 * orderOf χ : ℕ) : ℝ) ^ 2` in a denominator and subtract `primeDivSum q X`
   — that half was true, and is why it cannot feed this lemma.
-* But `capFreeFloor_all_chi_vt` (`Salt/MR/VkMidSharp.lean:458`) binds `∃ K` **outside**
+* But `capFreeFloor_all_chi_vt` (`Salt/MR/VkMidSharp.lean:461`) binds `∃ K` **outside**
   `∀ (q) [NeZero q] (χ) (X)`, so its floor value is uniform in `q` and `χ`; and
   `CapFreeFloor` (`Salt/MR/CapFreeArm.lean:111-113`) is stated over the box `|v| ≤ X`,
   which is this lemma's `|t| ≤ X`.  The two objects meet definitionally, by
@@ -177,7 +177,7 @@ family member's non-uniformity was generalised to the family, and
   `pretDistSq_lam_eq_lamCoeff`.
 
 ⛔ **THE RESIDUAL, STATED SO IT IS NOT MISTAKEN FOR CLOSURE.**  That floor is gated by a
-**per-`q` threshold hypothesis** (`VkMidSharp.lean:461-466`), which this lemma's `∀ q ≤ Q`
+**per-`q` threshold hypothesis** (`VkMidSharp.lean:464-469`), which this lemma's `∀ q ≤ Q`
 needs discharged at *every* `q`.  A `q ≤ Q`-shaped discharge of it was **NOT FOUND UNDER
 THREE ARMS**; the nearest landed instrument, `pieceFloor_vt_threshold_of_loglog`
 (`Salt/MR/RbdSupply.lean:496`), does exactly this job but at the arc-denominator cap
@@ -336,7 +336,7 @@ The chain, all three links landed:
 ⛔ **SCOPE.**  This closes the *shape* of design-block gap G1: it turns a cap-free datum
 floor into a `mrtQuality` floor.  It does **not** produce the hypothesis `hfloor`.  The
 residual named at `MRTPort.lean` — that `capFreeFloor_all_chi_vt`
-(`Salt/MR/VkMidSharp.lean:458`) is gated by a per-`q` threshold with no `q ≤ Q`-shaped
+(`Salt/MR/VkMidSharp.lean:461`) is gated by a per-`q` threshold with no `q ≤ Q`-shaped
 discharge in the corpus — is untouched here and is exactly what `hfloor` still costs.
 **Read this as a producer for `mrtQuality`, never as "G1 is closed".**
 -/
