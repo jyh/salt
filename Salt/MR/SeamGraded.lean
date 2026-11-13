@@ -60,7 +60,7 @@ consequences, both structural:
   `Decomp` :219–276 at the graded predicate.
 * **G0b** — `isClosed_blockSmallG`, `measurableSet_UsetG`, `measurableSet_TsetG`,
   `measurableSet_seamTtotG`, `sdiff_biUnion_TsetG`, `seam_T_additivityG`,
-  `seam_TU_splitG`.  Mirrors `SeamSplit` :414–546.  `far_leg_collapse` (`SeamSplit` :559)
+  `seam_TU_splitG`.  Mirrors `SeamSplit` :424–558.  `far_leg_collapse` (`SeamSplit` :559)
   is **predicate-free** and is reused verbatim — no graded twin is needed or wanted.
 * **G0c** — `prop_A3_T1_row_split_weightedG` (+ the crude twin).  Mirrors
   `SeamBallWeighted` :248/:283.  `annulus_ball_far_split` and `ball_leg_of_sup_weighted` are

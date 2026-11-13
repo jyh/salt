@@ -11823,7 +11823,7 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 
 ## 2026-07-25 — hmin-on-ℝ vacuous in the live band (the sixth vacuity catch, pre-consumption)
 
-- **Where**: Salt/MR/RHSGrade.lean:189/:829/:898 (center_dist_floor,
+- **Where**: Salt/MR/RHSGrade.lean:189/:834/:903 (center_dist_floor,
   hRHS_discharged, center_halasz_of_grade's hmin binder).
 - **Finding** (GRADE-SCOPE): pretDistSq is a FINITE sum; by Kronecker
   density of {p^{iv}} in the torus, inf over v ∈ ℝ = Σ(1−|f(p)|)/p — zero

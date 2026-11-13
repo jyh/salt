@@ -71,7 +71,7 @@ noncomputable def ramP2coeffEndMR (N X P Q : ℕ) (a b c : ℕ → ℂ) (n : ℕ
 
 /-! ## §2 — THE `spoly`/MOMENT/CONTINUITY TRIPLE
 
-`RamareMR`:676-724 verbatim at the fused family.  The fibre map `hmaps` discards the inner
+`RamareMR`:687-737 verbatim at the fused family.  The fibre map `hmaps` discards the inner
 filter predicate outright — it reads only `ramHonMR`'s own window — so the transplant is
 byte-for-byte. -/
 

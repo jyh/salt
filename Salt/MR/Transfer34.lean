@@ -348,7 +348,7 @@ theorem transfer_at_scale_34 {f : ℕ → ℂ} (hf1 : f 1 = 1)
 
 /-! ## §4 (T-4) — the CASE-B far transfer at the `3/4` denominator
 
-`CofactorBall`:175/:217, re-run at `ballErr34`.  The far arm pays the GS 7.1 error
+`CofactorBall`:175/:223, re-run at `ballErr34`.  The far arm pays the GS 7.1 error
 ADDITIVELY (never multiplied by the weight), so the whole gain of R3 lands directly on the
 exit constant: `farErr34` has `(log W)^{3/4}` where `farErr` has `√(log W)`. -/
 
