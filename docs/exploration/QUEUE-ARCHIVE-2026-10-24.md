@@ -1613,7 +1613,7 @@ RESURRECTS THEM:**
     — **MRT THEOREM A.1 + THE MAJOR ARC.** A.1 (`1503.05121` p.20) is the plain
     `L²` MR short-interval mean-value theorem: **no `1_S`, no `W`, no `d`, no (2.1)/(2.3), no
     exponential twist.** ⭐ **PARTS ARE LANDED, ASSEMBLY IS NOT** (probe 2): the short-interval
-    mean-square family `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:914`) / `_concrete`
+    mean-square family `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:948`) / `_concrete`
     (`:1045`) / `_kernel` (`KernelCarry.lean:1162`) is A.1's own shape; Halász in 65 files with
     closed numeric instances. **CLASS: assigned after a targeted read (B/C expected). NOT `D`.**
 14. ✅✅ **BLOCK-C REWIRE — LANDED `3c6bd64f` 2026-08-21.** New file `Salt/MR/MRTQualityLam.lean`
@@ -5033,7 +5033,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
       "B/C expected" was partly resting on the claim I have just withdrawn.**
       *(The family below is real and useful; only its identification with A.1 is retracted.)*
       The landed short-interval mean-square family:
-      `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:914`) · `_concrete` (`:1045`) ·
+      `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:948`) · `_concrete` (`:1045`) ·
       `_kernel` (`KernelCarry.lean:1162`) · `shortInterval_vonMangoldt_le`
       (`ShortIntervalPsi.lean:407`).
       ⛔ **No ASSEMBLED "MR short-interval mean value" statement exists** (searched
@@ -5054,7 +5054,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
       the arc design block is UNBLOCKED**, on the corrected labelling and against the reduced spine.
     ⭐⭐ **THE JOIN'S COST IS NO LONGER UNMEASURED — MEASURED 2026-08-21 18:0x, math seat.**
     **SUPPLY SIDE, 3 OF 4 ANALYTIC HYPOTHESES ARE ALREADY DISCHARGED.** `lemma14_shortInterval_meansq`
-    (`PerronMeanSq.lean:914`) carries four — `hMsup`, `hGint`, `hPerron`, `hGsq`. The `_concrete`
+    (`PerronMeanSq.lean:948`) carries four — `hMsup`, `hGint`, `hPerron`, `hGsq`. The `_concrete`
     variant (`:1045`) discharges **three**: `hGint` by `gapMaj_sq_intervalIntegrable`, `hPerron` by
     `perron_gap_le_gapMaj` + `perron_guards_ae`, and `hGsq` by folding `Egap` into an explicit
     `34560·δ·(…)² + 1152·(…)²` term. ⇒ **`hMsup` IS THE ONLY SURVIVOR, and ALL THREE family members
@@ -5560,7 +5560,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    — the door may be twisted by any shift up to ~`e³·log H` before a numeral has to move.
    ✅ **THE OTHER FOUR ARMS, ALL FREE AT h = 2:** `P₁` gate `log₂h` bits vs `Adoor ≥ 2^36` (arm 1,
    re-verified at the bytes: `calE A G 1 = A` `SeamCalibration.lean:102`, `Adoor_ge`
-   `DoorFrame.lean:86`) ×6.9e10 · scale gate `5·log h` vs `≈9.9e7` ×2.8e7 · `log X` floor `log h`
+   `DoorFrame.lean:88`) ×6.9e10 · scale gate `5·log h` vs `≈9.9e7` ×2.8e7 · `log X` floor `log h`
    vs `≈1e9` ×1.5e9 · Abel drift factor `h²` vs `C(log H)^{1/4}loglog H` ×≈9e2.
    ⭐ **`qgraded_drift_price_le` IS ALREADY h-UNIFORM** (`M4BridgePhase.lean:403-406`): stated with
    a FREE `A` under `(q:ℝ) ≤ A`, so `A := h·arcDen 12 H` instantiates it VERBATIM. The commission's
