@@ -10,7 +10,7 @@ import Salt.SW.Hyperbola
 # The `L₁` slot — the effective `L(1,χ)` lower bound at real `χ`, and its absorption
 
 `Salt/MR/SiegelArm.lean` closes ROUTE A's real-character branch **modulo one slot**: its
-`chi_floor_real_of_L1` (`SiegelArm.lean:722`) takes a number `L₁` with
+`chi_floor_real_of_L1` (`SiegelArm.lean:733`) takes a number `L₁` with
 
   `0 < L₁`,  `L₁ ≤ 1`,  `L₁ ≤ (L(1,χ)).re`,  `32·diskConst q/L₁ ≤ log X`
 
@@ -391,7 +391,7 @@ theorem door_L1_debit_absorbed {c A Z ε : ℝ} (hc : 0 < c) (hA : 0 ≤ A) (hZ 
 /-! ## §3 — the consumer plug: the `q`-uniform ROUTE-A floor -/
 
 /-- **`chi_floor_real_uniform` — the door's shape, from the `L₁` interface alone.**
-`chi_floor_real_of_L1` (`SiegelArm.lean:722`) instantiated at the uniform slot value
+`chi_floor_real_of_L1` (`SiegelArm.lean:733`) instantiated at the uniform slot value
 `L₁ := c·q^{−A}`.  The three side conditions are discharged here: `0 < c·q^{−A}` and
 `c·q^{−A} ≤ 1` (from `c ≤ 1`, `q ≥ 1`, `A ≥ 0`) and the interface supplies
 `c·q^{−A} ≤ (L(1,χ)).re`.  What remains a hypothesis of the CONCLUSION is the `diskConst`

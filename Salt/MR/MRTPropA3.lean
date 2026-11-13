@@ -4042,7 +4042,7 @@ theorem mrtThmA1_of_mrtThmA1GJ_empty (C : ℝ) (Pseq Qseq : ℕ → ℕ)
 
 The Parseval assembly is landed (`parseval_bound_of_propA3_shape`, `MRTPropA3Bridge.lean:204`)
 and its left-hand side is A.2's — **except for the window convention.**  `shortSum`
-(`Lemma14.lean:479`) sums the HALF-OPEN `(x, x+h]`; `mrtShortMean` (`MRTThmA1.lean:89`) averages
+(`Lemma14.lean:486`) sums the HALF-OPEN `(x, x+h]`; `mrtShortMean` (`MRTThmA1.lean:89`) averages
 the CLOSED `[x, x+h]` (that identification is `mem_mrtShortWindow`, already proved).
 
 The gap is exactly `x ≤ n` versus `x < n`, so the two index sets differ **only at `n = x`** — a

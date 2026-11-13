@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # The A.3 → `hMsup` bridge — the join, in one lemma
 
-`lemma14_shortInterval_meansq` (`PerronMeanSq.lean:914`) carries four analytic
+`lemma14_shortInterval_meansq` (`PerronMeanSq.lean:948`) carries four analytic
 hypotheses; three are discharged by its `_concrete` variant and **`hMsup` is the
 only survivor**, carried by every member of the family and passed upward at the
 live application (`Eq26Compose.lean:493`).
