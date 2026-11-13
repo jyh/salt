@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `e8b2cfbe` · source digest `413eb523d8582f47` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `7e492a4a` · source digest `3fc48b3d2f9d3ec7` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23413 · with a proof/definition body: 23413 · direct corpus references (edges): 87657 · audited results: 9148 · corpus Prop-valued names: 686.
+Declarations indexed: 23415 · with a proof/definition body: 23415 · direct corpus references (edges): 87641 · audited results: 9148 · corpus Prop-valued names: 686.
 
 ## Hypothesis status (Deliverable A)
 
@@ -985,7 +985,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | circle method / Fourier | 181 | 83 | 563 | 640 | 22 | 10 | 0 | 1235 | 1171 |
 | entropy decrement | 1404 | 534 | 525 | 464 | 78 | 38 | 0 | 1105 | 650 |
 | large sieve | 136 | 18 | 719 | 598 | 1 | 22 | 0 | 1340 | 1326 |
-| Selberg/Brun sieve | 5684 | 952 | 3763 | 1357 | 65 | 94 | 0 | 5279 | 4412 |
+| Selberg/Brun sieve | 5686 | 952 | 3763 | 1357 | 65 | 94 | 0 | 5279 | 4412 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1610 | 747 | 1500 | 719 | 4 | 19 | 0 | 2242 | 1592 |
 | zero-density / zero-free regions | 728 | 295 | 1022 | 749 | 2 | 20 | 0 | 1793 | 1539 |
 | character sums / L-functions | 4329 | 2196 | 1825 | 853 | 81 | 99 | 0 | 2858 | 966 |
@@ -1183,7 +1183,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | zero-density / zero-free regions | 1539 | 295 | 728 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1592 | 747 | 1610 |
 | Mertens / PNT-type | 1638 | 67 | 254 |
-| Selberg/Brun sieve | 4412 | 952 | 5684 |
+| Selberg/Brun sieve | 4412 | 952 | 5686 |
 
 ## Audited results — the 300 most depended-upon (cap; all rows in `docs/methods-catalogue.tsv`)
 
