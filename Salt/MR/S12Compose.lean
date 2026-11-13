@@ -206,10 +206,19 @@ fails).  The `16` rather than `8` is the graded price's `H`-decaying head — on
 the terminal's ceiling conjunct, one for `M4Maximal.m4SmallGradeFits`'s half. -/
 def s12DeltaSock (δ₀ K : ℝ) : ℝ := Real.sqrt (δ₀ / (16 * K))
 
+/-- `0 < s12DeltaSock δ₀ K` at `hδ : 0 < δ₀`, `hK : 0 < K`: `√(δ₀/(16K))` of a positive quotient
+(`Real.sqrt_pos`). Read by `DoorSocket`, `FlatDoorEpsRung2`, `FlatDoorUniform`,
+`S12FuseCompose`, `S15Compose`, `S15Witness`, `StrideGradeReach`, `StrideGradeWalls` and
+`XThread`, and six times in this file. -/
 theorem s12DeltaSock_pos {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K) : 0 < s12DeltaSock δ₀ K := by
   unfold s12DeltaSock
   exact Real.sqrt_pos.mpr (by positivity)
 
+/-- `s12DeltaSock δ₀ K ^ 2 = δ₀/(16K)` at `hδ : 0 < δ₀`, `hK : 0 < K`: the socket threshold
+squared is its radicand (`Real.sq_sqrt`) — the form the `A4` ceiling conjunct is read at. Read
+by `DoorSocket`, `FlatDoorEpsRung2`, `FlatDoorUniform`, `S12FuseCompose`, `S15Witness`,
+`S16Budget`, `StrideGrade12Walls`, `StrideGradeWalls` and `XThread`, and six times in this
+file. -/
 theorem s12DeltaSock_sq {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K) :
     s12DeltaSock δ₀ K ^ 2 = δ₀ / (16 * K) := by
   unfold s12DeltaSock
@@ -386,33 +395,14 @@ theorem logChowla2_capstone_conditional (Aexp : ℝ) (hAexp : 0 < Aexp) :
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
     have hH0 : 0 < H := by have := R.hHlo_floor; omega
-    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
-      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
-      (hfit H hlo hhi)
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
-    have hceil := hceilconj H hlo hhi
-    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
-            (fun H => 2 * rStrWitness H) H
-        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) :=
-      mul_le_mul_of_nonneg_left hle hfac0
-    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
-        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (108 / 5 * RSanDoorRho ρ H)) := by
-      unfold m4Cmax
-      ring
-    rw [hval] at hstep
-    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
+    have h2 := door_socket_ceiling_of_fits (j₀ := doorRowFloor M) hH0 (hfit H hlo hhi)
+      (hceilconj H hlo hhi)
     have hKpos : (0 : ℝ) < 16 * K := by linarith
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * K) := by
       rw [hδssq]
       field_simp
       ring
-    linarith [hstep, h2, hval2.le, hval2.ge]
+    linarith [h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     have hval : 2 * K * (δ₀ / (8 * K)) = δ₀ / 4 := by
       field_simp
@@ -560,33 +550,14 @@ theorem logChowla2_capstone_conditional_perBlock (Aexp : ℝ) (hAexp : 0 < Aexp)
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
     have hH0 : 0 < H := by have := R.hHlo_floor; omega
-    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
-      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
-      (hfit H hlo hhi)
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
-    have hceil := hceilconj H hlo hhi
-    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
-            (fun H => 2 * rStrWitness H) H
-        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) :=
-      mul_le_mul_of_nonneg_left hle hfac0
-    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
-        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (108 / 5 * RSanDoorRho ρ H)) := by
-      unfold m4Cmax
-      ring
-    rw [hval] at hstep
-    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
+    have h2 := door_socket_ceiling_of_fits (j₀ := doorRowFloor M) hH0 (hfit H hlo hhi)
+      (hceilconj H hlo hhi)
     have hKpos : (0 : ℝ) < 16 * K := by linarith
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * K) := by
       rw [hδssq]
       field_simp
       ring
-    linarith [hstep, h2, hval2.le, hval2.ge]
+    linarith [h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     have hval : 2 * K * (δ₀ / (8 * K)) = δ₀ / 4 := by
       field_simp
@@ -794,33 +765,14 @@ theorem logChowla2_capstone_final (Aexp : ℝ) (hAexp : 0 < Aexp) :
   · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
     intro H hlo hhi
     have hH0 : 0 < H := by have := R.hHlo_floor; omega
-    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
-      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
-      (hfit H hlo hhi)
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
-    have hceil := hceilconj H hlo hhi
-    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
-            (fun H => 2 * rStrWitness H) H
-        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) :=
-      mul_le_mul_of_nonneg_left hle hfac0
-    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
-        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (108 / 5 * RSanDoorRho ρ H)) := by
-      unfold m4Cmax
-      ring
-    rw [hval] at hstep
-    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
+    have h2 := door_socket_ceiling_of_fits (j₀ := doorRowFloor M) hH0 (hfit H hlo hhi)
+      (hceilconj H hlo hhi)
     have hKpos : (0 : ℝ) < 16 * K := by linarith
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * K) := by
       rw [hδssq]
       field_simp
       ring
-    linarith [hstep, h2, hval2.le, hval2.ge]
+    linarith [h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     have hval : 2 * K * (δ₀ / (8 * K)) = δ₀ / 4 := by
       field_simp
@@ -1021,33 +973,14 @@ theorem logChowla2_capstone_conditional_gk (K : ℕ) (hK : K ≤ 170000000)
   · exact gate6_of_j0_floor R hρ1 hj0
   · intro H hlo hhi
     have hH0 : 0 < H := by have := R.hHlo_floor; omega
-    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
-      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
-      (hfit H hlo hhi)
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
-    have hceil := hceilconj H hlo hhi
-    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
-            (fun H => 2 * rStrWitness H) H
-        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) :=
-      mul_le_mul_of_nonneg_left hle hfac0
-    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
-        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (108 / 5 * RSanDoorRho ρ H)) := by
-      unfold m4Cmax
-      ring
-    rw [hval] at hstep
-    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
+    have h2 := door_socket_ceiling_of_fits (j₀ := doorRowFloor M) hH0 (hfit H hlo hhi)
+      (hceilconj H hlo hhi)
     have hKpos : (0 : ℝ) < 16 * Kc := by linarith
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
       rw [hδssq]
       field_simp
       ring
-    linarith [hstep, h2, hval2.le, hval2.ge]
+    linarith [h2, hval2.le, hval2.ge]
   · have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
       field_simp
       ring
@@ -1165,33 +1098,14 @@ theorem logChowla2_capstone_conditional_perBlock_gk (K : ℕ) (hK : K ≤ 170000
   · exact gate6_of_j0_floor R hρ1 hj0
   · intro H hlo hhi
     have hH0 : 0 < H := by have := R.hHlo_floor; omega
-    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
-      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
-      (hfit H hlo hhi)
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
-    have hceil := hceilconj H hlo hhi
-    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
-            (fun H => 2 * rStrWitness H) H
-        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) :=
-      mul_le_mul_of_nonneg_left hle hfac0
-    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
-        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (108 / 5 * RSanDoorRho ρ H)) := by
-      unfold m4Cmax
-      ring
-    rw [hval] at hstep
-    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
+    have h2 := door_socket_ceiling_of_fits (j₀ := doorRowFloor M) hH0 (hfit H hlo hhi)
+      (hceilconj H hlo hhi)
     have hKpos : (0 : ℝ) < 16 * Kc := by linarith
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
       rw [hδssq]
       field_simp
       ring
-    linarith [hstep, h2, hval2.le, hval2.ge]
+    linarith [h2, hval2.le, hval2.ge]
   · have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
       field_simp
       ring
@@ -1320,33 +1234,14 @@ theorem logChowla2_capstone_final_gk (K : ℕ) (hK : K ≤ 170000000)
   · exact gate6_of_j0_floor R hρ1 hj0
   · intro H hlo hhi
     have hH0 : 0 < H := by have := R.hHlo_floor; omega
-    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
-      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
-      (hfit H hlo hhi)
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
-    have hceil := hceilconj H hlo hhi
-    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
-            (fun H => 2 * rStrWitness H) H
-        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) :=
-      mul_le_mul_of_nonneg_left hle hfac0
-    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
-        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-            * (108 / 5 * RSanDoorRho ρ H)) := by
-      unfold m4Cmax
-      ring
-    rw [hval] at hstep
-    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
-        * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
+    have h2 := door_socket_ceiling_of_fits (j₀ := doorRowFloor M) hH0 (hfit H hlo hhi)
+      (hceilconj H hlo hhi)
     have hKpos : (0 : ℝ) < 16 * Kc := by linarith
     have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
       rw [hδssq]
       field_simp
       ring
-    linarith [hstep, h2, hval2.le, hval2.ge]
+    linarith [h2, hval2.le, hval2.ge]
   · have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
       field_simp
       ring

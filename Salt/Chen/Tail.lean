@@ -59,20 +59,33 @@ open MeasureTheory intervalIntegral Set
 `λ = 6/5` for `s ≥ 2`.  Dominates `fₙ/(2e²ρⁿ)` (see `fseq_le`). -/
 noncomputable def hbar (s : ℝ) : ℝ := Real.exp (-2 - (6/5) * (max s 2 - 2))
 
+/-- `0 < hbar s`: the majorant is an exponential (`Real.exp_pos`). Read by `PLCascade` and
+`SharpStep`, and eight times in this file. -/
 theorem hbar_pos (s : ℝ) : 0 < hbar s := Real.exp_pos _
 
+/-- `hbar s = exp(−2 − (6/5)(s − 2))` at `2 ≤ s`: the `max s 2` is `s` (`max_eq_left`) — the
+geometric-decay branch. Read by `TnInduction` and seven times in this file. -/
 theorem hbar_hi {s : ℝ} (hs : 2 ≤ s) : hbar s = Real.exp (-2 - (6/5) * (s - 2)) := by
   unfold hbar; rw [max_eq_left hs]
 
+/-- `hbar s = e⁻²` at `s ≤ 2`: the `max s 2` is `2` (`max_eq_right`) and the exponent collapses
+to `−2` — the flat branch. Read by `MassLedger`, `SharpF` and `TnInduction`, and six times in
+this file. -/
 theorem hbar_lo {s : ℝ} (hs : s ≤ 2) : hbar s = Real.exp (-2) := by
   unfold hbar; rw [max_eq_right hs]; norm_num
 
+/-- `Continuous hbar`: `exp` of an affine function of `max s 2` (`Real.continuous_exp`,
+`continuous_id.max continuous_const`). Read by `MassLedger` and `MassLedgerA1`, and four times
+in this file. -/
 theorem hbar_continuous : Continuous hbar := by
   unfold hbar
   exact Real.continuous_exp.comp <|
     (continuous_const.sub (continuous_const.mul
       ((continuous_id.max continuous_const).sub continuous_const)))
 
+/-- `Antitone hbar`: the exponent `−2 − (6/5)(max s 2 − 2)` decreases with `s` (`max_le_max`,
+`nlinarith`) and `exp` is monotone (`Real.exp_le_exp`). Read once in this file; no consumer
+outside it. -/
 theorem hbar_antitone : Antitone hbar := by
   intro a b hab
   unfold hbar
@@ -83,24 +96,33 @@ theorem hbar_antitone : Antitone hbar := by
 Rational upper bounds on `exp` of `3/10, 3/5, 9/10, 6/5`, obtained from the
 Taylor remainder (`Real.exp_bound`); `exp (6/5)` is `exp (3/5)²`. -/
 
+/-- `exp(3/10) ≤ 1.35`: `Real.exp_bound` at `n = 5` Taylor terms, the remainder absorbed by
+`norm_num` and `nlinarith` — one of the four numeral exponentials the tail ledger's constants
+are priced from. Read twice in this file; no consumer outside it. -/
 theorem exp_310_le : Real.exp (3/10) ≤ 1.35 := by
   have h := Real.exp_bound (x := 3/10) (by norm_num) (n := 5) (by norm_num)
   rw [abs_le] at h; have := h.2
   simp only [Finset.sum_range_succ, Finset.sum_range_zero] at this
   norm_num at this ⊢; nlinarith [this]
 
+/-- `exp(3/5) ≤ 1.8225`: `Real.exp_bound` at `n = 6`, closed by `norm_num` and `nlinarith`. Read
+three times in this file (`exp_65_le` among them); no consumer outside it. -/
 theorem exp_35_le : Real.exp (3/5) ≤ 1.8225 := by
   have h := Real.exp_bound (x := 3/5) (by norm_num) (n := 6) (by norm_num)
   rw [abs_le] at h; have := h.2
   simp only [Finset.sum_range_succ, Finset.sum_range_zero] at this
   norm_num at this ⊢; nlinarith [this]
 
+/-- `exp(9/10) ≤ 2.46`: `Real.exp_bound` at `n = 7`, closed by `norm_num` and `nlinarith`. Read
+twice in this file; no consumer outside it. -/
 theorem exp_910_le : Real.exp (9/10) ≤ 2.46 := by
   have h := Real.exp_bound (x := 9/10) (by norm_num) (n := 7) (by norm_num)
   rw [abs_le] at h; have := h.2
   simp only [Finset.sum_range_succ, Finset.sum_range_zero] at this
   norm_num at this ⊢; nlinarith [this]
 
+/-- `exp(6/5) ≤ 3.3216`: `exp(6/5) = exp(3/5)²` (`Real.exp_add`) and `exp_35_le` squared
+(`1.8225² = 3.32150625`, `nlinarith`). Read three times in this file; no consumer outside it. -/
 theorem exp_65_le : Real.exp (6/5) ≤ 3.3216 := by
   have he : Real.exp (6/5) = Real.exp (3/5) * Real.exp (3/5) := by
     rw [← Real.exp_add]; norm_num

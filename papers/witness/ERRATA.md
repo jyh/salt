@@ -83,7 +83,7 @@ band lane, eight numeric riders on constants the theorem itself produces, and tw
 (`logChowla2_witnessed_scale_flat_L_v2` (`Salt/MR/S16FlatFinal.lean:130`), Theorem thm:pearl, takes `A₀` with
 `162 ≤ A₀` and produces one `A` with `A₀ ≤ A`; the manuscript's own :1201–1202 says "the theorem produces, for every
 `A₀`, some `A ≥ A₀`". The hoisted form of §sec:limit, `logChowla2_witnessed_scale_flat_L_v2_uniform`
-(`Salt/MR/S16Uniform.lean:847`), does hold at every `A` with `162 ≤ A` and `budgetAFlat ε β ≤ A`, but
+(`Salt/MR/S16Uniform.lean:828`), does hold at every `A` with `162 ≤ A` and `budgetAFlat ε β ≤ A`, but
 `budgetAFlat ε β = 2304·log 4/(ε⁶β²)` is computed from constants the theorem produces, and only `0 < β` is known of
 `β`, so that floor is not explicit.)
 
@@ -107,5 +107,5 @@ behind it rather than a bound.
 (The declaration, `Salt.MR.LFunction_band_lower` (`Salt/MR/SiegelArm.lean:161`), uses no Siegel input. Its docstring
 says the minimum "is NOT effective in `q`: that, and only that, is where Siegel's ineffective constant would enter".
 Siegel's theorem itself enters the corollary elsewhere: `xiCarveWidth_of_siegel` (`Salt/MR/PortClose.lean:76`)
-obtains `siegel_real_carve` (`Salt/MR/PortAssembly.lean:1178`), which obtains `Salt.SW.siegel_theorem`. The
+obtains `siegel_real_carve` (`Salt/MR/PortAssembly.lean:1181`), which obtains `Salt.SW.siegel_theorem`. The
 sentence holds only inside its own paragraph. Found by math's reach census, salt #525.)

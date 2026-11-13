@@ -72,10 +72,16 @@ namespace Salt.Chen
 unfiltered even peel produces, still satisfy `σ ≥ 1`). -/
 def loBnd (side : ℕ) : ℝ := if side % 2 = 1 then 1 else 2
 
+/-- `loBnd 1 = 1`, by `norm_num [loBnd]`: the odd side's lower edge. Read by `SharpF`,
+`WindowedStepC` and `WindowedStepP`, and three times in this file. -/
 theorem loBnd_one : loBnd 1 = 1 := by norm_num [loBnd]
 
+/-- `loBnd 2 = 2`, by `norm_num [loBnd]`: the even side's lower edge. Read by `SharpClose`,
+`SharpF`, `SharpH2`, `WindowedStepC` and `WindowedStepP`, and three times in this file. -/
 theorem loBnd_two : loBnd 2 = 2 := by norm_num [loBnd]
 
+/-- `1 ≤ loBnd side`: both branches (`1`, `2`) are `≥ 1` (`split`, `norm_num`). Read by
+`WindowedStepC` and `WindowedStepP`, and once in this file. -/
 theorem one_le_loBnd (side : ℕ) : (1 : ℝ) ≤ loBnd side := by
   unfold loBnd; split <;> norm_num
 

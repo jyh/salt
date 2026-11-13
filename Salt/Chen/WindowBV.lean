@@ -260,6 +260,9 @@ noncomputable def cutoffPrimEnergy (α β : ℕ → ℂ) (X Y T f : ℕ) : ℝ :
   ∑ ψ ∈ Finset.univ.filter (fun ψ : DirichletCharacter ℂ f => ψ.IsPrimitive),
     ‖cutoffTwist α β X Y T f ψ‖
 
+/-- `0 ≤ cutoffPrimEnergy α β X Y T f`: a sum over primitive `ψ mod f` of norms
+(`Finset.sum_nonneg`, `norm_nonneg`). Read by `WindowBVDescent`, `WindowClose`, `WindowErrFold`
+and `WindowSmallChi`; not in this file beyond its proof. -/
 lemma cutoffPrimEnergy_nonneg (α β : ℕ → ℂ) (X Y T f : ℕ) : 0 ≤ cutoffPrimEnergy α β X Y T f :=
   Finset.sum_nonneg fun _ _ => norm_nonneg _
 

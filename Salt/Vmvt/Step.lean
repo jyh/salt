@@ -47,15 +47,15 @@ and we close each case:
 * **Prime input — DONE (this session).**  `exists_transversal_prime_set` supplies the
   pigeonhole cardinality `k·k·(k−1) < 2·#{p ∈ (y,2y] : prime}` for `y ≥ Y(k)` — the input
   to `distinctBox_le_card_mul_sum`.
-* **R3 — RESIDUAL (flagged).**  The transversal count `Ncount(transBox p) ≤
-  k!·p^{k(k−1)/2}·x^k·[IH box at scale x/p]`.  Needs NEW frame machinery: a block-split of
-  the `Ncount`/`sig` counting object into the designated-`k` and rest-`kr` blocks, plus the
-  p-adic reduction that lands the designated block in `LinnikSol` (feeding `linnik_lemma`)
-  and the rest in an affine box (`Jk_image_affine`).  See `docs/blueprints/flags.md`.
-* **R4-`S₁` assembly — RESIDUAL (flagged).**  Consumes R3 + `exists_transversal_prime_set`
-  + `distinctBox_le_card_mul_sum` + the IH, converting the `p`-powers to `x`-powers with
-  `p ∈ (x^{1/k}, 2x^{1/k}]` (the `x^{1/k}` construction) and the IH at scale `x/p`, matching
-  the kernel-verified `vmvtExp_succ`.  See `docs/blueprints/flags.md`.
+* **R3 — RESIDUAL when this file landed; closed by `transBox_Ncount_le` (`Transversal3.lean`).**
+  The transversal count `Ncount(transBox p) ≤ k!·p^{k(k−1)/2}·x^k·[IH box at scale x/p]`.  It
+  needed NEW frame machinery: a block-split of the `Ncount`/`sig` counting object into the
+  designated-`k` and rest-`kr` blocks, plus the p-adic reduction that lands the designated block
+  in `LinnikSol` (`linnik_lemma`) and the rest in an affine box (`Jk_image_affine`).
+* **R4-`S₁` assembly — RESIDUAL when this file landed; closed by `vmvt_step_transversal_large`
+  (`StepFull.lean`).**  It consumes R3 + `exists_transversal_prime_set` +
+  `distinctBox_le_card_mul_sum` + the IH at scale `x/p`, with `p ∈ (x^{1/k}, 2x^{1/k}]`,
+  matching the kernel-verified `vmvtExp_succ`.  See `docs/blueprints/flags.md`.
 -/
 
 namespace Salt.Vmvt

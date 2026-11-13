@@ -495,6 +495,9 @@ Both are `≤ L`, which is what keeps every instance of the χ-summed socket ins
 window range. -/
 def capL (L d : ℕ) : ℕ := if d = 1 then L else L / d + 1
 
+/-- `dilLen K n d ≤ capL L d` at `0 < d`, `K ≤ L`: at `d = 1` the dilated length is `K ≤ L`; at
+`d ≥ 2` it is `≤ K/d + 1 ≤ L/d + 1` (`M4BridgeDilate.dilLen_le`, `Nat.div_le_div_right`) — the
+dilated window fits inside the stratum cap. Read by `M4RowLinear` and twice in this file. -/
 theorem dilLen_le_capL {K n L d : ℕ} (hd0 : 0 < d) (hKL : K ≤ L) :
     dilLen K n d ≤ capL L d := by
   unfold capL
@@ -505,6 +508,9 @@ theorem dilLen_le_capL {K n L d : ℕ} (hd0 : 0 < d) (hKL : K ≤ L) :
   · rw [if_neg hd1]
     exact le_trans (dilLen_le K n hd0) (Nat.add_le_add_right (Nat.div_le_div_right hKL) 1)
 
+/-- `capL L d ≤ L` at `0 < d`, `2 ≤ L`: at `d = 1` it is `L`; at `d ≥ 2`,
+`L/d + 1 ≤ L/2 + 1 ≤ L` (`Nat.div_le_div_left`, `omega`) — the cap stays inside the socket's own
+window range. Read by `M4RowLinear` and `S16FlatTerminalLinearH`, and twice in this file. -/
 theorem capL_le {L d : ℕ} (hd0 : 0 < d) (hL : 2 ≤ L) : capL L d ≤ L := by
   unfold capL
   by_cases hd1 : d = 1
@@ -515,6 +521,9 @@ theorem capL_le {L d : ℕ} (hd0 : 0 < d) (hL : 2 ≤ L) : capL L d ≤ L := by
     have h2 : L / 2 + 1 ≤ L := by omega
     omega
 
+/-- `capL L d ≤ (L + d)/d` (in `ℝ`) at `0 < d`: at `d = 1`, `L ≤ L + 1`; at `d ≥ 2` the cast
+floor `⌊L/d⌋ + 1 ≤ L/d + 1 = (L + d)/d` (`Nat.cast_div_le`, `field_simp`). Read once in this
+file; no consumer outside it. -/
 theorem capL_le_div {L d : ℕ} (hd0 : 0 < d) :
     ((capL L d : ℕ) : ℝ) ≤ ((L : ℝ) + (d : ℝ)) / (d : ℝ) := by
   have hd0R : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd0
@@ -565,6 +574,8 @@ truncation speak the same object. -/
 def strataTerm (M q L d n : ℕ) : ℝ :=
   ∑ χ : DirichletCharacter ℂ (q / d), (doorChiSup χ M (capL L d) (n / d)) ^ 2
 
+/-- `0 ≤ strataTerm M q L d n`: a χ-sum of squares (`Finset.sum_nonneg`, `sq_nonneg`). Read once
+in this file; no consumer outside it. -/
 theorem strataTerm_nonneg (M q L d n : ℕ) : 0 ≤ strataTerm M q L d n :=
   Finset.sum_nonneg fun _ _ => sq_nonneg _
 
@@ -668,11 +679,20 @@ price's whole `q`-dependence.  At the door's magnitudes this is `≈ 12·loglog 
 `≈ 7.7`-nat residual of the freeze's D-3, never `arcDen` and never `q`. -/
 def strataResidual (H : ℕ) : ℝ := 1 + Real.log (arcDen 12 H)
 
+/-- `0 ≤ strataResidual H` at `1 ≤ arcDen 12 H`: `1 + log(arcDen 12 H)` with the logarithm
+nonnegative (`Real.log_nonneg`). Read by `DoorReceipt`, `FlatDoorAllGradesBand`,
+`FlatDoorEpsChain`, `FlatDoorEpsRung2`, `FlatDoorUniform`, `HloExportMR`, `HloExportMRFlatRoot`,
+`M4RowLinear`, `M4RowSpineLinear`, `M4SecondRoad`, `S11Thread`, `S12Compose`, `S16Compose`,
+`S16ComposeV4`, `S16FlatTerminalLinear`, `S16Uniform`, `V6SiegelFree`, `V7SiegelFree` and
+`XThread`, and twice in this file. -/
 theorem strataResidual_nonneg {H : ℕ} (h : (1 : ℝ) ≤ arcDen 12 H) : 0 ≤ strataResidual H := by
   have := Real.log_nonneg h
   unfold strataResidual
   linarith
 
+/-- `capL L d ≤ L/d + 1` (the `0 < d` binder is carried, not spent): at `d = 1` it is
+`L ≤ L + 1` (`omega`); at `d ≥ 2` it is the definition. Read by `M4RowLinear` and
+`S16FlatTerminalLinearH`, and three times in this file. -/
 theorem capL_le_div_succ {L d : ℕ} (_hd0 : 0 < d) : capL L d ≤ L / d + 1 := by
   unfold capL
   by_cases hd1 : d = 1
@@ -709,6 +729,9 @@ theorem le_mul_div_add {A d : ℕ} (hd0 : 0 < d) : A ≤ d * (A / d) + d := by
   conv_lhs => rw [← Nat.div_add_mod A d]
   exact Nat.add_le_add_left (Nat.mod_lt _ hd0).le _
 
+/-- `L ≤ d·capL L d` at `0 < d`: at `d = 1` equality; at `d ≥ 2`,
+`L = d·(L/d) + L % d ≤ d·(L/d) + d` (`Nat.div_add_mod`, `Nat.mod_lt`) — the cap's `d` strata
+cover the window. Read by `M4RowLinear` and `S16FlatTerminalLinearH`, and twice in this file. -/
 theorem le_mul_capL {L d : ℕ} (hd0 : 0 < d) : L ≤ d * capL L d := by
   unfold capL
   by_cases hd1 : d = 1

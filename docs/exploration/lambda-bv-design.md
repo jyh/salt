@@ -11,7 +11,7 @@ stopped waves aimed at already-landed work, at an open problem, and at the wrong
 ## R1 — §1's DISCRIMINATOR TESTS THE WRONG FIELD. **Support shape is irrelevant.**
 The identity in §1 is fine — *and it is already landed verbatim*, `Salt/TwinBar/ParityWall.lean:335`
 `lambda_mult_sum`. **But the dichotomy fails three ways against the corpus's own live sieves:**
-- **It returns REGIME A on the flagship BV consumer.** `Salt/Chen/TwinA1.lean:121` has
+- **It returns REGIME A on the flagship BV consumer.** `Salt/Chen/TwinA1.lean:126` has
   `support = Icc(x/2+2, x)` — an interval — with `weights = Λ(m−2)`. K1 would say "no BV"; the
   object is the Λ-mass in the class `n ≡ −2 (mod d)`, which is *precisely what BV exists for*.
 - **It is not invariant under a change of variable.** `Salt/Goldbach/A1.lean:51` mirrors that
@@ -76,7 +76,7 @@ boundary, not P1's, and the wave stops and reports.
 
 ## §0 — THE OBJECTS, exactly as the corpus states them
 
-From `Mathlib/NumberTheory/SelbergSieve.lean` (`multSum`, `rem`) and **from salt's own `Salt/Chen/LinearSieve.lean:307` (`rosserRemainder` — NOT a mathlib object; this block filed all three under one mathlib heading and two of them belong there)**:
+From `Mathlib/NumberTheory/SelbergSieve.lean` (`multSum`, `rem`) and **from salt's own `Salt/Chen/LinearSieve.lean:309` (`rosserRemainder` — NOT a mathlib object; this block filed all three under one mathlib heading and two of them belong there)**:
 
 ```
 multSum d      = Σ_{n ∈ s.support}  [d ∣ n] · s.weights n
