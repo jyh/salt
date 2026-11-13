@@ -103,14 +103,20 @@ private lemma rpow_div_five {x y : ℝ} (hy : 0 ≤ y) (h : y ^ (5 : ℕ) = x) (
   push_cast
   ring
 
+/-- `32768 ^ (1 / 5) = 8` in `ℝ`: `8 ^ 5 = 32768` (`rpow_div_five`). Private; read once in this
+file. -/
 private lemma gate_rpow_fifth : (32768 : ℝ) ^ ((1 : ℝ) / 5) = 8 := by
   rw [rpow_div_five (y := 8) (by norm_num) (by norm_num) 1, Real.rpow_one]
 
+/-- `32768 ^ (2 / 5) = 64` in `ℝ`: `8 ^ 5 = 32768` and `8 ^ 2 = 64` (`rpow_div_five`). Private;
+read once in this file. -/
 private lemma gate_rpow_two_fifths : (32768 : ℝ) ^ ((2 : ℝ) / 5) = 64 := by
   rw [rpow_div_five (y := 8) (by norm_num) (by norm_num) 2,
     show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
   norm_num
 
+/-- `32768 ^ (3 / 5) = 512` in `ℝ`: `8 ^ 5 = 32768` and `8 ^ 3 = 512` (`rpow_div_five`).
+Private; read once in this file. -/
 private lemma gate_rpow_three_fifths : (32768 : ℝ) ^ ((3 : ℝ) / 5) = 512 := by
   rw [rpow_div_five (y := 8) (by norm_num) (by norm_num) 3,
     show (3 : ℝ) = ((3 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
@@ -169,6 +175,8 @@ def Tstar2 (k L : ℝ) : ℝ := ypin2 L * k ^ eta2 L
 `L^{2/5} ≥ 64`, `L^{3/5} ≥ 512` are EXACT numerals at the gate. -/
 def pin2Gate : ℝ := Real.exp 32768
 
+/-- `0 < pin2Gate`: an exponential. Read once in this file and by `FlatDoorEpsRung2`,
+`FrameWitness`, `RegisterRepair`, `USetGradedPrice`, `V7Rated` and `V7RatedH`. -/
 lemma pin2Gate_pos : 0 < pin2Gate := Real.exp_pos _
 
 /-! ## §2 — the gates (law #253: every gate in-statement, every threshold explicit) -/
@@ -178,12 +186,15 @@ whole family a re-instantiation rather than a re-derivation. -/
 theorem log_ypin2 (L : ℝ) : Real.log (ypin2 L) = L ^ ((2 : ℝ) / 5) := by
   unfold ypin2; exact Real.log_exp _
 
+/-- `0 < ypin2 L`: an exponential. Read seven times in this file and by `PinFamily2`. -/
 lemma ypin2_pos (L : ℝ) : 0 < ypin2 L := Real.exp_pos _
 
 /-- `η₂ = 1/log y₂` — the corpus's `hη` binder, discharged in closed form for `L > 0`. -/
 theorem eta2_eq_inv_log {L : ℝ} (hL : 0 < L) : eta2 L = 1 / Real.log (ypin2 L) := by
   rw [log_ypin2, eta2, Real.rpow_neg hL.le, one_div]
 
+/-- `0 < eta2 L` at `0 < L`: a real power of a positive real. Read once in this file; no
+consumer outside it. -/
 lemma eta2_pos {L : ℝ} (hL : 0 < L) : 0 < eta2 L := Real.rpow_pos_of_pos hL _
 
 /-- **The `L`-power page at the gate.**  `L ≥ 32768` gives the three exact numerals. -/
@@ -288,9 +299,13 @@ theorem width_pin_gates_pin2 {k L : ℝ} (hk : pin2Gate ≤ k) (hL : L = Real.lo
   rw [h2]
   exact Real.rpow_le_rpow (by norm_num) h1 (by norm_num)
 
+/-- `1048576 ^ (1 / 5) = 16` in `ℝ`: `16 ^ 5 = 1048576` (`rpow_div_five`). Private; read once in
+this file. -/
 private lemma gate20_rpow_fifth : (1048576 : ℝ) ^ ((1 : ℝ) / 5) = 16 := by
   rw [rpow_div_five (y := 16) (by norm_num) (by norm_num) 1, Real.rpow_one]
 
+/-- `1048576 ^ (2 / 5) = 256` in `ℝ`: `16 ^ 5 = 1048576` and `16 ^ 2 = 256` (`rpow_div_five`).
+Private; read once in this file. -/
 private lemma gate20_rpow_two_fifths : (1048576 : ℝ) ^ ((2 : ℝ) / 5) = 256 := by
   rw [rpow_div_five (y := 16) (by norm_num) (by norm_num) 2,
     show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
@@ -810,6 +825,9 @@ private lemma log_price_floor2 {X L : ℝ} (hXe : Real.exp 1 ≤ X) (hXL : Real.
 (log 4+4)²`.  No `k`, no `X`, no `L`. -/
 def farCStar2 : ℝ := 720 * rhsCSF * Real.exp (24 / Real.exp 1) * (Real.log 4 + 4) ^ 2 / Real.pi
 
+/-- `0 ≤ farCStar2`: the constant unfolded, its factors positive (`rhsCSF_pos`, `Real.pi_pos`,
+`0 ≤ log 4`). Read once in this file and by `CaseASocket`, `CaseAWide`, `PinFamily2`,
+`RegisterRepair`, `SupplyGeneric` and `USetGradedPrice`. -/
 lemma farCStar2_nonneg : 0 ≤ farCStar2 := by
   have h := rhsCSF_pos
   have hlog4 : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)

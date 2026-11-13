@@ -247,6 +247,9 @@ definition — `cofactorRbd` and `Transfer34.cofactorRbd34` are untouched. -/
 def cofactorRbd34loc (c Cb X θ W Y Rmax R : ℝ) : ℝ :=
   3 * max (2 * caseAS2 c Cb (cofactorMfl X θ W) W) (farSupS34 W Y Rmax R)
 
+/-- `0 ≤ cofactorRbd34loc c Cb X θ W Y Rmax R` at `2 * c < 1`, `0 ≤ Cb`, `1 ≤ W`: the `max` is
+at least twice `caseAS2`, which is `≥ 0` (`caseAS2_nonneg`). Read three times in this file and
+by `CapFreeArm` and `M4MeanSq`. -/
 lemma cofactorRbd34loc_nonneg {c Cb X θ W Y Rmax R : ℝ} (hc1 : 2 * c < 1) (hCb0 : 0 ≤ Cb)
     (hW : 1 ≤ W) : 0 ≤ cofactorRbd34loc c Cb X θ W Y Rmax R := by
   have h1 : (0 : ℝ) ≤ 2 * caseAS2 c Cb (cofactorMfl X θ W) W := by
@@ -606,6 +609,9 @@ Carried, never set to `1` (⟦V5f⟧'s silent-vacuity catch). -/
 def gradeCR2 (Cb : ℝ) : ℝ :=
   6 * (gradeAbsConstC (1 / Real.exp 1) Cb * Real.exp 13 + 2 * farCStar + 2 * farCStar2 + 8) + 12
 
+/-- `1 < gradeCR2 Cb` at `0 ≤ Cb`: the grade constant unfolded, every other summand `≥ 0`
+(`gradeAbsConstC_nonneg`, `farCStar_nonneg`, `farCStar2_nonneg`). Read by `RegisterInhabit`; not
+read in this file. -/
 lemma one_lt_gradeCR2 {Cb : ℝ} (hCb0 : 0 ≤ Cb) : 1 < gradeCR2 Cb := by
   have he : (2 : ℝ) < Real.exp 1 := by linarith [Real.exp_one_gt_d9]
   have hc1 : 2 * (1 / Real.exp 1) < 1 := by
