@@ -800,8 +800,9 @@ def JointIntegrableAt (d : ℕ → ℂ) (t₀' M k L c₀ y η h : ℝ) : Prop :
 
 /-- `4·log L ≤ L` for `L ≥ 64` (`log √L ≤ √L − 1`, then `8√L ≤ L`).  The single
 threshold arithmetic behind BOTH remaining pin gates: `1/L ≤ η = 1/(4 log L)` and
-`(log k)⁴ ≤ k`. -/
-private lemma four_log_le_self {L : ℝ} (h : 64 ≤ L) : 4 * Real.log L ≤ L := by
+`(log k)⁴ ≤ k`.  Public since O13-e: `FarClose`, `FarStar`, `GradeConst`, `GradeWindowC`,
+`RHSGradeC` and `SupClose` each carried a verbatim private copy under a suffix. -/
+lemma four_log_le_self {L : ℝ} (h : 64 ≤ L) : 4 * Real.log L ≤ L := by
   have hL0 : (0 : ℝ) < L := by linarith
   have hs0 : (0 : ℝ) < Real.sqrt L := Real.sqrt_pos.mpr hL0
   have hs8 : (8 : ℝ) ≤ Real.sqrt L := by
@@ -813,6 +814,21 @@ private lemma four_log_le_self {L : ℝ} (h : 64 ≤ L) : 4 * Real.log L ≤ L :
   have hhalf : Real.log (Real.sqrt L) = Real.log L / 2 := Real.log_sqrt hL0.le
   have hsq : Real.sqrt L * Real.sqrt L = L := Real.mul_self_sqrt hL0.le
   nlinarith
+
+/-- `4·log L < L` for `L ≥ 64` — the STRICT form (`s² − 8s + 8 > 0` at `s = √L ≥ 8`), which the
+low leg's shift `δ = η − 1/L > 0` needs.  `FarClose` and `FarStar` each carried a private copy. -/
+lemma four_log_lt_self {L : ℝ} (h : 64 ≤ L) : 4 * Real.log L < L := by
+  have hL0 : (0 : ℝ) < L := by linarith
+  have hs0 : (0 : ℝ) < Real.sqrt L := Real.sqrt_pos.mpr hL0
+  have hs8 : (8 : ℝ) ≤ Real.sqrt L := by
+    have h64 : Real.sqrt 64 = 8 := by
+      rw [show (64 : ℝ) = 8 ^ 2 from by norm_num, Real.sqrt_sq (by norm_num)]
+    rw [← h64]
+    exact Real.sqrt_le_sqrt h
+  have hlog : Real.log (Real.sqrt L) ≤ Real.sqrt L - 1 := Real.log_le_sub_one_of_pos hs0
+  have hhalf : Real.log (Real.sqrt L) = Real.log L / 2 := Real.log_sqrt hL0.le
+  have hsq : Real.sqrt L * Real.sqrt L = L := Real.mul_self_sqrt hL0.le
+  nlinarith only [hs0, hs8, hsq, hhalf, hlog]
 
 /-- **THE EXIT (`hRHS_discharged`).**  `center_halasz_supply`'s `hRHS` binder at one scale
 `k`, in its EXACT shape, from the joint-head chain: `§0`'s minimality floor + R5's grade,

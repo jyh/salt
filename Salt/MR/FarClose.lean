@@ -88,36 +88,9 @@ open scoped BigOperators
 
 /-! ## §0 — the pin's arithmetic, re-derived
 
-`SupClose`'s `four_log_le_selfS` / `pin_basic64S` are `private`; re-derived verbatim, plus
-the STRICT form `4 log L < L` that the low leg's shift `δ = η − 1/L > 0` needs. -/
-
-/-- `4·log L ≤ L` for `L ≥ 64`.  Re-derivation of `SupClose`'s private `four_log_le_selfS`. -/
-private lemma four_log_le_selfF {L : ℝ} (h : 64 ≤ L) : 4 * Real.log L ≤ L := by
-  have hL0 : (0 : ℝ) < L := by linarith
-  have hs0 : (0 : ℝ) < Real.sqrt L := Real.sqrt_pos.mpr hL0
-  have hs8 : (8 : ℝ) ≤ Real.sqrt L := by
-    have h64 : Real.sqrt 64 = 8 := by
-      rw [show (64 : ℝ) = 8 ^ 2 from by norm_num, Real.sqrt_sq (by norm_num)]
-    rw [← h64]
-    exact Real.sqrt_le_sqrt h
-  have hlog : Real.log (Real.sqrt L) ≤ Real.sqrt L - 1 := Real.log_le_sub_one_of_pos hs0
-  have hhalf : Real.log (Real.sqrt L) = Real.log L / 2 := Real.log_sqrt hL0.le
-  have hsq : Real.sqrt L * Real.sqrt L = L := Real.mul_self_sqrt hL0.le
-  nlinarith only [hs0, hs8, hsq, hhalf, hlog]
-
-/-- `4·log L < L` for `L ≥ 64` — the STRICT form (`s² − 8s + 8 > 0` at `s = √L ≥ 8`). -/
-private lemma four_log_lt_selfF {L : ℝ} (h : 64 ≤ L) : 4 * Real.log L < L := by
-  have hL0 : (0 : ℝ) < L := by linarith
-  have hs0 : (0 : ℝ) < Real.sqrt L := Real.sqrt_pos.mpr hL0
-  have hs8 : (8 : ℝ) ≤ Real.sqrt L := by
-    have h64 : Real.sqrt 64 = 8 := by
-      rw [show (64 : ℝ) = 8 ^ 2 from by norm_num, Real.sqrt_sq (by norm_num)]
-    rw [← h64]
-    exact Real.sqrt_le_sqrt h
-  have hlog : Real.log (Real.sqrt L) ≤ Real.sqrt L - 1 := Real.log_le_sub_one_of_pos hs0
-  have hhalf : Real.log (Real.sqrt L) = Real.log L / 2 := Real.log_sqrt hL0.le
-  have hsq : Real.sqrt L * Real.sqrt L = L := Real.mul_self_sqrt hL0.le
-  nlinarith only [hs0, hs8, hsq, hhalf, hlog]
+`SupClose`'s `pin_basic64S` is `private`; re-derived verbatim.  `4 log L ≤ L` and its STRICT
+form `4 log L < L` (which the low leg's shift `δ = η − 1/L > 0` needs) are `RHSGrade`'s
+`four_log_le_self` / `four_log_lt_self`. -/
 
 /-- The pin's elementary arithmetic at the `e^{64}` gate.  Re-derivation of `SupClose`'s
 private `pin_basic64S`, with `log y = 4 log L` and the STRICT gap `1/L < η` added. -/
@@ -143,9 +116,9 @@ private lemma pin_basic64F {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = R
   · rw [hη, hlogy, div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 8)]
     linarith
   · rw [hη, hlogy, div_lt_div_iff₀ hL0 (by linarith)]
-    linarith [four_log_lt_selfF hL64]
+    linarith [four_log_lt_self hL64]
   · have h1 : Real.log (L ^ 4) ≤ Real.log k := by
-      rw [Real.log_pow, ← hL]; push_cast; linarith [four_log_le_selfF hL64]
+      rw [Real.log_pow, ← hL]; push_cast; linarith [four_log_le_self hL64]
     have h2 := Real.exp_le_exp.mpr h1
     rwa [Real.exp_log (by positivity), Real.exp_log hk0] at h2
 
