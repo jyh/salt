@@ -14161,7 +14161,7 @@ H^{-0.415}, materially easier norm_num/geom_sum bookkeeping).
 ## ⟦ARC-SCOPE⟧: F2's ceiling is ONE q (the composition as banked DOES NOT CLOSE); the tower law corrected; THE M-SANDWICH LOOKS NON-BENIGN — the Adoor anchor is the knob (2026-07-29 ~03:00 PDT)
 
 **Q1 — F2:** the class object is genuinely at H² (the two q's born at
-M4WaveClosed:297-299 Chebyshev + :313-321 sum_const; the ∀d arm dilates
+M4WaveClosed:297-299 Chebyshev + :316-324 sum_const; the ∀d arm dilates
 by gcd r q NOT q, and d0_ledger discards the d₀² anyway). The honest
 Parseval recount (per fixed K + the maximizer step — Parseval does NOT
 commute with sup_K) kills **q#2 ONLY**: the sum over classes costs one

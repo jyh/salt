@@ -60,7 +60,7 @@ exception; the band gate from SeamCalibrationK.ladder_below_stationK
 :563) — the phased pair is genuinely point-only (e(αpm) does not
 factor at varying p); the band sibling lives at the UN-PHASED
 doorChiCoeff per the forced order.
-C-3 the capstone band re-cut (M4MeanSq:491 + :770, ~120 ln touched):
+C-3 the capstone band re-cut (M4MeanSq:491 + :779, ~120 ln touched):
 Q enters; hPhigh → hQhigh : (Q:ℝ) ≤ Q83 X; the 9 ramI P P → P Q; new
 binders hPQ, hQbot : 0 < Q, hhceilBand, hdomBand (the Ramaré-band
 error-domination gate — (√Xd+1)·∏_{p∈band}(1+3/p) ≤ Xd·(log P/log Q),
