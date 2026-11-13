@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `c916ff2a` · source digest `e58dd9beb6cbad63` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `e8a4cac4` · source digest `593e804276148abb` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -42,7 +42,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | `Salt.MR.WindowSmooth` | Salt/MR/MobiusChiRamare.lean:180 | DISCHARGED | 3 (3/0) | 2 (2/0) | 4/0/0 | 0/0/0 | 0/1 | `Salt.MR.lamTailWeight_eq_zero_of_not_smooth` (Salt/MR/LambdaChiRamare.lean:210), `Salt.MR.ramTailWeight_eq_zero_of_not_smooth` (Salt/MR/MobiusChiRamare.lean:216) | `Salt.MR.lamTailWeight_apply_of` (Salt/MR/LambdaChiRamare.lean:189), `Salt.MR.ramTailWeight_apply_of` (Salt/MR/MobiusChiRamare.lean:210), `Salt.MR.windowSmooth_dvd_bandPow` (Salt/MR/RamareMassTail.lean:219) |
 | `Salt.Chen.IsP2` | Salt/Chen/WeightTrivia.lean:270 | OPEN | 1 (1/0) | 3 (2/1) | 0/1/6 | 1/0/0 | 0/2 | `Salt.Chen.chen_weight_le_indicator` (Salt/Chen/WeightTrivia.lean:373), `Salt.Chen.chen_weight_struct` (Salt/Chen/WeightTrivia.lean:391), `Salt.Chen.not_isP2_cardFactors_ge_three` (Salt/Chen/WeightTrivia.lean:353) | `Salt.Chen.isP2_mono` (Salt/Chen/Assembly.lean:384) |
 | `Salt.MR.MaskSmooth` | Salt/MR/MobiusChiRamareUnion.lean:116 | DISCHARGED | 2 (2/0) | 2 (2/0) | 4/0/0 | 0/0/0 | 0/1 | `Salt.MR.lamTailWeightMask_eq_zero_of_not_smooth` (Salt/MR/LambdaChiMask.lean:162), `Salt.MR.maskTailWeight_eq_zero_of_not_smooth` (Salt/MR/MobiusChiRamareUnion.lean:219) | `Salt.MR.lamTailWeightMask_apply_of` (Salt/MR/LambdaChiMask.lean:139), `Salt.MR.maskTailWeight_apply_of` (Salt/MR/MobiusChiRamareUnion.lean:213) |
-| `Salt.MR.Squarefull` | Salt/MR/HalaszSeam.lean:154 | DISCHARGED | 3 (3/0) | 1 (1/0) | 3/0/0 | 1/0/0 | 0/0 | `Salt.MR.sPart_eq_zero_of_not_squarefull` (Salt/MR/SPartCore.lean:170) | `Salt.MR.cubePartOf_le` (Salt/MR/SPartCore.lean:714), `Salt.MR.sqPartOf_le` (Salt/MR/SPartCore.lean:706), `Salt.MR.sqPartOf_sq_mul_cubePartOf_cube` (Salt/MR/SPartCore.lean:682) |
+| `Salt.MR.Squarefull` | Salt/MR/HalaszSeam.lean:154 | DISCHARGED | 3 (3/0) | 1 (1/0) | 3/0/0 | 1/0/0 | 0/0 | `Salt.MR.sPart_eq_zero_of_not_squarefull` (Salt/MR/SPartCore.lean:170) | `Salt.MR.cubePartOf_le` (Salt/MR/SPartCore.lean:724), `Salt.MR.sqPartOf_le` (Salt/MR/SPartCore.lean:713), `Salt.MR.sqPartOf_sq_mul_cubePartOf_cube` (Salt/MR/SPartCore.lean:686) |
 | `Salt.MR.NearRat` | Salt/MR/BigXiArc.lean:144 | DISCHARGED | 1 (1/0) | 2 (2/0) | 3/3/0 | 0/0/0 | 0/0 | `Salt.MR.exists_large_den_of_minor` (Salt/MR/BigXiArc.lean:331), `Salt.MR.exists_large_den_of_not_nearRat` (Salt/MR/BigXiArc.lean:274) | `Salt.MR.nearRat_mono` (Salt/MR/BigXiArc.lean:188) |
 | `Salt.MR.MemS` | Salt/MR/Sec9Glue.lean:118 | OPEN | 1 (1/0) | 1 (1/0) | 0/0/0 | 4/0/0 | 0/6 | `Salt.MR.memSCoeff_eq_zero_of_not_memS` (Salt/MR/M4Band.lean:359) | `Salt.MR.memSPunct_of_memS` (Salt/MR/M4Puncture.lean:69) |
 
@@ -205,8 +205,8 @@ By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.MR.indicator_mul_shift_up` | Salt/MR/M4Band.lean:126 | `Salt.MR.MemS` |
 | case split `by_cases` | `Salt.MR.errC_normSq_le` | Salt/MR/M4ParsevalStone.lean:75 | `Salt.MR.MemS` |
 | case split `by_cases` | `Salt.MR.indicator_mul_punct` | Salt/MR/M4Puncture.lean:144 | `Salt.MR.MemSPunct` |
-| case split `by_cases` | `Salt.MR.indicator_mul_dilate` | Salt/MR/M4Residue.lean:217 | `Salt.MR.MemS` |
-| case split `by_cases` | `Salt.MR.sum_memS_dilate` | Salt/MR/M4Residue.lean:239 | `Salt.MR.MemS` |
+| case split `by_cases` | `Salt.MR.indicator_mul_dilate` | Salt/MR/M4Residue.lean:220 | `Salt.MR.MemS` |
+| case split `by_cases` | `Salt.MR.sum_memS_dilate` | Salt/MR/M4Residue.lean:242 | `Salt.MR.MemS` |
 | case split `by_cases` | `Salt.MR.ramTailWeight_isMultiplicative` | Salt/MR/MobiusChiRamare.lean:281 | `Salt.MR.WindowSmooth` |
 | case split `by_cases` | `Salt.MR.ramTailWeight_isMultiplicative` | Salt/MR/MobiusChiRamare.lean:282 | `Salt.MR.WindowSmooth` |
 | case split `by_cases` | `Salt.MR.maskTailWeight_isMultiplicative` | Salt/MR/MobiusChiRamareUnion.lean:272 | `Salt.MR.MaskSmooth` |
@@ -218,7 +218,7 @@ By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.MR.thm_a2'_L_gk` | Salt/MR/ThmA2Linear.lean:2210 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.MR.thm_a2'_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:3845 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.MR.thm_a2'` | Salt/MR/ThmA2Rows.lean:728 | `Salt.MR.CapFreeFloor` |
-| case split `by_cases` | `Salt.MR.thm_a2'_gk` | Salt/MR/ThmA2Rows.lean:1587 | `Salt.MR.CapFreeFloor` |
+| case split `by_cases` | `Salt.MR.thm_a2'_gk` | Salt/MR/ThmA2Rows.lean:1604 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.Maynard.compat_moebius_expansion` | Salt/Maynard/CollisionQuant.lean:1675 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.abs_S2m_sub_compatMain_le_disc_R_uniform` | Salt/Maynard/FrontierDischarge.lean:258 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.S2m_ge_compatMain_eh_uniform` | Salt/Maynard/FrontierDischarge.lean:402 | `Salt.Maynard.IsCollisionPair` |
