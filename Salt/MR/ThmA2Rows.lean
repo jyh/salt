@@ -371,13 +371,7 @@ theorem a2Rows_of_capfree :
     hYpin hWY hXY hthr hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef hwin hQXd hXdbig hN4
     hdom ha1 hasupp T hT hTX2 hTgate hTll
   -- ⟦the scale page⟧
-  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
-  have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
-  have hLXe : Real.exp 1 ≤ Real.log X :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
-  have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
-  have hL0 : (0 : ℝ) ≤ Real.log X := by linarith
+  obtain ⟨hX0, he2, hLXe, hL4, hL0⟩ := scalePage_facts hXe hlX2
   have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (Adoor M) (3072 * M) M 2) hXdQ
   have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
   have hX4Xd : X ≤ 4 * (Xd : ℝ) := le_trans hXN hN4
@@ -530,13 +524,7 @@ theorem a2Rows_of_cap :
     hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr hCqgate hε0 habs hEP2 hXN hN2 hsupp
     hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp T hT hTX2 hTgate hTll
   -- ⟦the scale page⟧
-  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
-  have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
-  have hLXe : Real.exp 1 ≤ Real.log X :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
-  have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
-  have hL0 : (0 : ℝ) ≤ Real.log X := by linarith
+  obtain ⟨hX0, he2, hLXe, hL4, hL0⟩ := scalePage_facts hXe hlX2
   have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (Adoor M) (3072 * M) M 2) hXdQ
   have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
   have hX4Xd : X ≤ 4 * (Xd : ℝ) := le_trans hXN hN4
@@ -939,13 +927,7 @@ theorem a2Rows_of_capfree3 :
     hQ0 hQhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef
     hQXd hXdbig hN4 hdom ha1 hasupp T hT hTX2 hTgate hTll
   -- ⟦the scale page⟧
-  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
-  have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
-  have hLXe : Real.exp 1 ≤ Real.log X :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
-  have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
-  have hL0 : (0 : ℝ) ≤ Real.log X := by linarith
+  obtain ⟨hX0, he2, hLXe, hL4, hL0⟩ := scalePage_facts hXe hlX2
   have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (Adoor M) (3072 * M) M 2) hXdQ
   have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
   have hX4Xd : X ≤ 4 * (Xd : ℝ) := le_trans hXN hN4
@@ -1067,13 +1049,7 @@ theorem a2Rows_of_capfree3_end :
     hQ0 hQhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef
     hQXd hXdbig hN4 hdom ha1 hasupp T hT hTX2 hTgate hTll
   -- ⟦the scale page⟧
-  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
-  have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
-  have hLXe : Real.exp 1 ≤ Real.log X :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
-  have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
-  have hL0 : (0 : ℝ) ≤ Real.log X := by linarith
+  obtain ⟨hX0, he2, hLXe, hL4, hL0⟩ := scalePage_facts hXe hlX2
   have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (Adoor M) (3072 * M) M 2) hXdQ
   have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
   have hX4Xd : X ≤ 4 * (Xd : ℝ) := le_trans hXN hN4
@@ -1299,13 +1275,7 @@ theorem a2Rows_of_capfree_gk (K : ℕ) (hK : K ≤ 170000000) :
     hYpin hWY hXY hthr hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef hwin hQXd hXdbig hN4
     hdom ha1 hasupp T hT hTX2 hTgate hTll
   -- ⟦the scale page⟧
-  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
-  have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
-  have hLXe : Real.exp 1 ≤ Real.log X :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
-  have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
-  have hL0 : (0 : ℝ) ≤ Real.log X := by linarith
+  obtain ⟨hX0, he2, hLXe, hL4, hL0⟩ := scalePage_facts hXe hlX2
   have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (Adoor M) (s13GK K M) M 2) hXdQ
   have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
   have hX4Xd : X ≤ 4 * (Xd : ℝ) := le_trans hXN hN4
@@ -1424,13 +1394,7 @@ theorem a2Rows_of_cap_gk (K : ℕ) (hK : K ≤ 170000000) :
     hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr hCqgate hε0 habs hEP2 hXN hN2 hsupp
     hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp T hT hTX2 hTgate hTll
   -- ⟦the scale page⟧
-  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
-  have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
-  have hLXe : Real.exp 1 ≤ Real.log X :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
-  have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
-  have hL0 : (0 : ℝ) ≤ Real.log X := by linarith
+  obtain ⟨hX0, he2, hLXe, hL4, hL0⟩ := scalePage_facts hXe hlX2
   have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (Adoor M) (s13GK K M) M 2) hXdQ
   have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
   have hX4Xd : X ≤ 4 * (Xd : ℝ) := le_trans hXN hN4
@@ -1659,13 +1623,7 @@ theorem a2Rows_of_capfree3_gk (K : ℕ) (hK : K ≤ 170000000) :
     hQ0 hQhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef
     hQXd hXdbig hN4 hdom ha1 hasupp T hT hTX2 hTgate hTll
   -- ⟦the scale page⟧
-  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
-  have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
-  have hLXe : Real.exp 1 ≤ Real.log X :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
-  have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
-  have hL0 : (0 : ℝ) ≤ Real.log X := by linarith
+  obtain ⟨hX0, he2, hLXe, hL4, hL0⟩ := scalePage_facts hXe hlX2
   have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (Adoor M) (s13GK K M) M 2) hXdQ
   have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
   have hX4Xd : X ≤ 4 * (Xd : ℝ) := le_trans hXN hN4
@@ -1770,13 +1728,7 @@ theorem a2Rows_of_capfree3_end_gk (K : ℕ) (hK : K ≤ 170000000) :
     hQ0 hQhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef
     hQXd hXdbig hN4 hdom ha1 hasupp T hT hTX2 hTgate hTll
   -- ⟦the scale page⟧
-  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
-  have he2 : (4 : ℝ) ≤ Real.exp 2 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 2 (by norm_num)
-  have hLXe : Real.exp 1 ≤ Real.log X :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
-  have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
-  have hL0 : (0 : ℝ) ≤ Real.log X := by linarith
+  obtain ⟨hX0, he2, hLXe, hL4, hL0⟩ := scalePage_facts hXe hlX2
   have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (Adoor M) (s13GK K M) M 2) hXdQ
   have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
   have hX4Xd : X ≤ 4 * (Xd : ℝ) := le_trans hXN hN4
