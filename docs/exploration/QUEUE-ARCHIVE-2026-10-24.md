@@ -1243,7 +1243,7 @@ RESURRECTS THEM:**
     returned a defect in a brief of mine, every one traceable to a surface I had not measured;
     `Salt/MR/` = **7,647 declarations**, control alive):
     ```
-      typical_density_le  (TypicalDensity.lean:875)  LANDED — and it IS Lemma 2.2's per-band content:
+      typical_density_le  (TypicalDensity.lean:906)  LANDED — and it IS Lemma 2.2's per-band content:
         #{n ∈ (X, 2X] : gcd(bandProd P Q, n) = 1} ≤ C·(log P/log Q)·X
       supporting: primeBand (:73) · bandProd (:76) · nuDens (:54) · typical_density_le_bounded
       ⛔ THE SET S ITSELF IS NOT DEFINED. What exists is the ONE-BAND coprimality FILTER inside
