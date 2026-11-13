@@ -230,7 +230,7 @@ interchangeable, and the exchange is a theorem rather than a confusion.
 
 * `lam_eq_lamCoeff_of_prime` — the pointwise fact: `lam p = lamCoeff p` for prime
   `p`, discharged by `lamCoeff_eq_liouvilleC` (`M4Exit.lean:99`, `rfl`) together
-  with `liouvilleC_prime` (`M4Residue.lean:109`).  `pretDistSq_congr_primes`
+  with `liouvilleC_prime` (`M4Residue.lean:112`).  `pretDistSq_congr_primes`
   alone has nothing to feed it; this is the missing half.
 * `pretDistSq_lam_eq_lamCoeff` — **the node**: the two distances are equal.
 -/
@@ -270,9 +270,9 @@ spelling bridge `lamCoeff_eq_liouvilleC` (`M4Exit.lean:99`, which is `rfl`):
 
 | field | discharged by |
 |---|---|
-| `map_one : g 1 = 1` | `liouvilleC_one` (`M4Residue.lean:96`) |
-| `map_mul : ∀ m n, m ≠ 0 → n ≠ 0 → g (m*n) = g m * g n` | `liouvilleC_mul` (`M4Residue.lean:103`) |
-| `norm_le_one : ∀ n, ‖g n‖ ≤ 1` | `liouvilleC_norm_le_one` (`M4Residue.lean:121`) |
+| `map_one : g 1 = 1` | `liouvilleC_one` (`M4Residue.lean:99`) |
+| `map_mul : ∀ m n, m ≠ 0 → n ≠ 0 → g (m*n) = g m * g n` | `liouvilleC_mul` (`M4Residue.lean:106`) |
+| `norm_le_one : ∀ n, ‖g n‖ ≤ 1` | `liouvilleC_norm_le_one` (`M4Residue.lean:124`) |
 
 `liouvilleC_mul` is the **unconditional** form `liouvilleC (m*n) = liouvilleC m *
 liouvilleC n`, with no `m ≠ 0` / `n ≠ 0` side conditions at all — strictly

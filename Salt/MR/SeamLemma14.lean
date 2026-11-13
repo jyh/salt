@@ -353,6 +353,9 @@ private def vdiffR (A : ℝ → ℂ) (X h₁ h₂ α β x : ℝ) : ℂ :=
   ((1 / h₁ : ℝ) : ℂ) * (I * ∫ u in x..(x + h₁), tailTr A α β (X / 2) u)
     - ((1 / h₂ : ℝ) : ℂ) * (I * ∫ u in x..(x + h₂), tailTr A α β (X / 2) u)
 
+/-- `x ↦ vdiffR A X h₁ h₂ α β x` is continuous for a continuous `A` and `0 < X`: a difference of
+two window integrals of the continuous `tailTr A α β (X / 2)`. Private; read twice in this file.
+`KernelCarry` and `Lemma14` hold same-named private copies of their own. -/
 private lemma vdiffR_continuous {A : ℝ → ℂ} (hA : Continuous A) {X : ℝ} (hX : 0 < X)
     (h₁ h₂ α β : ℝ) : Continuous (fun x : ℝ => vdiffR A X h₁ h₂ α β x) := by
   have hFr : Continuous (tailTr A α β (X / 2)) := tailTr_continuous hA α β (by linarith)
@@ -360,6 +363,10 @@ private lemma vdiffR_continuous {A : ℝ → ℂ} (hA : Continuous A) {X : ℝ} 
   exact (continuous_const.mul (continuous_const.mul (continuous_window_integral hFr h₁))).sub
     (continuous_const.mul (continuous_const.mul (continuous_window_integral hFr h₂)))
 
+/-- For `X ≤ x` and `0 ≤ h₁`, `0 ≤ h₂`, `vdiffR A X h₁ h₂ α β x` is `(1 / h₁) * vSeg A x h₁ α β`
+minus `(1 / h₂) * vSeg A x h₂ α β`: on `[x, x + h]` the regularized `tailTr` is the tail
+transform (`tailTr_eq`, `vSeg_eq_tailT_integral`). Private; read seven times in this file.
+`KernelCarry` and `Lemma14` hold same-named private copies of their own. -/
 private lemma vdiffR_eq {A : ℝ → ℂ} (hA : Continuous A) {X x h₁ h₂ : ℝ}
     (hX : 0 < X) (hx : X ≤ x) (hh1 : 0 ≤ h₁) (hh2 : 0 ≤ h₂) {α β : ℝ} :
     vdiffR A X h₁ h₂ α β x

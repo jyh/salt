@@ -63,7 +63,7 @@ theorem mrtM_lam_eq_lamCoeff (X : ℝ) : mrtM lam X = mrtM lamCoeff X := by
 
 /-- **D3 — `λ(mn) = λ(m)λ(n)` in the shape `MRTThmA1` consumes.**
 
-`liouvilleC_mul` (`M4Residue.lean:103`) is **unconditional** — complete
+`liouvilleC_mul` (`M4Residue.lean:106`) is **unconditional** — complete
 multiplicativity, no coprimality and no nonvanishing side conditions — and
 `lamCoeff_eq_liouvilleC` (`M4Exit.lean:99`) is `rfl`.  The coprimality binder is therefore
 consumed unused (hence `_hmn`), exactly as `mrtCompMultDatum_lamCoeff` consumes its two

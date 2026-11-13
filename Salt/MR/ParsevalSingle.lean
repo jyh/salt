@@ -85,6 +85,8 @@ continuous in `x`, equal to the honest `(1/h)·vSeg` for `x ≥ X`. -/
 private noncomputable def vsingR (A : ℝ → ℂ) (X h α β x : ℝ) : ℂ :=
   ((1 / h : ℝ) : ℂ) * (I * ∫ u in x..(x + h), tailTr A α β (X / 2) u)
 
+/-- `x ↦ vsingR A X h α β x` is continuous for a continuous `A` and `0 < X`: a window integral
+of the continuous `tailTr A α β (X / 2)`. Private; read twice in this file. -/
 private lemma vsingR_continuous {A : ℝ → ℂ} (hA : Continuous A) {X : ℝ} (hX : 0 < X)
     (h α β : ℝ) : Continuous (fun x : ℝ => vsingR A X h α β x) := by
   have hFr : Continuous (tailTr A α β (X / 2)) := tailTr_continuous hA α β (by linarith)
@@ -102,6 +104,9 @@ private lemma vSeg_eq_tailTr {A : ℝ → ℂ} (hA : Continuous A) {X x h : ℝ}
   rw [Set.uIcc_of_le (by linarith : x ≤ x + h), Set.mem_Icc] at hu
   exact (tailTr_eq A α β (by linarith [hu.1] : X / 2 ≤ u)).symm
 
+/-- For `X ≤ x` and `0 ≤ h`, `vsingR A X h α β x` is `(1 / h) * vSeg A x h α β`
+(`vSeg_eq_tailTr`): the regularized object is the honest one above `X`. Private; read seven
+times in this file. -/
 private lemma vsingR_eq {A : ℝ → ℂ} (hA : Continuous A) {X x h : ℝ}
     (hX : 0 < X) (hx : X ≤ x) (hh : 0 ≤ h) {α β : ℝ} :
     vsingR A X h α β x = ((1 / h : ℝ) : ℂ) * vSeg A x h α β := by
