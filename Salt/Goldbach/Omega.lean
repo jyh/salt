@@ -10,9 +10,9 @@ import Salt.Chen.TwinA2
 # G-OMEGA (wave W4) — the Goldbach `A₂` omega carrier and its op bundle
 
 The missing A₂ carrier for the Goldbach headline `goldbach_of_hypotheses_W` (the mirror of
-`Salt.Chen.chen_of_hypotheses_W`, `Assembly.lean:715`).  The twin razor's three-term ledger
+`Salt.Chen.chen_of_hypotheses_W`, `Assembly.lean:733`).  The twin razor's three-term ledger
 consumes an `omegaPrimeSumW Q a x P y ≤ mainA2` slot backed by the aggregated A₂ carrier
-`omegaPrimeSumW` (Assembly.lean:476) with its decomposition (`omegaPrimeSumW_decomp`), density
+`omegaPrimeSumW` (Assembly.lean:494) with its decomposition (`omegaPrimeSumW_decomp`), density
 coefficient (`twinA2W_hcoef`), and BV row (`a12_hBV_A2`).  This file mirrors that stack under the
 frozen Goldbach substitution `n + 2 ↦ N − n`, reusing the landed Goldbach A₂ infrastructure
 (`Salt/Goldbach/A2W.lean`).

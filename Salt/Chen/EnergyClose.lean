@@ -105,6 +105,9 @@ noncomputable def shellBound (X Y Q : ℕ) : ℝ :=
     * Real.sqrt ((Q : ℝ) ^ 2 + 13 * ((Y : ℝ) + 1))
     * Real.sqrt (X : ℝ) * Real.sqrt (Y : ℝ)
 
+/-- `0 ≤ shellBound X Y Q` at `0 < Y`: `2(1 + log Y)·√(Q² + 13(X+1))·√(Q² + 13(Y+1))·√X·√Y` with
+`1 + log Y ≥ 0` (`Real.log_nonneg` at `1 ≤ Y`) and the rest by `positivity`. No consumer at
+`main`, in this file or outside it. -/
 lemma shellBound_nonneg {X Y Q : ℕ} (hY : 0 < Y) : 0 ≤ shellBound X Y Q := by
   unfold shellBound
   have h1logY : (0 : ℝ) ≤ 1 + Real.log Y :=

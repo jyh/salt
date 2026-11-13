@@ -21,7 +21,7 @@ user discussion: the chain has a declared 3-node terminal.*
   seam s = 3; the panel machinery mirrors SuperPanelsE/O at the
   new regime.
 - **G1 (B): the upper keystone at the A₁ carrier** —
-  bjs_theorem6_windowed_upper (WindowedStep:402, instance-generic)
+  bjs_theorem6_windowed_upper (WindowedStep:408, instance-generic)
   at twinA1Sieve, the twin_A2_upper mirror: A1primeSum ≤
   XW·W·(Fchain + slack) + rem; the rem via the LANDED A₁ BV row
   (G2 = twin_A1_lower's hBV, reused verbatim).

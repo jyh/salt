@@ -118,9 +118,13 @@ def MaskSmooth (mask : ℕ → Bool) (n : ℕ) : Prop := ∀ p ∈ n.primeFactor
 instance decidableMaskSmooth (mask : ℕ → Bool) (n : ℕ) : Decidable (MaskSmooth mask n) := by
   unfold MaskSmooth; infer_instance
 
+/-- `ω(1; mask) = 0` (`@[simp]`): `1` has no prime factors, so no masked ones (`simp`). Read by
+`LambdaChiMask` and twice in this file. -/
 @[simp] lemma maskOmega_one (mask : ℕ → Bool) : maskOmega mask 1 = 0 := by
   simp [maskOmega, MaskPrimeDivs]
 
+/-- `MaskSmooth mask 1`: vacuous, since `Nat.primeFactors 1 = ∅`. Read once in this file; no
+consumer outside it. -/
 lemma maskSmooth_one (mask : ℕ → Bool) : MaskSmooth mask 1 := by
   intro p hp; simp at hp
 
@@ -150,6 +154,8 @@ theorem maskOmega_prime_pow {mask : ℕ → Bool} {p k : ℕ} (hp : p.Prime) (hk
   · rw [if_pos h, if_pos h, Finset.card_singleton]
   · rw [if_neg h, if_neg h, Finset.card_empty]
 
+/-- `MaskSmooth mask (p^k) ↔ mask p = true` at `p` prime, `k ≠ 0`: the only prime factor of
+`p^k` is `p` (`Nat.primeFactors_prime_pow`). Read twice in this file; no consumer outside it. -/
 theorem maskSmooth_prime_pow_iff {mask : ℕ → Bool} {p k : ℕ} (hp : p.Prime) (hk : k ≠ 0) :
     MaskSmooth mask (p ^ k) ↔ mask p = true := by
   unfold MaskSmooth
@@ -163,6 +169,8 @@ theorem maskSmooth_prime_pow_iff {mask : ℕ → Bool} {p k : ℕ} (hp : p.Prime
 noncomputable def muGrMask (mask : ℕ → Bool) (r : ℝ) : ArithmeticFunction ℝ :=
   ⟨fun m => ((ArithmeticFunction.moebius m : ℤ) : ℝ) * r ^ maskOmega mask m, by simp⟩
 
+/-- `muGrMask mask r m = μ(m)·r^{ω(m;mask)}` (`@[simp]`), by `rfl`: the masked damped Möbius
+datum evaluated. Read ten times in this file; no consumer outside it. -/
 @[simp] lemma muGrMask_apply (mask : ℕ → Bool) (r : ℝ) (m : ℕ) :
     muGrMask mask r m = ((ArithmeticFunction.moebius m : ℤ) : ℝ) * r ^ maskOmega mask m := rfl
 
@@ -193,14 +201,21 @@ Verified against the Euler factor in `maskTailWeight_eq_zeta_mul_muGrMask`.  The
 noncomputable def maskTailWeight (mask : ℕ → Bool) (r : ℝ) : ArithmeticFunction ℝ :=
   ⟨fun n => if n ≠ 0 ∧ MaskSmooth mask n then (1 - r) ^ maskOmega mask n else 0, by simp⟩
 
+/-- `maskTailWeight mask r n = if n ≠ 0 ∧ MaskSmooth mask n then (1 − r)^{ω(n;mask)} else 0`
+(`@[simp]`), by `rfl`: the tail weight's closed form, guard included. Read six times in this
+file; no consumer outside it. -/
 @[simp] lemma maskTailWeight_apply (mask : ℕ → Bool) (r : ℝ) (n : ℕ) :
     maskTailWeight mask r n
       = if n ≠ 0 ∧ MaskSmooth mask n then (1 - r) ^ maskOmega mask n else 0 := rfl
 
+/-- `maskTailWeight mask r n = (1 − r)^{ω(n;mask)}` at `n ≠ 0` and `MaskSmooth mask n`: the
+guard discharged (`simp`). Read by `LambdaChiMask` and five times in this file. -/
 lemma maskTailWeight_apply_of {mask : ℕ → Bool} (r : ℝ) {n : ℕ} (hn : n ≠ 0)
     (hs : MaskSmooth mask n) : maskTailWeight mask r n = (1 - r) ^ maskOmega mask n := by
   simp [hn, hs]
 
+/-- `maskTailWeight mask r n = 0` at `¬ MaskSmooth mask n`: the weight vanishes off the
+mask-smooth integers (`simp`). Read by `LambdaChiMask` and five times in this file. -/
 lemma maskTailWeight_eq_zero_of_not_smooth {mask : ℕ → Bool} (r : ℝ) {n : ℕ}
     (hs : ¬ MaskSmooth mask n) : maskTailWeight mask r n = 0 := by
   simp [hs]
@@ -747,21 +762,31 @@ def unionOmega (P₁ Q₁ P₂ Q₂ n : ℕ) : ℕ := maskOmega (unionMask P₁ 
 /-- Union-window smoothness: every prime factor lies in one of the two blocks. -/
 def UnionSmooth (P₁ Q₁ P₂ Q₂ n : ℕ) : Prop := MaskSmooth (unionMask P₁ Q₁ P₂ Q₂) n
 
+/-- `blockMask P Q p = true ↔ P ≤ p ∧ p ≤ Q` (`@[simp]`): the single-block mask's `decide`
+unfolded. Read twice in this file; no consumer outside it. -/
 @[simp] lemma blockMask_iff {P Q p : ℕ} : blockMask P Q p = true ↔ (P ≤ p ∧ p ≤ Q) := by
   simp [blockMask]
 
+/-- `unionMask P₁ Q₁ P₂ Q₂ p = true ↔ (P₁ ≤ p ∧ p ≤ Q₁) ∨ (P₂ ≤ p ∧ p ≤ Q₂)` (`@[simp]`): the
+union mask's `||` of two `decide`s unfolded. Read once in this file; no consumer outside it. -/
 @[simp] lemma unionMask_iff {P₁ Q₁ P₂ Q₂ p : ℕ} :
     unionMask P₁ Q₁ P₂ Q₂ p = true ↔ ((P₁ ≤ p ∧ p ≤ Q₁) ∨ (P₂ ≤ p ∧ p ≤ Q₂)) := by
   simp [unionMask]
 
 /-! ### The single-window bridges — the LANDED carriers are the `blockMask` instance -/
 
+/-- `maskOmega (blockMask P Q) n = blockOmega P Q n`: at the single-block mask the masked prime
+count is the window prime count (`Finset.filter_congr` on the two divisor sets). Read by
+`LambdaChiMask` and three times in this file. -/
 theorem maskOmega_blockMask (P Q n : ℕ) : maskOmega (blockMask P Q) n = blockOmega P Q n := by
   unfold maskOmega MaskPrimeDivs blockOmega BlockPrimeDivs
   congr 1
   refine Finset.filter_congr fun p _ => ?_
   simp [blockMask]
 
+/-- `MaskSmooth (blockMask P Q) n ↔ WindowSmooth P Q n`: at the single-block mask, mask
+smoothness is window smoothness (`blockMask_iff` on each prime factor). Read once in this file;
+no consumer outside it. -/
 theorem maskSmooth_blockMask_iff (P Q n : ℕ) :
     MaskSmooth (blockMask P Q) n ↔ WindowSmooth P Q n := by
   unfold MaskSmooth WindowSmooth
@@ -771,20 +796,33 @@ theorem maskSmooth_blockMask_iff (P Q n : ℕ) :
   · intro h p hp
     exact blockMask_iff.mpr (h p hp)
 
+/-- `muGrMask (blockMask P Q) r = muGr P Q r`: at the single-block mask the masked datum is the
+unmasked `MobiusChiRamare.muGr` (`maskOmega_blockMask`, pointwise by `ext`). Read once in this
+file; no consumer outside it. -/
 theorem muGrMask_blockMask (P Q : ℕ) (r : ℝ) : muGrMask (blockMask P Q) r = muGr P Q r := by
   ext n
   rw [muGrMask_apply, muGr_apply, maskOmega_blockMask]
 
+/-- `maskTailWeight (blockMask P Q) r = ramTailWeight P Q r`: at the single-block mask the tail
+weight is the unmasked `MobiusChiRamare.ramTailWeight` (`maskOmega_blockMask`,
+`maskSmooth_blockMask_iff`, pointwise by `ext` and `if_congr`). Read by `LambdaChiMask`; not in
+this file beyond its proof. -/
 theorem maskTailWeight_blockMask (P Q : ℕ) (r : ℝ) :
     maskTailWeight (blockMask P Q) r = ramTailWeight P Q r := by
   ext n
   rw [maskTailWeight_apply, ramTailWeight_apply, maskOmega_blockMask]
   exact if_congr (and_congr_right' (maskSmooth_blockMask_iff P Q n)) rfl rfl
 
+/-- `MmuGrChiMask χ t (blockMask P Q) r y = MmuGrChi χ t P Q r y`: at the single-block mask the
+masked twisted damped summatory function is the unmasked `MobiusChiRamare.MmuGrChi`
+(`muGrMask_blockMask`). No consumer at `main`, in this file or outside it. -/
 theorem MmuGrChiMask_blockMask {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) (P Q : ℕ) (r : ℝ)
     (y : ℕ) : MmuGrChiMask χ t (blockMask P Q) r y = MmuGrChi χ t P Q r y := by
   rw [MmuGrChiMask, MmuGrChi, muGrMask_blockMask]
 
+/-- `MmuRamChiMask χ t (blockMask P Q) y = MmuRamChi χ t P Q y`: at the single-block mask the
+Ramaré-weighted masked summatory function is the unmasked `MobiusChiRamare.MmuRamChi`
+(`maskOmega_blockMask` termwise). No consumer at `main`, in this file or outside it. -/
 theorem MmuRamChiMask_blockMask {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) (P Q y : ℕ) :
     MmuRamChiMask χ t (blockMask P Q) y = MmuRamChi χ t P Q y := by
   rw [MmuRamChiMask, MmuRamChi]

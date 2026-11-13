@@ -18,7 +18,7 @@ fixed modulus `Q` with BOTH `a` and `N − a` reduced (so `n ≡ a (mod Q)` make
 * `goldbach_residue_witness` — D2.2's frozen shape: `∃ a < Q, Coprime Q a ∧
   Coprime Q (N − a) ∧ ∀ q ∈ Q.primeFactors, a % q ≠ 0 ∧ a % q ≠ N % q`.  The
   `Coprime Q (N − a)` conjunct is the Goldbach `hQa2` slot of `chen_of_hypotheses_W`
-  (`Salt/Chen/Assembly.lean:720`), consumed through `crtClassG`.
+  (`Salt/Chen/Assembly.lean:738`), consumed through `crtClassG`.
 * `crtClassG` + `crtClassG_coprime` — the Goldbach mirror of `crtClassW`
   (`Salt/Chen/SwitchW.lean:442`): the unique class mod `Q·d` fusing `N − a (mod Q)` with
   `N (mod d)` (the switch congruence `d ∣ n` gives `N − n ≡ N (mod d)`), reduced from

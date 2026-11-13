@@ -303,10 +303,17 @@ theorem geom_weight_sum (n : ℕ) :
   rw [pow_succ]
   ring
 
+/-- `0 < ∑_{j ≤ n} (3/2)^j`: a sum of positive terms with the `j = 0` term present
+(`Finset.sum_pos`). Read by `M4BaseNarrow`, `M4ChiSummed`, `M4CoprimeSupply`,
+`M4RowLinear` and `S16FlatTerminalLinearH`, and five times in this
+file. -/
 theorem geom_weight_sum_pos (n : ℕ) :
     (0 : ℝ) < ∑ j ∈ Finset.range (n + 1), (3 / 2 : ℝ) ^ j :=
   Finset.sum_pos (fun j _ => by positivity) ⟨0, Finset.mem_range.mpr (by omega)⟩
 
+/-- `∑_{j ≤ n} (3/2)^j ≤ 3·(3/2)^n`: the closed form `geom_weight_sum` (`3·(3/2)^n − 2`)
+sits under `3·(3/2)^n` (`linarith`) — the geometric weights' total, which is what keeps the
+maximal price a constant. Read twice in this file; no consumer outside it. -/
 theorem geom_weight_sum_le (n : ℕ) :
     ∑ j ∈ Finset.range (n + 1), (3 / 2 : ℝ) ^ j ≤ 3 * (3 / 2 : ℝ) ^ n := by
   rw [geom_weight_sum n]; linarith
@@ -391,6 +398,25 @@ theorem norm_sum_sievedWindow_sq_le_dyadic (p : ℕ → Prop) [DecidablePred p] 
                 * (2 / 3 : ℝ) ^ j :=
         mul_le_mul_of_nonneg_left (Finset.sum_le_sum hpick) hSpos.le
 
+/-- **⟦O13-e row 145⟧ THE DYADIC SPLIT OVER THE DOOR PARAMETERS** — `doorChiSup_sq_le_dyadic` at
+any `(Ad, zd)`; the four door windows (`_gk`, `_L`, `_L_gk`) are its instances. -/
+theorem doorChiSupAZ_sq_le_dyadic (Ad zd : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) :
+    (doorChiSupAZ Ad zd χ M H n) ^ 2
+      ≤ (∑ j ∈ Finset.range (Nat.log 2 H + 1), (3 / 2 : ℝ) ^ j)
+        * ∑ j ∈ Finset.range (Nat.log 2 H + 1),
+            (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
+              ‖∑ m ∈ doorWinAZ Ad zd M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2)
+              * (2 / 3 : ℝ) ^ j := by
+  obtain ⟨K, hKmem, hKeq⟩ :=
+    Finset.exists_mem_eq_sup' (s := Finset.Icc 0 H)
+      ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
+      (fun K => ‖∑ m ∈ doorWinAZ Ad zd M K n, liouChi χ m‖)
+  have hKH : K ≤ H := (Finset.mem_Icc.mp hKmem).2
+  have hval : doorChiSupAZ Ad zd χ M H n = ‖∑ m ∈ doorWinAZ Ad zd M K n, liouChi χ m‖ := hKeq
+  rw [hval]
+  simp only [doorWinAZ]
+  exact norm_sum_sievedWindow_sq_le_dyadic _ (liouChi χ) H K n hKH
+
 /-- **THE SUB-WINDOW SUP, PRICED** — `doorChiSup`'s square against the aligned dyadic
 family, at the geometric weights.  The sup is over a nonempty finite set, hence attained
 (`Finset.exists_mem_eq_sup'`), and the bound is `K`-free. -/
@@ -400,16 +426,8 @@ theorem doorChiSup_sq_le_dyadic {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n
         * ∑ j ∈ Finset.range (Nat.log 2 H + 1),
             (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
               ‖∑ m ∈ doorSievedWindow M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2)
-              * (2 / 3 : ℝ) ^ j := by
-  obtain ⟨K, hKmem, hKeq⟩ :=
-    Finset.exists_mem_eq_sup' (s := Finset.Icc 0 H)
-      ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
-      (fun K => ‖∑ m ∈ doorSievedWindow M K n, liouChi χ m‖)
-  have hKH : K ≤ H := (Finset.mem_Icc.mp hKmem).2
-  have hval : doorChiSup χ M H n = ‖∑ m ∈ doorSievedWindow M K n, liouChi χ m‖ := hKeq
-  rw [hval]
-  simp only [doorSievedWindow]
-  exact norm_sum_sievedWindow_sq_le_dyadic _ (liouChi χ) H K n hKH
+              * (2 / 3 : ℝ) ^ j :=
+  doorChiSupAZ_sq_le_dyadic (Adoor M) (3072 * M) χ M H n
 
 /-! ## §4 — THE BLOCK SUM: THE SHIFT, AND THE COUNT
 
@@ -674,6 +692,8 @@ keeps its `H` (every consumer reads `m4Cmax H`), and the body no longer uses it:
 content of the lever. -/
 def m4Cmax (_H : ℕ) : ℝ := 54 / 5
 
+/-- `0 ≤ m4Cmax H` (`= 54/5`), by `positivity`: the maximal price's sign. Read by `M4Spine` and
+once in this file. -/
 theorem m4Cmax_nonneg (H : ℕ) : 0 ≤ m4Cmax H := by
   unfold m4Cmax
   positivity
@@ -701,6 +721,17 @@ def m4BclGraded (j₀ : ℕ) (Fan Ftr : ℕ → ℝ) (H : ℕ) : ℝ :=
     + (9 / 2 * (3 / 2 : ℝ) ^ Nat.log 2 H * (4 / 3 : ℝ) ^ j₀ / (H : ℝ)
         + 9 / 5 * (3 / 2 : ℝ) ^ Nat.log 2 H * (8 / 3 : ℝ) ^ j₀ / (H : ℝ) ^ 2) * Ftr H
 
+/-- `0 ≤ m4BclGraded j₀ Fan Ftr H` at `0 ≤ Fan H`, `0 ≤ Ftr H`: both summands of the graded
+block price are products of nonnegatives (`m4Cmax_nonneg`, `positivity` on the `(3/2)^{log₂H}`
+terms). Read by `DoorReceipt`, the `FlatDoor*` files (`AllGradesBand` · `EpsChain` · `EpsRung2`
+· `Uniform`), `HloExportMR`, `HloExportMRFlatRoot`, `M4BaseNarrow`, `M4ChiSummed`, `M4Collapse`,
+`M4CoprimeSupply`, `M4DoorClose`, `M4DoorClosePool`, `M4RowAssemblyLinear`, `M4RowLinear`,
+`M4RowSpineLinear`, `M4SecondRoad`, `S11Thread`, the `S12*` composes (`Compose` · `ConstCompose`
+· `FuseCompose`), the `S16*` files (`Budget` · `Compose` · `ComposeLH` · `ComposeV4` ·
+`FlatTerminal` · `FlatTerminalLinear` · `FlatTerminalLinearH` · `FlatTerminalLinearLH` ·
+`Uniform`), `StrideDoorAllGrades`, `StridePairReceipt`, `StridePairReceiptG`,
+`StridePairReceiptG12b`, `TierSBand`, `V6SiegelFree`, `V7SiegelFree` and `XThread` —
+thirty-eight files — and four times in this file. -/
 theorem m4BclGraded_nonneg {j₀ : ℕ} {Fan Ftr : ℕ → ℝ} {H : ℕ}
     (hFan : 0 ≤ Fan H) (hFtr : 0 ≤ Ftr H) : 0 ≤ m4BclGraded j₀ Fan Ftr H := by
   have h1 : (0 : ℝ) ≤ m4Cmax H * Fan H := mul_nonneg (m4Cmax_nonneg H) hFan
@@ -1277,16 +1308,8 @@ theorem doorChiSup_sq_le_dyadic_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter 
         * ∑ j ∈ Finset.range (Nat.log 2 H + 1),
             (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
               ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2)
-              * (2 / 3 : ℝ) ^ j := by
-  obtain ⟨Kw, hKmem, hKeq⟩ :=
-    Finset.exists_mem_eq_sup' (s := Finset.Icc 0 H)
-      ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
-      (fun Kw => ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖)
-  have hKH : Kw ≤ H := (Finset.mem_Icc.mp hKmem).2
-  have hval : doorChiSup_gk K χ M H n = ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖ := hKeq
-  rw [hval]
-  simp only [doorSievedWindow_gk]
-  exact norm_sum_sievedWindow_sq_le_dyadic _ (liouChi χ) H Kw n hKH
+              * (2 / 3 : ℝ) ^ j :=
+  doorChiSupAZ_sq_le_dyadic (Adoor M) (s13GK K M) χ M H n
 
 /-- **THE SHIFTED FIXED-LENGTH FAMILY AT THE LEVER** — `M4ChiShiftBlockMeanSq` (:776). -/
 def M4ChiShiftBlockMeanSq_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (F : ℕ → ℕ → ℝ) : Prop :=
