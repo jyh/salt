@@ -207,7 +207,7 @@ section
 open scoped BigOperators
 open Complex MeasureTheory Set ArithmeticFunction DirichletCharacter
 open scoped LSeries.notation
-/-- **⟦STANDOFF TWIN⟧** `halasz_primes_chi_pair_of_gates` (`Salt/MR/PortAssembly.lean:1435`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `halasz_primes_chi_pair_of_gates` (`Salt/MR/PortAssembly.lean:1438`): its statement under the three standoff
 binders, its proof verbatim with `twisted_rect_zero_free_siegel` replaced by their twins. -/
 theorem halasz_primes_chi_pair_of_gates_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) {C₁ C₂ C₃ T₀e : ℝ}

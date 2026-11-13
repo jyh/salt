@@ -66,7 +66,7 @@ d0_ledger; strata d = gcd(m,q), weighted CS at 1/d, residual
 (q/φ)² ≈ 7.7 nats) → landing on M4BlockMeanSqSup → the landed cover
 assembly → the register's re-cut drift conjunct. The reduced-modulus
 instances enter at the free-form inv_totient twin (M4CoprimeSupply),
-NOT at M4WaveClosed:449 — v1's "~15 ln fork swap" is dead.
+NOT at M4WaveClosed:488 — v1's "~15 ln fork swap" is dead.
 
 **D-4 — THE NON-COPRIME FRAME (unchanged from v1, now with its
 carriers named):** stratification-with-dilation-inside;

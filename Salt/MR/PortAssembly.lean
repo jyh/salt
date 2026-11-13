@@ -160,6 +160,9 @@ lemma window_lambda_support {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q)
     linarith
   rw [primeWindow_eq_zero_upper hP0 hge, Complex.ofReal_zero, mul_zero]
 
+/-- The windowed twisted `Λ`-series `n ↦ ψ(n)·Λ(n)·n^{iu}·primeWindow P n` is summable at
+`0 < P`: its support lies in `range (⌊3P⌋₊ + 1)` (`window_lambda_support`), so
+`summable_of_ne_finset_zero`. Read twice in this file; no consumer outside it. -/
 lemma summable_window_lambda_chi {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q) {P : ℝ}
     (hP0 : 0 < P) (u : ℝ) :
     Summable (fun n : ℕ => ((ψ (n : ZMod q) * (vonMangoldt n : ℂ)) * (n : ℂ) ^ ((u : ℂ) * I))
@@ -1421,7 +1424,7 @@ arithmetic `16 = 12/(3/4)` with the whole `(loglog)^4` as margin).
 
 ⟦THE ONE HYPOTHESIS THAT REMAINS, and why it is a one-line exposure⟧ the theorem takes the
 twisted edge price at the LITERAL width `1/10⁸`.  `TwistedEdge.twisted_edge_price_strip`
-proves exactly that (`refine ⟨1 / 10 ^ 8, …⟩`, TwistedEdge.lean:896) and
+proves exactly that (`refine ⟨1 / 10 ^ 8, …⟩`, TwistedEdge.lean:899) and
 `twisted_window_price_gated_holds` passes the same constant through — but both package it
 behind `∃ c_vk`, and the region (§8, like stone C's split) delivers its width at the literal
 `1/10⁸`, so the kernel cannot see that the two match.  Exposing the numeral in either `∃`

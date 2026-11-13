@@ -162,6 +162,12 @@ with the fixed numeral `doorRho` replaced by the parameter: `ρ/strataResidual H
 carries, and it cancels EXACTLY at the ceiling. -/
 def RSanDoorRho (ρ : ℝ) (H : ℕ) : ℝ := ρ / strataResidual H ^ 2
 
+/-- `0 ≤ RSanDoorRho ρ H` at `hρ : 0 ≤ ρ`: `ρ/strataResidual H²` is a nonnegative numerator over
+a square (`div_nonneg`, `sq_nonneg`). Read by `DoorReceipt`, `FlatDoorAllGradesBand`,
+`FlatDoorEpsChain`, `FlatDoorEpsRung2`, `FlatDoorUniform`, `S12Compose`, `S12ConstCompose`,
+`S12FuseCompose`, `S13FramesA`, `S16Budget`, `S16Compose`, `S16ComposeV4`, `S16FlatTerminal`,
+`S16FlatTerminalLinear`, `S16Uniform`, `V6SiegelFree`, `V7SiegelFree` and `XThread`; not in this
+file beyond its proof. -/
 theorem RSanDoorRho_nonneg {ρ : ℝ} (hρ : 0 ≤ ρ) (H : ℕ) : 0 ≤ RSanDoorRho ρ H :=
   div_nonneg hρ (sq_nonneg _)
 
@@ -207,13 +213,25 @@ namespace DoorArithFrameRho
 
 variable {M H j : ℕ} {X C₁ M₀ K ρ : ℝ}
 
+/-- `0 ≤ log(1/ρ)` from the frame: `rho_pos`, `rho_le_one`, `log_one_div_nonneg` — the one place
+`ρ ≤ 1` is spent. Read as `h.logInvRho_nonneg` by `loglogX_ge` and the page's ρ-gate here, and by
+`M4ArithPool`'s `a2DoorGrade_pool_priced_rho`, `M4AssemblyFrames`' `doorBaseFrame_at_socket` and
+`S13BandBase`'s four `doorBandBase_family` forms; `DoorArithFrameRho_L` carries its own copy. -/
 theorem logInvRho_nonneg (h : DoorArithFrameRho M H j X C₁ M₀ K ρ) :
     0 ≤ Real.log (1 / ρ) :=
   log_one_div_nonneg h.rho_pos h.rho_le_one
 
+/-- `1 < log H` from the frame: `Hfloor`, `logH_nonneg`, `one_lt_log_of_loglog_ge`. Read as
+`hfr.one_lt_logH` by the ρ-gate here, and in `M4ArithPool`, `M4AssemblyFrames`, `M4ClosureRepair`
+(`price_at_constPool_socket`) and `S13BandBase` (four); `ArithPageLinear`'s frame has its copy. -/
 theorem one_lt_logH (h : DoorArithFrameRho M H j X C₁ M₀ K ρ) : 1 < Real.log (H : ℝ) :=
   one_lt_log_of_loglog_ge h.logH_nonneg (by norm_num) h.Hfloor
 
+/-- `7000·loglog H + 500·log(1/ρ) + 6600 ≤ loglog X` from the frame: the `arm` field with its
+`36·K` summand dropped (`Knonneg`, `linarith`) — the arm as the summand prices read it. Read as
+`h.armWeak` by `loglogX_ge` and the page's two priced grades (`doorGrade_summand3_priced_rho`,
+`doorGrade_summand4_priced_rho`) here, and in `M4ArithPool`, `M4AssemblyFrames`, `M4ClosureRepair`
+(`price_at_decayPool_socket`) and `S13BandBase` (four); `ArithPageLinear`'s frame has its copy. -/
 theorem armWeak (h : DoorArithFrameRho M H j X C₁ M₀ K ρ) :
     7000 * Real.log (Real.log (H : ℝ)) + 500 * Real.log (1 / ρ) + 6600
       ≤ Real.log (Real.log X) := by
@@ -221,6 +239,10 @@ theorem armWeak (h : DoorArithFrameRho M H j X C₁ M₀ K ρ) :
   have := h.Knonneg
   linarith
 
+/-- `356600 ≤ loglog X` from the frame: `armWeak` at `Hfloor` (`50 ≤ loglog H`) with
+`logInvRho_nonneg` (`linarith`) — the absolute floor on the base. Read as `h.loglogX_ge` by
+`one_lt_logX` here, by `M4AssemblyFrames`' `frames_logX_ge` and `hL4096_of_frame`, and by
+`S13BandBase`'s four families; `ArithPageLinear`'s frame reads `356600` from its own copy. -/
 theorem loglogX_ge (h : DoorArithFrameRho M H j X C₁ M₀ K ρ) :
     356600 ≤ Real.log (Real.log X) := by
   have h1 := h.armWeak
@@ -228,6 +250,9 @@ theorem loglogX_ge (h : DoorArithFrameRho M H j X C₁ M₀ K ρ) :
   have h3 := h.logInvRho_nonneg
   linarith
 
+/-- `1 < log X` from the frame: `loglogX_ge`, `logX_nonneg`, `one_lt_log_of_loglog_ge`. Read as
+`hfr.one_lt_logX` by the ρ-gate here, and in `M4ArithPool`, `M4AssemblyFrames`, `M4ClosureRepair`
+(`price_at_decayPool_socket`) and `S13BandBase` (four); `ArithPageLinear`'s frame has its copy. -/
 theorem one_lt_logX (h : DoorArithFrameRho M H j X C₁ M₀ K ρ) : 1 < Real.log X :=
   one_lt_log_of_loglog_ge h.logX_nonneg (show (0:ℝ) < 356600 by norm_num) h.loglogX_ge
 
@@ -577,8 +602,17 @@ astronomically small) and buys the frame's `ρ ≤ 1` field outright. -/
 /-- **⟦THE CONSUMER'S `ρ`⟧** — `min 1 (δ₀²/110525)`. -/
 def doorRhoOfDelta (δ₀ : ℝ) : ℝ := min 1 (δ₀ ^ 2 / 110525)
 
+/-- `doorRhoOfDelta δ₀ ≤ 1`: the consumer's `ρ = min 1 (δ₀²/110525)` sits under `1` by
+`min_le_left` — the `rho_le_one` field a `DoorArithFrameRho` at this `ρ` needs. Read by
+`DoorSocket`, `FlatDoorUniform`, `S12Compose`, `S12FuseCompose` and `S15Compose`; not in this
+file beyond its proof. -/
 theorem doorRhoOfDelta_le_one (δ₀ : ℝ) : doorRhoOfDelta δ₀ ≤ 1 := min_le_left _ _
 
+/-- `0 < doorRhoOfDelta δ₀` at `hδ : δ₀ ≠ 0`: both arms of the `min` are positive (`1`, and
+`δ₀²/110525` with `δ₀² > 0` by `positivity`) — the `rho_pos` field at the consumer's `ρ`. Read
+by `DoorSocket`, `FlatDoorEpsRung2`, `FlatDoorUniform`, `M4ArithRhoLinear`, `S12Compose`,
+`S12FuseCompose`, `S15Compose`, `S15Witness`, `S16ProducersH`, `StrideGradeReach`,
+`StrideGradeWalls` and `XThread`, and three times in this file. -/
 theorem doorRhoOfDelta_pos {δ₀ : ℝ} (hδ : δ₀ ≠ 0) : 0 < doorRhoOfDelta δ₀ := by
   rw [doorRhoOfDelta, lt_min_iff]
   refine ⟨by norm_num, ?_⟩

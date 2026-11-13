@@ -1389,6 +1389,9 @@ divisors of `rad q` is `n ↦ [n ∣ q^∞]`, NOT `d ∣ rad q`), and it is stri
 /-- The principal row's Euler factor `P_q(s) = ∏_{p ∣ q}(1 − p^{−s})`. -/
 def eulerFac (q : ℕ) (s : ℂ) : ℂ := ∏ p ∈ q.primeFactors, (1 - (p : ℂ) ^ (-s))
 
+/-- `Differentiable ℂ (eulerFac q)`: the principal row's Euler factor `∏_{p ∣ q}(1 − p^{−s})` is
+a finite product of entire functions of `s` (`DifferentiableAt.finsetProd`, `const_cpow` at
+`p ≠ 0`). Read twice in this file; no consumer outside it. -/
 lemma eulerFac_differentiable (q : ℕ) : Differentiable ℂ (eulerFac q) := by
   intro s
   have h : DifferentiableAt ℂ (∏ p ∈ q.primeFactors, fun z : ℂ => (1 : ℂ) - (p : ℂ) ^ (-z)) s := by
@@ -1443,6 +1446,9 @@ lemma one_le_pow_mul_norm_eulerFac (q : ℕ) {s : ℂ} (hs : 3 / 4 ≤ s.re) :
   rw [← div_le_iff₀' h2]
   linarith [h1]
 
+/-- `eulerFac q s ≠ 0` at `3/4 ≤ Re s`: its norm is bounded below by
+`one_le_pow_mul_norm_eulerFac`, so it cannot vanish. Read three times in this file; no consumer
+outside it. -/
 lemma eulerFac_ne_zero (q : ℕ) {s : ℂ} (hs : 3 / 4 ≤ s.re) : eulerFac q s ≠ 0 := by
   intro h
   have h1 := one_le_pow_mul_norm_eulerFac q hs
