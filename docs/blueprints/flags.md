@@ -24313,7 +24313,7 @@ At 05:0x I posted M2 with a named residual: *"whether the `1/16` reaches the MAS
 remaining half and I have not proved it."* **Looked. It was answered and wired before tonight.**
 ```
   FarL2 §12  box_floor_M0_pieceDatum   boxM0 (K+D) q X ≤ 𝔻²(pieceDatum χ 𝒥 …, costwist v; X)
-             LANDED · AUDITED All.lean:3488 · CONSUMED M4T0Discharge:34 · M4RowLinear:7898
+             LANDED · AUDITED All.lean:3488 · CONSUMED M4T0Discharge:34 · M4RowLinear:7449
   FarL2      box_floor_clears_gate_45  AUDITED All.lean:3489; All.lean:3449 records
              "⟦T₀-SUPPLIER CONSUMES⟧ … floor + mask + gate in one implication"
   M4T0Datum  winCutH_doorChiCoeff_split_L splits the DOOR's cut datum into exactly those pieces

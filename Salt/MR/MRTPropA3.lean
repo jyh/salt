@@ -959,7 +959,7 @@ wrong, and it is wrong in the same direction as the two claims before it.**  Wal
 
 ```
   norm_absWindowSum_le_drift_tight     M4BridgePhase.lean:310   (phase drift → rational b/q)
-    ⟹ subWindowSup_sq_le_strata       M4Gauss.lean:588         (Gauss/strata, at doorSievedCoeff M)
+    ⟹ subWindowSup_sq_le_strata       M4Gauss.lean:593         (Gauss/strata, at doorSievedCoeff M)
         ⟹ strataTerm = ∑_χ (doorChiSup χ …)²
             ⟹ doorChiSup_sq_le_dyadic  M4Maximal.lean:423      (DYADIC MAXIMAL INEQUALITY, K-free)
                 ⟹ ∑_t ‖∑_{m ∈ doorSievedWindow M 2^j (n+2^{j+1}t)} liouChi χ m‖²
