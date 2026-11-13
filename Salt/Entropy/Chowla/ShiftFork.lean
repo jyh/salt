@@ -24,7 +24,7 @@ here edits a landed statement; the compat lemmas pin the landed objects as the
 * `bigXiH_card_le_gcd_mul` / `bigXiH_bounded` — the fiber bound
   `|Ξ_H(h)| ≤ gcd(h,H)·|Ξ_H|` and the explicit transfer of `bigXi_bounded`.
 * `contradiction_of_mrtDoorXiH` — the `h`-general seam, the clone of
-  `contradiction_of_mrtDoorXi` (`MRTDoor.lean:127-157`).  It is the wave's
+  `contradiction_of_mrtDoorXi` (`MRTDoor.lean:132-162`).  It is the wave's
   TRIPWIRE: under the untwisted door its termwise step matches the goal's
   integrand and the `calc` closes; under a twisted door the hypothesis would
   speak at `−(h·ξ.val)/H` while the goal's summand sits at `−ξ.val/H`, and no
@@ -272,7 +272,7 @@ UNTWISTED**.  Both are load-bearing and neither is policed by the kernel:
 
 * the quantifier position — the sup-inside form is Tao arXiv:1509.05422v2 (4.1), which is
   OPEN; moving the quantifier silently downgrades a theorem-door (Prop 2.4,
-  PROVEN in Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into an open conjecture;
+  PROVEN from Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into an open conjecture;
 * the frequency — the circle-method estimate's surviving factor is the DFT at the
   UNTWISTED `ξ` (`Theorem23Shell.lean:188-193`; the `−hξ/H` of Tao's `Ξ_H` lives
   in the membership predicate of `bigXiH`, `chowla.txt:1296-1300`).  A door
@@ -287,13 +287,13 @@ neither direction.  The `h`-door constrains a DIFFERENT family of frequencies, o
 cardinality `≤ gcd(h,H)·|Ξ_H|` (`bigXiH_card_le_gcd_mul`), and neither implies nor is
 implied by the `Ξ`-door.  It is implied by the full `∀ α` door `MRTUniformity`
 (`mrtUniformity_implies_xiH` below — the one-liner of `mrtUniformity_implies_xi`,
-`MRTDoor.lean:116-119`): the frequency restriction only discards instances.
+`MRTDoor.lean:121-124`): the frequency restriction only discards instances.
 *(The prose that stood here until 2026-09-05 called the `h`-door "strictly stronger";
 that was FALSE — `docs/blueprints/flags.md`, the W-F2 row of 2026-08-15.)*
 
 **THE PRODUCER STORY, HONESTLY.**  `MRTUniformity` is NEVER PRODUCED anywhere in
 this corpus: every occurrence of it is a hypothesis binder, and the `∀ α`-shaped
-terminal is DERIVED FROM the `Ξ`-restricted door (`SpineFinal.lean:976`), not the
+terminal is DERIVED FROM the `Ξ`-restricted door (`SpineFinal.lean:981`), not the
 reverse.  So `MRTUniformityXiH h` is the `h`-family's OPEN HYPOTHESIS, as
 `MRTUniformityXi` was for `h = 1` until `mrtUniformityXi_holds_flat`
 (`Salt/MR/DoorReceipt.lean`, 2026-09-02) produced it at flat regimes (`∃ R`,
@@ -323,7 +323,7 @@ theorem mrtUniformityXi_eq_xiH_one (R : ChowlaRegime) (δ : ℝ) :
 /-! ## S1 — the `h`-general seam (THE TRIPWIRE) -/
 
 /-- **The `Ξ`-restricted MRT seam at shift `h`** — the clone of
-`contradiction_of_mrtDoorXi` (`MRTDoor.lean:127-157`) with the `Finset` swapped
+`contradiction_of_mrtDoorXi` (`MRTDoor.lean:132-162`) with the `Finset` swapped
 for `bigXiH h R.eps H`.  Same collision, unchanged:
 `c₀ε ≤ Σ_{ξ∈Ξ_H(h)}(1/H)∫‖…‖ ≤ Σ(1/H)(δH) = card·δ ≤ K·δ < c₀ε`.  Nonnegativity
 of `δ` is the explicit hypothesis `hδ`, exactly as in the landed seam (the
@@ -495,7 +495,7 @@ theorem liouville_collapse_h (p h : ℕ) (hp : p ≠ 0) (N : ℕ) :
 never-produced `∀ α` door, so the producer story is UNCHANGED — no new supply of the
 `h`-door exists.
 
-The proof is `mrtUniformity_implies_xi`'s one-liner (`MRTDoor.lean:116-119`) with the
+The proof is `mrtUniformity_implies_xi`'s one-liner (`MRTDoor.lean:121-124`) with the
 binder ranging over `bigXiH h R.eps H`: the door is instantiated at the UNTWISTED
 `α := −ξ.val/H` for each `ξ` in the twisted set, and the frequency restriction only
 discards instances.  Which `ξ` the binder ranges over is therefore immaterial here — the
@@ -509,7 +509,7 @@ theorem mrtUniformity_implies_xiH (h : ℕ) (R : ChowlaRegime) (δ : ℝ) :
 /-! ## D5 — THE FORK OF THE `L²` DOOR -/
 
 /-- **The Ξ-summed `L²` MRT uniformity door at shift `h`** — `MRTUniformityXiL2`
-(`MRTDoor.lean:187-190`) with the summation set swapped for `bigXiH h R.eps H` and the
+(`MRTDoor.lean:192-195`) with the summation set swapped for `bigXiH h R.eps H` and the
 frequency `α` left UNTWISTED, exactly as in the `L¹` fork `MRTUniformityXiH`.
 
 For `h ≥ 2` this binds a DIFFERENT set — the `μ_h`-preimage of `Ξ_H`, incomparable to
@@ -538,7 +538,7 @@ At shift `h` the `L²` grade `ρ` must absorb the `gcd(h,H)` fiber inflation —
 line of the `L²` restructure (`l3-design-block-0815.md` §1).
 
 THE QUANTIFIERS STAY OUTSIDE THE INTEGRAL, per the REF-L2 mandate R4 restated at
-`MRTUniformityXiL2` (`MRTDoor.lean:174-182`): the frequency quantifier is a `∑` over the
+`MRTUniformityXiL2` (`MRTDoor.lean:179-187`): the frequency quantifier is a `∑` over the
 set sitting outside `∫`, and there is no `sup` anywhere inside the integral.  The
 sup-inside form is Tao arXiv:1509.05422v2 (4.1), which is OPEN.  The normalisation `1/H²` is the
 landed door's, unchanged. -/

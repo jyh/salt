@@ -105,6 +105,8 @@ that turns the door's four pieces into four instances of ONE carrier. -/
 def jMask (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ) : ℕ → Bool :=
   fun p => decide (∃ j ∈ 𝒥, Pseq j ≤ p ∧ p ≤ Qseq j)
 
+/-- `jMask 𝒥 Pseq Qseq p = true ↔ ∃ j ∈ 𝒥, Pseq j ≤ p ∧ p ≤ Qseq j` (`@[simp]`): the `𝒥`-mask's
+`decide` unfolded (`simp [jMask]`). Read by `M4RowLinear` and four times in this file. -/
 @[simp] lemma jMask_iff {𝒥 : Finset ℕ} {Pseq Qseq : ℕ → ℕ} {p : ℕ} :
     jMask 𝒥 Pseq Qseq p = true ↔ ∃ j ∈ 𝒥, Pseq j ≤ p ∧ p ≤ Qseq j := by
   simp [jMask]

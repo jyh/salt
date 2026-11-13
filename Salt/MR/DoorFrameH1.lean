@@ -111,6 +111,8 @@ so that `ring`/`linarith` treat `2^{K(M)}` as an atom and never attempt to expan
 `2^{17179869184(L+1)}` (the V9c law). -/
 def Kdoor (M : ℕ) : ℕ := 17179869184 * (Nat.log 2 M + 1)
 
+/-- `Adoor M = 4 * Kdoor M`: both sides unfolded, then `ring`. Read once in this file; no
+consumer outside it. -/
 lemma Adoor_eq_four_mul (M : ℕ) : Adoor M = 4 * Kdoor M := by
   rw [Adoor, Kdoor]
   ring

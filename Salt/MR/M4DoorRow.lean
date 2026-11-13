@@ -146,6 +146,10 @@ sibling, the shape the capstone's `hsupp0`/`hasupp` pair forces. -/
 def winCutH (Xd : ℕ) (F : ℕ → ℂ) : ℕ → ℂ :=
   fun n => if Xd < n ∧ n ≤ 2 * Xd then F n else 0
 
+/-- `winCutH Xd F n = F n` at `Xd < n ≤ 2Xd`: inside the half-open dyadic window the cut is the
+identity (`split_ifs`). Read by `M4DoorClose`, `M4DoorClosePool`, `M4RowAssemblyLinear`,
+`M4RowLinear`, `M4SocketLinear`, `M4T0Datum`, `S11CoefWS`, `S13CapGateLinear` and `S13FramesB`,
+and once in this file. -/
 theorem winCutH_of_mem {Xd n : ℕ} (F : ℕ → ℂ) (h1 : Xd < n) (h2 : n ≤ 2 * Xd) :
     winCutH Xd F n = F n := by
   simp only [winCutH]
@@ -153,6 +157,8 @@ theorem winCutH_of_mem {Xd n : ℕ} (F : ℕ → ℂ) (h1 : Xd < n) (h2 : n ≤ 
   · rfl
   · exact absurd ⟨h1, h2⟩ hc
 
+/-- `winCutH Xd F n ≠ 0` forces `Xd < n ∧ n ≤ 2Xd`: the cut is `0` off the window (`by_contra`,
+`if_neg`). Read twice in this file; no consumer outside it. -/
 theorem winCutH_supp {Xd : ℕ} {F : ℕ → ℂ} {n : ℕ} (h : winCutH Xd F n ≠ 0) :
     Xd < n ∧ n ≤ 2 * Xd := by
   by_contra hc
@@ -172,6 +178,10 @@ theorem winCutH_supp0 {Xd : ℕ} (F : ℕ → ℂ) {n : ℕ} (h : (n : ℝ) ≤ 
     linarith
   simp only [winCutH, if_neg hc]
 
+/-- `‖winCutH Xd F n‖ ≤ 1` at `∀ n, ‖F n‖ ≤ 1`: the cut is `F n` or `0` (`split_ifs`). Read by
+`M4CapWire`, `M4CapWireLinear`, `M4RowAssemblyLinear`, `M4RowLinear`, `M4RowSpineLinear`,
+`M4RowsChiEnd`, `M4RowsChiEndPrime`, `M4RowsChiPrimeLinear`, `M4RowsChiZero`,
+`M4RowsChiZeroPrime`, `M4WaveLinear` and `NumeralCt`, and twice in this file. -/
 theorem norm_winCutH_le {Xd : ℕ} {F : ℕ → ℂ} (hF : ∀ n, ‖F n‖ ≤ 1) (n : ℕ) :
     ‖winCutH Xd F n‖ ≤ 1 := by
   simp only [winCutH]

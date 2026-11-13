@@ -165,6 +165,10 @@ noncomputable def convTerm (x d : ℕ) : ℝ :=
   (d.primeFactors.card : ℝ) * Real.log ((x - 2 : ℕ) : ℝ) / (d.totient : ℝ)
     + (d.primeFactors.card : ℝ) * Real.log ((x / 2 - 1 : ℕ) : ℝ) / (d.totient : ℝ)
 
+/-- `0 ≤ convTerm x d`: the conversion term `ω(d)·(log(x − 2) + log(x/2 − 1))/φ(d)` is a
+quotient of nonnegative factors (`Real.log_natCast_nonneg` for the two logarithms, `positivity`
+for the rest). The sign the conversion-sum bound (Part E) and the W-mirrors need: read by
+`TwinA1W`, `TwinA2W` and Goldbach's `A1W`, `A2W`, `Omega`, and once in this file. -/
 lemma convTerm_nonneg (x d : ℕ) : 0 ≤ convTerm x d := by
   unfold convTerm
   have h1 : 0 ≤ Real.log ((x - 2 : ℕ) : ℝ) := Real.log_natCast_nonneg _

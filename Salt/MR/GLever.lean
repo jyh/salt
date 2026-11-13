@@ -62,9 +62,13 @@ def s13GK (K M : ℕ) : ℕ := 3072 * 2 ^ K * M
 lemma s13GK_zero (M : ℕ) : s13GK 0 M = 3072 * M := by
   rw [s13GK, pow_zero, mul_one]
 
+/-- `0 < s13GK K M` at `1 ≤ M`: a product of three positive naturals. Read once in this file and
+by `M4ArithZero`, `M4ArithZeroLinear` and `S13CapFloor`. -/
 lemma s13GK_pos (K : ℕ) {M : ℕ} (hM : 1 ≤ M) : 0 < s13GK K M :=
   Nat.mul_pos (Nat.mul_pos (by norm_num) (Nat.two_pow_pos K)) hM
 
+/-- `1 ≤ s13GK K M` at `1 ≤ M`, from `s13GK_pos`. Read by 41 files outside this one
+(`DoorFrame`, `DoorLadderLinear`, `DoorLinear` the first three); not read in this file. -/
 lemma one_le_s13GK (K : ℕ) {M : ℕ} (hM : 1 ≤ M) : 1 ≤ s13GK K M := s13GK_pos K hM
 
 /-- **THE LEVER ONLY GROWS `G`** — the direction every `G`-lower-bound gate needs. -/
@@ -89,12 +93,18 @@ lemma calQK_mono_G (A M j : ℕ) {G G' : ℕ} (h : G ≤ G') : calQK A G M j ≤
   rw [calQK, calQK]
   exact Nat.pow_le_pow_right (by norm_num) (Nat.mul_le_mul le_rfl (calE_mono_G A j h))
 
+/-- `calE A (3072 * M) j ≤ calE A (s13GK K M) j`: the exponent ladder is monotone in `G`
+(`calE_mono_G`, `le_s13GK`). No consumer at `main`, in this file or outside it. -/
 lemma calE_le_gk (A j K M : ℕ) : calE A (3072 * M) j ≤ calE A (s13GK K M) j :=
   calE_mono_G A j (le_s13GK K M)
 
+/-- `calP A (3072 * M) j ≤ calP A (s13GK K M) j`: the `P`-ladder is monotone in `G`
+(`calP_mono_G`, `le_s13GK`). Read by `ThmA2`; not read in this file. -/
 lemma calP_le_gk (A j K M : ℕ) : calP A (3072 * M) j ≤ calP A (s13GK K M) j :=
   calP_mono_G A j (le_s13GK K M)
 
+/-- `calQK A (3072 * M) M' j ≤ calQK A (s13GK K M) M' j`: the `Q`-ladder is monotone in `G`
+(`calQK_mono_G`, `le_s13GK`). No consumer at `main`, in this file or outside it. -/
 lemma calQK_le_gk (A M' j K M : ℕ) : calQK A (3072 * M) M' j ≤ calQK A (s13GK K M) M' j :=
   calQK_mono_G A M' j (le_s13GK K M)
 

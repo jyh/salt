@@ -216,6 +216,8 @@ presentable truncation height raised from `(log 2X)⁴` to `T*₂(2X)`.  `T*₂(
 so in the `polyT` regime the radius still satisfies `R ≪ X`. -/
 def seamGateRstar2 (X T : ℝ) : ℝ := T + seamRad X + Tstar2 (2 * X) (Real.log (2 * X)) + 1
 
+/-- `0 ≤ seamGateRstar2 X T` at `0 ≤ T` and `1 ≤ X`: `seamRad X ≥ 0` and `Tstar2` is positive
+(`seamRad_nonneg`, `Tstar2_pos`). Read once in this file; no consumer outside it. -/
 lemma seamGateRstar2_nonneg {X T : ℝ} (hT : 0 ≤ T) (hX : 1 ≤ X) : 0 ≤ seamGateRstar2 X T := by
   have hX0 : (0 : ℝ) < X := by linarith
   have hLX : (0 : ℝ) ≤ Real.log X := Real.log_nonneg hX
@@ -863,6 +865,9 @@ def caseAS2 (c Cb M W : ℝ) : ℝ :=
     + farCStar2 * Real.log W ^ (-(1 / (32 * Real.exp 1)))
     + 4 * Real.log W ^ (-(1 : ℝ) / 2 + 1 / 1000)
 
+/-- `0 ≤ caseAS2 c Cb M W` at `2 * c < 1`, `0 ≤ Cb`, `1 ≤ W`: each summand is a product of
+factors `≥ 0` (`gradeAbsConstC_nonneg`, `farCStar2_nonneg`, real powers of `log W ≥ 0`). Read by
+`CapFreeArm`, `CapFreeArm3` and `USetGradedPrice`; not read in this file. -/
 lemma caseAS2_nonneg {c Cb M W : ℝ} (hc1 : 2 * c < 1) (hCb0 : 0 ≤ Cb) (hW : 1 ≤ W) :
     0 ≤ caseAS2 c Cb M W := by
   have h1 : (0 : ℝ) ≤ gradeAbsConstC c Cb := gradeAbsConstC_nonneg hc1 hCb0

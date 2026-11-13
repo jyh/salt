@@ -41,14 +41,14 @@ at P suffices); C3/C4 transport DOWN from Q; everything else P P →
 P Q. blocks/thin/Tstar2_box/row_ladder/err_at_witness_mr (its
 supplier E_priced_mr_row_scale is ALREADY P Q — a binder rename)/
 a2Frame3_witness (12 slots).
-C-1 the socket shift decoupling (CofactorSupplier:222, CaseAWide:746/
+C-1 the socket shift decoupling (CofactorSupplier:233, CaseAWide:746/
 807): P's double duty (band-bottom vs the shift in doorCofactor0)
 split — fresh binder Ps with 1 ≤ Ps; conclusion at doorCofactor0 χ
 Pseq Qseq J Ps; plus doorCofactor0_at_one : doorCofactor0 … 1 =
 memSCoeff Pseq Qseq J (liouChi χ) (3 ln — one_mul + the if-algebra).
 Instantiate the band at Ps := 1. ~10 ln.
 C-2 the band pair law (new, ~50 ln — the UPWARD mirror of
-M4Residue:145–225, same proofs with < flipped):
+M4Residue:148–228, same proofs with < flipped):
 blockPrimeDivs_eq_empty_of_large → blockOmega_shift_up →
 memS_shift_up → indicator_mul_shift_up →
 **doorChiCoeff_seamCoefW_band** : (∀ j ∈ Icc 1 2, calQK … j < P) →
@@ -60,7 +60,7 @@ exception; the band gate from SeamCalibrationK.ladder_below_stationK
 :563) — the phased pair is genuinely point-only (e(αpm) does not
 factor at varying p); the band sibling lives at the UN-PHASED
 doorChiCoeff per the forced order.
-C-3 the capstone band re-cut (M4MeanSq:482 + :770, ~120 ln touched):
+C-3 the capstone band re-cut (M4MeanSq:491 + :779, ~120 ln touched):
 Q enters; hPhigh → hQhigh : (Q:ℝ) ≤ Q83 X; the 9 ramI P P → P Q; new
 binders hPQ, hQbot : 0 < Q, hhceilBand, hdomBand (the Ramaré-band
 error-domination gate — (√Xd+1)·∏_{p∈band}(1+3/p) ≤ Xd·(log P/log Q),

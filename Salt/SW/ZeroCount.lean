@@ -9,7 +9,7 @@ import Mathlib
 # The SW rung, wave S2 — the L'/L zero-counting cluster
 
 Design: `docs/blueprints/sw.md`, wave S2 (the L'/L partial-fractions + zero-counting
-cluster, the technical heart's first half). This module lands the *mathlib-first*
+cluster, the technical heart's first half). This module lands
 pieces of the classical Davenport §12–13 zero-counting apparatus for Dirichlet
 L-functions, uniform in the modulus `q`.
 

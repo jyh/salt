@@ -14,8 +14,8 @@ import Salt.Chen.TwinA1
 Design: `docs/blueprints/chen.md`, the C3d row + its DESIGN NOTE. The switch
 carrier `A₃` sifts `aₙ = ∑ 1_{n = p₁p₂p₃}` with `z ≤ p₁ ≤ y < p₂ ≤ p₃`; the
 count `∑_{n ∈ window} aₙ` must land under the LITERAL ledger constant
-`0.363084` in the normalisation `x/(2 log z)` (so `cbar_lt`, dilog-blocked, is
-never consumed — C5 pairs this with `two_log_three_sub_log_six_sub_cbar_pos`).
+`0.363084` in the normalisation `x/(2 log z)` (so this count does not need `cbar_lt`,
+now proved in `CbarCert`; C5 pairs this with `two_log_three_sub_log_six_sub_cbar_pos`).
 
 ## The PNT source (design-note "genuine PNT error term REQUIRED")
 
@@ -223,6 +223,10 @@ theorem tripleSum_eq_card (x z y : ℕ) :
 /-- The inner endpoints for a pair `q = (p₁, p₂)`: `U = ⌊x/(p₁p₂)⌋`,
 `L = ⌊x/(2 p₁p₂)⌋`. Every admissible `p₃` lies in `(L, U]`. -/
 def Ufun (x : ℕ) (q : ℕ × ℕ) : ℕ := x / (q.1 * q.2)
+/-- `Lfun x (p₁, p₂) = x/(2p₁p₂)` (natural division): the open lower endpoint of the interval
+`(L, U]` in which every admissible third factor `p₃` of `(p₁, p₂)` lies. Read by `CountAtOp3`,
+`CountFinal`, `CountW`, `FinA3`, `WeightedCount` and Goldbach's `Count`, `CountFinal`,
+`PiUpper`, and 35 times in this file. -/
 def Lfun (x : ℕ) (q : ℕ × ℕ) : ℕ := x / (2 * q.1 * q.2)
 
 /-- The set of admissible pairs `(p₁, p₂)`: `z ≤ p₁ ≤ y < p₂`, both prime,

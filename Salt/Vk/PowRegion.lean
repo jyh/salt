@@ -6,7 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.Vk.RegionGrowth
 
 /-!
-# VMVT-VK — the power zero-free region (`σ ≥ 1 − c/((log t)^{3/4}(log log t)^3)`)
+# VMVT-VK — the power zero-free region (`σ > 1 − c/((log t)^{3/4}(log log t)^3)`)
 
 THE POWER REGION.  The Vinogradov–Korobov strip growth `zeta_growth_pow`
 (`‖ζ(σ+it)‖ ≤ K·log t` on `σ ≥ 1 − vkTheta t`, `vkTheta t = (1/1000)/((log t)^{3/4}(log log t)^2)`),

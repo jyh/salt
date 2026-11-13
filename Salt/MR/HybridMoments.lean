@@ -37,7 +37,7 @@ would pay `φ(q)·20N`, a factor `q` above target).
 
 ## §2 — D1: KMT Lemma 6.6, the `Q^ℓ·A` moment, `χ`-summed
 
-The `q = 1` twin is the landed `multShiu_moment` (`MultShiuBridge.lean:664`).  Its two
+The `q = 1` twin is the landed `multShiu_moment` (`MultShiuBridge.lean:684`).  Its two
 seam stones — the window `multShiuCoeff_support_low/_high` and the count
 `coeff_bound_factorial_blockDiv` (`‖aₙ‖ ≤ ℓ!·g(n)`, `g = blockDiv Y₁`, the Shiu
 majorant `shiu_moment_sq` byte-matches KMT's `g`) — are **character-blind** and are
@@ -113,6 +113,10 @@ phase factor — the `n^{1+it}` of `spoly` supplies it. -/
 noncomputable def chiBarCoeff (q : ℕ) (χ : DirichletCharacter ℂ q) (a : ℕ → ℂ) : ℕ → ℂ :=
   fun n => (starRingEnd ℂ) (χ (n : ZMod q)) * a n
 
+/-- `chiBarCoeff q χ a n = χ̄(n)·a n` (`@[simp]`), by `rfl`: the `χ̄`-twisted coefficient
+evaluated (`starRingEnd ℂ` is the bar). Read by `M4Assembly`, `M4RowAssemblyLinear`,
+`M4RowsChi`, `M4RowsChiEnd`, `M4RowsChiZero`, `PortAssembly`, `RamErrWS`, `RbdSupply`,
+`TLegChi`, `USetChi` and `USetChiTS`, and fourteen times in this file. -/
 @[simp] lemma chiBarCoeff_apply (q : ℕ) (χ : DirichletCharacter ℂ q) (a : ℕ → ℂ) (n : ℕ) :
     chiBarCoeff q χ a n = (starRingEnd ℂ) (χ (n : ZMod q)) * a n := rfl
 
@@ -208,13 +212,20 @@ character does *not* vanish at `0`, since `(0 : ZMod 1) = 1`). -/
 noncomputable def chiBarAf (q : ℕ) (χ : DirichletCharacter ℂ q) : ArithmeticFunction ℂ :=
   ⟨fun n => if n = 0 then 0 else (starRingEnd ℂ) (χ (n : ZMod q)), by simp⟩
 
+/-- `chiBarAf q χ n = if n = 0 then 0 else χ̄(n)` (`@[simp]`), by `rfl`: the `χ̄`-twist as an
+`ArithmeticFunction`, its forced `0` at `0` included. Read three times in this file; no consumer
+outside it. -/
 @[simp] lemma chiBarAf_apply (q : ℕ) (χ : DirichletCharacter ℂ q) (n : ℕ) :
     (chiBarAf q χ) n = if n = 0 then 0 else (starRingEnd ℂ) (χ (n : ZMod q)) := rfl
 
+/-- `chiBarAf q χ n = χ̄(n)` at `n ≠ 0`: the `if` discharged (`if_neg`). Read seven times in
+this file; no consumer outside it. -/
 lemma chiBarAf_apply_ne_zero {q : ℕ} (χ : DirichletCharacter ℂ q) {n : ℕ} (hn : n ≠ 0) :
     (chiBarAf q χ) n = (starRingEnd ℂ) (χ (n : ZMod q)) := by
   rw [chiBarAf_apply, if_neg hn]
 
+/-- `chiBarAf q χ 1 = 1`: `χ̄(1) = 1` (`chiBarAf_apply_ne_zero`, `map_one` twice). Read once in
+this file; no consumer outside it. -/
 lemma chiBarAf_one (q : ℕ) (χ : DirichletCharacter ℂ q) : (chiBarAf q χ) 1 = 1 := by
   rw [chiBarAf_apply_ne_zero χ one_ne_zero, Nat.cast_one, map_one, map_one]
 

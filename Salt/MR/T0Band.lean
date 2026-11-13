@@ -147,6 +147,8 @@ def bandSupS (X R S₀ : ℝ) : ℝ :=
 (The evidence that §1–§3 really are `BallSup`'s page with one slot freed.) -/
 lemma bandSupS_seamRad (X S₀ : ℝ) : bandSupS X (seamRad X) S₀ = ballSupS X S₀ := rfl
 
+/-- `0 < bandLterm X R` at `3 ≤ X` and `0 ≤ R`: the inner argument `3 + R * (1 + log (2 * X))`
+is `≥ 1`, so its logarithm is `≥ 0`. Read twice in this file and by `ThmA2`. -/
 lemma bandLterm_pos {X R : ℝ} (hX : 3 ≤ X) (hR : 0 ≤ R) : 0 < bandLterm X R := by
   have hlog : 0 ≤ Real.log (2 * X) := Real.log_nonneg (by linarith)
   have h3 : (1 : ℝ) ≤ 3 + R * (1 + Real.log (2 * X)) := by nlinarith
@@ -154,12 +156,16 @@ lemma bandLterm_pos {X R : ℝ} (hX : 3 ≤ X) (hR : 0 ≤ R) : 0 < bandLterm X 
   unfold bandLterm
   linarith
 
+/-- `0 ≤ bandTail X R` at `3 ≤ X` and `0 ≤ R`, from `bandLterm_pos` and `ballSupC_pos`
+(`positivity`). Read twice in this file and by `M4Seam` and `T0BandCapFree`. -/
 lemma bandTail_nonneg {X R : ℝ} (hX : 3 ≤ X) (hR : 0 ≤ R) : 0 ≤ bandTail X R := by
   have h1 := bandLterm_pos hX hR
   have h2 := ballSupC_pos
   unfold bandTail
   positivity
 
+/-- `0 ≤ bandSupS X R S₀` at `3 ≤ X`, `0 ≤ R` and `0 ≤ S₀`: both summands are `≥ 0`
+(`bandTail_nonneg`). Read once in this file; no consumer outside it. -/
 lemma bandSupS_nonneg {X R S₀ : ℝ} (hX : 3 ≤ X) (hR : 0 ≤ R) (hS₀ : 0 ≤ S₀) :
     0 ≤ bandSupS X R S₀ := by
   have h1 : 0 ≤ bandTail X R * (1 + R) := mul_nonneg (bandTail_nonneg hX hR) (by linarith)

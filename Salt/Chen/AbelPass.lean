@@ -51,8 +51,12 @@ namespace Salt.Chen
 This is BJS Lemma 20's `c(n)` for `f = h_{p₁}`, `I`. -/
 noncomputable def cprime : ℕ → ℝ := fun n => if n.Prime then (1 : ℝ) / n else 0
 
+/-- `cprime 0 = 0`: `0` is not prime (`Nat.not_prime_zero`, `simp`), so the prime-reciprocal
+coefficient vanishes there. No consumer at `main`, in this file or outside it. -/
 lemma cprime_zero : cprime 0 = 0 := by simp [cprime, Nat.not_prime_zero]
 
+/-- `cprime 1 = 0`: `1` is not prime (`Nat.not_prime_one`, `simp`). No consumer at `main`, in
+this file or outside it. -/
 lemma cprime_one : cprime 1 = 0 := by simp [cprime, Nat.not_prime_one]
 
 /-- `f k · c(k) = f k / k` on primes, `0` otherwise — the Abel LHS summand. -/

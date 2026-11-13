@@ -30,6 +30,8 @@ Modifications for Salt (ported to mathlib v4.32.0-rc1, toolchain
 - All other declarations, names, notation, namespaces, and proof bodies are
   verbatim from upstream; drift v4.33-rc1 → v4.32.0-rc1 required no further
   statement or proof changes.
+- Docstrings added by Salt (2026-11-01, the O83 documentation lane) to the 34 upstream
+  declarations that carried none; names, statements and bodies are unchanged.
 -/
 import Mathlib
 import Salt.Entropy.Measure
@@ -69,21 +71,40 @@ def entropy (κ : Kernel T S) (μ : Measure T) := μ[fun y ↦ Hm[κ y]]
 /-- Entropy of a kernel with respect to a measure. -/
 notation3:100 "Hk[" κ " , " μ "]" => ProbabilityTheory.Kernel.entropy κ μ
 
+/-- `Hk[κ, 0] = 0`: the kernel entropy against the zero measure vanishes (`simp [entropy]`, an
+integral over `0`). A `simp` lemma: what closes the `μ = 0` branch of the
+`eq_zero_or_isProbabilityMeasure` splits below (`entropy_prod`, `entropy_map_le`) and in
+`Kernel/MutualInfo`. -/
 @[simp]
 lemma entropy_zero_measure (κ : Kernel T S) : Hk[κ, (0 : Measure T)] = 0 := by simp [entropy]
 
+/-- `Hk[0, μ] = 0`: the entropy of the zero kernel vanishes (`simp [entropy]`, each
+`Hm[0 y] = 0`). A `simp` lemma: what closes the `κ = 0` branch of the
+`eq_zero_or_isMarkovKernel` splits (`entropy_compProd_aux`, `entropy_map_le`, the
+`Kernel/MutualInfo` lemmas). -/
 @[simp]
 lemma entropy_zero_kernel (μ : Measure T) : Hk[(0 : Kernel T S), μ] = 0 := by simp [entropy]
 
+/-- Kernels equal `μ`-almost everywhere have the same entropy against `μ`: `integral_congr_ae`
+under `entropy`. The congruence every `condDistrib`/`condKernel` rewrite rides —
+`condEntropy_two_eq_kernel_entropy`, `chain_rule'` and `entropy_submodular` in
+`Salt/Entropy/Basic`, `entropy_compProd` and `entropy_prod` here, `mutualInfo_congr` and the
+triple lemmas in `Kernel/MutualInfo`. -/
 lemma entropy_congr {μ} {κ η : Kernel T S} (h : κ =ᵐ[μ] η) : Hk[κ, μ] = Hk[η, μ] := by
   simp_rw [entropy]
   refine integral_congr_ae ?_
   filter_upwards [h] with x hx
   rw [hx]
 
+/-- `0 ≤ Hk[κ, μ]`: an integral of the nonnegative `measureEntropy` (`integral_nonneg`). Closes
+`entropy_map_le` (`le_add_iff_nonneg_right`); the random-variable-level `entropy_nonneg` of
+`Salt/Entropy/Basic` is its twin at the measure level. -/
 lemma entropy_nonneg (κ : Kernel T S) (μ : Measure T) :
     0 ≤ Hk[κ, μ] := integral_nonneg (fun _ ↦ measureEntropy_nonneg _)
 
+/-- `Hk[const T ν, μ] = (μ univ).toReal * Hm[ν]`: a constant kernel's entropy is the total mass
+of `μ` times the entropy of `ν` (`simp [entropy, Measure.real]`). A `simp` lemma; no named
+consumer at 884bd7d7. -/
 @[simp]
 lemma entropy_const (ν : Measure S) (μ : Measure T) :
     Hk[Kernel.const T ν, μ] = (μ Set.univ).toReal * Hm[ν] := by
@@ -111,6 +132,10 @@ lemma finiteSupport_of_compProd' [MeasurableSingletonClass S] [MeasurableSinglet
   filter_upwards [hB t ht] with s hs
   exact Finset.mk_mem_product ht hs
 
+/-- `μ ⊗ₘ κ` has finite support when `μ` does and `κ` has finite kernel support `μ`-a.e.:
+`Measure.compProd_congr` to the modification `hκ.mk`, then `finiteSupport_of_compProd'`.
+Supplies the finite-support instances `entropy_prodMkRight` here and
+`entropy_submodular_compProd` (`Kernel/MutualInfo`) build. -/
 lemma finiteSupport_of_compProd
     [MeasurableSingletonClass S] [Countable T] [MeasurableSingletonClass T]
     {μ : Measure T} [IsFiniteMeasure μ] {κ : Kernel T S}
@@ -119,6 +144,10 @@ lemma finiteSupport_of_compProd
   rw [Measure.compProd_congr hκ.ae_eq_mk]
   exact finiteSupport_of_compProd' hκ.finiteKernelSupport_mk
 
+/-- `condDistrib X Y μ` has finite kernel support `μ.map Y`-a.e. when `X` has finite range:
+along `condDistrib_ae_eq` each fibre is the law of `X` conditioned on `Y`, finitely supported by
+`finiteSupport_of_finiteRange`. The side condition `entropy_submodular` (`Salt/Entropy/Basic`)
+discharges with `fun_prop`. -/
 lemma aefiniteKernelSupport_condDistrib
     [Nonempty S] [Countable S] [MeasurableSingletonClass S]
     [Countable T] [MeasurableSingletonClass T]
@@ -128,6 +157,11 @@ lemma aefiniteKernelSupport_condDistrib
   filter_upwards [condDistrib_ae_eq hX hY μ] with a ha
   rw [ha]
   exact finiteSupport_of_finiteRange.finite
+/-- `Hk[κ, μ] ≤ log (card S)` for a probability measure `μ` and a finite `S`:
+`integral_mono_of_nonneg` against the constant `log (card S)`, fibrewise
+`measureEntropy_le_log_card`. The kernel form of the log-cardinality ceiling; the `Chowla` files
+read the random-variable form `ProbabilityTheory.entropy_le_log_card`, and this one has no
+consumer at 884bd7d7. -/
 lemma entropy_le_log_card
    [MeasurableSingletonClass S]
    (κ : Kernel T S) (μ : Measure T) [Fintype S] [IsProbabilityMeasure μ] :
@@ -137,11 +171,19 @@ lemma entropy_le_log_card
   · exact ae_of_all _ (fun _ ↦ measureEntropy_le_log_card _)
   · simp
 
+/-- `Hk[κ, μ] = μ[fun y ↦ ∑' x, negMulLog ((κ y).real {x})]` for a zero-or-Markov kernel:
+`measureEntropy_of_isProbabilityMeasure` under `entropy`. The series form of the kernel entropy;
+no consumer at 884bd7d7. -/
 lemma entropy_eq_integral_sum (κ : Kernel T S) [IsZeroOrMarkovKernel κ] (μ : Measure T) :
     Hk[κ, μ] = μ[fun y ↦ ∑' x, negMulLog ((κ y).real {x})] := by
   simp_rw [entropy, measureEntropy_of_isProbabilityMeasure]
 
 -- entropy_map_of_injective is a special case of this (see def of map)
+/-- Composing a Markov kernel `κ` with the deterministic kernel of an `f` injective in its
+second argument, then projecting to the output, leaves the entropy unchanged:
+`snd (κ ⊗ₖ deterministic f) t = map κ (f (t, ·)) t` fibrewise, then
+`measureEntropy_map_of_injective`. The first step of the `calc` in
+`entropy_snd_sub_mutualInfo_le_entropy_map_of_injective` (`Kernel/MutualInfo`). -/
 lemma entropy_snd_compProd_deterministic_of_injective [MeasurableSingletonClass U]
     (κ : Kernel T S) [IsMarkovKernel κ]
     (μ : Measure T) {f : T × S → U}
@@ -160,21 +202,34 @@ lemma entropy_snd_compProd_deterministic_of_injective [MeasurableSingletonClass 
   rw [this y, map_apply _ (by fun_prop)]
   rfl
 
+/-- `Hk[map κ f, μ] = Hk[κ, μ]` for an injective measurable `f`:
+`measureEntropy_map_of_injective` fibrewise under `entropy`. Read by `entropy_map_swap`, by
+`entropy_map_le` (at `x ↦ (x, f x)`) and by `entropy_triple_add_entropy_le'`
+(`Kernel/MutualInfo`, at `prodAssoc.symm`). -/
 lemma entropy_map_of_injective [MeasurableSingletonClass U]
     (κ : Kernel T S) (μ : Measure T) {f : S → U} (hf : Function.Injective f) (hmes : Measurable f) :
     Hk[map κ f, μ] = Hk[κ, μ] := by
   simp_rw [entropy, map_apply _ hmes, measureEntropy_map_of_injective _ _ hmes hf]
 
+/-- `Hk[map κ Prod.swap, μ] = Hk[κ, μ]`: `entropy_map_of_injective` at `Prod.swap`. The rewrite
+behind `entropy_swapRight`. -/
 lemma entropy_map_swap [MeasurableSingletonClass S] [MeasurableSingletonClass U]
     (κ : Kernel T (S × U)) (μ : Measure T) :
     Hk[map κ Prod.swap, μ] = Hk[κ, μ] :=
   entropy_map_of_injective κ μ Prod.swap_injective measurable_swap
 
+/-- `Hk[swapRight κ, μ] = Hk[κ, μ]`: `swapRight_eq` then `entropy_map_swap`. Read by
+`chain_rule'` here and by `mutualInfo_swapRight` and `entropy_triple_add_entropy_le` in
+`Kernel/MutualInfo`. -/
 lemma entropy_swapRight [MeasurableSingletonClass S] [MeasurableSingletonClass U]
     (κ : Kernel T (S × U)) (μ : Measure T) :
     Hk[swapRight κ, μ] = Hk[κ, μ] := by
   rw [swapRight_eq, entropy_map_swap]
 
+/-- Pulling `κ` back along a measurable embedding `f` whose range is `μ`-full, against the comap
+measure (finitely supported), preserves the entropy: both sides are the finite sum over the
+support, re-indexed through `f` (`Finset.sum_image`). `entropy_comap_equiv` specialises it to a
+measurable equivalence. -/
 lemma entropy_comap [MeasurableSingletonClass T]
     {T' : Type*} [MeasurableSpace T'] [MeasurableSingletonClass T']
     (κ : Kernel T S) (μ : Measure T) (f : T' → T) (hf : MeasurableEmbedding f)
@@ -200,6 +255,9 @@ lemma entropy_comap [MeasurableSingletonClass T]
   intro x _ y _ hxy
   exact hf.injective hxy
 
+/-- The comap of a finitely supported measure along a measurable equivalence `f` is finitely
+supported, on the image of the support under `f.symm`. Supplies `entropy_comap_equiv`'s
+finite-support side condition. -/
 lemma FiniteSupport.comap_equiv [MeasurableSingletonClass T]
     {T' : Type*} [MeasurableSpace T']
     {μ : Measure T} (f : T' ≃ᵐ T) [FiniteSupport μ] :
@@ -215,6 +273,10 @@ lemma FiniteSupport.comap_equiv [MeasurableSingletonClass T]
   · exact fun _ ↦ (MeasurableEquiv.measurableSet_image f).mpr
   · exact f.symm.measurableSet_image.mpr A.measurableSet.compl
 
+/-- `Hk[comap κ f, μ.comap f] = Hk[κ, μ]` for a measurable equivalence `f`: `entropy_comap` with
+`f.measurableEmbedding`, its range the whole space, and `FiniteSupport.comap_equiv`. Read by
+`entropy_comap_swap`, `entropy_prodMkLeft_unit` and `entropy_submodular_compProd`
+(`Kernel/MutualInfo`). -/
 lemma entropy_comap_equiv [MeasurableSingletonClass T]
     {T' : Type*} [MeasurableSpace T'] [MeasurableSingletonClass T']
     (κ : Kernel T S) {μ : Measure T} (f : T' ≃ᵐ T)
@@ -222,12 +284,18 @@ lemma entropy_comap_equiv [MeasurableSingletonClass T]
     Hk[comap κ f f.measurable, μ.comap f] = Hk[κ, μ] := by
   simp [entropy_comap, f.measurableEmbedding, FiniteSupport.comap_equiv f]
 
+/-- `Hk[comap κ Prod.swap, μ.comap Prod.swap] = Hk[κ, μ]`: `entropy_comap_equiv` at
+`MeasurableEquiv.prodComm`. The last rewrite of `condEntropy_two_eq_kernel_entropy`
+(`Salt/Entropy/Basic`). -/
 lemma entropy_comap_swap [MeasurableSingletonClass T]
     {T' : Type*} [MeasurableSpace T'] [MeasurableSingletonClass T']
     (κ : Kernel (T' × T) S) {μ : Measure (T' × T)} [IsFiniteMeasure μ] [FiniteSupport μ] :
     Hk[comap κ Prod.swap measurable_swap, μ.comap Prod.swap] = Hk[κ, μ] :=
   entropy_comap_equiv κ MeasurableEquiv.prodComm
 
+/-- `Hk[prodMkLeft Unit κ, μ.map (Prod.mk ())] = Hk[κ, μ]`: `entropy_comap_equiv` at
+`MeasurableEquiv.punitProd`, the `map` read as the comap of the inverse equivalence. Closes the
+conditional-entropy term of `chain_rule'` (`Salt/Entropy/Basic`). -/
 lemma entropy_prodMkLeft_unit [MeasurableSingletonClass T]
     (κ : Kernel T S) {μ : Measure T} [IsZeroOrProbabilityMeasure μ] [FiniteSupport μ] :
     Hk[prodMkLeft Unit κ, μ.map (Prod.mk ())] = Hk[κ, μ] := by
@@ -235,6 +303,10 @@ lemma entropy_prodMkLeft_unit [MeasurableSingletonClass T]
   · rfl
   rw [← MeasurableEquiv.map_symm]
   congr
+/-- The chain rule for a composition `κ ⊗ₖ η` under finite kernel supports, with the second term
+fibrewise: `Hk[κ ⊗ₖ η, μ] = Hk[κ, μ] + μ[fun t ↦ Hk[comap η (Prod.mk t), κ t]]`. Both sides
+reduce to finite sums over the supports (`measureEntropy_eq_sum`) and `negMulLog_mul` splits
+each product mass. `entropy_compProd'` folds the integral back into `Hk[η, μ ⊗ₘ κ]`. -/
 lemma entropy_compProd_aux [MeasurableSingletonClass S] [MeasurableSingletonClass T]
     [MeasurableSingletonClass U] {μ} [IsFiniteMeasure μ] {κ : Kernel T S} [IsZeroOrMarkovKernel κ]
     {η : Kernel (T × S) U} [IsMarkovKernel η] [FiniteSupport μ] (hκ : FiniteKernelSupport κ)
@@ -292,6 +364,9 @@ lemma entropy_compProd_aux [MeasurableSingletonClass S] [MeasurableSingletonClas
   rw [this, Kernel.comap_apply, negMulLog_mul, negMulLog, negMulLog]
   ring
 
+/-- `Hk[κ ⊗ₖ η, μ] = Hk[κ, μ] + Hk[η, μ ⊗ₘ κ]` under finite kernel supports everywhere:
+`entropy_compProd_aux`, then `Measure.integral_compProd` (integrable by
+`finiteSupport_of_compProd'`). `entropy_compProd` lifts it to a.e. supports. -/
 lemma entropy_compProd' [MeasurableSingletonClass S] [Countable S] [MeasurableSingletonClass T]
     [Countable T] [MeasurableSingletonClass U] {μ}
     [IsFiniteMeasure μ] {κ : Kernel T S} [IsZeroOrMarkovKernel κ]
@@ -306,6 +381,10 @@ lemma entropy_compProd' [MeasurableSingletonClass S] [Countable S] [MeasurableSi
   · have := finiteSupport_of_compProd' hκ (μ := μ)
     exact integrable_of_finiteSupport (μ ⊗ₘ κ)
 
+/-- The chain rule for a composition: `Hk[κ ⊗ₖ η, μ] = Hk[κ, μ] + Hk[η, μ ⊗ₘ κ]` for
+a.e.-finitely-supported `κ` and `η`. Both are replaced by their modifications `hκ.mk`, `hη.mk`
+(`entropy_congr`, `compProd_congr_ae`) and `entropy_compProd'` applies. Read by `chain_rule`,
+`entropy_compProd_deterministic` and `mutualInfo_compProd` (`Kernel/MutualInfo`). -/
 lemma entropy_compProd [Countable S] [MeasurableSingletonClass S]
     [Countable T] [MeasurableSingletonClass T] [MeasurableSingletonClass U] {μ}
     [IsFiniteMeasure μ] {κ : Kernel T S} [IsZeroOrMarkovKernel κ]
@@ -321,6 +400,9 @@ lemma entropy_compProd [Countable S] [MeasurableSingletonClass S]
     rw [h_meas_eq, entropy_congr hη.ae_eq_mk]
   rw [← h_ent1, ← h_ent2, ← h_ent3,
     entropy_compProd' hκ.finiteKernelSupport_mk hη.finiteKernelSupport_mk]
+/-- `Hk[deterministic f, μ] = 0`: each fibre is a Dirac mass, whose entropy vanishes
+(`measureEntropy_dirac`). A `simp` lemma; what `simp` reaches in
+`entropy_compProd_deterministic`. -/
 @[simp]
 lemma entropy_deterministic [MeasurableSingletonClass S]
     [Countable T] [MeasurableSingletonClass T] (f : T → S) (μ : Measure T) :
@@ -329,6 +411,9 @@ lemma entropy_deterministic [MeasurableSingletonClass S]
   convert integral_zero T ℝ
   apply measureEntropy_dirac
 
+/-- Composing with a deterministic kernel adds no entropy:
+`Hk[κ ⊗ₖ deterministic f, μ] = Hk[κ, μ]`, by `entropy_compProd` and `entropy_deterministic`. A
+`simp` lemma; no named consumer at 884bd7d7. -/
 @[simp]
 lemma entropy_compProd_deterministic [Countable S] [MeasurableSingletonClass S]
     [Countable T] [MeasurableSingletonClass T] [MeasurableSingletonClass U]
@@ -337,16 +422,28 @@ lemma entropy_compProd_deterministic [Countable S] [MeasurableSingletonClass S]
     Hk[κ ⊗ₖ (deterministic f .of_discrete), μ] = Hk[κ, μ] := by
   simp [entropy_compProd hκ ((FiniteKernelSupport.deterministic f).aefiniteKernelSupport _)]
 
+/-- A Markov kernel out of a nonempty type lands in a nonempty type: the fibre at any point is a
+probability measure, hence `NeZero`. Supplies the `Nonempty` instances
+`nonempty_of_isProbabilityMeasure_of_isMarkovKernel` and the `Kernel/MutualInfo` triple lemmas
+(`entropy_submodular_compProd`, `entropy_compProd_triple_add_entropy_le`) need. -/
 lemma nonempty_of_isMarkovKernel {α β : Type*} [MeasurableSpace α] [MeasurableSpace β]
     (κ : Kernel α β) [IsMarkovKernel κ] [Nonempty α] : Nonempty β :=
   (κ <| Classical.arbitrary _).nonempty_of_neZero
 
+/-- A Markov kernel `κ : Kernel α β` with a probability measure on `α` lands in a nonempty `β`:
+`μ.nonempty_of_neZero`, then `nonempty_of_isMarkovKernel`. Read by `entropy_prod` and
+`entropy_map_le` here and by the `Kernel/MutualInfo` lemmas that split on
+`eq_zero_or_isProbabilityMeasure`. -/
 lemma nonempty_of_isProbabilityMeasure_of_isMarkovKernel
     {α β : Type*} [MeasurableSpace α] [MeasurableSpace β] (μ : Measure α) [IsProbabilityMeasure μ]
     (κ : Kernel α β) [IsMarkovKernel κ] : Nonempty β := by
   have : Nonempty α := μ.nonempty_of_neZero
   exact nonempty_of_isMarkovKernel κ
 
+/-- The kernel chain rule: `Hk[κ, μ] = Hk[fst κ, μ] + Hk[condKernel κ, μ ⊗ₘ fst κ]` for
+`κ : Kernel T (S × U)`, from `disintegration κ` and `entropy_compProd`. Read by `chain_rule'`
+and `entropy_prod` here, by `mutualInfo_eq_snd_sub` and `entropy_compProd_triple_add_entropy_le`
+in `Kernel/MutualInfo`, and by the random-variable `chain_rule'` of `Salt/Entropy/Basic`. -/
 lemma chain_rule [Countable S] [MeasurableSingletonClass S] [Countable T]
     [MeasurableSingletonClass T] [Countable U] [MeasurableSingletonClass U]
     {κ : Kernel T (S × U)} [IsZeroOrMarkovKernel κ] [hU : Nonempty U]
@@ -356,6 +453,10 @@ lemma chain_rule [Countable S] [MeasurableSingletonClass S] [Countable T]
   conv_lhs => rw [disintegration κ]
   rw [entropy_compProd hκ.fst (aefiniteKernelSupport_of_cond _ hκ)]
 
+/-- The chain rule conditioning on the second coordinate:
+`Hk[κ, μ] = Hk[snd κ, μ] + Hk[condKernel (swapRight κ), μ ⊗ₘ snd κ]`, from `chain_rule` at
+`swapRight κ` and `entropy_swapRight`. Read by `entropy_map_le` and by `mutualInfo_eq_fst_sub`
+(`Kernel/MutualInfo`). -/
 lemma chain_rule' [Nonempty S] [Countable S] [MeasurableSingletonClass S] [Countable T]
     [MeasurableSingletonClass T] [Countable U] [MeasurableSingletonClass U]
     {κ : Kernel T (S × U)} [IsZeroOrMarkovKernel κ]
@@ -365,6 +466,9 @@ lemma chain_rule' [Nonempty S] [Countable S] [MeasurableSingletonClass S] [Count
   rw [← entropy_swapRight, chain_rule hκ.swapRight]
   simp
 
+/-- `Hk[prodMkRight S η, μ ⊗ₘ κ] = Hk[η, μ]` for a Markov `κ`: the kernel ignores the `S`
+coordinate, so `Measure.integral_compProd` (integrable by `finiteSupport_of_compProd`)
+integrates `κ` out. A `simp` lemma; read by `entropy_prodMkRight'` and `entropy_prod`. -/
 @[simp]
 lemma entropy_prodMkRight [Countable S] [MeasurableSingletonClass S] [Countable T]
     [MeasurableSingletonClass T]
@@ -375,6 +479,9 @@ lemma entropy_prodMkRight [Countable S] [MeasurableSingletonClass S] [Countable 
   have := finiteSupport_of_compProd hκ (μ := μ)
   simp [entropy, Measure.integral_compProd, integrable_of_finiteSupport]
 
+/-- `Hk[prodMkRight S η, μ.prod ν] = Hk[η, μ]` for a probability measure `ν`:
+`entropy_prodMkRight` at the constant kernel `const T ν`, the product measure read as
+`μ ⊗ₘ const T ν`. No consumer at 884bd7d7. -/
 lemma entropy_prodMkRight' [Countable S] [MeasurableSingletonClass S] [Countable T]
     [MeasurableSingletonClass T]
     {η : Kernel T U}
@@ -386,6 +493,8 @@ lemma entropy_prodMkRight' [Countable S] [MeasurableSingletonClass S] [Countable
   ext s hs
   simp_rw [Measure.prod_apply hs, Measure.compProd_apply hs, Kernel.const_apply]
 
+/-- `Hk[prodMkLeft S η, ν.prod μ] = Hk[η, μ]` for a probability measure `ν`: `integral_prod`
+integrates the ignored `S` coordinate out. A `simp` lemma; no named consumer at 884bd7d7. -/
 @[simp]
 lemma entropy_prodMkLeft [Countable S] [MeasurableSingletonClass S] [Countable T]
     [MeasurableSingletonClass T] {η : Kernel T U}
@@ -400,6 +509,9 @@ lemma entropy_prodMkLeft [Countable S] [MeasurableSingletonClass S] [Countable T
 variable [Countable S] [MeasurableSingletonClass S] [Countable T]
     [MeasurableSingletonClass T] [Countable U] [MeasurableSingletonClass U]
 
+/-- The entropy of a product kernel is the sum: `Hk[κ ×ₖ η, μ] = Hk[κ, μ] + Hk[η, μ]`, by
+`chain_rule` at `κ ×ₖ η` (`fst_prod`, `condKernel_prod_ae_eq`, `entropy_prodMkRight`). A `simp`
+lemma; read by `mutualInfo_prod` (`Kernel/MutualInfo`). -/
 @[simp]
 lemma entropy_prod {κ : Kernel T S} {η : Kernel T U} [IsMarkovKernel κ] [IsMarkovKernel η]
     {μ : Measure T} [IsZeroOrProbabilityMeasure μ] [FiniteSupport μ]
@@ -430,6 +542,8 @@ lemma entropy_map_le
   simp_rw [snd_map_prod κ measurable_id', le_add_iff_nonneg_right]
   exact entropy_nonneg _ _
 
+/-- Kernels that are images of each other (`η = map κ f`, `κ = map η g`) have equal entropy:
+`entropy_map_le` both ways. No consumer at 884bd7d7. -/
 lemma entropy_of_map_eq_of_map {κ : Kernel T S} {η : Kernel T U}
     [IsZeroOrMarkovKernel κ] [IsZeroOrMarkovKernel η]
     {μ : Measure T} [IsZeroOrProbabilityMeasure μ] (f : S → U) (g : U → S)
@@ -440,6 +554,8 @@ lemma entropy_of_map_eq_of_map {κ : Kernel T S} {η : Kernel T U}
   · rw [h2]; exact entropy_map_le g hη
   · rw [h1]; exact entropy_map_le f hκ
 
+/-- `Hk[snd κ, μ] ≤ Hk[κ, μ]`: `entropy_map_le` at `Prod.snd` (`snd_eq`). No consumer at
+884bd7d7. -/
 lemma entropy_snd_le {κ : Kernel T (S × U)} [IsZeroOrMarkovKernel κ]
     {μ : Measure T} [IsZeroOrProbabilityMeasure μ]
     [FiniteSupport μ] (hκ : AEFiniteKernelSupport κ μ) :
@@ -447,6 +563,8 @@ lemma entropy_snd_le {κ : Kernel T (S × U)} [IsZeroOrMarkovKernel κ]
   rw [snd_eq]
   exact entropy_map_le _ hκ
 
+/-- `Hk[fst κ, μ] ≤ Hk[κ, μ]`: `entropy_map_le` at `Prod.fst` (`fst_eq`). No consumer at
+884bd7d7. -/
 lemma entropy_fst_le (κ : Kernel T (S × U)) [IsZeroOrMarkovKernel κ]
     (μ : Measure T) [IsZeroOrProbabilityMeasure μ]
     [FiniteSupport μ] (hκ : AEFiniteKernelSupport κ μ) :
