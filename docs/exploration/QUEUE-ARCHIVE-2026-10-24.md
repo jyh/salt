@@ -2319,7 +2319,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
   MRTUniformityXi
     ← mrtUniformityXi_of_absWindowBound_twelve  (M4Window:268)   — concludes the door from ONE L¹ estimate
        arc      bigXiArcTight_twelve      (ExitClose:779)        ✅ UNCONDITIONAL
-       Parseval parseval_insert_budget_door (M4ParsevalStone:341) ✅ + terminal twin consumed S16FlatTerminalLinear:197
+       Parseval parseval_insert_budget_door (M4ParsevalStone:341) ✅ + terminal twin consumed S16FlatTerminalLinear:262
        ⟦THE WALL⟧ m4_hrowsSum_chi_door_end_L (M4RowLinear:284)   ✅ landed · All.lean:7550 · consumed ×3
                   (M4RowAssemblyLinear:4217 · :4631 _gk · :4551 _gk_kwide)
        ⟦CLASS PRICING⟧ M4ClassPrice.lean                          ✅ 41 thms, 0 sorry — design question ANSWERED  [42→41 erratum 08/25, see :196]
