@@ -176,7 +176,7 @@ theorem s16BandLaneCBoundedLH_winU_one_iff (Awin : ℝ) :
 set_option maxHeartbeats 1000000 in
 -- The landed mint's own budget: the band body re-elaborates at every socket base.
 /-- **⟦THE BAND MINT AT THE INFLATED SOCKET⟧** (`m4_hband_at_door_slot_split_graded_LH_gk`) —
-`S11HoistLinear:726` with both socket quantifiers at `SocketBaseLH h`.  **The proof body is the
+`S11HoistLinear:845` with both socket quantifiers at `SocketBaseLH h`.  **The proof body is the
 landed one verbatim**: it projects conjunct 4 (`0 < q`) and passes `hb` to its own antecedent,
 and `SocketBaseLH` moves neither. -/
 theorem m4_hband_at_door_slot_split_graded_LH_gk (h : ℕ) (_hh : 0 < h) (K : ℕ)
@@ -239,7 +239,7 @@ theorem m4_hband_at_door_slot_split_graded_LH_gk (h : ℕ) (_hh : 0 < h) (K : �
 set_option maxHeartbeats 1000000 in
 -- Same cause as the landed `_uniform` mint.
 /-- **⟦THE BAND MINT AT THE INFLATED SOCKET, WITNESS-UNIFORM⟧**
-(`m4_hband_at_door_slot_split_graded_LH_gk_uniform`) — `S11HoistLinear:849` with both socket
+(`m4_hband_at_door_slot_split_graded_LH_gk_uniform`) — `S11HoistLinear:1024` with both socket
 quantifiers at `SocketBaseLH h`; body verbatim, for the same reason as the `K`-fixed twin. -/
 theorem m4_hband_at_door_slot_split_graded_LH_gk_uniform (h : ℕ) (_hh : 0 < h)
     (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp : 0 < Aexp) :

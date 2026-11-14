@@ -934,166 +934,13 @@ theorem m4_hrowsSum_chi_zero'_bounded :
   exact m4_rowChi_weighed_end' hXd1 hF.H1_two hF.eta_pos hF.eta_lt hCt.le hCp hF.one_le_M
     hh4 hX0 hL0 hX4Xd hQ1h hT hrow
 
-set_option maxHeartbeats 1600000 in
--- The twin re-elaborates the landed statement with one extra conjunct, so it needs the
--- landed declaration's own heartbeat room.
-/-- **⟦Ct BOUNDED TWIN⟧** `m4_hrowsSum_chi_door_zero'_L_gk` + the conjunct `Ct ≤ 6 * Real.exp 14`.
-pass-through at the linear door. -/
-theorem m4_hrowsSum_chi_door_zero'_L_gk_bounded (K : ℕ) (hK : K ≤ 170000000) :
-    ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 6 * Real.exp 14 ∧
-      ∀ (Cp : ℝ), 0 ≤ Cp →
-      ∀ (q : ℕ) [NeZero q] (c : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ),
-        (∀ j m : ℕ, ‖bfam j m‖ ≤ 1) → (∀ p : ℕ, ‖c p‖ ≤ 1) →
-      ∀ (N Xd M : ℕ) (X h ε : ℝ) (t₁ : DirichletCharacter ℂ q → ℝ),
-        1 ≤ M → calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd →
-        2 * Xd ≤ N → (N : ℝ) ≤ 4 * (Xd : ℝ) →
-        (∀ j ∈ Finset.Icc 1 2,
-          SeamCoefWS Xd (calP (AdoorL M) (s13GK K M) j) (calQK (AdoorL M) (s13GK K M) M j)
-            (winCutH Xd (doorCoeffU_L_gk K M)) (bfam j) c) →
-        Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
-            ≤ Real.sqrt (Real.log (Xd : ℝ)) →
-        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
-        4 ≤ h → 0 < X → 0 ≤ Real.log X → X ≤ 4 * (Xd : ℝ) →
-        ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ h →
-        (∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X →
-          TannGate X (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
-          (∫ t in seamAnn X (2 * T),
-              ‖spoly N (chiBarCoeff q χ (winCutH Xd (doorCoeffU_L_gk K M))) t‖ ^ 2)
-            ≤ 8 * (0 : ℝ) ^ 2
-              + (∫ t in (seamAnn X (2 * T) \ seamBall X (t₁ χ))
-                  ∩ seamTtotG (chiBarCoeff q χ c) (calP (AdoorL M) (s13GK K M))
-                      (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
-                      (mrAlpha (1 / 12)) 2,
-                  ‖spoly N (chiBarCoeff q χ (winCutH Xd (doorCoeffU_L_gk K M))) t‖ ^ 2)
-              + 2 * ((2 * T / X + 1) * (Real.log X) ^ (-theta293 + ε))) →
-        ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X →
-          TannGate X (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
-          X / h / T * (∫ t in seamAnn X (2 * T),
-              ‖spoly N (chiBarCoeff q χ (winCutH Xd (doorCoeffU_L_gk K M))) t‖ ^ 2)
-            ≤ a2Mrow'_L_gk K Ct Cp M Xd X ε := by
-  obtain ⟨Ct, hCt, hCtb, hrows⟩ := m4_hrowsSum_chi_zero'_bounded
-  refine ⟨Ct, hCt, hCtb, ?_⟩
-  intro Cp hCp q _ c bfam hb1 hc1 N Xd M X h ε t₁ hM hXdQ hNXd hN4 hcoefWS hQXd
-    hXdbig hh4 hX0 hL0 hX4Xd hQ1h hcap χ T hT hTX2 hTgate hTll
-  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (AdoorL M) (s13GK K M) M 2) hXdQ
-  have ha1 : ∀ n : ℕ, ‖winCutH Xd (doorCoeffU_L_gk K M) n‖ ≤ 1 :=
-    fun n => norm_winCutH_le
-      (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ 2 m) n
-  refine (hrows Cp hCp q c (winCutH Xd (doorCoeffU_L_gk K M)) bfam ha1 hb1 hc1 N Xd
-    (AdoorL M) (s13GK K M) M 2 (H1doorL M) X h (1 / 12) ε t₁ (fun _ => 0)
-    (calFrameK_doorH1_at_L_gk K M Xd hM hK hXdQ) hNXd hN4 hcoefWS (fun n hn => winCutH_asupp hn)
-    (fun i hi => blockLive_winCutH_doorCoeffU_L_gk K M Xd hi) hQXd hXdbig hh4 hX0 hL0 hX4Xd hQ1h
-    hcap χ T hT hTX2 hTgate hTll).trans ?_
-  exact m4MrowChiEnd'_le_a2Mrow'_L_gk K hM hXd1 hCp
-
-set_option maxHeartbeats 1600000 in
--- The twin re-elaborates the landed statement with one extra conjunct, so it needs the
--- landed declaration's own heartbeat room.
-/-- **⟦Ct BOUNDED TWIN⟧** `m4_hrowsSlot_at_door_zero'_L_gk` + the conjunct `Ct ≤ 6 * Real.exp 14`.
-⟦THE TOP UNFENCED HOP OF ROUTE 2⟧ — the compose pass's hook. -/
-theorem m4_hrowsSlot_at_door_zero'_L_gk_bounded (K : ℕ) (hK : K ≤ 170000000) :
-    ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 6 * Real.exp 14 ∧
-      ∀ (Cp : ℝ), 0 ≤ Cp →
-      ∀ (R : ChowlaRegime) (M : ℕ) (ε : ℕ → ℝ) (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ)
-        (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
-        1 ≤ M → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
-        (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
-          DoorRowZeroBase_L_gk K M (A + s) j cU bU) →
-        (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
-          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
-            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
-            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
-            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
-                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
-              ≤ 8 * (0 : ℝ) ^ 2
-                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
-                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
-                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
-                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
-                        (mrAlpha (1 / 12)) 2,
-                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
-                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
-                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
-        ∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
-          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
-            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
-            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
-            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
-                * (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
-                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
-              ≤ a2Mrow'_L_gk K Ct Cp M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)) := by
-  obtain ⟨Ct, hCt, hCtb, hrows⟩ := m4_hrowsSum_chi_door_zero'_L_gk_bounded K hK
-  refine ⟨Ct, hCt, hCtb, ?_⟩
-  intro Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap H L q j A s hb χ T hT hTX2 hTgate hTll
-  obtain ⟨hq, hA, hAs, hAsR, hN4⟩ := Salt.MR.socketFrame_facts s hb
-  haveI : NeZero q := ⟨hq.ne'⟩
-  have hD := hbase H L q j A s hb
-  have hslot := hrows Cp hCp q cU bU hb1 hc1
-    (2 * (A + s)) (A + s) M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (ε (A + s)) (t₁ q)
-    hM hD.Q2_le le_rfl hN4 hD.coefWS hD.reg hD.big
-    hD.h_four hAsR (log_natCast_nonneg' (A + s)) (by linarith) hD.Q1_le_h
-    (by simpa only [chiBarCoeff_doorRowDatum_L_gk] using hcap H L q j A s hb) χ T
-    hT hTX2 hTgate hTll
-  simpa only [chiBarCoeff_doorRowDatum_L_gk] using hslot
-
-/-! ## §14 — the ceiling in the terminal's own shape -/
-
-/-- `6·e^14 ≤ 2^23` — the rider's numeral, at 86% of the ceiling
-(`6·e^14 = 7215625.7`, `2^23 = 8388608`). -/
-theorem six_exp_fourteen_le_two_pow_23 : 6 * Real.exp 14 ≤ 2 ^ 23 := by
-  have h1 : Real.exp 1 ≤ 2.7182818286 := le_of_lt Real.exp_one_lt_d9
-  have h2 : Real.exp 14 = Real.exp 1 ^ (14 : ℕ) := by
-    rw [← Real.exp_nat_mul]; norm_num
-  have h3 : Real.exp 1 ^ (14 : ℕ) ≤ (2.7182818286 : ℝ) ^ (14 : ℕ) :=
-    pow_le_pow_left₀ (Real.exp_pos 1).le h1 14
-  rw [h2]
-  linarith only [h3]
-
-set_option maxHeartbeats 1600000 in
--- The twin re-elaborates the landed statement with one extra conjunct, so it needs the
--- landed declaration's own heartbeat room.
-/-- **⟦THE COMPOSE HOOK OF ROUTE 2⟧** — `m4_hrowsSlot_at_door_zero'_L_gk_bounded`
-with the ceiling stated in the terminal's own numeral `2^23`. -/
-theorem m4_hrowsSlot_at_door_zero'_L_gk_ceiling (K : ℕ) (hK : K ≤ 170000000) :
-    ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 2 ^ 23 ∧
-      ∀ (Cp : ℝ), 0 ≤ Cp →
-      ∀ (R : ChowlaRegime) (M : ℕ) (ε : ℕ → ℝ) (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ)
-        (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
-        1 ≤ M → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
-        (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
-          DoorRowZeroBase_L_gk K M (A + s) j cU bU) →
-        (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
-          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
-            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
-            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
-            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
-                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
-              ≤ 8 * (0 : ℝ) ^ 2
-                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
-                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
-                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
-                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
-                        (mrAlpha (1 / 12)) 2,
-                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
-                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
-                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
-        ∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
-          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
-            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
-            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
-            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
-                * (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
-                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
-              ≤ a2Mrow'_L_gk K Ct Cp M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)) := by
-  obtain ⟨Ct, hCt, hCtb, hslot⟩ := m4_hrowsSlot_at_door_zero'_L_gk_bounded K hK
-  exact ⟨Ct, hCt, le_trans hCtb six_exp_fourteen_le_two_pow_23, hslot⟩
-
 /-! ## §Xw — ⟦KWIDE-65⟧ THE WIDE-CEILING TWINS (this file)
 
 Mechanical widening of the flat `hK` ceiling binders on the `L`-chain: the ceiling moves
 INSIDE the internal `∀ M` as `≤ 170000000 * M`, so the raised lever `KlevF` can flow.
 Statements and proofs are verbatim apart from that antecedent and the `_kwide` re-pointing.
-The originals are untouched.
+The flat-ceiling originals are their instances at `hK`; each twin sits just above its
+original.
 -/
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSum_chi_door_zero'_L_gk_bounded_kwide`) —
@@ -1148,6 +995,48 @@ theorem m4_hrowsSum_chi_door_zero'_L_gk_bounded_kwide (K : ℕ) :
     hcap χ T hT hTX2 hTgate hTll).trans ?_
   exact m4MrowChiEnd'_le_a2Mrow'_L_gk K hM hXd1 hCp
 
+set_option maxHeartbeats 1600000 in
+-- The twin re-elaborates the landed statement with one extra conjunct, so it needs the
+-- landed declaration's own heartbeat room.
+/-- **⟦Ct BOUNDED TWIN⟧** `m4_hrowsSum_chi_door_zero'_L_gk` + the conjunct `Ct ≤ 6 * Real.exp 14`.
+pass-through at the linear door. -/
+theorem m4_hrowsSum_chi_door_zero'_L_gk_bounded (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 6 * Real.exp 14 ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+      ∀ (q : ℕ) [NeZero q] (c : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ),
+        (∀ j m : ℕ, ‖bfam j m‖ ≤ 1) → (∀ p : ℕ, ‖c p‖ ≤ 1) →
+      ∀ (N Xd M : ℕ) (X h ε : ℝ) (t₁ : DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd →
+        2 * Xd ≤ N → (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        (∀ j ∈ Finset.Icc 1 2,
+          SeamCoefWS Xd (calP (AdoorL M) (s13GK K M) j) (calQK (AdoorL M) (s13GK K M) M j)
+            (winCutH Xd (doorCoeffU_L_gk K M)) (bfam j) c) →
+        Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
+            ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        4 ≤ h → 0 < X → 0 ≤ Real.log X → X ≤ 4 * (Xd : ℝ) →
+        ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ h →
+        (∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X →
+          TannGate X (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+          (∫ t in seamAnn X (2 * T),
+              ‖spoly N (chiBarCoeff q χ (winCutH Xd (doorCoeffU_L_gk K M))) t‖ ^ 2)
+            ≤ 8 * (0 : ℝ) ^ 2
+              + (∫ t in (seamAnn X (2 * T) \ seamBall X (t₁ χ))
+                  ∩ seamTtotG (chiBarCoeff q χ c) (calP (AdoorL M) (s13GK K M))
+                      (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                      (mrAlpha (1 / 12)) 2,
+                  ‖spoly N (chiBarCoeff q χ (winCutH Xd (doorCoeffU_L_gk K M))) t‖ ^ 2)
+              + 2 * ((2 * T / X + 1) * (Real.log X) ^ (-theta293 + ε))) →
+        ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X →
+          TannGate X (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+          X / h / T * (∫ t in seamAnn X (2 * T),
+              ‖spoly N (chiBarCoeff q χ (winCutH Xd (doorCoeffU_L_gk K M))) t‖ ^ 2)
+            ≤ a2Mrow'_L_gk K Ct Cp M Xd X ε := by
+  obtain ⟨Ct, f0_1, f0_2, hw⟩ := m4_hrowsSum_chi_door_zero'_L_gk_bounded_kwide K
+  refine ⟨Ct, f0_1, f0_2, ?_⟩
+  intro Cp e1 q _ c bfam e2 e3 N Xd M X h ε t₁ hM
+  exact hw Cp e1 q c bfam e2 e3 N Xd M X h ε t₁ hM (by omega)
+
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSlot_at_door_zero'_L_gk_bounded_kwide`) —
 `m4_hrowsSlot_at_door_zero'_L_gk_bounded` with the flat ceiling moved inside the `∀ M`.
 The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
@@ -1197,6 +1086,60 @@ theorem m4_hrowsSlot_at_door_zero'_L_gk_bounded_kwide (K : ℕ) :
     hT hTX2 hTgate hTll
   simpa only [chiBarCoeff_doorRowDatum_L_gk] using hslot
 
+set_option maxHeartbeats 1600000 in
+-- The twin re-elaborates the landed statement with one extra conjunct, so it needs the
+-- landed declaration's own heartbeat room.
+/-- **⟦Ct BOUNDED TWIN⟧** `m4_hrowsSlot_at_door_zero'_L_gk` + the conjunct `Ct ≤ 6 * Real.exp 14`.
+⟦THE TOP UNFENCED HOP OF ROUTE 2⟧ — the compose pass's hook. -/
+theorem m4_hrowsSlot_at_door_zero'_L_gk_bounded (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 6 * Real.exp 14 ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+      ∀ (R : ChowlaRegime) (M : ℕ) (ε : ℕ → ℝ) (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ)
+        (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+          DoorRowZeroBase_L_gk K M (A + s) j cU bU) →
+        (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
+                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
+        ∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
+                * (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ a2Mrow'_L_gk K Ct Cp M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)) := by
+  obtain ⟨Ct, f0_1, f0_2, hw⟩ := m4_hrowsSlot_at_door_zero'_L_gk_bounded_kwide K
+  refine ⟨Ct, f0_1, f0_2, ?_⟩
+  intro Cp e1 R M ε cU bU t₁ hM
+  exact hw Cp e1 R M ε cU bU t₁ hM (by omega)
+
+/-! ## §14 — the ceiling in the terminal's own shape -/
+
+/-- `6·e^14 ≤ 2^23` — the rider's numeral, at 86% of the ceiling
+(`6·e^14 = 7215625.7`, `2^23 = 8388608`). -/
+theorem six_exp_fourteen_le_two_pow_23 : 6 * Real.exp 14 ≤ 2 ^ 23 := by
+  have h1 : Real.exp 1 ≤ 2.7182818286 := le_of_lt Real.exp_one_lt_d9
+  have h2 : Real.exp 14 = Real.exp 1 ^ (14 : ℕ) := by
+    rw [← Real.exp_nat_mul]; norm_num
+  have h3 : Real.exp 1 ^ (14 : ℕ) ≤ (2.7182818286 : ℝ) ^ (14 : ℕ) :=
+    pow_le_pow_left₀ (Real.exp_pos 1).le h1 14
+  rw [h2]
+  linarith only [h3]
+
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSlot_at_door_zero'_L_gk_ceiling_kwide`) —
 `m4_hrowsSlot_at_door_zero'_L_gk_ceiling` with the flat ceiling moved inside the `∀ M`.
 The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
@@ -1234,5 +1177,46 @@ theorem m4_hrowsSlot_at_door_zero'_L_gk_ceiling_kwide (K : ℕ) :
               ≤ a2Mrow'_L_gk K Ct Cp M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)) := by
   obtain ⟨Ct, hCt, hCtb, hslot⟩ := m4_hrowsSlot_at_door_zero'_L_gk_bounded_kwide K
   exact ⟨Ct, hCt, le_trans hCtb six_exp_fourteen_le_two_pow_23, hslot⟩
+
+set_option maxHeartbeats 1600000 in
+-- The twin re-elaborates the landed statement with one extra conjunct, so it needs the
+-- landed declaration's own heartbeat room.
+/-- **⟦THE COMPOSE HOOK OF ROUTE 2⟧** — `m4_hrowsSlot_at_door_zero'_L_gk_bounded`
+with the ceiling stated in the terminal's own numeral `2^23`. -/
+theorem m4_hrowsSlot_at_door_zero'_L_gk_ceiling (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 2 ^ 23 ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+      ∀ (R : ChowlaRegime) (M : ℕ) (ε : ℕ → ℝ) (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ)
+        (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+          DoorRowZeroBase_L_gk K M (A + s) j cU bU) →
+        (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
+                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
+        ∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
+                * (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ a2Mrow'_L_gk K Ct Cp M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)) := by
+  obtain ⟨Ct, f0_1, f0_2, hw⟩ := m4_hrowsSlot_at_door_zero'_L_gk_ceiling_kwide K
+  refine ⟨Ct, f0_1, f0_2, ?_⟩
+  intro Cp e1 R M ε cU bU t₁ hM
+  exact hw Cp e1 R M ε cU bU t₁ hM (by omega)
 
 end Salt.MR
