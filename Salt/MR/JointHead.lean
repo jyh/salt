@@ -268,6 +268,9 @@ general-`g` distance split (the PENDING residual — SupF lands the pin `σ = 1/
 `head_pin_bound`, but the `loglog X − M(t)` evaluation is available only at the principal
 datum); `htriv` (`Fbound σ ≤ 1/σ`) is the Mertens 1/σ side.  `sigma_cutoff` itself is
 consumed unconditionally. -/
+/-- The σ-cutoff wired into the β-integral: a bridge bound of `∫ supF α β * crossKer` by `Kα`
+times `∫ Fbound σ / σ` over `[1 / L, 2 * η]` becomes `Kα * ((1 + M) * exp (-M) * L)` by
+`sigma_cutoff`. Read by `BridgeAdapt`; not read in this file. -/
 theorem sigma_wiring {g : ℕ → ℂ} {t₀ X h c₀ y η L M Kα : ℝ} {supF : ℝ → ℝ → ℝ}
     {Fbound : ℝ → ℝ} {α : ℝ}
     (hL : 3 ≤ L) (hM : 0 ≤ M) (hlo : 1 / L ≤ 2 * η) (hKα0 : 0 ≤ Kα)
@@ -291,6 +294,10 @@ Composes J1 (`hJ1`: `‖prop21RHS‖ ≤ (1/π)∫∫ supF·crossKer`) with J2's
 `hjoint` input of `hRHS_discharged_joint` (HExit).  The grade socket then is
 `Agrade ≤ C₁·X` (the `∫₀^η Kfun ≍ X/L` kernel-mass residual, the `Tsplit`/`arcsinh`
 sharpening flagged in `kernel_mass_ledger`). -/
+/-- The α-assembly: from `hJ1` (the `prop21RHS` norm below `1 / π` times the double integral)
+and `hJ2` (the inner integral below `Kfun α * ((1 + M) * exp (-M) * L)` for each `α`), the norm
+of `prop21RHS` is at most `(1 / π) * L * ∫ Kfun` times `(1 + M) * exp (-M)`. Integral
+monotonicity and one pull-out. No consumer at `main`, in this file or outside it. -/
 theorem joint_grade_assembly {g : ℕ → ℂ} {t₀ X h c₀ y η L M : ℝ} {supF : ℝ → ℝ → ℝ}
     {Kfun : ℝ → ℝ}
     (hη0 : 0 ≤ η) (_hEML0 : 0 ≤ (1 + M) * Real.exp (-M) * L)

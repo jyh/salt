@@ -207,6 +207,8 @@ frozen without `a 0 = 0`). -/
 def seamCoeff (f gJ : ℕ → ℂ) (t₀ : ℝ) (n : ℕ) : ℂ :=
   if n = 0 then 0 else f n * gJ n * (n : ℂ) ^ (-(t₀ : ℂ) * I)
 
+/-- `seamCoeff f gJ t₀ 0 = 0` (`@[simp]`): the first branch of the `if`. Read twice in this file
+and by `HalaszRepAsm` and `SPartCore`. -/
 @[simp] lemma seamCoeff_zero (f gJ : ℕ → ℂ) (t₀ : ℝ) : seamCoeff f gJ t₀ 0 = 0 :=
   if_pos rfl
 
@@ -275,6 +277,8 @@ seam.  Here we instantiate them at the seam's windowed–twisted `f`. -/
 in the seam), as a `ℂ`-valued `{0,1}` cutoff. -/
 def windowIndicator (y Y : ℝ) (n : ℕ) : ℂ := if y < (n : ℝ) ∧ (n : ℝ) < Y then 1 else 0
 
+/-- `‖windowIndicator y Y n‖ ≤ 1`: the indicator takes the values `1` and `0`. Read once in this
+file; no consumer outside it. -/
 lemma norm_windowIndicator_le (y Y : ℝ) (n : ℕ) : ‖windowIndicator y Y n‖ ≤ 1 := by
   unfold windowIndicator; split_ifs <;> simp
 
@@ -283,6 +287,8 @@ I-2 boundary by wave I-1b): the windowed–twisted `f`, i.e. `f · g_J` twisted 
 the center `n^{-it₀}`. -/
 def fgJ (f : ℕ → ℂ) (t₀ y Y : ℝ) : ℕ → ℂ := seamCoeff f (windowIndicator y Y) t₀
 
+/-- `fgJ f t₀ y Y 0 = 0` (`@[simp]`), from `seamCoeff_zero`. Read once in this file; no consumer
+outside it. -/
 @[simp] lemma fgJ_zero (f : ℕ → ℂ) (t₀ y Y : ℝ) : fgJ f t₀ y Y 0 = 0 :=
   seamCoeff_zero _ _ _
 
@@ -385,6 +391,8 @@ unweighted moment `dpoly` (`L2MVT`): here the `n^{-c}` decay is carried, matchin
 noncomputable def k4Poly (F : Finset ℕ) (b : ℕ → ℂ) (c t : ℝ) : ℂ :=
   ∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (t : ℂ) * I)
 
+/-- `k4Poly F b c t = ∑ n ∈ F, b n / n ^ (c + t * I)`, by `rfl`. Read twice in this file and by
+`HalaszHead`. -/
 lemma k4Poly_eq (F : Finset ℕ) (b : ℕ → ℂ) (c t : ℝ) :
     k4Poly F b c t = ∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (t : ℂ) * I) := rfl
 

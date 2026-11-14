@@ -104,7 +104,7 @@ The answer to "does a ζ version of `LFunction_norm_logDeriv_sub_sum'` exist?" i
 - `hasDerivAt_log_norm_horiz` — `MR/ChiLLower.lean:87` — `d/dv log‖F(v+c)‖ = Re(logDeriv F)`, `F` arbitrary. (ζ-specialised copy: `MR/ZetaPowLower.lean:144`.)
 - **`norm_Zc_lower_of_shallow_ball`** — `MR/ZetaInvShallow.lean:225` — **the template**: Landau ball on `G = Zc/Zc(c)`, zero set forced EMPTY, then `Convex.norm_image_sub_le_of_norm_hasDerivWithin_le` transports `log‖Zc‖` horizontally at cost `≤ 1` (`:305`). Everything in the new stone except the non-empty zero set is here already.
 - `near_norm_logDeriv_Zc_le` — `MR/ZetaPowLower.lean:301` — **the zero-count block** (`:334–390`): from the exported factorization it recovers `∑_{ρ∈Z} m_ρ ≤ log(4M₀)/log(7/6)` via `analyticOrderAt_eq_of_factorization` + divisor locality + `entire_zero_count_le`. Directly liftable.
-- `zeta_near_bridge` — `MR/ZetaPowLower.lean:843` — FTC over a horizontal segment with continuity-of-`logDeriv` integrability, ζ version.
+- `zeta_near_bridge` — `MR/ZetaPowLower.lean:845` — FTC over a horizontal segment with continuity-of-`logDeriv` integrability, ζ version.
 - `norm_logDeriv_le_of_ball_dist` — `SW/ShiftVariants.lean:45` — the L-side distance form.
 - Ceilings: `TauExt.lean:121` `zetaHol_norm_le` (`≤ 3+2|Im s|` on `1/2 ≤ Re ≤ 1`), `:152` `zetaHol_bound_tall`, `:162` `zetaHol_bound_five`. **Not usable here** — `zetaHol` is the *completed/regularised* object of the DH lane; the pole patch needs `Zc`, whose ceiling is `Zc_sphere_bound_sharp`. Record as a non-lead.
 

@@ -327,6 +327,8 @@ summability gate (via absolute `LSeriesSummable` of the convolution — no crude
 /-- Shift a coefficient sequence: `a(n)·n^w`; makes `L(shiftCoeff w a) s = L a (s-w)`. -/
 def shiftCoeff (w : ℂ) (a : ℕ → ℂ) : ℕ → ℂ := fun n => a n * (n : ℂ) ^ w
 
+/-- `shiftCoeff w a 0 = 0` when `a 0 = 0` (`@[simp]`). Read once in this file; no consumer
+outside it. -/
 @[simp] lemma shiftCoeff_zero (w : ℂ) (a : ℕ → ℂ) (ha : a 0 = 0) : shiftCoeff w a 0 = 0 := by
   simp [shiftCoeff, ha]
 
@@ -339,10 +341,14 @@ lemma term_shiftCoeff (w : ℂ) (a : ℕ → ℂ) (s : ℂ) (n : ℕ) :
       Complex.cpow_sub _ _ (Nat.cast_ne_zero.mpr hn)]
     field_simp
 
+/-- `LSeries (shiftCoeff w a) s = LSeries a (s - w)`: termwise (`term_shiftCoeff`). Read five
+times in this file; no consumer outside it. -/
 lemma LSeries_shiftCoeff (w : ℂ) (a : ℕ → ℂ) (s : ℂ) :
     LSeries (shiftCoeff w a) s = LSeries a (s - w) :=
   tsum_congr (term_shiftCoeff w a s)
 
+/-- `shiftCoeff w a` is `LSeriesSummable` at `s` when `a` is at `s - w`: the same termwise
+identity. No consumer at `main`, in this file or outside it. -/
 lemma LSeriesSummable_shiftCoeff {w : ℂ} {a : ℕ → ℂ} {s : ℂ}
     (h : LSeriesSummable a (s - w)) : LSeriesSummable (shiftCoeff w a) s := by
   rw [LSeriesSummable, funext (term_shiftCoeff w a s)]; exact h
@@ -395,10 +401,14 @@ lemma finite_support_ellLin_restrictBelow (y : ℝ) (g : ℕ → ℂ) :
 def winCoeff (g : ℕ → ℂ) (X y : ℝ) : ℕ → ℂ :=
   fun n => if n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊ then lambdaLin (restrictAbove y g) n else 0
 
+/-- `winCoeff g X y 0 = 0` (`@[simp]`): `0` is outside the window `Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊`.
+Read four times in this file; no consumer outside it. -/
 @[simp] lemma winCoeff_zero (g : ℕ → ℂ) (X y : ℝ) : winCoeff g X y 0 = 0 := by
   simp only [winCoeff, Finset.mem_Ioo]
   rw [if_neg]; rintro ⟨h, _⟩; exact absurd h (by omega)
 
+/-- `winCoeff g X y` has finite support: it vanishes off the window `Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊`.
+Read four times in this file; no consumer outside it. -/
 lemma finite_support_winCoeff (g : ℕ → ℂ) (X y : ℝ) :
     (Function.support (winCoeff g X y)).Finite := by
   apply Set.Finite.subset (Finset.finite_toSet (Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊))
@@ -496,6 +506,8 @@ theorem four_factor_LSeries (y : ℝ) (g : ℕ → ℂ) (hg : ∀ p, p.Prime →
     show s - -(β : ℂ) = s + (β : ℂ) by ring]
   ring
 
+/-- `fourFactorCoeff y g X α β 0 = 0` (`@[simp]`): a Dirichlet convolution at `0`. Read twice in
+this file; no consumer outside it. -/
 @[simp] lemma fourFactorCoeff_zero (y : ℝ) (g : ℕ → ℂ) (X α β : ℝ) :
     fourFactorCoeff y g X α β 0 = 0 := by
   rw [fourFactorCoeff, LSeries.convolution_def]; simp
@@ -1096,6 +1108,8 @@ def alignedCoeffFull (y : ℝ) (g : ℕ → ℂ) (α β : ℝ) : ℕ → ℂ :=
       ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (lambdaLin (restrictAbove y g)))
       ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (ellLin (restrictAbove y g))
 
+/-- `alignedCoeffFull y g α β 0 = 0` (`@[simp]`): a Dirichlet convolution at `0`
+(`LSeries.convolution_map_zero`). Not read by name at `main`, in this file or outside it. -/
 @[simp] lemma alignedCoeffFull_zero (y : ℝ) (g : ℕ → ℂ) (α β : ℝ) :
     alignedCoeffFull y g α β 0 = 0 := by
   rw [alignedCoeffFull, LSeries.convolution_map_zero]

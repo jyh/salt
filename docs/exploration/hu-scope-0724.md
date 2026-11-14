@@ -5,7 +5,7 @@ full report's key content banked here (the agent transcript is ephemeral).*
 
 ## 1. THE DEFINITION AUDIT: CLEAN — no statement-tier gate
 
-Uset (Decomp:231) unfolds to "for every j, SOME sub-block is LARGE" —
+Uset (Decomp:234) unfolds to "for every j, SOME sub-block is LARGE" —
 verbatim MR p.24's 𝒰. The feared thinness-direction mismatch was a
 double-negation misreading. §8.3 consumes exactly ONE 𝒰-property (at j = J,
 Step 3); everything else is 𝒰-agnostic. Two repairable deviations + one

@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `6f05e927` · source digest `55842311f92b974a` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `cea89bac` · source digest `c019b865ffb34be2` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -213,7 +213,7 @@ By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.MR.maskTailWeight_isMultiplicative` | Salt/MR/MobiusChiRamareUnion.lean:273 | `Salt.MR.MaskSmooth` |
 | case split `by_cases` | `Salt.MR.prod_one_sub_gJ` | Salt/MR/Sec9Glue.lean:243 | `Salt.MR.MemS` |
 | case split `by_cases` | `Salt.MR.lemma5_middle` | Salt/MR/Sec9Glue.lean:265 | `Salt.MR.MemS` |
-| case split `by_cases` | `Salt.MR.wt_mul` | Salt/MR/ShiuMoment.lean:176 | `Salt.MR.BlockSmooth` |
+| case split `by_cases` | `Salt.MR.wt_mul` | Salt/MR/ShiuMoment.lean:181 | `Salt.MR.BlockSmooth` |
 | case split `by_cases` | `Salt.MR.thm_a2'_L` | Salt/MR/ThmA2Linear.lean:1504 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.MR.thm_a2'_L_gk` | Salt/MR/ThmA2Linear.lean:2210 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.MR.thm_a2'_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:3845 | `Salt.MR.CapFreeFloor` |

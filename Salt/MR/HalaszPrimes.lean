@@ -38,7 +38,7 @@ in-statement.
   below: across the near strip `[1, 1+w]`, `w = cR/((log|t|)^{3/4}(loglog|t|)⁴)`,
   `log‖ζ‖` grows by at most the ABSOLUTE constant `400` — the "ζ is tame near the
   1-line" statement underlying the contour price.  Rides `zeta_near_logDeriv_bound`
-  (`ZetaPowLower.lean:781`) ∘ `zeta_near_bridge` (`:843`).
+  (`ZetaPowLower.lean:783`) ∘ `zeta_near_bridge` (`:845`).
 * **R3** — the per-`t` decay: `prime_contour_decay` / `_frozen` below, the frozen
   `p^{−(1−σ)} ≤ exp(−log P·(1−σ))` shape.
 * **R4** — the well-spaced summation.  `primePoly_wellspaced_l2` below feeds the L7

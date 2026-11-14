@@ -27,7 +27,7 @@ scales (`k ∈ [⌊X⌋₊, N]`), i.e. the additive restatement
 * the ramp constant `C_R` — `rampSliverMass_bound_unconditional` obtains its `C` from
   `ramp_sliver_bound` (concretely `C = 4·C_cheb`) with `C_cheb` the SHORT-INTERVAL
   Chebyshev constant of `shortInterval_vonMangoldt_le` (concretely `250`), which is
-  obtained BEFORE any `X` is named (`ShortIntervalPsi.lean:407`).  So `C_R = 32·C_cheb`
+  obtained BEFORE any `X` is named (`ShortIntervalPsi.lean:422`).  So `C_R = 32·C_cheb`
   is a numeral-grade absolute constant, `g`-free and `X`-free.
 
 The obstruction is purely *statement-shaped*: the landed stones package their constants

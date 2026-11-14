@@ -1104,7 +1104,7 @@ The high-height half of `shifted_edge_price`: for the shifted rectangle's LEFT s
 `z = σ₀ + iγ` (`σ₀ = 1 − (c_vk/2)/D₃(5T+1)`) at a height `γ ≤ 5T` above the strip threshold,
 the entire factor `logDeriv Zc` is priced at the honest `D₄(5T+1)`-grade
 `(log(5T+1))^{3/4}(loglog(5T+1))⁴`.  The tuned mirror of `zeta_near_bound_core`
-(`ZetaPowLower.lean:449`) at the LEFT point: same sphere discharge (`Zc_ratio_sphere_bound`),
+(`ZetaPowLower.lean:451`) at the LEFT point: same sphere discharge (`Zc_ratio_sphere_bound`),
 same `Pinv/W/Mζ` region numerics, but the point sits LEFT of the 1-line, so `hZcs`/`hdist` come
 from the shifted-rectangle margin (`rect_zero_free_margin`, supplied as `hmargin`) and the
 centering `hsc` runs the honest `(17/35)` constant-chase.  Amendment L11-W′: the disc at height

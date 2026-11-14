@@ -169,7 +169,7 @@ The (log y)¹ lives ONLY in the smooth m-factor (euler_exp_bound_shifted
 + the e^t ≤ 1+(e-1)t linearization at α·log y ≤ 1). The carriers, pinned:
 s = ellLin (restrictBelow y g); ℓ = ellLin (restrictAbove y g); Λ_ℓ =
 lambdaLin (restrictAbove y g) — NOTE the corpus's `smoothPart`
-(HalaszLambda:402) is the smoothing CONVOLUTION, not the s-carrier.
+(HalaszLambda:410) is the smoothing CONVOLUTION, not the s-carrier.
 
 ## CORNER LEDGER (worst-corner pass, incl. asymptotic — #253)
 

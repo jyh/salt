@@ -161,7 +161,7 @@ landed floor (dist_one_floor_pow + Mrange_one_floor = GHS Lemmas
 is ALREADY in M_range form — the intermediates deviated from the
 frozen semantics, not the reverse. J0 RESTORES the freeze.
 
-The machinery verdict: dirichlet_plancherel (HalaszContour:460) IS
+The machinery verdict: dirichlet_plancherel (HalaszContour:463) IS
 the A.13-A.14 joint diagonalization, LANDED; windowSum IS a k4Poly
 (k4_plan applies directly); the sigma-cutoff's sockets match the
 joint chain exactly; the HalaszSeam LEDGER's dimensional page is

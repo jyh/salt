@@ -501,7 +501,7 @@ theorem sigma_cutoff_pretentious_of_gen {L M C b : ℝ} (hL : 3 ≤ L) (hM : 0 �
 
 /-! ### A6 wave, node 2 — the σ-AVERAGED PRIME WEIGHT, with `p` still visible
 
-⛔ **WHY THIS EXISTS.**  `hcut_p` (`SupF:731`) is SHARP: replacing `p^{−σ}` by its worst case `1/e`
+⛔ **WHY THIS EXISTS.**  `hcut_p` (`SupF:733`) is SHARP: replacing `p^{−σ}` by its worst case `1/e`
 on `p ≤ e^{1/σ}` is ATTAINED by a `g` whose `𝔻²`-mass sits at the top endpoint, so the constant
 cannot be improved at that step.  The loss is not in the inequality — it is in the ORDER: our route
 collapses to the distance FIRST (`dist_identification_sigma`) and integrates over `σ` afterwards
@@ -553,7 +553,7 @@ theorem integral_exp_neg_mul (L a b : ℝ) (hL : 0 < L) :
 
     `(b − a)·exp(−((a+b)/2)·L)  ≤  ∫_a^b exp(−σL) dσ` .
 
-⛔ **THIS IS THE QUANTITATIVE FORM OF WHY THE REORDERING GAINS.**  `hcut_p` (`SupF:731`) bounds
+⛔ **THIS IS THE QUANTITATIVE FORM OF WHY THE REORDERING GAINS.**  `hcut_p` (`SupF:733`) bounds
 `p^{−σ}` below by its value at the WORST endpoint, and that is sharp *pointwise in `σ`* — an
 adversarial `g` attains it.  But the argument does not need the pointwise bound; it needs the
 `σ`-AVERAGE, and averaging a convex weight lands on the midpoint.  With `L = log p` the gap between
@@ -642,7 +642,7 @@ defect sum and then exponentiating is Jensen in the wrong direction for an UPPER
 `∫ exp(−f) ≥ exp(−∫ f)` always.  ⇒ 🔑 ***A REORDERING GAIN IS ONLY COLLECTIBLE IF THE TWO
 OPERATIONS ARE ADJACENT; AN `exp` BETWEEN THEM IS A ONE-WAY VALVE.***
 
-✅ **WHERE THE SLACK ACTUALLY IS.**  `hcut_p` (`SupF:731`) is sharp — that finding stands, and
+✅ **WHERE THE SLACK ACTUALLY IS.**  `hcut_p` (`SupF:733`) is sharp — that finding stands, and
 an adversarial `g` attains `1/e`.  But it is sharp *at the truncation scale the corpus pinned*.
 The cut is `p^{−σ} ≥ (e^{θ/σ})^{−σ} = e^{−θ}` for `p ≤ e^{θ/σ}`, and `SupF.sigma_cut_lower`
 instantiates `θ = 1` — a choice, never derived.  **Freeing `θ` moves the constant from `1/e` to
