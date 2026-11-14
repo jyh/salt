@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `cea89bac` · source digest `c019b865ffb34be2` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `debb397f` · source digest `47b2abedbea5a35e` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23419 · with a proof/definition body: 23419 · direct corpus references (edges): 87592 · audited results: 9148 · corpus Prop-valued names: 689.
+Declarations indexed: 23419 · with a proof/definition body: 23419 · direct corpus references (edges): 87525 · audited results: 9148 · corpus Prop-valued names: 689.
 
 ## Hypothesis status (Deliverable A)
 
@@ -687,7 +687,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.M4ChiSummedBlockMeanSqN_gk` | DISCHARGED | `Salt.MR.m4_chiSummedBlockN_trivial_gk` (Salt/MR/M4ChiSummed.lean:1242) |
 | `Salt.MR.M4ChiSummedFreeRowBig` | DISCHARGED | `Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated` ✓audited GUARDED (Salt/MR/M4ArithPage.lean:696) · `Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated_pool` ✓audited GUARDED (Salt/MR/M4ArithPool.lean:214) · `Salt.MR.m4_chiSummedFreeRowBig_of_doorGrade` ✓audited GUARDED (Salt/MR/M4Assembly.lean:355) · +1 |
 | `Salt.MR.M4ChiSummedFreeRowBig_L` | DISCHARGED | `Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated_pool_L` GUARDED (Salt/MR/M4ArithZeroLinear.lean:597) · `Salt.MR.m4_chiSummedFreeRowBig_of_doorGrade_L` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:80) · `Salt.MR.m4_chiSummedFreeRowBig_of_doorGrade_pool_L` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:2999) · +1 |
-| `Salt.MR.M4ChiSummedFreeRowBig_L_gk` | DISCHARGED | `Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated_pool_L_gk` GUARDED (Salt/MR/M4ArithZeroLinear.lean:1196) · `Salt.MR.m4_chiSummedFreeRowBig_of_doorGrade_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:312) · `Salt.MR.m4_chiSummedFreeRowBig_of_doorGrade_pool_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:3189) · +1 |
+| `Salt.MR.M4ChiSummedFreeRowBig_L_gk` | DISCHARGED | `Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated_pool_L_gk` GUARDED (Salt/MR/M4ArithZeroLinear.lean:1352) · `Salt.MR.m4_chiSummedFreeRowBig_of_doorGrade_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:312) · `Salt.MR.m4_chiSummedFreeRowBig_of_doorGrade_pool_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:3189) · +1 |
 | `Salt.MR.M4ChiSummedFreeRowBig_gk` | DISCHARGED | `Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated_gk` GUARDED (Salt/MR/M4ArithPage.lean:1068) · `Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated_pool_gk` GUARDED (Salt/MR/M4ArithPool.lean:335) · `Salt.MR.doorGradeGated_bridge_gk` GUARDED (Salt/MR/M4ArithRho.lean:959) · +2 |
 | `Salt.MR.M4ChiSummedFreeShiftBlock_gk` | DISCHARGED | `Salt.MR.m4_chiSummedShiftBlock_trivial_gk` (Salt/MR/M4ChiSummed.lean:1190) |
 | `Salt.MR.M4ClassBlockMeanSq_gk` | DISCHARGED | `Salt.MR.m4_classBlockMeanSq_trivial_gk` (Salt/MR/M4WaveClosed.lean:956) |
