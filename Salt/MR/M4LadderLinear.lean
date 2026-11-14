@@ -516,8 +516,8 @@ The flat-ceiling originals below are their instances at `hK` (`K ≤ 170000000 *
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_meansq_per_chi_gen_L_gk_kwide`) —
 `m4_meansq_per_chi_gen_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_meansq_per_chi_gen_L_gk_kwide (K : ℕ) :
     ∃ (Cq cq T₀ X₀ Cs Ccc : ℝ) (Kfl : ℕ → ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -699,8 +699,8 @@ theorem m4_meansq_per_chi_gen_L_gk_kwide (K : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_meansq_or_trivial_L_gk_kwide`) —
 `m4_meansq_or_trivial_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_meansq_or_trivial_L_gk_kwide (K : ℕ) (Qm : ℕ) :
     ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
@@ -844,8 +844,8 @@ theorem m4_meansq_or_trivial_L_gk_kwide (K : ℕ) (Qm : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_meansq_per_chi_gen_pool_L_gk_kwide`) —
 `m4_meansq_per_chi_gen_pool_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_meansq_per_chi_gen_pool_L_gk_kwide (K : ℕ) :
     ∃ (Cq cq T₀ X₀ Cs Ccc : ℝ) (Kfl : ℕ → ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -1027,8 +1027,8 @@ theorem m4_meansq_per_chi_gen_pool_L_gk_kwide (K : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_meansq_or_trivial_pool_L_gk_kwide`) —
 `m4_meansq_or_trivial_pool_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_meansq_or_trivial_pool_L_gk_kwide (K : ℕ) (Qm : ℕ) :
     ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
@@ -1172,8 +1172,8 @@ theorem m4_meansq_or_trivial_pool_L_gk_kwide (K : ℕ) (Qm : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_meansq_per_chi_gen_join_L_gk_kwide`) —
 `m4_meansq_per_chi_gen_join_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_meansq_per_chi_gen_join_L_gk_kwide (K : ℕ) :
     ∃ (Cq cq T₀ X₀ Cs Ccc : ℝ) (Kfl : ℕ → ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -1355,8 +1355,8 @@ theorem m4_meansq_per_chi_gen_join_L_gk_kwide (K : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_meansq_or_trivial_join_L_gk_kwide`) —
 `m4_meansq_or_trivial_join_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_meansq_or_trivial_join_L_gk_kwide (K : ℕ) (Qm : ℕ) :
     ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧

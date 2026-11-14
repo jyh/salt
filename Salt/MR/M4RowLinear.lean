@@ -4654,8 +4654,8 @@ original.
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_door_meansq_carried_L_gk_kwide`) —
 `m4_door_meansq_carried_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_door_meansq_carried_L_gk_kwide (K : ℕ) :
     ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -4788,8 +4788,8 @@ theorem m4_door_meansq_carried_L_gk_kwide (K : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_dyadicRow_carried_L_gk_kwide`) —
 `m4_dyadicRow_carried_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_dyadicRow_carried_L_gk_kwide (K : ℕ) :
     ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -4875,8 +4875,8 @@ set_option maxHeartbeats 1600000 in
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_wave_structurally_closed_L_gk_kwide`) —
 `m4_wave_structurally_closed_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_wave_structurally_closed_L_gk_kwide (K : ℕ) (Qm : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
@@ -6471,8 +6471,8 @@ theorem m4MrowChi_le_a2Mrow_L_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSum_chi_door_L_gk_kwide`) —
 `m4_hrowsSum_chi_door_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_hrowsSum_chi_door_L_gk_kwide (K : ℕ) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (q : ℕ) [NeZero q] (c a : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ),
@@ -7928,8 +7928,8 @@ theorem doorRowCarried_of_t0free_L_gk (K : ℕ) (Qm : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_wave_closed_T0_discharged_L_gk_kwide`) —
 `m4_wave_closed_T0_discharged_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_wave_closed_T0_discharged_L_gk_kwide (K : ℕ) (Qm : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
