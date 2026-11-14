@@ -3973,7 +3973,7 @@ right-hand side (and no `moment_split5` exists).  Instead:
   take `haH` ALONE: `ha0` and `hend` both DROP, the `m = 0` case dying by absurdity;
 * the released endpoint cofactors are FUSED into the `p²` row, whose inner filter is enlarged
   to `p ∣ m ∨ p·m = X` (`RamareP2End`'s `ramP2domEndMR`/`ramP2corrEndMR`/`ramP2coeffEndMR`,
-  NEW siblings — the landed `ramP2*MR` defs are byte-untouched, `SmallStones`:385-460 reads
+  NEW siblings — the landed `ramP2*MR` defs are byte-untouched, `SmallStones`:387-462 reads
   them).  The split stays at FOUR rows; `moment_split4` and `M4ErrRewire.err_grade_fit`'s
   `4·520 ≤ 2160` are untouched.
 
@@ -5528,7 +5528,7 @@ open Salt.Tactic in
 -- discharged, in front of FOUR gates (edge `q`-scale; the region's `A`-absorption at
 -- `A := 1 + log(20000(Cq+8104))/100`; the below-floor comparison `Kq`; the Siegel gate `Ks`) and
 -- nothing else.  It takes the edge price at the LITERAL width `1/10⁸` —
--- `twisted_edge_price_strip` proves exactly that (TwistedEdge.lean:896) and
+-- `twisted_edge_price_strip` proves exactly that (TwistedEdge.lean:899) and
 -- `twisted_window_price_gated_holds` passes the same constant through, but both hide it behind
 -- `∃ c_vk`, so the kernel cannot see that it matches the region's own `1/10⁸`.
 --
@@ -9035,7 +9035,7 @@ The residual enters once (`m4_freeBlockSup_of_chiSummedH_L_gk`) at `strataResidu
 strataResidual H + log h`, the grades stay in the base residual, and the `h = 2` ceiling lemma
 pays the `log 2` under the LANDED `110525` at `Real.pi_lt_d4` (ratio² < 1.00231).  The
 `ℓ`-witness `blockLenH` halves with the cap (the landed `blockLen` pinches at `q = 1` under cap
-`2·arcDen`).  The three `_Q` drift lemmas are `M4BridgeBlock:222/268/300` at an opaque cap (the
+`2·arcDen`).  The three `_Q` drift lemmas are `M4BridgeBlock:252/298/330` at an opaque cap (the
 helm's RESPELL of the rpow identity).  The framed base `SocketBaseLH` is REUSED from
 `HDoorSupply` (byte-identical to the draft's, x-floor inflated — an independent confirmation).
 ⛔ NOT here: the `SocketBaseL`-framed producer population re-quantified over `SocketBaseLH h`,
@@ -9179,7 +9179,7 @@ here (the twins are audited under ⟦β W1 E2⟧).  2026-10-11: family 49 retire
 (`S16FlatTerminalExitH`, 2026-09-01, math).  The `h`-twin of
 `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L`: the terminal register on the
 terminal's lane, in `¬ Fails` form, at shift `h`.  Composed from the landed door-form register
-(`S16FlatTerminalLinearH.lean:1584`) and the flat head at shift `h`
+(`S16FlatTerminalLinearH.lean:1562`) and the flat head at shift `h`
 (`Salt/Entropy/Chowla/HloExportFlatH.lean:211`).
 
 ⭐ THE WAVE'S FINDING, AND IT IS A COUNT THAT WENT DOWN.  The commission priced part (iii) as
@@ -9352,7 +9352,7 @@ cap-9 twins, their two rows dropped here (the twins are audited under ⟦β W1 E
 /-! ## ⟦H2c⟧ — THE CROSSING SUPPLIER AT THE INFLATED SOCKET `SocketBaseLH h`
 
 `Salt/MR/S13CapGateLinearLH.lean` (wave H2c).  The deliverable is
-`s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:874` with the same `∃ Cq cs T₀ Kq Ks C`
+`s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:855` with the same `∃ Cq cs T₀ Kq Ks C`
 prefix and pins, `hblk` at `SocketBaseLH h`, concluding
 `S16CofactorSupply_LH_gk h K Cq R M → S16BaseScaleCap96_LH_gk h K R M →
 S15CrossingBound_LH_gk h K R M`.
@@ -9505,14 +9505,14 @@ exactly ONE origin on the whole `h` lane (`HloExportFlatH:308`), every `obtain` 
 `S16FlatTerminalLinearH` and `HDoorSupply` contain **zero** `A₀`.  `flat_head_uniform_h` is the
 landed head with that line replaced by `intro A hA26 hAge`, exactly as `flat_head_uniform` does
 at `h = 1`.  ⭐ **And at `h` the road is ONE theorem where `h = 1` needs three:** the door-form
-register `m4_second_road_L2_H_gk_flatRoot_L` (S16FlatTerminalLinearH:1584) has no `A` in its
+register `m4_second_road_L2_H_gk_flatRoot_L` (S16FlatTerminalLinearH:1562) has no `A` in its
 statement at all, so `flat_socket_uniform` and `flat_doorL2_uniform` have nothing to hoist.
 `Hopq` leaves the `∀ A` and `Hcap` stays inside — the same split, for the same reason.
 
 ⭐ **BLOCK W — AND HERE H2b's PRICE CUT DOES NOT REPEAT, WHICH IS THE POINT.**
 `S16BandLaneCBoundedL` has **no producer anywhere** (34 binder sites, 9 modules, zero
 discharges), so wave H2b re-quantified it for free and left an open rider.  The WINDOWED riders
-are **theorems** (`s16_bandLaneWinL_holds` S16Uniform:1103, `_holdsU` S16ComposeV4:102), so their
+are **theorems** (`s16_bandLaneWinL_holds` S16Uniform:1084, `_holdsU` S16ComposeV4:102), so their
 `h` twins need a producer PORT — and the `h` lane gets a DISCHARGED rider in exchange for it.
 ⭐ **The port is class A, and a projection census says why.**  The mint
 `m4_hband_at_door_slot_split_graded_L_gk` (S11HoistLinear:726) touches its socket in exactly two

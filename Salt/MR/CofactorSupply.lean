@@ -264,6 +264,9 @@ def cofactorMfl (X θ W : ℝ) : ℝ :=
 def cofactorRbd (c Cb X θ W Y Rmax R : ℝ) : ℝ :=
   3 * max (2 * caseAS c Cb (cofactorMfl X θ W) W) (farSupS W Y Rmax R)
 
+/-- `0 ≤ cofactorRbd c Cb X θ W Y Rmax R` at `2 * c < 1`, `0 ≤ Cb`, `1 ≤ W`: the `max` is at
+least twice `caseAS`, which is `≥ 0` (`caseAS_nonneg`). Read once in this file and by
+`CofactorLocal`, `USetBalance`, `USetGradedBalance` and `USetPrice`. -/
 lemma cofactorRbd_nonneg {c Cb X θ W Y Rmax R : ℝ} (hc1 : 2 * c < 1) (hCb0 : 0 ≤ Cb)
     (hW : 1 ≤ W) : 0 ≤ cofactorRbd c Cb X θ W Y Rmax R := by
   have h1 : (0 : ℝ) ≤ 2 * caseAS c Cb (cofactorMfl X θ W) W := by

@@ -169,7 +169,7 @@ family member's non-uniformity was generalised to the family, and
 * `chi_floor_all_unconditional_twisted` (`Salt/MR/ChiLLower.lean:718-726`) really does
   carry `((2 * orderOf χ : ℕ) : ℝ) ^ 2` in a denominator and subtract `primeDivSum q X`
   — that half was true, and is why it cannot feed this lemma.
-* But `capFreeFloor_all_chi_vt` (`Salt/MR/VkMidSharp.lean:458`) binds `∃ K` **outside**
+* But `capFreeFloor_all_chi_vt` (`Salt/MR/VkMidSharp.lean:461`) binds `∃ K` **outside**
   `∀ (q) [NeZero q] (χ) (X)`, so its floor value is uniform in `q` and `χ`; and
   `CapFreeFloor` (`Salt/MR/CapFreeArm.lean:111-113`) is stated over the box `|v| ≤ X`,
   which is this lemma's `|t| ≤ X`.  The two objects meet definitionally, by
@@ -177,7 +177,7 @@ family member's non-uniformity was generalised to the family, and
   `pretDistSq_lam_eq_lamCoeff`.
 
 ⛔ **THE RESIDUAL, STATED SO IT IS NOT MISTAKEN FOR CLOSURE.**  That floor is gated by a
-**per-`q` threshold hypothesis** (`VkMidSharp.lean:461-466`), which this lemma's `∀ q ≤ Q`
+**per-`q` threshold hypothesis** (`VkMidSharp.lean:464-469`), which this lemma's `∀ q ≤ Q`
 needs discharged at *every* `q`.  A `q ≤ Q`-shaped discharge of it was **NOT FOUND UNDER
 THREE ARMS**; the nearest landed instrument, `pieceFloor_vt_threshold_of_loglog`
 (`Salt/MR/RbdSupply.lean:496`), does exactly this job but at the arc-denominator cap
@@ -230,7 +230,7 @@ interchangeable, and the exchange is a theorem rather than a confusion.
 
 * `lam_eq_lamCoeff_of_prime` — the pointwise fact: `lam p = lamCoeff p` for prime
   `p`, discharged by `lamCoeff_eq_liouvilleC` (`M4Exit.lean:99`, `rfl`) together
-  with `liouvilleC_prime` (`M4Residue.lean:109`).  `pretDistSq_congr_primes`
+  with `liouvilleC_prime` (`M4Residue.lean:112`).  `pretDistSq_congr_primes`
   alone has nothing to feed it; this is the missing half.
 * `pretDistSq_lam_eq_lamCoeff` — **the node**: the two distances are equal.
 -/
@@ -270,9 +270,9 @@ spelling bridge `lamCoeff_eq_liouvilleC` (`M4Exit.lean:99`, which is `rfl`):
 
 | field | discharged by |
 |---|---|
-| `map_one : g 1 = 1` | `liouvilleC_one` (`M4Residue.lean:96`) |
-| `map_mul : ∀ m n, m ≠ 0 → n ≠ 0 → g (m*n) = g m * g n` | `liouvilleC_mul` (`M4Residue.lean:103`) |
-| `norm_le_one : ∀ n, ‖g n‖ ≤ 1` | `liouvilleC_norm_le_one` (`M4Residue.lean:121`) |
+| `map_one : g 1 = 1` | `liouvilleC_one` (`M4Residue.lean:99`) |
+| `map_mul : ∀ m n, m ≠ 0 → n ≠ 0 → g (m*n) = g m * g n` | `liouvilleC_mul` (`M4Residue.lean:106`) |
+| `norm_le_one : ∀ n, ‖g n‖ ≤ 1` | `liouvilleC_norm_le_one` (`M4Residue.lean:124`) |
 
 `liouvilleC_mul` is the **unconditional** form `liouvilleC (m*n) = liouvilleC m *
 liouvilleC n`, with no `m ≠ 0` / `n ≠ 0` side conditions at all — strictly
@@ -336,7 +336,7 @@ The chain, all three links landed:
 ⛔ **SCOPE.**  This closes the *shape* of design-block gap G1: it turns a cap-free datum
 floor into a `mrtQuality` floor.  It does **not** produce the hypothesis `hfloor`.  The
 residual named at `MRTPort.lean` — that `capFreeFloor_all_chi_vt`
-(`Salt/MR/VkMidSharp.lean:458`) is gated by a per-`q` threshold with no `q ≤ Q`-shaped
+(`Salt/MR/VkMidSharp.lean:461`) is gated by a per-`q` threshold with no `q ≤ Q`-shaped
 discharge in the corpus — is untouched here and is exactly what `hfloor` still costs.
 **Read this as a producer for `mrtQuality`, never as "G1 is closed".**
 -/

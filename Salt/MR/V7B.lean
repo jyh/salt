@@ -92,7 +92,7 @@ open scoped LSeries.notation
 
 `per_pair_contour` passes `shifted_edge_price_strip`'s `c_vk` through verbatim, so
 `RiderTrace.shifted_edge_price_strip_bounded`'s `1/10^9 ≤ c_vk` survives the whole assembly.
-Body verbatim from `HalaszPrimesCore.lean:2398`, with the one `obtain` re-pointed at the
+Body verbatim from `HalaszPrimesCore.lean:2422`, with the one `obtain` re-pointed at the
 bounded twin and the new conjunct threaded through the `refine`. -/
 
 section V7BPerPair
@@ -761,7 +761,7 @@ open scoped LSeries.notation
 `halaszPrimesChiGated_of_price` is where `cs` is born, as
 `min (min (c_vk/(2·K₄)) (c₀/(2·Cκ))) (1/10)`.  This twin asks the call site's own literal
 `1/10^8 ≤ c_vk` instead of bare positivity, reads `1/10^9 ≤ c₀` off §1, and exports the floor.
-Body verbatim from `PortAssembly.lean:802`. -/
+Body verbatim from `PortAssembly.lean:805`. -/
 
 set_option maxHeartbeats 6400000 in
 -- The assembly threads seven absorption bounds against one `∃`-packaged constant; the

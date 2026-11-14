@@ -71,6 +71,10 @@ noncomputable def fseq : ℕ → ℝ → ℝ
 
 /-! ### Unfolding lemmas -/
 
+/-- `fseq 0 s = 0` (`@[simp]`), by `rfl`: the chain's unused padding term — what makes
+`fchain`'s `n = 0` summand vacuous (catch #24). Read by `ChainValues`, `MassCert2`,
+`MassLedgerA1`, `Peeling`, `StepBound2`, `WindowedStep`, `WindowedStepC` and `WindowedStepP`,
+and three times in this file. -/
 @[simp] theorem fseq_zero (s : ℝ) : fseq 0 s = 0 := rfl
 
 /-- `f₁` in raw `if` form (BJS (15)). -/
@@ -260,6 +264,9 @@ theorem fseq_two_window {s : ℝ} (hs2 : 2 ≤ s) (hs4 : s ≤ 4) :
 `∫_s^{n+2} fₙ₋₁(t−1) dt` decreases in `s` because the integrand is nonnegative
 (`fseq_nonneg`) and integrable (`fseq_shift_intervalIntegrable`) — but that fact
 is not needed downstream, so only the base witness is recorded here. -/
+/-- `AntitoneOn (fseq 1) (Set.Icc 1 3)`: on its window `f₁(s) = (3 − s)/s` (`fseq_one_window`),
+and `(3 − x)/x − (3 − y)/y = 3(y − x)/(xy) ≥ 0` for `x ≤ y` (`field_simp`, `div_nonneg`). No
+consumer at `main`, in this file or outside it. -/
 theorem fseq_one_antitoneOn : AntitoneOn (fseq 1) (Set.Icc 1 3) := by
   intro x hx y hy hxy
   rw [fseq_one_window hx.1 hx.2, fseq_one_window hy.1 hy.2]

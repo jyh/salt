@@ -73,7 +73,7 @@ private lemma mutualInfo_window_comm (R : ChowlaRegime) (H : ℕ) :
 
 /-- **W3E-TOWER, the tower-discharged citation surface.**  For the witnessed
 Chowla regime `R`, GIVEN the MRT uniformity door at level `δ` (Tao arXiv:1509.05422v2
-Prop 2.4, PROVEN in Matomäki–Radziwiłł–Tao arXiv:1503.05121), there is an
+Prop 2.4, PROVEN from Matomäki–Radziwiłł–Tao arXiv:1503.05121), there is an
 admissible decrement level `H ∈ [H₋, H₊]` — produced by `entropy_decrement`,
 Lemma 3.1 — at which the Liouville/residue mutual information is below the
 discharged budget `κ`, and a door-smallness threshold `δ₀ = ε/(2K) > 0`, such

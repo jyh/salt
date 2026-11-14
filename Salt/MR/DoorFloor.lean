@@ -358,6 +358,8 @@ noncomputable def HplusStar (ε : ℝ) : ℕ := ⌈Real.exp ((1 / ε) ^ (50 : �
 /-- Both floors are genuine (positive) floor demands, so they are legal `extraFloor` arguments. -/
 theorem H0mrt_pos (ε : ℝ) : 0 < H0mrt ε := Nat.ceil_pos.mpr (Real.exp_pos _)
 
+/-- `0 < HplusStar ε`: the ceiling of a positive real (`Nat.ceil_pos`, `Real.exp_pos`). No
+consumer at `main`, in this file or outside it. -/
 theorem HplusStar_pos (ε : ℝ) : 0 < HplusStar ε := Nat.ceil_pos.mpr (Real.exp_pos _)
 
 /-- The workhorse: `log u ≤ 2√u` for `u > 0`, from `log t ≤ t − 1` at `t = √u`.

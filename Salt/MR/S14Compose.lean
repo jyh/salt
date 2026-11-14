@@ -23,7 +23,7 @@ frontier, plus the target statement (§5) written down and named.
 ## ⟦THE COMPOSE LEDGER⟧ — the instantiation table as designed, and its fate
 
 The maestro's table (dispatch of 2026-07-30) instantiated the twin
-(`S12FuseCompose.lean:527`) as follows; the right column is the state at the STOP.
+(`S12FuseCompose.lean:508`) as follows; the right column is the state at the STOP.
 
 | slot | choice | source | fate |
 |---|---|---|---|
@@ -225,7 +225,7 @@ theorem s14_exp50_ge : (10 : ℝ) ^ 21 ≤ Real.exp 50 := by
 `loglogFloor50` floor, `GRowsZeroGate''' M X_d Cp (decayPool X_d)` is FALSE at every socket
 base, for every `M` and every `Cp`.
 
-This is the compose road's ⟦B1'-3⟧ binder (`S12FuseCompose.lean:557`), refuted.  Nothing
+This is the compose road's ⟦B1'-3⟧ binder (`S12FuseCompose.lean:538`), refuted.  Nothing
 opaque enters: the `p²` slot carries only numerals and `𝒫₁`. -/
 theorem s14_gRows_kill {R : ChowlaRegime} {M H L q j A s : ℕ} {Cp : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s)

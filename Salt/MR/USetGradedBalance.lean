@@ -155,6 +155,8 @@ noncomputable def thinBundleG (T VJ Hj : ℝ) (Pj Qj : ℕ) : ℝ :=
   ((ramI Hj Pj Qj).card : ℝ)
     * (840 * VJ ^ 2 * Real.exp (2 * (Real.log T / Real.log Pj) * Real.log (Real.log T)))
 
+/-- `0 ≤ thinBundleG T VJ Hj Pj Qj`, for all arguments: the definition unfolded, its exponential
+factor positive (`positivity`). Read once in this file; no consumer outside it. -/
 lemma thinBundleG_nonneg (T VJ Hj : ℝ) (Pj Qj : ℕ) : 0 ≤ thinBundleG T VJ Hj Pj Qj := by
   rw [thinBundleG]
   have h := Real.exp_pos (2 * (Real.log T / Real.log Pj) * Real.log (Real.log T))
@@ -638,7 +640,7 @@ theorem hUG_discharged :
             (Tstar ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ))) Rrad ≤ Rbar) →
         2 ≤ ⌊H * Real.log (P : ℝ)⌋₊ →
         (∫ t in (-Tann)..Tann, ‖ramErr H N Xd P Q a (ellLin g) cf t‖ ^ 2) ≤ E →
-        -- the graded row's own frame (`SeamGraded`:315), `hU` ABSENT
+        -- the graded row's own frame (`SeamGraded`:317), `hU` ABSENT
         X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
         (∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ Tann → |t - t₁| ≤ seamRad X →
           ∀ m : ℕ, m ≤ N → ‖spolyA a t m‖ ≤ S * m / (1 + |t - t₁|)) →

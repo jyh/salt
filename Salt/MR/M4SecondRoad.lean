@@ -172,8 +172,13 @@ at its top end, where the drift binder holds at EVERY `q ≥ 1` with the whole f
 spare. -/
 def blockLen (H : ℕ) (_q : ℕ) : ℕ := max 1 (H / (⌊arcDen 12 H⌋₊ + 1))
 
+/-- `1 ≤ blockLen H q`: the block length is `max 1 _` (`le_max_left`) — the socket's first
+obligation on `ℓ`. Read by `BlockLenDoor`, `HloExportMR`, `HloExportMRFlatRoot`,
+`M4RowSpineLinear`, `S11Thread` and `S12Compose`, and twice in this file. -/
 theorem one_le_blockLen (H q : ℕ) : 1 ≤ blockLen H q := le_max_left _ _
 
+/-- `blockLen H q ≤ H` at `1 ≤ H`: both arms of the `max` are `≤ H` (`Nat.div_le_self`) — the
+socket's second obligation on `ℓ`. Read by `BlockLenDoor` and once in this file. -/
 theorem blockLen_le (H q : ℕ) (hH : 1 ≤ H) : blockLen H q ≤ H := by
   unfold blockLen
   exact max_le hH (Nat.div_le_self H _)
@@ -184,6 +189,9 @@ theorem arcDen_lt_floor_succ (H : ℕ) :
   push_cast
   exact Nat.lt_floor_add_one _
 
+/-- `⌊arcDen 12 H⌋₊ + 1 ≤ 2·arcDen 12 H` (in `ℝ`) at `1 ≤ arcDen 12 H`: `Nat.floor_le` and
+`1 ≤ arcDen 12 H` (`linarith`) — the step that reads `H/(⌊arcDen⌋₊ + 1)` against
+`H/(2·arcDen)`. Read twice in this file; no consumer outside it. -/
 theorem floor_succ_le_two_mul {H : ℕ} (h1 : (1 : ℝ) ≤ arcDen 12 H) :
     ((⌊arcDen 12 H⌋₊ + 1 : ℕ) : ℝ) ≤ 2 * arcDen 12 H := by
   push_cast
@@ -368,29 +376,7 @@ theorem m4_sievedDoorSq_of_blk2 {R : ChowlaRegime} {M : ℕ} {ℓ : ℕ → ℕ 
       ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := by
     rw [hconst] at hmono
     exact le_trans hmono (mul_le_mul_of_nonneg_left hsupply hfac0)
-  have hNL : N * L ≤ 2 * H := by
-    have h1 : N * L ≤ H + L := by rw [hN]; exact numBlocks_mul_le H L
-    omega
-  have hNLR : (N : ℝ) * (L : ℝ) ≤ 2 * (H : ℝ) := by
-    have : ((N * L : ℕ) : ℝ) ≤ ((2 * H : ℕ) : ℝ) := by exact_mod_cast hNL
-    push_cast at this
-    linarith
-  have hNL0 : (0 : ℝ) ≤ (N : ℝ) * (L : ℝ) := by positivity
-  have hsq : ((N : ℝ) * (L : ℝ)) ^ 2 ≤ 4 * (H : ℝ) ^ 2 := by nlinarith
-  have hB := hB0 H
-  have hpi2 : (0 : ℝ) ≤ (1 + 2 * Real.pi) ^ 2 := sq_nonneg _
-  have hfin : (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-      ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by
-    calc (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-        = (1 + 2 * Real.pi) ^ 2 * Bblk H * (((N : ℝ) * (L : ℝ)) ^ 2) := by ring
-      _ ≤ (1 + 2 * Real.pi) ^ 2 * Bblk H * (4 * (H : ℝ) ^ 2) :=
-          mul_le_mul_of_nonneg_left hsq (mul_nonneg hpi2 hB)
-      _ = 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by ring
-  have hgr := hgrade H hlo hhi
-  calc (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
-      ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := hstep
-    _ ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := hfin
-    _ ≤ Braw H * (H : ℝ) ^ 2 := mul_le_mul_of_nonneg_right hgr (sq_nonneg _)
+  exact blocked_close_of_step hN (by omega) (hB0 H) (hgrade H hlo hhi) hstep
 
 /-- `M4BridgeBlock.M4BlockMeanSqBlk` at the weakened count binder. -/
 def M4BlockMeanSqBlk2 (R : ChowlaRegime) (M k : ℕ) (ℓ : ℕ → ℕ → ℕ) (Bblk : ℕ → ℝ) : Prop :=
@@ -785,6 +771,8 @@ out: it multiplies the *graded* factor, and the trivial branch this budget price
 At the honest closing numbers (`δ₀ = 2·10⁻⁴⁹`, `96(1+2π)² ≈ 5092`) this is `≈ 2·10⁻¹⁰²`. -/
 def truncBudget (δ₀ : ℝ) : ℝ := (δ₀ / 2) ^ 2 / (96 * (1 + 2 * Real.pi) ^ 2)
 
+/-- `0 < truncBudget δ₀` at `0 < δ₀`: `(δ₀/2)²/(96(1+2π)²)` is a quotient of positive terms
+(`Real.pi_pos`, `positivity`). Read by `M4RowSpineLinear` and once in this file. -/
 theorem truncBudget_pos {δ₀ : ℝ} (h : 0 < δ₀) : 0 < truncBudget δ₀ := by
   unfold truncBudget
   have hpi : (0 : ℝ) < 1 + 2 * Real.pi := by
@@ -801,6 +789,8 @@ block `calP (Adoor M) (3072M) 1 = 2^{Adoor M}` with `Adoor M ≥ 2^18 = 262144` 
 testing. -/
 def truncD (δ₀ : ℝ) : ℕ := ⌈2 / Real.sqrt (truncBudget δ₀)⌉₊
 
+/-- `2/√(truncBudget δ₀) ≤ truncD δ₀` (in `ℝ`): the truncation ceiling is the ceiling of that
+quotient (`Nat.le_ceil`). Read once in this file; no consumer outside it. -/
 theorem truncD_ge (δ₀ : ℝ) : 2 / Real.sqrt (truncBudget δ₀) ≤ ((truncD δ₀ : ℕ) : ℝ) :=
   Nat.le_ceil _
 
@@ -880,9 +870,19 @@ first entry: `arcDen³` from the χ-summed narrowing, `arcDen⁴` from the dilat
 `M4ChiSummed`'s ⟦φ(q) LEDGER⟧. -/
 def rStrWitness (H : ℕ) : ℝ := max 1 (arcDen 12 H ^ 7)
 
+/-- `0 ≤ rStrWitness H`: `max 1 (arcDen 12 H ^ 7) ≥ 1 ≥ 0` — ⟦gate 3⟧'s sign for EVERY `H`,
+off-range included. Read by `DoorReceipt`, `FlatDoorAllGradesBand`, `FlatDoorEpsChain`,
+`FlatDoorEpsRung2`, `FlatDoorUniform`, `S12Compose`, `S12ConstCompose`, `S12FuseCompose`,
+`S16Budget`, `S16Compose`, `S16ComposeV4`, `S16FlatTerminal`, `S16FlatTerminalLinear`,
+`S16ProducersH`, `S16Uniform`, `V6SiegelFree`, `V7SiegelFree` and `XThread`; not in this file
+beyond its proof. -/
 theorem rStrWitness_nonneg (H : ℕ) : 0 ≤ rStrWitness H :=
   le_trans zero_le_one (le_max_left _ _)
 
+/-- `arcDen 12 H ^ 7 ≤ rStrWitness H`: ⟦gate 5⟧, the envelope floor on witnessed data, by
+`le_max_right`. Read by the same eighteen files as `rStrWitness_nonneg` (`DoorReceipt`, the
+`FlatDoor*`, `S12*` and `S16*` composes, `V6SiegelFree`, `V7SiegelFree`, `XThread`); not in this
+file beyond its proof. -/
 theorem rStrWitness_G1 (H : ℕ) : arcDen 12 H ^ 7 ≤ rStrWitness H := le_max_right _ _
 
 /-- **⟦THE ANALYTIC ENVELOPE AT ANTI-VACUITY⟧** — `RSan H := max 1 (4·arcDen 12 H)`, the
@@ -891,9 +891,13 @@ socket's own anti-vacuity grade (`M4ChiSummed.m4_chiSummedFreeRow_trivial` at
 something far smaller; `m4_second_road_rs_ceiling` below is the number it must beat. -/
 def rSanWitness (H : ℕ) : ℝ := max 1 (4 * arcDen 12 H)
 
+/-- `0 ≤ rSanWitness H`: `max 1 (4·arcDen 12 H) ≥ 1 ≥ 0` — ⟦gate 3⟧'s sign for the analytic
+envelope at anti-vacuity. No consumer at `main`, in this file or outside it. -/
 theorem rSanWitness_nonneg (H : ℕ) : 0 ≤ rSanWitness H :=
   le_trans zero_le_one (le_max_left _ _)
 
+/-- `4·arcDen 12 H ≤ rSanWitness H`: the anti-vacuity grade sits under its rounded-up witness,
+by `le_max_right`. No consumer at `main`, in this file or outside it. -/
 theorem rSanWitness_envelope (H : ℕ) : 4 * arcDen 12 H ≤ rSanWitness H := le_max_right _ _
 
 /-- **⟦G2's `j₀` FLOOR⟧** (`g2_of_j0_floor`) — at the anti-vacuity envelope, ⟦gate 6⟧
@@ -1084,29 +1088,7 @@ theorem m4_sievedDoorSq_of_blk2_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {ℓ :
       ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := by
     rw [hconst] at hmono
     exact le_trans hmono (mul_le_mul_of_nonneg_left hsupply hfac0)
-  have hNL : N * L ≤ 2 * H := by
-    have h1 : N * L ≤ H + L := by rw [hN]; exact numBlocks_mul_le H L
-    omega
-  have hNLR : (N : ℝ) * (L : ℝ) ≤ 2 * (H : ℝ) := by
-    have : ((N * L : ℕ) : ℝ) ≤ ((2 * H : ℕ) : ℝ) := by exact_mod_cast hNL
-    push_cast at this
-    linarith
-  have hNL0 : (0 : ℝ) ≤ (N : ℝ) * (L : ℝ) := by positivity
-  have hsq : ((N : ℝ) * (L : ℝ)) ^ 2 ≤ 4 * (H : ℝ) ^ 2 := by nlinarith
-  have hB := hB0 H
-  have hpi2 : (0 : ℝ) ≤ (1 + 2 * Real.pi) ^ 2 := sq_nonneg _
-  have hfin : (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-      ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by
-    calc (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
-        = (1 + 2 * Real.pi) ^ 2 * Bblk H * (((N : ℝ) * (L : ℝ)) ^ 2) := by ring
-      _ ≤ (1 + 2 * Real.pi) ^ 2 * Bblk H * (4 * (H : ℝ) ^ 2) :=
-          mul_le_mul_of_nonneg_left hsq (mul_nonneg hpi2 hB)
-      _ = 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by ring
-  have hgr := hgrade H hlo hhi
-  calc (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
-      ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := hstep
-    _ ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := hfin
-    _ ≤ Braw H * (H : ℝ) ^ 2 := mul_le_mul_of_nonneg_right hgr (sq_nonneg _)
+  exact blocked_close_of_step hN (by omega) (hB0 H) (hgrade H hlo hhi) hstep
 
 /-- `M4BlockMeanSqBlk2` (:372), at the lever. -/
 def M4BlockMeanSqBlk2_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (ℓ : ℕ → ℕ → ℕ)

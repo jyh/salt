@@ -83,6 +83,8 @@ is unprovable, `δ₀` having no exposed lower bound).  `M` is never evaluated: 
 `⌈8C/δ₀⌉`-shaped. -/
 def Adoor (M : ℕ) : ℕ := 2 ^ 36 * (Nat.log 2 M + 1)
 
+/-- `2 ^ 36 ≤ Adoor M`: the second factor `Nat.log 2 M + 1` is positive. Read six times in this
+file and by 13 files outside it (`DoorFrameH1`, `Eq26Compose`, `HDoorArc` the first three). -/
 lemma Adoor_ge (M : ℕ) : 2 ^ 36 ≤ Adoor M := Nat.le_mul_of_pos_right _ (Nat.succ_pos _)
 
 /-- **The anchor at the PRE-RE-PIN bound** `2^18 ≤ A(M)`.  Kept so that every consumer
@@ -90,6 +92,8 @@ written against the old anchor survives verbatim: the re-pin only raises `Adoor`
 such site stays true (and merely conservative).  New consumers should read `Adoor_ge`. -/
 lemma Adoor_ge_old (M : ℕ) : 2 ^ 18 ≤ Adoor M := le_trans (by norm_num) (Adoor_ge M)
 
+/-- `1 ≤ Adoor M`, from `Adoor_ge`. Read twice in this file and by `Eq26Compose`, `M4Puncture`,
+`S11Hoist`, `S13BandBase`, `S14Compose` and `S15Compose`. -/
 lemma one_le_Adoor (M : ℕ) : 1 ≤ Adoor M := le_trans (by norm_num) (Adoor_ge M)
 
 /-- The anchor in ℝ, with `2^36` evaluated — the form `A_gate_logK`'s right side needs. -/

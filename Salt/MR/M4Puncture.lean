@@ -74,6 +74,9 @@ theorem memSPunct_of_memS {Pseq Qseq : ℕ → ℕ} {J j n : ℕ} (h : MemS Pseq
 def memSPunctCoeff (Pseq Qseq : ℕ → ℕ) (J j : ℕ) (a : ℕ → ℂ) : ℕ → ℂ :=
   fun m => if MemSPunct Pseq Qseq J j m then a m else 0
 
+/-- `‖memSPunctCoeff Pseq Qseq J j a m‖ ≤ 1` at `∀ m, ‖a m‖ ≤ 1`: the punctured coefficient is
+`a m` or `0` (`split_ifs`). Read by `M4SocketLinear`, `M4WaveLinear` and `S11CoefWS`, and twice
+in this file. -/
 theorem norm_memSPunctCoeff_le_one {a : ℕ → ℂ} (ha : ∀ m, ‖a m‖ ≤ 1) (Pseq Qseq : ℕ → ℕ)
     (J j m : ℕ) : ‖memSPunctCoeff Pseq Qseq J j a m‖ ≤ 1 := by
   simp only [memSPunctCoeff]

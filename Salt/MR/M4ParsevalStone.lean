@@ -38,7 +38,7 @@ spine's `hMδ` reads becomes `|Ξ|`-FREE.
 ## The door mass, carried named
 
 `m4_door_insert_mass_integral` re-exports the `∫ notMemSCount dμ` bound that lives INSIDE
-`m4_door_glue`'s proof (`M4Door.lean:738–762`) as a statement of its own — same constant `C`
+`m4_door_glue`'s proof (`M4Door.lean:743–767`) as a statement of its own — same constant `C`
 (from `m4_door_sieve_mass`), same gate list verbatim (the M-gate `24C/δ ≤ M`, HS-3's per-block
 bundle, the count bound, the `log ω ≥ 4` floor, the ladder's three gates).  Nothing is
 re-proved: the derivation is the landed one, transcribed.  Composed with the stone it gives
@@ -267,7 +267,7 @@ theorem sum_integral_logMeasure_le {x ω : ℕ} {ι : Type*} (s : Finset ι) (f 
   exact mul_le_mul_of_nonneg_right (hpt n) (by positivity)
 
 /-- **THE GLUE MASS, RE-EXPORTED.**  The `∫ notMemSCount dμ` bound that lives inside
-`m4_door_glue`'s proof (`M4Door.lean:738–762`), stated on its own:
+`m4_door_glue`'s proof (`M4Door.lean:743–767`), stated on its own:
 
 `∫ notMemSCount dμ ≤ (δ/4)·H + 4·2^k·H/x`.
 

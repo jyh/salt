@@ -52,7 +52,7 @@ Everything in this file lives in the **`spoly`/`spolyA` convention at the SAME `
 `ramR` is evaluated at:
 
 * `ramR H N X P Q j b t = Σ_m a_R(m) · m^{−1−it}` (`RamareWindows.lean:73`), and
-* `spolyA a t m = Σ_{n≤m} a n / n^{it} = Σ_{n≤m} a n · n^{−it}` (`SeamSplit.lean:198`).
+* `spolyA a t m = Σ_{n≤m} a n / n^{it} = Σ_{n≤m} a n · n^{−it}` (`SeamSplit.lean:208`).
 
 So the partial-sum binder `hA` is over the **`n^{−it}`** twist — the *unnegated* `t`.  The
 `−𝒯` sign bridge (`spoly_eq_dpoly : spoly N a t = dpoly N (aₙ/n) (−t)`) is **NOT used and
@@ -76,9 +76,13 @@ open scoped BigOperators
 window `[X_j, 2X_j]` intersected with `[1,N]` (`RamareWindows.lean:64`). -/
 noncomputable def ramRbot (H : ℝ) (X j : ℕ) : ℝ := (X : ℝ) * Real.exp (-(j : ℝ) / H)
 
+/-- `ramRbot H X j = X * exp (-j / H)`, by `rfl`. No consumer at `main`, in this file or outside
+it. -/
 lemma ramRbot_def (H : ℝ) (X j : ℕ) :
     ramRbot H X j = (X : ℝ) * Real.exp (-(j : ℝ) / H) := rfl
 
+/-- `0 ≤ ramRbot H X j`: a natural times an exponential. Read by `FrameWitness` and
+`TLegPreamble`; not read in this file. -/
 lemma ramRbot_nonneg (H : ℝ) (X j : ℕ) : 0 ≤ ramRbot H X j := by
   rw [ramRbot]; positivity
 
@@ -96,6 +100,8 @@ lemma ramRrange_le_top {H : ℝ} {N X j m : ℕ} (hm : m ∈ ramRrange H N X j) 
   rw [ramRbot]
   linarith
 
+/-- `1 ≤ m` for `m ∈ ramRrange H N X j`: the range is a filter of `Finset.Icc 1 N`. Read three
+times in this file and by `HybridMoments`, `MultShiuBridge` and `TLegPreamble`. -/
 lemma ramRrange_one_le {H : ℝ} {N X j m : ℕ} (hm : m ∈ ramRrange H N X j) : 1 ≤ m := by
   rw [ramRrange, Finset.mem_filter, Finset.mem_Icc] at hm
   exact hm.1.1

@@ -35,7 +35,7 @@ identity): re-cut at `SeamRowWindowed.SeamCoefWS`, the STRICT relativized pair l
 asks the factorization only on `X_d < p·m ≤ 2X_d`.
 
 ⟦THE BYTE-PRECISE SPEND SITE⟧  `ramErr_meanSq_all_chi` spends its `hcoef` at exactly one
-place: `RamareErr.ramErr_moment_split` (`HybridMoments`:629), which spends it at
+place: `RamareErr.ramErr_moment_split` (`HybridMoments`:640), which spends it at
 `RamareWindows.ramErr_window_decomp`:392, which spends it at
 `RamareWindows.spoly_ramare_split`:153.  **That split GENUINELY READS OUT-OF-WINDOW
 PRODUCTS** — its clean term `clean_term` runs over the FULL eq-(16) cofactor range

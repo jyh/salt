@@ -25,7 +25,7 @@ The three landed branch files of `hU` are composed here into the single exit the
   at the level `δ'` into the two landed branches.
 
   **THE SPLIT IS EXHAUSTIVE, byte-wise** (§1): `TsetSmall H P Q j c ε 𝒯 =
-  𝒯.filter (‖ramQ H P Q j c ·‖ ≤ ε)` (`USetThinTS`:162) and `tLset H P Q j c δ' 𝒯 =
+  𝒯.filter (‖ramQ H P Q j c ·‖ ≤ ε)` (`USetThinTS`:166) and `tLset H P Q j c δ' 𝒯 =
   𝒯.filter (δ' < ‖ramQ H P Q j c ·‖)` (`USetThinTL`:185).  At `ε := δ'` — the SAME level,
   the SAME `H P Q j c`, the SAME `𝒯` — these are `filter p` and `filter ¬p` of one
   predicate, so `sum_TS_add_TL` is an identity, not an inequality.  Nothing is lost or

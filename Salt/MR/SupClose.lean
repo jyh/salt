@@ -131,7 +131,7 @@ private lemma widthKamp_nonnegS {Cb X h y c₀ : ℝ} (hCb0 : 0 ≤ Cb) (hX0 : 0
 
 /-- **S-A — the pointwise pin `supF` (`joint_supF_pin_at`).**  `RHSGrade.joint_supF_pin` with
 its floor binder taken at the ONE contour point where the proof uses it: `joint_supF_pin`
-asks for `∀ t : ℝ, M ≤ 𝔻²(…; k)` but consumes it only as `hMt t` (`RHSGrade.lean:313`), so
+asks for `∀ t : ℝ, M ≤ 𝔻²(…; k)` but consumes it only as `hMt t` (`RHSGrade.lean:318`), so
 the per-`t` form is a strict weakening, proved by the same page.
 
 This is the stone the CONTOUR TRUNCATION needs: on the truncated contour the floor is

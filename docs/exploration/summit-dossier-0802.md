@@ -44,8 +44,8 @@ and would not claim. Nothing here is new; every line cites the ledger.*
   a guess, not a result).
   > **ERRATUM (RIDER-TRACE, 2026-08-02).** K₄ and Cκ are NOT compactness
   > existentials — they are closed-form `noncomputable def`s
-  > (`K₄ = 2^{3/4}·16`, PortAssembly:637; `Cκ = 2^{3/4}·8`,
-  > HalaszPrimesCore:3450). Every cs leaf is effective: `c_vk = 1/10^8`
+  > (`K₄ = 2^{3/4}·16`, PortAssembly:640; `Cκ = 2^{3/4}·8`,
+  > HalaszPrimesCore:3476). Every cs leaf is effective: `c_vk = 1/10^8`
   > literal, `c₀ = 1/10^9` literal (PowRegion:365). cs = 3.716e-11
   > against e^{-100} = 3.72e-44 — **33 orders of room**, kernel-pinned at
   > `MR/RiderTrace.cs_closed_form_ge_exp_neg_hundred`. The discharge is
@@ -178,7 +178,7 @@ flat-lane conditionals until then.
 
 ## ADDENDUM 2 (2026-08-02 night) — v4 MINTED; BOTH VACUITIES REPAIRED
 
-**`logChowla2_ineffective_v4` (S16ComposeV4.lean:928, 3-axiom,
+**`logChowla2_ineffective_v4` (S16ComposeV4.lean:909, 3-axiom,
 d103766) is the standing summit object.** v1/v2/v3 are marked
 SUPERSEDED in RESULTS.md with the vacuity reason on the row.
 
@@ -230,7 +230,7 @@ log B_v ≥ (1−1/loglog X)·log X survives the division by D). The
 4. `XCeilRiderStrict ε g` — the caller's own growth condition, met
    by g ≡ 0 and by the compose's own arm.
 5. The K_vt cushion (32·K_vt + 32·D̂ ≤ log H₊/4) — carried BY NAME
-   because its third leg is SiegelArm:166's EVT minimum of ‖L(s,χ)‖
+   because its third leg is SiegelArm:177's EVT minimum of ‖L(s,χ)‖
    uniform in q: **the Siegel-zero obstruction itself**. K_vt sits
    in the ∃-prefix so the caller can state the cushion.
 

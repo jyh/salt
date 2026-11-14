@@ -28,7 +28,7 @@ which is exactly the complement of the STRICT antecedent `X < p·m` inside `ramH
 split stays at FOUR rows and `M4ErrRewire.err_grade_fit`'s `4·520 ≤ 2160` is untouched.
 
 **⟦AMENDMENT 6 — SIBLING DISCIPLINE IS LOAD-BEARING.**  The landed `ramP2domMR`,
-`ramP2coeffMR`, `ramP2corrMR` are byte-untouched: `SmallStones`:385-460 reads their exact
+`ramP2coeffMR`, `ramP2corrMR` are byte-untouched: `SmallStones`:387-462 reads their exact
 shapes.  Everything here is a NEW sibling, and the two families coexist.
 
 The price of the fusion is paid in `M4P2MR`: the max half is FREE (the fibre injection into
@@ -71,10 +71,14 @@ noncomputable def ramP2coeffEndMR (N X P Q : ℕ) (a b c : ℕ → ℂ) (n : ℕ
 
 /-! ## §2 — THE `spoly`/MOMENT/CONTINUITY TRIPLE
 
-`RamareMR`:676-724 verbatim at the fused family.  The fibre map `hmaps` discards the inner
+`RamareMR`:687-737 verbatim at the fused family.  The fibre map `hmaps` discards the inner
 filter predicate outright — it reads only `ramHonMR`'s own window — so the transplant is
 byte-for-byte. -/
 
+/-- The fused `p²`-correction is a Dirichlet polynomial: at `1 ≤ X` and `2 * X ≤ N`,
+`ramP2corrEndMR N X P Q a b c t = spoly N (ramP2coeffEndMR N X P Q a b c) t`, by fibering the
+double sum over the product `p * m`, which lies in `Finset.Icc 1 N`. Read once in this file and
+by `RamErrWS`. -/
 theorem ramP2corrEndMR_eq_spoly (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ N) (a b c : ℕ → ℂ)
     (t : ℝ) :
     ramP2corrEndMR N X P Q a b c t = spoly N (ramP2coeffEndMR N X P Q a b c) t := by
@@ -116,6 +120,8 @@ theorem ramP2corrEndMR_moment (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ N) 
   rw [hcongr]
   exact moment_core_bound N (ramP2coeffEndMR N X P Q a b c) T
 
+/-- `ramP2corrEndMR N X P Q a b c` is continuous in `t`: a finite sum of `continuous_cterm`
+terms at `p * m ≠ 0`. Read by `SeamRowWindowed`; not read in this file. -/
 lemma continuous_ramP2corrEndMR (N X P Q : ℕ) (a b c : ℕ → ℂ) :
     Continuous (ramP2corrEndMR N X P Q a b c) := by
   classical

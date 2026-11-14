@@ -9,7 +9,7 @@ we do, aesthetically, and this is where that care lives.*
 
 ## P-1 — the even-χ band constant (ENTERED 2026-07-28, council C3)
 
-**Where:** `LFunction_band_lower` (Salt/MR/SiegelArm.lean:161) — the EVT
+**Where:** `LFunction_band_lower` (Salt/MR/SiegelArm.lean:172) — the EVT
 compact-minimum on bandBox [1,2]×[−1,1] producing the per-χ constant B_χ;
 lifted to the finite max B(W) over {χ mod q : q ≤ W} by
 `chi_Llower_band_uniform` (the C3 stones); consumed by the regime g-arm
