@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `09f79421` · source digest `ee2d24bbd0835422` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `50b5ed1a` · source digest `0cd03ccb89e881fc` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,7 +22,7 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 23419 | 689 | 22719 | 9148 | 13 | 291 | 40 | 345 | 87 |
+| 23419 | 689 | 22719 | 9148 | 13 | 291 | 40 | 345 | 86 |
 
 Per-polarity totals over the 689 Props: with F-consumers 536 · with ¬F-consumers 21 · with F-producers (any kind) 450 · with ¬F-producers (any kind) 59.
 
@@ -33,7 +33,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | P | defined at | status | F-cons | ¬F-cons | F-prod | ¬F-prod | sites | ¬F-consumer examples | F-consumer examples |
 |---|---|---|---|---|---|---|---|---|---|
 | `Salt.MR.NearRatTight` | Salt/MR/BigXiArc.lean:566 | DISCHARGED | 54 (50/15) | 4 (4/0) | 2/9/0 | 0/0/0 | 0/0 | `Salt.MR.approx_reduced` (Salt/MR/MinorArcExit.lean:333), `Salt.MR.exists_large_den_of_minorTight` (Salt/MR/BigXiArc.lean:712), `Salt.MR.exists_large_den_of_not_nearRatTight` (Salt/MR/BigXiArc.lean:684) +1 | `Salt.MR.G2Scaffold.m4_hbd_of_live_L` (Salt/MR/M4RowLinear.lean:2210), `Salt.MR.G2Scaffold.m4_hbd_of_live_L_gk` (Salt/MR/M4RowLinear.lean:2322), `Salt.MR.G2Scaffold.m4_hbd_of_live_split_L` (Salt/MR/M4RowLinear.lean:1614) +51 |
-| `Salt.MR.CapFreeFloor` | Salt/MR/CapFreeArm.lean:111 | DISCHARGED | 9 (9/0) | 6 (6/0) | 4/2/0 | 0/0/0 | 0/5 | `Salt.MR.a2Rows_of_cap` (Salt/MR/ThmA2Rows.lean:461), `Salt.MR.a2Rows_of_cap_L` (Salt/MR/ThmA2Linear.lean:1246), `Salt.MR.a2Rows_of_cap_L_gk` (Salt/MR/ThmA2Linear.lean:1962) +3 | `Salt.MR.a2Rows_of_capfree` (Salt/MR/ThmA2Rows.lean:307), `Salt.MR.a2Rows_of_capfree_L` (Salt/MR/ThmA2Linear.lean:1098), `Salt.MR.a2Rows_of_capfree_L_gk` (Salt/MR/ThmA2Linear.lean:1829) +6 |
+| `Salt.MR.CapFreeFloor` | Salt/MR/CapFreeArm.lean:111 | DISCHARGED | 9 (9/0) | 6 (6/0) | 4/2/0 | 0/0/0 | 0/4 | `Salt.MR.a2Rows_of_cap` (Salt/MR/ThmA2Rows.lean:461), `Salt.MR.a2Rows_of_cap_L` (Salt/MR/ThmA2Linear.lean:1245), `Salt.MR.a2Rows_of_cap_L_gk` (Salt/MR/ThmA2Linear.lean:2522) +3 | `Salt.MR.a2Rows_of_capfree` (Salt/MR/ThmA2Rows.lean:307), `Salt.MR.a2Rows_of_capfree_L` (Salt/MR/ThmA2Linear.lean:1097), `Salt.MR.a2Rows_of_capfree_L_gk` (Salt/MR/ThmA2Linear.lean:2442) +6 |
 | `Salt.BrunLower.chi` | Salt/BrunLower/Defs.lean:153 | DISCHARGED | 10 (9/1) | 3 (3/0) | 3/2/0 | 0/0/0 | 0/8 | `Salt.BrunLower.forcing` (Salt/BrunLower/Lemma3.lean:472), `Salt.HB.exists_firstFailure` (Salt/HB/RosserDim4FL.lean:576), `Salt.HB.failSet_forced_count` (Salt/HB/RosserDim4FL.lean:729) | `Salt.BrunLower.chi_add_smaller_prime` (Salt/BrunLower/Defs.lean:239), `Salt.BrunLower.chi_dvd_closed` (Salt/BrunLower/Defs.lean:206), `Salt.BrunLower.chi_imp_windowed` (Salt/BrunLower/Defs.lean:181) +7 |
 | `Salt.Entropy.Chowla.logChowla2Fails` | Salt/Entropy/Chowla/ChowlaFailure.lean:59 | OPEN | 3 (3/0) | 8 (5/3) | 0/0/0 | 0/214/24 | 0/0 | `Salt.Entropy.Chowla.sign_split_fifth` (Salt/Entropy/Chowla/SignSplit.lean:278), `Salt.Entropy.Chowla.sign_split_of_not_fails` (Salt/Entropy/Chowla/SignSplit.lean:209), `Salt.Entropy.Chowla.sign_split_quarter_log` (Salt/Entropy/Chowla/SignSplit.lean:252) +5 | `Salt.Entropy.Chowla.h211_of_logChowla2Fails` (Salt/Entropy/Chowla/ChowlaFailure.lean:120), `Salt.Entropy.Chowla.singleCorr_of_fails` (Salt/Entropy/Chowla/ChowlaFailure.lean:81), `Salt.Entropy.Chowla.singleCorr_of_fails_h_one` (Salt/Entropy/Chowla/ChowlaFailure.lean:239) |
 | `Salt.Entropy.Chowla.logChowlaFailsAff` | Salt/Entropy/Chowla/AffineFork.lean:69 | OPEN | 3 (3/0) | 5 (5/0) | 0/0/0 | 2/11/1 | 0/0 | `Salt.Entropy.Chowla.affWindow_survivorMass_ge` (Salt/Entropy/Chowla/AffineFork.lean:107), `Salt.Entropy.Chowla.exists_affSurvivor_of_not_failsAff` (Salt/Entropy/Chowla/AffineFork.lean:153), `Salt.Entropy.Chowla.gradedAffHeadAt_g12b_of_at_regime` (Salt/Entropy/Chowla/StrideShellBand.lean:369) +2 | `Salt.Entropy.Chowla.h211_aff` (Salt/Entropy/Chowla/StrideBridge.lean:665), `Salt.Entropy.Chowla.singleCorr_of_failsAff` (Salt/Entropy/Chowla/StrideFork.lean:138), `Salt.Entropy.Chowla.singleCorr_of_failsAff'` (Salt/Entropy/Chowla/StrideFork.lean:176) |
@@ -156,9 +156,9 @@ A FRAME is a bundle of order relations over its own parameters; ¬P is 'the para
 | `Salt.MR.SocketBaseLH` | DISCHARGED | - | 175 | 1/0/0 | `Salt.MR.socketBaseLH_at_zero_false` (Salt/MR/TierSSocket.lean:146) |
 | `Salt.TwinBar.BadHyp` | OPEN | - | 0 | 1/0/0 | `Salt.TwinBar.badHyp_false` (Salt/TwinBar/SiegelTwin.lean:153) |
 
-## DISJUNCTION AND CASE-SPLIT SITES (87; first 87, ordered by path)
+## DISJUNCTION AND CASE-SPLIT SITES (86; first 86, ordered by path)
 
-By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
+By kind: case split `by_cases` 83 · prop-def body 2 · theorem conclusion 1.
 
 | kind | declaration | file:line | P (polarity) |
 |---|---|---|---|
@@ -214,9 +214,8 @@ By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.MR.prod_one_sub_gJ` | Salt/MR/Sec9Glue.lean:243 | `Salt.MR.MemS` |
 | case split `by_cases` | `Salt.MR.lemma5_middle` | Salt/MR/Sec9Glue.lean:265 | `Salt.MR.MemS` |
 | case split `by_cases` | `Salt.MR.wt_mul` | Salt/MR/ShiuMoment.lean:176 | `Salt.MR.BlockSmooth` |
-| case split `by_cases` | `Salt.MR.thm_a2'_L` | Salt/MR/ThmA2Linear.lean:1504 | `Salt.MR.CapFreeFloor` |
-| case split `by_cases` | `Salt.MR.thm_a2'_L_gk` | Salt/MR/ThmA2Linear.lean:2210 | `Salt.MR.CapFreeFloor` |
-| case split `by_cases` | `Salt.MR.thm_a2'_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:3845 | `Salt.MR.CapFreeFloor` |
+| case split `by_cases` | `Salt.MR.thm_a2'_L` | Salt/MR/ThmA2Linear.lean:1503 | `Salt.MR.CapFreeFloor` |
+| case split `by_cases` | `Salt.MR.thm_a2'_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:2185 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.MR.thm_a2'` | Salt/MR/ThmA2Rows.lean:728 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.MR.thm_a2'_gk` | Salt/MR/ThmA2Rows.lean:1604 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.Maynard.compat_moebius_expansion` | Salt/Maynard/CollisionQuant.lean:1675 | `Salt.Maynard.IsCollisionPair` |
