@@ -140,12 +140,15 @@ namespace ChowlaRegimeFlat
 variable (R : ChowlaRegimeFlat)
 
 /-- `0 < R.A`, from the regime's floor `hA : 26 ≤ A`. The positivity `tower_step_ofFlat`
-(`DecrementFlat`) takes as `R.hApos` to make `A·log H` positive and `A ≠ 0`. -/
+(`DecrementFlat`) takes as `R.hApos` to make `A·log H` positive and `A ≠ 0`; also read as
+`R.hApos` by `condEntropy_shift_leFlat` and `step_ineq_3_11Flat` (`StepFlat`) and by
+`hbudget1_witnessFlat` (`SpineFlat`). -/
 lemma hApos : 0 < R.A := by have := R.hA; linarith
 
 /-- `1 ≤ R.A`, from `hA : 26 ≤ A`: the `A ≥ 1` hypothesis the `TowerFlat` lemmas take,
 supplied at the regime's own constant. Consumed through `flatMul_ge_two R.hA1` by
-`chowlaTowerFlat_ge` and `chowlaTowerFlat_le_succ`. -/
+`chowlaTowerFlat_ge` and `chowlaTowerFlat_le_succ`, and read as `R.hA1` by `tower_step_ofFlat`
+and `tower_stepFlat` (`DecrementFlat`). -/
 lemma hA1 : 1 ≤ R.A := by have := R.hA; linarith
 
 /-- The flat tower floor at the regime's own base. -/
