@@ -775,12 +775,12 @@ Continuing the walk, under the rule set in the section below: name no frontier, 
 `norm_sum_doorSievedWindow_le` (`M4CoprimeSupply.lean:125`) is the window-length bound
 `‖∑_{m ∈ doorSievedWindow M K n} liouChi χ m‖ ≤ K`.  Its docstring: used at the SMALL dyadic
 lengths, *"where the capstone is silent"*.  So the dyadic split is `j < j₀` trivial grade,
-`j₀ ≤ j` capstone (`M4CoprimeSupply.lean:40`, `M4Maximal.lean:1050`).
+`j₀ ≤ j` capstone (`M4CoprimeSupply.lean:40`, `M4Maximal.lean:1089`).
 
 **2. ⛔ TWO DIFFERENT OBJECTS ARE CALLED "THE CAPSTONE". THEY ARE NOT THE SAME.**
 * `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:508`) — the **S12** lane.  This is
   the one carrying `S14Compose.lean:429`'s **`⚠ NOT DERIVED` … "refuted at ⟦B1'-3⟧ by §3"**.
-* `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1052`) — the **M4** lane, and *this* is the one the
+* `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1091`) — the **M4** lane, and *this* is the one the
   door's dyadic split consumes (`M4Maximal.lean:117`, length-graded `MS j H`).
 
 **The `⚠ NOT DERIVED` marker does NOT lie on the door's chain.**  Checked, not assumed — the
