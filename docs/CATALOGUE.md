@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `cea89bac` · source digest `c019b865ffb34be2` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `9d5b05a5` · source digest `9d33c7821cd508ff` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -3804,25 +3804,25 @@ Declarations indexed across the tree: 23419 · corpus Prop-valued names (the hyp
 | `Salt.MR.qgraded_drift_price_le` | Salt/MR/M4BridgePhase.lean:403 | characters |
 | `Salt.MR.m4_sievedDoorSqSup_trivial` | Salt/MR/M4BridgePhase.lean:492 | sieves, characters |
 | `Salt.MR.mem_residueClassOn` | Salt/MR/M4BridgeResidue.lean:117 | characters |
-| `Salt.MR.mem_windowClass` | Salt/MR/M4BridgeResidue.lean:123 | characters |
-| `Salt.MR.windowClass_subset` | Salt/MR/M4BridgeResidue.lean:129 | characters |
-| `Salt.MR.sum_window_residue_partition` | Salt/MR/M4BridgeResidue.lean:140 | characters |
-| `Salt.MR.sum_card_windowClass` | Salt/MR/M4BridgeResidue.lean:157 | characters |
-| `Salt.MR.norm_ratPhase` | Salt/MR/M4BridgeResidue.lean:187 | characters |
-| `Salt.MR.exp_phase_split` | Salt/MR/M4BridgeResidue.lean:193 | characters |
-| `Salt.MR.exp_eq_ratPhase_of_modEq` | Salt/MR/M4BridgeResidue.lean:213 | characters |
-| `Salt.MR.norm_absWindowSum_residue_split_le` | Salt/MR/M4BridgeResidue.lean:263 | characters |
-| `Salt.MR.norm_absWindowSum_residue_split_le_of_eq` | Salt/MR/M4BridgeResidue.lean:273 | characters |
-| `Salt.MR.norm_absWindowSum_split_coprime_add` | Salt/MR/M4BridgeResidue.lean:301 | characters |
-| `Salt.MR.norm_classPhaseSum_le_card` | Salt/MR/M4BridgeResidue.lean:318 | characters |
-| `Salt.MR.sum_norm_classPhaseSum_le` | Salt/MR/M4BridgeResidue.lean:331 | characters |
-| `Salt.MR.sum_residueClassOn_liou_eq` | Salt/MR/M4BridgeResidue.lean:352 | characters |
-| `Salt.MR.sum_windowClass_liou_eq` | Salt/MR/M4BridgeResidue.lean:364 | characters |
-| `Salt.MR.norm_sum_residueClassOn_liou_le` | Salt/MR/M4BridgeResidue.lean:373 | characters |
-| `Salt.MR.norm_sum_residueClassOn_liou_le_of_uniform` | Salt/MR/M4BridgeResidue.lean:383 | characters |
-| `Salt.MR.norm_sum_windowClass_liou_le_of_uniform` | Salt/MR/M4BridgeResidue.lean:390 | characters |
-| `Salt.MR.windowClass_partial` | Salt/MR/M4BridgeResidue.lean:401 | characters |
-| `Salt.MR.norm_sum_residueClassOn_Ioc_liou_le_of_uniform` | Salt/MR/M4BridgeResidue.lean:414 | characters |
+| `Salt.MR.mem_windowClass` | Salt/MR/M4BridgeResidue.lean:124 | characters |
+| `Salt.MR.windowClass_subset` | Salt/MR/M4BridgeResidue.lean:130 | characters |
+| `Salt.MR.sum_window_residue_partition` | Salt/MR/M4BridgeResidue.lean:141 | characters |
+| `Salt.MR.sum_card_windowClass` | Salt/MR/M4BridgeResidue.lean:158 | characters |
+| `Salt.MR.norm_ratPhase` | Salt/MR/M4BridgeResidue.lean:188 | characters |
+| `Salt.MR.exp_phase_split` | Salt/MR/M4BridgeResidue.lean:194 | characters |
+| `Salt.MR.exp_eq_ratPhase_of_modEq` | Salt/MR/M4BridgeResidue.lean:214 | characters |
+| `Salt.MR.norm_absWindowSum_residue_split_le` | Salt/MR/M4BridgeResidue.lean:264 | characters |
+| `Salt.MR.norm_absWindowSum_residue_split_le_of_eq` | Salt/MR/M4BridgeResidue.lean:274 | characters |
+| `Salt.MR.norm_absWindowSum_split_coprime_add` | Salt/MR/M4BridgeResidue.lean:302 | characters |
+| `Salt.MR.norm_classPhaseSum_le_card` | Salt/MR/M4BridgeResidue.lean:319 | characters |
+| `Salt.MR.sum_norm_classPhaseSum_le` | Salt/MR/M4BridgeResidue.lean:332 | characters |
+| `Salt.MR.sum_residueClassOn_liou_eq` | Salt/MR/M4BridgeResidue.lean:353 | characters |
+| `Salt.MR.sum_windowClass_liou_eq` | Salt/MR/M4BridgeResidue.lean:365 | characters |
+| `Salt.MR.norm_sum_residueClassOn_liou_le` | Salt/MR/M4BridgeResidue.lean:374 | characters |
+| `Salt.MR.norm_sum_residueClassOn_liou_le_of_uniform` | Salt/MR/M4BridgeResidue.lean:384 | characters |
+| `Salt.MR.norm_sum_windowClass_liou_le_of_uniform` | Salt/MR/M4BridgeResidue.lean:391 | characters |
+| `Salt.MR.windowClass_partial` | Salt/MR/M4BridgeResidue.lean:402 | characters |
+| `Salt.MR.norm_sum_residueClassOn_Ioc_liou_le_of_uniform` | Salt/MR/M4BridgeResidue.lean:415 | characters |
 | `Salt.MR.m4_capKS_at_door` | Salt/MR/M4CapWire.lean:450 | characters |
 | `Salt.MR.m4_capE_at_door_of_hcoef` | Salt/MR/M4CapWire.lean:494 | characters |
 | `Salt.MR.conj_chi_eq_inv` | Salt/MR/M4Chars.lean:89 | characters |
@@ -7951,8 +7951,8 @@ Declarations indexed across the tree: 23419 · corpus Prop-valued names (the hyp
 | `Salt.MR.norm_absWindowSum_le_ratPartial` | Salt/MR/M4BridgePhase.lean:327 | characters | `Salt.MR.NearRatTight` |
 | `Salt.MR.m4_sievedDoorSq_of_sup` | Salt/MR/M4BridgePhase.lean:434 | sieves, characters | `Salt.MR.M4SievedDoorSqSup` |
 | `Salt.MR.m4_sievedDoorSq_of_sup_uniform` | Salt/MR/M4BridgePhase.lean:475 | sieves, characters | `Salt.MR.M4SievedDoorSqSup` |
-| `Salt.MR.norm_absWindowSum_le_class_sum_of_nearRatTight` | Salt/MR/M4BridgeResidue.lean:287 | characters | `Salt.MR.NearRatTight` |
-| `Salt.MR.norm_absWindowSum_le_liou_class_bound_of_nearRatTight` | Salt/MR/M4BridgeResidue.lean:431 | characters | `Salt.MR.NearRatTight` |
+| `Salt.MR.norm_absWindowSum_le_class_sum_of_nearRatTight` | Salt/MR/M4BridgeResidue.lean:288 | characters | `Salt.MR.NearRatTight` |
+| `Salt.MR.norm_absWindowSum_le_liou_class_bound_of_nearRatTight` | Salt/MR/M4BridgeResidue.lean:432 | characters | `Salt.MR.NearRatTight` |
 | `Salt.MR.m4_hcap_at_door` | Salt/MR/M4CapWire.lean:351 | characters | `Salt.MR.SocketBase`, `Salt.MR.TannGate` |
 | `Salt.MR.m4_capRbd_at_door` | Salt/MR/M4CapWire.lean:423 | characters | `Salt.MR.CofactorSocket` |
 | `Salt.MR.m4_socket_discharged_capwired` | Salt/MR/M4CapWire.lean:540 | characters | `Salt.MR.MmuChiRate`, `Salt.MR.DoorFuseFrame`, `Salt.MR.DoorRowZeroBase`, `Salt.MR.DoorBandBase`, `Salt.MR.DoorArithFrameRho` |
@@ -9443,9 +9443,9 @@ Declarations indexed across the tree: 23419 · corpus Prop-valued names (the hyp
 | `Salt.MR.absWindowSum_add_eq_phase_sum` | Salt/MR/M4BridgePhase.lean:276 | characters |
 | `Salt.MR.residueClassOn` | Salt/MR/M4BridgeResidue.lean:108 | characters |
 | `Salt.MR.windowClass` | Salt/MR/M4BridgeResidue.lean:112 | characters |
-| `Salt.MR.ratPhase` | Salt/MR/M4BridgeResidue.lean:167 | characters |
-| `Salt.MR.classPhaseSum` | Salt/MR/M4BridgeResidue.lean:173 | characters |
-| `Salt.MR.absWindowSum_residue_split` | Salt/MR/M4BridgeResidue.lean:246 | characters |
+| `Salt.MR.ratPhase` | Salt/MR/M4BridgeResidue.lean:168 | characters |
+| `Salt.MR.classPhaseSum` | Salt/MR/M4BridgeResidue.lean:174 | characters |
+| `Salt.MR.absWindowSum_residue_split` | Salt/MR/M4BridgeResidue.lean:247 | characters |
 | `Salt.MR.chiFreeRowSq` | Salt/MR/M4ChiSummed.lean:156 | characters |
 | `Salt.MR.absWindowSum_zero` | Salt/MR/M4ClassPrice.lean:113 | characters |
 | `Salt.MR.classPhaseSum_zero` | Salt/MR/M4ClassPrice.lean:120 | characters |
