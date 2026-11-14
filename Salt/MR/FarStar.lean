@@ -240,6 +240,8 @@ which at `L = log k` is `L⁴·e^{L/(4 log L)} = X^{1/(4 log log X)}·(log X)⁴
 in the scale, which is what keeps `⟦V3e⟧`'s gate radius `R ≪ X` in the `polyT` regime. -/
 def Tstar (k L : ℝ) : ℝ := L ^ 4 * k ^ (1 / (4 * Real.log L))
 
+/-- `0 < Tstar k L` at `0 < k` and `0 < L`: a product of two positive factors, the second a real
+power of `k`. Read three times in this file; no consumer outside it. -/
 lemma Tstar_pos {k L : ℝ} (hk : 0 < k) (hL : 0 < L) : 0 < Tstar k L := by
   unfold Tstar
   exact mul_pos (by positivity) (Real.rpow_pos_of_pos hk _)
@@ -536,6 +538,9 @@ theorem desmooth_under_grade16 {L : ℝ} (hL : 1 ≤ L) :
 `FarClose`'s verdict says does not exist at `T = L⁴`. -/
 def farCStar : ℝ := 306 * rhsCSF * Real.exp (24 / Real.exp 1) * (Real.log 4 + 4) ^ 2 / Real.pi
 
+/-- `0 ≤ farCStar`: the constant unfolded, its factors positive (`rhsCSF_pos`, `Real.pi_pos`,
+`0 ≤ log 4`). Read three times in this file and by 10 files outside it (`CofactorGrade`,
+`M4RowLinear`, `M4T0Discharge` the first three). -/
 lemma farCStar_nonneg : 0 ≤ farCStar := by
   have h := rhsCSF_pos
   have hlog4 : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
@@ -622,6 +627,8 @@ presentable truncation height raised from `(log 2X)⁴` to `T*(2X)`.  `T*(2X)` i
 radius still satisfies `R ≪ X` and `⟦V3d⟧`'s strong two-`M` direction survives. -/
 def seamGateRstar (X T : ℝ) : ℝ := T + seamRad X + Tstar (2 * X) (Real.log (2 * X)) + 1
 
+/-- `0 ≤ seamGateRstar X T` at `0 ≤ T` and `1 ≤ X`: `seamRad X ≥ 0` and `Tstar` at `2 * X` is
+positive (`seamRad_nonneg`, `Tstar_pos`). Read once in this file; no consumer outside it. -/
 lemma seamGateRstar_nonneg {X T : ℝ} (hT : 0 ≤ T) (hX : 1 ≤ X) : 0 ≤ seamGateRstar X T := by
   have hX0 : (0 : ℝ) < X := by linarith
   have hLX : (0 : ℝ) ≤ Real.log X := Real.log_nonneg hX

@@ -1036,7 +1036,7 @@ theorem trivial_cut_needs_delta_ge_one {H : ℕ} {δ : ℝ} (hH : 0 < (H : ℝ))
 Second of the two rows the sweep left *named-not-opened*.  Opening it: the match is much
 closer than A.6's was.
 
-`renormalise_aux` (`Renormalise.lean:760`), with `eIu u y := exp(I·u·log y)` — i.e.
+`renormalise_aux` (`Renormalise.lean:779`), with `eIu u y := exp(I·u·log y)` — i.e.
 `y^{iu}` (`Renormalise.lean:497`):
 ```
   ‖ ∑_{n≤x} f n · eIu u n  −  x·eIu u x/(1 + I·u) · ∑_{d≤x} mobDatum f d / d ‖
@@ -3044,7 +3044,7 @@ theorem mrtA3_band_bound_of_A6 {C : ℝ} {F : ℝ → ℝ} (hC : 0 ≤ C) (hA6 :
   mrtA3_split_bound_interval hT h0int h1int
     (mrtA3_T0_bound_of_A6 hC hA6 f Pseq Qseq J hFdef hf hX hlogX hTX hr hrX h0int) hT1
 
-/-- **A.7's SIDE CONDITION, WITH `t` ELIMINATED** — `renormalise_aux` (`Renormalise.lean:760`)
+/-- **A.7's SIDE CONDITION, WITH `t` ELIMINATED** — `renormalise_aux` (`Renormalise.lean:779`)
 demands `hyx : (3 + |u|·(1 + log x))² ≤ x`.  At A.7's `u := t − t₁` this is a condition on
 BOTH `t` and `X`; but on `T₀` the radius `|t − t₁| ≤ (log X)^{1/16}`
 (`abs_sub_le_of_mem_mrtT0`, already landed) makes it monotone in `|t − t₁|`, so it follows
@@ -3105,7 +3105,7 @@ publishing the claim, by searching before composing.  The habit is worth more th
 
 /-! ### A.7's SUMMAND MATCH — the two missing pieces, and a junk-value trap in one of them
 
-`renormalise` (`Renormalise.lean:1004`) quantifies over an `f` with `f 1 = 1`, multiplicativity
+`renormalise` (`Renormalise.lean:1029`) quantifies over an `f` with `f 1 = 1`, multiplicativity
 and `‖f n‖ ≤ 1`.  A.7's summand is `gJ 𝒥 Pseq Qseq n · f n · costwist (−t₁) n`, so the match
 needs those three properties for each factor.  Censused:
 

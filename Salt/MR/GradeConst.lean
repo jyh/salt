@@ -1195,6 +1195,9 @@ def gradeAbsConst (Cb : ℝ) : ℝ :=
     * (Real.exp (1 / (2 * Real.exp 1) * 48) / (1 - 2 * (1 / (2 * Real.exp 1))))
     * (1580544 * (1 + Cb))
 
+/-- `0 ≤ gradeAbsConst Cb` at `0 ≤ Cb`: the constant unfolded, with `rhsCSF` positive and
+`1 / exp 1 < 1` keeping its denominator positive. Read once in this file and by `FarClose`,
+`FarStar`, `SupStation` and `SupplyGeneric`. -/
 lemma gradeAbsConst_nonneg {Cb : ℝ} (hCb0 : 0 ≤ Cb) : 0 ≤ gradeAbsConst Cb := by
   have hd : (0 : ℝ) < 1 - 2 * (1 / (2 * Real.exp 1)) := by
     rw [show 2 * (1 / (2 * Real.exp 1)) = 1 / Real.exp 1 from by ring]

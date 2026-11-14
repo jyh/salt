@@ -11710,7 +11710,7 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 ## 2026-07-24 — the hsplit/annHead object mismatch (statement-layer, caught pre-consumption)
 
 - **Where**: the hsplit binders of `prop_A3_T1_row_annular` (AnnHead:339),
-  `prop_A3_T1_row_moment` (Prop1Assembly:403), and `prop_A3'_assembly`'s Iunit
+  `prop_A3_T1_row_moment` (Prop1Assembly:407), and `prop_A3'_assembly`'s Iunit
   socket semantics; the annHead S4 pin (JYH-ratified 2026-07-23).
 - **Finding** (SEAM-SCOPE 2026-07-24): annHead — the FULL seam L-series at
   1+σ — has true L²-size ≍ T (ellLin's support is all squarefree n with
@@ -11752,8 +11752,8 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 
 ## 2026-07-24 — ball_leg_of_sup divergence + the ball-centre defect (caught pre-consumption)
 
-- **Where**: Salt/MR/SeamSplit.lean:362 (ball_leg_of_sup, landed 7/24) + the
-  ∃t₁ clause of prop_A3_T1_row_split (:624); the R2.4 gate-check verdict
+- **Where**: Salt/MR/SeamSplit.lean:372 (ball_leg_of_sup, landed 7/24) + the
+  ∃t₁ clause of prop_A3_T1_row_split (:636); the R2.4 gate-check verdict
   (HalaszCore:356–378).
 - **Findings** (HSUP-SCOPE 7/24): (1) the measure×sup² exit 2r(2S)² diverges
   at every M where the ball leg is live — MRT's A.7 keeps 1/(1+|t−t₁|)
@@ -11823,7 +11823,7 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 
 ## 2026-07-25 — hmin-on-ℝ vacuous in the live band (the sixth vacuity catch, pre-consumption)
 
-- **Where**: Salt/MR/RHSGrade.lean:189/:829/:898 (center_dist_floor,
+- **Where**: Salt/MR/RHSGrade.lean:189/:834/:903 (center_dist_floor,
   hRHS_discharged, center_halasz_of_grade's hmin binder).
 - **Finding** (GRADE-SCOPE): pretDistSq is a FINITE sum; by Kronecker
   density of {p^{iv}} in the torus, inf over v ∈ ℝ = Σ(1−|f(p)|)/p — zero
@@ -11884,7 +11884,7 @@ predicate — the pin-free collision δ ≲ Q_j^{−1/2} (𝒯-side) vs
 the full hU chain remain VALID (hU is non-vacuous at the live pin) — the
 wall is about the 𝒯-side only.
 
-**Docstring correction (informational)**: USetThin.lean:630's "the ratified
+**Docstring correction (informational)**: USetThin.lean:642's "the ratified
 pin δ := P_J^{−α_J}" is NOT simultaneously satisfiable with hlogV at
 super-polylog P_J; the LIVE pin under the landed statements is
 δ ≈ K₀(log X)^{−100}. hU non-vacuous either way. No future wave should
@@ -12710,7 +12710,7 @@ briefs must pin |t₀+v| vs |v| or the box silently moves.
 
 **K3 — CFB AS PRICED IS UNBUILDABLE (CONFIRMED-FATAL).** The T0Band
 weighted-sup mirror target does not exist: the 1/(1+|t|) weight comes
-only from transfer_at_scale (BallSup:307) whose hypothesis IS the
+only from transfer_at_scale (BallSup:316) whose hypothesis IS the
 pretentiousness cap (D² ≤ SPartial/8 — false-for-λ by ~8×). The
 repair route: per-frequency center_halasz_supply_Y (in SupplyGeneric,
 genuinely cap-free) + unweighted sup + crude 2T₀ integral; C₁' then
@@ -13809,7 +13809,7 @@ and dissolve the collision. BUDGET-SPLIT-SCOPE dispatched; not yet a
 finding.]
 
 **C3 — WALL B's repair:** the strict-window capstone re-cut CASCADES
-onto the frozen summit (`BallSup:385/500` —
+onto the frozen summit (`BallSup:394/509` —
 `spolyA_datum_split`/`ball_sup_of_center` consume `hsupp0` AT
 `n = ⌊X⌋₊`; strictifying the window moves thm_a2'-family bytes) —
 DEAD short of JYH-tier surgery. THE LIVE ROUTE (the scoper's own
@@ -13991,7 +13991,7 @@ audit block :3595-3596 + prose :3573-3579); (3) hEP2 sites are FIVE
 e^{u/5} ≥ u/5); (5) rcases m BEFORE the agreement law in the
 band/puncture proofs (the m=0 absurdity precedes the rw); (6) sibling
 discipline LOAD-BEARING — editing the landed ramP2*MR defs breaks
-SmallStones:385-460; (7) `hend` name-collides with the unrelated
+SmallStones:387-462; (7) `hend` name-collides with the unrelated
 cofactor endpoint charge in eight files — NO name-based sweeps; (8)
 the ∨-filter Σ-half splits by subset-sum (over-counting the overlap
 is an upper bound); the else-branch needs one Nat.cast_injective step
@@ -14844,7 +14844,7 @@ with a quasi-power decay. That pairing IS the corpus's landed q=1
 𝒰-leg (USetThinTL's 𝒯_L kill: large_value_count at V = (log X)^100
 beaten by the VK-width decay, θ < 1/8). **And the corpus's 𝒯_S
 branch ROUTES AROUND Lemma 6.4 ENTIRELY** (the |𝒯|·√T razor via the
-sup-norm Halász + thinness — USetThinTS:352/386; no
+sup-norm Halász + thinness — USetThinTS:362/396; no
 Halász–Montgomery anywhere). Route (iii) REJECTED as dominated: its
 irreducible core (7.9 Case 4 at our conductor) IS the χ-VK region —
 KMT's own words certify §8 exists only because THEIR conductors are
@@ -19009,7 +19009,7 @@ carry above the mint is conjunct-arithmetic with no analysis in it.
 **⟦FINDING 1 — `cs` IS EFFECTIVE AT EVERY LEAF; THE DOSSIER'S §3 IS IN ERROR⟧** the 0802 summit
 dossier calls `cs`'s leaves "(K₄, Cκ) … compactness existentials of our own port". **They are not
 existentials at all** — `K₄ = 2^{3/4}·16` (`PortAssembly.lean:640`) and `Cκ = 2^{3/4}·8`
-(`HalaszPrimesCore.lean:3450`) are closed-form `noncomputable def`s. The other two leaves are
+(`HalaszPrimesCore.lean:3476`) are closed-form `noncomputable def`s. The other two leaves are
 literals in the source: `c_vk = 1/10^8` (visible AT THE CALL SITE — the mint is invoked on
 `TwistedWindowPriceGated (1/10^8)`) and `c₀ = 1/10^9` (`Vk/PowRegion.lean:365`, hidden only by the
 `∃`-prefixes, which export positivity alone). Hence
@@ -19073,7 +19073,7 @@ consumer tolerates `10^{10^{225}}` and the truth is `e^{e^{1251}}`. Repair:
 | `exp_exp_hundred_lt_exp_exp_1100` | **⟦THE T₀ VIOLATION⟧** `e^{e^{100}} < e^{e^{1100}}` |
 | `zeta_zero_free_region_pow_of_growth_bounded` / `_pow_bounded` | **RUNG 1** — the VK region with `1/10^9 ≤ c` AND `e^{e^{1100}} ≤ T₀` exported (body verbatim from `Vk/PowRegion.lean:354`); ONE twin serving BOTH riders |
 | `rect_zero_free_margin_bounded` | **RUNG 2** — ZFREE-RECT carrying both (body verbatim from `HalaszPrimesCore.lean:618`) |
-| `shifted_edge_price_strip_bounded` | **RUNG 3** — the shifted edge strip carrying both (body verbatim from `HalaszPrimesCore.lean:2243`) |
+| `shifted_edge_price_strip_bounded` | **RUNG 3** — the shifted edge strip carrying both (body verbatim from `HalaszPrimesCore.lean:2259`) |
 
 **⟦THE PRICE OF FINISHING cs⟧** two big replays remain below the ladder —
 `per_pair_contour` (647 ln, 12.8M heartbeats) and `halaszPrimesChiGated_of_price` (377 ln) — plus

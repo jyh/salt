@@ -262,6 +262,9 @@ def caseAS (c Cb M W : ℝ) : ℝ :=
     + farCStar * Real.log W ^ (-(1 / (32 * Real.exp 1)))
     + 4 * Real.log W ^ (-(1 : ℝ) / 2 + 1 / 1000)
 
+/-- `0 ≤ caseAS c Cb M W` at `2 * c < 1`, `0 ≤ Cb`, `1 ≤ W`: each summand is a product of
+factors `≥ 0` (`gradeAbsConstC_nonneg`, `farCStar_nonneg`, real powers of `log W ≥ 0`). Read
+once in this file and by `CofactorLocal` and `CofactorSupply`. -/
 lemma caseAS_nonneg {c Cb M W : ℝ} (hc1 : 2 * c < 1) (hCb0 : 0 ≤ Cb) (hW : 1 ≤ W) :
     0 ≤ caseAS c Cb M W := by
   have h1 : (0 : ℝ) ≤ gradeAbsConstC c Cb := gradeAbsConstC_nonneg hc1 hCb0

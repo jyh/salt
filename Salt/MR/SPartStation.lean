@@ -51,7 +51,7 @@ DILATED scales `⌊k/d⌋`, the tail (`d > D`) to the trivial bound `k·cSq·D^{
 
 ## THE DOUBLE-LINEARIZATION TRAP (the wave's highest priority), audited
 
-`BallSup` :614/:641 carry `LSeries (ellLin (seamCoeff (ellLin g) …))` statements — the
+`BallSup` :623/:650 carry `LSeries (ellLin (seamCoeff (ellLin g) …))` statements — the
 identity `ellLin ∘ ellLin = ellLin` at the `ellLin` datum, where `sPart = δ`.  At a general
 `F` those are DIFFERENT OBJECTS and are NEVER touched here.  What IS consumed is
 `BallSup.ball_sup_of_center` (:473), whose hypothesis list is

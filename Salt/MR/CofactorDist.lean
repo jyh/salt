@@ -232,9 +232,13 @@ noncomputable def theta293 : ℝ := 1 / (32 * (3 * Real.exp 1 + 1))
 of the U-7 dichotomy exit. -/
 noncomputable def rho293 : ℝ := 3 * theta293
 
+/-- `0 < theta293`: the constant unfolded (`positivity`). Read three times in this file and by
+24 files outside it (`CapFreeArm`, `CofactorBulk`, `CofactorSupply` the first three). -/
 theorem theta293_pos : 0 < theta293 := by
   rw [theta293]; positivity
 
+/-- `0 < rho293`: the constant unfolded, with `theta293_pos`. Read by `USetResiduals`; not read
+in this file. -/
 theorem rho293_pos : 0 < rho293 := by
   rw [rho293]; linarith [theta293_pos]
 

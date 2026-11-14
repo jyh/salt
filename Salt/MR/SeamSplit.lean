@@ -102,16 +102,26 @@ def seamAnn (X T : ℝ) : Set ℝ := {t : ℝ | seamT0 X ≤ |t| ∧ |t| ≤ T}
 /-- **The ball `B(t₁, r) = {t : |t − t₁| ≤ r}`** around the near-minimizer `t₁`. -/
 def seamBall (X t₁ : ℝ) : Set ℝ := {t : ℝ | |t - t₁| ≤ seamRad X}
 
+/-- `0 ≤ seamT0 X` at `0 ≤ log X`: a real power of a real `≥ 0`. Read by `M4Seam`,
+`M4T0Discharge`, `T0Band` and `T0BandCapFree`; not read in this file. -/
 lemma seamT0_nonneg {X : ℝ} (hL : 0 ≤ Real.log X) : 0 ≤ seamT0 X :=
   Real.rpow_nonneg hL _
 
+/-- `0 ≤ seamRad X` at `0 ≤ log X`: a real power of a real `≥ 0`. Read once in this file and by
+`BallSup`, `FarStar`, `PinFamily2`, `SeamBallWeighted` and `SeamGate`. -/
 lemma seamRad_nonneg {X : ℝ} (hL : 0 ≤ Real.log X) : 0 ≤ seamRad X :=
   Real.rpow_nonneg hL _
 
+/-- `seamAnn X T` is measurable: an intersection of two closed conditions on `|t|`. Read three
+times in this file and by `M4RowsChi`, `NumeralCt`, `SeamBallWeighted`, `SeamGraded`,
+`TLegCover`, `TLegExit`, `TLegPreamble`, `USetBalance` and `USetGradedBalance`. -/
 lemma measurableSet_seamAnn (X T : ℝ) : MeasurableSet (seamAnn X T) :=
   (measurableSet_le measurable_const continuous_abs.measurable).inter
     (measurableSet_le continuous_abs.measurable measurable_const)
 
+/-- `seamBall X t₁` is measurable: a closed condition on `|t - t₁|`. Read three times in this
+file and by `M4RowsChi`, `NumeralCt`, `SeamBallWeighted`, `SeamGraded`, `TLegCover`, `TLegExit`,
+`TLegPreamble`, `USetBalance` and `USetGradedBalance`. -/
 lemma measurableSet_seamBall (X t₁ : ℝ) : MeasurableSet (seamBall X t₁) :=
   measurableSet_le (continuous_abs.comp (continuous_id.sub continuous_const)).measurable
     measurable_const
@@ -478,6 +488,8 @@ economy (catch #253). -/
 def seamTtot (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (δ : ℝ) (J : ℕ) : Set ℝ :=
   ⋃ j ∈ Finset.Icc 1 J, Tset f Pseq Qseq δ J j
 
+/-- `seamTtot f Pseq Qseq δ J` is measurable: a finite union of the measurable `Tset` pieces
+(`measurableSet_Tset`). Read once in this file; no consumer outside it. -/
 lemma measurableSet_seamTtot (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (δ : ℝ) (J : ℕ) :
     MeasurableSet (seamTtot f Pseq Qseq δ J) :=
   Finset.measurableSet_biUnion _ (fun j _ => measurableSet_Tset f Pseq Qseq δ J j)
