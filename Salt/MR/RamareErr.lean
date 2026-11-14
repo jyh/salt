@@ -34,7 +34,7 @@ and it is then priced by the mean-value theorem (`moment_core_bound`) — giving
 * `ramWindowErr_eq_seamPoly` — **R1b**, `ramWindowErr = ramSeamPoly` under `hwin`.
 * `ramSeamPoly_eq_spoly` — **R1c**, the `(j,p,m) ↦ pm` frequency collapse: the seam polynomial
   is `spoly N ramSeamCoeff` — no frequency inflation, every frequency in `[Xe^{−1/H}, Xe^{1/H}]`.
-* `norm_ramSeamCoeff_le_one` — **R1d**, `‖d_n‖ ≤ 1` via `ramare_weight_sum` (Decomp:119).
+* `norm_ramSeamCoeff_le_one` — **R1d**, `‖d_n‖ ≤ 1` via `ramare_weight_sum` (Decomp:122).
 * `ramSeamPoly_moment` / `ramWindowErr_moment_sharp` — **R2**, the honest row
   `(2T+20N)·(2e·X/H + 1)·(e/X²)`; `ramWindowErr_moment_grade` is its `720·(T/X + 1)/H`
   normal form.
@@ -362,7 +362,7 @@ theorem ramSeamPoly_eq_spoly (H : ℝ) (hH : 2 ≤ H) (N X P Q : ℕ) (hX : 1 �
 
 /-- **R1d — `‖d_n‖ ≤ 1`** (MR p.20's "for some bounded `d_m`").  The seam fiber at a frequency
 `n` injects (via `σ ↦ p`) into the block primes dividing `n`, and each term is dominated by the
-Ramaré weight `1/(ω(n/p;P,Q) + 1_{(p,n/p)=1})`; the landed `ramare_weight_sum` (Decomp:119)
+Ramaré weight `1/(ω(n/p;P,Q) + 1_{(p,n/p)=1})`; the landed `ramare_weight_sum` (Decomp:122)
 sums those to exactly `1`.  This is the step that a naive per-frequency Cauchy–Schwarz would
 lose a `(log X)^θ` on. -/
 theorem norm_ramSeamCoeff_le_one (H : ℝ) (hH : 0 < H) (N X P Q : ℕ) (hP : 1 ≤ P)

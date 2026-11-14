@@ -428,6 +428,8 @@ lemma near_norm_logDeriv_Zc_le {Θ M₀ w τ : ℝ} {s : ℂ}
     _ ≤ (120 / (6 * Θ / 7)) * Real.log (4 * M₀)
           + (Real.log (4 * M₀) / Real.log (7 / 6)) / w := by rw [← hlamval]; linarith [hcount']
 
+/-- At `1100 ≤ A` and `exp (exp A) ≤ x`: `3 ≤ log x` and `A ≤ log (log x)`. Private; read three
+times in this file. -/
 private lemma pow_height_facts {A x : ℝ} (hA : 1100 ≤ A)
     (hx : Real.exp (Real.exp A) ≤ x) :
     3 ≤ Real.log x ∧ A ≤ Real.log (Real.log x) := by

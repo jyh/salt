@@ -156,7 +156,7 @@ machinery beneath them is ledger-audited at `Salt/Vk/All.lean:52`.
 
 | Theorem (Lean name) | Plain statement (one line) | File:line | Date landed | Commit | Axioms |
 |---|---|---|---|---|---|
-| `Salt.MR.mvHilbertUniform_holds` | The Montgomery–Vaughan generalized Hilbert inequality, unconditional: `‖Σ_{i≠j} x_j x̄_i/(λ_j−λ_i)‖ ≤ (π/δ)·Σ‖x_i‖²`. | Salt/MR/MVCore2.lean:575 | 2026-07-19 | `efa2e84a` | 3 (Salt/MR/All.lean:506) |
+| `Salt.MR.mvHilbertUniform_holds` | The Montgomery–Vaughan generalized Hilbert inequality, unconditional: `‖Σ_{i≠j} x_j x̄_i/(λ_j−λ_i)‖ ≤ (π/δ)·Σ‖x_i‖²`. | Salt/MR/MVCore2.lean:590 | 2026-07-19 | `efa2e84a` | 3 (Salt/MR/All.lean:506) |
 | `Salt.MR.lambda_nonpret` | **λ-non-pretentiousness, unconditional**: `(1/4)·loglog x − 4·logloglog(\|t\|+16) − C ≤ 𝔻(λ, n^{it}; x)²` — the campaign's oldest open hypothesis, closed. | Salt/MR/NonPretClose.lean:49 | 2026-07-19 | `ca846938` | 3 (Salt/MR/All.lean:506) |
 | `Salt.Entropy.Chowla.log_chowla_two_budget_head` | The spine-budget head: at one fixed ε, for every floor a regime above it at which the window bound holds, assuming `MRTUniformityXi` there. | Salt/Entropy/Chowla/SpineFinal.lean:750 | 2026-07-19 | `387ccad9` | 3 axioms (audited) |
 | `Salt.Entropy.Chowla.log_chowla_two_door_only` | **The door-only terminal**: at one constructed regime R, the window sum \|Σ_{x/ω<n≤x} λ(n)λ(n+1)/n\| is at most ε·log ω, assuming `MRTUniformity R δ` at some small δ; no other hypothesis. A single-scale bound, not Tao's limit statement. | Salt/Entropy/Chowla/SpineFinal.lean:981 | 2026-07-19 | `387ccad9` | 3 axioms (audited) |

@@ -84,6 +84,8 @@ def ellLinTwist (g : ℕ → ℂ) (s : ℂ) : ArithmeticFunction ℂ where
   toFun n := ellLin g n * (n : ℂ) ^ (-s)
   map_zero' := by simp [ellLin]
 
+/-- `ellLinTwist g s n = ellLin g n * n ^ (-s)` (`@[simp]`), by `rfl`. Read six times in this
+file; no consumer outside it. -/
 @[simp] lemma ellLinTwist_apply (g : ℕ → ℂ) (s : ℂ) (n : ℕ) :
     ellLinTwist g s n = ellLin g n * (n : ℂ) ^ (-s) := rfl
 

@@ -1371,9 +1371,13 @@ lemma splitPart_prime {p : ℕ} (hp : p.Prime) : splitPart P p = if P p then p e
   · rw [Finsupp.filter_single_of_pos _ h, Finsupp.prod_single_index (pow_zero p), pow_one, if_pos h]
   · rw [Finsupp.filter_single_of_neg _ h, Finsupp.prod_zero_index, if_neg h]
 
+/-- `splitPart P p = p` at a prime `p` with `P p` (`splitPart_prime`). Read once in this file;
+no consumer outside it. -/
 lemma splitPart_prime_pos {p : ℕ} (hp : p.Prime) (h : P p) : splitPart P p = p := by
   rw [splitPart_prime hp, if_pos h]
 
+/-- `splitPart P p = 1` at a prime `p` without `P p` (`splitPart_prime`). Read once in this
+file; no consumer outside it. -/
 lemma splitPart_prime_neg {p : ℕ} (hp : p.Prime) (h : ¬ P p) : splitPart P p = 1 := by
   rw [splitPart_prime hp, if_neg h]
 
@@ -1662,6 +1666,9 @@ The last analytic step of the GHS (2.4) Term-2 bound: after the `k`-partial-summ
 (`lambda_partial_alpha`) contributes `x^{1-α}/(1-α)` and the smooth/rough Euler factors are
 pulled out, the outer `α`-integral collapses to `x/log x`.  `∫₀^η x^{1-α} dα =
 (x - x^{1-η})/log x ≤ x/log x` via FTC with antiderivative `-x^{1-α}/log x`. -/
+/-- The `α`-integral of MS-B: for `2 ≤ x`, `∫ α in 0..η, x ^ (1 - α) ≤ x / log x` — the
+antiderivative is `-x ^ (1 - α) / log x`, and the endpoint at `η` is dropped. Read once in this
+file; no consumer outside it. -/
 theorem ms_b_integral_bound {x η : ℝ} (hx : 2 ≤ x) (_hη : 0 ≤ η) :
     (∫ α in (0 : ℝ)..η, x ^ (1 - α)) ≤ x / Real.log x := by
   have hxpos : (0 : ℝ) < x := by linarith
@@ -1703,6 +1710,11 @@ support (ℓ vanishes on `p ≤ y`) makes the Euler product `∏_{p>y}(1 + ‖�
 to an absolute constant via `rough_prime_tail`.  Route: `G n = ‖ℓ n‖·n^{-2η}` is
 multiplicative, `0 ≤ G ≤ 1`, `G 1 = 1`; `euler_exp_bound` gives `∑ G n/n ≤ exp(∑_{p≤N} G p/p
 + 4)`, and `∑_{p≤N} G p/p = ∑_{y<p≤N} ‖ℓ p‖p^{-1-2η} ≤ ∑_{y<p≤N} p^{-1-η} ≤ 2(log 4 + 4)`. -/
+/-- The rough Euler factor of MS-B is an absolute constant: for `g` bounded by `1` on primes and
+`8 ≤ y`, `∑ n ∈ Finset.Icc 1 N, ‖ellLin (restrictAbove y g) n‖ * n ^ (-1 - 2 / log y)` is at
+most `exp (2 * (log 4 + 4) + 4)`, uniformly in `N` (`euler_exp_bound`, with the prime sum split
+at `y` and the rough half by `rough_prime_tail`). Read once in this file; no consumer outside
+it. -/
 theorem ms_b_rough_factor (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) {y : ℝ}
     (hy : 8 ≤ y) (N : ℕ) :
     (∑ n ∈ Finset.Icc 1 N, ‖ellLin (restrictAbove y g) n‖

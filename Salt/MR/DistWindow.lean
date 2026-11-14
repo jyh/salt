@@ -56,6 +56,8 @@ def outWindowMass (y Y X : ℝ) : ℝ :=
   ∑ p ∈ (Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime,
     (if y < (p : ℝ) ∧ (p : ℝ) < Y then 0 else (1 : ℝ) / p)
 
+/-- `0 ≤ outWindowMass y Y X`: a sum whose every term is `0` or a quotient of reals `≥ 0`. No
+consumer at `main`, in this file or outside it. -/
 lemma outWindowMass_nonneg (y Y X : ℝ) : 0 ≤ outWindowMass y Y X := by
   unfold outWindowMass
   refine Finset.sum_nonneg (fun p hp => ?_)
