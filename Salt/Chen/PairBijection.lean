@@ -89,6 +89,37 @@ namespace Salt.Chen
 
 /-! ## Part A — the box residue / unit counts and the pair predicate -/
 
+/-- **The range split of a five-conjunct filter, classical form.** Splitting the range conjunct
+`a ≤ f t ∧ f t < b` at `c` splits the filtered card. Read by `card_filter_and4_Ico_split`. -/
+theorem card_filter_and4_Ico_split_cl {α : Type*} (s : Finset α) (p₁ p₂ p₃ p₄ : α → Prop)
+    (f : α → ℕ) {a c b : ℕ} (hac : a ≤ c) (hcb : c ≤ b) :
+    open Classical in
+    (s.filter fun t => p₁ t ∧ p₂ t ∧ p₃ t ∧ p₄ t ∧ a ≤ f t ∧ f t < b).card
+      = (s.filter fun t => p₁ t ∧ p₂ t ∧ p₃ t ∧ p₄ t ∧ a ≤ f t ∧ f t < c).card
+        + (s.filter fun t => p₁ t ∧ p₂ t ∧ p₃ t ∧ p₄ t ∧ c ≤ f t ∧ f t < b).card := by
+  classical
+  rw [← Finset.card_filter_add_card_filter_not
+    (s := s.filter fun t => p₁ t ∧ p₂ t ∧ p₃ t ∧ p₄ t ∧ a ≤ f t ∧ f t < b) (p := fun t => f t < c)]
+  rw [Finset.filter_filter, Finset.filter_filter]
+  congr 1 <;> refine congrArg Finset.card (Finset.filter_congr fun t _ => ?_) <;> constructor
+  · rintro ⟨⟨h1, h2, h3, h4, ha, _⟩, hc⟩; exact ⟨h1, h2, h3, h4, ha, hc⟩
+  · rintro ⟨h1, h2, h3, h4, ha, hc⟩; exact ⟨⟨h1, h2, h3, h4, ha, by omega⟩, hc⟩
+  · rintro ⟨⟨h1, h2, h3, h4, _, hb⟩, hc⟩; exact ⟨h1, h2, h3, h4, by omega, hb⟩
+  · rintro ⟨h1, h2, h3, h4, hc, hb⟩; exact ⟨⟨h1, h2, h3, h4, by omega, hb⟩, by omega⟩
+
+/-- **The range split of a five-conjunct filter**, at whatever decidability instances the
+caller's three filters carry (`convert` closes the instance difference). Read by the six
+`*_split_m` box-count splits in `PieceDecomp`, `SwitchW2` and `Goldbach.SW2`. -/
+theorem card_filter_and4_Ico_split {α : Type*} (s : Finset α) (p₁ p₂ p₃ p₄ : α → Prop)
+    (f : α → ℕ) {a c b : ℕ} (hac : a ≤ c) (hcb : c ≤ b)
+    {i₁ : DecidablePred fun t => p₁ t ∧ p₂ t ∧ p₃ t ∧ p₄ t ∧ a ≤ f t ∧ f t < b}
+    {i₂ : DecidablePred fun t => p₁ t ∧ p₂ t ∧ p₃ t ∧ p₄ t ∧ a ≤ f t ∧ f t < c}
+    {i₃ : DecidablePred fun t => p₁ t ∧ p₂ t ∧ p₃ t ∧ p₄ t ∧ c ≤ f t ∧ f t < b} :
+    (s.filter fun t => p₁ t ∧ p₂ t ∧ p₃ t ∧ p₄ t ∧ a ≤ f t ∧ f t < b).card
+      = (s.filter fun t => p₁ t ∧ p₂ t ∧ p₃ t ∧ p₄ t ∧ a ≤ f t ∧ f t < c).card
+        + (s.filter fun t => p₁ t ∧ p₂ t ∧ p₃ t ∧ p₄ t ∧ c ≤ f t ∧ f t < b).card := by
+  convert card_filter_and4_Ico_split_cl s p₁ p₂ p₃ p₄ f hac hcb
+
 open Classical in
 /-- **`blockBoxResCount`** — block-`j` triples with `m = p₁p₂ ∈ [a, b)`, `p₃ ∈ (N, M]`, and
 `prod ≡ 2 (mod d)`.  The `(j, [a,b)×(N,M])`-box restriction of `blockResCount`. -/

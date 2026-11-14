@@ -128,7 +128,7 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   :177); **B = W4/W5→W6** (W5 strictly before W6; W4 independent, consumed at the same
   place). One file per node.
 - **W0 — THE BINDING PRE-DISPATCH GATE (critic defect 4, unchanged):** before lane B
-  dispatches, read `M4BridgeResidue.lean:389, :413, :430` and report whether the LOSSLESS
+  dispatches, read `M4BridgeResidue.lean:390, :414, :431` and report whether the LOSSLESS
   landed route supersedes the χ-SUMMED route. W0's report goes to the helm first.
 - **Deliverable, sed'd from brief :252 (the paraphrase the refuters caught is struck):**
   *"a REDUCTION of the split road's residual, in one direction only: from 'for every

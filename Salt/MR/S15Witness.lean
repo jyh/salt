@@ -64,7 +64,7 @@ register into an upper bound on `24·Cg/δ₀`, unconditionally.
 The conjunct-carry genre (`HloExportMR`) would put the numerals INTO the capstone's `∃`, one
 twin per link.  The chains were traced (2026-07-31) and priced:
 
-* `Cg`: EIGHT `∃ C`-links, `typical_density_le` (`TypicalDensity.lean:904`) →
+* `Cg`: EIGHT `∃ C`-links, `typical_density_le` (`TypicalDensity.lean:906`) →
   `card_blockfree_le` (`SieveGlue.lean:183`) → `hsieve_of_engine` (`SieveGlue.lean:438`) →
   `notMemS_window_count_le` (`M4Sieve.lean:468`) → `m4_sieve_block_mass` (`M4Sieve.lean:588`)
   → `m4_door_sieve_mass` (`M4Door.lean:621`) → `m4_door_insert_mass_integral`
