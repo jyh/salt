@@ -9959,7 +9959,7 @@ decisions per question.
   1348·M^{−Θ/2} per block, no low/mid/high split at all.
   Lands ℓ⁴ IN-STATEMENT (internal ℓ²-grade — R1.2 inherits
   "−4 achievable"). K3 ≈ NIL (the fallback essentially already
-  built at ZetaPowLower:781/:843 — no Fable ping needed on
+  built at ZetaPowLower:783/:845 — no Fable ping needed on
   A.6). Zero drift. Wired+audited (8822 green). **THE H0+H1.0
   GATE OPENS: wave-2 H1 (DistHalasz+NonPretClose) DISPATCHED —
   R1.1 triangle, R1.2 dist floor, R1.3 UNCONDITIONAL
