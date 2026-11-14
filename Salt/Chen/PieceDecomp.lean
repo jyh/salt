@@ -293,31 +293,8 @@ theorem blockBoxResCount_split_m (x z y : ℕ) (ε₀ : ℝ) (j N M a c b d : �
     blockBoxResCount x z y ε₀ j N M a b d
       = blockBoxResCount x z y ε₀ j N M a c d
         + blockBoxResCount x z y ε₀ j N M c b d := by
-  classical
   unfold blockBoxResCount
-  rw [← Nat.cast_add, Nat.cast_inj,
-    ← Finset.card_filter_add_card_filter_not
-        (s := (tripleSet x z y).filter (fun t => blockIdx z ε₀ t.1 = j ∧
-          ((prod3 t : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) ∧
-          N < t.2.2 ∧ t.2.2 ≤ M ∧ a ≤ t.1 * t.2.1 ∧ t.1 * t.2.1 < b))
-        (p := fun t => t.1 * t.2.1 < c)]
-  congr 1
-  · rw [Finset.filter_filter]
-    refine congrArg Finset.card (Finset.filter_congr ?_)
-    intro t _
-    constructor
-    · rintro ⟨⟨hblk, hres, hN, hM, ham, _hmb⟩, hmc⟩
-      exact ⟨hblk, hres, hN, hM, ham, hmc⟩
-    · rintro ⟨hblk, hres, hN, hM, ham, hmc⟩
-      exact ⟨⟨hblk, hres, hN, hM, ham, by omega⟩, hmc⟩
-  · rw [Finset.filter_filter]
-    refine congrArg Finset.card (Finset.filter_congr ?_)
-    intro t _
-    constructor
-    · rintro ⟨⟨hblk, hres, hN, hM, _ham, hmb⟩, hmc⟩
-      exact ⟨hblk, hres, hN, hM, by omega, hmb⟩
-    · rintro ⟨hblk, hres, hN, hM, hcm, hmb⟩
-      exact ⟨⟨hblk, hres, hN, hM, by omega, hmb⟩, by omega⟩
+  exact_mod_cast card_filter_and4_Ico_split _ _ _ _ _ _ hac hcb
 
 /-- **The `m`-range split of the box unit count (FULL).**  As `blockBoxResCount_split_m`, unit
 filter. -/
@@ -326,31 +303,8 @@ theorem blockBoxUnitCount_split_m (x z y : ℕ) (ε₀ : ℝ) (j N M a c b d : �
     blockBoxUnitCount x z y ε₀ j N M a b d
       = blockBoxUnitCount x z y ε₀ j N M a c d
         + blockBoxUnitCount x z y ε₀ j N M c b d := by
-  classical
   unfold blockBoxUnitCount
-  rw [← Nat.cast_add, Nat.cast_inj,
-    ← Finset.card_filter_add_card_filter_not
-        (s := (tripleSet x z y).filter (fun t => blockIdx z ε₀ t.1 = j ∧
-          IsUnit ((prod3 t : ℕ) : ZMod d) ∧
-          N < t.2.2 ∧ t.2.2 ≤ M ∧ a ≤ t.1 * t.2.1 ∧ t.1 * t.2.1 < b))
-        (p := fun t => t.1 * t.2.1 < c)]
-  congr 1
-  · rw [Finset.filter_filter]
-    refine congrArg Finset.card (Finset.filter_congr ?_)
-    intro t _
-    constructor
-    · rintro ⟨⟨hblk, hu, hN, hM, ham, _hmb⟩, hmc⟩
-      exact ⟨hblk, hu, hN, hM, ham, hmc⟩
-    · rintro ⟨hblk, hu, hN, hM, ham, hmc⟩
-      exact ⟨⟨hblk, hu, hN, hM, ham, by omega⟩, hmc⟩
-  · rw [Finset.filter_filter]
-    refine congrArg Finset.card (Finset.filter_congr ?_)
-    intro t _
-    constructor
-    · rintro ⟨⟨hblk, hu, hN, hM, _ham, hmb⟩, hmc⟩
-      exact ⟨hblk, hu, hN, hM, by omega, hmb⟩
-    · rintro ⟨hblk, hu, hN, hM, hcm, hmb⟩
-      exact ⟨⟨hblk, hu, hN, hM, by omega, hmb⟩, by omega⟩
+  exact_mod_cast card_filter_and4_Ico_split _ _ _ _ _ _ hac hcb
 
 /-- **The `m`-range split of the box honest discrepancy (FULL).**  Linearity over the residue/unit
 splits: `blockBoxHonestDisc [a,b) = blockBoxHonestDisc [a,c) + blockBoxHonestDisc [c,b)`.  The
