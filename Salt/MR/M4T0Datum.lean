@@ -142,7 +142,7 @@ theorems below carry the gate symbolically and choose nothing): `T0BandCapFree`'
 records that the box's `1/32 = 0.03125` is `6×` SHORT of the exit's decay gate
 `(103/1500)·e ≈ 0.18665`, so a consumer that prices `B` through `dilated_scale_grade` gets an
 `M₀` at box strength and the first exit summand `8448·cfbC₁²·e^{−M₀/e}` does not decay — the
-`(log X)^{1/30}` inside `cfbC₁` (the crude fold's whole price) is not paid back.  The escapes
+`(log X)^{1/90}` inside `cfbC₁` (the crude fold's whole price) is not paid back.  The escapes
 are both design-tier and both OUTSIDE this file: price `hRHS` at the band frequency directly
 on the wide scale window (a new pricing page, the `dilated_scale_grade` genre with the ball
 radius replaced by the band), or re-cut the crude fold so `√(seamT0 X)` is not paid.  Recorded,
