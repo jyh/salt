@@ -24571,7 +24571,7 @@ branch threshold. Nothing here bears on twin primes.
 **Object:** the QUEUE P1b residue `M4RowMeanSq_L` (M4RowLinear.lean:993) — "⟦THE CLASS PRICING⟧ open, a
 design question". **Measured at `980c5c4f` (kernel reverse-dependency walk, refuter-reproduced ±1):** it
 is the PLAIN route's socket — two consumers, both on that route (`m4_blockMeanSq_of_rowMeanSq_L` :1394,
-hypothesis position; `m4_wave_exit_L` :3231, in its statement, itself with ZERO dependents), zero
+hypothesis position; `m4_wave_exit_L` :2923, in its statement, itself with ZERO dependents), zero
 producers, OUT of the class road's cone (`m4_wave_collapsed_L`, "(c) ANALYTIC ARMS — none") and of the
 second road's (`m4_second_road_tower_L`). `M4ClassPrice` ⟦U2⟧ abandoned the interface on purpose 07-31.
 The class pricing is LANDED in `_L` (08/01: `m4_classMeanSq_of_chiMeanSq_L`, `m4_nonCoprime_classMeanSq_N_L`,
