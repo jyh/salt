@@ -994,7 +994,7 @@ Last of the four sweep rows.  Measured: **57 landed `absWindowSum` theorems acro
 files.**  Opening the two that matter:
 
 ```
-  integral_logMeasure_absWindowSum_le_thresh   M4Dyadic.lean:665
+  integral_logMeasure_absWindowSum_le_thresh   M4Dyadic.lean:684
       (∫ n, ‖absWindowSum a H' n α‖ ∂(logMeasure x ω)) ≤ thr      from (H' : ℝ) ≤ thr
 ```
 This is the door's `hbd` shape **exactly** — and its own docstring calls it *"THE TRIVIAL
@@ -1268,7 +1268,7 @@ claim in this campaign fires on **all three**:
 
 ```
   mrtUniformityXi_of_absWindowBound_twelve   M4Window.lean:268   CONCLUDES MRTUniformityXi R δ
-  bigXiArcTight_twelve                       ExitClose.lean:773   NO HYPOTHESES — unconditional
+  bigXiArcTight_twelve                       ExitClose.lean:779   NO HYPOTHESES — unconditional
   both REGISTERED in Salt/MR/All.lean (lines 1821, 2111) ⇒ inside the axiom audit
 ```
 
@@ -3110,7 +3110,7 @@ and `‖f n‖ ≤ 1`.  A.7's summand is `gJ 𝒥 Pseq Qseq n · f n · costwist
 needs those three properties for each factor.  Censused:
 
 * `gJ` — **`gJ_mul` (`Sec9Glue.lean:183`) is COMPLETE multiplicativity** (`m,n ≠ 0`, no
-  coprimality), and `norm_gJ_le_one` (`CofactorSupplier.lean:85`) bounds it.  Landed.
+  coprimality), and `norm_gJ_le_one` (`CofactorSupplier.lean:87`) bounds it.  Landed.
 * `f` — hypotheses of A.7 itself.
 * `costwist` — `costwist_norm` is landed, but **multiplicativity IN THE ARGUMENT and the value
   at `1` were both ABSENT** (measured: 0 hits, decoy control 0).  They are below.
@@ -3161,7 +3161,7 @@ The degenerate coprime pairs are the whole content: `Nat.Coprime 0 b` forces `b 
 `Nat.Coprime a 0` forces `a = 1`, and there the identity holds by the three `= 1` facts —
 `gJ_one`, `f 1 = 1`, `costwist_one`.  Off zero it is `gJ_mul` + `hfmul` + `costwist_mul`.
 
-⭐ `gJ_one` is landed (`CofactorSupplier.lean:106`) — and *finding* it required the looser probe:
+⭐ `gJ_one` is landed (`CofactorSupplier.lean:115`) — and *finding* it required the looser probe:
 it is declared `@[simp] lemma`, so a `^(theorem|lemma)` anchor reports ZERO.  **That is the
 `@[simp] theorem` instrument trap, live**; two probes disagreed and the gap was the finding. -/
 theorem gJ_f_costwist_mul_coprime {f : ℕ → ℂ} (hf1 : f 1 = 1)
@@ -3231,7 +3231,7 @@ The section above shows `mrtM` runs the wrong way for residue (2).  This exhibit
 `f` at which `renormalise`'s error factor is not merely unbounded-in-principle but provably
 divergent, so residue (2) is **structural, not a matter of constants.**
 
-At Liouville, `liouvilleC p = -1` on every prime (`M4Residue.lean:109`), so
+At Liouville, `liouvilleC p = -1` on every prime (`M4Residue.lean:112`), so
 `‖1 − liouvilleC p‖ = ‖1 − (−1)‖ = 2` **exactly** — no asymptotics — and therefore
 `∑_{p≤x} ‖1 − liouvilleC p‖/p = 2·∑_{p≤x} 1/p`.
 
@@ -4042,7 +4042,7 @@ theorem mrtThmA1_of_mrtThmA1GJ_empty (C : ℝ) (Pseq Qseq : ℕ → ℕ)
 
 The Parseval assembly is landed (`parseval_bound_of_propA3_shape`, `MRTPropA3Bridge.lean:204`)
 and its left-hand side is A.2's — **except for the window convention.**  `shortSum`
-(`Lemma14.lean:479`) sums the HALF-OPEN `(x, x+h]`; `mrtShortMean` (`MRTThmA1.lean:89`) averages
+(`Lemma14.lean:486`) sums the HALF-OPEN `(x, x+h]`; `mrtShortMean` (`MRTThmA1.lean:89`) averages
 the CLOSED `[x, x+h]` (that identification is `mem_mrtShortWindow`, already proved).
 
 The gap is exactly `x ≤ n` versus `x < n`, so the two index sets differ **only at `n = x`** — a

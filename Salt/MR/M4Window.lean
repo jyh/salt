@@ -25,7 +25,7 @@ The first stone of the MRT §4 port (`docs/exploration/s9-freeze-0726.md`,
 
 2. **The arc adapter** (`nearRatTight_of_bigXiArcTight`,
    `mrtUniformityXi_of_absWindowBound`, `…_twelve`).  The S7 gate is DISSOLVED:
-   `bigXiArcTight_twelve` (`ExitClose.lean:773`) is landed unconditional, so it
+   `bigXiArcTight_twelve` (`ExitClose.lean:779`) is landed unconditional, so it
    is CONSUMED here, never re-derived.  The adapter turns the remaining M4
    obligation — a bound on the *absolute-indexed* λ-window sum at every
    tight-major frequency — into the door shape `MRTUniformityXi`
@@ -257,7 +257,7 @@ theorem mrtUniformityXi_of_absWindowBound (R : ChowlaRegime) (δ : ℝ) {B₅ : 
   exact hbd H hlo hhi _ (harc H (le_trans hfloor hlo) ξ hξ)
 
 /-- **The adapter at the frozen exponent `B₅ = 12`**, with the S7 gate
-DISSOLVED: `bigXiArcTight_twelve` (`ExitClose.lean:773`, unconditional) supplies
+DISSOLVED: `bigXiArcTight_twelve` (`ExitClose.lean:779`, unconditional) supplies
 the arc.
 
 Non-vacuity: `H₀` is produced from `ε` alone, *before* the regime — matching
@@ -557,7 +557,7 @@ theorem sum_bigXi_norm_windowExpSum_sq_le_parseval (R : ChowlaRegime) (a : ℕ �
   exact hins H hlo hhi
 
 /-- **The `L²` adapter at the frozen exponent `B₅ = 12`**, the arc gate
-DISSOLVED exactly as in §4: `bigXiArcTight_twelve` (`ExitClose.lean:773`,
+DISSOLVED exactly as in §4: `bigXiArcTight_twelve` (`ExitClose.lean:779`,
 unconditional) supplies it, `nearRatTight_of_bigXiArcTight` transports the sign.
 
 Non-vacuity is §4's, verbatim: `H₀` is produced from `ε` alone, BEFORE the

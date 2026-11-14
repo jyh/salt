@@ -339,6 +339,9 @@ honest price is `∏_{p|q}(1 + 1/p)` — whose LOGARITHM is `O(loglog q)`. -/
 `ψ` to `ψ` itself, on the closed half-plane `Re s ≥ 1`. -/
 noncomputable def vkEulerCorr (q : ℕ) : ℝ := ∏ p ∈ q.primeFactors, (1 + 1 / (p : ℝ))
 
+/-- `1 ≤ vkEulerCorr q`: every factor `1 + 1 / p` of the product over `q.primeFactors` is `≥ 1`
+(`Finset.prod_le_prod`). Read once in this file and by `BandRatedAssembly`, `CapFreeAssembly`,
+`CapFreeSharp`, `CofactorSupplier`, `FarL2`, `VkMidSharp` and `VkTwistLadder`. -/
 lemma one_le_vkEulerCorr (q : ℕ) : 1 ≤ vkEulerCorr q := by
   unfold vkEulerCorr
   calc (1 : ℝ) = ∏ _p ∈ q.primeFactors, (1 : ℝ) := by simp
@@ -349,6 +352,8 @@ lemma one_le_vkEulerCorr (q : ℕ) : 1 ≤ vkEulerCorr q := by
         have : (0 : ℝ) ≤ 1 / (p : ℝ) := by positivity
         linarith
 
+/-- `0 < vkEulerCorr q`, from `one_le_vkEulerCorr`. Read twice in this file and by `FarL2` and
+`RbdSupply`. -/
 lemma vkEulerCorr_pos (q : ℕ) : 0 < vkEulerCorr q :=
   lt_of_lt_of_le zero_lt_one (one_le_vkEulerCorr q)
 
@@ -446,12 +451,18 @@ noncomputable def vkMidDebit (q : ℕ) : ℝ :=
     + (1 / 4) * Real.log (3 * (3 + 2 * Real.exp (Real.exp 100)) * (q : ℝ) ^ 2
         * (1 + Real.log q))
 
+/-- `0 ≤ vkDebitConst C` at `1 ≤ C`: three logarithms of reals `≥ 1`. Read once in this file and
+by `BandRatedAssembly`, `CapFreeAssembly`, `CapFreeSharp`, `CofactorSupplier`, `FarL2` and
+`VkMidSharp`. -/
 lemma vkDebitConst_nonneg {C : ℝ} (hC : 1 ≤ C) : 0 ≤ vkDebitConst C := by
   have h4 : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
   have h2 : (0 : ℝ) ≤ Real.log 2 := Real.log_nonneg (by norm_num)
   have hC' : (0 : ℝ) ≤ Real.log C := Real.log_nonneg hC
   unfold vkDebitConst; linarith
 
+/-- `0 ≤ vkMidDebit q` at `q ≠ 0`: the inner argument, a multiple of `q ^ 2 * (1 + log q)` by a
+constant `≥ 9`, is `≥ 1`, so every logarithm is `≥ 0`. Read once in this file and by
+`CapFreeAssembly`, `CapFreeSharp`, `CofactorSupplier` and `FarL2`. -/
 lemma vkMidDebit_nonneg (q : ℕ) [NeZero q] : 0 ≤ vkMidDebit q := by
   have h4 : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
   have h2 : (0 : ℝ) ≤ Real.log 2 := Real.log_nonneg (by norm_num)
@@ -479,6 +490,8 @@ lemma vkDebitConst_vkEulerCorr {C : ℝ} (hC : 0 < C) (q : ℕ) :
   rw [Real.log_mul (ne_of_gt (vkEulerCorr_pos q)) (ne_of_gt hC)]
   ring
 
+/-- `log (1 + log X) ≤ log 2 + log (log X)` at `exp 1 ≤ X`: `1 + log X ≤ 2 * log X` and
+`Real.log_mul`. Private; read twice in this file. -/
 private lemma vk_log_one_add_log_le {X : ℝ} (hX : Real.exp 1 ≤ X) :
     Real.log (1 + Real.log X) ≤ Real.log 2 + Real.log (Real.log X) := by
   have hlogX1 : (1 : ℝ) ≤ Real.log X := le_log_of_exp_le hX

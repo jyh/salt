@@ -84,7 +84,7 @@ namespace Salt.MR
 
 /-! ## §0 — the two landed inputs, re-cut for this file
 
-`primeBand P Q` (`TypicalDensity.lean:74`) is the band `{p prime : P ≤ p ≤ Q}`;
+`primeBand P Q` (`TypicalDensity.lean:78`) is the band `{p prime : P ≤ p ≤ Q}`;
 `blockWindowPrimes P Q X` (`RamWeight.lean:240`) is the same band truncated at `X`.  At `X = Q`
 the truncation is vacuous, which is how the LANDED `blockWindow_mertens_const` becomes the
 window sum this file needs. -/

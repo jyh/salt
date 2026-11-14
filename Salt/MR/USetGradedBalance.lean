@@ -155,6 +155,8 @@ noncomputable def thinBundleG (T VJ Hj : ℝ) (Pj Qj : ℕ) : ℝ :=
   ((ramI Hj Pj Qj).card : ℝ)
     * (840 * VJ ^ 2 * Real.exp (2 * (Real.log T / Real.log Pj) * Real.log (Real.log T)))
 
+/-- `0 ≤ thinBundleG T VJ Hj Pj Qj`, for all arguments: the definition unfolded, its exponential
+factor positive (`positivity`). Read once in this file; no consumer outside it. -/
 lemma thinBundleG_nonneg (T VJ Hj : ℝ) (Pj Qj : ℕ) : 0 ≤ thinBundleG T VJ Hj Pj Qj := by
   rw [thinBundleG]
   have h := Real.exp_pos (2 * (Real.log T / Real.log Pj) * Real.log (Real.log T))

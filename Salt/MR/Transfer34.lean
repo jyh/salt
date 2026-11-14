@@ -73,6 +73,8 @@ the §8.3 pin `θ = θ₂₉₃` — the gate is `18(3e+1) = 164.787… ≤ logl
 `SmallStones.ballMertensThreshold = exp(exp 40)`, the crude `P(x)/8` conversion's threshold.) -/
 noncomputable def ballQuarterThreshold : ℝ := Real.exp (Real.exp 165)
 
+/-- `166 ≤ exp 165`, from `x + 1 ≤ exp x` (`Real.add_one_le_exp`). Read four times in this file;
+no consumer outside it. -/
 lemma exp_oneSixtyFive_ge : (166 : ℝ) ≤ Real.exp 165 := by
   have := Real.add_one_le_exp (165 : ℝ); linarith
 
@@ -270,6 +272,9 @@ lemma exp_budget_le_34 {u : ℕ → ℂ} {x : ℝ} (hx : 3 ≤ x) (hu : ∀ p, �
 (Twin of `BallSup.ballSupC = renormaliseConst·e^{M₂/2+6}`.) -/
 noncomputable def ballSupC34 : ℝ := renormaliseConst * Real.exp (Salt.Mertens.mertensM / 4 + 3)
 
+/-- `0 < ballSupC34`: a product of an exponential and a factor made positive by
+`28 ≤ renormaliseConst`. Read five times in this file and by `PinFamily` and
+`USetGradedPrice`. -/
 lemma ballSupC34_pos : 0 < ballSupC34 := by
   have h28 : (28 : ℝ) ≤ renormaliseConst := by
     rw [renormaliseConst_eq]
@@ -371,6 +376,9 @@ lemma farErr34_nonneg {W Y Rmax : ℝ} (hW : 0 < Real.log W) (hY : 0 ≤ Real.lo
   unfold farErr34
   positivity
 
+/-- `0 ≤ farSupS34 W Y Rmax R` at `0 < R`, `0 < log W`, `0 ≤ log Y`, `0 ≤ Rmax`: the error term
+(`farErr34_nonneg`) and `2 * √2 / R` are both `≥ 0`. Read once in this file; no consumer outside
+it. -/
 lemma farSupS34_nonneg {W Y Rmax R : ℝ} (hR : 0 < R) (hW : 0 < Real.log W)
     (hY : 0 ≤ Real.log Y) (hRmax : 0 ≤ Rmax) : 0 ≤ farSupS34 W Y Rmax R := by
   have h1 := farErr34_nonneg (W := W) hW hY hRmax

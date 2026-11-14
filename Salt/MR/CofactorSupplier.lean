@@ -82,6 +82,8 @@ def doorCofactor0 {q : ℕ} (χ : DirichletCharacter ℂ q) (Pseq Qseq : ℕ →
 def pieceSign (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ) (P : ℕ) : ℂ :=
   (-1) ^ 𝒥.card * gJ 𝒥 Pseq Qseq P
 
+/-- `‖gJ 𝒥 Pseq Qseq n‖ ≤ 1`: the block-avoidance indicator takes only the values `1` and `0`.
+Read twice in this file and by `MRTPropA3`. -/
 lemma norm_gJ_le_one (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ) (n : ℕ) :
     ‖gJ 𝒥 Pseq Qseq n‖ ≤ 1 := by
   unfold gJ
@@ -89,12 +91,17 @@ lemma norm_gJ_le_one (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ) (n : ℕ) :
   · rw [norm_one]
   · rw [norm_zero]; norm_num
 
+/-- `‖pieceSign 𝒥 Pseq Qseq P‖ ≤ 1`: the sign `(-1) ^ 𝒥.card` has norm `1`, and `norm_gJ_le_one`
+bounds the other factor. Read once in this file and by `M4RowLinear` and `M4T0Datum`. -/
 lemma norm_pieceSign_le_one (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ) (P : ℕ) :
     ‖pieceSign 𝒥 Pseq Qseq P‖ ≤ 1 := by
   unfold pieceSign
   rw [norm_mul, norm_pow, norm_neg, norm_one, one_pow, one_mul]
   exact norm_gJ_le_one 𝒥 Pseq Qseq P
 
+/-- `‖pieceDatum χ 𝒥 Pseq Qseq m‖ ≤ 1`: a product of two `1`-bounded factors
+(`norm_liouChi_le_one`, `norm_gJ_le_one`). Read twice in this file and by `BallSupChi`,
+`CaseAWide`, `M4T0Datum` and `M4T0Discharge`. -/
 lemma norm_pieceDatum_le_one {q : ℕ} (χ : DirichletCharacter ℂ q) (𝒥 : Finset ℕ)
     (Pseq Qseq : ℕ → ℕ) (m : ℕ) : ‖pieceDatum χ 𝒥 Pseq Qseq m‖ ≤ 1 := by
   unfold pieceDatum
@@ -103,12 +110,16 @@ lemma norm_pieceDatum_le_one {q : ℕ} (χ : DirichletCharacter ℂ q) (𝒥 : F
   have h2 := norm_gJ_le_one 𝒥 Pseq Qseq m
   nlinarith [norm_nonneg (liouChi χ m), norm_nonneg (gJ 𝒥 Pseq Qseq m)]
 
+/-- `gJ 𝒥 Pseq Qseq 1 = 1` (`@[simp]`): `1` has no prime divisor in any block, so the
+indicator's condition holds. Read by `MRTPropA3`; not read by name in this file. -/
 @[simp] lemma gJ_one (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ) : gJ 𝒥 Pseq Qseq 1 = 1 := by
   unfold gJ
   refine if_pos (fun j _ => ?_)
   unfold blockOmega BlockPrimeDivs
   simp
 
+/-- `pieceDatum χ 𝒥 Pseq Qseq 1 = 1`: both factors are `1` at `1` (`simp`). Read once in this
+file and by `BallSupChi`, `CaseAWide` and `M4T0Datum`. -/
 lemma pieceDatum_one {q : ℕ} (χ : DirichletCharacter ℂ q) (𝒥 : Finset ℕ)
     (Pseq Qseq : ℕ → ℕ) : pieceDatum χ 𝒥 Pseq Qseq 1 = 1 := by
   unfold pieceDatum liouChi
@@ -438,6 +449,8 @@ What IS free is the pretentious side: `𝔻²` reads its datum at primes only, a
 def dampDatum (b : ℕ → ℂ) (P Q : ℕ) (x : ℝ) : ℕ → ℂ :=
   fun m => b m * ((x : ℝ) : ℂ) ^ blockOmega P Q m
 
+/-- `ramRdampCoeff H N Xn P Q j b x m` is `dampDatum b P Q x m` on `ramRrange H N Xn j` and `0`
+off it, by `rfl`. Read twice in this file; no consumer outside it. -/
 lemma ramRdampCoeff_damp (H : ℝ) (N Xn P Q j : ℕ) (b : ℕ → ℂ) (x : ℝ) (m : ℕ) :
     ramRdampCoeff H N Xn P Q j b x m
       = if m ∈ ramRrange H N Xn j then dampDatum b P Q x m else 0 := rfl
@@ -459,6 +472,8 @@ lemma pretDistSq_dampDatum_eq (b : ℕ → ℂ) (P Q : ℕ) (x : ℝ) (w : ℕ �
     (fun _p hp => (dampDatum_prime hp).trans
       (ellLin_apply_prime (g := gxDatum b P Q x) hp).symm) X
 
+/-- `‖dampDatum b P Q x m‖ ≤ 1` for a `1`-bounded `b` and `0 ≤ x ≤ 1`: the damping factor
+`x ^ blockOmega P Q m` lies in `[0, 1]`. Read twice in this file; no consumer outside it. -/
 lemma norm_dampDatum_le_one {b : ℕ → ℂ} (hb : ∀ n : ℕ, ‖b n‖ ≤ 1) (P Q : ℕ) {x : ℝ}
     (hx0 : 0 ≤ x) (hx1 : x ≤ 1) (m : ℕ) : ‖dampDatum b P Q x m‖ ≤ 1 := by
   unfold dampDatum
@@ -467,15 +482,21 @@ lemma norm_dampDatum_le_one {b : ℕ → ℂ} (hb : ∀ n : ℕ, ‖b n‖ ≤ 1
   have hp0 : (0 : ℝ) ≤ x ^ blockOmega P Q m := pow_nonneg hx0 _
   nlinarith [hb m, norm_nonneg (b m)]
 
+/-- `blockOmega P Q 1 = 0`: `1` has no prime divisor in the block (`simp`). Read once in this
+file; no consumer outside it. -/
 lemma blockOmega_one (P Q : ℕ) : blockOmega P Q 1 = 0 := by
   unfold blockOmega BlockPrimeDivs
   simp
 
+/-- `dampDatum b P Q x 1 = 1` when `b 1 = 1`: the damping exponent is `0` (`blockOmega_one`).
+Read twice in this file; no consumer outside it. -/
 lemma dampDatum_one {b : ℕ → ℂ} (hb1 : b 1 = 1) (P Q : ℕ) (x : ℝ) :
     dampDatum b P Q x 1 = 1 := by
   unfold dampDatum
   rw [blockOmega_one, pow_zero, hb1, one_mul]
 
+/-- `dampDatum b P Q x` is multiplicative on coprime pairs when `b` is: `blockOmega` is additive
+on coprimes (`blockOmega_pow_mul_coprime`). Read twice in this file; no consumer outside it. -/
 lemma dampDatum_mul_coprime {b : ℕ → ℂ}
     (hbmul : ∀ m n : ℕ, Nat.Coprime m n → b (m * n) = b m * b n) (P Q : ℕ) (x : ℝ)
     {m n : ℕ} (hco : Nat.Coprime m n) :
@@ -550,10 +571,15 @@ def CaseASocketGen (b : ℕ → ℂ) (P Q : ℕ) (X θ : ℝ) (k₀ M : ℕ) (t 
 CASE-A arm's constant free.  At `S := caseAS2 c Cb (cofactorMfl X θ W) W` the two agree. -/
 def cofactorRbdGen (S W Y Rmax R : ℝ) : ℝ := 3 * max (2 * S) (farSupS34 W Y Rmax R)
 
+/-- `cofactorRbdGen` at `S := caseAS2 c Cb (cofactorMfl X θ W) W` is
+`cofactorRbd34loc c Cb X θ W Y` `Rmax R`, by `rfl`. No consumer at `main`, in this file or
+outside it. -/
 lemma cofactorRbdGen_eq_loc (c Cb X θ W Y Rmax R : ℝ) :
     cofactorRbdGen (caseAS2 c Cb (cofactorMfl X θ W) W) W Y Rmax R
       = cofactorRbd34loc c Cb X θ W Y Rmax R := rfl
 
+/-- `0 ≤ cofactorRbdGen S W Y Rmax R` at `0 ≤ S`: the `max` is at least `2 * S`. Read by
+`S13CapRbd`; not read in this file. -/
 lemma cofactorRbdGen_nonneg {S W Y Rmax R : ℝ} (hS0 : 0 ≤ S) :
     0 ≤ cofactorRbdGen S W Y Rmax R := by
   unfold cofactorRbdGen

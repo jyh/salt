@@ -178,8 +178,12 @@ theorem vSeg_eq_tailT_integral {A : ℝ → ℂ} (hA : Continuous A) {x h α β 
 MR's smooth cut-off `g(x/X)` (v4 p. 23) — one derivative is all the separation step needs. -/
 def xTent (X u : ℝ) : ℝ := max 0 (3 - 2 * |u - 2 * X| / X)
 
+/-- `0 ≤ xTent X u`: the tent is a `max` with `0`. Read once in this file; no consumer outside
+it. -/
 lemma xTent_nonneg (X u : ℝ) : 0 ≤ xTent X u := le_max_left _ _
 
+/-- `xTent X` is continuous: a `max` of a constant and an affine function of `|u - 2 * X|`. Read
+four times in this file; no consumer outside it. -/
 lemma xTent_continuous (X : ℝ) : Continuous (xTent X) := by
   unfold xTent
   exact continuous_const.max
@@ -192,6 +196,8 @@ lemma one_le_xTent {X u : ℝ} (hX : 0 < X) (h1 : X ≤ u) (h2 : u ≤ 3 * X) : 
   have hdiv : 2 * |u - 2 * X| / X ≤ 2 := by rw [div_le_iff₀ hX]; linarith
   exact le_max_of_le_right (by linarith)
 
+/-- On the rising side, `X / 2 ≤ u ≤ 2 * X` with `0 < X`: `xTent X u = 2 * u / X - 1`. Read once
+in this file; no consumer outside it. -/
 lemma xTent_left {X u : ℝ} (hX : 0 < X) (h1 : X / 2 ≤ u) (h2 : u ≤ 2 * X) :
     xTent X u = 2 * u / X - 1 := by
   have habs : |u - 2 * X| = 2 * X - u := by rw [abs_of_nonpos (by linarith)]; ring
@@ -201,6 +207,8 @@ lemma xTent_left {X u : ℝ} (hX : 0 < X) (h1 : X / 2 ≤ u) (h2 : u ≤ 2 * X) 
   rw [sub_nonneg, le_div_iff₀ hX]
   linarith
 
+/-- On the falling side, `2 * X ≤ u ≤ 7 * X / 2` with `0 < X`: `xTent X u = 7 - 2 * u / X`. Read
+once in this file; no consumer outside it. -/
 lemma xTent_right {X u : ℝ} (hX : 0 < X) (h1 : 2 * X ≤ u) (h2 : u ≤ 7 * X / 2) :
     xTent X u = 7 - 2 * u / X := by
   have habs : |u - 2 * X| = u - 2 * X := abs_of_nonneg (by linarith)
@@ -392,6 +400,9 @@ theorem xTentT_norm_le {X : ℝ} (hX : 0 < X) (θ : ℝ) :
       hden, hnum,
       sq_nonneg θ]
 
+/-- `xTentT X` is continuous in `θ` at `0 < X`: by `xTentT_eq` it is a combination of three
+complex powers of positive reals over `(1 + θ * I) * (2 + θ * I)`, which never vanishes. Read
+four times in this file; no consumer outside it. -/
 lemma xTentT_continuous {X : ℝ} (hX : 0 < X) : Continuous (xTentT X) := by
   have hfun : xTentT X = fun θ : ℝ =>
       (((X / 2 : ℝ) : ℂ) ^ ((1 : ℂ) + (θ : ℂ) * I)
@@ -938,9 +949,15 @@ theorem vSeg_diff_sq_le {A : ℝ → ℂ} (hA : Continuous A) {x h₁ h₂ α β
 /-- The `max`-regularized tail transform: globally continuous, equal to `tailT` on `[c,∞)`. -/
 def tailTr (A : ℝ → ℂ) (α β c u : ℝ) : ℂ := tailT A α β (max u c)
 
+/-- For `c ≤ u`, `tailTr A α β c u = tailT A α β u`: the `max` is `u`. Read three times in this
+file and by `KernelCarry`, `Lemma14`, `ParsevalSingle`, `PerronMeanSq` and `SeamLemma14`. -/
 lemma tailTr_eq (A : ℝ → ℂ) (α β : ℝ) {c u : ℝ} (hu : c ≤ u) :
     tailTr A α β c u = tailT A α β u := by rw [tailTr, max_eq_left hu]
 
+/-- `tailTr A α β c` is continuous in `u` for a continuous `A` and `0 < c`: the integrand is
+jointly continuous because `max u c` stays positive, and the parametric interval integral is
+then continuous. Read once in this file and by `KernelCarry`, `Lemma14`, `ParsevalSingle`,
+`PerronMeanSq` and `SeamLemma14`. -/
 lemma tailTr_continuous {A : ℝ → ℂ} (hA : Continuous A) (α β : ℝ) {c : ℝ} (hc : 0 < c) :
     Continuous (tailTr A α β c) := by
   have hunc : Continuous (Function.uncurry
