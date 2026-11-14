@@ -497,6 +497,9 @@ no `X`, no `L`. -/
 def gradeAbsConstC (c Cb : ℝ) : ℝ :=
   (1 / Real.pi) * rhsCSF * (Real.exp (c * 48) / (1 - 2 * c)) * (1580544 * (1 + Cb))
 
+/-- `0 ≤ gradeAbsConstC c Cb` at `2 * c < 1` and `0 ≤ Cb`: the constant unfolded, with
+`1 - 2 * c` and `rhsCSF` positive (`positivity`). Read by 14 files outside this one
+(`CaseASocket`, `CaseAWide`, `CofactorGrade` the first three); not read in this file. -/
 lemma gradeAbsConstC_nonneg {c Cb : ℝ} (hc1 : 2 * c < 1) (hCb0 : 0 ≤ Cb) :
     0 ≤ gradeAbsConstC c Cb := by
   have hd : (0 : ℝ) < 1 - 2 * c := by linarith

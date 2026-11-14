@@ -11,7 +11,7 @@ import Salt.MR.HExit
 
 **The repair of `flags.md`'s "hfloor's seam-datum provenance" entry (2026-07-25,
 GRADE-REF UNASSIGNED-2).**  The prop-A3 column's floor binder — byte-for-byte
-`Prop1Assembly:405`, `HExit:1463`, `HalaszHead:455`, `AnnHead:306`… —
+`Prop1Assembly:409`, `HExit:1463`, `HalaszHead:455`, `AnnHead:306`… —
 
   `(1/32)·loglog X ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T`
 
@@ -347,7 +347,7 @@ theorem cap_gate_satisfiable {X : ℝ} (hX : Real.exp 1 ≤ X) :
 /-- **F-3 — THE COLUMN'S BINDER (`Mrange_seam_floor_column`).**  `Mrange_seam_floor_of_cap` at
 the column's datum `f = ellLin g` (1-bounded by `ellLin_norm_le_one` from the corpus-standard
 PRIME bound on `g`).  The conclusion is the prop-A3 column's `hfloor` binder BYTE-FOR-BYTE
-(`Prop1Assembly:405`, `HExit:1463`, `HalaszHead:455`, `AnnHead:306/343/401/…`):
+(`Prop1Assembly:409`, `HExit:1463`, `HalaszHead:455`, `AnnHead:306/343/401/…`):
 
   `(1 / 32) * Real.log (Real.log X) ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T`.
 

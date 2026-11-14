@@ -17,7 +17,7 @@ character debit), the branch-split identity, and the `χ`-summed twin of `USetBa
 
 ## The razor, and where the character count actually enters
 
-The `q = 1` razor (`USetThinTS`:301/320) spends the thinness of `𝒰` on Lemma 9's Halász term:
+The `q = 1` razor (`USetThinTS`:311/330) spends the thinness of `𝒰` on Lemma 9's Halász term:
 `|𝒯|·√T ≤ W·T^{2α+1/2} ≤ W·T^{1−2η} ≤ W·X^{1−2η}` at the gate `α ≤ 1/4 − η`.  Two things
 change under the `χ`-lift and NEITHER costs a `φ(q)`:
 

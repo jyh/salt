@@ -188,7 +188,7 @@ theorem log_6315000_le : Real.log 6315000 ≤ 16 := by
 /-! ### The ball constant
 
 `BallSup.ballSupC = renormaliseConst·e^{M/2+6}` with
-`renormaliseConst = 28(1 + 2(log 4 + 36))·e⁸` (`Renormalise.lean:749`) and the landed
+`renormaliseConst = 28(1 + 2(log 4 + 36))·e⁸` (`Renormalise.lean:768`) and the landed
 Meissel–Mertens numeral `RbdSupply.mertensM_le_two_thirds`. -/
 
 /-- `renormaliseConst ≤ e¹⁷`: the exit constant `28·(1 + 2(log 4 + 36))·e⁸`

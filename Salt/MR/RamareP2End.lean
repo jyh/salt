@@ -28,7 +28,7 @@ which is exactly the complement of the STRICT antecedent `X < p·m` inside `ramH
 split stays at FOUR rows and `M4ErrRewire.err_grade_fit`'s `4·520 ≤ 2160` is untouched.
 
 **⟦AMENDMENT 6 — SIBLING DISCIPLINE IS LOAD-BEARING.**  The landed `ramP2domMR`,
-`ramP2coeffMR`, `ramP2corrMR` are byte-untouched: `SmallStones`:385-460 reads their exact
+`ramP2coeffMR`, `ramP2corrMR` are byte-untouched: `SmallStones`:387-462 reads their exact
 shapes.  Everything here is a NEW sibling, and the two families coexist.
 
 The price of the fusion is paid in `M4P2MR`: the max half is FREE (the fibre injection into
@@ -71,7 +71,7 @@ noncomputable def ramP2coeffEndMR (N X P Q : ℕ) (a b c : ℕ → ℂ) (n : ℕ
 
 /-! ## §2 — THE `spoly`/MOMENT/CONTINUITY TRIPLE
 
-`RamareMR`:676-724 verbatim at the fused family.  The fibre map `hmaps` discards the inner
+`RamareMR`:687-737 verbatim at the fused family.  The fibre map `hmaps` discards the inner
 filter predicate outright — it reads only `ramHonMR`'s own window — so the transplant is
 byte-for-byte. -/
 

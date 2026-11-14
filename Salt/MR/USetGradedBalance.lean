@@ -640,7 +640,7 @@ theorem hUG_discharged :
             (Tstar ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ))) Rrad ≤ Rbar) →
         2 ≤ ⌊H * Real.log (P : ℝ)⌋₊ →
         (∫ t in (-Tann)..Tann, ‖ramErr H N Xd P Q a (ellLin g) cf t‖ ^ 2) ≤ E →
-        -- the graded row's own frame (`SeamGraded`:315), `hU` ABSENT
+        -- the graded row's own frame (`SeamGraded`:317), `hU` ABSENT
         X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
         (∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ Tann → |t - t₁| ≤ seamRad X →
           ∀ m : ℕ, m ≤ N → ‖spolyA a t m‖ ≤ S * m / (1 + |t - t₁|)) →

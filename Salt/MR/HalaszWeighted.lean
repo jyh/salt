@@ -38,7 +38,7 @@ character `χ₁⁻¹ * χ₂` (termwise, non-units included), so W9 never rewri
 ## The honest label
 
 Every row here is an INPUT to the density theorem's assembly (W9); nothing bears on twin primes
-or on the crown's conditions. No landed Halász file is consumed (`HalaszIntegers.lean:906`,
+or on the crown's conditions. No landed Halász file is consumed (`HalaszIntegers.lean:910`,
 `VdCSocket.lean:547` are EVALUATIONS of `B`, which is W9b's work); `MVHilbert.lean` is untouched.
 
 ## The measured receipt (`h2c-desk/w7_receipts.py`, item (l))

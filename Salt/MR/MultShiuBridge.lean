@@ -160,7 +160,7 @@ theorem spoly_mul {M₁ M₂ : ℕ} (f g : ArithmeticFunction ℂ)
 
 /-! ## §2 — the prime block polynomial as a `spoly`
 
-The `𝒯_S` twin of `ramR_eq_spoly` (`USetThinTS.lean:94`) on the prime side. -/
+The `𝒯_S` twin of `ramR_eq_spoly` (`USetThinTS.lean:98`) on the prime side. -/
 
 /-- **The block-prime coefficients.**  `ramQ H P Q j c` is the `σ = 1` Dirichlet polynomial
 of `p ↦ c p` masked to the half-open prime fibre `ramQblock H P Q j`. -/

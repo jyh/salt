@@ -92,7 +92,7 @@ open scoped LSeries.notation
 
 `per_pair_contour` passes `shifted_edge_price_strip`'s `c_vk` through verbatim, so
 `RiderTrace.shifted_edge_price_strip_bounded`'s `1/10^9 ≤ c_vk` survives the whole assembly.
-Body verbatim from `HalaszPrimesCore.lean:2398`, with the one `obtain` re-pointed at the
+Body verbatim from `HalaszPrimesCore.lean:2422`, with the one `obtain` re-pointed at the
 bounded twin and the new conjunct threaded through the `refine`. -/
 
 section V7BPerPair

@@ -230,7 +230,7 @@ JointHead:266 PENDING note is STALE, retired herewith: head_sigma_bound
 landed since]; A-5 hbridge at the pinned home, HONEST TARGET ONLY [C,
 500-800]; A-6 hgrade per ruling 2 [C]; A-8/A-9 the assembly
 center_halasz_supply [B/C] -- the freeze-ready statement in the scoper's
-report, byte-compatible with BallSup:479 at f := seamCoeff (ellLin g) 1 t0
+report, byte-compatible with BallSup:488 at f := seamCoeff (ellLin g) 1 t0
 (the datum gate: the supplier is for THE SEAM DATUM ONLY -- ellLin route (i);
 general multiplicative f has NO supply and must not be instantiated).
 The y-pin free in the gates; y = (logX)^4 recommended (E/X = (logX)^{-1+o(1)},
@@ -655,7 +655,7 @@ theta83/rhoB4 are DEFS (not frozen) — the amended-pin twins land with U7-C.
 
 **W4 CORRECTED (my ruling's estimate was low 3×): 1100–1400 ln**, the exact
 list: W4-1 rhsFboundC/rhsSigmaGC defs + identities [A,60]; W4-2
-joint_supF_pinC (RHSGrade:248) [B,120]; W4-3 beta_integral_pin_constC
+joint_supF_pinC (RHSGrade:253) [B,120]; W4-3 beta_integral_pin_constC
 (GradeConst:1025, cites sigma_cutoff_pretentious_gen at c) [B/C,250]; W4-4
 rhs_grade_at_scale in WINDOW-FLOOR form (GradeConst:1089 + SupClose:334;
 hMwin replaces hmin/hgate) [C,300]; W4-5 JointIntegrableAtC + the JointPlumb
@@ -869,11 +869,11 @@ at explicit thresholds (numeral_gates_discharged).
 ## ⟦V6b — FARERR-SCOPE VERDICT: the wall structural, the repair three stones + THE UNIFIED MORNING RULING⟧
 
 **Q1**: log Rmax is GS 7.1's OWN d-split exit factor (Renormalise :759/:1003
-→ ballErr BallSup:256 → farErr CofactorBall:175) — intrinsic, not artifact;
+→ ballErr BallSup:259 → farErr CofactorBall:175) — intrinsic, not artifact;
 sharp-R5 buys nothing. The transfer is informative only while
 log Rmax ≤ (log W)^q, q = 1/2 as built.
 **Q2 (decisive)**: the per-t LOCAL dichotomy is REAL and cheap (localize
-CofactorSupply:312's by_cases to |v−t| ≤ T*; the pocket branch hands
+CofactorSupply:315's by_cases to |v−t| ≤ T*; the pocket branch hands
 |t−t₁'| ≤ T* free, replacing the Dmax supply) — BUT T* ≥ exp(2√L) by pure
 AM–GM (log T* = log y + L/log y; η = 1/log y FORCED by the smooth Euler
 leg). The need: q ≥ 1/2 + 2θ₂₉₃ — **the wall is a miss of exactly 2θ₂₉₃**.
@@ -882,11 +882,11 @@ exists, nowhere near enough. q sharpens 1/2 → 3/4 FREE from data CASE B
 already has (the pocket's real cap α = 1/32 was converted to the crude 1/8
 — √(2P)·√(P/32) = P/4; the threshold exp(exp 165) ≪ the collision tower).
 **THE THREE STONES**: R1 [B/C, 200–350] the localized dichotomy
-(CofactorSupply:293–352, CofactorBall:539–612, one binder USetPrice:602;
+(CofactorSupply:296–355, CofactorBall:550–623, one binder USetPrice:602;
 Rmax → Tstar(M, log M)); R3 [B, 250–450] the 3/4-budget twin
 (budget_le_quarter at α = 1/32 + ballErr34/transfer_at_scale_34/farErr34 +
-the exp(exp 165) threshold; new stones only, BallSup:120/144/165/256/307 +
-SmallStones:152 as sources); **R2 [C; THE JYH GATE] the y re-pin
+the exp(exp 165) threshold; new stones only, BallSup:120/144/165/259/316 +
+SmallStones:154 as sources); **R2 [C; THE JYH GATE] the y re-pin
 log y = L^{2/5}** — parallel pin family RECOMMENDED (~1500–3000; in-place =
 statement changes on landed binders, Fable/JYH tier, NOT recommended — the
 hSup station rides the same pin and must not move). The re-pin is mostly

@@ -496,10 +496,16 @@ def ratioChain (P : ℕ) : ℕ → ℕ
   | 0 => P
   | k + 1 => 2 * ratioChain P k + 1
 
+/-- `ratioChain P 0 = P` (`@[simp]`), by `rfl`: the chain's base. Read twice in this file; no
+consumer outside it. -/
 @[simp] lemma ratioChain_zero (P : ℕ) : ratioChain P 0 = P := rfl
 
+/-- `ratioChain P (k + 1) = 2 * ratioChain P k + 1`, by `rfl`: the chain's step. Read five times
+in this file; no consumer outside it. -/
 lemma ratioChain_succ (P k : ℕ) : ratioChain P (k + 1) = 2 * ratioChain P k + 1 := rfl
 
+/-- The chain in closed form: `ratioChain P k + 1 = 2 ^ k * (P + 1)`, by induction on `k`. Read
+once in this file; no consumer outside it. -/
 lemma ratioChain_add_one_eq (P k : ℕ) : ratioChain P k + 1 = 2 ^ k * (P + 1) := by
   induction k with
   | zero => simp
@@ -508,10 +514,14 @@ lemma ratioChain_add_one_eq (P k : ℕ) : ratioChain P k + 1 = 2 ^ k * (P + 1) :
       rw [ratioChain_succ]; ring
     rw [h, ih, pow_succ]; ring
 
+/-- `ratioChain P` is monotone in `k`: each step is `2 * x + 1 ≥ x`. Read four times in this
+file and by `USetChi`. -/
 lemma ratioChain_mono (P : ℕ) : Monotone (ratioChain P) := by
   refine monotone_nat_of_le_succ (fun k => ?_)
   rw [ratioChain_succ]; omega
 
+/-- `P ≤ ratioChain P k`: monotonicity from the base (`ratioChain_mono`, `ratioChain_zero`).
+Read twice in this file and by `USetChi`. -/
 lemma ratioChain_ge (P k : ℕ) : P ≤ ratioChain P k := by
   have h := ratioChain_mono P (Nat.zero_le k)
   rwa [ratioChain_zero] at h
@@ -608,6 +618,8 @@ union bound of `Uset_thin` runs over this `t`-free family. -/
 def dyadicPairs (P₀ Q₀ : ℕ) : Finset (ℕ × ℕ) :=
   ((Finset.Icc P₀ Q₀) ×ˢ (Finset.Icc P₀ Q₀)).filter (fun pq => pq.2 ≤ 2 * pq.1)
 
+/-- `(dyadicPairs P₀ Q₀).card ≤ (Q₀ + 1) ^ 2`: a filter of the square of `Finset.Icc P₀ Q₀`,
+whose side has at most `Q₀ + 1` points. Read by `USetThinTS`; not read in this file. -/
 lemma card_dyadicPairs_le (P₀ Q₀ : ℕ) : (dyadicPairs P₀ Q₀).card ≤ (Q₀ + 1) ^ 2 := by
   have h1 : (dyadicPairs P₀ Q₀).card ≤ ((Finset.Icc P₀ Q₀) ×ˢ (Finset.Icc P₀ Q₀)).card :=
     Finset.card_filter_le _ _
