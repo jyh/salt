@@ -1238,8 +1238,9 @@ set_option maxHeartbeats 1000000 in
 /-- The G-lever twin of `a2Rows_of_capfree`, at `K ≤ 170000000`: the cap-free weighted seam-row
 family with the door read at `s13GK K M` — for every `T` with `X / h ≤ T`, `2 * T ≤ X` passing
 the gates, `X / h / T` times the integral of `‖spoly N a t‖ ^ 2` over `seamAnn X (2 * T)` is at
-most `a2Mrow_gk K Cs C M Xd X ε`. The landed proof with the lever passed through, closed by the
-four weighing lemmas. Read once in this file (by `thm_a2'_gk`); no consumer outside it. -/
+most `a2Mrow_gk K Cs C M Xd X ε`. The landed proof with the lever passed through and
+`a2Level1_nonneg` in place of its inline sign step, closed by the four weighing lemmas. Read
+once in this file (by `thm_a2'_gk`); no consumer outside it. -/
 theorem a2Rows_of_capfree_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -1363,7 +1364,8 @@ set_option maxHeartbeats 1000000 in
 /-- The G-lever twin of `a2Rows_of_cap`, at `K ≤ 170000000`: the socketed seam-row family of the
 `¬ CapFreeFloor` branch with the door read at `s13GK K M`, conditional in statement on the same
 named inputs, with the bound `a2Mrow_gk K Cs Ccc M Xd X ε`. The landed proof with the lever
-passed through. Read once in this file (by `thm_a2'_gk`); no consumer outside it. -/
+passed through and `a2Level1_nonneg` in place of its inline sign step. Read once in this file
+(by `thm_a2'_gk`); no consumer outside it. -/
 theorem a2Rows_of_cap_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C Ccol : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -1621,7 +1623,8 @@ set_option maxHeartbeats 1000000 in
 /-- The G-lever twin of `a2Rows_of_capfree3`, at `K ≤ 170000000`: the cap-free row family at the
 `3X` mint (frame `A2Frame3`, the carried `CofactorSocket` and its grade) with the door read at
 `s13GK K M`; same conclusion as `a2Rows_of_capfree_gk`. The landed proof with the lever passed
-through. Read by `M4MeanSq` and `M4MeanSqPool`; not read in this file. -/
+through and `a2Level1_nonneg` in place of its inline sign step. Read by `M4MeanSq` and
+`M4MeanSqPool`; not read in this file. -/
 theorem a2Rows_of_capfree3_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -1846,7 +1849,5 @@ theorem a2Rows_of_capfree3_end_gk (K : ℕ) (hK : K ≤ 170000000) :
   · exact a2_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
   · exact a2_term3_weigh_mr hRS0 hg3
   · exact a2_term4_weigh hZ0 hg32
-
--- #audit (temporary)
 
 end Salt.MR

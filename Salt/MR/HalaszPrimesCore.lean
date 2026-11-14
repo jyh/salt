@@ -2417,8 +2417,8 @@ for `T ≥ T₀`, `P ≥ 2` and `|u| ≤ 2 * T`, the `primeWindow P`-weighted su
 times the zero-free exponential saving and the strip grade), a truncation term
 `C₂ * P * log P / T` and a horizontal term in `P / T ^ 2`. Route: `primeWindow_contour_rep` and
 `pole_residue_term` on the rectangle, the left edge by `shifted_edge_price_strip`, the
-horizontals by the region bound and `sum_vonMangoldt_le_pole_add_Zc`. Read once in this file and
-by `PortAssembly`. -/
+truncation by `sum_vonMangoldt_cline_bound`, the horizontals by the region bound and
+`sum_vonMangoldt_le_pole_add_Zc`. Read once in this file and by `PortAssembly`. -/
 theorem per_pair_contour :
     ∃ (c_vk C₁ C₂ C₃ T₀ : ℝ), 0 < c_vk ∧ 0 < C₁ ∧ 0 < C₂ ∧ 0 < C₃ ∧ 3 ≤ T₀ ∧
       ∀ (T P u : ℝ), T₀ ≤ T → 2 ≤ P → |u| ≤ 2 * T →

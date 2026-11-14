@@ -37,7 +37,7 @@ would pay `φ(q)·20N`, a factor `q` above target).
 
 ## §2 — D1: KMT Lemma 6.6, the `Q^ℓ·A` moment, `χ`-summed
 
-The `q = 1` twin is the landed `multShiu_moment` (`MultShiuBridge.lean:684`).  Its two
+The `q = 1` twin is the landed `multShiu_moment` (`MultShiuBridge.lean:679`).  Its two
 seam stones — the window `multShiuCoeff_support_low/_high` and the count
 `coeff_bound_factorial_blockDiv` (`‖aₙ‖ ≤ ℓ!·g(n)`, `g = blockDiv Y₁`, the Shiu
 majorant `shiu_moment_sq` byte-matches KMT's `g`) — are **character-blind** and are
