@@ -1798,8 +1798,8 @@ The flat-ceiling originals below are their instances at `hK`.
 /-! ### `ThmA2Rows` — `a2Rows_of_capfree_gk` -/
 /-- ⟦WIDE CEILING TWIN⟧ (`a2Rows_of_capfree_L_gk_kwide`) —
 `a2Rows_of_capfree_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem a2Rows_of_capfree_L_gk_kwide (K : ℕ) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -1915,8 +1915,8 @@ theorem a2Rows_of_capfree_L_gk_kwide (K : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`a2Rows_of_cap_L_gk_kwide`) —
 `a2Rows_of_cap_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem a2Rows_of_cap_L_gk_kwide (K : ℕ) :
     ∃ Cq cq T₀ X₀ Cs C Ccol : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -2044,8 +2044,8 @@ theorem a2Rows_of_cap_L_gk_kwide (K : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`thm_a2'_L_gk_kwide`) —
 `thm_a2'_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem thm_a2'_L_gk_kwide (K : ℕ) :
     ∃ Cq₁ cq₁ T₀₁ X₀₁ Cs₁ C₁ Cq₂ cq₂ T₀₂ X₀₂ Cs₂ C₂ Ccol : ℝ,
       0 < Cq₁ ∧ 0 < cq₁ ∧ 3 ≤ T₀₁ ∧ 0 < X₀₁ ∧ 0 < Cs₁ ∧ 0 < C₁ ∧
@@ -2164,8 +2164,8 @@ theorem thm_a2'_L_gk_kwide (K : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`a2Rows_of_capfree3_L_gk_kwide`) —
 `a2Rows_of_capfree3_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem a2Rows_of_capfree3_L_gk_kwide (K : ℕ) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -2272,8 +2272,8 @@ theorem a2Rows_of_capfree3_L_gk_kwide (K : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`a2Rows_of_capfree3_end_L_gk_kwide`) —
 `a2Rows_of_capfree3_end_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem a2Rows_of_capfree3_end_L_gk_kwide (K : ℕ) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -3545,8 +3545,8 @@ lemma a2RowsSum'_nonneg_L_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ 
 /-! ### `A3Middle` — `a2Rows_of_capfree3_end'_gk` -/
 /-- ⟦WIDE CEILING TWIN⟧ (`a2Rows_of_capfree3_end'_L_gk_kwide`) —
 `a2Rows_of_capfree3_end'_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem a2Rows_of_capfree3_end'_L_gk_kwide (K : ℕ) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -3653,8 +3653,8 @@ theorem a2Rows_of_capfree3_end'_L_gk_kwide (K : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`a2Rows_of_capfree3'_L_gk_kwide`) —
 `a2Rows_of_capfree3'_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem a2Rows_of_capfree3'_L_gk_kwide (K : ℕ) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
