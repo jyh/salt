@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `35133025` · source digest `666af5a5a57fe1e5` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `9cf0d750` · source digest `f4d9abccc7d40459` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,7 +22,7 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 23419 | 689 | 22719 | 9148 | 13 | 291 | 40 | 345 | 87 |
+| 23421 | 689 | 22721 | 9148 | 13 | 291 | 40 | 345 | 87 |
 
 Per-polarity totals over the 689 Props: with F-consumers 536 · with ¬F-consumers 21 · with F-producers (any kind) 450 · with ¬F-producers (any kind) 59.
 
@@ -218,7 +218,7 @@ By kind: case split `by_cases` 84 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.MR.thm_a2'_L_gk` | Salt/MR/ThmA2Linear.lean:2210 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.MR.thm_a2'_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:3845 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.MR.thm_a2'` | Salt/MR/ThmA2Rows.lean:728 | `Salt.MR.CapFreeFloor` |
-| case split `by_cases` | `Salt.MR.thm_a2'_gk` | Salt/MR/ThmA2Rows.lean:1606 | `Salt.MR.CapFreeFloor` |
+| case split `by_cases` | `Salt.MR.thm_a2'_gk` | Salt/MR/ThmA2Rows.lean:1604 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.Maynard.compat_moebius_expansion` | Salt/Maynard/CollisionQuant.lean:1675 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.abs_S2m_sub_compatMain_le_disc_R_uniform` | Salt/Maynard/FrontierDischarge.lean:258 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.S2m_ge_compatMain_eh_uniform` | Salt/Maynard/FrontierDischarge.lean:402 | `Salt.Maynard.IsCollisionPair` |
