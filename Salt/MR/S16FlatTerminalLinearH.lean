@@ -978,9 +978,9 @@ theorem m4_chiSummedN_suppliedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M : ℕ} {R
 
 set_option maxHeartbeats 1600000 in
 -- the stratified assembly re-elaborates the divisor sum, the fibre count, the χ-datum and
--- the ledger at every stratum, as at `M4RowLinear.lean:7556`
+-- the ledger at every stratum, as at `M4Gauss.lean:750`
 /-- **THE STRATIFIED CONSUMER AT THE INFLATED CAP** — `m4_freeBlockSup_of_chiSummed_L_gk`
-(`M4RowLinear.lean:7561`).  The Gauss strata's harmonic sum `∑_{d ∣ q} 1/d ≤ 1 + log q` is
+(`M4RowLinear.lean:7333`).  The Gauss strata's harmonic sum `∑_{d ∣ q} 1/d ≤ 1 + log q` is
 bounded through `q ≤ h·arcDen` by `strataResidualH h H` and by nothing smaller; the dilated
 base's x-floor (step (iii)) is where the x-scale floor's inflation is SPENT (`d ≤ h·arcDen`). -/
 theorem m4_freeBlockSup_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ → ℝ}
