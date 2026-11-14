@@ -945,8 +945,8 @@ original.
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSum_chi_door_zero'_L_gk_bounded_kwide`) —
 `m4_hrowsSum_chi_door_zero'_L_gk_bounded` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_hrowsSum_chi_door_zero'_L_gk_bounded_kwide (K : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 6 * Real.exp 14 ∧
       ∀ (Cp : ℝ), 0 ≤ Cp →
@@ -1039,8 +1039,8 @@ theorem m4_hrowsSum_chi_door_zero'_L_gk_bounded (K : ℕ) (hK : K ≤ 170000000)
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSlot_at_door_zero'_L_gk_bounded_kwide`) —
 `m4_hrowsSlot_at_door_zero'_L_gk_bounded` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_hrowsSlot_at_door_zero'_L_gk_bounded_kwide (K : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 6 * Real.exp 14 ∧
       ∀ (Cp : ℝ), 0 ≤ Cp →
@@ -1142,8 +1142,8 @@ theorem six_exp_fourteen_le_two_pow_23 : 6 * Real.exp 14 ≤ 2 ^ 23 := by
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSlot_at_door_zero'_L_gk_ceiling_kwide`) —
 `m4_hrowsSlot_at_door_zero'_L_gk_ceiling` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_hrowsSlot_at_door_zero'_L_gk_ceiling_kwide (K : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 2 ^ 23 ∧
       ∀ (Cp : ℝ), 0 ≤ Cp →

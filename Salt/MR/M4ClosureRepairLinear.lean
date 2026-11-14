@@ -900,7 +900,8 @@ originals.
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_chiSummedFreeRow_of_doorAssembly_pool_end'_gated_L_gk_kwide`) —
 `m4_chiSummedFreeRow_of_doorAssembly_pool_end'_gated_L_gk`
 with the flat ceiling moved inside the `∀ M` as `K ≤ 170000000 * M`.
-Statement and proof otherwise verbatim, off the `_kwide` upstream. -/
+Statement otherwise verbatim, the proof the original's former one off the
+`_kwide` upstream (its original is now its instance). -/
 theorem m4_chiSummedFreeRow_of_doorAssembly_pool_end'_gated_L_gk_kwide (K : ℕ) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε π₀ : ℕ → ℝ) (RSbig : ℕ → ℕ → ℝ)
@@ -948,7 +949,8 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_pool_end'_gated_L_gk_kwide (K : ℕ)
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_gated_L_gk_kwide`) —
 `m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_gated_L_gk`
 with the flat ceiling moved inside the `∀ M` as `K ≤ 170000000 * M`.
-Statement and proof otherwise verbatim, off the `_kwide` upstream. -/
+Statement otherwise verbatim, the proof the original's former one off the
+`_kwide` upstream (its original is now its instance). -/
 theorem m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_gated_L_gk_kwide (K : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧
       ∀ (Cp : ℝ), 0 < Cp →
@@ -997,7 +999,8 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_gated_L_gk_kwide (K : ℕ
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_closure_fuse_end'_L_gk_kwide`) —
 `m4_closure_fuse_end'_L_gk`
 with the flat ceiling moved inside the `∀ M` as `K ≤ 170000000 * M`.
-Statement and proof otherwise verbatim, off the `_kwide` upstream. -/
+Statement otherwise verbatim, the proof the original's former one off the
+`_kwide` upstream (its original is now its instance). -/
 theorem m4_closure_fuse_end'_L_gk_kwide (K : ℕ) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (Kar ρ : ℝ)
@@ -1055,7 +1058,8 @@ theorem m4_closure_fuse_end'_L_gk_kwide (K : ℕ) :
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_closure_fuse_zero'_L_gk_kwide`) —
 `m4_closure_fuse_zero'_L_gk`
 with the flat ceiling moved inside the `∀ M` as `K ≤ 170000000 * M`.
-Statement and proof otherwise verbatim, off the `_kwide` upstream. -/
+Statement otherwise verbatim, the proof the original's former one off the
+`_kwide` upstream (its original is now its instance). -/
 theorem m4_closure_fuse_zero'_L_gk_kwide (K : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧
       ∀ (Cp : ℝ), 0 < Cp →
@@ -1335,7 +1339,8 @@ theorem doorFuseFrame_pool'_of_gates_const_L_gk (K : ℕ) {M Xd j Hhi : ℕ} {Cs
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_closure_fuse_end'_const_L_gk_kwide`) —
 `m4_closure_fuse_end'_const_L_gk`
 with the flat ceiling moved inside the `∀ M` as `K ≤ 170000000 * M`.
-Statement and proof otherwise verbatim, off the `_kwide` upstream. -/
+Statement otherwise verbatim, the proof the original's former one off the
+`_kwide` upstream (its original is now its instance). -/
 theorem m4_closure_fuse_end'_const_L_gk_kwide (K : ℕ) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (Kar ρ : ℝ)
@@ -1397,7 +1402,8 @@ theorem m4_closure_fuse_end'_const_L_gk_kwide (K : ℕ) :
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_closure_fuse_zero'_const_L_gk_kwide`) —
 `m4_closure_fuse_zero'_const_L_gk`
 with the flat ceiling moved inside the `∀ M` as `K ≤ 170000000 * M`.
-Statement and proof otherwise verbatim, off the `_kwide` upstream. -/
+Statement otherwise verbatim, the proof the original's former one off the
+`_kwide` upstream (its original is now its instance). -/
 theorem m4_closure_fuse_zero'_const_L_gk_kwide (K : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧
       ∀ (Cp : ℝ), 0 < Cp →

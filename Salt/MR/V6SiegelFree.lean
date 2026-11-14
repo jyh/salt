@@ -1066,7 +1066,8 @@ open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
 /-- **⟦STANDOFF TWIN⟧** `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:586`): its statement under the three standoff
-binders, its proof verbatim with `m4_second_road_L2_gk_flatRoot_L` · `m4_fuse_hcap_of_capWS_gk` replaced by their twins. -/
+binders, its proof the original's former one (the original is now an instance of its `_kwide`
+twin), with `m4_second_road_L2_gk_flatRoot_L` · `m4_fuse_hcap_of_capWS_gk` replaced by their twins. -/
 theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ)
     (hK : K ≤ 170000000) (hband : S16BandLaneCBoundedL K) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
@@ -1254,7 +1255,8 @@ open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
 /-- **⟦STANDOFF TWIN⟧** `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L` (`Salt/MR/S16FlatTerminalLinear.lean:1227`): its statement under the three standoff
-binders, its proof verbatim with `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L` replaced by their twins. -/
+binders, its proof the original's former one (the original is now an instance of its `_kwide`
+twin), with `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L` replaced by their twins. -/
 theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ)
     (hK : K ≤ 170000000) (hband : S16BandLaneCBoundedL K) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :

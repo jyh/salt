@@ -378,7 +378,8 @@ The flat-ceiling originals below are now their instances at `hK`.
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling_kwide`) —
 `m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling`
 with the flat ceiling moved inside the `∀ M` as `K ≤ 170000000 * M`.
-Statement and proof otherwise verbatim, off the `_kwide` upstream. -/
+Statement otherwise verbatim, the proof the original's former one off the
+`_kwide` upstream (its original is now its instance). -/
 theorem m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling_kwide (K : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 2 ^ 23 ∧
       ∀ (Cp : ℝ), 0 ≤ Cp →
@@ -444,7 +445,8 @@ theorem m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling_kwide (K : ℕ) :
 /-- ⟦WIDE CEILING TWIN⟧ (`flat_capstone_uniform_win_ceiling_kwide`) —
 `flat_capstone_uniform_win_ceiling`
 with the flat ceiling moved inside the `∀ M` as `K ≤ 170000000 * M`.
-Statement and proof otherwise verbatim, off the `_kwide` upstream. -/
+Statement otherwise verbatim, the proof the original's former one off the
+`_kwide` upstream (its original is now its instance). -/
 theorem flat_capstone_uniform_win_ceiling_kwide (K : ℕ) (Awin : ℝ)
     (hband : S16BandLaneCBoundedL_win Awin K) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ Ct Cq cs T₀ Kq Ks β : ℝ) (x₀ Hopq Mfl : ℕ),
@@ -634,7 +636,8 @@ theorem flat_capstone_uniform_win_ceiling_kwide (K : ℕ) (Awin : ℝ)
 /-- ⟦WIDE CEILING TWIN⟧ (`flat_conditional_uniform_win_ceiling_kwide`) —
 `flat_conditional_uniform_win_ceiling`
 with the flat ceiling moved inside the `∀ M` as `K ≤ 170000000 * M`.
-Statement and proof otherwise verbatim, off the `_kwide` upstream. -/
+Statement otherwise verbatim, the proof the original's former one off the
+`_kwide` upstream (its original is now its instance). -/
 theorem flat_conditional_uniform_win_ceiling_kwide (K : ℕ) (Awin : ℝ)
     (hband : S16BandLaneCBoundedL_win Awin K) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct β : ℝ) (x₀ Hopq Mfl : ℕ),
