@@ -1009,7 +1009,7 @@ ANALYTIC estimates."*  That is **too strong**:
   norm_absWindowSum_le_drift_tight            M4BridgePhase.lean:310
       at NearRatTight (arcDen B₅ H) H α  ⟹  ‖absWindowSum a H n α‖
           ≤ (1 + 2π·(arcDen B₅ H / q))·subWindowSup a H n (b/q)
-  norm_absWindowSum_le_class_sum_of_nearRatTight   M4BridgeResidue.lean:287
+  norm_absWindowSum_le_class_sum_of_nearRatTight   M4BridgeResidue.lean:288
       at NearRatTight Q H α  ⟹  ‖absWindowSum‖ ≤ ∑_r ‖classPhaseSum …‖
 ```
 **Both are genuine ANALYTIC reductions, at the door's OWN hypothesis** — a phase-drift
