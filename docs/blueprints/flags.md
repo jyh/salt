@@ -11753,7 +11753,7 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 ## 2026-07-24 — ball_leg_of_sup divergence + the ball-centre defect (caught pre-consumption)
 
 - **Where**: Salt/MR/SeamSplit.lean:372 (ball_leg_of_sup, landed 7/24) + the
-  ∃t₁ clause of prop_A3_T1_row_split (:624); the R2.4 gate-check verdict
+  ∃t₁ clause of prop_A3_T1_row_split (:636); the R2.4 gate-check verdict
   (HalaszCore:356–378).
 - **Findings** (HSUP-SCOPE 7/24): (1) the measure×sup² exit 2r(2S)² diverges
   at every M where the ball leg is live — MRT's A.7 keeps 1/(1+|t−t₁|)
