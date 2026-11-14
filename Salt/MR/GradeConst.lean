@@ -29,8 +29,8 @@ between that and the `hgrade` socket of `RHSGrade.hRHS_discharged` at an ABSOLUT
 Nothing in `HeadGrade`/`WidthGrade`/`RHSGrade` is touched: the handful of `private` lemmas
 those files keep (`sum_ne_eq_two_lt`, `planch_bilinear_le`, `diag_le_mass_width`,
 `sqrt_mul_sqrt_le`, `width_final_algebra`, `amp_beta_cancel_widthA`, `pin_basic`,
-`continuous_rpow_neg`, the two integrability pages, `four_log_le_self`) are re-derived here
-verbatim-private.
+`continuous_rpow_neg`, the two integrability pages) are re-derived here verbatim-private
+(`four_log_le_self` was too, until O13-e made `RHSGrade`'s public).
 -/
 
 noncomputable section
@@ -908,20 +908,6 @@ amplitude is unchanged (`joint_cs_factoring`, `joint_supF_pin`, `bridge_adapter`
 `L` — is replaced by `widthKamp`, which does not.  The exit `hRHS_discharged_const` has
 `hRHS_discharged`'s conclusion byte-for-byte, with `C₁` EXHIBITED (no longer a socket). -/
 
-/-- `4·log L ≤ L` for `L ≥ 64`.  Re-derivation of `RHSGrade`'s private `four_log_le_self`. -/
-private lemma four_log_le_selfC {L : ℝ} (h : 64 ≤ L) : 4 * Real.log L ≤ L := by
-  have hL0 : (0 : ℝ) < L := by linarith
-  have hs0 : (0 : ℝ) < Real.sqrt L := Real.sqrt_pos.mpr hL0
-  have hs8 : (8 : ℝ) ≤ Real.sqrt L := by
-    have h64 : Real.sqrt 64 = 8 := by
-      rw [show (64 : ℝ) = 8 ^ 2 from by norm_num, Real.sqrt_sq (by norm_num)]
-    rw [← h64]
-    exact Real.sqrt_le_sqrt h
-  have hlog : Real.log (Real.sqrt L) ≤ Real.sqrt L - 1 := Real.log_le_sub_one_of_pos hs0
-  have hhalf : Real.log (Real.sqrt L) = Real.log L / 2 := Real.log_sqrt hL0.le
-  have hsq : Real.sqrt L * Real.sqrt L = L := Real.mul_self_sqrt hL0.le
-  nlinarith only [hs0, hs8, hsq, hhalf, hlog]
-
 /-- The pin's elementary arithmetic at the `e^{64}` gate: everything `beta_integral_pin_const`
 and `rhs_grade_at_scale_const` need about `(k, L, y, η)`. -/
 private lemma pin_basic64 {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Real.log k)
@@ -947,9 +933,9 @@ private lemma pin_basic64 {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Re
   · rw [hη, hlogy, div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 8)]
     linarith
   · rw [hη, hlogy, div_le_div_iff₀ hL0 (by linarith)]
-    linarith [four_log_le_selfC hL64]
+    linarith [four_log_le_self hL64]
   · have h1 : Real.log (L ^ 4) ≤ Real.log k := by
-      rw [Real.log_pow, ← hL]; push_cast; linarith [four_log_le_selfC hL64]
+      rw [Real.log_pow, ← hL]; push_cast; linarith [four_log_le_self hL64]
     have h2 := Real.exp_le_exp.mpr h1
     rwa [Real.exp_log (by positivity), Real.exp_log hk0] at h2
 
