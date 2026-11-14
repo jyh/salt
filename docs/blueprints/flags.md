@@ -12623,7 +12623,7 @@ orientation fixed ONCE).
 
 ## ⚠⚠ TLGATES-SCOPE: thm_a2' HAS NO MODELS as stated — two statement repairs required BEFORE the M4 wave (2026-07-27 19:57 PDT)
 
-**R1 — the ∀ j : ℕ contradiction (CRITICAL).** ThmA2Rows.lean:620–621
+**R1 — the ∀ j : ℕ contradiction (CRITICAL).** ThmA2Rows.lean:608–609
 demands ∀ j : ℕ, 2 ≤ m₀ j AND ∀ j : ℕ, (m₀ j : ℝ) ≤ ramRbot (H83 X
 theta293) Xd j. Since ramRbot H Xd j = Xd·exp(−j/H) → 0, any j >
 H·log(Xd/2) gives ramRbot < 2 ≤ m₀ j: the hypotheses are jointly
@@ -13356,7 +13356,7 @@ points at block primes THROUGHOUT by construction; bfam ≡ 0 doesn't
 escape (hcoefBand then kills the whole support). THE WALL's second
 head: the R3 surgery deleted hwinPin (the Ramaré pin chain) but
 hwinBand (the K-block chain, a2Rows_of_capfree3's hcoef/hwin at
-Icc 1 Jb, ThmA2Rows:907–911) still stands. WALL1-SCOPE dispatched:
+Icc 1 Jb, ThmA2Rows:895–899) still stands. WALL1-SCOPE dispatched:
 the consumption census — can it fall to the hwinPin playbook (price
 what it protects instead of pinning)?
 
@@ -18929,7 +18929,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 **THE ARTIFACT.** `docs/RESULTS.md` — the law block (one row per headline result; every row carries a DATE and a COMMIT; **chronology is the date field, NEVER file order**; superseded rows marked `[SUPERSEDED → successor]` IN PLACE and never deleted; every row lint-verified; a new headline theorem adds its row in the SAME commit that lands it; the file states existence, not meaning — the Lean statement is the authority). Then nine per-arc tables, columns `| Theorem (Lean name) | Plain statement | File:line | Date landed | Commit | Axioms |`, sorted **by date inside each arc**: §1 Sieve/Brun (5) · §2 Chen/Goldbach (3) · §3 SW/BV/bounded gaps (5) · §4 Zero theory (7) · §5 VMVT/VK (1) · §6 HB/Fulcrum/T-BAL (5) · §7 TwinBar/Parity (13) · §8 MR/Chowla (16) · §9 Infrastructure firsts (11). **66 rows.**
 
-**EVERY ROW VERIFIED IN THE TREE, NOT COPIED.** File:line by grep on the declaration; date+commit by pickaxe over the file's OWN history (`git log -S"theorem <name>" --reverse -- <file>` — the introducing commit, not the last touch); one-line statements paraphrased from the declaration docstrings. Cross-checks that fired: the seed list's `parity_wall_unconditional` was at :29/:42, the tree says **:31/:44**; the seed list's `thm_a2'` needed disambiguation from five `thm_a2*` neighbours (`Salt/MR/ThmA2Rows.lean:629`, and the date confirms the 7/27 S7/S8 summit); `Salt.SW.dh_repulsion_ordered` has a **namesake inside a fenced doc comment** at `Salt/SW/DHRepulsion.lean:283` (the frozen target contract) — the live decl is TBalR8:2523, and the registry says so in a standing note so the next census does not re-trip on it.
+**EVERY ROW VERIFIED IN THE TREE, NOT COPIED.** File:line by grep on the declaration; date+commit by pickaxe over the file's OWN history (`git log -S"theorem <name>" --reverse -- <file>` — the introducing commit, not the last touch); one-line statements paraphrased from the declaration docstrings. Cross-checks that fired: the seed list's `parity_wall_unconditional` was at :29/:42, the tree says **:31/:44**; the seed list's `thm_a2'` needed disambiguation from five `thm_a2*` neighbours (`Salt/MR/ThmA2Rows.lean:617`, and the date confirms the 7/27 S7/S8 summit); `Salt.SW.dh_repulsion_ordered` has a **namesake inside a fenced doc comment** at `Salt/SW/DHRepulsion.lean:283` (the frozen target contract) — the live decl is TBalR8:2523, and the registry says so in a standing note so the next census does not re-trip on it.
 
 **THE LINT.** `scripts/results_lint.py`, stdlib-only, mirroring `blueprint_lint.py`'s docstring/exit conventions. Per row: (a) the file exists; (b) the file **declares** that name (multiline regex over `theorem|lemma|def|abbrev|structure|instance|inductive|class` with a modifier prefix and an identifier-boundary lookahead that admits primes and Unicode subscripts — `thm_a2'` matches, bare `thm_a2` does NOT; `M₂_squeeze` matches); (c) the date is ISO `YYYY-MM-DD` and the commit is a 7–40 char hex sha. Plus a duplicate-name check (one row per result). Escaped `\|` inside cells is honoured by a hand-rolled row splitter. Exits nonzero listing EVERY violation. **First run: `results_lint: OK — 66 rows`, exit 0.** Deliberately NOT re-run here: axiom checks (the ledgers already certify) and any `lake` invocation.
 
@@ -23683,7 +23683,7 @@ Halász bound:
   the `exp(−(1/2)·mrtM)` shape occurs ONLY in MRTPropA3.lean's own def (:382) and its
       CONSUMERS (:1900, :2230, :2239) — there is NO landed PRODUCER at that constant
 ```
-📌 **The `1/(1+|t−t₁|)` decay factor IS available** (`BallSup.lean:211,219,232`; `A3Middle.lean:243,608`)
+📌 **The `1/(1+|t−t₁|)` decay factor IS available** (`BallSup.lean:211,219,232`; `A3Middle.lean:243,602`)
 — **the gap is the constant, not the shape.**  MRT get `1/2` from the sharp Granville–Harper–
 Soundararajan proof of Halász; our corpus holds an explicit peel at `1/(2e)`.
 ⇒ 🔑 ***THE SAME LAW, THIRD INSTANCE: A CONSTANT IS A RECORD OF WHICH EXTERNAL THEOREM ITS AUTHOR
