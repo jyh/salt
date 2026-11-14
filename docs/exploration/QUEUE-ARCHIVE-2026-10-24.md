@@ -4682,7 +4682,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     attains"; a formalization has to earn the phrase.* Class **B**.
     ✅ **A3-1 — THE MVT DISPOSAL.** MRT's own opening: *"Since the mean value theorem gives the bound
     `O(T/X + 1)`, we can assume `T ≤ X/2` and `M(f;X) ≥ 1`."* ⇒ **this is exactly the `Msup ≈ 240` I
-    measured at 18:40**, and its producer `dirichlet_poly_l2_mvt_final` (`MVCore2.lean:620`) is landed
+    measured at 18:40**, and its producer `dirichlet_poly_l2_mvt_final` (`MVCore2.lean:635`) is landed
     unconditional. Class **A/B**.
     ✅ **A3-2 — THE DICHOTOMY AND THE `T₀`/`T₁` SPLIT.** If `M(f;X) ≥ (1/8)loglog X` then `T₁ := [−T,T]`,
     `T₀ := ∅`; otherwise `T₀ := {|t| ≤ T : |t−t₁| ≤ (log X)^{1/16}}` and `T₁` its complement. Definitions
@@ -5035,7 +5035,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
       The landed short-interval mean-square family:
       `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:948`) · `_concrete` (`:1079`) ·
       `_kernel` (`KernelCarry.lean:1162`) · `shortInterval_vonMangoldt_le`
-      (`ShortIntervalPsi.lean:407`).
+      (`ShortIntervalPsi.lean:422`).
       ⛔ **No ASSEMBLED "MR short-interval mean value" statement exists** (searched
       `MRShort`/`mrCore`/`MRgate`). ⇒ **THE PARTS ARE LANDED; THE ASSEMBLY IS NOT.**
       **CLASS: B/C for the assembly, pending a targeted read. NOT `D`.** *v1 classed the arcs `D`
@@ -5061,8 +5061,8 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     carry it** (`_kernel` `KernelCarry.lean:1162` too; at the live application `Eq26Compose.lean:493`
     it is passed **upward**, not discharged).
     ⭐ **AND `hMsup`'s PRODUCER IS LANDED AND UNCONDITIONAL:** `dirichlet_poly_l2_mvt_final`
-    (`MVCore2.lean:620`) — **no hypotheses at all** beyond the data — resting on
-    `mvHilbertUniform_holds` (`MVCore2.lean:575`), also hypothesis-free. **Both `[3 axioms]`, both
+    (`MVCore2.lean:635`) — **no hypotheses at all** beyond the data — resting on
+    `mvHilbertUniform_holds` (`MVCore2.lean:590`), also hypothesis-free. **Both `[3 axioms]`, both
     audited.** *This is the Montgomery–Vaughan mean value theorem, already in the kernel.*
     ⛔⛔ **I CORRECT MY OWN HEADLINE, 2026-08-21 18:3x — "A SHAPE GAP, NOT A STRENGTH GAP" WAS
     OVER-STRONG, AND THE HEADLINE IS WHAT A READER TAKES.** The shape reconciliation IS elementary and

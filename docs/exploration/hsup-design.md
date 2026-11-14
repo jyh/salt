@@ -255,7 +255,7 @@ Both REPAIR-THEN-FIRE. THE REPAIRS (adopted):
    ledger's own pre-existing kernel-mass residual, nothing new.
 2. **A-7 TIGHTENED to the datum-hoisted form** [B, 120-180]: the MS witnesses
    are g- AND t₀-FREE absolute expressions (MultShiu:1438/:2232/:1920;
-   ShortIntervalPsi:411) — hoist past (g, t₀) too; REQUIRED because A-9
+   ShortIntervalPsi:426) — hoist past (g, t₀) too; REQUIRED because A-9
    instantiates the twist at t₀+t₁(X) (X-dependent centre) — the t₀-bound
    constant would be circular. Without this the row's constants are not
    X-uniform (SHAPE-REF's teeth).

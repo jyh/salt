@@ -57,7 +57,7 @@ is an explicit expression — never absorbed silently.
   `ramRrange ⊆ Finset.Icc 1 M` only, and the prime factor is an opaque `ramQ` norm.
 * `WellSpaced` (LargeValues:48) is `∀ t ∈ 𝒯, ∀ r ∈ 𝒯, t ≠ r → 1 ≤ |t − r|`; `Set.Icc (-T) T`
   is the closed window Lemma 9 wants.
-* `Uset` (Decomp:231) is the *no small index* set; `Uset_thin`'s `hU` is consumed verbatim.
+* `Uset` (Decomp:234) is the *no small index* set; `Uset_thin`'s `hU` is consumed verbatim.
 
 ## What is NOT here
 

@@ -11748,7 +11748,7 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
   the mr_map_sources [M] correction), build green. Conflation finding banked: the
   `R5-FINISH` hits in Salt/SW/{EulerLink,Crush}.lean are the T-BAL Selberg flag —
   a DIFFERENT obstruction from the (closed) λ-Euler bridge; the shared name caused
-  the cross-reference drift. HalaszIdentity:781's BLOCKED is by-design (H-5), not stale.
+  the cross-reference drift. HalaszIdentity:793's BLOCKED is by-design (H-5), not stale.
 
 ## 2026-07-24 — ball_leg_of_sup divergence + the ball-centre defect (caught pre-consumption)
 
@@ -11800,7 +11800,7 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 
 ## 2026-07-25 — the JointHead gate-(b) target shape: true but uncomposable (caught pre-wave)
 
-- **Where**: JointHead.lean:598-650, the hbridge residual record's gate-(b)
+- **Where**: JointHead.lean:605-657, the hbridge residual record's gate-(b)
   target S₋·S₊ ≤ C·(X/y)^{2β}·min(L,1/σ)².
 - **Finding** (HCENTER-SCOPE): the recorded target is weaker than the honest
   product by X^β; composed with the kernel scale it carries X^{2β}·y^{−2β},
@@ -11815,7 +11815,7 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 
 - PropA3Core's docstring says the (1/32)loglog floor is "Mrange_one_floor-
   supplied"; that stone is proved at the datum (fun _ => 1), while hfloor
-  (HExit:1463) is at the SEAM datum — the seam-datum floor still routes
+  (HExit:1468) is at the SEAM datum — the seam-datum floor still routes
   through dist_split_A4_frozen's branch structure (the W-loss). The HCENTER
   wave leans on this exponent; the honest supply chain is the A.4 dichotomy
   + the per-t floor step (the V2 amendment's A-10), not the sInf stone.
@@ -13465,7 +13465,7 @@ THE CLOSURE (amend ⟦THE LOW-LINE REFUTATION⟧, no executor re-derives):
 low line dominates at the window TOP, the high at the BOTTOM (Π₊
 carries k⁰, not k^{−2β} — no counterpart to cancel); y^η = e EXACTLY
 at the pin, so every y-power is an absolute constant in [e^{−2}, 1].
-The CS re-cut is legal+cheap (mixed_weight_cs landed, JointHead:563)
+The CS re-cut is legal+cheap (mixed_weight_cs landed, JointHead:570)
 and buys e^{102} — but the MIXED term (low price × high mass) binds:
 H ≳ k^{(2/3)(η−1/L)} — a k-power, dead for poly-log. The at-centre
 reading threads (3 edits) and buys exactly 1/(2L) — dead. The
@@ -23906,7 +23906,7 @@ were.**  Traced upward:
   sigma_cutoff_pretentious_gen   hc1 : 2c < 1      wall at c = 1/2   ⇒ PASSABLE (node 1: it is a log)
   halasz_direct_reduce           hce : c ≤ 1/e     wall at c ≈ 0.368 ⇐ TIGHTER, and UPSTREAM
   window_sup_decay_gen           hce : c ≤ 1/e     same cap, same reason
-  head_sigma_bound (SupF:816)    exponent 1/e      ⇐ THE ACTUAL CONSTANT
+  head_sigma_bound (SupF:818)    exponent 1/e      ⇐ THE ACTUAL CONSTANT
         `‖F(1+σ+it)‖ ≤ C·(1/σ)·exp(−(1/e)·𝔻²(1, g·p^{−it}; e^{1/σ}))`
 ```
 `window_sup_decay_gen`'s own docstring says why `c ≤ 1/e` is there, in its own words: *"the exponent
@@ -23933,7 +23933,7 @@ was "fire the σ-cutoff at the critical `c`"; that is step two, and step one is 
 ### 📐 11:5x — **A6's D-CLASS NODE IS LOCALIZED TO ONE INEQUALITY**
 Chasing `head_sigma_bound`'s `1/e` to its birth:
 ```
-  euler_log_bound (SupF:186)          ‖L‖ ≤ exp(cpeel)·exp(∑'_p Re(g p · p^{−s}))   NO 1/e — clean
+  euler_log_bound (SupF:188)          ‖L‖ ≤ exp(cpeel)·exp(∑'_p Re(g p · p^{−s}))   NO 1/e — clean
   dist_identification_sigma (:755)    ∑'_p Re(g p)p^{−1−σ}
                                         ≤ (log(1/σ) + (log4+cpeel)) − (1/e)·𝔻²(1,g; e^{1/σ})
   ⇒ THE CONSTANT IS BORN AT :726-731, three lines:
@@ -23959,7 +23959,7 @@ away — it is the crudest available move, and it is the only place the constant
 `hcut_p` is the shared node for BOTH lemmas the constants grant covers.
 
 ### ⛔⛔ 13:5x — **`hcut_p` IS SHARP. MY "ONE-LINE TARGET" FRAMING WAS WRONG.**
-At 11:5x I filed that A6's whole `1/e → 1/2` question is one inequality (`SupF:731`) and that the
+At 11:5x I filed that A6's whole `1/e → 1/2` question is one inequality (`SupF:733`) and that the
 port's target is *"replace `hcut_p`'s uniform step with a `p`-aware one, and every consumer inherits
 the sharper constant"*.  **Measured, and that is FALSE: the step cannot be improved in place.**
 

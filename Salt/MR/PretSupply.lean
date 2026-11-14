@@ -80,7 +80,7 @@ discipline requires.  Nothing in this file cites `sigma_cutoff_pretentious_half`
 ## `smooth_euler_product` — SF-0's named residual, LANDED here (no socket)
 
 `SupF`'s SF-0 block is stated on the finite Euler product `smoothEuler` and NOT on
-`smoothSeries`, with the deviation recorded in its own docstring (`SupF` :256-264):
+`smoothSeries`, with the deviation recorded in its own docstring (`SupF` :258-266):
 
 > SF-0 is stated on the FINITE Euler product `smoothEuler`, which is entire and equals
 > `smoothSeries` at `Re > 1` (**`smooth_euler_product` when landed**).
@@ -166,7 +166,7 @@ private lemma sigma_core_integrable_pret {c L M b : ℝ} (hL : 0 < L) (hb : 1 / 
 
 /-! ## §0.5 — SF-0's bridge: `smoothSeries = smoothEuler` (`smooth_euler_product`)
 
-The identity `SupF` :262 names ("`smooth_euler_product` when landed") and needs, but does not
+The identity `SupF` :264 names ("`smooth_euler_product` when landed") and needs, but does not
 land.  It holds at EVERY `w : ℂ` — there is no abscissa here: the smooth coefficient is
 supported on the products over subsets of `{p ≤ y}`, a finite set. -/
 

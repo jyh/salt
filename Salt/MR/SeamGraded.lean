@@ -57,7 +57,7 @@ consequences, both structural:
 
 * **G0a** — `BlockSmallG`, `TsetG`, `UsetG`, `seamTtotG`; `TsetG_unique`,
   `TsetG_disjoint`, `TsetG_UsetG_disjoint`, `exists_TsetG_or_mem_UsetG`.  Mirrors
-  `Decomp` :219–276 at the graded predicate.
+  `Decomp` :222–279 at the graded predicate.
 * **G0b** — `isClosed_blockSmallG`, `measurableSet_UsetG`, `measurableSet_TsetG`,
   `measurableSet_seamTtotG`, `sdiff_biUnion_TsetG`, `seam_T_additivityG`,
   `seam_TU_splitG`.  Mirrors `SeamSplit` :424–558.  `far_leg_collapse` (`SeamSplit` :571)
