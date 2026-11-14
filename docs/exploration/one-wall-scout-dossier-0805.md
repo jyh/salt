@@ -61,11 +61,11 @@ theorem zeta_lower_small_t :
     ∃ δ > 0, ∀ d' t, 0 ≤ d' → d' ≤ 1 → |t| ≤ 3 → ¬(d' = 0 ∧ t = 0) →
       δ ≤ ‖riemannZeta ((1+d' : ℝ) + t*I)‖
 ```
-Same genre: `P = {Re ∈ [1,2], |Im| ≤ 3}`, **`exists_isMinOn` on `‖Zc‖` at `:140`**, then `‖ζ‖ ≥ δ/4` off `‖s−1‖ ≤ 4`. The brief names three masks; this is a fourth, and it is **load-bearing outside `ZetaLowerAllT`**: `Salt/MR/SiegelArm.lean:235` consumes it for the S-2b principal-character band floor (`δ/q`, docstring `:53`/`:68`).
+Same genre: `P = {Re ∈ [1,2], |Im| ≤ 3}`, **`exists_isMinOn` on `‖Zc‖` at `:140`**, then `‖ζ‖ ≥ δ/4` off `‖s−1‖ ≤ 4`. The brief names three masks; this is a fourth, and it is **load-bearing outside `ZetaLowerAllT`**: `Salt/MR/SiegelArm.lean:246` consumes it for the S-2b principal-character band floor (`δ/q`, docstring `:53`/`:68`).
 Grade needed: any explicit `δ`; box `Re ∈ [1,2]`, `|Im| ≤ 3`; **σ ≥ 1 exactly**, so `η = 0` and the separation is the full `c₃/log(|γ|+2)` — *easier* than mask (a).
 
 ### Bonus mask (same box, ceiling side)
-`zeta_upper_band` — `Salt/MR/SiegelArm.lean:391`, `exists_isMaxOn` at `:396`, `Z := max ‖Zc z₀‖ 1`. **Free kill**: bandBox `= {Re∈[1,2], |Im|≤1}` sits inside `‖z − 2‖ ≤ √2 ≤ 7/4`, so `Zc_sphere_bound_sharp` (`EpsilonZero.lean:476`) at `t₀ = 0, a = 1, b = 2` gives `‖Zc‖ ≤ 1 + 5·(11/4)·(15/4) = 52.6`, i.e. **`Z = 53`**, ~12 lines.
+`zeta_upper_band` — `Salt/MR/SiegelArm.lean:402`, `exists_isMaxOn` at `:407`, `Z := max ‖Zc z₀‖ 1`. **Free kill**: bandBox `= {Re∈[1,2], |Im|≤1}` sits inside `‖z − 2‖ ≤ √2 ≤ 7/4`, so `Zc_sphere_bound_sharp` (`EpsilonZero.lean:476`) at `t₀ = 0, a = 1, b = 2` gives `‖Zc‖ ≤ 1 + 5·(11/4)·(15/4) = 52.6`, i.e. **`Z = 53`**, ~12 lines.
 
 ### Corpus census of the same leaf (for completeness)
 | site | what | status |
@@ -74,8 +74,8 @@ Grade needed: any explicit `δ`; box `Re ∈ [1,2]`, `|Im| ≤ 3`; **σ ≥ 1 ex
 | `SW/ZetaInvShallow.lean:105` | mask (a) | 2/3 abolished; band open |
 | `MR/ZetaLowerAllT.lean:83` | mask (b) | **F1** |
 | `MR/ZetaLowerAllT.lean:140` | mask (b′) | new stone |
-| `MR/SiegelArm.lean:166` | `LFunction_band_lower`, χ≠1 | **genuinely ineffective** (Siegel; `:161` docstring says so) — not this wall |
-| `MR/SiegelArm.lean:396` | `zeta_upper_band` | free kill above |
+| `MR/SiegelArm.lean:177` | `LFunction_band_lower`, χ≠1 | **genuinely ineffective** (Siegel; `:172` docstring says so) — not this wall |
+| `MR/SiegelArm.lean:407` | `zeta_upper_band` | free kill above |
 | `MR/HalaszPrimesCore.lean:589` | `zeta_zero_free_strip_height {M}` (`:570`), infDist on `|t| ≤ M` | same genre as `ZetaZeroFree:203`, height-parametric; not yet re-based on the sharp strip |
 | `MR/CompactMin.lean:127` | `isCompact_Icc` min, different genre | out of scope |
 
@@ -104,7 +104,7 @@ The answer to "does a ζ version of `LFunction_norm_logDeriv_sub_sum'` exist?" i
 - `hasDerivAt_log_norm_horiz` — `MR/ChiLLower.lean:87` — `d/dv log‖F(v+c)‖ = Re(logDeriv F)`, `F` arbitrary. (ζ-specialised copy: `MR/ZetaPowLower.lean:144`.)
 - **`norm_Zc_lower_of_shallow_ball`** — `MR/ZetaInvShallow.lean:225` — **the template**: Landau ball on `G = Zc/Zc(c)`, zero set forced EMPTY, then `Convex.norm_image_sub_le_of_norm_hasDerivWithin_le` transports `log‖Zc‖` horizontally at cost `≤ 1` (`:305`). Everything in the new stone except the non-empty zero set is here already.
 - `near_norm_logDeriv_Zc_le` — `MR/ZetaPowLower.lean:301` — **the zero-count block** (`:334–390`): from the exported factorization it recovers `∑_{ρ∈Z} m_ρ ≤ log(4M₀)/log(7/6)` via `analyticOrderAt_eq_of_factorization` + divisor locality + `entire_zero_count_le`. Directly liftable.
-- `zeta_near_bridge` — `MR/ZetaPowLower.lean:843` — FTC over a horizontal segment with continuity-of-`logDeriv` integrability, ζ version.
+- `zeta_near_bridge` — `MR/ZetaPowLower.lean:845` — FTC over a horizontal segment with continuity-of-`logDeriv` integrability, ζ version.
 - `norm_logDeriv_le_of_ball_dist` — `SW/ShiftVariants.lean:45` — the L-side distance form.
 - Ceilings: `TauExt.lean:121` `zetaHol_norm_le` (`≤ 3+2|Im s|` on `1/2 ≤ Re ≤ 1`), `:152` `zetaHol_bound_tall`, `:162` `zetaHol_bound_five`. **Not usable here** — `zetaHol` is the *completed/regularised* object of the DH lane; the pole patch needs `Zc`, whose ceiling is `Zc_sphere_bound_sharp`. Record as a non-lead.
 
@@ -170,7 +170,7 @@ Where the EPSILON-SHARP separation buys: `sep` enters as `N·log(1/sep)`, i.e. `
 
 - **(a)** `Zc_band_lower` at `T=2`, `η := c₄/log2⁹` → feeds `hband` of `Zc_patch_lower_bounded_of_band` (`EpsilonZero.lean:428`, note the `1/5 ≤ ‖z−1‖` hypothesis is exactly what the stone assumes) → floor `min δ₀ (1/4)` on the whole `Zc_patch_lower` rectangle → `zeta_inv_shallow_explicit` with `C = max(1/c, 4/(δ₀ log2⁷), 4/log2⁷)` fully explicit. **Caveat:** the explicit `a` requires re-deriving `zeta_inv_shallow` off `zeta_zero_free_region_sharp_bounded` (`:927`) rather than the opaque `zeta_zero_free_region` at `ZetaInvShallow.lean:120`. That is a re-run of `:116–234` with two `obtain`s changed, not a new proof.
 - **(b)** does **not** consume the stone. `zeta_lower_compact_mid_explicit` off `zeta_lower_shallow` (F1).
-- **(b′)** `Zc_band_lower` at `T=3, η=0`, plus `Zc_lower_near_pole` for `‖z−1‖ ≤ 1/5` and `Zc_lower_of_two_le_re` for `Re ≥ 2` → `zeta_lower_small_t_explicit` with `δ = min δ₀ (7/25) / 4`. Also de-opaques `SiegelArm.lean:235`.
+- **(b′)** `Zc_band_lower` at `T=3, η=0`, plus `Zc_lower_near_pole` for `‖z−1‖ ≤ 1/5` and `Zc_lower_of_two_le_re` for `Re ≥ 2` → `zeta_lower_small_t_explicit` with `δ = min δ₀ (7/25) / 4`. Also de-opaques `SiegelArm.lean:246`.
 - Both feed `zeta_lower_all_t_of_pow` (`ZetaLowerAllT.lean:185`), whose `c'' = min c' (min ε₀ δ)` then becomes explicit modulo `zeta_pow_lower`'s own `c'`. Downstream consumer: `MR/NonPret.lean:123`.
 
 ### 3.6 Effectivity twins owed (the EPSPIN genre, no new analysis)

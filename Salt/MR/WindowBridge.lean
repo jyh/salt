@@ -27,7 +27,7 @@ its coefficient mass (`norm_windowSum_le_mass`, used verbatim inside
 `windowSum` factors sit at `c₀∓β`, and `α` appears only in the kernel's Poisson line
 `c₀−α−β` (i.e. inside gate (c)'s `Kα = B(c₀−α−β)·(π/(c₀−α−β)²)·√((c₀−β)(c₀+β))`, not in the
 mass page).  This agrees with the `JointHead` residual record's own gate (a)
-(`JointHead.lean:604-610`) and makes the product page **α-uniform** — strictly stronger
+(`JointHead.lean:611-617`) and makes the product page **α-uniform** — strictly stronger
 than the per-`(α,β)` target the ladder anticipated: there is no `X^α·y^{−α}` factor for the
 consumer to absorb against the kernel.  `window_bridge_shifted` is nevertheless supplied
 for a low leg placed on the kernel line `c₀−α−β`, and it does carry the predicted
@@ -69,11 +69,11 @@ gives `σ ≍ η`, `min ≍ 1/η`; `y = √X` (empty window) makes both sums `0`
 target is `≤ 9e A²` uniformly — no corner is checked separately.
 
 **What is NOT claimed.**  The refuted `(X/y)^{2β}` shape of the `JointHead` residual record
-(`JointHead.lean:613`) is not stated anywhere here (freeze ruling 3: TRUE but UNCOMPOSABLE).
+(`JointHead.lean:620`) is not stated anywhere here (freeze ruling 3: TRUE but UNCOMPOSABLE).
 
 ## The `hbridge` adapter — residual
 
-`sigma_wiring`'s `hbridge` (`JointHead.lean:277`) is an *integral*-level binder
+`sigma_wiring`'s `hbridge` (`JointHead.lean:280`) is an *integral*-level binder
 (`∫β supF·crossKer ≤ Kα·∫σ Fbound/σ`).  Reaching it from this file's mass product still
 needs the S-ladder's remaining links, exactly as the `JointHead` residual record lists them:
 gate (c)'s chaining (`mixed_weight_cs` ∘ `lorentz_compare` ∘ `k4_plan_le_diag_sharp` ∘

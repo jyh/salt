@@ -26,7 +26,7 @@ support is imposed.
 replace the E_priced route with `ramErr_moment_split_mr_windowed`:
 - the ONE missing stone: the sharp p²-mass at `ramP2domMR` (the window
   in the index filter, NO hwin) — the Σ-half is landed
-  (SmallStones:462–464, 8/P); the max-half is a ~30-line port of
+  (SmallStones:464–466, 8/P); the max-half is a ~30-line port of
   ramP2coeff_norm_div_le with the by_cases replaced by the ramHonMR
   membership read. Target 16·log₂(2X)/(X·P).
 - witEP2's 4/3 bump (the split's prefactor 4 vs E_priced's 3), rippling

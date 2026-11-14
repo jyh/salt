@@ -67,16 +67,28 @@ def intSieve (M K t : ℕ) (ht : 2 ≤ t) : SelbergSieve where
     have h2 : (2 : ℝ) ≤ t := by exact_mod_cast ht
     nlinarith only [h2, (Nat.cast_nonneg _ : 0 ≤ ↑t)]
 
+/-- The interval sieve's prime product (`@[simp]`, `rfl`): `(intSieve M K t ht).prodPrimes` is
+`roughP 1 t`. Read twice in this file; no consumer outside it. -/
 @[simp] lemma intSieve_prodPrimes (M K t : ℕ) (ht : 2 ≤ t) :
     (intSieve M K t ht).prodPrimes = roughP 1 t := rfl
+/-- The interval sieve's level (`@[simp]`, `rfl`): `t ^ 2`. Read once in this file; no consumer
+outside it. -/
 @[simp] lemma intSieve_level (M K t : ℕ) (ht : 2 ≤ t) :
     (intSieve M K t ht).level = (t : ℝ) ^ 2 := rfl
+/-- The interval sieve's total mass (`@[simp]`, `rfl`): `K - M`. Read twice in this file; no
+consumer outside it. -/
 @[simp] lemma intSieve_totalMass (M K t : ℕ) (ht : 2 ≤ t) :
     (intSieve M K t ht).totalMass = (K : ℝ) - (M : ℝ) := rfl
+/-- The interval sieve's density (`@[simp]`, `rfl`): `apNu`. Read once in this file; no consumer
+outside it. -/
 @[simp] lemma intSieve_nu (M K t : ℕ) (ht : 2 ≤ t) :
     (intSieve M K t ht).nu = apNu := rfl
+/-- The interval sieve's support (`@[simp]`, `rfl`): `Finset.Ioc M K`. Read twice in this file;
+no consumer outside it. -/
 @[simp] lemma intSieve_support (M K t : ℕ) (ht : 2 ≤ t) :
     (intSieve M K t ht).support = Finset.Ioc M K := rfl
+/-- The interval sieve's weights (`@[simp]`, `rfl`): `1` at every `n`. Read twice in this file;
+no consumer outside it. -/
 @[simp] lemma intSieve_weights (M K t : ℕ) (ht : 2 ≤ t) (n : ℕ) :
     (intSieve M K t ht).weights n = 1 := rfl
 
@@ -172,6 +184,9 @@ lemma intSieve_rem_abs_le (M K t : ℕ) (hMK : M ≤ K) (ht : 2 ≤ t)
 `intSieve M K t` and `roughSieve 0 1 0 t` share `ν`, `prodPrimes`, `level`, hence
 the same Selberg terms and the same bounding sum. -/
 
+/-- The interval sieve's Selberg bounding sum is that of `roughSieve 0 1 0 t ht`, by `rfl`: the
+sum reads only the prime product, the level and the density. Read once in this file; no consumer
+outside it. -/
 lemma intSieve_boundingSum_eq (M K t : ℕ) (ht : 2 ≤ t) :
     Salt.SelbergPort.selbergBoundingSum (intSieve M K t ht)
       = Salt.SelbergPort.selbergBoundingSum (roughSieve 0 1 0 t ht) := rfl

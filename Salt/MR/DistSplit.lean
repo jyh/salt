@@ -193,7 +193,7 @@ theorem dist_split_A4_recentered {f gJ : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤
   dist_split_A4 hf hgJ (dist_recenter_sq hf hL hS hSL) hloss
 
 /-- **R3.1, on the concrete windowed factor `fg_J`.**  `dist_split_A4` specialized to
-`g_J ↦ fgJ f t₀ y Y` (the seam's windowed–twisted `f`, `HalaszSeam.lean:269`):
+`g_J ↦ fgJ f t₀ y Y` (the seam's windowed–twisted `f`, `HalaszSeam.lean:271`):
 an `f`-side floor `Lf ≤ 𝔻(f, n^{it})²` and the window-loss bound
 `𝔻(f, fg_J)² ≤ W` give `(1/2)·Lf − W ≤ 𝔻(fg_J, n^{it})²` — R3.1's frozen conclusion
 shape up to the `Lf = (1/16)loglog` / `W`-numeral discharge in `PropA3Core`.  The

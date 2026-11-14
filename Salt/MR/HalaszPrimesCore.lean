@@ -1104,7 +1104,7 @@ The high-height half of `shifted_edge_price`: for the shifted rectangle's LEFT s
 `z = σ₀ + iγ` (`σ₀ = 1 − (c_vk/2)/D₃(5T+1)`) at a height `γ ≤ 5T` above the strip threshold,
 the entire factor `logDeriv Zc` is priced at the honest `D₄(5T+1)`-grade
 `(log(5T+1))^{3/4}(loglog(5T+1))⁴`.  The tuned mirror of `zeta_near_bound_core`
-(`ZetaPowLower.lean:449`) at the LEFT point: same sphere discharge (`Zc_ratio_sphere_bound`),
+(`ZetaPowLower.lean:451`) at the LEFT point: same sphere discharge (`Zc_ratio_sphere_bound`),
 same `Pinv/W/Mζ` region numerics, but the point sits LEFT of the 1-line, so `hZcs`/`hdist` come
 from the shifted-rectangle margin (`rect_zero_free_margin`, supplied as `hmargin`) and the
 centering `hsc` runs the honest `(17/35)` constant-chase.  Amendment L11-W′: the disc at height
@@ -1802,6 +1802,10 @@ section PerPairContour
 open Complex Salt.SW Salt.Vk Metric intervalIntegral
 
 -- Helper 1: the Zc-Chebyshev sliver bound.
+/-- The `Zc`-Chebyshev bound on the real axis: for `1 < x`, `∑ Λ(n) / n ^ x` is at most
+`1 / (x - 1) + ‖logDeriv Zc x‖` — the sum is `-ζ'/ζ (x)`, split as the pole term minus the
+logarithmic derivative of `Zc`. Read twice in this file and by `TwistedEdge`, `V7B` and
+`ZetaNegLogDerivLower`. -/
 lemma sum_vonMangoldt_le_pole_add_Zc {x : ℝ} (hx : 1 < x) :
     ∑' n, vonMangoldt n / (n : ℝ) ^ x ≤ 1 / (x - 1) + ‖logDeriv Zc (x : ℂ)‖ := by
   set S : ℝ := ∑' n, vonMangoldt n / (n : ℝ) ^ x with hSdef
@@ -1931,6 +1935,12 @@ set_option maxHeartbeats 12800000 in
 -- The σ-generalized disc-core copies `shifted_edge_disc_core`'s sphere discharge + `Pinv/W/Mζ`
 -- region numerics + closing `D₄` assembly verbatim (only `hsc`/`hζs`/`hdist` adapt to the general
 -- real part `x ∈ [σ₀, 1+w]`); the closing arithmetic needs the same 12.8M budget as its template.
+/-- The region bound on the near-`1` strip, at a general zero-free margin: given the growth
+bound `hg` of `ζ` with constant `K` and a margin `c_vk` for the zeros up to height `5 * T + 1`
+(`hmargin`), for `x` within half that margin of `1` and `γ` large with `γ ≤ 5 * T`,
+`‖logDeriv Zc (x + γ * I)‖` is at most `10 ^ 8 + 200 / c_vk` times
+`(log (5T+1)) ^ (3/4) * (log log (5T+1)) ^ 4`. Route: `near_norm_logDeriv_Zc_le`, then the two
+terms priced. Read twice in this file and by `RiderTrace`. -/
 lemma shifted_edge_disc_core_gen {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤ t₀K)
     (hg : ∀ σ t : ℝ, t₀K ≤ t → 1 - vkTheta t ≤ σ → σ ≤ 3 →
       ‖riemannZeta ((σ : ℂ) + (t : ℂ) * Complex.I)‖ ≤ K * Real.log t)
@@ -2240,6 +2250,12 @@ lemma shifted_edge_disc_core_gen {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3
 set_option maxHeartbeats 800000 in
 -- The strip generalization threads the same threshold/disc-core assembly as `shifted_edge_price`
 -- across `x ∈ [1−w, 1+w]`; the default budget is tight for the packaged case split.
+/-- The strip form of the shifted-edge price: constants `c_vk`, `CE`, `T₀` such that, for
+`T ≥ T₀`, the zeros of `ζ` up to height `5 * T + 1` keep the margin `c_vk` over
+`(log (5T+1)) ^ (3/4) * (log log (5T+1)) ^ 3`, and `‖logDeriv Zc (x + γ * I)‖` is at most `CE`
+times `(log (5T+1)) ^ (3/4) * (log log (5T+1)) ^ 4` for `|γ| ≤ 5 * T` and `x` within half the
+margin of `1`. Route: `rect_zero_free_margin`, `shifted_edge_disc_core_gen` at large `|γ|`, a
+compact bound below. Read once in this file; no consumer outside it. -/
 theorem shifted_edge_price_strip :
     ∃ (c_vk CE T₀ : ℝ), 0 < c_vk ∧ 0 < CE ∧ 3 ≤ T₀ ∧
       (∀ (T : ℝ), T₀ ≤ T → ∀ ρ : ℂ, riemannZeta ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
@@ -2395,6 +2411,14 @@ theorem shifted_edge_price_strip :
 set_option maxHeartbeats 12800000 in
 -- The full contour assembly (four sub-bounds + orientation glue) is heavy; the disc-core-grade
 -- 12.8M budget is warranted for the whole-theorem elaboration.
+/-- **A-1, the per-pair contour estimate**: constants `c_vk`, `C₁`, `C₂`, `C₃`, `T₀` such that,
+for `T ≥ T₀`, `P ≥ 2` and `|u| ≤ 2 * T`, the `primeWindow P`-weighted sum of
+`Λ(n) * n ^ (u * I)` differs from `windowKernel P 1 u` by at most a left-edge term (`C₁ * P`
+times the zero-free exponential saving and the strip grade), a truncation term
+`C₂ * P * log P / T` and a horizontal term in `P / T ^ 2`. Route: `primeWindow_contour_rep` and
+`pole_residue_term` on the rectangle, the left edge by `shifted_edge_price_strip`, the
+horizontals by the region bound and `sum_vonMangoldt_le_pole_add_Zc`. Read once in this file and
+by `PortAssembly`. -/
 theorem per_pair_contour :
     ∃ (c_vk C₁ C₂ C₃ T₀ : ℝ), 0 < c_vk ∧ 0 < C₁ ∧ 0 < C₂ ∧ 0 < C₃ ∧ 3 ≤ T₀ ∧
       ∀ (T P u : ℝ), T₀ ≤ T → 2 ≤ P → |u| ≤ 2 * T →
@@ -3170,6 +3194,8 @@ lemma conj_ncast_cpow {n : ℕ} (hn : 1 ≤ n) (w : ℂ) :
   rw [map_natCast] at h
   exact h.symm
 
+/-- The windowed pair series is summable at `0 < P`: `primeWindow P n` vanishes for `n ≥ 3 * P`,
+so only finitely many terms are non-zero. Read once in this file and by `PortAssembly`. -/
 lemma summable_window_pair {P : ℝ} (hP0 : 0 < P) (u : ℝ) :
     Summable (fun n =>
       ((vonMangoldt n : ℂ) * (n : ℂ) ^ ((u : ℂ) * I)) * (primeWindow P n : ℂ)) := by

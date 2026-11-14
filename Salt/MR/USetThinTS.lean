@@ -57,7 +57,7 @@ is an explicit expression — never absorbed silently.
   `ramRrange ⊆ Finset.Icc 1 M` only, and the prime factor is an opaque `ramQ` norm.
 * `WellSpaced` (LargeValues:48) is `∀ t ∈ 𝒯, ∀ r ∈ 𝒯, t ≠ r → 1 ≤ |t − r|`; `Set.Icc (-T) T`
   is the closed window Lemma 9 wants.
-* `Uset` (Decomp:231) is the *no small index* set; `Uset_thin`'s `hU` is consumed verbatim.
+* `Uset` (Decomp:234) is the *no small index* set; `Uset_thin`'s `hU` is consumed verbatim.
 
 ## What is NOT here
 
@@ -80,10 +80,14 @@ of `m ↦ b m · (ω(m;P,Q)+1)⁻¹` masked to the co-factor range `ramRrange H 
 noncomputable def ramRcoeff (H : ℝ) (N X P Q j : ℕ) (b : ℕ → ℂ) (m : ℕ) : ℂ :=
   if m ∈ ramRrange H N X j then b m * ((blockOmega P Q m : ℂ) + 1)⁻¹ else 0
 
+/-- `ramRcoeff H N X P Q j b m = 0` for `m` outside `ramRrange H N X j`: the second branch of
+the `if`. Read twice in this file and by `MultShiuBridge` and `RamRAdapter`. -/
 lemma ramRcoeff_of_notMem (H : ℝ) (N X P Q j : ℕ) (b : ℕ → ℂ) {m : ℕ}
     (hm : m ∉ ramRrange H N X j) : ramRcoeff H N X P Q j b m = 0 := by
   rw [ramRcoeff, if_neg hm]
 
+/-- `ramRrange H N X j ⊆ Finset.Icc 1 N`: a filter is a subset. Read by `TLegPreamble`; not read
+in this file. -/
 lemma ramRrange_subset_Icc (H : ℝ) (N X j : ℕ) : ramRrange H N X j ⊆ Finset.Icc 1 N := by
   unfold ramRrange
   exact Finset.filter_subset _ _
@@ -163,10 +167,14 @@ noncomputable def TsetSmall (H : ℝ) (P Q j : ℕ) (c : ℕ → ℂ) (ε : ℝ)
     Finset ℝ :=
   𝒯.filter (fun t => ‖ramQ H P Q j c t‖ ≤ ε)
 
+/-- `t ∈ TsetSmall H P Q j c ε 𝒯 ↔ t ∈ 𝒯 ∧ ‖ramQ H P Q j c t‖ ≤ ε`: the filter unfolded. Read
+once in this file; no consumer outside it. -/
 lemma mem_TsetSmall {H : ℝ} {P Q j : ℕ} {c : ℕ → ℂ} {ε : ℝ} {𝒯 : Finset ℝ} {t : ℝ} :
     t ∈ TsetSmall H P Q j c ε 𝒯 ↔ t ∈ 𝒯 ∧ ‖ramQ H P Q j c t‖ ≤ ε := by
   rw [TsetSmall, Finset.mem_filter]
 
+/-- `TsetSmall H P Q j c ε 𝒯 ⊆ 𝒯`: a filter is a subset. Read once in this file; no consumer
+outside it. -/
 lemma TsetSmall_subset (H : ℝ) (P Q j : ℕ) (c : ℕ → ℂ) (ε : ℝ) (𝒯 : Finset ℝ) :
     TsetSmall H P Q j c ε 𝒯 ⊆ 𝒯 := Finset.filter_subset _ _
 
@@ -224,6 +232,8 @@ noncomputable def thinBundle (T V : ℝ) (Pj Qj : ℕ) : ℝ :=
   ((dyadicPairs Pj Qj).card : ℝ)
     * (840 * V ^ 2 * Real.exp (2 * (Real.log T / Real.log Pj) * Real.log (Real.log T)))
 
+/-- `0 ≤ thinBundle T V Pj Qj`, for all arguments: the definition unfolded, its exponential
+factor positive (`positivity`). Read once in this file; no consumer outside it. -/
 lemma thinBundle_nonneg (T V : ℝ) (Pj Qj : ℕ) : 0 ≤ thinBundle T V Pj Qj := by
   rw [thinBundle]
   have h := Real.exp_pos (2 * (Real.log T / Real.log Pj) * Real.log (Real.log T))

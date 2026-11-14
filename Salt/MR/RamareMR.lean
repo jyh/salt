@@ -87,6 +87,9 @@ noncomputable def ramGenCoeff (H : ℝ) (N P Q : ℕ) (W : ℕ → ℕ → Finse
   ∑ σ ∈ (ramGenDom H N P Q W).filter (fun σ => σ.2.1 * σ.2.2 = n),
     c σ.2.1 * b σ.2.2 * ((blockOmega P Q σ.2.2 : ℂ) + 1)⁻¹
 
+/-- Membership in the general domain: `σ ∈ ramGenDom H N P Q W` iff its block index is in
+`ramI H P Q`, its prime in that block's `ramQblock`, and its cofactor in `Finset.Icc 1 N` and in
+the window `W` at that index and prime. Read five times in this file; no consumer outside it. -/
 lemma mem_ramGenDom {H : ℝ} {N P Q : ℕ} {W : ℕ → ℕ → Finset ℕ} {σ : Σ _ : ℕ, ℕ × ℕ} :
     σ ∈ ramGenDom H N P Q W ↔ (σ.1 ∈ ramI H P Q ∧ σ.2.1 ∈ ramQblock H P Q σ.1 ∧
       σ.2.2 ∈ Finset.Icc 1 N ∧ σ.2.2 ∈ W σ.1 σ.2.1) := by
@@ -372,10 +375,14 @@ noncomputable def ramSeamLoPoly (H : ℝ) (N X P Q : ℕ) (b c : ℕ → ℂ) (t
 noncomputable def ramSeamUpPoly (H : ℝ) (N X P Q : ℕ) (b c : ℕ → ℂ) (t : ℝ) : ℂ :=
   ramGenPoly H P Q (ramSeamUpW H N X) b c t
 
+/-- `ramSeamLoW H N X j p ⊆ Finset.Icc 1 N`: a filter of `ramSeam`, itself a filter of that
+range. Read twice in this file; no consumer outside it. -/
 lemma ramSeamLoW_sub (H : ℝ) (N X : ℕ) (j p : ℕ) : ramSeamLoW H N X j p ⊆ Finset.Icc 1 N := by
   refine subset_trans (Finset.filter_subset _ _) ?_
   rw [ramSeam]; exact Finset.filter_subset _ _
 
+/-- `ramSeamUpW H N X j p ⊆ Finset.Icc 1 N`: a filter of `ramSeamUpper`, itself a filter of that
+range. Read twice in this file; no consumer outside it. -/
 lemma ramSeamUpW_sub (H : ℝ) (N X : ℕ) (j p : ℕ) : ramSeamUpW H N X j p ⊆ Finset.Icc 1 N := by
   refine subset_trans (Finset.filter_subset _ _) ?_
   rw [ramSeamUpper]; exact Finset.filter_subset _ _
@@ -673,6 +680,10 @@ noncomputable def ramP2coeffMR (N X P Q : ℕ) (a b c : ℕ → ℂ) (n : ℕ) :
     ((ramareWeight P Q σ.1 σ.2 : ℂ) * a (σ.1 * σ.2)
       - b σ.2 * c σ.1 * ((blockOmega P Q σ.2 : ℂ) + 1)⁻¹)
 
+/-- The `p²`-correction is a Dirichlet polynomial: at `1 ≤ X` and `2 * X ≤ N`,
+`ramP2corrMR N X P Q a b c t = spoly N (ramP2coeffMR N X P Q a b c) t`, by fibering the double
+sum over the product `p * m`, which lies in `Finset.Icc 1 N`. Read once in this file; no
+consumer outside it. -/
 theorem ramP2corrMR_eq_spoly (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ N) (a b c : ℕ → ℂ)
     (t : ℝ) :
     ramP2corrMR N X P Q a b c t = spoly N (ramP2coeffMR N X P Q a b c) t := by
@@ -713,6 +724,8 @@ theorem ramP2corrMR_moment (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ N) (a 
   rw [hcongr]
   exact moment_core_bound N (ramP2coeffMR N X P Q a b c) T
 
+/-- `ramP2corrMR N X P Q a b c` is continuous in `t`: a finite sum of `continuous_cterm` terms
+at `p * m ≠ 0`. Read once in this file and by `SeamRowWindowed`. -/
 lemma continuous_ramP2corrMR (N X P Q : ℕ) (a b c : ℕ → ℂ) :
     Continuous (ramP2corrMR N X P Q a b c) := by
   unfold ramP2corrMR
@@ -723,16 +736,22 @@ lemma continuous_ramP2corrMR (N X P Q : ℕ) (a b c : ℕ → ℂ) :
   exact ((continuous_cterm hpm (a (p * m))).const_smul _).sub
     ((continuous_cterm hpm (b m * c p)).mul continuous_const)
 
+/-- `ramSeamLoPoly H N X P Q b c` is continuous: `continuous_ramGenPoly` at the lower seam
+window (`ramSeamLoW_sub`). Read once in this file and by `SeamRowWindowed`. -/
 lemma continuous_ramSeamLoPoly (H : ℝ) (N X P Q : ℕ) (b c : ℕ → ℂ) :
     Continuous (ramSeamLoPoly H N X P Q b c) :=
   continuous_ramGenPoly H N P Q (ramSeamLoW H N X) (ramSeamLoW_sub H N X) b c
 
+/-- `ramSeamUpPoly H N X P Q b c` is continuous: `continuous_ramGenPoly` at the upper seam
+window (`ramSeamUpW_sub`). Read once in this file and by `SeamRowWindowed`. -/
 lemma continuous_ramSeamUpPoly (H : ℝ) (N X P Q : ℕ) (b c : ℕ → ℂ) :
     Continuous (ramSeamUpPoly H N X P Q b c) :=
   continuous_ramGenPoly H N P Q (ramSeamUpW H N X) (ramSeamUpW_sub H N X) b c
 
 /-! ## M3 — Lemma 12's mean square at the MR range, with NO `hwin` -/
 
+/-- `‖u + v‖ ^ 2 ≤ 2 * ‖u‖ ^ 2 + 2 * ‖v‖ ^ 2` in `ℂ`: the triangle inequality and
+`(‖u‖ - ‖v‖) ^ 2 ≥ 0`. Read three times in this file; no consumer outside it. -/
 lemma norm_add_sq_le_two (u v : ℂ) : ‖u + v‖ ^ 2 ≤ 2 * ‖u‖ ^ 2 + 2 * ‖v‖ ^ 2 := by
   nlinarith only [norm_add_le u v, norm_nonneg (u + v),
       norm_nonneg v, norm_nonneg u, sq_nonneg (‖u‖ - ‖v‖)]

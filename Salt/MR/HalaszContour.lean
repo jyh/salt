@@ -270,6 +270,9 @@ private lemma norm_poisF_ofReal {θ c : ℝ} (hc : 0 < c) (t : ℝ) :
   rw [h1, Real.exp_zero, Complex.norm_real, Real.norm_eq_abs,
     abs_of_pos (by positivity : (0:ℝ) < c ^ 2 + t ^ 2), one_div]
 
+/-- `t ↦ poisF θ c t` is integrable on `ℝ` at `0 < c`: continuous, with norm
+`1 / (c ^ 2 + t ^ 2)` (`norm_poisF_ofReal`), which is integrable. Private; read four times in
+this file. -/
 private lemma integrable_poisF_ofReal {θ c : ℝ} (hc : 0 < c) :
     Integrable (fun t : ℝ => poisF θ c (t : ℂ)) := by
   refine (Salt.SW.integrable_inv_c_sq_add_sq hc).mono' ?_

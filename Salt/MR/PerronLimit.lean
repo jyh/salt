@@ -495,6 +495,9 @@ branch. -/
 def perronConst (a : ℕ → ℂ) (s0 : Finset ℕ) (y c : ℝ) : ℝ :=
   ∑ m ∈ s0, ‖a m‖ * (2 * (y / (m : ℝ)) ^ c / |Real.log (y / (m : ℝ))|)
 
+/-- `0 ≤ perronConst a s0 y c` at `0 < y` when every index of `s0` is positive: each summand is
+a norm times a positive power over an absolute value. No consumer at `main`, in this file or
+outside it. -/
 lemma perronConst_nonneg (a : ℕ → ℂ) (s0 : Finset ℕ) {y c : ℝ} (hy : 0 < y)
     (hpos : ∀ m ∈ s0, 0 < m) : 0 ≤ perronConst a s0 y c := by
   refine Finset.sum_nonneg fun m hm => ?_

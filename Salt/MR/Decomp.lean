@@ -56,6 +56,9 @@ def BlockPrimeDivs (P Q n : ℕ) : Finset ℕ :=
 /-- `ω(n; P, Q)` — the number of distinct block primes dividing `n` (MR p.19). -/
 def blockOmega (P Q n : ℕ) : ℕ := (BlockPrimeDivs P Q n).card
 
+/-- `p ∈ BlockPrimeDivs P Q n ↔ p.Prime ∧ p ∣ n ∧ n ≠ 0 ∧ P ≤ p ∧ p ≤ Q`: the filter of
+`n.primeFactors` unfolded. Read three times in this file and by `M4Seam`, `MRTProp24`,
+`RamareDpoly`, `RamareErr`, `RamareMR`, `TypicalDensity` and `TypicalPrice`. -/
 lemma mem_blockPrimeDivs {P Q n p : ℕ} :
     p ∈ BlockPrimeDivs P Q n ↔ p.Prime ∧ p ∣ n ∧ n ≠ 0 ∧ P ≤ p ∧ p ≤ Q := by
   rw [BlockPrimeDivs, Finset.mem_filter, Nat.mem_primeFactors]

@@ -365,7 +365,7 @@ theorem sigma_reparam_le {F : ℝ → ℝ} {L η : ℝ} (hL0 : 0 < L) (hη : 1 /
   exact hFnn σ hσ
 
 /-- **THE `hbridge` ADAPTER (`bridge_adapter`).**  `sigma_wiring`'s `hbridge` binder
-(`JointHead.lean:277`) produced VERBATIM from the two honest inputs:
+(`JointHead.lean:280`) produced VERBATIM from the two honest inputs:
 
 * `hcross` — the per-`(α,β)` pointwise bound `crossKer α β ≤ Kα·(1/σ)` (§3's exit
   `crossKer_sigma_bound`, at the pinned home);
@@ -444,7 +444,7 @@ theorem sigma_wiring_of_crossKer {g : ℕ → ℂ} {X h y c₀ t₀ L η M Kα �
 /-! ### RESIDUAL RECORD (§4) — what the adapter still waits for
 
 `bridge_adapter`/`sigma_wiring_of_crossKer` close the WIRING of the `hbridge` residual
-recorded at `JointHead.lean:598-650`: its items 1 (the parameter relations `c₀ = 1+1/L`,
+recorded at `JointHead.lean:605-657`: its items 1 (the parameter relations `c₀ = 1+1/L`,
 `L = log X`) and 2 (the `σ ⇄ [1/L, 2η]` range) are now discharged — item 1 by
 `WindowBridge`'s pinned hypotheses flowing through `crossKer_bridge_pinned`, item 2 by
 `sigma_reparam`/`sigma_reparam_le` under the explicit gate `1/L ≤ η`.

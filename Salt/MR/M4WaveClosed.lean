@@ -169,6 +169,9 @@ theorem norm_sum_windowClass_le_of_norm_le_one {a : ℕ → ℂ} (ha : ∀ m, �
     rwa [Nat.card_Ioc, Nat.add_sub_cancel_left] at h
   exact_mod_cast hcard
 
+/-- `classSup a H n q r ≤ H` for a datum with `‖a m‖ ≤ 1`: each class sum over a sub-window of
+length `K ≤ H` has norm `≤ K` (`norm_sum_windowClass_le_of_norm_le_one`), and `classSup_le`
+takes the sup. Read twice in this file and by `HDoorClose` and `M4NonCoprime`. -/
 theorem classSup_le_of_norm_le_one {a : ℕ → ℂ} (ha : ∀ m, ‖a m‖ ≤ 1) (H n q r : ℕ) :
     classSup a H n q r ≤ (H : ℝ) :=
   classSup_le fun K hK =>
@@ -201,6 +204,29 @@ def M4ClassBlockMeanSq (R : ChowlaRegime) (M k : ℕ) (Bcl : ℕ → ℝ) : Prop
       ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
           (classSup (doorSievedCoeff M) H n q r) ^ 2
         ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
+
+/-- **⟦O13-e row 145, batch 4⟧** `M4BridgeCover.doorSievedCoeff` over the door parameters
+`(Ad, zd)`: the base, `_gk`, `_L` and `_L_gk` sieved coefficients are its four corners. -/
+def doorSievedCoeffAZ (Ad zd M : ℕ) : ℕ → ℂ :=
+  memSCoeff (calP Ad zd) (calQK Ad zd M) 2 liouvilleC
+
+/-- **⟦O13-e row 145, L5⟧** `M4ClassBlockMeanSq` over the door parameters `(Ad, zd)`: the base,
+`_gk`, `_L` and `_L_gk` per-class block mean squares are its four corners. -/
+def M4ClassBlockMeanSqAZ (Ad zd : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bcl : ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+    ∀ i < k, ∀ r, r < q →
+      ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          (classSup (doorSievedCoeffAZ Ad zd M) H n q r) ^ 2
+        ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
+
+/-- **⟦O13-e row 145, L6⟧** `M4BlockMeanSqSupQ` over the door parameters `(Ad, zd)`: the base,
+`_gk`, `_L` and `_L_gk` block mean-square sups are its four corners. -/
+def M4BlockMeanSqSupQAZ (Ad zd : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bblk : ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ (b : ℤ) (q : ℕ), 0 < q → (q : ℝ) ≤ arcDen 12 H →
+    ∀ i < k,
+      ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          (subWindowSup (doorSievedCoeffAZ Ad zd M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+        ≤ Bblk H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
 
 /-- **THE ANTI-VACUITY WITNESS** (the house's duty, mirroring
 `M4Join.m4_blockMeanSqSup_trivial`).  At the trivial grade `B_cl ≡ 1` every class sup is
@@ -253,43 +279,43 @@ the per-class datum `q` times gives `q²·B_cl H·H²·X_{i+1}`, which is
 Compare `M4ClassPrice.m4_blockMeanSqSupQ_of_classPrice`: identical output grade, but its
 input is the pointwise class price (a bound at every `n` of the block).  Here the block sum
 is the input — the shape a mean-square supplier produces. -/
-theorem m4_blockMeanSqSupQ_of_classMeanSq {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
-    (hcl : M4ClassBlockMeanSq R M k Bcl) : M4BlockMeanSqSupQ R M k Bcl := by
+theorem m4_blockMeanSqSupQ_of_classMeanSq_AZ (Ad zd : ℕ) {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
+    (hcl : M4ClassBlockMeanSqAZ Ad zd R M k Bcl) : M4BlockMeanSqSupQAZ Ad zd R M k Bcl := by
   intro H hlo hhi b q hq hqQ i hik
   have hq0 : (0 : ℝ) ≤ (q : ℝ) := Nat.cast_nonneg q
   -- ⟦pointwise: the split, then Chebyshev⟧
   have hpt : ∀ n : ℕ,
-      (subWindowSup (doorSievedCoeff M) H n ((b : ℝ) / (q : ℝ))) ^ 2
-        ≤ (q : ℝ) * ∑ r ∈ Finset.range q, (classSup (doorSievedCoeff M) H n q r) ^ 2 := by
+      (subWindowSup (doorSievedCoeffAZ Ad zd M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+        ≤ (q : ℝ) * ∑ r ∈ Finset.range q, (classSup (doorSievedCoeffAZ Ad zd M) H n q r) ^ 2 := by
     intro n
-    have hsplit := subWindowSup_le_sum_classSup (doorSievedCoeff M) H n hq b
-    have h0 := subWindowSup_nonneg (doorSievedCoeff M) H n ((b : ℝ) / (q : ℝ))
-    have hsq : (subWindowSup (doorSievedCoeff M) H n ((b : ℝ) / (q : ℝ))) ^ 2
-        ≤ (∑ r ∈ Finset.range q, classSup (doorSievedCoeff M) H n q r) ^ 2 := by
+    have hsplit := subWindowSup_le_sum_classSup (doorSievedCoeffAZ Ad zd M) H n hq b
+    have h0 := subWindowSup_nonneg (doorSievedCoeffAZ Ad zd M) H n ((b : ℝ) / (q : ℝ))
+    have hsq : (subWindowSup (doorSievedCoeffAZ Ad zd M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+        ≤ (∑ r ∈ Finset.range q, classSup (doorSievedCoeffAZ Ad zd M) H n q r) ^ 2 := by
       nlinarith
     refine hsq.trans ?_
     have hcheb := sq_sum_le_card_mul_sum_sq
-      (s := Finset.range q) (f := fun r => classSup (doorSievedCoeff M) H n q r)
+      (s := Finset.range q) (f := fun r => classSup (doorSievedCoeffAZ Ad zd M) H n q r)
     rwa [Finset.card_range] at hcheb
   -- ⟦the block sum⟧
   have hstep1 : ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-      (subWindowSup (doorSievedCoeff M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+      (subWindowSup (doorSievedCoeffAZ Ad zd M) H n ((b : ℝ) / (q : ℝ))) ^ 2
       ≤ ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-          (q : ℝ) * ∑ r ∈ Finset.range q, (classSup (doorSievedCoeff M) H n q r) ^ 2 :=
+          (q : ℝ) * ∑ r ∈ Finset.range q, (classSup (doorSievedCoeffAZ Ad zd M) H n q r) ^ 2 :=
     Finset.sum_le_sum fun n _ => hpt n
   have hswap : ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-      (q : ℝ) * ∑ r ∈ Finset.range q, (classSup (doorSievedCoeff M) H n q r) ^ 2
+      (q : ℝ) * ∑ r ∈ Finset.range q, (classSup (doorSievedCoeffAZ Ad zd M) H n q r) ^ 2
       = (q : ℝ) * ∑ r ∈ Finset.range q,
           ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-            (classSup (doorSievedCoeff M) H n q r) ^ 2 := by
+            (classSup (doorSievedCoeffAZ Ad zd M) H n q r) ^ 2 := by
     rw [← Finset.mul_sum, Finset.sum_comm]
   have hper : ∑ r ∈ Finset.range q,
       ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-        (classSup (doorSievedCoeff M) H n q r) ^ 2
+        (classSup (doorSievedCoeffAZ Ad zd M) H n q r) ^ 2
       ≤ (q : ℝ) * (Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)) := by
     calc ∑ r ∈ Finset.range q,
           ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-            (classSup (doorSievedCoeff M) H n q r) ^ 2
+            (classSup (doorSievedCoeffAZ Ad zd M) H n q r) ^ 2
         ≤ ∑ _r ∈ Finset.range q,
             (Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)) :=
           Finset.sum_le_sum fun r hr =>
@@ -297,13 +323,18 @@ theorem m4_blockMeanSqSupQ_of_classMeanSq {R : ChowlaRegime} {M k : ℕ} {Bcl : 
       _ = (q : ℝ) * (Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)) := by
           rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul]
   calc ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-        (subWindowSup (doorSievedCoeff M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+        (subWindowSup (doorSievedCoeffAZ Ad zd M) H n ((b : ℝ) / (q : ℝ))) ^ 2
       ≤ (q : ℝ) * ∑ r ∈ Finset.range q,
           ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-            (classSup (doorSievedCoeff M) H n q r) ^ 2 := by rw [← hswap]; exact hstep1
+            (classSup (doorSievedCoeffAZ Ad zd M) H n q r) ^ 2 := by rw [← hswap]; exact hstep1
     _ ≤ (q : ℝ) * ((q : ℝ) * (Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ))) :=
         mul_le_mul_of_nonneg_left hper hq0
     _ = Bcl H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) := by ring
+
+/-- `m4_blockMeanSqSupQ_of_classMeanSq_AZ` at the door `(Adoor M, 3072·M)`: the base corner. -/
+theorem m4_blockMeanSqSupQ_of_classMeanSq {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
+    (hcl : M4ClassBlockMeanSq R M k Bcl) : M4BlockMeanSqSupQ R M k Bcl :=
+  m4_blockMeanSqSupQ_of_classMeanSq_AZ (Adoor M) (3072 * M) hcl
 
 /-- **THE SOCKET EXIT** (`m4_sievedDoorSq_of_classMeanSq`) — `M4ClassPrice` §7's steps 3–5,
 entered at the mean-square datum:
@@ -380,20 +411,6 @@ def doorChiSupAZ (Ad zd : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n 
   (Finset.Icc 0 H).sup' ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
     (fun K => ‖∑ m ∈ doorWinAZ Ad zd M K n, liouChi χ m‖)
 
-/-- **⟦O13-e row 145, batch 4⟧** `M4BridgeCover.doorSievedCoeff` over the door parameters
-`(Ad, zd)`: the base, `_gk`, `_L` and `_L_gk` sieved coefficients are its four corners. -/
-def doorSievedCoeffAZ (Ad zd M : ℕ) : ℕ → ℂ :=
-  memSCoeff (calP Ad zd) (calQK Ad zd M) 2 liouvilleC
-
-/-- **⟦O13-e row 145, L5⟧** `M4ClassBlockMeanSq` over the door parameters `(Ad, zd)`: the base,
-`_gk`, `_L` and `_L_gk` per-class block mean squares are its four corners. -/
-def M4ClassBlockMeanSqAZ (Ad zd : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bcl : ℕ → ℝ) : Prop :=
-  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
-    ∀ i < k, ∀ r, r < q →
-      ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-          (classSup (doorSievedCoeffAZ Ad zd M) H n q r) ^ 2
-        ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
-
 /-- `le_doorChiSup` at any `(Ad, zd)`. -/
 theorem le_doorChiSupAZ (Ad zd : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {K : ℕ}
     (hK : K ≤ H) :
@@ -406,6 +423,8 @@ theorem le_doorChiSup {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {K
     ‖∑ m ∈ doorSievedWindow M K n, liouChi χ m‖ ≤ doorChiSup χ M H n :=
   le_doorChiSupAZ (Adoor M) (3072 * M) χ M H n hK
 
+/-- `0 ≤ doorChiSup χ M H n`: a norm is `≥ 0`, and `le_doorChiSup` at `K = 0` puts it below the
+sup. Read by `HDoorClose`, `M4ChiSummed` and `M4CoprimeSupply`; not read in this file. -/
 theorem doorChiSup_nonneg {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) :
     0 ≤ doorChiSup χ M H n :=
   le_trans (norm_nonneg _) (le_doorChiSup χ M H n (Nat.zero_le H))
@@ -967,58 +986,8 @@ theorem m4_classBlockMeanSq_trivial_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) 
 /-- **THE ASSEMBLY AT THE LEVER** — `m4_blockMeanSqSupQ_of_classMeanSq` (:256). -/
 theorem m4_blockMeanSqSupQ_of_classMeanSq_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ}
     {Bcl : ℕ → ℝ}
-    (hcl : M4ClassBlockMeanSq_gk K R M k Bcl) : M4BlockMeanSqSupQ_gk K R M k Bcl := by
-  intro H hlo hhi b q hq hqQ i hik
-  have hq0 : (0 : ℝ) ≤ (q : ℝ) := Nat.cast_nonneg q
-  -- ⟦pointwise: the split, then Chebyshev⟧
-  have hpt : ∀ n : ℕ,
-      (subWindowSup (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))) ^ 2
-        ≤ (q : ℝ) * ∑ r ∈ Finset.range q,
-            (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2 := by
-    intro n
-    have hsplit := subWindowSup_le_sum_classSup (doorSievedCoeff_gk K M) H n hq b
-    have h0 := subWindowSup_nonneg (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))
-    have hsq : (subWindowSup (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))) ^ 2
-        ≤ (∑ r ∈ Finset.range q, classSup (doorSievedCoeff_gk K M) H n q r) ^ 2 := by
-      nlinarith
-    refine hsq.trans ?_
-    have hcheb := sq_sum_le_card_mul_sum_sq
-      (s := Finset.range q) (f := fun r => classSup (doorSievedCoeff_gk K M) H n q r)
-    rwa [Finset.card_range] at hcheb
-  -- ⟦the block sum⟧
-  have hstep1 : ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-      (subWindowSup (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))) ^ 2
-      ≤ ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-          (q : ℝ) * ∑ r ∈ Finset.range q,
-            (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2 :=
-    Finset.sum_le_sum fun n _ => hpt n
-  have hswap : ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-      (q : ℝ) * ∑ r ∈ Finset.range q, (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
-      = (q : ℝ) * ∑ r ∈ Finset.range q,
-          ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-            (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2 := by
-    rw [← Finset.mul_sum, Finset.sum_comm]
-  have hper : ∑ r ∈ Finset.range q,
-      ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-        (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
-      ≤ (q : ℝ) * (Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)) := by
-    calc ∑ r ∈ Finset.range q,
-          ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-            (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
-        ≤ ∑ _r ∈ Finset.range q,
-            (Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)) :=
-          Finset.sum_le_sum fun r hr =>
-            hcl H hlo hhi q hq hqQ i hik r (Finset.mem_range.mp hr)
-      _ = (q : ℝ) * (Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)) := by
-          rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul]
-  calc ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-        (subWindowSup (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))) ^ 2
-      ≤ (q : ℝ) * ∑ r ∈ Finset.range q,
-          ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-            (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2 := by rw [← hswap]; exact hstep1
-    _ ≤ (q : ℝ) * ((q : ℝ) * (Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ))) :=
-        mul_le_mul_of_nonneg_left hper hq0
-    _ = Bcl H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) := by ring
+    (hcl : M4ClassBlockMeanSq_gk K R M k Bcl) : M4BlockMeanSqSupQ_gk K R M k Bcl :=
+  m4_blockMeanSqSupQ_of_classMeanSq_AZ (Adoor M) (s13GK K M) hcl
 
 /-- **THE SOCKET EXIT AT THE LEVER** — `m4_sievedDoorSq_of_classMeanSq` (:318). -/
 theorem m4_sievedDoorSq_of_classMeanSq_gk (K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ}
@@ -1043,11 +1012,17 @@ def doorChiSup_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : �
   (Finset.Icc 0 H).sup' ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
     (fun Kw => ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖)
 
+/-- The lever twin of `le_doorChiSup`: for `Kw ≤ H`, the norm of `∑ liouChi χ m` over
+`doorSievedWindow_gk K M Kw n` is `≤ doorChiSup_gk K χ M H n`: `le_doorChiSupAZ` at
+`(Adoor M, s13GK K M)`. Read once in this file and by `M4Gauss`. -/
 theorem le_doorChiSup_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {Kw : ℕ}
     (hK : Kw ≤ H) :
     ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖ ≤ doorChiSup_gk K χ M H n :=
   le_doorChiSupAZ (Adoor M) (s13GK K M) χ M H n hK
 
+/-- The lever twin of `doorChiSup_nonneg`: `0 ≤ doorChiSup_gk K χ M H n`, from
+`le_doorChiSup_gk` at `Kw = 0`. Read by `M4ChiSummed` and `M4CoprimeSupply`; not read in this
+file. -/
 theorem doorChiSup_nonneg_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) :
     0 ≤ doorChiSup_gk K χ M H n :=
   le_trans (norm_nonneg _) (le_doorChiSup_gk K χ M H n (Nat.zero_le H))

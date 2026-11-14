@@ -284,6 +284,8 @@ theorem euler_osc_truncation {x : ℝ} (hx : Real.exp 1 ≤ x) {Ctail : ℝ}
 /-- The (`s`-independent) Euler `k≥2` remainder constant, `∑'_p p^{-2}`. -/
 noncomputable def cpeel : ℝ := ∑' p : Nat.Primes, (1 : ℝ) / (p : ℝ) ^ 2
 
+/-- `∑ p, 1 / p ^ 2` over the primes is summable (`Nat.Primes.summable_rpow` at exponent `-2`).
+Read once in this file and by `ChiEuler` and `SupF`. -/
 theorem cpeel_summable : Summable (fun p : Nat.Primes => (1 : ℝ) / (p : ℝ) ^ 2) := by
   refine (Nat.Primes.summable_rpow.mpr (by norm_num : (-2 : ℝ) < -1)).congr (fun p => ?_)
   rw [show (-2 : ℝ) = -((2 : ℕ) : ℝ) from by norm_num, Real.rpow_neg (Nat.cast_nonneg _),

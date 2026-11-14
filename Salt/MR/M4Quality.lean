@@ -329,6 +329,9 @@ minimum) is inside `siegelBandB` and never evaluated. -/
 `band_floor_M0_liouChi`, at the ROW's datum (`liouChi`). -/
 noncomputable def cfbK (Q : ℕ) : ℝ := Classical.choose (band_floor_M0_liouChi Q)
 
+/-- `0 ≤ cfbK Q`: the first conjunct of the `Classical.choose_spec` of
+`band_floor_M0_liouChi Q`, the theorem `cfbK` is chosen from. Read once in this file (by
+`m4QualityB_nonneg`); no consumer outside it. -/
 theorem cfbK_nonneg (Q : ℕ) : 0 ≤ cfbK Q :=
   (Classical.choose_spec (band_floor_M0_liouChi Q)).1
 
@@ -347,6 +350,9 @@ noncomputable def m4VKdebit (Q : ℕ) : ℝ :=
   (Finset.range (Q + 1)).sup' (Finset.nonempty_range_iff.mpr (Nat.succ_ne_zero Q))
     (fun q => vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebit q)
 
+/-- Each modulus' debit is below the max: for `q ≤ Q`,
+`vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebit q ≤ m4VKdebit Q` (`Finset.le_sup'`
+at `q ∈ Finset.range (Q + 1)`). Read once in this file; no consumer outside it. -/
 theorem m4VKdebit_spec {Q q : ℕ} (hq : q ≤ Q) :
     vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebit q ≤ m4VKdebit Q :=
   Finset.le_sup' (fun q => vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebit q)
@@ -357,17 +363,27 @@ constants and the VK/mid debit at one modulus range.  `X`-free, `Q`-only, ineffe
 noncomputable def m4QualityB (Q : ℕ) : ℝ :=
   max (cfbK Q) (max (siegelBandB Q) (max (cffK Q) (m4VKdebit Q)))
 
+/-- `cfbK Q ≤ m4QualityB Q`: the first arm of the `max`. Read once in this file; no consumer
+outside it. -/
 theorem cfbK_le_m4QualityB (Q : ℕ) : cfbK Q ≤ m4QualityB Q := le_max_left _ _
 
+/-- `siegelBandB Q ≤ m4QualityB Q`: the second arm of the `max`. No consumer at `main`, in this
+file or outside it. -/
 theorem siegelBandB_le_m4QualityB (Q : ℕ) : siegelBandB Q ≤ m4QualityB Q :=
   le_trans (le_max_left _ _) (le_max_right _ _)
 
+/-- `cffK Q ≤ m4QualityB Q`: the third arm of the `max`. Read once in this file; no consumer
+outside it. -/
 theorem cffK_le_m4QualityB (Q : ℕ) : cffK Q ≤ m4QualityB Q :=
   le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) (le_max_right _ _)
 
+/-- `m4VKdebit Q ≤ m4QualityB Q`: the fourth arm of the `max`. Read once in this file; no
+consumer outside it. -/
 theorem m4VKdebit_le_m4QualityB (Q : ℕ) : m4VKdebit Q ≤ m4QualityB Q :=
   le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) (le_max_right _ _)
 
+/-- `0 ≤ m4QualityB Q`, from `cfbK_nonneg` and `cfbK_le_m4QualityB`. No consumer at `main`, in
+this file or outside it. -/
 theorem m4QualityB_nonneg (Q : ℕ) : 0 ≤ m4QualityB Q :=
   le_trans (cfbK_nonneg Q) (cfbK_le_m4QualityB Q)
 
@@ -400,17 +416,25 @@ noncomputable def m4JointThr (Bfun : ℕ → ℝ) (Hhi : ℕ) : ℝ :=
     (max (m4QualArm (Bfun (m4Wnat Hhi)) Hhi)
       (max (m4BandArm (Bfun (m4Wnat Hhi)) Hhi) (m4CffArm (Bfun (m4Wnat Hhi)) Hhi)))
 
+/-- `1000 ≤ m4JointThr Bfun Hhi`: the anchor arm of the four-armed `max`. Read twice in this
+file; no consumer outside it. -/
 theorem m4JointThr_anchor (Bfun : ℕ → ℝ) (Hhi : ℕ) : 1000 ≤ m4JointThr Bfun Hhi :=
   le_max_left _ _
 
+/-- `m4QualArm (Bfun (m4Wnat Hhi)) Hhi ≤ m4JointThr Bfun Hhi`: the quality arm of the `max`.
+Read once in this file; no consumer outside it. -/
 theorem m4JointThr_qual (Bfun : ℕ → ℝ) (Hhi : ℕ) :
     m4QualArm (Bfun (m4Wnat Hhi)) Hhi ≤ m4JointThr Bfun Hhi :=
   le_trans (le_max_left _ _) (le_max_right _ _)
 
+/-- `m4BandArm (Bfun (m4Wnat Hhi)) Hhi ≤ m4JointThr Bfun Hhi`: the band arm of the `max`. Read
+once in this file; no consumer outside it. -/
 theorem m4JointThr_band (Bfun : ℕ → ℝ) (Hhi : ℕ) :
     m4BandArm (Bfun (m4Wnat Hhi)) Hhi ≤ m4JointThr Bfun Hhi :=
   le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) (le_max_right _ _)
 
+/-- `m4CffArm (Bfun (m4Wnat Hhi)) Hhi ≤ m4JointThr Bfun Hhi`: the cap-free arm of the `max`.
+Read once in this file; no consumer outside it. -/
 theorem m4JointThr_cff (Bfun : ℕ → ℝ) (Hhi : ℕ) :
     m4CffArm (Bfun (m4Wnat Hhi)) Hhi ≤ m4JointThr Bfun Hhi :=
   le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) (le_max_right _ _)

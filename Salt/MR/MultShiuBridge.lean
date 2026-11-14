@@ -160,13 +160,15 @@ theorem spoly_mul {M₁ M₂ : ℕ} (f g : ArithmeticFunction ℂ)
 
 /-! ## §2 — the prime block polynomial as a `spoly`
 
-The `𝒯_S` twin of `ramR_eq_spoly` (`USetThinTS.lean:94`) on the prime side. -/
+The `𝒯_S` twin of `ramR_eq_spoly` (`USetThinTS.lean:98`) on the prime side. -/
 
 /-- **The block-prime coefficients.**  `ramQ H P Q j c` is the `σ = 1` Dirichlet polynomial
 of `p ↦ c p` masked to the half-open prime fibre `ramQblock H P Q j`. -/
 noncomputable def ramQcoeff (H : ℝ) (P Q j : ℕ) (c : ℕ → ℂ) (p : ℕ) : ℂ :=
   if p ∈ ramQblock H P Q j then c p else 0
 
+/-- `ramQcoeff H P Q j c p = 0` for `p` outside `ramQblock H P Q j`: the second branch of the
+`if`. Read twice in this file; no consumer outside it. -/
 lemma ramQcoeff_of_notMem (H : ℝ) (P Q j : ℕ) (c : ℕ → ℂ) {p : ℕ}
     (hp : p ∉ ramQblock H P Q j) : ramQcoeff H P Q j c p = 0 := by
   rw [ramQcoeff, if_neg hp]
@@ -194,6 +196,8 @@ lemma ramQ_eq_spoly_bounded (H : ℝ) (P Q j Mq : ℕ) (c : ℕ → ℂ)
 noncomputable def ramQaf (H : ℝ) (P Q j : ℕ) (c : ℕ → ℂ) : ArithmeticFunction ℂ :=
   ⟨ramQcoeff H P Q j c, ramQcoeff_of_notMem H P Q j c (zero_notMem_ramQblock H P Q j)⟩
 
+/-- `ramQaf H P Q j c n = ramQcoeff H P Q j c n` (`@[simp]`), by `rfl`. Read four times in this
+file and by `HybridMoments` and `TLegKill`. -/
 @[simp] lemma ramQaf_apply (H : ℝ) (P Q j : ℕ) (c : ℕ → ℂ) (n : ℕ) :
     (ramQaf H P Q j c) n = ramQcoeff H P Q j c n := rfl
 
@@ -205,6 +209,8 @@ noncomputable def ramRaf (H : ℝ) (N X P Q v : ℕ) (b : ℕ → ℂ) : Arithme
     have h1 := ramRrange_one_le h
     omega⟩
 
+/-- `ramRaf H N X P Q v b n = ramRcoeff H N X P Q v b n` (`@[simp]`), by `rfl`. Read four times
+in this file and by `HybridMoments` and `TLegKill`. -/
 @[simp] lemma ramRaf_apply (H : ℝ) (N X P Q v : ℕ) (b : ℕ → ℂ) (n : ℕ) :
     (ramRaf H N X P Q v b) n = ramRcoeff H N X P Q v b n := rfl
 
@@ -362,8 +368,12 @@ SAME divisor antidiagonal, so no re-indexing is needed. -/
 /-- The `1`-bounded co-factor majorant (`ζ`-shaped: `0` at `0`, `1` elsewhere). -/
 def oneAf : ArithmeticFunction ℝ := ⟨fun n => if n = 0 then 0 else 1, by simp⟩
 
+/-- `oneAf n` is `0` at `n = 0` and `1` otherwise (`@[simp]`), by `rfl`. Read twice in this
+file; no consumer outside it. -/
 @[simp] lemma oneAf_apply (n : ℕ) : oneAf n = if n = 0 then 0 else 1 := rfl
 
+/-- `oneAf n = 1` for `n ≠ 0` (`oneAf_apply`). Read twice in this file; no consumer outside
+it. -/
 lemma oneAf_apply_ne_zero {n : ℕ} (hn : n ≠ 0) : oneAf n = 1 := by
   rw [oneAf_apply, if_neg hn]
 
@@ -400,23 +410,33 @@ noncomputable def blockPrimeAf (Y₁ : ℕ) : ArithmeticFunction ℝ :=
     rintro ⟨h, -⟩
     exact Nat.not_prime_zero h⟩
 
+/-- `blockPrimeAf Y₁ p` is `1` when `p` is a prime with `Y₁ ≤ p ≤ 2 * Y₁` and `0` otherwise
+(`@[simp]`), by `rfl`. Read five times in this file; no consumer outside it. -/
 @[simp] lemma blockPrimeAf_apply (Y₁ p : ℕ) :
     (blockPrimeAf Y₁) p = if p.Prime ∧ Y₁ ≤ p ∧ p ≤ 2 * Y₁ then 1 else 0 := rfl
 
+/-- `0 ≤ blockPrimeAf Y₁ p`: the indicator takes the values `1` and `0`. Read twice in this
+file; no consumer outside it. -/
 lemma blockPrimeAf_nonneg (Y₁ p : ℕ) : 0 ≤ (blockPrimeAf Y₁) p := by
   rw [blockPrimeAf_apply]
   split_ifs <;> norm_num
 
+/-- `blockPrimeAf Y₁ p ≤ 1`: the indicator takes the values `1` and `0`. Read once in this file;
+no consumer outside it. -/
 lemma blockPrimeAf_le_one (Y₁ p : ℕ) : (blockPrimeAf Y₁) p ≤ 1 := by
   rw [blockPrimeAf_apply]
   split_ifs <;> norm_num
 
+/-- `blockPrimeAf Y₁ p = 0` when `p` is not prime. Read once in this file; no consumer outside
+it. -/
 lemma blockPrimeAf_eq_zero_of_not_prime {Y₁ p : ℕ} (hp : ¬ p.Prime) :
     (blockPrimeAf Y₁) p = 0 := by
   rw [blockPrimeAf_apply, if_neg]
   rintro ⟨h, -⟩
   exact hp h
 
+/-- If `blockPrimeAf Y₁ p ≠ 0` then `p` is a prime with `Y₁ ≤ p ≤ 2 * Y₁` (one direction only,
+despite the name). Read once in this file; no consumer outside it. -/
 lemma blockPrimeAf_ne_zero_iff {Y₁ p : ℕ} (h : (blockPrimeAf Y₁) p ≠ 0) :
     p.Prime ∧ Y₁ ≤ p ∧ p ≤ 2 * Y₁ := by
   by_contra hc

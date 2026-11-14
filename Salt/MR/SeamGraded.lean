@@ -57,10 +57,10 @@ consequences, both structural:
 
 * **G0a** — `BlockSmallG`, `TsetG`, `UsetG`, `seamTtotG`; `TsetG_unique`,
   `TsetG_disjoint`, `TsetG_UsetG_disjoint`, `exists_TsetG_or_mem_UsetG`.  Mirrors
-  `Decomp` :219–276 at the graded predicate.
+  `Decomp` :222–279 at the graded predicate.
 * **G0b** — `isClosed_blockSmallG`, `measurableSet_UsetG`, `measurableSet_TsetG`,
   `measurableSet_seamTtotG`, `sdiff_biUnion_TsetG`, `seam_T_additivityG`,
-  `seam_TU_splitG`.  Mirrors `SeamSplit` :414–546.  `far_leg_collapse` (`SeamSplit` :559)
+  `seam_TU_splitG`.  Mirrors `SeamSplit` :424–558.  `far_leg_collapse` (`SeamSplit` :571)
   is **predicate-free** and is reused verbatim — no graded twin is needed or wanted.
 * **G0c** — `prop_A3_T1_row_split_weightedG` (+ the crude twin).  Mirrors
   `SeamBallWeighted` :248/:283.  `annulus_ball_far_split` and `ball_leg_of_sup_weighted` are
@@ -227,6 +227,8 @@ interval bounds would be a false economy (catch #253). -/
 def seamTtotG (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ) (J : ℕ) : Set ℝ :=
   ⋃ j ∈ Finset.Icc 1 J, TsetG f Pseq Qseq Hseq αseq J j
 
+/-- `seamTtotG f Pseq Qseq Hseq αseq J` is measurable: a finite union of the measurable `TsetG`
+pieces (`measurableSet_TsetG`). Read once in this file; no consumer outside it. -/
 lemma measurableSet_seamTtotG (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ) (J : ℕ) :
     MeasurableSet (seamTtotG f Pseq Qseq Hseq αseq J) :=
   Finset.measurableSet_biUnion _

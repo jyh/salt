@@ -68,9 +68,13 @@ def Q₈₃ (X : ℝ) : ℝ := Real.exp (Real.log X / Real.log (Real.log X))
 /-- **`H₈₃ X = (log X)^{1/48}`** — the §8.3 block-count parameter (s8-freeze:16). -/
 def H₈₃ (X : ℝ) : ℝ := (Real.log X) ^ ((1 : ℝ) / 48)
 
+/-- `0 < P₈₃ X`: an exponential. No consumer at `main`, in this file or outside it. -/
 lemma P₈₃_pos (X : ℝ) : 0 < P₈₃ X := Real.exp_pos _
+/-- `0 < Q₈₃ X`: an exponential. No consumer at `main`, in this file or outside it. -/
 lemma Q₈₃_pos (X : ℝ) : 0 < Q₈₃ X := Real.exp_pos _
 
+/-- `0 < H₈₃ X` at `1 < log X`: a real power of a positive real. No consumer at `main`, in this
+file or outside it. -/
 lemma H₈₃_pos {X : ℝ} (hX : 1 < Real.log X) : 0 < H₈₃ X :=
   Real.rpow_pos_of_pos (by linarith) _
 

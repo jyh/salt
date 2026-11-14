@@ -61,7 +61,7 @@ open scoped BigOperators
 
 /-! ## §1 (T-1) — the pocket's cap, converted at `α = 1/32`
 
-`SmallStones`:152 converts the A.4 ball convention `(1/16)loglog X` to `P(x)/8` at the
+`SmallStones`:154 converts the A.4 ball convention `(1/16)loglog X` to `P(x)/8` at the
 threshold `exp(exp 40)`.  The twin converts the POCKET's cap `(1/32 − θ)loglog X` to the
 FOUR-TIMES-SHARPER `P(x)/32`, at the threshold `exp(exp 165)`.  The `θ`-slack is what makes
 it work: `(1/32)loglog X ≤ P(x)/32` is FALSE with the corpus's crude `−17 ≤ M₂`, and
@@ -73,6 +73,8 @@ the §8.3 pin `θ = θ₂₉₃` — the gate is `18(3e+1) = 164.787… ≤ logl
 `SmallStones.ballMertensThreshold = exp(exp 40)`, the crude `P(x)/8` conversion's threshold.) -/
 noncomputable def ballQuarterThreshold : ℝ := Real.exp (Real.exp 165)
 
+/-- `166 ≤ exp 165`, from `x + 1 ≤ exp x` (`Real.add_one_le_exp`). Read four times in this file;
+no consumer outside it. -/
 lemma exp_oneSixtyFive_ge : (166 : ℝ) ≤ Real.exp 165 := by
   have := Real.add_one_le_exp (165 : ℝ); linarith
 
@@ -113,7 +115,7 @@ therefore charged in the gate — law #253, never absorbed:
 
   `18 + (loglog X − loglog y) ≤ 32θ·loglog X  ⟹  (1/32 − θ)loglog X ≤ P(y)/32`.
 
-(The crude `P/8` conversion of `SmallStones`:152 hides this gap inside its factor-2 slack
+(The crude `P/8` conversion of `SmallStones`:154 hides this gap inside its factor-2 slack
 `(1/32)loglog X ≤ (1/16)loglog k₀`; at `P/32` there is no slack left to hide it in.) -/
 theorem thirtysecond_cap_to_SPartial {X y θ : ℝ} (hy : ballQuarterThreshold ≤ y)
     (hgate : 18 + Real.log (Real.log X) - Real.log (Real.log y)
@@ -122,7 +124,7 @@ theorem thirtysecond_cap_to_SPartial {X y θ : ℝ} (hy : ballQuarterThreshold �
   have hS := SPartial_ge_loglog_sub_eighteen hy
   linarith
 
-/-- **T-1 — the conversion in `SmallStones`:152's own binder shape** (`X` past the threshold,
+/-- **T-1 — the conversion in `SmallStones`:154's own binder shape** (`X` past the threshold,
 `x ≥ X`): the descent gap is `≤ 0` here, so the gate is the bare `32θ·loglog X ≥ 18`.
 
   `(1/32 − θ)·loglog X ≤ P(x)/32`.
@@ -270,6 +272,9 @@ lemma exp_budget_le_34 {u : ℕ → ℂ} {x : ℝ} (hx : 3 ≤ x) (hu : ∀ p, �
 (Twin of `BallSup.ballSupC = renormaliseConst·e^{M₂/2+6}`.) -/
 noncomputable def ballSupC34 : ℝ := renormaliseConst * Real.exp (Salt.Mertens.mertensM / 4 + 3)
 
+/-- `0 < ballSupC34`: a product of an exponential and a factor made positive by
+`28 ≤ renormaliseConst`. Read five times in this file and by `PinFamily` and
+`USetGradedPrice`. -/
 lemma ballSupC34_pos : 0 < ballSupC34 := by
   have h28 : (28 : ℝ) ≤ renormaliseConst := by
     rw [renormaliseConst_eq]
@@ -343,7 +348,7 @@ theorem transfer_at_scale_34 {f : ℕ → ℂ} (hf1 : f 1 = 1)
 
 /-! ## §4 (T-4) — the CASE-B far transfer at the `3/4` denominator
 
-`CofactorBall`:175/:217, re-run at `ballErr34`.  The far arm pays the GS 7.1 error
+`CofactorBall`:175/:223, re-run at `ballErr34`.  The far arm pays the GS 7.1 error
 ADDITIVELY (never multiplied by the weight), so the whole gain of R3 lands directly on the
 exit constant: `farErr34` has `(log W)^{3/4}` where `farErr` has `√(log W)`. -/
 
@@ -371,6 +376,9 @@ lemma farErr34_nonneg {W Y Rmax : ℝ} (hW : 0 < Real.log W) (hY : 0 ≤ Real.lo
   unfold farErr34
   positivity
 
+/-- `0 ≤ farSupS34 W Y Rmax R` at `0 < R`, `0 < log W`, `0 ≤ log Y`, `0 ≤ Rmax`: the error term
+(`farErr34_nonneg`) and `2 * √2 / R` are both `≥ 0`. Read once in this file; no consumer outside
+it. -/
 lemma farSupS34_nonneg {W Y Rmax R : ℝ} (hR : 0 < R) (hW : 0 < Real.log W)
     (hY : 0 ≤ Real.log Y) (hRmax : 0 ≤ Rmax) : 0 ≤ farSupS34 W Y Rmax R := by
   have h1 := farErr34_nonneg (W := W) hW hY hRmax

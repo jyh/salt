@@ -57,9 +57,13 @@ noncomputable def nuDens : ArithmeticFunction ℝ where
   toFun d := if d = 0 then 0 else (d : ℝ)⁻¹
   map_zero' := by simp
 
+/-- `nuDens d = (d : ℝ)⁻¹` for `d ≠ 0`: the density's value off zero. Read four times in this
+file; no consumer outside it. -/
 theorem nuDens_apply {d : ℕ} (hd : d ≠ 0) : nuDens d = (d : ℝ)⁻¹ := by
   simp only [nuDens, ArithmeticFunction.coe_mk, if_neg hd]
 
+/-- `nuDens` is multiplicative: `1` at `1`, and the inverse of a product is the product of
+inverses (the zero cases by `simp`). Read once in this file; no consumer outside it. -/
 theorem nuDens_mult : nuDens.IsMultiplicative := by
   constructor
   · simp [nuDens]
@@ -77,6 +81,9 @@ noncomputable def primeBand (P Q : ℕ) : Finset ℕ := (Finset.Icc P Q).filter 
 /-- The radical of the band: the product of all primes in `[P, Q]`. Squarefree. -/
 noncomputable def bandProd (P Q : ℕ) : ℕ := ∏ p ∈ primeBand P Q, p
 
+/-- `bandProd P Q` is squarefree: a product of distinct primes of `primeBand P Q`, pairwise
+coprime (`Finset.squarefree_prod_of_pairwise_isCoprime`). Read five times in this file; no
+consumer outside it. -/
 theorem bandProd_squarefree (P Q : ℕ) : Squarefree (bandProd P Q) := by
   unfold bandProd
   apply Finset.squarefree_prod_of_pairwise_isCoprime
@@ -90,6 +97,8 @@ theorem bandProd_squarefree (P Q : ℕ) : Squarefree (bandProd P Q) := by
     rw [primeBand, Finset.mem_filter] at hp
     exact hp.2.squarefree
 
+/-- `bandProd P Q ≠ 0`: a squarefree number is not `0` (`bandProd_squarefree`). Read once in
+this file; no consumer outside it. -/
 theorem bandProd_ne_zero (P Q : ℕ) : bandProd P Q ≠ 0 := (bandProd_squarefree P Q).ne_zero
 
 /-- Membership in the band's radical: for a prime `p`, `p ∣ bandProd P Q` iff
@@ -106,10 +115,14 @@ theorem prime_dvd_bandProd_iff {P Q p : ℕ} (hp : p.Prime) :
   · intro h
     exact ⟨p, by rw [primeBand, Finset.mem_filter, Finset.mem_Icc]; exact ⟨h, hp⟩, dvd_refl p⟩
 
+/-- `0 < nuDens p` at a prime `p`: it is `1 / p`. Read once in this file; no consumer outside
+it. -/
 theorem nuDens_pos_of_prime {p : ℕ} (hp : p.Prime) : 0 < nuDens p := by
   rw [nuDens_apply hp.pos.ne']
   exact inv_pos.mpr (by exact_mod_cast hp.pos)
 
+/-- `nuDens p < 1` at a prime `p`: it is `1 / p` with `1 < p`. Read once in this file; no
+consumer outside it. -/
 theorem nuDens_lt_one_of_prime {p : ℕ} (hp : p.Prime) : nuDens p < 1 := by
   rw [nuDens_apply hp.pos.ne']
   rw [inv_lt_one_iff₀]
@@ -135,12 +148,18 @@ noncomputable def densSieve (P Q X : ℕ) : SelbergSieve where
     have : (0 : ℝ) ≤ (Nat.sqrt X : ℝ) := by positivity
     linarith
 
+/-- The sieve's prime product is the band's (`@[simp]`, `rfl`): `(densSieve P Q X).prodPrimes`
+is `bandProd P Q`. Read three times in this file and by `ConstantsExposed`. -/
 @[simp] theorem densSieve_prodPrimes (P Q X : ℕ) :
     (densSieve P Q X).prodPrimes = bandProd P Q := rfl
 
+/-- The sieve's level (`@[simp]`, `rfl`): `(densSieve P Q X).level = Nat.sqrt X + 1`. Read three
+times in this file and by `ConstantsExposed`. -/
 @[simp] theorem densSieve_level (P Q X : ℕ) :
     (densSieve P Q X).level = (Nat.sqrt X : ℝ) + 1 := rfl
 
+/-- The sieve's total mass (`@[simp]`, `rfl`): `(densSieve P Q X).totalMass = X`. Read three
+times in this file and by `ConstantsExposed`. -/
 @[simp] theorem densSieve_totalMass (P Q X : ℕ) :
     (densSieve P Q X).totalMass = (X : ℝ) := rfl
 
@@ -237,12 +256,17 @@ noncomputable def w3 : ArithmeticFunction ℝ where
   toFun d := if d = 0 then 0 else (3 : ℝ) ^ (ω d) / d
   map_zero' := by simp
 
+/-- `w3 d = 3 ^ (ω d) / d` for `d ≠ 0`: the weight's value off zero. Read five times in this
+file; no consumer outside it. -/
 theorem w3_apply {d : ℕ} (hd : d ≠ 0) : w3 d = (3 : ℝ) ^ (ω d) / d := by
   simp only [w3, ArithmeticFunction.coe_mk, if_neg hd]
 
+/-- `w3 p = 3 / p` at a prime `p`: `ω p = 1`. Read once in this file; no consumer outside it. -/
 theorem w3_prime {p : ℕ} (hp : p.Prime) : w3 p = 3 / p := by
   rw [w3_apply hp.pos.ne', omega_eq_card, hp.primeFactors, Finset.card_singleton, pow_one]
 
+/-- `w3` is multiplicative: `ω` is additive on coprimes (disjoint prime factors), so `3 ^ ω` and
+the inverse both split. Read once in this file; no consumer outside it. -/
 theorem w3_mult : w3.IsMultiplicative := by
   refine ⟨by simp [w3], fun {m n} hmn => ?_⟩
   rcases eq_or_ne m 0 with rfl | hm
@@ -507,10 +531,15 @@ noncomputable def rankinWt (P Q X : ℕ) (a : ℝ) : ArithmeticFunction ℝ wher
   toFun ℓ := (ℓ : ℝ) ^ a * (densSieve P Q X).selbergTerms ℓ
   map_zero' := by simp
 
+/-- `rankinWt P Q X a ℓ = ℓ ^ a * (densSieve P Q X).selbergTerms ℓ`: the weight unfolded. Read
+seven times in this file; no consumer outside it. -/
 theorem rankinWt_apply (P Q X : ℕ) (a : ℝ) (ℓ : ℕ) :
     rankinWt P Q X a ℓ = (ℓ : ℝ) ^ a * (densSieve P Q X).selbergTerms ℓ := by
   simp only [rankinWt, ArithmeticFunction.coe_mk]
 
+/-- `rankinWt P Q X a` is multiplicative: the real power is on naturals and the sieve's
+`selbergTerms` are (`selbergTerms_isMultiplicative`). Read once in this file; no consumer
+outside it. -/
 theorem rankinWt_mult (P Q X : ℕ) (a : ℝ) : (rankinWt P Q X a).IsMultiplicative := by
   constructor
   · rw [rankinWt_apply, Nat.cast_one, Real.one_rpow,
@@ -521,6 +550,8 @@ theorem rankinWt_mult (P Q X : ℕ) (a : ℝ) : (rankinWt P Q X a).IsMultiplicat
       (densSieve P Q X).selbergTerms_isMultiplicative.map_mul_of_coprime hmn]
     ring
 
+/-- `rankinWt P Q X a p = p ^ a / (p - 1)` at a prime `p` (`densSieve_selbergTerms_prime`). Read
+once in this file; no consumer outside it. -/
 theorem rankinWt_prime (P Q X : ℕ) (a : ℝ) {p : ℕ} (hp : p.Prime) :
     rankinWt P Q X a p = (p : ℝ) ^ a / ((p : ℝ) - 1) := by
   rw [rankinWt_apply, densSieve_selbergTerms_prime P Q X hp, mul_one_div]

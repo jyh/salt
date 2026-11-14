@@ -212,6 +212,9 @@ mixed-argument ratio price, `C_F` the head's). -/
 def rhsCSF : ℝ :=
   Real.exp (6 * Real.exp 3 * (1 + (Real.log 4 + 4))) * Real.exp (cpeel + (Real.log 4 + cpeel))
 
+/-- `0 < rhsCSF`: a product of two exponentials. Read three times in this file and by
+`CaseASocket`, `FarClose`, `FarStar`, `GradeConst`, `GradeWindowC`, `PinFamily`, `PinFamily2`,
+`RHSGradeC` and `SupClose`. -/
 lemma rhsCSF_pos : 0 < rhsCSF := by
   unfold rhsCSF
   exact mul_pos (Real.exp_pos _) (Real.exp_pos _)
@@ -228,6 +231,8 @@ def rhsFbound (M L σ : ℝ) : ℝ :=
   rhsCSF * (1 / σ)
     * Real.exp (-(1 / (2 * Real.exp 1)) * (M - 2 * Real.log (σ * L) - 48))
 
+/-- `0 ≤ rhsFbound M L σ` at `0 < σ`: a product of `rhsCSF`, a factor `≥ 0` and an exponential.
+Read three times in this file and by `GradeConst`, `JointPlumb`, `PinFamily2` and `SupClose`. -/
 lemma rhsFbound_nonneg (M L : ℝ) {σ : ℝ} (hσ : 0 < σ) : 0 ≤ rhsFbound M L σ :=
   mul_nonneg (mul_nonneg rhsCSF_pos.le (by positivity)) (Real.exp_nonneg _)
 

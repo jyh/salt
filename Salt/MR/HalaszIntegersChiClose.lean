@@ -27,7 +27,7 @@ support condition.  That single observation adjudicates the two named routes.
 ### ROUTE A — REJECTED, category mismatch
 (the "new Prop 8.3": the all-χ pretentious floors → `halasz_ball_decay`)
 
-`capFreeFloor3_margin_all_chi_vt` / `capFreeFloor3_pieceDatum_vt` (`VkMidSharp`:503/557)
+`capFreeFloor3_margin_all_chi_vt` / `capFreeFloor3_pieceDatum_vt` (`VkMidSharp`:509/563)
 bound `pretDistSq (lamChi χ) (costwist v) X` from below, and `halasz_ball_decay`
 (`HalaszCore`:440) converts such a floor into `U ≤ (C₁+C₂)·X·(e^{−cM_range} + (log X)^{−1/2+ε})`
 — a decay statement for the **summatory function of ONE multiplicative datum** (`lamChi χ`,
@@ -59,7 +59,7 @@ The slot is consumed at exactly three sites, all in `USetChiTS.lean`:
   `(M + |ℰ|·√T) ≤ 2M`     (the razor's budget `bundle·X^{1−2η+ε} ≤ M` clears `|ℰ|√T ≤ M`),
 
 producing `Σ_{𝒯_S} ‖ramMain‖² ≤ 2·Cint·ε_Q²·M·(1 + log 2T)·(co-factor mass)`.  The `q = 1`
-twin (`uset_TS_branch_meanvalue`, `USetThinTS`:391) exits at
+twin (`uset_TS_branch_meanvalue`, `USetThinTS`:401) exits at
 `5128·ε²·M·(1 + log 2T)·(mass)` with `Cint = 2564` and MR's level `ε = (log X)^{−100}`, i.e.
 **the demanded grade is `5128·(log X)^{−200}·M·(1 + log 2T)·(mass)`.**
 
@@ -430,7 +430,7 @@ At the port's modulus gate `q ≤ (log X)^{12}` and the branch level `ε_Q = (lo
 
   `∑_{𝒯_S} ‖Q_{j,H}·R_{j,H}(χ̄, 1+it)‖² ≤ 5128·(log X)^{−200}·M·(1 + log 2T)·(co-factor mass)`
 
-— **byte-for-byte the `q = 1` exit `uset_TS_branch_meanvalue` (`USetThinTS`:391) at MR's own
+— **byte-for-byte the `q = 1` exit `uset_TS_branch_meanvalue` (`USetThinTS`:401) at MR's own
 level `ε = (log X)^{−100}`.**  This is the discharge of the `HalaszIntegersChi` slot's job:
 the whole character cost of MR Lemma 9 under the `χ`-lift is six powers of log on the branch
 level, paid on the `𝒯_L` side where a quasi-power beats it.  Unconditional: no hypothesis

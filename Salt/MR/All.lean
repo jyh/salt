@@ -3973,7 +3973,7 @@ right-hand side (and no `moment_split5` exists).  Instead:
   take `haH` ALONE: `ha0` and `hend` both DROP, the `m = 0` case dying by absurdity;
 * the released endpoint cofactors are FUSED into the `p²` row, whose inner filter is enlarged
   to `p ∣ m ∨ p·m = X` (`RamareP2End`'s `ramP2domEndMR`/`ramP2corrEndMR`/`ramP2coeffEndMR`,
-  NEW siblings — the landed `ramP2*MR` defs are byte-untouched, `SmallStones`:385-460 reads
+  NEW siblings — the landed `ramP2*MR` defs are byte-untouched, `SmallStones`:387-462 reads
   them).  The split stays at FOUR rows; `moment_split4` and `M4ErrRewire.err_grade_fit`'s
   `4·520 ≤ 2160` are untouched.
 

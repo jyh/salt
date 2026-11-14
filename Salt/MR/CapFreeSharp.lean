@@ -274,6 +274,9 @@ theorem capFreeFloor_all_chi_sharp (Q : ℕ) :
 `Classical.choose`, spent here. -/
 def cffKSharp (Q : ℕ) : ℝ := Classical.choose (capFreeFloor3_all_chi_sharp Q)
 
+/-- `0 ≤ cffKSharp Q`: the first conjunct of the `Classical.choose_spec` of
+`capFreeFloor3_all_chi_sharp Q`, the theorem `cffKSharp` is chosen from. No consumer at `main`,
+in this file or outside it. -/
 theorem cffKSharp_nonneg (Q : ℕ) : 0 ≤ cffKSharp Q :=
   (Classical.choose_spec (capFreeFloor3_all_chi_sharp Q)).1
 

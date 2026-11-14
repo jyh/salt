@@ -74,6 +74,8 @@ bridge.  Note it is `0` (not unimodular) at `p | q`; every stone in this file is
 noncomputable def chiTwist {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) : ℕ → ℂ :=
   fun n => χ (n : ZMod q) * costwist t n
 
+/-- `chiTwist χ t n = χ n * costwist t n` (`@[simp]`), by `rfl`, with `n` cast to `ZMod q`. Read
+once in this file and by `ChiFloorLow`. -/
 @[simp] theorem chiTwist_apply {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) (n : ℕ) :
     chiTwist χ t n = χ (n : ZMod q) * costwist t n := rfl
 
@@ -123,7 +125,7 @@ theorem log_norm_L_eq_re_tsum {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ 
 
 /-- **The per-prime Euler `k ≥ 2` peel, at arbitrary `z`.**  For `p ≥ 2` and `‖z‖ ≤ 1/p`,
 `|Re(−log(1−z)) − Re z| ≤ 1/p²`.  This is `peel_term_bound`
-(`PrimeSigmaShift.lean:327`) with the base point freed: the landed version fixes
+(`PrimeSigmaShift.lean:329`) with the base point freed: the landed version fixes
 `z = p^{−s}`, and the χ-twisted case needs `z = χ(p)·p^{−s}`.  Same mathlib Taylor
 remainder `Complex.norm_log_one_sub_inv_sub_self_le`. -/
 theorem peel_term_bound_gen {p : ℕ} (hp : 2 ≤ p) {z : ℂ} (hz : ‖z‖ ≤ 1 / (p : ℝ)) :
@@ -210,7 +212,7 @@ theorem chi_peel_sum_bound {q : ℕ} (χ : DirichletCharacter ℂ q) {s : ℂ} (
 
 /-- **The `σ`-`it` split of the χ-twisted Euler summand.**  For a prime `p` and reals `σ, t`,
 `Re(χ(p)·p^{−(σ−it)}) = p^{−σ}·Re(χ(p)·p^{it})`.  This is the χ-analogue of `cpow_neg_re`
-(`PrimeSigmaShift.lean:368`); note the `−it` in the exponent, which is what makes the twist
+(`PrimeSigmaShift.lean:370`); note the `−it` in the exponent, which is what makes the twist
 appear UNCONJUGATED on the right (see the file header's sign page). -/
 theorem chi_cpow_re {q : ℕ} (χ : DirichletCharacter ℂ q) {p : ℕ} (hp : 0 < p) (σ t : ℝ) :
     (χ ((p : ℕ) : ZMod q) * (p : ℂ) ^ (-((σ : ℂ) - (t : ℂ) * Complex.I))).re
@@ -241,7 +243,7 @@ every Dirichlet character `χ mod q`, every `x ≥ e` and every real `t`,
 enters only through `‖χ(a)‖ ≤ 1`, and every constant on the route (`cpeel = ∑'_p 1/p²`, the
 `p > x` tail `Ctail`, the Mertens-1 `σ`-shift) is χ-free.
 
-Assembled exactly as the q = 1 `euler_osc_bridge` (`PrimeSigmaShift.lean:442`): the χ
+Assembled exactly as the q = 1 `euler_osc_bridge` (`PrimeSigmaShift.lean:444`): the χ
 log-Euler product (`log_norm_L_eq_re_tsum`), the `k ≥ 2` peel (`chi_peel_sum_bound`), the
 `σ`-`it` split (`chi_cpow_re`), and the LANDED general-`g` truncation
 `euler_osc_truncation` at `g = chiTwist χ t`. -/

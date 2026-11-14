@@ -52,8 +52,8 @@ APPROXIMATE with every gap accounted in E:
 
 - **H-0** [NEW, C, 250, FIRST] `seam_carrier_audit`: derive the exact
   relation between seamCoeff f (windowIndicator y (X/y)) t₀ and the
-  g-built carriers, starting from `fgJ_factorization` (HalaszSeam:284)
-  and `smoothPart` (HalaszLambda:402). Deliverable: the STATEMENT of
+  g-built carriers, starting from `fgJ_factorization` (HalaszSeam:288)
+  and `smoothPart` (HalaszLambda:410). Deliverable: the STATEMENT of
   H-EXIT — either (route i) `prop21_unconditional` carrying the
   hypothesis f = ellLin g (the tools become exact; consumers
   instantiate at the linearized datum), or (route ii) f generic with
@@ -261,7 +261,7 @@ The truncation-tail corner at P = T^10 exactly (REF-B's R-4 audit).
   **T-0b** [C, 300]: sharpen k4_plan_le_diag to Σ‖bₙ‖²/n^{2c} using
   the exp(−c|log(m/n)|) off-diagonal decay ALREADY in
   dirichlet_plancherel; the landed grains: `dirichlet_poly_l2_mvt_final`
-  (MVCore2:620 — the SHARP 2T+20N unconditional MVT, a strengthening
+  (MVCore2:635 — the SHARP 2T+20N unconditional MVT, a strengthening
   the freeze didn't know it had) + `offdiag_int_bound` (⟦R citation
   fix: HalaszCore:195, NOT L2MVT⟧) + log_diff_ge. T-0b lands BEFORE
   T-0's assembly.⟧ ⟦R2 (T-WAVE's in-session correction): the literal

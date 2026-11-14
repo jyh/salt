@@ -15,10 +15,10 @@ PART 3, refuter-repaired). This file lands:
 ## T-0b — the SHARP diagonal (`k4_plan_le_diag_sharp`, MANDATORY)
 
 TERM-REF's power-counting kill made T-0b **mandatory**: the wired head's crude
-diagonal `k4_plan_le_diag` (`HalaszSeam.lean:481`) bounds the Plancherel integral
+diagonal `k4_plan_le_diag` (`HalaszSeam.lean:489`) bounds the Plancherel integral
 by `(π/c)·(∑_{n∈F}‖bₙ‖)²`, which has ZERO decay in `n` — `crude/sharp ~ (X/y)²`,
 so no `supF` can rescue the `e^{-M}` main term. The sharpening RETAINS the `n^{-c}`
-decay that the crude proof discards (`HalaszSeam.lean:493`, `(mn)^{-c} ≤ 1`):
+decay that the crude proof discards (`HalaszSeam.lean:501`, `(mn)^{-c} ≤ 1`):
 
   `∫ ‖k4Poly F b c t‖²/(c²+t²) dt ≤ (π/c)·(∑_{n∈F} ‖bₙ‖/nᶜ)²`.
 
@@ -226,7 +226,7 @@ theorem k4_plan_le_diag_sharp {F : Finset ℕ} {b : ℕ → ℂ} {c : ℝ} (hc :
         rw [mul_one, mul_inv]; ring
 
 /-- **T-0b — the sharp wired head (`contour_A13_A14_head_sharp`).**  The K4′
-reconciliation `contour_A13_A14_head_wired` (`HalaszSeam.lean:525`) with the crude
+reconciliation `contour_A13_A14_head_wired` (`HalaszSeam.lean:533`) with the crude
 coefficient-mass² diagonal `(π/c)·((log 4+4)·b)²` REPLACED by the sharp
 `n^{−c}`-weighted diagonal `(π/c)·(∑_{n∈window} ‖lambdaLin g n‖/nᶜ)²`.  The CS cross
 bound (`k4_cross_CS`) and both diagonal bounds (`k4_plan_le_diag_sharp`) are

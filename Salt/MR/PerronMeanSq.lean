@@ -97,9 +97,13 @@ namespace Salt.MR
 /-- The height-`B` bump of half-width `δ` centred at `c`. -/
 def nearBump (c δ B y : ℝ) : ℝ := if |y - c| < δ then B else 0
 
+/-- `0 ≤ nearBump c δ B y` at `0 ≤ B`: the bump takes the values `B` and `0`. Read three times
+in this file; no consumer outside it. -/
 lemma nearBump_nonneg {c δ B y : ℝ} (hB : 0 ≤ B) : 0 ≤ nearBump c δ B y := by
   rw [nearBump]; split <;> [exact hB; exact le_rfl]
 
+/-- `nearBump c δ B y ≤ B` at `0 ≤ B`: the bump takes the values `B` and `0`. Read twice in this
+file; no consumer outside it. -/
 lemma nearBump_le {c δ B y : ℝ} (hB : 0 ≤ B) : nearBump c δ B y ≤ B := by
   rw [nearBump]; split <;> [exact le_rfl; exact hB]
 
@@ -125,6 +129,8 @@ lemma nearBump_shift (c δ B h x : ℝ) :
   congr 2
   rw [show x + h - c = x - (c - h) by ring]
 
+/-- `nearBump c δ B` is measurable: a constant's indicator on an open interval
+(`nearBump_eq_indicator`). Read twice in this file; no consumer outside it. -/
 lemma nearBump_measurable (c δ B : ℝ) : Measurable (nearBump c δ B) := by
   rw [nearBump_eq_indicator]
   exact (measurable_const.indicator measurableSet_Ioo)
@@ -140,6 +146,8 @@ lemma bdd_meas_intervalIntegrable {f : ℝ → ℝ} {C : ℝ} (p q : ℝ)
       (_root_.intervalIntegrable_const (μ := volume) (c := C) (a := p) (b := q)).2
       hm.aestronglyMeasurable (Filter.Eventually.of_forall hb)⟩
 
+/-- `nearBump c δ B` is interval integrable on any `[p, q]` at `0 ≤ B`: measurable and bounded
+by `B` (`bdd_meas_intervalIntegrable`). Read once in this file; no consumer outside it. -/
 lemma nearBump_intervalIntegrable {c δ B : ℝ} (hB : 0 ≤ B) (p q : ℝ) :
     IntervalIntegrable (nearBump c δ B) volume p q := by
   refine bdd_meas_intervalIntegrable (C := B) p q (nearBump_measurable c δ B) (fun y => ?_)
@@ -394,6 +402,8 @@ theorem zone_min_sum_split (s0 : Finset ℕ) {X y T δ : ℝ}
 def minDev (s0 : Finset ℕ) (T y : ℝ) : ℝ :=
   ∑ m ∈ s0, min (Real.pi + 2 * Real.log (1 + T)) (1 / (T * |Real.log (y / (m : ℝ))|))
 
+/-- `0 ≤ minDev s0 T y` at `0 < T`: each summand is a `min` of two reals `≥ 0`. No consumer at
+`main`, in this file or outside it. -/
 lemma minDev_nonneg (s0 : Finset ℕ) {T y : ℝ} (hT : 0 < T) : 0 ≤ minDev s0 T y := by
   refine Finset.sum_nonneg fun m _ => le_min ?_ (by positivity)
   have h1 := Real.pi_pos
@@ -519,10 +529,14 @@ theorem perron_gap_le_minDev (a : ℕ → ℂ) (s0 : Finset ℕ) {X x h₁ h₂ 
 def bumpSum (s0 : Finset ℕ) (δ B c y : ℝ) : ℝ :=
   ∑ m ∈ s0, nearBump ((m : ℝ) - c) δ B y
 
+/-- `0 ≤ bumpSum s0 δ B c y` at `0 ≤ B`: a sum of bumps, each `≥ 0` (`nearBump_nonneg`). Read
+seven times in this file and by `ParsevalSingle`. -/
 lemma bumpSum_nonneg (s0 : Finset ℕ) {δ B c y : ℝ} (hB : 0 ≤ B) :
     0 ≤ bumpSum s0 δ B c y :=
   Finset.sum_nonneg fun _ _ => nearBump_nonneg hB
 
+/-- `bumpSum s0 δ B c y ≤ s0.card * B` at `0 ≤ B`: each of the `s0.card` bumps is `≤ B`
+(`nearBump_le`). Read four times in this file; no consumer outside it. -/
 lemma bumpSum_le_card (s0 : Finset ℕ) {δ B c y : ℝ} (hB : 0 ≤ B) :
     bumpSum s0 δ B c y ≤ (s0.card : ℝ) * B := by
   have h := Finset.sum_le_sum (fun m (_ : m ∈ s0) => nearBump_le (c := (m : ℝ) - c)
@@ -530,6 +544,8 @@ lemma bumpSum_le_card (s0 : Finset ℕ) {δ B c y : ℝ} (hB : 0 ≤ B) :
   rw [Finset.sum_const, nsmul_eq_mul] at h
   exact h
 
+/-- `bumpSum s0 δ B c` is measurable: a finite sum of measurable bumps (`nearBump_measurable`).
+Read four times in this file; no consumer outside it. -/
 lemma bumpSum_measurable (s0 : Finset ℕ) (δ B c : ℝ) : Measurable (bumpSum s0 δ B c) :=
   Finset.measurable_sum _ (fun _ _ => nearBump_measurable _ _ _)
 
@@ -554,6 +570,8 @@ lemma bumpSum_cap (s0 : Finset ℕ) {δ B c y : ℝ} (hB : 0 ≤ B) (hδ0 : 0 �
     linarith
   exact mul_le_mul_of_nonneg_right hcard hB
 
+/-- `bumpSum s0 δ B c` is interval integrable on any `[p, q]` at `0 ≤ B`: measurable and bounded
+by `s0.card * B` (`bumpSum_le_card`). Read once in this file; no consumer outside it. -/
 lemma bumpSum_intervalIntegrable (s0 : Finset ℕ) {δ B : ℝ} (hB : 0 ≤ B) (c p q : ℝ) :
     IntervalIntegrable (bumpSum s0 δ B c) volume p q := by
   refine bdd_meas_intervalIntegrable (C := (s0.card : ℝ) * B) p q
@@ -643,6 +661,8 @@ theorem perron_gap_le_gapMaj (a : ℕ → ℂ) (s0 : Finset ℕ) {X x h₁ h₂ 
   rw [gapMaj]
   linarith
 
+/-- `gapMaj s0 X T δ h₁ h₂` is measurable in `x`: three measurable bump sums plus a constant.
+Read once in this file; no consumer outside it. -/
 lemma gapMaj_measurable (s0 : Finset ℕ) (X T δ h₁ h₂ : ℝ) :
     Measurable (gapMaj s0 X T δ h₁ h₂) := by
   change Measurable fun x : ℝ =>
@@ -653,6 +673,8 @@ lemma gapMaj_measurable (s0 : Finset ℕ) (X T δ h₁ h₂ : ℝ) :
   exact ((((bumpSum_measurable s0 δ _ h₁).add (bumpSum_measurable s0 δ _ h₂)).add
     ((bumpSum_measurable s0 δ _ 0).const_mul 2)).const_mul 6).add_const _
 
+/-- `0 ≤ gapMaj s0 X T δ h₁ h₂ x` at `1 ≤ X`, `0 < T`, `0 < δ`: the three bump sums and the
+constant term are each `≥ 0`. Read once in this file; no consumer outside it. -/
 lemma gapMaj_nonneg (s0 : Finset ℕ) {X T δ h₁ h₂ x : ℝ} (hX : 1 ≤ X) (hT : 0 < T)
     (hδ0 : 0 < δ) : 0 ≤ gapMaj s0 X T δ h₁ h₂ x := by
   have hB : (0 : ℝ) ≤ Real.pi + 2 * Real.log (1 + T) := by
@@ -670,6 +692,9 @@ lemma gapMaj_nonneg (s0 : Finset ℕ) {X T δ h₁ h₂ x : ℝ} (hX : 1 ≤ X) 
   rw [gapMaj]
   linarith
 
+/-- The majorant is bounded in `x`: at `0 < T`, `gapMaj s0 X T δ h₁ h₂ x` is at most
+`24 * s0.card` times the bump height `π + 2 * log (1 + T)`, plus the majorant's own constant
+term (`bumpSum_le_card` three times). Read once in this file; no consumer outside it. -/
 lemma gapMaj_le_const (s0 : Finset ℕ) {X T δ h₁ h₂ x : ℝ} (hT : 0 < T) :
     gapMaj s0 X T δ h₁ h₂ x
       ≤ 24 * (s0.card : ℝ) * (Real.pi + 2 * Real.log (1 + T))
@@ -684,6 +709,9 @@ lemma gapMaj_le_const (s0 : Finset ℕ) {X T δ h₁ h₂ x : ℝ} (hT : 0 < T) 
   rw [gapMaj]
   linarith
 
+/-- `x ↦ gapMaj s0 X T δ h₁ h₂ x ^ 2` is interval integrable on any `[p, q]` at `1 ≤ X`,
+`0 < T`, `0 < δ`: measurable, and bounded by the square of the constant of `gapMaj_le_const`.
+Read twice in this file and by `KernelCarry` and `ParsevalSingle`. -/
 lemma gapMaj_sq_intervalIntegrable (s0 : Finset ℕ) {X T δ : ℝ} (hX : 1 ≤ X) (hT : 0 < T)
     (hδ0 : 0 < δ) (h₁ h₂ p q : ℝ) :
     IntervalIntegrable (fun x : ℝ => gapMaj s0 X T δ h₁ h₂ x ^ 2) volume p q := by
@@ -862,6 +890,9 @@ private def vdiffQ (A : ℝ → ℂ) (X h₁ h₂ α β x : ℝ) : ℂ :=
   ((1 / h₁ : ℝ) : ℂ) * (I * ∫ u in x..(x + h₁), tailTr A α β (X / 2) u)
     - ((1 / h₂ : ℝ) : ℂ) * (I * ∫ u in x..(x + h₂), tailTr A α β (X / 2) u)
 
+/-- `x ↦ vdiffQ A X h₁ h₂ α β x` is continuous for a continuous `A` and `0 < X`: a difference of
+two window integrals of the continuous `tailTr A α β (X / 2)`. Private; read once in this
+file. -/
 private lemma vdiffQ_continuous {A : ℝ → ℂ} (hA : Continuous A) {X : ℝ} (hX : 0 < X)
     (h₁ h₂ α β : ℝ) : Continuous (fun x : ℝ => vdiffQ A X h₁ h₂ α β x) := by
   have hFr : Continuous (tailTr A α β (X / 2)) := tailTr_continuous hA α β (by linarith)
@@ -869,6 +900,9 @@ private lemma vdiffQ_continuous {A : ℝ → ℂ} (hA : Continuous A) {X : ℝ} 
   exact (continuous_const.mul (continuous_const.mul (continuous_window_integral hFr h₁))).sub
     (continuous_const.mul (continuous_const.mul (continuous_window_integral hFr h₂)))
 
+/-- For `X ≤ x` and `0 ≤ h₁`, `0 ≤ h₂`, `vdiffQ A X h₁ h₂ α β x` is `(1 / h₁) * vSeg A x h₁ α β`
+minus `(1 / h₂) * vSeg A x h₂ α β`: on `[x, x + h]` the regularized `tailTr` is the tail
+transform (`tailTr_eq`, `vSeg_eq_tailT_integral`). Private; read once in this file. -/
 private lemma vdiffQ_eq {A : ℝ → ℂ} (hA : Continuous A) {X x h₁ h₂ : ℝ}
     (hX : 0 < X) (hx : X ≤ x) (hh1 : 0 ≤ h₁) (hh2 : 0 ≤ h₂) {α β : ℝ} :
     vdiffQ A X h₁ h₂ α β x

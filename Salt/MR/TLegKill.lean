@@ -404,17 +404,28 @@ namespace CellGates
 
 variable {Pseq Qseq : ℕ → ℕ} {η : ℝ} {j : ℕ}
 
+/-- `2 ≤ j` in `ℝ`, the cast of the cell's `two_le_j`. Read in dot notation (`h.jR_two`) twice
+in this file and by `NumeralCt` and `TLegExit`. -/
 lemma jR_two (h : CellGates Pseq Qseq η j) : (2 : ℝ) ≤ (j : ℝ) := by exact_mod_cast h.two_le_j
 
+/-- `0 < j` in `ℝ`, from `jR_two`. No consumer at `main`, by name or in dot notation, in this
+file or outside it. -/
 lemma jR_pos (h : CellGates Pseq Qseq η j) : (0 : ℝ) < (j : ℝ) := by
   have := h.jR_two; linarith
 
+/-- `0 < log (Qseq j)`, from the cell's `one_le_logQ`. Read in dot notation (`h.logQ_pos`) once
+in this file; no consumer outside it. -/
 lemma logQ_pos (h : CellGates Pseq Qseq η j) : (0 : ℝ) < Real.log (Qseq j : ℝ) :=
   lt_of_lt_of_le one_pos h.one_le_logQ
 
+/-- `0 ≤ log (log (Qseq j))`, from the cell's `one_le_logQ`. No consumer at `main`, by name or
+in dot notation, in this file or outside it. -/
 lemma loglogQ_nonneg (h : CellGates Pseq Qseq η j) :
     (0 : ℝ) ≤ Real.log (Real.log (Qseq j : ℝ)) := Real.log_nonneg h.one_le_logQ
 
+/-- `1 < Qseq (j - 1)` in `ℝ`: its logarithm is positive, by the cell's `one_lt_logP` and
+`logP_le_logQ`. Read in dot notation (`h.one_lt_Qpred`) once in this file and by `NumeralCt` and
+`TLegExit`. -/
 lemma one_lt_Qpred (h : CellGates Pseq Qseq η j) : (1 : ℝ) < (Qseq (j - 1) : ℝ) := by
   refine one_lt_of_log_pos (Nat.cast_nonneg _) ?_
   have h1 := h.one_lt_logP

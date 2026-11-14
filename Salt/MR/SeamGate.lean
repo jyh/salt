@@ -115,6 +115,8 @@ beyond `0 ≤ T_ann`.
 gate `|t₁| + T ≤ R` relates. -/
 def seamGateR (X T : ℝ) : ℝ := T + seamRad X + Real.log (2 * X) ^ 4 + 1
 
+/-- `0 ≤ seamGateR X T` at `0 ≤ T` and `0 ≤ log X`: `seamRad X ≥ 0` and a fourth power is `≥ 0`.
+Read once in this file; no consumer outside it. -/
 lemma seamGateR_nonneg {X T : ℝ} (hT : 0 ≤ T) (hL : 0 ≤ Real.log X) :
     0 ≤ seamGateR X T := by
   have hr : (0 : ℝ) ≤ seamRad X := seamRad_nonneg hL

@@ -1260,6 +1260,12 @@ constant-`X` grade lands either way.  The off-diagonal `1/(a−c+1)` decay (from
 Exit: `∫_{|τ|≤T₀} ‖P(c+iτ)‖²/√(cw²+τ²) ≤ (2π T₀/cw)·(diagonal + 4·C/(T₀−c+1)·mass)`, `C` the
 absolute `shortInterval` constant — the shape `stone 7` feeds through `mixed_weight_cs` at the
 branch-1 weight (`cw = c₀−α−β`). -/
+/-- **Stone 5**, the head weighted second moment on a line `c ≥ 1`: for coefficients `b`
+dominated by `Λ` on a finite `F` past the gate `2 * T₀ ^ 8`, the integral over `|τ| ≤ T₀` of the
+squared Dirichlet polynomial against `1 / √(cw ^ 2 + τ ^ 2)` is at most `2 * π * T₀ / cw` times
+a diagonal sum plus `4 * Cb / (T₀ - c + 1)` times a mass sum, for some `Cb ≥ 0`. Route:
+`band_second_moment` at width `T₀`, `widthA_plancherel`, `offdiag_widthA_final`. Read once in
+this file; no consumer outside it. -/
 theorem head_second_moment_grade {F : Finset ℕ} {b : ℕ → ℂ} {c cw T₀ : ℝ}
     (hc : 1 ≤ c) (hcw : 0 < cw) (hT₀ : 4 ≤ T₀) (hcT : c ≤ T₀)
     (hF : ∀ n ∈ F, 1 ≤ n) (hb : ∀ n, ‖b n‖ ≤ ArithmeticFunction.vonMangoldt n)
@@ -1414,6 +1420,9 @@ final`'s `1 ≤ c` — the named `c ≥ 1`-relaxation route (a monotonicity shif
 ‖b_n‖/n^{max(c₀−β,1)}·(X/y)^{(1−c₀+β)₊}` on the window `n < X/y`, absorbing the excess into the
 `(X/y)^{2β}` the S-ladder already carries).  Building that restricted-CS + low-leg shift is the
 terminal assembly's remaining ledge; the τ-split composition and the ramp-free tail stand here. -/
+/-- `crossKer g X h y c₀ t₀ α β` is at most a carried head bound `Hbound` plus the tail product
+of the two window masses times `2 * (X + h) ^ (c₀ - α - β)`: `head_split_ledger`, then `hhead`
+and `tail_band_sum`. Read once in this file; no consumer outside it. -/
 theorem crossKer_head_tail_grade {g : ℕ → ℂ} {X h y c₀ t₀ α β Hbound : ℝ}
     (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c₀ - α - β)
     (hhead : (∫ t in {t : ℝ | |t - t₀| ≤ 2 * (X + h) / h},
@@ -1719,6 +1728,11 @@ plumbing the terminal-assembly docstring flagged.  Feeding it: apply `head_secon
 the HIGH leg (`c = c₀+β ≥ 1`, direct) and its low-line variant to the LOW leg (`c = c₀−β`, carrying
 `low_leg_shift`'s `(X/y)^{1−c₀+β}` excess) — the remaining per-leg grade is the named residual
 (module tail). -/
+/-- **Stone 5-sharp**: unconditionally, the `crossKer` head integral over
+`|t - t₀| ≤ 2 * (X + h) / h` is at most `(X + h) ^ (c₀ - α - β) * 2` times the geometric mean of
+the two window legs' second moments weighted by `1 / √((c₀ - α - β) ^ 2 + τ ^ 2)` — a
+Cauchy–Schwarz on the band (`sqNorm_cs_band`) after a translation by `t₀`. Read once in this
+file and by `WidthGrade`. -/
 theorem head_sharp_socket {g : ℕ → ℂ} {X h y c₀ t₀ α β : ℝ}
     (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c₀ - α - β) :
     (∫ t in {t : ℝ | |t - t₀| ≤ 2 * (X + h) / h},
@@ -1840,6 +1854,9 @@ sharp` re-run at `0 < c < 1` with the window factor `n ≤ X/y` in place of `n^{
 the last remaining ledge — FLAGGED per iron rule 1/4, the analytic core (`inner_sharp`'s geometric
 page, `hband_discharge`) is `c`-agnostic so the clone is mechanical.  The banked stones for it:
 `low_leg_shift` (the mass wrapper) and `sqNorm_cs_band` (the CS core) stand here. -/
+/-- `crossKer` at the sharp grade: `head_split_ledger`, with the head by `head_sharp_socket` and
+the tail by `tail_band_sum` — the geometric-mean head term plus the tail product of the two
+window masses. Read once in this file; no consumer outside it. -/
 theorem crossKer_grade_sharp {g : ℕ → ℂ} {X h y c₀ t₀ α β : ℝ}
     (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c₀ - α - β) :
     crossKer g X h y c₀ t₀ α β
@@ -2098,6 +2115,10 @@ in place of `offdiag_widthA_final` — the `a`-vs-`(a−c+1)` denominator and th
 band domination carry no line constraint).  Exit, on the window `n ≤ Q`:
 `∫_{|τ|≤T₀} ‖P(c+iτ)‖²/√(cw²+τ²) ≤ 2πT₀/cw·(diagonal + 4C/T₀·(Q^{1−c}·mass))`, `C` the absolute
 `shortInterval` constant — the low-leg feed for the SHARP `crossKer` grade (Stone L3). -/
+/-- **Stone L2**, the `0 < c ≤ 1` twin of `head_second_moment_grade`: the same skeleton with
+`offdiag_widthA_final_low` for the off-diagonal, so the mass term carries `4 * Cb / T₀` and the
+factor `Q ^ (1 - c)` of a ceiling `n ≤ Q` on `F`. Read once in this file; no consumer outside
+it. -/
 theorem head_second_moment_grade_low {F : Finset ℕ} {b : ℕ → ℂ} {c cw T₀ Q : ℝ}
     (hc0 : 0 < c) (hc1 : c ≤ 1) (hcw : 0 < cw) (hT₀ : 4 ≤ T₀)
     (hF : ∀ n ∈ F, 1 ≤ n) (hb : ∀ n, ‖b n‖ ≤ ArithmeticFunction.vonMangoldt n)
@@ -2242,6 +2263,11 @@ regimes `0 < c₀−β ≤ 1 ≤ c₀+β ≤ 2(X+h)/h`, and `‖g p‖ ≤ 1` �
 `C₋, C₊` are `shortInterval_vonMangoldt_le`'s constant (`= 250`); the low leg's `1/(2(X+h)/h)`
 denominator (vs the high leg's `1/(2(X+h)/h−(c₀+β)+1)`) is the `c ≤ 1` collapse of Stone L1
 (`≍ 1/T₀` either way).  THE DECAYED GRADE — the head is `mass² → mass`-collapsed, no `√L` ramp. -/
+/-- **Stone L3**, `crossKer` at the fully decayed grade: `crossKer_grade_sharp` with both leg
+second moments graded — the low leg (line `c₀ - β ≤ 1`) by `head_second_moment_grade_low` at the
+ceiling `X / y`, the high leg (line `c₀ + β ≥ 1`) by `head_second_moment_grade` — for a `g`
+bounded by `1` on primes, with constants `Clo`, `Chi ≥ 0`. No consumer at `main`, in this file
+or outside it. -/
 theorem crossKer_grade_decayed {g : ℕ → ℂ} {X h y c₀ t₀ α β : ℝ}
     (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
     (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c₀ - α - β)
