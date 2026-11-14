@@ -118,8 +118,9 @@ theorem mem_residueClassOn {q r : ℕ} {S : Finset ℕ} {m : ℕ} :
     m ∈ residueClassOn q r S ↔ m ∈ S ∧ m ≡ r [MOD q] := by
   simp [residueClassOn]
 
-/-- `m ∈ windowClass H n q r ↔ (n < m ∧ m ≤ n + H) ∧ m ≡ r [MOD q]`: `mem_residueClassOn` at the
-door window `Finset.Ioc n (n + H)`, by `simp`. Read twice in this file and by `M4ClassPrice`. -/
+/-- `m ∈ windowClass H n q r ↔ (n < m ∧ m ≤ n + H) ∧ m ≡ r [MOD q]`: `windowClass` and
+`residueClassOn` unfolded at the door window `Finset.Ioc n (n + H)`, by `simp`. Read twice in
+this file and by `M4ClassPrice`. -/
 theorem mem_windowClass {H n q r m : ℕ} :
     m ∈ windowClass H n q r ↔ (n < m ∧ m ≤ n + H) ∧ m ≡ r [MOD q] := by
   simp [windowClass, residueClassOn, Finset.mem_Ioc, and_assoc]
