@@ -52,7 +52,7 @@ Everything in this file lives in the **`spoly`/`spolyA` convention at the SAME `
 `ramR` is evaluated at:
 
 * `ramR H N X P Q j b t = Σ_m a_R(m) · m^{−1−it}` (`RamareWindows.lean:73`), and
-* `spolyA a t m = Σ_{n≤m} a n / n^{it} = Σ_{n≤m} a n · n^{−it}` (`SeamSplit.lean:198`).
+* `spolyA a t m = Σ_{n≤m} a n / n^{it} = Σ_{n≤m} a n · n^{−it}` (`SeamSplit.lean:208`).
 
 So the partial-sum binder `hA` is over the **`n^{−it}`** twist — the *unnegated* `t`.  The
 `−𝒯` sign bridge (`spoly_eq_dpoly : spoly N a t = dpoly N (aₙ/n) (−t)`) is **NOT used and

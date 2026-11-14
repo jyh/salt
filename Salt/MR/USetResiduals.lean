@@ -50,7 +50,7 @@ hypotheses riding in-statement (law #253).  This file prices them.
   `EP2 ≍ X/P²`, while EVERY admissible `P` obeys the §8.3 pin `P ≤ Q ≤ Q₈₃ X`, whence
   `P² ≤ √X` and the row DIVERGES (`P2_route_64_over_Psq_insufficient`, kernel-checked).
   What is needed is the `ℓ²`-PRESERVING mass `Σ ‖ramP2coeff n‖²/n² ≲ K·(1+log N)/(X·P)`;
-  `SmallStones` loses exactly that factor at its `∑ a² ≤ (∑ a)²` step (`SmallStones`:241),
+  `SmallStones` loses exactly that factor at its `∑ a² ≤ (∑ a)²` step (`SmallStones`:243),
   which discards the `ℓ²` gain over the `≍ X/P` non-zero frequencies.  Its page needs
   (i) the support step (`hwin` + `hsupp` ⟹ every non-zero frequency has `n ≥ X`, so
   `1/n² ≤ 1/(X·n)`), (ii) a fibre-card bound (`#{p ≥ P prime : p² ∣ n} ≤ 2 log n`), (iii) the
@@ -747,7 +747,7 @@ is `≳ √X` — DIVERGENT, not `≤ (log X)^{−θ₂₉₃}`.
 
 Hence the residual named in this file's header is not "prove some `1/P` bound" but
 specifically: prove the `ℓ²`-preserving mass `Σ ‖ramP2coeff n‖²/n² ≲ K/(X·P)`.  The corpus
-page loses exactly that factor by passing through `∑ a² ≤ (∑ a)²` (`SmallStones`:241), which
+page loses exactly that factor by passing through `∑ a² ≤ (∑ a)²` (`SmallStones`:243), which
 discards the `ℓ²` gain over the `≍ X/P` non-zero frequencies.
 
 The statement below is the certificate: at `log X ≥ e⁴` (i.e. `X ≥ exp(e⁴)`, live) the

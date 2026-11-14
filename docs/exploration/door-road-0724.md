@@ -124,7 +124,7 @@ h > h₂ branch; any Weyl/Vinogradov machinery beyond S7's contrapositive.
 
 Per SEAM-SCOPE (seam-scope-0724.md) + CHI-CHECK (chi-check-0724.md), both
 maestro-audited (one scoper error corrected: L11 IS landed —
-halasz_primes_pow, HalaszPrimesCore:3635):
+halasz_primes_pow, HalaszPrimesCore:3661):
 
 1. **Stone 1 re-priced and re-specified**: the current hsplit binder is
    UNSATISFIABLE at the intended semantics (annHead ≍ T vs Itot ≍ T/X+1 —

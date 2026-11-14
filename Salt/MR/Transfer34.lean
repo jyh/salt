@@ -61,7 +61,7 @@ open scoped BigOperators
 
 /-! ## §1 (T-1) — the pocket's cap, converted at `α = 1/32`
 
-`SmallStones`:152 converts the A.4 ball convention `(1/16)loglog X` to `P(x)/8` at the
+`SmallStones`:154 converts the A.4 ball convention `(1/16)loglog X` to `P(x)/8` at the
 threshold `exp(exp 40)`.  The twin converts the POCKET's cap `(1/32 − θ)loglog X` to the
 FOUR-TIMES-SHARPER `P(x)/32`, at the threshold `exp(exp 165)`.  The `θ`-slack is what makes
 it work: `(1/32)loglog X ≤ P(x)/32` is FALSE with the corpus's crude `−17 ≤ M₂`, and
@@ -115,7 +115,7 @@ therefore charged in the gate — law #253, never absorbed:
 
   `18 + (loglog X − loglog y) ≤ 32θ·loglog X  ⟹  (1/32 − θ)loglog X ≤ P(y)/32`.
 
-(The crude `P/8` conversion of `SmallStones`:152 hides this gap inside its factor-2 slack
+(The crude `P/8` conversion of `SmallStones`:154 hides this gap inside its factor-2 slack
 `(1/32)loglog X ≤ (1/16)loglog k₀`; at `P/32` there is no slack left to hide it in.) -/
 theorem thirtysecond_cap_to_SPartial {X y θ : ℝ} (hy : ballQuarterThreshold ≤ y)
     (hgate : 18 + Real.log (Real.log X) - Real.log (Real.log y)
@@ -124,7 +124,7 @@ theorem thirtysecond_cap_to_SPartial {X y θ : ℝ} (hy : ballQuarterThreshold �
   have hS := SPartial_ge_loglog_sub_eighteen hy
   linarith
 
-/-- **T-1 — the conversion in `SmallStones`:152's own binder shape** (`X` past the threshold,
+/-- **T-1 — the conversion in `SmallStones`:154's own binder shape** (`X` past the threshold,
 `x ≥ X`): the descent gap is `≤ 0` here, so the gate is the bare `32θ·loglog X ≥ 18`.
 
   `(1/32 − θ)·loglog X ≤ P(x)/32`.

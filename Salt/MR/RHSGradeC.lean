@@ -9,8 +9,8 @@ import Salt.MR.GradeConst
 # The `c`-GENERIC grade supplier (`RHSGradeC`)
 
 `RHSGrade`/`GradeConst` land the joint-head grade at the BALL arm's pinned exponent
-`c = 1/(2e)` — the numeral is baked into `rhsFbound` (`RHSGrade`:227), into `rhsSigmaG`
-(`RHSGrade`:508), and into the two theorems that spend it (`joint_supF_pin`,
+`c = 1/(2e)` — the numeral is baked into `rhsFbound` (`RHSGrade`:230), into `rhsSigmaG`
+(`RHSGrade`:513), and into the two theorems that spend it (`joint_supF_pin`,
 `beta_integral_pin_const`).  The U-7 CASE-A route needs the SAME chain at `c = 1/e`, so this
 file re-runs exactly the `c`-carrying stones with the exponent freed, under the gates the
 suppliers themselves state:
