@@ -23934,9 +23934,9 @@ was "fire the σ-cutoff at the critical `c`"; that is step two, and step one is 
 Chasing `head_sigma_bound`'s `1/e` to its birth:
 ```
   euler_log_bound (SupF:188)          ‖L‖ ≤ exp(cpeel)·exp(∑'_p Re(g p · p^{−s}))   NO 1/e — clean
-  dist_identification_sigma (:755)    ∑'_p Re(g p)p^{−1−σ}
+  dist_identification_sigma (:757)    ∑'_p Re(g p)p^{−1−σ}
                                         ≤ (log(1/σ) + (log4+cpeel)) − (1/e)·𝔻²(1,g; e^{1/σ})
-  ⇒ THE CONSTANT IS BORN AT :726-731, three lines:
+  ⇒ THE CONSTANT IS BORN AT :728-733, three lines:
         hYσ     : Y ^ σ = Real.exp 1              (Y = e^{1/σ})
         hpσ_le  : (p:ℝ) ^ σ ≤ Real.exp 1          (for p ≤ Y)
         hcut_p  : 1 / Real.exp 1 ≤ (p:ℝ) ^ (-σ)   ⇐ THE WHOLE CONSTANT
