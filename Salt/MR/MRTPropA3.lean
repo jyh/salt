@@ -775,12 +775,12 @@ Continuing the walk, under the rule set in the section below: name no frontier, 
 `norm_sum_doorSievedWindow_le` (`M4CoprimeSupply.lean:125`) is the window-length bound
 `‖∑_{m ∈ doorSievedWindow M K n} liouChi χ m‖ ≤ K`.  Its docstring: used at the SMALL dyadic
 lengths, *"where the capstone is silent"*.  So the dyadic split is `j < j₀` trivial grade,
-`j₀ ≤ j` capstone (`M4CoprimeSupply.lean:40`, `M4Maximal.lean:1050`).
+`j₀ ≤ j` capstone (`M4CoprimeSupply.lean:40`, `M4Maximal.lean:1089`).
 
 **2. ⛔ TWO DIFFERENT OBJECTS ARE CALLED "THE CAPSTONE". THEY ARE NOT THE SAME.**
 * `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:508`) — the **S12** lane.  This is
   the one carrying `S14Compose.lean:429`'s **`⚠ NOT DERIVED` … "refuted at ⟦B1'-3⟧ by §3"**.
-* `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1052`) — the **M4** lane, and *this* is the one the
+* `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1091`) — the **M4** lane, and *this* is the one the
   door's dyadic split consumes (`M4Maximal.lean:117`, length-graded `MS j H`).
 
 **The `⚠ NOT DERIVED` marker does NOT lie on the door's chain.**  Checked, not assumed — the
@@ -894,7 +894,7 @@ earlier were all published first and corrected after.  **Fencing is cheap; retra
 Walked the gates down: `M4SievedDoorSq_L → M4BlockMeanSq_L → M4RowMeanSq_L`.
 `M4RowMeanSq_L` (`M4RowLinear.lean:993`) has **no producer** — established by reading **all six
 of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1394`) ·
-an enumeration entry (`:3216`) · one arrow (`:3231`).
+an enumeration entry (`:2908`) · one arrow (`:2923`).
 
 ⭐ **AND THIS TIME IT IS NOT MY INFERENCE — THE CORPUS SAYS SO AT THE DEFINITION SITE:**
 *"**THE WAVE'S REMAINING INPUT**… This predicate is the wave's ⟦RESIDUE⟧: see the module header
@@ -936,13 +936,13 @@ produces it from **two explicit inequalities and NO other gate**:
 `√(Braw H) ≤ mrtDeliveredGrade (C/2) H` and `δ/4 + 4·2^k/x ≤ mrtDeliveredGrade (C/2) H`.
 *It bottoms out in arithmetic about the delivered grade, not in another Prop socket.*
 
-**`M4SievedDoorSq_L`** (`M4LadderLinear.lean:860`) — `m4_cover_assembly_L`
+**`M4SievedDoorSq_L`** (`M4LadderLinear.lean:1774`) — `m4_cover_assembly_L`
 (`M4RowLinear.lean:1528`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
 Its own docstring states the gate bundle is *"the same bundle `m4_hbd_of_live_L` reads, so the
 join needs no new hypothesis"* — so this reduction is free at the seam.  ⇒ **it reduces to the
 BLOCK MEAN SQUARE**, which is what `M4Maximal.m4_chiBlockMeanSq_of_shiftBlock` produces.
 
-**`M4DoorGates_L`** (`M4LadderLinear.lean:878`) is a **structure** — a bundle of regime data, so
+**`M4DoorGates_L`** (`M4LadderLinear.lean:1792`) is a **structure** — a bundle of regime data, so
 its "producer" is an instance construction rather than a theorem.  Not measured here.
 
 ⛔ **I AM NOT CALLING THE GATES CLOSED.**  Today I made four same-signed errors reading the
@@ -959,7 +959,7 @@ wrong, and it is wrong in the same direction as the two claims before it.**  Wal
 
 ```
   norm_absWindowSum_le_drift_tight     M4BridgePhase.lean:310   (phase drift → rational b/q)
-    ⟹ subWindowSup_sq_le_strata       M4Gauss.lean:588         (Gauss/strata, at doorSievedCoeff M)
+    ⟹ subWindowSup_sq_le_strata       M4Gauss.lean:593         (Gauss/strata, at doorSievedCoeff M)
         ⟹ strataTerm = ∑_χ (doorChiSup χ …)²
             ⟹ doorChiSup_sq_le_dyadic  M4Maximal.lean:423      (DYADIC MAXIMAL INEQUALITY, K-free)
                 ⟹ ∑_t ‖∑_{m ∈ doorSievedWindow M 2^j (n+2^{j+1}t)} liouChi χ m‖²

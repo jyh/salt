@@ -11,7 +11,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 
 ## 1. What D1 delivers — CONFIRMED, and the number is right
 
-`budget_facts`' four height-1 facts route through `hcore` (`BudgetCore.lean:192-197`); the largest is D_iv's `c = 2304·log2·log4/(β²ε⁶)` (`:223-235`), needing `4c ≤ log H`. At `ε = 1/500`, `β = cD3·ε/(144·log4) = 2.5047e-6` (`SpineFinal.lean:621`, `cD3 = 1/4` `WindowMertensLower.lean:62`):
+`budget_facts`' four height-1 facts route through `hcore` (`BudgetCore.lean:192-197`); the largest is D_iv's `c = 2304·log2·log4/(β²ε⁶)` (`:223-235`), needing `4c ≤ log H`. At `ε = 1/500`, `β = cD3·ε/(144·log4) = 2.5047e-6` (`SpineFinal.lean:621`, `cD3 = 1/4` `WindowMertensLower.lean:254`):
 
 - **`p1_demand_ge` + `p1b_lambda_floor`**: `log H₋ ≥ 2^104 = 2.2057e31` ⟹ **λ₋ ≥ 72.17**.
 - **`p1c_budgetX_route`**: via `4·budgetX` (`BudgetCore.lean:21`, the shape S1 says `budgetFloor` collapses to) `4X = 4.1434e31` ⟹ λ₋ ≥ 72.80.
