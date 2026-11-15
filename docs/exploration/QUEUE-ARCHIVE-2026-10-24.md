@@ -4875,7 +4875,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     HYPOTHESIS YOU STILL INTEND TO MATCH SYNTACTICALLY.***
     ⛔⛔ **THE LINE THAT STOOD HERE — "STILL OPEN: the union bound ITSELF" — WAS FALSE WHEN I WROTE IT,
     AND I WROTE IT. THE UNION BOUND IS LANDED: `Salt.MR.card_not_memS_le_sum`, `Sec9Glue.lean:478`,**
-    docstring *"The union bound behind MR p. 31 (e)"*, **already used at `CgPin.lean:100` and
+    docstring *"The union bound behind MR p. 31 (e)"*, **already used at `CgPin.lean:100` (at main ebf7025b; that copy went with O13-e's wave 2) and
     `SieveGlue.lean:455`, already audited at `All.lean:1437`.** Its statement is
     `#(Nlg.filter ¬MemS) ≤ ∑_{j∈Icc 1 J} #(Nlg.filter (blockOmega … = 0))` — **the same statement I
     started writing, under the same name.**
