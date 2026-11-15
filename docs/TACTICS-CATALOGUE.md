@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `5c83192b` · source digest `61b526e8b50ee5bc` (the same digest as items 1–3).
-> Receipt: files 1414 · decls 23421 · with_body 23421 · tactic_lines 309851 · runs 36351 · blocks 1371.
+> Base: last commit touching `Salt/` = `d0b3f6b4` · source digest `22d503ffb778a36e` (the same digest as items 1–3).
+> Receipt: files 1414 · decls 23421 · with_body 23421 · tactic_lines 309574 · runs 36323 · blocks 1367.
 
 ## LIMITS (read before any number below)
 
@@ -100,37 +100,37 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-309851 tactic lines. Top 30:
+309574 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 135731 | 43.8% |
-| 2 | `rw` | 50013 | 16.1% |
-| 3 | `exact` | 17679 | 5.7% |
-| 4 | `intro` | 14232 | 4.6% |
-| 5 | `refine` | 13011 | 4.2% |
-| 6 | `linarith` | 10749 | 3.5% |
-| 7 | `obtain` | 9221 | 3.0% |
-| 8 | `calc` | 7986 | 2.6% |
-| 9 | `set` | 5681 | 1.8% |
-| 10 | `simp` | 5202 | 1.7% |
-| 11 | `apply` | 4594 | 1.5% |
+| 1 | `have` | 135619 | 43.8% |
+| 2 | `rw` | 49963 | 16.1% |
+| 3 | `exact` | 17660 | 5.7% |
+| 4 | `intro` | 14213 | 4.6% |
+| 5 | `refine` | 13003 | 4.2% |
+| 6 | `linarith` | 10744 | 3.5% |
+| 7 | `obtain` | 9214 | 3.0% |
+| 8 | `calc` | 7973 | 2.6% |
+| 9 | `set` | 5661 | 1.8% |
+| 10 | `simp` | 5194 | 1.7% |
+| 11 | `apply` | 4588 | 1.5% |
 | 12 | `nlinarith` | 3447 | 1.1% |
-| 13 | `unfold` | 2642 | 0.9% |
-| 14 | `exact_mod_cast` | 2526 | 0.8% |
-| 15 | `rcases` | 2154 | 0.7% |
-| 16 | `ring` | 2098 | 0.7% |
+| 13 | `unfold` | 2641 | 0.9% |
+| 14 | `exact_mod_cast` | 2525 | 0.8% |
+| 15 | `rcases` | 2153 | 0.7% |
+| 16 | `ring` | 2096 | 0.7% |
 | 17 | `push_cast` | 1997 | 0.6% |
-| 18 | `field_simp` | 1883 | 0.6% |
+| 18 | `field_simp` | 1881 | 0.6% |
 | 19 | `by_cases` | 1654 | 0.5% |
-| 20 | `rwa` | 1632 | 0.5% |
+| 20 | `rwa` | 1631 | 0.5% |
 | 21 | `norm_num` | 1486 | 0.5% |
 | 22 | `omega` | 1284 | 0.4% |
 | 23 | `show` | 1277 | 0.4% |
-| 24 | `classical` | 1260 | 0.4% |
+| 24 | `classical` | 1258 | 0.4% |
 | 25 | `rintro` | 1150 | 0.4% |
 | 26 | `congr` | 950 | 0.3% |
-| 27 | `simpa` | 899 | 0.3% |
+| 27 | `simpa` | 900 | 0.3% |
 | 28 | `positivity` | 810 | 0.3% |
 | 29 | `constructor` | 657 | 0.2% |
 | 30 | `haveI` | 554 | 0.2% |
@@ -151,11 +151,11 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
 | Matomaki-Radziwill / Halasz (short intervals) | 119817 | `have` 54916, `rw` 16473, `exact` 6845, `refine` 6710, `intro` 5841, `linarith` 5521, `obtain` 5003, `calc` 2294 |
-| (no family) | 29254 | `have` 11334, `rw` 5227, `exact` 1774, `intro` 1600, `obtain` 988, `refine` 972, `set` 907, `calc` 888 |
+| (no family) | 28977 | `have` 11222, `rw` 5177, `exact` 1755, `intro` 1581, `obtain` 981, `refine` 964, `set` 887, `calc` 875 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
-Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1371 candidates; top 25 by the UPPER-BOUND saving.
+Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1367 candidates; top 25 by the UPPER-BOUND saving.
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 
@@ -457,20 +457,7 @@ rw [← $5]
 exact Real.sqrt_le_sqrt $6
 ```
 
-**16.** 8 lines × 12 occurrences in 8 files · lines saved ≤ **84** · e.g. `Salt/MaynardK/ISplit.lean:303` · `Salt/MaynardK/JMainSplit.lean:885`
-
-```lean
-have $1 : # < $2 := by
-rcases Nat.eq_zero_or_pos $2 with $3 | $3
-· rw [$3] at $4; simp at $4; linarith
-· exact $3
-have $5 : # ≤ $2 := by
-have $6 : (#:ℝ) < ($2:ℝ) := by exact_mod_cast $1
-have $7 : (#:ℝ) ≤ Real.exp (Real.log $2) := by
-calc (#:ℝ) ≤ Real.exp # := by have := Real.add_one_le_exp (#:ℝ); linarith
-```
-
-**17.** 13 lines × 7 occurrences in 6 files · lines saved ≤ **84** · e.g. `Salt/Chen/ChenFinal2.lean:112` · `Salt/Chen/PriceOne.lean:329`
+**16.** 13 lines × 7 occurrences in 6 files · lines saved ≤ **84** · e.g. `Salt/Chen/ChenFinal2.lean:112` · `Salt/Chen/PriceOne.lean:329`
 
 ```lean
 have $1 : Real.log # ≤ # := by
@@ -488,7 +475,7 @@ rw [$9, $2]
 linarith
 ```
 
-**18.** 15 lines × 6 occurrences in 5 files · lines saved ≤ **84** · e.g. `Salt/Chen/ChenFinal2.lean:112` · `Salt/Chen/PriceOne.lean:329` · ⚠️ shares source lines with #17
+**17.** 15 lines × 6 occurrences in 5 files · lines saved ≤ **84** · e.g. `Salt/Chen/ChenFinal2.lean:112` · `Salt/Chen/PriceOne.lean:329` · ⚠️ shares source lines with #16
 
 ```lean
 have $1 : Real.log # ≤ # := by
@@ -508,7 +495,7 @@ have $11 : (# : ℝ) ≤ $7 ^ ((# : ℝ)) := by
 calc (# : ℝ) ≤ $7 := by linarith
 ```
 
-**19.** 6 lines × 16 occurrences in 13 files · lines saved ≤ **80** · e.g. `Salt/MR/DoorReceipt.lean:738` · `Salt/MR/DoorReceiptSiegelFree.lean:161`
+**18.** 6 lines × 16 occurrences in 13 files · lines saved ≤ **80** · e.g. `Salt/MR/DoorReceipt.lean:738` · `Salt/MR/DoorReceiptSiegelFree.lean:161`
 
 ```lean
 have $1 : # * $2 ≤ Real.log (Real.log ($3.Hlo : ℝ)) := by
@@ -519,7 +506,7 @@ exact flatDesignBase_loglog_le $9
 have $16 : Real.log (Real.log (($3.Hhi : ℕ) : ℝ)) ≤ # * Real.exp (# * $2 / #) :=
 ```
 
-**20.** 6 lines × 16 occurrences in 13 files · lines saved ≤ **80** · e.g. `Salt/MR/DoorReceipt.lean:748` · `Salt/MR/DoorReceiptSiegelFree.lean:171`
+**19.** 6 lines × 16 occurrences in 13 files · lines saved ≤ **80** · e.g. `Salt/MR/DoorReceipt.lean:748` · `Salt/MR/DoorReceiptSiegelFree.lean:171`
 
 ```lean
 have $1 : (# : ℚ) / # ^ # ≤ $2.eps := by
@@ -530,7 +517,7 @@ have $4 : Real.exp (# * $5) ≤ Real.log (($2.Hlo : ℕ) : ℝ) := by
 rw [$6]; exact flatWitFloor_log_ge $7
 ```
 
-**21.** 7 lines × 13 occurrences in 8 files · lines saved ≤ **78** · e.g. `Salt/MR/FlatDoorEpsRung2.lean:647` · `Salt/MR/S13CapEps.lean:437`
+**20.** 7 lines × 13 occurrences in 8 files · lines saved ≤ **78** · e.g. `Salt/MR/FlatDoorEpsRung2.lean:647` · `Salt/MR/S13CapEps.lean:437`
 
 ```lean
 obtain ⟨-, $1⟩ := regime_Hfloor_of_loglogFloor50 (le_trans $2 $3)
@@ -542,7 +529,7 @@ have := Real.exp_le_exp.mpr $1
 rwa [Real.exp_log $8] at this
 ```
 
-**22.** 14 lines × 6 occurrences in 6 files · lines saved ≤ **78** · e.g. `Salt/MR/StrideDoorAllGrades.lean:5465` · `Salt/MR/StridePairReceipt.lean:2106`
+**21.** 14 lines × 6 occurrences in 6 files · lines saved ≤ **78** · e.g. `Salt/MR/StrideDoorAllGrades.lean:5465` · `Salt/MR/StridePairReceipt.lean:2106`
 
 ```lean
 have $1 : (# : ℝ) ≤ # / ($2.eps : ℝ) := by positivity
@@ -559,6 +546,19 @@ have $11 : # ≤ $2.ω := by
 have $12 := Real.log_le_sub_one_of_pos $9
 have $13 : (# : ℝ) ≤ (($2.ω : ℕ) : ℝ) := by linarith
 exact_mod_cast $13
+```
+
+**22.** 8 lines × 11 occurrences in 7 files · lines saved ≤ **77** · e.g. `Salt/MaynardK/JMainSplit.lean:885` · `Salt/MaynardK/JSplit.lean:963`
+
+```lean
+have $1 : # < $2 := by
+rcases Nat.eq_zero_or_pos $2 with $3 | $3
+· rw [$3] at $4; simp at $4; linarith
+· exact $3
+have $5 : # ≤ $2 := by
+have $6 : (#:ℝ) < ($2:ℝ) := by exact_mod_cast $1
+have $7 : (#:ℝ) ≤ Real.exp (Real.log $2) := by
+calc (#:ℝ) ≤ Real.exp # := by have := Real.add_one_le_exp (#:ℝ); linarith
 ```
 
 **23.** 8 lines × 11 occurrences in 6 files · lines saved ≤ **77** · e.g. `Salt/MR/BandRatedSocket.lean:109` · `Salt/MR/CofactorBulk.lean:211` · ⚠️ shares source lines with #13
