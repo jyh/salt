@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `5c83192b` · source digest `61b526e8b50ee5bc` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `89836832` · source digest `0c6a456c29968ae7` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23421 · corpus Prop-valued names (the hypothesis universe): 689.
+Declarations indexed across the tree: 23422 · corpus Prop-valued names (the hypothesis universe): 689.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -4748,9 +4748,9 @@ Declarations indexed across the tree: 23421 · corpus Prop-valued names (the hyp
 | `Salt.MR.lambda_nonpret` | Salt/MR/NonPretClose.lean:49 | characters |
 | `Salt.MR.shiu_moment_sq_bounded` | Salt/MR/NumeralCt.lean:62 | characters |
 | `Salt.MR.lemma13_moment_bounded` | Salt/MR/NumeralCt.lean:203 | characters |
-| `Salt.SW.zero_free_region_real_bounded` | Salt/MR/NumeralKq.lean:193 | characters |
-| `Salt.SW.zero_free_region_all'_bounded` | Salt/MR/NumeralKq.lean:448 | characters |
-| `Salt.MR.twisted_rect_zero_free_siegel_bounded` | Salt/MR/NumeralKq.lean:500 | characters |
+| `Salt.SW.zero_free_region_real_bounded` | Salt/MR/NumeralKq.lean:190 | characters |
+| `Salt.SW.zero_free_region_all'_bounded` | Salt/MR/NumeralKq.lean:242 | characters |
+| `Salt.MR.twisted_rect_zero_free_siegel_bounded` | Salt/MR/NumeralKq.lean:294 | characters |
 | `Salt.MR.one_line_pow_growth` | Salt/MR/OneLinePowGrowth.lean:323 | zeros, characters |
 | `Salt.MR.perron_trunc_trivial` | Salt/MR/ParsevalAsm.lean:118 | characters |
 | `Salt.MR.perron_trunc_min` | Salt/MR/ParsevalAsm.lean:189 | characters |
@@ -6771,9 +6771,9 @@ Declarations indexed across the tree: 23421 · corpus Prop-valued names (the hyp
 | `Salt.SW.zero_free_region` | Salt/SW/ZeroFree.lean:386 | zeros, sieves, characters |
 | `Salt.SW.LFunction_conj` | Salt/SW/ZeroFreeReal.lean:74 | zeros, sieves, characters |
 | `Salt.SW.neg_re_logDeriv_trivChar_complex_le` | Salt/SW/ZeroFreeReal.lean:148 | zeros, sieves, characters |
-| `Salt.SW.zero_free_region_real` | Salt/SW/ZeroFreeReal.lean:388 | zeros, sieves, characters |
-| `Salt.SW.zero_free_region_all` | Salt/SW/ZeroFreeReal.lean:604 | zeros, sieves, characters |
-| `Salt.SW.zero_free_region_all'` | Salt/SW/ZeroFreeReal.lean:641 | zeros, sieves, characters |
+| `Salt.SW.zero_free_region_real` | Salt/SW/ZeroFreeReal.lean:598 | zeros, sieves, characters |
+| `Salt.SW.zero_free_region_all` | Salt/SW/ZeroFreeReal.lean:611 | zeros, sieves, characters |
+| `Salt.SW.zero_free_region_all'` | Salt/SW/ZeroFreeReal.lean:648 | zeros, sieves, characters |
 | `Salt.SW.zetaApprox_strip` | Salt/SW/ZetaEM.lean:48 | zeros, sieves |
 | `Salt.SW.norm_zeta_sub_approx_le_strip` | Salt/SW/ZetaEM.lean:109 | zeros, sieves |
 | `Salt.SW.zeta_partial_em` | Salt/SW/ZetaEM.lean:123 | zeros, sieves |
@@ -8223,8 +8223,8 @@ Declarations indexed across the tree: 23421 · corpus Prop-valued names (the hyp
 | `Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_bounded` | Salt/MR/NumeralCt.lean:1094 | characters | `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
 | `Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_ceiling_kwide` | Salt/MR/NumeralCt.lean:1147 | characters | `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
 | `Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_ceiling` | Salt/MR/NumeralCt.lean:1186 | characters | `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_fuse_hcap_of_capWS_gk_bounded` | Salt/MR/NumeralKq.lean:1002 | characters | `Salt.MR.DoorCapBasePerBlock_gk`, `Salt.MR.SocketBase`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_fuse_hcap_of_capWS_gk_ceiling` | Salt/MR/NumeralKq.lean:1060 | characters | `Salt.MR.DoorCapBasePerBlock_gk`, `Salt.MR.SocketBase`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_fuse_hcap_of_capWS_gk_bounded` | Salt/MR/NumeralKq.lean:796 | characters | `Salt.MR.DoorCapBasePerBlock_gk`, `Salt.MR.SocketBase`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_fuse_hcap_of_capWS_gk_ceiling` | Salt/MR/NumeralKq.lean:854 | characters | `Salt.MR.DoorCapBasePerBlock_gk`, `Salt.MR.SocketBase`, `Salt.MR.TannGate` |
 | `Salt.MR.joint_cs_trunc_pin2` | Salt/MR/PinFamily2.lean:388 | characters | `Salt.MR.JointIntegrableAt` |
 | `Salt.MR.crossKer_width_pin_const2` | Salt/MR/PinFamily2.lean:441 | characters | `Salt.MR.ShortIntervalDatum` |
 | `Salt.MR.beta_integral_pin_const2` | Salt/MR/PinFamily2.lean:480 | characters | `Salt.MR.ShortIntervalDatum` |
