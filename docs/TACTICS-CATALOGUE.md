@@ -1,7 +1,7 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `09e29750` · source digest `6f9797873ffbb419` (the same digest as items 1–3).
+> Base: last commit touching `Salt/` = `44b87a09` · source digest `68a7de4091362b1c` (the same digest as items 1–3).
 > Receipt: files 1414 · decls 23432 · with_body 23432 · tactic_lines 307122 · runs 36022 · blocks 1295.
 
 ## LIMITS (read before any number below)
@@ -159,7 +159,7 @@ Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 
-**1.** 3 lines × 54 occurrences in 47 files · lines saved ≤ **108** · e.g. `Salt/Entropy/Chowla/StrideCircle.lean:226` · `Salt/HB/Lemma10Chain.lean:358`
+**1.** 3 lines × 54 occurrences in 47 files · lines saved ≤ **108** · e.g. `Salt/Entropy/Chowla/StrideCircle.lean:227` · `Salt/HB/Lemma10Chain.lean:358`
 
 ```lean
 congr #
