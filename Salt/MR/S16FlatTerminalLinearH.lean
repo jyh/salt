@@ -1442,7 +1442,7 @@ explicitly per the `ShiftFork` module fence.
 
 ⭐ **2026-09-01, wave H1 word 1 — THE `Cg` CAP RESTORED.**  This mint originally reached for
 `parseval_insert_budget_door` (`M4ParsevalStone.lean:341`) where the `h = 1` lane reaches for
-`parseval_insert_budget_door_bounded` (`CgPin.lean:291`, the same `∀`-body plus one conjunct).
+`parseval_insert_budget_door_bounded` (`CgPin.lean:244`, the same `∀`-body plus one conjunct).
 The two differ only in that the bounded one EXPORTS `Cg ≤ 2·10^12`, and that cap is READ with
 ZERO slack downstream (`flatDoorM_bfloor_bump`: `24·2·10^12·838400 = 4.02432·10^19` exactly).
 Its absence at `h` was an artifact of that one `obtain`, not a property of the `h` lane. -/

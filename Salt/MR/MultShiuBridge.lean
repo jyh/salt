@@ -13,7 +13,7 @@ MR §8.2 (`docs/sources/1501.04585v4.pdf` pp. 25–27; extract `docs/sources/mr_
 device**: on `𝒯_{j,r}` the prime-block factor `‖Q_r(1+it)‖` is *large*, so raising it to the
 power `ℓ_{j,r}` normalises the indicator to `1`, and the object `Q_r(1+it)^ℓ · R_v(1+it)` is
 re-expanded as a **single** Dirichlet polynomial, to which **Lemma 13**
-(`Salt.MR.lemma13_moment`, `MomentsA2.lean:246`) applies.
+(`Salt.MR.lemma13_moment`, `MomentsA2.lean:256`) applies.
 
 MR spends one sentence on that re-expansion.  In Lean it is the genuinely new
 combinatorial stone — the named seam **MULT-SHIU**, which `lemma13_moment` carries as its

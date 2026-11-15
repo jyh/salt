@@ -4772,12 +4772,12 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     ```
       card_blockfree_le        SieveGlue.lean:183   per-band count
       card_not_memS_le_sum     Sec9Glue.lean:478    the j-union
-      hsieve_of_engine         SieveGlue.lean:438   THE COMPOSITION, explicitly
+      hsieve_of_engine         SieveGlue.lean:513   THE COMPOSITION, explicitly
                                "card_not_memS_le_sum ∘ card_blockfree_le", concluding
         (1/X)·#{n ∈ Nlg : ¬MemS (calP A G) (calQK A G M) J n}
               ≤ C·∑_{j∈Icc 1 J} log(calP j)/log(calQK j)          for Nlg ⊆ Ioc X (2X)
       sum_ratioK_le_basel      SeamNumber.lean:264  collapses that j-sum to π²/(6M), SHARP
-      sec9_eq28_exit_calFamily SieveGlue.lean:556   capstone, carries it at 8C/δ ≤ M
+      sec9_eq28_exit_calFamily SieveGlue.lean:584   capstone, carries it at 8C/δ ≤ M
     ```
     ⇒ ***THE COMPLEMENT DENSITY OVER `Ioc X (2X)` IS A LANDED, COMPOSED, DYADIC OBJECT.*** I had this
     filed as the open gap two beats ago; it is not.
@@ -4875,8 +4875,8 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     HYPOTHESIS YOU STILL INTEND TO MATCH SYNTACTICALLY.***
     ⛔⛔ **THE LINE THAT STOOD HERE — "STILL OPEN: the union bound ITSELF" — WAS FALSE WHEN I WROTE IT,
     AND I WROTE IT. THE UNION BOUND IS LANDED: `Salt.MR.card_not_memS_le_sum`, `Sec9Glue.lean:478`,**
-    docstring *"The union bound behind MR p. 31 (e)"*, **already used at `CgPin.lean:100` and
-    `SieveGlue.lean:460`, already audited at `All.lean:1437`.** Its statement is
+    docstring *"The union bound behind MR p. 31 (e)"*, **already used at `CgPin.lean:100` (at main ebf7025b; that copy went with O13-e's wave 2) and
+    `SieveGlue.lean:455`, already audited at `All.lean:1437`.** Its statement is
     `#(Nlg.filter ¬MemS) ≤ ∑_{j∈Icc 1 J} #(Nlg.filter (blockOmega … = 0))` — **the same statement I
     started writing, under the same name.**
     ⭐⭐ **AND THE WAY I FOUND OUT IS THE FINDING: THE KERNEL REFUSED THE DUPLICATE ONLY BECAUSE I HAPPENED

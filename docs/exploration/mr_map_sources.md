@@ -80,7 +80,7 @@ Matomäki hits are bibliographic only [G grep].
   `c = 10⁻⁹`, `T₀ = exp(exp(8·log(20000K)+1100))+t₀+3` (flags.md VK-7 block
   ~:9670–9700). θ = **3/4** exactly, `(loglog)³` correction, power 3.
 - `Salt/SW/` — the classical L(s,χ) zero-theory: `zero_free_region`
-  (`ZeroFree.lean:386`), `zero_free_region_real`, Siegel
+  (`ZeroFree.lean:394`), `zero_free_region_real`, Siegel
   (`SiegelFinal.lean:443`), `ThreeFourOne.lean`, contour machinery
   (`ContourShift.lean`, `ZetaEM.lean`), and **`zeta_lower_shallow`**
   (`ZetaLowerShallow.lean:1–35`): `σ ≥ 1 − c₄/log⁹(|t|+2) ⟹ ‖ζ(σ+it)‖ ≥

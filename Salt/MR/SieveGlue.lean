@@ -422,21 +422,18 @@ HS-2 prices each summand.  The result is **verbatim** the `hsieve` binder of
 `Sec9Glue.sec9_eq28_exit` with `(1 + 1/100)` replaced by the engine's constant.
 -/
 
-/-- **HS-4 — `hsieve_of_engine`: `hsieve` DISCHARGED.**
-
-Under the K-family pins (`1 ≤ A, G, M`), the window restriction
-`Nlg ⊆ Ioc X (2X)`, and HS-3's three gates read at each block `j ∈ [1, J]`,
-
-`(1/X)·#{n ∈ Nlg : n ∉ S} ≤ C·Σ_{j≤J} log calP_j / log calQK_j`
-
-with `C` the (single, shared) constant of `card_blockfree_le`.  This is
-`Sec9Glue.sec9_eq28_exit`'s third named external, retired.
-
-⟦THE PIN⟧  `MemS`'s sequences are instantiated here — `Pseq := calP A G`,
-`Qseq := calQK A G M` — so the left-hand `S` and the right-hand ratio speak about
-the same blocks.  See §5 for why that is not automatic. -/
-theorem hsieve_of_engine :
-    ∃ C : ℝ, 1 ≤ C ∧ ∀ (A G M J X : ℕ) (Nlg : Finset ℕ),
+/-- `hsieve_of_engine` for ANY constant `C` with `card_blockfree_le`'s property (`hcard`):
+the proof of both
+`hsieve_of_engine` and its bounded twin `hsieve_of_engine_bounded`. -/
+theorem hsieve_of_engine_of (C : ℝ) (hC : 1 ≤ C)
+    (hcard : ∀ (P Q X : ℕ), 2 ≤ P → P ≤ Q →
+        Real.log Q ≤ Real.sqrt (Real.log X) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log X) →
+        ((Nat.sqrt X : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
+            ≤ (X : ℝ) * (Real.log P / Real.log Q) →
+        (((Finset.Ioc X (2 * X)).filter (fun n => blockOmega P Q n = 0)).card : ℝ)
+          ≤ C * (Real.log P / Real.log Q) * X) :
+    ∀ (A G M J X : ℕ) (Nlg : Finset ℕ),
       1 ≤ A → 1 ≤ G → 1 ≤ M →
       Nlg ⊆ Finset.Ioc X (2 * X) → 0 < (X : ℝ) →
       (100 : ℝ) ≤ Real.sqrt (Real.log X) →
@@ -452,8 +449,6 @@ theorem hsieve_of_engine :
         ≤ C * ∑ j ∈ Finset.Icc 1 J,
             Real.log ((calP A G j : ℕ) : ℝ)
               / Real.log ((calQK A G M j : ℕ) : ℝ) := by
-  obtain ⟨C, hC, hcard⟩ := card_blockfree_le
-  refine ⟨C, hC, ?_⟩
   intro A G M J X Nlg hA hG hM hNlg hX hbig hreg herr
   have hXne : (X : ℝ) ≠ 0 := ne_of_gt hX
   -- ⟦STEP 1: the union bound (p. 31 (e), the pure-counting part)⟧
@@ -501,6 +496,39 @@ theorem hsieve_of_engine :
           Real.log ((calP A G j : ℕ) : ℝ)
             / Real.log ((calQK A G M j : ℕ) : ℝ) := by
         field_simp
+
+/-- **HS-4 — `hsieve_of_engine`: `hsieve` DISCHARGED.**
+
+Under the K-family pins (`1 ≤ A, G, M`), the window restriction
+`Nlg ⊆ Ioc X (2X)`, and HS-3's three gates read at each block `j ∈ [1, J]`,
+
+`(1/X)·#{n ∈ Nlg : n ∉ S} ≤ C·Σ_{j≤J} log calP_j / log calQK_j`
+
+with `C` the (single, shared) constant of `card_blockfree_le`.  This is
+`Sec9Glue.sec9_eq28_exit`'s third named external, retired.
+
+⟦THE PIN⟧  `MemS`'s sequences are instantiated here — `Pseq := calP A G`,
+`Qseq := calQK A G M` — so the left-hand `S` and the right-hand ratio speak about
+the same blocks.  See §5 for why that is not automatic. -/
+theorem hsieve_of_engine :
+    ∃ C : ℝ, 1 ≤ C ∧ ∀ (A G M J X : ℕ) (Nlg : Finset ℕ),
+      1 ≤ A → 1 ≤ G → 1 ≤ M →
+      Nlg ⊆ Finset.Ioc X (2 * X) → 0 < (X : ℝ) →
+      (100 : ℝ) ≤ Real.sqrt (Real.log X) →
+      (∀ j ∈ Finset.Icc 1 J,
+        Real.log ((calQK A G M j : ℕ) : ℝ) ≤ Real.sqrt (Real.log X)) →
+      (∀ j ∈ Finset.Icc 1 J,
+        ((Nat.sqrt X : ℝ) + 1)
+            * ∏ p ∈ primeBand (calP A G j) (calQK A G M j), (1 + 3 / (p : ℝ))
+          ≤ (X : ℝ) * (Real.log ((calP A G j : ℕ) : ℝ)
+              / Real.log ((calQK A G M j : ℕ) : ℝ))) →
+      (1 / (X : ℝ))
+          * ((Nlg.filter (fun n => ¬ MemS (calP A G) (calQK A G M) J n)).card : ℝ)
+        ≤ C * ∑ j ∈ Finset.Icc 1 J,
+            Real.log ((calP A G j : ℕ) : ℝ)
+              / Real.log ((calQK A G M j : ℕ) : ℝ) := by
+  obtain ⟨C, hC, hcard⟩ := card_blockfree_le
+  exact ⟨C, hC, hsieve_of_engine_of C hC hcard⟩
 
 /-! ## §5 — HS-5: the `Pseq`/`Qseq` cross-wire pin
 
