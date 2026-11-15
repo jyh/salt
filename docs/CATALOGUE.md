@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `7b3bf30a` · source digest `6756d883ca44a5ea` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `705c2ba5` · source digest `2366a1e06ab54e5e` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23425 · corpus Prop-valued names (the hypothesis universe): 689.
+Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hypothesis universe): 689.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -1274,10 +1274,10 @@ Declarations indexed across the tree: 23425 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.dft_parseval` | Salt/Entropy/Chowla/CircleMethod.lean:126 | entropy |
 | `Salt.Entropy.Chowla.dft_l1_bound` | Salt/Entropy/Chowla/CircleMethod.lean:155 | entropy |
 | `Salt.Entropy.Chowla.circle_method_estimate` | Salt/Entropy/Chowla/CircleMethod.lean:652 | entropy |
-| `Salt.Entropy.Chowla.fourier_split_h` | Salt/Entropy/Chowla/CircleMethod.lean:1137 | entropy, exponential sums |
-| `Salt.Entropy.Chowla.fourier_split_sq_h` | Salt/Entropy/Chowla/CircleMethod.lean:1227 | entropy, exponential sums |
-| `Salt.Entropy.Chowla.circle_method_estimate_h_core` | Salt/Entropy/Chowla/CircleMethod.lean:1308 | entropy |
-| `Salt.Entropy.Chowla.circle_method_estimate_sq_h_core` | Salt/Entropy/Chowla/CircleMethod.lean:1460 | entropy |
+| `Salt.Entropy.Chowla.fourier_split_h` | Salt/Entropy/Chowla/CircleMethod.lean:1152 | entropy, exponential sums |
+| `Salt.Entropy.Chowla.fourier_split_sq_h` | Salt/Entropy/Chowla/CircleMethod.lean:1242 | entropy, exponential sums |
+| `Salt.Entropy.Chowla.circle_method_estimate_h_core` | Salt/Entropy/Chowla/CircleMethod.lean:1323 | entropy |
+| `Salt.Entropy.Chowla.circle_method_estimate_sq_h_core` | Salt/Entropy/Chowla/CircleMethod.lean:1609 | entropy |
 | `Salt.Entropy.Chowla.iIndepFun_residueProj` | Salt/Entropy/Chowla/Concentration.lean:102 | entropy |
 | `Salt.Entropy.Chowla.hoeffding_residueProj` | Salt/Entropy/Chowla/Concentration.lean:218 | entropy |
 | `Salt.Entropy.Chowla.fBridgeF_mean` | Salt/Entropy/Chowla/Decoupled.lean:38 | entropy |
@@ -1381,10 +1381,10 @@ Declarations indexed across the tree: 23425 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.consumability_probe_h` | Salt/Entropy/Chowla/HReduce.lean:140 | characters, entropy |
 | `Salt.Entropy.Chowla.hreduce_close_h` | Salt/Entropy/Chowla/HReduce.lean:167 | characters, entropy |
 | `Salt.Entropy.Chowla.hreduce_close_h_one` | Salt/Entropy/Chowla/HReduce.lean:197 | characters, entropy |
-| `Salt.Entropy.Chowla.hbudget_holds_h_bounded` | Salt/Entropy/Chowla/HeadPinLeavesH.lean:52 | entropy |
-| `Salt.Entropy.Chowla.hreduce_holds_final_h_bounded` | Salt/Entropy/Chowla/HeadPinLeavesH.lean:72 | characters, entropy |
-| `Salt.Entropy.Chowla.circle_method_estimate_sq_bounded_h_core` | Salt/Entropy/Chowla/HeadPinLeavesH.lean:103 | entropy |
-| `Salt.Entropy.Chowla.circle_method_estimate_sq_bounded_h` | Salt/Entropy/Chowla/HeadPinLeavesH.lean:239 | entropy |
+| `Salt.Entropy.Chowla.hbudget_holds_h_bounded` | Salt/Entropy/Chowla/HeadPinLeavesH.lean:53 | entropy |
+| `Salt.Entropy.Chowla.hreduce_holds_final_h_bounded` | Salt/Entropy/Chowla/HeadPinLeavesH.lean:73 | characters, entropy |
+| `Salt.Entropy.Chowla.circle_method_estimate_sq_bounded_h_core` | Salt/Entropy/Chowla/HeadPinLeavesH.lean:102 | entropy |
+| `Salt.Entropy.Chowla.circle_method_estimate_sq_bounded_h` | Salt/Entropy/Chowla/HeadPinLeavesH.lean:121 | entropy |
 | `Salt.Entropy.Chowla.harmonic_shift_l1_le` | Salt/Entropy/Chowla/Invariance.lean:73 | entropy |
 | `Salt.Entropy.Chowla.condEntropy_shift_reduction` | Salt/Entropy/Chowla/InvarianceHead.lean:116 | characters, entropy |
 | `Salt.Entropy.Chowla.condEntropy_shift_le_of_l1` | Salt/Entropy/Chowla/InvarianceHead.lean:158 | characters, entropy |
@@ -9212,7 +9212,7 @@ Declarations indexed across the tree: 23425 · corpus Prop-valued names (the hyp
 | `Salt.Chen.chenWeightA_half` | Salt/Chen/WeightFamily.lean:103 | sieves |
 | `Salt.Chen.readableAffineWeight_chenWeightA` | Salt/Chen/WeightNoGo.lean:154 | sieves |
 | `Salt.Entropy.Chowla.logChowlaFailsAff_one_zero` | Salt/Entropy/Chowla/AffineFork.lean:78 | entropy |
-| `Salt.Entropy.Chowla.bigXiTwistFilter` | Salt/Entropy/Chowla/CircleMethod.lean:1023 | entropy |
+| `Salt.Entropy.Chowla.bigXiTwistFilter` | Salt/Entropy/Chowla/CircleMethod.lean:1038 | entropy |
 | `Salt.Entropy.Chowla.fBridgeG_h` | Salt/Entropy/Chowla/FBridge.lean:548 | entropy |
 | `Salt.Entropy.Chowla.fBridgeF_h` | Salt/Entropy/Chowla/FBridge.lean:556 | entropy |
 | `Salt.Entropy.Chowla.chi4w` | Salt/Entropy/Chowla/PinDichotomy.lean:295 | entropy |

@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `7b3bf30a` · source digest `6756d883ca44a5ea` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `705c2ba5` · source digest `2366a1e06ab54e5e` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23425 · with a proof/definition body: 23425 · direct corpus references (edges): 86939 · audited results: 9148 · corpus Prop-valued names: 689.
+Declarations indexed: 23427 · with a proof/definition body: 23427 · direct corpus references (edges): 86933 · audited results: 9148 · corpus Prop-valued names: 689.
 
 ## Hypothesis status (Deliverable A)
 
@@ -985,8 +985,8 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 | family | decls in family | audited in family | unconditional | conditional | statement-only | infrastructure | unresolved | audited dependents | external dependents |
 |---|---|---|---|---|---|---|---|---|---|
-| circle method / Fourier | 181 | 83 | 563 | 640 | 22 | 10 | 0 | 1235 | 1171 |
-| entropy decrement | 1407 | 534 | 525 | 464 | 78 | 38 | 0 | 1105 | 650 |
+| circle method / Fourier | 183 | 83 | 563 | 640 | 22 | 10 | 0 | 1235 | 1171 |
+| entropy decrement | 1409 | 534 | 525 | 464 | 78 | 38 | 0 | 1105 | 650 |
 | large sieve | 136 | 18 | 719 | 598 | 1 | 22 | 0 | 1340 | 1326 |
 | Selberg/Brun sieve | 5686 | 952 | 3763 | 1357 | 65 | 94 | 0 | 5279 | 4412 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1611 | 747 | 1500 | 719 | 4 | 19 | 0 | 2242 | 1592 |
@@ -1177,9 +1177,9 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
 | Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9813 |
-| entropy decrement | 650 | 534 | 1407 |
+| entropy decrement | 650 | 534 | 1409 |
 | character sums / L-functions | 966 | 2196 | 4330 |
-| circle method / Fourier | 1171 | 83 | 181 |
+| circle method / Fourier | 1171 | 83 | 183 |
 | exponential sums | 1297 | 223 | 594 |
 | large sieve | 1326 | 18 | 136 |
 | explog/lognum numeral tactic | 1438 | 0 | 53 |
