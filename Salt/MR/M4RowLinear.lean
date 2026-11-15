@@ -2647,163 +2647,9 @@ theorem m4_chiBlockMeanSq_of_shiftBlock_L_gk (K : ℕ) {R : ChowlaRegime} {M k :
     (han : ∀ j H : ℕ, j₀ ≤ j → F j H ≤ Fan H)
     (htr : ∀ j H : ℕ, j < j₀ → F j H ≤ Ftr H)
     (hfix : M4ChiShiftBlockMeanSq_L_gk K R M k F) :
-    M4ChiBlockMeanSq_L_gk K R M k (m4BclGraded j₀ Fan Ftr) := by
-  classical
-  intro H hlo hhi q hq hqQ i hik χ
-  have hH0 : 0 < H := by have := R.hHlo_floor; omega
-  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
-  set L := Nat.log 2 H with hL
-  set A := doorLadder R.x H (i + 1) with hA
-  set B := doorLadder R.x H i with hB
-  set X : ℕ → ℕ → ℕ → ℝ := fun j t n =>
-    ‖∑ m ∈ doorSievedWindow_L_gk K M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2 with hX
-  have hA0 : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
-  set S : ℝ := ∑ j ∈ Finset.range (L + 1), (3 / 2 : ℝ) ^ j with hS
-  have hS0 : (0 : ℝ) ≤ S := (geom_weight_sum_pos L).le
-  -- ⟦STEP 1⟧ the pointwise maximal bound (§3), at the geometric weights
-  have hstep1 : ∑ n ∈ Finset.Ioc A B, (doorChiSup_L_gk K χ M H n) ^ 2
-      ≤ ∑ n ∈ Finset.Ioc A B, S
-          * ∑ j ∈ Finset.range (L + 1),
-              (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j :=
-    Finset.sum_le_sum fun n _ => doorChiSup_sq_le_dyadic_L_gk K χ M H n
-  -- ⟦STEP 2⟧ the sums commute (the weight rides the `j`-index only)
-  have hswap : ∑ n ∈ Finset.Ioc A B, S
-        * ∑ j ∈ Finset.range (L + 1),
-            (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
-      = S * ∑ j ∈ Finset.range (L + 1),
-          (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
-    sum_mul_weighted_sum_comm _ _ _ _ _ _
-  -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
-  have hjt : ∀ j ∈ Finset.range (L + 1), ∀ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
-      ∑ n ∈ Finset.Ioc A B, X j t n ≤ F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) := by
-    intro j hj t ht
-    have hjL : j ≤ L := by
-      have := Finset.mem_range.mp hj
-      omega
-    have ht' : t ≤ H / 2 ^ (j + 1) := by
-      have := Finset.mem_range.mp ht
-      omega
-    have hs : 2 ^ (j + 1) * t ≤ H := by
-      calc 2 ^ (j + 1) * t ≤ 2 ^ (j + 1) * (H / 2 ^ (j + 1)) := Nat.mul_le_mul_left _ ht'
-        _ = H / 2 ^ (j + 1) * 2 ^ (j + 1) := Nat.mul_comm _ _
-        _ ≤ H := Nat.div_mul_le_self H (2 ^ (j + 1))
-    have hre : ∑ n ∈ Finset.Ioc A B, X j t n
-        = ∑ n ∈ Finset.Ioc (A + 2 ^ (j + 1) * t) (B + 2 ^ (j + 1) * t),
-            ‖∑ m ∈ doorSievedWindow_L_gk K M (2 ^ j) n, liouChi χ m‖ ^ 2 :=
-      sum_Ioc_shift (fun n => ‖∑ m ∈ doorSievedWindow_L_gk K M (2 ^ j) n, liouChi χ m‖ ^ 2) A B _
-    rw [hre]
-    exact hfix H hlo hhi q hq hqQ i hik χ j hjL _ hs
-  -- ⟦STEP 4⟧ the per-scale count × weight
-  set W : ℕ → ℝ := fun j => (((H / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2 with hW
-  have hW0 : ∀ j, (0 : ℝ) ≤ W j := fun j => dyadic_count_weight_term_nonneg H j
-  have hj : ∀ j ∈ Finset.range (L + 1),
-      (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
-          * (2 / 3 : ℝ) ^ j
-        ≤ (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by
-    intro j hjm
-    have hle : ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
-        ≤ ∑ _t ∈ Finset.range (H / 2 ^ (j + 1) + 1), F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) :=
-      Finset.sum_le_sum fun t ht => hjt j hjm t ht
-    rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul] at hle
-    have hstep : ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
-        ≤ (F j H * (A : ℝ)) * W j := by
-      calc ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
-          ≤ (((H / 2 ^ (j + 1) : ℕ) + 1 : ℕ) : ℝ) * (F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)) :=
-            hle
-        _ = (F j H * (A : ℝ)) * W j := by
-            simp only [hW]
-            push_cast
-            ring
-    calc (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
-          * (2 / 3 : ℝ) ^ j
-        ≤ ((F j H * (A : ℝ)) * W j) * (2 / 3 : ℝ) ^ j :=
-          mul_le_mul_of_nonneg_right hstep (by positivity)
-      _ = (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by ring
-  -- ⟦STEP 5⟧ THE SPLIT: the large lengths against the weighted full count, the small ones
-  -- against the weighted head.  This is the only place the floor `j₀` is read.
-  have hWw0 : ∀ j, (0 : ℝ) ≤ W j * (2 / 3 : ℝ) ^ j := fun j =>
-    mul_nonneg (hW0 j) (by positivity)
-  have hlarge : ∑ j ∈ (Finset.range (L + 1)).filter (fun j => j₀ ≤ j),
-        (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
-      ≤ Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j := by
-    have hFanA : (0 : ℝ) ≤ Fan H * (A : ℝ) := mul_nonneg (hFan0 H) hA0
-    calc ∑ j ∈ (Finset.range (L + 1)).filter (fun j => j₀ ≤ j),
-          (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
-        ≤ ∑ j ∈ (Finset.range (L + 1)).filter (fun j => j₀ ≤ j),
-            (Fan H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by
-          refine Finset.sum_le_sum fun j hjm => ?_
-          have hj₀ := (Finset.mem_filter.mp hjm).2
-          exact mul_le_mul_of_nonneg_right
-            (mul_le_mul_of_nonneg_right (han j H hj₀) hA0) (hWw0 j)
-      _ ≤ ∑ j ∈ Finset.range (L + 1), (Fan H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) :=
-          Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
-            (fun j _ _ => mul_nonneg hFanA (hWw0 j))
-      _ = Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j := by
-          rw [Finset.mul_sum]
-  have hsmall : ∑ j ∈ (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j),
-        (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
-      ≤ Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j := by
-    have hFtrA : (0 : ℝ) ≤ Ftr H * (A : ℝ) := mul_nonneg (hFtr0 H) hA0
-    have hsub : (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j) ⊆ Finset.range j₀ := by
-      intro j hjm
-      have := (Finset.mem_filter.mp hjm).2
-      exact Finset.mem_range.mpr (by omega)
-    calc ∑ j ∈ (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j),
-          (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
-        ≤ ∑ j ∈ (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j),
-            (Ftr H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by
-          refine Finset.sum_le_sum fun j hjm => ?_
-          have hj₀ : j < j₀ := by have := (Finset.mem_filter.mp hjm).2; omega
-          exact mul_le_mul_of_nonneg_right
-            (mul_le_mul_of_nonneg_right (htr j H hj₀) hA0) (hWw0 j)
-      _ ≤ ∑ j ∈ Finset.range j₀, (Ftr H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) :=
-          Finset.sum_le_sum_of_subset_of_nonneg hsub
-            (fun j _ _ => mul_nonneg hFtrA (hWw0 j))
-      _ = Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j := by
-          rw [Finset.mul_sum]
-  have hcount : ∑ j ∈ Finset.range (L + 1),
-        (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
-          * (2 / 3 : ℝ) ^ j
-      ≤ Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j
-        + Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j := by
-    refine le_trans (Finset.sum_le_sum hj) ?_
-    rw [← Finset.sum_filter_add_sum_filter_not (Finset.range (L + 1)) (fun j => j₀ ≤ j)]
-    linarith
-  -- ⟦THE ASSEMBLY⟧ the two weighted counts, prefactor included (§4)
-  have hHne : ((H : ℝ)) ≠ 0 := by
-    have : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH0
-    exact ne_of_gt this
-  have hfull : S * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j ≤ 54 / 5 * (H : ℝ) ^ 2 := by
-    rw [hS, hW, hL]
-    exact dyadic_count_weight_geom_le hH0
-  have hhead : S * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j
-      ≤ 9 / 2 * (H : ℝ) * (3 / 2 : ℝ) ^ L * (4 / 3 : ℝ) ^ j₀
-        + 9 / 5 * (3 / 2 : ℝ) ^ L * (8 / 3 : ℝ) ^ j₀ := by
-    rw [hS, hW, hL]
-    exact dyadic_count_weight_geom_small_le hH0 j₀
-  have hFanA : (0 : ℝ) ≤ Fan H * (A : ℝ) := mul_nonneg (hFan0 H) hA0
-  have hFtrA : (0 : ℝ) ≤ Ftr H * (A : ℝ) := mul_nonneg (hFtr0 H) hA0
-  calc ∑ n ∈ Finset.Ioc A B, (doorChiSup_L_gk K χ M H n) ^ 2
-      ≤ S * ∑ j ∈ Finset.range (L + 1),
-          (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
-            * (2 / 3 : ℝ) ^ j := by
-        rw [← hswap]; exact hstep1
-    _ ≤ S * (Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j
-          + Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j) :=
-        mul_le_mul_of_nonneg_left hcount hS0
-    _ = Fan H * (A : ℝ) * (S * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j)
-          + Ftr H * (A : ℝ) * (S * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j) := by ring
-    _ ≤ Fan H * (A : ℝ) * (54 / 5 * (H : ℝ) ^ 2)
-          + Ftr H * (A : ℝ) * (9 / 2 * (H : ℝ) * (3 / 2 : ℝ) ^ L * (4 / 3 : ℝ) ^ j₀
-            + 9 / 5 * (3 / 2 : ℝ) ^ L * (8 / 3 : ℝ) ^ j₀) := by
-        have h1 := mul_le_mul_of_nonneg_left hfull hFanA
-        have h2 := mul_le_mul_of_nonneg_left hhead hFtrA
-        linarith
-    _ = m4BclGraded j₀ Fan Ftr H * (H : ℝ) ^ 2 * (A : ℝ) := by
-        unfold m4BclGraded m4Cmax
-        rw [← hL]
-        field_simp
+    M4ChiBlockMeanSq_L_gk K R M k (m4BclGraded j₀ Fan Ftr) :=
+  m4_chiBlockMeanSq_of_shiftBlockAZ (AdoorL M) (s13GK K M)
+    j₀ (fun χ H n => doorChiSup_sq_le_dyadic_L_gk K χ M H n) hFan0 hFtr0 han htr hfix
 
 /-- **⟦R1⟧, EXECUTED, LENGTH-GRADED** (`m4_chiBlockMeanSq_of_shiftBlock_L`) — the sub-window
 sup's block mean square from the fixed dyadic lengths, at the SPLIT price `m4BclGraded`.
@@ -2823,163 +2669,9 @@ theorem m4_chiBlockMeanSq_of_shiftBlock_L {R : ChowlaRegime} {M k : ℕ} {F : �
     (han : ∀ j H : ℕ, j₀ ≤ j → F j H ≤ Fan H)
     (htr : ∀ j H : ℕ, j < j₀ → F j H ≤ Ftr H)
     (hfix : M4ChiShiftBlockMeanSq_L R M k F) :
-    M4ChiBlockMeanSq_L R M k (m4BclGraded j₀ Fan Ftr) := by
-  classical
-  intro H hlo hhi q hq hqQ i hik χ
-  have hH0 : 0 < H := by have := R.hHlo_floor; omega
-  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
-  set L := Nat.log 2 H with hL
-  set A := doorLadder R.x H (i + 1) with hA
-  set B := doorLadder R.x H i with hB
-  set X : ℕ → ℕ → ℕ → ℝ := fun j t n =>
-    ‖∑ m ∈ doorSievedWindow_L M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2 with hX
-  have hA0 : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
-  set S : ℝ := ∑ j ∈ Finset.range (L + 1), (3 / 2 : ℝ) ^ j with hS
-  have hS0 : (0 : ℝ) ≤ S := (geom_weight_sum_pos L).le
-  -- ⟦STEP 1⟧ the pointwise maximal bound (§3), at the geometric weights
-  have hstep1 : ∑ n ∈ Finset.Ioc A B, (doorChiSup_L χ M H n) ^ 2
-      ≤ ∑ n ∈ Finset.Ioc A B, S
-          * ∑ j ∈ Finset.range (L + 1),
-              (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j :=
-    Finset.sum_le_sum fun n _ => doorChiSup_sq_le_dyadic_L χ M H n
-  -- ⟦STEP 2⟧ the sums commute (the weight rides the `j`-index only)
-  have hswap : ∑ n ∈ Finset.Ioc A B, S
-        * ∑ j ∈ Finset.range (L + 1),
-            (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
-      = S * ∑ j ∈ Finset.range (L + 1),
-          (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
-            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j :=
-    sum_mul_weighted_sum_comm _ _ _ _ _ _
-  -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
-  have hjt : ∀ j ∈ Finset.range (L + 1), ∀ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
-      ∑ n ∈ Finset.Ioc A B, X j t n ≤ F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) := by
-    intro j hj t ht
-    have hjL : j ≤ L := by
-      have := Finset.mem_range.mp hj
-      omega
-    have ht' : t ≤ H / 2 ^ (j + 1) := by
-      have := Finset.mem_range.mp ht
-      omega
-    have hs : 2 ^ (j + 1) * t ≤ H := by
-      calc 2 ^ (j + 1) * t ≤ 2 ^ (j + 1) * (H / 2 ^ (j + 1)) := Nat.mul_le_mul_left _ ht'
-        _ = H / 2 ^ (j + 1) * 2 ^ (j + 1) := Nat.mul_comm _ _
-        _ ≤ H := Nat.div_mul_le_self H (2 ^ (j + 1))
-    have hre : ∑ n ∈ Finset.Ioc A B, X j t n
-        = ∑ n ∈ Finset.Ioc (A + 2 ^ (j + 1) * t) (B + 2 ^ (j + 1) * t),
-            ‖∑ m ∈ doorSievedWindow_L M (2 ^ j) n, liouChi χ m‖ ^ 2 :=
-      sum_Ioc_shift (fun n => ‖∑ m ∈ doorSievedWindow_L M (2 ^ j) n, liouChi χ m‖ ^ 2) A B _
-    rw [hre]
-    exact hfix H hlo hhi q hq hqQ i hik χ j hjL _ hs
-  -- ⟦STEP 4⟧ the per-scale count × weight
-  set W : ℕ → ℝ := fun j => (((H / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2 with hW
-  have hW0 : ∀ j, (0 : ℝ) ≤ W j := fun j => dyadic_count_weight_term_nonneg H j
-  have hj : ∀ j ∈ Finset.range (L + 1),
-      (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
-          * (2 / 3 : ℝ) ^ j
-        ≤ (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by
-    intro j hjm
-    have hle : ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
-        ≤ ∑ _t ∈ Finset.range (H / 2 ^ (j + 1) + 1), F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) :=
-      Finset.sum_le_sum fun t ht => hjt j hjm t ht
-    rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul] at hle
-    have hstep : ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
-        ≤ (F j H * (A : ℝ)) * W j := by
-      calc ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
-          ≤ (((H / 2 ^ (j + 1) : ℕ) + 1 : ℕ) : ℝ) * (F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)) :=
-            hle
-        _ = (F j H * (A : ℝ)) * W j := by
-            simp only [hW]
-            push_cast
-            ring
-    calc (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
-          * (2 / 3 : ℝ) ^ j
-        ≤ ((F j H * (A : ℝ)) * W j) * (2 / 3 : ℝ) ^ j :=
-          mul_le_mul_of_nonneg_right hstep (by positivity)
-      _ = (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by ring
-  -- ⟦STEP 5⟧ THE SPLIT: the large lengths against the weighted full count, the small ones
-  -- against the weighted head.  This is the only place the floor `j₀` is read.
-  have hWw0 : ∀ j, (0 : ℝ) ≤ W j * (2 / 3 : ℝ) ^ j := fun j =>
-    mul_nonneg (hW0 j) (by positivity)
-  have hlarge : ∑ j ∈ (Finset.range (L + 1)).filter (fun j => j₀ ≤ j),
-        (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
-      ≤ Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j := by
-    have hFanA : (0 : ℝ) ≤ Fan H * (A : ℝ) := mul_nonneg (hFan0 H) hA0
-    calc ∑ j ∈ (Finset.range (L + 1)).filter (fun j => j₀ ≤ j),
-          (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
-        ≤ ∑ j ∈ (Finset.range (L + 1)).filter (fun j => j₀ ≤ j),
-            (Fan H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by
-          refine Finset.sum_le_sum fun j hjm => ?_
-          have hj₀ := (Finset.mem_filter.mp hjm).2
-          exact mul_le_mul_of_nonneg_right
-            (mul_le_mul_of_nonneg_right (han j H hj₀) hA0) (hWw0 j)
-      _ ≤ ∑ j ∈ Finset.range (L + 1), (Fan H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) :=
-          Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
-            (fun j _ _ => mul_nonneg hFanA (hWw0 j))
-      _ = Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j := by
-          rw [Finset.mul_sum]
-  have hsmall : ∑ j ∈ (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j),
-        (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
-      ≤ Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j := by
-    have hFtrA : (0 : ℝ) ≤ Ftr H * (A : ℝ) := mul_nonneg (hFtr0 H) hA0
-    have hsub : (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j) ⊆ Finset.range j₀ := by
-      intro j hjm
-      have := (Finset.mem_filter.mp hjm).2
-      exact Finset.mem_range.mpr (by omega)
-    calc ∑ j ∈ (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j),
-          (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
-        ≤ ∑ j ∈ (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j),
-            (Ftr H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by
-          refine Finset.sum_le_sum fun j hjm => ?_
-          have hj₀ : j < j₀ := by have := (Finset.mem_filter.mp hjm).2; omega
-          exact mul_le_mul_of_nonneg_right
-            (mul_le_mul_of_nonneg_right (htr j H hj₀) hA0) (hWw0 j)
-      _ ≤ ∑ j ∈ Finset.range j₀, (Ftr H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) :=
-          Finset.sum_le_sum_of_subset_of_nonneg hsub
-            (fun j _ _ => mul_nonneg hFtrA (hWw0 j))
-      _ = Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j := by
-          rw [Finset.mul_sum]
-  have hcount : ∑ j ∈ Finset.range (L + 1),
-        (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
-          * (2 / 3 : ℝ) ^ j
-      ≤ Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j
-        + Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j := by
-    refine le_trans (Finset.sum_le_sum hj) ?_
-    rw [← Finset.sum_filter_add_sum_filter_not (Finset.range (L + 1)) (fun j => j₀ ≤ j)]
-    linarith
-  -- ⟦THE ASSEMBLY⟧ the two weighted counts, prefactor included (§4)
-  have hHne : ((H : ℝ)) ≠ 0 := by
-    have : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH0
-    exact ne_of_gt this
-  have hfull : S * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j ≤ 54 / 5 * (H : ℝ) ^ 2 := by
-    rw [hS, hW, hL]
-    exact dyadic_count_weight_geom_le hH0
-  have hhead : S * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j
-      ≤ 9 / 2 * (H : ℝ) * (3 / 2 : ℝ) ^ L * (4 / 3 : ℝ) ^ j₀
-        + 9 / 5 * (3 / 2 : ℝ) ^ L * (8 / 3 : ℝ) ^ j₀ := by
-    rw [hS, hW, hL]
-    exact dyadic_count_weight_geom_small_le hH0 j₀
-  have hFanA : (0 : ℝ) ≤ Fan H * (A : ℝ) := mul_nonneg (hFan0 H) hA0
-  have hFtrA : (0 : ℝ) ≤ Ftr H * (A : ℝ) := mul_nonneg (hFtr0 H) hA0
-  calc ∑ n ∈ Finset.Ioc A B, (doorChiSup_L χ M H n) ^ 2
-      ≤ S * ∑ j ∈ Finset.range (L + 1),
-          (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
-            * (2 / 3 : ℝ) ^ j := by
-        rw [← hswap]; exact hstep1
-    _ ≤ S * (Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j
-          + Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j) :=
-        mul_le_mul_of_nonneg_left hcount hS0
-    _ = Fan H * (A : ℝ) * (S * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j)
-          + Ftr H * (A : ℝ) * (S * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j) := by ring
-    _ ≤ Fan H * (A : ℝ) * (54 / 5 * (H : ℝ) ^ 2)
-          + Ftr H * (A : ℝ) * (9 / 2 * (H : ℝ) * (3 / 2 : ℝ) ^ L * (4 / 3 : ℝ) ^ j₀
-            + 9 / 5 * (3 / 2 : ℝ) ^ L * (8 / 3 : ℝ) ^ j₀) := by
-        have h1 := mul_le_mul_of_nonneg_left hfull hFanA
-        have h2 := mul_le_mul_of_nonneg_left hhead hFtrA
-        linarith
-    _ = m4BclGraded j₀ Fan Ftr H * (H : ℝ) ^ 2 * (A : ℝ) := by
-        unfold m4BclGraded m4Cmax
-        rw [← hL]
-        field_simp
+    M4ChiBlockMeanSq_L R M k (m4BclGraded j₀ Fan Ftr) :=
+  m4_chiBlockMeanSq_of_shiftBlockAZ (AdoorL M) (3072 * M)
+    j₀ (fun χ H n => doorChiSup_sq_le_dyadic_L χ M H n) hFan0 hFtr0 han htr hfix
 
 /-- **THE WAVE'S ANALYTIC ITEM, FROM THE GRADED ROW DATUM** — `M4ChiBlockMeanSq_L` at the grade
 `m4BclGraded j₀ (2·MSan) (2·MStr) H`,
@@ -4951,18 +4643,25 @@ theorem doorRow_trivial_grade_L_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter 
         mul_le_mul_of_nonneg_left hbound (by positivity)
     _ = 4 := by field_simp
 
-set_option maxHeartbeats 4000000 in
--- same cause as the landed §3: the ~90-binder instantiation (`DoorRowCarried_L_gk`'s
--- ~85-conjunct destructuring plus the capstone's 86-argument application) is the whole
--- cost — no tactic search happens here, every step is `exact`-shaped
-/-- **THE DOOR ROW'S MEAN SQUARE, CARRIED, AT THE LEVER** — `m4_door_meansq_carried_L`
-(:389). -/
-theorem m4_door_meansq_carried_L_gk (K : ℕ) (hK : K ≤ 170000000) :
+/-! ## §Xw — ⟦KWIDE-65⟧ THE WIDE-CEILING TWINS (this file)
+
+Mechanical widening of the flat `hK : K ≤ 170000000` binders on the `L`-chain: the ceiling
+moves INSIDE the internal `∀ M` as `K ≤ 170000000 * M`, so the raised lever `KlevF` can flow.
+Statements and proofs are verbatim apart from that antecedent and the `_kwide` re-pointing.
+The flat-ceiling originals are their instances at `hK`; each twin sits just above its
+original.
+-/
+
+/-- ⟦WIDE CEILING TWIN⟧ (`m4_door_meansq_carried_L_gk_kwide`) —
+`m4_door_meansq_carried_L_gk` with the flat ceiling moved inside the `∀ M`.
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
+theorem m4_door_meansq_carried_L_gk_kwide (K : ℕ) :
     ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
       0 < Xsk ∧ (∀ Qm : ℕ, 0 ≤ Kcf Qm) ∧ 0 < Ctail ∧
       ∀ (Qm q : ℕ) (χ : DirichletCharacter ℂ q), 0 < q → q ≤ Qm →
-        ∀ (M Xd j : ℕ) (B : ℝ), 1 ≤ M → doorRowFloorL M ≤ j →
+        ∀ (M Xd j : ℕ) (B : ℝ), 1 ≤ M → K ≤ 170000000 * M → doorRowFloorL M ≤ j →
           DoorRowCarried_L_gk K Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail χ M Xd j B →
             1 / ((Xd : ℕ) : ℝ)
                 * (∫ y in ((Xd : ℕ) : ℝ)..(2 * ((Xd : ℕ) : ℝ)),
@@ -4971,14 +4670,14 @@ theorem m4_door_meansq_carried_L_gk (K : ℕ) (hK : K ≤ 170000000) :
                             (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
               ≤ B := by
   obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hgen⟩ :=
-    m4_meansq_per_chi_gen_L_gk K hK
+    m4_meansq_per_chi_gen_L_gk_kwide K
   obtain ⟨Xsk, hXsk0, hsup⟩ := m4_supplier_complete
   -- ⟦THE SKOLEM CUT⟧ the masked-floor constant, as a function of the modulus range
   choose Kcf hKcf0 hcfl using capFreeFloor3_pieceDatum
   obtain ⟨Ctail, hCtail0, htail⟩ := m4_door_tail_supply_L_gk K
   refine ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
     hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, ?_⟩
-  intro Qm q χ hq hqQm M Xd j B hM hj0 hcar
+  intro Qm q χ hq hqQm M Xd j B hM hKw hj0 hcar
   obtain ⟨P, Q, Mt, kk, Dd, Xa, X, h, δ', V, VJ, L, Cb, kmin, Ymax, ε, C₁', M₀,
     cqS, cgS, cW, SW, Rbar0, Dmask,
     hXdX, hhj, hXee, hlX2, hhX, hhceil, hTann, hceil5, hT₀le, hTbot, hLXL, hLe, hL256,
@@ -5072,7 +4771,7 @@ theorem m4_door_meansq_carried_L_gk (K : ℕ) (hK : K ≤ 170000000) :
       (liouChi χ))
     ((Xd : ℕ) : ℝ) ((2 ^ j : ℕ) : ℝ) δ' V VJ L Cb (seamRad ((Xd : ℕ) : ℝ)) (4 * Rbar0)
     kmin Ymax ε _ _ C₁' M₀
-    rfl rfl hXee hlX2 hh4 hhX hhceil hTann hceil5 hT₀le hTbot hLXL hLe hM hXdQ hQ1h hP3
+    rfl rfl hXee hlX2 hh4 hhX hhceil hTann hceil5 hT₀le hTbot hLXL hLe hM hKw hXdQ hQ1h hP3
     hlogP2 hQbot hQlog hQL hPlow hQhigh hPQ hQ0 hHX hH2 hPj1 hQXd hXdbig hdom
     hW5 hkth hMtX hC16 hRradW hthinpin hMtpin hkkg hMtY
     hRrad0 le_rfl le_rfl hV1 hVδ hlogV hδsq hksthr hVJg hCb0 hCbound hXthr
@@ -5086,6 +4785,68 @@ theorem m4_door_meansq_carried_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   -- ⟦THE DATUM BRIDGE⟧ the cut is invisible to the row's short sum
   simp only [shortSum_winCutH_seamS0] at hres
   exact le_trans hres henv
+
+/-- ⟦WIDE CEILING TWIN⟧ (`m4_dyadicRow_carried_L_gk_kwide`) —
+`m4_dyadicRow_carried_L_gk` with the flat ceiling moved inside the `∀ M`.
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
+theorem m4_dyadicRow_carried_L_gk_kwide (K : ℕ) :
+    ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
+      0 < Xsk ∧ (∀ Qm : ℕ, 0 ≤ Kcf Qm) ∧ 0 < Ctail ∧
+      ∀ (R : ChowlaRegime) (Qm M k : ℕ) (MS : ℕ → ℕ → ℝ), 1 ≤ M → K ≤ 170000000 * M →
+        (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ (Qm : ℝ)) →
+        (∀ j H : ℕ, j < doorRowFloorL M → 4 ≤ MS j H) →
+        (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+          ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H, doorRowFloorL M ≤ j →
+            ∀ s ≤ H,
+              DoorRowCarried_L_gk K Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail χ M
+                (doorLadder R.x H (i + 1) + s) j (MS j H)) →
+        M4ChiDyadicRowMeanSq_L_gk K R M k MS := by
+  obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
+    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hrow⟩ :=
+    m4_door_meansq_carried_L_gk_kwide K
+  refine ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
+    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, ?_⟩
+  intro R Qm M k MS hM hKw hQm htriv hcar H hlo hhi q hq hqQ i hik χ j hjL s hsH
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hApos : 0 < doorLadder R.x H (i + 1) + s := by
+    have := doorLadder_floor hxH (i + 1); omega
+  by_cases hcase : doorRowFloorL M ≤ j
+  · -- ⟦the capstone speaks: §3 at the carried register⟧
+    have hqQm : q ≤ Qm := by
+      have hR : (q : ℝ) ≤ (Qm : ℝ) := le_trans hqQ (hQm H hlo hhi)
+      exact_mod_cast hR
+    exact hrow Qm q χ hq hqQm M (doorLadder R.x H (i + 1) + s) j (MS j H) hM hKw hcase
+      (hcar H hlo hhi q hq hqQ i hik χ j hjL hcase s hsH)
+  · -- ⟦below the floor: the trivial grade⟧
+    exact le_trans (doorRow_trivial_grade_L_gk K χ M j hApos) (htriv j H (not_le.mp hcase))
+
+set_option maxHeartbeats 4000000 in
+-- same cause as the landed §3: the ~90-binder instantiation (`DoorRowCarried_L_gk`'s
+-- ~85-conjunct destructuring plus the capstone's 86-argument application) is the whole
+-- cost — no tactic search happens here, every step is `exact`-shaped
+/-- **THE DOOR ROW'S MEAN SQUARE, CARRIED, AT THE LEVER** — `m4_door_meansq_carried_L`
+(:389). -/
+theorem m4_door_meansq_carried_L_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
+      0 < Xsk ∧ (∀ Qm : ℕ, 0 ≤ Kcf Qm) ∧ 0 < Ctail ∧
+      ∀ (Qm q : ℕ) (χ : DirichletCharacter ℂ q), 0 < q → q ≤ Qm →
+        ∀ (M Xd j : ℕ) (B : ℝ), 1 ≤ M → doorRowFloorL M ≤ j →
+          DoorRowCarried_L_gk K Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail χ M Xd j B →
+            1 / ((Xd : ℕ) : ℝ)
+                * (∫ y in ((Xd : ℕ) : ℝ)..(2 * ((Xd : ℕ) : ℝ)),
+                    ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
+                        * shortSum (doorChiCoeff_L_gk K χ M)
+                            (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
+              ≤ B := by
+  obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, f0_1, f0_2, f0_3, f0_4, f0_5, f0_6,
+    f0_7, f0_8, f0_9, f0_10, hw⟩ := m4_door_meansq_carried_L_gk_kwide K
+  refine ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, f0_1, f0_2, f0_3, f0_4, f0_5, f0_6,
+    f0_7, f0_8, f0_9, f0_10, ?_⟩
+  intro Qm q χ e1 e2 M Xd j B hM
+  exact hw Qm q χ e1 e2 M Xd j B hM (by omega)
 
 /-- **THE DOOR'S DYADIC ROW, CARRIED, AT THE LEVER** — `m4_dyadicRow_carried_L` (:523). -/
 theorem m4_dyadicRow_carried_L_gk (K : ℕ) (hK : K ≤ 170000000) :
@@ -5101,24 +4862,83 @@ theorem m4_dyadicRow_carried_L_gk (K : ℕ) (hK : K ≤ 170000000) :
               DoorRowCarried_L_gk K Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail χ M
                 (doorLadder R.x H (i + 1) + s) j (MS j H)) →
         M4ChiDyadicRowMeanSq_L_gk K R M k MS := by
+  obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, f0_1, f0_2, f0_3, f0_4, f0_5, f0_6,
+    f0_7, f0_8, f0_9, f0_10, hw⟩ := m4_dyadicRow_carried_L_gk_kwide K
+  refine ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, f0_1, f0_2, f0_3, f0_4, f0_5, f0_6,
+    f0_7, f0_8, f0_9, f0_10, ?_⟩
+  intro R Qm M k MS hM
+  exact hw R Qm M k MS hM (by omega)
+
+set_option maxHeartbeats 1600000 in
+-- same cause as the landed §5: elaborating the register (which mentions `DoorRowCarried_L_gk`
+-- under six binders) against `m4_wave_closed_of_dyadicRow_L_gk`'s own list is the whole cost
+
+/-- ⟦WIDE CEILING TWIN⟧ (`m4_wave_structurally_closed_L_gk_kwide`) —
+`m4_wave_structurally_closed_L_gk` with the flat ceiling moved inside the `∀ M`.
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
+theorem m4_wave_structurally_closed_L_gk_kwide (K : ℕ) (Qm : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
+      0 < Xsk ∧ 0 ≤ Kcf ∧ 0 < Ctail ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_L_gk K Cg R M k δ → 1 ≤ M → K ≤ 170000000 * M →
+            (∀ H : ℕ, 0 ≤ MSan H) → (∀ H : ℕ, 0 ≤ MStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ j H : ℕ, doorRowFloorL M ≤ j → MS j H ≤ MSan H) →
+            (∀ j H : ℕ, j < doorRowFloorL M → MS j H ≤ MStr H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+                  * ((q : ℝ) ^ 2 * (3 * m4BclGraded (doorRowFloorL M)
+                      (fun H => 2 * MSan H) (fun H => 2 * MStr H) H)) ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              Real.sqrt (Braw H) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
+            -- ⟦the modulus cap: the door's characters inside the capstone's range⟧
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ (Qm : ℝ)) →
+            -- ⟦the small lengths' trivial grade⟧
+            (∀ j H : ℕ, j < doorRowFloorL M → 4 ≤ MS j H) →
+            -- ⟦ARM 1 + the regime gates: the per-instance register⟧
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H,
+                doorRowFloorL M ≤ j → ∀ s ≤ H,
+                  DoorRowCarried_L_gk K Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
+                    (doorLadder R.x H (i + 1) + s) j (MS j H)) →
+            -- ⟦R2's two gates⟧
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
+            -- ⟦ARM 2: the coprime supply, interval/length-general⟧
+            M4CoprimeBlockMeanSq_L_gk K R M
+              (m4BclGraded (doorRowFloorL M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) →
+            ¬ logChowla2Fails R.eps R.x R.ω := by
   obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
     hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hrow⟩ :=
-    m4_door_meansq_carried_L_gk K hK
-  refine ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
-    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, ?_⟩
-  intro R Qm M k MS hM hQm htriv hcar H hlo hhi q hq hqQ i hik χ j hjL s hsH
-  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
-  have hApos : 0 < doorLadder R.x H (i + 1) + s := by
-    have := doorLadder_floor hxH (i + 1); omega
-  by_cases hcase : doorRowFloorL M ≤ j
-  · -- ⟦the capstone speaks: §3 at the carried register⟧
-    have hqQm : q ≤ Qm := by
-      have hR : (q : ℝ) ≤ (Qm : ℝ) := le_trans hqQ (hQm H hlo hhi)
-      exact_mod_cast hR
-    exact hrow Qm q χ hq hqQm M (doorLadder R.x H (i + 1) + s) j (MS j H) hM hcase
-      (hcar H hlo hhi q hq hqQ i hik χ j hjL hcase s hsH)
-  · -- ⟦below the floor: the trivial grade⟧
-    exact le_trans (doorRow_trivial_grade_L_gk K χ M j hApos) (htriv j H (not_le.mp hcase))
+    m4_dyadicRow_carried_L_gk_kwide K
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_wave_closed_of_dyadicRow_L_gk K
+  refine ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl Qm, Xsk, Kcf Qm, Ctail,
+    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl Qm, hXsk0, hKcf0 Qm, hCtail0, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
+  refine ⟨R, hReps, hU1, hRg, ?_⟩
+  intro δ Braw MS MSan MStr M k hgates hM hKw hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
+    hQm htriv hcar hgate harc hcp
+  have hBcl0 : ∀ H : ℕ, 0 ≤ m4BclGraded (doorRowFloorL M) (fun H => 2 * MSan H)
+      (fun H => 2 * MStr H) H := fun H =>
+    m4BclGraded_nonneg (Fan := fun H => 2 * MSan H) (Ftr := fun H => 2 * MStr H)
+      (show (0 : ℝ) ≤ 2 * MSan H by have := hMSan0 H; linarith)
+      (show (0 : ℝ) ≤ 2 * MStr H by have := hMStr0 H; linarith)
+  -- ⟦R2⟧ the wave asks only the NON-COPRIME classes; `m4_nonCoprime_classMeanSq_L` delivers all
+  have hnc : M4ClassBlockMeanSq_L_gk K R M k
+      (m4BclGraded (doorRowFloorL M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) :=
+    m4_nonCoprime_classMeanSq_L_gk K (k := k) hM hBcl0 hgate harc hcp
+  refine hR δ Braw MS MSan MStr (doorRowFloorL M) M k hgates hMSan0 hMStr0 hBraw0 han htr
+    hdrift hdel hrest (hrow R Qm M k MS hM hKw hQm htriv hcar) ?_
+  intro H hlo hhi q hq hqQ i hik r hrq _hncop
+  exact hnc H hlo hhi q hq hqQ i hik r hrq
 
 set_option maxHeartbeats 1600000 in
 -- same cause as the landed §5: elaborating the register (which mentions `DoorRowCarried_L_gk`
@@ -5164,30 +4984,16 @@ theorem m4_wave_structurally_closed_L_gk (K : ℕ) (hK : K ≤ 170000000) (Qm : 
             M4CoprimeBlockMeanSq_L_gk K R M
               (m4BclGraded (doorRowFloorL M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) →
             ¬ logChowla2Fails R.eps R.x R.ω := by
-  obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
-    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hrow⟩ :=
-    m4_dyadicRow_carried_L_gk K hK
-  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_wave_closed_of_dyadicRow_L_gk K
-  refine ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl Qm, Xsk, Kcf Qm, Ctail,
-    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl Qm, hXsk0, hKcf0 Qm, hCtail0, ?_⟩
-  intro C hC U1floor g
-  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
-  refine ⟨R, hReps, hU1, hRg, ?_⟩
-  intro δ Braw MS MSan MStr M k hgates hM hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
-    hQm htriv hcar hgate harc hcp
-  have hBcl0 : ∀ H : ℕ, 0 ≤ m4BclGraded (doorRowFloorL M) (fun H => 2 * MSan H)
-      (fun H => 2 * MStr H) H := fun H =>
-    m4BclGraded_nonneg (Fan := fun H => 2 * MSan H) (Ftr := fun H => 2 * MStr H)
-      (show (0 : ℝ) ≤ 2 * MSan H by have := hMSan0 H; linarith)
-      (show (0 : ℝ) ≤ 2 * MStr H by have := hMStr0 H; linarith)
-  -- ⟦R2⟧ the wave asks only the NON-COPRIME classes; `m4_nonCoprime_classMeanSq_L` delivers all
-  have hnc : M4ClassBlockMeanSq_L_gk K R M k
-      (m4BclGraded (doorRowFloorL M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) :=
-    m4_nonCoprime_classMeanSq_L_gk K (k := k) hM hBcl0 hgate harc hcp
-  refine hR δ Braw MS MSan MStr (doorRowFloorL M) M k hgates hMSan0 hMStr0 hBraw0 han htr
-    hdrift hdel hrest (hrow R Qm M k MS hM hQm htriv hcar) ?_
-  intro H hlo hhi q hq hqQ i hik r hrq _hncop
-  exact hnc H hlo hhi q hq hqQ i hik r hrq
+  obtain ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, f0_1, f0_2, f0_3, f0_4, f0_5,
+    f0_6, f0_7, f0_8, f0_9, f0_10, f0_11, f0_12, f0_13, hw⟩ :=
+    m4_wave_structurally_closed_L_gk_kwide K Qm
+  refine ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, f0_1, f0_2, f0_3, f0_4, f0_5,
+    f0_6, f0_7, f0_8, f0_9, f0_10, f0_11, f0_12, f0_13, ?_⟩
+  intro C e1 U1floor g
+  obtain ⟨R, f1_1, f1_2, f1_3, hw⟩ := hw C e1 U1floor g
+  refine ⟨R, f1_1, f1_2, f1_3, ?_⟩
+  intro δ Braw MS MSan MStr M k e2 hM
+  exact hw δ Braw MS MSan MStr M k e2 hM (by omega)
 /-! ## §4 — `M4T0DatumDischarge` -/
 
 /-- **THE MASK'S ℓ¹(1/n) MASS**, from `RamareMassTail.ramTailWeight_mass_le` at a covering
@@ -6663,6 +6469,59 @@ theorem m4MrowChi_le_a2Mrow_L_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 
             / ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 12)) := by ring
   linarith
 
+/-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSum_chi_door_L_gk_kwide`) —
+`m4_hrowsSum_chi_door_L_gk` with the flat ceiling moved inside the `∀ M`.
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
+theorem m4_hrowsSum_chi_door_L_gk_kwide (K : ℕ) :
+    ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
+      ∀ (q : ℕ) [NeZero q] (c a : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ),
+        (∀ n : ℕ, ‖a n‖ ≤ 1) → (∀ j m : ℕ, ‖bfam j m‖ ≤ 1) → (∀ p : ℕ, ‖c p‖ ≤ 1) →
+      ∀ (N Xd M : ℕ) (X h ε : ℝ) (t₁ : DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → K ≤ 170000000 * M → calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd →
+        2 * Xd ≤ N → (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (AdoorL M) (s13GK K M) j ≤ p →
+          p ≤ calQK (AdoorL M) (s13GK K M) M j → ¬ p ∣ m → a (p * m) = bfam j m * c p) →
+        (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (AdoorL M) (s13GK K M) j ≤ p →
+          p ≤ calQK (AdoorL M) (s13GK K M) M j → c p * bfam j m ≠ 0 →
+          (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
+            ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (∀ j ∈ Finset.Icc 1 2,
+          ((Nat.sqrt Xd : ℝ) + 1)
+              * ∏ p ∈ primeBand (calP (AdoorL M) (s13GK K M) j)
+                    (calQK (AdoorL M) (s13GK K M) M j), (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ) * (Real.log ((calP (AdoorL M) (s13GK K M) j : ℕ) : ℝ)
+                / Real.log ((calQK (AdoorL M) (s13GK K M) M j : ℕ) : ℝ))) →
+        4 ≤ h → 0 < X → 0 ≤ Real.log X → X ≤ 4 * (Xd : ℝ) →
+        ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ h →
+        (∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X →
+          TannGate X (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+          (∫ t in seamAnn X (2 * T), ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
+            ≤ 8 * (0 : ℝ) ^ 2
+              + (∫ t in (seamAnn X (2 * T) \ seamBall X (t₁ χ))
+                  ∩ seamTtotG (chiBarCoeff q χ c) (calP (AdoorL M) (s13GK K M))
+                      (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                      (mrAlpha (1 / 12)) 2,
+                  ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
+              + 2 * ((2 * T / X + 1) * (Real.log X) ^ (-theta293 + ε))) →
+        ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X →
+          TannGate X (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+          X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
+            ≤ a2Mrow_L_gk K Ct Cp M Xd X ε := by
+  obtain ⟨Ct, Cp, hCt, hCp, hrows⟩ := m4_hrowsSum_chi
+  refine ⟨Ct, Cp, hCt, hCp, ?_⟩
+  intro q _ c a bfam ha1 hb1 hc1 N Xd M X h ε t₁ hM hKw hXdQ hNXd hN4 hcoef hwin hasupp hQXd
+    hXdbig hdom hh4 hX0 hL0 hX4Xd hQ1h hcap χ T hT hTX2 hTgate hTll
+  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (AdoorL M) (s13GK K M) M 2) hXdQ
+  refine (hrows q c a bfam ha1 hb1 hc1 N Xd (AdoorL M) (s13GK K M) M 2 (H1doorL M) X h
+    (1 / 12) ε t₁ (fun _ => 0) (calFrameK_doorH1_at_L_gk_kwide K M Xd hM hKw hXdQ) hNXd hN4
+    hcoef hwin
+    hasupp hQXd hXdbig hdom hh4 hX0 hL0 hX4Xd hQ1h hcap χ T hT hTX2 hTgate hTll).trans ?_
+  exact m4MrowChi_le_a2Mrow_L_gk K hM hXd1 hCp.le
+
 /-- **⟦THE D2 DELIVERABLE AT THE DOOR⟧ THE `a2Mrow_L`-GENRE ROW FAMILY, AT THE
 G-LEVER** (`m4_hrowsSum_chi_door_L_gk`).  `m4_hrowsSum_chi` is `G`-generic and is fired at
 `G := s13GK K M`; the frame is `ThmA2.calFrameK_doorH1_at_gk`, whence the side condition
@@ -6705,15 +6564,10 @@ theorem m4_hrowsSum_chi_door_L_gk (K : ℕ) (hK : K ≤ 170000000) :
           TannGate X (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
           X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
             ≤ a2Mrow_L_gk K Ct Cp M Xd X ε := by
-  obtain ⟨Ct, Cp, hCt, hCp, hrows⟩ := m4_hrowsSum_chi
-  refine ⟨Ct, Cp, hCt, hCp, ?_⟩
-  intro q _ c a bfam ha1 hb1 hc1 N Xd M X h ε t₁ hM hXdQ hNXd hN4 hcoef hwin hasupp hQXd
-    hXdbig hdom hh4 hX0 hL0 hX4Xd hQ1h hcap χ T hT hTX2 hTgate hTll
-  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (AdoorL M) (s13GK K M) M 2) hXdQ
-  refine (hrows q c a bfam ha1 hb1 hc1 N Xd (AdoorL M) (s13GK K M) M 2 (H1doorL M) X h
-    (1 / 12) ε t₁ (fun _ => 0) (calFrameK_doorH1_at_L_gk K M Xd hM hK hXdQ) hNXd hN4 hcoef hwin
-    hasupp hQXd hXdbig hdom hh4 hX0 hL0 hX4Xd hQ1h hcap χ T hT hTX2 hTgate hTll).trans ?_
-  exact m4MrowChi_le_a2Mrow_L_gk K hM hXd1 hCp.le
+  obtain ⟨Ct, Cp, f0_1, f0_2, hw⟩ := m4_hrowsSum_chi_door_L_gk_kwide K
+  refine ⟨Ct, Cp, f0_1, f0_2, ?_⟩
+  intro q _ c a bfam e1 e2 e3 N Xd M X h ε t₁ hM
+  exact hw q c a bfam e1 e2 e3 N Xd M X h ε t₁ hM (by omega)
 /-! ## §7 — `M4ChiSocketWire` -/
 
 /-- **THE `Σ_χ` FREE-BASE ROW SOCKET, ABOVE THE DOOR'S FLOOR** (`M4ChiSummedFreeRowBig_L`).
@@ -7059,10 +6913,6 @@ theorem subWindowSup_sq_le_strata_L {M n q L : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq
     _ ≤ (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
           * ∑ d ∈ q.divisors, (d : ℝ) * strataTerm_L M q L d n := hcs
 
-set_option maxHeartbeats 1600000 in
--- the stratified assembly re-elaborates the divisor sum, the fibre count, the χ-datum and
--- the ledger at every stratum, and each step carries the full `strataTerm_L` expansion; the
--- arithmetic steps are all `linarith`/`nlinarith` with explicit hints (no unbounded search)
 /-- **⟦S-3⟧ THE STRATIFIED CONSUMER, IN BLOCK FORM** (`m4_freeBlockSup_of_chiSummed_L`).
 
 The door's sieved sub-window sup at ANY rational `b/q` of the arc range, mean-squared over a
@@ -7110,229 +6960,9 @@ theorem m4_freeBlockSup_of_chiSummed_L {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ �
           (R.x : ℝ) ≤ 8 * (R.ω : ℝ) * (A : ℝ) → (A : ℝ) ≤ 2 * (R.x : ℝ) → B + L ≤ 2 * A →
           ∑ n ∈ Finset.Ioc A B,
               (subWindowSup (doorSievedCoeff_L M) L n ((b : ℝ) / (q : ℝ))) ^ 2
-            ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) := by
-  classical
-  intro H hlo hhi L hLH hnar hLarc harcsq b q hq hqQ A B hA hAH hAx hAcap hfit
-  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-  have harc0 : (0 : ℝ) < arcDen 12 H := by linarith
-  have hAarc : 32 * arcDen 12 H ≤ (A : ℝ) := by
-    have hLHR : (L : ℝ) ≤ (H : ℝ) := by exact_mod_cast hLH
-    linarith
-  have hres0 : (0 : ℝ) ≤ strataResidual H := strataResidual_nonneg harc1
-  have hB0 := hBcl0 H
-  have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
-  have hL0R : (0 : ℝ) ≤ (L : ℝ) := Nat.cast_nonneg _
-  have hdiv0 : (0 : ℝ) ≤ ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ) :=
-    Finset.sum_nonneg fun d _ => by positivity
-  have hdivres : ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ) ≤ strataResidual H := by
-    refine le_trans (sum_inv_divisors_le hq) ?_
-    unfold strataResidual
-    have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
-    have := Real.log_le_log (by linarith) hqQ
-    linarith
-  by_cases hAB : B < A
-  · rw [Finset.Ioc_eq_empty (by omega), Finset.sum_empty]
-    positivity
-  rw [Nat.not_lt] at hAB
-  -- ⟦the block's own consequences: the tight fit and the two arc floors⟧
-  have hLA : L ≤ A := by omega
-  have hLAR : (L : ℝ) ≤ (A : ℝ) := by exact_mod_cast hLA
-  have hL32 : (32 : ℝ) ≤ (L : ℝ) := by linarith only [harc1, hLarc]
-  have hL2 : 2 ≤ L := by
-    have : (2 : ℝ) ≤ (L : ℝ) := by linarith
-    exact_mod_cast this
-  -- ⟦R-P5, THE THREE ANTECEDENTS AT THE UNDILATED BASE⟧ the two arithmetic facts every
-  -- dilated instance below re-reads: `4·arcDen 12 H ≤ √H` (the window floor at its square)
-  -- and `2L ≤ A` (the length antecedent with the two units of `ℕ`-division slack)
-  have hH0 : 0 < H := by omega
-  have hH0R : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH0
-  have hLHR : (L : ℝ) ≤ (H : ℝ) := by exact_mod_cast hLH
-  have hsqrt0 : (0 : ℝ) ≤ Real.sqrt (H : ℝ) := Real.sqrt_nonneg _
-  have hsqsq : Real.sqrt (H : ℝ) ^ 2 = (H : ℝ) := Real.sq_sqrt hH0R.le
-  have harcsqrt : 4 * arcDen 12 H ≤ Real.sqrt (H : ℝ) := by
-    have h1 : Real.sqrt ((4 * arcDen 12 H) ^ 2) ≤ Real.sqrt (H : ℝ) :=
-      Real.sqrt_le_sqrt (by linarith only [harcsq])
-    rwa [Real.sqrt_sq (by positivity)] at h1
-  have hsqrtle : Real.sqrt (H : ℝ) ≤ (H : ℝ) := by nlinarith [harcsqrt, harc1]
-  have h2LA : 2 * L ≤ A := by
-    have h : (2 : ℝ) * (L : ℝ) ≤ (A : ℝ) := by linarith
-    exact_mod_cast h
-  -- ⟦the per-base stratified bound, summed⟧
-  have hpt : ∀ n ∈ Finset.Ioc A B,
-      (subWindowSup (doorSievedCoeff_L M) L n ((b : ℝ) / (q : ℝ))) ^ 2
-        ≤ (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
-          * ∑ d ∈ q.divisors, (d : ℝ) * strataTerm_L M q L d n := fun n _ =>
-    subWindowSup_sq_le_strata_L hM hq hqQ (hgate H hlo hhi) b
-  refine le_trans (Finset.sum_le_sum hpt) ?_
-  have hswap : ∑ n ∈ Finset.Ioc A B,
-        ((∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
-          * ∑ d ∈ q.divisors, (d : ℝ) * strataTerm_L M q L d n)
-      = (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
-        * ∑ d ∈ q.divisors, (d : ℝ) * ∑ n ∈ Finset.Ioc A B, strataTerm_L M q L d n := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    exact Finset.sum_congr rfl fun d _ => by rw [Finset.mul_sum]
-  rw [hswap]
-  -- ⟦THE PER-STRATUM BUDGET⟧ the fibre count, the χ-datum, the sharp ledger
-  have hstr : ∀ d ∈ q.divisors,
-      (d : ℝ) * ∑ n ∈ Finset.Ioc A B, strataTerm_L M q L d n
-        ≤ (4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ)) * ((1 : ℝ) / (d : ℝ)) := by
-    intro d hd
-    have hd0 : 0 < d := Nat.pos_of_mem_divisors hd
-    have hd0R : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd0
-    have hdq : d ∣ q := (Nat.mem_divisors.mp hd).1
-    have hdarc : (d : ℝ) ≤ arcDen 12 H :=
-      le_trans (by exact_mod_cast Nat.le_of_dvd hq hdq) hqQ
-    have hdA2R : 2 * (d : ℝ) ≤ (A : ℝ) := by linarith only [hdarc, hLHR, harc1, hAH, hLarc]
-    have hdA2 : 2 * d ≤ A := by exact_mod_cast hdA2R
-    have hdA : d ≤ A := by omega
-    have hdL : (d : ℝ) ≤ (L : ℝ) := by linarith only [hdarc, harc1, hLarc]
-    have h32dL : 32 * d ≤ L := by
-      have h : (32 : ℝ) * (d : ℝ) ≤ (L : ℝ) := by linarith
-      exact_mod_cast h
-    have hdA3 : 3 * d ≤ A := by
-      have h : (3 : ℝ) * (d : ℝ) ≤ (A : ℝ) := by linarith
-      exact_mod_cast h
-    -- ⟦the reduced modulus⟧
-    have hq0 : 0 < q / d := Nat.div_pos (Nat.le_of_dvd hq hdq) hd0
-    have hq0Q : ((q / d : ℕ) : ℝ) ≤ arcDen 12 H :=
-      le_trans (by exact_mod_cast Nat.div_le_self q d) hqQ
-    -- ⟦the dilated cap is admissible⟧
-    have hcapL : capL L d ≤ L := capL_le hd0 hL2
-    have hcapH : capL L d ≤ H := le_trans hcapL hLH
-    have hcapmul : (L : ℝ) ≤ (d : ℝ) * ((capL L d : ℕ) : ℝ) := by
-      exact_mod_cast le_mul_capL (L := L) (d := d) hd0
-    have hcap0 : (0 : ℝ) ≤ ((capL L d : ℕ) : ℝ) := Nat.cast_nonneg _
-    have hcapnar : (H : ℝ) ≤ arcDen 12 H ^ 3 * ((capL L d : ℕ) : ℝ) := by
-      have h1 : (L : ℝ) ≤ arcDen 12 H * ((capL L d : ℕ) : ℝ) := by
-        have := mul_le_mul_of_nonneg_right hdarc hcap0
-        linarith [hcapmul]
-      have h2 : arcDen 12 H ^ 2 * (L : ℝ)
-          ≤ arcDen 12 H ^ 2 * (arcDen 12 H * ((capL L d : ℕ) : ℝ)) :=
-        mul_le_mul_of_nonneg_left h1 (by positivity)
-      have heq : arcDen 12 H ^ 2 * (arcDen 12 H * ((capL L d : ℕ) : ℝ))
-          = arcDen 12 H ^ 3 * ((capL L d : ℕ) : ℝ) := by ring
-      rw [heq] at h2
-      linarith [hnar]
-    -- ⟦the re-indexed block⟧
-    have hA'2 : 2 ≤ A / d := (Nat.le_div_iff_mul_le hd0).mpr (by omega)
-    have hA'pos : 0 < A / d - 1 := by omega
-    have hA'3 : 3 ≤ A / d := (Nat.le_div_iff_mul_le hd0).mpr (by omega)
-    -- ⟦R-P5, THE THREE ANTECEDENTS AT THE DILATED BASE⟧ each spends exactly one power of
-    -- `arcDen 12 H` (because `d ≤ arcDen 12 H`) and the two `ℕ`-division units the `⌊·⌋` and
-    -- the `−1` cost — the same pattern as `hcapnar` above
-    have hA'cast : ((A / d - 1 : ℕ) : ℝ) = ((A / d : ℕ) : ℝ) - 1 := by
-      have h1 : 1 ≤ A / d := by omega
-      rw [Nat.cast_sub h1, Nat.cast_one]
-    have hAdiv : (A : ℝ) ≤ (d : ℝ) * ((A / d : ℕ) : ℝ) + (d : ℝ) := by
-      have h' := (Nat.cast_le (α := ℝ)).mpr (le_mul_div_add (A := A) (d := d) hd0)
-      push_cast at h'
-      linarith
-    have hA'0 : (0 : ℝ) ≤ ((A / d - 1 : ℕ) : ℝ) := Nat.cast_nonneg _
-    have hA'2R : (2 : ℝ) ≤ ((A / d - 1 : ℕ) : ℝ) := by
-      have h : (2 : ℕ) ≤ A / d - 1 := by omega
-      exact_mod_cast h
-    -- (i) THE LENGTH ANTECEDENT `capL L d ≤ ⌊A/d⌋ − 1`
-    have hcapA : capL L d ≤ A / d - 1 := capL_le_dilated_base hd0 h32dL h2LA
-    -- (ii) THE `√H` ANTECEDENT
-    have hsqA' : Real.sqrt (H : ℝ) ≤ ((A / d - 1 : ℕ) : ℝ) := by
-      rw [hA'cast]
-      have hd4 : 4 * (d : ℝ) ≤ Real.sqrt (H : ℝ) := by linarith
-      have hmul := mul_le_mul_of_nonneg_right hd4
-        (by positivity : (0 : ℝ) ≤ Real.sqrt (H : ℝ) + 2)
-      have hkey : (d : ℝ) * (Real.sqrt (H : ℝ) + 2) ≤ (A : ℝ) := by
-        linarith only [hmul, hsqrtle, hsqsq, hLHR, harc1, hAH, hLarc]
-      have hstep : (d : ℝ) * Real.sqrt (H : ℝ)
-          ≤ (d : ℝ) * (((A / d : ℕ) : ℝ) - 1) := by nlinarith [hAdiv, hkey]
-      exact le_of_mul_le_mul_left hstep hd0R
-    -- (iii) THE x-SCALE ANTECEDENT
-    have hxA' : (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * ((A / d - 1 : ℕ) : ℝ) := by
-      have hω0 : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
-      have hAd2 : (A : ℝ) ≤ (d : ℝ) * ((A / d - 1 : ℕ) : ℝ) + 2 * (d : ℝ) := by
-        rw [hA'cast]; linarith [hAdiv]
-      have s1 : (R.x : ℝ)
-          ≤ 8 * (R.ω : ℝ) * ((d : ℝ) * ((A / d - 1 : ℕ) : ℝ) + 2 * (d : ℝ)) := by
-        have := mul_le_mul_of_nonneg_left hAd2 (by positivity : (0 : ℝ) ≤ 8 * (R.ω : ℝ))
-        linarith [hAx]
-      have s2 : (d : ℝ) * ((A / d - 1 : ℕ) : ℝ) + 2 * (d : ℝ)
-          ≤ 2 * (arcDen 12 H * ((A / d - 1 : ℕ) : ℝ)) := by
-        have h1 : (d : ℝ) * ((A / d - 1 : ℕ) : ℝ)
-            ≤ arcDen 12 H * ((A / d - 1 : ℕ) : ℝ) :=
-          mul_le_mul_of_nonneg_right hdarc hA'0
-        have h2 : 2 * arcDen 12 H ≤ arcDen 12 H * ((A / d - 1 : ℕ) : ℝ) := by
-          linarith only [h1, hAd2, hdarc, hLHR, harc1, hAH, hLarc]
-        linarith
-      have s3 := mul_le_mul_of_nonneg_left s2 (by positivity : (0 : ℝ) ≤ 8 * (R.ω : ℝ))
-      linarith only [s3, s1]
-    -- (iv) THE BASE CAP, INHERITED (the (α) base-cap surgery, JYH-granted 2026-07-30):
-    -- `⌊A/d⌋ − 1 ≤ A`, so the cap passes to the dilated base with NO `arcDen` power spent
-    have hcapA' : ((A / d - 1 : ℕ) : ℝ) ≤ 2 * (R.x : ℝ) := by
-      have hle : ((A / d - 1 : ℕ) : ℝ) ≤ (A : ℝ) := by
-        have hnat : A / d - 1 ≤ A := le_trans (Nat.sub_le _ _) (Nat.div_le_self A d)
-        exact_mod_cast hnat
-      linarith
-    have hfit' : B / d + capL L d ≤ 2 * (A / d - 1) + 4 := by
-      have h := dilBlock_reindex_fit (A := A) (B := B) (H := L) (d := d) hd0 hdA hfit
-      have hc := capL_le_div_succ (L := L) (d := d) hd0
-      omega
-    -- ⟦the fibre count⟧
-    have hf0 : ∀ n' : ℕ, (0 : ℝ) ≤ ∑ χ : DirichletCharacter ℂ (q / d),
-        (doorChiSup_L χ M (capL L d) n') ^ 2 := fun n' =>
-      Finset.sum_nonneg fun _ _ => sq_nonneg _
-    have hmaps : ∀ n ∈ Finset.Ioc A B, n / d ∈ Finset.Ioc (A / d - 1) (B / d) := fun n hn =>
-      div_mem_reindexed hd0 hdA hn
-    have hfib := sum_Ioc_comp_div_le (f := fun n' => ∑ χ : DirichletCharacter ℂ (q / d),
-      (doorChiSup_L χ M (capL L d) n') ^ 2) hf0 hd0 hmaps
-    -- ⟦the χ-summed datum at the reduced modulus⟧
-    have hdatum := hchi H hlo hhi (capL L d) hcapH hcapnar (q / d) hq0 hq0Q
-      (A / d - 1) (B / d) hA'pos hcapA hsqA' hxA' hcapA' hfit'
-    -- ⟦the sharp ledger⟧
-    have hled := capL_ledger (A := A) (L := L) (d := d) hd0 hB0
-    have hdatum' : ∑ n' ∈ Finset.Ioc (A / d - 1) (B / d),
-          ∑ χ : DirichletCharacter ℂ (q / d), (doorChiSup_L χ M (capL L d) n') ^ 2
-        ≤ Bcl H * ((capL L d : ℕ) : ℝ) ^ 2 * ((A / d - 1 : ℕ) : ℝ) := by
-      rw [Finset.sum_comm]
-      exact hdatum
-    have hchain : ∑ n ∈ Finset.Ioc A B, strataTerm_L M q L d n
-        ≤ (d : ℝ) * (Bcl H * ((capL L d : ℕ) : ℝ) ^ 2 * ((A / d - 1 : ℕ) : ℝ)) := by
-      refine le_trans hfib ?_
-      exact mul_le_mul_of_nonneg_left hdatum' hd0R.le
-    have hfinal : ∑ n ∈ Finset.Ioc A B, strataTerm_L M q L d n
-        ≤ Bcl H * ((L : ℝ) + (d : ℝ)) ^ 2 * (A : ℝ) / (d : ℝ) ^ 2 := le_trans hchain hled
-    have hLd : ((L : ℝ) + (d : ℝ)) ^ 2 ≤ 4 * (L : ℝ) ^ 2 := by nlinarith
-    have hstep : (d : ℝ) * ∑ n ∈ Finset.Ioc A B, strataTerm_L M q L d n
-        ≤ (d : ℝ) * (Bcl H * ((L : ℝ) + (d : ℝ)) ^ 2 * (A : ℝ) / (d : ℝ) ^ 2) :=
-      mul_le_mul_of_nonneg_left hfinal hd0R.le
-    have hdne : ((d : ℝ)) ≠ 0 := ne_of_gt hd0R
-    have hrw : (d : ℝ) * (Bcl H * ((L : ℝ) + (d : ℝ)) ^ 2 * (A : ℝ) / (d : ℝ) ^ 2)
-        = (Bcl H * ((L : ℝ) + (d : ℝ)) ^ 2 * (A : ℝ)) * ((1 : ℝ) / (d : ℝ)) := by
-      field_simp
-    refine le_trans hstep ?_
-    rw [hrw]
-    refine mul_le_mul_of_nonneg_right ?_ (by positivity)
-    linarith [mul_le_mul_of_nonneg_left hLd (mul_nonneg hB0 hA0R)]
-  -- ⟦the recombination⟧
-  have hsum : ∑ d ∈ q.divisors, (d : ℝ) * ∑ n ∈ Finset.Ioc A B, strataTerm_L M q L d n
-      ≤ (4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ)) * ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ) := by
-    rw [Finset.mul_sum]
-    exact Finset.sum_le_sum hstr
-  have hbig0 : (0 : ℝ) ≤ 4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) := by positivity
-  calc (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
-        * ∑ d ∈ q.divisors, (d : ℝ) * ∑ n ∈ Finset.Ioc A B, strataTerm_L M q L d n
-      ≤ (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
-          * ((4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ))
-            * ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ)) :=
-        mul_le_mul_of_nonneg_left hsum hdiv0
-    _ ≤ strataResidual H * ((4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ)) * strataResidual H) := by
-        have h1 : (4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ))
-              * ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ)
-            ≤ (4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ)) * strataResidual H :=
-          mul_le_mul_of_nonneg_left hdivres hbig0
-        have h2 : (0 : ℝ) ≤ (4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ)) * strataResidual H := by
-          positivity
-        nlinarith only [hdiv0, h1, hres0]
-    _ = 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) := by ring
+            ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) :=
+  m4_freeBlockSup_of_chiSummedAZ (AdoorL M) (3072 * M)
+    (fun hq hqW hW b => subWindowSup_sq_le_strata_L hM hq hqW hW b) hBcl0 hgate hchi
 
 /-- `coprime_window_expansion_L` (:214), at the lever. -/
 theorem coprime_window_expansion_L_gk (K : ℕ) {q : ℕ} [NeZero q] (M Kw n : ℕ) (b : ℤ) :
@@ -7553,10 +7183,6 @@ theorem subWindowSup_sq_le_strata_L_gk (K : ℕ) {M n q L : ℕ} {W : ℝ} (hM :
     _ ≤ (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
           * ∑ d ∈ q.divisors, (d : ℝ) * strataTerm_L_gk K M q L d n := hcs
 
-set_option maxHeartbeats 1600000 in
--- the stratified assembly re-elaborates the divisor sum, the fibre count, the χ-datum and
--- the ledger at every stratum, and each step carries the full `strataTerm_L_gk K` expansion; the
--- arithmetic steps are all `linarith`/`nlinarith` with explicit hints (no unbounded search)
 /-- `m4_freeBlockSup_of_chiSummed_L` (:760), at the lever. -/
 theorem m4_freeBlockSup_of_chiSummed_L_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ → ℝ}
     (hM : 1 ≤ M)
@@ -7572,230 +7198,9 @@ theorem m4_freeBlockSup_of_chiSummed_L_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
           (R.x : ℝ) ≤ 8 * (R.ω : ℝ) * (A : ℝ) → (A : ℝ) ≤ 2 * (R.x : ℝ) → B + L ≤ 2 * A →
           ∑ n ∈ Finset.Ioc A B,
               (subWindowSup (doorSievedCoeff_L_gk K M) L n ((b : ℝ) / (q : ℝ))) ^ 2
-            ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) := by
-  classical
-  intro H hlo hhi L hLH hnar hLarc harcsq b q hq hqQ A B hA hAH hAx hAcap hfit
-  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-  have harc0 : (0 : ℝ) < arcDen 12 H := by linarith
-  have hAarc : 32 * arcDen 12 H ≤ (A : ℝ) := by
-    have hLHR : (L : ℝ) ≤ (H : ℝ) := by exact_mod_cast hLH
-    linarith
-  have hres0 : (0 : ℝ) ≤ strataResidual H := strataResidual_nonneg harc1
-  have hB0 := hBcl0 H
-  have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
-  have hL0R : (0 : ℝ) ≤ (L : ℝ) := Nat.cast_nonneg _
-  have hdiv0 : (0 : ℝ) ≤ ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ) :=
-    Finset.sum_nonneg fun d _ => by positivity
-  have hdivres : ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ) ≤ strataResidual H := by
-    refine le_trans (sum_inv_divisors_le hq) ?_
-    unfold strataResidual
-    have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
-    have := Real.log_le_log (by linarith) hqQ
-    linarith
-  by_cases hAB : B < A
-  · rw [Finset.Ioc_eq_empty (by omega), Finset.sum_empty]
-    positivity
-  rw [Nat.not_lt] at hAB
-  -- ⟦the block's own consequences: the tight fit and the two arc floors⟧
-  have hLA : L ≤ A := by omega
-  have hLAR : (L : ℝ) ≤ (A : ℝ) := by exact_mod_cast hLA
-  have hL32 : (32 : ℝ) ≤ (L : ℝ) := by linarith only [harc1, hLarc]
-  have hL2 : 2 ≤ L := by
-    have : (2 : ℝ) ≤ (L : ℝ) := by linarith
-    exact_mod_cast this
-  -- ⟦R-P5, THE THREE ANTECEDENTS AT THE UNDILATED BASE⟧ the two arithmetic facts every
-  -- dilated instance below re-reads: `4·arcDen 12 H ≤ √H` (the window floor at its square)
-  -- and `2L ≤ A` (the length antecedent with the two units of `ℕ`-division slack)
-  have hH0 : 0 < H := by omega
-  have hH0R : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH0
-  have hLHR : (L : ℝ) ≤ (H : ℝ) := by exact_mod_cast hLH
-  have hsqrt0 : (0 : ℝ) ≤ Real.sqrt (H : ℝ) := Real.sqrt_nonneg _
-  have hsqsq : Real.sqrt (H : ℝ) ^ 2 = (H : ℝ) := Real.sq_sqrt hH0R.le
-  have harcsqrt : 4 * arcDen 12 H ≤ Real.sqrt (H : ℝ) := by
-    have h1 : Real.sqrt ((4 * arcDen 12 H) ^ 2) ≤ Real.sqrt (H : ℝ) :=
-      Real.sqrt_le_sqrt (by linarith only [harcsq])
-    rwa [Real.sqrt_sq (by positivity)] at h1
-  have hsqrtle : Real.sqrt (H : ℝ) ≤ (H : ℝ) := by nlinarith [harcsqrt, harc1]
-  have h2LA : 2 * L ≤ A := by
-    have h : (2 : ℝ) * (L : ℝ) ≤ (A : ℝ) := by linarith
-    exact_mod_cast h
-  -- ⟦the per-base stratified bound, summed⟧
-  have hpt : ∀ n ∈ Finset.Ioc A B,
-      (subWindowSup (doorSievedCoeff_L_gk K M) L n ((b : ℝ) / (q : ℝ))) ^ 2
-        ≤ (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
-          * ∑ d ∈ q.divisors, (d : ℝ) * strataTerm_L_gk K M q L d n := fun n _ =>
-    subWindowSup_sq_le_strata_L_gk K hM hq hqQ (hgate H hlo hhi) b
-  refine le_trans (Finset.sum_le_sum hpt) ?_
-  have hswap : ∑ n ∈ Finset.Ioc A B,
-        ((∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
-          * ∑ d ∈ q.divisors, (d : ℝ) * strataTerm_L_gk K M q L d n)
-      = (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
-        * ∑ d ∈ q.divisors, (d : ℝ) * ∑ n ∈ Finset.Ioc A B, strataTerm_L_gk K M q L d n := by
-    rw [← Finset.mul_sum]
-    congr 1
-    rw [Finset.sum_comm]
-    exact Finset.sum_congr rfl fun d _ => by rw [Finset.mul_sum]
-  rw [hswap]
-  -- ⟦THE PER-STRATUM BUDGET⟧ the fibre count, the χ-datum, the sharp ledger
-  have hstr : ∀ d ∈ q.divisors,
-      (d : ℝ) * ∑ n ∈ Finset.Ioc A B, strataTerm_L_gk K M q L d n
-        ≤ (4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ)) * ((1 : ℝ) / (d : ℝ)) := by
-    intro d hd
-    have hd0 : 0 < d := Nat.pos_of_mem_divisors hd
-    have hd0R : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd0
-    have hdq : d ∣ q := (Nat.mem_divisors.mp hd).1
-    have hdarc : (d : ℝ) ≤ arcDen 12 H :=
-      le_trans (by exact_mod_cast Nat.le_of_dvd hq hdq) hqQ
-    have hdA2R : 2 * (d : ℝ) ≤ (A : ℝ) := by linarith only [hdarc, hLHR, harc1, hAH, hLarc]
-    have hdA2 : 2 * d ≤ A := by exact_mod_cast hdA2R
-    have hdA : d ≤ A := by omega
-    have hdL : (d : ℝ) ≤ (L : ℝ) := by linarith only [hdarc, harc1, hLarc]
-    have h32dL : 32 * d ≤ L := by
-      have h : (32 : ℝ) * (d : ℝ) ≤ (L : ℝ) := by linarith
-      exact_mod_cast h
-    have hdA3 : 3 * d ≤ A := by
-      have h : (3 : ℝ) * (d : ℝ) ≤ (A : ℝ) := by linarith
-      exact_mod_cast h
-    -- ⟦the reduced modulus⟧
-    have hq0 : 0 < q / d := Nat.div_pos (Nat.le_of_dvd hq hdq) hd0
-    have hq0Q : ((q / d : ℕ) : ℝ) ≤ arcDen 12 H :=
-      le_trans (by exact_mod_cast Nat.div_le_self q d) hqQ
-    -- ⟦the dilated cap is admissible⟧
-    have hcapL : capL L d ≤ L := capL_le hd0 hL2
-    have hcapH : capL L d ≤ H := le_trans hcapL hLH
-    have hcapmul : (L : ℝ) ≤ (d : ℝ) * ((capL L d : ℕ) : ℝ) := by
-      exact_mod_cast le_mul_capL (L := L) (d := d) hd0
-    have hcap0 : (0 : ℝ) ≤ ((capL L d : ℕ) : ℝ) := Nat.cast_nonneg _
-    have hcapnar : (H : ℝ) ≤ arcDen 12 H ^ 3 * ((capL L d : ℕ) : ℝ) := by
-      have h1 : (L : ℝ) ≤ arcDen 12 H * ((capL L d : ℕ) : ℝ) := by
-        have := mul_le_mul_of_nonneg_right hdarc hcap0
-        linarith [hcapmul]
-      have h2 : arcDen 12 H ^ 2 * (L : ℝ)
-          ≤ arcDen 12 H ^ 2 * (arcDen 12 H * ((capL L d : ℕ) : ℝ)) :=
-        mul_le_mul_of_nonneg_left h1 (by positivity)
-      have heq : arcDen 12 H ^ 2 * (arcDen 12 H * ((capL L d : ℕ) : ℝ))
-          = arcDen 12 H ^ 3 * ((capL L d : ℕ) : ℝ) := by ring
-      rw [heq] at h2
-      linarith [hnar]
-    -- ⟦the re-indexed block⟧
-    have hA'2 : 2 ≤ A / d := (Nat.le_div_iff_mul_le hd0).mpr (by omega)
-    have hA'pos : 0 < A / d - 1 := by omega
-    have hA'3 : 3 ≤ A / d := (Nat.le_div_iff_mul_le hd0).mpr (by omega)
-    -- ⟦R-P5, THE THREE ANTECEDENTS AT THE DILATED BASE⟧ each spends exactly one power of
-    -- `arcDen 12 H` (because `d ≤ arcDen 12 H`) and the two `ℕ`-division units the `⌊·⌋` and
-    -- the `−1` cost — the same pattern as `hcapnar` above
-    have hA'cast : ((A / d - 1 : ℕ) : ℝ) = ((A / d : ℕ) : ℝ) - 1 := by
-      have h1 : 1 ≤ A / d := by omega
-      rw [Nat.cast_sub h1, Nat.cast_one]
-    have hAdiv : (A : ℝ) ≤ (d : ℝ) * ((A / d : ℕ) : ℝ) + (d : ℝ) := by
-      have h' := (Nat.cast_le (α := ℝ)).mpr (le_mul_div_add (A := A) (d := d) hd0)
-      push_cast at h'
-      linarith
-    have hA'0 : (0 : ℝ) ≤ ((A / d - 1 : ℕ) : ℝ) := Nat.cast_nonneg _
-    have hA'2R : (2 : ℝ) ≤ ((A / d - 1 : ℕ) : ℝ) := by
-      have h : (2 : ℕ) ≤ A / d - 1 := by omega
-      exact_mod_cast h
-    -- (i) THE LENGTH ANTECEDENT `capL L d ≤ ⌊A/d⌋ − 1`
-    have hcapA : capL L d ≤ A / d - 1 := capL_le_dilated_base hd0 h32dL h2LA
-    -- (ii) THE `√H` ANTECEDENT
-    have hsqA' : Real.sqrt (H : ℝ) ≤ ((A / d - 1 : ℕ) : ℝ) := by
-      rw [hA'cast]
-      have hd4 : 4 * (d : ℝ) ≤ Real.sqrt (H : ℝ) := by linarith
-      have hmul := mul_le_mul_of_nonneg_right hd4
-        (by positivity : (0 : ℝ) ≤ Real.sqrt (H : ℝ) + 2)
-      have hkey : (d : ℝ) * (Real.sqrt (H : ℝ) + 2) ≤ (A : ℝ) := by
-        linarith only [hmul, hsqrtle, hsqsq, hLHR, harc1, hAH, hLarc]
-      have hstep : (d : ℝ) * Real.sqrt (H : ℝ)
-          ≤ (d : ℝ) * (((A / d : ℕ) : ℝ) - 1) := by nlinarith [hAdiv, hkey]
-      exact le_of_mul_le_mul_left hstep hd0R
-    -- (iii) THE x-SCALE ANTECEDENT
-    have hxA' : (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * ((A / d - 1 : ℕ) : ℝ) := by
-      have hω0 : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
-      have hAd2 : (A : ℝ) ≤ (d : ℝ) * ((A / d - 1 : ℕ) : ℝ) + 2 * (d : ℝ) := by
-        rw [hA'cast]; linarith [hAdiv]
-      have s1 : (R.x : ℝ)
-          ≤ 8 * (R.ω : ℝ) * ((d : ℝ) * ((A / d - 1 : ℕ) : ℝ) + 2 * (d : ℝ)) := by
-        have := mul_le_mul_of_nonneg_left hAd2 (by positivity : (0 : ℝ) ≤ 8 * (R.ω : ℝ))
-        linarith [hAx]
-      have s2 : (d : ℝ) * ((A / d - 1 : ℕ) : ℝ) + 2 * (d : ℝ)
-          ≤ 2 * (arcDen 12 H * ((A / d - 1 : ℕ) : ℝ)) := by
-        have h1 : (d : ℝ) * ((A / d - 1 : ℕ) : ℝ)
-            ≤ arcDen 12 H * ((A / d - 1 : ℕ) : ℝ) :=
-          mul_le_mul_of_nonneg_right hdarc hA'0
-        have h2 : 2 * arcDen 12 H ≤ arcDen 12 H * ((A / d - 1 : ℕ) : ℝ) := by
-          linarith only [h1, hAd2, hdarc, hLHR, harc1, hAH, hLarc]
-        linarith
-      have s3 := mul_le_mul_of_nonneg_left s2 (by positivity : (0 : ℝ) ≤ 8 * (R.ω : ℝ))
-      linarith only [s3, s1]
-    -- (iv) THE BASE CAP, INHERITED (the (α) base-cap surgery, JYH-granted 2026-07-30):
-    -- `⌊A/d⌋ − 1 ≤ A`, so the cap passes to the dilated base with NO `arcDen` power spent
-    have hcapA' : ((A / d - 1 : ℕ) : ℝ) ≤ 2 * (R.x : ℝ) := by
-      have hle : ((A / d - 1 : ℕ) : ℝ) ≤ (A : ℝ) := by
-        have hnat : A / d - 1 ≤ A := le_trans (Nat.sub_le _ _) (Nat.div_le_self A d)
-        exact_mod_cast hnat
-      linarith
-    have hfit' : B / d + capL L d ≤ 2 * (A / d - 1) + 4 := by
-      have h := dilBlock_reindex_fit (A := A) (B := B) (H := L) (d := d) hd0 hdA hfit
-      have hc := capL_le_div_succ (L := L) (d := d) hd0
-      omega
-    -- ⟦the fibre count⟧
-    have hf0 : ∀ n' : ℕ, (0 : ℝ) ≤ ∑ χ : DirichletCharacter ℂ (q / d),
-        (doorChiSup_L_gk K χ M (capL L d) n') ^ 2 := fun n' =>
-      Finset.sum_nonneg fun _ _ => sq_nonneg _
-    have hmaps : ∀ n ∈ Finset.Ioc A B, n / d ∈ Finset.Ioc (A / d - 1) (B / d) := fun n hn =>
-      div_mem_reindexed hd0 hdA hn
-    have hfib := sum_Ioc_comp_div_le (f := fun n' => ∑ χ : DirichletCharacter ℂ (q / d),
-      (doorChiSup_L_gk K χ M (capL L d) n') ^ 2) hf0 hd0 hmaps
-    -- ⟦the χ-summed datum at the reduced modulus⟧
-    have hdatum := hchi H hlo hhi (capL L d) hcapH hcapnar (q / d) hq0 hq0Q
-      (A / d - 1) (B / d) hA'pos hcapA hsqA' hxA' hcapA' hfit'
-    -- ⟦the sharp ledger⟧
-    have hled := capL_ledger (A := A) (L := L) (d := d) hd0 hB0
-    have hdatum' : ∑ n' ∈ Finset.Ioc (A / d - 1) (B / d),
-          ∑ χ : DirichletCharacter ℂ (q / d), (doorChiSup_L_gk K χ M (capL L d) n') ^ 2
-        ≤ Bcl H * ((capL L d : ℕ) : ℝ) ^ 2 * ((A / d - 1 : ℕ) : ℝ) := by
-      rw [Finset.sum_comm]
-      exact hdatum
-    have hchain : ∑ n ∈ Finset.Ioc A B, strataTerm_L_gk K M q L d n
-        ≤ (d : ℝ) * (Bcl H * ((capL L d : ℕ) : ℝ) ^ 2 * ((A / d - 1 : ℕ) : ℝ)) := by
-      refine le_trans hfib ?_
-      exact mul_le_mul_of_nonneg_left hdatum' hd0R.le
-    have hfinal : ∑ n ∈ Finset.Ioc A B, strataTerm_L_gk K M q L d n
-        ≤ Bcl H * ((L : ℝ) + (d : ℝ)) ^ 2 * (A : ℝ) / (d : ℝ) ^ 2 := le_trans hchain hled
-    have hLd : ((L : ℝ) + (d : ℝ)) ^ 2 ≤ 4 * (L : ℝ) ^ 2 := by nlinarith
-    have hstep : (d : ℝ) * ∑ n ∈ Finset.Ioc A B, strataTerm_L_gk K M q L d n
-        ≤ (d : ℝ) * (Bcl H * ((L : ℝ) + (d : ℝ)) ^ 2 * (A : ℝ) / (d : ℝ) ^ 2) :=
-      mul_le_mul_of_nonneg_left hfinal hd0R.le
-    have hdne : ((d : ℝ)) ≠ 0 := ne_of_gt hd0R
-    have hrw : (d : ℝ) * (Bcl H * ((L : ℝ) + (d : ℝ)) ^ 2 * (A : ℝ) / (d : ℝ) ^ 2)
-        = (Bcl H * ((L : ℝ) + (d : ℝ)) ^ 2 * (A : ℝ)) * ((1 : ℝ) / (d : ℝ)) := by
-      field_simp
-    refine le_trans hstep ?_
-    rw [hrw]
-    refine mul_le_mul_of_nonneg_right ?_ (by positivity)
-    linarith [mul_le_mul_of_nonneg_left hLd (mul_nonneg hB0 hA0R)]
-  -- ⟦the recombination⟧
-  have hsum : ∑ d ∈ q.divisors, (d : ℝ) * ∑ n ∈ Finset.Ioc A B, strataTerm_L_gk K M q L d n
-      ≤ (4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ)) * ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ) := by
-    rw [Finset.mul_sum]
-    exact Finset.sum_le_sum hstr
-  have hbig0 : (0 : ℝ) ≤ 4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) := by positivity
-  calc (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
-        * ∑ d ∈ q.divisors, (d : ℝ) * ∑ n ∈ Finset.Ioc A B, strataTerm_L_gk K M q L d n
-      ≤ (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
-          * ((4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ))
-            * ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ)) :=
-        mul_le_mul_of_nonneg_left hsum hdiv0
-    _ ≤ strataResidual H * ((4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ)) * strataResidual H) := by
-        have h1 : (4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ))
-              * ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ)
-            ≤ (4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ)) * strataResidual H :=
-          mul_le_mul_of_nonneg_left hdivres hbig0
-        have h2 : (0 : ℝ) ≤ (4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ)) * strataResidual H := by
-          positivity
-        nlinarith only [hdiv0, h1, hres0]
-    _ = 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) := by ring
-/-! ## §9 — `M4T0Discharge` -/
+            ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) :=
+  m4_freeBlockSup_of_chiSummedAZ (AdoorL M) (s13GK K M)
+    (fun hq hqW hW b => subWindowSup_sq_le_strata_L_gk K hM hq hqW hW b) hBcl0 hgate hchi
 
 /-- `8·log Lv ≤ Lv` at `h : 64 ≤ Lv`: with `s = √Lv ≥ 8`, `log s ≤ s/e ≤ s/2` and
 `log Lv = 2·log s`, then `nlinarith`. `M4T0Discharge`'s private lemma re-derived verbatim for §9
@@ -8521,6 +7926,68 @@ theorem doorRowCarried_of_t0free_L_gk (K : ℕ) (Qm : ℕ) :
     d68, d69, d70, d71, d72, d73, d74, d75, d76, d77, d78, d79, d80, d81, d82, d83, d84, d85,
     d86, d87, d88, d89, d90, d91, d92, hT0, d94, d95, d96, d97, d98⟩
 
+/-- ⟦WIDE CEILING TWIN⟧ (`m4_wave_closed_T0_discharged_L_gk_kwide`) —
+`m4_wave_closed_T0_discharged_L_gk` with the flat ceiling moved inside the `∀ M`.
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
+theorem m4_wave_closed_T0_discharged_L_gk_kwide (K : ℕ) (Qm : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
+      0 < Xsk ∧ 0 ≤ Kcf ∧ 0 < Ctail ∧ 0 ≤ Kbox ∧ 0 < X₀w ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_L_gk K Cg R M k δ → 1 ≤ M → K ≤ 170000000 * M →
+            (∀ H : ℕ, 0 ≤ MSan H) → (∀ H : ℕ, 0 ≤ MStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ j H : ℕ, doorRowFloorL M ≤ j → MS j H ≤ MSan H) →
+            (∀ j H : ℕ, j < doorRowFloorL M → MS j H ≤ MStr H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+                  * ((q : ℝ) ^ 2 * (3 * m4BclGraded (doorRowFloorL M)
+                      (fun H => 2 * MSan H) (fun H => 2 * MStr H) H)) ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              Real.sqrt (Braw H) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ (Qm : ℝ)) →
+            (∀ j H : ℕ, j < doorRowFloorL M → 4 ≤ MS j H) →
+            -- ⟦ARM 1 DISCHARGED: the T₀-free per-instance register⟧
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H,
+                doorRowFloorL M ≤ j → ∀ s ≤ H,
+                  DoorRowCarriedT0_L_gk K Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
+                    (doorLadder R.x H (i + 1) + s) j (MS j H)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
+            -- ⟦ARM 2: the coprime supply, interval/length-general — the ONLY analytic carry left⟧
+            M4CoprimeBlockMeanSq_L_gk K R M
+              (m4BclGraded (doorRowFloorL M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) →
+            ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Kbox, X₀w, hK0, hX₀0, hbridge⟩ := doorRowCarried_of_t0free_L_gk K Qm
+  obtain ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
+    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hmain⟩ :=
+    m4_wave_structurally_closed_L_gk_kwide K Qm
+  refine ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w,
+    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0,
+    hK0, hX₀0, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
+  refine ⟨R, hReps, hU1, hRg, ?_⟩
+  intro δ Braw MS MSan MStr M k hgates hM hKw hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
+    hQm htriv hcar hgate harc hcp
+  refine hR δ Braw MS MSan MStr M k hgates hM hKw hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
+    hQm htriv ?_ hgate harc hcp
+  intro H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH
+  haveI : NeZero q := ⟨by omega⟩
+  have hqQm : q ≤ Qm := by
+    have hRq : (q : ℝ) ≤ (Qm : ℝ) := le_trans hqQ (hQm H hlo hhi)
+    exact_mod_cast hRq
+  exact hbridge Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail q χ M
+    (doorLadder R.x H (i + 1) + s) j (MS j H) hqQm
+    (hcar H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH)
+
 set_option maxHeartbeats 1600000 in
 -- `m4_wave_structurally_closed_L_gk`'s own budget: the register mentions `DoorRowCarriedT0_L_gk`
 -- under six binders, and that is the whole cost
@@ -8561,28 +8028,16 @@ theorem m4_wave_closed_T0_discharged_L_gk (K : ℕ) (hK : K ≤ 170000000) (Qm :
             M4CoprimeBlockMeanSq_L_gk K R M
               (m4BclGraded (doorRowFloorL M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) →
             ¬ logChowla2Fails R.eps R.x R.ω := by
-  obtain ⟨Kbox, X₀w, hK0, hX₀0, hbridge⟩ := doorRowCarried_of_t0free_L_gk K Qm
-  obtain ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
-    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hmain⟩ :=
-    m4_wave_structurally_closed_L_gk K hK Qm
-  refine ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w,
-    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0,
-    hK0, hX₀0, ?_⟩
-  intro C hC U1floor g
-  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
-  refine ⟨R, hReps, hU1, hRg, ?_⟩
-  intro δ Braw MS MSan MStr M k hgates hM hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
-    hQm htriv hcar hgate harc hcp
-  refine hR δ Braw MS MSan MStr M k hgates hM hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
-    hQm htriv ?_ hgate harc hcp
-  intro H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH
-  haveI : NeZero q := ⟨by omega⟩
-  have hqQm : q ≤ Qm := by
-    have hRq : (q : ℝ) ≤ (Qm : ℝ) := le_trans hqQ (hQm H hlo hhi)
-    exact_mod_cast hRq
-  exact hbridge Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail q χ M
-    (doorLadder R.x H (i + 1) + s) j (MS j H) hqQm
-    (hcar H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH)
+  obtain ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w, f0_1, f0_2, f0_3,
+    f0_4, f0_5, f0_6, f0_7, f0_8, f0_9, f0_10, f0_11, f0_12, f0_13, f0_14, f0_15, hw⟩ :=
+    m4_wave_closed_T0_discharged_L_gk_kwide K Qm
+  refine ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w, f0_1, f0_2, f0_3,
+    f0_4, f0_5, f0_6, f0_7, f0_8, f0_9, f0_10, f0_11, f0_12, f0_13, f0_14, f0_15, ?_⟩
+  intro C e1 U1floor g
+  obtain ⟨R, f1_1, f1_2, f1_3, hw⟩ := hw C e1 U1floor g
+  refine ⟨R, f1_1, f1_2, f1_3, ?_⟩
+  intro δ Braw MS MSan MStr M k e2 hM
+  exact hw δ Braw MS MSan MStr M k e2 hM (by omega)
 /-! ## §4u — ⟦THE UNIFORM HOISTS⟧ the `K`-binder moved INSIDE the witness prefix
 
 ⟦CAP-RECUT P1, 2026-08-02⟧ the lever raise `K := KlevF A` makes the rate constants' `K`-freeness
@@ -8714,370 +8169,6 @@ theorem m4_hT0band_at_door_discharged_split_graded_prod_L_gk_uniform (hMmu : Mmu
       _ ≤ (Real.log X) ^ (A + (-(1 : ℝ) / 2 + 1 / 1000)) := hgrade
   exact m4_hT0band_at_door_L_gk K χ M hX3 hXd hXdN hN hC₁ hS₀ hSle
     (hpiece q χ M Xd N hXd hX400 hx₀ h16 hq hcovP hcovQ hcovB hgHalf hgO1 hgWin) hErr
-
-/-! ## §Xw — ⟦KWIDE-65⟧ THE WIDE-CEILING TWINS (this file)
-
-Mechanical widening of the flat `hK : K ≤ 170000000` binders on the `L`-chain: the ceiling
-moves INSIDE the internal `∀ M` as `K ≤ 170000000 * M`, so the raised lever `KlevF` can flow.
-Statements and proofs are verbatim apart from that antecedent and the `_kwide` re-pointing.
-The originals are untouched.
--/
-
-/-- ⟦WIDE CEILING TWIN⟧ (`m4_door_meansq_carried_L_gk_kwide`) —
-`m4_door_meansq_carried_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
-theorem m4_door_meansq_carried_L_gk_kwide (K : ℕ) :
-    ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
-      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
-      0 < Xsk ∧ (∀ Qm : ℕ, 0 ≤ Kcf Qm) ∧ 0 < Ctail ∧
-      ∀ (Qm q : ℕ) (χ : DirichletCharacter ℂ q), 0 < q → q ≤ Qm →
-        ∀ (M Xd j : ℕ) (B : ℝ), 1 ≤ M → K ≤ 170000000 * M → doorRowFloorL M ≤ j →
-          DoorRowCarried_L_gk K Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail χ M Xd j B →
-            1 / ((Xd : ℕ) : ℝ)
-                * (∫ y in ((Xd : ℕ) : ℝ)..(2 * ((Xd : ℕ) : ℝ)),
-                    ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
-                        * shortSum (doorChiCoeff_L_gk K χ M)
-                            (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
-              ≤ B := by
-  obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hgen⟩ :=
-    m4_meansq_per_chi_gen_L_gk_kwide K
-  obtain ⟨Xsk, hXsk0, hsup⟩ := m4_supplier_complete
-  -- ⟦THE SKOLEM CUT⟧ the masked-floor constant, as a function of the modulus range
-  choose Kcf hKcf0 hcfl using capFreeFloor3_pieceDatum
-  obtain ⟨Ctail, hCtail0, htail⟩ := m4_door_tail_supply_L_gk K
-  refine ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
-    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, ?_⟩
-  intro Qm q χ hq hqQm M Xd j B hM hKw hj0 hcar
-  obtain ⟨P, Q, Mt, kk, Dd, Xa, X, h, δ', V, VJ, L, Cb, kmin, Ymax, ε, C₁', M₀,
-    cqS, cgS, cW, SW, Rbar0, Dmask,
-    hXdX, hhj, hXee, hlX2, hhX, hhceil, hTann, hceil5, hT₀le, hTbot, hLXL, hLe, hL256,
-    hXdQ, hP3, hlogP2, hQbot, hQlog, hQL, hPlow, hQhigh, hPQ, hQ0, hHX, hH2, hPj1, hQXd,
-    hXdbig, hdom, hW5, hkth, hMtX, hC16, hRradW, hthinpin, hMtpin, hkkg, hMtY,
-    hRrad0, hV1, hVδ, hlogV, hδsq, hksthr, hVJg, hCb0, hCbound, hXthr,
-    hX₀k, hMfl0k, hk2, hkX, hgateW, hYpin, hWY, hXY, hthrY,
-    hcqgate, hCqgate, hε0, hεup, habs,
-    hQlogXd, hdomband, hlogb, hPQratio, h2688,
-    hDmask0, hdebit, hcfthr,
-    hc0, hce, hc1, hblk, hbox, hD1, hDk, hX₀j, hsqXa, hpin,
-    hXae, hMXa, hXaX, hMfl0, hboxw, hS0, hSbd, hendGen, hRbdU, hRbar00, hRgrade,
-    hend, hT0band, hcff, hgP1, hgRows, hL4096, henv⟩ := hcar
-  subst hXdX
-  subst hhj
-  haveI : NeZero q := ⟨hq.ne'⟩
-  -- ⟦the scale's arithmetic⟧
-  have hX0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hXee
-  have h1ee : (1 : ℝ) ≤ Real.exp (Real.exp 1) := by
-    have h1 := Real.add_one_le_exp (Real.exp 1)
-    have h2 := Real.exp_pos 1
-    linarith
-  have hXd1 : 1 ≤ Xd := by
-    have : (1 : ℝ) ≤ ((Xd : ℕ) : ℝ) := le_trans h1ee hXee
-    exact_mod_cast this
-  have hexp2 : (3 : ℝ) ≤ Real.exp 2 := by
-    have := Real.add_one_le_exp (2 : ℝ); linarith
-  have hlog1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
-  have hLXe : Real.exp 1 ≤ Real.log ((Xd : ℕ) : ℝ) :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
-  have hP1 : 1 ≤ P := by omega
-  have hP2 : 2 ≤ P := by omega
-  -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate
-  have hj2 : 2 ≤ j := by
-    have hA : 2 ^ 18 ≤ AdoorL M := AdoorL_ge_old hM
-    have hAle : AdoorL M ≤ M * AdoorL M := Nat.le_mul_of_pos_left _ hM
-    have hjf : M * AdoorL M ≤ j := hj0
-    have h18 : (2 : ℕ) ≤ 2 ^ 18 := by norm_num
-    omega
-  have hh4 : (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) := by
-    have hN : (4 : ℕ) ≤ 2 ^ j := by
-      calc (4 : ℕ) = 2 ^ 2 := by norm_num
-        _ ≤ 2 ^ j := Nat.pow_le_pow_right (by norm_num) hj2
-    exact_mod_cast hN
-  have hQ1h : ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) :=
-    (door_length_gate_iff_L_gk K).mpr hj0
-  -- ⟦THE DATUM SIDE (class (C)): the cut and its three S8 slots⟧
-  have haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd →
-      winCutH Xd (doorChiCoeff_L_gk K χ M) n = doorChiCoeff_L_gk K χ M n :=
-    fun n h1 h2 => winCutH_of_mem _ h1 h2
-  have ha0 : winCutH Xd (doorChiCoeff_L_gk K χ M) Xd = 0 := winCutH_supp0 _ le_rfl
-  -- ⟦the pin chain and the per-block puncture law⟧
-  have hcoefPin : SeamCoefW Xd P Q (winCutH Xd (doorChiCoeff_L_gk K χ M)) (doorChiCoeff_L_gk K χ M)
-      (liouChi χ) :=
-    doorChiCoeff_seamCoefW_at_door_H_L_gk K χ hM hlog1 hQXd hPlow haH ha0 hend
-  have hcoefBand := doorChiCoeff_seamCoefW_punct_H_L_gk K χ hM haH ha0 hend
-  -- ⟦the per-piece cap-free floor⟧
-  have hfloor : ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset,
-      CapFreeFloor3 (pieceDatum χ 𝒥 (calP (AdoorL M) (s13GK K M))
-        (calQK (AdoorL M) (s13GK K M) M)) ((Xd : ℕ) : ℝ) := by
-    intro 𝒥 h𝒥
-    exact hcfl Qm q χ (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) 𝒥
-      ((Xd : ℕ) : ℝ) Dmask hqQm hXee hDmask0 (hdebit 𝒥 h𝒥) hcfthr
-  -- ⟦THE SOCKET⟧ at `Ps := 1`, `J := 2`, read at the door datum
-  have hsock0 := hsup q χ (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M)
-    (H83 ((Xd : ℕ) : ℝ) theta293) (2 * Xd) Xd P Q 2 1 Mt kk Dd Xa cqS L cgS Cb
-    ((Xd : ℕ) : ℝ) theta293 (seamRad ((Xd : ℕ) : ℝ)) ((Xd : ℕ) : ℝ) 0 Rbar0 cW SW
-    hc0 hce hc1 hCb0 hCbound hP1 le_rfl hRrad0 theta293_pos theta293_lt_one_div_32.le
-    hLXe hPlow hQhigh hPQ hfloor hblk hbox hD1 hDk hX₀j hsqXa hpin hXae hMXa hXaX hMfl0
-    hboxw hS0 hSbd hendGen hRbdU
-  have hsockR : CofactorSocket (H83 ((Xd : ℕ) : ℝ) theta293) (2 * Xd) Xd P Q
-      ((Xd : ℕ) : ℝ) (seamRad ((Xd : ℕ) : ℝ)) 0 (4 * Rbar0) (doorChiCoeff_L_gk K χ M) := by
-    have hs := cofactorSocket_doorChiCoeff_L_gk K χ hsock0
-    have he : (2 : ℝ) ^ (2 : ℕ) * Rbar0 = 4 * Rbar0 := by ring
-    rwa [he] at hs
-  -- ⟦THE COPRIME TAIL⟧: `Mtail` and `EP2` are computed, not carried
-  have hNcast : (((2 * Xd : ℕ)) : ℝ) = 2 * ((Xd : ℕ) : ℝ) := by push_cast; ring
-  obtain ⟨hMtail, hMtail0, hEP2⟩ := htail q χ M P Q Xd (2 * Xd) ((Xd : ℕ) : ℝ) ε
-    rfl hNcast hX0 hL256 hP2 hPQ hXd1 hQlogXd hdomband hPlow hlogb habs hPQratio h2688
-  -- ⟦THE ROW-SUM TRANSPORT⟧ the register carries the LANDED `a2RowsSum_L`, which is the
-  -- STRONGER gate: the lever grows `𝒫ⱼ` and `𝒫ⱼ` sits in a denominator
-  -- (`ThmA2.a2RowsSum_gk_le`), so the levered capstone's slot follows a fortiori
-  have hgRowsK : 5760 * (a2RowsSum_L_gk K M Xd + Ccc * (2 / (M : ℝ)))
-      ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) / 500) := by
-    have hle := a2RowsSum_L_gk_le K M Xd
-    linarith
-  -- ⟦THE CAPSTONE⟧
-  have hres := hgen Qm q χ hqQm (2 * Xd) Xd P Q M (winCutH Xd (doorChiCoeff_L_gk K χ M)) (liouChi χ)
-    (doorChiCoeff_L_gk K χ M)
-    (fun i => memSPunctCoeff (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) 2 i
-      (liouChi χ))
-    ((Xd : ℕ) : ℝ) ((2 ^ j : ℕ) : ℝ) δ' V VJ L Cb (seamRad ((Xd : ℕ) : ℝ)) (4 * Rbar0)
-    kmin Ymax ε _ _ C₁' M₀
-    rfl rfl hXee hlX2 hh4 hhX hhceil hTann hceil5 hT₀le hTbot hLXL hLe hM hKw hXdQ hQ1h hP3
-    hlogP2 hQbot hQlog hQL hPlow hQhigh hPQ hQ0 hHX hH2 hPj1 hQXd hXdbig hdom
-    hW5 hkth hMtX hC16 hRradW hthinpin hMtpin hkkg hMtY
-    hRrad0 le_rfl le_rfl hV1 hVδ hlogV hδsq hksthr hVJg hCb0 hCbound hXthr
-    hX₀k hMfl0k hk2 hkX hgateW hYpin hWY hXY hthrY hcqgate hCqgate
-    hε0 hεup habs hEP2 le_rfl
-    (doorRow_ha1_L_gk K χ M Xd) (norm_liouChi_le_one χ)
-    (fun n hn => doorRow_hsupp0_L_gk K χ M Xd n hn) (fun n hn => doorRow_hasupp_L_gk K χ M Xd n hn)
-    hMtail0 hMtail
-    (norm_doorChiCoeff_le_one_L_gk K χ M) (fun i n => norm_doorPunctCoeff_le_one_L_gk K χ M i n)
-    (by positivity) hRgrade hsockR hcoefBand hcoefPin hT0band hcff hgP1 hgRowsK hL4096
-  -- ⟦THE DATUM BRIDGE⟧ the cut is invisible to the row's short sum
-  simp only [shortSum_winCutH_seamS0] at hres
-  exact le_trans hres henv
-
-/-- ⟦WIDE CEILING TWIN⟧ (`m4_dyadicRow_carried_L_gk_kwide`) —
-`m4_dyadicRow_carried_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
-theorem m4_dyadicRow_carried_L_gk_kwide (K : ℕ) :
-    ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
-      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
-      0 < Xsk ∧ (∀ Qm : ℕ, 0 ≤ Kcf Qm) ∧ 0 < Ctail ∧
-      ∀ (R : ChowlaRegime) (Qm M k : ℕ) (MS : ℕ → ℕ → ℝ), 1 ≤ M → K ≤ 170000000 * M →
-        (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ (Qm : ℝ)) →
-        (∀ j H : ℕ, j < doorRowFloorL M → 4 ≤ MS j H) →
-        (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
-          ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H, doorRowFloorL M ≤ j →
-            ∀ s ≤ H,
-              DoorRowCarried_L_gk K Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail χ M
-                (doorLadder R.x H (i + 1) + s) j (MS j H)) →
-        M4ChiDyadicRowMeanSq_L_gk K R M k MS := by
-  obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
-    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hrow⟩ :=
-    m4_door_meansq_carried_L_gk_kwide K
-  refine ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
-    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, ?_⟩
-  intro R Qm M k MS hM hKw hQm htriv hcar H hlo hhi q hq hqQ i hik χ j hjL s hsH
-  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
-  have hApos : 0 < doorLadder R.x H (i + 1) + s := by
-    have := doorLadder_floor hxH (i + 1); omega
-  by_cases hcase : doorRowFloorL M ≤ j
-  · -- ⟦the capstone speaks: §3 at the carried register⟧
-    have hqQm : q ≤ Qm := by
-      have hR : (q : ℝ) ≤ (Qm : ℝ) := le_trans hqQ (hQm H hlo hhi)
-      exact_mod_cast hR
-    exact hrow Qm q χ hq hqQm M (doorLadder R.x H (i + 1) + s) j (MS j H) hM hKw hcase
-      (hcar H hlo hhi q hq hqQ i hik χ j hjL hcase s hsH)
-  · -- ⟦below the floor: the trivial grade⟧
-    exact le_trans (doorRow_trivial_grade_L_gk K χ M j hApos) (htriv j H (not_le.mp hcase))
-
-set_option maxHeartbeats 1600000 in
--- same cause as the landed §5: elaborating the register (which mentions `DoorRowCarried_L_gk`
--- under six binders) against `m4_wave_closed_of_dyadicRow_L_gk`'s own list is the whole cost
-
-/-- ⟦WIDE CEILING TWIN⟧ (`m4_wave_structurally_closed_L_gk_kwide`) —
-`m4_wave_structurally_closed_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
-theorem m4_wave_structurally_closed_L_gk_kwide (K : ℕ) (Qm : ℕ) :
-    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ),
-      1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
-      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
-      0 < Xsk ∧ 0 ≤ Kcf ∧ 0 < Ctail ∧
-      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
-        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
-          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (M k : ℕ),
-            M4DoorGates_L_gk K Cg R M k δ → 1 ≤ M → K ≤ 170000000 * M →
-            (∀ H : ℕ, 0 ≤ MSan H) → (∀ H : ℕ, 0 ≤ MStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
-            (∀ j H : ℕ, doorRowFloorL M ≤ j → MS j H ≤ MSan H) →
-            (∀ j H : ℕ, j < doorRowFloorL M → MS j H ≤ MStr H) →
-            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
-              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
-                  * ((q : ℝ) ^ 2 * (3 * m4BclGraded (doorRowFloorL M)
-                      (fun H => 2 * MSan H) (fun H => 2 * MStr H) H)) ≤ Braw H) →
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-              Real.sqrt (Braw H) ≤ mrtDeliveredGrade (C / 2) H) →
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
-            -- ⟦the modulus cap: the door's characters inside the capstone's range⟧
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ (Qm : ℝ)) →
-            -- ⟦the small lengths' trivial grade⟧
-            (∀ j H : ℕ, j < doorRowFloorL M → 4 ≤ MS j H) →
-            -- ⟦ARM 1 + the regime gates: the per-instance register⟧
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
-              ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H,
-                doorRowFloorL M ≤ j → ∀ s ≤ H,
-                  DoorRowCarried_L_gk K Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
-                    (doorLadder R.x H (i + 1) + s) j (MS j H)) →
-            -- ⟦R2's two gates⟧
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-              arcDen 12 H < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) →
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
-            -- ⟦ARM 2: the coprime supply, interval/length-general⟧
-            M4CoprimeBlockMeanSq_L_gk K R M
-              (m4BclGraded (doorRowFloorL M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) →
-            ¬ logChowla2Fails R.eps R.x R.ω := by
-  obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
-    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hrow⟩ :=
-    m4_dyadicRow_carried_L_gk_kwide K
-  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_wave_closed_of_dyadicRow_L_gk K
-  refine ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl Qm, Xsk, Kcf Qm, Ctail,
-    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl Qm, hXsk0, hKcf0 Qm, hCtail0, ?_⟩
-  intro C hC U1floor g
-  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
-  refine ⟨R, hReps, hU1, hRg, ?_⟩
-  intro δ Braw MS MSan MStr M k hgates hM hKw hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
-    hQm htriv hcar hgate harc hcp
-  have hBcl0 : ∀ H : ℕ, 0 ≤ m4BclGraded (doorRowFloorL M) (fun H => 2 * MSan H)
-      (fun H => 2 * MStr H) H := fun H =>
-    m4BclGraded_nonneg (Fan := fun H => 2 * MSan H) (Ftr := fun H => 2 * MStr H)
-      (show (0 : ℝ) ≤ 2 * MSan H by have := hMSan0 H; linarith)
-      (show (0 : ℝ) ≤ 2 * MStr H by have := hMStr0 H; linarith)
-  -- ⟦R2⟧ the wave asks only the NON-COPRIME classes; `m4_nonCoprime_classMeanSq_L` delivers all
-  have hnc : M4ClassBlockMeanSq_L_gk K R M k
-      (m4BclGraded (doorRowFloorL M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) :=
-    m4_nonCoprime_classMeanSq_L_gk K (k := k) hM hBcl0 hgate harc hcp
-  refine hR δ Braw MS MSan MStr (doorRowFloorL M) M k hgates hMSan0 hMStr0 hBraw0 han htr
-    hdrift hdel hrest (hrow R Qm M k MS hM hKw hQm htriv hcar) ?_
-  intro H hlo hhi q hq hqQ i hik r hrq _hncop
-  exact hnc H hlo hhi q hq hqQ i hik r hrq
-
-/-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSum_chi_door_L_gk_kwide`) —
-`m4_hrowsSum_chi_door_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
-theorem m4_hrowsSum_chi_door_L_gk_kwide (K : ℕ) :
-    ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
-      ∀ (q : ℕ) [NeZero q] (c a : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ),
-        (∀ n : ℕ, ‖a n‖ ≤ 1) → (∀ j m : ℕ, ‖bfam j m‖ ≤ 1) → (∀ p : ℕ, ‖c p‖ ≤ 1) →
-      ∀ (N Xd M : ℕ) (X h ε : ℝ) (t₁ : DirichletCharacter ℂ q → ℝ),
-        1 ≤ M → K ≤ 170000000 * M → calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd →
-        2 * Xd ≤ N → (N : ℝ) ≤ 4 * (Xd : ℝ) →
-        (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (AdoorL M) (s13GK K M) j ≤ p →
-          p ≤ calQK (AdoorL M) (s13GK K M) M j → ¬ p ∣ m → a (p * m) = bfam j m * c p) →
-        (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (AdoorL M) (s13GK K M) j ≤ p →
-          p ≤ calQK (AdoorL M) (s13GK K M) M j → c p * bfam j m ≠ 0 →
-          (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
-        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
-        Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
-            ≤ Real.sqrt (Real.log (Xd : ℝ)) →
-        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
-        (∀ j ∈ Finset.Icc 1 2,
-          ((Nat.sqrt Xd : ℝ) + 1)
-              * ∏ p ∈ primeBand (calP (AdoorL M) (s13GK K M) j)
-                    (calQK (AdoorL M) (s13GK K M) M j), (1 + 3 / (p : ℝ))
-            ≤ (Xd : ℝ) * (Real.log ((calP (AdoorL M) (s13GK K M) j : ℕ) : ℝ)
-                / Real.log ((calQK (AdoorL M) (s13GK K M) M j : ℕ) : ℝ))) →
-        4 ≤ h → 0 < X → 0 ≤ Real.log X → X ≤ 4 * (Xd : ℝ) →
-        ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ h →
-        (∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X →
-          TannGate X (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
-          (∫ t in seamAnn X (2 * T), ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
-            ≤ 8 * (0 : ℝ) ^ 2
-              + (∫ t in (seamAnn X (2 * T) \ seamBall X (t₁ χ))
-                  ∩ seamTtotG (chiBarCoeff q χ c) (calP (AdoorL M) (s13GK K M))
-                      (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
-                      (mrAlpha (1 / 12)) 2,
-                  ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
-              + 2 * ((2 * T / X + 1) * (Real.log X) ^ (-theta293 + ε))) →
-        ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X →
-          TannGate X (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
-          X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
-            ≤ a2Mrow_L_gk K Ct Cp M Xd X ε := by
-  obtain ⟨Ct, Cp, hCt, hCp, hrows⟩ := m4_hrowsSum_chi
-  refine ⟨Ct, Cp, hCt, hCp, ?_⟩
-  intro q _ c a bfam ha1 hb1 hc1 N Xd M X h ε t₁ hM hKw hXdQ hNXd hN4 hcoef hwin hasupp hQXd
-    hXdbig hdom hh4 hX0 hL0 hX4Xd hQ1h hcap χ T hT hTX2 hTgate hTll
-  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (AdoorL M) (s13GK K M) M 2) hXdQ
-  refine (hrows q c a bfam ha1 hb1 hc1 N Xd (AdoorL M) (s13GK K M) M 2 (H1doorL M) X h
-    (1 / 12) ε t₁ (fun _ => 0) (calFrameK_doorH1_at_L_gk_kwide K M Xd hM hKw hXdQ) hNXd hN4
-    hcoef hwin
-    hasupp hQXd hXdbig hdom hh4 hX0 hL0 hX4Xd hQ1h hcap χ T hT hTX2 hTgate hTll).trans ?_
-  exact m4MrowChi_le_a2Mrow_L_gk K hM hXd1 hCp.le
-
-/-- ⟦WIDE CEILING TWIN⟧ (`m4_wave_closed_T0_discharged_L_gk_kwide`) —
-`m4_wave_closed_T0_discharged_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
-theorem m4_wave_closed_T0_discharged_L_gk_kwide (K : ℕ) (Qm : ℕ) :
-    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ),
-      1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
-      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
-      0 < Xsk ∧ 0 ≤ Kcf ∧ 0 < Ctail ∧ 0 ≤ Kbox ∧ 0 < X₀w ∧
-      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
-        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
-          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (M k : ℕ),
-            M4DoorGates_L_gk K Cg R M k δ → 1 ≤ M → K ≤ 170000000 * M →
-            (∀ H : ℕ, 0 ≤ MSan H) → (∀ H : ℕ, 0 ≤ MStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
-            (∀ j H : ℕ, doorRowFloorL M ≤ j → MS j H ≤ MSan H) →
-            (∀ j H : ℕ, j < doorRowFloorL M → MS j H ≤ MStr H) →
-            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
-              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
-                  * ((q : ℝ) ^ 2 * (3 * m4BclGraded (doorRowFloorL M)
-                      (fun H => 2 * MSan H) (fun H => 2 * MStr H) H)) ≤ Braw H) →
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-              Real.sqrt (Braw H) ≤ mrtDeliveredGrade (C / 2) H) →
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ (Qm : ℝ)) →
-            (∀ j H : ℕ, j < doorRowFloorL M → 4 ≤ MS j H) →
-            -- ⟦ARM 1 DISCHARGED: the T₀-free per-instance register⟧
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
-              ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H,
-                doorRowFloorL M ≤ j → ∀ s ≤ H,
-                  DoorRowCarriedT0_L_gk K Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
-                    (doorLadder R.x H (i + 1) + s) j (MS j H)) →
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-              arcDen 12 H < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) →
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
-            -- ⟦ARM 2: the coprime supply, interval/length-general — the ONLY analytic carry left⟧
-            M4CoprimeBlockMeanSq_L_gk K R M
-              (m4BclGraded (doorRowFloorL M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) →
-            ¬ logChowla2Fails R.eps R.x R.ω := by
-  obtain ⟨Kbox, X₀w, hK0, hX₀0, hbridge⟩ := doorRowCarried_of_t0free_L_gk K Qm
-  obtain ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
-    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hmain⟩ :=
-    m4_wave_structurally_closed_L_gk_kwide K Qm
-  refine ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w,
-    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0,
-    hK0, hX₀0, ?_⟩
-  intro C hC U1floor g
-  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
-  refine ⟨R, hReps, hU1, hRg, ?_⟩
-  intro δ Braw MS MSan MStr M k hgates hM hKw hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
-    hQm htriv hcar hgate harc hcp
-  refine hR δ Braw MS MSan MStr M k hgates hM hKw hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
-    hQm htriv ?_ hgate harc hcp
-  intro H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH
-  haveI : NeZero q := ⟨by omega⟩
-  have hqQm : q ≤ Qm := by
-    have hRq : (q : ℝ) ≤ (Qm : ℝ) := le_trans hqQ (hQm H hlo hhi)
-    exact_mod_cast hRq
-  exact hbridge Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail q χ M
-    (doorLadder R.x H (i + 1) + s) j (MS j H) hqQm
-    (hcar H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH)
 
 end Salt.MR
 
