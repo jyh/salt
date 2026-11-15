@@ -151,7 +151,7 @@ M4MeanSq ×1 + the def). The pre-3X twins are OFF the chain — untouched.
 **THE ISOLATED REMAINDER — the socket's supplier at the door's b
 (= 1_𝒮(P·)·λχ̄):** prod_one_sub_gJ reduces it to 4 COMPLETELY
 MULTIPLICATIVE pieces λχ̄·g_𝒥 (each meets Transfer34's binder shape);
-the CASE-A supply chain is ellLin-shaped from CaseASocket:917 down —
+the CASE-A supply chain is ellLin-shaped from CaseASocket:889 down —
 the question CASEA-GENERICITY now scopes: is the ENGINE underneath
 (prop21_unconditional_uniform_absC — GHS prop 2.1, classically stated
 at general multiplicative f) already general, with only the supply
