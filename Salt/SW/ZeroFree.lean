@@ -243,23 +243,13 @@ lemma neg_reLogDeriv_le_keep {q : ℕ} [NeZero q] (ψ : DirichletCharacter ℂ q
 
 /-! ## 7. The quantitative zero-free region for primitive `χ` with `χ² ≠ 1` -/
 
-/-- **S3d — the quantitative zero-free region (Davenport §14), primitive complex-character case.**
-There is an explicit constant `c₀ > 0` such that for every primitive Dirichlet character `χ` mod
-`q` with `χ² ≠ 1`, every zero `ρ` of `L(·,χ)` with `Re ρ ≥ 1/2` satisfies
-`Re ρ ≤ 1 − c₀ / log(q(|Im ρ| + 2))`. Here `c₀ = 1/50456`.
-
-Route (the 3-4-1 argument made quantitative): at `σ = 1 + δ/L` (`δ = 1/7208`,
-`L = log(q(|γ|+2))`), the positivity `three_four_one_logDeriv` combines the pole bound
-`Re(−L'/L(σ,χ₀)) ≤ 1/(σ−1)+1` (`neg_logDeriv_LFunction_trivChar_le`), the retained-zero bound
-`Re(−L'/L(σ+iγ,χ)) ≤ 120 log(4M₀) − 1/(σ−β)` (`neg_reLogDeriv_le_keep`), and the dropped-zeros
-`χ²` bound `Re(−L'/L(σ+2iγ,χ²)) ≤ 120 log(4M₀(f₂)) + log q` (`neg_reLogDeriv_le_drop` on the
-primitive `χ²`-inducing character + the `EulerBridge` `≤ log q` correction). All growth terms are
-`O(L)` (`log_four_M0_le`); `zero_free_extraction` extracts `1 − β ≥ δ/(7L)`. -/
-theorem zero_free_region_primitive :
-    ∃ c₀ : ℝ, 0 < c₀ ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsPrimitive →
+/-- `zero_free_region_primitive` at its explicit constant `c₀ = 1/50456`: the proof of both
+`zero_free_region_primitive` and its bounded twin `zero_free_region_primitive_bounded`
+(NumeralKq). -/
+theorem zero_free_region_primitive_at :
+    ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsPrimitive →
       χ ^ 2 ≠ 1 → ∀ {ρ : ℂ}, LFunction χ ρ = 0 → 1 / 2 ≤ ρ.re →
-        ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
-  refine ⟨1 / 50456, by norm_num, ?_⟩
+        ρ.re ≤ 1 - 1 / 50456 / Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
   intro q hNe χ hχ hsq ρ hzero _hre
   -- basics
   have hχ1 : χ ≠ 1 := fun h => hsq (by rw [h, one_pow])
@@ -374,6 +364,24 @@ theorem zero_free_region_primitive :
     have hfinal := zero_free_extraction hLpos hddpos hCdd hβ1 hchain'
     have heq : (1 / 50456 : ℝ) / Lval = dd / (7 * Lval) := by rw [hdddef]; field_simp; ring
     rw [heq]; linarith [hfinal]
+
+/-- **S3d — the quantitative zero-free region (Davenport §14), primitive complex-character case.**
+There is an explicit constant `c₀ > 0` such that for every primitive Dirichlet character `χ` mod
+`q` with `χ² ≠ 1`, every zero `ρ` of `L(·,χ)` with `Re ρ ≥ 1/2` satisfies
+`Re ρ ≤ 1 − c₀ / log(q(|Im ρ| + 2))`. Here `c₀ = 1/50456`.
+
+Route (the 3-4-1 argument made quantitative): at `σ = 1 + δ/L` (`δ = 1/7208`,
+`L = log(q(|γ|+2))`), the positivity `three_four_one_logDeriv` combines the pole bound
+`Re(−L'/L(σ,χ₀)) ≤ 1/(σ−1)+1` (`neg_logDeriv_LFunction_trivChar_le`), the retained-zero bound
+`Re(−L'/L(σ+iγ,χ)) ≤ 120 log(4M₀) − 1/(σ−β)` (`neg_reLogDeriv_le_keep`), and the dropped-zeros
+`χ²` bound `Re(−L'/L(σ+2iγ,χ²)) ≤ 120 log(4M₀(f₂)) + log q` (`neg_reLogDeriv_le_drop` on the
+primitive `χ²`-inducing character + the `EulerBridge` `≤ log q` correction). All growth terms are
+`O(L)` (`log_four_M0_le`); `zero_free_extraction` extracts `1 − β ≥ δ/(7L)`. -/
+theorem zero_free_region_primitive :
+    ∃ c₀ : ℝ, 0 < c₀ ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsPrimitive →
+      χ ^ 2 ≠ 1 → ∀ {ρ : ℂ}, LFunction χ ρ = 0 → 1 / 2 ≤ ρ.re →
+        ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)) :=
+  ⟨1 / 50456, by norm_num, zero_free_region_primitive_at⟩
 
 /-! ## 8. The imprimitive extension (via the EulerBridge zero-set transfer) -/
 

@@ -56,9 +56,6 @@ set_option linter.style.longLine false
 
 namespace Salt.SW
 
-set_option maxHeartbeats 800000 in
--- The twin re-elaborates the landed statement with one extra conjunct, so it needs the
--- landed declaration's own heartbeat room.
 open Complex DirichletCharacter Filter Metric in
 open scoped LSeries.notation Topology in
 /-- **⟦Kq BOUNDED TWIN⟧** `zero_free_region_primitive` + the conjunct `1 / 126848 ≤ c₀`.
@@ -66,122 +63,8 @@ the primitive arm, witness `1/50456` (weakened to the chain-common `1/126848`). 
 theorem zero_free_region_primitive_bounded :
     ∃ c₀ : ℝ, 0 < c₀ ∧ 1 / 126848 ≤ c₀ ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsPrimitive →
       χ ^ 2 ≠ 1 → ∀ {ρ : ℂ}, LFunction χ ρ = 0 → 1 / 2 ≤ ρ.re →
-        ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
-  refine ⟨1 / 50456, by norm_num, by norm_num, ?_⟩
-  intro q hNe χ hχ hsq ρ hzero _hre
-  -- basics
-  have hχ1 : χ ≠ 1 := fun h => hsq (by rw [h, one_pow])
-  have hcond : χ.conductor = q := hχ
-  have hq2 : 2 ≤ q := by
-    have hc1 : χ.conductor ≠ 1 := fun h => hχ1 (eq_one_iff_conductor_eq_one.mpr h)
-    rw [hcond] at hc1
-    have hqne0 : q ≠ 0 := NeZero.ne q
-    omega
-  have hqR2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq2
-  set Lval : ℝ := Real.log ((q : ℝ) * (|ρ.im| + 2)) with hLdef
-  have hQ4 : (4 : ℝ) ≤ (q : ℝ) * (|ρ.im| + 2) := by
-    linarith only [hqR2, mul_nonneg (show (0 : ℝ) ≤ (q : ℝ) by linarith) (abs_nonneg ρ.im)]
-  have hexp4 : Real.exp 1 ≤ 4 := le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))
-  have h4 : (1 : ℝ) ≤ Real.log 4 := le_log_of_exp_le hexp4
-  have hL1 : (1 : ℝ) ≤ Lval := le_trans h4 (Real.log_le_log (by norm_num) hQ4)
-  have hLpos : (0 : ℝ) < Lval := by linarith
-  have hLne : Lval ≠ 0 := ne_of_gt hLpos
-  have hβ1 : ρ.re < 1 := by
-    by_contra h
-    exact LFunction_ne_zero_of_one_le_re χ (Or.inl hχ1) (not_lt.mp h) hzero
-  rcases le_or_gt ρ.re (1 / 2) with hβle | hβgt
-  · -- trivial branch: `Re ρ ≤ 1/2 ≤ 1 − c₀/L`
-    have hc0 : (1 / 50456 : ℝ) / Lval ≤ 1 / 50456 := by
-      rw [div_le_iff₀ hLpos]; linarith only [hL1]
-    linarith [hc0, hβle]
-  · -- the 3-4-1 machinery
-    set dd : ℝ := 1 / 7208 with hdddef
-    have hddpos : (0 : ℝ) < dd := by norm_num
-    have hddlt1 : dd < 1 := by rw [hdddef]; norm_num
-    set σ : ℝ := 1 + dd / Lval with hσdef
-    have hddL : dd / Lval ≤ dd := by rw [div_le_iff₀ hLpos]; nlinarith only [hL1, hddpos]
-    have hσ1 : 1 < σ := by
-      rw [hσdef]
-      have hpos : 0 < dd / Lval := div_pos hddpos hLpos
-      linarith
-    have hσ2 : σ < 2 := by rw [hσdef]; linarith [hddL, hddlt1]
-    -- the 3-4-1 positivity and the LSeries → LFunction bridge
-    have h341 := three_four_one_logDeriv χ hσ1 ρ.im
-    set s1 : ℂ := (σ : ℂ) + (ρ.im : ℂ) * I with hs1def
-    set s2 : ℂ := (σ : ℂ) + 2 * (ρ.im : ℂ) * I with hs2def
-    have hσ0C : (1 : ℝ) < (σ : ℂ).re := by rw [Complex.ofReal_re]; exact hσ1
-    have hσ1C : (1 : ℝ) < s1.re := by rw [hs1def]; simpa using hσ1
-    have hσ2C : (1 : ℝ) < s2.re := by rw [hs2def]; simpa using hσ1
-    rw [neg_logDeriv_LSeries_eq (1 : DirichletCharacter ℂ q) hσ0C,
-        neg_logDeriv_LSeries_eq χ hσ1C, neg_logDeriv_LSeries_eq (χ ^ 2) hσ2C] at h341
-    -- A₀ : the χ₀ pole bound
-    have hA0 : (-logDeriv (LFunction (1 : DirichletCharacter ℂ q)) (σ : ℂ)).re ≤ 1 / (σ - 1) + 1 :=
-      neg_logDeriv_LFunction_trivChar_le q hσ1 hσ2.le
-    -- A₁ : the retained-zero bound for χ
-    have hA1 : (-logDeriv (LFunction χ) s1).re
-        ≤ 120 * Real.log (4 * (5 * (4 + |ρ.im|) * Real.sqrt (q : ℝ) * (1 + Real.log (q : ℝ))))
-          - 1 / (σ - ρ.re) := by
-      have h := neg_reLogDeriv_le_keep χ hχ hq2 hzero hβgt hβ1 hσ1 hσ2
-      rw [← hs1def] at h; exact h
-    -- A₂ : the dropped-zeros bound for χ², via the primitive-inducing character + EulerBridge
-    have hf2q : (χ ^ 2).conductor ≤ q :=
-      Nat.le_of_dvd (Nat.pos_of_ne_zero (NeZero.ne q)) (conductor_dvd_level (χ ^ 2))
-    have hf22 : 2 ≤ (χ ^ 2).conductor := by
-      have hc1 : (χ ^ 2).conductor ≠ 1 := fun h => hsq (eq_one_iff_conductor_eq_one.mpr h)
-      have hc0' : (χ ^ 2).conductor ≠ 0 := (χ ^ 2).conductor_ne_zero
-      omega
-    have hprim : ((χ ^ 2).primitiveCharacter).IsPrimitive := primitiveCharacter_isPrimitive (χ ^ 2)
-    have hχ2'ne1 : (χ ^ 2).primitiveCharacter ≠ 1 := ne_one_of_isPrimitive _ hprim hf22
-    have hL1s2 : LFunction (χ ^ 2).primitiveCharacter s2 ≠ 0 :=
-      LFunction_ne_zero_of_one_le_re (χ ^ 2).primitiveCharacter (Or.inl hχ2'ne1) hσ2C.le
-    have hsc2 : ‖s2 - (2 + ((2 * ρ.im : ℝ) : ℂ) * I)‖ ≤ 23 / 20 := by
-      have he : s2 - (2 + ((2 * ρ.im : ℝ) : ℂ) * I) = ((σ - 2 : ℝ) : ℂ) := by
-        rw [hs2def]; push_cast; ring
-      rw [he, Complex.norm_real, Real.norm_eq_abs, abs_of_nonpos (by linarith : σ - 2 ≤ 0)]
-      linarith
-    have hdrop := neg_reLogDeriv_le_drop (χ ^ 2).primitiveCharacter hprim hf22 (2 * ρ.im) hsc2 hσ2C
-    have hbr := norm_logDeriv_LFunction_sub_primitive_le (χ ^ 2) hσ2C.le hL1s2 (Or.inl hsq)
-    have hA2 : (-logDeriv (LFunction (χ ^ 2)) s2).re
-        ≤ (-logDeriv (LFunction (χ ^ 2).primitiveCharacter) s2).re + Real.log (q : ℝ) := by
-      have habs := (Complex.abs_re_le_norm _).trans hbr
-      rw [Complex.sub_re] at habs
-      rw [Complex.neg_re, Complex.neg_re]
-      linarith [abs_le.mp habs |>.1]
-    have hA2full : (-logDeriv (LFunction (χ ^ 2)) s2).re
-        ≤ 120 * Real.log (4 * (5 * (4 + |2 * ρ.im|) * Real.sqrt ((χ ^ 2).conductor : ℝ)
-            * (1 + Real.log ((χ ^ 2).conductor : ℝ)))) + Real.log (q : ℝ) := by
-      linarith [hA2, hdrop]
-    -- the growth terms are `O(L)`
-    have hB1 : 120 * Real.log (4 * (5 * (4 + |ρ.im|) * Real.sqrt (q : ℝ) * (1 + Real.log (q : ℝ))))
-        ≤ 720 * Lval := by
-      have := log_four_M0_le (f := q) (q := q) (t := ρ.im) (γ := ρ.im) hq2 le_rfl hq2
-        (by linarith [abs_nonneg ρ.im])
-      rw [← hLdef] at this; linarith [this]
-    have hB2 : 120 * Real.log (4 * (5 * (4 + |2 * ρ.im|) * Real.sqrt ((χ ^ 2).conductor : ℝ)
-          * (1 + Real.log ((χ ^ 2).conductor : ℝ)))) ≤ 720 * Lval := by
-      have := log_four_M0_le (f := (χ ^ 2).conductor) (q := q) (t := 2 * ρ.im) (γ := ρ.im)
-        hf22 hf2q hq2 (by rw [abs_mul, show |(2 : ℝ)| = 2 from by norm_num])
-      rw [← hLdef] at this; linarith [this]
-    have hlogq : Real.log (q : ℝ) ≤ Lval := by
-      rw [hLdef]
-      apply Real.log_le_log (by linarith)
-      linarith only [hσ1, hddL, hQ4,
-          mul_nonneg (show (0 : ℝ) ≤ (q : ℝ) by linarith) (abs_nonneg ρ.im)]
-    -- assemble the 3-4-1 chain
-    have hrel1 : (4 : ℝ) / (σ - ρ.re) = 4 * (1 / (σ - ρ.re)) := by ring
-    have hrel2 : (3 : ℝ) / (σ - 1) = 3 * (1 / (σ - 1)) := by ring
-    have hchain : 4 / (σ - ρ.re) ≤ 3 / (σ - 1) + 3604 * Lval := by
-      rw [hrel1, hrel2]
-      linarith [h341, hA0, hA1, hA2full, hB1, hB2, hlogq, hL1]
-    -- the numeric extraction
-    have hCdd : (3604 : ℝ) * dd = 1 / 2 := by rw [hdddef]; norm_num
-    have hchain' : 4 / (dd / Lval + (1 - ρ.re)) ≤ 3 / (dd / Lval) + 3604 * Lval := by
-      have e1 : σ - ρ.re = dd / Lval + (1 - ρ.re) := by rw [hσdef]; ring
-      have e2 : σ - 1 = dd / Lval := by rw [hσdef]; ring
-      rw [e1, e2] at hchain; exact hchain
-    have hfinal := zero_free_extraction hLpos hddpos hCdd hβ1 hchain'
-    have heq : (1 / 50456 : ℝ) / Lval = dd / (7 * Lval) := by rw [hdddef]; field_simp; ring
-    rw [heq]; linarith [hfinal]
+        ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)) :=
+  ⟨1 / 50456, by norm_num, by norm_num, zero_free_region_primitive_at⟩
 
 set_option maxHeartbeats 1200000 in
 -- The twin re-elaborates the landed statement with one extra conjunct, so it needs the
