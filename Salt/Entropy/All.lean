@@ -861,7 +861,7 @@ literal `(j + (p : ℕ)) : ℝ)` occurs ZERO times.
 ⛔⛔ CORRECTED 2026-08-21: THIS PARAGRAPH SAID "ALL THREE SITES AGREE" AND THE AGREEMENT
 POPULATION IS **SIX FILES**, NOT THREE.  Measured (`grep -rF '(j + (p : ℕ) * h) : ℝ)' Salt/`):
 `CircleMethod` · `FBridge` · `OuterCombine` · `Decoupled` · `Transport` · `ShiftFork`.  Two of
-them — `circle_method_estimate_h` (`ShiftFork.lean:412`) and `circle_method_estimate_h_core`
+them — `circle_method_estimate_h` (`ShiftFork.lean:404`) and `circle_method_estimate_h_core`
 (`CircleMethod.lean:1323`) — already carried the identical literal BEFORE wave A opened.
 ⇒ "THREE SITES" COUNTED WHAT THE ENTROPY CONE HAD TO **MOVE**; IT NEVER COUNTED WHAT MUST
 **AGREE**.  The migration population and the agreement population are different sets, and this

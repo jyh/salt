@@ -89,7 +89,7 @@ theorem log_chowla_aff_of_door_g (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : 
 
 /-- **F5-β-N11 (class A) — the graded affine head UNSLOTTED.**  `log_chowla_aff_of_door_unslotted`
 (`StrideCircle.lean:1089-1113`) with the ceiling at `837782 * 2 ^ 11` in `hcrown` and the conclusion
-(source lines 1098, 1107); the body is the landed one-liner at the graded head, LANDED AT THE
+(source lines 1097, 1106); the body is the landed one-liner at the graded head, LANDED AT THE
 FREEZE as the shape control of the substitution (it elaborates iff the graded head's binder and
 conclusion are the graded crown's and `GradedAffHeadAt`'s text). -/
 theorem log_chowla_aff_of_door_unslotted_g (a b h : ℕ) (ha : 0 < a) (hh : 0 < h) (hba : b < a)
