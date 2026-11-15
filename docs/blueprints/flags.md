@@ -9162,7 +9162,7 @@ primitive: stated on the UNSHIFTED character `χ(·:ZMod q)` (matching
 assembly (`chiRe_ofReal` + `sum_range_filter_dvd_char_eq`).
 
 **LANDED — R6 `zfr_harvest` [B].** The ZFR harvest wiring `zero_free_region_all`
-(ZeroFreeReal.lean:604) to the contract hypotheses. Exact statement: for a real
+(ZeroFreeReal.lean:611) to the contract hypotheses. Exact statement: for a real
 primitive `χ≠1` and a non-real zero `ρ` (`9/10≤Re ρ<1`), `∃ c₀>0` with
 `c₀/log(q(|ρ.im|+2)) ≤ 1−ρ.re`, `1/‖1−ρ‖ ≤ log(q(|ρ.im|+2))/c₀`, `1≤‖2−ρ‖`.
 Existential in `c₀` (the landed region hides `c₀=1/126848`); the disjunct fed is
@@ -20729,7 +20729,7 @@ shortfall — and S4's four-move list does not name it.
 
 **WHAT SURVIVED THE ATTACK, UNBROKEN.** Headline (i) is byte-exact: all ten arms reproduce
 (`631.5764` landed on the `(c₀/KEρ)^8` arm; `86.2267` post-S2 on `(c₀/32)^{17/3}`; `c₀ = 1/126848`
-confirmed at `ZeroFreeReal.lean:392/:604`). The `htriv` guard claim is right — `htriv : u <
+confirmed at `ZeroFreeReal.lean:602/:611`). The `htriv` guard claim is right — `htriv : u <
 1/(40·L₂)` (`TBalTall:1920`) is live through the whole deep bullet and gives `u·L₂ < 1/40` with no
 `L₂` lower bound needed, so `hc_t9 : c ≤ 1/18` is genuinely redundant in BOTH assemblies (but
 worth **0.00**, since `1/576` at 6.36 already dominates `1/18` at 2.89 — do not spend on it).
@@ -23043,7 +23043,7 @@ RegisterCompose.logChowla2_ineffective_v6                       :345   THE RIDER
 **`Ks = 10^8 · min(min(Cs, c₀/32), 1/2)`** at its two leaves:
 
 ```
-c₀   Salt.SW.zero_free_region_all'   SW/ZeroFreeReal.lean:641
+c₀   Salt.SW.zero_free_region_all'   SW/ZeroFreeReal.lean:648
      EFFECTIVE — the bounded twin NumeralKq.zero_free_region_all'_bounded:450 pins
      1/126848 ≤ c₀, so c₀/32 ≥ 2.46·10^{-7}.  The 1/2 leg is a literal.
      ⇒ NEITHER of these two legs can bind the rider.

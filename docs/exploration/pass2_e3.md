@@ -15,7 +15,7 @@ whole family above Q₀. (Negation shape verified against the def: the ∃-witne
 
 Calibration constant: C⋆ ≥ 2/c₀ with c₀ = 1/126848, i.e. C⋆ ≈ 253696 ≈ 2^18.
 GROUNDED-as-doc: Basic.lean:166-169 (hcal residual, "c₀ = 1/126848, risk R6 numeral
-extraction owed") + ZeroFreeReal.lean:599-603 (docstring "c₀ = min(1/50456,1/126848)
+extraction owed") + ZeroFreeReal.lean:606-610 (docstring "c₀ = min(1/50456,1/126848)
 = 1/126848"; the theorem itself is ∃-shaped — the numeral is design-grade, NOT
 kernel-extracted).
 
@@ -52,7 +52,7 @@ MEMORY, ungrounded.)
 
 ## D2 — The three-zone composite: the classical NO-EXCEPTIONAL-ZERO region
 
-¬F(C⋆) + `zero_free_region_all` (GROUNDED ZeroFreeReal.lean:604-607: c₀-region for
+¬F(C⋆) + `zero_free_region_all` (GROUNDED ZeroFreeReal.lean:611-614: c₀-region for
 (χ²≠1 ∨ Im ρ≠0), Re ρ ≥ 1/2, radius c₀/log(q(|Im ρ|+2))) + gadget ⟹
 
 ∃ c₁ > 0, ∀ q [NeZero q], ∀ primitive quadratic χ ≠ 1 mod q, ∀ ρ:
@@ -63,7 +63,7 @@ gadget arm (real form suffices — no complex-ball need below Q₀ for THIS shap
 Im ρ = 0, q > Q₀ → ¬F arm; conversion 1−β > 1/(C⋆ log q) ≥ c₁/log(2q) holds for
 c₁ ≤ 1/C⋆ since log(2q) ≥ log q. Take c₁ = min(c₀, 1/C⋆, c_iso(Q₀)).
 This is the FULL classical zero-free region with the Siegel carve-out (S3e territory,
-ZeroFreeReal.lean:602) CLOSED — the exact analytic input for effective PNT-in-APs.
+ZeroFreeReal.lean:609) CLOSED — the exact analytic input for effective PNT-in-APs.
 New Lean: B-class glue. Effectivity: as D1 (single nonconstructive c_iso).
 
 ## D3 — The complex ball at 1 for ALL q (the brief's composite, scope-corrected)
@@ -209,7 +209,7 @@ uniformly for q > Q₀.
 | piece | constant | status |
 |---|---|---|
 | ¬F ball | 1/(C⋆ log q), C⋆ ≈ 253696 = 2/c₀ | explicit given calibration; numeral extraction owed (Basic.lean:169) |
-| ZFR | c₀ = 1/126848 | ∃-shaped; numeral in docstring only (ZeroFreeReal.lean:603) |
+| ZFR | c₀ = 1/126848 | ∃-shaped; numeral in docstring only (ZeroFreeReal.lean:610) |
 | gadget below Q₀ | c_iso(Q₀) | nonconstructive (eventually_ne), finite min |
 | repulsion | b=680, k=14, c ≤ 2^(−250) | fully explicit min-tower (TBalR8.lean:1776-1796) |
 | zeta_lower_all_t | c'' | ∃-shaped; compact-min nonconstructive arm (ZetaLowerAllT.lean:44) |
