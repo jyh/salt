@@ -567,8 +567,8 @@ The flat-ceiling originals are their instances at `hK`; each twin sits just abov
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_wave_closed_coprime_discharged_L_gk_kwide`) —
 `m4_wave_closed_coprime_discharged_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_wave_closed_coprime_discharged_L_gk_kwide (K : ℕ) (Qm : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
@@ -656,8 +656,8 @@ theorem m4_wave_closed_coprime_discharged_L_gk_kwide (K : ℕ) (Qm : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_wave_closed_coprime_discharged_False_L_gk_kwide`) —
 `m4_wave_closed_coprime_discharged_False_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_wave_closed_coprime_discharged_False_L_gk_kwide (K : ℕ)
     (Qm : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ),
@@ -2204,8 +2204,8 @@ def DoorRowCarriedPool_L_gk (K : ℕ) (Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail 
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_door_meansq_carried_pool_L_gk_kwide`) —
 `m4_door_meansq_carried_pool_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_door_meansq_carried_pool_L_gk_kwide (K : ℕ) :
     ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -2320,8 +2320,8 @@ theorem m4_door_meansq_carried_pool_L_gk_kwide (K : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_dyadicRow_carried_pool_L_gk_kwide`) —
 `m4_dyadicRow_carried_pool_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_dyadicRow_carried_pool_L_gk_kwide (K : ℕ) :
     ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -2725,8 +2725,8 @@ def DoorRowCarriedJoin_L_gk (K : ℕ) (Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail 
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_door_meansq_carried_join_L_gk_kwide`) —
 `m4_door_meansq_carried_join_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_door_meansq_carried_join_L_gk_kwide (K : ℕ) :
     ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -2841,8 +2841,8 @@ theorem m4_door_meansq_carried_join_L_gk_kwide (K : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_dyadicRow_carried_join_L_gk_kwide`) —
 `m4_dyadicRow_carried_join_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_dyadicRow_carried_join_L_gk_kwide (K : ℕ) :
     ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
@@ -4014,8 +4014,8 @@ def M4ChiFreeRowMeanSqN_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (MS : ℕ �
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_rowDatum_dilated_L_gk_kwide`) —
 `m4_rowDatum_dilated_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_rowDatum_dilated_L_gk_kwide (K : ℕ) :
     ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ)
         (Kbox X₀w : ℕ → ℝ),
@@ -4370,8 +4370,8 @@ theorem m4MrowChiEnd_le_a2Mrow_L_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSum_chi_door_end_L_gk_kwide`) —
 `m4_hrowsSum_chi_door_end_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_hrowsSum_chi_door_end_L_gk_kwide (K : ℕ) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (q : ℕ) [NeZero q] (c a : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ),
@@ -4494,8 +4494,8 @@ structure DoorRowEndBase_L_gk (K : ℕ) (M Xd j : ℕ) (cU : ℕ → ℂ) (bU : 
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSlot_at_door_end_L_gk_kwide`) —
 `m4_hrowsSlot_at_door_end_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_hrowsSlot_at_door_end_L_gk_kwide (K : ℕ) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (R : ChowlaRegime) (M : ℕ) (ε : ℕ → ℝ) (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ)
@@ -4546,8 +4546,8 @@ theorem m4_hrowsSlot_at_door_end_L_gk_kwide (K : ℕ) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_chiSummedFreeRow_of_doorAssembly_end_L_gk_kwide`) —
 `m4_chiSummedFreeRow_of_doorAssembly_end_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_chiSummedFreeRow_of_doorAssembly_end_L_gk_kwide (K : ℕ) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (RSbig : ℕ → ℕ → ℝ)

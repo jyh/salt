@@ -124,7 +124,8 @@ original.
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_closure_fuse_zero'_const_nonneg_L_gk_kwide`) —
 `m4_closure_fuse_zero'_const_nonneg_L_gk`
 with the flat ceiling moved inside the `∀ M` as `K ≤ 170000000 * M`.
-Statement and proof otherwise verbatim, off the `_kwide` upstream. -/
+Statement otherwise verbatim, the proof the original's former one off the
+`_kwide` upstream (its original is now its instance). -/
 theorem m4_closure_fuse_zero'_const_nonneg_L_gk_kwide (K : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧
       ∀ (Cp : ℝ), 0 ≤ Cp →
@@ -394,7 +395,8 @@ theorem s11_grade_absorption'_L (Cb : ℝ) (M : ℕ) (hM : s11GradeFloor Cb ≤ 
 /-- ⟦WIDE CEILING TWIN⟧ (`logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L_kwide`) —
 `logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L`
 with the flat ceiling moved inside the `∀ M` as `K ≤ 170000000 * M`.
-Statement and proof otherwise verbatim, off the `_kwide` upstream. -/
+Statement otherwise verbatim, the proof the original's former one off the
+`_kwide` upstream (its original is now its instance). -/
 theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L_kwide (K : ℕ)
     (hband : S16BandLaneCBoundedL K) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ Ct Cq cs T₀ Kq Ks A β : ℝ) (x₀ Hcap Hopq Mfl : ℕ),
@@ -1131,7 +1133,8 @@ def S15CrossingBound_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) : Prop :=
 /-- ⟦WIDE CEILING TWIN⟧ (`logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_kwide`) —
 `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L`
 with the flat ceiling moved inside the `∀ M` as `K ≤ 170000000 * M`.
-Statement and proof otherwise verbatim, off the `_kwide` upstream. -/
+Statement otherwise verbatim, the proof the original's former one off the
+`_kwide` upstream (its original is now its instance). -/
 theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_kwide (K : ℕ)
     (hband : S16BandLaneCBoundedL K) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (x₀ Hcap Hopq Mfl : ℕ),

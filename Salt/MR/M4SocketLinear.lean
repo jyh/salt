@@ -539,8 +539,8 @@ original.
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_chiSummedFreeRow_of_doorArith_end_L_gk_kwide`) —
 `m4_chiSummedFreeRow_of_doorArith_end_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `Klev ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `Klev ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_chiSummedFreeRow_of_doorArith_end_L_gk_kwide (Klev : ℕ) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ)
@@ -631,8 +631,8 @@ theorem m4_chiSummedFreeRow_of_doorArith_end_L_gk (Klev : ℕ) (hK : Klev ≤ 17
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_socket_discharged_conditional_L_gk_kwide`) —
 `m4_socket_discharged_conditional_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `Klev ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `Klev ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_socket_discharged_conditional_L_gk_kwide (Klev : ℕ) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ)
@@ -734,8 +734,8 @@ theorem m4_socket_discharged_conditional_L_gk (Klev : ℕ) (hK : Klev ≤ 170000
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_socket_discharged_bandfree_L_gk_kwide`) —
 `m4_socket_discharged_bandfree_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `Klev ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `Klev ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_socket_discharged_bandfree_L_gk_kwide (Klev : ℕ)
     (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp : 0 < Aexp) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
