@@ -976,7 +976,7 @@ independent of it.
   equality and reduces to `T₀z ≤ e^{e^{100}}`; `T₀z` rides three compactness/VK leaves
   (`HalaszPrimesCore` :1060's `δ₀`, :570's `ε₀`, the VK `c_pow`).  No landed bound.
 * `Kq = 1/(10^8·c₀)` with `c₀ = min (1/50456) (1/126848) = 1/126848`
-  (`SW.zero_free_region_all'` ← `ZeroFree` :262, `ZeroFreeReal` :602) — a RATIONAL NUMERAL
+  (`SW.zero_free_region_all'` ← `ZeroFree` :384, `ZeroFreeReal` :602) — a RATIONAL NUMERAL
   `0.00126848`.  The rider is TRUE with 46 orders to spare; carrying it needs three
   `_bounded` twins on the zero-free chain (the cheapest open item of this lane).
 * `Ks = 10^8·min (min Cs_Siegel (c₀/32)) (1/2)` — upper side closed (`Ks ≤ 24.63`), lower

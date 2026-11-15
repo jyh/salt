@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `721674a4` · source digest `c8620ede0c17948b` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `09e29750` · source digest `6f9797873ffbb419` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23432 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -1486,20 +1486,20 @@ Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.affCollapse_base_point` | Salt/Entropy/Chowla/StrideBridge.lean:567 | entropy |
 | `Salt.Entropy.Chowla.fBridge_of_singleCorr_aff` | Salt/Entropy/Chowla/StrideBridge.lean:588 | characters, entropy |
 | `Salt.Entropy.Chowla.fBridge_of_singleCorr_aff'` | Salt/Entropy/Chowla/StrideBridge.lean:639 | characters, entropy |
-| `Salt.Entropy.Chowla.dft_twist` | Salt/Entropy/Chowla/StrideCircle.lean:117 | entropy, exponential sums |
-| `Salt.Entropy.Chowla.norm_twist_mul` | Salt/Entropy/Chowla/StrideCircle.lean:129 | entropy, exponential sums |
-| `Salt.Entropy.Chowla.stdAddChar_lift_of_dvd` | Salt/Entropy/Chowla/StrideCircle.lean:142 | entropy, exponential sums |
-| `Salt.Entropy.Chowla.classFilter_expand` | Salt/Entropy/Chowla/StrideCircle.lean:186 | entropy, exponential sums |
-| `Salt.Entropy.Chowla.filteredCorr_eq_twistSum` | Salt/Entropy/Chowla/StrideCircle.lean:265 | entropy, exponential sums |
-| `Salt.Entropy.Chowla.periodization_total_twist` | Salt/Entropy/Chowla/StrideCircle.lean:374 | entropy, exponential sums |
-| `Salt.Entropy.Chowla.T_collapse_twist` | Salt/Entropy/Chowla/StrideCircle.lean:486 | entropy, exponential sums |
-| `Salt.Entropy.Chowla.fourier_split_sq_twist` | Salt/Entropy/Chowla/StrideCircle.lean:548 | entropy, exponential sums |
-| `Salt.Entropy.Chowla.xiEta_subset_bigXiAff` | Salt/Entropy/Chowla/StrideCircle.lean:648 | entropy |
-| `Salt.Entropy.Chowla.xiEta_translate_mem_bigXiAff` | Salt/Entropy/Chowla/StrideCircle.lean:668 | entropy |
-| `Salt.Entropy.Chowla.sum_xiEta_le` | Salt/Entropy/Chowla/StrideCircle.lean:737 | entropy |
-| `Salt.Entropy.Chowla.sum_xiEta_translate_le` | Salt/Entropy/Chowla/StrideCircle.lean:752 | entropy |
-| `Salt.Entropy.Chowla.circle_method_estimate_sq_bounded_aff` | Salt/Entropy/Chowla/StrideCircle.lean:801 | entropy |
-| `Salt.Entropy.Chowla.circle_method_estimate_sq_aff_core` | Salt/Entropy/Chowla/StrideCircle.lean:1065 | entropy |
+| `Salt.Entropy.Chowla.dft_twist` | Salt/Entropy/Chowla/StrideCircle.lean:116 | entropy, exponential sums |
+| `Salt.Entropy.Chowla.norm_twist_mul` | Salt/Entropy/Chowla/StrideCircle.lean:128 | entropy, exponential sums |
+| `Salt.Entropy.Chowla.stdAddChar_lift_of_dvd` | Salt/Entropy/Chowla/StrideCircle.lean:141 | entropy, exponential sums |
+| `Salt.Entropy.Chowla.classFilter_expand` | Salt/Entropy/Chowla/StrideCircle.lean:185 | entropy, exponential sums |
+| `Salt.Entropy.Chowla.filteredCorr_eq_twistSum` | Salt/Entropy/Chowla/StrideCircle.lean:264 | entropy, exponential sums |
+| `Salt.Entropy.Chowla.periodization_total_twist` | Salt/Entropy/Chowla/StrideCircle.lean:373 | entropy, exponential sums |
+| `Salt.Entropy.Chowla.T_collapse_twist` | Salt/Entropy/Chowla/StrideCircle.lean:485 | entropy, exponential sums |
+| `Salt.Entropy.Chowla.fourier_split_sq_twist` | Salt/Entropy/Chowla/StrideCircle.lean:547 | entropy, exponential sums |
+| `Salt.Entropy.Chowla.xiEta_subset_bigXiAff` | Salt/Entropy/Chowla/StrideCircle.lean:647 | entropy |
+| `Salt.Entropy.Chowla.xiEta_translate_mem_bigXiAff` | Salt/Entropy/Chowla/StrideCircle.lean:667 | entropy |
+| `Salt.Entropy.Chowla.sum_xiEta_le` | Salt/Entropy/Chowla/StrideCircle.lean:736 | entropy |
+| `Salt.Entropy.Chowla.sum_xiEta_translate_le` | Salt/Entropy/Chowla/StrideCircle.lean:751 | entropy |
+| `Salt.Entropy.Chowla.circle_method_estimate_sq_bounded_aff` | Salt/Entropy/Chowla/StrideCircle.lean:800 | entropy |
+| `Salt.Entropy.Chowla.circle_method_estimate_sq_aff_core` | Salt/Entropy/Chowla/StrideCircle.lean:1064 | entropy |
 | `Salt.Entropy.Chowla.entropy_residueWindow_aff_eq` | Salt/Entropy/Chowla/StrideCombine.lean:64 | entropy |
 | `Salt.Entropy.Chowla.entropy_residueWindow_ge_aff` | Salt/Entropy/Chowla/StrideCombine.lean:88 | entropy |
 | `Salt.Entropy.Chowla.weakUniform_spine_aff` | Salt/Entropy/Chowla/StrideCombine.lean:98 | characters, entropy |
@@ -4711,8 +4711,8 @@ Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hyp
 | `Salt.MR.norm_eulerFac_inv_le` | Salt/MR/MobiusChiRateClose.lean:1465 | characters |
 | `Salt.MR.pinW_le_quarter` | Salt/MR/MobiusChiRateClose.lean:1505 | characters |
 | `Salt.MR.moment_core_bound` | Salt/MR/MomentsA2.lean:82 | characters |
-| `Salt.MR.lemma13_moment` | Salt/MR/MomentsA2.lean:246 | characters |
-| `Salt.MR.lemma12_meansq_conditional` | Salt/MR/MomentsA2.lean:364 | characters |
+| `Salt.MR.lemma13_moment` | Salt/MR/MomentsA2.lean:256 | characters |
+| `Salt.MR.lemma12_meansq_conditional` | Salt/MR/MomentsA2.lean:374 | characters |
 | `Salt.MR.abel_master` | Salt/MR/MultShiu.lean:66 | characters |
 | `Salt.MR.lambda_partial_alpha` | Salt/MR/MultShiu.lean:158 | characters |
 | `Salt.MR.lambda_tail_shift` | Salt/MR/MultShiu.lean:205 | characters |
@@ -4747,10 +4747,10 @@ Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hyp
 | `Salt.MR.log_norm_zeta_eq_re_tsum` | Salt/MR/NonPret.lean:192 | zeros, characters |
 | `Salt.MR.lambda_nonpret` | Salt/MR/NonPretClose.lean:49 | characters |
 | `Salt.MR.shiu_moment_sq_bounded` | Salt/MR/NumeralCt.lean:62 | characters |
-| `Salt.MR.lemma13_moment_bounded` | Salt/MR/NumeralCt.lean:203 | characters |
-| `Salt.SW.zero_free_region_real_bounded` | Salt/MR/NumeralKq.lean:190 | characters |
-| `Salt.SW.zero_free_region_all'_bounded` | Salt/MR/NumeralKq.lean:242 | characters |
-| `Salt.MR.twisted_rect_zero_free_siegel_bounded` | Salt/MR/NumeralKq.lean:294 | characters |
+| `Salt.MR.lemma13_moment_bounded` | Salt/MR/NumeralCt.lean:103 | characters |
+| `Salt.SW.zero_free_region_real_bounded` | Salt/MR/NumeralKq.lean:73 | characters |
+| `Salt.SW.zero_free_region_all'_bounded` | Salt/MR/NumeralKq.lean:125 | characters |
+| `Salt.MR.twisted_rect_zero_free_siegel_bounded` | Salt/MR/NumeralKq.lean:177 | characters |
 | `Salt.MR.one_line_pow_growth` | Salt/MR/OneLinePowGrowth.lean:323 | zeros, characters |
 | `Salt.MR.perron_trunc_trivial` | Salt/MR/ParsevalAsm.lean:118 | characters |
 | `Salt.MR.perron_trunc_min` | Salt/MR/ParsevalAsm.lean:189 | characters |
@@ -5426,10 +5426,10 @@ Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hyp
 | `Salt.MR.herr_of_mertens` | Salt/MR/SieveGlue.lean:287 | sieves, characters |
 | `Salt.MR.two_le_calP` | Salt/MR/SieveGlue.lean:315 | sieves, characters |
 | `Salt.MR.herr_of_floor` | Salt/MR/SieveGlue.lean:338 | sieves, characters |
-| `Salt.MR.hsieve_of_engine` | Salt/MR/SieveGlue.lean:438 | sieves, characters |
-| `Salt.MR.memS_congr` | Salt/MR/SieveGlue.lean:524 | sieves, characters |
-| `Salt.MR.card_notMemS_pin` | Salt/MR/SieveGlue.lean:533 | sieves, characters |
-| `Salt.MR.sec9_eq28_exit_calFamily` | Salt/MR/SieveGlue.lean:556 | sieves, characters |
+| `Salt.MR.hsieve_of_engine` | Salt/MR/SieveGlue.lean:513 | sieves, characters |
+| `Salt.MR.memS_congr` | Salt/MR/SieveGlue.lean:552 | sieves, characters |
+| `Salt.MR.card_notMemS_pin` | Salt/MR/SieveGlue.lean:561 | sieves, characters |
+| `Salt.MR.sec9_eq28_exit_calFamily` | Salt/MR/SieveGlue.lean:584 | sieves, characters |
 | `Salt.MR.mertensM_ge_neg_seventeen` | Salt/MR/SmallStones.lean:93 | characters |
 | `Salt.MR.sixteenth_loglog_le_SPartial_div_eight` | Salt/MR/SmallStones.lean:154 | characters |
 | `Salt.MR.hMball_of_A4_cap` | Salt/MR/SmallStones.lean:182 | characters |
@@ -5651,7 +5651,7 @@ Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hyp
 | `Salt.MR.mix_moment` | Salt/MR/TLegKill.lean:814 | characters |
 | `Salt.MR.cell_ramR_normalized` | Salt/MR/TLegKill.lean:858 | characters |
 | `Salt.MR.cell_bound_raw` | Salt/MR/TLegKill.lean:916 | characters |
-| `Salt.MR.cell_bound_pinned` | Salt/MR/TLegKill.lean:990 | characters |
+| `Salt.MR.cell_bound_pinned` | Salt/MR/TLegKill.lean:1052 | characters |
 | `Salt.MR.blockSmallG_of_mem_TsetG` | Salt/MR/TLegPreamble.lean:101 | characters |
 | `Salt.MR.ramQ_le_of_blockSmallG` | Salt/MR/TLegPreamble.lean:113 | characters |
 | `Salt.MR.ramQ_sq_le_of_blockSmallG` | Salt/MR/TLegPreamble.lean:122 | characters |
@@ -6767,8 +6767,8 @@ Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hyp
 | `Salt.SW.re_one_div_sub_ge_at_height` | Salt/SW/ZeroCountNearOne.lean:395 | zeros, sieves |
 | `Salt.SW.LFunction_zero_count_near_one_at_height` | Salt/SW/ZeroCountNearOne.lean:418 | zeros, sieves, characters |
 | `Salt.SW.LFunction_zero_count_near_one_at_height_guarded` | Salt/SW/ZeroCountNearOne.lean:579 | zeros, sieves, characters |
-| `Salt.SW.zero_free_region_primitive` | Salt/SW/ZeroFree.lean:258 | zeros, sieves, characters |
-| `Salt.SW.zero_free_region` | Salt/SW/ZeroFree.lean:386 | zeros, sieves, characters |
+| `Salt.SW.zero_free_region_primitive` | Salt/SW/ZeroFree.lean:380 | zeros, sieves, characters |
+| `Salt.SW.zero_free_region` | Salt/SW/ZeroFree.lean:394 | zeros, sieves, characters |
 | `Salt.SW.LFunction_conj` | Salt/SW/ZeroFreeReal.lean:74 | zeros, sieves, characters |
 | `Salt.SW.neg_re_logDeriv_trivChar_complex_le` | Salt/SW/ZeroFreeReal.lean:148 | zeros, sieves, characters |
 | `Salt.SW.zero_free_region_real` | Salt/SW/ZeroFreeReal.lean:598 | zeros, sieves, characters |
@@ -7415,7 +7415,7 @@ Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq` | Salt/Entropy/Chowla/SpineFinal.lean:1459 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2` |
 | `Salt.Entropy.Chowla.h211_aff` | Salt/Entropy/Chowla/StrideBridge.lean:665 | characters, entropy | `Salt.Entropy.Chowla.logChowlaFailsAff` |
 | `Salt.Entropy.Chowla.h211_aff_one_zero` | Salt/Entropy/Chowla/StrideBridge.lean:699 | characters, entropy | `Salt.Entropy.Chowla.logChowlaFails` |
-| `Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted` | Salt/Entropy/Chowla/StrideCircle.lean:1089 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
+| `Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted` | Salt/Entropy/Chowla/StrideCircle.lean:1088 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
 | `Salt.Entropy.Chowla.singleCorr_of_failsAff` | Salt/Entropy/Chowla/StrideFork.lean:138 | entropy | `Salt.Entropy.Chowla.logChowlaFailsAff` |
 | `Salt.Entropy.Chowla.singleCorr_of_failsAff'` | Salt/Entropy/Chowla/StrideFork.lean:176 | entropy | `Salt.Entropy.Chowla.logChowlaFailsAff` |
 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiAff` | Salt/Entropy/Chowla/StrideFork.lean:684 | entropy, exponential sums | `Salt.Entropy.Chowla.MRTUniformityXiAff` |
@@ -7772,15 +7772,15 @@ Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hyp
 | `Salt.MR.m4_hcap_at_door_perBlock_L_gk_bounded_khoist_cs_of_standoff` | Salt/MR/FlatDoorStandoff.lean:793 | characters | `Salt.SW.NoSiegelZerosAt`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
 | `Salt.MR.m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist_cs_of_standoff` | Salt/MR/FlatDoorStandoff.lean:862 | characters | `Salt.SW.NoSiegelZerosAt`, `Salt.MR.DoorCapBasePerBlock_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
 | `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin_of_standoff` | Salt/MR/FlatDoorStandoff.lean:919 | characters | `Salt.SW.NoSiegelZerosAt` |
-| `Salt.Entropy.Chowla.primeWindow_sum_inv_ge_bounded_of_standoff` | Salt/MR/FlatDoorStandoff.lean:962 | characters | `Salt.SW.NoSiegelZerosAt` |
-| `Salt.Entropy.Chowla.hbudget_holds_bounded_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1171 | characters | `Salt.SW.NoSiegelZerosAt` |
-| `Salt.Entropy.Chowla.hreduce_holds_final_bounded_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1434 | characters | `Salt.SW.NoSiegelZerosAt` |
-| `Salt.MR.flat_head_uniform_xceil_epsW_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1469 | characters | `Salt.SW.NoSiegelZerosAt` |
-| `Salt.MR.flat_kswin_generic_epsW_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1628 | characters | `Salt.SW.NoSiegelZerosAt`, `Salt.MR.FlatConditionalFormEpsW` |
-| `Salt.MR.flat_v7_generic_epsW_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1733 | characters | `Salt.SW.NoSiegelZerosAt`, `Salt.MR.FlatKswinFormEpsW` |
-| `Salt.MR.flat_chain_generic_epsW_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1881 | characters | `Salt.SW.NoSiegelZerosAt`, `Salt.MR.FlatHeadFormEpsW` |
-| `Salt.MR.flatDoorEpsFamilyW_holds_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1899 | characters | `Salt.SW.NoSiegelZerosAt` |
-| `Salt.MR.logChowla2_epsFamily_flatDoor_floor_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1943 | characters | `Salt.SW.NoSiegelZerosAt` |
+| `Salt.Entropy.Chowla.primeWindow_sum_inv_ge_bounded_of_standoff` | Salt/MR/FlatDoorStandoff.lean:961 | characters | `Salt.SW.NoSiegelZerosAt` |
+| `Salt.Entropy.Chowla.hbudget_holds_bounded_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1169 | characters | `Salt.SW.NoSiegelZerosAt` |
+| `Salt.Entropy.Chowla.hreduce_holds_final_bounded_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1432 | characters | `Salt.SW.NoSiegelZerosAt` |
+| `Salt.MR.flat_head_uniform_xceil_epsW_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1467 | characters | `Salt.SW.NoSiegelZerosAt` |
+| `Salt.MR.flat_kswin_generic_epsW_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1626 | characters | `Salt.SW.NoSiegelZerosAt`, `Salt.MR.FlatConditionalFormEpsW` |
+| `Salt.MR.flat_v7_generic_epsW_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1731 | characters | `Salt.SW.NoSiegelZerosAt`, `Salt.MR.FlatKswinFormEpsW` |
+| `Salt.MR.flat_chain_generic_epsW_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1879 | characters | `Salt.SW.NoSiegelZerosAt`, `Salt.MR.FlatHeadFormEpsW` |
+| `Salt.MR.flatDoorEpsFamilyW_holds_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1897 | characters | `Salt.SW.NoSiegelZerosAt` |
+| `Salt.MR.logChowla2_epsFamily_flatDoor_floor_of_standoff` | Salt/MR/FlatDoorStandoff.lean:1941 | characters | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.MR.nextHopU_zero_level` | Salt/MR/FlatDoorUniform.lean:127 | characters | `Salt.MR.FlatDoorUniformW` |
 | `Salt.MR.nextHopU_of_crown` | Salt/MR/FlatDoorUniform.lean:203 | characters | `Salt.MR.MRTDoorAllGrades` |
 | `Salt.MR.flat_doorL2_generic_U` | Salt/MR/FlatDoorUniform.lean:881 | characters | `Salt.MR.FlatSocketFormU` |
@@ -8217,14 +8217,14 @@ Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hyp
 | `Salt.MR.mmuChiRatePrincipal_of_zetaShallow` | Salt/MR/MobiusChiRateClose.lean:1523 | characters | `Salt.MR.ZetaInvShallowVk` |
 | `Salt.MR.mmuChiRate_of_carve_and_zetaShallow` | Salt/MR/MobiusChiRateClose.lean:1717 | characters | `Salt.MR.XiCarveWidth`, `Salt.MR.ZetaInvShallowVk` |
 | `Salt.MR.lambdaChiSummatory_of_carve_and_zetaShallow` | Salt/MR/MobiusChiRateClose.lean:1723 | characters | `Salt.MR.XiCarveWidth`, `Salt.MR.ZetaInvShallowVk` |
-| `Salt.MR.TLeg_feeds_capstone_gen_bounded` | Salt/MR/NumeralCt.lean:724 | characters | `Salt.MR.LevelGates` |
-| `Salt.MR.m4_hrowsSum_chi_door_zero'_L_gk_bounded_kwide` | Salt/MR/NumeralCt.lean:950 | characters | `Salt.MR.SeamCoefWS`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_bounded_kwide` | Salt/MR/NumeralCt.lean:1044 | characters | `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_bounded` | Salt/MR/NumeralCt.lean:1094 | characters | `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_ceiling_kwide` | Salt/MR/NumeralCt.lean:1147 | characters | `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_ceiling` | Salt/MR/NumeralCt.lean:1186 | characters | `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_fuse_hcap_of_capWS_gk_bounded` | Salt/MR/NumeralKq.lean:796 | characters | `Salt.MR.DoorCapBasePerBlock_gk`, `Salt.MR.SocketBase`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_fuse_hcap_of_capWS_gk_ceiling` | Salt/MR/NumeralKq.lean:854 | characters | `Salt.MR.DoorCapBasePerBlock_gk`, `Salt.MR.SocketBase`, `Salt.MR.TannGate` |
+| `Salt.MR.TLeg_feeds_capstone_gen_bounded` | Salt/MR/NumeralCt.lean:535 | characters | `Salt.MR.LevelGates` |
+| `Salt.MR.m4_hrowsSum_chi_door_zero'_L_gk_bounded_kwide` | Salt/MR/NumeralCt.lean:761 | characters | `Salt.MR.SeamCoefWS`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_bounded_kwide` | Salt/MR/NumeralCt.lean:855 | characters | `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_bounded` | Salt/MR/NumeralCt.lean:905 | characters | `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_ceiling_kwide` | Salt/MR/NumeralCt.lean:958 | characters | `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_ceiling` | Salt/MR/NumeralCt.lean:997 | characters | `Salt.MR.DoorRowZeroBase_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_fuse_hcap_of_capWS_gk_bounded` | Salt/MR/NumeralKq.lean:679 | characters | `Salt.MR.DoorCapBasePerBlock_gk`, `Salt.MR.SocketBase`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_fuse_hcap_of_capWS_gk_ceiling` | Salt/MR/NumeralKq.lean:737 | characters | `Salt.MR.DoorCapBasePerBlock_gk`, `Salt.MR.SocketBase`, `Salt.MR.TannGate` |
 | `Salt.MR.joint_cs_trunc_pin2` | Salt/MR/PinFamily2.lean:388 | characters | `Salt.MR.JointIntegrableAt` |
 | `Salt.MR.crossKer_width_pin_const2` | Salt/MR/PinFamily2.lean:441 | characters | `Salt.MR.ShortIntervalDatum` |
 | `Salt.MR.beta_integral_pin_const2` | Salt/MR/PinFamily2.lean:480 | characters | `Salt.MR.ShortIntervalDatum` |
@@ -8664,10 +8664,10 @@ Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hyp
 | `Salt.MR.TLeg_bound_chi_totient` | Salt/MR/TLegChi.lean:328 | characters | `Salt.MR.LevelGates` |
 | `Salt.MR.Ej_bound_gen` | Salt/MR/TLegExit.lean:765 | characters | `Salt.MR.LevelGates` |
 | `Salt.MR.Ej_bound` | Salt/MR/TLegExit.lean:989 | characters | `Salt.MR.LevelGates` |
-| `Salt.MR.TLeg_bound_gen` | Salt/MR/TLegExit.lean:1069 | characters | `Salt.MR.LevelGates` |
-| `Salt.MR.TLeg_bound` | Salt/MR/TLegExit.lean:1151 | characters | `Salt.MR.LevelGates` |
-| `Salt.MR.TLeg_feeds_capstone_gen` | Salt/MR/TLegExit.lean:1228 | characters | `Salt.MR.LevelGates` |
-| `Salt.MR.TLeg_feeds_capstone` | Salt/MR/TLegExit.lean:1274 | characters | `Salt.MR.LevelGates` |
+| `Salt.MR.TLeg_bound_gen` | Salt/MR/TLegExit.lean:1167 | characters | `Salt.MR.LevelGates` |
+| `Salt.MR.TLeg_bound` | Salt/MR/TLegExit.lean:1198 | characters | `Salt.MR.LevelGates` |
+| `Salt.MR.TLeg_feeds_capstone_gen` | Salt/MR/TLegExit.lean:1275 | characters | `Salt.MR.LevelGates` |
+| `Salt.MR.TLeg_feeds_capstone` | Salt/MR/TLegExit.lean:1321 | characters | `Salt.MR.LevelGates` |
 | `Salt.MR.CellGates.loglogQ_le_of_gate2` | Salt/MR/TLegKill.lean:438 | characters | `Salt.MR.CellGates` |
 | `Salt.MR.CellGates.logQ_le_rpow_of_gate2` | Salt/MR/TLegKill.lean:458 | characters | `Salt.MR.CellGates` |
 | `Salt.MR.thm_a2'_of_rows` | Salt/MR/ThmA2.lean:511 | characters | `Salt.MR.TannGate` |
@@ -9227,10 +9227,10 @@ Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.fBridgeG_aff` | Salt/Entropy/Chowla/StrideBridge.lean:86 | entropy |
 | `Salt.Entropy.Chowla.fBridgeF_aff` | Salt/Entropy/Chowla/StrideBridge.lean:96 | entropy |
 | `Salt.Entropy.Chowla.fBridgeF_aff_liouville_apply` | Salt/Entropy/Chowla/StrideBridge.lean:453 | characters, entropy |
-| `Salt.Entropy.Chowla.twistOffset` | Salt/Entropy/Chowla/StrideCircle.lean:84 | entropy |
-| `Salt.Entropy.Chowla.xiEta` | Salt/Entropy/Chowla/StrideCircle.lean:90 | entropy |
-| `Salt.Entropy.Chowla.affOffset_eq_mul_twistOffset` | Salt/Entropy/Chowla/StrideCircle.lean:96 | entropy |
-| `Salt.Entropy.Chowla.mem_xiEta` | Salt/Entropy/Chowla/StrideCircle.lean:104 | entropy |
+| `Salt.Entropy.Chowla.twistOffset` | Salt/Entropy/Chowla/StrideCircle.lean:83 | entropy |
+| `Salt.Entropy.Chowla.xiEta` | Salt/Entropy/Chowla/StrideCircle.lean:89 | entropy |
+| `Salt.Entropy.Chowla.affOffset_eq_mul_twistOffset` | Salt/Entropy/Chowla/StrideCircle.lean:95 | entropy |
+| `Salt.Entropy.Chowla.mem_xiEta` | Salt/Entropy/Chowla/StrideCircle.lean:103 | entropy |
 | `Salt.Entropy.Chowla.badSet_aff` | Salt/Entropy/Chowla/StrideCombine.lean:125 | entropy |
 | `Salt.Entropy.Chowla.logMeasureAff_map_shift` | Salt/Entropy/Chowla/StrideDecrement.lean:74 | entropy |
 | `Salt.Entropy.Chowla.towerEntropyAff` | Salt/Entropy/Chowla/StrideDecrement.lean:510 | entropy |
@@ -9598,7 +9598,7 @@ Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hyp
 | `Salt.MR.s16BandLaneCBoundedLH_winU_one_iff` | Salt/MR/S16UniformLH.lean:171 | characters |
 | `Salt.MR.gJ_mul` | Salt/MR/Sec9Glue.lean:183 | characters |
 | `Salt.MR.gJ_eq_prod` | Salt/MR/Sec9Glue.lean:205 | characters |
-| `Salt.MR.memS_calFamily` | Salt/MR/SieveGlue.lean:515 | sieves, characters |
+| `Salt.MR.memS_calFamily` | Salt/MR/SieveGlue.lean:543 | sieves, characters |
 | `Salt.MR.regimeShrinkX_stride_L` | Salt/MR/StrideDoorAllGrades.lean:4891 | characters |
 | `Salt.MR.regimeShrinkX_stride_x_L` | Salt/MR/StrideDoorAllGrades.lean:4964 | characters |
 | `Salt.MR.regimeShrinkX_stride_omega_L` | Salt/MR/StrideDoorAllGrades.lean:4973 | characters |

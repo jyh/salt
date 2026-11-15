@@ -1049,25 +1049,28 @@ theorem sum_Ej_collected (K : ℝ) (hK : 0 ≤ K) (P1 Jb : ℕ) (hP1 : (0 : ℝ)
 set_option maxHeartbeats 800000 in
 -- the leg splits at `j = 1`, applies two landed pages under a `Finset.sum_le_sum`, and
 -- carries Lemma 12's rows level by level; the assembled row expressions are large
-/-- **H-3 — THE GRADED `𝒯`-LEG** (`TLeg_bound`).  The whole second summand of the graded seam
-row, bounded:
-
-  `∫_{(Ann∖ball) ∩ 𝒯totG}‖F(1+it)‖² dt`
-    `≤ 2(H₁ log Q₁ + 1)(TQ₁/X_d + 1)P₁^{−2α₁}(4(H₁/(1−2α₁))e^{(1−2α₁)/H₁}`
-    `      + 60(H₁/α₁)e^{4α₁/H₁})`                                        ← MR §8.1, level 1
-    `  + 1536·C·e³·(2T/X_d + 240)/P₁`                                      ← MR §8.2, `j ≥ 2`
-    `  + Σ_{j=1}^{J} E_j`                                                  ← Lemma 12's rows.
-
-`SeamGraded.seam_T_additivityG` splits the union into the disjoint levels; `TLegE1.E1_pin`
-prices `j = 1`; `Ej_bound` prices each `j ≥ 2`; `sum_Ej_collected` collects them.  At MR's own
-pins the level-1 term is `(log Q₁)^{1/3}/P₁^{1/6−η}` (`TLegE1`'s verdict) and the level-`j`
-block is `O(1/P₁)`, so the leg is `o(1)` exactly when §8.1's is — which is MR p.25's claim.
-
-Every gate rides the statement: the per-level bundle `LevelGates … j` for `2 ≤ j ≤ J`, level
-1's own four, the Lemma-12 data at every level, `η ∈ (0,1/6)` (which supplies `α`'s numerals
-through `alpha_gates_from_eta`), and the measure frame. -/
-theorem TLeg_bound_gen :
-    ∃ C : ℝ, 0 < C ∧ ∀ (c a : ℕ → ℂ) (b : ℕ → ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ)
+/-- `TLeg_bound_gen` for ANY constant `C` with `Ej_bound_gen`'s property (`hEj`):
+the proof of both
+`TLeg_bound_gen` and its bounded twin `TLeg_bound_gen_bounded`. -/
+theorem TLeg_bound_gen_of (C : ℝ) (hC : 0 < C)
+    (hEj : ∀ (c a b : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ) (η : ℝ)
+      (Jb j N Xd P1 : ℕ) (X T t₁ row : ℝ),
+      LevelGates Pseq Qseq Hseq η P1 Xd j →
+      1 ≤ Xd → 0 ≤ T →
+      (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      ((∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+            ‖spoly N a t‖ ^ 2)
+          ≤ 2 * ((ramI (Hseq j) (Pseq j) (Qseq j)).card : ℝ)
+              * (∑ v ∈ ramI (Hseq j) (Pseq j) (Qseq j),
+                  ∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+                    ‖ramMain (Hseq j) N Xd (Pseq j) (Qseq j) b c v t‖ ^ 2)
+            + row) →
+      (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+          ‖spoly N a t‖ ^ 2)
+        ≤ 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)
+              * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
+          + row) :
+    ∀ (c a : ℕ → ℂ) (b : ℕ → ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ)
       (η : ℝ) (Jb N Xd P1 : ℕ) (X T t₁ : ℝ) (row : ℕ → ℝ),
       0 < η → η < 1 / 6 → 1 ≤ Jb → 1 ≤ Xd → 0 ≤ T → (0 : ℝ) < (P1 : ℝ) →
       (∀ j ∈ Finset.Icc 2 Jb, LevelGates Pseq Qseq Hseq η P1 Xd j) →
@@ -1092,8 +1095,6 @@ theorem TLeg_bound_gen :
                   + 60 * (Hseq 1 / mrAlpha η 1) * Real.exp (4 * mrAlpha η 1 / Hseq 1))
           + 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240) * (1 / (P1 : ℝ))
           + ∑ j ∈ Finset.Icc 1 Jb, row j := by
-  obtain ⟨C, hC, hEj⟩ := Ej_bound_gen
-  refine ⟨C, hC, ?_⟩
   intro c a b Pseq Qseq Hseq η Jb N Xd P1 X T t₁ row hη h6 hJb hXd hT hP1 hG
     hH1 hP1s hPQ1 hbot1 hb hc hrow
   have hXdR : (0 : ℝ) < (Xd : ℝ) := by exact_mod_cast hXd
@@ -1145,6 +1146,52 @@ theorem TLeg_bound_gen :
   -- ⟦THE ASSEMBLY⟧
   rw [hadd, hIcc, Finset.sum_insert hnotmem, Finset.sum_insert hnotmem]
   linarith [h1, hcol]
+
+/-- **H-3 — THE GRADED `𝒯`-LEG** (`TLeg_bound`).  The whole second summand of the graded seam
+row, bounded:
+
+  `∫_{(Ann∖ball) ∩ 𝒯totG}‖F(1+it)‖² dt`
+    `≤ 2(H₁ log Q₁ + 1)(TQ₁/X_d + 1)P₁^{−2α₁}(4(H₁/(1−2α₁))e^{(1−2α₁)/H₁}`
+    `      + 60(H₁/α₁)e^{4α₁/H₁})`                                        ← MR §8.1, level 1
+    `  + 1536·C·e³·(2T/X_d + 240)/P₁`                                      ← MR §8.2, `j ≥ 2`
+    `  + Σ_{j=1}^{J} E_j`                                                  ← Lemma 12's rows.
+
+`SeamGraded.seam_T_additivityG` splits the union into the disjoint levels; `TLegE1.E1_pin`
+prices `j = 1`; `Ej_bound` prices each `j ≥ 2`; `sum_Ej_collected` collects them.  At MR's own
+pins the level-1 term is `(log Q₁)^{1/3}/P₁^{1/6−η}` (`TLegE1`'s verdict) and the level-`j`
+block is `O(1/P₁)`, so the leg is `o(1)` exactly when §8.1's is — which is MR p.25's claim.
+
+Every gate rides the statement: the per-level bundle `LevelGates … j` for `2 ≤ j ≤ J`, level
+1's own four, the Lemma-12 data at every level, `η ∈ (0,1/6)` (which supplies `α`'s numerals
+through `alpha_gates_from_eta`), and the measure frame. -/
+theorem TLeg_bound_gen :
+    ∃ C : ℝ, 0 < C ∧ ∀ (c a : ℕ → ℂ) (b : ℕ → ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ)
+      (η : ℝ) (Jb N Xd P1 : ℕ) (X T t₁ : ℝ) (row : ℕ → ℝ),
+      0 < η → η < 1 / 6 → 1 ≤ Jb → 1 ≤ Xd → 0 ≤ T → (0 : ℝ) < (P1 : ℝ) →
+      (∀ j ∈ Finset.Icc 2 Jb, LevelGates Pseq Qseq Hseq η P1 Xd j) →
+      2 ≤ Hseq 1 → 1 ≤ Pseq 1 → Pseq 1 ≤ Qseq 1 →
+      (∀ v ∈ ramI (Hseq 1) (Pseq 1) (Qseq 1), 1 ≤ ramRbot (Hseq 1) Xd v) →
+      (∀ j m, ‖b j m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ j ∈ Finset.Icc 1 Jb,
+        (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+            ‖spoly N a t‖ ^ 2)
+          ≤ 2 * ((ramI (Hseq j) (Pseq j) (Qseq j)).card : ℝ)
+              * (∑ v ∈ ramI (Hseq j) (Pseq j) (Qseq j),
+                  ∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+                    ‖ramMain (Hseq j) N Xd (Pseq j) (Qseq j) (b j) c v t‖ ^ 2)
+            + row j) →
+      (∫ t in (seamAnn X T \ seamBall X t₁) ∩ seamTtotG c Pseq Qseq Hseq (mrAlpha η) Jb,
+          ‖spoly N a t‖ ^ 2)
+        ≤ 2 * (Hseq 1 * Real.log (Qseq 1 : ℝ) + 1)
+              * (T * (Qseq 1 : ℝ) / (Xd : ℝ) + 1)
+              * (Pseq 1 : ℝ) ^ (-(2 * mrAlpha η 1))
+              * (4 * (Hseq 1 / (1 - 2 * mrAlpha η 1))
+                    * Real.exp ((1 - 2 * mrAlpha η 1) / Hseq 1)
+                  + 60 * (Hseq 1 / mrAlpha η 1) * Real.exp (4 * mrAlpha η 1 / Hseq 1))
+          + 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240) * (1 / (P1 : ℝ))
+          + ∑ j ∈ Finset.Icc 1 Jb, row j := by
+  obtain ⟨C, hC, hEj⟩ := Ej_bound_gen
+  exact ⟨C, hC, TLeg_bound_gen_of C hC hEj⟩
 
 /-- **H-3 — THE GRADED `𝒯`-LEG** (`TLeg_bound`) — `TLeg_bound_gen` at the LANDED three-row
 Lemma-12 exit `TLegPreamble.lemma12_on_TsetG`, level by level.  Statement unchanged. -/

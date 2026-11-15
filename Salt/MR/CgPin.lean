@@ -74,7 +74,7 @@ theorem card_blockfree_le_bounded :
   have hmax : C₀ ≤ max C₀ 1 := le_max_left _ _
   nlinarith [mul_nonneg hratio hXnn]
 
-/-- **Link 3** — `SieveGlue.hsieve_of_engine` (`SieveGlue.lean:438`), verbatim re-emit. -/
+/-- **Link 3** — `SieveGlue.hsieve_of_engine` (`SieveGlue.lean:513`), statement re-emitted. -/
 theorem hsieve_of_engine_bounded :
     ∃ C : ℝ, 1 ≤ C ∧ C ≤ 2 * 10 ^ 12 ∧ ∀ (A G M J X : ℕ) (Nlg : Finset ℕ),
       1 ≤ A → 1 ≤ G → 1 ≤ M →
@@ -93,54 +93,7 @@ theorem hsieve_of_engine_bounded :
             Real.log ((calP A G j : ℕ) : ℝ)
               / Real.log ((calQK A G M j : ℕ) : ℝ) := by
   obtain ⟨C, hC, hCle, hcard⟩ := card_blockfree_le_bounded
-  refine ⟨C, hC, hCle, ?_⟩
-  intro A G M J X Nlg hA hG hM hNlg hX hbig hreg herr
-  have hXne : (X : ℝ) ≠ 0 := ne_of_gt hX
-  -- ⟦STEP 1: the union bound (p. 31 (e), the pure-counting part)⟧
-  have h1 := card_not_memS_le_sum Nlg (calP A G) (calQK A G M) J
-  -- ⟦STEP 2: each block, by the engine⟧
-  have h2 : ∀ j ∈ Finset.Icc 1 J,
-      ((Nlg.filter
-          (fun n => blockOmega (calP A G j) (calQK A G M j) n = 0)).card : ℝ)
-        ≤ C * (Real.log ((calP A G j : ℕ) : ℝ)
-            / Real.log ((calQK A G M j : ℕ) : ℝ)) * X := by
-    intro j hj
-    have hj1 : 1 ≤ j := (Finset.mem_Icc.mp hj).1
-    have hP2 : 2 ≤ calP A G j := two_le_calP hA hG j
-    have hPQ : calP A G j ≤ calQK A G M j := calP_le_calQK hM hj1
-    have hmono : ((Nlg.filter
-        (fun n => blockOmega (calP A G j) (calQK A G M j) n = 0)).card : ℝ)
-        ≤ (((Finset.Ioc X (2 * X)).filter
-            (fun n => blockOmega (calP A G j) (calQK A G M j) n = 0)).card : ℝ) := by
-      exact_mod_cast Finset.card_le_card (Finset.filter_subset_filter _ hNlg)
-    exact hmono.trans (hcard _ _ _ hP2 hPQ (hreg j hj) hbig (herr j hj))
-  -- ⟦STEP 3: sum and normalise⟧
-  have h3 : ((Nlg.filter
-      (fun n => ¬ MemS (calP A G) (calQK A G M) J n)).card : ℝ)
-      ≤ ∑ j ∈ Finset.Icc 1 J,
-          C * (Real.log ((calP A G j : ℕ) : ℝ)
-            / Real.log ((calQK A G M j : ℕ) : ℝ)) * X := by
-    refine le_trans ?_ (Finset.sum_le_sum h2)
-    exact_mod_cast h1
-  have h4 : ∑ j ∈ Finset.Icc 1 J,
-      C * (Real.log ((calP A G j : ℕ) : ℝ)
-        / Real.log ((calQK A G M j : ℕ) : ℝ)) * X
-      = C * X * ∑ j ∈ Finset.Icc 1 J,
-          Real.log ((calP A G j : ℕ) : ℝ)
-            / Real.log ((calQK A G M j : ℕ) : ℝ) := by
-    rw [Finset.mul_sum]
-    exact Finset.sum_congr rfl (fun j _ => by ring)
-  rw [h4] at h3
-  calc (1 / (X : ℝ))
-        * ((Nlg.filter (fun n => ¬ MemS (calP A G) (calQK A G M) J n)).card : ℝ)
-      ≤ (1 / (X : ℝ)) * (C * X * ∑ j ∈ Finset.Icc 1 J,
-          Real.log ((calP A G j : ℕ) : ℝ)
-            / Real.log ((calQK A G M j : ℕ) : ℝ)) :=
-        mul_le_mul_of_nonneg_left h3 (by positivity)
-    _ = C * ∑ j ∈ Finset.Icc 1 J,
-          Real.log ((calP A G j : ℕ) : ℝ)
-            / Real.log ((calQK A G M j : ℕ) : ℝ) := by
-        field_simp
+  exact ⟨C, hC, hCle, hsieve_of_engine_of C hC hcard⟩
 
 /-- **Link 4** — `M4Sieve.notMemS_window_count_le` (`M4Sieve.lean:468`), verbatim re-emit. -/
 theorem notMemS_window_count_le_bounded :

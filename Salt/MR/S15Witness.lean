@@ -65,7 +65,7 @@ The conjunct-carry genre (`HloExportMR`) would put the numerals INTO the capston
 twin per link.  The chains were traced (2026-07-31) and priced:
 
 * `Cg`: EIGHT `∃ C`-links, `typical_density_le` (`TypicalDensity.lean:906`) →
-  `card_blockfree_le` (`SieveGlue.lean:183`) → `hsieve_of_engine` (`SieveGlue.lean:438`) →
+  `card_blockfree_le` (`SieveGlue.lean:183`) → `hsieve_of_engine` (`SieveGlue.lean:513`) →
   `notMemS_window_count_le` (`M4Sieve.lean:468`) → `m4_sieve_block_mass` (`M4Sieve.lean:588`)
   → `m4_door_sieve_mass` (`M4Door.lean:621`) → `m4_door_insert_mass_integral`
   (`M4ParsevalStone.lean:281`) → `parseval_insert_budget_door` (`M4ParsevalStone.lean:341`).

@@ -17,7 +17,7 @@ Source: Matomäki–Radziwiłł–Tao `1503.05121v3`, **§4 step (a)** (p. 14); 
 
 MRT insert the block indicator `1_𝒮` by hand against the door's raw λ-window and pay the
 complement by a **count**, not by analysis.  Post-`SieveGlue` the sieve leg is a
-**citation**: `hsieve_of_engine` (`SieveGlue.lean:438`) already prices
+**citation**: `hsieve_of_engine` (`SieveGlue.lean:513`) already prices
 `(1/X)·#{n ∈ N_lg : n ∉ 𝒮}` by `C·∑_j log 𝒫_j/log 𝒬_j` at the K-family, unconditionally,
 with `C` the single shared constant of `card_blockfree_le`.  This file is the four moves
 that turn that count into the door's own object.

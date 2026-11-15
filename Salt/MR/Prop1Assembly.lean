@@ -212,7 +212,7 @@ theorem largeT_row (N : ℕ) (a : ℕ → ℂ) (T : ℝ) (hT : (N : ℝ) ≤ T) 
   moment_core_bound_large_T N a T hT
 
 /-- **E_j moment row.**  The §8.2 `E_j` block, the landed `lemma13_moment`
-(`MomentsA2.lean:246`) — `∫ |Q^ℓ A|² ≤ (2T+20N)·ℓ!²·(C/X)` for coefficients supported
+(`MomentsA2.lean:256`) — `∫ |Q^ℓ A|² ≤ (2T+20N)·ℓ!²·(C/X)` for coefficients supported
 on `[X,N]` with count `|aₙ| ≤ ℓ!·g(n)` (the named MULT-SHIU seam).  Re-exported at the
 assembly granularity; instantiating `N = 2^{ℓ+1}Y₁X` recovers the paper's
 `(T/X + 2^ℓ Y₁)ℓ!²` shape (the geometric collapse over `j` is the remaining §8.2

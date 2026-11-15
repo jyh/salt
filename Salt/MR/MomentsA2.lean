@@ -118,18 +118,15 @@ theorem moment_core_bound_large_T (N : ℕ) (a : ℕ → ℂ) (T : ℝ) (hT : (N
 
 /-! ## G2 — the Lemma 13 moment (MR §6, eq (17)/(18)) -/
 
-/-- **The dyadic-geometric Shiu sum** (MR eq (17)→(18): "split the sum over `n`
-into dyadic intervals and apply (18)").  For the block-divisor `g = blockDiv Y₁`,
-`Σ_{X ≤ n ≤ M} g(n)²/n² ≤ 3C/X`, **uniformly in the upper endpoint `M`**, where
-`C` is the absolute Shiu constant of `shiu_moment_sq`.  The `1/n²` weight makes the
-dyadic-block bounds `C/(2^k X)` geometrically summable, so the length of the range
-is irrelevant.  This is the analytic core of Lemma 13. -/
-lemma blockDiv_sq_div_sq_sum_le :
-    ∃ C : ℝ, 0 < C ∧ ∀ (Y₁ X M : ℕ), 1 ≤ Y₁ → 1 ≤ X →
+/-- `blockDiv_sq_div_sq_sum_le` for ANY constant `C` with `shiu_moment_sq`'s property (`hShiu`):
+the proof of both
+`blockDiv_sq_div_sq_sum_le` and its bounded twin `blockDiv_sq_div_sq_sum_le_bounded`. -/
+lemma blockDiv_sq_div_sq_sum_le_of (C : ℝ) (hC : 0 < C)
+    (hShiu : ∀ (Y₁ Y : ℕ), 1 ≤ Y₁ →
+      ∑ n ∈ Finset.Icc Y (2 * Y), (blockDiv Y₁ n : ℝ) ^ 2 ≤ C * (Y : ℝ)) :
+    ∀ (Y₁ X M : ℕ), 1 ≤ Y₁ → 1 ≤ X →
       ∑ n ∈ Finset.Icc X M, (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2
         ≤ 3 * C / (X : ℝ) := by
-  obtain ⟨C, hC, hShiu⟩ := shiu_moment_sq
-  refine ⟨C, hC, ?_⟩
   intro Y₁ X M hY₁ hX
   have hXr : (0 : ℝ) < X := by exact_mod_cast hX
   -- one dyadic block: Σ_{Y≤n≤2Y} g²/n² ≤ C/Y (shiu_moment_sq + 1/n²≤1/Y²).
@@ -227,6 +224,19 @@ lemma blockDiv_sq_div_sq_sum_le :
           mul_le_mul_of_nonneg_left (by linarith [hgeo]) hCX
         calc (C / (X : ℝ)) * (3 - 2 / (2 : ℝ) ^ M) ≤ (C / (X : ℝ)) * 3 := hstep
           _ = 3 * C / (X : ℝ) := by ring
+
+/-- **The dyadic-geometric Shiu sum** (MR eq (17)→(18): "split the sum over `n`
+into dyadic intervals and apply (18)").  For the block-divisor `g = blockDiv Y₁`,
+`Σ_{X ≤ n ≤ M} g(n)²/n² ≤ 3C/X`, **uniformly in the upper endpoint `M`**, where
+`C` is the absolute Shiu constant of `shiu_moment_sq`.  The `1/n²` weight makes the
+dyadic-block bounds `C/(2^k X)` geometrically summable, so the length of the range
+is irrelevant.  This is the analytic core of Lemma 13. -/
+lemma blockDiv_sq_div_sq_sum_le :
+    ∃ C : ℝ, 0 < C ∧ ∀ (Y₁ X M : ℕ), 1 ≤ Y₁ → 1 ≤ X →
+      ∑ n ∈ Finset.Icc X M, (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2
+        ≤ 3 * C / (X : ℝ) := by
+  obtain ⟨C, hC, hShiu⟩ := shiu_moment_sq
+  exact ⟨C, hC, blockDiv_sq_div_sq_sum_le_of C hC hShiu⟩
 
 /-- **G2 — MR Lemma 13 (the moment computation, eq (17)/(18)).**  For the
 Dirichlet polynomial `Q(1+it)^ℓ A(1+it) = Σ_{n} aₙ/n^{1+it}` with coefficients
