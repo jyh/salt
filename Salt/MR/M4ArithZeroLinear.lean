@@ -1036,8 +1036,8 @@ original.
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_chiSummedFreeRow_of_doorArith_zero_L_gk_kwide`) —
 `m4_chiSummedFreeRow_of_doorArith_zero_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `Klev ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `Klev ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_chiSummedFreeRow_of_doorArith_zero_L_gk_kwide (Klev : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧
       ∀ (Cp : ℝ), 0 ≤ Cp →
@@ -1129,8 +1129,8 @@ theorem m4_chiSummedFreeRow_of_doorArith_zero_L_gk (Klev : ℕ) (hK : Klev ≤ 1
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_socket_discharged_conditional_zero_L_gk_kwide`) —
 `m4_socket_discharged_conditional_zero_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `Klev ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `Klev ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_socket_discharged_conditional_zero_L_gk_kwide (Klev : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧
       ∀ (Cp : ℝ), 0 ≤ Cp →
@@ -1234,8 +1234,8 @@ theorem m4_socket_discharged_conditional_zero_L_gk (Klev : ℕ) (hK : Klev ≤ 1
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_socket_discharged_bandfree_zero_L_gk_kwide`) —
 `m4_socket_discharged_bandfree_zero_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `Klev ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `Klev ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_socket_discharged_bandfree_zero_L_gk_kwide (Klev : ℕ)
     (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp : 0 < Aexp) :
     ∃ Ct : ℝ, 0 < Ct ∧
@@ -1556,8 +1556,8 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_join_L_gk (K : ℕ) {R : ChowlaRegim
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_socket_discharged_fused_L_gk_kwide`) —
 `m4_socket_discharged_fused_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_socket_discharged_fused_L_gk_kwide (K : ℕ) (hMmu : MmuChiRate)
     (Aexp : ℝ) (hAexp : 0 < Aexp) :
     ∃ Ct : ℝ, 0 < Ct ∧

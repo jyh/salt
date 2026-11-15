@@ -577,7 +577,8 @@ original.
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_socket_discharged_fused_hoisted_L_gk_kwide`) —
 `m4_socket_discharged_fused_hoisted_L_gk`
 with the flat ceiling moved inside the `∀ M` as `K ≤ 170000000 * M`.
-Statement and proof otherwise verbatim, off the `_kwide` upstream. -/
+Statement otherwise verbatim, the proof the original's former one off the
+`_kwide` upstream (its original is now its instance). -/
 theorem m4_socket_discharged_fused_hoisted_L_gk_kwide (K : ℕ)
     (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp : 0 < Aexp) :
     ∃ Ct : ℝ, 0 < Ct ∧
@@ -721,7 +722,8 @@ theorem m4_hband_at_door_slot_split_L_gk (K : ℕ) (hMmu : MmuChiRate) (Aexp : �
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_socket_discharged_fused_split_L_gk_kwide`) —
 `m4_socket_discharged_fused_split_L_gk`
 with the flat ceiling moved inside the `∀ M` as `K ≤ 170000000 * M`.
-Statement and proof otherwise verbatim, off the `_kwide` upstream. -/
+Statement otherwise verbatim, the proof the original's former one off the
+`_kwide` upstream (its original is now its instance). -/
 theorem m4_socket_discharged_fused_split_L_gk_kwide (K : ℕ) (hMmu : MmuChiRate)
     (Aexp : ℝ) (hAexp : 0 < Aexp) :
     ∃ (Ct : ℝ) (x₀ : ℕ), 0 < Ct ∧
@@ -902,7 +904,8 @@ theorem m4_hband_at_door_slot_split_graded_L_gk (K : ℕ) (hMmu : MmuChiRate) (A
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_socket_discharged_fused_split_graded_L_gk_kwide`) —
 `m4_socket_discharged_fused_split_graded_L_gk`
 with the flat ceiling moved inside the `∀ M` as `K ≤ 170000000 * M`.
-Statement and proof otherwise verbatim, off the `_kwide` upstream. -/
+Statement otherwise verbatim, the proof the original's former one off the
+`_kwide` upstream (its original is now its instance). -/
 theorem m4_socket_discharged_fused_split_graded_L_gk_kwide (K : ℕ)
     (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp : 0 < Aexp) :
     ∃ (Ct Cb : ℝ) (x₀ : ℕ), 0 < Ct ∧ 0 < Cb ∧

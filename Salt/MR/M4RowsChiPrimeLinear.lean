@@ -465,8 +465,8 @@ original.
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSum_chi_door_end'_L_gk_kwide`) —
 `m4_hrowsSum_chi_door_end'_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_hrowsSum_chi_door_end'_L_gk_kwide (K : ℕ) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (q : ℕ) [NeZero q] (c a : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ),
@@ -559,8 +559,8 @@ theorem m4_hrowsSum_chi_door_end'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSlot_at_door_end'_L_gk_kwide`) —
 `m4_hrowsSlot_at_door_end'_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_hrowsSlot_at_door_end'_L_gk_kwide (K : ℕ) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (R : ChowlaRegime) (M : ℕ) (ε : ℕ → ℝ) (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ)
@@ -649,8 +649,8 @@ theorem m4_hrowsSlot_at_door_end'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSum_chi_door_zero'_L_gk_kwide`) —
 `m4_hrowsSum_chi_door_zero'_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_hrowsSum_chi_door_zero'_L_gk_kwide (K : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧
       ∀ (Cp : ℝ), 0 ≤ Cp →
@@ -742,8 +742,8 @@ theorem m4_hrowsSum_chi_door_zero'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSlot_at_door_zero'_L_gk_kwide`) —
 `m4_hrowsSlot_at_door_zero'_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_hrowsSlot_at_door_zero'_L_gk_kwide (K : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧
       ∀ (Cp : ℝ), 0 ≤ Cp →
@@ -831,8 +831,8 @@ theorem m4_hrowsSlot_at_door_zero'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_chiSummedFreeRow_of_doorAssembly_pool_end'_L_gk_kwide`) —
 `m4_chiSummedFreeRow_of_doorAssembly_pool_end'_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_chiSummedFreeRow_of_doorAssembly_pool_end'_L_gk_kwide (K : ℕ) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε π₀ : ℕ → ℝ) (RSbig : ℕ → ℕ → ℝ)
@@ -926,8 +926,8 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_pool_end'_L_gk (K : ℕ)
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_L_gk_kwide`) —
 `m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_L_gk_kwide (K : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧
       ∀ (Cp : ℝ), 0 < Cp →
