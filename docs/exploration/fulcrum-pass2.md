@@ -9,7 +9,7 @@ K1. ¬F(C⋆) ⟹ ¬IMSZ ⟹ NoSiegelZeros. Route: contrapositive of imsz_gives_
 
 TIER B — B-class glue on landed legs:
 B1. Uniform no-Siegel standoff, ALL q: β ≤ 1 − c/log q with c = min(c_iso(Q₀), 1/C⋆) [E3-D1].
-B2. Three-zone effective ZFR: ∀ primitive χ, zeros with Re ρ ≥ 1/2 obey Re ρ ≤ 1 − c₁/log(q(|Im ρ|+2)), c₁ = min(c₀, 1/C⋆, c_iso(Q₀)) — legs: zero_free_region_all (GROUNDED ZeroFreeReal.lean:604-607), gadget below Q₀ (real form suffices), ¬F above [E3-D2, case-checked]. Complex-ball-all-q variant needs one A/B node (gadget is real-only — catch #224).
+B2. Three-zone effective ZFR: ∀ primitive χ, zeros with Re ρ ≥ 1/2 obey Re ρ ≤ 1 − c₁/log(q(|Im ρ|+2)), c₁ = min(c₀, 1/C⋆, c_iso(Q₀)) — legs: zero_free_region_all (GROUNDED ZeroFreeReal.lean:611-614), gadget below Q₀ (real form suffices), ¬F above [E3-D2, case-checked]. Complex-ball-all-q variant needs one A/B node (gadget is real-only — catch #224).
 
 TIER C — C-class re-tracing (obstruction removed; constants NOT traced today):
 C1. THE HEADLINE — effective Siegel–Walfisz. The landed chain (siegelWalfisz_holds, GROUNDED Gate.lean:150) has exactly ONE ineffective input: Cₛ from siegel_theorem, sole consumer Fold.lean:167 (judge-read), applied at conductor level (:282-283). Under ¬F: 1−β₁ > 1/(C⋆·log f) closes the same e^{−c5√log x} kill; K(A,C) effective in (A,C,C⋆,Q₀,c₀,c₃,c_iso). Source: MNT Cor 24.24/24.25 effectivity remark (GROUNDED-source montgomery3.txt:7576-7614). Scope: SW quantifies all characters; the ZFR carve-out tiles (B2) and imprimitives reduce via psi1_transfer (Fold.lean:154) — no gap [E2 §1].
@@ -84,7 +84,7 @@ WHAT PASS 3 MUST NOT DO: respend on the priced-out list (M₂ door, T-BAL amplif
 - C-star regime dependence: the whole audit ran at calibrated C-star >= 2/c0 (fulcrum_zero_real needs 2 <= C*c0, judge-verified); below that the reality derivation fails and marginal-content accounting changes shape. C(1) is UNFROZEN — C-star = max(C(1), 2/c0) may be C(1)-dominated, making E3's 2^18 a floor, not a value.
 - S4 deflation risk (~35-40%): an explicit-exceptional-term average-form BV could deflate the C1 headline to per-q effective SW only. Must run FIRST in Pass 3; until then no valuation built on C1 is stable.
 - MEMORY staging debt: Hoffstein-Lockhart, Akbary-Hambrook, Xylouris, MV vol. 1 (Hecke L(1)), Opera ch. 16; H-B page cites (p.196/221/223) rest on E4's session read of a PDF outside the working dirs — re-stage before load-bearing reuse.
-- c0 = 1/126848 is docstring-grade only (ZeroFreeReal.lean:603, Basic.lean:169 numeral extraction owed); every constant-grade statement inherits this debt.
+- c0 = 1/126848 is docstring-grade only (ZeroFreeReal.lean:610, Basic.lean:169 numeral extraction owed); every constant-grade statement inherits this debt.
 - TPC <-> B(x)-unbounded-modulo-dust bridge is MEMORY-routine and unlanded; the repo TPC (Salt/Basic.lean:25-26) is the set-infinitude form while Z is stated against B(x). A/B-class to land, but currently a seam in Z's own statement.
 - No independent #print axioms run this pass (no-Lean-writing): sorry-greps only; axiom posture accepted on the project's iron-rule discipline and the 9136-green main. A hidden axiom in K1's import chain would need re-audit (mitigated by the explicit proof-term reads).
 - Z is a demand specification, not an impossibility theorem: 'no FI-type bilinear structure for (n,n+2)' is MEMORY — a future bilinear estimate in the twin configuration would satisfy Z's demand without contradicting anything banked. Do not let the localization ossify into a no-go claim.

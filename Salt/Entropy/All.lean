@@ -862,7 +862,7 @@ literal `(j + (p : ℕ)) : ℝ)` occurs ZERO times.
 POPULATION IS **SIX FILES**, NOT THREE.  Measured (`grep -rF '(j + (p : ℕ) * h) : ℝ)' Salt/`):
 `CircleMethod` · `FBridge` · `OuterCombine` · `Decoupled` · `Transport` · `ShiftFork`.  Two of
 them — `circle_method_estimate_h` (`ShiftFork.lean:412`) and `circle_method_estimate_h_core`
-(`CircleMethod.lean:1227`) — already carried the identical literal BEFORE wave A opened.
+(`CircleMethod.lean:1242`) — already carried the identical literal BEFORE wave A opened.
 ⇒ "THREE SITES" COUNTED WHAT THE ENTROPY CONE HAD TO **MOVE**; IT NEVER COUNTED WHAT MUST
 **AGREE**.  The migration population and the agreement population are different sets, and this
 file asserted the second while enumerating the first.
@@ -885,7 +885,7 @@ another hit, so the census gets one file harder to read each time somebody does 
     ⚠️ WITHOUT the trailing whitespace class that pattern returns 4 — `defeq`, `definition`,
     `definitionally`, `defect`: ENGLISH PROSE AT COLUMN 0.  The word boundary is load-bearing.)
 
-⛔ AND THE BYTE-IDENTITY CLAIM CARRIES ONE NAMED EXCEPTION — 15/16, NOT 16/16.  `HBudget:1402`
+⛔ AND THE BYTE-IDENTITY CLAIM CARRIES ONE NAMED EXCEPTION — 15/16, NOT 16/16.  `HBudget:1406`
 spells the shifted offset `(j + p * h) : ℝ)` with a BARE `p`, because it faithfully mirrors the
 FROZEN `(j + p) : ℝ)` at `HBudget:664`.  ⇒ THE FROZEN SIDE WAS NEVER BYTE-UNIFORM EITHER: this
 file holds 14 of `(j + (p : ℕ)) : ℝ)` and 1 of `(j + p) : ℝ)`.  The port was right to mirror the
@@ -912,7 +912,7 @@ a regression: check WHICH declaration owns the new line before reading a rise as
 ⚠️ THE THREE-SITE ROSTER UNDERCOUNTS THE SHIFT-`h` OFFSET POPULATION — census finding, not a
 defect.  Two MORE declarations already spelled the offset at shift `h` before wave A opened:
 `circle_method_estimate_h` (`ShiftFork.lean:404`) and `circle_method_estimate_h_core`
-(`CircleMethod.lean:1219`), both in the TWO-pattern `x1`/`x2` family.  Both already use the
+(`CircleMethod.lean:1234`), both in the TWO-pattern `x1`/`x2` family.  Both already use the
 identical literal, so byte-identity in fact holds across FIVE sites.  The wave's "three sites"
 counts the sites the entropy cone had to MOVE; it is not the census of the sites that must
 AGREE.  A future shift-`h` port should enumerate by the literal, not by the roster.
@@ -1114,12 +1114,13 @@ because nothing at `h ≠ 1` consumed a door.  These two files are that exit's l
 ⚠️ THE LEAVES ARE BODY REPLAYS, NOT WRAPPERS, AND THAT IS FORCED.  `HeadPinLeaves.lean:30-37`
 is standing law here: the pinned constant occurs ANTITONICALLY inside each `∃`-leaf, so NO
 consequence of the landed form recovers the witness — the only route is to re-run the proof
-with the numeral kept.  `hbudget_holds_h_bounded` replays `HBudget.lean:1203-1486` over the
+with the numeral kept.  `hbudget_holds_h_bounded` runs `HBudget.hbudget_holds_h_of` (the body
+`hbudget_holds_h` carried until O13-e, 2026-11-14, now shared, not replayed) over the
 PINNED Mertens leaf (`primeWindow_sum_inv_ge_bounded`) because `hbudget_holds_h` draws its `c`
 from the UNPINNED one and `1/4 ≤ cE` is unobtainable by weakening;
-`circle_method_estimate_sq_bounded_h_core` replays `circle_method_estimate_sq_h_core`'s body
-(cited by line as 1366–1508 when written) with the cap
-`C ≤ h·(1 + 2·C₀)` kept at the witness.
+`circle_method_estimate_sq_bounded_h_core` keeps the cap `C ≤ h·(1 + 2·C₀)` at the witness,
+through `CircleMethod.circle_method_estimate_sq_h_core_at` (the body both share since O13-e,
+2026-11-14).
 
 ⟦THE HEAD MOVES BY FOUR SCALINGS AND ONE BINDER, NOTHING ELSE⟧ the pins are `1/(500·h) ≤ ε`
 and `1/(838400·h²) ≤ δ₀`, under which EVERY gate of the landed head takes exactly its `h = 1`

@@ -44,22 +44,15 @@ open ArithmeticFunction
 
 namespace Salt.Entropy.Chowla
 
-/-- **The prime-window Mertens LOWER bound** (spine node D3, the W3-F 🚩 gap).
-
-There are `c > 0` (here `c = 1/4`) and a threshold `H₀` such that for all `H ≥ H₀` and all
-`eps` in the regime `√H ≤ ε²H/2` (Tao's "ε small, H large" gate, as in
-`primeWindow_card_le_of_regime`) with `ε² ≤ 1`,
-`∑_{p ∈ 𝒫_H} 1/p ≥ c / log H`.
-
-Carrier: the unconditional dyadic Λ-mass lower bound `Salt.Chen.lambda_mass_lower`
-(PNT-with-rate through the SW gate), boundary- and prime-power-stripped. -/
-theorem primeWindow_sum_inv_ge :
-    ∃ c : ℝ, 0 < c ∧ ∃ H₀ : ℕ, ∀ (eps : ℚ) (H : ℕ), H₀ ≤ H →
+/-- `primeWindow_sum_inv_ge` at its explicit constant `c = 1/4`: the proof of both
+`primeWindow_sum_inv_ge` and its bounded twin `primeWindow_sum_inv_ge_bounded` (HeadPinLeaves). -/
+theorem primeWindow_sum_inv_ge_at :
+    ∃ H₀ : ℕ, ∀ (eps : ℚ) (H : ℕ), H₀ ≤ H →
       Real.sqrt (H : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) / 2 →
       (eps : ℝ) ^ 2 ≤ 1 →
-      c / Real.log (H : ℝ) ≤ ∑ p ∈ primeWindow eps H, (1 / (p : ℝ)) := by
+      1 / 4 / Real.log (H : ℝ) ≤ ∑ p ∈ primeWindow eps H, (1 / (p : ℝ)) := by
   obtain ⟨K, hK0, hK⟩ := Salt.Chen.lambda_mass_lower
-  refine ⟨1 / 4, by norm_num, max (96 ^ 8) (⌈Real.exp (64 * K)⌉₊ + 1), ?_⟩
+  refine ⟨max (96 ^ 8) (⌈Real.exp (64 * K)⌉₊ + 1), ?_⟩
   intro eps H hH0 hreg heps1
   set N := ⌊eps ^ 2 * (H : ℚ)⌋₊ with hNdef
   -- H-side size facts
@@ -243,6 +236,22 @@ theorem primeWindow_sum_inv_ge :
         Finset.sum_le_sum hstep
     _ ≤ ∑ p ∈ primeWindow eps H, 1 / (p : ℝ) :=
         Finset.sum_le_sum_of_subset_of_nonneg hsub2 (fun p _ _ => by positivity)
+
+/-- **The prime-window Mertens LOWER bound** (spine node D3, the W3-F 🚩 gap).
+
+There are `c > 0` (here `c = 1/4`) and a threshold `H₀` such that for all `H ≥ H₀` and all
+`eps` in the regime `√H ≤ ε²H/2` (Tao's "ε small, H large" gate, as in
+`primeWindow_card_le_of_regime`) with `ε² ≤ 1`,
+`∑_{p ∈ 𝒫_H} 1/p ≥ c / log H`.
+
+Carrier: the unconditional dyadic Λ-mass lower bound `Salt.Chen.lambda_mass_lower`
+(PNT-with-rate through the SW gate), boundary- and prime-power-stripped. -/
+theorem primeWindow_sum_inv_ge :
+    ∃ c : ℝ, 0 < c ∧ ∃ H₀ : ℕ, ∀ (eps : ℚ) (H : ℕ), H₀ ≤ H →
+      Real.sqrt (H : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) / 2 →
+      (eps : ℝ) ^ 2 ≤ 1 →
+      c / Real.log (H : ℝ) ≤ ∑ p ∈ primeWindow eps H, (1 / (p : ℝ)) :=
+  ⟨1 / 4, by norm_num, primeWindow_sum_inv_ge_at⟩
 
 /-- **Smoke instance** for the `c = 1/4` numerology, at the `regime_nonvacuous` point
 `eps = 1`, `H = 4` (regime holds with equality, window `= {3}`): the D3 inequality shape

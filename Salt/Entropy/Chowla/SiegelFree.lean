@@ -42,7 +42,7 @@ open private mutualInfo_window_comm' spine_False_core_xi from Salt.Entropy.Chowl
 
 namespace Salt.Entropy.Chowla
 
-/-- **⟦STANDOFF TWIN⟧** `hreduce_holds_final` (`HBudget.lean:732`): its statement under the three
+/-- **⟦STANDOFF TWIN⟧** `hreduce_holds_final` (`HBudget.lean:754`): its statement under the three
 standoff binders, from `hreduce_holds_final_bounded_of_standoff` (`Salt/MR/FlatDoorStandoff.lean`)
 by dropping its `1 / 4 ≤ c` conjunct. -/
 theorem hreduce_holds_final_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -65,7 +65,7 @@ theorem hreduce_holds_final_of_standoff {cS : ℝ} (hcS : 0 < cS)
   obtain ⟨c, hc, -, H₀, h⟩ := hreduce_holds_final_bounded_of_standoff hcS hSieg
   exact ⟨c, hc, H₀, h⟩
 
-/-- **⟦STANDOFF TWIN⟧** `primeWindow_sum_inv_ge` (`WindowMertensLower.lean:56`): its statement under
+/-- **⟦STANDOFF TWIN⟧** `primeWindow_sum_inv_ge` (`WindowMertensLower.lean:249`): its statement under
 the three standoff binders, from `primeWindow_sum_inv_ge_bounded_of_standoff`
 (`Salt/MR/FlatDoorStandoff.lean`) by dropping its `1 / 4 ≤ c` conjunct. -/
 theorem primeWindow_sum_inv_ge_of_standoff {cS : ℝ} (hcS : 0 < cS)
