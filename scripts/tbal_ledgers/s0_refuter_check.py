@@ -19,7 +19,7 @@ from math import log, sqrt, exp
 from fractions import Fraction
 import numpy as np
 
-C0 = 1.0 / 126848  # ZeroFreeReal.lean:603
+C0 = 1.0 / 126848  # ZeroFreeReal.lean:610
 
 def sieve(n):
     pr = []

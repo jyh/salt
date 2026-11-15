@@ -53,7 +53,7 @@ Net `ε⁶`. **`R` is a RANGE, not a variance**: `fBridge_varTerm` (`FBridge.lea
 
 **`β²` — the mass-slice bookkeeping.** `β := cD3·ε/(144·log 4)` (`SpineFinal.lean:621`). It is **not the door grade** — that is `c₀ = cD3/(16C)`, `δ₀ = c₀ε/(2K)` (`ConstantsExposed.lean:26-33`). `β` occurs ONLY as `budgetFloor`'s second argument and inside `hbudget1_witness`. It is `(S4 mass slice)/(2·boxGrade)`: `2·boxGrade·bracket ≤ (cD3/16)(εH/log H)` with `boxGrade = 2·log4·(2+ε²)·(H/log H)` (`OuterCombine.lean:42-43`), and `(2+ε²) ≤ 9/4` gives the 144. `β` enters squared because `bracket_close` (`BudgetCore.lean:83-113`) is an **AM–GM square root**: `2√(κ/g) + 2log2/g ≤ β`.
 
-**Combination:** `ε⁶β² = cD3²ε⁸/(20736·log4²)` — the "ε⁻⁸ law" (`spine-budget-freeze.md:61`, labeled DERIVED-not-registered). And `ε` is itself capped by `cD3/(16C)` (`SpineFinal.lean` ε-arms; `C = 1+4·log4 = 6.545`), so the demand scales as **`cD3^{-10}`**. With the landed witness `cD3 = 1/4` (`WindowMertensLower.lean:62`, `refine ⟨1/4, …⟩`) and `ε` pinned to `1/500` (`ConstantsExposed.lean:187`): forced demand `≥ 10^30` (P3c, kernel).
+**Combination:** `ε⁶β² = cD3²ε⁸/(20736·log4²)` — the "ε⁻⁸ law" (`spine-budget-freeze.md:61`, labeled DERIVED-not-registered). And `ε` is itself capped by `cD3/(16C)` (`SpineFinal.lean` ε-arms; `C = 1+4·log4 = 6.545`), so the demand scales as **`cD3^{-10}`**. With the landed witness `cD3 = 1/4` (`WindowMertensLower.lean:254`, `refine ⟨1/4, …⟩`) and `ε` pinned to `1/500` (`ConstantsExposed.lean:187`): forced demand `≥ 10^30` (P3c, kernel).
 
 **Could it be charged at a different height?** Answer to the brief's own hypothesis: **NO for the double log.** Charging `1/(ε⁶β²)` in `loglog H` means `loglog H ≥ 10^19`, i.e. `logloglog H ≥ 43.7` — 7× the register's 6.24. Even the *sharpest* version (P6, `4·10^7`) charged in `loglog H` gives `logloglog H ≥ 17.5`, still over. The register's window in the double log is `loglog H ≤ 513` (= `exp 6.24`). **Only the single log has room**: `log H ≤ e^{513} ≈ 10^{223}`, versus a height-1 demand of `2.2·10^{31}` (P7).
 
@@ -68,7 +68,7 @@ Net `ε⁶`. **`R` is a RANGE, not a variance**: `fBridge_varTerm` (`FBridge.lea
 | AM–GM-sharp bracket `(β/4)²→((β−2log2/g)/2)²` | `144·log4/(ε⁶β²)` | **P4, kernel** (contract change) | 4× |
 | Hoeffding `(2+ε²)² ≥ 4` instead of `≤ 9` | ×`4/9` | `Transport.lean:141-146` | 2.25× |
 | all four mass slices → S4 | `β` ×4 | `SpineFinal.lean:~665-700` | 16× |
-| `cD3 = 1/4 → 1` | ×`cD3^{-10}` | `WindowMertensLower.lean:62` | `10^6` |
+| `cD3 = 1/4 → 1` | ×`cD3^{-10}` | `WindowMertensLower.lean:254` | `10^6` |
 
 Composite sharpest form: `L3 ≥ 4096·log4³·(2+ε²)⁴/(θ²·cD3²·ε⁸)`.
 
@@ -103,7 +103,7 @@ Replace `hoeffding_residueProj` (`Concentration.lean:218`) / `fBridge_varTerm` (
 
 **D4 — RECOVER THE 4× AND THE BRACKET 4×. [B-tier.]** `budgetX`'s 2304 → the forced 576 (P2); then the contract's `(β/4)²` → `((β−2log2/g)/2)²` (P4, kernel-proved here, drop-in for `bracket_close`). Total 16×. Requires re-freezing `budget_facts` conclusion (iv) — a blueprint statement change, Fable/human tier. Moves `10^{31} → 6·10^{29}`.
 
-**D5 — SHARPEN `cD3`. [C-tier, highest leverage per unit work among the numeral moves.]** The demand is `∝ cD3^{-10}`. `primeWindow_sum_inv_ge` witnesses `1/4` (`WindowMertensLower.lean:62`) against a true value `≈ log 2 ≈ 0.693` (its own docstring, `:30`). `1/4 → 0.693` is `10^{4.4}`. Requires a real Mertens-window improvement, not bookkeeping. Moves `10^{31} → 4·10^{26}`. **Still `10^{26}` short.**
+**D5 — SHARPEN `cD3`. [C-tier, highest leverage per unit work among the numeral moves.]** The demand is `∝ cD3^{-10}`. `primeWindow_sum_inv_ge` witnesses `1/4` (`WindowMertensLower.lean:254`) against a true value `≈ log 2 ≈ 0.693` (its own docstring, `:30`). `1/4 → 0.693` is `10^{4.4}`. Requires a real Mertens-window improvement, not bookkeeping. Moves `10^{31} → 4·10^{26}`. **Still `10^{26}` short.**
 
 **IMPOSSIBLE AT THIS DESIGN:** D3+D4+D5 together, plus every constant in the table at its theoretical optimum, plus `ε` at the absolute `1/2` in violation of its own S2 cap, bottoms out at `logloglog H ≥ 4·10^7` (P6, kernel) against the register's `6.24`. **Any repair that leaves `κ` at order `H/log H` and `g` at order `ε^k H/log H` fails by at least `10^7`, for every `k` and every constant.** The shape that must move is the `log H` in `g`'s denominator — D1 — or the `H`-coupling of the register's cap — D2.
 

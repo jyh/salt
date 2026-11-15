@@ -861,17 +861,10 @@ theorem fourier_split_sq {eps : ℚ} {H : ℕ} [NeZero H] (Φ : ZMod H → ℂ)
       _ = (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ) := by ring
   linarith [hmajor, hminor]
 
-/-- **Stone 1b, the squared circle-method estimate** — the `circle_method_estimate` twin at
-the DIAGONAL window `x₁ = x₂` (the shell's only instantiation), with the major arm's second
-Fourier factor KEPT:
-
-`|Σ_p (1/p) Σ_j x_j x_{j+p}| ≤ C·(H/log H)·(ε² + Σ_{ξ∈Ξ}(1/H²)‖𝓕Φ ξ‖²)`,  `C = 1 + 2C₀`.
-
-Same constant as `circle_method_estimate` (the `hbudget1` block downstream is unchanged);
-the only change is `Σ_{ξ∈Ξ}(1/H)‖𝓕Φ ξ‖ ↦ Σ_{ξ∈Ξ}(1/H²)‖𝓕Φ ξ‖²` — the L² socket that the
-Ξ-summed door consumes K-free. -/
-theorem circle_method_estimate_sq (C₀ : ℝ) (hC₀ : 0 < C₀) :
-    ∃ C : ℝ, 0 < C ∧
+/-- `circle_method_estimate_sq` at its explicit constant `C = 1 + 2 * C₀`: the proof of both
+`circle_method_estimate_sq` and its bounded twin
+`circle_method_estimate_sq_bounded` (HeadPinLeaves). -/
+theorem circle_method_estimate_sq_at (C₀ : ℝ) (hC₀ : 0 < C₀) :
       ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),
       (∀ i, |x1 i| ≤ 1) →
       ((primeWindow eps H).card : ℝ)
@@ -879,10 +872,9 @@ theorem circle_method_estimate_sq (C₀ : ℝ) (hC₀ : 0 < C₀) :
       |∑ p : primeWindow eps H, (1 / (p : ℝ)) *
           ∑ j ∈ Finset.range H,
             (windowVal H x1 j : ℝ) * (windowVal H x1 (j + (p : ℕ)) : ℝ)|
-        ≤ C * ((H : ℝ) / Real.log (H : ℝ)) *
+        ≤ (1 + 2 * C₀) * ((H : ℝ) / Real.log (H : ℝ)) *
             ((eps : ℝ) ^ 2 + ∑ ξ ∈ bigXi eps H, (1 / (H : ℝ) ^ 2) *
               ‖(ZMod.dft (fun j : ZMod H => (windowVal H x1 (ZMod.val j) : ℂ))) ξ‖ ^ 2) := by
-  refine ⟨1 + 2 * C₀, by positivity, ?_⟩
   intro eps H _ x1 hx1 hcard
   by_cases hH2 : 2 ≤ H
   · -- main regime: H ≥ 2, so log H > 0
@@ -987,6 +979,29 @@ theorem circle_method_estimate_sq (C₀ : ℝ) (hC₀ : 0 < C₀) :
     rw [hL0, abs_zero]
     have hmid : (H : ℝ) / Real.log (H : ℝ) = 0 := by rw [hlog0, div_zero]
     rw [hmid]; simp
+
+/-- **Stone 1b, the squared circle-method estimate** — the `circle_method_estimate` twin at
+the DIAGONAL window `x₁ = x₂` (the shell's only instantiation), with the major arm's second
+Fourier factor KEPT:
+
+`|Σ_p (1/p) Σ_j x_j x_{j+p}| ≤ C·(H/log H)·(ε² + Σ_{ξ∈Ξ}(1/H²)‖𝓕Φ ξ‖²)`,  `C = 1 + 2C₀`.
+
+Same constant as `circle_method_estimate` (the `hbudget1` block downstream is unchanged);
+the only change is `Σ_{ξ∈Ξ}(1/H)‖𝓕Φ ξ‖ ↦ Σ_{ξ∈Ξ}(1/H²)‖𝓕Φ ξ‖²` — the L² socket that the
+Ξ-summed door consumes K-free. -/
+theorem circle_method_estimate_sq (C₀ : ℝ) (hC₀ : 0 < C₀) :
+    ∃ C : ℝ, 0 < C ∧
+      ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),
+      (∀ i, |x1 i| ≤ 1) →
+      ((primeWindow eps H).card : ℝ)
+          ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) →
+      |∑ p : primeWindow eps H, (1 / (p : ℝ)) *
+          ∑ j ∈ Finset.range H,
+            (windowVal H x1 j : ℝ) * (windowVal H x1 (j + (p : ℕ)) : ℝ)|
+        ≤ C * ((H : ℝ) / Real.log (H : ℝ)) *
+            ((eps : ℝ) ^ 2 + ∑ ξ ∈ bigXi eps H, (1 / (H : ℝ) ^ 2) *
+              ‖(ZMod.dft (fun j : ZMod H => (windowVal H x1 (ZMod.val j) : ℂ))) ξ‖ ^ 2) :=
+  ⟨1 + 2 * C₀, by positivity, circle_method_estimate_sq_at C₀ hC₀⟩
 
 /-! ### ⟦THE `h`-FAMILY ENGINE ROOM⟧ — the circle-method estimate at offset `p·h` (wave W-F2)
 
@@ -1425,40 +1440,11 @@ theorem circle_method_estimate_h_core (h : ℕ) (hh : 0 < h) (C₀ : ℝ) (hC₀
     have hmid : (H : ℝ) / Real.log (H : ℝ) = 0 := by rw [hlog0, div_zero]
     rw [hmid]; simp
 
-/-- **Stone 1b-h, the squared circle-method estimate at offset `p·h`** — `P2` item 7's first
-object, and the top-level twin of `fourier_split_sq_h`.  `circle_method_estimate_sq` at the
-offset `p·h`, over the twisted large-spectrum set:
-
-`|Σ_p (1/p) Σ_j x_j x_{j+p·h}| ≤ C·(H/log H)·(ε² + Σ_{ξ∈Ξ_h}(1/H²)‖𝓕Φ ξ‖²)`,
-`C = h·(1 + 2C₀)`.
-
-DIAGONAL, deliberately: ONE window `x1`, matching `circle_method_estimate_sq` and not
-`circle_method_estimate_h`'s two.  The `_sq` lane's consumers instantiate at `x₁ = x₂`
-(`Salt/Entropy/All.lean`, `SpineFinal.lean`: *"ONE window `x1` — the shell's only
-instantiation"*), and the square in the conclusion IS that diagonality: `Φ₂ = Φ₁` plus the
-reality reflection collapses the major arm's two Fourier factors into `‖𝓕Φ ξ‖²`.
-
-THE CONSTANT.  `h·(1 + 2C₀)`, exactly `circle_method_estimate_h_core`'s, and for the same
-two binding constraints: the wrap multiplies the PERIODIZATION coefficient (the per-prime
-wraparound is now `p·h` places, so `periodization_total_h` gives `h·|𝒫_H|`), giving
-`C ≥ 1 + h·C₀`; and the Fourier arm needs `C ≥ 2C₀`.  Both are met by `h·(1 + 2C₀)` for
-`h ≥ 1` and by no constant of the form `h + 2C₀`.  The remainder that absorbs the slack
-carries the same two coefficients as the L¹ core — `(h − 1 + h·C₀)` and `(h + 2C₀(h − 1))`
-— against `ε²H/log H` and `S/(H·log H)` respectively; only that second denominator differs
-from the L¹ core, and it differs by exactly the L² normaliser.
-
-`0 < h` is CONSUMED TWICE, as in the L¹ core: it makes the constant positive, and at
-`H = 1` the vanishing of the window correlation needs `1 ≤ p·h` (`Nat.mul_pos`).  At `h = 0`
-the statement is FALSE at `H = 1`, not merely unproven.
-
-✅ **CONSUMED AS OF 2026-09-01, ONE LAYER OUT.**  The `bigXiH`-facing wrapper
-`circle_method_estimate_sq_h` (`ShiftFork.lean:432`) restates this core, and
-`log_chowla_two_shell_xi_sq_h` (`Theorem23Shell.lean:624`) consumes THAT.  The wrapper still
-belongs on the `ShiftFork` side and this file still may not name it (that module imports this
-one, so naming its objects here would be an import cycle — the same fence
-`bigXiTwistFilter`'s docstring records); the citation above is prose, not an import. -/
-theorem circle_method_estimate_sq_h_core (h : ℕ) (hh : 0 < h) (C₀ : ℝ) (hC₀ : 0 < C₀) :
-    ∃ C : ℝ, 0 < C ∧
+/-- `circle_method_estimate_sq_h_core` at its explicit constant `C = (h : ℝ) * (1 + 2 * C₀)`:
+the proof of both
+`circle_method_estimate_sq_h_core` and its bounded twin
+`circle_method_estimate_sq_bounded_h_core` (HeadPinLeavesH). -/
+theorem circle_method_estimate_sq_h_core_at (h : ℕ) (hh : 0 < h) (C₀ : ℝ) (hC₀ : 0 < C₀) :
       ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),
       (∀ i, |x1 i| ≤ 1) →
       ((primeWindow eps H).card : ℝ)
@@ -1466,12 +1452,11 @@ theorem circle_method_estimate_sq_h_core (h : ℕ) (hh : 0 < h) (C₀ : ℝ) (hC
       |∑ p : primeWindow eps H, (1 / (p : ℝ)) *
           ∑ j ∈ Finset.range H,
             (windowVal H x1 j : ℝ) * (windowVal H x1 (j + (p : ℕ) * h) : ℝ)|
-        ≤ C * ((H : ℝ) / Real.log (H : ℝ)) *
+        ≤ ((h : ℝ) * (1 + 2 * C₀)) * ((H : ℝ) / Real.log (H : ℝ)) *
             ((eps : ℝ) ^ 2 + ∑ ξ ∈ bigXiTwistFilter h eps H, (1 / (H : ℝ) ^ 2) *
               ‖(ZMod.dft (fun j : ZMod H => (windowVal H x1 (ZMod.val j) : ℂ))) ξ‖ ^ 2) := by
   have hhR : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
   have hh1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
-  refine ⟨(h : ℝ) * (1 + 2 * C₀), mul_pos hhR (by positivity), ?_⟩
   intro eps H _ x1 hx1 hcard
   by_cases hH2 : 2 ≤ H
   · -- main regime: H ≥ 2, so log H > 0
@@ -1588,5 +1573,52 @@ theorem circle_method_estimate_sq_h_core (h : ℕ) (hh : 0 < h) (C₀ : ℝ) (hC
     rw [hL0, abs_zero]
     have hmid : (H : ℝ) / Real.log (H : ℝ) = 0 := by rw [hlog0, div_zero]
     rw [hmid]; simp
+
+/-- **Stone 1b-h, the squared circle-method estimate at offset `p·h`** — `P2` item 7's first
+object, and the top-level twin of `fourier_split_sq_h`.  `circle_method_estimate_sq` at the
+offset `p·h`, over the twisted large-spectrum set:
+
+`|Σ_p (1/p) Σ_j x_j x_{j+p·h}| ≤ C·(H/log H)·(ε² + Σ_{ξ∈Ξ_h}(1/H²)‖𝓕Φ ξ‖²)`,
+`C = h·(1 + 2C₀)`.
+
+DIAGONAL, deliberately: ONE window `x1`, matching `circle_method_estimate_sq` and not
+`circle_method_estimate_h`'s two.  The `_sq` lane's consumers instantiate at `x₁ = x₂`
+(`Salt/Entropy/All.lean`, `SpineFinal.lean`: *"ONE window `x1` — the shell's only
+instantiation"*), and the square in the conclusion IS that diagonality: `Φ₂ = Φ₁` plus the
+reality reflection collapses the major arm's two Fourier factors into `‖𝓕Φ ξ‖²`.
+
+THE CONSTANT.  `h·(1 + 2C₀)`, exactly `circle_method_estimate_h_core`'s, and for the same
+two binding constraints: the wrap multiplies the PERIODIZATION coefficient (the per-prime
+wraparound is now `p·h` places, so `periodization_total_h` gives `h·|𝒫_H|`), giving
+`C ≥ 1 + h·C₀`; and the Fourier arm needs `C ≥ 2C₀`.  Both are met by `h·(1 + 2C₀)` for
+`h ≥ 1` and by no constant of the form `h + 2C₀`.  The remainder that absorbs the slack
+carries the same two coefficients as the L¹ core — `(h − 1 + h·C₀)` and `(h + 2C₀(h − 1))`
+— against `ε²H/log H` and `S/(H·log H)` respectively; only that second denominator differs
+from the L¹ core, and it differs by exactly the L² normaliser.
+
+`0 < h` is CONSUMED TWICE, as in the L¹ core: it makes the constant positive, and at
+`H = 1` the vanishing of the window correlation needs `1 ≤ p·h` (`Nat.mul_pos`).  At `h = 0`
+the statement is FALSE at `H = 1`, not merely unproven.
+
+✅ **CONSUMED AS OF 2026-09-01, ONE LAYER OUT.**  The `bigXiH`-facing wrapper
+`circle_method_estimate_sq_h` (`ShiftFork.lean:432`) restates this core, and
+`log_chowla_two_shell_xi_sq_h` (`Theorem23Shell.lean:624`) consumes THAT.  The wrapper still
+belongs on the `ShiftFork` side and this file still may not name it (that module imports this
+one, so naming its objects here would be an import cycle — the same fence
+`bigXiTwistFilter`'s docstring records); the citation above is prose, not an import. -/
+theorem circle_method_estimate_sq_h_core (h : ℕ) (hh : 0 < h) (C₀ : ℝ) (hC₀ : 0 < C₀) :
+    ∃ C : ℝ, 0 < C ∧
+      ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),
+      (∀ i, |x1 i| ≤ 1) →
+      ((primeWindow eps H).card : ℝ)
+          ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) →
+      |∑ p : primeWindow eps H, (1 / (p : ℝ)) *
+          ∑ j ∈ Finset.range H,
+            (windowVal H x1 j : ℝ) * (windowVal H x1 (j + (p : ℕ) * h) : ℝ)|
+        ≤ C * ((H : ℝ) / Real.log (H : ℝ)) *
+            ((eps : ℝ) ^ 2 + ∑ ξ ∈ bigXiTwistFilter h eps H, (1 / (H : ℝ) ^ 2) *
+              ‖(ZMod.dft (fun j : ZMod H => (windowVal H x1 (ZMod.val j) : ℂ))) ξ‖ ^ 2) :=
+  ⟨(h : ℝ) * (1 + 2 * C₀), mul_pos (by exact_mod_cast hh) (by positivity),
+    circle_method_estimate_sq_h_core_at h hh C₀ hC₀⟩
 
 end Salt.Entropy.Chowla

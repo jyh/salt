@@ -373,23 +373,12 @@ lemma zero_free_extraction2 {θ β A B : ℝ} (hθ : 0 < θ) (hB : 0 < B) (hβ :
 set_option maxHeartbeats 800000 in
 -- The 3-4-1 assembly rewrites heavy `DirichletCharacter.LFunction` terms at three points and
 -- runs a two-case Davenport chain in one declaration; it needs more than the default budget.
-/-- **S3d-b — the quantitative zero-free region, real-character complex-zero case
-(Davenport §14).** There is an explicit constant `c₀ > 0` such that for every real primitive
-Dirichlet character `χ` mod `q` (`χ² = 1`, `χ ≠ 1`), every zero `ρ` of `L(·,χ)` with
-`Re ρ ≥ 1/2` and `Im ρ ≠ 0` satisfies `Re ρ ≤ 1 − c₀ / log(q(|Im ρ| + 2))`.
-Here **`c₀ = 1/126848`** (`δ = 1/15856`, `c₀ = δ/8`).
-
-Route: the 3-4-1 at `σ = 1 + δ/L`; the third term is the principal character
-(`neg_re_logDeriv_trivChar_complex_le`, honest pole `Re(1/(σ−1+2iγ))`); the growth terms
-collapse to `3964·L = (1/4)/(σ−1)`. Case `|γ| ≥ σ−1`: the pole is `≤ (1/4)/(σ−1)` and the
-keep-one bound closes `4/(σ−β) ≤ (7/2)/(σ−1)`. Case `|γ| < σ−1`: the conjugate zero
-(`LFunction_conj_zero`) is retained too (`neg_reLogDeriv_le_keep_two`), its term
-`≥ 1/(5(σ−β))` beats the pole's `≤ 1/(σ−1)`, closing `(24/5)/(σ−β) ≤ (17/4)/(σ−1)`. -/
-theorem zero_free_region_real :
-    ∃ c₀ : ℝ, 0 < c₀ ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsPrimitive →
+/-- `zero_free_region_real` at its explicit constant `c₀ = 1/126848`: the proof of both
+`zero_free_region_real` and its bounded twin `zero_free_region_real_bounded` (NumeralKq). -/
+theorem zero_free_region_real_at :
+    ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsPrimitive →
       χ ^ 2 = 1 → χ ≠ 1 → ∀ {ρ : ℂ}, LFunction χ ρ = 0 → 1 / 2 ≤ ρ.re → ρ.im ≠ 0 →
-        ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
-  refine ⟨1 / 126848, by norm_num, ?_⟩
+        ρ.re ≤ 1 - 1 / 126848 / Real.log ((q : ℝ) * (|ρ.im| + 2)) := by
   intro q hNe χ hχ hsq hχ1 ρ hzero _hre hγ0
   -- basics (mirror S3d)
   have hcond : χ.conductor = q := hχ
@@ -593,6 +582,24 @@ theorem zero_free_region_real :
         rw [heq, div_le_div_iff_of_pos_right hLpos]
         norm_num
       linarith [hext, hh]
+
+/-- **S3d-b — the quantitative zero-free region, real-character complex-zero case
+(Davenport §14).** There is an explicit constant `c₀ > 0` such that for every real primitive
+Dirichlet character `χ` mod `q` (`χ² = 1`, `χ ≠ 1`), every zero `ρ` of `L(·,χ)` with
+`Re ρ ≥ 1/2` and `Im ρ ≠ 0` satisfies `Re ρ ≤ 1 − c₀ / log(q(|Im ρ| + 2))`.
+Here **`c₀ = 1/126848`** (`δ = 1/15856`, `c₀ = δ/8`).
+
+Route: the 3-4-1 at `σ = 1 + δ/L`; the third term is the principal character
+(`neg_re_logDeriv_trivChar_complex_le`, honest pole `Re(1/(σ−1+2iγ))`); the growth terms
+collapse to `3964·L = (1/4)/(σ−1)`. Case `|γ| ≥ σ−1`: the pole is `≤ (1/4)/(σ−1)` and the
+keep-one bound closes `4/(σ−β) ≤ (7/2)/(σ−1)`. Case `|γ| < σ−1`: the conjugate zero
+(`LFunction_conj_zero`) is retained too (`neg_reLogDeriv_le_keep_two`), its term
+`≥ 1/(5(σ−β))` beats the pole's `≤ 1/(σ−1)`, closing `(24/5)/(σ−β) ≤ (17/4)/(σ−1)`. -/
+theorem zero_free_region_real :
+    ∃ c₀ : ℝ, 0 < c₀ ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsPrimitive →
+      χ ^ 2 = 1 → χ ≠ 1 → ∀ {ρ : ℂ}, LFunction χ ρ = 0 → 1 / 2 ≤ ρ.re → ρ.im ≠ 0 →
+        ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)) :=
+  ⟨1 / 126848, by norm_num, zero_free_region_real_at⟩
 
 /-! ## 6. The combined S5-facing region -/
 
