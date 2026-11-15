@@ -751,7 +751,7 @@ the two `+1` leftovers `(3/16)·SP·ε ≤ (1/64)·SP·(H/a)·ε` from `12·a �
 `Σ_p Σ_{j<H} [filter]·(1/p)·X_aff` (`Finset.sum_const`, `Finset.card_filter`), the difference
 distributed, `Finset.abs_sum_le_sum_abs` twice, `per_term_aff` termwise, the boundary sum by
 `card_class_boundary_le H a (p*h)`, `linarith` on the five slices.  `c`, `1/4 ≤ c` and `H₀` are
-`primeWindow_sum_inv_ge_bounded`'s (`HeadPinLeaves.lean:60`, imported for this):
+`primeWindow_sum_inv_ge_bounded`'s (`HeadPinLeaves.lean:68`, imported for this):
 `obtain ⟨c, hc, hcge, H₀, hD3⟩ := primeWindow_sum_inv_ge_bounded; refine ⟨c, hc, hcge, H₀, ?_⟩`
 (`HeadPinLeavesH.lean:66`) — NEVER the unbounded `primeWindow_sum_inv_ge`
 (`WindowMertensLower.lean:249`), whose `1/4` is a witness inside a proof, invisible after `obtain`
@@ -1334,7 +1334,7 @@ theorem consumability_probe_aff (a b h : ℕ) (ha : 0 < a) (eps : ℚ) (H : ℕ)
 /-- **F4-R6d (class A) — THE CAPSTONE COMPOSED: `hreduce_holds_final_h` (`HBudget.lean:1579`) at the
 affine forms.**  `obtain ⟨c, hc, hcge, H₀, hbud⟩ := hbudget_holds_aff;
 refine ⟨c, hc, hcge, H₀, ?_⟩` (the
-`1/4 ≤ c` carry FORWARDED, as `HeadPinLeavesH.lean:87-88`), then `hreduce_holds_aff` at the
+`1/4 ≤ c` carry FORWARDED, as `HeadPinLeavesH.lean:88-89`), then `hreduce_holds_aff` at the
 budget.  This is the `hred` the affine head consumes (its `cE`, WITH `1/4 ≤ cE` — v1.1, verdict
 A1, §3 S-7). -/
 theorem hreduce_holds_final_aff :

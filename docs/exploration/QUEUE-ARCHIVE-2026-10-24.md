@@ -2297,7 +2297,7 @@ RESURRECTS THEM:**
 19t. ⛔⭐⭐⭐ **W-F3 FATAL 1's DEFECT IS NOT ISOLATED — THE CITED SITE IS ONE OF *FOUR* OF ITS KIND. AND NONE OF THE FOUR IS WRONG, WHICH IS THE ENTIRE POINT.** *Census, no new Lean.* Audit of every inline re-derivation of the junk-zero, by what justifies its out-of-range hypothesis:
 ```
   DEGENERATE-BRANCH DERIVED — hge : ¬(j+p < H) by omega, with hH1 : H = 1 in scope
-    CircleMethod:753 · CircleMethod:985 · CircleMethod:1333 (FATAL 1's cited site) · HeadPinLeaves:235
+    CircleMethod:753 · CircleMethod:985 · CircleMethod:1333 (FATAL 1's cited site) · HeadPinLeaves:243
   PER-INDEX AND SOUND — the index bound is an EXPLICIT case hypothesis
     HBudget:386   by_cases hbd : H ≤ j + p → dif_neg (show ¬ j+p < H by omega)
     HBudget:1150  by_cases hbd : H ≤ j + p → dif_neg (Nat.not_lt.mpr hbd)
