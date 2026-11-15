@@ -12,10 +12,11 @@ is `h`-blind and REUSED; the two others are replayed here.
 ⟦WHY THE BODIES ARE REPLAYED, AGAIN⟧  `HeadPinLeaves.lean:30-37` is standing law: the
 constant occurs ANTITONICALLY in every pinned `∃`-leaf, so no consequence of the landed form
 recovers the witness; the only route is to re-run the proof with the numeral kept.
-`hbudget_holds_h` (`HBudget.lean:1203`) draws its `c` from the UNPINNED
+`hbudget_holds_h` (`HBudget.lean:1515`) draws its `c` from the UNPINNED
 `primeWindow_sum_inv_ge`, so `1/4 ≤ cE` is unobtainable by weakening — `hbudget_holds_h_bounded`
-is that body VERBATIM (`HBudget.lean:1203-1486`) over `primeWindow_sum_inv_ge_bounded`, re-emitting
-the conjunct exactly as `hbudget_holds_bounded` does for `h = 1`.
+reads `primeWindow_sum_inv_ge_bounded` instead and re-emits the conjunct, exactly as
+`hbudget_holds_bounded` does for `h = 1`.  Since O13-e (2026-11-14) it does so by calling the
+one proof `HBudget.hbudget_holds_h_of`, not by replaying it (`HeadPinLeaves.lean`'s addendum).
 `circle_method_estimate_sq_bounded_h_core` is `circle_method_estimate_sq_h_core`'s body (cited
 by line as 1366–1508 when written) verbatim with the
 cap conjunct `C ≤ h·(1 + 2·C₀)` at the landed `refine` witness (one extra `le_rfl`), and

@@ -2297,10 +2297,10 @@ RESURRECTS THEM:**
 19t. ⛔⭐⭐⭐ **W-F3 FATAL 1's DEFECT IS NOT ISOLATED — THE CITED SITE IS ONE OF *FOUR* OF ITS KIND. AND NONE OF THE FOUR IS WRONG, WHICH IS THE ENTIRE POINT.** *Census, no new Lean.* Audit of every inline re-derivation of the junk-zero, by what justifies its out-of-range hypothesis:
 ```
   DEGENERATE-BRANCH DERIVED — hge : ¬(j+p < H) by omega, with hH1 : H = 1 in scope
-    CircleMethod:753 · CircleMethod:985 · CircleMethod:1333 (FATAL 1's cited site) · HeadPinLeaves:663
+    CircleMethod:753 · CircleMethod:985 · CircleMethod:1333 (FATAL 1's cited site) · HeadPinLeaves:235
   PER-INDEX AND SOUND — the index bound is an EXPLICIT case hypothesis
     HBudget:386   by_cases hbd : H ≤ j + p → dif_neg (show ¬ j+p < H by omega)
-    HBudget:1128  by_cases hbd : H ≤ j + p → dif_neg (Nat.not_lt.mpr hbd)
+    HBudget:1150  by_cases hbd : H ≤ j + p → dif_neg (Nat.not_lt.mpr hbd)
   UNPRICED — reaches dif_neg through `rw [hb]; simp only`, different shape
     CircleMethod:596
 ```
@@ -4474,7 +4474,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
       epsh_gate_implies_epssq_h  (the c-ceiling rider, HBudget.lean:450)   ⛔ NO AUDIT LINE
     ```
     🔑 ***A COUNT WOULD HAVE READ "33/34" AND I WOULD HAVE MOVED ON. THE NAMED SET IS WHAT FOUND IT.***
-    *The rider landed at 12:5x, was USED at `HBudget.lean:1496`, and nothing checked its axioms until
+    *The rider landed at 12:5x, was USED at `HBudget.lean:1540`, and nothing checked its axioms until
     01:4x.*
     ⛔ **AND THE NEAR-MISS IS THE DOCSTRING-AS-DECLARATION CLASS AGAIN.** A bare-name grep DOES find
     `epsh_gate_implies_epssq_h` in `Salt/Entropy/All.lean:991` — **but that is PROSE, a docstring

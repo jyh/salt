@@ -42,8 +42,8 @@ Two instantiations pay for one replay:
 exported with a LOWER bound only (`1/838400 ≤ δ₀`); a receipt `ρ ≤ δ₀` at an unbounded `δ₀` is
 met by the trivial bound (`‖windowExpSum‖ ≤ H`, so every Ξ-term is `≤ 1` and the sum `≤ |Ξ_H|`),
 i.e. it names no door at all.  The door-head therefore mints the SAME `δ₀` with the leaves'
-witnesses PINNED — `cD3 = 1/4` (`primeWindow_sum_inv_ge_bounded`'s `refine`, HeadPinLeaves:66)
-and `C = 1 + 2·C₀` at `C₀ = 2·log 4` (`circle_method_estimate_sq_bounded`'s, HeadPinLeaves:558)
+witnesses PINNED — `cD3 = 1/4` (`primeWindow_sum_inv_ge_bounded`'s witness, HeadPinLeaves:73)
+and `C = 1 + 2·C₀` at `C₀ = 2·log 4` (`circle_method_estimate_sq_bounded`'s, HeadPinLeaves:130)
 — and closes the ceiling `δ₀ ≤ 1/837782` beside the floor.  It has no tail: the head's tail is
 the only consumer of the leaves' ESTIMATES, and the door-head hands the door out instead of
 spending it on the entropy collision.  The regime it builds is the head's builder at the head's

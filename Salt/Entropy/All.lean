@@ -885,7 +885,7 @@ another hit, so the census gets one file harder to read each time somebody does 
     ⚠️ WITHOUT the trailing whitespace class that pattern returns 4 — `defeq`, `definition`,
     `definitionally`, `defect`: ENGLISH PROSE AT COLUMN 0.  The word boundary is load-bearing.)
 
-⛔ AND THE BYTE-IDENTITY CLAIM CARRIES ONE NAMED EXCEPTION — 15/16, NOT 16/16.  `HBudget:1402`
+⛔ AND THE BYTE-IDENTITY CLAIM CARRIES ONE NAMED EXCEPTION — 15/16, NOT 16/16.  `HBudget:1406`
 spells the shifted offset `(j + p * h) : ℝ)` with a BARE `p`, because it faithfully mirrors the
 FROZEN `(j + p) : ℝ)` at `HBudget:664`.  ⇒ THE FROZEN SIDE WAS NEVER BYTE-UNIFORM EITHER: this
 file holds 14 of `(j + (p : ℕ)) : ℝ)` and 1 of `(j + p) : ℝ)`.  The port was right to mirror the
@@ -1114,7 +1114,8 @@ because nothing at `h ≠ 1` consumed a door.  These two files are that exit's l
 ⚠️ THE LEAVES ARE BODY REPLAYS, NOT WRAPPERS, AND THAT IS FORCED.  `HeadPinLeaves.lean:30-37`
 is standing law here: the pinned constant occurs ANTITONICALLY inside each `∃`-leaf, so NO
 consequence of the landed form recovers the witness — the only route is to re-run the proof
-with the numeral kept.  `hbudget_holds_h_bounded` replays `HBudget.lean:1203-1486` over the
+with the numeral kept.  `hbudget_holds_h_bounded` runs `HBudget.hbudget_holds_h_of` (the body
+`hbudget_holds_h` carried until O13-e, 2026-11-14, now shared, not replayed) over the
 PINNED Mertens leaf (`primeWindow_sum_inv_ge_bounded`) because `hbudget_holds_h` draws its `c`
 from the UNPINNED one and `1/4 ≤ cE` is unobtainable by weakening;
 `circle_method_estimate_sq_bounded_h_core` replays `circle_method_estimate_sq_h_core`'s body

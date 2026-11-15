@@ -18,7 +18,7 @@ witness, with the landed body replayed verbatim underneath:
 
 | twin | landed | conjunct |
 |---|---|---|
-| `primeWindow_sum_inv_ge_bounded` | `WindowMertensLower.lean:56` | `1/4 ≤ c` |
+| `primeWindow_sum_inv_ge_bounded` | `WindowMertensLower.lean:249` | `1/4 ≤ c` |
 | `hbudget_holds_bounded` | `HBudget.lean:448` | `1/4 ≤ c` (carry) |
 | `hreduce_holds_final_bounded` | `HBudget.lean:705` | `1/4 ≤ c` (carry) |
 | `circle_method_estimate_sq_bounded` | `CircleMethod.lean:873` | `C ≤ 1 + 2·C₀` |
@@ -35,6 +35,14 @@ cite `private` helpers of their home files (`window_Z_pos`, `absX_le_one`,
 `window_sum_inv_sq`, `IF_unfold`, `per_term`, `boundary_card_le` from `HBudget`;
 `windowVal_c_norm_le`, `T_collapse`, `periodization_total` from `CircleMethod`),
 reached here by `open private … from … in` — no landed file gains a declaration.
+
+⟦O13-e, 2026-11-14: TWO OF THE FOUR ARE NO LONGER REPLAYS⟧  The argument above rules out
+recovering the witness from the landed `∃`-FORM, not from the landed PROOF.  The proof of
+`primeWindow_sum_inv_ge` is now stated once at its explicit constant
+(`WindowMertensLower.primeWindow_sum_inv_ge_at`), and that of `hbudget_holds` once for any `c`
+with its window bound (`HBudget.hbudget_holds_of`); the landed theorems and their twins here
+are both corollaries, so those two landed files each gained one declaration.
+`hreduce_holds_final_bounded` and `circle_method_estimate_sq_bounded` are still replays.
 
 ⟦WHAT THEY BUY⟧  `1/4 ≤ cD3` and `C ≤ 1 + 2·C₀ = CcmExpr ≤ 6.55` make all four
 `ε`-arms citable at the numeral `ε = 1/500` (`ConstantsExposed.eps_admissible`),
