@@ -862,7 +862,7 @@ literal `(j + (p : ℕ)) : ℝ)` occurs ZERO times.
 POPULATION IS **SIX FILES**, NOT THREE.  Measured (`grep -rF '(j + (p : ℕ) * h) : ℝ)' Salt/`):
 `CircleMethod` · `FBridge` · `OuterCombine` · `Decoupled` · `Transport` · `ShiftFork`.  Two of
 them — `circle_method_estimate_h` (`ShiftFork.lean:412`) and `circle_method_estimate_h_core`
-(`CircleMethod.lean:1242`) — already carried the identical literal BEFORE wave A opened.
+(`CircleMethod.lean:1323`) — already carried the identical literal BEFORE wave A opened.
 ⇒ "THREE SITES" COUNTED WHAT THE ENTROPY CONE HAD TO **MOVE**; IT NEVER COUNTED WHAT MUST
 **AGREE**.  The migration population and the agreement population are different sets, and this
 file asserted the second while enumerating the first.
@@ -912,7 +912,7 @@ a regression: check WHICH declaration owns the new line before reading a rise as
 ⚠️ THE THREE-SITE ROSTER UNDERCOUNTS THE SHIFT-`h` OFFSET POPULATION — census finding, not a
 defect.  Two MORE declarations already spelled the offset at shift `h` before wave A opened:
 `circle_method_estimate_h` (`ShiftFork.lean:404`) and `circle_method_estimate_h_core`
-(`CircleMethod.lean:1234`), both in the TWO-pattern `x1`/`x2` family.  Both already use the
+(`CircleMethod.lean:1323`), both in the TWO-pattern `x1`/`x2` family.  Both already use the
 identical literal, so byte-identity in fact holds across FIVE sites.  The wave's "three sites"
 counts the sites the entropy cone had to MOVE; it is not the census of the sites that must
 AGREE.  A future shift-`h` port should enumerate by the literal, not by the roster.
