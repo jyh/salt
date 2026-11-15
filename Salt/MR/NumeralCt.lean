@@ -86,9 +86,6 @@ theorem shiu_moment_sq_bounded :
         mul_le_mul_of_nonneg_left (block_tauSq_div_sum_le Y₁ (2 * Y) hY₁) (by positivity)
     _ = 2 * Real.exp 14 * (Y : ℝ) := by push_cast; ring
 
-set_option maxHeartbeats 1000000 in
--- The twin re-elaborates the landed statement with one extra conjunct, so it needs the
--- landed declaration's own heartbeat room.
 /-- **⟦Ct BOUNDED TWIN⟧** `blockDiv_sq_div_sq_sum_le` + the conjunct `C ≤ 2 * Real.exp 14`.
 the dyadic Shiu sum, ceiling passed through verbatim. -/
 lemma blockDiv_sq_div_sq_sum_le_bounded :
@@ -96,104 +93,7 @@ lemma blockDiv_sq_div_sq_sum_le_bounded :
       ∑ n ∈ Finset.Icc X M, (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2
         ≤ 3 * C / (X : ℝ) := by
   obtain ⟨C, hC, hCb, hShiu⟩ := shiu_moment_sq_bounded
-  refine ⟨C, hC, hCb, ?_⟩
-  intro Y₁ X M hY₁ hX
-  have hXr : (0 : ℝ) < X := by exact_mod_cast hX
-  -- one dyadic block: Σ_{Y≤n≤2Y} g²/n² ≤ C/Y (shiu_moment_sq + 1/n²≤1/Y²).
-  have block : ∀ Y : ℕ, 1 ≤ Y →
-      ∑ n ∈ Finset.Icc Y (2 * Y), (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2
-        ≤ C / (Y : ℝ) := by
-    intro Y hY
-    have hYr : (0 : ℝ) < Y := by exact_mod_cast hY
-    calc ∑ n ∈ Finset.Icc Y (2 * Y), (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2
-        ≤ ∑ n ∈ Finset.Icc Y (2 * Y), (blockDiv Y₁ n : ℝ) ^ 2 / (Y : ℝ) ^ 2 := by
-          refine Finset.sum_le_sum (fun n hn => ?_)
-          have hYn : (Y : ℝ) ≤ n := by exact_mod_cast (Finset.mem_Icc.mp hn).1
-          gcongr
-      _ = (1 / (Y : ℝ) ^ 2) * ∑ n ∈ Finset.Icc Y (2 * Y), (blockDiv Y₁ n : ℝ) ^ 2 := by
-          rw [Finset.mul_sum]; refine Finset.sum_congr rfl (fun n _ => by ring)
-      _ ≤ (1 / (Y : ℝ) ^ 2) * (C * (Y : ℝ)) :=
-          mul_le_mul_of_nonneg_left (hShiu Y₁ Y hY₁) (by positivity)
-      _ = C / (Y : ℝ) := by field_simp
-  -- induction on K: Σ_{X≤n≤2^K X} g²/n² ≤ (C/X)(3−2/2^K), geometric-slack invariant.
-  have key : ∀ K : ℕ,
-      ∑ n ∈ Finset.Icc X (2 ^ K * X), (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2
-      ≤ (C / (X : ℝ)) * (3 - 2 / (2 : ℝ) ^ K) := by
-    intro K
-    induction K with
-    | zero =>
-      have h1 : Finset.Icc X (2 ^ 0 * X) ⊆ Finset.Icc X (2 * X) := by
-        apply Finset.Icc_subset_Icc_right; simp only [pow_zero, one_mul]; omega
-      calc ∑ n ∈ Finset.Icc X (2 ^ 0 * X), (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2
-          ≤ ∑ n ∈ Finset.Icc X (2 * X), (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2 :=
-            Finset.sum_le_sum_of_subset_of_nonneg h1 (fun _ _ _ => by positivity)
-        _ ≤ C / (X : ℝ) := block X hX
-        _ = (C / (X : ℝ)) * (3 - 2 / (2 : ℝ) ^ 0) := by norm_num
-    | succ K ih =>
-      set Y : ℕ := 2 ^ K * X with hYdef
-      have hYpos : 1 ≤ Y := by rw [hYdef]; exact Nat.mul_pos (by positivity) hX
-      have hYr : (0 : ℝ) < Y := by exact_mod_cast hYpos
-      have hXne : (X : ℝ) ≠ 0 := hXr.ne'
-      have hp0 : (2 : ℝ) ^ K ≠ 0 := by positivity
-      have hYeq : (Y : ℝ) = (2 : ℝ) ^ K * (X : ℝ) := by rw [hYdef]; push_cast; ring
-      have hcover : Finset.Icc X (2 ^ (K + 1) * X)
-          ⊆ Finset.Icc X Y ∪ Finset.Icc Y (2 * Y) := by
-        intro n hn
-        rw [Finset.mem_Icc] at hn
-        have h2Y : 2 ^ (K + 1) * X = 2 * Y := by rw [hYdef]; ring
-        rw [h2Y] at hn
-        rw [Finset.mem_union, Finset.mem_Icc, Finset.mem_Icc]
-        by_cases hnY : n ≤ Y
-        · exact Or.inl ⟨hn.1, hnY⟩
-        · exact Or.inr ⟨by omega, hn.2⟩
-      have hsplit :
-          ∑ n ∈ Finset.Icc X (2 ^ (K + 1) * X), (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2
-          ≤ (∑ n ∈ Finset.Icc X Y, (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2)
-            + ∑ n ∈ Finset.Icc Y (2 * Y), (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2 := by
-        have hle :
-            ∑ n ∈ Finset.Icc X (2 ^ (K + 1) * X), (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2
-            ≤ ∑ n ∈ Finset.Icc X Y ∪ Finset.Icc Y (2 * Y),
-                (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2 :=
-          Finset.sum_le_sum_of_subset_of_nonneg hcover (fun i _ _ => by positivity)
-        have hui : (∑ n ∈ Finset.Icc X Y ∪ Finset.Icc Y (2 * Y),
-                (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2)
-              + (∑ n ∈ Finset.Icc X Y ∩ Finset.Icc Y (2 * Y),
-                (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2)
-            = (∑ n ∈ Finset.Icc X Y, (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2)
-              + ∑ n ∈ Finset.Icc Y (2 * Y), (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2 :=
-          Finset.sum_union_inter
-        have hinter : (0 : ℝ) ≤ ∑ n ∈ Finset.Icc X Y ∩ Finset.Icc Y (2 * Y),
-            (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2 :=
-          Finset.sum_nonneg (fun _ _ => by positivity)
-        linarith [hle, hui, hinter]
-      have hXYr : ∑ n ∈ Finset.Icc X Y, (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2
-          ≤ (C / (X : ℝ)) * (3 - 2 / (2 : ℝ) ^ K) := ih
-      calc ∑ n ∈ Finset.Icc X (2 ^ (K + 1) * X), (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2
-          ≤ (∑ n ∈ Finset.Icc X Y, (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2)
-            + ∑ n ∈ Finset.Icc Y (2 * Y), (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2 := hsplit
-        _ ≤ (C / (X : ℝ)) * (3 - 2 / (2 : ℝ) ^ K)
-              + (C / (X : ℝ)) * (1 / (2 : ℝ) ^ K) := by
-            refine add_le_add hXYr ((block Y hYpos).trans_eq ?_)
-            rw [mul_one_div, div_div, mul_comm (X : ℝ) ((2 : ℝ) ^ K), ← hYeq]
-        _ = (C / (X : ℝ)) * (3 - 2 / (2 : ℝ) ^ (K + 1)) := by
-            have hp : (2 : ℝ) ^ (K + 1) = 2 * (2 : ℝ) ^ K := by rw [pow_succ]; ring
-            rw [hp]; ring
-  -- choose `K = M`, so `M ≤ 2^M·X` and `Icc X M ⊆ Icc X (2^M·X)`.
-  have hMsub : Finset.Icc X M ⊆ Finset.Icc X (2 ^ M * X) := by
-    apply Finset.Icc_subset_Icc_right
-    calc M ≤ 2 ^ M := (Nat.lt_two_pow_self).le
-      _ ≤ 2 ^ M * X := Nat.le_mul_of_pos_right _ hX
-  have hgeo : (0 : ℝ) < 2 / (2 : ℝ) ^ M := by positivity
-  calc ∑ n ∈ Finset.Icc X M, (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2
-      ≤ ∑ n ∈ Finset.Icc X (2 ^ M * X), (blockDiv Y₁ n : ℝ) ^ 2 / (n : ℝ) ^ 2 :=
-        Finset.sum_le_sum_of_subset_of_nonneg hMsub (fun _ _ _ => by positivity)
-    _ ≤ (C / (X : ℝ)) * (3 - 2 / (2 : ℝ) ^ M) := key M
-    _ ≤ 3 * C / (X : ℝ) := by
-        have hCX : (0 : ℝ) ≤ C / (X : ℝ) := by positivity
-        have hstep : (C / (X : ℝ)) * (3 - 2 / (2 : ℝ) ^ M) ≤ (C / (X : ℝ)) * 3 :=
-          mul_le_mul_of_nonneg_left (by linarith [hgeo]) hCX
-        calc (C / (X : ℝ)) * (3 - 2 / (2 : ℝ) ^ M) ≤ (C / (X : ℝ)) * 3 := hstep
-          _ = 3 * C / (X : ℝ) := by ring
+  exact ⟨C, hC, hCb, blockDiv_sq_div_sq_sum_le_of C hC hShiu⟩
 
 set_option maxHeartbeats 1000000 in
 -- The twin re-elaborates the landed statement with one extra conjunct, so it needs the
@@ -350,9 +250,6 @@ theorem cell_bound_raw_bounded :
     _ ≤ (2 * T + 20 * (((2 * Y₁) ^ ℓ * Mr : ℕ) : ℝ))
           * ((ℓ.factorial : ℝ) ^ 2 * (C / ((Y₁ ^ ℓ * X₀ : ℕ) : ℝ))) := hL13
 
-set_option maxHeartbeats 1000000 in
--- The twin re-elaborates the landed statement with one extra conjunct, so it needs the
--- landed declaration's own heartbeat room.
 /-- **⟦Ct BOUNDED TWIN⟧** `cell_bound_pinned` + the conjunct `C ≤ 6 * Real.exp 14`.
 pass-through. -/
 theorem cell_bound_pinned_bounded :
@@ -370,39 +267,7 @@ theorem cell_bound_pinned_bounded :
                 * ((((ellPin (Hseq j) (Hseq (j - 1)) v r).factorial : ℕ) : ℝ) ^ 2
                     * (C / (Xd : ℝ)))) := by
   obtain ⟨C, hC, hCb, hraw⟩ := cell_bound_raw_bounded
-  refine ⟨C, hC, hCb, ?_⟩
-  intro c b Pseq Qseq Hseq αseq J j r N Xd v T A hHp2 hr hXd hT hAm hAsub hAT hb hc
-  set Hp : ℝ := Hseq (j - 1) with hHpdef
-  set ℓ : ℕ := ellPin (Hseq j) Hp v r with hℓdef
-  set Y₁ : ℕ := ⌈Real.exp ((r : ℝ) / Hp)⌉₊ with hY₁def
-  set X₀ : ℕ := ⌈ramRbot (Hseq j) Xd v⌉₊ with hX₀def
-  set Mr : ℕ := ⌈2 * ramRbot (Hseq j) Xd v⌉₊ with hMrdef
-  have hHp0 : (0 : ℝ) < Hp := by rw [hHpdef]; linarith
-  have hXdR : (0 : ℝ) < (Xd : ℝ) := by exact_mod_cast hXd
-  have hbot : 0 < ramRbot (Hseq j) Xd v := by rw [ramRbot]; positivity
-  have hY₁1 : 1 ≤ Y₁ := Nat.ceil_pos.mpr (Real.exp_pos _)
-  have hX₀1 : 1 ≤ X₀ := Nat.ceil_pos.mpr hbot
-  have hstep := hraw c b Pseq Qseq Hseq αseq J j r ℓ N Xd v Y₁ Mr X₀ T A hY₁1 hX₀1 hT
-    hAm hAsub hAT (ramQblock_subset_dyadic_block Hp hHp2 (Pseq (j - 1)) (Qseq (j - 1)) r)
-    (ramRrange_ceil_bot_le (Hseq j) N Xd v)
-    (ramRrange_subset_Icc_sharp (Hseq j) N Xd v Mr (Nat.le_ceil _)) hb hc
-  refine le_trans hstep ?_
-  -- THE PIN'S SECOND FACE: the Lemma-13 denominator is at least the row length
-  have hden : (Xd : ℝ) ≤ ((Y₁ ^ ℓ * X₀ : ℕ) : ℝ) := by
-    have h := ellPin_window_bottom_ge (Hseq j) Hp v r Xd hHp0 hr
-    push_cast
-    exact h
-  have hdenpos : (0 : ℝ) < ((Y₁ ^ ℓ * X₀ : ℕ) : ℝ) := lt_of_lt_of_le hXdR hden
-  have hCdiv : C / ((Y₁ ^ ℓ * X₀ : ℕ) : ℝ) ≤ C / (Xd : ℝ) :=
-    (div_le_div_iff_of_pos_left hC hdenpos hXdR).mpr hden
-  have hfacnn : (0 : ℝ) ≤ ((ℓ.factorial : ℕ) : ℝ) ^ 2 := by positivity
-  have hprenn : (0 : ℝ) ≤ 2 * T + 20 * (((2 * Y₁) ^ ℓ * Mr : ℕ) : ℝ) := by
-    have : (0 : ℝ) ≤ (((2 * Y₁) ^ ℓ * Mr : ℕ) : ℝ) := Nat.cast_nonneg _
-    linarith
-  have hE0 : (0 : ℝ) ≤ Real.exp (2 * (ℓ : ℝ) * αseq (j - 1) * (r : ℝ) / Hp) :=
-    (Real.exp_pos _).le
-  refine mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left ?_ hprenn) hE0
-  exact mul_le_mul_of_nonneg_left hCdiv hfacnn
+  exact ⟨C, hC, hCb, cell_bound_pinned_of C hC hraw⟩
 
 set_option maxHeartbeats 1600000 in
 -- The twin re-elaborates the landed statement with one extra conjunct, so it needs the
@@ -631,9 +496,6 @@ theorem Ej_bound_gen_bounded :
     (by positivity : (0:ℝ) ≤ 2 * ((ramI (Hseq j) (Pseq j) (Qseq j)).card : ℝ))
   linarith [hL12, hscaled, hmain]
 
-set_option maxHeartbeats 1600000 in
--- The twin re-elaborates the landed statement with one extra conjunct, so it needs the
--- landed declaration's own heartbeat room.
 /-- **⟦Ct BOUNDED TWIN⟧** `TLeg_bound_gen` + the conjunct `C ≤ 6 * Real.exp 14`.
 pass-through. -/
 theorem TLeg_bound_gen_bounded :
@@ -663,58 +525,7 @@ theorem TLeg_bound_gen_bounded :
           + 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240) * (1 / (P1 : ℝ))
           + ∑ j ∈ Finset.Icc 1 Jb, row j := by
   obtain ⟨C, hC, hCb, hEj⟩ := Ej_bound_gen_bounded
-  refine ⟨C, hC, hCb, ?_⟩
-  intro c a b Pseq Qseq Hseq η Jb N Xd P1 X T t₁ row hη h6 hJb hXd hT hP1 hG
-    hH1 hP1s hPQ1 hbot1 hb hc hrow
-  have hXdR : (0 : ℝ) < (Xd : ℝ) := by exact_mod_cast hXd
-  obtain ⟨hα1, hα1', -⟩ := alpha_gates_from_eta η hη h6
-  -- ⟦THE SPLIT OVER THE DISJOINT LEVELS⟧
-  have hAm : MeasurableSet (seamAnn X T \ seamBall X t₁) :=
-    (measurableSet_seamAnn X T).diff (measurableSet_seamBall X t₁)
-  have hAsub : seamAnn X T \ seamBall X t₁ ⊆ Set.Icc (-T) T :=
-    fun _ ht => seamAnn_subset_Icc X T ht.1
-  have hadd := seam_T_additivityG (f := c) (Pseq := Pseq) (Qseq := Qseq) (Hseq := Hseq)
-    (αseq := mrAlpha η) (J := Jb) (F := fun t : ℝ => ‖spoly N a t‖ ^ 2)
-    ((continuous_spoly N a).norm.pow 2) hT hAm hAsub
-  have hIcc : Finset.Icc 1 Jb = insert 1 (Finset.Icc 2 Jb) := by
-    ext x
-    simp only [Finset.mem_Icc, Finset.mem_insert]
-    omega
-  have hnotmem : (1 : ℕ) ∉ Finset.Icc 2 Jb := by simp
-  -- ⟦LEVEL 1: MR §8.1 at the pins⟧
-  have h1 := E1_pin_gen c Pseq Qseq Hseq (mrAlpha η) Jb hH1 hα1 hα1' N Xd hXd hP1s hPQ1 a (b 1)
-    (hb 1) X T t₁ hT hbot1 (row 1) (hrow 1 (by simp [Finset.mem_Icc]; omega))
-  -- ⟦LEVELS `j ≥ 2`: MR §8.2⟧
-  have h2 : ∀ j ∈ Finset.Icc 2 Jb,
-      (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
-          ‖spoly N a t‖ ^ 2)
-        ≤ (1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)) * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
-          + row j := by
-    intro j hj
-    have hj1 : j ∈ Finset.Icc 1 Jb := by
-      rw [Finset.mem_Icc] at hj ⊢
-      omega
-    have h := hEj c a (b j) Pseq Qseq Hseq η Jb j N Xd P1 X T t₁ (row j) (hG j hj) hXd hT
-      (hb j) hc (hrow j hj1)
-    calc (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
-            ‖spoly N a t‖ ^ 2)
-        ≤ 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)
-              * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
-            + row j := h
-      _ = (1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)) * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
-            + row j := by ring
-  have hK0 : (0 : ℝ) ≤ 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240) := by
-    have hTX0 : (0 : ℝ) ≤ 2 * T / (Xd : ℝ) + 240 := by
-      have h : (0 : ℝ) ≤ 2 * T / (Xd : ℝ) := div_nonneg (by linarith) hXdR.le
-      linarith
-    exact mul_nonneg (mul_nonneg (by linarith : (0:ℝ) ≤ 1536 * C) (Real.exp_pos 3).le) hTX0
-  have hcol := sum_Ej_collected (1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)) hK0 P1 Jb hP1
-    (fun j => ∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
-      ‖spoly N a t‖ ^ 2)
-    (fun j => row j) h2
-  -- ⟦THE ASSEMBLY⟧
-  rw [hadd, hIcc, Finset.sum_insert hnotmem, Finset.sum_insert hnotmem]
-  linarith [h1, hcol]
+  exact ⟨C, hC, hCb, TLeg_bound_gen_of C hC hEj⟩
 
 set_option maxHeartbeats 1600000 in
 -- The twin re-elaborates the landed statement with one extra conjunct, so it needs the

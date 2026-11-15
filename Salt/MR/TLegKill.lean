@@ -974,21 +974,23 @@ theorem cell_bound_raw :
     _ ≤ (2 * T + 20 * (((2 * Y₁) ^ ℓ * Mr : ℕ) : ℝ))
           * ((ℓ.factorial : ℝ) ^ 2 * (C / ((Y₁ ^ ℓ * X₀ : ℕ) : ℝ))) := hL13
 
-/-- **G4e — THE ASSEMBLED CELL AT THE PIN: MR's `T/X` recovered.**  `cell_bound_raw` at
-`ℓ = ℓ_{j,r}` and MR's own calibration `Y₁ = ⌈e^{r/H_{j−1}}⌉`, `X₀ = ⌈X_d e^{−v/H_j}⌉`,
-`M_r = ⌈2X_d e^{−v/H_j}⌉`:
-
-  `∫_{A}‖R_{v,H_j}(1+it)‖² dt
-     ≤ e^{2ℓ_{j,r}α_{j−1}r/H_{j−1}}·(2T + 20(2Y₁)^{ℓ}M_r)·(ℓ_{j,r}!²·C/X_d)`.
-
-The denominator is `X_d`, not `Y₁^{ℓ}X₀` — THE PIN'S SECOND FACE
-(`ellPin_window_bottom_ge`) is what buys it, and it is exactly MR's `T/X` prefactor.  All
-three of `mix_moment`'s window gates are DISCHARGED here from the calibration
-(`ramQblock_subset_dyadic_block` at `H_{j−1} ≥ 2`, `ramRrange_ceil_bot_le`,
-`ramRrange_subset_Icc_sharp`); the caller carries only `2 ≤ H_{j−1}`, `0 < r`, `1 ≤ X_d`,
-the measure frame and the `1`-boundedness of the two data. -/
-theorem cell_bound_pinned :
-    ∃ C : ℝ, 0 < C ∧ ∀ (c b : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ)
+/-- `cell_bound_pinned` for ANY constant `C` with `cell_bound_raw`'s property (`hraw`):
+the proof of both
+`cell_bound_pinned` and its bounded twin `cell_bound_pinned_bounded`. -/
+theorem cell_bound_pinned_of (C : ℝ) (hC : 0 < C)
+    (hraw : ∀ (c b : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ)
+      (J j r ℓ N Xd v Y₁ Mr X₀ : ℕ) (T : ℝ) (A : Set ℝ),
+      1 ≤ Y₁ → 1 ≤ X₀ → 0 ≤ T → MeasurableSet A → A ⊆ Set.Icc (-T) T →
+      A ⊆ TsetGr c Pseq Qseq Hseq αseq J j r →
+      (∀ p ∈ ramQblock (Hseq (j - 1)) (Pseq (j - 1)) (Qseq (j - 1)) r, Y₁ ≤ p ∧ p ≤ 2 * Y₁) →
+      (∀ m ∈ ramRrange (Hseq j) N Xd v, X₀ ≤ m) →
+      ramRrange (Hseq j) N Xd v ⊆ Finset.Icc 1 Mr →
+      (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∫ t in A, ‖ramR (Hseq j) N Xd (Pseq j) (Qseq j) v b t‖ ^ 2)
+        ≤ Real.exp (2 * (ℓ : ℝ) * αseq (j - 1) * (r : ℝ) / Hseq (j - 1))
+            * ((2 * T + 20 * (((2 * Y₁) ^ ℓ * Mr : ℕ) : ℝ))
+                * ((ℓ.factorial : ℝ) ^ 2 * (C / ((Y₁ ^ ℓ * X₀ : ℕ) : ℝ))))) :
+    ∀ (c b : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ)
       (J j r N Xd v : ℕ) (T : ℝ) (A : Set ℝ),
       2 ≤ Hseq (j - 1) → 0 < r → 1 ≤ Xd → 0 ≤ T →
       MeasurableSet A → A ⊆ Set.Icc (-T) T → A ⊆ TsetGr c Pseq Qseq Hseq αseq J j r →
@@ -1001,8 +1003,6 @@ theorem cell_bound_pinned :
                     * ⌈2 * ramRbot (Hseq j) Xd v⌉₊ : ℕ) : ℝ))
                 * ((((ellPin (Hseq j) (Hseq (j - 1)) v r).factorial : ℕ) : ℝ) ^ 2
                     * (C / (Xd : ℝ)))) := by
-  obtain ⟨C, hC, hraw⟩ := cell_bound_raw
-  refine ⟨C, hC, ?_⟩
   intro c b Pseq Qseq Hseq αseq J j r N Xd v T A hHp2 hr hXd hT hAm hAsub hAT hb hc
   set Hp : ℝ := Hseq (j - 1) with hHpdef
   set ℓ : ℕ := ellPin (Hseq j) Hp v r with hℓdef
@@ -1035,5 +1035,35 @@ theorem cell_bound_pinned :
     (Real.exp_pos _).le
   refine mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left ?_ hprenn) hE0
   exact mul_le_mul_of_nonneg_left hCdiv hfacnn
+
+/-- **G4e — THE ASSEMBLED CELL AT THE PIN: MR's `T/X` recovered.**  `cell_bound_raw` at
+`ℓ = ℓ_{j,r}` and MR's own calibration `Y₁ = ⌈e^{r/H_{j−1}}⌉`, `X₀ = ⌈X_d e^{−v/H_j}⌉`,
+`M_r = ⌈2X_d e^{−v/H_j}⌉`:
+
+  `∫_{A}‖R_{v,H_j}(1+it)‖² dt
+     ≤ e^{2ℓ_{j,r}α_{j−1}r/H_{j−1}}·(2T + 20(2Y₁)^{ℓ}M_r)·(ℓ_{j,r}!²·C/X_d)`.
+
+The denominator is `X_d`, not `Y₁^{ℓ}X₀` — THE PIN'S SECOND FACE
+(`ellPin_window_bottom_ge`) is what buys it, and it is exactly MR's `T/X` prefactor.  All
+three of `mix_moment`'s window gates are DISCHARGED here from the calibration
+(`ramQblock_subset_dyadic_block` at `H_{j−1} ≥ 2`, `ramRrange_ceil_bot_le`,
+`ramRrange_subset_Icc_sharp`); the caller carries only `2 ≤ H_{j−1}`, `0 < r`, `1 ≤ X_d`,
+the measure frame and the `1`-boundedness of the two data. -/
+theorem cell_bound_pinned :
+    ∃ C : ℝ, 0 < C ∧ ∀ (c b : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ)
+      (J j r N Xd v : ℕ) (T : ℝ) (A : Set ℝ),
+      2 ≤ Hseq (j - 1) → 0 < r → 1 ≤ Xd → 0 ≤ T →
+      MeasurableSet A → A ⊆ Set.Icc (-T) T → A ⊆ TsetGr c Pseq Qseq Hseq αseq J j r →
+      (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∫ t in A, ‖ramR (Hseq j) N Xd (Pseq j) (Qseq j) v b t‖ ^ 2)
+        ≤ Real.exp (2 * ((ellPin (Hseq j) (Hseq (j - 1)) v r : ℕ) : ℝ) * αseq (j - 1)
+              * (r : ℝ) / Hseq (j - 1))
+            * ((2 * T + 20 * (((2 * ⌈Real.exp ((r : ℝ) / Hseq (j - 1))⌉₊)
+                      ^ (ellPin (Hseq j) (Hseq (j - 1)) v r)
+                    * ⌈2 * ramRbot (Hseq j) Xd v⌉₊ : ℕ) : ℝ))
+                * ((((ellPin (Hseq j) (Hseq (j - 1)) v r).factorial : ℕ) : ℝ) ^ 2
+                    * (C / (Xd : ℝ)))) := by
+  obtain ⟨C, hC, hraw⟩ := cell_bound_raw
+  exact ⟨C, hC, cell_bound_pinned_of C hC hraw⟩
 
 end Salt.MR
