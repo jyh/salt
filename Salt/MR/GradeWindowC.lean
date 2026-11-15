@@ -272,21 +272,6 @@ theorem jointIntegrableAtC_pin_free {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
 `GradeConst`'s / `SupClose`'s pin arithmetic, re-derived verbatim under a `W` suffix (both
 files keep it `private`). -/
 
-/-- `4·log L ≤ L` for `L ≥ 64`.  Re-derivation of `GradeConst`'s private
-`four_log_le_selfC`. -/
-private lemma four_log_le_selfW {L : ℝ} (h : 64 ≤ L) : 4 * Real.log L ≤ L := by
-  have hL0 : (0 : ℝ) < L := by linarith
-  have hs0 : (0 : ℝ) < Real.sqrt L := Real.sqrt_pos.mpr hL0
-  have hs8 : (8 : ℝ) ≤ Real.sqrt L := by
-    have h64 : Real.sqrt 64 = 8 := by
-      rw [show (64 : ℝ) = 8 ^ 2 from by norm_num, Real.sqrt_sq (by norm_num)]
-    rw [← h64]
-    exact Real.sqrt_le_sqrt h
-  have hlog : Real.log (Real.sqrt L) ≤ Real.sqrt L - 1 := Real.log_le_sub_one_of_pos hs0
-  have hhalf : Real.log (Real.sqrt L) = Real.log L / 2 := Real.log_sqrt hL0.le
-  have hsq : Real.sqrt L * Real.sqrt L = L := Real.mul_self_sqrt hL0.le
-  nlinarith
-
 /-- The pin's elementary arithmetic at the `e^{64}` gate.  Re-derivation of `GradeConst`'s
 private `pin_basic64`. -/
 private lemma pin_basic64W {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Real.log k)
@@ -313,9 +298,9 @@ private lemma pin_basic64W {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = R
   · rw [hη, hlogy, div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 8)]
     linarith
   · rw [hη, hlogy, div_le_div_iff₀ hL0 (by linarith)]
-    linarith [four_log_le_selfW hL64]
+    linarith [four_log_le_self hL64]
   · have h1 : Real.log (L ^ 4) ≤ Real.log k := by
-      rw [Real.log_pow, ← hL]; push_cast; linarith [four_log_le_selfW hL64]
+      rw [Real.log_pow, ← hL]; push_cast; linarith [four_log_le_self hL64]
     have h2 := Real.exp_le_exp.mpr h1
     rwa [Real.exp_log (by positivity), Real.exp_log hk0] at h2
 
@@ -720,37 +705,9 @@ theorem center_halasz_supply_B_uniform {g : ℕ → ℂ} (hg : ∀ p, p.Prime �
   refine ⟨max (max (XA + 1) XB) (Real.exp 8),
     lt_of_lt_of_le (Real.exp_pos 8) (le_max_right _ _), ?_⟩
   intro t₁ X N B hXlb hXN hN2 hB0 hRHS k hkfl hkN
-  -- the threshold split
-  have hX8 : Real.exp 8 ≤ X := le_trans (le_max_right _ _) hXlb
-  have hXA1 : XA + 1 ≤ X := le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hXlb
-  have hXB : XB ≤ X := le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hXlb
-  have hX25 : (25 : ℝ) ≤ X := le_trans twentyfive_le_exp_eight hX8
-  have hX0 : (0 : ℝ) < X := by linarith
-  -- the dyadic `k`-window
-  have hfl : X < (⌊X⌋₊ : ℝ) + 1 := Nat.lt_floor_add_one X
-  have hk1 : X - 1 < (k : ℝ) := by
-    have h : ((⌊X⌋₊ : ℕ) : ℝ) ≤ (k : ℝ) := Nat.cast_le.mpr hkfl
-    linarith
-  have hk2 : (k : ℝ) ≤ 2 * X := le_trans (Nat.cast_le.mpr hkN) hN2
-  have hkXA : XA ≤ (k : ℝ) := by linarith
-  have hk0 : (0 : ℝ) < (k : ℝ) := by linarith
-  have hk1le : (1 : ℝ) ≤ (k : ℝ) := by linarith
-  -- `log k ≥ 1` (the window: `log k ≥ log X − log 2 ≥ 8 − 0.7`)
-  have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hL8 : (8 : ℝ) ≤ Real.log X := le_log_of_exp_le hX8
-  have hLklo : Real.log X - Real.log 2 ≤ Real.log (k : ℝ) := by
-    have h1 : Real.log (X / 2) ≤ Real.log (k : ℝ) :=
-      Real.log_le_log (by linarith) (by linarith)
-    rwa [Real.log_div (by linarith) (by norm_num)] at h1
-  have hLk1 : (1 : ℝ) ≤ Real.log (k : ℝ) := by linarith
-  have hLk0 : (0 : ℝ) < Real.log (k : ℝ) := by linarith
-  have hsqLk1 : (1 : ℝ) ≤ Real.sqrt (Real.log (k : ℝ)) := by
-    rw [show (1 : ℝ) = Real.sqrt 1 from Real.sqrt_one.symm]
-    exact Real.sqrt_le_sqrt hLk1
-  have hsqLk0 : (0 : ℝ) < Real.sqrt (Real.log (k : ℝ)) := by linarith
-  have hh0 : (0 : ℝ) < (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) := by positivity
-  have hhX : (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) ≤ (k : ℝ) := by
-    rw [div_le_iff₀ hsqLk0]; nlinarith
+  -- the threshold split and the dyadic `k`-window (`dyadic_window_facts`)
+  obtain ⟨hX8, hXA1, hXB, hX25, hX0, hfl, hk1, hk2, hkXA, hk0, hk1le, hlog2hi, hL8, hLklo, hLk1,
+    hLk0, hsqLk1, hsqLk0, hh0, hhX⟩ := dyadic_window_facts hXlb hkfl hkN hN2
   -- the two landed legs, at scale `k`
   have hdes := prop21_desmooth_reduction (f := ellLin g) (gJ := fun _ => 1) (t₀ + t₁)
     (fun n => ellLin_norm_le_one g hg n) (fun _ => by simp)
