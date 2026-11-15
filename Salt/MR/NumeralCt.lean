@@ -44,10 +44,10 @@ open scoped BigOperators
 open MeasureTheory intervalIntegral Complex
 open Finset
 
--- ⟦BYTE-FAITHFUL REPLAY⟧ every proof body below is the landed proof, copied verbatim so
--- that the twin is auditable against its original line for line; the long lines are the
--- originals' own, and reflowing them would destroy exactly the property that makes the
--- replay checkable.  (Same device as `Salt/Chen/SuperPanelsO.lean`.)
+-- ⟦BYTE-FAITHFUL REPLAY⟧ each proof body below is the landed proof, copied verbatim (the long
+-- lines are the originals'; reflowing them would break the line-for-line audit), EXCEPT where a
+-- base now states its proof once as an `…_at` / `…_of` lemma (O13-e, 2026-11-15): that twin is a
+-- short instance of the lemma.  (Same device as `Salt/Chen/SuperPanelsO.lean`.)
 set_option linter.style.longLine false
 
 namespace Salt.MR

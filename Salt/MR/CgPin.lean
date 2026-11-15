@@ -74,7 +74,7 @@ theorem card_blockfree_le_bounded :
   have hmax : C₀ ≤ max C₀ 1 := le_max_left _ _
   nlinarith [mul_nonneg hratio hXnn]
 
-/-- **Link 3** — `SieveGlue.hsieve_of_engine` (`SieveGlue.lean:513`), verbatim re-emit. -/
+/-- **Link 3** — `SieveGlue.hsieve_of_engine` (`SieveGlue.lean:513`), statement re-emitted. -/
 theorem hsieve_of_engine_bounded :
     ∃ C : ℝ, 1 ≤ C ∧ C ≤ 2 * 10 ^ 12 ∧ ∀ (A G M J X : ℕ) (Nlg : Finset ℕ),
       1 ≤ A → 1 ≤ G → 1 ≤ M →
