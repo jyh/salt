@@ -89,8 +89,8 @@ private lemma list_sum_map_div {γ : Type*} (l : List γ) (f : γ → ℝ) (c : 
 
 /-- Swap a `Finset` sum over the box `B` with an inner `List` sum over `P` (induction on `P`,
 `Finset.sum_add_distrib`). -/
-private lemma sum_finset_list_swap {γ : Type*} (B : Finset (Fin 5 → ℕ))
-    (P : List γ) (f : γ → (Fin 5 → ℕ) → ℝ) :
+private lemma sum_finset_list_swap {k : ℕ} {γ : Type*} (B : Finset (Fin k → ℕ))
+    (P : List γ) (f : γ → (Fin k → ℕ) → ℝ) :
     ∑ r ∈ B, (P.map (fun m => f m r)).sum = (P.map (fun m => ∑ r ∈ B, f m r)).sum := by
   induction P with
   | nil => simp
@@ -199,28 +199,25 @@ private lemma prime_tail (D R : ℕ) (hD : 3 ≤ D) :
 /-! ## The relative pairwise-collision bound (Stage 2 kernel, `mv_I` side)
 
 Truncation of the landed `Salt.Twelve.badpair_bound` (`MvI.lean`, `private`):
-each of the five coordinate factors `∑_{g_k ∣ s} 1/φ(s)` is bounded by
+each of the `k` coordinate factors `∑_{g_k ∣ s} 1/φ(s)` is bounded by
 `marked_sqf_phi_rel` at `s = g k`, `a = 0`, `z = R`, giving `(1/φ(g_k))·PAS`
 with NO opaque constant. -/
 
-/-- **The relative pairwise-collision bound** (the `mv_I` side of Stage 2). Over the decoupled
-box `decBox 5 R W'`, the tuples with `p ∣ r i` and `p ∣ r j` for a prime `p` (`hp`) and two
-distinct coordinates (`hij`) have `Σ ∏_k 1/φ(r k) ≤ (phiAtomSum R W')⁵/(p − 1)²`. The filtered
-box sits inside the product of the five coordinate sets
-`{s < R : square-free, coprime to W', g k ∣ s}` with `g = p` at `i, j` and `1` elsewhere
-(`Finset.prod_univ_sum`); `marked_sqf_phi_rel` at `a = 0`, `z = R` (`hW'`, `hpos`, `hR2`) bounds
-each coordinate sum by `PAS/φ(g k)`, which is `PAS/(p − 1)` twice (`Nat.totient_prime`) and
-`PAS` three times. The truncation of `MvI`'s `badpair_bound`: its `c₀·log R` per coordinate
-becomes `PAS`, with no opaque constant. -/
-private lemma badpair_bound_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
-    (R : ℕ) (hR2 : 2 ≤ R) (i j : Fin 5) (hij : i ≠ j) (p : ℕ) (hp : Nat.Prime p) :
-    ∑ r ∈ (decBox 5 R W').filter (fun r => p ∣ r i ∧ p ∣ r j),
+/-- The relative pairwise-collision bound at general `k`: for squarefree `W' > 0`, `R ≥ 2`, distinct
+coordinates `i ≠ j` and a prime `p`, the sum of `∏ₖ 1/φ(rₖ)` over the decimated box restricted
+to `p ∣ rᵢ ∧ p ∣ rⱼ` is at most `phiAtomSum R W' ^ k / (p − 1)²` — `Salt.Twelve.badpair_bound`
+truncated, with no opaque constant.
+-/
+private lemma badpair_bound_rel_gen (k : ℕ) (hk : 2 ≤ k) (W' : ℕ) (hW' : Squarefree W')
+        (hpos : 0 < W')
+    (R : ℕ) (hR2 : 2 ≤ R) (i j : Fin k) (hij : i ≠ j) (p : ℕ) (hp : Nat.Prime p) :
+    ∑ r ∈ (decBox k R W').filter (fun r => p ∣ r i ∧ p ∣ r j),
         ∏ k, (1 / (Nat.totient (r k) : ℝ))
-      ≤ (Salt.Maynard.phiAtomSum R W') ^ 5 / ((p:ℝ) - 1) ^ 2 := by
+      ≤ (Salt.Maynard.phiAtomSum R W') ^ k / ((p:ℝ) - 1) ^ 2 := by
   classical
   set PAS : ℝ := Salt.Maynard.phiAtomSum R W' with hPASdef
   have hPAS0 : 0 ≤ PAS := pas_nonneg R W'
-  set g : Fin 5 → ℕ := fun k => if k = i ∨ k = j then p else 1 with hg
+  set g : Fin k → ℕ := fun k => if k = i ∨ k = j then p else 1 with hg
   have hp2 : 2 ≤ p := hp.two_le
   have hp1R : (0:ℝ) < (p:ℝ) - 1 := by
     have : (2:ℝ) ≤ (p:ℝ) := by exact_mod_cast hp2
@@ -229,13 +226,13 @@ private lemma badpair_bound_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     intro k; simp only [hg]; split
     · exact hp.pos
     · exact one_pos
-  set coordSet : Fin 5 → Finset ℕ := fun k =>
+  set coordSet : Fin k → Finset ℕ := fun k =>
     (Finset.range R).filter (fun s => Squarefree s ∧ s.Coprime W' ∧ g k ∣ s) with hcoord
-  have hstepA : ∑ r ∈ (decBox 5 R W').filter (fun r => p ∣ r i ∧ p ∣ r j),
+  have hstepA : ∑ r ∈ (decBox k R W').filter (fun r => p ∣ r i ∧ p ∣ r j),
         ∏ k, (1 / (Nat.totient (r k) : ℝ))
       ≤ ∏ k, ∑ s ∈ coordSet k, (1 / (Nat.totient s : ℝ)) := by
     exact decBox_filter_pair_le_prod i j (fun s => 1 / (Nat.totient s : ℝ)) (fun s => by positivity)
-  set h : Fin 5 → ℝ := fun k => ∑ s ∈ coordSet k, (1 / (Nat.totient s : ℝ)) with hh
+  set h : Fin k → ℝ := fun k => ∑ s ∈ coordSet k, (1 / (Nat.totient s : ℝ)) with hh
   have hhnn : ∀ k, 0 ≤ h k := fun k => Finset.sum_nonneg (fun s _ => by positivity)
   have hhle : ∀ k, h k ≤ (1 / (Nat.totient (g k) : ℝ)) * PAS := by
     intro k
@@ -266,79 +263,72 @@ private lemma badpair_bound_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
   have hsplit : ∏ k, h k = h i * (h j * ∏ k ∈ (Finset.univ.erase i).erase j, h k) := by
     rw [← Finset.mul_prod_erase Finset.univ h (Finset.mem_univ i),
         ← Finset.mul_prod_erase (Finset.univ.erase i) h hjmem]
-  have hcard : ((Finset.univ.erase i).erase j).card = 3 := by
+  have hcard : ((Finset.univ.erase i).erase j).card = k - 2 := by
     rw [Finset.card_erase_of_mem hjmem, Finset.card_erase_of_mem (Finset.mem_univ i)]
-    simp
-  have hprodrest : ∏ k ∈ (Finset.univ.erase i).erase j, h k ≤ PAS ^ 3 := by
+    simp; omega
+  have hprodrest : ∏ k ∈ (Finset.univ.erase i).erase j, h k ≤ PAS ^ (k - 2) := by
     calc ∏ k ∈ (Finset.univ.erase i).erase j, h k
         ≤ ∏ _k ∈ (Finset.univ.erase i).erase j, PAS :=
           Finset.prod_le_prod (fun k _ => hhnn k) hother
-      _ = PAS ^ 3 := by rw [Finset.prod_const, hcard]
+      _ = PAS ^ (k - 2) := by rw [Finset.prod_const, hcard]
   have hbnd : ∏ k, h k
-      ≤ (PAS / ((p:ℝ) - 1)) * ((PAS / ((p:ℝ) - 1)) * PAS ^ 3) := by
+      ≤ (PAS / ((p:ℝ) - 1)) * ((PAS / ((p:ℝ) - 1)) * PAS ^ (k - 2)) := by
     rw [hsplit]
     apply mul_le_mul hi_le _ (mul_nonneg (hhnn j) (Finset.prod_nonneg (fun k _ => hhnn k)))
       (div_nonneg hPAS0 hp1R.le)
     apply mul_le_mul hj_le hprodrest (Finset.prod_nonneg (fun k _ => hhnn k))
       (div_nonneg hPAS0 hp1R.le)
-  have hfinal : (PAS / ((p:ℝ) - 1)) * ((PAS / ((p:ℝ) - 1)) * PAS ^ 3)
-      = PAS ^ 5 / ((p:ℝ) - 1) ^ 2 := by
+  have hfinal : (PAS / ((p:ℝ) - 1)) * ((PAS / ((p:ℝ) - 1)) * PAS ^ (k - 2))
+      = PAS ^ k / ((p:ℝ) - 1) ^ 2 := by
     have hne : (p:ℝ) - 1 ≠ 0 := ne_of_gt hp1R
+    have e : PAS ^ k = PAS ^ (k - 2) * PAS ^ 2 := by
+      rw [← pow_add]; congr 1; omega
+    rw [e]
     field_simp
-  calc ∑ r ∈ (decBox 5 R W').filter (fun r => p ∣ r i ∧ p ∣ r j),
+  calc ∑ r ∈ (decBox k R W').filter (fun r => p ∣ r i ∧ p ∣ r j),
         ∏ k, (1 / (Nat.totient (r k) : ℝ))
       ≤ ∏ k, h k := hstepA
     _ ≤ _ := hbnd
-    _ = PAS ^ 5 / ((p:ℝ) - 1) ^ 2 := hfinal
+    _ = PAS ^ k / ((p:ℝ) - 1) ^ 2 := hfinal
 
 /-! ## `mv_I_split` -/
 
 omit [Salt.Maynard.TupleChoice] in
-/-- **`mv_I` with its `1/D` error split off and re-based on `phiAtomSum`** (frozen deliverable
-of card W4-2). For a certificate polynomial `F`: there is an `F`-only `A ≥ 0` — quantified
-BEFORE `W'` — such that for square-free `W' > 0` with `PhiUpperAtom W'` and a cutoff `3 ≤ D`
-below every prime not dividing `W'`, there is `c ≥ 0` with, for every `R` with `1 ≤ log R`, the
-φ-weighted second moment of `F` over `kSieveIndex 5 R W'` within
-`c·(1 + X)⁵/log R + A·(1 + phiAtomSum R W')⁵/D` of `X⁵·∫_{Δ₅} F²` (`X = φ(W')/W'·log R`,
-`simplexInt (sq (ofPoly F))`). The witnesses are `A = 40·Σ|coeff|` over the monomials of
-`sq (ofPoly F)` and `c = Σ|coeff|·C_m/κ`, `C_m` the `mv_monomial` constant of each monomial and
-`κ = φ(W')/W'`. The sum expands monomial by monomial (`sum_finset_list_swap`); per monomial the
-pairwise-coprimality drop from `decBox` to `kSieveIndex` is at most
-`Drop = Σ_{decBox ∖ kSieveIndex} ∏ 1/φ`, covered by the 20 ordered pairs times the primes
-`D < p < R` and bounded by `badpair_bound_rel` and `prime_tail` to `40·PAS⁵/D`; `mv_monomial` at
-`z = R` gives the main term with error `C_m·(1 + X)⁴`, absorbed into `(1 + X)⁵/(κ·log R)`. Where
-the landed `mv_I` carries `c·(1 + X)⁵·(1/log R + 1/D)` with one opaque `c` after `W'`, here the
-`1/D` coefficient is `F`-only. -/
-theorem mv_I_split (F : Poly) :
+/-- `mv_I_split` at general `k ≥ 2` for a budget polynomial `P`: a constant `A ≥ 0` and, for
+squarefree `W' > 0` with `PhiUpperAtom W'` and `D ≥ 3` below every prime `p ∤ W'`, a `c ≥ 0`,
+such that for `log R ≥ 1` the sieve sum of `P(log rᵢ / log R) / ∏ φ(rᵢ)` over `kSieveIndex k R
+W'` is within `c (1 + φ(W')/W' · log R)^k / log R + A (1 + phiAtomSum R W')^k / D` of `(φ(W')/W'
+· log R)^k · simplexInt P`.
+-/
+theorem mv_I_split_k (k : ℕ) (hk : 2 ≤ k) (P : BPoly k) :
     ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
       PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
       ∃ c : ℝ, 0 ≤ c ∧ ∀ R : ℕ, 1 ≤ Real.log R →
-        |(∑ r ∈ kSieveIndex 5 R W',
-              eval (ofPoly F) (fun i => Real.log (r i) / Real.log R) ^ 2
+        |(∑ r ∈ kSieveIndex k R W',
+              eval P (fun i => Real.log (r i) / Real.log R)
                 / ∏ i, (Nat.totient (r i) : ℝ))
-          - ((W'.totient : ℝ) / W' * Real.log R) ^ 5
-              * ((simplexInt (sq (ofPoly F)) : ℚ) : ℝ)|
-        ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 5 / Real.log R
-          + A * (1 + Salt.Maynard.phiAtomSum R W') ^ 5 / D := by
+          - ((W'.totient : ℝ) / W' * Real.log R) ^ k
+              * ((simplexInt P : ℚ) : ℝ)|
+        ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ k / Real.log R
+          + A * (1 + Salt.Maynard.phiAtomSum R W') ^ k / D := by
   classical
-  set P : BPoly 5 := sq (ofPoly F) with hPdef
   set Qabs : ℝ := (P.map (fun m => |(m.2.2 : ℝ)|)).sum with hQabsdef
   have hQabs0 : 0 ≤ Qabs := by
     rw [hQabsdef]; exact list_map_sum_nonneg _ _ (fun m _ => abs_nonneg _)
-  refine ⟨40 * Qabs, by positivity, ?_⟩
+  refine ⟨(2 * (k : ℝ) ^ 2) * Qabs, by positivity, ?_⟩
   intro W' D hW' hpos hUpper hD hDW
   -- per-monomial `mv_monomial` constants
-  set Cfun : ((Fin 5 → ℕ) × ℕ × ℚ) → ℝ :=
-    fun m => Classical.choose (mv_monomial W' hW' hpos hUpper 5 m.1 m.2.1) with hCfundef
+  set Cfun : ((Fin k → ℕ) × ℕ × ℚ) → ℝ :=
+    fun m => Classical.choose (mv_monomial W' hW' hpos hUpper k m.1 m.2.1) with hCfundef
   have hCfunspec : ∀ m, 0 ≤ Cfun m ∧ ∀ z R : ℕ, 2 ≤ z → z ≤ R → 1 ≤ Real.log R →
-      |(∑ r ∈ decBox 5 z W',
+      |(∑ r ∈ decBox k z W',
             (∏ i, (Real.log (r i) / Real.log R) ^ (m.1 i))
               * ((Real.log z - ∑ i, Real.log (r i)) / Real.log R) ^ (m.2.1)
               / ∏ i, (Nat.totient (r i) : ℝ))
-        - ((W'.totient : ℝ) / W' * Real.log R) ^ 5 * ((DInt' m.1 m.2.1 : ℚ) : ℝ)
-            * (Real.log z / Real.log R) ^ (5 + m.2.1 + ∑ i, m.1 i)|
-      ≤ Cfun m * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ (5 - 1) :=
-    fun m => Classical.choose_spec (mv_monomial W' hW' hpos hUpper 5 m.1 m.2.1)
+        - ((W'.totient : ℝ) / W' * Real.log R) ^ k * ((DInt' m.1 m.2.1 : ℚ) : ℝ)
+            * (Real.log z / Real.log R) ^ (k + m.2.1 + ∑ i, m.1 i)|
+      ≤ Cfun m * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ (k - 1) :=
+    fun m => Classical.choose_spec (mv_monomial W' hW' hpos hUpper k m.1 m.2.1)
   have hCfun0 : ∀ m, 0 ≤ Cfun m := fun m => (hCfunspec m).1
   set Cmain : ℝ := (P.map (fun m => |(m.2.2 : ℝ)| * Cfun m)).sum with hCmaindef
   have hCmain0 : 0 ≤ Cmain := by
@@ -375,40 +365,35 @@ theorem mv_I_split (F : Poly) :
   have h1X0 : 0 ≤ 1 + X := by linarith
   have hκL1X : κ * L ≤ 1 + X := by rw [← hXκL]; linarith
   -- absorption facts for the 1/L side
-  have h4 : (1 + X) ^ 4 ≤ (1 + X) ^ 5 / (κ * L) := by
+  have h4 : (1 + X) ^ (k - 1) ≤ (1 + X) ^ k / (κ * L) := by
     rw [le_div_iff₀ (mul_pos hκpos hLpos)]
-    calc (1 + X) ^ 4 * (κ * L) ≤ (1 + X) ^ 4 * (1 + X) := by
+    calc (1 + X) ^ (k - 1) * (κ * L) ≤ (1 + X) ^ (k - 1) * (1 + X) := by
           apply mul_le_mul_of_nonneg_left hκL1X (by positivity)
-      _ = (1 + X) ^ 5 := by ring
+      _ = (1 + X) ^ k := by rw [← pow_succ]; congr 1; omega
   -- the per-monomial box sums
-  set MSK : ((Fin 5 → ℕ) × ℕ × ℚ) → ℝ := fun m =>
-    ∑ r ∈ kSieveIndex 5 R W',
+  set MSK : ((Fin k → ℕ) × ℕ × ℚ) → ℝ := fun m =>
+    ∑ r ∈ kSieveIndex k R W',
       (∏ i, (Real.log (r i) / L) ^ (m.1 i)) * ((L - ∑ i, Real.log (r i)) / L) ^ (m.2.1)
         / ∏ i, (Nat.totient (r i) : ℝ) with hMSKdef
-  set MSD : ((Fin 5 → ℕ) × ℕ × ℚ) → ℝ := fun m =>
-    ∑ r ∈ decBox 5 R W',
+  set MSD : ((Fin k → ℕ) × ℕ × ℚ) → ℝ := fun m =>
+    ∑ r ∈ decBox k R W',
       (∏ i, (Real.log (r i) / L) ^ (m.1 i)) * ((L - ∑ i, Real.log (r i)) / L) ^ (m.2.1)
         / ∏ i, (Nat.totient (r i) : ℝ) with hMSDdef
-  set Drop : ℝ := ∑ r ∈ decBox 5 R W' \ kSieveIndex 5 R W',
+  set Drop : ℝ := ∑ r ∈ decBox k R W' \ kSieveIndex k R W',
       ∏ i, (1 / (Nat.totient (r i) : ℝ)) with hDropdef
   -- Stage 1: the LHS sum expands into a `List`-sum over the monomials of `P`.
-  have hLHS : (∑ r ∈ kSieveIndex 5 R W',
-        eval (ofPoly F) (fun i => Real.log (r i) / L) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ))
+  have hLHS : (∑ r ∈ kSieveIndex k R W',
+        eval P (fun i => Real.log (r i) / L) / ∏ i, (Nat.totient (r i) : ℝ))
       = (P.map (fun m => (m.2.2 : ℝ) * MSK m)).sum := by
-    have hbudget : ∀ r : Fin 5 → ℕ,
+    have hbudget : ∀ r : Fin k → ℕ,
         (1 : ℝ) - ∑ i, Real.log (r i) / L = (L - ∑ i, Real.log (r i)) / L := by
       intro r; rw [← Finset.sum_div, sub_div, div_self hLne]
-    have hsq : ∀ r : Fin 5 → ℕ,
-        eval (ofPoly F) (fun i => Real.log (r i) / L) ^ 2
-          = eval P (fun i => Real.log (r i) / L) := by
-      intro r; rw [hPdef]; exact (eval_sq (ofPoly F) _).symm
-    have hper : ∀ r ∈ kSieveIndex 5 R W',
-        eval (ofPoly F) (fun i => Real.log (r i) / L) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ)
+    have hper : ∀ r ∈ kSieveIndex k R W',
+        eval P (fun i => Real.log (r i) / L) / ∏ i, (Nat.totient (r i) : ℝ)
           = (P.map (fun m => (m.2.2 : ℝ) * ((∏ i, (Real.log (r i) / L) ^ (m.1 i))
               * ((L - ∑ i, Real.log (r i)) / L) ^ (m.2.1)
               / ∏ i, (Nat.totient (r i) : ℝ)))).sum := by
       intro r _
-      rw [hsq r]
       have hev : eval P (fun i => Real.log (r i) / L)
           = (P.map (fun m => (m.2.2 : ℝ) * (∏ i, (Real.log (r i) / L) ^ (m.1 i))
               * ((L - ∑ i, Real.log (r i)) / L) ^ (m.2.1))).sum := by
@@ -423,8 +408,8 @@ theorem mv_I_split (F : Poly) :
     refine congrArg List.sum (List.map_congr_left (fun m _ => ?_))
     rw [hMSKdef, ← Finset.mul_sum]
   -- the main term expands into a `List`-sum.
-  have hMainSum : X ^ 5 * ((simplexInt P : ℚ) : ℝ)
-      = (P.map (fun m => X ^ 5 * ((m.2.2 : ℝ) * ((DInt' m.1 m.2.1 : ℚ) : ℝ)))).sum := by
+  have hMainSum : X ^ k * ((simplexInt P : ℚ) : ℝ)
+      = (P.map (fun m => X ^ k * ((m.2.2 : ℝ) * ((DInt' m.1 m.2.1 : ℚ) : ℝ)))).sum := by
     have hcast : ((simplexInt P : ℚ) : ℝ)
         = (P.map (fun m => (m.2.2 : ℝ) * ((DInt' m.1 m.2.1 : ℚ) : ℝ))).sum := by
       rw [simplexInt, Rat.cast_list_sum, List.map_map]
@@ -432,22 +417,22 @@ theorem mv_I_split (F : Poly) :
       simp only [Function.comp_apply]; push_cast; ring
     rw [hcast, ← List.sum_map_mul_left]
   -- Stage 3: `mv_monomial` at `z = R` per monomial.
-  have hStage3 : ∀ m : (Fin 5 → ℕ) × ℕ × ℚ,
-      |MSD m - X ^ 5 * ((DInt' m.1 m.2.1 : ℚ) : ℝ)| ≤ Cfun m * (1 + X) ^ 4 := by
+  have hStage3 : ∀ m : (Fin k → ℕ) × ℕ × ℚ,
+      |MSD m - X ^ k * ((DInt' m.1 m.2.1 : ℚ) : ℝ)| ≤ Cfun m * (1 + X) ^ (k - 1) := by
     intro m
     have hspec := (hCfunspec m).2 R R hR2 le_rfl hlogR
     rw [← hXdef, ← hLdef, div_self hLne, one_pow, mul_one] at hspec
     exact hspec
   -- Stage 2: the pairwise-coprimality drop, per monomial and in aggregate.
-  have hsubset : kSieveIndex 5 R W' ⊆ decBox 5 R W' := by
+  have hsubset : kSieveIndex k R W' ⊆ decBox k R W' := by
     intro r hr
     have hmem := (mem_kSieveIndex_iff r).mp hr
     obtain ⟨hsqf, _, hcop, hprod⟩ := hmem
     simp only [decBox, Finset.mem_filter, Fintype.mem_piFinset, Finset.mem_range]
     exact ⟨fun i => kSieveIndex_coord_lt hr i, hsqf, hcop, hprod⟩
-  have hDropPer : ∀ m : (Fin 5 → ℕ) × ℕ × ℚ, |MSK m - MSD m| ≤ Drop := by
+  have hDropPer : ∀ m : (Fin k → ℕ) × ℕ × ℚ, |MSK m - MSD m| ≤ Drop := by
     intro m
-    have hbdd : ∀ r ∈ decBox 5 R W',
+    have hbdd : ∀ r ∈ decBox k R W',
         0 ≤ (∏ i, (Real.log (r i) / L) ^ (m.1 i)) * ((L - ∑ i, Real.log (r i)) / L) ^ (m.2.1)
               / ∏ i, (Nat.totient (r i) : ℝ)
         ∧ (∏ i, (Real.log (r i) / L) ^ (m.1 i)) * ((L - ∑ i, Real.log (r i)) / L) ^ (m.2.1)
@@ -493,36 +478,36 @@ theorem mv_I_split (F : Poly) :
       refine ⟨div_nonneg hnum0 hφpos.le, ?_⟩
       rw [hprodinv, div_le_div_iff₀ hφpos hφpos]
       linarith only [mul_le_mul_of_nonneg_right hnum1 hφpos.le]
-    have hsdiff : MSD m - MSK m = ∑ r ∈ decBox 5 R W' \ kSieveIndex 5 R W',
+    have hsdiff : MSD m - MSK m = ∑ r ∈ decBox k R W' \ kSieveIndex k R W',
         (∏ i, (Real.log (r i) / L) ^ (m.1 i)) * ((L - ∑ i, Real.log (r i)) / L) ^ (m.2.1)
           / ∏ i, (Nat.totient (r i) : ℝ) := by
       have h := Finset.sum_sdiff (f := fun r => (∏ i, (Real.log (r i) / L) ^ (m.1 i))
         * ((L - ∑ i, Real.log (r i)) / L) ^ (m.2.1) / ∏ i, (Nat.totient (r i) : ℝ)) hsubset
       simp only [hMSDdef, hMSKdef]
       linarith [h]
-    have hnn : 0 ≤ ∑ r ∈ decBox 5 R W' \ kSieveIndex 5 R W',
+    have hnn : 0 ≤ ∑ r ∈ decBox k R W' \ kSieveIndex k R W',
         (∏ i, (Real.log (r i) / L) ^ (m.1 i)) * ((L - ∑ i, Real.log (r i)) / L) ^ (m.2.1)
           / ∏ i, (Nat.totient (r i) : ℝ) :=
       Finset.sum_nonneg (fun r hr => (hbdd r (Finset.mem_sdiff.mp hr).1).1)
-    have hle : (∑ r ∈ decBox 5 R W' \ kSieveIndex 5 R W',
+    have hle : (∑ r ∈ decBox k R W' \ kSieveIndex k R W',
         (∏ i, (Real.log (r i) / L) ^ (m.1 i)) * ((L - ∑ i, Real.log (r i)) / L) ^ (m.2.1)
           / ∏ i, (Nat.totient (r i) : ℝ)) ≤ Drop := by
       rw [hDropdef]
       exact Finset.sum_le_sum (fun r hr => (hbdd r (Finset.mem_sdiff.mp hr).1).2)
-    have hneg : MSK m - MSD m = -(∑ r ∈ decBox 5 R W' \ kSieveIndex 5 R W',
+    have hneg : MSK m - MSD m = -(∑ r ∈ decBox k R W' \ kSieveIndex k R W',
         (∏ i, (Real.log (r i) / L) ^ (m.1 i)) * ((L - ∑ i, Real.log (r i)) / L) ^ (m.2.1)
           / ∏ i, (Nat.totient (r i) : ℝ)) := by rw [← hsdiff]; ring
     rw [hneg, abs_neg, abs_of_nonneg hnn]
     exact hle
-  have hDropBound : Drop ≤ 40 * PAS ^ 5 / (D : ℝ) := by
-    set Pairs : Finset (Fin 5 × Fin 5) :=
-      (Finset.univ : Finset (Fin 5 × Fin 5)).filter (fun q => q.1 ≠ q.2) with hPairsdef
+  have hDropBound : Drop ≤ (2 * (k : ℝ) ^ 2) * PAS ^ k / (D : ℝ) := by
+    set Pairs : Finset (Fin k × Fin k) :=
+      (Finset.univ : Finset (Fin k × Fin k)).filter (fun q => q.1 ≠ q.2) with hPairsdef
     set Primes : Finset ℕ :=
       (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p) with hPrimesdef
-    set T : Finset ((Fin 5 × Fin 5) × ℕ) := Pairs ×ˢ Primes with hTdef
-    set Bad : (Fin 5 × Fin 5) × ℕ → Finset (Fin 5 → ℕ) := fun x =>
-      (decBox 5 R W').filter (fun r => x.2 ∣ r x.1.1 ∧ x.2 ∣ r x.1.2) with hBaddef
-    set ind : (Fin 5 × Fin 5) × ℕ → (Fin 5 → ℕ) → ℝ := fun x r =>
+    set T : Finset ((Fin k × Fin k) × ℕ) := Pairs ×ˢ Primes with hTdef
+    set Bad : (Fin k × Fin k) × ℕ → Finset (Fin k → ℕ) := fun x =>
+      (decBox k R W').filter (fun r => x.2 ∣ r x.1.1 ∧ x.2 ∣ r x.1.2) with hBaddef
+    set ind : (Fin k × Fin k) × ℕ → (Fin k → ℕ) → ℝ := fun x r =>
       if x.2 ∣ r x.1.1 ∧ x.2 ∣ r x.1.2 then ∏ i, (1 / (Nat.totient (r i) : ℝ)) else 0 with hinddef
     have hindnn : ∀ x r, 0 ≤ ind x r := by
       intro x r; simp only [hinddef]; split_ifs
@@ -530,7 +515,7 @@ theorem mv_I_split (F : Poly) :
       · exact le_refl 0
     have hcover : Drop ≤ ∑ x ∈ T, ∑ r ∈ Bad x, (∏ i, (1 / (Nat.totient (r i) : ℝ))) := by
       rw [hDropdef]
-      have hpt : ∀ r ∈ decBox 5 R W' \ kSieveIndex 5 R W',
+      have hpt : ∀ r ∈ decBox k R W' \ kSieveIndex k R W',
           (∏ i, (1 / (Nat.totient (r i) : ℝ))) ≤ ∑ x ∈ T, ind x r := by
         intro r hr
         obtain ⟨hrdec, hrnk⟩ := Finset.mem_sdiff.mp hr
@@ -538,7 +523,7 @@ theorem mv_I_split (F : Poly) :
         simp only [decBox, Finset.mem_filter, Fintype.mem_piFinset, Finset.mem_range] at hrdec'
         obtain ⟨hlt, hsqf, hcop, hprod⟩ := hrdec'
         rw [mem_kSieveIndex_iff] at hrnk
-        have hpair_neg : ¬ (∀ i j : Fin 5, i ≠ j → Nat.Coprime (r i) (r j)) :=
+        have hpair_neg : ¬ (∀ i j : Fin k, i ≠ j → Nat.Coprime (r i) (r j)) :=
           fun hpair => hrnk ⟨hsqf, hpair, hcop, hprod⟩
         obtain ⟨i, j, p, hij, hp, hpi, hpj, hpW', hpR⟩ :=
           exists_prime_pair_of_not_pairwise_coprime hlt hsqf hcop hpair_neg
@@ -552,10 +537,10 @@ theorem mv_I_split (F : Poly) :
           rw [hinddef]; simp only [if_pos (And.intro hpi hpj)]
         rw [← hindeq]
         exact Finset.single_le_sum (fun x _ => hindnn x r) hx0
-      calc ∑ r ∈ decBox 5 R W' \ kSieveIndex 5 R W', (∏ i, (1 / (Nat.totient (r i) : ℝ)))
-          ≤ ∑ r ∈ decBox 5 R W' \ kSieveIndex 5 R W', ∑ x ∈ T, ind x r :=
+      calc ∑ r ∈ decBox k R W' \ kSieveIndex k R W', (∏ i, (1 / (Nat.totient (r i) : ℝ)))
+          ≤ ∑ r ∈ decBox k R W' \ kSieveIndex k R W', ∑ x ∈ T, ind x r :=
             Finset.sum_le_sum hpt
-        _ = ∑ x ∈ T, ∑ r ∈ decBox 5 R W' \ kSieveIndex 5 R W', ind x r := Finset.sum_comm
+        _ = ∑ x ∈ T, ∑ r ∈ decBox k R W' \ kSieveIndex k R W', ind x r := Finset.sum_comm
         _ ≤ ∑ x ∈ T, ∑ r ∈ Bad x, (∏ i, (1 / (Nat.totient (r i) : ℝ))) := by
             apply Finset.sum_le_sum
             intro x _
@@ -565,97 +550,130 @@ theorem mv_I_split (F : Poly) :
             · rw [hBaddef]
               exact Finset.filter_subset_filter _ Finset.sdiff_subset
             · intro r _ _; exact Finset.prod_nonneg (fun i _ => by positivity)
-    have hPairsCard : Pairs.card = 20 := by rw [hPairsdef]; decide
+    have hPairsCard : (Pairs.card : ℝ) ≤ (k : ℝ) ^ 2 := by
+      have h : Pairs.card ≤ k ^ 2 := by
+        calc Pairs.card ≤ (Finset.univ : Finset (Fin k × Fin k)).card := Finset.card_filter_le _ _
+          _ = k ^ 2 := by simp [Finset.card_univ, Fintype.card_prod, Fintype.card_fin, _root_.sq]
+      exact_mod_cast h
     have hfinal : (∑ x ∈ T, ∑ r ∈ Bad x, (∏ i, (1 / (Nat.totient (r i) : ℝ))))
-        ≤ 40 * PAS ^ 5 / (D : ℝ) := by
+        ≤ (2 * (k : ℝ) ^ 2) * PAS ^ k / (D : ℝ) := by
       have h1 : (∑ x ∈ T, ∑ r ∈ Bad x, (∏ i, (1 / (Nat.totient (r i) : ℝ))))
-          ≤ ∑ x ∈ T, PAS ^ 5 / ((x.2 : ℝ) - 1) ^ 2 := by
+          ≤ ∑ x ∈ T, PAS ^ k / ((x.2 : ℝ) - 1) ^ 2 := by
         apply Finset.sum_le_sum
         intro x hx
         rw [hTdef, Finset.mem_product] at hx
         obtain ⟨hq, hpx⟩ := hx
         rw [hPairsdef, Finset.mem_filter] at hq
         rw [hPrimesdef, Finset.mem_filter] at hpx
-        have hbp := badpair_bound_rel W' hW' hpos R hR2 x.1.1 x.1.2 hq.2 x.2 hpx.2.1
+        have hbp := badpair_bound_rel_gen k hk W' hW' hpos R hR2 x.1.1 x.1.2 hq.2 x.2 hpx.2.1
         rw [← hPASdef] at hbp
         rw [hBaddef]; exact hbp
       refine le_trans h1 ?_
       rw [hTdef, Finset.sum_product]
-      have hPAS5 : 0 ≤ PAS ^ 5 := pow_nonneg hPAS0 5
+      have hPAS5 : 0 ≤ PAS ^ k := pow_nonneg hPAS0 k
       have hinner : ∀ q ∈ Pairs,
-          (∑ p ∈ Primes, PAS ^ 5 / (((q, p).2 : ℝ) - 1) ^ 2)
-            ≤ PAS ^ 5 * (2 / (D : ℝ)) := by
+          (∑ p ∈ Primes, PAS ^ k / (((q, p).2 : ℝ) - 1) ^ 2)
+            ≤ PAS ^ k * (2 / (D : ℝ)) := by
         intro q _
-        have heq : (∑ p ∈ Primes, PAS ^ 5 / ((p : ℝ) - 1) ^ 2)
-            = PAS ^ 5 * ∑ p ∈ Primes, 1 / ((p : ℝ) - 1) ^ 2 := by
+        have heq : (∑ p ∈ Primes, PAS ^ k / ((p : ℝ) - 1) ^ 2)
+            = PAS ^ k * ∑ p ∈ Primes, 1 / ((p : ℝ) - 1) ^ 2 := by
           rw [Finset.mul_sum]; exact Finset.sum_congr rfl (fun p _ => by ring)
         simp only
         rw [heq]
         exact mul_le_mul_of_nonneg_left (prime_tail D R hD) hPAS5
-      calc (∑ q ∈ Pairs, ∑ p ∈ Primes, PAS ^ 5 / (((q, p).2 : ℝ) - 1) ^ 2)
-          ≤ ∑ q ∈ Pairs, PAS ^ 5 * (2 / (D : ℝ)) := Finset.sum_le_sum hinner
-        _ = (Pairs.card : ℝ) * (PAS ^ 5 * (2 / (D : ℝ))) := by
+      calc (∑ q ∈ Pairs, ∑ p ∈ Primes, PAS ^ k / (((q, p).2 : ℝ) - 1) ^ 2)
+          ≤ ∑ q ∈ Pairs, PAS ^ k * (2 / (D : ℝ)) := Finset.sum_le_sum hinner
+        _ = (Pairs.card : ℝ) * (PAS ^ k * (2 / (D : ℝ))) := by
             rw [Finset.sum_const, nsmul_eq_mul]
-        _ = 40 * PAS ^ 5 / (D : ℝ) := by rw [hPairsCard]; push_cast; ring
+        _ ≤ (k : ℝ) ^ 2 * (PAS ^ k * (2 / (D : ℝ))) :=
+            mul_le_mul_of_nonneg_right hPairsCard
+              (mul_nonneg hPAS5 (div_nonneg (by norm_num) (Nat.cast_nonneg D)))
+        _ = (2 * (k : ℝ) ^ 2) * PAS ^ k / (D : ℝ) := by ring
     exact le_trans hcover hfinal
   -- per-monomial total bound
-  have hPer : ∀ m ∈ P, |(m.2.2 : ℝ) * MSK m - X ^ 5 * ((m.2.2 : ℝ) * ((DInt' m.1 m.2.1 : ℚ) : ℝ))|
-      ≤ |(m.2.2 : ℝ)| * Drop + |(m.2.2 : ℝ)| * Cfun m * (1 + X) ^ 4 := by
+  have hPer : ∀ m ∈ P, |(m.2.2 : ℝ) * MSK m - X ^ k * ((m.2.2 : ℝ) * ((DInt' m.1 m.2.1 : ℚ) : ℝ))|
+      ≤ |(m.2.2 : ℝ)| * Drop + |(m.2.2 : ℝ)| * Cfun m * (1 + X) ^ (k - 1) := by
     intro m _
-    have hfac : (m.2.2 : ℝ) * MSK m - X ^ 5 * ((m.2.2 : ℝ) * ((DInt' m.1 m.2.1 : ℚ) : ℝ))
-        = (m.2.2 : ℝ) * (MSK m - X ^ 5 * ((DInt' m.1 m.2.1 : ℚ) : ℝ)) := by ring
+    have hfac : (m.2.2 : ℝ) * MSK m - X ^ k * ((m.2.2 : ℝ) * ((DInt' m.1 m.2.1 : ℚ) : ℝ))
+        = (m.2.2 : ℝ) * (MSK m - X ^ k * ((DInt' m.1 m.2.1 : ℚ) : ℝ)) := by ring
     rw [hfac, abs_mul]
-    have htri : |MSK m - X ^ 5 * ((DInt' m.1 m.2.1 : ℚ) : ℝ)|
-        ≤ Drop + Cfun m * (1 + X) ^ 4 := by
-      calc |MSK m - X ^ 5 * ((DInt' m.1 m.2.1 : ℚ) : ℝ)|
-          ≤ |MSK m - MSD m| + |MSD m - X ^ 5 * ((DInt' m.1 m.2.1 : ℚ) : ℝ)| :=
+    have htri : |MSK m - X ^ k * ((DInt' m.1 m.2.1 : ℚ) : ℝ)|
+        ≤ Drop + Cfun m * (1 + X) ^ (k - 1) := by
+      calc |MSK m - X ^ k * ((DInt' m.1 m.2.1 : ℚ) : ℝ)|
+          ≤ |MSK m - MSD m| + |MSD m - X ^ k * ((DInt' m.1 m.2.1 : ℚ) : ℝ)| :=
             abs_sub_le _ _ _
-        _ ≤ Drop + Cfun m * (1 + X) ^ 4 := add_le_add (hDropPer m) (hStage3 m)
-    calc |(m.2.2 : ℝ)| * |MSK m - X ^ 5 * ((DInt' m.1 m.2.1 : ℚ) : ℝ)|
-        ≤ |(m.2.2 : ℝ)| * (Drop + Cfun m * (1 + X) ^ 4) :=
+        _ ≤ Drop + Cfun m * (1 + X) ^ (k - 1) := add_le_add (hDropPer m) (hStage3 m)
+    calc |(m.2.2 : ℝ)| * |MSK m - X ^ k * ((DInt' m.1 m.2.1 : ℚ) : ℝ)|
+        ≤ |(m.2.2 : ℝ)| * (Drop + Cfun m * (1 + X) ^ (k - 1)) :=
           mul_le_mul_of_nonneg_left htri (abs_nonneg _)
-      _ = |(m.2.2 : ℝ)| * Drop + |(m.2.2 : ℝ)| * Cfun m * (1 + X) ^ 4 := by ring
+      _ = |(m.2.2 : ℝ)| * Drop + |(m.2.2 : ℝ)| * Cfun m * (1 + X) ^ (k - 1) := by ring
   -- assembly
   rw [hLHS, hMainSum, list_sum_map_sub]
   calc |(P.map (fun m => (m.2.2 : ℝ) * MSK m
-          - X ^ 5 * ((m.2.2 : ℝ) * ((DInt' m.1 m.2.1 : ℚ) : ℝ)))).sum|
+          - X ^ k * ((m.2.2 : ℝ) * ((DInt' m.1 m.2.1 : ℚ) : ℝ)))).sum|
       ≤ (P.map (fun m => |(m.2.2 : ℝ) * MSK m
-          - X ^ 5 * ((m.2.2 : ℝ) * ((DInt' m.1 m.2.1 : ℚ) : ℝ))|)).sum := by
+          - X ^ k * ((m.2.2 : ℝ) * ((DInt' m.1 m.2.1 : ℚ) : ℝ))|)).sum := by
         have := list_abs_sum_le (P.map (fun m => (m.2.2 : ℝ) * MSK m
-          - X ^ 5 * ((m.2.2 : ℝ) * ((DInt' m.1 m.2.1 : ℚ) : ℝ))))
+          - X ^ k * ((m.2.2 : ℝ) * ((DInt' m.1 m.2.1 : ℚ) : ℝ))))
         rwa [List.map_map, Function.comp_def] at this
-    _ ≤ (P.map (fun m => |(m.2.2 : ℝ)| * Drop + |(m.2.2 : ℝ)| * Cfun m * (1 + X) ^ 4)).sum :=
+    _ ≤ (P.map (fun m => |(m.2.2 : ℝ)| * Drop + |(m.2.2 : ℝ)| * Cfun m * (1 + X) ^ (k - 1))).sum :=
         list_sum_map_le _ _ _ hPer
     _ = (P.map (fun m => |(m.2.2 : ℝ)| * Drop)).sum
-          + (P.map (fun m => |(m.2.2 : ℝ)| * Cfun m * (1 + X) ^ 4)).sum := list_sum_map_add _ _ _
-    _ = Drop * Qabs + (1 + X) ^ 4 * Cmain := by
+          + (P.map (fun m => |(m.2.2 : ℝ)| * Cfun m * (1 + X) ^ (k - 1))).sum
+                  := list_sum_map_add _ _ _
+    _ = Drop * Qabs + (1 + X) ^ (k - 1) * Cmain := by
         rw [hQabsdef, hCmaindef,
           List.sum_map_mul_right P (fun m => |(m.2.2 : ℝ)|) Drop,
-          List.sum_map_mul_right P (fun m => |(m.2.2 : ℝ)| * Cfun m) ((1 + X) ^ 4)]
+          List.sum_map_mul_right P (fun m => |(m.2.2 : ℝ)| * Cfun m) ((1 + X) ^ (k - 1))]
         ring
-    _ ≤ Cmain / κ * (1 + X) ^ 5 / L + 40 * Qabs * (1 + PAS) ^ 5 / (D : ℝ) := by
+    _ ≤ Cmain / κ * (1 + X) ^ k / L + (2 * (k : ℝ) ^ 2) * Qabs * (1 + PAS) ^ k / (D : ℝ) := by
         have hDpos : (0:ℝ) < (D : ℝ) := by
           have : (3:ℝ) ≤ (D:ℝ) := by exact_mod_cast hD
           linarith
         -- Drop side → 1/D
-        have hPAS15 : PAS ^ 5 ≤ (1 + PAS) ^ 5 :=
-          pow_le_pow_left₀ hPAS0 (by linarith) 5
-        have hDropSide : Drop * Qabs ≤ 40 * Qabs * (1 + PAS) ^ 5 / (D : ℝ) := by
-          calc Drop * Qabs ≤ (40 * PAS ^ 5 / (D : ℝ)) * Qabs :=
+        have hPAS15 : PAS ^ k ≤ (1 + PAS) ^ k :=
+          pow_le_pow_left₀ hPAS0 (by linarith) k
+        have hDropSide : Drop * Qabs ≤ (2 * (k : ℝ) ^ 2) * Qabs * (1 + PAS) ^ k / (D : ℝ) := by
+          calc Drop * Qabs ≤ ((2 * (k : ℝ) ^ 2) * PAS ^ k / (D : ℝ)) * Qabs :=
                 mul_le_mul_of_nonneg_right hDropBound hQabs0
-            _ = 40 * Qabs / (D : ℝ) * PAS ^ 5 := by ring
-            _ ≤ 40 * Qabs / (D : ℝ) * (1 + PAS) ^ 5 :=
+            _ = (2 * (k : ℝ) ^ 2) * Qabs / (D : ℝ) * PAS ^ k := by ring
+            _ ≤ (2 * (k : ℝ) ^ 2) * Qabs / (D : ℝ) * (1 + PAS) ^ k :=
                 mul_le_mul_of_nonneg_left hPAS15
                   (div_nonneg (by positivity) hDpos.le)
-            _ = 40 * Qabs * (1 + PAS) ^ 5 / (D : ℝ) := by ring
+            _ = (2 * (k : ℝ) ^ 2) * Qabs * (1 + PAS) ^ k / (D : ℝ) := by ring
         -- main side → 1/L
-        have hMainSide : (1 + X) ^ 4 * Cmain ≤ Cmain / κ * (1 + X) ^ 5 / L := by
-          have e1 : (1 + X) ^ 4 * Cmain = Cmain * (1 + X) ^ 4 := by ring
+        have hMainSide : (1 + X) ^ (k - 1) * Cmain ≤ Cmain / κ * (1 + X) ^ k / L := by
+          have e1 : (1 + X) ^ (k - 1) * Cmain = Cmain * (1 + X) ^ (k - 1) := by ring
           have hκne : κ ≠ 0 := ne_of_gt hκpos
-          have e2 : Cmain / κ * (1 + X) ^ 5 / L = Cmain * ((1 + X) ^ 5 / (κ * L)) := by
+          have e2 : Cmain / κ * (1 + X) ^ k / L = Cmain * ((1 + X) ^ k / (κ * L)) := by
             field_simp
           rw [e1, e2]; exact mul_le_mul_of_nonneg_left h4 hCmain0
         linarith [hDropSide, hMainSide]
+
+omit [Salt.Maynard.TupleChoice] in
+/-- **`mv_I` with its `1/D` error split off and re-based on `phiAtomSum`** (frozen deliverable
+of card W4-2). For a certificate polynomial `F`: there is an `F`-only `A ≥ 0` — quantified
+BEFORE `W'` — such that for square-free `W' > 0` with `PhiUpperAtom W'` and a cutoff `3 ≤ D`
+below every prime not dividing `W'`, there is `c ≥ 0` with, for every `R` with `1 ≤ log R`, the
+φ-weighted second moment of `F` over `kSieveIndex 5 R W'` within
+`c·(1 + X)⁵/log R + A·(1 + phiAtomSum R W')⁵/D` of `X⁵·∫_{Δ₅} F²` (`X = φ(W')/W'·log R`,
+`simplexInt (sq (ofPoly F))`). It is the `k = 5`, `P = sq (ofPoly F)` instance of
+`mv_I_split_k` (`eval_sq`), so `A = 50·Σ|coeff|` over the monomials of `sq (ofPoly F)` (the
+general `2k²` collision constant). Where
+the landed `mv_I` carries `c·(1 + X)⁵·(1/log R + 1/D)` with one opaque `c` after `W'`, here the
+`1/D` coefficient is `F`-only. -/
+theorem mv_I_split (F : Poly) :
+    ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
+      PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
+      ∃ c : ℝ, 0 ≤ c ∧ ∀ R : ℕ, 1 ≤ Real.log R →
+        |(∑ r ∈ kSieveIndex 5 R W',
+              eval (ofPoly F) (fun i => Real.log (r i) / Real.log R) ^ 2
+                / ∏ i, (Nat.totient (r i) : ℝ))
+          - ((W'.totient : ℝ) / W' * Real.log R) ^ 5
+              * ((simplexInt (sq (ofPoly F)) : ℚ) : ℝ)|
+        ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 5 / Real.log R
+          + A * (1 + Salt.Maynard.phiAtomSum R W') ^ 5 / D := by
+  simpa only [eval_sq] using mv_I_split_k 5 (by norm_num) (sq (ofPoly F))
 
 /-! ## Helpers for `inner_contract_rel` (private copies from `MvJ.lean`) -/
 
@@ -2227,7 +2245,7 @@ private lemma mjs_gap_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 
 /-! ### The 4-dim φ pairwise-coprimality drop -/
 
-/-- The 4-dimensional `badpair_bound_rel`: over `decBox 4 R W'`, the tuples with `p ∣ r i` and
+/-- The 4-dimensional `badpair_bound_rel_gen`: over `decBox 4 R W'`, the tuples with `p ∣ r i` and
 `p ∣ r j` (`hp`, `hij`) have `Σ ∏_k 1/φ(r k) ≤ (phiAtomSum R W')⁴/(p − 1)²` — two coordinate
 sums `PAS/(p − 1)` and two `PAS` by `marked_sqf_phi_rel` at `a = 0`, `z = R` (`hW'`, `hpos`,
 `hR2`). -/
