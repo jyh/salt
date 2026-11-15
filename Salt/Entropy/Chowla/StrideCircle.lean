@@ -22,7 +22,7 @@ replaced; A6 four `open private … in` lines; A7 N3's two bridging steps; A8 th
 A10 the citations past EOF.  ERRATA: the freeze commit `3efd2e65`'s subject says "20 declarations";
 this file holds 19 (2 defs + 17 theorems) and, with the MR twin, 20 declarations / 18 obligations.
 
-THE ROUTE (the `h`-core `circle_method_estimate_sq_h_core`, `CircleMethod.lean:1460-1592`, with the
+THE ROUTE (the `h`-core `circle_method_estimate_sq_h_core`, `CircleMethod.lean:1447-1575`, with the
 `η`-expansion of the class filter).  Write `d_η := η·(H/a) : ZMod H` (`twistOffset`), `χ_d(m) :=
 stdAddChar(d·m)`, `Φ := (windowVal H x1 ·)` on `ZMod H`, `c_η := affOffset a b h H η = (b+h)·d_η`.
 1. `1_{j+1 ≡ pb (a)} = (1/a)·Σ_{η<a} χ_{d_η}(j + 1 − pb)` (`classFilter_expand`, orthogonality on
@@ -776,7 +776,7 @@ open private windowVal_c_norm_le from Salt.Entropy.Chowla.CircleMethod in
 /-- **F4b-N10 (class C, THE CROWN, CAPPED — THE BODY) — Tao Lemma 3.4 at the class filter, over
 `bigXiAff`, constant `h·(1 + 2·C₀)`, with the cap conjunct: F4a's slot shape.**  The `h`-lane's
 own move (`circle_method_estimate_sq_bounded_h_core`; 371–389 when written): the core's
-proof (`CircleMethod.lean:1460-1592`) with the `η`-expansion, the witness pinned in the `refine` and
+proof (`CircleMethod.lean:1447-1575`) with the `η`-expansion, the witness pinned in the `refine` and
 the cap discharged by `le_rfl` there — `refine ⟨(h : ℝ) * (1 + 2 * C₀), mul_pos hhR (by
 positivity), le_rfl, ?_⟩; intro eps H _ x1 hx1 hdvd hcard; by_cases hH2 : 2 ≤ H`.  Main regime:
 `Φ`, `hreal`, `hrefl` as at `h` (`h1 := windowVal_c_norm_le hx1 j`, private, opened above);

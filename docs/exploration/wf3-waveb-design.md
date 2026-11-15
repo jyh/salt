@@ -807,7 +807,7 @@ hardcoded to 1; `corr_shift_le` is already general in both offsets ⇒ cheap-but
 calc" got wrong. I priced a `calc` block; the node is a port.*
 
 ### REPAIR 2 — THE `c` CEILING. ✅ "Which `c`" answered at zero cost; the ceiling itself named as A/B.
-**`cE` IS `cD3`** — `HeadPinLeaves.lean:49`, verbatim: *"`1/4 ≤ cE` (the `hreduce` carry — **the SAME
+**`cE` IS `cD3`** — `HeadPinLeaves.lean:50`, verbatim: *"`1/4 ≤ cE` (the `hreduce` carry — **the SAME
 leaf, D3's constant**)"*. ⇒ **§14.3's "a node acquiring `hεh'` must name which `c`" is answered:
 there is one leaf, two names.**
 ⛔ **BUT THE CEILING IS REAL AND UNCLOSED:** the tree exposes only `0 < c` and `1/4 ≤ c` (the

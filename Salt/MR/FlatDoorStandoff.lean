@@ -956,7 +956,7 @@ open MeasureTheory ProbabilityTheory
 open scoped ENNReal NNReal BigOperators
 open ArithmeticFunction
 /-- **⟦STANDOFF TWIN⟧** `primeWindow_sum_inv_ge_bounded`
-(`Salt/Entropy/Chowla/HeadPinLeaves.lean:68`): its statement under the three standoff binders, its
+(`Salt/Entropy/Chowla/HeadPinLeaves.lean:69`): its statement under the three standoff binders, its
 proof verbatim with `Salt.Chen.lambda_mass_lower` replaced by the standoff form. -/
 theorem primeWindow_sum_inv_ge_bounded_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -1163,7 +1163,7 @@ set_option maxHeartbeats 1600000 in
 -- the ceiling here is that declaration's, unchanged.
 open private window_Z_pos absX_le_one window_sum_inv_sq IF_unfold per_term boundary_card_le from
   Salt.Entropy.Chowla.HBudget in
-/-- **⟦STANDOFF TWIN⟧** `hbudget_holds_bounded` (`Salt/Entropy/Chowla/HeadPinLeaves.lean:80`): its
+/-- **⟦STANDOFF TWIN⟧** `hbudget_holds_bounded` (`Salt/Entropy/Chowla/HeadPinLeaves.lean:81`): its
 statement under the three standoff binders, its proof verbatim with `primeWindow_sum_inv_ge_bounded`
 replaced by the standoff form. -/
 theorem hbudget_holds_bounded_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1427,7 +1427,7 @@ open MeasureTheory ProbabilityTheory
 open scoped ENNReal NNReal BigOperators
 open ArithmeticFunction
 /-- **⟦STANDOFF TWIN⟧** `hreduce_holds_final_bounded`
-(`Salt/Entropy/Chowla/HeadPinLeaves.lean:100`): its statement under the three standoff binders, its
+(`Salt/Entropy/Chowla/HeadPinLeaves.lean:101`): its statement under the three standoff binders, its
 proof verbatim with `hbudget_holds_bounded` replaced by the standoff form. -/
 theorem hreduce_holds_final_bounded_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
