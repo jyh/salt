@@ -154,7 +154,7 @@ different wave, and it would need `cM'` measured before it could be scoped.**
   ⭐⭐ **AND THE WAVE'S CENTRAL FRAMING IS AN UNDERCOUNT — "THREE SYNCHRONIZED SITES" IS FIVE.**
   Two declarations already spelled the offset at shift `h` **before wave A opened**:
   `circle_method_estimate_h` (`ShiftFork.lean:405`) and `circle_method_estimate_h_core`
-  (`CircleMethod.lean:1227`), both in the `x1`/`x2` two-pattern family, **both already using the
+  (`CircleMethod.lean:1242`), both in the `x1`/`x2` two-pattern family, **both already using the
   identical literal.** ***"Three sites" counted what the entropy cone had to MOVE, not what must
   AGREE.*** ✅ **Verified by the seat with `grep -F` on the literal `(j + (p : ℕ) * h) : ℝ)` — it is
   byte-identical across SIX FILES** (`OuterCombine`, `Transport`, `FBridge`, `Decoupled`,
@@ -297,7 +297,7 @@ wrote the block. It is weaker evidence than a peer pass and is labelled as such.
 The survivor condition is NOT `p ≤ H/h`. `windowVal H x (j + p*h) = 0` unless `j + p*h < H`,
 i.e. **STRICT**. ⛔ **CITATION CORRECTED 2026-08-21 (independent-gate fatal 1): the anchor is the
 DEFINITION `windowVal` at `FBridge.lean:60`** — `if h : j < H then v ⟨j,h⟩ else 0`, per-index, no
-case hypothesis. *The former anchor `CircleMethod.lean:1332` is a local `have` inside the branch
+case hypothesis. *The former anchor `CircleMethod.lean:1347` is a local `have` inside the branch
 the file labels `-- degenerate: H = 1` at `:1410`, where the ramp collapses to the constant 0 and
 the rule's whole content is invisible. Right rule, wrong line.* ⇒
 - **K1 STANDS, with an exact witness:** at `ε² = 1/4, H = 1996, h = 4` the window is `(249.5, 499]`,
@@ -395,7 +395,7 @@ the error. **It is correct. I have now computed it myself and I confirm it again
 
 **THE DEFECT: THE SURVIVOR RULE IS PER-INDEX, AND I COLLAPSED IT TO A BINARY.**
 `windowVal H x (j + p*h) = 0` unless `j + p*h < H` — I read this correctly at
-`CircleMethod.lean:1332`, wrote *"at j=0 that's `p*h < H`"*, and then computed as if a prime were
+`CircleMethod.lean:1347`, wrote *"at j=0 that's `p*h < H`"*, and then computed as if a prime were
 IN or OUT. **It is neither.** A prime contributes over the `j ∈ range H` with `j + p·h < H`, so its
 effective weight is `(H − p·h)/H = 1 − p·h/H` — a RAMP, not a gate.
 ```
@@ -502,7 +502,7 @@ I wrote "v4 complete" on the bus. **That was wrong.** Of the independent gate's 
 exactly **ONE** is resolved (the withdrawal — voided in §7, closed by §8's reconciliation).
 
 **FATAL 1 — MY HEADLINE ANCHOR IS A LOCAL `have` IN A DEGENERATE BRANCH. CONFIRMED.**
-§7 cited `CircleMethod.lean:1332` for the per-index rule. Measured, that line sits inside:
+§7 cited `CircleMethod.lean:1347` for the per-index rule. Measured, that line sits inside:
 ```
   · -- degenerate: H = 1, where `0 < h` is what makes the correlation vanish
     have hH1 : H = 1 := by have := NeZero.pos H; omega
