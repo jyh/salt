@@ -1156,7 +1156,9 @@ with every `1/D`-producing step routed through W4-1's relative engines
 instead of the constant-bearing W3 lemmas: (mv_I) the stage-2 pairwise
 drop's marked²·unmarked³ products become `(PAS)²·(PAS)³`-bounded with the
 absolute tail `Σ_{p>D}1/(p−1)² ≤ 2/D` — the landed covering uses 20 ORDERED
-pairs, so `A = 40·(monomial ℓ¹-data of sq(ofPoly F))`-shaped; (mv_J) the
+pairs, so `A = 40·(monomial ℓ¹-data of sq(ofPoly F))`-shaped [⟦2026-11-15, O13-e, salt #690⟧ no
+longer the landed witness: `mv_I_split` is now the k = 5 instance of `mv_I_split_k`, whose covering
+is by `k²` ordered pairs, so its `A` is `2k² = 50` times that data]; (mv_J) the
 g-sandwich gaps (`g_gap_rel`), the outer pairwise drop (`marked_sqf_g_rel`),
 the `u ⊥ ∏r` swaps via `inner_contract_rel` + `marked_sqf_phi_rel` /
 `marked_sqf_g_rel`, each with absolute coefficients; the `1/log R`-side
