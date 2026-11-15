@@ -1381,8 +1381,9 @@ re-pointed at `calFrameK_doorH1_at_L_gk_kwide`.  The flat-ceiling originals are 
 -/
 
 /-- **⟦THE ROW FAMILY AT THE WIDE CEILING⟧** (`m4_hrowsSum_chi_door_zero_L_gk_kwide`) —
-`m4_hrowsSum_chi_door_zero_L_gk` with the ceiling moved inside the `∀ M`.  Body verbatim off
-`calFrameK_doorH1_at_L_gk_kwide`. -/
+`m4_hrowsSum_chi_door_zero_L_gk` with the ceiling moved inside the `∀ M`.
+Body: the original's former proof, off `calFrameK_doorH1_at_L_gk_kwide` (its original is
+now its instance). -/
 theorem m4_hrowsSum_chi_door_zero_L_gk_kwide (K : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧
       ∀ (Cp : ℝ), 0 ≤ Cp →
@@ -1471,7 +1472,8 @@ theorem m4_hrowsSum_chi_door_zero_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   exact hw Cp e1 q c bfam e2 e3 N Xd M X h ε t₁ hM (by omega)
 
 /-- **⟦THE SLOT AT THE WIDE CEILING⟧** (`m4_hrowsSlot_at_door_zero_L_gk_kwide`) —
-`m4_hrowsSlot_at_door_zero_L_gk` with the ceiling moved inside the `∀ M`.  Body verbatim. -/
+`m4_hrowsSlot_at_door_zero_L_gk` with the ceiling moved inside the `∀ M`.
+Body: the original's former proof (its original is now its instance). -/
 theorem m4_hrowsSlot_at_door_zero_L_gk_kwide (K : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧
       ∀ (Cp : ℝ), 0 ≤ Cp →
@@ -1559,8 +1561,8 @@ theorem m4_hrowsSlot_at_door_zero_L_gk (K : ℕ) (hK : K ≤ 170000000) :
 
 /-- ⟦WIDE CEILING TWIN⟧ (`m4_chiSummedFreeRow_of_doorAssembly_zero_L_gk_kwide`) —
 `m4_chiSummedFreeRow_of_doorAssembly_zero_L_gk` with the flat ceiling moved inside the `∀ M`.
-The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
-the `_kwide` upstream. -/
+The widened antecedent is `K ≤ 170000000 * M`; statement otherwise verbatim, the proof the
+original's former one off the `_kwide` upstream (its original is now its instance). -/
 theorem m4_chiSummedFreeRow_of_doorAssembly_zero_L_gk_kwide (K : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧
       ∀ (Cp : ℝ), 0 ≤ Cp →
