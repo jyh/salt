@@ -467,13 +467,15 @@ theorem epsh_gate_implies_epssq_h {eps c : ℝ} {h : ℕ}
 set_option maxHeartbeats 1600000 in
 -- The budget aggregation (∫F unfold + three window totals + double-sum reduction) is a
 -- large single elaboration; raise the heartbeat ceiling to accommodate it.
-/-- **HBUDGET (`hbudget_holds`).**  The error budget
-`|∫F − ∑_p (H/p)·X| ≤ (1/4)·SP·H·ε` at the adopted regime, mirroring D3's
-`∃c>0·∃H₀·∀` idiom (it consumes D3's Mertens constant `c` and threshold `H₀`).  The
-`hxbig` floor `ω·H + 48ω(1+2/ε²)/ε ≤ x` is the predecessor's "weakest clean" form
-refined to also fund `x/ω ≥ H`. -/
-theorem hbudget_holds :
-    ∃ c : ℝ, 0 < c ∧ ∃ H₀ : ℕ, ∀ (eps : ℚ) (H x ω : ℕ),
+/-- `hbudget_holds` for ANY Mertens constant `c > 0` with its threshold `H₀` (`hD3`, the shape
+of `primeWindow_sum_inv_ge`): the proof of both `hbudget_holds` and its bounded twin
+`hbudget_holds_bounded` (HeadPinLeaves). -/
+theorem hbudget_holds_of (c : ℝ) (hc : 0 < c) (H₀ : ℕ)
+    (hD3 : ∀ (eps : ℚ) (H : ℕ), H₀ ≤ H →
+        Real.sqrt (H : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) / 2 →
+        (eps : ℝ) ^ 2 ≤ 1 →
+        c / Real.log (H : ℝ) ≤ ∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) :
+    ∀ (eps : ℚ) (H x ω : ℕ),
       2 ≤ x → 2 ≤ ω → ω ≤ x → 0 < eps → (eps : ℝ) ^ 2 ≤ 1 →
       3 ≤ H → 1 ≤ Real.log H → (4 : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) →
       Real.sqrt (H : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) / 2 →
@@ -486,8 +488,6 @@ theorem hbudget_holds :
               (ArithmeticFunction.liouville n : ℝ)
                 * (ArithmeticFunction.liouville (n + 1) : ℝ) ∂(logMeasure x ω)))|
         ≤ (1 / 4) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ) * (eps : ℝ) := by
-  obtain ⟨c, hc, H₀, hD3⟩ := primeWindow_sum_inv_ge
-  refine ⟨c, hc, H₀, ?_⟩
   intro eps H x ω hx hω hωx heps hepssq hH3 hlogH hH4 hsqrt hH0 heps_small hωbig hxbig
   -- abbreviations kept raw (they interface with the window lemmas via linarith)
   have hepsR : (0 : ℝ) < (eps : ℝ) := by exact_mod_cast heps
@@ -724,6 +724,28 @@ theorem hbudget_holds :
             * (ArithmeticFunction.liouville (n + 1) : ℝ) ∂(logMeasure x ω)| := by
           rw [Finset.sum_const, nsmul_eq_mul]
   linarith [hT1, hT2, hT3, hbnd_total]
+
+/-- **HBUDGET (`hbudget_holds`).**  The error budget
+`|∫F − ∑_p (H/p)·X| ≤ (1/4)·SP·H·ε` at the adopted regime, mirroring D3's
+`∃c>0·∃H₀·∀` idiom (it consumes D3's Mertens constant `c` and threshold `H₀`).  The
+`hxbig` floor `ω·H + 48ω(1+2/ε²)/ε ≤ x` is the predecessor's "weakest clean" form
+refined to also fund `x/ω ≥ H`. -/
+theorem hbudget_holds :
+    ∃ c : ℝ, 0 < c ∧ ∃ H₀ : ℕ, ∀ (eps : ℚ) (H x ω : ℕ),
+      2 ≤ x → 2 ≤ ω → ω ≤ x → 0 < eps → (eps : ℝ) ^ 2 ≤ 1 →
+      3 ≤ H → 1 ≤ Real.log H → (4 : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) →
+      Real.sqrt (H : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) / 2 →
+      H₀ ≤ H →
+      (eps : ℝ) ≤ c / (32 * Real.log 4) →
+      (16 / (eps : ℝ)) * Real.log ((eps : ℝ) ^ 2 * (H : ℝ)) + 64 / (eps : ℝ) + 1 ≤ Real.log ω →
+      (ω : ℝ) * (H : ℝ) + 48 * (ω : ℝ) * (1 + 2 / (eps : ℝ) ^ 2) / (eps : ℝ) ≤ (x : ℝ) →
+      |(∫ n, fBridgeF eps H (liouvilleWindow H n) (residueWindow eps H n) ∂(logMeasure x ω))
+          - (∑ p ∈ primeWindow eps H, (H : ℝ) / (p : ℝ) * (∫ n,
+              (ArithmeticFunction.liouville n : ℝ)
+                * (ArithmeticFunction.liouville (n + 1) : ℝ) ∂(logMeasure x ω)))|
+        ≤ (1 / 4) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ) * (eps : ℝ) := by
+  obtain ⟨c, hc, H₀, hD3⟩ := primeWindow_sum_inv_ge
+  exact ⟨c, hc, H₀, hbudget_holds_of c hc H₀ hD3⟩
 
 /-- **The capstone.**  Composing `hbudget_holds` through `hreduce_holds`: at the adopted
 regime, the single-correlation seed `hseed : ε/2 ≤ |X|` forces the frozen `hreduce`
@@ -1177,31 +1199,15 @@ private theorem per_term_h (h : ℕ) (hh : 0 < h) (eps : ℚ) (H : ℕ) {x ω : 
 
 set_option maxHeartbeats 1600000 in
 -- As at `h = 1`: the budget aggregation is a single large elaboration.
-/-- **HBUDGET AT SHIFT `h` (`hbudget_holds_h`).**  The error budget
-`|∫F_h − ∑_p (H/p)·X_h| ≤ (1/4)·SP·H·ε` at the adopted regime, with
-`X_h = ∫ λ(n)λ(n+h)` the gap-`h` correlation and `∫F_h` the `fBridgeF_h` integral.
-
-⭐ **WHERE THE SHIFT IS PAID — ONE SLICE OF THREE, AND THE GATE IS LINEAR IN `ε·h`.**
-The `1/8 + 1/16 + 1/16 = 1/4` decomposition is UNCHANGED and carries no new term (there is
-no slack in that sum, so a new term would have been a design act, not a port):
-
-* total 1 (collapse + swap, `1/8`) — `h`-FREE.  `perPair_collapse_h`'s defect comes from
-  `dilation_error_div`, generic in `f`; `dilated_window_stability` is generic in `g`.
-* total 2 (shift, `1/16`) — `h`-FREE.  `corr_shift_le` already takes two independent
-  offsets, so its `3ω/x/Z` does not see the gap; only the BASE offset `k` multiplies it,
-  and `k = (r+j+1)/p` is `h`-free.
-* total 3 (boundary, `1/16`) — **THIS is the whole cost.**  The boundary set is
-  `{j < H : H ≤ j + p·h}`, so `boundary_card_le H (p·h)` gives `card ≤ p·h` and the slice
-  gains EXACTLY ONE factor `h`.  Chasing it through the same `card ≤ 2·log4·ε²H/log H` and
-  `SP ≥ c/log H` turns the landed gate `ε ≤ c/(32·log 4)` into
-
-      hεh :  ε·h ≤ c/(32·log 4)      — LINEAR in `ε·h`, NOT `ε²·h`.
-
-`0 < h` is required (see `per_term_h`).  The rider `epsh_gate_implies_epssq_h` (above) is
-what converts this gate into K1's `ε²·h < 1` given a ceiling on `c`; the seam is
-`hbudget_h_gate_implies_epssq_h` below. -/
-theorem hbudget_holds_h :
-    ∃ c : ℝ, 0 < c ∧ ∃ H₀ : ℕ, ∀ (h : ℕ) (eps : ℚ) (H x ω : ℕ),
+/-- `hbudget_holds_h` for ANY Mertens constant `c > 0` with its threshold `H₀` (`hD3`, the shape
+of `primeWindow_sum_inv_ge`): the proof of both `hbudget_holds_h` and its bounded twin
+`hbudget_holds_h_bounded` (HeadPinLeavesH). -/
+theorem hbudget_holds_h_of (c : ℝ) (hc : 0 < c) (H₀ : ℕ)
+    (hD3 : ∀ (eps : ℚ) (H : ℕ), H₀ ≤ H →
+        Real.sqrt (H : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) / 2 →
+        (eps : ℝ) ^ 2 ≤ 1 →
+        c / Real.log (H : ℝ) ≤ ∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) :
+    ∀ (h : ℕ) (eps : ℚ) (H x ω : ℕ),
       0 < h → 2 ≤ x → 2 ≤ ω → ω ≤ x → 0 < eps → (eps : ℝ) ^ 2 ≤ 1 →
       3 ≤ H → 1 ≤ Real.log H → (4 : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) →
       Real.sqrt (H : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) / 2 →
@@ -1214,8 +1220,6 @@ theorem hbudget_holds_h :
               (ArithmeticFunction.liouville n : ℝ)
                 * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)))|
         ≤ (1 / 4) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ) * (eps : ℝ) := by
-  obtain ⟨c, hc, H₀, hD3⟩ := primeWindow_sum_inv_ge
-  refine ⟨c, hc, H₀, ?_⟩
   intro h eps H x ω hh hx hω hωx heps hepssq hH3 hlogH hH4 hsqrt hH0 heps_small hωbig hxbig
   -- abbreviations kept raw (they interface with the window lemmas via linarith)
   have hepsR : (0 : ℝ) < (eps : ℝ) := by exact_mod_cast heps
@@ -1484,6 +1488,46 @@ theorem hbudget_holds_h :
               * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)|) := by
           rw [Finset.sum_const, nsmul_eq_mul]
   linarith [hT1, hT2, hT3, hbnd_total]
+
+/-- **HBUDGET AT SHIFT `h` (`hbudget_holds_h`).**  The error budget
+`|∫F_h − ∑_p (H/p)·X_h| ≤ (1/4)·SP·H·ε` at the adopted regime, with
+`X_h = ∫ λ(n)λ(n+h)` the gap-`h` correlation and `∫F_h` the `fBridgeF_h` integral.
+
+⭐ **WHERE THE SHIFT IS PAID — ONE SLICE OF THREE, AND THE GATE IS LINEAR IN `ε·h`.**
+The `1/8 + 1/16 + 1/16 = 1/4` decomposition is UNCHANGED and carries no new term (there is
+no slack in that sum, so a new term would have been a design act, not a port):
+
+* total 1 (collapse + swap, `1/8`) — `h`-FREE.  `perPair_collapse_h`'s defect comes from
+  `dilation_error_div`, generic in `f`; `dilated_window_stability` is generic in `g`.
+* total 2 (shift, `1/16`) — `h`-FREE.  `corr_shift_le` already takes two independent
+  offsets, so its `3ω/x/Z` does not see the gap; only the BASE offset `k` multiplies it,
+  and `k = (r+j+1)/p` is `h`-free.
+* total 3 (boundary, `1/16`) — **THIS is the whole cost.**  The boundary set is
+  `{j < H : H ≤ j + p·h}`, so `boundary_card_le H (p·h)` gives `card ≤ p·h` and the slice
+  gains EXACTLY ONE factor `h`.  Chasing it through the same `card ≤ 2·log4·ε²H/log H` and
+  `SP ≥ c/log H` turns the landed gate `ε ≤ c/(32·log 4)` into
+
+      hεh :  ε·h ≤ c/(32·log 4)      — LINEAR in `ε·h`, NOT `ε²·h`.
+
+`0 < h` is required (see `per_term_h`).  The rider `epsh_gate_implies_epssq_h` (above) is
+what converts this gate into K1's `ε²·h < 1` given a ceiling on `c`; the seam is
+`hbudget_h_gate_implies_epssq_h` below. -/
+theorem hbudget_holds_h :
+    ∃ c : ℝ, 0 < c ∧ ∃ H₀ : ℕ, ∀ (h : ℕ) (eps : ℚ) (H x ω : ℕ),
+      0 < h → 2 ≤ x → 2 ≤ ω → ω ≤ x → 0 < eps → (eps : ℝ) ^ 2 ≤ 1 →
+      3 ≤ H → 1 ≤ Real.log H → (4 : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) →
+      Real.sqrt (H : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) / 2 →
+      H₀ ≤ H →
+      (eps : ℝ) * (h : ℝ) ≤ c / (32 * Real.log 4) →
+      (16 / (eps : ℝ)) * Real.log ((eps : ℝ) ^ 2 * (H : ℝ)) + 64 / (eps : ℝ) + 1 ≤ Real.log ω →
+      (ω : ℝ) * (H : ℝ) + 48 * (ω : ℝ) * (1 + 2 / (eps : ℝ) ^ 2) / (eps : ℝ) ≤ (x : ℝ) →
+      |(∫ n, fBridgeF_h eps H h (liouvilleWindow H n) (residueWindow eps H n) ∂(logMeasure x ω))
+          - (∑ p ∈ primeWindow eps H, (H : ℝ) / (p : ℝ) * (∫ n,
+              (ArithmeticFunction.liouville n : ℝ)
+                * (ArithmeticFunction.liouville (n + h) : ℝ) ∂(logMeasure x ω)))|
+        ≤ (1 / 4) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ) * (eps : ℝ) := by
+  obtain ⟨c, hc, H₀, hD3⟩ := primeWindow_sum_inv_ge
+  exact ⟨c, hc, H₀, hbudget_holds_h_of c hc H₀ hD3⟩
 /-- **Seam kill-check: the `c`-ceiling rider consumes `hbudget_holds_h`'s OWN gate binder.**
 `hgate` below is BYTE-IDENTICAL to `hbudget_holds_h`'s `(eps : ℝ) * (h : ℝ) ≤ c / (32 * Real.log 4)`
 binder, and the conclusion is K1's `ε²·h < 1`.  Elaboration is the proof that the rider
