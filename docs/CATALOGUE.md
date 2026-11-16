@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `19e7cf14` · source digest `ce7e15d5fce2323c` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `f1cbb55b` · source digest `8b71002e49063b73` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -1719,7 +1719,6 @@ Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_band_sym_kp_floor` | Salt/Goldbach/BandClose.lean:123 | sieves |
 | `Salt.Goldbach.gold_band_geoN_inputs` | Salt/Goldbach/BandClose.lean:151 | sieves |
 | `Salt.Goldbach.gold_band_survsum_geoN_floored` | Salt/Goldbach/BandClose.lean:266 | sieves |
-| `Salt.Goldbach.gold_hSum_geo_band` | Salt/Goldbach/BandClose2.lean:51 | sieves |
 | `Salt.Goldbach.gold_band_price_sym` | Salt/Goldbach/BandEng.lean:67 | sieves |
 | `Salt.Goldbach.gold_band_price_low` | Salt/Goldbach/BandEng.lean:98 | sieves |
 | `Salt.Goldbach.gold_hdiffK_sym_discharge` | Salt/Goldbach/BandEng.lean:134 | sieves |
@@ -1807,7 +1806,8 @@ Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_hBVblocksW_at_op` | Salt/Goldbach/Final2.lean:55 | sieves |
 | `Salt.Goldbach.gold_boxPriceKerr_geo` | Salt/Goldbach/GeoSum.lean:65 | sieves |
 | `Salt.Goldbach.gold_goldCut_geosum` | Salt/Goldbach/GeoSum.lean:175 | sieves |
-| `Salt.Goldbach.gold_hSum_geo` | Salt/Goldbach/GeoSum.lean:205 | sieves |
+| `Salt.Goldbach.gold_hSum_geo_band` | Salt/Goldbach/GeoSum.lean:198 | sieves |
+| `Salt.Goldbach.gold_hSum_geo` | Salt/Goldbach/GeoSum.lean:397 | sieves |
 | `Salt.Goldbach.gold_boxPriceKerr_geoN` | Salt/Goldbach/GeoSum2.lean:52 | sieves |
 | `Salt.Goldbach.gold_box_hprice_at` | Salt/Goldbach/Glue.lean:69 | sieves |
 | `Salt.Goldbach.gold_box_hbox_at` | Salt/Goldbach/Glue.lean:131 | sieves |
