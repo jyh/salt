@@ -480,6 +480,36 @@ theorem doorLadder_le_start {x H : ℕ} (hx : H + 1 ≤ x) (i : ℕ) : doorLadde
   | zero => simp
   | succ n ih => rw [doorLadder_succ]; omega
 
+/-- **THE REGIME'S x-SCALE FLOOR** — `8·ω·H₊ ≤ x`, from the wave-II headroom
+`8·H₊·log²H₊ ≤ ⌊x/ω⌋` (`hheadroom'`), whose two log factors are `≥ 1` at `H₊ ≥ 4·10⁶`.
+Stated once for the five ladder sites that derived it in place (O13-e row 184). -/
+theorem regime_eight_omega_Hhi_le_x (R : ChowlaRegime) :
+    8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := by
+  have hω0 : (0 : ℝ) < (R.ω : ℝ) := by
+    have h : 0 < R.ω := by have := R.hω; omega
+    exact_mod_cast h
+  have hHhi4 : (4000000 : ℝ) ≤ (R.Hhi : ℝ) := by
+    have h : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
+    exact_mod_cast h
+  have hlogHhi : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) := by
+    have hexp : Real.exp 1 ≤ (R.Hhi : ℝ) := by linarith only [hHhi4, Real.exp_one_lt_d9]
+    exact (Real.le_log_iff_exp_le (by linarith)).mpr hexp
+  have hxω : 8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := by
+    have hh := R.hheadroom'
+    have hcast : (((R.x / R.ω : ℕ)) : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := Nat.cast_div_le
+    have hlogsq : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by
+      nlinarith only [hlogHhi]
+    have h1 : 8 * (R.Hhi : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := by
+      calc 8 * (R.Hhi : ℝ) = 8 * (R.Hhi : ℝ) * 1 := by ring
+        _ ≤ 8 * (R.Hhi : ℝ) * (Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ)) :=
+            mul_le_mul_of_nonneg_left hlogsq (by linarith)
+        _ = 8 * (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by ring
+        _ ≤ (((R.x / R.ω : ℕ)) : ℝ) := hh
+        _ ≤ (R.x : ℝ) / (R.ω : ℝ) := hcast
+    rw [le_div_iff₀ hω0] at h1
+    linarith
+  exact hxω
+
 set_option maxHeartbeats 1200000 in
 -- the block sum is re-associated over the drift blocks and then over the ladder block, and
 -- the stratified bound is instantiated once per drift block; every arithmetic step is
@@ -538,23 +568,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed {R : ChowlaRegime} {M k : ℕ} {Bcl : �
   have hHhi4 : (4000000 : ℝ) ≤ (R.Hhi : ℝ) := by
     have h : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
     exact_mod_cast h
-  have hlogHhi : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) := by
-    have hexp : Real.exp 1 ≤ (R.Hhi : ℝ) := by linarith only [hHhi4, Real.exp_one_lt_d9]
-    exact (Real.le_log_iff_exp_le (by linarith)).mpr hexp
-  have hxω : 8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := by
-    have hh := R.hheadroom'
-    have hcast : (((R.x / R.ω : ℕ)) : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := Nat.cast_div_le
-    have hlogsq : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by
-      nlinarith only [hlogHhi]
-    have h1 : 8 * (R.Hhi : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := by
-      calc 8 * (R.Hhi : ℝ) = 8 * (R.Hhi : ℝ) * 1 := by ring
-        _ ≤ 8 * (R.Hhi : ℝ) * (Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ)) :=
-            mul_le_mul_of_nonneg_left hlogsq (by linarith)
-        _ = 8 * (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by ring
-        _ ≤ (((R.x / R.ω : ℕ)) : ℝ) := hh
-        _ ≤ (R.x : ℝ) / (R.ω : ℝ) := hcast
-    rw [le_div_iff₀ hω0] at h1
-    linarith
+  have hxω : 8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := regime_eight_omega_Hhi_le_x R
   have hHhiR : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast hhi
   have h8ωH : 8 * R.ω * H ≤ R.x := by
     have h : (8 : ℝ) * (R.ω : ℝ) * (H : ℝ) ≤ (R.x : ℝ) := by nlinarith [hxω, hHhiR, hω0]
@@ -1124,7 +1138,7 @@ set_option maxHeartbeats 1200000 in
 -- the block sum is re-associated over the drift blocks and then over the ladder block, and
 -- the stratified bound is instantiated once per drift block; every arithmetic step is
 -- `linarith`/`nlinarith` with hints
-/-- `m4_blockMeanSqBlk2_of_chiSummed` (:485), at the lever. -/
+/-- `m4_blockMeanSqBlk2_of_chiSummed` (:525), at the lever. -/
 theorem m4_blockMeanSqBlk2_of_chiSummed_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
     (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
     (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
@@ -1171,23 +1185,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed_gk (K : ℕ) {R : ChowlaRegime} {M k : �
   have hHhi4 : (4000000 : ℝ) ≤ (R.Hhi : ℝ) := by
     have h : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
     exact_mod_cast h
-  have hlogHhi : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) := by
-    have hexp : Real.exp 1 ≤ (R.Hhi : ℝ) := by linarith only [hHhi4, Real.exp_one_lt_d9]
-    exact (Real.le_log_iff_exp_le (by linarith)).mpr hexp
-  have hxω : 8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := by
-    have hh := R.hheadroom'
-    have hcast : (((R.x / R.ω : ℕ)) : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := Nat.cast_div_le
-    have hlogsq : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by
-      nlinarith only [hlogHhi]
-    have h1 : 8 * (R.Hhi : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := by
-      calc 8 * (R.Hhi : ℝ) = 8 * (R.Hhi : ℝ) * 1 := by ring
-        _ ≤ 8 * (R.Hhi : ℝ) * (Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ)) :=
-            mul_le_mul_of_nonneg_left hlogsq (by linarith)
-        _ = 8 * (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by ring
-        _ ≤ (((R.x / R.ω : ℕ)) : ℝ) := hh
-        _ ≤ (R.x : ℝ) / (R.ω : ℝ) := hcast
-    rw [le_div_iff₀ hω0] at h1
-    linarith
+  have hxω : 8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := regime_eight_omega_Hhi_le_x R
   have hHhiR : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast hhi
   have h8ωH : 8 * R.ω * H ≤ R.x := by
     have h : (8 : ℝ) * (R.ω : ℝ) * (H : ℝ) ≤ (R.x : ℝ) := by nlinarith [hxω, hHhiR, hω0]

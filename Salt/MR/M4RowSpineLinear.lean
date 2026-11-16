@@ -191,23 +191,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed_L {R : ChowlaRegime} {M k : ℕ} {Bcl : 
   have hHhi4 : (4000000 : ℝ) ≤ (R.Hhi : ℝ) := by
     have h : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
     exact_mod_cast h
-  have hlogHhi : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) := by
-    have hexp : Real.exp 1 ≤ (R.Hhi : ℝ) := by linarith only [hHhi4, Real.exp_one_lt_d9]
-    exact (Real.le_log_iff_exp_le (by linarith)).mpr hexp
-  have hxω : 8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := by
-    have hh := R.hheadroom'
-    have hcast : (((R.x / R.ω : ℕ)) : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := Nat.cast_div_le
-    have hlogsq : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by
-      nlinarith only [hlogHhi]
-    have h1 : 8 * (R.Hhi : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := by
-      calc 8 * (R.Hhi : ℝ) = 8 * (R.Hhi : ℝ) * 1 := by ring
-        _ ≤ 8 * (R.Hhi : ℝ) * (Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ)) :=
-            mul_le_mul_of_nonneg_left hlogsq (by linarith)
-        _ = 8 * (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by ring
-        _ ≤ (((R.x / R.ω : ℕ)) : ℝ) := hh
-        _ ≤ (R.x : ℝ) / (R.ω : ℝ) := hcast
-    rw [le_div_iff₀ hω0] at h1
-    linarith
+  have hxω : 8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := regime_eight_omega_Hhi_le_x R
   have hHhiR : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast hhi
   have h8ωH : 8 * R.ω * H ≤ R.x := by
     have h : (8 : ℝ) * (R.ω : ℝ) * (H : ℝ) ≤ (R.x : ℝ) := by nlinarith [hxω, hHhiR, hω0]
@@ -681,23 +665,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed_L_gk (K : ℕ) {R : ChowlaRegime} {M k :
   have hHhi4 : (4000000 : ℝ) ≤ (R.Hhi : ℝ) := by
     have h : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
     exact_mod_cast h
-  have hlogHhi : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) := by
-    have hexp : Real.exp 1 ≤ (R.Hhi : ℝ) := by linarith only [hHhi4, Real.exp_one_lt_d9]
-    exact (Real.le_log_iff_exp_le (by linarith)).mpr hexp
-  have hxω : 8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := by
-    have hh := R.hheadroom'
-    have hcast : (((R.x / R.ω : ℕ)) : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := Nat.cast_div_le
-    have hlogsq : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by
-      nlinarith only [hlogHhi]
-    have h1 : 8 * (R.Hhi : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := by
-      calc 8 * (R.Hhi : ℝ) = 8 * (R.Hhi : ℝ) * 1 := by ring
-        _ ≤ 8 * (R.Hhi : ℝ) * (Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ)) :=
-            mul_le_mul_of_nonneg_left hlogsq (by linarith)
-        _ = 8 * (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by ring
-        _ ≤ (((R.x / R.ω : ℕ)) : ℝ) := hh
-        _ ≤ (R.x : ℝ) / (R.ω : ℝ) := hcast
-    rw [le_div_iff₀ hω0] at h1
-    linarith
+  have hxω : 8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := regime_eight_omega_Hhi_le_x R
   have hHhiR : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast hhi
   have h8ωH : 8 * R.ω * H ≤ R.x := by
     have h : (8 : ℝ) * (R.ω : ℝ) * (H : ℝ) ≤ (R.x : ℝ) := by nlinarith [hxω, hHhiR, hω0]
