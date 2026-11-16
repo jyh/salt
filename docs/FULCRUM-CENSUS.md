@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `f2f299ef` · source digest `3310af8d79e13944` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `d827db08` · source digest `efe95cf4c108b15e` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,7 +22,7 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 23434 | 691 | 22732 | 9148 | 13 | 293 | 40 | 345 | 84 |
+| 23435 | 691 | 22733 | 9148 | 13 | 293 | 40 | 345 | 86 |
 
 Per-polarity totals over the 691 Props: with F-consumers 538 · with ¬F-consumers 21 · with F-producers (any kind) 451 · with ¬F-producers (any kind) 59.
 
@@ -156,9 +156,9 @@ A FRAME is a bundle of order relations over its own parameters; ¬P is 'the para
 | `Salt.MR.SocketBaseLH` | DISCHARGED | - | 175 | 1/0/0 | `Salt.MR.socketBaseLH_at_zero_false` (Salt/MR/TierSSocket.lean:146) |
 | `Salt.TwinBar.BadHyp` | OPEN | - | 0 | 1/0/0 | `Salt.TwinBar.badHyp_false` (Salt/TwinBar/SiegelTwin.lean:153) |
 
-## DISJUNCTION AND CASE-SPLIT SITES (84; first 84, ordered by path)
+## DISJUNCTION AND CASE-SPLIT SITES (86; first 86, ordered by path)
 
-By kind: case split `by_cases` 81 · prop-def body 2 · theorem conclusion 1.
+By kind: case split `by_cases` 83 · prop-def body 2 · theorem conclusion 1.
 
 | kind | declaration | file:line | P (polarity) |
 |---|---|---|---|
@@ -219,6 +219,8 @@ By kind: case split `by_cases` 81 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.MR.thm_a2'` | Salt/MR/ThmA2Rows.lean:716 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.MR.thm_a2'_gk` | Salt/MR/ThmA2Rows.lean:1570 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.Maynard.compat_moebius_expansion` | Salt/Maynard/CollisionQuant.lean:1675 | `Salt.Maynard.IsCollisionPair` |
+| case split `by_cases` | `Salt.Maynard.abs_S2m_sub_compatMain_le_disc_R_uniform` | Salt/Maynard/FrontierDischarge.lean:258 | `Salt.Maynard.IsCollisionPair` |
+| case split `by_cases` | `Salt.Maynard.S2m_ge_compatMain_eh_uniform` | Salt/Maynard/FrontierDischarge.lean:402 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.S2m_ge_compatMain_lod_uniform` | Salt/Maynard/LevelConsume.lean:451 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.classSum_pp2_le` | Salt/Maynard/PpFold.lean:235 | `Salt.Maynard.isPrimeSq` |
 | case split `by_cases` | `Salt.Maynard.pp2Term_le_ppTerm` | Salt/Maynard/PpFold.lean:340 | `Salt.Maynard.isPrimeSq` |
@@ -229,8 +231,8 @@ By kind: case split `by_cases` 81 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.Maynard.abs_S2m_sub_compatMain_le` | Salt/Maynard/S2CompatEH.lean:133 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.abs_S2m_sub_compatMain_le` | Salt/Maynard/S2CompatEH.lean:140 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.abs_S2m_sub_compatMain_le_disc` | Salt/Maynard/S2CompatEH.lean:175 | `Salt.Maynard.IsCollisionPair` |
-| case split `by_cases` | `Salt.Maynard.abs_S2m_sub_compatMain_le_disc_R_uniform` | Salt/Maynard/S2CompatEHFinal.lean:81 | `Salt.Maynard.IsCollisionPair` |
-| case split `by_cases` | `Salt.Maynard.S2m_ge_compatMain_eh_uniform` | Salt/Maynard/S2CompatEHFinal.lean:246 | `Salt.Maynard.IsCollisionPair` |
+| case split `by_cases` | `Salt.Maynard.abs_S2m_sub_compatMain_le_disc_uniform` | Salt/Maynard/S2CompatEHFinal.lean:85 | `Salt.Maynard.IsCollisionPair` |
+| case split `by_cases` | `Salt.Maynard.S2m_ge_compatMain_eh` | Salt/Maynard/S2CompatEHFinal.lean:235 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.abs_S2mW_sub_compatMainW_le` | Salt/Maynard/S2CompatEHW.lean:74 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.abs_S2mW_sub_compatMainW_le` | Salt/Maynard/S2CompatEHW.lean:96 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.abs_S2mW_sub_compatMainW_le` | Salt/Maynard/S2CompatEHW.lean:103 | `Salt.Maynard.IsCollisionPair` |
