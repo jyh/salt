@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `34a2d253` · source digest `6cefabcc537023a2` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `d827db08` · source digest `efe95cf4c108b15e` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -2626,10 +2626,8 @@ Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hyp
 | `Salt.MR.ball_center_dichotomy` | Salt/MR/CenterCore.lean:531 | characters |
 | `Salt.MR.ball_leg_empty_of_le` | Salt/MR/CenterCore.lean:547 | characters |
 | `Salt.MR.ball_leg_of_center_small` | Salt/MR/CenterCore.lean:557 | characters |
-| `Salt.MR.center_halasz_supply_uniform` | Salt/MR/CenterSupply.lean:143 | characters |
-| `Salt.MR.center_halasz_supply` | Salt/MR/CenterSupply.lean:266 | characters |
-| `Salt.MR.ball_sup_supplied_uniform` | Salt/MR/CenterSupply.lean:321 | characters |
-| `Salt.MR.ball_sup_supplied` | Salt/MR/CenterSupply.lean:389 | characters |
+| `Salt.MR.center_halasz_supply` | Salt/MR/CenterSupply.lean:164 | characters |
+| `Salt.MR.ball_sup_supplied` | Salt/MR/CenterSupply.lean:310 | characters |
 | `Salt.MR.char_plancherel` | Salt/MR/CharFold.lean:138 | characters |
 | `Salt.MR.dpolyChi_eq_class_sum` | Salt/MR/CharFold.lean:196 | characters |
 | `Salt.MR.sum_chi_meanSq_pointwise` | Salt/MR/CharFold.lean:213 | characters |
@@ -3372,8 +3370,8 @@ Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hyp
 | `Salt.MR.shifted_edge_price` | Salt/MR/HalaszPrimesCore.lean:1511 | zeros, characters |
 | `Salt.MR.window_dominates` | Salt/MR/HalaszPrimesCore.lean:1685 | sieves, characters |
 | `Salt.MR.prime_power_discard` | Salt/MR/HalaszPrimesCore.lean:1795 | sieves, characters |
-| `Salt.MR.error_double_row` | Salt/MR/HalaszPrimesCore.lean:2885 | characters |
-| `Salt.MR.absorb_arith` | Salt/MR/HalaszPrimesCore.lean:3310 | characters |
+| `Salt.MR.error_double_row` | Salt/MR/HalaszPrimesCore.lean:2912 | characters |
+| `Salt.MR.absorb_arith` | Salt/MR/HalaszPrimesCore.lean:3337 | characters |
 | `Salt.MR.shifted_dirichlet_ftc` | Salt/MR/HalaszRep.lean:121 | zeros, characters |
 | `Salt.MR.line_integral_tsum_swap` | Salt/MR/HalaszRep.lean:231 | characters |
 | `Salt.MR.ellLin_split` | Salt/MR/HalaszRepAsm.lean:142 | characters |
@@ -5556,11 +5554,13 @@ Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hyp
 | `Salt.MR.scale_floor_Mrange` | Salt/MR/SupF.lean:960 | characters |
 | `Salt.MR.sigma_cutoff_pretentious` | Salt/MR/SupF.lean:1005 | characters |
 | `Salt.MR.scale_floor_Mrange_seam` | Salt/MR/SupF.lean:1155 | characters |
-| `Salt.MR.jointIntegrableAt_pin_free` | Salt/MR/SupStation.lean:127 | characters |
-| `Salt.MR.seam_ball_leg_station` | Salt/MR/SupStation.lean:224 | characters |
-| `Salt.MR.seamGateRstar_le_self` | Salt/MR/SupStation.lean:319 | characters |
-| `Salt.MR.seam_ball_leg_station_M` | Salt/MR/SupStation.lean:401 | characters |
-| `Salt.MR.prop_A3_T1_row_station` | Salt/MR/SupStation.lean:466 | characters |
+| `Salt.MR.jointIntegrableAt_pin_free` | Salt/MR/SupStation.lean:128 | characters |
+| `Salt.MR.center_halasz_supply_uniform` | Salt/MR/SupStation.lean:152 | characters |
+| `Salt.MR.ball_sup_supplied_uniform` | Salt/MR/SupStation.lean:249 | characters |
+| `Salt.MR.seam_ball_leg_station` | Salt/MR/SupStation.lean:377 | characters |
+| `Salt.MR.seamGateRstar_le_self` | Salt/MR/SupStation.lean:472 | characters |
+| `Salt.MR.seam_ball_leg_station_M` | Salt/MR/SupStation.lean:554 | characters |
+| `Salt.MR.prop_A3_T1_row_station` | Salt/MR/SupStation.lean:619 | characters |
 | `Salt.MR.center_halasz_supply_Y` | Salt/MR/SupplyGeneric.lean:111 | characters |
 | `Salt.MR.ball_sup_supplied_Y` | Salt/MR/SupplyGeneric.lean:234 | characters |
 | `Salt.MR.bandLterm_pos` | Salt/MR/T0Band.lean:152 | characters |
@@ -7852,11 +7852,11 @@ Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hyp
 | `Salt.MR.halasz_primes_chi_hybridHeight` | Salt/MR/HalaszPrimesChi.lean:307 | characters | `Salt.MR.WellSpaced` |
 | `Salt.MR.halasz_primes_chi_fibres` | Salt/MR/HalaszPrimesChi.lean:443 | characters | `Salt.MR.FibreWellSpaced` |
 | `Salt.MR.pole_row_sum` | Salt/MR/HalaszPrimesCore.lean:736 | characters | `Salt.MR.WellSpaced` |
-| `Salt.MR.pole_double_row` | Salt/MR/HalaszPrimesCore.lean:2828 | characters | `Salt.MR.WellSpaced` |
-| `Salt.MR.dual_core` | Salt/MR/HalaszPrimesCore.lean:2941 | sieves, characters | `Salt.MR.WellSpaced` |
-| `Salt.MR.dual_assembly` | Salt/MR/HalaszPrimesCore.lean:3062 | characters | `Salt.MR.WellSpaced` |
-| `Salt.MR.halasz_primes_primal_raw` | Salt/MR/HalaszPrimesCore.lean:3088 | characters | `Salt.MR.WellSpaced` |
-| `Salt.MR.halasz_primes_pow` | Salt/MR/HalaszPrimesCore.lean:3390 | characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.pole_double_row` | Salt/MR/HalaszPrimesCore.lean:2855 | characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.dual_core` | Salt/MR/HalaszPrimesCore.lean:2968 | sieves, characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.dual_assembly` | Salt/MR/HalaszPrimesCore.lean:3089 | characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.halasz_primes_primal_raw` | Salt/MR/HalaszPrimesCore.lean:3115 | characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.halasz_primes_pow` | Salt/MR/HalaszPrimesCore.lean:3417 | characters | `Salt.MR.WellSpaced` |
 | `Salt.MR.m4_second_road_L2_gk_flatRoot` | Salt/MR/HloExportMRFlatRoot.lean:318 | characters | `Salt.MR.M4DoorGates_gk`, `Salt.MR.M4ChiSummedFreeRow_gk` |
 | `Salt.MR.dpolyChi_fibre_gallagher` | Salt/MR/HybridLargeValues.lean:268 | characters | `Salt.MR.WellSpaced` |
 | `Salt.MR.hybrid_wellspaced_l2_family` | Salt/MR/HybridLargeValues.lean:347 | characters | `Salt.MR.WellSpaced` |
@@ -8655,8 +8655,8 @@ Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hyp
 | `Salt.MR.twinLogWeight_support_infinite_of_supply` | Salt/MR/StrideSupplyAllStrides.lean:334 | characters | `Salt.MR.StrideSupplyAllStridesW` |
 | `Salt.MR.joint_cs_trunc_pin` | Salt/MR/SupClose.lean:260 | characters | `Salt.MR.JointIntegrableAt` |
 | `Salt.MR.rhs_grade_at_scale_trunc` | Salt/MR/SupClose.lean:319 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
-| `Salt.MR.jointIntegrableAt_of_zero` | Salt/MR/SupStation.lean:96 | characters | `Salt.MR.JointIntegrableAt` |
-| `Salt.MR.ball_sup_closed_star_uniform` | Salt/MR/SupStation.lean:152 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
+| `Salt.MR.jointIntegrableAt_of_zero` | Salt/MR/SupStation.lean:97 | characters | `Salt.MR.JointIntegrableAt` |
+| `Salt.MR.ball_sup_closed_star_uniform` | Salt/MR/SupStation.lean:305 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
 | `Salt.MR.ball_sup_closed_star2` | Salt/MR/SupplyGeneric.lean:348 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
 | `Salt.MR.TLeg_bound_chi` | Salt/MR/TLegChi.lean:160 | characters | `Salt.MR.LevelGates` |
 | `Salt.MR.TLeg_feeds_capstone_chi` | Salt/MR/TLegChi.lean:208 | characters | `Salt.MR.LevelGates` |
@@ -9352,8 +9352,8 @@ Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hyp
 | `Salt.MR.lamChi_eq_liouChi_prime` | Salt/MR/CapFreeAssembly.lean:461 | characters |
 | `Salt.MR.caseASwide` | Salt/MR/CaseAWide.lean:249 | characters |
 | `Salt.MR.caseASwide_eq_caseAS2` | Salt/MR/CaseAWide.lean:255 | characters |
-| `Salt.MR.seamCoeff_twist_combine` | Salt/MR/CenterSupply.lean:97 | characters |
-| `Salt.MR.pretDistSq_twist_slot` | Salt/MR/CenterSupply.lean:126 | characters |
+| `Salt.MR.seamCoeff_twist_combine` | Salt/MR/CenterSupply.lean:93 | characters |
+| `Salt.MR.pretDistSq_twist_slot` | Salt/MR/CenterSupply.lean:122 | characters |
 | `Salt.MR.pieceDatum` | Salt/MR/CofactorSupplier.lean:71 | characters |
 | `Salt.MR.doorCofactor0` | Salt/MR/CofactorSupplier.lean:77 | characters |
 | `Salt.MR.pieceDatum_mul` | Salt/MR/CofactorSupplier.lean:130 | characters |
