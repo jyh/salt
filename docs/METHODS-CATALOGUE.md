@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `49e7a4aa` · source digest `a883d08fbfb59872` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `95cfeb5d` · source digest `9ce12f3570c8486c` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23434 · with a proof/definition body: 23434 · direct corpus references (edges): 86526 · audited results: 9148 · corpus Prop-valued names: 691.
+Declarations indexed: 23434 · with a proof/definition body: 23434 · direct corpus references (edges): 86500 · audited results: 9148 · corpus Prop-valued names: 691.
 
 ## Hypothesis status (Deliverable A)
 
@@ -331,7 +331,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.CaseASocketGen` | DISCHARGED | 6 | `Salt.MR.caseASocketGen_of_inner` ✓audited GUARDED (Salt/MR/CofactorSupplier.lean:1005) |
 | `Salt.MR.M4ChiSummedFreeRow` | DISCHARGED | 6 | `Salt.MR.m4_chiSummedFreeRow_of_doorGrade` ✓audited GUARDED (Salt/MR/M4Assembly.lean:392) · `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_pool` ✓audited GUARDED (Salt/MR/M4AssemblyPool.lean:259) · `Salt.MR.m4_chiSummedFreeRow_trivial` ✓audited (Salt/MR/M4ChiSummed.lean:244) |
 | `Salt.MR.M4GradeGate` | DISCHARGED | 6 | `Salt.MR.m4_gradeGate_of_block_pricing` ✓audited GUARDED (Salt/MR/M4BridgeCover.lean:461) · `Salt.MR.m4_gradeGate_direct` ✓audited GUARDED (Salt/MR/M4ClassPrice.lean:716) · `Salt.MR.m4_gradeGate_direct_of_sq` ✓audited GUARDED (Salt/MR/M4ClassPrice.lean:734) · +2 |
-| `Salt.MR.S15Sel''_L` | DISCHARGED | 6 | `Salt.MR.s15_sel''_L_witness_flat_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:3280) · `Salt.MR.s15_sel''_L_witness_flat` ✓audited GUARDED (Salt/MR/S15SelLinear.lean:280) · `Salt.MR.s15_sel''_L_witness_flat_b9` ✓audited GUARDED (Salt/MR/S15SelLinear.lean:740) · +6 |
+| `Salt.MR.S15Sel''_L` | DISCHARGED | 6 | `Salt.MR.s15_sel''_L_witness_flat_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:3280) · `Salt.MR.s15_sel''_L_witness_flat_b9` ✓audited GUARDED (Salt/MR/S15SelLinear.lean:326) · `Salt.MR.s15_sel''_L_witness_flat` ✓audited GUARDED (Salt/MR/S15SelLinear.lean:550) · +6 |
 | `Salt.MR.SawtoothOdd` | DISCHARGED | 6 | `Salt.MR.sawtoothOdd` ✓audited (Salt/MR/Sawtooth.lean:842) |
 | `Salt.MR.SieveBlockGate` | DISCHARGED | 6 | `Salt.MR.s13_sieveBlockGate` ✓audited GUARDED (Salt/MR/S13FramesA.lean:149) · `Salt.MR.s13_sieveBlockGate_gk` GUARDED (Salt/MR/S13FramesA.lean:1145) · `Salt.MR.s13_sieveBlockGate_gen` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:77) · +2 |
 | `ProbabilityTheory.FiniteSupport` | DISCHARGED | 5 | `Salt.Entropy.Chowla.instFiniteSupport` (Salt/Entropy/Chowla/LogMeasure.lean:80) · `Salt.Entropy.Chowla.finiteSupport_logMeasureAff` ✓audited (Salt/Entropy/Chowla/StrideDecrement.lean:63) · `ProbabilityTheory.finiteSupport_zero` (Salt/Entropy/Measure.lean:145) · +2 |

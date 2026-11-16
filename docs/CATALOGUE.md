@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `49e7a4aa` · source digest `a883d08fbfb59872` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `95cfeb5d` · source digest `9ce12f3570c8486c` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -5064,12 +5064,12 @@ Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hyp
 | `Salt.MR.flatDoorM_le` | Salt/MR/S15SelLinear.lean:233 | characters |
 | `Salt.MR.flatDoorM_ge` | Salt/MR/S15SelLinear.lean:239 | characters |
 | `Salt.MR.flatDoorM_one_le` | Salt/MR/S15SelLinear.lean:249 | characters |
-| `Salt.MR.s15_sel''_L_witness_flat` | Salt/MR/S15SelLinear.lean:280 | characters |
-| `Salt.MR.s13BlockExp_L_gk_head` | Salt/MR/S15SelLinear.lean:508 | characters |
-| `Salt.MR.s13BlockExp_L_gk_le` | Salt/MR/S15SelLinear.lean:516 | characters |
-| `Salt.MR.s15_sel''_L_gk_witness_flat` | Salt/MR/S15SelLinear.lean:563 | characters |
-| `Salt.MR.s15_sel''_L_witness_flat_b9` | Salt/MR/S15SelLinear.lean:740 | characters |
-| `Salt.MR.s15_sel''_L_gk_witness_flat_b9` | Salt/MR/S15SelLinear.lean:949 | characters |
+| `Salt.MR.s13BlockExp_L_gk_head` | Salt/MR/S15SelLinear.lean:265 | characters |
+| `Salt.MR.s13BlockExp_L_gk_le` | Salt/MR/S15SelLinear.lean:273 | characters |
+| `Salt.MR.s15_sel''_L_witness_flat_b9` | Salt/MR/S15SelLinear.lean:326 | characters |
+| `Salt.MR.s15_sel''_L_witness_flat` | Salt/MR/S15SelLinear.lean:550 | characters |
+| `Salt.MR.s15_sel''_L_gk_witness_flat_b9` | Salt/MR/S15SelLinear.lean:573 | characters |
+| `Salt.MR.s15_sel''_L_gk_witness_flat` | Salt/MR/S15SelLinear.lean:741 | characters |
 | `Salt.MR.flat_exp_ge_lin` | Salt/MR/S15SelLinearWide.lean:50 | characters |
 | `Salt.MR.flat_gRows_line` | Salt/MR/S15SelLinearWide.lean:69 | characters |
 | `Salt.MR.flat_anchor_line` | Salt/MR/S15SelLinearWide.lean:82 | characters |
@@ -8358,7 +8358,7 @@ Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hyp
 | `Salt.MR.MSelect'_L_gk_of_S15Sel''_L_gk` | Salt/MR/S13FramesLinear.lean:748 | characters | `Salt.MR.S15Sel''_L_gk` |
 | `Salt.MR.S15Sel''_L.head` | Salt/MR/S15SelLinear.lean:172 | characters | `Salt.MR.S15Sel''_L` |
 | `Salt.MR.S15Sel''_L_gk.head` | Salt/MR/S15SelLinear.lean:183 | characters | `Salt.MR.S15Sel''_L_gk` |
-| `Salt.MR.s15_sel''_L_gk_of_L` | Salt/MR/S15SelLinear.lean:537 | characters | `Salt.MR.S15Sel''_L` |
+| `Salt.MR.s15_sel''_L_gk_of_L` | Salt/MR/S15SelLinear.lean:294 | characters | `Salt.MR.S15Sel''_L` |
 | `Salt.MR.s15_sel''_L_blk_landed` | Salt/MR/S15SelLinearWide.lean:441 | characters | `Salt.MR.S15Sel''_L` |
 | `Salt.MR.s15_sel''_L_half_landed` | Salt/MR/S15SelLinearWide.lean:451 | characters | `Salt.MR.S15Sel''_L` |
 | `Salt.MR.s15_gRows_const_at_socket_flat_doorL` | Salt/MR/S15SelLinearWide.lean:464 | characters | `Salt.MR.SocketBaseL` |
