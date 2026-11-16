@@ -8,7 +8,7 @@ import Salt.Goldbach.BandRows
 /-!
 # G-BANDROWS-2 — the crumb tower close at the operating conductor (A₃, deliverable 2)
 
-`BandClose2.gold_hSum_geo_band` routes the box crumb `goldBtailMinSlot` and the band crumb
+`GeoSum.gold_hSum_geo_band` routes the box crumb `goldBtailMinSlot` and the band crumb
 `goldBandBtailSlot` through the additive tail slots `htail` / `hbandtail`.  This file discharges
 those slots — the flagged **(D) tower close** — at the operating conductor
 `D := opD N ≈ N^{1/2−9/100000}`, `bnd := QR·opDlev ≲ N^{1/2}`.
