@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `0d54dd64` · source digest `202e643533d39907` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `95cfeb5d` · source digest `9ce12f3570c8486c` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -3370,8 +3370,8 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.MR.shifted_edge_price` | Salt/MR/HalaszPrimesCore.lean:1511 | zeros, characters |
 | `Salt.MR.window_dominates` | Salt/MR/HalaszPrimesCore.lean:1685 | sieves, characters |
 | `Salt.MR.prime_power_discard` | Salt/MR/HalaszPrimesCore.lean:1795 | sieves, characters |
-| `Salt.MR.error_double_row` | Salt/MR/HalaszPrimesCore.lean:2912 | characters |
-| `Salt.MR.absorb_arith` | Salt/MR/HalaszPrimesCore.lean:3337 | characters |
+| `Salt.MR.error_double_row` | Salt/MR/HalaszPrimesCore.lean:2885 | characters |
+| `Salt.MR.absorb_arith` | Salt/MR/HalaszPrimesCore.lean:3310 | characters |
 | `Salt.MR.shifted_dirichlet_ftc` | Salt/MR/HalaszRep.lean:121 | zeros, characters |
 | `Salt.MR.line_integral_tsum_swap` | Salt/MR/HalaszRep.lean:231 | characters |
 | `Salt.MR.ellLin_split` | Salt/MR/HalaszRepAsm.lean:142 | characters |
@@ -5064,12 +5064,12 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.MR.flatDoorM_le` | Salt/MR/S15SelLinear.lean:233 | characters |
 | `Salt.MR.flatDoorM_ge` | Salt/MR/S15SelLinear.lean:239 | characters |
 | `Salt.MR.flatDoorM_one_le` | Salt/MR/S15SelLinear.lean:249 | characters |
-| `Salt.MR.s15_sel''_L_witness_flat` | Salt/MR/S15SelLinear.lean:280 | characters |
-| `Salt.MR.s13BlockExp_L_gk_head` | Salt/MR/S15SelLinear.lean:508 | characters |
-| `Salt.MR.s13BlockExp_L_gk_le` | Salt/MR/S15SelLinear.lean:516 | characters |
-| `Salt.MR.s15_sel''_L_gk_witness_flat` | Salt/MR/S15SelLinear.lean:563 | characters |
-| `Salt.MR.s15_sel''_L_witness_flat_b9` | Salt/MR/S15SelLinear.lean:740 | characters |
-| `Salt.MR.s15_sel''_L_gk_witness_flat_b9` | Salt/MR/S15SelLinear.lean:949 | characters |
+| `Salt.MR.s13BlockExp_L_gk_head` | Salt/MR/S15SelLinear.lean:265 | characters |
+| `Salt.MR.s13BlockExp_L_gk_le` | Salt/MR/S15SelLinear.lean:273 | characters |
+| `Salt.MR.s15_sel''_L_witness_flat_b9` | Salt/MR/S15SelLinear.lean:326 | characters |
+| `Salt.MR.s15_sel''_L_witness_flat` | Salt/MR/S15SelLinear.lean:550 | characters |
+| `Salt.MR.s15_sel''_L_gk_witness_flat_b9` | Salt/MR/S15SelLinear.lean:573 | characters |
+| `Salt.MR.s15_sel''_L_gk_witness_flat` | Salt/MR/S15SelLinear.lean:741 | characters |
 | `Salt.MR.flat_exp_ge_lin` | Salt/MR/S15SelLinearWide.lean:50 | characters |
 | `Salt.MR.flat_gRows_line` | Salt/MR/S15SelLinearWide.lean:69 | characters |
 | `Salt.MR.flat_anchor_line` | Salt/MR/S15SelLinearWide.lean:82 | characters |
@@ -7852,11 +7852,11 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.MR.halasz_primes_chi_hybridHeight` | Salt/MR/HalaszPrimesChi.lean:307 | characters | `Salt.MR.WellSpaced` |
 | `Salt.MR.halasz_primes_chi_fibres` | Salt/MR/HalaszPrimesChi.lean:443 | characters | `Salt.MR.FibreWellSpaced` |
 | `Salt.MR.pole_row_sum` | Salt/MR/HalaszPrimesCore.lean:736 | characters | `Salt.MR.WellSpaced` |
-| `Salt.MR.pole_double_row` | Salt/MR/HalaszPrimesCore.lean:2855 | characters | `Salt.MR.WellSpaced` |
-| `Salt.MR.dual_core` | Salt/MR/HalaszPrimesCore.lean:2968 | sieves, characters | `Salt.MR.WellSpaced` |
-| `Salt.MR.dual_assembly` | Salt/MR/HalaszPrimesCore.lean:3089 | characters | `Salt.MR.WellSpaced` |
-| `Salt.MR.halasz_primes_primal_raw` | Salt/MR/HalaszPrimesCore.lean:3115 | characters | `Salt.MR.WellSpaced` |
-| `Salt.MR.halasz_primes_pow` | Salt/MR/HalaszPrimesCore.lean:3417 | characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.pole_double_row` | Salt/MR/HalaszPrimesCore.lean:2828 | characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.dual_core` | Salt/MR/HalaszPrimesCore.lean:2941 | sieves, characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.dual_assembly` | Salt/MR/HalaszPrimesCore.lean:3062 | characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.halasz_primes_primal_raw` | Salt/MR/HalaszPrimesCore.lean:3088 | characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.halasz_primes_pow` | Salt/MR/HalaszPrimesCore.lean:3390 | characters | `Salt.MR.WellSpaced` |
 | `Salt.MR.m4_second_road_L2_gk_flatRoot` | Salt/MR/HloExportMRFlatRoot.lean:318 | characters | `Salt.MR.M4DoorGates_gk`, `Salt.MR.M4ChiSummedFreeRow_gk` |
 | `Salt.MR.dpolyChi_fibre_gallagher` | Salt/MR/HybridLargeValues.lean:268 | characters | `Salt.MR.WellSpaced` |
 | `Salt.MR.hybrid_wellspaced_l2_family` | Salt/MR/HybridLargeValues.lean:347 | characters | `Salt.MR.WellSpaced` |
@@ -8358,7 +8358,7 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.MR.MSelect'_L_gk_of_S15Sel''_L_gk` | Salt/MR/S13FramesLinear.lean:748 | characters | `Salt.MR.S15Sel''_L_gk` |
 | `Salt.MR.S15Sel''_L.head` | Salt/MR/S15SelLinear.lean:172 | characters | `Salt.MR.S15Sel''_L` |
 | `Salt.MR.S15Sel''_L_gk.head` | Salt/MR/S15SelLinear.lean:183 | characters | `Salt.MR.S15Sel''_L_gk` |
-| `Salt.MR.s15_sel''_L_gk_of_L` | Salt/MR/S15SelLinear.lean:537 | characters | `Salt.MR.S15Sel''_L` |
+| `Salt.MR.s15_sel''_L_gk_of_L` | Salt/MR/S15SelLinear.lean:294 | characters | `Salt.MR.S15Sel''_L` |
 | `Salt.MR.s15_sel''_L_blk_landed` | Salt/MR/S15SelLinearWide.lean:441 | characters | `Salt.MR.S15Sel''_L` |
 | `Salt.MR.s15_sel''_L_half_landed` | Salt/MR/S15SelLinearWide.lean:451 | characters | `Salt.MR.S15Sel''_L` |
 | `Salt.MR.s15_gRows_const_at_socket_flat_doorL` | Salt/MR/S15SelLinearWide.lean:464 | characters | `Salt.MR.SocketBaseL` |
