@@ -314,6 +314,8 @@ theorem s15_sel''_L_gk_of_L (Klev : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ}
 Additive only: every declaration above is untouched. Each twin is its source's statement and body
 with ONLY the freeze's §3.1 rule-2 raises (`c ≤ 1096 ↦ ≤ 8103`, `1201216 ↦ 65658609`), every derived
 cap-dependent supplier replaced by its twin; no hypothesis is added and no conclusion weakened. -/
+-- O13-e row 190 (2026-11-16): two of those sources, `s15_sel''_L_witness_flat` and
+-- `s15_sel''_L_gk_witness_flat`, now sit below their twins here as corollaries (`c ≤ 1096 ≤ 8103`).
 
 set_option maxHeartbeats 1600000 in
 -- as the source: eleven register lines at a SYMBOLIC design point, `blk` a `y⁴`-vs-`e^y` comparison
