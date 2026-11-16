@@ -364,14 +364,11 @@ open Complex Salt.SW Salt.Vk Metric Set
 `T₀ = max (max T₁ 3) (e^{e^{Cbig}})` — so the ZFREE-RECT floor survives, and the SECOND floor
 `e^{e^{Cbig}}`, `Cbig = 9000·c_vk + c_vk/(2·δ₀) + 1`, enters here with `δ₀` the opaque
 compactness constant of `logDeriv_Zc_compact_bound` at height `H = e^{e^{A}}`.  That second
-floor is why `T₀` has no effective ceiling today.  Body verbatim from
-`HalaszPrimesCore.lean:2149`. -/
+floor is why `T₀` has no effective ceiling today.  Since O13-e row 191 the proof is
+`shifted_edge_price_strip_of` (`HalaszPrimesCore.lean:1986`), shared with the strip. -/
 
-set_option maxHeartbeats 800000 in
--- Body verbatim from the landed `shifted_edge_price_strip`; the packaged case split needs the
--- landed declaration's own heartbeat room.
 /-- **⟦SHIFTED EDGE STRIP, BOTH BOUNDS⟧** `shifted_edge_price_strip` with `1/10^9 ≤ c_vk` and
-`e^{e^{1100}} ≤ T₀` carried.  Body verbatim. -/
+`e^{e^{1100}} ≤ T₀` carried, by `shifted_edge_price_strip_of` at the bounded margin. -/
 theorem shifted_edge_price_strip_bounded :
     ∃ (c_vk CE T₀ : ℝ), 0 < c_vk ∧ 1 / 10 ^ 9 ≤ c_vk ∧ 0 < CE ∧ 3 ≤ T₀ ∧
       Real.exp (Real.exp 1100) ≤ T₀ ∧
