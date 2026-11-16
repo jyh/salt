@@ -746,24 +746,23 @@ structure LevelGates (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ) (η : ℝ) (
 set_option maxHeartbeats 800000 in
 -- the level page composes seven landed stones under one `∀ v ∈ I_j, ∀ r ∈ I_{j−1}`; the
 -- default budget is exhausted by the assembled cell expression's `isDefEq`
-/-- **H-1 — THE LEVEL-`j` PAGE (MR §8.2, `j ≥ 2`).**
-
-  `∫_{A_j}‖F(1+it)‖² dt ≤ 1536·C·e³·(2T/X_d + 240)·1/(j²P₁) + E_j`,
-
-`A_j := (Ann ∖ ball) ∩ 𝒯ⱼ`, `E_j` Lemma 12's three rows at level `j` (`lemma12Rows`), `C`
-the absolute Shiu constant of `cell_bound_pinned`.  This is MR p.27's exit: the level page is
-`≪ 1/(j²P₁)` times the mean-value factor, so the `j`-sum converges against `Σ1/j²`.
-
-The assembly, in the order the stones fire: `lemma12_on_TsetG` at `(H_j,P_j,Q_j)` → the
-graded gain `integral_ramMain_le_exp_mul_ramR` → `G4a`'s covering
-`integral_TsetG_le_card_mul` at `#I_{j−1}` → `cell_bound_pinned` on each cell →
-`cell_price_uniform` (which makes the bound free of BOTH `v` and `r`, paying handoffs 2–4)
-→ `ramI_card_two_mul` + `level_geometry_collapse` → `level_kill_collected_P1`.
-
-The `v`-sum is FREE here: after the kill the summand no longer depends on `v`, so it is
-`#I_j` times its top — §8.1's geometric series has no counterpart at `j ≥ 2`. -/
-theorem Ej_bound_gen :
-    ∃ C : ℝ, 0 < C ∧ ∀ (c a b : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ) (η : ℝ)
+/-- `Ej_bound_gen` for ANY constant `C` with `cell_bound_pinned`'s property (`hcell`): the proof
+of both `Ej_bound_gen` and its bounded twin `Ej_bound_gen_bounded`. -/
+theorem Ej_bound_gen_of (C : ℝ) (hC : 0 < C)
+    (hcell : ∀ (c b : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ)
+      (J j r N Xd v : ℕ) (T : ℝ) (A : Set ℝ),
+      2 ≤ Hseq (j - 1) → 0 < r → 1 ≤ Xd → 0 ≤ T →
+      MeasurableSet A → A ⊆ Set.Icc (-T) T → A ⊆ TsetGr c Pseq Qseq Hseq αseq J j r →
+      (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∫ t in A, ‖ramR (Hseq j) N Xd (Pseq j) (Qseq j) v b t‖ ^ 2)
+        ≤ Real.exp (2 * ((ellPin (Hseq j) (Hseq (j - 1)) v r : ℕ) : ℝ) * αseq (j - 1)
+              * (r : ℝ) / Hseq (j - 1))
+            * ((2 * T + 20 * (((2 * ⌈Real.exp ((r : ℝ) / Hseq (j - 1))⌉₊)
+                      ^ (ellPin (Hseq j) (Hseq (j - 1)) v r)
+                    * ⌈2 * ramRbot (Hseq j) Xd v⌉₊ : ℕ) : ℝ))
+                * ((((ellPin (Hseq j) (Hseq (j - 1)) v r).factorial : ℕ) : ℝ) ^ 2
+                    * (C / (Xd : ℝ))))) :
+    ∀ (c a b : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ) (η : ℝ)
       (Jb j N Xd P1 : ℕ) (X T t₁ row : ℝ),
       LevelGates Pseq Qseq Hseq η P1 Xd j →
       1 ≤ Xd → 0 ≤ T →
@@ -780,8 +779,6 @@ theorem Ej_bound_gen :
         ≤ 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)
               * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
           + row := by
-  obtain ⟨C, hC, hcell⟩ := cell_bound_pinned
-  refine ⟨C, hC, ?_⟩
   intro c a b Pseq Qseq Hseq η Jb j N Xd P1 X T t₁ row hG hXd hT hb hc hL12
   -- ⟦THE GATES, UNPACKED⟧
   have hη2 : (0 : ℝ) < η / 2 := hG.cell.eta_pos
@@ -983,6 +980,43 @@ theorem Ej_bound_gen :
   have hscaled := mul_le_mul_of_nonneg_left hsum
     (by positivity : (0:ℝ) ≤ 2 * ((ramI (Hseq j) (Pseq j) (Qseq j)).card : ℝ))
   linarith [hL12, hscaled, hmain]
+
+/-- **H-1 — THE LEVEL-`j` PAGE (MR §8.2, `j ≥ 2`).**
+
+  `∫_{A_j}‖F(1+it)‖² dt ≤ 1536·C·e³·(2T/X_d + 240)·1/(j²P₁) + E_j`,
+
+`A_j := (Ann ∖ ball) ∩ 𝒯ⱼ`, `E_j` Lemma 12's three rows at level `j` (`lemma12Rows`), `C`
+the absolute Shiu constant of `cell_bound_pinned`.  This is MR p.27's exit: the level page is
+`≪ 1/(j²P₁)` times the mean-value factor, so the `j`-sum converges against `Σ1/j²`.
+
+The assembly, in the order the stones fire: `lemma12_on_TsetG` at `(H_j,P_j,Q_j)` → the
+graded gain `integral_ramMain_le_exp_mul_ramR` → `G4a`'s covering
+`integral_TsetG_le_card_mul` at `#I_{j−1}` → `cell_bound_pinned` on each cell →
+`cell_price_uniform` (which makes the bound free of BOTH `v` and `r`, paying handoffs 2–4)
+→ `ramI_card_two_mul` + `level_geometry_collapse` → `level_kill_collected_P1`.
+
+The `v`-sum is FREE here: after the kill the summand no longer depends on `v`, so it is
+`#I_j` times its top — §8.1's geometric series has no counterpart at `j ≥ 2`. -/
+theorem Ej_bound_gen :
+    ∃ C : ℝ, 0 < C ∧ ∀ (c a b : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ) (η : ℝ)
+      (Jb j N Xd P1 : ℕ) (X T t₁ row : ℝ),
+      LevelGates Pseq Qseq Hseq η P1 Xd j →
+      1 ≤ Xd → 0 ≤ T →
+      (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      ((∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+            ‖spoly N a t‖ ^ 2)
+          ≤ 2 * ((ramI (Hseq j) (Pseq j) (Qseq j)).card : ℝ)
+              * (∑ v ∈ ramI (Hseq j) (Pseq j) (Qseq j),
+                  ∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+                    ‖ramMain (Hseq j) N Xd (Pseq j) (Qseq j) b c v t‖ ^ 2)
+            + row) →
+      (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+          ‖spoly N a t‖ ^ 2)
+        ≤ 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)
+              * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
+          + row := by
+  obtain ⟨C, hC, hcell⟩ := cell_bound_pinned
+  exact ⟨C, hC, Ej_bound_gen_of C hC hcell⟩
 
 /-- **H-1 — THE LEVEL-`j` PAGE** (`Ej_bound`) — `Ej_bound_gen` at the LANDED three-row
 Lemma-12 exit `TLegPreamble.lemma12_on_TsetG`.  Statement unchanged. -/
