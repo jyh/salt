@@ -32,12 +32,11 @@ statement level.
 `LambdaMass.prop21_uniform_at_scale_absC` (the datum-hoisted A-7b form, whose constants
 precede `g`, `t₀`, `t₁`) and `XB` from `BridgeAdapt.loglog_absorb_pow_pin` (a function of
 `C_E`, `C_R` alone); `ball_sup_supplied` adds `SmallStones.ballMertensThreshold`; the crown
-adds nothing.  Neither `g`, `t₀` nor `t₁` occurs in any of them.  §2 below therefore re-runs
-the SAME composition with the `∃ X₀` hoisted over `t₁` — statements only, proofs verbatim
-(`center_error_grade` and its arithmetic helpers are `CenterGrade`'s).  Nothing upstream is
-changed (iron rule 1); the
-ideal repair is the hoisting done in `CenterSupply` itself, which is a Fable-tier edit of a
-landed statement.
+adds nothing.  Neither `g`, `t₀` nor `t₁` occurs in any of them.  `CenterSupply` therefore
+states the closure and its supply with the `∃ X₀` hoisted over `t₁`
+(`center_halasz_supply_uniform`, `ball_sup_supplied_uniform`), and the per-centre statements,
+unchanged, are their instances; §2 below re-runs the crown the same way (statement only, proof
+verbatim).
 
 ## What is here
 
@@ -48,8 +47,8 @@ landed statement.
   `hInt` bundle is discharged with NO minimality hypothesis at all
   (`jointIntegrableAt_pin_free`).  This closes the last carried socket of ⟦V3b⟧ without
   touching the on-ℝ (vacuous) minimality.
-* §2 — the uniform-`X₀` re-derivation (`center_halasz_supply_uniform`,
-  `ball_sup_supplied_uniform`, `ball_sup_closed_star_uniform`).
+* §2 — the uniform-`X₀` re-derivation of the crown (`ball_sup_closed_star_uniform`), on
+  `CenterSupply.ball_sup_supplied_uniform`.
 * §3 — **AS-1 `seam_ball_leg_station`**: the composed exit.  The centre is produced per-`X`;
   `hmin`, `hgate`, `hne`, `hInt`, `hk64` and the Chebyshev datum `Cb` are all discharged
   internally; the empty and nonempty arms deliver the SAME binder at the SAME `S`
@@ -140,161 +139,9 @@ theorem jointIntegrableAt_pin_free {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
     (fun n => le_of_eq (costwist_norm _ n))
 /-! ## §2 — the uniform-`X₀` re-derivation
 
-Statements only are new: each proof below is `CenterSupply`'s / `FarStar`'s own, replayed
-with the `∃ X₀` hoisted over the centre `t₁`.  The grade page and its arithmetic helpers
-are `CenterGrade`'s.
+The statement only is new: the proof below is `FarStar`'s own, replayed with the `∃ X₀`
+hoisted over the centre `t₁`, on `CenterSupply.ball_sup_supplied_uniform`.
 -/
-
-/-- **The `HCENTER` closure, UNIFORM in the centre (`center_halasz_supply_uniform`).**
-`CenterSupply.center_halasz_supply` with the threshold quantified BEFORE `t₁`.  The proof is
-that theorem's own: its witness `max (max (XA+1) XB) (e⁸)` mentions neither `g`, `t₀` nor
-`t₁`, so hoisting the `refine` past the centre is the whole edit. -/
-theorem center_halasz_supply_uniform {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
-    (t₀ : ℝ) :
-    ∃ X₀ : ℝ, 0 < X₀ ∧
-      ∀ (t₁ X : ℝ) (N : ℕ) (C₁ : ℝ), X₀ ≤ X → X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → 0 ≤ C₁ →
-        (∀ k : ℕ, ⌊X⌋₊ ≤ k → k ≤ N →
-            ‖prop21RHS (fun p => g p * (p : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) (t₀ + t₁)
-                (k : ℝ) ((k : ℝ) / Real.sqrt (Real.log (k : ℝ))) (1 + 1 / Real.log (k : ℝ))
-                (Real.log (k : ℝ) ^ 4) (1 / Real.log (Real.log (k : ℝ) ^ 4))‖
-              ≤ C₁ * (k : ℝ) * Real.exp (-(1 / (2 * Real.exp 1))
-                  * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X)) →
-      ∀ k : ℕ, ⌊X⌋₊ ≤ k → k ≤ N →
-        ‖∑ n ∈ Finset.Icc 1 k, seamCoeff (ellLin g) (fun _ => 1) t₀ n * eIu (-t₁) n‖
-          ≤ (C₁ * Real.exp (-(1 / (2 * Real.exp 1))
-                * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X)
-              + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) * (k : ℝ) := by
-  obtain ⟨XA, C_E, C_R, hCE0, hCR0, hrep⟩ := prop21_uniform_at_scale_absC
-  obtain ⟨XB, _hXB0, hB⟩ :=
-    loglog_absorb_pow_pin (C := 4 * (8 * C_E + 4 * C_R)) (by positivity) 1
-  refine ⟨max (max (XA + 1) XB) (Real.exp 8),
-    lt_of_lt_of_le (Real.exp_pos 8) (le_max_right _ _), ?_⟩
-  intro t₁ X N C₁ hXlb hXN hN2 hC₁0 hRHS k hkfl hkN
-  -- the threshold split and the dyadic `k`-window (`dyadic_window_facts`)
-  obtain ⟨hX8, hXA1, hXB, hX25, hX0, hfl, hk1, hk2, hkXA, hk0, hk1le, hlog2hi, hL8, hLklo, hLk1,
-    hLk0, hsqLk1, hsqLk0, hh0, hhX⟩ := dyadic_window_facts hXlb hkfl hkN hN2
-  -- the two landed legs, at scale `k`
-  have hdes := prop21_desmooth_reduction (f := ellLin g) (gJ := fun _ => 1) (t₀ + t₁)
-    (fun n => ellLin_norm_le_one g hg n) (fun _ => by simp)
-    (X := (k : ℝ)) (h := (k : ℝ) / Real.sqrt (Real.log (k : ℝ))) hk1le hh0 hhX
-  rw [Nat.floor_natCast] at hdes
-  have hr := hrep g hg (t₀ + t₁) (k : ℝ) hkXA
-  have hR := hRHS k hkfl hkN
-  -- the twist combine
-  have hsum : (∑ n ∈ Finset.Icc 1 k, seamCoeff (ellLin g) (fun _ => 1) t₀ n * eIu (-t₁) n)
-      = ∑ n ∈ Finset.Icc 1 k, seamCoeff (ellLin g) (fun _ => 1) (t₀ + t₁) n :=
-    Finset.sum_congr rfl (fun n _ => seamCoeff_twist_combine _ _ t₀ t₁ n)
-  rw [hsum]
-  -- the triangle chain
-  set A := ∑ n ∈ Finset.Icc 1 k, seamCoeff (ellLin g) (fun _ => 1) (t₀ + t₁) n with hAdef
-  set B := ∑' n, seamCoeff (ellLin g) (fun _ => 1) (t₀ + t₁) n
-    * (hatK (k : ℝ) ((k : ℝ) / Real.sqrt (Real.log (k : ℝ))) n : ℂ) with hBdef
-  set R := prop21RHS (fun p => g p * (p : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) (t₀ + t₁)
-    (k : ℝ) ((k : ℝ) / Real.sqrt (Real.log (k : ℝ))) (1 + 1 / Real.log (k : ℝ))
-    (Real.log (k : ℝ) ^ 4) (1 / Real.log (Real.log (k : ℝ) ^ 4)) with hRdef
-  have hid : A = (A - B) + ((B - R) + R) := by ring
-  have htri : ‖A‖ ≤ ‖A - B‖ + (‖B - R‖ + ‖R‖) := by
-    calc ‖A‖ = ‖(A - B) + ((B - R) + R)‖ := by rw [← hid]
-      _ ≤ ‖A - B‖ + ‖(B - R) + R‖ := norm_add_le _ _
-      _ ≤ ‖A - B‖ + (‖B - R‖ + ‖R‖) := by
-          linarith [norm_add_le (B - R) R]
-  -- the `E`-error, reduced to the `D·k·loglog k/log k` shape
-  have hlogpow : Real.log (Real.log (k : ℝ) ^ 4) = 4 * Real.log (Real.log (k : ℝ)) := by
-    rw [Real.log_pow]; norm_num
-  have hlogLk0 : (0 : ℝ) ≤ Real.log (Real.log (k : ℝ)) := Real.log_nonneg hLk1
-  have hu0 : (0 : ℝ) < (k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ)) := by linarith
-  have hulogb : Real.log (k : ℝ) ≤ Real.log ((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ))) :=
-    Real.log_le_log hk0 (by linarith)
-  have huq : ((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ)))
-        / Real.log ((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ)))
-      ≤ 2 * (k : ℝ) / Real.log (k : ℝ) := by
-    rw [div_le_div_iff₀ (by linarith) hLk0]
-    nlinarith
-  have hEle : C_E * (((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ)))
-          / Real.log ((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ))))
-        * Real.log (Real.log (k : ℝ) ^ 4)
-      + C_R * ((k : ℝ) / Real.log (k : ℝ)) * Real.log (Real.log (k : ℝ) ^ 4)
-      ≤ (8 * C_E + 4 * C_R)
-          * ((k : ℝ) * (Real.log (Real.log (k : ℝ)) / Real.log (k : ℝ))) := by
-    rw [hlogpow]
-    have h1 : C_E * (((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ)))
-            / Real.log ((k : ℝ) + (k : ℝ) / Real.sqrt (Real.log (k : ℝ))))
-          * (4 * Real.log (Real.log (k : ℝ)))
-        ≤ C_E * (2 * (k : ℝ) / Real.log (k : ℝ)) * (4 * Real.log (Real.log (k : ℝ))) := by
-      have hq : (0 : ℝ) ≤ 4 * Real.log (Real.log (k : ℝ)) := by linarith
-      have := mul_le_mul_of_nonneg_left huq hCE0
-      exact mul_le_mul_of_nonneg_right this hq
-    have h2 : C_E * (2 * (k : ℝ) / Real.log (k : ℝ)) * (4 * Real.log (Real.log (k : ℝ)))
-          + C_R * ((k : ℝ) / Real.log (k : ℝ)) * (4 * Real.log (Real.log (k : ℝ)))
-        = (8 * C_E + 4 * C_R)
-            * ((k : ℝ) * (Real.log (Real.log (k : ℝ)) / Real.log (k : ℝ))) := by
-      field_simp
-      ring
-    linarith
-  -- the grade page
-  have hgrade := center_error_grade (D := 8 * C_E + 4 * C_R) (X := X) (k := k)
-    (by positivity) hX8 hk1 hk2 (hB X hXB)
-  have hexpand : (C₁ * Real.exp (-(1 / (2 * Real.exp 1))
-        * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X)
-      + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) * (k : ℝ)
-      = C₁ * (k : ℝ) * Real.exp (-(1 / (2 * Real.exp 1))
-          * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X)
-        + 4 * ((k : ℝ) * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) := by ring
-  rw [hexpand]
-  linarith
-
-/-- **The crown's supply, UNIFORM in the centre (`ball_sup_supplied_uniform`).**
-`CenterSupply.ball_sup_supplied` on the hoisted supply; its own threshold summand
-`ballMertensThreshold` is a numeral. -/
-theorem ball_sup_supplied_uniform {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
-    (t₀ : ℝ) :
-    ∃ X₀ : ℝ, 0 < X₀ ∧
-      ∀ (t₁ X : ℝ) (N : ℕ) (T C₁ : ℝ) (a : ℕ → ℂ),
-        X₀ ≤ X → X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → 0 ≤ C₁ →
-        (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
-        (∀ n : ℕ, X < (n : ℝ) → a n = seamCoeff (ellLin g) (fun _ => 1) t₀ n) →
-        (∀ k : ℕ, ⌊X⌋₊ ≤ k → k ≤ N →
-            ‖prop21RHS (fun p => g p * (p : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) (t₀ + t₁)
-                (k : ℝ) ((k : ℝ) / Real.sqrt (Real.log (k : ℝ))) (1 + 1 / Real.log (k : ℝ))
-                (Real.log (k : ℝ) ^ 4) (1 / Real.log (Real.log (k : ℝ) ^ 4))‖
-              ≤ C₁ * (k : ℝ) * Real.exp (-(1 / (2 * Real.exp 1))
-                  * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X)) →
-        (∀ x : ℝ, X ≤ x → x ≤ 2 * X →
-            pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) x
-              ≤ (1 / 16) * Real.log (Real.log X)) →
-      ∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ T → |t - t₁| ≤ seamRad X →
-        ∀ m : ℕ, m ≤ N →
-          ‖spolyA a t m‖
-            ≤ ballSupS X (C₁ * Real.exp (-(1 / (2 * Real.exp 1))
-                  * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X)
-                + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) * m / (1 + |t - t₁|) := by
-  obtain ⟨X₁, hX₁0, hsupply⟩ := center_halasz_supply_uniform hg t₀
-  refine ⟨max X₁ ballMertensThreshold, lt_of_lt_of_le hX₁0 (le_max_left _ _), ?_⟩
-  intro t₁ X N T C₁ a hXlb hXN hN2 hC₁0 hsupp hDatum hRHS hMcap
-  have hX1 : X₁ ≤ X := le_trans (le_max_left _ _) hXlb
-  have hXth : ballMertensThreshold ≤ X := le_trans (le_max_right _ _) hXlb
-  have hX3 : (3 : ℝ) ≤ X := le_trans three_le_ballMertensThreshold hXth
-  have hlogX0 : (0 : ℝ) ≤ Real.log X := Real.log_nonneg (by linarith)
-  have hS₀ : (0 : ℝ) ≤ C₁ * Real.exp (-(1 / (2 * Real.exp 1))
-        * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X)
-      + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000) := by
-    have h1 : (0 : ℝ) ≤ C₁ * Real.exp (-(1 / (2 * Real.exp 1))
-        * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X) :=
-      mul_nonneg hC₁0 (Real.exp_nonneg _)
-    have h2 : (0 : ℝ) ≤ Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000) := Real.rpow_nonneg hlogX0 _
-    linarith
-  have hMball : ∀ x : ℝ, X ≤ x → x ≤ 2 * X →
-      pretDistSq (fun n => seamCoeff (ellLin g) (fun _ => 1) t₀ n * eIu (-t₁) n)
-          (fun _ => 1) x
-        ≤ Salt.Mertens.SPartial x / 8 := by
-    refine hMball_of_A4_cap hXth ?_
-    intro x h1 h2
-    rw [← pretDistSq_twist_slot]
-    exact hMcap x h1 h2
-  exact ball_sup_of_center hX3 hXN hN2 (seamCoeff_ellLin_one g t₀)
-    (seamCoeff_ellLin_mul_coprime g t₀)
-    (fun n => norm_seamCoeff_le (fun m => ellLin_norm_le_one g hg m) (fun _ => by simp) t₀ n)
-    hS₀ hsupp hDatum (hsupply t₁ X N C₁ hX1 hXN hN2 hC₁0 hRHS) hMball
 
 set_option maxHeartbeats 800000 in
 -- As at `FarStar.ball_sup_closed_star`: the crown's binder block is instantiated wholesale.
