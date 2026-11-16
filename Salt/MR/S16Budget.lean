@@ -875,9 +875,9 @@ Nothing in §6.3 is consumed by a landed declaration — it is an audit page.
 ⚠ ⟦THE READS ARE PROOF-TERM READS⟧ each witness below is a `Classical.choose` of a landed
 `∃`, which the kernel cannot evaluate (`ConstantsExposed` §0's reachability caveat).  What IS
 kernel-certified here is the ARITHMETIC of the ceilings — the theorems of this section.
-Where the descent is a chain of VERBATIM pass-throughs (every hop
-`obtain ⟨C, hC, h⟩ := <lower>` then `refine ⟨C, hC, ?_⟩`) the read is mechanical rather than
-interpretive; that is flagged per rider.
+Where the descent is a chain of VERBATIM pass-throughs (every hop `obtain ⟨C, hC, h⟩ := <lower>`
+then `refine ⟨C, hC, ?_⟩` or `exact ⟨C, hC, …⟩`) the read is mechanical rather than interpretive;
+that is flagged per rider.
 
 ### ⟦THE TABLE⟧ (⛔ false at the witness · ❓ opaque · ✅ true)
 
@@ -896,20 +896,20 @@ interpretive; that is flagged per rider.
 
 ### ⟦RIDER `Ct`⟧ FALSE BY 6.88×; CEILING `2^23`; FREE
 
-Thirteen hops, every one a verbatim pass-through except the one marked:
+Seventeen hops, every one a verbatim pass-through except the one marked:
 `final'` ← `S15Witness.logChowla2_conditional_sharp2_nonvacuous_gk'`
-← `S15Compose.logChowla2_conditional_sharp2_atK_gk_pinned` (:2757)
-← `S12ConstCompose.logChowla2_capstone_final_const'_graded_gk_pinned` (:1460)
-← `S12ConstCompose.m4_closure_fuse_zero'_const_nonneg_gk` (:934)
-← `M4RowsChiZeroPrime.m4_hrowsSlot_at_door_zero'_gk` (:849)
-← `…m4_hrowsSum_chi_door_zero'_gk` (:800) ← `…m4_hrowsSum_chi_zero'` (:570)
-← `…m4_rowChi_number_of_capstone_zero'` (:448) ← `TLegExit.TLeg_feeds_capstone_gen` (:1309)
+← `S15Compose.logChowla2_conditional_sharp2_atK_gk_pinned` (:2617)
+← `S12ConstCompose.logChowla2_capstone_final_const'_graded_gk_pinned` (:1288)
+← `S12ConstCompose.m4_closure_fuse_zero'_const_nonneg_gk` (:856)
+← `M4RowsChiZeroPrime.m4_hrowsSlot_at_door_zero'_gk` (:846)
+← `…m4_hrowsSum_chi_door_zero'_gk` (:797) ← `…m4_hrowsSum_chi_zero'` (:571)
+← `…m4_rowChi_number_of_capstone_zero'` (:449) ← `TLegExit.TLeg_feeds_capstone_gen` (:1309)
 ← `TLegExit.TLeg_bound_gen` (:1201) ← `TLegExit.Ej_bound_gen` (:1000)
-← `TLegKill.cell_bound_pinned` (:979) ← `TLegKill.cell_bound_raw` (:905)
-← `TLegKill.mix_moment` (:803)
-← `MomentsA2.lemma13_moment` (:246)  ⟵ THE ONE NON-IDENTITY HOP: `refine ⟨3 * C, …⟩`
-← `MomentsA2.blockDiv_sq_div_sq_sum_le` (:127)
-← `ShiuMoment.shiu_moment_sq` (:436)  ⟵ THE LITERAL: `refine ⟨2 * Real.exp 14, …⟩`.
+← `TLegKill.cell_bound_pinned` (:1052) ← `TLegKill.cell_bound_raw` (:916)
+← `TLegKill.mix_moment` (:814)
+← `MomentsA2.lemma13_moment` (:256)  ⟵ THE ONE NON-IDENTITY HOP: `refine ⟨3 * C, …⟩`
+← `MomentsA2.blockDiv_sq_div_sq_sum_le` (:234)
+← `ShiuMoment.shiu_moment_sq` (:451)  ⟵ THE LITERAL: `refine ⟨2 * Real.exp 14, …⟩`.
 
 So `Ct = 3·(2·e^{14}) = 6·e^{14} = 7.2156·10^6 = 2^{22.78}` — MR eq (18)'s absolute Shiu
 constant, tripled by the dyadic geometric series.  Against `2^20 = 1.0486·10^6` the rider is
