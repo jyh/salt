@@ -673,7 +673,7 @@ theorem rhs_grade_at_scale_windowC {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
 The grade page and its arithmetic helpers are `CenterGrade`'s. -/
 
 /-- **W4-6 — THE CENTRE SUPPLY AT AN ABSTRACT GRADE FACTOR, UNIFORM IN THE CENTRE**
-(`center_halasz_supply_B_uniform`).  `CenterSupply.center_halasz_supply` (:164) with the
+(`center_halasz_supply_B_uniform`).  `CenterSupply.center_halasz_supply` (:266) with the
 grade factor `C₁·e^{−(1/(2e))·𝔻²(f, p^{it₁}; X)}` replaced by an OPAQUE nonneg `B`:
 
   `hRHS : ∀ k ∈ [⌊X⌋₊, N],  ‖prop21RHS (damped datum) (t₀+t₁) k h c₀ y η‖ ≤ B·k`
