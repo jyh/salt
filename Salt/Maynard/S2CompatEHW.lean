@@ -13,7 +13,8 @@ import Salt.Maynard.S2FiberCount
 
 The free-modulus `S2mW_lower` (`S2Eh.lean`) discharges its `herr` hypothesis
 from exactly the same discrepancy assembly that `S2CompatEH.lean`/
-`FrontierDischarge.lean` built at the hardwired modulus `W k`.  This file lands
+`S2CompatEHFinal.lean` build at the hardwired modulus `W k` (the R-uniform disc bound moved there
+from `FrontierDischarge.lean`).  This file lands
 the free-`W'` mirrors so a follow-on (W5-6) can assemble `herr` and close
 `S2mW_ge_compatMain_theta_uniform`:
 

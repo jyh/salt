@@ -319,20 +319,25 @@ theorem lam_abs_le_sharp_uniform (k W : ℕ) :
   obtain ⟨hsf, hpair, _hcopW, hprodR⟩ := hd
   set D := ∏ i, d i with hDdef
   have hd𝒟 : d ∈ kSieveIndex k R W := (mem_kSieveIndex_iff d).mpr ⟨hsf, hpair, _hcopW, hprodR⟩
+  -- `D` is squarefree and `< R`.
   have hDsf : Squarefree D :=
     squarefree_prod_coprime Finset.univ d (fun i _ => hsf i)
       (fun i _ j _ hij => hpair i j hij)
   have hDR : D < R := hprodR
+  -- `φ(D) = ∏ᵢ φ(dᵢ)`, cast to `ℝ`.
   have hphiD : (Nat.totient D : ℝ) = ∏ i, (Nat.totient (d i) : ℝ) := by
     rw [hDdef, prod_totient_coprime Finset.univ d (fun i _ j _ hij => hpair i j hij),
       Nat.cast_prod]
+  -- Positivity of the coordinate totients.
   have hφpos : ∀ i, (0 : ℝ) < (Nat.totient (d i) : ℝ) := by
     intro i
     have : 0 < Nat.totient (d i) := Nat.totient_pos.mpr (Nat.pos_of_ne_zero (hsf i).ne_zero)
     exact_mod_cast this
+  -- Step 1: `|λ(d)| ≤ (∏ᵢ dᵢ)·|wSum|`.
   have hlam : |lam k R W y d| ≤ (∏ i, (d i : ℝ)) * |wSum k R W y d| := by
     rw [lam, abs_mul]
     exact mul_le_mul_of_nonneg_right (abs_prod_moebius_mul_le d) (abs_nonneg _)
+  -- Step 2–4: `|wSum| ≤ (∏ᵢ 1/φ(dᵢ))·(C₁ log R)^k`.
   have hwsum : |wSum k R W y d|
       ≤ (∏ i, 1 / (Nat.totient (d i) : ℝ)) * (C₁ * Real.log R) ^ k := by
     refine (abs_wSum_le_guarded y hy1 d).trans ((guarded_sum_le_prod d).trans ?_)
@@ -348,6 +353,7 @@ theorem lam_abs_le_sharp_uniform (k W : ℕ) :
       _ = (∏ i, 1 / (Nat.totient (d i) : ℝ)) * (C₁ * Real.log R) ^ k := by
           rw [Finset.prod_mul_distrib, Finset.prod_const, Finset.card_univ,
             Fintype.card_fin]
+  -- Combine and simplify the leftover `D/φ(D)`.
   have hDphi : (∏ i, (d i : ℝ)) * (∏ i, 1 / (Nat.totient (d i) : ℝ))
       = (D : ℝ) / (Nat.totient D : ℝ) := by
     rw [hphiD, hDdef, Nat.cast_prod]
@@ -355,6 +361,7 @@ theorem lam_abs_le_sharp_uniform (k W : ℕ) :
           = (∏ i, (Nat.totient (d i) : ℝ))⁻¹ by
         simp_rw [one_div]; rw [Finset.prod_inv_distrib]]
     rw [div_eq_mul_inv]
+  -- `D/φ(D) ≥ 0`.
   have hprodd_nn : (0 : ℝ) ≤ ∏ i, (d i : ℝ) := Finset.prod_nonneg (fun i _ => by positivity)
   have hClogR_nn : (0 : ℝ) ≤ (C₁ * Real.log R) ^ k := by
     apply pow_nonneg; positivity

@@ -148,6 +148,7 @@ theorem S2m_ge_compatMain_eh_uniform (k K₀ : ℕ) (hk : 1 ≤ k) (hK₀ : 1 �
   classical
   obtain ⟨Clam, hClam0, hdisc⟩ := abs_S2m_sub_compatMain_le_disc_R_uniform k K₀ hK₀
   obtain ⟨C, N₁, hEHb⟩ := eh_error_pow k (2 * k + 4) (by omega) hEH
+  -- `C ≥ 0`: the EH bound dominates a nonnegative sum at a large point.
   have hCnn : 0 ≤ C := by
     set x₀ := max N₁ 2 with hx₀
     have hmax2 : 2 ≤ x₀ := le_max_right N₁ 2
@@ -180,6 +181,8 @@ theorem S2m_ge_compatMain_eh_uniform (k K₀ : ℕ) (hk : 1 ≤ k) (hK₀ : 1 �
   have hNleK0N : N ≤ K₀ * N := Nat.le_mul_of_pos_left N (by omega)
   have hlogN0 : 0 < Real.log N :=
     Real.log_pos (by exact_mod_cast (show (1 : ℕ) < N by omega))
+  -- **Endpoint bound**: for `x` in `[N, (K₀+1)N]`, the fiber sum over the
+  -- `W·R²`-range is `≤ C·(K₀+1)·N/(log N)^{2k+4}` (range-extend + EH + uniformize).
   have endpoint : ∀ x : ℕ, N ≤ x → x ≤ (K₀ + 1) * N →
       ∑ q ∈ (Finset.range (W k * R ^ 2 + 1)).filter Squarefree,
           (3 * k : ℝ) ^ q.primeFactors.card * maxDiscrepancy x q
@@ -216,16 +219,19 @@ theorem S2m_ge_compatMain_eh_uniform (k K₀ : ℕ) (hk : 1 ≤ k) (hK₀ : 1 �
           have hcnum : 0 ≤ C * ((K₀ : ℝ) + 1) * (N : ℝ) :=
             mul_nonneg (mul_nonneg hCnn (by positivity)) (by positivity)
           exact mul_le_mul step_num hd21 (pow_nonneg hlogN0.le _) hcnum
+  -- endpoints `x₁ = K₀N+hₘ`, `x₂ = N+hₘ`
   have hexp : (K₀ + 1) * N = K₀ * N + N := by ring
   have hx1lb : N ≤ K₀ * N + hSeq k m := le_trans hNleK0N (Nat.le_add_right _ _)
   have hx1ub : K₀ * N + hSeq k m ≤ (K₀ + 1) * N := by rw [hexp]; omega
   have hx2ub : N + hSeq k m ≤ (K₀ + 1) * N := by rw [hexp]; omega
   have hEP1 := endpoint (K₀ * N + hSeq k m) hx1lb hx1ub
   have hEP2 := endpoint (N + hSeq k m) (Nat.le_add_right _ _) hx2ub
+  -- fiber regroup at each endpoint
   have hfib1 := compat_pair_fiber_le k R m (fun q => maxDiscrepancy (K₀ * N + hSeq k m) q)
     (fun q => maxDiscrepancy_nonneg (K₀ * N + hSeq k m) q)
   have hfib2 := compat_pair_fiber_le k R m (fun q => maxDiscrepancy (N + hSeq k m) q)
     (fun q => maxDiscrepancy_nonneg (N + hSeq k m) q)
+  -- split the two endpoints of the disc sum
   have hsplit : (∑ d ∈ (kSieveIndex k R (W k)).filter (fun d => d m = 1),
         ∑ e ∈ (kSieveIndex k R (W k)).filter (fun e => e m = 1),
           (if IsCollisionPair d e then 0
@@ -246,6 +252,7 @@ theorem S2m_ge_compatMain_eh_uniform (k K₀ : ℕ) (hk : 1 ≤ k) (hK₀ : 1 �
     by_cases hcol : IsCollisionPair d e
     · simp only [if_pos hcol, add_zero]
     · simp only [if_neg hcol]
+  -- assemble: the disc sum `≤ 2·EP`
   have hDiscSum : (∑ d ∈ (kSieveIndex k R (W k)).filter (fun d => d m = 1),
         ∑ e ∈ (kSieveIndex k R (W k)).filter (fun e => e m = 1),
           (if IsCollisionPair d e then 0
@@ -255,6 +262,7 @@ theorem S2m_ge_compatMain_eh_uniform (k K₀ : ℕ) (hk : 1 ≤ k) (hK₀ : 1 �
         + C * ((K₀ : ℝ) + 1) * (N : ℝ) / (Real.log N) ^ (2 * k + 4) := by
     rw [hsplit]
     exact add_le_add (le_trans hfib1 hEP1) (le_trans hfib2 hEP2)
+  -- multiply by the disc coefficient and simplify to the target error
   have hLnn : 0 ≤ Clam ^ 2 * (1 + Real.log R) ^ (2 * k + 2) :=
     mul_nonneg (sq_nonneg _) (pow_nonneg (by linarith) _)
   have hfinal : |S2m k K₀ N R ν₀ m (yTensor k R T)
@@ -275,6 +283,7 @@ theorem S2m_ge_compatMain_eh_uniform (k K₀ : ℕ) (hk : 1 ≤ k) (hK₀ : 1 �
           mul_le_mul_of_nonneg_left hDiscSum hLnn
       _ = 2 * Clam ^ 2 * C * ((K₀ : ℝ) + 1) * (1 + Real.log R) ^ (2 * k + 2)
             * (N : ℝ) / (Real.log N) ^ (2 * k + 4) := by ring
+  -- `|a - b| ≤ e ⟹ a ≥ b - e`
   have := (abs_le.mp hfinal).1
   linarith
 
