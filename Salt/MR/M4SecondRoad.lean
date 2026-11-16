@@ -480,10 +480,6 @@ theorem doorLadder_le_start {x H : ℕ} (hx : H + 1 ≤ x) (i : ℕ) : doorLadde
   | zero => simp
   | succ n ih => rw [doorLadder_succ]; omega
 
-set_option maxHeartbeats 1200000 in
--- the block sum is re-associated over the drift blocks and then over the ladder block, and
--- the stratified bound is instantiated once per drift block; every arithmetic step is
--- `linarith`/`nlinarith` with hints
 /-- **THE REGIME'S x-SCALE FLOOR** — `8·ω·H₊ ≤ x`, from the wave-II headroom
 `8·H₊·log²H₊ ≤ ⌊x/ω⌋` (`hheadroom'`), whose two log factors are `≥ 1` at `H₊ ≥ 4·10⁶`.
 Stated once for the five ladder sites that derived it in place (O13-e row 184). -/
@@ -514,6 +510,10 @@ theorem regime_eight_omega_Hhi_le_x (R : ChowlaRegime) :
     linarith
   exact hxω
 
+set_option maxHeartbeats 1200000 in
+-- the block sum is re-associated over the drift blocks and then over the ladder block, and
+-- the stratified bound is instantiated once per drift block; every arithmetic step is
+-- `linarith`/`nlinarith` with hints
 /-- **⟦S-4a⟧ THE BLOCKED BLOCK MEAN SQUARE, FROM THE χ-SUMMED SUPPLY**
 (`m4_blockMeanSqBlk2_of_chiSummed`).
 
@@ -1138,7 +1138,7 @@ set_option maxHeartbeats 1200000 in
 -- the block sum is re-associated over the drift blocks and then over the ladder block, and
 -- the stratified bound is instantiated once per drift block; every arithmetic step is
 -- `linarith`/`nlinarith` with hints
-/-- `m4_blockMeanSqBlk2_of_chiSummed` (:485), at the lever. -/
+/-- `m4_blockMeanSqBlk2_of_chiSummed` (:525), at the lever. -/
 theorem m4_blockMeanSqBlk2_of_chiSummed_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
     (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
     (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
