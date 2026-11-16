@@ -746,8 +746,8 @@ structure LevelGates (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ) (η : ℝ) (
 set_option maxHeartbeats 800000 in
 -- the level page composes seven landed stones under one `∀ v ∈ I_j, ∀ r ∈ I_{j−1}`; the
 -- default budget is exhausted by the assembled cell expression's `isDefEq`
-/-- `Ej_bound_gen` for ANY constant `C` with `cell_bound_pinned`'s property (`hcell`): the proof of both
-`Ej_bound_gen` and its bounded twin `Ej_bound_gen_bounded`. -/
+/-- `Ej_bound_gen` for ANY constant `C` with `cell_bound_pinned`'s property (`hcell`): the proof
+of both `Ej_bound_gen` and its bounded twin `Ej_bound_gen_bounded`. -/
 theorem Ej_bound_gen_of (C : ℝ) (hC : 0 < C)
     (hcell : ∀ (c b : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ)
       (J j r N Xd v : ℕ) (T : ℝ) (A : Set ℝ),
