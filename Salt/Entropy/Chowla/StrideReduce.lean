@@ -752,8 +752,8 @@ the two `+1` leftovers `(3/16)·SP·ε ≤ (1/64)·SP·(H/a)·ε` from `12·a �
 distributed, `Finset.abs_sum_le_sum_abs` twice, `per_term_aff` termwise, the boundary sum by
 `card_class_boundary_le H a (p*h)`, `linarith` on the five slices.  `c`, `1/4 ≤ c` and `H₀` are
 `primeWindow_sum_inv_ge_bounded`'s (`HeadPinLeaves.lean:69`, imported for this):
-`obtain ⟨c, hc, hcge, H₀, hD3⟩ := primeWindow_sum_inv_ge_bounded; refine ⟨c, hc, hcge, H₀, ?_⟩`
-(`HeadPinLeavesH.lean:67`) — NEVER the unbounded `primeWindow_sum_inv_ge`
+`obtain ⟨c, hc, hcge, H₀, hD3⟩ := primeWindow_sum_inv_ge_bounded` (`HeadPinLeavesH.lean:67`), the
+witness then passed on whole (:68) — NEVER the unbounded `primeWindow_sum_inv_ge`
 (`WindowMertensLower.lean:249`), whose `1/4` is a witness inside a proof, invisible after `obtain`
 (v1.1, verdict A1; §3 S-7: the `cE` carry the head's gate reads). -/
 theorem hbudget_holds_aff :

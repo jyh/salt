@@ -19,13 +19,13 @@ witness, with the landed body replayed verbatim underneath:
 | twin | landed | conjunct |
 |---|---|---|
 | `primeWindow_sum_inv_ge_bounded` | `WindowMertensLower.lean:249` | `1/4 ≤ c` |
-| `hbudget_holds_bounded` | `HBudget.lean:448` | `1/4 ≤ c` (carry) |
-| `hreduce_holds_final_bounded` | `HBudget.lean:705` | `1/4 ≤ c` (carry) |
+| `hbudget_holds_bounded` | `HBudget.lean:733` | `1/4 ≤ c` (carry) |
+| `hreduce_holds_final_bounded` | `HBudget.lean:754` | `1/4 ≤ c` (carry) |
 | `circle_method_estimate_sq_bounded` | `CircleMethod.lean:992` | `C ≤ 1 + 2·C₀` |
 
 Nothing landed is touched; the two carries are the landed proofs reading the
 previous twin (the `c` of `hbudget_holds`/`hreduce_holds_final` IS D3's `c`,
-passed through unchanged — `HBudget.lean:462`, `HBudget.lean:721`).
+passed through unchanged — `HBudget.lean:748`, `HBudget.lean:771`).
 
 ⟦WHY THE BODIES ARE REPLAYED⟧  All four statements are `∃`-shaped and the
 constant occurs ANTITONICALLY in each (a smaller `c`, a larger `C`, weakens the
@@ -43,7 +43,7 @@ recovering the witness from the landed `∃`-FORM, not from the landed PROOF.  T
 (`CircleMethod.circle_method_estimate_sq_at`), and that of `hbudget_holds` once for any `c`
 with its window bound (`HBudget.hbudget_holds_of`); the landed theorems and their twins here
 are both corollaries, so those three landed files each gained a declaration.
-`hreduce_holds_final_bounded` was never a replay: it is a three-line carry over the budget.
+`hreduce_holds_final_bounded` was never a replay: it is a five-line carry over the budget.
 
 ⟦WHAT THEY BUY⟧  `1/4 ≤ cD3` and `C ≤ 1 + 2·C₀ = CcmExpr ≤ 6.55` make all four
 `ε`-arms citable at the numeral `ε = 1/500` (`ConstantsExposed.eps_admissible`),
@@ -97,7 +97,7 @@ theorem hbudget_holds_bounded :
 
 /-- **HREDUCE-FINAL, PINNED** (`hreduce_holds_final_bounded`) —
 `HBudget.hreduce_holds_final` plus `1/4 ≤ c`, the second verbatim carry
-(`HBudget.lean:721–725` reading §2).  This is the `cE` the head consumes. -/
+(`HBudget.lean:770–774` reading §2).  This is the `cE` the head consumes. -/
 theorem hreduce_holds_final_bounded :
     ∃ c : ℝ, 0 < c ∧ 1 / 4 ≤ c ∧ ∃ H₀ : ℕ, ∀ (eps : ℚ) (H x ω : ℕ),
       2 ≤ x → 2 ≤ ω → ω ≤ x → 0 < eps → (eps : ℝ) ^ 2 ≤ 1 →

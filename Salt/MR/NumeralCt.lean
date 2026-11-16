@@ -22,8 +22,8 @@ So the true value is `6·e^14 = 7.216·10^6 = 2^22.78`, against the asked
 
 This file mints the thirteen `_bounded` twins: each is the landed statement
 with ONE conjunct added (`Ct ≤ 6·exp 14`) and the landed proof replayed
-verbatim against the twin below it.  ⟦IRON RULE 1⟧ every landed declaration is
-untouched; nothing here is a restatement of anything.
+verbatim (since O13-e, or an instance of a shared `_of` proof).  ⟦IRON RULE 1⟧
+every landed STATEMENT is untouched; nothing here is a restatement of anything.
 
 THE CHAIN (bottom to top):
 `shiu_moment_sq` → `blockDiv_sq_div_sq_sum_le` → `lemma13_moment` (×3) →
