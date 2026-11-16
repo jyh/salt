@@ -40,8 +40,8 @@ THE CHAIN (bottom to top): `zero_free_region_primitive` /
 `m4_hcap_at_door_perBlock_gk` → `m4_fuse_hcap_of_capWS_gk`.
 
 Each twin is the landed statement with ONE conjunct added and the landed proof
-replayed verbatim against the twin below it.  ⟦IRON RULE 1⟧ every landed
-declaration is untouched.
+replayed verbatim (since O13-e, or an instance of a shared `_at`/`_of` proof).
+⟦IRON RULE 1⟧ every landed STATEMENT is untouched; some landed proofs now re-point.
 
 No `sorry`, no `native_decide`, no new axioms.
 -/

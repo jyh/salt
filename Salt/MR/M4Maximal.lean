@@ -1407,7 +1407,7 @@ theorem m4_chiBlockMeanSq_of_shiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M k : �
   m4_chiBlockMeanSq_of_shiftBlockAZ (Adoor M) (s13GK K M)
     j₀ (fun χ H n => doorChiSup_sq_le_dyadic_gk K χ M H n) hFan0 hFtr0 han htr hfix
 
-/-- **THE GRADED DYADIC ROW DATUM AT THE LEVER** — `M4ChiDyadicRowMeanSq` (:1026). -/
+/-- **THE GRADED DYADIC ROW DATUM AT THE LEVER** — `M4ChiDyadicRowMeanSq` (:1091). -/
 def M4ChiDyadicRowMeanSq_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
     ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H, ∀ s ≤ H,

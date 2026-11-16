@@ -17,8 +17,8 @@ links, links 2–8 being verbatim re-emits and link 1→2 a raise to `max C₀ 1
 
 This file walks that chain, one additive twin per link.  Each twin is its landed
 statement with ONE conjunct — `C ≤ 2·10^12` — inserted after `1 ≤ C`, and its
-landed body verbatim underneath, reading the previous twin instead of the landed
-link.  No landed declaration is touched.
+landed body verbatim underneath (Link 3: an instance of `hsieve_of_engine_of`),
+reading the previous twin.  No landed STATEMENT is touched.
 
 The terminal twin `parseval_insert_budget_door_bounded` is what
 `HloExportMR`'s `_pinned` road twins consume: with it, `Cg ≤ 2·10^12` rides the
