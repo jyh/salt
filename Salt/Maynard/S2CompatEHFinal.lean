@@ -46,31 +46,27 @@ namespace Salt.Maynard
 set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
-/-- **Uniform disc bound.** A repackaging of `abs_S2m_sub_compatMain_le_disc`
-that pulls the (`N`- and `m`-independent) sharp `λ`-constant `Clam` out in front
-of the `∀ m, ∀ N` quantifiers, so the coefficient
-`Clam²·(1+log R)^{2k+2}` is a single fixed real usable for every `N` and `m`.
-The body is the landed disc-bound proof with the existential restructured. -/
-theorem abs_S2m_sub_compatMain_le_disc_uniform (k K₀ R ν₀ : ℕ) (T : ℝ)
-    (hR : 2 ≤ R) (hK₀ : 1 ≤ K₀)
-    (hν₀ : ∀ h ∈ H k, Nat.Coprime (ν₀ + h) (W k)) :
-    ∃ Clam : ℝ, 0 ≤ Clam ∧ ∀ (m : Fin k) (N : ℕ), R ≤ N →
-      |S2m k K₀ N R ν₀ m (yTensor k R T)
-          - deltaPi k K₀ N m / (Nat.totient (W k) : ℝ)
-              * s2CompatFormM k R (W k) m (yTensor k R T)|
-        ≤ Clam ^ 2 * (1 + Real.log R) ^ (2 * k + 2)
-            * ∑ d ∈ (kSieveIndex k R (W k)).filter (fun d => d m = 1),
-                ∑ e ∈ (kSieveIndex k R (W k)).filter (fun e => e m = 1),
-                  (if IsCollisionPair d e then 0
-                   else maxDiscrepancy (K₀ * N + hSeq k m) (qMod k d e)
-                        + maxDiscrepancy (N + hSeq k m) (qMod k d e)) := by
+/-- **R-uniform disc bound.**  `abs_S2m_sub_compatMain_le_disc_uniform` with `Clam` chosen before
+`R`, `ν₀`, `T` (it comes from `lam_abs_le_sharp_uniform`, which is `R`-free).
+`abs_S2m_sub_compatMain_le_disc_uniform` is its instance at one `R`. -/
+theorem abs_S2m_sub_compatMain_le_disc_R_uniform (k K₀ : ℕ) (hK₀ : 1 ≤ K₀) :
+    ∃ Clam : ℝ, 0 ≤ Clam ∧ ∀ (R ν₀ : ℕ) (T : ℝ), 2 ≤ R →
+      (∀ h ∈ H k, Nat.Coprime (ν₀ + h) (W k)) →
+      ∀ (m : Fin k) (N : ℕ), R ≤ N →
+        |S2m k K₀ N R ν₀ m (yTensor k R T)
+            - deltaPi k K₀ N m / (Nat.totient (W k) : ℝ)
+                * s2CompatFormM k R (W k) m (yTensor k R T)|
+          ≤ Clam ^ 2 * (1 + Real.log R) ^ (2 * k + 2)
+              * ∑ d ∈ (kSieveIndex k R (W k)).filter (fun d => d m = 1),
+                  ∑ e ∈ (kSieveIndex k R (W k)).filter (fun e => e m = 1),
+                    (if IsCollisionPair d e then 0
+                     else maxDiscrepancy (K₀ * N + hSeq k m) (qMod k d e)
+                          + maxDiscrepancy (N + hSeq k m) (qMod k d e)) := by
   classical
-  have hW0 : W k ≠ 0 := (Nat.pos_of_ne_zero (W_squarefree k).ne_zero).ne'
-  obtain ⟨Clam, hClam1, hClam⟩ := lam_abs_le_sharp k R (W k) (yTensor k R T)
-    (yTensor_abs_le_one k R T hR) hR hW0
+  obtain ⟨Clam, hClam1, hClam⟩ := lam_abs_le_sharp_uniform k (W k)
+  refine ⟨Clam, le_trans zero_le_one hClam1, fun R ν₀ T hR hν₀ m N hRN => ?_⟩
   have hlogR : (0 : ℝ) ≤ Real.log R :=
     Real.log_nonneg (by exact_mod_cast (by omega : (1 : ℕ) ≤ R))
-  refine ⟨Clam, le_trans zero_le_one hClam1, fun m N hRN => ?_⟩
   set B := Clam * (1 + Real.log R) ^ (k + 1) with hBdef
   have hBnn : 0 ≤ B := by rw [hBdef]; positivity
   have hcoef : Clam ^ 2 * (1 + Real.log R) ^ (2 * k + 2) = B ^ 2 := by
@@ -108,32 +104,50 @@ theorem abs_S2m_sub_compatMain_le_disc_uniform (k K₀ R ν₀ : ℕ) (T : ℝ)
                     * ∏ i, (Nat.totient (Nat.lcm (d i) (e i)) : ℝ))|
           ≤ B * B * M := by
             refine mul_le_mul ?_ happrox (abs_nonneg _) (mul_nonneg hBnn hBnn)
-            exact mul_le_mul (hClam d hdmem) (hClam e hemem) (abs_nonneg _) hBnn
+            exact mul_le_mul
+              (hClam R hR (yTensor k R T) (yTensor_abs_le_one k R T hR) d hdmem)
+              (hClam R hR (yTensor k R T) (yTensor_abs_le_one k R T hR) e hemem)
+              (abs_nonneg _) hBnn
       _ = B ^ 2 * M := by ring
 
-/-- **C4 EH consumption — the per-`m` lower bound on `S₂^(m)`.** Under `EH (1/2)`,
-`S₂^(m)` exceeds its compat main term `(Δπ/φW)·s2CompatFormM` up to an error
-`O((1+log R)^{2k+2}·N/(log N)^{2k+4})`, once `N` is past the regime threshold
-`N₀ = max (max 2 N₁) (D₀ k)` and satisfies the range condition
-`W·R² ≤ ⌊√N⌋`.  The constant is `C₀ = 2·Clam²·C·(K₀+1)`. -/
-theorem S2m_ge_compatMain_eh (k K₀ R ν₀ : ℕ) (T : ℝ)
-    (hR : 2 ≤ R) (hk : 1 ≤ k) (hK₀ : 1 ≤ K₀)
-    (hν₀ : ∀ h ∈ H k, Nat.Coprime (ν₀ + h) (W k))
+/-- **Uniform disc bound.** A repackaging of `abs_S2m_sub_compatMain_le_disc`
+that pulls the (`N`- and `m`-independent) sharp `λ`-constant `Clam` out in front
+of the `∀ m, ∀ N` quantifiers, so the coefficient
+`Clam²·(1+log R)^{2k+2}` is a single fixed real usable for every `N` and `m`.
+The body is the landed disc-bound proof with the existential restructured. -/
+theorem abs_S2m_sub_compatMain_le_disc_uniform (k K₀ R ν₀ : ℕ) (T : ℝ)
+    (hR : 2 ≤ R) (hK₀ : 1 ≤ K₀)
+    (hν₀ : ∀ h ∈ H k, Nat.Coprime (ν₀ + h) (W k)) :
+    ∃ Clam : ℝ, 0 ≤ Clam ∧ ∀ (m : Fin k) (N : ℕ), R ≤ N →
+      |S2m k K₀ N R ν₀ m (yTensor k R T)
+          - deltaPi k K₀ N m / (Nat.totient (W k) : ℝ)
+              * s2CompatFormM k R (W k) m (yTensor k R T)|
+        ≤ Clam ^ 2 * (1 + Real.log R) ^ (2 * k + 2)
+            * ∑ d ∈ (kSieveIndex k R (W k)).filter (fun d => d m = 1),
+                ∑ e ∈ (kSieveIndex k R (W k)).filter (fun e => e m = 1),
+                  (if IsCollisionPair d e then 0
+                   else maxDiscrepancy (K₀ * N + hSeq k m) (qMod k d e)
+                        + maxDiscrepancy (N + hSeq k m) (qMod k d e)) := by
+  obtain ⟨Clam, hClam0, h⟩ := abs_S2m_sub_compatMain_le_disc_R_uniform k K₀ hK₀
+  exact ⟨Clam, hClam0, h R ν₀ T hR hν₀⟩
+
+/-- **R-uniform C4 EH consumption.**  The error constant `C₀ = 2·Clam²·C·(K₀+1)` and threshold
+`N₀ = max (max 2 N₁) (D₀ k)` are both `R`-free (`Clam` via the uniform disc bound, `C`/`N₁` via
+the `R`-free `eh_error_pow`), so they are chosen before `R`, `ν₀`, `T`.
+`S2m_ge_compatMain_eh` is its instance at one `R`. -/
+theorem S2m_ge_compatMain_eh_uniform (k K₀ : ℕ) (hk : 1 ≤ k) (hK₀ : 1 ≤ K₀)
     (hEH : EH (1 / 2)) :
-    ∃ (C₀ : ℝ) (N₀ : ℕ), 0 ≤ C₀ ∧ ∀ N : ℕ, N₀ ≤ N → R ≤ N →
-      (W k * R ^ 2 ≤ ⌊(N : ℝ) ^ (1 / 2 : ℝ)⌋₊) →
+    ∃ (C₀ : ℝ) (N₀ : ℕ), 0 ≤ C₀ ∧ ∀ (R ν₀ : ℕ) (T : ℝ), 2 ≤ R →
+      (∀ h ∈ H k, Nat.Coprime (ν₀ + h) (W k)) →
+      ∀ N : ℕ, N₀ ≤ N → R ≤ N → (W k * R ^ 2 ≤ ⌊(N : ℝ) ^ (1 / 2 : ℝ)⌋₊) →
       ∀ m : Fin k,
         S2m k K₀ N R ν₀ m (yTensor k R T)
           ≥ deltaPi k K₀ N m / (Nat.totient (W k) : ℝ)
               * s2CompatFormM k R (W k) m (yTensor k R T)
             - C₀ * (1 + Real.log R) ^ (2 * k + 2) * (N : ℝ) / (Real.log N) ^ (2 * k + 4) := by
   classical
-  have hlogR : (0 : ℝ) ≤ Real.log R :=
-    Real.log_nonneg (by exact_mod_cast (by omega : (1 : ℕ) ≤ R))
-  obtain ⟨Clam, hClam0, hdisc⟩ :=
-    abs_S2m_sub_compatMain_le_disc_uniform k K₀ R ν₀ T hR hK₀ hν₀
+  obtain ⟨Clam, hClam0, hdisc⟩ := abs_S2m_sub_compatMain_le_disc_R_uniform k K₀ hK₀
   obtain ⟨C, N₁, hEHb⟩ := eh_error_pow k (2 * k + 4) (by omega) hEH
-  -- `C ≥ 0`: the EH bound dominates a nonnegative sum at a large point.
   have hCnn : 0 ≤ C := by
     set x₀ := max N₁ 2 with hx₀
     have hmax2 : 2 ≤ x₀ := le_max_right N₁ 2
@@ -153,7 +167,9 @@ theorem S2m_ge_compatMain_eh (k K₀ R ν₀ : ℕ) (T : ℝ)
   refine ⟨2 * Clam ^ 2 * C * ((K₀ : ℝ) + 1), max (max 2 N₁) (D₀ k), ?_, ?_⟩
   · have h1 : (0 : ℝ) ≤ 2 * Clam ^ 2 := by positivity
     exact mul_nonneg (mul_nonneg h1 hCnn) (by positivity)
-  intro N hN0 hRN hrange m
+  intro R ν₀ T hR hν₀ N hN0 hRN hrange m
+  have hlogR : (0 : ℝ) ≤ Real.log R :=
+    Real.log_nonneg (by exact_mod_cast (by omega : (1 : ℕ) ≤ R))
   -- regime facts from `N₀ = max (max 2 N₁) (D₀ k) ≤ N`
   have hle2N1 : max 2 N₁ ≤ N := le_trans (le_max_left (max 2 N₁) (D₀ k)) hN0
   have hD0N : D₀ k ≤ N := le_trans (le_max_right (max 2 N₁) (D₀ k)) hN0
@@ -164,8 +180,6 @@ theorem S2m_ge_compatMain_eh (k K₀ R ν₀ : ℕ) (T : ℝ)
   have hNleK0N : N ≤ K₀ * N := Nat.le_mul_of_pos_left N (by omega)
   have hlogN0 : 0 < Real.log N :=
     Real.log_pos (by exact_mod_cast (show (1 : ℕ) < N by omega))
-  -- **Endpoint bound**: for `x` in `[N, (K₀+1)N]`, the fiber sum over the
-  -- `W·R²`-range is `≤ C·(K₀+1)·N/(log N)^{2k+4}` (range-extend + EH + uniformize).
   have endpoint : ∀ x : ℕ, N ≤ x → x ≤ (K₀ + 1) * N →
       ∑ q ∈ (Finset.range (W k * R ^ 2 + 1)).filter Squarefree,
           (3 * k : ℝ) ^ q.primeFactors.card * maxDiscrepancy x q
@@ -202,19 +216,16 @@ theorem S2m_ge_compatMain_eh (k K₀ R ν₀ : ℕ) (T : ℝ)
           have hcnum : 0 ≤ C * ((K₀ : ℝ) + 1) * (N : ℝ) :=
             mul_nonneg (mul_nonneg hCnn (by positivity)) (by positivity)
           exact mul_le_mul step_num hd21 (pow_nonneg hlogN0.le _) hcnum
-  -- endpoints `x₁ = K₀N+hₘ`, `x₂ = N+hₘ`
   have hexp : (K₀ + 1) * N = K₀ * N + N := by ring
   have hx1lb : N ≤ K₀ * N + hSeq k m := le_trans hNleK0N (Nat.le_add_right _ _)
   have hx1ub : K₀ * N + hSeq k m ≤ (K₀ + 1) * N := by rw [hexp]; omega
   have hx2ub : N + hSeq k m ≤ (K₀ + 1) * N := by rw [hexp]; omega
   have hEP1 := endpoint (K₀ * N + hSeq k m) hx1lb hx1ub
   have hEP2 := endpoint (N + hSeq k m) (Nat.le_add_right _ _) hx2ub
-  -- fiber regroup at each endpoint
   have hfib1 := compat_pair_fiber_le k R m (fun q => maxDiscrepancy (K₀ * N + hSeq k m) q)
     (fun q => maxDiscrepancy_nonneg (K₀ * N + hSeq k m) q)
   have hfib2 := compat_pair_fiber_le k R m (fun q => maxDiscrepancy (N + hSeq k m) q)
     (fun q => maxDiscrepancy_nonneg (N + hSeq k m) q)
-  -- split the two endpoints of the disc sum
   have hsplit : (∑ d ∈ (kSieveIndex k R (W k)).filter (fun d => d m = 1),
         ∑ e ∈ (kSieveIndex k R (W k)).filter (fun e => e m = 1),
           (if IsCollisionPair d e then 0
@@ -235,7 +246,6 @@ theorem S2m_ge_compatMain_eh (k K₀ R ν₀ : ℕ) (T : ℝ)
     by_cases hcol : IsCollisionPair d e
     · simp only [if_pos hcol, add_zero]
     · simp only [if_neg hcol]
-  -- assemble: the disc sum `≤ 2·EP`
   have hDiscSum : (∑ d ∈ (kSieveIndex k R (W k)).filter (fun d => d m = 1),
         ∑ e ∈ (kSieveIndex k R (W k)).filter (fun e => e m = 1),
           (if IsCollisionPair d e then 0
@@ -245,7 +255,6 @@ theorem S2m_ge_compatMain_eh (k K₀ R ν₀ : ℕ) (T : ℝ)
         + C * ((K₀ : ℝ) + 1) * (N : ℝ) / (Real.log N) ^ (2 * k + 4) := by
     rw [hsplit]
     exact add_le_add (le_trans hfib1 hEP1) (le_trans hfib2 hEP2)
-  -- multiply by the disc coefficient and simplify to the target error
   have hLnn : 0 ≤ Clam ^ 2 * (1 + Real.log R) ^ (2 * k + 2) :=
     mul_nonneg (sq_nonneg _) (pow_nonneg (by linarith) _)
   have hfinal : |S2m k K₀ N R ν₀ m (yTensor k R T)
@@ -253,7 +262,7 @@ theorem S2m_ge_compatMain_eh (k K₀ R ν₀ : ℕ) (T : ℝ)
             * s2CompatFormM k R (W k) m (yTensor k R T)|
       ≤ 2 * Clam ^ 2 * C * ((K₀ : ℝ) + 1) * (1 + Real.log R) ^ (2 * k + 2)
           * (N : ℝ) / (Real.log N) ^ (2 * k + 4) := by
-    refine le_trans (hdisc m N hRN) ?_
+    refine le_trans (hdisc R ν₀ T hR hν₀ m N hRN) ?_
     calc Clam ^ 2 * (1 + Real.log R) ^ (2 * k + 2)
           * (∑ d ∈ (kSieveIndex k R (W k)).filter (fun d => d m = 1),
               ∑ e ∈ (kSieveIndex k R (W k)).filter (fun e => e m = 1),
@@ -266,8 +275,26 @@ theorem S2m_ge_compatMain_eh (k K₀ R ν₀ : ℕ) (T : ℝ)
           mul_le_mul_of_nonneg_left hDiscSum hLnn
       _ = 2 * Clam ^ 2 * C * ((K₀ : ℝ) + 1) * (1 + Real.log R) ^ (2 * k + 2)
             * (N : ℝ) / (Real.log N) ^ (2 * k + 4) := by ring
-  -- `|a - b| ≤ e ⟹ a ≥ b - e`
   have := (abs_le.mp hfinal).1
   linarith
+
+/-- **C4 EH consumption — the per-`m` lower bound on `S₂^(m)`.** Under `EH (1/2)`,
+`S₂^(m)` exceeds its compat main term `(Δπ/φW)·s2CompatFormM` up to an error
+`O((1+log R)^{2k+2}·N/(log N)^{2k+4})`, once `N` is past the regime threshold
+`N₀ = max (max 2 N₁) (D₀ k)` and satisfies the range condition
+`W·R² ≤ ⌊√N⌋`.  The constant is `C₀ = 2·Clam²·C·(K₀+1)`. -/
+theorem S2m_ge_compatMain_eh (k K₀ R ν₀ : ℕ) (T : ℝ)
+    (hR : 2 ≤ R) (hk : 1 ≤ k) (hK₀ : 1 ≤ K₀)
+    (hν₀ : ∀ h ∈ H k, Nat.Coprime (ν₀ + h) (W k))
+    (hEH : EH (1 / 2)) :
+    ∃ (C₀ : ℝ) (N₀ : ℕ), 0 ≤ C₀ ∧ ∀ N : ℕ, N₀ ≤ N → R ≤ N →
+      (W k * R ^ 2 ≤ ⌊(N : ℝ) ^ (1 / 2 : ℝ)⌋₊) →
+      ∀ m : Fin k,
+        S2m k K₀ N R ν₀ m (yTensor k R T)
+          ≥ deltaPi k K₀ N m / (Nat.totient (W k) : ℝ)
+              * s2CompatFormM k R (W k) m (yTensor k R T)
+            - C₀ * (1 + Real.log R) ^ (2 * k + 2) * (N : ℝ) / (Real.log N) ^ (2 * k + 4) := by
+  obtain ⟨C₀, N₀, hC₀, h⟩ := S2m_ge_compatMain_eh_uniform k K₀ hk hK₀ hEH
+  exact ⟨C₀, N₀, hC₀, h R ν₀ T hR hν₀⟩
 
 end Salt.Maynard

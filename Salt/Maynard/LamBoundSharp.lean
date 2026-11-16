@@ -292,16 +292,20 @@ theorem guarded_sum_le_prod {k R W : ℕ} (d : Fin k → ℕ) :
 /-! ## The sharp bound -/
 
 omit [TupleChoice] in
-/-- **Sharp per-tuple bound on the Selberg weight `λ`.** With `|y| ≤ 1`,
-`|λ(d)| ≤ C·(1 + log R)^(k+1)` for all `d ∈ 𝒟`, where `C = C₃·C₁^k` is an
-*explicit constant independent of `R`* (it depends only on `k` and on the
-absolute Rankin/Mertens constants `C₁, C₃`). -/
-theorem lam_abs_le_sharp (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
-    (hy1 : ∀ r, |y r| ≤ 1) (hR : 2 ≤ R) (_hW : W ≠ 0) :
-    ∃ C : ℝ, 1 ≤ C ∧ ∀ d ∈ kSieveIndex k R W,
-      |lam k R W y d| ≤ C * (1 + Real.log R) ^ (k + 1) := by
+/-- **R-uniform `lam_abs_le_sharp`.**  The constant `C = C₃·C₁^k` (from `rankin_bound` and
+`phi_ratio_le`, both `R`-free) is chosen before `R`, `y` and the bound on `y`, so one constant
+serves every `R ≥ 2`.  `lam_abs_le_sharp` is its instance at one `R`. -/
+theorem lam_abs_le_sharp_uniform (k W : ℕ) :
+    ∃ C : ℝ, 1 ≤ C ∧ ∀ (R : ℕ), 2 ≤ R → ∀ (y : (Fin k → ℕ) → ℝ),
+      (∀ r, |y r| ≤ 1) → ∀ d ∈ kSieveIndex k R W,
+        |lam k R W y d| ≤ C * (1 + Real.log R) ^ (k + 1) := by
   obtain ⟨C₁, hC₁1, hC₁⟩ := rankin_bound 1
   obtain ⟨C₃, hC₃1, hC₃⟩ := phi_ratio_le
+  refine ⟨C₃ * C₁ ^ k, ?_, ?_⟩
+  · calc (1 : ℝ) = 1 * 1 := (mul_one 1).symm
+      _ ≤ C₃ * C₁ ^ k := by
+          exact mul_le_mul hC₃1 (one_le_pow₀ hC₁1) zero_le_one (le_trans zero_le_one hC₃1)
+  intro R hR y hy1 d hd
   -- Real bookkeeping.
   have hR1 : (1 : ℝ) < (R : ℝ) := by exact_mod_cast lt_of_lt_of_le one_lt_two hR
   have hlogR : 0 ≤ Real.log R := (Real.log_pos hR1).le
@@ -311,34 +315,24 @@ theorem lam_abs_le_sharp (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
       ≤ C₁ * Real.log R := by
     have h := hC₁ R hR
     simpa using h
-  refine ⟨C₃ * C₁ ^ k, ?_, ?_⟩
-  · calc (1 : ℝ) = 1 * 1 := (mul_one 1).symm
-      _ ≤ C₃ * C₁ ^ k := by
-          apply mul_le_mul hC₃1 (one_le_pow₀ hC₁1) zero_le_one (le_trans zero_le_one hC₃1)
-  intro d hd
   rw [mem_kSieveIndex_iff] at hd
   obtain ⟨hsf, hpair, _hcopW, hprodR⟩ := hd
   set D := ∏ i, d i with hDdef
   have hd𝒟 : d ∈ kSieveIndex k R W := (mem_kSieveIndex_iff d).mpr ⟨hsf, hpair, _hcopW, hprodR⟩
-  -- `D` is squarefree and `< R`.
   have hDsf : Squarefree D :=
     squarefree_prod_coprime Finset.univ d (fun i _ => hsf i)
       (fun i _ j _ hij => hpair i j hij)
   have hDR : D < R := hprodR
-  -- `φ(D) = ∏ᵢ φ(dᵢ)`, cast to `ℝ`.
   have hphiD : (Nat.totient D : ℝ) = ∏ i, (Nat.totient (d i) : ℝ) := by
     rw [hDdef, prod_totient_coprime Finset.univ d (fun i _ j _ hij => hpair i j hij),
       Nat.cast_prod]
-  -- Positivity of the coordinate totients.
   have hφpos : ∀ i, (0 : ℝ) < (Nat.totient (d i) : ℝ) := by
     intro i
     have : 0 < Nat.totient (d i) := Nat.totient_pos.mpr (Nat.pos_of_ne_zero (hsf i).ne_zero)
     exact_mod_cast this
-  -- Step 1: `|λ(d)| ≤ (∏ᵢ dᵢ)·|wSum|`.
   have hlam : |lam k R W y d| ≤ (∏ i, (d i : ℝ)) * |wSum k R W y d| := by
     rw [lam, abs_mul]
     exact mul_le_mul_of_nonneg_right (abs_prod_moebius_mul_le d) (abs_nonneg _)
-  -- Step 2–4: `|wSum| ≤ (∏ᵢ 1/φ(dᵢ))·(C₁ log R)^k`.
   have hwsum : |wSum k R W y d|
       ≤ (∏ i, 1 / (Nat.totient (d i) : ℝ)) * (C₁ * Real.log R) ^ k := by
     refine (abs_wSum_le_guarded y hy1 d).trans ((guarded_sum_le_prod d).trans ?_)
@@ -354,7 +348,6 @@ theorem lam_abs_le_sharp (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
       _ = (∏ i, 1 / (Nat.totient (d i) : ℝ)) * (C₁ * Real.log R) ^ k := by
           rw [Finset.prod_mul_distrib, Finset.prod_const, Finset.card_univ,
             Fintype.card_fin]
-  -- Combine and simplify the leftover `D/φ(D)`.
   have hDphi : (∏ i, (d i : ℝ)) * (∏ i, 1 / (Nat.totient (d i) : ℝ))
       = (D : ℝ) / (Nat.totient D : ℝ) := by
     rw [hphiD, hDdef, Nat.cast_prod]
@@ -362,7 +355,6 @@ theorem lam_abs_le_sharp (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
           = (∏ i, (Nat.totient (d i) : ℝ))⁻¹ by
         simp_rw [one_div]; rw [Finset.prod_inv_distrib]]
     rw [div_eq_mul_inv]
-  -- `D/φ(D) ≥ 0`.
   have hprodd_nn : (0 : ℝ) ≤ ∏ i, (d i : ℝ) := Finset.prod_nonneg (fun i _ => by positivity)
   have hClogR_nn : (0 : ℝ) ≤ (C₁ * Real.log R) ^ k := by
     apply pow_nonneg; positivity
@@ -381,5 +373,17 @@ theorem lam_abs_le_sharp (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
         apply mul_le_mul_of_nonneg_left _ (by positivity)
         exact pow_le_pow_left₀ hlogR (by linarith) k
     _ = (C₃ * C₁ ^ k) * (1 + Real.log R) ^ (k + 1) := by ring
+
+omit [TupleChoice] in
+/-- **Sharp per-tuple bound on the Selberg weight `λ`.** With `|y| ≤ 1`,
+`|λ(d)| ≤ C·(1 + log R)^(k+1)` for all `d ∈ 𝒟`, where `C = C₃·C₁^k` is an
+*explicit constant independent of `R`* (it depends only on `k` and on the
+absolute Rankin/Mertens constants `C₁, C₃`). -/
+theorem lam_abs_le_sharp (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
+    (hy1 : ∀ r, |y r| ≤ 1) (hR : 2 ≤ R) (_hW : W ≠ 0) :
+    ∃ C : ℝ, 1 ≤ C ∧ ∀ d ∈ kSieveIndex k R W,
+      |lam k R W y d| ≤ C * (1 + Real.log R) ^ (k + 1) := by
+  obtain ⟨C, hC1, h⟩ := lam_abs_le_sharp_uniform k W
+  exact ⟨C, hC1, h R hR y hy1⟩
 
 end Salt.Maynard
