@@ -24,6 +24,9 @@ leg; the count·max absorb (`gold_hSum_at_op`'s `hbox`/`hbk`) demands a UNIFORM 
   character-for-character), but internally the box leg absorbs the annulus `Σ_k` GEOMETRICALLY
   (via (ii)) plus a SEPARATE additive tail crumb `Btail`; the RHS lands at
   `(48·Cgeo + Ctail + 3·Ccon_band + Ccon_diag/2)·Kc·N/L^{11}`, feeding `gold_hNum_close_of_tower`.
+  It is the zero-crumb instance of **`gold_hSum_geo_band`**, stated just above it: the
+  band legs carry per-leg crumbs `BTsym`/`BTlow` and the constant gains `+ Ctail_band` (landed in
+  `BandClose2`, which keeps the record).
 
 Only `[propext, Classical.choice, Quot.sound]` are used; no `native_decide`, no new axioms.
 -/
@@ -188,7 +191,7 @@ theorem gold_goldCut_geosum {N : ℕ} (hN : 1 ≤ N) :
           rw [Nat.cast_sum]
     _ ≤ 8 * (N : ℝ) := by exact_mod_cast hnat
 
-/-! ## (iii) The geometric aggregate `gold_hSum_geo` -/
+/-! ## (iii) The geometric aggregate `gold_hSum_geo` and its band-tail form `gold_hSum_geo_band` -/
 
 /-- **`gold_hSum_geo_band` — the band-tail supersession of `gold_hSum_geo`.**  The band legs
 carry per-leg crumbs `BTsym`/`BTlow` (`PsymK 0 k' ≤ Wband + BTsym k'`,
