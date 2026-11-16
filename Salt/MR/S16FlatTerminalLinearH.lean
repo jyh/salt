@@ -389,7 +389,7 @@ def M4ChiSummedBlockMeanSqNH_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl 
         ∑ χ : DirichletCharacter ℂ q, ∑ n ∈ Finset.Ioc A B, (doorChiSup_L_gk K χ M L n) ^ 2
           ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
 
-/-- `M4BlockMeanSqBlk2_L_gk` (`M4RowSpineLinear.lean:604`) at the inflated cap. -/
+/-- `M4BlockMeanSqBlk2_L_gk` (`M4RowSpineLinear.lean:588`) at the inflated cap. -/
 def M4BlockMeanSqBlk2H_L_gk (h K : ℕ) (R : ChowlaRegime) (M k : ℕ) (ℓ : ℕ → ℕ → ℕ)
     (Bblk : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ (b : ℤ) (q : ℕ), 0 < q →
@@ -401,7 +401,7 @@ def M4BlockMeanSqBlk2H_L_gk (h K : ℕ) (R : ChowlaRegime) (M k : ℕ) (ℓ : �
         ≤ Bblk H * (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2
             * (doorLadder R.x H (i + 1) : ℝ)
 
-/-- `M4SievedDoorSqBlk2_L_gk` (`M4RowSpineLinear.lean:545`) at the inflated cap. -/
+/-- `M4SievedDoorSqBlk2_L_gk` (`M4RowSpineLinear.lean:529`) at the inflated cap. -/
 def M4SievedDoorSqBlk2H_L_gk (h K : ℕ) (R : ChowlaRegime) (M : ℕ) (ℓ : ℕ → ℕ → ℕ)
     (Bblk : ℕ → ℝ) : Prop :=
   M4BandTransport →
@@ -1226,8 +1226,8 @@ theorem m4_freeBlockSup_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M : �
 
 set_option maxHeartbeats 1200000 in
 -- the block sum is re-associated over the drift blocks and then over the ladder block, as at
--- `M4RowSpineLinear.lean:634`
-/-- **3.5** `m4_blockMeanSqBlk2_of_chiSummed_L_gk` (`M4RowSpineLinear.lean:638`) at the witness
+-- `M4RowSpineLinear.lean:618`
+/-- **3.5** `m4_blockMeanSqBlk2_of_chiSummed_L_gk` (`M4RowSpineLinear.lean:622`) at the witness
 `blockLenH h`; `hgate` is the door gate `h·(log H)^12 < P₁`, a HYPOTHESIS here as at `h = 1`. -/
 theorem m4_blockMeanSqBlk2_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M k : ℕ}
     {Bcl : ℕ → ℝ} (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
@@ -1276,23 +1276,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M 
   have hHhi4 : (4000000 : ℝ) ≤ (R.Hhi : ℝ) := by
     have h : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
     exact_mod_cast h
-  have hlogHhi : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) := by
-    have hexp : Real.exp 1 ≤ (R.Hhi : ℝ) := by linarith only [hHhi4, Real.exp_one_lt_d9]
-    exact (Real.le_log_iff_exp_le (by linarith)).mpr hexp
-  have hxω : 8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := by
-    have hh := R.hheadroom'
-    have hcast : (((R.x / R.ω : ℕ)) : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := Nat.cast_div_le
-    have hlogsq : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by
-      nlinarith only [hlogHhi]
-    have h1 : 8 * (R.Hhi : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := by
-      calc 8 * (R.Hhi : ℝ) = 8 * (R.Hhi : ℝ) * 1 := by ring
-        _ ≤ 8 * (R.Hhi : ℝ) * (Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ)) :=
-            mul_le_mul_of_nonneg_left hlogsq (by linarith)
-        _ = 8 * (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by ring
-        _ ≤ (((R.x / R.ω : ℕ)) : ℝ) := hh
-        _ ≤ (R.x : ℝ) / (R.ω : ℝ) := hcast
-    rw [le_div_iff₀ hω0] at h1
-    linarith
+  have hxω : 8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := regime_eight_omega_Hhi_le_x R
   have hHhiR : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast hhi
   have h8ωH : 8 * R.ω * H ≤ R.x := by
     have h : (8 : ℝ) * (R.ω : ℝ) * (H : ℝ) ≤ (R.x : ℝ) := by nlinarith [hxω, hHhiR, hω0]
@@ -1359,7 +1343,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M 
   refine le_of_eq ?_
   ring
 
-/-- **3.6** `m4_cover_assembly_blk2_L_gk` (`M4RowSpineLinear.lean:615`), verbatim
+/-- **3.6** `m4_cover_assembly_blk2_L_gk` (`M4RowSpineLinear.lean:599`), verbatim
 (`integral_door_cover_le_clean` reads no cap). -/
 theorem m4_cover_assembly_blk2H_L_gk (h K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ} {δ : ℝ}
     {ℓ : ℕ → ℕ → ℕ} {Bblk : ℕ → ℝ}
@@ -1380,7 +1364,7 @@ theorem m4_cover_assembly_blk2H_L_gk (h K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {
   ring
 
 /-- **3.7 THE BLOCKED DRIFT AT THE INFLATED `α`-SET** — `m4_sievedDoorSq_of_blk2_L_gk`
-(`M4RowSpineLinear.lean:556`) with the drift lemma fired at the opaque cap
+(`M4RowSpineLinear.lean:540`) with the drift lemma fired at the opaque cap
 `Q := h · arcDen 12 H` (§1′); `h`-general. -/
 theorem m4_sievedDoorSq_of_blk2H_L_gk (h K : ℕ) {R : ChowlaRegime} {M : ℕ} {ℓ : ℕ → ℕ → ℕ}
     {Bblk Braw : ℕ → ℝ}
