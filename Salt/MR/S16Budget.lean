@@ -903,8 +903,8 @@ Thirteen hops, every one a verbatim pass-through except the one marked:
 ← `S12ConstCompose.m4_closure_fuse_zero'_const_nonneg_gk` (:934)
 ← `M4RowsChiZeroPrime.m4_hrowsSlot_at_door_zero'_gk` (:849)
 ← `…m4_hrowsSum_chi_door_zero'_gk` (:800) ← `…m4_hrowsSum_chi_zero'` (:570)
-← `…m4_rowChi_number_of_capstone_zero'` (:448) ← `TLegExit.TLeg_feeds_capstone_gen` (:1228)
-← `TLegExit.TLeg_bound_gen` (:1069) ← `TLegExit.Ej_bound_gen` (:765)
+← `…m4_rowChi_number_of_capstone_zero'` (:448) ← `TLegExit.TLeg_feeds_capstone_gen` (:1309)
+← `TLegExit.TLeg_bound_gen` (:1201) ← `TLegExit.Ej_bound_gen` (:1000)
 ← `TLegKill.cell_bound_pinned` (:979) ← `TLegKill.cell_bound_raw` (:905)
 ← `TLegKill.mix_moment` (:803)
 ← `MomentsA2.lemma13_moment` (:246)  ⟵ THE ONE NON-IDENTITY HOP: `refine ⟨3 * C, …⟩`
