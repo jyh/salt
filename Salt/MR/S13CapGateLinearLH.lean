@@ -70,7 +70,7 @@ every `SocketBase`-typed leaf under that assembler is re-stated here at `SocketB
 `SocketBaseLH` (in `HDoorSupply`) is 13 conjuncts; exactly two differ from `SocketBaseL`:
 
 * **conjunct 5**, `q ≤ h·arcDen 12 H` — read at exactly FIVE sites: `s13CapGrid_q_logX`
-  (`S13CapGrid:393`), `capfloor_logq_le` (`S13CapFloor:284`), `capfloor_floor4` (`:459`),
+  (`S13CapGrid:393`), `capfloor_logq_le` (`S13CapFloor:284`), `capfloor_floor4` (`:468`),
   `s13_capEps_register` (`S13CapEps`), `s13CapEps_q_arcDen`;
 * **conjunct 11**, `x ≤ 16·ω·(h·arcDen 12 H)·A` — read at exactly ONE site,
   `s13_socketBase_xscale` (`S13MSelect2:111`), reaching this page only through
@@ -231,7 +231,7 @@ page's relative.
 
 This page's docstring, verbatim:
 
-⟦SIBLING of `capfloor_floor3_numeric` (`S13CapFloor:344`), slack `+1 → +8`⟧ — `floor3`'s
+⟦SIBLING of `capfloor_floor3_numeric` (`S13CapFloor:376`), slack `+1 → +8`⟧ — `floor3`'s
 numeric leg, absorbing `log q ≤ log h + 12·loglog H` at `log h ≤ 7`.  (2026-09-29: `floor3` at
 `log h ≤ 7`, its one caller, is retired by the XY debt lane's family 23; nothing calls this now.) -/
 

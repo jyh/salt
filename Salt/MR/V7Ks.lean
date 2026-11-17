@@ -37,7 +37,7 @@ declarations between `capfloor_floor4` and the terminal, and this file re-states
 window in place of the numeral:
 
 ```
-capfloor_floor4                    (S13CapFloor:449)   -> capfloor_floor4_of_pos      (V7A:216)
+capfloor_floor4                    (S13CapFloor:458)   -> capfloor_floor4_of_pos      (V7A:216)
 s13CapFloor_all_L_gk_sharpT0       (S16ComposeV4:588)  -> §2  _kswin
 s16_capGate_supply_L_gk_sharpT0    (S16ComposeV4:632)  -> §3  _kswin
 s15_crossing_..._khoist_csfree     (V7B:753)          -> §4  _kswin
@@ -416,7 +416,7 @@ receipt that the windowed leaf subsumes the landed numeral one.
 
 ⟦STILL INEFFECTIVE⟧ the name is unchanged on purpose.  The `K_vt` cushion is the Siegel-genre
 core and this file does not touch it; only the `Ks` FLOOR rider — an artefact of the numeral
-chosen at `S13CapFloor:449` — is gone.  ⟦AND IT IS NOT DESTROYED, IT IS RELOCATED⟧ the
+chosen at `S13CapFloor:458` — is gone.  ⟦AND IT IS NOT DESTROYED, IT IS RELOCATED⟧ the
 ineffective load formerly borne by the `Ks` rider is now borne by the DESIGN CONSTANT `A`,
 through the new seventh `max` arm `16·log(1/Ks)/3`: `A` is no longer pinned by effective
 thresholds alone, so this object's ineffectivity sits in `K_vt` AND in `A`.  Note the coupling

@@ -682,7 +682,7 @@ theorem s13CapFloor_all {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {T₀ Kq Ks 
 
 /-! ## §GK — the G-lever twin -/
 
-/-- `capfloor_one_lt_QK2 (:532)` at the lever. -/
+/-- `capfloor_one_lt_QK2 (:541)` at the lever. -/
 theorem capfloor_one_lt_QK2_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
     1 < ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) := by
   have hA : 0 < Adoor M := by rw [Adoor]; positivity
@@ -698,7 +698,7 @@ theorem capfloor_one_lt_QK2_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
     omega
   exact_mod_cast h
 
-/-- `capfloor_QTann (:595)` at the lever.  `Q2_reg` is a HYPOTHESIS, so the `2^K`
+/-- `capfloor_QTann (:604)` at the lever.  `Q2_reg` is a HYPOTHESIS, so the `2^K`
 it gains rides in. -/
 theorem capfloor_QTann_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hAN : A ≤ Nd) (hM : 1 ≤ M)
@@ -718,7 +718,7 @@ theorem capfloor_QTann_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s Nd : ℕ} 
         Real.exp_le_exp.mpr (by linarith)
     _ ≤ (q : ℝ) * Tann := hgate
 
-/-- `capfloor_kappa30Q (:615)` at the lever. -/
+/-- `capfloor_kappa30Q (:624)` at the lever. -/
 theorem capfloor_kappa30Q_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hAN : A ≤ Nd) (hM : 1 ≤ M)
     (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
@@ -732,7 +732,7 @@ theorem capfloor_kappa30Q_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s Nd : �
 
 /-! ### §5 — ⟦THE BUNDLE⟧ the eight fields at the shared binder + the register -/
 
-/-- `s13CapFloor_all (:643)` at the lever. -/
+/-- `s13CapFloor_all (:652)` at the lever. -/
 theorem s13CapFloor_all_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {T₀ Kq Ks Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hM : 1 ≤ M) (hAN : A ≤ Nd)
     (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
