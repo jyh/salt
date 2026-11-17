@@ -18219,7 +18219,7 @@ CAPTAIN'S RULING REQUIRED.
 
 ## (2026-07-31 07:45 PDT) SEL-WITNESS lands (723 ln, 33 decls): THE PEARL BANKED -- S15Sel' DISCHARGED at numerals, S15CrossingBound THE ONLY SURVIVING OBJECT; + the loud-stop theorem DIAGNOSED STALE by the maestro; + a ledger correction (J-REF was claimed dispatched before the dispatch)
 
-⟦THE PEARL⟧ logChowla2_conditional_sharp_nonvacuous (S15Witness:617):
+⟦THE PEARL⟧ logChowla2_conditional_sharp_nonvacuous (S15Witness:623):
 the witness tuple (Hlo = ⌈e^{10³⁰}⌉, λ₋ ∈ [50, 69.3], M = the max of
 the floors ≤ 2^56, ρ ≥ 2⁻⁵¹) discharges ALL ELEVEN S15Sel' lines at
 numerals — the register vacuity CLOSED with a kernel witness;
@@ -18532,7 +18532,7 @@ lower bounds compete, the reduction must be probed at the STRONGER.
 ⟦THE REPAIR, exact⟧ K was never re-cut when X0MFL's witness moved
 λ₋ 69 → 277: the demand is K ≈ 3.075e7 — INSIDE the frame's own
 ceiling 1.7e8 (the lever ceiling J-REF certified).  One numeral at
-S15Witness:1705 (500000 → 30800000) + hK norm_num + the M-window
+S15Witness:1690 (500000 → 30800000) + hK norm_num + the M-window
 re-verify (blk is a λ₊-lower of 12.4, benign) + the S16 supply
 re-verified at the new K.  ⟦REF-REPAIR AMENDED mid-flight⟧: + the
 K re-cut + the prose corrections (S16Budget:42's weak-floor line;

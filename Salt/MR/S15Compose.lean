@@ -2338,7 +2338,7 @@ theorem logChowla2_conditional_sharp_gk :
     logChowla2_conditional_sharp_atK_gk 500000 (by norm_num)
   exact ⟨500000, ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl, hbody⟩
 
-/-- `s15_socketBase_inhabited' (:1387)` at the lever. -/
+/-- `s15_socketBase_inhabited' (:1352)` at the lever. -/
 theorem s15_socketBase_inhabited'_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ}
     {R : ChowlaRegime} {M : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
@@ -2352,7 +2352,7 @@ theorem s15_socketBase_inhabited'_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl 
     s14_window_floor_of_winFit hρ0 hρ1 (hS.winFit R.Hlo le_rfl R.hHlohi)
   exact s14_socketBase_witness (le_trans hwin R.hHlohi)
 
-/-- `s15_sel'_anchor_cap (:1412)` at the lever. -/
+/-- `s15_sel'_anchor_cap (:1380)` at the lever. -/
 theorem s15_sel'_anchor_cap_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
     (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
     (h50 : 50 ≤ Real.log (Real.log (R.Hlo : ℝ)))
@@ -2393,11 +2393,11 @@ theorem s15_sel'_anchor_cap {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaR
     Real.log (Real.log (R.Hlo : ℝ)) ≤ 654 := by
   exact s15_sel'_anchor_cap_gk 0 hρ0 hρ1 h50 hwidth hsel.to_gk0
 
-/-- `S15SupplySharp (:1434)` at the lever. -/
+/-- `S15SupplySharp (:1402)` at the lever. -/
 def S15SupplySharp_gk (K : ℕ) (Cg δ₀ Ct ρ : ℝ) (x₀ Mfl : ℕ) (R : ChowlaRegime) : Prop :=
   ∃ M : ℕ, S15Sel'_gk K Cg δ₀ Ct ρ x₀ Mfl R M ∧ S15CrossingBound_gk K R M
 
-/-- `logChowla2_witnessed_scale_sharp (:1440)` at the lever. -/
+/-- `logChowla2_witnessed_scale_sharp (:1408)` at the lever. -/
 theorem logChowla2_witnessed_scale_sharp_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ (Cg Kc δ₀ Ct : ℝ) (x₀ Mfl : ℕ), 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧
       ((∀ R : ChowlaRegime,
@@ -2420,8 +2420,8 @@ theorem logChowla2_witnessed_scale_sharp_gk (K : ℕ) (hK : K ≤ 170000000) :
 section is that twin, at the same discipline: `(K : ℕ)` first, `s13BlockExp_gk`/`s13GK` in
 place of their landed readings, and every other byte the landed §10's.
 
-⟦WHAT IS **NOT** TWINNED HERE, AND WHY⟧ `s15_doorArithFrameRho_at_socket''` (:1494) and
-`s15_doorArithFrameRho_family''` (:1550) are `G`-FREE: their statement names
+⟦WHAT IS **NOT** TWINNED HERE, AND WHY⟧ `s15_doorArithFrameRho_at_socket''` (:1462) and
+`s15_doorArithFrameRho_family''` (:1518) are `G`-FREE: their statement names
 `DoorArithFrameRho M H j …`, `SocketBase R M H L q j A s`, `gArmDoorRho` and `s13BandM0`, and
 their proof reads only `Adoor M` / `doorRowFloor M` — no ladder above level 1, no `3072·M`
 anywhere (`M4ArithRho`'s own `§GK` records the whole `DoorArithFrameRho` block as
@@ -2435,7 +2435,7 @@ bundle at the gate's own tolerant `x0_le` (`s15_bandGate''_of_grade_gk`, below).
 `logChowla2_conditional_sharp2_atK_gk` is `logChowla2_conditional_sharp_atK_gk` byte for
 byte. -/
 
-/-- `S15Sel'' (:1568)` at the lever.  Two lines move — `blk` at `s13BlockExp_gk K M` and
+/-- `S15Sel'' (:1536)` at the lever.  Two lines move — `blk` at `s13BlockExp_gk K M` and
 `lvl`'s `𝒬₁` at `s13GK K M` — and the two RESTORED lines (`x0M` at the tolerant
 `2 ^ doorRowFloor M`, `anchor` at the frame's own `(log₂M + 1)`) are `G`-free and carry
 across unchanged. -/
@@ -2471,7 +2471,7 @@ structure S15Sel''_gk (K : ℕ) (Cg δ₀ Ct ρ : ℝ) (x₀ Mfl : ℕ) (R : Cho
       + (-Real.log ρ)
     ≤ (1 / 12) * ((Adoor M : ℕ) : ℝ) * Real.log 2
 
-/-- `S15Sel''.head (:1600)` at the lever. -/
+/-- `S15Sel''.head (:1568)` at the lever. -/
 theorem S15Sel''_gk.head {K : ℕ} {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
     (hsel : S15Sel''_gk K Cg δ₀ Ct ρ x₀ Mfl R M)
     (hΛ : 0 ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) :
@@ -2482,7 +2482,7 @@ theorem S15Sel''_gk.head {K : ℕ} {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : 
   have : s13BlockExp_gk K M ≤ 4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ := by exact_mod_cast hR
   omega
 
-/-- `s15_bandGate''_of_grade (:1613)` at the lever — `x0_le` read from the register
+/-- `s15_bandGate''_of_grade (:1581)` at the lever — `x0_le` read from the register
 DIRECTLY, at `S13BandGate'_gk`'s own tolerant form. -/
 theorem s15_bandGate''_of_grade_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ}
     {R : ChowlaRegime} {M : ℕ}
@@ -2502,7 +2502,7 @@ set_option maxHeartbeats 1000000 in
 -- Same cause as §5, §8, §9 and the landed §10: the twin's residue re-elaborates against the
 -- instantiated prefix.
 /-- **⟦THE CAPSTONE, FIRED ON THE RE-CUT REGISTER, AT THE LEVER⟧**
-(`logChowla2_conditional_sharp2_atK_gk`) — `logChowla2_conditional_sharp2` (:1640) at the
+(`logChowla2_conditional_sharp2_atK_gk`) — `logChowla2_conditional_sharp2` (:1608) at the
 lever, UNIFORM IN `K`.  The pin `K := 500000` is taken one declaration below.
 
 ⟦WHAT IS CARRIED⟧ `S15Sel''_gk K` and `S15CrossingBound_gk K`.  Nothing else. -/
@@ -2600,7 +2600,7 @@ theorem logChowla2_conditional_sharp2_gk :
 
 /-! ### §GK.10-PINNED — ⟦REF-REPAIR (b)⟧ THE SAME COMPOSE ON THE PINNED CAPSTONE
 
-`logChowla2_conditional_sharp2_atK_gk` (:2631) with its capstone call redirected to
+`logChowla2_conditional_sharp2_atK_gk` (:2628) with its capstone call redirected to
 `S12ConstCompose.logChowla2_capstone_final_const'_graded_gk_pinned` — the twin that consumes
 `HloExportMR.m4_second_road_L2_hloCap_pinned_gk`.  The proof is BYTE-IDENTICAL; the statement
 gains the three EPSPIN conjuncts at the end of its `∃`-prefix, where the witness page turns
@@ -2608,7 +2608,7 @@ them into discharges of the `ε`/`δ₀`/`Cg` riders.  PURELY ADDITIVE. -/
 
 set_option maxHeartbeats 1000000 in
 -- Same cause as the landed §GK.10: the twin's residue re-elaborates against the prefix.
-/-- `logChowla2_conditional_sharp2_atK_gk (:2631)` on the pinned road.  ⟦WHAT IS CARRIED⟧
+/-- `logChowla2_conditional_sharp2_atK_gk (:2628)` on the pinned road.  ⟦WHAT IS CARRIED⟧
 `S15Sel''_gk K` and `S15CrossingBound_gk K`; ⟦WHAT IS NOW CERTIFIED⟧ `Cg ≤ 2·10^{12}`,
 `1/500 ≤ ε`, `1/838400 ≤ δ₀`. -/
 theorem logChowla2_conditional_sharp2_atK_gk_pinned (K : ℕ) (hK : K ≤ 170000000) :

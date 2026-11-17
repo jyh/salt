@@ -1408,7 +1408,7 @@ theorem s15_sel'_witness_gk (K : ℕ) (hKle : K ≤ 170000000) {Cg δ₀ Ct Kc :
     have hρ' : -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) ≤ 36 := hρlog
     nlinarith only [hlog2lo, hQ, hlog2hi, hAd, hρlog, hhi, (Nat.cast_nonneg _ : 0 ≤ ↑(Adoor M))]
 
-/-- `s15_sel'_bfloor_window_num (:437)` at the lever. -/
+/-- `s15_sel'_bfloor_window_num (:486)` at the lever. -/
 theorem s15_sel'_bfloor_window_num_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ}
     {R : ChowlaRegime} {M : ℕ}
     (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hsel : S15Sel'_gk K Cg δ₀ Ct ρ x₀ Mfl R M)
@@ -1737,7 +1737,7 @@ was calibrated to the OLD witness (`λ₋ = 69`) and never re-cut when `s15WitFl
 `λ₋` to `277.2589`.  This twin leaves `K` free so the pin is taken once, at the terminal,
 where the base-scale cap's demand can be read off. -/
 
-/-- `s15w2_lvl_num (:920)` at the relaxed `ρ`-charge `43`. -/
+/-- `s15w2_lvl_num (:926)` at the relaxed `ρ`-charge `43`. -/
 theorem s15w2_lvl_num' {X Q Y : ℝ} (hX : X ≤ 987 * 10 ^ 8) (hQ : Q ≤ 277) (hY : -Y ≤ 43) :
     26 + 14 * X + 1 / 3 * Q + -Y ≤ 1 / 12 * 24464133718016 * Real.log 2 := by
   linarith only [Real.log_two_gt_d9, hX, hQ, hY]
