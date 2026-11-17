@@ -1436,7 +1436,7 @@ threshold — pick it once and thread. PB floor: none (literal swaps + one split
 
 ### W5-3 `Salt/Maynard/S2CompatEHW.lean` (Cluster 2: herr at W'/yF/θ★) — Opus, B (one B/C)
 Free-`W'` mirrors: `abs_S2mW_sub_compatMainW_le` (mirror `S2CompatEH.lean:84`),
-`abs_S2mW_sub_compatMainW_le_disc_R_uniform` (mirror `FrontierDischarge.lean:224`,
+`abs_S2mW_sub_compatMainW_le_disc_R_uniform` (mirror `S2CompatEHFinal.lean:52`,
 reuse free-`W` `lam_abs_le_sharp_uniform` + landed `s2PrimeCountW_approx'`),
 **`compat_pair_fiber_leW`** (mirror `S2FiberCount.lean:415` — the free-`W'` CRT
 `(3k)^{ω(q)}`-multiplicity fiber count, the ONE intricate atom),
