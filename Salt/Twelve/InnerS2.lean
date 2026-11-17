@@ -381,29 +381,35 @@ product→`marked_sqf_g_rel` structure, threading the `|Q|` marks through the
 per-coordinate `marked_sqf_g_rel` reindexes at the `slot`-selected products
 `sfun i = ∏_{p∈Q, slot p = i} p`, and collecting the constants by fiberwise
 partition of `Q` under `slot`. -/
+end Salt.Twelve
+
+namespace Salt.MaynardK
+
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
+open Salt.Maynard Salt.Twelve
+
 omit [Salt.Maynard.TupleChoice] in
-/-- **The marked 4-dimensional `g`-moment** (the landed `gmoment4_le` is the case `Q = ∅`). For
-marked primes `Q` (`hQp`) above `D` (`hDlt`) with slots off `m` (`hslot`), square-free `W' > 0`
-(`hW'`, `hpos`), a cutoff `D ≥ 3` (`hD`) below every prime not dividing `W'` (`hDW`) and `R ≥ 2`
-(`hR2`): the `1/∏_{i ≠ m} g(u_i)`-moment over the pinned box `u_m = 1` with `p ∣ u_{slot p}` for
-every `p ∈ Q` is at most `∏_{p ∈ Q} (p − 2)⁻¹·(2·PAS)⁴`. The box lies in the product of
-per-coordinate sets forced by `sfun i = ∏_{slot p = i} p`, the sum factors coordinatewise
-(`Finset.prod_univ_sum`), each coordinate is bounded by `marked_sqf_g_rel` at exponent `0`
-(`g(sfun i)⁻¹·2·PAS`), and `∏_{i ≠ m} g(sfun i) = ∏_{p ∈ Q} (p − 2)` by the fiberwise partition
-of `Q` under `slot` (`gMult_cast`, `Finset.prod_fiberwise_of_maps_to`). -/
-theorem box_marked_gmoment (R W' D : ℕ) (m : Fin 5) (Q : Finset ℕ) (slot : ℕ → Fin 5)
+/-- The marked `g`-moment over the pinned box at general `k`: over `u ∈ kSieveIndex k R W'` with `uₘ
+= 1` and `p ∣ u (slot p)` for every marked prime `p ∈ Q` (all above `D`, slots `≠ m`), `Σ 1/∏_{i
+≠ m} gMult(uᵢ) ≤ (∏_{p ∈ Q} (p − 2)⁻¹) · (2 · phiAtomSum R W')^{k−1}`; at `k = 5` its `Q = ∅`
+case is `Salt.Twelve.gmoment4_le`.
+`Salt.Twelve.box_marked_gmoment` is its instance at `k = 5`.
+-/
+theorem box_marked_gmoment_gen (k R W' D : ℕ) (m : Fin k) (Q : Finset ℕ) (slot : ℕ → Fin k)
     (hslot : ∀ p ∈ Q, slot p ≠ m) (hQp : ∀ p ∈ Q, p.Prime) (hDlt : ∀ p ∈ Q, D < p)
     (hW' : Squarefree W') (hpos : 0 < W') (hD : 3 ≤ D)
     (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
-    (∑ u ∈ (kSieveIndex 5 R W').filter
+    (∑ u ∈ (kSieveIndex k R W').filter
         (fun u => u m = 1 ∧ ∀ p ∈ Q, p ∣ u (slot p)),
         1 / ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ))
-      ≤ (∏ p ∈ Q, ((p : ℝ) - 2)⁻¹) * (2 * Salt.Maynard.phiAtomSum R W') ^ 4 := by
+      ≤ (∏ p ∈ Q, ((p : ℝ) - 2)⁻¹) * (2 * Salt.Maynard.phiAtomSum R W') ^ (k - 1) := by
   classical
   -- the slot-selected forced product on each coordinate
-  set sfun : Fin 5 → ℕ := fun i => ∏ p ∈ Q.filter (fun p => slot p = i), p with hsfun
-  set f : Fin 5 → ℕ → ℝ := fun i x => if i = m then 1 else (gMult x : ℝ)⁻¹ with hf
-  set coordSet : Fin 5 → Finset ℕ := fun i =>
+  set sfun : Fin k → ℕ := fun i => ∏ p ∈ Q.filter (fun p => slot p = i), p with hsfun
+  set f : Fin k → ℕ → ℝ := fun i x => if i = m then 1 else (gMult x : ℝ)⁻¹ with hf
+  set coordSet : Fin k → Finset ℕ := fun i =>
     if i = m then {1}
     else (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W' ∧ sfun i ∣ x)
     with hcoordSet
@@ -420,7 +426,7 @@ theorem box_marked_gmoment (R W' D : ℕ) (m : Fin 5) (Q : Finset ℕ) (slot : �
       = (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W' ∧ sfun i ∣ x) :=
     fun i hi => by simp [hcoordSet, hi]
   have hfnn : ∀ i x, 0 ≤ f i x := fun i x => by simp only [hf]; split_ifs <;> positivity
-  have hcard : (Finset.univ.erase m).card = 4 := by
+  have hcard : (Finset.univ.erase m).card = k - 1 := by
     rw [Finset.card_erase_of_mem (Finset.mem_univ m), Finset.card_univ, Fintype.card_fin]
   -- the `g`-constant collapses to `∏_{p∈Q}(p−2)⁻¹` by fiberwise partition
   have hgcast : ∀ i ∈ Finset.univ.erase m,
@@ -439,14 +445,14 @@ theorem box_marked_gmoment (R W' D : ℕ) (m : Fin 5) (Q : Finset ℕ) (slot : �
       (fun p hp => Finset.mem_erase.mpr ⟨hslot p hp, Finset.mem_univ _⟩)
       (fun p => ((p : ℝ) - 2))
   -- STEP 1: rewrite the summand as a full `univ`-product of `f`
-  have hfeq : ∀ u : Fin 5 → ℕ,
+  have hfeq : ∀ u : Fin k → ℕ,
       (1 : ℝ) / ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ) = ∏ i, f i (u i) := by
     intro u
     rw [← Finset.mul_prod_erase Finset.univ (fun i => f i (u i)) (Finset.mem_univ m),
       hf_m (u m), one_mul, one_div, ← Finset.prod_inv_distrib]
     exact Finset.prod_congr rfl (fun i hi => (hf_ne i (u i) (Finset.ne_of_mem_erase hi)).symm)
   -- STEP 2: the marked box is contained in the per-coordinate product box
-  have hsub : (kSieveIndex 5 R W').filter
+  have hsub : (kSieveIndex k R W').filter
       (fun u => u m = 1 ∧ ∀ p ∈ Q, p ∣ u (slot p)) ⊆ Fintype.piFinset coordSet := by
     intro u hu
     rw [Finset.mem_filter] at hu
@@ -466,10 +472,10 @@ theorem box_marked_gmoment (R W' D : ℕ) (m : Fin 5) (Q : Finset ℕ) (slot : �
         obtain ⟨hpQ, hpi⟩ := hp
         have := hmark p hpQ; rwa [hpi] at this
   -- STEP 3: enlarge, factor, split off `m`, and bound each coordinate
-  calc ∑ u ∈ (kSieveIndex 5 R W').filter
+  calc ∑ u ∈ (kSieveIndex k R W').filter
           (fun u => u m = 1 ∧ ∀ p ∈ Q, p ∣ u (slot p)),
           1 / ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ)
-      = ∑ u ∈ (kSieveIndex 5 R W').filter
+      = ∑ u ∈ (kSieveIndex k R W').filter
           (fun u => u m = 1 ∧ ∀ p ∈ Q, p ∣ u (slot p)),
           ∏ i, f i (u i) := Finset.sum_congr rfl (fun u _ => hfeq u)
     _ ≤ ∑ u ∈ Fintype.piFinset coordSet, ∏ i, f i (u i) :=
@@ -502,11 +508,40 @@ theorem box_marked_gmoment (R W' D : ℕ) (m : Fin 5) (Q : Finset ℕ) (slot : �
             _ = (gMult (sfun i) : ℝ)⁻¹ * (2 * Salt.Maynard.phiAtomSum R W') := by
                 rw [pow_zero, one_div]; ring
     _ = (∏ i ∈ Finset.univ.erase m, (gMult (sfun i) : ℝ)⁻¹)
-          * (2 * Salt.Maynard.phiAtomSum R W') ^ 4 := by
+          * (2 * Salt.Maynard.phiAtomSum R W') ^ (k - 1) := by
         rw [Finset.prod_mul_distrib, Finset.prod_const, hcard]
-    _ = (∏ p ∈ Q, ((p : ℝ) - 2)⁻¹) * (2 * Salt.Maynard.phiAtomSum R W') ^ 4 := by
+    _ = (∏ p ∈ Q, ((p : ℝ) - 2)⁻¹) * (2 * Salt.Maynard.phiAtomSum R W') ^ (k - 1) := by
         congr 1
         rw [Finset.prod_inv_distrib, hprodg, ← Finset.prod_inv_distrib]
+
+end Salt.MaynardK
+
+namespace Salt.Twelve
+
+set_option linter.unusedSectionVars false
+variable [Salt.Maynard.TupleChoice]
+
+open Salt.Maynard
+
+omit [Salt.Maynard.TupleChoice] in
+/-- **The marked 4-dimensional `g`-moment** (the landed `gmoment4_le` is the case `Q = ∅`). For
+marked primes `Q` (`hQp`) above `D` (`hDlt`) with slots off `m` (`hslot`), square-free `W' > 0`
+(`hW'`, `hpos`), a cutoff `D ≥ 3` (`hD`) below every prime not dividing `W'` (`hDW`) and `R ≥ 2`
+(`hR2`): the `1/∏_{i ≠ m} g(u_i)`-moment over the pinned box `u_m = 1` with `p ∣ u_{slot p}` for
+every `p ∈ Q` is at most `∏_{p ∈ Q} (p − 2)⁻¹·(2·PAS)⁴`. The box lies in the product of
+per-coordinate sets forced by `sfun i = ∏_{slot p = i} p`, the sum factors coordinatewise
+(`Finset.prod_univ_sum`), each coordinate is bounded by `marked_sqf_g_rel` at exponent `0`
+(`g(sfun i)⁻¹·2·PAS`), and `∏_{i ≠ m} g(sfun i) = ∏_{p ∈ Q} (p − 2)` by the fiberwise partition
+of `Q` under `slot` (`gMult_cast`, `Finset.prod_fiberwise_of_maps_to`). -/
+theorem box_marked_gmoment (R W' D : ℕ) (m : Fin 5) (Q : Finset ℕ) (slot : ℕ → Fin 5)
+    (hslot : ∀ p ∈ Q, slot p ≠ m) (hQp : ∀ p ∈ Q, p.Prime) (hDlt : ∀ p ∈ Q, D < p)
+    (hW' : Squarefree W') (hpos : 0 < W') (hD : 3 ≤ D)
+    (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
+    (∑ u ∈ (kSieveIndex 5 R W').filter
+        (fun u => u m = 1 ∧ ∀ p ∈ Q, p ∣ u (slot p)),
+        1 / ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ))
+      ≤ (∏ p ∈ Q, ((p : ℝ) - 2)⁻¹) * (2 * Salt.Maynard.phiAtomSum R W') ^ 4 := by
+  exact Salt.MaynardK.box_marked_gmoment_gen 5 R W' D m Q slot hslot hQp hDlt hW' hpos hD hDW hR2
 
 /-! ## Deliverable 4 — the S₂ termwise `V`-bound and `s2_inner_yF`
 
