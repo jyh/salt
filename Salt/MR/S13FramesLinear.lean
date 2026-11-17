@@ -390,6 +390,15 @@ structure MSelect_L_gk (K : ℕ) (Cg δ₀ Λ : ℝ) (R : ChowlaRegime) (M : ℕ
   /-- ⟦5⟧ the LEVERED LINEAR block ceiling. -/
   blockCeil : 4 * R.ω * s13BlockFloor_L_gk K M ≤ R.x
 
+/-- `MSelect_L` is `MSelect_L_gk` at `K = 0`: the two differ only in `blockCeil`, and
+`s13BlockFloor_L_gk 0 M = s13BlockFloor_L M` (`s13GK_zero`). -/
+theorem MSelect_L.to_gk0 {Cg δ₀ Λ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (h : MSelect_L Cg δ₀ Λ R M) : MSelect_L_gk 0 Cg δ₀ Λ R M :=
+  { h with
+    blockCeil := by
+      simpa only [s13BlockFloor_L_gk, s13BlockExp_L_gk, s13GK_zero,
+        s13BlockFloor_L, s13BlockExp_L] using h.blockCeil }
+
 /-- **⟦A-4 FROM `MSelect_L`⟧** (`s13_gate8_of_MSelect_L`) — ⟦gate 8⟧'s numeral gate off field
 ⟦3⟧ alone (`242·log 2 = 167.7 > 12`), at the LINEAR anchor. -/
 theorem s13_gate8_of_MSelect_L {Cg δ₀ Λ : ℝ} {R : ChowlaRegime} {M : ℕ} (hΛ : 0 < Λ)
@@ -406,21 +415,6 @@ theorem s13_gate8_of_MSelect_L_gk (K : ℕ) {Cg δ₀ Λ : ℝ} {R : ChowlaRegim
   have h := hS.gRows
   nlinarith [hΛ, h, hlog2]
 
-/-- **⟦A-3 FROM `MSelect_L`⟧** (`s13_g2_jfloor_of_MSelect_L`) — ⟦G2⟧'s `j₀`-floor at the
-LINEAR row floor (`doorRowFloorL M = M·AdoorL M ≥ AdoorL M ≥ 242Λ`). -/
-theorem s13_g2_jfloor_of_MSelect_L {Cg δ₀ Λ : ℝ} {R : ChowlaRegime} {M : ℕ}
-    (hΛ : 1 ≤ Λ) (hS : MSelect_L Cg δ₀ Λ R M) :
-    4 * Real.log 263 + 48 * Λ ≤ ((doorRowFloorL M : ℕ) : ℝ) := by
-  have hlog := s13_log263_le_six
-  have hdr : ((AdoorL M : ℕ) : ℝ) ≤ ((doorRowFloorL M : ℕ) : ℝ) := by
-    have h : AdoorL M ≤ doorRowFloorL M := by
-      rw [doorRowFloorL]
-      calc AdoorL M = 1 * AdoorL M := (one_mul _).symm
-        _ ≤ M * AdoorL M := Nat.mul_le_mul_right _ hS.hM
-    exact_mod_cast h
-  have h := hS.gRows
-  linarith
-
 /-- `s13_g2_jfloor_of_MSelect_L` at the lever. -/
 theorem s13_g2_jfloor_of_MSelect_L_gk (K : ℕ) {Cg δ₀ Λ : ℝ} {R : ChowlaRegime} {M : ℕ}
     (hΛ : 1 ≤ Λ) (hS : MSelect_L_gk K Cg δ₀ Λ R M) :
@@ -434,6 +428,13 @@ theorem s13_g2_jfloor_of_MSelect_L_gk (K : ℕ) {Cg δ₀ Λ : ℝ} {R : ChowlaR
     exact_mod_cast h
   have h := hS.gRows
   linarith
+
+/-- **⟦A-3 FROM `MSelect_L`⟧** (`s13_g2_jfloor_of_MSelect_L`) — ⟦G2⟧'s `j₀`-floor at the
+LINEAR row floor (`doorRowFloorL M = M·AdoorL M ≥ AdoorL M ≥ 242Λ`). -/
+theorem s13_g2_jfloor_of_MSelect_L {Cg δ₀ Λ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hΛ : 1 ≤ Λ) (hS : MSelect_L Cg δ₀ Λ R M) :
+    4 * Real.log 263 + 48 * Λ ≤ ((doorRowFloorL M : ℕ) : ℝ) := by
+  exact s13_g2_jfloor_of_MSelect_L_gk 0 hΛ hS.to_gk0
 
 /-- `8·(4^m)² = 2^{4m+3}` — the headroom field's exponent, normalised (the landed
 `s13_headroom_pow` is private to `S13FramesA`, so it is re-derived here). -/
@@ -538,6 +539,15 @@ structure MSelect'_L_gk (K : ℕ) (Cg δ₀ Λ ρ : ℝ) (R : ChowlaRegime) (M :
             + 2 * Real.log (strataResidual H) - Real.log ρ)
       ≤ Real.log (H : ℝ)
 
+/-- `MSelect'_L` is `MSelect'_L_gk` at `K = 0`: the two differ only in `blockCeil`, and
+`s13BlockFloor_L_gk 0 M = s13BlockFloor_L M` (`s13GK_zero`). -/
+theorem MSelect'_L.to_gk0 {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (h : MSelect'_L Cg δ₀ Λ ρ R M) : MSelect'_L_gk 0 Cg δ₀ Λ ρ R M :=
+  { h with
+    blockCeil := by
+      simpa only [s13BlockFloor_L_gk, s13BlockExp_L_gk, s13GK_zero,
+        s13BlockFloor_L, s13BlockExp_L] using h.blockCeil }
+
 /-- **⟦A-4 FROM `MSelect'_L`⟧** (`s13_gate8_of_MSelect'_L`). -/
 theorem s13_gate8_of_MSelect'_L {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ} (hΛ : 0 < Λ)
     (hS : MSelect'_L Cg δ₀ Λ ρ R M) : 12 * Λ < ((AdoorL M : ℕ) : ℝ) * Real.log 2 := by
@@ -553,20 +563,6 @@ theorem s13_gate8_of_MSelect'_L_gk (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaR
   have h := hS.gRows
   nlinarith [hΛ, h, hlog2]
 
-/-- **⟦A-3 FROM `MSelect'_L`⟧** (`s13_g2_jfloor_of_MSelect'_L`). -/
-theorem s13_g2_jfloor_of_MSelect'_L {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ}
-    (hΛ : 1 ≤ Λ) (hS : MSelect'_L Cg δ₀ Λ ρ R M) :
-    4 * Real.log 263 + 48 * Λ ≤ ((doorRowFloorL M : ℕ) : ℝ) := by
-  have hlog := s13_log263_le_six
-  have hdr : ((AdoorL M : ℕ) : ℝ) ≤ ((doorRowFloorL M : ℕ) : ℝ) := by
-    have h : AdoorL M ≤ doorRowFloorL M := by
-      rw [doorRowFloorL]
-      calc AdoorL M = 1 * AdoorL M := (one_mul _).symm
-        _ ≤ M * AdoorL M := Nat.mul_le_mul_right _ hS.hM
-    exact_mod_cast h
-  have h := hS.gRows
-  linarith
-
 /-- `s13_g2_jfloor_of_MSelect'_L` at the lever. -/
 theorem s13_g2_jfloor_of_MSelect'_L_gk (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ}
     (hΛ : 1 ≤ Λ) (hS : MSelect'_L_gk K Cg δ₀ Λ ρ R M) :
@@ -580,6 +576,12 @@ theorem s13_g2_jfloor_of_MSelect'_L_gk (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : Cho
     exact_mod_cast h
   have h := hS.gRows
   linarith
+
+/-- **⟦A-3 FROM `MSelect'_L`⟧** (`s13_g2_jfloor_of_MSelect'_L`). -/
+theorem s13_g2_jfloor_of_MSelect'_L {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hΛ : 1 ≤ Λ) (hS : MSelect'_L Cg δ₀ Λ ρ R M) :
+    4 * Real.log 263 + 48 * Λ ≤ ((doorRowFloorL M : ℕ) : ℝ) := by
+  exact s13_g2_jfloor_of_MSelect'_L_gk 0 hΛ hS.to_gk0
 
 /-- **⟦A-5 FROM `MSelect'_L`⟧** (`s13_smallGradeFits_of_MSelect'_L`) — field ⟦4⟧ IS
 `s13_smallGradeFits`' gate, at the LINEAR row floor. -/
