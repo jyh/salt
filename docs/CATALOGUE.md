@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `023fb77f` · source digest `d32b5f3e8eb45273` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `e79089ac` · source digest `0b7514eb9f76a6d2` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23436 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -7042,9 +7042,9 @@ Declarations indexed across the tree: 23436 · corpus Prop-valued names (the hyp
 | `Salt.Vk.zeta_zero_free_region_littlewood` | Salt/Vk/Littlewood.lean:411 | zeros, exponential sums |
 | `Salt.Vk.vk_ladder_prefix` | Salt/Vk/Mid.lean:106 | zeros, exponential sums |
 | `Salt.Vk.vk_window_prefix` | Salt/Vk/Mid.lean:232 | zeros, exponential sums |
-| `Salt.Vk.vk_window_scale_prefix` | Salt/Vk/Mid.lean:290 | zeros, exponential sums |
-| `Salt.Vk.vk_window_mid_prefix` | Salt/Vk/Mid.lean:448 | zeros, exponential sums |
-| `Salt.Vk.vk_window_mid` | Salt/Vk/Mid.lean:664 | zeros, exponential sums |
+| `Salt.Vk.vk_window_scale_prefix` | Salt/Vk/Mid.lean:284 | zeros, exponential sums |
+| `Salt.Vk.vk_window_mid_prefix` | Salt/Vk/Mid.lean:442 | zeros, exponential sums |
+| `Salt.Vk.vk_window_mid` | Salt/Vk/Mid.lean:658 | zeros, exponential sums |
 | `Salt.Vk.poly_shift_orbit` | Salt/Vk/Pointwise.lean:34 | zeros, exponential sums |
 | `Salt.Vk.vkTheta_anti` | Salt/Vk/PowRegion.lean:40 | zeros, exponential sums |
 | `Salt.Vk.vkTheta_pos` | Salt/Vk/PowRegion.lean:66 | zeros, exponential sums |
@@ -7090,13 +7090,13 @@ Declarations indexed across the tree: 23436 · corpus Prop-valued names (the hyp
 | `Salt.Vk.vk_block_core_twist` | Salt/Vk/TwistLadder.lean:92 | zeros, exponential sums |
 | `Salt.Vk.vk_window_bound_twist` | Salt/Vk/TwistLadder.lean:417 | zeros, exponential sums |
 | `Salt.Vk.vk_window_prefix_twist` | Salt/Vk/TwistLadder.lean:470 | zeros, exponential sums |
-| `Salt.Vk.vk_window_scale_twist` | Salt/Vk/TwistLadder.lean:699 | zeros, exponential sums |
-| `Salt.Vk.vk_window_scale_prefix_twist` | Salt/Vk/TwistLadder.lean:718 | zeros, exponential sums |
-| `Salt.Vk.vk_window_mid_twist` | Salt/Vk/TwistLadder.lean:1042 | zeros, exponential sums |
-| `Salt.Vk.vk_window_mid_prefix_twist` | Salt/Vk/TwistLadder.lean:1060 | zeros, exponential sums |
-| `Salt.Vk.vk_weighted_block_twist` | Salt/Vk/TwistLadder.lean:1086 | zeros, exponential sums |
-| `Salt.Vk.vk_dirichlet_block_twist_le` | Salt/Vk/TwistLadder.lean:1150 | zeros, exponential sums |
-| `Salt.Vk.vk_dirichlet_block_twist_le_of_high` | Salt/Vk/TwistLadder.lean:1272 | zeros, exponential sums |
+| `Salt.Vk.vk_window_scale_twist` | Salt/Vk/TwistLadder.lean:693 | zeros, exponential sums |
+| `Salt.Vk.vk_window_scale_prefix_twist` | Salt/Vk/TwistLadder.lean:712 | zeros, exponential sums |
+| `Salt.Vk.vk_window_mid_twist` | Salt/Vk/TwistLadder.lean:1036 | zeros, exponential sums |
+| `Salt.Vk.vk_window_mid_prefix_twist` | Salt/Vk/TwistLadder.lean:1054 | zeros, exponential sums |
+| `Salt.Vk.vk_weighted_block_twist` | Salt/Vk/TwistLadder.lean:1080 | zeros, exponential sums |
+| `Salt.Vk.vk_dirichlet_block_twist_le` | Salt/Vk/TwistLadder.lean:1144 | zeros, exponential sums |
+| `Salt.Vk.vk_dirichlet_block_twist_le_of_high` | Salt/Vk/TwistLadder.lean:1266 | zeros, exponential sums |
 | `Salt.Vk.vk_window_bound` | Salt/Vk/Window.lean:84 | zeros, exponential sums |
 | `Salt.Vk.vk_logP_ge` | Salt/Vk/Window.lean:144 | zeros, exponential sums |
 | `Salt.Vk.vk_logP_ub` | Salt/Vk/Window.lean:154 | zeros, exponential sums |

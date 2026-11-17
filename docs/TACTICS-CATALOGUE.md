@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `023fb77f` · source digest `d32b5f3e8eb45273` (the same digest as items 1–3).
-> Receipt: files 1414 · decls 23436 · with_body 23436 · tactic_lines 303763 · runs 35679 · blocks 1265.
+> Base: last commit touching `Salt/` = `e79089ac` · source digest `0b7514eb9f76a6d2` (the same digest as items 1–3).
+> Receipt: files 1414 · decls 23435 · with_body 23435 · tactic_lines 303761 · runs 35679 · blocks 1265.
 
 ## LIMITS (read before any number below)
 
@@ -100,11 +100,11 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-303763 tactic lines. Top 30:
+303761 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 132492 | 43.6% |
+| 1 | `have` | 132491 | 43.6% |
 | 2 | `rw` | 49114 | 16.2% |
 | 3 | `exact` | 17471 | 5.8% |
 | 4 | `intro` | 14063 | 4.6% |
@@ -123,7 +123,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 17 | `push_cast` | 1961 | 0.6% |
 | 18 | `field_simp` | 1864 | 0.6% |
 | 19 | `by_cases` | 1637 | 0.5% |
-| 20 | `rwa` | 1601 | 0.5% |
+| 20 | `rwa` | 1600 | 0.5% |
 | 21 | `norm_num` | 1492 | 0.5% |
 | 22 | `show` | 1268 | 0.4% |
 | 23 | `omega` | 1266 | 0.4% |
@@ -144,7 +144,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | large sieve | 1719 | `have` 560, `rw` 379, `intro` 108, `refine` 104, `exact` 101, `simp` 56, `apply` 53, `calc` 48 |
 | Selberg/Brun sieve | 70444 | `have` 30316, `rw` 12099, `exact` 3801, `intro` 3244, `calc` 2288, `apply` 2287, `refine` 1691, `linarith` 1480 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 34755 | `have` 15480, `rw` 6455, `exact` 1868, `intro` 1433, `refine` 1418, `linarith` 1100, `calc` 1077, `set` 854 |
-| zero-density / zero-free regions | 13609 | `have` 6263, `rw` 2384, `exact` 696, `intro` 614, `linarith` 576, `refine` 438, `set` 408, `calc` 379 |
+| zero-density / zero-free regions | 13607 | `have` 6262, `rw` 2384, `exact` 696, `intro` 614, `linarith` 576, `refine` 438, `set` 408, `calc` 379 |
 | character sums / L-functions | 62557 | `have` 26247, `rw` 9885, `exact` 4064, `refine` 3590, `intro` 3337, `obtain` 2385, `linarith` 2136, `calc` 1437 |
 | exponential sums | 8305 | `have` 3163, `rw` 1696, `exact` 504, `intro` 409, `refine` 391, `linarith` 237, `set` 228, `simp` 209 |
 | Mertens / PNT-type | 3297 | `have` 1530, `rw` 557, `exact` 173, `linarith` 147, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
