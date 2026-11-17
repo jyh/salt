@@ -119,8 +119,9 @@ open Salt.Entropy.Chowla
 section NumericSiblings
 
 /-- ⟦SIBLING of `capeps_master` (`S13CapEps`), ceiling `50 → 60`⟧ — the `εr`-budget
-master line.  `ht` enters only the closing `nlinarith`, linearly, against `(14/10000)·Λ ≥
-7·10¹⁷`; the certificate is the landed one, unchanged. -/
+master line.  Until 2026-11-17 its body was `capeps_master`'s, where `ht` enters only the closing
+`nlinarith`, linearly, against `(14/10000)·Λ ≥ 7·10¹⁷`; since then it is the `t ≤ 60` instance of
+`capeps_master_63` (`S13CapEps`). -/
 theorem capeps_master_60 {u Λ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hΛ : u / 2 ≤ Λ)
     (ht : t ≤ 60) : t + 12 * Real.log u + Real.log Λ ≤ 14 / 10000 * Λ := by
   exact capeps_master_63 hu hΛ (by linarith)
@@ -1663,7 +1664,8 @@ more, one into a twin here and six into twins of F2 and F3, each noted in place;
 family 26 retired two more, both into twins of F2, each noted in place; 2026-09-30: family 27
 retired two more, one into a twin here and one into a twin of F2, each noted in place; 2026-09-30:
 family 28 retired three more into relatives that are not `_b9` twins — one into
-`capfloor_floor3_numeric_h_10` here, two into the rows at the raised cap in §4 above — each noted in
+`capfloor_floor3_numeric_h_10` here (in `S13CapFloor` since 2026-11-17), two into the rows at the
+raised cap in §4 above — each noted in
 place; 2026-09-30: family 29 moved two more declarations to §9 at the foot (recorded 2026-10-01);
 2026-10-01: family 30 retired three more, one into a twin here and two into twins of F2, each noted
 in place; 2026-10-01: family 31 retired one more, into a twin of F2, noted in place; 2026-10-06:

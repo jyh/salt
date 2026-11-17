@@ -99,11 +99,11 @@ theorem capeps_sq_le_exp {y : ℝ} (hy : 0 ≤ y) : y ^ 2 / 4 ≤ Real.exp y := 
   nlinarith [hhalf, hy]
 
 /-- ⟦SIBLING of `capeps_master_60` (`S13CapGateLinearLH` §1), ceiling `60 → 63`⟧ — the `εr`-budget
-master line at the raised shift cap.  BODY: `capeps_master_60`'s, verbatim; `ht` enters only the
-closing `nlinarith`, linearly, against `(14/10000)·Λ ≥ 7·10¹⁷`.  ⭐ **The certificate travels
-unchanged, and that is the finding**: if it had not, the ceiling would have been a barrier after
-all.  (Moved here from `S13CapGateLinearLH` §4 on 2026-11-17, so that `capeps_master` below is
-its `t ≤ 50` instance.) -/
+master line at the raised shift cap.  BODY: `capeps_master_60`'s, verbatim, until 2026-11-17 (when
+`_60` became this line's `t ≤ 60` instance); `ht` enters only the closing `nlinarith`, linearly,
+against `(14/10000)·Λ ≥ 7·10¹⁷`.  ⭐ **The certificate travels unchanged, and that is the finding**:
+if it had not, the ceiling would have been a barrier after all.  (Moved here from
+`S13CapGateLinearLH` §4 on 2026-11-17, so that `capeps_master` below is its `t ≤ 50` instance.) -/
 theorem capeps_master_63 {u Λ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hΛ : u / 2 ≤ Λ)
     (ht : t ≤ 63) : t + 12 * Real.log u + Real.log Λ ≤ 14 / 10000 * Λ := by
   have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
