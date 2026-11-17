@@ -16,7 +16,7 @@ LANDED state (flags.md:11039–11207 + grep): `dh_master_ray` (TBalR8.lean:98), 
 caps + `ray_pow_bound` engine (TBalR8.lean:300–987), guard discharges `tbal_hscale/
 tbal_hguard/tbal_hcov` (TBalR8.lean:991–1337), `dh_balance` (TBalR7.lean:100), `H_lower`
 (CrushH.lean:65), `L1_lower_siegel` (DHCore.lean:808), extractions (DHExtractW.lean:1163,
-TBalCompose.lean:639), `zfr_harvest` (DHBal.lean:62), `selberg_opt_eq` (SelOpt.lean:440),
+TBalCompose.lean:617), `zfr_harvest` (DHBal.lean:62), `selberg_opt_eq` (SelOpt.lean:440),
 `tail_shift_to_beta0` (SelWeight.lean:383). The ONLY unlanded producer piece: the R8c
 final assembly (trivial split + by_contra inversion into the contract ∃-shape) —
 dispatched per flags/git (cf2f0c0), no `theorem dh_repulsion_ordered` in Lean yet.
@@ -62,7 +62,7 @@ item, gated on the consuming node.]**
   every delivered exponent) or a better E-grade (T-BAL-SIGMA-SLIVER, class D).
 - **The |Im ρ| ≤ 1 restriction**'s true home: the `hZ` box hypothesis
   `∀ s, 1/2 ≤ Re s ≤ 1 → |Im s| ≤ 1 → ‖zetaHol s‖ ≤ Z₀` threaded through
-  `dh_extraction_upper_rho` (TBalCompose.lean:643; applied AT ρ at :515 at c0923533) and the whole
+  `dh_extraction_upper_rho` (TBalCompose.lean:621; applied AT ρ at :515 at c0923533) and the whole
   crush chain. Extending to |γ| ≤ T₀ = a taller zetaHol box + re-ledger; NOT demanded
   by any consumer (both contracts use |γ| ≤ 1; T = |γ|+2 ≤ 3, budget analysis §2 C1).
 - **The ZFR consumption** (`zfr_harvest`, DHBal.lean:62–69): `ρ.im ≠ 0`, `9/10 ≤ ρ.re`
