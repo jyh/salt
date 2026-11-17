@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `8a3e5445` · source digest `8c8e16537c6b1d11` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `413791bd` · source digest `f5b921b7c3b68707` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -1703,7 +1703,7 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_hSum_at_op` | Salt/Goldbach/Agg.lean:77 | sieves |
 | `Salt.Goldbach.gold_mainA3_of_block_remainders_W` | Salt/Goldbach/Agg2.lean:53 | sieves |
 | `Salt.Goldbach.gold_band_hsym_slot_full` | Salt/Goldbach/Asm.lean:178 | sieves |
-| `Salt.Goldbach.gold_hBVblocksW_final` | Salt/Goldbach/Asm2.lean:260 | sieves |
+| `Salt.Goldbach.gold_hBVblocksW_final` | Salt/Goldbach/Asm2.lean:261 | sieves |
 | `Salt.Goldbach.gold_hBVblocksW_at_op_closed` | Salt/Goldbach/Asm3.lean:504 | sieves |
 | `Salt.Goldbach.goldbach_of_hypotheses_W` | Salt/Goldbach/Asm4.lean:358 | sieves |
 | `Salt.Goldbach.goldTriplePrimeSumW_le_sifted` | Salt/Goldbach/Asm5.lean:34 | sieves |
@@ -1719,7 +1719,6 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_band_sym_kp_floor` | Salt/Goldbach/BandClose.lean:123 | sieves |
 | `Salt.Goldbach.gold_band_geoN_inputs` | Salt/Goldbach/BandClose.lean:151 | sieves |
 | `Salt.Goldbach.gold_band_survsum_geoN_floored` | Salt/Goldbach/BandClose.lean:266 | sieves |
-| `Salt.Goldbach.gold_hSum_geo_band` | Salt/Goldbach/BandClose2.lean:51 | sieves |
 | `Salt.Goldbach.gold_band_price_sym` | Salt/Goldbach/BandEng.lean:67 | sieves |
 | `Salt.Goldbach.gold_band_price_low` | Salt/Goldbach/BandEng.lean:98 | sieves |
 | `Salt.Goldbach.gold_hdiffK_sym_discharge` | Salt/Goldbach/BandEng.lean:134 | sieves |
@@ -1805,9 +1804,10 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_box_hprice_at_min` | Salt/Goldbach/Final.lean:313 | sieves |
 | `Salt.Goldbach.gold_box_hbox_at_min` | Salt/Goldbach/Final.lean:351 | sieves |
 | `Salt.Goldbach.gold_hBVblocksW_at_op` | Salt/Goldbach/Final2.lean:55 | sieves |
-| `Salt.Goldbach.gold_boxPriceKerr_geo` | Salt/Goldbach/GeoSum.lean:65 | sieves |
-| `Salt.Goldbach.gold_goldCut_geosum` | Salt/Goldbach/GeoSum.lean:175 | sieves |
-| `Salt.Goldbach.gold_hSum_geo` | Salt/Goldbach/GeoSum.lean:205 | sieves |
+| `Salt.Goldbach.gold_boxPriceKerr_geo` | Salt/Goldbach/GeoSum.lean:68 | sieves |
+| `Salt.Goldbach.gold_goldCut_geosum` | Salt/Goldbach/GeoSum.lean:178 | sieves |
+| `Salt.Goldbach.gold_hSum_geo_band` | Salt/Goldbach/GeoSum.lean:201 | sieves |
+| `Salt.Goldbach.gold_hSum_geo` | Salt/Goldbach/GeoSum.lean:400 | sieves |
 | `Salt.Goldbach.gold_boxPriceKerr_geoN` | Salt/Goldbach/GeoSum2.lean:52 | sieves |
 | `Salt.Goldbach.gold_box_hprice_at` | Salt/Goldbach/Glue.lean:69 | sieves |
 | `Salt.Goldbach.gold_box_hbox_at` | Salt/Goldbach/Glue.lean:131 | sieves |
@@ -5907,10 +5907,10 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin` | Salt/MR/V7Ks.lean:247 | characters |
 | `Salt.MR.logChowla2_ineffective_v7_ksarm` | Salt/MR/V7Ks.lean:429 | characters |
 | `Salt.MR.logChowla2_ineffective_v7_of_ksarm` | Salt/MR/V7Ks.lean:540 | characters |
-| `Salt.MR.cofkR_cushion_of_armVt` | Salt/MR/V7Rated.lean:85 | characters |
-| `Salt.MR.cofkR_cofactorSupply_L_gk_rated` | Salt/MR/V7Rated.lean:164 | characters |
-| `Salt.MR.logChowla2_v7_rated` | Salt/MR/V7Rated.lean:896 | characters |
-| `Salt.MR.logChowla2_ineffective_v7_ksarm_g0_of_rated` | Salt/MR/V7Rated.lean:978 | characters |
+| `Salt.MR.cofkR_cushion_of_armVt` | Salt/MR/V7Rated.lean:165 | characters |
+| `Salt.MR.cofkR_cofactorSupply_L_gk_rated` | Salt/MR/V7Rated.lean:244 | characters |
+| `Salt.MR.logChowla2_v7_rated` | Salt/MR/V7Rated.lean:976 | characters |
+| `Salt.MR.logChowla2_ineffective_v7_ksarm_g0_of_rated` | Salt/MR/V7Rated.lean:1058 | characters |
 | `Salt.MR.s16_baseScaleCapEnd_LH_of_xceil` | Salt/MR/V7RatedH.lean:167 | characters |
 | `Salt.MR.klevF_capNumeral_h_b9` | Salt/MR/V7RatedH.lean:372 | characters |
 | `Salt.MR.cofkR_cofactorSupply_L_gk_rated_h_b9` | Salt/MR/V7RatedH.lean:481 | characters |
@@ -7547,8 +7547,7 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.MR.m4_arith_henv_rho_L` | Salt/MR/ArithPageLinear.lean:912 | characters | `Salt.MR.DoorArithFrameRho_L`, `Salt.MR.SocketBaseL` |
 | `Salt.MR.cofkL_scale_gate_at_socket` | Salt/MR/BandRatedSocket.lean:99 | characters | `Salt.MR.SocketBaseL` |
 | `Salt.MR.cofkL_threshold_at_socket_rated` | Salt/MR/BandRatedSocket.lean:192 | characters | `Salt.MR.SocketBaseL` |
-| `Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform` | Salt/MR/BandRatedSocket.lean:285 | characters | `Salt.MR.SocketBaseL` |
-| `Salt.MR.cofkL_capFreeFloor_at_socket_rated` | Salt/MR/BandRatedSocket.lean:370 | characters | `Salt.MR.SocketBaseL` |
+| `Salt.MR.cofkL_capFreeFloor_at_socket_rated` | Salt/MR/BandRatedSocket.lean:293 | characters | `Salt.MR.SocketBaseL` |
 | `Salt.MR.nearRat_mono` | Salt/MR/BigXiArc.lean:188 | characters | `Salt.MR.NearRat` |
 | `Salt.MR.exists_large_den_of_not_nearRat` | Salt/MR/BigXiArc.lean:274 | characters | `¬Salt.MR.NearRat` |
 | `Salt.MR.exists_large_den_of_minor` | Salt/MR/BigXiArc.lean:331 | characters | `¬Salt.MR.NearRat` |
@@ -8842,6 +8841,7 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.MR.s13CapFloor_all_L_gk_sharpT0_kswin` | Salt/MR/V7Ks.lean:100 | characters | `Salt.MR.SocketBase` |
 | `Salt.MR.s16_capGate_supply_L_gk_sharpT0_kswin` | Salt/MR/V7Ks.lean:148 | characters | `Salt.MR.S16BaseScaleCap96_L_gk`, `Salt.MR.S16CofactorSupply_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
 | `Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin` | Salt/MR/V7Ks.lean:290 | characters | `Salt.MR.S16BandLaneCBoundedL_winU` |
+| `Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform` | Salt/MR/V7Rated.lean:76 | characters | `Salt.MR.SocketBaseL` |
 | `Salt.MR.s16_baseScaleCap96_LH_of_end` | Salt/MR/V7RatedH.lean:256 | characters | `Salt.MR.S16BaseScaleCapEnd_LH_gk` |
 | `Salt.MR.cofkL_socket_floors_h_b9` | Salt/MR/V7RatedH.lean:332 | characters | `Salt.MR.SocketBaseLH` |
 | `Salt.MR.flat_head_uniform_xceil_of_standoff` | Salt/MR/V7SiegelFree.lean:65 | characters | `Salt.SW.NoSiegelZerosAt`, `Salt.Entropy.Chowla.XCeilRider`, `Salt.Entropy.Chowla.MRTUniformityXiL2` |
@@ -8908,7 +8908,7 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.ThreePrimes.three_primes_of_standoff` | Salt/ThreePrimes/SiegelFree.lean:44 | other | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.Twelve.gaps_le_twelve_of_frontierM` | Salt/Twelve/GapsFinal.lean:303 | sieves | `WindowPNT`, `EHall`, `Salt.Twelve.WinFrontierM` |
 | `Salt.Twelve.gaps_le_twelve` | Salt/Twelve/GapsUncond.lean:1098 | sieves | `WindowPNT`, `EHall` |
-| `Salt.Twelve.s2_inner_yF` | Salt/Twelve/InnerS2.lean:1218 | sieves | `Salt.Twelve.PhiUpperAtom` |
+| `Salt.Twelve.s2_inner_yF` | Salt/Twelve/InnerS2.lean:1254 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.mv_I` | Salt/Twelve/MvI.lean:274 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.mv_J` | Salt/Twelve/MvJ.lean:2249 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.qdiag_bridge` | Salt/Twelve/QdiagBridge.lean:573 | sieves | `Salt.Twelve.PhiUpperAtom` |

@@ -2150,7 +2150,7 @@ entry above:
    `simplexInt`-positivity lemma needed.
 2. **The frozen `hQd` interface needs NO statement surgery (no "R1-IF").**
    `s2_inner_yF` is quantifier plumbing; the content is `s2_inner_termwise`
-   (`InnerS2.lean:1093`), POINTWISE in `(R, W', D)` with only `300 ≤ D`. The
+   (`InnerS2.lean:1129`), POINTWISE in `(R, W', D)` with only `300 ≤ D`. The
    universally-quantified `hQd` (which demands the qdiag comparison down to
    `D = 300`, where the landed `κ⁻¹ ≤ 5√D` bound cannot close it) is BYPASSED:
    R1 proves the comparison only at `(primorial Dfin, Dfin)` and feeds

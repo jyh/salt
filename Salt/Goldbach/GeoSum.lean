@@ -24,6 +24,9 @@ leg; the count·max absorb (`gold_hSum_at_op`'s `hbox`/`hbk`) demands a UNIFORM 
   character-for-character), but internally the box leg absorbs the annulus `Σ_k` GEOMETRICALLY
   (via (ii)) plus a SEPARATE additive tail crumb `Btail`; the RHS lands at
   `(48·Cgeo + Ctail + 3·Ccon_band + Ccon_diag/2)·Kc·N/L^{11}`, feeding `gold_hNum_close_of_tower`.
+  It is the zero-crumb instance of **`gold_hSum_geo_band`**, stated just above it: the
+  band legs carry per-leg crumbs `BTsym`/`BTlow` and the constant gains `+ Ctail_band` (landed in
+  `BandClose2`, which keeps the record).
 
 Only `[propext, Classical.choice, Quot.sound]` are used; no `native_decide`, no new axioms.
 -/
@@ -188,23 +191,17 @@ theorem gold_goldCut_geosum {N : ℕ} (hN : 1 ≤ N) :
           rw [Nat.cast_sum]
     _ ≤ 8 * (N : ℝ) := by exact_mod_cast hnat
 
-/-! ## (iii) The geometric aggregate `gold_hSum_geo` -/
+/-! ## (iii) The geometric aggregate `gold_hSum_geo` and its band-tail form `gold_hSum_geo_band` -/
 
-set_option maxHeartbeats 1600000 in
--- the nested annulus/piece `Σ`-closures + the geometric absorb elaborate a long product/division
--- chain; the `gold_log_absorb` folds and the final `ring` need headroom above the default budget.
-/-- **`gold_hSum_geo` (iii) — the geometric `hSum` slot of `gold_hBVblocksW_discharge'`.**  The
-SAME LHS as `gold_hSum_at_op` (the terminal's `hSum` slot, character-for-character): the box
-quadruple sum `Σ_j Σ_{k'} Σ_k Σ_i Price` plus the band single sums and the diagonal budget.
-Internally the box leg
-is priced HONESTLY per annulus (`hbox`: `Price 0 k' k i ≤ Cgeo·Kc·goldCut N (k+1)/L^{12} + Btail`)
-and the annulus `Σ_k` is absorbed GEOMETRICALLY (`hgeosum`: `Σ_k goldCut N (k+1) ≤ 8·N`, from (ii))
-— NOT via the top-dominated count·max — leaving one piece `log` for `hcount`.  The tail crumb
-`Btail` enters as a SEPARATE additive term (`htail`).  Bands/diagonal are unchanged from
-`gold_hSum_at_op`.  RHS `RHD := (48·Cgeo + Ctail + 3·Ccon_band + Ccon_diag/2)·Kc·N/(log N)^{11}`. -/
-theorem gold_hSum_geo (N z y K : ℕ) (ε₀ : ℝ) (Kc : ℝ)
+/-- **`gold_hSum_geo_band` — the band-tail supersession of `gold_hSum_geo`.**  The band legs
+carry per-leg crumbs `BTsym`/`BTlow` (`PsymK 0 k' ≤ Wband + BTsym k'`,
+`PlowK 0 k' ≤ Wband + BTlow k'`); the routed `(1/2)·Σ BTsym + Σ BTlow` is absorbed by the
+enlarged tail `hbandtail`, and the conclusion constant gains `+ Ctail_band`.  `gold_hSum_geo`
+is its instance at zero crumbs (`BTsym = BTlow = 0`, `Ctail_band = 0`). -/
+theorem gold_hSum_geo_band (N z y K : ℕ) (ε₀ : ℝ) (Kc : ℝ)
     (Price : ℕ → ℕ → ℕ → ℕ → ℝ) (PsymK PlowK : ℕ → ℕ → ℝ) (Btail : ℕ → ℕ → ℕ → ℝ)
-    (Pdiag Wband Cgeo Ctail Ccon_band Ccon_diag : ℝ)
+    (BTsym BTlow : ℕ → ℝ)
+    (Pdiag Wband Cgeo Ctail Ccon_band Ccon_diag Ctail_band : ℝ)
     (hmax : maxBlock N z ε₀ = 0)
     (hKc0 : 0 ≤ Kc) (hlogpos : 0 < Real.log N)
     (hWband0 : 0 ≤ Wband) (hCgeo0 : 0 ≤ Cgeo) (hCband0 : 0 ≤ Ccon_band)
@@ -217,8 +214,11 @@ theorem gold_hSum_geo (N z y K : ℕ) (ε₀ : ℝ) (Kc : ℝ)
         ∑ i ∈ dyadicBoundary (pieceN k') (pieceM k')
           (goldCut N k) (goldCut N (k + 1)) (z * y) K, Btail k' k i)
         ≤ Ctail * Kc * (N : ℝ) / (Real.log N) ^ 11)
-    (hsym : ∀ k' ∈ Finset.range (Nat.log 2 N + 1), PsymK 0 k' ≤ Wband)
-    (hlow : ∀ k' ∈ Finset.range (Nat.log 2 N + 1), PlowK 0 k' ≤ Wband)
+    (hsym : ∀ k' ∈ Finset.range (Nat.log 2 N + 1), PsymK 0 k' ≤ Wband + BTsym k')
+    (hlow : ∀ k' ∈ Finset.range (Nat.log 2 N + 1), PlowK 0 k' ≤ Wband + BTlow k')
+    (hbandtail : (1 / 2) * (∑ k' ∈ Finset.range (Nat.log 2 N + 1), BTsym k')
+        + (∑ k' ∈ Finset.range (Nat.log 2 N + 1), BTlow k')
+        ≤ Ctail_band * Kc * (N : ℝ) / (Real.log N) ^ 11)
     (hWband : Wband ≤ Ccon_band * Kc * (N : ℝ) / (Real.log N) ^ 12)
     (hPdiag : Pdiag ≤ Ccon_diag * Kc * (N : ℝ) / (Real.log N) ^ 11)
     (hcount : (Nat.log 2 N : ℝ) + 1 ≤ 2 * Real.log N) :
@@ -230,7 +230,8 @@ theorem gold_hSum_geo (N z y K : ℕ) (ε₀ : ℝ) (Kc : ℝ)
           + ((1 / 2) * (∑ k' ∈ Finset.range (Nat.log 2 N + 1), PsymK j k')
              + (∑ k' ∈ Finset.range (Nat.log 2 N + 1), PlowK j k')
              + (1 / 2) * Pdiag)))
-      ≤ (48 * Cgeo + Ctail + 3 * Ccon_band + Ccon_diag / 2) * Kc * (N : ℝ) / (Real.log N) ^ 11 := by
+      ≤ (48 * Cgeo + Ctail + 3 * Ccon_band + Ccon_diag / 2 + Ctail_band)
+          * Kc * (N : ℝ) / (Real.log N) ^ 11 := by
   classical
   set L : ℝ := Real.log N with hLdef
   have hN0 : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg _
@@ -332,29 +333,37 @@ theorem gold_hSum_geo (N z y K : ℕ) (ε₀ : ℝ) (Kc : ℝ)
             simp only [Finset.sum_add_distrib]
       _ ≤ 48 * Cgeo * Kc * (N : ℝ) / L ^ 11 + Ctail * Kc * (N : ℝ) / L ^ 11 :=
             add_le_add hmain htail
-  -- BAND legs: one `log` each (annulus `Σ_k` folded inside `PsymK`/`PlowK`), as `gold_hSum_at_op`.
-  have hbandleg : ∀ (P : ℕ → ℝ), (∀ k' ∈ Finset.range (Nat.log 2 N + 1), P k' ≤ Wband) →
-      (∑ k' ∈ Finset.range (Nat.log 2 N + 1), P k') ≤ 2 * Ccon_band * Kc * (N : ℝ) / L ^ 11 := by
-    intro P hP
-    have hstep : (∑ k' ∈ Finset.range (Nat.log 2 N + 1), P k')
-        ≤ ((Nat.log 2 N : ℝ) + 1) * Wband := by
-      calc (∑ k' ∈ Finset.range (Nat.log 2 N + 1), P k')
-          ≤ ∑ _k' ∈ Finset.range (Nat.log 2 N + 1), Wband := Finset.sum_le_sum hP
-        _ = ((Nat.log 2 N : ℝ) + 1) * Wband := by
+  -- BAND legs WITH the routed crumb: one `log` each, PLUS the carried `Σ BT`.
+  have hbandleg : ∀ (P BT : ℕ → ℝ),
+      (∀ k' ∈ Finset.range (Nat.log 2 N + 1), P k' ≤ Wband + BT k') →
+      (∑ k' ∈ Finset.range (Nat.log 2 N + 1), P k')
+        ≤ 2 * Ccon_band * Kc * (N : ℝ) / L ^ 11
+          + (∑ k' ∈ Finset.range (Nat.log 2 N + 1), BT k') := by
+    intro P BT hP
+    have hWabs : (∑ _k' ∈ Finset.range (Nat.log 2 N + 1), Wband)
+        ≤ 2 * Ccon_band * Kc * (N : ℝ) / L ^ 11 := by
+      have habs := gold_log_absorb (L := L) (cnt := (Nat.log 2 N : ℝ) + 1)
+        (C := Ccon_band * Kc * (N : ℝ)) (val := Wband) (p := 11)
+        hlogpos hcnt0 hcount (by positivity) hWband0 hWband
+      calc (∑ _k' ∈ Finset.range (Nat.log 2 N + 1), Wband)
+          = ((Nat.log 2 N : ℝ) + 1) * Wband := by
             rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul]; push_cast; ring
-    have habs := gold_log_absorb (L := L) (cnt := (Nat.log 2 N : ℝ) + 1)
-      (C := Ccon_band * Kc * (N : ℝ)) (val := Wband) (p := 11)
-      hlogpos hcnt0 hcount (by positivity) hWband0 hWband
+        _ ≤ 2 * (Ccon_band * Kc * (N : ℝ)) / L ^ 11 := habs
+        _ = 2 * Ccon_band * Kc * (N : ℝ) / L ^ 11 := by ring
     calc (∑ k' ∈ Finset.range (Nat.log 2 N + 1), P k')
-        ≤ ((Nat.log 2 N : ℝ) + 1) * Wband := hstep
-      _ ≤ 2 * (Ccon_band * Kc * (N : ℝ)) / L ^ 11 := habs
-      _ = 2 * Ccon_band * Kc * (N : ℝ) / L ^ 11 := by ring
-  have hsigsym := hbandleg (fun k' => PsymK 0 k') hsym
-  have hsiglow := hbandleg (fun k' => PlowK 0 k') hlow
+        ≤ ∑ k' ∈ Finset.range (Nat.log 2 N + 1), (Wband + BT k') := Finset.sum_le_sum hP
+      _ = (∑ _k' ∈ Finset.range (Nat.log 2 N + 1), Wband)
+            + (∑ k' ∈ Finset.range (Nat.log 2 N + 1), BT k') := by
+          rw [Finset.sum_add_distrib]
+      _ ≤ 2 * Ccon_band * Kc * (N : ℝ) / L ^ 11
+            + (∑ k' ∈ Finset.range (Nat.log 2 N + 1), BT k') := by linarith [hWabs]
+  have hsigsym := hbandleg (fun k' => PsymK 0 k') BTsym hsym
+  have hsiglow := hbandleg (fun k' => PlowK 0 k') BTlow hlow
   -- assemble the single-block aggregate
   simp only [hmax, Nat.zero_add, Finset.sum_range_one]
   have hhalfsym : (1 / 2 : ℝ) * (∑ k' ∈ Finset.range (Nat.log 2 N + 1), PsymK 0 k')
-      ≤ (1 / 2) * (2 * Ccon_band * Kc * (N : ℝ) / L ^ 11) :=
+      ≤ (1 / 2) * (2 * Ccon_band * Kc * (N : ℝ) / L ^ 11
+          + (∑ k' ∈ Finset.range (Nat.log 2 N + 1), BTsym k')) :=
     mul_le_mul_of_nonneg_left hsigsym (by norm_num)
   have hhalfdiag : (1 / 2 : ℝ) * Pdiag ≤ (1 / 2) * (Ccon_diag * Kc * (N : ℝ) / L ^ 11) :=
     mul_le_mul_of_nonneg_left hPdiag (by norm_num)
@@ -365,10 +374,62 @@ theorem gold_hSum_geo (N z y K : ℕ) (ε₀ : ℝ) (Kc : ℝ)
           + ((1 / 2) * (∑ k' ∈ Finset.range (Nat.log 2 N + 1), PsymK 0 k')
              + (∑ k' ∈ Finset.range (Nat.log 2 N + 1), PlowK 0 k') + (1 / 2) * Pdiag)
       ≤ (48 * Cgeo * Kc * (N : ℝ) / L ^ 11 + Ctail * Kc * (N : ℝ) / L ^ 11)
-          + ((1 / 2) * (2 * Ccon_band * Kc * (N : ℝ) / L ^ 11)
-             + 2 * Ccon_band * Kc * (N : ℝ) / L ^ 11
+          + ((1 / 2) * (2 * Ccon_band * Kc * (N : ℝ) / L ^ 11
+                + (∑ k' ∈ Finset.range (Nat.log 2 N + 1), BTsym k'))
+             + (2 * Ccon_band * Kc * (N : ℝ) / L ^ 11
+                + (∑ k' ∈ Finset.range (Nat.log 2 N + 1), BTlow k'))
              + (1 / 2) * (Ccon_diag * Kc * (N : ℝ) / L ^ 11)) :=
         add_le_add hboxleg (add_le_add (add_le_add hhalfsym hsiglow) hhalfdiag)
-    _ = (48 * Cgeo + Ctail + 3 * Ccon_band + Ccon_diag / 2) * Kc * (N : ℝ) / L ^ 11 := by ring
+    _ = (48 * Cgeo + Ctail + 3 * Ccon_band + Ccon_diag / 2) * Kc * (N : ℝ) / L ^ 11
+          + ((1 / 2) * (∑ k' ∈ Finset.range (Nat.log 2 N + 1), BTsym k')
+             + (∑ k' ∈ Finset.range (Nat.log 2 N + 1), BTlow k')) := by ring
+    _ ≤ (48 * Cgeo + Ctail + 3 * Ccon_band + Ccon_diag / 2) * Kc * (N : ℝ) / L ^ 11
+          + Ctail_band * Kc * (N : ℝ) / L ^ 11 := by linarith [hbandtail]
+    _ = (48 * Cgeo + Ctail + 3 * Ccon_band + Ccon_diag / 2 + Ctail_band)
+          * Kc * (N : ℝ) / L ^ 11 := by ring
+
+/-- **`gold_hSum_geo` (iii) — the geometric `hSum` slot of `gold_hBVblocksW_discharge'`.**  The
+SAME LHS as `gold_hSum_at_op` (the terminal's `hSum` slot, character-for-character): the box
+quadruple sum `Σ_j Σ_{k'} Σ_k Σ_i Price` plus the band single sums and the diagonal budget.
+Internally the box leg
+is priced HONESTLY per annulus (`hbox`: `Price 0 k' k i ≤ Cgeo·Kc·goldCut N (k+1)/L^{12} + Btail`)
+and the annulus `Σ_k` is absorbed GEOMETRICALLY (`hgeosum`: `Σ_k goldCut N (k+1) ≤ 8·N`, from (ii))
+— NOT via the top-dominated count·max — leaving one piece `log` for `hcount`.  The tail crumb
+`Btail` enters as a SEPARATE additive term (`htail`).  Bands/diagonal are unchanged from
+`gold_hSum_at_op`.  RHS `RHD := (48·Cgeo + Ctail + 3·Ccon_band + Ccon_diag/2)·Kc·N/(log N)^{11}`. -/
+theorem gold_hSum_geo (N z y K : ℕ) (ε₀ : ℝ) (Kc : ℝ)
+    (Price : ℕ → ℕ → ℕ → ℕ → ℝ) (PsymK PlowK : ℕ → ℕ → ℝ) (Btail : ℕ → ℕ → ℕ → ℝ)
+    (Pdiag Wband Cgeo Ctail Ccon_band Ccon_diag : ℝ)
+    (hmax : maxBlock N z ε₀ = 0)
+    (hKc0 : 0 ≤ Kc) (hlogpos : 0 < Real.log N)
+    (hWband0 : 0 ≤ Wband) (hCgeo0 : 0 ≤ Cgeo) (hCband0 : 0 ≤ Ccon_band)
+    (hgeosum : (∑ k ∈ Finset.range (Nat.log 2 N + 1), (goldCut N (k + 1) : ℝ)) ≤ 8 * (N : ℝ))
+    (hbox : ∀ k' ∈ Finset.range (Nat.log 2 N + 1), ∀ k ∈ Finset.range (Nat.log 2 N + 1),
+        ∀ i ∈ dyadicBoundary (pieceN k') (pieceM k')
+          (goldCut N k) (goldCut N (k + 1)) (z * y) K,
+          Price 0 k' k i ≤ Cgeo * Kc * (goldCut N (k + 1) : ℝ) / (Real.log N) ^ 12 + Btail k' k i)
+    (htail : (∑ k' ∈ Finset.range (Nat.log 2 N + 1), ∑ k ∈ Finset.range (Nat.log 2 N + 1),
+        ∑ i ∈ dyadicBoundary (pieceN k') (pieceM k')
+          (goldCut N k) (goldCut N (k + 1)) (z * y) K, Btail k' k i)
+        ≤ Ctail * Kc * (N : ℝ) / (Real.log N) ^ 11)
+    (hsym : ∀ k' ∈ Finset.range (Nat.log 2 N + 1), PsymK 0 k' ≤ Wband)
+    (hlow : ∀ k' ∈ Finset.range (Nat.log 2 N + 1), PlowK 0 k' ≤ Wband)
+    (hWband : Wband ≤ Ccon_band * Kc * (N : ℝ) / (Real.log N) ^ 12)
+    (hPdiag : Pdiag ≤ Ccon_diag * Kc * (N : ℝ) / (Real.log N) ^ 11)
+    (hcount : (Nat.log 2 N : ℝ) + 1 ≤ 2 * Real.log N) :
+    (∑ j ∈ Finset.range (maxBlock N z ε₀ + 1),
+        ((∑ k' ∈ Finset.range (Nat.log 2 N + 1),
+            ∑ k ∈ Finset.range (Nat.log 2 N + 1),
+              ∑ i ∈ dyadicBoundary (pieceN k') (pieceM k')
+                (goldCut N k) (goldCut N (k + 1)) (z * y) K, Price j k' k i)
+          + ((1 / 2) * (∑ k' ∈ Finset.range (Nat.log 2 N + 1), PsymK j k')
+             + (∑ k' ∈ Finset.range (Nat.log 2 N + 1), PlowK j k')
+             + (1 / 2) * Pdiag)))
+      ≤ (48 * Cgeo + Ctail + 3 * Ccon_band + Ccon_diag / 2) * Kc * (N : ℝ) / (Real.log N) ^ 11 := by
+  have h := gold_hSum_geo_band N z y K ε₀ Kc Price PsymK PlowK Btail (fun _ => 0) (fun _ => 0)
+    Pdiag Wband Cgeo Ctail Ccon_band Ccon_diag 0 hmax hKc0 hlogpos hWband0 hCgeo0 hCband0 hgeosum
+    hbox htail (fun k' hk => by simpa using hsym k' hk) (fun k' hk => by simpa using hlow k' hk)
+    (by simp) hWband hPdiag hcount
+  rwa [add_zero] at h
 
 end Salt.Goldbach
