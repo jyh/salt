@@ -2769,8 +2769,9 @@ windowed assembler and §11.3's `cs`-free fuse.  This is the shape hop 6 consume
 /-! (§12 — the terminal
 `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_h` —
 stood here; it was moved to the end of this file, below the cap-9 twins, XY debt lane family 12,
-2026-09-27.  `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, below, stood under
-§12's header, after the terminal, and stays here.) -/
+2026-09-27.  `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14` stood under §12's
+header, after the terminal, until 2026-11-17, when it moved up directly above its base (its
+`log h ≤ 7` instance, §4).) -/
 
 /-! ## ⟦β W1 E3⟧ the cap-9 twins, h-lane B (build freeze v2 v1.1, 2026-09-13)
 
