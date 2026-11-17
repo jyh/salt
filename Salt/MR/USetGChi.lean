@@ -100,7 +100,7 @@ when NO index `j ∈ [1, J]` carries MR (21) across the whole block range `I_j` 
 datum, **fibre by fibre** — which is what makes `USetGradedThin`'s witness page reusable
 verbatim, and what makes C2's design (ii) free.
 
-Mirrors `USetChi.UsetChi` (:278) with `Uset ↝ UsetG`, i.e. with the flat `δ : ℝ` replaced by
+Mirrors `USetChi.UsetChi` (:283) with `Uset ↝ UsetG`, i.e. with the flat `δ : ℝ` replaced by
 MR (21)'s per-block pair of sequences `Hseq αseq : ℕ → ℝ`. -/
 def UsetGChi (q : ℕ) (f : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ) (J : ℕ) :
     Set (DirichletCharacter ℂ q × ℝ) :=
@@ -155,7 +155,7 @@ large-value sets, each counted by `ramQChi_graded_count` at the *same* uniform b
   `|ℰ| ≤ |I_Jb| · 1680 · (qT)^{2α_Jb} · VJ² · exp(2·(log qT/log P_Jb)·loglog qT)`.
 
 `VJ` is any uniform bound on the graded levels `exp(α_Jb·v/H_Jb)`, `v ∈ I_Jb`; the concrete
-`VJ = Q_Jb^{α_Jb}` is supplied by `UsetGChi_thin_Q`.  Compare `USetChi.UsetChi_thin` (:300) —
+`VJ = Q_Jb^{α_Jb}` is supplied by `UsetGChi_thin_Q`.  Compare `USetChi.UsetChi_thin` (:309) —
 same exit shape, with `dyadicPairs` replaced by MR's own `ramI`, the `K₀` pigeonhole gone,
 and the `δ`/`hVinv` level degradation gone with it.  There is **no `φ(q)` union factor**: the
 character count enters only through the hybrid height `qT`, because Lemma 6.5 counts pairs.

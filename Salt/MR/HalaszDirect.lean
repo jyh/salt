@@ -68,10 +68,10 @@ This file serves BOTH arms and keeps them separate by construction — two exits
 its own σ-cutoff instance:
 
 * `halasz_direct_gen` — the **§8.3/L3 arm's supply**, `c = 1/e`, citing
-  `SeamBallWeighted.sigma_cutoff_pretentious_of_gen` (:416).  This is the un-halved ledger
+  `SeamBallWeighted.sigma_cutoff_pretentious_of_gen` (:483).  This is the un-halved ledger
   (ρ = 1/(32e)); §8.3 consumers take THIS one.
 * `halasz_direct_ball` — the **ball arm's supply**, `c = 1/(2e)`, citing
-  `SeamBallWeighted.sigma_cutoff_pretentious_half` (:392).  The ½ is the (A.11)/(A.13)/(A.14)
+  `SeamBallWeighted.sigma_cutoff_pretentious_half` (:459).  The ½ is the (A.11)/(A.13)/(A.14)
   𝒥-symmetrisation price, **paid downstream in the 𝒯₀/ball assembly, NOT in this integral**;
   it appears here only because the ball's consumer wants its supply already at the halved
   exponent.  A §8.3 consumer citing this exit is a STOP.

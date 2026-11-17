@@ -219,7 +219,7 @@ theorem ball_leg_of_inter_empty {N : ℕ} {a : ℕ → ℂ} {X T t₁ S : ℝ}
 
 /-! ## §5 — G-3(iii): the byte-exactness certificate
 
-`SupClose.rhs_grade_at_scale_trunc` (:334) with its two frequency hypotheses supplied from
+`SupClose.rhs_grade_at_scale_trunc` (:319) with its two frequency hypotheses supplied from
 §2/§3: `T := L⁴` (the contour truncation height), `R := seamGateR X T_ann`.  Everything else
 — `hFar`, `hKfar`, `hInt`, the pin equations — is threaded VERBATIM.  That this compiles IS
 the proof that the gate's shape fits the consumer's slots. -/

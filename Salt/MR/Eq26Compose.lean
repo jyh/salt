@@ -447,7 +447,7 @@ theorem eq26_carrier_hrange (Pseq Qseq : ℕ → ℕ) (J : ℕ) {X : ℝ} (hX0 :
   · exact le_trans (by exact_mod_cast hhi) (Nat.floor_le (by linarith))
 
 /-- **THE COMPOSITION, CERTIFIED.**  E26-6 fed by the landed Step 1 itself:
-`KernelCarry.lemma14_shortInterval_meansq_kernel` (:1153) at `a := ↑f`,
+`KernelCarry.lemma14_shortInterval_meansq_kernel` (:1162) at `a := ↑f`,
 `s0 := [⌈X⌉₊,⌊4X⌋₊] ∩ 𝒮`, `h₂ := hTwo X`, with its two extra side conditions
 discharged by `hTwo_meets_kernel_binder` and `eq26_carrier_hrange`.
 

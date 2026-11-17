@@ -14,7 +14,7 @@ first two to the leaves that actually produce them and pins, in the kernel, what
 
 ## The shared mint
 
-Both `cs` and `T₀` are minted at ONE site — `PortAssembly.halaszPrimesChiGated_of_price` (:802) —
+Both `cs` and `T₀` are minted at ONE site — `PortAssembly.halaszPrimesChiGated_of_price` (:805) —
 and travel to `v3` untouched through a chain of pass-throughs:
 
 ```

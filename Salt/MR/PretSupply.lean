@@ -15,7 +15,7 @@ a CONCRETE majorant for the joint head's `𝒮·𝓛` sup object, built from the
 
 ## The socket
 
-`JointHead.sigma_wiring` (:271) carries
+`JointHead.sigma_wiring` (:274) carries
 
 ```
 (hpret : ∀ σ ∈ Icc (1 / L) (2 * η), Fbound σ ≤ Real.exp (-M) * L)
