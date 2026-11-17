@@ -124,33 +124,35 @@ the `x^u−1` cancellation (`tail_shift_to_beta0`, the `−(1−1/Y)`) is RETAIN
 injecting its `u = 1−β₀` factor.  The result is the freeze master `1 − 1/Y ≤ (ρ-row) + (Eρ-row) +
 Y^{β₀−σ}((Y^{1−β₀}+Eβ) − (1−1/Y))`, each RHS row small on the ray `u < τ` (the on-ray caps of §3
 close the contradiction). -/
-theorem dh_master_ray [NeZero q] (χ : DirichletCharacter ℂ q)
+theorem dh_master_ray_tall [NeZero q] (χ : DirichletCharacter ℂ q)
     (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {β₀ : ℝ}
     (hzeroβ : DirichletCharacter.LFunction χ (β₀ : ℂ) = 0) (hloβ : 1 / 2 ≤ β₀) (hhiβ : β₀ < 1)
     {ρ : ℂ} (hzeroρ : DirichletCharacter.LFunction χ ρ = 0) (hloρ : 1 / 2 ≤ ρ.re) (hhiρ : ρ.re < 1)
-    (himρ : |ρ.im| ≤ 1) (hord : ρ.re ≤ β₀)
-    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
+    {H : ℝ} (himρ : |ρ.im| ≤ H) (hord : ρ.re ≤ β₀)
+    {Zρ Zβ : ℝ}
+    (hZρ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ H → ‖zetaHol s‖ ≤ Zρ)
+    (hZβ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Zβ)
     {N : ℕ} (hN : 4 ≤ N) (hscale : (N : ℝ) ^ (1 - β₀) ≤ Real.exp 1)
     (hguard : 2 * (34 + 12 * (Real.sqrt q * (1 + Real.log q))
-        + 12 * (Real.sqrt q * (1 + Real.log q)) * Z₀
+        + 12 * (Real.sqrt q * (1 + Real.log q)) * Zβ
         + 36 * (Real.sqrt q * (1 + Real.log q)) / (1 - β₀)) * (N : ℝ) ^ (1 / 2 - β₀) ≤ 1 / 64)
     {z Y : ℕ} (hz : 2 ≤ z) (hY : 2 * z ^ 4 ≤ Y)
-    (hcov : crushErr q Z₀ β₀ z ≤ 27 / 100 * ((1 - β₀) * (z : ℝ) ^ (1 - β₀))) :
+    (hcov : crushErr q Zβ β₀ z ≤ 27 / 100 * ((1 - β₀) * (z : ℝ) ^ (1 - β₀))) :
     1 - 1 / (Y : ℝ)
       ≤ (1 - β₀) * (2 - β₀) * (Y : ℝ) ^ (1 - ρ.re) / (‖1 - ρ‖ * ‖2 - ρ‖)
-        + C2Rho q Z₀ ρ * (z : ℝ) * (1 + Real.log ((z : ℝ) ^ 2)) ^ 9 * (Y : ℝ) ^ (1 / 2 - ρ.re)
+        + C2Rho q Zρ ρ * (z : ℝ) * (1 + Real.log ((z : ℝ) ^ 2)) ^ 9 * (Y : ℝ) ^ (1 / 2 - ρ.re)
         + (Y : ℝ) ^ (β₀ - ρ.re) * ((Y : ℝ) ^ (1 - β₀)
             + (136 + 48 * (Real.sqrt q * (1 + Real.log q))
-                + 48 * (Real.sqrt q * (1 + Real.log q)) * Z₀
+                + 48 * (Real.sqrt q * (1 + Real.log q)) * Zβ
                 + 144 * (Real.sqrt q * (1 + Real.log q)) / (1 - β₀))
               * (z : ℝ) * (1 + Real.log ((z : ℝ) ^ 2)) ^ 9 * (Y : ℝ) ^ (1 / 2 - β₀)
             - (1 - 1 / (Y : ℝ))) := by
   set L₁re : ℝ := (DirichletCharacter.LFunction χ 1).re with hL1re
   set Eβ : ℝ := (136 + 48 * (Real.sqrt q * (1 + Real.log q))
-      + 48 * (Real.sqrt q * (1 + Real.log q)) * Z₀
+      + 48 * (Real.sqrt q * (1 + Real.log q)) * Zβ
       + 144 * (Real.sqrt q * (1 + Real.log q)) / (1 - β₀))
     * (z : ℝ) * (1 + Real.log ((z : ℝ) ^ 2)) ^ 9 * (Y : ℝ) ^ (1 / 2 - β₀) with hEβ
-  set Eρ : ℝ := C2Rho q Z₀ ρ * (z : ℝ) * (1 + Real.log ((z : ℝ) ^ 2)) ^ 9
+  set Eρ : ℝ := C2Rho q Zρ ρ * (z : ℝ) * (1 + Real.log ((z : ℝ) ^ 2)) ^ 9
     * (Y : ℝ) ^ (1 / 2 - ρ.re) with hEρ
   have hσ0 : 0 < ρ.re := by linarith
   have hu : 0 < 1 - β₀ := by linarith
@@ -182,8 +184,8 @@ theorem dh_master_ray [NeZero q] (χ : DirichletCharacter ℂ q)
   have hshift := tail_shift_to_beta0 (c := dhCoeffW χ (selWeight χ z)) hcnn hc1
     (x := (Y : ℝ)) (by exact_mod_cast hY1) (N := Y) hY1 (σ := ρ.re) (β₀ := β₀) hord
   -- β₀-side : D₀^{β₀} ≤ Y^{1−β₀} + E(β₀)
-  have hR6β := dh_extraction_upper_W χ hχ hsq hq hzeroβ hloβ hhiβ hZ hz1 hY
-  have hHl := H_lower χ hχ hsq hq hzeroβ hloβ hhiβ hZ hN hscale hguard hz hcov
+  have hR6β := dh_extraction_upper_W χ hχ hsq hq hzeroβ hloβ hhiβ hZβ hz1 hY
+  have hHl := H_lower χ hχ hsq hq hzeroβ hloβ hhiβ hZβ hN hscale hguard hz hcov
   have hopt := selberg_opt_eq χ hsq hz1
   have hHpos := selHSum_pos χ hsq hz1
   have hYβrp : (0 : ℝ) ≤ (Y : ℝ) ^ (1 - β₀) := Real.rpow_nonneg hYpos.le _
@@ -203,7 +205,7 @@ theorem dh_master_ray [NeZero q] (χ : DirichletCharacter ℂ q)
     rw [← hL1re, ← hEβ] at *
     linarith [(abs_le.mp hR6β).2, hcancel]
   -- the ρ-main norm identity and the u-injection
-  have hR6ρ := dh_extraction_upper_rho χ hχ hsq hq hzeroρ hloρ hhiρ himρ hZ hz1 hY
+  have hR6ρ := dh_extraction_upper_rho_tall χ hχ hsq hq hzeroρ hloρ hhiρ himρ hZρ hz1 hY
   rw [← hEρ] at hR6ρ
   have hmain_norm : ‖DirichletCharacter.LFunction χ 1 * (selMainTerm χ z : ℂ) * (Y : ℂ) ^ (1 - ρ)
         / ((1 - ρ) * (2 - ρ))‖
@@ -242,6 +244,36 @@ theorem dh_master_ray [NeZero q] (χ : DirichletCharacter ℂ q)
     refine le_trans hshift ?_
     exact mul_le_mul_of_nonneg_left (by linarith [hD0β]) hYβσ
   linarith [hfloor, hSshift, hDρnorm, hmainρ_le]
+
+/-- **The tight ray master.** Same guards as `dh_balance`, but the balance is kept in TIGHT form:
+the `x^u−1` cancellation (`tail_shift_to_beta0`, the `−(1−1/Y)`) is RETAINED, and the ρ-main term
+`L₁·selMainTerm·Y^{1−σ}/(‖1−ρ‖‖2−ρ‖)` is bounded via `H_lower` (`L₁·selMainTerm ≤ (1−β₀)(2−β₀)`),
+injecting its `u = 1−β₀` factor.  The result is the freeze master `1 − 1/Y ≤ (ρ-row) + (Eρ-row) +
+Y^{β₀−σ}((Y^{1−β₀}+Eβ) − (1−1/Y))`, each RHS row small on the ray `u < τ` (the on-ray caps of §3
+close the contradiction). -/
+theorem dh_master_ray [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {β₀ : ℝ}
+    (hzeroβ : DirichletCharacter.LFunction χ (β₀ : ℂ) = 0) (hloβ : 1 / 2 ≤ β₀) (hhiβ : β₀ < 1)
+    {ρ : ℂ} (hzeroρ : DirichletCharacter.LFunction χ ρ = 0) (hloρ : 1 / 2 ≤ ρ.re) (hhiρ : ρ.re < 1)
+    (himρ : |ρ.im| ≤ 1) (hord : ρ.re ≤ β₀)
+    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
+    {N : ℕ} (hN : 4 ≤ N) (hscale : (N : ℝ) ^ (1 - β₀) ≤ Real.exp 1)
+    (hguard : 2 * (34 + 12 * (Real.sqrt q * (1 + Real.log q))
+        + 12 * (Real.sqrt q * (1 + Real.log q)) * Z₀
+        + 36 * (Real.sqrt q * (1 + Real.log q)) / (1 - β₀)) * (N : ℝ) ^ (1 / 2 - β₀) ≤ 1 / 64)
+    {z Y : ℕ} (hz : 2 ≤ z) (hY : 2 * z ^ 4 ≤ Y)
+    (hcov : crushErr q Z₀ β₀ z ≤ 27 / 100 * ((1 - β₀) * (z : ℝ) ^ (1 - β₀))) :
+    1 - 1 / (Y : ℝ)
+      ≤ (1 - β₀) * (2 - β₀) * (Y : ℝ) ^ (1 - ρ.re) / (‖1 - ρ‖ * ‖2 - ρ‖)
+        + C2Rho q Z₀ ρ * (z : ℝ) * (1 + Real.log ((z : ℝ) ^ 2)) ^ 9 * (Y : ℝ) ^ (1 / 2 - ρ.re)
+        + (Y : ℝ) ^ (β₀ - ρ.re) * ((Y : ℝ) ^ (1 - β₀)
+            + (136 + 48 * (Real.sqrt q * (1 + Real.log q))
+                + 48 * (Real.sqrt q * (1 + Real.log q)) * Z₀
+                + 144 * (Real.sqrt q * (1 + Real.log q)) / (1 - β₀))
+              * (z : ℝ) * (1 + Real.log ((z : ℝ) ^ 2)) ^ 9 * (Y : ℝ) ^ (1 / 2 - β₀)
+            - (1 - 1 / (Y : ℝ))) :=
+  dh_master_ray_tall χ hχ hsq hq hzeroβ hloβ hhiβ hzeroρ hloρ hhiρ himρ hord hZ hZ
+    hN hscale hguard hz hY hcov
 
 /-! ## §3 — the transcendental on-ray helpers (log → pure rpow, the crude-δ trick) -/
 

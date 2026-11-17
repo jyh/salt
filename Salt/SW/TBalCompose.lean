@@ -308,13 +308,13 @@ set_option maxHeartbeats 1200000 in
 `dh_extraction_per_m`: for squarefree `m ≤ z²`, the per-`m` complex reduction differs from the
 EXACT complex main `L(1,χ)·Y^{1−ρ}/((1−ρ)(2−ρ))·selNu(m)` by at most `C₂ρ·Y^{1/2−σ}·Σ_{g,k}
 (m·k)^{−1/2}`. The signed main collects EXACTLY (`clean_cpow_term` + `selHmul_collection` cast,
-`selNu`); the residual is a norm-triangle over `(g,k)` with `unmoll_extraction_rho` (`x ≥ 2`
+`selNu`); the residual is a norm-triangle over `(g,k)` with `unmoll_extraction_rho_tall` (`x ≥ 2`
 guard), `‖(m·k)^{−ρ}‖ = (m·k)^{−σ}`, and `dhD0_scale_err` at `β₀ = ρ.re`. -/
-private lemma dh_extraction_per_m_rho [NeZero q] (χ : DirichletCharacter ℂ q)
+private lemma dh_extraction_per_m_rho_tall [NeZero q] (χ : DirichletCharacter ℂ q)
     (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {ρ : ℂ}
     (hzero : DirichletCharacter.LFunction χ ρ = 0) (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1)
-    (him : |ρ.im| ≤ 1)
-    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
+    {H : ℝ} (him : |ρ.im| ≤ H)
+    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ H → ‖zetaHol s‖ ≤ Z₀)
     {z Y m : ℕ} (hz : 1 ≤ z) (hY : 2 * z ^ 4 ≤ Y) (hm1 : 1 ≤ m) (hmsf : Squarefree m)
     (hmz2 : m ≤ z ^ 2) :
     ‖(∑ g ∈ m.divisors, (chiRe χ g : ℂ) * ∑ k ∈ (m / g).divisors,
@@ -437,7 +437,7 @@ private lemma dh_extraction_per_m_rho [NeZero q] (χ : DirichletCharacter ℂ q)
         refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun k hk => ?_))
         obtain ⟨hmk1, hx2⟩ := hguard g hg k hk
         have hmkR0 : (0 : ℝ) < ((m * k : ℕ) : ℝ) := by exact_mod_cast hmk1
-        have hR3 := unmoll_extraction_rho χ hχ hsq hq hzero hlo hhi him hZ
+        have hR3 := unmoll_extraction_rho_tall χ hχ hsq hq hzero hlo hhi him hZ
           (x := (Y : ℝ) / ((m * k : ℕ) : ℝ)) hx2
         rw [← hL1def, ← hC2def] at hR3
         have hcpownorm : ‖((m * k : ℕ) : ℂ) ^ (-ρ)‖ = ((m * k : ℕ) : ℝ) ^ (-ρ.re) := by
@@ -472,25 +472,47 @@ private lemma dh_extraction_per_m_rho [NeZero q] (χ : DirichletCharacter ℂ q)
         refine Finset.sum_congr rfl (fun g _ => ?_)
         rw [Finset.mul_sum]
 
+/-- **R6-8@ρ per-`m` residual (collection R6-5/6/7@ρ reused).** ℂ/norm analog of
+`dh_extraction_per_m`: for squarefree `m ≤ z²`, the per-`m` complex reduction differs from the
+EXACT complex main `L(1,χ)·Y^{1−ρ}/((1−ρ)(2−ρ))·selNu(m)` by at most `C₂ρ·Y^{1/2−σ}·Σ_{g,k}
+(m·k)^{−1/2}`. The signed main collects EXACTLY (`clean_cpow_term` + `selHmul_collection` cast,
+`selNu`); the residual is a norm-triangle over `(g,k)` with `unmoll_extraction_rho` (`x ≥ 2`
+guard), `‖(m·k)^{−ρ}‖ = (m·k)^{−σ}`, and `dhD0_scale_err` at `β₀ = ρ.re`. -/
+private lemma dh_extraction_per_m_rho [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {ρ : ℂ}
+    (hzero : DirichletCharacter.LFunction χ ρ = 0) (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1)
+    (him : |ρ.im| ≤ 1)
+    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
+    {z Y m : ℕ} (hz : 1 ≤ z) (hY : 2 * z ^ 4 ≤ Y) (hm1 : 1 ≤ m) (hmsf : Squarefree m)
+    (hmz2 : m ≤ z ^ 2) :
+    ‖(∑ g ∈ m.divisors, (chiRe χ g : ℂ) * ∑ k ∈ (m / g).divisors,
+          (moebius k : ℂ) * (chiRe χ k : ℂ) * ((m * k : ℕ) : ℂ) ^ (-ρ)
+            * dhD0rho χ ρ ((Y : ℝ) / ((m * k : ℕ) : ℝ)))
+       - DirichletCharacter.LFunction χ 1 * (Y : ℂ) ^ (1 - ρ) / ((1 - ρ) * (2 - ρ))
+           * (selNu χ m : ℂ)‖
+      ≤ C2Rho q Z₀ ρ * (Y : ℝ) ^ (1 / 2 - ρ.re)
+        * ∑ g ∈ m.divisors, ∑ k ∈ (m / g).divisors, ((m * k : ℕ) : ℝ) ^ (-(1 / 2 : ℝ)) :=
+  dh_extraction_per_m_rho_tall χ hχ hsq hq hzero hlo hhi him hZ hz hY hm1 hmsf hmz2
+
 /-! ## §4 — E(ρ) assembly : `dh_extraction_upper_rho` -/
 
 set_option maxHeartbeats 1200000 in
 -- The capstone: ℂ regroup + exact reduction (R6-4@ρ) + signed complex main collection + the
 -- per-m residual moment; the double-sum norm-triangle exceeds the default heartbeat budget.
-/-- **E(ρ) assembly (`dh_extraction_upper_rho`) — the complex-scale weighted extraction.** The ℂ
-analog of `dh_extraction_upper_W`: the Selberg-mollified `ρ`-detector's partial sum is
+/-- **E(ρ) assembly (`dh_extraction_upper_rho_tall`) — the complex-scale weighted extraction.**
+The ℂ analog of `dh_extraction_upper_W`: the Selberg-mollified `ρ`-detector's partial sum is
 `L(1,χ)·selMainTerm` main (the FULL complex `L`-value, `/((1−ρ)(2−ρ))`) plus a `Y^{1/2−σ}`
 error, `C₂ρ = C2Rho q Z₀ ρ`, under the guard `2z⁴ ≤ Y`. STEP 1 ℂ regroup
 (`dhExtractionW_regroup_C`) + kernel (`dhKernR_eq`) + the EXACT reduction
 (`dhA_kernel_reduction_rho`); STEP 2 the signed complex main collected EXACTLY
 (`sum_gcW_selNu_eq_selMainTerm` cast); STEP 3 signed
-subtraction; STEP 4 norm-triangle on the residual only (`dh_extraction_per_m_rho` +
+subtraction; STEP 4 norm-triangle on the residual only (`dh_extraction_per_m_rho_tall` +
 `sum_gcW_pairkernel_le`, `gcW = 0` off squarefree/`> z²`). -/
-theorem dh_extraction_upper_rho [NeZero q] (χ : DirichletCharacter ℂ q)
+theorem dh_extraction_upper_rho_tall [NeZero q] (χ : DirichletCharacter ℂ q)
     (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {ρ : ℂ}
     (hzero : DirichletCharacter.LFunction χ ρ = 0) (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1)
-    (him : |ρ.im| ≤ 1)
-    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
+    {H : ℝ} (him : |ρ.im| ≤ H)
+    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ H → ‖zetaHol s‖ ≤ Z₀)
     {z Y : ℕ} (hz : 1 ≤ z) (hY : 2 * z ^ 4 ≤ Y) :
     ‖∑ n ∈ Finset.Icc 1 Y,
         (dhCoeffW χ (selWeight χ z) n : ℂ) * (n : ℂ) ^ (-ρ)
@@ -590,7 +612,7 @@ theorem dh_extraction_upper_rho [NeZero q] (χ : DirichletCharacter ℂ q)
         by_contra h; exact hg0 (gcW_selWeight_eq_zero_of_gt_sq χ (by omega))
       have hm1 : 1 ≤ m := by rw [Finset.mem_Icc] at hm; omega
       apply mul_le_mul_of_nonneg_left _ (abs_nonneg _)
-      have := dh_extraction_per_m_rho χ hχ hsq hq hzero hlo hhi him hZ hz hY hm1 hmsf hmz2
+      have := dh_extraction_per_m_rho_tall χ hχ hsq hq hzero hlo hhi him hZ hz hY hm1 hmsf hmz2
       rw [← hL1def, ← hC2def] at this
       exact this
   refine (Finset.sum_le_sum hpm).trans ?_
@@ -604,6 +626,29 @@ theorem dh_extraction_upper_rho [NeZero q] (χ : DirichletCharacter ℂ q)
         mul_le_mul_of_nonneg_left (sum_gcW_pairkernel_le χ hsq hz hz2Y)
           (mul_nonneg hC2nn hYrp)
     _ = C₂ρ * (z : ℝ) * (1 + Real.log ((z : ℝ) ^ 2)) ^ 9 * (Y : ℝ) ^ (1 / 2 - ρ.re) := by ring
+
+/-- **E(ρ) assembly (`dh_extraction_upper_rho`) — the complex-scale weighted extraction.** The ℂ
+analog of `dh_extraction_upper_W`: the Selberg-mollified `ρ`-detector's partial sum is
+`L(1,χ)·selMainTerm` main (the FULL complex `L`-value, `/((1−ρ)(2−ρ))`) plus a `Y^{1/2−σ}`
+error, `C₂ρ = C2Rho q Z₀ ρ`, under the guard `2z⁴ ≤ Y`. STEP 1 ℂ regroup
+(`dhExtractionW_regroup_C`) + kernel (`dhKernR_eq`) + the EXACT reduction
+(`dhA_kernel_reduction_rho`); STEP 2 the signed complex main collected EXACTLY
+(`sum_gcW_selNu_eq_selMainTerm` cast); STEP 3 signed
+subtraction; STEP 4 norm-triangle on the residual only (`dh_extraction_per_m_rho` +
+`sum_gcW_pairkernel_le`, `gcW = 0` off squarefree/`> z²`). -/
+theorem dh_extraction_upper_rho [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {ρ : ℂ}
+    (hzero : DirichletCharacter.LFunction χ ρ = 0) (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1)
+    (him : |ρ.im| ≤ 1)
+    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
+    {z Y : ℕ} (hz : 1 ≤ z) (hY : 2 * z ^ 4 ≤ Y) :
+    ‖∑ n ∈ Finset.Icc 1 Y,
+        (dhCoeffW χ (selWeight χ z) n : ℂ) * (n : ℂ) ^ (-ρ)
+          * ((dhKernR ((n : ℝ) / (Y : ℝ)) : ℝ) : ℂ)
+       - DirichletCharacter.LFunction χ 1 * (selMainTerm χ z : ℂ)
+           * (Y : ℂ) ^ (1 - ρ) / ((1 - ρ) * (2 - ρ))‖
+      ≤ C2Rho q Z₀ ρ * (z : ℝ) * (1 + Real.log ((z : ℝ) ^ 2)) ^ 9 * (Y : ℝ) ^ (1 / 2 - ρ.re) :=
+  dh_extraction_upper_rho_tall χ hχ hsq hq hzero hlo hhi him hZ hz hY
 
 end Salt.SW
 
