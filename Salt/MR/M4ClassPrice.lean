@@ -265,6 +265,35 @@ theorem norm_sum_windowClass_memS_dilate {M J q r H n : ℕ} {W : ℝ} (hM : 1 �
             (calQK (Adoor M) (3072 * M) M) J liouvilleC m‖ := by
   simpa only [s13GK_zero] using norm_sum_windowClass_memS_dilate_gk 0 hM hq hqW hW
 
+/-- **THE PER-CLASS PRICE AT THE LEVER, both cases** — `m4_class_price` (:277). -/
+theorem m4_class_price_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} {B : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
+    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+    (hcop : ∀ χ : DirichletCharacter ℂ q,
+      ‖∑ m ∈ sievedWindow (MemS (calP (Adoor M) (s13GK K M))
+        (calQK (Adoor M) (s13GK K M) M) J) H n, liouChi χ m‖ ≤ B)
+    (hdil : ∀ χ : DirichletCharacter ℂ (q / Nat.gcd r q),
+      ‖∑ m ∈ sievedWindow (MemS (calP (Adoor M) (s13GK K M))
+        (calQK (Adoor M) (s13GK K M) M) J)
+          (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q), liouChi χ m‖ ≤ B) :
+    ‖∑ m ∈ windowClass H n q r, memSCoeff (calP (Adoor M) (s13GK K M))
+        (calQK (Adoor M) (s13GK K M) M) J liouvilleC m‖ ≤ B := by
+  have hd : 0 < Nat.gcd r q := Nat.gcd_pos_of_pos_right r hq
+  by_cases hcase : Nat.gcd r q = 1
+  · -- ⟦d₀ = 1⟧ the class is already coprime: the expansion at `(q, r)`
+    haveI : NeZero q := ⟨hq.ne'⟩
+    have hcopqr : Nat.Coprime q r := by
+      rw [Nat.Coprime, Nat.gcd_comm]
+      exact hcase
+    exact norm_sum_windowClass_memS_le_of_uniform hcopqr _ _ J H n hcop
+  · -- ⟦d₀ > 1⟧ ONE dilation, then the expansion at the reduced (coprime) pair
+    rw [norm_sum_windowClass_memS_dilate_gk K (J := J) hM hq hqW hW]
+    have hq₀ : 0 < q / Nat.gcd r q :=
+      Nat.div_pos (Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)) hd
+    haveI : NeZero (q / Nat.gcd r q) := ⟨hq₀.ne'⟩
+    have hcop₀ : Nat.Coprime (q / Nat.gcd r q) (r / Nat.gcd r q) :=
+      (m4_class_dilate_coprime hq r).symm
+    exact norm_sum_windowClass_memS_le_of_uniform hcop₀ _ _ J _ _ hdil
+
 /-- **`m4_class_price` — THE PER-CLASS PRICE, both cases.**
 
 For a class `r` mod `q` of the door's sieved `λ`-window sum at a tight-major rational `b/q`:
@@ -287,22 +316,7 @@ theorem m4_class_price {M J q r H n : ℕ} {W : ℝ} {B : ℝ} (hM : 1 ≤ M) (h
           (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q), liouChi χ m‖ ≤ B) :
     ‖∑ m ∈ windowClass H n q r, memSCoeff (calP (Adoor M) (3072 * M))
         (calQK (Adoor M) (3072 * M) M) J liouvilleC m‖ ≤ B := by
-  have hd : 0 < Nat.gcd r q := Nat.gcd_pos_of_pos_right r hq
-  by_cases hcase : Nat.gcd r q = 1
-  · -- ⟦d₀ = 1⟧ the class is already coprime: the expansion at `(q, r)`
-    haveI : NeZero q := ⟨hq.ne'⟩
-    have hcopqr : Nat.Coprime q r := by
-      rw [Nat.Coprime, Nat.gcd_comm]
-      exact hcase
-    exact norm_sum_windowClass_memS_le_of_uniform hcopqr _ _ J H n hcop
-  · -- ⟦d₀ > 1⟧ ONE dilation, then the expansion at the reduced (coprime) pair
-    rw [norm_sum_windowClass_memS_dilate (J := J) hM hq hqW hW]
-    have hq₀ : 0 < q / Nat.gcd r q :=
-      Nat.div_pos (Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)) hd
-    haveI : NeZero (q / Nat.gcd r q) := ⟨hq₀.ne'⟩
-    have hcop₀ : Nat.Coprime (q / Nat.gcd r q) (r / Nat.gcd r q) :=
-      (m4_class_dilate_coprime hq r).symm
-    exact norm_sum_windowClass_memS_le_of_uniform hcop₀ _ _ J _ _ hdil
+  simpa only [s13GK_zero] using m4_class_price_gk 0 hM hq hqW hW hcop hdil
 
 /-! ## §4 — THE ASSEMBLY: `q` CLASSES, AND WHERE THE `q²` LANDS
 
@@ -959,35 +973,6 @@ The (P,Q)-abstract suppliers of §1–§4 (`sievedWindow`, `windowClass`, `subWi
 `memSCoeff`, `sum_windowClass_memSCoeff`, `norm_sum_windowClass_memS_le_of_uniform`,
 `subWindowSup_sq_le_class_count`) are NOT twinned — they are re-instantiated at the lever's
 `(𝒫, 𝒬)`. -/
-
-/-- **THE PER-CLASS PRICE AT THE LEVER, both cases** — `m4_class_price` (:277). -/
-theorem m4_class_price_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} {B : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
-    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
-    (hcop : ∀ χ : DirichletCharacter ℂ q,
-      ‖∑ m ∈ sievedWindow (MemS (calP (Adoor M) (s13GK K M))
-        (calQK (Adoor M) (s13GK K M) M) J) H n, liouChi χ m‖ ≤ B)
-    (hdil : ∀ χ : DirichletCharacter ℂ (q / Nat.gcd r q),
-      ‖∑ m ∈ sievedWindow (MemS (calP (Adoor M) (s13GK K M))
-        (calQK (Adoor M) (s13GK K M) M) J)
-          (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q), liouChi χ m‖ ≤ B) :
-    ‖∑ m ∈ windowClass H n q r, memSCoeff (calP (Adoor M) (s13GK K M))
-        (calQK (Adoor M) (s13GK K M) M) J liouvilleC m‖ ≤ B := by
-  have hd : 0 < Nat.gcd r q := Nat.gcd_pos_of_pos_right r hq
-  by_cases hcase : Nat.gcd r q = 1
-  · -- ⟦d₀ = 1⟧ the class is already coprime: the expansion at `(q, r)`
-    haveI : NeZero q := ⟨hq.ne'⟩
-    have hcopqr : Nat.Coprime q r := by
-      rw [Nat.Coprime, Nat.gcd_comm]
-      exact hcase
-    exact norm_sum_windowClass_memS_le_of_uniform hcopqr _ _ J H n hcop
-  · -- ⟦d₀ > 1⟧ ONE dilation, then the expansion at the reduced (coprime) pair
-    rw [norm_sum_windowClass_memS_dilate_gk K (J := J) hM hq hqW hW]
-    have hq₀ : 0 < q / Nat.gcd r q :=
-      Nat.div_pos (Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)) hd
-    haveI : NeZero (q / Nat.gcd r q) := ⟨hq₀.ne'⟩
-    have hcop₀ : Nat.Coprime (q / Nat.gcd r q) (r / Nat.gcd r q) :=
-      (m4_class_dilate_coprime hq r).symm
-    exact norm_sum_windowClass_memS_le_of_uniform hcop₀ _ _ J _ _ hdil
 
 /-- **THE `q`-GRADED PER-BLOCK MEAN SQUARE AT THE LEVER** — `M4BlockMeanSqSupQ` (:348). -/
 def M4BlockMeanSqSupQ_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bblk : ℕ → ℝ) : Prop :=
