@@ -3314,6 +3314,30 @@ theorem m4_class_dilate_exit_L_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} (hM : 
       (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ J m) hq r H n α hthr
 
 /-! ### `M4ClassPrice` :229 — `norm_sum_windowClass_memS_dilate` -/
+/-- **THE NON-COPRIME BRANCH AT THE LEVER** — `norm_sum_windowClass_memS_dilate_L` (:232). -/
+theorem norm_sum_windowClass_memS_dilate_L_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} (hM : 1 ≤ M)
+    (hq : 0 < q) (hqW : (q : ℝ) ≤ W)
+    (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) :
+    ‖∑ m ∈ windowClass H n q r, memSCoeff (calP (AdoorL M) (s13GK K M))
+        (calQK (AdoorL M) (s13GK K M) M) J liouvilleC m‖
+      = ‖∑ m ∈ windowClass (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q)
+            (q / Nat.gcd r q) (r / Nat.gcd r q),
+          memSCoeff (calP (AdoorL M) (s13GK K M))
+            (calQK (AdoorL M) (s13GK K M) M) J liouvilleC m‖ := by
+  set c := memSCoeff (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) J liouvilleC
+    with hc
+  calc ‖∑ m ∈ windowClass H n q r, c m‖
+      = ‖classWindowSum c H n q r 0‖ := by
+        rw [classWindowSum_eq_classPhaseSum, classPhaseSum_zero]
+    _ = ‖absWindowSum (classCoeff c (q / Nat.gcd r q) (r / Nat.gcd r q))
+          (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q) 0‖ := by
+        have h := (m4_class_dilate_exit_L_gk K (J := J) (q := q) (r := r) (H := H) (n := n)
+          (W := W) hM hq hqW hW 0).1
+        rwa [mul_zero] at h
+    _ = ‖∑ m ∈ windowClass (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q)
+          (q / Nat.gcd r q) (r / Nat.gcd r q), c m‖ := by
+        rw [absWindowSum_classCoeff_zero]
+
 /-- **THE NON-COPRIME BRANCH — ONE DILATION, AN EQUALITY.**  At the residual frequency `0`,
 `M4BridgeDilate.m4_class_dilate_exit_L` reads as a pure re-indexing of the bare class sum: the
 class mod `q` of the window `(n, n+H]` is the class `r₀` mod `q₀` of the DILATED window
@@ -3327,19 +3351,7 @@ theorem norm_sum_windowClass_memS_dilate_L {M J q r H n : ℕ} {W : ℝ} (hM : 1
             (q / Nat.gcd r q) (r / Nat.gcd r q),
           memSCoeff (calP (AdoorL M) (3072 * M))
             (calQK (AdoorL M) (3072 * M) M) J liouvilleC m‖ := by
-  set c := memSCoeff (calP (AdoorL M) (3072 * M)) (calQK (AdoorL M) (3072 * M) M) J liouvilleC
-    with hc
-  calc ‖∑ m ∈ windowClass H n q r, c m‖
-      = ‖classWindowSum c H n q r 0‖ := by
-        rw [classWindowSum_eq_classPhaseSum, classPhaseSum_zero]
-    _ = ‖absWindowSum (classCoeff c (q / Nat.gcd r q) (r / Nat.gcd r q))
-          (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q) 0‖ := by
-        have h := (m4_class_dilate_exit_L (J := J) (q := q) (r := r) (H := H) (n := n)
-          (W := W) hM hq hqW hW 0).1
-        rwa [mul_zero] at h
-    _ = ‖∑ m ∈ windowClass (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q)
-          (q / Nat.gcd r q) (r / Nat.gcd r q), c m‖ := by
-        rw [absWindowSum_classCoeff_zero]
+  simpa only [s13GK_zero] using norm_sum_windowClass_memS_dilate_L_gk 0 hM hq hqW hW
 
 /-! ### `M4ClassPrice` :256 — `m4_class_price` -/
 /-- **`m4_class_price_L` — THE PER-CLASS PRICE, both cases.**
@@ -3382,29 +3394,6 @@ theorem m4_class_price_L {M J q r H n : ℕ} {W : ℝ} {B : ℝ} (hM : 1 ≤ M) 
     exact norm_sum_windowClass_memS_le_of_uniform hcop₀ _ _ J _ _ hdil
 
 /-! ### `M4ClassPrice` :951 — `norm_sum_windowClass_memS_dilate_gk` -/
-/-- **THE NON-COPRIME BRANCH AT THE LEVER** — `norm_sum_windowClass_memS_dilate_L` (:232). -/
-theorem norm_sum_windowClass_memS_dilate_L_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} (hM : 1 ≤ M)
-    (hq : 0 < q) (hqW : (q : ℝ) ≤ W)
-    (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) :
-    ‖∑ m ∈ windowClass H n q r, memSCoeff (calP (AdoorL M) (s13GK K M))
-        (calQK (AdoorL M) (s13GK K M) M) J liouvilleC m‖
-      = ‖∑ m ∈ windowClass (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q)
-            (q / Nat.gcd r q) (r / Nat.gcd r q),
-          memSCoeff (calP (AdoorL M) (s13GK K M))
-            (calQK (AdoorL M) (s13GK K M) M) J liouvilleC m‖ := by
-  set c := memSCoeff (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) J liouvilleC
-    with hc
-  calc ‖∑ m ∈ windowClass H n q r, c m‖
-      = ‖classWindowSum c H n q r 0‖ := by
-        rw [classWindowSum_eq_classPhaseSum, classPhaseSum_zero]
-    _ = ‖absWindowSum (classCoeff c (q / Nat.gcd r q) (r / Nat.gcd r q))
-          (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q) 0‖ := by
-        have h := (m4_class_dilate_exit_L_gk K (J := J) (q := q) (r := r) (H := H) (n := n)
-          (W := W) hM hq hqW hW 0).1
-        rwa [mul_zero] at h
-    _ = ‖∑ m ∈ windowClass (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q)
-          (q / Nat.gcd r q) (r / Nat.gcd r q), c m‖ := by
-        rw [absWindowSum_classCoeff_zero]
 
 /-! ### `M4ClassPrice` :975 — `m4_class_price_gk` -/
 /-- **THE PER-CLASS PRICE AT THE LEVER, both cases** — `m4_class_price_L` (:265). -/
@@ -3435,7 +3424,6 @@ theorem m4_class_price_L_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} {B : ℝ} (h
     have hcop₀ : Nat.Coprime (q / Nat.gcd r q) (r / Nat.gcd r q) :=
       (m4_class_dilate_coprime hq r).symm
     exact norm_sum_windowClass_memS_le_of_uniform hcop₀ _ _ J _ _ hdil
-
 
 end Salt.MR
 

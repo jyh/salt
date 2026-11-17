@@ -217,41 +217,6 @@ theorem capfloor_kappa30Q_L_gk (K : ℕ) {R : ChowlaRegime} {M H L q j As s Nd :
       / Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) :=
   capfloor_kappa30Q_gen hfl hb hAN (one_le_AdoorL hM) (one_le_s13GK K hM) hM hTlo hQ2reg
 
-/-- **⟦W-FLOOR'S SUPPLIER AT THE LINEAR DOOR⟧** (`s13CapFloor_all_L`) — EIGHT fields of
-`S13FramesB.S13CapGatePerBlock` at one binder, with the two `𝒬K₂` reads at `AdoorL`.  The six
-`T_ann`-only conjuncts are the landed terms verbatim: they never touch the anchor. -/
-theorem s13CapFloor_all_L {R : ChowlaRegime} {M H L q j As s Nd : ℕ} {T₀ Kq Ks Tann : ℝ}
-    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j As s) (hM : 1 ≤ M)
-    (hAN : As ≤ Nd)
-    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
-    (hQ2reg : Real.log ((calQK (AdoorL M) (3072 * M) M 2 : ℕ) : ℝ)
-      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)))
-    (hT₀ : T₀ ≤ Real.exp (Real.exp 100)) (hKq : Kq ≤ Real.exp 100)
-    (hKs : Real.exp (-100) ≤ Ks) :
-    ((calQK (AdoorL M) (3072 * M) M 2 : ℕ) : ℝ) ≤ (q : ℝ) * Tann ∧
-    30 ≤ Real.log ((q : ℝ) * Tann)
-      / Real.log ((calQK (AdoorL M) (3072 * M) M 2 : ℕ) : ℝ) ∧
-    T₀ ≤ Tann ∧
-    8 * Real.log (40000 * vkStripConst q) ≤ Real.log (Real.log (5 * Tann + 1)) ∧
-    8 + Real.log (20000 * (vkStripConst q + 8104)) / 100
-      ≤ Real.log (Real.log (5 * Tann + 1)) ∧
-    Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
-      ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ) ∧
-    (q : ℝ) ^ ((1 : ℝ) / 16)
-      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
-        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) ∧
-    Real.log ((calQK (AdoorL M) (3072 * M) M 2 : ℕ) : ℝ)
-      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)) :=
-  ⟨capfloor_QTann_L hfl hb hAN hM hTlo hQ2reg,
-   capfloor_kappa30Q_L hfl hb hAN hM hTlo hQ2reg,
-   capfloor_T0_Tann hfl hb hAN hTlo hT₀,
-   capfloor_floor1 hfl hb hAN hTlo,
-   capfloor_floor2 hfl hb hAN hTlo,
-   capfloor_floor3 hfl hb hAN hTlo hKq,
-   capfloor_floor4 hfl hb hAN hTlo hKs,
-   hQ2reg⟩
-
 /-- `s13CapFloor_all_L` at the lever. -/
 theorem s13CapFloor_all_L_gk (K : ℕ) {R : ChowlaRegime} {M H L q j As s Nd : ℕ}
     {T₀ Kq Ks Tann : ℝ}
@@ -285,6 +250,34 @@ theorem s13CapFloor_all_L_gk (K : ℕ) {R : ChowlaRegime} {M H L q j As s Nd : �
    capfloor_floor3 hfl hb hAN hTlo hKq,
    capfloor_floor4 hfl hb hAN hTlo hKs,
    hQ2reg⟩
+
+/-- **⟦W-FLOOR'S SUPPLIER AT THE LINEAR DOOR⟧** (`s13CapFloor_all_L`) — EIGHT fields of
+`S13FramesB.S13CapGatePerBlock` at one binder, with the two `𝒬K₂` reads at `AdoorL`.  The six
+`T_ann`-only conjuncts are the landed terms verbatim: they never touch the anchor. -/
+theorem s13CapFloor_all_L {R : ChowlaRegime} {M H L q j As s Nd : ℕ} {T₀ Kq Ks Tann : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j As s) (hM : 1 ≤ M)
+    (hAN : As ≤ Nd)
+    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
+    (hQ2reg : Real.log ((calQK (AdoorL M) (3072 * M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)))
+    (hT₀ : T₀ ≤ Real.exp (Real.exp 100)) (hKq : Kq ≤ Real.exp 100)
+    (hKs : Real.exp (-100) ≤ Ks) :
+    ((calQK (AdoorL M) (3072 * M) M 2 : ℕ) : ℝ) ≤ (q : ℝ) * Tann ∧
+    30 ≤ Real.log ((q : ℝ) * Tann)
+      / Real.log ((calQK (AdoorL M) (3072 * M) M 2 : ℕ) : ℝ) ∧
+    T₀ ≤ Tann ∧
+    8 * Real.log (40000 * vkStripConst q) ≤ Real.log (Real.log (5 * Tann + 1)) ∧
+    8 + Real.log (20000 * (vkStripConst q + 8104)) / 100
+      ≤ Real.log (Real.log (5 * Tann + 1)) ∧
+    Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
+      ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ) ∧
+    (q : ℝ) ^ ((1 : ℝ) / 16)
+      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) ∧
+    Real.log ((calQK (AdoorL M) (3072 * M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)) := by
+  simpa only [s13GK_zero] using s13CapFloor_all_L_gk 0 hfl hb hM hAN hTlo hQ2reg hT₀ hKq hKs
 
 /-! ## §3 — `S14Compose`'s `p²` cap in logs, at the linear door -/
 

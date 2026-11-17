@@ -5148,13 +5148,13 @@ theorem m4_hT0band_at_door_discharged_L (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < 
   exact m4_hT0band_at_door_L χ M hX3 hXd hXdN hN hC₁ hS₀ hSle
     (hpiece q χ M Xd N hXd hX400 hx₀ h16 hq hcovP hcovQ hgHalf hgO1 hgWin) hErr
 
-/-- **THE DOOR'S COVERING WINDOW** (`door_cover_L`): `[calP A G 1, calQK A G M 2]` contains every
-block the door's `𝒥 ⊆ [1,2]` names. -/
-theorem door_cover_L (M : ℕ) (hM : 1 ≤ M) :
-    (∀ j ∈ Finset.Icc 1 2, calP (AdoorL M) (3072 * M) 1 ≤ calP (AdoorL M) (3072 * M) j)
+/-- **THE DOOR'S COVERING WINDOW, AT THE G-LEVER** (`door_cover_L_gk`) — the ladder
+monotonicity is `G`-generic; only `1 ≤ G` is used, supplied by `GLever.one_le_s13GK`. -/
+theorem door_cover_L_gk (K : ℕ) (M : ℕ) (hM : 1 ≤ M) :
+    (∀ j ∈ Finset.Icc 1 2, calP (AdoorL M) (s13GK K M) 1 ≤ calP (AdoorL M) (s13GK K M) j)
       ∧ (∀ j ∈ Finset.Icc 1 2,
-          calQK (AdoorL M) (3072 * M) M j ≤ calQK (AdoorL M) (3072 * M) M 2) := by
-  have hG : 1 ≤ 3072 * M := by omega
+          calQK (AdoorL M) (s13GK K M) M j ≤ calQK (AdoorL M) (s13GK K M) M 2) := by
+  have hG : 1 ≤ s13GK K M := one_le_s13GK K hM
   constructor
   · intro j hj
     rw [Finset.mem_Icc] at hj
@@ -5162,6 +5162,33 @@ theorem door_cover_L (M : ℕ) (hM : 1 ≤ M) :
   · intro j hj
     rw [Finset.mem_Icc] at hj
     exact calQK_door_le hG hj.1 hj.2
+
+/-- **THE DOOR'S COVERING WINDOW** (`door_cover_L`): `[calP A G 1, calQK A G M 2]` contains every
+block the door's `𝒥 ⊆ [1,2]` names. -/
+theorem door_cover_L (M : ℕ) (hM : 1 ≤ M) :
+    (∀ j ∈ Finset.Icc 1 2, calP (AdoorL M) (3072 * M) 1 ≤ calP (AdoorL M) (3072 * M) j)
+      ∧ (∀ j ∈ Finset.Icc 1 2,
+          calQK (AdoorL M) (3072 * M) M j ≤ calQK (AdoorL M) (3072 * M) M 2) := by
+  simpa only [s13GK_zero] using door_cover_L_gk 0 M hM
+
+/-- **THE DOOR'S COVERING WINDOW IS ADMISSIBLE, AT THE G-LEVER**
+(`door_window_bounds_L_gk`).  `P₁ = 2^{AdoorL M}` is LEVEL 1 and unmoved; the upper leg goes
+through `calQK_door_le` at `1 ≤ s13GK K M`. -/
+theorem door_window_bounds_L_gk (K : ℕ) (M : ℕ) (hM : 1 ≤ M) :
+    4 ≤ calP (AdoorL M) (s13GK K M) 1
+      ∧ calP (AdoorL M) (s13GK K M) 1 ≤ calQK (AdoorL M) (s13GK K M) M 2 := by
+  have hA : 2 ^ 18 ≤ AdoorL M := AdoorL_ge_old hM
+  have hPeq : calP (AdoorL M) (s13GK K M) 1 = 2 ^ (AdoorL M) := by rw [calP, calE_one]
+  refine ⟨?_, ?_⟩
+  · rw [hPeq]
+    calc (4 : ℕ) = 2 ^ 2 := by norm_num
+      _ ≤ 2 ^ (AdoorL M) := Nat.pow_le_pow_right (by norm_num) (by omega)
+  · refine le_trans ?_ (calQK_door_le (j := 1) (one_le_s13GK K hM) le_rfl (by norm_num))
+    rw [hPeq, calQK, calE_one]
+    refine Nat.pow_le_pow_right (by norm_num) ?_
+    have h1 : 1 ≤ 1 ^ 2 * M := by simpa using hM
+    calc AdoorL M = 1 * AdoorL M := (one_mul _).symm
+      _ ≤ (1 ^ 2 * M) * AdoorL M := Nat.mul_le_mul h1 le_rfl
 
 /-- **THE DOOR'S COVERING WINDOW IS ADMISSIBLE** (`door_window_bounds_L`): `4 ≤ P₁` and
 `P₁ ≤ Q₂`, the two side conditions `m4_hpiece_at_door_L` reads on `[P,Q]`.  Both come from the
@@ -5171,18 +5198,7 @@ window hypothesis of the exit is left for the consumer. -/
 theorem door_window_bounds_L (M : ℕ) (hM : 1 ≤ M) :
     4 ≤ calP (AdoorL M) (3072 * M) 1
       ∧ calP (AdoorL M) (3072 * M) 1 ≤ calQK (AdoorL M) (3072 * M) M 2 := by
-  have hA : 2 ^ 18 ≤ AdoorL M := AdoorL_ge_old hM
-  have hPeq : calP (AdoorL M) (3072 * M) 1 = 2 ^ (AdoorL M) := by rw [calP, calE_one]
-  refine ⟨?_, ?_⟩
-  · rw [hPeq]
-    calc (4 : ℕ) = 2 ^ 2 := by norm_num
-      _ ≤ 2 ^ (AdoorL M) := Nat.pow_le_pow_right (by norm_num) (by omega)
-  · refine le_trans ?_ (calQK_door_le (j := 1) (by omega : 1 ≤ 3072 * M) le_rfl (by norm_num))
-    rw [hPeq, calQK, calE_one]
-    refine Nat.pow_le_pow_right (by norm_num) ?_
-    have h1 : 1 ≤ 1 ^ 2 * M := by simpa using hM
-    calc AdoorL M = 1 * AdoorL M := (one_mul _).symm
-      _ ≤ (1 ^ 2 * M) * AdoorL M := Nat.mul_le_mul h1 le_rfl
+  simpa only [s13GK_zero] using door_window_bounds_L_gk 0 M hM
 
 /-- **⟦D3-DISCHARGE, SPLIT-HOISTED⟧ THE `hpiece` SLOT, AT THE G-LEVER**
 (`m4_hpiece_at_door_split_L_gk`).  `piece_partial_sum_rate_split` is `G`-FREE and is reused. -/
@@ -5516,40 +5532,6 @@ theorem m4_hT0band_at_door_discharged_L_gk (K : ℕ) (hMmu : MmuChiRate) (A : �
       _ ≤ (Real.log X) ^ (A + (-(1 : ℝ) / 2 + 1 / 1000)) := hgrade
   exact m4_hT0band_at_door_L_gk K χ M hX3 hXd hXdN hN hC₁ hS₀ hSle
     (hpiece q χ M Xd N hXd hX400 hx₀ h16 hq hcovP hcovQ hgHalf hgO1 hgWin) hErr
-
-/-- **THE DOOR'S COVERING WINDOW, AT THE G-LEVER** (`door_cover_L_gk`) — the ladder
-monotonicity is `G`-generic; only `1 ≤ G` is used, supplied by `GLever.one_le_s13GK`. -/
-theorem door_cover_L_gk (K : ℕ) (M : ℕ) (hM : 1 ≤ M) :
-    (∀ j ∈ Finset.Icc 1 2, calP (AdoorL M) (s13GK K M) 1 ≤ calP (AdoorL M) (s13GK K M) j)
-      ∧ (∀ j ∈ Finset.Icc 1 2,
-          calQK (AdoorL M) (s13GK K M) M j ≤ calQK (AdoorL M) (s13GK K M) M 2) := by
-  have hG : 1 ≤ s13GK K M := one_le_s13GK K hM
-  constructor
-  · intro j hj
-    rw [Finset.mem_Icc] at hj
-    exact calP_door_ge hG hj.1 hj.2
-  · intro j hj
-    rw [Finset.mem_Icc] at hj
-    exact calQK_door_le hG hj.1 hj.2
-
-/-- **THE DOOR'S COVERING WINDOW IS ADMISSIBLE, AT THE G-LEVER**
-(`door_window_bounds_L_gk`).  `P₁ = 2^{AdoorL M}` is LEVEL 1 and unmoved; the upper leg goes
-through `calQK_door_le` at `1 ≤ s13GK K M`. -/
-theorem door_window_bounds_L_gk (K : ℕ) (M : ℕ) (hM : 1 ≤ M) :
-    4 ≤ calP (AdoorL M) (s13GK K M) 1
-      ∧ calP (AdoorL M) (s13GK K M) 1 ≤ calQK (AdoorL M) (s13GK K M) M 2 := by
-  have hA : 2 ^ 18 ≤ AdoorL M := AdoorL_ge_old hM
-  have hPeq : calP (AdoorL M) (s13GK K M) 1 = 2 ^ (AdoorL M) := by rw [calP, calE_one]
-  refine ⟨?_, ?_⟩
-  · rw [hPeq]
-    calc (4 : ℕ) = 2 ^ 2 := by norm_num
-      _ ≤ 2 ^ (AdoorL M) := Nat.pow_le_pow_right (by norm_num) (by omega)
-  · refine le_trans ?_ (calQK_door_le (j := 1) (one_le_s13GK K hM) le_rfl (by norm_num))
-    rw [hPeq, calQK, calE_one]
-    refine Nat.pow_le_pow_right (by norm_num) ?_
-    have h1 : 1 ≤ 1 ^ 2 * M := by simpa using hM
-    calc AdoorL M = 1 * AdoorL M := (one_mul _).symm
-      _ ≤ (1 ^ 2 * M) * AdoorL M := Nat.mul_le_mul h1 le_rfl
 
 /-- **⟦D3-DISCHARGE — THE EXIT, SPLIT-HOISTED⟧ AT THE G-LEVER**
 (`m4_hT0band_at_door_discharged_split_L_gk`). -/
