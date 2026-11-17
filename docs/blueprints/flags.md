@@ -19000,7 +19000,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 repair honestly if a leaf refuses. Both riders bound constants the theorem's own ∃-prefix mints.
 
 **⟦THE SHARED MINT⟧** — the trace's first result. `cs` and `T₀` are BOTH minted at ONE site,
-`PortAssembly.halaszPrimesChiGated_of_price` (:802):
+`PortAssembly.halaszPrimesChiGated_of_price` (:1145):
 `cs := min (min (c_vk/(2·K₄)) (c₀/(2·Cκ))) (1/10)`, `T₀ := max T₀e T₀z`. From there they travel to
 `v3` through eleven pass-throughs (the NumeralKq ladder, then S16Compose's four) — every hop
 verified to leave both constants untouched. So ONE floor at the mint serves both riders, and the
@@ -19543,7 +19543,7 @@ which the design constant `A` can absorb — see the `C_q` verdict.
 ⟦THE `C_q` VERDICT (traced this wave)⟧ `Cq` from `s15_crossing_supplied_L_gk_ceiling_sharpT0 K` is
 **`K`-INDEPENDENT**: the lever is a dead argument that DROPS at hop 3
 (`S16Compose.m4_rowChi_capstone_perBlock_bounded` takes no `K`), and the mint is
-`PortAssembly:830` — `Cq = (3/2)·(44π + Cε)` with `Cε = C₁K₅ + 10C₂ + C₃K₅ + E₁K₂ + 10E₂ + E₃K₂ + 9`,
+`PortAssembly:839` — `Cq = (3/2)·(44π + Cε)` with `Cε = C₁K₅ + 10C₂ + C₃K₅ + E₁K₂ + 10E₂ + E₃K₂ + 9`,
 a closed arithmetic form whose leaves are explicit numerals EXCEPT one: `logDeriv_Zc_compact_bound`
 (`HalaszPrimesCore:1093`, `hKcompact.exists_bound_of_continuousOn`) — a compactness existential.
 So `Cq` is opaque-but-`K`-free, and NO landed lemma bounds it (`grep "Cq ≤"` = zero hits).
@@ -19585,7 +19585,7 @@ refuted is the ROUTE that was supposed to discharge its last predicate.
 (`CofactorBulk` still compiles and its theorems remain TRUE — they are implications whose
 hypothesis this wave refutes).
 
-## () ⟦THE REGISTER REFUTED -- THE THIRD SAME-GENRE CATCH⟧ REGISTER-INHABIT home (3ec67ba+7e3ac48, exit-0, 12 decls 3-axiom, RESULTS 69 rows): the CofactorBulk register is FALSE at every terminal socket -- three lines of its own arithmetic (the trivial dilation ladder D==1 chains conjuncts 12+14+16 into a fixed constant above an unbounded scale function); cofkL_cofactorSupply_L_gk_of_bulk is TRUE AND VACUOUS at the terminal (kernel: cofkL_bulk_false_at_socket, banked as a Trophy row). **v5 UNCHANGED AND CITABLE** -- the refutation kills the ROUTE, not the object. THE REPAIR PRICED TO THE EXPONENT: D := ceil(log X) (law #253 hosts it far under sqrt k0; the freed existential C_R := 4*Rbar0*(log X)^rho293; the register's true law = the exit ceiling must DECAY) + the NEW prerequisite: the exists-Cq forall-K hoist (conjunct 17's A-absorption circular as the lane stands; provable -- the chain is K-free from hop 3; C_q proven K-INDEPENDENT en route, mint PortAssembly:830). THE K_vt TRACE CLOSED HONESTLY: legs 1-2 closed-form (44.8; 2.7e43 modulo one witness re-freeze); leg 3 Kband bottoms at SiegelArm:177's EVT minimum of ||L(s,chi)|| on a box uniform over q -- GENUINE SIEGEL POISON; the cushion stays a NAMED hypothesis, now with the full trace behind it. Four register conjuncts proven en route off the new floor B_v >= sqrt X. ⟦REGISTER-REPAIR fires: the D-ladder re-instantiation + the Cq hoist -> the discharge modulo the named K_vt cushion⟧
+## () ⟦THE REGISTER REFUTED -- THE THIRD SAME-GENRE CATCH⟧ REGISTER-INHABIT home (3ec67ba+7e3ac48, exit-0, 12 decls 3-axiom, RESULTS 69 rows): the CofactorBulk register is FALSE at every terminal socket -- three lines of its own arithmetic (the trivial dilation ladder D==1 chains conjuncts 12+14+16 into a fixed constant above an unbounded scale function); cofkL_cofactorSupply_L_gk_of_bulk is TRUE AND VACUOUS at the terminal (kernel: cofkL_bulk_false_at_socket, banked as a Trophy row). **v5 UNCHANGED AND CITABLE** -- the refutation kills the ROUTE, not the object. THE REPAIR PRICED TO THE EXPONENT: D := ceil(log X) (law #253 hosts it far under sqrt k0; the freed existential C_R := 4*Rbar0*(log X)^rho293; the register's true law = the exit ceiling must DECAY) + the NEW prerequisite: the exists-Cq forall-K hoist (conjunct 17's A-absorption circular as the lane stands; provable -- the chain is K-free from hop 3; C_q proven K-INDEPENDENT en route, mint PortAssembly:839). THE K_vt TRACE CLOSED HONESTLY: legs 1-2 closed-form (44.8; 2.7e43 modulo one witness re-freeze); leg 3 Kband bottoms at SiegelArm:177's EVT minimum of ||L(s,chi)|| on a box uniform over q -- GENUINE SIEGEL POISON; the cushion stays a NAMED hypothesis, now with the full trace behind it. Four register conjuncts proven en route off the new floor B_v >= sqrt X. ⟦REGISTER-REPAIR fires: the D-ladder re-instantiation + the Cq hoist -> the discharge modulo the named K_vt cushion⟧
 
 ## () FOR THE RECORD (JYH, fleet method note): the outside reviewer initially priced verification "infeasible given the time we have"; the Captain pushed (his words: "just as I have pushed you"), and the 6.5-minute agility measurement turned the skeptic into a believer. The pattern named: the Captain's method is pushing seats past their conservative priors and letting the kernel arbitrate -- the same push that produced this campaign's standing order. A believer who began as a skeptic is the strongest kind; the anecdote is itself pitch-grade evidence (the instrument converts its own operators).
 
@@ -19671,7 +19671,7 @@ surgery in the ⟦COMPOSE-2⟧ genre: three hop twins (`m4_hcap_at_door_perBlock
 `m4_fuse_hcap_of_capWS_L_gk_ceiling`, `s15_crossing_supplied_L_gk_ceiling_sharpT0`), each the
 landed body plus ONE `intro K`, legal because `C_q` is `K`-independent from hop 3 down
 (`NumeralKq.m4_rowChi_capstone_perBlock_bounded` takes no lever — the mint is
-`PortAssembly:830`).  A fourth twin
+`PortAssembly:839`).  A fourth twin
 (`logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist`) carries the six crossing
 constants outside the flat terminal's lever binder, leaving only `Ct` moving with `K` — the
 mixed shape the 8/02 hoist already used.  **All four landed first-attempt.**
@@ -23030,7 +23030,7 @@ TO-BE-DISCHARGED with its route ABSENT).
 ```
 PortAssembly.siegel_real_carve            :1180   K  := min (min Cs (c₀/32)) (1/2)
 NumeralKq.twisted_rect_zero_free_siegel_bounded          :502   Ks := 10^8 · K
-  (its unbounded sibling twisted_rect_zero_free_siegel  PortAssembly:1385)
+  (its unbounded sibling twisted_rect_zero_free_siegel  PortAssembly:1415)
 NumeralKq.usetGChi_window_meansq_gated_family_perBlock_bounded  :775   pass-through
 NumeralKq.m4_rowChi_capstone_perBlock_bounded                   :958   pass-through
 RegisterCompose.m4_hcap_at_door_perBlock_L_gk_bounded_khoist     :52   pass-through
@@ -23144,7 +23144,7 @@ ceremony that followed them:
 
 ```
 logChowla2_ineffective_v6_T0arm   Salt/MR/V7C.lean:179    2026-08-14  8b0bd31  ledger MR/All.lean:7967
-logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1840   2026-08-14  8b03281  ledger MR/All.lean:8002
+logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1523   2026-08-14  8b03281  ledger MR/All.lean:8002
 ```
 
 **FOUR NAMED INNER RIDERS EACH, outer hypotheses none.** `_csarm` (V7-B): the
@@ -25604,7 +25604,7 @@ Out of lane or already done: `N7Exit` (the live crown campaign; window and quali
 
 **Correction to a ledger line.** `docs/exploration/fulcrum-pass2.md` C1 calls `Fold.lean:167` the *sole* consumer of
 `siegel_theorem`. That was true for Siegel-Walfisz and is not true for the corpus: at `431c1887` there are three code
-consumers (`SW/Fold.lean:167`, `HB/CrownTheorem1.lean:6638`, `MR/PortAssembly.lean:1186`).
+consumers (`SW/Fold.lean:167`, `HB/CrownTheorem1.lean:6638`, `MR/PortAssembly.lean:1216`).
 
 **What survived (a proposal, not a flag).** Siegel-Walfisz reads Siegel at ONE site (`Fold.lean:167`,
 `ε = 1/(4C)`), and one fixed standoff `β ≤ 1 − c/log q` serves every `(A, C)`. A Siegel-free
