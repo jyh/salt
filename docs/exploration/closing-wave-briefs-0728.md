@@ -45,7 +45,7 @@ a2Frame3_witness's err field to consume the twin (FrameWitness.lean —
 the err supply line only; the OTHER ten fields untouched); redefine
 witEP2 with the 4/3 factor (FrameWitness.lean:619–620) and NOTE the
 silent strengthening at its FOUR sites (FrameWitness.lean:646, :764;
-M4MeanSq.lean:427, :705 — REFUTE-RESIDUE Correction 1: the hypothesis
+M4MeanSq.lean:428, :741 — REFUTE-RESIDUE Correction 1: the hypothesis
 text is unchanged but the carried demand strengthens; verify each site
 still discharges/threads). The 12·EP2 gate: verify the bumped slack per
 Correction 2 (free from log X ≥ 1.6·10⁴ — state the threshold lemma if

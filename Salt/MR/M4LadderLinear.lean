@@ -50,12 +50,12 @@ open MeasureTheory
 open Salt.ExpSum
 open Salt.Entropy.Chowla
 
-/-! ### `M4MeanSq` :417 — `m4_cofactorSocket_at_witness` — RETIRED INTO ITS GENERIC
+/-! ### `M4MeanSq` :499 — `m4_cofactorSocket_at_witness` — RETIRED INTO ITS GENERIC
 
 ⟦XY debt lane, family 01 (2026-09-26)⟧  `m4_cofactorSocket_at_witness_L` — the `_L` twin of
 `M4MeanSq`'s `m4_cofactorSocket_at_witness` at the linear door — stood here, its `A2Frame3`
 binder reading the ladder at `3072 * M`.  It is `m4_cofactorSocket_at_witness_L_gk` (below,
-§`M4MeanSq` :960) at `K = 0`: `s13GK 0 M = 3072 * M` (`s13GK_zero`), and every other binder and
+§`M4MeanSq` :423) at `K = 0`: `s13GK 0 M = 3072 * M` (`s13GK_zero`), and every other binder and
 the conclusion are token-identical.  The implication generic ⇒ sibling was kernel-checked from
 the retired statement's own bytes, in a scratch whose log rides with the retiring PR, before the
 81 lines (this heading, the docstring and the theorem, `ddecb6bf` :50–130) were removed; the
@@ -63,7 +63,7 @@ sibling had no consumer.  Comment mentions of `m4_cofactorSocket_at_witness_L` b
 lists and in proof bodies) are the historical name — read `m4_cofactorSocket_at_witness_L_gk` at
 `K = 0`. -/
 
-/-! ### `M4MeanSq` :503 — `m4_meansq_per_chi_gen` -/
+/-! ### `M4MeanSq` :539 — `m4_meansq_per_chi_gen` -/
 set_option maxHeartbeats 1600000 in
 -- the ~75-binder joint instantiation: elaborating the three suppliers' argument lists
 -- against one statement is what costs the heartbeats, not any tactic search
@@ -267,7 +267,7 @@ theorem m4_meansq_per_chi_gen_L :
   exact thm_a2'_of_rows_L hM hXe hX3 hh4 hhX ha1 hsupp0 hN2X hTann hceil5 hrows hT0band
     hgP1 hgRows ⟨hε0, hεup⟩ hL4096
 
-/-! ### `M4MeanSq` :798 — `m4_meansq_or_trivial` -/
+/-! ### `M4MeanSq` :833 — `m4_meansq_or_trivial` -/
 set_option maxHeartbeats 1600000 in
 -- same cause as `m4_meansq_per_chi_gen_L`: the binder list is re-elaborated once per branch
 /-- **THE M4 PER-SCALE DICHOTOMY** (`m4_meansq_or_trivial_L`).  At a fixed scale the consumer
@@ -416,7 +416,7 @@ theorem m4_meansq_or_trivial_L (Qm : ℕ) :
       hcoefBand hcoefPin
       hT0band hcff hgP1 hgRows hL4096
 
-/-! ### `M4MeanSq` :960 — `m4_cofactorSocket_at_witness_gk` -/
+/-! ### `M4MeanSq` :423 — `m4_cofactorSocket_at_witness_gk` -/
 /-- **The co-factor socket at the witness ladder, at the LINEAR door and the G-lever**
 (`M4MeanSq.m4_cofactorSocket_at_witness_gk` with the frame at `AdoorL M`, `H1doorL M`): under
 the CASE-A supplier `hsockA` (the body of `caseASocket2_discharged` at the capstone's own `X₀`),
@@ -1498,7 +1498,7 @@ theorem m4_meansq_or_trivial_join_L_gk_kwide (K : ℕ) (Qm : ℕ) :
       hcoefBand hcoefPin
       hT0band hcff hpool hgP1 hgRows hgU hgBand
 
-/-! ### `M4MeanSq` :1036 — `m4_meansq_per_chi_gen_gk` -/
+/-! ### `M4MeanSq` :989 — `m4_meansq_per_chi_gen_gk` -/
 /-- **The five-summand mean square at the M4 datum, at the LINEAR door and the G-lever**:
 `M4MeanSq.m4_meansq_per_chi_gen_gk` with the door's ladder read at `AdoorL M` — `calP`/`calQK`
 at `(AdoorL M, s13GK K M)`, `H1doorL M`, the row gate at `a2RowsSum_L_gk K M Xd`, the level-1
@@ -1636,7 +1636,7 @@ theorem m4_meansq_per_chi_gen_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   exact hw Qm q χ N Xd P Q M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail C₁' M₀ e1
     e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 hM (by omega)
 
-/-! ### `M4MeanSq` :1235 — `m4_meansq_or_trivial_gk` -/
+/-! ### `M4MeanSq` :1188 — `m4_meansq_or_trivial_gk` -/
 /-- **The per-scale dichotomy at the LINEAR door and the G-lever** (`m4_meansq_or_trivial_L` at
 `s13GK K M`): at a fixed scale the consumer takes one of two branches — the window `H'` is below
 the freeze's trivial threshold `trivThresh Hp d₀ W` and is discarded (`m4_trivial_branch`), or
