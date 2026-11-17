@@ -9620,7 +9620,7 @@ family 30 retired that piece into its cap-9 twin, `capfloor_T0_Tann_sharp_LH_b9`
 bundle has called since family 20.)
 
 ⛔⛔ **AND THE BLOCK ORDER IS WRONG: H3's HEADLINE `logChowla2_v7_rated_h` IS GATED ON BLOCK E.**
-`logChowla2_v7_rated` (V7Rated:976) obtains `cofkR_cofactorSupply_L_gk_rated` (V7Rated:244) in
+`logChowla2_v7_rated` (V7Rated:896) obtains `cofkR_cofactorSupply_L_gk_rated` (V7Rated:164) in
 its first line, and that supplier DEMANDS `(1 : ℝ)/500 ≤ (R.eps : ℝ)` while the `h` head pins
 `ε = 1/(500·h)` — FALSE at `h ≥ 2`.  Its body consumes `cofkL_capFreeFloor_at_socket_rated_uniform`,
 `cofkL_socket_floors` and `cofkL_mu_floor`, three of the seven `_h` names E is chartered to
@@ -9723,7 +9723,7 @@ because a vacuous supplier and an absent one are indistinguishable from every ga
 day N4s acquires a producer the family needs the `1/(500h)` spelling.
 
 ⭐⭐ **AND THE FAMILY IS PINNED TO THE LANDED OBJECT BY A THEOREM, NOT A DOCSTRING.**
-`logChowla2_v7_rated_h_one` derives a hand-retyped copy of `V7Rated:976`'s statement from
+`logChowla2_v7_rated_h_one` derives a hand-retyped copy of `V7Rated:896`'s statement from
 `logChowla2_v7_rated_h 1`, and the `example` beside it inhabits that same statement with the
 LANDED `logChowla2_v7_rated` itself.  The prize is an `∃` whose content sits under binders: a
 family that had drifted into a WEAKER object would still elaborate at every consumer, and no

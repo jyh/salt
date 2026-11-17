@@ -5534,7 +5534,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    A MEASUREMENT ONLY — no Lean written, no statement or frozen byte touched, nothing built.
    ⭐⭐ **AND THE ARM THAT STOPPED 08/26 WAS NEVER THE BINDING ONE.** The deferral was correct
    THE DAY IT WAS WRITTEN and its clock ran out on 08/30: R-1 wave 1 landed, and
-   `logChowla2_v7_rated` (`V7Rated.lean:976-988`) carries **no `arcDen`, no `Qm`, no `Kvt`**.
+   `logChowla2_v7_rated` (`V7Rated.lean:896-908`) carries **no `arcDen`, no `Qm`, no `Kvt`**.
    The rated socket's witnesses are hoisted ABOVE `R`, `H` and `q`
    (`cofkL_capFreeFloor_at_socket_rated_uniform`, `V7Rated.lean:76-80`), so **no instantiation of
    the cap can move them**: on the rated lane the evaluated site is CAP-BLIND and the
@@ -6198,7 +6198,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    building four `h`-twins. The sharp-`T₀` chain is three names only because H2c had already
    landed `capfloor_T0_Tann_sharp_LH`, the one piece that is not bookkeeping.
    ⛔⛔ **AND THE COMMISSION'S BLOCK ORDER IS WRONG: H3's HEADLINE IS GATED ON BLOCK E.**
-   `logChowla2_v7_rated` (V7Rated:976) obtains `cofkR_cofactorSupply_L_gk_rated` (V7Rated:244)
+   `logChowla2_v7_rated` (V7Rated:896) obtains `cofkR_cofactorSupply_L_gk_rated` (V7Rated:164)
    in its FIRST line, and that supplier demands `(1 : ℝ)/500 ≤ (R.eps : ℝ)` while the `h` head
    pins `ε = 1/(500·h)` — FALSE at `h ≥ 2`. Its body consumes
    `cofkL_capFreeFloor_at_socket_rated_uniform`, `cofkL_socket_floors` and `cofkL_mu_floor`
@@ -6258,7 +6258,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    (`S16ProducersH:737`) at ONE site, `klevF_capNumeral_h`; every other E leg needs only its own
    `hh7` binder.
    ⭐⭐ **AND THE PRIZE IS PINNED TO THE LANDED OBJECT BY A THEOREM:**
-   `logChowla2_v7_rated_h_one` derives a hand-retyped copy of `V7Rated:976`'s statement from
+   `logChowla2_v7_rated_h_one` derives a hand-retyped copy of `V7Rated:896`'s statement from
    `logChowla2_v7_rated_h 1`, and the `example` beside it inhabits that same statement with the
    landed `logChowla2_v7_rated` itself. The three substitutions are definitional or `norm_num`
    (`1/(500·1)`, `1/(838400·1²)`, and `logChowlaFails 1 = logChowla2Fails`, `ShiftFork:72`).
