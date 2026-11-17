@@ -12,7 +12,7 @@ bytes at the cited line, and the verification command is given so the next reade
 ## ⛔ AMENDMENT 1 — THE γ-COLLAPSE CENSUS IS **FOUR** SITES, NOT THREE
 
 The brief's §"USE EXACT RATIONALS" table names three collapse steps. **There are four.**
-`TBalR8:939-940` is **TBalR8's own Eρ row** — the forked twin of `TBalTall:1644-1645` — and it is
+`TBalR8:939-940` is **TBalR8's own Eρ row** — the forked twin of `TBalTall:984-985` — and it is
 absent from the brief entirely.
 
 ```
