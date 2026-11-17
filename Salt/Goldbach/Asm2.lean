@@ -10,7 +10,8 @@ import Salt.Goldbach.Asm
 
 `gold_hBVblocksW_discharge'` (PDiag) at the operating point with every supplier plugged:
 the box piecewise price (`Final`), the two band prices (`BandPrice`), the geometric
-aggregate with the band-tail slot (`BandClose2`) fed the box `hbox`, the crumb towers
+aggregate with the band-tail slot (`GeoSum.gold_hSum_geo_band`, recorded in `BandClose2`) fed
+the box `hbox`, the crumb towers
 (96/144, `BandRows2`), the two band slot wires (§1 + `Close`), `gold_op_hCE`, the honest
 diagonal row, and the tower close.  The remaining op-ARITHMETIC rows (the D-floors, the
 diag/RCE prices, `hiX`, the scale floors, the log count) enter as named per-`N`

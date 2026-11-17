@@ -259,7 +259,7 @@ theorem gold_band_hlow_slot_at_op_of_SW (hSWall : Salt.BV.SiegelWalfisz)
 (`gold_band_hlow_wide_at_op`) fed to `Surv.gold_band_hlow_tail_discharge`: the low band leg
 `goldPlowK` absorbs to `Wband + BTlow k'`, `Wband := 24·(4^{12}·gboxConst)·Kc·N/(log N)^{12}`,
 `BTlow k' := Σ_k Σ_i goldBandBtailSlot D Q (QR·Dlev) k' i` — exactly the `hlow` input of
-`BandClose2.gold_hSum_geo_band`.  The full item-1 chain, end to end. -/
+`GeoSum.gold_hSum_geo_band`.  The full item-1 chain, end to end. -/
 theorem gold_band_hlow_slot_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 1 ≤ Kc ∧
     ∀ (N : ℕ), x₁ ≤ N → ∀ (Q a Ps : ℕ) (ε₀ QR : ℝ) (Dlev D K : ℕ),
       Nat.Coprime Q Ps → Nat.Coprime Q (N - a) → Nat.Coprime Ps N → 1 ≤ Q →
