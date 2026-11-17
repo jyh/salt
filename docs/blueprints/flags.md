@@ -23144,7 +23144,7 @@ ceremony that followed them:
 
 ```
 logChowla2_ineffective_v6_T0arm   Salt/MR/V7C.lean:179    2026-08-14  8b0bd31  ledger MR/All.lean:7967
-logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1222   2026-08-14  8b03281  ledger MR/All.lean:8002
+logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:905   2026-08-14  8b03281  ledger MR/All.lean:8002
 ```
 
 **FOUR NAMED INNER RIDERS EACH, outer hypotheses none.** `_csarm` (V7-B): the

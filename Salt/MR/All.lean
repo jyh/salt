@@ -8051,7 +8051,7 @@ at one opaque tolerance and one produced window.
 ⟦WHAT MOVED, AND WHAT IT COST⟧ `v7`'s second inner rider, `XCeilRiderStrict ε g`, is a property
 of the function the CALLER supplies as its outer-scale request.  It is not discharged in
 general: it is VOID at `g ≡ 0`, off `Real.log 0 = 0` — the same three-line argument the corpus
-already runs inside `RegisterCompose` (:247-251), `XThread` (:1247) and `V7B` (:1142) to read
+already runs inside `RegisterCompose` (:247-251), `XThread` (:1247) and `V7B` (:825) to read
 the `ε`-ceiling.  The price is in the conclusion: `v7`'s `g R.Hhi R.ω ≤ R.x` conjunct becomes
 `0 ≤ R.x` and is dropped, so the instance makes NO outer-scale demand.  The `∃`-prefix is
 `v7`'s verbatim; the two surviving riders are `v7`'s unchanged.
@@ -8112,7 +8112,7 @@ hypotheses none, at one opaque tolerance and one produced window.
 ⟦WHAT MOVED, AND WHAT IT COST⟧ `…_ksarm`'s first inner rider, `XCeilRiderStrict ε g`, is a
 property of the function the CALLER supplies as its outer-scale request.  It is not discharged
 in general: it is VOID at `g ≡ 0`, off `Real.log 0 = 0` — the same three-line argument the corpus
-already runs inside `RegisterCompose` (:247-251), `XThread` (:1247) and `V7B` (:1142) to read the
+already runs inside `RegisterCompose` (:247-251), `XThread` (:1247) and `V7B` (:825) to read the
 `ε`-ceiling; `xceilRiderStrict_zero` names it so the terminal can cite it.  The price is in the
 conclusion: `…_ksarm`'s `g R.Hhi R.ω ≤ R.x` conjunct becomes `0 ≤ R.x`, vacuous of every regime
 (`R.x : ℕ`), and is DROPPED, so the instance makes NO outer-scale demand.  The `∃`-prefix is
