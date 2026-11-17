@@ -341,9 +341,9 @@ theorem capfloor_floor2 {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
 
 /-- ⟦SIBLING of `capfloor_floor3_numeric_h` (`S13CapGateLinearLH` §1), slack `+8 → +10`⟧ (the former
 `capfloor_floor3_numeric_h`, at `+8`, retired into this, 2026-09-30) — `floor3`'s numeric leg,
-absorbing `log q ≤ log h + 12·loglog H` at `log h ≤ 9`.  BODY: `capfloor_floor3_numeric`'s (below),
-with `+10`.  Moved here from `S13CapGateLinearLH` on 2026-11-17, so that `capfloor_floor3_numeric`
-is its `+ 1` instance. -/
+absorbing `log q ≤ log h + 12·loglog H` at `log h ≤ 9`.  BODY: `capfloor_floor3_numeric`'s (below,
+until 2026-11-17, when it became this line's `+ 1` instance), with `+10`.  Moved here from
+`S13CapGateLinearLH` on 2026-11-17, so that `capfloor_floor3_numeric` is its `+ 1` instance. -/
 theorem capfloor_floor3_numeric_h_10 {v E W : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) (hE : 101 ≤ E)
     (hW : W ≤ 12 * Real.log v + E + 10) :
     E * W ≤ E ^ (3 : ℕ) * (v / 4) ^ (4 : ℕ) := by
