@@ -1230,11 +1230,19 @@ theorem flat_roadExit_generic_h (h : ℕ) (hh : 0 < h) (_hh7 : Real.log (h : ℝ
     FlatRoadExitFormH h P := by
   exact flat_roadExit_generic_h_14 h hh (by linarith) Xi harcXi P hhead
 
-/-- **⟦H1→H2 REPLAY⟧ (class B).**  The capstone `flat_capstone_uniform_win_xceil_kwide_khoist_h`
-(S16ComposeLH.lean) from a generic road exit: body verbatim (the capstone forwards the road's
-regime and the caller's `g` untouched, so it forwards the multiplier and `StrideScale` untouched
-too); `hroadU` is the hypothesis. -/
-theorem flat_capstone_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) (Awin : ℝ)
+/-- **⟦THE COST-8 RUNG'S TERMINAL⟧** (`flat_capstone_generic_h_14`) — `flat_capstone_generic_h`
+at `log h ≤ 14`.  TWO tokens in the body, both supplier swaps: the constant-pool fuse
+(`…_ceiling_kwide_14`) and gate 7 (`arc36_of_regime_h_14`).
+
+⚠️ **`ha1096` IS UNTOUCHED AND MUST STAY THAT WAY.**  It is the STRIDE binder `a ≤ 1096`, a
+DIFFERENT `1096` from the shift cap's, and it arrives by `intro` from the conclusion being proved
+rather than being derived from the cap — rule 3 exempts exactly this shape.  *Two different
+`1096`s live in this corpus and must never be counted together.*
+
+📌 This is the rung's TERMINAL, so `#audit_axioms` on it covers the other eight members by
+transitivity; they are listed beside it in `Salt/MR/All.lean` anyway, because a name that is only
+implied is a name nobody reads. -/
+theorem flat_capstone_generic_h_14 (h : ℕ) (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) (Awin : ℝ)
     (hband : S16BandLaneCBoundedLH_winU h Awin) (P : ChowlaRegime → Prop)
     (hroad : FlatRoadExitFormH h P) :
     FlatCapstoneFormH h Awin P := by
@@ -1251,7 +1259,7 @@ theorem flat_capstone_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ)
     hβ, ?_⟩
   intro K
   obtain ⟨Ct, hCt, hCtb, hfuse⟩ :=
-    m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide h hh hh7 K
+    m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14 h hh hh14 K
   refine ⟨Ct, hCt, hCtb, ?_⟩
   intro A hA26 hAge
   obtain ⟨Hcap, hCapLe, hroad0⟩ := hroadU K A hA26 hAge
@@ -1312,7 +1320,7 @@ theorem flat_capstone_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ)
           (fun H => 2 * ((h : ℝ) ^ 7 * rStrWitness H)) H)
     M k (doorRowFloorL M) hgates hM (fun H => RSanDoorRhoH_nonneg hρpos.le h H)
     (fun H => rStrWitness_mul_nonneg h H) ?_ hgate4 (fun H _ _ => rStrWitness_G1_h h H) ?_
-    (arc36_of_regime_h hh hh7 hllfl) hdgate (fun H _ _ => le_rfl) ?_ ?_ hrow
+    (arc36_of_regime_h_14 hh hh14 hllfl) hdgate (fun H _ _ => le_rfl) ?_ ?_ hrow
   · -- ⟦gate 3c⟧ `0 ≤ Braw`
     intro H
     have hb := m4BclGraded_nonneg (j₀ := doorRowFloorL M)
@@ -1354,6 +1362,16 @@ theorem flat_capstone_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ)
     linarith [hstep, h2, hval2.le, hval2.ge]
   · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
     linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
+
+/-- **⟦H1→H2 REPLAY⟧ (class B).**  The capstone `flat_capstone_uniform_win_xceil_kwide_khoist_h`
+(S16ComposeLH.lean) from a generic road exit: body verbatim (the capstone forwards the road's
+regime and the caller's `g` untouched, so it forwards the multiplier and `StrideScale` untouched
+too); `hroadU` is the hypothesis. -/
+theorem flat_capstone_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) (Awin : ℝ)
+    (hband : S16BandLaneCBoundedLH_winU h Awin) (P : ChowlaRegime → Prop)
+    (hroad : FlatRoadExitFormH h P) :
+    FlatCapstoneFormH h Awin P := by
+  exact flat_capstone_generic_h_14 h hh (by linarith) Awin hband P hroad
 
 /-- **⟦A1 — THE `+ 7` NUMERAL TWIN⟧ (class A, v2).**  `xceil_arm_split_h` (XThread.lean:1046)
 with `+ 7` on the left: `log 2 + log h + 7 ≤ H₊/(250000·h²) − H₊/10²⁰`.  The landed lemma is an
@@ -2211,139 +2229,6 @@ conclusion, weaker hypothesis), so the family is additive and inert.
 `log h ≤ 14`; nothing in the corpus reads them today.  Nothing here proves an estimate, and
 nothing here bears on twin primes. -/
 
-
-/-- **⟦THE COST-8 RUNG'S TERMINAL⟧** (`flat_capstone_generic_h_14`) — `flat_capstone_generic_h`
-at `log h ≤ 14`.  TWO tokens in the body, both supplier swaps: the constant-pool fuse
-(`…_ceiling_kwide_14`) and gate 7 (`arc36_of_regime_h_14`).
-
-⚠️ **`ha1096` IS UNTOUCHED AND MUST STAY THAT WAY.**  It is the STRIDE binder `a ≤ 1096`, a
-DIFFERENT `1096` from the shift cap's, and it arrives by `intro` from the conclusion being proved
-rather than being derived from the cap — rule 3 exempts exactly this shape.  *Two different
-`1096`s live in this corpus and must never be counted together.*
-
-📌 This is the rung's TERMINAL, so `#audit_axioms` on it covers the other eight members by
-transitivity; they are listed beside it in `Salt/MR/All.lean` anyway, because a name that is only
-implied is a name nobody reads. -/
-theorem flat_capstone_generic_h_14 (h : ℕ) (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) (Awin : ℝ)
-    (hband : S16BandLaneCBoundedLH_winU h Awin) (P : ChowlaRegime → Prop)
-    (hroad : FlatRoadExitFormH h P) :
-    FlatCapstoneFormH h Awin P := by
-  obtain ⟨Cg, ε, Kc, δ₀, β, Hopq, hCg, hCgle, hε, hKc, hKcb, hδ₀, hεpin, hδpin, hβ, hroadU⟩ :=
-    hroad
-  obtain ⟨x₀, Cband, hCband0, hCbandwin, hbandsplit⟩ := hband
-  refine ⟨Cg, ε, Kc, δ₀, β, x₀,
-    max Hopq (max arcFloor36 loglogFloor50),
-    s11GradeFloor (Cband * (4 : ℝ) ^ (s13Aexp)
-      * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) + 1),
-    hCg, hε, hKc, hδ₀, s11GradeFloor_one_le _, hCgle,
-    hεpin, hδpin, hKcb,
-    (fun A hA162 hAw => flatDoorM_gradeFloor_win hA162 hCband0 (by linarith)),
-    hβ, ?_⟩
-  intro K
-  obtain ⟨Ct, hCt, hCtb, hfuse⟩ :=
-    m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14 h hh hh14 K
-  refine ⟨Ct, hCt, hCtb, ?_⟩
-  intro A hA26 hAge
-  obtain ⟨Hcap, hCapLe, hroad0⟩ := hroadU K A hA26 hAge
-  refine ⟨max Hcap (max arcFloor36 loglogFloor50), flatCap_join_floor hCapLe, ?_⟩
-  intro Cp hCp a U1floor g ha ha1096 hg
-  obtain ⟨R, hReps, hU1, hRg, hstride, hRx, hRtow, hRcap, hR⟩ :=
-    hroad0 a (max U1floor (max arcFloor36 loglogFloor50)) g ha ha1096 hg
-  refine ⟨R, hReps, le_trans (le_max_left _ _) hU1, hRg, hstride, hRx, hRtow, by omega, ?_⟩
-  intro M hMfloor hKw
-  have hM : 1 ≤ M := le_trans (s11GradeFloor_one_le _) hMfloor
-  obtain ⟨C', hC'pos, hC'le, hbandslot⟩ := hbandsplit K M hM
-  refine ⟨C', hC'pos, s11_grade_absorption'_L _ M hMfloor C' hC'le, ?_⟩
-  intro C₁ M₀ _epsf epsrf Kf k hgates hend hj0 hdgate hfit hbf hgP1 hgRows hthr _heps293
-    hband4096 _hepsr hbase5 hcapraw hbandbase harith
-  -- ⟦the absorbed floor⟧ ⭐ at `h` only `loglogFloor50` is read: `arc36_of_regime_h` routes
-  -- gate 7 off the tower floor, because `arcFloor36` clears `h = 1` by 1.14× and FAILS at `h ≥ 2`.
-  have hllfl : loglogFloor50 ≤ R.Hlo :=
-    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU1
-  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
-    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
-  -- ⟦A1⟧ the socket's own threshold, and its `ρ`
-  obtain ⟨hδs, hδssq, hρpos, hρ1⟩ := door_socket_facts hδ₀ hKc
-  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
-  set ρ : ℝ := doorRhoOfDelta δs with hρdef
-  -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
-  have hbase : ∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-      DoorRowZeroBase_L_gk K M (A + s) j liouvilleC
-        (fun i => memSPunctCoeff (calP (AdoorL M) (s13GK K M))
-          (calQK (AdoorL M) (s13GK K M) M) 2 i liouvilleC) := by
-    intro H L q j A s hb
-    obtain ⟨h1, h2, h3, h4, h5⟩ := hbase5 H L q j A s hb
-    exact ⟨h1, doorRowZeroBase_coefWS_witness_L_gk K (A + s) hM, h2, h3, h4, h5⟩
-  -- ⟦ITEM 11, FROM THE CONSTANT-POOL FUSE⟧ at the door pin `t₁ ≡ 0`
-  have hrow : M4ChiSummedFreeRowH_L_gk h K R M
-      (m4ChiRowGradedH_L h M (fun _ H => RSanDoorRhoH ρ h H)) :=
-    hfuse Cp hCp R M C₁ M₀ epsrf Kf ρ liouvilleC
-      (fun i => memSPunctCoeff (calP (AdoorL M) (s13GK K M))
-        (calQK (AdoorL M) (s13GK K M) M) 2 i liouvilleC)
-      (fun _ _ => (0 : ℝ)) hM hKw hρpos (fun i m => norm_doorPunctCoeffU_le_one_L_gk K M i m)
-      (fun p => liouvilleC_norm_le_one p) hbf hgP1 hgRows hthr _heps293 hband4096 hbase
-      hcapraw (hbandslot R C₁ M₀ hbandbase) harith
-  -- ⟦THE TWO TERMINAL CONJUNCTS⟧
-  have hgate4 : ∀ j H : ℕ, doorRowFloorL M ≤ j →
-      m4ChiRowGradedH_L h M (fun _ H => RSanDoorRhoH ρ h H) j H ≤ RSanDoorRhoH ρ h H :=
-    m4_arith_gate4_rhoH_L h M ρ
-  have hceilconj : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2 * (108 / 5 * RSanDoorRhoH ρ h H)
-        ≤ δs ^ 2 := by
-    intro H hlo hhi
-    exact m4_arith_rs_ceiling_met_of_deltaH hh hδs.ne' (hHreg H hlo hhi).1 (hHreg H hlo hhi).2
-  -- ⟦the road, fired at the share table⟧
-  refine hR δ₀ (δ₀ / (8 * Kc))
-    (m4ChiRowGradedH_L h M (fun _ H => RSanDoorRhoH ρ h H)) (RSanDoorRhoH ρ h)
-    (fun H => (h : ℝ) ^ 7 * rStrWitness H)
-    (fun H => 96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2
-      * m4BclGraded (doorRowFloorL M) (fun H => 2 * RSanDoorRhoH ρ h H)
-          (fun H => 2 * ((h : ℝ) ^ 7 * rStrWitness H)) H)
-    M k (doorRowFloorL M) hgates hM (fun H => RSanDoorRhoH_nonneg hρpos.le h H)
-    (fun H => rStrWitness_mul_nonneg h H) ?_ hgate4 (fun H _ _ => rStrWitness_G1_h h H) ?_
-    (arc36_of_regime_h_14 hh hh14 hllfl) hdgate (fun H _ _ => le_rfl) ?_ ?_ hrow
-  · -- ⟦gate 3c⟧ `0 ≤ Braw`
-    intro H
-    have hb := m4BclGraded_nonneg (j₀ := doorRowFloorL M)
-      (Fan := fun H => 2 * RSanDoorRhoH ρ h H)
-      (Ftr := fun H => 2 * ((h : ℝ) ^ 7 * rStrWitness H)) (H := H)
-      (by have := RSanDoorRhoH_nonneg hρpos.le h H
-          simpa using (by linarith : (0:ℝ) ≤ 2 * RSanDoorRhoH ρ h H))
-      (by have := rStrWitness_mul_nonneg h H
-          simpa using (by linarith : (0:ℝ) ≤ 2 * ((h : ℝ) ^ 7 * rStrWitness H)))
-    positivity
-  · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
-    exact gate6_rhoH_of_j0_floor hh hρ1 hj0
-  · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
-    intro H hlo hhi
-    have hH0 : 0 < H := by have := R.hHlo_floor; omega
-    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloorL M)
-      (Fan := fun H => 2 * RSanDoorRhoH ρ h H)
-      (Ftr := fun H => 2 * ((h : ℝ) ^ 7 * rStrWitness H)) hH0
-      (hfit H hlo hhi)
-    have harc1 : (1 : ℝ) ≤ (h : ℝ) * arcDen 12 H := one_le_hArcDen_of_regime hh hlo
-    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2 := by positivity
-    have hceil := hceilconj H hlo hhi
-    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2
-        * m4BclGraded (doorRowFloorL M) (fun H => 2 * RSanDoorRhoH ρ h H)
-            (fun H => 2 * ((h : ℝ) ^ 7 * rStrWitness H)) H
-        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2
-            * (2 * (m4Cmax H * (2 * RSanDoorRhoH ρ h H))) :=
-      mul_le_mul_of_nonneg_left hle hfac0
-    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2
-          * (2 * (m4Cmax H * (2 * RSanDoorRhoH ρ h H)))
-        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2
-            * (108 / 5 * RSanDoorRhoH ρ h H)) := by
-      unfold m4Cmax
-      ring
-    rw [hval] at hstep
-    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidualH h H ^ 2
-        * (108 / 5 * RSanDoorRhoH ρ h H)) ≤ 2 * δs ^ 2 := by linarith
-    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := s12DeltaSock_sq_two hδ₀ hKc
-    linarith [hstep, h2, hval2.le, hval2.ge]
-  · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
-    linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 /-! ## ⟦β W1 E4⟧ the stride/cap-9 twins (build freeze v2 v1.1, 2026-09-13)
 
