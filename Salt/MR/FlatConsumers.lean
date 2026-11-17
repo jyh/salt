@@ -330,7 +330,7 @@ theorem s13_loglogHhi_le_flat {R : ChowlaRegime}
   linarith
 
 /-- **⟦THE WINDOW CEILING, FLAT, AT THE HONEST `λ₋`⟧** — `s13_loglogHhi_le_tight`
-(`S13FramesA.lean:1098`) at the FLAT tower conjunct: the census window
+(`S13FramesA.lean:1082`) at the FLAT tower conjunct: the census window
 `λ₋ ≤ 81.184` exports `6.6·10¹⁷` in place of `3.92·10⁸`.  `s13_g2_jfloor` and
 `s13_gate8` take `Λ` as a parameter, so they need no twin — they are instantiated
 at this ceiling. -/

@@ -39,11 +39,11 @@ its SIXTEEN residue binders as the landed supply allows, naming every survivor e
 
 | # | binder | discharged from | where |
 |---|---|---|---|
-| 1 | `hgates` | `s13_doorGates_of_MSelect'` + `S15Sel` | `S13MSelect2.lean:406` |
+| 1 | `hgates` | `s13_doorGates_of_MSelect'` + `S15Sel` | `S13MSelect2.lean:391` |
 | 2 | `hend` | `s13_endpoint_of_arm'` (the demoted arm) | `S13FramesA.lean:896` |
 | 3 | `hj0` | `s13_g2_jfloor` at `Λ := loglog H₊` | `S13FramesA.lean:504` |
 | 4 | `hdgate` | `s13_gate8` at `Λ := loglog H₊` | `S13FramesA.lean:532` |
-| 5 | `hfit` | `s13_smallGradeFits_of_MSelect'` | `S13MSelect2.lean:420` |
+| 5 | `hfit` | `s13_smallGradeFits_of_MSelect'` | `S13MSelect2.lean:405` |
 | 6 | `hbf` | `doorBaseFrame_at_socket` | `M4AssemblyFrames.lean` |
 | 7 | `hgP1` | `s15_gP1_of_budget` (CONST-VERDICT §C) | §1 below |
 | 8 | `hgRows` | `s15_gRows_const_at_socket` (CONST-VERDICT §H) | §1 below |

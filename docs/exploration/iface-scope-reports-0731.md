@@ -203,7 +203,7 @@ The register is `S15Sel''_gk` (`Salt/MR/S15Compose.lean:2445`), the live one on 
 | **gP1** | `S15Compose.lean:2469` | `29 + log Ct + 14λ₊ ≤ Adoor M·log2 + log ρ` | `λ₊ ≤ 3.40234e9·(L+1)` (12× slack) | `faceD_gP1` ✅ |
 | **half/winFit** | `S15Compose.lean:2461`; law at `S14Compose.lean:123,309,346` | `0.7·M·Adoor M + 3log(1/ρ) ≤ (log H₋)/2` | **the ONLY M-upper**: `L+1 ≤ λ₋/log2 − 35` | `faceE_half` ✅ |
 | **cap+frame** | `S16Budget.lean:577` + `S13CapGrid.lean:201` + `SeamCalibrationK.lean:181` | `e^{λ₊} = log H₊ ≤ log𝒫₂/12 = 2^K(L+1)M·2^46·log2` | `λ₊ ≤ 1.241e8·(L+1)` — **2.25× sharper than anchor** | `faceF0_size`, `faceF_cap` ✅ |
-| **blk** | `S15Compose.lean:2458`, def `S13FramesA.lean:1133` | `14427+64+8(L+1)+400(A·G·M)² + 1 + 18λ₊ ≤ 4⌊ε²H₊⌋` | K-upper `K ≲ e^{λ₊}/(2log2) ≳ 3.7e21` — **NOT the binder**, ~13 orders looser than the frame | analytic |
+| **blk** | `S15Compose.lean:2458`, def `S13FramesA.lean:1117` | `14427+64+8(L+1)+400(A·G·M)² + 1 + 18λ₊ ≤ 4⌊ε²H₊⌋` | K-upper `K ≲ e^{λ₊}/(2log2) ≳ 3.7e21` — **NOT the binder**, ~13 orders looser than the frame | analytic |
 | **rho / bfloor / mfloor / x0M** | `:2583/:2571/:2569/:2575` | `−log ρ ≤ 1e14`; `24Cg/δ₀ ≤ M`; `Mfl(=2) ≤ M`; `x₀ ≤ 2^{doorRowFloor M}` | no λ-content | — |
 
 **Structure in one line:** every λ₊-cap is `λ₊ ≤ c·Adoor M` (`c` = 1/246.7, 1/242.4, 1/242, 1/20.2, and 1/554 for the cap chain); the single M-upper is `log₂(M·Adoor M) ≤ 1.4427·λ₋ − const`.
@@ -250,7 +250,7 @@ In triple-log terms: register alone `logloglog H₋ ≤ log 20048 = 9.906`; with
 - `S16BaseScaleCap_gk` (`S16Budget.lean:577`) — **carried, underived**, at `/24` with a stated 1.5× margin over what `s16_budget_num` spends. Cheapest of all.
 - `K ≤ 170000000` — 94 sites, kernel-proved re-cuttable (P1c).
 
-**DEFINITIONS = the real knobs:** `Adoor` (`DoorFrame.lean:84`), `doorRowFloor` (`M4DoorRow.lean:472`), `s13GK` (`GLever.lean:59`), `s13BlockExp_gk` (`S13FramesA.lean:1133`).
+**DEFINITIONS = the real knobs:** `Adoor` (`DoorFrame.lean:84`), `doorRowFloor` (`M4DoorRow.lean:472`), `s13GK` (`GLever.lean:59`), `s13BlockExp_gk` (`S13FramesA.lean:1117`).
 
 ## 5. Directions, with honest prices
 
@@ -295,7 +295,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 
 | field | Regime.lean | couples | where read (Salt/MR) | direction |
 |---|---|---|---|---|
-| `hPHheadroom` `8·(4^⌊ε²H₊⌋)²·ω ≤ x` | :116 | **H₊ ↔ x/ω** | `S13MSelect2.lean:112` (`s13_socketBase_xscale`), `:531`, `:647`; `S13FramesA.lean:1043`, `Salt/MR/S13FramesA.lean:1532`; `DoorDischarge.lean:113`; `DoorFloor1500.lean:160` | **x-FLOOR, exponential in H₊** |
+| `hPHheadroom` `8·(4^⌊ε²H₊⌋)²·ω ≤ x` | :116 | **H₊ ↔ x/ω** | `S13MSelect2.lean:112` (`s13_socketBase_xscale`), `:516`, `:648`; `S13FramesA.lean:1027`, `Salt/MR/S13FramesA.lean:1533`; `DoorDischarge.lean:113`; `DoorFloor1500.lean:160` | **x-FLOOR, exponential in H₊** |
 | `hheadroom` `Hhi ≤ x/ω` | :86 | H₊ ↔ x/ω | `S14Compose.lean:315` (inside the socket witness), `M4Close.lean:485/731/911/994`, `M4BridgeCover.lean:373`, `HloExportMR.lean:144/344/510/642`, `M4DoorL2.lean:160/623/697/855` | x-FLOOR, linear in H₊ |
 | `hheadroom'` `8H₊(log H₊)² ≤ x/ω` | :103 | H₊ ↔ x/ω | `Salt/MR/M4SecondRoad.lean:498` (`regime_eight_omega_Hhi_le_x`, the Salt/MR ladder's one consumer since O13-e row 184, 2026-11-15) | x-FLOOR, poly in H₊ |
 | `hHlo_floor` `4·10⁶ ≤ Hlo` | :80 | H₋ | ~81 sites (`S13CapFloor`, `S14Compose:112/235/353/514`, …) | H₋ floor |
@@ -307,7 +307,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 **Never read by the register at all** (kernel-checked by exhaustive grep): `hfit` (:93), `hJcon` (:97), `hcoprime` (:90), `hC0` (:79), `hxbig` (:141), `ha`, `hHlo`. ⚡ **The tower is invisible to the sieve side.** `hJcon`/`hfit` — where the maestro's "λ₊ ≥ λ₋³" originates — are consumed only inside `Salt/Entropy/Chowla/`. The register sees the H-window solely through its two endpoints.
 
 **The non-regime x-floors the register itself imposes** (the "arm/g-lever" reads):
-- `s13GArm_gk K M δ Hhi ω = 2ω(Hhi+2) + 8ω + 4ω·s13BlockFloor_gk K M + ⌈128ω/δ⌉₊` (`S13FramesA.lean:1320`), consumed via the witness conjunct `g R.Hhi R.ω ≤ R.x` (`S15Witness.lean:1885`). `s13BlockFloor_gk = 2^{s13BlockExp_gk}` with `s13BlockExp_gk K M = 14427 + (64+8(log₂M+1)) + 400·(Adoor M·s13GK K M·M)²` (`S13FramesA.lean:1133`) — **double-exponential in K**, linear in H₊.
+- `s13GArm_gk K M δ Hhi ω = 2ω(Hhi+2) + 8ω + 4ω·s13BlockFloor_gk K M + ⌈128ω/δ⌉₊` (`S13FramesA.lean:1304`), consumed via the witness conjunct `g R.Hhi R.ω ≤ R.x` (`S15Witness.lean:1885`). `s13BlockFloor_gk = 2^{s13BlockExp_gk}` with `s13BlockExp_gk K M = 14427 + (64+8(log₂M+1)) + 400·(Adoor M·s13GK K M·M)²` (`S13FramesA.lean:1117`) — **double-exponential in K**, linear in H₊.
 - `s13GK K M = 3072·2^K·M` (`GLever.lean:59`); `Adoor M = 2^36(log₂M+1)` (`DoorFrame.lean:84`).
 
 **And the one x-CEILING:** `S16BaseScaleCap_gk` (`S16Budget.lean:577`) — `∀ H L q j A s, SocketBase R M H L q j A s → loglog(A+s) ≤ log 𝒫₂/24`. Carried, never discharged (`S16Budget.lean:97`, `:913`).

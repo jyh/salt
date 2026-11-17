@@ -1518,7 +1518,7 @@ theorem s13_g2_jfloor_of_MSelect {Cg δ₀ Λ : ℝ} {R : ChowlaRegime} {M : ℕ
     4 * Real.log 263 + 48 * Λ ≤ ((doorRowFloor M : ℕ) : ℝ) := by
   exact s13_g2_jfloor_of_MSelect_gk 0 hM hΛ hS.to_gk0
 
-/-- `s13_MSelect_of_headroom` (:1030) at the lever.  The headroom comparison is unchanged in
+/-- `s13_MSelect_of_headroom` (:1014) at the lever.  The headroom comparison is unchanged in
 shape; it is now read against the LEVERED exponent `s13BlockExp_gk K M`, which is what the
 `4·⌊ε²H₊⌋₊ + 1` hypothesis must clear. -/
 theorem s13_MSelect_of_headroom_gk (K : ℕ) {Cg δ₀ Λ : ℝ} {R : ChowlaRegime} {M : ℕ}
@@ -1545,7 +1545,7 @@ theorem s13_MSelect_of_headroom_gk (K : ℕ) {Cg δ₀ Λ : ℝ} {R : ChowlaRegi
     nlinarith [hcast, hfield, hω0]
   exact_mod_cast hchain
 
-/-- `s13_doorGates_of_MSelect` (:1059) at the lever. -/
+/-- `s13_doorGates_of_MSelect` (:1043) at the lever. -/
 theorem s13_doorGates_of_MSelect_gk (K : ℕ) {Cg δ Λ : ℝ} {R : ChowlaRegime} {M : ℕ}
     (hM : 1 ≤ M) (hδ : 0 < δ) (hS : MSelect_gk K Cg δ Λ R M)
     (harm : s13GArm' δ R.Hhi R.ω ≤ R.x) :

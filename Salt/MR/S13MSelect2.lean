@@ -583,7 +583,7 @@ theorem s13_gate8_of_MSelect'_gk (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaReg
   have h := hS.gRows
   nlinarith [hΛ, h, hlog2]
 
-/-- `s13_g2_jfloor_of_MSelect' (:391)` at the lever. -/
+/-- `s13_g2_jfloor_of_MSelect' (:602)` at the lever. -/
 theorem s13_g2_jfloor_of_MSelect'_gk (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ} (hM : 1 ≤ M)
     (hΛ : 1 ≤ Λ) (hS : MSelect'_gk K Cg δ₀ Λ ρ R M) :
     4 * Real.log 263 + 48 * Λ ≤ ((doorRowFloor M : ℕ) : ℝ) := by
@@ -604,14 +604,14 @@ theorem s13_g2_jfloor_of_MSelect' {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M :
     4 * Real.log 263 + 48 * Λ ≤ ((doorRowFloor M : ℕ) : ℝ) := by
   exact s13_g2_jfloor_of_MSelect'_gk 0 hM hΛ hS.to_gk0
 
-/-- `s13_doorGates_of_MSelect' (:406)` at the lever. -/
+/-- `s13_doorGates_of_MSelect' (:391)` at the lever. -/
 theorem s13_doorGates_of_MSelect'_gk (K : ℕ) {Cg δ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ}
     (hM : 1 ≤ M) (hδ : 0 < δ) (hS : MSelect'_gk K Cg δ Λ ρ R M)
     (harm : s13GArm' δ R.Hhi R.ω ≤ R.x) :
     M4DoorGates_gk K Cg R M (doorCount R.ω) δ :=
   s13_doorGates_of_arm'_gk K hM hδ hS.bfloor harm hS.blockCeil
 
-/-- `s13_smallGradeFits_of_MSelect' (:420)` at the lever. -/
+/-- `s13_smallGradeFits_of_MSelect' (:405)` at the lever. -/
 theorem s13_smallGradeFits_of_MSelect'_gk (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ}
     (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hS : MSelect'_gk K Cg δ₀ Λ ρ R M) :
     ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
@@ -633,7 +633,7 @@ At the certified point `(7/10)·j₀ = 1.43·10³²` against `½·log H₋ = 9.5
 clears with 665× slack, and the `G`-side charge is `6.5·10³`.  Nothing here reads a numeral
 the tables do not carry. -/
 
-/-- `s13_MSelect'_of_headroom (:507)` at the lever. -/
+/-- `s13_MSelect'_of_headroom (:492)` at the lever. -/
 theorem s13_MSelect'_of_headroom_gk (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ}
     (hbf : 24 * Cg / δ₀ ≤ (M : ℝ))
     (hgr : 242 * Λ ≤ (Adoor M : ℝ))
@@ -660,7 +660,7 @@ theorem s13_MSelect'_of_headroom_gk (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : Chowla
     nlinarith [hcast, hfield, hω0]
   exact_mod_cast hchain
 
-/-- `s13_MSelect'_of_halfWindow (:537)` at the lever. -/
+/-- `s13_MSelect'_of_halfWindow (:522)` at the lever. -/
 theorem s13_MSelect'_of_halfWindow_gk (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo)
     (hbf : 24 * Cg / δ₀ ≤ (M : ℝ))
