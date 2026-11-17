@@ -736,10 +736,10 @@
    REPAIR-THEN-FIRE (no FATAL), v1.1 cut at the freeze 20:5x (`35eaadcb`), fired 20:59, landed 21:17 in four path-limited
    commits (`9433f402` Walls 14/14 · `a9f0838a` ReceiptG 11/11 · `fe028ee0` ShellG 1/1 · `5d1de440` GradeReceipt 1/1 + the
    37 audit rows). **Every one of the 37 names `[propext, Classical.choice, Quot.sound]`**; the K5 control RECORDED (the arm
-   with `13·10^13` left landed at the wider `c` FAILS at `hstep`'s own `nlinarith`, XThread:436's twin — one step before the
+   with `13·10^13` left landed at the wider `c` FAILS at `hstep`'s own `nlinarith`, XThread:442's twin — one step before the
    freeze's predicted :482); the exit test §7.1 whole (the six-path diff against `9a2b3053`, the excluding diff EMPTY, the
    minus lines exactly the 27 `sorry`, statements 14/18/2/3 byte-identical to the freeze, both aggregates `EXIT=0`, lint
-   `OK`). Two lines the recipe did not carry, both ABOVE the arm's `theorem` and copied from the landed `XThread.lean:290`
+   `OK`). Two lines the recipe did not carry, both ABOVE the arm's `theorem` and copied from the landed `XThread.lean:291`
    shape: `open private xt_exp25 from Salt.MR.XThread` and `set_option maxHeartbeats 2000000 in`. salt `math/lbv-w2s-beta`
    off `9a2b3053`: `Salt/MR/StrideGradeWalls.lean` (14) · `Salt/MR/StridePairReceiptG.lean` (7 defs + 11) ·
    `Salt/Entropy/Chowla/StrideShellG.lean` (2) · `Salt/MR/StrideGradeReceipt.lean` (3) = **37 declarations, 27 obligations
