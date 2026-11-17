@@ -61,9 +61,9 @@ From ⟦THE H-BLOCK FREEZE v2⟧, verbatim, as extended by ⟦AMENDMENT V2⟧ re
 The two faces below keep the arms separate by construction:
 
 * `halasz_direct_center` — the **ball arm**, `c = 1/(2e)`, citing
-  `SeamBallWeighted.sigma_cutoff_pretentious_half` (:392).
+  `SeamBallWeighted.sigma_cutoff_pretentious_half` (:459).
 * `halasz_direct_center_gen` — the **§8.3/L3 arm**, `c = 1/e`, citing
-  `SeamBallWeighted.sigma_cutoff_pretentious_of_gen` (:416).
+  `SeamBallWeighted.sigma_cutoff_pretentious_of_gen` (:483).
 
 ## ⟦THE POSITIVITY TRAP, SHARPENED (new, this file)⟧
 
@@ -188,7 +188,7 @@ theorem window_sup_decay_center {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g 
 
 /-! ## §2 — the majorant's interval integrability
 
-`HalaszDirect.sigma_core_intervalIntegrable` (:216) is `private` to its file; the statement is
+`HalaszDirect.sigma_core_intervalIntegrable` (:292) is `private` to its file; the statement is
 re-derived here byte-for-byte (Iron rule 1, the private-lemma restatement law). -/
 
 /-- Local copy of `HalaszDirect.sigma_core_intervalIntegrable` (`private` there).  The σ-cutoff
@@ -420,7 +420,7 @@ theorem halasz_direct_center_gen {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g
 
 /-! ## §5 — the hint-free faces
 
-`BallSup.intervalIntegrable_seam_lseries_div` (:611) discharges the socketed integrability
+`BallSup.intervalIntegrable_seam_lseries_div` (:620) discharges the socketed integrability
 hypothesis; it needs only `0 < logX` and `1/logX ≤ b` (checked against its statement — it does
 NOT need `b ≤ 1`, `X > 0`, or any window). -/
 

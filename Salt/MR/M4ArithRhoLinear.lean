@@ -89,7 +89,7 @@ theorem m4_chiSummedFreeRow_of_doorArithRho_L {R : ChowlaRegime} {M : ℕ}
 /-! ## §3 — THE ARITHMETIC EXIT, AT THE LINEAR DOOR -/
 
 /-- **⟦A4ρ — THE ARITHMETIC EXIT, AT THE LINEAR DOOR⟧** (`m4_arith_door_exit_rho_L`).
-`M4ArithRho.m4_arith_door_exit_rho` (:793) at `AdoorL`.  ⟦ii⟧ moves to the LINEAR floor
+`M4ArithRho.m4_arith_door_exit_rho` (:827) at `AdoorL`.  ⟦ii⟧ moves to the LINEAR floor
 `doorRowFloorL M`; ⟦iii⟧ is door-FREE and is the landed statement verbatim. -/
 theorem m4_arith_door_exit_rho_L {R : ChowlaRegime} {M : ℕ}
     {Cs Ccc C₁ M₀ ε : ℕ → ℝ} {K ρ δ₀ : ℝ}
@@ -127,7 +127,7 @@ theorem m4_arith_door_exit_rho_L {R : ChowlaRegime} {M : ℕ}
   exact m4_arith_rs_ceiling_met_rho hρ hρδ hL0 hlam
 
 /-- **⟦A4ρ — THE ARITHMETIC EXIT AT THE CONSUMER'S `ρ`, AT THE LINEAR DOOR⟧**
-(`m4_arith_door_exit_of_delta_L`).  `M4ArithRho.m4_arith_door_exit_of_delta` (:831) at
+(`m4_arith_door_exit_of_delta_L`).  `M4ArithRho.m4_arith_door_exit_of_delta` (:865) at
 `AdoorL`: `ρ := doorRhoOfDelta δ₀`, ceiling hypothesis discharged by construction. -/
 theorem m4_arith_door_exit_of_delta_L {R : ChowlaRegime} {M : ℕ}
     {Cs Ccc C₁ M₀ ε : ℕ → ℝ} {K δ₀ : ℝ}

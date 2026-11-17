@@ -21,7 +21,7 @@ item the dossier priced with genuine risk): the `(χ, t)`-pair analogue of
 ## What the stone is
 
 `ramQChi_graded_count` is the graded **uniformisation** of the landed raw pair count
-`USetChi.ramQChi_large_count` (:440), exactly as `ramQ_graded_count` is the graded
+`USetChi.ramQChi_large_count` (:457), exactly as `ramQ_graded_count` is the graded
 uniformisation of `USetThinTL.ramQ_large_count`.  The raw count is fed at the block's
 own graded level `V_v := exp(α·v/H)` and the three `v`-dependencies are removed:
 

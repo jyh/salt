@@ -30,7 +30,7 @@ Reading the chain end to end:
 * **`BallSup.budget_le_half` / `exp_budget_le` (:141–193) are radius-free by construction**
   (the KC-A23B finding, confirmed here): their only datum is `u = f·n^{−it₁}`, the CENTRE
   twist.  The `7/8`-page analogue (here the honest `1/2`-cut) never sees `|t − t₁|`.
-* **The radius is pinned in exactly ONE place**: `BallSup.ball_sup_of_center` (:473) fixes
+* **The radius is pinned in exactly ONE place**: `BallSup.ball_sup_of_center` (:482) fixes
   `seamRad X` in its `hball` binder, and it enters the proof at exactly two monotone steps —
   `BallSup.ballErr_le`'s majorant (`r ≤ seamRad X` inside `ballLterm`) and the payment of the
   weight (`1 + |t − t₁| ≤ 1 + seamRad X`).  Both are monotone in the radius, so the twin at a
@@ -348,7 +348,7 @@ theorem band_sup_of_center {N : ℕ} {a f : ℕ → ℂ} {X R t₁ S₀ : ℝ}
 
 /-! ## §3 (B-1′) — the crown: the free-centre, free-radius, `y`-generic supply -/
 
-/-- **B-1′ — `band_sup_supplied_Y`.**  `SupplyGeneric.ball_sup_supplied_Y` (:263) with the
+/-- **B-1′ — `band_sup_supplied_Y`.**  `SupplyGeneric.ball_sup_supplied_Y` (:234) with the
 radius FREED and the annulus binders dropped: §2 fed by the `y`-generic, centre-uniform
 centre supply `SupplyGeneric.center_halasz_supply_Y`.
 

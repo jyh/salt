@@ -8,13 +8,13 @@ import Salt.MR.CaseASocket
 /-!
 # `GradedCapstone` — the graded `hU` row with NO socket (`hUG34_unconditional`)
 
-`USetGradedPrice.hUG34_fully_priced` (:956) is the graded seam row's `𝒰`-leg fully priced —
+`USetGradedPrice.hUG34_fully_priced` (:963) is the graded seam row's `𝒰`-leg fully priced —
 conditional on ONE named page, the CASE-A window-floor supply at the `y₂` truncation height,
 carried there as the hypothesis
 
   `∀ j ∈ ramI …, ∀ t, CaseASocket2 g P Q (1/e) Cb X θ₂₉₃ (kk j) (Mt j) t`.
 
-`CaseASocket.caseASocket2_discharged` (:914) PROVES that page.  This file is the composition:
+`CaseASocket.caseASocket2_discharged` (:885) PROVES that page.  This file is the composition:
 the same row, byte-for-byte, with the socket binder GONE.
 
 ## The transplant device

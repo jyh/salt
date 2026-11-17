@@ -16,7 +16,7 @@ heritage; this file supplies the honest replacements alongside them.
 
 ## The defect being repaired
 
-`SeamSplit.ball_leg_of_sup` (:362) bounds the ball leg by `measure × sup²`, i.e.
+`SeamSplit.ball_leg_of_sup` (:372) bounds the ball leg by `measure × sup²`, i.e.
 `2r·(2S)²` with `r = seamRad X = (log X)^{1/46}`.  HSUP-SCOPE's numerics: at the live band
 `1 ≤ M < (1/16)·loglog X` the `r`-factor DIVERGES against the `e^{−2cM}` gain (the exit is
 `(log X)^{+0.0395}` at the top of the band).  MRT's Appendix A.7 never takes a sup: the

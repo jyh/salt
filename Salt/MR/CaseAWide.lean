@@ -273,7 +273,7 @@ lemma caseASwide_nonneg {c Cb M Xw Xa : ℝ} (hc1 : 2 * c < 1) (hCb0 : 0 ≤ Cb)
   linarith
 
 /-- **E-1b AT `y₂`, ON THE WIDE WINDOW** (`caseA_partial_supply_wide`).
-`CaseASocket.caseA_partial_supply2` (:773) with `center_halasz_supply_YA` replaced by §1's
+`CaseASocket.caseA_partial_supply2` (:744) with `center_halasz_supply_YA` replaced by §1's
 wide hoist: the twisted partial sums of the DAMPED datum are linear with `caseASwide` at every
 scale of `[Xw, 2Xa]`, **uniformly over the damping parameter `x ∈ [0,1]`**.
 

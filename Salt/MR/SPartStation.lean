@@ -54,7 +54,7 @@ DILATED scales `⌊k/d⌋`, the tail (`d > D`) to the trivial bound `k·cSq·D^{
 `BallSup` :623/:650 carry `LSeries (ellLin (seamCoeff (ellLin g) …))` statements — the
 identity `ellLin ∘ ellLin = ellLin` at the `ellLin` datum, where `sPart = δ`.  At a general
 `F` those are DIFFERENT OBJECTS and are NEVER touched here.  What IS consumed is
-`BallSup.ball_sup_of_center` (:473), whose hypothesis list is
+`BallSup.ball_sup_of_center` (:482), whose hypothesis list is
 `hf1`/`hfmul`/`hfle`/`hsupp`/`hDatum`/`hCenter`/`hMball` — every one of them a property of
 the ABSTRACT datum `f`, with no `ellLin` and no `seamCoeff` anywhere in the statement.  The
 interface is datum-free; §4 instantiates it at `f := seamCoeff F 1 t₀` with no adapter.

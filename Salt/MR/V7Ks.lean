@@ -91,7 +91,7 @@ theorem capfloor_floor4_of_regimeWin {R : ChowlaRegime} {M H L q j A s Nd : ℕ}
 
 /-! ## §2 — ⟦HOP 7⟧ the floor wave, windowed
 
-`S16ComposeV4.s13CapFloor_all_L_gk_sharpT0` (:670) with `hKs : e^{-100} ≤ Ks` replaced by
+`S16ComposeV4.s13CapFloor_all_L_gk_sharpT0` (:588) with `hKs : e^{-100} ≤ Ks` replaced by
 `0 < Ks` + the regime window.  The only proof edit is the `floor4` entry. -/
 
 /-- ⟦`Ks`-WINDOWED TWIN⟧ (`s13CapFloor_all_L_gk_sharpT0_kswin`) —
