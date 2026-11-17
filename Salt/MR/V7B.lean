@@ -92,8 +92,8 @@ open scoped LSeries.notation
 
 `per_pair_contour` passes `shifted_edge_price_strip`'s `c_vk` through verbatim, so
 `RiderTrace.shifted_edge_price_strip_bounded`'s `1/10^9 ≤ c_vk` survives the whole assembly.
-Since O13-e row 211 the proof is `per_pair_contour_of` (in `HalaszPrimesCore`) at the bounded
-strip, shared with `per_pair_contour`; the new conjunct is the strip's own. -/
+Since O13-e row 211 the proof is `per_pair_contour_of`, shared with `per_pair_contour`
+(`HalaszPrimesCore.lean:2827`), at the bounded strip; the new conjunct is the strip's own. -/
 
 section V7BPerPair
 open Complex Salt.SW Salt.Vk Metric intervalIntegral
