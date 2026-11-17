@@ -135,7 +135,7 @@ artifact as of 2026-07" — falsified by Gate.lean:150.
 
 ## D7 — The χ-twist question (Vk chain × ¬F): NO direct combination; the four needs
 
-`zeta_zero_free_region_pow` (GROUNDED GrowthPow.lean:1042-1045: ζ-zeros of height
+`zeta_zero_free_region_pow` (GROUNDED GrowthPow.lean:426-429: ζ-zeros of height
 ≥ T₀ obey Re ρ ≤ 1 − c/((log|Im ρ|)^(3/4)(loglog|Im ρ|)^3)) and `zeta_lower_all_t`
 (GROUNDED ZetaLowerAllT.lean:273-277: c''/((log(|t|+3))^(3/4)(loglog(|t|+16))^4) ≤
 ‖ζ(1+d'+it)‖, d' ∈ [0,1], pole point excluded) are ζ-ONLY, t-aspect statements; ¬F is
