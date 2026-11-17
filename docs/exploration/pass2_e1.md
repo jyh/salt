@@ -38,7 +38,7 @@ derives reality of F-witnesses from the same landed ZFR.
 | `LFunction_one_re_le_mvt` / `_sharp` | `Salt/SW/SiegelFinal.lean:106-109` (27√f(1+log f)); `Salt/SW/SiegelClose.lean:461-464` ((1−β)·25e(1+log f)²) | zero ⟹ L(1) CAP |
 | `L1_lower_siegel` | `Salt/SW/DHCore.lean:808-816` | deep zero ⟹ L(1) ≥ 0.27(1−β₀)(2−β₀), guard-gated |
 | `LFunction_one_re_ge_partial`, `dh_repulsion_partial` | `Salt/SW/DHClose.lean:105-109,154-160` | unconditional truncation/repulsion |
-| `dh_repulsion_ordered` (effective b,c,k) | `Salt/SW/TBalR8.lean:1752-1759` (constants built :1768-1779) | real zero repels complex zeros |
+| `dh_repulsion_ordered` (effective b,c,k) | `Salt/SW/TBalR8.lean:1784-1791` (constants built :1768-1779) | real zero repels complex zeros |
 | SW chain: `psi1_char_bound` → `psi1AP_main_bound` → `siegelWalfisz_holds` | `Salt/SW/CharDispatch.lean:317-324`, `Salt/SW/Fold.lean:157-174,282-311`, `Salt/SW/Gate.lean:150` | the gate |
 | `NoSiegelZeros`/`IMSZ`/HB defs + equivalences | `Salt/TwinBar/SiegelTwin.lean:76-98,111-131` | dichotomy frame |
 | MV vol. 3 (staged) | `docs/sources/montgomery3.txt` | classical grounding (below) |
@@ -139,7 +139,7 @@ effective class-number bounds h(−d) ≫ √d/log d (MEMORY; no corpus consumer
   registered HB-ENGINE campaign and `HeathBrownStatement` (`SiegelTwin.lean:92`) target
   the OTHER arm. Under ¬F, `HeathBrownDichotomy` (`SiegelTwin.lean:97`) resolves to its
   right disjunct (via D2) — with NO twin-prime yield. ¬F buys constants, not twins.
-- Deuring–Heilbronn as leverage: `dh_repulsion_ordered` (TBalR8.lean:1752) and the T-BAL
+- Deuring–Heilbronn as leverage: `dh_repulsion_ordered` (TBalR8.lean:1784) and the T-BAL
   product stay true (unconditional, effective constants) but their intended fuel — a β₀
   of extreme quality boosting the ZFR — has no witnesses above Q₀. Classical mirror:
   Cor 28.15 (montgomery3.txt:21743-21757) becomes vacuous when β₁ doesn't exist.

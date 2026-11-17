@@ -120,7 +120,7 @@ machinery beneath them is ledger-audited at `Salt/Vk/All.lean:52`.
 
 | Theorem (Lean name) | Plain statement (one line) | File:line | Date landed | Commit | Axioms |
 |---|---|---|---|---|---|
-| `Salt.SW.dh_repulsion_ordered` | **Deuring–Heilbronn repulsion**, explicit `(b, c, k)`: a real-character Siegel zero `β₀` repels every nearby zero, on the `16/17` window, ordered `Re ρ ≤ β₀`. | Salt/SW/TBalR8.lean:2523 | 2026-07-18 | `1a5f70e5` | 3 (Salt/SW/All.lean:152) |
+| `Salt.SW.dh_repulsion_ordered` | **Deuring–Heilbronn repulsion**, explicit `(b, c, k)`: a real-character Siegel zero `β₀` repels every nearby zero, on the `16/17` window, ordered `Re ρ ≤ β₀`. | Salt/SW/TBalR8.lean:2555 | 2026-07-18 | `1a5f70e5` | 3 (Salt/SW/All.lean:152) |
 | `Salt.Fulcrum.not_fulcrum_implies_noSiegelZeros` | The dichotomy's unconditional half: `¬ FulcrumQualityMin C` yields `NoSiegelZeros` (for C > 0; some c > 0 with β ≤ 1 − c/log q for every real zero of every real primitive character; c is a bare existential reached by contradiction; no numeral is extracted). | Salt/Fulcrum/Dichotomy.lean:82 | 2026-07-19 | `8b1b2176` | 3 (Salt/Fulcrum/All.lean:55) |
 | `Salt.Fulcrum.fulcrum_dichotomy` | **The Fulcrum dichotomy**: given the Heath-Brown engine at threshold `C` as a hypothesis, `TwinPrimeConjecture ∨ NoSiegelZeros`. | Salt/Fulcrum/Dichotomy.lean:102 | 2026-07-19 | `8b1b2176` | 3 (Salt/Fulcrum/All.lean:55) |
 | `Salt.HB.hb_l2c_master_unconditional` | The L2c master, fully unconditional: the `hb_lemma2` conclusion from the bare four-hypothesis packet — no `hcount`, no `hLz0`, no residual. | Salt/HB/L2cMasterUncond.lean:85 | 2026-07-19 | `bdb7eef8` | 3 (Salt/HB/All.lean:85) |
