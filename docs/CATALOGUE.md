@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `41d84092` · source digest `81c31937be7c6753` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `c8d7467e` · source digest `71bfc32e3edbad5e` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23437 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23436 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -6701,8 +6701,8 @@ Declarations indexed across the tree: 23437 · corpus Prop-valued names (the hyp
 | `Salt.SW.norm_LFunction_sub_partial_le_strip` | Salt/SW/StripConvergence.lean:438 | sieves |
 | `Salt.SW.dhW_detector_floor_beta0` | Salt/SW/TBalClose.lean:43 | sieves, characters |
 | `Salt.SW.dh_balance_beta0_real` | Salt/SW/TBalClose.lean:76 | sieves, characters |
-| `Salt.SW.dh_extraction_upper_rho_tall` | Salt/SW/TBalCompose.lean:511 | sieves, characters |
-| `Salt.SW.dh_extraction_upper_rho` | Salt/SW/TBalCompose.lean:639 | sieves, characters |
+| `Salt.SW.dh_extraction_upper_rho_tall` | Salt/SW/TBalCompose.lean:489 | sieves, characters |
+| `Salt.SW.dh_extraction_upper_rho` | Salt/SW/TBalCompose.lean:617 | sieves, characters |
 | `Salt.SW.norm_LFunction_one_eq_re` | Salt/SW/TBalFinal.lean:42 | sieves, characters |
 | `Salt.SW.sum_mul_index_eq_rho` | Salt/SW/TBalFinal.lean:63 | sieves |
 | `Salt.SW.kernel_abel_sum_rho` | Salt/SW/TBalFinal.lean:91 | sieves |
