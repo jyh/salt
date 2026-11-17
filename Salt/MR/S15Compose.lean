@@ -1361,38 +1361,6 @@ theorem s15_socketBase_inhabited' {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : C
     s14_window_floor_of_winFit hρ0 hρ1 (hS.winFit R.Hlo le_rfl R.hHlohi)
   exact s14_socketBase_witness (le_trans hwin R.hHlohi)
 
-/-- **⟦THE NEXT-TIGHTEST CAP, AFTER THE REPAIR⟧** (`s15_sel'_anchor_cap`) — ERR-REF's probe C
-at the sharp register, with the width law taken as a hypothesis rather than re-derived (the
-tower modules are not in this file's import closure; `WIDTH-SCOPE`'s
-`probe_regime_width_forced` supplies it at `C0 = 2`, `a = 1`, `λ₋ ≥ 50`).
-
-`S15Sel'.anchor` is now the tightest `λ₊`-cap the register carries: `λ₊ ≤ 2.7857·10⁸`, which
-against `λ₊ ≥ λ₋³` reads `λ₋ ≤ 654` — SATISFIED at the working point `λ₋ ≈ 50`.  The deleted
-`err` line read `λ₊ ≤ 24849`, i.e. `λ₋ ≤ 29.2`, and was NOT satisfiable there: that is the
-whole difference between this conditional and §5's/§8's.
-
-⟦THIS IS NOT A WITNESS⟧ it says the register is not empty FOR THE REASON it was empty; the
-`∃M` discharge (`blk`/`half`/`gRows`/`gP1`/`lvl` against the twin's opaque constants) is a
-separate piece of work and is not attempted. -/
-theorem s15_sel'_anchor_cap {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
-    (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
-    (h50 : 50 ≤ Real.log (Real.log (R.Hlo : ℝ)))
-    (hwidth : (Real.log (Real.log (R.Hlo : ℝ))) ^ 3 ≤ Real.log (Real.log (R.Hhi : ℝ)))
-    (hsel : S15Sel' Cg δ₀ Ct ρ x₀ Mfl R M) :
-    Real.log (Real.log (R.Hlo : ℝ)) ≤ 654 := by
-  have hlρ : (0 : ℝ) ≤ Real.log (1 / ρ) := by
-    rw [one_div, Real.log_inv]
-    have : Real.log ρ ≤ 0 := Real.log_nonpos hρ0.le hρ1
-    linarith
-  have hanc := hsel.anchor
-  set u : ℝ := Real.log (Real.log (R.Hlo : ℝ)) with hudef
-  by_contra hcon
-  rw [not_le] at hcon
-  have hsq : (654 : ℝ) ^ 2 ≤ u ^ 2 := by nlinarith [hcon, h50]
-  have hcube : (279726264 : ℝ) ≤ u ^ 3 := by nlinarith [hsq, hcon, h50]
-  norm_num at hanc hlρ ⊢
-  linarith [hwidth, hcube, hanc, hlρ]
-
 /-- **⟦THE REGISTER SUPPLY, SHARP⟧** (`S15SupplySharp`) — §8's `S15SupplyGraded` with the
 `M`-floor absorbed into the register.  TWO conjuncts: the selection register and the crossing
 bound. -/
@@ -2240,6 +2208,14 @@ structure S15Sel'_gk (K : ℕ) (Cg δ₀ Ct ρ : ℝ) (x₀ Mfl : ℕ) (R : Chow
       + (-Real.log ρ)
     ≤ (1 / 12) * ((Adoor M : ℕ) : ℝ) * Real.log 2
 
+/-- `S15Sel'` is `S15Sel'_gk` at `K = 0`: the two differ only in `blk` and `lvl`, where
+`s13BlockExp_gk 0 M = s13BlockExp M` and `s13GK 0 M = 3072 * M` (`s13GK_zero`). -/
+theorem S15Sel'.to_gk0 {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
+    (h : S15Sel' Cg δ₀ Ct ρ x₀ Mfl R M) : S15Sel'_gk 0 Cg δ₀ Ct ρ x₀ Mfl R M :=
+  { h with
+    blk := by simpa only [s13BlockExp_gk, s13GK_zero, s13BlockExp] using h.blk
+    lvl := by simpa only [s13GK_zero] using h.lvl }
+
 /-- `S15Sel'.head (:1249)` at the lever. -/
 theorem S15Sel'_gk.head {K : ℕ} {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
     (hsel : S15Sel'_gk K Cg δ₀ Ct ρ x₀ Mfl R M)
@@ -2395,6 +2371,27 @@ theorem s15_sel'_anchor_cap_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ}
   have hcube : (279726264 : ℝ) ≤ u ^ 3 := by nlinarith [hsq, hcon, h50]
   norm_num at hanc hlρ ⊢
   linarith [hwidth, hcube, hanc, hlρ]
+
+/-- **⟦THE NEXT-TIGHTEST CAP, AFTER THE REPAIR⟧** (`s15_sel'_anchor_cap`) — ERR-REF's probe C
+at the sharp register, with the width law taken as a hypothesis rather than re-derived (the
+tower modules are not in this file's import closure; `WIDTH-SCOPE`'s
+`probe_regime_width_forced` supplies it at `C0 = 2`, `a = 1`, `λ₋ ≥ 50`).
+
+`S15Sel'.anchor` is now the tightest `λ₊`-cap the register carries: `λ₊ ≤ 2.7857·10⁸`, which
+against `λ₊ ≥ λ₋³` reads `λ₋ ≤ 654` — SATISFIED at the working point `λ₋ ≈ 50`.  The deleted
+`err` line read `λ₊ ≤ 24849`, i.e. `λ₋ ≤ 29.2`, and was NOT satisfiable there: that is the
+whole difference between this conditional and §5's/§8's.
+
+⟦THIS IS NOT A WITNESS⟧ it says the register is not empty FOR THE REASON it was empty; the
+`∃M` discharge (`blk`/`half`/`gRows`/`gP1`/`lvl` against the twin's opaque constants) is a
+separate piece of work and is not attempted. -/
+theorem s15_sel'_anchor_cap {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
+    (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
+    (h50 : 50 ≤ Real.log (Real.log (R.Hlo : ℝ)))
+    (hwidth : (Real.log (Real.log (R.Hlo : ℝ))) ^ 3 ≤ Real.log (Real.log (R.Hhi : ℝ)))
+    (hsel : S15Sel' Cg δ₀ Ct ρ x₀ Mfl R M) :
+    Real.log (Real.log (R.Hlo : ℝ)) ≤ 654 := by
+  exact s15_sel'_anchor_cap_gk 0 hρ0 hρ1 h50 hwidth hsel.to_gk0
 
 /-- `S15SupplySharp (:1434)` at the lever. -/
 def S15SupplySharp_gk (K : ℕ) (Cg δ₀ Ct ρ : ℝ) (x₀ Mfl : ℕ) (R : ChowlaRegime) : Prop :=

@@ -431,16 +431,9 @@ spine's `hMδ` floor `24·Cg/δ₀` by the window scale `log H₋`, because `hal
 `bfloor` is a floor on the same `M`.  Sharpened by `anchor` (which through the compose's
 `9/2` tower caps `λ₋`), this is the exact arithmetic the road must beat. -/
 
-/-- **⟦THE REGISTER'S `b`-FLOOR CEILING⟧** (`s15_sel'_bfloor_window`) — every inhabitant of
-the sharp register caps the spine's `hMδ` floor by the window:
-
-`24·Cg/δ₀ ≤ M ≤ log H₋ / (1.4·2^36)`.
-
-`half` (⟦`M`-UPPER 2⟧) gives the right inequality through `doorRowFloor M = M·A(M) ≥ M·2^36`
-and `log(1/ρ) ≥ 0`; `bfloor` (⟦`M`-LOWER 1⟧) gives the left.  No constant bound is assumed:
-this is a statement ABOUT the register, true wherever it is true. -/
-theorem s15_sel'_bfloor_window {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
-    (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hsel : S15Sel' Cg δ₀ Ct ρ x₀ Mfl R M) :
+/-- `s15_sel'_bfloor_window (:399)` at the lever. -/
+theorem s15_sel'_bfloor_window_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
+    (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hsel : S15Sel'_gk K Cg δ₀ Ct ρ x₀ Mfl R M) :
     24 * Cg / δ₀ ≤ Real.log ((R.Hlo : ℕ) : ℝ) / (14 / 10 * 2 ^ 36) := by
   have hlρ : (0 : ℝ) ≤ Real.log (1 / ρ) := by
     rw [one_div, Real.log_inv]
@@ -458,6 +451,19 @@ theorem s15_sel'_bfloor_window {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : Chow
     rw [le_div_iff₀ (by norm_num)]
     linarith [hhalf, hdrf, hlρ]
   exact le_trans hsel.bfloor hM
+
+/-- **⟦THE REGISTER'S `b`-FLOOR CEILING⟧** (`s15_sel'_bfloor_window`) — every inhabitant of
+the sharp register caps the spine's `hMδ` floor by the window:
+
+`24·Cg/δ₀ ≤ M ≤ log H₋ / (1.4·2^36)`.
+
+`half` (⟦`M`-UPPER 2⟧) gives the right inequality through `doorRowFloor M = M·A(M) ≥ M·2^36`
+and `log(1/ρ) ≥ 0`; `bfloor` (⟦`M`-LOWER 1⟧) gives the left.  No constant bound is assumed:
+this is a statement ABOUT the register, true wherever it is true. -/
+theorem s15_sel'_bfloor_window {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
+    (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hsel : S15Sel' Cg δ₀ Ct ρ x₀ Mfl R M) :
+    24 * Cg / δ₀ ≤ Real.log ((R.Hlo : ℕ) : ℝ) / (14 / 10 * 2 ^ 36) := by
+  exact s15_sel'_bfloor_window_gk 0 hρ0 hρ1 hsel.to_gk0
 
 /-- **⟦THE WINDOW, AT THE TOWER-CERTIFIABLE `λ₋`⟧** (`s15_sel'_bfloor_window_num`) — the same
 read with the window scale pinned at a numeral.
@@ -1401,27 +1407,6 @@ theorem s15_sel'_witness_gk (K : ℕ) (hKle : K ≤ 170000000) {Cg δ₀ Ct Kc :
       linarith [h, hlog2hi]
     have hρ' : -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) ≤ 36 := hρlog
     nlinarith only [hlog2lo, hQ, hlog2hi, hAd, hρlog, hhi, (Nat.cast_nonneg _ : 0 ≤ ↑(Adoor M))]
-
-/-- `s15_sel'_bfloor_window (:399)` at the lever. -/
-theorem s15_sel'_bfloor_window_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
-    (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hsel : S15Sel'_gk K Cg δ₀ Ct ρ x₀ Mfl R M) :
-    24 * Cg / δ₀ ≤ Real.log ((R.Hlo : ℕ) : ℝ) / (14 / 10 * 2 ^ 36) := by
-  have hlρ : (0 : ℝ) ≤ Real.log (1 / ρ) := by
-    rw [one_div, Real.log_inv]
-    have : Real.log ρ ≤ 0 := Real.log_nonpos hρ0.le hρ1
-    linarith
-  have hdrf : ((M : ℕ) : ℝ) * 2 ^ 36 ≤ ((doorRowFloor M : ℕ) : ℝ) := by
-    have h : M * 2 ^ 36 ≤ doorRowFloor M := by
-      calc M * 2 ^ 36 ≤ M * Adoor M := Nat.mul_le_mul_left _ (Adoor_ge M)
-        _ = doorRowFloor M := rfl
-    have h' : ((M * 2 ^ 36 : ℕ) : ℝ) ≤ ((doorRowFloor M : ℕ) : ℝ) := by exact_mod_cast h
-    calc ((M : ℕ) : ℝ) * 2 ^ 36 = ((M * 2 ^ 36 : ℕ) : ℝ) := by push_cast; ring
-      _ ≤ _ := h'
-  have hhalf := hsel.half
-  have hM : ((M : ℕ) : ℝ) ≤ Real.log ((R.Hlo : ℕ) : ℝ) / (14 / 10 * 2 ^ 36) := by
-    rw [le_div_iff₀ (by norm_num)]
-    linarith [hhalf, hdrf, hlρ]
-  exact le_trans hsel.bfloor hM
 
 /-- `s15_sel'_bfloor_window_num (:437)` at the lever. -/
 theorem s15_sel'_bfloor_window_num_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ}
