@@ -2337,21 +2337,42 @@ theorem euler_tailW (k M D : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D) :
         field_simp
         ring
 
-omit [TupleChoice] in
-/-- Free-`(D,W')` form of `collision_lower_order`. -/
-theorem collision_lower_orderW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ) (f₀ : ℕ → ℝ)
-    (hf01 : ∀ n, 0 ≤ f₀ n ∧ f₀ n ≤ 1)
-    (hfmono : ∀ d m : ℕ, d ∣ m → 0 < d → f₀ m ≤ f₀ d)
-    (hy : ∀ r, y r = if r ∈ kSieveIndex k R W' then ∏ i, f₀ (r i) else 0)
+/-- **W5-1 (Node A).** The one tensor-dependent atom of the S1 collision
+bound, isolated behind an abstract hypothesis. This is the exact conclusion of
+`inner_abs_le` (`CollisionQuant.lean`), universally quantified over the
+squarefree modulus `s` and the prime-to-slot assignment `α`. Supplying
+`S1InnerBound k R W' y` makes the whole S1 collision assembly `y`-generic: the
+landed tensor weight is one instance (`inner_abs_le ... ⟹ S1InnerBound`), but
+any `y` satisfying this bound (plus off-support vanishing `hy0`) drives the same
+conclusions. -/
+def S1InnerBound (k R W' : ℕ) (y : (Fin k → ℕ) → ℝ) : Prop :=
+  ∀ {s : ℕ}, Squarefree s →
+    ∀ (α : (p : ℕ) → p ∈ s.primeFactors → Fin k × Fin k),
+      α ∈ assignments k s →
+    |∑ u ∈ kSieveIndex k R W', (∏ i, (Nat.totient (u i) : ℝ))
+        * ((∏ i, ((μ (Nat.lcm (u i) (slotProd s α Prod.fst i)) : ℤ) : ℝ))
+            * y (fun i => Nat.lcm (u i) (slotProd s α Prod.fst i))
+            / ∏ i, (Nat.totient (Nat.lcm (u i) (slotProd s α Prod.fst i)) : ℝ))
+        * ((∏ i, ((μ (Nat.lcm (u i) (slotProd s α Prod.snd i)) : ℤ) : ℝ))
+            * y (fun i => Nat.lcm (u i) (slotProd s α Prod.snd i))
+            / ∏ i, (Nat.totient (Nat.lcm (u i) (slotProd s α Prod.snd i)) : ℝ))|
+      ≤ 3 ^ s.primeFactors.card
+          * (∏ p ∈ s.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
+          * ∑ r ∈ kSieveIndex k R W', (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ)
+
+omit [Salt.Maynard.TupleChoice] in
+/-- `y`-generic form of `collision_lower_orderW`: the tensor weight is
+replaced by the abstract atom `hInner : S1InnerBound k R W' y` (plus off-support
+vanishing `hy0`). Body is the landed proof with the single `inner_abs_le` call
+swapped for `hInner`. -/
+theorem collision_lower_orderW_of (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
+    (hy0 : ∀ r, r ∉ kSieveIndex k R W' → y r = 0)
+    (hInner : S1InnerBound k R W' y)
     (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hk : 1 ≤ k) (hDk : 12 * k ^ 2 ≤ D) :
     |s1CollisionForm k R W' y|
       ≤ 12 * (k : ℝ) ^ 2 / (D : ℝ)
           * ∑ r ∈ kSieveIndex k R W', (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) := by
   classical
-  have hf0 : ∀ n, 0 ≤ f₀ n := fun n => (hf01 n).1
-  have hy0 : ∀ r, r ∉ kSieveIndex k R W' → y r = 0 := by
-    intro r hr
-    rw [hy r, if_neg hr]
   have hyside : 0 ≤ ∑ r ∈ kSieveIndex k R W',
       (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) := s1_yside_nonneg k R W' y
   have hk2 : 1 ≤ k ^ 2 := Nat.one_le_pow _ _ hk
@@ -2452,7 +2473,7 @@ theorem collision_lower_orderW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ) (f
                 (slotProd t α Prod.fst) (slotProd t α Prod.snd)
               unfold s1Summand
               rw [hinner]
-              exact inner_abs_le k R W' y f₀ hf0 hfmono hy hsq α hα
+              exact hInner hsq α hα
           _ = ((assignments k t).card : ℝ)
                 * ((3 : ℝ) ^ t.primeFactors.card
                   * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
@@ -2470,7 +2491,7 @@ theorem collision_lower_orderW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ) (f
             have h1 : (k * k - k : ℕ) ≤ k * k := Nat.sub_le _ _
             calc ((k * k - k : ℕ) : ℝ) ≤ ((k * k : ℕ) : ℝ) := by exact_mod_cast h1
               _ = (k : ℝ) * (k : ℝ) := by push_cast; ring
-          nlinarith
+          linarith only [hle]
       calc |((μ t : ℤ) : ℝ)
             * ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
                 (if t ∣ cRad d e then s1Summand k R W' y d e else 0)|
@@ -2481,7 +2502,7 @@ theorem collision_lower_orderW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ) (f
             have h2 := abs_nonneg (∑ d ∈ kSieveIndex k R W',
               ∑ e ∈ kSieveIndex k R W',
                 (if t ∣ cRad d e then s1Summand k R W' y d e else 0))
-            nlinarith
+            nlinarith only [h1, h2]
         _ ≤ ((assignments k t).card : ℝ)
               * ((3 : ℝ) ^ t.primeFactors.card
                 * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
@@ -2565,6 +2586,24 @@ theorem collision_lower_orderW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ) (f
           * ∑ r ∈ kSieveIndex k R W',
               (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) :=
         mul_le_mul_of_nonneg_right htail hyside
+
+omit [TupleChoice] in
+/-- Free-`(D,W')` form of `collision_lower_order`. -/
+theorem collision_lower_orderW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ) (f₀ : ℕ → ℝ)
+    (hf01 : ∀ n, 0 ≤ f₀ n ∧ f₀ n ≤ 1)
+    (hfmono : ∀ d m : ℕ, d ∣ m → 0 < d → f₀ m ≤ f₀ d)
+    (hy : ∀ r, y r = if r ∈ kSieveIndex k R W' then ∏ i, f₀ (r i) else 0)
+    (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hk : 1 ≤ k) (hDk : 12 * k ^ 2 ≤ D) :
+    |s1CollisionForm k R W' y|
+      ≤ 12 * (k : ℝ) ^ 2 / (D : ℝ)
+          * ∑ r ∈ kSieveIndex k R W', (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) := by
+  classical
+  have hf0 : ∀ n, 0 ≤ f₀ n := fun n => (hf01 n).1
+  have hy0 : ∀ r, r ∉ kSieveIndex k R W' → y r = 0 := by
+    intro r hr
+    rw [hy r, if_neg hr]
+  exact collision_lower_orderW_of k R W' D y hy0
+    (fun hsq α hα => inner_abs_le k R W' y f₀ hf0 hfmono hy hsq α hα) hDlt hk hDk
 
 omit [TupleChoice] in
 /-- Free-`(D,W')` form of `crossCollisionControlled_holds`. -/
