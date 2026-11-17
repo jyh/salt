@@ -12,7 +12,7 @@ import Salt.MR.CenterGrade
 
 `PinFamily2`'s RESIDUAL 1: `CenterSupply.ball_sup_supplied` carries the CORPUS pin
 `y = (log k)^4`, `η = 1/log((log k)^4)` LITERALLY inside its `hRHS` binder
-(`CenterSupply` :316–321), so `PinFamily2.hRHS_socket_star2` — the ready `y₂`-shaped
+(`CenterSupply` :395–400), so `PinFamily2.hRHS_socket_star2` — the ready `y₂`-shaped
 object — cannot feed it.  This file is the `y`-GENERIC TWIN CHAIN that unblocks it.
 
 **Iron rule 1 is respected literally**: no landed statement is touched, no existing file is
@@ -20,8 +20,8 @@ edited.  Every stone below is a NEW twin at a FREE split point `Y : ℝ → ℝ`
 
 ## WHERE THE PIN IS ACTUALLY CONSUMED (the audit)
 
-Reading `CenterSupply.center_halasz_supply` (:164–298) end-to-end, `(log k)^4` enters at
-exactly TWO places, and NEITHER is structural:
+Reading `CenterSupply.center_halasz_supply`'s proof (`center_halasz_supply_uniform`, :143–235)
+end-to-end, `(log k)^4` enters at exactly TWO places, and NEITHER is structural:
 
 1. **the `S1′` representation** — `LambdaMass.prop21_uniform_at_scale_absC` is invoked at
    the pin.  But that stone is itself a thin instance of `prop21_unconditional_uniform_absC`
@@ -79,7 +79,7 @@ open scoped BigOperators
 /-! ## §3 — THE `HCENTER` CLOSURE AT A FREE `Y` -/
 
 /-- **THE `y`-GENERIC CENTRE SUPPLY (`center_halasz_supply_Y`).**
-`CenterSupply.center_halasz_supply` (:164) with the split point a FREE function
+`CenterSupply.center_halasz_supply` (:266) with the split point a FREE function
 `Y : ℝ → ℝ`, the grade factor abstracted to an opaque nonneg `B`
 (`GradeWindowC.center_halasz_supply_B_uniform`'s device) and the threshold quantified
 BEFORE the centre `t₁` (`SupStation`'s hoisting):
