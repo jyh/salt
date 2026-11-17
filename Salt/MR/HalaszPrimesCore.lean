@@ -1979,14 +1979,17 @@ lemma truncKernel_const_le {P : ℝ} (hP : 2 ≤ P) :
 set_option maxHeartbeats 800000 in
 -- The strip generalization threads the same threshold/disc-core assembly as `shifted_edge_price`
 -- across `x ∈ [1−w, 1+w]`; the default budget is tight for the packaged case split.
-/-- The strip form of the shifted-edge price: constants `c_vk`, `CE`, `T₀` such that, for
-`T ≥ T₀`, the zeros of `ζ` up to height `5 * T + 1` keep the margin `c_vk` over
-`(log (5T+1)) ^ (3/4) * (log log (5T+1)) ^ 3`, and `‖logDeriv Zc (x + γ * I)‖` is at most `CE`
-times `(log (5T+1)) ^ (3/4) * (log log (5T+1)) ^ 4` for `|γ| ≤ 5 * T` and `x` within half the
-margin of `1`. Route: `rect_zero_free_margin`, `shifted_edge_disc_core_gen` at large `|γ|`, a
-compact bound below. Read once in this file; no consumer outside it. -/
-theorem shifted_edge_price_strip :
-    ∃ (c_vk CE T₀ : ℝ), 0 < c_vk ∧ 0 < CE ∧ 3 ≤ T₀ ∧
+/-- `shifted_edge_price_strip` for ANY `(c_vk, T₁)` with `rect_zero_free_margin`'s property
+(`hmarg`), exporting `T₁ ≤ T₀` as well: the proof of both `shifted_edge_price_strip` and
+its bounded twin `shifted_edge_price_strip_bounded` (RiderTrace), since O13-e row 191
+(2026-11-16). -/
+theorem shifted_edge_price_strip_of (c_vk T₁ : ℝ) (hc_vk0 : 0 < c_vk) (hT₁ : 3 ≤ T₁)
+    (hmarg : ∀ (T : ℝ), T₁ ≤ T →
+          0 < (Real.log (5 * T)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T))) ^ (3 : ℕ) ∧
+          ∀ ρ : ℂ, riemannZeta ρ = 0 → |ρ.im| ≤ 5 * T →
+            ρ.re ≤ 1 - c_vk / ((Real.log (5 * T)) ^ ((3 : ℝ) / 4)
+                * (Real.log (Real.log (5 * T))) ^ (3 : ℕ))) :
+    ∃ (CE T₀ : ℝ), 0 < CE ∧ 3 ≤ T₀ ∧ T₁ ≤ T₀ ∧
       (∀ (T : ℝ), T₀ ≤ T → ∀ ρ : ℂ, riemannZeta ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
           ρ.re ≤ 1 - c_vk / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
             * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ))) ∧
@@ -1999,7 +2002,6 @@ theorem shifted_edge_price_strip :
         ‖logDeriv Zc ((x : ℂ) + (γ : ℂ) * Complex.I)‖
           ≤ CE * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
               * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) := by
-  obtain ⟨c_vk, T₁, hc_vk0, hT₁, hmarg⟩ := rect_zero_free_margin
   obtain ⟨K, t₀K, hK, ht₀K, hg⟩ := Salt.Vk.zeta_growth_pow
   set H : ℝ := Real.exp (Real.exp (8 * Real.log (20000 * K) + 1100)) + t₀K + 3 with hHdef
   have hH0 : 0 ≤ H := by
@@ -2009,7 +2011,8 @@ theorem shifted_edge_price_strip :
   set CE : ℝ := (10 ^ 8 + 200 / c_vk) + (|C₀| + 1) with hCEdef
   set T₀ : ℝ := max (max T₁ 3) (Real.exp (Real.exp Cbig)) with hT₀def
   have hCE0 : 0 < CE := by rw [hCEdef]; positivity
-  refine ⟨c_vk, CE, T₀, hc_vk0, hCE0, le_trans (le_max_right _ _) (le_max_left _ _), ?_, ?_⟩
+  refine ⟨CE, T₀, hCE0, le_trans (le_max_right _ _) (le_max_left _ _),
+    le_trans (le_max_left T₁ 3) (le_max_left _ _), ?_, ?_⟩
   · -- the margin clause (used by RES/ASM)
     intro T hT ρ hρ0 hρim
     have hTT₁ : T₁ ≤ T + 1 / 5 := by
@@ -2136,6 +2139,30 @@ theorem shifted_edge_price_strip :
         _ = CE * 1 := (mul_one _).symm
         _ ≤ CE * (LT ^ ((3 : ℝ) / 4) * ℓT ^ (4 : ℕ)) :=
             mul_le_mul_of_nonneg_left hD41 hCE0.le
+
+/-- The strip form of the shifted-edge price: constants `c_vk`, `CE`, `T₀` such that, for
+`T ≥ T₀`, the zeros of `ζ` up to height `5 * T + 1` keep the margin `c_vk` over
+`(log (5T+1)) ^ (3/4) * (log log (5T+1)) ^ 3`, and `‖logDeriv Zc (x + γ * I)‖` is at most `CE`
+times `(log (5T+1)) ^ (3/4) * (log log (5T+1)) ^ 4` for `|γ| ≤ 5 * T` and `x` within half the
+margin of `1`. Route: `rect_zero_free_margin`, `shifted_edge_disc_core_gen` at large `|γ|`, a
+compact bound below. Read once in this file; no consumer outside it. -/
+theorem shifted_edge_price_strip :
+    ∃ (c_vk CE T₀ : ℝ), 0 < c_vk ∧ 0 < CE ∧ 3 ≤ T₀ ∧
+      (∀ (T : ℝ), T₀ ≤ T → ∀ ρ : ℂ, riemannZeta ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
+          ρ.re ≤ 1 - c_vk / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+            * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ))) ∧
+      ∀ (T x γ : ℝ), T₀ ≤ T →
+          1 - (c_vk / 2) / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)) ≤ x →
+          x ≤ 1 + (c_vk / 2) / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)) →
+          |γ| ≤ 5 * T →
+        ‖logDeriv Zc ((x : ℂ) + (γ : ℂ) * Complex.I)‖
+          ≤ CE * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) := by
+  obtain ⟨c_vk, T₁, hc_vk0, hT₁, hmarg⟩ := rect_zero_free_margin
+  obtain ⟨CE, T₀, hCE0, hT₀3, -, hm, hb⟩ := shifted_edge_price_strip_of c_vk T₁ hc_vk0 hT₁ hmarg
+  exact ⟨c_vk, CE, T₀, hc_vk0, hCE0, hT₀3, hm, hb⟩
 
 set_option maxHeartbeats 12800000 in
 -- The full contour assembly (four sub-bounds + orientation glue) is heavy; the disc-core-grade

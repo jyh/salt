@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `03aa4512` · source digest `3f1ccd25a091e995` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `d827db08` · source digest `efe95cf4c108b15e` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -1703,7 +1703,7 @@ Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_hSum_at_op` | Salt/Goldbach/Agg.lean:77 | sieves |
 | `Salt.Goldbach.gold_mainA3_of_block_remainders_W` | Salt/Goldbach/Agg2.lean:53 | sieves |
 | `Salt.Goldbach.gold_band_hsym_slot_full` | Salt/Goldbach/Asm.lean:178 | sieves |
-| `Salt.Goldbach.gold_hBVblocksW_final` | Salt/Goldbach/Asm2.lean:261 | sieves |
+| `Salt.Goldbach.gold_hBVblocksW_final` | Salt/Goldbach/Asm2.lean:260 | sieves |
 | `Salt.Goldbach.gold_hBVblocksW_at_op_closed` | Salt/Goldbach/Asm3.lean:504 | sieves |
 | `Salt.Goldbach.goldbach_of_hypotheses_W` | Salt/Goldbach/Asm4.lean:358 | sieves |
 | `Salt.Goldbach.goldTriplePrimeSumW_le_sifted` | Salt/Goldbach/Asm5.lean:34 | sieves |
@@ -1719,6 +1719,7 @@ Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_band_sym_kp_floor` | Salt/Goldbach/BandClose.lean:123 | sieves |
 | `Salt.Goldbach.gold_band_geoN_inputs` | Salt/Goldbach/BandClose.lean:151 | sieves |
 | `Salt.Goldbach.gold_band_survsum_geoN_floored` | Salt/Goldbach/BandClose.lean:266 | sieves |
+| `Salt.Goldbach.gold_hSum_geo_band` | Salt/Goldbach/BandClose2.lean:51 | sieves |
 | `Salt.Goldbach.gold_band_price_sym` | Salt/Goldbach/BandEng.lean:67 | sieves |
 | `Salt.Goldbach.gold_band_price_low` | Salt/Goldbach/BandEng.lean:98 | sieves |
 | `Salt.Goldbach.gold_hdiffK_sym_discharge` | Salt/Goldbach/BandEng.lean:134 | sieves |
@@ -1804,10 +1805,9 @@ Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_box_hprice_at_min` | Salt/Goldbach/Final.lean:313 | sieves |
 | `Salt.Goldbach.gold_box_hbox_at_min` | Salt/Goldbach/Final.lean:351 | sieves |
 | `Salt.Goldbach.gold_hBVblocksW_at_op` | Salt/Goldbach/Final2.lean:55 | sieves |
-| `Salt.Goldbach.gold_boxPriceKerr_geo` | Salt/Goldbach/GeoSum.lean:68 | sieves |
-| `Salt.Goldbach.gold_goldCut_geosum` | Salt/Goldbach/GeoSum.lean:178 | sieves |
-| `Salt.Goldbach.gold_hSum_geo_band` | Salt/Goldbach/GeoSum.lean:201 | sieves |
-| `Salt.Goldbach.gold_hSum_geo` | Salt/Goldbach/GeoSum.lean:400 | sieves |
+| `Salt.Goldbach.gold_boxPriceKerr_geo` | Salt/Goldbach/GeoSum.lean:65 | sieves |
+| `Salt.Goldbach.gold_goldCut_geosum` | Salt/Goldbach/GeoSum.lean:175 | sieves |
+| `Salt.Goldbach.gold_hSum_geo` | Salt/Goldbach/GeoSum.lean:205 | sieves |
 | `Salt.Goldbach.gold_boxPriceKerr_geoN` | Salt/Goldbach/GeoSum2.lean:52 | sieves |
 | `Salt.Goldbach.gold_box_hprice_at` | Salt/Goldbach/Glue.lean:69 | sieves |
 | `Salt.Goldbach.gold_box_hbox_at` | Salt/Goldbach/Glue.lean:131 | sieves |
@@ -3370,8 +3370,8 @@ Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hyp
 | `Salt.MR.shifted_edge_price` | Salt/MR/HalaszPrimesCore.lean:1511 | zeros, characters |
 | `Salt.MR.window_dominates` | Salt/MR/HalaszPrimesCore.lean:1685 | sieves, characters |
 | `Salt.MR.prime_power_discard` | Salt/MR/HalaszPrimesCore.lean:1795 | sieves, characters |
-| `Salt.MR.error_double_row` | Salt/MR/HalaszPrimesCore.lean:2885 | characters |
-| `Salt.MR.absorb_arith` | Salt/MR/HalaszPrimesCore.lean:3310 | characters |
+| `Salt.MR.error_double_row` | Salt/MR/HalaszPrimesCore.lean:2912 | characters |
+| `Salt.MR.absorb_arith` | Salt/MR/HalaszPrimesCore.lean:3337 | characters |
 | `Salt.MR.shifted_dirichlet_ftc` | Salt/MR/HalaszRep.lean:121 | zeros, characters |
 | `Salt.MR.line_integral_tsum_swap` | Salt/MR/HalaszRep.lean:231 | characters |
 | `Salt.MR.ellLin_split` | Salt/MR/HalaszRepAsm.lean:142 | characters |
@@ -7852,11 +7852,11 @@ Declarations indexed across the tree: 23434 · corpus Prop-valued names (the hyp
 | `Salt.MR.halasz_primes_chi_hybridHeight` | Salt/MR/HalaszPrimesChi.lean:307 | characters | `Salt.MR.WellSpaced` |
 | `Salt.MR.halasz_primes_chi_fibres` | Salt/MR/HalaszPrimesChi.lean:443 | characters | `Salt.MR.FibreWellSpaced` |
 | `Salt.MR.pole_row_sum` | Salt/MR/HalaszPrimesCore.lean:736 | characters | `Salt.MR.WellSpaced` |
-| `Salt.MR.pole_double_row` | Salt/MR/HalaszPrimesCore.lean:2828 | characters | `Salt.MR.WellSpaced` |
-| `Salt.MR.dual_core` | Salt/MR/HalaszPrimesCore.lean:2941 | sieves, characters | `Salt.MR.WellSpaced` |
-| `Salt.MR.dual_assembly` | Salt/MR/HalaszPrimesCore.lean:3062 | characters | `Salt.MR.WellSpaced` |
-| `Salt.MR.halasz_primes_primal_raw` | Salt/MR/HalaszPrimesCore.lean:3088 | characters | `Salt.MR.WellSpaced` |
-| `Salt.MR.halasz_primes_pow` | Salt/MR/HalaszPrimesCore.lean:3390 | characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.pole_double_row` | Salt/MR/HalaszPrimesCore.lean:2855 | characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.dual_core` | Salt/MR/HalaszPrimesCore.lean:2968 | sieves, characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.dual_assembly` | Salt/MR/HalaszPrimesCore.lean:3089 | characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.halasz_primes_primal_raw` | Salt/MR/HalaszPrimesCore.lean:3115 | characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.halasz_primes_pow` | Salt/MR/HalaszPrimesCore.lean:3417 | characters | `Salt.MR.WellSpaced` |
 | `Salt.MR.m4_second_road_L2_gk_flatRoot` | Salt/MR/HloExportMRFlatRoot.lean:318 | characters | `Salt.MR.M4DoorGates_gk`, `Salt.MR.M4ChiSummedFreeRow_gk` |
 | `Salt.MR.dpolyChi_fibre_gallagher` | Salt/MR/HybridLargeValues.lean:268 | characters | `Salt.MR.WellSpaced` |
 | `Salt.MR.hybrid_wellspaced_l2_family` | Salt/MR/HybridLargeValues.lean:347 | characters | `Salt.MR.WellSpaced` |
