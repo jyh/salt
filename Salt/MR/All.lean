@@ -7200,8 +7200,8 @@ with every consumer bridge re-routed.  The third, `s15_gate8_gk`, is `s13_gate8_
 
 ⟦THE STRUCTURAL MOVE⟧ six landed proofs on this layer read the anchor only through
 `2^36 ≤ A` (or `1 ≤ A`) and the `G`-slot only through `1 ≤ G`.  Rather than replay each
-twice they are stated ONCE at a SYMBOLIC anchor — `s13_sieveBlockGate_gen`,
-`s13_gate8_gen`, `s13_doorRowZeroBase_five_gen`, `s13_winFit_of_halfWindow_gen`,
+twice they are stated ONCE at a SYMBOLIC anchor — `s13_sieveBlockGate_gen`, `s13_gate8_gen`,
+`s13_doorRowZeroBase_five_gen`, `s13_winFit_of_halfWindow_gen` (now in `S13MSelect2`),
 `capfloor_one_lt_QK2_gen`, `capfloor_QTann_gen`/`capfloor_kappa30Q_gen` — and both cuts
 are instances.  Landed declarations are untouched; the `G`-slot never moves. -/
 #audit_axioms Salt.MR.flatDoorM_ge_pow355

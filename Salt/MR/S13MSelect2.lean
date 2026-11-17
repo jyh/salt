@@ -47,8 +47,8 @@ place of `winFloor`; `absorb` is DELETED, and its content re-homed as §2's
   `loglog A ≥ 6500`, then `abs8640` at the socket base and at every base above it.
 * §3 — `MSelect'`, the four-field system.
 * §4 — the consumer bridges, re-routed at `MSelect'`.
-* §5 — the `winFit` discharge (the half-window floor) and the satisfaction theorems.
--/
+* §5 — the `winFit` discharge (the half-window floor) and the satisfaction theorems; the
+  discharge is `s13_winFit_of_halfWindow_gen`, and `s13_winFit_of_halfWindow` its instance. -/
 
 open Salt.Entropy.Chowla
 
