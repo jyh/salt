@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `148cccf1` · source digest `89442bdffa1bbc6c` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `8a3e5445` · source digest `8c8e16537c6b1d11` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -5907,10 +5907,10 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin` | Salt/MR/V7Ks.lean:247 | characters |
 | `Salt.MR.logChowla2_ineffective_v7_ksarm` | Salt/MR/V7Ks.lean:429 | characters |
 | `Salt.MR.logChowla2_ineffective_v7_of_ksarm` | Salt/MR/V7Ks.lean:540 | characters |
-| `Salt.MR.cofkR_cushion_of_armVt` | Salt/MR/V7Rated.lean:165 | characters |
-| `Salt.MR.cofkR_cofactorSupply_L_gk_rated` | Salt/MR/V7Rated.lean:244 | characters |
-| `Salt.MR.logChowla2_v7_rated` | Salt/MR/V7Rated.lean:976 | characters |
-| `Salt.MR.logChowla2_ineffective_v7_ksarm_g0_of_rated` | Salt/MR/V7Rated.lean:1058 | characters |
+| `Salt.MR.cofkR_cushion_of_armVt` | Salt/MR/V7Rated.lean:85 | characters |
+| `Salt.MR.cofkR_cofactorSupply_L_gk_rated` | Salt/MR/V7Rated.lean:164 | characters |
+| `Salt.MR.logChowla2_v7_rated` | Salt/MR/V7Rated.lean:896 | characters |
+| `Salt.MR.logChowla2_ineffective_v7_ksarm_g0_of_rated` | Salt/MR/V7Rated.lean:978 | characters |
 | `Salt.MR.s16_baseScaleCapEnd_LH_of_xceil` | Salt/MR/V7RatedH.lean:167 | characters |
 | `Salt.MR.klevF_capNumeral_h_b9` | Salt/MR/V7RatedH.lean:372 | characters |
 | `Salt.MR.cofkR_cofactorSupply_L_gk_rated_h_b9` | Salt/MR/V7RatedH.lean:481 | characters |
@@ -7547,7 +7547,8 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.MR.m4_arith_henv_rho_L` | Salt/MR/ArithPageLinear.lean:912 | characters | `Salt.MR.DoorArithFrameRho_L`, `Salt.MR.SocketBaseL` |
 | `Salt.MR.cofkL_scale_gate_at_socket` | Salt/MR/BandRatedSocket.lean:99 | characters | `Salt.MR.SocketBaseL` |
 | `Salt.MR.cofkL_threshold_at_socket_rated` | Salt/MR/BandRatedSocket.lean:192 | characters | `Salt.MR.SocketBaseL` |
-| `Salt.MR.cofkL_capFreeFloor_at_socket_rated` | Salt/MR/BandRatedSocket.lean:293 | characters | `Salt.MR.SocketBaseL` |
+| `Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform` | Salt/MR/BandRatedSocket.lean:285 | characters | `Salt.MR.SocketBaseL` |
+| `Salt.MR.cofkL_capFreeFloor_at_socket_rated` | Salt/MR/BandRatedSocket.lean:370 | characters | `Salt.MR.SocketBaseL` |
 | `Salt.MR.nearRat_mono` | Salt/MR/BigXiArc.lean:188 | characters | `Salt.MR.NearRat` |
 | `Salt.MR.exists_large_den_of_not_nearRat` | Salt/MR/BigXiArc.lean:274 | characters | `¬Salt.MR.NearRat` |
 | `Salt.MR.exists_large_den_of_minor` | Salt/MR/BigXiArc.lean:331 | characters | `¬Salt.MR.NearRat` |
@@ -8841,7 +8842,6 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.MR.s13CapFloor_all_L_gk_sharpT0_kswin` | Salt/MR/V7Ks.lean:100 | characters | `Salt.MR.SocketBase` |
 | `Salt.MR.s16_capGate_supply_L_gk_sharpT0_kswin` | Salt/MR/V7Ks.lean:148 | characters | `Salt.MR.S16BaseScaleCap96_L_gk`, `Salt.MR.S16CofactorSupply_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
 | `Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin` | Salt/MR/V7Ks.lean:290 | characters | `Salt.MR.S16BandLaneCBoundedL_winU` |
-| `Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform` | Salt/MR/V7Rated.lean:76 | characters | `Salt.MR.SocketBaseL` |
 | `Salt.MR.s16_baseScaleCap96_LH_of_end` | Salt/MR/V7RatedH.lean:256 | characters | `Salt.MR.S16BaseScaleCapEnd_LH_gk` |
 | `Salt.MR.cofkL_socket_floors_h_b9` | Salt/MR/V7RatedH.lean:332 | characters | `Salt.MR.SocketBaseLH` |
 | `Salt.MR.flat_head_uniform_xceil_of_standoff` | Salt/MR/V7SiegelFree.lean:65 | characters | `Salt.SW.NoSiegelZerosAt`, `Salt.Entropy.Chowla.XCeilRider`, `Salt.Entropy.Chowla.MRTUniformityXiL2` |
