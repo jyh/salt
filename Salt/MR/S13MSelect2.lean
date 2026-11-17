@@ -438,15 +438,14 @@ At the certified point `(7/10)·j₀ = 1.43·10³²` against `½·log H₋ = 9.5
 clears with 665× slack, and the `G`-side charge is `6.5·10³`.  Nothing here reads a numeral
 the tables do not carry. -/
 
-/-- **⟦THE TRUE WINDOW GATE, DISCHARGED⟧** (`s13_winFit_of_halfWindow`) — field ⟦4⟧ from the
-HALF-window floor at `H₋` plus the capstone's absorbed `loglogFloor50`.  The `H`-propagation
-is free: `log H₋ ≤ log H` and the `G`-side is priced at `√(log H)`. -/
-theorem s13_winFit_of_halfWindow {R : ChowlaRegime} {M : ℕ} {ρ : ℝ}
+/-- **⟦THE WINDOW GATE FROM THE HALF-WINDOW FLOOR, `j`-SYMBOLIC⟧**
+(`s13_winFit_of_halfWindow_gen`) — `s13_winFit_of_halfWindow` below with the row floor
+carried as an OPAQUE real, which is all its body ever uses.  Both cuts instantiate. -/
+theorem s13_winFit_of_halfWindow_gen {R : ChowlaRegime} {jr ρ : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo)
-    (hhalf : (7 / 10 : ℝ) * ((doorRowFloor M : ℕ) : ℝ) + 3 * Real.log (1 / ρ)
-      ≤ Real.log (R.Hlo : ℝ) / 2) :
+    (hhalf : (7 / 10 : ℝ) * jr + 3 * Real.log (1 / ρ) ≤ Real.log (R.Hlo : ℝ) / 2) :
     ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      (7 / 10 : ℝ) * ((doorRowFloor M : ℕ) : ℝ)
+      (7 / 10 : ℝ) * jr
           + 3 * (Real.log 9 + 84 * Real.log (Real.log (H : ℝ))
               + 2 * Real.log (strataResidual H) - Real.log ρ)
         ≤ Real.log (H : ℝ) := by
@@ -488,6 +487,20 @@ theorem s13_winFit_of_halfWindow {R : ChowlaRegime} {M : ℕ} {ρ : ℝ}
   have hinv : Real.log (1 / ρ) = - Real.log ρ := by rw [one_div, Real.log_inv]
   rw [hinv] at hhalf
   nlinarith [hhalf, hlogmono, hllH, hlogS, hSle, hlog9, hw2, hw2000, hw0]
+
+/-- **⟦THE TRUE WINDOW GATE, DISCHARGED⟧** (`s13_winFit_of_halfWindow`) — field ⟦4⟧ from the
+HALF-window floor at `H₋` plus the capstone's absorbed `loglogFloor50`.  The `H`-propagation
+is free: `log H₋ ≤ log H` and the `G`-side is priced at `√(log H)`. -/
+theorem s13_winFit_of_halfWindow {R : ChowlaRegime} {M : ℕ} {ρ : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo)
+    (hhalf : (7 / 10 : ℝ) * ((doorRowFloor M : ℕ) : ℝ) + 3 * Real.log (1 / ρ)
+      ≤ Real.log (R.Hlo : ℝ) / 2) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      (7 / 10 : ℝ) * ((doorRowFloor M : ℕ) : ℝ)
+          + 3 * (Real.log 9 + 84 * Real.log (Real.log (H : ℝ))
+              + 2 * Real.log (strataResidual H) - Real.log ρ)
+        ≤ Real.log (H : ℝ) :=
+  s13_winFit_of_halfWindow_gen hfl hhalf
 
 /-- `8·(4^m)² = 2^{4m+3}` — the headroom field's exponent, normalised. -/
 private theorem s13_headroom_pow' (m : ℕ) : 8 * (4 ^ m) ^ 2 = 2 ^ (4 * m + 3) := by
