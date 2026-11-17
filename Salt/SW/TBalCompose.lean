@@ -472,28 +472,6 @@ private lemma dh_extraction_per_m_rho_tall [NeZero q] (χ : DirichletCharacter �
         refine Finset.sum_congr rfl (fun g _ => ?_)
         rw [Finset.mul_sum]
 
-/-- **R6-8@ρ per-`m` residual (collection R6-5/6/7@ρ reused).** ℂ/norm analog of
-`dh_extraction_per_m`: for squarefree `m ≤ z²`, the per-`m` complex reduction differs from the
-EXACT complex main `L(1,χ)·Y^{1−ρ}/((1−ρ)(2−ρ))·selNu(m)` by at most `C₂ρ·Y^{1/2−σ}·Σ_{g,k}
-(m·k)^{−1/2}`. The signed main collects EXACTLY (`clean_cpow_term` + `selHmul_collection` cast,
-`selNu`); the residual is a norm-triangle over `(g,k)` with `unmoll_extraction_rho` (`x ≥ 2`
-guard), `‖(m·k)^{−ρ}‖ = (m·k)^{−σ}`, and `dhD0_scale_err` at `β₀ = ρ.re`. -/
-private lemma dh_extraction_per_m_rho [NeZero q] (χ : DirichletCharacter ℂ q)
-    (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {ρ : ℂ}
-    (hzero : DirichletCharacter.LFunction χ ρ = 0) (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1)
-    (him : |ρ.im| ≤ 1)
-    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
-    {z Y m : ℕ} (hz : 1 ≤ z) (hY : 2 * z ^ 4 ≤ Y) (hm1 : 1 ≤ m) (hmsf : Squarefree m)
-    (hmz2 : m ≤ z ^ 2) :
-    ‖(∑ g ∈ m.divisors, (chiRe χ g : ℂ) * ∑ k ∈ (m / g).divisors,
-          (moebius k : ℂ) * (chiRe χ k : ℂ) * ((m * k : ℕ) : ℂ) ^ (-ρ)
-            * dhD0rho χ ρ ((Y : ℝ) / ((m * k : ℕ) : ℝ)))
-       - DirichletCharacter.LFunction χ 1 * (Y : ℂ) ^ (1 - ρ) / ((1 - ρ) * (2 - ρ))
-           * (selNu χ m : ℂ)‖
-      ≤ C2Rho q Z₀ ρ * (Y : ℝ) ^ (1 / 2 - ρ.re)
-        * ∑ g ∈ m.divisors, ∑ k ∈ (m / g).divisors, ((m * k : ℕ) : ℝ) ^ (-(1 / 2 : ℝ)) :=
-  dh_extraction_per_m_rho_tall χ hχ hsq hq hzero hlo hhi him hZ hz hY hm1 hmsf hmz2
-
 /-! ## §4 — E(ρ) assembly : `dh_extraction_upper_rho` -/
 
 set_option maxHeartbeats 1200000 in
@@ -634,7 +612,7 @@ error, `C₂ρ = C2Rho q Z₀ ρ`, under the guard `2z⁴ ≤ Y`. STEP 1 ℂ reg
 (`dhExtractionW_regroup_C`) + kernel (`dhKernR_eq`) + the EXACT reduction
 (`dhA_kernel_reduction_rho`); STEP 2 the signed complex main collected EXACTLY
 (`sum_gcW_selNu_eq_selMainTerm` cast); STEP 3 signed
-subtraction; STEP 4 norm-triangle on the residual only (`dh_extraction_per_m_rho` +
+subtraction; STEP 4 norm-triangle on the residual only (`dh_extraction_per_m_rho_tall` +
 `sum_gcW_pairkernel_le`, `gcW = 0` off squarefree/`> z²`). -/
 theorem dh_extraction_upper_rho [NeZero q] (χ : DirichletCharacter ℂ q)
     (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {ρ : ℂ}
