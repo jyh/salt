@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `3981eb63` · source digest `77fa0fc2e62686db` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `583f6ffc` · source digest `b474117b8814734c` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -6205,13 +6205,18 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.SW.sum_Icc_one_shift` | Salt/SW/DHExtract.lean:89 | sieves |
 | `Salt.SW.sum_rpow_le_integral` | Salt/SW/DHExtract.lean:99 | sieves |
 | `Salt.SW.chiRe_partial_at_zero_le` | Salt/SW/DHExtract.lean:131 | sieves, characters |
-| `Salt.SW.norm_zeta_rho_le` | Salt/SW/DHExtractRho.lean:54 | zeros, sieves |
-| `Salt.SW.norm_cpow_pos_floor_sub_le` | Salt/SW/DHExtractRho.lean:73 | sieves |
-| `Salt.SW.dhAbel_hyperbola_rho` | Salt/SW/DHExtractRho.lean:117 | sieves, characters |
-| `Salt.SW.emrho_perterm` | Salt/SW/DHExtractRho.lean:151 | zeros, sieves |
-| `Salt.SW.clean_cpow_term` | Salt/SW/DHExtractRho.lean:215 | sieves |
-| `Salt.SW.dhAbel_leg1_rho` | Salt/SW/DHExtractRho.lean:244 | sieves, characters |
-| `Salt.SW.dhAbel_inner_rho` | Salt/SW/DHExtractRho.lean:447 | sieves, characters |
+| `Salt.SW.norm_zeta_rho_le_tall` | Salt/SW/DHExtractRho.lean:54 | zeros, sieves |
+| `Salt.SW.norm_zeta_rho_le` | Salt/SW/DHExtractRho.lean:70 | zeros, sieves |
+| `Salt.SW.norm_cpow_pos_floor_sub_le` | Salt/SW/DHExtractRho.lean:82 | sieves |
+| `Salt.SW.dhAbel_hyperbola_rho` | Salt/SW/DHExtractRho.lean:126 | sieves, characters |
+| `Salt.SW.zeta_partial_em_free` | Salt/SW/DHExtractRho.lean:160 | zeros, sieves |
+| `Salt.SW.emrho_perterm_tall` | Salt/SW/DHExtractRho.lean:187 | zeros, sieves |
+| `Salt.SW.emrho_perterm` | Salt/SW/DHExtractRho.lean:250 | zeros, sieves |
+| `Salt.SW.clean_cpow_term` | Salt/SW/DHExtractRho.lean:262 | sieves |
+| `Salt.SW.dhAbel_leg1_rho_tall` | Salt/SW/DHExtractRho.lean:292 | sieves, characters |
+| `Salt.SW.dhAbel_leg1_rho` | Salt/SW/DHExtractRho.lean:491 | sieves, characters |
+| `Salt.SW.dhAbel_inner_rho_tall` | Salt/SW/DHExtractRho.lean:517 | sieves, characters |
+| `Salt.SW.dhAbel_inner_rho` | Salt/SW/DHExtractRho.lean:647 | sieves, characters |
 | `Salt.SW.kernel_abel_sum_real` | Salt/SW/DHExtractW.lean:61 | sieves |
 | `Salt.SW.rpow_sub_le_tangent_upper` | Salt/SW/DHExtractW.lean:81 | sieves |
 | `Salt.SW.dhAbel_inner_abs_le` | Salt/SW/DHExtractW.lean:113 | sieves, characters |
@@ -6703,7 +6708,8 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.SW.cpow_unit_tangent_bound` | Salt/SW/TBalFinal.lean:121 | sieves |
 | `Salt.SW.norm_ofReal_cpow_seg_le` | Salt/SW/TBalFinal.lean:198 | sieves |
 | `Salt.SW.sum_cpow_sandwich_rho` | Salt/SW/TBalFinal.lean:227 | sieves |
-| `Salt.SW.unmoll_extraction_rho` | Salt/SW/TBalFinal.lean:442 | sieves, characters |
+| `Salt.SW.unmoll_extraction_rho_tall` | Salt/SW/TBalFinal.lean:442 | sieves, characters |
+| `Salt.SW.unmoll_extraction_rho` | Salt/SW/TBalFinal.lean:663 | sieves, characters |
 | `Salt.SW.dhW_detector_floor_rho` | Salt/SW/TBalR7.lean:47 | sieves, characters |
 | `Salt.SW.dh_balance` | Salt/SW/TBalR7.lean:100 | sieves, characters |
 | `Salt.SW.tbal_tau_le_split` | Salt/SW/TBalR8.lean:50 | sieves |
@@ -6731,21 +6737,15 @@ Declarations indexed across the tree: 23435 · corpus Prop-valued names (the hyp
 | `Salt.SW.tbal_hcov` | Salt/SW/TBalR8.lean:1825 | sieves |
 | `Salt.SW.C2Rho_le` | Salt/SW/TBalR8.lean:2027 | sieves |
 | `Salt.SW.dh_repulsion_ordered` | Salt/SW/TBalR8.lean:2523 | sieves, characters |
-| `Salt.SW.zeta_partial_em_free` | Salt/SW/TBalTall.lean:79 | zeros, sieves |
-| `Salt.SW.norm_zeta_rho_le_tall` | Salt/SW/TBalTall.lean:107 | zeros, sieves |
-| `Salt.SW.emrho_perterm_tall` | Salt/SW/TBalTall.lean:124 | zeros, sieves |
-| `Salt.SW.dhAbel_leg1_rho_tall` | Salt/SW/TBalTall.lean:190 | sieves, characters |
-| `Salt.SW.dhAbel_inner_rho_tall` | Salt/SW/TBalTall.lean:392 | sieves, characters |
-| `Salt.SW.unmoll_extraction_rho_tall` | Salt/SW/TBalTall.lean:523 | sieves, characters |
-| `Salt.SW.dh_extraction_upper_rho_tall` | Salt/SW/TBalTall.lean:1193 | sieves, characters |
-| `Salt.SW.dh_master_ray_tall` | Salt/SW/TBalTall.lean:1326 | sieves, characters |
-| `Salt.SW.C2Rho_le_tall` | Salt/SW/TBalTall.lean:1463 | sieves |
-| `Salt.SW.row_Eρ_cap_tall` | Salt/SW/TBalTall.lean:1579 | sieves |
-| `Salt.SW.row_Eρ_cap_tall_k1` | Salt/SW/TBalTall.lean:1711 | sieves |
-| `Salt.SW.dh_repulsion_tall` | Salt/SW/TBalTall.lean:2725 | sieves, characters |
-| `Salt.SW.dh_repulsion_tall_of_floor` | Salt/SW/TBalTall.lean:2861 | sieves, characters |
-| `Salt.SW.dh_repulsion_k1_of_floor` | Salt/SW/TBalTall.lean:2971 | sieves, characters |
-| `Salt.SW.boxZeros_re_le_at_efHeight` | Salt/SW/TBalTall.lean:3128 | sieves, characters |
+| `Salt.SW.dh_extraction_upper_rho_tall` | Salt/SW/TBalTall.lean:533 | sieves, characters |
+| `Salt.SW.dh_master_ray_tall` | Salt/SW/TBalTall.lean:666 | sieves, characters |
+| `Salt.SW.C2Rho_le_tall` | Salt/SW/TBalTall.lean:803 | sieves |
+| `Salt.SW.row_Eρ_cap_tall` | Salt/SW/TBalTall.lean:919 | sieves |
+| `Salt.SW.row_Eρ_cap_tall_k1` | Salt/SW/TBalTall.lean:1051 | sieves |
+| `Salt.SW.dh_repulsion_tall` | Salt/SW/TBalTall.lean:2065 | sieves, characters |
+| `Salt.SW.dh_repulsion_tall_of_floor` | Salt/SW/TBalTall.lean:2201 | sieves, characters |
+| `Salt.SW.dh_repulsion_k1_of_floor` | Salt/SW/TBalTall.lean:2311 | sieves, characters |
+| `Salt.SW.boxZeros_re_le_at_efHeight` | Salt/SW/TBalTall.lean:2468 | sieves, characters |
 | `Salt.SW.zetaHol_norm_le_of_lt` | Salt/SW/TauExt.lean:95 | sieves |
 | `Salt.SW.zetaHol_norm_le` | Salt/SW/TauExt.lean:121 | sieves |
 | `Salt.SW.zetaHol_bound_tall` | Salt/SW/TauExt.lean:152 | sieves |
