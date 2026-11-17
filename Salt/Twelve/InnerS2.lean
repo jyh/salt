@@ -380,7 +380,8 @@ to tuples with `p ∣ u (slot p)` for every marked prime `p ∈ Q`, is bounded b
 product→`marked_sqf_g_rel` structure, threading the `|Q|` marks through the
 per-coordinate `marked_sqf_g_rel` reindexes at the `slot`-selected products
 `sfun i = ∏_{p∈Q, slot p = i} p`, and collecting the constants by fiberwise
-partition of `Q` under `slot`. -/
+partition of `Q` under `slot`.  That route now runs in `Salt.MaynardK.box_marked_gmoment_gen` (just
+below), and `box_marked_gmoment` is its instance at `k = 5`. -/
 end Salt.Twelve
 
 namespace Salt.MaynardK
