@@ -219,7 +219,8 @@ theorem capfloor_lam_core_h {v : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) :
 ⟦XY debt lane, family 28 (2026-09-30)⟧
 `capfloor_floor3_numeric_h {v E W : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) (hE : 101 ≤ E)
 (hW : W ≤ 12 * Real.log v + E + 8) : E * W ≤ E ^ (3 : ℕ) * (v / 4) ^ (4 : ℕ)` stood here.  It is
-`capfloor_floor3_numeric_h_10` (in the ⟦§5 — β W1 E2⟧ section below) with the hypothesis
+`capfloor_floor3_numeric_h_10` (in `S13CapFloor` since 2026-11-17, above its `+ 1` instance)
+with the hypothesis
 strengthened: the two statements differ in that ONE binder, the slack `+8` against `+10`, and are
 token-identical elsewhere, so the relative implies it by `linarith` — kernel-checked from the
 retired statement's own bytes before the removal was committed.  The relative's body is this page's
