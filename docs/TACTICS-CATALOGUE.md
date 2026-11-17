@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `480816b8` · source digest `f1f799cf08f6406b` (the same digest as items 1–3).
-> Receipt: files 1414 · decls 23435 · with_body 23435 · tactic_lines 306257 · runs 35930 · blocks 1281.
+> Base: last commit touching `Salt/` = `b9fc9fb7` · source digest `38b7b62a40f31e88` (the same digest as items 1–3).
+> Receipt: files 1414 · decls 23437 · with_body 23437 · tactic_lines 304839 · runs 35788 · blocks 1276.
 
 ## LIMITS (read before any number below)
 
@@ -74,7 +74,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_eq_pow` | 0 | - | - |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_le_of_pow_le` | 27 | qualified 27 | `MR/FarStar.lean` 5, `MR/StrideDoorAllGrades.lean` 3, `Entropy/Chowla/Step.lean` 2, `Entropy/Chowla/StrideDecrement.lean` 2 (+13 files) |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_lt_of_pow_lt` | 9 | qualified 9 | `Entropy/Chowla/GoldbachEnergyKcH.lean` 3, `MR/MultShiu.lean` 2, `MR/S16ProducersH.lean` 2, `HB/L2cELT1.lean` 1 (+1 files) |
-| `ExpLogNum.lean` | T3 | `Salt.Tactic.le_exp_nat_of_le_pow` | 45 | qualified 45 | `MR/StrideDoorAllGrades.lean` 8, `MR/RegisterRepair.lean` 4, `MR/S13CapEps.lean` 4, `MR/S13CapGateLinearLH.lean` 4 (+19 files) |
+| `ExpLogNum.lean` | T3 | `Salt.Tactic.le_exp_nat_of_le_pow` | 44 | qualified 44 | `MR/StrideDoorAllGrades.lean` 8, `MR/RegisterRepair.lean` 4, `MR/S13CapEps.lean` 4, `MR/S13CapGateLinearLH.lean` 4 (+19 files) |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.log_le_nat_of_le_pow` | 34 | qualified 34 | `HB/CrownTheorem1.lean` 3, `Goldbach/RowsLive.lean` 2, `MR/LFunctionInvShallow.lean` 2, `MR/M4ClosureRepair.lean` 2 (+20 files) |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.lt_exp_nat_of_lt_pow` | 4 | qualified 4 | `MR/MRTPropA3.lean` 2, `MR/A4FMidRange.lean` 1, `MR/T0BandCapFree.lean` 1 |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.nat_le_log_of_pow_le` | 21 | qualified 21 | `HB/CrownTheorem1.lean` 4, `MR/M4ArithZeroLinear.lean` 4, `HB/L2cERT2.lean` 2, `Chen/WindowMembership.lean` 1 (+10 files) |
@@ -93,47 +93,47 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 | name | at base (seat, lines) | here: qualified tokens | here: all forms |
 |---|---:|---:|---:|
-| `Salt.Tactic.le_exp_nat_of_le_pow` | 11 | 45 | 45 |
+| `Salt.Tactic.le_exp_nat_of_le_pow` | 11 | 44 | 44 |
 | `Salt.Tactic.exp_nat_le_of_pow_le` | 4 | 27 | 27 |
 | `Salt.Tactic.log_le_nat_of_le_pow` | 5 | 34 | 34 |
 | `Salt.Tactic.nat_le_log_of_pow_le` | 4 | 21 | 21 |
 
 ## 2. Tactic usage (first token of each tactic line)
 
-306257 tactic lines. Top 30:
+304839 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 133706 | 43.7% |
-| 2 | `rw` | 49591 | 16.2% |
-| 3 | `exact` | 17547 | 5.7% |
-| 4 | `intro` | 14135 | 4.6% |
-| 5 | `refine` | 12885 | 4.2% |
-| 6 | `linarith` | 10563 | 3.4% |
-| 7 | `obtain` | 9198 | 3.0% |
-| 8 | `calc` | 7885 | 2.6% |
-| 9 | `set` | 5574 | 1.8% |
-| 10 | `simp` | 5179 | 1.7% |
-| 11 | `apply` | 4567 | 1.5% |
-| 12 | `nlinarith` | 3389 | 1.1% |
+| 1 | `have` | 133046 | 43.6% |
+| 2 | `rw` | 49292 | 16.2% |
+| 3 | `exact` | 17501 | 5.7% |
+| 4 | `intro` | 14089 | 4.6% |
+| 5 | `refine` | 12831 | 4.2% |
+| 6 | `linarith` | 10505 | 3.4% |
+| 7 | `obtain` | 9181 | 3.0% |
+| 8 | `calc` | 7835 | 2.6% |
+| 9 | `set` | 5498 | 1.8% |
+| 10 | `simp` | 5166 | 1.7% |
+| 11 | `apply` | 4546 | 1.5% |
+| 12 | `nlinarith` | 3375 | 1.1% |
 | 13 | `unfold` | 2628 | 0.9% |
-| 14 | `exact_mod_cast` | 2456 | 0.8% |
-| 15 | `rcases` | 2145 | 0.7% |
-| 16 | `ring` | 2077 | 0.7% |
-| 17 | `push_cast` | 1972 | 0.6% |
-| 18 | `field_simp` | 1866 | 0.6% |
-| 19 | `by_cases` | 1641 | 0.5% |
-| 20 | `rwa` | 1606 | 0.5% |
+| 14 | `exact_mod_cast` | 2448 | 0.8% |
+| 15 | `rcases` | 2135 | 0.7% |
+| 16 | `ring` | 2073 | 0.7% |
+| 17 | `push_cast` | 1969 | 0.6% |
+| 18 | `field_simp` | 1865 | 0.6% |
+| 19 | `by_cases` | 1639 | 0.5% |
+| 20 | `rwa` | 1605 | 0.5% |
 | 21 | `norm_num` | 1488 | 0.5% |
-| 22 | `show` | 1274 | 0.4% |
+| 22 | `show` | 1270 | 0.4% |
 | 23 | `omega` | 1268 | 0.4% |
-| 24 | `classical` | 1248 | 0.4% |
+| 24 | `classical` | 1247 | 0.4% |
 | 25 | `rintro` | 1150 | 0.4% |
-| 26 | `congr` | 941 | 0.3% |
-| 27 | `simpa` | 899 | 0.3% |
-| 28 | `positivity` | 804 | 0.3% |
-| 29 | `constructor` | 657 | 0.2% |
-| 30 | `haveI` | 551 | 0.2% |
+| 26 | `congr` | 934 | 0.3% |
+| 27 | `simpa` | 898 | 0.3% |
+| 28 | `positivity` | 802 | 0.3% |
+| 29 | `constructor` | 656 | 0.2% |
+| 30 | `haveI` | 547 | 0.2% |
 
 ### Per method family (top 8 each)
 
@@ -142,20 +142,20 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | circle method / Fourier | 2726 | `have` 958, `rw` 597, `refine` 213, `exact` 153, `intro` 135, `ring` 79, `simp` 71, `calc` 68 |
 | entropy decrement | 15149 | `have` 6100, `rw` 2662, `exact` 994, `intro` 565, `refine` 529, `simp` 462, `linarith` 447, `calc` 374 |
 | large sieve | 1719 | `have` 560, `rw` 379, `intro` 108, `refine` 104, `exact` 101, `simp` 56, `apply` 53, `calc` 48 |
-| Selberg/Brun sieve | 70552 | `have` 30362, `rw` 12121, `exact` 3801, `intro` 3247, `calc` 2295, `apply` 2292, `refine` 1693, `linarith` 1484 |
-| Bombieri-Vinogradov / Siegel-Walfisz | 35295 | `have` 15723, `rw` 6583, `exact` 1888, `intro` 1449, `refine` 1437, `linarith` 1109, `calc` 1107, `set` 888 |
+| Selberg/Brun sieve | 70530 | `have` 30347, `rw` 12119, `exact` 3803, `intro` 3247, `calc` 2293, `apply` 2292, `refine` 1691, `linarith` 1481 |
+| Bombieri-Vinogradov / Siegel-Walfisz | 34964 | `have` 15571, `rw` 6504, `exact` 1875, `intro` 1443, `refine` 1429, `linarith` 1104, `calc` 1084, `set` 861 |
 | zero-density / zero-free regions | 13798 | `have` 6362, `rw` 2421, `exact` 702, `intro` 615, `linarith` 593, `refine` 439, `set` 408, `calc` 379 |
-| character sums / L-functions | 63339 | `have` 26612, `rw` 10023, `exact` 4095, `refine` 3649, `intro` 3372, `obtain` 2410, `linarith` 2145, `calc` 1465 |
+| character sums / L-functions | 62956 | `have` 26441, `rw` 9948, `exact` 4080, `refine` 3629, `intro` 3359, `obtain` 2398, `linarith` 2140, `calc` 1444 |
 | exponential sums | 8305 | `have` 3163, `rw` 1696, `exact` 504, `intro` 409, `refine` 391, `linarith` 237, `set` 228, `simp` 209 |
 | Mertens / PNT-type | 3297 | `have` 1530, `rw` 557, `exact` 173, `linarith` 147, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
-| Matomaki-Radziwill / Halasz (short intervals) | 117274 | `have` 53363, `rw` 16220, `exact` 6757, `refine` 6636, `intro` 5795, `linarith` 5359, `obtain` 5000, `calc` 2239 |
-| (no family) | 28875 | `have` 11185, `rw` 5159, `exact` 1749, `intro` 1570, `obtain` 978, `refine` 962, `set` 883, `calc` 866 |
+| Matomaki-Radziwill / Halasz (short intervals) | 116262 | `have` 52872, `rw` 16020, `exact` 6725, `refine` 6595, `intro` 5763, `linarith` 5309, `obtain` 4989, `calc` 2214 |
+| (no family) | 28822 | `have` 11183, `rw` 5141, `exact` 1746, `intro` 1562, `obtain` 972, `refine` 959, `set` 883, `calc` 866 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
-Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1281 candidates; top 25 by the UPPER-BOUND saving.
+Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1276 candidates; top 25 by the UPPER-BOUND saving.
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 
@@ -167,7 +167,7 @@ push_cast
 ring
 ```
 
-**2.** 6 lines × 21 occurrences in 7 files · lines saved ≤ **105** · e.g. `Salt/MR/M4SocketDischarge.lean:314` · `Salt/MR/M4SocketLinear.lean:256`
+**2.** 6 lines × 19 occurrences in 7 files · lines saved ≤ **95** · e.g. `Salt/MR/M4SocketDischarge.lean:314` · `Salt/MR/M4SocketLinear.lean:256`
 
 ```lean
 have $1 : # < $2 := $3.2.2.2.1
