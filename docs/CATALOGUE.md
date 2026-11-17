@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `86f07778` · source digest `48200e528522c786` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `e9bfabe4` · source digest `6f1001ee4d78413d` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23436 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23440 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -5037,8 +5037,8 @@ Declarations indexed across the tree: 23436 · corpus Prop-valued names (the hyp
 | `Salt.MR.s13_doorGates_of_arm'` | Salt/MR/S13FramesA.lean:861 | characters |
 | `Salt.MR.s13_endpoint_of_arm'` | Salt/MR/S13FramesA.lean:897 | characters |
 | `Salt.MR.s13_log263_le_six` | Salt/MR/S13FramesA.lean:969 | characters |
-| `Salt.MR.s13_MSelect_of_headroom` | Salt/MR/S13FramesA.lean:1034 | characters |
-| `Salt.MR.s13_loglogHhi_le_tight` | Salt/MR/S13FramesA.lean:1098 | characters |
+| `Salt.MR.s13_MSelect_of_headroom` | Salt/MR/S13FramesA.lean:1018 | characters |
+| `Salt.MR.s13_loglogHhi_le_tight` | Salt/MR/S13FramesA.lean:1082 | characters |
 | `Salt.MR.memSCoeff_seamCoefWS_band_gen_U` | Salt/MR/S13FramesB.lean:142 | characters |
 | `Salt.MR.doorCoeffU_seamCoefWS_band_H` | Salt/MR/S13FramesB.lean:170 | characters |
 | `Salt.MR.theta293_pos_le_one` | Salt/MR/S13FramesB.lean:370 | characters |
@@ -5051,13 +5051,13 @@ Declarations indexed across the tree: 23436 · corpus Prop-valued names (the hyp
 | `Salt.MR.s13_gate8_L_gk` | Salt/MR/S13FramesLinear.lean:279 | characters |
 | `Salt.MR.s13_doorRowZeroBase_five_L` | Salt/MR/S13FramesLinear.lean:332 | characters |
 | `Salt.MR.s13_doorRowZeroBase_five_L_gk` | Salt/MR/S13FramesLinear.lean:343 | characters |
-| `Salt.MR.s13_MSelect_L_of_headroom` | Salt/MR/S13FramesLinear.lean:452 | characters |
-| `Salt.MR.s13_MSelect_L_of_headroom_gk` | Salt/MR/S13FramesLinear.lean:477 | characters |
-| `Salt.MR.s13_MSelect'_L_of_headroom` | Salt/MR/S13FramesLinear.lean:603 | characters |
-| `Salt.MR.s13_MSelect'_L_of_headroom_gk` | Salt/MR/S13FramesLinear.lean:630 | characters |
-| `Salt.MR.s13_MSelect'_L_of_halfWindow` | Salt/MR/S13FramesLinear.lean:660 | characters |
-| `Salt.MR.s13_MSelect'_L_of_halfWindow_gk` | Salt/MR/S13FramesLinear.lean:671 | characters |
-| `Salt.MR.s13_winFit_of_halfWindow_gen` | Salt/MR/S13MSelect2.lean:444 | characters |
+| `Salt.MR.s13_MSelect_L_of_headroom` | Salt/MR/S13FramesLinear.lean:453 | characters |
+| `Salt.MR.s13_MSelect_L_of_headroom_gk` | Salt/MR/S13FramesLinear.lean:478 | characters |
+| `Salt.MR.s13_MSelect'_L_of_headroom` | Salt/MR/S13FramesLinear.lean:605 | characters |
+| `Salt.MR.s13_MSelect'_L_of_headroom_gk` | Salt/MR/S13FramesLinear.lean:632 | characters |
+| `Salt.MR.s13_MSelect'_L_of_halfWindow` | Salt/MR/S13FramesLinear.lean:662 | characters |
+| `Salt.MR.s13_MSelect'_L_of_halfWindow_gk` | Salt/MR/S13FramesLinear.lean:673 | characters |
+| `Salt.MR.s13_winFit_of_halfWindow_gen` | Salt/MR/S13MSelect2.lean:429 | characters |
 | `Salt.MR.s13BlockExp_L_head` | Salt/MR/S15SelLinear.lean:75 | characters |
 | `Salt.MR.s13BlockExp_L_le` | Salt/MR/S15SelLinear.lean:82 | characters |
 | `Salt.MR.flat_exp_half_ge` | Salt/MR/S15SelLinear.lean:207 | characters |
@@ -8339,24 +8339,24 @@ Declarations indexed across the tree: 23436 · corpus Prop-valued names (the hyp
 | `Salt.MR.s13CapFloor_all_LH_gk` | Salt/MR/S13CapGateLinearLH.lean:3216 | characters | `Salt.MR.SocketBaseLH` |
 | `Salt.MR.s16_capGate_supply_LH_gk` | Salt/MR/S13CapGateLinearLH.lean:3265 | characters | `Salt.MR.S16BaseScaleCap96_LH_gk`, `Salt.MR.S16CofactorSupply_LH_gk`, `Salt.MR.SocketBaseLH`, `Salt.MR.TannGate` |
 | `Salt.MR.s13_gate8_of_MSelect` | Salt/MR/S13FramesA.lean:987 | characters | `Salt.MR.MSelect` |
-| `Salt.MR.s13_g2_jfloor_of_MSelect` | Salt/MR/S13FramesA.lean:996 | characters | `Salt.MR.MSelect` |
-| `Salt.MR.s13_doorGates_of_MSelect` | Salt/MR/S13FramesA.lean:1063 | characters | `Salt.MR.MSelect` |
+| `Salt.MR.s13_doorGates_of_MSelect` | Salt/MR/S13FramesA.lean:1047 | characters | `Salt.MR.MSelect` |
+| `Salt.MR.s13_g2_jfloor_of_MSelect` | Salt/MR/S13FramesA.lean:1516 | characters | `Salt.MR.MSelect` |
 | `Salt.MR.s13_doorCapErrWS` | Salt/MR/S13FramesB.lean:408 | characters | `Salt.MR.S13CapGate` |
 | `Salt.MR.s13_doorCapBase` | Salt/MR/S13FramesB.lean:442 | characters | `Salt.MR.S13CapGate` |
 | `Salt.MR.doorCapBundle_at_workingPoint` | Salt/MR/S13FramesB.lean:636 | characters | `Salt.MR.S13CapGate` |
 | `Salt.MR.doorCapBundle_family` | Salt/MR/S13FramesB.lean:666 | characters | `Salt.MR.SocketBase`, `Salt.MR.TannGate` |
-| `Salt.MR.s13_gate8_of_MSelect_L` | Salt/MR/S13FramesLinear.lean:395 | characters | `Salt.MR.MSelect_L` |
-| `Salt.MR.s13_gate8_of_MSelect_L_gk` | Salt/MR/S13FramesLinear.lean:402 | characters | `Salt.MR.MSelect_L_gk` |
-| `Salt.MR.s13_g2_jfloor_of_MSelect_L` | Salt/MR/S13FramesLinear.lean:411 | characters | `Salt.MR.MSelect_L` |
-| `Salt.MR.s13_g2_jfloor_of_MSelect_L_gk` | Salt/MR/S13FramesLinear.lean:425 | characters | `Salt.MR.MSelect_L_gk` |
-| `Salt.MR.s13_gate8_of_MSelect'_L` | Salt/MR/S13FramesLinear.lean:542 | characters | `Salt.MR.MSelect'_L` |
-| `Salt.MR.s13_gate8_of_MSelect'_L_gk` | Salt/MR/S13FramesLinear.lean:549 | characters | `Salt.MR.MSelect'_L_gk` |
-| `Salt.MR.s13_g2_jfloor_of_MSelect'_L` | Salt/MR/S13FramesLinear.lean:557 | characters | `Salt.MR.MSelect'_L` |
-| `Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk` | Salt/MR/S13FramesLinear.lean:571 | characters | `Salt.MR.MSelect'_L_gk` |
-| `Salt.MR.s13_smallGradeFits_of_MSelect'_L` | Salt/MR/S13FramesLinear.lean:586 | characters | `Salt.MR.MSelect'_L` |
-| `Salt.MR.s13_smallGradeFits_of_MSelect'_L_gk` | Salt/MR/S13FramesLinear.lean:594 | characters | `Salt.MR.MSelect'_L_gk` |
-| `Salt.MR.MSelect'_L_of_S15Sel''_L` | Salt/MR/S13FramesLinear.lean:690 | characters | `Salt.MR.S15Sel''_L` |
-| `Salt.MR.MSelect'_L_gk_of_S15Sel''_L_gk` | Salt/MR/S13FramesLinear.lean:699 | characters | `Salt.MR.S15Sel''_L_gk` |
+| `Salt.MR.s13_gate8_of_MSelect_L` | Salt/MR/S13FramesLinear.lean:404 | characters | `Salt.MR.MSelect_L` |
+| `Salt.MR.s13_gate8_of_MSelect_L_gk` | Salt/MR/S13FramesLinear.lean:411 | characters | `Salt.MR.MSelect_L_gk` |
+| `Salt.MR.s13_g2_jfloor_of_MSelect_L_gk` | Salt/MR/S13FramesLinear.lean:419 | characters | `Salt.MR.MSelect_L_gk` |
+| `Salt.MR.s13_g2_jfloor_of_MSelect_L` | Salt/MR/S13FramesLinear.lean:434 | characters | `Salt.MR.MSelect_L` |
+| `Salt.MR.s13_gate8_of_MSelect'_L` | Salt/MR/S13FramesLinear.lean:552 | characters | `Salt.MR.MSelect'_L` |
+| `Salt.MR.s13_gate8_of_MSelect'_L_gk` | Salt/MR/S13FramesLinear.lean:559 | characters | `Salt.MR.MSelect'_L_gk` |
+| `Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk` | Salt/MR/S13FramesLinear.lean:567 | characters | `Salt.MR.MSelect'_L_gk` |
+| `Salt.MR.s13_g2_jfloor_of_MSelect'_L` | Salt/MR/S13FramesLinear.lean:581 | characters | `Salt.MR.MSelect'_L` |
+| `Salt.MR.s13_smallGradeFits_of_MSelect'_L` | Salt/MR/S13FramesLinear.lean:588 | characters | `Salt.MR.MSelect'_L` |
+| `Salt.MR.s13_smallGradeFits_of_MSelect'_L_gk` | Salt/MR/S13FramesLinear.lean:596 | characters | `Salt.MR.MSelect'_L_gk` |
+| `Salt.MR.MSelect'_L_of_S15Sel''_L` | Salt/MR/S13FramesLinear.lean:692 | characters | `Salt.MR.S15Sel''_L` |
+| `Salt.MR.MSelect'_L_gk_of_S15Sel''_L_gk` | Salt/MR/S13FramesLinear.lean:701 | characters | `Salt.MR.S15Sel''_L_gk` |
 | `Salt.MR.S15Sel''_L.head` | Salt/MR/S15SelLinear.lean:172 | characters | `Salt.MR.S15Sel''_L` |
 | `Salt.MR.S15Sel''_L_gk.head` | Salt/MR/S15SelLinear.lean:183 | characters | `Salt.MR.S15Sel''_L_gk` |
 | `Salt.MR.s15_sel''_L_gk_of_L` | Salt/MR/S15SelLinear.lean:294 | characters | `Salt.MR.S15Sel''_L` |
