@@ -179,8 +179,8 @@ theorem capfloor_logH_le_quarter_sqrt {H : ℝ} (hH : (4000000 : ℝ) ≤ H) :
   have ha40 : (40 : ℝ) ≤ a := by nlinarith [ha2, ha0, hs2000]
   nlinarith [hloga, hle, ha2, ha40, ha0]
 
-/-! ## §3 — THE FOUR CAP LINES AT `439` (`StrideGradeWalls.lean:130-245`'s twins at the raised
-charge; hypothesis weakenings, bodies verbatim) -/
+/-! ## §3 — THE CAP LINES AT `439` (the `_g` lines' twins at the raised charge; since O13-e
+row 221 three of the four live in `S15SelLinearWide` as their bases' twins) -/
 
 
 /-- **⟦THE `anchor` LINE AT `439`⟧ (class A)** — `flat_anchor_line_wide_g` with `hc : c ≤ 439`.

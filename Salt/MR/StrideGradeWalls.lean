@@ -116,10 +116,10 @@ theorem s16_audit_neglog_rho_le_425_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h 
   exact le_trans (s16_audit_neglog_rho_le_wide_h_g hh hδ hK hδb hKb) (by linarith)
 
 /-! ## §2 — THE FOUR CAP LINES THE CHARGE-GENERIC REGISTER READS, AT `425`
-(`S15SelLinearWide.lean:82-160`; hypothesis weakenings, bodies verbatim) -/
+(`S15SelLinearWide.lean:82-235`; instances of the `_g14` lines there since O13-e row 221) -/
 
-/-- **⟦THE WINDOW LINE AT `425`⟧ (class A)** — `flat_half_line` (`S15SelLinearWide.lean:101`) with
-`hc : c ≤ 417 ↦ c ≤ 425`.  BODY: `S15SelLinearWide.lean:104-121` verbatim (`hE17` … the closing
+/-- **⟦THE WINDOW LINE AT `425`⟧ (class A)** — `flat_half_line` (`S15SelLinearWide.lean:127`) with
+`hc : c ≤ 417 ↦ c ≤ 425`.  BODY: `S15SelLinearWide.lean:105-122` verbatim (`hE17` … the closing
 `linarith [hsq, hE2, hc]`); that `linarith` pays
 `3·8 = 24` more against `4.1·10⁻⁴·e^{3.2A}` (`≥ 5·10³²` at `A ≥ 26`).  THE BINDING LINE of the
 lane (`M` sits at its ceiling by design). -/
@@ -138,7 +138,7 @@ theorem flat_anchor_line_wide_g {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 425) :
   have hMge := flatDoorM_ge A
   linarith
 
-/-- **⟦THE `𝒯`-LEG BUDGET AT `−425`⟧ (class A)** — `flat_gP1_line` (`S15SelLinearWide.lean:127`)
+/-- **⟦THE `𝒯`-LEG BUDGET AT `−425`⟧ (class A)** — `flat_gP1_line` (`S15SelLinearWide.lean:161`)
 with `hc : -417 ≤ c ↦ -425 ≤ c`.  BODY: `:131-148` verbatim (`hE17` … `rw [AdoorL_cast]; linarith`;
 `≈5.5·10³×`). -/
 theorem flat_gP1_line_g {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -425 ≤ c) (hCt : 0 < Ct)
@@ -146,7 +146,7 @@ theorem flat_gP1_line_g {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -425 ≤ c) (hCt
     29 + Real.log Ct + 14 * Λ ≤ ((AdoorL (flatDoorM A) : ℕ) : ℝ) * Real.log 2 + c :=
   flat_gP1_line_g14 hA ((by norm_num : (-439 : ℝ) ≤ -425).trans hc) hCt hCtb hΛ
 
-/-- **⟦THE `level1` BUDGET AT `425`⟧ (class A)** — `flat_lvl_line` (`S15SelLinearWide.lean:153`)
+/-- **⟦THE `level1` BUDGET AT `425`⟧ (class A)** — `flat_lvl_line` (`S15SelLinearWide.lean:228`)
 with `hc : c ≤ 425`.  BODY: verbatim (`457×`). -/
 theorem flat_lvl_line_g {A c Λ : ℝ} (hA : 26 ≤ A) (hc : c ≤ 425)
     (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
@@ -157,11 +157,11 @@ theorem flat_lvl_line_g {A c Λ : ℝ} (hA : 26 ≤ A) (hc : c ≤ 425)
   flat_lvl_line_g14 hA (hc.trans (by norm_num)) hΛ
 
 /-! ## §3 — THE REGISTER WITNESSES AT THE GRADED CHARGE
-(`S15SelLinearWide.lean:219-323`; the structure `S15Sel''_L(_gk)` does not move) -/
+(`S15SelLinearWide.lean:247-351`; the structure `S15Sel''_L(_gk)` does not move) -/
 
 /-- **⟦THE REGISTER AT THE FLAT DESIGN POINT, CHARGE-GENERIC, AT `425`⟧ (class B)** —
-`s15_sel''_L_witness_flat_charge` (`S15SelLinearWide.lean:219`) with `hρlog : -log ρ ≤ 417 ↦ ≤
-425`.  BODY: `S15SelLinearWide.lean:231-254` verbatim — `hbase := s15_sel''_L_witness_flat …` at
+`s15_sel''_L_witness_flat_charge` (`S15SelLinearWide.lean:247`) with `hρlog : -log ρ ≤ 417 ↦ ≤
+425`.  BODY: `S15SelLinearWide.lean:259-282` verbatim — `hbase := s15_sel''_L_witness_flat …` at
 the FROZEN dummy literals `δ₀ := 1/2^10`, `K := 1` (:231-233; that call reaches the narrow walls
 `s15w_rho_ge`/`s15w_neglog_rho_le` at those literals, which β never moves — only the six `ρ`-free
 fields `hM`/`gRows`/`x0M`/`blk` (+ `mfloor`/`bfloor` supplied here) are read off it), `hinv`, and
@@ -205,7 +205,7 @@ theorem s15_sel''_L_witness_flat_charge_g {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct
   · exact flat_lvl_line_g hA hρlog hhi
 
 /-- **⟦THE WIDE ACCEPTANCE AT THE GRADED PIN⟧ (class A)** — `s15_sel''_L_witness_flat_wide`
-(`S15SelLinearWide.lean:263`) with `hδb : 1/(2^20·c²) ≤ δ₀ ↦ 1/(2^31·c²) ≤ δ₀`.  BODY:
+(`S15SelLinearWide.lean:291`) with `hδb : 1/(2^20·c²) ≤ δ₀ ↦ 1/(2^31·c²) ≤ δ₀`.  BODY:
 `s15_sel''_L_witness_flat_charge_g hA hc1 hcb (s16_audit_neglog_rho_le_425_h hc1 hh7c hδ hK hδb
 hKb) hCt hCtb hbfl hMfl hx0win heps hlo hhi` (the landed `:277-279` with the two `_g` names). -/
 theorem s15_sel''_L_witness_flat_wide_g {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K : ℝ}
@@ -226,7 +226,7 @@ theorem s15_sel''_L_witness_flat_wide_g {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K
     hbfl hMfl hx0win heps hlo hhi
 
 /-- **⟦THE LEVERED WIDE ACCEPTANCE AT THE GRADED PIN⟧ (class A)** —
-`s15_sel''_L_gk_witness_flat_wide` (`S15SelLinearWide.lean:301`) with `hδb` at `2 ^ 31`.  BODY:
+`s15_sel''_L_gk_witness_flat_wide` (`S15SelLinearWide.lean:329`) with `hδb` at `2 ^ 31`.  BODY:
 `s15_sel''_L_gk_of_L Klev (s15_sel''_L_witness_flat_wide_g hA hc1 hcb hh7c hδ hδb hK hKb hCt hCtb
 hbfl hMfl hx0win heps hlo hhi) (flat_blk_line_gk hA Klev hKle hc1 hcb heps hlo hhi)` — the `blk`
 line is charge-free and is the landed one. -/
