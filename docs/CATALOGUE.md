@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `b9fc9fb7` · source digest `38b7b62a40f31e88` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `a553d7ce` · source digest `5c3bce9031bf3c25` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -7031,20 +7031,20 @@ Declarations indexed across the tree: 23437 · corpus Prop-valued names (the hyp
 | `Salt.Vk.vk_exp_ineq` | Salt/Vk/Core.lean:236 | zeros, exponential sums |
 | `Salt.Vk.vk_block_core` | Salt/Vk/Core.lean:263 | zeros, exponential sums |
 | `Salt.Vk.zeta_sub_dirichlet_bound` | Salt/Vk/Growth.lean:30 | zeros, exponential sums |
-| `Salt.Vk.vk_ladder_prefix` | Salt/Vk/GrowthPow.lean:52 | zeros, exponential sums |
-| `Salt.Vk.vk_window_prefix` | Salt/Vk/GrowthPow.lean:178 | zeros, exponential sums |
-| `Salt.Vk.vk_window_scale_prefix` | Salt/Vk/GrowthPow.lean:236 | zeros, exponential sums |
-| `Salt.Vk.vk_window_mid_prefix` | Salt/Vk/GrowthPow.lean:452 | zeros, exponential sums |
-| `Salt.Vk.vk_dirichlet_block_le` | Salt/Vk/GrowthPow.lean:671 | zeros, exponential sums |
-| `Salt.Vk.vk_dirichlet_sum_le` | Salt/Vk/GrowthPow.lean:848 | zeros, exponential sums |
-| `Salt.Vk.zeta_growth_pow` | Salt/Vk/GrowthPow.lean:974 | zeros, exponential sums |
-| `Salt.Vk.zeta_zero_free_region_pow` | Salt/Vk/GrowthPow.lean:1040 | zeros, exponential sums |
+| `Salt.Vk.vk_dirichlet_block_le` | Salt/Vk/GrowthPow.lean:55 | zeros, exponential sums |
+| `Salt.Vk.vk_dirichlet_sum_le` | Salt/Vk/GrowthPow.lean:232 | zeros, exponential sums |
+| `Salt.Vk.zeta_growth_pow` | Salt/Vk/GrowthPow.lean:358 | zeros, exponential sums |
+| `Salt.Vk.zeta_zero_free_region_pow` | Salt/Vk/GrowthPow.lean:424 | zeros, exponential sums |
 | `Salt.Vk.entire_norm_logDeriv_sub_sum_scaled` | Salt/Vk/Landau.lean:35 | zeros, exponential sums |
 | `Salt.Vk.littlewood_uniform_growth` | Salt/Vk/Littlewood.lean:52 | zeros, exponential sums |
 | `Salt.Vk.zeta_zero_free_littlewood_core` | Salt/Vk/Littlewood.lean:105 | zeros, exponential sums |
 | `Salt.Vk.littlewood_bracket` | Salt/Vk/Littlewood.lean:276 | zeros, exponential sums |
 | `Salt.Vk.zeta_zero_free_region_littlewood` | Salt/Vk/Littlewood.lean:411 | zeros, exponential sums |
-| `Salt.Vk.vk_window_mid` | Salt/Vk/Mid.lean:103 | zeros, exponential sums |
+| `Salt.Vk.vk_ladder_prefix` | Salt/Vk/Mid.lean:106 | zeros, exponential sums |
+| `Salt.Vk.vk_window_prefix` | Salt/Vk/Mid.lean:232 | zeros, exponential sums |
+| `Salt.Vk.vk_window_scale_prefix` | Salt/Vk/Mid.lean:290 | zeros, exponential sums |
+| `Salt.Vk.vk_window_mid_prefix` | Salt/Vk/Mid.lean:448 | zeros, exponential sums |
+| `Salt.Vk.vk_window_mid` | Salt/Vk/Mid.lean:664 | zeros, exponential sums |
 | `Salt.Vk.poly_shift_orbit` | Salt/Vk/Pointwise.lean:34 | zeros, exponential sums |
 | `Salt.Vk.vkTheta_anti` | Salt/Vk/PowRegion.lean:40 | zeros, exponential sums |
 | `Salt.Vk.vkTheta_pos` | Salt/Vk/PowRegion.lean:66 | zeros, exponential sums |

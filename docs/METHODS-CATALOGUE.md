@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `b9fc9fb7` · source digest `38b7b62a40f31e88` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `a553d7ce` · source digest `5c3bce9031bf3c25` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23437 · with a proof/definition body: 23437 · direct corpus references (edges): 86277 · audited results: 9148 · corpus Prop-valued names: 691.
+Declarations indexed: 23437 · with a proof/definition body: 23437 · direct corpus references (edges): 86271 · audited results: 9148 · corpus Prop-valued names: 691.
 
 ## Hypothesis status (Deliverable A)
 
@@ -434,7 +434,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.TwinBar.FourBar` | DISCHARGED | 1 | `Salt.TwinBar.fourBar_holds` ✓audited (Salt/TwinBar/FourBarAsm.lean:494) |
 | `Salt.TwinBar.SieveAgree` | DISCHARGED | 1 | `Salt.TwinBar.sieveAgree_pair` ✓audited GUARDED (Salt/TwinBar/ParityWall.lean:450) |
 | `Salt.TwinBar.TripleBar` | DISCHARGED | 1 | `Salt.TwinBar.tripleBar_holds` ✓audited (Salt/TwinBar/ThreeBarAsm.lean:743) |
-| `Salt.Vk.ZetaGrowthPow` | DISCHARGED | 1 | `Salt.Vk.zeta_growth_pow` ✓audited (Salt/Vk/GrowthPow.lean:974) |
+| `Salt.Vk.ZetaGrowthPow` | DISCHARGED | 1 | `Salt.Vk.zeta_growth_pow` ✓audited (Salt/Vk/GrowthPow.lean:358) |
 | `Salt.Vmvt.VmvtBound` | DISCHARGED | 1 | `Salt.Certs.cert_vmvt_witness` ✓audited (Salt/Certs/Vmvt.lean:157) · `Salt.Vmvt.vmvt_base` ✓audited GUARDED (Salt/Vmvt/MeanValue.lean:260) · `Salt.Vmvt.vmvt_step_degen_branch` GUARDED (Salt/Vmvt/Step.lean:213) · +2 |
 | `Salt.MR.WellSpaced` | STRUCTURAL | 53 | — |
 | `Salt.MR.FibreWellSpaced` | STRUCTURAL | 40 | — |
@@ -1367,7 +1367,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Vk.vk_logP_ub` | unconditional | 594 | 0 | zero-density / zero-free regions | - | - |
 | `Salt.ExpSum.abel_antitone_prefix` | unconditional | 593 | 1 | exponential sums | Selberg/Brun sieve | Selberg/Brun sieve |
 | `Salt.ExpSum.cpow_weight_split` | unconditional | 593 | 2 | exponential sums | zero-density / zero-free regions; exponential sums | zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.vk_ladder_prefix` | unconditional | 592 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
+| `Salt.Vk.vk_ladder_prefix` | unconditional | 593 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions |
 | `Salt.ExpSum.zeta_block_window_meet` | unconditional | 590 | 1 | exponential sums | Selberg/Brun sieve | Selberg/Brun sieve |
 | `Salt.ExpSum.window_coverage` | unconditional | 589 | 2 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; exponential sums |
 | `Salt.Vk.vkTheta_pos` | unconditional | 586 | 1 | zero-density / zero-free regions | zero-density / zero-free regions | zero-density / zero-free regions |
@@ -1383,12 +1383,12 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.ExpSum.zeta_window_prefix` | unconditional | 567 | 3 | exponential sums | Selberg/Brun sieve; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
 | `Salt.ExpSum.zeta_block_dispatch` | unconditional | 566 | 9 | exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
 | `Salt.SW.zeta_neg_re_logDeriv_le_keep` | unconditional | 566 | 14 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
+| `Salt.Vk.vk_window_prefix` | unconditional | 566 | 5 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
 | `Salt.ExpSum.norm_zeta_sub_approx_le` | unconditional | 565 | 2 | zero-density / zero-free regions; exponential sums | zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
-| `Salt.Vk.vk_window_prefix` | unconditional | 565 | 5 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.vk_window_scale_prefix` | unconditional | 565 | 9 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
 | `Salt.SW.zeta_zero_free_strip` | unconditional | 564 | 0 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | - | - |
-| `Salt.Vk.vk_window_scale_prefix` | unconditional | 564 | 9 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums |
+| `Salt.Vk.vk_window_mid_prefix` | unconditional | 564 | 8 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions; explog/lognum numeral tactic | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums; explog/lognum numeral tactic |
 | `Salt.SW.zeta_zero_free_region` | unconditional | 563 | 8 | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions | Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions | Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; character sums / L-functions |
-| `Salt.Vk.vk_window_mid_prefix` | unconditional | 563 | 8 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions; explog/lognum numeral tactic | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums; explog/lognum numeral tactic |
 | `Salt.Vk.vk_dirichlet_block_le` | unconditional | 562 | 10 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums; explog/lognum numeral tactic | circle method / Fourier; Selberg/Brun sieve; Bombieri-Vinogradov / Siegel-Walfisz; zero-density / zero-free regions; exponential sums; explog/lognum numeral tactic |
 | `Salt.Vk.zeta_sub_dirichlet_bound` | unconditional | 561 | 2 | zero-density / zero-free regions | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums | Selberg/Brun sieve; zero-density / zero-free regions; exponential sums |
 | `Salt.MR.liouvilleC_norm_le_one` | unconditional | 560 | 1 | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) | Matomaki-Radziwill / Halasz (short intervals) |
