@@ -67,10 +67,6 @@ import Salt.MR.StrideGradeWalls
 import Salt.MR.S13CapFloor
 import Mathlib
 
--- as `StrideGradeWalls`: the arm's body reaches `XThread`'s private numeral helper `xt_exp25`
--- (`6·10^10 ≤ e^25`) by `open private`, the corpus's sanctioned device.
-open private xt_exp25 from Salt.MR.XThread
-
 noncomputable section
 
 open Salt.Entropy.Chowla
@@ -196,7 +192,7 @@ theorem flat_anchor_line_wide_g14 {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 439) :
   have hMge := flatDoorM_ge A
   linarith
 
-/-! ## §4 — THE ARM AT THE RAISED `c`-CEILING (`StrideGradeWalls.lean:430`'s twin) -/
+/-! ## §4 — THE ARM AT THE RAISED `c`-CEILING (`s15ArmH_log_le_g`'s twin) -/
 
 /-- **⟦THE ARM'S LOG AT SHIFT `h`, GRADED, AT THE RAISED CAP⟧ (class A)** — `s15ArmH_log_le_g`
 with `hh7 : log h ≤ 7 ↦ hh14 : log h ≤ 14`, `h ≤ 1096 ↦ h ≤ 1202604`, the `c`-ceiling at

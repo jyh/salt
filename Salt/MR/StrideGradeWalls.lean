@@ -41,10 +41,6 @@ import Salt.MR.S16ProducersH
 import Salt.MR.HSeamCheck
 import Mathlib
 
--- The arm's body reaches `XThread`'s own private numeral helper `xt_exp25`
--- (`6·10^10 ≤ e^25`) by `open private`, the corpus's sanctioned device.
-open private xt_exp25 from Salt.MR.XThread
-
 noncomputable section
 
 open Salt.Entropy.Chowla
