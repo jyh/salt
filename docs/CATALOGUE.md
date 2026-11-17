@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `b9fc9fb7` · source digest `38b7b62a40f31e88` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `41d84092` · source digest `81c31937be7c6753` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -6701,7 +6701,8 @@ Declarations indexed across the tree: 23437 · corpus Prop-valued names (the hyp
 | `Salt.SW.norm_LFunction_sub_partial_le_strip` | Salt/SW/StripConvergence.lean:438 | sieves |
 | `Salt.SW.dhW_detector_floor_beta0` | Salt/SW/TBalClose.lean:43 | sieves, characters |
 | `Salt.SW.dh_balance_beta0_real` | Salt/SW/TBalClose.lean:76 | sieves, characters |
-| `Salt.SW.dh_extraction_upper_rho` | Salt/SW/TBalCompose.lean:489 | sieves, characters |
+| `Salt.SW.dh_extraction_upper_rho_tall` | Salt/SW/TBalCompose.lean:511 | sieves, characters |
+| `Salt.SW.dh_extraction_upper_rho` | Salt/SW/TBalCompose.lean:639 | sieves, characters |
 | `Salt.SW.norm_LFunction_one_eq_re` | Salt/SW/TBalFinal.lean:42 | sieves, characters |
 | `Salt.SW.sum_mul_index_eq_rho` | Salt/SW/TBalFinal.lean:63 | sieves |
 | `Salt.SW.kernel_abel_sum_rho` | Salt/SW/TBalFinal.lean:91 | sieves |
@@ -6714,38 +6715,37 @@ Declarations indexed across the tree: 23437 · corpus Prop-valued names (the hyp
 | `Salt.SW.dh_balance` | Salt/SW/TBalR7.lean:100 | sieves, characters |
 | `Salt.SW.tbal_tau_le_split` | Salt/SW/TBalR8.lean:50 | sieves |
 | `Salt.SW.tbal_tau_le_split_k1` | Salt/SW/TBalR8.lean:97 | sieves |
-| `Salt.SW.dh_master_ray` | Salt/SW/TBalR8.lean:127 | sieves, characters |
-| `Salt.SW.exp_sub_one_le_e_mul` | Salt/SW/TBalR8.lean:250 | sieves |
-| `Salt.SW.rpow_sub_one_le` | Salt/SW/TBalR8.lean:266 | sieves |
-| `Salt.SW.neg_log_le_rpow` | Salt/SW/TBalR8.lean:279 | sieves |
-| `Salt.SW.neg_log_le_rpow'` | Salt/SW/TBalR8.lean:290 | sieves |
-| `Salt.SW.log_add_two_le_rpow_nine_tenths` | Salt/SW/TBalR8.lean:313 | sieves |
-| `Salt.SW.ray_pow_bound` | Salt/SW/TBalR8.lean:361 | sieves |
-| `Salt.SW.ray_pow_bound_conv` | Salt/SW/TBalR8.lean:409 | sieves |
-| `Salt.SW.row_1x_cap` | Salt/SW/TBalR8.lean:447 | sieves |
-| `Salt.SW.row_A_cap` | Salt/SW/TBalR8.lean:507 | sieves |
-| `Salt.SW.row_A_cap_k1` | Salt/SW/TBalR8.lean:700 | sieves |
-| `Salt.SW.row_rho_main_cap` | Salt/SW/TBalR8.lean:964 | sieves |
-| `Salt.SW.row_rho_main_cap_k1` | Salt/SW/TBalR8.lean:1067 | sieves |
-| `Salt.SW.logz_factor_le` | Salt/SW/TBalR8.lean:1176 | sieves |
-| `Salt.SW.logz_factor_pow9_le` | Salt/SW/TBalR8.lean:1218 | sieves |
-| `Salt.SW.row_Eβ_cap` | Salt/SW/TBalR8.lean:1252 | sieves |
-| `Salt.SW.row_Eβ_cap_k1` | Salt/SW/TBalR8.lean:1408 | sieves |
-| `Salt.SW.row_Eρ_cap` | Salt/SW/TBalR8.lean:1586 | sieves |
-| `Salt.SW.tbal_hguard` | Salt/SW/TBalR8.lean:1702 | sieves |
-| `Salt.SW.tbal_hscale` | Salt/SW/TBalR8.lean:1738 | sieves |
-| `Salt.SW.tbal_hcov` | Salt/SW/TBalR8.lean:1825 | sieves |
-| `Salt.SW.C2Rho_le` | Salt/SW/TBalR8.lean:2027 | sieves |
-| `Salt.SW.dh_repulsion_ordered` | Salt/SW/TBalR8.lean:2523 | sieves, characters |
-| `Salt.SW.dh_extraction_upper_rho_tall` | Salt/SW/TBalTall.lean:533 | sieves, characters |
-| `Salt.SW.dh_master_ray_tall` | Salt/SW/TBalTall.lean:666 | sieves, characters |
-| `Salt.SW.C2Rho_le_tall` | Salt/SW/TBalTall.lean:803 | sieves |
-| `Salt.SW.row_Eρ_cap_tall` | Salt/SW/TBalTall.lean:919 | sieves |
-| `Salt.SW.row_Eρ_cap_tall_k1` | Salt/SW/TBalTall.lean:1051 | sieves |
-| `Salt.SW.dh_repulsion_tall` | Salt/SW/TBalTall.lean:2065 | sieves, characters |
-| `Salt.SW.dh_repulsion_tall_of_floor` | Salt/SW/TBalTall.lean:2201 | sieves, characters |
-| `Salt.SW.dh_repulsion_k1_of_floor` | Salt/SW/TBalTall.lean:2311 | sieves, characters |
-| `Salt.SW.boxZeros_re_le_at_efHeight` | Salt/SW/TBalTall.lean:2468 | sieves, characters |
+| `Salt.SW.dh_master_ray_tall` | Salt/SW/TBalR8.lean:127 | sieves, characters |
+| `Salt.SW.dh_master_ray` | Salt/SW/TBalR8.lean:254 | sieves, characters |
+| `Salt.SW.exp_sub_one_le_e_mul` | Salt/SW/TBalR8.lean:282 | sieves |
+| `Salt.SW.rpow_sub_one_le` | Salt/SW/TBalR8.lean:298 | sieves |
+| `Salt.SW.neg_log_le_rpow` | Salt/SW/TBalR8.lean:311 | sieves |
+| `Salt.SW.neg_log_le_rpow'` | Salt/SW/TBalR8.lean:322 | sieves |
+| `Salt.SW.log_add_two_le_rpow_nine_tenths` | Salt/SW/TBalR8.lean:345 | sieves |
+| `Salt.SW.ray_pow_bound` | Salt/SW/TBalR8.lean:393 | sieves |
+| `Salt.SW.ray_pow_bound_conv` | Salt/SW/TBalR8.lean:441 | sieves |
+| `Salt.SW.row_1x_cap` | Salt/SW/TBalR8.lean:479 | sieves |
+| `Salt.SW.row_A_cap` | Salt/SW/TBalR8.lean:539 | sieves |
+| `Salt.SW.row_A_cap_k1` | Salt/SW/TBalR8.lean:732 | sieves |
+| `Salt.SW.row_rho_main_cap` | Salt/SW/TBalR8.lean:996 | sieves |
+| `Salt.SW.row_rho_main_cap_k1` | Salt/SW/TBalR8.lean:1099 | sieves |
+| `Salt.SW.logz_factor_le` | Salt/SW/TBalR8.lean:1208 | sieves |
+| `Salt.SW.logz_factor_pow9_le` | Salt/SW/TBalR8.lean:1250 | sieves |
+| `Salt.SW.row_Eβ_cap` | Salt/SW/TBalR8.lean:1284 | sieves |
+| `Salt.SW.row_Eβ_cap_k1` | Salt/SW/TBalR8.lean:1440 | sieves |
+| `Salt.SW.row_Eρ_cap` | Salt/SW/TBalR8.lean:1618 | sieves |
+| `Salt.SW.tbal_hguard` | Salt/SW/TBalR8.lean:1734 | sieves |
+| `Salt.SW.tbal_hscale` | Salt/SW/TBalR8.lean:1770 | sieves |
+| `Salt.SW.tbal_hcov` | Salt/SW/TBalR8.lean:1857 | sieves |
+| `Salt.SW.C2Rho_le` | Salt/SW/TBalR8.lean:2059 | sieves |
+| `Salt.SW.dh_repulsion_ordered` | Salt/SW/TBalR8.lean:2555 | sieves, characters |
+| `Salt.SW.C2Rho_le_tall` | Salt/SW/TBalTall.lean:93 | sieves |
+| `Salt.SW.row_Eρ_cap_tall` | Salt/SW/TBalTall.lean:209 | sieves |
+| `Salt.SW.row_Eρ_cap_tall_k1` | Salt/SW/TBalTall.lean:341 | sieves |
+| `Salt.SW.dh_repulsion_tall` | Salt/SW/TBalTall.lean:1354 | sieves, characters |
+| `Salt.SW.dh_repulsion_tall_of_floor` | Salt/SW/TBalTall.lean:1490 | sieves, characters |
+| `Salt.SW.dh_repulsion_k1_of_floor` | Salt/SW/TBalTall.lean:1600 | sieves, characters |
+| `Salt.SW.boxZeros_re_le_at_efHeight` | Salt/SW/TBalTall.lean:1757 | sieves, characters |
 | `Salt.SW.zetaHol_norm_le_of_lt` | Salt/SW/TauExt.lean:95 | sieves |
 | `Salt.SW.zetaHol_norm_le` | Salt/SW/TauExt.lean:121 | sieves |
 | `Salt.SW.zetaHol_bound_tall` | Salt/SW/TauExt.lean:152 | sieves |
