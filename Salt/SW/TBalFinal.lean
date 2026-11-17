@@ -432,18 +432,18 @@ noncomputable def dhD0rho (χ : DirichletCharacter ℂ q) (ρ : ℂ) (x : ℝ) :
 
 set_option maxHeartbeats 1600000 in
 -- Many error/main legs + field_simp/ring over the (1−ρ)(2−ρ) denominators exceed the default.
-/-- **R6-3@ρ (`unmoll_extraction_rho`) — the complex-scale two-sided extraction.** For a primitive
-real `χ` at a NON-REAL zero `ρ` (`1/2 ≤ Re ρ < 1`, `|Im ρ| ≤ 1`) and real `x ≥ 2`,
+/-- **R6-3@ρ (`unmoll_extraction_rho_tall`) — the complex-scale two-sided extraction.** For a
+primitive real `χ` at a NON-REAL zero `ρ` (`1/2 ≤ Re ρ < 1`, `|Im ρ| ≤ 1`) and real `x ≥ 2`,
 `‖D₀^ρ(x) − L(1,χ)·x^{1−ρ}/((1−ρ)(2−ρ))‖ ≤ C₂ρ·x^{1/2−Re ρ}`. The complex analog of
 `unmoll_extraction_abs_real`: the complex kernel-Abel (`kernel_abel_sum_rho`) reduces `D₀^ρ` to
-`(1/x)[(x−T)A_ρ(T)+Σ_{t<T}A_ρ(t)]`; the per-`t` heart (`dhAbel_inner_rho`) gives the `3Cwρ` error
-legs and the complex power-sum sandwich (`sum_cpow_sandwich_rho`, with `‖L(1,χ)‖ ≤ 18M`) gives the
-main leg. -/
-theorem unmoll_extraction_rho [NeZero q] (χ : DirichletCharacter ℂ q)
+`(1/x)[(x−T)A_ρ(T)+Σ_{t<T}A_ρ(t)]`; the per-`t` heart (`dhAbel_inner_rho_tall`) gives the `3Cwρ`
+error legs and the complex power-sum sandwich (`sum_cpow_sandwich_rho`, with `‖L(1,χ)‖ ≤ 18M`)
+gives the main leg. -/
+theorem unmoll_extraction_rho_tall [NeZero q] (χ : DirichletCharacter ℂ q)
     (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {ρ : ℂ}
     (hzero : DirichletCharacter.LFunction χ ρ = 0) (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1)
-    (him : |ρ.im| ≤ 1)
-    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
+    {H : ℝ} (him : |ρ.im| ≤ H)
+    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ H → ‖zetaHol s‖ ≤ Z₀)
     {x : ℝ} (hx : 2 ≤ x) :
     ‖dhD0rho χ ρ x
         - DirichletCharacter.LFunction χ 1 * (x : ℂ) ^ (1 - ρ) / ((1 - ρ) * (2 - ρ))‖
@@ -507,7 +507,7 @@ theorem unmoll_extraction_rho [NeZero q] (χ : DirichletCharacter ℂ q)
       ‖(∑ s ∈ Finset.Icc 1 t, (dhA χ s : ℂ) * (s : ℂ) ^ (-ρ)) - L₁ * (t : ℂ) ^ (1 - ρ) / (1 - ρ)‖
         ≤ Cwρ * (t : ℝ) ^ (1 / 2 - ρ.re) := by
     intro t ht
-    have h := dhAbel_inner_rho χ hχ hsq hq hzero hlo hhi him hZ ht
+    have h := dhAbel_inner_rho_tall χ hχ hsq hq hzero hlo hhi him hZ ht
     rw [← hL1def] at h
     rw [hCwρdef]; simp only [CwRho]
     exact h
@@ -650,6 +650,26 @@ theorem unmoll_extraction_rho [NeZero q] (χ : DirichletCharacter ℂ q)
     nth_rewrite 2 [← Real.rpow_one x]; rw [← Real.rpow_add hx0]; congr 1; ring
   calc ‖R - (x : ℂ) * main‖ ≤ C2Rho q Z₀ ρ * x ^ (3 / 2 - ρ.re) := hRbound
     _ = C2Rho q Z₀ ρ * x ^ (1 / 2 - ρ.re) * x := by rw [← hxpow]; ring
+
+set_option maxHeartbeats 1600000 in
+-- Many error/main legs + field_simp/ring over the (1−ρ)(2−ρ) denominators exceed the default.
+/-- **R6-3@ρ (`unmoll_extraction_rho`) — the complex-scale two-sided extraction.** For a primitive
+real `χ` at a NON-REAL zero `ρ` (`1/2 ≤ Re ρ < 1`, `|Im ρ| ≤ 1`) and real `x ≥ 2`,
+`‖D₀^ρ(x) − L(1,χ)·x^{1−ρ}/((1−ρ)(2−ρ))‖ ≤ C₂ρ·x^{1/2−Re ρ}`. The complex analog of
+`unmoll_extraction_abs_real`: the complex kernel-Abel (`kernel_abel_sum_rho`) reduces `D₀^ρ` to
+`(1/x)[(x−T)A_ρ(T)+Σ_{t<T}A_ρ(t)]`; the per-`t` heart (`dhAbel_inner_rho`) gives the `3Cwρ` error
+legs and the complex power-sum sandwich (`sum_cpow_sandwich_rho`, with `‖L(1,χ)‖ ≤ 18M`) gives the
+main leg. -/
+theorem unmoll_extraction_rho [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {ρ : ℂ}
+    (hzero : DirichletCharacter.LFunction χ ρ = 0) (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1)
+    (him : |ρ.im| ≤ 1)
+    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
+    {x : ℝ} (hx : 2 ≤ x) :
+    ‖dhD0rho χ ρ x
+        - DirichletCharacter.LFunction χ 1 * (x : ℂ) ^ (1 - ρ) / ((1 - ρ) * (2 - ρ))‖
+      ≤ C2Rho q Z₀ ρ * x ^ (1 / 2 - ρ.re) :=
+  unmoll_extraction_rho_tall χ hχ hsq hq hzero hlo hhi him hZ hx
 
 end Salt.SW
 
