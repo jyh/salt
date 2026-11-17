@@ -398,6 +398,60 @@ theorem t0datum_grade_of_fit {C' X C₁ M₀ A : ℝ} (hX3 : (3 : ℝ) ≤ X) (h
     positivity
   linarith
 
+/-- **⟦D3-DISCHARGE — THE `hpiece` SLOT⟧ AT THE G-LEVER** (`m4_hpiece_at_door_gk`). -/
+theorem m4_hpiece_at_door_gk (K : ℕ) (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) (P Q : ℕ)
+    (hP4 : 4 ≤ P) (hPQ : P ≤ Q) :
+    ∃ (C' : ℝ) (x₀ : ℕ), 0 < C' ∧
+      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (M Xd N : ℕ) {X : ℝ},
+        ((Xd : ℕ) : ℝ) = X → (400 : ℝ) ≤ X → x₀ ≤ Xd → 16 ≤ Xd →
+        (q : ℝ) ≤ (Real.log X) ^ (10 : ℕ) →
+        (∀ j ∈ Finset.Icc 1 2, P ≤ calP (Adoor M) (s13GK K M) j) →
+        (∀ j ∈ Finset.Icc 1 2, calQK (Adoor M) (s13GK K M) M j ≤ Q) →
+        (∀ k : ℕ, Xd ≤ k → k ≤ N →
+          16 * A * Real.log (Real.log (k : ℝ)) ≤ Real.log (k : ℝ)) →
+        (∀ k : ℕ, Xd ≤ k → k ≤ N →
+          8 * A * Real.log (Real.log (k : ℝ)) * Real.log (Q : ℝ) ≤ Real.log (k : ℝ)) →
+        (∀ k : ℕ, Xd ≤ k → k ≤ N →
+          Real.exp (2 * Real.exp 1
+              * (Real.log (Real.log (Q : ℝ)) - Real.log (Real.log (P : ℝ)) + 25))
+            ≤ (Real.log (k : ℝ)) ^ A) →
+        ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset, ∀ t : ℝ, |t| ≤ seamT0 X →
+          ∀ k : ℕ, Xd ≤ k → k ≤ N →
+            ‖∑ n ∈ Finset.Icc 1 k,
+                pieceDatum χ 𝒥 (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) n
+                  * eIu (-t) n‖
+              ≤ (C' / (Real.log X) ^ A) * (k : ℝ) := by
+  obtain ⟨C', x₀, hC'pos, hrate⟩ := piece_partial_sum_rate hMmu A hA P Q hP4 hPQ
+  refine ⟨C', x₀, hC'pos, ?_⟩
+  intro q _ χ M Xd N X hXd hX400 hx₀ h16 hq hcovP hcovQ hgHalf hgO1 hgWin 𝒥 h𝒥 t ht k hk1 hk2
+  have h𝒥sub : 𝒥 ⊆ Finset.Icc 1 2 := Finset.mem_powerset.mp h𝒥
+  have hX0 : (0 : ℝ) < X := by linarith
+  have hXk : X ≤ (k : ℝ) := by
+    rw [← hXd]
+    exact_mod_cast hk1
+  have hLXpos : 0 < Real.log X := Real.log_pos (by linarith)
+  have hLk : Real.log X ≤ Real.log (k : ℝ) := Real.log_le_log hX0 hXk
+  have hLkpos : 0 < Real.log (k : ℝ) := lt_of_lt_of_le hLXpos hLk
+  have hk16 : 16 ≤ k := le_trans h16 hk1
+  have hkx₀ : x₀ ≤ k := le_trans hx₀ hk1
+  -- the conductor fit, transported up the range
+  have hqk : (q : ℝ) ≤ (Real.log (k : ℝ)) ^ (10 : ℕ) := by
+    refine le_trans hq ?_
+    gcongr
+  -- the height fit, through the small-`k` corner and `√√` monotonicity
+  have hth : |t| ≤ (Nat.sqrt (Nat.sqrt k) : ℝ) := by
+    refine le_trans ht (le_trans (seamT0_le_sqrt_sqrt hXd hX400) ?_)
+    exact_mod_cast Nat.sqrt_le_sqrt (Nat.sqrt_le_sqrt hk1)
+  have hmain := hrate k hkx₀ hk16 (hgHalf k hk1 hk2) (hgO1 k hk1 hk2) (hgWin k hk1 hk2)
+    q χ hqk t hth 𝒥 _ _ (fun j hj => hcovP j (h𝒥sub hj)) (fun j hj => hcovQ j (h𝒥sub hj))
+  refine le_trans hmain ?_
+  have hLAX : (0 : ℝ) < (Real.log X) ^ A := Real.rpow_pos_of_pos hLXpos A
+  have hLAk : (Real.log X) ^ A ≤ (Real.log (k : ℝ)) ^ A :=
+    Real.rpow_le_rpow hLXpos.le hLk hA.le
+  have hk0 : (0 : ℝ) ≤ (k : ℝ) := Nat.cast_nonneg k
+  rw [show C' / (Real.log X) ^ A * (k : ℝ) = C' * (k : ℝ) / (Real.log X) ^ A from by ring]
+  exact div_le_div_of_nonneg_left (mul_nonneg hC'pos.le hk0) hLAX hLAk
+
 /-- **⟦D3-DISCHARGE⟧ THE `hpiece` SLOT AT THE DOOR DATUM** (`m4_hpiece_at_door`).
 
 The FROZEN binder of `M4T0Datum.m4_hT0band_at_door`, met exactly, at the grade
@@ -431,36 +485,7 @@ theorem m4_hpiece_at_door (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) (P Q : ℕ)
                 pieceDatum χ 𝒥 (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) n
                   * eIu (-t) n‖
               ≤ (C' / (Real.log X) ^ A) * (k : ℝ) := by
-  obtain ⟨C', x₀, hC'pos, hrate⟩ := piece_partial_sum_rate hMmu A hA P Q hP4 hPQ
-  refine ⟨C', x₀, hC'pos, ?_⟩
-  intro q _ χ M Xd N X hXd hX400 hx₀ h16 hq hcovP hcovQ hgHalf hgO1 hgWin 𝒥 h𝒥 t ht k hk1 hk2
-  have h𝒥sub : 𝒥 ⊆ Finset.Icc 1 2 := Finset.mem_powerset.mp h𝒥
-  have hX0 : (0 : ℝ) < X := by linarith
-  have hXk : X ≤ (k : ℝ) := by
-    rw [← hXd]
-    exact_mod_cast hk1
-  have hLXpos : 0 < Real.log X := Real.log_pos (by linarith)
-  have hLk : Real.log X ≤ Real.log (k : ℝ) := Real.log_le_log hX0 hXk
-  have hLkpos : 0 < Real.log (k : ℝ) := lt_of_lt_of_le hLXpos hLk
-  have hk16 : 16 ≤ k := le_trans h16 hk1
-  have hkx₀ : x₀ ≤ k := le_trans hx₀ hk1
-  -- the conductor fit, transported up the range
-  have hqk : (q : ℝ) ≤ (Real.log (k : ℝ)) ^ (10 : ℕ) := by
-    refine le_trans hq ?_
-    gcongr
-  -- the height fit, through the small-`k` corner and `√√` monotonicity
-  have hth : |t| ≤ (Nat.sqrt (Nat.sqrt k) : ℝ) := by
-    refine le_trans ht (le_trans (seamT0_le_sqrt_sqrt hXd hX400) ?_)
-    exact_mod_cast Nat.sqrt_le_sqrt (Nat.sqrt_le_sqrt hk1)
-  have hmain := hrate k hkx₀ hk16 (hgHalf k hk1 hk2) (hgO1 k hk1 hk2) (hgWin k hk1 hk2)
-    q χ hqk t hth 𝒥 _ _ (fun j hj => hcovP j (h𝒥sub hj)) (fun j hj => hcovQ j (h𝒥sub hj))
-  refine le_trans hmain ?_
-  have hLAX : (0 : ℝ) < (Real.log X) ^ A := Real.rpow_pos_of_pos hLXpos A
-  have hLAk : (Real.log X) ^ A ≤ (Real.log (k : ℝ)) ^ A :=
-    Real.rpow_le_rpow hLXpos.le hLk hA.le
-  have hk0 : (0 : ℝ) ≤ (k : ℝ) := Nat.cast_nonneg k
-  rw [show C' / (Real.log X) ^ A * (k : ℝ) = C' * (k : ℝ) / (Real.log X) ^ A from by ring]
-  exact div_le_div_of_nonneg_left (mul_nonneg hC'pos.le hk0) hLAX hLAk
+  simpa only [s13GK_zero] using m4_hpiece_at_door_gk 0 hMmu A hA P Q hP4 hPQ
 
 /-- **⟦D3-DISCHARGE — THE EXIT⟧** (`m4_hT0band_at_door_discharged`).  `m4_hpiece_at_door`
 composed with `M4T0Datum.m4_hT0band_at_door`:
@@ -627,16 +652,16 @@ theorem piece_partial_sum_rate_split (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) 
     (jMask_mass_le _ hP4 hPQ hP hQ)
     (jMask_htail_le k A hA hP4 hPQ hk16 hgHalf hgO1 hgWin hP hQ)
 
-/-- **⟦D3-DISCHARGE, SPLIT-HOISTED⟧ THE `hpiece` SLOT** (`m4_hpiece_at_door_split`) —
-`m4_hpiece_at_door` at the window-free threshold. -/
-theorem m4_hpiece_at_door_split (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
+/-- **⟦D3-DISCHARGE, SPLIT-HOISTED⟧ THE `hpiece` SLOT, AT THE G-LEVER**
+(`m4_hpiece_at_door_split_gk`).  `piece_partial_sum_rate_split` is `G`-FREE and is reused. -/
+theorem m4_hpiece_at_door_split_gk (K : ℕ) (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
     ∃ x₀ : ℕ, ∀ (P Q : ℕ), 4 ≤ P → P ≤ Q →
       ∃ C' : ℝ, 0 < C' ∧
         ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (M Xd N : ℕ) {X : ℝ},
           ((Xd : ℕ) : ℝ) = X → (400 : ℝ) ≤ X → x₀ ≤ Xd → 16 ≤ Xd →
           (q : ℝ) ≤ (Real.log X) ^ (10 : ℕ) →
-          (∀ j ∈ Finset.Icc 1 2, P ≤ calP (Adoor M) (3072 * M) j) →
-          (∀ j ∈ Finset.Icc 1 2, calQK (Adoor M) (3072 * M) M j ≤ Q) →
+          (∀ j ∈ Finset.Icc 1 2, P ≤ calP (Adoor M) (s13GK K M) j) →
+          (∀ j ∈ Finset.Icc 1 2, calQK (Adoor M) (s13GK K M) M j ≤ Q) →
           (∀ k : ℕ, Xd ≤ k → k ≤ N →
             16 * A * Real.log (Real.log (k : ℝ)) ≤ Real.log (k : ℝ)) →
           (∀ k : ℕ, Xd ≤ k → k ≤ N →
@@ -648,7 +673,7 @@ theorem m4_hpiece_at_door_split (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
           ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset, ∀ t : ℝ, |t| ≤ seamT0 X →
             ∀ k : ℕ, Xd ≤ k → k ≤ N →
               ‖∑ n ∈ Finset.Icc 1 k,
-                  pieceDatum χ 𝒥 (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) n
+                  pieceDatum χ 𝒥 (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) n
                     * eIu (-t) n‖
                 ≤ (C' / (Real.log X) ^ A) * (k : ℝ) := by
   obtain ⟨x₀, hsplit⟩ := piece_partial_sum_rate_split hMmu A hA
@@ -682,6 +707,32 @@ theorem m4_hpiece_at_door_split (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
   have hk0 : (0 : ℝ) ≤ (k : ℝ) := Nat.cast_nonneg k
   rw [show C' / (Real.log X) ^ A * (k : ℝ) = C' * (k : ℝ) / (Real.log X) ^ A from by ring]
   exact div_le_div_of_nonneg_left (mul_nonneg hC'pos.le hk0) hLAX hLAk
+
+/-- **⟦D3-DISCHARGE, SPLIT-HOISTED⟧ THE `hpiece` SLOT** (`m4_hpiece_at_door_split`) —
+`m4_hpiece_at_door` at the window-free threshold. -/
+theorem m4_hpiece_at_door_split (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
+    ∃ x₀ : ℕ, ∀ (P Q : ℕ), 4 ≤ P → P ≤ Q →
+      ∃ C' : ℝ, 0 < C' ∧
+        ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (M Xd N : ℕ) {X : ℝ},
+          ((Xd : ℕ) : ℝ) = X → (400 : ℝ) ≤ X → x₀ ≤ Xd → 16 ≤ Xd →
+          (q : ℝ) ≤ (Real.log X) ^ (10 : ℕ) →
+          (∀ j ∈ Finset.Icc 1 2, P ≤ calP (Adoor M) (3072 * M) j) →
+          (∀ j ∈ Finset.Icc 1 2, calQK (Adoor M) (3072 * M) M j ≤ Q) →
+          (∀ k : ℕ, Xd ≤ k → k ≤ N →
+            16 * A * Real.log (Real.log (k : ℝ)) ≤ Real.log (k : ℝ)) →
+          (∀ k : ℕ, Xd ≤ k → k ≤ N →
+            8 * A * Real.log (Real.log (k : ℝ)) * Real.log (Q : ℝ) ≤ Real.log (k : ℝ)) →
+          (∀ k : ℕ, Xd ≤ k → k ≤ N →
+            Real.exp (2 * Real.exp 1
+                * (Real.log (Real.log (Q : ℝ)) - Real.log (Real.log (P : ℝ)) + 25))
+              ≤ (Real.log (k : ℝ)) ^ A) →
+          ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset, ∀ t : ℝ, |t| ≤ seamT0 X →
+            ∀ k : ℕ, Xd ≤ k → k ≤ N →
+              ‖∑ n ∈ Finset.Icc 1 k,
+                  pieceDatum χ 𝒥 (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) n
+                    * eIu (-t) n‖
+                ≤ (C' / (Real.log X) ^ A) * (k : ℝ) := by
+  simpa only [s13GK_zero] using m4_hpiece_at_door_split_gk 0 hMmu A hA
 
 /-- **⟦D3-DISCHARGE — THE EXIT, SPLIT-HOISTED⟧** (`m4_hT0band_at_door_discharged_split`) —
 `m4_hT0band_at_door_discharged` at the window-free threshold.  This is the link the door's
@@ -772,16 +823,16 @@ theorem piece_partial_sum_rate_split_graded (hMmu : MmuChiRate) (A : ℝ) (hA : 
     (jMask_mass_le _ hP4 hPQ hP hQ)
     (jMask_htail_le k A hA hP4 hPQ hk16 hgHalf hgO1 hgWin hP hQ)
 
-/-- **⟦D3-DISCHARGE, SPLIT-HOISTED + GRADED⟧ THE `hpiece` SLOT** (`m4_hpiece_at_door_split_graded`)
-— §7's link 3 carrying the window-explicit cap. -/
-theorem m4_hpiece_at_door_split_graded (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
+/-- **⟦D3-DISCHARGE, SPLIT-HOISTED + GRADED⟧ THE `hpiece` SLOT, AT THE G-LEVER**
+(`m4_hpiece_at_door_split_graded_gk`). -/
+theorem m4_hpiece_at_door_split_graded_gk (K : ℕ) (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
     ∃ (x₀ : ℕ) (C : ℝ), 0 < C ∧ ∀ (P Q : ℕ), 4 ≤ P → P ≤ Q →
       ∃ C' : ℝ, 0 < C' ∧ C' ≤ C * (4 : ℝ) ^ A * windowMassConst P Q + 1 ∧
         ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (M Xd N : ℕ) {X : ℝ},
           ((Xd : ℕ) : ℝ) = X → (400 : ℝ) ≤ X → x₀ ≤ Xd → 16 ≤ Xd →
           (q : ℝ) ≤ (Real.log X) ^ (10 : ℕ) →
-          (∀ j ∈ Finset.Icc 1 2, P ≤ calP (Adoor M) (3072 * M) j) →
-          (∀ j ∈ Finset.Icc 1 2, calQK (Adoor M) (3072 * M) M j ≤ Q) →
+          (∀ j ∈ Finset.Icc 1 2, P ≤ calP (Adoor M) (s13GK K M) j) →
+          (∀ j ∈ Finset.Icc 1 2, calQK (Adoor M) (s13GK K M) M j ≤ Q) →
           (∀ k : ℕ, Xd ≤ k → k ≤ N →
             16 * A * Real.log (Real.log (k : ℝ)) ≤ Real.log (k : ℝ)) →
           (∀ k : ℕ, Xd ≤ k → k ≤ N →
@@ -793,7 +844,7 @@ theorem m4_hpiece_at_door_split_graded (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A
           ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset, ∀ t : ℝ, |t| ≤ seamT0 X →
             ∀ k : ℕ, Xd ≤ k → k ≤ N →
               ‖∑ n ∈ Finset.Icc 1 k,
-                  pieceDatum χ 𝒥 (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) n
+                  pieceDatum χ 𝒥 (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) n
                     * eIu (-t) n‖
                 ≤ (C' / (Real.log X) ^ A) * (k : ℝ) := by
   obtain ⟨x₀, C, hCpos, hsplit⟩ := piece_partial_sum_rate_split_graded hMmu A hA
@@ -827,6 +878,32 @@ theorem m4_hpiece_at_door_split_graded (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A
   have hk0 : (0 : ℝ) ≤ (k : ℝ) := Nat.cast_nonneg k
   rw [show C' / (Real.log X) ^ A * (k : ℝ) = C' * (k : ℝ) / (Real.log X) ^ A from by ring]
   exact div_le_div_of_nonneg_left (mul_nonneg hC'pos.le hk0) hLAX hLAk
+
+/-- **⟦D3-DISCHARGE, SPLIT-HOISTED + GRADED⟧ THE `hpiece` SLOT** (`m4_hpiece_at_door_split_graded`)
+— §7's link 3 carrying the window-explicit cap. -/
+theorem m4_hpiece_at_door_split_graded (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
+    ∃ (x₀ : ℕ) (C : ℝ), 0 < C ∧ ∀ (P Q : ℕ), 4 ≤ P → P ≤ Q →
+      ∃ C' : ℝ, 0 < C' ∧ C' ≤ C * (4 : ℝ) ^ A * windowMassConst P Q + 1 ∧
+        ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (M Xd N : ℕ) {X : ℝ},
+          ((Xd : ℕ) : ℝ) = X → (400 : ℝ) ≤ X → x₀ ≤ Xd → 16 ≤ Xd →
+          (q : ℝ) ≤ (Real.log X) ^ (10 : ℕ) →
+          (∀ j ∈ Finset.Icc 1 2, P ≤ calP (Adoor M) (3072 * M) j) →
+          (∀ j ∈ Finset.Icc 1 2, calQK (Adoor M) (3072 * M) M j ≤ Q) →
+          (∀ k : ℕ, Xd ≤ k → k ≤ N →
+            16 * A * Real.log (Real.log (k : ℝ)) ≤ Real.log (k : ℝ)) →
+          (∀ k : ℕ, Xd ≤ k → k ≤ N →
+            8 * A * Real.log (Real.log (k : ℝ)) * Real.log (Q : ℝ) ≤ Real.log (k : ℝ)) →
+          (∀ k : ℕ, Xd ≤ k → k ≤ N →
+            Real.exp (2 * Real.exp 1
+                * (Real.log (Real.log (Q : ℝ)) - Real.log (Real.log (P : ℝ)) + 25))
+              ≤ (Real.log (k : ℝ)) ^ A) →
+          ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset, ∀ t : ℝ, |t| ≤ seamT0 X →
+            ∀ k : ℕ, Xd ≤ k → k ≤ N →
+              ‖∑ n ∈ Finset.Icc 1 k,
+                  pieceDatum χ 𝒥 (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) n
+                    * eIu (-t) n‖
+                ≤ (C' / (Real.log X) ^ A) * (k : ℝ) := by
+  simpa only [s13GK_zero] using m4_hpiece_at_door_split_graded_gk 0 hMmu A hA
 
 /-- **⟦D3-DISCHARGE — THE EXIT, SPLIT-HOISTED + GRADED⟧**
 (`m4_hT0band_at_door_discharged_split_graded`) — §7's link 4 carrying the window-explicit cap.
@@ -883,60 +960,6 @@ window `(P, Q)` and an abstract `(Pseq, Qseq)`, so they are `G`-FREE and are reu
 only the door instantiation moves.  The covering window `door_cover_gk` /
 `door_window_bounds_gk` is the one place where an arithmetic side condition changes shape, and
 it changes to `GLever.one_le_s13GK` — the lever only grows `G`. -/
-
-/-- **⟦D3-DISCHARGE — THE `hpiece` SLOT⟧ AT THE G-LEVER** (`m4_hpiece_at_door_gk`). -/
-theorem m4_hpiece_at_door_gk (K : ℕ) (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) (P Q : ℕ)
-    (hP4 : 4 ≤ P) (hPQ : P ≤ Q) :
-    ∃ (C' : ℝ) (x₀ : ℕ), 0 < C' ∧
-      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (M Xd N : ℕ) {X : ℝ},
-        ((Xd : ℕ) : ℝ) = X → (400 : ℝ) ≤ X → x₀ ≤ Xd → 16 ≤ Xd →
-        (q : ℝ) ≤ (Real.log X) ^ (10 : ℕ) →
-        (∀ j ∈ Finset.Icc 1 2, P ≤ calP (Adoor M) (s13GK K M) j) →
-        (∀ j ∈ Finset.Icc 1 2, calQK (Adoor M) (s13GK K M) M j ≤ Q) →
-        (∀ k : ℕ, Xd ≤ k → k ≤ N →
-          16 * A * Real.log (Real.log (k : ℝ)) ≤ Real.log (k : ℝ)) →
-        (∀ k : ℕ, Xd ≤ k → k ≤ N →
-          8 * A * Real.log (Real.log (k : ℝ)) * Real.log (Q : ℝ) ≤ Real.log (k : ℝ)) →
-        (∀ k : ℕ, Xd ≤ k → k ≤ N →
-          Real.exp (2 * Real.exp 1
-              * (Real.log (Real.log (Q : ℝ)) - Real.log (Real.log (P : ℝ)) + 25))
-            ≤ (Real.log (k : ℝ)) ^ A) →
-        ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset, ∀ t : ℝ, |t| ≤ seamT0 X →
-          ∀ k : ℕ, Xd ≤ k → k ≤ N →
-            ‖∑ n ∈ Finset.Icc 1 k,
-                pieceDatum χ 𝒥 (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) n
-                  * eIu (-t) n‖
-              ≤ (C' / (Real.log X) ^ A) * (k : ℝ) := by
-  obtain ⟨C', x₀, hC'pos, hrate⟩ := piece_partial_sum_rate hMmu A hA P Q hP4 hPQ
-  refine ⟨C', x₀, hC'pos, ?_⟩
-  intro q _ χ M Xd N X hXd hX400 hx₀ h16 hq hcovP hcovQ hgHalf hgO1 hgWin 𝒥 h𝒥 t ht k hk1 hk2
-  have h𝒥sub : 𝒥 ⊆ Finset.Icc 1 2 := Finset.mem_powerset.mp h𝒥
-  have hX0 : (0 : ℝ) < X := by linarith
-  have hXk : X ≤ (k : ℝ) := by
-    rw [← hXd]
-    exact_mod_cast hk1
-  have hLXpos : 0 < Real.log X := Real.log_pos (by linarith)
-  have hLk : Real.log X ≤ Real.log (k : ℝ) := Real.log_le_log hX0 hXk
-  have hLkpos : 0 < Real.log (k : ℝ) := lt_of_lt_of_le hLXpos hLk
-  have hk16 : 16 ≤ k := le_trans h16 hk1
-  have hkx₀ : x₀ ≤ k := le_trans hx₀ hk1
-  -- the conductor fit, transported up the range
-  have hqk : (q : ℝ) ≤ (Real.log (k : ℝ)) ^ (10 : ℕ) := by
-    refine le_trans hq ?_
-    gcongr
-  -- the height fit, through the small-`k` corner and `√√` monotonicity
-  have hth : |t| ≤ (Nat.sqrt (Nat.sqrt k) : ℝ) := by
-    refine le_trans ht (le_trans (seamT0_le_sqrt_sqrt hXd hX400) ?_)
-    exact_mod_cast Nat.sqrt_le_sqrt (Nat.sqrt_le_sqrt hk1)
-  have hmain := hrate k hkx₀ hk16 (hgHalf k hk1 hk2) (hgO1 k hk1 hk2) (hgWin k hk1 hk2)
-    q χ hqk t hth 𝒥 _ _ (fun j hj => hcovP j (h𝒥sub hj)) (fun j hj => hcovQ j (h𝒥sub hj))
-  refine le_trans hmain ?_
-  have hLAX : (0 : ℝ) < (Real.log X) ^ A := Real.rpow_pos_of_pos hLXpos A
-  have hLAk : (Real.log X) ^ A ≤ (Real.log (k : ℝ)) ^ A :=
-    Real.rpow_le_rpow hLXpos.le hLk hA.le
-  have hk0 : (0 : ℝ) ≤ (k : ℝ) := Nat.cast_nonneg k
-  rw [show C' / (Real.log X) ^ A * (k : ℝ) = C' * (k : ℝ) / (Real.log X) ^ A from by ring]
-  exact div_le_div_of_nonneg_left (mul_nonneg hC'pos.le hk0) hLAX hLAk
 
 /-- **⟦D3-DISCHARGE — THE EXIT⟧ AT THE G-LEVER**
 (`m4_hT0band_at_door_discharged_gk`). -/
@@ -1015,62 +1038,6 @@ theorem door_window_bounds_gk (K : ℕ) (M : ℕ) (hM : 1 ≤ M) :
     calc Adoor M = 1 * Adoor M := (one_mul _).symm
       _ ≤ (1 ^ 2 * M) * Adoor M := Nat.mul_le_mul h1 le_rfl
 
-/-- **⟦D3-DISCHARGE, SPLIT-HOISTED⟧ THE `hpiece` SLOT, AT THE G-LEVER**
-(`m4_hpiece_at_door_split_gk`).  `piece_partial_sum_rate_split` is `G`-FREE and is reused. -/
-theorem m4_hpiece_at_door_split_gk (K : ℕ) (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
-    ∃ x₀ : ℕ, ∀ (P Q : ℕ), 4 ≤ P → P ≤ Q →
-      ∃ C' : ℝ, 0 < C' ∧
-        ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (M Xd N : ℕ) {X : ℝ},
-          ((Xd : ℕ) : ℝ) = X → (400 : ℝ) ≤ X → x₀ ≤ Xd → 16 ≤ Xd →
-          (q : ℝ) ≤ (Real.log X) ^ (10 : ℕ) →
-          (∀ j ∈ Finset.Icc 1 2, P ≤ calP (Adoor M) (s13GK K M) j) →
-          (∀ j ∈ Finset.Icc 1 2, calQK (Adoor M) (s13GK K M) M j ≤ Q) →
-          (∀ k : ℕ, Xd ≤ k → k ≤ N →
-            16 * A * Real.log (Real.log (k : ℝ)) ≤ Real.log (k : ℝ)) →
-          (∀ k : ℕ, Xd ≤ k → k ≤ N →
-            8 * A * Real.log (Real.log (k : ℝ)) * Real.log (Q : ℝ) ≤ Real.log (k : ℝ)) →
-          (∀ k : ℕ, Xd ≤ k → k ≤ N →
-            Real.exp (2 * Real.exp 1
-                * (Real.log (Real.log (Q : ℝ)) - Real.log (Real.log (P : ℝ)) + 25))
-              ≤ (Real.log (k : ℝ)) ^ A) →
-          ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset, ∀ t : ℝ, |t| ≤ seamT0 X →
-            ∀ k : ℕ, Xd ≤ k → k ≤ N →
-              ‖∑ n ∈ Finset.Icc 1 k,
-                  pieceDatum χ 𝒥 (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) n
-                    * eIu (-t) n‖
-                ≤ (C' / (Real.log X) ^ A) * (k : ℝ) := by
-  obtain ⟨x₀, hsplit⟩ := piece_partial_sum_rate_split hMmu A hA
-  refine ⟨x₀, ?_⟩
-  intro P Q hP4 hPQ
-  obtain ⟨C', hC'pos, hrate⟩ := hsplit P Q hP4 hPQ
-  refine ⟨C', hC'pos, ?_⟩
-  intro q _ χ M Xd N X hXd hX400 hx₀ h16 hq hcovP hcovQ hgHalf hgO1 hgWin 𝒥 h𝒥 t ht k hk1 hk2
-  have h𝒥sub : 𝒥 ⊆ Finset.Icc 1 2 := Finset.mem_powerset.mp h𝒥
-  have hX0 : (0 : ℝ) < X := by linarith
-  have hXk : X ≤ (k : ℝ) := by
-    rw [← hXd]
-    exact_mod_cast hk1
-  have hLXpos : 0 < Real.log X := Real.log_pos (by linarith)
-  have hLk : Real.log X ≤ Real.log (k : ℝ) := Real.log_le_log hX0 hXk
-  have hLkpos : 0 < Real.log (k : ℝ) := lt_of_lt_of_le hLXpos hLk
-  have hk16 : 16 ≤ k := le_trans h16 hk1
-  have hkx₀ : x₀ ≤ k := le_trans hx₀ hk1
-  have hqk : (q : ℝ) ≤ (Real.log (k : ℝ)) ^ (10 : ℕ) := by
-    refine le_trans hq ?_
-    gcongr
-  have hth : |t| ≤ (Nat.sqrt (Nat.sqrt k) : ℝ) := by
-    refine le_trans ht (le_trans (seamT0_le_sqrt_sqrt hXd hX400) ?_)
-    exact_mod_cast Nat.sqrt_le_sqrt (Nat.sqrt_le_sqrt hk1)
-  have hmain := hrate k hkx₀ hk16 (hgHalf k hk1 hk2) (hgO1 k hk1 hk2) (hgWin k hk1 hk2)
-    q χ hqk t hth 𝒥 _ _ (fun j hj => hcovP j (h𝒥sub hj)) (fun j hj => hcovQ j (h𝒥sub hj))
-  refine le_trans hmain ?_
-  have hLAX : (0 : ℝ) < (Real.log X) ^ A := Real.rpow_pos_of_pos hLXpos A
-  have hLAk : (Real.log X) ^ A ≤ (Real.log (k : ℝ)) ^ A :=
-    Real.rpow_le_rpow hLXpos.le hLk hA.le
-  have hk0 : (0 : ℝ) ≤ (k : ℝ) := Nat.cast_nonneg k
-  rw [show C' / (Real.log X) ^ A * (k : ℝ) = C' * (k : ℝ) / (Real.log X) ^ A from by ring]
-  exact div_le_div_of_nonneg_left (mul_nonneg hC'pos.le hk0) hLAX hLAk
-
 /-- **⟦D3-DISCHARGE — THE EXIT, SPLIT-HOISTED⟧ AT THE G-LEVER**
 (`m4_hT0band_at_door_discharged_split_gk`). -/
 theorem m4_hT0band_at_door_discharged_split_gk (K : ℕ) (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
@@ -1115,62 +1082,6 @@ theorem m4_hT0band_at_door_discharged_split_gk (K : ℕ) (hMmu : MmuChiRate) (A 
       _ ≤ (Real.log X) ^ (A + (-(1 : ℝ) / 2 + 1 / 1000)) := hgrade
   exact m4_hT0band_at_door_gk K χ M hX3 hXd hXdN hN hC₁ hS₀ hSle
     (hpiece q χ M Xd N hXd hX400 hx₀ h16 hq hcovP hcovQ hgHalf hgO1 hgWin) hErr
-
-/-- **⟦D3-DISCHARGE, SPLIT-HOISTED + GRADED⟧ THE `hpiece` SLOT, AT THE G-LEVER**
-(`m4_hpiece_at_door_split_graded_gk`). -/
-theorem m4_hpiece_at_door_split_graded_gk (K : ℕ) (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
-    ∃ (x₀ : ℕ) (C : ℝ), 0 < C ∧ ∀ (P Q : ℕ), 4 ≤ P → P ≤ Q →
-      ∃ C' : ℝ, 0 < C' ∧ C' ≤ C * (4 : ℝ) ^ A * windowMassConst P Q + 1 ∧
-        ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (M Xd N : ℕ) {X : ℝ},
-          ((Xd : ℕ) : ℝ) = X → (400 : ℝ) ≤ X → x₀ ≤ Xd → 16 ≤ Xd →
-          (q : ℝ) ≤ (Real.log X) ^ (10 : ℕ) →
-          (∀ j ∈ Finset.Icc 1 2, P ≤ calP (Adoor M) (s13GK K M) j) →
-          (∀ j ∈ Finset.Icc 1 2, calQK (Adoor M) (s13GK K M) M j ≤ Q) →
-          (∀ k : ℕ, Xd ≤ k → k ≤ N →
-            16 * A * Real.log (Real.log (k : ℝ)) ≤ Real.log (k : ℝ)) →
-          (∀ k : ℕ, Xd ≤ k → k ≤ N →
-            8 * A * Real.log (Real.log (k : ℝ)) * Real.log (Q : ℝ) ≤ Real.log (k : ℝ)) →
-          (∀ k : ℕ, Xd ≤ k → k ≤ N →
-            Real.exp (2 * Real.exp 1
-                * (Real.log (Real.log (Q : ℝ)) - Real.log (Real.log (P : ℝ)) + 25))
-              ≤ (Real.log (k : ℝ)) ^ A) →
-          ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset, ∀ t : ℝ, |t| ≤ seamT0 X →
-            ∀ k : ℕ, Xd ≤ k → k ≤ N →
-              ‖∑ n ∈ Finset.Icc 1 k,
-                  pieceDatum χ 𝒥 (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) n
-                    * eIu (-t) n‖
-                ≤ (C' / (Real.log X) ^ A) * (k : ℝ) := by
-  obtain ⟨x₀, C, hCpos, hsplit⟩ := piece_partial_sum_rate_split_graded hMmu A hA
-  refine ⟨x₀, C, hCpos, ?_⟩
-  intro P Q hP4 hPQ
-  obtain ⟨C', hC'pos, hC'le, hrate⟩ := hsplit P Q hP4 hPQ
-  refine ⟨C', hC'pos, hC'le, ?_⟩
-  intro q _ χ M Xd N X hXd hX400 hx₀ h16 hq hcovP hcovQ hgHalf hgO1 hgWin 𝒥 h𝒥 t ht k hk1 hk2
-  have h𝒥sub : 𝒥 ⊆ Finset.Icc 1 2 := Finset.mem_powerset.mp h𝒥
-  have hX0 : (0 : ℝ) < X := by linarith
-  have hXk : X ≤ (k : ℝ) := by
-    rw [← hXd]
-    exact_mod_cast hk1
-  have hLXpos : 0 < Real.log X := Real.log_pos (by linarith)
-  have hLk : Real.log X ≤ Real.log (k : ℝ) := Real.log_le_log hX0 hXk
-  have hLkpos : 0 < Real.log (k : ℝ) := lt_of_lt_of_le hLXpos hLk
-  have hk16 : 16 ≤ k := le_trans h16 hk1
-  have hkx₀ : x₀ ≤ k := le_trans hx₀ hk1
-  have hqk : (q : ℝ) ≤ (Real.log (k : ℝ)) ^ (10 : ℕ) := by
-    refine le_trans hq ?_
-    gcongr
-  have hth : |t| ≤ (Nat.sqrt (Nat.sqrt k) : ℝ) := by
-    refine le_trans ht (le_trans (seamT0_le_sqrt_sqrt hXd hX400) ?_)
-    exact_mod_cast Nat.sqrt_le_sqrt (Nat.sqrt_le_sqrt hk1)
-  have hmain := hrate k hkx₀ hk16 (hgHalf k hk1 hk2) (hgO1 k hk1 hk2) (hgWin k hk1 hk2)
-    q χ hqk t hth 𝒥 _ _ (fun j hj => hcovP j (h𝒥sub hj)) (fun j hj => hcovQ j (h𝒥sub hj))
-  refine le_trans hmain ?_
-  have hLAX : (0 : ℝ) < (Real.log X) ^ A := Real.rpow_pos_of_pos hLXpos A
-  have hLAk : (Real.log X) ^ A ≤ (Real.log (k : ℝ)) ^ A :=
-    Real.rpow_le_rpow hLXpos.le hLk hA.le
-  have hk0 : (0 : ℝ) ≤ (k : ℝ) := Nat.cast_nonneg k
-  rw [show C' / (Real.log X) ^ A * (k : ℝ) = C' * (k : ℝ) / (Real.log X) ^ A from by ring]
-  exact div_le_div_of_nonneg_left (mul_nonneg hC'pos.le hk0) hLAX hLAk
 
 /-- **⟦D3-DISCHARGE — THE EXIT, SPLIT-HOISTED + GRADED⟧ AT THE G-LEVER**
 (`m4_hT0band_at_door_discharged_split_graded_gk`). -/
@@ -1233,7 +1144,6 @@ in one of the two priced windows), and at the door both are discharged by the la
 (`door_block_bounds_gk`, `door_block_cover_gk`).
 
 **PURELY ADDITIVE**: §7 and §8 are untouched. -/
-
 
 /-- **THE MASK'S ℓ¹(1/n) MASS, PER BLOCK** (`jMask_mass_le_prod`) — every block the mask
 names sits in ONE of two windows, and the mass is at most the PRODUCT of the two window mass
@@ -1308,8 +1218,6 @@ theorem door_block_cover_gk (K M : ℕ) :
   interval_cases j
   · exact Or.inl ⟨le_rfl, le_rfl⟩
   · exact Or.inr ⟨le_rfl, le_rfl⟩
-
-
 
 /-- **⟦D3, SPLIT-HOISTED + GRADED, PER BLOCK⟧** (`piece_partial_sum_rate_split_graded_prod`)
 — `piece_partial_sum_rate_split_graded` with the mass budget priced PER BLOCK.  The covering
@@ -1466,6 +1374,5 @@ theorem m4_hT0band_at_door_discharged_split_graded_prod_gk (K : ℕ) (hMmu : Mmu
       _ ≤ (Real.log X) ^ (A + (-(1 : ℝ) / 2 + 1 / 1000)) := hgrade
   exact m4_hT0band_at_door_gk K χ M hX3 hXd hXdN hN hC₁ hS₀ hSle
     (hpiece q χ M Xd N hXd hX400 hx₀ h16 hq hcovP hcovQ hcovB hgHalf hgO1 hgWin) hErr
-
 
 end Salt.MR
