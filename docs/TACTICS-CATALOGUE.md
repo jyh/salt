@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `413791bd` · source digest `f5b921b7c3b68707` (the same digest as items 1–3).
-> Receipt: files 1414 · decls 23435 · with_body 23435 · tactic_lines 306301 · runs 35933 · blocks 1284.
+> Base: last commit touching `Salt/` = `b75d402a` · source digest `bc766658bc312d49` (the same digest as items 1–3).
+> Receipt: files 1414 · decls 23435 · with_body 23435 · tactic_lines 306214 · runs 35915 · blocks 1284.
 
 ## LIMITS (read before any number below)
 
@@ -100,24 +100,24 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-306301 tactic lines. Top 30:
+306214 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 133739 | 43.7% |
-| 2 | `rw` | 49592 | 16.2% |
-| 3 | `exact` | 17547 | 5.7% |
-| 4 | `intro` | 14136 | 4.6% |
-| 5 | `refine` | 12886 | 4.2% |
-| 6 | `linarith` | 10567 | 3.4% |
-| 7 | `obtain` | 9198 | 3.0% |
-| 8 | `calc` | 7885 | 2.6% |
+| 1 | `have` | 133698 | 43.7% |
+| 2 | `rw` | 49590 | 16.2% |
+| 3 | `exact` | 17545 | 5.7% |
+| 4 | `intro` | 14128 | 4.6% |
+| 5 | `refine` | 12874 | 4.2% |
+| 6 | `linarith` | 10565 | 3.5% |
+| 7 | `obtain` | 9186 | 3.0% |
+| 8 | `calc` | 7884 | 2.6% |
 | 9 | `set` | 5574 | 1.8% |
 | 10 | `simp` | 5179 | 1.7% |
 | 11 | `apply` | 4567 | 1.5% |
 | 12 | `nlinarith` | 3392 | 1.1% |
 | 13 | `unfold` | 2628 | 0.9% |
-| 14 | `exact_mod_cast` | 2456 | 0.8% |
+| 14 | `exact_mod_cast` | 2452 | 0.8% |
 | 15 | `rcases` | 2145 | 0.7% |
 | 16 | `ring` | 2077 | 0.7% |
 | 17 | `push_cast` | 1973 | 0.6% |
@@ -133,7 +133,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 27 | `simpa` | 899 | 0.3% |
 | 28 | `positivity` | 804 | 0.3% |
 | 29 | `constructor` | 657 | 0.2% |
-| 30 | `haveI` | 552 | 0.2% |
+| 30 | `haveI` | 550 | 0.2% |
 
 ### Per method family (top 8 each)
 
@@ -145,12 +145,12 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | Selberg/Brun sieve | 70552 | `have` 30362, `rw` 12121, `exact` 3801, `intro` 3247, `calc` 2295, `apply` 2292, `refine` 1693, `linarith` 1484 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 35295 | `have` 15723, `rw` 6583, `exact` 1888, `intro` 1449, `refine` 1437, `linarith` 1109, `calc` 1107, `set` 888 |
 | zero-density / zero-free regions | 13798 | `have` 6362, `rw` 2421, `exact` 702, `intro` 615, `linarith` 593, `refine` 439, `set` 408, `calc` 379 |
-| character sums / L-functions | 63383 | `have` 26645, `rw` 10024, `exact` 4095, `refine` 3650, `intro` 3373, `obtain` 2410, `linarith` 2149, `calc` 1465 |
+| character sums / L-functions | 63296 | `have` 26604, `rw` 10022, `exact` 4093, `refine` 3638, `intro` 3365, `obtain` 2398, `linarith` 2147, `calc` 1464 |
 | exponential sums | 8305 | `have` 3163, `rw` 1696, `exact` 504, `intro` 409, `refine` 391, `linarith` 237, `set` 228, `simp` 209 |
 | Mertens / PNT-type | 3297 | `have` 1530, `rw` 557, `exact` 173, `linarith` 147, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
-| Matomaki-Radziwill / Halasz (short intervals) | 117318 | `have` 53396, `rw` 16221, `exact` 6757, `refine` 6637, `intro` 5796, `linarith` 5363, `obtain` 5000, `calc` 2239 |
+| Matomaki-Radziwill / Halasz (short intervals) | 117231 | `have` 53355, `rw` 16219, `exact` 6755, `refine` 6625, `intro` 5788, `linarith` 5361, `obtain` 4988, `calc` 2238 |
 | (no family) | 28875 | `have` 11185, `rw` 5159, `exact` 1749, `intro` 1570, `obtain` 978, `refine` 962, `set` 883, `calc` 866 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
@@ -167,7 +167,7 @@ push_cast
 ring
 ```
 
-**2.** 6 lines × 21 occurrences in 7 files · lines saved ≤ **105** · e.g. `Salt/MR/M4SocketDischarge.lean:314` · `Salt/MR/M4SocketLinear.lean:256`
+**2.** 6 lines × 19 occurrences in 7 files · lines saved ≤ **95** · e.g. `Salt/MR/M4SocketDischarge.lean:314` · `Salt/MR/M4SocketLinear.lean:256`
 
 ```lean
 have $1 : # < $2 := $3.2.2.2.1
