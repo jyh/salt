@@ -701,16 +701,14 @@ theorem inner_contract (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 
 /-! ## W3-6 (keystone J) — the outer square-and-sum assembly (`mv_J`) -/
 
--- The reindex bijection: filtered 5-tuples (r m = 1) ↔ kSieveIndex 4.
+-- The reindex bijection: filtered (n+1)-tuples (r m = 1) ↔ kSieveIndex n.
 omit [Salt.Maynard.TupleChoice] in
-/-- The reindex bijection between the sieve 5-tuples with `r m = 1` and `kSieveIndex 4 R W'`:
-`Fin.removeNth m` one way, `Fin.insertNth m 1` back (`Finset.sum_bij'`); the four sieve
-conditions transfer coordinate by coordinate, and the products agree since the removed
-coordinate is `1`. -/
-lemma sum_filt_removeNth {M : Type*} [AddCommMonoid M] (R W' : ℕ) (m : Fin 5)
-    (h : (Fin 4 → ℕ) → M) :
-    ∑ r ∈ (kSieveIndex 5 R W').filter (fun r => r m = 1), h (Fin.removeNth m r)
-      = ∑ ρ ∈ kSieveIndex 4 R W', h ρ := by
+/-- a sum over the `r m = 1` slice of `kSieveIndex (n+1) R W'` of `h ∘ removeNth m` is the sum
+of `h` over `kSieveIndex n R W'`.  `sum_filt_removeNth` below is the case `n = 4`. -/
+lemma sum_filt_removeNth_g {n : ℕ} {M : Type*} [AddCommMonoid M] (R W' : ℕ) (m : Fin (n + 1))
+    (h : (Fin n → ℕ) → M) :
+    ∑ r ∈ (kSieveIndex (n + 1) R W').filter (fun r => r m = 1), h (Fin.removeNth m r)
+      = ∑ ρ ∈ kSieveIndex n R W', h ρ := by
   classical
   refine Finset.sum_bij' (fun r _ => Fin.removeNth m r) (fun ρ _ => Fin.insertNth m 1 ρ)
     ?hi ?hj ?li ?ri ?val
@@ -721,7 +719,7 @@ lemma sum_filt_removeNth {M : Type*} [AddCommMonoid M] (R W' : ℕ) (m : Fin 5)
     rw [mem_kSieveIndex_iff]
     refine ⟨fun i => hsqf _, fun i j hij => hpc _ _ ?_, fun i => hcop _, ?_⟩
     · exact fun heq => hij (Fin.succAbove_right_injective heq)
-    · have : ∏ i : Fin 4, Fin.removeNth m r i = ∏ j : Fin 5, r j := by
+    · have : ∏ i : Fin n, Fin.removeNth m r i = ∏ j : Fin (n + 1), r j := by
         rw [Fin.prod_univ_succAbove (fun j => r j) m, hrm, one_mul]
         rfl
       rw [this]; exact hprod
@@ -750,7 +748,7 @@ lemma sum_filt_removeNth {M : Type*} [AddCommMonoid M] (R W' : ℕ) (m : Fin 5)
       · rw [Fin.insertNth_apply_same]; exact Nat.coprime_one_left _
       · obtain ⟨i, rfl⟩ := Fin.exists_succAbove_eq hjm
         rw [Fin.insertNth_apply_succAbove]; exact hcop i
-    · have : ∏ j : Fin 5, Fin.insertNth m 1 ρ j = ∏ i : Fin 4, ρ i := by
+    · have : ∏ j : Fin (n + 1), Fin.insertNth m 1 ρ j = ∏ i : Fin n, ρ i := by
         rw [Fin.prod_univ_succAbove (fun j => Fin.insertNth m 1 ρ j) m,
           Fin.insertNth_apply_same]
         simp only [Fin.insertNth_apply_succAbove, one_mul]
@@ -766,6 +764,18 @@ lemma sum_filt_removeNth {M : Type*} [AddCommMonoid M] (R W' : ℕ) (m : Fin 5)
     simp only [Fin.removeNth_insertNth]
   case val =>
     intro r _; rfl
+
+-- The reindex bijection: filtered 5-tuples (r m = 1) ↔ kSieveIndex 4.
+omit [Salt.Maynard.TupleChoice] in
+/-- The reindex bijection between the sieve 5-tuples with `r m = 1` and `kSieveIndex 4 R W'`:
+`Fin.removeNth m` one way, `Fin.insertNth m 1` back (`Finset.sum_bij'`); the four sieve
+conditions transfer coordinate by coordinate, and the products agree since the removed
+coordinate is `1`. -/
+lemma sum_filt_removeNth {M : Type*} [AddCommMonoid M] (R W' : ℕ) (m : Fin 5)
+    (h : (Fin 4 → ℕ) → M) :
+    ∑ r ∈ (kSieveIndex 5 R W').filter (fun r => r m = 1), h (Fin.removeNth m r)
+      = ∑ ρ ∈ kSieveIndex 4 R W', h ρ :=
+  sum_filt_removeNth_g (n := 4) R W' m h
 
 -- ==== tail lemmas (ported from MvI, which are private there) ====
 /-- The integer tail `Σ_{D < k < R} 1/(k − 1)² ≤ 1/(D − 1)` for `3 ≤ D` (`hD`): each term is at
