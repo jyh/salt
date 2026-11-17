@@ -176,7 +176,7 @@ theorem s16BandLaneCBoundedLH_winU_one_iff (Awin : ℝ) :
 set_option maxHeartbeats 1000000 in
 -- Same cause as the landed `_uniform` mint.
 /-- **⟦THE BAND MINT AT THE INFLATED SOCKET, WITNESS-UNIFORM⟧**
-(`m4_hband_at_door_slot_split_graded_LH_gk_uniform`) — `S11HoistLinear:1027` with both socket
+(`m4_hband_at_door_slot_split_graded_LH_gk_uniform`) — `S11HoistLinear:841` with both socket
 quantifiers at `SocketBaseLH h`.  **The proof body is the landed one verbatim**: it projects
 conjunct 4 (`0 < q`) and passes `hb` to its own antecedent, and `SocketBaseLH` moves neither. -/
 theorem m4_hband_at_door_slot_split_graded_LH_gk_uniform (h : ℕ) (_hh : 0 < h)
@@ -237,7 +237,7 @@ theorem m4_hband_at_door_slot_split_graded_LH_gk_uniform (h : ℕ) (_hh : 0 < h)
       hD.x₀_le h16 hD.qfit hcovP hcovQ hcovB hD.gHalf hD.gO1 hD.gWin hD.grade hD.err
 
 /-- **⟦THE BAND MINT AT THE INFLATED SOCKET⟧** (`m4_hband_at_door_slot_split_graded_LH_gk`) —
-`S11HoistLinear:847` with both socket quantifiers at `SocketBaseLH h`.  It is the instance of
+`S11HoistLinear:909` with both socket quantifiers at `SocketBaseLH h`.  It is the instance of
 `m4_hband_at_door_slot_split_graded_LH_gk_uniform` at one `K`. -/
 theorem m4_hband_at_door_slot_split_graded_LH_gk (h : ℕ) (_hh : 0 < h) (K : ℕ)
     (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp : 0 < Aexp) :
