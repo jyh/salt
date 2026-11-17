@@ -51,9 +51,9 @@ variable {q : ℕ}
 /-- **`‖ζ(ρ)‖` bound.** For `1/2 ≤ Re ρ ≤ 1`, `|Im ρ| ≤ 1`, `ρ ≠ 1`,
 `‖ζ(ρ)‖ ≤ Z₀ + 1/‖1−ρ‖` where `Z₀` is the `zetaHol_bound` compactness constant. Complex analog
 of `abs_zeta_re_le`: `ζ(ρ) = 1/(ρ−1) + zetaHol ρ`, `‖1/(ρ−1)‖ = 1/‖1−ρ‖`, `‖zetaHol ρ‖ ≤ Z₀`. -/
-theorem norm_zeta_rho_le {Z₀ : ℝ}
-    (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
-    {ρ : ℂ} (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re ≤ 1) (him : |ρ.im| ≤ 1) (hne : ρ ≠ 1) :
+theorem norm_zeta_rho_le_tall {Z₀ : ℝ}
+    (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ H → ‖zetaHol s‖ ≤ Z₀)
+    {ρ : ℂ} (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re ≤ 1) (him : |ρ.im| ≤ H) (hne : ρ ≠ 1) :
     ‖riemannZeta ρ‖ ≤ Z₀ + 1 / ‖1 - ρ‖ := by
   have hsplit : riemannZeta ρ = 1 / (ρ - 1) + zetaHol ρ := riemannZeta_eq_add_zetaHol hne
   have hZb : ‖zetaHol ρ‖ ≤ Z₀ := hZ ρ hlo hhi him
@@ -63,6 +63,15 @@ theorem norm_zeta_rho_le {Z₀ : ℝ}
     _ ≤ ‖(1 : ℂ) / (ρ - 1)‖ + ‖zetaHol ρ‖ := norm_add_le _ _
     _ ≤ 1 / ‖1 - ρ‖ + Z₀ := by rw [hpole]; linarith
     _ = Z₀ + 1 / ‖1 - ρ‖ := by ring
+
+/-- **`‖ζ(ρ)‖` bound.** For `1/2 ≤ Re ρ ≤ 1`, `|Im ρ| ≤ 1`, `ρ ≠ 1`,
+`‖ζ(ρ)‖ ≤ Z₀ + 1/‖1−ρ‖` where `Z₀` is the `zetaHol_bound` compactness constant. Complex analog
+of `abs_zeta_re_le`: `ζ(ρ) = 1/(ρ−1) + zetaHol ρ`, `‖1/(ρ−1)‖ = 1/‖1−ρ‖`, `‖zetaHol ρ‖ ≤ Z₀`. -/
+theorem norm_zeta_rho_le {Z₀ : ℝ}
+    (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
+    {ρ : ℂ} (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re ≤ 1) (him : |ρ.im| ≤ 1) (hne : ρ ≠ 1) :
+    ‖riemannZeta ρ‖ ≤ Z₀ + 1 / ‖1 - ρ‖ :=
+  norm_zeta_rho_le_tall hZ hlo hhi him hne
 
 /-! ## §1 — the complex floor/tangent bound (the `⌊t/d⌋ → t/d` correction) -/
 
@@ -144,11 +153,38 @@ theorem dhAbel_hyperbola_rho (χ : DirichletCharacter ℂ q) {ρ : ℂ} (t : ℕ
 
 /-! ## §3 — the per-`d` EM split of `T_ρ(⌊t/d⌋)` -/
 
-/-- **The per-`d` EM split.** For `1/2 ≤ Re ρ < 1`, `|Im ρ| ≤ 1` and `1 ≤ d ≤ t`,
+/-- **`zeta_partial_em` without the height slot.**  `zeta_partial_em` (`ZetaEM.lean`) carries a
+binder `|Im s| ≤ 1` that its proof never reads (it is literally named `_him` there): the estimate
+factors through the height-free `norm_zeta_sub_approx_le_strip`. This is the same statement with
+the slot removed — the first stone of the tall re-thread. -/
+lemma zeta_partial_em_free {s : ℂ} (hσ : 1 / 2 ≤ s.re) (hσ1 : s.re < 1)
+    {y : ℕ} (hy : 1 ≤ y) :
+    ‖(∑ a ∈ Finset.Icc 1 y, (a : ℂ) ^ (-s))
+        - ((y : ℂ) ^ (1 - s) / (1 - s) + riemannZeta s)‖
+      ≤ 8 * (1 + ‖s‖) * (y : ℝ) ^ (-s.re) := by
+  have hσ0 : 0 < s.re := by linarith
+  have hneg : (∑ a ∈ Finset.Icc 1 y, (a : ℂ) ^ (-s))
+        - ((y : ℂ) ^ (1 - s) / (1 - s) + riemannZeta s)
+      = -(riemannZeta s - (∑ a ∈ Finset.Icc 1 y, (a : ℂ) ^ (-s))
+          - (y : ℂ) ^ (1 - s) / (s - 1)) := by
+    rw [show (s - 1 : ℂ) = -(1 - s) from by ring, div_neg]; ring
+  rw [hneg, norm_neg]
+  refine le_trans (norm_zeta_sub_approx_le_strip hσ0 hσ1 hy) ?_
+  have hyp : (0 : ℝ) ≤ (y : ℝ) ^ (-s.re) := Real.rpow_nonneg (by positivity) _
+  have hσinv : ‖s‖ / s.re ≤ 8 * (1 + ‖s‖) := by
+    rw [div_le_iff₀ hσ0]
+    linarith only [hσ1, hσ, mul_nonneg (add_nonneg zero_le_one (norm_nonneg s))
+        (sub_nonneg.mpr hσ), norm_nonneg s]
+  calc ‖s‖ * (y : ℝ) ^ (-s.re) / s.re
+      = (‖s‖ / s.re) * (y : ℝ) ^ (-s.re) := by ring
+    _ ≤ (8 * (1 + ‖s‖)) * (y : ℝ) ^ (-s.re) := mul_le_mul_of_nonneg_right hσinv hyp
+    _ = 8 * (1 + ‖s‖) * (y : ℝ) ^ (-s.re) := by ring
+
+/-- **The per-`d` EM split.** For `1/2 ≤ Re ρ < 1` and `1 ≤ d ≤ t` (NO height gate),
 `‖T_ρ(⌊t/d⌋) − (t/d)^{1−ρ}/(1−ρ) − ζ(ρ)‖ ≤ (9 + 8‖ρ‖)·⌊t/d⌋^{−Re ρ}`,
 `T_ρ(m) = Σ_{e≤m} e^{−ρ}`, the real ratio `t/d` in the main. The `zeta_partial_em` pole form at
 `s = ρ`, `y = ⌊t/d⌋`, plus the floor correction `⌊t/d⌋ → t/d` (`norm_cpow_pos_floor_sub_le`). -/
-theorem emrho_perterm {ρ : ℂ} (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1) (him : |ρ.im| ≤ 1)
+theorem emrho_perterm_tall {ρ : ℂ} (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1)
     {d t : ℕ} (hd : 1 ≤ d) (hdt : d ≤ t) :
     ‖(∑ e ∈ Finset.Icc 1 (t / d), (e : ℂ) ^ (-ρ))
         - ((t : ℂ) / (d : ℂ)) ^ (1 - ρ) / (1 - ρ) - riemannZeta ρ‖
@@ -166,7 +202,7 @@ theorem emrho_perterm {ρ : ℂ} (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1) (him 
   have hcastdiv : ((((t : ℝ) / (d : ℝ)) : ℝ) : ℂ) = (t : ℂ) / (d : ℂ) := by
     push_cast; ring
   -- the EM pole form at `y = ⌊t/d⌋`
-  have hem := zeta_partial_em (s := ρ) hlo hhi him hdt1
+  have hem := zeta_partial_em_free (s := ρ) hlo hhi hdt1
   -- the floor correction `⌊t/d⌋ → t/d`
   have hle : ((t / d : ℕ) : ℝ) ≤ (t : ℝ) / (d : ℝ) := Nat.cast_div_le
   have hlt : (t : ℝ) / (d : ℝ) ≤ ((t / d : ℕ) : ℝ) + 1 := by
@@ -207,6 +243,17 @@ theorem emrho_perterm {ρ : ℂ} (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1) (him 
         add_le_add hem hFEdiv
     _ ≤ (9 + 8 * ‖ρ‖) * ((t / d : ℕ) : ℝ) ^ (-ρ.re) := by linarith only []
 
+/-- **The per-`d` EM split.** For `1/2 ≤ Re ρ < 1`, `|Im ρ| ≤ 1` and `1 ≤ d ≤ t`,
+`‖T_ρ(⌊t/d⌋) − (t/d)^{1−ρ}/(1−ρ) − ζ(ρ)‖ ≤ (9 + 8‖ρ‖)·⌊t/d⌋^{−Re ρ}`,
+`T_ρ(m) = Σ_{e≤m} e^{−ρ}`, the real ratio `t/d` in the main. The `zeta_partial_em` pole form at
+`s = ρ`, `y = ⌊t/d⌋`, plus the floor correction `⌊t/d⌋ → t/d` (`norm_cpow_pos_floor_sub_le`). -/
+theorem emrho_perterm {ρ : ℂ} (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1) (_him : |ρ.im| ≤ 1)
+    {d t : ℕ} (hd : 1 ≤ d) (hdt : d ≤ t) :
+    ‖(∑ e ∈ Finset.Icc 1 (t / d), (e : ℂ) ^ (-ρ))
+        - ((t : ℂ) / (d : ℂ)) ^ (1 - ρ) / (1 - ρ) - riemannZeta ρ‖
+      ≤ (9 + 8 * ‖ρ‖) * ((t / d : ℕ) : ℝ) ^ (-ρ.re) :=
+  emrho_perterm_tall hlo hhi hd hdt
+
 /-! ## §4 — the clean-main cpow identity + the long-leg extraction -/
 
 /-- **The clean-main cpow identity.** For `1 ≤ d`, `(d:ℂ)^{−ρ}·(t/d)^{1−ρ} = (t:ℂ)^{1−ρ}/(d:ℂ)`.
@@ -239,13 +286,14 @@ lemma clean_cpow_term {d t : ℕ} (hd : 1 ≤ d) (ρ : ℂ) :
 zero `ρ` (`1/2 ≤ Re ρ < 1`, `|Im ρ| ≤ 1`),
 `‖Leg₁ − L(1,χ)·t^{1−ρ}/(1−ρ)‖ ≤ (12M/‖1−ρ‖ + 2(9+8‖ρ‖) + 2(Z₀+1/‖1−ρ‖)·P)·t^{1/2−Re ρ}`,
 `Leg₁ = Σ_{d≤√t} χ_ℝ(d)d^{−ρ}·T_ρ(⌊t/d⌋)`, `P = 3M(1+‖ρ‖/Re ρ)`. The a-sum pole
-(`emrho_perterm`) extracts `L(1,χ)` from `Σ_{d≤√t} χ(d)/d` (strip@1); the `ζ(ρ)` stream is killed
+(`emrho_perterm_tall`) extracts `L(1,χ)` from `Σ_{d≤√t} χ(d)/d` (strip@1); the `ζ(ρ)` stream is
+killed
 by `partial_sum_at_zero_small`. Complex analog of `dhAbel_leg1_le`. -/
-theorem dhAbel_leg1_rho [NeZero q] (χ : DirichletCharacter ℂ q)
+theorem dhAbel_leg1_rho_tall [NeZero q] (χ : DirichletCharacter ℂ q)
     (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {ρ : ℂ}
     (hzero : DirichletCharacter.LFunction χ ρ = 0) (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1)
-    (him : |ρ.im| ≤ 1)
-    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
+    {H : ℝ} (him : |ρ.im| ≤ H)
+    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ H → ‖zetaHol s‖ ≤ Z₀)
     {t : ℕ} (ht : 1 ≤ t) :
     ‖(∑ d ∈ Finset.Icc 1 (Nat.sqrt t), ((chiRe χ d : ℂ) * (d : ℂ) ^ (-ρ))
           * ∑ e ∈ Finset.Icc 1 (t / d), (e : ℂ) ^ (-ρ))
@@ -362,7 +410,7 @@ theorem dhAbel_leg1_rho [NeZero q] (χ : DirichletCharacter ℂ q)
       refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun d hd => ?_))
       rw [Finset.mem_Icc] at hd
       rw [norm_mul]
-      apply mul_le_mul _ (emrho_perterm hlo hhi him hd.1 (le_trans hd.2 hrt))
+      apply mul_le_mul _ (emrho_perterm_tall hlo hhi hd.1 (le_trans hd.2 hrt))
         (norm_nonneg _) (Real.rpow_nonneg (by positivity) _)
       rw [norm_mul, norm_natCast_cpow_neg hσ0 d]
       calc ‖(chiRe χ d : ℂ)‖ * (d : ℝ) ^ (-ρ.re)
@@ -409,7 +457,7 @@ theorem dhAbel_leg1_rho [NeZero q] (χ : DirichletCharacter ℂ q)
     calc (r : ℝ) ^ (-ρ.re) ≤ 2 * (t : ℝ) ^ ((-ρ.re) / 2) := hb
       _ ≤ 2 * (t : ℝ) ^ (1 / 2 - ρ.re) := by linarith [hmono]
       _ = 2 * D := by rw [hDdef]
-  have hZρ : ‖Zρ‖ ≤ Wρ := by rw [hZρdef, hWρdef]; exact norm_zeta_rho_le hZ hlo hhi.le him hρ1
+  have hZρ : ‖Zρ‖ ≤ Wρ := by rw [hZρdef, hWρdef]; exact norm_zeta_rho_le_tall hZ hlo hhi.le him hρ1
   have hZρBr : ‖Zρ * Br‖ ≤ 2 * Wρ * P * D := by
     rw [norm_mul]
     calc ‖Zρ‖ * ‖Br‖ ≤ Wρ * (P * (r : ℝ) ^ (-ρ.re)) :=
@@ -434,21 +482,43 @@ theorem dhAbel_leg1_rho [NeZero q] (χ : DirichletCharacter ℂ q)
         add_le_add (le_refl _) (add_le_add hGbound hZρBr)
     _ = (12 * M / ‖1 - ρ‖ + 2 * (9 + 8 * ‖ρ‖) + 2 * Wρ * P) * D := by ring
 
-/-! ## §5 — the per-`t` inner bound (R6-2@ρ, the analytic heart) -/
-
-/-- **R6-2@ρ (`dhAbel_inner_rho`) — the per-`t` inner bound (the analytic heart).** For a primitive
-real `χ` at a NON-REAL zero `ρ` (`1/2 ≤ Re ρ < 1`, `|Im ρ| ≤ 1`),
-`‖A_ρ(t) − L(1,χ)·t^{1−ρ}/(1−ρ)‖ ≤ C_{w,ρ}·t^{1/2−Re ρ}`,
-`A_ρ(t) = Σ_{n≤t} dhA(n)·n^{−ρ}`, `P = 3M(1+‖ρ‖/Re ρ)`, `M = √q(1+log q)`,
-`C_{w,ρ} = 12M/‖1−ρ‖ + 2(9+8‖ρ‖) + 2(Z₀+1/‖1−ρ‖)P + 2P + 2P/(1−Re ρ)`. The symmetric-hyperbola
-long leg (`dhAbel_leg1_rho`) carries the `L(1,χ)` residue; the two short legs and the corner are
-zero-killed (`partial_sum_at_zero_small`). Complex analog of `dhAbel_inner_le`/`dhAbel_inner_abs_le`
-at the complex zero — `‖·‖`-level throughout, no reality tricks (catch #119). -/
-theorem dhAbel_inner_rho [NeZero q] (χ : DirichletCharacter ℂ q)
+/-- **The long-leg extraction (the `L(1,χ)` residue).** For a primitive real `χ` at a NON-REAL
+zero `ρ` (`1/2 ≤ Re ρ < 1`, `|Im ρ| ≤ 1`),
+`‖Leg₁ − L(1,χ)·t^{1−ρ}/(1−ρ)‖ ≤ (12M/‖1−ρ‖ + 2(9+8‖ρ‖) + 2(Z₀+1/‖1−ρ‖)·P)·t^{1/2−Re ρ}`,
+`Leg₁ = Σ_{d≤√t} χ_ℝ(d)d^{−ρ}·T_ρ(⌊t/d⌋)`, `P = 3M(1+‖ρ‖/Re ρ)`. The a-sum pole
+(`emrho_perterm`) extracts `L(1,χ)` from `Σ_{d≤√t} χ(d)/d` (strip@1); the `ζ(ρ)` stream is killed
+by `partial_sum_at_zero_small`. Complex analog of `dhAbel_leg1_le`. -/
+theorem dhAbel_leg1_rho [NeZero q] (χ : DirichletCharacter ℂ q)
     (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {ρ : ℂ}
     (hzero : DirichletCharacter.LFunction χ ρ = 0) (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1)
     (him : |ρ.im| ≤ 1)
     {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
+    {t : ℕ} (ht : 1 ≤ t) :
+    ‖(∑ d ∈ Finset.Icc 1 (Nat.sqrt t), ((chiRe χ d : ℂ) * (d : ℂ) ^ (-ρ))
+          * ∑ e ∈ Finset.Icc 1 (t / d), (e : ℂ) ^ (-ρ))
+        - DirichletCharacter.LFunction χ 1 * (t : ℂ) ^ (1 - ρ) / (1 - ρ)‖
+      ≤ (12 * (Real.sqrt q * (1 + Real.log q)) / ‖1 - ρ‖ + 2 * (9 + 8 * ‖ρ‖)
+          + 2 * (Z₀ + 1 / ‖1 - ρ‖)
+            * (3 * (Real.sqrt q * (1 + Real.log q)) * (1 + ‖ρ‖ / ρ.re)))
+        * (t : ℝ) ^ (1 / 2 - ρ.re) :=
+  dhAbel_leg1_rho_tall χ hχ hsq hq hzero hlo hhi him hZ ht
+
+/-! ## §5 — the per-`t` inner bound (R6-2@ρ, the analytic heart) -/
+
+/-- **R6-2@ρ (`dhAbel_inner_rho_tall`) — the per-`t` inner bound (the analytic heart).** For a
+primitive real `χ` at a NON-REAL zero `ρ` (`1/2 ≤ Re ρ < 1`, `|Im ρ| ≤ 1`),
+`‖A_ρ(t) − L(1,χ)·t^{1−ρ}/(1−ρ)‖ ≤ C_{w,ρ}·t^{1/2−Re ρ}`,
+`A_ρ(t) = Σ_{n≤t} dhA(n)·n^{−ρ}`, `P = 3M(1+‖ρ‖/Re ρ)`, `M = √q(1+log q)`,
+`C_{w,ρ} = 12M/‖1−ρ‖ + 2(9+8‖ρ‖) + 2(Z₀+1/‖1−ρ‖)P + 2P + 2P/(1−Re ρ)`. The symmetric-hyperbola
+long leg (`dhAbel_leg1_rho_tall`) carries the `L(1,χ)` residue; the two short legs and the corner
+are zero-killed (`partial_sum_at_zero_small`). Complex analog of
+`dhAbel_inner_le`/`dhAbel_inner_abs_le` at the complex zero — `‖·‖`-level throughout, no reality
+tricks (catch #119). -/
+theorem dhAbel_inner_rho_tall [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {ρ : ℂ}
+    (hzero : DirichletCharacter.LFunction χ ρ = 0) (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1)
+    {H : ℝ} (him : |ρ.im| ≤ H)
+    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ H → ‖zetaHol s‖ ≤ Z₀)
     {t : ℕ} (ht : 1 ≤ t) :
     ‖(∑ n ∈ Finset.Icc 1 t, (dhA χ n : ℂ) * (n : ℂ) ^ (-ρ))
         - DirichletCharacter.LFunction χ 1 * (t : ℂ) ^ (1 - ρ) / (1 - ρ)‖
@@ -544,7 +614,7 @@ theorem dhAbel_inner_rho [NeZero q] (χ : DirichletCharacter ℂ q)
           apply mul_le_mul_of_nonneg_left hr1m2 (by positivity)
       _ = 2 * P / (1 - ρ.re) * D := by ring
   -- LEG 1 : the main-term residue leg
-  have hLeg1 := dhAbel_leg1_rho χ hχ hsq hq hzero hlo hhi him hZ ht
+  have hLeg1 := dhAbel_leg1_rho_tall χ hχ hsq hq hzero hlo hhi him hZ ht
   rw [← hMdef, ← hrdef, ← hDdef, ← hPdef] at hLeg1
   -- assemble
   rw [dhAbel_hyperbola_rho χ t, ← hrdef]
@@ -565,6 +635,29 @@ theorem dhAbel_inner_rho [NeZero q] (χ : DirichletCharacter ℂ q)
           add_le_add (add_le_add hLeg1 hLeg2) hCorner
     _ = (12 * M / ‖1 - ρ‖ + 2 * (9 + 8 * ‖ρ‖) + 2 * (Z₀ + 1 / ‖1 - ρ‖) * P
           + 2 * P + 2 * P / (1 - ρ.re)) * D := by ring
+
+/-- **R6-2@ρ (`dhAbel_inner_rho`) — the per-`t` inner bound (the analytic heart).** For a primitive
+real `χ` at a NON-REAL zero `ρ` (`1/2 ≤ Re ρ < 1`, `|Im ρ| ≤ 1`),
+`‖A_ρ(t) − L(1,χ)·t^{1−ρ}/(1−ρ)‖ ≤ C_{w,ρ}·t^{1/2−Re ρ}`,
+`A_ρ(t) = Σ_{n≤t} dhA(n)·n^{−ρ}`, `P = 3M(1+‖ρ‖/Re ρ)`, `M = √q(1+log q)`,
+`C_{w,ρ} = 12M/‖1−ρ‖ + 2(9+8‖ρ‖) + 2(Z₀+1/‖1−ρ‖)P + 2P + 2P/(1−Re ρ)`. The symmetric-hyperbola
+long leg (`dhAbel_leg1_rho`) carries the `L(1,χ)` residue; the two short legs and the corner are
+zero-killed (`partial_sum_at_zero_small`). Complex analog of `dhAbel_inner_le`/`dhAbel_inner_abs_le`
+at the complex zero — `‖·‖`-level throughout, no reality tricks (catch #119). -/
+theorem dhAbel_inner_rho [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {ρ : ℂ}
+    (hzero : DirichletCharacter.LFunction χ ρ = 0) (hlo : 1 / 2 ≤ ρ.re) (hhi : ρ.re < 1)
+    (him : |ρ.im| ≤ 1)
+    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
+    {t : ℕ} (ht : 1 ≤ t) :
+    ‖(∑ n ∈ Finset.Icc 1 t, (dhA χ n : ℂ) * (n : ℂ) ^ (-ρ))
+        - DirichletCharacter.LFunction χ 1 * (t : ℂ) ^ (1 - ρ) / (1 - ρ)‖
+      ≤ (12 * (Real.sqrt q * (1 + Real.log q)) / ‖1 - ρ‖ + 2 * (9 + 8 * ‖ρ‖)
+          + 2 * (Z₀ + 1 / ‖1 - ρ‖) * (3 * (Real.sqrt q * (1 + Real.log q)) * (1 + ‖ρ‖ / ρ.re))
+          + 2 * (3 * (Real.sqrt q * (1 + Real.log q)) * (1 + ‖ρ‖ / ρ.re))
+          + 2 * (3 * (Real.sqrt q * (1 + Real.log q)) * (1 + ‖ρ‖ / ρ.re)) / (1 - ρ.re))
+        * (t : ℝ) ^ (1 / 2 - ρ.re) :=
+  dhAbel_inner_rho_tall χ hχ hsq hq hzero hlo hhi him hZ ht
 
 end Salt.SW
 

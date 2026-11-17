@@ -286,28 +286,26 @@ theorem S1_le (k K₀ N R W' ν₀ : ℕ) (y : (Fin k → ℕ) → ℝ) (f₀ : 
 /-! ## L4 — the trivial error is small -/
 
 omit [TupleChoice] in
-/-- **L4.** The trivial error is `O_k(R²·(1+log R)^(4k+2))`. The exponent is
-`4k+2 = 2·(2k+1)`: `∑_d|λ_d| ≤ card·λ_max ≤ (R(1+logR)^k)·(Cl(1+logR)^(k+1))
-= Cl·R·(1+logR)^(2k+1)`, and squaring doubles both the coefficient's power and
-the log exponent. (The brief's "(2k+2)" is an arithmetic slip: `2·(2k+1)=4k+2`,
-not `2k+2`; see the report.) -/
-theorem S1_trivial_error_le' (k R W' : ℕ) (y : (Fin k → ℕ) → ℝ)
-    (hy1 : ∀ r, |y r| ≤ 1) (hR : 2 ≤ R) (hW0 : W' ≠ 0) :
-    ∃ C : ℝ, 0 ≤ C ∧ (∑ d ∈ kSieveIndex k R W', |lam k R W' y d|) ^ 2
-      ≤ C * (R : ℝ) ^ 2 * (1 + Real.log R) ^ (4 * k + 2) := by
-  obtain ⟨Cl, hCl1, hCl⟩ := lam_abs_le_sharp k R W' y hy1 hR hW0
+/-- **R-uniform `S1_trivial_error_le'`.**  The trivial error's constant `Cl²`
+(from the uniform `λ`-bound) is `R`-free. -/
+theorem S1_trivial_error_le'_uniform (k W' : ℕ) :
+    ∃ C : ℝ, 0 ≤ C ∧ ∀ (R : ℕ), 2 ≤ R → ∀ (y : (Fin k → ℕ) → ℝ), (∀ r, |y r| ≤ 1) →
+      (∑ d ∈ kSieveIndex k R W', |lam k R W' y d|) ^ 2
+        ≤ C * (R : ℝ) ^ 2 * (1 + Real.log R) ^ (4 * k + 2) := by
+  obtain ⟨Cl, hCl1, hCl⟩ := lam_abs_le_sharp_uniform k W'
   have hCl0 : (0 : ℝ) ≤ Cl := le_trans zero_le_one hCl1
+  refine ⟨Cl ^ 2, by positivity, ?_⟩
+  intro R hR y hy1
   have hlog0 : (0 : ℝ) ≤ 1 + Real.log R := by
     have hR1 : (1 : ℝ) < (R : ℝ) := by exact_mod_cast lt_of_lt_of_le one_lt_two hR
     have := Real.log_pos hR1; linarith
   have hsum : ∑ d ∈ kSieveIndex k R W', |lam k R W' y d|
       ≤ (kSieveIndex k R W').card • (Cl * (1 + Real.log R) ^ (k + 1)) :=
-    Finset.sum_le_card_nsmul _ _ _ (fun d hd => hCl d hd)
+    Finset.sum_le_card_nsmul _ _ _ (fun d hd => hCl R hR y hy1 d hd)
   rw [nsmul_eq_mul] at hsum
   have hcard := kSieveIndex_card_le k R W' hR
   have hsum0 : (0 : ℝ) ≤ ∑ d ∈ kSieveIndex k R W', |lam k R W' y d| :=
     Finset.sum_nonneg (fun d _ => abs_nonneg _)
-  -- ∑|λ| ≤ Cl · R · (1+logR)^(2k+1)
   have hchain : ∑ d ∈ kSieveIndex k R W', |lam k R W' y d|
       ≤ Cl * (R : ℝ) * (1 + Real.log R) ^ (2 * k + 1) := by
     have hexp : k + (k + 1) = 2 * k + 1 := by ring
@@ -318,13 +316,25 @@ theorem S1_trivial_error_le' (k R W' : ℕ) (y : (Fin k → ℕ) → ℝ)
       _ = Cl * (R : ℝ) * ((1 + Real.log R) ^ k * (1 + Real.log R) ^ (k + 1)) := by ring
       _ = Cl * (R : ℝ) * (1 + Real.log R) ^ (k + (k + 1)) := by rw [← pow_add]
       _ = Cl * (R : ℝ) * (1 + Real.log R) ^ (2 * k + 1) := by rw [hexp]
-  refine ⟨Cl ^ 2, by positivity, ?_⟩
   have hee : (2 * k + 1) * 2 = 4 * k + 2 := by ring
   calc (∑ d ∈ kSieveIndex k R W', |lam k R W' y d|) ^ 2
       ≤ (Cl * (R : ℝ) * (1 + Real.log R) ^ (2 * k + 1)) ^ 2 :=
         pow_le_pow_left₀ hsum0 hchain 2
     _ = Cl ^ 2 * (R : ℝ) ^ 2 * (1 + Real.log R) ^ (4 * k + 2) := by
         rw [mul_pow, mul_pow, ← pow_mul, hee]
+
+omit [TupleChoice] in
+/-- **L4.** The trivial error is `O_k(R²·(1+log R)^(4k+2))`. The exponent is
+`4k+2 = 2·(2k+1)`: `∑_d|λ_d| ≤ card·λ_max ≤ (R(1+logR)^k)·(Cl(1+logR)^(k+1))
+= Cl·R·(1+logR)^(2k+1)`, and squaring doubles both the coefficient's power and
+the log exponent. (The brief's "(2k+2)" is an arithmetic slip: `2·(2k+1)=4k+2`,
+not `2k+2`; see the report.) -/
+theorem S1_trivial_error_le' (k R W' : ℕ) (y : (Fin k → ℕ) → ℝ)
+    (hy1 : ∀ r, |y r| ≤ 1) (hR : 2 ≤ R) (_hW0 : W' ≠ 0) :
+    ∃ C : ℝ, 0 ≤ C ∧ (∑ d ∈ kSieveIndex k R W', |lam k R W' y d|) ^ 2
+      ≤ C * (R : ℝ) ^ 2 * (1 + Real.log R) ^ (4 * k + 2) := by
+  obtain ⟨C, hC, h⟩ := S1_trivial_error_le'_uniform k W'
+  exact ⟨C, hC, h R hR y hy1⟩
 
 /-! ## The headline S₁ upper bound -/
 

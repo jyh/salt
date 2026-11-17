@@ -24,8 +24,8 @@ restriction enters its **proof** — not its statement — gives a clean answer:
 
 * the height hypothesis `him : |ρ.im| ≤ 1` on the zero is consumed at exactly two kinds of site:
   (i) to feed `hZ` — the `zetaHol_bound` packaging — **at the point `ρ` itself**
-  (`norm_zeta_rho_le`, `DHExtractRho.lean:59,283,412`), never along a contour, never as a strip
-  integral; and (ii) as the argument of `zeta_partial_em`'s height slot, which that lemma
+  (`norm_zeta_rho_le`, `DHExtractRho.lean:59,283,412` at a49070eb), never along a contour, never as
+  a strip integral; and (ii) as the argument of `zeta_partial_em`'s height slot, which that lemma
   **ignores** (`ZetaEM.lean:123`, the binder is literally `_him`) because it reduces to the
   height-free `norm_zeta_sub_approx_le_strip`;
 * every `β₀`-side use of `hZ` is at a **real** point (`hZ (β₀ : ℂ)`, `DHCore.lean:352,713`,

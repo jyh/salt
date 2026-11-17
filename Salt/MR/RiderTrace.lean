@@ -14,7 +14,7 @@ first two to the leaves that actually produce them and pins, in the kernel, what
 
 ## The shared mint
 
-Both `cs` and `T₀` are minted at ONE site — `PortAssembly.halaszPrimesChiGated_of_price` (:805) —
+Both `cs` and `T₀` are minted at ONE site — `PortAssembly.halaszPrimesChiGated_of_price` (:1148) —
 and travel to `v3` untouched through a chain of pass-throughs:
 
 ```
@@ -37,7 +37,7 @@ halaszPrimesChiGated_of_price          cs := min (min (c_vk/(2·K₄)) (c₀/(2�
   invoked on `TwistedWindowPriceGated (1/10^8)` (`TwistedEdge.twisted_window_price_gated_holds`,
   whose own `twisted_edge_price_strip` exports `c_vk = 1/10^8` as an equation).
 * `K₄ = 2^{3/4}·16` and `Cκ = 2^{3/4}·8` — CLOSED-FORM `noncomputable def`s
-  (`PortAssembly.lean:640`, `HalaszPrimesCore.lean:3232`).  ⟦ERRATUM to the 0802 summit dossier
+  (`PortAssembly.lean:640`, `HalaszPrimesCore.lean:3265`).  ⟦ERRATUM to the 0802 summit dossier
   §3, which called `K₄`/`Cκ` "compactness existentials of our own port"⟧ — they are not
   existentials at all.
 * `c₀` — `per_pair_contour`'s `c_vk`, a pass-through of `shifted_edge_price_strip`'s, itself a

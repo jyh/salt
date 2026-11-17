@@ -23,7 +23,8 @@ the socket `M`-cap ⟦gate 8⟧, the row-zero base bundle, and the two generatio
 through `2^36 ≤ Adoor M` and `1 ≤ Adoor M`, and the `G`-slot only through `1 ≤ G`.  Rather
 than replay them twice (once at `Adoor`, once at `AdoorL`) they are re-stated ONCE at a
 SYMBOLIC anchor `A` with `2^36 ≤ A` (`s13_sieveBlockGate_gen`, `s13_gate8_gen`,
-`s13_doorRowZeroBase_five_gen`, `s13_winFit_of_halfWindow_gen`), and both cuts are instances.
+`s13_doorRowZeroBase_five_gen`, and `s13_winFit_of_halfWindow_gen`, which now sits in
+`S13MSelect2` above its base), and both cuts are instances.
 The landed declarations are untouched; what is added is the general form and the `_L`
 instance.
 
@@ -502,56 +503,6 @@ theorem s13_MSelect_L_of_headroom_gk (K : ℕ) {Cg δ₀ Λ : ℝ} {R : ChowlaRe
 
 `S13MSelect2.MSelect'` — the corrected system, whose ⟦4⟧ `winFit` IS `s13_smallGradeFits`'
 gate.  `MSelect'_gk.gRows` is ⟦COMPOSE-FLAT-2⟧'s SECOND named break site. -/
-
-/-- **⟦THE WINDOW GATE FROM THE HALF-WINDOW FLOOR, `j`-SYMBOLIC⟧**
-(`s13_winFit_of_halfWindow_gen`) — `S13MSelect2.s13_winFit_of_halfWindow` with the row floor
-carried as an OPAQUE real, which is all its body ever uses.  Both cuts instantiate. -/
-theorem s13_winFit_of_halfWindow_gen {R : ChowlaRegime} {jr ρ : ℝ}
-    (hfl : loglogFloor50 ≤ R.Hlo)
-    (hhalf : (7 / 10 : ℝ) * jr + 3 * Real.log (1 / ρ) ≤ Real.log (R.Hlo : ℝ) / 2) :
-    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      (7 / 10 : ℝ) * jr
-          + 3 * (Real.log 9 + 84 * Real.log (Real.log (H : ℝ))
-              + 2 * Real.log (strataResidual H) - Real.log ρ)
-        ≤ Real.log (H : ℝ) := by
-  intro H hlo _
-  have hHlo4 : 4000000 ≤ R.Hlo := R.hHlo_floor
-  have hH4 : 4000000 ≤ H := le_trans hHlo4 hlo
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have hHloR : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast hHlo4
-  have hloR : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast hlo
-  have hlogmono : Real.log (R.Hlo : ℝ) ≤ Real.log (H : ℝ) :=
-    Real.log_le_log (by linarith) hloR
-  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
-  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
-    have := Real.exp_le_exp.mpr h50
-    rwa [Real.exp_log hlogH0] at this
-  have hlogHbig : (4000000 : ℝ) ≤ Real.log (H : ℝ) := le_trans s13_four_million_le_exp50 hexp50
-  set w : ℝ := Real.sqrt (Real.log (H : ℝ)) with hw
-  have hw2 : w ^ 2 = Real.log (H : ℝ) := Real.sq_sqrt hlogH0.le
-  have hw0 : (0 : ℝ) < w := by rw [hw]; exact Real.sqrt_pos.mpr hlogH0
-  have hw2000 : (2000 : ℝ) ≤ w := by nlinarith [hw2, hw0, hlogHbig]
-  have hlogw : Real.log w = Real.log (Real.log (H : ℝ)) / 2 := by
-    rw [hw]; exact Real.log_sqrt hlogH0.le
-  have hlogwle : Real.log w ≤ w - 1 := Real.log_le_sub_one_of_pos hw0
-  have hllH : Real.log (Real.log (H : ℝ)) ≤ 2 * w - 2 := by rw [hlogw] at hlogwle; linarith
-  have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
-    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-  have hSval : strataResidual H = 1 + 12 * Real.log (Real.log (H : ℝ)) := by
-    rw [strataResidual, harcpow, Real.log_pow]; push_cast; ring
-  have hll0 : (0 : ℝ) ≤ Real.log (Real.log (H : ℝ)) := by linarith
-  have hS1 : (1 : ℝ) ≤ strataResidual H := by rw [hSval]; linarith
-  have hlogS : Real.log (strataResidual H) ≤ strataResidual H - 1 :=
-    Real.log_le_sub_one_of_pos (by linarith)
-  have hSle : strataResidual H - 1 ≤ 24 * w - 24 := by rw [hSval]; linarith
-  have hlog3 : Real.log 3 ≤ 2 := by
-    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 3); linarith
-  have hlog9 : Real.log 9 ≤ 4 := by
-    rw [show (9 : ℝ) = 3 ^ (2 : ℕ) by norm_num, Real.log_pow]; push_cast; linarith
-  have hinv : Real.log (1 / ρ) = - Real.log ρ := by rw [one_div, Real.log_inv]
-  rw [hinv] at hhalf
-  nlinarith [hhalf, hlogmono, hllH, hlogS, hSle, hlog9, hw2, hw2000, hw0]
 
 /-- **`S13MSelect2.MSelect'` AT THE LINEAR DOOR** (`MSelect'_L`). -/
 structure MSelect'_L (Cg δ₀ Λ ρ : ℝ) (R : ChowlaRegime) (M : ℕ) : Prop where

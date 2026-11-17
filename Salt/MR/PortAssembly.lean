@@ -792,22 +792,31 @@ lemma absorb_exp_term {Cc Pv x e D K Lv : ℝ} (hCc : 0 ≤ Cc) (hPv : 0 ≤ Pv)
 set_option maxHeartbeats 3200000 in
 -- The assembly threads seven absorption bounds against one `∃`-packaged constant; the
 -- elaborator needs headroom past the default.
-/-- **A1 — THE PAIR DUAL, ASSEMBLED.**  `HalaszPrimesChiGated` from the twisted edge price
-(`TwistedWindowPriceGated`, at any admissible constants) and the landed untwisted per-pair
-price (`per_pair_contour`).  This is stone C's residue discharged: the socket's diagonal term
-is `P`, not `φ(q)·P`.
-
-The decay constant is `c = min(c_vk/(2K₄), c₀/(2Cκ), 1/10)`: the first two match the two
-prices' contour depths against the socket's `D₄(qT)` (via `D4_5T1_le_D4` and `D3_5T1_le`,
-then `logDn_mono` for `D₄(T) ≤ D₄(qT)`), the third is what makes `1/T ≤ exp(−c log P/D₄(qT))`
-at `P ≤ T^10`.  The `(log qT)²` factor absorbs `D₅(5T+1)` and `D₄(5T+1)` (`D5_5T1_le`,
-`D4_5T1_le`) and — through `√P ≤ P·exp(−c log P/D₄(qT))` — the Euler debit. -/
-theorem halaszPrimesChiGated_of_price {c_vk C₁ C₂ C₃ T₀e : ℝ}
+/-- **A1 at a given per-pair price** (`halaszPrimesChiGated_of_price_of`):
+`halaszPrimesChiGated_of_price`'s assembly with the untwisted per-pair price's constants and
+bound taken as hypotheses, and the decay constant named in the conclusion as
+`min (min (c_vk/(2K₄)) (c₀/(2Cκ))) (1/10)`, so that a floored price can floor it
+(`V7B.halaszPrimesChiGated_of_price_floored`).  The route is the base's. -/
+theorem halaszPrimesChiGated_of_price_of {c_vk C₁ C₂ C₃ T₀e : ℝ}
     (hc_vk : 0 < c_vk) (hC₁ : 0 < C₁) (hC₂ : 0 < C₂) (hC₃ : 0 < C₃)
     (hT₀e : Real.exp (Real.exp 100) ≤ T₀e)
-    (hprice : TwistedWindowPriceGated c_vk C₁ C₂ C₃ T₀e) :
-    ∃ C c T₀ : ℝ, 0 < C ∧ 0 < c ∧ 3 ≤ T₀ ∧ HalaszPrimesChiGated c_vk C c T₀ := by
-  obtain ⟨c₀, E₁, E₂, E₃, T₀z, hc₀, hE₁, hE₂, hE₃, hT₀z, hpp⟩ := per_pair_contour
+    (hprice : TwistedWindowPriceGated c_vk C₁ C₂ C₃ T₀e)
+    {c₀ E₁ E₂ E₃ T₀z : ℝ} (hc₀ : 0 < c₀) (hE₁ : 0 < E₁) (hE₂ : 0 < E₂) (hE₃ : 0 < E₃)
+    (hT₀z : 3 ≤ T₀z)
+    (hpp :
+      ∀ (T P u : ℝ), T₀z ≤ T → 2 ≤ P → |u| ≤ 2 * T →
+        ‖(∑' n, ((vonMangoldt n : ℂ) * (n : ℂ) ^ ((u : ℂ) * I)) * (primeWindow P n : ℂ))
+              - windowKernel P 1 u‖
+          ≤ E₁ * P * Real.exp (-(c₀ / 2) * Real.log P
+                / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                    * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)))
+              * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                  * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ))
+            + E₂ * P * Real.log P / T
+            + E₃ * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                  * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) * P / T ^ 2) :
+    ∃ C T₀ : ℝ, 0 < C ∧ 3 ≤ T₀ ∧
+      HalaszPrimesChiGated c_vk C (min (min (c_vk / (2 * K₄)) (c₀ / (2 * Cκ))) (1 / 10)) T₀ := by
   have hK₂0 : 0 < K₂ := by rw [K₂]; positivity
   have hK₄0 : 0 < K₄ := by rw [K₄]; positivity
   have hK₅0 : 0 < K₅ := by rw [K₅]; positivity
@@ -829,7 +838,7 @@ theorem halaszPrimesChiGated_of_price {c_vk C₁ C₂ C₃ T₀e : ℝ}
   have hc10 : c ≤ 1 / 10 := by rw [hcdef]; exact min_le_right _ _
   set Cε : ℝ := C₁ * K₅ + C₂ * 10 + C₃ * K₅ + E₁ * K₂ + E₂ * 10 + E₃ * K₂ + 9 with hCεdef
   have hCε0 : 0 < Cε := by rw [hCεdef]; positivity
-  refine ⟨44 * Real.pi + Cε, c, max T₀e T₀z, by positivity, hc0,
+  refine ⟨44 * Real.pi + Cε, max T₀e T₀z, by positivity,
     le_trans hT₀z (le_max_right _ _), ?_⟩
   intro q hq T P hT hP hPT10 hgate hregion ℰ hws hsub S hS a
   -- ⟦the scales⟧
@@ -1126,6 +1135,27 @@ theorem halaszPrimesChiGated_of_price {c_vk C₁ C₂ C₃ T₀e : ℝ}
     linarith [hstep1]
   exact mul_le_mul_of_nonneg_right hgoal hlogP.le
 
+/-- **A1 — THE PAIR DUAL, ASSEMBLED.**  `HalaszPrimesChiGated` from the twisted edge price
+(`TwistedWindowPriceGated`, at any admissible constants) and the landed untwisted per-pair
+price (`per_pair_contour`).  This is stone C's residue discharged: the socket's diagonal term
+is `P`, not `φ(q)·P`.
+
+The decay constant is `c = min(c_vk/(2K₄), c₀/(2Cκ), 1/10)`: the first two match the two
+prices' contour depths against the socket's `D₄(qT)` (via `D4_5T1_le_D4` and `D3_5T1_le`,
+then `logDn_mono` for `D₄(T) ≤ D₄(qT)`), the third is what makes `1/T ≤ exp(−c log P/D₄(qT))`
+at `P ≤ T^10`.  The `(log qT)²` factor absorbs `D₅(5T+1)` and `D₄(5T+1)` (`D5_5T1_le`,
+`D4_5T1_le`) and — through `√P ≤ P·exp(−c log P/D₄(qT))` — the Euler debit. -/
+theorem halaszPrimesChiGated_of_price {c_vk C₁ C₂ C₃ T₀e : ℝ}
+    (hc_vk : 0 < c_vk) (hC₁ : 0 < C₁) (hC₂ : 0 < C₂) (hC₃ : 0 < C₃)
+    (hT₀e : Real.exp (Real.exp 100) ≤ T₀e)
+    (hprice : TwistedWindowPriceGated c_vk C₁ C₂ C₃ T₀e) :
+    ∃ C c T₀ : ℝ, 0 < C ∧ 0 < c ∧ 3 ≤ T₀ ∧ HalaszPrimesChiGated c_vk C c T₀ := by
+  obtain ⟨c₀, E₁, E₂, E₃, T₀z, hc₀, hE₁, hE₂, hE₃, hT₀z, hpp⟩ := per_pair_contour
+  obtain ⟨C, T₀, hC, hT₀, h⟩ :=
+    halaszPrimesChiGated_of_price_of hc_vk hC₁ hC₂ hC₃ hT₀e hprice hc₀ hE₁ hE₂ hE₃ hT₀z hpp
+  have hK₄0 : 0 < K₄ := by rw [K₄]; positivity
+  have hCκ0 : 0 < Cκ := by rw [Cκ]; positivity
+  exact ⟨C, _, T₀, hC, lt_min (lt_min (by positivity) (by positivity)) (by norm_num), hT₀, h⟩
 
 /-! ## §7 — A2: THE SIEGEL FOLD, at the width the region actually needs
 

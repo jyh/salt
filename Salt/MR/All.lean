@@ -7200,8 +7200,8 @@ with every consumer bridge re-routed.  The third, `s15_gate8_gk`, is `s13_gate8_
 
 ⟦THE STRUCTURAL MOVE⟧ six landed proofs on this layer read the anchor only through
 `2^36 ≤ A` (or `1 ≤ A`) and the `G`-slot only through `1 ≤ G`.  Rather than replay each
-twice they are stated ONCE at a SYMBOLIC anchor — `s13_sieveBlockGate_gen`,
-`s13_gate8_gen`, `s13_doorRowZeroBase_five_gen`, `s13_winFit_of_halfWindow_gen`,
+twice they are stated ONCE at a SYMBOLIC anchor — `s13_sieveBlockGate_gen`, `s13_gate8_gen`,
+`s13_doorRowZeroBase_five_gen`, `s13_winFit_of_halfWindow_gen` (now in `S13MSelect2`),
 `capfloor_one_lt_QK2_gen`, `capfloor_QTann_gen`/`capfloor_kappa30Q_gen` — and both cuts
 are instances.  Landed declarations are untouched; the `G`-slot never moves. -/
 #audit_axioms Salt.MR.flatDoorM_ge_pow355
@@ -8051,7 +8051,7 @@ at one opaque tolerance and one produced window.
 ⟦WHAT MOVED, AND WHAT IT COST⟧ `v7`'s second inner rider, `XCeilRiderStrict ε g`, is a property
 of the function the CALLER supplies as its outer-scale request.  It is not discharged in
 general: it is VOID at `g ≡ 0`, off `Real.log 0 = 0` — the same three-line argument the corpus
-already runs inside `RegisterCompose` (:247-251), `XThread` (:1247) and `V7B` (:1760) to read
+already runs inside `RegisterCompose` (:247-251), `XThread` (:1247) and `V7B` (:825) to read
 the `ε`-ceiling.  The price is in the conclusion: `v7`'s `g R.Hhi R.ω ≤ R.x` conjunct becomes
 `0 ≤ R.x` and is dropped, so the instance makes NO outer-scale demand.  The `∃`-prefix is
 `v7`'s verbatim; the two surviving riders are `v7`'s unchanged.
@@ -8112,7 +8112,7 @@ hypotheses none, at one opaque tolerance and one produced window.
 ⟦WHAT MOVED, AND WHAT IT COST⟧ `…_ksarm`'s first inner rider, `XCeilRiderStrict ε g`, is a
 property of the function the CALLER supplies as its outer-scale request.  It is not discharged
 in general: it is VOID at `g ≡ 0`, off `Real.log 0 = 0` — the same three-line argument the corpus
-already runs inside `RegisterCompose` (:247-251), `XThread` (:1247) and `V7B` (:1760) to read the
+already runs inside `RegisterCompose` (:247-251), `XThread` (:1247) and `V7B` (:825) to read the
 `ε`-ceiling; `xceilRiderStrict_zero` names it so the terminal can cite it.  The price is in the
 conclusion: `…_ksarm`'s `g R.Hhi R.ω ≤ R.x` conjunct becomes `0 ≤ R.x`, vacuous of every regime
 (`R.x : ℕ`), and is DROPPED, so the instance makes NO outer-scale demand.  The `∃`-prefix is
@@ -9515,7 +9515,7 @@ discharges), so wave H2b re-quantified it for free and left an open rider.  The 
 are **theorems** (`s16_bandLaneWinL_holds` S16Uniform:1233, `_holdsU` S16ComposeV4:102), so their
 `h` twins need a producer PORT — and the `h` lane gets a DISCHARGED rider in exchange for it.
 ⭐ **The port is class A, and a projection census says why.**  The mint
-`m4_hband_at_door_slot_split_graded_L_gk` (S11HoistLinear:847) touches its socket in exactly two
+`m4_hband_at_door_slot_split_graded_L_gk` (S11HoistLinear:909) touches its socket in exactly two
 ways: it projects **conjunct 4** (`0 < q`) and passes `hb` to its own antecedent.  Across
 `S11HoistLinear`'s 59 socket occurrences there are **zero** projections of conjuncts 5 and 11 —
 the only two `SocketBaseLH h` relaxes.  **Every proof body here is the landed one verbatim; only

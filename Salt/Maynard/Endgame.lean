@@ -65,6 +65,66 @@ theorem S1_upper_tensor (k K₀ N R ν₀ : ℕ) (T : ℝ)
         (Nat.lcm_dvd_mul (d i) (e i)))
       (fun i j hij => compat_lcm_coprime k R hd he hcompat hij)
 
+/-- **R-uniform `S1_upper_A1`.**  A single constant `Cs = 2^{k+1}·Cl²` serves
+every `R ≥ 2`: `S₁ ≤ 2((K₀−1)N/W)·A₁^k + Cs·R²·(1+log R)^{4k+2}`. -/
+theorem S1_upper_A1_uniform (k K₀ N ν₀ : ℕ) (T : ℝ)
+    (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D₀ k) (hK₀ : 1 ≤ K₀) :
+    ∃ C : ℝ, 0 ≤ C ∧ ∀ (R : ℕ), 2 ≤ R →
+      S1 k K₀ N R (W k) ν₀ (yTensor k R T)
+        ≤ 2 * ((K₀ - 1) * N / (W k) : ℝ) * (A1 k R (W k) T) ^ k
+          + C * (R : ℝ) ^ 2 * (1 + Real.log R) ^ (4 * k + 2) := by
+  obtain ⟨C0, hC0, hC0le⟩ := S1_trivial_error_le'_uniform k (W k)
+  refine ⟨2 ^ (k + 1) * C0, by positivity, ?_⟩
+  intro R hR
+  have hWpos : 0 < W k := Nat.pos_of_ne_zero (W_squarefree k).ne_zero
+  -- solvability of compat pairs (as in `S1_upper_tensor`)
+  have hsol : ∀ d ∈ kSieveIndex k R (W k), ∀ e ∈ kSieveIndex k R (W k),
+      ¬ IsCollisionPair d e →
+      ∃ c : ℕ, c % W k = ν₀ % W k ∧ ∀ i, Nat.lcm (d i) (e i) ∣ (c + hSeq k i) := by
+    intro d hd e he hcompat
+    obtain ⟨hdsq, -, hdcopW, -⟩ := (mem_kSieveIndex_iff d).mp hd
+    obtain ⟨hesq, -, hecopW, -⟩ := (mem_kSieveIndex_iff e).mp he
+    exact cong_solvable k d e ν₀ hWpos
+      (fun i => Nat.pos_of_ne_zero (Nat.lcm_ne_zero (hdsq i).ne_zero (hesq i).ne_zero))
+      (fun i => ((hdcopW i).symm.mul_right (hecopW i).symm).coprime_dvd_right
+        (Nat.lcm_dvd_mul (d i) (e i)))
+      (fun i j hij => compat_lcm_coprime k R hd he hcompat hij)
+  -- `fTilde` divisor-antitone (as in `S1_upper_tensor`)
+  have hfmono : ∀ d n : ℕ, d ∣ n → 0 < d → fTilde k R T n ≤ fTilde k R T d := by
+    intro d n hdn hd0
+    rcases Nat.eq_zero_or_pos n with hn | hn
+    · subst hn
+      have h0 : (0 : ℕ) ∉ sqfCop (R0 k R T) (W k) := by
+        rw [sqfCop, Finset.mem_filter]
+        rintro ⟨-, hsq, -⟩
+        exact hsq.ne_zero rfl
+      rw [show fTilde k R T 0 = 0 by simp only [fTilde, if_neg h0]]
+      exact fTilde_nonneg k R T d hR
+    · exact fTilde_anti k R T hR d n hn hdn
+  have hL3 := S1_le k K₀ N R (W k) ν₀ (yTensor k R T) (fTilde k R T)
+    (fun n => ⟨fTilde_nonneg k R T n hR, fTilde_le_one k R T hR n⟩) hfmono (fun r => rfl) rfl
+    hk hD hK₀ hsol
+  have htriv := hC0le R hR (yTensor k R T) (yTensor_abs_le_one k R T hR)
+  have hyside := yside_le_A1pow k R T
+  have hcoef : (0 : ℝ) ≤ 2 * ((K₀ - 1) * N / (W k) : ℝ) := by
+    have h1 : (0 : ℝ) ≤ (K₀ : ℝ) - 1 := by
+      have : (1 : ℝ) ≤ (K₀ : ℝ) := by exact_mod_cast hK₀
+      linarith
+    have h2 : (0 : ℝ) ≤ ((K₀ - 1) * N / (W k) : ℝ) :=
+      div_nonneg (mul_nonneg h1 (Nat.cast_nonneg N)) (Nat.cast_nonneg _)
+    linarith
+  calc S1 k K₀ N R (W k) ν₀ (yTensor k R T)
+      ≤ 2 * ((K₀ - 1) * N / (W k) : ℝ)
+          * (∑ r ∈ kSieveIndex k R (W k), (yTensor k R T r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ))
+        + 2 ^ (k + 1) * (∑ d ∈ kSieveIndex k R (W k), |lam k R (W k) (yTensor k R T) d|) ^ 2 :=
+        hL3
+    _ ≤ 2 * ((K₀ - 1) * N / (W k) : ℝ) * (A1 k R (W k) T) ^ k
+        + 2 ^ (k + 1) * (C0 * (R : ℝ) ^ 2 * (1 + Real.log R) ^ (4 * k + 2)) :=
+        add_le_add (mul_le_mul_of_nonneg_left hyside hcoef)
+          (mul_le_mul_of_nonneg_left htriv (by positivity))
+    _ = 2 * ((K₀ - 1) * N / (W k) : ℝ) * (A1 k R (W k) T) ^ k
+        + (2 ^ (k + 1) * C0) * (R : ℝ) ^ 2 * (1 + Real.log R) ^ (4 * k + 2) := by ring
+
 /-- **P3 (assembled).** `S₁ ≤ 2((K₀−1)N/W)·A₁^k + errS₁`, using `yside ≤ A₁^k`
 (`yside_le_A1pow`). -/
 theorem S1_upper_A1 (k K₀ N R ν₀ : ℕ) (T : ℝ)
@@ -72,17 +132,8 @@ theorem S1_upper_A1 (k K₀ N R ν₀ : ℕ) (T : ℝ)
     ∃ C : ℝ, 0 ≤ C ∧ S1 k K₀ N R (W k) ν₀ (yTensor k R T)
       ≤ 2 * ((K₀ - 1) * N / (W k) : ℝ) * (A1 k R (W k) T) ^ k
         + C * (R : ℝ) ^ 2 * (1 + Real.log R) ^ (4 * k + 2) := by
-  obtain ⟨C, hC0, hS1⟩ := S1_upper_tensor k K₀ N R ν₀ T hk hD hK₀ hR
-  refine ⟨C, hC0, ?_⟩
-  have h1 : (0 : ℝ) ≤ (K₀ - 1 : ℝ) := by
-    have : (1 : ℝ) ≤ (K₀ : ℝ) := by exact_mod_cast hK₀
-    linarith
-  have hcoef : (0 : ℝ) ≤ 2 * ((K₀ - 1) * N / (W k) : ℝ) := by
-    have h2 : (0 : ℝ) ≤ ((K₀ - 1) * N / (W k) : ℝ) :=
-      div_nonneg (mul_nonneg h1 (Nat.cast_nonneg N)) (Nat.cast_nonneg _)
-    linarith
-  have hmul := mul_le_mul_of_nonneg_left (yside_le_A1pow k R T) hcoef
-  linarith [hS1, hmul]
+  obtain ⟨C, hC, h⟩ := S1_upper_A1_uniform k K₀ N ν₀ T hk hD hK₀
+  exact ⟨C, hC, h R hR⟩
 
 omit [TupleChoice] in
 /-- `Nat.count p` grows by at most `h` over a window of length `h`. -/

@@ -667,7 +667,7 @@ calls this page's twin.  This retirement leaves no name without a caller.
 The page's docstring, verbatim:
 
 **⟦THE WINDOW GATE AT THE INFLATED RESIDUAL, FROM THE HALF-WINDOW FLOOR⟧**
-(`s13_winFit_h_of_halfWindow_gen`) — `S13FramesLinear.s13_winFit_of_halfWindow_gen` with the
+(`s13_winFit_h_of_halfWindow_gen`) — `S13MSelect2.s13_winFit_of_halfWindow_gen` with the
 residual read at `strataResidualH h H` and the `ℓ`-witness's `7·log h` added.
 
 ⛔ **THE ENTRY POINT MOVED ONE STEP EARLIER, AND IT HAD TO.**  The commission routes word 5's

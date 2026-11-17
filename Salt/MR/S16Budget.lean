@@ -105,7 +105,6 @@ namespace Salt.MR
 open Real
 
 
-
 /-- `calE A G 2 = 4·(A·G)`: the calibrated exponent `e_j = A·G^{j−1}·(j!)²` at `j = 2`, where
 `(2!)² = 4` — `simp [Nat.factorial]` and `ring`. The §1 shape stone `s16_logP2` and `s16_logQK2`
 unfold. -/
@@ -197,19 +196,17 @@ theorem s16_logH2_le (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
 
 /-! main assembly -/
 
-/-- **The numeric core of the `budget` field, in seven abstract symbols** — `μ = log X_d`,
-`Λ = log μ`, `Lp = log 𝒫₂`, `Lq = log 𝒬K₂`, `lS = log S`, `llS = loglog S`, `lq = log q`: under
-`hΛ : 10^21 ≤ Λ`, `hμΛ`, `hμ`, `hLp0`, `hLpq : 4·Lp ≤ Lq`, `hLq : Lq ≤ √μ`, the base-scale cap
-`hcap : Λ ≤ Lp/24`, `hlq : lq ≤ 12Λ`, `hlS0`, `hlS : lS ≤ μ + 12Λ` and `hllS : llS ≤ Λ + 1`, the
-seven summands `16 + Lp/73728 + Λ/2 + (7/24)Lq + 2(lS/Lp)·llS + (7/24)lq + μ/Λ` sit under
-`(5/24)·μ`. Route: `√μ ≤ μ/10^10` from `hLq` and the cap puts each small term under `μ/10^10`,
-the main leg `2(lS/Lp)·llS` under `μ/8` through `24Λ ≤ Lp`, then `linarith`. Consumed by
-`s16_budget_field_gk`; §6.6's `s16_budget_num_96` is the same statement at the sharp divisor
-`9.60000096`. -/
-theorem s16_budget_num {μ Λ Lp Lq lS llS lq : ℝ}
+/-- **⟦REPAIRS-LANE ITEM 3⟧ `s16_budget_num` at the relaxed cap** `hcap : Λ ≤ Lp/9.60000096`
+(`9.6·(1 + 10^{−8})`; `9.6` is the sharp divisor, since the leg `2(lS/Lp)·llS` alone is
+`(2/9.6)·μ = (5/24)·μ`): the same seven symbols, the same hypotheses otherwise, the same
+conclusion. Route: `hc : 9.60000096·Λ ≤ Lp` gives `Λ ≤ μ/(38·10^10)`; the main leg is bounded by
+`(5/24)·μ − 7·μ/10^10` through `2(μ + 12Λ)(Λ + 1) ≤ (…)·9.60000096·Λ ≤ (…)·Lp`, the other six
+summands sit under `μ/10^10` each, then `linarith`. Consumed by `s16_budget_field_gk_96` and by
+`S13CapGateLinear.s16_budget_field_L_gk_96`. -/
+theorem s16_budget_num_96 {μ Λ Lp Lq lS llS lq : ℝ}
     (hΛ : (10 : ℝ) ^ (21 : ℕ) ≤ Λ) (hμΛ : Real.log μ = Λ) (hμ : 0 < μ)
     (hLp0 : 0 < Lp) (hLpq : 4 * Lp ≤ Lq) (hLq : Lq ≤ Real.sqrt μ)
-    (hcap : Λ ≤ Lp / 24)
+    (hcap : Λ ≤ Lp / 9.60000096)
     (hlq : lq ≤ 12 * Λ)
     (hlS0 : 0 < lS) (hlS : lS ≤ μ + 12 * Λ) (hllS : llS ≤ Λ + 1) :
     16 + Lp / 73728 + Λ / 2 + (7 / 24) * Lq + 2 * (lS / Lp) * llS + (7 / 24) * lq + μ / Λ
@@ -222,31 +219,55 @@ theorem s16_budget_num {μ Λ Lp Lq lS llS lq : ℝ}
     linarith
   have hsq : Real.sqrt μ * Real.sqrt μ = μ := Real.mul_self_sqrt hμ.le
   have hsq0 : 0 < Real.sqrt μ := Real.sqrt_pos.mpr hμ
-  have hsq10 : (10 : ℝ) ^ (10 : ℕ) ≤ Real.sqrt μ := by linarith only [hcap, hLq, hLpq, hΛ]
+  have hsq10 : (10 : ℝ) ^ (10 : ℕ) ≤ Real.sqrt μ := by nlinarith only [hLq, hLpq, hLp0, hsq, hμbig]
   have hsqle : Real.sqrt μ ≤ μ / 10 ^ (10 : ℕ) := by
     rw [le_div_iff₀ (by norm_num)]
-    nlinarith only [hLq, hLpq, hLp0, hcap, hμ, hΛ, hsq]
+    nlinarith only [hLq, hsq10, hLpq, hLp0, hμbig, hsq]
   have hLple : Lp ≤ μ / (4 * 10 ^ (10 : ℕ)) := by
     rw [le_div_iff₀ (by norm_num)]
     linarith only [hsqle, hLq, hLpq]
-  have hΛle : Λ ≤ μ / (96 * 10 ^ (10 : ℕ)) := by
+  -- ⟦THE TIGHTER CAP⟧ `9.60000096·Λ ≤ Lp`
+  have hc : 9.60000096 * Λ ≤ Lp := by
+    rw [le_div_iff₀ (by norm_num)] at hcap; linarith
+  have hΛle : Λ ≤ μ / (38 * 10 ^ (10 : ℕ)) := by
     rw [le_div_iff₀ (by norm_num)]
-    linarith only [hsqle, hcap, hLq, hLpq]
-  have hmain : 2 * (lS / Lp) * llS ≤ μ / 8 := by
-    have hkey : 2 * lS * llS ≤ (μ / 8) * Lp := by
-      have h24 : 24 * Λ ≤ Lp := by linarith
-      nlinarith only [hlS0, hllS, hLq, hLpq, hLp0, hcap, hμ, hΛ, hlS, hsq]
-    have : 2 * (lS / Lp) * llS = (2 * lS * llS) / Lp := by field_simp
-    rw [this, div_le_iff₀ hLp0]
+    linarith only [hc, hsqle, hLq, hLpq, hΛ]
+  have hΛ38 : 38 * 10 ^ (10 : ℕ) * Λ ≤ μ := by
+    rw [le_div_iff₀ (by norm_num)] at hΛle; linarith
+  have hmain : 2 * (lS / Lp) * llS ≤ (5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ)) := by
+    have hcoef0 : (0 : ℝ) ≤ (5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ)) := by
+      have : (10 : ℝ) ^ (10 : ℕ) = 10000000000 := by norm_num
+      rw [this]; linarith [hμ.le]
+    have h1 : Λ * Λ * (38 * 10 ^ (10 : ℕ)) ≤ μ * Λ := by
+      have := mul_le_mul_of_nonneg_right hΛ38 hΛ0.le
+      linarith [this]
+    have h2 : μ * 10 ^ (21 : ℕ) ≤ μ * Λ := mul_le_mul_of_nonneg_left hΛ hμ.le
+    have h3 : 10 ^ (21 : ℕ) * Λ ≤ μ * Λ := mul_le_mul_of_nonneg_right hμbig hΛ0.le
+    have hstep1 : 2 * lS * llS ≤ 2 * (μ + 12 * Λ) * (Λ + 1) := by
+      nlinarith only [hlS0, hllS, hΛ, hlS]
+    have hstep2 : 2 * (μ + 12 * Λ) * (Λ + 1)
+        ≤ ((5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ))) * (9.60000096 * Λ) := by
+      have hp1 : (10 : ℝ) ^ (10 : ℕ) = 10000000000 := by norm_num
+      have hp2 : (10 : ℝ) ^ (21 : ℕ) = 1000000000000000000000 := by norm_num
+      rw [hp1] at h1 ⊢
+      rw [hp2] at h2 h3
+      linarith [h1, h2, h3]
+    have hstep3 : ((5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ))) * (9.60000096 * Λ)
+        ≤ ((5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ))) * Lp :=
+      mul_le_mul_of_nonneg_left hc hcoef0
+    have hkey : 2 * lS * llS ≤ ((5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ))) * Lp := by
+      linarith [hstep1, hstep2, hstep3]
+    have hrw : 2 * (lS / Lp) * llS = (2 * lS * llS) / Lp := by field_simp
+    rw [hrw, div_le_iff₀ hLp0]
     linarith
   have hLqle : (7 / 24) * Lq ≤ μ / 10 ^ (10 : ℕ) := by
-    linarith only [hsqle, hcap, hLq, hLpq, hΛ]
+    linarith only [hc, hsqle, hLq, hLpq, hΛ]
   have hlqle : (7 / 24) * lq ≤ μ / 10 ^ (10 : ℕ) := by
-    linarith only [hsqle, hlq, hcap, hLq, hLpq, hΛ]
+    linarith only [hc, hsqle, hlq, hLq, hLpq, hΛ]
   have hdivle : μ / Λ ≤ μ / 10 ^ (21 : ℕ) :=
     div_le_div_of_nonneg_left hμ.le (by norm_num) hΛ
   have h9 : (16 : ℝ) ≤ μ / 10 ^ (10 : ℕ) := by
-    rw [le_div_iff₀ (by norm_num)]; linarith only [hsqle, hcap, hLq, hLpq, hΛ]
+    rw [le_div_iff₀ (by norm_num)]; linarith only [hc, hsqle, hLq, hLpq, hΛ]
   have hLp2 : Lp / 73728 ≤ μ / 10 ^ (10 : ℕ) := by
     have h : (10 : ℝ) ^ (10 : ℕ) = 10000000000 := by norm_num
     rw [h] at hLple ⊢
@@ -257,29 +278,45 @@ theorem s16_budget_num {μ Λ Lp Lq lS llS lq : ℝ}
     rw [h] at hΛle ⊢
     norm_num at hΛle ⊢
     linarith
-  have hbig : (6 : ℝ) * (μ / 10 ^ (10 : ℕ)) + μ / 10 ^ (21 : ℕ) + μ / 8 ≤ (5 / 24) * μ := by
+  have hbig : (5 : ℝ) * (μ / 10 ^ (10 : ℕ)) + μ / 10 ^ (21 : ℕ)
+      + ((5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ))) ≤ (5 / 24) * μ := by
     have h1 : (10 : ℝ) ^ (10 : ℕ) = 10000000000 := by norm_num
     have h2 : (10 : ℝ) ^ (21 : ℕ) = 1000000000000000000000 := by norm_num
     rw [h1, h2]
     linarith [hμ.le]
   linarith
 
+/-- **The numeric core of the `budget` field, in seven abstract symbols** — `μ = log X_d`,
+`Λ = log μ`, `Lp = log 𝒫₂`, `Lq = log 𝒬K₂`, `lS = log S`, `llS = loglog S`, `lq = log q`: under
+`hΛ : 10^21 ≤ Λ`, `hμΛ`, `hμ`, `hLp0`, `hLpq : 4·Lp ≤ Lq`, `hLq : Lq ≤ √μ`, the base-scale cap
+`hcap : Λ ≤ Lp/24`, `hlq : lq ≤ 12Λ`, `hlS0`, `hlS : lS ≤ μ + 12Λ` and `hllS : llS ≤ Λ + 1`, the
+seven summands `16 + Lp/73728 + Λ/2 + (7/24)Lq + 2(lS/Lp)·llS + (7/24)lq + μ/Λ` sit under
+`(5/24)·μ`. Route: `√μ ≤ μ/10^10` from `hLq` and the cap puts each small term under `μ/10^10`,
+the main leg `2(lS/Lp)·llS` under `μ/8` through `24Λ ≤ Lp`, then `linarith`. Consumed by
+`s16_budget_field_gk`. Since O13-e row 215 it is the instance of `s16_budget_num_96` (above,
+the same statement at the sharp divisor `9.60000096`, which the `/24` cap implies). -/
+theorem s16_budget_num {μ Λ Lp Lq lS llS lq : ℝ}
+    (hΛ : (10 : ℝ) ^ (21 : ℕ) ≤ Λ) (hμΛ : Real.log μ = Λ) (hμ : 0 < μ)
+    (hLp0 : 0 < Lp) (hLpq : 4 * Lp ≤ Lq) (hLq : Lq ≤ Real.sqrt μ)
+    (hcap : Λ ≤ Lp / 24)
+    (hlq : lq ≤ 12 * Λ)
+    (hlS0 : 0 < lS) (hlS : lS ≤ μ + 12 * Λ) (hllS : llS ≤ Λ + 1) :
+    16 + Lp / 73728 + Λ / 2 + (7 / 24) * Lq + 2 * (lS / Lp) * llS + (7 / 24) * lq + μ / Λ
+      ≤ (5 / 24) * μ :=
+  s16_budget_num_96 hΛ hμΛ hμ hLp0 hLpq hLq
+    (le_trans hcap (div_le_div_of_nonneg_left hLp0.le (by norm_num) (by norm_num)))
+    hlq hlS0 hlS hllS
+
 set_option maxHeartbeats 1000000 in
--- the whole `exp`/`rpow` reduction (card, `VJ²`, the `X`-power, the `Mr` floor) elaborates in
--- one term against the levered `𝒫₂`/`𝒬K₂` literals; the default budget is spent by the
--- `thinBundleGChi` unfold
-/-- **The `budget` field of `S13CapGatePerBlock_gk`, supplied verbatim at every ram block**
-`hi : i ∈ ramI (H83 Nd theta293) P Q`: the thin bundle
-`thinBundleGChi (q·Tann) (s13VJ_gk K M) (calH (H1door M) 2) 𝒫₂ 𝒬K₂`, times
-`Nd^{1 − 2·s13Eta + s13EpsD q Nd}`, is at most `s13Mr Nd i`, from the grid wave's own fields
-(`hmu8`, `hLam : 10^21 ≤ loglog Nd`, `hqlog : q ≤ (log Nd)^12`, `hTann1`, `hTannhi`, `hQhigh`,
-`hQ2reg`) plus the ONE new hypothesis `hcap : loglog Nd ≤ log 𝒫₂/24` (`S16BaseScaleCap_gk`'s
-line). Route: set `μ Λ Lp Lq`, derive the seven symbol bounds (`s16_logP2`, `s16_logQK2`,
-`12Λ ≤ μ`, `log S ≤ μ + 12Λ`), hand them to `s16_budget_num`, then the card factor
-(`mrAlpha (1/12) 2 = 7/48`, `s16_calH_two`) and the `exp`/`rpow` reduction against `s13Mr`'s
-floor, in one term under `maxHeartbeats 1000000`. The `budget := …` line of
-`s16_capGate_supply_gk`. -/
-theorem s16_budget_field_gk (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
+-- same cause as the landed `s16_budget_field_gk`: the whole `exp`/`rpow` reduction elaborates
+-- in one term against the levered `𝒫₂`/`𝒬K₂` literals
+/-- **⟦REPAIRS-LANE ITEM 3⟧ `s16_budget_field_gk` at the relaxed divisor**: the same `budget`
+inequality from the same grid-wave fields, with `hcap : loglog Nd ≤ log 𝒫₂/9.60000096`
+(`S16BaseScaleCap96_gk`'s line) in place of `/24`; the proof is the landed one with
+`s16_budget_num_96` as its numeric core, under `maxHeartbeats 1000000`. The `budget := …` line
+of `s16_capGate_supply_wide_gk`; its linear-door twin is
+`S13CapGateLinear.s16_budget_field_L_gk_96`. -/
+theorem s16_budget_field_gk_96 (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
     (hM : 1 ≤ M) (hq : 1 ≤ q) (hQpos : 0 < Q)
     (hmu8 : 8 ≤ Real.log (Nd : ℝ))
     (hLam : (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (Real.log (Nd : ℝ)))
@@ -289,7 +326,7 @@ theorem s16_budget_field_gk (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
     (hQ2reg : Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
       ≤ Real.sqrt (Real.log (Nd : ℝ)))
     (hcap : Real.log (Real.log (Nd : ℝ))
-      ≤ Real.log ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) / 24)
+      ≤ Real.log ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) / 9.60000096)
     (hi : i ∈ ramI (H83 (Nd : ℝ) theta293) P Q) :
     thinBundleGChi ((q : ℝ) * Tann) (s13VJ_gk K M) (calH (H1door M) 2)
         (calP (Adoor M) (s13GK K M) 2) (calQK (Adoor M) (s13GK K M) M 2)
@@ -325,7 +362,7 @@ theorem s16_budget_field_gk (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
     have : (4 : ℝ) ≤ ((4 * M : ℕ) : ℝ) := by
       have : (4 : ℕ) ≤ 4 * M := by omega
       exact_mod_cast this
-    nlinarith only [hcap, this, hLam]
+    nlinarith only [hLp0, this]
   have hΛ0 : (0 : ℝ) < Λ := by linarith [hLam]
   -- `12Λ ≤ μ`
   have h12 : 12 * Λ ≤ μ := by
@@ -362,7 +399,7 @@ theorem s16_budget_field_gk (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
       rw [Real.log_mul (Real.exp_pos 1).ne' hμ0.ne', Real.log_exp]
     linarith
   -- the numeric core
-  have hnum := s16_budget_num (μ := μ) (Λ := Λ) (Lp := Lp) (Lq := Lq)
+  have hnum := s16_budget_num_96 (μ := μ) (Λ := Λ) (Lp := Lp) (Lq := Lq)
     (lS := Real.log ((q : ℝ) * Tann)) (llS := Real.log (Real.log ((q : ℝ) * Tann)))
     (lq := Real.log (q : ℝ)) hLam rfl hμ0 hLp0 hLpq (by rw [hLqdef]; exact hQ2reg)
     (by rw [hLpdef] at hcap ⊢; exact hcap) hlogq12 hlS0 hlS hllS
@@ -494,6 +531,36 @@ theorem s16_budget_field_gk (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
     rw [hEdef] at *
     linarith [hnum]
   linarith [hprod, hsum ▸ hprod, hfin, hexpstep, hMr]
+
+/-- **The `budget` field of `S13CapGatePerBlock_gk`, supplied verbatim at every ram block**
+`hi : i ∈ ramI (H83 Nd theta293) P Q`: the thin bundle
+`thinBundleGChi (q·Tann) (s13VJ_gk K M) (calH (H1door M) 2) 𝒫₂ 𝒬K₂`, times
+`Nd^{1 − 2·s13Eta + s13EpsD q Nd}`, is at most `s13Mr Nd i`, from the grid wave's own fields
+(`hmu8`, `hLam : 10^21 ≤ loglog Nd`, `hqlog : q ≤ (log Nd)^12`, `hTann1`, `hTannhi`, `hQhigh`,
+`hQ2reg`) plus the ONE new hypothesis `hcap : loglog Nd ≤ log 𝒫₂/24` (`S16BaseScaleCap_gk`'s
+line). Route: set `μ Λ Lp Lq`, derive the seven symbol bounds (`s16_logP2`, `s16_logQK2`,
+`12Λ ≤ μ`, `log S ≤ μ + 12Λ`), hand them to `s16_budget_num`, then the card factor
+(`mrAlpha (1/12) 2 = 7/48`, `s16_calH_two`) and the `exp`/`rpow` reduction against `s13Mr`'s
+floor. Since O13-e row 215 the proof is `s16_budget_field_gk_96`'s (above), at the weaker cap
+`/9.60000096` that `/24` implies. The `budget := …` line of `s16_capGate_supply_gk`. -/
+theorem s16_budget_field_gk (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
+    (hM : 1 ≤ M) (hq : 1 ≤ q) (hQpos : 0 < Q)
+    (hmu8 : 8 ≤ Real.log (Nd : ℝ))
+    (hLam : (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (Real.log (Nd : ℝ)))
+    (hqlog : (q : ℝ) ≤ (Real.log (Nd : ℝ)) ^ 12)
+    (hTann1 : 1 < Tann) (hTannhi : Tann ≤ (Nd : ℝ))
+    (hQhigh : (Q : ℝ) ≤ Q83 (Nd : ℝ))
+    (hQ2reg : Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log (Nd : ℝ)))
+    (hcap : Real.log (Real.log (Nd : ℝ))
+      ≤ Real.log ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) / 24)
+    (hi : i ∈ ramI (H83 (Nd : ℝ) theta293) P Q) :
+    thinBundleGChi ((q : ℝ) * Tann) (s13VJ_gk K M) (calH (H1door M) 2)
+        (calP (Adoor M) (s13GK K M) 2) (calQK (Adoor M) (s13GK K M) M 2)
+      * (Nd : ℝ) ^ (1 - 2 * s13Eta + s13EpsD q Nd) ≤ ((s13Mr Nd i : ℕ) : ℝ) :=
+  s16_budget_field_gk_96 K hM hq hQpos hmu8 hLam hqlog hTann1 hTannhi hQhigh hQ2reg
+    (le_trans hcap (div_le_div_of_nonneg_left (Real.log_natCast_nonneg _)
+      (by norm_num) (by norm_num))) hi
 
 /-! ## §3 — THE CAP-GATE SUPPLY -/
 
@@ -964,10 +1031,10 @@ independent of it.
 ### ⟦THE FIVE CONSTANT RIDERS⟧ (`S16Budget` §4's supply)
 
 `cs`/`T₀`/`Kq`/`Ks` share a nine-hop pass-through from `m4_fuse_hcap_of_capWS_gk` (:754 of
-`S12FuseCompose`) down to `PortAssembly.halasz_primes_chi_pair_of_gates` (:1438).
-* `cs` — minted at `PortAssembly.halaszPrimesChiGated_of_price` (:812) as
+`S12FuseCompose`) down to `PortAssembly.halasz_primes_chi_pair_of_gates` (:1468).
+* `cs` — minted at `PortAssembly.halaszPrimesChiGated_of_price_of` (:824) as
   `min (min (c_vk/(2·K₄)) (c₀/(2·Cκ))) (1/10)` at the LITERAL `c_vk = 1/10^8`, so
-  `cs ≤ 1.86·10^{-10}`; and `cs ≤ 1/10` is a LANDED LINE OF THAT PROOF (:826).  The rider
+  `cs ≤ 1.86·10^{-10}`; and `cs ≤ 1/10` is a LANDED LINE OF THAT PROOF (:838).  The rider
   `1 ≤ cs` is FALSE.  The demand side (`S13CapGrid` :727's `gate`) has a `μ`-power margin
   `3/40 − 2θ₂₉₃ ≥ 0.068`, so the repair is to CARRY `cs` through the margin rather than to
   floor it — a design item, named here.
@@ -1142,7 +1209,6 @@ theorem s16_audit_hcap_wall {lam : ℝ} (hlam : 492 ≤ lam) {K : ℕ} (hK : K �
   have hl0 : (0 : ℝ) < Real.log 2 := by linarith [Real.log_two_gt_d9]
   have hcube : (492 : ℝ) ^ 3 ≤ lam ^ 3 := by gcongr
   nlinarith only [hl2, hcube, hl0, hKR, (Nat.cast_nonneg _ : 0 ≤ ↑K)]
-
 
 
 /-! ## §6.4 — ⟦C4: THE RIDER LANE, PAGE 2⟧ THE `C` RIDER, **PROVEN AND REMOVED**
@@ -1726,7 +1792,6 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl (K : ℕ)
     linarith [hend, show 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 by field_simp; ring]
 
 
-
 set_option maxHeartbeats 1000000 in
 -- ⟦HOP 4⟧ same cause as the landed §GK.10-PINNED: the residue re-elaborates against the prefix
 /-- **⟦HOP 4⟧** (`logChowla2_conditional_sharp2_atK_gk_pinned_Mfl`) —
@@ -1972,97 +2037,6 @@ face — beside the two Siegel items (`x₀`, `Ks`) and the two carried predicat
 
 **PURELY ADDITIVE.**  No landed declaration is touched. -/
 
-/-- **⟦REPAIRS-LANE ITEM 3⟧ `s16_budget_num` at the relaxed cap** `hcap : Λ ≤ Lp/9.60000096`
-(`9.6·(1 + 10^{−8})`; `9.6` is the sharp divisor, since the leg `2(lS/Lp)·llS` alone is
-`(2/9.6)·μ = (5/24)·μ`): the same seven symbols, the same hypotheses otherwise, the same
-conclusion. Route: `hc : 9.60000096·Λ ≤ Lp` gives `Λ ≤ μ/(38·10^10)`; the main leg is bounded by
-`(5/24)·μ − 7·μ/10^10` through `2(μ + 12Λ)(Λ + 1) ≤ (…)·9.60000096·Λ ≤ (…)·Lp`, the other six
-summands sit under `μ/10^10` each, then `linarith`. Consumed by `s16_budget_field_gk_96` and by
-`S13CapGateLinear.s16_budget_field_L_gk_96`. -/
-theorem s16_budget_num_96 {μ Λ Lp Lq lS llS lq : ℝ}
-    (hΛ : (10 : ℝ) ^ (21 : ℕ) ≤ Λ) (hμΛ : Real.log μ = Λ) (hμ : 0 < μ)
-    (hLp0 : 0 < Lp) (hLpq : 4 * Lp ≤ Lq) (hLq : Lq ≤ Real.sqrt μ)
-    (hcap : Λ ≤ Lp / 9.60000096)
-    (hlq : lq ≤ 12 * Λ)
-    (hlS0 : 0 < lS) (hlS : lS ≤ μ + 12 * Λ) (hllS : llS ≤ Λ + 1) :
-    16 + Lp / 73728 + Λ / 2 + (7 / 24) * Lq + 2 * (lS / Lp) * llS + (7 / 24) * lq + μ / Λ
-      ≤ (5 / 24) * μ := by
-  have hΛ0 : (0 : ℝ) < Λ := by linarith only [hΛ]
-  have hexp : Real.exp Λ = μ := by rw [← hμΛ]; exact Real.exp_log hμ
-  have hμbig : (10 : ℝ) ^ (21 : ℕ) ≤ μ := by
-    have := Real.add_one_le_exp Λ
-    rw [hexp] at this
-    linarith
-  have hsq : Real.sqrt μ * Real.sqrt μ = μ := Real.mul_self_sqrt hμ.le
-  have hsq0 : 0 < Real.sqrt μ := Real.sqrt_pos.mpr hμ
-  have hsq10 : (10 : ℝ) ^ (10 : ℕ) ≤ Real.sqrt μ := by nlinarith only [hLq, hLpq, hLp0, hsq, hμbig]
-  have hsqle : Real.sqrt μ ≤ μ / 10 ^ (10 : ℕ) := by
-    rw [le_div_iff₀ (by norm_num)]
-    nlinarith only [hLq, hsq10, hLpq, hLp0, hμbig, hsq]
-  have hLple : Lp ≤ μ / (4 * 10 ^ (10 : ℕ)) := by
-    rw [le_div_iff₀ (by norm_num)]
-    linarith only [hsqle, hLq, hLpq]
-  -- ⟦THE TIGHTER CAP⟧ `9.60000096·Λ ≤ Lp`
-  have hc : 9.60000096 * Λ ≤ Lp := by
-    rw [le_div_iff₀ (by norm_num)] at hcap; linarith
-  have hΛle : Λ ≤ μ / (38 * 10 ^ (10 : ℕ)) := by
-    rw [le_div_iff₀ (by norm_num)]
-    linarith only [hc, hsqle, hLq, hLpq, hΛ]
-  have hΛ38 : 38 * 10 ^ (10 : ℕ) * Λ ≤ μ := by
-    rw [le_div_iff₀ (by norm_num)] at hΛle; linarith
-  have hmain : 2 * (lS / Lp) * llS ≤ (5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ)) := by
-    have hcoef0 : (0 : ℝ) ≤ (5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ)) := by
-      have : (10 : ℝ) ^ (10 : ℕ) = 10000000000 := by norm_num
-      rw [this]; linarith [hμ.le]
-    have h1 : Λ * Λ * (38 * 10 ^ (10 : ℕ)) ≤ μ * Λ := by
-      have := mul_le_mul_of_nonneg_right hΛ38 hΛ0.le
-      linarith [this]
-    have h2 : μ * 10 ^ (21 : ℕ) ≤ μ * Λ := mul_le_mul_of_nonneg_left hΛ hμ.le
-    have h3 : 10 ^ (21 : ℕ) * Λ ≤ μ * Λ := mul_le_mul_of_nonneg_right hμbig hΛ0.le
-    have hstep1 : 2 * lS * llS ≤ 2 * (μ + 12 * Λ) * (Λ + 1) := by
-      nlinarith only [hlS0, hllS, hΛ, hlS]
-    have hstep2 : 2 * (μ + 12 * Λ) * (Λ + 1)
-        ≤ ((5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ))) * (9.60000096 * Λ) := by
-      have hp1 : (10 : ℝ) ^ (10 : ℕ) = 10000000000 := by norm_num
-      have hp2 : (10 : ℝ) ^ (21 : ℕ) = 1000000000000000000000 := by norm_num
-      rw [hp1] at h1 ⊢
-      rw [hp2] at h2 h3
-      linarith [h1, h2, h3]
-    have hstep3 : ((5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ))) * (9.60000096 * Λ)
-        ≤ ((5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ))) * Lp :=
-      mul_le_mul_of_nonneg_left hc hcoef0
-    have hkey : 2 * lS * llS ≤ ((5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ))) * Lp := by
-      linarith [hstep1, hstep2, hstep3]
-    have hrw : 2 * (lS / Lp) * llS = (2 * lS * llS) / Lp := by field_simp
-    rw [hrw, div_le_iff₀ hLp0]
-    linarith
-  have hLqle : (7 / 24) * Lq ≤ μ / 10 ^ (10 : ℕ) := by
-    linarith only [hc, hsqle, hLq, hLpq, hΛ]
-  have hlqle : (7 / 24) * lq ≤ μ / 10 ^ (10 : ℕ) := by
-    linarith only [hc, hsqle, hlq, hLq, hLpq, hΛ]
-  have hdivle : μ / Λ ≤ μ / 10 ^ (21 : ℕ) :=
-    div_le_div_of_nonneg_left hμ.le (by norm_num) hΛ
-  have h9 : (16 : ℝ) ≤ μ / 10 ^ (10 : ℕ) := by
-    rw [le_div_iff₀ (by norm_num)]; linarith only [hc, hsqle, hLq, hLpq, hΛ]
-  have hLp2 : Lp / 73728 ≤ μ / 10 ^ (10 : ℕ) := by
-    have h : (10 : ℝ) ^ (10 : ℕ) = 10000000000 := by norm_num
-    rw [h] at hLple ⊢
-    norm_num at hLple ⊢
-    linarith
-  have hΛ2 : Λ / 2 ≤ μ / 10 ^ (10 : ℕ) := by
-    have h : (10 : ℝ) ^ (10 : ℕ) = 10000000000 := by norm_num
-    rw [h] at hΛle ⊢
-    norm_num at hΛle ⊢
-    linarith
-  have hbig : (5 : ℝ) * (μ / 10 ^ (10 : ℕ)) + μ / 10 ^ (21 : ℕ)
-      + ((5 / 24) * μ - 7 * (μ / 10 ^ (10 : ℕ))) ≤ (5 / 24) * μ := by
-    have h1 : (10 : ℝ) ^ (10 : ℕ) = 10000000000 := by norm_num
-    have h2 : (10 : ℝ) ^ (21 : ℕ) = 1000000000000000000000 := by norm_num
-    rw [h1, h2]
-    linarith [hμ.le]
-  linarith
-
-
 /-- ⟦REPAIRS-LANE ITEM 3⟧ the socket's base-scale cap at the RELAXED divisor `9.60000096`. -/
 def S16BaseScaleCap96_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) : Prop :=
   ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
@@ -2090,232 +2064,6 @@ theorem s16_baseScaleCap96_of_baseScaleCap (K : ℕ) {R : ChowlaRegime} {M : ℕ
       ≤ Real.log ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) / 9.60000096 :=
     div_le_div_of_nonneg_left hLp0.le (by norm_num) (by norm_num)
   linarith [hcap H L q j A s hb, hdiv]
-
-set_option maxHeartbeats 1000000 in
--- same cause as the landed `s16_budget_field_gk`: the whole `exp`/`rpow` reduction elaborates
--- in one term against the levered `𝒫₂`/`𝒬K₂` literals
-/-- **⟦REPAIRS-LANE ITEM 3⟧ `s16_budget_field_gk` at the relaxed divisor**: the same `budget`
-inequality from the same grid-wave fields, with `hcap : loglog Nd ≤ log 𝒫₂/9.60000096`
-(`S16BaseScaleCap96_gk`'s line) in place of `/24`; the proof is the landed one with
-`s16_budget_num_96` as its numeric core, under `maxHeartbeats 1000000`. The `budget := …` line
-of `s16_capGate_supply_wide_gk`; its linear-door twin is
-`S13CapGateLinear.s16_budget_field_L_gk_96`. -/
-theorem s16_budget_field_gk_96 (K : ℕ) {M Nd q P Q i : ℕ} {Tann : ℝ}
-    (hM : 1 ≤ M) (hq : 1 ≤ q) (hQpos : 0 < Q)
-    (hmu8 : 8 ≤ Real.log (Nd : ℝ))
-    (hLam : (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (Real.log (Nd : ℝ)))
-    (hqlog : (q : ℝ) ≤ (Real.log (Nd : ℝ)) ^ 12)
-    (hTann1 : 1 < Tann) (hTannhi : Tann ≤ (Nd : ℝ))
-    (hQhigh : (Q : ℝ) ≤ Q83 (Nd : ℝ))
-    (hQ2reg : Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
-      ≤ Real.sqrt (Real.log (Nd : ℝ)))
-    (hcap : Real.log (Real.log (Nd : ℝ))
-      ≤ Real.log ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) / 9.60000096)
-    (hi : i ∈ ramI (H83 (Nd : ℝ) theta293) P Q) :
-    thinBundleGChi ((q : ℝ) * Tann) (s13VJ_gk K M) (calH (H1door M) 2)
-        (calP (Adoor M) (s13GK K M) 2) (calQK (Adoor M) (s13GK K M) M 2)
-      * (Nd : ℝ) ^ (1 - 2 * s13Eta + s13EpsD q Nd) ≤ ((s13Mr Nd i : ℕ) : ℝ) := by
-  set X : ℝ := (Nd : ℝ) with hXdef
-  set μ : ℝ := Real.log X with hmudef
-  set Λ : ℝ := Real.log μ with hLamdef
-  set Lp : ℝ := Real.log ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) with hLpdef
-  set Lq : ℝ := Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) with hLqdef
-  have hμ0 : (0 : ℝ) < μ := by linarith
-  have hX0 : (0 : ℝ) < X := by
-    rcases Nat.eq_zero_or_pos Nd with h0 | hpos
-    · exfalso
-      rw [hmudef, hXdef, h0] at hμ0
-      simp only [Nat.cast_zero, Real.log_zero] at hμ0
-      exact lt_irrefl 0 hμ0
-    · rw [hXdef]; exact_mod_cast hpos
-  have hXexp : Real.exp μ = X := Real.exp_log hX0
-  -- the base logs
-  have hLp0 : (0 : ℝ) < Lp := by
-    rw [hLpdef, s16_logP2]
-    have hA : (1 : ℕ) ≤ Adoor M := le_trans (by norm_num) (Adoor_ge M)
-    have hG : (1 : ℕ) ≤ s13GK K M := one_le_s13GK K hM
-    have h4 : (1 : ℝ) ≤ ((4 * (Adoor M * s13GK K M) : ℕ) : ℝ) := by
-      have : (1 : ℕ) ≤ 4 * (Adoor M * s13GK K M) := by
-        have := Nat.mul_le_mul hA hG; omega
-      exact_mod_cast this
-    have := Real.log_pos (by norm_num : (1 : ℝ) < 2)
-    nlinarith only [h4, this]
-  have hLqval : Lq = ((4 * M : ℕ) : ℝ) * Lp := by rw [hLqdef, hLpdef, s16_logQK2]
-  have hLpq : 4 * Lp ≤ Lq := by
-    rw [hLqval]
-    have : (4 : ℝ) ≤ ((4 * M : ℕ) : ℝ) := by
-      have : (4 : ℕ) ≤ 4 * M := by omega
-      exact_mod_cast this
-    nlinarith only [hLp0, this]
-  have hΛ0 : (0 : ℝ) < Λ := by linarith [hLam]
-  -- `12Λ ≤ μ`
-  have h12 : 12 * Λ ≤ μ := by
-    have hh : Real.exp Λ = μ := by rw [hLamdef]; exact Real.exp_log hμ0
-    have h1 : Λ / 2 + 1 ≤ Real.exp (Λ / 2) := Real.add_one_le_exp _
-    have h2 : Real.exp (Λ / 2) * Real.exp (Λ / 2) = μ := by
-      rw [← Real.exp_add, show Λ / 2 + Λ / 2 = Λ by ring, hh]
-    nlinarith only [h1, hLam, h2]
-  -- `S = q·Tann`
-  have hqR : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
-  have hS0 : (0 : ℝ) < (q : ℝ) * Tann := by nlinarith
-  have hlogTann0 : (0 : ℝ) < Real.log Tann := Real.log_pos hTann1
-  have hlogq0 : (0 : ℝ) ≤ Real.log (q : ℝ) := Real.log_nonneg hqR
-  have hlogq12 : Real.log (q : ℝ) ≤ 12 * Λ := by
-    have hpow : Real.log ((Real.log X) ^ 12) = 12 * Λ := by
-      rw [Real.log_pow]; push_cast; rw [← hmudef, ← hLamdef]
-    calc Real.log (q : ℝ) ≤ Real.log ((Real.log X) ^ 12) :=
-          Real.log_le_log (by linarith) hqlog
-      _ = 12 * Λ := hpow
-  have hlogTann : Real.log Tann ≤ μ := by
-    rw [hmudef]; exact Real.log_le_log (by linarith) hTannhi
-  have hlS : Real.log ((q : ℝ) * Tann) ≤ μ + 12 * Λ := by
-    rw [Real.log_mul (by linarith) (by linarith)]
-    linarith
-  have hlS0 : (0 : ℝ) < Real.log ((q : ℝ) * Tann) := by
-    rw [Real.log_mul (by linarith) (by linarith)]
-    linarith
-  have hllS : Real.log (Real.log ((q : ℝ) * Tann)) ≤ Λ + 1 := by
-    have h2μ : Real.log ((q : ℝ) * Tann) ≤ Real.exp 1 * μ := by
-      nlinarith only [hmu8, hlS, h12, Real.add_one_le_exp (1 : ℝ)]
-    have hstep : Real.log (Real.log ((q : ℝ) * Tann)) ≤ Real.log (Real.exp 1 * μ) :=
-      Real.log_le_log hlS0 h2μ
-    have heq : Real.log (Real.exp 1 * μ) = 1 + Λ := by
-      rw [Real.log_mul (Real.exp_pos 1).ne' hμ0.ne', Real.log_exp]
-    linarith
-  -- the numeric core
-  have hnum := s16_budget_num_96 (μ := μ) (Λ := Λ) (Lp := Lp) (Lq := Lq)
-    (lS := Real.log ((q : ℝ) * Tann)) (llS := Real.log (Real.log ((q : ℝ) * Tann)))
-    (lq := Real.log (q : ℝ)) hLam rfl hμ0 hLp0 hLpq (by rw [hLqdef]; exact hQ2reg)
-    (by rw [hLpdef] at hcap ⊢; exact hcap) hlogq12 hlS0 hlS hllS
-  -- ⟦THE CARD FACTOR⟧
-  have hmr : mrAlpha (1 / 12) 2 = 7 / 48 := by rw [mrAlpha]; norm_num
-  have hH2pos : (0 : ℝ) < calH (H1door M) 2 := by
-    rw [s16_calH_two]; linarith [H1door_two hM]
-  have hLq0 : (0 : ℝ) ≤ Lq := by rw [hLqval]; positivity
-  have hcard := ramI_card_le (calH (H1door M) 2) (calP (Adoor M) (s13GK K M) 2)
-    (calQK (Adoor M) (s13GK K M) M 2) (mul_nonneg hH2pos.le hLq0)
-  have hH2le : calH (H1door M) 2 ≤ Real.exp (2 + Lp / 73728) := by
-    have hlog := s16_logH2_le K hM
-    rw [← hLpdef] at hlog
-    calc calH (H1door M) 2 = Real.exp (Real.log (calH (H1door M) 2)) :=
-          (Real.exp_log hH2pos).symm
-      _ ≤ Real.exp (2 + Lp / 73728) := Real.exp_le_exp.mpr hlog
-  have hexphalf : Real.exp (Λ / 2) * Real.exp (Λ / 2) = μ := by
-    rw [← Real.exp_add, show Λ / 2 + Λ / 2 = Λ by ring, hLamdef]
-    exact Real.exp_log hμ0
-  have hLqexp : Lq ≤ Real.exp (Λ / 2) := by
-    have hsqe : Real.sqrt μ = Real.exp (Λ / 2) := by
-      rw [show μ = Real.exp (Λ / 2) ^ 2 by rw [sq]; exact hexphalf.symm]
-      exact Real.sqrt_sq (Real.exp_pos _).le
-    rw [← hsqe]; exact hQ2reg
-  have hcardexp :
-      ((ramI (calH (H1door M) 2) (calP (Adoor M) (s13GK K M) 2)
-        (calQK (Adoor M) (s13GK K M) M 2)).card : ℝ)
-        ≤ Real.exp (3 + Lp / 73728 + Λ / 2) := by
-    have hstep : calH (H1door M) 2 * Lq + 1
-        ≤ Real.exp (2 + Lp / 73728) * Real.exp (Λ / 2) + 1 := by
-      have := mul_le_mul hH2le hLqexp hLq0 (Real.exp_pos _).le
-      linarith
-    have hcomb : Real.exp (2 + Lp / 73728) * Real.exp (Λ / 2)
-        = Real.exp (2 + Lp / 73728 + Λ / 2) := by rw [← Real.exp_add]
-    have hone : (1 : ℝ) ≤ Real.exp (2 + Lp / 73728 + Λ / 2) := by
-      rw [Real.one_le_exp_iff]; positivity
-    have hplus : Real.exp (2 + Lp / 73728 + Λ / 2) + 1
-        ≤ Real.exp (3 + Lp / 73728 + Λ / 2) := by
-      have : Real.exp (3 + Lp / 73728 + Λ / 2)
-          = Real.exp 1 * Real.exp (2 + Lp / 73728 + Λ / 2) := by
-        rw [← Real.exp_add]; congr 1; ring
-      rw [this]
-      nlinarith [Real.exp_one_gt_d9, hone]
-    linarith [hcard, hstep, hcomb ▸ hstep]
-  -- ⟦THE `VJ` FACTOR⟧
-  have hVJ : (s13VJ_gk K M) ^ 2 = Real.exp ((7 / 24) * Lq) := by
-    rw [s13VJ_gk, hmr, ← hLqdef, sq, ← Real.exp_add]
-    congr 1; ring
-  -- ⟦THE `X`-POWER⟧
-  have hXr : X ^ (1 - 2 * s13Eta + s13EpsD q Nd)
-      = Real.exp ((19 / 24) * μ + (7 / 24) * Real.log (q : ℝ)) := by
-    rw [Real.rpow_def_of_pos hX0, s13Eta, s13EpsD, hmr]
-    congr 1
-    rw [← hXdef, ← hmudef]
-    field_simp
-    ring
-  -- ⟦THE ASSEMBLY⟧
-  have h1680 : (1680 : ℝ) ≤ Real.exp 8 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 8 (by norm_num)
-  rw [thinBundleGChi, hVJ, hXr]
-  set E : ℝ := 2 * (Real.log ((q : ℝ) * Tann) / Lp)
-    * Real.log (Real.log ((q : ℝ) * Tann)) with hEdef
-  have hprod :
-      ((ramI (calH (H1door M) 2) (calP (Adoor M) (s13GK K M) 2)
-        (calQK (Adoor M) (s13GK K M) M 2)).card : ℝ)
-          * (1680 * Real.exp ((7 / 24) * Lq) * Real.exp E)
-          * Real.exp ((19 / 24) * μ + (7 / 24) * Real.log (q : ℝ))
-        ≤ Real.exp (3 + Lp / 73728 + Λ / 2)
-          * (Real.exp 8 * Real.exp ((7 / 24) * Lq) * Real.exp E)
-          * Real.exp ((19 / 24) * μ + (7 / 24) * Real.log (q : ℝ)) := by
-    have hA : (0 : ℝ) ≤ Real.exp ((7 / 24) * Lq) * Real.exp E := by positivity
-    have hB : (0 : ℝ) ≤ Real.exp ((19 / 24) * μ + (7 / 24) * Real.log (q : ℝ)) := by positivity
-    have hC : (1680 : ℝ) * Real.exp ((7 / 24) * Lq) * Real.exp E
-        ≤ Real.exp 8 * Real.exp ((7 / 24) * Lq) * Real.exp E := by
-      have := mul_le_mul_of_nonneg_right h1680 hA
-      calc (1680 : ℝ) * Real.exp ((7 / 24) * Lq) * Real.exp E
-          = 1680 * (Real.exp ((7 / 24) * Lq) * Real.exp E) := by ring
-        _ ≤ Real.exp 8 * (Real.exp ((7 / 24) * Lq) * Real.exp E) := this
-        _ = Real.exp 8 * Real.exp ((7 / 24) * Lq) * Real.exp E := by ring
-    have hcard0 : (0 : ℝ) ≤ ((ramI (calH (H1door M) 2) (calP (Adoor M) (s13GK K M) 2)
-        (calQK (Adoor M) (s13GK K M) M 2)).card : ℝ) := Nat.cast_nonneg _
-    have hmid := mul_le_mul hcardexp hC (by positivity) (Real.exp_pos _).le
-    exact mul_le_mul_of_nonneg_right hmid hB
-  have hsum : Real.exp (3 + Lp / 73728 + Λ / 2)
-      * (Real.exp 8 * Real.exp ((7 / 24) * Lq) * Real.exp E)
-      * Real.exp ((19 / 24) * μ + (7 / 24) * Real.log (q : ℝ))
-      = Real.exp (11 + Lp / 73728 + Λ / 2 + (7 / 24) * Lq + E
-          + (7 / 24) * Real.log (q : ℝ) + (19 / 24) * μ) := by
-    simp only [← Real.exp_add]
-    congr 1
-    ring
-  -- ⟦THE RIGHT-HAND SIDE⟧
-  have hH830 : (0 : ℝ) < H83 X theta293 := by
-    rw [H83, ← hmudef]; exact Real.rpow_pos_of_pos hμ0 _
-  have hQR : (1 : ℝ) ≤ (Q : ℝ) := by exact_mod_cast hQpos
-  have hlogQ0 : (0 : ℝ) ≤ Real.log (Q : ℝ) := Real.log_nonneg hQR
-  have hiQ : (i : ℝ) / H83 X theta293 ≤ μ / Λ := by
-    rw [ramI, Finset.mem_Icc] at hi
-    have h1 : (i : ℝ) ≤ H83 X theta293 * Real.log (Q : ℝ) := by
-      have h2 : ((⌊H83 X theta293 * Real.log (Q : ℝ)⌋₊ : ℕ) : ℝ)
-          ≤ H83 X theta293 * Real.log (Q : ℝ) :=
-        Nat.floor_le (mul_nonneg hH830.le hlogQ0)
-      have h3 : (i : ℝ) ≤ ((⌊H83 X theta293 * Real.log (Q : ℝ)⌋₊ : ℕ) : ℝ) := by
-        exact_mod_cast hi.2
-      linarith
-    have h4 : Real.log (Q : ℝ) ≤ μ / Λ := by
-      have h5 : Real.log (Q83 X) = μ / Λ := by
-        rw [Q83, Real.log_exp, ← hmudef, ← hLamdef]
-      calc Real.log (Q : ℝ) ≤ Real.log (Q83 X) := Real.log_le_log (by linarith) hQhigh
-        _ = μ / Λ := h5
-    rw [div_le_iff₀ hH830]
-    nlinarith only [hH830, h4, h1]
-  have hMr : 2 * X * Real.exp (-(i : ℝ) / H83 X theta293) ≤ ((s13Mr Nd i : ℕ) : ℝ) := by
-    rw [hXdef, s13Mr]
-    exact Nat.le_ceil _
-  have hexpstep : Real.exp (μ - μ / Λ) ≤ 2 * X * Real.exp (-(i : ℝ) / H83 X theta293) := by
-    have h1 : Real.exp (μ - μ / Λ) = X * Real.exp (-(μ / Λ)) := by
-      rw [← hXexp, ← Real.exp_add]; congr 1
-    have h2 : Real.exp (-(μ / Λ)) ≤ Real.exp (-(i : ℝ) / H83 X theta293) := by
-      apply Real.exp_le_exp.mpr
-      rw [neg_div]
-      linarith [hiQ]
-    have h3 : X * Real.exp (-(μ / Λ)) ≤ X * Real.exp (-(i : ℝ) / H83 X theta293) :=
-      mul_le_mul_of_nonneg_left h2 hX0.le
-    nlinarith [Real.exp_pos (-(i : ℝ) / H83 X theta293), hX0, h1, h3]
-  have hfin : Real.exp (11 + Lp / 73728 + Λ / 2 + (7 / 24) * Lq + E
-      + (7 / 24) * Real.log (q : ℝ) + (19 / 24) * μ) ≤ Real.exp (μ - μ / Λ) := by
-    apply Real.exp_le_exp.mpr
-    rw [hEdef] at *
-    linarith [hnum]
-  linarith [hprod, hsum ▸ hprod, hfin, hexpstep, hMr]
-
 
 /-! ## ITEM 2 — THE `cs` RE-CARRY -/
 
@@ -2790,7 +2538,6 @@ theorem logChowla2_witnessed_scale_final'_v3 (hband : S16BandLaneCBounded 320000
     exact s15_block_at_socket_gk 32000000 hb
       (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
   exact hfire (hsupply hcs hT₀ hKq hKs R M hsel.hM hfl hblk hcof hcap)
-
 
 
 end Salt.MR
