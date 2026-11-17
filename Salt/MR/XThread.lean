@@ -287,23 +287,29 @@ theorem xt_log_add_le {m n : ℕ} {B : ℝ}
       rw [Real.log_mul (by norm_num) hm0R.ne'] at hlog
       · linarith
 
+set_option exponentiation.threshold 4000 in
 set_option maxHeartbeats 2000000 in
--- the arm's four summands, the double exponential's collapse and the closing budget elaborate
--- in one block; the 2026-09-01 re-cut to `H₊/10^20` adds the tower step `u ≥ 8·10^41`, whose
--- constants are large enough that the block no longer fits the previous 1000000
-/-- **⟦THE ARM, PRICED, AT A SCALED `δ₀` PIN⟧** (`s15Arm_log_le_scaled`) — the compose's own
-`g`-arm costs, in logs, no more than `log ω + H₊/10^20` on the gate, at any pin
-`1/(838400·c) ≤ δ₀` with `1 ≤ c ≤ 1201216` and `log c ≤ 14`.  `c = 1` is the landed lane
-(`s15Arm_log_le`, below); `c = h²` is the `h` lane's, at `h ≤ e^7 = 1096`.
-
-⟦THE ARITHMETIC HEART⟧ the binding summand is `gArmDoorRho`'s
-`16·ω·(log H₊)^{12}·exp(exp(7000·loglog H₊ + 500·log(1/ρ) + 6600))`, whose log is
-`log(16ω) + 12·loglog H₊ + (log H₊)^{7000}·ρ^{-500}·e^{6600}`.  With `λ := loglog H₊ ≥ 50` and
-`log(1/ρ) ≤ 403` the exponent obeys `7000·λ + 207600 ≤ e^{λ}/2 = (log H₊)/2`, i.e. the whole
-double exponential is at most `√H₊` — against a budget of `H₊/10^6`.  The margin at the floor is
-`e^{50}/2 = 2.6·10^{21}` against `5.6·10^5`: **fifteen orders**. -/
-theorem s15Arm_log_le_scaled {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hcb : c ≤ 1201216)
-    (hlogc : Real.log c ≤ 14) (hδ₀ : 0 < δ₀) (hδpin : 1 / (838400 * c) ≤ δ₀)
+-- as `StrideGradeWalls.lean:410` above the landed `s15Arm_log_le_scaled_g`: the arm's four
+-- summands, the double exponential's collapse and the closing budget elaborate in one block
+/-- **⟦THE ARM, PRICED, AT A `c`-CEILING THAT ADMITS `2^11·h²` FOR `h ≤ 1202604`⟧ (class B)** —
+`s15Arm_log_le_scaled_g` with `hcb : c ≤ 2460090368 ↦ c ≤ 2961933067911168`, `hlogc : log c ≤ 22
+↦ ≤ 36`; conclusion unchanged, and the lemma is PARAMETRIC IN `c` — it carries no cap binder, so
+this re-cut is not a statement act on the `h`-lane.  BODY: `StrideGradeWalls.lean:433-622`
+verbatim with TWELVE numeral sites moved in FOUR families (the F5-β docstring says nine in three;
+it does not count the `hlogc`/`hρlog` binder pair, which is a family of its own):
+  · `hρlog : log(1/ρ) ≤ 425 ↦ ≤ 439` — ONE site (`xt_log_inv_rho_le_scaled` gives `403 + log c`,
+    `hlogc` gives `log c ≤ 36`);
+  · `2460090368 ↦ 2961933067911168` — FIVE sites: the binder, `hceil1`'s statement, `hdiv`,
+    `hpin'`, and `hstep`'s LHS.  ⛔ The last is not optional — with it left landed the closing
+    `linarith [hceil1, hceil2, hstep, hmul]` is unclosable;
+  · `27 * 10 ^ 16 ↦ 4 * 10 ^ 23` — FIVE sites: `hHhibig`, `hfac`, `h2`, `hstep`'s RHS, `hmul`;
+    `128·838400·2961933067911168 = 3.1786·10²³ ≤ 4·10²³` (`1.2584×`), and as a floor on `H₊` it
+    has `8.1·10¹⁸×` (`H₊ = u² ≥ (1.8·10²¹)²`);
+  · `hlogc : ≤ 22 ↦ ≤ 36` — ONE site.
+⛔ THE CONTROL (`landed_ceiling_refuses_the_million`, §0): the landed ceiling fails at `h = 10⁶`
+by `832×`, so this re-cut is load-bearing and not a widening for its own sake. -/
+theorem s15Arm_log_le_scaled_g14 {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hcb : c ≤ 2961933067911168)
+    (hlogc : Real.log c ≤ 36) (hδ₀ : 0 < δ₀) (hδpin : 1 / (838400 * c) ≤ δ₀)
     (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) {Hhi ω : ℕ} (hHhi : 4000000 ≤ Hhi)
     (hΛ : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
     Real.log ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
@@ -312,7 +318,7 @@ theorem s15Arm_log_le_scaled {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hcb : c ≤ 120
   set ρ : ℝ := doorRhoOfDelta (s12DeltaSock δ₀ Kc) with hρdef
   have hδs : 0 < s12DeltaSock δ₀ Kc := s12DeltaSock_pos hδ₀ hKc
   have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
-  have hρlog : Real.log (1 / ρ) ≤ 417 :=
+  have hρlog : Real.log (1 / ρ) ≤ 439 :=
     le_trans (xt_log_inv_rho_le_scaled hc1 hδ₀ hδpin hKc hKcb) (by linarith)
   -- ⟦THE SCALES⟧ `L = log H₊`, `Λ = loglog H₊`, and their two exponential witnesses
   set L : ℝ := Real.log ((Hhi : ℕ) : ℝ) with hLdef
@@ -378,13 +384,13 @@ theorem s15Arm_log_le_scaled {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hcb : c ≤ 120
     push_cast
     ring
   have hceil1 : ((⌈128 * ((ω : ℕ) : ℝ) / δ₀⌉₊ : ℕ) : ℝ)
-      ≤ 128 * 838400 * 1201216 * ((ω : ℕ) : ℝ) + 1 := by
+      ≤ 128 * 838400 * 2961933067911168 * ((ω : ℕ) : ℝ) + 1 := by
     have h0 : (0 : ℝ) ≤ 128 * ((ω : ℕ) : ℝ) / δ₀ := by positivity
     have hlt : ((⌈128 * ((ω : ℕ) : ℝ) / δ₀⌉₊ : ℕ) : ℝ) < 128 * ((ω : ℕ) : ℝ) / δ₀ + 1 :=
       Nat.ceil_lt_add_one h0
-    have hdiv : 128 * ((ω : ℕ) : ℝ) / δ₀ ≤ 128 * 838400 * 1201216 * ((ω : ℕ) : ℝ) := by
+    have hdiv : 128 * ((ω : ℕ) : ℝ) / δ₀ ≤ 128 * 838400 * 2961933067911168 * ((ω : ℕ) : ℝ) := by
       rw [div_le_iff₀ hδ₀]
-      have hpin' : 1 / (838400 * 1201216 : ℝ) ≤ δ₀ := by
+      have hpin' : 1 / (838400 * 2961933067911168 : ℝ) ≤ δ₀ := by
         refine le_trans ?_ hδpin
         rw [div_le_div_iff₀ (by norm_num) (by positivity)]
         nlinarith [hcb, hc0]
@@ -398,7 +404,7 @@ theorem s15Arm_log_le_scaled {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hcb : c ≤ 120
   -- ⟦THE ENVELOPE⟧ `S ≤ (ω+1)·e^Y` at `Y = L + 12λ + e^E + 6`
   have hX1 : (1 : ℝ) ≤ Real.exp (12 * Λ + Real.exp E) :=
     Real.one_le_exp (by positivity)
-  have hHhibig : (13 * 10 ^ 13 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by nlinarith [huu, hu]
+  have hHhibig : (4 * 10 ^ 23 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by nlinarith [huu, hu]
   have he6 : (19 : ℝ) ≤ Real.exp 6 := by
     have he1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
     have h : Real.exp (6 : ℝ) = (Real.exp 1) ^ (6 : ℕ) := by
@@ -414,13 +420,13 @@ theorem s15Arm_log_le_scaled {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hcb : c ≤ 120
   have henv : ((s15Arm δ₀ ρ Hhi ω : ℕ) : ℝ)
       ≤ (((ω : ℕ) : ℝ) + 1) * Real.exp (L + (12 * Λ + Real.exp E) + 6) := by
     rw [hcast, hYeq]
-    have hfac : 2 * ((Hhi : ℕ) : ℝ) + 13 * 10 ^ 13
+    have hfac : 2 * ((Hhi : ℕ) : ℝ) + 4 * 10 ^ 23
           + 16 * Real.exp (12 * Λ + Real.exp E)
         ≤ ((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) * Real.exp 6 := by
       have h1 : 2 * ((Hhi : ℕ) : ℝ)
           ≤ 2 * (((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E)) := by
         nlinarith [hX1, hHhiR]
-      have h2 : (13 * 10 ^ 13 : ℝ)
+      have h2 : (4 * 10 ^ 23 : ℝ)
           ≤ ((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) := by
         nlinarith [hX1, hHhibig]
       have h3 : 16 * Real.exp (12 * Λ + Real.exp E)
@@ -429,12 +435,12 @@ theorem s15Arm_log_le_scaled {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hcb : c ≤ 120
       have hprodnn : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) := by positivity
       nlinarith [h1, h2, h3, he6, hprodnn]
     have hstep : 2 * ((ω : ℕ) : ℝ) * (((Hhi : ℕ) : ℝ) + 2) + 8 * ((ω : ℕ) : ℝ)
-        + (128 * 838400 * 1201216 * ((ω : ℕ) : ℝ) + 1)
+        + (128 * 838400 * 2961933067911168 * ((ω : ℕ) : ℝ) + 1)
         + (16 * ((ω : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) + 1)
-        ≤ (((ω : ℕ) : ℝ) + 1) * (2 * ((Hhi : ℕ) : ℝ) + 13 * 10 ^ 13
+        ≤ (((ω : ℕ) : ℝ) + 1) * (2 * ((Hhi : ℕ) : ℝ) + 4 * 10 ^ 23
             + 16 * Real.exp (12 * Λ + Real.exp E)) := by
       nlinarith [hωnn, hX1, hHhiR, Real.exp_pos (12 * Λ + Real.exp E)]
-    have hmul : (((ω : ℕ) : ℝ) + 1) * (2 * ((Hhi : ℕ) : ℝ) + 13 * 10 ^ 13
+    have hmul : (((ω : ℕ) : ℝ) + 1) * (2 * ((Hhi : ℕ) : ℝ) + 4 * 10 ^ 23
           + 16 * Real.exp (12 * Λ + Real.exp E))
         ≤ (((ω : ℕ) : ℝ) + 1)
           * (((Hhi : ℕ) : ℝ) * Real.exp (12 * Λ + Real.exp E) * Real.exp 6) :=
@@ -492,6 +498,26 @@ theorem s15Arm_log_le_scaled {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hcb : c ≤ 120
         linarith only [hlin, hsquare]
       linarith [Real.log_two_lt_d9]
     linarith [hlog, hprod, hω1, hclose]
+
+/-- **⟦THE ARM, PRICED, AT A SCALED `δ₀` PIN⟧** (`s15Arm_log_le_scaled`) — the compose's own
+`g`-arm costs, in logs, no more than `log ω + H₊/10^20` on the gate, at any pin
+`1/(838400·c) ≤ δ₀` with `1 ≤ c ≤ 1201216` and `log c ≤ 14`.  `c = 1` is the landed lane
+(`s15Arm_log_le`, below); `c = h²` is the `h` lane's, at `h ≤ e^7 = 1096`.
+
+⟦THE ARITHMETIC HEART⟧ the binding summand is `gArmDoorRho`'s
+`16·ω·(log H₊)^{12}·exp(exp(7000·loglog H₊ + 500·log(1/ρ) + 6600))`, whose log is
+`log(16ω) + 12·loglog H₊ + (log H₊)^{7000}·ρ^{-500}·e^{6600}`.  With `λ := loglog H₊ ≥ 50` and
+`log(1/ρ) ≤ 403` the exponent obeys `7000·λ + 207600 ≤ e^{λ}/2 = (log H₊)/2`, i.e. the whole
+double exponential is at most `√H₊` — against a budget of `H₊/10^6`.  The margin at the floor is
+`e^{50}/2 = 2.6·10^{21}` against `5.6·10^5`: **fifteen orders**. -/
+theorem s15Arm_log_le_scaled {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hcb : c ≤ 1201216)
+    (hlogc : Real.log c ≤ 14) (hδ₀ : 0 < δ₀) (hδpin : 1 / (838400 * c) ≤ δ₀)
+    (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) {Hhi ω : ℕ} (hHhi : 4000000 ≤ Hhi)
+    (hΛ : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
+    Real.log ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
+      ≤ Real.log ((ω : ℕ) : ℝ) + ((Hhi : ℕ) : ℝ) / 10 ^ 20 :=
+  s15Arm_log_le_scaled_g14 hc1 (hcb.trans (by norm_num)) (hlogc.trans (by norm_num)) hδ₀ hδpin
+    hKc hKcb hHhi hΛ
 
 
 /-- **⟦THE ARM, PRICED, AT THE LANDED PIN⟧** (`s15Arm_log_le`) — `s15Arm_log_le_scaled` at
