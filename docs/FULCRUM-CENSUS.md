@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `413791bd` · source digest `f5b921b7c3b68707` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `e862073a` · source digest `ecc35e9cc2e7ca70` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -223,7 +223,7 @@ By kind: case split `by_cases` 81 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.Maynard.classSum_pp2_le` | Salt/Maynard/PpFold.lean:235 | `Salt.Maynard.isPrimeSq` |
 | case split `by_cases` | `Salt.Maynard.pp2Term_le_ppTerm` | Salt/Maynard/PpFold.lean:340 | `Salt.Maynard.isPrimeSq` |
 | case split `by_cases` | `Salt.Maynard.S1_le_main_add_error` | Salt/Maynard/S1Bound.lean:170 | `Salt.Maynard.IsCollisionPair` |
-| case split `by_cases` | `Salt.Maynard.S1_le_main_add_errorW` | Salt/Maynard/S1Bound.lean:470 | `Salt.Maynard.IsCollisionPair` |
+| case split `by_cases` | `Salt.Maynard.S1_le_main_add_errorW` | Salt/Maynard/S1Bound.lean:480 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.compat_moebius_expansion_M` | Salt/Maynard/S2Collision.lean:304 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.abs_S2m_sub_compatMain_le` | Salt/Maynard/S2CompatEH.lean:111 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.abs_S2m_sub_compatMain_le` | Salt/Maynard/S2CompatEH.lean:133 | `Salt.Maynard.IsCollisionPair` |
