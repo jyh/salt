@@ -2167,16 +2167,25 @@ theorem shifted_edge_price_strip :
 set_option maxHeartbeats 12800000 in
 -- The full contour assembly (four sub-bounds + orientation glue) is heavy; the disc-core-grade
 -- 12.8M budget is warranted for the whole-theorem elaboration.
-/-- **A-1, the per-pair contour estimate**: constants `c_vk`, `C₁`, `C₂`, `C₃`, `T₀` such that,
-for `T ≥ T₀`, `P ≥ 2` and `|u| ≤ 2 * T`, the `primeWindow P`-weighted sum of
-`Λ(n) * n ^ (u * I)` differs from `windowKernel P 1 u` by at most a left-edge term (`C₁ * P`
-times the zero-free exponential saving and the strip grade), a truncation term
-`C₂ * P * log P / T` and a horizontal term in `P / T ^ 2`. Route: `primeWindow_contour_rep` and
-`pole_residue_term` on the rectangle, the left edge by `shifted_edge_price_strip`, the
-truncation by `sum_vonMangoldt_cline_bound`, the horizontals by the region bound and
-`sum_vonMangoldt_le_pole_add_Zc`. Read once in this file and by `PortAssembly`. -/
-theorem per_pair_contour :
-    ∃ (c_vk C₁ C₂ C₃ T₀ : ℝ), 0 < c_vk ∧ 0 < C₁ ∧ 0 < C₂ ∧ 0 < C₃ ∧ 3 ≤ T₀ ∧
+/-- **A-1 at a given strip** (`per_pair_contour_of`): `per_pair_contour`'s assembly with the
+shifted-edge strip's constants and its two bounds taken as hypotheses, so that any strip
+(`shifted_edge_price_strip`, or `RiderTrace.shifted_edge_price_strip_bounded` with its floors)
+yields the per-pair contour at the same `c_vk`.  The route is `per_pair_contour`'s. -/
+theorem per_pair_contour_of (c_vk CE T₀s : ℝ) (hc_vk0 : 0 < c_vk) (hCE0 : 0 < CE)
+    (hT₀s3 : 3 ≤ T₀s)
+    (hmargin : (∀ (T : ℝ), T₀s ≤ T → ∀ ρ : ℂ, riemannZeta ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
+          ρ.re ≤ 1 - c_vk / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+            * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ))))
+    (hstrip : (∀ (T x γ : ℝ), T₀s ≤ T →
+          1 - (c_vk / 2) / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)) ≤ x →
+          x ≤ 1 + (c_vk / 2) / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)) →
+          |γ| ≤ 5 * T →
+        ‖logDeriv Zc ((x : ℂ) + (γ : ℂ) * Complex.I)‖
+          ≤ CE * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)))) :
+    ∃ (C₁ C₂ C₃ T₀ : ℝ), 0 < C₁ ∧ 0 < C₂ ∧ 0 < C₃ ∧ 3 ≤ T₀ ∧
       ∀ (T P u : ℝ), T₀ ≤ T → 2 ≤ P → |u| ≤ 2 * T →
         ‖(∑' n, ((vonMangoldt n : ℂ) * (n : ℂ) ^ ((u : ℂ) * I)) * (primeWindow P n : ℂ))
               - windowKernel P 1 u‖
@@ -2188,7 +2197,6 @@ theorem per_pair_contour :
             + C₂ * P * Real.log P / T
             + C₃ * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
                   * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) * P / T ^ 2 := by
-  obtain ⟨c_vk, CE, T₀s, hc_vk0, hCE0, hT₀s3, hmargin, hstrip⟩ := shifted_edge_price_strip
   obtain ⟨C₀, hC₀0, hcline⟩ := sum_vonMangoldt_cline_bound
   -- constants
   have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
@@ -2202,8 +2210,8 @@ theorem per_pair_contour :
   have hCHpos : 0 < CH := by rw [hCHdef]; positivity
   set CT : ℝ := 2 / 3 * Kc * (1 + C₀ / Real.log 2) with hCTdef
   have hCTpos : 0 < CT := by rw [hCTdef]; positivity
-  refine ⟨c_vk, CL / (2 * Real.pi), CT / (2 * Real.pi), 2 * CH / (2 * Real.pi),
-    max (max T₀s 3) (Real.exp (Real.exp (c_vk + 1))), hc_vk0,
+  refine ⟨CL / (2 * Real.pi), CT / (2 * Real.pi), 2 * CH / (2 * Real.pi),
+    max (max T₀s 3) (Real.exp (Real.exp (c_vk + 1))),
     div_pos hCLpos (by positivity), div_pos hCTpos (by positivity),
     div_pos (by positivity) (by positivity), ?_, ?_⟩
   · exact le_trans (le_max_right _ _) (le_max_left _ _)
@@ -2808,6 +2816,31 @@ theorem per_pair_contour :
           + CT / (2 * Real.pi) * P * Real.log P / T
           + 2 * CH / (2 * Real.pi) * D4 * P / T ^ 2 := by ring
 
+/-- **A-1, the per-pair contour estimate**: constants `c_vk`, `C₁`, `C₂`, `C₃`, `T₀` such that,
+for `T ≥ T₀`, `P ≥ 2` and `|u| ≤ 2 * T`, the `primeWindow P`-weighted sum of
+`Λ(n) * n ^ (u * I)` differs from `windowKernel P 1 u` by at most a left-edge term (`C₁ * P`
+times the zero-free exponential saving and the strip grade), a truncation term
+`C₂ * P * log P / T` and a horizontal term in `P / T ^ 2`. Route: `primeWindow_contour_rep` and
+`pole_residue_term` on the rectangle, the left edge by `shifted_edge_price_strip`, the
+truncation by `sum_vonMangoldt_cline_bound`, the horizontals by the region bound and
+`sum_vonMangoldt_le_pole_add_Zc`. Read once in this file and by `PortAssembly`. -/
+theorem per_pair_contour :
+    ∃ (c_vk C₁ C₂ C₃ T₀ : ℝ), 0 < c_vk ∧ 0 < C₁ ∧ 0 < C₂ ∧ 0 < C₃ ∧ 3 ≤ T₀ ∧
+      ∀ (T P u : ℝ), T₀ ≤ T → 2 ≤ P → |u| ≤ 2 * T →
+        ‖(∑' n, ((vonMangoldt n : ℂ) * (n : ℂ) ^ ((u : ℂ) * I)) * (primeWindow P n : ℂ))
+              - windowKernel P 1 u‖
+          ≤ C₁ * P * Real.exp (-(c_vk / 2) * Real.log P
+                / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                    * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)))
+              * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                  * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ))
+            + C₂ * P * Real.log P / T
+            + C₃ * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                  * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) * P / T ^ 2 := by
+  obtain ⟨c_vk, CE, T₀s, hc_vk0, hCE0, hT₀s3, hmargin, hstrip⟩ := shifted_edge_price_strip
+  obtain ⟨C₁, C₂, C₃, T₀, hC₁, hC₂, hC₃, hT₀, h⟩ :=
+    per_pair_contour_of c_vk CE T₀s hc_vk0 hCE0 hT₀s3 hmargin hstrip
+  exact ⟨c_vk, C₁, C₂, C₃, T₀, hc_vk0, hC₁, hC₂, hC₃, hT₀, h⟩
 
 end PerPairContour
 
