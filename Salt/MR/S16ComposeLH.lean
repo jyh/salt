@@ -1363,7 +1363,7 @@ _gen_ceiling` · `XThread.chowlaRegimeFlat_exists_param_head_xceil`).  So the `h
 head is built HERE, beside its `h = 1` sibling, off the one-line public re-export appended to
 `HloExportFlatH` §5.
 
-⭐ **THE ARITHMETIC WAS ALREADY PAID.**  H2a word 4's `xceil_arm_split_h` (XThread:1020) is this
+⭐ **THE ARITHMETIC WAS ALREADY PAID.**  H2a word 4's `xceil_arm_split_h` (XThread:1046) is this
 row's `ε`-margin repair: at `ε = 1/(500·h)` the compose's margin is `H₊/(250000·h²)` against the
 arm's `H₊/10^20`, and the `log 2 + log h` is bought from `50 ≤ loglog H₊` — a tower against a
 demand of `2.31·10^12` at `h = 1096`.  Nothing in this section re-opens it.

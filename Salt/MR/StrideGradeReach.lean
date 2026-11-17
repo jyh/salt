@@ -302,7 +302,7 @@ theorem flat_lvl_line_g14 {A c Λ : ℝ} (hA : 26 ≤ A) (hc : c ≤ 439)
     linarith [hAdlog]
   linarith [hΛ, hc, hlogQ, hlogE, hbud, hE17]
 
-/-! ## §4 — THE ARM AT THE RAISED `c`-CEILING (`StrideGradeWalls.lean:433`'s twin) -/
+/-! ## §4 — THE ARM AT THE RAISED `c`-CEILING (`StrideGradeWalls.lean:430`'s twin) -/
 
 /-- **⟦THE ARM'S LOG AT SHIFT `h`, GRADED, AT THE RAISED CAP⟧ (class A)** — `s15ArmH_log_le_g`
 with `hh7 : log h ≤ 7 ↦ hh14 : log h ≤ 14`, `h ≤ 1096 ↦ h ≤ 1202604`, the `c`-ceiling at

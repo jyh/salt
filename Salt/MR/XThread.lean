@@ -289,12 +289,12 @@ theorem xt_log_add_le {m n : ℕ} {B : ℝ}
 
 set_option exponentiation.threshold 4000 in
 set_option maxHeartbeats 2000000 in
--- as `StrideGradeWalls.lean:410` above the landed `s15Arm_log_le_scaled_g`: the arm's four
+-- as the c0923533 option above the landed `s15Arm_log_le_scaled_g`: the arm's four
 -- summands, the double exponential's collapse and the closing budget elaborate in one block
 /-- **⟦THE ARM, PRICED, AT A `c`-CEILING THAT ADMITS `2^11·h²` FOR `h ≤ 1202604`⟧ (class B)** —
 `s15Arm_log_le_scaled_g` with `hcb : c ≤ 2460090368 ↦ c ≤ 2961933067911168`, `hlogc : log c ≤ 22
 ↦ ≤ 36`; conclusion unchanged, and the lemma is PARAMETRIC IN `c` — it carries no cap binder, so
-this re-cut is not a statement act on the `h`-lane.  BODY: `StrideGradeWalls.lean:433-622`
+this re-cut is not a statement act on the `h`-lane.  BODY: `_g`'s at c0923533
 verbatim with TWELVE numeral sites moved in FOUR families (the F5-β docstring says nine in three;
 it does not count the `hlogc`/`hρlog` binder pair, which is a family of its own):
   · `hρlog : log(1/ρ) ≤ 425 ↦ ≤ 439` — ONE site (`xt_log_inv_rho_le_scaled` gives `403 + log c`,
