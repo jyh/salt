@@ -132,7 +132,7 @@ theorem three_primes :
 
 **The power zero-free region, θ = 3/4** — the first in any public artifact as of 2026-08-11 (see the priority survey): `Re ρ ≤ 1 − c/((log|Im ρ|)^{3/4}(loglog|Im ρ|)³)`.
 
-`Salt/Vk/GrowthPow.lean:1040` · commit `ef3fa95d` · 2026-07-18 · ledger `Salt/Vk/All.lean:136`
+`Salt/Vk/GrowthPow.lean:424` · commit `ef3fa95d` · 2026-07-18 · ledger `Salt/Vk/All.lean:136`
 
 ```lean
 theorem zeta_zero_free_region_pow :

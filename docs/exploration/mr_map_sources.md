@@ -74,7 +74,7 @@ Matomäki hits are bibliographic only [G grep].
 - Regime floor: `H ≥ 4,000,000` (`SpineFinal.lean:298`, via `R.hHlo_floor`).
 
 **The region side (the MR gate's key opened 2026-07-18):**
-- `Salt/Vk/GrowthPow.lean:1042` — `zeta_zero_free_region_pow`
+- `Salt/Vk/GrowthPow.lean:426` — `zeta_zero_free_region_pow`
   (**UNCONDITIONAL**, commit 65d361d "THE MR GATE OPENS"): every ζ-zero with
   `|Im ρ| ≥ T₀` has `Re ρ ≤ 1 − c/((log|Im ρ|)^{3/4}·(loglog|Im ρ|)³)`,
   `c = 10⁻⁹`, `T₀ = exp(exp(8·log(20000K)+1100))+t₀+3` (flags.md VK-7 block
@@ -288,7 +288,7 @@ details = map #1.)
 
 | quantity | value | status |
 |---|---|---|
-| region log-power θ | **3/4** exactly | [G] GrowthPow.lean:1042 |
+| region log-power θ | **3/4** exactly | [G] GrowthPow.lean:426 |
 | region loglog-correction power | **3** | [G] ibid. |
 | region constant c | 10⁻⁹ | [G] flags.md VK-7 block |
 | region threshold T₀ | exp(exp(8·log(20000K)+1100))+t₀+3 ("exp(exp ~100)"-grade) | [G] flags + pilot.md:8679 |
