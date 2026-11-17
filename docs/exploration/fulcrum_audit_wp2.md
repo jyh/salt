@@ -13,16 +13,16 @@ contingent on the σ-budget analysis; ordering `ρ.re ≤ β₀` = T-BAL-UNORDER
     16/17 ≤ ρ.re < 1, ρ.re ≤ β₀  ⟹  1−β₀ ≥ c·(q(|Im ρ|+2))^{−b(1−ρ.re)}/(log(qT)+2)^k
 
 LANDED state (flags.md:11039–11207 + grep): `dh_master_ray` (TBalR8.lean:98), ALL 5 row
-caps + `ray_pow_bound` engine (TBalR8.lean:268–955), guard discharges `tbal_hscale/
-tbal_hguard/tbal_hcov` (TBalR8.lean:959–1305), `dh_balance` (TBalR7.lean:100), `H_lower`
+caps + `ray_pow_bound` engine (TBalR8.lean:300–987), guard discharges `tbal_hscale/
+tbal_hguard/tbal_hcov` (TBalR8.lean:991–1337), `dh_balance` (TBalR7.lean:100), `H_lower`
 (CrushH.lean:65), `L1_lower_siegel` (DHCore.lean:808), extractions (DHExtractW.lean:1163,
-TBalCompose.lean:489), `zfr_harvest` (DHBal.lean:62), `selberg_opt_eq` (SelOpt.lean:440),
+TBalCompose.lean:617), `zfr_harvest` (DHBal.lean:62), `selberg_opt_eq` (SelOpt.lean:440),
 `tail_shift_to_beta0` (SelWeight.lean:383). The ONLY unlanded producer piece: the R8c
 final assembly (trivial split + by_contra inversion into the contract ∃-shape) —
 dispatched per flags/git (cf2f0c0), no `theorem dh_repulsion_ordered` in Lean yet.
 **[STALE — corrected 2026-08-02 by HB-CENSUS: this line was written at cf2f0c0,
 one commit before the landing. `dh_repulsion_ordered` LANDED at f1b92ca
-(2026-07-18, TBalR8.lean:1752, 3 axioms, audit-registered All.lean:305). The
+(2026-07-18, TBalR8.lean:1784, 3 axioms, audit-registered All.lean:305). The
 §3 T-BAL-BUDGET demand-side audit below remains the lane's one genuine open
 item, gated on the consuming node.]**
 
@@ -32,7 +32,7 @@ item, gated on the consuming node.]**
 - `dh_master_ray` (TBalR8.lean:98–104): `L(β₀)=0`, `1/2 ≤ β₀ < 1`. NOTHING else — no
   rate, no 1−β₀ smallness hypothesis on the zero itself. The deep-regime guards
   (`hscale : N^{1−β₀} ≤ e`, `hguard`, `hcov`) are SCALE choices discharged on the
-  contradiction ray by tbal_hscale/hguard/hcov (TBalR8.lean:959–1305); in the trivial
+  contradiction ray by tbal_hscale/hguard/hcov (TBalR8.lean:991–1337); in the trivial
   branch `u ≥ 1/(40L₂)` the contract is immediate (`tbal_tau_le_split`, TBalR8.lean:44).
 - `L1_lower_siegel` (DHCore.lean:808–816): consumes the SAME zero at the Siegel scale
   `N=⌊e^{1/u}⌋` to deliver `L(1,χ).re ≥ 0.27(1−β₀)(2−β₀)` — PV-grade, single-χ,
@@ -54,7 +54,7 @@ item, gated on the consuming node.]**
   row_A_cap:446, row_rho_main_cap:598, row_Eβ_cap:737, row_Eρ_cap:863 — each takes
   `hσlo : 16/17 ≤ σ`): the b=680/k=14 exponent law needs the net Q-power
   `104w − 680w(1−14w) ≤ 0` ⟺ `w ≤ 576/9520 ≈ 0.06050` (σ ≥ 0.93950) and the L₂-power
-  `1 − 14(1−14w) ≤ 0` ⟺ `w ≤ 13/196 ≈ 0.06633` (TBalR8.lean:262–265 docstring + :307,
+  `1 − 14(1−14w) ≤ 0` ⟺ `w ≤ 13/196 ≈ 0.06633` (TBalR8.lean:294–297 docstring + :307,
   :311). Frozen `w ≤ 1/17 ≈ 0.05882` — thin visible slack (σ could drop to ≈0.9395 at
   the SAME witnesses). The deeper generator is the ledger: W=14 is "the UNIQUE integer
   with η_E = η_A at every σ, forced by E-grade G=13 ⟹ W ≥ 13·17/16" (freeze AMENDMENT
@@ -62,7 +62,7 @@ item, gated on the consuming node.]**
   every delivered exponent) or a better E-grade (T-BAL-SIGMA-SLIVER, class D).
 - **The |Im ρ| ≤ 1 restriction**'s true home: the `hZ` box hypothesis
   `∀ s, 1/2 ≤ Re s ≤ 1 → |Im s| ≤ 1 → ‖zetaHol s‖ ≤ Z₀` threaded through
-  `dh_extraction_upper_rho` (TBalCompose.lean:493, applied AT ρ: :515) and the whole
+  `dh_extraction_upper_rho` (TBalCompose.lean:621; applied AT ρ at :515 at c0923533) and the whole
   crush chain. Extending to |γ| ≤ T₀ = a taller zetaHol box + re-ledger; NOT demanded
   by any consumer (both contracts use |γ| ≤ 1; T = |γ|+2 ≤ 3, budget analysis §2 C1).
 - **The ZFR consumption** (`zfr_harvest`, DHBal.lean:62–69): `ρ.im ≠ 0`, `9/10 ≤ ρ.re`

@@ -76,21 +76,21 @@ different regimes and must not be quoted together.
 ## 1. K1 — `htriv`, and S1's real scope
 
 **The guard claim: UNFOUNDED (the freeze is right).**
-The split is `by_cases htriv : 1 / (40 * L₂) ≤ u` at `TBalTall.lean:1065`; the
+The split is `by_cases htriv : 1 / (40 * L₂) ≤ u` at `TBalTall.lean:355`; the
 deep bullet opens at `:1074` and `rw [not_le] at htriv` (`:1075`) gives exactly
 `htriv : u < 1/(40·L₂)`. The deep branch is one contiguous tactic block
 `:1075–1402` with no `clear`/`clear_value`, so htriv is live at `:1109` and at
-every later use of the ray. Twin identical at `TBalR8.lean:1420/:1430`.
+every later use of the ray. Twin identical at `TBalR8.lean:1452/:1462`.
 The kill-check's premise ("needs `L₂² ≥ 40/18`") was a **mis-derivation by the
 conductor**: from `u < 1/(40 L₂)` and `L₂ > 0`, multiply by `L₂` — `u·L₂ < 1/40
 < 1/18`. No `L₂²` occurs anywhere, and no lower bound on `L₂` is needed (though
-`hL₂ge2 : 2 ≤ L₂` is in scope at `TBalTall:1055` / `TBalR8:1414` regardless).
+`hL₂ge2 : 2 ≤ L₂` is in scope at `TBalTall:345` / `TBalR8:1446` regardless).
 
 **Consumer enumeration.** `hc_t9` is used at exactly two sites —
-`TBalTall:1109`, `TBalR8:1463` — both `le_trans huL2c hc_t9`, both inside the
-deep bullet. `huL2g` at exactly two — `TBalTall:1304`, `TBalR8:1651-1652` —
+`TBalTall:399`, `TBalR8:1495` — both `le_trans huL2c hc_t9`, both inside the
+deep bullet. `huL2g` at exactly two — `TBalTall:594`, `TBalR8:1683-1684` —
 both feeding `tbal_hscale`, whose hypothesis is literally `u·L₂ ≤ 1/18`
-(`TBalR8:1003`), discharged by the stronger `1/40`. **So `hc_t9 : c ≤ 1/18` is
+(`TBalR8:1035`), discharged by the stronger `1/40`. **So `hc_t9 : c ≤ 1/18` is
 genuinely redundant today in BOTH assemblies.**
 *Caveat worth banking:* the 1/18 arm was never binding — the same min already
 carries `1/576` (log 576 = 6.36 > log 18 = 2.89) — so deleting `hc_t9` buys
@@ -104,39 +104,39 @@ hypothesis on `c` — the literal `2^{−250}` is hard-wired in the STATEMENT
 needs only `40·c·Q^{−680w} ≤ 8192` given `hL13` (`:58-63`). Honest hypothesis
 set: `(hc0 : 0 ≤ c) (hc1 : c ≤ 1)`. The freeze's "c ≤ 204.8 suffices" is
 byte-accurate, and `hc1 : c ≤ 1` is already derived independently of the deleted
-arm (`le_trans hc_t5 …`, `TBalTall:1497` / `TBalR8:1834`), so S1 orphans nothing.
+arm (`le_trans hc_t5 …`, `TBalTall:787` / `TBalR8:1866`), so S1 orphans nothing.
 Nothing outside the deep branch consumes the smallness of `c`: after
-`clear_value c` the witness is existential (`TBalTall:1502` / `TBalR8:1836`) and
+`clear_value c` the witness is existential (`TBalTall:792` / `TBalR8:1868`) and
 every downstream consumer takes `c` abstractly with only `0 < c` and `hN`, which
 is **monotone-easier as c grows**. Enlarging `c` is safe in every direction.
 
 ### ⛔ THE KILL — S1's EDIT LIST OMITS THE ENTIRE TWIN
 
 Freeze §2.4 says `hc_t1` is "consumed at EXACTLY ONE site: the trivial branch,
-`TBalTall.lean:1070-1073`". **FALSE at the bytes.** There is a second, identical
-site at **`TBalR8.lean:1425-1428`** (`exact mul_le_mul_of_nonneg_right hc_t1
-hbase_nn` at `:1427`), inside `dh_repulsion_inst` (`TBalR8:1373`), the body of
-the **LANDED `dh_repulsion_ordered`** (`TBalR8:1752`) — which is consumed
+`TBalTall.lean:360-363`". **FALSE at the bytes.** There is a second, identical
+site at **`TBalR8.lean:1457-1460`** (`exact mul_le_mul_of_nonneg_right hc_t1
+hbase_nn` at `:1427`), inside `dh_repulsion_inst` (`TBalR8:1405`), the body of
+the **LANDED `dh_repulsion_ordered`** (`TBalR8:1784`) — which is consumed
 downstream at `TauExt.lean:353` (`boxZeros_re_le_unit_box`) and audited in
 `Salt/SW/All.lean:313`.
 
-S1's edit list names only `TBalTall:1024, :1449, :1464` and the `:1070-1073`
+S1's edit list names only `TBalTall:314, :739, :754` and the `:1070-1073`
 block. **An executor following S1 literally restates `tbal_tau_le_split` and
-leaves `TBalR8:1422` applied at the old arity: `lake build` fails and a landed
+leaves `TBalR8:1454` applied at the old arity: `lake build` fails and a landed
 theorem with live consumers goes red.**
 
 **S2 REPEATS THE SAME OMISSION.** Four of the five row caps are shared verbatim
 by both assemblies — `row_rho_main_cap`, `row_A_cap`, `row_1x_cap`,
-`row_Eβ_cap` are applied at `TBalR8:1709, :1723, :1726, :1730` AND at
-`TBalTall:1361, :1375, :1378, :1382`; only the Eρ row is forked
-(`row_Eρ_cap` vs `row_Eρ_cap_tall`, `TBalTall:910`). S2 restates the `hg` of
+`row_Eβ_cap` are applied at `TBalR8:1741, :1755, :1758, :1762` AND at
+`TBalTall:651, :665, :668, :672`; only the Eρ row is forked
+(`row_Eρ_cap` vs `row_Eρ_cap_tall`, `TBalTall:200`). S2 restates the `hg` of
 exactly these shared caps and then says "the assembly needs only new `pinv`
 numerals" — *singular*. It is **two** assemblies: TBalR8's hg-block `:1660-1707`
 with its **11-fold** min at `:1776-1833`, and TBalTall's `:1313-1354` /
 **10-fold** min at `:2105-2156`. §5 is internally inconsistent about this: S3
 does price the twin (freeze:338); S1 and S2 do not.
 Note further: TBalR8's KEβ/KEρ arms carry the **free variable `Z₀`**
-(`TBalR8:1387-1388`), so the freeze's §3 arm table — computed at the tall
+(`TBalR8:1419-1420`), so the freeze's §3 arm table — computed at the tall
 numerals (`Z₀ ⇝ 5`, `636`) — **does not price the TBalR8 tower at all**.
 
 **S1 RE-PRICED.** Class A: accurate (every edit is numeral/projection
@@ -150,8 +150,8 @@ deep). Ledger: TBalTall ≈ 52 changed lines, TBalR8 ≈ 71 — **≈ 123 lines,
 
 **THE PREFERRED REPAIR (adopted for TS-1): do NOT delete the head arm.**
 Replace the head numeral `2^(-(250:ℝ))` by `1/40` in both towers
-(`TBalTall:1445`, `TBalR8:1776`), replace `hp1` by `by norm_num`
-(`TBalTall:1449`, `TBalR8:1780`), and restate `tbal_tau_le_split` once,
+(`TBalTall:735`, `TBalR8:1808`), replace `hp1` by `by norm_num`
+(`TBalTall:739`, `TBalR8:1812`), and restate `tbal_tau_le_split` once,
 generalised in `c` (and `b`, `k`):
 
 ```lean
@@ -171,7 +171,7 @@ by the surviving `1/576` arm at 6.36), so the **full 173.29 is still realised**;
 
 **THE MECHANISM SURVIVES; THE NUMERALS DO NOT.**
 
-`ray_pow_bound` (`TBalR8:368-372`) is
+`ray_pow_bound` (`TBalR8:400-404`) is
 `… (hα : α ≤ 680*w*γ) (hε : ε ≤ 14*γ) : Q^α · u^γ · L₂^ε ≤ c^γ` — **`b = 680`
 and `k = 14` are HARDCODED numerals in the statement**, not parameters; the proof
 needs exactly `Q^(α − 680wγ) ≤ 1` (`:386`) and `L₂^(ε − 14γ) ≤ 1` (`:388`).
@@ -198,7 +198,7 @@ pricing, not the calibration.
 
 S4 move (iii) converts the WHOLE `L₂^{10}/L₂^{11}` to `Q^{10δ'}/Q^{11δ'}` — which
 adds exactly the **constant Q-power** that catch R8b-B (`flags.md:11253-11256`)
-forbids. Exact rows (`TBalR8:791-794` Eβ; `TBalTall:939-942` Eρ-tall):
+forbids. Exact rows (`TBalR8:823-826` Eβ; `TBalTall:229-232` Eρ-tall):
 `α = (1/2 or 5/2) + 12 + a(1/2−σ)`, so the w-free part is
 `(1/2 or 5/2) + g − a/2 + εδ'` while RHS `= b·w·γ → 0` as `w → 0+`. Hence a
 ceiling **independent of b**:
@@ -213,7 +213,7 @@ verified: worst margin −32.008 at w→0+; at w = 1/17, lhs = −26.5 vs rhs = 
 **BUT S3 (a: 104 → 51) collapses the ceiling to `δ' ≤ 1.000` (Eρ) / `1.300` (Eβ)**,
 and at `δ' = 1` the Eρ w-free part is **exactly zero** (saved only by `w > 0`) —
 a knife edge that any future re-cut of `g = 12` or of the tall `+2`
-(`TBalTall:905`) breaks.
+(`TBalTall:195`) breaks.
 
 **S3 AND S4 ARE ANTI-SYNERGISTIC**, not merely co-dependent as §6 says: S3 cuts
 `γ_Eβ` from 2.0865 to 1.1141, **tripling** the per-unit cost of the conversion.
@@ -226,7 +226,7 @@ residue row".
 
 §2.6 claims `b` is fixed by the ρ-main row alone, `b ≥ a/(1 − m·w₀) = 589.33`,
 landed slack `680/589.33 = 1.154`. But **`row_A_cap`'s `ray_pow_bound` call
-(`TBalR8:534-540`) carries `δ_A = 1/50` INSIDE γ**: `α = 104(β₀−σ)`,
+(`TBalR8:566-572`) carries `δ_A = 1/50` INSIDE γ**: `α = 104(β₀−σ)`,
 `γ = 49/50 − 14(β₀−σ)`, and at the admissible corner `u → 0+` the hα at `:538`
 becomes `104 ≤ 680(49/50 − 14w)`, i.e.
 
@@ -242,7 +242,7 @@ multiplier is `680/210.12 = 3.24` and **θ = 0.595, not 0.72**.
 
 ### S4 RE-PRICED — class C, 600–900 ln jointly with S3
 
-Missing breakage site: `row_A_cap`'s `hulogY` guard (`TBalR8:499-510`) calls
+Missing breakage site: `row_A_cap`'s `hulogY` guard (`TBalR8:531-542`) calls
 `ray_pow_bound` at `(α,γ,ε) = (0, 49/50, 1)`; at k=1 hε reads `1 ≤ 49/50` —
 FALSE — and the shortfall `1/50 = δ_A` is a **constant**, not ∝ w. Repairable
 (a second piece-split inside the same lemma) but **not on S4's four-move list**.
@@ -317,7 +317,7 @@ unreachable in this skeleton by ANY (b, c, k).**
 consumers, three in the road's own file — `Lemma7EF.lean:673`
 (`re_le_repulsionCeiling_of_ne`), `:708` (`exists_repulsion_ceiling_of_ne`, which
 `obtain`s `dh_repulsion_tall` at `:721`), `:760` (`psiDefect_norm_le_rangeA`) —
-plus `TBalTall.lean:1539` (`boxZeros_re_le_at_efHeight`). The freeze also names
+plus `TBalTall.lean:829` (`boxZeros_re_le_at_efHeight`). The freeze also names
 the **wrong prefactor** as the risk: `efZeroSumM_spend_at_repulsion`'s
 `4110·(log q+2)^5` (`TauExt:320`) is the count-form route **retired by design D4**
 (`n4b-design-0805.md:236-238`); the operative prefactor is `10^3·M^3·N`
@@ -354,9 +354,9 @@ WRONG WAY.** (Independently reproduced by this seat before K4 reported.)
 
 | row | exact γ(σ) | infimum (at σ = 16/17) | freeze claims | admissible? |
 |---|---|---|---|---|
-| Eρ (`TBalTall:984`) | `14σ − 1009/100` | **5247/1700 = 3.0864705…** | 3.0865 | **NO** (−2.941e−5) |
-| Eβ (`TBalR8:816`) | `14σ − 1109/100` | **3547/1700 = 2.0864705…** | 2.0865 | **NO** (−2.941e−5) |
-| A (`TBalR8:542`) | `49/50 − 14(w−u)` | **133/850 = 0.1564705…** | 0.15647 | yes (+5.9e−7) |
+| Eρ (`TBalTall:274`) | `14σ − 1009/100` | **5247/1700 = 3.0864705…** | 3.0865 | **NO** (−2.941e−5) |
+| Eβ (`TBalR8:848`) | `14σ − 1109/100` | **3547/1700 = 2.0864705…** | 2.0865 | **NO** (−2.941e−5) |
+| A (`TBalR8:574`) | `49/50 − 14(w−u)` | **133/850 = 0.1564705…** | 0.15647 | yes (+5.9e−7) |
 
 Each γ is a function of σ **alone** for Eρ/Eβ (no w, u, m, L₂ dependence — w
 enters only via `ray_pow_bound`'s hα), strictly increasing in σ, so the infimum
@@ -381,13 +381,13 @@ direction (`1/8 ≤ γ_row`). Substituting `γ₀` keeps the direction and the s
 `hcollapse`, which needs only `pinv·p = 1`.
 
 **UNIFORMITY TRAP: UNFOUNDED — no trap.** `hσlo` is a top-level hypothesis of all
-three row lemmas (`TBalTall:912`, `TBalR8:739`, `TBalR8:448`), and each collapse
+three row lemmas (`TBalTall:202`, `TBalR8:771`, `TBalR8:480`), and each collapse
 site already discharges its side goal with the window in hand. The window is
 **already load-bearing** at these exact lines for `hγpos` and for
 `ray_pow_bound`'s hα/hε. Nothing new enters scope.
 
 **ARM ARITHMETIC: UNFOUNDED — all ten arms reproduce.** `c₀ = 1/126848` confirmed
-(`ZeroFreeReal.lean:602/:611`; `TBalTall:1430` takes `min c₀' 1`),
+(`ZeroFreeReal.lean:602/:611`; `TBalTall:720` takes `min c₀' 1`),
 `log(1/c₀) = 11.7507`. As `log(1/arm)`: `2^{−250}` 173.2868 · `(c₀/32)^{17/3}`
 **86.2267** · `(1/805)^{50/49}` 6.8274 · `(1/(8·1610·e))^8` 83.7074 · `1/2`
 0.6931 · `(1/KEβ)^8` 536.6658 · `(c₀/KEρ)^8` **631.5764** · `1/(3A₀)` 4.8527 ·
@@ -402,13 +402,13 @@ which **five** are ≤ 6.9.
 **TS-1 and TS-2 FIRE**, with these binding amendments:
 
 1. **Both towers, always.** Every S1/S2 edit is mirrored in `dh_repulsion_inst` /
-   `dh_repulsion_ordered` (`TBalR8:1373, :1660-1707, :1752-1848`, 11-fold min at
+   `dh_repulsion_ordered` (`TBalR8:1405, :1692-1739, :1784-1880`, 11-fold min at
    `:1776-1833`) as well as the tall twin. This is the difference between a green
    build and a landed theorem going red.
 2. **S1 by numeral replacement, not arm deletion** (`2^(-250)` → `1/40`), keeping
    every min-projection chain index-stable. ~20 ln instead of ~123.
 3. **γ-floors as exact rationals** `5247/1700`, `3547/1700`, `133/850`.
-4. **The shared `c`-min block is `TBalR8:1776-1833` AND `TBalTall:1445-1496`** —
+4. **The shared `c`-min block is `TBalR8:1808-1865` AND `TBalTall:735-786`** —
    this, not TBalTall alone, is what forces TS-1 strictly before TS-2 (the
    writer-slot law).
 

@@ -12,7 +12,7 @@ bytes at the cited line, and the verification command is given so the next reade
 ## ⛔ AMENDMENT 1 — THE γ-COLLAPSE CENSUS IS **FOUR** SITES, NOT THREE
 
 The brief's §"USE EXACT RATIONALS" table names three collapse steps. **There are four.**
-`TBalR8:939-940` is **TBalR8's own Eρ row** — the forked twin of `TBalTall:984-985` — and it is
+`TBalR8:971-972` is **TBalR8's own Eρ row** — the forked twin of `TBalTall:274-275` — and it is
 absent from the brief entirely.
 
 ```
@@ -53,7 +53,7 @@ The brief asked the executor to determine whether `TBalR8` has a `C2Rho_le` that
 and to *say so explicitly* if not. **It does not, and here is the proof — the executor should
 spend zero attempts on it.**
 
-- `TBalR8:1292` states `C2Rho q Z₀ ρ ≤ (564 + 72·Z₀)·(Q^{1/2}·L₂²)·(1/c₀)`, and its own
+- `TBalR8:1324` states `C2Rho q Z₀ ρ ≤ (564 + 72·Z₀)·(Q^{1/2}·L₂²)·(1/c₀)`, and its own
   `hfold2` (`R8:1349`) proves `150 + 414·M + 72·M·Z₀ ≤ (564 + 72·Z₀)·B`.
   **`150 + 414 = 564` exactly**, and the `Z₀` term is exactly `72·Z₀`. The coefficient *is* the
   fold total. **Tight by construction — there is no slack to retire.**

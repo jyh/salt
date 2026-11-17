@@ -6,7 +6,7 @@ packaging + interface landed (`Salt/SW/TauExt.lean`, 366 ln, 9 decls + 1 def, 3-
 
 ## The question
 
-`dh_repulsion_ordered` (`Salt/SW/TBalR8.lean:1752`) — the landed Deuring–Heilbronn repulsion —
+`dh_repulsion_ordered` (`Salt/SW/TBalR8.lean:1784`) — the landed Deuring–Heilbronn repulsion —
 hypothesizes `|Im ρ| ≤ 1`. N2's exit lemma `efZeroSumM_spend_at_efHeight` wants a real-part
 ceiling `β` at the campaign box `|Im ρ| ≤ efHeight q + 2 = (log q + 2)⁴ + 2`. Is the height-1
 restriction *packaging* (a compactness box chosen for convenience) or *analysis* (the engine
@@ -22,7 +22,7 @@ Traced at the bytes. `|ρ.im| ≤ 1` is consumed in the proof at exactly these s
 | `DHExtractRho.lean:331` | `hZ ρ …`, only to extract `0 ≤ Z₀` |
 | `DHExtractRho.lean:412` (at a49070eb; the `_tall` twin's since O13-e row 214) | `norm_zeta_rho_le` again |
 | `DHExtractRho.lean:169` (`emrho_perterm`, at a49070eb; height-free twin since O13-e row 214) | `zeta_partial_em`'s height slot — **which that lemma ignores** (`ZetaEM.lean:123`, binder `_him`) |
-| `TBalR8.lean:1591` (`C2Rho_le`) | the crude `‖ρ‖ ≤ 2` |
+| `TBalR8.lean:1623` (`C2Rho_le`) | the crude `‖ρ‖ ≤ 2` |
 
 and nowhere else. Every `β₀`-side use of `hZ` is at a **real** point (`hZ (β₀ : ℂ)`,
 `DHCore.lean:352,713`; `DHExtractW.lean:319,1187`; `CrushE.lean:225`) — height 0, already

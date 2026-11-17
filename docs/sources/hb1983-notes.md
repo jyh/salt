@@ -486,7 +486,7 @@ with `Re ρ ≤ 4/5` contribute only `O(y^{5/6})`. Partial summation gives (4.8)
 
   🔴 **LOUD FLAG — the τ-range.** The maximum defining `σ₀` runs over **`|ρ| ≤ q²`**, i.e. this
   application of Deuring–Heilbronn must be uniform for `|Im ρ|` up to ≈ `q²`. Our landed contract
-  `dh_repulsion_ordered` (TBalR8.lean:1752) hypothesizes **`|Im ρ| ≤ 1`** and therefore does **not**
+  `dh_repulsion_ordered` (TBalR8.lean:1784) hypothesizes **`|Im ρ| ≤ 1`** and therefore does **not**
   serve this site as it stands. Lemma 3's use of D–H (p.206) *is* confined to `|γ| ≤ 1` and is
   served. So the two D–H sites have **different τ-demands**, and only one of them is currently
   covered. Jutila [11, Theorem 2] is τ-uniform, so the mathematics is available — the gap is on our
@@ -1049,7 +1049,7 @@ HB uses Deuring–Heilbronn (Jutila [11, Theorem 2]) at **two sites with differe
 | p.206 (Lemma 3) | `r₀ = min{\|1−ρ\| : ρ ≠ β₀} ≫ L^{−1} log η` | `\|γ\| ≤ 1` |
 | **p.209 (Lemma 7)** | `σ₀ = max_{\|ρ\| ≤ q², ρ ≠ β₀} β ≤ 1 − A L^{−1} log η` | **`\|ρ\| ≤ q²`** |
 
-Our landed `dh_repulsion_ordered` (TBalR8.lean:1752) carries the hypothesis `|Im ρ| ≤ 1`. It
+Our landed `dh_repulsion_ordered` (TBalR8.lean:1784) carries the hypothesis `|Im ρ| ≤ 1`. It
 therefore serves the **first** site and **not the second**. The recorded consumer chain
 (`pass3_t4.md:38–50`, restated by JUTILA-STAGE as "L3-ii is the sole direct consumer; L2 multiplies
 the rate; L7") reads the p.209 use as downstream of Lemma 3 — but at the bytes it is an
