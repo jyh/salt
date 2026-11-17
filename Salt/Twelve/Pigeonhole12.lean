@@ -70,7 +70,7 @@ theorem exists_window_two_primesW (K₀ N R ν₀ W' : ℕ) (y : (Fin 5 → ℕ)
 
 /-- **W5-5 (3) — bounded gap from the sieve inequality, diam-12.** Mirror of
 `bounded_gap_of_S2_gt_S1`, but the output interval is `Icc(-12, 12)` instead of
-`Icc(-(D₀ k), D₀ k)`: the interval bullet (`Endgame.lean:303–306`) is discharged
+`Icc(-(D₀ k), D₀ k)`: the interval bullet (`Endgame.lean:354–357`) is discharged
 by `hSeq_diam_le_twelve j i : (hSeq 5 j : ℤ) − (hSeq 5 i : ℤ) ∈ Icc(-12, 12)`
 rather than `hSeq_le_D₀`.  The window point, `hSeq_injective` for `p ≠ q`, and
 `N < p, q` are unchanged. -/
