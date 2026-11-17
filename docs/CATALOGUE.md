@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `8ab1a634` · source digest `d0a3fcb5ecb60b4d` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `c337b725` · source digest `8744f16643a91ae3` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -4766,12 +4766,12 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.MR.contour_single_h_kernel` | Salt/MR/ParsevalSingle.lean:668 | characters |
 | `Salt.MR.perron_gap_single_le_gapMaj` | Salt/MR/ParsevalSingle.lean:820 | characters |
 | `Salt.MR.parseval_single_h` | Salt/MR/ParsevalSingle.lean:881 | characters |
-| `Salt.MR.zone_sum_collapsed_wide` | Salt/MR/PerronLimit.lean:237 | characters |
-| `Salt.MR.Aperron_short_interval_collapsed_wide` | Salt/MR/PerronLimit.lean:324 | characters |
-| `Salt.MR.lemma14_shortInterval_concrete` | Salt/MR/PerronLimit.lean:444 | characters |
-| `Salt.MR.Aperron_error_le_of_T` | Salt/MR/PerronLimit.lean:533 | characters |
-| `Salt.MR.Aperron_tendsto` | Salt/MR/PerronLimit.lean:565 | characters |
-| `Salt.MR.perron_gap_tendsto` | Salt/MR/PerronLimit.lean:666 | characters |
+| `Salt.MR.zone_sum_collapsed_wide` | Salt/MR/PerronLimit.lean:79 | characters |
+| `Salt.MR.Aperron_short_interval_collapsed_wide` | Salt/MR/PerronLimit.lean:166 | characters |
+| `Salt.MR.lemma14_shortInterval_concrete` | Salt/MR/PerronLimit.lean:286 | characters |
+| `Salt.MR.Aperron_error_le_of_T` | Salt/MR/PerronLimit.lean:375 | characters |
+| `Salt.MR.Aperron_tendsto` | Salt/MR/PerronLimit.lean:407 | characters |
+| `Salt.MR.perron_gap_tendsto` | Salt/MR/PerronLimit.lean:508 | characters |
 | `Salt.MR.zone_min_sum_split` | Salt/MR/PerronMeanSq.lean:312 | characters |
 | `Salt.MR.gapMaj_meansq_le` | Salt/MR/PerronMeanSq.lean:737 | characters |
 | `Salt.MR.gapMaj_meansq_sqrt` | Salt/MR/PerronMeanSq.lean:859 | characters |
@@ -4782,7 +4782,7 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.MR.perron_trunc` | Salt/MR/PerronTrunc.lean:389 | characters |
 | `Salt.MR.log_ratio_ge` | Salt/MR/PerronZones.lean:50 | characters |
 | `Salt.MR.harmonic_zone_bound` | Salt/MR/PerronZones.lean:92 | characters |
-| `Salt.MR.perron_sum_error_collapsed` | Salt/MR/PerronZones.lean:442 | characters |
+| `Salt.MR.perron_sum_error_collapsed` | Salt/MR/PerronZones.lean:454 | characters |
 | `Salt.MR.log_le_rpow_fifth` | Salt/MR/PinFamily.lean:129 | characters |
 | `Salt.MR.pin2_basic` | Salt/MR/PinFamily.lean:217 | characters |
 | `Salt.MR.width_pin_gates_pin2` | Salt/MR/PinFamily.lean:291 | characters |
