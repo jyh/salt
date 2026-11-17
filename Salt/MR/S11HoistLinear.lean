@@ -32,7 +32,7 @@ namespace Salt.MR
 
 open Salt.Entropy.Chowla
 
-/-- `S11Hoist.s11_calP_door_geR` (:501) at the linear anchor.  ⟦THE ADDED HYPOTHESIS⟧
+/-- `S11Hoist.s11_calP_door_geR` (:497) at the linear anchor.  ⟦THE ADDED HYPOTHESIS⟧
 `1 ≤ M`: `AdoorL 0 = 0`, so the `2^36` anchor floor is conditional. -/
 theorem s11_calP_door_geR_L {M : ℕ} (hM : 1 ≤ M) :
     (68719476736 : ℝ) ≤ ((calP (AdoorL M) (3072 * M) 1 : ℕ) : ℝ) := by

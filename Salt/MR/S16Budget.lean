@@ -923,11 +923,11 @@ FALSE by 6.88× (`s16_audit_Ct_over_pin`) — the FOURTH register vacuity of the
 ### ⟦RIDER `Kc`⟧ FALSE BY ~515 BITS; CEILING `2^539`; ALSO FREE
 
 `Kc` descends (all pass-throughs) `final'` ← … ← `logChowla2_capstone_final_const'_graded_gk_
-pinned` ← `HloExportMR.m4_second_road_L2_hloCap_pinned_gk` (:698) ← `…_close_split_sq_
+pinned` ← `HloExportMR.m4_second_road_L2_hloCap_pinned_gk` (:668) ← `…_close_split_sq_
 hloCap_pinned_gk` (:640) ← `…m4_exit_socket_split_sq_arc_hloCap_pinned` (:277) ←
 `HloExport.log_chowla_two_budget_head_g_sq_count_hloCap_pinned` (:564), where it is minted as
 `bigXi_bounded`'s `∃`-constant (`GoldbachEnergyFinal` :502) — the large-spectrum `L²` count.
-`ConstantsExposed.KExpr` (:339) IS that constant's closed form at the same `ε`-pin; the two
+`ConstantsExposed.KExpr` (:346) IS that constant's closed form at the same `ε`-pin; the two
 landed numerals about it are `KExpr_le : KExpr ≤ 12·10^{161}` (:356) and
 `S15Witness.s15w_KExpr_ge : 12·10^{65} ≤ KExpr` (:693).  The LOWER one settles the rider:
 `Kc ≳ 2^{219}` at the closed form, `≈ 2^{538}` at the full tower — `2^20` is out by 199–518
@@ -964,7 +964,7 @@ independent of it.
 ### ⟦THE FIVE CONSTANT RIDERS⟧ (`S16Budget` §4's supply)
 
 `cs`/`T₀`/`Kq`/`Ks` share a nine-hop pass-through from `m4_fuse_hcap_of_capWS_gk` (:754 of
-`S12FuseCompose`) down to `PortAssembly.halasz_primes_chi_pair_of_gates` (:1468).
+`S12FuseCompose`) down to `PortAssembly.halasz_primes_chi_pair_of_gates` (:1438).
 * `cs` — minted at `PortAssembly.halaszPrimesChiGated_of_price` (:812) as
   `min (min (c_vk/(2·K₄)) (c₀/(2·Cκ))) (1/10)` at the LITERAL `c_vk = 1/10^8`, so
   `cs ≤ 1.86·10^{-10}`; and `cs ≤ 1/10` is a LANDED LINE OF THAT PROOF (:826).  The rider
@@ -1448,7 +1448,7 @@ def S16BandLaneCBounded (K : ℕ) : Prop :=
 
 /-- **⟦THE RIDER'S PROVENANCE, KERNEL-VISIBLE⟧** (`S16BandT0CBounded`) — the same rider one
 hop LOWER, at the `∃` that actually MINTS the opaque constant:
-`M4T0DatumDischarge.m4_hT0band_at_door_discharged_split_graded_prod_gk` (:1417) at
+`M4T0DatumDischarge.m4_hT0band_at_door_discharged_split_graded_prod_gk` (:1419) at
 `A := s13Aexp`, with `Real.log C ≤ 40` inserted after `0 < C`.  Every other conjunct is a
 LANDED THEOREM at this very `C`; this def differs from that theorem by exactly one
 inequality. -/
@@ -1534,7 +1534,7 @@ set_option maxHeartbeats 1000000 in
 -- ⟦HOP 3, THE COST CENTRE⟧ the ~120-line residue re-elaborates against the re-cut prefix
 -- (the landed twin's own cause); the statement gains ONE conjunct and pins `Aexp := s13Aexp`.
 /-- **⟦HOP 3⟧** (`logChowla2_capstone_final_const'_graded_gk_pinned_Mfl`) —
-`S12ConstCompose.logChowla2_capstone_final_const'_graded_gk_pinned` (:1460) at
+`S12ConstCompose.logChowla2_capstone_final_const'_graded_gk_pinned` (:1288) at
 `Aexp := s13Aexp`, with the band leg taken from the rider instead of
 `m4_fuse_hband_of_bandBase_graded_gk`, and ONE conjunct added to the `∃`-prefix:
 `Mfl ≤ 2^355`, discharged by `s11_grade_floor_hoistCb_prod_le` at the rider's `C`.  The proof
@@ -1730,7 +1730,7 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl (K : ℕ)
 set_option maxHeartbeats 1000000 in
 -- ⟦HOP 4⟧ same cause as the landed §GK.10-PINNED: the residue re-elaborates against the prefix
 /-- **⟦HOP 4⟧** (`logChowla2_conditional_sharp2_atK_gk_pinned_Mfl`) —
-`S15Compose.logChowla2_conditional_sharp2_atK_gk_pinned` (:2757) reading HOP 3's twin, so the
+`S15Compose.logChowla2_conditional_sharp2_atK_gk_pinned` (:2617) reading HOP 3's twin, so the
 `∃`-prefix carries `Mfl ≤ 2^355` one level higher.  Proof: the landed one, with `hMflb`
 threaded through the `obtain`/`refine`. -/
 theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl (K : ℕ) (hK : K ≤ 170000000)

@@ -1737,7 +1737,7 @@ theorem s15_gP1_of_budget_gk (K : ℕ) {M Hhi : ℕ} {Cs ρ : ℝ} (hCs : 0 < Cs
   rw [calP_gk_one_eq]
   exact s15_gP1_of_budget hCs hρ hbudget
 
-/-- `S13FramesA.s13_gate8` (:524) TRANSPORTED to the lever — ⟦gate 8⟧ reads `𝒫₁`, which is
+/-- `S13FramesA.s13_gate8` (:528) TRANSPORTED to the lever — ⟦gate 8⟧ reads `𝒫₁`, which is
 LEVEL 1, so the numeral `12Λ < Adoor M·log 2` is unchanged. -/
 theorem s15_gate8_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {Λ : ℝ}
     (hΛ : Real.log (Real.log (R.Hhi : ℝ)) ≤ Λ)

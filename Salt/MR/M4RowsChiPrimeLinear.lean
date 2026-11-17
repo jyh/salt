@@ -63,7 +63,7 @@ private lemma d5pL_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) 
   linarith
 
 /-- **THE DOOR BRIDGE AT ⟦R1⟧'s BRACKET, AT THE LINEAR DOOR** (`m4MrowChiEnd'_le_a2Mrow'_L`).
-`M4RowsChiEndPrime.m4MrowChiEnd'_le_a2Mrow'` (:544) at `AdoorL`: at the linear door family and
+`M4RowsChiEndPrime.m4MrowChiEnd'_le_a2Mrow'` (:545) at `AdoorL`: at the linear door family and
 the vacuous ball, the primed per-`χ` row number sits inside `a2Mrow'_L`.  The arithmetic is
 the landed one verbatim (`2880 ≤ 5760`), read through `level1_term_door_decays_L`. -/
 theorem m4MrowChiEnd'_le_a2Mrow'_L {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) {Ct Cp X ε : ℝ}
@@ -113,7 +113,7 @@ theorem m4MrowChiEnd'_le_a2Mrow'_L {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) 
 /-! ## §2 — ⟦THE R4 DELIVERABLE AT THE LINEAR DOOR⟧ -/
 
 /-- **⟦THE R4 DELIVERABLE AT THE LINEAR DOOR⟧** (`m4_hrowsSum_chi_door_end'_L`).
-`M4RowsChiEndPrime.m4_hrowsSum_chi_door_end'` (:592) at `AdoorL`.  The engine
+`M4RowsChiEndPrime.m4_hrowsSum_chi_door_end'` (:593) at `AdoorL`.  The engine
 `m4_hrowsSum_chi_end'` is `(A, G, H1)`-GENERIC and is reused verbatim; the frame is
 `ThmA2Linear.calFrameK_doorH1_at_L`. -/
 theorem m4_hrowsSum_chi_door_end'_L :
@@ -261,7 +261,7 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_pool_end'_L :
 /-! ## §3 — THE DENSITY-FREE PRIMED DOOR PAGE, AT THE LINEAR DOOR -/
 
 /-- **⟦THE `a2Mrow'`-GENRE ROW FAMILY AT THE LINEAR DOOR, DENSITY-FREE⟧**
-(`m4_hrowsSum_chi_door_zero'_L`).  `M4RowsChiZeroPrime.m4_hrowsSum_chi_door_zero'` (:622) at
+(`m4_hrowsSum_chi_door_zero'_L`).  `M4RowsChiZeroPrime.m4_hrowsSum_chi_door_zero'` (:623) at
 `AdoorL`; the engine `m4_hrowsSum_chi_zero'` is `(A, G, H1)`-GENERIC. -/
 theorem m4_hrowsSum_chi_door_zero'_L :
     ∃ Ct : ℝ, 0 < Ct ∧
