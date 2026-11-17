@@ -275,7 +275,7 @@ theorem cofkL_threshold_at_socket_rated {R : ChowlaRegime} {M H L q j A s : ℕ}
 
 set_option maxHeartbeats 1000000 in
 -- the arc-range floor's eight-binder instantiation is elaborated against the socket in one
--- `exact`, as for `cofkL_capFreeFloor_at_socket_rated` below
+-- `exact`; `cofkL_capFreeFloor_at_socket_rated` below is its one-line instance
 /-- **⟦THE RATED SOCKET, `K`-UNIFORM⟧** (`cofkL_capFreeFloor_at_socket_rated_uniform`).
 `cofkL_capFreeFloor_at_socket_rated` with the `∃ Z δ Kvt` hoisted over the lever: ONE triple
 of witnesses serving every `K`.  The hoist is free because the witnesses come from
@@ -350,9 +350,6 @@ theorem cofkL_capFreeFloor_at_socket_rated_uniform :
     (((A + s : ℕ)) : ℝ) (2 * Real.log (M : ℝ) + Real.log 4 + 50)
     hlogHe harc hXee hD0 hgate hdebit hthr
 
-set_option maxHeartbeats 1000000 in
--- the arc-range floor's eight-binder instantiation is elaborated against the socket in one
--- `exact`
 /-- **⟦THE CAP-FREE FLOOR AT THE LINEAR ANCHORS, RATED⟧**
 (`cofkL_capFreeFloor_at_socket_rated`) — QUEUE P2 item 6 residual (b), the rethread's last link.
 

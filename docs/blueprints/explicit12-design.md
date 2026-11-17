@@ -1359,7 +1359,7 @@ real weight), it just needs a new estimate.
    `θ > 2/M₅`). `norm_num` target: `1999·191881·1000 > 95820·2000²`.
    The landed `win_core` constant tower (`126=2·63`, `1/16`, `504=4·126`,
    `2916`, `k→∞` dominance) is ENTIRELY DISCARDED.
-2. **The interface to hit is `S1_lt_sum_S2m`** (`Endgame.lean:366`, free `y`,
+2. **The interface to hit is `S1_lt_sum_S2m`** (`Endgame.lean:373`, free `y`,
    slots `δ`/`cval`/`errEH`) — `win_core'` produces its `hnum`. The prime-supply
    plug is `deltaPi_lower_of` (`Final.lean:174`), which takes `WindowPNT`'s
    `63−ε` directly in place of Chebyshev `c=1` (`ChebyshevInterval.lean:144`,
@@ -1461,8 +1461,8 @@ the `p_j ≥ 2j+1` injection into odds (careful with `p=2`); mathlib `primorial`
 ### W5-5 `Salt/Twelve/Pigeonhole12.lean` (Cluster 3) — Opus, A/B
 Free-`W'` + diam-12 pigeonhole. `sum_S2mW_eq`, `exists_window_two_primesW`,
 `bounded_gap_of_S2_gt_S1_twelve`, `bounded_gaps_reduces_twelve` — the four spine
-lemmas (`Endgame.lean:305/319/343/400`) with `S2m→S2mW`, `W k→W'`, and the
-`:354–357` bullet swapped: `hSeq_le_D₀ k` → `Salt.Twelve.hSeq_diam_le_twelve j i`,
+lemmas (`Endgame.lean:312/326/350/407`) with `S2m→S2mW`, `W k→W'`, and the
+`:361–364` bullet swapped: `hSeq_le_D₀ k` → `Salt.Twelve.hSeq_diam_le_twelve j i`,
 interval `Icc(-(D₀ k),D₀ k)` → `Icc(-12,12)`, output `C = D₀ k₀` → `12`. All
 `y`/`W'`-generic (no squarefree needed). Frozen conclusion of the last:
 ```lean

@@ -93,8 +93,8 @@ ZFR. All pricing below uses only the real-zero standoff.
 
 ## D5 — dh_repulsion_ordered (T-BAL R8) under ¬F: window does NOT empty; conclusion SUBSUMED
 
-Landed contract (GROUNDED TBalR8.lean:1752-1759): b = 680, k = 14, c an explicit
-min-tower with c ≤ 2^(−250) (hc_t1, TBalR8.lean:1796; witnesses supplied at :1836);
+Landed contract (GROUNDED TBalR8.lean:1784-1791): b = 680, k = 14, c an explicit
+min-tower with c ≤ 2^(−250) (hc_t1, TBalR8.lean:1828; witnesses supplied at :1836);
 hypotheses: primitive quadratic χ, q ≥ 2, real zero β₀ ∈ (1/2, 1), complex zero ρ with
 Im ρ ≠ 0, |Im ρ| ≤ 1, 16/17 ≤ Re ρ < 1, Re ρ ≤ β₀; conclusion
 1−β₀ ≥ c·(q(|Im ρ|+2))^(−680(1−Re ρ))/(log(q(|Im ρ|+2))+2)^14.
@@ -135,7 +135,7 @@ artifact as of 2026-07" — falsified by Gate.lean:150.
 
 ## D7 — The χ-twist question (Vk chain × ¬F): NO direct combination; the four needs
 
-`zeta_zero_free_region_pow` (GROUNDED GrowthPow.lean:1042-1045: ζ-zeros of height
+`zeta_zero_free_region_pow` (GROUNDED GrowthPow.lean:426-429: ζ-zeros of height
 ≥ T₀ obey Re ρ ≤ 1 − c/((log|Im ρ|)^(3/4)(loglog|Im ρ|)^3)) and `zeta_lower_all_t`
 (GROUNDED ZetaLowerAllT.lean:273-277: c''/((log(|t|+3))^(3/4)(loglog(|t|+16))^4) ≤
 ‖ζ(1+d'+it)‖, d' ∈ [0,1], pole point excluded) are ζ-ONLY, t-aspect statements; ¬F is
@@ -211,7 +211,7 @@ uniformly for q > Q₀.
 | ¬F ball | 1/(C⋆ log q), C⋆ ≈ 253696 = 2/c₀ | explicit given calibration; numeral extraction owed (Basic.lean:169) |
 | ZFR | c₀ = 1/126848 | ∃-shaped; numeral in docstring only (ZeroFreeReal.lean:610) |
 | gadget below Q₀ | c_iso(Q₀) | nonconstructive (eventually_ne), finite min |
-| repulsion | b=680, k=14, c ≤ 2^(−250) | fully explicit min-tower (TBalR8.lean:1776-1796) |
+| repulsion | b=680, k=14, c ≤ 2^(−250) | fully explicit min-tower (TBalR8.lean:1808-1828) |
 | zeta_lower_all_t | c'' | ∃-shaped; compact-min nonconstructive arm (ZetaLowerAllT.lean:44) |
 | siegel_theorem | C(ε) ineffective | becomes effective under ¬F: C(ε)=c₁·inf_q(q^ε/log q) |
 

@@ -31,7 +31,7 @@ restriction enters its **proof** — not its statement — gives a clean answer:
 * every `β₀`-side use of `hZ` is at a **real** point (`hZ (β₀ : ℂ)`, `DHCore.lean:352,713`,
   `DHExtractW.lean:319,1187`, `CrushE.lean:225`) — height `0`, height-free already;
 * the only other structural reading of the height is the crude `‖ρ‖ ≤ 2` inside `C2Rho_le`
-  (`TBalR8.lean:1292`), which is a *polynomial* dependence: at `|Im ρ| ≤ T` it becomes
+  (`TBalR8.lean:1324`), which is a *polynomial* dependence: at `|Im ρ| ≤ T` it becomes
   `‖ρ‖ ≤ 1 + T ≤ Q` with `Q = q(|Im ρ| + 2)` the contract's own base.
 
 **Verdict: route (a).** The height-1 restriction is PACKAGING, not analysis. The engine — the

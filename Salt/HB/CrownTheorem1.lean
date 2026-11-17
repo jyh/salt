@@ -162,7 +162,7 @@ variable {q : ℕ}
 /-! ## §1 — the operating point (definitions; no obligation) -/
 
 /-- The Deuring–Heilbronn exponent `b` of the landed contract (`dh_repulsion_tall`'s witness,
-`TBalTall.lean:2169`: `⟨680, c, 14, …⟩`). -/
+`TBalTall.lean:1458`: `⟨680, c, 14, …⟩`). -/
 noncomputable def dhB : ℝ := 680
 
 /-- The Deuring–Heilbronn log-exponent `k` of the contract this file consumes — **THE COUPLING,

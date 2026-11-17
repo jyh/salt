@@ -13,7 +13,7 @@ proof-shape summaries. No prose passages are reproduced beyond the single effect
 sentence in §2.4, quoted because the campaign's effectivity claim rests on it.
 
 This is Heath-Brown 1983's **[11]**, the source of BOTH theorems HB consumes. It is the
-reference behind the landed `dh_repulsion_ordered` (TBalR8.lean:1752) and the repulsion-side
+reference behind the landed `dh_repulsion_ordered` (TBalR8.lean:1784) and the repulsion-side
 reference for the fulcrum campaign (N0–N12). Companion to the HB staging extract.
 
 **Reading conditions.** The scan carries **no text layer** (`pdftotext` returns 0 bytes), so
@@ -470,7 +470,7 @@ notes depends on it.
 
 ### 5a. `dh_repulsion_ordered` ↔ Jutila Theorem 2
 
-**Which Jutila object we realize.** `dh_repulsion_ordered` (`Salt/SW/TBalR8.lean:1752`,
+**Which Jutila object we realize.** `dh_repulsion_ordered` (`Salt/SW/TBalR8.lean:1784`,
 landed 2026-07-18 at `f1b92ca`, axiom-clean, registered `Salt/SW/All.lean:305`) realizes
 **(1.10) restricted to Jutila's diagonal case `χ = χ₁`** (both zeros belonging to the same real
 character), with the δ-dependent exponent `(2+ε)/(1−6δ)` replaced by the **uniform constant

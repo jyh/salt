@@ -2477,7 +2477,7 @@ set_option maxHeartbeats 2000000 in
 -- in one block; the `L`-cut keeps the source's `u ≥ 8·10^41` tower step and multiplies it by
 -- `c²`, so the block still does not fit the previous 1000000
 /-- **⟦THE ARM, PRICED, AT A GENERIC CHARGE⟧** (`s15Arm_log_le_L`) — `s15Arm_log_le_scaled`
-(`XThread.lean:305`) with every cap replaced by a term AFFINE in the charge `Lc`, and the cut
+(`XThread.lean:513`) with every cap replaced by a term AFFINE in the charge `Lc`, and the cut
 SHRUNK to `H₊/(10^20·c²)`.  The four landed caps and their `_L` forms:
 
 * `hKcb : Kc ≤ 2^539` and `hlogc : log c ≤ 14` (the source's ONE site, `:355–356`) become the
@@ -3086,7 +3086,7 @@ theorem s16_audit_neglog_rho_le_h_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hhL : Rea
 
 
 /-- **⟦THE WINDOW LINE AT A CHARGE PAID BY `A`⟧ (class A)** — `flat_half_line_g14`
-(`StrideGradeReach.lean:193`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the CONCLUSION is
+(`S15SelLinearWide.lean:102`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the CONCLUSION is
 the source's, byte for byte.  BODY: the source's, plus ONE new fact and its use in the close.
 
 THE NEW FACT, shared by all four cap lines here: with `E := Real.exp (3.2 * A / 2)`,
@@ -3127,7 +3127,7 @@ theorem flat_half_line_L {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 16 * A) :
   linarith [hsq, hE2, hc, h16, hEE]
 
 /-- **⟦THE `anchor` LINE AT A CHARGE PAID BY `A`⟧ (class A)** — `flat_anchor_line_wide_g14`
-(`StrideGradeReach.lean:217`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the conclusion is
+(`StrideGradeReach.lean:188`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the conclusion is
 the source's, byte for byte.  BODY: the source's, plus the shared new fact `16 * A ≤ 10 * E`.
 
 THE MARGIN, derived: `flatDoorM_ge` gives
@@ -3145,7 +3145,7 @@ theorem flat_anchor_line_wide_L {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 16 * A) 
   linarith
 
 /-- **⟦THE `𝒯`-LEG BUDGET AT A CHARGE PAID BY `A`⟧ (class A)** — `flat_gP1_line_g14`
-(`StrideGradeReach.lean:226`) with `hc : -439 ≤ c` replaced by `hc : -(16 * A) ≤ c` (the charge
+(`S15SelLinearWide.lean:135`) with `hc : -439 ≤ c` replaced by `hc : -(16 * A) ≤ c` (the charge
 enters this one with the OPPOSITE sign); the conclusion is the source's, byte for byte.  BODY: the
 source's, plus the shared new fact, used as `-c ≤ 16 * A ≤ 10 * E`.
 
@@ -3179,7 +3179,7 @@ theorem flat_gP1_line_L {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -(16 * A) ≤ c)
   linarith
 
 /-- **⟦THE `level1` BUDGET AT A CHARGE PAID BY `A`⟧ (class A)** — `flat_lvl_line_g14`
-(`StrideGradeReach.lean:250`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the conclusion is
+(`S15SelLinearWide.lean:170`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the conclusion is
 the source's, byte for byte.  BODY: the source's, plus the shared new fact `16 * A ≤ 10 * E`.
 
 THE MARGIN, derived: the body's `hbud` gives `(1 / 12) * AdoorL M * Real.log 2 ≥ 12750 * E`,
@@ -3716,7 +3716,7 @@ theorem s15_sel''_L_gk_witness_flat_L {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
 
 
 /-- **⟦THE LEVERED BLOCK LINE AT A GENERIC CHARGE⟧ (class A)** — the `_L` sibling of
-`flat_blk_line_gk_b9` (`S15SelLinearWide.lean:565`): the same interface edit, read off the
+`flat_blk_line_gk_b9` (`S15SelLinearWide.lean:593`): the same interface edit, read off the
 levered witness above at the SAME frozen dummy instance
 (`Cg := 0`, `δ₀ := 1 / 2 ^ 10`, `Ct := 1`, `K := 1`, `x₀ := 0`, `Mfl := 0`).  The conclusion and
 every other binder are the source's, byte for byte.  BODY: the source's term, with the supplier

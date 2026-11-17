@@ -82,11 +82,11 @@ theorem landed_prize_cap_refuses_primorial_eleven :
     (1103 : ℚ) * (102 / 100) * 838400 ≤ (55 / 100) * (837782 * 2 ^ 11) ∧ ¬ (1103 * 2 ≤ 1096) := by
   norm_num
 
-/-! ## §1 — THE CHARGE CHAIN AT THE `2^12` PIN (`StrideGradeWalls.lean:65-111`'s two walls) -/
+/-! ## §1 — THE CHARGE CHAIN AT THE `2^12` PIN (`StrideGradeWalls.lean:61-107`'s two walls) -/
 
-/-- **⟦W15 AT THE `2^12` PIN⟧ (class B)** — `s16_audit_rho_ge_wide_h_g` (`StrideGradeWalls.lean:65`)
+/-- **⟦W15 AT THE `2^12` PIN⟧ (class B)** — `s16_audit_rho_ge_wide_h_g` (`StrideGradeWalls.lean:61`)
 with `2 ^ 31 ↦ 2 ^ 32` in `hδb` ONLY; the conclusion stays at `2 ^ 592`.  BODY:
-`StrideGradeWalls.lean:68-90` verbatim with `2 ^ 31 ↦ 2 ^ 32` at `hkey` and `hsplit2`; the
+`StrideGradeWalls.lean:64-86` verbatim with `2 ^ 31 ↦ 2 ^ 32` at `hkey` and `hsplit2`; the
 `nlinarith [hKb, hK]` closing `hkey` compares `1768400 = 16·110525` against
 `2^592/(2^539·2^32) = 2^21 = 2097152` — ×1.186 (the landed ×2.37 had one bit to spare). -/
 theorem s16_audit_rho_ge_wide_h_g12 {h : ℕ} (hh : 0 < h) {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
@@ -117,8 +117,8 @@ theorem s16_audit_rho_ge_wide_h_g12 {h : ℕ} (hh : 0 < h) {δ₀ K : ℝ} (hδ 
   exact hδb
 
 /-- **⟦W16 AT THE `2^12` PIN⟧ (class A)** — `s16_audit_neglog_rho_le_wide_h_g`
-(`StrideGradeWalls.lean:96`) with `2 ^ 31 ↦ 2 ^ 32` in `hδb` ONLY; the conclusion stays
-`411 + 2·log h`.  BODY: `StrideGradeWalls.lean:99-111` verbatim with the ONE swap
+(`StrideGradeWalls.lean:92`) with `2 ^ 31 ↦ 2 ^ 32` in `hδb` ONLY; the conclusion stays
+`411 + 2·log h`.  BODY: `StrideGradeWalls.lean:95-107` verbatim with the ONE swap
 `s16_audit_rho_ge_wide_h_g ↦ s16_audit_rho_ge_wide_h_g12` at `hge`; the closing `linarith` has
 `411 − 592·0.6931471808 = 0.657` nats, as landed. -/
 theorem s16_audit_neglog_rho_le_wide_h_g12 {h : ℕ} (hh : 0 < h) {δ₀ K : ℝ} (hδ : 0 < δ₀)
@@ -138,14 +138,14 @@ theorem s16_audit_neglog_rho_le_wide_h_g12 {h : ℕ} (hh : 0 < h) {δ₀ K : ℝ
   rw [h2] at h1
   linarith
 
-/-! ## §2 — THE BUMP AT THE `2^12` PIN (`StrideGradeWalls.lean:347-372`) -/
+/-! ## §2 — THE BUMP AT THE `2^12` PIN (`StrideGradeWalls.lean:262-287`) -/
 
 /-- **⟦BUMP 1 AT THE `2^12` PIN⟧ (class B)** — `flatDoorM_bfloor_bump_g`
-(`StrideGradeWalls.lean:347`) with `hδb : 1/(838400·2^11·c²) ≤ δ₀ ↦ 1/(838400·2^12·c²) ≤ δ₀` and
+(`StrideGradeWalls.lean:262`) with `hδb : 1/(838400·2^11·c²) ≤ δ₀ ↦ 1/(838400·2^12·c²) ≤ δ₀` and
 `hcb : c ≤ 1096 ↦ c ≤ 1202604` (a numeral ceiling on the bump's argument; `1202604 = ⌊e^14⌋` is a
 CHOICE — the widest cap image in the family — while the bump's own wall is
 `c ≤ √(2^355/1.648·10²³) ≈ 6.7·10⁴¹`).  BODY:
-`StrideGradeWalls.lean:351-372` verbatim with the moved sites by `have`-name: `hcRb` and
+`StrideGradeWalls.lean:266-287` verbatim with the moved sites by `have`-name: `hcRb` and
 `hcsqb : c² ≤ 1446256380816`; `hkey` (statement and `calc`) at `838400 * 2 ^ 12`;
 `hstep : 24·Cg/δ₀ ≤ 164836147200000000000000·c²` (`= 24·2·10¹²·838400·4096`); `hcap`'s constant and
 `h355 : 10^36 ≤ 2^355` (`1.648·10²³·1.446·10¹² = 2.384·10³⁵`); then `flatDoorM_ge_pow355 hA` as
