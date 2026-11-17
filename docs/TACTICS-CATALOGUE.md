@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `7e6e2dd2` · source digest `46b78c42de3fb03a` (the same digest as items 1–3).
-> Receipt: files 1414 · decls 23441 · with_body 23441 · tactic_lines 303420 · runs 35633 · blocks 1259.
+> Base: last commit touching `Salt/` = `1587450d` · source digest `2bc8ebaf88025911` (the same digest as items 1–3).
+> Receipt: files 1414 · decls 23441 · with_body 23441 · tactic_lines 303358 · runs 35627 · blocks 1257.
 
 ## LIMITS (read before any number below)
 
@@ -100,22 +100,22 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-303420 tactic lines. Top 30:
+303358 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 132347 | 43.6% |
-| 2 | `rw` | 49062 | 16.2% |
-| 3 | `exact` | 17457 | 5.8% |
+| 1 | `have` | 132296 | 43.6% |
+| 2 | `rw` | 49058 | 16.2% |
+| 3 | `exact` | 17460 | 5.8% |
 | 4 | `intro` | 14038 | 4.6% |
 | 5 | `refine` | 12761 | 4.2% |
-| 6 | `linarith` | 10428 | 3.4% |
+| 6 | `linarith` | 10423 | 3.4% |
 | 7 | `obtain` | 9139 | 3.0% |
-| 8 | `calc` | 7806 | 2.6% |
+| 8 | `calc` | 7805 | 2.6% |
 | 9 | `set` | 5473 | 1.8% |
 | 10 | `simp` | 5156 | 1.7% |
 | 11 | `apply` | 4531 | 1.5% |
-| 12 | `nlinarith` | 3332 | 1.1% |
+| 12 | `nlinarith` | 3328 | 1.1% |
 | 13 | `unfold` | 2623 | 0.9% |
 | 14 | `exact_mod_cast` | 2425 | 0.8% |
 | 15 | `rcases` | 2129 | 0.7% |
@@ -150,12 +150,12 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | Mertens / PNT-type | 3297 | `have` 1530, `rw` 557, `exact` 173, `linarith` 147, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
-| Matomaki-Radziwill / Halasz (short intervals) | 115356 | `have` 52413, `rw` 15902, `exact` 6695, `refine` 6537, `intro` 5726, `linarith` 5255, `obtain` 4958, `calc` 2198 |
+| Matomaki-Radziwill / Halasz (short intervals) | 115294 | `have` 52362, `rw` 15898, `exact` 6698, `refine` 6537, `intro` 5726, `linarith` 5250, `obtain` 4958, `calc` 2197 |
 | (no family) | 28822 | `have` 11183, `rw` 5141, `exact` 1746, `intro` 1562, `obtain` 972, `refine` 959, `set` 883, `calc` 866 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
-Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1259 candidates; top 25 by the UPPER-BOUND saving.
+Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1257 candidates; top 25 by the UPPER-BOUND saving.
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 
@@ -361,7 +361,7 @@ have $4 : Real.exp (# * $5) ≤ Real.log (($2.Hlo : ℕ) : ℝ) := by
 rw [$6]; exact flatWitFloor_log_ge $7
 ```
 
-**12.** 7 lines × 13 occurrences in 8 files · lines saved ≤ **78** · e.g. `Salt/MR/FlatDoorEpsRung2.lean:647` · `Salt/MR/S13CapEps.lean:437`
+**12.** 7 lines × 13 occurrences in 8 files · lines saved ≤ **78** · e.g. `Salt/MR/FlatDoorEpsRung2.lean:647` · `Salt/MR/S13CapEps.lean:447`
 
 ```lean
 obtain ⟨-, $1⟩ := regime_Hfloor_of_loglogFloor50 (le_trans $2 $3)
@@ -509,7 +509,7 @@ have : (# : ℝ) ≤ ($2 : ℝ) := by exact_mod_cast $3
 linarith
 ```
 
-**23.** 6 lines × 14 occurrences in 9 files · lines saved ≤ **70** · e.g. `Salt/MR/FlatDoorEpsRung2.lean:762` · `Salt/MR/S13CapEps.lean:436` · ⚠️ shares source lines with #12
+**23.** 6 lines × 14 occurrences in 9 files · lines saved ≤ **70** · e.g. `Salt/MR/FlatDoorEpsRung2.lean:762` · `Salt/MR/S13CapEps.lean:446` · ⚠️ shares source lines with #12
 
 ```lean
 have $1 : $2.Hlo ≤ $3 := $4.1
