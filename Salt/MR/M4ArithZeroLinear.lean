@@ -46,7 +46,7 @@ private lemma window_row_eq_L {Xd H : ℝ} (hXd : 0 < Xd) (hH : 0 < H) :
       = 2 * Real.exp 1 ^ 2 / H + Real.exp 1 / Xd := by
   field_simp
 
-/-- `M4ArithZero.slot_of_log_gate` (:373), re-proved (the landed lemma is `private`). -/
+/-- `M4ArithZero.slot_of_log_gate` (:367), re-proved (the landed lemma is `private`). -/
 private lemma slot_of_log_gate_L {v κ L : ℝ} (hv : 0 < v) (hκ : 0 < κ) (hL : 0 < L)
     (h : Real.log v + Real.log L / 500 ≤ Real.log κ) :
     v ≤ κ * L ^ (-(1 : ℝ) / 500) := by
@@ -60,7 +60,7 @@ private lemma slot_of_log_gate_L {v κ L : ℝ} (hv : 0 < v) (hκ : 0 < κ) (hL 
   conv_lhs => rw [← Real.exp_log hv]
   exact Real.exp_le_exp.mpr (by linarith)
 
-/-- `M4ArithZero.pricing_numerals` (:416), re-proved (the landed lemma is `private`). -/
+/-- `M4ArithZero.pricing_numerals` (:410), re-proved (the landed lemma is `private`). -/
 private lemma pricing_numerals_L :
     Real.log 14400 ≤ 14 * Real.log 2 ∧ Real.log 3 ≤ 2 * Real.log 2 ∧
       Real.log 43200 ≤ 16 * Real.log 2 ∧ Real.log 460800 ≤ 19 * Real.log 2 := by

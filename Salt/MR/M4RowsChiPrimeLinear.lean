@@ -34,7 +34,7 @@ open Salt.Entropy.Chowla
 
 /-! ## §1 — THE DOOR BRIDGE AT ⟦R1⟧'s BRACKET, AT THE LINEAR DOOR -/
 
-/-- `M4RowsChiEndPrime.d5p_rowsSum_nonneg` (:381), re-proved here because the landed lemma is
+/-- `M4RowsChiEndPrime.d5p_rowsSum_nonneg` (:380), re-proved here because the landed lemma is
 `private` to its file.  `(A, G, H1)`-GENERIC — nothing about the door enters. -/
 private lemma d5pL_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) (hH1 : 2 ≤ H1) :
     (0 : ℝ) ≤ ∑ j ∈ Finset.Icc 1 Jb,
