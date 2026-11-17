@@ -226,7 +226,7 @@ refutation collapsed it: **one** dilation already lands a coprime class, because
 single step, and the dilated frequency `d₀·0 = 0` needs no second split.  So the recursion
 has depth `1` and is a plain `by_cases`. -/
 
-/-- **THE NON-COPRIME BRANCH AT THE LEVER** — `norm_sum_windowClass_memS_dilate` (:232). -/
+/-- **THE NON-COPRIME BRANCH AT THE LEVER** — `norm_sum_windowClass_memS_dilate` (:256). -/
 theorem norm_sum_windowClass_memS_dilate_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} (hM : 1 ≤ M)
     (hq : 0 < q) (hqW : (q : ℝ) ≤ W)
     (hW : W < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) :
