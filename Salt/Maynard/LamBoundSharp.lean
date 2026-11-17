@@ -292,16 +292,20 @@ theorem guarded_sum_le_prod {k R W : ℕ} (d : Fin k → ℕ) :
 /-! ## The sharp bound -/
 
 omit [TupleChoice] in
-/-- **Sharp per-tuple bound on the Selberg weight `λ`.** With `|y| ≤ 1`,
-`|λ(d)| ≤ C·(1 + log R)^(k+1)` for all `d ∈ 𝒟`, where `C = C₃·C₁^k` is an
-*explicit constant independent of `R`* (it depends only on `k` and on the
-absolute Rankin/Mertens constants `C₁, C₃`). -/
-theorem lam_abs_le_sharp (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
-    (hy1 : ∀ r, |y r| ≤ 1) (hR : 2 ≤ R) (_hW : W ≠ 0) :
-    ∃ C : ℝ, 1 ≤ C ∧ ∀ d ∈ kSieveIndex k R W,
-      |lam k R W y d| ≤ C * (1 + Real.log R) ^ (k + 1) := by
+/-- **R-uniform `lam_abs_le_sharp`.**  The constant `C = C₃·C₁^k` (from `rankin_bound` and
+`phi_ratio_le`, both `R`-free) is chosen before `R`, `y` and the bound on `y`, so one constant
+serves every `R ≥ 2`.  `lam_abs_le_sharp` is its instance at one `R`. -/
+theorem lam_abs_le_sharp_uniform (k W : ℕ) :
+    ∃ C : ℝ, 1 ≤ C ∧ ∀ (R : ℕ), 2 ≤ R → ∀ (y : (Fin k → ℕ) → ℝ),
+      (∀ r, |y r| ≤ 1) → ∀ d ∈ kSieveIndex k R W,
+        |lam k R W y d| ≤ C * (1 + Real.log R) ^ (k + 1) := by
   obtain ⟨C₁, hC₁1, hC₁⟩ := rankin_bound 1
   obtain ⟨C₃, hC₃1, hC₃⟩ := phi_ratio_le
+  refine ⟨C₃ * C₁ ^ k, ?_, ?_⟩
+  · calc (1 : ℝ) = 1 * 1 := (mul_one 1).symm
+      _ ≤ C₃ * C₁ ^ k := by
+          exact mul_le_mul hC₃1 (one_le_pow₀ hC₁1) zero_le_one (le_trans zero_le_one hC₃1)
+  intro R hR y hy1 d hd
   -- Real bookkeeping.
   have hR1 : (1 : ℝ) < (R : ℝ) := by exact_mod_cast lt_of_lt_of_le one_lt_two hR
   have hlogR : 0 ≤ Real.log R := (Real.log_pos hR1).le
@@ -311,11 +315,6 @@ theorem lam_abs_le_sharp (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
       ≤ C₁ * Real.log R := by
     have h := hC₁ R hR
     simpa using h
-  refine ⟨C₃ * C₁ ^ k, ?_, ?_⟩
-  · calc (1 : ℝ) = 1 * 1 := (mul_one 1).symm
-      _ ≤ C₃ * C₁ ^ k := by
-          apply mul_le_mul hC₃1 (one_le_pow₀ hC₁1) zero_le_one (le_trans zero_le_one hC₃1)
-  intro d hd
   rw [mem_kSieveIndex_iff] at hd
   obtain ⟨hsf, hpair, _hcopW, hprodR⟩ := hd
   set D := ∏ i, d i with hDdef
@@ -381,5 +380,17 @@ theorem lam_abs_le_sharp (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
         apply mul_le_mul_of_nonneg_left _ (by positivity)
         exact pow_le_pow_left₀ hlogR (by linarith) k
     _ = (C₃ * C₁ ^ k) * (1 + Real.log R) ^ (k + 1) := by ring
+
+omit [TupleChoice] in
+/-- **Sharp per-tuple bound on the Selberg weight `λ`.** With `|y| ≤ 1`,
+`|λ(d)| ≤ C·(1 + log R)^(k+1)` for all `d ∈ 𝒟`, where `C = C₃·C₁^k` is an
+*explicit constant independent of `R`* (it depends only on `k` and on the
+absolute Rankin/Mertens constants `C₁, C₃`). -/
+theorem lam_abs_le_sharp (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
+    (hy1 : ∀ r, |y r| ≤ 1) (hR : 2 ≤ R) (_hW : W ≠ 0) :
+    ∃ C : ℝ, 1 ≤ C ∧ ∀ d ∈ kSieveIndex k R W,
+      |lam k R W y d| ≤ C * (1 + Real.log R) ^ (k + 1) := by
+  obtain ⟨C, hC1, h⟩ := lam_abs_le_sharp_uniform k W
+  exact ⟨C, hC1, h R hR y hy1⟩
 
 end Salt.Maynard

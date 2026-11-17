@@ -18,7 +18,9 @@ A cite is read from each tracked text file AS IT IS AT BASE, in the forms `Leaf.
 `Leaf.lean:N–M` and `Leaf.lean:N-M`, with or without a directory prefix, and a LIST `Leaf.lean:N, :K–L, :J`
 is ONE cite, and so is a SLASH list `Leaf.lean:N/K/J` (every `:K` or `/K` names a line of the same file; classed by its
 worst member, rewritten whole). The SHORT form `Leaf:N` (no `.lean`, no directory; also `` `Leaf`:N `` and `` `Leaf` :N ``)
-is read the same way, with the same ranges and lists, for a leaf exactly one tracked `.lean` file has. This file's own text is not read: its cites are quotations. A prefix must match the
+is read the same way, with the same ranges and lists, for a leaf exactly one tracked `.lean` file has. So is the
+PARENTHESISED form `` `Leaf.decl` (:N) `` (also `` `Leaf.lean` (:N–M) `` and `` `Leaf` (:N) ``), the docstring habit of
+naming a declaration and then its line. This file's own text is not read: its cites are quotations. A prefix must match the
 edited file's path; a bare leaf counts only when one tracked `.lean` file has that leaf name. Each
 cite is classed:
 
@@ -112,6 +114,7 @@ PINS_FILE = ".rekey-pins"   # declared pins, one TAB-separated row each: page, p
 TEXT = (".lean", ".md", ".tex", ".tsv", ".py", ".txt", ".yml")
 LIMITS = ("LIMITS: .lean targets only; forms Leaf.lean:N and :N–M / :N-M, and a list Leaf.lean:N, :K as ONE cite; "
           "the short form Leaf:N / `Leaf`:N / `Leaf` :N for a unique leaf (not Leaf :N, not Dir/Leaf:N); "
+          "the parenthesised form `Leaf.decl` (:N) / `Leaf` (:N) for a unique leaf (not unbackticked, not (Leaf.lean :N)); "
           "a slash list Leaf.lean:N/K too; a list member without its colon or slash and prose line numbers are not read; this tool's own source is not read (its cites are quotations); a cite written fresh at HEAD is not checked; content equality is "
           "per line (a line whose meaning moved but whose text did not is not caught); a record is re-hashed only "
           "under --apply (a re-key made by hand, read DONE, leaves its records to the prose check); a line "
@@ -364,8 +367,17 @@ def short_re(leaf):
     return re.compile(r"(?<![A-Za-z0-9_./])()" + re.escape(stem) + r"(?:` ?)?:(\d+)(?:([–-])(\d+))?" + TAIL)
 
 
+# The PARENTHESISED form `` `Leaf.decl` (:N) `` (also `` `Leaf.lean` (:N) `` and `` `Leaf` (:N) ``): a docstring names the
+# declaration and then its line. 109 such cites in Salt/ at main 2faeb4e7, 52 of them stale (math's census, row 194),
+# and salt #700 moved five more past a green gate (h2c's read). The match stops before `)`, so `resolve` rewrites
+# `` `Leaf.decl` (:N `` by its text up to the colon, as for the other forms. Group 1 is the (always empty) prefix.
+def paren_re(leaf):
+    stem = leaf[:-len(".lean")]
+    return re.compile(r"(?<![A-Za-z0-9_./])()`" + re.escape(stem) + r"(?:\.[^`\s]+)?` \(:(\d+)(?:([–-])(\d+))?" + TAIL)
+
+
 def cite_res(leaf):
-    return (cite_re(leaf), short_re(leaf))
+    return (cite_re(leaf), short_re(leaf), paren_re(leaf))
 
 
 def span_class(m, nb, lo, hi, ranged):
@@ -1205,6 +1217,38 @@ def self_test():
         check("--apply rewrites the short cites and leaves the REPORTED one as written",
               open(os.path.join(d, "Salt/T.lean")).read() ==
               "S:5 · `S`:6 · `S` :5 · `S:8` · S:4–5 · S:5, :10 · S.lean:5 · S:5 · BS:3 · S:99 · D:3 · S :3\n")
+    with tempfile.TemporaryDirectory() as d:                                 # the PARENTHESISED form (row 194)
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt/X")); os.makedirs(os.path.join(d, "Salt/Y"))
+        ten = "".join(f"line {i}\n" for i in range(1, 11))
+        for n in ("Salt/P.lean", "Salt/X/D.lean", "Salt/Y/D.lean"):
+            open(os.path.join(d, n), "w").write(ten)
+        open(os.path.join(d, "Salt/U.lean"), "w").write(
+            "`P.thm` (:3) · `P.ns.thm'` (:4) · `P.lean` (:2–3) · `P` (:6) · `P.thm` (:5) · `P.thm` (:99) "
+            "· `D.thm` (:3) · `BP.thm` (:3) · P.thm (:3) · `P.thm` (:3, :8)\n")
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        open(os.path.join(d, "Salt/P.lean"), "w").write("a\nb\n" + ten.replace("line 5\n", "LINE FIVE\n"))
+        open(os.path.join(d, "Salt/X/D.lean"), "w").write("a\n" + ten)
+        g("commit", "-q", "-am", "edit")
+        _, rs, cls = census(d, "HEAD~1", "HEAD")
+        kp = {r["cite"]: r for r in rs if r["src"] == "Salt/U.lean"}
+        check("parenthesised `P.thm` (:3) is RE-KEYED", kp.get("`P.thm` (:3", {}).get("new") == "`P.thm` (:5")
+        check("... a dotted decl name, a `.lean` range, a bare backticked leaf are read",
+              kp.get("`P.ns.thm'` (:4", {}).get("new") == "`P.ns.thm'` (:6"
+              and kp.get("`P.lean` (:2–3", {}).get("new") == "`P.lean` (:4–5"
+              and kp.get("`P` (:6", {}).get("new") == "`P` (:8")
+        check("... an edited line is REPORTED, past the end PRE-STALE",
+              kp.get("`P.thm` (:5", {}).get("cls") == "REPORTED" and kp.get("`P.thm` (:99", {}).get("cls") == "PRE-STALE")
+        check("... a list inside the parentheses is read whole", kp.get("`P.thm` (:3, :8", {}).get("new") == "`P.thm` (:5, :10")
+        check("... a shared leaf (D) is never rewritten; a longer leaf and an unbackticked cite are not read",
+              kp.get("`D.thm` (:3", {}).get("cls", "AMBIGUOUS") == "AMBIGUOUS"
+              and not any(c.startswith(("`BP", "P.thm")) for c in kp))
+        apply(d, "HEAD~1", "HEAD", rs)
+        check("--apply rewrites the parenthesised cites and leaves the REPORTED one as written",
+              open(os.path.join(d, "Salt/U.lean")).read() ==
+              "`P.thm` (:5) · `P.ns.thm'` (:6) · `P.lean` (:4–5) · `P` (:8) · `P.thm` (:5) · `P.thm` (:99) "
+              "· `D.thm` (:3) · `BP.thm` (:3) · P.thm (:3) · `P.thm` (:5, :10)\n")
     with tempfile.TemporaryDirectory() as d:                     # DONE per group · a run-on list (salt #626's read)
         g = lambda *a: git(d, *a)
         g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
