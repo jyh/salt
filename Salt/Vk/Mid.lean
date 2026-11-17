@@ -437,14 +437,14 @@ theorem vk_window_scale_prefix {k r m N P Y : ℕ} {t ρ : ℝ}
     (vk_hW2c_form (by omega) hP1 hN1 hY hW2cm)
     y hy1 hy2
 
-/-! ## The mid-branch prefix window (schedule) — copies of the `Mid.lean` helpers -/
+/-! ## The mid-branch prefix window (schedule) -/
 
 set_option maxHeartbeats 4000000 in
--- The ~55-hypothesis schedule bookkeeping (copied from `vk_window_mid`) exceeds the budget.
+-- The ~55-hypothesis schedule bookkeeping exceeds the default heartbeat budget.
 /-- **Mid-branch prefix window** — prefix-of-window analogue of `vk_window_mid`.  Same schedule
 and routing predicates; concludes the prefix bound `‖∑_{(N,y]} eR(phi t n)‖ ≤ 10·N·exp(−Θ·logN)` for
-every `N < y ≤ 2N`.  Body identical to `vk_window_mid` except the consumer is
-`vk_window_scale_prefix` threaded with `(y, hy1, hy2)`. -/
+every `N < y ≤ 2N`.  `vk_window_mid` (below) is its `y = 2N` case; the schedule proof lives here,
+through `vk_window_scale_prefix` threaded with `(y, hy1, hy2)`. -/
 theorem vk_window_mid_prefix {t : ℝ} {N k r m : ℕ}
     (ht0 : 0 < t) (hL100 : Real.exp 100 ≤ Real.log t) (hN2 : 2 ≤ N)
     (hk : k = max 19 ⌈Real.log t ^ ((1 : ℝ) / 4)⌉₊)
