@@ -41,10 +41,6 @@ import Salt.MR.S16ProducersH
 import Salt.MR.HSeamCheck
 import Mathlib
 
--- The arm's body reaches `XThread`'s own private numeral helper `xt_exp25`
--- (`6·10^10 ≤ e^25`) by `open private`, the corpus's sanctioned device.
-open private xt_exp25 from Salt.MR.XThread
-
 noncomputable section
 
 open Salt.Entropy.Chowla
@@ -120,34 +116,17 @@ theorem s16_audit_neglog_rho_le_425_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h 
   exact le_trans (s16_audit_neglog_rho_le_wide_h_g hh hδ hK hδb hKb) (by linarith)
 
 /-! ## §2 — THE FOUR CAP LINES THE CHARGE-GENERIC REGISTER READS, AT `425`
-(`S15SelLinearWide.lean:82-160`; hypothesis weakenings, bodies verbatim) -/
+(`S15SelLinearWide.lean:82-235`; instances of the `_g14` lines there since O13-e row 221) -/
 
-/-- **⟦THE WINDOW LINE AT `425`⟧ (class A)** — `flat_half_line` (`S15SelLinearWide.lean:101`) with
-`hc : c ≤ 417 ↦ c ≤ 425`.  BODY: `S15SelLinearWide.lean:104-121` verbatim (`hE17` … the closing
+/-- **⟦THE WINDOW LINE AT `425`⟧ (class A)** — `flat_half_line` (`S15SelLinearWide.lean:127`) with
+`hc : c ≤ 417 ↦ c ≤ 425`.  BODY: `S15SelLinearWide.lean:105-122` verbatim (`hE17` … the closing
 `linarith [hsq, hE2, hc]`); that `linarith` pays
 `3·8 = 24` more against `4.1·10⁻⁴·e^{3.2A}` (`≥ 5·10³²` at `A ≥ 26`).  THE BINDING LINE of the
 lane (`M` sits at its ceiling by design). -/
 theorem flat_half_line_g {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 425) :
     (7 / 10 : ℝ) * ((doorRowFloorL (flatDoorM A) : ℕ) : ℝ) + 3 * c
-      ≤ Real.exp (3.2 * A) / 2 := by
-  have hE17 := flat_exp_half_ge hA
-  have hE0 : (0 : ℝ) < Real.exp (3.2 * A / 2) := Real.exp_pos _
-  have hMle := flatDoorM_le A
-  have hM0 : (0 : ℝ) ≤ ((flatDoorM A : ℕ) : ℝ) := Nat.cast_nonneg _
-  have hY := flat_exp_sq A
-  have hrow : ((doorRowFloorL (flatDoorM A) : ℕ) : ℝ)
-      = 68719476736 * ((flatDoorM A : ℕ) : ℝ) ^ 2 := by
-    rw [doorRowFloorL, AdoorL]; push_cast; ring
-  have h1 : (0 : ℝ) ≤ Real.exp (3.2 * A / 2) / 310301 - ((flatDoorM A : ℕ) : ℝ) := by
-    linarith
-  have h2 : (0 : ℝ) ≤ Real.exp (3.2 * A / 2) / 310301 + ((flatDoorM A : ℕ) : ℝ) := by
-    positivity
-  have hsq : ((flatDoorM A : ℕ) : ℝ) ^ 2
-      ≤ Real.exp (3.2 * A / 2) ^ 2 / 96286710601 := by
-    nlinarith [mul_nonneg h1 h2]
-  have hE2 : (10 : ℝ) ^ 34 ≤ Real.exp (3.2 * A / 2) ^ 2 := by nlinarith [hE17, hE0]
-  rw [hrow, ← hY]
-  linarith [hsq, hE2, hc]
+      ≤ Real.exp (3.2 * A) / 2 :=
+  flat_half_line_g14 hA (hc.trans (by norm_num))
 
 /-- **⟦THE `anchor` LINE AT `425`, DOUBLED `Λ` SLOT⟧ (class A)** — `flat_anchor_line_wide`
 (`S15SelLinearWide.lean:91`) with `hc : c ≤ 425`.  BODY: `:94-96` verbatim (`hE17`, `hMge`,
@@ -159,98 +138,34 @@ theorem flat_anchor_line_wide_g {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 425) :
   have hMge := flatDoorM_ge A
   linarith
 
-/-- **⟦THE `𝒯`-LEG BUDGET AT `−425`⟧ (class A)** — `flat_gP1_line` (`S15SelLinearWide.lean:127`)
-with `hc : -417 ≤ c ↦ -425 ≤ c`.  BODY: `:131-148` verbatim (`hE17` … `rw [AdoorL_cast]; linarith`;
+/-- **⟦THE `𝒯`-LEG BUDGET AT `−425`⟧ (class A)** — `flat_gP1_line` (`S15SelLinearWide.lean:161`)
+with `hc : -417 ≤ c ↦ -425 ≤ c`.  BODY: `:138-155` verbatim (`hE17` … `rw [AdoorL_cast]; linarith`;
 `≈5.5·10³×`). -/
 theorem flat_gP1_line_g {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -425 ≤ c) (hCt : 0 < Ct)
     (hCtb : Ct ≤ 2 ^ 23) (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
-    29 + Real.log Ct + 14 * Λ ≤ ((AdoorL (flatDoorM A) : ℕ) : ℝ) * Real.log 2 + c := by
-  have hE17 := flat_exp_half_ge hA
-  have hMge := flatDoorM_ge A
-  have hlog2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
-  have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hAdlo : 221460 * Real.exp (3.2 * A / 2) - 68719476737
-      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) := by linarith
-  have hpos : (0 : ℝ) ≤ 221460 * Real.exp (3.2 * A / 2) - 68719476737 := by linarith
-  have h1 : (221460 * Real.exp (3.2 * A / 2) - 68719476737) * Real.log 2
-      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) * Real.log 2 :=
-    mul_le_mul_of_nonneg_right hAdlo (by linarith)
-  have hAdlog : 153000 * Real.exp (3.2 * A / 2)
-      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) * Real.log 2 := by
-    nlinarith [hpos, hlog2lo, hE17]
-  have hCtl : Real.log Ct ≤ 23 * Real.log 2 := by
-    have h := Real.log_le_log hCt hCtb
-    rwa [Real.log_pow] at h
-  rw [AdoorL_cast]
-  linarith
+    29 + Real.log Ct + 14 * Λ ≤ ((AdoorL (flatDoorM A) : ℕ) : ℝ) * Real.log 2 + c :=
+  flat_gP1_line_g14 hA ((by norm_num : (-439 : ℝ) ≤ -425).trans hc) hCt hCtb hΛ
 
-/-- **⟦THE `level1` BUDGET AT `425`⟧ (class A)** — `flat_lvl_line` (`S15SelLinearWide.lean:153`)
+/-- **⟦THE `level1` BUDGET AT `425`⟧ (class A)** — `flat_lvl_line` (`S15SelLinearWide.lean:228`)
 with `hc : c ≤ 425`.  BODY: verbatim (`457×`). -/
 theorem flat_lvl_line_g {A c Λ : ℝ} (hA : 26 ≤ A) (hc : c ≤ 425)
     (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
     26 + 14 * Λ
         + (1 / 3) * Real.log (Real.log ((calQK (AdoorL (flatDoorM A))
             (3072 * flatDoorM A) (flatDoorM A) 1 : ℕ) : ℝ)) + c
-      ≤ (1 / 12) * ((AdoorL (flatDoorM A) : ℕ) : ℝ) * Real.log 2 := by
-  have hE17 := flat_exp_half_ge hA
-  have hE0 : (0 : ℝ) < Real.exp (3.2 * A / 2) := Real.exp_pos _
-  have hMle := flatDoorM_le A
-  have hMge := flatDoorM_ge A
-  have hM0 : (0 : ℝ) ≤ ((flatDoorM A : ℕ) : ℝ) := Nat.cast_nonneg _
-  have hlog2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
-  have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hrow : ((doorRowFloorL (flatDoorM A) : ℕ) : ℝ)
-      = 68719476736 * ((flatDoorM A : ℕ) : ℝ) ^ 2 := by
-    rw [doorRowFloorL, AdoorL]; push_cast; ring
-  have hAdlo : 221460 * Real.exp (3.2 * A / 2) - 68719476737
-      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) := by linarith
-  have hpos : (0 : ℝ) ≤ 221460 * Real.exp (3.2 * A / 2) - 68719476737 := by linarith
-  have h1 : (221460 * Real.exp (3.2 * A / 2) - 68719476737) * Real.log 2
-      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) * Real.log 2 :=
-    mul_le_mul_of_nonneg_right hAdlo (by linarith)
-  have hAdlog : 153000 * Real.exp (3.2 * A / 2)
-      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) * Real.log 2 := by
-    nlinarith [hpos, hlog2lo, hE17]
-  rw [AdoorL_cast, s15_log_calQK_L_one, hrow]
-  have hQpos : (0 : ℝ) < 68719476736 * ((flatDoorM A : ℕ) : ℝ) ^ 2 * Real.log 2 := by
-    have hM1N : 1 ≤ flatDoorM A := flatDoorM_one_le hA
-    have hM1 : (1 : ℝ) ≤ ((flatDoorM A : ℕ) : ℝ) := by exact_mod_cast hM1N
-    have : (0 : ℝ) < Real.log 2 := by linarith
-    positivity
-  have hd1 : (0 : ℝ) ≤ Real.exp (3.2 * A / 2) / 310301 - ((flatDoorM A : ℕ) : ℝ) := by
-    linarith
-  have hd2 : (0 : ℝ) ≤ Real.exp (3.2 * A / 2) / 310301 + ((flatDoorM A : ℕ) : ℝ) := by
-    positivity
-  have hsq : ((flatDoorM A : ℕ) : ℝ) ^ 2
-      ≤ Real.exp (3.2 * A / 2) ^ 2 / 96286710601 := by
-    nlinarith [mul_nonneg hd1 hd2]
-  have hQle : 68719476736 * ((flatDoorM A : ℕ) : ℝ) ^ 2 * Real.log 2
-      ≤ Real.exp (3.2 * A / 2) ^ 2 := by
-    nlinarith [hsq, hlog2hi, sq_nonneg (Real.exp (3.2 * A / 2)), hM0,
-      sq_nonneg ((flatDoorM A : ℕ) : ℝ)]
-  have hlogQ : Real.log (68719476736 * ((flatDoorM A : ℕ) : ℝ) ^ 2 * Real.log 2)
-      ≤ 2 * Real.log (Real.exp (3.2 * A / 2)) := by
-    have h := Real.log_le_log hQpos hQle
-    rw [Real.log_pow] at h
-    push_cast at h
-    linarith
-  have hlogE : Real.log (Real.exp (3.2 * A / 2)) ≤ Real.exp (3.2 * A / 2) - 1 :=
-    Real.log_le_sub_one_of_pos hE0
-  have hbud : 12750 * Real.exp (3.2 * A / 2)
-      ≤ 1 / 12 * (68719476736 * ((flatDoorM A : ℕ) : ℝ)) * Real.log 2 := by
-    linarith [hAdlog]
-  linarith [hΛ, hc, hlogQ, hlogE, hbud, hE17]
+      ≤ (1 / 12) * ((AdoorL (flatDoorM A) : ℕ) : ℝ) * Real.log 2 :=
+  flat_lvl_line_g14 hA (hc.trans (by norm_num)) hΛ
 
 /-! ## §3 — THE REGISTER WITNESSES AT THE GRADED CHARGE
-(`S15SelLinearWide.lean:219-323`; the structure `S15Sel''_L(_gk)` does not move) -/
+(`S15SelLinearWide.lean:247-351`; the structure `S15Sel''_L(_gk)` does not move) -/
 
 /-- **⟦THE REGISTER AT THE FLAT DESIGN POINT, CHARGE-GENERIC, AT `425`⟧ (class B)** —
-`s15_sel''_L_witness_flat_charge` (`S15SelLinearWide.lean:219`) with `hρlog : -log ρ ≤ 417 ↦ ≤
-425`.  BODY: `S15SelLinearWide.lean:231-254` verbatim — `hbase := s15_sel''_L_witness_flat …` at
-the FROZEN dummy literals `δ₀ := 1/2^10`, `K := 1` (:231-233; that call reaches the narrow walls
+`s15_sel''_L_witness_flat_charge` (`S15SelLinearWide.lean:247`) with `hρlog : -log ρ ≤ 417 ↦ ≤
+425`.  BODY: `S15SelLinearWide.lean:259-282` verbatim — `hbase := s15_sel''_L_witness_flat …` at
+the FROZEN dummy literals `δ₀ := 1/2^10`, `K := 1` (:259-261; that call reaches the narrow walls
 `s15w_rho_ge`/`s15w_neglog_rho_le` at those literals, which β never moves — only the six `ρ`-free
 fields `hM`/`gRows`/`x0M`/`blk` (+ `mfloor`/`bfloor` supplied here) are read off it), `hinv`, and
-the `refine` package (:235-254) with the four `_g` lines (`flat_half_line_g`,
+the `refine` package (:263-282) with the four `_g` lines (`flat_half_line_g`,
 `flat_anchor_line_wide_g`, `flat_gP1_line_g`, `flat_lvl_line_g`) at `half`/`anchor`/`gP1`/`lvl`;
 the `rho` field (`−log ρ ≤ 10^14`) closes by `linarith [hρlog]` as landed. -/
 theorem s15_sel''_L_witness_flat_charge_g {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct ρ : ℝ}
@@ -290,9 +205,9 @@ theorem s15_sel''_L_witness_flat_charge_g {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct
   · exact flat_lvl_line_g hA hρlog hhi
 
 /-- **⟦THE WIDE ACCEPTANCE AT THE GRADED PIN⟧ (class A)** — `s15_sel''_L_witness_flat_wide`
-(`S15SelLinearWide.lean:263`) with `hδb : 1/(2^20·c²) ≤ δ₀ ↦ 1/(2^31·c²) ≤ δ₀`.  BODY:
+(`S15SelLinearWide.lean:291`) with `hδb : 1/(2^20·c²) ≤ δ₀ ↦ 1/(2^31·c²) ≤ δ₀`.  BODY:
 `s15_sel''_L_witness_flat_charge_g hA hc1 hcb (s16_audit_neglog_rho_le_425_h hc1 hh7c hδ hK hδb
-hKb) hCt hCtb hbfl hMfl hx0win heps hlo hhi` (the landed `:277-279` with the two `_g` names). -/
+hKb) hCt hCtb hbfl hMfl hx0win heps hlo hhi` (the landed `:305-307` with the two `_g` names). -/
 theorem s15_sel''_L_witness_flat_wide_g {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K : ℝ}
     {x₀ Mfl c : ℕ} {R : ChowlaRegime}
     (hc1 : 1 ≤ c) (hcb : c ≤ 1096) (hh7c : Real.log (c : ℝ) ≤ 7)
@@ -311,7 +226,7 @@ theorem s15_sel''_L_witness_flat_wide_g {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K
     hbfl hMfl hx0win heps hlo hhi
 
 /-- **⟦THE LEVERED WIDE ACCEPTANCE AT THE GRADED PIN⟧ (class A)** —
-`s15_sel''_L_gk_witness_flat_wide` (`S15SelLinearWide.lean:301`) with `hδb` at `2 ^ 31`.  BODY:
+`s15_sel''_L_gk_witness_flat_wide` (`S15SelLinearWide.lean:329`) with `hδb` at `2 ^ 31`.  BODY:
 `s15_sel''_L_gk_of_L Klev (s15_sel''_L_witness_flat_wide_g hA hc1 hcb hh7c hδ hδb hK hKb hCt hCtb
 hbfl hMfl hx0win heps hlo hhi) (flat_blk_line_gk hA Klev hKle hc1 hcb heps hlo hhi)` — the `blk`
 line is charge-free and is the landed one. -/

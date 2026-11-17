@@ -67,10 +67,6 @@ import Salt.MR.StrideGradeWalls
 import Salt.MR.S13CapFloor
 import Mathlib
 
--- as `StrideGradeWalls`: the arm's body reaches `XThread`'s private numeral helper `xt_exp25`
--- (`6·10^10 ≤ e^25`) by `open private`, the corpus's sanctioned device.
-open private xt_exp25 from Salt.MR.XThread
-
 noncomputable section
 
 open Salt.Entropy.Chowla
@@ -183,34 +179,9 @@ theorem capfloor_logH_le_quarter_sqrt {H : ℝ} (hH : (4000000 : ℝ) ≤ H) :
   have ha40 : (40 : ℝ) ≤ a := by nlinarith [ha2, ha0, hs2000]
   nlinarith [hloga, hle, ha2, ha40, ha0]
 
-/-! ## §3 — THE FOUR CAP LINES AT `439` (`StrideGradeWalls.lean:130-245`'s twins at the raised
-charge; hypothesis weakenings, bodies verbatim) -/
+/-! ## §3 — THE CAP LINES AT `439` (the `_g` lines' twins at the raised charge; since O13-e
+row 221 three of the four live in `S15SelLinearWide` as their bases' twins) -/
 
-
-/-- **⟦THE WINDOW LINE AT `439`⟧ (class A)** — `flat_half_line_g` with `hc : c ≤ 425 ↦ c ≤ 439`.
-BODY: verbatim; the closing `linarith [hsq, hE2, hc]` pays `3·14 = 42` more against
-`e^{3.2A}/2 ≥ 5·10³³` at `A ≥ 26`.  THE BINDING LINE of the lane, and still free by `10³¹×`. -/
-theorem flat_half_line_g14 {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 439) :
-    (7 / 10 : ℝ) * ((doorRowFloorL (flatDoorM A) : ℕ) : ℝ) + 3 * c
-      ≤ Real.exp (3.2 * A) / 2 := by
-  have hE17 := flat_exp_half_ge hA
-  have hE0 : (0 : ℝ) < Real.exp (3.2 * A / 2) := Real.exp_pos _
-  have hMle := flatDoorM_le A
-  have hM0 : (0 : ℝ) ≤ ((flatDoorM A : ℕ) : ℝ) := Nat.cast_nonneg _
-  have hY := flat_exp_sq A
-  have hrow : ((doorRowFloorL (flatDoorM A) : ℕ) : ℝ)
-      = 68719476736 * ((flatDoorM A : ℕ) : ℝ) ^ 2 := by
-    rw [doorRowFloorL, AdoorL]; push_cast; ring
-  have h1 : (0 : ℝ) ≤ Real.exp (3.2 * A / 2) / 310301 - ((flatDoorM A : ℕ) : ℝ) := by
-    linarith
-  have h2 : (0 : ℝ) ≤ Real.exp (3.2 * A / 2) / 310301 + ((flatDoorM A : ℕ) : ℝ) := by
-    positivity
-  have hsq : ((flatDoorM A : ℕ) : ℝ) ^ 2
-      ≤ Real.exp (3.2 * A / 2) ^ 2 / 96286710601 := by
-    nlinarith [mul_nonneg h1 h2]
-  have hE2 : (10 : ℝ) ^ 34 ≤ Real.exp (3.2 * A / 2) ^ 2 := by nlinarith [hE17, hE0]
-  rw [hrow, ← hY]
-  linarith [hsq, hE2, hc]
 
 /-- **⟦THE `anchor` LINE AT `439`⟧ (class A)** — `flat_anchor_line_wide_g` with `hc : c ≤ 439`.
 BODY: verbatim (`449×` at the landed charge; `+14` against `39·10⁸·M`). -/
@@ -221,88 +192,7 @@ theorem flat_anchor_line_wide_g14 {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 439) :
   have hMge := flatDoorM_ge A
   linarith
 
-/-- **⟦THE `𝒯`-LEG BUDGET AT `−439`⟧ (class A)** — `flat_gP1_line_g` with `hc : -439 ≤ c`.
-BODY: verbatim (`≈5.5·10³×`). -/
-theorem flat_gP1_line_g14 {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -439 ≤ c) (hCt : 0 < Ct)
-    (hCtb : Ct ≤ 2 ^ 23) (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
-    29 + Real.log Ct + 14 * Λ ≤ ((AdoorL (flatDoorM A) : ℕ) : ℝ) * Real.log 2 + c := by
-  have hE17 := flat_exp_half_ge hA
-  have hMge := flatDoorM_ge A
-  have hlog2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
-  have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hAdlo : 221460 * Real.exp (3.2 * A / 2) - 68719476737
-      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) := by linarith
-  have hpos : (0 : ℝ) ≤ 221460 * Real.exp (3.2 * A / 2) - 68719476737 := by linarith
-  have h1 : (221460 * Real.exp (3.2 * A / 2) - 68719476737) * Real.log 2
-      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) * Real.log 2 :=
-    mul_le_mul_of_nonneg_right hAdlo (by linarith)
-  have hAdlog : 153000 * Real.exp (3.2 * A / 2)
-      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) * Real.log 2 := by
-    nlinarith [hpos, hlog2lo, hE17]
-  have hCtl : Real.log Ct ≤ 23 * Real.log 2 := by
-    have h := Real.log_le_log hCt hCtb
-    rwa [Real.log_pow] at h
-  rw [AdoorL_cast]
-  linarith
-
-/-- **⟦THE `level1` BUDGET AT `439`⟧ (class A)** — `flat_lvl_line_g` with `hc : c ≤ 439`.
-BODY: verbatim (`457×`). -/
-theorem flat_lvl_line_g14 {A c Λ : ℝ} (hA : 26 ≤ A) (hc : c ≤ 439)
-    (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
-    26 + 14 * Λ
-        + (1 / 3) * Real.log (Real.log ((calQK (AdoorL (flatDoorM A))
-            (3072 * flatDoorM A) (flatDoorM A) 1 : ℕ) : ℝ)) + c
-      ≤ (1 / 12) * ((AdoorL (flatDoorM A) : ℕ) : ℝ) * Real.log 2 := by
-  have hE17 := flat_exp_half_ge hA
-  have hE0 : (0 : ℝ) < Real.exp (3.2 * A / 2) := Real.exp_pos _
-  have hMle := flatDoorM_le A
-  have hMge := flatDoorM_ge A
-  have hM0 : (0 : ℝ) ≤ ((flatDoorM A : ℕ) : ℝ) := Nat.cast_nonneg _
-  have hlog2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
-  have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hrow : ((doorRowFloorL (flatDoorM A) : ℕ) : ℝ)
-      = 68719476736 * ((flatDoorM A : ℕ) : ℝ) ^ 2 := by
-    rw [doorRowFloorL, AdoorL]; push_cast; ring
-  have hAdlo : 221460 * Real.exp (3.2 * A / 2) - 68719476737
-      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) := by linarith
-  have hpos : (0 : ℝ) ≤ 221460 * Real.exp (3.2 * A / 2) - 68719476737 := by linarith
-  have h1 : (221460 * Real.exp (3.2 * A / 2) - 68719476737) * Real.log 2
-      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) * Real.log 2 :=
-    mul_le_mul_of_nonneg_right hAdlo (by linarith)
-  have hAdlog : 153000 * Real.exp (3.2 * A / 2)
-      ≤ 68719476736 * ((flatDoorM A : ℕ) : ℝ) * Real.log 2 := by
-    nlinarith [hpos, hlog2lo, hE17]
-  rw [AdoorL_cast, s15_log_calQK_L_one, hrow]
-  have hQpos : (0 : ℝ) < 68719476736 * ((flatDoorM A : ℕ) : ℝ) ^ 2 * Real.log 2 := by
-    have hM1N : 1 ≤ flatDoorM A := flatDoorM_one_le hA
-    have hM1 : (1 : ℝ) ≤ ((flatDoorM A : ℕ) : ℝ) := by exact_mod_cast hM1N
-    have : (0 : ℝ) < Real.log 2 := by linarith
-    positivity
-  have hd1 : (0 : ℝ) ≤ Real.exp (3.2 * A / 2) / 310301 - ((flatDoorM A : ℕ) : ℝ) := by
-    linarith
-  have hd2 : (0 : ℝ) ≤ Real.exp (3.2 * A / 2) / 310301 + ((flatDoorM A : ℕ) : ℝ) := by
-    positivity
-  have hsq : ((flatDoorM A : ℕ) : ℝ) ^ 2
-      ≤ Real.exp (3.2 * A / 2) ^ 2 / 96286710601 := by
-    nlinarith [mul_nonneg hd1 hd2]
-  have hQle : 68719476736 * ((flatDoorM A : ℕ) : ℝ) ^ 2 * Real.log 2
-      ≤ Real.exp (3.2 * A / 2) ^ 2 := by
-    nlinarith [hsq, hlog2hi, sq_nonneg (Real.exp (3.2 * A / 2)), hM0,
-      sq_nonneg ((flatDoorM A : ℕ) : ℝ)]
-  have hlogQ : Real.log (68719476736 * ((flatDoorM A : ℕ) : ℝ) ^ 2 * Real.log 2)
-      ≤ 2 * Real.log (Real.exp (3.2 * A / 2)) := by
-    have h := Real.log_le_log hQpos hQle
-    rw [Real.log_pow] at h
-    push_cast at h
-    linarith
-  have hlogE : Real.log (Real.exp (3.2 * A / 2)) ≤ Real.exp (3.2 * A / 2) - 1 :=
-    Real.log_le_sub_one_of_pos hE0
-  have hbud : 12750 * Real.exp (3.2 * A / 2)
-      ≤ 1 / 12 * (68719476736 * ((flatDoorM A : ℕ) : ℝ)) * Real.log 2 := by
-    linarith [hAdlog]
-  linarith [hΛ, hc, hlogQ, hlogE, hbud, hE17]
-
-/-! ## §4 — THE ARM AT THE RAISED `c`-CEILING (`StrideGradeWalls.lean:430`'s twin) -/
+/-! ## §4 — THE ARM AT THE RAISED `c`-CEILING (`s15ArmH_log_le_g`'s twin) -/
 
 /-- **⟦THE ARM'S LOG AT SHIFT `h`, GRADED, AT THE RAISED CAP⟧ (class A)** — `s15ArmH_log_le_g`
 with `hh7 : log h ≤ 7 ↦ hh14 : log h ≤ 14`, `h ≤ 1096 ↦ h ≤ 1202604`, the `c`-ceiling at

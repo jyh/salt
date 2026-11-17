@@ -95,10 +95,11 @@ theorem flat_anchor_line_wide {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 417) :
   have hMge := flatDoorM_ge A
   linarith
 
-/-- ⟦`M`-UPPER 2⟧ **THE WINDOW GATE AT THE FLAT DESIGN POINT**, at ANY charge `c ≤ 403`:
-`0.49959·e^{3.2A} + 1209` against `e^{3.2A}/2`.  THE BINDING LINE — `M` sits at its ceiling
-by design — and still `4.1·10^{-4}·e^{3.2A}` of slack pays the `1209`. -/
-theorem flat_half_line {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 417) :
+set_option exponentiation.threshold 4000 in
+/-- **⟦THE WINDOW LINE AT `439`⟧ (class A)** — `flat_half_line_g` with `hc : c ≤ 425 ↦ c ≤ 439`.
+BODY: verbatim; the closing `linarith [hsq, hE2, hc]` pays `3·14 = 42` more against
+`e^{3.2A}/2 ≥ 5·10³³` at `A ≥ 26`.  THE BINDING LINE of the lane, and still free by `10³¹×`. -/
+theorem flat_half_line_g14 {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 439) :
     (7 / 10 : ℝ) * ((doorRowFloorL (flatDoorM A) : ℕ) : ℝ) + 3 * c
       ≤ Real.exp (3.2 * A) / 2 := by
   have hE17 := flat_exp_half_ge hA
@@ -120,12 +121,18 @@ theorem flat_half_line {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 417) :
   rw [hrow, ← hY]
   linarith [hsq, hE2, hc]
 
-/-- **THE `𝒯`-LEG BUDGET AT THE FLAT DESIGN POINT**, at the WIDE `Ct ≤ 2^23` and ANY charge
-`c ≥ -403`: at the amended `2E` slot (`Λ ≤ 2·e^{1.6A}`) it spends `28·E + 45` against
-`1.53·10⁵·E`, `≈5.5·10³×`.  `Ct`'s `8×` widening costs `2.08` on a line with eleven orders
-of slack. -/
-theorem flat_gP1_line {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -417 ≤ c) (hCt : 0 < Ct)
-    -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+/-- ⟦`M`-UPPER 2⟧ **THE WINDOW GATE AT THE FLAT DESIGN POINT**, at ANY charge `c ≤ 403`:
+`0.49959·e^{3.2A} + 1209` against `e^{3.2A}/2`.  THE BINDING LINE — `M` sits at its ceiling
+by design — and still `4.1·10^{-4}·e^{3.2A}` of slack pays the `1209`. -/
+theorem flat_half_line {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 417) :
+    (7 / 10 : ℝ) * ((doorRowFloorL (flatDoorM A) : ℕ) : ℝ) + 3 * c
+      ≤ Real.exp (3.2 * A) / 2 :=
+  flat_half_line_g14 hA (hc.trans (by norm_num))
+
+set_option exponentiation.threshold 4000 in
+/-- **⟦THE `𝒯`-LEG BUDGET AT `−439`⟧ (class A)** — `flat_gP1_line_g` with `hc : -439 ≤ c`.
+BODY: verbatim (`≈5.5·10³×`). -/
+theorem flat_gP1_line_g14 {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -439 ≤ c) (hCt : 0 < Ct)
     (hCtb : Ct ≤ 2 ^ 23) (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
     29 + Real.log Ct + 14 * Λ ≤ ((AdoorL (flatDoorM A) : ℕ) : ℝ) * Real.log 2 + c := by
   have hE17 := flat_exp_half_ge hA
@@ -147,11 +154,20 @@ theorem flat_gP1_line {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -417 ≤ c) (hCt :
   rw [AdoorL_cast]
   linarith
 
-/-- **THE `level1` BUDGET AT THE FLAT DESIGN POINT**, at ANY charge `c ≤ 403`: at the amended
-`2E` slot (`Λ ≤ 2·e^{1.6A}`) it spends `28·E + 429 + ⅔·log E` against `1.279·10⁴·E`,
-`457×`. -/
-theorem flat_lvl_line {A c Λ : ℝ} (hA : 26 ≤ A) (hc : c ≤ 417)
+/-- **THE `𝒯`-LEG BUDGET AT THE FLAT DESIGN POINT**, at the WIDE `Ct ≤ 2^23` and ANY charge
+`c ≥ -403`: at the amended `2E` slot (`Λ ≤ 2·e^{1.6A}`) it spends `28·E + 45` against
+`1.53·10⁵·E`, `≈5.5·10³×`.  `Ct`'s `8×` widening costs `2.08` on a line with eleven orders
+of slack. -/
+theorem flat_gP1_line {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -417 ≤ c) (hCt : 0 < Ct)
     -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+    (hCtb : Ct ≤ 2 ^ 23) (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
+    29 + Real.log Ct + 14 * Λ ≤ ((AdoorL (flatDoorM A) : ℕ) : ℝ) * Real.log 2 + c :=
+  flat_gP1_line_g14 hA ((by norm_num : (-439 : ℝ) ≤ -417).trans hc) hCt hCtb hΛ
+
+set_option exponentiation.threshold 4000 in
+/-- **⟦THE `level1` BUDGET AT `439`⟧ (class A)** — `flat_lvl_line_g` with `hc : c ≤ 439`.
+BODY: verbatim (`457×`). -/
+theorem flat_lvl_line_g14 {A c Λ : ℝ} (hA : 26 ≤ A) (hc : c ≤ 439)
     (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
     26 + 14 * Λ
         + (1 / 3) * Real.log (Real.log ((calQK (AdoorL (flatDoorM A))
@@ -205,6 +221,18 @@ theorem flat_lvl_line {A c Λ : ℝ} (hA : 26 ≤ A) (hc : c ≤ 417)
       ≤ 1 / 12 * (68719476736 * ((flatDoorM A : ℕ) : ℝ)) * Real.log 2 := by
     linarith [hAdlog]
   linarith [hΛ, hc, hlogQ, hlogE, hbud, hE17]
+
+/-- **THE `level1` BUDGET AT THE FLAT DESIGN POINT**, at ANY charge `c ≤ 403`: at the amended
+`2E` slot (`Λ ≤ 2·e^{1.6A}`) it spends `28·E + 429 + ⅔·log E` against `1.279·10⁴·E`,
+`457×`. -/
+theorem flat_lvl_line {A c Λ : ℝ} (hA : 26 ≤ A) (hc : c ≤ 417)
+    -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+    (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
+    26 + 14 * Λ
+        + (1 / 3) * Real.log (Real.log ((calQK (AdoorL (flatDoorM A))
+            (3072 * flatDoorM A) (flatDoorM A) 1 : ℕ) : ℝ)) + c
+      ≤ (1 / 12) * ((AdoorL (flatDoorM A) : ℕ) : ℝ) * Real.log 2 :=
+  flat_lvl_line_g14 hA (hc.trans (by norm_num)) hΛ
 
 /-! ## §2 — ⟦THE WIDE ACCEPTANCE⟧ -/
 
