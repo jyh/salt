@@ -755,7 +755,7 @@ theorem norm_absWindowSum_dilCoeff_memS_door_gk (K : ℕ) {M J d q q₀ r₀ H�
     norm_mul, liouvilleC_norm hd, one_mul]
 
 /-- **THE ROW'S EXIT AT THE LEVER — the per-class dilated statement** —
-`m4_class_dilate_exit` (:633). -/
+`m4_class_dilate_exit` (:793). -/
 theorem m4_class_dilate_exit_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
     (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) (α : ℝ) :
     ‖classWindowSum (memSCoeff (calP (Adoor M) (s13GK K M))
