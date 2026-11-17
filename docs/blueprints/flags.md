@@ -19009,7 +19009,7 @@ carry above the mint is conjunct-arithmetic with no analysis in it.
 **⟦FINDING 1 — `cs` IS EFFECTIVE AT EVERY LEAF; THE DOSSIER'S §3 IS IN ERROR⟧** the 0802 summit
 dossier calls `cs`'s leaves "(K₄, Cκ) … compactness existentials of our own port". **They are not
 existentials at all** — `K₄ = 2^{3/4}·16` (`PortAssembly.lean:640`) and `Cκ = 2^{3/4}·8`
-(`HalaszPrimesCore.lean:3232`) are closed-form `noncomputable def`s. The other two leaves are
+(`HalaszPrimesCore.lean:3265`) are closed-form `noncomputable def`s. The other two leaves are
 literals in the source: `c_vk = 1/10^8` (visible AT THE CALL SITE — the mint is invoked on
 `TwistedWindowPriceGated (1/10^8)`) and `c₀ = 1/10^9` (`Vk/PowRegion.lean:365`, hidden only by the
 `∃`-prefixes, which export positivity alone). Hence
@@ -23144,7 +23144,7 @@ ceremony that followed them:
 
 ```
 logChowla2_ineffective_v6_T0arm   Salt/MR/V7C.lean:179    2026-08-14  8b0bd31  ledger MR/All.lean:7967
-logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1840   2026-08-14  8b03281  ledger MR/All.lean:8002
+logChowla2_ineffective_v6_csarm   Salt/MR/V7B.lean:1222   2026-08-14  8b03281  ledger MR/All.lean:8002
 ```
 
 **FOUR NAMED INNER RIDERS EACH, outer hypotheses none.** `_csarm` (V7-B): the
