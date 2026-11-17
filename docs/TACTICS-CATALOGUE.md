@@ -115,7 +115,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 9 | `set` | 5574 | 1.8% |
 | 10 | `simp` | 5179 | 1.7% |
 | 11 | `apply` | 4567 | 1.5% |
-| 12 | `nlinarith` | 3392 | 1.1% |
+| 12 | `nlinarith` | 3389 | 1.1% |
 | 13 | `unfold` | 2628 | 0.9% |
 | 14 | `exact_mod_cast` | 2456 | 0.8% |
 | 15 | `rcases` | 2145 | 0.7% |
@@ -129,7 +129,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 23 | `omega` | 1268 | 0.4% |
 | 24 | `classical` | 1248 | 0.4% |
 | 25 | `rintro` | 1150 | 0.4% |
-| 26 | `congr` | 942 | 0.3% |
+| 26 | `congr` | 941 | 0.3% |
 | 27 | `simpa` | 899 | 0.3% |
 | 28 | `positivity` | 804 | 0.3% |
 | 29 | `constructor` | 657 | 0.2% |
