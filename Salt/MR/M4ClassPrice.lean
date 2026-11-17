@@ -766,7 +766,7 @@ theorem m4_gradeGate_direct_of_sq {R : ChowlaRegime} {C δ : ℝ} {Braw : ℕ �
         Real.sqrt_le_sqrt (hdel H hlo hhi)
     _ = mrtDeliveredGrade (C / 2) H := Real.sqrt_sq hG0
 
-/-- **⟦U3, SPLIT⟧ `m4_gradeGate_direct_split`** — the twin of `m4_gradeGate_direct` (:704) at
+/-- **⟦U3, SPLIT⟧ `m4_gradeGate_direct_split`** — the twin of `m4_gradeGate_direct` (:716) at
 the head's constant grade (second-road freeze v2, wave ①; the family's contract is
 `M4Exit` §7).  **This is the critical-path step of the split road**: it is the discharge every
 register above the block level routes its budget line through.
@@ -960,7 +960,7 @@ The (P,Q)-abstract suppliers of §1–§4 (`sievedWindow`, `windowClass`, `subWi
 `subWindowSup_sq_le_class_count`) are NOT twinned — they are re-instantiated at the lever's
 `(𝒫, 𝒬)`. -/
 
-/-- **THE PER-CLASS PRICE AT THE LEVER, both cases** — `m4_class_price` (:265). -/
+/-- **THE PER-CLASS PRICE AT THE LEVER, both cases** — `m4_class_price` (:277). -/
 theorem m4_class_price_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} {B : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
     (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
     (hcop : ∀ χ : DirichletCharacter ℂ q,
@@ -989,7 +989,7 @@ theorem m4_class_price_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} {B : ℝ} (hM 
       (m4_class_dilate_coprime hq r).symm
     exact norm_sum_windowClass_memS_le_of_uniform hcop₀ _ _ J _ _ hdil
 
-/-- **THE `q`-GRADED PER-BLOCK MEAN SQUARE AT THE LEVER** — `M4BlockMeanSqSupQ` (:336). -/
+/-- **THE `q`-GRADED PER-BLOCK MEAN SQUARE AT THE LEVER** — `M4BlockMeanSqSupQ` (:348). -/
 def M4BlockMeanSqSupQ_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bblk : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ (b : ℤ) (q : ℕ), 0 < q → (q : ℝ) ≤ arcDen 12 H →
     ∀ i < k,
@@ -997,7 +997,7 @@ def M4BlockMeanSqSupQ_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bblk : ℕ �
           (subWindowSup (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))) ^ 2
         ≤ Bblk H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
 
-/-- **THE `q`-GRADED COVERING SIDE AT THE LEVER** — `m4_cover_assembly_supQ` (:347). -/
+/-- **THE `q`-GRADED COVERING SIDE AT THE LEVER** — `m4_cover_assembly_supQ` (:359). -/
 theorem m4_cover_assembly_supQ_gk (K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ} {δ : ℝ}
     {Bblk : ℕ → ℝ}
     (hgates : M4DoorGates_gk K Cg R M k δ) (hB0 : ∀ H : ℕ, 0 ≤ Bblk H)
@@ -1018,7 +1018,7 @@ theorem m4_cover_assembly_supQ_gk (K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {M k :
   rw [heq] at hmain
   exact hmain
 
-/-- **THE CLASS PRICE ASSEMBLED, AT THE LEVER** — `m4_blockMeanSqSupQ_of_classPrice` (:373),
+/-- **THE CLASS PRICE ASSEMBLED, AT THE LEVER** — `m4_blockMeanSqSupQ_of_classPrice` (:385),
 with the sub-window binder α-renamed `K ↦ Kw`. -/
 theorem m4_blockMeanSqSupQ_of_classPrice_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {B : ℕ → ℝ}
     (hclass : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
@@ -1064,7 +1064,7 @@ theorem m4_blockMeanSqSupQ_of_classPrice_gk (K : ℕ) {R : ChowlaRegime} {M k : 
   have hQB : (0 : ℝ) ≤ (q : ℝ) ^ 2 * B H ^ 2 := by positivity
   exact mul_le_mul_of_nonneg_right hc hQB
 
-/-- **THE RE-CUT ROW INPUT AT THE LEVER** — `M4RowMeanSqUnphased` (:863). -/
+/-- **THE RE-CUT ROW INPUT AT THE LEVER** — `M4RowMeanSqUnphased` (:875). -/
 def M4RowMeanSqUnphased_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ i < k,
     1 / (doorLadder R.x H (i + 1) : ℝ)
@@ -1075,7 +1075,7 @@ def M4RowMeanSqUnphased_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (MS : ℕ �
                       (doorLadder R.x H (i + 1) : ℝ)) y (H : ℝ)‖ ^ 2)
       ≤ MS H
 
-/-- **THE ORDER PIN AT THE LEVER** — `m4_rowMeanSqUnphased_eq_phased_zero` (:883). -/
+/-- **THE ORDER PIN AT THE LEVER** — `m4_rowMeanSqUnphased_eq_phased_zero` (:895). -/
 theorem m4_rowMeanSqUnphased_eq_phased_zero_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ)
     (MS : ℕ → ℝ) :
     M4RowMeanSqUnphased_gk K R M k MS
@@ -1090,7 +1090,7 @@ theorem m4_rowMeanSqUnphased_eq_phased_zero_gk (K : ℕ) (R : ChowlaRegime) (M k
   rw [doorCoeffPhase_zero]
   rfl
 
-/-- **THE COMPOSE'S SHAPE AT THE LEVER** — `m4_sievedDoorSq_of_classPrice` (:908), with the
+/-- **THE COMPOSE'S SHAPE AT THE LEVER** — `m4_sievedDoorSq_of_classPrice` (:920), with the
 sub-window binder α-renamed `K ↦ Kw`. -/
 theorem m4_sievedDoorSq_of_classPrice_gk (K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ}
     {δ : ℝ} {B : ℕ → ℝ} {Braw : ℕ → ℝ}
