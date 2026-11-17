@@ -275,24 +275,16 @@ theorem cofkL_threshold_at_socket_rated {R : ChowlaRegime} {M H L q j A s : ℕ}
 
 set_option maxHeartbeats 1000000 in
 -- the arc-range floor's eight-binder instantiation is elaborated against the socket in one
--- `exact`
-/-- **⟦THE CAP-FREE FLOOR AT THE LINEAR ANCHORS, RATED⟧**
-(`cofkL_capFreeFloor_at_socket_rated`) — QUEUE P2 item 6 residual (b), the rethread's last link.
-
-The drop-in sibling of `RegisterSupply.cofkL_capFreeFloor_at_socket`: same conclusion, same
-socket, **the same cushion `32·K_vt + 32·(2 log M + log 4 + 50) ≤ log H₊/4`**, and
-⭐ **NO `Qm` — every character of every modulus on the arc range is covered, because the rated
-band branch has no induction-max to cap.**  `Z` and `δ` are the `q`-free, `χ`-free existentials
-of `margin_band_threshold_rated`; `K_vt` is `capFreeFloor3_margin_all_chi_vt_rated`'s constant
-plus `max 0 (bandArcConst Z δ)`.
-
-⛔ **WHAT THIS DOES *NOT* CLAIM.**  `K_vt` is still one symbolic nonnegative real and the cushion
-is still a hypothesis; what has changed is the SHAPE of what stands behind it — a constant with a
-stated growth rate in `q`, evaluated nowhere.  The V7 chain's own rethread onto this sibling is a
-further step and is not taken here. -/
-theorem cofkL_capFreeFloor_at_socket_rated (K : ℕ) :
+-- `exact`, as for `cofkL_capFreeFloor_at_socket_rated` below
+/-- **⟦THE RATED SOCKET, `K`-UNIFORM⟧** (`cofkL_capFreeFloor_at_socket_rated_uniform`).
+`cofkL_capFreeFloor_at_socket_rated` with the `∃ Z δ Kvt` hoisted over the lever: ONE triple
+of witnesses serving every `K`.  The hoist is free because the witnesses come from
+`capFreeFloor3_pieceDatum_arcDen_rated` applied to no arguments, so the `(K : ℕ)` binder is
+vacuous over the existentials.  `cofkL_capFreeFloor_at_socket_rated` is its instance at one
+`K`. -/
+theorem cofkL_capFreeFloor_at_socket_rated_uniform :
     ∃ Z δ Kvt : ℝ, 1 ≤ Z ∧ 0 < δ ∧ 0 ≤ Kvt ∧
-      ∀ {R : ChowlaRegime} {M H L q j A s : ℕ} (χ : DirichletCharacter ℂ q),
+      ∀ (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} (χ : DirichletCharacter ℂ q),
         SocketBaseL R M H L q j A s → 1 ≤ M →
         (1 : ℝ) / 500 ≤ (R.eps : ℝ) →
         (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) →
@@ -303,7 +295,7 @@ theorem cofkL_capFreeFloor_at_socket_rated (K : ℕ) :
             (calQK (AdoorL M) (s13GK K M) M)) (((A + s : ℕ)) : ℝ) := by
   obtain ⟨Z, δ, Kvt, hZ, hδ, hK0, hK⟩ := capFreeFloor3_pieceDatum_arcDen_rated
   refine ⟨Z, δ, Kvt, hZ, hδ, hK0, ?_⟩
-  intro R M H L q j A s χ hb hM hε hlo hcush 𝒥 h𝒥
+  intro K R M H L q j A s χ hb hM hε hlo hcush 𝒥 h𝒥
   have hq0 : 0 < q := hb.2.2.2.1
   haveI : NeZero q := ⟨by omega⟩
   have h1 : R.Hlo ≤ H := hb.1
@@ -357,5 +349,36 @@ theorem cofkL_capFreeFloor_at_socket_rated (K : ℕ) :
   exact hK q H χ (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) 𝒥
     (((A + s : ℕ)) : ℝ) (2 * Real.log (M : ℝ) + Real.log 4 + 50)
     hlogHe harc hXee hD0 hgate hdebit hthr
+
+set_option maxHeartbeats 1000000 in
+-- the arc-range floor's eight-binder instantiation is elaborated against the socket in one
+-- `exact`
+/-- **⟦THE CAP-FREE FLOOR AT THE LINEAR ANCHORS, RATED⟧**
+(`cofkL_capFreeFloor_at_socket_rated`) — QUEUE P2 item 6 residual (b), the rethread's last link.
+
+The drop-in sibling of `RegisterSupply.cofkL_capFreeFloor_at_socket`: same conclusion, same
+socket, **the same cushion `32·K_vt + 32·(2 log M + log 4 + 50) ≤ log H₊/4`**, and
+⭐ **NO `Qm` — every character of every modulus on the arc range is covered, because the rated
+band branch has no induction-max to cap.**  `Z` and `δ` are the `q`-free, `χ`-free existentials
+of `margin_band_threshold_rated`; `K_vt` is `capFreeFloor3_margin_all_chi_vt_rated`'s constant
+plus `max 0 (bandArcConst Z δ)`.
+
+⛔ **WHAT THIS DOES *NOT* CLAIM.**  `K_vt` is still one symbolic nonnegative real and the cushion
+is still a hypothesis; what has changed is the SHAPE of what stands behind it — a constant with a
+stated growth rate in `q`, evaluated nowhere.  The V7 chain's own rethread onto this sibling is a
+further step and is not taken here. -/
+theorem cofkL_capFreeFloor_at_socket_rated (K : ℕ) :
+    ∃ Z δ Kvt : ℝ, 1 ≤ Z ∧ 0 < δ ∧ 0 ≤ Kvt ∧
+      ∀ {R : ChowlaRegime} {M H L q j A s : ℕ} (χ : DirichletCharacter ℂ q),
+        SocketBaseL R M H L q j A s → 1 ≤ M →
+        (1 : ℝ) / 500 ≤ (R.eps : ℝ) →
+        (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+        32 * Kvt + 32 * (2 * Real.log (M : ℝ) + Real.log 4 + 50)
+          ≤ Real.log (R.Hhi : ℝ) / 4 →
+        ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset,
+          CapFreeFloor3 (pieceDatum χ 𝒥 (calP (AdoorL M) (s13GK K M))
+            (calQK (AdoorL M) (s13GK K M) M)) (((A + s : ℕ)) : ℝ) := by
+  obtain ⟨Z, δ, Kvt, hZ, hδ, hKvt, h⟩ := cofkL_capFreeFloor_at_socket_rated_uniform
+  exact ⟨Z, δ, Kvt, hZ, hδ, hKvt, @h K⟩
 
 end Salt.MR

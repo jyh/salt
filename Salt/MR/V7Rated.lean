@@ -58,90 +58,10 @@ noncomputable section
 
 namespace Salt.MR
 
-/-! ## §1 — N0: the `Kvt`-uniformity hoist at the rated socket -/
+/-! ## §1 — N0: the `Kvt`-uniformity hoist at the rated socket
 
-section SocketUniform
-
-open Finset Complex DirichletCharacter Salt.SW Salt.Entropy.Chowla
-
-set_option maxHeartbeats 1000000 in
--- same elaboration load as the landed socket: the arc-range floor's eight-binder
--- instantiation in one `exact`
-/-- **⟦THE RATED SOCKET, `K`-UNIFORM⟧** (`cofkL_capFreeFloor_at_socket_rated_uniform`).
-`BandRatedSocket.cofkL_capFreeFloor_at_socket_rated` with the `∃ Z δ Kvt` hoisted over the
-lever: ONE triple of witnesses serving every `K`.  The hoist is free because the landed
-socket's witnesses come from `capFreeFloor3_pieceDatum_arcDen_rated` applied to no arguments
-(`BandRatedSocket.lean:304`) — the `(K : ℕ)` binder is vacuous over the existentials.  Proof
-verbatim from the landed name with `intro K` moved after the `refine`. -/
-theorem cofkL_capFreeFloor_at_socket_rated_uniform :
-    ∃ Z δ Kvt : ℝ, 1 ≤ Z ∧ 0 < δ ∧ 0 ≤ Kvt ∧
-      ∀ (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} (χ : DirichletCharacter ℂ q),
-        SocketBaseL R M H L q j A s → 1 ≤ M →
-        (1 : ℝ) / 500 ≤ (R.eps : ℝ) →
-        (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) →
-        32 * Kvt + 32 * (2 * Real.log (M : ℝ) + Real.log 4 + 50)
-          ≤ Real.log (R.Hhi : ℝ) / 4 →
-        ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset,
-          CapFreeFloor3 (pieceDatum χ 𝒥 (calP (AdoorL M) (s13GK K M))
-            (calQK (AdoorL M) (s13GK K M) M)) (((A + s : ℕ)) : ℝ) := by
-  obtain ⟨Z, δ, Kvt, hZ, hδ, hK0, hK⟩ := capFreeFloor3_pieceDatum_arcDen_rated
-  refine ⟨Z, δ, Kvt, hZ, hδ, hK0, ?_⟩
-  intro K R M H L q j A s χ hb hM hε hlo hcush 𝒥 h𝒥
-  have hq0 : 0 < q := hb.2.2.2.1
-  haveI : NeZero q := ⟨by omega⟩
-  have h1 : R.Hlo ≤ H := hb.1
-  have h2 : H ≤ R.Hhi := hb.2.1
-  have harc : (q : ℝ) ≤ arcDen 12 H := hb.2.2.2.2.1
-  -- ⟦the design floor⟧
-  have hHlo4 : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
-  have hHloH : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast h1
-  have hHHhi : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
-  have hH4 : (4000000 : ℝ) ≤ (H : ℝ) := by linarith
-  have hlogH : (14 : ℝ) ≤ Real.log (H : ℝ) := cofk_log_big hH4
-  have hlogHe : Real.exp 1 ≤ Real.log (H : ℝ) := by
-    linarith [Real.exp_one_lt_d9]
-  -- ⟦`H₊ ≥ 10^14`⟧
-  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by linarith
-  have hlogHlo : (14 : ℝ) ≤ Real.log (R.Hlo : ℝ) := cofk_log_big hHlo4
-  have hexp : Real.exp (518 : ℝ) ≤ Real.log (R.Hlo : ℝ) := by
-    have h := Real.exp_le_exp.mpr hlo
-    rwa [Real.exp_log (by linarith)] at h
-  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := by
-    have h := cofk_exp_quartic (u := (518 : ℝ)) (by norm_num)
-    have hnum : (290029400 : ℝ) ≤ (1 + (518 : ℝ) / 4) ^ 4 := by norm_num
-    linarith
-  have hlogHlo8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hlo : ℝ) := by linarith
-  have hlogmono : Real.log (R.Hlo : ℝ) ≤ Real.log (H : ℝ) :=
-    Real.log_le_log (by linarith) hHloH
-  have hlogHhi : Real.log (H : ℝ) ≤ Real.log (R.Hhi : ℝ) :=
-    Real.log_le_log (by linarith) hHHhi
-  have hLH8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hhi : ℝ) := by linarith
-  have hHhi14 : (10 : ℝ) ^ 14 ≤ (R.Hhi : ℝ) := by
-    have hlogle : Real.log ((10 : ℝ) ^ 14) ≤ Real.log (R.Hhi : ℝ) := by
-      rw [show ((10 : ℝ) ^ 14) = (10 : ℝ) ^ (14 : ℕ) by norm_num, Real.log_pow]
-      push_cast
-      linarith [cofk_log_ten_le, hLH8]
-    have h2' := Real.exp_le_exp.mpr hlogle
-    rwa [Real.exp_log (by positivity), Real.exp_log hHhi0] at h2'
-  -- ⟦the scale gate, the debit page, the threshold⟧
-  have hXee : Real.exp (Real.exp 1) ≤ (((A + s : ℕ)) : ℝ) :=
-    cofkL_X_ge_expexp hb hε hHhi14 hH4
-  have hgate : 32 * diskConst q / goldenL1 q ≤ Real.log (((A + s : ℕ)) : ℝ) :=
-    cofkL_scale_gate_at_socket hb hε hlo harc
-  have hMpos : (0 : ℝ) < (M : ℝ) := by exact_mod_cast hM
-  have hM1 : (1 : ℝ) ≤ (M : ℝ) := by exact_mod_cast hM
-  have hD0 : (0 : ℝ) ≤ 2 * Real.log (M : ℝ) + Real.log 4 + 50 := by
-    have h1' : (0 : ℝ) ≤ Real.log (M : ℝ) := Real.log_nonneg hM1
-    have h2' : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
-    linarith
-  have hdebit := cofkL_debit_bound K M (((A + s : ℕ)) : ℝ) hM 𝒥 h𝒥
-  have hthr := cofkL_threshold_at_socket_rated (Kvt := Kvt)
-    (D := 2 * Real.log (M : ℝ) + Real.log 4 + 50) hb hε hlo hcush
-  exact hK q H χ (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) 𝒥
-    (((A + s : ℕ)) : ℝ) (2 * Real.log (M : ℝ) + Real.log 4 + 50)
-    hlogHe harc hXee hD0 hgate hdebit hthr
-
-end SocketUniform
+`cofkL_capFreeFloor_at_socket_rated_uniform` now lives in `BandRatedSocket`, directly above
+`cofkL_capFreeFloor_at_socket_rated` (its instance at one `K`). -/
 
 /-! ## §2 — N1: the eighth arm, and the cushion's discharge -/
 
