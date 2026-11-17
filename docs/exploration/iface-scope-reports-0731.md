@@ -295,7 +295,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 
 | field | Regime.lean | couples | where read (Salt/MR) | direction |
 |---|---|---|---|---|
-| `hPHheadroom` `8·(4^⌊ε²H₊⌋)²·ω ≤ x` | :116 | **H₊ ↔ x/ω** | `S13MSelect2.lean:112` (`s13_socketBase_xscale`), `:518`, `:634`; `S13FramesA.lean:1043`, `Salt/MR/S13FramesA.lean:1532`; `DoorDischarge.lean:113`; `DoorFloor1500.lean:160` | **x-FLOOR, exponential in H₊** |
+| `hPHheadroom` `8·(4^⌊ε²H₊⌋)²·ω ≤ x` | :116 | **H₊ ↔ x/ω** | `S13MSelect2.lean:112` (`s13_socketBase_xscale`), `:531`, `:647`; `S13FramesA.lean:1043`, `Salt/MR/S13FramesA.lean:1532`; `DoorDischarge.lean:113`; `DoorFloor1500.lean:160` | **x-FLOOR, exponential in H₊** |
 | `hheadroom` `Hhi ≤ x/ω` | :86 | H₊ ↔ x/ω | `S14Compose.lean:315` (inside the socket witness), `M4Close.lean:485/731/911/994`, `M4BridgeCover.lean:373`, `HloExportMR.lean:144/344/510/642`, `M4DoorL2.lean:160/623/697/855` | x-FLOOR, linear in H₊ |
 | `hheadroom'` `8H₊(log H₊)² ≤ x/ω` | :103 | H₊ ↔ x/ω | `Salt/MR/M4SecondRoad.lean:498` (`regime_eight_omega_Hhi_le_x`, the Salt/MR ladder's one consumer since O13-e row 184, 2026-11-15) | x-FLOOR, poly in H₊ |
 | `hHlo_floor` `4·10⁶ ≤ Hlo` | :80 | H₋ | ~81 sites (`S13CapFloor`, `S14Compose:112/235/353/514`, …) | H₋ floor |
