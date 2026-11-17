@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `a8371eac` · source digest `4b184b844bd4f838` (the same digest as items 1–3).
-> Receipt: files 1414 · decls 23437 · with_body 23437 · tactic_lines 304565 · runs 35762 · blocks 1275.
+> Base: last commit touching `Salt/` = `36c58fa0` · source digest `6dabc2706c23c036` (the same digest as items 1–3).
+> Receipt: files 1414 · decls 23437 · with_body 23437 · tactic_lines 304437 · runs 35746 · blocks 1273.
 
 ## LIMITS (read before any number below)
 
@@ -100,38 +100,38 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-304565 tactic lines. Top 30:
+304437 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 132904 | 43.6% |
-| 2 | `rw` | 49246 | 16.2% |
+| 1 | `have` | 132816 | 43.6% |
+| 2 | `rw` | 49234 | 16.2% |
 | 3 | `exact` | 17495 | 5.7% |
 | 4 | `intro` | 14089 | 4.6% |
 | 5 | `refine` | 12827 | 4.2% |
-| 6 | `linarith` | 10479 | 3.4% |
+| 6 | `linarith` | 10465 | 3.4% |
 | 7 | `obtain` | 9181 | 3.0% |
 | 8 | `calc` | 7833 | 2.6% |
 | 9 | `set` | 5486 | 1.8% |
 | 10 | `simp` | 5162 | 1.7% |
 | 11 | `apply` | 4546 | 1.5% |
-| 12 | `nlinarith` | 3359 | 1.1% |
+| 12 | `nlinarith` | 3349 | 1.1% |
 | 13 | `unfold` | 2628 | 0.9% |
 | 14 | `exact_mod_cast` | 2448 | 0.8% |
 | 15 | `rcases` | 2131 | 0.7% |
 | 16 | `ring` | 2067 | 0.7% |
-| 17 | `push_cast` | 1967 | 0.6% |
+| 17 | `push_cast` | 1965 | 0.6% |
 | 18 | `field_simp` | 1865 | 0.6% |
 | 19 | `by_cases` | 1639 | 0.5% |
-| 20 | `rwa` | 1603 | 0.5% |
-| 21 | `norm_num` | 1490 | 0.5% |
+| 20 | `rwa` | 1601 | 0.5% |
+| 21 | `norm_num` | 1496 | 0.5% |
 | 22 | `show` | 1270 | 0.4% |
 | 23 | `omega` | 1268 | 0.4% |
 | 24 | `classical` | 1247 | 0.4% |
 | 25 | `rintro` | 1150 | 0.4% |
 | 26 | `congr` | 932 | 0.3% |
 | 27 | `simpa` | 898 | 0.3% |
-| 28 | `positivity` | 800 | 0.3% |
+| 28 | `positivity` | 794 | 0.3% |
 | 29 | `constructor` | 656 | 0.2% |
 | 30 | `haveI` | 547 | 0.2% |
 
@@ -150,12 +150,12 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | Mertens / PNT-type | 3297 | `have` 1530, `rw` 557, `exact` 173, `linarith` 147, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
-| Matomaki-Radziwill / Halasz (short intervals) | 115988 | `have` 52730, `rw` 15974, `exact` 6719, `refine` 6591, `intro` 5763, `linarith` 5283, `obtain` 4989, `calc` 2212 |
+| Matomaki-Radziwill / Halasz (short intervals) | 115860 | `have` 52642, `rw` 15962, `exact` 6719, `refine` 6591, `intro` 5763, `linarith` 5269, `obtain` 4989, `calc` 2212 |
 | (no family) | 28822 | `have` 11183, `rw` 5141, `exact` 1746, `intro` 1562, `obtain` 972, `refine` 959, `set` 883, `calc` 866 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
-Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1275 candidates; top 25 by the UPPER-BOUND saving.
+Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1273 candidates; top 25 by the UPPER-BOUND saving.
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 
