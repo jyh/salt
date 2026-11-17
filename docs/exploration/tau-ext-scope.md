@@ -19,9 +19,9 @@ Traced at the bytes. `|ρ.im| ≤ 1` is consumed in the proof at exactly these s
 | site | what it feeds |
 |---|---|
 | `DHExtractRho.lean:59` (`norm_zeta_rho_le`) | `hZ ρ …` — `‖zetaHol ρ‖ ≤ Z₀` **at the point ρ** |
-| `DHExtractRho.lean:283` | `hZ ρ …`, only to extract `0 ≤ Z₀` |
-| `DHExtractRho.lean:412` | `norm_zeta_rho_le` again |
-| `DHExtractRho.lean:169` (`emrho_perterm`) | `zeta_partial_em`'s height slot — **which that lemma ignores** (`ZetaEM.lean:123`, binder `_him`) |
+| `DHExtractRho.lean:331` | `hZ ρ …`, only to extract `0 ≤ Z₀` |
+| `DHExtractRho.lean:412` (at a49070eb; the `_tall` twin's since O13-e row 214) | `norm_zeta_rho_le` again |
+| `DHExtractRho.lean:169` (`emrho_perterm`, at a49070eb; height-free twin since O13-e row 214) | `zeta_partial_em`'s height slot — **which that lemma ignores** (`ZetaEM.lean:123`, binder `_him`) |
 | `TBalR8.lean:1591` (`C2Rho_le`) | the crude `‖ρ‖ ≤ 2` |
 
 and nowhere else. Every `β₀`-side use of `hZ` is at a **real** point (`hZ (β₀ : ℂ)`,
