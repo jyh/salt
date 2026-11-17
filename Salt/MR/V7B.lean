@@ -103,8 +103,8 @@ open Complex Salt.SW Salt.Vk Metric intervalIntegral
 `∑' n, Λ(n)·n^{iu}·primeWindow P n` differs from `windowKernel P 1 u` by at most
 `C₁·P·e^{−(c_vk/2)·log P / D₃}·D₄ + C₂·P·log P / T + C₃·D₄·P / T²`, where
 `D₃ = (log (5T+1))^{3/4}·(log log (5T+1))^3` and `D₄` has the fourth power. Route:
-`per_pair_contour_of` at `shifted_edge_price_strip_bounded` — the rectangle from `σ₀ = 1 − (c_vk/2)/D₃` to
-`c = 1 + 1/log P` with `|Im| ≤ 3T`, zero-free by `shifted_edge_price_strip_bounded`'s margin
+`per_pair_contour_of` at `shifted_edge_price_strip_bounded` — the rectangle from
+`σ₀ = 1 − (c_vk/2)/D₃` to `c = 1 + 1/log P` with `|Im| ≤ 3T`, zero-free by that strip's margin
 (which carries the `1/10^9` floor), the pole residue, the four edges, and
 `sum_vonMangoldt_cline_bound` on the right edge. Consumed by
 `halaszPrimesChiGated_of_price_floored` (§2). -/
