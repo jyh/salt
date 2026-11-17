@@ -139,7 +139,7 @@ theorem flat_anchor_line_wide_g {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 425) :
   linarith
 
 /-- **⟦THE `𝒯`-LEG BUDGET AT `−425`⟧ (class A)** — `flat_gP1_line` (`S15SelLinearWide.lean:161`)
-with `hc : -417 ≤ c ↦ -425 ≤ c`.  BODY: `:131-148` verbatim (`hE17` … `rw [AdoorL_cast]; linarith`;
+with `hc : -417 ≤ c ↦ -425 ≤ c`.  BODY: `:138-155` verbatim (`hE17` … `rw [AdoorL_cast]; linarith`;
 `≈5.5·10³×`). -/
 theorem flat_gP1_line_g {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -425 ≤ c) (hCt : 0 < Ct)
     (hCtb : Ct ≤ 2 ^ 23) (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
@@ -162,10 +162,10 @@ theorem flat_lvl_line_g {A c Λ : ℝ} (hA : 26 ≤ A) (hc : c ≤ 425)
 /-- **⟦THE REGISTER AT THE FLAT DESIGN POINT, CHARGE-GENERIC, AT `425`⟧ (class B)** —
 `s15_sel''_L_witness_flat_charge` (`S15SelLinearWide.lean:247`) with `hρlog : -log ρ ≤ 417 ↦ ≤
 425`.  BODY: `S15SelLinearWide.lean:259-282` verbatim — `hbase := s15_sel''_L_witness_flat …` at
-the FROZEN dummy literals `δ₀ := 1/2^10`, `K := 1` (:231-233; that call reaches the narrow walls
+the FROZEN dummy literals `δ₀ := 1/2^10`, `K := 1` (:259-261; that call reaches the narrow walls
 `s15w_rho_ge`/`s15w_neglog_rho_le` at those literals, which β never moves — only the six `ρ`-free
 fields `hM`/`gRows`/`x0M`/`blk` (+ `mfloor`/`bfloor` supplied here) are read off it), `hinv`, and
-the `refine` package (:235-254) with the four `_g` lines (`flat_half_line_g`,
+the `refine` package (:263-282) with the four `_g` lines (`flat_half_line_g`,
 `flat_anchor_line_wide_g`, `flat_gP1_line_g`, `flat_lvl_line_g`) at `half`/`anchor`/`gP1`/`lvl`;
 the `rho` field (`−log ρ ≤ 10^14`) closes by `linarith [hρlog]` as landed. -/
 theorem s15_sel''_L_witness_flat_charge_g {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct ρ : ℝ}
@@ -207,7 +207,7 @@ theorem s15_sel''_L_witness_flat_charge_g {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct
 /-- **⟦THE WIDE ACCEPTANCE AT THE GRADED PIN⟧ (class A)** — `s15_sel''_L_witness_flat_wide`
 (`S15SelLinearWide.lean:291`) with `hδb : 1/(2^20·c²) ≤ δ₀ ↦ 1/(2^31·c²) ≤ δ₀`.  BODY:
 `s15_sel''_L_witness_flat_charge_g hA hc1 hcb (s16_audit_neglog_rho_le_425_h hc1 hh7c hδ hK hδb
-hKb) hCt hCtb hbfl hMfl hx0win heps hlo hhi` (the landed `:277-279` with the two `_g` names). -/
+hKb) hCt hCtb hbfl hMfl hx0win heps hlo hhi` (the landed `:305-307` with the two `_g` names). -/
 theorem s15_sel''_L_witness_flat_wide_g {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K : ℝ}
     {x₀ Mfl c : ℕ} {R : ChowlaRegime}
     (hc1 : 1 ≤ c) (hcb : c ≤ 1096) (hh7c : Real.log (c : ℝ) ≤ 7)
