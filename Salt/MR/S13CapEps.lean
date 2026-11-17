@@ -98,12 +98,14 @@ theorem capeps_sq_le_exp {y : ℝ} (hy : 0 ≤ y) : y ^ 2 / 4 ≤ Real.exp y := 
   rw [hsq]
   nlinarith [hhalf, hy]
 
-/-- **⟦THE MASTER STONE⟧** (`capeps_master`) — at the socket's x-scale floor
-(`u = log H ≥ 10²¹`, `Λ = loglog X_d ≥ u/2`) any charge `t ≤ 50` plus the modulus ledger's
-`12·log u` plus `log Λ` is swallowed by `(14/10000)·Λ`, the `εr`-window's own coefficient
-(`s13_theta293_margin_lo`).  Certified margin at the floor: `~10¹⁵×`. -/
-theorem capeps_master {u Λ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hΛ : u / 2 ≤ Λ)
-    (ht : t ≤ 50) : t + 12 * Real.log u + Real.log Λ ≤ 14 / 10000 * Λ := by
+/-- ⟦SIBLING of `capeps_master_60` (`S13CapGateLinearLH` §1), ceiling `60 → 63`⟧ — the `εr`-budget
+master line at the raised shift cap.  BODY: `capeps_master_60`'s, verbatim; `ht` enters only the
+closing `nlinarith`, linearly, against `(14/10000)·Λ ≥ 7·10¹⁷`.  ⭐ **The certificate travels
+unchanged, and that is the finding**: if it had not, the ceiling would have been a barrier after
+all.  (Moved here from `S13CapGateLinearLH` §4 on 2026-11-17, so that `capeps_master` below is
+its `t ≤ 50` instance.) -/
+theorem capeps_master_63 {u Λ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hΛ : u / 2 ≤ Λ)
+    (ht : t ≤ 63) : t + 12 * Real.log u + Real.log Λ ≤ 14 / 10000 * Λ := by
   have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
   have hu0 : (0 : ℝ) < u := by linarith
   have hΛ0 : (0 : ℝ) < Λ := by linarith
@@ -127,6 +129,14 @@ theorem capeps_master {u Λ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hΛ :
   have hs10 : (2 : ℝ) * 10 ^ (10 : ℕ) ≤ Real.sqrt Λ := by
     nlinarith [hsu, hLbig, hsq0]
   nlinarith [hsqrt, hsu, hs10, hsq0, hlogu, ht]
+
+/-- **⟦THE MASTER STONE⟧** (`capeps_master`) — at the socket's x-scale floor
+(`u = log H ≥ 10²¹`, `Λ = loglog X_d ≥ u/2`) any charge `t ≤ 50` plus the modulus ledger's
+`12·log u` plus `log Λ` is swallowed by `(14/10000)·Λ`, the `εr`-window's own coefficient
+(`s13_theta293_margin_lo`).  Certified margin at the floor: `~10¹⁵×`. -/
+theorem capeps_master {u Λ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hΛ : u / 2 ≤ Λ)
+    (ht : t ≤ 50) : t + 12 * Real.log u + Real.log Λ ≤ 14 / 10000 * Λ := by
+  exact capeps_master_63 hu hΛ (by linarith)
 
 /-! ## §2 — the three exponential stones -/
 

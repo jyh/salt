@@ -339,10 +339,13 @@ theorem capfloor_floor2 {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
   rw [hsplit] at hmono
   linarith
 
-/-- The `Kq`-arm numeric core: `E·W ≤ E^3·(v/4)^4` at `W ≤ 12·log v + E + 1`, `E ≥ 101`,
-`v ≥ 10^{21}`. -/
-theorem capfloor_floor3_numeric {v E W : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) (hE : 101 ≤ E)
-    (hW : W ≤ 12 * Real.log v + E + 1) :
+/-- ⟦SIBLING of `capfloor_floor3_numeric_h` (`S13CapGateLinearLH` §1), slack `+8 → +10`⟧ (the former
+`capfloor_floor3_numeric_h`, at `+8`, retired into this, 2026-09-30) — `floor3`'s numeric leg,
+absorbing `log q ≤ log h + 12·loglog H` at `log h ≤ 9`.  BODY: `capfloor_floor3_numeric`'s (below),
+with `+10`.  Moved here from `S13CapGateLinearLH` on 2026-11-17, so that `capfloor_floor3_numeric`
+is its `+ 1` instance. -/
+theorem capfloor_floor3_numeric_h_10 {v E W : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) (hE : 101 ≤ E)
+    (hW : W ≤ 12 * Real.log v + E + 10) :
     E * W ≤ E ^ (3 : ℕ) * (v / 4) ^ (4 : ℕ) := by
   have hlv := capfloor_logv_le hv
   have h21 : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
@@ -350,11 +353,10 @@ theorem capfloor_floor3_numeric {v E W : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ 
   have hE0 : (0 : ℝ) < E := by linarith
   have hvbig : (1000000000000000000000 : ℝ) ≤ v := le_trans (by norm_num) hv
   have hlv' : Real.log v ≤ v / 10000000000 := le_trans hlv (by norm_num)
-  -- `W ≤ 12·(v/10^10) + E + 1 ≤ v + E + 1`
-  have hWv : W ≤ v + E + 1 := by linarith
+  have hWv : W ≤ v + E + 10 := by linarith
   have hvq : (v / 4) ^ (4 : ℕ) = v ^ (4 : ℕ) / 256 := by ring
   rw [hvq]
-  have h1 : v + E + 1 ≤ v * E := by nlinarith [hvbig, hE]
+  have h1 : v + E + 10 ≤ v * E := by nlinarith [hvbig, hE]
   have hxx : (65536 : ℝ) ≤ v * v := by nlinarith [hvbig]
   have hv3 : (256 : ℝ) ≤ v ^ (3 : ℕ) := by
     have hid : v ^ (3 : ℕ) = v * (v * v) := by ring
@@ -365,9 +367,16 @@ theorem capfloor_floor3_numeric {v E W : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ 
     calc E * (v * E) = (E * (v * E)) * 1 := by ring
       _ ≤ (E * (v * E)) * (E * v ^ (3 : ℕ) / 256) := mul_le_mul_of_nonneg_left hfac hpos
       _ = E ^ (3 : ℕ) * (v ^ (4 : ℕ) / 256) := by ring
-  have hA : E * W ≤ E * (v + E + 1) := mul_le_mul_of_nonneg_left hWv hE0.le
-  have hB : E * (v + E + 1) ≤ E * (v * E) := mul_le_mul_of_nonneg_left h1 hE0.le
+  have hA : E * W ≤ E * (v + E + 10) := mul_le_mul_of_nonneg_left hWv hE0.le
+  have hB : E * (v + E + 10) ≤ E * (v * E) := mul_le_mul_of_nonneg_left h1 hE0.le
   linarith
+
+/-- The `Kq`-arm numeric core: `E·W ≤ E^3·(v/4)^4` at `W ≤ 12·log v + E + 1`, `E ≥ 101`,
+`v ≥ 10^{21}`. -/
+theorem capfloor_floor3_numeric {v E W : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) (hE : 101 ≤ E)
+    (hW : W ≤ 12 * Real.log v + E + 1) :
+    E * W ≤ E ^ (3 : ℕ) * (v / 4) ^ (4 : ℕ) := by
+  exact capfloor_floor3_numeric_h_10 hv hE (by linarith)
 
 /-- `e^{3v/16} ≤ μ^{3/4}` and `(v/4)^4 ≤ Λ^4` — the two RHS legs floors 3 and 4 share. -/
 theorem capfloor_rhs_legs {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
