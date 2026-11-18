@@ -7074,7 +7074,7 @@ It is not a pricing-mechanism choice but a genuine gap in the landed corpus.
 THE TWO SIDES (verbatim shapes). CONSUMER — `hBVblocksW_discharge'` (PDiag.lean:691) requires
 its `hprice` for every box in `dyadicBoundary (pieceN k) (pieceM k) (x/2+1) x (z·y) K`
 (N = pieceN k = 2^k − 1). SUPPLIER — every landed box-price terminal
-(`box_hprice_at_2pow`/`sym_`/`low_box_hprice_at_2pow`, PriceThree.lean:228/313/393; underlying
+(`box_hprice_at_2pow`/`sym_`/`low_box_hprice_at_2pow`, PriceThree.lean:306/377/457; underlying
 `medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:508, PriceTwo.lean:363/232;
 `medium_survivor_price(_sqrtD)`, MediumFloor.lean:507/SqrtDFold.lean:956) provides a bound
 ONLY for `i ∈ dyadicBoundary (2^k) (pieceM k) (x/2+1) x F Krange` (N = 2^k, forced by the

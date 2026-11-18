@@ -103,7 +103,7 @@ theorem kfloor_of_live_box {x z y k i K : ℕ} (hx : (1 : ℝ) ≤ (x : ℝ))
 /-! ## F1.2 — `box_hprice_at_2pow_lo` (the priced-branch supplier at the 7/16 floor)
 
 `kfloor_of_live_box` supplies the `x^{7/16}/8 ≤ 2^k` floor for every LIVE boundary box, but the
-landed `box_hprice_at_2pow` (PriceThree:228) demands the STRONGER `x^{11/24}/8 ≤ 2^k` floor
+landed `box_hprice_at_2pow` (PriceThree:306) demands the STRONGER `x^{11/24}/8 ≤ 2^k` floor
 (via `medium_box_price_at_op`).  The Finding-3 strip `2^k ∈ [x^{7/16}/8, x^{11/24}/8)` carries
 LIVE non-cancelling boxes, so the priced branch of the dichotomy must instead call the strip
 terminal `medium_box_price_at_op_lo` (PriceTwo:320), whose conclusion is CHARACTER-FOR-CHARACTER
