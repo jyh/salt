@@ -60,7 +60,8 @@ those import `Mathlib` only; `grep -rn "^import Salt.SW" Salt/Brun/` is EMPTY, s
   `sum_abs_grahamGc_le` (`Σ_m |gc(m)| ≤ (z/log z)²`), the `z²` error.
 * **S9** `grahamW_sum_le` — THE KEYSTONE'S EASY HALF.
 * **S10** `sum_sq_sum_bvWeight_le` — the same for Jutila's two-level weight, by
-  `(u − v)² ≤ 2u² + 2v²` and S9 at both levels.
+  `(u − v)² ≤ 2u² + 2v²` and S9 at both levels.  (Since 2026-11-18 it lives in
+  `GrahamHard3`, as the `z₂² ≤ x` instance of `sum_sq_sum_bvWeight_le_full`.)
 
 **F6**: no NET `log` in any numerator — the `log(z+1)` inside S5's atom is divided by the
 route's `log z` before it leaves the proof.
@@ -567,71 +568,5 @@ example : ∃ C : ℝ,
   exact ⟨C, h 4 (by norm_num) 16 (by norm_num)⟩
 
 /-! ## S10 — the two-level weight -/
-
-/-- **S10.** The same mean bound for Jutila's two-level weight `λ_d = bvWeight z₁ z₂ d`:
-`Σ_{n ≤ ⌊x⌋} (Σ_{d ∣ n} λ_d)² ≤ 2(log z₁ + log z₂)/log(z₂/z₁)²·(C·x)` for `x ≥ z₂²`.
-
-`λ_d = (log z₂·θ^{(z₂)}_d − log z₁·θ^{(z₁)}_d)/log(z₂/z₁)` (`BvWeight.lean:78`), so
-`(Σ_{d∣n} λ_d)² ≤ (2·log²z₂·w_{z₂}(n) + 2·log²z₁·w_{z₁}(n))/log(z₂/z₁)²` by
-`(u − v)² ≤ 2u² + 2v²`; S9 at `z₂` (hypothesis `z₂² ≤ x`) and at `z₁` (`z₁² < z₂² ≤ x`)
-then gives `(2·log z₂·C·x + 2·log z₁·C·x)/log(z₂/z₁)²`, which IS the frozen prefactor —
-the arithmetic is exact, with no slack introduced or lost.
-
-⚠ **`(z₂:ℝ)² ≤ x` is unsatisfiable at B2's ratified closure table** — see the module
-docstring. This row is true, it lands, and B2 reads it at no scale until W6b-H lands. -/
-theorem sum_sq_sum_bvWeight_le : ∃ C : ℝ, 0 < C ∧ ∀ z₁ z₂ : ℕ, 2 ≤ z₁ → z₁ < z₂ →
-    ∀ x : ℝ, (z₂ : ℝ) ^ 2 ≤ x →
-    ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, (∑ d ∈ n.divisors, bvWeight z₁ z₂ d) ^ 2
-      ≤ 2 * (Real.log z₁ + Real.log z₂) / Real.log ((z₂ : ℝ) / z₁) ^ 2 * (C * x) := by
-  obtain ⟨C, hC, hS9⟩ := grahamW_sum_le
-  refine ⟨C, hC, fun z₁ z₂ hz₁ hz x hx => ?_⟩
-  have hz₂ : 2 ≤ z₂ := by omega
-  have hz₁R : (1 : ℝ) < (z₁ : ℝ) := by exact_mod_cast (by omega : 1 < z₁)
-  have hz₂R : (1 : ℝ) < (z₂ : ℝ) := by exact_mod_cast (by omega : 1 < z₂)
-  have hl₁ : 0 < Real.log (z₁ : ℝ) := Real.log_pos hz₁R
-  have hl₂ : 0 < Real.log (z₂ : ℝ) := Real.log_pos hz₂R
-  have hL : 0 < Real.log ((z₂ : ℝ) / (z₁ : ℝ)) := by
-    refine Real.log_pos ?_
-    rw [lt_div_iff₀ (by linarith), one_mul]
-    exact_mod_cast hz
-  have hx1 : (z₁ : ℝ) ^ 2 ≤ x := by
-    refine le_trans ?_ hx
-    have : (z₁ : ℝ) ≤ (z₂ : ℝ) := by exact_mod_cast hz.le
-    nlinarith only [this, (Nat.cast_nonneg _ : 0 ≤ ↑z₂), (Nat.cast_nonneg _ : 0 ≤ ↑z₁)]
-  have hA : ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, grahamW z₂ n ≤ C * x / Real.log (z₂ : ℝ) :=
-    hS9 z₂ hz₂ x hx
-  have hB : ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, grahamW z₁ n ≤ C * x / Real.log (z₁ : ℝ) :=
-    hS9 z₁ hz₁ x hx1
-  have hsum : ∀ n : ℕ, (∑ d ∈ n.divisors, bvWeight z₁ z₂ d)
-      = (Real.log (z₂ : ℝ) * (∑ d ∈ n.divisors, grahamTheta z₂ d)
-        - Real.log (z₁ : ℝ) * (∑ d ∈ n.divisors, grahamTheta z₁ d))
-        / Real.log ((z₂ : ℝ) / (z₁ : ℝ)) := by
-    intro n
-    rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_sub_distrib, Finset.sum_div]
-    exact Finset.sum_congr rfl (fun d _ => rfl)
-  have hterm : ∀ n : ℕ, (∑ d ∈ n.divisors, bvWeight z₁ z₂ d) ^ 2
-      ≤ (2 * Real.log (z₂ : ℝ) ^ 2 * grahamW z₂ n + 2 * Real.log (z₁ : ℝ) ^ 2 * grahamW z₁ n)
-        / Real.log ((z₂ : ℝ) / (z₁ : ℝ)) ^ 2 := by
-    intro n
-    rw [hsum n, div_pow, grahamW, grahamW]
-    gcongr
-    nlinarith [sq_nonneg (Real.log (z₂ : ℝ) * (∑ d ∈ n.divisors, grahamTheta z₂ d)
-      + Real.log (z₁ : ℝ) * (∑ d ∈ n.divisors, grahamTheta z₁ d))]
-  calc ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, (∑ d ∈ n.divisors, bvWeight z₁ z₂ d) ^ 2
-      ≤ ∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
-          (2 * Real.log (z₂ : ℝ) ^ 2 * grahamW z₂ n + 2 * Real.log (z₁ : ℝ) ^ 2 * grahamW z₁ n)
-            / Real.log ((z₂ : ℝ) / (z₁ : ℝ)) ^ 2 := Finset.sum_le_sum (fun n _ => hterm n)
-    _ = (2 * Real.log (z₂ : ℝ) ^ 2 * (∑ n ∈ Finset.Icc 1 ⌊x⌋₊, grahamW z₂ n)
-          + 2 * Real.log (z₁ : ℝ) ^ 2 * (∑ n ∈ Finset.Icc 1 ⌊x⌋₊, grahamW z₁ n))
-          / Real.log ((z₂ : ℝ) / (z₁ : ℝ)) ^ 2 := by
-        rw [← Finset.sum_div, Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum]
-    _ ≤ (2 * Real.log (z₂ : ℝ) ^ 2 * (C * x / Real.log (z₂ : ℝ))
-          + 2 * Real.log (z₁ : ℝ) ^ 2 * (C * x / Real.log (z₁ : ℝ)))
-          / Real.log ((z₂ : ℝ) / (z₁ : ℝ)) ^ 2 := by
-        gcongr
-    _ = 2 * (Real.log (z₁ : ℝ) + Real.log (z₂ : ℝ)) / Real.log ((z₂ : ℝ) / (z₁ : ℝ)) ^ 2
-          * (C * x) := by
-        field_simp
-        ring
 
 end Salt.SW
