@@ -47,8 +47,8 @@ verbatim).
   `hInt` bundle is discharged with NO minimality hypothesis at all
   (`jointIntegrableAt_pin_free`).  This closes the last carried socket of ⟦V3b⟧ without
   touching the on-ℝ (vacuous) minimality.
-* §2 — the uniform-`X₀` re-derivation of the crown (`ball_sup_closed_star_uniform`), on
-  `CenterSupply.ball_sup_supplied_uniform`.
+* §2 — the uniform-`X₀` crown `ball_sup_closed_star_uniform` now lives in `FarStar` (FS-5c′),
+  beside its instance `ball_sup_closed_star` (O13-e row 252).
 * §3 — **AS-1 `seam_ball_leg_station`**: the composed exit.  The centre is produced per-`X`;
   `hmin`, `hgate`, `hne`, `hInt`, `hk64` and the Chebyshev datum `Cb` are all discharged
   internally; the empty and nonempty arms deliver the SAME binder at the SAME `S`
@@ -137,56 +137,7 @@ theorem jointIntegrableAt_pin_free {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
   refine jointIntegrableAt_of_zero M (jointIntegrableAt_pin hg hk64 (fun t => ?_))
   exact pretDistSq_nonneg _ _ _ (fun n => ellLin_norm_le_one _ hgtw n)
     (fun n => le_of_eq (costwist_norm _ n))
-/-! ## §2 — the uniform-`X₀` re-derivation
-
-The statement only is new: the proof below is `FarStar`'s own, replayed with the `∃ X₀`
-hoisted over the centre `t₁`, on `CenterSupply.ball_sup_supplied_uniform`.
--/
-
-set_option maxHeartbeats 800000 in
--- As at `FarStar.ball_sup_closed_star`: the crown's binder block is instantiated wholesale.
-/-- **THE CROWN AT `T*`, UNIFORM IN THE CENTRE (`ball_sup_closed_star_uniform`).**
-`FarStar.ball_sup_closed_star` with `∃ X₀` hoisted over `t₁`.  Its proof consumes
-`ball_sup_supplied` (now hoisted) and `FarStar.hRHS_socket_star`, which carries no threshold
-of its own; the carried hypothesis list is unchanged, item for item. -/
-theorem ball_sup_closed_star_uniform {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
-    (t₀ : ℝ) :
-    ∃ X₀ : ℝ, 0 < X₀ ∧
-      ∀ (t₁ X : ℝ) (N : ℕ) (Tb Cb Tann : ℝ) (a : ℕ → ℂ),
-        X₀ ≤ X → Real.exp 1 ≤ X → X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X →
-        0 ≤ Cb → ShortIntervalDatum Cb →
-        (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
-        (∀ n : ℕ, X < (n : ℝ) → a n = seamCoeff (ellLin g) (fun _ => 1) t₀ n) →
-        (∀ v : ℝ, |v| ≤ seamGateRstar X Tann →
-          pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X
-            ≤ pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist v) X) →
-        (∀ x : ℝ, X ≤ x → x ≤ 2 * X →
-          pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) x
-            ≤ (1 / 16) * Real.log (Real.log X)) →
-        (∀ k : ℕ, ⌊X⌋₊ ≤ k → k ≤ N → Real.exp 64 ≤ (k : ℝ)) →
-        (seamAnn X Tann ∩ seamBall X t₁).Nonempty →
-        (∀ k : ℕ, ⌊X⌋₊ ≤ k → k ≤ N →
-          JointIntegrableAt (fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) (t₀ + t₁)
-            (pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X) (k : ℝ)
-            (Real.log (k : ℝ)) (1 + 1 / Real.log (k : ℝ)) (Real.log (k : ℝ) ^ 4)
-            (1 / Real.log (Real.log (k : ℝ) ^ 4))
-            ((k : ℝ) / Real.sqrt (Real.log (k : ℝ)))) →
-      ∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ Tb → |t - t₁| ≤ seamRad X →
-        ∀ m : ℕ, m ≤ N →
-          ‖spolyA a t m‖
-            ≤ ballSupS X ((gradeAbsConst Cb + farCStar)
-                  * Real.exp (-(1 / (2 * Real.exp 1))
-                      * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X)
-                + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) * m / (1 + |t - t₁|) := by
-  obtain ⟨X₀, hX₀0, H⟩ := ball_sup_supplied_uniform hg t₀
-  refine ⟨X₀, hX₀0, ?_⟩
-  intro t₁ X N Tb Cb Tann a hXlb hXe hXN hN2 hCb0 hCbound hsupp hDatum hmin hMcapX hk64 hne
-    hInt
-  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
-  exact H t₁ X N Tb (gradeAbsConst Cb + farCStar) a hXlb hXN hN2
-    (by have := gradeAbsConst_nonneg hCb0; have := farCStar_nonneg; linarith) hsupp hDatum
-    (hRHS_socket_star hg hCb0 hCbound hXe hN2 hmin (hMcapX X le_rfl (by linarith)) hk64 hne
-      hInt) hMcapX
+-- §2 (`ball_sup_closed_star_uniform`) now lives in `FarStar`, beside its instance (O13-e row 252).
 
 /-! ## §3 — AS-1: THE STATION
 

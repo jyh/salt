@@ -214,48 +214,6 @@ theorem s15_a2Level1_exp {M : ℕ} (hM : 1 ≤ M) :
     s13_band_log_calP_one M, ← Real.exp_sub]
   ring_nf
 
-/-- **⟦THE `p²` SLOT AT `constPool`, MET⟧** — one linear budget line, `X_d`-free on BOTH sides:
-`27 + 14·loglog H₊ ≤ Adoor M·log 2 + log ρ`. -/
-theorem s15_p2_of_budget {M Hhi : ℕ} {ρ : ℝ} (hM : 1 ≤ M) (hρ : 0 < ρ)
-    (hbudget : 27 + 14 * Real.log (Real.log (Hhi : ℝ))
-      ≤ ((Adoor M : ℕ) : ℝ) * Real.log 2 + Real.log ρ) :
-    138240 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
-        + 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ))
-      ≤ 1 / 4 * constPool ρ (Hhi) := by
-  have hP1pos : (0 : ℝ) < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
-    have h : 0 < calP (Adoor M) (3072 * M) 1 := by rw [calP]; exact Nat.two_pow_pos _
-    exact_mod_cast h
-  have hP2pos : (0 : ℝ) < ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ) := by
-    have h : 0 < calP (Adoor M) (3072 * M) 2 := by rw [calP]; exact Nat.two_pow_pos _
-    exact_mod_cast h
-  have hP12 : ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
-      ≤ ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ) := by
-    exact_mod_cast s15_calP_one_le_two hM
-  have hinv : 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ)
-      ≤ 1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) :=
-    one_div_le_one_div_of_le hP1pos hP12
-  set E : ℝ := Real.exp (14 * Real.log (Real.log (Hhi : ℝ))) with hE
-  have hEpos : (0 : ℝ) < E := Real.exp_pos _
-  have hpool : (1 : ℝ) / 4 * constPool ρ Hhi = ρ / (1505064 * E) := by
-    rw [constPool_def, hE]; field_simp; ring
-  have hkey : 416120094720 * E ≤ ρ * ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
-    have hmul : ρ * ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
-        = Real.exp (Real.log ρ + Real.log ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) := by
-      rw [Real.exp_add, Real.exp_log hρ, Real.exp_log hP1pos]
-    calc 416120094720 * E ≤ Real.exp 27 * E := by nlinarith [s15_exp27, hEpos]
-      _ = Real.exp (27 + 14 * Real.log (Real.log (Hhi : ℝ))) := by rw [hE, ← Real.exp_add]
-      _ ≤ Real.exp (Real.log ρ + Real.log ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) := by
-          refine Real.exp_le_exp.mpr ?_
-          rw [s13_band_log_calP_one M]; linarith
-      _ = ρ * ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := hmul.symm
-  have hhalf : 276480 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
-      ≤ 1 / 4 * constPool ρ Hhi := by
-    rw [hpool, show (276480 : ℝ) * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
-        = 276480 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) by ring,
-      div_le_div_iff₀ hP1pos (by positivity)]
-    nlinarith [hkey]
-  nlinarith [hinv, hhalf, hP1pos]
-
 /-- **⟦THE `level1` SLOT AT `constPool`, MET⟧** — budget form. -/
 theorem s15_level1_of_budget {M Hhi : ℕ} {ρ : ℝ} (hM : 1 ≤ M) (hρ : 0 < ρ)
     (hbudget : 26 + 14 * Real.log (Real.log (Hhi : ℝ))
@@ -286,28 +244,31 @@ theorem s15_level1_of_budget {M Hhi : ℕ} {ρ : ℝ} (hM : 1 ≤ M) (hρ : 0 < 
     _ ≤ Real.exp (Real.log ρ) := Real.exp_le_exp.mpr (by linarith)
     _ = ρ := hρexp.symm
 
-/-- **⟦THE `𝒯`-LEG GATE AT `constPool`, MET⟧** — `X_d`-free budget line
-`29 + log Cs + 14·loglog H₊ ≤ Adoor M·log 2 + log ρ`. -/
-theorem s15_gP1_of_budget {M Hhi : ℕ} {Cs ρ : ℝ} (hCs : 0 < Cs) (hρ : 0 < ρ)
+/-- `log 𝒫₁ = A·log 2` at an arbitrary anchor (`s13_band_log_calP_one`, anchor-generic). -/
+theorem log_calP_one_gen (A G : ℕ) :
+    Real.log ((calP A G 1 : ℕ) : ℝ) = (A : ℝ) * Real.log 2 := by
+  rw [calP, calE_one]
+  push_cast
+  rw [Real.log_pow]
+
+/-- **⟦THE `𝒯`-LEG GATE AT `constPool`, ANCHOR-GENERIC⟧** (`s15_gP1_of_budget` at a symbolic
+anchor).  Instantiating at `A := AdoorL M`, `G := 3072M` gives the linear door's `gP1`. -/
+theorem s15_gP1_of_budget_gen {A G Hhi : ℕ} {Cs ρ : ℝ} (hCs : 0 < Cs) (hρ : 0 < ρ)
     (hbudget : 29 + Real.log Cs + 14 * Real.log (Real.log (Hhi : ℝ))
-      ≤ ((Adoor M : ℕ) : ℝ) * Real.log 2 + Real.log ρ) :
-    374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
-      ≤ constPool ρ Hhi := by
-  have hP1pos : (0 : ℝ) < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
-    have h : 0 < calP (Adoor M) (3072 * M) 1 := by rw [calP]; exact Nat.two_pow_pos _
+      ≤ (A : ℝ) * Real.log 2 + Real.log ρ) :
+    374784 * Cs * Real.exp 3 * (1 / ((calP A G 1 : ℕ) : ℝ)) ≤ constPool ρ Hhi := by
+  have hP1pos : (0 : ℝ) < ((calP A G 1 : ℕ) : ℝ) := by
+    have h : 0 < calP A G 1 := by rw [calP]; exact Nat.two_pow_pos _
     exact_mod_cast h
   set L : ℝ := Real.log (Real.log (Hhi : ℝ)) with hL
   set E : ℝ := Real.exp (14 * L) with hE
   have hEpos : (0 : ℝ) < E := Real.exp_pos _
-  have hpool : constPool ρ Hhi = ρ / (376266 * E) := by
-    rw [constPool_def, hE, hL]
-  rw [hpool, show (374784 : ℝ) * Cs * Real.exp 3
-      * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
-      = (374784 * Cs * Real.exp 3) / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) by ring,
+  have hpool : constPool ρ Hhi = ρ / (376266 * E) := by rw [constPool_def, hE, hL]
+  rw [hpool, show (374784 : ℝ) * Cs * Real.exp 3 * (1 / ((calP A G 1 : ℕ) : ℝ))
+      = (374784 * Cs * Real.exp 3) / ((calP A G 1 : ℕ) : ℝ) by ring,
     div_le_div_iff₀ hP1pos (by positivity)]
-  have hP1exp : ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
-      = Real.exp (((Adoor M : ℕ) : ℝ) * Real.log 2) := by
-    rw [← s13_band_log_calP_one M, Real.exp_log hP1pos]
+  have hP1exp : ((calP A G 1 : ℕ) : ℝ) = Real.exp ((A : ℝ) * Real.log 2) := by
+    rw [← log_calP_one_gen A G, Real.exp_log hP1pos]
   have hρexp : ρ = Real.exp (Real.log ρ) := (Real.exp_log hρ).symm
   have hprod : Real.exp (29 + Real.log Cs + 14 * L) = Real.exp 26 * Real.exp 3 * Cs * E := by
     rw [hE, show (29 : ℝ) + Real.log Cs + 14 * L = 26 + (3 + (Real.log Cs + 14 * L)) by ring,
@@ -320,10 +281,19 @@ theorem s15_gP1_of_budget {M Hhi : ℕ} {Cs ρ : ℝ} (hCs : 0 < Cs) (hρ : 0 < 
         have hp : (0 : ℝ) < Real.exp 3 * Cs * E := by positivity
         nlinarith
     _ = Real.exp (29 + Real.log Cs + 14 * L) := hprod.symm
-    _ ≤ Real.exp (Real.log ρ + ((Adoor M : ℕ) : ℝ) * Real.log 2) :=
-        Real.exp_le_exp.mpr (by linarith)
-    _ = ρ * ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
-        rw [Real.exp_add, hP1exp, ← hρexp]
+    _ ≤ Real.exp (Real.log ρ + (A : ℝ) * Real.log 2) := Real.exp_le_exp.mpr (by linarith)
+    _ = ρ * ((calP A G 1 : ℕ) : ℝ) := by rw [Real.exp_add, hP1exp, ← hρexp]
+
+/-- **⟦THE `𝒯`-LEG GATE AT `constPool`, MET⟧** — `X_d`-free budget line
+`29 + log Cs + 14·loglog H₊ ≤ Adoor M·log 2 + log ρ`.
+
+Proof: the instance at `A := Adoor M`, `G := 3072 * M` of `s15_gP1_of_budget_gen` (above). -/
+theorem s15_gP1_of_budget {M Hhi : ℕ} {Cs ρ : ℝ} (hCs : 0 < Cs) (hρ : 0 < ρ)
+    (hbudget : 29 + Real.log Cs + 14 * Real.log (Real.log (Hhi : ℝ))
+      ≤ ((Adoor M : ℕ) : ℝ) * Real.log 2 + Real.log ρ) :
+    374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
+      ≤ constPool ρ Hhi := by
+  exact s15_gP1_of_budget_gen (A := Adoor M) (G := 3072 * M) hCs hρ hbudget
 
 /-- **⟦`dens` IS FREE AT `Cp = 0`⟧**. -/
 theorem s15_dens_at_zero {M Hhi : ℕ} {ρ : ℝ} (hρ : 0 ≤ ρ) :
@@ -331,6 +301,53 @@ theorem s15_dens_at_zero {M Hhi : ℕ} {ρ : ℝ} (hρ : 0 ≤ ρ) :
   have := constPool_nonneg (ρ := ρ) (Hhi := Hhi) hρ
   simp only [mul_zero, zero_mul]
   linarith
+
+/-- **⟦THE `p²` SLOT AT `constPool`, ANCHOR-GENERIC⟧** (`s15_p2_of_budget` at a symbolic
+anchor).  The one extra demand is `𝒫₁ ≤ 𝒫₂`, i.e. `e₁ ≤ e₂` at the family in hand. -/
+theorem s15_p2_of_budget_gen {A G Hhi : ℕ} {ρ : ℝ} (hρ : 0 < ρ)
+    (hP12 : calP A G 1 ≤ calP A G 2)
+    (hbudget : 27 + 14 * Real.log (Real.log (Hhi : ℝ)) ≤ (A : ℝ) * Real.log 2 + Real.log ρ) :
+    138240 * (1 / ((calP A G 1 : ℕ) : ℝ) + 1 / ((calP A G 2 : ℕ) : ℝ))
+      ≤ 1 / 4 * constPool ρ Hhi := by
+  have hP1pos : (0 : ℝ) < ((calP A G 1 : ℕ) : ℝ) := by
+    have h : 0 < calP A G 1 := by rw [calP]; exact Nat.two_pow_pos _
+    exact_mod_cast h
+  have hP12R : ((calP A G 1 : ℕ) : ℝ) ≤ ((calP A G 2 : ℕ) : ℝ) := by exact_mod_cast hP12
+  have hinv : 1 / ((calP A G 2 : ℕ) : ℝ) ≤ 1 / ((calP A G 1 : ℕ) : ℝ) :=
+    one_div_le_one_div_of_le hP1pos hP12R
+  set E : ℝ := Real.exp (14 * Real.log (Real.log (Hhi : ℝ))) with hE
+  have hEpos : (0 : ℝ) < E := Real.exp_pos _
+  have hpool : (1 : ℝ) / 4 * constPool ρ Hhi = ρ / (1505064 * E) := by
+    rw [constPool_def, hE]; field_simp; ring
+  have hkey : 416120094720 * E ≤ ρ * ((calP A G 1 : ℕ) : ℝ) := by
+    have hmul : ρ * ((calP A G 1 : ℕ) : ℝ)
+        = Real.exp (Real.log ρ + Real.log ((calP A G 1 : ℕ) : ℝ)) := by
+      rw [Real.exp_add, Real.exp_log hρ, Real.exp_log hP1pos]
+    calc 416120094720 * E ≤ Real.exp 27 * E := by nlinarith [s15_exp27, hEpos]
+      _ = Real.exp (27 + 14 * Real.log (Real.log (Hhi : ℝ))) := by rw [hE, ← Real.exp_add]
+      _ ≤ Real.exp (Real.log ρ + Real.log ((calP A G 1 : ℕ) : ℝ)) := by
+          refine Real.exp_le_exp.mpr ?_
+          rw [log_calP_one_gen A G]; linarith
+      _ = ρ * ((calP A G 1 : ℕ) : ℝ) := hmul.symm
+  have hhalf : 276480 * (1 / ((calP A G 1 : ℕ) : ℝ)) ≤ 1 / 4 * constPool ρ Hhi := by
+    rw [hpool, show (276480 : ℝ) * (1 / ((calP A G 1 : ℕ) : ℝ))
+        = 276480 / ((calP A G 1 : ℕ) : ℝ) by ring,
+      div_le_div_iff₀ hP1pos (by positivity)]
+    nlinarith [hkey]
+  nlinarith [hinv, hhalf, hP1pos]
+
+/-- **⟦THE `p²` SLOT AT `constPool`, MET⟧** — one linear budget line, `X_d`-free on BOTH sides:
+`27 + 14·loglog H₊ ≤ Adoor M·log 2 + log ρ`.
+
+Proof: the instance at `A := Adoor M`, `G := 3072 * M` of `s15_p2_of_budget_gen` (above),
+with `𝒫₁ ≤ 𝒫₂` from `s15_calP_one_le_two`. -/
+theorem s15_p2_of_budget {M Hhi : ℕ} {ρ : ℝ} (hM : 1 ≤ M) (hρ : 0 < ρ)
+    (hbudget : 27 + 14 * Real.log (Real.log (Hhi : ℝ))
+      ≤ ((Adoor M : ℕ) : ℝ) * Real.log 2 + Real.log ρ) :
+    138240 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+        + 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ))
+      ≤ 1 / 4 * constPool ρ (Hhi) := by
+  exact s15_p2_of_budget_gen (A := Adoor M) (G := 3072 * M) hρ (s15_calP_one_le_two hM) hbudget
 
 /-- **⟦THE `endpt` SLOT AT `constPool`⟧** — the only base-READING slot, and it reads the base
 from BELOW: `log X_d ≥ 26 + 14·loglog H₊ + log(1/ρ)`. -/
@@ -673,19 +690,17 @@ compose has: the regime's `hPHheadroom` (through `s13_socketBase_xscale`) pays `
 the `M`-upper is stated with `12·loglog H/log 2` of room, and `x₀ ≤ M` — a plain `ℕ`
 inequality on a constant revealed BEFORE `M` — pays `x0_le`. -/
 
-/-- **⟦F3, PAID⟧** (`s15_block_at_socket`) — `s13BlockFloor M ≤ A + s` at every socket base,
-from `SocketBase`'s x-scale field and the `M`-upper `E + 1 + 18Λ ≤ 4⌊ε²H₊⌋₊`.
-
-⟦THE ARITHMETIC⟧ the x-scale gives `2^{4m} ≤ 2·(log H)^{12}·A`, i.e.
-`log A ≥ 4m·log 2 − log 2 − 12·loglog H`; the block floor asks `E·log 2 ≤ log A`, and
-`12·loglog H ≤ 12Λ ≤ 18Λ·log 2` closes it.  The `18` is `12/log 2 = 17.31` rounded up. -/
-theorem s15_block_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ}
+/-- **⟦THE BLOCK-SCALE FLOOR AT A SYMBOLIC EXPONENT⟧** — `s15_block_at_socket` and
+`s15_block_at_socket_gk` (below) read the door only through the SYMBOL `s13BlockExp M` /
+`s13BlockExp_gk K M`.  Stated at an arbitrary exponent
+`E` it covers both cuts, and both are its instances here; the linear instance is
+`E := s13BlockExp_L_gk K M`.  Moved here from `S16FlatTerminalLinear` (O13-e row 254). -/
+theorem s15_block_at_socket_gen {R : ChowlaRegime} {M H L q j A s E : ℕ}
     (hb : SocketBase R M H L q j A s)
     (hHreg : 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
-    (hblk : ((s13BlockExp M : ℕ) : ℝ) + 1
-        + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+    (hblk : ((E : ℕ) : ℝ) + 1 + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) :
-    s13BlockFloor M ≤ A + s := by
+    2 ^ E ≤ A + s := by
   have hlo : R.Hlo ≤ H := hb.1
   have hhi : H ≤ R.Hhi := hb.2.1
   have hA : 0 < A := hb.2.2.2.2.2.2.2.1
@@ -713,15 +728,31 @@ theorem s15_block_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ}
   rw [hLid, hRR] at hlog
   have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
   have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hE : ((s13BlockExp M : ℕ) : ℝ) * Real.log 2 ≤ Real.log (A : ℝ) := by
+  have hE : ((E : ℕ) : ℝ) * Real.log 2 ≤ Real.log (A : ℝ) := by
     nlinarith [hblk, hlog, hllH, hll0, hl2lo, hl2hi]
-  have hpow : ((2 : ℝ)) ^ (s13BlockExp M) ≤ (A : ℝ) := by
-    have hlt : Real.log (((2 : ℝ)) ^ (s13BlockExp M)) ≤ Real.log (A : ℝ) := by
+  have hpow : ((2 : ℝ)) ^ E ≤ (A : ℝ) := by
+    have hlt : Real.log (((2 : ℝ)) ^ E) ≤ Real.log (A : ℝ) := by
       rw [Real.log_pow]; linarith
     exact (Real.log_le_log_iff (by positivity) hApos).mp hlt
-  have hcast : ((2 ^ s13BlockExp M : ℕ) : ℝ) ≤ (A : ℝ) := by push_cast; exact hpow
-  have hnat : (2 : ℕ) ^ s13BlockExp M ≤ A := by exact_mod_cast hcast
-  rw [s13BlockFloor]; omega
+  have hcast : ((2 ^ E : ℕ) : ℝ) ≤ (A : ℝ) := by push_cast; exact hpow
+  have hnat : (2 : ℕ) ^ E ≤ A := by exact_mod_cast hcast
+  omega
+
+/-- **⟦F3, PAID⟧** (`s15_block_at_socket`) — `s13BlockFloor M ≤ A + s` at every socket base,
+from `SocketBase`'s x-scale field and the `M`-upper `E + 1 + 18Λ ≤ 4⌊ε²H₊⌋₊`.
+
+⟦THE ARITHMETIC⟧ the x-scale gives `2^{4m} ≤ 2·(log H)^{12}·A`, i.e.
+`log A ≥ 4m·log 2 − log 2 − 12·loglog H`; the block floor asks `E·log 2 ≤ log A`, and
+`12·loglog H ≤ 12Λ ≤ 18Λ·log 2` closes it.  The `18` is `12/log 2 = 17.31` rounded up.
+Proof: the instance of `s15_block_at_socket_gen` (above) at `E := s13BlockExp M`. -/
+theorem s15_block_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hb : SocketBase R M H L q j A s)
+    (hHreg : 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
+    (hblk : ((s13BlockExp M : ℕ) : ℝ) + 1
+        + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) :
+    s13BlockFloor M ≤ A + s := by
+  exact s15_block_at_socket_gen (E := s13BlockExp M) hb hHreg hblk
 
 /-- **⟦THE OPAQUE THRESHOLD, PAID BY AN `M`-FLOOR⟧** (`s15_x0_le`) — `S13BandGate.x0_le` from
 the plain `ℕ` line `x₀ ≤ M`.  `x₀` sits in the twin's TOP constant block, so it is revealed
@@ -1815,7 +1846,8 @@ theorem s15_gRows_const_at_socket_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s
     linarith [hbud, hQ0, hL50, hlogρ]
   · exact s15_dens_at_zero hρ0.le
 
-/-- `s15_block_at_socket (:654)` at the lever. RE-READ at the LEVERED block exponent. -/
+/-- `s15_block_at_socket (:654)` at the lever. RE-READ at the LEVERED block exponent.
+Proof: the instance of `s15_block_at_socket_gen` (above) at `E := s13BlockExp_gk K M`. -/
 theorem s15_block_at_socket_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hb : SocketBase R M H L q j A s)
     (hHreg : 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
@@ -1823,42 +1855,7 @@ theorem s15_block_at_socket_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ
         + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) :
     s13BlockFloor_gk K M ≤ A + s := by
-  have hlo : R.Hlo ≤ H := hb.1
-  have hhi : H ≤ R.Hhi := hb.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hApos : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) :=
-    lt_of_lt_of_le (by norm_num) (one_lt_log_of_loglog_ge hHreg.1 (by norm_num) hHreg.2).le
-  have hllH : Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) :=
-    s13_loglog_le_of_range (R := R) hlo hhi
-  have hll0 : (0 : ℝ) ≤ Real.log (Real.log (H : ℝ)) := by linarith [hHreg.2]
-  set m : ℕ := ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ with hm
-  have hxs : ((4 ^ m : ℕ) : ℝ) ^ 2 ≤ 2 * arcDen 12 H * (A : ℝ) := s13_socketBase_xscale hb
-  have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
-    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-  have hlhs0 : (0 : ℝ) < ((4 ^ m : ℕ) : ℝ) ^ 2 := by positivity
-  have hlog := Real.log_le_log hlhs0 hxs
-  have hLid : Real.log (((4 ^ m : ℕ) : ℝ) ^ 2) = 4 * (m : ℝ) * Real.log 2 := by
-    have h4 : ((4 ^ m : ℕ) : ℝ) = (4 : ℝ) ^ m := by push_cast; ring
-    rw [h4, ← pow_mul, Real.log_pow, show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
-    push_cast; ring
-  have hRR : Real.log (2 * arcDen 12 H * (A : ℝ))
-      = Real.log 2 + 12 * Real.log (Real.log (H : ℝ)) + Real.log (A : ℝ) := by
-    rw [harcpow, Real.log_mul (by positivity) (by positivity),
-      Real.log_mul (by norm_num) (by positivity), Real.log_pow]
-    push_cast; ring
-  rw [hLid, hRR] at hlog
-  have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
-  have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hE : ((s13BlockExp_gk K M : ℕ) : ℝ) * Real.log 2 ≤ Real.log (A : ℝ) := by
-    nlinarith [hblk, hlog, hllH, hll0, hl2lo, hl2hi]
-  have hpow : ((2 : ℝ)) ^ (s13BlockExp_gk K M) ≤ (A : ℝ) := by
-    have hlt : Real.log (((2 : ℝ)) ^ (s13BlockExp_gk K M)) ≤ Real.log (A : ℝ) := by
-      rw [Real.log_pow]; linarith
-    exact (Real.log_le_log_iff (by positivity) hApos).mp hlt
-  have hcast : ((2 ^ s13BlockExp_gk K M : ℕ) : ℝ) ≤ (A : ℝ) := by push_cast; exact hpow
-  have hnat : (2 : ℕ) ^ s13BlockExp_gk K M ≤ A := by exact_mod_cast hcast
-  rw [s13BlockFloor_gk]; omega
+  exact s15_block_at_socket_gen (E := s13BlockExp_gk K M) hb hHreg hblk
 
 /-- `S15Sel (:724)` at the lever. -/
 structure S15Sel_gk (K : ℕ) (Cg δ₀ Ct ρ : ℝ) (x₀ : ℕ) (R : ChowlaRegime) (M : ℕ) : Prop where
