@@ -1514,7 +1514,7 @@ def S16BandLaneCBounded (K : ℕ) : Prop :=
 
 /-- **⟦THE RIDER'S PROVENANCE, KERNEL-VISIBLE⟧** (`S16BandT0CBounded`) — the same rider one
 hop LOWER, at the `∃` that actually MINTS the opaque constant:
-`M4T0DatumDischarge.m4_hT0band_at_door_discharged_split_graded_prod_gk` (:1327) at
+`M4T0DatumDischarge.m4_hT0band_at_door_discharged_split_graded_prod_gk` (:1309) at
 `A := s13Aexp`, with `Real.log C ≤ 40` inserted after `0 < C`.  Every other conjunct is a
 LANDED THEOREM at this very `C`; this def differs from that theorem by exactly one
 inequality. -/
