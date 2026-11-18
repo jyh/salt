@@ -118,7 +118,7 @@ theorem weakUniform_spine_aff {x ω a : ℕ} (eps : ℚ) (H : ℕ)
 
 /-! ## F4-K2 — the deviation set at the affine forms (SITE 1 of the filter) -/
 
-/-- **F4-K2a (def) — the deviation event at the affine forms.**  `badSet_h` (`Transport.lean:197`)
+/-- **F4-K2a (def) — the deviation event at the affine forms.**  `badSet_h` (`Transport.lean:76`)
 with `fBridgeF_aff eps H a b h` and the FILTERED decoupled mean; the set is spelled
 byte-identically to `fBridge_aff_concentration_decoupled_sharp`'s (`StrideBridge.lean:371-376`,
 site 2), so the transport's `hset` rewrite is `ext ω; simp [badSet_aff]`. -/
@@ -145,10 +145,10 @@ theorem badSet_aff_one_zero (eps : ℚ) (H h : ℕ) (x₀ : Fin H → ℤ) (δ :
 /-! ## F4-K3 — the transport at the affine forms -/
 
 /-- **F4-K3a (class A) — W3-a-3a at the affine forms.**  `badSet_transport_h`
-(`Transport.lean:243`) with `fBridge_aff_concentration_decoupled_sharp` (site 2) in place of the
+(`Transport.lean:122`) with `fBridge_aff_concentration_decoupled_sharp` (site 2) in place of the
 `_h` one, `badSet_aff` for `badSet_h`, and `weakUniform_spine_aff` (with `hcop`) for
 `weakUniform_spine`; the empty-set branch, `uniformOn_univ_real_coe`, the log arithmetic are
-verbatim (`Transport.lean:262-299`). -/
+verbatim (`Transport.lean:141-178`). -/
 theorem badSet_transport_aff (eps : ℚ) (H : ℕ) (a b h : ℕ) {x ω : ℕ}
     (hx : 2 ≤ x) (hω : 2 ≤ ω) (hωx : ω ≤ x) (hcop : Nat.Coprime a (PH eps H))
     [IsProbabilityMeasure (logMeasure x ω)]
@@ -208,7 +208,7 @@ theorem badSet_transport_aff (eps : ℚ) (H : ℕ) (a b h : ℕ) {x ω : ℕ}
       (badSet_aff eps H a b h x₀ δ) hgood hlogcard
 
 /-- **F4-K3b (class A) — the calibrated transport.**  `badSet_transport_at_calibration_h`
-(`Transport.lean:302`): the ε-arithmetic (`(2 + ε²)² ≤ 9`, `hE_eq`) verbatim, then
+(`Transport.lean:181`): the ε-arithmetic (`(2 + ε²)² ≤ 9`, `hE_eq`) verbatim, then
 `badSet_transport_aff`. -/
 theorem badSet_transport_at_calibration_aff (eps : ℚ) (H : ℕ) (a b h : ℕ) {x ω : ℕ}
     (hx : 2 ≤ x) (hω : 2 ≤ ω) (hωx : ω ≤ x) (hcop : Nat.Coprime a (PH eps H))

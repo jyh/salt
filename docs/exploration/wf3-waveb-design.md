@@ -362,8 +362,8 @@ invisible because the two lanes were priced apart.**
 **M3 — DOES B-4 NEED THE SHARP BOX K3 DELETED? NO. K3 STANDS.** All five B-4 objects measured,
 with a control that discriminates:
 ```
-  badSet_transport                 Transport.lean:69      — NO box lemma
-  badSet_transport_at_calibration  Transport.lean:128     — NO box lemma
+  badSet_transport                 Transport.lean:244      — NO box lemma
+  badSet_transport_at_calibration  Transport.lean:274     — NO box lemma
   outer_badMass_eq                 OuterCombine.lean:193  — NO box lemma
   outer_badMass_le                 OuterCombine.lean:242  — NO box lemma
   outer_combine                    OuterCombine.lean:342  — NO box lemma
