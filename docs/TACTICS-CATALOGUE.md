@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `89fd4aa9` · source digest `748edfb1f94dff56` (the same digest as items 1–3).
-> Receipt: files 1414 · decls 23440 · with_body 23440 · tactic_lines 303239 · runs 35623 · blocks 1249.
+> Base: last commit touching `Salt/` = `ed889095` · source digest `f8018db018862251` (the same digest as items 1–3).
+> Receipt: files 1414 · decls 23441 · with_body 23441 · tactic_lines 303212 · runs 35619 · blocks 1249.
 
 ## LIMITS (read before any number below)
 
@@ -100,20 +100,20 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-303239 tactic lines. Top 30:
+303212 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 132234 | 43.6% |
-| 2 | `rw` | 49051 | 16.2% |
+| 1 | `have` | 132226 | 43.6% |
+| 2 | `rw` | 49043 | 16.2% |
 | 3 | `exact` | 17457 | 5.8% |
 | 4 | `intro` | 14028 | 4.6% |
-| 5 | `refine` | 12759 | 4.2% |
-| 6 | `linarith` | 10413 | 3.4% |
+| 5 | `refine` | 12753 | 4.2% |
+| 6 | `linarith` | 10412 | 3.4% |
 | 7 | `obtain` | 9135 | 3.0% |
-| 8 | `calc` | 7804 | 2.6% |
-| 9 | `set` | 5473 | 1.8% |
-| 10 | `simp` | 5149 | 1.7% |
+| 8 | `calc` | 7801 | 2.6% |
+| 9 | `set` | 5472 | 1.8% |
+| 10 | `simp` | 5150 | 1.7% |
 | 11 | `apply` | 4531 | 1.5% |
 | 12 | `nlinarith` | 3328 | 1.1% |
 | 13 | `unfold` | 2623 | 0.9% |
@@ -127,10 +127,10 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 21 | `norm_num` | 1490 | 0.5% |
 | 22 | `show` | 1268 | 0.4% |
 | 23 | `omega` | 1262 | 0.4% |
-| 24 | `classical` | 1246 | 0.4% |
+| 24 | `classical` | 1245 | 0.4% |
 | 25 | `rintro` | 1150 | 0.4% |
 | 26 | `congr` | 930 | 0.3% |
-| 27 | `simpa` | 919 | 0.3% |
+| 27 | `simpa` | 920 | 0.3% |
 | 28 | `positivity` | 791 | 0.3% |
 | 29 | `constructor` | 654 | 0.2% |
 | 30 | `ext` | 543 | 0.2% |
@@ -139,8 +139,8 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 | family | tactic lines | top tactics |
 |---|---:|---|
-| circle method / Fourier | 2726 | `have` 958, `rw` 597, `refine` 213, `exact` 153, `intro` 135, `ring` 79, `simp` 71, `calc` 68 |
-| entropy decrement | 15120 | `have` 6081, `rw` 2656, `exact` 995, `intro` 565, `refine` 529, `simp` 462, `linarith` 446, `calc` 373 |
+| circle method / Fourier | 2699 | `have` 950, `rw` 589, `refine` 207, `exact` 153, `intro` 135, `ring` 79, `simp` 72, `calc` 65 |
+| entropy decrement | 15093 | `have` 6073, `rw` 2648, `exact` 995, `intro` 565, `refine` 523, `simp` 463, `linarith` 445, `calc` 370 |
 | large sieve | 1719 | `have` 560, `rw` 379, `intro` 108, `refine` 104, `exact` 101, `simp` 56, `apply` 53, `calc` 48 |
 | Selberg/Brun sieve | 70444 | `have` 30316, `rw` 12099, `exact` 3801, `intro` 3244, `calc` 2288, `apply` 2287, `refine` 1691, `linarith` 1480 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 34755 | `have` 15480, `rw` 6455, `exact` 1868, `intro` 1433, `refine` 1418, `linarith` 1100, `calc` 1077, `set` 854 |
