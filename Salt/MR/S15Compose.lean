@@ -673,19 +673,17 @@ compose has: the regime's `hPHheadroom` (through `s13_socketBase_xscale`) pays `
 the `M`-upper is stated with `12·loglog H/log 2` of room, and `x₀ ≤ M` — a plain `ℕ`
 inequality on a constant revealed BEFORE `M` — pays `x0_le`. -/
 
-/-- **⟦F3, PAID⟧** (`s15_block_at_socket`) — `s13BlockFloor M ≤ A + s` at every socket base,
-from `SocketBase`'s x-scale field and the `M`-upper `E + 1 + 18Λ ≤ 4⌊ε²H₊⌋₊`.
-
-⟦THE ARITHMETIC⟧ the x-scale gives `2^{4m} ≤ 2·(log H)^{12}·A`, i.e.
-`log A ≥ 4m·log 2 − log 2 − 12·loglog H`; the block floor asks `E·log 2 ≤ log A`, and
-`12·loglog H ≤ 12Λ ≤ 18Λ·log 2` closes it.  The `18` is `12/log 2 = 17.31` rounded up. -/
-theorem s15_block_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ}
+/-- **⟦THE BLOCK-SCALE FLOOR AT A SYMBOLIC EXPONENT⟧** — `s15_block_at_socket` and
+`s15_block_at_socket_gk` (below) read the door only through the SYMBOL `s13BlockExp M` /
+`s13BlockExp_gk K M`.  Stated at an arbitrary exponent
+`E` it covers both cuts, and both are its instances here; the linear instance is
+`E := s13BlockExp_L_gk K M`.  Moved here from `S16FlatTerminalLinear` (O13-e row 254). -/
+theorem s15_block_at_socket_gen {R : ChowlaRegime} {M H L q j A s E : ℕ}
     (hb : SocketBase R M H L q j A s)
     (hHreg : 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
-    (hblk : ((s13BlockExp M : ℕ) : ℝ) + 1
-        + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+    (hblk : ((E : ℕ) : ℝ) + 1 + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) :
-    s13BlockFloor M ≤ A + s := by
+    2 ^ E ≤ A + s := by
   have hlo : R.Hlo ≤ H := hb.1
   have hhi : H ≤ R.Hhi := hb.2.1
   have hA : 0 < A := hb.2.2.2.2.2.2.2.1
@@ -713,15 +711,31 @@ theorem s15_block_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ}
   rw [hLid, hRR] at hlog
   have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
   have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hE : ((s13BlockExp M : ℕ) : ℝ) * Real.log 2 ≤ Real.log (A : ℝ) := by
+  have hE : ((E : ℕ) : ℝ) * Real.log 2 ≤ Real.log (A : ℝ) := by
     nlinarith [hblk, hlog, hllH, hll0, hl2lo, hl2hi]
-  have hpow : ((2 : ℝ)) ^ (s13BlockExp M) ≤ (A : ℝ) := by
-    have hlt : Real.log (((2 : ℝ)) ^ (s13BlockExp M)) ≤ Real.log (A : ℝ) := by
+  have hpow : ((2 : ℝ)) ^ E ≤ (A : ℝ) := by
+    have hlt : Real.log (((2 : ℝ)) ^ E) ≤ Real.log (A : ℝ) := by
       rw [Real.log_pow]; linarith
     exact (Real.log_le_log_iff (by positivity) hApos).mp hlt
-  have hcast : ((2 ^ s13BlockExp M : ℕ) : ℝ) ≤ (A : ℝ) := by push_cast; exact hpow
-  have hnat : (2 : ℕ) ^ s13BlockExp M ≤ A := by exact_mod_cast hcast
-  rw [s13BlockFloor]; omega
+  have hcast : ((2 ^ E : ℕ) : ℝ) ≤ (A : ℝ) := by push_cast; exact hpow
+  have hnat : (2 : ℕ) ^ E ≤ A := by exact_mod_cast hcast
+  omega
+
+/-- **⟦F3, PAID⟧** (`s15_block_at_socket`) — `s13BlockFloor M ≤ A + s` at every socket base,
+from `SocketBase`'s x-scale field and the `M`-upper `E + 1 + 18Λ ≤ 4⌊ε²H₊⌋₊`.
+
+⟦THE ARITHMETIC⟧ the x-scale gives `2^{4m} ≤ 2·(log H)^{12}·A`, i.e.
+`log A ≥ 4m·log 2 − log 2 − 12·loglog H`; the block floor asks `E·log 2 ≤ log A`, and
+`12·loglog H ≤ 12Λ ≤ 18Λ·log 2` closes it.  The `18` is `12/log 2 = 17.31` rounded up.
+Proof: the instance of `s15_block_at_socket_gen` (above) at `E := s13BlockExp M`. -/
+theorem s15_block_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hb : SocketBase R M H L q j A s)
+    (hHreg : 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
+    (hblk : ((s13BlockExp M : ℕ) : ℝ) + 1
+        + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) :
+    s13BlockFloor M ≤ A + s := by
+  exact s15_block_at_socket_gen (E := s13BlockExp M) hb hHreg hblk
 
 /-- **⟦THE OPAQUE THRESHOLD, PAID BY AN `M`-FLOOR⟧** (`s15_x0_le`) — `S13BandGate.x0_le` from
 the plain `ℕ` line `x₀ ≤ M`.  `x₀` sits in the twin's TOP constant block, so it is revealed
@@ -1815,7 +1829,8 @@ theorem s15_gRows_const_at_socket_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s
     linarith [hbud, hQ0, hL50, hlogρ]
   · exact s15_dens_at_zero hρ0.le
 
-/-- `s15_block_at_socket (:654)` at the lever. RE-READ at the LEVERED block exponent. -/
+/-- `s15_block_at_socket (:654)` at the lever. RE-READ at the LEVERED block exponent.
+Proof: the instance of `s15_block_at_socket_gen` (above) at `E := s13BlockExp_gk K M`. -/
 theorem s15_block_at_socket_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ}
     (hb : SocketBase R M H L q j A s)
     (hHreg : 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
@@ -1823,42 +1838,7 @@ theorem s15_block_at_socket_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ
         + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) :
     s13BlockFloor_gk K M ≤ A + s := by
-  have hlo : R.Hlo ≤ H := hb.1
-  have hhi : H ≤ R.Hhi := hb.2.1
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hApos : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) :=
-    lt_of_lt_of_le (by norm_num) (one_lt_log_of_loglog_ge hHreg.1 (by norm_num) hHreg.2).le
-  have hllH : Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) :=
-    s13_loglog_le_of_range (R := R) hlo hhi
-  have hll0 : (0 : ℝ) ≤ Real.log (Real.log (H : ℝ)) := by linarith [hHreg.2]
-  set m : ℕ := ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ with hm
-  have hxs : ((4 ^ m : ℕ) : ℝ) ^ 2 ≤ 2 * arcDen 12 H * (A : ℝ) := s13_socketBase_xscale hb
-  have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
-    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-  have hlhs0 : (0 : ℝ) < ((4 ^ m : ℕ) : ℝ) ^ 2 := by positivity
-  have hlog := Real.log_le_log hlhs0 hxs
-  have hLid : Real.log (((4 ^ m : ℕ) : ℝ) ^ 2) = 4 * (m : ℝ) * Real.log 2 := by
-    have h4 : ((4 ^ m : ℕ) : ℝ) = (4 : ℝ) ^ m := by push_cast; ring
-    rw [h4, ← pow_mul, Real.log_pow, show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
-    push_cast; ring
-  have hRR : Real.log (2 * arcDen 12 H * (A : ℝ))
-      = Real.log 2 + 12 * Real.log (Real.log (H : ℝ)) + Real.log (A : ℝ) := by
-    rw [harcpow, Real.log_mul (by positivity) (by positivity),
-      Real.log_mul (by norm_num) (by positivity), Real.log_pow]
-    push_cast; ring
-  rw [hLid, hRR] at hlog
-  have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
-  have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hE : ((s13BlockExp_gk K M : ℕ) : ℝ) * Real.log 2 ≤ Real.log (A : ℝ) := by
-    nlinarith [hblk, hlog, hllH, hll0, hl2lo, hl2hi]
-  have hpow : ((2 : ℝ)) ^ (s13BlockExp_gk K M) ≤ (A : ℝ) := by
-    have hlt : Real.log (((2 : ℝ)) ^ (s13BlockExp_gk K M)) ≤ Real.log (A : ℝ) := by
-      rw [Real.log_pow]; linarith
-    exact (Real.log_le_log_iff (by positivity) hApos).mp hlt
-  have hcast : ((2 ^ s13BlockExp_gk K M : ℕ) : ℝ) ≤ (A : ℝ) := by push_cast; exact hpow
-  have hnat : (2 : ℕ) ^ s13BlockExp_gk K M ≤ A := by exact_mod_cast hcast
-  rw [s13BlockFloor_gk]; omega
+  exact s15_block_at_socket_gen (E := s13BlockExp_gk K M) hb hHreg hblk
 
 /-- `S15Sel (:724)` at the lever. -/
 structure S15Sel_gk (K : ℕ) (Cg δ₀ Ct ρ : ℝ) (x₀ : ℕ) (R : ChowlaRegime) (M : ℕ) : Prop where
