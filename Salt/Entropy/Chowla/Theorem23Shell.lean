@@ -381,7 +381,7 @@ in nothing: it turns the `L²` `h`-door plus the two budgets into `False`.
 `MRTUniformityXiL2H h R ρ` remains an OPEN hypothesis at every `h`, this shell manufactures
 no supply for it, and nothing here bears on twin primes.
 
-`h = 1` recovers `log_chowla_two_shell_xi_sq` (below), which is proved as this shell's `h = 1`
+`h = 1` recovers `log_chowla_two_shell_xi_sq` (below), which is now this shell's `h = 1`
 instance: `bigXiH 1` and `bigXi` are propositionally equal, not definitionally so, and the
 three compats `fBridgeF_h_one`, `bigXi_eq_bigXiH_one` and `mrtUniformityXiL2_eq_xiL2H_one`
 carry the binders across. -/
