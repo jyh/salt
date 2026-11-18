@@ -303,8 +303,9 @@ theorem a2DoorGrade_pool_L_priced_rhoH_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.lo
 
 /-- **⟦THE PRICING AT THE POOL, AT `ρ`, AT THE LINEAR DOOR, AT SHIFT `h`⟧**
 (`a2DoorGrade_pool_L_priced_rho` at the inflated cap).  Budget `ρ/2 + 4·(ρ/8) = ρ`, unchanged;
-the `H`-side price is `hArcDen_mul_strataResidualH_sq_le`; the five summand prices read no cap.
-Since 2026-11-18 it is the `log h ≤ 7` instance of `a2DoorGrade_pool_L_priced_rhoH_14` above. -/
+the `H`-side price is the twin's, `hArcDen_mul_strataResidualH_sq_le_14`; the five summand prices
+read no cap.  Since 2026-11-18 it is the `log h ≤ 7` instance of
+`a2DoorGrade_pool_L_priced_rhoH_14` above. -/
 theorem a2DoorGrade_pool_L_priced_rhoH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
     {M H j : ℕ} {X C₁ M₀ K ρ π₀ : ℝ}
     (hfr : DoorArithFrameRho_L M H j X C₁ M₀ K ρ) (hpool : 0 ≤ π₀)

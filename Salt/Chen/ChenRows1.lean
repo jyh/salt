@@ -18,7 +18,7 @@ ROW-MARGIN table.  New file; no edits to any landed file; not wired into `All.le
 
 ## Mandate — discharge every analytic hypothesis of `box_hprice_at_2pow_lo`
 
-`ChenHeadline.box_hprice_at_2pow_lo` prices a LIVE box leg's two-`T` disc sum against
+`PriceThree.box_hprice_at_2pow_lo` prices a LIVE box leg's two-`T` disc sum against
 `2·Kerr`, deferring **23 named hypotheses** at the operating point.  This node packages
 their per-row dischargers into the composite `box_rows_at_op`, so that fin8 can apply
 `box_hprice_at_2pow_lo` with NO analytic side conditions — only the structural/boundary
@@ -564,7 +564,7 @@ theorem row_hfloor {x F : ℕ} (hx : Real.exp 4000 ≤ (x : ℝ))
 /-- **`box_rows_at_op` (fin7a, the BOX-leg row bundle).**  At the operating parameters
 (`F = opZ x · opY x`, `X = 2^{i+1}−1`, `M = pieceM k`, `2^k` the block scale, `Lb = log(4x)`,
 `D` with `x^{11/24}/8 ≤ D ≤ x^{499/1000}` covering `opQ·(QR·opDlev)`) for a LIVE boundary box,
-EVERY analytic hypothesis of `ChenHeadline.box_hprice_at_2pow_lo` holds simultaneously.  This
+EVERY analytic hypothesis of `PriceThree.box_hprice_at_2pow_lo` holds simultaneously.  This
 lets fin8 apply `box_hprice_at_2pow_lo` with NO analytic side conditions — only the structural
 facts (`hk`, `hi`, `hXsub`) and the H_W constants (`N₀ ≤ 2^k` from `hNfloor`, `Q·QR·Dlev ≤ D`)
 remaining.  The 18 conjuncts, in `box_hprice_at_2pow_lo`'s binder order:

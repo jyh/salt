@@ -33,7 +33,7 @@ The band `habs` residual is discharged at the call sites via `Headline3.band_hab
   box carrier is `0` (`PriceClose.box_carrier_eq_zero_above_cap`), so the two-`T` sum is `0`; OR
 * LIVE — `2^i < min (opZ x·pieceN k + 1) (x+1) ≤ opZ x·pieceN k + 1`: then the k-floor
   `kfloor_of_live_box` gives `x^{7/16}/8 ≤ 2^k` (so `2 ≤ k`), `box_rows_at_op` discharges the
-  18 analytic rows, and `ChenHeadline.box_hprice_at_2pow_lo` prices the box by the Kerr term
+  18 analytic rows, and `PriceThree.box_hprice_at_2pow_lo` prices the box by the Kerr term
   `boxPriceKerr Kc k i`.
 The single closed price term `boxPriceKerr Kc k i` (Kc from `box_hprice_at_2pow_lo`, obtained
 per-`x` since the carrier scale is `opZ x`) bounds BOTH branches (vanish: `0 ≤` nonneg price).
@@ -60,7 +60,7 @@ open scoped BigOperators
 /-! ## The closed box price term -/
 
 /-- **`boxPriceKerr` — the closed box price** (the `hprice`-slot value for box `(k,i)`).
-Character-for-character the RHS of `ChenHeadline.box_hprice_at_2pow_lo` at `X = 2^{i+1}−1`,
+Character-for-character the RHS of `PriceThree.box_hprice_at_2pow_lo` at `X = 2^{i+1}−1`,
 `M = pieceM k`, `logN = log 2^k`.  Depends on `Kc` (the terminal's price constant, obtained
 per-`x` at the operating carrier scale `opZ x`). -/
 noncomputable def boxPriceKerr (Kc : ℝ) (k i : ℕ) : ℝ :=
