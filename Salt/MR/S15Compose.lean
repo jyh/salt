@@ -214,48 +214,6 @@ theorem s15_a2Level1_exp {M : ℕ} (hM : 1 ≤ M) :
     s13_band_log_calP_one M, ← Real.exp_sub]
   ring_nf
 
-/-- **⟦THE `p²` SLOT AT `constPool`, MET⟧** — one linear budget line, `X_d`-free on BOTH sides:
-`27 + 14·loglog H₊ ≤ Adoor M·log 2 + log ρ`. -/
-theorem s15_p2_of_budget {M Hhi : ℕ} {ρ : ℝ} (hM : 1 ≤ M) (hρ : 0 < ρ)
-    (hbudget : 27 + 14 * Real.log (Real.log (Hhi : ℝ))
-      ≤ ((Adoor M : ℕ) : ℝ) * Real.log 2 + Real.log ρ) :
-    138240 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
-        + 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ))
-      ≤ 1 / 4 * constPool ρ (Hhi) := by
-  have hP1pos : (0 : ℝ) < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
-    have h : 0 < calP (Adoor M) (3072 * M) 1 := by rw [calP]; exact Nat.two_pow_pos _
-    exact_mod_cast h
-  have hP2pos : (0 : ℝ) < ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ) := by
-    have h : 0 < calP (Adoor M) (3072 * M) 2 := by rw [calP]; exact Nat.two_pow_pos _
-    exact_mod_cast h
-  have hP12 : ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
-      ≤ ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ) := by
-    exact_mod_cast s15_calP_one_le_two hM
-  have hinv : 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ)
-      ≤ 1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) :=
-    one_div_le_one_div_of_le hP1pos hP12
-  set E : ℝ := Real.exp (14 * Real.log (Real.log (Hhi : ℝ))) with hE
-  have hEpos : (0 : ℝ) < E := Real.exp_pos _
-  have hpool : (1 : ℝ) / 4 * constPool ρ Hhi = ρ / (1505064 * E) := by
-    rw [constPool_def, hE]; field_simp; ring
-  have hkey : 416120094720 * E ≤ ρ * ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
-    have hmul : ρ * ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
-        = Real.exp (Real.log ρ + Real.log ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) := by
-      rw [Real.exp_add, Real.exp_log hρ, Real.exp_log hP1pos]
-    calc 416120094720 * E ≤ Real.exp 27 * E := by nlinarith [s15_exp27, hEpos]
-      _ = Real.exp (27 + 14 * Real.log (Real.log (Hhi : ℝ))) := by rw [hE, ← Real.exp_add]
-      _ ≤ Real.exp (Real.log ρ + Real.log ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) := by
-          refine Real.exp_le_exp.mpr ?_
-          rw [s13_band_log_calP_one M]; linarith
-      _ = ρ * ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := hmul.symm
-  have hhalf : 276480 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
-      ≤ 1 / 4 * constPool ρ Hhi := by
-    rw [hpool, show (276480 : ℝ) * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
-        = 276480 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) by ring,
-      div_le_div_iff₀ hP1pos (by positivity)]
-    nlinarith [hkey]
-  nlinarith [hinv, hhalf, hP1pos]
-
 /-- **⟦THE `level1` SLOT AT `constPool`, MET⟧** — budget form. -/
 theorem s15_level1_of_budget {M Hhi : ℕ} {ρ : ℝ} (hM : 1 ≤ M) (hρ : 0 < ρ)
     (hbudget : 26 + 14 * Real.log (Real.log (Hhi : ℝ))
@@ -343,6 +301,53 @@ theorem s15_dens_at_zero {M Hhi : ℕ} {ρ : ℝ} (hρ : 0 ≤ ρ) :
   have := constPool_nonneg (ρ := ρ) (Hhi := Hhi) hρ
   simp only [mul_zero, zero_mul]
   linarith
+
+/-- **⟦THE `p²` SLOT AT `constPool`, ANCHOR-GENERIC⟧** (`s15_p2_of_budget` at a symbolic
+anchor).  The one extra demand is `𝒫₁ ≤ 𝒫₂`, i.e. `e₁ ≤ e₂` at the family in hand. -/
+theorem s15_p2_of_budget_gen {A G Hhi : ℕ} {ρ : ℝ} (hρ : 0 < ρ)
+    (hP12 : calP A G 1 ≤ calP A G 2)
+    (hbudget : 27 + 14 * Real.log (Real.log (Hhi : ℝ)) ≤ (A : ℝ) * Real.log 2 + Real.log ρ) :
+    138240 * (1 / ((calP A G 1 : ℕ) : ℝ) + 1 / ((calP A G 2 : ℕ) : ℝ))
+      ≤ 1 / 4 * constPool ρ Hhi := by
+  have hP1pos : (0 : ℝ) < ((calP A G 1 : ℕ) : ℝ) := by
+    have h : 0 < calP A G 1 := by rw [calP]; exact Nat.two_pow_pos _
+    exact_mod_cast h
+  have hP12R : ((calP A G 1 : ℕ) : ℝ) ≤ ((calP A G 2 : ℕ) : ℝ) := by exact_mod_cast hP12
+  have hinv : 1 / ((calP A G 2 : ℕ) : ℝ) ≤ 1 / ((calP A G 1 : ℕ) : ℝ) :=
+    one_div_le_one_div_of_le hP1pos hP12R
+  set E : ℝ := Real.exp (14 * Real.log (Real.log (Hhi : ℝ))) with hE
+  have hEpos : (0 : ℝ) < E := Real.exp_pos _
+  have hpool : (1 : ℝ) / 4 * constPool ρ Hhi = ρ / (1505064 * E) := by
+    rw [constPool_def, hE]; field_simp; ring
+  have hkey : 416120094720 * E ≤ ρ * ((calP A G 1 : ℕ) : ℝ) := by
+    have hmul : ρ * ((calP A G 1 : ℕ) : ℝ)
+        = Real.exp (Real.log ρ + Real.log ((calP A G 1 : ℕ) : ℝ)) := by
+      rw [Real.exp_add, Real.exp_log hρ, Real.exp_log hP1pos]
+    calc 416120094720 * E ≤ Real.exp 27 * E := by nlinarith [s15_exp27, hEpos]
+      _ = Real.exp (27 + 14 * Real.log (Real.log (Hhi : ℝ))) := by rw [hE, ← Real.exp_add]
+      _ ≤ Real.exp (Real.log ρ + Real.log ((calP A G 1 : ℕ) : ℝ)) := by
+          refine Real.exp_le_exp.mpr ?_
+          rw [log_calP_one_gen A G]; linarith
+      _ = ρ * ((calP A G 1 : ℕ) : ℝ) := hmul.symm
+  have hhalf : 276480 * (1 / ((calP A G 1 : ℕ) : ℝ)) ≤ 1 / 4 * constPool ρ Hhi := by
+    rw [hpool, show (276480 : ℝ) * (1 / ((calP A G 1 : ℕ) : ℝ))
+        = 276480 / ((calP A G 1 : ℕ) : ℝ) by ring,
+      div_le_div_iff₀ hP1pos (by positivity)]
+    nlinarith [hkey]
+  nlinarith [hinv, hhalf, hP1pos]
+
+/-- **⟦THE `p²` SLOT AT `constPool`, MET⟧** — one linear budget line, `X_d`-free on BOTH sides:
+`27 + 14·loglog H₊ ≤ Adoor M·log 2 + log ρ`.
+
+Proof: the instance at `A := Adoor M`, `G := 3072 * M` of `s15_p2_of_budget_gen` (above),
+with `𝒫₁ ≤ 𝒫₂` from `s15_calP_one_le_two`. -/
+theorem s15_p2_of_budget {M Hhi : ℕ} {ρ : ℝ} (hM : 1 ≤ M) (hρ : 0 < ρ)
+    (hbudget : 27 + 14 * Real.log (Real.log (Hhi : ℝ))
+      ≤ ((Adoor M : ℕ) : ℝ) * Real.log 2 + Real.log ρ) :
+    138240 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+        + 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ))
+      ≤ 1 / 4 * constPool ρ (Hhi) := by
+  exact s15_p2_of_budget_gen (A := Adoor M) (G := 3072 * M) hρ (s15_calP_one_le_two hM) hbudget
 
 /-- **⟦THE `endpt` SLOT AT `constPool`⟧** — the only base-READING slot, and it reads the base
 from BELOW: `log X_d ≥ 26 + 14·loglog H₊ + log(1/ρ)`. -/

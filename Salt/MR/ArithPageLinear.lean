@@ -617,39 +617,8 @@ linear ones `A := AdoorL M`, and no proof is duplicated. -/
 -- `log_calP_one_gen` and `s15_gP1_of_budget_gen` now live in `S15Compose`, above the landed
 -- `s15_gP1_of_budget`, their instance at `A := Adoor M` (O13-e row 259).
 
-/-- **⟦THE `p²` SLOT AT `constPool`, ANCHOR-GENERIC⟧** (`s15_p2_of_budget` at a symbolic
-anchor).  The one extra demand is `𝒫₁ ≤ 𝒫₂`, i.e. `e₁ ≤ e₂` at the family in hand. -/
-theorem s15_p2_of_budget_gen {A G Hhi : ℕ} {ρ : ℝ} (hρ : 0 < ρ)
-    (hP12 : calP A G 1 ≤ calP A G 2)
-    (hbudget : 27 + 14 * Real.log (Real.log (Hhi : ℝ)) ≤ (A : ℝ) * Real.log 2 + Real.log ρ) :
-    138240 * (1 / ((calP A G 1 : ℕ) : ℝ) + 1 / ((calP A G 2 : ℕ) : ℝ))
-      ≤ 1 / 4 * constPool ρ Hhi := by
-  have hP1pos : (0 : ℝ) < ((calP A G 1 : ℕ) : ℝ) := by
-    have h : 0 < calP A G 1 := by rw [calP]; exact Nat.two_pow_pos _
-    exact_mod_cast h
-  have hP12R : ((calP A G 1 : ℕ) : ℝ) ≤ ((calP A G 2 : ℕ) : ℝ) := by exact_mod_cast hP12
-  have hinv : 1 / ((calP A G 2 : ℕ) : ℝ) ≤ 1 / ((calP A G 1 : ℕ) : ℝ) :=
-    one_div_le_one_div_of_le hP1pos hP12R
-  set E : ℝ := Real.exp (14 * Real.log (Real.log (Hhi : ℝ))) with hE
-  have hEpos : (0 : ℝ) < E := Real.exp_pos _
-  have hpool : (1 : ℝ) / 4 * constPool ρ Hhi = ρ / (1505064 * E) := by
-    rw [constPool_def, hE]; field_simp; ring
-  have hkey : 416120094720 * E ≤ ρ * ((calP A G 1 : ℕ) : ℝ) := by
-    have hmul : ρ * ((calP A G 1 : ℕ) : ℝ)
-        = Real.exp (Real.log ρ + Real.log ((calP A G 1 : ℕ) : ℝ)) := by
-      rw [Real.exp_add, Real.exp_log hρ, Real.exp_log hP1pos]
-    calc 416120094720 * E ≤ Real.exp 27 * E := by nlinarith [s15_exp27, hEpos]
-      _ = Real.exp (27 + 14 * Real.log (Real.log (Hhi : ℝ))) := by rw [hE, ← Real.exp_add]
-      _ ≤ Real.exp (Real.log ρ + Real.log ((calP A G 1 : ℕ) : ℝ)) := by
-          refine Real.exp_le_exp.mpr ?_
-          rw [log_calP_one_gen A G]; linarith
-      _ = ρ * ((calP A G 1 : ℕ) : ℝ) := hmul.symm
-  have hhalf : 276480 * (1 / ((calP A G 1 : ℕ) : ℝ)) ≤ 1 / 4 * constPool ρ Hhi := by
-    rw [hpool, show (276480 : ℝ) * (1 / ((calP A G 1 : ℕ) : ℝ))
-        = 276480 / ((calP A G 1 : ℕ) : ℝ) by ring,
-      div_le_div_iff₀ hP1pos (by positivity)]
-    nlinarith [hkey]
-  nlinarith [hinv, hhalf, hP1pos]
+-- `s15_p2_of_budget_gen` now lives in `S15Compose`, above its instance `s15_p2_of_budget`
+-- (O13-e row 260).
 
 /-- **⟦THE `level1` SLOT AT `constPool`, AT THE LINEAR DOOR⟧** (`s15_level1_of_budget` twin) —
 the register's binding line, read at `A_L(M)`. -/
