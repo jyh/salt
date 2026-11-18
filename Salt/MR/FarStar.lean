@@ -767,6 +767,58 @@ theorem hRHS_socket_star {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ �
   exact rhs_grade_at_scale_closed_star hg hCb0 hCbound hk rfl rfl rfl rfl rfl hXk hXe hX2k hkX
     hne hmin hMcap (hInt k hk1 hk2)
 
+/-! ### FS-5c′ — the crown, uniform in the centre (moved from `SupStation` §2, O13-e row 252)
+
+The statement only is new: the proof is the crown's own, replayed with the `∃ X₀` hoisted over
+the centre `t₁`, on `CenterSupply.ball_sup_supplied_uniform`.  The crown FS-5c below is its
+instance at a fixed `t₁`.
+-/
+
+set_option maxHeartbeats 800000 in
+-- As at `FarStar.ball_sup_closed_star`: the crown's binder block is instantiated wholesale.
+/-- **THE CROWN AT `T*`, UNIFORM IN THE CENTRE (`ball_sup_closed_star_uniform`).**
+`FarStar.ball_sup_closed_star` with `∃ X₀` hoisted over `t₁`.  Its proof consumes
+`ball_sup_supplied` (now hoisted) and `FarStar.hRHS_socket_star`, which carries no threshold
+of its own; the carried hypothesis list is unchanged, item for item. -/
+theorem ball_sup_closed_star_uniform {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    (t₀ : ℝ) :
+    ∃ X₀ : ℝ, 0 < X₀ ∧
+      ∀ (t₁ X : ℝ) (N : ℕ) (Tb Cb Tann : ℝ) (a : ℕ → ℂ),
+        X₀ ≤ X → Real.exp 1 ≤ X → X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X →
+        0 ≤ Cb → ShortIntervalDatum Cb →
+        (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+        (∀ n : ℕ, X < (n : ℝ) → a n = seamCoeff (ellLin g) (fun _ => 1) t₀ n) →
+        (∀ v : ℝ, |v| ≤ seamGateRstar X Tann →
+          pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X
+            ≤ pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist v) X) →
+        (∀ x : ℝ, X ≤ x → x ≤ 2 * X →
+          pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) x
+            ≤ (1 / 16) * Real.log (Real.log X)) →
+        (∀ k : ℕ, ⌊X⌋₊ ≤ k → k ≤ N → Real.exp 64 ≤ (k : ℝ)) →
+        (seamAnn X Tann ∩ seamBall X t₁).Nonempty →
+        (∀ k : ℕ, ⌊X⌋₊ ≤ k → k ≤ N →
+          JointIntegrableAt (fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) (t₀ + t₁)
+            (pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X) (k : ℝ)
+            (Real.log (k : ℝ)) (1 + 1 / Real.log (k : ℝ)) (Real.log (k : ℝ) ^ 4)
+            (1 / Real.log (Real.log (k : ℝ) ^ 4))
+            ((k : ℝ) / Real.sqrt (Real.log (k : ℝ)))) →
+      ∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ Tb → |t - t₁| ≤ seamRad X →
+        ∀ m : ℕ, m ≤ N →
+          ‖spolyA a t m‖
+            ≤ ballSupS X ((gradeAbsConst Cb + farCStar)
+                  * Real.exp (-(1 / (2 * Real.exp 1))
+                      * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X)
+                + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) * m / (1 + |t - t₁|) := by
+  obtain ⟨X₀, hX₀0, H⟩ := ball_sup_supplied_uniform hg t₀
+  refine ⟨X₀, hX₀0, ?_⟩
+  intro t₁ X N Tb Cb Tann a hXlb hXe hXN hN2 hCb0 hCbound hsupp hDatum hmin hMcapX hk64 hne
+    hInt
+  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
+  exact H t₁ X N Tb (gradeAbsConst Cb + farCStar) a hXlb hXN hN2
+    (by have := gradeAbsConst_nonneg hCb0; have := farCStar_nonneg; linarith) hsupp hDatum
+    (hRHS_socket_star hg hCb0 hCbound hXe hN2 hmin (hMcapX X le_rfl (by linarith)) hk64 hne
+      hInt) hMcapX
+
 set_option maxHeartbeats 800000 in
 -- The crown's binder block is instantiated wholesale (eight sockets, five pin expressions
 -- each); the unification exceeds the default budget, as at `FarClose.ball_sup_closed`.
@@ -793,7 +845,9 @@ set_option maxHeartbeats 800000 in
 (9) the four `JointIntegrableAt` sockets, upstream's own.
 
 Gone versus `FarClose.ball_sup_closed`: `0 ≤ Cfar`, the free `T`/`Kfar` functions, the kernel
-binder `hKf`, the far arithmetic `hfar` (FALSE at `L⁴`, TRUE here), and the gate `hgate`. -/
+binder `hKf`, the far arithmetic `hfar` (FALSE at `L⁴`, TRUE here), and the gate `hgate`.
+
+Proof: the instance at `t₁` of `ball_sup_closed_star_uniform` (above). -/
 theorem ball_sup_closed_star {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ t₁ : ℝ) :
     ∃ X₀ : ℝ, 0 < X₀ ∧
       ∀ (X : ℝ) (N : ℕ) (Tb Cb Tann : ℝ) (a : ℕ → ℂ),
@@ -822,13 +876,7 @@ theorem ball_sup_closed_star {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p�
                   * Real.exp (-(1 / (2 * Real.exp 1))
                       * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X)
                 + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) * m / (1 + |t - t₁|) := by
-  obtain ⟨X₀, hX₀0, H⟩ := ball_sup_supplied hg t₀ t₁
-  refine ⟨X₀, hX₀0, ?_⟩
-  intro X N Tb Cb Tann a hXlb hXe hXN hN2 hCb0 hCbound hsupp hDatum hmin hMcapX hk64 hne hInt
-  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
-  exact H X N Tb (gradeAbsConst Cb + farCStar) a hXlb hXN hN2
-    (by have := gradeAbsConst_nonneg hCb0; have := farCStar_nonneg; linarith) hsupp hDatum
-    (hRHS_socket_star hg hCb0 hCbound hXe hN2 hmin (hMcapX X le_rfl (by linarith)) hk64 hne
-      hInt) hMcapX
+  obtain ⟨X₀, hX₀0, H⟩ := ball_sup_closed_star_uniform hg t₀
+  exact ⟨X₀, hX₀0, H t₁⟩
 
 end Salt.MR
