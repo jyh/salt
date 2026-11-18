@@ -25302,7 +25302,7 @@ down -- this is NOT the C-class obstacle the wave-1 brief asked me to watch for:
 | 1 | `s16_audit_neglog_rho_le_425_h_g12b` | `StrideGrade12bWalls.lean:151-155` | 5 | conclusion `-log rho <= 429` is `411 + 2*9`; the supplier `s16_audit_neglog_rho_le_wide_h_g12` already proves `<= 411 + 2*log c`, **grade-free and already affine** |
 | 2 | `s15_sel''_L_witness_flat_charge_g12b` | `StrideGrade12bWalls.lean:49-84` | 36 | `hcb : c <= 8103` (`:50`) and `hrholog : -log rho <= 429` (`:51`), widened at `:64` to `<= 439` |
 | 3 | `flat_half_line_g14` | `S15SelLinearWide.lean:102-122` | 21 | `hc : c <= 439`, entering as `3*c` against `e^{3.2A}/2`; slack `10^31 x` |
-| 4 | `flat_anchor_line_wide_g14` | `StrideGradeReach.lean:188-193` | 6 | `hc : c <= 439`, entering as `+ c + 33`; slack `449 x` |
+| 4 | `flat_anchor_line_wide_g14` | `StrideGradeReach.lean:170-175` | 6 | `hc : c <= 439`, entering as `+ c + 33`; slack `449 x` |
 | 5 | `flat_gP1_line_g14` | `S15SelLinearWide.lean:135-155` | 21 | `hc : -439 <= c`, entering as `+ c`; slack `5.5e3 x` |
 | 6 | `flat_lvl_line_g14` | `S15SelLinearWide.lean:170-223` | 54 | `hc : c <= 439`, entering as `+ c`; slack `457 x` |
 | 7 | `s15_sel''_L_witness_flat_b9` | `S15SelLinear.lean:323-524` | 202 | `hcb : c <= 8103` (`:729`), spent at `:848` (`hcRb`) |
@@ -25437,7 +25437,7 @@ and reads it at exactly two lines, both `_14` suppliers with NO charge-form twin
 - `:375` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the
   arithmetic gate `m4_arith_henv_constPoolH_L_gk_14` -> `m4_arith_henv_rho_poolH_L_gk_14` ->
   `a2DoorGrade_pool_L_priced_rhoH_gk_14` -> `a2DoorGrade_pool_L_priced_rhoH_14` ->
-  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1469`):
+  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1510`):
   `h * arcDen 12 H * strataResidualH h H ^ 2 <= exp (14 * loglog H)` at `50 <= loglog H`.  With
   `arcDen 12 H = (log H)^12` this needs `h * (1 + 12 loglog H + log h)^2 <= (log H)^2`, which a FREE
   `h` breaks at any fixed tower floor;

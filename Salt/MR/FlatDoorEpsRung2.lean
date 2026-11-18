@@ -3127,7 +3127,7 @@ theorem flat_half_line_L {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 16 * A) :
   linarith [hsq, hE2, hc, h16, hEE]
 
 /-- **⟦THE `anchor` LINE AT A CHARGE PAID BY `A`⟧ (class A)** — `flat_anchor_line_wide_g14`
-(`StrideGradeReach.lean:188`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the conclusion is
+(`StrideGradeReach.lean:170`) with `hc : c ≤ 439` replaced by `hc : c ≤ 16 * A`; the conclusion is
 the source's, byte for byte.  BODY: the source's, plus the shared new fact `16 * A ≤ 10 * E`.
 
 THE MARGIN, derived: `flatDoorM_ge` gives
