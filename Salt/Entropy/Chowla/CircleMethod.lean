@@ -789,6 +789,126 @@ theorem norm_dft_neg_of_real {N : ℕ} [NeZero N] (r : ZMod N → ℝ) (ξ : ZMo
     ring
   rw [hconj, RCLike.norm_conj]
 
+/-- **The twisted large-spectrum set** — the `ξ ∈ ℤ/Hℤ` whose `h`-MULTIPLE is
+large-spectrum: `|S_H(−((h·ξ).val)/H)| ≥ ε²/log H`.  At `h = 1` this is `bigXi` up to the
+`Nat.cast_one`/`one_mul` rewrite; at general `h` it is the `μ_h`-preimage of `bigXi`
+under `ξ ↦ (h : ZMod H)·ξ`.  The `ZMod`-side spelling of the twist is deliberate: it
+makes the shift fork's set equal to this one by a filter congruence rather than by a
+periodicity argument. -/
+noncomputable def bigXiTwistFilter (h : ℕ) (eps : ℚ) (H : ℕ) [NeZero H] :
+    Finset (ZMod H) := by
+  classical
+  exact Finset.univ.filter (fun ξ : ZMod H =>
+    (eps : ℝ) ^ 2 / Real.log (H : ℝ)
+      ≤ ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖)
+
+-- membership in the twisted large-spectrum set
+/-- `ξ ∈ bigXiTwistFilter h eps H ↔ ε²/log H ≤ ‖S_H(−((h·ξ).val)/H)‖`: the twisted
+large-spectrum set unfolded (`Finset.mem_filter`). Its negation is the minor-arc bound in
+`fourier_split_h` and `fourier_split_sq_h`. -/
+private lemma mem_bigXiTwistFilter {h : ℕ} {eps : ℚ} {H : ℕ} [NeZero H] {ξ : ZMod H} :
+    ξ ∈ bigXiTwistFilter h eps H ↔
+      (eps : ℝ) ^ 2 / Real.log (H : ℝ)
+        ≤ ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖ := by
+  unfold bigXiTwistFilter
+  simp only [Finset.mem_filter, Finset.mem_univ, true_and]
+
+/-- `bigXiTwistFilter` at `h = 1` is `bigXi`: the twist `(1 : ZMod H) * ξ` is `ξ`. -/
+private lemma bigXiTwistFilter_one (eps : ℚ) (H : ℕ) [NeZero H] :
+    bigXiTwistFilter 1 eps H = bigXi eps H := by
+  ext ξ
+  simp only [bigXiTwistFilter, bigXi, Finset.mem_filter, Finset.mem_univ, true_and, Nat.cast_one,
+    one_mul]
+
+/-- **Stone 1a-h, the squared Fourier split at the twisted frequency** — the empty cell of a
+2×2 grid whose other three are landed: `fourier_split` (untwisted, L¹), `fourier_split_sq`
+(untwisted, L²/diagonal, `:924`), `fourier_split_h` (twisted, L¹, below).  This is their
+composition and it introduces no new estimate.
+
+From `fourier_split_h` it takes the twist ONLY: the exponential sum sits at
+`−((h·ξ).val)/H` and the major arm is summed over `bigXiTwistFilter h eps H`.  It is a CLONE
+for the same reason `fourier_split_h` is — the reindex `ξ ↦ h·ξ` that would make it an
+instance is unavailable exactly when `gcd(h,H) > 1`.
+
+From `fourier_split_sq` it takes the diagonal: ONE window `Φ`, and the reality reflection
+`hrefl : ‖𝓕Φ (−ξ)‖ = ‖𝓕Φ ξ‖` is *where the square comes from* — with `Φ₂ = Φ₁` the major
+term's two Fourier factors collapse to `‖𝓕Φ ξ‖²`, so the second factor is KEPT rather than
+bounded by `H`.  Hence the constant is `fourier_split_sq`'s `2C₀/log H`, **not**
+`fourier_split_h`'s `2C₀·H/log H`: the `H` in the L¹ arm is exactly the factor this diagonal
+does not spend.
+
+The minor arc is untouched from `fourier_split_sq` — same `dft_l1_reflect Φ Φ`, same
+`ε²H²/log H`.  `0 < h` is NOT required here and is deliberately absent: at `h = 0` the
+statement degenerates to the untwisted split at `ξ ↦ 0`, which is still true.  The `0 < h`
+fence belongs to the top-level estimate, where it pays for the wraparound. -/
+theorem fourier_split_sq_h {eps : ℚ} {H : ℕ} [NeZero H] (h : ℕ) (Φ : ZMod H → ℂ)
+    (h1 : ∀ j, ‖Φ j‖ ≤ 1) (hrefl : ∀ ξ : ZMod H, ‖ZMod.dft Φ (-ξ)‖ = ‖ZMod.dft Φ ξ‖)
+    {C₀ : ℝ} (hC₀ : 0 < C₀) (hlog : 0 < Real.log (H : ℝ))
+    (hcard : ((primeWindow eps H).card : ℝ) ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))) :
+    ‖∑ ξ : ZMod H, ZMod.dft Φ ξ * ZMod.dft Φ (-ξ) *
+        expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖
+      ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ)
+        + (2 * C₀ / Real.log (H : ℝ)) * ∑ ξ ∈ bigXiTwistFilter h eps H, ‖ZMod.dft Φ ξ‖ ^ 2 := by
+  classical
+  set g : ZMod H → ℝ := fun ξ =>
+    ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ *
+      ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖ with hg
+  have hstep1 : ‖∑ ξ : ZMod H, ZMod.dft Φ ξ * ZMod.dft Φ (-ξ) *
+      expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖ ≤ ∑ ξ : ZMod H, g ξ := by
+    refine (norm_sum_le _ _).trans (le_of_eq ?_)
+    refine Finset.sum_congr rfl (fun ξ _ => ?_)
+    rw [hg]; simp only; rw [norm_mul, norm_mul]
+  refine hstep1.trans ?_
+  rw [← Finset.sum_filter_add_sum_filter_not Finset.univ (fun ξ => ξ ∈ bigXiTwistFilter h eps H) g]
+  have hfilt : Finset.univ.filter (fun ξ => ξ ∈ bigXiTwistFilter h eps H)
+      = bigXiTwistFilter h eps H := by
+    ext ξ; simp only [Finset.mem_filter, Finset.mem_univ, true_and]
+  have hmajor : ∑ ξ ∈ Finset.univ.filter (fun ξ => ξ ∈ bigXiTwistFilter h eps H), g ξ
+      ≤ (2 * C₀ / Real.log (H : ℝ)) * ∑ ξ ∈ bigXiTwistFilter h eps H, ‖ZMod.dft Φ ξ‖ ^ 2 := by
+    rw [hfilt, Finset.mul_sum]
+    refine Finset.sum_le_sum (fun ξ _ => ?_)
+    rw [hg]; simp only
+    have hbe : ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖
+        ≤ 2 * C₀ / Real.log (H : ℝ) :=
+      expSum_norm_le_major hC₀ hlog hcard _
+    calc ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ *
+          ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖
+        = ‖ZMod.dft Φ ξ‖ ^ 2 * ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖ := by
+          rw [hrefl ξ]; ring
+      _ ≤ ‖ZMod.dft Φ ξ‖ ^ 2 * (2 * C₀ / Real.log (H : ℝ)) := by gcongr
+      _ = 2 * C₀ / Real.log (H : ℝ) * ‖ZMod.dft Φ ξ‖ ^ 2 := by ring
+  have hminor : ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H), g ξ
+      ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ) := by
+    have hle : ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H), g ξ
+        ≤ ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H),
+            ((eps : ℝ) ^ 2 / Real.log (H : ℝ)) * (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖) := by
+      refine Finset.sum_le_sum (fun ξ hξ => ?_)
+      rw [Finset.mem_filter] at hξ
+      have hlt : ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖
+          < (eps : ℝ) ^ 2 / Real.log (H : ℝ) :=
+        not_le.mp (fun h => hξ.2 (mem_bigXiTwistFilter.mpr h))
+      rw [hg]; simp only
+      calc ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ *
+            ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖
+          ≤ ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ * ((eps : ℝ) ^ 2 / Real.log (H : ℝ)) := by
+            gcongr
+        _ = (eps : ℝ) ^ 2 / Real.log (H : ℝ) * (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖) := by ring
+    refine hle.trans ?_
+    rw [← Finset.mul_sum]
+    have hl1 : ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H),
+        (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖)
+          ≤ ∑ ξ : ZMod H, ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ :=
+      Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
+        (fun ξ _ _ => by positivity)
+    have hl2 := dft_l1_reflect Φ Φ h1 h1
+    calc (eps : ℝ) ^ 2 / Real.log (H : ℝ) *
+          ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H),
+            (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖)
+        ≤ (eps : ℝ) ^ 2 / Real.log (H : ℝ) * (H : ℝ) ^ 2 :=
+          mul_le_mul_of_nonneg_left (hl1.trans hl2) (div_nonneg (by positivity) hlog.le)
+      _ = (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ) := by ring
+  linarith [hmajor, hminor]
+
 /-- **Stone 1a, the squared Fourier split** (the `fourier_split` twin on the diagonal).
 
 Same minor arc (`mem_bigXi` + `dft_l1_reflect`), but the MAJOR arm keeps the second
@@ -798,7 +918,9 @@ real datum) each major term is `‖𝓕Φ ξ‖²·‖S_H(−ξ/H)‖ ≤ (2C₀
 `‖Σ_ξ 𝓕Φ ξ · 𝓕Φ(−ξ) · S_H(−ξ/H)‖ ≤ ε²H²/log H + (2C₀/log H)·Σ_{ξ∈Ξ}‖𝓕Φ ξ‖²`.
 
 Against `fourier_split`'s `(2C₀H/log H)·Σ_{ξ∈Ξ}‖𝓕Φ ξ‖` this is a strict tightening
-(termwise `‖𝓕Φ ξ‖ ≤ H`). -/
+(termwise `‖𝓕Φ ξ‖ ≤ H`).
+
+Proof: the `h = 1` instance of `fourier_split_sq_h` (above), through `bigXiTwistFilter_one`. -/
 theorem fourier_split_sq {eps : ℚ} {H : ℕ} [NeZero H] (Φ : ZMod H → ℂ)
     (h1 : ∀ j, ‖Φ j‖ ≤ 1) (hrefl : ∀ ξ : ZMod H, ‖ZMod.dft Φ (-ξ)‖ = ‖ZMod.dft Φ ξ‖)
     {C₀ : ℝ} (hC₀ : 0 < C₀) (hlog : 0 < Real.log (H : ℝ))
@@ -807,59 +929,8 @@ theorem fourier_split_sq {eps : ℚ} {H : ℕ} [NeZero H] (Φ : ZMod H → ℂ)
         expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖
       ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ)
         + (2 * C₀ / Real.log (H : ℝ)) * ∑ ξ ∈ bigXi eps H, ‖ZMod.dft Φ ξ‖ ^ 2 := by
-  classical
-  set g : ZMod H → ℝ := fun ξ =>
-    ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ * ‖expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖ with hg
-  have hstep1 : ‖∑ ξ : ZMod H, ZMod.dft Φ ξ * ZMod.dft Φ (-ξ) *
-      expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖ ≤ ∑ ξ : ZMod H, g ξ := by
-    refine (norm_sum_le _ _).trans (le_of_eq ?_)
-    refine Finset.sum_congr rfl (fun ξ _ => ?_)
-    rw [hg]; simp only; rw [norm_mul, norm_mul]
-  refine hstep1.trans ?_
-  rw [← Finset.sum_filter_add_sum_filter_not Finset.univ (fun ξ => ξ ∈ bigXi eps H) g]
-  have hfilt : Finset.univ.filter (fun ξ => ξ ∈ bigXi eps H) = bigXi eps H := by
-    ext ξ; simp only [Finset.mem_filter, Finset.mem_univ, true_and]
-  have hmajor : ∑ ξ ∈ Finset.univ.filter (fun ξ => ξ ∈ bigXi eps H), g ξ
-      ≤ (2 * C₀ / Real.log (H : ℝ)) * ∑ ξ ∈ bigXi eps H, ‖ZMod.dft Φ ξ‖ ^ 2 := by
-    rw [hfilt, Finset.mul_sum]
-    refine Finset.sum_le_sum (fun ξ _ => ?_)
-    rw [hg]; simp only
-    have hbe : ‖expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖ ≤ 2 * C₀ / Real.log (H : ℝ) :=
-      expSum_norm_le_major hC₀ hlog hcard _
-    calc ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ * ‖expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖
-        = ‖ZMod.dft Φ ξ‖ ^ 2 * ‖expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖ := by
-          rw [hrefl ξ]; ring
-      _ ≤ ‖ZMod.dft Φ ξ‖ ^ 2 * (2 * C₀ / Real.log (H : ℝ)) := by gcongr
-      _ = 2 * C₀ / Real.log (H : ℝ) * ‖ZMod.dft Φ ξ‖ ^ 2 := by ring
-  have hminor : ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXi eps H), g ξ
-      ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ) := by
-    have hle : ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXi eps H), g ξ
-        ≤ ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXi eps H),
-            ((eps : ℝ) ^ 2 / Real.log (H : ℝ)) * (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖) := by
-      refine Finset.sum_le_sum (fun ξ hξ => ?_)
-      rw [Finset.mem_filter] at hξ
-      have hlt : ‖expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖ < (eps : ℝ) ^ 2 / Real.log (H : ℝ) :=
-        not_le.mp (fun h => hξ.2 (mem_bigXi.mpr h))
-      rw [hg]; simp only
-      calc ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ * ‖expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖
-          ≤ ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ * ((eps : ℝ) ^ 2 / Real.log (H : ℝ)) := by
-            gcongr
-        _ = (eps : ℝ) ^ 2 / Real.log (H : ℝ) * (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖) := by ring
-    refine hle.trans ?_
-    rw [← Finset.mul_sum]
-    have hl1 : ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXi eps H),
-        (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖)
-          ≤ ∑ ξ : ZMod H, ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ :=
-      Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
-        (fun ξ _ _ => by positivity)
-    have hl2 := dft_l1_reflect Φ Φ h1 h1
-    calc (eps : ℝ) ^ 2 / Real.log (H : ℝ) *
-          ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXi eps H),
-            (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖)
-        ≤ (eps : ℝ) ^ 2 / Real.log (H : ℝ) * (H : ℝ) ^ 2 :=
-          mul_le_mul_of_nonneg_left (hl1.trans hl2) (div_nonneg (by positivity) hlog.le)
-      _ = (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ) := by ring
-  linarith [hmajor, hminor]
+  have h := fourier_split_sq_h 1 Φ h1 hrefl hC₀ hlog hcard
+  simpa only [Nat.cast_one, one_mul, bigXiTwistFilter_one] using h
 
 /-- `circle_method_estimate_sq` at its explicit constant `C = 1 + 2 * C₀`: the proof of both
 `circle_method_estimate_sq` and its bounded twin
@@ -1029,30 +1100,6 @@ over the fork's set lives on the ShiftFork side, and this file stays import-clos
 correlation needs `1 ≤ p·h`, which `Nat.mul_pos` supplies.  At `h = 0` the statement is
 FALSE at `H = 1`, not merely unprovable. -/
 
-/-- **The twisted large-spectrum set** — the `ξ ∈ ℤ/Hℤ` whose `h`-MULTIPLE is
-large-spectrum: `|S_H(−((h·ξ).val)/H)| ≥ ε²/log H`.  At `h = 1` this is `bigXi` up to the
-`Nat.cast_one`/`one_mul` rewrite; at general `h` it is the `μ_h`-preimage of `bigXi`
-under `ξ ↦ (h : ZMod H)·ξ`.  The `ZMod`-side spelling of the twist is deliberate: it
-makes the shift fork's set equal to this one by a filter congruence rather than by a
-periodicity argument. -/
-noncomputable def bigXiTwistFilter (h : ℕ) (eps : ℚ) (H : ℕ) [NeZero H] :
-    Finset (ZMod H) := by
-  classical
-  exact Finset.univ.filter (fun ξ : ZMod H =>
-    (eps : ℝ) ^ 2 / Real.log (H : ℝ)
-      ≤ ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖)
-
--- membership in the twisted large-spectrum set
-/-- `ξ ∈ bigXiTwistFilter h eps H ↔ ε²/log H ≤ ‖S_H(−((h·ξ).val)/H)‖`: the twisted
-large-spectrum set unfolded (`Finset.mem_filter`). Its negation is the minor-arc bound in
-`fourier_split_h` and `fourier_split_sq_h`. -/
-private lemma mem_bigXiTwistFilter {h : ℕ} {eps : ℚ} {H : ℕ} [NeZero H] {ξ : ZMod H} :
-    ξ ∈ bigXiTwistFilter h eps H ↔
-      (eps : ℝ) ^ 2 / Real.log (H : ℝ)
-        ≤ ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖ := by
-  unfold bigXiTwistFilter
-  simp only [Finset.mem_filter, Finset.mem_univ, true_and]
-
 -- T collapse at offset `p·h`: the DFT factors stay untwisted, the exponential moves
 /-- **The `T`-collapse at offset `p·h`**:
 `H·Σ_p (1/p)·Σ_m Φ₁(m)·Φ₂(m+p·h) = Σ_ξ 𝓕Φ₁(ξ)·𝓕Φ₂(−ξ)·S_H(−((h·ξ).val)/H)` — `correlation_dft`
@@ -1213,95 +1260,6 @@ theorem fourier_split_h {eps : ℚ} {H : ℕ} [NeZero H] (h : ℕ) (Φ₁ Φ₂ 
     calc (eps : ℝ) ^ 2 / Real.log (H : ℝ) *
           ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H),
             (‖ZMod.dft Φ₁ ξ‖ * ‖ZMod.dft Φ₂ (-ξ)‖)
-        ≤ (eps : ℝ) ^ 2 / Real.log (H : ℝ) * (H : ℝ) ^ 2 :=
-          mul_le_mul_of_nonneg_left (hl1.trans hl2) (div_nonneg (by positivity) hlog.le)
-      _ = (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ) := by ring
-  linarith [hmajor, hminor]
-
-/-- **Stone 1a-h, the squared Fourier split at the twisted frequency** — the empty cell of a
-2×2 grid whose other three are landed: `fourier_split` (untwisted, L¹), `fourier_split_sq`
-(untwisted, L²/diagonal, `:724`), `fourier_split_h` (twisted, L¹, above).  This is their
-composition and it introduces no new estimate.
-
-From `fourier_split_h` it takes the twist ONLY: the exponential sum sits at
-`−((h·ξ).val)/H` and the major arm is summed over `bigXiTwistFilter h eps H`.  It is a CLONE
-for the same reason `fourier_split_h` is — the reindex `ξ ↦ h·ξ` that would make it an
-instance is unavailable exactly when `gcd(h,H) > 1`.
-
-From `fourier_split_sq` it takes the diagonal: ONE window `Φ`, and the reality reflection
-`hrefl : ‖𝓕Φ (−ξ)‖ = ‖𝓕Φ ξ‖` is *where the square comes from* — with `Φ₂ = Φ₁` the major
-term's two Fourier factors collapse to `‖𝓕Φ ξ‖²`, so the second factor is KEPT rather than
-bounded by `H`.  Hence the constant is `fourier_split_sq`'s `2C₀/log H`, **not**
-`fourier_split_h`'s `2C₀·H/log H`: the `H` in the L¹ arm is exactly the factor this diagonal
-does not spend.
-
-The minor arc is untouched from `fourier_split_sq` — same `dft_l1_reflect Φ Φ`, same
-`ε²H²/log H`.  `0 < h` is NOT required here and is deliberately absent: at `h = 0` the
-statement degenerates to the untwisted split at `ξ ↦ 0`, which is still true.  The `0 < h`
-fence belongs to the top-level estimate, where it pays for the wraparound. -/
-theorem fourier_split_sq_h {eps : ℚ} {H : ℕ} [NeZero H] (h : ℕ) (Φ : ZMod H → ℂ)
-    (h1 : ∀ j, ‖Φ j‖ ≤ 1) (hrefl : ∀ ξ : ZMod H, ‖ZMod.dft Φ (-ξ)‖ = ‖ZMod.dft Φ ξ‖)
-    {C₀ : ℝ} (hC₀ : 0 < C₀) (hlog : 0 < Real.log (H : ℝ))
-    (hcard : ((primeWindow eps H).card : ℝ) ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))) :
-    ‖∑ ξ : ZMod H, ZMod.dft Φ ξ * ZMod.dft Φ (-ξ) *
-        expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖
-      ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ)
-        + (2 * C₀ / Real.log (H : ℝ)) * ∑ ξ ∈ bigXiTwistFilter h eps H, ‖ZMod.dft Φ ξ‖ ^ 2 := by
-  classical
-  set g : ZMod H → ℝ := fun ξ =>
-    ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ *
-      ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖ with hg
-  have hstep1 : ‖∑ ξ : ZMod H, ZMod.dft Φ ξ * ZMod.dft Φ (-ξ) *
-      expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖ ≤ ∑ ξ : ZMod H, g ξ := by
-    refine (norm_sum_le _ _).trans (le_of_eq ?_)
-    refine Finset.sum_congr rfl (fun ξ _ => ?_)
-    rw [hg]; simp only; rw [norm_mul, norm_mul]
-  refine hstep1.trans ?_
-  rw [← Finset.sum_filter_add_sum_filter_not Finset.univ (fun ξ => ξ ∈ bigXiTwistFilter h eps H) g]
-  have hfilt : Finset.univ.filter (fun ξ => ξ ∈ bigXiTwistFilter h eps H)
-      = bigXiTwistFilter h eps H := by
-    ext ξ; simp only [Finset.mem_filter, Finset.mem_univ, true_and]
-  have hmajor : ∑ ξ ∈ Finset.univ.filter (fun ξ => ξ ∈ bigXiTwistFilter h eps H), g ξ
-      ≤ (2 * C₀ / Real.log (H : ℝ)) * ∑ ξ ∈ bigXiTwistFilter h eps H, ‖ZMod.dft Φ ξ‖ ^ 2 := by
-    rw [hfilt, Finset.mul_sum]
-    refine Finset.sum_le_sum (fun ξ _ => ?_)
-    rw [hg]; simp only
-    have hbe : ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖
-        ≤ 2 * C₀ / Real.log (H : ℝ) :=
-      expSum_norm_le_major hC₀ hlog hcard _
-    calc ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ *
-          ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖
-        = ‖ZMod.dft Φ ξ‖ ^ 2 * ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖ := by
-          rw [hrefl ξ]; ring
-      _ ≤ ‖ZMod.dft Φ ξ‖ ^ 2 * (2 * C₀ / Real.log (H : ℝ)) := by gcongr
-      _ = 2 * C₀ / Real.log (H : ℝ) * ‖ZMod.dft Φ ξ‖ ^ 2 := by ring
-  have hminor : ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H), g ξ
-      ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ) := by
-    have hle : ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H), g ξ
-        ≤ ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H),
-            ((eps : ℝ) ^ 2 / Real.log (H : ℝ)) * (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖) := by
-      refine Finset.sum_le_sum (fun ξ hξ => ?_)
-      rw [Finset.mem_filter] at hξ
-      have hlt : ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖
-          < (eps : ℝ) ^ 2 / Real.log (H : ℝ) :=
-        not_le.mp (fun h => hξ.2 (mem_bigXiTwistFilter.mpr h))
-      rw [hg]; simp only
-      calc ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ *
-            ‖expSum eps H (-((((h : ZMod H) * ξ).val : ℕ) : ℝ) / (H : ℝ))‖
-          ≤ ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ * ((eps : ℝ) ^ 2 / Real.log (H : ℝ)) := by
-            gcongr
-        _ = (eps : ℝ) ^ 2 / Real.log (H : ℝ) * (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖) := by ring
-    refine hle.trans ?_
-    rw [← Finset.mul_sum]
-    have hl1 : ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H),
-        (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖)
-          ≤ ∑ ξ : ZMod H, ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ :=
-      Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
-        (fun ξ _ _ => by positivity)
-    have hl2 := dft_l1_reflect Φ Φ h1 h1
-    calc (eps : ℝ) ^ 2 / Real.log (H : ℝ) *
-          ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXiTwistFilter h eps H),
-            (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖)
         ≤ (eps : ℝ) ^ 2 / Real.log (H : ℝ) * (H : ℝ) ^ 2 :=
           mul_le_mul_of_nonneg_left (hl1.trans hl2) (div_nonneg (by positivity) hlog.le)
       _ = (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ) := by ring

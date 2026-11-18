@@ -21,7 +21,7 @@ witness, with the landed body replayed verbatim underneath:
 | `primeWindow_sum_inv_ge_bounded` | `WindowMertensLower.lean:249` | `1/4 ≤ c` |
 | `hbudget_holds_bounded` | `HBudget.lean:733` | `1/4 ≤ c` (carry) |
 | `hreduce_holds_final_bounded` | `HBudget.lean:754` | `1/4 ≤ c` (carry) |
-| `circle_method_estimate_sq_bounded` | `CircleMethod.lean:992` | `C ≤ 1 + 2·C₀` |
+| `circle_method_estimate_sq_bounded` | `CircleMethod.lean:1063` | `C ≤ 1 + 2·C₀` |
 
 Nothing landed is touched; the two carries are the landed proofs reading the
 previous twin (the `c` of `hbudget_holds`/`hreduce_holds_final` IS D3's `c`,
