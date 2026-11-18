@@ -822,7 +822,7 @@ private lemma bigXiTwistFilter_one (eps : ℚ) (H : ℕ) [NeZero H] :
 
 /-- **Stone 1a-h, the squared Fourier split at the twisted frequency** — the empty cell of a
 2×2 grid whose other three are landed: `fourier_split` (untwisted, L¹), `fourier_split_sq`
-(untwisted, L²/diagonal, `:724`), `fourier_split_h` (twisted, L¹, above).  This is their
+(untwisted, L²/diagonal, `:924`), `fourier_split_h` (twisted, L¹, below).  This is their
 composition and it introduces no new estimate.
 
 From `fourier_split_h` it takes the twist ONLY: the exponential sum sits at
