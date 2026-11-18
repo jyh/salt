@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `873e54b6` · source digest `0939c9c708fffd62` (the same digest as items 1–3).
-> Receipt: files 1414 · decls 23441 · with_body 23441 · tactic_lines 302864 · runs 35587 · blocks 1242.
+> Base: last commit touching `Salt/` = `bb778b5b` · source digest `2a2a98f83ea9ca0e` (the same digest as items 1–3).
+> Receipt: files 1414 · decls 23441 · with_body 23441 · tactic_lines 302861 · runs 35588 · blocks 1242.
 
 ## LIMITS (read before any number below)
 
@@ -100,12 +100,12 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-302864 tactic lines. Top 30:
+302861 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 132010 | 43.6% |
-| 2 | `rw` | 48994 | 16.2% |
+| 1 | `have` | 132008 | 43.6% |
+| 2 | `rw` | 48993 | 16.2% |
 | 3 | `exact` | 17455 | 5.8% |
 | 4 | `intro` | 14026 | 4.6% |
 | 5 | `refine` | 12755 | 4.2% |
@@ -142,7 +142,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | circle method / Fourier | 2726 | `have` 958, `rw` 597, `refine` 213, `exact` 153, `intro` 135, `ring` 79, `simp` 71, `calc` 68 |
 | entropy decrement | 15120 | `have` 6081, `rw` 2656, `exact` 995, `intro` 565, `refine` 529, `simp` 462, `linarith` 446, `calc` 373 |
 | large sieve | 1719 | `have` 560, `rw` 379, `intro` 108, `refine` 104, `exact` 101, `simp` 56, `apply` 53, `calc` 48 |
-| Selberg/Brun sieve | 70202 | `have` 30188, `rw` 12056, `exact` 3800, `intro` 3242, `apply` 2287, `calc` 2277, `refine` 1687, `linarith` 1453 |
+| Selberg/Brun sieve | 70199 | `have` 30186, `rw` 12055, `exact` 3800, `intro` 3242, `apply` 2287, `calc` 2277, `refine` 1687, `linarith` 1453 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 34755 | `have` 15480, `rw` 6455, `exact` 1868, `intro` 1433, `refine` 1418, `linarith` 1100, `calc` 1077, `set` 854 |
 | zero-density / zero-free regions | 13609 | `have` 6263, `rw` 2384, `exact` 696, `intro` 614, `linarith` 576, `refine` 438, `set` 408, `calc` 379 |
 | character sums / L-functions | 62529 | `have` 26238, `rw` 9881, `exact` 4058, `refine` 3588, `intro` 3335, `obtain` 2384, `linarith` 2136, `calc` 1437 |

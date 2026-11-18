@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `873e54b6` · source digest `0939c9c708fffd62` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `bb778b5b` · source digest `2a2a98f83ea9ca0e` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -704,8 +704,7 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.Chen.medium_box_price_at_op_band` | Salt/Chen/ChenFinal2.lean:357 | sieves |
 | `Salt.Chen.sym_box_hprice_at_2pow_band` | Salt/Chen/ChenFinal2.lean:416 | sieves |
 | `Salt.Chen.low_box_hprice_at_2pow_band` | Salt/Chen/ChenFinal2.lean:496 | sieves |
-| `Salt.Chen.kfloor_of_live_box` | Salt/Chen/ChenHeadline.lean:48 | sieves |
-| `Salt.Chen.box_hprice_at_2pow_lo` | Salt/Chen/ChenHeadline.lean:119 | sieves |
+| `Salt.Chen.kfloor_of_live_box` | Salt/Chen/ChenHeadline.lean:49 | sieves |
 | `Salt.Chen.box_rows_at_op` | Salt/Chen/ChenRows1.lean:573 | sieves |
 | `Salt.Chen.blockAlphaSym_eq_blockAlphaLow_of_le` | Salt/Chen/ChenRows2.lean:112 | sieves |
 | `Salt.Chen.middle_k_band_floor` | Salt/Chen/ChenRows2.lean:136 | sieves |
@@ -951,9 +950,10 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.Chen.bridge_scale` | Salt/Chen/PriceOne.lean:149 | sieves |
 | `Salt.Chen.medium_box_price_at_op` | Salt/Chen/PriceOne.lean:508 | sieves |
 | `Salt.Chen.crtClassW_coprime_of_mem` | Salt/Chen/PriceThree.lean:101 | sieves |
-| `Salt.Chen.box_hprice_at_2pow` | Salt/Chen/PriceThree.lean:228 | sieves |
-| `Salt.Chen.sym_box_hprice_at_2pow` | Salt/Chen/PriceThree.lean:313 | sieves |
-| `Salt.Chen.low_box_hprice_at_2pow` | Salt/Chen/PriceThree.lean:393 | sieves |
+| `Salt.Chen.box_hprice_at_2pow_lo` | Salt/Chen/PriceThree.lean:226 | sieves |
+| `Salt.Chen.box_hprice_at_2pow` | Salt/Chen/PriceThree.lean:306 | sieves |
+| `Salt.Chen.sym_box_hprice_at_2pow` | Salt/Chen/PriceThree.lean:377 | sieves |
+| `Salt.Chen.low_box_hprice_at_2pow` | Salt/Chen/PriceThree.lean:457 | sieves |
 | `Salt.Chen.medium_box_price_at_op_lo` | Salt/Chen/PriceTwo.lean:363 | sieves |
 | `Salt.Chen.sym_box_price_at_op` | Salt/Chen/PriceTwo.lean:493 | sieves |
 | `Salt.Chen.low_box_price_at_op` | Salt/Chen/PriceTwo.lean:530 | sieves |
