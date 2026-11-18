@@ -518,12 +518,6 @@ window-select witness `P = ⌈N^{1−(m+2)/(k+1)}⌉`, `Y = ⌈P^{1/2}⌉`, `js 
 the eight facts `vk_window_bound`/`vk_window_prefix` consume.  It is extracted once here and
 fed to both twisted twins. -/
 
-/-- Exp-monotone (copy of `Window.vk_exp_mono_le`, private there). -/
-private lemma vk_exp_mono_le' {A B : ℝ} (hA : 0 < A) (hB : 0 < B)
-    (h : Real.log A ≤ Real.log B) : A ≤ B := by
-  have := Real.exp_le_exp.mpr h
-  rwa [Real.exp_log hA, Real.exp_log hB] at this
-
 set_option maxHeartbeats 1600000 in
 -- The five margin discharges thread ~40 shared log-atom facts through staged `nlinarith` calls;
 -- the default budget times out in the W2a corner arithmetic (as in `vk_window_scale`).
@@ -604,7 +598,7 @@ private lemma vk_scale_margins {k r m N P Y : ℕ} {t ρ : ℝ}
   have h3l2q : 3 * Real.log 2 ≤ (1 - q) * Real.log N := by
     rw [h1mq, le_div_iff₀ hk1R]; linarith [h13]
   have hguardR : (4 : ℝ) * (P : ℝ) ≤ (N : ℝ) := by
-    apply vk_exp_mono_le' (by positivity) hNpos
+    apply vk_exp_mono_le (by positivity) hNpos
     have h4P : Real.log (4 * (P : ℝ)) = 2 * Real.log 2 + Real.log P := by
       rw [Real.log_mul (by norm_num) (ne_of_gt hPpos),
         show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]
