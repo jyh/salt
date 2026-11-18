@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `89fd4aa9` · source digest `748edfb1f94dff56` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `713d58e0` · source digest `c06ad2a47de91ae5` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23440 · with a proof/definition body: 23440 · direct corpus references (edges): 86027 · audited results: 9148 · corpus Prop-valued names: 691.
+Declarations indexed: 23440 · with a proof/definition body: 23440 · direct corpus references (edges): 86026 · audited results: 9148 · corpus Prop-valued names: 691.
 
 ## Hypothesis status (Deliverable A)
 
@@ -1139,7 +1139,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Entropy.Chowla.isProbabilityMeasure_logMeasure` | 316 | Salt/Entropy/Chowla/LogMeasure.lean:70 |
 | `Salt.Entropy.Chowla.rhoG_prime_dvd` | 316 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:95 |
 | `Salt.Entropy.Chowla.rhoG_prime_not_dvd` | 316 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:104 |
-| `Salt.Entropy.Chowla.dropSum_exceeds_log_two_base` | 315 | Salt/Entropy/Chowla/RegimeParam.lean:219 |
+| `Salt.Entropy.Chowla.dropSum_exceeds_log_two_base` | 315 | Salt/Entropy/Chowla/RegimeParam.lean:151 |
 | `Salt.Entropy.Chowla.rhoG_mul_of_coprime` | 315 | Salt/Entropy/Chowla/GoldbachEnergyM2.lean:180 |
 | `Salt.Entropy.Chowla.nuG_lt_one_of_prime` | 313 | Salt/Entropy/Chowla/GoldbachEnergySieve.lean:82 |
 

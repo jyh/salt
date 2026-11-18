@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `89fd4aa9` · source digest `748edfb1f94dff56` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `713d58e0` · source digest `c06ad2a47de91ae5` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -1289,8 +1289,8 @@ Declarations indexed across the tree: 23440 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.perPair_collapse` | Salt/Entropy/Chowla/DilationStability.lean:70 | entropy |
 | `Salt.Entropy.Chowla.dilated_window_stability` | Salt/Entropy/Chowla/DilationStability.lean:178 | entropy |
 | `Salt.Entropy.Chowla.not_summable_one_div_nat_loglog` | Salt/Entropy/Chowla/Diverge.lean:230 | entropy |
-| `Salt.Entropy.Chowla.dropSum_exceeds_log_two` | Salt/Entropy/Chowla/Diverge.lean:397 | entropy |
-| `Salt.Entropy.Chowla.chowlaRegime_exists` | Salt/Entropy/Chowla/Diverge.lean:449 | entropy |
+| `Salt.Entropy.Chowla.dropSum_exceeds_log_two` | Salt/Entropy/Chowla/Diverge.lean:404 | entropy |
+| `Salt.Entropy.Chowla.chowlaRegime_exists` | Salt/Entropy/Chowla/Diverge.lean:456 | entropy |
 | `Salt.Entropy.Chowla.entropy_per_symbol_le` | Salt/Entropy/Chowla/Endpoints.lean:41 | characters, entropy |
 | `Salt.Entropy.Chowla.decrement_exists_of_tower` | Salt/Entropy/Chowla/Endpoints.lean:98 | characters, entropy |
 | `Salt.Entropy.Chowla.fBridge_concentration` | Salt/Entropy/Chowla/FBridge.lean:307 | entropy |
@@ -1437,10 +1437,10 @@ Declarations indexed across the tree: 23440 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.x_big_at` | Salt/Entropy/Chowla/Regime.lean:261 | entropy |
 | `Salt.Entropy.Chowla.regime_outer` | Salt/Entropy/Chowla/RegimeInst.lean:88 | entropy |
 | `Salt.Entropy.Chowla.regime_exists_of_dropSum_exists` | Salt/Entropy/Chowla/RegimeInst.lean:201 | entropy |
-| `Salt.Entropy.Chowla.dropSum_exceeds_log_two_base` | Salt/Entropy/Chowla/RegimeParam.lean:219 | entropy |
-| `Salt.Entropy.Chowla.chowlaRegime_exists_param_gen` | Salt/Entropy/Chowla/RegimeParam.lean:386 | entropy |
-| `Salt.Entropy.Chowla.chowlaRegime_exists_param` | Salt/Entropy/Chowla/RegimeParam.lean:474 | entropy |
-| `Salt.Entropy.Chowla.chowlaRegime_exists_param_head'` | Salt/Entropy/Chowla/RegimeParam.lean:543 | entropy |
+| `Salt.Entropy.Chowla.dropSum_exceeds_log_two_base` | Salt/Entropy/Chowla/RegimeParam.lean:151 | entropy |
+| `Salt.Entropy.Chowla.chowlaRegime_exists_param_gen` | Salt/Entropy/Chowla/RegimeParam.lean:318 | entropy |
+| `Salt.Entropy.Chowla.chowlaRegime_exists_param` | Salt/Entropy/Chowla/RegimeParam.lean:406 | entropy |
+| `Salt.Entropy.Chowla.chowlaRegime_exists_param_head'` | Salt/Entropy/Chowla/RegimeParam.lean:475 | entropy |
 | `Salt.Entropy.Chowla.entropy_ge_of_mass_ub` | Salt/Entropy/Chowla/ResidueUniform.lean:65 | entropy |
 | `Salt.Entropy.Chowla.entropy_residueWindow_ge` | Salt/Entropy/Chowla/ResidueUniform.lean:536 | entropy |
 | `Salt.Entropy.Chowla.integral_logMeasure_eq` | Salt/Entropy/Chowla/ShiftCorr.lean:42 | entropy |
@@ -9219,7 +9219,7 @@ Declarations indexed across the tree: 23440 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.delta1w` | Salt/Entropy/Chowla/PinDichotomy.lean:298 | entropy |
 | `Salt.Entropy.Chowla.fBridgeF_liouville_apply` | Salt/Entropy/Chowla/Prop26.lean:87 | characters, entropy |
 | `Salt.Entropy.Chowla.fBridgeF_h_liouville_apply` | Salt/Entropy/Chowla/Prop26.lean:212 | characters, entropy |
-| `Salt.Entropy.Chowla.regimeEnlargeX'` | Salt/Entropy/Chowla/RegimeParam.lean:501 | entropy |
+| `Salt.Entropy.Chowla.regimeEnlargeX'` | Salt/Entropy/Chowla/RegimeParam.lean:433 | entropy |
 | `Salt.Entropy.Chowla.logChowla2Fails_eq_logChowlaFails_one` | Salt/Entropy/Chowla/ShiftFork.lean:72 | entropy |
 | `Salt.Entropy.Chowla.bigXiH` | Salt/Entropy/Chowla/ShiftFork.lean:93 | entropy |
 | `Salt.Entropy.Chowla.expSum_add_intCast` | Salt/Entropy/Chowla/ShiftFork.lean:134 | entropy, exponential sums |
