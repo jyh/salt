@@ -1,7 +1,7 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `bb778b5b` · source digest `2a2a98f83ea9ca0e` (the same digest as items 1–3).
+> Base: last commit touching `Salt/` = `5d62f1ec` · source digest `4a3bd32ba9f2b162` (the same digest as items 1–3).
 > Receipt: files 1414 · decls 23441 · with_body 23441 · tactic_lines 302861 · runs 35588 · blocks 1242.
 
 ## LIMITS (read before any number below)
@@ -312,7 +312,7 @@ have := Real.exp_le_exp.mpr $1
 rwa [Real.exp_log $8] at this
 ```
 
-**10.** 14 lines × 6 occurrences in 6 files · lines saved ≤ **78** · e.g. `Salt/MR/StrideDoorAllGrades.lean:5465` · `Salt/MR/StridePairReceipt.lean:2165`
+**10.** 14 lines × 6 occurrences in 6 files · lines saved ≤ **78** · e.g. `Salt/MR/StrideDoorAllGrades.lean:5465` · `Salt/MR/StridePairReceipt.lean:2166`
 
 ```lean
 have $1 : (# : ℝ) ≤ # / ($2.eps : ℝ) := by positivity
