@@ -854,7 +854,7 @@ concentration deviation sets, `FBridge`/`Decoupled`); at `h = 1` it reads
 `windowVal H (liouvilleWindow H n) (j + (p : ℕ))`, with no `* h`.  `outer_combine_h` writes
 wave A's fixed target spelling `windowVal H v (j + (p : ℕ) * h)` (`OuterCombine.lean:150`).
 VERIFIED BY `grep -F` ON THE LITERAL, NOT BY EYE: the string `(j + (p : ℕ) * h) : ℝ)` occurs at
-site 1 (`Transport.lean:203`), site 2 (`FBridge.lean:820`, `Decoupled.lean:107`) and site 3
+site 1 (`Transport.lean:82`), site 2 (`FBridge.lean:820`, `Decoupled.lean:107`) and site 3
 (`OuterCombine.lean:642`); after `OuterCombine.lean:440` — the whole B-4 block — the unshifted
 literal `(j + (p : ℕ)) : ℝ)` occurs ZERO times.
 
