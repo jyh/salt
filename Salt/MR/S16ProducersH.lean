@@ -169,68 +169,6 @@ theorem m4_arith_rs_ceiling_met_of_deltaH {h : ℕ} (hh : 0 < h) {δ₀ : ℝ} (
 
 /-! ## §1 — S12: the envelope price at the inflated cap (word 2) -/
 
-/-- **⟦THE `H`-SIDE PRICE AT SHIFT `h`⟧** (`hArcDen_mul_strataResidualH_sq_le`) —
-`h · arcDen 12 H · strataResidualH h H² ≤ e^{14·loglog H}` under `hh7 : log h ≤ 7`.
-
-With `L := loglog H ≥ 50`: `arcDen = e^{12L}`, `strataResidualH = 1 + 12L + log h ≤ 8 + 12L ≤
-2·e^{L−5}` (the landed `one_add_twelve_le_exp` at `l = L − 5 ≥ 44`), and `h ≤ e⁷`, so the
-product is at most `e⁷·e^{12L}·4·e^{2L−10} = 4e^{−3}·e^{14L} < e^{14L}`.  The obligation
-`√h·(1 + 12L + log h) ≤ e^L` has ~17 orders of room at `L = 50`. -/
-theorem hArcDen_mul_strataResidualH_sq_le {h H : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
-    (hL0 : 0 ≤ Real.log (H : ℝ)) (hlam : 50 ≤ Real.log (Real.log (H : ℝ))) :
-    (h : ℝ) * arcDen 12 H * strataResidualH h H ^ 2
-      ≤ Real.exp (14 * Real.log (Real.log (H : ℝ))) := by
-  set L : ℝ := Real.log (Real.log (H : ℝ)) with hLdef
-  have hL1 : 1 < Real.log (H : ℝ) := one_lt_log_of_loglog_ge hL0 (by norm_num) hlam
-  have hL : 0 < Real.log (H : ℝ) := by linarith
-  have harc : arcDen 12 H = Real.exp (12 * L) := by
-    rw [arcDen, Real.rpow_def_of_pos hL, ← hLdef]
-    congr 1
-    ring
-  have hsH : strataResidualH h H = strataResidual H + Real.log (h : ℝ) :=
-    strataResidualH_eq hh hL
-  have hstr : strataResidual H = 1 + 12 * L := strataResidual_eq_of_pos hL
-  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-  have hhle : (h : ℝ) ≤ Real.exp 7 := by
-    rw [← Real.exp_log hh0]
-    exact Real.exp_le_exp.mpr hh7
-  have hlogh0 : 0 ≤ Real.log (h : ℝ) := Real.log_nonneg (by exact_mod_cast hh)
-  -- `8 + 12L ≤ 2·e^{L−5}`
-  have hb : 1 + 12 * (L - 5) ≤ Real.exp (L - 5) := one_add_twelve_le_exp (by linarith)
-  have hres : strataResidualH h H ≤ 2 * Real.exp (L - 5) := by
-    rw [hsH, hstr]; linarith
-  have hres0 : 0 ≤ strataResidualH h H := by rw [hsH, hstr]; linarith
-  have hsq : strataResidualH h H ^ 2 ≤ 4 * Real.exp (L - 5) ^ 2 := by
-    have h2 := pow_le_pow_left₀ hres0 hres 2
-    calc strataResidualH h H ^ 2 ≤ (2 * Real.exp (L - 5)) ^ 2 := h2
-      _ = 4 * Real.exp (L - 5) ^ 2 := by ring
-  have hE : Real.exp 7 * Real.exp (12 * L) * (4 * Real.exp (L - 5) ^ 2)
-      = 4 * Real.exp (14 * L - 3) := by
-    have hE' : Real.exp 7 * Real.exp (12 * L) * Real.exp (L - 5) ^ 2
-        = Real.exp (14 * L - 3) := by
-      rw [sq, ← Real.exp_add, ← Real.exp_add, ← Real.exp_add]
-      congr 1
-      ring
-    rw [← hE']
-    ring
-  have he3 : (4 : ℝ) ≤ Real.exp 3 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 3 (by norm_num)
-  have h4 : 4 * Real.exp (14 * L - 3) ≤ Real.exp (14 * L) := by
-    rw [Real.exp_sub, mul_div_assoc']
-    rw [div_le_iff₀ (Real.exp_pos 3)]
-    have := Real.exp_pos (14 * L)
-    nlinarith
-  have harc0 : (0 : ℝ) ≤ arcDen 12 H := arcDen_nonneg 12 H
-  have hsq0 : (0 : ℝ) ≤ strataResidualH h H ^ 2 := sq_nonneg _
-  calc (h : ℝ) * arcDen 12 H * strataResidualH h H ^ 2
-      ≤ Real.exp 7 * arcDen 12 H * strataResidualH h H ^ 2 := by
-        gcongr
-    _ = Real.exp 7 * Real.exp (12 * L) * strataResidualH h H ^ 2 := by rw [harc]
-    _ ≤ Real.exp 7 * Real.exp (12 * L) * (4 * Real.exp (L - 5) ^ 2) := by
-        gcongr
-    _ = 4 * Real.exp (14 * L - 3) := hE
-    _ ≤ Real.exp (14 * L) := h4
-
 /-- **⟦THE `H`-SIDE PRICE AT SHIFT `h`, AT THE RAISED CAP⟧**
 (`hArcDen_mul_strataResidualH_sq_le` at `log h ≤ 14`).
 
@@ -302,6 +240,21 @@ theorem hArcDen_mul_strataResidualH_sq_le_14 {h H : ℕ} (hh : 0 < h) (hh14 : Re
     _ ≤ Real.exp 14 * Real.exp (12 * L) * (Real.exp (L - 7) ^ 2) := by
         gcongr
     _ = Real.exp (14 * L) := hE
+
+/-- **⟦THE `H`-SIDE PRICE AT SHIFT `h`⟧** (`hArcDen_mul_strataResidualH_sq_le`) —
+`h · arcDen 12 H · strataResidualH h H² ≤ e^{14·loglog H}` under `hh7 : log h ≤ 7`.
+
+With `L := loglog H ≥ 50`: `arcDen = e^{12L}`, `strataResidualH = 1 + 12L + log h ≤ 8 + 12L ≤
+2·e^{L−5}` (the landed `one_add_twelve_le_exp` at `l = L − 5 ≥ 44`), and `h ≤ e⁷`, so the
+product is at most `e⁷·e^{12L}·4·e^{2L−10} = 4e^{−3}·e^{14L} < e^{14L}`.  The obligation
+`√h·(1 + 12L + log h) ≤ e^L` has ~17 orders of room at `L = 50`.
+
+Proof: the `log h ≤ 7` instance of `hArcDen_mul_strataResidualH_sq_le_14` (above). -/
+theorem hArcDen_mul_strataResidualH_sq_le {h H : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
+    (hL0 : 0 ≤ Real.log (H : ℝ)) (hlam : 50 ≤ Real.log (Real.log (H : ℝ))) :
+    (h : ℝ) * arcDen 12 H * strataResidualH h H ^ 2
+      ≤ Real.exp (14 * Real.log (Real.log (H : ℝ))) :=
+  hArcDen_mul_strataResidualH_sq_le_14 hh (hh7.trans (by norm_num)) hL0 hlam
 
 /-- `a2DoorGrade_pool_L_priced_rhoH` at the raised cap.  ONE token in the body: the `H`-side
 price comes from `hArcDen_mul_strataResidualH_sq_le_14`.  The budget `ρ/2 + 4·(ρ/8) = ρ` and the
