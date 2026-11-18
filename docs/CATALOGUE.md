@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `89fd4aa9` · source digest `748edfb1f94dff56` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `9d252d74` · source digest `58ddd22e29254a59` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -7587,13 +7587,13 @@ Declarations indexed across the tree: 23440 · corpus Prop-valued names (the hyp
 | `Salt.MR.hUG34_fully_priced_nocap3` | Salt/MR/CapFreeArm3.lean:466 | characters | `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
 | `Salt.MR.hUG34_unconditional_nocap3` | Salt/MR/CapFreeArm3.lean:574 | characters | `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
 | `Salt.MR.seam_row_calibratedK_nocap3` | Salt/MR/CapFreeArm3.lean:646 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
-| `Salt.MR.seam_row_number_nocap3` | Salt/MR/CapFreeArm3.lean:814 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
-| `Salt.MR.seam_row_number_capfree3` | Salt/MR/CapFreeArm3.lean:948 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
-| `Salt.MR.A2Frame3.box_at` | Salt/MR/CapFreeArm3.lean:1102 | characters | `Salt.MR.A2Frame3` |
-| `Salt.MR.A2Frame3.ksGate_at` | Salt/MR/CapFreeArm3.lean:1110 | characters | `Salt.MR.A2Frame3` |
-| `Salt.MR.seam_row_calibratedK_nocap3_end` | Salt/MR/CapFreeArm3.lean:1134 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
-| `Salt.MR.seam_row_number_nocap3_end` | Salt/MR/CapFreeArm3.lean:1298 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
-| `Salt.MR.seam_row_number_capfree3_end` | Salt/MR/CapFreeArm3.lean:1422 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
+| `Salt.MR.seam_row_calibratedK_nocap3_end` | Salt/MR/CapFreeArm3.lean:813 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
+| `Salt.MR.seam_row_number_nocap3_end` | Salt/MR/CapFreeArm3.lean:977 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
+| `Salt.MR.seam_row_number_nocap3` | Salt/MR/CapFreeArm3.lean:1110 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
+| `Salt.MR.seam_row_number_capfree3_end` | Salt/MR/CapFreeArm3.lean:1204 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
+| `Salt.MR.seam_row_number_capfree3` | Salt/MR/CapFreeArm3.lean:1312 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
+| `Salt.MR.A2Frame3.box_at` | Salt/MR/CapFreeArm3.lean:1459 | characters | `Salt.MR.A2Frame3` |
+| `Salt.MR.A2Frame3.ksGate_at` | Salt/MR/CapFreeArm3.lean:1467 | characters | `Salt.MR.A2Frame3` |
 | `Salt.MR.capFreeFloor3_liouChi_of_lamChi` | Salt/MR/CapFreeAssembly.lean:482 | characters | `Salt.MR.CapFreeFloor3` |
 | `Salt.MR.joint_cs_trunc_pin2C` | Salt/MR/CaseASocket.lean:374 | characters | `Salt.MR.JointIntegrableAtC` |
 | `Salt.MR.beta_integral_pin_const2C` | Salt/MR/CaseASocket.lean:460 | characters | `Salt.MR.ShortIntervalDatum` |
