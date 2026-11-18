@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `4b4c2601` · source digest `5661ca71eb8d5c18` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `ae06f20b` · source digest `bf5e4fb1ae862f32` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -7678,8 +7678,8 @@ Declarations indexed across the tree: 23440 · corpus Prop-valued names (the hyp
 | `Salt.MR.dilated_scale_grade_polylog` | Salt/MR/FarL2Dyadic.lean:862 | characters | `Salt.MR.ShortIntervalDatum` |
 | `Salt.MR.rhs_grade_at_scale_closed_star` | Salt/MR/FarStar.lean:683 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
 | `Salt.MR.hRHS_socket_star` | Salt/MR/FarStar.lean:726 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
-| `Salt.MR.ball_sup_closed_star_uniform` | Salt/MR/FarStar.lean:783 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
-| `Salt.MR.ball_sup_closed_star` | Salt/MR/FarStar.lean:851 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
+| `Salt.MR.ball_sup_closed_star_uniform` | Salt/MR/FarStar.lean:784 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
+| `Salt.MR.ball_sup_closed_star` | Salt/MR/FarStar.lean:849 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
 | `Salt.MR.flatHeadFormEpsW_at_grade` | Salt/MR/FlatDoorAllGrades.lean:89 | characters | `Salt.MR.FlatHeadFormEpsW` |
 | `Salt.MR.crownWd_zero_level_landed` | Salt/MR/FlatDoorAllGrades.lean:121 | characters | `Salt.MR.FlatDoorAllGradesW` |
 | `Salt.MR.crownWd_L1_on_flat` | Salt/MR/FlatDoorAllGrades.lean:134 | characters | `Salt.MR.FlatDoorAllGradesW` |
