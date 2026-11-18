@@ -87,7 +87,7 @@ landed: infinitely many p prime with p+2 prime or a product of two primes
 - `siegelWalfisz_psiTot ... (A = 1)` — PNT-grade: Salt/Chen/TripleCount.lean:67.
 - `Salt.SW.siegelWalfisz_holds A C` generic: Salt/Chen/BetaSW.lean:223.
 - Windowed bilinear BV terminals: `general_BV_cutoff_sqrtD`
-  (Chen/SqrtDFold.lean:820, √D structural level) and
+  (Chen/SqrtDFold.lean:821, √D structural level) and
   `general_BV_cutoff_unconditional` (Chen/WindowSmallChi.lean:458), packaged at
   Chen/WindowedBVStatement.lean:110/:163.
 So Chen's whole distributional demand = polylog-saving BV at level ≤ 1/2-minus-
