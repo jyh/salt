@@ -168,7 +168,7 @@ lemma vk_logP_ub {N P : ℕ} {q : ℝ} (hN : 1 ≤ N) (hq : 0 ≤ q) (hPdef : P 
         Real.log_rpow hNpos]
 
 /-- Exp-monotone: from `log A ≤ log B` (both positive) conclude `A ≤ B`. -/
-private lemma vk_exp_mono_le {A B : ℝ} (hA : 0 < A) (hB : 0 < B)
+lemma vk_exp_mono_le {A B : ℝ} (hA : 0 < A) (hB : 0 < B)
     (h : Real.log A ≤ Real.log B) : A ≤ B := by
   have := Real.exp_le_exp.mpr h
   rwa [Real.exp_log hA, Real.exp_log hB] at this

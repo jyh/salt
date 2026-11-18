@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `04afce97` · source digest `7b072a0d97384214` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `89fd4aa9` · source digest `748edfb1f94dff56` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23440 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -7042,9 +7042,9 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.Vk.zeta_zero_free_region_littlewood` | Salt/Vk/Littlewood.lean:411 | zeros, exponential sums |
 | `Salt.Vk.vk_ladder_prefix` | Salt/Vk/Mid.lean:106 | zeros, exponential sums |
 | `Salt.Vk.vk_window_prefix` | Salt/Vk/Mid.lean:232 | zeros, exponential sums |
-| `Salt.Vk.vk_window_scale_prefix` | Salt/Vk/Mid.lean:290 | zeros, exponential sums |
-| `Salt.Vk.vk_window_mid_prefix` | Salt/Vk/Mid.lean:448 | zeros, exponential sums |
-| `Salt.Vk.vk_window_mid` | Salt/Vk/Mid.lean:664 | zeros, exponential sums |
+| `Salt.Vk.vk_window_scale_prefix` | Salt/Vk/Mid.lean:284 | zeros, exponential sums |
+| `Salt.Vk.vk_window_mid_prefix` | Salt/Vk/Mid.lean:442 | zeros, exponential sums |
+| `Salt.Vk.vk_window_mid` | Salt/Vk/Mid.lean:658 | zeros, exponential sums |
 | `Salt.Vk.poly_shift_orbit` | Salt/Vk/Pointwise.lean:34 | zeros, exponential sums |
 | `Salt.Vk.vkTheta_anti` | Salt/Vk/PowRegion.lean:40 | zeros, exponential sums |
 | `Salt.Vk.vkTheta_pos` | Salt/Vk/PowRegion.lean:66 | zeros, exponential sums |
@@ -7090,13 +7090,13 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.Vk.vk_block_core_twist` | Salt/Vk/TwistLadder.lean:92 | zeros, exponential sums |
 | `Salt.Vk.vk_window_bound_twist` | Salt/Vk/TwistLadder.lean:417 | zeros, exponential sums |
 | `Salt.Vk.vk_window_prefix_twist` | Salt/Vk/TwistLadder.lean:470 | zeros, exponential sums |
-| `Salt.Vk.vk_window_scale_twist` | Salt/Vk/TwistLadder.lean:699 | zeros, exponential sums |
-| `Salt.Vk.vk_window_scale_prefix_twist` | Salt/Vk/TwistLadder.lean:718 | zeros, exponential sums |
-| `Salt.Vk.vk_window_mid_twist` | Salt/Vk/TwistLadder.lean:1042 | zeros, exponential sums |
-| `Salt.Vk.vk_window_mid_prefix_twist` | Salt/Vk/TwistLadder.lean:1060 | zeros, exponential sums |
-| `Salt.Vk.vk_weighted_block_twist` | Salt/Vk/TwistLadder.lean:1086 | zeros, exponential sums |
-| `Salt.Vk.vk_dirichlet_block_twist_le` | Salt/Vk/TwistLadder.lean:1150 | zeros, exponential sums |
-| `Salt.Vk.vk_dirichlet_block_twist_le_of_high` | Salt/Vk/TwistLadder.lean:1272 | zeros, exponential sums |
+| `Salt.Vk.vk_window_scale_twist` | Salt/Vk/TwistLadder.lean:693 | zeros, exponential sums |
+| `Salt.Vk.vk_window_scale_prefix_twist` | Salt/Vk/TwistLadder.lean:712 | zeros, exponential sums |
+| `Salt.Vk.vk_window_mid_twist` | Salt/Vk/TwistLadder.lean:1036 | zeros, exponential sums |
+| `Salt.Vk.vk_window_mid_prefix_twist` | Salt/Vk/TwistLadder.lean:1054 | zeros, exponential sums |
+| `Salt.Vk.vk_weighted_block_twist` | Salt/Vk/TwistLadder.lean:1080 | zeros, exponential sums |
+| `Salt.Vk.vk_dirichlet_block_twist_le` | Salt/Vk/TwistLadder.lean:1144 | zeros, exponential sums |
+| `Salt.Vk.vk_dirichlet_block_twist_le_of_high` | Salt/Vk/TwistLadder.lean:1266 | zeros, exponential sums |
 | `Salt.Vk.vk_window_bound` | Salt/Vk/Window.lean:84 | zeros, exponential sums |
 | `Salt.Vk.vk_logP_ge` | Salt/Vk/Window.lean:144 | zeros, exponential sums |
 | `Salt.Vk.vk_logP_ub` | Salt/Vk/Window.lean:154 | zeros, exponential sums |
@@ -7546,8 +7546,9 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.MR.a2DoorGrade_pool_L_priced_rho` | Salt/MR/ArithPageLinear.lean:867 | characters | `Salt.MR.DoorArithFrameRho_L` |
 | `Salt.MR.m4_arith_henv_rho_L` | Salt/MR/ArithPageLinear.lean:912 | characters | `Salt.MR.DoorArithFrameRho_L`, `Salt.MR.SocketBaseL` |
 | `Salt.MR.cofkL_scale_gate_at_socket` | Salt/MR/BandRatedSocket.lean:99 | characters | `Salt.MR.SocketBaseL` |
-| `Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform` | Salt/MR/BandRatedSocket.lean:194 | characters | `Salt.MR.SocketBaseL` |
-| `Salt.MR.cofkL_capFreeFloor_at_socket_rated` | Salt/MR/BandRatedSocket.lean:276 | characters | `Salt.MR.SocketBaseL` |
+| `Salt.MR.cofkL_threshold_at_socket_rated` | Salt/MR/BandRatedSocket.lean:192 | characters | `Salt.MR.SocketBaseL` |
+| `Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform` | Salt/MR/BandRatedSocket.lean:285 | characters | `Salt.MR.SocketBaseL` |
+| `Salt.MR.cofkL_capFreeFloor_at_socket_rated` | Salt/MR/BandRatedSocket.lean:367 | characters | `Salt.MR.SocketBaseL` |
 | `Salt.MR.nearRat_mono` | Salt/MR/BigXiArc.lean:188 | characters | `Salt.MR.NearRat` |
 | `Salt.MR.exists_large_den_of_not_nearRat` | Salt/MR/BigXiArc.lean:274 | characters | `¬Salt.MR.NearRat` |
 | `Salt.MR.exists_large_den_of_minor` | Salt/MR/BigXiArc.lean:331 | characters | `¬Salt.MR.NearRat` |
@@ -8256,9 +8257,8 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.MR.cofkL_bulk_false_at_socket` | Salt/MR/RegisterInhabit.lean:260 | characters | `Salt.MR.SocketBaseL` |
 | `Salt.MR.cofkL_logX_floor` | Salt/MR/RegisterSupply.lean:323 | characters | `Salt.MR.SocketBaseL` |
 | `Salt.MR.cofkL_mu_floor` | Salt/MR/RegisterSupply.lean:453 | characters | `Salt.MR.SocketBaseL` |
-| `Salt.MR.cofkL_threshold_at_socket_rated` | Salt/MR/RegisterSupply.lean:486 | characters | `Salt.MR.SocketBaseL` |
-| `Salt.MR.cofkL_threshold_at_socket` | Salt/MR/RegisterSupply.lean:577 | characters | `Salt.MR.SocketBaseL` |
-| `Salt.MR.cofkL_capFreeFloor_at_socket` | Salt/MR/RegisterSupply.lean:614 | characters | `Salt.MR.SocketBaseL` |
+| `Salt.MR.cofkL_threshold_at_socket` | Salt/MR/RegisterSupply.lean:484 | characters | `Salt.MR.SocketBaseL` |
+| `Salt.MR.cofkL_capFreeFloor_at_socket` | Salt/MR/RegisterSupply.lean:590 | characters | `Salt.MR.SocketBaseL` |
 | `Salt.MR.m4_hband_at_door_slot_hoisted` | Salt/MR/S11Hoist.lean:58 | characters | `Salt.MR.MmuChiRate` |
 | `Salt.MR.m4_socket_discharged_fused_hoisted` | Salt/MR/S11Hoist.lean:90 | characters | `Salt.MR.MmuChiRate`, `Salt.MR.DoorFuseFrame`, `Salt.MR.DoorRowZeroBase`, `Salt.MR.DoorBandBase`, `Salt.MR.DoorArithFrameRho` |
 | `Salt.MR.m4_socket_discharged_capwired_ws_hoisted` | Salt/MR/S11Hoist.lean:156 | characters | `Salt.MR.MmuChiRate`, `Salt.MR.DoorFuseFrame`, `Salt.MR.DoorRowZeroBase`, `Salt.MR.DoorCapBase`, `Salt.MR.DoorBandBase`, `Salt.MR.DoorArithFrameRho` |
