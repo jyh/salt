@@ -5,7 +5,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 # λ-BV wave 2-S, step F4a — THE AFFINE SHELL AND THE AFFINE HEAD (the S-block)
 
 The `L²` Theorem-2.3 shell at the affine forms — `log_chowla_two_shell_xi_sq_h`
-(`Theorem23Shell.lean:624`) with the measure `logMeasureAff R.a R.x R.ω`, the F-function
+(`Theorem23Shell.lean:388`) with the measure `logMeasureAff R.a R.x R.ω`, the F-function
 `fBridgeF_aff`, the FILTERED decoupled correlation in the circle-method slot, the frequency set
 `bigXiAff`, the door `MRTUniformityXiL2AffW` (F3-P9) and the seam at Tao's range
 `contradiction_of_mrtDoorXiL2AffW` (F3-P11, `StridePair.lean:418`) — and above it THE AFFINE
@@ -107,7 +107,7 @@ theorem nat_le_flatDesignBase (n : ℕ) (A : ℝ) (hn : Real.log (Real.log (n : 
 -- precedent `HeadPinLeavesH.lean:51-52` at main 466f64c8, removed by O13-e with its body).
 open private windowExpSum_norm_eq_dft from Salt.Entropy.Chowla.Theorem23Shell in
 /-- **F4-S1 (class B) — THE `L²` SHELL AT THE AFFINE FORMS** (`log_chowla_two_shell_xi_sq_aff`).
-`log_chowla_two_shell_xi_sq_h` (`Theorem23Shell.lean:624`) with the six substitutions: the
+`log_chowla_two_shell_xi_sq_h` (`Theorem23Shell.lean:388`) with the six substitutions: the
 measure `logMeasureAff R.a R.x R.ω`; `fBridgeF_aff R.eps H R.a R.b h` in `h211`; the FILTERED
 decoupled correlation (SITE 3, `StrideBridge.lean:371-376`'s spelling) on the left of `hcirc`
 and `bigXiAff R.a R.b h R.eps H` on its right; `MRTUniformityXiL2AffW h R` (F3-P9); the range
@@ -697,7 +697,7 @@ RESTATED v1.1 (verdict A2(c)) so that it can fail.**  The four slot hypotheses `
 `hcirc`, `hdoor` are in the AFFINE vocabulary at the regime `R` with `R.a = 1`, `b = 0`
 (`logMeasureAff R.a R.x R.ω`, `fBridgeF_aff R.eps H R.a 0 h`, the CLASS-FILTERED inner sum over
 `bigXiAff R.a 0 h R.eps H`, `MRTUniformityXiL2AffW h (ChowlaRegimeAff.ofRegime R 0 _)`); the REST
-are the `h`-shell's binders (`Theorem23Shell.lean:624`) VERBATIM — the PLAIN range `R.Hlo ≤ H` with
+are the `h`-shell's binders (`Theorem23Shell.lean:388`) VERBATIM — the PLAIN range `R.Hlo ≤ H` with
 NO `R.a ∣ H`, and `shellError R H t g κ` at the plain regime.  Discharge:
 `log_chowla_two_shell_xi_sq_aff h (ChowlaRegimeAff.ofRegime R 0 (Nat.zero_le _))` with the range
 bridged through `hR1` — `hdvd : R.a ∣ H` from `one_dvd`, `hlo' : R.a * R.Hlo ≤ H` from `one_mul` —

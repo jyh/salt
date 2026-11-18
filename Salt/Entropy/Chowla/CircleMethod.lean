@@ -1512,7 +1512,7 @@ the statement is FALSE at `H = 1`, not merely unproven.
 
 ✅ **CONSUMED AS OF 2026-09-01, ONE LAYER OUT.**  The `bigXiH`-facing wrapper
 `circle_method_estimate_sq_h` (`ShiftFork.lean:432`) restates this core, and
-`log_chowla_two_shell_xi_sq_h` (`Theorem23Shell.lean:624`) consumes THAT.  The wrapper still
+`log_chowla_two_shell_xi_sq_h` (`Theorem23Shell.lean:388`) consumes THAT.  The wrapper still
 belongs on the `ShiftFork` side and this file still may not name it (that module imports this
 one, so naming its objects here would be an import cycle — the same fence
 `bigXiTwistFilter`'s docstring records); the citation above is prose, not an import. -/

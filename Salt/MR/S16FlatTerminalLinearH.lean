@@ -16,7 +16,7 @@ import Salt.MR.SumSwapWeighted
 `m4_second_road_L2_gk_flatRoot_L` (`S16FlatTerminalLinear.lean`) reads the arc's
 denominator cap `arcDen 12 H` in five places and closes at `h = 1`.  The twisted `L²` door
 (`HDoorArc`, `HDoorClose`) hands the road `α`'s certified only at the `h`-inflated allowance
-`h · arcDen 12 H`, and its consumer `log_chowla_two_shell_xi_sq_h` (`Theorem23Shell.lean:624`)
+`h · arcDen 12 H`, and its consumer `log_chowla_two_shell_xi_sq_h` (`Theorem23Shell.lean:388`)
 takes the door in the shape `MRTUniformityXiL2H h R ρ`.  This file is the register's
 h-sibling: every link of the chain
 

@@ -23,7 +23,7 @@ A10 the citations past EOF.  ERRATA: the freeze commit `3efd2e65`'s subject says
 this file holds 19 (2 defs + 17 theorems) and, with the MR twin, 20 declarations / 18 obligations.
 
 THE ROUTE (the `h`-core's proof, now `circle_method_estimate_sq_h_core_at`,
-`CircleMethod.lean:1405-1533`, with the
+`CircleMethod.lean:1357-1485`, with the
 `η`-expansion of the class filter).  Write `d_η := η·(H/a) : ZMod H` (`twistOffset`), `χ_d(m) :=
 stdAddChar(d·m)`, `Φ := (windowVal H x1 ·)` on `ZMod H`, `c_η := affOffset a b h H η = (b+h)·d_η`.
 1. `1_{j+1 ≡ pb (a)} = (1/a)·Σ_{η<a} χ_{d_η}(j + 1 − pb)` (`classFilter_expand`, orthogonality on
@@ -56,7 +56,7 @@ stdAddChar(d·m)`, `Φ := (windowVal H x1 ·)` on `ZMod H`, `c_η := affOffset a
    `1/2` is spent INSIDE N6's coefficient `C₀` (the `h`-lane's `fourier_split_sq_h` carries `2·C₀`
    where N6 carries `C₀`); the two union bounds supply the `2` of `2·C₀`.
 7. Assembly (`circle_method_estimate_sq_bounded_aff`, N10 after the inversion): BYTE-IDENTICAL to
-   the `h`-core's remainder line (`CircleMethod.lean:1494-1515`) after steps 2–6; the `H = 1` branch
+   the `h`-core's remainder line (`CircleMethod.lean:1446-1467`) after steps 2–6; the `H = 1` branch
    as at `h`, for every `a` and `b`.
 
 ⛔ HONEST LABEL.  LANDED 2026-09-04 17:4x: every declaration below is sorry-free (one Opus executor
@@ -361,7 +361,7 @@ theorem filteredCorr_eq_twistSum {a b h : ℕ} (ha : 0 < a) {eps : ℚ} {H : ℕ
 
 open private windowVal_c_norm_le card_wrap_le from Salt.Entropy.Chowla.CircleMethod in
 /-- **F4b-N4 (class B) — periodization at the twisted second window.**  The twin of
-`periodization_total_h` (`CircleMethod.lean:1159`), whose landed per-prime bound
+`periodization_total_h` (`CircleMethod.lean:1189`), whose landed per-prime bound
 `perprime_diff_norm_le` is stated at INTEGER windows and is `private`: here the second window is
 COMPLEX (the twist), so the per-prime bound is re-proved in place — the two sums differ exactly at
 the `j` with `H ≤ j + p·h` (the ℕ-window is `0` there, `windowVal`'s `dif_neg`; the `ZMod`-window
@@ -478,7 +478,7 @@ theorem periodization_total_twist {b h : ℕ} {eps : ℚ} {H : ℕ} [NeZero H] (
 open private T_collapse_h correlation_dft expSum_eq_char_sum from
   Salt.Entropy.Chowla.CircleMethod in
 /-- **F4b-N5 (class B) — the collapse at the twisted second window with the per-`p` phase.**
-`T_collapse_h` (`CircleMethod.lean:1112`, private — opened above) at `Φ₂ := χ_d·Φ₁` with the phase
+`T_collapse_h` (`CircleMethod.lean:1142`, private — opened above) at `Φ₂ := χ_d·Φ₁` with the phase
 `stdAddChar(−p·c)` folded in: `correlation_dft Φ₁ Φ₂ (p·h)` gives `stdAddChar(−(p·h·ξ))`, times
 `stdAddChar(−p·c)` is `stdAddChar(−(p·(c + h·ξ)))` (`AddChar.map_add_eq_mul`, `push_cast; ring`),
 then `expSum_eq_char_sum` (private, opened above) at `c + h·ξ`.  `c` is generic; the consumer
@@ -534,7 +534,7 @@ theorem T_collapse_twist {eps : ℚ} {H : ℕ} [NeZero H] (h : ℕ) (Φ₁ Φ₂
 
 open private dft_l1_reflect expSum_norm_le_major mem_bigXi from Salt.Entropy.Chowla.CircleMethod in
 /-- **F4b-N6 (class C) — THE SPLIT WITH THE PARTNER.**  The twin of `fourier_split_sq_h`
-(`CircleMethod.lean:844`) at the second window `χ_d·Φ`: by `dft_twist` the second factor is
+(`CircleMethod.lean:874`) at the second window `χ_d·Φ`: by `dft_twist` the second factor is
 `𝓕Φ(−ξ − d)`, and by the reality reflection `hrefl` (at the REAL `Φ`) its norm is `‖𝓕Φ(ξ + d)‖`.
 Minor arc (`ξ ∉ Ξ_c`): `‖expSum‖ < ε²/log H` (`mem_bigXi`, private, opened above; the
 private-free alternative is `unfold xiEta bigXi; simp only [Finset.mem_filter, Finset.mem_univ,
@@ -777,12 +777,12 @@ open private windowVal_c_norm_le from Salt.Entropy.Chowla.CircleMethod in
 /-- **F4b-N10 (class C, THE CROWN, CAPPED — THE BODY) — Tao Lemma 3.4 at the class filter, over
 `bigXiAff`, constant `h·(1 + 2·C₀)`, with the cap conjunct: F4a's slot shape.**  The `h`-lane's
 own move (`circle_method_estimate_sq_bounded_h_core`; 371–389 when written): `…_sq_h_core_at`'s
-proof (`CircleMethod.lean:1405-1533`) with the `η`-expansion, the witness pinned in the `refine` and
+proof (`CircleMethod.lean:1357-1485`) with the `η`-expansion, the witness pinned in the `refine` and
 the cap discharged by `le_rfl` there — `refine ⟨(h : ℝ) * (1 + 2 * C₀), mul_pos hhR (by
 positivity), le_rfl, ?_⟩; intro eps H _ x1 hx1 hdvd hcard; by_cases hH2 : 2 ≤ H`.  Main regime:
 `Φ`, `hreal`, `hrefl` as at `h` (`h1 := windowVal_c_norm_le hx1 j`, private, opened above);
 `L_aff` cast to `ℂ` (`|L_aff| = ‖(L_aff : ℂ)‖` is `(Complex.norm_real L).symm`, the `h`-core's own
-move at `CircleMethod.lean:710`; `Complex.abs_ofReal` does not exist) and expanded by
+move at `CircleMethod.lean:771`; `Complex.abs_ofReal` does not exist) and expanded by
 `filteredCorr_eq_twistSum` into `(1/a)·Σ_η χ(d_η)·L_η`; per `η`: `‖L_η − T_η‖ ≤ h·|𝒫_H|`
 (`periodization_total_twist` at `d := twistOffset a H η`), `H·T_η = W_η` (`T_collapse_twist` at
 `Φ₂ := χ_{d_η}·Φ`, `c := affOffset η` via `affOffset_eq_mul_twistOffset`), `‖W_η‖ ≤ ε²H²/log H +
@@ -790,7 +790,7 @@ move at `CircleMethod.lean:710`; `Complex.abs_ofReal` does not exist) and expand
 (`AddChar.norm_apply`), `Σ_η S_η ≤ a·S` and `Σ_η S'_η ≤ a·S` (`sum_xiEta_le`,
 `sum_xiEta_translate_le` at `f := ‖𝓕Φ ·‖²`); the `(1/a)` cancels the `a`, leaving
 `|L_aff| ≤ ε²H/log H + (2C₀/(H·log H))·S + h·|𝒫_H|` — BYTE-IDENTICAL to the `h`-core's
-`hTle + hhcard` line, so `hrem_nn`/`heq`/`hhcard`/the final `calc` (`CircleMethod.lean:1494-1515`)
+`hTle + hhcard` line, so `hrem_nn`/`heq`/`hhcard`/the final `calc` (`CircleMethod.lean:1446-1467`)
 close with `C = h(1 + 2C₀)`.  Degenerate `H = 1`, for EVERY `a` and `b` (no `b = 0`, no `a = 1`
 needed): `j = 0` and `1 ≤ p·h` (`Nat.mul_pos … hh`), so `windowVal H x1 (j + p·h) = 0` by
 `dif_neg` and both `if`-arms are `0` — `split_ifs <;> simp`, `Finset.sum_eq_zero` — the `h`-core's
