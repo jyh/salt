@@ -6634,7 +6634,7 @@ the mandated STEP-0 inventory BEFORE any proof attempt burned against it.
 one API stream drop) — CATCH #64 REPAIRED IN PLACE.** hD0lo_main weakened L^{C0} → L^{A+2}
 through the full chain (four_term_scale_le root at EnergyClose:491 with the proof patched at
 its unique use; pass-throughs WindowErrFold:82/1294, WindowSmallChi:527 + the H-glue
-threshold-list docstring, SqrtDFold:826/996/1119, MediumFloor:520, GlueBV:198; the row is fed
+threshold-list docstring, SqrtDFold:827/997/1120, MediumFloor:520, GlueBV:198; the row is fed
 positionally so pass-through proofs needed NO edits). general_BV_cutoff_final carries no
 hD0lo row (verified); hMainEnergy_discharge (non-cutoff path, outside warrant) kept its
 statement — proof-body adapter only. **herr_D0E verdict: no decoupling needed or possible**
@@ -6908,7 +6908,7 @@ couplings; honest per-box price 2^{18}c^{−50}K·XM/L^{12}, one L worse than sk
 honest aggregate ≈ 3.5·10²³·K·x/t^{11} ≤ x/t^{10} ⟺ t ≥ 3.5·10²³·K — dwarfed by the
 tower (log x₀ ≥ w'^{w'}, w' ~ exp(2·10⁹)). Note (c) is DISCARDED; the gate's aggregate
 derivation replaces it. **CATCH #69 (NEW, kernel-certain): the terminal's per-e rows
-(herr_LEpos/herr_scale/herr_D0E at SqrtDFold:1131–1136) are FALSE for e ∈ (X, D]** — nat
+(herr_LEpos/herr_scale/herr_D0E at SqrtDFold:1132–1137) are FALSE for e ∈ (X, D]** — nat
 division gives ⌊X/e⌋ = 0, log(0·M) = 0, and the rows read 0 < 0 / L ≤ 0 / D0 ≤ 0^{18}.
 Every medium-band box has D ~ x^{0.497} > X (≥ z·y = x^{0.4583} at the floor, up to
 x^{0.497}) — the rows are unsatisfiable at the needed level. SOUND UNDERNEATH: for e > X
@@ -7074,8 +7074,8 @@ It is not a pricing-mechanism choice but a genuine gap in the landed corpus.
 THE TWO SIDES (verbatim shapes). CONSUMER — `hBVblocksW_discharge'` (PDiag.lean:691) requires
 its `hprice` for every box in `dyadicBoundary (pieceN k) (pieceM k) (x/2+1) x (z·y) K`
 (N = pieceN k = 2^k − 1). SUPPLIER — every landed box-price terminal
-(`box_hprice_at_2pow`/`sym_`/`low_box_hprice_at_2pow`, PriceThree.lean:228/313/393; underlying
-`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:476, PriceTwo.lean:695/564;
+(`box_hprice_at_2pow`/`sym_`/`low_box_hprice_at_2pow`, PriceThree.lean:306/377/457; underlying
+`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:508, PriceTwo.lean:363/232;
 `medium_survivor_price(_sqrtD)`, MediumFloor.lean:507/SqrtDFold.lean:956) provides a bound
 ONLY for `i ∈ dyadicBoundary (2^k) (pieceM k) (x/2+1) x F Krange` (N = 2^k, forced by the
 terminal's `M ≤ 2N` with M = pieceM k = 2·pieceN k + 1). The only bridge
@@ -7094,7 +7094,7 @@ priceable by either trichotomy route for the pieces with 2^k > x^{7/16}:
   • 2^k-BOUNDARY route (`box_hprice_at_2pow`/`_lo`): its hypothesis `i ∈ dyadicBoundary (2^k)`
     FAILS by construction (edge box ∉ dyadicBoundary (2^k)); concretely the terminal's corner
     clause `2^i·(2^k+1) ≤ x` is violated (edge box: x < 2^i·(2^k+1)). The `_lo` floor relaxation
-    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:353) is met but is orthogonal — it does not restore the
+    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:355) is met but is orthogonal — it does not restore the
     boundary membership. So neither route covers the live edge box.
 The trivial fallback (carrier norm ≤ 1 ⟹ box sum ≤ 2·|Dset|·X·M ≈ x·τ(Ps)) overshoots the
 hSum budget Ccon·K·x/L^{11} by ~x^{1} and cannot be used.
@@ -7130,8 +7130,8 @@ created, as it would require a sorry at the edge-box row).
 
 **2026-07-14 EDGE+fin3 Part 1 ✅ FULL (Opus executor, Fable warrant) — CATCH #71 REPAIRED
 via ratified option (a): the corner-clause relaxation.** The 6 PRICE-wave application lemmas
-carrying a `dyadicBoundary (2^k)` membership (`medium_box_price_at_op` PriceOne:476;
-`medium_box_price_core`/`medium_box_price_at_op_lo` PriceTwo:564/695; `box_/sym_/low_box_hprice_at_2pow`
+carrying a `dyadicBoundary (2^k)` membership (`medium_box_price_at_op` PriceOne:508;
+`medium_box_price_core`/`medium_box_price_at_op_lo` PriceTwo:232/363; `box_/sym_/low_box_hprice_at_2pow`
 PriceThree) now take the pieceN-boundary membership directly (weak corner `2^i·2^k ≤ x`). KEY
 FINDING (sharper than the warrant's worry): there is **NO degradation** — `d0_window_nonempty`'s
 ONLY use of the corner is to bound `X·M ≤ 4x`, and the WEAK corner gives the SAME `4x`
@@ -14101,7 +14101,7 @@ Hlo ≥ f(M); M is post-R but U1floor is pre-R, and ChowlaRegime exports
 NO Hhi upper bound (hfit forces Hhi UP only). A refuter sets
 log Hhi = 2^{10^9} and breaks any pre-fixed Hlo. REPAIR: export
 log R.Hhi ≤ f(log R.Hlo) from the tower construction
-(chowlaRegime_exists_param_head', RegimeParam:543; benign in fact —
+(chowlaRegime_exists_param_head', RegimeParam:475; benign in fact —
 log Hhi ≈ (log Hlo)^{1+o(1)} — but NOT exported). ~200–500 ln + 3
 conjuncts, **Fable/JYH-tier statement change** (SpineFinal/regime
 territory). Schedule REGARDLESS of design choice.
@@ -14233,7 +14233,7 @@ shapes move** — everything else consumes the anchor through Adoor_ge
 (monotone, verbatim). Every anchor-sensitive gate moves FAVOURABLY
 (A_gate_logK margin 221× → 895265×; a2Level1 shrinks; H1_two easier;
 the arc floor anchor-independent). The x-floor rises log x ≥ 10^{473}
-→ 10^{480} — one-sided (RegimeParam:531-550 states the law; g is
+→ 10^{480} — one-sided (RegimeParam:463-482 states the law; g is
 spine-choosable after R) and 2.9e9 ORDERS below the floor hheadroom
 already imposes. **The anchor re-pin is cheap; it re-pins the
 JYH-ratified 7/26 B₅/door design (DoorFrame) — council ruling
@@ -15405,7 +15405,7 @@ on a baseline of 1.24e5** (it converts a constant arm to a λ-linear arm).
 (37620·5 + 33; the sibling constants cross-check).
 
 **⟦R-A4-3(b) — CONFIRMED BY DERIVATION: F5/gate-neutral.⟧**  The
-mechanism is `regimeEnlargeX'` (RegimeParam:501-528): a g-bump moves `x`
+mechanism is `regimeEnlargeX'` (RegimeParam:433-460): a g-bump moves `x`
 ALONE — ω/a/eps/Hlo/Hhi/C0/J carried verbatim.  All 11 gates walked:
 x-reading gates (the g-floor, gate 1's ladder/blocks, gate 10's
 `4·2^k/x`, gate 11's socket antecedent) are x-LOWERs or strictly eased;
@@ -17578,8 +17578,8 @@ itself held for the Captain).  (E1 TOP) capstone hframe = the PRE-R1
 DoorFuseFrame at a2RowsSum's growing p2-row — unprovable at any
 M ≥ 2 (the shortfall exactly ×M; only vacuity could discharge it).
 (E5) the M-band is TWO-SIDED in λ (≲289) but the head exports no
-R.Hlo upper — the builder's equality (RegimeParam:403) is discarded
-at :389; a seven-statement conjunct-carry recovers it.  (E4) epsrf ≡ 0
+R.Hlo upper — the builder's equality (RegimeParam:335) is discarded
+at :321; a seven-statement conjunct-carry recovers it.  (E4) epsrf ≡ 0
 is a TRAP (kills abs8640); pin epsrf := θ₂₉₃ − 1/500.  (E7) compose
 at SYMBOLIC Λ := (loglog R.Hlo)^{9/2} off the tower conjunct, no
 numeral.  (E8 favorable) bfloor discharges by ⌈24Cg/δ₀⌉-choice since
@@ -23409,7 +23409,7 @@ cost a census and not a wave.
   `chi_floor_band_uniform` → `chi_Llower_band_uniform`, **a bare induction-max over every
   modulus `q ≤ Q`** (`SiegelBand.lean:36`: *"no known growth rate in `Q`"*). The cushion's own
   docstring already says *"has no effective bound anywhere in the corpus"*
-  (`RegisterSupply.lean:481`);
+  (`RegisterSupply.lean:572`);
 * `Kvk`/`Kbulk` **are** effective — Wave K's stones (`cpeel_le_two`, `primeTailConst_le_27`,
   salt `aa66b675`) bottom them out. **The band arm is the whole blocker.**
 
@@ -23509,7 +23509,7 @@ the brief's `≳ 1.17e4` = 11700 FAILS at `−9.18`). So the conjunct demands
 
 ### 📐 THE CENSUS — 5 construction sites (three search shapes; structure-instance form is the only one used)
 ```
-  Salt/Entropy/Chowla/RegimeParam.lean:454      chowlaRegime_exists_param_gen           Hlo₀ param
+  Salt/Entropy/Chowla/RegimeParam.lean:386      chowlaRegime_exists_param_gen           Hlo₀ param
   Salt/Entropy/Chowla/HloExport.lean:151        chowlaRegime_exists_param_gen_hloCap    Hlo₀ param
   Salt/Entropy/Chowla/TowerFlatBuilder.lean:351 chowlaRegimeFlat_exists_param_gen       Hlo₀ param
   Salt/MR/XCeil.lean:510                        chowlaRegimeFlat_exists_param_gen_ceiling Hlo₀ param
@@ -23521,7 +23521,7 @@ is caller-driven and unboundedly raisable.
 ### ⛔⛔ THE SITE THAT CANNOT: `regime_exists_of_dropSum` (`RegimeInst.lean:169-175`)
 It hardcodes `Hlo := 4000000` with `hHlo_floor := le_refl _`, and **it is the corpus's ANTI-VACUITY
 WITNESS** — the proof that a `ChowlaRegime` exists at all. Chain:
-`Diverge.lean:450 dropSum_exceeds_log_two → regime_exists_of_dropSum_exists (:201) →
+`Diverge.lean:457 dropSum_exceeds_log_two → regime_exists_of_dropSum_exists (:201) →
 regime_exists_of_dropSum`, audited at `Salt/Entropy/All.lean:268`.
 
 Raising its `Hlo` to `10^5086` is **not a mechanical edit**: its own hypothesis is
@@ -25302,7 +25302,7 @@ down -- this is NOT the C-class obstacle the wave-1 brief asked me to watch for:
 | 1 | `s16_audit_neglog_rho_le_425_h_g12b` | `StrideGrade12bWalls.lean:151-155` | 5 | conclusion `-log rho <= 429` is `411 + 2*9`; the supplier `s16_audit_neglog_rho_le_wide_h_g12` already proves `<= 411 + 2*log c`, **grade-free and already affine** |
 | 2 | `s15_sel''_L_witness_flat_charge_g12b` | `StrideGrade12bWalls.lean:49-84` | 36 | `hcb : c <= 8103` (`:50`) and `hrholog : -log rho <= 429` (`:51`), widened at `:64` to `<= 439` |
 | 3 | `flat_half_line_g14` | `S15SelLinearWide.lean:102-122` | 21 | `hc : c <= 439`, entering as `3*c` against `e^{3.2A}/2`; slack `10^31 x` |
-| 4 | `flat_anchor_line_wide_g14` | `StrideGradeReach.lean:188-193` | 6 | `hc : c <= 439`, entering as `+ c + 33`; slack `449 x` |
+| 4 | `flat_anchor_line_wide_g14` | `StrideGradeReach.lean:170-175` | 6 | `hc : c <= 439`, entering as `+ c + 33`; slack `449 x` |
 | 5 | `flat_gP1_line_g14` | `S15SelLinearWide.lean:135-155` | 21 | `hc : -439 <= c`, entering as `+ c`; slack `5.5e3 x` |
 | 6 | `flat_lvl_line_g14` | `S15SelLinearWide.lean:170-223` | 54 | `hc : c <= 439`, entering as `+ c`; slack `457 x` |
 | 7 | `s15_sel''_L_witness_flat_b9` | `S15SelLinear.lean:323-524` | 202 | `hcb : c <= 8103` (`:729`), spent at `:848` (`hcRb`) |
@@ -25437,7 +25437,7 @@ and reads it at exactly two lines, both `_14` suppliers with NO charge-form twin
 - `:375` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the
   arithmetic gate `m4_arith_henv_constPoolH_L_gk_14` -> `m4_arith_henv_rho_poolH_L_gk_14` ->
   `a2DoorGrade_pool_L_priced_rhoH_gk_14` -> `a2DoorGrade_pool_L_priced_rhoH_14` ->
-  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1469`):
+  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:194`):
   `h * arcDen 12 H * strataResidualH h H ^ 2 <= exp (14 * loglog H)` at `50 <= loglog H`.  With
   `arcDen 12 H = (log H)^12` this needs `h * (1 + 12 loglog H + log h)^2 <= (log H)^2`, which a FREE
   `h` breaks at any fixed tower floor;
@@ -25447,7 +25447,7 @@ Neither is paid from `hhL : log h <= L` by one `linarith`: both need an `h`-depe
 floor.  The brief's STOP condition "a cap site the two lifts do not cover" fired.
 
 **(2) The split lift is FALSE as specified.**  `xceil_arm_split_mul_h_b9`
-(`StridePairReceipt.lean:2254`) concludes `log 2 + log h + 9 <= H/(250000 h^2) - H/10^20`.  With
+(`StridePairReceipt.lean:1383`) concludes `log 2 + log h + 9 <= H/(250000 h^2) - H/10^20`.  With
 `L` for `9` and the cap gone, the right side is `H * (1/(250000 h^2) - 10^-20)`, NEGATIVE once
 `250000 h^2 > 10^20`, i.e. `h > 2*10^7` (`log h > 16.81`), while the left side is positive.
 Kernel-checked at `h = 10^8`: the right side equals `H * (-96/10^22) < 0` for every `H > 0`, and

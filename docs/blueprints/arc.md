@@ -184,7 +184,7 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   `chi_floor_band_uniform` → **`chi_Llower_band_uniform`, a bare induction-max over the characters of
   every modulus `q ≤ Q`** (`SiegelBand.lean`: *"it has no known growth rate in `Q`"*). The cushion's
   own docstring already says it: *"`K_vt` … has no effective bound anywhere in the corpus"*
-  (`RegisterSupply.lean:481`). **Kvk and Kbulk ARE effective** — Wave K's two numeral stones
+  (`RegisterSupply.lean:572`). **Kvk and Kbulk ARE effective** — Wave K's two numeral stones
   (`cpeel_le_two`, `primeTailConst_le_27`, salt `aa66b675`) bottom them out. **The band arm is the
   whole blocker.**
   ⛔⛔ **AND THE RE-ROUTE I TESTED BEFORE PROPOSING IT IS REFUTED — recorded because it is the

@@ -23,7 +23,7 @@ ceiling at its source and prices what it does — and does not — discharge.
   `ω = (H₊ + 2)^N`,  `N = ⌈RHS / log(H₊+2)⌉₊ + 1`,  `RHS = (16/ε)·log(ε²H₊) + 64/ε + 1`;
   `x = K·ω`,  `K = 8·H₊³ + 8·P² + Ce`,  `Ce = ⌈48·(1 + 2/ε²)/ε⌉₊`
 
-— and then DISCARDS it (`clear hωdef hNdef`, `RegimeParam.lean:337`), so only the eight floors
+— and then DISCARDS it (`clear hωdef hNdef`, `RegimeParam.lean:269`), so only the eight floors
 survive.  `regime_outer_param_ceiling` is the additive twin: the same eight floors plus the
 CEILING
 

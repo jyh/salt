@@ -265,7 +265,7 @@ theorem norm_sum_windowClass_memS_dilate {M J q r H n : ℕ} {W : ℝ} (hM : 1 �
             (calQK (Adoor M) (3072 * M) M) J liouvilleC m‖ := by
   simpa only [s13GK_zero] using norm_sum_windowClass_memS_dilate_gk 0 hM hq hqW hW
 
-/-- **THE PER-CLASS PRICE AT THE LEVER, both cases** — `m4_class_price` (:306). -/
+/-- **THE PER-CLASS PRICE AT THE LEVER, both cases** — `m4_class_price` (:308). -/
 theorem m4_class_price_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} {B : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
     (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
     (hcop : ∀ χ : DirichletCharacter ℂ q,

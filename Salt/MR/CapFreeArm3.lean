@@ -800,327 +800,6 @@ theorem seam_row_calibratedK_nocap3 :
     (hHj j hj) N Xd hXd1 hNXd (hPj1 j) a (bfam j) c (hcoef j hj) (hbf1 j) (fun p => hc1 p)
     (hasupp_real_of_nat hasupp) X Tann t₁ (by linarith)
 
-set_option maxHeartbeats 1000000 in
--- the same fuse as `SeamNumber.seam_row_number`, at the socketed row
-/-- **THE SOCKETED SEAM ROW AS ONE NUMBER** (`seam_row_number_nocap3`).
-`CapFreeArm.seam_row_number_nocap` at §9's row: `Σ_j lemma12RowsMR` priced by
-`M4RowMR.sum_lemma12RowsMR_priced_calibratedK2`, so the whole right-hand side is a
-formula in the parameters.  The six `X_d`-side reconciliation gates and the `X_d ≤ X` bridge
-are the landed twin's, verbatim.
-
-⟦WALL 1⟧ the row prefactor is `960` where the `hwin`-carrying twin has `480` — the four-row
-split's price (see `M4RowMR` §3).  `ThmA2Rows.a2_term3_weigh_mr` absorbs it inside `a2Mrow`'s
-`5760`, so no interface numeral moves. -/
-theorem seam_row_number_nocap3 :
-    ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
-      ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
-        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
-      ∀ (N Xd P Q A G M Jb : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
-      ∀ (H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S : ℝ),
-        CalFrameK η H1 A G M Jb Xd →
-        2 ≤ H83 X theta293 →
-        0 < X → Real.exp 1 ≤ X → Real.exp 1 ≤ Real.log X → 4 ≤ Real.log X →
-        TannGate X Tann → 1 < Tann → Tann ≤ X →
-        T₀ ≤ Tann → 5 ≤ Real.log (Real.log Tann) → 1 ≤ Real.log Tann →
-        Real.log Tann ≤ L → Real.exp 1 ≤ L →
-        Real.exp (mrAlpha η Jb * Real.log ((calQK A G M Jb : ℕ) : ℝ)) ≤ VJ →
-        (∀ j ∈ ramI (H83 X theta293) P Q,
-          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q,
-          thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb)
-            * X ^ (1 - 2 * η) ≤ ((Ms j : ℕ) : ℝ)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
-        (∀ j ∈ ramI (H83 X theta293) P Q,
-          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
-        (∀ j ∈ ramI (H83 X theta293) P Q,
-          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
-        1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
-        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
-        Rrad ≤ seamRad X →
-        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
-        CofactorSocket (H83 X theta293) N Xd P Q Tann Rrad t₁ Rbar b →
-        (∀ j ∈ ramI (H83 X theta293) P Q, TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk
-          Tann L (1 / Real.exp 1) Cb X theta293 Rrad j) →
-        1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
-        32 * (Real.log X) ^ (2 + 2 * theta293)
-            * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
-        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
-        E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
-        (∫ t in (-Tann)..Tann,
-            ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2) ≤ E →
-        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
-        (∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ Tann → |t - t₁| ≤ seamRad X →
-          ∀ m : ℕ, m ≤ N → ‖spolyA a t m‖ ≤ S * m / (1 + |t - t₁|)) →
-        2 * Xd ≤ N →
-        (∀ j ∈ Finset.Icc 1 Jb, ∀ p m, p.Prime → calP A G j ≤ p → p ≤ calQK A G M j →
-          ¬ p ∣ m → (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
-          a (p * m) = bfam j m * c p) →
-        Real.log ((calQK A G M Jb : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
-        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
-        (N : ℝ) ≤ 4 * (Xd : ℝ) →
-        (∀ j ∈ Finset.Icc 1 Jb,
-          ((Nat.sqrt Xd : ℝ) + 1)
-              * ∏ p ∈ primeBand (calP A G j) (calQK A G M j), (1 + 3 / (p : ℝ))
-            ≤ (Xd : ℝ)
-              * (Real.log ((calP A G j : ℕ) : ℝ) / Real.log ((calQK A G M j : ℕ) : ℝ))) →
-        (∀ n : ℕ, ‖a n‖ ≤ 1) →
-        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
-        (∫ t in seamAnn X Tann, ‖spoly N a t‖ ^ 2)
-          ≤ 8 * S ^ 2
-            + (2 * (calH H1 1 * Real.log ((calQK A G M 1 : ℕ) : ℝ) + 1)
-                  * (Tann * ((calQK A G M 1 : ℕ) : ℝ) / (Xd : ℝ) + 1)
-                  * ((calP A G 1 : ℕ) : ℝ) ^ (-(2 * mrAlpha η 1))
-                  * (4 * (calH H1 1 / (1 - 2 * mrAlpha η 1))
-                        * Real.exp ((1 - 2 * mrAlpha η 1) / calH H1 1)
-                      + 60 * (calH H1 1 / mrAlpha η 1)
-                          * Real.exp (4 * mrAlpha η 1 / calH H1 1))
-                + 1536 * Cs * Real.exp 3 * (2 * Tann / (Xd : ℝ) + 240)
-                    * (1 / ((calP A G 1 : ℕ) : ℝ))
-                + 960 * (Tann / (Xd : ℝ) + 1)
-                    * ((∑ j ∈ Finset.Icc 1 Jb,
-                          ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
-                              * (Real.exp 1 / (Xd : ℝ) ^ 2))
-                            + 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ)
-                            + 1 / (Xd : ℝ)))
-                      + C * (2 / (M : ℝ))))
-            + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) := by
-  obtain ⟨Cq, cq, T₀, X₀, Cs, hCq, hcq, hT₀, hX₀0, hCs, hseam⟩ := seam_row_calibratedK_nocap3
-  obtain ⟨C, hC, hK2⟩ := sum_lemma12RowsMR_priced_calibratedK2
-  refine ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
-  intro c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q A G M Jb m₀ Ms Mt kk
-    H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S
-    hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hT₀T hLL5 hlogT1 hTLle hLe
-    hVJg hMs hbudget hm₀2 hm₀ hMs4
-    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
-    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef
-    hQXd hXdbig hN4 hdom ha1 hasupp
-  have hA : 1 ≤ A := le_trans (by norm_num) hF.A_floor
-  have hG1 : 1 ≤ G := hF.one_le_G
-  have hM1 : 1 ≤ M := hF.one_le_M
-  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK A G M Jb) hF.Q_le_Xd
-  have hXd0 : (0 : ℝ) < (Xd : ℝ) := by exact_mod_cast hXd1
-  have hT0 : (0 : ℝ) ≤ Tann := by linarith
-  have hH1two : (2 : ℝ) ≤ H1 := hF.H1_two
-  -- ⟦THE BRIDGE⟧ `X_d ≤ X`, from the junction's own two binders
-  have hXdX : (Xd : ℝ) ≤ X := by
-    have h2 : (2 : ℝ) * (Xd : ℝ) ≤ (N : ℝ) := by exact_mod_cast hNXd
-    linarith
-  have hJdef : Real.log ((calQK A G M Jb : ℕ) : ℝ) ≤ (Real.log X) ^ ((1 : ℝ) / 2) := by
-    have hlog : Real.log (Xd : ℝ) ≤ Real.log X := Real.log_le_log hXd0 hXdX
-    calc Real.log ((calQK A G M Jb : ℕ) : ℝ)
-        ≤ Real.sqrt (Real.log (Xd : ℝ)) := hQXd
-      _ ≤ Real.sqrt (Real.log X) := Real.sqrt_le_sqrt hlog
-      _ = (Real.log X) ^ ((1 : ℝ) / 2) := Real.sqrt_eq_rpow _
-  have hreg : ∀ j ∈ Finset.Icc 1 Jb,
-      Real.log ((calQK A G M j : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) := by
-    intro j hj
-    rw [Finset.mem_Icc] at hj
-    refine le_trans (Real.log_le_log ?_ ?_) hQXd
-    · have h : (0 : ℕ) < calQK A G M j := lt_of_lt_of_le Nat.zero_lt_one (one_le_calQK A G M j)
-      exact_mod_cast h
-    · exact_mod_cast calQK_mono A hG1 hj.2
-  have hseaminst := hseam c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q A G M Jb m₀ Ms Mt kk
-    H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S
-    hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hJdef hT₀T hLL5 hlogT1 hTLle hLe
-    hVJg hMs hbudget hm₀2 hm₀ hMs4
-    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
-    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hasupp
-  have hK2inst := hK2 A G M Jb N Xd H1 Tann a bfam c hA hG1 hM1 hXd1 hNXd hT0 hH1two hN4
-    hreg hXdbig hdom ha1 hbf1 hc1 hasupp
-  exact hseaminst.trans
-    (add_le_add (add_le_add le_rfl (add_le_add le_rfl hK2inst)) le_rfl)
-
-/-! ## §10 — THE CAP-FREE ARM AT `3X`, INSTANTIATED -/
-
-set_option maxHeartbeats 1000000 in
--- one application of `seam_row_number_nocap3`, at `t₁ := 0`, `S := 0`
-/-- **THE CAP-FREE ARM AT THE `3X` BOX** (`seam_row_number_capfree3`).
-`seam_row_number_nocap3` with its remaining ball opening closed on the large-`M` side: the
-binder `hSup` by `CapFreeArm.ball_leg_vacuous_at_zero` at `t₁ := 0`, `S := 0` — so the `8S²`
-summand is gone from the right-hand side entirely.
-
-⟦THE SOCKET CUT⟧ the collision socket USED to be closed here too, by `pocketSocket_of_floor3`
-from `CapFreeFloor3 g X`.  At the free co-factor datum there is no collision socket in the
-statement: the row carries `CofactorSocket … 0 R̄ b` (at the centre `t₁ = 0` the ball leg
-picks) and the floor is the SUPPLIER's datum.  So `g`, `hg` and `CapFreeFloor3` leave.
-
-The conclusion is `CapFreeArm.seam_row_number_capfree`'s, byte for byte. -/
-theorem seam_row_number_capfree3 :
-    ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
-      ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
-        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
-      ∀ (N Xd P Q A G M Jb : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
-      ∀ (H1 X Tann δ' V VJ L η Cb Rrad Rbar ε EP2 E : ℝ),
-        CalFrameK η H1 A G M Jb Xd →
-        2 ≤ H83 X theta293 →
-        0 < X → Real.exp 1 ≤ X → Real.exp 1 ≤ Real.log X → 4 ≤ Real.log X →
-        TannGate X Tann → 1 < Tann → Tann ≤ X →
-        T₀ ≤ Tann → 5 ≤ Real.log (Real.log Tann) → 1 ≤ Real.log Tann →
-        Real.log Tann ≤ L → Real.exp 1 ≤ L →
-        Real.exp (mrAlpha η Jb * Real.log ((calQK A G M Jb : ℕ) : ℝ)) ≤ VJ →
-        (∀ j ∈ ramI (H83 X theta293) P Q,
-          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q,
-          thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb)
-            * X ^ (1 - 2 * η) ≤ ((Ms j : ℕ) : ℝ)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
-        (∀ j ∈ ramI (H83 X theta293) P Q,
-          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
-        (∀ j ∈ ramI (H83 X theta293) P Q,
-          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
-        1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
-        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
-        Rrad ≤ seamRad X →
-        -- ⟦THE ONE NEW DATUM⟧ the co-factor socket at the ball's centre, and its grade
-        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
-        CofactorSocket (H83 X theta293) N Xd P Q Tann Rrad 0 Rbar b →
-        (∀ j ∈ ramI (H83 X theta293) P Q, TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk
-          Tann L (1 / Real.exp 1) Cb X theta293 Rrad j) →
-        1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
-        32 * (Real.log X) ^ (2 + 2 * theta293)
-            * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
-        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
-        E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
-        (∫ t in (-Tann)..Tann,
-            ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2) ≤ E →
-        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
-        2 * Xd ≤ N →
-        (∀ j ∈ Finset.Icc 1 Jb, ∀ p m, p.Prime → calP A G j ≤ p → p ≤ calQK A G M j →
-          ¬ p ∣ m → (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
-          a (p * m) = bfam j m * c p) →
-        Real.log ((calQK A G M Jb : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
-        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
-        (N : ℝ) ≤ 4 * (Xd : ℝ) →
-        (∀ j ∈ Finset.Icc 1 Jb,
-          ((Nat.sqrt Xd : ℝ) + 1)
-              * ∏ p ∈ primeBand (calP A G j) (calQK A G M j), (1 + 3 / (p : ℝ))
-            ≤ (Xd : ℝ)
-              * (Real.log ((calP A G j : ℕ) : ℝ) / Real.log ((calQK A G M j : ℕ) : ℝ))) →
-        (∀ n : ℕ, ‖a n‖ ≤ 1) →
-        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
-        (∫ t in seamAnn X Tann, ‖spoly N a t‖ ^ 2)
-          ≤ (2 * (calH H1 1 * Real.log ((calQK A G M 1 : ℕ) : ℝ) + 1)
-                  * (Tann * ((calQK A G M 1 : ℕ) : ℝ) / (Xd : ℝ) + 1)
-                  * ((calP A G 1 : ℕ) : ℝ) ^ (-(2 * mrAlpha η 1))
-                  * (4 * (calH H1 1 / (1 - 2 * mrAlpha η 1))
-                        * Real.exp ((1 - 2 * mrAlpha η 1) / calH H1 1)
-                      + 60 * (calH H1 1 / mrAlpha η 1)
-                          * Real.exp (4 * mrAlpha η 1 / calH H1 1))
-                + 1536 * Cs * Real.exp 3 * (2 * Tann / (Xd : ℝ) + 240)
-                    * (1 / ((calP A G 1 : ℕ) : ℝ))
-                + 960 * (Tann / (Xd : ℝ) + 1)
-                    * ((∑ j ∈ Finset.Icc 1 Jb,
-                          ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
-                              * (Real.exp 1 / (Xd : ℝ) ^ 2))
-                            + 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ)
-                            + 1 / (Xd : ℝ)))
-                      + C * (2 / (M : ℝ))))
-            + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) := by
-  obtain ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, hnum⟩ := seam_row_number_nocap3
-  refine ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
-  intro c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q A G M Jb m₀ Ms Mt kk
-    H1 X Tann δ' V VJ L η Cb Rrad Rbar ε EP2 E
-    hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hT₀T hLL5 hlogT1 hTLle hLe
-    hVJg hMs hbudget hm₀2 hm₀ hMs4
-    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
-    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hNXd hcoef
-    hQXd hXdbig hN4 hdom ha1 hasupp
-  -- ⟦S8⟧ the ball binder, from the emptiness at the origin, at `S := 0`
-  have hSup := ball_leg_vacuous_at_zero (N := N) (a := a) (T := Tann)
-    (show (1 : ℝ) < Real.log X by linarith)
-  have h := hnum c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q A G M Jb m₀ Ms Mt kk
-    H1 X Tann 0 δ' V VJ L η Cb Rrad Rbar ε EP2 E 0
-    hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hT₀T hLL5 hlogT1 hTLle hLe
-    hVJg hMs hbudget hm₀2 hm₀ hMs4
-    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
-    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef
-    hQXd hXdbig hN4 hdom ha1 hasupp
-  exact h.trans (le_of_eq (by ring))
-
-/-! ## §11 — THE FRAME BUNDLE AT `3X` (`A2Frame3`)
-
-`ThmA2.A2Frame` with its `box` field alone re-cut at the sibling convention.  THIS is the
-repair's payload: `A2Frame.box` demands `|t| + T*₂ ≤ X` for every `|t| ≤ X`, FALSE at
-`|t| = X` since `T*₂ > 0`; `A2Frame3.box` demands `≤ 3X`, which holds for every `|t| ≤ X`
-as soon as `T*₂ ≤ 2X` (`ThmA2Rows.a2Frame3_satisfiable_partial`'s new field).
-
-The other ten fields are `A2Frame`'s, verbatim — same names, same order, same statements —
-so the two projection helpers below are `A2Frame.box_at` / `A2Frame.ksGate_at`'s shapes and
-every consumer reads them the same way. -/
-
-/-- **THE `∀Tann` FRAME BUNDLE AT `3X`** (`A2Frame3`).  `ThmA2.A2Frame` with `box` at the
-sibling convention `|t| + T*₂(M_j, log M_j) ≤ 3X` — SATISFIABLE, which `A2Frame.box` is
-not.  All other fields are byte-identical to `A2Frame`'s.
-
-⟦THE SOCKET CUT⟧ the first parameter is the CO-FACTOR DATUM ITSELF (`b`), not a
-multiplicative generator: `err` reads `ramErr … a b cf`, never `ramErr … a (ellLin g) cf`.
-The frame is therefore `b`-generic, and at the capstone `b` is the SAME datum the row's
-factorization binder `a(pm) = b m · c p` already carries. -/
-structure A2Frame3 (b cf a : ℕ → ℂ) (N Xd P Q A G M Jb : ℕ) (Ms Mt kk : ℕ → ℕ)
-    (H1 X h δ' VJ L η Cb Rrad EP2 cq T₀ : ℝ) : Prop where
-  /-- MR's contour gate at every admissible height. -/
-  tannGate : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → TannGate X Tann
-  /-- The height is a genuine height. -/
-  one_lt : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → 1 < Tann
-  /-- The row's own floor `T₀` (`seam_row_number_nocap3`'s existential, `3 ≤ T₀`). -/
-  T0_le : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → T₀ ≤ Tann
-  /-- The `h`-ceiling, read at the height (monotone; the freeze's `5 ≤ loglog(2X/h)`). -/
-  loglog5 : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → 5 ≤ Real.log (Real.log Tann)
-  /-- `1 ≤ log Tann` (free from `loglog5`, kept as a field to mirror the row). -/
-  one_le_log : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → 1 ≤ Real.log Tann
-  /-- The `L`-budget (monotone in `Tann`). -/
-  log_le_L : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → Real.log Tann ≤ L
-  /-- The thin-bundle demand on the `Ms`-ladder, per height. -/
-  thin : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
-    ∀ j ∈ ramI (H83 X theta293) P Q,
-      thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb) * X ^ (1 - 2 * η)
-        ≤ ((Ms j : ℕ) : ℝ)
-  /-- The §8.3 block gates, per height. -/
-  blocks : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
-    ∀ j ∈ ramI (H83 X theta293) P Q,
-      TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk Tann L (1 / Real.exp 1) Cb X
-        theta293 Rrad j
-  /-- The contour box AT THE SIBLING CONVENTION `3X`, at the window's TOP — anti-monotone,
-  see `A2Frame3.box_at`.  This is the field the R2 repair moves. -/
-  box : ∀ j ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ X →
-      |t| + Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ)) ≤ 3 * X
-  /-- The kernel/short-interval gate, at the window's TOP — see `A2Frame3.ksGate_at`. -/
-  ksGate : 32 * (Real.log X) ^ (2 + 2 * theta293)
-      * (20512 * δ' ^ 2 * (1 + Real.log (2 * X))) ≤ (Real.log X) ^ (-theta293)
-  /-- The Ramaré error mass, per height, at the row's own ceiling (so `hErow` is `le_rfl`). -/
-  err : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
-    (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2)
-      ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2)
-
-namespace A2Frame3
-
-variable {b cf a : ℕ → ℂ} {N Xd P Q A G M Jb : ℕ} {Ms Mt kk : ℕ → ℕ}
-  {H1 X h δ' VJ L η Cb Rrad EP2 cq T₀ : ℝ}
-
-/-- The `3X` contour box at any admissible height, from the top instance (anti-monotone).
-`ThmA2.A2Frame.box_at`'s shape, at the sibling convention. -/
-theorem box_at (F : A2Frame3 b cf a N Xd P Q A G M Jb Ms Mt kk H1 X h δ' VJ L η Cb Rrad
-      EP2 cq T₀) {Tann : ℝ} (hTX : Tann ≤ X) :
-    ∀ j ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ Tann →
-      |t| + Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ)) ≤ 3 * X :=
-  fun j hj t ht => F.box j hj t (le_trans ht hTX)
-
-/-- The kernel gate at any admissible height, from the top instance (monotone in `Tann`
-through `log(2Tann) ≤ log(2X)`).  `ThmA2.A2Frame.ksGate_at`'s proof, verbatim. -/
-theorem ksGate_at (F : A2Frame3 b cf a N Xd P Q A G M Jb Ms Mt kk H1 X h δ' VJ L η Cb Rrad
-      EP2 cq T₀) {Tann : ℝ} (hT0 : 0 < Tann) (hTX : Tann ≤ X) (hL0 : 0 ≤ Real.log X) :
-    32 * (Real.log X) ^ (2 + 2 * theta293)
-        * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) := by
-  refine le_trans ?_ F.ksGate
-  have hlog : Real.log (2 * Tann) ≤ Real.log (2 * X) :=
-    Real.log_le_log (by linarith) (by linarith)
-  have hrp : (0 : ℝ) ≤ (Real.log X) ^ (2 + 2 * theta293) := Real.rpow_nonneg hL0 _
-  have hδ : (0 : ℝ) ≤ 20512 * δ' ^ 2 := by positivity
-  nlinarith [mul_nonneg hrp hδ]
-
-end A2Frame3
-
-
 /-! ## §9′ — ⟦THE ENDPOINT WALL⟧: the K-frame seam row at the STRICT pair law -/
 
 set_option maxHeartbeats 1000000 in
@@ -1415,6 +1094,109 @@ theorem seam_row_number_nocap3_end :
     (add_le_add (add_le_add le_rfl (add_le_add le_rfl hK2inst)) le_rfl)
 
 set_option maxHeartbeats 1000000 in
+-- the same fuse as `SeamNumber.seam_row_number`, at the socketed row
+/-- **THE SOCKETED SEAM ROW AS ONE NUMBER** (`seam_row_number_nocap3`).
+`CapFreeArm.seam_row_number_nocap` at §9's row: `Σ_j lemma12RowsMR` priced by
+`M4RowMR.sum_lemma12RowsMR_priced_calibratedK2`, so the whole right-hand side is a
+formula in the parameters.  The six `X_d`-side reconciliation gates and the `X_d ≤ X` bridge
+are the landed twin's, verbatim.
+
+⟦WALL 1⟧ the row prefactor is `960` where the `hwin`-carrying twin has `480` — the four-row
+split's price (see `M4RowMR` §3).  `ThmA2Rows.a2_term3_weigh_mr` absorbs it inside `a2Mrow`'s
+`5760`, so no interface numeral moves.
+
+Proof: the instance of `seam_row_number_nocap3_end` (§9′, above), whose strict pair-law
+binder this statement's non-strict one implies. -/
+theorem seam_row_number_nocap3 :
+    ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
+      ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
+        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
+      ∀ (N Xd P Q A G M Jb : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
+      ∀ (H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S : ℝ),
+        CalFrameK η H1 A G M Jb Xd →
+        2 ≤ H83 X theta293 →
+        0 < X → Real.exp 1 ≤ X → Real.exp 1 ≤ Real.log X → 4 ≤ Real.log X →
+        TannGate X Tann → 1 < Tann → Tann ≤ X →
+        T₀ ≤ Tann → 5 ≤ Real.log (Real.log Tann) → 1 ≤ Real.log Tann →
+        Real.log Tann ≤ L → Real.exp 1 ≤ L →
+        Real.exp (mrAlpha η Jb * Real.log ((calQK A G M Jb : ℕ) : ℝ)) ≤ VJ →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb)
+            * X ^ (1 - 2 * η) ≤ ((Ms j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        Rrad ≤ seamRad X →
+        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+        CofactorSocket (H83 X theta293) N Xd P Q Tann Rrad t₁ Rbar b →
+        (∀ j ∈ ramI (H83 X theta293) P Q, TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk
+          Tann L (1 / Real.exp 1) Cb X theta293 Rrad j) →
+        1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+        32 * (Real.log X) ^ (2 + 2 * theta293)
+            * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
+        E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
+        (∫ t in (-Tann)..Tann,
+            ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2) ≤ E →
+        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+        (∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ Tann → |t - t₁| ≤ seamRad X →
+          ∀ m : ℕ, m ≤ N → ‖spolyA a t m‖ ≤ S * m / (1 + |t - t₁|)) →
+        2 * Xd ≤ N →
+        (∀ j ∈ Finset.Icc 1 Jb, ∀ p m, p.Prime → calP A G j ≤ p → p ≤ calQK A G M j →
+          ¬ p ∣ m → (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
+          a (p * m) = bfam j m * c p) →
+        Real.log ((calQK A G M Jb : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        (∀ j ∈ Finset.Icc 1 Jb,
+          ((Nat.sqrt Xd : ℝ) + 1)
+              * ∏ p ∈ primeBand (calP A G j) (calQK A G M j), (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ)
+              * (Real.log ((calP A G j : ℕ) : ℝ) / Real.log ((calQK A G M j : ℕ) : ℝ))) →
+        (∀ n : ℕ, ‖a n‖ ≤ 1) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        (∫ t in seamAnn X Tann, ‖spoly N a t‖ ^ 2)
+          ≤ 8 * S ^ 2
+            + (2 * (calH H1 1 * Real.log ((calQK A G M 1 : ℕ) : ℝ) + 1)
+                  * (Tann * ((calQK A G M 1 : ℕ) : ℝ) / (Xd : ℝ) + 1)
+                  * ((calP A G 1 : ℕ) : ℝ) ^ (-(2 * mrAlpha η 1))
+                  * (4 * (calH H1 1 / (1 - 2 * mrAlpha η 1))
+                        * Real.exp ((1 - 2 * mrAlpha η 1) / calH H1 1)
+                      + 60 * (calH H1 1 / mrAlpha η 1)
+                          * Real.exp (4 * mrAlpha η 1 / calH H1 1))
+                + 1536 * Cs * Real.exp 3 * (2 * Tann / (Xd : ℝ) + 240)
+                    * (1 / ((calP A G 1 : ℕ) : ℝ))
+                + 960 * (Tann / (Xd : ℝ) + 1)
+                    * ((∑ j ∈ Finset.Icc 1 Jb,
+                          ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
+                              * (Real.exp 1 / (Xd : ℝ) ^ 2))
+                            + 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ)
+                            + 1 / (Xd : ℝ)))
+                      + C * (2 / (M : ℝ))))
+            + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) := by
+  -- the instance of `seam_row_number_nocap3_end` (§9′, above): its pair-law binder is
+  -- strict, so `hfac` here supplies it through `hlt.le`; every other argument passes as is.
+  obtain ⟨Cq, cq, T₀, X₀, Cs, C, h1, h2, h3, h4, h5, h6, hw⟩ := seam_row_number_nocap3_end
+  refine ⟨Cq, cq, T₀, X₀, Cs, C, h1, h2, h3, h4, h5, h6, ?_⟩
+  intro c a b cf bfam hc hb hcf hbf N Xd P Q A G M Jb m₀ Ms Mt kk
+    H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S
+    e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26
+    e27 e28 e29 e30 e31 e32 e33 e34 e35 e36 e37 e38 e39 e40 e41 e42 e43 hfac
+  exact hw c a b cf bfam hc hb hcf hbf N Xd P Q A G M Jb m₀ Ms Mt kk
+    H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S
+    e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26
+    e27 e28 e29 e30 e31 e32 e33 e34 e35 e36 e37 e38 e39 e40 e41 e42 e43
+    (fun j hj p m hp hP hQ hpm hlt hle => hfac j hj p m hp hP hQ hpm hlt.le hle)
+
+/-! ## §10 — THE CAP-FREE ARM AT `3X`, INSTANTIATED -/
+
+set_option maxHeartbeats 1000000 in
 -- one application of `seam_row_number_nocap3_end`, at `t₁ := 0`, `S := 0`
 /-- **THE CAP-FREE ARM AT THE `3X` BOX — STRICT/FUSED** (`seam_row_number_capfree3_end`).
 `seam_row_number_capfree3` at the strict pair-law binder; the conclusion is the landed one,
@@ -1510,5 +1292,189 @@ theorem seam_row_number_capfree3_end :
     hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef
     hQXd hXdbig hN4 hdom ha1 hasupp
   exact h.trans (le_of_eq (by ring))
+
+set_option maxHeartbeats 1000000 in
+-- one application of `seam_row_number_nocap3`, at `t₁ := 0`, `S := 0`
+/-- **THE CAP-FREE ARM AT THE `3X` BOX** (`seam_row_number_capfree3`).
+`seam_row_number_nocap3` with its remaining ball opening closed on the large-`M` side: the
+binder `hSup` by `CapFreeArm.ball_leg_vacuous_at_zero` at `t₁ := 0`, `S := 0` — so the `8S²`
+summand is gone from the right-hand side entirely.
+
+⟦THE SOCKET CUT⟧ the collision socket USED to be closed here too, by `pocketSocket_of_floor3`
+from `CapFreeFloor3 g X`.  At the free co-factor datum there is no collision socket in the
+statement: the row carries `CofactorSocket … 0 R̄ b` (at the centre `t₁ = 0` the ball leg
+picks) and the floor is the SUPPLIER's datum.  So `g`, `hg` and `CapFreeFloor3` leave.
+
+The conclusion is `CapFreeArm.seam_row_number_capfree`'s, byte for byte.
+
+Proof: the instance of `seam_row_number_capfree3_end` (above), whose strict pair-law binder
+this statement's non-strict one implies. -/
+theorem seam_row_number_capfree3 :
+    ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
+      ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
+        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
+      ∀ (N Xd P Q A G M Jb : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
+      ∀ (H1 X Tann δ' V VJ L η Cb Rrad Rbar ε EP2 E : ℝ),
+        CalFrameK η H1 A G M Jb Xd →
+        2 ≤ H83 X theta293 →
+        0 < X → Real.exp 1 ≤ X → Real.exp 1 ≤ Real.log X → 4 ≤ Real.log X →
+        TannGate X Tann → 1 < Tann → Tann ≤ X →
+        T₀ ≤ Tann → 5 ≤ Real.log (Real.log Tann) → 1 ≤ Real.log Tann →
+        Real.log Tann ≤ L → Real.exp 1 ≤ L →
+        Real.exp (mrAlpha η Jb * Real.log ((calQK A G M Jb : ℕ) : ℝ)) ≤ VJ →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb)
+            * X ^ (1 - 2 * η) ≤ ((Ms j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        Rrad ≤ seamRad X →
+        -- ⟦THE ONE NEW DATUM⟧ the co-factor socket at the ball's centre, and its grade
+        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+        CofactorSocket (H83 X theta293) N Xd P Q Tann Rrad 0 Rbar b →
+        (∀ j ∈ ramI (H83 X theta293) P Q, TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk
+          Tann L (1 / Real.exp 1) Cb X theta293 Rrad j) →
+        1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+        32 * (Real.log X) ^ (2 + 2 * theta293)
+            * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
+        E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
+        (∫ t in (-Tann)..Tann,
+            ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2) ≤ E →
+        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+        2 * Xd ≤ N →
+        (∀ j ∈ Finset.Icc 1 Jb, ∀ p m, p.Prime → calP A G j ≤ p → p ≤ calQK A G M j →
+          ¬ p ∣ m → (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
+          a (p * m) = bfam j m * c p) →
+        Real.log ((calQK A G M Jb : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        (∀ j ∈ Finset.Icc 1 Jb,
+          ((Nat.sqrt Xd : ℝ) + 1)
+              * ∏ p ∈ primeBand (calP A G j) (calQK A G M j), (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ)
+              * (Real.log ((calP A G j : ℕ) : ℝ) / Real.log ((calQK A G M j : ℕ) : ℝ))) →
+        (∀ n : ℕ, ‖a n‖ ≤ 1) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        (∫ t in seamAnn X Tann, ‖spoly N a t‖ ^ 2)
+          ≤ (2 * (calH H1 1 * Real.log ((calQK A G M 1 : ℕ) : ℝ) + 1)
+                  * (Tann * ((calQK A G M 1 : ℕ) : ℝ) / (Xd : ℝ) + 1)
+                  * ((calP A G 1 : ℕ) : ℝ) ^ (-(2 * mrAlpha η 1))
+                  * (4 * (calH H1 1 / (1 - 2 * mrAlpha η 1))
+                        * Real.exp ((1 - 2 * mrAlpha η 1) / calH H1 1)
+                      + 60 * (calH H1 1 / mrAlpha η 1)
+                          * Real.exp (4 * mrAlpha η 1 / calH H1 1))
+                + 1536 * Cs * Real.exp 3 * (2 * Tann / (Xd : ℝ) + 240)
+                    * (1 / ((calP A G 1 : ℕ) : ℝ))
+                + 960 * (Tann / (Xd : ℝ) + 1)
+                    * ((∑ j ∈ Finset.Icc 1 Jb,
+                          ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
+                              * (Real.exp 1 / (Xd : ℝ) ^ 2))
+                            + 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ)
+                            + 1 / (Xd : ℝ)))
+                      + C * (2 / (M : ℝ))))
+            + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) := by
+  -- the instance of `seam_row_number_capfree3_end` (above): its pair-law binder is
+  -- strict, so `hfac` here supplies it through `hlt.le`; every other argument passes as is.
+  obtain ⟨Cq, cq, T₀, X₀, Cs, C, h1, h2, h3, h4, h5, h6, hw⟩ := seam_row_number_capfree3_end
+  refine ⟨Cq, cq, T₀, X₀, Cs, C, h1, h2, h3, h4, h5, h6, ?_⟩
+  intro c a b cf bfam hc hb hcf hbf N Xd P Q A G M Jb m₀ Ms Mt kk
+    H1 X Tann δ' V VJ L η Cb Rrad Rbar ε EP2 E
+    e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26
+    e27 e28 e29 e30 e31 e32 e33 e34 e35 e36 e37 e38 e39 e40 e41 e42 hfac
+  exact hw c a b cf bfam hc hb hcf hbf N Xd P Q A G M Jb m₀ Ms Mt kk
+    H1 X Tann δ' V VJ L η Cb Rrad Rbar ε EP2 E
+    e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 e17 e18 e19 e20 e21 e22 e23 e24 e25 e26
+    e27 e28 e29 e30 e31 e32 e33 e34 e35 e36 e37 e38 e39 e40 e41 e42
+    (fun j hj p m hp hP hQ hpm hlt hle => hfac j hj p m hp hP hQ hpm hlt.le hle)
+
+/-! ## §11 — THE FRAME BUNDLE AT `3X` (`A2Frame3`)
+
+`ThmA2.A2Frame` with its `box` field alone re-cut at the sibling convention.  THIS is the
+repair's payload: `A2Frame.box` demands `|t| + T*₂ ≤ X` for every `|t| ≤ X`, FALSE at
+`|t| = X` since `T*₂ > 0`; `A2Frame3.box` demands `≤ 3X`, which holds for every `|t| ≤ X`
+as soon as `T*₂ ≤ 2X` (`ThmA2Rows.a2Frame3_satisfiable_partial`'s new field).
+
+The other ten fields are `A2Frame`'s, verbatim — same names, same order, same statements —
+so the two projection helpers below are `A2Frame.box_at` / `A2Frame.ksGate_at`'s shapes and
+every consumer reads them the same way. -/
+
+/-- **THE `∀Tann` FRAME BUNDLE AT `3X`** (`A2Frame3`).  `ThmA2.A2Frame` with `box` at the
+sibling convention `|t| + T*₂(M_j, log M_j) ≤ 3X` — SATISFIABLE, which `A2Frame.box` is
+not.  All other fields are byte-identical to `A2Frame`'s.
+
+⟦THE SOCKET CUT⟧ the first parameter is the CO-FACTOR DATUM ITSELF (`b`), not a
+multiplicative generator: `err` reads `ramErr … a b cf`, never `ramErr … a (ellLin g) cf`.
+The frame is therefore `b`-generic, and at the capstone `b` is the SAME datum the row's
+factorization binder `a(pm) = b m · c p` already carries. -/
+structure A2Frame3 (b cf a : ℕ → ℂ) (N Xd P Q A G M Jb : ℕ) (Ms Mt kk : ℕ → ℕ)
+    (H1 X h δ' VJ L η Cb Rrad EP2 cq T₀ : ℝ) : Prop where
+  /-- MR's contour gate at every admissible height. -/
+  tannGate : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → TannGate X Tann
+  /-- The height is a genuine height. -/
+  one_lt : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → 1 < Tann
+  /-- The row's own floor `T₀` (`seam_row_number_nocap3`'s existential, `3 ≤ T₀`). -/
+  T0_le : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → T₀ ≤ Tann
+  /-- The `h`-ceiling, read at the height (monotone; the freeze's `5 ≤ loglog(2X/h)`). -/
+  loglog5 : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → 5 ≤ Real.log (Real.log Tann)
+  /-- `1 ≤ log Tann` (free from `loglog5`, kept as a field to mirror the row). -/
+  one_le_log : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → 1 ≤ Real.log Tann
+  /-- The `L`-budget (monotone in `Tann`). -/
+  log_le_L : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → Real.log Tann ≤ L
+  /-- The thin-bundle demand on the `Ms`-ladder, per height. -/
+  thin : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
+    ∀ j ∈ ramI (H83 X theta293) P Q,
+      thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb) * X ^ (1 - 2 * η)
+        ≤ ((Ms j : ℕ) : ℝ)
+  /-- The §8.3 block gates, per height. -/
+  blocks : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
+    ∀ j ∈ ramI (H83 X theta293) P Q,
+      TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk Tann L (1 / Real.exp 1) Cb X
+        theta293 Rrad j
+  /-- The contour box AT THE SIBLING CONVENTION `3X`, at the window's TOP — anti-monotone,
+  see `A2Frame3.box_at`.  This is the field the R2 repair moves. -/
+  box : ∀ j ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ X →
+      |t| + Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ)) ≤ 3 * X
+  /-- The kernel/short-interval gate, at the window's TOP — see `A2Frame3.ksGate_at`. -/
+  ksGate : 32 * (Real.log X) ^ (2 + 2 * theta293)
+      * (20512 * δ' ^ 2 * (1 + Real.log (2 * X))) ≤ (Real.log X) ^ (-theta293)
+  /-- The Ramaré error mass, per height, at the row's own ceiling (so `hErow` is `le_rfl`). -/
+  err : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
+    (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2)
+      ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2)
+
+namespace A2Frame3
+
+variable {b cf a : ℕ → ℂ} {N Xd P Q A G M Jb : ℕ} {Ms Mt kk : ℕ → ℕ}
+  {H1 X h δ' VJ L η Cb Rrad EP2 cq T₀ : ℝ}
+
+/-- The `3X` contour box at any admissible height, from the top instance (anti-monotone).
+`ThmA2.A2Frame.box_at`'s shape, at the sibling convention. -/
+theorem box_at (F : A2Frame3 b cf a N Xd P Q A G M Jb Ms Mt kk H1 X h δ' VJ L η Cb Rrad
+      EP2 cq T₀) {Tann : ℝ} (hTX : Tann ≤ X) :
+    ∀ j ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ Tann →
+      |t| + Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ)) ≤ 3 * X :=
+  fun j hj t ht => F.box j hj t (le_trans ht hTX)
+
+/-- The kernel gate at any admissible height, from the top instance (monotone in `Tann`
+through `log(2Tann) ≤ log(2X)`).  `ThmA2.A2Frame.ksGate_at`'s proof, verbatim. -/
+theorem ksGate_at (F : A2Frame3 b cf a N Xd P Q A G M Jb Ms Mt kk H1 X h δ' VJ L η Cb Rrad
+      EP2 cq T₀) {Tann : ℝ} (hT0 : 0 < Tann) (hTX : Tann ≤ X) (hL0 : 0 ≤ Real.log X) :
+    32 * (Real.log X) ^ (2 + 2 * theta293)
+        * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) := by
+  refine le_trans ?_ F.ksGate
+  have hlog : Real.log (2 * Tann) ≤ Real.log (2 * X) :=
+    Real.log_le_log (by linarith) (by linarith)
+  have hrp : (0 : ℝ) ≤ (Real.log X) ^ (2 + 2 * theta293) := Real.rpow_nonneg hL0 _
+  have hδ : (0 : ℝ) ≤ 20512 * δ' ^ 2 := by positivity
+  nlinarith [mul_nonneg hrp hδ]
+
+end A2Frame3
 
 end Salt.MR

@@ -7,6 +7,7 @@ import Salt.MaynardK.JSplit
 import Salt.Twelve.QdiagBridge
 import Salt.Maynard.Lemma53W
 import Salt.Maynard.S2DiagRestricted
+import Salt.MaynardK.InnerS2Gen
 
 /-!
 # C1 · B4.3c — `qdiag_bridge` at general `n` for a bounded budget weight (`qdiag_bridge_gen`)
@@ -94,44 +95,14 @@ theorem yM_sub_inn_le_gen (k R W' D : ℕ) (hk : 1 ≤ k) (m : Fin k) (y : (Fin 
   simpa using h
 
 omit [Salt.Maynard.TupleChoice] in
-/-- **Step 3 ingredient at general `k`: `|Inn(u)| ≤ PAS`.** -/
+/-- **Step 3 ingredient at general `k`: `|Inn(u)| ≤ PAS`.**  Since 2026-11-18 this is
+`InnerS2Gen.absInn_le_pas_gen_s2`, whose statement is the same up to binder names. -/
 theorem absInn_le_pas_gen (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
     (hy1 : ∀ s, |y s| ≤ 1) (hy0 : ∀ s, s ∉ kSieveIndex k R W' → y s = 0)
     (hR : 2 ≤ R) (hW' : Squarefree W') (hpos : 0 < W') (u : Fin k → ℕ) :
     |∑ am ∈ Finset.range R, y (Function.update u m am) / (Nat.totient am : ℝ)|
-      ≤ Salt.Maynard.phiAtomSum R W' := by
-  classical
-  have hstep : ∀ am ∈ Finset.range R,
-      |y (Function.update u m am) / (Nat.totient am : ℝ)|
-        ≤ (if (Squarefree am ∧ am.Coprime W' ∧ (1 : ℕ) ∣ am)
-            then (Real.log am) ^ 0 / (Nat.totient am : ℝ) else 0) := by
-    intro am _
-    rw [abs_div, abs_of_nonneg (by positivity : (0 : ℝ) ≤ (Nat.totient am : ℝ))]
-    split_ifs with hc
-    · rw [pow_zero]
-      exact div_le_div_of_nonneg_right (hy1 _) (by positivity)
-    · have hnot : Function.update u m am ∉ kSieveIndex k R W' := by
-        intro hmem
-        obtain ⟨hsqf, _, hcop, _⟩ := (mem_kSieveIndex_iff _).mp hmem
-        have h1 : Squarefree am := by
-          have := hsqf m; rwa [Function.update_self] at this
-        have h2 : am.Coprime W' := by
-          have := hcop m; rwa [Function.update_self] at this
-        exact hc ⟨h1, h2, one_dvd am⟩
-      rw [hy0 _ hnot, abs_zero, zero_div]
-  calc |∑ am ∈ Finset.range R, y (Function.update u m am) / (Nat.totient am : ℝ)|
-      ≤ ∑ am ∈ Finset.range R, |y (Function.update u m am) / (Nat.totient am : ℝ)| :=
-        Finset.abs_sum_le_sum_abs _ _
-    _ ≤ ∑ am ∈ Finset.range R,
-          (if (Squarefree am ∧ am.Coprime W' ∧ (1 : ℕ) ∣ am)
-            then (Real.log am) ^ 0 / (Nat.totient am : ℝ) else 0) :=
-        Finset.sum_le_sum hstep
-    _ = ∑ am ∈ (Finset.range R).filter
-          (fun r => Squarefree r ∧ r.Coprime W' ∧ (1 : ℕ) ∣ r),
-          (Real.log am) ^ 0 / (Nat.totient am : ℝ) := (Finset.sum_filter _ _).symm
-    _ ≤ (1 / (Nat.totient 1 : ℝ)) * (Real.log R) ^ 0 * Salt.Maynard.phiAtomSum R W' :=
-        marked_sqf_phi_rel W' hW' hpos 0 1 R one_pos hR
-    _ = Salt.Maynard.phiAtomSum R W' := by simp
+      ≤ Salt.Maynard.phiAtomSum R W' :=
+  absInn_le_pas_gen_s2 k R W' m y hy1 hy0 hR hW' hpos u
 
 /-- A product over `Finset.univ.erase m` in `Fin (n + 1)` is the product over `Fin n` through
 `m.succAbove`: `∏_{i ≠ m} F i = ∏_{j : Fin n} F (m.succAbove j)`.

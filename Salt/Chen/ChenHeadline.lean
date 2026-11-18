@@ -13,7 +13,8 @@ dissolving the coupling obligation — the `kfloor_of_live_box` arithmetic), the
 / `PRICE-1` / `PRICE-GATE` entries.
 
 This is the PRICE wave's summit; `chen_headline` itself landed later, in `ChenTheorem.lean`.
-This file supplies `kfloor_of_live_box` and `box_hprice_at_2pow_lo`.  New file, no edits.
+This file supplies `kfloor_of_live_box`; it also landed `box_hprice_at_2pow_lo`, which moved to
+`PriceThree` on 2026-11-18.  New file at landing, no edits then.
 
 ## Floor F1 — the k-floor keystone + the piece-parameter rows
 
@@ -102,91 +103,15 @@ theorem kfloor_of_live_box {x z y k i K : ℕ} (hx : (1 : ℝ) ≤ (x : ℝ))
 /-! ## F1.2 — `box_hprice_at_2pow_lo` (the priced-branch supplier at the 7/16 floor)
 
 `kfloor_of_live_box` supplies the `x^{7/16}/8 ≤ 2^k` floor for every LIVE boundary box, but the
-landed `box_hprice_at_2pow` (PriceThree:228) demands the STRONGER `x^{11/24}/8 ≤ 2^k` floor
+landed `box_hprice_at_2pow` (PriceThree:306) demands the STRONGER `x^{11/24}/8 ≤ 2^k` floor
 (via `medium_box_price_at_op`).  The Finding-3 strip `2^k ∈ [x^{7/16}/8, x^{11/24}/8)` carries
 LIVE non-cancelling boxes, so the priced branch of the dichotomy must instead call the strip
-terminal `medium_box_price_at_op_lo` (PriceTwo:652), whose conclusion is CHARACTER-FOR-CHARACTER
+terminal `medium_box_price_at_op_lo` (PriceTwo:320), whose conclusion is CHARACTER-FOR-CHARACTER
 identical to `medium_box_price_at_op`'s (same `Kbeta_min`/`Km_min`/`Kbeta'_min` price) but whose
 `hNfloor` is the 7/16 floor.  `box_hprice_at_2pow_lo` is the exact `_lo` mirror of
 `box_hprice_at_2pow` — same conclusion (`Price j k i := 2·Kerr`), same hypothesis list, only the
-block floor relaxed to `x^{7/16}/8`. -/
-
-/-- **`box_hprice_at_2pow_lo` (F1, the priced-branch supplier).**  The `_lo` (7/16-floor) analogue
-of `PriceThree.box_hprice_at_2pow`: the box carrier's two-`T` disc sum is `≤ 2·(Kerr price)` at
-the operating point, with the block floor relaxed to `x^{7/16}/8 ≤ 2^k` (the floor
-`kfloor_of_live_box` supplies for every live boundary box).  Conclusion identical to
-`box_hprice_at_2pow`; routes through `medium_box_price_at_op_lo`. -/
-theorem box_hprice_at_2pow_lo (z y Ps Q a : ℕ) (hQ1 : 1 ≤ Q) (hPspos : 0 < Ps)
-    (hQPs : Nat.Coprime Q Ps) (hQa2 : Nat.Coprime Q (a + 2))
-    (hPodd : ∀ p ∈ Ps.primeFactors, 3 ≤ p) :
-    ∃ (Kc : ℝ) (N₀ : ℕ), 0 < Kc ∧
-      ∀ (x : ℕ) (ε₀ : ℝ) (j k i : ℕ) (Lb : ℝ) (F Krange X : ℕ) (QR : ℝ) (Dlev D : ℕ),
-        2 ≤ k →
-        Real.exp (10 ^ 9) ≤ (x : ℝ) →
-        i ∈ dyadicBoundary (pieceN k) (pieceM k) (x / 2 + 1) x F Krange →
-        X = 2 ^ (i + 1) - 1 →
-        (x : ℝ) ^ ((7 : ℝ) / 16) / 8 ≤ ((2 ^ k : ℕ) : ℝ) →
-        N₀ ≤ 2 ^ k →
-        2 ≤ Real.log ((X : ℝ) * (pieceM k : ℝ)) →
-        2 ≤ X →
-        1 ≤ D →
-        (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (D : ℝ) →
-        (Q : ℝ) * (QR * Dlev) ≤ (D : ℝ) →
-        ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (pieceM k : ℝ))
-            / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (15 : ℝ)) →
-        D < (2 ^ k + 1) * (2 ^ k + 1) →
-        (4 * (1 + Real.log D) * (D : ℝ)
-            ≤ ((2 ^ k : ℕ) : ℝ) * (pieceM k : ℝ)
-                / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (13 : ℝ)) →
-        ((Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 3) ≤ Real.sqrt (X : ℝ)) →
-        ((Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 3) ≤ Real.sqrt (pieceM k : ℝ)) →
-        ((D : ℝ) * (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 5)
-            ≤ Real.sqrt ((X : ℝ) * (pieceM k : ℝ))) →
-        ((Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 5) ≤ Real.sqrt (pieceM k : ℝ)) →
-        F ≤ X →
-        ((D : ℝ) ≤ Real.sqrt (x : ℝ)) →
-        (Real.log ((X : ℝ) * (pieceM k : ℝ)) ≤ Lb) →
-        (((3 : ℝ) / Real.log 2) ^ 8 * (x : ℝ) ^ ((1 : ℝ) / 6) * Lb ^ ((13 : ℝ) + 5)
-            ≤ Real.sqrt (F : ℝ)) →
-        ((D : ℝ) ≤ (X : ℝ) * (pieceM k : ℝ)) →
-        (∑ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
-              (fun d => Q * d),
-            ‖apDiscBilinCutoff (restrictAlpha (restrictAlpha (blockAlpha z y ε₀ j) 0
-                  (min (z * pieceN k + 1) (x + 1))) (2 ^ i) (2 ^ (i + 1)))
-                (blockPrimeInd (pieceN k)) X (pieceM k) (crtClassW Q (m / Q) a) m x‖)
-          + (∑ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
-                (fun d => Q * d),
-              ‖apDiscBilinCutoff (restrictAlpha (restrictAlpha (blockAlpha z y ε₀ j) 0
-                    (min (z * pieceN k + 1) (x + 1))) (2 ^ i) (2 ^ (i + 1)))
-                  (blockPrimeInd (pieceN k)) X (pieceM k) (crtClassW Q (m / Q) a) m (x / 2 + 1)‖)
-          ≤ 2 * ((Kbeta_min Kc (Real.log ((X : ℝ) * (pieceM k : ℝ)))
-                    (Real.log ((2 ^ k : ℕ) : ℝ)) 13 18
-                + (6 * (Km_min Kc (Real.log ((X : ℝ) * (pieceM k : ℝ)))
-                          (Real.log ((2 ^ k : ℕ) : ℝ)) 13 18 + 448 + 32 * Real.sqrt 26)
-                    + ((2 : ℝ) ^ ((13 : ℝ) + 5)
-                        * Kbeta'_min Kc (Real.log ((X : ℝ) * (pieceM k : ℝ)))
-                            (Real.log ((2 ^ k : ℕ) : ℝ)) 13 18 + 15360 + 1)))
-              * ((X : ℝ) * (pieceM k : ℝ))
-              / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (13 : ℝ)) := by
-  obtain ⟨Kc, N₀, hK0, hbody⟩ := medium_box_price_at_op_lo
-  refine ⟨Kc, N₀, hK0, fun x ε₀ j k i Lb F Krange X QR Dlev D hk hx hi hXsub hNfloor hN₀ hL2 hX2
-    hD1 hDge_x hDbnd hDscale hDsq habs hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx hLbb hfloor
-    hDXM => ?_⟩
-  have hα := norm_box_leg_le_one z y ε₀ j (min (z * pieceN k + 1) (x + 1)) i
-  have hd1 : ∀ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
-      (fun d => Q * d), (1 : ℕ) ≤ m := fun m hm => one_le_of_mem_QImage (QR * (Dlev : ℝ)) hQ1 hm
-  have hcop2 : ∀ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
-      (fun d => Q * d), Nat.Coprime (crtClassW Q (m / Q) a) m :=
-    fun m hm => crtClassW_coprime_of_mem (QR * (Dlev : ℝ)) hQ1 hQPs hQa2 hPodd hPspos hm
-  have hDsetD : ∀ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
-      (fun d => Q * d), m ≤ D := fun m hm => le_D_of_mem_QImage (QR * (Dlev : ℝ)) hQ1 hDbnd hm
-  rw [two_mul]
-  exact add_le_add
-    (hbody x Lb F Krange k i _ X x D _ (fun m => crtClassW Q (m / Q) a) hk hx hi hXsub hNfloor hα
-      hd1 hcop2 hDsetD hN₀ hL2 hX2 hD1 hDge_x hDscale hDsq habs hXsqrt hMsqrt herr_lev herr_Mlev
-      hFX hDx hLbb hfloor hDXM)
-    (hbody x Lb F Krange k i _ X (x / 2 + 1) D _ (fun m => crtClassW Q (m / Q) a) hk hx hi hXsub
-      hNfloor hα hd1 hcop2 hDsetD hN₀ hL2 hX2 hD1 hDge_x hDscale hDsq habs hXsqrt hMsqrt herr_lev
-      herr_Mlev hFX hDx hLbb hfloor hDXM)
+block floor relaxed to `x^{7/16}/8`.
+Since 2026-11-18 the lemma itself lives in `PriceThree`, above `box_hprice_at_2pow`, which is
+now its instance (11/24 ⇒ 7/16 on the block floor). -/
 
 end Salt.Chen

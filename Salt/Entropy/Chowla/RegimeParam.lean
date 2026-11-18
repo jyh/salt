@@ -142,75 +142,7 @@ lemma tower_log_upper_base {B jstar : ℕ} (hB : 4000000 ≤ B)
     Real.log_le_log hpos (by exact_mod_cast hle)
   exact le_trans h1 (tower_log_upper (j + jstar))
 
-/-- **The generic per-summand comparison.**  For any `H ≥ 4·10⁶` and `n ≥ 30`
-    with `log H ≤ 32·(n+2)·log(n+2)`, the decrement summand `1/(2·log H·
-    logloglog H)` dominates `(1/128)/((n+2)·log(n+2)·loglog(n+2))`.  Factored out
-    of `Diverge`'s `summand_lower` so the tower enters only through the bound. -/
-lemma summand_lower_gen {H n : ℕ} (hH : 4000000 ≤ H) (hn : 30 ≤ n)
-    (hUp : Real.log (H : ℝ) ≤ 32 * ((n : ℝ) + 2) * Real.log ((n : ℝ) + 2)) :
-    (1 / 128 : ℝ) * (1 / (((n + 2 : ℕ) : ℝ) * Real.log ((n + 2 : ℕ) : ℝ)
-        * Real.log (Real.log ((n + 2 : ℕ) : ℝ))))
-      ≤ 1 / (2 * Real.log (H : ℝ) * Real.log (Real.log (Real.log (H : ℝ)))) := by
-  have hPeq : ((n + 2 : ℕ) : ℝ) = (n : ℝ) + 2 := by push_cast; ring
-  rw [hPeq]
-  set P : ℝ := (n : ℝ) + 2 with hPdef
-  have hnR : (30 : ℝ) ≤ n := by exact_mod_cast hn
-  have hP32 : (32 : ℝ) ≤ P := by rw [hPdef]; linarith
-  have hPpos : (0 : ℝ) < P := by linarith
-  have hp_pos : 0 < Real.log P := Real.log_pos (by linarith)
-  set p : ℝ := Real.log P with hpdef
-  have hp3 : (3 : ℝ) ≤ p := by
-    rw [hpdef]
-    have h32 : Real.log 32 ≤ Real.log P := Real.log_le_log (by norm_num) hP32
-    have hlog32_ge3 : (3 : ℝ) ≤ Real.log 32 := by
-      rw [show (32 : ℝ) = 2 ^ 5 by norm_num, Real.log_pow]
-      push_cast; linarith [Real.log_two_gt_d9]
-    linarith
-  have hq_pos : 0 < Real.log p := Real.log_pos (by linarith)
-  set q : ℝ := Real.log p with hqdef
-  obtain ⟨hL15, hM12⟩ := tower_log_bounds hH
-  set L : ℝ := Real.log (H : ℝ) with hLdef
-  set M : ℝ := Real.log (Real.log (Real.log (H : ℝ))) with hMdef
-  have hLpos : 0 < L := by linarith [hL15]
-  have hMpos : 0 < M := by linarith [hM12]
-  have hlogL_pos : 0 < Real.log L := by
-    have : Real.log 15 ≤ Real.log L := Real.log_le_log (by norm_num) hL15
-    linarith [Real.log_pos (show (1 : ℝ) < 15 by norm_num)]
-  have hUp' : L ≤ 32 * P * p := hUp
-  have h32Pp_pos : (0 : ℝ) < 32 * P * p := mul_pos (mul_pos (by norm_num) hPpos) hp_pos
-  have hlog32Pp : Real.log (32 * P * p) ≤ 3 * p := by
-    rw [Real.log_mul (mul_ne_zero (by norm_num) (ne_of_gt hPpos)) (ne_of_gt hp_pos),
-      Real.log_mul (by norm_num) (ne_of_gt hPpos), ← hpdef, ← hqdef]
-    have hlog32_le_p : Real.log 32 ≤ p := by
-      rw [hpdef]; exact Real.log_le_log (by norm_num) hP32
-    have hq_le_p : q ≤ p := by rw [hqdef]; exact Real.log_le_self (le_of_lt hp_pos)
-    linarith
-  have hM_le : M ≤ 2 * q := by
-    have hMeq : M = Real.log (Real.log L) := by rw [hMdef, hLdef]
-    rw [hMeq]
-    have h1 : Real.log (Real.log L) ≤ Real.log (Real.log (32 * P * p)) :=
-      Real.log_le_log hlogL_pos (Real.log_le_log hLpos hUp')
-    have hgt1 : (1 : ℝ) < 32 * P * p := by nlinarith [hP32, hp3, hPpos, hp_pos]
-    have h2 : Real.log (Real.log (32 * P * p)) ≤ Real.log (3 * p) :=
-      Real.log_le_log (Real.log_pos hgt1) hlog32Pp
-    have h3 : Real.log (3 * p) = Real.log 3 + q := by
-      rw [Real.log_mul (by norm_num) (ne_of_gt hp_pos), ← hqdef]
-    have hlog3_le_q : Real.log 3 ≤ q := by
-      rw [hqdef]; exact Real.log_le_log (by norm_num) hp3
-    calc Real.log (Real.log L) ≤ Real.log (Real.log (32 * P * p)) := h1
-      _ ≤ Real.log (3 * p) := h2
-      _ = Real.log 3 + q := h3
-      _ ≤ 2 * q := by linarith
-  have hkey : L * M ≤ 64 * (P * p * q) := by
-    calc L * M ≤ (32 * P * p) * (2 * q) :=
-          mul_le_mul hUp' hM_le (le_of_lt hMpos) (le_of_lt h32Pp_pos)
-      _ = 64 * (P * p * q) := by ring
-  have hRHSpos : (0 : ℝ) < 2 * L * M := mul_pos (mul_pos (by norm_num) hLpos) hMpos
-  have hdenle : 2 * L * M ≤ 128 * (P * p * q) := by nlinarith [hkey]
-  have hLHS_eq : (1 / 128 : ℝ) * (1 / (P * p * q)) = 1 / (128 * (P * p * q)) := by
-    rw [mul_one_div, div_div]
-  rw [hLHS_eq]
-  exact one_div_le_one_div_of_le hRHSpos hdenle
+-- `summand_lower_gen` now lives in `Diverge`, beside its instance `summand_lower` (O13-e row 248).
 
 /-- **The barely-divergent decrement clears `log 2` at any base `B ≥ 4·10⁶`.**
     The re-based twin of `dropSum_exceeds_log_two`: nonneg summands whose series

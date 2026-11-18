@@ -169,14 +169,29 @@ theorem m4_arith_rs_ceiling_met_of_deltaH {h : ℕ} (hh : 0 < h) {δ₀ : ℝ} (
 
 /-! ## §1 — S12: the envelope price at the inflated cap (word 2) -/
 
-/-- **⟦THE `H`-SIDE PRICE AT SHIFT `h`⟧** (`hArcDen_mul_strataResidualH_sq_le`) —
-`h · arcDen 12 H · strataResidualH h H² ≤ e^{14·loglog H}` under `hh7 : log h ≤ 7`.
+/-- **⟦THE `H`-SIDE PRICE AT SHIFT `h`, AT THE RAISED CAP⟧**
+(`hArcDen_mul_strataResidualH_sq_le` at `log h ≤ 14`).
 
-With `L := loglog H ≥ 50`: `arcDen = e^{12L}`, `strataResidualH = 1 + 12L + log h ≤ 8 + 12L ≤
-2·e^{L−5}` (the landed `one_add_twelve_le_exp` at `l = L − 5 ≥ 44`), and `h ≤ e⁷`, so the
-product is at most `e⁷·e^{12L}·4·e^{2L−10} = 4e^{−3}·e^{14L} < e^{14L}`.  The obligation
-`√h·(1 + 12L + log h) ≤ e^L` has ~17 orders of room at `L = 50`. -/
-theorem hArcDen_mul_strataResidualH_sq_le {h H : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
+⛔⛔ **NOT the landed proof term, and not a numeral lift.**  The landed route bounds the residual
+by `2·e^{L-5}` and closes on `4 ≤ e³ = 20.09`, i.e. with `5.02×` in hand.  At `log h ≤ 14` the
+first factor grows by `e⁷ = 1096×` and eats all of it: the same route needs `4·e⁴ = 218.39 ≤ 1`.
+**That is false for every `L`**, so no floor and no sharper tail rescues it.
+```
+  LANDED    e⁷ ·e^{12L}·(2e^{L-5})² = 4·e^{14L-3} ≤ e^{14L}  ⟺  4 ≤ e³ = 20.09   ✅
+  AT 14   e^{14}·e^{12L}·(2e^{L-5})² = 4·e^{14L+4} ≤ e^{14L}  ⟺  4·e⁴ ≤ 1        ⛔
+  HERE    e^{14}·e^{12L}·( e^{L-7})² =    e^{14L}  ≤ e^{14L}  ⟺  0 ≤ 0           ✅ EXACT
+```
+⇒ **The raised cap buys exactly the bound `strataResidualH ≤ e^{L-7}` and not one factor more**,
+so the route that works is the one with NO slack left in the exponent.
+
+📌 **HOW THE TIGHTER BOUND IS PAID.**  `one_add_twelve_le_exp` cannot be used here: its hypothesis
+is `44 ≤ l`, and at the module's own floor `L ≥ 50` every split fine enough to beat `15 + 12L`
+lands it below `44` (`L − 7 ≥ 43`, one short).  Instead split at `e^{L-7} = e⁷·e^{L-14}` and use
+`Real.add_one_le_exp`, which has no floor at all: `e^{L-7} ≥ 1046·(L−13)`, and
+`15 + 12L ≤ 1046(L−13)` for every `L ≥ 50` — **84× of room at the floor, growing without bound.**
+⚠️ `strataResidualH = 1 + 12L + log h`, so the cap enters ADDITIVELY in the residual and
+MULTIPLICATIVELY in the first factor; it is the second that breaks the landed route. -/
+theorem hArcDen_mul_strataResidualH_sq_le_14 {h H : ℕ} (hh : 0 < h) (hh14 : Real.log h ≤ 14)
     (hL0 : 0 ≤ Real.log (H : ℝ)) (hlam : 50 ≤ Real.log (Real.log (H : ℝ))) :
     (h : ℝ) * arcDen 12 H * strataResidualH h H ^ 2
       ≤ Real.exp (14 * Real.log (Real.log (H : ℝ))) := by
@@ -191,50 +206,60 @@ theorem hArcDen_mul_strataResidualH_sq_le {h H : ℕ} (hh : 0 < h) (hh7 : Real.l
     strataResidualH_eq hh hL
   have hstr : strataResidual H = 1 + 12 * L := strataResidual_eq_of_pos hL
   have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-  have hhle : (h : ℝ) ≤ Real.exp 7 := by
+  have hhle : (h : ℝ) ≤ Real.exp 14 := by
     rw [← Real.exp_log hh0]
-    exact Real.exp_le_exp.mpr hh7
+    exact Real.exp_le_exp.mpr hh14
   have hlogh0 : 0 ≤ Real.log (h : ℝ) := Real.log_nonneg (by exact_mod_cast hh)
-  -- `8 + 12L ≤ 2·e^{L−5}`
-  have hb : 1 + 12 * (L - 5) ≤ Real.exp (L - 5) := one_add_twelve_le_exp (by linarith)
-  have hres : strataResidualH h H ≤ 2 * Real.exp (L - 5) := by
-    rw [hsH, hstr]; linarith
-  have hres0 : 0 ≤ strataResidualH h H := by rw [hsH, hstr]; linarith
-  have hsq : strataResidualH h H ^ 2 ≤ 4 * Real.exp (L - 5) ^ 2 := by
-    have h2 := pow_le_pow_left₀ hres0 hres 2
-    calc strataResidualH h H ^ 2 ≤ (2 * Real.exp (L - 5)) ^ 2 := h2
-      _ = 4 * Real.exp (L - 5) ^ 2 := by ring
-  have hE : Real.exp 7 * Real.exp (12 * L) * (4 * Real.exp (L - 5) ^ 2)
-      = 4 * Real.exp (14 * L - 3) := by
-    have hE' : Real.exp 7 * Real.exp (12 * L) * Real.exp (L - 5) ^ 2
-        = Real.exp (14 * L - 3) := by
-      rw [sq, ← Real.exp_add, ← Real.exp_add, ← Real.exp_add]
-      congr 1
-      ring
-    rw [← hE']
+  -- the tightened residual bound: `1 + 12L + log h ≤ 15 + 12L ≤ e^{L-7}`
+  have he7 : (1046 : ℝ) ≤ Real.exp 7 := by
+    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 7 (by norm_num)
+  have hlin : (L - 14) + 1 ≤ Real.exp (L - 14) := Real.add_one_le_exp _
+  have hsplit : Real.exp (L - 7) = Real.exp 7 * Real.exp (L - 14) := by
+    rw [← Real.exp_add]
+    congr 1
     ring
-  have he3 : (4 : ℝ) ≤ Real.exp 3 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 3 (by norm_num)
-  have h4 : 4 * Real.exp (14 * L - 3) ≤ Real.exp (14 * L) := by
-    rw [Real.exp_sub, mul_div_assoc']
-    rw [div_le_iff₀ (Real.exp_pos 3)]
-    have := Real.exp_pos (14 * L)
-    nlinarith
+  have hprod : (1046 : ℝ) * (L - 13) ≤ Real.exp 7 * Real.exp (L - 14) :=
+    mul_le_mul he7 (by linarith) (by linarith) (Real.exp_pos 7).le
+  have hres : strataResidualH h H ≤ Real.exp (L - 7) := by
+    rw [hsH, hstr, hsplit]
+    linarith
+  have hres0 : 0 ≤ strataResidualH h H := by rw [hsH, hstr]; linarith
+  have hsq : strataResidualH h H ^ 2 ≤ Real.exp (L - 7) ^ 2 :=
+    pow_le_pow_left₀ hres0 hres 2
+  have hE : Real.exp 14 * Real.exp (12 * L) * (Real.exp (L - 7) ^ 2)
+      = Real.exp (14 * L) := by
+    rw [sq, ← Real.exp_add, ← Real.exp_add, ← Real.exp_add]
+    congr 1
+    ring
   have harc0 : (0 : ℝ) ≤ arcDen 12 H := arcDen_nonneg 12 H
   have hsq0 : (0 : ℝ) ≤ strataResidualH h H ^ 2 := sq_nonneg _
   calc (h : ℝ) * arcDen 12 H * strataResidualH h H ^ 2
-      ≤ Real.exp 7 * arcDen 12 H * strataResidualH h H ^ 2 := by
+      ≤ Real.exp 14 * arcDen 12 H * strataResidualH h H ^ 2 := by
         gcongr
-    _ = Real.exp 7 * Real.exp (12 * L) * strataResidualH h H ^ 2 := by rw [harc]
-    _ ≤ Real.exp 7 * Real.exp (12 * L) * (4 * Real.exp (L - 5) ^ 2) := by
+    _ = Real.exp 14 * Real.exp (12 * L) * strataResidualH h H ^ 2 := by rw [harc]
+    _ ≤ Real.exp 14 * Real.exp (12 * L) * (Real.exp (L - 7) ^ 2) := by
         gcongr
-    _ = 4 * Real.exp (14 * L - 3) := hE
-    _ ≤ Real.exp (14 * L) := h4
+    _ = Real.exp (14 * L) := hE
 
-/-- **⟦THE PRICING AT THE POOL, AT `ρ`, AT THE LINEAR DOOR, AT SHIFT `h`⟧**
-(`a2DoorGrade_pool_L_priced_rho` at the inflated cap).  Budget `ρ/2 + 4·(ρ/8) = ρ`, unchanged;
-the `H`-side price is `hArcDen_mul_strataResidualH_sq_le`; the five summand prices read no cap. -/
-theorem a2DoorGrade_pool_L_priced_rhoH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
+/-- **⟦THE `H`-SIDE PRICE AT SHIFT `h`⟧** (`hArcDen_mul_strataResidualH_sq_le`) —
+`h · arcDen 12 H · strataResidualH h H² ≤ e^{14·loglog H}` under `hh7 : log h ≤ 7`.
+
+With `L := loglog H ≥ 50`: `arcDen = e^{12L}`, `strataResidualH = 1 + 12L + log h ≤ 8 + 12L ≤
+2·e^{L−5}` (the landed `one_add_twelve_le_exp` at `l = L − 5 ≥ 44`), and `h ≤ e⁷`, so the
+product is at most `e⁷·e^{12L}·4·e^{2L−10} = 4e^{−3}·e^{14L} < e^{14L}`.  The obligation
+`√h·(1 + 12L + log h) ≤ e^L` has ~17 orders of room at `L = 50`.
+
+Proof: the `log h ≤ 7` instance of `hArcDen_mul_strataResidualH_sq_le_14` (above). -/
+theorem hArcDen_mul_strataResidualH_sq_le {h H : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
+    (hL0 : 0 ≤ Real.log (H : ℝ)) (hlam : 50 ≤ Real.log (Real.log (H : ℝ))) :
+    (h : ℝ) * arcDen 12 H * strataResidualH h H ^ 2
+      ≤ Real.exp (14 * Real.log (Real.log (H : ℝ))) :=
+  hArcDen_mul_strataResidualH_sq_le_14 hh (hh7.trans (by norm_num)) hL0 hlam
+
+/-- `a2DoorGrade_pool_L_priced_rhoH` at the raised cap.  ONE token in the body: the `H`-side
+price comes from `hArcDen_mul_strataResidualH_sq_le_14`.  The budget `ρ/2 + 4·(ρ/8) = ρ` and the
+five summand prices are cap-blind and re-used unchanged. -/
+theorem a2DoorGrade_pool_L_priced_rhoH_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log h ≤ 14)
     {M H j : ℕ} {X C₁ M₀ K ρ π₀ : ℝ}
     (hfr : DoorArithFrameRho_L M H j X C₁ M₀ K ρ) (hpool : 0 ≤ π₀)
     (hprice : 188133 * π₀ * Real.exp (14 * Real.log (Real.log (H : ℝ))) ≤ ρ / 2) :
@@ -250,7 +275,7 @@ theorem a2DoorGrade_pool_L_priced_rhoH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h 
     have : (0 : ℝ) < (2 : ℝ) ^ j := by positivity
     push_cast
     exact this
-  have hwt := hArcDen_mul_strataResidualH_sq_le hh hh7 hfr.logH_nonneg hfr.Hfloor
+  have hwt := hArcDen_mul_strataResidualH_sq_le_14 hh hh14 hfr.logH_nonneg hfr.Hfloor
   rw [RSanDoorRhoH, le_div_iff₀ (pow_pos hstrpos 2)]
   have hkey : (h : ℝ) * arcDen 12 H * a2DoorGrade_pool_L M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀
         * strataResidualH h H ^ 2
@@ -275,6 +300,18 @@ theorem a2DoorGrade_pool_L_priced_rhoH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h 
   ring_nf
   ring_nf at h1 h2 h3 h4 h5
   linarith
+
+/-- **⟦THE PRICING AT THE POOL, AT `ρ`, AT THE LINEAR DOOR, AT SHIFT `h`⟧**
+(`a2DoorGrade_pool_L_priced_rho` at the inflated cap).  Budget `ρ/2 + 4·(ρ/8) = ρ`, unchanged;
+the `H`-side price is `hArcDen_mul_strataResidualH_sq_le`; the five summand prices read no cap.
+Since 2026-11-18 it is the `log h ≤ 7` instance of `a2DoorGrade_pool_L_priced_rhoH_14` above. -/
+theorem a2DoorGrade_pool_L_priced_rhoH {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
+    {M H j : ℕ} {X C₁ M₀ K ρ π₀ : ℝ}
+    (hfr : DoorArithFrameRho_L M H j X C₁ M₀ K ρ) (hpool : 0 ≤ π₀)
+    (hprice : 188133 * π₀ * Real.exp (14 * Real.log (Real.log (H : ℝ))) ≤ ρ / 2) :
+    (h : ℝ) * arcDen 12 H * a2DoorGrade_pool_L M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀
+      ≤ RSanDoorRhoH ρ h H :=
+  a2DoorGrade_pool_L_priced_rhoH_14 hh (by linarith) hfr hpool hprice
 
 /-- `a2DoorGrade_pool_L_priced_rhoH`, at the lever (`a2Level1_L` is K-invariant). -/
 theorem a2DoorGrade_pool_L_priced_rhoH_gk (K : ℕ) {h : ℕ} (hh : 0 < h) (hh7 : Real.log h ≤ 7)
@@ -742,19 +779,37 @@ theorem h_le_1096_of_hh7 {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
   have : (h : ℝ) < 1097 := by linarith
   exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
 
-/-- **⟦THE ARM'S LOG AT SHIFT `h`⟧** (`s15Arm_log_le` at `h`) — the landed bound plus `log h`,
-off `s15ArmH_le_mul`.
+set_option exponentiation.threshold 4000 in
+/-- **⟦THE SHIFT IS BOUNDED BY ITS OWN BINDER, AT `14`⟧ (class A)** — the twin of
+`h_le_1096_of_hh7` (`S16ProducersH.lean`) at the raised cap: `e^14 = 1202604.284…`, so
+`h ≤ 1202604`.  Every numeral in `StrideGradeReach`, where this was written, is stated against
+this one (it moved here on 2026-11-17).  BODY: the landed proof's shape with
+`Real.exp_one_lt_d9` raised to the `14`th instead of the `7`th. -/
+theorem h_le_1202604_of_hh14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) :
+    h ≤ 1202604 := by
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hhle : (h : ℝ) ≤ Real.exp 14 := by
+    rw [← Real.exp_log hh0]; exact Real.exp_le_exp.mpr hh14
+  have he14 : Real.exp 14 < 1202605 := by
+    have h3 : Real.exp 14 = (Real.exp 1) ^ (14 : ℕ) := by
+      rw [← Real.exp_nat_mul]; norm_num
+    have h4 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+    have h5 : (Real.exp 1) ^ (14 : ℕ) < (2.7182818286 : ℝ) ^ (14 : ℕ) :=
+      pow_lt_pow_left₀ h4 (Real.exp_pos 1).le (by norm_num)
+    have h6 : (2.7182818286 : ℝ) ^ (14 : ℕ) < 1202605 := by norm_num
+    rw [h3]; linarith
+  have : (h : ℝ) < 1202605 := by linarith
+  exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
 
-⭐ **RESPELLED IN PLACE 2026-09-01 (wave H1 word 2) — THIS LEMMA WAS THE δ₀-PIN SEAM.**  It
-carried the `h = 1` numeral `1/838400 ≤ δ₀` while wave X's exit can only export
-`1/(838400·h²) ≤ δ₀` (forced: the head takes `δ₀ = cD3/(16C)·ε/4` with `C ≤ 6.55h` and
-`ε = 1/(500h)`, so `δ₀ ≍ h⁻²`).  At `h ≥ 2` the pin supplied did not discharge the pin demanded,
-and NO GATE IN THE REPOSITORY COULD SEE IT: both numerals sit in hypotheses of conditional
-statements.  It is now stated at the pin the `h` lane actually exports, routed through
-`XThread.s15Arm_log_le_scaled` at `c = h²`, and the conclusion is at the re-cut `H₊/10^20`.
-The `117` `h = 1` sites are untouched (iron rule 5); this was the ONLY `h`-lane name carrying
-the unscaled pin, and it had zero kernel consumers. -/
-theorem s15ArmH_log_le {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {δ₀ Kc : ℝ}
+set_option exponentiation.threshold 4000 in
+/-- **⟦THE ARM'S LOG AT SHIFT `h`, UNGRADED PIN, AT THE RAISED CAP⟧ (class A)** —
+`s15ArmH_log_le` (`S16ProducersH.lean`) with `hh7 : log h ≤ 7 ↦ hh14 : log h ≤ 14`;
+conclusion unchanged.  Routed through `s15Arm_log_le_scaled_g14` at `c = h²`: `hcb` is
+`h² ≤ 1202604² = 1446256380816 ≤ 2961933067911168` (a factor `2048` of room — exactly the `2^11`
+the graded pin spends) and `hlogc` is `2·log h ≤ 28 ≤ 36`.  **A NEW name with its OWN binder;
+`s15ArmH_log_le` was untouched at landing;** since 2026-11-17 it is this
+lemma's instance at `log h ≤ 7 ≤ 14`, and both live in `S16ProducersH`. -/
+theorem s15ArmH_log_le_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) {δ₀ Kc : ℝ}
     (hδ₀ : 0 < δ₀) (hδpin : 1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀)
     (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) {Hhi ω : ℕ}
     (hHhi : 4000000 ≤ Hhi) (hΛ : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
@@ -762,11 +817,11 @@ theorem s15ArmH_log_le {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {
       ≤ Real.log ((ω : ℕ) : ℝ) + Real.log (h : ℝ) + ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
   have hh1R : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
   have hc1 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hh1R]
-  have h1096 : (h : ℝ) ≤ 1096 := by exact_mod_cast h_le_1096_of_hh7 hh hh7
-  have hcb : (h : ℝ) ^ 2 ≤ 1201216 := by nlinarith [hh1R, h1096]
-  have hlogc : Real.log ((h : ℝ) ^ 2) ≤ 14 := by
+  have h1202604 : (h : ℝ) ≤ 1202604 := by exact_mod_cast h_le_1202604_of_hh14 hh hh14
+  have hcb : (h : ℝ) ^ 2 ≤ 2961933067911168 := by nlinarith [hh1R, h1202604]
+  have hlogc : Real.log ((h : ℝ) ^ 2) ≤ 36 := by
     rw [Real.log_pow]; push_cast; linarith
-  have hbase := s15Arm_log_le_scaled hc1 hcb hlogc hδ₀ hδpin hKc hKcb (ω := ω) hHhi hΛ
+  have hbase := s15Arm_log_le_scaled_g14 hc1 hcb hlogc hδ₀ hδpin hKc hKcb (ω := ω) hHhi hΛ
   have hle := s15ArmH_le_mul hh δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω
   have hleR : ((s15ArmH h δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
       ≤ (h : ℝ) * ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ) := by
@@ -790,6 +845,30 @@ theorem s15ArmH_log_le {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {
     have hlog := Real.log_le_log hposR hleR
     rw [Real.log_mul hhR.ne' hbpos.ne'] at hlog
     linarith
+
+/-- **⟦THE ARM'S LOG AT SHIFT `h`⟧** (`s15Arm_log_le` at `h`) — the landed bound plus `log h`,
+off `s15ArmH_le_mul`.
+
+⭐ **RESPELLED IN PLACE 2026-09-01 (wave H1 word 2) — THIS LEMMA WAS THE δ₀-PIN SEAM.**  It
+carried the `h = 1` numeral `1/838400 ≤ δ₀` while wave X's exit can only export
+`1/(838400·h²) ≤ δ₀` (forced: the head takes `δ₀ = cD3/(16C)·ε/4` with `C ≤ 6.55h` and
+`ε = 1/(500h)`, so `δ₀ ≍ h⁻²`).  At `h ≥ 2` the pin supplied did not discharge the pin demanded,
+and NO GATE IN THE REPOSITORY COULD SEE IT: both numerals sit in hypotheses of conditional
+statements.  It is now stated at the pin the `h` lane actually exports, routed through
+`XThread.s15Arm_log_le_scaled` at `c = h²`, and the conclusion is at the re-cut `H₊/10^20`.
+The `117` `h = 1` sites are untouched (iron rule 5); this was the ONLY `h`-lane name carrying
+the unscaled pin, and it had zero kernel consumers.
+
+⟦AN INSTANCE⟧ since 2026-11-17: `s15ArmH_log_le_14` above at `log h ≤ 7 ≤ 14`.  The route
+described here (`s15Arm_log_le_scaled` at `c = h²`) is now that lemma's, through its twin
+`s15Arm_log_le_scaled_g14`. -/
+theorem s15ArmH_log_le {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {δ₀ Kc : ℝ}
+    (hδ₀ : 0 < δ₀) (hδpin : 1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀)
+    (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) {Hhi ω : ℕ}
+    (hHhi : 4000000 ≤ Hhi) (hΛ : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
+    Real.log ((s15ArmH h δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
+      ≤ Real.log ((ω : ℕ) : ℝ) + Real.log (h : ℝ) + ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+  exact s15ArmH_log_le_14 hh (by linarith) hδ₀ hδpin hKc hKcb hHhi hΛ
 
 /-- **⟦THE `ρ`-FRAME AT THE INFLATED SOCKET⟧** (`s15_doorArithFrameRho_L_at_socket''` at
 `SocketBaseLH h`) — the landed proof with the arm read at `ω ↦ h·ω`: the socket's
@@ -1372,123 +1451,6 @@ buys is that the cap ladder is demonstrated CLIMBABLE above its floor, i.e. that
 family composes through a supplier CHAIN rather than only at leaves (which is all the cost-1 rung
 could test, its four twins having no suppliers).  Anyone reading this as progress on the
 twin-prime program is reading it wrong. -/
-
-/-- **⟦THE `H`-SIDE PRICE AT SHIFT `h`, AT THE RAISED CAP⟧**
-(`hArcDen_mul_strataResidualH_sq_le` at `log h ≤ 14`).
-
-⛔⛔ **NOT the landed proof term, and not a numeral lift.**  The landed route bounds the residual
-by `2·e^{L-5}` and closes on `4 ≤ e³ = 20.09`, i.e. with `5.02×` in hand.  At `log h ≤ 14` the
-first factor grows by `e⁷ = 1096×` and eats all of it: the same route needs `4·e⁴ = 218.39 ≤ 1`.
-**That is false for every `L`**, so no floor and no sharper tail rescues it.
-```
-  LANDED    e⁷ ·e^{12L}·(2e^{L-5})² = 4·e^{14L-3} ≤ e^{14L}  ⟺  4 ≤ e³ = 20.09   ✅
-  AT 14   e^{14}·e^{12L}·(2e^{L-5})² = 4·e^{14L+4} ≤ e^{14L}  ⟺  4·e⁴ ≤ 1        ⛔
-  HERE    e^{14}·e^{12L}·( e^{L-7})² =    e^{14L}  ≤ e^{14L}  ⟺  0 ≤ 0           ✅ EXACT
-```
-⇒ **The raised cap buys exactly the bound `strataResidualH ≤ e^{L-7}` and not one factor more**,
-so the route that works is the one with NO slack left in the exponent.
-
-📌 **HOW THE TIGHTER BOUND IS PAID.**  `one_add_twelve_le_exp` cannot be used here: its hypothesis
-is `44 ≤ l`, and at the module's own floor `L ≥ 50` every split fine enough to beat `15 + 12L`
-lands it below `44` (`L − 7 ≥ 43`, one short).  Instead split at `e^{L-7} = e⁷·e^{L-14}` and use
-`Real.add_one_le_exp`, which has no floor at all: `e^{L-7} ≥ 1046·(L−13)`, and
-`15 + 12L ≤ 1046(L−13)` for every `L ≥ 50` — **84× of room at the floor, growing without bound.**
-⚠️ `strataResidualH = 1 + 12L + log h`, so the cap enters ADDITIVELY in the residual and
-MULTIPLICATIVELY in the first factor; it is the second that breaks the landed route. -/
-theorem hArcDen_mul_strataResidualH_sq_le_14 {h H : ℕ} (hh : 0 < h) (hh14 : Real.log h ≤ 14)
-    (hL0 : 0 ≤ Real.log (H : ℝ)) (hlam : 50 ≤ Real.log (Real.log (H : ℝ))) :
-    (h : ℝ) * arcDen 12 H * strataResidualH h H ^ 2
-      ≤ Real.exp (14 * Real.log (Real.log (H : ℝ))) := by
-  set L : ℝ := Real.log (Real.log (H : ℝ)) with hLdef
-  have hL1 : 1 < Real.log (H : ℝ) := one_lt_log_of_loglog_ge hL0 (by norm_num) hlam
-  have hL : 0 < Real.log (H : ℝ) := by linarith
-  have harc : arcDen 12 H = Real.exp (12 * L) := by
-    rw [arcDen, Real.rpow_def_of_pos hL, ← hLdef]
-    congr 1
-    ring
-  have hsH : strataResidualH h H = strataResidual H + Real.log (h : ℝ) :=
-    strataResidualH_eq hh hL
-  have hstr : strataResidual H = 1 + 12 * L := strataResidual_eq_of_pos hL
-  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-  have hhle : (h : ℝ) ≤ Real.exp 14 := by
-    rw [← Real.exp_log hh0]
-    exact Real.exp_le_exp.mpr hh14
-  have hlogh0 : 0 ≤ Real.log (h : ℝ) := Real.log_nonneg (by exact_mod_cast hh)
-  -- the tightened residual bound: `1 + 12L + log h ≤ 15 + 12L ≤ e^{L-7}`
-  have he7 : (1046 : ℝ) ≤ Real.exp 7 := by
-    exact_mod_cast Salt.Tactic.le_exp_nat_of_le_pow 7 (by norm_num)
-  have hlin : (L - 14) + 1 ≤ Real.exp (L - 14) := Real.add_one_le_exp _
-  have hsplit : Real.exp (L - 7) = Real.exp 7 * Real.exp (L - 14) := by
-    rw [← Real.exp_add]
-    congr 1
-    ring
-  have hprod : (1046 : ℝ) * (L - 13) ≤ Real.exp 7 * Real.exp (L - 14) :=
-    mul_le_mul he7 (by linarith) (by linarith) (Real.exp_pos 7).le
-  have hres : strataResidualH h H ≤ Real.exp (L - 7) := by
-    rw [hsH, hstr, hsplit]
-    linarith
-  have hres0 : 0 ≤ strataResidualH h H := by rw [hsH, hstr]; linarith
-  have hsq : strataResidualH h H ^ 2 ≤ Real.exp (L - 7) ^ 2 :=
-    pow_le_pow_left₀ hres0 hres 2
-  have hE : Real.exp 14 * Real.exp (12 * L) * (Real.exp (L - 7) ^ 2)
-      = Real.exp (14 * L) := by
-    rw [sq, ← Real.exp_add, ← Real.exp_add, ← Real.exp_add]
-    congr 1
-    ring
-  have harc0 : (0 : ℝ) ≤ arcDen 12 H := arcDen_nonneg 12 H
-  have hsq0 : (0 : ℝ) ≤ strataResidualH h H ^ 2 := sq_nonneg _
-  calc (h : ℝ) * arcDen 12 H * strataResidualH h H ^ 2
-      ≤ Real.exp 14 * arcDen 12 H * strataResidualH h H ^ 2 := by
-        gcongr
-    _ = Real.exp 14 * Real.exp (12 * L) * strataResidualH h H ^ 2 := by rw [harc]
-    _ ≤ Real.exp 14 * Real.exp (12 * L) * (Real.exp (L - 7) ^ 2) := by
-        gcongr
-    _ = Real.exp (14 * L) := hE
-
-/-- `a2DoorGrade_pool_L_priced_rhoH` at the raised cap.  ONE token in the body: the `H`-side
-price comes from `hArcDen_mul_strataResidualH_sq_le_14`.  The budget `ρ/2 + 4·(ρ/8) = ρ` and the
-five summand prices are cap-blind and re-used unchanged. -/
-theorem a2DoorGrade_pool_L_priced_rhoH_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log h ≤ 14)
-    {M H j : ℕ} {X C₁ M₀ K ρ π₀ : ℝ}
-    (hfr : DoorArithFrameRho_L M H j X C₁ M₀ K ρ) (hpool : 0 ≤ π₀)
-    (hprice : 188133 * π₀ * Real.exp (14 * Real.log (Real.log (H : ℝ))) ≤ ρ / 2) :
-    (h : ℝ) * arcDen 12 H * a2DoorGrade_pool_L M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀
-      ≤ RSanDoorRhoH ρ h H := by
-  have hLX : 1 < Real.log X := hfr.one_lt_logX
-  have hLrho : 0 ≤ Real.log (1 / ρ) := hfr.logInvRho_nonneg
-  have hstrpos : (0 : ℝ) < strataResidualH h H := by
-    have := one_le_strataResidualH (one_le_hArcDen_of_loglog hh hfr.logH_nonneg hfr.Hfloor)
-    linarith
-  have hgrade0 : (0 : ℝ) ≤ a2DoorGrade_pool_L M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀ := by
-    refine a2DoorGrade_pool_L_nonneg hfr.Mpos (by linarith) ?_ hpool
-    have : (0 : ℝ) < (2 : ℝ) ^ j := by positivity
-    push_cast
-    exact this
-  have hwt := hArcDen_mul_strataResidualH_sq_le_14 hh hh14 hfr.logH_nonneg hfr.Hfloor
-  rw [RSanDoorRhoH, le_div_iff₀ (pow_pos hstrpos 2)]
-  have hkey : (h : ℝ) * arcDen 12 H * a2DoorGrade_pool_L M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀
-        * strataResidualH h H ^ 2
-      ≤ Real.exp (14 * Real.log (Real.log (H : ℝ)))
-          * a2DoorGrade_pool_L M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀ := by
-    have hid : (h : ℝ) * arcDen 12 H * a2DoorGrade_pool_L M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀
-          * strataResidualH h H ^ 2
-        = ((h : ℝ) * arcDen 12 H * strataResidualH h H ^ 2)
-            * a2DoorGrade_pool_L M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀ := by ring
-    rw [hid]
-    exact mul_le_mul_of_nonneg_right hwt hgrade0
-  refine le_trans hkey ?_
-  have h1 := doorGrade_summand1_priced_rho (H := H) hfr.rho_pos hfr.C1_nonneg hfr.logX_nonneg
-    hLX hfr.M0_window
-  have h2 := doorGrade_summand2_priced_rho_L (H := H) hfr.rho_pos hfr.Mpos hfr.anchor
-  have h3 := doorGrade_summand3_priced_rho_pool (H := H) hprice
-  have h4 := doorGrade_summand4_priced_rho (H := H) hfr.rho_pos hLrho hLX hfr.Hfloor
-    hfr.armWeak
-  have h5 := doorGrade_summand5_priced_rho (H := H) (j := j) hfr.rho_pos hLrho hfr.Hfloor
-    hfr.jfloor
-  rw [a2DoorGrade_pool_L]
-  ring_nf
-  ring_nf at h1 h2 h3 h4 h5
-  linarith
 
 /-- `a2DoorGrade_pool_L_priced_rhoH_14`, at the lever (`a2Level1_L` is K-invariant). -/
 theorem a2DoorGrade_pool_L_priced_rhoH_gk_14 (K : ℕ) {h : ℕ} (hh : 0 < h) (hh14 : Real.log h ≤ 14)

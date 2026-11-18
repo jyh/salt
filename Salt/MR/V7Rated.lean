@@ -28,7 +28,7 @@ drives to infinity is a different problem — **the chain can pay it itself**.
 
 * **N0** (`cofkL_capFreeFloor_at_socket_rated_uniform`) — the `Kvt`-uniformity hoist:
   `∀ K, ∃ Z δ Kvt` → `∃ Z δ Kvt, ∀ K`.  The landed socket's witnesses come from
-  `capFreeFloor3_pieceDatum_arcDen_rated` applied to NO arguments (`BandRatedSocket.lean:296`),
+  `capFreeFloor3_pieceDatum_arcDen_rated` applied to NO arguments (`BandRatedSocket.lean:205`),
   so the `(K : ℕ)` binder is vacuous over the existentials; same proof, `intro K` moved after
   the `refine`.
 * **N1** (`armVt` + `cofkR_cushion_of_armVt`) — the EIGHTH `max` arm and the cushion's

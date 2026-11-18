@@ -181,7 +181,7 @@ both the vanish and the `2^k`-boundary price routes.
 **Catch #71, ratified option (a) — the corner relaxation.**  `medium_box_price_at_op(_lo)`,
 `medium_box_price_core`, and all three `*_hprice_at_2pow` now take the pieceN-boundary membership
 directly (weak corner `2^i·2^k ≤ x`).  The proofs rebuild the `D0`-window from the raw scale facts
-`x/2+1 < X·M ≤ 4x` (`d0_window_of_XM`/`d0_window_of_XM_lo`, PriceOne §4b / PriceTwo §1b) — which
+`x/2+1 < X·M ≤ 4x` (`d0_window_of_XM`/`d0_window_of_XM_lo`, both PriceOne since 11-17) — which
 the WEAK corner supplies IDENTICALLY (`X·M ≤ 2^{i+1}·(2·2^k) = 4·2^i·2^k ≤ 4x`, NO degradation:
 the `4x` bound is unchanged, `d0_window_nonempty` never used the `+1` slack).  So
 `box_hprice_at_2pow` now prices EVERY box of the FULL pieceN-boundary, edge box included.  The
@@ -217,6 +217,84 @@ terminal now prices the full pieceN-boundary, edge box included).  Everything ex
 analytic rows (GlueFinal/`opf_*`-shaped, at `X = 2^{i+1}−1`, `M = pieceM k`, `N = 2^k`) is
 discharged internally.  The `Q`/`Ps`/`a` coprimality side conditions are the operating
 `opf_QPs`/`opf_Qa2`/`opf_Psodd`. -/
+
+/-- **`box_hprice_at_2pow_lo` (F1, the priced-branch supplier).**  The `_lo` (7/16-floor) analogue
+of `PriceThree.box_hprice_at_2pow`: the box carrier's two-`T` disc sum is `≤ 2·(Kerr price)` at
+the operating point, with the block floor relaxed to `x^{7/16}/8 ≤ 2^k` (the floor
+`kfloor_of_live_box` supplies for every live boundary box).  Conclusion identical to
+`box_hprice_at_2pow`; routes through `medium_box_price_at_op_lo`. -/
+theorem box_hprice_at_2pow_lo (z y Ps Q a : ℕ) (hQ1 : 1 ≤ Q) (hPspos : 0 < Ps)
+    (hQPs : Nat.Coprime Q Ps) (hQa2 : Nat.Coprime Q (a + 2))
+    (hPodd : ∀ p ∈ Ps.primeFactors, 3 ≤ p) :
+    ∃ (Kc : ℝ) (N₀ : ℕ), 0 < Kc ∧
+      ∀ (x : ℕ) (ε₀ : ℝ) (j k i : ℕ) (Lb : ℝ) (F Krange X : ℕ) (QR : ℝ) (Dlev D : ℕ),
+        2 ≤ k →
+        Real.exp (10 ^ 9) ≤ (x : ℝ) →
+        i ∈ dyadicBoundary (pieceN k) (pieceM k) (x / 2 + 1) x F Krange →
+        X = 2 ^ (i + 1) - 1 →
+        (x : ℝ) ^ ((7 : ℝ) / 16) / 8 ≤ ((2 ^ k : ℕ) : ℝ) →
+        N₀ ≤ 2 ^ k →
+        2 ≤ Real.log ((X : ℝ) * (pieceM k : ℝ)) →
+        2 ≤ X →
+        1 ≤ D →
+        (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (D : ℝ) →
+        (Q : ℝ) * (QR * Dlev) ≤ (D : ℝ) →
+        ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (pieceM k : ℝ))
+            / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (15 : ℝ)) →
+        D < (2 ^ k + 1) * (2 ^ k + 1) →
+        (4 * (1 + Real.log D) * (D : ℝ)
+            ≤ ((2 ^ k : ℕ) : ℝ) * (pieceM k : ℝ)
+                / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (13 : ℝ)) →
+        ((Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 3) ≤ Real.sqrt (X : ℝ)) →
+        ((Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 3) ≤ Real.sqrt (pieceM k : ℝ)) →
+        ((D : ℝ) * (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt ((X : ℝ) * (pieceM k : ℝ))) →
+        ((Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ ((13 : ℝ) + 5) ≤ Real.sqrt (pieceM k : ℝ)) →
+        F ≤ X →
+        ((D : ℝ) ≤ Real.sqrt (x : ℝ)) →
+        (Real.log ((X : ℝ) * (pieceM k : ℝ)) ≤ Lb) →
+        (((3 : ℝ) / Real.log 2) ^ 8 * (x : ℝ) ^ ((1 : ℝ) / 6) * Lb ^ ((13 : ℝ) + 5)
+            ≤ Real.sqrt (F : ℝ)) →
+        ((D : ℝ) ≤ (X : ℝ) * (pieceM k : ℝ)) →
+        (∑ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
+              (fun d => Q * d),
+            ‖apDiscBilinCutoff (restrictAlpha (restrictAlpha (blockAlpha z y ε₀ j) 0
+                  (min (z * pieceN k + 1) (x + 1))) (2 ^ i) (2 ^ (i + 1)))
+                (blockPrimeInd (pieceN k)) X (pieceM k) (crtClassW Q (m / Q) a) m x‖)
+          + (∑ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
+                (fun d => Q * d),
+              ‖apDiscBilinCutoff (restrictAlpha (restrictAlpha (blockAlpha z y ε₀ j) 0
+                    (min (z * pieceN k + 1) (x + 1))) (2 ^ i) (2 ^ (i + 1)))
+                  (blockPrimeInd (pieceN k)) X (pieceM k) (crtClassW Q (m / Q) a) m (x / 2 + 1)‖)
+          ≤ 2 * ((Kbeta_min Kc (Real.log ((X : ℝ) * (pieceM k : ℝ)))
+                    (Real.log ((2 ^ k : ℕ) : ℝ)) 13 18
+                + (6 * (Km_min Kc (Real.log ((X : ℝ) * (pieceM k : ℝ)))
+                          (Real.log ((2 ^ k : ℕ) : ℝ)) 13 18 + 448 + 32 * Real.sqrt 26)
+                    + ((2 : ℝ) ^ ((13 : ℝ) + 5)
+                        * Kbeta'_min Kc (Real.log ((X : ℝ) * (pieceM k : ℝ)))
+                            (Real.log ((2 ^ k : ℕ) : ℝ)) 13 18 + 15360 + 1)))
+              * ((X : ℝ) * (pieceM k : ℝ))
+              / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (13 : ℝ)) := by
+  obtain ⟨Kc, N₀, hK0, hbody⟩ := medium_box_price_at_op_lo
+  refine ⟨Kc, N₀, hK0, fun x ε₀ j k i Lb F Krange X QR Dlev D hk hx hi hXsub hNfloor hN₀ hL2 hX2
+    hD1 hDge_x hDbnd hDscale hDsq habs hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx hLbb hfloor
+    hDXM => ?_⟩
+  have hα := norm_box_leg_le_one z y ε₀ j (min (z * pieceN k + 1) (x + 1)) i
+  have hd1 : ∀ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
+      (fun d => Q * d), (1 : ℕ) ≤ m := fun m hm => one_le_of_mem_QImage (QR * (Dlev : ℝ)) hQ1 hm
+  have hcop2 : ∀ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
+      (fun d => Q * d), Nat.Coprime (crtClassW Q (m / Q) a) m :=
+    fun m hm => crtClassW_coprime_of_mem (QR * (Dlev : ℝ)) hQ1 hQPs hQa2 hPodd hPspos hm
+  have hDsetD : ∀ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
+      (fun d => Q * d), m ≤ D := fun m hm => le_D_of_mem_QImage (QR * (Dlev : ℝ)) hQ1 hDbnd hm
+  rw [two_mul]
+  exact add_le_add
+    (hbody x Lb F Krange k i _ X x D _ (fun m => crtClassW Q (m / Q) a) hk hx hi hXsub hNfloor hα
+      hd1 hcop2 hDsetD hN₀ hL2 hX2 hD1 hDge_x hDscale hDsq habs hXsqrt hMsqrt herr_lev herr_Mlev
+      hFX hDx hLbb hfloor hDXM)
+    (hbody x Lb F Krange k i _ X (x / 2 + 1) D _ (fun m => crtClassW Q (m / Q) a) hk hx hi hXsub
+      hNfloor hα hd1 hcop2 hDsetD hN₀ hL2 hX2 hD1 hDge_x hDscale hDsq habs hXsqrt hMsqrt herr_lev
+      herr_Mlev hFX hDx hLbb hfloor hDXM)
 
 /-- **`box_hprice_at_2pow` (deliverable 3, the box leg).**  Over the pieceN-boundary (catch #71
 corner relaxation), the box-leg two-`T` `hprice` sum is `≤ 2·(the Kerr box price)` — PriceOne's
@@ -277,26 +355,12 @@ theorem box_hprice_at_2pow (z y Ps Q a : ℕ) (hQ1 : 1 ≤ Q) (hPspos : 0 < Ps)
                             (Real.log ((2 ^ k : ℕ) : ℝ)) 13 18 + 15360 + 1)))
               * ((X : ℝ) * (pieceM k : ℝ))
               / (Real.log ((X : ℝ) * (pieceM k : ℝ))) ^ (13 : ℝ)) := by
-  obtain ⟨Kc, N₀, hK0, hbody⟩ := medium_box_price_at_op
-  refine ⟨Kc, N₀, hK0, fun x ε₀ j k i Lb F Krange X QR Dlev D hk hx hi hXsub hNfloor hN₀ hL2 hX2
-    hD1 hDge_x hDbnd hDscale hDsq habs hXsqrt hMsqrt herr_lev herr_Mlev hFX hDx hLbb hfloor
-    hDXM => ?_⟩
-  have hα := norm_box_leg_le_one z y ε₀ j (min (z * pieceN k + 1) (x + 1)) i
-  have hd1 : ∀ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
-      (fun d => Q * d), (1 : ℕ) ≤ m := fun m hm => one_le_of_mem_QImage (QR * (Dlev : ℝ)) hQ1 hm
-  have hcop2 : ∀ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
-      (fun d => Q * d), Nat.Coprime (crtClassW Q (m / Q) a) m :=
-    fun m hm => crtClassW_coprime_of_mem (QR * (Dlev : ℝ)) hQ1 hQPs hQa2 hPodd hPspos hm
-  have hDsetD : ∀ m ∈ ((Nat.divisors Ps).filter (fun d : ℕ => (d : ℝ) < QR * Dlev)).image
-      (fun d => Q * d), m ≤ D := fun m hm => le_D_of_mem_QImage (QR * (Dlev : ℝ)) hQ1 hDbnd hm
-  rw [two_mul]
-  exact add_le_add
-    (hbody x Lb F Krange k i _ X x D _ (fun m => crtClassW Q (m / Q) a) hk hx hi hXsub hNfloor hα
-      hd1 hcop2 hDsetD hN₀ hL2 hX2 hD1 hDge_x hDscale hDsq habs hXsqrt hMsqrt herr_lev herr_Mlev
-      hFX hDx hLbb hfloor hDXM)
-    (hbody x Lb F Krange k i _ X (x / 2 + 1) D _ (fun m => crtClassW Q (m / Q) a) hk hx hi hXsub
-      hNfloor hα hd1 hcop2 hDsetD hN₀ hL2 hX2 hD1 hDge_x hDscale hDsq habs hXsqrt hMsqrt herr_lev
-      herr_Mlev hFX hDx hLbb hfloor hDXM)
+  obtain ⟨Kc, N₀, hK0, hbody⟩ := box_hprice_at_2pow_lo z y Ps Q a hQ1 hPspos hQPs hQa2 hPodd
+  refine ⟨Kc, N₀, hK0, fun x ε₀ j k i Lb F Krange X QR Dlev D hk hx hi hXsub hNfloor => ?_⟩
+  have hx1 : (1 : ℝ) ≤ (x : ℝ) := le_trans (Real.one_le_exp (by positivity)) hx
+  have hle : (x : ℝ) ^ ((7 : ℝ) / 16) ≤ (x : ℝ) ^ ((11 : ℝ) / 24) :=
+    Real.rpow_le_rpow_of_exponent_le hx1 (by norm_num)
+  exact hbody x ε₀ j k i Lb F Krange X QR Dlev D hk hx hi hXsub (by linarith)
 
 /-! ## 6. The band-leg per-box prices at the `2^k`-boundary (deliverable 3, the sym / low legs)
 

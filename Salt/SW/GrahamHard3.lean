@@ -2570,6 +2570,29 @@ theorem sum_sq_sum_bvWeight_le_full : ∃ C : ℝ, 0 < C ∧ ∀ z₁ z₂ : ℕ
         field_simp
         ring
 
+/-- **S10.** The same mean bound for Jutila's two-level weight `λ_d = bvWeight z₁ z₂ d`:
+`Σ_{n ≤ ⌊x⌋} (Σ_{d ∣ n} λ_d)² ≤ 2(log z₁ + log z₂)/log(z₂/z₁)²·(C·x)` for `x ≥ z₂²`.
+
+`λ_d = (log z₂·θ^{(z₂)}_d − log z₁·θ^{(z₁)}_d)/log(z₂/z₁)` (`BvWeight.lean:78`), so
+`(Σ_{d∣n} λ_d)² ≤ (2·log²z₂·w_{z₂}(n) + 2·log²z₁·w_{z₁}(n))/log(z₂/z₁)²` by
+`(u − v)² ≤ 2u² + 2v²`; S9 at `z₂` (hypothesis `z₂² ≤ x`) and at `z₁` (`z₁² < z₂² ≤ x`)
+then gives `(2·log z₂·C·x + 2·log z₁·C·x)/log(z₂/z₁)²`, which IS the frozen prefactor —
+the arithmetic is exact, with no slack introduced or lost.
+
+⚠ **`(z₂:ℝ)² ≤ x` is unsatisfiable at B2's ratified closure table** — see the module
+docstring. This row is true, it lands, and B2 reads it at no scale until W6b-H lands.
+
+Moved here from `GrahamMean` on 2026-11-18: it is the `z₂² ≤ x` instance of
+`sum_sq_sum_bvWeight_le_full` just above (for `z₂ ≥ 1`, `z₂ ≤ z₂² ≤ x`). -/
+theorem sum_sq_sum_bvWeight_le : ∃ C : ℝ, 0 < C ∧ ∀ z₁ z₂ : ℕ, 2 ≤ z₁ → z₁ < z₂ →
+    ∀ x : ℝ, (z₂ : ℝ) ^ 2 ≤ x →
+    ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, (∑ d ∈ n.divisors, bvWeight z₁ z₂ d) ^ 2
+      ≤ 2 * (Real.log z₁ + Real.log z₂) / Real.log ((z₂ : ℝ) / z₁) ^ 2 * (C * x) := by
+  obtain ⟨C, hC, hbody⟩ := sum_sq_sum_bvWeight_le_full
+  refine ⟨C, hC, fun z₁ z₂ hz₁ hz₁₂ x hx => hbody z₁ z₂ hz₁ hz₁₂ x ?_⟩
+  have hz₂ : (1 : ℝ) ≤ (z₂ : ℝ) := by exact_mod_cast (by omega : 1 ≤ z₂)
+  nlinarith
+
 /-- **S10-L (the two-level weight BELOW the top level).** For `2 ≤ x ≤ z₂` the same split
 uses **H9** (`grahamW_sum_le_low`) at level `z₂` and, at level `z₁`, H9 again when `x ≤ z₁`
 or H8 when `z₁ < x`; both branches close at

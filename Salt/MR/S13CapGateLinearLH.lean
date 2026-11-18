@@ -170,11 +170,12 @@ theorem capeps_bigexp_60 {u μ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (h�
   rw [← hlhs]
   exact Real.exp_le_exp.mpr (by linarith)
 
-/-- ⟦SIBLING of `capeps_Pbig` (`S13CapEps`), constant `e¹¹ → e¹⁸⟧` — the `p²` row's
-`1/P` leg at the `h`-inflated modulus. -/
-theorem capeps_Pbig_h {u μ : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
+/-- ⟦SIBLING of `capeps_Pbig_h` (§1), constant `e^18 → e^20`⟧ — the `p²` row's `1/P` leg at
+`log h ≤ 9` (`e^11·e^9`).  BODY: `capeps_Pbig_h`'s as landed, with the master line at
+`t = 20 ≤ 60`.  (Moved up from §5 on 2026-11-17; `capeps_Pbig_h` below is its instance.) -/
+theorem capeps_Pbig_h_e20 {u μ : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
     (hΛ : u / 2 ≤ Real.log μ) :
-    Real.exp 18 * u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500)
+    Real.exp 20 * u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500)
       ≤ Real.exp (μ ^ (1 - theta293)) := by
   have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
   have hu0 : (0 : ℝ) < u := by linarith
@@ -183,7 +184,7 @@ theorem capeps_Pbig_h {u μ : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (
   have hΛbig : (5 : ℝ) * 10 ^ (20 : ℕ) ≤ Real.log μ := by
     have : (10 : ℝ) ^ (21 : ℕ) = 2 * (5 * 10 ^ (20 : ℕ)) := by norm_num
     linarith
-  have hmas := capeps_master_60 hu hΛ (by norm_num : (18 : ℝ) ≤ 60)
+  have hmas := capeps_master_60 hu hΛ (by norm_num : (20 : ℝ) ≤ 60)
   have hlogΛ : 0 ≤ Real.log (Real.log μ) := Real.log_nonneg (by linarith)
   have hθ32 : theta293 < 1 / 32 := theta293_lt_one_div_32
   have hθ0 : (0 : ℝ) < theta293 := theta293_pos
@@ -197,12 +198,33 @@ theorem capeps_Pbig_h {u μ : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (
   have hbig : 2 * Real.log μ ≤ μ ^ (1 - theta293) := by nlinarith [hsq, hhalf, hΛbig, hΛ0]
   have h500 : μ ^ ((1 : ℝ) / 500) = Real.exp (Real.log μ / 500) := by
     rw [Real.rpow_def_of_pos hμ0]; ring_nf
-  have hlhs : Real.exp (18 + 12 * Real.log u + Real.log μ + Real.log μ / 500)
-      = Real.exp 18 * u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500) := by
+  have hlhs : Real.exp (20 + 12 * Real.log u + Real.log μ + Real.log μ / 500)
+      = Real.exp 20 * u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500) := by
     rw [Real.exp_add, Real.exp_add, Real.exp_add, ← capeps_pow12 hu0, Real.exp_log hμ0,
       ← h500]
   rw [← hlhs]
   exact Real.exp_le_exp.mpr (le_trans (by linarith) hbig)
+
+/-- ⟦SIBLING of `capeps_Pbig` (`S13CapEps`), constant `e¹¹ → e¹⁸⟧` — the `p²` row's
+`1/P` leg at the `h`-inflated modulus.
+
+⟦AN INSTANCE⟧ since 2026-11-17: `capeps_Pbig_h_e20` above, at `e^18 ≤ e^20`. -/
+theorem capeps_Pbig_h {u μ : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
+    (hΛ : u / 2 ≤ Real.log μ) :
+    Real.exp 18 * u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500)
+      ≤ Real.exp (μ ^ (1 - theta293)) := by
+  have h20 := capeps_Pbig_h_e20 hu hμ hΛ
+  have hu0 : (0 : ℝ) ≤ u := le_trans (by positivity) hu
+  have hμ0 : (0 : ℝ) ≤ μ := by linarith
+  have hX : 0 ≤ u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500) :=
+    mul_nonneg (mul_nonneg (pow_nonneg hu0 _) hμ0) (Real.rpow_nonneg hμ0 _)
+  have he : Real.exp 18 ≤ Real.exp 20 := Real.exp_le_exp.mpr (by norm_num)
+  calc Real.exp 18 * u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500)
+      = Real.exp 18 * (u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500)) := by ring
+    _ ≤ Real.exp 20 * (u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500)) :=
+        mul_le_mul_of_nonneg_right he hX
+    _ = Real.exp 20 * u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500) := by ring
+    _ ≤ Real.exp (μ ^ (1 - theta293)) := h20
 
 /-- ⟦SIBLING of `capfloor_lam_core` (`S13CapFloor:268`), constant `160 → 216`⟧ — `floor1`'s
 `Λ`-leg with the `+log h` room.  The landed left side is ~`4806` against `v/4 ≥ 2.5·10²⁰`;
@@ -1673,46 +1695,13 @@ family 40 retired three more, one into a twin here and two into twins of F2, eac
 2026-10-06: family 41 retired two more, one into a twin here and one into a twin of F2, each noted
 in place; 2026-10-07: family 42 retired one more, by ruling and with no twin, noted in place (this
 entry written by family 43, whose read found it missing); 2026-10-08: family 43 retired one more,
-into a twin here, noted in place).  Three NUMERIC SIBLINGS whose statements differ from §1's only in
-the named literal (`e^18 ↦ e^20`, `216 ↦ 232`, `+8 ↦ +10` — each set to exactly the cap-9 spend, as
+into a twin here, noted in place).  NUMERIC SIBLINGS whose statements differ from §1's only in
+the named literal (`216 ↦ 232`, `+8 ↦ +10`; the third, `e^18 ↦ e^20`, `capeps_Pbig_h_e20`, moved
+up to §1 on 2026-11-17 — each set to exactly the cap-9 spend, as
 §1's were to the cap-7 spend), then the depth-0/1 leaves of the floor, grid and `εr` pages at
 `log h ≤ 9`.  Each twin is its source's statement and body with ONLY the freeze's §3.1 rule-2 raises
 and every derived cap-dependent supplier replaced by its twin (`S16ProducersH` §7); no hypothesis is
 added and no conclusion weakened. -/
-
-/-- ⟦SIBLING of `capeps_Pbig_h` (§1), constant `e^18 → e^20`⟧ — the `p²` row's `1/P` leg at
-`log h ≤ 9` (`e^11·e^9`).  BODY: §1's, with the master line at `t = 20 ≤ 60`. -/
-theorem capeps_Pbig_h_e20 {u μ : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
-    (hΛ : u / 2 ≤ Real.log μ) :
-    Real.exp 20 * u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500)
-      ≤ Real.exp (μ ^ (1 - theta293)) := by
-  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
-  have hu0 : (0 : ℝ) < u := by linarith
-  have hμ0 : (0 : ℝ) < μ := by linarith
-  have hΛ0 : (0 : ℝ) < Real.log μ := by linarith
-  have hΛbig : (5 : ℝ) * 10 ^ (20 : ℕ) ≤ Real.log μ := by
-    have : (10 : ℝ) ^ (21 : ℕ) = 2 * (5 * 10 ^ (20 : ℕ)) := by norm_num
-    linarith
-  have hmas := capeps_master_60 hu hΛ (by norm_num : (20 : ℝ) ≤ 60)
-  have hlogΛ : 0 ≤ Real.log (Real.log μ) := Real.log_nonneg (by linarith)
-  have hθ32 : theta293 < 1 / 32 := theta293_lt_one_div_32
-  have hθ0 : (0 : ℝ) < theta293 := theta293_pos
-  have hrw : μ ^ (1 - theta293) = Real.exp ((1 - theta293) * Real.log μ) := by
-    rw [Real.rpow_def_of_pos hμ0]; ring_nf
-  have hhalf : Real.exp (Real.log μ / 2) ≤ μ ^ (1 - theta293) := by
-    rw [hrw]
-    exact Real.exp_le_exp.mpr (by nlinarith)
-  have hsq : (Real.log μ / 2) ^ 2 / 4 ≤ Real.exp (Real.log μ / 2) :=
-    capeps_sq_le_exp (by linarith)
-  have hbig : 2 * Real.log μ ≤ μ ^ (1 - theta293) := by nlinarith [hsq, hhalf, hΛbig, hΛ0]
-  have h500 : μ ^ ((1 : ℝ) / 500) = Real.exp (Real.log μ / 500) := by
-    rw [Real.rpow_def_of_pos hμ0]; ring_nf
-  have hlhs : Real.exp (20 + 12 * Real.log u + Real.log μ + Real.log μ / 500)
-      = Real.exp 20 * u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500) := by
-    rw [Real.exp_add, Real.exp_add, Real.exp_add, ← capeps_pow12 hu0, Real.exp_log hμ0,
-      ← h500]
-  rw [← hlhs]
-  exact Real.exp_le_exp.mpr (le_trans (by linarith) hbig)
 
 /-- ⟦SIBLING of `capfloor_lam_core_h` (§1), constant `216 → 232`⟧ — `floor1`'s `Λ`-leg at
 `log h ≤ 9` (`8·(20 + 9)`).  The certificate `log v ≤ v/10^10` is unchanged. -/
