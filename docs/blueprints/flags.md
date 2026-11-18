@@ -18050,7 +18050,7 @@ Captain's coffee, with the width law as its wall map.
 
 ## (2026-07-30 23:24 PDT) COMPOSE-2 LANDS: logChowla2_conditional FIRED (15/16 discharged; S15Compose 1022 ln, 30/30 axioms) -- the capstone MODULO the named crossing bound; the 2484 catch; a CLAIMED second width leg (refuter dispatched)
 
-⟦THE FIRE⟧ logChowla2_conditional (S15Compose:895): the const
+⟦THE FIRE⟧ logChowla2_conditional (S15Compose:900): the const
 capstone at the working point — Cp := 0, epsrf ≡ θ₂₉₃−1/500 (fired
 at the UPPER endpoint, the reserve paying abs8640), C₁ ≡ 1, M₀ :=
 s13BandM0, U1floor ≥ max Hcap (arcFloor36, loglogFloor50) PINNING
