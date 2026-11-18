@@ -314,18 +314,20 @@ lemma not_summable_one_div_nat_loglog :
 
 /-! ### Piece 2 — the per-summand comparison to the abstract series -/
 
-/-- Each tower decrement summand `1/(2 log H_j · logloglog H_j)` dominates
-    `(1/128)/((j+2)log(j+2)loglog(j+2))` for `j ≥ 30`.  Uses the Piece-1 upper
-    bound `log H_j ≤ 32(j+2)log(j+2)` and `logloglog H_j ≤ 2·loglog(j+2)`. -/
-lemma summand_lower (j : ℕ) (hj : 30 ≤ j) :
-    (1 / 128 : ℝ) * (1 / (((j + 2 : ℕ) : ℝ) * Real.log ((j + 2 : ℕ) : ℝ)
-        * Real.log (Real.log ((j + 2 : ℕ) : ℝ))))
-      ≤ 1 / (2 * Real.log (chowlaTower 2 1 4000000 j : ℝ)
-          * Real.log (Real.log (Real.log (chowlaTower 2 1 4000000 j : ℝ)))) := by
-  have hPeq : ((j + 2 : ℕ) : ℝ) = (j : ℝ) + 2 := by push_cast; ring
+/-- **The generic per-summand comparison.**  For any `H ≥ 4·10⁶` and `n ≥ 30`
+    with `log H ≤ 32·(n+2)·log(n+2)`, the decrement summand `1/(2·log H·
+    logloglog H)` dominates `(1/128)/((n+2)·log(n+2)·loglog(n+2))`.  Factored out
+    of `summand_lower` (below), its instance at `H := chowlaTower 2 1 4000000 j`, so the
+    tower enters only through the bound.  Moved here from `RegimeParam` (O13-e row 248). -/
+lemma summand_lower_gen {H n : ℕ} (hH : 4000000 ≤ H) (hn : 30 ≤ n)
+    (hUp : Real.log (H : ℝ) ≤ 32 * ((n : ℝ) + 2) * Real.log ((n : ℝ) + 2)) :
+    (1 / 128 : ℝ) * (1 / (((n + 2 : ℕ) : ℝ) * Real.log ((n + 2 : ℕ) : ℝ)
+        * Real.log (Real.log ((n + 2 : ℕ) : ℝ))))
+      ≤ 1 / (2 * Real.log (H : ℝ) * Real.log (Real.log (Real.log (H : ℝ)))) := by
+  have hPeq : ((n + 2 : ℕ) : ℝ) = (n : ℝ) + 2 := by push_cast; ring
   rw [hPeq]
-  set P : ℝ := (j : ℝ) + 2 with hPdef
-  have hjR : (30 : ℝ) ≤ j := by exact_mod_cast hj
+  set P : ℝ := (n : ℝ) + 2 with hPdef
+  have hnR : (30 : ℝ) ≤ n := by exact_mod_cast hn
   have hP32 : (32 : ℝ) ≤ P := by rw [hPdef]; linarith
   have hPpos : (0 : ℝ) < P := by linarith
   have hp_pos : 0 < Real.log P := Real.log_pos (by linarith)
@@ -339,20 +341,15 @@ lemma summand_lower (j : ℕ) (hj : 30 ≤ j) :
     linarith
   have hq_pos : 0 < Real.log p := Real.log_pos (by linarith)
   set q : ℝ := Real.log p with hqdef
-  have hge : 4000000 ≤ chowlaTower 2 1 4000000 j := chowlaTower_two_one_base_le j
-  obtain ⟨hL15, hM12⟩ := tower_log_bounds hge
-  set L : ℝ := Real.log (chowlaTower 2 1 4000000 j : ℝ) with hLdef
-  set M : ℝ := Real.log (Real.log (Real.log (chowlaTower 2 1 4000000 j : ℝ))) with hMdef
+  obtain ⟨hL15, hM12⟩ := tower_log_bounds hH
+  set L : ℝ := Real.log (H : ℝ) with hLdef
+  set M : ℝ := Real.log (Real.log (Real.log (H : ℝ))) with hMdef
   have hLpos : 0 < L := by linarith [hL15]
   have hMpos : 0 < M := by linarith [hM12]
   have hlogL_pos : 0 < Real.log L := by
     have : Real.log 15 ≤ Real.log L := Real.log_le_log (by norm_num) hL15
     linarith [Real.log_pos (show (1 : ℝ) < 15 by norm_num)]
-  have hUp : L ≤ 32 * P * p := by
-    have h := tower_log_upper j
-    rw [← hLdef, ← hPdef, ← hpdef] at h
-    exact h
-  -- the key: M ≤ 2 q
+  have hUp' : L ≤ 32 * P * p := hUp
   have h32Pp_pos : (0 : ℝ) < 32 * P * p := mul_pos (mul_pos (by norm_num) hPpos) hp_pos
   have hlog32Pp : Real.log (32 * P * p) ≤ 3 * p := by
     rw [Real.log_mul (mul_ne_zero (by norm_num) (ne_of_gt hPpos)) (ne_of_gt hp_pos),
@@ -365,7 +362,7 @@ lemma summand_lower (j : ℕ) (hj : 30 ≤ j) :
     have hMeq : M = Real.log (Real.log L) := by rw [hMdef, hLdef]
     rw [hMeq]
     have h1 : Real.log (Real.log L) ≤ Real.log (Real.log (32 * P * p)) :=
-      Real.log_le_log hlogL_pos (Real.log_le_log hLpos hUp)
+      Real.log_le_log hlogL_pos (Real.log_le_log hLpos hUp')
     have hgt1 : (1 : ℝ) < 32 * P * p := by nlinarith [hP32, hp3, hPpos, hp_pos]
     have h2 : Real.log (Real.log (32 * P * p)) ≤ Real.log (3 * p) :=
       Real.log_le_log (Real.log_pos hgt1) hlog32Pp
@@ -377,10 +374,9 @@ lemma summand_lower (j : ℕ) (hj : 30 ≤ j) :
       _ ≤ Real.log (3 * p) := h2
       _ = Real.log 3 + q := h3
       _ ≤ 2 * q := by linarith
-  -- assemble L M ≤ 64 P p q
   have hkey : L * M ≤ 64 * (P * p * q) := by
     calc L * M ≤ (32 * P * p) * (2 * q) :=
-          mul_le_mul hUp hM_le (le_of_lt hMpos) (le_of_lt h32Pp_pos)
+          mul_le_mul hUp' hM_le (le_of_lt hMpos) (le_of_lt h32Pp_pos)
       _ = 64 * (P * p * q) := by ring
   have hRHSpos : (0 : ℝ) < 2 * L * M := mul_pos (mul_pos (by norm_num) hLpos) hMpos
   have hdenle : 2 * L * M ≤ 128 * (P * p * q) := by nlinarith [hkey]
@@ -388,6 +384,17 @@ lemma summand_lower (j : ℕ) (hj : 30 ≤ j) :
     rw [mul_one_div, div_div]
   rw [hLHS_eq]
   exact one_div_le_one_div_of_le hRHSpos hdenle
+
+/-- Each tower decrement summand `1/(2 log H_j · logloglog H_j)` dominates
+    `(1/128)/((j+2)log(j+2)loglog(j+2))` for `j ≥ 30`.  Uses the Piece-1 upper
+    bound `log H_j ≤ 32(j+2)log(j+2)` and `logloglog H_j ≤ 2·loglog(j+2)`.
+    Proof: the instance of `summand_lower_gen` (above) at `H := chowlaTower 2 1 4000000 j`. -/
+lemma summand_lower (j : ℕ) (hj : 30 ≤ j) :
+    (1 / 128 : ℝ) * (1 / (((j + 2 : ℕ) : ℝ) * Real.log ((j + 2 : ℕ) : ℝ)
+        * Real.log (Real.log ((j + 2 : ℕ) : ℝ))))
+      ≤ 1 / (2 * Real.log (chowlaTower 2 1 4000000 j : ℝ)
+          * Real.log (Real.log (Real.log (chowlaTower 2 1 4000000 j : ℝ)))) :=
+  summand_lower_gen (chowlaTower_two_one_base_le j) hj (tower_log_upper j)
 
 /-! ### Piece 4 — extraction: the decrement crosses `log 2` -/
 
