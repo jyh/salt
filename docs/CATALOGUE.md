@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `6e5ade31` · source digest `bd6db5cf8842a648` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `873e54b6` · source digest `0939c9c708fffd62` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -954,9 +954,9 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.Chen.box_hprice_at_2pow` | Salt/Chen/PriceThree.lean:228 | sieves |
 | `Salt.Chen.sym_box_hprice_at_2pow` | Salt/Chen/PriceThree.lean:313 | sieves |
 | `Salt.Chen.low_box_hprice_at_2pow` | Salt/Chen/PriceThree.lean:393 | sieves |
-| `Salt.Chen.medium_box_price_at_op_lo` | Salt/Chen/PriceTwo.lean:361 | sieves |
-| `Salt.Chen.sym_box_price_at_op` | Salt/Chen/PriceTwo.lean:491 | sieves |
-| `Salt.Chen.low_box_price_at_op` | Salt/Chen/PriceTwo.lean:528 | sieves |
+| `Salt.Chen.medium_box_price_at_op_lo` | Salt/Chen/PriceTwo.lean:363 | sieves |
+| `Salt.Chen.sym_box_price_at_op` | Salt/Chen/PriceTwo.lean:493 | sieves |
+| `Salt.Chen.low_box_price_at_op` | Salt/Chen/PriceTwo.lean:530 | sieves |
 | `Salt.Chen.razor_scalar_margin` | Salt/Chen/RazorClose.lean:94 | sieves |
 | `Salt.Chen.razor_of_normalized` | Salt/Chen/RazorClose.lean:116 | sieves |
 | `Salt.Chen.hledger_at_certs` | Salt/Chen/RazorClose.lean:156 | sieves |
