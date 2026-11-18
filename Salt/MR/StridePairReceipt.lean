@@ -1378,7 +1378,8 @@ theorem flat_capstone_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ)
 §3.0/§5.1(e)), and in the body `h ≤ 1096 ↦ h ≤ 8103` (from `h_le_8103_of_log_le_nine`),
 `h² ≤ 1201216 ↦ ≤ 65658609`, `250000·1201216 = 300304000000 ↦ 250000·65658609 = 16414652250000`.
 The budget: `log 2 + 9 + 9 = 18.69` against `H₊/(250000·8103²) − H₊/10²⁰ ≥ 2.19·10⁸` at
-`H₊ ≥ 3.6·10²¹` (kernel-checked by the refuter, R3).  Every other step is the source's, verbatim. -/
+`H₊ ≥ 3.6·10²¹` (kernel-checked by the refuter, R3).  Every other step is the source's, verbatim
+(as written; since 2026-11-17 the source, `xceil_arm_split_mul_h`, is an instance of this). -/
 theorem xceil_arm_split_mul_h_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) {Hhi : ℕ}
     (hH4 : 4000000 ≤ Hhi) (hll : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
     Real.log 2 + Real.log (h : ℝ) + 9

@@ -745,8 +745,9 @@ theorem h_le_1096_of_hh7 {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
 set_option exponentiation.threshold 4000 in
 /-- **⟦THE SHIFT IS BOUNDED BY ITS OWN BINDER, AT `14`⟧ (class A)** — the twin of
 `h_le_1096_of_hh7` (`S16ProducersH.lean`) at the raised cap: `e^14 = 1202604.284…`, so
-`h ≤ 1202604`.  Every numeral in this module is stated against this one.  BODY: the landed
-proof's shape with `Real.exp_one_lt_d9` raised to the `14`th instead of the `7`th. -/
+`h ≤ 1202604`.  Every numeral in `StrideGradeReach`, where this was written, is stated against
+this one (it moved here on 2026-11-17).  BODY: the landed proof's shape with
+`Real.exp_one_lt_d9` raised to the `14`th instead of the `7`th. -/
 theorem h_le_1202604_of_hh14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) :
     h ≤ 1202604 := by
   have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
