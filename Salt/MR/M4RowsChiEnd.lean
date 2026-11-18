@@ -39,7 +39,7 @@ difference is paid in the open:
   `960·(T/X_d+1)`, weighed at `2880`.
 
 ⟦THE `hwin` BINDER DISAPPEARS⟧  The four-row MR exit is `hwin`-free (⟦WALL 1⟧,
-`CapFreeArm3.lean:811`), so the whole window binder
+`CapFreeArm3.lean:1104`), so the whole window binder
 `c p · b j m ≠ 0 → X_d ≤ p·m ≤ 2X_d` — which `M4RowsChi` §6/§7/§9/§11 all carry — is
 **absent from every statement here**.  The `_end` chain asks strictly less of its datum than
 the landed one on that axis, and strictly less on the endpoint.
