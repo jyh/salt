@@ -1218,7 +1218,7 @@ theorem s16_bandLaneWinL_of_bandL (K : ℕ) {Awin : ℝ} (hAwin : 93.75 ≤ Awin
   obtain ⟨x₀, Cband, hCband0, hCband40, hbody⟩ := hband
   exact ⟨x₀, Cband, hCband0, by linarith, hbody⟩
 
-/-! ## §9u — ⟦THE WINDOWED RIDER, `K`-UNIFORM⟧ -/
+/-! ### §9u — ⟦THE WINDOWED RIDER, `K`-UNIFORM⟧ -/
 
 /-- **⟦THE PRIZE, `K`-UNIFORM⟧** (`s16_bandLaneWinL_holds_uniform`) — ⟦CAP-RECUT P1⟧ the
 `∀K ∃Awin` → `∃Awin ∀K` swap.  BAND-K-PROBE's finding: `Cband = Cb/E` is minted `K`-FREE and
@@ -1259,9 +1259,11 @@ theorem s16_bandLaneWinL_holds_uniform :
 
 /-- **⟦THE WINDOWED RIDER IS A THEOREM⟧** (`s16_bandLaneWinL_holds`) — ⟦THE PRIZE⟧.
 
-`S11HoistLinear.m4_hband_at_door_slot_split_graded_L_gk` at `Aexp := s13Aexp`, on
-`PortClose.mmuChiRate_holds_gated` (LANDED, unconditional), hands out `∃ x₀ Cb, 0 < Cb ∧ …`
-with the band body VERBATIM and NO ceiling on `Cb`.  The rider's shape asks for the constant in
+(The argument as first written, now run once in `s16_bandLaneWinL_holds_uniform` (§9u, above)
+on the `_uniform` supplier.)  `S11HoistLinear.m4_hband_at_door_slot_split_graded_L_gk` at
+`Aexp := s13Aexp`, on `PortClose.mmuChiRate_holds_gated` (LANDED, unconditional), hands out
+`∃ x₀ Cb, 0 < Cb ∧ …` with the band body VERBATIM and NO ceiling on `Cb`.  The rider's shape
+asks for the constant in
 the form `Cband·4^{Aexp}·(e^{52.5}·4^{1.05}) + 1`; dividing gives `Cband := Cb/E`, and the `+1`
 is pure slack.  The window is then satisfied BY CONSTRUCTION at
 `Awin := max 162 ((log Cband + 20)/0.64)` — a real number, because `C_mu` carries no `A`
