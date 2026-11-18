@@ -474,26 +474,27 @@ theorem cofkL_mu_floor {R : ChowlaRegime} {M H L q j A s : ℕ}
 
 set_option maxHeartbeats 1000000 in
 -- the `_vt` threshold's five legs are bracketed against `√(log H₊)` in one simplex
-/-- **⟦THE THRESHOLD AT THE LINEAR SOCKET⟧** (`cofkL_threshold_at_socket`).
-`RbdSupply.pieceFloor_vt_threshold_of_loglog`'s antecedent, discharged from the socket, the
-regime, and ONE explicit cushion on the two carried opaque constants.
+/-- **⟦THE THRESHOLD AT THE LINEAR SOCKET, RATED⟧** (`cofkL_threshold_at_socket_rated`).
+`BandRatedAssembly.pieceFloor_vt_threshold_of_loglog_rated`'s antecedent, discharged from the
+socket, the regime, and ⟦THE SAME CUSHION THE LANDED SOCKET USES⟧ — `32·K_vt + 32·D ≤ log H₊/4`,
+byte-identical to `cofkL_threshold_at_socket`'s.
 
-⟦THE CUSHION IS THE HONEST HOLE⟧ `K_vt` (the `capFreeFloor3_margin_all_chi_vt` witness) has no
-effective bound anywhere in the corpus.  It is carried here under `32·K_vt + 32·D ≤ log H₊/4`,
-which at the terminal's regime (`3.2·A ≤ loglog H₋`, `162 ≤ A`) permits `K_vt ≤ e^{518}/128`. -/
-theorem cofkL_threshold_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} {Kvt D : ℝ}
+⭐ **THAT THE CUSHION IS UNCHANGED IS THE POINT OF THE LEMMA.**  Rating the band constant raises
+the `loglog H` coefficient `350 → 1900`; the socket's margin is `√(log H₊)` against `log H₊`, so
+the legs go from `1180·√(log H₊)` to `4280·√(log H₊)` and the close still has four orders of
+room. -/
+theorem cofkL_threshold_at_socket_rated {R : ChowlaRegime} {M H L q j A s : ℕ} {Kvt D : ℝ}
     (hb : SocketBaseL R M H L q j A s)
     (hε : (1 : ℝ) / 500 ≤ (R.eps : ℝ))
     (hlo : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)))
     (hcush : 32 * Kvt + 32 * D ≤ Real.log (R.Hhi : ℝ) / 4) :
     40 * Real.log (Real.log (Real.log (((A + s : ℕ)) : ℝ)))
-        + 350 * Real.log (Real.log (H : ℝ))
+        + 1900 * Real.log (Real.log (H : ℝ))
         + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
         + 2300 + 32 * Kvt + 32 * D
       < Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
   have h1 : R.Hlo ≤ H := hb.1
   have h2 : H ≤ R.Hhi := hb.2.1
-  -- ⟦the design floor, unwound⟧ `log H₋ ≥ e^{518} ≥ 10^8`
   have hHlo4 : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
   have hlogHlo : (14 : ℝ) ≤ Real.log (R.Hlo : ℝ) := cofk_log_big hHlo4
   have hexp : Real.exp (518 : ℝ) ≤ Real.log (R.Hlo : ℝ) := by
@@ -504,7 +505,6 @@ theorem cofkL_threshold_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} {Kvt 
     have hnum : (290029400 : ℝ) ≤ (1 + (518 : ℝ) / 4) ^ 4 := by norm_num
     linarith
   have hlogHlo8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hlo : ℝ) := by linarith
-  -- ⟦propagation to `H` and `H₊`⟧
   have hHloH : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast h1
   have hHHhi : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
   have hH4 : (4000000 : ℝ) ≤ (H : ℝ) := by linarith
@@ -514,7 +514,6 @@ theorem cofkL_threshold_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} {Kvt 
     Real.log_le_log (by linarith) hHHhi
   have hLH8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hhi : ℝ) := by linarith
   have hlogH1 : (1 : ℝ) < Real.log (H : ℝ) := by linarith
-  -- ⟦`H₊ ≥ 10^14`, from `log H₊ ≥ 10^8`⟧
   have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by linarith
   have hHhi14 : (10 : ℝ) ^ 14 ≤ (R.Hhi : ℝ) := by
     have hlogle : Real.log ((10 : ℝ) ^ 14) ≤ Real.log (R.Hhi : ℝ) := by
@@ -539,7 +538,7 @@ theorem cofkL_threshold_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} {Kvt 
   have hsμsq : Real.sqrt μ * Real.sqrt μ = μ := Real.mul_self_sqrt hμ0.le
   have hprodμ : 320 * Real.sqrt μ ≤ μ := by nlinarith [hsμ, hsμsq, hsμ0]
   have hleg1 : 40 * Real.log μ ≤ μ / 4 := by linarith
-  -- ⟦the `loglog H` legs⟧ dominated by `1180·√(log H₊)`
+  -- ⟦the `loglog H` legs⟧ dominated by `4280·√(log H₊)`
   have hΛ : Real.log (Real.log (H : ℝ)) ≤ Real.log LH :=
     Real.log_le_log (by linarith) hlogHhi
   have hLH0 : (0 : ℝ) < LH := by linarith
@@ -558,12 +557,37 @@ theorem cofkL_threshold_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} {Kvt 
         ≤ 7 + 12 * Real.log (Real.log (H : ℝ)) - 1 :=
       Real.log_le_sub_one_of_pos hpos
     linarith
-  have hleg2 : 350 * Real.log (Real.log (H : ℝ))
+  have hleg2 : 1900 * Real.log (Real.log (H : ℝ))
       + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ))) + 2300
-      ≤ 1180 * Real.sqrt LH + 2420 := by linarith
+      ≤ 4280 * Real.sqrt LH + 2420 := by linarith
   -- ⟦the close⟧
-  have hmargin : 1180 * Real.sqrt LH + 2420 + LH / 4 < μ / 2 + μ / 4 := by
+  have hmargin : 4280 * Real.sqrt LH + 2420 + LH / 4 < μ / 2 + μ / 4 := by
     nlinarith [hprodv, hv, hμ, hv0]
+  linarith
+
+/-- **⟦THE THRESHOLD AT THE LINEAR SOCKET⟧** (`cofkL_threshold_at_socket`).
+`RbdSupply.pieceFloor_vt_threshold_of_loglog`'s antecedent, discharged from the socket, the
+regime, and ONE explicit cushion on the two carried opaque constants.
+
+⟦THE CUSHION IS THE HONEST HOLE⟧ `K_vt` (the `capFreeFloor3_margin_all_chi_vt` witness) has no
+effective bound anywhere in the corpus.  It is carried here under `32·K_vt + 32·D ≤ log H₊/4`,
+which at the terminal's regime (`3.2·A ≤ loglog H₋`, `162 ≤ A`) permits `K_vt ≤ e^{518}/128`.
+
+⟦AN INSTANCE OF THE RATED THRESHOLD⟧ `350·loglog H ≤ 1900·loglog H`, since `H ≥ 4·10⁶`. -/
+theorem cofkL_threshold_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} {Kvt D : ℝ}
+    (hb : SocketBaseL R M H L q j A s)
+    (hε : (1 : ℝ) / 500 ≤ (R.eps : ℝ))
+    (hlo : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)))
+    (hcush : 32 * Kvt + 32 * D ≤ Real.log (R.Hhi : ℝ) / 4) :
+    40 * Real.log (Real.log (Real.log (((A + s : ℕ)) : ℝ)))
+        + 350 * Real.log (Real.log (H : ℝ))
+        + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
+        + 2300 + 32 * Kvt + 32 * D
+      < Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
+  have hH : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast le_trans R.hHlo_floor hb.1
+  have hll : (0 : ℝ) ≤ Real.log (Real.log (H : ℝ)) :=
+    Real.log_nonneg (by linarith [cofk_log_big hH])
+  have hrated := cofkL_threshold_at_socket_rated hb hε hlo hcush
   linarith
 
 /-! ## §4 — ⟦THE ANCHOR-READING PART OF THE CO-FACTOR SUPPLY, DISCHARGED⟧

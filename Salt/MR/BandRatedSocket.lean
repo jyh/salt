@@ -102,7 +102,7 @@ theorem cofkL_scale_gate_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} [NeZ
     (hlo : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)))
     (harc : (q : ℝ) ≤ arcDen 12 H) :
     32 * diskConst q / goldenL1 q ≤ Real.log (((A + s : ℕ)) : ℝ) := by
-  -- ⟦the design floor, unwound⟧ — as in `cofkL_threshold_at_socket`
+  -- ⟦the design floor, unwound⟧ — as in `cofkL_threshold_at_socket_rated`
   have h1 : R.Hlo ≤ H := hb.1
   have h2 : H ≤ R.Hhi := hb.2.1
   have hHlo4 : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
@@ -177,99 +177,8 @@ theorem cofkL_scale_gate_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} [NeZ
 
 /-! ## §2 — the threshold at the socket, at the rated coefficient -/
 
-set_option maxHeartbeats 1000000 in
--- the `_vt` threshold's five legs are bracketed against `√(log H₊)` in one simplex, as in the
--- landed `cofkL_threshold_at_socket`
-/-- **⟦THE THRESHOLD AT THE LINEAR SOCKET, RATED⟧** (`cofkL_threshold_at_socket_rated`).
-`BandRatedAssembly.pieceFloor_vt_threshold_of_loglog_rated`'s antecedent, discharged from the
-socket, the regime, and ⟦THE SAME CUSHION THE LANDED SOCKET USES⟧ — `32·K_vt + 32·D ≤ log H₊/4`,
-byte-identical to `cofkL_threshold_at_socket`'s.
-
-⭐ **THAT THE CUSHION IS UNCHANGED IS THE POINT OF THE LEMMA.**  Rating the band constant raises
-the `loglog H` coefficient `350 → 1900`; the socket's margin is `√(log H₊)` against `log H₊`, so
-the legs go from `1180·√(log H₊)` to `4280·√(log H₊)` and the close still has four orders of
-room. -/
-theorem cofkL_threshold_at_socket_rated {R : ChowlaRegime} {M H L q j A s : ℕ} {Kvt D : ℝ}
-    (hb : SocketBaseL R M H L q j A s)
-    (hε : (1 : ℝ) / 500 ≤ (R.eps : ℝ))
-    (hlo : (518 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)))
-    (hcush : 32 * Kvt + 32 * D ≤ Real.log (R.Hhi : ℝ) / 4) :
-    40 * Real.log (Real.log (Real.log (((A + s : ℕ)) : ℝ)))
-        + 1900 * Real.log (Real.log (H : ℝ))
-        + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
-        + 2300 + 32 * Kvt + 32 * D
-      < Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
-  have h1 : R.Hlo ≤ H := hb.1
-  have h2 : H ≤ R.Hhi := hb.2.1
-  have hHlo4 : (4000000 : ℝ) ≤ (R.Hlo : ℝ) := by exact_mod_cast R.hHlo_floor
-  have hlogHlo : (14 : ℝ) ≤ Real.log (R.Hlo : ℝ) := cofk_log_big hHlo4
-  have hexp : Real.exp (518 : ℝ) ≤ Real.log (R.Hlo : ℝ) := by
-    have h := Real.exp_le_exp.mpr hlo
-    rwa [Real.exp_log (by linarith)] at h
-  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := by
-    have h := cofk_exp_quartic (u := (518 : ℝ)) (by norm_num)
-    have hnum : (290029400 : ℝ) ≤ (1 + (518 : ℝ) / 4) ^ 4 := by norm_num
-    linarith
-  have hlogHlo8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hlo : ℝ) := by linarith
-  have hHloH : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast h1
-  have hHHhi : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
-  have hH4 : (4000000 : ℝ) ≤ (H : ℝ) := by linarith
-  have hHlo0 : (0 : ℝ) < (R.Hlo : ℝ) := by linarith
-  have hlogH : Real.log (R.Hlo : ℝ) ≤ Real.log (H : ℝ) := Real.log_le_log hHlo0 hHloH
-  have hlogHhi : Real.log (H : ℝ) ≤ Real.log (R.Hhi : ℝ) :=
-    Real.log_le_log (by linarith) hHHhi
-  have hLH8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hhi : ℝ) := by linarith
-  have hlogH1 : (1 : ℝ) < Real.log (H : ℝ) := by linarith
-  have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by linarith
-  have hHhi14 : (10 : ℝ) ^ 14 ≤ (R.Hhi : ℝ) := by
-    have hlogle : Real.log ((10 : ℝ) ^ 14) ≤ Real.log (R.Hhi : ℝ) := by
-      rw [show ((10 : ℝ) ^ 14) = (10 : ℝ) ^ (14 : ℕ) by norm_num, Real.log_pow]
-      push_cast
-      linarith [cofk_log_ten_le, hLH8]
-    have h2' := Real.exp_le_exp.mpr hlogle
-    rwa [Real.exp_log (by positivity), Real.exp_log hHhi0] at h2'
-  -- ⟦THE `μ`-FLOOR⟧
-  have hmu := cofkL_mu_floor hb hε hHhi14 hH4
-  set μ : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hμdef
-  set LH : ℝ := Real.log (R.Hhi : ℝ) with hLHdef
-  have hμ : LH - 14 ≤ μ := hmu
-  have hμbig : (10 : ℝ) ^ 8 - 14 ≤ μ := by linarith
-  have hμ0 : (0 : ℝ) < μ := by nlinarith
-  -- ⟦the `logloglog` leg⟧ `40·log μ ≤ μ/4`
-  have hlogμ : Real.log μ ≤ 2 * Real.sqrt μ - 2 := cofk_log_le_two_sqrt hμ0
-  have hsμ : (320 : ℝ) ≤ Real.sqrt μ := by
-    have h1' : Real.sqrt ((320 : ℝ) ^ 2) ≤ Real.sqrt μ := Real.sqrt_le_sqrt (by nlinarith)
-    rwa [Real.sqrt_sq (by norm_num)] at h1'
-  have hsμ0 : (0 : ℝ) ≤ Real.sqrt μ := Real.sqrt_nonneg _
-  have hsμsq : Real.sqrt μ * Real.sqrt μ = μ := Real.mul_self_sqrt hμ0.le
-  have hprodμ : 320 * Real.sqrt μ ≤ μ := by nlinarith [hsμ, hsμsq, hsμ0]
-  have hleg1 : 40 * Real.log μ ≤ μ / 4 := by linarith
-  -- ⟦the `loglog H` legs⟧ dominated by `4280·√(log H₊)`
-  have hΛ : Real.log (Real.log (H : ℝ)) ≤ Real.log LH :=
-    Real.log_le_log (by linarith) hlogHhi
-  have hLH0 : (0 : ℝ) < LH := by linarith
-  have hlogLH : Real.log LH ≤ 2 * Real.sqrt LH - 2 := cofk_log_le_two_sqrt hLH0
-  have hΛ0 : (0 : ℝ) ≤ Real.log (Real.log (H : ℝ)) := Real.log_nonneg (by linarith)
-  have hv : (10 : ℝ) ^ 4 ≤ Real.sqrt LH := by
-    have h1' : Real.sqrt (((10 : ℝ) ^ 4) ^ 2) ≤ Real.sqrt LH := Real.sqrt_le_sqrt (by nlinarith)
-    rwa [Real.sqrt_sq (by norm_num)] at h1'
-  have hv0 : (0 : ℝ) ≤ Real.sqrt LH := Real.sqrt_nonneg _
-  have hvsq : Real.sqrt LH * Real.sqrt LH = LH := Real.mul_self_sqrt hLH0.le
-  have hprodv : (10 : ℝ) ^ 4 * Real.sqrt LH ≤ LH := by nlinarith [hv, hvsq, hv0]
-  have hlogterm : Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
-      ≤ 6 + 24 * Real.sqrt LH := by
-    have hpos : (0 : ℝ) < 7 + 12 * Real.log (Real.log (H : ℝ)) := by linarith
-    have hsub : Real.log (7 + 12 * Real.log (Real.log (H : ℝ)))
-        ≤ 7 + 12 * Real.log (Real.log (H : ℝ)) - 1 :=
-      Real.log_le_sub_one_of_pos hpos
-    linarith
-  have hleg2 : 1900 * Real.log (Real.log (H : ℝ))
-      + 20 * Real.log (7 + 12 * Real.log (Real.log (H : ℝ))) + 2300
-      ≤ 4280 * Real.sqrt LH + 2420 := by linarith
-  -- ⟦the close⟧
-  have hmargin : 4280 * Real.sqrt LH + 2420 + LH / 4 < μ / 2 + μ / 4 := by
-    nlinarith [hprodv, hv, hμ, hv0]
-  linarith
+-- `cofkL_threshold_at_socket_rated` lives in `RegisterSupply`, above `cofkL_threshold_at_socket`,
+-- which is its instance at the coefficient `350 ≤ 1900`.
 
 /-! ## §3 — the exit: the rated cap-free floor at the linear anchors -/
 
