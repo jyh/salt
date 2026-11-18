@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `89fd4aa9` · source digest `748edfb1f94dff56` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `39b8574f` · source digest `f83f3e4c286490cc` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -1608,11 +1608,11 @@ Declarations indexed across the tree: 23440 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.towerWS_const` | Salt/Entropy/Chowla/TowerShape.lean:460 | entropy |
 | `Salt.Entropy.Chowla.towerDropSumShape_const` | Salt/Entropy/Chowla/TowerShape.lean:467 | entropy |
 | `Salt.Entropy.Chowla.towerShape_flat_le` | Salt/Entropy/Chowla/TowerShape.lean:483 | entropy |
-| `Salt.Entropy.Chowla.badSet_transport` | Salt/Entropy/Chowla/Transport.lean:69 | characters, entropy |
-| `Salt.Entropy.Chowla.badSet_transport_at_calibration` | Salt/Entropy/Chowla/Transport.lean:128 | characters, entropy |
-| `Salt.Entropy.Chowla.badSet_h_one` | Salt/Entropy/Chowla/Transport.lean:211 | entropy |
-| `Salt.Entropy.Chowla.badSet_transport_h` | Salt/Entropy/Chowla/Transport.lean:243 | characters, entropy |
-| `Salt.Entropy.Chowla.badSet_transport_at_calibration_h` | Salt/Entropy/Chowla/Transport.lean:302 | characters, entropy |
+| `Salt.Entropy.Chowla.badSet_h_one` | Salt/Entropy/Chowla/Transport.lean:90 | entropy |
+| `Salt.Entropy.Chowla.badSet_transport_h` | Salt/Entropy/Chowla/Transport.lean:122 | characters, entropy |
+| `Salt.Entropy.Chowla.badSet_transport_at_calibration_h` | Salt/Entropy/Chowla/Transport.lean:181 | characters, entropy |
+| `Salt.Entropy.Chowla.badSet_transport` | Salt/Entropy/Chowla/Transport.lean:244 | characters, entropy |
+| `Salt.Entropy.Chowla.badSet_transport_at_calibration` | Salt/Entropy/Chowla/Transport.lean:274 | characters, entropy |
 | `Salt.Entropy.Chowla.weakUniform_generic` | Salt/Entropy/Chowla/WeakUniform.lean:139 | entropy |
 | `Salt.Entropy.Chowla.weakUniform_spine` | Salt/Entropy/Chowla/WeakUniform.lean:184 | characters, entropy |
 | `Salt.Entropy.Chowla.primeWindow_card_le_of_regime` | Salt/Entropy/Chowla/WindowCount.lean:47 | entropy |
@@ -9258,7 +9258,7 @@ Declarations indexed across the tree: 23440 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.regimeShrinkX_stride_J_b9` | Salt/Entropy/Chowla/StridePair.lean:1075 | entropy |
 | `Salt.Entropy.Chowla.shiftCorrAff` | Salt/Entropy/Chowla/StrideReduce.lean:272 | entropy |
 | `Salt.Entropy.Chowla.shiftCorrAff_base` | Salt/Entropy/Chowla/StrideReduce.lean:278 | characters, entropy |
-| `Salt.Entropy.Chowla.badSet_h` | Salt/Entropy/Chowla/Transport.lean:197 | entropy |
+| `Salt.Entropy.Chowla.badSet_h` | Salt/Entropy/Chowla/Transport.lean:76 | entropy |
 | `Salt.Goldbach.goldPs_nu_eq` | Salt/Goldbach/Density.lean:351 | sieves |
 | `Salt.Goldbach.goldOmegaPrimeSum_decomp` | Salt/Goldbach/Omega.lean:122 | sieves |
 | `Salt.Goldbach.goldBlockHonestDiscW_eq_sum_pieces` | Salt/Goldbach/SW2.lean:143 | sieves |
