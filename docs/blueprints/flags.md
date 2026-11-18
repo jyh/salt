@@ -23409,7 +23409,7 @@ cost a census and not a wave.
   `chi_floor_band_uniform` → `chi_Llower_band_uniform`, **a bare induction-max over every
   modulus `q ≤ Q`** (`SiegelBand.lean:36`: *"no known growth rate in `Q`"*). The cushion's own
   docstring already says *"has no effective bound anywhere in the corpus"*
-  (`RegisterSupply.lean:481`);
+  (`RegisterSupply.lean:572`);
 * `Kvk`/`Kbulk` **are** effective — Wave K's stones (`cpeel_le_two`, `primeTailConst_le_27`,
   salt `aa66b675`) bottom them out. **The band arm is the whole blocker.**
 
