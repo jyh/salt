@@ -275,12 +275,6 @@ theorem vk_window_prefix {k r P Y N : ℕ} {t ρ : ℝ} {js : ℕ}
 
 /-! ## The per-scale prefix discharge (schedule witness) -/
 
-/-- Exp-monotone (copy of `Window.vk_exp_mono_le`, private). -/
-private lemma vk_exp_mono_le {A B : ℝ} (hA : 0 < A) (hB : 0 < B)
-    (h : Real.log A ≤ Real.log B) : A ≤ B := by
-  have := Real.exp_le_exp.mpr h
-  rwa [Real.exp_log hA, Real.exp_log hB] at this
-
 set_option maxHeartbeats 1600000 in
 -- The ~30 margin discharges (copied from `vk_window_scale`) exceed the default budget.
 /-- **Prefix per-scale theorem** — prefix-of-window analogue of `vk_window_scale`.  Same schedule
