@@ -742,19 +742,36 @@ theorem h_le_1096_of_hh7 {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
   have : (h : ℝ) < 1097 := by linarith
   exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
 
-/-- **⟦THE ARM'S LOG AT SHIFT `h`⟧** (`s15Arm_log_le` at `h`) — the landed bound plus `log h`,
-off `s15ArmH_le_mul`.
+set_option exponentiation.threshold 4000 in
+/-- **⟦THE SHIFT IS BOUNDED BY ITS OWN BINDER, AT `14`⟧ (class A)** — the twin of
+`h_le_1096_of_hh7` (`S16ProducersH.lean`) at the raised cap: `e^14 = 1202604.284…`, so
+`h ≤ 1202604`.  Every numeral in this module is stated against this one.  BODY: the landed
+proof's shape with `Real.exp_one_lt_d9` raised to the `14`th instead of the `7`th. -/
+theorem h_le_1202604_of_hh14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) :
+    h ≤ 1202604 := by
+  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
+  have hhle : (h : ℝ) ≤ Real.exp 14 := by
+    rw [← Real.exp_log hh0]; exact Real.exp_le_exp.mpr hh14
+  have he14 : Real.exp 14 < 1202605 := by
+    have h3 : Real.exp 14 = (Real.exp 1) ^ (14 : ℕ) := by
+      rw [← Real.exp_nat_mul]; norm_num
+    have h4 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+    have h5 : (Real.exp 1) ^ (14 : ℕ) < (2.7182818286 : ℝ) ^ (14 : ℕ) :=
+      pow_lt_pow_left₀ h4 (Real.exp_pos 1).le (by norm_num)
+    have h6 : (2.7182818286 : ℝ) ^ (14 : ℕ) < 1202605 := by norm_num
+    rw [h3]; linarith
+  have : (h : ℝ) < 1202605 := by linarith
+  exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
 
-⭐ **RESPELLED IN PLACE 2026-09-01 (wave H1 word 2) — THIS LEMMA WAS THE δ₀-PIN SEAM.**  It
-carried the `h = 1` numeral `1/838400 ≤ δ₀` while wave X's exit can only export
-`1/(838400·h²) ≤ δ₀` (forced: the head takes `δ₀ = cD3/(16C)·ε/4` with `C ≤ 6.55h` and
-`ε = 1/(500h)`, so `δ₀ ≍ h⁻²`).  At `h ≥ 2` the pin supplied did not discharge the pin demanded,
-and NO GATE IN THE REPOSITORY COULD SEE IT: both numerals sit in hypotheses of conditional
-statements.  It is now stated at the pin the `h` lane actually exports, routed through
-`XThread.s15Arm_log_le_scaled` at `c = h²`, and the conclusion is at the re-cut `H₊/10^20`.
-The `117` `h = 1` sites are untouched (iron rule 5); this was the ONLY `h`-lane name carrying
-the unscaled pin, and it had zero kernel consumers. -/
-theorem s15ArmH_log_le {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {δ₀ Kc : ℝ}
+set_option exponentiation.threshold 4000 in
+/-- **⟦THE ARM'S LOG AT SHIFT `h`, UNGRADED PIN, AT THE RAISED CAP⟧ (class A)** —
+`s15ArmH_log_le` (`S16ProducersH.lean`) with `hh7 : log h ≤ 7 ↦ hh14 : log h ≤ 14`;
+conclusion unchanged.  Routed through `s15Arm_log_le_scaled_g14` at `c = h²`: `hcb` is
+`h² ≤ 1202604² = 1446256380816 ≤ 2961933067911168` (a factor `2048` of room — exactly the `2^11`
+the graded pin spends) and `hlogc` is `2·log h ≤ 28 ≤ 36`.  **A NEW name with its OWN binder;
+`s15ArmH_log_le` was untouched at landing;** since 2026-11-17 it is this
+lemma's instance at `log h ≤ 7 ≤ 14`, and both live in `S16ProducersH`. -/
+theorem s15ArmH_log_le_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) {δ₀ Kc : ℝ}
     (hδ₀ : 0 < δ₀) (hδpin : 1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀)
     (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) {Hhi ω : ℕ}
     (hHhi : 4000000 ≤ Hhi) (hΛ : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
@@ -762,11 +779,11 @@ theorem s15ArmH_log_le {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {
       ≤ Real.log ((ω : ℕ) : ℝ) + Real.log (h : ℝ) + ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
   have hh1R : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
   have hc1 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hh1R]
-  have h1096 : (h : ℝ) ≤ 1096 := by exact_mod_cast h_le_1096_of_hh7 hh hh7
-  have hcb : (h : ℝ) ^ 2 ≤ 1201216 := by nlinarith [hh1R, h1096]
-  have hlogc : Real.log ((h : ℝ) ^ 2) ≤ 14 := by
+  have h1202604 : (h : ℝ) ≤ 1202604 := by exact_mod_cast h_le_1202604_of_hh14 hh hh14
+  have hcb : (h : ℝ) ^ 2 ≤ 2961933067911168 := by nlinarith [hh1R, h1202604]
+  have hlogc : Real.log ((h : ℝ) ^ 2) ≤ 36 := by
     rw [Real.log_pow]; push_cast; linarith
-  have hbase := s15Arm_log_le_scaled hc1 hcb hlogc hδ₀ hδpin hKc hKcb (ω := ω) hHhi hΛ
+  have hbase := s15Arm_log_le_scaled_g14 hc1 hcb hlogc hδ₀ hδpin hKc hKcb (ω := ω) hHhi hΛ
   have hle := s15ArmH_le_mul hh δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω
   have hleR : ((s15ArmH h δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
       ≤ (h : ℝ) * ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ) := by
@@ -790,6 +807,30 @@ theorem s15ArmH_log_le {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {
     have hlog := Real.log_le_log hposR hleR
     rw [Real.log_mul hhR.ne' hbpos.ne'] at hlog
     linarith
+
+/-- **⟦THE ARM'S LOG AT SHIFT `h`⟧** (`s15Arm_log_le` at `h`) — the landed bound plus `log h`,
+off `s15ArmH_le_mul`.
+
+⭐ **RESPELLED IN PLACE 2026-09-01 (wave H1 word 2) — THIS LEMMA WAS THE δ₀-PIN SEAM.**  It
+carried the `h = 1` numeral `1/838400 ≤ δ₀` while wave X's exit can only export
+`1/(838400·h²) ≤ δ₀` (forced: the head takes `δ₀ = cD3/(16C)·ε/4` with `C ≤ 6.55h` and
+`ε = 1/(500h)`, so `δ₀ ≍ h⁻²`).  At `h ≥ 2` the pin supplied did not discharge the pin demanded,
+and NO GATE IN THE REPOSITORY COULD SEE IT: both numerals sit in hypotheses of conditional
+statements.  It is now stated at the pin the `h` lane actually exports, routed through
+`XThread.s15Arm_log_le_scaled` at `c = h²`, and the conclusion is at the re-cut `H₊/10^20`.
+The `117` `h = 1` sites are untouched (iron rule 5); this was the ONLY `h`-lane name carrying
+the unscaled pin, and it had zero kernel consumers.
+
+⟦AN INSTANCE⟧ since 2026-11-17: `s15ArmH_log_le_14` above at `log h ≤ 7 ≤ 14`.  The route
+described here (`s15Arm_log_le_scaled` at `c = h²`) is now that lemma's, through its twin
+`s15Arm_log_le_scaled_g14`. -/
+theorem s15ArmH_log_le {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {δ₀ Kc : ℝ}
+    (hδ₀ : 0 < δ₀) (hδpin : 1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀)
+    (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) {Hhi ω : ℕ}
+    (hHhi : 4000000 ≤ Hhi) (hΛ : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
+    Real.log ((s15ArmH h δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
+      ≤ Real.log ((ω : ℕ) : ℝ) + Real.log (h : ℝ) + ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+  exact s15ArmH_log_le_14 hh (by linarith) hδ₀ hδpin hKc hKcb hHhi hΛ
 
 /-- **⟦THE `ρ`-FRAME AT THE INFLATED SOCKET⟧** (`s15_doorArithFrameRho_L_at_socket''` at
 `SocketBaseLH h`) — the landed proof with the arm read at `ω ↦ h·ω`: the socket's

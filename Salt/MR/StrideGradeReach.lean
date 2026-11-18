@@ -131,25 +131,7 @@ theorem reach14_countpin_refuses_stride_two : ¬ (2 * 1202604 ≤ 2261670) := by
 
 /-! ## §1 — THE CAP CONVERTER AT `14` (`h_le_1096_of_hh7`'s twin) -/
 
-/-- **⟦THE SHIFT IS BOUNDED BY ITS OWN BINDER, AT `14`⟧ (class A)** — the twin of
-`h_le_1096_of_hh7` (`S16ProducersH.lean`) at the raised cap: `e^14 = 1202604.284…`, so
-`h ≤ 1202604`.  Every numeral in this module is stated against this one.  BODY: the landed
-proof's shape with `Real.exp_one_lt_d9` raised to the `14`th instead of the `7`th. -/
-theorem h_le_1202604_of_hh14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) :
-    h ≤ 1202604 := by
-  have hh0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-  have hhle : (h : ℝ) ≤ Real.exp 14 := by
-    rw [← Real.exp_log hh0]; exact Real.exp_le_exp.mpr hh14
-  have he14 : Real.exp 14 < 1202605 := by
-    have h3 : Real.exp 14 = (Real.exp 1) ^ (14 : ℕ) := by
-      rw [← Real.exp_nat_mul]; norm_num
-    have h4 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
-    have h5 : (Real.exp 1) ^ (14 : ℕ) < (2.7182818286 : ℝ) ^ (14 : ℕ) :=
-      pow_lt_pow_left₀ h4 (Real.exp_pos 1).le (by norm_num)
-    have h6 : (2.7182818286 : ℝ) ^ (14 : ℕ) < 1202605 := by norm_num
-    rw [h3]; linarith
-  have : (h : ℝ) < 1202605 := by linarith
-  exact_mod_cast Nat.lt_succ_iff.mp (by exact_mod_cast this)
+-- `h_le_1202604_of_hh14` lives in `S16ProducersH`, beside `h_le_1096_of_hh7`.
 
 /-! ## §2 — WALL 2, AND IT IS THE ONE THAT IS NOT A NUMERAL
 
@@ -253,48 +235,8 @@ ceiling is `1.4463·10^12` and `log c ≤ 28`, both comfortably inside §4's `29
 `36`.  ⇒ **the wide ceiling covers BOTH pins**, which is why this is four lines of instantiation
 and not a second body. -/
 
-/-- **⟦THE ARM'S LOG AT SHIFT `h`, UNGRADED PIN, AT THE RAISED CAP⟧ (class A)** —
-`s15ArmH_log_le` (`S16ProducersH.lean`) with `hh7 : log h ≤ 7 ↦ hh14 : log h ≤ 14`;
-conclusion unchanged.  Routed through `s15Arm_log_le_scaled_g14` at `c = h²`: `hcb` is
-`h² ≤ 1202604² = 1446256380816 ≤ 2961933067911168` (a factor `2048` of room — exactly the `2^11`
-the graded pin spends) and `hlogc` is `2·log h ≤ 28 ≤ 36`.  **A NEW name with its OWN binder;
-`s15ArmH_log_le` is untouched.** -/
-theorem s15ArmH_log_le_14 {h : ℕ} (hh : 0 < h) (hh14 : Real.log (h : ℝ) ≤ 14) {δ₀ Kc : ℝ}
-    (hδ₀ : 0 < δ₀) (hδpin : 1 / (838400 * (h : ℝ) ^ 2) ≤ δ₀)
-    (hKc : 0 < Kc) (hKcb : Kc ≤ 2 ^ 539) {Hhi ω : ℕ}
-    (hHhi : 4000000 ≤ Hhi) (hΛ : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
-    Real.log ((s15ArmH h δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
-      ≤ Real.log ((ω : ℕ) : ℝ) + Real.log (h : ℝ) + ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
-  have hh1R : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
-  have hc1 : (1 : ℝ) ≤ (h : ℝ) ^ 2 := by nlinarith [hh1R]
-  have h1202604 : (h : ℝ) ≤ 1202604 := by exact_mod_cast h_le_1202604_of_hh14 hh hh14
-  have hcb : (h : ℝ) ^ 2 ≤ 2961933067911168 := by nlinarith [hh1R, h1202604]
-  have hlogc : Real.log ((h : ℝ) ^ 2) ≤ 36 := by
-    rw [Real.log_pow]; push_cast; linarith
-  have hbase := s15Arm_log_le_scaled_g14 hc1 hcb hlogc hδ₀ hδpin hKc hKcb (ω := ω) hHhi hΛ
-  have hle := s15ArmH_le_mul hh δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω
-  have hleR : ((s15ArmH h δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ)
-      ≤ (h : ℝ) * ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ) := by
-    exact_mod_cast hle
-  have hω0 : 0 ≤ Real.log ((ω : ℕ) : ℝ) := Real.log_natCast_nonneg ω
-  have hh0 : 0 ≤ Real.log (h : ℝ) := Real.log_natCast_nonneg h
-  have hHhi0 : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by positivity
-  rcases Nat.eq_zero_or_pos (s15ArmH h δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω)
-    with hz | hpos
-  · rw [hz]; simp only [Nat.cast_zero, Real.log_zero]; linarith
-  · have hposR : (0 : ℝ)
-        < ((s15ArmH h δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ) := by
-      exact_mod_cast hpos
-    have hhR : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-    have hbpos : (0 : ℝ)
-        < ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ) := by
-      by_contra hcon
-      have hb0 : ((s15Arm δ₀ (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) Hhi ω : ℕ) : ℝ) ≤ 0 :=
-        not_lt.mp hcon
-      nlinarith [hleR, hposR, hhR, hb0]
-    have hlog := Real.log_le_log hposR hleR
-    rw [Real.log_mul hhR.ne' hbpos.ne'] at hlog
-    linarith
+-- `s15ArmH_log_le_14` lives in `S16ProducersH`, above `s15ArmH_log_le`, which is its instance
+-- (`log h ≤ 7 ≤ 14`).
 
 end Salt.MR
 

@@ -353,7 +353,8 @@ theorem s15Arm_log_le_scaled_g {c δ₀ Kc : ℝ} (hc1 : 1 ≤ c) (hcb : c ≤ 2
 
 /-- **⟦THE ARM'S LOG AT SHIFT `h`, GRADED⟧ (class A)** — `s15ArmH_log_le` (`S16ProducersH.lean`)
 with `hδpin` at `838400 * 2 ^ 11`; conclusion unchanged — the name the graded H2→H3 replay calls.
-BODY: `S16ProducersH.lean` · `s15ArmH_log_le` verbatim (`hh1R` … the closing `linarith`) with `hcb : (2 ^ 11
+BODY: `S16ProducersH.lean` · `s15ArmH_log_le`'s body as landed (since 2026-11-17 it is
+`s15ArmH_log_le_14`'s, at `14`) verbatim (`hh1R` … the closing `linarith`) with `hcb : (2 ^ 11
 : ℝ) * h² ≤ 2460090368` (from `h1096 : h ≤ 1096`; ⚠ EXACT — `2^11·1096² = 2460090368`, zero
 margin, safe only because `h_le_1096_of_hh7` is itself the exact `⌊e^7⌋` bound),
 `hlogc : log (2 ^ 11 * h²) ≤ 22` (`Real.log_mul`, `Real.log_pow` twice, `11·log 2 < 7.6247`,

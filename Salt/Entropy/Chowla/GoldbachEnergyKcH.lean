@@ -98,7 +98,7 @@ theorem h_le_1096_of_log_le_seven {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : �
 /-- **⟦THE SHIFT'S `ℕ` BOUND AT THE RAISED CAP⟧ (class A)** — the `log h ≤ 14` twin of
 `h_le_1096_of_log_le_seven`, for the `h`-cap reach (council 2026-09-08 ruling ⑤, "(B)":
 target `h ≤ 10⁶`).  `e^14 = 1202604.284…`, so `h ≤ ⌊e^14⌋ = 1202604`, which clears `10⁶` by
-`1.2026×`.  ⚠️ `Salt.MR.h_le_1202604_of_hh14` (`StrideGradeReach.lean`) is the MR-side twin of
+`1.2026×`.  ⚠️ `Salt.MR.h_le_1202604_of_hh14` (`S16ProducersH.lean`) is the MR-side twin of
 this, for the same reason the `7` pair is duplicated: the MR side imports Entropy and not the
 reverse.  **This is a NEW name with its OWN binder — `h_le_1096_of_log_le_seven` is untouched and
 every one of its consumers is unaffected.**  BODY: the sibling's, at the `14`th power. -/
