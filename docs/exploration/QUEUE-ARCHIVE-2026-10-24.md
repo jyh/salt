@@ -6255,7 +6255,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    lane; recorded because **a pin is an antecedent: at the wrong value it does not FAIL, it
    DISAPPEARS**, and a vacuous supplier is indistinguishable from an absent one at every gate.
    📌 **(iii) the `h ≤ 1096` crossing, per lemma:** E reads `Salt.MR.h_le_1096_of_hh7`
-   (`S16ProducersH:821`) at ONE site, `klevF_capNumeral_h`; every other E leg needs only its own
+   (`S16ProducersH:774`) at ONE site, `klevF_capNumeral_h`; every other E leg needs only its own
    `hh7` binder.
    ⭐⭐ **AND THE PRIZE IS PINNED TO THE LANDED OBJECT BY A THEOREM:**
    `logChowla2_v7_rated_h_one` derives a hand-retyped copy of `V7Rated:896`'s statement from
