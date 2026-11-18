@@ -769,13 +769,14 @@ theorem hRHS_socket_star {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ �
 
 /-! ### FS-5c′ — the crown, uniform in the centre (moved from `SupStation` §2, O13-e row 252)
 
-The statement only is new: the proof is the crown's own, replayed with the `∃ X₀` hoisted over
-the centre `t₁`, on `CenterSupply.ball_sup_supplied_uniform`.  The crown FS-5c below is its
-instance at a fixed `t₁`.
+The statement only is new: the proof is the one the crown FS-5c (below) carried until row 252,
+replayed with the `∃ X₀` hoisted over the centre `t₁`, on
+`CenterSupply.ball_sup_supplied_uniform`.  The crown is now its instance at a fixed `t₁`.
 -/
 
 set_option maxHeartbeats 800000 in
--- As at `FarStar.ball_sup_closed_star`: the crown's binder block is instantiated wholesale.
+-- The crown's binder block is instantiated wholesale (eight sockets, five pin expressions
+-- each); the unification exceeds the default budget, as at `FarClose.ball_sup_closed`.
 /-- **THE CROWN AT `T*`, UNIFORM IN THE CENTRE (`ball_sup_closed_star_uniform`).**
 `FarStar.ball_sup_closed_star` with `∃ X₀` hoisted over `t₁`.  Its proof consumes
 `ball_sup_supplied` (now hoisted) and `FarStar.hRHS_socket_star`, which carries no threshold
@@ -819,9 +820,6 @@ theorem ball_sup_closed_star_uniform {g : ℕ → ℂ} (hg : ∀ p, p.Prime → 
     (hRHS_socket_star hg hCb0 hCbound hXe hN2 hmin (hMcapX X le_rfl (by linarith)) hk64 hne
       hInt) hMcapX
 
-set_option maxHeartbeats 800000 in
--- The crown's binder block is instantiated wholesale (eight sockets, five pin expressions
--- each); the unification exceeds the default budget, as at `FarClose.ball_sup_closed`.
 /-- **FS-5c — THE CROWN AT `T*` (`ball_sup_closed_star`).**
 `FarClose.ball_sup_closed` with `Cfar := farCStar`, `R := seamGateRstar X T_ann`,
 `T k := T*(k, log k)`, `Kfar k := farKfarStar`, and its two carried sockets DISCHARGED: the
