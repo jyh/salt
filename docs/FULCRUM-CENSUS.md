@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `051c70f4` · source digest `7059bbc7b34cdb53` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `2579233a` · source digest `93b20cf93e6d1ad2` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -103,7 +103,7 @@ A FRAME is a bundle of order relations over its own parameters; ¬P is 'the para
 |---|---|---|---|---|---|
 | `Salt.Entropy.Chowla.logChowlaFails` | OPEN | HALF | 1 | 0/17/1 | `Salt.Entropy.Chowla.flat_head_uniform_h` (Salt/Entropy/Chowla/HloExportFlatH.lean:411), `Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat_h` (Salt/Entropy/Chowla/HloExportFlatH.lean:221) +16 |
 | `Salt.Entropy.Chowla.MRTUniformity` | OPEN | HALF | 8 | 0/0/6 | `Salt.Entropy.Chowla.contradiction_of_mrtDoor` (Salt/Entropy/Chowla/MRTDoor.lean:62), `Salt.Entropy.Chowla.log_chowla_two_conditional` (Salt/Entropy/Chowla/SpineClose.lean:28) +4 |
-| `Salt.Entropy.Chowla.MRTUniformityXiL2` | DISCHARGED | - | 30 | 0/0/6 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2` (Salt/Entropy/Chowla/MRTDoor.lean:205), `Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq` (Salt/Entropy/Chowla/Theorem23Shell.lean:362) +4 |
+| `Salt.Entropy.Chowla.MRTUniformityXiL2` | DISCHARGED | - | 30 | 0/0/6 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2` (Salt/Entropy/Chowla/MRTDoor.lean:205), `Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq` (Salt/Entropy/Chowla/Theorem23Shell.lean:516) +4 |
 | `Salt.MR.M4DoorGates` | DISCHARGED | - | 68 | 0/0/6 | `Salt.MR.m4_door_False_of_blockMeanSq` (Salt/MR/M4BridgeCover.lean:506), `Salt.MR.m4_door_False_of_live` (Salt/MR/M4Close.lean:555) +4 |
 | `Salt.MR.M4DoorGates_gk` | DISCHARGED | - | 57 | 0/0/5 | `Salt.MR.m4_door_False_of_blockMeanSq_gk` (Salt/MR/M4BridgeCover.lean:669), `Salt.MR.m4_door_False_of_live_gk` (Salt/MR/M4Close.lean:957) +3 |
 | `Salt.Entropy.Chowla.MRTUniformityXi` | DISCHARGED | - | 17 | 0/0/4 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXi` (Salt/Entropy/Chowla/MRTDoor.lean:132), `Salt.Entropy.Chowla.log_chowla_two_shell_xi` (Salt/Entropy/Chowla/Theorem23Shell.lean:243) +2 |
@@ -112,12 +112,12 @@ A FRAME is a bundle of order relations over its own parameters; ¬P is 'the para
 | `Salt.MR.M4GradeGate` | DISCHARGED | - | 15 | 0/0/4 | `Salt.MR.m4_door_False_of_blockMeanSq` (Salt/MR/M4BridgeCover.lean:506), `Salt.MR.m4_door_False_of_blockMeanSq_gk` (Salt/MR/M4BridgeCover.lean:669) +2 |
 | `Salt.MR.SocketBase` | DISCHARGED | - | 275 | 0/2/2 | `Salt.MR.s14_socket_empty_of_gRows` (Salt/MR/S14Compose.lean:288), `Salt.MR.s14_socket_empty_of_gRows_gk` (Salt/MR/S14Compose.lean:562) +2 |
 | `Salt.Chen.TripleP` | OPEN | HALF | 3 | 3/0/0 | `Salt.Chen.not_tripleP_30` (Salt/Chen/WeightFamily.lean:155), `Salt.Chen.not_tripleP_of_heavy` (Salt/Chen/TwinDeficit.lean:218) +1 |
-| `Salt.Entropy.Chowla.MRTUniformityXiL2H` | OPEN | HALF | 4 | 0/0/3 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2H` (Salt/Entropy/Chowla/ShiftFork.lean:579), `Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq_h` (Salt/Entropy/Chowla/Theorem23Shell.lean:627) +1 |
+| `Salt.Entropy.Chowla.MRTUniformityXiL2H` | OPEN | HALF | 4 | 0/0/3 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2H` (Salt/Entropy/Chowla/ShiftFork.lean:579), `Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq_h` (Salt/Entropy/Chowla/Theorem23Shell.lean:388) +1 |
 | `Salt.MR.CofactorBulkL` | OPEN | HALF | 3 | 2/1/0 | `Salt.MR.cofkL_bulk_infeasible` (Salt/MR/RegisterInhabit.lean:209), `Salt.MR.cofkL_bulk_infeasible_loglog` (Salt/MR/RegisterInhabit.lean:229) +1 |
 | `Salt.MR.TannGate` | DISCHARGED | - | 491 | 3/0/0 | `Salt.MR.TannGate_fails_polylog` (Salt/MR/USetPins.lean:380), `Salt.MR.TannGate_fails_polylog_deg` (Salt/MR/USetPins.lean:394) +1 |
 | `Salt.Parity.ParityInv` | DISCHARGED | - | 0 | 1/2/0 | `Salt.Certs.cert_parity_gap_witness` (Salt/Certs/ParityGap.lean:97), `Salt.Certs.cert_parity_gap` (Salt/Certs/ParityGap.lean:74) +1 |
 | `Salt.Chen.ProductInWindow` | DISCHARGED | - | 0 | 2/0/0 | `Salt.Chen.not_productInWindow_of_above` (Salt/Chen/SwitchStrip.lean:275), `Salt.Chen.not_productInWindow_of_below` (Salt/Chen/SwitchStrip.lean:268) |
-| `Salt.Entropy.Chowla.MRTUniformityXiH` | OPEN | - | 0 | 0/0/2 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiH` (Salt/Entropy/Chowla/ShiftFork.lean:345), `Salt.Entropy.Chowla.log_chowla_two_shell_xi_h` (Salt/Entropy/Chowla/Theorem23Shell.lean:488) |
+| `Salt.Entropy.Chowla.MRTUniformityXiH` | OPEN | - | 0 | 0/0/2 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiH` (Salt/Entropy/Chowla/ShiftFork.lean:345), `Salt.Entropy.Chowla.log_chowla_two_shell_xi_h` (Salt/Entropy/Chowla/Theorem23Shell.lean:595) |
 | `Salt.MR.BlockSmallG` | DISCHARGED | - | 0 | 2/0/0 | `Salt.MR.mem_UsetGChi` (Salt/MR/USetGChi.lean:110), `Salt.MR.not_blockSmallG_pred_of_mem_TsetG` (Salt/MR/TLegCover.lean:99) |
 | `Salt.MR.DoorRowCarriedT0` | OPEN | HALF | 7 | 0/0/2 | `Salt.MR.m4_wave_closed_coprime_discharged_False` (Salt/MR/M4Collapse.lean:254), `Salt.MR.m4_wave_collapsed_False` (Salt/MR/M4BaseNarrow.lean:1233) |
 | `Salt.MR.DoorRowCarriedT0_L` | OPEN | HALF | 7 | 0/0/2 | `Salt.MR.m4_wave_closed_coprime_discharged_False_L` (Salt/MR/M4RowAssemblyLinear.lean:517), `Salt.MR.m4_wave_collapsed_False_L` (Salt/MR/M4RowAssemblyLinear.lean:3862) |

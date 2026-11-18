@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `051c70f4` · source digest `7059bbc7b34cdb53` (the same digest as items 1–3).
-> Receipt: files 1414 · decls 23441 · with_body 23441 · tactic_lines 302419 · runs 35541 · blocks 1238.
+> Base: last commit touching `Salt/` = `2579233a` · source digest `93b20cf93e6d1ad2` (the same digest as items 1–3).
+> Receipt: files 1414 · decls 23441 · with_body 23441 · tactic_lines 302367 · runs 35533 · blocks 1238.
 
 ## LIMITS (read before any number below)
 
@@ -100,24 +100,24 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-302419 tactic lines. Top 30:
+302367 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 131770 | 43.6% |
-| 2 | `rw` | 48918 | 16.2% |
-| 3 | `exact` | 17448 | 5.8% |
+| 1 | `have` | 131751 | 43.6% |
+| 2 | `rw` | 48908 | 16.2% |
+| 3 | `exact` | 17447 | 5.8% |
 | 4 | `intro` | 14016 | 4.6% |
-| 5 | `refine` | 12738 | 4.2% |
-| 6 | `linarith` | 10368 | 3.4% |
+| 5 | `refine` | 12731 | 4.2% |
+| 6 | `linarith` | 10366 | 3.4% |
 | 7 | `obtain` | 9126 | 3.0% |
-| 8 | `calc` | 7782 | 2.6% |
-| 9 | `set` | 5450 | 1.8% |
+| 8 | `calc` | 7779 | 2.6% |
+| 9 | `set` | 5446 | 1.8% |
 | 10 | `simp` | 5150 | 1.7% |
 | 11 | `apply` | 4530 | 1.5% |
 | 12 | `nlinarith` | 3315 | 1.1% |
 | 13 | `unfold` | 2623 | 0.9% |
-| 14 | `exact_mod_cast` | 2399 | 0.8% |
+| 14 | `exact_mod_cast` | 2398 | 0.8% |
 | 15 | `rcases` | 2126 | 0.7% |
 | 16 | `ring` | 2054 | 0.7% |
 | 17 | `push_cast` | 1953 | 0.6% |
@@ -127,20 +127,20 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 21 | `norm_num` | 1487 | 0.5% |
 | 22 | `show` | 1268 | 0.4% |
 | 23 | `omega` | 1261 | 0.4% |
-| 24 | `classical` | 1244 | 0.4% |
+| 24 | `classical` | 1242 | 0.4% |
 | 25 | `rintro` | 1150 | 0.4% |
-| 26 | `congr` | 925 | 0.3% |
-| 27 | `simpa` | 922 | 0.3% |
+| 26 | `simpa` | 925 | 0.3% |
+| 27 | `congr` | 922 | 0.3% |
 | 28 | `positivity` | 790 | 0.3% |
 | 29 | `constructor` | 654 | 0.2% |
-| 30 | `haveI` | 543 | 0.2% |
+| 30 | `haveI` | 542 | 0.2% |
 
 ### Per method family (top 8 each)
 
 | family | tactic lines | top tactics |
 |---|---:|---|
-| circle method / Fourier | 2699 | `have` 950, `rw` 589, `refine` 207, `exact` 153, `intro` 135, `ring` 79, `simp` 72, `calc` 65 |
-| entropy decrement | 14991 | `have` 6015, `rw` 2632, `exact` 990, `intro` 565, `refine` 522, `simp` 463, `linarith` 440, `calc` 368 |
+| circle method / Fourier | 2670 | `have` 941, `rw` 582, `refine` 201, `exact` 153, `intro` 135, `ring` 79, `simp` 72, `calc` 62 |
+| entropy decrement | 14939 | `have` 5996, `rw` 2622, `exact` 989, `intro` 565, `refine` 515, `simp` 463, `linarith` 438, `calc` 365 |
 | large sieve | 1719 | `have` 560, `rw` 379, `intro` 108, `refine` 104, `exact` 101, `simp` 56, `apply` 53, `calc` 48 |
 | Selberg/Brun sieve | 70199 | `have` 30186, `rw` 12055, `exact` 3800, `intro` 3242, `apply` 2287, `calc` 2277, `refine` 1687, `linarith` 1453 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 34728 | `have` 15469, `rw` 6451, `exact` 1867, `intro` 1431, `refine` 1416, `linarith` 1100, `calc` 1076, `set` 854 |
