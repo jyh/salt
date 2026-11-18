@@ -2575,7 +2575,7 @@ theorem sum_sq_sum_bvWeight_le_full : ∃ C : ℝ, 0 < C ∧ ∀ z₁ z₂ : ℕ
 
 `λ_d = (log z₂·θ^{(z₂)}_d − log z₁·θ^{(z₁)}_d)/log(z₂/z₁)` (`BvWeight.lean:78`).  Until
 2026-11-18 the proof split it by `(u − v)² ≤ 2u² + 2v²` and applied S9 at both levels, which
-gives exactly this prefactor; the proof is now the instance below.
+gives exactly this prefactor; the proof is now the instance of `_full`, just above.
 
 ⚠ **`(z₂:ℝ)² ≤ x` is unsatisfiable at B2's ratified closure table** — see `GrahamMean`'s
 module docstring. This row is true, it lands, and B2 reads it at no scale until W6b-H lands.
