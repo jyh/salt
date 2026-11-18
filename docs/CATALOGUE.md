@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `e51ebf19` · source digest `0b3198f53691d06b` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `f6e7e4ec` · source digest `1d550fca0528f69b` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -6447,17 +6447,17 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.SW.sum_tailT_sq_le` | Salt/SW/GrahamHard3.lean:2217 | sieves |
 | `Salt.SW.grahamW_sum_le_full` | Salt/SW/GrahamHard3.lean:2423 | sieves |
 | `Salt.SW.sum_sq_sum_bvWeight_le_full` | Salt/SW/GrahamHard3.lean:2520 | sieves |
-| `Salt.SW.sum_sq_sum_bvWeight_le_low` | Salt/SW/GrahamHard3.lean:2581 | sieves |
+| `Salt.SW.sum_sq_sum_bvWeight_le` | Salt/SW/GrahamHard3.lean:2587 | sieves |
+| `Salt.SW.sum_sq_sum_bvWeight_le_low` | Salt/SW/GrahamHard3.lean:2604 | sieves |
 | `Salt.SW.grahamW_eq_sum_grahamGc` | Salt/SW/GrahamL2.lean:82 | sieves |
 | `Salt.SW.abs_grahamGc_le` | Salt/SW/GrahamL2.lean:173 | sieves |
 | `Salt.SW.graham_diagonalisation` | Salt/SW/GrahamL2.lean:230 | sieves |
-| `Salt.SW.sum_totient_innerG_sq_le` | Salt/SW/GrahamMean.lean:148 | sieves |
-| `Salt.SW.grahamW_sum_eq_floor` | Salt/SW/GrahamMean.lean:247 | sieves |
-| `Salt.SW.sum_grahamGc_div_eq` | Salt/SW/GrahamMean.lean:283 | sieves |
-| `Salt.SW.sum_abs_grahamTheta_le` | Salt/SW/GrahamMean.lean:364 | sieves |
-| `Salt.SW.sum_abs_grahamGc_le` | Salt/SW/GrahamMean.lean:406 | sieves |
-| `Salt.SW.grahamW_sum_le` | Salt/SW/GrahamMean.lean:483 | sieves |
-| `Salt.SW.sum_sq_sum_bvWeight_le` | Salt/SW/GrahamMean.lean:582 | sieves |
+| `Salt.SW.sum_totient_innerG_sq_le` | Salt/SW/GrahamMean.lean:149 | sieves |
+| `Salt.SW.grahamW_sum_eq_floor` | Salt/SW/GrahamMean.lean:248 | sieves |
+| `Salt.SW.sum_grahamGc_div_eq` | Salt/SW/GrahamMean.lean:284 | sieves |
+| `Salt.SW.sum_abs_grahamTheta_le` | Salt/SW/GrahamMean.lean:365 | sieves |
+| `Salt.SW.sum_abs_grahamGc_le` | Salt/SW/GrahamMean.lean:407 | sieves |
+| `Salt.SW.grahamW_sum_le` | Salt/SW/GrahamMean.lean:484 | sieves |
 | `Salt.SW.grahamTheta_floor` | Salt/SW/GrahamWeights.lean:131 | sieves |
 | `Salt.SW.sum_abs_grahamTheta_rpow_le` | Salt/SW/GrahamWeights.lean:156 | sieves |
 | `Salt.SW.LFunction_eq_growthSum` | Salt/SW/Growth.lean:359 | sieves |
