@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `89fd4aa9` · source digest `748edfb1f94dff56` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `c47a7db6` · source digest `a684fec2dc4faf27` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -4559,9 +4559,9 @@ Declarations indexed across the tree: 23440 · corpus Prop-valued names (the hyp
 | `Salt.MR.pretFloorShape_quarter_sq` | Salt/MR/MWindowExtend.lean:352 | characters |
 | `Salt.MR.Tstar_two_mul_le_quarter` | Salt/MR/MWindowExtend.lean:374 | characters |
 | `Salt.MR.seamGateRstar_le_two_mul` | Salt/MR/MWindowExtend.lean:442 | characters |
-| `Salt.MR.zeta_block_secondDeriv` | Salt/MR/MidBand.lean:81 | characters |
-| `Salt.MR.halasz_socket_midHigh` | Salt/MR/MidBand.lean:479 | characters |
-| `Salt.MR.halasz_socket` | Salt/MR/MidBand.lean:830 | characters |
+| `Salt.MR.zeta_block_secondDeriv` | Salt/MR/MidBand.lean:171 | characters |
+| `Salt.MR.halasz_socket_midHigh` | Salt/MR/MidBand.lean:418 | characters |
+| `Salt.MR.halasz_socket` | Salt/MR/MidBand.lean:769 | characters |
 | `Salt.MR.log_nat_nonneg` | Salt/MR/MinorArcCore.lean:88 | characters |
 | `Salt.MR.log_nat_mono` | Salt/MR/MinorArcCore.lean:94 | characters |
 | `Salt.MR.log_nat_monotone` | Salt/MR/MinorArcCore.lean:101 | characters |
@@ -8196,7 +8196,7 @@ Declarations indexed across the tree: 23440 · corpus Prop-valued names (the hyp
 | `Salt.MR.dirichlet_poly_l2_mvt` | Salt/MR/MVHilbert.lean:269 | characters | `Salt.MR.MVHilbertUniform` |
 | `Salt.MR.norm_hilbertLogSumS_le` | Salt/MR/MVHilbertFinset.lean:257 | characters | `Salt.MR.MVHilbertUniform` |
 | `Salt.MR.dpolyS_l2_mvt` | Salt/MR/MVHilbertFinset.lean:271 | characters | `Salt.MR.MVHilbertUniform` |
-| `Salt.MR.halasz_integers` | Salt/MR/MidBand.lean:879 | characters | `Salt.MR.WellSpaced` |
+| `Salt.MR.halasz_integers` | Salt/MR/MidBand.lean:818 | characters | `Salt.MR.WellSpaced` |
 | `Salt.MR.approx_reduced` | Salt/MR/MinorArcExit.lean:333 | characters | `¬Salt.MR.NearRatTight` |
 | `Salt.MR.exists_q_expSum_le` | Salt/MR/MinorArcExit.lean:895 | characters, exponential sums | `¬Salt.MR.NearRatTight` |
 | `Salt.MR.minorArcBoundTight_of_exitClose` | Salt/MR/MinorArcExit.lean:996 | characters | `Salt.MR.ExitClose` |
