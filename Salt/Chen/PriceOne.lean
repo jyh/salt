@@ -277,16 +277,17 @@ the strong one does (`X·M ≤ 2^{i+1}·M ≤ 2^{i+1}·(2·2^k) = 4·2^i·2^k �
 needed).  So we factor the raw-bounds core here: it takes `x/2+1 < X·M` and `X·M ≤ 4x`
 directly, reproducing `d0_window_nonempty`'s IDENTICAL 9-conjunct conclusion at the same `N`.
 The pieceN-boundary price lemmas call it with the weak corner in hand — there is NO degradation
-(the `4x` upper bound is unchanged).  `SqrtDFold`'s `d0_window_nonempty` is left untouched. -/
+(the `4x` upper bound is unchanged).  `SqrtDFold`'s `d0_window_nonempty` was left untouched
+(since 2026-11-17 it is an instance of `d0_window_nonempty_lo`, and this lemma of
+`d0_window_of_XM_lo` above). -/
 
-/-- **`d0_window_of_XM` (catch #71 repair core).**  The `D0`-window construction stripped of the
-boundary membership: from the raw scale facts `x/2+1 < X·M` and `X·M ≤ 4x` (which BOTH the strong
-`2^k`-corner and the weak pieceN-corner supply — see the section note), at the operating point
-(`x ≥ exp(10^9)`, block floor `x^{11/24}/8 ≤ N`) emits the IDENTICAL 9-conjunct conclusion of
-`SqrtDFold.d0_window_nonempty`.  Body verbatim `d0_window_nonempty` from the `L`-bounds onward. -/
-theorem d0_window_of_XM {x N M X : ℕ}
+/-- **`d0_window_of_XM_lo` (catch #71 repair core, strip floor).**  `d0_window_nonempty_lo` with the
+boundary membership replaced by the raw scale facts `x/2+1 < X·M`, `X·M ≤ 4x` (both delivered by
+the weak pieceN corner).  Block floor `x^{7/16}/8 ≤ N`; conclusion character-for-character
+`d0_window_nonempty_lo`'s (the `x`-scale conjunct kept at `x^{11/24}/8` via the bump). -/
+theorem d0_window_of_XM_lo {x N M X : ℕ}
     (hx : Real.exp (10 ^ 9) ≤ (x : ℝ))
-    (hNfloor : (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (N : ℝ))
+    (hNfloor : (x : ℝ) ^ ((7 : ℝ) / 16) / 8 ≤ (N : ℝ))
     (hXMlo : x / 2 + 1 < X * M)
     (hXMhi : X * M ≤ 4 * x) :
     ∃ D0 k0 : ℕ, D0 = 2 ^ k0 ∧ 2 ≤ D0
@@ -307,6 +308,7 @@ theorem d0_window_of_XM {x N M X : ℕ}
     linarith
   have hx2 : 2 ≤ x := by exact_mod_cast hxR2
   have hxpos : (0 : ℝ) < (x : ℝ) := by linarith
+  have hx1 : (1 : ℝ) ≤ (x : ℝ) := by linarith
   -- ② the scale facts (from the RAW bounds, in place of the boundary corner): `x/2 < X·M ≤ 4x`.
   have hXM : x / 2 + 1 < X * M := hXMlo
   have hXM4x : X * M ≤ 4 * x := hXMhi
@@ -319,8 +321,8 @@ theorem d0_window_of_XM {x N M X : ℕ}
   have hLpos : (0 : ℝ) < L := by linarith
   have hL4 : (4 : ℝ) ≤ L := by linarith
   have hL20 : (1048576 : ℝ) ≤ L := by linarith
-  -- ④ the block-floor log: `W := (11/24)·t − 7 ≤ log N`.
-  set W : ℝ := 11 / 24 * Real.log x - 7 with hWdef
+  -- ④ the block-floor log: `W := (7/16)·t − 7 ≤ log N`  (the WEAKENED strip floor).
+  set W : ℝ := 7 / 16 * Real.log x - 7 with hWdef
   have hWlogN : W ≤ Real.log N := by
     have hlogN := Real.log_le_log (div_pos (Real.rpow_pos_of_pos hxpos _) (by norm_num))
       hNfloor
@@ -336,7 +338,7 @@ theorem d0_window_of_XM {x N M X : ℕ}
   have hW4 : 4 * ((12 : ℝ) / 5) ^ ((17 : ℝ)) ≤ W := by
     have hc : ((12 : ℝ) / 5) ^ ((17 : ℝ)) = ((12 : ℝ) / 5) ^ (17 : ℕ) := by
       rw [show ((17 : ℝ)) = ((17 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-    have hnum : 4 * ((12 : ℝ) / 5) ^ (17 : ℕ) ≤ 11 / 24 * 10 ^ 9 - 7 := by norm_num
+    have hnum : 4 * ((12 : ℝ) / 5) ^ (17 : ℕ) ≤ 7 / 16 * 10 ^ 9 - 7 := by norm_num
     rw [hc, hWdef]
     linarith
   -- ⑤ the dyadic window: `D0 = 2^{k0} ∈ [L^{17}, 4·L^{17}]`.
@@ -350,7 +352,7 @@ theorem d0_window_of_XM {x N M X : ℕ}
     rw [Real.rpow_one] at hh
     rw [show (18 : ℝ) = 1 + 17 by norm_num, hh]
   have h17nn : (0 : ℝ) ≤ L ^ ((17 : ℝ)) := Real.rpow_nonneg hLnn _
-  -- ⑥ the `hD0N'` leg: `4·L^{17} ≤ W^{18}` (the anti-#64 margin).
+  -- ⑥ the `hD0N'` leg: `4·L^{17} ≤ W^{18}` (the Finding-3 anti-#64 margin, ≈ 37×).
   have hW18 : 4 * L ^ ((17 : ℝ)) ≤ W ^ ((18 : ℝ)) := by
     have hW17 : L ^ ((17 : ℝ)) ≤ ((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) := by
       calc L ^ ((17 : ℝ)) ≤ (12 / 5 * W) ^ ((17 : ℝ)) :=
@@ -367,7 +369,7 @@ theorem d0_window_of_XM {x N M X : ℕ}
         ≤ 4 * (((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ))) := by linarith
       _ = (4 * ((12 : ℝ) / 5) ^ ((17 : ℝ))) * W ^ ((17 : ℝ)) := by ring
       _ ≤ W * W ^ ((17 : ℝ)) := mul_le_mul_of_nonneg_right hW4 h17Wnn
-  -- ⑦ the `hD0N` leg: `W^{18} ≤ e^W ≤ x^{11/24}/8`.
+  -- ⑦ the `hD0N` leg: `W^{18} ≤ e^W ≤ x^{7/16}/8`  (SHARP at the strip floor).
   have hexpW : W ^ ((18 : ℝ)) ≤ Real.exp W := by
     have hunn : (0 : ℝ) ≤ W / 36 := by linarith
     have hquad : W ≤ (W / 36) ^ ((2 : ℝ)) := by
@@ -388,14 +390,19 @@ theorem d0_window_of_XM {x N M X : ℕ}
           rw [Real.rpow_def_of_pos (Real.exp_pos _), Real.log_exp]
           congr 1
           ring
-  have hexp_le : Real.exp W ≤ (x : ℝ) ^ ((11 : ℝ) / 24) / 8 := by
-    have hEW : Real.exp W = (x : ℝ) ^ ((11 : ℝ) / 24) / Real.exp 7 := by
+  have hexp_le : Real.exp W ≤ (x : ℝ) ^ ((7 : ℝ) / 16) / 8 := by
+    have hEW : Real.exp W = (x : ℝ) ^ ((7 : ℝ) / 16) / Real.exp 7 := by
       rw [hWdef, Real.exp_sub, Real.rpow_def_of_pos hxpos]
-      have hmul : Real.log (x : ℝ) * ((11 : ℝ) / 24) = 11 / 24 * Real.log x := by ring
+      have hmul : Real.log (x : ℝ) * ((7 : ℝ) / 16) = 7 / 16 * Real.log x := by ring
       rw [hmul]
     rw [hEW]
     have h7 : (8 : ℝ) ≤ Real.exp 7 := by linarith [Real.add_one_le_exp (7 : ℝ)]
     exact div_le_div_of_nonneg_left (Real.rpow_nonneg hxpos.le _) (by norm_num) h7
+  -- the `x`-scale bump: `x^{7/16}/8 ≤ x^{11/24}/8`  (`7/16 ≤ 11/24`, `x ≥ 1`).
+  have hxbump : (x : ℝ) ^ ((7 : ℝ) / 16) / 8 ≤ (x : ℝ) ^ ((11 : ℝ) / 24) / 8 := by
+    have hmono : (x : ℝ) ^ ((7 : ℝ) / 16) ≤ (x : ℝ) ^ ((11 : ℝ) / 24) :=
+      Real.rpow_le_rpow_of_exponent_le hx1 (by norm_num)
+    linarith [hmono]
   -- ⑧ emit the rows.
   have hcast : ((2 ^ k0 : ℕ) : ℝ) = (2 : ℝ) ^ k0 := by push_cast; ring
   refine ⟨2 ^ k0, k0, rfl, h2k0, ?_, hD0_lo, ?_, ?_, ?_, ?_, ?_⟩
@@ -411,7 +418,7 @@ theorem d0_window_of_XM {x N M X : ℕ}
     rw [hL18eq]
     have key : (0 : ℝ) ≤ (L - 4) * L ^ ((17 : ℝ)) := mul_nonneg (by linarith) h17nn
     linarith [hD0_hi, key]
-  · -- `hD0N'` (`D0 ≤ (log N)^{C0}`, `C0 = 18`)
+  · -- `hD0N'` (`D0 ≤ (log N)^{C0}`, `C0 = 18`) — the binding Finding-3 row
     have hmono : W ^ ((18 : ℝ)) ≤ (Real.log N) ^ ((18 : ℝ)) :=
       Real.rpow_le_rpow hWpos.le hWlogN (by norm_num)
     linarith [hD0_hi, hW18, hmono]
@@ -430,12 +437,37 @@ theorem d0_window_of_XM {x N M X : ℕ}
     have hmono : (L / 2) ^ ((18 : ℝ)) ≤ LE ^ ((18 : ℝ)) :=
       Real.rpow_le_rpow hhalfpos.le (by linarith) (by norm_num)
     linarith [hD0_hi]
-  · -- the `x`-scale bound (`D0 ≤ x^{11/24}/8`)
-    linarith [hD0_hi, hW18, hexpW, hexp_le]
-  · -- `hD0N` (`D0 ≤ N`)
+  · -- the `x`-scale bound (`D0 ≤ x^{11/24}/8`) — SAME conjunct as `d0_window_nonempty`, via bump
+    linarith only [hD0_hi, hW18, hexpW, hexp_le, hxbump]
+  · -- `hD0N` (`D0 ≤ N`) — SHARP off the strip floor `x^{7/16}/8 ≤ N`
     have hfin : ((2 ^ k0 : ℕ) : ℝ) ≤ (N : ℝ) := by
-      linarith [hD0_hi, hW18, hexpW, hexp_le, hNfloor]
+      linarith only [hD0_hi, hW18, hexpW, hexp_le, hNfloor]
     exact_mod_cast hfin
+
+/-- **`d0_window_of_XM` (catch #71 repair core).**  The `D0`-window construction stripped of the
+boundary membership: from the raw scale facts `x/2+1 < X·M` and `X·M ≤ 4x` (which BOTH the strong
+`2^k`-corner and the weak pieceN-corner supply — see the section note), at the operating point
+(`x ≥ exp(10^9)`, block floor `x^{11/24}/8 ≤ N`) emits the IDENTICAL 9-conjunct conclusion of
+`SqrtDFold.d0_window_nonempty`.  Body verbatim `d0_window_nonempty` from the `L`-bounds onward.
+
+⟦AN INSTANCE⟧ since 2026-11-17: `d0_window_of_XM_lo` above, at `x^(7/16) ≤ x^(11/24)` (`x ≥ 1`). -/
+theorem d0_window_of_XM {x N M X : ℕ}
+    (hx : Real.exp (10 ^ 9) ≤ (x : ℝ))
+    (hNfloor : (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (N : ℝ))
+    (hXMlo : x / 2 + 1 < X * M)
+    (hXMhi : X * M ≤ 4 * x) :
+    ∃ D0 k0 : ℕ, D0 = 2 ^ k0 ∧ 2 ≤ D0
+      ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((15 : ℝ)) ≤ 2 * (2 : ℝ) ^ k0
+      ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((17 : ℝ)) ≤ (D0 : ℝ)
+      ∧ (D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((18 : ℝ))
+      ∧ (D0 : ℝ) ≤ (Real.log N) ^ ((18 : ℝ))
+      ∧ (∀ LE : ℝ, Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * LE → (D0 : ℝ) ≤ LE ^ ((18 : ℝ)))
+      ∧ (D0 : ℝ) ≤ (x : ℝ) ^ ((11 : ℝ) / 24) / 8
+      ∧ D0 ≤ N := by
+  have hx1 : (1 : ℝ) ≤ (x : ℝ) := le_trans (Real.one_le_exp (by positivity)) hx
+  have hle : (x : ℝ) ^ ((7 : ℝ) / 16) ≤ (x : ℝ) ^ ((11 : ℝ) / 24) :=
+    Real.rpow_le_rpow_of_exponent_le hx1 (by norm_num)
+  exact d0_window_of_XM_lo hx (by linarith) hXMlo hXMhi
 
 /-! ## 5. The uniform per-box price lemma `medium_box_price_at_op` (deliverable 5, the summit)
 

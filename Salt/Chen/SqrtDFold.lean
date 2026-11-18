@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.Chen.MediumFloor
+import Salt.Chen.DyadicWindow
 
 /-!
 # GBV5 — the √D e-fold variant closes catch #62 (`D < N` → `D < (N+1)²`)
@@ -1420,17 +1421,17 @@ is restored.  This section certifies it kernel-checked, at the operating convent
 `medium_survivor_price_sqrtD` at the boundary boxes (`norm_num` converts `15 = 13 + 2`,
 `17 = 13 + 4`, `18` to the `A`-form exponents). -/
 
-/-- **`d0_window_nonempty` (node D0W) — the anti-#64 certificate.**  At the operating point
-(`x ≥ exp(10^9)`, `M ≤ 2N`, the block floor `N ≥ x^{11/24}/8`), EVERY `dyadicBoundary` box
-(any m-floor `F`, at the mandated `X = 2^{i+1} − 1`) admits a `D0 = 2^{k0}` satisfying ALL
-the `D0`-window rows of the repaired terminal family at `A = 13`, `C0 = 18`: the decoupled
-`hD0lo_main` (exponent `A+2 = 15`), `herr_D0lo` (`A+4 = 17`), `hD0` and `hD0N'` (`C0 = 18`),
-the per-`e` `herr_D0E` (via the `herr_scale` form `L ≤ 2·LE`), the scale bound
-`D0 ≤ x^{11/24}/8`, and `hD0N : D0 ≤ N`.  See the section header for the margins. -/
-theorem d0_window_nonempty {x N M K i X F : ℕ}
+/-- **`d0_window_nonempty_lo` (node PRICE-2, deliverable 1).**  The Finding-3 lower-floor variant of
+`d0_window_nonempty`: at the operating point (`x ≥ exp(10^9)`, `M ≤ 2N`) and the WEAKENED block
+floor `x^{7/16}/8 ≤ N` (the honest strip bottom), EVERY `dyadicBoundary` box admits a `D0 = 2^{k0}`
+satisfying ALL the `D0`-window rows of the repaired terminal family at `A = 13`, `C0 = 18` — the
+IDENTICAL 9-conjunct conclusion of `d0_window_nonempty` (the `x`-scale conjunct is the same
+`x^{11/24}/8` upper bound, weaker than the strip floor supplies).  See `PriceTwo`'s section header
+for the `hD0N'` margin table (this lemma was moved here from `PriceTwo` on 2026-11-17). -/
+theorem d0_window_nonempty_lo {x N M K i X F : ℕ}
     (hx : Real.exp (10 ^ 9) ≤ (x : ℝ))
     (hM2N : M ≤ 2 * N)
-    (hNfloor : (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (N : ℝ))
+    (hNfloor : (x : ℝ) ^ ((7 : ℝ) / 16) / 8 ≤ (N : ℝ))
     (hi : i ∈ dyadicBoundary N M (x / 2 + 1) x F K)
     (hXsub : X = 2 ^ (i + 1) - 1) :
     ∃ D0 k0 : ℕ, D0 = 2 ^ k0 ∧ 2 ≤ D0
@@ -1451,6 +1452,7 @@ theorem d0_window_nonempty {x N M K i X F : ℕ}
     linarith
   have hx2 : 2 ≤ x := by exact_mod_cast hxR2
   have hxpos : (0 : ℝ) < (x : ℝ) := by linarith
+  have hx1 : (1 : ℝ) ≤ (x : ℝ) := by linarith
   -- ② the boundary clauses: `x/2 < X·M ≤ 4x`.
   rw [dyadicBoundary, Finset.mem_filter] at hi
   obtain ⟨-, hcorner, -, hcutoff⟩ := hi
@@ -1462,36 +1464,17 @@ theorem d0_window_nonempty {x N M K i X F : ℕ}
       _ ≤ 4 * (2 ^ i * (N + 1)) :=
           Nat.mul_le_mul (le_refl 4) (Nat.mul_le_mul (le_refl (2 ^ i)) (Nat.le_succ N))
       _ ≤ 4 * x := Nat.mul_le_mul (le_refl 4) hcorner
-  have hXMposN : 0 < X * M := by omega
-  have hXMposR : (0 : ℝ) < (X : ℝ) * (M : ℝ) := by exact_mod_cast hXMposN
-  have hXM4xR : (X : ℝ) * (M : ℝ) ≤ 4 * (x : ℝ) := by exact_mod_cast hXM4x
   set L := Real.log ((X : ℝ) * (M : ℝ)) with hLdef
   -- ③ `t − 1 ≤ L ≤ t + 3`.
-  have hL_lo : Real.log x - 1 ≤ L := by
-    have h1 : x < (x / 2 + 1) * 2 := by omega
-    have h2 : x / 2 + 1 ≤ X * M := by omega
-    have h1R : (x : ℝ) < ((x / 2 + 1 : ℕ) : ℝ) * 2 := by exact_mod_cast h1
-    have h2R : ((x / 2 + 1 : ℕ) : ℝ) ≤ (X : ℝ) * (M : ℝ) := by exact_mod_cast h2
-    push_cast at h1R h2R
-    have hhalf : (x : ℝ) / 2 < (X : ℝ) * (M : ℝ) := by linarith
-    have hlog : Real.log ((x : ℝ) / 2) ≤ L := Real.log_le_log (by linarith) hhalf.le
-    rw [Real.log_div (ne_of_gt hxpos) (by norm_num : (2 : ℝ) ≠ 0)] at hlog
-    have h2log : Real.log 2 ≤ 1 := by
-      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)]
-    linarith
-  have hL_up : L ≤ Real.log x + 3 := by
-    have h1 : L ≤ Real.log (4 * (x : ℝ)) := Real.log_le_log hXMposR hXM4xR
-    rw [Real.log_mul (by norm_num : (4 : ℝ) ≠ 0) (ne_of_gt hxpos)] at h1
-    have h4log : Real.log 4 ≤ 3 := by
-      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 4 by norm_num)]
-    linarith
+  obtain ⟨hL_lo, hL_up⟩ : Real.log x - 1 ≤ L ∧ L ≤ Real.log x + 3 :=
+    xm_log_bounds_of_le hx2 hXM.le hXM4x
   have hL1 : (1 : ℝ) ≤ L := by linarith
   have hLnn : (0 : ℝ) ≤ L := by linarith
   have hLpos : (0 : ℝ) < L := by linarith
   have hL4 : (4 : ℝ) ≤ L := by linarith
   have hL20 : (1048576 : ℝ) ≤ L := by linarith
-  -- ④ the block-floor log: `W := (11/24)·t − 7 ≤ log N`.
-  set W : ℝ := 11 / 24 * Real.log x - 7 with hWdef
+  -- ④ the block-floor log: `W := (7/16)·t − 7 ≤ log N`  (the WEAKENED strip floor).
+  set W : ℝ := 7 / 16 * Real.log x - 7 with hWdef
   have hWlogN : W ≤ Real.log N := by
     have hlogN := Real.log_le_log (div_pos (Real.rpow_pos_of_pos hxpos _) (by norm_num))
       hNfloor
@@ -1507,47 +1490,21 @@ theorem d0_window_nonempty {x N M K i X F : ℕ}
   have hW4 : 4 * ((12 : ℝ) / 5) ^ ((17 : ℝ)) ≤ W := by
     have hc : ((12 : ℝ) / 5) ^ ((17 : ℝ)) = ((12 : ℝ) / 5) ^ (17 : ℕ) := by
       rw [show ((17 : ℝ)) = ((17 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-    have hnum : 4 * ((12 : ℝ) / 5) ^ (17 : ℕ) ≤ 11 / 24 * 10 ^ 9 - 7 := by norm_num
+    have hnum : 4 * ((12 : ℝ) / 5) ^ (17 : ℕ) ≤ 7 / 16 * 10 ^ 9 - 7 := by norm_num
     rw [hc, hWdef]
     linarith
   -- ⑤ the dyadic window: `D0 = 2^{k0} ∈ [L^{17}, 4·L^{17}]`.
-  have hL17_1 : (1 : ℝ) ≤ L ^ ((17 : ℝ)) := Real.one_le_rpow hL1 (by norm_num)
   have hL17_2 : (2 : ℝ) ≤ L ^ ((17 : ℝ)) := by
     calc (2 : ℝ) ≤ L := by linarith
       _ = L ^ ((1 : ℝ)) := (Real.rpow_one L).symm
       _ ≤ L ^ ((17 : ℝ)) := Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-  -- `n`/`k0` are introduced OPAQUELY (obtain, not set): their computational bodies
-  -- (`Nat.ceil`/`Nat.clog` over noncomputable reals) must stay out of defeq reach.
-  obtain ⟨n, hn_ge, hn_le⟩ :
-      ∃ n : ℕ, L ^ ((17 : ℝ)) ≤ (n : ℝ) ∧ (n : ℝ) ≤ L ^ ((17 : ℝ)) + 1 :=
-    ⟨⌈L ^ ((17 : ℝ))⌉₊, Nat.le_ceil _,
-      le_of_lt (Nat.ceil_lt_add_one (Real.rpow_nonneg hLnn _))⟩
-  have hn1 : 1 < n := by
-    have h1R : (1 : ℝ) < (n : ℝ) := by linarith
-    exact_mod_cast h1R
-  obtain ⟨k0, hnpow, hpow2n⟩ : ∃ k0 : ℕ, n ≤ 2 ^ k0 ∧ 2 ^ k0 ≤ 2 * n := by
-    refine ⟨Nat.clog 2 n, Nat.le_pow_clog (by norm_num) n, ?_⟩
-    have hk0pos : 0 < Nat.clog 2 n := Nat.clog_pos (by norm_num) hn1
-    have hpow_lt : 2 ^ (Nat.clog 2 n - 1) < n :=
-      Nat.pow_pred_clog_lt_self (by norm_num) hn1
-    have hsplit : 2 * 2 ^ (Nat.clog 2 n - 1) = 2 ^ Nat.clog 2 n := by
-      rw [← pow_succ']
-      congr 1
-      omega
-    rw [← hsplit]
-    exact Nat.mul_le_mul (le_refl 2) (le_of_lt hpow_lt)
-  have hD0_lo : L ^ ((17 : ℝ)) ≤ ((2 ^ k0 : ℕ) : ℝ) := by
-    refine le_trans hn_ge ?_
-    exact_mod_cast hnpow
-  have hD0_hi : ((2 ^ k0 : ℕ) : ℝ) ≤ 4 * L ^ ((17 : ℝ)) := by
-    have h1 : ((2 ^ k0 : ℕ) : ℝ) ≤ 2 * (n : ℝ) := by exact_mod_cast hpow2n
-    linarith
+  obtain ⟨k0, h2k0, hD0_lo, hD0_hi⟩ := Salt.Chen.exists_two_pow_window hL17_2
   have hL18eq : L ^ ((18 : ℝ)) = L * L ^ ((17 : ℝ)) := by
     have hh := Real.rpow_add hLpos 1 17
     rw [Real.rpow_one] at hh
     rw [show (18 : ℝ) = 1 + 17 by norm_num, hh]
   have h17nn : (0 : ℝ) ≤ L ^ ((17 : ℝ)) := Real.rpow_nonneg hLnn _
-  -- ⑥ the `hD0N'` leg: `4·L^{17} ≤ W^{18}` (the anti-#64 margin).
+  -- ⑥ the `hD0N'` leg: `4·L^{17} ≤ W^{18}` (the Finding-3 anti-#64 margin, ≈ 37×).
   have hW18 : 4 * L ^ ((17 : ℝ)) ≤ W ^ ((18 : ℝ)) := by
     have hW17 : L ^ ((17 : ℝ)) ≤ ((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) := by
       calc L ^ ((17 : ℝ)) ≤ (12 / 5 * W) ^ ((17 : ℝ)) :=
@@ -1564,7 +1521,7 @@ theorem d0_window_nonempty {x N M K i X F : ℕ}
         ≤ 4 * (((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ))) := by linarith
       _ = (4 * ((12 : ℝ) / 5) ^ ((17 : ℝ))) * W ^ ((17 : ℝ)) := by ring
       _ ≤ W * W ^ ((17 : ℝ)) := mul_le_mul_of_nonneg_right hW4 h17Wnn
-  -- ⑦ the `hD0N` leg: `W^{18} ≤ e^W ≤ x^{11/24}/8`.
+  -- ⑦ the `hD0N` leg: `W^{18} ≤ e^W ≤ x^{7/16}/8`  (SHARP at the strip floor).
   have hexpW : W ^ ((18 : ℝ)) ≤ Real.exp W := by
     have hunn : (0 : ℝ) ≤ W / 36 := by linarith
     have hquad : W ≤ (W / 36) ^ ((2 : ℝ)) := by
@@ -1585,17 +1542,22 @@ theorem d0_window_nonempty {x N M K i X F : ℕ}
           rw [Real.rpow_def_of_pos (Real.exp_pos _), Real.log_exp]
           congr 1
           ring
-  have hexp_le : Real.exp W ≤ (x : ℝ) ^ ((11 : ℝ) / 24) / 8 := by
-    have hEW : Real.exp W = (x : ℝ) ^ ((11 : ℝ) / 24) / Real.exp 7 := by
+  have hexp_le : Real.exp W ≤ (x : ℝ) ^ ((7 : ℝ) / 16) / 8 := by
+    have hEW : Real.exp W = (x : ℝ) ^ ((7 : ℝ) / 16) / Real.exp 7 := by
       rw [hWdef, Real.exp_sub, Real.rpow_def_of_pos hxpos]
-      have hmul : Real.log (x : ℝ) * ((11 : ℝ) / 24) = 11 / 24 * Real.log x := by ring
+      have hmul : Real.log (x : ℝ) * ((7 : ℝ) / 16) = 7 / 16 * Real.log x := by ring
       rw [hmul]
     rw [hEW]
     have h7 : (8 : ℝ) ≤ Real.exp 7 := by linarith [Real.add_one_le_exp (7 : ℝ)]
     exact div_le_div_of_nonneg_left (Real.rpow_nonneg hxpos.le _) (by norm_num) h7
+  -- the `x`-scale bump: `x^{7/16}/8 ≤ x^{11/24}/8`  (`7/16 ≤ 11/24`, `x ≥ 1`).
+  have hxbump : (x : ℝ) ^ ((7 : ℝ) / 16) / 8 ≤ (x : ℝ) ^ ((11 : ℝ) / 24) / 8 := by
+    have hmono : (x : ℝ) ^ ((7 : ℝ) / 16) ≤ (x : ℝ) ^ ((11 : ℝ) / 24) :=
+      Real.rpow_le_rpow_of_exponent_le hx1 (by norm_num)
+    linarith [hmono]
   -- ⑧ emit the rows.
   have hcast : ((2 ^ k0 : ℕ) : ℝ) = (2 : ℝ) ^ k0 := by push_cast; ring
-  refine ⟨2 ^ k0, k0, rfl, le_trans (by omega : 2 ≤ n) hnpow, ?_, hD0_lo, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨2 ^ k0, k0, rfl, h2k0, ?_, hD0_lo, ?_, ?_, ?_, ?_, ?_⟩
   · -- `hD0lo_main`, the DECOUPLED row (exponent `A+2 = 15`)
     have h15 : L ^ ((15 : ℝ)) ≤ L ^ ((17 : ℝ)) :=
       Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
@@ -1608,7 +1570,7 @@ theorem d0_window_nonempty {x N M K i X F : ℕ}
     rw [hL18eq]
     have key : (0 : ℝ) ≤ (L - 4) * L ^ ((17 : ℝ)) := mul_nonneg (by linarith) h17nn
     linarith [hD0_hi, key]
-  · -- `hD0N'` (`D0 ≤ (log N)^{C0}`, `C0 = 18`)
+  · -- `hD0N'` (`D0 ≤ (log N)^{C0}`, `C0 = 18`) — the binding Finding-3 row
     have hmono : W ^ ((18 : ℝ)) ≤ (Real.log N) ^ ((18 : ℝ)) :=
       Real.rpow_le_rpow hWpos.le hWlogN (by norm_num)
     linarith [hD0_hi, hW18, hmono]
@@ -1627,11 +1589,40 @@ theorem d0_window_nonempty {x N M K i X F : ℕ}
     have hmono : (L / 2) ^ ((18 : ℝ)) ≤ LE ^ ((18 : ℝ)) :=
       Real.rpow_le_rpow hhalfpos.le (by linarith) (by norm_num)
     linarith [hD0_hi]
-  · -- the `x`-scale bound (`D0 ≤ x^{11/24}/8` — chains `hD0D : D0 ≤ D` at the operating level)
-    linarith [hD0_hi, hW18, hexpW, hexp_le]
-  · -- `hD0N` (`D0 ≤ N`)
+  · -- the `x`-scale bound (`D0 ≤ x^{11/24}/8`) — SAME conjunct as `d0_window_nonempty`, via bump
+    linarith only [hD0_hi, hW18, hexpW, hexp_le, hxbump]
+  · -- `hD0N` (`D0 ≤ N`) — SHARP off the strip floor `x^{7/16}/8 ≤ N`
     have hfin : ((2 ^ k0 : ℕ) : ℝ) ≤ (N : ℝ) := by
-      linarith [hD0_hi, hW18, hexpW, hexp_le, hNfloor]
+      linarith only [hD0_hi, hW18, hexpW, hexp_le, hNfloor]
     exact_mod_cast hfin
+
+/-- **`d0_window_nonempty` (node D0W) — the anti-#64 certificate.**  At the operating point
+(`x ≥ exp(10^9)`, `M ≤ 2N`, the block floor `N ≥ x^{11/24}/8`), EVERY `dyadicBoundary` box
+(any m-floor `F`, at the mandated `X = 2^{i+1} − 1`) admits a `D0 = 2^{k0}` satisfying ALL
+the `D0`-window rows of the repaired terminal family at `A = 13`, `C0 = 18`: the decoupled
+`hD0lo_main` (exponent `A+2 = 15`), `herr_D0lo` (`A+4 = 17`), `hD0` and `hD0N'` (`C0 = 18`),
+the per-`e` `herr_D0E` (via the `herr_scale` form `L ≤ 2·LE`), the scale bound
+`D0 ≤ x^{11/24}/8`, and `hD0N : D0 ≤ N`.  See the section header for the margins.
+
+⟦AN INSTANCE⟧ since 2026-11-17: `d0_window_nonempty_lo` above, at `x^(7/16) ≤ x^(11/24)`
+(`x ≥ 1`). -/
+theorem d0_window_nonempty {x N M K i X F : ℕ}
+    (hx : Real.exp (10 ^ 9) ≤ (x : ℝ))
+    (hM2N : M ≤ 2 * N)
+    (hNfloor : (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (N : ℝ))
+    (hi : i ∈ dyadicBoundary N M (x / 2 + 1) x F K)
+    (hXsub : X = 2 ^ (i + 1) - 1) :
+    ∃ D0 k0 : ℕ, D0 = 2 ^ k0 ∧ 2 ≤ D0
+      ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((15 : ℝ)) ≤ 2 * (2 : ℝ) ^ k0
+      ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((17 : ℝ)) ≤ (D0 : ℝ)
+      ∧ (D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((18 : ℝ))
+      ∧ (D0 : ℝ) ≤ (Real.log N) ^ ((18 : ℝ))
+      ∧ (∀ LE : ℝ, Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * LE → (D0 : ℝ) ≤ LE ^ ((18 : ℝ)))
+      ∧ (D0 : ℝ) ≤ (x : ℝ) ^ ((11 : ℝ) / 24) / 8
+      ∧ D0 ≤ N := by
+  have hx1 : (1 : ℝ) ≤ (x : ℝ) := le_trans (Real.one_le_exp (by positivity)) hx
+  have hle : (x : ℝ) ^ ((7 : ℝ) / 16) ≤ (x : ℝ) ^ ((11 : ℝ) / 24) :=
+    Real.rpow_le_rpow_of_exponent_le hx1 (by norm_num)
+  exact d0_window_nonempty_lo hx hM2N (by linarith) hi hXsub
 
 end Salt.Chen
