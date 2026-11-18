@@ -70,7 +70,7 @@ every `SocketBase`-typed leaf under that assembler is re-stated here at `SocketB
 `SocketBaseLH` (in `HDoorSupply`) is 13 conjuncts; exactly two differ from `SocketBaseL`:
 
 * **conjunct 5**, `q ≤ h·arcDen 12 H` — read at exactly FIVE sites: `s13CapGrid_q_logX`
-  (`S13CapGrid:393`), `capfloor_logq_le` (`S13CapFloor:284`), `capfloor_floor4` (`:459`),
+  (`S13CapGrid:393`), `capfloor_logq_le` (`S13CapFloor:284`), `capfloor_floor4` (`:468`),
   `s13_capEps_register` (`S13CapEps`), `s13CapEps_q_arcDen`;
 * **conjunct 11**, `x ≤ 16·ω·(h·arcDen 12 H)·A` — read at exactly ONE site,
   `s13_socketBase_xscale` (`S13MSelect2:111`), reaching this page only through
@@ -119,33 +119,12 @@ open Salt.Entropy.Chowla
 section NumericSiblings
 
 /-- ⟦SIBLING of `capeps_master` (`S13CapEps`), ceiling `50 → 60`⟧ — the `εr`-budget
-master line.  `ht` enters only the closing `nlinarith`, linearly, against `(14/10000)·Λ ≥
-7·10¹⁷`; the certificate is the landed one, unchanged. -/
+master line.  Until 2026-11-17 its body was `capeps_master`'s, where `ht` enters only the closing
+`nlinarith`, linearly, against `(14/10000)·Λ ≥ 7·10¹⁷`; since then it is the `t ≤ 60` instance of
+`capeps_master_63` (`S13CapEps`). -/
 theorem capeps_master_60 {u Λ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hΛ : u / 2 ≤ Λ)
     (ht : t ≤ 60) : t + 12 * Real.log u + Real.log Λ ≤ 14 / 10000 * Λ := by
-  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
-  have hu0 : (0 : ℝ) < u := by linarith
-  have hΛ0 : (0 : ℝ) < Λ := by linarith
-  have hu2L : u ≤ 2 * Λ := by linarith
-  have hlogu : Real.log u ≤ 1 + Real.log Λ := by
-    have h1 : Real.log u ≤ Real.log (2 * Λ) := Real.log_le_log hu0 hu2L
-    have h2 : Real.log (2 * Λ) = Real.log 2 + Real.log Λ :=
-      Real.log_mul (by norm_num) (ne_of_gt hΛ0)
-    have h3 : Real.log 2 ≤ 1 := by
-      have := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num); linarith
-    linarith
-  have hsq0 : (0 : ℝ) < Real.sqrt Λ := Real.sqrt_pos.mpr hΛ0
-  have hsqrt : Real.log Λ ≤ 2 * Real.sqrt Λ := by
-    have h := Real.log_le_sub_one_of_pos hsq0
-    have hs : Real.log (Real.sqrt Λ) = Real.log Λ / 2 := Real.log_sqrt hΛ0.le
-    rw [hs] at h; linarith
-  have hsu : Real.sqrt Λ * Real.sqrt Λ = Λ := Real.mul_self_sqrt hΛ0.le
-  have hLbig : (5 : ℝ) * 10 ^ (20 : ℕ) ≤ Λ := by
-    have : (10 : ℝ) ^ (21 : ℕ) = 2 * (5 * 10 ^ (20 : ℕ)) := by norm_num
-    linarith
-  have hs10 : (2 : ℝ) * 10 ^ (10 : ℕ) ≤ Real.sqrt Λ := by
-    nlinarith [hsu, hLbig, hsq0]
-  nlinarith [hsqrt, hsu, hs10, hsq0, hlogu, ht]
+  exact capeps_master_63 hu hΛ (by linarith)
 
 /-- ⟦SIBLING of `capeps_expbound` (`S13CapEps`), ceiling `50 → 60`⟧. -/
 theorem capeps_expbound_60 {u μ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
@@ -241,7 +220,8 @@ theorem capfloor_lam_core_h {v : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) :
 ⟦XY debt lane, family 28 (2026-09-30)⟧
 `capfloor_floor3_numeric_h {v E W : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) (hE : 101 ≤ E)
 (hW : W ≤ 12 * Real.log v + E + 8) : E * W ≤ E ^ (3 : ℕ) * (v / 4) ^ (4 : ℕ)` stood here.  It is
-`capfloor_floor3_numeric_h_10` (in the ⟦§5 — β W1 E2⟧ section below) with the hypothesis
+`capfloor_floor3_numeric_h_10` (in `S13CapFloor` since 2026-11-17, above its `+ 1` instance)
+with the hypothesis
 strengthened: the two statements differ in that ONE binder, the slack `+8` against `+10`, and are
 token-identical elsewhere, so the relative implies it by `linarith` — kernel-checked from the
 retired statement's own bytes before the removal was committed.  The relative's body is this page's
@@ -253,7 +233,7 @@ page's relative.
 
 This page's docstring, verbatim:
 
-⟦SIBLING of `capfloor_floor3_numeric` (`S13CapFloor:344`), slack `+1 → +8`⟧ — `floor3`'s
+⟦SIBLING of `capfloor_floor3_numeric` (`S13CapFloor:376`), slack `+1 → +8`⟧ — `floor3`'s
 numeric leg, absorbing `log q ≤ log h + 12·loglog H` at `log h ≤ 7`.  (2026-09-29: `floor3` at
 `log h ≤ 7`, its one caller, is retired by the XY debt lane's family 23; nothing calls this now.) -/
 
@@ -1511,36 +1491,6 @@ THREE `EP₂` ROWS.)
   census that produced the `157 931` figure could not see which — it measured the family.
 -/
 
-/-- ⟦SIBLING of `capeps_master_60` (§1), ceiling `60 → 63`⟧ — the `εr`-budget master line at the
-raised shift cap.  BODY: §1's, verbatim; `ht` enters only the closing `nlinarith`, linearly,
-against `(14/10000)·Λ ≥ 7·10¹⁷`.  ⭐ **The certificate travels unchanged, and that is the
-finding**: if it had not, the ceiling would have been a barrier after all. -/
-theorem capeps_master_63 {u Λ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hΛ : u / 2 ≤ Λ)
-    (ht : t ≤ 63) : t + 12 * Real.log u + Real.log Λ ≤ 14 / 10000 * Λ := by
-  have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
-  have hu0 : (0 : ℝ) < u := by linarith
-  have hΛ0 : (0 : ℝ) < Λ := by linarith
-  have hu2L : u ≤ 2 * Λ := by linarith
-  have hlogu : Real.log u ≤ 1 + Real.log Λ := by
-    have h1 : Real.log u ≤ Real.log (2 * Λ) := Real.log_le_log hu0 hu2L
-    have h2 : Real.log (2 * Λ) = Real.log 2 + Real.log Λ :=
-      Real.log_mul (by norm_num) (ne_of_gt hΛ0)
-    have h3 : Real.log 2 ≤ 1 := by
-      have := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num); linarith
-    linarith
-  have hsq0 : (0 : ℝ) < Real.sqrt Λ := Real.sqrt_pos.mpr hΛ0
-  have hsqrt : Real.log Λ ≤ 2 * Real.sqrt Λ := by
-    have h := Real.log_le_sub_one_of_pos hsq0
-    have hs : Real.log (Real.sqrt Λ) = Real.log Λ / 2 := Real.log_sqrt hΛ0.le
-    rw [hs] at h; linarith
-  have hsu : Real.sqrt Λ * Real.sqrt Λ = Λ := Real.mul_self_sqrt hΛ0.le
-  have hLbig : (5 : ℝ) * 10 ^ (20 : ℕ) ≤ Λ := by
-    have : (10 : ℝ) ^ (21 : ℕ) = 2 * (5 * 10 ^ (20 : ℕ)) := by norm_num
-    linarith
-  have hs10 : (2 : ℝ) * 10 ^ (10 : ℕ) ≤ Real.sqrt Λ := by
-    nlinarith [hsu, hLbig, hsq0]
-  nlinarith [hsqrt, hsu, hs10, hsq0, hlogu, ht]
-
 /-- ⟦SIBLING of `capeps_expbound_60` (§1), ceiling `60 → 63`⟧ — the one member of the family the
 raised cap actually needs.  BODY: §1's, off `capeps_master_63`. -/
 theorem capeps_expbound_63 {u μ t : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (2000 : ℝ) ≤ μ)
@@ -1714,7 +1664,8 @@ more, one into a twin here and six into twins of F2 and F3, each noted in place;
 family 26 retired two more, both into twins of F2, each noted in place; 2026-09-30: family 27
 retired two more, one into a twin here and one into a twin of F2, each noted in place; 2026-09-30:
 family 28 retired three more into relatives that are not `_b9` twins — one into
-`capfloor_floor3_numeric_h_10` here, two into the rows at the raised cap in §4 above — each noted in
+`capfloor_floor3_numeric_h_10` here (in `S13CapFloor` since 2026-11-17), two into the rows at the
+raised cap in §4 above — each noted in
 place; 2026-09-30: family 29 moved two more declarations to §9 at the foot (recorded 2026-10-01);
 2026-10-01: family 30 retired three more, one into a twin here and two into twins of F2, each noted
 in place; 2026-10-01: family 31 retired one more, into a twin of F2, noted in place; 2026-10-06:
@@ -1769,37 +1720,6 @@ theorem capfloor_lam_core_h_232 {v : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) :
     232 + 96 * Real.log v ≤ v / 4 := by
   have h := capfloor_logv_le hv
   norm_num at h ⊢
-  linarith
-
-/-- ⟦SIBLING of `capfloor_floor3_numeric_h` (§1), slack `+8 → +10`⟧ (the former
-`capfloor_floor3_numeric_h`, at `+8`, retired into this, 2026-09-30) — `floor3`'s numeric leg,
-absorbing `log q ≤ log h + 12·loglog H` at `log h ≤ 9`.  BODY: §1's, with `+10`.  (2026-09-30: §1's
-page is retired into this; its note stands where it stood, in §1.) -/
-theorem capfloor_floor3_numeric_h_10 {v E W : ℝ} (hv : (10 : ℝ) ^ (21 : ℕ) ≤ v) (hE : 101 ≤ E)
-    (hW : W ≤ 12 * Real.log v + E + 10) :
-    E * W ≤ E ^ (3 : ℕ) * (v / 4) ^ (4 : ℕ) := by
-  have hlv := capfloor_logv_le hv
-  have h21 : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
-  have hv0 : (0 : ℝ) < v := lt_of_lt_of_le h21 hv
-  have hE0 : (0 : ℝ) < E := by linarith
-  have hvbig : (1000000000000000000000 : ℝ) ≤ v := le_trans (by norm_num) hv
-  have hlv' : Real.log v ≤ v / 10000000000 := le_trans hlv (by norm_num)
-  have hWv : W ≤ v + E + 10 := by linarith
-  have hvq : (v / 4) ^ (4 : ℕ) = v ^ (4 : ℕ) / 256 := by ring
-  rw [hvq]
-  have h1 : v + E + 10 ≤ v * E := by nlinarith [hvbig, hE]
-  have hxx : (65536 : ℝ) ≤ v * v := by nlinarith [hvbig]
-  have hv3 : (256 : ℝ) ≤ v ^ (3 : ℕ) := by
-    have hid : v ^ (3 : ℕ) = v * (v * v) := by ring
-    rw [hid]; nlinarith [hvbig, hxx]
-  have hfac : (1 : ℝ) ≤ E * v ^ (3 : ℕ) / 256 := by nlinarith [hv3, hE]
-  have hpos : (0 : ℝ) ≤ E * (v * E) := by positivity
-  have h2 : E * (v * E) ≤ E ^ (3 : ℕ) * (v ^ (4 : ℕ) / 256) := by
-    calc E * (v * E) = (E * (v * E)) * 1 := by ring
-      _ ≤ (E * (v * E)) * (E * v ^ (3 : ℕ) / 256) := mul_le_mul_of_nonneg_left hfac hpos
-      _ = E ^ (3 : ℕ) * (v ^ (4 : ℕ) / 256) := by ring
-  have hA : E * W ≤ E * (v + E + 10) := mul_le_mul_of_nonneg_left hWv hE0.le
-  have hB : E * (v + E + 10) ≤ E * (v * E) := mul_le_mul_of_nonneg_left h1 hE0.le
   linarith
 
 /-- `capfloor_logq_le_LH` at `log h ≤ 9` (the former `capfloor_logq_le_LH`, at `log h ≤ 7`, retired

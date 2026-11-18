@@ -216,12 +216,12 @@ theorem far_side_bound {x X T : ℝ} (hX : 0 < X) (hT : 0 < T)
       ≤ (4 * X / T) * ∑ m ∈ F, 1 / ((g m : ℝ)) := h2 ▸ h1
     _ ≤ (4 * X / T) * (1 + Real.log (N : ℝ)) := mul_le_mul_of_nonneg_left h3 h4
 
-/-- **The `min`-sum bound** — the heart of R4e: on the MR range the summed
-`min`-device collapses to `3·BIG + (8X/T)(1 + log⌊3X⌋)`.  Near band `|x−m| < 1`
-(`≤ 3` integers, the `BIG` branch) plus the two far sides (`m ≥ x+1`, `m ≤ x−1`),
-each reindexed injectively into `[1, ⌊3X⌋]` and closed by `far_side_bound`. -/
-theorem zone_min_sum_le (s0 : Finset ℕ) {X x T : ℝ}
-    (hX : 1 ≤ X) (hT : 0 < T) (hx : X ≤ x) (hx2 : x ≤ 2 * X)
+/-- **The `min`-sum bound, wide range** — `zone_min_sum_le` with the top-edge restriction
+`x ≤ 2X` relaxed to `x ≤ 4X`, at *no* cost in the bound.  The near band (`|x−m| < 1`, `≤ 3`
+integers, the `BIG` branch) is unchanged; both far sides still reindex injectively into
+`[1, ⌊3X⌋]` because `m − ⌈x⌉ ≤ 4X − X = 3X` and `⌊x⌋ − m ≤ 4X − X = 3X`. -/
+theorem zone_min_sum_le_wide (s0 : Finset ℕ) {X x T : ℝ}
+    (hX : 1 ≤ X) (hT : 0 < T) (hx : X ≤ x) (hx4 : x ≤ 4 * X)
     (hrange : ∀ m ∈ s0, X ≤ (m : ℝ) ∧ (m : ℝ) ≤ 4 * X) :
     ∑ m ∈ s0, min (Real.pi + 2 * Real.log (1 + T)) (1 / (T * |Real.log (x / m)|))
       ≤ 3 * (Real.pi + 2 * Real.log (1 + T))
@@ -373,6 +373,18 @@ theorem zone_min_sum_le (s0 : Finset ℕ) {X x T : ℝ}
           + (4 * X / T) * (1 + Real.log ((⌊3 * X⌋₊ : ℕ) : ℝ)) := by ring
     linarith [hfpos, hfneg, heq8]
   linarith [hnear, hfar]
+
+/-- **The `min`-sum bound** — the heart of R4e: on the MR range the summed
+`min`-device collapses to `3·BIG + (8X/T)(1 + log⌊3X⌋)`.  Near band `|x−m| < 1`
+(`≤ 3` integers, the `BIG` branch) plus the two far sides (`m ≥ x+1`, `m ≤ x−1`),
+each reindexed injectively into `[1, ⌊3X⌋]` and closed by `far_side_bound`. -/
+theorem zone_min_sum_le (s0 : Finset ℕ) {X x T : ℝ}
+    (hX : 1 ≤ X) (hT : 0 < T) (hx : X ≤ x) (hx2 : x ≤ 2 * X)
+    (hrange : ∀ m ∈ s0, X ≤ (m : ℝ) ∧ (m : ℝ) ≤ 4 * X) :
+    ∑ m ∈ s0, min (Real.pi + 2 * Real.log (1 + T)) (1 / (T * |Real.log (x / m)|))
+      ≤ 3 * (Real.pi + 2 * Real.log (1 + T))
+        + (8 * X / T) * (1 + Real.log ((⌊3 * X⌋₊ : ℕ) : ℝ)) := by
+  exact zone_min_sum_le_wide s0 hX hT hx (by linarith) hrange
 
 /-- **R4 `zone_sum_collapsed`** — the collapse of `perron_sum_error_bound`'s RHS
 (at `c = 1`, `‖aₘ‖ ≤ 1`, MR range): the `min`-device sum is

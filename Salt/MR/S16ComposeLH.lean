@@ -130,10 +130,13 @@ theorem m4_hrowsSlot_at_door_zero'H_L_gk_ceiling_kwide (h K : ℕ) :
 
 set_option maxHeartbeats 1000000 in
 -- the landed fuse's own budget: sixteen socket-framed hypotheses re-elaborate here too
-/-- ⟦WIDE CEILING TWIN⟧ (`m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide`) — §1's fuse,
-off the slot above. -/
-theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide (h : ℕ) (hh : 0 < h)
-    (hh7 : Real.log h ≤ 7) (K : ℕ) :
+/-- ⟦WIDE CEILING TWIN, AT THE RAISED CAP⟧
+(`m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`) — the fuse at `log h ≤ 14`.
+ONE token in the body: the arithmetic gate is `m4_arith_henv_constPoolH_L_gk_14`.  The slot
+(`m4_hrowsSlot_at_door_zero'H_L_gk_ceiling_kwide`) and the assembly
+(`m4_chiSummedFreeRow_of_doorAssembly_pool'_gatedH_L_gk`) take no cap binder at all. -/
+theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14 (h : ℕ) (hh : 0 < h)
+    (hh14 : Real.log h ≤ 14) (K : ℕ) :
     ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 2 ^ 23 ∧
       ∀ (Cp : ℝ), 0 ≤ Cp →
       ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (Kc ρ : ℝ)
@@ -190,12 +193,68 @@ theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide (h : ℕ) (hh : 
     (Ccc := fun _ => Cp) (C₁ := C₁) (M₀ := M₀) (ε := ε) (π₀ := fun _ => constPool ρ R.Hhi)
     (RSbig := fun _ H => RSanDoorRhoH ρ h H) hM ?_
     (hslot Cp hCp R M ε cU bU t₁ hM hKw hb1 hc1 hbase hcap) hband
-    (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPoolH_L_gk K hh hh7 hρ.le harith)
+    (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPoolH_L_gk_14 K hh hh14 hρ.le harith)
   intro H L q j A s hb
   have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
   exact doorFuseFrame_pool'_of_gates_const_pos_L_gk K (hbf H L q j A s hb)
     (hgP1 H L q j A s hb) (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd
     (hband4096 H L q j A s hb)
+
+set_option maxHeartbeats 1000000 in
+-- the landed fuse's own budget: sixteen socket-framed hypotheses re-elaborate here too
+/-- ⟦WIDE CEILING TWIN⟧ (`m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide`) — §1's fuse,
+off the slot above. -/
+theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide (h : ℕ) (hh : 0 < h)
+    (hh7 : Real.log h ≤ 7) (K : ℕ) :
+    ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 2 ^ 23 ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+      ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (Kc ρ : ℝ)
+        (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ) (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → K ≤ 170000000 * M → 0 < ρ → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) →
+        (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → DoorBaseFrame (A + s) j) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          374784 * Ct * Real.exp 3 * (1 / ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ))
+            ≤ constPool ρ R.Hhi) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          GRowsZeroGate'''_L_gk K M (A + s) Cp (constPool ρ R.Hhi)) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + Real.log 376266 + (-Real.log ρ)
+            ≤ (theta293 - ε (A + s)) * Real.log (Real.log (((A + s : ℕ)) : ℝ))) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293) ≤ constPool ρ R.Hhi) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          (4096 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500)
+            * constPool ρ R.Hhi) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          DoorRowZeroBase_L_gk K M (A + s) j cU bU) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
+                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q,
+            (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+              ‖dpolyA (winCutH (A + s) (doorChiCoeff_L_gk K χ M))
+                (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+              ≤ t0BandB (((A + s : ℕ)) : ℝ) (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s)))
+                  (M₀ (A + s))) →
+        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
+          DoorArithFrameRho_L M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kc ρ) →
+        M4ChiSummedFreeRowH_L_gk h K R M
+          (m4ChiRowGradedH_L h M (fun _ H => RSanDoorRhoH ρ h H)) := by
+  exact m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14 h hh (by linarith) K
 
 set_option maxHeartbeats 1000000 in
 -- the landed slot's own budget: the 40-line statement re-elaborates the seam integrals at
@@ -2710,80 +2769,9 @@ windowed assembler and §11.3's `cs`-free fuse.  This is the shape hop 6 consume
 /-! (§12 — the terminal
 `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_kswin_h` —
 stood here; it was moved to the end of this file, below the cap-9 twins, XY debt lane family 12,
-2026-09-27.  `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, below, stood under
-§12's header, after the terminal, and stays here.) -/
-
-set_option maxHeartbeats 1000000 in
--- the landed fuse's own budget: sixteen socket-framed hypotheses re-elaborate here too
-/-- ⟦WIDE CEILING TWIN, AT THE RAISED CAP⟧
-(`m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`) — the fuse at `log h ≤ 14`.
-ONE token in the body: the arithmetic gate is `m4_arith_henv_constPoolH_L_gk_14`.  The slot
-(`m4_hrowsSlot_at_door_zero'H_L_gk_ceiling_kwide`) and the assembly
-(`m4_chiSummedFreeRow_of_doorAssembly_pool'_gatedH_L_gk`) take no cap binder at all. -/
-theorem m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14 (h : ℕ) (hh : 0 < h)
-    (hh14 : Real.log h ≤ 14) (K : ℕ) :
-    ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 2 ^ 23 ∧
-      ∀ (Cp : ℝ), 0 ≤ Cp →
-      ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (Kc ρ : ℝ)
-        (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ) (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
-        1 ≤ M → K ≤ 170000000 * M → 0 < ρ → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) →
-        (∀ p : ℕ, ‖cU p‖ ≤ 1) →
-        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s → DoorBaseFrame (A + s) j) →
-        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-          374784 * Ct * Real.exp 3 * (1 / ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ))
-            ≤ constPool ρ R.Hhi) →
-        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-          GRowsZeroGate'''_L_gk K M (A + s) Cp (constPool ρ R.Hhi)) →
-        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-          14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + Real.log 376266 + (-Real.log ρ)
-            ≤ (theta293 - ε (A + s)) * Real.log (Real.log (((A + s : ℕ)) : ℝ))) →
-        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-          (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293) ≤ constPool ρ R.Hhi) →
-        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-          (4096 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500)
-            * constPool ρ R.Hhi) →
-        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-          DoorRowZeroBase_L_gk K M (A + s) j cU bU) →
-        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
-            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
-            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
-            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
-                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
-              ≤ 8 * (0 : ℝ) ^ 2
-                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
-                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
-                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
-                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
-                        (mrAlpha (1 / 12)) 2,
-                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
-                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
-                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
-        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-          ∀ χ : DirichletCharacter ℂ q,
-            (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
-              ‖dpolyA (winCutH (A + s) (doorChiCoeff_L_gk K χ M))
-                (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
-              ≤ t0BandB (((A + s : ℕ)) : ℝ) (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s)))
-                  (M₀ (A + s))) →
-        (∀ H L q j A s : ℕ, SocketBaseLH h R M H L q j A s →
-          DoorArithFrameRho_L M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kc ρ) →
-        M4ChiSummedFreeRowH_L_gk h K R M
-          (m4ChiRowGradedH_L h M (fun _ H => RSanDoorRhoH ρ h H)) := by
-  obtain ⟨Ct, hCt, hCtb, hslot⟩ := m4_hrowsSlot_at_door_zero'H_L_gk_ceiling_kwide h K
-  refine ⟨Ct, hCt, hCtb, ?_⟩
-  intro Cp hCp R M C₁ M₀ ε Kc ρ cU bU t₁ hM hKw hρ hb1 hc1 hbf hgP1 hgRows hthr _heps293
-    hband4096 hbase hcap hband harith
-  refine m4_chiSummedFreeRow_of_doorAssembly_pool'_gatedH_L_gk h K (Cs := fun _ => Ct)
-    (Ccc := fun _ => Cp) (C₁ := C₁) (M₀ := M₀) (ε := ε) (π₀ := fun _ => constPool ρ R.Hhi)
-    (RSbig := fun _ H => RSanDoorRhoH ρ h H) hM ?_
-    (hslot Cp hCp R M ε cU bU t₁ hM hKw hb1 hc1 hbase hcap) hband
-    (fun _ => constPool_nonneg hρ.le) (m4_arith_henv_constPoolH_L_gk_14 K hh hh14 hρ.le harith)
-  intro H L q j A s hb
-  have hXd : 1 ≤ A + s := (Salt.MR.socketFrame_facts s hb).2.2.1
-  exact doorFuseFrame_pool'_of_gates_const_pos_L_gk K (hbf H L q j A s hb)
-    (hgP1 H L q j A s hb) (hgRows H L q j A s hb) hρ (hthr H L q j A s hb) hM hXd
-    (hband4096 H L q j A s hb)
+2026-09-27.  `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14` stood under §12's
+header, after the terminal, until 2026-11-17, when it moved up directly above its base (its
+`log h ≤ 7` instance, §4).) -/
 
 /-! ## ⟦β W1 E3⟧ the cap-9 twins, h-lane B (build freeze v2 v1.1, 2026-09-13)
 

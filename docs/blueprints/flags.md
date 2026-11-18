@@ -18219,7 +18219,7 @@ CAPTAIN'S RULING REQUIRED.
 
 ## (2026-07-31 07:45 PDT) SEL-WITNESS lands (723 ln, 33 decls): THE PEARL BANKED -- S15Sel' DISCHARGED at numerals, S15CrossingBound THE ONLY SURVIVING OBJECT; + the loud-stop theorem DIAGNOSED STALE by the maestro; + a ledger correction (J-REF was claimed dispatched before the dispatch)
 
-⟦THE PEARL⟧ logChowla2_conditional_sharp_nonvacuous (S15Witness:617):
+⟦THE PEARL⟧ logChowla2_conditional_sharp_nonvacuous (S15Witness:623):
 the witness tuple (Hlo = ⌈e^{10³⁰}⌉, λ₋ ∈ [50, 69.3], M = the max of
 the floors ≤ 2^56, ρ ≥ 2⁻⁵¹) discharges ALL ELEVEN S15Sel' lines at
 numerals — the register vacuity CLOSED with a kernel witness;
@@ -18532,7 +18532,7 @@ lower bounds compete, the reduction must be probed at the STRONGER.
 ⟦THE REPAIR, exact⟧ K was never re-cut when X0MFL's witness moved
 λ₋ 69 → 277: the demand is K ≈ 3.075e7 — INSIDE the frame's own
 ceiling 1.7e8 (the lever ceiling J-REF certified).  One numeral at
-S15Witness:1705 (500000 → 30800000) + hK norm_num + the M-window
+S15Witness:1690 (500000 → 30800000) + hK norm_num + the M-window
 re-verify (blk is a λ₊-lower of 12.4, benign) + the S16 supply
 re-verified at the new K.  ⟦REF-REPAIR AMENDED mid-flight⟧: + the
 K re-cut + the prose corrections (S16Budget:42's weak-floor line;
@@ -18852,7 +18852,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 **THE DEVICE, FOR THE RECORD.** The windowed twins carry, in the numeral conjunct's slot, the `A`-free Pi-statement `forall A, 162 <= A -> Awin <= A -> Mfl <= flatDoorM A` (so the prefix stays hoistable -- an `A`-mentioning rider would re-introduce the circularity the DISCHARGE wave killed), and §9.3's `forall A` binder gains the admissibility line `Awin <= A`. The `Mfl` floor is then spent through `s15_sel''_L_gk_witness_flat_bumped_win` -- at the door modulus directly, never at `2^355`. Bodies otherwise VERBATIM.
 
-**WHAT WAS NOT DONE, AND WHY (stopped loudly).** The mission's `logChowla2_witnessed_scale_flat_L_v2_win` -- the NON-uniform terminal twin -- is NOT landed. It would require windowed twins of `S16FlatTerminalLinear:605` (677 ln, hop 3-L), `:1182` (428 ln) and `:1645`, plus `S16FlatFinal:119`: ~1200 ln of transcription for a road with NO consumer above it (the corollary goes through the uniform lane). The `S16Budget`/`S16BudgetFlat`/`S16FlatTerminal` (non-linear) hops are likewise untouched. If anyone wants the window at the non-uniform terminal the recipe is mechanical and identical: statement conjunct `Mfl <= 2^355` -> the Pi-statement, `hband` -> `S16BandLaneCBoundedL_win Awin K`, `s11_grade_floor_hoistCb_prod_le C h0 h40` -> `fun A hA hAw => flatDoorM_gradeFloor_win hA h0 (by linarith)`, `flatDoorM_Mfl_bump` -> the hypothesis itself.
+**WHAT WAS NOT DONE, AND WHY (stopped loudly).** The mission's `logChowla2_witnessed_scale_flat_L_v2_win` -- the NON-uniform terminal twin -- is NOT landed. It would require windowed twins of `S16FlatTerminalLinear:605` (677 ln, hop 3-L), `:1182` (428 ln) and `:1657`, plus `S16FlatFinal:119`: ~1200 ln of transcription for a road with NO consumer above it (the corollary goes through the uniform lane). The `S16Budget`/`S16BudgetFlat`/`S16FlatTerminal` (non-linear) hops are likewise untouched. If anyone wants the window at the non-uniform terminal the recipe is mechanical and identical: statement conjunct `Mfl <= 2^355` -> the Pi-statement, `hband` -> `S16BandLaneCBoundedL_win Awin K`, `s11_grade_floor_hoistCb_prod_le C h0 h40` -> `fun A hA hAw => flatDoorM_gradeFloor_win hA h0 (by linarith)`, `flatDoorM_Mfl_bump` -> the hypothesis itself.
 
 **MISSION C, FOLDED IN.** D1 (`S16FlatFinal` header): the "both predicates WEAKER than their landed counterparts" claim is now restricted to the BASE-SCALE CAP (which `s16_baseScaleCap96_L_of_baseScaleCap96` proves outright); the CO-FACTOR is stated as a NEW, INCOMPARABLE ask at the linear door (no transport bridge: the socket bounds `||ramR||`, not monotone in the indicator; the block families are non-nested), priced TRANSFERABLE per COFK-L -- ONE shared anchor-blind supplier debt at both doors, the L-vs-landed delta class A. D2 (stale margin prose): the four `lambda+`-reading register rows refreshed to the amended `2E` slot -- anchor `898x -> 449x`, gRows `915x -> 457x`, gP1 `10^4x -> ~5.5e3x`, lvl `913x -> 457x` (`S15SelLinear:29-36` table + the prose after + `:318`; `S15SelLinearWide:158,:225,:383-384`). **CORRECTION TO THE 7/31 SEAL-REPAIR ENTRY (do not edit it; this line is the correction):** that entry's reading of the two carried predicates as "both weaker than landed" was HALF WRONG -- only the cap is; the cofactor is a new ask, transferable but unpaid at BOTH doors.
 
@@ -25447,7 +25447,7 @@ Neither is paid from `hhL : log h <= L` by one `linarith`: both need an `h`-depe
 floor.  The brief's STOP condition "a cap site the two lifts do not cover" fired.
 
 **(2) The split lift is FALSE as specified.**  `xceil_arm_split_mul_h_b9`
-(`StridePairReceipt.lean:2449`) concludes `log 2 + log h + 9 <= H/(250000 h^2) - H/10^20`.  With
+(`StridePairReceipt.lean:2254`) concludes `log 2 + log h + 9 <= H/(250000 h^2) - H/10^20`.  With
 `L` for `9` and the cap gone, the right side is `H * (1/(250000 h^2) - 10^-20)`, NEGATIVE once
 `250000 h^2 > 10^20`, i.e. `h > 2*10^7` (`log h > 16.81`), while the left side is positive.
 Kernel-checked at `h = 10^8`: the right side equals `H * (-96/10^22) < 0` for every `H > 0`, and
@@ -25475,7 +25475,7 @@ else in half 2 landed in `Salt/MR/StrideDoorAllGrades.lean`: ten of the eleven t
 `_L` helpers (§I), the conditional with Z1 and its re-statement (§J), and v7 (§K).
 
 **The finding: a SCOPE stop, not an arithmetic one.**  The brief priced twin 9 at its source's
-38 lines (`S16ComposeLH.lean:3202`, "SUPPLIER-SWAP").  The source's body calls two capped
+38 lines (`S16ComposeLH.lean:3190`, "SUPPLIER-SWAP").  The source's body calls two capped
 suppliers (`m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9`,
 `s16_capGate_supply_LH_gk_sharpT0_kswin_b9`), and their capped dependency tree, walked by name
 at `881de30f` (every identifier ending `_b9`/`_g12b`/`_14` in each body, recursively), is

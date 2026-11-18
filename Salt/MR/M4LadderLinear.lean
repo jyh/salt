@@ -3191,7 +3191,93 @@ theorem norm_absWindowSum_dilCoeff_memS_door_L {M J d q q₀ r₀ H₀ n₀ : �
   rw [absWindowSum_dilCoeff_memS_door_L (J := J) (H₀ := H₀) (n₀ := n₀) hM hd hdq hqW hW β,
     norm_mul, liouvilleC_norm hd, one_mul]
 
-/-! ### `M4BridgeDilate` :623 — `m4_class_dilate_exit` -/
+/-! ### `M4BridgeDilate` :703 — `door_gate_blocks_gk` -/
+/-- **The door gate at every block index, at the lever** — `door_gate_blocks_L` (:363). -/
+theorem door_gate_blocks_L_gk (K : ℕ) {M J d q : ℕ} {W : ℝ} (hM : 1 ≤ M) (hdq : d ≤ q)
+    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) :
+    ∀ j ∈ Finset.Icc 1 J, d < calP (AdoorL M) (s13GK K M) j := by
+  intro j hj
+  refine lt_of_lt_of_le ?_ (calP_door_mono_L_gk K hM (Finset.mem_Icc.mp hj).1)
+  rw [calP_gk_one_eq] at hW ⊢
+  exact door_dilation_gate_calP_L (M := M) hdq hqW hW
+
+/-! ### `M4BridgeDilate` :712 — `dilCoeff_memS_door_gk` -/
+/-- **THE DILATED DATUM FACTORS, AT THE LEVER** — `dilCoeff_memS_door_L` (:378). -/
+theorem dilCoeff_memS_door_L_gk (K : ℕ) {M J d q q₀ r₀ : ℕ} {W : ℝ} (hM : 1 ≤ M) (hd : d ≠ 0)
+    (hdq : d ≤ q) (hqW : (q : ℝ) ≤ W)
+    (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ))
+    {k : ℕ} (hk : k ≠ 0) :
+    dilCoeff (memSCoeff (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) J
+        liouvilleC) d q₀ r₀ k
+      = liouvilleC d * classCoeff (memSCoeff (calP (AdoorL M) (s13GK K M))
+          (calQK (AdoorL M) (s13GK K M) M) J liouvilleC) q₀ r₀ k := by
+  simp only [dilCoeff, classCoeff, memSCoeff]
+  by_cases hmod : k ≡ r₀ [MOD q₀]
+  · rw [if_pos hmod, if_pos hmod]
+    exact indicator_mul_dilate_liouville hd hk (door_gate_blocks_L_gk K hM hdq hqW hW)
+  · rw [if_neg hmod, if_neg hmod, mul_zero]
+
+/-! ### `M4BridgeDilate` :727 — `absWindowSum_dilCoeff_memS_door_gk` -/
+/-- **The factorisation under the window sum, at the lever** —
+`absWindowSum_dilCoeff_memS_door_L` (:393). -/
+theorem absWindowSum_dilCoeff_memS_door_L_gk (K : ℕ) {M J d q q₀ r₀ H₀ n₀ : ℕ} {W : ℝ}
+    (hM : 1 ≤ M) (hd : d ≠ 0) (hdq : d ≤ q) (hqW : (q : ℝ) ≤ W)
+    (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) (β : ℝ) :
+    absWindowSum (dilCoeff (memSCoeff (calP (AdoorL M) (s13GK K M))
+        (calQK (AdoorL M) (s13GK K M) M) J liouvilleC) d q₀ r₀) H₀ n₀ β
+      = liouvilleC d * absWindowSum (classCoeff (memSCoeff (calP (AdoorL M) (s13GK K M))
+          (calQK (AdoorL M) (s13GK K M) M) J liouvilleC) q₀ r₀) H₀ n₀ β := by
+  unfold absWindowSum
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl fun k hk => ?_
+  have hk0 : k ≠ 0 := by
+    have := (Finset.mem_Ioc.mp hk).1
+    omega
+  rw [dilCoeff_memS_door_L_gk K (J := J) hM hd hdq hqW hW hk0]
+  ring
+
+/-! ### `M4BridgeDilate` :745 — `norm_absWindowSum_dilCoeff_memS_door_gk` -/
+/-- **The dilation is invisible to the modulus, at the lever** —
+`norm_absWindowSum_dilCoeff_memS_door_L` (:411). -/
+theorem norm_absWindowSum_dilCoeff_memS_door_L_gk (K : ℕ) {M J d q q₀ r₀ H₀ n₀ : ℕ} {W : ℝ}
+    (hM : 1 ≤ M) (hd : d ≠ 0) (hdq : d ≤ q) (hqW : (q : ℝ) ≤ W)
+    (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) (β : ℝ) :
+    ‖absWindowSum (dilCoeff (memSCoeff (calP (AdoorL M) (s13GK K M))
+        (calQK (AdoorL M) (s13GK K M) M) J liouvilleC) d q₀ r₀) H₀ n₀ β‖
+      = ‖absWindowSum (classCoeff (memSCoeff (calP (AdoorL M) (s13GK K M))
+          (calQK (AdoorL M) (s13GK K M) M) J liouvilleC) q₀ r₀) H₀ n₀ β‖ := by
+  rw [absWindowSum_dilCoeff_memS_door_L_gk K (J := J) (H₀ := H₀) (n₀ := n₀) hM hd hdq hqW hW β,
+    norm_mul, liouvilleC_norm hd, one_mul]
+
+/-! ### `M4BridgeDilate` :757 — `m4_class_dilate_exit_gk` -/
+/-- **THE ROW'S EXIT AT THE LEVER — the per-class dilated statement** —
+`m4_class_dilate_exit_L` (:793). -/
+theorem m4_class_dilate_exit_L_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
+    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) (α : ℝ) :
+    ‖classWindowSum (memSCoeff (calP (AdoorL M) (s13GK K M))
+          (calQK (AdoorL M) (s13GK K M) M) J liouvilleC) H n q r α‖
+        = ‖absWindowSum (classCoeff (memSCoeff (calP (AdoorL M) (s13GK K M))
+            (calQK (AdoorL M) (s13GK K M) M) J liouvilleC)
+              (q / Nat.gcd r q) (r / Nat.gcd r q))
+            (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q) ((Nat.gcd r q : ℝ) * α)‖
+      ∧ ((H : ℝ) / (Nat.gcd r q : ℝ) - 1 ≤ (dilLen H n (Nat.gcd r q) : ℝ)
+          ∧ (dilLen H n (Nat.gcd r q) : ℝ) ≤ (H : ℝ) / (Nat.gcd r q : ℝ) + 1
+          ∧ dilLen H n (Nat.gcd r q) ≤ H)
+      ∧ (∀ thr : ℝ, (H : ℝ) / (Nat.gcd r q : ℝ) + 1 ≤ thr →
+          ‖classWindowSum (memSCoeff (calP (AdoorL M) (s13GK K M))
+            (calQK (AdoorL M) (s13GK K M) M) J liouvilleC) H n q r α‖ ≤ thr) := by
+  have hd : 0 < Nat.gcd r q := Nat.gcd_pos_of_pos_right r hq
+  have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
+  refine ⟨?_, ⟨le_dilLen_real H n hd, dilLen_le_real H n hd, dilLen_le_window H n hd⟩, ?_⟩
+  · rw [classWindowSum_dilate _ hq r H n α]
+    exact norm_absWindowSum_dilCoeff_memS_door_L_gk K (J := J)
+      (H₀ := dilLen H n (Nat.gcd r q)) (n₀ := n / Nat.gcd r q) hM hd.ne' hdq hqW hW _
+  · intro thr hthr
+    exact norm_classWindowSum_le_thresh
+      (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ J m) hq r H n α hthr
+
+/-! ### `M4BridgeDilate` :783 — `m4_class_dilate_exit` -/
+
 /-- **THE ROW'S EXIT — the per-class dilated statement.**  For the door's sieved Liouville
 datum `1_𝒮·λ`, at a class `r` mod `q` with `d₀ = (r,q)` under the door gate
 `d₀ ≤ q ≤ W < P₁` (`W` free — the cap is the door's own `P₁`, `M4Residue.door_dilation_gate'_L`):
@@ -3218,100 +3304,7 @@ theorem m4_class_dilate_exit_L {M J q r H n : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq 
       ∧ (∀ thr : ℝ, (H : ℝ) / (Nat.gcd r q : ℝ) + 1 ≤ thr →
           ‖classWindowSum (memSCoeff (calP (AdoorL M) (3072 * M))
             (calQK (AdoorL M) (3072 * M) M) J liouvilleC) H n q r α‖ ≤ thr) := by
-  have hd : 0 < Nat.gcd r q := Nat.gcd_pos_of_pos_right r hq
-  have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
-  refine ⟨?_, ⟨le_dilLen_real H n hd, dilLen_le_real H n hd, dilLen_le_window H n hd⟩, ?_⟩
-  · rw [classWindowSum_dilate _ hq r H n α]
-    exact norm_absWindowSum_dilCoeff_memS_door_L (J := J)
-      (H₀ := dilLen H n (Nat.gcd r q)) (n₀ := n / Nat.gcd r q) hM hd.ne' hdq hqW hW _
-  · intro thr hthr
-    exact norm_classWindowSum_le_thresh
-      (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ J m) hq r H n α hthr
-
-/-! ### `M4BridgeDilate` :739 — `door_gate_blocks_gk` -/
-/-- **The door gate at every block index, at the lever** — `door_gate_blocks_L` (:363). -/
-theorem door_gate_blocks_L_gk (K : ℕ) {M J d q : ℕ} {W : ℝ} (hM : 1 ≤ M) (hdq : d ≤ q)
-    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) :
-    ∀ j ∈ Finset.Icc 1 J, d < calP (AdoorL M) (s13GK K M) j := by
-  intro j hj
-  refine lt_of_lt_of_le ?_ (calP_door_mono_L_gk K hM (Finset.mem_Icc.mp hj).1)
-  rw [calP_gk_one_eq] at hW ⊢
-  exact door_dilation_gate_calP_L (M := M) hdq hqW hW
-
-/-! ### `M4BridgeDilate` :748 — `dilCoeff_memS_door_gk` -/
-/-- **THE DILATED DATUM FACTORS, AT THE LEVER** — `dilCoeff_memS_door_L` (:378). -/
-theorem dilCoeff_memS_door_L_gk (K : ℕ) {M J d q q₀ r₀ : ℕ} {W : ℝ} (hM : 1 ≤ M) (hd : d ≠ 0)
-    (hdq : d ≤ q) (hqW : (q : ℝ) ≤ W)
-    (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ))
-    {k : ℕ} (hk : k ≠ 0) :
-    dilCoeff (memSCoeff (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) J
-        liouvilleC) d q₀ r₀ k
-      = liouvilleC d * classCoeff (memSCoeff (calP (AdoorL M) (s13GK K M))
-          (calQK (AdoorL M) (s13GK K M) M) J liouvilleC) q₀ r₀ k := by
-  simp only [dilCoeff, classCoeff, memSCoeff]
-  by_cases hmod : k ≡ r₀ [MOD q₀]
-  · rw [if_pos hmod, if_pos hmod]
-    exact indicator_mul_dilate_liouville hd hk (door_gate_blocks_L_gk K hM hdq hqW hW)
-  · rw [if_neg hmod, if_neg hmod, mul_zero]
-
-/-! ### `M4BridgeDilate` :763 — `absWindowSum_dilCoeff_memS_door_gk` -/
-/-- **The factorisation under the window sum, at the lever** —
-`absWindowSum_dilCoeff_memS_door_L` (:393). -/
-theorem absWindowSum_dilCoeff_memS_door_L_gk (K : ℕ) {M J d q q₀ r₀ H₀ n₀ : ℕ} {W : ℝ}
-    (hM : 1 ≤ M) (hd : d ≠ 0) (hdq : d ≤ q) (hqW : (q : ℝ) ≤ W)
-    (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) (β : ℝ) :
-    absWindowSum (dilCoeff (memSCoeff (calP (AdoorL M) (s13GK K M))
-        (calQK (AdoorL M) (s13GK K M) M) J liouvilleC) d q₀ r₀) H₀ n₀ β
-      = liouvilleC d * absWindowSum (classCoeff (memSCoeff (calP (AdoorL M) (s13GK K M))
-          (calQK (AdoorL M) (s13GK K M) M) J liouvilleC) q₀ r₀) H₀ n₀ β := by
-  unfold absWindowSum
-  rw [Finset.mul_sum]
-  refine Finset.sum_congr rfl fun k hk => ?_
-  have hk0 : k ≠ 0 := by
-    have := (Finset.mem_Ioc.mp hk).1
-    omega
-  rw [dilCoeff_memS_door_L_gk K (J := J) hM hd hdq hqW hW hk0]
-  ring
-
-/-! ### `M4BridgeDilate` :781 — `norm_absWindowSum_dilCoeff_memS_door_gk` -/
-/-- **The dilation is invisible to the modulus, at the lever** —
-`norm_absWindowSum_dilCoeff_memS_door_L` (:411). -/
-theorem norm_absWindowSum_dilCoeff_memS_door_L_gk (K : ℕ) {M J d q q₀ r₀ H₀ n₀ : ℕ} {W : ℝ}
-    (hM : 1 ≤ M) (hd : d ≠ 0) (hdq : d ≤ q) (hqW : (q : ℝ) ≤ W)
-    (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) (β : ℝ) :
-    ‖absWindowSum (dilCoeff (memSCoeff (calP (AdoorL M) (s13GK K M))
-        (calQK (AdoorL M) (s13GK K M) M) J liouvilleC) d q₀ r₀) H₀ n₀ β‖
-      = ‖absWindowSum (classCoeff (memSCoeff (calP (AdoorL M) (s13GK K M))
-          (calQK (AdoorL M) (s13GK K M) M) J liouvilleC) q₀ r₀) H₀ n₀ β‖ := by
-  rw [absWindowSum_dilCoeff_memS_door_L_gk K (J := J) (H₀ := H₀) (n₀ := n₀) hM hd hdq hqW hW β,
-    norm_mul, liouvilleC_norm hd, one_mul]
-
-/-! ### `M4BridgeDilate` :793 — `m4_class_dilate_exit_gk` -/
-/-- **THE ROW'S EXIT AT THE LEVER — the per-class dilated statement** —
-`m4_class_dilate_exit_L` (:633). -/
-theorem m4_class_dilate_exit_L_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
-    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ)) (α : ℝ) :
-    ‖classWindowSum (memSCoeff (calP (AdoorL M) (s13GK K M))
-          (calQK (AdoorL M) (s13GK K M) M) J liouvilleC) H n q r α‖
-        = ‖absWindowSum (classCoeff (memSCoeff (calP (AdoorL M) (s13GK K M))
-            (calQK (AdoorL M) (s13GK K M) M) J liouvilleC)
-              (q / Nat.gcd r q) (r / Nat.gcd r q))
-            (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q) ((Nat.gcd r q : ℝ) * α)‖
-      ∧ ((H : ℝ) / (Nat.gcd r q : ℝ) - 1 ≤ (dilLen H n (Nat.gcd r q) : ℝ)
-          ∧ (dilLen H n (Nat.gcd r q) : ℝ) ≤ (H : ℝ) / (Nat.gcd r q : ℝ) + 1
-          ∧ dilLen H n (Nat.gcd r q) ≤ H)
-      ∧ (∀ thr : ℝ, (H : ℝ) / (Nat.gcd r q : ℝ) + 1 ≤ thr →
-          ‖classWindowSum (memSCoeff (calP (AdoorL M) (s13GK K M))
-            (calQK (AdoorL M) (s13GK K M) M) J liouvilleC) H n q r α‖ ≤ thr) := by
-  have hd : 0 < Nat.gcd r q := Nat.gcd_pos_of_pos_right r hq
-  have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
-  refine ⟨?_, ⟨le_dilLen_real H n hd, dilLen_le_real H n hd, dilLen_le_window H n hd⟩, ?_⟩
-  · rw [classWindowSum_dilate _ hq r H n α]
-    exact norm_absWindowSum_dilCoeff_memS_door_L_gk K (J := J)
-      (H₀ := dilLen H n (Nat.gcd r q)) (n₀ := n / Nat.gcd r q) hM hd.ne' hdq hqW hW _
-  · intro thr hthr
-    exact norm_classWindowSum_le_thresh
-      (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ J m) hq r H n α hthr
+  simpa only [s13GK_zero] using m4_class_dilate_exit_L_gk 0 hM hq hqW hW α
 
 /-! ### `M4ClassPrice` :229 — `norm_sum_windowClass_memS_dilate_gk` -/
 /-- **THE NON-COPRIME BRANCH AT THE LEVER** — `norm_sum_windowClass_memS_dilate_L` (:256). -/
@@ -3354,48 +3347,9 @@ theorem norm_sum_windowClass_memS_dilate_L {M J q r H n : ℕ} {W : ℝ} (hM : 1
             (calQK (AdoorL M) (3072 * M) M) J liouvilleC m‖ := by
   simpa only [s13GK_zero] using norm_sum_windowClass_memS_dilate_L_gk 0 hM hq hqW hW
 
-/-! ### `M4ClassPrice` :268 — `m4_class_price` -/
-/-- **`m4_class_price_L` — THE PER-CLASS PRICE, both cases.**
+/-! ### `M4ClassPrice` :268 — `m4_class_price_gk` -/
 
-For a class `r` mod `q` of the door's sieved `λ`-window sum at a tight-major rational `b/q`:
-
-* `d₀ = (r,q) = 1` — the character expansion fires at `(q, r)` on the sieved window, and the
-  `1/φ(q)` cancels (`hcop`);
-* `d₀ > 1` — ONE dilation (an equality, zero loss) lands the class at the provably coprime
-  `(q₀, r₀) = (q/d₀, r/d₀)` on the dilated window, where the same expansion fires (`hdil`).
-
-The two hypotheses are the SAME row datum read at the two windows the two branches use; a
-supplier uniform over the modulus range and the window range discharges both at once. -/
-theorem m4_class_price_L {M J q r H n : ℕ} {W : ℝ} {B : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
-    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (AdoorL M) (3072 * M) 1 : ℕ) : ℝ))
-    (hcop : ∀ χ : DirichletCharacter ℂ q,
-      ‖∑ m ∈ sievedWindow (MemS (calP (AdoorL M) (3072 * M))
-        (calQK (AdoorL M) (3072 * M) M) J) H n, liouChi χ m‖ ≤ B)
-    (hdil : ∀ χ : DirichletCharacter ℂ (q / Nat.gcd r q),
-      ‖∑ m ∈ sievedWindow (MemS (calP (AdoorL M) (3072 * M))
-        (calQK (AdoorL M) (3072 * M) M) J)
-          (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q), liouChi χ m‖ ≤ B) :
-    ‖∑ m ∈ windowClass H n q r, memSCoeff (calP (AdoorL M) (3072 * M))
-        (calQK (AdoorL M) (3072 * M) M) J liouvilleC m‖ ≤ B := by
-  have hd : 0 < Nat.gcd r q := Nat.gcd_pos_of_pos_right r hq
-  by_cases hcase : Nat.gcd r q = 1
-  · -- ⟦d₀ = 1⟧ the class is already coprime: the expansion at `(q, r)`
-    haveI : NeZero q := ⟨hq.ne'⟩
-    have hcopqr : Nat.Coprime q r := by
-      rw [Nat.Coprime, Nat.gcd_comm]
-      exact hcase
-    exact norm_sum_windowClass_memS_le_of_uniform hcopqr _ _ J H n hcop
-  · -- ⟦d₀ > 1⟧ ONE dilation, then the expansion at the reduced (coprime) pair
-    rw [norm_sum_windowClass_memS_dilate_L (J := J) hM hq hqW hW]
-    have hq₀ : 0 < q / Nat.gcd r q :=
-      Nat.div_pos (Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)) hd
-    haveI : NeZero (q / Nat.gcd r q) := ⟨hq₀.ne'⟩
-    have hcop₀ : Nat.Coprime (q / Nat.gcd r q) (r / Nat.gcd r q) :=
-      (m4_class_dilate_coprime hq r).symm
-    exact norm_sum_windowClass_memS_le_of_uniform hcop₀ _ _ J _ _ hdil
-
-/-! ### `M4ClassPrice` :963 — `m4_class_price_gk` -/
-/-- **THE PER-CLASS PRICE AT THE LEVER, both cases** — `m4_class_price_L` (:277). -/
+/-- **THE PER-CLASS PRICE AT THE LEVER, both cases** — `m4_class_price_L` (:306). -/
 theorem m4_class_price_L_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} {B : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
     (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ))
     (hcop : ∀ χ : DirichletCharacter ℂ q,
@@ -3423,6 +3377,32 @@ theorem m4_class_price_L_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} {B : ℝ} (h
     have hcop₀ : Nat.Coprime (q / Nat.gcd r q) (r / Nat.gcd r q) :=
       (m4_class_dilate_coprime hq r).symm
     exact norm_sum_windowClass_memS_le_of_uniform hcop₀ _ _ J _ _ hdil
+
+/-! ### `M4ClassPrice` :297 — `m4_class_price` -/
+
+/-- **`m4_class_price_L` — THE PER-CLASS PRICE, both cases.**
+
+For a class `r` mod `q` of the door's sieved `λ`-window sum at a tight-major rational `b/q`:
+
+* `d₀ = (r,q) = 1` — the character expansion fires at `(q, r)` on the sieved window, and the
+  `1/φ(q)` cancels (`hcop`);
+* `d₀ > 1` — ONE dilation (an equality, zero loss) lands the class at the provably coprime
+  `(q₀, r₀) = (q/d₀, r/d₀)` on the dilated window, where the same expansion fires (`hdil`).
+
+The two hypotheses are the SAME row datum read at the two windows the two branches use; a
+supplier uniform over the modulus range and the window range discharges both at once. -/
+theorem m4_class_price_L {M J q r H n : ℕ} {W : ℝ} {B : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
+    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (AdoorL M) (3072 * M) 1 : ℕ) : ℝ))
+    (hcop : ∀ χ : DirichletCharacter ℂ q,
+      ‖∑ m ∈ sievedWindow (MemS (calP (AdoorL M) (3072 * M))
+        (calQK (AdoorL M) (3072 * M) M) J) H n, liouChi χ m‖ ≤ B)
+    (hdil : ∀ χ : DirichletCharacter ℂ (q / Nat.gcd r q),
+      ‖∑ m ∈ sievedWindow (MemS (calP (AdoorL M) (3072 * M))
+        (calQK (AdoorL M) (3072 * M) M) J)
+          (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q), liouChi χ m‖ ≤ B) :
+    ‖∑ m ∈ windowClass H n q r, memSCoeff (calP (AdoorL M) (3072 * M))
+        (calQK (AdoorL M) (3072 * M) M) J liouvilleC m‖ ≤ B := by
+  simpa only [s13GK_zero] using m4_class_price_L_gk 0 hM hq hqW hW hcop hdil
 
 end Salt.MR
 

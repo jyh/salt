@@ -620,42 +620,6 @@ datum, each residue class's window sum is — in modulus, exactly — the dilate
 the REDUCED datum `(q₀, r₀)`, with the `d₀`-bookkeeping constants explicit and the trivial
 branch available at every threshold. -/
 
-/-- **THE ROW'S EXIT — the per-class dilated statement.**  For the door's sieved Liouville
-datum `1_𝒮·λ`, at a class `r` mod `q` with `d₀ = (r,q)` under the door gate
-`d₀ ≤ q ≤ W < P₁` (`W` free — the cap is the door's own `P₁`, `M4Residue.door_dilation_gate'`):
-
-1. **the transport** — `‖class sum‖ = ‖dilated window sum at the reduced datum‖`
-   (`λ(d₀)` has modulus 1, so the dilation is invisible);
-2. **the bookkeeping** — the dilated length is `H/d₀ ± 1`, both signs derived, and `≤ H`;
-3. **the trivial branch** — every threshold above `H/d₀ + 1` closes the class outright.
-
-The reduced class is coprime (`M4Residue.coprime_reduced_of_gcd`: `(r₀,q₀) = 1`), which is
-what makes the character expansion (⟦BRIDGE 1⟧'s second half, `M4Close.
-sum_liou_modEq_residue_eq`) legitimate at the dilated datum. -/
-theorem m4_class_dilate_exit {M J q r H n : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
-    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) (α : ℝ) :
-    ‖classWindowSum (memSCoeff (calP (Adoor M) (3072 * M))
-          (calQK (Adoor M) (3072 * M) M) J liouvilleC) H n q r α‖
-        = ‖absWindowSum (classCoeff (memSCoeff (calP (Adoor M) (3072 * M))
-            (calQK (Adoor M) (3072 * M) M) J liouvilleC)
-              (q / Nat.gcd r q) (r / Nat.gcd r q))
-            (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q) ((Nat.gcd r q : ℝ) * α)‖
-      ∧ ((H : ℝ) / (Nat.gcd r q : ℝ) - 1 ≤ (dilLen H n (Nat.gcd r q) : ℝ)
-          ∧ (dilLen H n (Nat.gcd r q) : ℝ) ≤ (H : ℝ) / (Nat.gcd r q : ℝ) + 1
-          ∧ dilLen H n (Nat.gcd r q) ≤ H)
-      ∧ (∀ thr : ℝ, (H : ℝ) / (Nat.gcd r q : ℝ) + 1 ≤ thr →
-          ‖classWindowSum (memSCoeff (calP (Adoor M) (3072 * M))
-            (calQK (Adoor M) (3072 * M) M) J liouvilleC) H n q r α‖ ≤ thr) := by
-  have hd : 0 < Nat.gcd r q := Nat.gcd_pos_of_pos_right r hq
-  have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
-  refine ⟨?_, ⟨le_dilLen_real H n hd, dilLen_le_real H n hd, dilLen_le_window H n hd⟩, ?_⟩
-  · rw [classWindowSum_dilate _ hq r H n α]
-    exact norm_absWindowSum_dilCoeff_memS_door (J := J)
-      (H₀ := dilLen H n (Nat.gcd r q)) (n₀ := n / Nat.gcd r q) hM hd.ne' hdq hqW hW _
-  · intro thr hthr
-    exact norm_classWindowSum_le_thresh
-      (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ J m) hq r H n α hthr
-
 /-- The reduced class of the exit is COPRIME — cited from `M4Residue` so that the exit's
 consumer never has to re-derive the hypothesis the character expansion needs. -/
 theorem m4_class_dilate_coprime {q : ℕ} (hq : 0 < q) (r : ℕ) :
@@ -791,7 +755,7 @@ theorem norm_absWindowSum_dilCoeff_memS_door_gk (K : ℕ) {M J d q q₀ r₀ H�
     norm_mul, liouvilleC_norm hd, one_mul]
 
 /-- **THE ROW'S EXIT AT THE LEVER — the per-class dilated statement** —
-`m4_class_dilate_exit` (:633). -/
+`m4_class_dilate_exit` (:793). -/
 theorem m4_class_dilate_exit_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
     (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) (α : ℝ) :
     ‖classWindowSum (memSCoeff (calP (Adoor M) (s13GK K M))
@@ -815,6 +779,34 @@ theorem m4_class_dilate_exit_gk (K : ℕ) {M J q r H n : ℕ} {W : ℝ} (hM : 1 
   · intro thr hthr
     exact norm_classWindowSum_le_thresh
       (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ J m) hq r H n α hthr
+
+/-- **THE ROW'S EXIT — the per-class dilated statement.**  For the door's sieved Liouville
+datum `1_𝒮·λ`, at a class `r` mod `q` with `d₀ = (r,q)` under the door gate
+`d₀ ≤ q ≤ W < P₁` (`W` free — the cap is the door's own `P₁`, `M4Residue.door_dilation_gate'`):
+
+1. **the transport** — `‖class sum‖ = ‖dilated window sum at the reduced datum‖`
+   (`λ(d₀)` has modulus 1, so the dilation is invisible);
+2. **the bookkeeping** — the dilated length is `H/d₀ ± 1`, both signs derived, and `≤ H`;
+3. **the trivial branch** — every threshold above `H/d₀ + 1` closes the class outright.
+
+The reduced class is coprime (`M4Residue.coprime_reduced_of_gcd`: `(r₀,q₀) = 1`), which is
+what makes the character expansion (⟦BRIDGE 1⟧'s second half, `M4Close.
+sum_liou_modEq_residue_eq`) legitimate at the dilated datum. -/
+theorem m4_class_dilate_exit {M J q r H n : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
+    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) (α : ℝ) :
+    ‖classWindowSum (memSCoeff (calP (Adoor M) (3072 * M))
+          (calQK (Adoor M) (3072 * M) M) J liouvilleC) H n q r α‖
+        = ‖absWindowSum (classCoeff (memSCoeff (calP (Adoor M) (3072 * M))
+            (calQK (Adoor M) (3072 * M) M) J liouvilleC)
+              (q / Nat.gcd r q) (r / Nat.gcd r q))
+            (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q) ((Nat.gcd r q : ℝ) * α)‖
+      ∧ ((H : ℝ) / (Nat.gcd r q : ℝ) - 1 ≤ (dilLen H n (Nat.gcd r q) : ℝ)
+          ∧ (dilLen H n (Nat.gcd r q) : ℝ) ≤ (H : ℝ) / (Nat.gcd r q : ℝ) + 1
+          ∧ dilLen H n (Nat.gcd r q) ≤ H)
+      ∧ (∀ thr : ℝ, (H : ℝ) / (Nat.gcd r q : ℝ) + 1 ≤ thr →
+          ‖classWindowSum (memSCoeff (calP (Adoor M) (3072 * M))
+            (calQK (Adoor M) (3072 * M) M) J liouvilleC) H n q r α‖ ≤ thr) := by
+  simpa only [s13GK_zero] using m4_class_dilate_exit_gk 0 hM hq hqW hW α
 
 -- #audit (temporary)
 

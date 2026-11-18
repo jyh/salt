@@ -242,7 +242,7 @@ theorem s15_gRows_const_at_socket_flat {R : ChowlaRegime} {M H L q j A s : ℕ} 
     linarith [hbud, hQ0, hL50, hlogρ]
   · exact s15_dens_at_zero hρ0.le
 
-/-- `s15_gRows_const_at_socket_gk` (`S15Compose.lean:1810`) — the lever's copy — at
+/-- `s15_gRows_const_at_socket_gk` (`S15Compose.lean:1778`) — the lever's copy — at
 the FLAT tower conjunct.  This is the form `S16Budget`'s HOP 4 fires. -/
 theorem s15_gRows_const_at_socket_gk_flat (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hM : 1 ≤ M)
@@ -330,7 +330,7 @@ theorem s13_loglogHhi_le_flat {R : ChowlaRegime}
   linarith
 
 /-- **⟦THE WINDOW CEILING, FLAT, AT THE HONEST `λ₋`⟧** — `s13_loglogHhi_le_tight`
-(`S13FramesA.lean:1098`) at the FLAT tower conjunct: the census window
+(`S13FramesA.lean:1082`) at the FLAT tower conjunct: the census window
 `λ₋ ≤ 81.184` exports `6.6·10¹⁷` in place of `3.92·10⁸`.  `s13_g2_jfloor` and
 `s13_gate8` take `Λ` as a parameter, so they need no twin — they are instantiated
 at this ceiling. -/

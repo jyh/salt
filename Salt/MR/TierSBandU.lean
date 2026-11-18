@@ -240,7 +240,7 @@ scale `N` for all `r ∈ admClasses P`).
 
 Route (`TierSBandU` header; not fired): C2 at the union (U5) in place of C2 at the class, the
 crown band's body verbatim to the band witnesses `⟨ε, A, …, Rd.x / a, Rd.ω, Rd.Hhi, …⟩`, then
-`intro b hba` and the per-class transport `mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1137`)
+`intro b hba` and the per-class transport `mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1103`)
 with its `hK` from the union's count gate through U1 (`Finset.card_le_card`) and its `hdoor` from
 the union's door through U4 ∘ U1.  Everything else in the crown band's proof is `b`-free or
 `b`-local (`hb0`, `hbRe`).  The witnesses `ε, A, x₀, ω₀, Hhi₀` are the crown band's own, read at

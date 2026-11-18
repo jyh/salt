@@ -965,7 +965,7 @@ that is flagged per rider.
 
 Seventeen hops, every one a verbatim pass-through except the one marked:
 `final'` ← `S15Witness.logChowla2_conditional_sharp2_nonvacuous_gk'`
-← `S15Compose.logChowla2_conditional_sharp2_atK_gk_pinned` (:2617)
+← `S15Compose.logChowla2_conditional_sharp2_atK_gk_pinned` (:2614)
 ← `S12ConstCompose.logChowla2_capstone_final_const'_graded_gk_pinned` (:1288)
 ← `S12ConstCompose.m4_closure_fuse_zero'_const_nonneg_gk` (:856)
 ← `M4RowsChiZeroPrime.m4_hrowsSlot_at_door_zero'_gk` (:846)
@@ -1795,7 +1795,7 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl (K : ℕ)
 set_option maxHeartbeats 1000000 in
 -- ⟦HOP 4⟧ same cause as the landed §GK.10-PINNED: the residue re-elaborates against the prefix
 /-- **⟦HOP 4⟧** (`logChowla2_conditional_sharp2_atK_gk_pinned_Mfl`) —
-`S15Compose.logChowla2_conditional_sharp2_atK_gk_pinned` (:2617) reading HOP 3's twin, so the
+`S15Compose.logChowla2_conditional_sharp2_atK_gk_pinned` (:2614) reading HOP 3's twin, so the
 `∃`-prefix carries `Mfl ≤ 2^355` one level higher.  Proof: the landed one, with `hMflb`
 threaded through the `obtain`/`refine`. -/
 theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl (K : ℕ) (hK : K ≤ 170000000)

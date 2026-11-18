@@ -770,20 +770,11 @@ theorem strideEndpoint_le (K a Z : ℝ) (q ω : ℕ) (hK : 0 ≤ K) (ha : 0 ≤ 
 
 /-! ## F3-P19–P20 — the flat base at the shrunk regime (the caller's numerals) -/
 
-/-- **F3-P19 (class A) — R5, CORRECTED.**  The price brief's `loglog(a·B) ≤ loglog B + 1` does
-NOT fit the ONE consumer that reads `Hlo` from above: H6's `hbaseceil` (`DoorReceipt.lean:
-819-821` at `h = 1`; `flat_L_width_priced`'s `hbase`) wants `loglog Hlo ≤ 3.2·A + log 2`
-LITERALLY, with `log 2` of
-slack that `flatDesignBase_loglog_le` (`S16FlatTerminalLinear.lean`) already spends on the
-`Nat.ceil` overshoot.  So the lemma is stated at the flat base with the factor `a` absorbed
-inside the ceiling's own margin: `log(a·B) = log a + log B ≤ 7 + (exp(3.2A) + log 2)` (the
-`B ≤ 2·exp(exp(3.2A))` step of `flatDesignBase_loglog_le`'s proof, re-derived: `B ≤ exp(exp(3.2A))
-+ 1`), and `7 + log 2 + exp(3.2A) ≤ 2·exp(3.2A)` at `A ≥ 162` (`exp(3.2A) ≥ 3.2A + 1 ≥ 519`), so
-`loglog(a·B) ≤ log(2·exp(3.2A)) = 3.2A + log 2`.  `Real.log_mul`, `Real.log_le_log`,
-`Real.add_one_le_exp`, `Real.log_exp`.  This is the ONLY place the node reads `Hlo` from above
-by other than `loglog` monotonicity (R11's step-0 census, freeze §1(C)). -/
-theorem loglog_mul_flatDesignBase_le {A : ℝ} (hA : 162 ≤ A) {a : ℕ} (ha : 1 ≤ a)
-    (ha7 : Real.log (a : ℝ) ≤ 7) :
+/-- **F3-P19 at `log a ≤ 9`** (`loglog_mul_flatDesignBase_le_b9`) — `loglog_mul_flatDesignBase_le`
+with `ha7 ↦ ha9`.  The cap is read only in `hub`: `log a + log 2 + E ≤ 2E` at `E ≥ 519`,
+`log 2 ≤ 1`, slack `509` (census band 4 row 3).  BODY verbatim. -/
+theorem loglog_mul_flatDesignBase_le_b9 {A : ℝ} (hA : 162 ≤ A) {a : ℕ} (ha : 1 ≤ a)
+    (ha9 : Real.log (a : ℝ) ≤ 9) :
     Real.log (Real.log ((a * flatDesignBase A : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 := by
   have hge : Real.exp (Real.exp (3.2 * A)) ≤ ((flatDesignBase A : ℕ) : ℝ) := by
     rw [flatDesignBase]; exact Nat.le_ceil _
@@ -820,6 +811,23 @@ theorem loglog_mul_flatDesignBase_le {A : ℝ} (hA : 162 ≤ A) {a : ℕ} (ha : 
       ≤ Real.log (2 * Real.exp (3.2 * A)) := Real.log_le_log hpos2 hub
     _ = 3.2 * A + Real.log 2 := by
         rw [Real.log_mul (by norm_num) (Real.exp_ne_zero _), Real.log_exp]; ring
+
+/-- **F3-P19 (class A) — R5, CORRECTED.**  The price brief's `loglog(a·B) ≤ loglog B + 1` does
+NOT fit the ONE consumer that reads `Hlo` from above: H6's `hbaseceil` (`DoorReceipt.lean:
+819-821` at `h = 1`; `flat_L_width_priced`'s `hbase`) wants `loglog Hlo ≤ 3.2·A + log 2`
+LITERALLY, with `log 2` of
+slack that `flatDesignBase_loglog_le` (`S16FlatTerminalLinear.lean`) already spends on the
+`Nat.ceil` overshoot.  So the lemma is stated at the flat base with the factor `a` absorbed
+inside the ceiling's own margin: `log(a·B) = log a + log B ≤ 7 + (exp(3.2A) + log 2)` (the
+`B ≤ 2·exp(exp(3.2A))` step of `flatDesignBase_loglog_le`'s proof, re-derived: `B ≤ exp(exp(3.2A))
++ 1`), and `7 + log 2 + exp(3.2A) ≤ 2·exp(3.2A)` at `A ≥ 162` (`exp(3.2A) ≥ 3.2A + 1 ≥ 519`), so
+`loglog(a·B) ≤ log(2·exp(3.2A)) = 3.2A + log 2`.  `Real.log_mul`, `Real.log_le_log`,
+`Real.add_one_le_exp`, `Real.log_exp`.  This is the ONLY place the node reads `Hlo` from above
+by other than `loglog` monotonicity (R11's step-0 census, freeze §1(C)). -/
+theorem loglog_mul_flatDesignBase_le {A : ℝ} (hA : 162 ≤ A) {a : ℕ} (ha : 1 ≤ a)
+    (ha7 : Real.log (a : ℝ) ≤ 7) :
+    Real.log (Real.log ((a * flatDesignBase A : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 := by
+  exact loglog_mul_flatDesignBase_le_b9 hA ha (by linarith)
 
 /-- **F3-P20 (class A).**  The flat base clears the shrunk regime's two `Hlo`-floors:
 `4·⌈1/ε⌉₊⁴ ≤ flatDesignBase A` at `ε ≥ 1/548000` (`⌈1/ε⌉₊ ≤ 548000`, `4·548000⁴ < 10²⁴ ≤
@@ -866,48 +874,6 @@ statement and body with ONLY the raises `1096 ↦ 8103`, `log a ≤ 7 ↦ ≤ 9`
 debt lane retired the seven F3-P4 `rfl` projections of `regimeShrinkX_stride` and the F3-P6 lemma
 `regimeShrinkX_stride_x_mul` into their twins here (two notes stand where they stood;
 `regimeShrinkX_stride_Hlo` stands). -/
-
-/-- **F3-P19 at `log a ≤ 9`** (`loglog_mul_flatDesignBase_le_b9`) — `loglog_mul_flatDesignBase_le`
-with `ha7 ↦ ha9`.  The cap is read only in `hub`: `log a + log 2 + E ≤ 2E` at `E ≥ 519`,
-`log 2 ≤ 1`, slack `509` (census band 4 row 3).  BODY verbatim. -/
-theorem loglog_mul_flatDesignBase_le_b9 {A : ℝ} (hA : 162 ≤ A) {a : ℕ} (ha : 1 ≤ a)
-    (ha9 : Real.log (a : ℝ) ≤ 9) :
-    Real.log (Real.log ((a * flatDesignBase A : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 := by
-  have hge : Real.exp (Real.exp (3.2 * A)) ≤ ((flatDesignBase A : ℕ) : ℝ) := by
-    rw [flatDesignBase]; exact Nat.le_ceil _
-  have hceil : ((flatDesignBase A : ℕ) : ℝ) ≤ 2 * Real.exp (Real.exp (3.2 * A)) := by
-    rw [flatDesignBase]
-    have h1 : ((⌈Real.exp (Real.exp (3.2 * A))⌉₊ : ℕ) : ℝ)
-        ≤ Real.exp (Real.exp (3.2 * A)) + 1 := (Nat.ceil_lt_add_one (Real.exp_pos _).le).le
-    have h2 : (1 : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by
-      have := Real.add_one_le_exp (Real.exp (3.2 * A)); linarith [Real.exp_pos (3.2 * A)]
-    linarith
-  have hE519 : (519 : ℝ) ≤ Real.exp (3.2 * A) := by
-    have := Real.add_one_le_exp (3.2 * A); linarith
-  have hDpos : (0 : ℝ) < ((flatDesignBase A : ℕ) : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hge
-  have hapos : (0 : ℝ) < (a : ℝ) := by exact_mod_cast ha
-  have hlogD_ge : Real.exp (3.2 * A) ≤ Real.log ((flatDesignBase A : ℕ) : ℝ) := by
-    have h := Real.log_le_log (Real.exp_pos _) hge
-    rwa [Real.log_exp] at h
-  have hlogD_le : Real.log ((flatDesignBase A : ℕ) : ℝ)
-      ≤ Real.log 2 + Real.exp (3.2 * A) := by
-    have h := Real.log_le_log hDpos hceil
-    rwa [Real.log_mul (by norm_num) (Real.exp_ne_zero _), Real.log_exp] at h
-  have hlog2 : Real.log 2 ≤ 1 := by
-    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 2); linarith
-  have hprod : Real.log ((a * flatDesignBase A : ℕ) : ℝ)
-      = Real.log (a : ℝ) + Real.log ((flatDesignBase A : ℕ) : ℝ) := by
-    rw [show ((a * flatDesignBase A : ℕ) : ℝ) = (a : ℝ) * ((flatDesignBase A : ℕ) : ℝ) by
-      push_cast; ring, Real.log_mul (ne_of_gt hapos) (ne_of_gt hDpos)]
-  have hloga : (0 : ℝ) ≤ Real.log (a : ℝ) := Real.log_nonneg (by exact_mod_cast ha)
-  have hpos2 : (0 : ℝ) < Real.log ((a * flatDesignBase A : ℕ) : ℝ) := by
-    rw [hprod]; linarith
-  have hub : Real.log ((a * flatDesignBase A : ℕ) : ℝ) ≤ 2 * Real.exp (3.2 * A) := by
-    rw [hprod]; linarith
-  calc Real.log (Real.log ((a * flatDesignBase A : ℕ) : ℝ))
-      ≤ Real.log (2 * Real.exp (3.2 * A)) := Real.log_le_log hpos2 hub
-    _ = 3.2 * A + Real.log 2 := by
-        rw [Real.log_mul (by norm_num) (Real.exp_ne_zero _), Real.log_exp]; ring
 
 /-- **F3-P20 at the pin's floor `1/4051500`** (`flatDesignBase_clears_stride_floors_b9`) —
 `flatDesignBase_clears_stride_floors` with `548000 ↦ 4051500 = 500·8103` and the intermediate

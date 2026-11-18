@@ -39,11 +39,11 @@ its SIXTEEN residue binders as the landed supply allows, naming every survivor e
 
 | # | binder | discharged from | where |
 |---|---|---|---|
-| 1 | `hgates` | `s13_doorGates_of_MSelect'` + `S15Sel` | `S13MSelect2.lean:406` |
+| 1 | `hgates` | `s13_doorGates_of_MSelect'` + `S15Sel` | `S13MSelect2.lean:391` |
 | 2 | `hend` | `s13_endpoint_of_arm'` (the demoted arm) | `S13FramesA.lean:896` |
 | 3 | `hj0` | `s13_g2_jfloor` at `Λ := loglog H₊` | `S13FramesA.lean:504` |
 | 4 | `hdgate` | `s13_gate8` at `Λ := loglog H₊` | `S13FramesA.lean:532` |
-| 5 | `hfit` | `s13_smallGradeFits_of_MSelect'` | `S13MSelect2.lean:420` |
+| 5 | `hfit` | `s13_smallGradeFits_of_MSelect'` | `S13MSelect2.lean:405` |
 | 6 | `hbf` | `doorBaseFrame_at_socket` | `M4AssemblyFrames.lean` |
 | 7 | `hgP1` | `s15_gP1_of_budget` (CONST-VERDICT §C) | §1 below |
 | 8 | `hgRows` | `s15_gRows_const_at_socket` (CONST-VERDICT §H) | §1 below |
@@ -1361,38 +1361,6 @@ theorem s15_socketBase_inhabited' {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : C
     s14_window_floor_of_winFit hρ0 hρ1 (hS.winFit R.Hlo le_rfl R.hHlohi)
   exact s14_socketBase_witness (le_trans hwin R.hHlohi)
 
-/-- **⟦THE NEXT-TIGHTEST CAP, AFTER THE REPAIR⟧** (`s15_sel'_anchor_cap`) — ERR-REF's probe C
-at the sharp register, with the width law taken as a hypothesis rather than re-derived (the
-tower modules are not in this file's import closure; `WIDTH-SCOPE`'s
-`probe_regime_width_forced` supplies it at `C0 = 2`, `a = 1`, `λ₋ ≥ 50`).
-
-`S15Sel'.anchor` is now the tightest `λ₊`-cap the register carries: `λ₊ ≤ 2.7857·10⁸`, which
-against `λ₊ ≥ λ₋³` reads `λ₋ ≤ 654` — SATISFIED at the working point `λ₋ ≈ 50`.  The deleted
-`err` line read `λ₊ ≤ 24849`, i.e. `λ₋ ≤ 29.2`, and was NOT satisfiable there: that is the
-whole difference between this conditional and §5's/§8's.
-
-⟦THIS IS NOT A WITNESS⟧ it says the register is not empty FOR THE REASON it was empty; the
-`∃M` discharge (`blk`/`half`/`gRows`/`gP1`/`lvl` against the twin's opaque constants) is a
-separate piece of work and is not attempted. -/
-theorem s15_sel'_anchor_cap {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
-    (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
-    (h50 : 50 ≤ Real.log (Real.log (R.Hlo : ℝ)))
-    (hwidth : (Real.log (Real.log (R.Hlo : ℝ))) ^ 3 ≤ Real.log (Real.log (R.Hhi : ℝ)))
-    (hsel : S15Sel' Cg δ₀ Ct ρ x₀ Mfl R M) :
-    Real.log (Real.log (R.Hlo : ℝ)) ≤ 654 := by
-  have hlρ : (0 : ℝ) ≤ Real.log (1 / ρ) := by
-    rw [one_div, Real.log_inv]
-    have : Real.log ρ ≤ 0 := Real.log_nonpos hρ0.le hρ1
-    linarith
-  have hanc := hsel.anchor
-  set u : ℝ := Real.log (Real.log (R.Hlo : ℝ)) with hudef
-  by_contra hcon
-  rw [not_le] at hcon
-  have hsq : (654 : ℝ) ^ 2 ≤ u ^ 2 := by nlinarith [hcon, h50]
-  have hcube : (279726264 : ℝ) ≤ u ^ 3 := by nlinarith [hsq, hcon, h50]
-  norm_num at hanc hlρ ⊢
-  linarith [hwidth, hcube, hanc, hlρ]
-
 /-- **⟦THE REGISTER SUPPLY, SHARP⟧** (`S15SupplySharp`) — §8's `S15SupplyGraded` with the
 `M`-floor absorbed into the register.  TWO conjuncts: the selection register and the crossing
 bound. -/
@@ -2240,6 +2208,14 @@ structure S15Sel'_gk (K : ℕ) (Cg δ₀ Ct ρ : ℝ) (x₀ Mfl : ℕ) (R : Chow
       + (-Real.log ρ)
     ≤ (1 / 12) * ((Adoor M : ℕ) : ℝ) * Real.log 2
 
+/-- `S15Sel'` is `S15Sel'_gk` at `K = 0`: the two differ only in `blk` and `lvl`, where
+`s13BlockExp_gk 0 M = s13BlockExp M` and `s13GK 0 M = 3072 * M` (`s13GK_zero`). -/
+theorem S15Sel'.to_gk0 {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
+    (h : S15Sel' Cg δ₀ Ct ρ x₀ Mfl R M) : S15Sel'_gk 0 Cg δ₀ Ct ρ x₀ Mfl R M :=
+  { h with
+    blk := by simpa only [s13BlockExp_gk, s13GK_zero, s13BlockExp] using h.blk
+    lvl := by simpa only [s13GK_zero] using h.lvl }
+
 /-- `S15Sel'.head (:1249)` at the lever. -/
 theorem S15Sel'_gk.head {K : ℕ} {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
     (hsel : S15Sel'_gk K Cg δ₀ Ct ρ x₀ Mfl R M)
@@ -2362,7 +2338,7 @@ theorem logChowla2_conditional_sharp_gk :
     logChowla2_conditional_sharp_atK_gk 500000 (by norm_num)
   exact ⟨500000, ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl, hbody⟩
 
-/-- `s15_socketBase_inhabited' (:1387)` at the lever. -/
+/-- `s15_socketBase_inhabited' (:1352)` at the lever. -/
 theorem s15_socketBase_inhabited'_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ}
     {R : ChowlaRegime} {M : ℕ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
@@ -2376,7 +2352,7 @@ theorem s15_socketBase_inhabited'_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl 
     s14_window_floor_of_winFit hρ0 hρ1 (hS.winFit R.Hlo le_rfl R.hHlohi)
   exact s14_socketBase_witness (le_trans hwin R.hHlohi)
 
-/-- `s15_sel'_anchor_cap (:1412)` at the lever. -/
+/-- `s15_sel'_anchor_cap (:1380)` at the lever. -/
 theorem s15_sel'_anchor_cap_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
     (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
     (h50 : 50 ≤ Real.log (Real.log (R.Hlo : ℝ)))
@@ -2396,11 +2372,32 @@ theorem s15_sel'_anchor_cap_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ}
   norm_num at hanc hlρ ⊢
   linarith [hwidth, hcube, hanc, hlρ]
 
-/-- `S15SupplySharp (:1434)` at the lever. -/
+/-- **⟦THE NEXT-TIGHTEST CAP, AFTER THE REPAIR⟧** (`s15_sel'_anchor_cap`) — ERR-REF's probe C
+at the sharp register, with the width law taken as a hypothesis rather than re-derived (the
+tower modules are not in this file's import closure; `WIDTH-SCOPE`'s
+`probe_regime_width_forced` supplies it at `C0 = 2`, `a = 1`, `λ₋ ≥ 50`).
+
+`S15Sel'.anchor` is now the tightest `λ₊`-cap the register carries: `λ₊ ≤ 2.7857·10⁸`, which
+against `λ₊ ≥ λ₋³` reads `λ₋ ≤ 654` — SATISFIED at the working point `λ₋ ≈ 50`.  The deleted
+`err` line read `λ₊ ≤ 24849`, i.e. `λ₋ ≤ 29.2`, and was NOT satisfiable there: that is the
+whole difference between this conditional and §5's/§8's.
+
+⟦THIS IS NOT A WITNESS⟧ it says the register is not empty FOR THE REASON it was empty; the
+`∃M` discharge (`blk`/`half`/`gRows`/`gP1`/`lvl` against the twin's opaque constants) is a
+separate piece of work and is not attempted. -/
+theorem s15_sel'_anchor_cap {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
+    (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
+    (h50 : 50 ≤ Real.log (Real.log (R.Hlo : ℝ)))
+    (hwidth : (Real.log (Real.log (R.Hlo : ℝ))) ^ 3 ≤ Real.log (Real.log (R.Hhi : ℝ)))
+    (hsel : S15Sel' Cg δ₀ Ct ρ x₀ Mfl R M) :
+    Real.log (Real.log (R.Hlo : ℝ)) ≤ 654 := by
+  exact s15_sel'_anchor_cap_gk 0 hρ0 hρ1 h50 hwidth hsel.to_gk0
+
+/-- `S15SupplySharp (:1402)` at the lever. -/
 def S15SupplySharp_gk (K : ℕ) (Cg δ₀ Ct ρ : ℝ) (x₀ Mfl : ℕ) (R : ChowlaRegime) : Prop :=
   ∃ M : ℕ, S15Sel'_gk K Cg δ₀ Ct ρ x₀ Mfl R M ∧ S15CrossingBound_gk K R M
 
-/-- `logChowla2_witnessed_scale_sharp (:1440)` at the lever. -/
+/-- `logChowla2_witnessed_scale_sharp (:1408)` at the lever. -/
 theorem logChowla2_witnessed_scale_sharp_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ (Cg Kc δ₀ Ct : ℝ) (x₀ Mfl : ℕ), 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧
       ((∀ R : ChowlaRegime,
@@ -2423,8 +2420,8 @@ theorem logChowla2_witnessed_scale_sharp_gk (K : ℕ) (hK : K ≤ 170000000) :
 section is that twin, at the same discipline: `(K : ℕ)` first, `s13BlockExp_gk`/`s13GK` in
 place of their landed readings, and every other byte the landed §10's.
 
-⟦WHAT IS **NOT** TWINNED HERE, AND WHY⟧ `s15_doorArithFrameRho_at_socket''` (:1494) and
-`s15_doorArithFrameRho_family''` (:1550) are `G`-FREE: their statement names
+⟦WHAT IS **NOT** TWINNED HERE, AND WHY⟧ `s15_doorArithFrameRho_at_socket''` (:1462) and
+`s15_doorArithFrameRho_family''` (:1518) are `G`-FREE: their statement names
 `DoorArithFrameRho M H j …`, `SocketBase R M H L q j A s`, `gArmDoorRho` and `s13BandM0`, and
 their proof reads only `Adoor M` / `doorRowFloor M` — no ladder above level 1, no `3072·M`
 anywhere (`M4ArithRho`'s own `§GK` records the whole `DoorArithFrameRho` block as
@@ -2438,7 +2435,7 @@ bundle at the gate's own tolerant `x0_le` (`s15_bandGate''_of_grade_gk`, below).
 `logChowla2_conditional_sharp2_atK_gk` is `logChowla2_conditional_sharp_atK_gk` byte for
 byte. -/
 
-/-- `S15Sel'' (:1568)` at the lever.  Two lines move — `blk` at `s13BlockExp_gk K M` and
+/-- `S15Sel'' (:1536)` at the lever.  Two lines move — `blk` at `s13BlockExp_gk K M` and
 `lvl`'s `𝒬₁` at `s13GK K M` — and the two RESTORED lines (`x0M` at the tolerant
 `2 ^ doorRowFloor M`, `anchor` at the frame's own `(log₂M + 1)`) are `G`-free and carry
 across unchanged. -/
@@ -2474,7 +2471,7 @@ structure S15Sel''_gk (K : ℕ) (Cg δ₀ Ct ρ : ℝ) (x₀ Mfl : ℕ) (R : Cho
       + (-Real.log ρ)
     ≤ (1 / 12) * ((Adoor M : ℕ) : ℝ) * Real.log 2
 
-/-- `S15Sel''.head (:1600)` at the lever. -/
+/-- `S15Sel''.head (:1568)` at the lever. -/
 theorem S15Sel''_gk.head {K : ℕ} {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
     (hsel : S15Sel''_gk K Cg δ₀ Ct ρ x₀ Mfl R M)
     (hΛ : 0 ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) :
@@ -2485,7 +2482,7 @@ theorem S15Sel''_gk.head {K : ℕ} {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : 
   have : s13BlockExp_gk K M ≤ 4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ := by exact_mod_cast hR
   omega
 
-/-- `s15_bandGate''_of_grade (:1613)` at the lever — `x0_le` read from the register
+/-- `s15_bandGate''_of_grade (:1581)` at the lever — `x0_le` read from the register
 DIRECTLY, at `S13BandGate'_gk`'s own tolerant form. -/
 theorem s15_bandGate''_of_grade_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ}
     {R : ChowlaRegime} {M : ℕ}
@@ -2505,7 +2502,7 @@ set_option maxHeartbeats 1000000 in
 -- Same cause as §5, §8, §9 and the landed §10: the twin's residue re-elaborates against the
 -- instantiated prefix.
 /-- **⟦THE CAPSTONE, FIRED ON THE RE-CUT REGISTER, AT THE LEVER⟧**
-(`logChowla2_conditional_sharp2_atK_gk`) — `logChowla2_conditional_sharp2` (:1640) at the
+(`logChowla2_conditional_sharp2_atK_gk`) — `logChowla2_conditional_sharp2` (:1608) at the
 lever, UNIFORM IN `K`.  The pin `K := 500000` is taken one declaration below.
 
 ⟦WHAT IS CARRIED⟧ `S15Sel''_gk K` and `S15CrossingBound_gk K`.  Nothing else. -/
@@ -2603,7 +2600,7 @@ theorem logChowla2_conditional_sharp2_gk :
 
 /-! ### §GK.10-PINNED — ⟦REF-REPAIR (b)⟧ THE SAME COMPOSE ON THE PINNED CAPSTONE
 
-`logChowla2_conditional_sharp2_atK_gk` (:2631) with its capstone call redirected to
+`logChowla2_conditional_sharp2_atK_gk` (:2628) with its capstone call redirected to
 `S12ConstCompose.logChowla2_capstone_final_const'_graded_gk_pinned` — the twin that consumes
 `HloExportMR.m4_second_road_L2_hloCap_pinned_gk`.  The proof is BYTE-IDENTICAL; the statement
 gains the three EPSPIN conjuncts at the end of its `∃`-prefix, where the witness page turns
@@ -2611,7 +2608,7 @@ them into discharges of the `ε`/`δ₀`/`Cg` riders.  PURELY ADDITIVE. -/
 
 set_option maxHeartbeats 1000000 in
 -- Same cause as the landed §GK.10: the twin's residue re-elaborates against the prefix.
-/-- `logChowla2_conditional_sharp2_atK_gk (:2631)` on the pinned road.  ⟦WHAT IS CARRIED⟧
+/-- `logChowla2_conditional_sharp2_atK_gk (:2628)` on the pinned road.  ⟦WHAT IS CARRIED⟧
 `S15Sel''_gk K` and `S15CrossingBound_gk K`; ⟦WHAT IS NOW CERTIFIED⟧ `Cg ≤ 2·10^{12}`,
 `1/500 ≤ ε`, `1/838400 ≤ δ₀`. -/
 theorem logChowla2_conditional_sharp2_atK_gk_pinned (K : ℕ) (hK : K ≤ 170000000) :
