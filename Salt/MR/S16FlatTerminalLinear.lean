@@ -814,6 +814,7 @@ theorem doorBaseFrame_at_socket_L {R : ChowlaRegime} {M H L q j A s : ℕ} {C₁
       linarith
     have := Real.log_le_log (Real.exp_pos 5) hlog
     rwa [Real.log_exp] at this
+
 -- `s15_block_at_socket_gen` now lives in `S15Compose`, above its two instances (O13-e row 254).
 
 /-- `s15_block_at_socket_gk` at the LINEAR block exponent. -/
