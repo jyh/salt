@@ -14101,7 +14101,7 @@ Hlo ≥ f(M); M is post-R but U1floor is pre-R, and ChowlaRegime exports
 NO Hhi upper bound (hfit forces Hhi UP only). A refuter sets
 log Hhi = 2^{10^9} and breaks any pre-fixed Hlo. REPAIR: export
 log R.Hhi ≤ f(log R.Hlo) from the tower construction
-(chowlaRegime_exists_param_head', RegimeParam:543; benign in fact —
+(chowlaRegime_exists_param_head', RegimeParam:475; benign in fact —
 log Hhi ≈ (log Hlo)^{1+o(1)} — but NOT exported). ~200–500 ln + 3
 conjuncts, **Fable/JYH-tier statement change** (SpineFinal/regime
 territory). Schedule REGARDLESS of design choice.
@@ -14233,7 +14233,7 @@ shapes move** — everything else consumes the anchor through Adoor_ge
 (monotone, verbatim). Every anchor-sensitive gate moves FAVOURABLY
 (A_gate_logK margin 221× → 895265×; a2Level1 shrinks; H1_two easier;
 the arc floor anchor-independent). The x-floor rises log x ≥ 10^{473}
-→ 10^{480} — one-sided (RegimeParam:531-550 states the law; g is
+→ 10^{480} — one-sided (RegimeParam:463-482 states the law; g is
 spine-choosable after R) and 2.9e9 ORDERS below the floor hheadroom
 already imposes. **The anchor re-pin is cheap; it re-pins the
 JYH-ratified 7/26 B₅/door design (DoorFrame) — council ruling
@@ -15405,7 +15405,7 @@ on a baseline of 1.24e5** (it converts a constant arm to a λ-linear arm).
 (37620·5 + 33; the sibling constants cross-check).
 
 **⟦R-A4-3(b) — CONFIRMED BY DERIVATION: F5/gate-neutral.⟧**  The
-mechanism is `regimeEnlargeX'` (RegimeParam:501-528): a g-bump moves `x`
+mechanism is `regimeEnlargeX'` (RegimeParam:433-460): a g-bump moves `x`
 ALONE — ω/a/eps/Hlo/Hhi/C0/J carried verbatim.  All 11 gates walked:
 x-reading gates (the g-floor, gate 1's ladder/blocks, gate 10's
 `4·2^k/x`, gate 11's socket antecedent) are x-LOWERs or strictly eased;
@@ -17578,8 +17578,8 @@ itself held for the Captain).  (E1 TOP) capstone hframe = the PRE-R1
 DoorFuseFrame at a2RowsSum's growing p2-row — unprovable at any
 M ≥ 2 (the shortfall exactly ×M; only vacuity could discharge it).
 (E5) the M-band is TWO-SIDED in λ (≲289) but the head exports no
-R.Hlo upper — the builder's equality (RegimeParam:403) is discarded
-at :389; a seven-statement conjunct-carry recovers it.  (E4) epsrf ≡ 0
+R.Hlo upper — the builder's equality (RegimeParam:335) is discarded
+at :321; a seven-statement conjunct-carry recovers it.  (E4) epsrf ≡ 0
 is a TRAP (kills abs8640); pin epsrf := θ₂₉₃ − 1/500.  (E7) compose
 at SYMBOLIC Λ := (loglog R.Hlo)^{9/2} off the tower conjunct, no
 numeral.  (E8 favorable) bfloor discharges by ⌈24Cg/δ₀⌉-choice since
@@ -23509,7 +23509,7 @@ the brief's `≳ 1.17e4` = 11700 FAILS at `−9.18`). So the conjunct demands
 
 ### 📐 THE CENSUS — 5 construction sites (three search shapes; structure-instance form is the only one used)
 ```
-  Salt/Entropy/Chowla/RegimeParam.lean:454      chowlaRegime_exists_param_gen           Hlo₀ param
+  Salt/Entropy/Chowla/RegimeParam.lean:386      chowlaRegime_exists_param_gen           Hlo₀ param
   Salt/Entropy/Chowla/HloExport.lean:151        chowlaRegime_exists_param_gen_hloCap    Hlo₀ param
   Salt/Entropy/Chowla/TowerFlatBuilder.lean:351 chowlaRegimeFlat_exists_param_gen       Hlo₀ param
   Salt/MR/XCeil.lean:510                        chowlaRegimeFlat_exists_param_gen_ceiling Hlo₀ param
@@ -23521,7 +23521,7 @@ is caller-driven and unboundedly raisable.
 ### ⛔⛔ THE SITE THAT CANNOT: `regime_exists_of_dropSum` (`RegimeInst.lean:169-175`)
 It hardcodes `Hlo := 4000000` with `hHlo_floor := le_refl _`, and **it is the corpus's ANTI-VACUITY
 WITNESS** — the proof that a `ChowlaRegime` exists at all. Chain:
-`Diverge.lean:450 dropSum_exceeds_log_two → regime_exists_of_dropSum_exists (:201) →
+`Diverge.lean:457 dropSum_exceeds_log_two → regime_exists_of_dropSum_exists (:201) →
 regime_exists_of_dropSum`, audited at `Salt/Entropy/All.lean:268`.
 
 Raising its `Hlo` to `10^5086` is **not a mechanical edit**: its own hypothesis is
