@@ -236,9 +236,9 @@ For a fixed window pattern `x₀`, the CONDITIONAL probability (given
 mean by at least `δ` is bounded by `(t + log(1 + 8 P_H² ω/x) + log 2)/g`, where
 `t` is the per-`x₀` residue-entropy deficiency and `g ≤ E − log 2` with `E` the
 sharp product-world concentration exponent
-`δ²·log H / (2 C₀ ε²H (2/ε²+1)²)` (W2-b′ grade).  Composes
-`fBridge_concentration_decoupled_sharp` (uniform smallness → card smallness) with
-`weakUniform_spine` (card smallness → conditional-mass bound).  The nonnegativity
+`δ²·log H / (2 C₀ ε²H (2/ε²+1)²)` (W2-b′ grade).  The argument,
+concentration (uniform smallness → card smallness) then `weakUniform_spine` (card smallness
+→ conditional-mass bound), is the twin's, run at `h = 1`.  The nonnegativity
 `ht : 0 ≤ t` handles the empty-bad-set case cleanly (see the report note).
 Proof: the `h = 1` instance of `badSet_transport_h` (above), through `badSet_h_one`. -/
 theorem badSet_transport (eps : ℚ) (H : ℕ) {x ω : ℕ}
