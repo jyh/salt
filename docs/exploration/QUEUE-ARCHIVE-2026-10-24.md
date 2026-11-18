@@ -5566,7 +5566,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    a FREE `A` under `(q:ℝ) ≤ A`, so `A := h·arcDen 12 H` instantiates it VERBATIM. The commission's
    worry that the drift factor "is never re-chosen" is answered — it never needed to be.
    ⛔ **AND THE CAP HAS A SECOND SITE INSIDE ONE DEFINITION, MOVING THE OTHER WAY.** `SocketBaseL`
-   (`ArithPageLinear.lean:740-743`) carries `q ≤ arcDen 12 H` (5th conjunct, inflation STRENGTHENS
+   (`ArithPageLinear.lean:672-675`) carries `q ≤ arcDen 12 H` (5th conjunct, inflation STRENGTHENS
    the demand) AND `x ≤ 16·ω·arcDen 12 H·A` (11th, inflation WEAKENS the hypothesis — and
    `cofkL_logX_floor` DIVIDES by it, `RegisterSupply.lean:330`). **A port that inflates the fifth
    and not the eleventh is measuring a different object.**
