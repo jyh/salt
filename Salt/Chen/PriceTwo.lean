@@ -12,13 +12,15 @@ import Salt.Chen.DyadicWindow
 
 Design: `docs/blueprints/flags.md`, the `2026-07-14 PRICE-GATE`/`PRICE-0`/`PRICE-1` entries and
 the `GLU-2W-fin` scoping finding (Finding-3: the strip `N ∈ [x^{7/16}/4.9, x^{11/24}/8)` is real
-and carries non-cancelling boxes).  This file is the PRICE wave's strip extension: it re-runs the
-`d0_window_nonempty` construction at the WEAKER block floor `x^{7/16}/8 ≤ N` (deliverable 1), then
+and carries non-cancelling boxes).  This file is the PRICE wave's strip extension: it re-ran the
+`d0_window_nonempty` construction at the WEAKER block floor `x^{7/16}/8 ≤ N` (deliverable 1; since
+2026-11-17 that lemma, `d0_window_nonempty_lo`, lives in `SqrtDFold` above its instance), then
 extends PriceOne's uniform per-box lemma to the strip bottom (deliverable 2) and prices the two
 band carriers (`blockAlphaSym`/`blockAlphaLow`) at the operating point (deliverable 3), matching the
 `PsymK`/`PlowK` price-input slots of the `SwitchW2` feeders character-for-character.
 
-## What this file lands (sorry-free, NEW FILE — no edits to landed files)
+## What this file landed (sorry-free, a NEW FILE at landing — no edits to landed files then;
+deliverable 1 and `d0_window_of_XM_lo` moved out on 2026-11-17, into `SqrtDFold` and `PriceOne`)
 
 1. (deliverable 1) **`d0_window_nonempty_lo`** — the Finding-3 variant of `SqrtDFold`'s
    `d0_window_nonempty`, with the block-floor hypothesis weakened from `x^{11/24}/8 ≤ N` to

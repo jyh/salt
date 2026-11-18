@@ -181,7 +181,7 @@ both the vanish and the `2^k`-boundary price routes.
 **Catch #71, ratified option (a) — the corner relaxation.**  `medium_box_price_at_op(_lo)`,
 `medium_box_price_core`, and all three `*_hprice_at_2pow` now take the pieceN-boundary membership
 directly (weak corner `2^i·2^k ≤ x`).  The proofs rebuild the `D0`-window from the raw scale facts
-`x/2+1 < X·M ≤ 4x` (`d0_window_of_XM`/`d0_window_of_XM_lo`, PriceOne §4b / PriceTwo §1b) — which
+`x/2+1 < X·M ≤ 4x` (`d0_window_of_XM`/`d0_window_of_XM_lo`, both PriceOne since 11-17) — which
 the WEAK corner supplies IDENTICALLY (`X·M ≤ 2^{i+1}·(2·2^k) = 4·2^i·2^k ≤ 4x`, NO degradation:
 the `4x` bound is unchanged, `d0_window_nonempty` never used the `+1` slack).  So
 `box_hprice_at_2pow` now prices EVERY box of the FULL pieceN-boundary, edge box included.  The
