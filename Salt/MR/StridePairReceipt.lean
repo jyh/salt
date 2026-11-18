@@ -1373,22 +1373,21 @@ theorem flat_capstone_generic_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ)
     FlatCapstoneFormH h Awin P := by
   exact flat_capstone_generic_h_14 h hh (by linarith) Awin hband P hroad
 
-/-- **⟦A1 — THE `+ 7` NUMERAL TWIN⟧ (class A, v2).**  `xceil_arm_split_h` (XThread.lean:1046)
-with `+ 7` on the left: `log 2 + log h + 7 ≤ H₊/(250000·h²) − H₊/10²⁰`.  The landed lemma is an
-EQUALITY-tight budget line (the conditional's `hg'` block closes at ZERO slack on `31/ε·H₊`), so
-the H2→H3 replay's extra `log a ≤ 7` cannot ride it — refuter verdict A1.  Same body as the
-landed proof (`h ≤ 1096` from `h_le_1096_of_log_le_seven`, `H₊ ≥ 36·10²⁰` from `loglog H₊ ≥ 50`
-through `xt_exp25`, the `h²` widening `hr1`, then `linarith` against `14.694` instead of
-`7.694`); slack `1.2·10¹⁰` from `hHbig` at `h = 1096`. -/
-theorem xceil_arm_split_mul_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {Hhi : ℕ}
+/-- `xceil_arm_split_mul_h` at cap 9 (`xceil_arm_split_mul_h_b9`) — NUMERAL-LIFT + STRIDE:
+`hh7 : log h ≤ 7 ↦ hh9 : log h ≤ 9`, the conclusion's `+ 7 ↦ + 9` (the stride's `log a ≤ 9`, freeze
+§3.0/§5.1(e)), and in the body `h ≤ 1096 ↦ h ≤ 8103` (from `h_le_8103_of_log_le_nine`),
+`h² ≤ 1201216 ↦ ≤ 65658609`, `250000·1201216 = 300304000000 ↦ 250000·65658609 = 16414652250000`.
+The budget: `log 2 + 9 + 9 = 18.69` against `H₊/(250000·8103²) − H₊/10²⁰ ≥ 2.19·10⁸` at
+`H₊ ≥ 3.6·10²¹` (kernel-checked by the refuter, R3).  Every other step is the source's, verbatim. -/
+theorem xceil_arm_split_mul_h_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) {Hhi : ℕ}
     (hH4 : 4000000 ≤ Hhi) (hll : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
-    Real.log 2 + Real.log (h : ℝ) + 7
+    Real.log 2 + Real.log (h : ℝ) + 9
       ≤ ((Hhi : ℕ) : ℝ) / (250000 * (h : ℝ) ^ 2) - ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
   have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
   have hx1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
-  have h1096 : (h : ℝ) ≤ 1096 := by
-    exact_mod_cast Salt.Entropy.Chowla.h_le_1096_of_log_le_seven hh hh7
-  have hsqb : (h : ℝ) ^ 2 ≤ 1201216 := by nlinarith [hx1, h1096]
+  have h8103 : (h : ℝ) ≤ 8103 := by
+    exact_mod_cast Salt.Entropy.Chowla.h_le_8103_of_log_le_nine hh hh9
+  have hsqb : (h : ℝ) ^ 2 ≤ 65658609 := by nlinarith [hx1, h8103]
   have hHR : (4000000 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by exact_mod_cast hH4
   have hHpos : (0 : ℝ) < ((Hhi : ℕ) : ℝ) := by linarith
   -- ⟦THE TOWER⟧ `loglog H₊ ≥ 50` ⟹ `log H₊ ≥ e^50 ≥ 3.6·10^21` ⟹ `H₊ ≥ 3.6·10^21`
@@ -1417,20 +1416,37 @@ theorem xceil_arm_split_mul_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) �
     have := Real.log_le_sub_one_of_pos hHpos
     linarith
   -- ⟦THE SLACK⟧ the `h²` widening of the denominator, then a linear comparison
-  have hr1 : ((Hhi : ℕ) : ℝ) / (250000 * 1201216)
+  have hr1 : ((Hhi : ℕ) : ℝ) / (250000 * 65658609)
       ≤ ((Hhi : ℕ) : ℝ) / (250000 * (h : ℝ) ^ 2) := by
     have hpos : (0 : ℝ) < 250000 * (h : ℝ) ^ 2 := by positivity
-    have hle : 250000 * (h : ℝ) ^ 2 ≤ 250000 * 1201216 := by nlinarith [hsqb]
+    have hle : 250000 * (h : ℝ) ^ 2 ≤ 250000 * 65658609 := by nlinarith [hsqb]
     gcongr
-  have e1 : ((Hhi : ℕ) : ℝ) / (250000 * 1201216)
-      = ((Hhi : ℕ) : ℝ) * (1 / 300304000000) := by ring
+  have e1 : ((Hhi : ℕ) : ℝ) / (250000 * 65658609)
+      = ((Hhi : ℕ) : ℝ) * (1 / 16414652250000) := by ring
   have e2 : ((Hhi : ℕ) : ℝ) / (10 : ℝ) ^ 20
       = ((Hhi : ℕ) : ℝ) * (1 / 100000000000000000000) := by norm_num; ring
   have hlog2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hkey : Real.log 2 + Real.log (h : ℝ) + 7
-      ≤ ((Hhi : ℕ) : ℝ) / (250000 * 1201216) - ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
-    rw [e1, e2]; linarith [hHbig, hlog2, hh7]
+  have hkey : Real.log 2 + Real.log (h : ℝ) + 9
+      ≤ ((Hhi : ℕ) : ℝ) / (250000 * 65658609) - ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+    rw [e1, e2]; linarith [hHbig, hlog2, hh9]
   linarith [hkey, hr1]
+
+/-- **⟦A1 — THE `+ 7` NUMERAL TWIN⟧ (class A, v2).**  `xceil_arm_split_h` (XThread.lean:1046)
+with `+ 7` on the left: `log 2 + log h + 7 ≤ H₊/(250000·h²) − H₊/10²⁰`.  The landed lemma is an
+EQUALITY-tight budget line (the conditional's `hg'` block closes at ZERO slack on `31/ε·H₊`), so
+the H2→H3 replay's extra `log a ≤ 7` cannot ride it — refuter verdict A1.  Same body as the
+landed proof (`h ≤ 1096` from `h_le_1096_of_log_le_seven`, `H₊ ≥ 36·10²⁰` from `loglog H₊ ≥ 50`
+through `xt_exp25`, the `h²` widening `hr1`, then `linarith` against `14.694` instead of
+`7.694`); slack `1.2·10¹⁰` from `hHbig` at `h = 1096`.
+
+⟦AN INSTANCE⟧ since 2026-11-17: `xceil_arm_split_mul_h_b9` above, at `log h ≤ 7 ≤ 9` and
+`+ 7 ≤ + 9`; the body described here is that twin's, at cap 9. -/
+theorem xceil_arm_split_mul_h {h : ℕ} (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7) {Hhi : ℕ}
+    (hH4 : 4000000 ≤ Hhi) (hll : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
+    Real.log 2 + Real.log (h : ℝ) + 7
+      ≤ ((Hhi : ℕ) : ℝ) / (250000 * (h : ℝ) ^ 2) - ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
+  have h9 := xceil_arm_split_mul_h_b9 hh (by linarith) hH4 hll
+  linarith
 
 -- 2026-10-08, the XY debt lane, family 44: nine calls at the cap 9 (eight twins); the rest at cap 7
 /-- **⟦H2→H3 REPLAY⟧ (class B).**  The conditional (S16ComposeLH.lean) from a generic
@@ -2243,64 +2259,7 @@ replaced by its twin; no hypothesis is added and no conclusion weakened. -/
 
 /-! (The builder twins `chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9` and
 `chowlaRegimeFlat_exists_param_head_xceil_mul_b9` stood here; they were moved up to §1, XY debt
-lane family 10, 2026-09-26.) -/
-
-/-- `xceil_arm_split_mul_h` at cap 9 (`xceil_arm_split_mul_h_b9`) — NUMERAL-LIFT + STRIDE:
-`hh7 : log h ≤ 7 ↦ hh9 : log h ≤ 9`, the conclusion's `+ 7 ↦ + 9` (the stride's `log a ≤ 9`, freeze
-§3.0/§5.1(e)), and in the body `h ≤ 1096 ↦ h ≤ 8103` (from `h_le_8103_of_log_le_nine`),
-`h² ≤ 1201216 ↦ ≤ 65658609`, `250000·1201216 = 300304000000 ↦ 250000·65658609 = 16414652250000`.
-The budget: `log 2 + 9 + 9 = 18.69` against `H₊/(250000·8103²) − H₊/10²⁰ ≥ 2.19·10⁸` at
-`H₊ ≥ 3.6·10²¹` (kernel-checked by the refuter, R3).  Every other step is the source's, verbatim. -/
-theorem xceil_arm_split_mul_h_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) {Hhi : ℕ}
-    (hH4 : 4000000 ≤ Hhi) (hll : 50 ≤ Real.log (Real.log ((Hhi : ℕ) : ℝ))) :
-    Real.log 2 + Real.log (h : ℝ) + 9
-      ≤ ((Hhi : ℕ) : ℝ) / (250000 * (h : ℝ) ^ 2) - ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
-  have hx0 : (0 : ℝ) < (h : ℝ) := by exact_mod_cast hh
-  have hx1 : (1 : ℝ) ≤ (h : ℝ) := by exact_mod_cast hh
-  have h8103 : (h : ℝ) ≤ 8103 := by
-    exact_mod_cast Salt.Entropy.Chowla.h_le_8103_of_log_le_nine hh hh9
-  have hsqb : (h : ℝ) ^ 2 ≤ 65658609 := by nlinarith [hx1, h8103]
-  have hHR : (4000000 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by exact_mod_cast hH4
-  have hHpos : (0 : ℝ) < ((Hhi : ℕ) : ℝ) := by linarith
-  -- ⟦THE TOWER⟧ `loglog H₊ ≥ 50` ⟹ `log H₊ ≥ e^50 ≥ 3.6·10^21` ⟹ `H₊ ≥ 3.6·10^21`
-  have hL0 : (0 : ℝ) ≤ Real.log ((Hhi : ℕ) : ℝ) := Real.log_nonneg (by linarith)
-  have hL1 : (1 : ℝ) < Real.log ((Hhi : ℕ) : ℝ) :=
-    one_lt_log_of_loglog_ge hL0 (by norm_num : (0 : ℝ) < 50) hll
-  have hexp25 : (6e10 : ℝ) ≤ Real.exp 25 := by
-    have he1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
-    have hh25 : Real.exp (25 : ℝ) = (Real.exp 1) ^ (25 : ℕ) := by
-      rw [← Real.exp_nat_mul]; norm_num
-    rw [hh25]
-    have hc : (2.7 : ℝ) ^ (25 : ℕ) ≤ (Real.exp 1) ^ (25 : ℕ) :=
-      pow_le_pow_left₀ (by norm_num) he1.le 25
-    have hn : (6e10 : ℝ) ≤ (2.7 : ℝ) ^ (25 : ℕ) := by norm_num
-    linarith
-  have hexp50 : (36 * 10 ^ 20 : ℝ) ≤ Real.exp 50 := by
-    have hsq : Real.exp 25 * Real.exp 25 = Real.exp 50 := by
-      rw [← Real.exp_add]; norm_num
-    rw [← hsq]
-    nlinarith [hexp25, (Real.exp_pos 25).le]
-  have hLexp : Real.exp 50 ≤ Real.log ((Hhi : ℕ) : ℝ) := by
-    have h1 := Real.exp_le_exp.mpr hll
-    rwa [Real.exp_log (by linarith : (0 : ℝ) < Real.log ((Hhi : ℕ) : ℝ))] at h1
-  have hLbig : (36 * 10 ^ 20 : ℝ) ≤ Real.log ((Hhi : ℕ) : ℝ) := by linarith
-  have hHbig : (36 * 10 ^ 20 : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by
-    have := Real.log_le_sub_one_of_pos hHpos
-    linarith
-  -- ⟦THE SLACK⟧ the `h²` widening of the denominator, then a linear comparison
-  have hr1 : ((Hhi : ℕ) : ℝ) / (250000 * 65658609)
-      ≤ ((Hhi : ℕ) : ℝ) / (250000 * (h : ℝ) ^ 2) := by
-    have hpos : (0 : ℝ) < 250000 * (h : ℝ) ^ 2 := by positivity
-    have hle : 250000 * (h : ℝ) ^ 2 ≤ 250000 * 65658609 := by nlinarith [hsqb]
-    gcongr
-  have e1 : ((Hhi : ℕ) : ℝ) / (250000 * 65658609)
-      = ((Hhi : ℕ) : ℝ) * (1 / 16414652250000) := by ring
-  have e2 : ((Hhi : ℕ) : ℝ) / (10 : ℝ) ^ 20
-      = ((Hhi : ℕ) : ℝ) * (1 / 100000000000000000000) := by norm_num; ring
-  have hlog2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hkey : Real.log 2 + Real.log (h : ℝ) + 9
-      ≤ ((Hhi : ℕ) : ℝ) / (250000 * 65658609) - ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by
-    rw [e1, e2]; linarith [hHbig, hlog2, hh9]
-  linarith [hkey, hr1]
+lane family 10, 2026-09-26.  The numeral twin `xceil_arm_split_mul_h_b9` stood below this note; it
+was moved above its source `xceil_arm_split_mul_h` on 2026-11-17, which is now its instance.) -/
 
 end Salt.MR
