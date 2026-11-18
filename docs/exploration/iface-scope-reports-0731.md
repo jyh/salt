@@ -17,7 +17,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 
 **The demand's two halves** (`Salt/Entropy/Chowla/BudgetCore.lean:138-146`):
 - `κ := H/(log H · logloglog H)` — produced by `entropy_decrement` (`Decrement.lean:49-56`), consumed at `SpineFinal.lean:632` and threaded into fact (iv) at `SpineFinal.lean:576-579, 626`.
-- `gcap := ε⁶H/(18·(2·log 4)·log H) − log 2` — the concentration exponent, born at `Transport.lean:82` as `E = δ²·log H/(2·C₀·ε²H·(2/ε²+1)²)` and specialized at `Transport.lean:128-146` to `δ := ε²H/log H`, giving `ε⁶H/(18·C₀·log H)`; `C₀ = 2·log 4` from `circle_method_estimate` (the theorem in `CircleMethod.lean` and the first line of its proof, witness `C = 1+2C₀`).
+- `gcap := ε⁶H/(18·(2·log 4)·log H) − log 2` — the concentration exponent, born at `Transport.lean:257` as `E = δ²·log H/(2·C₀·ε²H·(2/ε²+1)²)` and specialized at `Transport.lean:181-199` to `δ := ε²H/log H`, giving `ε⁶H/(18·C₀·log H)`; `C₀ = 2·log 4` from `circle_method_estimate` (the theorem in `CircleMethod.lean` and the first line of its proof, witness `C = 1+2C₀`).
 
 **The cancellation (P1, kernel):** `(H/(L·L3)) / (ε⁶H/(18·(2·log4)·L)) = 36·log 4/(ε⁶·L3)` — identically, for all `H, L, L3, ε > 0`. Both sides are `(H/log H) × scalar`. This is the crux: the demand is not "H large", it is a **pure constant inequality on `logloglog H`**.
 
@@ -45,7 +45,7 @@ Three candidate births; I checked all three at the bytes.
 
 ## (2) `ε⁶` AND `β²` — WHERE THEY ENTER, AND AT WHAT HEIGHT
 
-**`ε⁶` — all of it from the concentration side, and it is a Hoeffding artifact in one factor.** `Transport.lean:82`: `E = δ²·log H/(2·C₀·ε²H·(2/ε²+1)²)`. Decomposition at `δ = ε²H/log H`:
+**`ε⁶` — all of it from the concentration side, and it is a Hoeffding artifact in one factor.** `Transport.lean:257`: `E = δ²·log H/(2·C₀·ε²H·(2/ε²+1)²)`. Decomposition at `δ = ε²H/log H`:
 - `δ² → ε⁴`,
 - `÷ |P_H| ≤ C₀ε²H/log H → ×ε^{-2}` (PNT-sharp; `fBridge_var_le_sharp`, `FBridge.lean:384-395`),
 - `÷ R² = (H/p+1)² ≤ (2/ε²+1)² → ×ε⁴`.
@@ -88,7 +88,7 @@ Kernel-probed at candidate floors:
 
 Can the budget run at its own larger `β`? **No, and the reason is structural, not plumbing.** `β` is pinned by the mass ledger: the total correlation mass is `c₁·εH/log H` with `c₁ = cD3/4` (exact: `(1/2)·Σ_p 1/p ·H·|X|` with `Σ ≥ cD3/log H` and seed `|X| ≥ ε/2`, `HBudget.lean:705`), and the four errors (S1 door, S2 circle-method `ε²`, S3 good-event `δ`, S4 bracket) must fit under it. `β` = S4's share ÷ `2·boxGrade`. The only enlargements are the slice share (≤ 4×) and `(2+ε²) → 2` (≤ 1.125×) — a combined ≤ 20× in `β²`, already counted above. Decoupling `β` from the door is free (they were never coupled) and buys **nothing**.
 
-One genuine, uncounted slack: `δ` is *calibrated* to `ε²H/log H` (`Transport.lean:128`) but is only *required* to be ≤ its slice `(cD3/16)·εH/log H`. At the ε-cap the headroom is exactly `C = 6.545`, and `g ∝ δ²`, so raising `δ` to its slice buys `C² ≈ 43×`. Real, small, class B–C.
+One genuine, uncounted slack: `δ` is *calibrated* to `ε²H/log H` (`Transport.lean:274`) but is only *required* to be ≤ its slice `(cD3/16)·εH/log H`. At the ε-cap the headroom is exactly `C = 6.545`, and `g ∝ δ²`, so raising `δ` to its slice buys `C² ≈ 43×`. Real, small, class B–C.
 
 ---
 
@@ -99,7 +99,7 @@ Replace `hoeffding_residueProj` (`Concentration.lean:218`) / `fBridge_varTerm` (
 
 **D2 — DECOUPLE `κ` FROM `H/log H`. [D-tier, the tower scoper's face.]** The cancellation is exact because `κ` and `gcap` are both `(H/log H) × scalar`. Anything that gives `κ` a smaller `H`-order kills the tower. Blocked from the entropy side by the drop-sum divergence (question 1). Only live if the MI budget is consumed at a *different* scale from the mass — i.e. the `S16BaseScaleCap` decoupling named in `flags.md:18667-18669`.
 
-**D3 — RAISE `δ` TO ITS SLICE. [B/C-tier.]** `Transport.lean:128`'s calibration `δ := ε²H/log H` is a choice; the constraint is `δ ≤ (cD3/16)·εH/log H`. Buys `C² ≈ 43×` in `g`. Moves `10^{31} → 2·10^{29}`. Cheap, correct, cosmetic.
+**D3 — RAISE `δ` TO ITS SLICE. [B/C-tier.]** `Transport.lean:274`'s calibration `δ := ε²H/log H` is a choice; the constraint is `δ ≤ (cD3/16)·εH/log H`. Buys `C² ≈ 43×` in `g`. Moves `10^{31} → 2·10^{29}`. Cheap, correct, cosmetic.
 
 **D4 — RECOVER THE 4× AND THE BRACKET 4×. [B-tier.]** `budgetX`'s 2304 → the forced 576 (P2); then the contract's `(β/4)²` → `((β−2log2/g)/2)²` (P4, kernel-proved here, drop-in for `bracket_close`). Total 16×. Requires re-freezing `budget_facts` conclusion (iv) — a blueprint statement change, Fable/human tier. Moves `10^{31} → 6·10^{29}`.
 
@@ -193,17 +193,17 @@ stated on abstract sequences — it holds for EVERY tower design, not just `chow
 
 `λ₋ = log log R.Hlo`, `λ₊ = log log R.Hhi`, `Adoor M = 2^36·(L+1)` (`Salt/MR/DoorFrame.lean:84`, cast at `:96`), `doorRowFloor M = M·Adoor M` (`Salt/MR/M4DoorRow.lean:472`), `s13GK K M = 3072·2^K·M` (`Salt/MR/GLever.lean:59`).
 
-The register is `S15Sel''_gk` (`Salt/MR/S15Compose.lean:2442`), the live one on the final object (`Salt/MR/S16Budget.lean:754`).
+The register is `S15Sel''_gk` (`Salt/MR/S15Compose.lean:2439`), the live one on the final object (`Salt/MR/S16Budget.lean:754`).
 
 | face | file:line | exact inequality | what it caps | probe |
 |---|---|---|---|---|
-| **anchor** | `S15Compose.lean:2463`, frame form `M4ArithRho.lean:201` | `14λ₊ + log(1/ρ) + 33 ≤ 3.9e9·(L+1)` | `λ₊ ≤ 2.78571e8·(L+1)` — **SHARPEST register λ₊-cap** | `faceA_anchor` ✅ |
-| **lvl** | `S15Compose.lean:2469` | `26 + 14λ₊ + ⅓·loglog Q₁ + log(1/ρ) ≤ (1/12)·Adoor M·log2` | `λ₊ ≤ 2.83530e8·(L+1)` (1.8% slacker) | `faceB_lvl` ✅ |
-| **gRows** | `S15Compose.lean:2451` | `242·λ₊ ≤ Adoor M` | `λ₊ ≤ 2.83965e8·(L+1)` | `faceC_gRows` ✅ |
-| **gP1** | `S15Compose.lean:2466` | `29 + log Ct + 14λ₊ ≤ Adoor M·log2 + log ρ` | `λ₊ ≤ 3.40234e9·(L+1)` (12× slack) | `faceD_gP1` ✅ |
-| **half/winFit** | `S15Compose.lean:2458`; law at `S14Compose.lean:123,309,346` | `0.7·M·Adoor M + 3log(1/ρ) ≤ (log H₋)/2` | **the ONLY M-upper**: `L+1 ≤ λ₋/log2 − 35` | `faceE_half` ✅ |
+| **anchor** | `S15Compose.lean:2460`, frame form `M4ArithRho.lean:201` | `14λ₊ + log(1/ρ) + 33 ≤ 3.9e9·(L+1)` | `λ₊ ≤ 2.78571e8·(L+1)` — **SHARPEST register λ₊-cap** | `faceA_anchor` ✅ |
+| **lvl** | `S15Compose.lean:2466` | `26 + 14λ₊ + ⅓·loglog Q₁ + log(1/ρ) ≤ (1/12)·Adoor M·log2` | `λ₊ ≤ 2.83530e8·(L+1)` (1.8% slacker) | `faceB_lvl` ✅ |
+| **gRows** | `S15Compose.lean:2448` | `242·λ₊ ≤ Adoor M` | `λ₊ ≤ 2.83965e8·(L+1)` | `faceC_gRows` ✅ |
+| **gP1** | `S15Compose.lean:2463` | `29 + log Ct + 14λ₊ ≤ Adoor M·log2 + log ρ` | `λ₊ ≤ 3.40234e9·(L+1)` (12× slack) | `faceD_gP1` ✅ |
+| **half/winFit** | `S15Compose.lean:2455`; law at `S14Compose.lean:123,309,346` | `0.7·M·Adoor M + 3log(1/ρ) ≤ (log H₋)/2` | **the ONLY M-upper**: `L+1 ≤ λ₋/log2 − 35` | `faceE_half` ✅ |
 | **cap+frame** | `S16Budget.lean:577` + `S13CapGrid.lean:201` + `SeamCalibrationK.lean:181` | `e^{λ₊} = log H₊ ≤ log𝒫₂/12 = 2^K(L+1)M·2^46·log2` | `λ₊ ≤ 1.241e8·(L+1)` — **2.25× sharper than anchor** | `faceF0_size`, `faceF_cap` ✅ |
-| **blk** | `S15Compose.lean:2455`, def `S13FramesA.lean:1117` | `14427+64+8(L+1)+400(A·G·M)² + 1 + 18λ₊ ≤ 4⌊ε²H₊⌋` | K-upper `K ≲ e^{λ₊}/(2log2) ≳ 3.7e21` — **NOT the binder**, ~13 orders looser than the frame | analytic |
+| **blk** | `S15Compose.lean:2452`, def `S13FramesA.lean:1117` | `14427+64+8(L+1)+400(A·G·M)² + 1 + 18λ₊ ≤ 4⌊ε²H₊⌋` | K-upper `K ≲ e^{λ₊}/(2log2) ≳ 3.7e21` — **NOT the binder**, ~13 orders looser than the frame | analytic |
 | **rho / bfloor / mfloor / x0M** | `:2583/:2571/:2569/:2575` | `−log ρ ≤ 1e14`; `24Cg/δ₀ ≤ M`; `Mfl(=2) ≤ M`; `x₀ ≤ 2^{doorRowFloor M}` | no λ-content | — |
 
 **Structure in one line:** every λ₊-cap is `λ₊ ≤ c·Adoor M` (`c` = 1/246.7, 1/242.4, 1/242, 1/20.2, and 1/554 for the cap chain); the single M-upper is `log₂(M·Adoor M) ≤ 1.4427·λ₋ − const`.
@@ -246,7 +246,7 @@ In triple-log terms: register alone `logloglog H₋ ≤ log 20048 = 9.906`; with
 - The anchor's SHAPE — `DoorArithFrameRho.anchor` (`M4ArithRho.lean:201`), supplied by `doorGrade_summand2_priced_rho` (`M4ArithRho.lean:307`), which prices `1787702400·a2Level1 M·e^{14λ}` ≤ ρ/8 with `a2Level1 M = (log Q₁)^{1/3}/P₁^{1/12}`. The `3.9e9·(L+1)` **is** `Adoor M·log2/12` rounded down — so it moves *automatically* with `Adoor`, and the proof is symbolic in `Adoor M` except through `Adoor_cast`.
 
 **SELECTION-REGISTER LINES (cheap):**
-- All 12 fields of `S15Sel''_gk` (`S15Compose.lean:2442-2472`) — demands on the witness `M`, each with a named supplier. At any `λ₋ ≤ 2e4` only `anchor` and `half` are within 10× of binding.
+- All 12 fields of `S15Sel''_gk` (`S15Compose.lean:2439-2469`) — demands on the witness `M`, each with a named supplier. At any `λ₋ ≤ 2e4` only `anchor` and `half` are within 10× of binding.
 - `S16BaseScaleCap_gk` (`S16Budget.lean:577`) — **carried, underived**, at `/24` with a stated 1.5× margin over what `s16_budget_num` spends. Cheapest of all.
 - `K ≤ 170000000` — 94 sites, kernel-proved re-cuttable (P1c).
 

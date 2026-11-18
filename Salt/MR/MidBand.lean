@@ -66,97 +66,6 @@ namespace Salt.MR
 
 open Salt.ExpSum (eR phi)
 
-/-! ### STONE 4 — the general second-derivative block tile (no k-window)
-
-The concrete dissolution artifact.  `Salt.Vk.zeta_block_strip` proves the same
-`vdC_2nd_ZR` bound but then spends the regime `N ≤ t ≤ 27πN` to collapse
-`16√A + 16U/√A` into `112√N`.  Here we keep the honest `16√A + 16U/√A`, which
-holds for every block. -/
-
-/-- **STONE 4 (corpus form).**  For every dyadic block `(U, 2U]` (`U ≥ 1`) and
-every frequency `u > 0`, the ζ-phase block sum obeys the general
-second-derivative bound `‖∑_{U<n≤2U} eR(phi u n)‖ ≤ 16√A + 16·U/√A` with
-`A = u/2π`.  No k-window, no strip-regime hypothesis — the mild generalization
-of `Salt.Vk.zeta_block_strip` that dissolves LITT-COVER for the socket. -/
-theorem zeta_block_secondDeriv {u : ℝ} {U : ℕ} (hU1 : 1 ≤ U) (hu : 0 < u) :
-    ‖∑ n ∈ Finset.Ioc (U : ℤ) (2 * U), eR (phi u n)‖
-      ≤ 16 * Real.sqrt (u / (2 * π)) + 16 * (U : ℝ) / Real.sqrt (u / (2 * π)) := by
-  have hUR1 : (1 : ℝ) ≤ (U : ℝ) := by exact_mod_cast hU1
-  have hU0R : (0 : ℝ) < (U : ℝ) := by linarith
-  have hπpos : 0 < π := Real.pi_pos
-  set A : ℝ := u / (2 * π) with hA
-  have hA0 : 0 < A := by rw [hA]; positivity
-  set μ : ℝ := A / (4 * (U : ℝ) ^ 2) with hμ
-  have hμ0 : 0 < μ := by rw [hμ]; positivity
-  -- the ζ-phase second-difference identity
-  have hd2 : ∀ n : ℤ, (phi u (n + 2) - phi u (n + 1)) - (phi u (n + 1) - phi u n)
-      = A * (2 * Real.log ((n : ℝ) + 1) - Real.log ((n : ℝ) + 2) - Real.log (n : ℝ)) := by
-    intro n; simp only [Salt.ExpSum.phi, ← hA]; push_cast; ring
-  -- lower second-difference bound (μ ≤ Δ²)
-  have hlb : ∀ n : ℤ, (U : ℤ) < n → n < 2 * U →
-      μ ≤ (phi u (n + 2) - phi u (n + 1)) - (phi u (n + 1) - phi u n) := by
-    intro n hlo hhi
-    rw [hd2 n]
-    have hnR1 : (U : ℝ) + 1 ≤ (n : ℝ) := by
-      have : (U : ℤ) + 1 ≤ n := by omega
-      exact_mod_cast this
-    have hmpos : (0 : ℝ) < (n : ℝ) := by linarith
-    have hll := Salt.Vk.log_2diff_lower hmpos
-    have hnu : (n : ℝ) + 1 ≤ 2 * (U : ℝ) := by
-      have : n + 1 ≤ 2 * (U : ℤ) := by omega
-      exact_mod_cast this
-    have hsq : ((n : ℝ) + 1) ^ 2 ≤ 4 * (U : ℝ) ^ 2 := by nlinarith [hnu, hU0R]
-    have hstep1 : μ ≤ A / ((n : ℝ) + 1) ^ 2 := by
-      rw [hμ, div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith only [hA0, hsq]
-    have heq2 : A / ((n : ℝ) + 1) ^ 2 = A * (1 / ((n : ℝ) + 1) ^ 2) := by ring
-    have hstep2 : A / ((n : ℝ) + 1) ^ 2
-        ≤ A * (2 * Real.log ((n : ℝ) + 1) - Real.log ((n : ℝ) + 2) - Real.log (n : ℝ)) := by
-      rw [heq2]; exact mul_le_mul_of_nonneg_left hll hA0.le
-    linarith [hstep1, hstep2]
-  -- upper second-difference bound (Δ² ≤ 4μ)
-  have hub : ∀ n : ℤ, (U : ℤ) < n → n < 2 * U →
-      (phi u (n + 2) - phi u (n + 1)) - (phi u (n + 1) - phi u n) ≤ 4 * μ := by
-    intro n hlo hhi
-    rw [hd2 n]
-    have hnR1 : (U : ℝ) + 1 ≤ (n : ℝ) := by
-      have : (U : ℤ) + 1 ≤ n := by omega
-      exact_mod_cast this
-    have hmpos : (0 : ℝ) < (n : ℝ) := by linarith
-    have hlu := Salt.Vk.log_2diff_upper hmpos
-    have hUsq : (U : ℝ) ^ 2 ≤ (n : ℝ) * ((n : ℝ) + 2) := by nlinarith [hnR1, hU0R]
-    have heq2 : A / ((n : ℝ) * ((n : ℝ) + 2)) = A * (1 / ((n : ℝ) * ((n : ℝ) + 2))) := by ring
-    have hstep1 : A * (2 * Real.log ((n : ℝ) + 1) - Real.log ((n : ℝ) + 2) - Real.log (n : ℝ))
-        ≤ A / ((n : ℝ) * ((n : ℝ) + 2)) := by
-      rw [heq2]; exact mul_le_mul_of_nonneg_left hlu hA0.le
-    have h4μ : 4 * μ = A / (U : ℝ) ^ 2 := by rw [hμ]; ring
-    have hstep2 : A / ((n : ℝ) * ((n : ℝ) + 2)) ≤ 4 * μ := by
-      rw [h4μ, div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith only [hA0, hUsq]
-    linarith [hstep1, hstep2]
-  -- the vdC second-derivative test, then the sqrt algebra (no regime needed)
-  have hab : (U : ℤ) ≤ 2 * U := by omega
-  have hvdc := Salt.ExpSum.vdC_2nd_ZR (phi u) (U : ℤ) (2 * U) μ 4 hab hμ0 (by norm_num) hlb hub
-  refine le_trans hvdc (le_of_eq ?_)
-  have hsm : Real.sqrt μ = Real.sqrt A / (2 * (U : ℝ)) := by
-    rw [hμ, show A / (4 * (U : ℝ) ^ 2) = A * (1 / (2 * (U : ℝ))) ^ 2 from by field_simp; ring,
-      Real.sqrt_mul hA0.le, Real.sqrt_sq (by positivity)]
-    ring
-  have hsApos : 0 < Real.sqrt A := Real.sqrt_pos.mpr hA0
-  have hterm1 : 4 * (U : ℝ) * Real.sqrt μ = 2 * Real.sqrt A := by rw [hsm]; field_simp; ring
-  have hterm2 : 1 / Real.sqrt μ = 2 * (U : ℝ) / Real.sqrt A := by rw [hsm, one_div, inv_div]
-  have hc : ((2 * (U : ℤ) : ℤ) : ℝ) - ((U : ℤ) : ℝ) = (U : ℝ) := by push_cast; ring
-  rw [hc, hterm1, hterm2]
-  field_simp
-  ring
-
-/-- **STONE 4 (socket form).**  The general second-derivative block tile in the
-socket's `exp(i·u·log n)` shape. -/
-theorem socketBlock_secondDeriv {u : ℝ} {U : ℕ} (hU1 : 1 ≤ U) (hu : 0 < u) :
-    ‖∑ n ∈ Finset.Ioc (U : ℤ) (2 * U),
-        Complex.exp (Complex.I * (u : ℂ) * (Real.log (n : ℝ) : ℂ))‖
-      ≤ 16 * Real.sqrt (u / (2 * π)) + 16 * (U : ℝ) / Real.sqrt (u / (2 * π)) := by
-  rw [norm_socketSum_eq_eR_int]
-  exact zeta_block_secondDeriv hU1 hu
-
 /-! ### STONE 4b — the general-endpoint second-derivative tile
 
 The partial **top** dyadic block of `[1,N]` is `Ioc (2^J) N` with `2^J ≤ N <
@@ -244,6 +153,36 @@ theorem zeta_block_secondDeriv_gen {u : ℝ} {U M : ℕ}
   rw [hterm1, hterm2]
   field_simp
   ring
+
+/-! ### STONE 4 — the general second-derivative block tile (no k-window)
+
+The concrete dissolution artifact.  `Salt.Vk.zeta_block_strip` proves the same
+`vdC_2nd_ZR` bound but then spends the regime `N ≤ t ≤ 27πN` to collapse
+`16√A + 16U/√A` into `112√N`.  Here we keep the honest `16√A + 16U/√A`, which
+holds for every block. -/
+
+/-- **STONE 4 (corpus form).**  For every dyadic block `(U, 2U]` (`U ≥ 1`) and
+every frequency `u > 0`, the ζ-phase block sum obeys the general
+second-derivative bound `‖∑_{U<n≤2U} eR(phi u n)‖ ≤ 16√A + 16·U/√A` with
+`A = u/2π`.  No k-window, no strip-regime hypothesis — the mild generalization
+of `Salt.Vk.zeta_block_strip` that dissolves LITT-COVER for the socket.
+
+Proof: the `M := 2U` instance of `zeta_block_secondDeriv_gen` (STONE 4b, above). -/
+theorem zeta_block_secondDeriv {u : ℝ} {U : ℕ} (hU1 : 1 ≤ U) (hu : 0 < u) :
+    ‖∑ n ∈ Finset.Ioc (U : ℤ) (2 * U), eR (phi u n)‖
+      ≤ 16 * Real.sqrt (u / (2 * π)) + 16 * (U : ℝ) / Real.sqrt (u / (2 * π)) := by
+  have h := zeta_block_secondDeriv_gen (M := 2 * U) hU1 (by omega) le_rfl hu
+  push_cast at h
+  exact h
+
+/-- **STONE 4 (socket form).**  The general second-derivative block tile in the
+socket's `exp(i·u·log n)` shape. -/
+theorem socketBlock_secondDeriv {u : ℝ} {U : ℕ} (hU1 : 1 ≤ U) (hu : 0 < u) :
+    ‖∑ n ∈ Finset.Ioc (U : ℤ) (2 * U),
+        Complex.exp (Complex.I * (u : ℂ) * (Real.log (n : ℝ) : ℂ))‖
+      ≤ 16 * Real.sqrt (u / (2 * π)) + 16 * (U : ℝ) / Real.sqrt (u / (2 * π)) := by
+  rw [norm_socketSum_eq_eR_int]
+  exact zeta_block_secondDeriv hU1 hu
 
 /-- **STONE 4b (socket form).**  General-endpoint second-derivative block tile in
 the socket's `exp(i·u·log n)` shape. -/
