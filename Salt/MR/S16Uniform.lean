@@ -1218,22 +1218,19 @@ theorem s16_bandLaneWinL_of_bandL (K : ℕ) {Awin : ℝ} (hAwin : 93.75 ≤ Awin
   obtain ⟨x₀, Cband, hCband0, hCband40, hbody⟩ := hband
   exact ⟨x₀, Cband, hCband0, by linarith, hbody⟩
 
-/-- **⟦THE WINDOWED RIDER IS A THEOREM⟧** (`s16_bandLaneWinL_holds`) — ⟦THE PRIZE⟧.
+/-! ### §9u — ⟦THE WINDOWED RIDER, `K`-UNIFORM⟧ -/
 
-`S11HoistLinear.m4_hband_at_door_slot_split_graded_L_gk` at `Aexp := s13Aexp`, on
-`PortClose.mmuChiRate_holds_gated` (LANDED, unconditional), hands out `∃ x₀ Cb, 0 < Cb ∧ …`
-with the band body VERBATIM and NO ceiling on `Cb`.  The rider's shape asks for the constant in
-the form `Cband·4^{Aexp}·(e^{52.5}·4^{1.05}) + 1`; dividing gives `Cband := Cb/E`, and the `+1`
-is pure slack.  The window is then satisfied BY CONSTRUCTION at
-`Awin := max 162 ((log Cband + 20)/0.64)` — a real number, because `C_mu` carries no `A`
-(CMU-HUNT §1: every leaf of both rows is a closed form in the corpus's own literals).
-
-⟦WHAT IS INEFFECTIVE HERE⟧ nothing that was not already: `Cb` is a `Classical.choose`, so
-`Awin` is not a numeral — exactly the price §8 pays for `x₀` and `Hopq`. -/
-theorem s16_bandLaneWinL_holds (K : ℕ) :
-    ∃ Awin : ℝ, 162 ≤ Awin ∧ S16BandLaneCBoundedL_win Awin K := by
+/-- **⟦THE PRIZE, `K`-UNIFORM⟧** (`s16_bandLaneWinL_holds_uniform`) — ⟦CAP-RECUT P1⟧ the
+`∀K ∃Awin` → `∃Awin ∀K` swap.  BAND-K-PROBE's finding: `Cband = Cb/E` is minted `K`-FREE and
+`A`-FREE (the band lane reads `K` only through `s13GK`, and the LEVEL2-PROD per-block reprice of
+7/31 removed the `2^{1.05K}` recoil from the mass witness), so the same `Awin ≈ 35439` serves
+EVERY `K` — in particular the raised lever `KlevF A`.  Body verbatim off
+`m4_hband_at_door_slot_split_graded_L_gk_uniform`; the per-`K` original
+`s16_bandLaneWinL_holds` (below) is now its instance at `K`. -/
+theorem s16_bandLaneWinL_holds_uniform :
+    ∃ Awin : ℝ, 162 ≤ Awin ∧ ∀ K : ℕ, S16BandLaneCBoundedL_win Awin K := by
   obtain ⟨x₀, Cb, hCb0, hsplit⟩ :=
-    m4_hband_at_door_slot_split_graded_L_gk K mmuChiRate_holds_gated s13Aexp
+    m4_hband_at_door_slot_split_graded_L_gk_uniform mmuChiRate_holds_gated s13Aexp
       (by rw [s13Aexp]; norm_num)
   set E : ℝ := (4 : ℝ) ^ (s13Aexp) * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) with hEdef
   have hE0 : (0 : ℝ) < E := by
@@ -1243,14 +1240,15 @@ theorem s16_bandLaneWinL_holds (K : ℕ) :
     positivity
   set Cband : ℝ := Cb / E with hCbanddef
   have hCband0 : (0 : ℝ) < Cband := div_pos hCb0 hE0
-  refine ⟨max 162 ((Real.log Cband + 20) / 0.64), le_max_left _ _,
-    x₀, Cband, hCband0, ?_, ?_⟩
+  refine ⟨max 162 ((Real.log Cband + 20) / 0.64), le_max_left _ _, ?_⟩
+  intro K
+  refine ⟨x₀, Cband, hCband0, ?_, ?_⟩
   · -- ⟦THE WINDOW, BY CONSTRUCTION⟧
     have h := le_max_right (162 : ℝ) ((Real.log Cband + 20) / 0.64)
     rw [div_le_iff₀ (by norm_num : (0 : ℝ) < 0.64)] at h
     linarith
   · intro M hM
-    obtain ⟨C', hC'0, hC'le, hbody⟩ := hsplit M hM
+    obtain ⟨C', hC'0, hC'le, hbody⟩ := hsplit K M hM
     refine ⟨C', hC'0, ?_, hbody⟩
     have hid : Cband * (4 : ℝ) ^ (s13Aexp) * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) = Cb := by
       rw [hCbanddef, hEdef]; field_simp
@@ -1259,6 +1257,26 @@ theorem s16_bandLaneWinL_holds (K : ℕ) :
     rw [hid]
     nlinarith [hC'le, hMpow]
 
+/-- **⟦THE WINDOWED RIDER IS A THEOREM⟧** (`s16_bandLaneWinL_holds`) — ⟦THE PRIZE⟧.
+
+(The argument as first written, now run once in `s16_bandLaneWinL_holds_uniform` (§9u, above)
+on the `_uniform` supplier.)  `S11HoistLinear.m4_hband_at_door_slot_split_graded_L_gk` at
+`Aexp := s13Aexp`, on `PortClose.mmuChiRate_holds_gated` (LANDED, unconditional), hands out
+`∃ x₀ Cb, 0 < Cb ∧ …` with the band body VERBATIM and NO ceiling on `Cb`.  The rider's shape
+asks for the constant in
+the form `Cband·4^{Aexp}·(e^{52.5}·4^{1.05}) + 1`; dividing gives `Cband := Cb/E`, and the `+1`
+is pure slack.  The window is then satisfied BY CONSTRUCTION at
+`Awin := max 162 ((log Cband + 20)/0.64)` — a real number, because `C_mu` carries no `A`
+(CMU-HUNT §1: every leaf of both rows is a closed form in the corpus's own literals).
+
+⟦WHAT IS INEFFECTIVE HERE⟧ nothing that was not already: `Cb` is a `Classical.choose`, so
+`Awin` is not a numeral — exactly the price §8 pays for `x₀` and `Hopq`.
+
+Proof: the instance at `K` of `s16_bandLaneWinL_holds_uniform` (§9u, above). -/
+theorem s16_bandLaneWinL_holds (K : ℕ) :
+    ∃ Awin : ℝ, 162 ≤ Awin ∧ S16BandLaneCBoundedL_win Awin K := by
+  obtain ⟨Awin, hAwin, hall⟩ := s16_bandLaneWinL_holds_uniform
+  exact ⟨Awin, hAwin, hall K⟩
 
 /-! ### §9.1 — THE CAPSTONE, WINDOWED -/
 
@@ -1852,44 +1870,6 @@ theorem logChowla2_ineffective_v2 (A₀ : ℝ) :
   obtain ⟨R, hReps, hHlo, hRg, hRtow, hdes, hwin, hfire2⟩ :=
     hfire hKb hCtb hx0win hopq hcs hT₀ hKq hKs g
   exact ⟨R, hReps, by rw [hHlo]; exact hbase hopq, hRg, hRtow, hdes, hwin, hfire2⟩
-
-/-! ## §9u — ⟦THE WINDOWED RIDER, `K`-UNIFORM⟧ -/
-
-/-- **⟦THE PRIZE, `K`-UNIFORM⟧** (`s16_bandLaneWinL_holds_uniform`) — ⟦CAP-RECUT P1⟧ the
-`∀K ∃Awin` → `∃Awin ∀K` swap.  BAND-K-PROBE's finding: `Cband = Cb/E` is minted `K`-FREE and
-`A`-FREE (the band lane reads `K` only through `s13GK`, and the LEVEL2-PROD per-block reprice of
-7/31 removed the `2^{1.05K}` recoil from the mass witness), so the same `Awin ≈ 35439` serves
-EVERY `K` — in particular the raised lever `KlevF A`.  Body verbatim off
-`m4_hband_at_door_slot_split_graded_L_gk_uniform`; the per-`K` original is untouched. -/
-theorem s16_bandLaneWinL_holds_uniform :
-    ∃ Awin : ℝ, 162 ≤ Awin ∧ ∀ K : ℕ, S16BandLaneCBoundedL_win Awin K := by
-  obtain ⟨x₀, Cb, hCb0, hsplit⟩ :=
-    m4_hband_at_door_slot_split_graded_L_gk_uniform mmuChiRate_holds_gated s13Aexp
-      (by rw [s13Aexp]; norm_num)
-  set E : ℝ := (4 : ℝ) ^ (s13Aexp) * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) with hEdef
-  have hE0 : (0 : ℝ) < E := by
-    rw [hEdef]
-    have h4 : (0 : ℝ) < (4 : ℝ) ^ (s13Aexp) := Real.rpow_pos_of_pos (by norm_num) _
-    have h1 : (0 : ℝ) < (4 : ℝ) ^ (1.05 : ℝ) := Real.rpow_pos_of_pos (by norm_num) _
-    positivity
-  set Cband : ℝ := Cb / E with hCbanddef
-  have hCband0 : (0 : ℝ) < Cband := div_pos hCb0 hE0
-  refine ⟨max 162 ((Real.log Cband + 20) / 0.64), le_max_left _ _, ?_⟩
-  intro K
-  refine ⟨x₀, Cband, hCband0, ?_, ?_⟩
-  · -- ⟦THE WINDOW, BY CONSTRUCTION⟧
-    have h := le_max_right (162 : ℝ) ((Real.log Cband + 20) / 0.64)
-    rw [div_le_iff₀ (by norm_num : (0 : ℝ) < 0.64)] at h
-    linarith
-  · intro M hM
-    obtain ⟨C', hC'0, hC'le, hbody⟩ := hsplit K M hM
-    refine ⟨C', hC'0, ?_, hbody⟩
-    have hid : Cband * (4 : ℝ) ^ (s13Aexp) * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) = Cb := by
-      rw [hCbanddef, hEdef]; field_simp
-    have hMpow : (0 : ℝ) ≤ (M : ℝ) ^ (2.1 : ℝ) :=
-      Real.rpow_nonneg (Nat.cast_nonneg M) _
-    rw [hid]
-    nlinarith [hC'le, hMpow]
 
 
 end Salt.MR
