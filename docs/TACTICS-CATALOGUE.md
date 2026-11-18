@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `4b9677f6` · source digest `5559823c07a6e09e` (the same digest as items 1–3).
-> Receipt: files 1414 · decls 23441 · with_body 23441 · tactic_lines 302792 · runs 35581 · blocks 1241.
+> Base: last commit touching `Salt/` = `36432f5d` · source digest `e4da44739eda78c8` (the same digest as items 1–3).
+> Receipt: files 1414 · decls 23441 · with_body 23441 · tactic_lines 302753 · runs 35578 · blocks 1240.
 
 ## LIMITS (read before any number below)
 
@@ -74,7 +74,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_eq_pow` | 0 | - | - |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_le_of_pow_le` | 27 | qualified 27 | `MR/FarStar.lean` 5, `MR/StrideDoorAllGrades.lean` 3, `Entropy/Chowla/Step.lean` 2, `Entropy/Chowla/StrideDecrement.lean` 2 (+13 files) |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.exp_nat_lt_of_pow_lt` | 9 | qualified 9 | `Entropy/Chowla/GoldbachEnergyKcH.lean` 3, `MR/MultShiu.lean` 2, `MR/S16ProducersH.lean` 2, `HB/L2cELT1.lean` 1 (+1 files) |
-| `ExpLogNum.lean` | T3 | `Salt.Tactic.le_exp_nat_of_le_pow` | 44 | qualified 44 | `MR/StrideDoorAllGrades.lean` 8, `MR/RegisterRepair.lean` 4, `MR/S13CapEps.lean` 4, `MR/S13CapGateLinearLH.lean` 4 (+19 files) |
+| `ExpLogNum.lean` | T3 | `Salt.Tactic.le_exp_nat_of_le_pow` | 43 | qualified 43 | `MR/StrideDoorAllGrades.lean` 8, `MR/RegisterRepair.lean` 4, `MR/S13CapEps.lean` 4, `MR/S13CapGateLinearLH.lean` 4 (+19 files) |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.log_le_nat_of_le_pow` | 33 | qualified 33 | `HB/CrownTheorem1.lean` 3, `Goldbach/RowsLive.lean` 2, `MR/LFunctionInvShallow.lean` 2, `MR/M4ClosureRepair.lean` 2 (+19 files) |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.lt_exp_nat_of_lt_pow` | 4 | qualified 4 | `MR/MRTPropA3.lean` 2, `MR/A4FMidRange.lean` 1, `MR/T0BandCapFree.lean` 1 |
 | `ExpLogNum.lean` | T3 | `Salt.Tactic.nat_le_log_of_pow_le` | 21 | qualified 21 | `HB/CrownTheorem1.lean` 4, `MR/M4ArithZeroLinear.lean` 4, `HB/L2cERT2.lean` 2, `Chen/WindowMembership.lean` 1 (+10 files) |
@@ -93,43 +93,43 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 | name | at base (seat, lines) | here: qualified tokens | here: all forms |
 |---|---:|---:|---:|
-| `Salt.Tactic.le_exp_nat_of_le_pow` | 11 | 44 | 44 |
+| `Salt.Tactic.le_exp_nat_of_le_pow` | 11 | 43 | 43 |
 | `Salt.Tactic.exp_nat_le_of_pow_le` | 4 | 27 | 27 |
 | `Salt.Tactic.log_le_nat_of_le_pow` | 5 | 33 | 33 |
 | `Salt.Tactic.nat_le_log_of_pow_le` | 4 | 21 | 21 |
 
 ## 2. Tactic usage (first token of each tactic line)
 
-302792 tactic lines. Top 30:
+302753 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 131977 | 43.6% |
-| 2 | `rw` | 48983 | 16.2% |
-| 3 | `exact` | 17450 | 5.8% |
+| 1 | `have` | 131957 | 43.6% |
+| 2 | `rw` | 48976 | 16.2% |
+| 3 | `exact` | 17449 | 5.8% |
 | 4 | `intro` | 14022 | 4.6% |
 | 5 | `refine` | 12751 | 4.2% |
 | 6 | `linarith` | 10378 | 3.4% |
 | 7 | `obtain` | 9129 | 3.0% |
-| 8 | `calc` | 7792 | 2.6% |
-| 9 | `set` | 5467 | 1.8% |
+| 8 | `calc` | 7790 | 2.6% |
+| 9 | `set` | 5466 | 1.8% |
 | 10 | `simp` | 5149 | 1.7% |
 | 11 | `apply` | 4531 | 1.5% |
-| 12 | `nlinarith` | 3324 | 1.1% |
+| 12 | `nlinarith` | 3323 | 1.1% |
 | 13 | `unfold` | 2623 | 0.9% |
-| 14 | `exact_mod_cast` | 2410 | 0.8% |
+| 14 | `exact_mod_cast` | 2409 | 0.8% |
 | 15 | `rcases` | 2128 | 0.7% |
-| 16 | `ring` | 2060 | 0.7% |
+| 16 | `ring` | 2057 | 0.7% |
 | 17 | `push_cast` | 1957 | 0.6% |
 | 18 | `field_simp` | 1860 | 0.6% |
 | 19 | `by_cases` | 1635 | 0.5% |
 | 20 | `rwa` | 1590 | 0.5% |
-| 21 | `norm_num` | 1486 | 0.5% |
+| 21 | `norm_num` | 1487 | 0.5% |
 | 22 | `show` | 1268 | 0.4% |
 | 23 | `omega` | 1261 | 0.4% |
 | 24 | `classical` | 1245 | 0.4% |
 | 25 | `rintro` | 1150 | 0.4% |
-| 26 | `congr` | 927 | 0.3% |
+| 26 | `congr` | 925 | 0.3% |
 | 27 | `simpa` | 919 | 0.3% |
 | 28 | `positivity` | 791 | 0.3% |
 | 29 | `constructor` | 654 | 0.2% |
@@ -150,12 +150,12 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | Mertens / PNT-type | 3297 | `have` 1530, `rw` 557, `exact` 173, `linarith` 147, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
-| Matomaki-Radziwill / Halasz (short intervals) | 115017 | `have` 52190, `rw` 15874, `exact` 6692, `refine` 6533, `intro` 5716, `linarith` 5232, `obtain` 4954, `calc` 2197 |
+| Matomaki-Radziwill / Halasz (short intervals) | 114978 | `have` 52170, `rw` 15867, `exact` 6691, `refine` 6533, `intro` 5716, `linarith` 5232, `obtain` 4954, `calc` 2195 |
 | (no family) | 28805 | `have` 11177, `rw` 5138, `exact` 1744, `intro` 1560, `obtain` 971, `refine` 959, `set` 883, `calc` 865 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
-Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1241 candidates; top 25 by the UPPER-BOUND saving.
+Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1240 candidates; top 25 by the UPPER-BOUND saving.
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 
