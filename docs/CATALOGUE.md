@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `bbab10d1` · source digest `81167e6257b4f01b` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `c7095328` · source digest `bc0f2e1481e2222b` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -5011,17 +5011,17 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.MR.capeps_master_60` | Salt/MR/S13CapGateLinearLH.lean:125 | characters |
 | `Salt.MR.capeps_expbound_60` | Salt/MR/S13CapGateLinearLH.lean:130 | characters |
 | `Salt.MR.capeps_bigexp_60` | Salt/MR/S13CapGateLinearLH.lean:148 | characters |
-| `Salt.MR.capeps_Pbig_h` | Salt/MR/S13CapGateLinearLH.lean:175 | characters |
-| `Salt.MR.capfloor_lam_core_h` | Salt/MR/S13CapGateLinearLH.lean:212 | characters |
-| `Salt.MR.h_le_exp_seven` | Salt/MR/S13CapGateLinearLH.lean:1017 | characters |
-| `Salt.MR.h_le_exp_fourteen` | Salt/MR/S13CapGateLinearLH.lean:1036 | characters |
-| `Salt.MR.capeps_expbound_63` | Salt/MR/S13CapGateLinearLH.lean:1496 | characters |
-| `Salt.MR.capeps_row_phi_h_14` | Salt/MR/S13CapGateLinearLH.lean:1519 | characters |
-| `Salt.MR.capeps_row_tail_h_14` | Salt/MR/S13CapGateLinearLH.lean:1564 | characters |
-| `Salt.MR.capeps_Pbig_h_e20` | Salt/MR/S13CapGateLinearLH.lean:1685 | characters |
-| `Salt.MR.capfloor_lam_core_h_232` | Salt/MR/S13CapGateLinearLH.lean:1719 | characters |
-| `Salt.MR.capeps_row_p2_h_b9` | Salt/MR/S13CapGateLinearLH.lean:1861 | characters |
-| `Salt.MR.s15_crossing_supplied_LH_gk_ceiling` | Salt/MR/S13CapGateLinearLH.lean:3282 | characters |
+| `Salt.MR.capeps_Pbig_h_e20` | Salt/MR/S13CapGateLinearLH.lean:176 | characters |
+| `Salt.MR.capeps_Pbig_h` | Salt/MR/S13CapGateLinearLH.lean:212 | characters |
+| `Salt.MR.capfloor_lam_core_h` | Salt/MR/S13CapGateLinearLH.lean:234 | characters |
+| `Salt.MR.h_le_exp_seven` | Salt/MR/S13CapGateLinearLH.lean:1039 | characters |
+| `Salt.MR.h_le_exp_fourteen` | Salt/MR/S13CapGateLinearLH.lean:1058 | characters |
+| `Salt.MR.capeps_expbound_63` | Salt/MR/S13CapGateLinearLH.lean:1518 | characters |
+| `Salt.MR.capeps_row_phi_h_14` | Salt/MR/S13CapGateLinearLH.lean:1541 | characters |
+| `Salt.MR.capeps_row_tail_h_14` | Salt/MR/S13CapGateLinearLH.lean:1586 | characters |
+| `Salt.MR.capfloor_lam_core_h_232` | Salt/MR/S13CapGateLinearLH.lean:1708 | characters |
+| `Salt.MR.capeps_row_p2_h_b9` | Salt/MR/S13CapGateLinearLH.lean:1850 | characters |
+| `Salt.MR.s15_crossing_supplied_LH_gk_ceiling` | Salt/MR/S13CapGateLinearLH.lean:3271 | characters |
 | `Salt.MR.s13Delta0_ge` | Salt/MR/S13FramesA.lean:73 | characters |
 | `Salt.MR.s13M_log` | Salt/MR/S13FramesA.lean:87 | characters |
 | `Salt.MR.s13_b_floor_cert` | Salt/MR/S13FramesA.lean:102 | characters |
@@ -5523,10 +5523,10 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.MR.s15Arm_log_le_scaled_g` | Salt/MR/StrideGradeWalls.lean:345 | characters |
 | `Salt.MR.s15ArmH_log_le_g` | Salt/MR/StrideGradeWalls.lean:364 | characters |
 | `Salt.MR.chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9` | Salt/MR/StridePairReceipt.lean:296 | characters |
-| `Salt.MR.xceil_arm_split_mul_h` | Salt/MR/StridePairReceipt.lean:1383 | characters |
-| `Salt.MR.mrtUniformityXiL2H_holds_flat` | Salt/MR/StridePairReceipt.lean:2011 | characters |
-| `Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride` | Salt/MR/StridePairReceipt.lean:2096 | characters |
-| `Salt.MR.xceil_arm_split_mul_h_b9` | Salt/MR/StridePairReceipt.lean:2254 | characters |
+| `Salt.MR.xceil_arm_split_mul_h_b9` | Salt/MR/StridePairReceipt.lean:1382 | characters |
+| `Salt.MR.xceil_arm_split_mul_h` | Salt/MR/StridePairReceipt.lean:1444 | characters |
+| `Salt.MR.mrtUniformityXiL2H_holds_flat` | Salt/MR/StridePairReceipt.lean:2027 | characters |
+| `Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride` | Salt/MR/StridePairReceipt.lean:2112 | characters |
 | `Salt.MR.mrtUniformityXiL2H_holds_flat_g` | Salt/MR/StridePairReceiptG.lean:1027 | characters |
 | `Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride_g` | Salt/MR/StridePairReceiptG.lean:1082 | characters |
 | `Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride_g12b` | Salt/MR/StridePairReceiptG12b.lean:1033 | characters |
@@ -8292,52 +8292,52 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.MR.s13CapGrid_all_L_gk` | Salt/MR/S13CapGateLinear.lean:553 | characters | `Salt.MR.SocketBaseL` |
 | `Salt.MR.s16_baseScaleCap96_L_of_baseScaleCap96` | Salt/MR/S13CapGateLinear.lean:906 | characters | `Salt.MR.S16BaseScaleCap96_gk` |
 | `Salt.MR.s16_capGate_supply_L_gk` | Salt/MR/S13CapGateLinear.lean:931 | characters | `Salt.MR.S16BaseScaleCap96_L_gk`, `Salt.MR.S16CofactorSupply_L_gk`, `Salt.MR.SocketBaseL`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded` | Salt/MR/S13CapGateLinearLH.lean:1360 | characters | `Salt.MR.SocketBaseLH`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling` | Salt/MR/S13CapGateLinearLH.lean:1424 | characters | `Salt.MR.DoorCapBasePerBlock_L_gk`, `Salt.MR.SocketBaseLH`, `Salt.MR.TannGate` |
-| `Salt.MR.capfloor_logq_le_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1729 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.capfloor_twoj_le_H_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1755 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_Q2_reg_LH_gk_b9` | Salt/MR/S13CapGateLinearLH.lean:1772 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_twoj_le_H_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1782 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_mu_lo_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1799 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.capfloor_core_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1813 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13_abs8640_of_socketBase_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1967 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13_abs8640_at_base_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1977 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_mu_2000_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1994 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_Lambda_sharp_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2009 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_Lambda_lo_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2030 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_logX_eight_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2048 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_q_logX_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2061 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_logqT_L_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2105 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_logTann_lo_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2161 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_Tann_one_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2188 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_kappa_Tann_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2216 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.capfloor_muLambda_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2247 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.capfloor_T0_Tann_sharp_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2285 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.capfloor_rhs_legs_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2300 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.capfloor_tannGate_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2333 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.capfloor_QTann_gen_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2380 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.capfloor_kappa30Q_gen_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2401 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.capfloor_QTann_LH_gk_b9` | Salt/MR/S13CapGateLinearLH.lean:2415 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.capfloor_kappa30Q_LH_gk_b9` | Salt/MR/S13CapGateLinearLH.lean:2429 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.capfloor_floor1_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2445 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.capfloor_floor2_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2469 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.capfloor_floor3_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2505 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13_capEps_register_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2551 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapEps_q_arcDen_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2587 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapEps_EP2_gate_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2601 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapEps_pin_floors_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2690 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13_abs8640_at_shift_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2737 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_kappa30_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2748 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_BT_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2778 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_BT10_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2816 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapEps_abs8640_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2833 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapEps_all_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2847 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapEps_pins_supply_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2881 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapGrid_all_LH_gk_b9` | Salt/MR/S13CapGateLinearLH.lean:2899 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.capfloor_T0_Tann_LH` | Salt/MR/S13CapGateLinearLH.lean:2999 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.capfloor_floor4_LH` | Salt/MR/S13CapGateLinearLH.lean:3032 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s13CapFloor_all_LH_gk` | Salt/MR/S13CapGateLinearLH.lean:3136 | characters | `Salt.MR.SocketBaseLH` |
-| `Salt.MR.s16_capGate_supply_LH_gk` | Salt/MR/S13CapGateLinearLH.lean:3185 | characters | `Salt.MR.S16BaseScaleCap96_LH_gk`, `Salt.MR.S16CofactorSupply_LH_gk`, `Salt.MR.SocketBaseLH`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_hcap_at_door_perBlock_LH_gk_bounded` | Salt/MR/S13CapGateLinearLH.lean:1382 | characters | `Salt.MR.SocketBaseLH`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling` | Salt/MR/S13CapGateLinearLH.lean:1446 | characters | `Salt.MR.DoorCapBasePerBlock_L_gk`, `Salt.MR.SocketBaseLH`, `Salt.MR.TannGate` |
+| `Salt.MR.capfloor_logq_le_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1718 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.capfloor_twoj_le_H_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1744 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_Q2_reg_LH_gk_b9` | Salt/MR/S13CapGateLinearLH.lean:1761 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_twoj_le_H_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1771 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_mu_lo_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1788 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.capfloor_core_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1802 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13_abs8640_of_socketBase_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1956 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13_abs8640_at_base_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1966 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_mu_2000_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1983 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_Lambda_sharp_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:1998 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_Lambda_lo_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2019 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_logX_eight_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2037 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_q_logX_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2050 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_logqT_L_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2094 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_logTann_lo_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2150 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_Tann_one_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2177 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_kappa_Tann_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2205 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.capfloor_muLambda_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2236 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.capfloor_T0_Tann_sharp_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2274 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.capfloor_rhs_legs_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2289 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.capfloor_tannGate_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2322 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.capfloor_QTann_gen_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2369 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.capfloor_kappa30Q_gen_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2390 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.capfloor_QTann_LH_gk_b9` | Salt/MR/S13CapGateLinearLH.lean:2404 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.capfloor_kappa30Q_LH_gk_b9` | Salt/MR/S13CapGateLinearLH.lean:2418 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.capfloor_floor1_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2434 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.capfloor_floor2_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2458 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.capfloor_floor3_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2494 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13_capEps_register_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2540 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapEps_q_arcDen_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2576 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapEps_EP2_gate_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2590 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapEps_pin_floors_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2679 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13_abs8640_at_shift_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2726 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_kappa30_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2737 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_BT_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2767 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_BT10_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2805 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapEps_abs8640_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2822 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapEps_all_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2836 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapEps_pins_supply_LH_b9` | Salt/MR/S13CapGateLinearLH.lean:2870 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapGrid_all_LH_gk_b9` | Salt/MR/S13CapGateLinearLH.lean:2888 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.capfloor_T0_Tann_LH` | Salt/MR/S13CapGateLinearLH.lean:2988 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.capfloor_floor4_LH` | Salt/MR/S13CapGateLinearLH.lean:3021 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s13CapFloor_all_LH_gk` | Salt/MR/S13CapGateLinearLH.lean:3125 | characters | `Salt.MR.SocketBaseLH` |
+| `Salt.MR.s16_capGate_supply_LH_gk` | Salt/MR/S13CapGateLinearLH.lean:3174 | characters | `Salt.MR.S16BaseScaleCap96_LH_gk`, `Salt.MR.S16CofactorSupply_LH_gk`, `Salt.MR.SocketBaseLH`, `Salt.MR.TannGate` |
 | `Salt.MR.s13_gate8_of_MSelect` | Salt/MR/S13FramesA.lean:987 | characters | `Salt.MR.MSelect` |
 | `Salt.MR.s13_doorGates_of_MSelect` | Salt/MR/S13FramesA.lean:1047 | characters | `Salt.MR.MSelect` |
 | `Salt.MR.s13_g2_jfloor_of_MSelect` | Salt/MR/S13FramesA.lean:1516 | characters | `Salt.MR.MSelect` |
@@ -8623,14 +8623,14 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.MR.flat_roadExit_generic_h` | Salt/MR/StridePairReceipt.lean:1225 | characters | `Salt.MR.XiFamily`, `Salt.MR.NearRatTight`, `Salt.MR.FlatHeadFormH` |
 | `Salt.MR.flat_capstone_generic_h_14` | Salt/MR/StridePairReceipt.lean:1245 | characters | `Salt.MR.S16BandLaneCBoundedLH_winU`, `Salt.MR.FlatRoadExitFormH` |
 | `Salt.MR.flat_capstone_generic_h` | Salt/MR/StridePairReceipt.lean:1370 | characters | `Salt.MR.S16BandLaneCBoundedLH_winU`, `Salt.MR.FlatRoadExitFormH` |
-| `Salt.MR.flat_conditional_generic_h` | Salt/MR/StridePairReceipt.lean:1449 | characters | `Salt.MR.S16BandLaneCBoundedLH_winU`, `Salt.MR.FlatCapstoneFormH` |
-| `Salt.MR.flat_kswin_generic_h` | Salt/MR/StridePairReceipt.lean:1638 | characters | `Salt.MR.S16BandLaneCBoundedLH_winU`, `Salt.MR.FlatConditionalFormH` |
-| `Salt.MR.flat_v7_generic_h` | Salt/MR/StridePairReceipt.lean:1745 | characters | `Salt.MR.FlatKswinFormH` |
-| `Salt.MR.flat_door_head_xceil_h_14` | Salt/MR/StridePairReceipt.lean:1848 | characters | `Salt.MR.XiFamily` |
-| `Salt.MR.flat_door_head_xceil_h` | Salt/MR/StridePairReceipt.lean:1936 | characters | `Salt.MR.XiFamily` |
-| `Salt.MR.flat_chain_generic_h` | Salt/MR/StridePairReceipt.lean:1946 | characters | `Salt.MR.XiFamily`, `Salt.MR.NearRatTight`, `Salt.MR.FlatHeadFormH` |
-| `Salt.MR.mrtUniformityXiL2Set_holds_flat_floor` | Salt/MR/StridePairReceipt.lean:1967 | characters | `Salt.MR.XiFamily`, `Salt.MR.NearRatTight`, `Salt.Entropy.Chowla.XCeilRiderStrict` |
-| `Salt.MR.mrtUniformityXiL2AffSet_holds_flat_floor` | Salt/MR/StridePairReceipt.lean:2039 | characters | `Salt.Entropy.Chowla.XCeilRiderStrict` |
+| `Salt.MR.flat_conditional_generic_h` | Salt/MR/StridePairReceipt.lean:1465 | characters | `Salt.MR.S16BandLaneCBoundedLH_winU`, `Salt.MR.FlatCapstoneFormH` |
+| `Salt.MR.flat_kswin_generic_h` | Salt/MR/StridePairReceipt.lean:1654 | characters | `Salt.MR.S16BandLaneCBoundedLH_winU`, `Salt.MR.FlatConditionalFormH` |
+| `Salt.MR.flat_v7_generic_h` | Salt/MR/StridePairReceipt.lean:1761 | characters | `Salt.MR.FlatKswinFormH` |
+| `Salt.MR.flat_door_head_xceil_h_14` | Salt/MR/StridePairReceipt.lean:1864 | characters | `Salt.MR.XiFamily` |
+| `Salt.MR.flat_door_head_xceil_h` | Salt/MR/StridePairReceipt.lean:1952 | characters | `Salt.MR.XiFamily` |
+| `Salt.MR.flat_chain_generic_h` | Salt/MR/StridePairReceipt.lean:1962 | characters | `Salt.MR.XiFamily`, `Salt.MR.NearRatTight`, `Salt.MR.FlatHeadFormH` |
+| `Salt.MR.mrtUniformityXiL2Set_holds_flat_floor` | Salt/MR/StridePairReceipt.lean:1983 | characters | `Salt.MR.XiFamily`, `Salt.MR.NearRatTight`, `Salt.Entropy.Chowla.XCeilRiderStrict` |
+| `Salt.MR.mrtUniformityXiL2AffSet_holds_flat_floor` | Salt/MR/StridePairReceipt.lean:2055 | characters | `Salt.Entropy.Chowla.XCeilRiderStrict` |
 | `Salt.MR.flat_roadExit_generic_h_g` | Salt/MR/StridePairReceiptG.lean:354 | characters | `Salt.MR.XiFamily`, `Salt.MR.NearRatTight`, `Salt.MR.FlatHeadFormHG` |
 | `Salt.MR.flat_capstone_generic_h_g` | Salt/MR/StridePairReceiptG.lean:383 | characters | `Salt.MR.S16BandLaneCBoundedLH_winU`, `Salt.MR.FlatRoadExitFormHG` |
 | `Salt.MR.flat_conditional_generic_h_g` | Salt/MR/StridePairReceiptG.lean:511 | characters | `Salt.MR.S16BandLaneCBoundedLH_winU`, `Salt.MR.FlatCapstoneFormHG` |
@@ -9136,8 +9136,8 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.MR.ZetaInvShallowVk` | Salt/MR/MobiusChiRateClose.lean:1496 | characters |
 | `Salt.MR.HalaszPrimesChiGated` | Salt/MR/PortAssembly.lean:764 | characters |
 | `Salt.MR.DoorCapErrWS` | Salt/MR/RamErrWS.lean:424 | characters |
-| `Salt.MR.S16BaseScaleCap96_LH_gk` | Salt/MR/S13CapGateLinearLH.lean:252 | characters |
-| `Salt.MR.S16CofactorSupply_LH_gk` | Salt/MR/S13CapGateLinearLH.lean:259 | characters |
+| `Salt.MR.S16BaseScaleCap96_LH_gk` | Salt/MR/S13CapGateLinearLH.lean:274 | characters |
+| `Salt.MR.S16CofactorSupply_LH_gk` | Salt/MR/S13CapGateLinearLH.lean:281 | characters |
 | `Salt.MR.M4ChiSummedFreeRowH_L_gk` | Salt/MR/S16FlatTerminalLinearH.lean:358 | characters |
 | `Salt.MR.M4ChiSummedFreeShiftBlockH_L_gk` | Salt/MR/S16FlatTerminalLinearH.lean:368 | characters |
 | `Salt.MR.M4ChiSummedBlockMeanSqNH_L_gk` | Salt/MR/S16FlatTerminalLinearH.lean:382 | characters |
@@ -9583,8 +9583,8 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.MR.loglogFloor50` | Salt/MR/S12Compose.lean:181 | characters |
 | `Salt.MR.s12DeltaSock` | Salt/MR/S12Compose.lean:207 | characters |
 | `Salt.MR.s12DeltaSock_sq` | Salt/MR/S12Compose.lean:222 | characters |
-| `Salt.MR.s16BaseScaleCap96LH_gk_one_iff` | Salt/MR/S13CapGateLinearLH.lean:273 | characters |
-| `Salt.MR.s16CofactorSupplyLH_gk_one_iff` | Salt/MR/S13CapGateLinearLH.lean:279 | characters |
+| `Salt.MR.s16BaseScaleCap96LH_gk_one_iff` | Salt/MR/S13CapGateLinearLH.lean:295 | characters |
+| `Salt.MR.s16CofactorSupplyLH_gk_one_iff` | Salt/MR/S13CapGateLinearLH.lean:301 | characters |
 | `Salt.MR.flatWitFloor` | Salt/MR/S16FlatTerminal.lean:205 | characters |
 | `Salt.MR.flatWitA` | Salt/MR/S16FlatTerminal.lean:674 | characters |
 | `Salt.MR.strataResidualH` | Salt/MR/S16FlatTerminalLinearH.lean:119 | characters |
