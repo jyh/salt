@@ -286,28 +286,31 @@ theorem s15_level1_of_budget {M Hhi : ℕ} {ρ : ℝ} (hM : 1 ≤ M) (hρ : 0 < 
     _ ≤ Real.exp (Real.log ρ) := Real.exp_le_exp.mpr (by linarith)
     _ = ρ := hρexp.symm
 
-/-- **⟦THE `𝒯`-LEG GATE AT `constPool`, MET⟧** — `X_d`-free budget line
-`29 + log Cs + 14·loglog H₊ ≤ Adoor M·log 2 + log ρ`. -/
-theorem s15_gP1_of_budget {M Hhi : ℕ} {Cs ρ : ℝ} (hCs : 0 < Cs) (hρ : 0 < ρ)
+/-- `log 𝒫₁ = A·log 2` at an arbitrary anchor (`s13_band_log_calP_one`, anchor-generic). -/
+theorem log_calP_one_gen (A G : ℕ) :
+    Real.log ((calP A G 1 : ℕ) : ℝ) = (A : ℝ) * Real.log 2 := by
+  rw [calP, calE_one]
+  push_cast
+  rw [Real.log_pow]
+
+/-- **⟦THE `𝒯`-LEG GATE AT `constPool`, ANCHOR-GENERIC⟧** (`s15_gP1_of_budget` at a symbolic
+anchor).  Instantiating at `A := AdoorL M`, `G := 3072M` gives the linear door's `gP1`. -/
+theorem s15_gP1_of_budget_gen {A G Hhi : ℕ} {Cs ρ : ℝ} (hCs : 0 < Cs) (hρ : 0 < ρ)
     (hbudget : 29 + Real.log Cs + 14 * Real.log (Real.log (Hhi : ℝ))
-      ≤ ((Adoor M : ℕ) : ℝ) * Real.log 2 + Real.log ρ) :
-    374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
-      ≤ constPool ρ Hhi := by
-  have hP1pos : (0 : ℝ) < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
-    have h : 0 < calP (Adoor M) (3072 * M) 1 := by rw [calP]; exact Nat.two_pow_pos _
+      ≤ (A : ℝ) * Real.log 2 + Real.log ρ) :
+    374784 * Cs * Real.exp 3 * (1 / ((calP A G 1 : ℕ) : ℝ)) ≤ constPool ρ Hhi := by
+  have hP1pos : (0 : ℝ) < ((calP A G 1 : ℕ) : ℝ) := by
+    have h : 0 < calP A G 1 := by rw [calP]; exact Nat.two_pow_pos _
     exact_mod_cast h
   set L : ℝ := Real.log (Real.log (Hhi : ℝ)) with hL
   set E : ℝ := Real.exp (14 * L) with hE
   have hEpos : (0 : ℝ) < E := Real.exp_pos _
-  have hpool : constPool ρ Hhi = ρ / (376266 * E) := by
-    rw [constPool_def, hE, hL]
-  rw [hpool, show (374784 : ℝ) * Cs * Real.exp 3
-      * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
-      = (374784 * Cs * Real.exp 3) / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) by ring,
+  have hpool : constPool ρ Hhi = ρ / (376266 * E) := by rw [constPool_def, hE, hL]
+  rw [hpool, show (374784 : ℝ) * Cs * Real.exp 3 * (1 / ((calP A G 1 : ℕ) : ℝ))
+      = (374784 * Cs * Real.exp 3) / ((calP A G 1 : ℕ) : ℝ) by ring,
     div_le_div_iff₀ hP1pos (by positivity)]
-  have hP1exp : ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
-      = Real.exp (((Adoor M : ℕ) : ℝ) * Real.log 2) := by
-    rw [← s13_band_log_calP_one M, Real.exp_log hP1pos]
+  have hP1exp : ((calP A G 1 : ℕ) : ℝ) = Real.exp ((A : ℝ) * Real.log 2) := by
+    rw [← log_calP_one_gen A G, Real.exp_log hP1pos]
   have hρexp : ρ = Real.exp (Real.log ρ) := (Real.exp_log hρ).symm
   have hprod : Real.exp (29 + Real.log Cs + 14 * L) = Real.exp 26 * Real.exp 3 * Cs * E := by
     rw [hE, show (29 : ℝ) + Real.log Cs + 14 * L = 26 + (3 + (Real.log Cs + 14 * L)) by ring,
@@ -320,10 +323,19 @@ theorem s15_gP1_of_budget {M Hhi : ℕ} {Cs ρ : ℝ} (hCs : 0 < Cs) (hρ : 0 < 
         have hp : (0 : ℝ) < Real.exp 3 * Cs * E := by positivity
         nlinarith
     _ = Real.exp (29 + Real.log Cs + 14 * L) := hprod.symm
-    _ ≤ Real.exp (Real.log ρ + ((Adoor M : ℕ) : ℝ) * Real.log 2) :=
-        Real.exp_le_exp.mpr (by linarith)
-    _ = ρ * ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
-        rw [Real.exp_add, hP1exp, ← hρexp]
+    _ ≤ Real.exp (Real.log ρ + (A : ℝ) * Real.log 2) := Real.exp_le_exp.mpr (by linarith)
+    _ = ρ * ((calP A G 1 : ℕ) : ℝ) := by rw [Real.exp_add, hP1exp, ← hρexp]
+
+/-- **⟦THE `𝒯`-LEG GATE AT `constPool`, MET⟧** — `X_d`-free budget line
+`29 + log Cs + 14·loglog H₊ ≤ Adoor M·log 2 + log ρ`.
+
+Proof: the instance at `A := Adoor M`, `G := 3072 * M` of `s15_gP1_of_budget_gen` (above). -/
+theorem s15_gP1_of_budget {M Hhi : ℕ} {Cs ρ : ℝ} (hCs : 0 < Cs) (hρ : 0 < ρ)
+    (hbudget : 29 + Real.log Cs + 14 * Real.log (Real.log (Hhi : ℝ))
+      ≤ ((Adoor M : ℕ) : ℝ) * Real.log 2 + Real.log ρ) :
+    374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
+      ≤ constPool ρ Hhi := by
+  exact s15_gP1_of_budget_gen (A := Adoor M) (G := 3072 * M) hCs hρ hbudget
 
 /-- **⟦`dens` IS FREE AT `Cp = 0`⟧**. -/
 theorem s15_dens_at_zero {M Hhi : ℕ} {ρ : ℝ} (hρ : 0 ≤ ρ) :

@@ -614,45 +614,8 @@ theorem a2DoorGrade_L_priced_rho {M H j : ℕ} {X C₁ M₀ K ρ : ℝ}
 the `Adoor`-vs-`AdoorL` question at the source: the landed instances are `A := Adoor M`, the
 linear ones `A := AdoorL M`, and no proof is duplicated. -/
 
-/-- `log 𝒫₁ = A·log 2` at an arbitrary anchor (`s13_band_log_calP_one`, anchor-generic). -/
-theorem log_calP_one_gen (A G : ℕ) :
-    Real.log ((calP A G 1 : ℕ) : ℝ) = (A : ℝ) * Real.log 2 := by
-  rw [calP, calE_one]
-  push_cast
-  rw [Real.log_pow]
-
-/-- **⟦THE `𝒯`-LEG GATE AT `constPool`, ANCHOR-GENERIC⟧** (`s15_gP1_of_budget` at a symbolic
-anchor).  Instantiating at `A := AdoorL M`, `G := 3072M` gives the linear door's `gP1`. -/
-theorem s15_gP1_of_budget_gen {A G Hhi : ℕ} {Cs ρ : ℝ} (hCs : 0 < Cs) (hρ : 0 < ρ)
-    (hbudget : 29 + Real.log Cs + 14 * Real.log (Real.log (Hhi : ℝ))
-      ≤ (A : ℝ) * Real.log 2 + Real.log ρ) :
-    374784 * Cs * Real.exp 3 * (1 / ((calP A G 1 : ℕ) : ℝ)) ≤ constPool ρ Hhi := by
-  have hP1pos : (0 : ℝ) < ((calP A G 1 : ℕ) : ℝ) := by
-    have h : 0 < calP A G 1 := by rw [calP]; exact Nat.two_pow_pos _
-    exact_mod_cast h
-  set L : ℝ := Real.log (Real.log (Hhi : ℝ)) with hL
-  set E : ℝ := Real.exp (14 * L) with hE
-  have hEpos : (0 : ℝ) < E := Real.exp_pos _
-  have hpool : constPool ρ Hhi = ρ / (376266 * E) := by rw [constPool_def, hE, hL]
-  rw [hpool, show (374784 : ℝ) * Cs * Real.exp 3 * (1 / ((calP A G 1 : ℕ) : ℝ))
-      = (374784 * Cs * Real.exp 3) / ((calP A G 1 : ℕ) : ℝ) by ring,
-    div_le_div_iff₀ hP1pos (by positivity)]
-  have hP1exp : ((calP A G 1 : ℕ) : ℝ) = Real.exp ((A : ℝ) * Real.log 2) := by
-    rw [← log_calP_one_gen A G, Real.exp_log hP1pos]
-  have hρexp : ρ = Real.exp (Real.log ρ) := (Real.exp_log hρ).symm
-  have hprod : Real.exp (29 + Real.log Cs + 14 * L) = Real.exp 26 * Real.exp 3 * Cs * E := by
-    rw [hE, show (29 : ℝ) + Real.log Cs + 14 * L = 26 + (3 + (Real.log Cs + 14 * L)) by ring,
-      Real.exp_add, Real.exp_add, Real.exp_add, Real.exp_log hCs]
-    ring
-  calc 374784 * Cs * Real.exp 3 * (376266 * E)
-      = 141018476544 * Real.exp 3 * Cs * E := by ring
-    _ ≤ Real.exp 26 * Real.exp 3 * Cs * E := by
-        have := s15_exp26
-        have hp : (0 : ℝ) < Real.exp 3 * Cs * E := by positivity
-        nlinarith
-    _ = Real.exp (29 + Real.log Cs + 14 * L) := hprod.symm
-    _ ≤ Real.exp (Real.log ρ + (A : ℝ) * Real.log 2) := Real.exp_le_exp.mpr (by linarith)
-    _ = ρ * ((calP A G 1 : ℕ) : ℝ) := by rw [Real.exp_add, hP1exp, ← hρexp]
+-- `log_calP_one_gen` and `s15_gP1_of_budget_gen` now live in `S15Compose`, above the landed
+-- `s15_gP1_of_budget`, their instance at `A := Adoor M` (O13-e row 259).
 
 /-- **⟦THE `p²` SLOT AT `constPool`, ANCHOR-GENERIC⟧** (`s15_p2_of_budget` at a symbolic
 anchor).  The one extra demand is `𝒫₁ ≤ 𝒫₂`, i.e. `e₁ ≤ e₂` at the family in hand. -/
