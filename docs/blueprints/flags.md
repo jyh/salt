@@ -25437,7 +25437,7 @@ and reads it at exactly two lines, both `_14` suppliers with NO charge-form twin
 - `:375` `m4_closure_fuse_zero'_const_nonneg_H_L_gk_ceiling_kwide_14`, whose one cap read is the
   arithmetic gate `m4_arith_henv_constPoolH_L_gk_14` -> `m4_arith_henv_rho_poolH_L_gk_14` ->
   `a2DoorGrade_pool_L_priced_rhoH_gk_14` -> `a2DoorGrade_pool_L_priced_rhoH_14` ->
-  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1510`):
+  `hArcDen_mul_strataResidualH_sq_le_14` (`S16ProducersH.lean:1511`):
   `h * arcDen 12 H * strataResidualH h H ^ 2 <= exp (14 * loglog H)` at `50 <= loglog H`.  With
   `arcDen 12 H = (log H)^12` this needs `h * (1 + 12 loglog H + log h)^2 <= (log H)^2`, which a FREE
   `h` breaks at any fixed tower floor;
@@ -25447,7 +25447,7 @@ Neither is paid from `hhL : log h <= L` by one `linarith`: both need an `h`-depe
 floor.  The brief's STOP condition "a cap site the two lifts do not cover" fired.
 
 **(2) The split lift is FALSE as specified.**  `xceil_arm_split_mul_h_b9`
-(`StridePairReceipt.lean:1382`) concludes `log 2 + log h + 9 <= H/(250000 h^2) - H/10^20`.  With
+(`StridePairReceipt.lean:1383`) concludes `log 2 + log h + 9 <= H/(250000 h^2) - H/10^20`.  With
 `L` for `9` and the cap gone, the right side is `H * (1/(250000 h^2) - 10^-20)`, NEGATIVE once
 `250000 h^2 > 10^20`, i.e. `h > 2*10^7` (`log h > 16.81`), while the left side is positive.
 Kernel-checked at `h = 10^8`: the right side equals `H * (-96/10^22) < 0` for every `H > 0`, and
