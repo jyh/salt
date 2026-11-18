@@ -66,13 +66,6 @@ namespace Salt.MR
 
 open Salt.ExpSum (eR phi)
 
-/-! ### STONE 4 — the general second-derivative block tile (no k-window)
-
-The concrete dissolution artifact.  `Salt.Vk.zeta_block_strip` proves the same
-`vdC_2nd_ZR` bound but then spends the regime `N ≤ t ≤ 27πN` to collapse
-`16√A + 16U/√A` into `112√N`.  Here we keep the honest `16√A + 16U/√A`, which
-holds for every block. -/
-
 /-! ### STONE 4b — the general-endpoint second-derivative tile
 
 The partial **top** dyadic block of `[1,N]` is `Ioc (2^J) N` with `2^J ≤ N <
@@ -160,6 +153,13 @@ theorem zeta_block_secondDeriv_gen {u : ℝ} {U M : ℕ}
   rw [hterm1, hterm2]
   field_simp
   ring
+
+/-! ### STONE 4 — the general second-derivative block tile (no k-window)
+
+The concrete dissolution artifact.  `Salt.Vk.zeta_block_strip` proves the same
+`vdC_2nd_ZR` bound but then spends the regime `N ≤ t ≤ 27πN` to collapse
+`16√A + 16U/√A` into `112√N`.  Here we keep the honest `16√A + 16U/√A`, which
+holds for every block. -/
 
 /-- **STONE 4 (corpus form).**  For every dyadic block `(U, 2U]` (`U ≥ 1`) and
 every frequency `u > 0`, the ζ-phase block sum obeys the general
