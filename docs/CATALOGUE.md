@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `3daf6dff` · source digest `d6934fb11c7f0271` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `1a8a7ee3` · source digest `d4b47f70853c4741` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -1866,7 +1866,7 @@ Declarations indexed across the tree: 23447 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_box_wge` | Salt/Goldbach/RowsLive.lean:389 | sieves |
 | `Salt.Goldbach.gold_box_Mfloor` | Salt/Goldbach/RowsLive.lean:422 | sieves |
 | `Salt.Goldbach.gold_box_rows_at_op` | Salt/Goldbach/RowsLive.lean:457 | sieves |
-| `Salt.Goldbach.gold_box_rows_wide` | Salt/Goldbach/RowsWide.lean:431 | sieves |
+| `Salt.Goldbach.gold_box_rows_wide` | Salt/Goldbach/RowsWide.lean:432 | sieves |
 | `Salt.Goldbach.goldBlockResCountM_eq_sum_pieces` | Salt/Goldbach/SW2.lean:84 | sieves |
 | `Salt.Goldbach.gold_hBlockW_of_window_prices` | Salt/Goldbach/SW2.lean:207 | sieves |
 | `Salt.Goldbach.gold_hNum_at_opW` | Salt/Goldbach/SW2.lean:290 | sieves |
