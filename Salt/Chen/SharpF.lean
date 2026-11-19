@@ -195,16 +195,8 @@ theorem hf_cell_ge2 (s' : BoundingSieve) (ε : ℝ) (z D' n : ℕ)
   have hS1 : (1 : ℝ) ≤ S := by linarith
   have hS0 : (0 : ℝ) < S := by linarith
   -- log preamble
-  have hlz_nn : (0 : ℝ) ≤ Real.log z := by
-    rcases Nat.eq_zero_or_pos z with h | h
-    · simp [h]
-    · exact Real.log_nonneg (by exact_mod_cast h)
-  have hlogz : 0 < Real.log z := by
-    rcases lt_or_eq_of_le hlz_nn with h | h
-    · exact h
-    · exfalso; rw [hSdef, logRatio, ← h, div_zero] at hS1; linarith
-  have hzD : Real.log z ≤ Real.log D' := by
-    have h := hS1; rw [hSdef, logRatio, le_div_iff₀ hlogz, one_mul] at h; exact h
+  obtain ⟨hlz_nn, hlogz, hzD⟩ :=
+    log_le_log_of_one_le_logRatio (z := z) (D := D') hS1
   have hlogD : 0 < Real.log D' := lt_of_lt_of_le hlogz hzD
   -- masses / points
   set m : ℕ → ℝ := fun p => s'.nu p * Vbelow s' p with hm
@@ -366,16 +358,8 @@ theorem vlow_le_of_guard (s' : BoundingSieve) (ε : ℝ) (z D' : ℕ)
   set S := logRatio z D' with hSdef
   have hS0 : 0 < S := by linarith
   -- log preamble
-  have hlz_nn : (0 : ℝ) ≤ Real.log z := by
-    rcases Nat.eq_zero_or_pos z with h | h
-    · simp [h]
-    · exact Real.log_nonneg (by exact_mod_cast h)
-  have hlogz : 0 < Real.log z := by
-    rcases lt_or_eq_of_le hlz_nn with h | h
-    · exact h
-    · exfalso; rw [hSdef, logRatio, ← h, div_zero] at hS1; linarith
-  have hzD : Real.log z ≤ Real.log D' := by
-    have h := hS1; rw [hSdef, logRatio, le_div_iff₀ hlogz, one_mul] at h; exact h
+  obtain ⟨hlz_nn, hlogz, hzD⟩ :=
+    log_le_log_of_one_le_logRatio (z := z) (D := D') hS1
   have hlogD : 0 < Real.log D' := lt_of_lt_of_le hlogz hzD
   -- `F = {p ∈ pf : ¬ p³ < D'} = {p ≥ D'^{1/3}}`
   set F := s'.prodPrimes.primeFactors.filter (fun p => ¬ p ^ 3 < D') with hFdef
@@ -466,16 +450,8 @@ theorem hf_sharp_flat (s' : BoundingSieve) (ε : ℝ) (z D' n : ℕ)
   have hVlowpos := Vlow_pos s' D'
   have hS0 : (0 : ℝ) < S := by linarith
   -- log preamble
-  have hlz_nn : (0 : ℝ) ≤ Real.log z := by
-    rcases Nat.eq_zero_or_pos z with h | h
-    · simp [h]
-    · exact Real.log_nonneg (by exact_mod_cast h)
-  have hlogz : 0 < Real.log z := by
-    rcases lt_or_eq_of_le hlz_nn with h | h
-    · exact h
-    · exfalso; rw [hSdef, logRatio, ← h, div_zero] at hS1; linarith
-  have hzD : Real.log z ≤ Real.log D' := by
-    have h := hS1; rw [hSdef, logRatio, le_div_iff₀ hlogz, one_mul] at h; exact h
+  obtain ⟨hlz_nn, hlogz, hzD⟩ :=
+    log_le_log_of_one_le_logRatio (z := z) (D := D') hS1
   have hlogD : 0 < Real.log D' := lt_of_lt_of_le hlogz hzD
   have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
   obtain ⟨m, rfl⟩ : ∃ m, n = m + 1 := ⟨n - 1, by omega⟩
@@ -732,16 +708,8 @@ theorem hf_sharp_of_window (s' : BoundingSieve) (ε : ℝ) (z side' D' n : ℕ)
   set S := logRatio z D' with hSdef
   have hSpos : (0 : ℝ) < S := by linarith
   -- log preamble (for the point/window bounds)
-  have hlz_nn : (0 : ℝ) ≤ Real.log z := by
-    rcases Nat.eq_zero_or_pos z with h | h
-    · simp [h]
-    · exact Real.log_nonneg (by exact_mod_cast h)
-  have hlogz : 0 < Real.log z := by
-    rcases lt_or_eq_of_le hlz_nn with h | h
-    · exact h
-    · exfalso; rw [hSdef, logRatio, ← h, div_zero] at hS1; linarith
-  have hzD : Real.log z ≤ Real.log D' := by
-    have h := hS1; rw [hSdef, logRatio, le_div_iff₀ hlogz, one_mul] at h; exact h
+  obtain ⟨hlz_nn, hlogz, hzD⟩ :=
+    log_le_log_of_one_le_logRatio (z := z) (D := D') hS1
   have hlogD : 0 < Real.log D' := lt_of_lt_of_le hlogz hzD
   have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
   set U := (n : ℝ) + 2 + logRatio 2 D' with hU
