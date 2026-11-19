@@ -128,6 +128,132 @@ theorem gold_op_scales : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
   exact ⟨hN2, hZ1, hy6, hlogZ_le, hlogZ_ge, hlogY_ge, hlogN, hZle, hZhalf, hYle, hYhalf,
     hexp4000, hN13_16⟩
 
+/-- **`gold_box_L_window`** (O13-e row 283). The `L`-window of a Goldbach box `X·M` at the
+operating point: from `X ≥ N^{11/24}/4`, `M ≥ 1` and `X·M ≤ 2N`, with `log N ≥ 2·10^9`, the box
+`X·M` is positive and at least `N^{11/24}/4`, and `L := log(X·M)` satisfies
+`(11/24)·log N − log 4 ≤ L`, `2 ≤ L`, `L ≤ 2·log N` and `L ≤ log(4N)`. The four box engines
+(`BandRows`, `KerrY`, `KerrY2`, `RowsWide`) derived this block inline, at
+`X = 2^{i+1} − 1`, `M = pieceM kp`. -/
+theorem gold_box_L_window {N X M : ℕ} (hNpos : (0 : ℝ) < (N : ℝ))
+    (hlogN : (2 * 10 ^ 9 : ℝ) ≤ Real.log N)
+    (hXge : (N : ℝ) ^ ((11 : ℝ) / 24) / 4 ≤ (X : ℝ)) (hMge1 : (1 : ℝ) ≤ (M : ℝ))
+    (hXM2N : X * M ≤ 2 * N) :
+    (0 : ℝ) < (X : ℝ) * (M : ℝ)
+      ∧ (N : ℝ) ^ ((11 : ℝ) / 24) / 4 ≤ (X : ℝ) * (M : ℝ)
+      ∧ 11 / 24 * Real.log N - Real.log 4 ≤ Real.log ((X : ℝ) * (M : ℝ))
+      ∧ (2 : ℝ) ≤ Real.log ((X : ℝ) * (M : ℝ))
+      ∧ (X : ℝ) * (M : ℝ) ≤ 2 * (N : ℝ)
+      ∧ Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * Real.log N
+      ∧ Real.log ((X : ℝ) * (M : ℝ)) ≤ Real.log (4 * (N : ℝ)) := by
+  have hlog4 : Real.log 4 ≤ 3 := by
+    linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 4 by norm_num)]
+  have hXMpos : (0 : ℝ) < (X : ℝ) * (M : ℝ) := by
+    have hXpos : (0 : ℝ) < (X : ℝ) := by
+      have : (0 : ℝ) < (N : ℝ) ^ ((11 : ℝ) / 24) / 4 := by positivity
+      linarith [hXge]
+    positivity
+  set L : ℝ := Real.log ((X : ℝ) * (M : ℝ)) with hLdef
+  have hXMloR : (N : ℝ) ^ ((11 : ℝ) / 24) / 4 ≤ (X : ℝ) * (M : ℝ) := by
+    calc (N : ℝ) ^ ((11 : ℝ) / 24) / 4 ≤ (X : ℝ) := hXge
+      _ = (X : ℝ) * 1 := by ring
+      _ ≤ (X : ℝ) * (M : ℝ) := by
+          apply mul_le_mul_of_nonneg_left hMge1; positivity
+  have hlogval : Real.log ((N : ℝ) ^ ((11 : ℝ) / 24) / 4)
+      = 11 / 24 * Real.log N - Real.log 4 := by
+    rw [Real.log_div (by positivity) (by norm_num), Real.log_rpow hNpos]
+  have hLlow : 11 / 24 * Real.log N - Real.log 4 ≤ L := by
+    have hle : Real.log ((N : ℝ) ^ ((11 : ℝ) / 24) / 4) ≤ L :=
+      Real.log_le_log (by positivity) hXMloR
+    rwa [hlogval] at hle
+  have hL2 : (2 : ℝ) ≤ L := by linarith [hlogN, hlog4, hLlow]
+  have hXMhiR : (X : ℝ) * (M : ℝ) ≤ 2 * (N : ℝ) := by
+    have hc : ((X * M : ℕ) : ℝ) ≤ ((2 * N : ℕ) : ℝ) := by exact_mod_cast hXM2N
+    push_cast at hc ⊢; linarith [hc]
+  have h4N : (X : ℝ) * (M : ℝ) ≤ 4 * (N : ℝ) := by linarith [hXMhiR]
+  have hLbb : L ≤ Real.log (4 * (N : ℝ)) := Real.log_le_log hXMpos h4N
+  have hLle : L ≤ 2 * Real.log N := by
+    have hlog := hLbb
+    rw [Real.log_mul (by norm_num) (ne_of_gt hNpos)] at hlog
+    linarith [hlog, hlog4, hlogN]
+  exact ⟨hXMpos, hXMloR, hLlow, hL2, hXMhiR, hLle, hLbb⟩
+
+/-- **`gold_box_D_rows`** (O13-e row 288). The six `D`-scale rows of a Goldbach box from its
+wide level row `D·L^{18} ≤ √(X·M)`: `0 ≤ D`, `D ≤ √(X·M)/L^{15}`, `1 ≤ L^{18}`, `D ≤ √(X·M)`,
+`D ≤ X·M` and `D ≤ √N`, given `0 < X·M ≤ 2N`, `X ≥ 2`, `M ≥ 1` and `L ≥ 2`. `L` is any real
+here; the engines apply it at `L = log(X·M)`. The four box engines (`BandRows`, `KerrY`,
+`KerrY2`, `RowsWide`) derived these rows inline. -/
+theorem gold_box_D_rows {X M N D : ℕ} {L : ℝ} (hXMpos : (0 : ℝ) < (X : ℝ) * (M : ℝ))
+    (hX2 : 2 ≤ X) (hMge1 : (1 : ℝ) ≤ (M : ℝ)) (hL2 : (2 : ℝ) ≤ L)
+    (hXMhiR : (X : ℝ) * (M : ℝ) ≤ 2 * (N : ℝ))
+    (herr_lev : (D : ℝ) * L ^ ((13 : ℝ) + 5) ≤ Real.sqrt ((X : ℝ) * (M : ℝ))) :
+    (0 : ℝ) ≤ (D : ℝ)
+      ∧ (D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) / L ^ (15 : ℝ)
+      ∧ (1 : ℝ) ≤ L ^ ((13 : ℝ) + 5)
+      ∧ (D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ))
+      ∧ (D : ℝ) ≤ (X : ℝ) * (M : ℝ)
+      ∧ (D : ℝ) ≤ Real.sqrt (N : ℝ) := by
+  have hL1 : (1 : ℝ) ≤ L := by linarith
+  have hLpos : (0 : ℝ) < L := by linarith
+  have hDnn : (0 : ℝ) ≤ (D : ℝ) := by positivity
+  have hDscale : (D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ))
+      / L ^ (15 : ℝ) := by
+    rw [le_div_iff₀ (Real.rpow_pos_of_pos hLpos _)]
+    have h1518 : L ^ (15 : ℝ) ≤ L ^ ((13 : ℝ) + 5) :=
+      Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
+    calc (D : ℝ) * L ^ (15 : ℝ) ≤ (D : ℝ) * L ^ ((13 : ℝ) + 5) :=
+          mul_le_mul_of_nonneg_left h1518 hDnn
+      _ ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) := herr_lev
+  have hL18ge1 : (1 : ℝ) ≤ L ^ ((13 : ℝ) + 5) := by
+    rw [show (1 : ℝ) = L ^ (0 : ℝ) from (Real.rpow_zero L).symm]
+    exact Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
+  have hDsqrtXM : (D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) := by
+    calc (D : ℝ) = (D : ℝ) * 1 := (mul_one _).symm
+      _ ≤ (D : ℝ) * L ^ ((13 : ℝ) + 5) := mul_le_mul_of_nonneg_left hL18ge1 hDnn
+      _ ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) := herr_lev
+  have hDXM : (D : ℝ) ≤ (X : ℝ) * (M : ℝ) := by
+    have hXMge1 : (1 : ℝ) ≤ (X : ℝ) * (M : ℝ) := by
+      have hX2R : (2 : ℝ) ≤ (X : ℝ) := by exact_mod_cast hX2
+      nlinarith [hX2R, hMge1]
+    have hsqrtself : Real.sqrt ((X : ℝ) * (M : ℝ))
+        ≤ (X : ℝ) * (M : ℝ) := by
+      have h1 : Real.sqrt ((X : ℝ) * (M : ℝ))
+          ≤ Real.sqrt (((X : ℝ) * (M : ℝ))
+              * ((X : ℝ) * (M : ℝ))) :=
+        Real.sqrt_le_sqrt (by nlinarith only [hXMpos, hXMge1])
+      rwa [Real.sqrt_mul_self hXMpos.le] at h1
+    linarith [hDsqrtXM, hsqrtself]
+  have hDx : (D : ℝ) ≤ Real.sqrt (N : ℝ) := by
+    have hsqle : ((D : ℝ) * L ^ ((13 : ℝ) + 5)) * ((D : ℝ) * L ^ ((13 : ℝ) + 5))
+        ≤ (X : ℝ) * (M : ℝ) := by
+      have h := mul_le_mul herr_lev herr_lev (by positivity) (Real.sqrt_nonneg _)
+      rwa [Real.mul_self_sqrt hXMpos.le] at h
+    have hL18ge2 : (2 : ℝ) ≤ L ^ ((13 : ℝ) + 5) * L ^ ((13 : ℝ) + 5) := by
+      have h1le : L ^ (1 : ℝ) ≤ L ^ ((13 : ℝ) + 5) :=
+        Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
+      rw [Real.rpow_one] at h1le
+      nlinarith [le_trans hL2 h1le, hL18ge1]
+    have hDDN : (D : ℝ) * (D : ℝ) ≤ (N : ℝ) := by
+      have hexp : ((D : ℝ) * L ^ ((13 : ℝ) + 5)) * ((D : ℝ) * L ^ ((13 : ℝ) + 5))
+          = ((D : ℝ) * (D : ℝ)) * (L ^ ((13 : ℝ) + 5) * L ^ ((13 : ℝ) + 5)) := by ring
+      rw [hexp] at hsqle
+      nlinarith only [hL18ge2, hsqle, hXMhiR, mul_self_nonneg ↑D]
+    rw [show (D : ℝ) = Real.sqrt ((D : ℝ) * (D : ℝ)) from (Real.sqrt_mul_self hDnn).symm]
+    exact Real.sqrt_le_sqrt hDDN
+  exact ⟨hDnn, hDscale, hL18ge1, hDsqrtXM, hDXM, hDx⟩
+
+/-- **`gold_rpow_div_le_sqrt`** (O13-e row 289). A square-root floor from a floor on the square:
+for `0 ≤ N`, `0 < k`, `c·2 = c₂` and `k² = k₂`, `N^{c₂}/k₂ ≤ Y` gives `N^c/k ≤ √Y`. The box engines
+read their `√X` and `√M` floors this way, from `X ≥ N^{11/24}/4` and `M ≥ N^{1/3}/16`. -/
+theorem gold_rpow_div_le_sqrt {N c c₂ k k₂ Y : ℝ} (hN : 0 ≤ N) (hk : 0 < k) (hc : c * 2 = c₂)
+    (hk₂ : k ^ 2 = k₂) (h : N ^ c₂ / k₂ ≤ Y) : N ^ c / k ≤ Real.sqrt Y := by
+  have hpos : 0 ≤ N ^ c / k := div_nonneg (Real.rpow_nonneg hN c) hk.le
+  rw [← Real.sqrt_sq hpos]
+  apply Real.sqrt_le_sqrt
+  have hsq : (N ^ c / k) ^ 2 = N ^ c₂ / k₂ := by
+    rw [div_pow, ← Real.rpow_natCast (N ^ c) 2, ← Real.rpow_mul hN, ← hc, ← hk₂]
+    norm_num
+  rw [hsq]; exact h
+
 /-! ## 1. The z-geometry rows `hz_ratio` / `hx` (the D0Win2 live-geometry inputs, deliverable 2)
 
 The two `goldCut`-lower-bound rows `gold_box_price_live_kerr` consumes.  Both come from
@@ -487,26 +613,10 @@ theorem gold_box_rows_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
   have hFX : opZ N * opY N ≤ 2 ^ (i + 1) - 1 := by
     have := gold_box_Ffloor hi; omega
   -- polylog rows (√X, √M floors)
-  have hsqrtX : (N : ℝ) ^ ((11 : ℝ) / 48) / 2 ≤ Real.sqrt ((2 ^ (i + 1) - 1 : ℕ) : ℝ) := by
-    rw [show (N : ℝ) ^ ((11 : ℝ) / 48) / 2
-        = Real.sqrt (((N : ℝ) ^ ((11 : ℝ) / 48) / 2) ^ 2) from (Real.sqrt_sq (by positivity)).symm]
-    apply Real.sqrt_le_sqrt
-    have h48 : ((N : ℝ) ^ ((11 : ℝ) / 48)) ^ (2 : ℕ) = (N : ℝ) ^ ((11 : ℝ) / 24) := by
-      rw [← Real.rpow_natCast ((N : ℝ) ^ ((11 : ℝ) / 48)) 2, ← Real.rpow_mul hNpos.le,
-        show (11 : ℝ) / 48 * ((2 : ℕ) : ℝ) = 11 / 24 by push_cast; ring]
-    have hsq : ((N : ℝ) ^ ((11 : ℝ) / 48) / 2) ^ (2 : ℕ) = (N : ℝ) ^ ((11 : ℝ) / 24) / 4 := by
-      rw [div_pow, h48]; norm_num
-    rw [hsq]; exact hXge
-  have hsqrtM : (N : ℝ) ^ ((1 : ℝ) / 6) / 4 ≤ Real.sqrt (pieceM kp : ℝ) := by
-    rw [show (N : ℝ) ^ ((1 : ℝ) / 6) / 4
-        = Real.sqrt (((N : ℝ) ^ ((1 : ℝ) / 6) / 4) ^ 2) from (Real.sqrt_sq (by positivity)).symm]
-    apply Real.sqrt_le_sqrt
-    have h6 : ((N : ℝ) ^ ((1 : ℝ) / 6)) ^ (2 : ℕ) = (N : ℝ) ^ ((1 : ℝ) / 3) := by
-      rw [← Real.rpow_natCast ((N : ℝ) ^ ((1 : ℝ) / 6)) 2, ← Real.rpow_mul hNpos.le,
-        show (1 : ℝ) / 6 * ((2 : ℕ) : ℝ) = 1 / 3 by push_cast; ring]
-    have hsq : ((N : ℝ) ^ ((1 : ℝ) / 6) / 4) ^ (2 : ℕ) = (N : ℝ) ^ ((1 : ℝ) / 3) / 16 := by
-      rw [div_pow, h6]; norm_num
-    rw [hsq]; exact hMfloor
+  have hsqrtX : (N : ℝ) ^ ((11 : ℝ) / 48) / 2 ≤ Real.sqrt ((2 ^ (i + 1) - 1 : ℕ) : ℝ) :=
+    gold_rpow_div_le_sqrt hNpos.le (by norm_num) (by norm_num) (by norm_num) hXge
+  have hsqrtM : (N : ℝ) ^ ((1 : ℝ) / 6) / 4 ≤ Real.sqrt (pieceM kp : ℝ) :=
+    gold_rpow_div_le_sqrt hNpos.le (by norm_num) (by norm_num) (by norm_num) hMfloor
   have hXsqrt : L ^ ((13 : ℝ) + 3) ≤ Real.sqrt ((2 ^ (i + 1) - 1 : ℕ) : ℝ) := by
     have hLpow : L ^ ((13 : ℝ) + 3) ≤ 262144 * (N : ℝ) ^ ((1 : ℝ) / 2000) :=
       gold_Lpow_le hlogN1 hL0 hLle hpl (by norm_num) (by norm_num)
