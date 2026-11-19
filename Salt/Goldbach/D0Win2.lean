@@ -219,11 +219,6 @@ theorem gold_d0_window_z {Ne Nb M X k z : ℕ}
   -- ③ `t − 1 ≤ L ≤ t + 3`.
   obtain ⟨hL_lo, hL_up⟩ : Real.log x - 1 ≤ L ∧ L ≤ Real.log x + 3 :=
     Salt.Chen.xm_log_bounds_of_le hx2 h2 hXM4x
-  have hL1 : (1 : ℝ) ≤ L := by linarith
-  have hLnn : (0 : ℝ) ≤ L := by linarith
-  have hLpos : (0 : ℝ) < L := by linarith
-  have hL4 : (4 : ℝ) ≤ L := by linarith
-  have hL20 : (1048576 : ℝ) ≤ L := by linarith
   -- ④ the z-dependent block-floor log: `W := ½(log x − log(8z)) ≤ log Nb`.
   have h8zpos : (0 : ℝ) < 8 * (z : ℝ) := by
     have : (1 : ℝ) ≤ (z : ℝ) := by exact_mod_cast hz1
@@ -239,7 +234,6 @@ theorem gold_d0_window_z {Ne Nb M X k z : ℕ}
     rw [hWeq, Real.exp_log hfloorpos]
   -- W lower bounds from the ratio hypothesis + tower threshold.
   have hWlb : (5 * Real.log x + 15) / 12 ≤ W := by rw [hWdef]; linarith [hz_ratio]
-  have hWpos : (0 : ℝ) < W := by linarith [hWlb, ht]
   have hW1296 : (1296 : ℝ) ≤ W := by linarith [hWlb, ht]
   have hLW : L ≤ 12 / 5 * W := by linarith [hL_up, hWlb]
   have hW4 : 4 * ((12 : ℝ) / 5) ^ ((17 : ℝ)) ≤ W := by
@@ -247,96 +241,9 @@ theorem gold_d0_window_z {Ne Nb M X k z : ℕ}
       rw [show ((17 : ℝ)) = ((17 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
     have hnum : 4 * ((12 : ℝ) / 5) ^ (17 : ℕ) ≤ (5 * 10 ^ 9 + 15) / 12 := by norm_num
     rw [hc]; linarith [hWlb, ht]
-  -- ⑤ the dyadic window: `D0 = 2^{k0} ∈ [L^{17}, 4·L^{17}]`.
-  have hL17_2 : (2 : ℝ) ≤ L ^ ((17 : ℝ)) := by
-    calc (2 : ℝ) ≤ L := by linarith
-      _ = L ^ ((1 : ℝ)) := (Real.rpow_one L).symm
-      _ ≤ L ^ ((17 : ℝ)) := Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-  obtain ⟨k0, h2k0, hD0_lo, hD0_hi⟩ := Salt.Chen.exists_two_pow_window hL17_2
-  have hL18eq : L ^ ((18 : ℝ)) = L * L ^ ((17 : ℝ)) := by
-    have hh := Real.rpow_add hLpos 1 17
-    rw [Real.rpow_one] at hh
-    rw [show (18 : ℝ) = 1 + 17 by norm_num, hh]
-  have h17nn : (0 : ℝ) ≤ L ^ ((17 : ℝ)) := Real.rpow_nonneg hLnn _
-  -- ⑥ the `hD0N'` leg: `4·L^{17} ≤ W^{18}`.
-  have hW18 : 4 * L ^ ((17 : ℝ)) ≤ W ^ ((18 : ℝ)) := by
-    have hW17 : L ^ ((17 : ℝ)) ≤ ((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) := by
-      calc L ^ ((17 : ℝ)) ≤ (12 / 5 * W) ^ ((17 : ℝ)) :=
-            Real.rpow_le_rpow hLnn hLW (by norm_num)
-        _ = ((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) :=
-            Real.mul_rpow (by norm_num) hWpos.le
-    have hW18eq : W ^ ((18 : ℝ)) = W * W ^ ((17 : ℝ)) := by
-      have hh := Real.rpow_add hWpos 1 17
-      rw [Real.rpow_one] at hh
-      rw [show (18 : ℝ) = 1 + 17 by norm_num, hh]
-    have h17Wnn : (0 : ℝ) ≤ W ^ ((17 : ℝ)) := Real.rpow_nonneg hWpos.le _
-    rw [hW18eq]
-    calc 4 * L ^ ((17 : ℝ))
-        ≤ 4 * (((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ))) := by linarith
-      _ = (4 * ((12 : ℝ) / 5) ^ ((17 : ℝ))) * W ^ ((17 : ℝ)) := by ring
-      _ ≤ W * W ^ ((17 : ℝ)) := mul_le_mul_of_nonneg_right hW4 h17Wnn
-  -- ⑦ the `hD0N` leg: `W^{18} ≤ e^W = (x/(8z))^{1/2}`.
-  have hexpW : W ^ ((18 : ℝ)) ≤ Real.exp W := by
-    have hunn : (0 : ℝ) ≤ W / 36 := by linarith
-    have hquad : W ≤ (W / 36) ^ ((2 : ℝ)) := by
-      rw [show ((2 : ℝ)) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-      have hexpand : (W / 36) ^ (2 : ℕ) = W * W / 1296 := by ring
-      rw [hexpand, le_div_iff₀ (by norm_num : (0 : ℝ) < 1296)]
-      have keyq : (0 : ℝ) ≤ (W - 1296) * W := mul_nonneg (by linarith) hWpos.le
-      linarith [keyq]
-    have hu : W / 36 ≤ Real.exp (W / 36) := by linarith [Real.add_one_le_exp (W / 36)]
-    calc W ^ ((18 : ℝ))
-        ≤ ((W / 36) ^ ((2 : ℝ))) ^ ((18 : ℝ)) :=
-          Real.rpow_le_rpow hWpos.le hquad (by norm_num)
-      _ = (W / 36) ^ ((36 : ℝ)) := by
-          rw [← Real.rpow_mul hunn]
-          norm_num
-      _ ≤ (Real.exp (W / 36)) ^ ((36 : ℝ)) := Real.rpow_le_rpow hunn hu (by norm_num)
-      _ = Real.exp W := by
-          rw [Real.rpow_def_of_pos (Real.exp_pos _), Real.log_exp]
-          congr 1
-          ring
   have hexp_le : Real.exp W ≤ ((x : ℝ) / (8 * (z : ℝ))) ^ ((1 : ℝ) / 2) := le_of_eq heWfloor
-  -- ⑧ emit the rows.
-  have hcast : ((2 ^ k0 : ℕ) : ℝ) = (2 : ℝ) ^ k0 := by push_cast; ring
-  refine ⟨2 ^ k0, k0, rfl, h2k0, ?_, hD0_lo, ?_, ?_, ?_, ?_, ?_⟩
-  · -- `hD0lo_main`, exponent `15`
-    have h15 : L ^ ((15 : ℝ)) ≤ L ^ ((17 : ℝ)) :=
-      Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-    have h2k0pos : (0 : ℝ) < (2 : ℝ) ^ k0 := by positivity
-    calc L ^ ((15 : ℝ)) ≤ L ^ ((17 : ℝ)) := h15
-      _ ≤ ((2 ^ k0 : ℕ) : ℝ) := hD0_lo
-      _ = (2 : ℝ) ^ k0 := hcast
-      _ ≤ 2 * (2 : ℝ) ^ k0 := by linarith
-  · -- `hD0` (`D0 ≤ L^{18}`)
-    rw [hL18eq]
-    have key : (0 : ℝ) ≤ (L - 4) * L ^ ((17 : ℝ)) := mul_nonneg (by linarith) h17nn
-    linarith [hD0_hi, key]
-  · -- `hD0N'` (`D0 ≤ (log Nb)^{18}`)
-    have hmono : W ^ ((18 : ℝ)) ≤ (Real.log Nb) ^ ((18 : ℝ)) :=
-      Real.rpow_le_rpow hWpos.le hWlogN (by norm_num)
-    linarith [hD0_hi, hW18, hmono]
-  · -- `herr_D0E` in the `herr_scale` form
-    intro LE hLE
-    have hhalfpos : (0 : ℝ) < L / 2 := by linarith
-    have hstep : 4 * L ^ ((17 : ℝ)) ≤ (L / 2) ^ ((18 : ℝ)) := by
-      have hdiv : (L / 2) ^ ((18 : ℝ)) = L ^ ((18 : ℝ)) / (2 : ℝ) ^ ((18 : ℝ)) :=
-        Real.div_rpow hLnn (by norm_num) _
-      have h218 : (2 : ℝ) ^ ((18 : ℝ)) = 262144 := by
-        rw [show ((18 : ℝ)) = ((18 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-        norm_num
-      rw [hdiv, h218, hL18eq, le_div_iff₀ (by norm_num : (0 : ℝ) < 262144)]
-      have key : (0 : ℝ) ≤ (L - 1048576) * L ^ ((17 : ℝ)) := mul_nonneg (by linarith) h17nn
-      linarith [key]
-    have hmono : (L / 2) ^ ((18 : ℝ)) ≤ LE ^ ((18 : ℝ)) :=
-      Real.rpow_le_rpow hhalfpos.le (by linarith) (by norm_num)
-    linarith [hD0_hi]
-  · -- the z-dependent floor bound (`D0 ≤ (x/(8z))^{1/2}`)
-    linarith [hD0_hi, hW18, hexpW, hexp_le]
-  · -- `hD0N` (`D0 ≤ Nb`)
-    have hfin : ((2 ^ k0 : ℕ) : ℝ) ≤ (Nb : ℝ) := by
-      linarith [hD0_hi, hW18, hexpW, hexp_le, hNfloor]
-    exact_mod_cast hfin
+  exact Salt.Chen.d0_window_of_W (by linarith) (by norm_num : (0 : ℝ) < 12 / 5) hLW hW4 hW1296
+    hWlogN hexp_le hNfloor
 
 /-! ## 3. The composition — `gold_box_price_engine`'s D0 rows from the two keystones (deliverable 3)
 

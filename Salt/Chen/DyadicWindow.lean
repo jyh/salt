@@ -131,65 +131,29 @@ from their strict `x/2 + 1 < X·M`, and all five are instances. `d0_window_core_
 `11/24`, the form the Chen strip lemmas state.
 -/
 
-/-- **`d0_window_core_band`.** The band-floor `D0` window: block floor `x^{1/3}/8 ≤ N`, tower
-`exp(10^{10})`, `W := (1/3)·log x − 7`, ratio `L ≤ (31/10)·W`, and the raw scale window
-`x/2 + 1 ≤ X·M ≤ 4x`. The `x`-scale conjunct is `x^{11/24}/8`, via the bump
-`x^{1/3} ≤ x^{11/24}`. -/
-theorem d0_window_core_band {x N M X : ℕ}
-    (hx : Real.exp (10 ^ 10) ≤ (x : ℝ))
-    (hNfloor : (x : ℝ) ^ ((1 : ℝ) / 3) / 8 ≤ (N : ℝ))
-    (hXMlo : x / 2 + 1 ≤ X * M)
-    (hXMhi : X * M ≤ 4 * x) :
+/-- **`d0_window_of_W`.** The `D0` window from its `W` facts alone. `L := log(X·M)` is at least
+`2^{20}`, a ratio `c > 0` has `L ≤ c·W` and `4·c^{17} ≤ W`, `1296 ≤ W`, `W ≤ log N`, and
+`e^W ≤ F ≤ N`. Then `D0 = 2^{k0} ∈ [L^{17}, 4·L^{17}]` satisfies the nine rows, with the floor
+conjunct at `F`. The three floors (`d0_window_core_band`, `d0_window_core_lo` and Goldbach's
+`gold_d0_window_z`) differ only in how they supply `c`, `W` and `F`. -/
+theorem d0_window_of_W {N M X : ℕ} {c W F : ℝ}
+    (hL20 : (1048576 : ℝ) ≤ Real.log ((X : ℝ) * (M : ℝ)))
+    (hc : 0 < c) (hLW : Real.log ((X : ℝ) * (M : ℝ)) ≤ c * W)
+    (hW4 : 4 * c ^ ((17 : ℝ)) ≤ W) (hW1296 : (1296 : ℝ) ≤ W)
+    (hWlogN : W ≤ Real.log N) (hexp : Real.exp W ≤ F) (hFN : F ≤ (N : ℝ)) :
     ∃ D0 k0 : ℕ, D0 = 2 ^ k0 ∧ 2 ≤ D0
       ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((15 : ℝ)) ≤ 2 * (2 : ℝ) ^ k0
       ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((17 : ℝ)) ≤ (D0 : ℝ)
       ∧ (D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((18 : ℝ))
       ∧ (D0 : ℝ) ≤ (Real.log N) ^ ((18 : ℝ))
       ∧ (∀ LE : ℝ, Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * LE → (D0 : ℝ) ≤ LE ^ ((18 : ℝ)))
-      ∧ (D0 : ℝ) ≤ (x : ℝ) ^ ((11 : ℝ) / 24) / 8
+      ∧ (D0 : ℝ) ≤ F
       ∧ D0 ≤ N := by
-  -- ① the scale facts: `t ≥ 10^{10}`, `x ≥ 2`.
-  have h1010 : (10 : ℝ) ^ 10 = 10000000000 := by norm_num
-  have ht : (10 : ℝ) ^ 10 ≤ Real.log x := by
-    have h := Real.log_le_log (Real.exp_pos _) hx
-    rwa [Real.log_exp] at h
-  have hxR2 : (2 : ℝ) ≤ (x : ℝ) := by
-    have h1 := Real.add_one_le_exp ((10 : ℝ) ^ 10)
-    linarith
-  have hx2 : 2 ≤ x := by exact_mod_cast hxR2
-  have hxpos : (0 : ℝ) < (x : ℝ) := by linarith
-  have hx1 : (1 : ℝ) ≤ (x : ℝ) := by linarith
-  -- ② the scale facts (from the RAW bounds): `x/2 < X·M ≤ 4x`.
-  have hXM4x : X * M ≤ 4 * x := hXMhi
   set L := Real.log ((X : ℝ) * (M : ℝ)) with hLdef
-  -- ③ `t − 1 ≤ L ≤ t + 3`.
-  obtain ⟨hL_lo, hL_up⟩ : Real.log x - 1 ≤ L ∧ L ≤ Real.log x + 3 :=
-    xm_log_bounds_of_le hx2 hXMlo hXM4x
   have hL1 : (1 : ℝ) ≤ L := by linarith
   have hLnn : (0 : ℝ) ≤ L := by linarith
   have hLpos : (0 : ℝ) < L := by linarith
-  have hL4 : (4 : ℝ) ≤ L := by linarith
-  have hL20 : (1048576 : ℝ) ≤ L := by linarith
-  -- ④ the block-floor log: `W := (1/3)·t − 7 ≤ log N`  (the band floor).
-  set W : ℝ := 1 / 3 * Real.log x - 7 with hWdef
-  have hWlogN : W ≤ Real.log N := by
-    have hlogN := Real.log_le_log (div_pos (Real.rpow_pos_of_pos hxpos _) (by norm_num))
-      hNfloor
-    rw [Real.log_div (ne_of_gt (Real.rpow_pos_of_pos hxpos _)) (by norm_num : (8 : ℝ) ≠ 0),
-      Real.log_rpow hxpos] at hlogN
-    have h8log : Real.log 8 ≤ 7 := by
-      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 8 by norm_num)]
-    rw [hWdef]
-    linarith
-  have hWpos : (0 : ℝ) < W := by rw [hWdef]; linarith
-  have hW1296 : (1296 : ℝ) ≤ W := by rw [hWdef]; linarith
-  have hLW : L ≤ 31 / 10 * W := by rw [hWdef]; linarith
-  have hW4 : 4 * ((31 : ℝ) / 10) ^ ((17 : ℝ)) ≤ W := by
-    have hc : ((31 : ℝ) / 10) ^ ((17 : ℝ)) = ((31 : ℝ) / 10) ^ (17 : ℕ) := by
-      rw [show ((17 : ℝ)) = ((17 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-    have hnum : 4 * ((31 : ℝ) / 10) ^ (17 : ℕ) ≤ 1 / 3 * 10 ^ 10 - 7 := by norm_num
-    rw [hc, hWdef]
-    linarith
+  have hWpos : (0 : ℝ) < W := by linarith
   -- ⑤ the dyadic window: `D0 = 2^{k0} ∈ [L^{17}, 4·L^{17}]`.
   have hL17_2 : (2 : ℝ) ≤ L ^ ((17 : ℝ)) := by
     calc (2 : ℝ) ≤ L := by linarith
@@ -201,13 +165,13 @@ theorem d0_window_core_band {x N M X : ℕ}
     rw [Real.rpow_one] at hh
     rw [show (18 : ℝ) = 1 + 17 by norm_num, hh]
   have h17nn : (0 : ℝ) ≤ L ^ ((17 : ℝ)) := Real.rpow_nonneg hLnn _
-  -- ⑥ the `hD0N'` leg: `4·L^{17} ≤ W^{18}` (the band-floor binding row, ≈ 3.7× room).
+  -- ⑥ the `hD0N'` leg: `4·L^{17} ≤ W^{18}`.
   have hW18 : 4 * L ^ ((17 : ℝ)) ≤ W ^ ((18 : ℝ)) := by
-    have hW17 : L ^ ((17 : ℝ)) ≤ ((31 : ℝ) / 10) ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) := by
-      calc L ^ ((17 : ℝ)) ≤ (31 / 10 * W) ^ ((17 : ℝ)) :=
+    have hW17 : L ^ ((17 : ℝ)) ≤ c ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) := by
+      calc L ^ ((17 : ℝ)) ≤ (c * W) ^ ((17 : ℝ)) :=
             Real.rpow_le_rpow hLnn hLW (by norm_num)
-        _ = ((31 : ℝ) / 10) ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) :=
-            Real.mul_rpow (by norm_num) hWpos.le
+        _ = c ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) :=
+            Real.mul_rpow hc.le hWpos.le
     have hW18eq : W ^ ((18 : ℝ)) = W * W ^ ((17 : ℝ)) := by
       have hh := Real.rpow_add hWpos 1 17
       rw [Real.rpow_one] at hh
@@ -215,10 +179,10 @@ theorem d0_window_core_band {x N M X : ℕ}
     have h17Wnn : (0 : ℝ) ≤ W ^ ((17 : ℝ)) := Real.rpow_nonneg hWpos.le _
     rw [hW18eq]
     calc 4 * L ^ ((17 : ℝ))
-        ≤ 4 * (((31 : ℝ) / 10) ^ ((17 : ℝ)) * W ^ ((17 : ℝ))) := by linarith
-      _ = (4 * ((31 : ℝ) / 10) ^ ((17 : ℝ))) * W ^ ((17 : ℝ)) := by ring
+        ≤ 4 * (c ^ ((17 : ℝ)) * W ^ ((17 : ℝ))) := by linarith
+      _ = (4 * c ^ ((17 : ℝ))) * W ^ ((17 : ℝ)) := by ring
       _ ≤ W * W ^ ((17 : ℝ)) := mul_le_mul_of_nonneg_right hW4 h17Wnn
-  -- ⑦ the `hD0N` leg: `W^{18} ≤ e^W ≤ x^{1/3}/8`  (SHARP at the band floor).
+  -- ⑦ the `hD0N` leg: `W^{18} ≤ e^W ≤ F`.
   have hexpW : W ^ ((18 : ℝ)) ≤ Real.exp W := by
     have hunn : (0 : ℝ) ≤ W / 36 := by linarith
     have hquad : W ≤ (W / 36) ^ ((2 : ℝ)) := by
@@ -239,174 +203,6 @@ theorem d0_window_core_band {x N M X : ℕ}
           rw [Real.rpow_def_of_pos (Real.exp_pos _), Real.log_exp]
           congr 1
           ring
-  have hexp_le : Real.exp W ≤ (x : ℝ) ^ ((1 : ℝ) / 3) / 8 := by
-    have hEW : Real.exp W = (x : ℝ) ^ ((1 : ℝ) / 3) / Real.exp 7 := by
-      rw [hWdef, Real.exp_sub, Real.rpow_def_of_pos hxpos]
-      have hmul : Real.log (x : ℝ) * ((1 : ℝ) / 3) = 1 / 3 * Real.log x := by ring
-      rw [hmul]
-    rw [hEW]
-    have h7 : (8 : ℝ) ≤ Real.exp 7 := by linarith [Real.add_one_le_exp (7 : ℝ)]
-    exact div_le_div_of_nonneg_left (Real.rpow_nonneg hxpos.le _) (by norm_num) h7
-  -- the `x`-scale bump: `x^{1/3}/8 ≤ x^{11/24}/8`  (`1/3 ≤ 11/24`, `x ≥ 1`).
-  have hxbump : (x : ℝ) ^ ((1 : ℝ) / 3) / 8 ≤ (x : ℝ) ^ ((11 : ℝ) / 24) / 8 := by
-    have hmono : (x : ℝ) ^ ((1 : ℝ) / 3) ≤ (x : ℝ) ^ ((11 : ℝ) / 24) :=
-      Real.rpow_le_rpow_of_exponent_le hx1 (by norm_num)
-    linarith [hmono]
-  -- ⑧ emit the rows.
-  have hcast : ((2 ^ k0 : ℕ) : ℝ) = (2 : ℝ) ^ k0 := by push_cast; ring
-  refine ⟨2 ^ k0, k0, rfl, h2k0, ?_, hD0_lo, ?_, ?_, ?_, ?_, ?_⟩
-  · -- `hD0lo_main`, the DECOUPLED row (exponent `A+2 = 15`)
-    have h15 : L ^ ((15 : ℝ)) ≤ L ^ ((17 : ℝ)) :=
-      Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-    have h2k0pos : (0 : ℝ) < (2 : ℝ) ^ k0 := by positivity
-    calc L ^ ((15 : ℝ)) ≤ L ^ ((17 : ℝ)) := h15
-      _ ≤ ((2 ^ k0 : ℕ) : ℝ) := hD0_lo
-      _ = (2 : ℝ) ^ k0 := hcast
-      _ ≤ 2 * (2 : ℝ) ^ k0 := by linarith
-  · -- `hD0` (`D0 ≤ L^{C0}`, `C0 = 18`)
-    rw [hL18eq]
-    have key : (0 : ℝ) ≤ (L - 4) * L ^ ((17 : ℝ)) := mul_nonneg (by linarith) h17nn
-    linarith [hD0_hi, key]
-  · -- `hD0N'` (`D0 ≤ (log N)^{C0}`, `C0 = 18`) — the binding band-floor row
-    have hmono : W ^ ((18 : ℝ)) ≤ (Real.log N) ^ ((18 : ℝ)) :=
-      Real.rpow_le_rpow hWpos.le hWlogN (by norm_num)
-    linarith [hD0_hi, hW18, hmono]
-  · -- `herr_D0E` in the `herr_scale` form (`LE ≥ L/2`, exponent `C0 = 18`)
-    intro LE hLE
-    have hhalfpos : (0 : ℝ) < L / 2 := by linarith
-    have hstep : 4 * L ^ ((17 : ℝ)) ≤ (L / 2) ^ ((18 : ℝ)) := by
-      have hdiv : (L / 2) ^ ((18 : ℝ)) = L ^ ((18 : ℝ)) / (2 : ℝ) ^ ((18 : ℝ)) :=
-        Real.div_rpow hLnn (by norm_num) _
-      have h218 : (2 : ℝ) ^ ((18 : ℝ)) = 262144 := by
-        rw [show ((18 : ℝ)) = ((18 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-        norm_num
-      rw [hdiv, h218, hL18eq, le_div_iff₀ (by norm_num : (0 : ℝ) < 262144)]
-      have key : (0 : ℝ) ≤ (L - 1048576) * L ^ ((17 : ℝ)) := mul_nonneg (by linarith) h17nn
-      linarith [key]
-    have hmono : (L / 2) ^ ((18 : ℝ)) ≤ LE ^ ((18 : ℝ)) :=
-      Real.rpow_le_rpow hhalfpos.le (by linarith) (by norm_num)
-    linarith [hD0_hi]
-  · -- the `x`-scale bound (`D0 ≤ x^{11/24}/8`) — SAME conjunct, via bump
-    linarith only [hD0_hi, hW18, hexpW, hexp_le, hxbump]
-  · -- `hD0N` (`D0 ≤ N`) — SHARP off the band floor `x^{1/3}/8 ≤ N`
-    have hfin : ((2 ^ k0 : ℕ) : ℝ) ≤ (N : ℝ) := by
-      linarith only [hD0_hi, hW18, hexpW, hexp_le, hNfloor]
-    exact_mod_cast hfin
-
-/-- **`d0_window_core_lo`.** The strip-floor `D0` window: block floor `x^{7/16}/8 ≤ N`, tower
-`exp(10^9)`, `W := (7/16)·log x − 7`, ratio `L ≤ (12/5)·W`, and the raw scale window
-`x/2 + 1 ≤ X·M ≤ 4x`. The `x`-scale conjunct is at the floor's exponent, `x^{7/16}/8`. -/
-theorem d0_window_core_lo {x N M X : ℕ}
-    (hx : Real.exp (10 ^ 9) ≤ (x : ℝ))
-    (hNfloor : (x : ℝ) ^ ((7 : ℝ) / 16) / 8 ≤ (N : ℝ))
-    (hXMlo : x / 2 + 1 ≤ X * M)
-    (hXMhi : X * M ≤ 4 * x) :
-    ∃ D0 k0 : ℕ, D0 = 2 ^ k0 ∧ 2 ≤ D0
-      ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((15 : ℝ)) ≤ 2 * (2 : ℝ) ^ k0
-      ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((17 : ℝ)) ≤ (D0 : ℝ)
-      ∧ (D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((18 : ℝ))
-      ∧ (D0 : ℝ) ≤ (Real.log N) ^ ((18 : ℝ))
-      ∧ (∀ LE : ℝ, Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * LE → (D0 : ℝ) ≤ LE ^ ((18 : ℝ)))
-      ∧ (D0 : ℝ) ≤ (x : ℝ) ^ ((7 : ℝ) / 16) / 8
-      ∧ D0 ≤ N := by
-  -- ① the scale facts: `t ≥ 10^9`, `x ≥ 2`.
-  have h109 : (10 : ℝ) ^ 9 = 1000000000 := by norm_num
-  have ht : (10 : ℝ) ^ 9 ≤ Real.log x := by
-    have h := Real.log_le_log (Real.exp_pos _) hx
-    rwa [Real.log_exp] at h
-  have hxR2 : (2 : ℝ) ≤ (x : ℝ) := by
-    have h1 := Real.add_one_le_exp ((10 : ℝ) ^ 9)
-    linarith
-  have hx2 : 2 ≤ x := by exact_mod_cast hxR2
-  have hxpos : (0 : ℝ) < (x : ℝ) := by linarith
-  -- ② the scale facts (from the RAW bounds, in place of the boundary corner): `x/2 < X·M ≤ 4x`.
-  have hXM4x : X * M ≤ 4 * x := hXMhi
-  set L := Real.log ((X : ℝ) * (M : ℝ)) with hLdef
-  -- ③ `t − 1 ≤ L ≤ t + 3`.
-  obtain ⟨hL_lo, hL_up⟩ : Real.log x - 1 ≤ L ∧ L ≤ Real.log x + 3 :=
-    xm_log_bounds_of_le hx2 hXMlo hXM4x
-  have hL1 : (1 : ℝ) ≤ L := by linarith
-  have hLnn : (0 : ℝ) ≤ L := by linarith
-  have hLpos : (0 : ℝ) < L := by linarith
-  have hL4 : (4 : ℝ) ≤ L := by linarith
-  have hL20 : (1048576 : ℝ) ≤ L := by linarith
-  -- ④ the block-floor log: `W := (7/16)·t − 7 ≤ log N`  (the WEAKENED strip floor).
-  set W : ℝ := 7 / 16 * Real.log x - 7 with hWdef
-  have hWlogN : W ≤ Real.log N := by
-    have hlogN := Real.log_le_log (div_pos (Real.rpow_pos_of_pos hxpos _) (by norm_num))
-      hNfloor
-    rw [Real.log_div (ne_of_gt (Real.rpow_pos_of_pos hxpos _)) (by norm_num : (8 : ℝ) ≠ 0),
-      Real.log_rpow hxpos] at hlogN
-    have h8log : Real.log 8 ≤ 7 := by
-      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 8 by norm_num)]
-    rw [hWdef]
-    linarith
-  have hWpos : (0 : ℝ) < W := by rw [hWdef]; linarith
-  have hW1296 : (1296 : ℝ) ≤ W := by rw [hWdef]; linarith
-  have hLW : L ≤ 12 / 5 * W := by rw [hWdef]; linarith
-  have hW4 : 4 * ((12 : ℝ) / 5) ^ ((17 : ℝ)) ≤ W := by
-    have hc : ((12 : ℝ) / 5) ^ ((17 : ℝ)) = ((12 : ℝ) / 5) ^ (17 : ℕ) := by
-      rw [show ((17 : ℝ)) = ((17 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-    have hnum : 4 * ((12 : ℝ) / 5) ^ (17 : ℕ) ≤ 7 / 16 * 10 ^ 9 - 7 := by norm_num
-    rw [hc, hWdef]
-    linarith
-  -- ⑤ the dyadic window: `D0 = 2^{k0} ∈ [L^{17}, 4·L^{17}]`.
-  have hL17_2 : (2 : ℝ) ≤ L ^ ((17 : ℝ)) := by
-    calc (2 : ℝ) ≤ L := by linarith
-      _ = L ^ ((1 : ℝ)) := (Real.rpow_one L).symm
-      _ ≤ L ^ ((17 : ℝ)) := Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-  obtain ⟨k0, h2k0, hD0_lo, hD0_hi⟩ := Salt.Chen.exists_two_pow_window hL17_2
-  have hL18eq : L ^ ((18 : ℝ)) = L * L ^ ((17 : ℝ)) := by
-    have hh := Real.rpow_add hLpos 1 17
-    rw [Real.rpow_one] at hh
-    rw [show (18 : ℝ) = 1 + 17 by norm_num, hh]
-  have h17nn : (0 : ℝ) ≤ L ^ ((17 : ℝ)) := Real.rpow_nonneg hLnn _
-  -- ⑥ the `hD0N'` leg: `4·L^{17} ≤ W^{18}` (the Finding-3 anti-#64 margin, ≈ 37×).
-  have hW18 : 4 * L ^ ((17 : ℝ)) ≤ W ^ ((18 : ℝ)) := by
-    have hW17 : L ^ ((17 : ℝ)) ≤ ((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) := by
-      calc L ^ ((17 : ℝ)) ≤ (12 / 5 * W) ^ ((17 : ℝ)) :=
-            Real.rpow_le_rpow hLnn hLW (by norm_num)
-        _ = ((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) :=
-            Real.mul_rpow (by norm_num) hWpos.le
-    have hW18eq : W ^ ((18 : ℝ)) = W * W ^ ((17 : ℝ)) := by
-      have hh := Real.rpow_add hWpos 1 17
-      rw [Real.rpow_one] at hh
-      rw [show (18 : ℝ) = 1 + 17 by norm_num, hh]
-    have h17Wnn : (0 : ℝ) ≤ W ^ ((17 : ℝ)) := Real.rpow_nonneg hWpos.le _
-    rw [hW18eq]
-    calc 4 * L ^ ((17 : ℝ))
-        ≤ 4 * (((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ))) := by linarith
-      _ = (4 * ((12 : ℝ) / 5) ^ ((17 : ℝ))) * W ^ ((17 : ℝ)) := by ring
-      _ ≤ W * W ^ ((17 : ℝ)) := mul_le_mul_of_nonneg_right hW4 h17Wnn
-  -- ⑦ the `hD0N` leg: `W^{18} ≤ e^W ≤ x^{7/16}/8`  (SHARP at the strip floor).
-  have hexpW : W ^ ((18 : ℝ)) ≤ Real.exp W := by
-    have hunn : (0 : ℝ) ≤ W / 36 := by linarith
-    have hquad : W ≤ (W / 36) ^ ((2 : ℝ)) := by
-      rw [show ((2 : ℝ)) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-      have hexpand : (W / 36) ^ (2 : ℕ) = W * W / 1296 := by ring
-      rw [hexpand, le_div_iff₀ (by norm_num : (0 : ℝ) < 1296)]
-      have keyq : (0 : ℝ) ≤ (W - 1296) * W := mul_nonneg (by linarith) hWpos.le
-      linarith [keyq]
-    have hu : W / 36 ≤ Real.exp (W / 36) := by linarith [Real.add_one_le_exp (W / 36)]
-    calc W ^ ((18 : ℝ))
-        ≤ ((W / 36) ^ ((2 : ℝ))) ^ ((18 : ℝ)) :=
-          Real.rpow_le_rpow hWpos.le hquad (by norm_num)
-      _ = (W / 36) ^ ((36 : ℝ)) := by
-          rw [← Real.rpow_mul hunn]
-          norm_num
-      _ ≤ (Real.exp (W / 36)) ^ ((36 : ℝ)) := Real.rpow_le_rpow hunn hu (by norm_num)
-      _ = Real.exp W := by
-          rw [Real.rpow_def_of_pos (Real.exp_pos _), Real.log_exp]
-          congr 1
-          ring
-  have hexp_le : Real.exp W ≤ (x : ℝ) ^ ((7 : ℝ) / 16) / 8 := by
-    have hEW : Real.exp W = (x : ℝ) ^ ((7 : ℝ) / 16) / Real.exp 7 := by
-      rw [hWdef, Real.exp_sub, Real.rpow_def_of_pos hxpos]
-      have hmul : Real.log (x : ℝ) * ((7 : ℝ) / 16) = 7 / 16 * Real.log x := by ring
-      rw [hmul]
-    rw [hEW]
-    have h7 : (8 : ℝ) ≤ Real.exp 7 := by linarith [Real.add_one_le_exp (7 : ℝ)]
-    exact div_le_div_of_nonneg_left (Real.rpow_nonneg hxpos.le _) (by norm_num) h7
   -- ⑧ emit the rows.
   have hcast : ((2 ^ k0 : ℕ) : ℝ) = (2 : ℝ) ^ k0 := by push_cast; ring
   refine ⟨2 ^ k0, k0, rfl, h2k0, ?_, hD0_lo, ?_, ?_, ?_, ?_, ?_⟩
@@ -441,12 +237,145 @@ theorem d0_window_core_lo {x N M X : ℕ}
     have hmono : (L / 2) ^ ((18 : ℝ)) ≤ LE ^ ((18 : ℝ)) :=
       Real.rpow_le_rpow hhalfpos.le (by linarith) (by norm_num)
     linarith [hD0_hi]
-  · -- the `x`-scale bound (`D0 ≤ x^{7/16}/8`)
-    linarith only [hD0_hi, hW18, hexpW, hexp_le]
-  · -- `hD0N` (`D0 ≤ N`) — SHARP off the strip floor `x^{7/16}/8 ≤ N`
+  · -- the floor bound (`D0 ≤ F`)
+    linarith only [hD0_hi, hW18, hexpW, hexp]
+  · -- `hD0N` (`D0 ≤ N`), off `F ≤ N`
     have hfin : ((2 ^ k0 : ℕ) : ℝ) ≤ (N : ℝ) := by
-      linarith only [hD0_hi, hW18, hexpW, hexp_le, hNfloor]
+      linarith only [hD0_hi, hW18, hexpW, hexp, hFN]
     exact_mod_cast hfin
+
+/-- **`d0_window_core_band`.** The band-floor `D0` window: block floor `x^{1/3}/8 ≤ N`, tower
+`exp(10^{10})`, `W := (1/3)·log x − 7`, ratio `L ≤ (31/10)·W`, and the raw scale window
+`x/2 + 1 ≤ X·M ≤ 4x`. The `x`-scale conjunct is `x^{11/24}/8`, via the bump
+`x^{1/3} ≤ x^{11/24}`. -/
+theorem d0_window_core_band {x N M X : ℕ}
+    (hx : Real.exp (10 ^ 10) ≤ (x : ℝ))
+    (hNfloor : (x : ℝ) ^ ((1 : ℝ) / 3) / 8 ≤ (N : ℝ))
+    (hXMlo : x / 2 + 1 ≤ X * M)
+    (hXMhi : X * M ≤ 4 * x) :
+    ∃ D0 k0 : ℕ, D0 = 2 ^ k0 ∧ 2 ≤ D0
+      ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((15 : ℝ)) ≤ 2 * (2 : ℝ) ^ k0
+      ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((17 : ℝ)) ≤ (D0 : ℝ)
+      ∧ (D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((18 : ℝ))
+      ∧ (D0 : ℝ) ≤ (Real.log N) ^ ((18 : ℝ))
+      ∧ (∀ LE : ℝ, Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * LE → (D0 : ℝ) ≤ LE ^ ((18 : ℝ)))
+      ∧ (D0 : ℝ) ≤ (x : ℝ) ^ ((11 : ℝ) / 24) / 8
+      ∧ D0 ≤ N := by
+  -- ① the scale facts: `t ≥ 10^{10}`, `x ≥ 2`.
+  have h1010 : (10 : ℝ) ^ 10 = 10000000000 := by norm_num
+  have ht : (10 : ℝ) ^ 10 ≤ Real.log x := by
+    have h := Real.log_le_log (Real.exp_pos _) hx
+    rwa [Real.log_exp] at h
+  have hxR2 : (2 : ℝ) ≤ (x : ℝ) := by
+    have h1 := Real.add_one_le_exp ((10 : ℝ) ^ 10)
+    linarith
+  have hx2 : 2 ≤ x := by exact_mod_cast hxR2
+  have hxpos : (0 : ℝ) < (x : ℝ) := by linarith
+  have hx1 : (1 : ℝ) ≤ (x : ℝ) := by linarith
+  -- ② the scale facts (from the RAW bounds): `x/2 < X·M ≤ 4x`.
+  have hXM4x : X * M ≤ 4 * x := hXMhi
+  set L := Real.log ((X : ℝ) * (M : ℝ)) with hLdef
+  -- ③ `t − 1 ≤ L ≤ t + 3`.
+  obtain ⟨hL_lo, hL_up⟩ : Real.log x - 1 ≤ L ∧ L ≤ Real.log x + 3 :=
+    xm_log_bounds_of_le hx2 hXMlo hXM4x
+  -- ④ the block-floor log: `W := (1/3)·t − 7 ≤ log N`  (the band floor).
+  set W : ℝ := 1 / 3 * Real.log x - 7 with hWdef
+  have hWlogN : W ≤ Real.log N := by
+    have hlogN := Real.log_le_log (div_pos (Real.rpow_pos_of_pos hxpos _) (by norm_num))
+      hNfloor
+    rw [Real.log_div (ne_of_gt (Real.rpow_pos_of_pos hxpos _)) (by norm_num : (8 : ℝ) ≠ 0),
+      Real.log_rpow hxpos] at hlogN
+    have h8log : Real.log 8 ≤ 7 := by
+      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 8 by norm_num)]
+    rw [hWdef]
+    linarith
+  have hW1296 : (1296 : ℝ) ≤ W := by rw [hWdef]; linarith
+  have hLW : L ≤ 31 / 10 * W := by rw [hWdef]; linarith
+  have hW4 : 4 * ((31 : ℝ) / 10) ^ ((17 : ℝ)) ≤ W := by
+    have hc : ((31 : ℝ) / 10) ^ ((17 : ℝ)) = ((31 : ℝ) / 10) ^ (17 : ℕ) := by
+      rw [show ((17 : ℝ)) = ((17 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+    have hnum : 4 * ((31 : ℝ) / 10) ^ (17 : ℕ) ≤ 1 / 3 * 10 ^ 10 - 7 := by norm_num
+    rw [hc, hWdef]
+    linarith
+  have hexp_le : Real.exp W ≤ (x : ℝ) ^ ((1 : ℝ) / 3) / 8 := by
+    have hEW : Real.exp W = (x : ℝ) ^ ((1 : ℝ) / 3) / Real.exp 7 := by
+      rw [hWdef, Real.exp_sub, Real.rpow_def_of_pos hxpos]
+      have hmul : Real.log (x : ℝ) * ((1 : ℝ) / 3) = 1 / 3 * Real.log x := by ring
+      rw [hmul]
+    rw [hEW]
+    have h7 : (8 : ℝ) ≤ Real.exp 7 := by linarith [Real.add_one_le_exp (7 : ℝ)]
+    exact div_le_div_of_nonneg_left (Real.rpow_nonneg hxpos.le _) (by norm_num) h7
+  -- the `x`-scale bump: `x^{1/3}/8 ≤ x^{11/24}/8`  (`1/3 ≤ 11/24`, `x ≥ 1`).
+  have hxbump : (x : ℝ) ^ ((1 : ℝ) / 3) / 8 ≤ (x : ℝ) ^ ((11 : ℝ) / 24) / 8 := by
+    have hmono : (x : ℝ) ^ ((1 : ℝ) / 3) ≤ (x : ℝ) ^ ((11 : ℝ) / 24) :=
+      Real.rpow_le_rpow_of_exponent_le hx1 (by norm_num)
+    linarith [hmono]
+  obtain ⟨D0, k0, h1, h2, h3, h4, h5, h6, h7, h8, h9⟩ :=
+    d0_window_of_W (by linarith) (by norm_num : (0 : ℝ) < 31 / 10) hLW hW4 hW1296 hWlogN
+      hexp_le hNfloor
+  exact ⟨D0, k0, h1, h2, h3, h4, h5, h6, h7, le_trans h8 hxbump, h9⟩
+
+/-- **`d0_window_core_lo`.** The strip-floor `D0` window: block floor `x^{7/16}/8 ≤ N`, tower
+`exp(10^9)`, `W := (7/16)·log x − 7`, ratio `L ≤ (12/5)·W`, and the raw scale window
+`x/2 + 1 ≤ X·M ≤ 4x`. The `x`-scale conjunct is at the floor's exponent, `x^{7/16}/8`. -/
+theorem d0_window_core_lo {x N M X : ℕ}
+    (hx : Real.exp (10 ^ 9) ≤ (x : ℝ))
+    (hNfloor : (x : ℝ) ^ ((7 : ℝ) / 16) / 8 ≤ (N : ℝ))
+    (hXMlo : x / 2 + 1 ≤ X * M)
+    (hXMhi : X * M ≤ 4 * x) :
+    ∃ D0 k0 : ℕ, D0 = 2 ^ k0 ∧ 2 ≤ D0
+      ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((15 : ℝ)) ≤ 2 * (2 : ℝ) ^ k0
+      ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((17 : ℝ)) ≤ (D0 : ℝ)
+      ∧ (D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((18 : ℝ))
+      ∧ (D0 : ℝ) ≤ (Real.log N) ^ ((18 : ℝ))
+      ∧ (∀ LE : ℝ, Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * LE → (D0 : ℝ) ≤ LE ^ ((18 : ℝ)))
+      ∧ (D0 : ℝ) ≤ (x : ℝ) ^ ((7 : ℝ) / 16) / 8
+      ∧ D0 ≤ N := by
+  -- ① the scale facts: `t ≥ 10^9`, `x ≥ 2`.
+  have h109 : (10 : ℝ) ^ 9 = 1000000000 := by norm_num
+  have ht : (10 : ℝ) ^ 9 ≤ Real.log x := by
+    have h := Real.log_le_log (Real.exp_pos _) hx
+    rwa [Real.log_exp] at h
+  have hxR2 : (2 : ℝ) ≤ (x : ℝ) := by
+    have h1 := Real.add_one_le_exp ((10 : ℝ) ^ 9)
+    linarith
+  have hx2 : 2 ≤ x := by exact_mod_cast hxR2
+  have hxpos : (0 : ℝ) < (x : ℝ) := by linarith
+  -- ② the scale facts (from the RAW bounds, in place of the boundary corner): `x/2 < X·M ≤ 4x`.
+  have hXM4x : X * M ≤ 4 * x := hXMhi
+  set L := Real.log ((X : ℝ) * (M : ℝ)) with hLdef
+  -- ③ `t − 1 ≤ L ≤ t + 3`.
+  obtain ⟨hL_lo, hL_up⟩ : Real.log x - 1 ≤ L ∧ L ≤ Real.log x + 3 :=
+    xm_log_bounds_of_le hx2 hXMlo hXM4x
+  -- ④ the block-floor log: `W := (7/16)·t − 7 ≤ log N`  (the WEAKENED strip floor).
+  set W : ℝ := 7 / 16 * Real.log x - 7 with hWdef
+  have hWlogN : W ≤ Real.log N := by
+    have hlogN := Real.log_le_log (div_pos (Real.rpow_pos_of_pos hxpos _) (by norm_num))
+      hNfloor
+    rw [Real.log_div (ne_of_gt (Real.rpow_pos_of_pos hxpos _)) (by norm_num : (8 : ℝ) ≠ 0),
+      Real.log_rpow hxpos] at hlogN
+    have h8log : Real.log 8 ≤ 7 := by
+      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 8 by norm_num)]
+    rw [hWdef]
+    linarith
+  have hW1296 : (1296 : ℝ) ≤ W := by rw [hWdef]; linarith
+  have hLW : L ≤ 12 / 5 * W := by rw [hWdef]; linarith
+  have hW4 : 4 * ((12 : ℝ) / 5) ^ ((17 : ℝ)) ≤ W := by
+    have hc : ((12 : ℝ) / 5) ^ ((17 : ℝ)) = ((12 : ℝ) / 5) ^ (17 : ℕ) := by
+      rw [show ((17 : ℝ)) = ((17 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+    have hnum : 4 * ((12 : ℝ) / 5) ^ (17 : ℕ) ≤ 7 / 16 * 10 ^ 9 - 7 := by norm_num
+    rw [hc, hWdef]
+    linarith
+  have hexp_le : Real.exp W ≤ (x : ℝ) ^ ((7 : ℝ) / 16) / 8 := by
+    have hEW : Real.exp W = (x : ℝ) ^ ((7 : ℝ) / 16) / Real.exp 7 := by
+      rw [hWdef, Real.exp_sub, Real.rpow_def_of_pos hxpos]
+      have hmul : Real.log (x : ℝ) * ((7 : ℝ) / 16) = 7 / 16 * Real.log x := by ring
+      rw [hmul]
+    rw [hEW]
+    have h7 : (8 : ℝ) ≤ Real.exp 7 := by linarith [Real.add_one_le_exp (7 : ℝ)]
+    exact div_le_div_of_nonneg_left (Real.rpow_nonneg hxpos.le _) (by norm_num) h7
+  exact d0_window_of_W (by linarith) (by norm_num : (0 : ℝ) < 12 / 5) hLW hW4 hW1296 hWlogN
+    hexp_le hNfloor
 
 /-- **`d0_window_core_lo_bump`.** `d0_window_core_lo` with the `x`-scale conjunct relaxed to
 `x^{11/24}/8` (`7/16 ≤ 11/24`, `x ≥ 1`). -/
