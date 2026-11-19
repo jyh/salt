@@ -70,7 +70,7 @@ every `SocketBase`-typed leaf under that assembler is re-stated here at `SocketB
 `SocketBaseLH` (in `HDoorSupply`) is 13 conjuncts; exactly two differ from `SocketBaseL`:
 
 * **conjunct 5**, `q ≤ h·arcDen 12 H` — read at exactly FIVE sites: `s13CapGrid_q_logX`
-  (`S13CapGrid:393`), `capfloor_logq_le` (`S13CapFloor:284`), `capfloor_floor4` (`:468`),
+  (`S13CapGrid:387`), `capfloor_logq_le` (`S13CapFloor:278`), `capfloor_floor4` (`:462`),
   `s13_capEps_register` (`S13CapEps`), `s13CapEps_q_arcDen`;
 * **conjunct 11**, `x ≤ 16·ω·(h·arcDen 12 H)·A` — read at exactly ONE site,
   `s13_socketBase_xscale` (`S13MSelect2:111`), reaching this page only through
@@ -226,7 +226,7 @@ theorem capeps_Pbig_h {u μ : ℝ} (hu : (10 : ℝ) ^ (21 : ℕ) ≤ u) (hμ : (
     _ = Real.exp 20 * u ^ (12 : ℕ) * μ * μ ^ ((1 : ℝ) / 500) := by ring
     _ ≤ Real.exp (μ ^ (1 - theta293)) := h20
 
-/-- ⟦SIBLING of `capfloor_lam_core` (`S13CapFloor:268`), constant `160 → 216`⟧ — `floor1`'s
+/-- ⟦SIBLING of `capfloor_lam_core` (`S13CapFloor:262`), constant `160 → 216`⟧ — `floor1`'s
 `Λ`-leg with the `+log h` room.  The landed left side is ~`4806` against `v/4 ≥ 2.5·10²⁰`;
 `+56` is not visible at that scale, and the certificate is unchanged.  (2026-09-29: `floor1` and
 `floor2` at `log h ≤ 7`, which called this, are retired by the XY debt lane's family 23; its one
@@ -255,7 +255,7 @@ page's relative.
 
 This page's docstring, verbatim:
 
-⟦SIBLING of `capfloor_floor3_numeric` (`S13CapFloor:376`), slack `+1 → +8`⟧ — `floor3`'s
+⟦SIBLING of `capfloor_floor3_numeric` (`S13CapFloor:370`), slack `+1 → +8`⟧ — `floor3`'s
 numeric leg, absorbing `log q ≤ log h + 12·loglog H` at `log h ≤ 7`.  (2026-09-29: `floor3` at
 `log h ≤ 7`, its one caller, is retired by the XY debt lane's family 23; nothing calls this now.) -/
 
@@ -1806,13 +1806,7 @@ theorem capfloor_core_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤
     (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (H : ℝ) ∧ Real.sqrt (H : ℝ) ≤ Real.log ((Nd : ℕ) : ℝ) ∧
       0 < Tann ∧ Real.log ((Nd : ℕ) : ℝ) / 2 ≤ Real.log Tann := by
   have hlo : R.Hlo ≤ H := hb.1
-  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
-  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
-  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
-    have := Real.exp_le_exp.mpr h50
-    rwa [Real.exp_log hlogH0] at this
+  obtain ⟨h50, hH4, hHR, hlogH0, hexp50⟩ := regime_log_floors R hfl hlo
   have hv : (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (H : ℝ) :=
     le_trans capfloor_ten21_le_exp50 hexp50
   -- the base
@@ -2021,13 +2015,7 @@ theorem s13CapGrid_Lambda_lo_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : �
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBaseLH h R M H L q j A s) :
     (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
   have hlo : R.Hlo ≤ H := hb.1
-  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
-  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
-  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
-    have := Real.exp_le_exp.mpr h50
-    rwa [Real.exp_log hlogH0] at this
+  obtain ⟨h50, hH4, hHR, hlogH0, hexp50⟩ := regime_log_floors R hfl hlo
   have := s13CapGrid_Lambda_sharp_LH_b9 hh hh9 hfl hb
   linarith [capgrid_exp50_lo]
 

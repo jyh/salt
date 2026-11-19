@@ -1463,7 +1463,7 @@ namespace Salt.MR
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_head_uniform_xceil_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:4742`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_head_uniform_xceil_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:4724`): its
 statement under the three standoff binders, its proof verbatim with `primeWindow_sum_inv_ge_bounded`
 and `hreduce_holds_final_bounded` replaced by the standoff form. -/
 theorem flat_head_uniform_xceil_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1622,7 +1622,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_kswin_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5240`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_kswin_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5222`): its
 statement under the three standoff binders, its proof verbatim with
 `s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin` replaced by the standoff form. -/
 theorem flat_kswin_generic_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1727,7 +1727,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_v7_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5363`): its statement
+/-- **⟦STANDOFF TWIN⟧** `flat_v7_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5345`): its statement
 under the three standoff binders, its proof verbatim with `s16_bandLaneWinL_holdsU` replaced by the
 standoff form. -/
 theorem flat_v7_generic_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1875,7 +1875,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_chain_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5508`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_chain_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5490`): its
 statement under the three standoff binders, its proof verbatim with `flat_kswin_generic_epsW` and
 `flat_v7_generic_epsW` replaced by the standoff form. -/
 theorem flat_chain_generic_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1893,7 +1893,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flatDoorEpsFamilyW_holds` (`Salt/MR/FlatDoorEpsRung2.lean:5534`): its
+/-- **⟦STANDOFF TWIN⟧** `flatDoorEpsFamilyW_holds` (`Salt/MR/FlatDoorEpsRung2.lean:5516`): its
 statement under the three standoff binders, its proof verbatim with `flat_head_uniform_xceil_epsW`
 and `flat_chain_generic_epsW` replaced by the standoff form. -/
 theorem flatDoorEpsFamilyW_holds_of_standoff {cS : ℝ} (hcS : 0 < cS)

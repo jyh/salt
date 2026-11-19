@@ -1035,7 +1035,7 @@ independent of it.
 * `cs` — minted at `PortAssembly.halaszPrimesChiGated_of_price_of` (:824) as
   `min (min (c_vk/(2·K₄)) (c₀/(2·Cκ))) (1/10)` at the LITERAL `c_vk = 1/10^8`, so
   `cs ≤ 1.86·10^{-10}`; and `cs ≤ 1/10` is a LANDED LINE OF THAT PROOF (:838).  The rider
-  `1 ≤ cs` is FALSE.  The demand side (`S13CapGrid` :727's `gate`) has a `μ`-power margin
+  `1 ≤ cs` is FALSE.  The demand side (`S13CapGrid` :721's `gate`) has a `μ`-power margin
   `3/40 − 2θ₂₉₃ ≥ 0.068`, so the repair is to CARRY `cs` through the margin rather than to
   floor it — a design item, named here.
 * `T₀ = max (e^{e^{100}}) T₀z` — the first arm is EXACTLY `e^{e^{100}}`

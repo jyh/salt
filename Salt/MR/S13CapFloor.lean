@@ -34,7 +34,7 @@ socket working point:
 * `log H ≥ e^{50} ≥ 10^{21}` — write `v := log H`;
 * `μ_X := log Nd ≥ √H = e^{v/2}` (`s13_socketBase_logA_ge_sqrt`);
 * the family's OWN lower binder `hTlo : Nd/2^j ≤ T_ann` (the `hcapWS` slot's `T`-binder at
-  `T_ann = 2T`, `S12Compose:317`) plus `2^j ≤ H` (from `SocketBase`'s `j ≤ Nat.log 2 L` and
+  `T_ann = 2T`, `S12Compose:335`) plus `2^j ≤ H` (from `SocketBase`'s `j ≤ Nat.log 2 L` and
   `L ≤ H`) gives `log T_ann ≥ log Nd − log H ≥ ½·log Nd ≥ ½·√H`.
 
 ⟦THE NEAR-KILL, WALKED BACK⟧ **`TannGate` is NOT the binding `T`-floor** — `hTlo` is.  Every
@@ -59,7 +59,7 @@ and `Ks ≥ e^{-3v/16}`; the margins `√H ≥ e^{5·10^{20}}`, `3v/16 ≥ 1.8·
 round `100`s are chosen for legibility, not for tightness.
 
 `Q2_reg` is NOT proved here: it is a genuine `M`-vs-`H` comparison, and it is already supplied
-upstream by the `hcapWS`-adjacent slot (`S12Compose:311-312`).  It enters as a hypothesis and
+upstream by the `hcapWS`-adjacent slot (`S12Compose:329-330`).  It enters as a hypothesis and
 is re-exported by the bundle so the seal gets eight fields from one call.
 
 `PortNonVacuous.gates_jointly_satisfiable:75` is the proof-body MODEL for §3 but is the WRONG
@@ -155,13 +155,7 @@ theorem capfloor_core {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
     (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (H : ℝ) ∧ Real.sqrt (H : ℝ) ≤ Real.log ((Nd : ℕ) : ℝ) ∧
       0 < Tann ∧ Real.log ((Nd : ℕ) : ℝ) / 2 ≤ Real.log Tann := by
   have hlo : R.Hlo ≤ H := hb.1
-  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
-  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
-  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
-    have := Real.exp_le_exp.mpr h50
-    rwa [Real.exp_log hlogH0] at this
+  obtain ⟨h50, hH4, hHR, hlogH0, hexp50⟩ := regime_log_floors R hfl hlo
   have hv : (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (H : ℝ) :=
     le_trans capfloor_ten21_le_exp50 hexp50
   -- the base
@@ -535,7 +529,7 @@ theorem capfloor_floor4 {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Ks Tann : �
 /-! ### §4 — the razor pair `QTann` / `kappa30Q` (fields `S13FramesB:999`, `:1001`)
 
 Both read `Q2_reg` (the band gate `log 𝒬K₂ ≤ √(log Nd)`), which is supplied by the
-`hcapWS`-adjacent slot (`S12Compose:311-312`) and enters here as a hypothesis. -/
+`hcapWS`-adjacent slot (`S12Compose:329-330`) and enters here as a hypothesis. -/
 
 /-- `1 < 𝒬K₂` at every `M ≥ 1` — the positivity `kappa30_of_TannGate` asks for. -/
 theorem capfloor_one_lt_QK2 {M : ℕ} (hM : 1 ≤ M) :
@@ -639,8 +633,8 @@ theorem capfloor_kappa30Q {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : �
 
 ⟦THE SHARED BINDER⟧ `SocketBase R M H L q j A s` + the capstone's absorbed
 `loglogFloor50 ≤ R.Hlo` + `1 ≤ M` + a base `Nd ≥ A` (in the wire `Nd = A + s`) + the family's
-OWN lower height binder `hTlo : Nd/2^j ≤ T_ann` (`S12Compose:317` at `T_ann = 2T`) + `Q2_reg`
-(supplied at `S12Compose:311-312`).
+OWN lower height binder `hTlo : Nd/2^j ≤ T_ann` (`S12Compose:335` at `T_ann = 2T`) + `Q2_reg`
+(supplied at `S12Compose:329-330`).
 
 ⟦THE CONSTANT REGISTER — three lines, stated not buried⟧
 `hT₀ : T₀ ≤ e^{e^{100}}`, `hKq : Kq ≤ e^{100}`, `hKs : e^{-100} ≤ Ks`.  Nothing is assumed

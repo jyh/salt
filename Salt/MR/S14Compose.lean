@@ -44,7 +44,7 @@ The maestro's table (dispatch of 2026-07-30) instantiated the twin
 road also carries `M`-UPPERS, and §3 shows the two families do not merely fail to separate —
 one single pool slot contradicts the socket at EVERY `M`:
 
-* `MSelect'.winFit` (`S13MSelect2.lean:370`), the true window gate that supplies ⟦A5⟧, forces
+* `MSelect'.winFit` (`S13MSelect2.lean:358`), the true window gate that supplies ⟦A5⟧, forces
   `(7/10)·doorRowFloor M ≤ log H₋`, i.e. `2^{doorRowFloor M} ≤ R.Hlo` (`e^{0.7} > 2`);
 * so the socket family at `(R, M)` is INHABITED (§4's certificate, at the explicit tuple);
 * at any socket base `SocketBase`'s x-scale field and the regime's `hPHheadroom` give
