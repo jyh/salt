@@ -177,6 +177,70 @@ theorem gold_box_L_window {N X M : ℕ} (hNpos : (0 : ℝ) < (N : ℝ))
     linarith [hlog, hlog4, hlogN]
   exact ⟨hXMpos, hXMloR, hLlow, hL2, hXMhiR, hLle, hLbb⟩
 
+/-- **`gold_box_D_rows`** (O13-e row 288). The six `D`-scale rows of a Goldbach box from its
+wide level row `D·L^{18} ≤ √(X·M)`: `0 ≤ D`, `D ≤ √(X·M)/L^{15}`, `1 ≤ L^{18}`, `D ≤ √(X·M)`,
+`D ≤ X·M` and `D ≤ √N`, given `0 < X·M ≤ 2N`, `X ≥ 2`, `M ≥ 1` and `L ≥ 2`. `L` is any real
+here; the engines apply it at `L = log(X·M)`. The four box engines (`BandRows`, `KerrY`,
+`KerrY2`, `RowsWide`) derived these rows inline. -/
+theorem gold_box_D_rows {X M N D : ℕ} {L : ℝ} (hXMpos : (0 : ℝ) < (X : ℝ) * (M : ℝ))
+    (hX2 : 2 ≤ X) (hMge1 : (1 : ℝ) ≤ (M : ℝ)) (hL2 : (2 : ℝ) ≤ L)
+    (hXMhiR : (X : ℝ) * (M : ℝ) ≤ 2 * (N : ℝ))
+    (herr_lev : (D : ℝ) * L ^ ((13 : ℝ) + 5) ≤ Real.sqrt ((X : ℝ) * (M : ℝ))) :
+    (0 : ℝ) ≤ (D : ℝ)
+      ∧ (D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) / L ^ (15 : ℝ)
+      ∧ (1 : ℝ) ≤ L ^ ((13 : ℝ) + 5)
+      ∧ (D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ))
+      ∧ (D : ℝ) ≤ (X : ℝ) * (M : ℝ)
+      ∧ (D : ℝ) ≤ Real.sqrt (N : ℝ) := by
+  have hL1 : (1 : ℝ) ≤ L := by linarith
+  have hLpos : (0 : ℝ) < L := by linarith
+  have hDnn : (0 : ℝ) ≤ (D : ℝ) := by positivity
+  have hDscale : (D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ))
+      / L ^ (15 : ℝ) := by
+    rw [le_div_iff₀ (Real.rpow_pos_of_pos hLpos _)]
+    have h1518 : L ^ (15 : ℝ) ≤ L ^ ((13 : ℝ) + 5) :=
+      Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
+    calc (D : ℝ) * L ^ (15 : ℝ) ≤ (D : ℝ) * L ^ ((13 : ℝ) + 5) :=
+          mul_le_mul_of_nonneg_left h1518 hDnn
+      _ ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) := herr_lev
+  have hL18ge1 : (1 : ℝ) ≤ L ^ ((13 : ℝ) + 5) := by
+    rw [show (1 : ℝ) = L ^ (0 : ℝ) from (Real.rpow_zero L).symm]
+    exact Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
+  have hDsqrtXM : (D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) := by
+    calc (D : ℝ) = (D : ℝ) * 1 := (mul_one _).symm
+      _ ≤ (D : ℝ) * L ^ ((13 : ℝ) + 5) := mul_le_mul_of_nonneg_left hL18ge1 hDnn
+      _ ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) := herr_lev
+  have hDXM : (D : ℝ) ≤ (X : ℝ) * (M : ℝ) := by
+    have hXMge1 : (1 : ℝ) ≤ (X : ℝ) * (M : ℝ) := by
+      have hX2R : (2 : ℝ) ≤ (X : ℝ) := by exact_mod_cast hX2
+      nlinarith [hX2R, hMge1]
+    have hsqrtself : Real.sqrt ((X : ℝ) * (M : ℝ))
+        ≤ (X : ℝ) * (M : ℝ) := by
+      have h1 : Real.sqrt ((X : ℝ) * (M : ℝ))
+          ≤ Real.sqrt (((X : ℝ) * (M : ℝ))
+              * ((X : ℝ) * (M : ℝ))) :=
+        Real.sqrt_le_sqrt (by nlinarith only [hXMpos, hXMge1])
+      rwa [Real.sqrt_mul_self hXMpos.le] at h1
+    linarith [hDsqrtXM, hsqrtself]
+  have hDx : (D : ℝ) ≤ Real.sqrt (N : ℝ) := by
+    have hsqle : ((D : ℝ) * L ^ ((13 : ℝ) + 5)) * ((D : ℝ) * L ^ ((13 : ℝ) + 5))
+        ≤ (X : ℝ) * (M : ℝ) := by
+      have h := mul_le_mul herr_lev herr_lev (by positivity) (Real.sqrt_nonneg _)
+      rwa [Real.mul_self_sqrt hXMpos.le] at h
+    have hL18ge2 : (2 : ℝ) ≤ L ^ ((13 : ℝ) + 5) * L ^ ((13 : ℝ) + 5) := by
+      have h1le : L ^ (1 : ℝ) ≤ L ^ ((13 : ℝ) + 5) :=
+        Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
+      rw [Real.rpow_one] at h1le
+      nlinarith [le_trans hL2 h1le, hL18ge1]
+    have hDDN : (D : ℝ) * (D : ℝ) ≤ (N : ℝ) := by
+      have hexp : ((D : ℝ) * L ^ ((13 : ℝ) + 5)) * ((D : ℝ) * L ^ ((13 : ℝ) + 5))
+          = ((D : ℝ) * (D : ℝ)) * (L ^ ((13 : ℝ) + 5) * L ^ ((13 : ℝ) + 5)) := by ring
+      rw [hexp] at hsqle
+      nlinarith only [hL18ge2, hsqle, hXMhiR, mul_self_nonneg ↑D]
+    rw [show (D : ℝ) = Real.sqrt ((D : ℝ) * (D : ℝ)) from (Real.sqrt_mul_self hDnn).symm]
+    exact Real.sqrt_le_sqrt hDDN
+  exact ⟨hDnn, hDscale, hL18ge1, hDsqrtXM, hDXM, hDx⟩
+
 /-! ## 1. The z-geometry rows `hz_ratio` / `hx` (the D0Win2 live-geometry inputs, deliverable 2)
 
 The two `goldCut`-lower-bound rows `gold_box_price_live_kerr` consumes.  Both come from

@@ -288,51 +288,8 @@ theorem gold_band_wide_price_at_op_of_SW (hSWall : Salt.BV.SiegelWalfisz)
   -- ================= the SIX wide D-upper rows =================
   have herr_lev : (D : ℝ) * L ^ ((13 : ℝ) + 5)
       ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) := hDwide
-  have hDnn : (0 : ℝ) ≤ (D : ℝ) := by positivity
-  have hDscale : (D : ℝ) ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
-      / L ^ (15 : ℝ) := by
-    rw [le_div_iff₀ (Real.rpow_pos_of_pos hLpos _)]
-    have h1518 : L ^ (15 : ℝ) ≤ L ^ ((13 : ℝ) + 5) :=
-      Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-    calc (D : ℝ) * L ^ (15 : ℝ) ≤ (D : ℝ) * L ^ ((13 : ℝ) + 5) :=
-          mul_le_mul_of_nonneg_left h1518 hDnn
-      _ ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) := herr_lev
-  have hL18ge1 : (1 : ℝ) ≤ L ^ ((13 : ℝ) + 5) := by
-    rw [show (1 : ℝ) = L ^ (0 : ℝ) from (Real.rpow_zero L).symm]
-    exact Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-  have hDsqrtXM : (D : ℝ) ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) := by
-    calc (D : ℝ) = (D : ℝ) * 1 := (mul_one _).symm
-      _ ≤ (D : ℝ) * L ^ ((13 : ℝ) + 5) := mul_le_mul_of_nonneg_left hL18ge1 hDnn
-      _ ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) := herr_lev
-  have hDXM : (D : ℝ) ≤ ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ) := by
-    have hXMge1 : (1 : ℝ) ≤ ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ) := by
-      have hX2R : (2 : ℝ) ≤ ((2 ^ (i + 1) - 1 : ℕ) : ℝ) := by exact_mod_cast hX2
-      nlinarith [hX2R, hMge1]
-    have hsqrtself : Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
-        ≤ ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ) := by
-      have h1 : Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
-          ≤ Real.sqrt ((((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
-              * (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))) :=
-        Real.sqrt_le_sqrt (by nlinarith only [hXMpos, hXMge1])
-      rwa [Real.sqrt_mul_self hXMpos.le] at h1
-    linarith [hDsqrtXM, hsqrtself]
-  have hDx : (D : ℝ) ≤ Real.sqrt (N : ℝ) := by
-    have hsqle : ((D : ℝ) * L ^ ((13 : ℝ) + 5)) * ((D : ℝ) * L ^ ((13 : ℝ) + 5))
-        ≤ ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ) := by
-      have h := mul_le_mul herr_lev herr_lev (by positivity) (Real.sqrt_nonneg _)
-      rwa [Real.mul_self_sqrt hXMpos.le] at h
-    have hL18ge2 : (2 : ℝ) ≤ L ^ ((13 : ℝ) + 5) * L ^ ((13 : ℝ) + 5) := by
-      have h1le : L ^ (1 : ℝ) ≤ L ^ ((13 : ℝ) + 5) :=
-        Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-      rw [Real.rpow_one] at h1le
-      nlinarith only [hL18ge1, h1le, hLlow, hlog4, hlogNbig]
-    have hDDN : (D : ℝ) * (D : ℝ) ≤ (N : ℝ) := by
-      have hexp : ((D : ℝ) * L ^ ((13 : ℝ) + 5)) * ((D : ℝ) * L ^ ((13 : ℝ) + 5))
-          = ((D : ℝ) * (D : ℝ)) * (L ^ ((13 : ℝ) + 5) * L ^ ((13 : ℝ) + 5)) := by ring
-      rw [hexp] at hsqle
-      nlinarith only [hL18ge2, hsqle, hXMhiR, mul_self_nonneg ↑D]
-    rw [show (D : ℝ) = Real.sqrt ((D : ℝ) * (D : ℝ)) from (Real.sqrt_mul_self hDnn).symm]
-    exact Real.sqrt_le_sqrt hDDN
+  obtain ⟨hDnn, hDscale, hL18ge1, hDsqrtXM, hDXM, hDx⟩ :=
+    gold_box_D_rows hXMpos hX2 hMge1 hL2 hXMhiR herr_lev
   have hDsq : D < (2 ^ kp + 1) * (2 ^ kp + 1) := by
     have hsqrt2N : Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
         ≤ Real.sqrt (2 * (N : ℝ)) := Real.sqrt_le_sqrt hXMhiR
