@@ -355,14 +355,8 @@ theorem m4_blockMeanSq_of_rowMeanSq {R : ChowlaRegime} {M k : ℕ} {MS : ℕ →
   intro H hlo hhi α harc i hik
   have hH0 : 0 < H := by have := R.hHlo_floor; omega
   have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
-  have hfit := doorLadder_fit R.x H i
   -- ⟦the coverage datum is free at the block's own seam index set⟧
-  have hcov : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-      ∀ m ∈ Finset.Ioc n (n + H), m ∉ seamS0 (2 * doorLadder R.x H (i + 1))
-          (doorLadder R.x H (i + 1) : ℝ) → doorSievedCoeff M m = 0 :=
-    hcov_of_seamS0 (doorSievedCoeff M) (A := doorLadder R.x H (i + 1))
-      (B := doorLadder R.x H i) (N := 2 * doorLadder R.x H (i + 1)) (H := H) le_rfl
-      (by omega)
+  have hcov := hcov_of_seamS0_ladder (doorSievedCoeff M) R.x H i
   -- ⟦B-4: the harmonic-weighted block bound⟧
   have hladder := sum_Ioc_absWindowSum_sq_div_le_ladder (doorSievedCoeff M)
     (seamS0 (2 * doorLadder R.x H (i + 1)) (doorLadder R.x H (i + 1) : ℝ)) α
@@ -704,14 +698,8 @@ theorem m4_blockMeanSq_of_rowMeanSq_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} 
   intro H hlo hhi α harc i hik
   have hH0 : 0 < H := by have := R.hHlo_floor; omega
   have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
-  have hfit := doorLadder_fit R.x H i
   -- ⟦the coverage datum is free at the block's own seam index set⟧
-  have hcov : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-      ∀ m ∈ Finset.Ioc n (n + H), m ∉ seamS0 (2 * doorLadder R.x H (i + 1))
-          (doorLadder R.x H (i + 1) : ℝ) → doorSievedCoeff_gk K M m = 0 :=
-    hcov_of_seamS0 (doorSievedCoeff_gk K M) (A := doorLadder R.x H (i + 1))
-      (B := doorLadder R.x H i) (N := 2 * doorLadder R.x H (i + 1)) (H := H) le_rfl
-      (by omega)
+  have hcov := hcov_of_seamS0_ladder (doorSievedCoeff_gk K M) R.x H i
   -- ⟦B-4: the harmonic-weighted block bound⟧
   have hladder := sum_Ioc_absWindowSum_sq_div_le_ladder (doorSievedCoeff_gk K M)
     (seamS0 (2 * doorLadder R.x H (i + 1)) (doorLadder R.x H (i + 1) : ℝ)) α
