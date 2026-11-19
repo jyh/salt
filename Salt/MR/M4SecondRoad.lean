@@ -605,6 +605,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed {R : ChowlaRegime} {M k : ℕ} {Bcl : �
     exact doorLadder_le_start hxH (i + 1)
   have hxA : (R.x : ℝ) ≤ 8 * (R.ω : ℝ) * (A : ℝ) :=
     regime_x_le_eight_omega_doorLadder R (H := H) (i := i) hcount (by omega)
+  -- `h2HA` has no reader by name: a `linarith` below closes from it (two builds measured it)
   have h2HA : 2 * (H : ℝ) ≤ (A : ℝ) :=
     regime_two_H_le_doorLadder R (H := H) (i := i) hhi hcount (by omega)
   -- ⟦the drift blocks, one free block each⟧
@@ -1192,6 +1193,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed_gk (K : ℕ) {R : ChowlaRegime} {M k : �
     exact doorLadder_le_start hxH (i + 1)
   have hxA : (R.x : ℝ) ≤ 8 * (R.ω : ℝ) * (A : ℝ) :=
     regime_x_le_eight_omega_doorLadder R (H := H) (i := i) hcount (by omega)
+  -- `h2HA` has no reader by name: a `linarith` below closes from it (two builds measured it)
   have h2HA : 2 * (H : ℝ) ≤ (A : ℝ) :=
     regime_two_H_le_doorLadder R (H := H) (i := i) hhi hcount (by omega)
   -- ⟦the drift blocks, one free block each⟧
