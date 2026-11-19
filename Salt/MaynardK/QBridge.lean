@@ -39,48 +39,6 @@ private lemma pas_nn (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
   exact Finset.sum_nonneg (fun x _ => by positivity)
 
 omit [Salt.Maynard.TupleChoice] in
-/-- **Step 1 at general `k`, any weight `y`.** -/
-theorem qdiag_eq_yMsq_sum_gen (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) :
-    Qdiag_mW k R W' m y
-      = ∑ u ∈ (kSieveIndex k R W').filter (fun u => u m = 1),
-          (yM k R W' m y u) ^ 2
-            / ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ) := by
-  classical
-  have hdiag : Qdiag_mW k R W' m y
-      = ∑ u ∈ (kSieveIndex k R W').filter (fun u => u m = 1),
-          (∏ i, (gMult (u i) : ℝ)) * (lamPhiContractM k R W' m y u) ^ 2 := by
-    rw [Qdiag_mW]
-    exact s2_diag_lam_restricted k R W' m y
-  rw [hdiag]
-  apply Finset.sum_congr rfl
-  intro u hu
-  rw [Finset.mem_filter] at hu
-  obtain ⟨hbox, hum⟩ := hu
-  have hsqf : ∀ i, Squarefree (u i) := fun i => ((mem_kSieveIndex_iff u).mp hbox).1 i
-  set Gm : ℝ := ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ) with hGmdef
-  set V : ℝ := lamPhiContractM k R W' m y u with hVdef
-  have hprodg : (∏ i, (gMult (u i) : ℝ)) = Gm := by
-    rw [hGmdef, ← Finset.mul_prod_erase Finset.univ (fun i => (gMult (u i) : ℝ))
-      (Finset.mem_univ m), hum, gMult_one_R, one_mul]
-  have hyMsq : (yM k R W' m y u) ^ 2 = Gm ^ 2 * V ^ 2 := by
-    have hP2 : (∏ i, ((μ (u i) : ℤ) : ℝ) * (gMult (u i) : ℝ)) ^ 2
-        = (∏ i, (gMult (u i) : ℝ)) ^ 2 := by
-      rw [← Finset.prod_pow, ← Finset.prod_pow]
-      apply Finset.prod_congr rfl
-      intro i _
-      have hmu : ((μ (u i) : ℤ) : ℝ) ^ 2 = 1 := by
-        have h := ArithmeticFunction.moebius_sq_eq_one_of_squarefree (hsqf i)
-        have hc : ((μ (u i) : ℤ) : ℝ) ^ 2 = (((μ (u i)) ^ 2 : ℤ) : ℝ) := by push_cast; ring
-        rw [hc, h]; norm_num
-      rw [mul_pow, hmu, one_mul]
-    rw [yM, mul_pow, hP2, hprodg]
-  rw [hyMsq]
-  rw [hprodg]
-  by_cases hGm : Gm = 0
-  · simp [hGm]
-  · field_simp
-
-omit [Salt.Maynard.TupleChoice] in
 /-- **Step 2 at general `k`, bounded weight.** -/
 theorem yM_sub_inn_le_gen (k R W' D : ℕ) (hk : 1 ≤ k) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
     (hy1 : ∀ s, |y s| ≤ 1) (hy0 : ∀ s, s ∉ kSieveIndex k R W' → y s = 0)
