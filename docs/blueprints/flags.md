@@ -19044,7 +19044,7 @@ own proof**, because the VK region only speaks above height `e^{e^{A}}` and ever
 inherits that threshold. Rungs 1–3 of that floor are now kernel-pinned (below).
 
 **⟦THE REPAIR — AND IT IS NOT A WALL⟧** the numeral `e^{e^{100}}` is spent at exactly ONE place:
-`S13CapFloor.capfloor_T0_Tann` (:238), which converts it into the socket's real need `T₀ ≤ Tann`.
+`S13CapFloor.capfloor_T0_Tann` (:232), which converts it into the socket's real need `T₀ ≤ Tann`.
 **Its SHARP sibling `capfloor_T0_Tann_sharp` (:226) is ALREADY IN THE KERNEL** and asks only
 `T₀ ≤ e^{√H/2}` — at the flat design base `H ≥ ⌈e^{e^{3.2A}}⌉` that is `T₀ ≤ e^{e^{e^{3.2A}/2}/2}`,
 about `10^{10^{225}}` at the design floor `A = 162`. The corpus's own floor `e^{e^{1251}}` clears it
@@ -19326,7 +19326,7 @@ landed law, one threading wave from being a theorem, with nine orders of coeffic
   `loglog H ≥ 50` (`7000u` vs `e^u`, `u ≥ 50`) but a class-B/C estimate, not a transcription.
   NOT attempted: it is a wave, not an item.
 * **THE `T₀` RESHAPE.** Traced to the bytes and priced, NOT spent. The consumer chain is exactly
-  four hops: `capfloor_T0_Tann` (S13CapFloor:238, sharp sibling `_sharp` at :226 LANDED) ←
+  four hops: `capfloor_T0_Tann` (S13CapFloor:232, sharp sibling `_sharp` at :226 LANDED) ←
   `s13CapFloor_all_L_gk` (S13BandCapLinear:221) ← `s16_capGate_supply_L_gk`
   (S13CapGateLinear:931) ← `s15_crossing_supplied_L_gk_ceiling` (S16Compose:1113) ← the terminal
   ← `v4`. The sharp form asks `T₀ ≤ exp(√H/2)` at the SOCKET's `H`, and every hop has `R` in
@@ -25622,7 +25622,7 @@ the class and the statement of record, the five receipts, the four inversion lem
 U-forms, U-ARM (`s15Arm_le_of_regime`), and the doorL2, road and capstone hops on the U-forms.
 
 **What the hop needs about `R` that its U-form does not give.**  The source
-`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4903`) spends the head's COUNT export
+`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4885`) spends the head's COUNT export
 `∀ H [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → |bigXi R.eps H| ≤ K` (K the head's existential) twice:
 as an input to the head's own slot and as `hcount` of `sum_bigXi_norm_windowExpSum_sq_le_twelve`
 (`M4Window.lean:567`).  Under the brief's rule `FlatHeadFormU` keeps the count as a HYPOTHESIS
@@ -25632,7 +25632,7 @@ one open goal is exactly
 `⊢ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ↑(bigXi R.eps H).card ≤ K`
 with `K` known only through `0 < K` and `K ≤ 2 ^ 283 * c ^ 20`.
 
-**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2245`) needs
+**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2227`) needs
 `ε ≤ 1/500`, which no form carries (only `0 < ε` and the pin), and it yields ITS OWN constant `C`,
 not the head's `K`; the socket's `Hopq`/`Hcap` are the hop's to choose but a floor cannot bound a
 count by a constant the hop did not pick.  So this is a walk finding about the FORMS, not a proof
