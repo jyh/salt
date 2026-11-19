@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `1c8a95cd` · source digest `650bd3fddf86d518` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `0226bc6d` · source digest `58d92ab4e883b3a7` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23458 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23459 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -974,22 +974,22 @@ Declarations indexed across the tree: 23458 · corpus Prop-valued names (the hyp
 | `Salt.Chen.bjs_theorem6_sharpB_final_lower` | Salt/Chen/SharpClose.lean:161 | sieves |
 | `Salt.Chen.abel_pushforward` | Salt/Chen/SharpF.lean:73 | sieves |
 | `Salt.Chen.hf_cell_ge2` | Salt/Chen/SharpF.lean:173 | sieves |
-| `Salt.Chen.hBJS_flat_lb` | Salt/Chen/SharpF.lean:323 | sieves |
-| `Salt.Chen.vlow_le_of_guard` | Salt/Chen/SharpF.lean:355 | sieves |
-| `Salt.Chen.hf_sharp_flat` | Salt/Chen/SharpF.lean:451 | sieves |
-| `Salt.Chen.hf_sharp_of_window` | Salt/Chen/SharpF.lean:718 | sieves |
+| `Salt.Chen.hBJS_flat_lb` | Salt/Chen/SharpF.lean:315 | sieves |
+| `Salt.Chen.vlow_le_of_guard` | Salt/Chen/SharpF.lean:347 | sieves |
+| `Salt.Chen.hf_sharp_flat` | Salt/Chen/SharpF.lean:435 | sieves |
+| `Salt.Chen.hf_sharp_of_window` | Salt/Chen/SharpF.lean:694 | sieves |
 | `Salt.Chen.tail_parts_bound` | Salt/Chen/SharpFuncbound.lean:99 | sieves |
 | `Salt.Chen.hBJS_funcbound_sharp` | Salt/Chen/SharpFuncbound.lean:220 | sieves |
 | `Salt.Chen.hBJS_shift_le` | Salt/Chen/SharpH.lean:83 | sieves |
 | `Salt.Chen.upset_mass_le` | Salt/Chen/SharpH.lean:139 | sieves |
 | `Salt.Chen.hh_antitone_majorize` | Salt/Chen/SharpH.lean:271 | sieves |
 | `Salt.Chen.hh_sharp_ge2_of_pushforward` | Salt/Chen/SharpH.lean:294 | sieves |
-| `Salt.Chen.layer_cake_pushforward` | Salt/Chen/SharpH2.lean:270 | sieves |
-| `Salt.Chen.hpush_core` | Salt/Chen/SharpH2.lean:370 | sieves |
-| `Salt.Chen.upset_mass_window_le` | Salt/Chen/SharpH2.lean:448 | sieves |
-| `Salt.Chen.hh_sharp_flat` | Salt/Chen/SharpH2.lean:644 | sieves |
-| `Salt.Chen.hh_sharp_ge2` | Salt/Chen/SharpH2.lean:788 | sieves |
-| `Salt.Chen.hh_sharp_of_window` | Salt/Chen/SharpH2.lean:860 | sieves |
+| `Salt.Chen.layer_cake_pushforward` | Salt/Chen/SharpH2.lean:287 | sieves |
+| `Salt.Chen.hpush_core` | Salt/Chen/SharpH2.lean:387 | sieves |
+| `Salt.Chen.upset_mass_window_le` | Salt/Chen/SharpH2.lean:457 | sieves |
+| `Salt.Chen.hh_sharp_flat` | Salt/Chen/SharpH2.lean:653 | sieves |
+| `Salt.Chen.hh_sharp_ge2` | Salt/Chen/SharpH2.lean:789 | sieves |
+| `Salt.Chen.hh_sharp_of_window` | Salt/Chen/SharpH2.lean:853 | sieves |
 | `Salt.Chen.Vbelow_le_ratio` | Salt/Chen/SharpStep.lean:102 | sieves |
 | `Salt.Chen.prime_support_mass_le` | Salt/Chen/SharpStep.lean:148 | sieves |
 | `Salt.Chen.hf_of_window` | Salt/Chen/SharpStep.lean:359 | sieves |
