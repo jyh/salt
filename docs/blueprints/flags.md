@@ -7075,7 +7075,7 @@ THE TWO SIDES (verbatim shapes). CONSUMER — `hBVblocksW_discharge'` (PDiag.lea
 its `hprice` for every box in `dyadicBoundary (pieceN k) (pieceM k) (x/2+1) x (z·y) K`
 (N = pieceN k = 2^k − 1). SUPPLIER — every landed box-price terminal
 (`box_hprice_at_2pow`/`sym_`/`low_box_hprice_at_2pow`, PriceThree.lean:306/377/457; underlying
-`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:508, PriceTwo.lean:363/232;
+`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:365, PriceTwo.lean:363/232;
 `medium_survivor_price(_sqrtD)`, MediumFloor.lean:507/SqrtDFold.lean:956) provides a bound
 ONLY for `i ∈ dyadicBoundary (2^k) (pieceM k) (x/2+1) x F Krange` (N = 2^k, forced by the
 terminal's `M ≤ 2N` with M = pieceM k = 2·pieceN k + 1). The only bridge
@@ -7130,7 +7130,7 @@ created, as it would require a sorry at the edge-box row).
 
 **2026-07-14 EDGE+fin3 Part 1 ✅ FULL (Opus executor, Fable warrant) — CATCH #71 REPAIRED
 via ratified option (a): the corner-clause relaxation.** The 6 PRICE-wave application lemmas
-carrying a `dyadicBoundary (2^k)` membership (`medium_box_price_at_op` PriceOne:508;
+carrying a `dyadicBoundary (2^k)` membership (`medium_box_price_at_op` PriceOne:365;
 `medium_box_price_core`/`medium_box_price_at_op_lo` PriceTwo:232/363; `box_/sym_/low_box_hprice_at_2pow`
 PriceThree) now take the pieceN-boundary membership directly (weak corner `2^i·2^k ≤ x`). KEY
 FINDING (sharper than the warrant's worry): there is **NO degradation** — `d0_window_nonempty`'s
