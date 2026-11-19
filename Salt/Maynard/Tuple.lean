@@ -262,19 +262,11 @@ noncomputable def W (k : ℕ) : ℕ := primorial (D₀ k)
 
 /-- A finite product of (distinct) primes is squarefree. -/
 private lemma prod_primes_squarefree {s : Finset ℕ} (hs : ∀ p ∈ s, p.Prime) :
-    Squarefree (∏ p ∈ s, p) := by
-  induction s using Finset.induction with
-  | empty => simp
-  | insert a s ha ih =>
-    rw [Finset.prod_insert ha]
-    have hap : a.Prime := hs a (Finset.mem_insert_self a s)
-    have hsp : ∀ p ∈ s, p.Prime := fun p hp => hs p (Finset.mem_insert_of_mem hp)
-    have hcop : a.Coprime (∏ p ∈ s, p) := by
-      apply Nat.Coprime.prod_right
-      intro p hp
-      exact (Nat.coprime_primes hap (hsp p hp)).mpr (by rintro rfl; exact ha hp)
-    rw [Nat.squarefree_mul_iff]
-    exact ⟨hcop, hap.squarefree, ih hsp⟩
+    Squarefree (∏ p ∈ s, p) :=
+  Finset.squarefree_prod_of_pairwise_isCoprime
+    (fun p hp q hq hpq => Nat.coprime_iff_isRelPrime.mp
+      ((Nat.coprime_primes (hs p hp) (hs q hq)).mpr hpq))
+    (fun p hp => (hs p hp).squarefree)
 
 /-- The primorial is squarefree. Reproved locally (rather than importing
 `Salt.Brun.M5Assembly`, whose import graph pulls in the whole Brun sieve
