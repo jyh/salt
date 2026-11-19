@@ -317,17 +317,7 @@ theorem mv_I (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
       (div_nonneg hCmain0 hκpos.le)
   intro D R hD hDW hlogR
   -- basic real facts
-  have hRpos : 0 < R := by
-    rcases Nat.eq_zero_or_pos R with h | h
-    · rw [h] at hlogR; simp at hlogR; linarith
-    · exact h
-  have hR2 : 2 ≤ R := by
-    have hRr : (0:ℝ) < (R:ℝ) := by exact_mod_cast hRpos
-    have h2e : (2:ℝ) ≤ Real.exp (Real.log R) := by
-      calc (2:ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1:ℝ); linarith
-        _ ≤ Real.exp (Real.log R) := Real.exp_le_exp.mpr hlogR
-    rw [Real.exp_log hRr] at h2e
-    exact_mod_cast h2e
+  obtain ⟨hRpos, hR2⟩ := nat_pos_two_le_of_one_le_log hlogR
   set L : ℝ := Real.log R with hLdef
   set X : ℝ := (W'.totient : ℝ) / W' * Real.log R with hXdef
   have hL1 : 1 ≤ L := hlogR

@@ -342,17 +342,7 @@ theorem mv_I_split_k (k : ℕ) (hk : 2 ≤ k) (P : BPoly k) :
   refine ⟨Cmain / κ, div_nonneg hCmain0 hκpos.le, ?_⟩
   intro R hlogR
   -- basic real facts
-  have hRpos : 0 < R := by
-    rcases Nat.eq_zero_or_pos R with h | h
-    · rw [h] at hlogR; simp at hlogR; linarith
-    · exact h
-  have hR2 : 2 ≤ R := by
-    have hRr : (0:ℝ) < (R:ℝ) := by exact_mod_cast hRpos
-    have h2e : (2:ℝ) ≤ Real.exp (Real.log R) := by
-      calc (2:ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1:ℝ); linarith
-        _ ≤ Real.exp (Real.log R) := Real.exp_le_exp.mpr hlogR
-    rw [Real.exp_log hRr] at h2e
-    exact_mod_cast h2e
+  obtain ⟨hRpos, hR2⟩ := nat_pos_two_le_of_one_le_log hlogR
   set L : ℝ := Real.log R with hLdef
   set X : ℝ := (W'.totient : ℝ) / W' * Real.log R with hXdef
   set PAS : ℝ := Salt.Maynard.phiAtomSum R W' with hPASdef
@@ -2477,16 +2467,7 @@ private lemma mv_J_main_split (F : Poly) (m : Fin 5) :
     rw [hκdef]; exact div_pos (by exact_mod_cast Nat.totient_pos.mpr hpos) (by exact_mod_cast hpos)
   refine ⟨Cmain / κ, div_nonneg hCmain0 hκpos.le, ?_⟩
   intro R hlogR
-  have hRpos : 0 < R := by
-    rcases Nat.eq_zero_or_pos R with h | h
-    · rw [h] at hlogR; simp at hlogR; linarith
-    · exact h
-  have hR2 : 2 ≤ R := by
-    have hRr : (0:ℝ) < (R:ℝ) := by exact_mod_cast hRpos
-    have h2e : (2:ℝ) ≤ Real.exp (Real.log R) := by
-      calc (2:ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1:ℝ); linarith
-        _ ≤ Real.exp (Real.log R) := Real.exp_le_exp.mpr hlogR
-    rw [Real.exp_log hRr] at h2e; exact_mod_cast h2e
+  obtain ⟨hRpos, hR2⟩ := nat_pos_two_le_of_one_le_log hlogR
   set L : ℝ := Real.log R with hLdef
   set X : ℝ := (W'.totient : ℝ) / W' * Real.log R with hXdef
   set PAS : ℝ := Salt.Maynard.phiAtomSum R W' with hPASdef
@@ -2845,16 +2826,7 @@ theorem mv_J_split (F : Poly) (m : Fin 5) :
     rw [hκdef, div_le_one (by exact_mod_cast hpos)]; exact_mod_cast Nat.totient_le W'
   refine ⟨cmain + 2 * cF * cic * cg ^ 4 / κ ^ 5 + 2 * cic ^ 2 * cg ^ 4 / κ ^ 6, by positivity, ?_⟩
   intro R hlogR
-  have hRpos : 0 < R := by
-    rcases Nat.eq_zero_or_pos R with h | h
-    · rw [h] at hlogR; simp at hlogR; linarith
-    · exact h
-  have hR2 : 2 ≤ R := by
-    have hRr : (0:ℝ) < (R:ℝ) := by exact_mod_cast hRpos
-    have h2e : (2:ℝ) ≤ Real.exp (Real.log R) := by
-      calc (2:ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1:ℝ); linarith
-        _ ≤ Real.exp (Real.log R) := Real.exp_le_exp.mpr hlogR
-    rw [Real.exp_log hRr] at h2e; exact_mod_cast h2e
+  obtain ⟨hRpos, hR2⟩ := nat_pos_two_le_of_one_le_log hlogR
   set L : ℝ := Real.log R with hLdef
   set X : ℝ := κ * L with hXdef
   set PAS : ℝ := Salt.Maynard.phiAtomSum R W' with hPASdef
