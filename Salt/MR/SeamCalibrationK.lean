@@ -190,6 +190,40 @@ structure CalFrameK (η H1 : ℝ) (A G M Jb Xd : ℕ) : Prop where
   /-- The SHARP-`M` gate at the top of the ladder (hence at every level). -/
   Q_le_Xd : calQK A G M Jb ≤ Xd
 
+/-- **THE FRAME'S OWN READS** (`calFrameK_reads`): the fifteen facts the χ-row consumers
+(M4RowsChiEnd, M4RowsChiZero, their primed twins, NumeralCt) read off a `CalFrameK` before
+their own work, stated once (TACTICS-CATALOGUE §3 #18). -/
+theorem calFrameK_reads {η H1 : ℝ} {A G M Jb Xd : ℕ} (hF : CalFrameK η H1 A G M Jb Xd) :
+    0 < η ∧ η < 1 / 6 ∧ 1 ≤ Jb ∧ 1 ≤ G ∧ 1 ≤ M ∧ 2 ≤ A ∧ 1 ≤ Xd ∧ calH H1 1 = H1 ∧
+      (2 : ℝ) ≤ calH H1 1 ∧ 1 ≤ calP A G 1 ∧ (0 : ℝ) < ((calP A G 1 : ℕ) : ℝ) ∧
+      calQK A G M 1 ≤ Xd ∧
+      (∀ v ∈ ramI (calH H1 1) (calP A G 1) (calQK A G M 1), 1 ≤ ramRbot (calH H1 1) Xd v) ∧
+      (∀ j ∈ Finset.Icc 1 Jb, (2 : ℝ) ≤ calH H1 j) ∧ (∀ j : ℕ, 1 ≤ calP A G j) := by
+  have hJb1 := hF.one_le_Jb
+  have hG1 := hF.one_le_G
+  have hA2 : 2 ≤ A := le_trans (by norm_num) hF.A_floor
+  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK A G M Jb) hF.Q_le_Xd
+  have hcalH1 : calH H1 1 = H1 := by simp [calH]
+  have hH1two : (2 : ℝ) ≤ calH H1 1 := by rw [hcalH1]; exact hF.H1_two
+  have hP1nat : 1 ≤ calP A G 1 := by simp only [calP]; exact Nat.one_le_two_pow
+  have hP1pos : (0 : ℝ) < ((calP A G 1 : ℕ) : ℝ) := by
+    have : (1 : ℝ) ≤ ((calP A G 1 : ℕ) : ℝ) := by exact_mod_cast hP1nat
+    linarith
+  have hQ1Xd : calQK A G M 1 ≤ Xd := le_trans (calQK_mono A hG1 hJb1) hF.Q_le_Xd
+  have hbot1 : ∀ v ∈ ramI (calH H1 1) (calP A G 1) (calQK A G M 1),
+      1 ≤ ramRbot (calH H1 1) Xd v :=
+    fun v hv => ramRbot_one_le_of_mem_ramI (by linarith) (one_le_calQK A G M 1) hQ1Xd hv
+  have hHj : ∀ j ∈ Finset.Icc 1 Jb, (2 : ℝ) ≤ calH H1 j := by
+    intro j hj
+    rw [Finset.mem_Icc] at hj
+    have hjR : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
+    rw [calH]
+    nlinarith only [hjR, hH1two, hcalH1, (Nat.cast_nonneg _ : 0 ≤ ↑j), sq_nonneg ↑j, sq_nonneg ↑j]
+  have hPj1 : ∀ j : ℕ, 1 ≤ calP A G j := fun j => by
+    simp only [calP]; exact Nat.one_le_two_pow
+  exact ⟨hF.eta_pos, hF.eta_lt, hJb1, hG1, hF.one_le_M, hA2, hXd1, hcalH1, hH1two, hP1nat,
+    hP1pos, hQ1Xd, hbot1, hHj, hPj1⟩
+
 /-! ## §2 — `LevelGates` at the K-ladder -/
 
 set_option maxHeartbeats 1000000 in
