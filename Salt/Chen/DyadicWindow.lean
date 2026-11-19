@@ -118,7 +118,7 @@ theorem xm_log_bounds {x X M : ℕ} (hx : 2 ≤ x)
 
 /-! ## The `D0`-window cores (O13-e row 285)
 
-The Chen and Goldbach band assemblies each proved the same `D0`-window theorem in full: a dyadic
+The Chen and Goldbach band assemblies each derived the same `D0`-window statement in full: a dyadic
 `D0 = 2^{k0}` in `[L^{17}, 4·L^{17}]` at `L = log(X·M)`, with the nine-conjunct conclusion the
 price lemmas read. Two parameter sets occur. The band floor (`x^{1/3}/8 ≤ N`, tower `exp(10^{10})`,
 ratio `L ≤ (31/10)·W`) gave `d0_window_of_XM_band` (`ChenFinal2`) and `gold_d0_window_band`
