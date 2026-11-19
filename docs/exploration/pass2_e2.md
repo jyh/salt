@@ -107,7 +107,7 @@ engine's fuel).
 
 ## §3 — twin_almost_prime: what would ¬F IMPROVE? Nothing.
 
-`twin_almost_prime` (Salt/BrunLower/TwinInstance.lean:795): {n | Ω(n(n+2)) ≤ 20}
+`twin_almost_prime` (Salt/BrunLower/TwinInstance.lean:789): {n | Ω(n(n+2)) ≤ 20}
 infinite, unconditional. Input profile (TwinInstance.lean:20-40): both-sided Brun
 sieve `brun_lower` at (b,λ,A) = (2, 1/4, 2) + windowed Mertens (PM1/PM2). It
 consumes NO character, NO L-function, NO AP-distribution input — Brun's remainder is
