@@ -102,7 +102,7 @@ The answer to "does a ζ version of `LFunction_norm_logDeriv_sub_sum'` exist?" i
 
 **Segment-integration / transport devices (all landed):**
 - `hasDerivAt_log_norm_horiz` — `MR/ChiLLower.lean:87` — `d/dv log‖F(v+c)‖ = Re(logDeriv F)`, `F` arbitrary. (ζ-specialised copy: `MR/ZetaPowLower.lean:144`.)
-- **`norm_Zc_lower_of_shallow_ball`** — `MR/ZetaInvShallow.lean:225` — **the template**: Landau ball on `G = Zc/Zc(c)`, zero set forced EMPTY, then `Convex.norm_image_sub_le_of_norm_hasDerivWithin_le` transports `log‖Zc‖` horizontally at cost `≤ 1` (`:305`). Everything in the new stone except the non-empty zero set is here already.
+- **`norm_Zc_lower_of_shallow_ball`** — `MR/ZetaInvShallow.lean:214` — **the template**: Landau ball on `G = Zc/Zc(c)`, zero set forced EMPTY, then `Convex.norm_image_sub_le_of_norm_hasDerivWithin_le` transports `log‖Zc‖` horizontally at cost `≤ 1` (`:305`). Everything in the new stone except the non-empty zero set is here already.
 - `near_norm_logDeriv_Zc_le` — `MR/ZetaPowLower.lean:301` — **the zero-count block** (`:334–390`): from the exported factorization it recovers `∑_{ρ∈Z} m_ρ ≤ log(4M₀)/log(7/6)` via `analyticOrderAt_eq_of_factorization` + divisor locality + `entire_zero_count_le`. Directly liftable.
 - `zeta_near_bridge` — `MR/ZetaPowLower.lean:845` — FTC over a horizontal segment with continuity-of-`logDeriv` integrability, ζ version.
 - `norm_logDeriv_le_of_ball_dist` — `SW/ShiftVariants.lean:45` — the L-side distance form.
