@@ -82,7 +82,7 @@ landed: infinitely many p prime with p+2 prime or a product of two primes
 
 **The keystones' exact level/quality demand (grounded call sites).**
 - `psi_BV_of_siegelWalfisz' Salt.SW.siegelWalfisz_holds 11` — polylog saving A = 11
-  at haircut level √x/(log x)^B: Salt/Chen/BVSum.lean:332, HeadlineW2.lean:892 and
+  at haircut level √x/(log x)^B: Salt/Chen/BVSum.lean:332, HeadlineW2.lean:884 and
   :893, TwinA1W.lean:654, TwinA2W.lean:731.
 - `siegelWalfisz_psiTot ... (A = 1)` — PNT-grade: Salt/Chen/TripleCount.lean:67.
 - `Salt.SW.siegelWalfisz_holds A C` generic: Salt/Chen/BetaSW.lean:223.
@@ -107,7 +107,7 @@ engine's fuel).
 
 ## §3 — twin_almost_prime: what would ¬F IMPROVE? Nothing.
 
-`twin_almost_prime` (Salt/BrunLower/TwinInstance.lean:795): {n | Ω(n(n+2)) ≤ 20}
+`twin_almost_prime` (Salt/BrunLower/TwinInstance.lean:789): {n | Ω(n(n+2)) ≤ 20}
 infinite, unconditional. Input profile (TwinInstance.lean:20-40): both-sided Brun
 sieve `brun_lower` at (b,λ,A) = (2, 1/4, 2) + windowed Mertens (PM1/PM2). It
 consumes NO character, NO L-function, NO AP-distribution input — Brun's remainder is

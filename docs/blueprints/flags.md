@@ -7113,7 +7113,7 @@ Both are statement-level and belong to a Fable/human-directed session.
 
 WHAT IS VERIFIED WIREABLE (so the repair unblocks the rest): the 12-conjunct skeleton →
 `chen_of_hypotheses_W` (Salt/Chen/Assembly.lean:725) with witnesses x,z=opZ,P=opP,y=opY,Q=opQ,a=opA,
-w'=opW'; the A1/A2 carriers via `a12_hA1`/`a12_hA2` (HeadlineW2.lean:1620/1672), all their
+w'=opW'; the A1/A2 carriers via `a12_hA1`/`a12_hA2` (HeadlineW2.lean:1612/1664), all their
 hypotheses in the opf_*/opf_tower set; the ledger via `normalized_package`/`hledger_at_certs`
 (GlueNormalized.lean:232 / RazorClose.lean:156) at XW = (twinA1SieveW).totalMass·W =
 (∑_{twinWindow}Λ/φ(opQ))·W; the certs hcertA1 (`fchain_A1_final` ∘ `logRatio_A1_mem`),
@@ -7172,7 +7172,7 @@ still-UNPACKAGED analytic corpus, and one NEW coupling obligation surfaced. STAT
   mainA3_of_block_remainders_W (SwitchW:366) → hA3` is verified-wireable, but its leaves (hSum
   aggregation over pieces × ≤3 boxes × the F1 rows; hCE; hdiag; hNum via `hNum_close_of_tower` under
   `hK_tower` at x₀(K)) are un-built and depend on F1.
-• F3 (chen_headline): A1/A2 slots ARE packaged (`a12_hA1`/`a12_hA2`, HeadlineW2:1725/1856); the
+• F3 (chen_headline): A1/A2 slots ARE packaged (`a12_hA1`/`a12_hA2`, HeadlineW2:1717/1848); the
   ledger conjunct (normalized_package/hledger_at_certs + the still-inline hcount + hEbundle) and the
   12-conjunct → `chen_of_hypotheses_W` (Salt/Chen/Assembly.lean:725) remain. NOT attempted: would require F1/F2 and
   the 27 rows first; forcing it now risks the "0 wrong proofs" invariant given the coupling above.

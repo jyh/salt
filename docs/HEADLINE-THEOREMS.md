@@ -31,7 +31,7 @@ def BrunStatement : Prop :=
 
 Infinitely many `n` with `Ω(n(n+2)) ≤ 20` — the corpus's first lower-bound sieve.
 
-`Salt/BrunLower/TwinInstance.lean:795` · commit `d11e3a02` · 2026-07-12 · ledger `Salt/BrunLower/All.lean:86`
+`Salt/BrunLower/TwinInstance.lean:789` · commit `d11e3a02` · 2026-07-12 · ledger `Salt/BrunLower/All.lean:86`
 
 ```lean
 theorem twin_almost_prime :
