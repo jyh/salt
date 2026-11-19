@@ -1149,13 +1149,8 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling (Awin : ℝ)
   intro hx0win hopq hcs hT₀ hKs g
   obtain ⟨R, hReps, hHlo, hRg, hRtow, hfire⟩ :=
     hbody (flatWitFloor ε β A Hopq) g (flatCap_le_flatWitFloor hCapLe)
-  have hdes : 3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
-    rw [hHlo]; exact flatWitFloor_design ε β A Hopq
-  have hbaseceil : Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 := by
-    rw [hHlo, flat_witFloor_eq_designBase hA26 hβ hεR hε2 hε hεpin hAge hopq]
-    exact flatDesignBase_loglog_le hA26
-  have hwin : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) :=
-    flat_L_width_priced hA26 hbaseceil hdes hRtow
+  obtain ⟨hdes, hbaseceil, hwin⟩ :=
+    flat_des_base_width hA26 hβ hεR hε2 hε hεpin hAge hopq hHlo hRtow
   refine ⟨R, hReps, hHlo, hRg, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
   -- ⟦THE REGISTER, SUPPLIED⟧ at the flat design modulus
