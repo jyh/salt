@@ -298,7 +298,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 | `hPHheadroom` `8·(4^⌊ε²H₊⌋)²·ω ≤ x` | :116 | **H₊ ↔ x/ω** | `S13MSelect2.lean:112` (`s13_socketBase_xscale`), `:500`, `:632`; `S13FramesA.lean:1027`, `Salt/MR/S13FramesA.lean:1533`; `DoorDischarge.lean:113`; `DoorFloor1500.lean:160` | **x-FLOOR, exponential in H₊** |
 | `hheadroom` `Hhi ≤ x/ω` | :86 | H₊ ↔ x/ω | `S14Compose.lean:309` (inside the socket witness), `M4Close.lean:485/731/911/994`, `M4BridgeCover.lean:373`, `HloExportMR.lean:144/344/510/642`, `M4DoorL2.lean:160/623/697/855` | x-FLOOR, linear in H₊ |
 | `hheadroom'` `8H₊(log H₊)² ≤ x/ω` | :103 | H₊ ↔ x/ω | `Salt/MR/M4SecondRoad.lean:498` (`regime_eight_omega_Hhi_le_x`, the Salt/MR ladder's one consumer since O13-e row 184, 2026-11-15) | x-FLOOR, poly in H₊ |
-| `hHlo_floor` `4·10⁶ ≤ Hlo` | :80 | H₋ | ~81 sites (`S13CapFloor`, `S14Compose:112/234/347/507`, …) | H₋ floor |
+| `hHlo_floor` `4·10⁶ ≤ Hlo` | :80 | H₋ | ~81 sites (`S13CapFloor`, `S14Compose:112/306/347` (its other reads now go through `regime_log_floors`, S12Compose), …) | H₋ floor |
 | `hHlohi` `Hlo ≤ Hhi` | :70 | H₋ ↔ H₊ | ~54 sites | window |
 | `hPNTwindow` `√H₋ ≤ ε²H₋/2` | :127 | H₋ ↔ ε | `S13MSelect2.lean:165` (`s13_socketBase_mFloor`), `S13FramesA.lean:347` | H₋/ε |
 | `hωbig` `log ω ≥ (16/ε)log(ε²H₊)+64/ε+1` | :133 | H₊ ↔ ω | `S13FramesA.lean:371` (`s13_logOmega_ge`) | ω-FLOOR, poly in H₊ |
