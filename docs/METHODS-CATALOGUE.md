@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `dbdbd185` · source digest `9cedd2b5a829f228` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `7206aacc` · source digest `47ca17f9fbd34ba2` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23445 · with a proof/definition body: 23445 · direct corpus references (edges): 85944 · audited results: 9148 · corpus Prop-valued names: 691.
+Declarations indexed: 23449 · with a proof/definition body: 23449 · direct corpus references (edges): 85968 · audited results: 9148 · corpus Prop-valued names: 691.
 
 ## Hypothesis status (Deliverable A)
 
@@ -106,8 +106,8 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 14 | `Salt.MR.A2Frame3` | 15 | 3 | — | Salt/MR/CapFreeArm3.lean:1416 |
 | 15 | `Salt.MR.DoorRowEndBase_L_gk` | 13 | 0 | — | Salt/MR/M4RowAssemblyLinear.lean:4472 |
 | 16 | `Salt.Entropy.Chowla.MRTUniformity` | 12 | 0 | — | Salt/Entropy/Chowla/MRTDoor.lean:53 |
-| 17 | `Salt.MR.DoorRowZeroBase` | 12 | 3 | — | Salt/MR/M4RowsChiZero.lean:724 |
-| 18 | `Salt.MR.S15CrossingBound_L_gk` | 12 | 0 | `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist`, `Salt.MR.s15_crossing_supplied_L_gk_ceiling` +4 | Salt/MR/S16FlatTerminalLinear.lean:1070 |
+| 17 | `Salt.MR.DoorRowZeroBase` | 12 | 3 | — | Salt/MR/M4RowsChiZero.lean:702 |
+| 18 | `Salt.MR.S15CrossingBound_L_gk` | 12 | 0 | `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist`, `Salt.MR.s15_crossing_supplied_L_gk_ceiling` +4 | Salt/MR/S16FlatTerminalLinear.lean:1067 |
 | 19 | `Salt.MR.CaseASocket2` | 11 | 1 | — | Salt/MR/USetGradedPrice.lean:122 |
 | 20 | `Salt.MR.DoorCapBasePerBlock_L_gk` | 11 | 1 | — | Salt/MR/M4CapWireLinear.lean:836 |
 | 21 | `Salt.MR.S16BandLaneCBoundedL_win` | 10 | 1 | `Salt.MR.s16_bandLaneWinL_holds_uniform`, `Salt.MR.s16_bandLaneWinL_holds` | Salt/MR/S16Uniform.lean:1196 |
@@ -123,12 +123,12 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 31 | `Salt.MR.M4SievedDoorSq_L_gk` | 7 | 8 | — | Salt/MR/M4LadderLinear.lean:1814 |
 | 32 | `Salt.MR.TwistedWindowPriceGated` | 7 | 0 | `Salt.MR.twisted_window_price_gated_holds` | Salt/MR/TwistedEdge.lean:1070 |
 | 33 | `Salt.Entropy.Chowla.MRTUniformityXiL2H` | 6 | 12 | `Salt.MR.mrtUniformityXiL2H_holds_flat`, `Salt.MR.mrtUniformityXiL2H_holds_flat_g` | Salt/Entropy/Chowla/ShiftFork.lean:545 |
-| 34 | `Salt.MR.DoorRowCarriedT0_L` | 6 | 0 | — | Salt/MR/M4RowLinear.lean:7370 |
+| 34 | `Salt.MR.DoorRowCarriedT0_L` | 6 | 0 | — | Salt/MR/M4RowLinear.lean:7346 |
 | 35 | `Salt.MR.TLBlockGates` | 6 | 0 | — | Salt/MR/USetBalance.lean:258 |
 | 36 | `Salt.Entropy.Chowla.MRTUniformityXiL2Set` | 5 | 4 | — | Salt/Entropy/Chowla/StridePair.lean:365 |
-| 37 | `Salt.MR.DoorRowCarriedT0_L_gk` | 5 | 0 | — | Salt/MR/M4RowLinear.lean:7623 |
-| 38 | `Salt.MR.DoorRowCarried_L_gk` | 5 | 1 | — | Salt/MR/M4RowLinear.lean:4429 |
-| 39 | `Salt.MR.DoorRowEndBase` | 5 | 2 | — | Salt/MR/M4RowsChiEnd.lean:780 |
+| 37 | `Salt.MR.DoorRowCarriedT0_L_gk` | 5 | 0 | — | Salt/MR/M4RowLinear.lean:7599 |
+| 38 | `Salt.MR.DoorRowCarried_L_gk` | 5 | 1 | — | Salt/MR/M4RowLinear.lean:4405 |
+| 39 | `Salt.MR.DoorRowEndBase` | 5 | 2 | — | Salt/MR/M4RowsChiEnd.lean:758 |
 | 40 | `Salt.MR.DoorRowEndBase_L` | 5 | 0 | — | Salt/MR/M4RowLinear.lean:338 |
 | 41 | `Salt.MR.Lemma4Comparison` | 5 | 0 | — | Salt/MR/Sec9Glue.lean:366 |
 | 42 | `Salt.MR.M4SievedDoorSqH_L_gk` | 5 | 1 | — | Salt/MR/S16FlatTerminalLinearH.lean:419 |
@@ -140,7 +140,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 48 | `Salt.MR.M4ChiDyadicRowMeanSq` | 4 | 3 | — | Salt/MR/M4Maximal.lean:1091 |
 | 49 | `Salt.MR.M4ChiFreeRowMeanSq` | 4 | 0 | — | Salt/MR/M4CoprimeSupply.lean:246 |
 | 50 | `Salt.MR.M4CoprimeBlockMeanSq_L_gk` | 4 | 0 | — | Salt/MR/M4WaveLinear.lean:410 |
-| 51 | `Salt.MR.M4RowMeanSq` | 4 | 0 | — | Salt/MR/M4Join.lean:343 |
+| 51 | `Salt.MR.M4RowMeanSq` | 4 | 0 | — | Salt/MR/M4Join.lean:337 |
 | 52 | `EHall` | 3 | 0 | — | Salt/Twelve/Params.lean:33 |
 | 53 | `Salt.HB.FulcrumQualityPoly` | 3 | 0 | — | Salt/HB/CrownTheorem1.lean:6338 |
 | 54 | `Salt.HB.Lemma5Eval` | 3 | 0 | — | Salt/HB/CrownAssembly.lean:1191 |
@@ -154,8 +154,8 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 62 | `Salt.MR.FlatHeadFormHG_Z` | 3 | 2 | — | Salt/MR/StrideDoorAllGrades.lean:83 |
 | 63 | `Salt.MR.FlatHeadFormHG_g12b_band` | 3 | 1 | — | Salt/MR/TierSBand.lean:107 |
 | 64 | `Salt.MR.HalaszIntegersChi` | 3 | 0 | — | Salt/MR/USetChiTS.lean:124 |
-| 65 | `Salt.MR.M4ChiBlockMeanSq` | 3 | 3 | — | Salt/MR/M4WaveClosed.lean:434 |
-| 66 | `Salt.MR.M4ChiRowMeanSq` | 3 | 0 | — | Salt/MR/M4WaveClosed.lean:784 |
+| 65 | `Salt.MR.M4ChiBlockMeanSq` | 3 | 3 | — | Salt/MR/M4WaveClosed.lean:428 |
+| 66 | `Salt.MR.M4ChiRowMeanSq` | 3 | 0 | — | Salt/MR/M4WaveClosed.lean:778 |
 | 67 | `Salt.MR.M4RowDatumAt` | 3 | 2 | — | Salt/MR/M4BaseNarrow.lean:126 |
 | 68 | `Salt.MR.MRTBandCount` | 3 | 0 | — | Salt/MR/MRTPropA3.lean:69 |
 | 69 | `Salt.MR.MRTLemmaA6` | 3 | 0 | — | Salt/MR/MRTPropA3.lean:381 |
@@ -176,21 +176,21 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 84 | `Salt.MR.DoorFuseFrame_pool_L` | 2 | 0 | — | Salt/MR/M4RowAssemblyLinear.lean:3167 |
 | 85 | `Salt.MR.DoorRowCarriedJoin_L_gk` | 2 | 1 | — | Salt/MR/M4RowAssemblyLinear.lean:2581 |
 | 86 | `Salt.MR.DoorRowCarriedPool_L_gk` | 2 | 1 | — | Salt/MR/M4RowAssemblyLinear.lean:2060 |
-| 87 | `Salt.MR.DoorRowCarried_L` | 2 | 1 | — | Salt/MR/M4RowLinear.lean:3964 |
+| 87 | `Salt.MR.DoorRowCarried_L` | 2 | 1 | — | Salt/MR/M4RowLinear.lean:3940 |
 | 88 | `Salt.MR.FlatCapstoneFormHG_g12b_band` | 2 | 1 | — | Salt/MR/TierSBand.lean:177 |
 | 89 | `Salt.MR.FlatConditionalForm` | 2 | 1 | — | Salt/MR/DoorReceipt.lean:522 |
-| 90 | `Salt.MR.FlatConditionalFormEpsW` | 2 | 1 | — | Salt/MR/FlatDoorEpsRung2.lean:4625 |
+| 90 | `Salt.MR.FlatConditionalFormEpsW` | 2 | 1 | — | Salt/MR/FlatDoorEpsRung2.lean:4614 |
 | 91 | `Salt.MR.FlatConditionalFormHG_g12b_band` | 2 | 1 | — | Salt/MR/TierSBand.lean:285 |
 | 92 | `Salt.MR.FlatHeadFormHG_g12b` | 2 | 2 | — | Salt/MR/StridePairReceiptG12b.lean:53 |
 | 93 | `Salt.MR.FlatKswinForm` | 2 | 2 | — | Salt/MR/DoorReceipt.lean:666 |
-| 94 | `Salt.MR.FlatKswinFormEpsW` | 2 | 2 | — | Salt/MR/FlatDoorEpsRung2.lean:4650 |
+| 94 | `Salt.MR.FlatKswinFormEpsW` | 2 | 2 | — | Salt/MR/FlatDoorEpsRung2.lean:4639 |
 | 95 | `Salt.MR.FlatKswinFormHG_g12b_band` | 2 | 1 | — | Salt/MR/TierSBand.lean:315 |
 | 96 | `Salt.MR.FlatRoadExitFormH` | 2 | 2 | — | Salt/MR/StridePairReceipt.lean:961 |
 | 97 | `Salt.MR.FlatRoadExitFormHG_g12b_band` | 2 | 1 | — | Salt/MR/TierSBand.lean:133 |
 | 98 | `Salt.MR.M4ChiFreeRowMeanSqN` | 2 | 0 | — | Salt/MR/M4BaseNarrow.lean:860 |
-| 99 | `Salt.MR.M4ChiFreeRowMeanSq_L` | 2 | 0 | — | Salt/MR/M4RowLinear.lean:3432 |
-| 100 | `Salt.MR.M4ChiFreeRowMeanSq_L_gk` | 2 | 0 | — | Salt/MR/M4RowLinear.lean:3571 |
-| 101 | `Salt.MR.M4ChiMaximalStep` | 2 | 0 | — | Salt/MR/M4WaveClosed.lean:855 |
+| 99 | `Salt.MR.M4ChiFreeRowMeanSq_L` | 2 | 0 | — | Salt/MR/M4RowLinear.lean:3408 |
+| 100 | `Salt.MR.M4ChiFreeRowMeanSq_L_gk` | 2 | 0 | — | Salt/MR/M4RowLinear.lean:3547 |
+| 101 | `Salt.MR.M4ChiMaximalStep` | 2 | 0 | — | Salt/MR/M4WaveClosed.lean:843 |
 | 102 | `Salt.MR.M4ChiSummedBlockMeanSqNH_L_gk` | 2 | 3 | — | Salt/MR/S16FlatTerminalLinearH.lean:382 |
 | 103 | `Salt.MR.M4CoprimeBlockMeanSq_L` | 2 | 0 | — | Salt/MR/M4WaveLinear.lean:330 |
 | 104 | `Salt.MR.M4DoorL2HeadDemand` | 2 | 0 | — | Salt/MR/M4DoorL2.lean:432 |
@@ -214,7 +214,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 122 | `Salt.MR.DoorCapErrWS` | 1 | 2 | — | Salt/MR/RamErrWS.lean:424 |
 | 123 | `Salt.MR.FlatCapstoneForm` | 1 | 1 | — | Salt/MR/DoorReceipt.lean:323 |
 | 124 | `Salt.MR.FlatCapstoneFormEps` | 1 | 1 | — | Salt/MR/FlatDoorEpsChain.lean:245 |
-| 125 | `Salt.MR.FlatCapstoneFormEpsW` | 1 | 1 | — | Salt/MR/FlatDoorEpsRung2.lean:4531 |
+| 125 | `Salt.MR.FlatCapstoneFormEpsW` | 1 | 1 | — | Salt/MR/FlatDoorEpsRung2.lean:4520 |
 | 126 | `Salt.MR.FlatCapstoneFormEpsW_band` | 1 | 1 | — | Salt/MR/FlatDoorAllGradesBand.lean:286 |
 | 127 | `Salt.MR.FlatCapstoneFormH` | 1 | 2 | — | Salt/MR/StridePairReceipt.lean:1001 |
 | 128 | `Salt.MR.FlatCapstoneFormHG` | 1 | 1 | — | Salt/MR/StridePairReceiptG.lean:169 |
@@ -230,7 +230,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 138 | `Salt.MR.FlatConditionalFormU` | 1 | 1 | — | Salt/MR/FlatDoorUniform.lean:507 |
 | 139 | `Salt.MR.FlatDoorL2Form` | 1 | 1 | — | Salt/MR/DoorReceipt.lean:175 |
 | 140 | `Salt.MR.FlatDoorL2FormEps` | 1 | 1 | — | Salt/MR/FlatDoorEpsChain.lean:188 |
-| 141 | `Salt.MR.FlatDoorL2FormEpsW` | 1 | 1 | — | Salt/MR/FlatDoorEpsRung2.lean:4470 |
+| 141 | `Salt.MR.FlatDoorL2FormEpsW` | 1 | 1 | — | Salt/MR/FlatDoorEpsRung2.lean:4459 |
 | 142 | `Salt.MR.FlatDoorL2FormEpsW_band` | 1 | 1 | — | Salt/MR/FlatDoorAllGradesBand.lean:211 |
 | 143 | `Salt.MR.FlatDoorL2FormU` | 1 | 1 | — | Salt/MR/FlatDoorUniform.lean:346 |
 | 144 | `Salt.MR.FlatDoorPayload` | 1 | 0 | — | Salt/MR/FlatDoorEpsFamily.lean:299 |
@@ -246,19 +246,19 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 154 | `Salt.MR.FlatRoadExitFormHG_g12b` | 1 | 2 | — | Salt/MR/StridePairReceiptG12b.lean:77 |
 | 155 | `Salt.MR.FlatRoadForm` | 1 | 1 | — | Salt/MR/DoorReceipt.lean:244 |
 | 156 | `Salt.MR.FlatRoadFormEps` | 1 | 1 | — | Salt/MR/FlatDoorEpsChain.lean:211 |
-| 157 | `Salt.MR.FlatRoadFormEpsW` | 1 | 1 | — | Salt/MR/FlatDoorEpsRung2.lean:4495 |
+| 157 | `Salt.MR.FlatRoadFormEpsW` | 1 | 1 | — | Salt/MR/FlatDoorEpsRung2.lean:4484 |
 | 158 | `Salt.MR.FlatRoadFormEpsW_band` | 1 | 1 | — | Salt/MR/FlatDoorAllGradesBand.lean:242 |
 | 159 | `Salt.MR.FlatRoadFormU` | 1 | 1 | — | Salt/MR/FlatDoorUniform.lean:372 |
 | 160 | `Salt.MR.FlatSocketForm` | 1 | 1 | — | Salt/MR/DoorReceipt.lean:120 |
 | 161 | `Salt.MR.FlatSocketFormEps` | 1 | 1 | — | Salt/MR/FlatDoorEpsChain.lean:159 |
-| 162 | `Salt.MR.FlatSocketFormEpsW` | 1 | 1 | — | Salt/MR/FlatDoorEpsRung2.lean:4440 |
+| 162 | `Salt.MR.FlatSocketFormEpsW` | 1 | 1 | — | Salt/MR/FlatDoorEpsRung2.lean:4429 |
 | 163 | `Salt.MR.FlatSocketFormEpsW_band` | 1 | 1 | — | Salt/MR/FlatDoorAllGradesBand.lean:172 |
 | 164 | `Salt.MR.FlatSocketFormU` | 1 | 1 | — | Salt/MR/FlatDoorUniform.lean:315 |
 | 165 | `Salt.MR.L2KernelUniform` | 1 | 0 | — | Salt/MR/MVCore.lean:123 |
 | 166 | `Salt.MR.M4BlockMeanSqBlk2` | 1 | 1 | — | Salt/MR/M4SecondRoad.lean:382 |
 | 167 | `Salt.MR.M4BlockMeanSqBlk2H_L_gk` | 1 | 1 | — | Salt/MR/S16FlatTerminalLinearH.lean:393 |
-| 168 | `Salt.MR.M4ChiSummedBlockMeanSqN_L` | 1 | 2 | — | Salt/MR/M4RowLinear.lean:6059 |
-| 169 | `Salt.MR.M4ChiSummedBlockMeanSqN_L_gk` | 1 | 2 | — | Salt/MR/M4RowLinear.lean:6200 |
+| 168 | `Salt.MR.M4ChiSummedBlockMeanSqN_L` | 1 | 2 | — | Salt/MR/M4RowLinear.lean:6035 |
+| 169 | `Salt.MR.M4ChiSummedBlockMeanSqN_L_gk` | 1 | 2 | — | Salt/MR/M4RowLinear.lean:6176 |
 | 170 | `Salt.MR.M4ChiSummedFreeShiftBlockH_L_gk` | 1 | 1 | — | Salt/MR/S16FlatTerminalLinearH.lean:368 |
 | 171 | `Salt.MR.M4CoprimeBlockMeanSqN_L` | 1 | 2 | — | Salt/MR/M4WaveLinear.lean:365 |
 | 172 | `Salt.MR.M4RowMeanSqLam` | 1 | 0 | — | Salt/MR/MRTPortRowLam.lean:49 |
@@ -272,7 +272,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 180 | `Salt.MR.MRTThmA1GJ_34` | 1 | 0 | — | Salt/MR/MRTPropA3.lean:4595 |
 | 181 | `Salt.MR.MinorArcBound` | 1 | 1 | — | Salt/MR/BigXiArc.lean:179 |
 | 182 | `Salt.MR.S13BandGate'_L_gk` | 1 | 3 | — | Salt/MR/S16FlatTerminalLinear.lean:850 |
-| 183 | `Salt.MR.S15CrossingBound_gk` | 1 | 0 | `Salt.MR.s15_crossing_supplied_gk`, `Salt.MR.s15_crossing_supplied_bounded_gk` +1 | Salt/MR/S15Compose.lean:1925 |
+| 183 | `Salt.MR.S15CrossingBound_gk` | 1 | 0 | `Salt.MR.s15_crossing_supplied_gk`, `Salt.MR.s15_crossing_supplied_bounded_gk` +1 | Salt/MR/S15Compose.lean:1911 |
 | 184 | `Salt.MR.V7RatedFormHG_g12b_band` | 1 | 2 | — | Salt/MR/TierSBand.lean:351 |
 | 185 | `Salt.Parity.Z` | 1 | 2 | — | Salt/Parity/Z.lean:105 |
 | 186 | `Salt.Twelve.WinFrontierM` | 1 | 1 | — | Salt/Twelve/GapsFinal.lean:262 |
@@ -296,7 +296,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.TLBlockGates34` | DISCHARGED | 37 | `Salt.MR.tlBlockGates34_at_witness` ✓audited GUARDED (Salt/MR/FrameWitness.lean:421) · `Salt.MR.blocks_at_witness` ✓audited GUARDED (Salt/MR/FrameWitness.lean:526) |
 | `Salt.MR.GRowsZeroGate'''_L_gk` | DISCHARGED | 33 | `Salt.MR.gRowsZeroGate'''_L_gk_of_budget` ✓audited GUARDED (Salt/MR/S16FlatTerminalLinear.lean:1009) |
 | `Salt.MR.SeamCoefW` | DISCHARGED | 31 | `Salt.MR.memSCoeff_seamCoefW_band` ✓audited GUARDED (Salt/MR/M4Band.lean:138) · `Salt.MR.doorChiCoeff_seamCoefW_band` ✓audited GUARDED (Salt/MR/M4Band.lean:169) · `Salt.MR.memSCoeff_seamCoefW_band_gen` ✓audited GUARDED (Salt/MR/M4Band.lean:235) · +26 |
-| `Salt.MR.SocketBase` | DISCHARGED | 29 | `Salt.MR.s14_socketBase_witness` GUARDED (Salt/MR/S14Compose.lean:309) |
+| `Salt.MR.SocketBase` | DISCHARGED | 29 | `Salt.MR.s14_socketBase_witness` GUARDED (Salt/MR/S14Compose.lean:295) |
 | `Salt.MR.collisionGate` | DISCHARGED | 29 | `Salt.MR.collisionGate_discharged` ✓audited GUARDED (Salt/MR/CofactorBall.lean:688) · `Salt.MR.collisionGate_of_five` ✓audited GUARDED (Salt/MR/CofactorDist.lean:605) |
 | `Salt.MR.XiFamily` | DISCHARGED | 28 | `Salt.MR.bigXiAffU` ✓audited (Salt/MR/TierSBandU.lean:58) |
 | `Salt.MR.SeamCoefWS` | DISCHARGED | 26 | `Salt.MR.memSCoeff_seamCoefWS_band_gen` ✓audited GUARDED (Salt/MR/M4Band.lean:284) · `Salt.MR.memSCoeff_seamCoefWS_band_H` ✓audited GUARDED (Salt/MR/M4Band.lean:307) · `Salt.MR.doorChiCoeff_seamCoefWS_band_H` ✓audited GUARDED (Salt/MR/M4Band.lean:314) · +27 |
@@ -309,7 +309,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Chen.StepHypWPC` | DISCHARGED | 14 | `Salt.Chen.stepHypWPC_sharpB` ✓audited GUARDED (Salt/Chen/SharpClose.lean:125) · `Salt.Chen.stepHypWPC_const` ✓audited GUARDED (Salt/Chen/WindowedStepC.lean:79) |
 | `Salt.MR.CapFreeFloor3` | DISCHARGED | 14 | `Salt.MR.capFreeFloor3_pieceDatum_vt_rated` ✓audited GUARDED (Salt/MR/BandRatedAssembly.lean:271) · `Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated` ✓audited GUARDED (Salt/MR/BandRatedAssembly.lean:343) · `Salt.MR.capFreeFloor3_of_row_floor` ✓audited GUARDED (Salt/MR/CapFreeArm3.lean:89) · +19 |
 | `Salt.Entropy.Chowla.XCeilRiderStrict` | DISCHARGED | 13 | `Salt.MR.xceilRiderStrict_zero` ✓audited (Salt/MR/V7Headline.lean:91) |
-| `Salt.MR.M4GradeGateSplit` | DISCHARGED | 12 | `Salt.MR.m4_gradeGate_of_block_pricing_split` ✓audited GUARDED (Salt/MR/M4BridgeCover.lean:533) · `Salt.MR.m4_gradeGate_direct_split` ✓audited GUARDED (Salt/MR/M4ClassPrice.lean:798) · `Salt.MR.m4_gradeGate_of_pricing_split` ✓audited GUARDED (Salt/MR/M4Close.lean:686) · +1 |
+| `Salt.MR.M4GradeGateSplit` | DISCHARGED | 12 | `Salt.MR.m4_gradeGate_of_block_pricing_split` ✓audited GUARDED (Salt/MR/M4BridgeCover.lean:527) · `Salt.MR.m4_gradeGate_direct_split` ✓audited GUARDED (Salt/MR/M4ClassPrice.lean:792) · `Salt.MR.m4_gradeGate_of_pricing_split` ✓audited GUARDED (Salt/MR/M4Close.lean:686) · +1 |
 | `Salt.MR.M4SievedDoorSq` | DISCHARGED | 12 | `Salt.MR.m4_sievedDoorSq_trivial` ✓audited (Salt/MR/M4Close.lean:384) |
 | `Salt.MR.LevelGates` | DISCHARGED | 11 | `Salt.MR.levelGates_calibrated_door` ✓audited GUARDED (Salt/MR/DoorFrame.lean:245) · `Salt.MR.levelGates_calibrated_door_gk` GUARDED (Salt/MR/DoorFrame.lean:415) · `Salt.MR.levelGates_calibrated_doorH1` ✓audited GUARDED (Salt/MR/DoorFrameH1.lean:299) · +7 |
 | `Salt.MR.M4ChiSummedFreeRowH_L_gk` | DISCHARGED | 10 | `Salt.MR.m4_chiSummedFreeRow_trivialH_L_gk` ✓audited (Salt/MR/S16FlatTerminalLinearH.lean:439) |
@@ -319,7 +319,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.BrunLower.chi` | DISCHARGED | 8 | `Salt.BrunLower.chi_one` ✓audited GUARDED (Salt/BrunLower/Defs.lean:191) · `Salt.BrunLower.chi_prime` ✓audited GUARDED (Salt/BrunLower/Defs.lean:218) · `Salt.HB.mem_failSet` (Salt/HB/RosserDim4FL.lean:442) |
 | `Salt.Chen.StepHypWP` | DISCHARGED | 8 | `Salt.Chen.stepHypWP_const` ✓audited GUARDED (Salt/Chen/WindowedStepP.lean:78) |
 | `Salt.Entropy.Chowla.PairCollapse` | DISCHARGED | 8 | `Salt.Entropy.Chowla.slack_witness_twinDetecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:102) · `Salt.Entropy.Chowla.delta1w_pairCollapse` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:330) · `Salt.Entropy.Chowla.chi4w_pairCollapse` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:359) · +1 |
-| `Salt.MR.M4ChiSummedFreeRow_L_gk` | DISCHARGED | 8 | `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:342) · `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_pool_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:3434) · `Salt.MR.m4_chiSummedFreeRow_trivial_L_gk` (Salt/MR/M4RowLinear.lean:6155) |
+| `Salt.MR.M4ChiSummedFreeRow_L_gk` | DISCHARGED | 8 | `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:342) · `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_pool_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:3434) · `Salt.MR.m4_chiSummedFreeRow_trivial_L_gk` (Salt/MR/M4RowLinear.lean:6131) |
 | `FiniteRange` | DISCHARGED | 7 | `Salt.Entropy.Chowla.instFiniteRangeShift` (Salt/Entropy/Chowla/Invariance.lean:54) · `Salt.Entropy.Chowla.instFiniteRangeJointWindow` (Salt/Entropy/Chowla/InvarianceHead.lean:61) · `instFiniteRangeLiouvilleWindow` (Salt/Entropy/Chowla/Windows.lean:55) · +1 |
 | `Salt.Entropy.Chowla.PmNormalized` | DISCHARGED | 7 | `Salt.Entropy.Chowla.slack_witness_twinDetecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:102) · `Salt.Entropy.Chowla.const_satisfies_slots` (Salt/Entropy/Chowla/TransportWall.lean:116) |
 | `Salt.HB.CoprimeSupport` | DISCHARGED | 7 | `Salt.HB.l2cWindow_coprimeSupport` (Salt/HB/L2cCore.lean:170) · `Salt.HB.coprimeSupport_window` ✓audited GUARDED (Salt/HB/Transfer.lean:231) |
@@ -330,7 +330,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.CapFreeFloor` | DISCHARGED | 6 | `Salt.MR.capFreeFloor_of_row_floor` ✓audited GUARDED (Salt/MR/CapFreeArm.lean:119) · `Salt.MR.capFreeFloor_all_chi` ✓audited GUARDED (Salt/MR/CapFreeAssembly.lean:408) · `Salt.MR.capFreeFloor_all_chi_sharp` ✓audited GUARDED (Salt/MR/CapFreeSharp.lean:259) · +1 |
 | `Salt.MR.CaseASocketGen` | DISCHARGED | 6 | `Salt.MR.caseASocketGen_of_inner` ✓audited GUARDED (Salt/MR/CofactorSupplier.lean:1005) |
 | `Salt.MR.M4ChiSummedFreeRow` | DISCHARGED | 6 | `Salt.MR.m4_chiSummedFreeRow_of_doorGrade` ✓audited GUARDED (Salt/MR/M4Assembly.lean:392) · `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_pool` ✓audited GUARDED (Salt/MR/M4AssemblyPool.lean:259) · `Salt.MR.m4_chiSummedFreeRow_trivial` ✓audited (Salt/MR/M4ChiSummed.lean:244) |
-| `Salt.MR.M4GradeGate` | DISCHARGED | 6 | `Salt.MR.m4_gradeGate_of_block_pricing` ✓audited GUARDED (Salt/MR/M4BridgeCover.lean:461) · `Salt.MR.m4_gradeGate_direct` ✓audited GUARDED (Salt/MR/M4ClassPrice.lean:742) · `Salt.MR.m4_gradeGate_direct_of_sq` ✓audited GUARDED (Salt/MR/M4ClassPrice.lean:760) · +2 |
+| `Salt.MR.M4GradeGate` | DISCHARGED | 6 | `Salt.MR.m4_gradeGate_of_block_pricing` ✓audited GUARDED (Salt/MR/M4BridgeCover.lean:455) · `Salt.MR.m4_gradeGate_direct` ✓audited GUARDED (Salt/MR/M4ClassPrice.lean:736) · `Salt.MR.m4_gradeGate_direct_of_sq` ✓audited GUARDED (Salt/MR/M4ClassPrice.lean:754) · +2 |
 | `Salt.MR.S15Sel''_L` | DISCHARGED | 6 | `Salt.MR.s15_sel''_L_witness_flat_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:3262) · `Salt.MR.s15_sel''_L_witness_flat_b9` ✓audited GUARDED (Salt/MR/S15SelLinear.lean:326) · `Salt.MR.s15_sel''_L_witness_flat` ✓audited GUARDED (Salt/MR/S15SelLinear.lean:550) · +6 |
 | `Salt.MR.SawtoothOdd` | DISCHARGED | 6 | `Salt.MR.sawtoothOdd` ✓audited (Salt/MR/Sawtooth.lean:842) |
 | `Salt.MR.SieveBlockGate` | DISCHARGED | 6 | `Salt.MR.s13_sieveBlockGate` ✓audited GUARDED (Salt/MR/S13FramesA.lean:149) · `Salt.MR.s13_sieveBlockGate_gk` GUARDED (Salt/MR/S13FramesA.lean:1129) · `Salt.MR.s13_sieveBlockGate_gen` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:78) · +2 |
@@ -338,7 +338,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.GRowsZeroGate'''_L` | DISCHARGED | 5 | `Salt.MR.gRowsZeroGate'''_L_of_budget` ✓audited GUARDED (Salt/MR/ArithPageLinear.lean:877) |
 | `Salt.MR.JointIntegrableAtC` | DISCHARGED | 5 | `Salt.MR.jointIntegrableAtC_pin2_free` ✓audited GUARDED (Salt/MR/CaseASocket.lean:421) · `Salt.MR.jointIntegrableAtC_pin_free` ✓audited GUARDED (Salt/MR/GradeWindowC.lean:235) |
 | `Salt.MR.L1LowerEffective` | DISCHARGED | 5 | `Salt.MR.l1LowerEffective_goldenGate` ✓audited (Salt/MR/EvenChiDescent.lean:248) · `Salt.MR.L1LowerEffective_descend` ✓audited GUARDED (Salt/MR/LandauDescent.lean:197) |
-| `Salt.MR.M4ChiBlockMeanSqH` | DISCHARGED | 5 | `Salt.MR.m4_chiBlockMeanSqH_trivial` ✓audited (Salt/MR/HDoorClose.lean:357) |
+| `Salt.MR.M4ChiBlockMeanSqH` | DISCHARGED | 5 | `Salt.MR.m4_chiBlockMeanSqH_trivial` ✓audited (Salt/MR/HDoorClose.lean:351) |
 | `Salt.MR.M4ClassBlockMeanSq` | DISCHARGED | 5 | `Salt.MR.m4_classBlockMeanSq_trivial` ✓audited (Salt/MR/M4WaveClosed.lean:236) |
 | `Salt.MR.S16BaseScaleCap96_LH_gk` | DISCHARGED | 5 | `Salt.MR.s16_baseScaleCap96_LH_at_klevF_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:178) · `Salt.MR.s16_baseScaleCap96_LH_at_klevF_b9` ✓audited GUARDED (Salt/MR/V7RatedH.lean:1171) |
 | `Salt.MR.S16CofactorSupply_LH_gk` | DISCHARGED | 5 | `Salt.MR.cofkR_cofactorSupply_L_gk_rated_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:1490) · `Salt.MR.cofkR_cofactorSupply_L_gk_rated_h_b9` ✓audited GUARDED (Salt/MR/V7RatedH.lean:481) |
@@ -349,8 +349,8 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Chen.StepHyp` | DISCHARGED | 4 | `Salt.Chen.stepHyp_of_comparisons` ✓audited GUARDED (Salt/Chen/AbelStep.lean:271) · `Salt.Chen.stepHyp_sharp_of_comparisons` ✓audited GUARDED (Salt/Chen/TauSharp.lean:280) |
 | `Salt.Chen.rosserCond` | DISCHARGED | 4 | `Salt.Chen.rosserCond_one` ✓audited (Salt/Chen/LinearSieve.lean:515) |
 | `Salt.MR.CalFrame` | DISCHARGED | 4 | `Salt.MR.calFrame_satisfiable` ✓audited (Salt/MR/SeamCalibration.lean:361) |
-| `Salt.MR.FlatDoorEpsFamilyW` | DISCHARGED | 4 | `Salt.MR.flatDoorEpsFamilyW_holds` ✓audited (Salt/MR/FlatDoorEpsRung2.lean:5516) |
-| `Salt.MR.FlatHeadFormEpsW` | DISCHARGED | 4 | `Salt.MR.flat_head_uniform_xceil_epsW` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4724) |
+| `Salt.MR.FlatDoorEpsFamilyW` | DISCHARGED | 4 | `Salt.MR.flatDoorEpsFamilyW_holds` ✓audited (Salt/MR/FlatDoorEpsRung2.lean:5505) |
+| `Salt.MR.FlatHeadFormEpsW` | DISCHARGED | 4 | `Salt.MR.flat_head_uniform_xceil_epsW` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4713) |
 | `Salt.MR.HalaszPrimesChi` | DISCHARGED | 4 | `Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded` GUARDED (Salt/MR/NumeralKq.lean:290) · `Salt.MR.halaszPrimesChi_pointwise_of_gates` ✓audited GUARDED (Salt/MR/PortClose.lean:230) · `Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded_cs` ✓audited GUARDED (Salt/MR/V7B.lean:284) |
 | `Salt.MR.M4BlockMeanSq` | DISCHARGED | 4 | `Salt.MR.m4_blockMeanSq_trivial` ✓audited (Salt/MR/M4BridgeCover.lean:426) |
 | `Salt.MR.M4CoprimeBlockMeanSq` | DISCHARGED | 4 | `Salt.MR.m4_coprimeBlockMeanSq_trivial` ✓audited (Salt/MR/M4NonCoprime.lean:366) |
@@ -365,13 +365,13 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.FlatHeadFormEpsW_band` | DISCHARGED | 3 | `Salt.MR.flat_head_uniform_xceil_epsW_band` ✓audited GUARDED (Salt/MR/FlatDoorAllGradesBand.lean:582) |
 | `Salt.MR.FlatHeadFormU` | DISCHARGED | 3 | `Salt.MR.flatHeadFormU_trivial` ✓audited GUARDED (Salt/MR/FlatDoorUniform.lean:1106) |
 | `Salt.MR.M4BlockMeanSqSup` | DISCHARGED | 3 | `Salt.MR.m4_blockMeanSqSup_trivial` ✓audited (Salt/MR/M4Join.lean:274) |
-| `Salt.MR.M4BlockMeanSqSupQH` | DISCHARGED | 3 | `Salt.MR.m4_blockMeanSqSupQH_of_classPriceH` ✓audited GUARDED (Salt/MR/HDoorSupply.lean:841) · `Salt.MR.m4_blockMeanSqSupQH_trivial` ✓audited (Salt/MR/HDoorSupply.lean:896) |
+| `Salt.MR.M4BlockMeanSqSupQH` | DISCHARGED | 3 | `Salt.MR.m4_blockMeanSqSupQH_of_classPriceH` ✓audited GUARDED (Salt/MR/HDoorSupply.lean:841) · `Salt.MR.m4_blockMeanSqSupQH_trivial` ✓audited (Salt/MR/HDoorSupply.lean:890) |
 | `Salt.MR.MSelect` | DISCHARGED | 3 | `Salt.MR.s13_MSelect_of_headroom` ✓audited GUARDED (Salt/MR/S13FramesA.lean:1018) |
 | `Salt.MR.MSelect'_L` | DISCHARGED | 3 | `Salt.MR.s13_MSelect'_L_of_headroom` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:605) · `Salt.MR.s13_MSelect'_L_of_halfWindow` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:662) |
 | `Salt.MR.MVHilbertUniform` | DISCHARGED | 3 | `Salt.MR.mvHilbertUniform_holds` ✓audited (Salt/MR/MVCore2.lean:590) |
 | `Salt.MR.MmuChiRatePrincipal` | DISCHARGED | 3 | `Salt.MR.mmuChiRatePrincipal_holds` ✓audited (Salt/MR/ZetaInvShallow.lean:877) |
 | `Salt.MR.PrimeTailShiftBounded` | DISCHARGED | 3 | `Salt.MR.prime_tail_shift` ✓audited (Salt/MR/PrimeTail.lean:380) |
-| `Salt.MR.S15Sel''_L_gk_T` | DISCHARGED | 3 | `Salt.MR.s15_sel''_L_gk_witness_flat_wide_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4277) · `Salt.MR.s15_sel''_L_gk_witness_flat_bumped_win_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4304) |
+| `Salt.MR.S15Sel''_L_gk_T` | DISCHARGED | 3 | `Salt.MR.s15_sel''_L_gk_witness_flat_wide_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4266) · `Salt.MR.s15_sel''_L_gk_witness_flat_bumped_win_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4293) |
 | `Salt.MR.S16BaseScaleCap96_L_gk` | DISCHARGED | 3 | `Salt.MR.s16_baseScaleCap96_L_at_klevF` ✓audited GUARDED (Salt/MR/KLever.lean:427) · `Salt.MR.s16_baseScaleCap96_L_of_xwindow` ✓audited GUARDED (Salt/MR/RegisterSupply.lean:131) · `Salt.MR.s16_baseScaleCap96_L_of_x_small` ✓audited GUARDED (Salt/MR/RegisterSupply.lean:175) · +2 |
 | `Salt.MR.Squarefull` | DISCHARGED | 3 | `Salt.MR.squarefull_one` (Salt/MR/HalaszSeam.lean:157) · `Salt.MR.squarefull_zero` (Salt/MR/HalaszSeam.lean:162) · `Salt.MR.squarefull_of_sPart_ne_zero` ✓audited GUARDED (Salt/MR/SPartCore.lean:195) |
 | `Salt.MR.WindowSmooth` | DISCHARGED | 3 | `Salt.MR.lamTailWeight_support` ✓audited GUARDED (Salt/MR/LambdaChiRamare.lean:236) · `Salt.MR.windowSmooth_one` (Salt/MR/MobiusChiRamare.lean:222) · `Salt.MR.ramTailWeight_support` ✓audited GUARDED (Salt/MR/MobiusChiRamare.lean:238) · +1 |
@@ -387,7 +387,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.BlockLive` | DISCHARGED | 2 | `Salt.MR.blockLive_winCutH_doorCoeffU_L` GUARDED (Salt/MR/M4RowSpineLinear.lean:1096) · `Salt.MR.blockLive_winCutH_doorCoeffU_L_gk` GUARDED (Salt/MR/M4RowSpineLinear.lean:1253) · `Salt.MR.blockLive_memSCoeff` GUARDED (Salt/MR/M4RowsChiZero.lean:121) · +2 |
 | `Salt.MR.FlatHeadFormEps` | DISCHARGED | 2 | `Salt.MR.flat_head_uniform_xceil_eps` ✓audited GUARDED (Salt/MR/FlatDoorEpsChain.lean:561) |
 | `Salt.MR.M4ChiSummedBlockMeanSqN` | DISCHARGED | 2 | `Salt.MR.m4_chiSummedBlockN_trivial` ✓audited (Salt/MR/M4ChiSummed.lean:577) |
-| `Salt.MR.M4ChiSummedFreeRow_L` | DISCHARGED | 2 | `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_L` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:118) · `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_pool_L` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:3245) · `Salt.MR.m4_chiSummedFreeRow_trivial_L` (Salt/MR/M4RowLinear.lean:5981) |
+| `Salt.MR.M4ChiSummedFreeRow_L` | DISCHARGED | 2 | `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_L` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:118) · `Salt.MR.m4_chiSummedFreeRow_of_doorGrade_pool_L` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:3245) · `Salt.MR.m4_chiSummedFreeRow_trivial_L` (Salt/MR/M4RowLinear.lean:5957) |
 | `Salt.MR.M4ClassBlockMeanSqH` | DISCHARGED | 2 | `Salt.MR.m4_classBlockMeanSqH_trivial` ✓audited (Salt/MR/HDoorClose.lean:323) |
 | `Salt.MR.M4GradeGateL2` | DISCHARGED | 2 | `Salt.MR.m4_gradeGateL2_of_binder_split` ✓audited GUARDED (Salt/MR/M4DoorL2.lean:387) |
 | `Salt.MR.M4SievedDoorSqH` | DISCHARGED | 2 | `Salt.MR.m4_sievedDoorSqH_trivial` ✓audited (Salt/MR/HDoorArc.lean:464) |
@@ -397,10 +397,10 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.MSelect_L_gk` | DISCHARGED | 2 | `Salt.MR.s13_MSelect_L_of_headroom_gk` ✓audited GUARDED (Salt/MR/S13FramesLinear.lean:478) |
 | `Salt.MR.MaskSmooth` | DISCHARGED | 2 | `Salt.MR.lamTailWeightMask_support` ✓audited GUARDED (Salt/MR/LambdaChiMask.lean:186) · `Salt.MR.maskSmooth_one` (Salt/MR/MobiusChiRamareUnion.lean:128) · `Salt.MR.maskTailWeight_support` ✓audited GUARDED (Salt/MR/MobiusChiRamareUnion.lean:234) · +1 |
 | `Salt.MR.MinorArcBoundTight` | DISCHARGED | 2 | `Salt.MR.minorArcBoundTight_twelve` ✓audited (Salt/MR/ExitClose.lean:775) |
-| `Salt.MR.S15Sel''_L_T` | DISCHARGED | 2 | `Salt.MR.s15_sel''_L_witness_flat_charge_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4196) · `Salt.MR.s15_sel''_L_witness_flat_wide_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4254) |
+| `Salt.MR.S15Sel''_L_T` | DISCHARGED | 2 | `Salt.MR.s15_sel''_L_witness_flat_charge_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4185) · `Salt.MR.s15_sel''_L_witness_flat_wide_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4243) |
 | `Salt.MR.S16BaseScaleCapEnd_L_gk` | DISCHARGED | 2 | `Salt.MR.s16_baseScaleCapEnd_L_of_xceil` ✓audited GUARDED (Salt/MR/KLever.lean:215) |
-| `Salt.MR.StrideDoorAllGradesW` | DISCHARGED | 2 | `Salt.MR.strideDoorAllGradesW_holds` ✓audited (Salt/MR/StrideDoorAllGrades.lean:5351) |
-| `Salt.MR.XCeilRiderStrictAt` | DISCHARGED | 2 | `Salt.MR.xceilRiderStrictAt_zero` ✓audited (Salt/MR/FlatDoorEpsRung2.lean:4699) |
+| `Salt.MR.StrideDoorAllGradesW` | DISCHARGED | 2 | `Salt.MR.strideDoorAllGradesW_holds` ✓audited (Salt/MR/StrideDoorAllGrades.lean:5322) |
+| `Salt.MR.XCeilRiderStrictAt` | DISCHARGED | 2 | `Salt.MR.xceilRiderStrictAt_zero` ✓audited (Salt/MR/FlatDoorEpsRung2.lean:4688) |
 | `Salt.SW.EstermannPositivity` | DISCHARGED | 2 | `Salt.SW.estermannPositivity` ✓audited (Salt/SW/EstermannInterface.lean:473) |
 | `Salt.SW.WellSpacedAt` | DISCHARGED | 2 | `Salt.SW.wellSpacedAt_parity_reps` ✓audited GUARDED (Salt/SW/DensityLogfree.lean:389) |
 | `Salt.TwinBar.MmuRate` | DISCHARGED | 2 | `Salt.SW.mmuRate_of_smoothed` GUARDED (Salt/SW/MobiusRateClose.lean:927) · `Salt.SW.mmuRate_holds` ✓audited (Salt/SW/MobiusRateClose.lean:1062) |
@@ -671,17 +671,17 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.HB.Admissible` | DISCHARGED | `Salt.HB.admissible_of_squarefree` GUARDED (Salt/HB/StarStep.lean:78) · `Salt.HB.admissible_one` (Salt/HB/TwistChain.lean:164) · `Salt.HB.admissible_mul` GUARDED (Salt/HB/TwistChain.lean:169) |
 | `Salt.MR.BlockSmallG` | DISCHARGED | `Salt.MR.blockSmallG_of_mem_TsetG` ✓audited GUARDED (Salt/MR/TLegPreamble.lean:101) |
 | `Salt.MR.BlockSmooth` | DISCHARGED | `Salt.MR.blockSmooth_one` (Salt/MR/ShiuMoment.lean:73) · `Salt.MR.blockSmooth_blockPart` (Salt/MR/ShiuMoment.lean:355) |
-| `Salt.MR.G2Scaffold.M4BlockMeanSqSupQ_L` | DISCHARGED | `Salt.MR.G2Scaffold.m4_blockMeanSqSupQ_of_classPrice_L` GUARDED (Salt/MR/M4RowLinear.lean:2038) |
+| `Salt.MR.G2Scaffold.M4BlockMeanSqSupQ_L` | DISCHARGED | `Salt.MR.G2Scaffold.m4_blockMeanSqSupQ_of_classPrice_L` GUARDED (Salt/MR/M4RowLinear.lean:2026) |
 | `Salt.MR.HalaszIntegersChiPhi` | DISCHARGED | `Salt.MR.halaszIntegersChiPhi_holds` ✓audited (Salt/MR/HalaszIntegersChiClose.lean:257) |
 | `Salt.MR.L1LowerEffectiveOdd` | DISCHARGED | `Salt.MR.L1LowerEffectiveOdd_descend` ✓audited GUARDED (Salt/MR/LandauDescent.lean:268) |
 | `Salt.MR.L1LowerOddEffective` | DISCHARGED | `Salt.MR.l1LowerOddEffective_pi` ✓audited (Salt/MR/Sawtooth.lean:852) · `Salt.MR.l1LowerOddEffective_one` ✓audited (Salt/MR/Sawtooth.lean:856) |
 | `Salt.MR.LFunctionInvShallowVkSharp` | DISCHARGED | `Salt.MR.lFunctionInvShallowVkSharp_holds` ✓audited (Salt/MR/LFunctionInvShallow.lean:1215) |
 | `Salt.MR.LambdaChiSummatory` | DISCHARGED | `Salt.MR.lambdaChiSummatory_holds_gated` ✓audited GUARDED (Salt/MR/PortClose.lean:163) |
 | `Salt.MR.M4BandTransport` | DISCHARGED | `Salt.MR.m4_bandTransport` ✓audited (Salt/MR/M4Close.lean:359) |
-| `Salt.MR.M4BlockMeanSqBlk_gk` | DISCHARGED | `Salt.MR.m4_blockMeanSqBlk_trivial_gk` (Salt/MR/M4BridgeBlock.lean:708) |
-| `Salt.MR.M4BlockMeanSqSupQ_gk` | DISCHARGED | `Salt.MR.m4_blockMeanSqSupQ_of_classPrice_gk` GUARDED (Salt/MR/M4ClassPrice.lean:1008) |
-| `Salt.MR.M4BlockMeanSqSup_gk` | DISCHARGED | `Salt.MR.m4_blockMeanSqSup_trivial_gk` (Salt/MR/M4Join.lean:669) |
-| `Salt.MR.M4BlockMeanSq_gk` | DISCHARGED | `Salt.MR.m4_blockMeanSq_trivial_gk` (Salt/MR/M4BridgeCover.lean:617) |
+| `Salt.MR.M4BlockMeanSqBlk_gk` | DISCHARGED | `Salt.MR.m4_blockMeanSqBlk_trivial_gk` (Salt/MR/M4BridgeBlock.lean:702) |
+| `Salt.MR.M4BlockMeanSqSupQ_gk` | DISCHARGED | `Salt.MR.m4_blockMeanSqSupQ_of_classPrice_gk` GUARDED (Salt/MR/M4ClassPrice.lean:1002) |
+| `Salt.MR.M4BlockMeanSqSup_gk` | DISCHARGED | `Salt.MR.m4_blockMeanSqSup_trivial_gk` (Salt/MR/M4Join.lean:657) |
+| `Salt.MR.M4BlockMeanSq_gk` | DISCHARGED | `Salt.MR.m4_blockMeanSq_trivial_gk` (Salt/MR/M4BridgeCover.lean:611) |
 | `Salt.MR.M4ChiFreeShiftBlockMeanSq_gk` | DISCHARGED | `Salt.MR.m4_chiFreeShiftBlock_trivial_gk` (Salt/MR/M4CoprimeSupply.lean:925) |
 | `Salt.MR.M4ChiShiftBlockMeanSq_gk` | DISCHARGED | `Salt.MR.m4_chiShiftBlock_trivial_gk` (Salt/MR/M4Maximal.lean:1362) |
 | `Salt.MR.M4ChiSummedBlockMeanSqN_gk` | DISCHARGED | `Salt.MR.m4_chiSummedBlockN_trivial_gk` (Salt/MR/M4ChiSummed.lean:1242) |
@@ -690,18 +690,18 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.M4ChiSummedFreeRowBig_L_gk` | DISCHARGED | `Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated_pool_L_gk` GUARDED (Salt/MR/M4ArithZeroLinear.lean:1352) · `Salt.MR.m4_chiSummedFreeRowBig_of_doorGrade_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:312) · `Salt.MR.m4_chiSummedFreeRowBig_of_doorGrade_pool_L_gk` GUARDED (Salt/MR/M4RowAssemblyLinear.lean:3401) · +1 |
 | `Salt.MR.M4ChiSummedFreeRowBig_gk` | DISCHARGED | `Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated_gk` GUARDED (Salt/MR/M4ArithPage.lean:1068) · `Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated_pool_gk` GUARDED (Salt/MR/M4ArithPool.lean:335) · `Salt.MR.doorGradeGated_bridge_gk` GUARDED (Salt/MR/M4ArithRho.lean:959) · +2 |
 | `Salt.MR.M4ChiSummedFreeShiftBlock_gk` | DISCHARGED | `Salt.MR.m4_chiSummedShiftBlock_trivial_gk` (Salt/MR/M4ChiSummed.lean:1190) |
-| `Salt.MR.M4ClassBlockMeanSq_gk` | DISCHARGED | `Salt.MR.m4_classBlockMeanSq_trivial_gk` (Salt/MR/M4WaveClosed.lean:956) |
+| `Salt.MR.M4ClassBlockMeanSq_gk` | DISCHARGED | `Salt.MR.m4_classBlockMeanSq_trivial_gk` (Salt/MR/M4WaveClosed.lean:944) |
 | `Salt.MR.M4CoprimeBlockMeanSqN_gk` | DISCHARGED | `Salt.MR.m4_coprimeBlockMeanSqN_trivial_gk` (Salt/MR/M4NonCoprime.lean:792) |
 | `Salt.MR.M4CoprimeBlockMeanSq_gk` | DISCHARGED | `Salt.MR.m4_coprimeBlockMeanSq_trivial_gk` (Salt/MR/M4NonCoprime.lean:742) |
 | `Salt.MR.M4CoprimeChiBlockMeanSqN_gk` | DISCHARGED | `Salt.MR.m4_coprimeChiBlockMeanSqN_trivial_gk` (Salt/MR/M4CoprimeSupply.lean:849) |
-| `Salt.MR.M4SievedDoorSqBlk_gk` | DISCHARGED | `Salt.MR.m4_sievedDoorSqBlk_trivial_gk` (Salt/MR/M4BridgeBlock.lean:666) |
+| `Salt.MR.M4SievedDoorSqBlk_gk` | DISCHARGED | `Salt.MR.m4_sievedDoorSqBlk_trivial_gk` (Salt/MR/M4BridgeBlock.lean:660) |
 | `Salt.MR.M4SievedDoorSqSup_gk` | DISCHARGED | `Salt.MR.m4_sievedDoorSqSup_trivial_gk` (Salt/MR/M4BridgePhase.lean:579) |
 | `Salt.MR.M4SievedDoorSq_gk` | DISCHARGED | `Salt.MR.m4_sievedDoorSq_trivial_gk` (Salt/MR/M4Close.lean:858) |
 | `Salt.MR.MRTLargeRangeEquidistributionFixedEps` | DISCHARGED | `Salt.MR.mrtLargeRangeEquidistributionFixedEps_holds` ✓audited (Salt/MR/A4FLargeRange.lean:458) |
 | `Salt.MR.MRTLemmaA4i` | DISCHARGED | `Salt.MR.mrtLemmaA4i_holds` ✓audited (Salt/MR/MRTPropA3.lean:473) |
 | `Salt.MR.MRTLemmaA4iiFixed34E` | DISCHARGED | `Salt.MR.mrtLemmaA4iiFixed34E_holds` ✓audited (Salt/MR/A4FLargeRange.lean:535) |
-| `Salt.MR.MSelect'` | DISCHARGED | `Salt.MR.s13_MSelect'_of_headroom` GUARDED (Salt/MR/S13MSelect2.lean:493) · `Salt.MR.s13_MSelect'_of_halfWindow` GUARDED (Salt/MR/S13MSelect2.lean:523) |
-| `Salt.MR.MSelect'_gk` | DISCHARGED | `Salt.MR.s13_MSelect'_of_headroom_gk` GUARDED (Salt/MR/S13MSelect2.lean:625) · `Salt.MR.s13_MSelect'_of_halfWindow_gk` GUARDED (Salt/MR/S13MSelect2.lean:652) |
+| `Salt.MR.MSelect'` | DISCHARGED | `Salt.MR.s13_MSelect'_of_headroom` GUARDED (Salt/MR/S13MSelect2.lean:501) · `Salt.MR.s13_MSelect'_of_halfWindow` GUARDED (Salt/MR/S13MSelect2.lean:531) |
+| `Salt.MR.MSelect'_gk` | DISCHARGED | `Salt.MR.s13_MSelect'_of_headroom_gk` GUARDED (Salt/MR/S13MSelect2.lean:633) · `Salt.MR.s13_MSelect'_of_halfWindow_gk` GUARDED (Salt/MR/S13MSelect2.lean:660) |
 | `Salt.MR.MSelect_gk` | DISCHARGED | `Salt.MR.s13_MSelect_of_headroom_gk` GUARDED (Salt/MR/S13FramesA.lean:1524) |
 | `Salt.MR.MrtCompMultDatum` | DISCHARGED | `Salt.MR.mrtCompMultDatum_lamCoeff` ✓audited (Salt/MR/MRTPort.lean:301) |
 | `Salt.MR.S15Sel'` | DISCHARGED | `Salt.MR.s15_sel'_witness` GUARDED (Salt/MR/S15Witness.lean:324) |
@@ -998,7 +998,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | Mertens / PNT-type | 255 | 67 | 883 | 792 | 4 | 16 | 0 | 1695 | 1638 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
 | explog/lognum numeral tactic | 53 | 0 | 669 | 763 | 1 | 5 | 0 | 1438 | 1438 |
-| Matomaki-Radziwill / Halasz (short intervals) | 9831 | 5428 | 2964 | 1300 | 168 | 189 | 0 | 4621 | 73 |
+| Matomaki-Radziwill / Halasz (short intervals) | 9835 | 5428 | 2964 | 1300 | 168 | 189 | 0 | 4621 | 73 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
 
@@ -1178,7 +1178,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | family | external dependents | audited members | decls |
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
-| Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9831 |
+| Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9835 |
 | entropy decrement | 650 | 534 | 1410 |
 | character sums / L-functions | 966 | 2196 | 4331 |
 | circle method / Fourier | 1171 | 83 | 184 |

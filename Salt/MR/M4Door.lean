@@ -301,6 +301,17 @@ theorem doorLadder_fit (x H i : ℕ) :
     doorLadder x H i + H ≤ 2 * doorLadder x H (i + 1) := by
   rw [doorLadder_succ]; omega
 
+/-- The block's own count: `#(X_{i+1}, X_i] ≤ X_{i+1}`, read off the fit (`X_i ≤ 2·X_{i+1}`).
+Stated once for the fourteen block-sum sites (TACTICS-CATALOGUE §3 #22). -/
+theorem doorLadder_card_Ioc_le (x H i : ℕ) :
+    ((Finset.Ioc (doorLadder x H (i + 1)) (doorLadder x H i)).card : ℝ)
+      ≤ (doorLadder x H (i + 1) : ℝ) := by
+  rw [Nat.card_Ioc]
+  have hfit := doorLadder_fit x H i
+  have hn : doorLadder x H i - doorLadder x H (i + 1) ≤ doorLadder x H (i + 1) := by
+    omega
+  exact_mod_cast hn
+
 /-- The floor `H + 1` is invariant under the descent: once above it, always above it. -/
 theorem doorLadder_floor {x H : ℕ} (hx : H + 1 ≤ x) (i : ℕ) : H + 1 ≤ doorLadder x H i := by
   induction i with

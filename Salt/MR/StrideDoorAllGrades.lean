@@ -1398,11 +1398,7 @@ theorem s14_loglogX_ge_of_socket_LH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0
     Real.log (H : ℝ) / 2 ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
   have hsharp := s13_socketBase_loglogA_sharp_L hh hL0 hhL hfl hb hflL
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA_LH_L hh hL0 hhL hfl hb hflL
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
-  have hmono : Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := Real.log_le_log hA0 hAX
+  have hmono : Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := log_le_log_natCast_add (s := s) (by norm_num) h2000
   have h := Real.log_le_log (by linarith : (0 : ℝ) < Real.log (A : ℝ)) hmono
   linarith
 
@@ -1710,11 +1706,7 @@ theorem s13_winFit_h_of_halfWindow_gen_L {h : ℕ} (hh : 0 < h) {Lc : ℝ}
   have hloR : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast hlo
   have hlogmono : Real.log (R.Hlo : ℝ) ≤ Real.log (H : ℝ) :=
     Real.log_le_log (by linarith) hloR
-  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
-  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
-    have := Real.exp_le_exp.mpr h50
-    rwa [Real.exp_log hlogH0] at this
+  obtain ⟨h50, -, -, hlogH0, hexp50⟩ := regime_log_floors R hfl hlo
   have hlogHbig : (4000000 : ℝ) ≤ Real.log (H : ℝ) := le_trans s13_four_million_le_exp50 hexp50
   set w : ℝ := Real.sqrt (Real.log (H : ℝ)) with hw
   have hw2 : w ^ 2 = Real.log (H : ℝ) := Real.sq_sqrt hlogH0.le
@@ -1805,13 +1797,9 @@ theorem s15_heps293_at_socket_flatH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0
   set lam : ℝ := Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) with hlamdef
   set Λ : ℝ := Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) with hLamdef
   set ll : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hlldef
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA_LH_L hh hL0 hhL hfl hb hflL
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
   have hpool : constPool ρ R.Hhi = Real.exp (Real.log ρ - Real.log 376266 - 14 * Λ) := by
     rw [constPool_def, hLamdef, Real.exp_sub, Real.exp_sub, Real.exp_log hρ,
@@ -1857,13 +1845,9 @@ theorem s15_hband4096_at_socket_flatH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 :
   set lam : ℝ := Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) with hlamdef
   set Λ : ℝ := Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) with hLamdef
   set ll : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hlldef
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA_LH_L hh hL0 hhL hfl hb hflL
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
   have hpool : constPool ρ R.Hhi = Real.exp (Real.log ρ - Real.log 376266 - 14 * Λ) := by
     rw [constPool_def, hLamdef, Real.exp_sub, Real.exp_sub, Real.exp_log hρ,
@@ -1924,12 +1908,9 @@ theorem s15_gRows_const_at_socket_flat_doorLH_gk_L (K : ℕ) {h : ℕ} (hh : 0 <
   obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
   have hA : 0 < A := hb.2.2.2.2.2.2.2.1
   have hAs : 0 < A + s := by omega
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA_LH_L hh hL0 hhL hfl hb hflL
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hllle : Real.log (Real.log (((A + s : ℕ)) : ℝ)) ≤ Real.log (((A + s : ℕ)) : ℝ) - 1 :=
     Real.log_le_sub_one_of_pos (by linarith)
   have hll := s12c_llX_ge_LH_L hh hL0 hhL hfl hb hflL
@@ -2504,7 +2485,7 @@ theorem flat_v7_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L : ℝ
   obtain ⟨A', hA'def⟩ : ∃ a : ℝ, a = max (16 * Real.log (1 / Ks) / 3) (max T₀
       (max (max (max (max A₀ 162) Awin) (cofkRThr Cq Cb Xsk Y0))
         (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))))) := ⟨_, rfl⟩
-  -- ⟦THE NINTH ARM⟧ `162 + 2·Lc`, OUTERMOST (rung 2's re-mint, `FlatDoorEpsRung2.lean:5209`)
+  -- ⟦THE NINTH ARM⟧ `162 + 2·Lc`, OUTERMOST (rung 2's re-mint, `FlatDoorEpsRung2.lean:5198`)
   obtain ⟨A, hAdef⟩ : ∃ a : ℝ,
       a = max (162 + 2 * (Real.log (c : ℝ) + L)) (max (armVt Kvt) A') := ⟨_, rfl⟩
   have hA162b : 162 + 2 * (Real.log (c : ℝ) + L) ≤ A := by rw [hAdef]; exact le_max_left _ _
@@ -3903,22 +3884,12 @@ theorem s13_capEps_register_LH_L {h : ℕ} (hh : 0 < h) {Lc : ℝ} (hL0 : 0 ≤ 
       ∧ Real.log (H : ℝ) / 2 ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ))
       ∧ (q.totient : ℝ) ≤ (h : ℝ) * (Real.log (H : ℝ)) ^ (12 : ℕ) := by
   have hlo : R.Hlo ≤ H := hb.1
-  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
-  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
-  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
-    have hz := Real.exp_le_exp.mpr h50
-    rwa [Real.exp_log hlogH0] at hz
+  obtain ⟨h50, hH4, hHR, hlogH0, hexp50⟩ := regime_log_floors R hfl hlo
   have hu21 : (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (H : ℝ) :=
     le_trans capeps_ten21_le_exp50 hexp50
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA_LH_L hh hL0 hhL hfl hb hflL
   have hsharp := s13_socketBase_loglogA_sharp_L hh hL0 hhL hfl hb hflL
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
-  have hmono : Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := Real.log_le_log hA0 hAX
+  have hmono : Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := log_le_log_natCast_add (s := s) (by norm_num) h2000
   have hll : Real.log (Real.log (A : ℝ)) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) :=
     Real.log_le_log (by linarith) hmono
   have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by

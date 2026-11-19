@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `dbdbd185` · source digest `9cedd2b5a829f228` (the same digest as items 1–3).
-> Receipt: files 1414 · decls 23445 · with_body 23445 · tactic_lines 302008 · runs 35519 · blocks 1216.
+> Base: last commit touching `Salt/` = `7206aacc` · source digest `47ca17f9fbd34ba2` (the same digest as items 1–3).
+> Receipt: files 1414 · decls 23449 · with_body 23449 · tactic_lines 301734 · runs 35517 · blocks 1203.
 
 ## LIMITS (read before any number below)
 
@@ -100,33 +100,33 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-302008 tactic lines. Top 30:
+301734 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 131549 | 43.6% |
-| 2 | `rw` | 48862 | 16.2% |
-| 3 | `exact` | 17412 | 5.8% |
-| 4 | `intro` | 14006 | 4.6% |
+| 1 | `have` | 131359 | 43.5% |
+| 2 | `rw` | 48844 | 16.2% |
+| 3 | `exact` | 17415 | 5.8% |
+| 4 | `intro` | 14003 | 4.6% |
 | 5 | `refine` | 12726 | 4.2% |
-| 6 | `linarith` | 10358 | 3.4% |
-| 7 | `obtain` | 9135 | 3.0% |
+| 6 | `linarith` | 10355 | 3.4% |
+| 7 | `obtain` | 9139 | 3.0% |
 | 8 | `calc` | 7775 | 2.6% |
 | 9 | `set` | 5444 | 1.8% |
-| 10 | `simp` | 5149 | 1.7% |
+| 10 | `simp` | 5146 | 1.7% |
 | 11 | `apply` | 4520 | 1.5% |
-| 12 | `nlinarith` | 3311 | 1.1% |
+| 12 | `nlinarith` | 3308 | 1.1% |
 | 13 | `unfold` | 2623 | 0.9% |
-| 14 | `exact_mod_cast` | 2384 | 0.8% |
-| 15 | `rcases` | 2126 | 0.7% |
+| 14 | `exact_mod_cast` | 2371 | 0.8% |
+| 15 | `rcases` | 2127 | 0.7% |
 | 16 | `ring` | 2054 | 0.7% |
-| 17 | `push_cast` | 1949 | 0.6% |
+| 17 | `push_cast` | 1920 | 0.6% |
 | 18 | `field_simp` | 1857 | 0.6% |
 | 19 | `by_cases` | 1634 | 0.5% |
-| 20 | `rwa` | 1577 | 0.5% |
+| 20 | `rwa` | 1570 | 0.5% |
 | 21 | `norm_num` | 1487 | 0.5% |
 | 22 | `show` | 1268 | 0.4% |
-| 23 | `omega` | 1261 | 0.4% |
+| 23 | `omega` | 1248 | 0.4% |
 | 24 | `classical` | 1241 | 0.4% |
 | 25 | `rintro` | 1150 | 0.4% |
 | 26 | `simpa` | 925 | 0.3% |
@@ -144,18 +144,18 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | large sieve | 1719 | `have` 560, `rw` 379, `intro` 108, `refine` 104, `exact` 101, `simp` 56, `apply` 53, `calc` 48 |
 | Selberg/Brun sieve | 70161 | `have` 30175, `rw` 12048, `exact` 3793, `intro` 3238, `apply` 2283, `calc` 2277, `refine` 1686, `linarith` 1453 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 34728 | `have` 15469, `rw` 6451, `exact` 1867, `intro` 1431, `refine` 1416, `linarith` 1100, `calc` 1076, `set` 854 |
-| zero-density / zero-free regions | 13596 | `have` 6255, `rw` 2382, `exact` 694, `intro` 614, `linarith` 575, `refine` 438, `set` 408, `calc` 379 |
-| character sums / L-functions | 62463 | `have` 26196, `rw` 9869, `exact` 4046, `refine` 3588, `intro` 3335, `obtain` 2390, `linarith` 2130, `calc` 1437 |
+| zero-density / zero-free regions | 13553 | `have` 6222, `rw` 2378, `exact` 694, `intro` 612, `linarith` 573, `refine` 438, `set` 408, `calc` 379 |
+| character sums / L-functions | 62374 | `have` 26127, `rw` 9861, `exact` 4046, `refine` 3588, `intro` 3331, `obtain` 2394, `linarith` 2126, `calc` 1437 |
 | exponential sums | 8305 | `have` 3163, `rw` 1696, `exact` 504, `intro` 409, `refine` 391, `linarith` 237, `set` 228, `simp` 209 |
 | Mertens / PNT-type | 3297 | `have` 1530, `rw` 557, `exact` 173, `linarith` 147, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
-| Matomaki-Radziwill / Halasz (short intervals) | 114524 | `have` 51879, `rw` 15812, `exact` 6676, `refine` 6523, `intro` 5710, `linarith` 5220, `obtain` 4962, `calc` 2188 |
+| Matomaki-Radziwill / Halasz (short intervals) | 114250 | `have` 51689, `rw` 15794, `exact` 6679, `refine` 6523, `intro` 5707, `linarith` 5217, `obtain` 4966, `calc` 2188 |
 | (no family) | 28735 | `have` 11157, `rw` 5120, `exact` 1735, `intro` 1554, `obtain` 970, `refine` 959, `set` 881, `calc` 865 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
-Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1216 candidates; top 25 by the UPPER-BOUND saving.
+Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1203 candidates; top 25 by the UPPER-BOUND saving.
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 
@@ -200,7 +200,7 @@ have $4 : Real.exp (# * $5) ≤ Real.log (($2.Hlo : ℕ) : ℝ) := by
 rw [$6]; exact flatWitFloor_log_ge $7
 ```
 
-**5.** 14 lines × 6 occurrences in 6 files · lines saved ≤ **78** · e.g. `Salt/MR/StrideDoorAllGrades.lean:5459` · `Salt/MR/StridePairReceipt.lean:2166`
+**5.** 14 lines × 6 occurrences in 6 files · lines saved ≤ **78** · e.g. `Salt/MR/StrideDoorAllGrades.lean:5430` · `Salt/MR/StridePairReceipt.lean:2166`
 
 ```lean
 have $1 : (# : ℝ) ≤ # / ($2.eps : ℝ) := by positivity
@@ -264,25 +264,7 @@ have $15 : Real.exp (# * $12) ≤ Real.log (($1.Hlo : ℕ) : ℝ) := by
 rw [$3]; exact flatWitFloor_log_ge $13
 ```
 
-**10.** 13 lines × 6 occurrences in 3 files · lines saved ≤ **72** · e.g. `Salt/MR/FlatConsumers.lean:124` · `Salt/MR/FlatDoorEpsRung2.lean:4029`
-
-```lean
-set $1 : ℝ := Real.log (Real.log (($2.Hlo : ℕ) : ℝ)) with $3
-set $4 : ℝ := Real.log (Real.log (($2.Hhi : ℕ) : ℝ)) with $5
-set $6 : ℝ := Real.log (Real.log ((($7 + $8 : ℕ)) : ℝ)) with $9
-have $10 : # < $7 := $11.2.2.2.2.2.2.2.1
-have $12 : (# : ℝ) < ($7 : ℝ) := by exact_mod_cast $10
-have $13 : ($7 : ℝ) ≤ ((($7 + $8 : ℕ)) : ℝ) := by
-push_cast; linarith [Nat.cast_nonneg ($14 := ℝ) $8]
-obtain ⟨$15, -⟩ := s13_socketBase_loglogA $16 $11
-have $17 : (# : ℝ) < Real.log ((($7 + $8 : ℕ)) : ℝ) := by
-have := Real.log_le_log $12 $13; linarith
-have $18 : (# : ℝ) < Real.log ((($7 + $8 : ℕ)) : ℝ) := by linarith
-have $19 : constPool $20 $2.Hhi = Real.exp (Real.log $20 - Real.log # - # * $4) := by
-rw [constPool_def, $5, Real.exp_sub, Real.exp_sub, Real.exp_log $21,
-```
-
-**11.** 3 lines × 35 occurrences in 25 files · lines saved ≤ **70** · e.g. `Salt/Chen/CountAtOp.lean:158` · `Salt/Chen/DyadicWindow.lean:92`
+**10.** 3 lines × 35 occurrences in 25 files · lines saved ≤ **70** · e.g. `Salt/Chen/CountAtOp.lean:158` · `Salt/Chen/DyadicWindow.lean:92`
 
 ```lean
 have $1 : (# : ℝ) < ($2 : ℝ) := by
@@ -290,7 +272,7 @@ have : (# : ℝ) ≤ ($2 : ℝ) := by exact_mod_cast $3
 linarith
 ```
 
-**12.** 6 lines × 14 occurrences in 13 files · lines saved ≤ **70** · e.g. `Salt/MR/DoorReceipt.lean:728` · `Salt/MR/DoorReceiptSiegelFree.lean:151`
+**11.** 6 lines × 14 occurrences in 13 files · lines saved ≤ **70** · e.g. `Salt/MR/DoorReceipt.lean:728` · `Salt/MR/DoorReceiptSiegelFree.lean:151`
 
 ```lean
 intro $1
@@ -301,7 +283,7 @@ intro $9 $10 $11 $12 $13
 obtain ⟨$14, $15, $16⟩ := $5 $9 $10 $12
 ```
 
-**13.** 6 lines × 14 occurrences in 12 files · lines saved ≤ **70** · e.g. `Salt/MR/FlatDoorStandoff.lean:941` · `Salt/MR/RegisterCompose.lean:184`
+**12.** 6 lines × 14 occurrences in 12 files · lines saved ≤ **70** · e.g. `Salt/MR/FlatDoorStandoff.lean:941` · `Salt/MR/RegisterCompose.lean:184`
 
 ```lean
 intro $1 $2 $3 $4 $5 $6 $7 $8 $9 $10 $11 $12
@@ -312,18 +294,7 @@ have $28 : (# : ℝ) < # * $8 := by linarith
 exact doorCapBundle_at_workingPoint_perBlock_L_gk $29 $30 $31 $23 $21 $19 $28 $10 $12
 ```
 
-**14.** 6 lines × 14 occurrences in 8 files · lines saved ≤ **70** · e.g. `Salt/MR/HDoorClose.lean:345` · `Salt/MR/HDoorSupply.lean:871`
-
-```lean
-rw [Nat.card_Ioc]
-have $1 := doorLadder_fit $2.x $3 $4
-have $5 : doorLadder $2.x $3 $4 - doorLadder $2.x $3 ($4 + #) ≤ doorLadder $2.x $3 ($4 + #) := by
-omega
-exact_mod_cast $5
-have $6 := doorLadder_pos $7 ($4 + #)
-```
-
-**15.** 8 lines × 10 occurrences in 9 files · lines saved ≤ **70** · e.g. `Salt/MR/DoorReceipt.lean:746` · `Salt/MR/DoorReceiptSiegelFree.lean:169` · ⚠️ shares source lines with #4, #9
+**13.** 8 lines × 10 occurrences in 9 files · lines saved ≤ **70** · e.g. `Salt/MR/DoorReceipt.lean:746` · `Salt/MR/DoorReceiptSiegelFree.lean:169` · ⚠️ shares source lines with #4, #9
 
 ```lean
 intro $1 $2
@@ -336,7 +307,7 @@ have $9 : Real.exp (# * $4) ≤ Real.log (($7.Hlo : ℕ) : ℝ) := by
 rw [$10]; exact flatWitFloor_log_ge $5
 ```
 
-**16.** 15 lines × 5 occurrences in 5 files · lines saved ≤ **70** · e.g. `Salt/Goldbach/BandRows.lean:239` · `Salt/Goldbach/KerrY.lean:393`
+**14.** 15 lines × 5 occurrences in 5 files · lines saved ≤ **70** · e.g. `Salt/Goldbach/BandRows.lean:239` · `Salt/Goldbach/KerrY.lean:393`
 
 ```lean
 have $1 : (# : ℝ) ≤ $2 := by linarith
@@ -356,7 +327,7 @@ exact Real.log_le_log $12 $10
 have $17 : (# : ℝ) ≤ $2 := by linarith
 ```
 
-**17.** 15 lines × 5 occurrences in 5 files · lines saved ≤ **70** · e.g. `Salt/Chen/ChenFinal2.lean:112` · `Salt/Chen/PriceOne.lean:331`
+**15.** 15 lines × 5 occurrences in 5 files · lines saved ≤ **70** · e.g. `Salt/Chen/ChenFinal2.lean:112` · `Salt/Chen/PriceOne.lean:331`
 
 ```lean
 have $1 : Real.log # ≤ # := by
@@ -376,27 +347,7 @@ have $11 : (# : ℝ) ≤ $7 ^ ((# : ℝ)) := by
 calc (# : ℝ) ≤ $7 := by linarith
 ```
 
-**18.** 15 lines × 5 occurrences in 5 files · lines saved ≤ **70** · e.g. `Salt/MR/M4RowsChiEnd.lean:271` · `Salt/MR/M4RowsChiEndPrime.lean:189`
-
-```lean
-have $1 := $2.eta_pos
-have $3 := $2.eta_lt
-have $4 := $2.one_le_Jb
-have $5 := $2.one_le_G
-have $6 := $2.one_le_M
-have $7 : # ≤ $8 := le_trans (by norm_num) $2.A_floor
-have $9 : # ≤ $10 := le_trans (one_le_calQK $8 $11 $12 $13) $2.Q_le_Xd
-have $14 : calH $15 # = $15 := by simp [calH]
-have $16 : (# : ℝ) ≤ calH $15 # := by rw [$14]; exact $2.H1_two
-have $17 : # ≤ calP $8 $11 # := by simp only [calP]; exact Nat.one_le_two_pow
-have $18 : (# : ℝ) < ((calP $8 $11 # : ℕ) : ℝ) := by
-have : (# : ℝ) ≤ ((calP $8 $11 # : ℕ) : ℝ) := by exact_mod_cast $17
-linarith
-have $19 : calQK $8 $11 $12 # ≤ $10 := le_trans (calQK_mono $8 $5 $4) $2.Q_le_Xd
-have $20 : ∀ $21 ∈ ramI (calH $15 #) (calP $8 $11 #) (calQK $8 $11 $12 #),
-```
-
-**19.** 5 lines × 17 occurrences in 15 files · lines saved ≤ **68** · e.g. `Salt/Entropy/Chowla/HloExport.lean:475` · `Salt/Entropy/Chowla/HloExportFlat.lean:314`
+**16.** 5 lines × 17 occurrences in 15 files · lines saved ≤ **68** · e.g. `Salt/Entropy/Chowla/HloExport.lean:475` · `Salt/Entropy/Chowla/HloExportFlat.lean:314`
 
 ```lean
 have $1 : $2 < $3 / (# * $4) * ($5.eps : ℝ) := by
@@ -406,7 +357,7 @@ have $10 : (# : ℝ) < $3 / (# * $4) * ($11 : ℝ) := mul_pos $7 $12
 linarith [$13, $10]
 ```
 
-**20.** 5 lines × 17 occurrences in 14 files · lines saved ≤ **68** · e.g. `Salt/MR/DoorReceipt.lean:823` · `Salt/MR/DoorReceiptSiegelFree.lean:81`
+**17.** 5 lines × 17 occurrences in 14 files · lines saved ≤ **68** · e.g. `Salt/MR/DoorReceipt.lean:823` · `Salt/MR/DoorReceiptSiegelFree.lean:81`
 
 ```lean
 have $1 : $2 ≤ flatDesignBase $3 := le_flatDesignBase_of_le $4
@@ -416,7 +367,7 @@ obtain ⟨$7, $8, $9⟩ := $10 (KlevF $3)
 obtain ⟨$11, $12⟩ := $9 $3 $13 $14 $15 $6
 ```
 
-**21.** 5 lines × 17 occurrences in 13 files · lines saved ≤ **68** · e.g. `Salt/MR/FlatDoorStandoff.lean:941` · `Salt/MR/RegisterCompose.lean:184` · ⚠️ shares source lines with #13
+**18.** 5 lines × 17 occurrences in 13 files · lines saved ≤ **68** · e.g. `Salt/MR/FlatDoorStandoff.lean:941` · `Salt/MR/RegisterCompose.lean:184` · ⚠️ shares source lines with #12
 
 ```lean
 intro $1 $2 $3 $4 $5 $6 $7 $8 $9 $10 $11 $12
@@ -426,15 +377,7 @@ have $27 : Real.exp (# * (Real.log ((($5 + $6 : ℕ)) : ℝ)) ^ ((# : ℝ) / #))
 have $28 : (# : ℝ) < # * $8 := by linarith
 ```
 
-**22.** 3 lines × 33 occurrences in 13 files · lines saved ≤ **66** · e.g. `Salt/MR/ArithPageLinear.lean:716` · `Salt/MR/FlatConsumers.lean:107` · ⚠️ shares source lines with #10
-
-```lean
-have $1 : (# : ℝ) < ($2 : ℝ) := by exact_mod_cast $3
-have $4 : ($2 : ℝ) ≤ ((($2 + $5 : ℕ)) : ℝ) := by
-push_cast; linarith [Nat.cast_nonneg ($6 := ℝ) $5]
-```
-
-**23.** 7 lines × 11 occurrences in 6 files · lines saved ≤ **66** · e.g. `Salt/Chen/ChenRows1.lean:345` · `Salt/Goldbach/BandRows.lean:274`
+**19.** 7 lines × 11 occurrences in 6 files · lines saved ≤ **66** · e.g. `Salt/Chen/ChenRows1.lean:345` · `Salt/Goldbach/BandRows.lean:274`
 
 ```lean
 apply Real.sqrt_le_sqrt
@@ -446,18 +389,7 @@ rw [div_pow, $1]; norm_num
 rw [$4]; exact $5
 ```
 
-**24.** 6 lines × 13 occurrences in 5 files · lines saved ≤ **65** · e.g. `Salt/MR/FlatConsumers.lean:128` · `Salt/MR/FlatDoorEpsRung2.lean:4033` · ⚠️ shares source lines with #10, #22
-
-```lean
-have $1 : (# : ℝ) < ($2 : ℝ) := by exact_mod_cast $3
-have $4 : ($2 : ℝ) ≤ ((($2 + $5 : ℕ)) : ℝ) := by
-push_cast; linarith [Nat.cast_nonneg ($6 := ℝ) $5]
-obtain ⟨$7, -⟩ := s13_socketBase_loglogA $8 $9
-have $10 : (# : ℝ) < Real.log ((($2 + $5 : ℕ)) : ℝ) := by
-have := Real.log_le_log $1 $4; linarith
-```
-
-**25.** 6 lines × 13 occurrences in 10 files · lines saved ≤ **65** · e.g. `Salt/MR/DoorReceipt.lean:561` · `Salt/MR/FlatDoorEpsChain.lean:933`
+**20.** 6 lines × 13 occurrences in 10 files · lines saved ≤ **65** · e.g. `Salt/MR/DoorReceipt.lean:561` · `Salt/MR/FlatDoorEpsChain.lean:933`
 
 ```lean
 intro $1
@@ -466,6 +398,74 @@ refine ⟨$2, $3, $4, ?_⟩
 intro $7 $8 $9
 obtain ⟨$10, $11, $12⟩ := $5 $7 $8 $9
 refine ⟨$10, $11, ?_⟩
+```
+
+**21.** 14 lines × 5 occurrences in 5 files · lines saved ≤ **65** · e.g. `Salt/MR/FlatDoorAllGradesBand.lean:605` · `Salt/MR/FlatDoorEpsRung2.lean:4760`
+
+```lean
+have $1 : $2 / (# * $3) * ($4 : ℝ) / # = ($4 : ℝ) / (# * (# + # * Real.log #)) := by
+rw [$5, $6]
+have $7 : (# : ℝ) + # * (# * Real.log #) ≠ # := by positivity
+field_simp
+ring
+have $8 : (# : ℚ) ≤ ($9 : ℚ) := by exact_mod_cast $10
+have $11 : (# : ℚ) < # * ($9 : ℚ) := by linarith
+have $12 : (# : ℚ) ≤ # * ($9 : ℚ) * $4 := by
+rw [div_le_iff₀ $11] at $13; linarith
+have $14 : (# : ℝ) ≤ # * ($9 : ℝ) * ($4 : ℝ) := by exact_mod_cast $12
+have $15 : (# : ℝ) ≤ ($9 : ℝ) := by exact_mod_cast $10
+have $16 : (# : ℝ) / (# * ($9 : ℝ)) ≤ $2 / (# * $3) * ($4 : ℝ) / # := by
+rw [$1, div_le_div_iff₀ (by linarith) (by positivity), $17]
+linarith
+```
+
+**22.** 9 lines × 8 occurrences in 6 files · lines saved ≤ **64** · e.g. `Salt/Entropy/Chowla/HloExport.lean:317` · `Salt/Entropy/Chowla/HloExportFlat.lean:152`
+
+```lean
+set $1 : ℝ := ∑ $2 ∈ $3 $4.eps $5, (# / ($2 : ℝ)) with $6
+have $7 : $8 / Real.log ($5 : ℝ) ≤ $1 := $9 $4.eps $5 $10 $11 $12
+have $13 : (# : ℝ) ≤ $1 := Finset.sum_nonneg (fun $2 _ => by positivity)
+have $14 : (# : ℝ) < $1 := lt_of_lt_of_le (div_pos $15 $16) $7
+have $17 : ($3 $4.eps $5).Nonempty := by
+rcases ($3 $4.eps $5).$18 with $19 | $20
+· exact absurd ($6.trans (by rw [$19, Finset.sum_empty])) (ne_of_gt $14)
+· exact $20
+set $21 : ℝ := |∫ $22, (ArithmeticFunction.liouville $22 : ℝ)
+```
+
+**23.** 4 lines × 21 occurrences in 18 files · lines saved ≤ **63** · e.g. `Salt/MR/DoorReceipt.lean:823` · `Salt/MR/DoorReceiptSiegelFree.lean:81` · ⚠️ shares source lines with #17
+
+```lean
+have $1 : $2 ≤ flatDesignBase $3 := le_flatDesignBase_of_le $4
+have $5 : (# : ℝ) ≤ $3 := by linarith
+have $6 : KlevF $3 ≤ # * flatDoorM $3 := KlevF_le_wideCeiling $5
+obtain ⟨$7, $8, $9⟩ := $10 (KlevF $3)
+```
+
+**24.** 8 lines × 9 occurrences in 5 files · lines saved ≤ **63** · e.g. `Salt/MR/BandRatedSocket.lean:109` · `Salt/MR/CofactorBulk.lean:211`
+
+```lean
+have $1 : (# : ℝ) ≤ Real.log ($2.Hlo : ℝ) := cofk_log_big $3
+have $4 : Real.exp (# : ℝ) ≤ Real.log ($2.Hlo : ℝ) := by
+have $5 := Real.exp_le_exp.mpr $6
+rwa [Real.exp_log (by linarith)] at $5
+have $7 : (# : ℝ) ^ # ≤ Real.exp (# : ℝ) := by
+have $5 := cofk_exp_quartic ($8 := (# : ℝ)) (by norm_num)
+have $9 : (# : ℝ) ≤ (# + (# : ℝ) / #) ^ # := by norm_num
+linarith
+```
+
+**25.** 8 lines × 9 occurrences in 5 files · lines saved ≤ **63** · e.g. `Salt/MR/M4BridgeBlock.lean:430` · `Salt/MR/M4RowLinear.lean:1719`
+
+```lean
+intro $1 $2 _ $3 $4 $5 $6
+have $7 : # < $2 := Nat.pos_of_ne_zero (NeZero.ne $2)
+obtain ⟨$8, $9, $10, $11, $12⟩ := $6
+have $13 := $14 $2 $9 $3 $4 $10 $11
+have $15 := $16 $2 $9 $3 $4 $10 $11
+have $17 := $18 $2 $9 $3 $4 $10 $11
+have $19 := $20 $2 $9 $3 $4 $10 $11
+have $21 : # < $22 $2 $9 := $13
 ```
 
 ## Whitelist (data)

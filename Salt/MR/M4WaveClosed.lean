@@ -253,13 +253,7 @@ theorem m4_classBlockMeanSq_trivial (R : ChowlaRegime) (M k : ℕ) :
           Finset.sum_le_sum hterm
       _ = ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
             * (H : ℝ) ^ 2 := by rw [Finset.sum_const, nsmul_eq_mul]
-  have hc : ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
-      ≤ (doorLadder R.x H (i + 1) : ℝ) := by
-    rw [Nat.card_Ioc]
-    have hfit := doorLadder_fit R.x H i
-    have hn : doorLadder R.x H i - doorLadder R.x H (i + 1) ≤ doorLadder R.x H (i + 1) := by
-      omega
-    exact_mod_cast hn
+  have hc := doorLadder_card_Ioc_le R.x H i
   have hpos := doorLadder_pos hxH (i + 1)
   nlinarith
 
@@ -813,14 +807,8 @@ theorem m4_chiBlock_fixed_of_chiRow {R : ChowlaRegime} {M k : ℕ} {MS : ℕ →
   intro H hlo hhi q hq hqQ i hik χ
   have hH0 : 0 < H := by have := R.hHlo_floor; omega
   have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
-  have hfit := doorLadder_fit R.x H i
   -- ⟦the coverage datum is free at the block's own seam index set⟧
-  have hcov : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-      ∀ m ∈ Finset.Ioc n (n + H), m ∉ seamS0 (2 * doorLadder R.x H (i + 1))
-          (doorLadder R.x H (i + 1) : ℝ) → doorChiCoeff χ M m = 0 :=
-    hcov_of_seamS0 (doorChiCoeff χ M) (A := doorLadder R.x H (i + 1))
-      (B := doorLadder R.x H i) (N := 2 * doorLadder R.x H (i + 1)) (H := H) le_rfl
-      (by omega)
+  have hcov := hcov_of_seamS0_ladder (doorChiCoeff χ M) R.x H i
   -- ⟦the row datum, read at the removed phase⟧
   have hMS0 : 1 / ((doorLadder R.x H (i + 1) : ℕ) : ℝ)
       * (∫ y in ((doorLadder R.x H (i + 1) : ℕ) : ℝ)..(2
@@ -973,13 +961,7 @@ theorem m4_classBlockMeanSq_trivial_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) 
           Finset.sum_le_sum hterm
       _ = ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
             * (H : ℝ) ^ 2 := by rw [Finset.sum_const, nsmul_eq_mul]
-  have hc : ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
-      ≤ (doorLadder R.x H (i + 1) : ℝ) := by
-    rw [Nat.card_Ioc]
-    have hfit := doorLadder_fit R.x H i
-    have hn : doorLadder R.x H i - doorLadder R.x H (i + 1) ≤ doorLadder R.x H (i + 1) := by
-      omega
-    exact_mod_cast hn
+  have hc := doorLadder_card_Ioc_le R.x H i
   have hpos := doorLadder_pos hxH (i + 1)
   nlinarith
 
@@ -1277,14 +1259,8 @@ theorem m4_chiBlock_fixed_of_chiRow_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} 
   intro H hlo hhi q hq hqQ i hik χ
   have hH0 : 0 < H := by have := R.hHlo_floor; omega
   have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
-  have hfit := doorLadder_fit R.x H i
   -- ⟦the coverage datum is free at the block's own seam index set⟧
-  have hcov : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-      ∀ m ∈ Finset.Ioc n (n + H), m ∉ seamS0 (2 * doorLadder R.x H (i + 1))
-          (doorLadder R.x H (i + 1) : ℝ) → doorChiCoeff_gk K χ M m = 0 :=
-    hcov_of_seamS0 (doorChiCoeff_gk K χ M) (A := doorLadder R.x H (i + 1))
-      (B := doorLadder R.x H i) (N := 2 * doorLadder R.x H (i + 1)) (H := H) le_rfl
-      (by omega)
+  have hcov := hcov_of_seamS0_ladder (doorChiCoeff_gk K χ M) R.x H i
   -- ⟦the row datum, read at the removed phase⟧
   have hMS0 : 1 / ((doorLadder R.x H (i + 1) : ℕ) : ℝ)
       * (∫ y in ((doorLadder R.x H (i + 1) : ℕ) : ℝ)..(2
