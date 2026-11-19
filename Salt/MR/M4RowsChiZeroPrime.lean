@@ -495,31 +495,8 @@ theorem m4_rowChi_number_of_capstone_zero' :
   intro Cp hCp q _ χ c a bfam ha1 hb1 hc1 N Xd A G M Jb H1 X Tann t₁ S η ε hF hT0 hNXd hN4
     hcoefWS hasupp hlive hQXd hXdbig hcap
   -- ⟦THE FRAME'S OWN READS⟧
-  have hη := hF.eta_pos
-  have hη6 := hF.eta_lt
-  have hJb1 := hF.one_le_Jb
-  have hG1 := hF.one_le_G
-  have hM1 := hF.one_le_M
-  have hA2 : 2 ≤ A := le_trans (by norm_num) hF.A_floor
-  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK A G M Jb) hF.Q_le_Xd
-  have hcalH1 : calH H1 1 = H1 := by simp [calH]
-  have hH1two : (2 : ℝ) ≤ calH H1 1 := by rw [hcalH1]; exact hF.H1_two
-  have hP1nat : 1 ≤ calP A G 1 := by simp only [calP]; exact Nat.one_le_two_pow
-  have hP1pos : (0 : ℝ) < ((calP A G 1 : ℕ) : ℝ) := by
-    have : (1 : ℝ) ≤ ((calP A G 1 : ℕ) : ℝ) := by exact_mod_cast hP1nat
-    linarith
-  have hQ1Xd : calQK A G M 1 ≤ Xd := le_trans (calQK_mono A hG1 hJb1) hF.Q_le_Xd
-  have hbot1 : ∀ v ∈ ramI (calH H1 1) (calP A G 1) (calQK A G M 1),
-      1 ≤ ramRbot (calH H1 1) Xd v :=
-    fun v hv => ramRbot_one_le_of_mem_ramI (by linarith) (one_le_calQK A G M 1) hQ1Xd hv
-  have hHj : ∀ j ∈ Finset.Icc 1 Jb, (2 : ℝ) ≤ calH H1 j := by
-    intro j hj
-    rw [Finset.mem_Icc] at hj
-    have hjR : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
-    rw [calH]
-    nlinarith only [hjR, hH1two, hcalH1, (Nat.cast_nonneg _ : 0 ≤ ↑j), sq_nonneg ↑j, sq_nonneg ↑j]
-  have hPj1 : ∀ j : ℕ, 1 ≤ calP A G j := fun j => by
-    simp only [calP]; exact Nat.one_le_two_pow
+  obtain ⟨hη, hη6, hJb1, hG1, hM1, hA2, hXd1, hcalH1, hH1two, hP1nat, hP1pos, hQ1Xd, hbot1,
+    hHj, hPj1⟩ := calFrameK_reads hF
   have hasuppχ := chiBarCoeff_dyadic_supp χ hasupp
   -- ⟦THE ROW SLOT, AT THE FOUR-ROW STRICT/FUSED EXIT⟧
   have hrowfam : ∀ j ∈ Finset.Icc 1 Jb,
