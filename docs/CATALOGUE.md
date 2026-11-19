@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `051c70f4` · source digest `7059bbc7b34cdb53` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `a84920ee` · source digest `f4b8304dae310abd` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -1781,21 +1781,21 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_d0_window_z` | Salt/Goldbach/D0Win2.lean:187 | sieves |
 | `Salt.Goldbach.gold_box_price_engine_at_live_z` | Salt/Goldbach/D0Win2.lean:436 | sieves |
 | `Salt.Goldbach.gold_dsplit_head_cap_below_conductor` | Salt/Goldbach/DSplit.lean:101 | sieves |
-| `Salt.Goldbach.goldPs_squarefree` | Salt/Goldbach/Density.lean:74 | sieves |
-| `Salt.Goldbach.goldPs_primeFactors` | Salt/Goldbach/Density.lean:80 | sieves |
-| `Salt.Goldbach.goldPs_coprime_N` | Salt/Goldbach/Density.lean:88 | sieves |
-| `Salt.Goldbach.coprime_of_dvd_goldPs` | Salt/Goldbach/Density.lean:98 | sieves |
-| `Salt.Goldbach.goldPs_odd` | Salt/Goldbach/Density.lean:104 | sieves |
-| `Salt.Goldbach.goldPs_primeFactors_facts` | Salt/Goldbach/Density.lean:113 | sieves |
-| `Salt.Goldbach.coprime_mod_of_coprime` | Salt/Goldbach/Density.lean:126 | sieves |
-| `Salt.Goldbach.crtClass_coprime_gold` | Salt/Goldbach/Density.lean:135 | sieves |
-| `Salt.Goldbach.card_primesInWindow_dvd_le` | Salt/Goldbach/Density.lean:157 | sieves |
-| `Salt.Goldbach.punctured_correction_le` | Salt/Goldbach/Density.lean:191 | sieves |
-| `Salt.Goldbach.window_prod_upper_punctured` | Salt/Goldbach/Density.lean:238 | sieves |
-| `Salt.Goldbach.exp_correction_le` | Salt/Goldbach/Density.lean:296 | sieves |
-| `Salt.Goldbach.exp_correction_le_op` | Salt/Goldbach/Density.lean:320 | sieves |
-| `Salt.Goldbach.window_prod_upper_punctured_folded` | Salt/Goldbach/Density.lean:334 | sieves |
-| `Salt.Goldbach.goldPs_hnu` | Salt/Goldbach/Density.lean:357 | sieves |
+| `Salt.Goldbach.goldPs_squarefree` | Salt/Goldbach/Density.lean:66 | sieves |
+| `Salt.Goldbach.goldPs_primeFactors` | Salt/Goldbach/Density.lean:72 | sieves |
+| `Salt.Goldbach.goldPs_coprime_N` | Salt/Goldbach/Density.lean:80 | sieves |
+| `Salt.Goldbach.coprime_of_dvd_goldPs` | Salt/Goldbach/Density.lean:90 | sieves |
+| `Salt.Goldbach.goldPs_odd` | Salt/Goldbach/Density.lean:96 | sieves |
+| `Salt.Goldbach.goldPs_primeFactors_facts` | Salt/Goldbach/Density.lean:105 | sieves |
+| `Salt.Goldbach.coprime_mod_of_coprime` | Salt/Goldbach/Density.lean:118 | sieves |
+| `Salt.Goldbach.crtClass_coprime_gold` | Salt/Goldbach/Density.lean:127 | sieves |
+| `Salt.Goldbach.card_primesInWindow_dvd_le` | Salt/Goldbach/Density.lean:149 | sieves |
+| `Salt.Goldbach.punctured_correction_le` | Salt/Goldbach/Density.lean:183 | sieves |
+| `Salt.Goldbach.window_prod_upper_punctured` | Salt/Goldbach/Density.lean:230 | sieves |
+| `Salt.Goldbach.exp_correction_le` | Salt/Goldbach/Density.lean:288 | sieves |
+| `Salt.Goldbach.exp_correction_le_op` | Salt/Goldbach/Density.lean:312 | sieves |
+| `Salt.Goldbach.window_prod_upper_punctured_folded` | Salt/Goldbach/Density.lean:326 | sieves |
+| `Salt.Goldbach.goldPs_hnu` | Salt/Goldbach/Density.lean:349 | sieves |
 | `Salt.Goldbach.apDiscBilinCutoff_symm` | Salt/Goldbach/Final.lean:56 | sieves |
 | `Salt.Goldbach.gold_box_disc_trivial_min` | Salt/Goldbach/Final.lean:94 | sieves |
 | `Salt.Goldbach.gold_box_tail_min` | Salt/Goldbach/Final.lean:117 | sieves |
@@ -6803,7 +6803,7 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.Twelve.collision_yF_M` | Salt/Twelve/InnerS1.lean:956 | sieves |
 | `Salt.Twelve.phiUpperAtom_final` | Salt/Twelve/PhiUpperReindex.lean:499 | sieves |
 | `Salt.Twelve.bounded_gaps_reduces_twelve` | Salt/Twelve/Pigeonhole12.lean:98 | sieves |
-| `Salt.Twelve.primorial_ratio_le` | Salt/Twelve/PrimorialRatio.lean:191 | sieves |
+| `Salt.Twelve.primorial_ratio_le` | Salt/Twelve/PrimorialRatio.lean:183 | sieves |
 | `Salt.TwinBar.cs_bound_ignores_constraint` | Salt/TwinBar/Constrained.lean:198 | sieves |
 | `Salt.TwinBar.no_twin_weight_constrained` | Salt/TwinBar/Constrained.lean:209 | sieves |
 | `Salt.TwinBar.admissible_witness` | Salt/TwinBar/Constrained.lean:377 | sieves |
@@ -6860,12 +6860,12 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.TwinBar.maynard_open_at_five` | Salt/TwinBar/LeastK.lean:108 | sieves |
 | `Salt.TwinBar.least_k_theorem` | Salt/TwinBar/LeastK.lean:127 | sieves |
 | `Salt.TwinBar.logWeight` | Salt/TwinBar/LogWeight.lean:36 | sieves |
-| `Salt.TwinBar.siftedSum_sPlus` | Salt/TwinBar/ParityWall.lean:285 | sieves |
-| `Salt.TwinBar.siftedSum_sMinus` | Salt/TwinBar/ParityWall.lean:297 | sieves |
-| `Salt.TwinBar.lambda_mult_sum` | Salt/TwinBar/ParityWall.lean:335 | sieves, characters |
-| `Salt.TwinBar.sPlus_rem_bound` | Salt/TwinBar/ParityWall.lean:426 | sieves |
-| `Salt.TwinBar.sMinus_rem_bound` | Salt/TwinBar/ParityWall.lean:431 | sieves |
-| `Salt.TwinBar.sieveAgree_pair` | Salt/TwinBar/ParityWall.lean:450 | sieves |
+| `Salt.TwinBar.siftedSum_sPlus` | Salt/TwinBar/ParityWall.lean:277 | sieves |
+| `Salt.TwinBar.siftedSum_sMinus` | Salt/TwinBar/ParityWall.lean:289 | sieves |
+| `Salt.TwinBar.lambda_mult_sum` | Salt/TwinBar/ParityWall.lean:327 | sieves, characters |
+| `Salt.TwinBar.sPlus_rem_bound` | Salt/TwinBar/ParityWall.lean:418 | sieves |
+| `Salt.TwinBar.sMinus_rem_bound` | Salt/TwinBar/ParityWall.lean:423 | sieves |
+| `Salt.TwinBar.sieveAgree_pair` | Salt/TwinBar/ParityWall.lean:442 | sieves |
 | `Salt.TwinBar.dirichlet₂` | Salt/TwinBar/RationalTie.lean:185 | sieves |
 | `Salt.TwinBar.no_twin_certificate` | Salt/TwinBar/RationalTie.lean:527 | sieves |
 | `Salt.TwinBar.twin_certificate_example` | Salt/TwinBar/RationalTie.lean:542 | sieves |
@@ -9259,7 +9259,7 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.shiftCorrAff` | Salt/Entropy/Chowla/StrideReduce.lean:272 | entropy |
 | `Salt.Entropy.Chowla.shiftCorrAff_base` | Salt/Entropy/Chowla/StrideReduce.lean:278 | characters, entropy |
 | `Salt.Entropy.Chowla.badSet_h` | Salt/Entropy/Chowla/Transport.lean:76 | entropy |
-| `Salt.Goldbach.goldPs_nu_eq` | Salt/Goldbach/Density.lean:351 | sieves |
+| `Salt.Goldbach.goldPs_nu_eq` | Salt/Goldbach/Density.lean:343 | sieves |
 | `Salt.Goldbach.goldOmegaPrimeSum_decomp` | Salt/Goldbach/Omega.lean:122 | sieves |
 | `Salt.Goldbach.goldBlockHonestDiscW_eq_sum_pieces` | Salt/Goldbach/SW2.lean:143 | sieves |
 | `Salt.Goldbach.goldBlockBoxHonestDisc_split_m` | Salt/Goldbach/SW2.lean:188 | sieves |
