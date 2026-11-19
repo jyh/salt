@@ -23409,7 +23409,7 @@ cost a census and not a wave.
   `chi_floor_band_uniform` → `chi_Llower_band_uniform`, **a bare induction-max over every
   modulus `q ≤ Q`** (`SiegelBand.lean:36`: *"no known growth rate in `Q`"*). The cushion's own
   docstring already says *"has no effective bound anywhere in the corpus"*
-  (`RegisterSupply.lean:572`);
+  (`RegisterSupply.lean:577`);
 * `Kvk`/`Kbulk` **are** effective — Wave K's stones (`cpeel_le_two`, `primeTailConst_le_27`,
   salt `aa66b675`) bottom them out. **The band arm is the whole blocker.**
 
@@ -25622,7 +25622,7 @@ the class and the statement of record, the five receipts, the four inversion lem
 U-forms, U-ARM (`s15Arm_le_of_regime`), and the doorL2, road and capstone hops on the U-forms.
 
 **What the hop needs about `R` that its U-form does not give.**  The source
-`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4874`) spends the head's COUNT export
+`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4871`) spends the head's COUNT export
 `∀ H [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → |bigXi R.eps H| ≤ K` (K the head's existential) twice:
 as an input to the head's own slot and as `hcount` of `sum_bigXi_norm_windowExpSum_sq_le_twelve`
 (`M4Window.lean:567`).  Under the brief's rule `FlatHeadFormU` keeps the count as a HYPOTHESIS
@@ -25632,7 +25632,7 @@ one open goal is exactly
 `⊢ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ↑(bigXi R.eps H).card ≤ K`
 with `K` known only through `0 < K` and `K ≤ 2 ^ 283 * c ^ 20`.
 
-**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2227`) needs
+**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2224`) needs
 `ε ≤ 1/500`, which no form carries (only `0 < ε` and the pin), and it yields ITS OWN constant `C`,
 not the head's `K`; the socket's `Hopq`/`Hcap` are the hop's to choose but a floor cannot bound a
 count by a constant the hop did not pick.  So this is a walk finding about the FORMS, not a proof

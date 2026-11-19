@@ -81,10 +81,10 @@ theorem epsRung2_log_inv_eps_le {h : ℕ} (hh : 0 < h) {L : ℝ} (hhL : Real.log
   linarith [epsRung2_log500_le, hhL]
 
 set_option maxHeartbeats 1000000 in
--- as the source (`V7RatedH.lean:365`): the exponent comparison closes through `exp` rewrites
+-- as the source (`V7RatedH.lean:362`): the exponent comparison closes through `exp` rewrites
 -- and three `nlinarith` calls, and the `L`-cut adds one more atom to the closing `linarith`.
 /-- **⟦R8 — `klevF_capNumeral_h_b9` AT THE HEAD'S GRADE⟧** (`klevF_capNumeral_L`) — the `_b9`
-twin's ONE cap site (`V7RatedH.lean:387`, `h ≤ 8103` by `h_le_8103_of_hh9`) feeds exactly one
+twin's ONE cap site (`V7RatedH.lean:384`, `h ≤ 8103` by `h_le_8103_of_hh9`) feeds exactly one
 number, `log (1/ε) ≤ 16`.  At generic `L` it reads `log (1/ε) ≤ 6.24 + L`, and the close
 `9.6·(c' + 21) ≤ 69·e^{2t}` becomes `9.6·(c' + 11.24 + L) ≤ 69·e^{2t}`: the `L` is paid by the
 tower's own hypothesis `hLt : L ≤ e^{1.6A}` (at `A ≥ 26` that is `L ≤ 10^17`),
@@ -572,10 +572,7 @@ theorem cofk_tower_logfloor_L {R : ChowlaRegime} {h M H L q j A s : ℕ} {Lc : �
   have hexp : Real.exp (518 + Lc) ≤ Real.log (R.Hlo : ℝ) := by
     have h := Real.exp_le_exp.mpr hloL
     rwa [Real.exp_log (by linarith)] at h
-  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := by
-    have h := cofk_exp_quartic (u := (518 : ℝ)) (by norm_num)
-    have hnum : (290029400 : ℝ) ≤ (1 + (518 : ℝ) / 4) ^ 4 := by norm_num
-    linarith
+  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := cofk_ten_pow_eight_le_exp_518
   have hexpL : (1 : ℝ) + Lc ≤ Real.exp Lc := by
     have h := Real.add_one_le_exp Lc; linarith
   have hmul : (10 : ℝ) ^ 8 * (1 + Lc) ≤ Real.exp 518 * Real.exp Lc :=
