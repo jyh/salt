@@ -254,6 +254,25 @@ theorem gold_rpow_div_le_sqrt {N c c₂ k k₂ Y : ℝ} (hN : 0 ≤ N) (hk : 0 <
     norm_num
   rw [hsq]; exact h
 
+/-- **`gold_N0_le_two_pow`** (O13-e row 292). The engines' `N₀ ≤ 2^kp` row: from
+`(16·N₀)³ + 1 ≤ N` (the threshold the engine's `N`-floor carries) and `N^{1/3} ≤ 16·2^kp`
+(the dyadic scale of the `k`-floor), `N₀ ≤ 2^kp`, since `16·N₀ ≤ N^{1/3}`. -/
+theorem gold_N0_le_two_pow {N N₀ kp : ℕ} (hbigN : (16 * N₀) ^ 3 + 1 ≤ N)
+    (hcap : (N : ℝ) ^ ((1 : ℝ) / 3) ≤ 16 * ((2 ^ kp : ℕ) : ℝ)) : N₀ ≤ 2 ^ kp := by
+  have hbigR : ((16 * N₀ : ℕ) : ℝ) ^ 3 ≤ (N : ℝ) := by
+    have hle : ((16 * N₀) ^ 3 : ℕ) ≤ N := by omega
+    calc ((16 * N₀ : ℕ) : ℝ) ^ 3 = (((16 * N₀) ^ 3 : ℕ) : ℝ) := by push_cast; ring
+      _ ≤ (N : ℝ) := by exact_mod_cast hle
+  have hcube : ((16 * N₀ : ℕ) : ℝ) ≤ (N : ℝ) ^ ((1 : ℝ) / 3) := by
+    have hmono := Real.rpow_le_rpow (by positivity) hbigR (by norm_num : (0 : ℝ) ≤ 1 / 3)
+    rwa [← Real.rpow_natCast ((16 * N₀ : ℕ) : ℝ) 3, ← Real.rpow_mul (by positivity),
+      show ((3 : ℕ) : ℝ) * (1 / 3) = 1 by norm_num, Real.rpow_one] at hmono
+  have hchain : ((16 * N₀ : ℕ) : ℝ) ≤ 16 * ((2 ^ kp : ℕ) : ℝ) := le_trans hcube hcap
+  have hfin : ((N₀ : ℕ) : ℝ) ≤ ((2 ^ kp : ℕ) : ℝ) := by
+    have heq : ((16 * N₀ : ℕ) : ℝ) = 16 * ((N₀ : ℕ) : ℝ) := by push_cast; ring
+    rw [heq] at hchain; linarith [hchain]
+  exact_mod_cast hfin
+
 /-! ## 1. The z-geometry rows `hz_ratio` / `hx` (the D0Win2 live-geometry inputs, deliverable 2)
 
 The two `goldCut`-lower-bound rows `gold_box_price_live_kerr` consumes.  Both come from
@@ -582,21 +601,8 @@ theorem gold_box_rows_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
       simpa using this
     linarith [h2kp4, hcast]
   -- `hN₀ : N₀ ≤ 2^kp`
-  have hN₀ : N₀ ≤ 2 ^ kp := by
-    have hbigR : ((16 * N₀ : ℕ) : ℝ) ^ 3 ≤ (N : ℝ) := by
-      have hle : ((16 * N₀) ^ 3 : ℕ) ≤ N := by omega
-      calc ((16 * N₀ : ℕ) : ℝ) ^ 3 = (((16 * N₀) ^ 3 : ℕ) : ℝ) := by push_cast; ring
-        _ ≤ (N : ℝ) := by exact_mod_cast hle
-    have hcube : ((16 * N₀ : ℕ) : ℝ) ≤ (N : ℝ) ^ ((1 : ℝ) / 3) := by
-      have hmono := Real.rpow_le_rpow (by positivity) hbigR (by norm_num : (0 : ℝ) ≤ 1 / 3)
-      rwa [← Real.rpow_natCast ((16 * N₀ : ℕ) : ℝ) 3, ← Real.rpow_mul (by positivity),
-        show ((3 : ℕ) : ℝ) * (1 / 3) = 1 by norm_num, Real.rpow_one] at hmono
-    have hchain : ((16 * N₀ : ℕ) : ℝ) ≤ 16 * ((2 ^ kp : ℕ) : ℝ) :=
-      le_trans hcube (by linarith [hwge, hwkf])
-    have hfin : ((N₀ : ℕ) : ℝ) ≤ ((2 ^ kp : ℕ) : ℝ) := by
-      have heq : ((16 * N₀ : ℕ) : ℝ) = 16 * ((N₀ : ℕ) : ℝ) := by push_cast; ring
-      rw [heq] at hchain; linarith [hchain]
-    exact_mod_cast hfin
+  have hN₀ : N₀ ≤ 2 ^ kp :=
+    gold_N0_le_two_pow hbigN (by linarith [hwge, hwkf])
   -- structural rows
   have hX2 : 2 ≤ 2 ^ (i + 1) - 1 := by
     have h8 : (8 : ℝ) ≤ (N : ℝ) ^ ((11 : ℝ) / 24) := by
