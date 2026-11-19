@@ -87,3 +87,13 @@ e90c5120134551ddb023a2b5a8cb202d2aa536d9	Salt/MR/HDoorArc.lean	718b5a4f081c1fdb	
 e90c5120134551ddb023a2b5a8cb202d2aa536d9	docs/QUEUE.md	6740e193cba09c28	a path into a private-record repo
 eecf478a054999ef8af14565202f16a5db4d7a11	docs/QUEUE.md	c3ca3046533a9201	a path into a private-record repo
 fb1c7c5361683faedc8d47ad49e6dafba64a7f53	scripts/check_private_paths.py	091697a6b6d654bc	a rootless path into the private record (briefs-/fleet-shape)
+15d54e8f70c254cce5a6991f343706ec278df134	Salt/SW/JutilaResidue.lean	a2337e2c308d109f	a rootless path into the private record (briefs-/fleet-shape)
+25b782ec0954bf20694e76bc84d761f4bc1d24a6	Salt/SW/JutilaDetector.lean	497ab970095bd8ff	a rootless path into the private record (briefs-/fleet-shape)
+270eeaaa845dbfbf7ca6398179ef6777029430f1	Salt/SW/DensityStrip.lean	c9876301470622dc	a rootless path into the private record (briefs-/fleet-shape)
+2c82f0f9ef2eb1da06aa99029486544aef58b8f0	Salt/SW/ZeroCountNearOne.lean	f2e6f8e1b0bc265c	a rootless path into the private record (briefs-/fleet-shape)
+2e232b2cfb8187ce85fa6a38b41f2e82a5969882	Salt/SW/PseudoCharH.lean	d25b2a9606f0409b	a rootless path into the private record (briefs-/fleet-shape)
+d983b0e59e8dfb6fcf7c34eb4a5cea189e4b46e2	Salt/SW/JutilaHalasz.lean	a3a9080ad988f0bf	a rootless path into the private record (briefs-/fleet-shape)
+f2a0d0a55efb3f6ab111bfd56f00b943acece6a6	Salt/MR/HalaszWeighted.lean	17c58ff29b396815	a rootless path into the private record (briefs-/fleet-shape)
+# 2026-11-19: the seven rootless-shape rows (desk AHE) for Salt/SW/{DensityStrip,JutilaHalasz,JutilaResidue,ZeroCountNearOne,PseudoCharH,JutilaDetector}.lean
+#   and Salt/MR/HalaszWeighted.lean are ACCEPTED by the owner's ruling at the 2026-11-19 council (ask 1: baselined debt, no purge). The tree
+#   lines were rewritten to bare filenames on main by 1ce13ec0.
