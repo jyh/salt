@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `c93bd108` · source digest `d7e938d1e2d92480` (the same digest as items 1–3).
-> Receipt: files 1414 · decls 23446 · with_body 23446 · tactic_lines 301931 · runs 35518 · blocks 1216.
+> Base: last commit touching `Salt/` = `3daf6dff` · source digest `d6934fb11c7f0271` (the same digest as items 1–3).
+> Receipt: files 1414 · decls 23447 · with_body 23447 · tactic_lines 301842 · runs 35501 · blocks 1216.
 
 ## LIMITS (read before any number below)
 
@@ -100,22 +100,22 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-301931 tactic lines. Top 30:
+301842 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 131500 | 43.6% |
-| 2 | `rw` | 48856 | 16.2% |
-| 3 | `exact` | 17409 | 5.8% |
+| 1 | `have` | 131451 | 43.5% |
+| 2 | `rw` | 48841 | 16.2% |
+| 3 | `exact` | 17404 | 5.8% |
 | 4 | `intro` | 14006 | 4.6% |
 | 5 | `refine` | 12726 | 4.2% |
-| 6 | `linarith` | 10353 | 3.4% |
-| 7 | `obtain` | 9139 | 3.0% |
-| 8 | `calc` | 7772 | 2.6% |
+| 6 | `linarith` | 10350 | 3.4% |
+| 7 | `obtain` | 9143 | 3.0% |
+| 8 | `calc` | 7766 | 2.6% |
 | 9 | `set` | 5445 | 1.8% |
 | 10 | `simp` | 5149 | 1.7% |
 | 11 | `apply` | 4517 | 1.5% |
-| 12 | `nlinarith` | 3311 | 1.1% |
+| 12 | `nlinarith` | 3302 | 1.1% |
 | 13 | `unfold` | 2623 | 0.9% |
 | 14 | `exact_mod_cast` | 2380 | 0.8% |
 | 15 | `rcases` | 2126 | 0.7% |
@@ -123,7 +123,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 17 | `push_cast` | 1946 | 0.6% |
 | 18 | `field_simp` | 1857 | 0.6% |
 | 19 | `by_cases` | 1634 | 0.5% |
-| 20 | `rwa` | 1574 | 0.5% |
+| 20 | `rwa` | 1568 | 0.5% |
 | 21 | `norm_num` | 1487 | 0.5% |
 | 22 | `show` | 1268 | 0.4% |
 | 23 | `omega` | 1261 | 0.4% |
@@ -151,7 +151,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
 | Matomaki-Radziwill / Halasz (short intervals) | 114524 | `have` 51879, `rw` 15812, `exact` 6676, `refine` 6523, `intro` 5710, `linarith` 5220, `obtain` 4962, `calc` 2188 |
-| (no family) | 28658 | `have` 11108, `rw` 5114, `exact` 1732, `intro` 1554, `obtain` 974, `refine` 959, `set` 882, `calc` 862 |
+| (no family) | 28569 | `have` 11059, `rw` 5099, `exact` 1727, `intro` 1554, `obtain` 978, `refine` 959, `set` 882, `calc` 856 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
