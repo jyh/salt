@@ -2468,7 +2468,7 @@ inside `M4Close.M4SievedDoorSq_L`; the `def` is a spelling, definitionally trans
 def doorSievedCoeff_L (M : ℕ) : ℕ → ℂ :=
   memSCoeff (calP (AdoorL M) (3072 * M)) (calQK (AdoorL M) (3072 * M) M) 2 liouvilleC
 
-/-! ### `M4BridgeCover` :578 — `doorSievedCoeff_gk` -/
+/-! ### `M4BridgeCover` :572 — `doorSievedCoeff_gk` -/
 /-- **THE DOOR'S SIEVED DATUM AT THE LEVER** — `doorSievedCoeff_L` (:361) at `G := s13GK K M`.
 Byte-exactly the coefficient sequence inside `M4Close.M4SievedDoorSq_L_gk`. -/
 def doorSievedCoeff_L_gk (K M : ℕ) : ℕ → ℂ :=

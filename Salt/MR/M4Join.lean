@@ -125,7 +125,7 @@ now CLOSED:
    **UNPRIMED** residue — the object this file states — and mentions `M4RowMeanSq_L` **zero**
    times (measured; QUEUE P1b's 08/23 stamp and its 08/25 erratum).  **Nothing here says the
    `_L` lane's residue is produced.**  It is not: the `L` lane reaches this machinery only
-   through the socket exit `m4_sievedDoorSq_of_classMeanSq_L` (`M4RowLinear.lean:2695`), and a
+   through the socket exit `m4_sievedDoorSq_of_classMeanSq_L` (`M4RowLinear.lean:2689`), and a
    producer for `M4RowMeanSq_L` remains the precise open object.
 
    *A file that correctly scopes a negative to itself still publishes that negative to every
@@ -293,13 +293,7 @@ theorem m4_blockMeanSqSup_trivial (R : ChowlaRegime) (M k : ℕ) :
       _ = ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
             * (H : ℝ) ^ 2 := by
           rw [Finset.sum_const, nsmul_eq_mul]
-  have hc : ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
-      ≤ (doorLadder R.x H (i + 1) : ℝ) := by
-    rw [Nat.card_Ioc]
-    have hfit := doorLadder_fit R.x H i
-    have hn : doorLadder R.x H i - doorLadder R.x H (i + 1) ≤ doorLadder R.x H (i + 1) := by
-      omega
-    exact_mod_cast hn
+  have hc := doorLadder_card_Ioc_le R.x H i
   have hpos := doorLadder_pos hxH (i + 1)
   nlinarith
 
@@ -688,13 +682,7 @@ theorem m4_blockMeanSqSup_trivial_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) :
       _ = ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
             * (H : ℝ) ^ 2 := by
           rw [Finset.sum_const, nsmul_eq_mul]
-  have hc : ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
-      ≤ (doorLadder R.x H (i + 1) : ℝ) := by
-    rw [Nat.card_Ioc]
-    have hfit := doorLadder_fit R.x H i
-    have hn : doorLadder R.x H i - doorLadder R.x H (i + 1) ≤ doorLadder R.x H (i + 1) := by
-      omega
-    exact_mod_cast hn
+  have hc := doorLadder_card_Ioc_le R.x H i
   have hpos := doorLadder_pos hxH (i + 1)
   nlinarith
 

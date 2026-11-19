@@ -253,13 +253,7 @@ theorem m4_classBlockMeanSq_trivial (R : ChowlaRegime) (M k : ℕ) :
           Finset.sum_le_sum hterm
       _ = ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
             * (H : ℝ) ^ 2 := by rw [Finset.sum_const, nsmul_eq_mul]
-  have hc : ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
-      ≤ (doorLadder R.x H (i + 1) : ℝ) := by
-    rw [Nat.card_Ioc]
-    have hfit := doorLadder_fit R.x H i
-    have hn : doorLadder R.x H i - doorLadder R.x H (i + 1) ≤ doorLadder R.x H (i + 1) := by
-      omega
-    exact_mod_cast hn
+  have hc := doorLadder_card_Ioc_le R.x H i
   have hpos := doorLadder_pos hxH (i + 1)
   nlinarith
 
@@ -973,13 +967,7 @@ theorem m4_classBlockMeanSq_trivial_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) 
           Finset.sum_le_sum hterm
       _ = ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
             * (H : ℝ) ^ 2 := by rw [Finset.sum_const, nsmul_eq_mul]
-  have hc : ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
-      ≤ (doorLadder R.x H (i + 1) : ℝ) := by
-    rw [Nat.card_Ioc]
-    have hfit := doorLadder_fit R.x H i
-    have hn : doorLadder R.x H i - doorLadder R.x H (i + 1) ≤ doorLadder R.x H (i + 1) := by
-      omega
-    exact_mod_cast hn
+  have hc := doorLadder_card_Ioc_le R.x H i
   have hpos := doorLadder_pos hxH (i + 1)
   nlinarith
 

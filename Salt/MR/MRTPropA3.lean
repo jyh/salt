@@ -894,7 +894,7 @@ earlier were all published first and corrected after.  **Fencing is cheap; retra
 Walked the gates down: `M4SievedDoorSq_L → M4BlockMeanSq_L → M4RowMeanSq_L`.
 `M4RowMeanSq_L` (`M4RowLinear.lean:993`) has **no producer** — established by reading **all six
 of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1394`) ·
-an enumeration entry (`:2908`) · one arrow (`:2923`).
+an enumeration entry (`:2902`) · one arrow (`:2917`).
 
 ⭐ **AND THIS TIME IT IS NOT MY INFERENCE — THE CORPUS SAYS SO AT THE DEFINITION SITE:**
 *"**THE WAVE'S REMAINING INPUT**… This predicate is the wave's ⟦RESIDUE⟧: see the module header
@@ -931,7 +931,7 @@ own standing rule is a trigger to check, not a finding.  **UNTESTED.** -/
 `M4RowLinear.m4_hbd_of_live_L` (`:2335`) delivers the door's `hbd` from four bundles.  Probed
 each with the calibrated producer probe (control `MRTUniformityXi` → 6; decoy → 0):
 
-**`M4GradeGate`** (`M4Close.lean:425`) — `m4_gradeGate_direct` (`M4ClassPrice.lean:747`)
+**`M4GradeGate`** (`M4Close.lean:425`) — `m4_gradeGate_direct` (`M4ClassPrice.lean:741`)
 produces it from **two explicit inequalities and NO other gate**:
 `√(Braw H) ≤ mrtDeliveredGrade (C/2) H` and `δ/4 + 4·2^k/x ≤ mrtDeliveredGrade (C/2) H`.
 *It bottoms out in arithmetic about the delivered grade, not in another Prop socket.*
