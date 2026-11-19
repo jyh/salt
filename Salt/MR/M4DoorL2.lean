@@ -405,7 +405,7 @@ theorem m4_gradeGateL2_const {R : ChowlaRegime} {c₀ε K δ Bceil : ℝ} {k : �
 
 This section states the seam at the FREEZE's own budget line, `ρ < c₀·ε`, abstracted over the
 head as `M4DoorL2HeadDemand`.  The shape is read off the landed pieces, not guessed:
-`log_chowla_two_shell_xi_sq` (`Theorem23Shell.lean:361`, W1) consumes `MRTUniformityXiL2 R ρ`
+`log_chowla_two_shell_xi_sq` (`Theorem23Shell.lean:515`, W1) consumes `MRTUniformityXiL2 R ρ`
 together with `hbudget2 : ρ < c₀·ε` and nothing else about the door;
 `contradiction_of_mrtDoorXiL2` (`MRTDoor.lean:205`) is `K`-free.  So the head's whole
 door-facing surface is exactly the pair (door predicate, strict budget) — which is what §1
