@@ -244,10 +244,10 @@ noncomputable def Btwin (lvl : ℝ) : ℝ := (⌊lvl⌋₊ : ℝ) * (1 + Real.lo
 /-- **B3**: the landed twin remainder, summed over `d ∣ P` below the level, is at most
 `Btwin lvl`.  The chain is `rem_abs_le` (`Salt/Brun/M2.lean:250`, `|rem d| ≤ ρ(d)`) →
 `rho_squarefree_le` (`:215`, `ρ(d) ≤ 2^ω(d)` for squarefree `d`, and every `d ∣ P` is
-squarefree) → the re-index of `Salt/Brun/M5Assembly.lean:226-256` (`Finset.sum_filter`, then
+squarefree) → the re-index of `Salt/Brun/M5Assembly.lean:218-248` (`Finset.sum_filter`, then
 `Finset.sum_le_sum_of_subset_of_nonneg` onto the level's initial segment) →
 `sum_two_pow_omega_le`.  The `2^ω` route replaces that idiom's `3^ω` constant; the N4.2 `y⁴`
-step of `M5Assembly.lean:257` is NOT used. -/
+step of `M5Assembly.lean:249` is NOT used. -/
 theorem twinRem_sum_le (hPsq : Squarefree P) {lvl : ℝ} (hlvl : 1 ≤ lvl) :
     (∑ d ∈ P.divisors, if (d : ℝ) < lvl then |_root_.rem d N| else 0) ≤ Btwin lvl := by
   have hfl : 1 ≤ ⌊lvl⌋₊ := Nat.le_floor (by exact_mod_cast hlvl)
