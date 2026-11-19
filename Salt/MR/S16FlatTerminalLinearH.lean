@@ -1226,7 +1226,7 @@ theorem m4_freeBlockSup_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M : �
 
 set_option maxHeartbeats 1200000 in
 -- the block sum is re-associated over the drift blocks and then over the ladder block, as at
--- `M4RowSpineLinear.lean:588`
+-- `M4RowSpineLinear.lean:559`
 /-- **3.5** `m4_blockMeanSqBlk2_of_chiSummed_L_gk` (`M4RowSpineLinear.lean:592`) at the witness
 `blockLenH h`; `hgate` is the door gate `h·(log H)^12 < P₁`, a HYPOTHESIS here as at `h = 1`. -/
 theorem m4_blockMeanSqBlk2_of_chiSummedH_L_gk (h K : ℕ) {R : ChowlaRegime} {M k : ℕ}
