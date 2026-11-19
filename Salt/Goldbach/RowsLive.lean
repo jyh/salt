@@ -128,6 +128,55 @@ theorem gold_op_scales : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
   exact ⟨hN2, hZ1, hy6, hlogZ_le, hlogZ_ge, hlogY_ge, hlogN, hZle, hZhalf, hYle, hYhalf,
     hexp4000, hN13_16⟩
 
+/-- **`gold_box_L_window`** (O13-e row 283). The `L`-window of a Goldbach box `X·M` at the
+operating point: from `X ≥ N^{11/24}/4`, `M ≥ 1` and `X·M ≤ 2N`, with `log N ≥ 2·10^9`, the box
+`X·M` is positive and at least `N^{11/24}/4`, and `L := log(X·M)` satisfies
+`(11/24)·log N − log 4 ≤ L`, `2 ≤ L`, `L ≤ 2·log N` and `L ≤ log(4N)`. The four box engines
+(`BandRows`, `KerrY`, `KerrY2`, `RowsWide`) derived this block inline, at
+`X = 2^{i+1} − 1`, `M = pieceM kp`. -/
+theorem gold_box_L_window {N X M : ℕ} (hNpos : (0 : ℝ) < (N : ℝ))
+    (hlogN : (2 * 10 ^ 9 : ℝ) ≤ Real.log N)
+    (hXge : (N : ℝ) ^ ((11 : ℝ) / 24) / 4 ≤ (X : ℝ)) (hMge1 : (1 : ℝ) ≤ (M : ℝ))
+    (hXM2N : X * M ≤ 2 * N) :
+    (0 : ℝ) < (X : ℝ) * (M : ℝ)
+      ∧ (N : ℝ) ^ ((11 : ℝ) / 24) / 4 ≤ (X : ℝ) * (M : ℝ)
+      ∧ 11 / 24 * Real.log N - Real.log 4 ≤ Real.log ((X : ℝ) * (M : ℝ))
+      ∧ (2 : ℝ) ≤ Real.log ((X : ℝ) * (M : ℝ))
+      ∧ (X : ℝ) * (M : ℝ) ≤ 2 * (N : ℝ)
+      ∧ Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * Real.log N
+      ∧ Real.log ((X : ℝ) * (M : ℝ)) ≤ Real.log (4 * (N : ℝ)) := by
+  have hlog4 : Real.log 4 ≤ 3 := by
+    linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 4 by norm_num)]
+  have hXMpos : (0 : ℝ) < (X : ℝ) * (M : ℝ) := by
+    have hXpos : (0 : ℝ) < (X : ℝ) := by
+      have : (0 : ℝ) < (N : ℝ) ^ ((11 : ℝ) / 24) / 4 := by positivity
+      linarith [hXge]
+    positivity
+  set L : ℝ := Real.log ((X : ℝ) * (M : ℝ)) with hLdef
+  have hXMloR : (N : ℝ) ^ ((11 : ℝ) / 24) / 4 ≤ (X : ℝ) * (M : ℝ) := by
+    calc (N : ℝ) ^ ((11 : ℝ) / 24) / 4 ≤ (X : ℝ) := hXge
+      _ = (X : ℝ) * 1 := by ring
+      _ ≤ (X : ℝ) * (M : ℝ) := by
+          apply mul_le_mul_of_nonneg_left hMge1; positivity
+  have hlogval : Real.log ((N : ℝ) ^ ((11 : ℝ) / 24) / 4)
+      = 11 / 24 * Real.log N - Real.log 4 := by
+    rw [Real.log_div (by positivity) (by norm_num), Real.log_rpow hNpos]
+  have hLlow : 11 / 24 * Real.log N - Real.log 4 ≤ L := by
+    have hle : Real.log ((N : ℝ) ^ ((11 : ℝ) / 24) / 4) ≤ L :=
+      Real.log_le_log (by positivity) hXMloR
+    rwa [hlogval] at hle
+  have hL2 : (2 : ℝ) ≤ L := by linarith [hlogN, hlog4, hLlow]
+  have hXMhiR : (X : ℝ) * (M : ℝ) ≤ 2 * (N : ℝ) := by
+    have hc : ((X * M : ℕ) : ℝ) ≤ ((2 * N : ℕ) : ℝ) := by exact_mod_cast hXM2N
+    push_cast at hc ⊢; linarith [hc]
+  have h4N : (X : ℝ) * (M : ℝ) ≤ 4 * (N : ℝ) := by linarith [hXMhiR]
+  have hLbb : L ≤ Real.log (4 * (N : ℝ)) := Real.log_le_log hXMpos h4N
+  have hLle : L ≤ 2 * Real.log N := by
+    have hlog := hLbb
+    rw [Real.log_mul (by norm_num) (ne_of_gt hNpos)] at hlog
+    linarith [hlog, hlog4, hlogN]
+  exact ⟨hXMpos, hXMloR, hLlow, hL2, hXMhiR, hLle, hLbb⟩
+
 /-! ## 1. The z-geometry rows `hz_ratio` / `hx` (the D0Win2 live-geometry inputs, deliverable 2)
 
 The two `goldCut`-lower-bound rows `gold_box_price_live_kerr` consumes.  Both come from

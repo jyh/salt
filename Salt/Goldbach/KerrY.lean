@@ -366,44 +366,14 @@ theorem gold_kerrY_engine : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
     have : (1 : ℕ) ≤ pieceM kp := by
       have := two_pow_le_pieceM kp; have := Nat.one_le_pow kp 2 (by norm_num); omega
     exact_mod_cast this
-  have hXMpos : (0 : ℝ) < ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ) := by
-    have hXpos : (0 : ℝ) < ((2 ^ (i + 1) - 1 : ℕ) : ℝ) := by
-      have : (0 : ℝ) < (N : ℝ) ^ ((11 : ℝ) / 24) / 4 := by positivity
-      linarith [hXge]
-    positivity
+  obtain ⟨hXMpos, hXMloR, hLlow, hL2, hXMhiR, hLle, hLbb⟩ :=
+    gold_box_L_window hNpos hlogN hXge hMge1 hXM2N
   set L : ℝ := Real.log (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) with hLdef
-  -- `L` window: `2 ≤ L ≤ 2·log N`
   have hlog4 : Real.log 4 ≤ 3 := by
     linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 4 by norm_num)]
   have hlog2 : Real.log 2 ≤ 1 := by
     linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)]
-  have hXMloR : (N : ℝ) ^ ((11 : ℝ) / 24) / 4 ≤ ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ) := by
-    calc (N : ℝ) ^ ((11 : ℝ) / 24) / 4 ≤ ((2 ^ (i + 1) - 1 : ℕ) : ℝ) := hXge
-      _ = ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * 1 := by ring
-      _ ≤ ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ) := by
-          apply mul_le_mul_of_nonneg_left hMge1; positivity
-  have hlogval : Real.log ((N : ℝ) ^ ((11 : ℝ) / 24) / 4)
-      = 11 / 24 * Real.log N - Real.log 4 := by
-    rw [Real.log_div (by positivity) (by norm_num), Real.log_rpow hNpos]
-  have hLlow : 11 / 24 * Real.log N - Real.log 4 ≤ L := by
-    have hle : Real.log ((N : ℝ) ^ ((11 : ℝ) / 24) / 4) ≤ L :=
-      Real.log_le_log (by positivity) hXMloR
-    rwa [hlogval] at hle
-  have hL2 : (2 : ℝ) ≤ L := by linarith [hlogN, hlog4, hLlow]
   have hL0 : (0 : ℝ) ≤ L := by linarith
-  have hXMhiR : ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ) ≤ 2 * (N : ℝ) := by
-    have : ((2 ^ (i + 1) - 1) * pieceM kp : ℕ) ≤ 2 * N := hXM2N
-    have hc : (((2 ^ (i + 1) - 1) * pieceM kp : ℕ) : ℝ) ≤ ((2 * N : ℕ) : ℝ) := by
-      exact_mod_cast this
-    push_cast at hc ⊢; linarith [hc]
-  have hLle : L ≤ 2 * Real.log N := by
-    have h4N : ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ) ≤ 4 * (N : ℝ) := by linarith [hXMhiR]
-    have hlog : L ≤ Real.log (4 * (N : ℝ)) := Real.log_le_log hXMpos h4N
-    rw [Real.log_mul (by norm_num) (ne_of_gt hNpos)] at hlog
-    linarith [hlog, hlog4, hlogN1]
-  have hLbb : L ≤ Real.log (4 * (N : ℝ)) := by
-    have h4N : ((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ) ≤ 4 * (N : ℝ) := by linarith [hXMhiR]
-    exact Real.log_le_log hXMpos h4N
   have hL1 : (1 : ℝ) ≤ L := by linarith
   have hLpos : (0 : ℝ) < L := by linarith
   -- `hk : 2 ≤ kp`
