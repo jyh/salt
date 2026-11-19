@@ -19045,7 +19045,7 @@ inherits that threshold. Rungs 1–3 of that floor are now kernel-pinned (below)
 
 **⟦THE REPAIR — AND IT IS NOT A WALL⟧** the numeral `e^{e^{100}}` is spent at exactly ONE place:
 `S13CapFloor.capfloor_T0_Tann` (:232), which converts it into the socket's real need `T₀ ≤ Tann`.
-**Its SHARP sibling `capfloor_T0_Tann_sharp` (:226) is ALREADY IN THE KERNEL** and asks only
+**Its SHARP sibling `capfloor_T0_Tann_sharp` (:220) is ALREADY IN THE KERNEL** and asks only
 `T₀ ≤ e^{√H/2}` — at the flat design base `H ≥ ⌈e^{e^{3.2A}}⌉` that is `T₀ ≤ e^{e^{e^{3.2A}/2}/2}`,
 about `10^{10^{225}}` at the design floor `A = 162`. The corpus's own floor `e^{e^{1251}}` clears it
 by two whole exponential levels **already at A = 162** — no `A₀` raise needed. So the rider is a
@@ -19326,7 +19326,7 @@ landed law, one threading wave from being a theorem, with nine orders of coeffic
   `loglog H ≥ 50` (`7000u` vs `e^u`, `u ≥ 50`) but a class-B/C estimate, not a transcription.
   NOT attempted: it is a wave, not an item.
 * **THE `T₀` RESHAPE.** Traced to the bytes and priced, NOT spent. The consumer chain is exactly
-  four hops: `capfloor_T0_Tann` (S13CapFloor:232, sharp sibling `_sharp` at :226 LANDED) ←
+  four hops: `capfloor_T0_Tann` (S13CapFloor:232, sharp sibling `_sharp` at :220 LANDED) ←
   `s13CapFloor_all_L_gk` (S13BandCapLinear:221) ← `s16_capGate_supply_L_gk`
   (S13CapGateLinear:931) ← `s15_crossing_supplied_L_gk_ceiling` (S16Compose:1113) ← the terminal
   ← `v4`. The sharp form asks `T₀ ≤ exp(√H/2)` at the SOCKET's `H`, and every hop has `R` in

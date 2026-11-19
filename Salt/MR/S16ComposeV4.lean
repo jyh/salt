@@ -569,7 +569,7 @@ RIDER-TRACE (2026-08-02) showed, partly in Lean, `T₀ ≤ e^{e^{100}}` UNREACHA
 the `ζ` row's `T₀z` inherits `zeta_zero_free_region_pow`'s own threshold `e^{e^{A}}`, `A ≥ 1100`, so
 the corpus's own witness is `T₀ ≈ e^{e^{1251}}` — and diagnosed it as a MIS-SIZED NUMERAL rather
 than a wall: the SOLE consumer is `S13CapFloor.capfloor_T0_Tann` (:232), whose SHARP sibling
-`capfloor_T0_Tann_sharp` (:226) has been landed all along and asks only `T₀ ≤ e^{√H/2}` at the
+`capfloor_T0_Tann_sharp` (:220) has been landed all along and asks only `T₀ ≤ e^{√H/2}` at the
 socket's own `H`.
 
 The three twins below rethread the sharp form up the four hops.  The uniform carrier is

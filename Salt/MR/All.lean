@@ -9403,7 +9403,7 @@ assembler is re-stated here.
 
 **THE TWO CONJUNCTS THAT MOVE, AND WHERE THEY ARE READ** (census driven at the object).
 Conjunct 5 (`q ≤ h·arcDen 12 H`) is read at exactly FIVE sites — `s13CapGrid_q_logX`
-(`S13CapGrid:387`), `capfloor_logq_le` (`S13CapFloor:278`), `capfloor_floor4` (`:468`),
+(`S13CapGrid:387`), `capfloor_logq_le` (`S13CapFloor:278`), `capfloor_floor4` (`:462`),
 `s13_capEps_register` (`S13CapEps`), `s13CapEps_q_arcDen`.  Conjunct 11 is read
 at exactly ONE — `s13_socketBase_xscale` (`S13MSelect2:111`) — and reaches this page only
 through `s13_socketBase_logA_ge_sqrt`.  ⭐ Conjunct 11 therefore costs NO new substrate: its

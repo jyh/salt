@@ -70,7 +70,7 @@ every `SocketBase`-typed leaf under that assembler is re-stated here at `SocketB
 `SocketBaseLH` (in `HDoorSupply`) is 13 conjuncts; exactly two differ from `SocketBaseL`:
 
 * **conjunct 5**, `q ≤ h·arcDen 12 H` — read at exactly FIVE sites: `s13CapGrid_q_logX`
-  (`S13CapGrid:387`), `capfloor_logq_le` (`S13CapFloor:278`), `capfloor_floor4` (`:468`),
+  (`S13CapGrid:387`), `capfloor_logq_le` (`S13CapFloor:278`), `capfloor_floor4` (`:462`),
   `s13_capEps_register` (`S13CapEps`), `s13CapEps_q_arcDen`;
 * **conjunct 11**, `x ≤ 16·ω·(h·arcDen 12 H)·A` — read at exactly ONE site,
   `s13_socketBase_xscale` (`S13MSelect2:111`), reaching this page only through

@@ -48,8 +48,8 @@ forces `ε = 1/16`, and an effective Page-type `q^{-1/2}` loses by `(log H)^{5.2
 ## §B THE RE-SIZING (what the socket actually needs)
 
 The numeral is SPENT at exactly ONE place — `S13CapFloor.capfloor_floor4` (:452), the `floor4`
-field of `S13FramesB.S13CapGatePerBlock`; the two bundles (`s13CapFloor_all` :658,
-`s13CapFloor_all_gk` :742) only pass it through.  And `S13CapFloor`'s own header (:60-62) already
+field of `S13FramesB.S13CapGatePerBlock`; the two bundles (`s13CapFloor_all` :652,
+`s13CapFloor_all_gk` :736) only pass it through.  And `S13CapFloor`'s own header (:60-62) already
 names the sharp form: `Ks ≥ e^{-3v/16}` with `v = log H ≥ 10^{21}`.
 
 `capfloor_floor4_sharp` below pins that sharp form in the kernel — the exact analogue of the
