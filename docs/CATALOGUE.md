@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `e867d197` · source digest `940be0c2248f9fb0` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `2a4160b5` · source digest `e448f8776452c711` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23448 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23449 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -1778,8 +1778,8 @@ Declarations indexed across the tree: 23448 · corpus Prop-valued names (the hyp
 | `Salt.Goldbach.gold_box_price_engine_at_live_annulus` | Salt/Goldbach/D0Win.lean:175 | sieves |
 | `Salt.Goldbach.gold_live_annulus_lower` | Salt/Goldbach/D0Win2.lean:60 | sieves |
 | `Salt.Goldbach.gold_kfloor_live_z` | Salt/Goldbach/D0Win2.lean:115 | sieves |
-| `Salt.Goldbach.gold_d0_window_z` | Salt/Goldbach/D0Win2.lean:187 | sieves |
-| `Salt.Goldbach.gold_box_price_engine_at_live_z` | Salt/Goldbach/D0Win2.lean:436 | sieves |
+| `Salt.Goldbach.gold_d0_window_z` | Salt/Goldbach/D0Win2.lean:188 | sieves |
+| `Salt.Goldbach.gold_box_price_engine_at_live_z` | Salt/Goldbach/D0Win2.lean:344 | sieves |
 | `Salt.Goldbach.gold_dsplit_head_cap_below_conductor` | Salt/Goldbach/DSplit.lean:101 | sieves |
 | `Salt.Goldbach.goldPs_squarefree` | Salt/Goldbach/Density.lean:66 | sieves |
 | `Salt.Goldbach.goldPs_primeFactors` | Salt/Goldbach/Density.lean:72 | sieves |
