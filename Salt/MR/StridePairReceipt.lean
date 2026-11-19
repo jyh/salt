@@ -134,6 +134,27 @@ set_option exponentiation.threshold 4000
 
 namespace Salt.MR
 
+/-- **`regime_log_omega_ge_of_eps_le`** (O13-e row 301). The width numeral off `hωbig` at
+`ε ≤ 1/500`: `64/ε ≥ 32000` and `(16/ε)·log(ε²H₊) ≥ 0` give `log ω ≥ 32001`, and then
+`ω ≥ 8` because `log ω ≤ ω - 1`. The six stride receipts read both from here. -/
+theorem regime_log_omega_ge_of_eps_le {Rd : ChowlaRegime} (hepsR0 : (0 : ℝ) < (Rd.eps : ℝ))
+    (heps500R : (Rd.eps : ℝ) ≤ 1 / 500)
+    (hlognn : (0 : ℝ) ≤ Real.log ((Rd.eps : ℝ) ^ 2 * ((Rd.Hhi : ℕ) : ℝ))) :
+    (32001 : ℝ) ≤ Real.log ((Rd.ω : ℕ) : ℝ) ∧ 8 ≤ Rd.ω := by
+  have h16 : (0 : ℝ) ≤ 16 / (Rd.eps : ℝ) := by positivity
+  have h64 : (32000 : ℝ) ≤ 64 / (Rd.eps : ℝ) := by
+    rw [le_div_iff₀ hepsR0]; linarith
+  have hlogω : (32001 : ℝ) ≤ Real.log ((Rd.ω : ℕ) : ℝ) := by
+    have hb2 := Rd.hωbig
+    nlinarith [mul_nonneg h16 hlognn]
+  have hωR : (0 : ℝ) < ((Rd.ω : ℕ) : ℝ) := by
+    have h2 : (2 : ℝ) ≤ ((Rd.ω : ℕ) : ℝ) := by exact_mod_cast Rd.hω
+    linarith
+  refine ⟨hlogω, ?_⟩
+  have hsub := Real.log_le_sub_one_of_pos hωR
+  have h8 : (8 : ℝ) ≤ ((Rd.ω : ℕ) : ℝ) := by linarith
+  exact_mod_cast h8
+
 /-- **F3-Q0 (abbrev).**  A frequency-set family: one finite set of frequencies on the `1/H` grid
 per `(ε, H)`.  The landed instances are `fun eps H _ => bigXiH h eps H` and
 `fun eps H _ => bigXiAffD a b h eps H`. -/
@@ -2163,20 +2184,8 @@ theorem mrtUniformityXiL2AffW_holds_flat_stride (a b h : ℕ) (ha : 0 < a) (hh :
     mul_le_mul_of_nonneg_left (by exact_mod_cast Rd.hHlohi) (sq_nonneg _)
   have hlognn : (0 : ℝ) ≤ Real.log ((Rd.eps : ℝ) ^ 2 * ((Rd.Hhi : ℕ) : ℝ)) :=
     Real.log_nonneg (by linarith)
-  have h16 : (0 : ℝ) ≤ 16 / (Rd.eps : ℝ) := by positivity
-  have h64 : (32000 : ℝ) ≤ 64 / (Rd.eps : ℝ) := by
-    rw [le_div_iff₀ hepsR0]; linarith
-  have hlogω : (32001 : ℝ) ≤ Real.log ((Rd.ω : ℕ) : ℝ) := by
-    have hb2 := Rd.hωbig
-    nlinarith [mul_nonneg h16 hlognn]
+  obtain ⟨hlogω, hω8⟩ := regime_log_omega_ge_of_eps_le hepsR0 heps500R hlognn
   have hω2N : 2 ≤ Rd.ω := Rd.hω
-  have hωR : (0 : ℝ) < ((Rd.ω : ℕ) : ℝ) := by
-    have h2 : (2 : ℝ) ≤ ((Rd.ω : ℕ) : ℝ) := by exact_mod_cast hω2N
-    linarith
-  have hω8 : 8 ≤ Rd.ω := by
-    have hsub := Real.log_le_sub_one_of_pos hωR
-    have h8 : (8 : ℝ) ≤ ((Rd.ω : ℕ) : ℝ) := by linarith
-    exact_mod_cast h8
   -- ⟦THE TRANSPORT⟧ F3-P16 at the shrunk regime
   have htrans := mrtUniformityXiL2AffW_of_set h Rd a b ha ha1096 heps500 hstride hdiv hlo4
     hloM hb hω8 Kc ρ hKcount hdoor
