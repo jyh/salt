@@ -100,6 +100,8 @@ pool IS the job pool.
 ../saltbuild.sh                     # full build of this repo (kernel-checks everything)
 ../saltbuild.sh Salt.Brun.Foo       # targeted build — PREFER THIS while iterating
 ../saltbuild.sh Scratch.lean        # audit run for #print axioms (don't commit Scratch.lean)
+../saltbuild.sh --fetch update      # `lake update`, under the build lock: NEVER run it bare
+../saltbuild.sh --fetch cache       # `lake exe cache get` (mathlib cache), under the lock: NEVER bare
 python3 scripts/blueprint_lint.py   # docs↔code consistency + axiom audit (phase 1)
 ```
 
