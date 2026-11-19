@@ -1895,7 +1895,7 @@ RESURRECTS THEM:**
    `M4ChiSummedFreeRow` (~30 sites/18 files) ← `m4_socket_discharged_bandfree` (`M4SocketDischarge.lean:410`)
    ← `DoorCapErrWS` ← `S13CapGatePerBlock_L_gk` **37 fields, PRODUCED** (`S13CapGateLinear.lean:931`) ← D7.
    ⛔ **`M4RowMeanSq_L`'s famous "NO PRODUCER" IS ON A DIFFERENT ROAD** (the `_L` ladder), and
-   `M4SecondRoad.lean:720` says of the split road: *"⟦WALL-D/F5's `DoorRowCarriedT0` bundle is not reached
+   `M4SecondRoad.lean:700` says of the split road: *"⟦WALL-D/F5's `DoorRowCarriedT0` bundle is not reached
    at all.⟧"* ⇒ ***A READER TAKING "THE ROAD BOTTOMS OUT" UNQUALIFIED PRICES THE SOCKET AT DEPTH 3 WHEN
    THE SPLIT ROAD RUNS AT LEAST 7.*** The honest first gap is `hcap` at **depth 4** — landed supplier,
    **not instantiated** (`All.lean:6032`).
@@ -5961,7 +5961,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    `Salt/MR/All.lean` in the same commit. `m4_second_road_L2_H_gk_flatRoot_L_exit` is the
    `h`-twin of `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L` (`:239`): the terminal
    register on the terminal's lane, **in `¬ logChowlaFails h` form**, composed from the landed
-   DOOR-FORM register (`S16FlatTerminalLinearH.lean:1516`) and the new flat head at shift `h`.
+   DOOR-FORM register (`S16FlatTerminalLinearH.lean:1546`) and the new flat head at shift `h`.
    The four scalings and nothing else: the pins `1/(500·h) ≤ ε` and `1/(838400·h²) ≤ δ₀` (under
    which every gate of the landed head takes exactly its `h = 1` value, because `ε·h = 1/500`
    exactly), the cap `C ≤ h·(1 + 2·C₀)`, the count set `bigXiH h` with `K` existential, and the
@@ -6248,7 +6248,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    against a supply `69·e^{2t}`, `t ≥ 10¹⁷`.
    📌 **THE EQUALITY-PIN FAMILY IS OFF THE ROAD (step 0 (ii), three shapes).** The seven
    `R.eps = 1/500` sites (`HDoorSupply:934` · `HDoorArc:573` · `M4DoorL2:208/:732` ·
-   `HDoorClose:262/:288` · `S16FlatTerminalLinearH:1477`) are heads of the door-`L²` `_500` mint
+   `HDoorClose:262/:288` · `S16FlatTerminalLinearH:1507`) are heads of the door-`L²` `_500` mint
    family whose only consumers are each other; the `h` road reaches `MRTUniformityXiL2H` through
    `m4_doorL2_supply_H_L_gk_khoist`, whose `ε` binder is `∀ (eps : ℚ), 0 < eps` — generic.
    **The STOP CONDITION never fired.** ⚠️ At `ε = 1/(500h)` that family is VACUOUS on the `h`
