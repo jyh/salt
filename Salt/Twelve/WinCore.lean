@@ -498,8 +498,8 @@ and `qdiag_bridge`, and with `300/Dstar ≤ 10⁻⁵` so the sharp-`S₁` collis
 `win_ratio_core`'s `eps` budget. -/
 def Dstar : ℕ := 30000000
 
-/-- A product of distinct primes (`hs`) is square-free: induction on the finset, the new prime
-coprime to the product of the rest (`Nat.Coprime.prod_right`, `Nat.squarefree_mul_iff`). -/
+/-- A product of distinct primes (`hs`) is square-free: Mathlib's
+`Finset.squarefree_prod_of_pairwise_isCoprime`, distinct primes being coprime. -/
 private lemma prod_primes_squarefreeW {s : Finset ℕ} (hs : ∀ p ∈ s, p.Prime) :
     Squarefree (∏ p ∈ s, p) :=
   Finset.squarefree_prod_of_pairwise_isCoprime
