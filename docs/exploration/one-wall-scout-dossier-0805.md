@@ -102,7 +102,7 @@ The answer to "does a ζ version of `LFunction_norm_logDeriv_sub_sum'` exist?" i
 
 **Segment-integration / transport devices (all landed):**
 - `hasDerivAt_log_norm_horiz` — `MR/ChiLLower.lean:87` — `d/dv log‖F(v+c)‖ = Re(logDeriv F)`, `F` arbitrary. (ζ-specialised copy: `MR/ZetaPowLower.lean:144`.)
-- **`norm_Zc_lower_of_shallow_ball`** — `MR/ZetaInvShallow.lean:214` — **the template**: Landau ball on `G = Zc/Zc(c)`, zero set forced EMPTY, then `Convex.norm_image_sub_le_of_norm_hasDerivWithin_le` transports `log‖Zc‖` horizontally at cost `≤ 1` (`:305`). Everything in the new stone except the non-empty zero set is here already.
+- **`norm_Zc_lower_of_shallow_ball`** — `MR/ZetaInvShallow.lean:214` — **the template**: Landau ball on `G = Zc/Zc(c)`, zero set forced EMPTY, then `Convex.norm_image_sub_le_of_norm_hasDerivWithin_le` transports `log‖Zc‖` horizontally at cost `≤ 1` (`:294`). Everything in the new stone except the non-empty zero set is here already.
 - `near_norm_logDeriv_Zc_le` — `MR/ZetaPowLower.lean:301` — **the zero-count block** (`:334–390`): from the exported factorization it recovers `∑_{ρ∈Z} m_ρ ≤ log(4M₀)/log(7/6)` via `analyticOrderAt_eq_of_factorization` + divisor locality + `entire_zero_count_le`. Directly liftable.
 - `zeta_near_bridge` — `MR/ZetaPowLower.lean:845` — FTC over a horizontal segment with continuity-of-`logDeriv` integrability, ζ version.
 - `norm_logDeriv_le_of_ball_dist` — `SW/ShiftVariants.lean:45` — the L-side distance form.
@@ -145,7 +145,7 @@ plus a numeral instantiation `Zc_band_lower` at `T = 2, η = c₃/(2 log 4), M =
 2. **Landau ball** `entire_norm_logDeriv_sub_sum'` at `F = Zc`, `c = 2+it₀`: `hFc` = `Zc_center_lower`, spheres = `Zc_sphere_bound_sharp`. The whole segment `[1−η, 1+d₀]+it₀` sits in `‖s−c‖ ≤ 1+η < 23/20` ✓ (the geometry closes with room: `1.0000000000000007 < 1.15`).
 3. **Count** `∑_{ρ∈Z} m_ρ ≤ log(4M)/log(7/6)` — lift `ZetaPowLower.lean:334–390`.
 4. **Separation** every `ρ ∈ Z` has `‖ρ−c‖ < 3/2` ⇒ `1/2 < Re ρ < 7/2` and `|Im ρ| < T+3/2`; `Re ρ < 1` (`riemannZeta_ne_zero_of_one_le_re`); `zeta_zero_free_region_sharp` (`EpsilonZero.lean:832`) ⇒ `Re ρ ≤ 1 − (1/75712)/log(|Im ρ|+2)`. Hence `Re z − Re ρ ≥ sep > 0`, so `Zc ≠ 0` on the segment and each `u − β > 0`.
-5. **Transport** `Φ(u) := log‖Zc(u+it₀)‖ − ∑_ρ m_ρ·½·log((u−β_ρ)²+g_ρ²)` has `Φ'(u) = Re(logDeriv Zc − ∑ m_ρ/(s−ρ))`, so `|Φ'| ≤ K := 120·log(4M)`; MVT (`ZetaInvShallow.lean:305`'s device) gives `|Φ(σ)−Φ(u₁)| ≤ K·(u₁−σ)`; exponentiate.
+5. **Transport** `Φ(u) := log‖Zc(u+it₀)‖ − ∑_ρ m_ρ·½·log((u−β_ρ)²+g_ρ²)` has `Φ'(u) = Re(logDeriv Zc − ∑ m_ρ/(s−ρ))`, so `|Φ'| ≤ K := 120·log(4M)`; MVT (`MR/ZetaInvShallow.lean:294`'s device) gives `|Φ(σ)−Φ(u₁)| ≤ K·(u₁−σ)`; exponentiate.
 
 ### 3.4 The constant — the table
 
@@ -191,7 +191,7 @@ Additive only; nothing landed is altered. Suggested home: a new `Salt/SW/ZetaBan
 | **W0-c** | `BAND-CEILING` | `zeta_upper_band` explicit, `Z = 53`, off `Zc_sphere_bound_sharp` | A | 20 | none |
 | **W1** | `FAR-UNGATE` | `zeta_horiz_lower'`, `zeta_pow_lower_far'` at `(ht : t ≠ 0)`; old two as corollaries — **F2** | B | 70 | bodies verbatim, one `hzne1` line changed |
 | **W2** | `LANDAU-COUNT` | `entire_factorization_count_le` — from the six exported invariants of `entire_norm_logDeriv_sub_sum'`, recover `∑_{ρ∈Z} (m ρ:ℝ) ≤ log(4M₀)/log(7/6)` | B | 90 | lift `ZetaPowLower.lean:334–390`; **do not widen the existing export** |
-| **W3** | `PER-ZERO-INT` | `hasDerivAt (fun u:ℝ => ½ log((u−β)²+g²)) ((u−β)/((u−β)²+g²))`; `Re (1/((u+it₀)−ρ)) = (u−β)/((u−β)²+g²)`; the `Φ` MVT lemma | C | 170 | `Complex.inv_re`; MVT device from `ZetaInvShallow.lean:305` |
+| **W3** | `PER-ZERO-INT` | `hasDerivAt (fun u:ℝ => ½ log((u−β)²+g²)) ((u−β)/((u−β)²+g²))`; `Re (1/((u+it₀)−ρ)) = (u−β)/((u−β)²+g²)`; the `Φ` MVT lemma | C | 170 | `Complex.inv_re`; MVT device from `MR/ZetaInvShallow.lean:294` |
 | **W4** | `BAND-FLOOR` | `Zc_band_lower_of_sep` + the two numeral instances (`T=2`, `T=3`) + `zeta_band_sep` (separation off `zeta_zero_free_region_sharp`) | C | 200 | W1–W3 |
 | **W5** | `THE THREE CLOSERS` | `Zc_patch_lower_explicit` (via `:429`); `zeta_inv_shallow_explicit`; `zeta_lower_small_t_explicit`; `zeta_lower_all_t_explicit` | B | 150 | W0-a, W4 |
 
