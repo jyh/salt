@@ -183,7 +183,8 @@ and the dyadic window are `L`-only, hence unchanged. -/
 `W := ½(log(goldCut Ne (k+1)) − log(8z))`.  Conclusion character-for-character
 `gold_d0_window_annulus`'s with the floor conjunct `D0 ≤ x^{7/16}/8` replaced by
 `D0 ≤ (x/(8z))^{1/2}` and `hNfloor` the §1 floor.  The ratio conjunct is discharged from
-`hz_ratio : 6·log(8z) + 15 ≤ log x` (`x ≥ (8z)^6·e^{15}`). -/
+`hz_ratio : 6·log(8z) + 15 ≤ log x` (`x ≥ (8z)^6·e^{15}`).
+Since 2026-11-19 the proof is an instance of `Salt.Chen.d0_window_of_W` (`DyadicWindow`). -/
 theorem gold_d0_window_z {Ne Nb M X k z : ℕ}
     (hx : Real.exp (10 ^ 9) ≤ (goldCut Ne (k + 1) : ℝ))
     (hz1 : 1 ≤ z)

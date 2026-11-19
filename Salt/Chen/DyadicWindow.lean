@@ -21,8 +21,9 @@ defeq at the call site.
 * `exists_two_pow_window` — for `2 ≤ y`, some `k` has `2 ≤ 2^k`, `y ≤ 2^k` and `2^k ≤ 4·y`.
 * `xm_log_bounds_of_le` — `log x − 1 ≤ log(X·M) ≤ log x + 3` from `x/2 + 1 ≤ X·M ≤ 4x`, `x ≥ 2`;
   `xm_log_bounds` is its strict form, and `xm_real_bounds(_of_le)` the real window under it.
-* `d0_window_core_band`, `d0_window_core_lo`, `d0_window_core_lo_bump` — the `D0`-window theorem
-  of the Chen and Goldbach band assemblies, at the band floor and at the strip floor.
+* `d0_window_of_W` — the `D0`-window theorem of the Chen and Goldbach band assemblies, from its
+  `W` facts; `d0_window_core_band`, `d0_window_core_lo`, `d0_window_core_lo_bump` — its band-floor
+  and strip-floor instances.
 -/
 
 namespace Salt.Chen
@@ -116,7 +117,7 @@ theorem xm_log_bounds {x X M : ℕ} (hx : 2 ≤ x)
       ∧ Real.log ((X : ℝ) * (M : ℝ)) ≤ Real.log x + 3 :=
   xm_log_bounds_of_le hx hlo.le hhi
 
-/-! ## The `D0`-window cores (O13-e row 285)
+/-! ## The `D0`-window cores (O13-e rows 285 and 287)
 
 The Chen and Goldbach band assemblies each derived the same `D0`-window statement in full: a dyadic
 `D0 = 2^{k0}` in `[L^{17}, 4·L^{17}]` at `L = log(X·M)`, with the nine-conjunct conclusion the
@@ -128,7 +129,9 @@ ratio `L ≤ (31/10)·W`) gave `d0_window_of_XM_band` (`ChenFinal2`) and `gold_d
 so the cores below take that form. The Goldbach annuli supply it from `goldCut`, the box rows
 from their strict `x/2 + 1 < X·M`, and all five are instances. `d0_window_core_lo` gives the
 `x`-scale conjunct at the floor's own exponent `7/16`; `d0_window_core_lo_bump` relaxes it to
-`11/24`, the form the Chen strip lemmas state.
+`11/24`, the form the Chen strip lemmas state. Below both floors, `d0_window_of_W` takes the
+ratio, `W` and the floor `F` as hypotheses, so Goldbach's z-dependent `gold_d0_window_z`
+(`D0Win2`, `W := ½(log x − log 8z)`) is an instance as well.
 -/
 
 /-- **`d0_window_of_W`.** The `D0` window from its `W` facts alone. `L := log(X·M)` is at least
