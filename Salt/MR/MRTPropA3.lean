@@ -894,7 +894,7 @@ earlier were all published first and corrected after.  **Fencing is cheap; retra
 Walked the gates down: `M4SievedDoorSq_L → M4BlockMeanSq_L → M4RowMeanSq_L`.
 `M4RowMeanSq_L` (`M4RowLinear.lean:993`) has **no producer** — established by reading **all six
 of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1394`) ·
-an enumeration entry (`:2902`) · one arrow (`:2917`).
+an enumeration entry (`:2884`) · one arrow (`:2899`).
 
 ⭐ **AND THIS TIME IT IS NOT MY INFERENCE — THE CORPUS SAYS SO AT THE DEFINITION SITE:**
 *"**THE WAVE'S REMAINING INPUT**… This predicate is the wave's ⟦RESIDUE⟧: see the module header
@@ -937,7 +937,7 @@ produces it from **two explicit inequalities and NO other gate**:
 *It bottoms out in arithmetic about the delivered grade, not in another Prop socket.*
 
 **`M4SievedDoorSq_L`** (`M4LadderLinear.lean:1774`) — `m4_cover_assembly_L`
-(`M4RowLinear.lean:1528`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
+(`M4RowLinear.lean:1516`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
 Its own docstring states the gate bundle is *"the same bundle `m4_hbd_of_live_L` reads, so the
 join needs no new hypothesis"* — so this reduction is free at the seam.  ⇒ **it reduces to the
 BLOCK MEAN SQUARE**, which is what `M4Maximal.m4_chiBlockMeanSq_of_shiftBlock` produces.
