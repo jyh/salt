@@ -567,6 +567,4 @@ example : ∃ C : ℝ,
   obtain ⟨C, -, h⟩ := grahamW_sum_le
   exact ⟨C, h 4 (by norm_num) 16 (by norm_num)⟩
 
-/-! ## S10 — the two-level weight -/
-
 end Salt.SW

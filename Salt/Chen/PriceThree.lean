@@ -297,10 +297,10 @@ theorem box_hprice_at_2pow_lo (z y Ps Q a : ℕ) (hQ1 : 1 ≤ Q) (hPspos : 0 < P
       herr_Mlev hFX hDx hLbb hfloor hDXM)
 
 /-- **`box_hprice_at_2pow` (deliverable 3, the box leg).**  Over the pieceN-boundary (catch #71
-corner relaxation), the box-leg two-`T` `hprice` sum is `≤ 2·(the Kerr box price)` — PriceOne's
-`medium_box_price_at_op` applied twice, with the carrier `≤ 1`-norm and the `Q`-image Dset rows
-discharged internally.  The surviving inputs are the 27 named analytic rows (the operating-point
-facts PRICE-3's row table supplies) and the `Q·bound ≤ D` conductor row.  Directly slots the
+corner relaxation), the box-leg two-`T` `hprice` sum is `≤ 2·(the Kerr box price)`.  Proof: the
+`_lo` twin above, at this stronger `11/24` floor (`x ≥ 1`, so `x^{7/16} ≤ x^{11/24}`).  The
+surviving inputs are the 27 named analytic rows (the operating-point facts PRICE-3's row table
+supplies) and the `Q·bound ≤ D` conductor row.  Directly slots the
 `Price j k i := 2·Kerr` value into `hBVblocksW_discharge'`'s box `hprice` for every pieceN-boundary
 box. -/
 theorem box_hprice_at_2pow (z y Ps Q a : ℕ) (hQ1 : 1 ≤ Q) (hPspos : 0 < Ps)

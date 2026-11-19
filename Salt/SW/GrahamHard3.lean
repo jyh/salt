@@ -2573,14 +2573,12 @@ theorem sum_sq_sum_bvWeight_le_full : ∃ C : ℝ, 0 < C ∧ ∀ z₁ z₂ : ℕ
 /-- **S10.** The same mean bound for Jutila's two-level weight `λ_d = bvWeight z₁ z₂ d`:
 `Σ_{n ≤ ⌊x⌋} (Σ_{d ∣ n} λ_d)² ≤ 2(log z₁ + log z₂)/log(z₂/z₁)²·(C·x)` for `x ≥ z₂²`.
 
-`λ_d = (log z₂·θ^{(z₂)}_d − log z₁·θ^{(z₁)}_d)/log(z₂/z₁)` (`BvWeight.lean:78`), so
-`(Σ_{d∣n} λ_d)² ≤ (2·log²z₂·w_{z₂}(n) + 2·log²z₁·w_{z₁}(n))/log(z₂/z₁)²` by
-`(u − v)² ≤ 2u² + 2v²`; S9 at `z₂` (hypothesis `z₂² ≤ x`) and at `z₁` (`z₁² < z₂² ≤ x`)
-then gives `(2·log z₂·C·x + 2·log z₁·C·x)/log(z₂/z₁)²`, which IS the frozen prefactor —
-the arithmetic is exact, with no slack introduced or lost.
+`λ_d = (log z₂·θ^{(z₂)}_d − log z₁·θ^{(z₁)}_d)/log(z₂/z₁)` (`BvWeight.lean:78`).  Until
+2026-11-18 the proof split it by `(u − v)² ≤ 2u² + 2v²` and applied S9 at both levels, which
+gives exactly this prefactor; the proof is now the instance of `_full`, just above.
 
-⚠ **`(z₂:ℝ)² ≤ x` is unsatisfiable at B2's ratified closure table** — see the module
-docstring. This row is true, it lands, and B2 reads it at no scale until W6b-H lands.
+⚠ **`(z₂:ℝ)² ≤ x` is unsatisfiable at B2's ratified closure table** — see `GrahamMean`'s
+module docstring. This row is true, it lands, and B2 reads it at no scale until W6b-H lands.
 
 Moved here from `GrahamMean` on 2026-11-18: it is the `z₂² ≤ x` instance of
 `sum_sq_sum_bvWeight_le_full` just above (for `z₂ ≥ 1`, `z₂ ≤ z₂² ≤ x`). -/
