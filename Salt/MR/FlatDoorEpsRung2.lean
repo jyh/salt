@@ -244,8 +244,8 @@ theorem xt_log_inv_rho_le_L {c δ₀ Kc Kb : ℝ} (hc1 : 1 ≤ c) (hδ₀ : 0 < 
 
 /-! ## §3 — ⟦R7⟧ the three S16 flat arms at generic `L`
 
-The two cap sites are `S16FlatTerminalLinear.lean:2139` (`h ≤ 8103`, feeding
-`⌈1/ε⌉₊ ≤ 500·h ≤ 4051500` and `4·4051500⁴ ≤ arcFloor36 = 10¹³⁸`) and `:1414` (the budget chain's
+The two cap sites are `S16FlatTerminalLinear.lean:2136` (`h ≤ 8103`, feeding
+`⌈1/ε⌉₊ ≤ 500·h ≤ 4051500` and `4·4051500⁴ ≤ arcFloor36 = 10¹³⁸`) and `:1411` (the budget chain's
 `1/ε⁶ ≤ 4.43·10³⁹`).  Neither numeral survives a generic `L`: both are bounds on `h`, so at
 generic `L` they read `4·(500·h)⁴ ≤ e^{27 + 4L}` and `1/ε⁶ ≤ 1.5625·10¹⁶ · e^{6L}`, and the
 FIXED registers they were compared against (`10¹³⁸`, `4·10³⁹·A`) no longer dominate.  Both are
@@ -3698,7 +3698,7 @@ theorem s15_sel''_L_gk_witness_flat_L {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
 
 
 /-- **⟦THE LEVERED BLOCK LINE AT A GENERIC CHARGE⟧ (class A)** — the `_L` sibling of
-`flat_blk_line_gk_b9` (`S15SelLinearWide.lean:593`): the same interface edit, read off the
+`flat_blk_line_gk_b9` (`S15SelLinearWide.lean:590`): the same interface edit, read off the
 levered witness above at the SAME frozen dummy instance
 (`Cg := 0`, `δ₀ := 1 / 2 ^ 10`, `Ct := 1`, `K := 1`, `x₀ := 0`, `Mfl := 0`).  The conclusion and
 every other binder are the source's, byte for byte.  BODY: the source's term, with the supplier
@@ -4006,7 +4006,7 @@ theorem s12c_eps_threshold_at_socket_flat_T {R : ChowlaRegime} {M H L q j A s : 
   have h1 : 14 * Λ ≤ 14 * Real.exp (lam / 2) := by linarith
   linarith
 
-/-- `s15_heps293_at_socket_flat` at the tower-relative register (`FlatConsumers.lean:117`).
+/-- `s15_heps293_at_socket_flat` at the tower-relative register (`FlatConsumers.lean:113`).
 STATEMENT: the source's with the ONE `hrho` binder moved to the tower; the conclusion is the
 source's, byte for byte.  BODY: the source's, with `flat_lambda_core_17 ↦ flat_lambda_core_T`
 and `hrho ↦ hrhoE` in `hkey`'s close.
@@ -4029,13 +4029,9 @@ theorem s15_heps293_at_socket_flat_T {R : ChowlaRegime} {M H L q j A s : ℕ} {�
   set lam : ℝ := Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) with hlamdef
   set Λ : ℝ := Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) with hLamdef
   set ll : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hlldef
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
   have hpool : constPool ρ R.Hhi = Real.exp (Real.log ρ - Real.log 376266 - 14 * Λ) := by
     rw [constPool_def, hLamdef, Real.exp_sub, Real.exp_sub, Real.exp_log hρ,
@@ -4059,7 +4055,7 @@ theorem s15_heps293_at_socket_flat_T {R : ChowlaRegime} {M H L q j A s : ℕ} {�
     nlinarith [h1, h2, hcore, hrhoE]
   linarith [hkey, hlog376]
 
-/-- `s15_hband4096_at_socket_flat` at the tower-relative register (`FlatConsumers.lean:159`).
+/-- `s15_hband4096_at_socket_flat` at the tower-relative register (`FlatConsumers.lean:151`).
 STATEMENT: the source's with the ONE `hrho` binder moved to the tower; the conclusion is the
 source's, byte for byte.  BODY: the source's, with `flat_lambda_core_17 ↦ flat_lambda_core_T`
 and `hrho ↦ hrhoE` in the close.
@@ -4082,13 +4078,9 @@ theorem s15_hband4096_at_socket_flat_T {R : ChowlaRegime} {M H L q j A s : ℕ} 
   set lam : ℝ := Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) with hlamdef
   set Λ : ℝ := Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) with hLamdef
   set ll : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hlldef
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
   have hpool : constPool ρ R.Hhi = Real.exp (Real.log ρ - Real.log 376266 - 14 * Λ) := by
     rw [constPool_def, hLamdef, Real.exp_sub, Real.exp_sub, Real.exp_log hρ,
@@ -4156,12 +4148,9 @@ theorem s15_gRows_const_at_socket_flat_doorL_gk_T (K : ℕ) {R : ChowlaRegime}
   obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
   have hA : 0 < A := hbb.2.2.2.2.2.2.2.1
   have hAs : 0 < A + s := by omega
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hbb
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hllle : Real.log (Real.log (((A + s : ℕ)) : ℝ)) ≤ Real.log (((A + s : ℕ)) : ℝ) - 1 :=
     Real.log_le_sub_one_of_pos (by linarith)
   have hll := s12c_llX_ge hfl hbb

@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `67432a70` · source digest `cb454c87b809845a` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `2998e4d0` · source digest `fec21f8f2e0bcf1b` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,7 +22,7 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 23445 | 691 | 22743 | 9148 | 13 | 293 | 40 | 345 | 84 |
+| 23446 | 691 | 22744 | 9148 | 13 | 293 | 40 | 345 | 84 |
 
 Per-polarity totals over the 691 Props: with F-consumers 538 · with ¬F-consumers 21 · with F-producers (any kind) 451 · with ¬F-producers (any kind) 59.
 
@@ -76,9 +76,9 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | 24 | `Salt.MR.CaseASocket2` | Salt/MR/USetGradedPrice.lean:122 | OPEN | 12 (12/0) | 11 | - | 1 | 0 | 0 | `Salt.MR.cofactorSocket_of_ellLin` (Salt/MR/CapFreeArm3.lean:311), `Salt.MR.cofactor_Rbd34_local_nocap` (Salt/MR/CapFreeArm.lean:281), `Salt.MR.cofactor_Rbd34_local_nocap3` (Salt/MR/CapFreeArm3.lean:175) +9 |
 | 25 | `Salt.MR.DoorRowEndBase` | Salt/MR/M4RowsChiEnd.lean:780 | OPEN | 12 (12/0) | 5 | - | 2 | 0 | 0 | `Salt.MR.doorRowZeroBase_of_doorRowEndBase` (Salt/MR/M4RowsChiZero.lean:743), `Salt.MR.m4_chiSummedFreeRow_of_doorArith_end` (Salt/MR/M4SocketDischarge.lean:196), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end` (Salt/MR/M4RowsChiEnd.lean:882) +9 |
 | 26 | `Salt.MR.DoorRowEndBase_gk` | Salt/MR/M4RowsChiEnd.lean:1077 | OPEN | 12 (12/0) | 0 | - | 2 | 0 | 0 | `Salt.MR.doorRowZeroBase_of_doorRowEndBase_gk` (Salt/MR/M4RowsChiZero.lean:949), `Salt.MR.m4_chiSummedFreeRow_of_doorArith_end_gk` (Salt/MR/M4SocketDischarge.lean:643), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end_gk` (Salt/MR/M4RowsChiEnd.lean:1162) +9 |
-| 27 | `Salt.MR.S15CrossingBound_L_gk` | Salt/MR/S16FlatTerminalLinear.lean:1070 | OPEN | 12 (12/0) | 12 | `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist` (Salt/MR/RegisterCompose.lean:165), `Salt.MR.s15_crossing_supplied_L_gk_ceiling` (Salt/MR/S16Compose.lean:1067) +4 | 0 | 0 | 0 | `Salt.MR.flat_conditional_uniform` (Salt/MR/S16Uniform.lean:926), `Salt.MR.flat_conditional_uniform_kwide` (Salt/MR/S16Uniform.lean:721), `Salt.MR.flat_conditional_uniform_win` (Salt/MR/S16Uniform.lean:1684) +9 |
+| 27 | `Salt.MR.S15CrossingBound_L_gk` | Salt/MR/S16FlatTerminalLinear.lean:1067 | OPEN | 12 (12/0) | 12 | `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist` (Salt/MR/RegisterCompose.lean:165), `Salt.MR.s15_crossing_supplied_L_gk_ceiling` (Salt/MR/S16Compose.lean:1067) +4 | 0 | 0 | 0 | `Salt.MR.flat_conditional_uniform` (Salt/MR/S16Uniform.lean:926), `Salt.MR.flat_conditional_uniform_kwide` (Salt/MR/S16Uniform.lean:721), `Salt.MR.flat_conditional_uniform_win` (Salt/MR/S16Uniform.lean:1684) +9 |
 | 28 | `Salt.HB.IsAdditiveOn` | Salt/HB/CrownAssembly.lean:175 | OPEN | 11 (11/0) | 8 | - | 0 | 0 | 0 | `Salt.HB.abs_A_sub_sum_ratio_le` (Salt/HB/CrownAssembly.lean:724), `Salt.HB.additive_prod` (Salt/HB/CrownAssembly.lean:299), `Salt.HB.deltaSum_nuG_mul_additive` (Salt/HB/CrownAssembly.lean:381) +8 |
-| 29 | `Salt.MR.DoorCapBasePerBlock_L_gk` | Salt/MR/M4CapWireLinear.lean:836 | OPEN | 11 (11/0) | 11 | - | 1 | 0 | 0 | `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling` (Salt/MR/S13CapGateLinearLH.lean:1446), `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist` (Salt/MR/S16ComposeLH.lean:2678), `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_L` (Salt/MR/StrideDoorAllGrades.lean:3841) +8 |
+| 29 | `Salt.MR.DoorCapBasePerBlock_L_gk` | Salt/MR/M4CapWireLinear.lean:836 | OPEN | 11 (11/0) | 11 | - | 1 | 0 | 0 | `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling` (Salt/MR/S13CapGateLinearLH.lean:1446), `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist` (Salt/MR/S16ComposeLH.lean:2678), `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_L` (Salt/MR/StrideDoorAllGrades.lean:3826) +8 |
 | 30 | `Salt.MR.DoorCapBasePerBlock_gk` | Salt/MR/M4CapWire.lean:1312 | OPEN | 11 (11/0) | 3 | - | 1 | 0 | 0 | `Salt.MR.logChowla2_capstone_conditional_perBlock_gk` (Salt/MR/S12Compose.lean:1011), `Salt.MR.logChowla2_capstone_final'_gk` (Salt/MR/S12FuseCompose.lean:835), `Salt.MR.logChowla2_capstone_final_gk` (Salt/MR/S12Compose.lean:1136) +8 |
 | 31 | `Salt.MR.DoorFuseFrame_pool'_L_gk` | Salt/MR/M4RowSpineLinear.lean:980 | OPEN | 11 (11/0) | 7 | - | 6 | 0 | 0 | `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'_L_gk` (Salt/MR/M4RowSpineLinear.lean:1055), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'_gatedH_L_gk` (Salt/MR/S16ProducersH.lean:1287), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'_gated_L_gk` (Salt/MR/M4ClosureRepairLinear.lean:853) +8 |
 | 32 | `Salt.MR.M4SievedDoorSq_L_gk` | Salt/MR/M4LadderLinear.lean:1814 | OPEN | 11 (11/0) | 7 | - | 8 | 0 | 0 | `Salt.MR.G2Scaffold.m4_door_contradiction_of_live_L_gk` (Salt/MR/M4RowLinear.lean:2804), `Salt.MR.G2Scaffold.m4_door_contradiction_of_live_split_L_gk` (Salt/MR/M4RowLinear.lean:2558), `Salt.MR.G2Scaffold.m4_hbd_of_live_L_gk` (Salt/MR/M4RowLinear.lean:2322) +8 |
@@ -88,7 +88,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | 36 | `Salt.MR.S16BandLaneCBoundedL_win` | Salt/MR/S16Uniform.lean:1196 | OPEN | 10 (10/0) | 10 | `Salt.MR.s16_bandLaneWinL_holds_uniform` (Salt/MR/S16Uniform.lean:1230), `Salt.MR.s16_bandLaneWinL_holds` (Salt/MR/S16Uniform.lean:1276) | 1 | 0 | 0 | `Salt.MR.flat_capstone_uniform_win` (Salt/MR/S16Uniform.lean:1576), `Salt.MR.flat_capstone_uniform_win_ceiling` (Salt/MR/S16Compose.lean:799), `Salt.MR.flat_capstone_uniform_win_ceiling_kwide` (Salt/MR/S16Compose.lean:450) +7 |
 | 37 | `Salt.HB.N7Exit` | Salt/HB/CrownTheorem1.lean:512 | OPEN | 9 (9/0) | 9 | - | 0 | 0 | 0 | `Salt.HB.crown_handover` (Salt/HB/CrownTheorem1.lean:6902), `Salt.HB.crown_handover_k1` (Salt/HB/CrownTheorem1.lean:6577), `Salt.HB.hEngine_of_N7` (Salt/HB/CrownTheorem1.lean:6925) +6 |
 | 38 | `Salt.MR.DoorRowCarriedT0_L_gk` | Salt/MR/M4RowLinear.lean:7623 | OPEN | 9 (9/0) | 5 | - | 0 | 2 | 0 | `Salt.MR.doorRowCarriedT0_endpoint_L_gk` (Salt/MR/M4RowSpineLinear.lean:1612), `Salt.MR.doorRowCarried_of_t0free_L_gk` (Salt/MR/M4RowLinear.lean:7867), `Salt.MR.m4_register_forces_endpoint_interval_L_gk` (Salt/MR/M4RowSpineLinear.lean:1622) +6 |
-| 39 | `Salt.MR.S15CrossingBound_gk` | Salt/MR/S15Compose.lean:1925 | OPEN | 9 (9/0) | 1 | `Salt.MR.s15_crossing_supplied_gk` (Salt/MR/S16Budget.lean:697), `Salt.MR.s15_crossing_supplied_bounded_gk` (Salt/MR/S16Budget.lean:1372) +1 | 0 | 0 | 0 | `Salt.MR.logChowla2_conditional_graded_gk` (Salt/MR/S15Compose.lean:2084), `Salt.MR.logChowla2_conditional_sharp2_atK_gk` (Salt/MR/S15Compose.lean:2506), `Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned` (Salt/MR/S15Compose.lean:2611) +6 |
+| 39 | `Salt.MR.S15CrossingBound_gk` | Salt/MR/S15Compose.lean:1911 | OPEN | 9 (9/0) | 1 | `Salt.MR.s15_crossing_supplied_gk` (Salt/MR/S16Budget.lean:697), `Salt.MR.s15_crossing_supplied_bounded_gk` (Salt/MR/S16Budget.lean:1372) +1 | 0 | 0 | 0 | `Salt.MR.logChowla2_conditional_graded_gk` (Salt/MR/S15Compose.lean:2070), `Salt.MR.logChowla2_conditional_sharp2_atK_gk` (Salt/MR/S15Compose.lean:2492), `Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned` (Salt/MR/S15Compose.lean:2597) +6 |
 | 40 | `Salt.MR.TwistedWindowPriceGated` | Salt/MR/TwistedEdge.lean:1070 | OPEN | 9 (9/0) | 7 | `Salt.MR.twisted_window_price_gated_holds` (Salt/MR/TwistedEdge.lean:1108) | 0 | 0 | 0 | `Salt.MR.halaszPrimesChiGated_of_price` (Salt/MR/PortAssembly.lean:1148), `Salt.MR.halaszPrimesChiGated_of_price_floored` (Salt/MR/V7B.lean:158), `Salt.MR.halaszPrimesChiGated_of_price_of` (Salt/MR/PortAssembly.lean:800) +6 |
 
 ## HALF-SHAPED FRAMES (40) — status FRAME (item 2's parameter-frame rule), no ¬F-consumer
@@ -110,7 +110,7 @@ A FRAME is a bundle of order relations over its own parameters; ¬P is 'the para
 | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` | OPEN | HALF | 15 | 0/0/4 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2AffW` (Salt/Entropy/Chowla/StridePair.lean:418), `Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq_aff` (Salt/Entropy/Chowla/StrideShell.lean:125) +2 |
 | `Salt.Entropy.Chowla.TwinDetecting` | DISCHARGED | - | 0 | 3/0/1 | `Salt.Entropy.Chowla.const_twin_blind` (Salt/Entropy/Chowla/TransportWall.lean:131), `Salt.Entropy.Chowla.corr_zero_blind` (Salt/Entropy/Chowla/PinDichotomy.lean:313) +2 |
 | `Salt.MR.M4GradeGate` | DISCHARGED | - | 15 | 0/0/4 | `Salt.MR.m4_door_False_of_blockMeanSq` (Salt/MR/M4BridgeCover.lean:506), `Salt.MR.m4_door_False_of_blockMeanSq_gk` (Salt/MR/M4BridgeCover.lean:669) +2 |
-| `Salt.MR.SocketBase` | DISCHARGED | - | 275 | 0/2/2 | `Salt.MR.s14_socket_empty_of_gRows` (Salt/MR/S14Compose.lean:282), `Salt.MR.s14_socket_empty_of_gRows_gk` (Salt/MR/S14Compose.lean:550) +2 |
+| `Salt.MR.SocketBase` | DISCHARGED | - | 275 | 0/2/2 | `Salt.MR.s14_socket_empty_of_gRows` (Salt/MR/S14Compose.lean:274), `Salt.MR.s14_socket_empty_of_gRows_gk` (Salt/MR/S14Compose.lean:538) +2 |
 | `Salt.Chen.TripleP` | OPEN | HALF | 3 | 3/0/0 | `Salt.Chen.not_tripleP_30` (Salt/Chen/WeightFamily.lean:155), `Salt.Chen.not_tripleP_of_heavy` (Salt/Chen/TwinDeficit.lean:218) +1 |
 | `Salt.Entropy.Chowla.MRTUniformityXiL2H` | OPEN | HALF | 4 | 0/0/3 | `Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2H` (Salt/Entropy/Chowla/ShiftFork.lean:579), `Salt.Entropy.Chowla.log_chowla_two_shell_xi_sq_h` (Salt/Entropy/Chowla/Theorem23Shell.lean:388) +1 |
 | `Salt.MR.CofactorBulkL` | OPEN | HALF | 3 | 2/1/0 | `Salt.MR.cofkL_bulk_infeasible` (Salt/MR/RegisterInhabit.lean:209), `Salt.MR.cofkL_bulk_infeasible_loglog` (Salt/MR/RegisterInhabit.lean:229) +1 |
@@ -122,8 +122,8 @@ A FRAME is a bundle of order relations over its own parameters; ¬P is 'the para
 | `Salt.MR.DoorRowCarriedT0` | OPEN | HALF | 7 | 0/0/2 | `Salt.MR.m4_wave_closed_coprime_discharged_False` (Salt/MR/M4Collapse.lean:254), `Salt.MR.m4_wave_collapsed_False` (Salt/MR/M4BaseNarrow.lean:1233) |
 | `Salt.MR.DoorRowCarriedT0_L` | OPEN | HALF | 7 | 0/0/2 | `Salt.MR.m4_wave_closed_coprime_discharged_False_L` (Salt/MR/M4RowAssemblyLinear.lean:517), `Salt.MR.m4_wave_collapsed_False_L` (Salt/MR/M4RowAssemblyLinear.lean:3862) |
 | `Salt.MR.DoorRowCarriedT0_L_gk` | OPEN | HALF | 9 | 0/0/2 | `Salt.MR.m4_wave_closed_coprime_discharged_False_L_gk` (Salt/MR/M4RowAssemblyLinear.lean:761), `Salt.MR.m4_wave_closed_coprime_discharged_False_L_gk_kwide` (Salt/MR/M4RowAssemblyLinear.lean:661) |
-| `Salt.MR.GRowsZeroGate'''` | FRAME | FRAME | 20 | 0/0/2 | `Salt.MR.s14_compose_stops_of_MSelect'` (Salt/MR/S14Compose.lean:387), `Salt.MR.s14_gRows_kill` (Salt/MR/S14Compose.lean:230) |
-| `Salt.MR.GRowsZeroGate'''_gk` | FRAME | FRAME | 26 | 0/0/2 | `Salt.MR.s14_compose_stops_of_MSelect'_gk` (Salt/MR/S14Compose.lean:565), `Salt.MR.s14_gRows_kill_gk` (Salt/MR/S14Compose.lean:503) |
+| `Salt.MR.GRowsZeroGate'''` | FRAME | FRAME | 20 | 0/0/2 | `Salt.MR.s14_compose_stops_of_MSelect'` (Salt/MR/S14Compose.lean:379), `Salt.MR.s14_gRows_kill` (Salt/MR/S14Compose.lean:226) |
+| `Salt.MR.GRowsZeroGate'''_gk` | FRAME | FRAME | 26 | 0/0/2 | `Salt.MR.s14_compose_stops_of_MSelect'_gk` (Salt/MR/S14Compose.lean:553), `Salt.MR.s14_gRows_kill_gk` (Salt/MR/S14Compose.lean:495) |
 | `Salt.MR.M4ChiFreeRowMeanSq_L_gk` | OPEN | HALF | 4 | 0/0/2 | `Salt.MR.m4_wave_closed_coprime_discharged_False_L_gk` (Salt/MR/M4RowAssemblyLinear.lean:761), `Salt.MR.m4_wave_closed_coprime_discharged_False_L_gk_kwide` (Salt/MR/M4RowAssemblyLinear.lean:661) |
 | `Salt.MR.M4DoorGates_L` | OPEN | HALF | 30 | 0/0/2 | `Salt.MR.m4_wave_closed_coprime_discharged_False_L` (Salt/MR/M4RowAssemblyLinear.lean:517), `Salt.MR.m4_wave_collapsed_False_L` (Salt/MR/M4RowAssemblyLinear.lean:3862) |
 | `Salt.MR.M4DoorGates_L_gk` | DISCHARGED | - | 63 | 0/0/2 | `Salt.MR.m4_wave_closed_coprime_discharged_False_L_gk` (Salt/MR/M4RowAssemblyLinear.lean:761), `Salt.MR.m4_wave_closed_coprime_discharged_False_L_gk_kwide` (Salt/MR/M4RowAssemblyLinear.lean:661) |
@@ -150,8 +150,8 @@ A FRAME is a bundle of order relations over its own parameters; ¬P is 'the para
 | `Salt.MR.MRTLargeRangeEquidistribution` | OPEN | - | 0 | 1/0/0 | `Salt.MR.not_mrtLargeRangeEquidistribution` (Salt/MR/MRTPropA3.lean:4648) |
 | `Salt.MR.MRTLemmaA4ii` | OPEN | - | 0 | 1/0/0 | `Salt.MR.not_mrtLemmaA4ii` (Salt/MR/MRTPropA3.lean:1475) |
 | `Salt.MR.MRTLemmaA7Statement` | OPEN | - | 0 | 1/0/0 | `Salt.MR.not_mrtLemmaA7Statement` (Salt/MR/MRTPropA3.lean:4187) |
-| `Salt.MR.MSelect'` | DISCHARGED | - | 5 | 0/0/1 | `Salt.MR.s14_compose_stops_of_MSelect'` (Salt/MR/S14Compose.lean:387) |
-| `Salt.MR.MSelect'_gk` | DISCHARGED | - | 4 | 0/0/1 | `Salt.MR.s14_compose_stops_of_MSelect'_gk` (Salt/MR/S14Compose.lean:565) |
+| `Salt.MR.MSelect'` | DISCHARGED | - | 5 | 0/0/1 | `Salt.MR.s14_compose_stops_of_MSelect'` (Salt/MR/S14Compose.lean:379) |
+| `Salt.MR.MSelect'_gk` | DISCHARGED | - | 4 | 0/0/1 | `Salt.MR.s14_compose_stops_of_MSelect'_gk` (Salt/MR/S14Compose.lean:553) |
 | `Salt.MR.S15Sel'` | DISCHARGED | - | 8 | 0/0/1 | `Salt.MR.s15_sel'_empty_at_closed_forms` (Salt/MR/S15Witness.lean:755) |
 | `Salt.MR.SocketBaseLH` | DISCHARGED | - | 175 | 1/0/0 | `Salt.MR.socketBaseLH_at_zero_false` (Salt/MR/TierSSocket.lean:146) |
 | `Salt.TwinBar.BadHyp` | OPEN | - | 0 | 1/0/0 | `Salt.TwinBar.badHyp_false` (Salt/TwinBar/SiegelTwin.lean:153) |
@@ -253,5 +253,5 @@ By kind: case split `by_cases` 81 · prop-def body 2 · theorem conclusion 1.
 - `Salt.Entropy.Chowla.decrement_exists_of_tower` (Salt/Entropy/Chowla/Endpoints.lean:98)
 - `Salt.Entropy.Chowla.decrement_exists_of_tower_aff` (Salt/Entropy/Chowla/StrideDecrement.lean:684)
 - `Salt.MR.flat_head_uniform_xceil_eps` (Salt/MR/FlatDoorEpsChain.lean:561)
-- `Salt.MR.flat_head_uniform_xceil_epsW` (Salt/MR/FlatDoorEpsRung2.lean:4724)
+- `Salt.MR.flat_head_uniform_xceil_epsW` (Salt/MR/FlatDoorEpsRung2.lean:4713)
 
