@@ -241,6 +241,19 @@ theorem gold_box_D_rows {X M N D : ℕ} {L : ℝ} (hXMpos : (0 : ℝ) < (X : ℝ
     exact Real.sqrt_le_sqrt hDDN
   exact ⟨hDnn, hDscale, hL18ge1, hDsqrtXM, hDXM, hDx⟩
 
+/-- **`gold_rpow_div_le_sqrt`** (O13-e row 289). A square-root floor from a floor on the square:
+for `0 ≤ N`, `0 < k`, `c·2 = c₂` and `k² = k₂`, `N^{c₂}/k₂ ≤ Y` gives `N^c/k ≤ √Y`. The box engines
+read their `√X` and `√M` floors this way, from `X ≥ N^{11/24}/4` and `M ≥ N^{1/3}/16`. -/
+theorem gold_rpow_div_le_sqrt {N c c₂ k k₂ Y : ℝ} (hN : 0 ≤ N) (hk : 0 < k) (hc : c * 2 = c₂)
+    (hk₂ : k ^ 2 = k₂) (h : N ^ c₂ / k₂ ≤ Y) : N ^ c / k ≤ Real.sqrt Y := by
+  have hpos : 0 ≤ N ^ c / k := div_nonneg (Real.rpow_nonneg hN c) hk.le
+  rw [← Real.sqrt_sq hpos]
+  apply Real.sqrt_le_sqrt
+  have hsq : (N ^ c / k) ^ 2 = N ^ c₂ / k₂ := by
+    rw [div_pow, ← Real.rpow_natCast (N ^ c) 2, ← Real.rpow_mul hN, ← hc, ← hk₂]
+    norm_num
+  rw [hsq]; exact h
+
 /-! ## 1. The z-geometry rows `hz_ratio` / `hx` (the D0Win2 live-geometry inputs, deliverable 2)
 
 The two `goldCut`-lower-bound rows `gold_box_price_live_kerr` consumes.  Both come from
@@ -600,26 +613,10 @@ theorem gold_box_rows_at_op : ∃ (Kc : ℝ) (x₁ : ℕ), 0 < Kc ∧
   have hFX : opZ N * opY N ≤ 2 ^ (i + 1) - 1 := by
     have := gold_box_Ffloor hi; omega
   -- polylog rows (√X, √M floors)
-  have hsqrtX : (N : ℝ) ^ ((11 : ℝ) / 48) / 2 ≤ Real.sqrt ((2 ^ (i + 1) - 1 : ℕ) : ℝ) := by
-    rw [show (N : ℝ) ^ ((11 : ℝ) / 48) / 2
-        = Real.sqrt (((N : ℝ) ^ ((11 : ℝ) / 48) / 2) ^ 2) from (Real.sqrt_sq (by positivity)).symm]
-    apply Real.sqrt_le_sqrt
-    have h48 : ((N : ℝ) ^ ((11 : ℝ) / 48)) ^ (2 : ℕ) = (N : ℝ) ^ ((11 : ℝ) / 24) := by
-      rw [← Real.rpow_natCast ((N : ℝ) ^ ((11 : ℝ) / 48)) 2, ← Real.rpow_mul hNpos.le,
-        show (11 : ℝ) / 48 * ((2 : ℕ) : ℝ) = 11 / 24 by push_cast; ring]
-    have hsq : ((N : ℝ) ^ ((11 : ℝ) / 48) / 2) ^ (2 : ℕ) = (N : ℝ) ^ ((11 : ℝ) / 24) / 4 := by
-      rw [div_pow, h48]; norm_num
-    rw [hsq]; exact hXge
-  have hsqrtM : (N : ℝ) ^ ((1 : ℝ) / 6) / 4 ≤ Real.sqrt (pieceM kp : ℝ) := by
-    rw [show (N : ℝ) ^ ((1 : ℝ) / 6) / 4
-        = Real.sqrt (((N : ℝ) ^ ((1 : ℝ) / 6) / 4) ^ 2) from (Real.sqrt_sq (by positivity)).symm]
-    apply Real.sqrt_le_sqrt
-    have h6 : ((N : ℝ) ^ ((1 : ℝ) / 6)) ^ (2 : ℕ) = (N : ℝ) ^ ((1 : ℝ) / 3) := by
-      rw [← Real.rpow_natCast ((N : ℝ) ^ ((1 : ℝ) / 6)) 2, ← Real.rpow_mul hNpos.le,
-        show (1 : ℝ) / 6 * ((2 : ℕ) : ℝ) = 1 / 3 by push_cast; ring]
-    have hsq : ((N : ℝ) ^ ((1 : ℝ) / 6) / 4) ^ (2 : ℕ) = (N : ℝ) ^ ((1 : ℝ) / 3) / 16 := by
-      rw [div_pow, h6]; norm_num
-    rw [hsq]; exact hMfloor
+  have hsqrtX : (N : ℝ) ^ ((11 : ℝ) / 48) / 2 ≤ Real.sqrt ((2 ^ (i + 1) - 1 : ℕ) : ℝ) :=
+    gold_rpow_div_le_sqrt hNpos.le (by norm_num) (by norm_num) (by norm_num) hXge
+  have hsqrtM : (N : ℝ) ^ ((1 : ℝ) / 6) / 4 ≤ Real.sqrt (pieceM kp : ℝ) :=
+    gold_rpow_div_le_sqrt hNpos.le (by norm_num) (by norm_num) (by norm_num) hMfloor
   have hXsqrt : L ^ ((13 : ℝ) + 3) ≤ Real.sqrt ((2 ^ (i + 1) - 1 : ℕ) : ℝ) := by
     have hLpow : L ^ ((13 : ℝ) + 3) ≤ 262144 * (N : ℝ) ^ ((1 : ℝ) / 2000) :=
       gold_Lpow_le hlogN1 hL0 hLle hpl (by norm_num) (by norm_num)

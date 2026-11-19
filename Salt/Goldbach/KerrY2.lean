@@ -276,26 +276,10 @@ theorem gold_kerrY2_engine_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kc : �
   have hFX : opZ N * opY N ≤ 2 ^ (i + 1) - 1 := by
     have := gold_box_Ffloor hi; omega
   -- polylog rows (√X, √M floors)
-  have hsqrtX : (N : ℝ) ^ ((11 : ℝ) / 48) / 2 ≤ Real.sqrt ((2 ^ (i + 1) - 1 : ℕ) : ℝ) := by
-    rw [show (N : ℝ) ^ ((11 : ℝ) / 48) / 2
-        = Real.sqrt (((N : ℝ) ^ ((11 : ℝ) / 48) / 2) ^ 2) from (Real.sqrt_sq (by positivity)).symm]
-    apply Real.sqrt_le_sqrt
-    have h48 : ((N : ℝ) ^ ((11 : ℝ) / 48)) ^ (2 : ℕ) = (N : ℝ) ^ ((11 : ℝ) / 24) := by
-      rw [← Real.rpow_natCast ((N : ℝ) ^ ((11 : ℝ) / 48)) 2, ← Real.rpow_mul hNpos.le,
-        show (11 : ℝ) / 48 * ((2 : ℕ) : ℝ) = 11 / 24 by push_cast; ring]
-    have hsq : ((N : ℝ) ^ ((11 : ℝ) / 48) / 2) ^ (2 : ℕ) = (N : ℝ) ^ ((11 : ℝ) / 24) / 4 := by
-      rw [div_pow, h48]; norm_num
-    rw [hsq]; exact hXge
-  have hsqrtM : (N : ℝ) ^ ((1 : ℝ) / 6) / 4 ≤ Real.sqrt (pieceM kp : ℝ) := by
-    rw [show (N : ℝ) ^ ((1 : ℝ) / 6) / 4
-        = Real.sqrt (((N : ℝ) ^ ((1 : ℝ) / 6) / 4) ^ 2) from (Real.sqrt_sq (by positivity)).symm]
-    apply Real.sqrt_le_sqrt
-    have h6 : ((N : ℝ) ^ ((1 : ℝ) / 6)) ^ (2 : ℕ) = (N : ℝ) ^ ((1 : ℝ) / 3) := by
-      rw [← Real.rpow_natCast ((N : ℝ) ^ ((1 : ℝ) / 6)) 2, ← Real.rpow_mul hNpos.le,
-        show (1 : ℝ) / 6 * ((2 : ℕ) : ℝ) = 1 / 3 by push_cast; ring]
-    have hsq : ((N : ℝ) ^ ((1 : ℝ) / 6) / 4) ^ (2 : ℕ) = (N : ℝ) ^ ((1 : ℝ) / 3) / 16 := by
-      rw [div_pow, h6]; norm_num
-    rw [hsq]; exact hMfloor
+  have hsqrtX : (N : ℝ) ^ ((11 : ℝ) / 48) / 2 ≤ Real.sqrt ((2 ^ (i + 1) - 1 : ℕ) : ℝ) :=
+    gold_rpow_div_le_sqrt hNpos.le (by norm_num) (by norm_num) (by norm_num) hXge
+  have hsqrtM : (N : ℝ) ^ ((1 : ℝ) / 6) / 4 ≤ Real.sqrt (pieceM kp : ℝ) :=
+    gold_rpow_div_le_sqrt hNpos.le (by norm_num) (by norm_num) (by norm_num) hMfloor
   have hXsqrt : L ^ ((13 : ℝ) + 3) ≤ Real.sqrt ((2 ^ (i + 1) - 1 : ℕ) : ℝ) := by
     have hLpow : L ^ ((13 : ℝ) + 3) ≤ 262144 * (N : ℝ) ^ ((1 : ℝ) / 2000) :=
       k2_Lpow_le hlogN1 hL0 hLle hpl (by norm_num) (by norm_num)
