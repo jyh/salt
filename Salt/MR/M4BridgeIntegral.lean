@@ -570,6 +570,16 @@ theorem hcov_of_seamS0 (c : ℕ → ℂ) {N A B H : ℕ} {X : ℝ} (hXA : X ≤ 
     ∀ n ∈ Finset.Ioc A B, ∀ m ∈ Finset.Ioc n (n + H), m ∉ seamS0 N X → c m = 0 :=
   fun _ hn _ hm hns => absurd (mem_seamS0_of_block_window hXA hBN hn hm) hns
 
+/-- `hcov_of_seamS0` at the door ladder's own block `(X_{i+1}, X_i]`, seam `N = 2·X_{i+1}`:
+the fit `X_i + H ≤ 2·X_{i+1}` (`doorLadder_fit`) is the `B + H ≤ N` it needs. Stated once for
+the seven block-sum sites (M4Join ×2, M4RowLinear ×3, M4WaveClosed ×2). -/
+theorem hcov_of_seamS0_ladder (c : ℕ → ℂ) (x H i : ℕ) :
+    ∀ n ∈ Finset.Ioc (doorLadder x H (i + 1)) (doorLadder x H i),
+      ∀ m ∈ Finset.Ioc n (n + H), m ∉ seamS0 (2 * doorLadder x H (i + 1))
+          (doorLadder x H (i + 1) : ℝ) → c m = 0 :=
+  hcov_of_seamS0 c (A := doorLadder x H (i + 1)) (B := doorLadder x H i)
+    (N := 2 * doorLadder x H (i + 1)) (H := H) le_rfl (doorLadder_fit x H i)
+
 /-- **THE EXIT'S LADDER GATES ARE INHABITED** — a concrete witness for
 `m4_bridge_door_sq_le`'s four arithmetic gates at `(x, ω, H, k) = (64, 2, 1, 2)`.  (The
 general witness is `M4Door.doorCount_gates` at `k := doorCount ω`; this one is the
