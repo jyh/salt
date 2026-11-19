@@ -23,7 +23,7 @@ S1's "2.2·10³¹-genre, height 1" is exact. λ₋ is a **logarithm** of the dem
 | face | source | forces |
 |---|---|---|
 | budget (post-D1) | `BudgetCore.lean:223` | λ₋ ≥ 72.17 |
-| **x₀ rider** | `S15Sel''_gk.x0M` (`S15Compose.lean:2453`) + the chain's pinned `x₀ ≥ exp(exp 100)` (`S15Witness.lean:~795`, `mmu1Chi_rate_of_pinned`) | **λ₋ ≥ 100.9** (`p9_x0_rider_lambda`: ≥ 100) |
+| **x₀ rider** | `S15Sel''_gk.x0M` (`S15Compose.lean:2450`) + the chain's pinned `x₀ ≥ exp(exp 100)` (`S15Witness.lean:~795`, `mmu1Chi_rate_of_pinned`) | **λ₋ ≥ 100.9** (`p9_x0_rider_lambda`: ≥ 100) |
 | **b-floor** | `S15Sel''_gk.bfloor` + the road's own `24·Cg/δ₀ = 1.68·10¹⁸¹ = 2^602.02` (`ConstantsExposed.lean:417`, docstring `:67`) + `half` | **λ₋ ≥ 448.98** (`p4_bfloor_lambda`: ≥ 448) |
 
 So the honest post-D1 working point is **λ₋ = 448.98, M = 2^602.02, L+1 = 603** — not "λ₋ ≈ 72–110". CLAIM 1's numerals name only the weakest of the three floors. (Silver lining, and it is real: post-D1 λ₋ is *free to be chosen* at 449, which is exactly where the landed witness's 248-bit b-floor gap — `S15Witness.lean:799` — closes to zero. Pre-D1 that was impossible because λ₋ was pinned at `e^{1.04e31}`.)
@@ -32,7 +32,7 @@ Freeze numeral slip inside CLAIM 2, kernel-checked: "at L+1 ≈ 155 [with] λ₋
 
 ## 3. The width law is 6.4517, not 7.1448 — the freeze's own figure, off by exactly log 2
 
-`S15Sel''_gk.half` (`S15Compose.lean:2458-2459`) reads `0.7·doorRowFloor M + 3·log(1/ρ) ≤ (log H₋)/2` — **with the /2**. The budget ghost (`S15Compose.lean:822`, `flags.md:17978`) is `log H₊ ≤ 1280·log2·doorRowFloor M`. Composing (`p2_width_from_half`, certified at the clean `10·log2 = 6.9315`; the sharp value is `log(1280·log2/1.4) = 6.4517`):
+`S15Sel''_gk.half` (`S15Compose.lean:2455-2456`) reads `0.7·doorRowFloor M + 3·log(1/ρ) ≤ (log H₋)/2` — **with the /2**. The budget ghost (`S15Compose.lean:853`, `flags.md:17978`) is `log H₊ ≤ 1280·log2·doorRowFloor M`. Composing (`p2_width_from_half`, certified at the clean `10·log2 = 6.9315`; the sharp value is `log(1280·log2/1.4) = 6.4517`):
 
 **λ₊ ≤ λ₋ + 6.4517.** `p2b_width_gap_is_log_two` certifies `log(1280·log2/0.7) = log(1280·log2/1.4) + log 2` — the flags'/freeze's 7.1448 dropped the `/2`. Status of the law itself: the `×1280` ghost is LAMBDA-RECON **prose**, not a landed field (`flags.md:17978` says so outright) — but it is the price of supplying the one carried binder `S15CrossingBound` (`S15Compose.lean:~800`) through its only known route.
 
@@ -119,7 +119,7 @@ The most that survives is the **first-moment (averaging) floor**, which is a *lo
 
 Kernel, `P2.lean`:
 - `bennett_h_le` (`:14`): `h(u) = (1+u)log(1+u) − u ≤ u²` ⟹ `bennett_le_gaussian` (`:25`): **the Bennett exponent `(V/R²)h(Rδ/V) ≤ δ²/V` for every `V,R,δ`.** No variance-based tail (Bennett, Bernstein, Freedman, Bousquet) beats the Gaussian exponent at the true variance sum. (Conservative: the sharp constant is `δ²/2V`, so this is generous to D1 by 2×.)
-- `bennett_ceiling` (`:43`): with `V ≥ N/(4ε²)` (P3 floor) and `N ≥ ε²H/(8 log H)` (corpus: `primeWindow_sum_inv_ge`, `cD3 = 1/4`, `WindowMertensLower.lean`, times `p ≤ ε²H`), at `δ = ε²H/log H` (`Transport.lean:128`): **`g ≤ 32·ε⁴H/log H`.** The `log H` survives. So `ε⁶ → ε⁴` in `g` (`ε⁻⁸ → ε⁻⁶` in the demand) and **nothing else**.
+- `bennett_ceiling` (`:43`): with `V ≥ N/(4ε²)` (P3 floor) and `N ≥ ε²H/(8 log H)` (corpus: `primeWindow_sum_inv_ge`, `cD3 = 1/4`, `WindowMertensLower.lean`, times `p ≤ ε²H`), at `δ = ε²H/log H` (`Transport.lean:274`): **`g ≤ 32·ε⁴H/log H`.** The `log H` survives. So `ε⁶ → ε⁴` in `g` (`ε⁻⁸ → ε⁻⁶` in the demand) and **nothing else**.
 - `poisson_regime_absent` (`:100`): S1's mechanism dies at the argument itself — `Rδ/V ≤ 32(2+ε²) ≤ 72`, a pure constant. S1 claims `Rδ/(Nσ²) ∼ ε³H`. `log(1+72) < 4.3`, not `log H`.
 - `poisson_log_bounded_at_max_delta` (`:134`): **the "raise δ" rebuttal is dead too** — at the maximal admissible `δ ≤ (cD3/16)εH/log H` (S1 (4)'s slice), `Rδ/V ≤ 4/ε + 2ε ≤ 2001` at `ε = 1/500` (`:172`), Poisson log `< 7.7`, against `log H ≥ 2.2·10³¹`.
 - `log_cancellation_impossible` (`:187`): if `g ≥ ε⁴H` (the freeze's "gains a full `log H`"), then `log H ≤ 32`. The budget's own height-1 demand is `log H ≥ 2.2·10³¹` (S1 P7). **Incompatible by 30 orders.**
@@ -132,7 +132,7 @@ Kernel, `P2.lean`:
 
 If flown anyway: (a) `HasBennettMGF` + Finset sum + Chernoff, 500-900 ln, class C, riskiest step the `(e^u−1−u)/u²` monotonicity; (b) **the variance INPUT — no est, because the needed statement is false**: uniform in `v` it must be `σ_p² ≲ R²/p`, contradicted by `P1` at ratio 0.786; restricted to Liouville windows it is a 4-point-correlation equidistribution statement across residue classes, strictly stronger than the two-point cancellation the spine is trying to prove — class D/open, plausibly false. Even granted, the payoff is `ε²`.
 
-Blast radius (re-derive on any change to the tail): `FBridge.lean` `fBridge_varTerm:198`, `fBridge_var_le:217`, `fBridge_var_le_sharp:375`, `fBridge_concentration_raw:262`, `fBridge_concentration:274`, `fBridge_concentration_sharp:405`, `fBridge_concentration_decoupled_sharp:459`; `Concentration.lean:167,196,218` (a Bennett sibling of all three); `Decoupled.lean:53`; `Transport.lean:69` `badSet_transport` + `:128` `badSet_transport_at_calibration` (the `ε⁶/18C₀` calibration line `:141`); `OuterCombine.lean:238`; `SpineFinal.lean:630` `gcap`; and `BudgetCore.lean:138-145` fact (iv) + `:21` `budgetX` are **statement-tier** (Captain's fence, per the freeze's §D). ~2,000 ln touched, 4 frozen statements re-opened, for a `4·10⁸` gain against a `10²¹` gap.
+Blast radius (re-derive on any change to the tail): `FBridge.lean` `fBridge_varTerm:198`, `fBridge_var_le:217`, `fBridge_var_le_sharp:375`, `fBridge_concentration_raw:262`, `fBridge_concentration:274`, `fBridge_concentration_sharp:405`, `fBridge_concentration_decoupled_sharp:459`; `Concentration.lean:167,196,218` (a Bennett sibling of all three); `Decoupled.lean:53`; `Transport.lean:244` `badSet_transport` + `:274` `badSet_transport_at_calibration` (the `ε⁶/18C₀` calibration line `:141`); `OuterCombine.lean:238`; `SpineFinal.lean:630` `gcap`; and `BudgetCore.lean:138-145` fact (iv) + `:21` `budgetX` are **statement-tier** (Captain's fence, per the freeze's §D). ~2,000 ln touched, 4 frozen statements re-opened, for a `4·10⁸` gain against a `10²¹` gap.
 
 **RECOMMENDATION TO THE FREEZE**: strike D1 from §B. The height-3 wall is not the Hoeffding range-square; it is the identity `κ ≍ gcap ≍ H/log H`, and the variance floor `σ_p² ≥ 1/(4ε²)` proves *no* concentration re-proof can move `gcap` off `H/log H`. What must move is `κ`'s `H`-order (D2) or the register's `H`-coupling — not the tail.
 
