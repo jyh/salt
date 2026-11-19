@@ -57,7 +57,7 @@ known). The `1/60` of the kernel rows is FORCED by the pair sum `Re(s̄_j + s_k)
 (β_k − σ) ≤ 2/120` and consumed with zero margin. Nothing here bears on twin primes or on the
 crown's conditions.
 
-## The measured receipts (design v2 §A, as corrected at the two passes; `h2c-desk/w9ac_sweep.py`)
+## The measured receipts (design v2 §A, as corrected at the two passes; `w9ac_sweep.py`)
 
 The toy `(z₁, z₂, x) = (4, 16, 400)` with the real `bvWeight`: `Σ a(n)² n^{1−2σ} =
 2.41 / 2.53 / 3.12 / 4.22` at `σ = 1, 0.99, 0.95, 0.9` against the row's RHS at

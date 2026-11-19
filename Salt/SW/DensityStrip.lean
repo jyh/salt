@@ -53,7 +53,7 @@ so the ratio is vacuous at the object while the strip and the target are NOT —
 at `σ = 1` they are the crude count and the non-vanishing). Nothing here bears on twin primes or
 on the crown's conditions beyond stating B2's own.
 
-## The measured receipts (design v2 §A.6/§A.7 as corrected at the passes; `h2c-desk/w9f_sweep.py`)
+## The measured receipts (design v2 §A.6/§A.7 as corrected at the passes; `w9f_sweep.py`)
 
 `7/4 + 3λ/2 ≤ (7/4)e^{λ}` with equality at `λ = 0` (the gap `0.034` at `λ = 0.1`, `0.243`
 at `λ = 0.384 = log(10²⁰)/120`, the strip's largest `λ` at `10²⁰`). The glue at `qT = 4`,
