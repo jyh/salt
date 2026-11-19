@@ -430,11 +430,7 @@ theorem s13_winFit_of_halfWindow_gen {R : ChowlaRegime} {jr ρ : ℝ}
   have hloR : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast hlo
   have hlogmono : Real.log (R.Hlo : ℝ) ≤ Real.log (H : ℝ) :=
     Real.log_le_log (by linarith) hloR
-  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
-  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
-    have := Real.exp_le_exp.mpr h50
-    rwa [Real.exp_log hlogH0] at this
+  obtain ⟨h50, -, -, hlogH0, hexp50⟩ := regime_log_floors R hfl hlo
   have hlogHbig : (4000000 : ℝ) ≤ Real.log (H : ℝ) := le_trans s13_four_million_le_exp50 hexp50
   set w : ℝ := Real.sqrt (Real.log (H : ℝ)) with hw
   have hw2 : w ^ 2 = Real.log (H : ℝ) := Real.sq_sqrt hlogH0.le

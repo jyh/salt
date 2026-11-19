@@ -2533,13 +2533,7 @@ theorem s13_capEps_register_LH_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : �
       ∧ Real.log (H : ℝ) / 2 ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ))
       ∧ (q.totient : ℝ) ≤ (h : ℝ) * (Real.log (H : ℝ)) ^ (12 : ℕ) := by
   have hlo : R.Hlo ≤ H := hb.1
-  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
-  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
-  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
-    have hz := Real.exp_le_exp.mpr h50
-    rwa [Real.exp_log hlogH0] at hz
+  obtain ⟨h50, hH4, hHR, hlogH0, hexp50⟩ := regime_log_floors R hfl hlo
   have hu21 : (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (H : ℝ) :=
     le_trans capeps_ten21_le_exp50 hexp50
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA_LH_b9 hh hh9 hfl hb
