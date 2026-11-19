@@ -34,6 +34,23 @@ open Finset MeasureTheory intervalIntegral Set
 
 namespace Salt.Chen
 
+/-- **`log_le_log_of_one_le_logRatio`** (O13-e row 295). The cutoff preamble the sharp
+peeling steps open with: `1 ≤ logRatio z D` (that is, `log D / log z ≥ 1`) forces `log z > 0`, since
+a zero denominator makes the ratio `0`, and then `log z ≤ log D`. Stated with `0 ≤ log z` as well,
+the form the steps' own `rcases` produced. -/
+theorem log_le_log_of_one_le_logRatio {z D : ℕ} (h : 1 ≤ logRatio z D) :
+    (0 : ℝ) ≤ Real.log z ∧ 0 < Real.log z ∧ Real.log z ≤ Real.log D := by
+  have hnn : (0 : ℝ) ≤ Real.log z := by
+    rcases Nat.eq_zero_or_pos z with h0 | h0
+    · simp [h0]
+    · exact Real.log_nonneg (by exact_mod_cast h0)
+  have hpos : 0 < Real.log z := by
+    rcases lt_or_eq_of_le hnn with h0 | h0
+    · exact h0
+    · exfalso; rw [logRatio, ← h0, div_zero] at h; linarith
+  refine ⟨hnn, hpos, ?_⟩
+  have h' := h; rw [logRatio, le_div_iff₀ hpos, one_mul] at h'; exact h'
+
 /-! ## Part 0 — the kernel `Kh = -hBJS'` and its integrability -/
 
 /-- `Kh = -hBJS'`, the nonnegative descending-`V` kernel: `0` on `v ≤ 2`, `e^{-v}` on `(2,3]`,
@@ -383,16 +400,8 @@ theorem hpush_core (s' : BoundingSieve) (ε : ℝ) (z D' : ℕ)
   have hWpos : 0 < Salt.BrunLower.W s' := Salt.BrunLower.W_pos s'
   have hS0 : 0 < logRatio z D' := by linarith [hS1]
   -- log positivity (for the point lower bound)
-  have hlz_nn : (0 : ℝ) ≤ Real.log z := by
-    rcases Nat.eq_zero_or_pos z with h | h
-    · simp [h]
-    · exact Real.log_nonneg (by exact_mod_cast h)
-  have hlogz : 0 < Real.log z := by
-    rcases lt_or_eq_of_le hlz_nn with h | h
-    · exact h
-    · exfalso; rw [logRatio, ← h, div_zero] at hS1; linarith
-  have hzD : Real.log z ≤ Real.log D' := by
-    have h := hS1; rw [logRatio, le_div_iff₀ hlogz, one_mul] at h; exact h
+  obtain ⟨hlz_nn, hlogz, hzD⟩ :=
+    log_le_log_of_one_le_logRatio (z := z) (D := D') hS1
   have hlogD : 0 < Real.log D' := lt_of_lt_of_le hlogz hzD
   -- masses nonneg
   have hm_nonneg : ∀ p ∈ win, 0 ≤ s'.nu p * Vbelow s' p := by
@@ -656,16 +665,8 @@ theorem hh_sharp_flat (s' : BoundingSieve) (ε : ℝ) (z D' : ℕ)
   have hSpos : (0 : ℝ) < logRatio z D' := by linarith
   have hSpos_bJS : 0 < hBJS (logRatio z D') := hBJS_pos _
   -- log positivity
-  have hlz_nn : (0 : ℝ) ≤ Real.log z := by
-    rcases Nat.eq_zero_or_pos z with h | h
-    · simp [h]
-    · exact Real.log_nonneg (by exact_mod_cast h)
-  have hlogz : 0 < Real.log z := by
-    rcases lt_or_eq_of_le hlz_nn with h | h
-    · exact h
-    · exfalso; rw [logRatio, ← h, div_zero] at hS1; linarith
-  have hzD : Real.log z ≤ Real.log D' := by
-    have h := hS1; rw [logRatio, le_div_iff₀ hlogz, one_mul] at h; exact h
+  obtain ⟨hlz_nn, hlogz, hzD⟩ :=
+    log_le_log_of_one_le_logRatio (z := z) (D := D') hS1
   have hlogD : 0 < Real.log D' := lt_of_lt_of_le hlogz hzD
   have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
   set win := s'.prodPrimes.primeFactors.filter (fun p => p ^ 3 < D') with hwindef
@@ -796,16 +797,8 @@ theorem hh_sharp_ge2 (s' : BoundingSieve) (ε : ℝ) (z D' : ℕ)
       ≤ Salt.BrunLower.W s' * (chSharpB ε * hBJS (logRatio z D')) := by
   have hS1 : 1 ≤ logRatio z D' := by linarith
   -- log positivity
-  have hlz_nn : (0 : ℝ) ≤ Real.log z := by
-    rcases Nat.eq_zero_or_pos z with h | h
-    · simp [h]
-    · exact Real.log_nonneg (by exact_mod_cast h)
-  have hlogz : 0 < Real.log z := by
-    rcases lt_or_eq_of_le hlz_nn with h | h
-    · exact h
-    · exfalso; rw [logRatio, ← h, div_zero] at hS1; linarith
-  have hzD : Real.log z ≤ Real.log D' := by
-    have h := hS1; rw [logRatio, le_div_iff₀ hlogz, one_mul] at h; exact h
+  obtain ⟨hlz_nn, hlogz, hzD⟩ :=
+    log_le_log_of_one_le_logRatio (z := z) (D := D') hS1
   have hlogD : 0 < Real.log D' := lt_of_lt_of_le hlogz hzD
   have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
   have hz2 : Real.log 2 ≤ Real.log z := by
