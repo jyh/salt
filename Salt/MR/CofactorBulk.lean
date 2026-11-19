@@ -212,10 +212,7 @@ theorem cofkL_socket_floors {R : ChowlaRegime} {M H L q j A s : ℕ}
   have hexp : Real.exp (518 : ℝ) ≤ Real.log (R.Hlo : ℝ) := by
     have h := Real.exp_le_exp.mpr hlo
     rwa [Real.exp_log (by linarith)] at h
-  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := by
-    have h := cofk_exp_quartic (u := (518 : ℝ)) (by norm_num)
-    have hnum : (290029400 : ℝ) ≤ (1 + (518 : ℝ) / 4) ^ 4 := by norm_num
-    linarith
+  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := cofk_ten_pow_eight_le_exp_518
   have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by linarith
   have hlogmono : Real.log (R.Hlo : ℝ) ≤ Real.log (R.Hhi : ℝ) :=
     Real.log_le_log (by linarith) (by linarith)

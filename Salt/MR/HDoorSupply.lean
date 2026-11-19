@@ -1268,10 +1268,7 @@ theorem cofkL_scale_gate_at_socket_h_b9 {R : ChowlaRegime} {h M H L q j A s : �
   have hexp : Real.exp (518 : ℝ) ≤ Real.log (R.Hlo : ℝ) := by
     have h := Real.exp_le_exp.mpr hlo
     rwa [Real.exp_log (by linarith)] at h
-  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := by
-    have h := cofk_exp_quartic (u := (518 : ℝ)) (by norm_num)
-    have hnum : (290029400 : ℝ) ≤ (1 + (518 : ℝ) / 4) ^ 4 := by norm_num
-    linarith
+  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := cofk_ten_pow_eight_le_exp_518
   have hlogHlo8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hlo : ℝ) := by linarith
   have hHloH : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast h1
   have hHHhi : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
@@ -1362,10 +1359,7 @@ theorem cofkL_threshold_at_socket_rated_h_b9 {R : ChowlaRegime} {h M H L q j A s
   have hexp : Real.exp (518 : ℝ) ≤ Real.log (R.Hlo : ℝ) := by
     have h := Real.exp_le_exp.mpr hlo
     rwa [Real.exp_log (by linarith)] at h
-  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := by
-    have h := cofk_exp_quartic (u := (518 : ℝ)) (by norm_num)
-    have hnum : (290029400 : ℝ) ≤ (1 + (518 : ℝ) / 4) ^ 4 := by norm_num
-    linarith
+  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := cofk_ten_pow_eight_le_exp_518
   have hlogHlo8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hlo : ℝ) := by linarith
   have hHloH : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast h1
   have hHHhi : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast h2
@@ -1472,10 +1466,7 @@ theorem cofkL_capFreeFloor_at_socket_rated_uniform_h_b9 (h : ℕ) (hh : 0 < h)
   have hexp : Real.exp (518 : ℝ) ≤ Real.log (R.Hlo : ℝ) := by
     have h := Real.exp_le_exp.mpr hlo
     rwa [Real.exp_log (by linarith)] at h
-  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := by
-    have h := cofk_exp_quartic (u := (518 : ℝ)) (by norm_num)
-    have hnum : (290029400 : ℝ) ≤ (1 + (518 : ℝ) / 4) ^ 4 := by norm_num
-    linarith
+  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := cofk_ten_pow_eight_le_exp_518
   have hlogHlo8 : (10 : ℝ) ^ 8 ≤ Real.log (R.Hlo : ℝ) := by linarith
   have hlogmono : Real.log (R.Hlo : ℝ) ≤ Real.log (H : ℝ) :=
     Real.log_le_log (by linarith) hHloH

@@ -572,10 +572,7 @@ theorem cofk_tower_logfloor_L {R : ChowlaRegime} {h M H L q j A s : ℕ} {Lc : �
   have hexp : Real.exp (518 + Lc) ≤ Real.log (R.Hlo : ℝ) := by
     have h := Real.exp_le_exp.mpr hloL
     rwa [Real.exp_log (by linarith)] at h
-  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := by
-    have h := cofk_exp_quartic (u := (518 : ℝ)) (by norm_num)
-    have hnum : (290029400 : ℝ) ≤ (1 + (518 : ℝ) / 4) ^ 4 := by norm_num
-    linarith
+  have hquart : (10 : ℝ) ^ 8 ≤ Real.exp (518 : ℝ) := cofk_ten_pow_eight_le_exp_518
   have hexpL : (1 : ℝ) + Lc ≤ Real.exp Lc := by
     have h := Real.add_one_le_exp Lc; linarith
   have hmul : (10 : ℝ) ^ 8 * (1 + Lc) ≤ Real.exp 518 * Real.exp Lc :=
