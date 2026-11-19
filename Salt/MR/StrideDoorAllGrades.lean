@@ -5427,20 +5427,8 @@ theorem strideDoorAllGradesW_holds : StrideDoorAllGradesW := by
     mul_le_mul_of_nonneg_left (by exact_mod_cast Rd.hHlohi) (sq_nonneg _)
   have hlognn : (0 : ℝ) ≤ Real.log ((Rd.eps : ℝ) ^ 2 * ((Rd.Hhi : ℕ) : ℝ)) :=
     Real.log_nonneg (by linarith)
-  have h16 : (0 : ℝ) ≤ 16 / (Rd.eps : ℝ) := by positivity
-  have h64 : (32000 : ℝ) ≤ 64 / (Rd.eps : ℝ) := by
-    rw [le_div_iff₀ hepsR0]; linarith
-  have hlogω : (32001 : ℝ) ≤ Real.log ((Rd.ω : ℕ) : ℝ) := by
-    have hb2 := Rd.hωbig
-    nlinarith [mul_nonneg h16 hlognn]
+  obtain ⟨hlogω, hω8⟩ := regime_log_omega_ge_of_eps_le hepsR0 heps500R hlognn
   have hω2N : 2 ≤ Rd.ω := Rd.hω
-  have hωR : (0 : ℝ) < ((Rd.ω : ℕ) : ℝ) := by
-    have h2 : (2 : ℝ) ≤ ((Rd.ω : ℕ) : ℝ) := by exact_mod_cast hω2N
-    linarith
-  have hω8 : 8 ≤ Rd.ω := by
-    have hsub := Real.log_le_sub_one_of_pos hωR
-    have h8 : (8 : ℝ) ≤ ((Rd.ω : ℕ) : ℝ) := by linarith
-    exact_mod_cast h8
   -- ⟦THE TRANSPORT⟧ F3-P16 at the shrunk regime, at the target grade `ρt`
   have htrans := mrtUniformityXiL2AffW_of_set_L h Rd a b ha heps500 hstride hdiv hlo4 hloM hcop
     hHloS hb hω8 Kc ρt hKcount hdoor
