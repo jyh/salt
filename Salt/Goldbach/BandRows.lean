@@ -190,21 +190,8 @@ theorem gold_band_wide_price_at_op_of_SW (hSWall : Salt.BV.SiegelWalfisz)
       simpa using this
     linarith [h2kp4, hcast]
   -- `hN₀ : N₀ ≤ 2^kp`
-  have hN₀ : N₀ ≤ 2 ^ kp := by
-    have hbigR : ((16 * N₀ : ℕ) : ℝ) ^ 3 ≤ (N : ℝ) := by
-      have hle : ((16 * N₀) ^ 3 : ℕ) ≤ N := by omega
-      calc ((16 * N₀ : ℕ) : ℝ) ^ 3 = (((16 * N₀) ^ 3 : ℕ) : ℝ) := by push_cast; ring
-        _ ≤ (N : ℝ) := by exact_mod_cast hle
-    have hcube : ((16 * N₀ : ℕ) : ℝ) ≤ (N : ℝ) ^ ((1 : ℝ) / 3) := by
-      have hmono := Real.rpow_le_rpow (by positivity) hbigR (by norm_num : (0 : ℝ) ≤ 1 / 3)
-      rwa [← Real.rpow_natCast ((16 * N₀ : ℕ) : ℝ) 3, ← Real.rpow_mul (by positivity),
-        show ((3 : ℕ) : ℝ) * (1 / 3) = 1 by norm_num, Real.rpow_one] at hmono
-    have hchain : ((16 * N₀ : ℕ) : ℝ) ≤ 16 * ((2 ^ kp : ℕ) : ℝ) :=
-      le_trans hcube (by linarith [h2kpge])
-    have hfin : ((N₀ : ℕ) : ℝ) ≤ ((2 ^ kp : ℕ) : ℝ) := by
-      have heq : ((16 * N₀ : ℕ) : ℝ) = 16 * ((N₀ : ℕ) : ℝ) := by push_cast; ring
-      rw [heq] at hchain; linarith [hchain]
-    exact_mod_cast hfin
+  have hN₀ : N₀ ≤ 2 ^ kp :=
+    gold_N0_le_two_pow hbigN (by linarith [h2kpge])
   -- =============== the box-scale geometry (shared with the box leg) ===============
   have hXMlo_nat : goldCut N ka < (2 ^ (i + 1) - 1) * pieceM kp := (gold_box_XM_scale hi).1
   have hXMhi_nat : (2 ^ (i + 1) - 1) * pieceM kp ≤ 4 * goldCut N (ka + 1) :=
