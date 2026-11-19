@@ -61,7 +61,7 @@ here is `norm_riemannZeta_le`'s partial-fraction bound), not Jutila's. The devic
 W9c takes `M ≤ z₁` (so the `M`-term is `0` on the detector's range) and `N ≥ 2x` (so `K(n/N) ≥ 1/4`
 on `n ≤ x` — the Riesz kernel's own need, where Jutila's `e^{−n/N} ≥ e^{−1}` needs none).
 
-## The measured receipts behind these statements (`h2c-desk/w9_receipts.py`)
+## The measured receipts behind these statements (`w9_receipts.py`)
 
 The identity at `q = 5`, `R = 6` (`rFilter = {1, 2, 3, 6}`, `E = 4/5`, `Σ'φ(r)/r² = 1.527778`),
 THREE WAYS — `B` as the finite sum, the residue block from `resKernel`'s closed form, `I(s)` as the

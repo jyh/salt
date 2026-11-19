@@ -544,7 +544,7 @@ The pairing/consumer census behind the fork ruling is re-derived mechanically by
 THE ENGINE, AT OFFSET `p·h`.  `circle_method_estimate_h_core` is Tao's Lemma 3.4 (3.18)
 run at the correlation offset `p·h`, and `circle_method_estimate_h` is the same statement
 over the fork's own set: line for line the landed `circle_method_estimate`
-(`CircleMethod.lean:652-663`) with exactly two changes — the offset `j + p` becomes
+(`CircleMethod.lean:713-724`) with exactly two changes — the offset `j + p` becomes
 `j + p·h`, and the Fourier mass is summed over `bigXiH h eps H` instead of `bigXi eps H`.
 The DFT factor stays at the UNTWISTED `ξ`, so the twist still lives only in the membership
 predicate, and the seam's spelling is untouched.
@@ -862,7 +862,7 @@ literal `(j + (p : ℕ)) : ℝ)` occurs ZERO times.
 POPULATION IS **SIX FILES**, NOT THREE.  Measured (`grep -rF '(j + (p : ℕ) * h) : ℝ)' Salt/`):
 `CircleMethod` · `FBridge` · `OuterCombine` · `Decoupled` · `Transport` · `ShiftFork`.  Two of
 them — `circle_method_estimate_h` (`ShiftFork.lean:404`) and `circle_method_estimate_h_core`
-(`CircleMethod.lean:1281`) — already carried the identical literal BEFORE wave A opened.
+(`CircleMethod.lean:1233`) — already carried the identical literal BEFORE wave A opened.
 ⇒ "THREE SITES" COUNTED WHAT THE ENTROPY CONE HAD TO **MOVE**; IT NEVER COUNTED WHAT MUST
 **AGREE**.  The migration population and the agreement population are different sets, and this
 file asserted the second while enumerating the first.
@@ -912,7 +912,7 @@ a regression: check WHICH declaration owns the new line before reading a rise as
 ⚠️ THE THREE-SITE ROSTER UNDERCOUNTS THE SHIFT-`h` OFFSET POPULATION — census finding, not a
 defect.  Two MORE declarations already spelled the offset at shift `h` before wave A opened:
 `circle_method_estimate_h` (`ShiftFork.lean:404`) and `circle_method_estimate_h_core`
-(`CircleMethod.lean:1281`), both in the TWO-pattern `x1`/`x2` family.  Both already use the
+(`CircleMethod.lean:1233`), both in the TWO-pattern `x1`/`x2` family.  Both already use the
 identical literal, so byte-identity in fact holds across FIVE sites.  The wave's "three sites"
 counts the sites the entropy cone had to MOVE; it is not the census of the sites that must
 AGREE.  A future shift-`h` port should enumerate by the literal, not by the roster.
@@ -1055,7 +1055,7 @@ claim about Chowla, about the door's supply, or about twins is made or moved her
   Salt.Entropy.Chowla.hbudget_holds_h_one
   Salt.Entropy.Chowla.hreduce_holds_final_h
   -- ⭐ ROLLED IN 2026-08-26 (math), discharging QUEUE P1 item 5c's "REPORTED, NOT FIXED".
-  -- `log_chowla_two_shell_xi_sq` (`Theorem23Shell.lean:362`) is a LANDED terminal with two
+  -- `log_chowla_two_shell_xi_sq` (`Theorem23Shell.lean:516`) is a LANDED terminal with two
   -- consumers (`HloExport.lean:363`, `HloExportFlat.lean:197`), and three of its four family
   -- members were already audited above (`:163-165`) — it alone was gated by no build.
   -- ⛔ PLACED AT THE END OF THE LIST ON PURPOSE, not beside its siblings: `#audit_axioms`
@@ -1087,7 +1087,7 @@ claim about Chowla, about the door's supply, or about twins is made or moved her
   -- connected to nothing. (The three rows above stay: a row that was correct when written is
   -- cheaper to leave than to re-audit, and each still gates its own name transitively.)
   Salt.Entropy.Chowla.circle_method_estimate_sq_h
-  -- ⭐ DESK row o (2026-09-01, math): the `L²` h-lane CONSUMER, `Theorem23Shell.lean:624` — the
+  -- ⭐ DESK row o (2026-09-01, math): the `L²` h-lane CONSUMER, `Theorem23Shell.lean:388` — the
   -- cross of `log_chowla_two_shell_xi_sq` (`:362`) and `log_chowla_two_shell_xi_h` (`:488`).
   -- Registered HERE, in the same commit that lands it, because an unregistered name is invisible
   -- to this gate forever and its absence looks exactly like a name that passed (the 08/31 catch).

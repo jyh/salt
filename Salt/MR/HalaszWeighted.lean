@@ -41,7 +41,7 @@ Every row here is an INPUT to the density theorem's assembly (W9); nothing bears
 or on the crown's conditions. No landed Halász file is consumed (`HalaszIntegers.lean:910`,
 `VdCSocket.lean:547` are EVALUATIONS of `B`, which is W9b's work); `MVHilbert.lean` is untouched.
 
-## The measured receipt (`h2c-desk/w7_receipts.py`, item (l))
+## The measured receipt (`w7_receipts.py`, item (l))
 
 `J = 2`, `S = [1, 50]`, `b_n = 1/n`, `χ mod 5` and its square, `s = (0.7 + 2i, 1.1 − 3i)`,
 `a_n = sin n + 0.3i cos 2n`: the expansion identity holds to `8.9e−16`; `(Σ_j |f_j|)² = 6.7991

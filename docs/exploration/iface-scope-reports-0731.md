@@ -241,7 +241,7 @@ In triple-log terms: register alone `logloglog H₋ ≤ log 20048 = 9.906`; with
 
 **FROZEN STATEMENTS (expensive):**
 - `CalFrameK.A_gate_logK` — `SeamCalibrationK.lean:181`, the port of MR condition (2). The *inequality* is frozen; its side-condition numeral is not.
-- The sharp socket floor `√H ≤ log A` ⇒ `½·log H ≤ loglog X_d` — `S13MSelect2.lean:182,240`; `S13CapGrid.lean:201`. Rooted in the **regime's** `hPHheadroom` (`Salt/Entropy/Chowla/Regime.lean:116`) + `SocketBase`'s x-scale (`M4Assembly.lean:431-434`). Spine-side, not register-side. NOT re-cuttable here.
+- The sharp socket floor `√H ≤ log A` ⇒ `½·log H ≤ loglog X_d` — `S13MSelect2.lean:182,234`; `S13CapGrid.lean:201`. Rooted in the **regime's** `hPHheadroom` (`Salt/Entropy/Chowla/Regime.lean:116`) + `SocketBase`'s x-scale (`M4Assembly.lean:431-434`). Spine-side, not register-side. NOT re-cuttable here.
 - The window law `2^{doorRowFloor M} ≤ H` — `SocketBase` fields `doorRowFloor M ≤ j`, `2^j ≤ A` (`M4Assembly.lean:432-433`), `s14_logH_ge_of_socket` (`S14Compose.lean:123`). Content: `log₂ Q₁ ≤ 0.714·log H₋` where `Q₁ = P₁^M = 2^{M·Adoor M}` — the door's level-1 modulus must fit under the H-window. Structural.
 - The anchor's SHAPE — `DoorArithFrameRho.anchor` (`M4ArithRho.lean:201`), supplied by `doorGrade_summand2_priced_rho` (`M4ArithRho.lean:307`), which prices `1787702400·a2Level1 M·e^{14λ}` ≤ ρ/8 with `a2Level1 M = (log Q₁)^{1/3}/P₁^{1/12}`. The `3.9e9·(L+1)` **is** `Adoor M·log2/12` rounded down — so it moves *automatically* with `Adoor`, and the proof is symbolic in `Adoor M` except through `Adoor_cast`.
 
@@ -295,7 +295,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 
 | field | Regime.lean | couples | where read (Salt/MR) | direction |
 |---|---|---|---|---|
-| `hPHheadroom` `8·(4^⌊ε²H₊⌋)²·ω ≤ x` | :116 | **H₊ ↔ x/ω** | `S13MSelect2.lean:112` (`s13_socketBase_xscale`), `:516`, `:648`; `S13FramesA.lean:1027`, `Salt/MR/S13FramesA.lean:1533`; `DoorDischarge.lean:113`; `DoorFloor1500.lean:160` | **x-FLOOR, exponential in H₊** |
+| `hPHheadroom` `8·(4^⌊ε²H₊⌋)²·ω ≤ x` | :116 | **H₊ ↔ x/ω** | `S13MSelect2.lean:112` (`s13_socketBase_xscale`), `:504`, `:636`; `S13FramesA.lean:1027`, `Salt/MR/S13FramesA.lean:1533`; `DoorDischarge.lean:113`; `DoorFloor1500.lean:160` | **x-FLOOR, exponential in H₊** |
 | `hheadroom` `Hhi ≤ x/ω` | :86 | H₊ ↔ x/ω | `S14Compose.lean:315` (inside the socket witness), `M4Close.lean:485/731/911/994`, `M4BridgeCover.lean:373`, `HloExportMR.lean:144/344/510/642`, `M4DoorL2.lean:160/623/697/855` | x-FLOOR, linear in H₊ |
 | `hheadroom'` `8H₊(log H₊)² ≤ x/ω` | :103 | H₊ ↔ x/ω | `Salt/MR/M4SecondRoad.lean:498` (`regime_eight_omega_Hhi_le_x`, the Salt/MR ladder's one consumer since O13-e row 184, 2026-11-15) | x-FLOOR, poly in H₊ |
 | `hHlo_floor` `4·10⁶ ≤ Hlo` | :80 | H₋ | ~81 sites (`S13CapFloor`, `S14Compose:112/235/353/514`, …) | H₋ floor |

@@ -199,17 +199,11 @@ noncomputable def Pz (z : ℝ) : ℕ := ∏ p ∈ (Finset.range ⌈z⌉₊).filt
 
 /-- A product of distinct primes is squarefree. -/
 lemma prod_primes_squarefree {S : Finset ℕ} (hS : ∀ p ∈ S, p.Prime) :
-    Squarefree (∏ p ∈ S, p) := by
-  induction S using Finset.induction_on with
-  | empty => simp
-  | @insert a S ha IH =>
-    have haP : a.Prime := hS a (Finset.mem_insert_self a S)
-    have hSP : ∀ p ∈ S, p.Prime := fun p hp => hS p (Finset.mem_insert_of_mem hp)
-    rw [Finset.prod_insert ha, Nat.squarefree_mul_iff]
-    refine ⟨?_, haP.prime.squarefree, IH hSP⟩
-    apply Nat.Coprime.prod_right
-    intro p hp
-    exact (Nat.coprime_primes haP (hSP p hp)).mpr (by rintro rfl; exact ha hp)
+    Squarefree (∏ p ∈ S, p) :=
+  Finset.squarefree_prod_of_pairwise_isCoprime
+    (fun p hp q hq hpq => Nat.coprime_iff_isRelPrime.mp
+      ((Nat.coprime_primes (hS p hp) (hS q hq)).mpr hpq))
+    (fun p hp => (hS p hp).squarefree)
 
 /-- The sifting modulus `Pz z = ∏_{p < z} p` is squarefree (`prod_primes_squarefree`). -/
 lemma Pz_squarefree (z : ℝ) : Squarefree (Pz z) :=

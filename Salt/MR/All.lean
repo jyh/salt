@@ -9179,7 +9179,7 @@ here (the twins are audited under ⟦β W1 E2⟧).  2026-10-11: family 49 retire
 (`S16FlatTerminalExitH`, 2026-09-01, math).  The `h`-twin of
 `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L`: the terminal register on the
 terminal's lane, in `¬ Fails` form, at shift `h`.  Composed from the landed door-form register
-(`S16FlatTerminalLinearH.lean:1546`) and the flat head at shift `h`
+(`S16FlatTerminalLinearH.lean:1517`) and the flat head at shift `h`
 (`Salt/Entropy/Chowla/HloExportFlatH.lean:211`).
 
 ⭐ THE WAVE'S FINDING, AND IT IS A COUNT THAT WENT DOWN.  The commission priced part (iii) as
@@ -9403,7 +9403,7 @@ assembler is re-stated here.
 
 **THE TWO CONJUNCTS THAT MOVE, AND WHERE THEY ARE READ** (census driven at the object).
 Conjunct 5 (`q ≤ h·arcDen 12 H`) is read at exactly FIVE sites — `s13CapGrid_q_logX`
-(`S13CapGrid:393`), `capfloor_logq_le` (`S13CapFloor:284`), `capfloor_floor4` (`:468`),
+(`S13CapGrid:387`), `capfloor_logq_le` (`S13CapFloor:278`), `capfloor_floor4` (`:462`),
 `s13_capEps_register` (`S13CapEps`), `s13CapEps_q_arcDen`.  Conjunct 11 is read
 at exactly ONE — `s13_socketBase_xscale` (`S13MSelect2:111`) — and reaches this page only
 through `s13_socketBase_logA_ge_sqrt`.  ⭐ Conjunct 11 therefore costs NO new substrate: its
@@ -9505,7 +9505,7 @@ exactly ONE origin on the whole `h` lane (`HloExportFlatH:308`), every `obtain` 
 `S16FlatTerminalLinearH` and `HDoorSupply` contain **zero** `A₀`.  `flat_head_uniform_h` is the
 landed head with that line replaced by `intro A hA26 hAge`, exactly as `flat_head_uniform` does
 at `h = 1`.  ⭐ **And at `h` the road is ONE theorem where `h = 1` needs three:** the door-form
-register `m4_second_road_L2_H_gk_flatRoot_L` (S16FlatTerminalLinearH:1546) has no `A` in its
+register `m4_second_road_L2_H_gk_flatRoot_L` (S16FlatTerminalLinearH:1517) has no `A` in its
 statement at all, so `flat_socket_uniform` and `flat_doorL2_uniform` have nothing to hoist.
 `Hopq` leaves the `∀ A` and `Hcap` stays inside — the same split, for the same reason.
 

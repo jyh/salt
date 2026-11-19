@@ -166,7 +166,7 @@ CONSTRAINTS the designers must respect:
 - `chen_headline` (Chen/ChenTheorem.lean:32, UNCONDITIONAL): assembly-plumbing
   template + parity-wall escape proof-of-life. Cannot substitute for the twin door
   (P₂ ≠ prime).
-- `twin_almost_prime` (BrunLower/TwinInstance.lean:795): Ω(n(n+2)) ≤ 20 i.o.,
+- `twin_almost_prime` (BrunLower/TwinInstance.lean:789): Ω(n(n+2)) ≤ 20 i.o.,
   unconditional — lower-bound sieve exists, but tolerant-grade (no parity break).
 - `bounded_gaps_unconditional` (SW/Gate.lean:376) + the Maynard chain
   (Maynard/Complete.lean:1495 etc.): the Maynard door is parity-limited to bounded

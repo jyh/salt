@@ -77,8 +77,8 @@ below `e^{e^{100}}`.  §2–§4 pin the first three rungs of that floor in the k
 (`e^{e^{1100}} ≤ T₁`, `e^{e^{1100}} ≤ T₀s`); §5 pins the strict violation arithmetic.
 
 ⟦THE REPAIR, PRICED — AND THE CONSUMER'S TOLERANCE IS ALREADY LANDED⟧ the numeral `e^{e^{100}}`
-is spent at exactly ONE place: `S13CapFloor.capfloor_T0_Tann` (:238), which converts it into the
-socket's real need `T₀ ≤ Tann`.  Its SHARP sibling `capfloor_T0_Tann_sharp` (:226) is already in
+is spent at exactly ONE place: `S13CapFloor.capfloor_T0_Tann` (:232), which converts it into the
+socket's real need `T₀ ≤ Tann`.  Its SHARP sibling `capfloor_T0_Tann_sharp` (:220) is already in
 the kernel and asks only `T₀ ≤ e^{√H/2}` — at the flat design base `H ≥ ⌈e^{e^{3.2A}}⌉` that is
 `T₀ ≤ e^{e^{e^{3.2A}/2}/2}`, i.e. about `10^{10^{225}}` at the design floor `A = 162`, which
 clears the corpus's own floor `e^{e^{1251}}` by two whole exponential levels.  So the rider is a

@@ -66,7 +66,7 @@ at `10²⁰`, ratio `0.31`). The trivial `φ(q) ≥ 1` does NOT close the coroll
 `ζ` never enters. No `vonMangoldt` detour: the coefficients are products of `moebius`, `totient`
 and `χ` values, ℝ-valued and cast once.
 
-## The measured receipts behind these statements (`h2c-desk/w7_receipts.py`)
+## The measured receipts behind these statements (`w7_receipts.py`)
 
 `max |bvWeight| = 1.000000` over `2 ≤ z₁ < z₂ ≤ 40`, `d ≤ 80`; `max |a(n)|/τ(n) = 1.000000`;
 the local-factor bound `∏_{p∣t}(1 + √p) ≤ t^{3/2}` with max ratio `1.000000` on `t ≤ 500` (FALSE

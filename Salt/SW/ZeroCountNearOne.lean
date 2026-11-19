@@ -301,7 +301,7 @@ Lemma 8 is an INPUT to the density theorem's assembly (design v2 §4, W9e: one
 `√(λ² + 1/4) ≤ λ + 1/2` and `log(q + |t₀| + 2) ≤ (3/2)·log(qT)` for `q ≥ 3`, `T ≥ 2`,
 `|t₀| ≤ T + 1`, the count per box is `≤ 7200·(1.75 + 1.5λ) = O(λ + 1)` — F6's log-free shape).
 Nothing here bears on twin primes or on the crown's conditions. `7200` is the corpus's constant,
-not Prachar's; nothing consumes it sharply. The measured receipts (`h2c-desk/w1w5_receipts.py`):
+not Prachar's; nothing consumes it sharply. The measured receipts (`w1w5_receipts.py`):
 `q(|t₀| + 2)/(q + |t₀| + 2)² ≤ 1/4`; the assembly's slack `7192.5` — in the ADDITIVE term only:
 the `r·log` coefficient is `5 × 1440 = 7200` exactly and is TIGHT for this chain; the exact
 minimum of

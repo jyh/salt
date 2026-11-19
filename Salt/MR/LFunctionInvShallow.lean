@@ -466,18 +466,7 @@ shallow strip (it never asks the region for more than P-5's own `boxWidth` gives
 lemma vkShallowWidthSharp_le {c₄ : ℝ} (hc₄ : 0 < c₄) {q : ℕ} {H : ℝ}
     (hH : Real.exp (Real.exp 100) + 1 ≤ H) :
     vkShallowWidthSharp c₄ q H ≤ vkShallowWidth c₄ q H := by
-  have hexp100 : (101 : ℝ) ≤ Real.exp 100 := by linarith [Real.add_one_le_exp (100 : ℝ)]
-  have hEbig : (101 : ℝ) ≤ Real.exp (Real.exp 100) := by
-    have h2 : Real.exp 100 ≤ Real.exp (Real.exp 100) := Real.exp_le_exp.mpr (by linarith)
-    linarith
-  have hHpos : (0 : ℝ) < H := by linarith
-  have hLg : Real.exp 100 ≤ Real.log H := by
-    rw [← Real.log_exp (Real.exp 100)]
-    exact Real.log_le_log (Real.exp_pos _) (by linarith)
-  have hLg0 : (0 : ℝ) < Real.log H := by linarith
-  have hℓ : (100 : ℝ) ≤ Real.log (Real.log H) := by
-    rw [← Real.log_exp 100]
-    exact Real.log_le_log (Real.exp_pos _) hLg
+  obtain ⟨hexp100, hEbig, hHpos, hLg, hLg0, hℓ⟩ := exp_exp_hundred_scales hH
   have hR : (0 : ℝ) < Real.log H ^ ((3 : ℝ) / 4) := Real.rpow_pos_of_pos hLg0 _
   have hq0 : (0 : ℝ) ≤ Real.log (q : ℝ) := Real.log_natCast_nonneg q
   have hℓ3 : (0 : ℝ) < Real.log (Real.log H) ^ (3 : ℕ) := by positivity
@@ -679,20 +668,9 @@ lemma log_budget_bound {q : ℕ} [NeZero q] {c₄ H : ℝ} (hc₄0 : 0 < c₄) (
     Real.log (128 * shallowGrowth q H / vkShallowWidthSharp c₄ q H)
       ≤ (Real.exp 100 + 717 + Real.log (1 / c₄)) * (Real.log (q : ℝ) + 1)
           * Real.log (Real.log H) / 100 := by
-  have hexp100 : (101 : ℝ) ≤ Real.exp 100 := by linarith [Real.add_one_le_exp (100 : ℝ)]
-  have hEbig : (101 : ℝ) ≤ Real.exp (Real.exp 100) := by
-    have h2 : Real.exp 100 ≤ Real.exp (Real.exp 100) := Real.exp_le_exp.mpr (by linarith)
-    linarith
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   have hlogq : (0 : ℝ) ≤ Real.log (q : ℝ) := Real.log_nonneg hq1
-  have hHpos : (0 : ℝ) < H := by linarith
-  have hLg : Real.exp 100 ≤ Real.log H := by
-    rw [← Real.log_exp (Real.exp 100)]
-    exact Real.log_le_log (Real.exp_pos _) (by linarith)
-  have hLg0 : (0 : ℝ) < Real.log H := by linarith
-  have hℓ : (100 : ℝ) ≤ Real.log (Real.log H) := by
-    rw [← Real.log_exp 100]
-    exact Real.log_le_log (Real.exp_pos _) hLg
+  obtain ⟨hexp100, hEbig, hHpos, hLg, hLg0, hℓ⟩ := exp_exp_hundred_scales hH
   have hℓ0 : (0 : ℝ) < Real.log (Real.log H) := by linarith
   -- the `H+1` scales
   have hLgp : Real.log H ≤ Real.log (H + 1) := Real.log_le_log hHpos (by linarith)
@@ -805,20 +783,9 @@ the canonical gate base — so the ξ₁ hypothesis stated at the former feeds �
 lemma boxWidth_le_carve {q : ℕ} [NeZero q] {c₀ H : ℝ}
     (hH : Real.exp (Real.exp 100) + 1 ≤ H) :
     boxWidth c₀ (shallowA q) q (H + 1) ≤ vkShallowWidth (1 / 10 ^ 6) q H := by
-  have hexp100 : (101 : ℝ) ≤ Real.exp 100 := by linarith [Real.add_one_le_exp (100 : ℝ)]
-  have hEbig : (101 : ℝ) ≤ Real.exp (Real.exp 100) := by
-    have h2 : Real.exp 100 ≤ Real.exp (Real.exp 100) := Real.exp_le_exp.mpr (by linarith)
-    linarith
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   have hlogq : (0 : ℝ) ≤ Real.log (q : ℝ) := Real.log_nonneg hq1
-  have hHpos : (0 : ℝ) < H := by linarith
-  have hLg : Real.exp 100 ≤ Real.log H := by
-    rw [← Real.log_exp (Real.exp 100)]
-    exact Real.log_le_log (Real.exp_pos _) (by linarith)
-  have hLg0 : (0 : ℝ) < Real.log H := by linarith
-  have hℓ : (100 : ℝ) ≤ Real.log (Real.log H) := by
-    rw [← Real.log_exp 100]
-    exact Real.log_le_log (Real.exp_pos _) hLg
+  obtain ⟨hexp100, hEbig, hHpos, hLg, hLg0, hℓ⟩ := exp_exp_hundred_scales hH
   have hLgp : Real.log H ≤ Real.log (H + 1) := Real.log_le_log hHpos (by linarith)
   have hLgp0 : (0 : ℝ) < Real.log (H + 1) := by linarith
   have hℓp : Real.log (Real.log H) ≤ Real.log (Real.log (H + 1)) :=
@@ -890,20 +857,9 @@ theorem norm_LFunction_inv_shallow_sharp {q : ℕ} [NeZero q] {χ : DirichletCha
     (ht : |t| ≤ H) (hσ : 1 - vkShallowWidthSharp c₄ q H ≤ σ) :
     ‖(LFunction χ ((σ : ℂ) + (t : ℂ) * I))⁻¹‖ ≤ 88 / vkShallowWidthSharp c₄ q H := by
   -- the standing scales
-  have hexp100 : (101 : ℝ) ≤ Real.exp 100 := by linarith [Real.add_one_le_exp (100 : ℝ)]
-  have hEbig : (101 : ℝ) ≤ Real.exp (Real.exp 100) := by
-    have h2 : Real.exp 100 ≤ Real.exp (Real.exp 100) := Real.exp_le_exp.mpr (by linarith)
-    linarith
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   have hlogq : (0 : ℝ) ≤ Real.log (q : ℝ) := Real.log_nonneg hq1
-  have hHpos : (0 : ℝ) < H := by linarith
-  have hLg : Real.exp 100 ≤ Real.log H := by
-    rw [← Real.log_exp (Real.exp 100)]
-    exact Real.log_le_log (Real.exp_pos _) (by linarith)
-  have hLg0 : (0 : ℝ) < Real.log H := by linarith
-  have hℓ : (100 : ℝ) ≤ Real.log (Real.log H) := by
-    rw [← Real.log_exp 100]
-    exact Real.log_le_log (Real.exp_pos _) hLg
+  obtain ⟨hexp100, hEbig, hHpos, hLg, hLg0, hℓ⟩ := exp_exp_hundred_scales hH
   have hLgp : Real.log H ≤ Real.log (H + 1) := Real.log_le_log hHpos (by linarith)
   have hLgp0 : (0 : ℝ) < Real.log (H + 1) := by linarith
   have hℓpge : Real.log (Real.log H) ≤ Real.log (Real.log (H + 1)) :=
@@ -1281,18 +1237,7 @@ theorem lFunctionInvShallowVkSharp_holds : LFunctionInvShallowVkSharp := by
   have hmain := norm_LFunction_inv_shallow_sharp hχ1 hc₀pos hc₀1 hc₄0 hc₄1 hgate4 hH hcl
     hcarve ht hσ
   -- the output shape: `88/W ≤ (22528/c₄)·((log q+1)·log H)²`
-  have hexp100 : (101 : ℝ) ≤ Real.exp 100 := by linarith [Real.add_one_le_exp (100 : ℝ)]
-  have hEbig : (101 : ℝ) ≤ Real.exp (Real.exp 100) := by
-    have h2 : Real.exp 100 ≤ Real.exp (Real.exp 100) := Real.exp_le_exp.mpr (by linarith)
-    linarith
-  have hHpos : (0 : ℝ) < H := by linarith
-  have hLg : Real.exp 100 ≤ Real.log H := by
-    rw [← Real.log_exp (Real.exp 100)]
-    exact Real.log_le_log (Real.exp_pos _) (by linarith)
-  have hLg0 : (0 : ℝ) < Real.log H := by linarith
-  have hℓ : (100 : ℝ) ≤ Real.log (Real.log H) := by
-    rw [← Real.log_exp 100]
-    exact Real.log_le_log (Real.exp_pos _) hLg
+  obtain ⟨hexp100, hEbig, hHpos, hLg, hLg0, hℓ⟩ := exp_exp_hundred_scales hH
   have hℓ0 : (0 : ℝ) < Real.log (Real.log H) := by linarith
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
   have hlogq : (0 : ℝ) ≤ Real.log (q : ℝ) := Real.log_nonneg hq1
@@ -1364,18 +1309,7 @@ lemma carve_of_half {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ q} {H : �
     (hhalf : ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ.im = 0 → ρ.re < 1 / 2) :
     ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ.im = 0 →
       ρ.re ≤ 1 - vkShallowWidth (1 / 10 ^ 6) q H := by
-  have hexp100 : (101 : ℝ) ≤ Real.exp 100 := by linarith [Real.add_one_le_exp (100 : ℝ)]
-  have hEbig : (101 : ℝ) ≤ Real.exp (Real.exp 100) := by
-    have h2 : Real.exp 100 ≤ Real.exp (Real.exp 100) := Real.exp_le_exp.mpr (by linarith)
-    linarith
-  have hHpos : (0 : ℝ) < H := by linarith
-  have hLg : Real.exp 100 ≤ Real.log H := by
-    rw [← Real.log_exp (Real.exp 100)]
-    exact Real.log_le_log (Real.exp_pos _) (by linarith)
-  have hLg0 : (0 : ℝ) < Real.log H := by linarith
-  have hℓ : (100 : ℝ) ≤ Real.log (Real.log H) := by
-    rw [← Real.log_exp 100]
-    exact Real.log_le_log (Real.exp_pos _) hLg
+  obtain ⟨hexp100, hEbig, hHpos, hLg, hLg0, hℓ⟩ := exp_exp_hundred_scales hH
   have hR1 : (1 : ℝ) ≤ Real.log H ^ ((3 : ℝ) / 4) :=
     Real.one_le_rpow (by linarith) (by norm_num)
   have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)

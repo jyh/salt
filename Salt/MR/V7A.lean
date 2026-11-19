@@ -47,13 +47,13 @@ forces `ε = 1/16`, and an effective Page-type `q^{-1/2}` loses by `(log H)^{5.2
 
 ## §B THE RE-SIZING (what the socket actually needs)
 
-The numeral is SPENT at exactly ONE place — `S13CapFloor.capfloor_floor4` (:458), the `floor4`
-field of `S13FramesB.S13CapGatePerBlock`; the two bundles (`s13CapFloor_all` :658,
-`s13CapFloor_all_gk` :742) only pass it through.  And `S13CapFloor`'s own header (:60-62) already
+The numeral is SPENT at exactly ONE place — `S13CapFloor.capfloor_floor4` (:452), the `floor4`
+field of `S13FramesB.S13CapGatePerBlock`; the two bundles (`s13CapFloor_all` :652,
+`s13CapFloor_all_gk` :736) only pass it through.  And `S13CapFloor`'s own header (:60-62) already
 names the sharp form: `Ks ≥ e^{-3v/16}` with `v = log H ≥ 10^{21}`.
 
 `capfloor_floor4_sharp` below pins that sharp form in the kernel — the exact analogue of the
-landed `capfloor_T0_Tann_sharp` (`S13CapFloor:226`) for the `T₀` rider.  `ks_sharp_of_rider`
+landed `capfloor_T0_Tann_sharp` (`S13CapFloor:220`) for the `T₀` rider.  `ks_sharp_of_rider`
 carries the certificate in the R1 direction: the landed rider IMPLIES the sharp one at the
 working point, so `capfloor_floor4_of_sharp` re-derives the landed statement verbatim.  The
 sharp rider is weaker by `e^{3·10^{21}/16 - 100}`.
@@ -197,7 +197,7 @@ theorem ks_sharp_of_rider {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Ks Tann :
   have h533 : (533 : ℝ) ≤ Real.log (H : ℝ) := le_trans (by norm_num) hv
   exact le_trans (Real.exp_le_exp.mpr (by linarith)) hKs
 
-/-- **⟦NO TRADE⟧** `S13CapFloor.capfloor_floor4` (:458) re-derived from the sharp sibling:
+/-- **⟦NO TRADE⟧** `S13CapFloor.capfloor_floor4` (:452) re-derived from the sharp sibling:
 the sharp form subsumes the landed one, so nothing is given up by rethreading it. -/
 theorem capfloor_floor4_of_sharp {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Ks Tann : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hAN : A ≤ Nd)

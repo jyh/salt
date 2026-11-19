@@ -391,7 +391,7 @@ theorem bigXiH_eq_twistFilter (h : ℕ) (eps : ℚ) (H : ℕ) [NeZero H] :
 
 /-- **The circle-method estimate at shift `h`, over the fork's own set** — the
 `bigXiH`-facing restatement of `circle_method_estimate_h_core` (`CircleMethod.lean`), the
-`h`-family twin of `circle_method_estimate` (`CircleMethod.lean:652-663`).
+`h`-family twin of `circle_method_estimate` (`CircleMethod.lean:713-724`).
 
 Every byte of the conclusion matches the landed estimate's except two: the correlation's
 offset is `p·h` rather than `p`, and the Fourier mass is summed over `bigXiH h eps H`
@@ -435,7 +435,7 @@ spelling was chosen so this is a rewrite and not a periodicity argument).  Const
 `h·(1 + 2·C₀)` and the `0 < h` fence are the core's; see there.
 
 ✅ **CONSUMER LANDED 2026-09-01 (DESK row o):** `log_chowla_two_shell_xi_sq_h`
-(`Theorem23Shell.lean:624`) takes this estimate's conclusion as its `hcirc` slot, so the
+(`Theorem23Shell.lean:388`) takes this estimate's conclusion as its `hcirc` slot, so the
 socket is now CONNECTED on the `L²` `h`-lane.  ⛔ That closes the CONSUMER side only: the
 door `MRTUniformityXiL2H` this chain terminates at is still an open hypothesis, and the
 paragraph in `MRTUniformityXiL2H`'s own docstring below names what is open there. -/

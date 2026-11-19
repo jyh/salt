@@ -7113,7 +7113,7 @@ Both are statement-level and belong to a Fable/human-directed session.
 
 WHAT IS VERIFIED WIREABLE (so the repair unblocks the rest): the 12-conjunct skeleton →
 `chen_of_hypotheses_W` (Salt/Chen/Assembly.lean:725) with witnesses x,z=opZ,P=opP,y=opY,Q=opQ,a=opA,
-w'=opW'; the A1/A2 carriers via `a12_hA1`/`a12_hA2` (HeadlineW2.lean:1620/1672), all their
+w'=opW'; the A1/A2 carriers via `a12_hA1`/`a12_hA2` (HeadlineW2.lean:1612/1664), all their
 hypotheses in the opf_*/opf_tower set; the ledger via `normalized_package`/`hledger_at_certs`
 (GlueNormalized.lean:232 / RazorClose.lean:156) at XW = (twinA1SieveW).totalMass·W =
 (∑_{twinWindow}Λ/φ(opQ))·W; the certs hcertA1 (`fchain_A1_final` ∘ `logRatio_A1_mem`),
@@ -7172,7 +7172,7 @@ still-UNPACKAGED analytic corpus, and one NEW coupling obligation surfaced. STAT
   mainA3_of_block_remainders_W (SwitchW:366) → hA3` is verified-wireable, but its leaves (hSum
   aggregation over pieces × ≤3 boxes × the F1 rows; hCE; hdiag; hNum via `hNum_close_of_tower` under
   `hK_tower` at x₀(K)) are un-built and depend on F1.
-• F3 (chen_headline): A1/A2 slots ARE packaged (`a12_hA1`/`a12_hA2`, HeadlineW2:1725/1856); the
+• F3 (chen_headline): A1/A2 slots ARE packaged (`a12_hA1`/`a12_hA2`, HeadlineW2:1717/1848); the
   ledger conjunct (normalized_package/hledger_at_certs + the still-inline hcount + hEbundle) and the
   12-conjunct → `chen_of_hypotheses_W` (Salt/Chen/Assembly.lean:725) remain. NOT attempted: would require F1/F2 and
   the 27 rows first; forcing it now risks the "0 wrong proofs" invariant given the coupling above.
@@ -11537,7 +11537,7 @@ lesson re-confirmed: house route sketches are hypotheses, not
 verified designs — the license language ("the shape is what's
 frozen, not the method") is what kept this catch non-blocking.
 
-**Catch #249 (SPINE-BUDGET F0: landed terminal residual unsatisfiable at c₀=1; freeze-panel finding, 2026-07-19).** The t/g/hbudget1 residual of `log_chowla_two_final` (SpineFinal.lean:425) and `log_chowla_two_final_xi` (:508) is unsatisfiable as stated: the statements bake c₀ = 1 (the literal `1 * (R.eps)`), and at the landed witnesses C = 1 + 2·C₀ = 1 + 4·log 4 ≈ 6.545 (CircleMethod.lean:664 at C₀ = 2·log 4) vs c₁ = cD3/4 = 1/16 (WindowMertensLower.lean:254), the first LHS term alone exceeds the whole margin for all t, g (shellError strictly positive). Not rescuable by re-proving either producer (honestly cD3 ≲ log 2 while any triangle-inequality C ≥ 1). TowerDischarge.lean:88-89's hedge 'cD3 ≳ 2(C+1)' is resolved FALSE (0.25 vs ≈15.1). Both terminals remain true, landed, and untouched; they are superseded-as-citation by the SPINE-BUDGET head, which discharges t/g/hbudget1 inside the head at c₀ := cD3/(16·C). Confirmed independently by both panel refuters and by judge witness-extraction. No future consumer should attempt the landed ∀t,g block.
+**Catch #249 (SPINE-BUDGET F0: landed terminal residual unsatisfiable at c₀=1; freeze-panel finding, 2026-07-19).** The t/g/hbudget1 residual of `log_chowla_two_final` (SpineFinal.lean:425) and `log_chowla_two_final_xi` (:508) is unsatisfiable as stated: the statements bake c₀ = 1 (the literal `1 * (R.eps)`), and at the landed witnesses C = 1 + 2·C₀ = 1 + 4·log 4 ≈ 6.545 (CircleMethod.lean:725 at C₀ = 2·log 4) vs c₁ = cD3/4 = 1/16 (WindowMertensLower.lean:254), the first LHS term alone exceeds the whole margin for all t, g (shellError strictly positive). Not rescuable by re-proving either producer (honestly cD3 ≲ log 2 while any triangle-inequality C ≥ 1). TowerDischarge.lean:88-89's hedge 'cD3 ≳ 2(C+1)' is resolved FALSE (0.25 vs ≈15.1). Both terminals remain true, landed, and untouched; they are superseded-as-citation by the SPINE-BUDGET head, which discharges t/g/hbudget1 inside the head at c₀ := cD3/(16·C). Confirmed independently by both panel refuters and by judge witness-extraction. No future consumer should attempt the landed ∀t,g block.
 
 **Catch #251 (the hres over-reduction — the L2c freeze's frozen record,
 landed at W3 per the freeze's W3 spec; 2026-07-19).** hb_lemma2/hres =
@@ -16720,11 +16720,11 @@ first-attempt; ZERO deletions.  THE DAY CLOSES with every agent home:
 the ceiling ladder's free rung built, the floor ladder priced, the
 35-bit residual named, and the council slate drawn.
 
-## (2026-07-30 12:41 PDT) DELTA-SCOPE returns — THE 539-BIT GIANT IS ONE BYTE (CircleMethod:448); the L² restructure: b 602 → 64, closing at the FREE ceiling; + EXPOSE-CERT lands (37/37 clean)
+## (2026-07-30 12:41 PDT) DELTA-SCOPE returns — THE 539-BIT GIANT IS ONE BYTE (CircleMethod:486); the L² restructure: b 602 → 64, closing at the FREE ceiling; + EXPOSE-CERT lands (37/37 clean)
 
 **⟦THE FINDING OF THE CAMPAIGN⟧**  K is NOT an energy constant — it is
 |Ξ|, the major-arc frequency COUNT (bigXi eps H); the door pays a full
-δ once per frequency ONLY because CircleMethod.lean:448 throws the
+δ once per frequency ONLY because CircleMethod.lean:486 throws the
 second Fourier factor away at its trivial bound H (one gcongr byte,
 squared through the spine into 1e162).  THE EXCEEDANCE HYPOTHESIS
 REFUTED BY ARITHMETIC (Parseval mass 1 sits 5 orders ABOVE the target;
@@ -19044,8 +19044,8 @@ own proof**, because the VK region only speaks above height `e^{e^{A}}` and ever
 inherits that threshold. Rungs 1–3 of that floor are now kernel-pinned (below).
 
 **⟦THE REPAIR — AND IT IS NOT A WALL⟧** the numeral `e^{e^{100}}` is spent at exactly ONE place:
-`S13CapFloor.capfloor_T0_Tann` (:238), which converts it into the socket's real need `T₀ ≤ Tann`.
-**Its SHARP sibling `capfloor_T0_Tann_sharp` (:226) is ALREADY IN THE KERNEL** and asks only
+`S13CapFloor.capfloor_T0_Tann` (:232), which converts it into the socket's real need `T₀ ≤ Tann`.
+**Its SHARP sibling `capfloor_T0_Tann_sharp` (:220) is ALREADY IN THE KERNEL** and asks only
 `T₀ ≤ e^{√H/2}` — at the flat design base `H ≥ ⌈e^{e^{3.2A}}⌉` that is `T₀ ≤ e^{e^{e^{3.2A}/2}/2}`,
 about `10^{10^{225}}` at the design floor `A = 162`. The corpus's own floor `e^{e^{1251}}` clears it
 by two whole exponential levels **already at A = 162** — no `A₀` raise needed. So the rider is a
@@ -19326,7 +19326,7 @@ landed law, one threading wave from being a theorem, with nine orders of coeffic
   `loglog H ≥ 50` (`7000u` vs `e^u`, `u ≥ 50`) but a class-B/C estimate, not a transcription.
   NOT attempted: it is a wave, not an item.
 * **THE `T₀` RESHAPE.** Traced to the bytes and priced, NOT spent. The consumer chain is exactly
-  four hops: `capfloor_T0_Tann` (S13CapFloor:238, sharp sibling `_sharp` at :226 LANDED) ←
+  four hops: `capfloor_T0_Tann` (S13CapFloor:232, sharp sibling `_sharp` at :220 LANDED) ←
   `s13CapFloor_all_L_gk` (S13BandCapLinear:221) ← `s16_capGate_supply_L_gk`
   (S13CapGateLinear:931) ← `s15_crossing_supplied_L_gk_ceiling` (S16Compose:1113) ← the terminal
   ← `v4`. The sharp form asks `T₀ ≤ exp(√H/2)` at the SOCKET's `H`, and every hop has `R` in
@@ -25622,7 +25622,7 @@ the class and the statement of record, the five receipts, the four inversion lem
 U-forms, U-ARM (`s15Arm_le_of_regime`), and the doorL2, road and capstone hops on the U-forms.
 
 **What the hop needs about `R` that its U-form does not give.**  The source
-`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4903`) spends the head's COUNT export
+`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4885`) spends the head's COUNT export
 `∀ H [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → |bigXi R.eps H| ≤ K` (K the head's existential) twice:
 as an input to the head's own slot and as `hcount` of `sum_bigXi_norm_windowExpSum_sq_le_twelve`
 (`M4Window.lean:567`).  Under the brief's rule `FlatHeadFormU` keeps the count as a HYPOTHESIS
@@ -25632,7 +25632,7 @@ one open goal is exactly
 `⊢ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ↑(bigXi R.eps H).card ≤ K`
 with `K` known only through `0 < K` and `K ≤ 2 ^ 283 * c ^ 20`.
 
-**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2245`) needs
+**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2227`) needs
 `ε ≤ 1/500`, which no form carries (only `0 < ε` and the pin), and it yields ITS OWN constant `C`,
 not the head's `K`; the socket's `Hopq`/`Hcap` are the hop's to choose but a floor cannot bound a
 count by a constant the hop did not pick.  So this is a walk finding about the FORMS, not a proof

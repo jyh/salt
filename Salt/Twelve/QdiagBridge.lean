@@ -50,39 +50,32 @@ open Salt.Maynard
 private lemma gMult_one_R : (gMult 1 : ℝ) = 1 := by
   simp [gMult, Nat.primeFactors_one]
 
-/-- **Step 1 (the diagonalisation identity, unconditional).** The free-`W'`
-restricted diagonalisation `s2_diag_lam_restricted` rewrites `Qdiag_mW` as the
-`u`-sum of `(∏ᵢ g(uᵢ))·V(u)²`; on the pinned box (`uₘ = 1`, each `uᵢ`
-squarefree) this per-term equals `yM(u)²/∏_{i≠m}g(uᵢ)` because
-`yM = (∏ᵢ μ(uᵢ)g(uᵢ))·V`, `μ(uᵢ)² = 1`, and `∏ᵢ g(uᵢ) = ∏_{i≠m} g(uᵢ)` (the
-`m`-factor is `g(1) = 1`).  Matches `mv_J_split`'s outer box **exactly**. -/
-theorem qdiag_eq_yMsq_sum (R W' : ℕ) (m : Fin 5) (F : Poly) :
-    Qdiag_mW 5 R W' m (yF R W' F)
-      = ∑ u ∈ (kSieveIndex 5 R W').filter (fun u => u m = 1),
-          (yM 5 R W' m (yF R W' F) u) ^ 2
+/-- **Step 1 at general `k`, any weight `y`** (`Salt.MaynardK.qdiag_eq_yMsq_sum_gen`; stated here,
+above its `k = 5` instance `qdiag_eq_yMsq_sum`, and read by `MaynardK.QBridge`). -/
+theorem _root_.Salt.MaynardK.qdiag_eq_yMsq_sum_gen (k R W' : ℕ) (m : Fin k)
+    (y : (Fin k → ℕ) → ℝ) :
+    Qdiag_mW k R W' m y
+      = ∑ u ∈ (kSieveIndex k R W').filter (fun u => u m = 1),
+          (yM k R W' m y u) ^ 2
             / ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ) := by
   classical
-  -- (Step A) the landed free-`W'` diagonalisation.
-  have hdiag : Qdiag_mW 5 R W' m (yF R W' F)
-      = ∑ u ∈ (kSieveIndex 5 R W').filter (fun u => u m = 1),
-          (∏ i, (gMult (u i) : ℝ)) * (lamPhiContractM 5 R W' m (yF R W' F) u) ^ 2 := by
+  have hdiag : Qdiag_mW k R W' m y
+      = ∑ u ∈ (kSieveIndex k R W').filter (fun u => u m = 1),
+          (∏ i, (gMult (u i) : ℝ)) * (lamPhiContractM k R W' m y u) ^ 2 := by
     rw [Qdiag_mW]
-    exact s2_diag_lam_restricted 5 R W' m (yF R W' F)
+    exact s2_diag_lam_restricted k R W' m y
   rw [hdiag]
   apply Finset.sum_congr rfl
   intro u hu
   rw [Finset.mem_filter] at hu
   obtain ⟨hbox, hum⟩ := hu
-  -- box facts
   have hsqf : ∀ i, Squarefree (u i) := fun i => ((mem_kSieveIndex_iff u).mp hbox).1 i
-  -- ∏ᵢ g(uᵢ) = ∏_{i≠m} g(uᵢ)  (the m-factor is g(1) = 1)
   set Gm : ℝ := ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ) with hGmdef
-  set V : ℝ := lamPhiContractM 5 R W' m (yF R W' F) u with hVdef
+  set V : ℝ := lamPhiContractM k R W' m y u with hVdef
   have hprodg : (∏ i, (gMult (u i) : ℝ)) = Gm := by
     rw [hGmdef, ← Finset.mul_prod_erase Finset.univ (fun i => (gMult (u i) : ℝ))
       (Finset.mem_univ m), hum, gMult_one_R, one_mul]
-  -- yM(u)² = Gm² · V²   (μ² = 1 on the squarefree box, and ∏ᵢg = Gm)
-  have hyMsq : (yM 5 R W' m (yF R W' F) u) ^ 2 = Gm ^ 2 * V ^ 2 := by
+  have hyMsq : (yM k R W' m y u) ^ 2 = Gm ^ 2 * V ^ 2 := by
     have hP2 : (∏ i, ((μ (u i) : ℤ) : ℝ) * (gMult (u i) : ℝ)) ^ 2
         = (∏ i, (gMult (u i) : ℝ)) ^ 2 := by
       rw [← Finset.prod_pow, ← Finset.prod_pow]
@@ -95,11 +88,25 @@ theorem qdiag_eq_yMsq_sum (R W' : ℕ) (m : Fin 5) (F : Poly) :
       rw [mul_pow, hmu, one_mul]
     rw [yM, mul_pow, hP2, hprodg]
   rw [hyMsq]
-  -- Gm² · V² / Gm = (∏ᵢ g) · V² = Gm · V²
   rw [hprodg]
   by_cases hGm : Gm = 0
   · simp [hGm]
   · field_simp
+
+/-- **Step 1 (the diagonalisation identity, unconditional).** The free-`W'`
+restricted diagonalisation `s2_diag_lam_restricted` rewrites `Qdiag_mW` as the
+`u`-sum of `(∏ᵢ g(uᵢ))·V(u)²`; on the pinned box (`uₘ = 1`, each `uᵢ`
+squarefree) this per-term equals `yM(u)²/∏_{i≠m}g(uᵢ)` because
+`yM = (∏ᵢ μ(uᵢ)g(uᵢ))·V`, `μ(uᵢ)² = 1`, and `∏ᵢ g(uᵢ) = ∏_{i≠m} g(uᵢ)` (the
+`m`-factor is `g(1) = 1`).  Matches `mv_J_split`'s outer box **exactly**.
+
+⟦AN INSTANCE⟧ since 2026-11-18: `qdiag_eq_yMsq_sum_gen` (above) at `k = 5`, `y := yF R W' F`. -/
+theorem qdiag_eq_yMsq_sum (R W' : ℕ) (m : Fin 5) (F : Poly) :
+    Qdiag_mW 5 R W' m (yF R W' F)
+      = ∑ u ∈ (kSieveIndex 5 R W').filter (fun u => u m = 1),
+          (yM 5 R W' m (yF R W' F) u) ^ 2
+            / ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ) :=
+  Salt.MaynardK.qdiag_eq_yMsq_sum_gen 5 R W' m (yF R W' F)
 
 /-! ## Steps 2–3: the pointwise contraction and the `|Inn|` bound -/
 

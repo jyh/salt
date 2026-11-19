@@ -196,6 +196,24 @@ theorem regime_Hfloor_of_loglogFloor50 {H : ℕ} (hH : loglogFloor50 ≤ H) :
   have h := Real.log_le_log (Real.exp_pos (50 : ℝ)) hlog
   rwa [Real.log_exp] at h
 
+/-- **⟦THE WINDOW'S LOG FLOORS AT A REGIME⟧** (`regime_log_floors`) — at `R.Hlo ≤ H` with
+`loglogFloor50 ≤ R.Hlo`: `50 ≤ loglog H` (`regime_Hfloor_of_loglogFloor50`), `4·10⁶ ≤ H` (the
+regime's own `hHlo_floor`) in `ℕ` and in `ℝ`, `0 < log H` and `e^50 ≤ log H`, in that order.
+Stated once for the thirteen socket sites that derived them in place (O13-e row 277); each
+site binds all five names. -/
+theorem regime_log_floors (R : ChowlaRegime) {H : ℕ} (hfl : loglogFloor50 ≤ R.Hlo)
+    (hlo : R.Hlo ≤ H) :
+    50 ≤ Real.log (Real.log (H : ℝ)) ∧ 4000000 ≤ H ∧ (4000000 : ℝ) ≤ (H : ℝ) ∧
+      (0 : ℝ) < Real.log (H : ℝ) ∧ Real.exp 50 ≤ Real.log (H : ℝ) := by
+  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  have hN : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  have hR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hN
+  have hlog0 : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
+  have hexp : Real.exp 50 ≤ Real.log (H : ℝ) := by
+    have := Real.exp_le_exp.mpr h50
+    rwa [Real.exp_log hlog0] at this
+  exact ⟨h50, hN, hR, hlog0, hexp⟩
+
 /-- **⟦A1 — THE SOCKET'S OWN THRESHOLD⟧** (`s12DeltaSock δ₀ K`) — `√(δ₀/(16·K))`, the
 threshold at which the `A4` terminal's ceiling conjunct is instantiated.
 
