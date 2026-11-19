@@ -8880,7 +8880,7 @@ open Salt.Tactic in
   -- kernel-tied to the landed declaration by the `example` beside it — derivable-from-stronger
   -- as a kernel fact, not a docstring claim.
   -- ⛔ Scope (refuter fold): `Qm` is gone from the V7 LIVE PATH, not "the whole chain" —
-  -- `cofkL_cofactorSupply_L_gk_of_bulk` (CofactorBulk:363) still consumes the old socket,
+  -- `cofkL_cofactorSupply_L_gk_of_bulk` (CofactorBulk:360) still consumes the old socket,
   -- off-path, byte-untouched.  Nothing here bears on twin primes; the transport wall is
   -- untouched at this rung.  (`armVt` is a def and carries no axioms, so it is not audited.)
   Salt.MR.cofkL_capFreeFloor_at_socket_rated_uniform

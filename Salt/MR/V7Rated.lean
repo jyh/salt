@@ -28,7 +28,7 @@ drives to infinity is a different problem — **the chain can pay it itself**.
 
 * **N0** (`cofkL_capFreeFloor_at_socket_rated_uniform`) — the `Kvt`-uniformity hoist:
   `∀ K, ∃ Z δ Kvt` → `∃ Z δ Kvt, ∀ K`.  The landed socket's witnesses come from
-  `capFreeFloor3_pieceDatum_arcDen_rated` applied to NO arguments (`BandRatedSocket.lean:205`),
+  `capFreeFloor3_pieceDatum_arcDen_rated` applied to NO arguments (`BandRatedSocket.lean:202`),
   so the `(K : ℕ)` binder is vacuous over the existentials; same proof, `intro K` moved after
   the `refine`.
 * **N1** (`armVt` + `cofkR_cushion_of_armVt`) — the EIGHTH `max` arm and the cushion's
@@ -51,7 +51,7 @@ drives to infinity is a different problem — **the chain can pay it itself**.
 `logChowla2_ineffective_v7_ksarm`, `logChowla2_ineffective_v7_ksarm_g0` and every parent are
 byte-untouched and remain citable.  Scope precision (commission §0): `Qm` is gone from the
 **V7 live path**, not "the whole chain" — `cofkL_cofactorSupply_L_gk_of_bulk`
-(`CofactorBulk.lean:363`) still consumes the old socket, off-path, untouched here.
+(`CofactorBulk.lean:360`) still consumes the old socket, off-path, untouched here.
 -/
 
 noncomputable section
