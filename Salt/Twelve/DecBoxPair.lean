@@ -84,4 +84,21 @@ theorem decBox_filter_pair_le_prod {n R W' p : ℕ} (i j : Fin n) (w : ℕ → �
   · intro r _ _
     exact Finset.prod_nonneg (fun k _ => hw _)
 
+
+/-- **`nat_pos_two_le_of_one_le_log`** (O13-e row 290). From `1 ≤ log R` for a natural `R`:
+`0 < R` (`log 0 = 0`) and `2 ≤ R` (`2 ≤ e ≤ R`). The `Twelve` and `MaynardK` moment and split
+theorems read their range this way, from the hypothesis `1 ≤ log R`. -/
+theorem nat_pos_two_le_of_one_le_log {R : ℕ} (hlogR : 1 ≤ Real.log R) : 0 < R ∧ 2 ≤ R := by
+  have hRpos : 0 < R := by
+    rcases Nat.eq_zero_or_pos R with h | h
+    · rw [h] at hlogR; simp at hlogR; linarith
+    · exact h
+  have hR2 : 2 ≤ R := by
+    have hRr : (0:ℝ) < (R:ℝ) := by exact_mod_cast hRpos
+    have h2e : (2:ℝ) ≤ Real.exp (Real.log R) := by
+      calc (2:ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1:ℝ); linarith
+        _ ≤ Real.exp (Real.log R) := Real.exp_le_exp.mpr hlogR
+    rw [Real.exp_log hRr] at h2e; exact_mod_cast h2e
+  exact ⟨hRpos, hR2⟩
+
 end Salt.Twelve

@@ -39,11 +39,11 @@ its SIXTEEN residue binders as the landed supply allows, naming every survivor e
 
 | # | binder | discharged from | where |
 |---|---|---|---|
-| 1 | `hgates` | `s13_doorGates_of_MSelect'` + `S15Sel` | `S13MSelect2.lean:379` |
+| 1 | `hgates` | `s13_doorGates_of_MSelect'` + `S15Sel` | `S13MSelect2.lean:391` |
 | 2 | `hend` | `s13_endpoint_of_arm'` (the demoted arm) | `S13FramesA.lean:896` |
 | 3 | `hj0` | `s13_g2_jfloor` at `Λ := loglog H₊` | `S13FramesA.lean:504` |
 | 4 | `hdgate` | `s13_gate8` at `Λ := loglog H₊` | `S13FramesA.lean:532` |
-| 5 | `hfit` | `s13_smallGradeFits_of_MSelect'` | `S13MSelect2.lean:393` |
+| 5 | `hfit` | `s13_smallGradeFits_of_MSelect'` | `S13MSelect2.lean:405` |
 | 6 | `hbf` | `doorBaseFrame_at_socket` | `M4AssemblyFrames.lean` |
 | 7 | `hgP1` | `s15_gP1_of_budget` (CONST-VERDICT §C) | §1 below |
 | 8 | `hgRows` | `s15_gRows_const_at_socket` (CONST-VERDICT §H) | §1 below |
@@ -396,13 +396,9 @@ theorem s15_heps293_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : ℝ
   set lam : ℝ := Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) with hlamdef
   set Λ : ℝ := Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) with hLamdef
   set ll : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hlldef
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
   have hpool : constPool ρ R.Hhi = Real.exp (Real.log ρ - Real.log 376266 - 14 * Λ) := by
     rw [constPool_def, hLamdef, Real.exp_sub, Real.exp_sub, Real.exp_log hρ,
@@ -437,13 +433,9 @@ theorem s15_hband4096_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : �
   set lam : ℝ := Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) with hlamdef
   set Λ : ℝ := Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) with hLamdef
   set ll : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hlldef
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
   have hpool : constPool ρ R.Hhi = Real.exp (Real.log ρ - Real.log 376266 - 14 * Λ) := by
     rw [constPool_def, hLamdef, Real.exp_sub, Real.exp_sub, Real.exp_log hρ,
@@ -491,12 +483,9 @@ theorem s15_gRows_const_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ :
   obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
   have hA : 0 < A := hb.2.2.2.2.2.2.2.1
   have hAs : 0 < A + s := by omega
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hllle : Real.log (Real.log (((A + s : ℕ)) : ℝ)) ≤ Real.log (((A + s : ℕ)) : ℝ) - 1 :=
     Real.log_le_sub_one_of_pos (by linarith)
   have hll := s12c_llX_ge hfl hb
@@ -844,7 +833,7 @@ theorem s15_bandGate_of_grade {Cg δ₀ Ct ρ : ℝ} {x₀ : ℕ} {R : ChowlaReg
     exact s15_block_at_socket hb (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
 
 /-- **⟦THE SURVIVOR, NAMED⟧** (`S15CrossingBound R M`) — the ⟦B4⟧ RAW CROSSING BOUND of
-`S12ConstCompose.logChowla2_capstone_final_const'` (`S12ConstCompose.lean:498-515`), written
+`S12ConstCompose.logChowla2_capstone_final_const'` (`S12ConstCompose.lean:494-511`), written
 at the compose's own instantiation (`t₁ ≡ 0`, `cU := liouvilleC`,
 `epsrf ≡ θ₂₉₃ − 1/500`), byte for byte.
 
@@ -1823,12 +1812,9 @@ theorem s15_gRows_const_at_socket_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s
   obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
   have hA : 0 < A := hb.2.2.2.2.2.2.2.1
   have hAs : 0 < A + s := by omega
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hllle : Real.log (Real.log (((A + s : ℕ)) : ℝ)) ≤ Real.log (((A + s : ℕ)) : ℝ) - 1 :=
     Real.log_le_sub_one_of_pos (by linarith)
   have hll := s12c_llX_ge hfl hb

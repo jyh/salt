@@ -44,7 +44,7 @@ The maestro's table (dispatch of 2026-07-30) instantiated the twin
 road also carries `M`-UPPERS, and §3 shows the two families do not merely fail to separate —
 one single pool slot contradicts the socket at EVERY `M`:
 
-* `MSelect'.winFit` (`S13MSelect2.lean:358`), the true window gate that supplies ⟦A5⟧, forces
+* `MSelect'.winFit` (`S13MSelect2.lean:370`), the true window gate that supplies ⟦A5⟧, forces
   `(7/10)·doorRowFloor M ≤ log H₋`, i.e. `2^{doorRowFloor M} ≤ R.Hlo` (`e^{0.7} > 2`);
 * so the socket family at `(R, M)` is INHABITED (§4's certificate, at the explicit tuple);
 * at any socket base `SocketBase`'s x-scale field and the regime's `hPHheadroom` give
@@ -145,11 +145,7 @@ theorem s14_loglogX_ge_of_socket {R : ChowlaRegime} {M H L q j A s : ℕ}
     Real.log (H : ℝ) / 2 ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by
   have hsharp := s13_socketBase_loglogA_sharp hfl hb
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
-  have hmono : Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := Real.log_le_log hA0 hAX
+  have hmono : Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := log_le_log_natCast_add (s := s) (by norm_num) h2000
   have h := Real.log_le_log (by linarith : (0 : ℝ) < Real.log (A : ℝ)) hmono
   linarith
 
@@ -231,21 +227,11 @@ theorem s14_gRows_kill {R : ChowlaRegime} {M H L q j A s : ℕ} {Cp : ℝ}
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s)
     (hg : GRowsZeroGate''' M (A + s) Cp (decayPool (A + s))) : False := by
   have hlo : R.Hlo ≤ H := hb.1
-  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
-  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have hlogHpos : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
-  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
-    have h := Real.exp_le_exp.mpr h50
-    rwa [Real.exp_log hlogHpos] at h
+  obtain ⟨h50, hH4, hHR, hlogHpos, hexp50⟩ := regime_log_floors R hfl hlo
   have hlogHbig : (10 : ℝ) ^ 21 ≤ Real.log (H : ℝ) := le_trans s14_exp50_ge hexp50
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hp2 := s14_p2_in_logs hX1 hg
   have hll := s14_loglogX_ge_of_socket hfl hb
   have hlogHj := s14_logH_ge_of_socket hb
@@ -510,21 +496,11 @@ theorem s14_gRows_kill_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} {Cp
     (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s)
     (hg : GRowsZeroGate'''_gk K M (A + s) Cp (decayPool (A + s))) : False := by
   have hlo : R.Hlo ≤ H := hb.1
-  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
-  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
-  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-  have hlogHpos : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
-  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
-    have h := Real.exp_le_exp.mpr h50
-    rwa [Real.exp_log hlogHpos] at h
+  obtain ⟨h50, hH4, hHR, hlogHpos, hexp50⟩ := regime_log_floors R hfl hlo
   have hlogHbig : (10 : ℝ) ^ 21 ≤ Real.log (H : ℝ) := le_trans s14_exp50_ge hexp50
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hp2 := s14_p2_in_logs_gk K hX1 hg
   have hll := s14_loglogX_ge_of_socket hfl hb
   have hlogHj := s14_logH_ge_of_socket hb

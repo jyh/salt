@@ -292,12 +292,8 @@ theorem eps_pool_const_pos_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} {�
     (hε : ε ≤ theta293 - 1 / 500) :
     (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε) ≤ constPool ρ R.Hhi := by
   refine eps_pool_const_pos ?_ hρ (s12c_eps_threshold_at_socket hfl hb hlam htow hrho hε)
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
-  have := Real.log_le_log hA0 hAX
+  have := log_le_log_natCast_add (s := s) (by norm_num) h2000
   linarith
 
 /-! ## §2 — ⟦PIECE 2⟧ THE FRAME TWIN AT POSITIVE `ε` -/

@@ -779,7 +779,7 @@ lengths, *"where the capstone is silent"*.  So the dyadic split is `j < j₀` tr
 
 **2. ⛔ TWO DIFFERENT OBJECTS ARE CALLED "THE CAPSTONE". THEY ARE NOT THE SAME.**
 * `logChowla2_capstone_final_rawcap'` (`S12FuseCompose.lean:508`) — the **S12** lane.  This is
-  the one carrying `S14Compose.lean:429`'s **`⚠ NOT DERIVED` … "refuted at ⟦B1'-3⟧ by §3"**.
+  the one carrying `S14Compose.lean:415`'s **`⚠ NOT DERIVED` … "refuted at ⟦B1'-3⟧ by §3"**.
 * `M4ChiDyadicRowMeanSq` (`M4Maximal.lean:1091`) — the **M4** lane, and *this* is the one the
   door's dyadic split consumes (`M4Maximal.lean:117`, length-graded `MS j H`).
 
@@ -894,7 +894,7 @@ earlier were all published first and corrected after.  **Fencing is cheap; retra
 Walked the gates down: `M4SievedDoorSq_L → M4BlockMeanSq_L → M4RowMeanSq_L`.
 `M4RowMeanSq_L` (`M4RowLinear.lean:993`) has **no producer** — established by reading **all six
 of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1394`) ·
-an enumeration entry (`:2908`) · one arrow (`:2923`).
+an enumeration entry (`:2884`) · one arrow (`:2899`).
 
 ⭐ **AND THIS TIME IT IS NOT MY INFERENCE — THE CORPUS SAYS SO AT THE DEFINITION SITE:**
 *"**THE WAVE'S REMAINING INPUT**… This predicate is the wave's ⟦RESIDUE⟧: see the module header
@@ -931,13 +931,13 @@ own standing rule is a trigger to check, not a finding.  **UNTESTED.** -/
 `M4RowLinear.m4_hbd_of_live_L` (`:2335`) delivers the door's `hbd` from four bundles.  Probed
 each with the calibrated producer probe (control `MRTUniformityXi` → 6; decoy → 0):
 
-**`M4GradeGate`** (`M4Close.lean:425`) — `m4_gradeGate_direct` (`M4ClassPrice.lean:747`)
+**`M4GradeGate`** (`M4Close.lean:425`) — `m4_gradeGate_direct` (`M4ClassPrice.lean:741`)
 produces it from **two explicit inequalities and NO other gate**:
 `√(Braw H) ≤ mrtDeliveredGrade (C/2) H` and `δ/4 + 4·2^k/x ≤ mrtDeliveredGrade (C/2) H`.
 *It bottoms out in arithmetic about the delivered grade, not in another Prop socket.*
 
 **`M4SievedDoorSq_L`** (`M4LadderLinear.lean:1774`) — `m4_cover_assembly_L`
-(`M4RowLinear.lean:1528`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
+(`M4RowLinear.lean:1516`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
 Its own docstring states the gate bundle is *"the same bundle `m4_hbd_of_live_L` reads, so the
 join needs no new hypothesis"* — so this reduction is free at the seam.  ⇒ **it reduces to the
 BLOCK MEAN SQUARE**, which is what `M4Maximal.m4_chiBlockMeanSq_of_shiftBlock` produces.

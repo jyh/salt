@@ -125,7 +125,7 @@ now CLOSED:
    **UNPRIMED** residue — the object this file states — and mentions `M4RowMeanSq_L` **zero**
    times (measured; QUEUE P1b's 08/23 stamp and its 08/25 erratum).  **Nothing here says the
    `_L` lane's residue is produced.**  It is not: the `L` lane reaches this machinery only
-   through the socket exit `m4_sievedDoorSq_of_classMeanSq_L` (`M4RowLinear.lean:2695`), and a
+   through the socket exit `m4_sievedDoorSq_of_classMeanSq_L` (`M4RowLinear.lean:2671`), and a
    producer for `M4RowMeanSq_L` remains the precise open object.
 
    *A file that correctly scopes a negative to itself still publishes that negative to every
@@ -293,13 +293,7 @@ theorem m4_blockMeanSqSup_trivial (R : ChowlaRegime) (M k : ℕ) :
       _ = ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
             * (H : ℝ) ^ 2 := by
           rw [Finset.sum_const, nsmul_eq_mul]
-  have hc : ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
-      ≤ (doorLadder R.x H (i + 1) : ℝ) := by
-    rw [Nat.card_Ioc]
-    have hfit := doorLadder_fit R.x H i
-    have hn : doorLadder R.x H i - doorLadder R.x H (i + 1) ≤ doorLadder R.x H (i + 1) := by
-      omega
-    exact_mod_cast hn
+  have hc := doorLadder_card_Ioc_le R.x H i
   have hpos := doorLadder_pos hxH (i + 1)
   nlinarith
 
@@ -361,14 +355,8 @@ theorem m4_blockMeanSq_of_rowMeanSq {R : ChowlaRegime} {M k : ℕ} {MS : ℕ →
   intro H hlo hhi α harc i hik
   have hH0 : 0 < H := by have := R.hHlo_floor; omega
   have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
-  have hfit := doorLadder_fit R.x H i
   -- ⟦the coverage datum is free at the block's own seam index set⟧
-  have hcov : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-      ∀ m ∈ Finset.Ioc n (n + H), m ∉ seamS0 (2 * doorLadder R.x H (i + 1))
-          (doorLadder R.x H (i + 1) : ℝ) → doorSievedCoeff M m = 0 :=
-    hcov_of_seamS0 (doorSievedCoeff M) (A := doorLadder R.x H (i + 1))
-      (B := doorLadder R.x H i) (N := 2 * doorLadder R.x H (i + 1)) (H := H) le_rfl
-      (by omega)
+  have hcov := hcov_of_seamS0_ladder (doorSievedCoeff M) R.x H i
   -- ⟦B-4: the harmonic-weighted block bound⟧
   have hladder := sum_Ioc_absWindowSum_sq_div_le_ladder (doorSievedCoeff M)
     (seamS0 (2 * doorLadder R.x H (i + 1)) (doorLadder R.x H (i + 1) : ℝ)) α
@@ -688,13 +676,7 @@ theorem m4_blockMeanSqSup_trivial_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) :
       _ = ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
             * (H : ℝ) ^ 2 := by
           rw [Finset.sum_const, nsmul_eq_mul]
-  have hc : ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
-      ≤ (doorLadder R.x H (i + 1) : ℝ) := by
-    rw [Nat.card_Ioc]
-    have hfit := doorLadder_fit R.x H i
-    have hn : doorLadder R.x H i - doorLadder R.x H (i + 1) ≤ doorLadder R.x H (i + 1) := by
-      omega
-    exact_mod_cast hn
+  have hc := doorLadder_card_Ioc_le R.x H i
   have hpos := doorLadder_pos hxH (i + 1)
   nlinarith
 
@@ -716,14 +698,8 @@ theorem m4_blockMeanSq_of_rowMeanSq_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} 
   intro H hlo hhi α harc i hik
   have hH0 : 0 < H := by have := R.hHlo_floor; omega
   have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
-  have hfit := doorLadder_fit R.x H i
   -- ⟦the coverage datum is free at the block's own seam index set⟧
-  have hcov : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
-      ∀ m ∈ Finset.Ioc n (n + H), m ∉ seamS0 (2 * doorLadder R.x H (i + 1))
-          (doorLadder R.x H (i + 1) : ℝ) → doorSievedCoeff_gk K M m = 0 :=
-    hcov_of_seamS0 (doorSievedCoeff_gk K M) (A := doorLadder R.x H (i + 1))
-      (B := doorLadder R.x H i) (N := 2 * doorLadder R.x H (i + 1)) (H := H) le_rfl
-      (by omega)
+  have hcov := hcov_of_seamS0_ladder (doorSievedCoeff_gk K M) R.x H i
   -- ⟦B-4: the harmonic-weighted block bound⟧
   have hladder := sum_Ioc_absWindowSum_sq_div_le_ladder (doorSievedCoeff_gk K M)
     (seamS0 (2 * doorLadder R.x H (i + 1)) (doorLadder R.x H (i + 1) : ℝ)) α

@@ -60,7 +60,8 @@ D0-window scale `x := goldCut Ne (k+1)`, block floor `x^{7/16}/8 ≤ Nb` (the 7/
 The 9-conjunct conclusion is character-for-character `d0_window_of_XM`'s with `x := goldCut Ne
 (k+1)`, `N := Nb`, `11/24 ↦ 7/16` — so it feeds `gold_box_price_engine`'s `hD0*` rows verbatim.
 The factor-8 collision never bites: `hL_lo` uses the NON-strict `x/2 + 1 ≤ X·M`, which
-`goldCut_succ_le_two_mul` delivers (`x/2 ≤ goldCut Ne k < X·M`). -/
+`goldCut_succ_le_two_mul` delivers (`x/2 ≤ goldCut Ne k < X·M`).
+Since 2026-11-19 the proof is an instance of `Salt.Chen.d0_window_core_lo` (`DyadicWindow`). -/
 theorem gold_d0_window_annulus {Ne Nb M X k : ℕ}
     (hx : Real.exp (10 ^ 9) ≤ (goldCut Ne (k + 1) : ℝ))
     (hNfloor : (goldCut Ne (k + 1) : ℝ) ^ ((7 : ℝ) / 16) / 8 ≤ (Nb : ℝ))
@@ -76,146 +77,7 @@ theorem gold_d0_window_annulus {Ne Nb M X k : ℕ}
       ∧ D0 ≤ Nb := by
   -- the half-bound `x/2 + 1 ≤ X·M` from `goldCut_succ_le_two_mul` (dissolves the off-by-one).
   have hle := goldCut_succ_le_two_mul Ne k
-  have h2 : goldCut Ne (k + 1) / 2 + 1 ≤ X * M := by omega
-  set x := goldCut Ne (k + 1) with hxdef
-  -- ① scale facts: `t ≥ 10^9`, `x ≥ 2`.
-  have h109 : (10 : ℝ) ^ 9 = 1000000000 := by norm_num
-  have ht : (10 : ℝ) ^ 9 ≤ Real.log x := by
-    have h := Real.log_le_log (Real.exp_pos _) hx
-    rwa [Real.log_exp] at h
-  have hxR2 : (2 : ℝ) ≤ (x : ℝ) := by
-    have h1 := Real.add_one_le_exp ((10 : ℝ) ^ 9)
-    linarith
-  have hx2 : 2 ≤ x := by exact_mod_cast hxR2
-  have hxpos : (0 : ℝ) < (x : ℝ) := by linarith
-  -- ② the scale facts (annulus-native): `x/2 < X·M ≤ 4x` — `hXMhi` verbatim, `hXMlo` via `h2`.
-  have hXM4x : X * M ≤ 4 * x := hXMhi
-  set L := Real.log ((X : ℝ) * (M : ℝ)) with hLdef
-  -- ③ `t − 1 ≤ L ≤ t + 3`.
-  obtain ⟨hL_lo, hL_up⟩ : Real.log x - 1 ≤ L ∧ L ≤ Real.log x + 3 :=
-    Salt.Chen.xm_log_bounds_of_le hx2 h2 hXM4x
-  have hL1 : (1 : ℝ) ≤ L := by linarith
-  have hLnn : (0 : ℝ) ≤ L := by linarith
-  have hLpos : (0 : ℝ) < L := by linarith
-  have hL4 : (4 : ℝ) ≤ L := by linarith
-  have hL20 : (1048576 : ℝ) ≤ L := by linarith
-  -- ④ the block-floor log: `W := (7/16)·t − 7 ≤ log Nb` (was `11/24` in the twin).
-  set W : ℝ := 7 / 16 * Real.log x - 7 with hWdef
-  have hWlogN : W ≤ Real.log Nb := by
-    have hlogN := Real.log_le_log (div_pos (Real.rpow_pos_of_pos hxpos _) (by norm_num))
-      hNfloor
-    rw [Real.log_div (ne_of_gt (Real.rpow_pos_of_pos hxpos _)) (by norm_num : (8 : ℝ) ≠ 0),
-      Real.log_rpow hxpos] at hlogN
-    have h8log : Real.log 8 ≤ 7 := by
-      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 8 by norm_num)]
-    rw [hWdef]
-    linarith
-  have hWpos : (0 : ℝ) < W := by rw [hWdef]; linarith
-  have hW1296 : (1296 : ℝ) ≤ W := by rw [hWdef]; linarith
-  have hLW : L ≤ 12 / 5 * W := by rw [hWdef]; linarith
-  have hW4 : 4 * ((12 : ℝ) / 5) ^ ((17 : ℝ)) ≤ W := by
-    have hc : ((12 : ℝ) / 5) ^ ((17 : ℝ)) = ((12 : ℝ) / 5) ^ (17 : ℕ) := by
-      rw [show ((17 : ℝ)) = ((17 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-    have hnum : 4 * ((12 : ℝ) / 5) ^ (17 : ℕ) ≤ 7 / 16 * 10 ^ 9 - 7 := by norm_num
-    rw [hc, hWdef]
-    linarith
-  -- ⑤ the dyadic window: `D0 = 2^{k0} ∈ [L^{17}, 4·L^{17}]`.
-  have hL17_2 : (2 : ℝ) ≤ L ^ ((17 : ℝ)) := by
-    calc (2 : ℝ) ≤ L := by linarith
-      _ = L ^ ((1 : ℝ)) := (Real.rpow_one L).symm
-      _ ≤ L ^ ((17 : ℝ)) := Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-  obtain ⟨k0, h2k0, hD0_lo, hD0_hi⟩ := Salt.Chen.exists_two_pow_window hL17_2
-  have hL18eq : L ^ ((18 : ℝ)) = L * L ^ ((17 : ℝ)) := by
-    have hh := Real.rpow_add hLpos 1 17
-    rw [Real.rpow_one] at hh
-    rw [show (18 : ℝ) = 1 + 17 by norm_num, hh]
-  have h17nn : (0 : ℝ) ≤ L ^ ((17 : ℝ)) := Real.rpow_nonneg hLnn _
-  -- ⑥ the `hD0N'` leg: `4·L^{17} ≤ W^{18}` (the anti-#64 margin).
-  have hW18 : 4 * L ^ ((17 : ℝ)) ≤ W ^ ((18 : ℝ)) := by
-    have hW17 : L ^ ((17 : ℝ)) ≤ ((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) := by
-      calc L ^ ((17 : ℝ)) ≤ (12 / 5 * W) ^ ((17 : ℝ)) :=
-            Real.rpow_le_rpow hLnn hLW (by norm_num)
-        _ = ((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) :=
-            Real.mul_rpow (by norm_num) hWpos.le
-    have hW18eq : W ^ ((18 : ℝ)) = W * W ^ ((17 : ℝ)) := by
-      have hh := Real.rpow_add hWpos 1 17
-      rw [Real.rpow_one] at hh
-      rw [show (18 : ℝ) = 1 + 17 by norm_num, hh]
-    have h17Wnn : (0 : ℝ) ≤ W ^ ((17 : ℝ)) := Real.rpow_nonneg hWpos.le _
-    rw [hW18eq]
-    calc 4 * L ^ ((17 : ℝ))
-        ≤ 4 * (((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ))) := by linarith
-      _ = (4 * ((12 : ℝ) / 5) ^ ((17 : ℝ))) * W ^ ((17 : ℝ)) := by ring
-      _ ≤ W * W ^ ((17 : ℝ)) := mul_le_mul_of_nonneg_right hW4 h17Wnn
-  -- ⑦ the `hD0N` leg: `W^{18} ≤ e^W ≤ x^{7/16}/8`.
-  have hexpW : W ^ ((18 : ℝ)) ≤ Real.exp W := by
-    have hunn : (0 : ℝ) ≤ W / 36 := by linarith
-    have hquad : W ≤ (W / 36) ^ ((2 : ℝ)) := by
-      rw [show ((2 : ℝ)) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-      have hexpand : (W / 36) ^ (2 : ℕ) = W * W / 1296 := by ring
-      rw [hexpand, le_div_iff₀ (by norm_num : (0 : ℝ) < 1296)]
-      have keyq : (0 : ℝ) ≤ (W - 1296) * W := mul_nonneg (by linarith) hWpos.le
-      linarith [keyq]
-    have hu : W / 36 ≤ Real.exp (W / 36) := by linarith [Real.add_one_le_exp (W / 36)]
-    calc W ^ ((18 : ℝ))
-        ≤ ((W / 36) ^ ((2 : ℝ))) ^ ((18 : ℝ)) :=
-          Real.rpow_le_rpow hWpos.le hquad (by norm_num)
-      _ = (W / 36) ^ ((36 : ℝ)) := by
-          rw [← Real.rpow_mul hunn]
-          norm_num
-      _ ≤ (Real.exp (W / 36)) ^ ((36 : ℝ)) := Real.rpow_le_rpow hunn hu (by norm_num)
-      _ = Real.exp W := by
-          rw [Real.rpow_def_of_pos (Real.exp_pos _), Real.log_exp]
-          congr 1
-          ring
-  have hexp_le : Real.exp W ≤ (x : ℝ) ^ ((7 : ℝ) / 16) / 8 := by
-    have hEW : Real.exp W = (x : ℝ) ^ ((7 : ℝ) / 16) / Real.exp 7 := by
-      rw [hWdef, Real.exp_sub, Real.rpow_def_of_pos hxpos]
-      have hmul : Real.log (x : ℝ) * ((7 : ℝ) / 16) = 7 / 16 * Real.log x := by ring
-      rw [hmul]
-    rw [hEW]
-    have h7 : (8 : ℝ) ≤ Real.exp 7 := by linarith [Real.add_one_le_exp (7 : ℝ)]
-    exact div_le_div_of_nonneg_left (Real.rpow_nonneg hxpos.le _) (by norm_num) h7
-  -- ⑧ emit the rows.
-  have hcast : ((2 ^ k0 : ℕ) : ℝ) = (2 : ℝ) ^ k0 := by push_cast; ring
-  refine ⟨2 ^ k0, k0, rfl, h2k0, ?_, hD0_lo, ?_, ?_, ?_, ?_, ?_⟩
-  · -- `hD0lo_main`, the DECOUPLED row (exponent `A+2 = 15`)
-    have h15 : L ^ ((15 : ℝ)) ≤ L ^ ((17 : ℝ)) :=
-      Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-    have h2k0pos : (0 : ℝ) < (2 : ℝ) ^ k0 := by positivity
-    calc L ^ ((15 : ℝ)) ≤ L ^ ((17 : ℝ)) := h15
-      _ ≤ ((2 ^ k0 : ℕ) : ℝ) := hD0_lo
-      _ = (2 : ℝ) ^ k0 := hcast
-      _ ≤ 2 * (2 : ℝ) ^ k0 := by linarith
-  · -- `hD0` (`D0 ≤ L^{C0}`, `C0 = 18`)
-    rw [hL18eq]
-    have key : (0 : ℝ) ≤ (L - 4) * L ^ ((17 : ℝ)) := mul_nonneg (by linarith) h17nn
-    linarith [hD0_hi, key]
-  · -- `hD0N'` (`D0 ≤ (log Nb)^{C0}`, `C0 = 18`)
-    have hmono : W ^ ((18 : ℝ)) ≤ (Real.log Nb) ^ ((18 : ℝ)) :=
-      Real.rpow_le_rpow hWpos.le hWlogN (by norm_num)
-    linarith [hD0_hi, hW18, hmono]
-  · -- `herr_D0E` in the `herr_scale` form (`LE ≥ L/2`, exponent `C0 = 18`)
-    intro LE hLE
-    have hhalfpos : (0 : ℝ) < L / 2 := by linarith
-    have hstep : 4 * L ^ ((17 : ℝ)) ≤ (L / 2) ^ ((18 : ℝ)) := by
-      have hdiv : (L / 2) ^ ((18 : ℝ)) = L ^ ((18 : ℝ)) / (2 : ℝ) ^ ((18 : ℝ)) :=
-        Real.div_rpow hLnn (by norm_num) _
-      have h218 : (2 : ℝ) ^ ((18 : ℝ)) = 262144 := by
-        rw [show ((18 : ℝ)) = ((18 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-        norm_num
-      rw [hdiv, h218, hL18eq, le_div_iff₀ (by norm_num : (0 : ℝ) < 262144)]
-      have key : (0 : ℝ) ≤ (L - 1048576) * L ^ ((17 : ℝ)) := mul_nonneg (by linarith) h17nn
-      linarith [key]
-    have hmono : (L / 2) ^ ((18 : ℝ)) ≤ LE ^ ((18 : ℝ)) :=
-      Real.rpow_le_rpow hhalfpos.le (by linarith) (by norm_num)
-    linarith [hD0_hi]
-  · -- the `x`-scale bound (`D0 ≤ x^{7/16}/8`)
-    linarith [hD0_hi, hW18, hexpW, hexp_le]
-  · -- `hD0N` (`D0 ≤ Nb`)
-    have hfin : ((2 ^ k0 : ℕ) : ℝ) ≤ (Nb : ℝ) := by
-      linarith [hD0_hi, hW18, hexpW, hexp_le, hNfloor]
-    exact_mod_cast hfin
+  exact Salt.Chen.d0_window_core_lo hx hNfloor (by omega) hXMhi
 
 /-! ## 2. `gold_kfloor_live_annulus` — the per-annulus live-box floor (deliverable 2)
 

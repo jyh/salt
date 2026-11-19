@@ -44,7 +44,7 @@ namespace Salt.MR
 
 open Salt.Entropy.Chowla
 
-/-- **THE SIEVE-FREE ROW INPUT.**  `M4Join.M4RowMeanSq` (`M4Join.lean:311`) with
+/-- **THE SIEVE-FREE ROW INPUT.**  `M4Join.M4RowMeanSq` (`M4Join.lean:305`) with
 `doorSievedCoeff M` replaced by `lamCoeff` and the `M` binder dropped. -/
 def M4RowMeanSqLam (R : ChowlaRegime) (k : ℕ) (MS : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ, NearRatTight (arcDen 12 H) H α → ∀ i < k,

@@ -866,13 +866,7 @@ theorem m4_blockMeanSqSupQH_of_classPriceH {h : ℕ} {R : ChowlaRegime} {M k : �
       _ = ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
             * ((q : ℝ) ^ 2 * B H ^ 2) := by
           rw [Finset.sum_const, nsmul_eq_mul]
-  have hc : ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
-      ≤ (doorLadder R.x H (i + 1) : ℝ) := by
-    rw [Nat.card_Ioc]
-    have hfit := doorLadder_fit R.x H i
-    have hn : doorLadder R.x H i - doorLadder R.x H (i + 1) ≤ doorLadder R.x H (i + 1) := by
-      omega
-    exact_mod_cast hn
+  have hc := doorLadder_card_Ioc_le R.x H i
   have hpos := doorLadder_pos hxH (i + 1)
   have hrhs : B H ^ 2 / (H : ℝ) ^ 2 * (q : ℝ) ^ 2 * (H : ℝ) ^ 2
         * (doorLadder R.x H (i + 1) : ℝ)
