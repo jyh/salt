@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `a84920ee` · source digest `f4b8304dae310abd` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `4988503f` · source digest `24407fe096a97980` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -559,9 +559,9 @@ Declarations indexed across the tree: 23441 · corpus Prop-valued names (the hyp
 | `Salt.BrunLower.capSum_master` | Salt/BrunLower/Remainder.lean:192 | sieves |
 | `Salt.BrunLower.remainder_prod_bound` | Salt/BrunLower/Remainder.lean:499 | sieves |
 | `Salt.BrunLower.remainder_prod_bound_of_R` | Salt/BrunLower/Remainder.lean:568 | sieves |
-| `Salt.BrunLower.margin_ge` | Salt/BrunLower/TwinInstance.lean:363 | sieves |
-| `Salt.BrunLower.margin_ge_b1` | Salt/BrunLower/TwinInstance.lean:391 | sieves |
-| `Salt.BrunLower.twin_almost_prime` | Salt/BrunLower/TwinInstance.lean:795 | sieves |
+| `Salt.BrunLower.margin_ge` | Salt/BrunLower/TwinInstance.lean:357 | sieves |
+| `Salt.BrunLower.margin_ge_b1` | Salt/BrunLower/TwinInstance.lean:385 | sieves |
+| `Salt.BrunLower.twin_almost_prime` | Salt/BrunLower/TwinInstance.lean:789 | sieves |
 | `Salt.BrunLower.Wratio_pos` | Salt/BrunLower/WRatio.lean:111 | sieves |
 | `Salt.BrunLower.windowSum_nonneg` | Salt/BrunLower/WRatio.lean:117 | sieves |
 | `Salt.BrunLower.windowSum_le_log_Wratio` | Salt/BrunLower/WRatio.lean:137 | sieves |
