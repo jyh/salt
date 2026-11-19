@@ -258,6 +258,7 @@ theorem gold_box_rows_wide_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kc : �
       ≤ Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ)) := hDwide
   obtain ⟨hDnn, hDscale, hL18ge1, hDsqrtXM, hDXM, hDx⟩ :=
     gold_box_D_rows hXMpos hX2 hMge1 hL2 hXMhiR herr_lev
+  -- hDsq — `D ≤ √(XM) ≤ √(2N) ≤ (2^kp)^2`
   have hDsq : D < (2 ^ kp + 1) * (2 ^ kp + 1) := by
     have hsqrt2N : Real.sqrt (((2 ^ (i + 1) - 1 : ℕ) : ℝ) * (pieceM kp : ℝ))
         ≤ Real.sqrt (2 * (N : ℝ)) := Real.sqrt_le_sqrt hXMhiR
