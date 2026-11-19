@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `0226bc6d` · source digest `58d92ab4e883b3a7` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `ca28b8ed` · source digest `4c4bf5f9ab229152` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,7 +22,7 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 23459 | 691 | 22757 | 9148 | 13 | 293 | 40 | 345 | 84 |
+| 23460 | 691 | 22758 | 9148 | 13 | 293 | 40 | 345 | 84 |
 
 Per-polarity totals over the 691 Props: with F-consumers 538 · with ¬F-consumers 21 · with F-producers (any kind) 451 · with ¬F-producers (any kind) 59.
 
@@ -253,5 +253,5 @@ By kind: case split `by_cases` 81 · prop-def body 2 · theorem conclusion 1.
 - `Salt.Entropy.Chowla.decrement_exists_of_tower` (Salt/Entropy/Chowla/Endpoints.lean:98)
 - `Salt.Entropy.Chowla.decrement_exists_of_tower_aff` (Salt/Entropy/Chowla/StrideDecrement.lean:684)
 - `Salt.MR.flat_head_uniform_xceil_eps` (Salt/MR/FlatDoorEpsChain.lean:561)
-- `Salt.MR.flat_head_uniform_xceil_epsW` (Salt/MR/FlatDoorEpsRung2.lean:4713)
+- `Salt.MR.flat_head_uniform_xceil_epsW` (Salt/MR/FlatDoorEpsRung2.lean:4710)
 
