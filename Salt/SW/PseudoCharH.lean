@@ -47,7 +47,7 @@ API applies to it verbatim.
 
 ## The measured receipts behind these statements
 
-(`h2c-desk/w1w5_receipts.py`, exact rationals.) Lemma 2 checked on every square-free pair `r, r' ≤
+(`w1w5_receipts.py`, exact rationals.) Lemma 2 checked on every square-free pair `r, r' ≤
 30` and `n ≤ 200`: 0 failures / 72,200 checks; on NON-square-free levels the identity FAILS, first
 at `(r, r', n) = (1, 4, 4)` (`ψ_4(4) = 0` against `Σ_{d ∣ 4} h(d; 1, 4) = −1`; at `(4, 4, 4)`: `0`
 against `1`), so the two `Squarefree` binders are load-bearing in Lean as in the paper; the filter
