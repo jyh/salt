@@ -5427,20 +5427,8 @@ theorem strideDoorAllGradesW_holds : StrideDoorAllGradesW := by
     mul_le_mul_of_nonneg_left (by exact_mod_cast Rd.hHlohi) (sq_nonneg _)
   have hlognn : (0 : ℝ) ≤ Real.log ((Rd.eps : ℝ) ^ 2 * ((Rd.Hhi : ℕ) : ℝ)) :=
     Real.log_nonneg (by linarith)
-  have h16 : (0 : ℝ) ≤ 16 / (Rd.eps : ℝ) := by positivity
-  have h64 : (32000 : ℝ) ≤ 64 / (Rd.eps : ℝ) := by
-    rw [le_div_iff₀ hepsR0]; linarith
-  have hlogω : (32001 : ℝ) ≤ Real.log ((Rd.ω : ℕ) : ℝ) := by
-    have hb2 := Rd.hωbig
-    nlinarith [mul_nonneg h16 hlognn]
+  obtain ⟨hlogω, hω8⟩ := regime_log_omega_ge_of_eps_le hepsR0 heps500R hlognn
   have hω2N : 2 ≤ Rd.ω := Rd.hω
-  have hωR : (0 : ℝ) < ((Rd.ω : ℕ) : ℝ) := by
-    have h2 : (2 : ℝ) ≤ ((Rd.ω : ℕ) : ℝ) := by exact_mod_cast hω2N
-    linarith
-  have hω8 : 8 ≤ Rd.ω := by
-    have hsub := Real.log_le_sub_one_of_pos hωR
-    have h8 : (8 : ℝ) ≤ ((Rd.ω : ℕ) : ℝ) := by linarith
-    exact_mod_cast h8
   -- ⟦THE TRANSPORT⟧ F3-P16 at the shrunk regime, at the target grade `ρt`
   have htrans := mrtUniformityXiL2AffW_of_set_L h Rd a b ha heps500 hstride hdiv hlo4 hloM hcop
     hHloS hb hω8 Kc ρt hKcount hdoor
@@ -5536,8 +5524,8 @@ theorem strideDoor_zero_level_g12b (hZ : StrideDoorAllGradesW) (a b h : ℕ) (ha
   obtain ⟨A, hA162, hA₀A, Ra, hRa, hRb, hReps, hHlo, hdes, hdoor⟩ :=
     hZ a b h ha hba hh (1 / (500 * ((a * h : ℕ) : ℚ))) le_rfl hε500
       ((a : ℝ) * (1 / (837782 * 2 ^ 12 * ((a * h : ℕ) : ℝ) ^ 2))) (by positivity) A₀
-  -- ⟦THE WIDTH NUMERAL⟧ `log ω ≥ 32001` off `hωbig` at `ε ≤ 1/500` — G12b :1200–1216,
-  -- verbatim at `Ra`
+  -- ⟦THE WIDTH NUMERAL⟧ `log ω ≥ 32001` off `hωbig` at `ε ≤ 1/500`: the first half of
+  -- `regime_log_omega_ge_of_eps_le` (StridePairReceipt), at `Ra`
   have heps500 : Ra.eps ≤ 1 / 500 := by rw [hReps]; exact hε500
   have hepsR0 : (0 : ℝ) < (Ra.eps : ℝ) := by exact_mod_cast Ra.heps
   have hcop : (2 : ℝ) ≤ (Ra.eps : ℝ) ^ 2 * ((Ra.Hlo : ℕ) : ℝ) := by
@@ -5550,14 +5538,10 @@ theorem strideDoor_zero_level_g12b (hZ : StrideDoorAllGradesW) (a b h : ℕ) (ha
     mul_le_mul_of_nonneg_left (by exact_mod_cast Ra.hHlohi) (sq_nonneg _)
   have hlognn : (0 : ℝ) ≤ Real.log ((Ra.eps : ℝ) ^ 2 * ((Ra.Hhi : ℕ) : ℝ)) :=
     Real.log_nonneg (by linarith)
-  have h16 : (0 : ℝ) ≤ 16 / (Ra.eps : ℝ) := by positivity
   have heps500R : (Ra.eps : ℝ) ≤ 1 / 500 := by
     simpa using (Rat.cast_le (K := ℝ)).mpr heps500
-  have h64 : (32000 : ℝ) ≤ 64 / (Ra.eps : ℝ) := by
-    rw [le_div_iff₀ hepsR0]; linarith
-  have hlogω : (32001 : ℝ) ≤ Real.log ((Ra.ω : ℕ) : ℝ) := by
-    have hb2 := Ra.hωbig
-    nlinarith [mul_nonneg h16 hlognn]
+  have hlogω : (32001 : ℝ) ≤ Real.log ((Ra.ω : ℕ) : ℝ) :=
+    (regime_log_omega_ge_of_eps_le hepsR0 heps500R hlognn).1
   have hDpos : (0 : ℝ) < (a : ℝ) * ((Ra.x / Ra.ω : ℕ) : ℝ) + 1 := by positivity
   have hLpos : (0 : ℝ) < Real.log ((Ra.ω : ℕ) : ℝ) - 1 := by linarith
   -- ⟦THE PACKAGE⟧ `Zr := 1`, `E := 0`; the door at `a·1·ρ₀ + 0 = a·ρ₀` is Z's, by monotonicity
