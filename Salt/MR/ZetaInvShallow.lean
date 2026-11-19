@@ -115,18 +115,7 @@ lemma zeta_shallow_scales {H : ℝ} (hH : Real.exp (Real.exp 100) + 1 ≤ H) :
     Real.exp 100 ≤ Real.log H ∧ (100 : ℝ) ≤ Real.log (Real.log H) ∧
       Real.log H ≤ Real.log (H + 1) ∧ Real.log (H + 1) ≤ 2 * Real.log H ∧
       Real.log (Real.log (H + 1)) ≤ 2 * Real.log (Real.log H) ∧ Real.exp 1 < H := by
-  have hexp100 : (101 : ℝ) ≤ Real.exp 100 := by linarith [Real.add_one_le_exp (100 : ℝ)]
-  have hEbig : (101 : ℝ) ≤ Real.exp (Real.exp 100) := by
-    have h2 : Real.exp 100 ≤ Real.exp (Real.exp 100) := Real.exp_le_exp.mpr (by linarith)
-    linarith
-  have hHpos : (0 : ℝ) < H := by linarith
-  have hLg : Real.exp 100 ≤ Real.log H := by
-    rw [← Real.log_exp (Real.exp 100)]
-    exact Real.log_le_log (Real.exp_pos _) (by linarith)
-  have hLg0 : (0 : ℝ) < Real.log H := by linarith
-  have hℓ : (100 : ℝ) ≤ Real.log (Real.log H) := by
-    rw [← Real.log_exp 100]
-    exact Real.log_le_log (Real.exp_pos _) hLg
+  obtain ⟨hexp100, hEbig, hHpos, hLg, hLg0, hℓ⟩ := exp_exp_hundred_scales hH
   have hLgp : Real.log H ≤ Real.log (H + 1) := Real.log_le_log hHpos (by linarith)
   have hLgp2 : Real.log (H + 1) ≤ 2 * Real.log H := by
     have h1 : H + 1 ≤ H * H := by nlinarith only [hEbig, hH]

@@ -398,23 +398,33 @@ consumer outside it. -/
 lemma boxWidth_le_cl (c₀ A : ℝ) (q : ℕ) (H : ℝ) : boxWidth c₀ A q H ≤ clBoxWidth c₀ q :=
   le_trans (min_le_right _ _) (min_le_right _ _)
 
-/-- The width is POSITIVE — the strictness that makes the box discharge a contradiction.  Both
-arms are positive above the VK floor (`log H ≥ exp 100`, so `log log H ≥ 100 > 0`) and the
-classical denominator `log q + exp 100 + 1` is positive for every `q ≥ 1`. -/
-lemma boxWidth_pos {A c₀ H : ℝ} (hA1 : 1 ≤ A) (hc₀pos : 0 < c₀) {q : ℕ}
-    (hH : Real.exp (Real.exp 100) + 1 ≤ H) : 0 < boxWidth c₀ A q H := by
+/-- **THE STANDING `exp(exp 100)` SCALES** — at `H ≥ exp(exp 100) + 1`: `101 ≤ e^100`,
+`101 ≤ e^{e^100}`, `0 < H`, `e^100 ≤ log H`, `0 < log H` and `100 ≤ loglog H`, in that order.
+Stated once for the nine shallow-strip sites in this file, `LFunctionInvShallow` and
+`ZetaInvShallow` that derived them in place (O13-e row 272); each site binds all six names. -/
+lemma exp_exp_hundred_scales {H : ℝ} (hH : Real.exp (Real.exp 100) + 1 ≤ H) :
+    (101 : ℝ) ≤ Real.exp 100 ∧ (101 : ℝ) ≤ Real.exp (Real.exp 100) ∧ (0 : ℝ) < H ∧
+      Real.exp 100 ≤ Real.log H ∧ (0 : ℝ) < Real.log H ∧ (100 : ℝ) ≤ Real.log (Real.log H) := by
   have hexp100 : (101 : ℝ) ≤ Real.exp 100 := by linarith [Real.add_one_le_exp (100 : ℝ)]
   have hEbig : (101 : ℝ) ≤ Real.exp (Real.exp 100) := by
     have h2 : Real.exp 100 ≤ Real.exp (Real.exp 100) := Real.exp_le_exp.mpr (by linarith)
     linarith
   have hHpos : (0 : ℝ) < H := by linarith
-  have hLH : Real.exp 100 ≤ Real.log H := by
+  have hLg : Real.exp 100 ≤ Real.log H := by
     rw [← Real.log_exp (Real.exp 100)]
     exact Real.log_le_log (Real.exp_pos _) (by linarith)
-  have hLH0 : (0 : ℝ) < Real.log H := by linarith
-  have hℓH : (100 : ℝ) ≤ Real.log (Real.log H) := by
+  have hLg0 : (0 : ℝ) < Real.log H := by linarith
+  have hℓ : (100 : ℝ) ≤ Real.log (Real.log H) := by
     rw [← Real.log_exp 100]
-    exact Real.log_le_log (Real.exp_pos _) hLH
+    exact Real.log_le_log (Real.exp_pos _) hLg
+  exact ⟨hexp100, hEbig, hHpos, hLg, hLg0, hℓ⟩
+
+/-- The width is POSITIVE — the strictness that makes the box discharge a contradiction.  Both
+arms are positive above the VK floor (`log H ≥ exp 100`, so `log log H ≥ 100 > 0`) and the
+classical denominator `log q + exp 100 + 1` is positive for every `q ≥ 1`. -/
+lemma boxWidth_pos {A c₀ H : ℝ} (hA1 : 1 ≤ A) (hc₀pos : 0 < c₀) {q : ℕ}
+    (hH : Real.exp (Real.exp 100) + 1 ≤ H) : 0 < boxWidth c₀ A q H := by
+  obtain ⟨hexp100, hEbig, hHpos, hLH, hLH0, hℓH⟩ := exp_exp_hundred_scales hH
   have hvk : 0 < vkBoxWidth A H := by
     rw [vkBoxWidth]
     have h1 : (0 : ℝ) < Real.log H ^ ((3 : ℝ) / 4) := Real.rpow_pos_of_pos hLH0 _
@@ -698,18 +708,7 @@ def vkShallowWidth (c₄ : ℝ) (q : ℕ) (H : ℝ) : ℝ :=
 this file beyond its proof. -/
 lemma vkShallowWidth_pos {c₄ H : ℝ} (hc₄ : 0 < c₄) {q : ℕ}
     (hH : Real.exp (Real.exp 100) + 1 ≤ H) : 0 < vkShallowWidth c₄ q H := by
-  have hexp100 : (101 : ℝ) ≤ Real.exp 100 := by linarith [Real.add_one_le_exp (100 : ℝ)]
-  have hEbig : (101 : ℝ) ≤ Real.exp (Real.exp 100) := by
-    have h2 : Real.exp 100 ≤ Real.exp (Real.exp 100) := Real.exp_le_exp.mpr (by linarith)
-    linarith
-  have hHpos : (0 : ℝ) < H := by linarith
-  have hLH : Real.exp 100 ≤ Real.log H := by
-    rw [← Real.log_exp (Real.exp 100)]
-    exact Real.log_le_log (Real.exp_pos _) (by linarith)
-  have hLH0 : (0 : ℝ) < Real.log H := by linarith
-  have hℓH : (100 : ℝ) ≤ Real.log (Real.log H) := by
-    rw [← Real.log_exp 100]
-    exact Real.log_le_log (Real.exp_pos _) hLH
+  obtain ⟨hexp100, hEbig, hHpos, hLH, hLH0, hℓH⟩ := exp_exp_hundred_scales hH
   have h1 : (0 : ℝ) < Real.log H ^ ((3 : ℝ) / 4) := Real.rpow_pos_of_pos hLH0 _
   have h2 : (0 : ℝ) < Real.log (Real.log H) ^ (3 : ℕ) :=
     pow_pos (by linarith : (0 : ℝ) < Real.log (Real.log H)) 3
