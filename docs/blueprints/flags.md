@@ -14161,7 +14161,7 @@ H^{-0.415}, materially easier norm_num/geom_sum bookkeeping).
 ## ⟦ARC-SCOPE⟧: F2's ceiling is ONE q (the composition as banked DOES NOT CLOSE); the tower law corrected; THE M-SANDWICH LOOKS NON-BENIGN — the Adoor anchor is the knob (2026-07-29 ~03:00 PDT)
 
 **Q1 — F2:** the class object is genuinely at H² (the two q's born at
-M4WaveClosed:291-293 Chebyshev + :316-324 sum_const; the ∀d arm dilates
+M4WaveClosed:291-293 Chebyshev + :310-318 sum_const; the ∀d arm dilates
 by gcd r q NOT q, and d0_ledger discards the d₀² anyway). The honest
 Parseval recount (per fixed K + the maximizer step — Parseval does NOT
 commute with sup_K) kills **q#2 ONLY**: the sum over classes costs one
@@ -24571,7 +24571,7 @@ branch threshold. Nothing here bears on twin primes.
 **Object:** the QUEUE P1b residue `M4RowMeanSq_L` (M4RowLinear.lean:993) — "⟦THE CLASS PRICING⟧ open, a
 design question". **Measured at `980c5c4f` (kernel reverse-dependency walk, refuter-reproduced ±1):** it
 is the PLAIN route's socket — two consumers, both on that route (`m4_blockMeanSq_of_rowMeanSq_L` :1394,
-hypothesis position; `m4_wave_exit_L` :2923, in its statement, itself with ZERO dependents), zero
+hypothesis position; `m4_wave_exit_L` :2917, in its statement, itself with ZERO dependents), zero
 producers, OUT of the class road's cone (`m4_wave_collapsed_L`, "(c) ANALYTIC ARMS — none") and of the
 second road's (`m4_second_road_tower_L`). `M4ClassPrice` ⟦U2⟧ abandoned the interface on purpose 07-31.
 The class pricing is LANDED in `_L` (08/01: `m4_classMeanSq_of_chiMeanSq_L`, `m4_nonCoprime_classMeanSq_N_L`,
