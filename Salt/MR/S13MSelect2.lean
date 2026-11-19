@@ -261,6 +261,18 @@ theorem s13_socketBase_loglogA {R : ChowlaRegime} {M H L q j A s : ℕ}
   have hmain : u ≤ Real.log (A : ℝ) := s13_socketBase_logA_ge_sqrt hfl hb
   exact ⟨le_trans hu2000 hmain, by have := s13_socketBase_loglogA_sharp hfl hb; linarith⟩
 
+/-- The base's `log` transported up the shift: `log A ≤ log (A + s)`, from any positive floor
+`c ≤ log A` (which already forces `0 < A`). Form-free: the three suppliers of `2000 ≤ log A`
+(`s13_socketBase_loglogA`, `_LH_b9`, `_LH_L`) all feed it (TACTICS-CATALOGUE §3 #17). -/
+theorem log_le_log_natCast_add {A s : ℕ} {c : ℝ} (hc : 0 < c) (h : c ≤ Real.log (A : ℝ)) :
+    Real.log (A : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := by
+  have hA : 0 < A := by
+    rcases Nat.eq_zero_or_pos A with h0 | h0
+    · rw [h0, Nat.cast_zero, Real.log_zero] at h; linarith
+    · exact h0
+  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  exact Real.log_le_log hA0 (by push_cast; linarith [Nat.cast_nonneg (α := ℝ) s])
+
 /-- **⟦`abs8640` AT THE SOCKET BASE — THE D2 CORRECTION, KERNELIZED⟧**
 (`s13_abs8640_of_socketBase`).  `8640 ≤ (log A)^{θ₂₉₃ − 1/500}` from `SocketBase` and the
 capstone's absorbed `loglogFloor50` alone.  NO `M`-lower is spent: the line is a BASE-lower,

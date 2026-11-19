@@ -1073,12 +1073,9 @@ theorem s15_gRows_const_at_socket_flat_doorLH_gk_b9 (K : ℕ) {h : ℕ} (hh : 0 
   obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
   have hA : 0 < A := hb.2.2.2.2.2.2.2.1
   have hAs : 0 < A + s := by omega
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA_LH_b9 hh hh9 hfl hb
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hllle : Real.log (Real.log (((A + s : ℕ)) : ℝ)) ≤ Real.log (((A + s : ℕ)) : ℝ) - 1 :=
     Real.log_le_sub_one_of_pos (by linarith)
   have hll := s12c_llX_ge_LH_b9 hh hh9 hfl hb

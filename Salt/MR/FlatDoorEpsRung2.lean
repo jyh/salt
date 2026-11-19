@@ -4029,13 +4029,9 @@ theorem s15_heps293_at_socket_flat_T {R : ChowlaRegime} {M H L q j A s : ℕ} {�
   set lam : ℝ := Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) with hlamdef
   set Λ : ℝ := Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) with hLamdef
   set ll : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hlldef
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
   have hpool : constPool ρ R.Hhi = Real.exp (Real.log ρ - Real.log 376266 - 14 * Λ) := by
     rw [constPool_def, hLamdef, Real.exp_sub, Real.exp_sub, Real.exp_log hρ,
@@ -4082,13 +4078,9 @@ theorem s15_hband4096_at_socket_flat_T {R : ChowlaRegime} {M H L q j A s : ℕ} 
   set lam : ℝ := Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) with hlamdef
   set Λ : ℝ := Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) with hLamdef
   set ll : ℝ := Real.log (Real.log (((A + s : ℕ)) : ℝ)) with hlldef
-  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by linarith
   have hpool : constPool ρ R.Hhi = Real.exp (Real.log ρ - Real.log 376266 - 14 * Λ) := by
     rw [constPool_def, hLamdef, Real.exp_sub, Real.exp_sub, Real.exp_log hρ,
@@ -4156,12 +4148,9 @@ theorem s15_gRows_const_at_socket_flat_doorL_gk_T (K : ℕ) {R : ChowlaRegime}
   obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
   have hA : 0 < A := hbb.2.2.2.2.2.2.2.1
   have hAs : 0 < A + s := by omega
-  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
-  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
-    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
   obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hbb
   have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
-    have := Real.log_le_log hA0 hAX; linarith
+    have := log_le_log_natCast_add (s := s) (by norm_num) h2000; linarith
   have hllle : Real.log (Real.log (((A + s : ℕ)) : ℝ)) ≤ Real.log (((A + s : ℕ)) : ℝ) - 1 :=
     Real.log_le_sub_one_of_pos (by linarith)
   have hll := s12c_llX_ge hfl hbb
