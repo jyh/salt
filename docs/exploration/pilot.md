@@ -1804,7 +1804,7 @@ decisions per question.
   MediumFloor:144/183), spanning (5/24)·log₂N dyadic scales ABOVE
   the box engine's hlive gate — live-but-unpriceable; the twin's
   band route is LIVENESS-FREE (medium_box_price_at_op_band via
-  d0_window_of_XM_band from a piece floor, ChenFinal2:327; the
+  d0_window_of_XM_band from a piece floor, ChenFinal2:184; the
   Y-variant boxPriceKerrY at AssembleA3b:634). TWO construction
   nodes needed: (1) the liveness-free annulus band pricer (the
   d0_window_of_XM_band analog at X·M ≤ 4·goldCut(k+1) feeding the
