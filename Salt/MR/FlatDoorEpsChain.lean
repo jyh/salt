@@ -1087,13 +1087,8 @@ theorem flat_kswin_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop) (Awin : �
     flat_L_width_priced hA26 hbaseceil hdes hRtow
   refine ⟨R, hReps, hHlo, hRg, hRx, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
-  have heps : (1 : ℚ) / (2 ^ 9 * ((8103 : ℕ) : ℚ)) ≤ R.eps := by
-    rw [hReps]
-    have hb : (1 : ℚ) / (2 ^ 9 * ((8103 : ℕ) : ℚ)) ≤ 1 / (500 * 8103) := by norm_num
-    linarith [hεpin]
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA26
+  obtain ⟨hM1, heps, hlo, hfl⟩ :=
+    regime_flat_head_facts_mul (k := 8103) (by norm_num) hReps hHlo hεpinQ hA26
   -- ⟦THE BRIDGE⟧ the `A`-scoped window becomes §4's regime-scoped one at the flat floor
   have hKswR : Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16 := by linarith
   have hδb : (1 : ℝ) / (838400 * 2 ^ 12 * ((8103 : ℕ) : ℝ) ^ 2) ≤ δ₀ := by
@@ -1104,7 +1099,6 @@ theorem flat_kswin_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop) (Awin : �
   have hsel := s15_sel''_L_gk_witness_flat_bumped_win_h_g12b (h := 8103) hA26 K hKw
     (by norm_num) epsChain_log_top_le_nine hδ₀ hδb hKc hKcb
     hCt hCtb hCgle (hMflb A hA26 hAwin) hx0win heps hlo hwin
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseL R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk K (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb
