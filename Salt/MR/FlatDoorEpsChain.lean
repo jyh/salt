@@ -1045,9 +1045,7 @@ theorem flat_kswin_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop) (Awin : �
   have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := xceilRiderStrict_zero ε
   obtain ⟨R0, hR0eps, -, -, -, -, -⟩ :=
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
-  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
-  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
+  have hε2 : (ε : ℝ) ≤ 1 / 2 := by simpa [hR0eps] using (Rat.cast_le (K := ℝ)).mpr R0.heps1
   -- ⟦THE CAP, IN THE TWO SPELLINGS THE `_b9` TWINS TAKE⟧ the real one through the four-line
   -- cast (ONE `exact_mod_cast` does not lift a divided cap), the rational one directly
   have hεR : (1 : ℝ) / (500 * ((8103 : ℕ) : ℝ)) ≤ (ε : ℝ) := by

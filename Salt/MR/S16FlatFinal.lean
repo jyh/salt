@@ -160,11 +160,8 @@ theorem logChowla2_witnessed_scale_flat_L_v2 (hband : S16BandLaneCBoundedL 32000
   -- ⟦THE `ε`-CEILING⟧ read off ONE regime's own `heps1`
   obtain ⟨R0, hR0eps, -, -, -, -⟩ :=
     hbody (flatWitFloor ε β A Hopq) (fun _ _ => 0) (flatCap_le_flatWitFloor hCapLe)
-  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
-  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
-  have hεR : (1 : ℝ) / 500 ≤ (ε : ℝ) := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
+  have hε2 : (ε : ℝ) ≤ 1 / 2 := by simpa [hR0eps] using (Rat.cast_le (K := ℝ)).mpr R0.heps1
+  have hεR : (1 : ℝ) / 500 ≤ (ε : ℝ) := by simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C,
     hε, hCg, hKc, hδ₀, hCt, hMfl1, hCq, hcs0, hT₀3, hKq0, hKs0, hC0, hC40,
     hCgle, hεpin, hδpin, hMflb, hβ, hA26, hA₀A, hAge,

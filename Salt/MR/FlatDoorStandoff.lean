@@ -1653,9 +1653,7 @@ theorem flat_kswin_generic_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
     xceilRiderStrictAt_zero _ ε
   obtain ⟨R0, hR0eps, -, -, -, -, -⟩ :=
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
-  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
-  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
+  have hε2 : (ε : ℝ) ≤ 1 / 2 := by simpa [hR0eps] using (Rat.cast_le (K := ℝ)).mpr R0.heps1
   -- ⟦THE CHARGE, IN THE REAL SPELLING⟧ the `_L` siblings take the pin over `ℝ`; the RATIONAL
   -- spelling the `_b9` twins needed a second cast for is now the form's own `hεpin`, at `c`.
   have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1

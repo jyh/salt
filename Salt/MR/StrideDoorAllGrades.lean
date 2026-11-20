@@ -4541,9 +4541,7 @@ theorem flat_kswin_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L : 
   obtain ⟨R0, hR0eps, -, -, -, -, -, -⟩ :=
     hbody0 1 (max Hcap0 (max (flatDesignBase A0) loglogFloor50)) (fun _ _ => 0) le_rfl
       (by simpa using hL0) hzero le_rfl
-  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
-  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
+  have hε2 : (ε : ℝ) ≤ 1 / 2 := by simpa [hR0eps] using (Rat.cast_le (K := ℝ)).mpr R0.heps1
   -- ⟦THE CHARGE PIN AT `c`, IN THE REAL SPELLING⟧ (rung 2's cast)
   have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
   have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1

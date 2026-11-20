@@ -1116,9 +1116,7 @@ theorem flat_kswin_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → 
     xceilRiderStrictAt_zero _ ε
   obtain ⟨R0, hR0eps, -, -, -, -, -, -⟩ :=
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
-  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
-  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
+  have hε2 : (ε : ℝ) ≤ 1 / 2 := by simpa [hR0eps] using (Rat.cast_le (K := ℝ)).mpr R0.heps1
   have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
   have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
   have hεR : (1 : ℝ) / (500 * (c : ℝ)) ≤ (ε : ℝ) := by
