@@ -299,6 +299,56 @@ lemma regime_outer_param (eps : ℚ) (heps : 0 < eps) (_heps1 : eps ≤ 1 / 2)
       _ ≤ (ω : ℝ) * (K : ℝ) := mul_le_mul_of_nonneg_left hbase hωnn
       _ = ((K * ω : ℕ) : ℝ) := by push_cast; ring
 
+/-- **The `ε`-window facts of a regime base.** A base `Hlo ≥ 4·⌈1/ε⌉₊⁴` meets the two
+`ChowlaRegime` fields that read `ε` against `Hlo`: `hcoprime` (`1 ≤ ε²·Hlo/2`) and `hPNTwindow`
+(`√Hlo ≤ ε²·Hlo/2`). Shared by the regime builders, each of which proved both inline. -/
+theorem regime_eps_window_facts {eps : ℚ} (heps : 0 < eps) {Hlo : ℕ}
+    (h4 : 4 * ⌈(1 / eps : ℚ)⌉₊ ^ 4 ≤ Hlo) :
+    ((1 : ℕ) : ℚ) ≤ eps ^ 2 * (Hlo : ℚ) / 2 ∧
+      Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) / 2 := by
+  obtain ⟨m, hmdef⟩ : ∃ m : ℕ, m = ⌈(1 / eps : ℚ)⌉₊ := ⟨_, rfl⟩
+  have hHlo4 : 4 * m ^ 4 ≤ Hlo := by rw [hmdef]; exact h4
+  have hm_ge : (1 / eps : ℚ) ≤ (m : ℚ) := by rw [hmdef]; exact Nat.le_ceil _
+  have hem : (1 : ℚ) ≤ eps * (m : ℚ) := by
+    have h := mul_le_mul_of_nonneg_left hm_ge (le_of_lt heps)
+    rwa [mul_one_div, div_self (ne_of_gt heps)] at h
+  have hm1N : 1 ≤ m := by rw [hmdef]; exact Nat.ceil_pos.mpr (div_pos one_pos heps)
+  have hm1 : (1 : ℚ) ≤ (m : ℚ) := by exact_mod_cast hm1N
+  have hemR : (1 : ℝ) ≤ (eps : ℝ) * (m : ℝ) := by exact_mod_cast hem
+  have hHlo4Q : (4 : ℚ) * (m : ℚ) ^ 4 ≤ (Hlo : ℚ) := by exact_mod_cast hHlo4
+  have hHlo4R : (4 : ℝ) * (m : ℝ) ^ 4 ≤ (Hlo : ℝ) := by exact_mod_cast hHlo4
+  have hcop : ((1 : ℕ) : ℚ) ≤ eps ^ 2 * (Hlo : ℚ) / 2 := by
+    have hprod : (1 : ℚ) ≤ (eps * (m : ℚ)) ^ 2 * (m : ℚ) ^ 2 := by
+      have h1 : (1 : ℚ) ≤ (eps * (m : ℚ)) ^ 2 := by nlinarith [hem, sq_nonneg (eps * (m : ℚ) - 1)]
+      have h2 : (1 : ℚ) ≤ (m : ℚ) ^ 2 := by nlinarith [hm1, sq_nonneg ((m : ℚ) - 1)]
+      exact le_trans h1 (le_mul_of_one_le_right (sq_nonneg _) h2)
+    have heq : (eps * (m : ℚ)) ^ 2 * (m : ℚ) ^ 2 = eps ^ 2 * (m : ℚ) ^ 4 := by ring
+    have h4le : (4 : ℚ) ≤ eps ^ 2 * (Hlo : ℚ) := by
+      have hmul : eps ^ 2 * (4 * (m : ℚ) ^ 4) ≤ eps ^ 2 * (Hlo : ℚ) :=
+        mul_le_mul_of_nonneg_left hHlo4Q (sq_nonneg eps)
+      nlinarith [hmul, hprod, heq]
+    rw [Nat.cast_one]; linarith
+  have hPNT : Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) / 2 := by
+    have hsqrtHlo : (2 : ℝ) * (m : ℝ) ^ 2 ≤ Real.sqrt (Hlo : ℝ) := by
+      have heq : Real.sqrt (4 * (m : ℝ) ^ 4) = 2 * (m : ℝ) ^ 2 := by
+        rw [show (4 : ℝ) * (m : ℝ) ^ 4 = (2 * (m : ℝ) ^ 2) ^ 2 by ring,
+          Real.sqrt_sq (by positivity)]
+      calc (2 : ℝ) * (m : ℝ) ^ 2 = Real.sqrt (4 * (m : ℝ) ^ 4) := heq.symm
+        _ ≤ Real.sqrt (Hlo : ℝ) := Real.sqrt_le_sqrt hHlo4R
+    have hsqrtnn : (0 : ℝ) ≤ Real.sqrt (Hlo : ℝ) := Real.sqrt_nonneg _
+    have hHloeq : Real.sqrt (Hlo : ℝ) * Real.sqrt (Hlo : ℝ) = (Hlo : ℝ) :=
+      Real.mul_self_sqrt (by positivity)
+    have h2 : (2 : ℝ) ≤ (eps : ℝ) ^ 2 * Real.sqrt (Hlo : ℝ) := by
+      have hstep : (eps : ℝ) ^ 2 * (2 * (m : ℝ) ^ 2) ≤ (eps : ℝ) ^ 2 * Real.sqrt (Hlo : ℝ) :=
+        mul_le_mul_of_nonneg_left hsqrtHlo (sq_nonneg _)
+      nlinarith [hstep, hemR, sq_nonneg ((eps : ℝ) * (m : ℝ) - 1)]
+    have h3 : 2 * Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) := by
+      have hh := mul_le_mul_of_nonneg_right h2 hsqrtnn
+      rw [mul_assoc, hHloeq] at hh
+      linarith [hh]
+    linarith [h3]
+  exact ⟨hcop, hPNT⟩
+
 /-! ### Section C — the parametric anti-vacuity witness -/
 
 /-- **The `(ε, H₋)`-parametric regime builder, with the tower length CHOSEN BY THE
@@ -321,16 +371,8 @@ theorem chowlaRegime_exists_param_gen (eps : ℚ) (heps : 0 < eps) (heps1 : eps 
     ∃ R : ChowlaRegime, R.eps = eps ∧ Hlo₀ ≤ R.Hlo ∧
       R.Hhi = chowlaTower 2 1 R.Hlo (Jof R.Hlo) := by
   classical
-  have hepsR : (0 : ℝ) < (eps : ℝ) := by exact_mod_cast heps
   -- the scale `m ≥ 1/ε`
   obtain ⟨m, hmdef⟩ : ∃ m : ℕ, m = ⌈(1 / eps : ℚ)⌉₊ := ⟨_, rfl⟩
-  have hm_ge : (1 / eps : ℚ) ≤ (m : ℚ) := by rw [hmdef]; exact Nat.le_ceil _
-  have hem : (1 : ℚ) ≤ eps * (m : ℚ) := by
-    have h := mul_le_mul_of_nonneg_left hm_ge (le_of_lt heps)
-    rwa [mul_one_div, div_self (ne_of_gt heps)] at h
-  have hm1N : 1 ≤ m := by rw [hmdef]; exact Nat.ceil_pos.mpr (div_pos one_pos heps)
-  have hm1 : (1 : ℚ) ≤ (m : ℚ) := by exact_mod_cast hm1N
-  have hemR : (1 : ℝ) ≤ (eps : ℝ) * (m : ℝ) := by exact_mod_cast hem
   -- the enlarged base floor
   obtain ⟨Hlo, hHlodef⟩ : ∃ Hlo : ℕ, Hlo = max 4000000 (max Hlo₀ (4 * m ^ 4)) := ⟨_, rfl⟩
   have hHlo_floor : 4000000 ≤ Hlo := by rw [hHlodef]; exact le_max_left _ _
@@ -338,40 +380,8 @@ theorem chowlaRegime_exists_param_gen (eps : ℚ) (heps : 0 < eps) (heps1 : eps 
     rw [hHlodef]; exact le_trans (le_max_left _ _) (le_max_right _ _)
   have hHlo4 : 4 * m ^ 4 ≤ Hlo := by
     rw [hHlodef]; exact le_trans (le_max_right _ _) (le_max_right _ _)
-  have hHlo4Q : (4 : ℚ) * (m : ℚ) ^ 4 ≤ (Hlo : ℚ) := by exact_mod_cast hHlo4
-  have hHlo4R : (4 : ℝ) * (m : ℝ) ^ 4 ≤ (Hlo : ℝ) := by exact_mod_cast hHlo4
-  -- `hcoprime : 1 ≤ ε²·Hlo/2`
-  have hcop : ((1 : ℕ) : ℚ) ≤ eps ^ 2 * (Hlo : ℚ) / 2 := by
-    have hprod : (1 : ℚ) ≤ (eps * (m : ℚ)) ^ 2 * (m : ℚ) ^ 2 := by
-      have h1 : (1 : ℚ) ≤ (eps * (m : ℚ)) ^ 2 := by nlinarith [hem, sq_nonneg (eps * (m : ℚ) - 1)]
-      have h2 : (1 : ℚ) ≤ (m : ℚ) ^ 2 := by nlinarith [hm1, sq_nonneg ((m : ℚ) - 1)]
-      exact le_trans h1 (le_mul_of_one_le_right (sq_nonneg _) h2)
-    have heq : (eps * (m : ℚ)) ^ 2 * (m : ℚ) ^ 2 = eps ^ 2 * (m : ℚ) ^ 4 := by ring
-    have h4le : (4 : ℚ) ≤ eps ^ 2 * (Hlo : ℚ) := by
-      have hmul : eps ^ 2 * (4 * (m : ℚ) ^ 4) ≤ eps ^ 2 * (Hlo : ℚ) :=
-        mul_le_mul_of_nonneg_left hHlo4Q (sq_nonneg eps)
-      nlinarith [hmul, hprod, heq]
-    rw [Nat.cast_one]; linarith
-  -- `hPNTwindow : √Hlo ≤ ε²·Hlo/2`
-  have hPNT : Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) / 2 := by
-    have hsqrtHlo : (2 : ℝ) * (m : ℝ) ^ 2 ≤ Real.sqrt (Hlo : ℝ) := by
-      have heq : Real.sqrt (4 * (m : ℝ) ^ 4) = 2 * (m : ℝ) ^ 2 := by
-        rw [show (4 : ℝ) * (m : ℝ) ^ 4 = (2 * (m : ℝ) ^ 2) ^ 2 by ring,
-          Real.sqrt_sq (by positivity)]
-      calc (2 : ℝ) * (m : ℝ) ^ 2 = Real.sqrt (4 * (m : ℝ) ^ 4) := heq.symm
-        _ ≤ Real.sqrt (Hlo : ℝ) := Real.sqrt_le_sqrt hHlo4R
-    have hsqrtnn : (0 : ℝ) ≤ Real.sqrt (Hlo : ℝ) := Real.sqrt_nonneg _
-    have hHloeq : Real.sqrt (Hlo : ℝ) * Real.sqrt (Hlo : ℝ) = (Hlo : ℝ) :=
-      Real.mul_self_sqrt (by positivity)
-    have h2 : (2 : ℝ) ≤ (eps : ℝ) ^ 2 * Real.sqrt (Hlo : ℝ) := by
-      have hstep : (eps : ℝ) ^ 2 * (2 * (m : ℝ) ^ 2) ≤ (eps : ℝ) ^ 2 * Real.sqrt (Hlo : ℝ) :=
-        mul_le_mul_of_nonneg_left hsqrtHlo (sq_nonneg _)
-      nlinarith [hstep, hemR, sq_nonneg ((eps : ℝ) * (m : ℝ) - 1)]
-    have h3 : 2 * Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) := by
-      have hh := mul_le_mul_of_nonneg_right h2 hsqrtnn
-      rw [mul_assoc, hHloeq] at hh
-      linarith [hh]
-    linarith [h3]
+  -- `hcoprime : 1 ≤ ε²·Hlo/2` and `hPNTwindow : √Hlo ≤ ε²·Hlo/2`
+  obtain ⟨hcop, hPNT⟩ := regime_eps_window_facts heps (by rw [← hmdef]; exact hHlo4)
   -- the tower endpoint and its divergence
   obtain ⟨J, hJdef⟩ : ∃ J : ℕ, J = Jof Hlo := ⟨_, rfl⟩
   have hJ : Real.log 2 < towerDropSum 2 1 Hlo J := by
