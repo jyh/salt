@@ -301,7 +301,7 @@ lemma regime_outer_param (eps : ℚ) (heps : 0 < eps) (_heps1 : eps ≤ 1 / 2)
 
 /-- **The `ε`-window facts of a regime base.** A base `Hlo ≥ 4·⌈1/ε⌉₊⁴` meets the two
 `ChowlaRegime` fields that read `ε` against `Hlo`: `hcoprime` (`1 ≤ ε²·Hlo/2`) and `hPNTwindow`
-(`√Hlo ≤ ε²·Hlo/2`). Shared by the regime builders, each of which proved both inline. -/
+(`√Hlo ≤ ε²·Hlo/2`). Shared by the regime builders, each of which carried both facts inline. -/
 theorem regime_eps_window_facts {eps : ℚ} (heps : 0 < eps) {Hlo : ℕ}
     (h4 : 4 * ⌈(1 / eps : ℚ)⌉₊ ^ 4 ≤ Hlo) :
     ((1 : ℕ) : ℚ) ≤ eps ^ 2 * (Hlo : ℚ) / 2 ∧
