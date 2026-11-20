@@ -36,9 +36,9 @@ form (`hmin` on `|v| ≤ R` + the recentring gate `hgate`) merge into ONE binder
 
   `hMwin : ∀ t : ℝ, |t − t₀'| ≤ T → M ≤ 𝔻²(ellLin (damped datum), costwist (t − t₀'); k)`,
 
-which is EXACTLY what the chain consumes — `SupClose.joint_supF_pin_trunc` (:233) spends the
+which is EXACTLY what the chain consumes — `SupClose.joint_supF_pin_trunc` (:230) spends the
 floor only at truncated contour points `|t − t₀'| ≤ T`, one point at a time, and
-`center_dist_floor_recentred` (:224) is precisely the seam-shaped SUPPLIER of that binder.
+`center_dist_floor_recentred` (:206) is precisely the seam-shaped SUPPLIER of that binder.
 Stating the consumption directly drops `hXk`, `hgate`, `hmin`, `R`, `t₀`, `t₁` and `X` from
 the statement: no seam geometry survives into the `c`-generic supplier, and the CASE-A
 consumer may discharge `hMwin` however its own window page prefers.
@@ -539,7 +539,7 @@ theorem rhsAgradeConstC_le {c Cb k L y h c₀ : ℝ} (hc1 : 2 * c < 1) (hCb0 : 0
 
 /-- **W4-4 — THE GRADE AT SCALE, WINDOW-FLOOR FORM, AT A FREE `c`**
 (`rhs_grade_at_scale_windowC`).  `GradeConst.rhs_grade_at_scale_const` and
-`SupClose.rhs_grade_at_scale_trunc` (:319) merged and freed:
+`SupClose.rhs_grade_at_scale_trunc` (:316) merged and freed:
 
   `‖prop21RHS (damped datum) t₀' k h c₀ y η‖
      ≤ gradeAbsConstC c Cb · k · e^{−c·M} + (1/π)·η²·(Ffar·Kfar)`.

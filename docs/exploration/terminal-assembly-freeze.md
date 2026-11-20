@@ -52,7 +52,7 @@ APPROXIMATE with every gap accounted in E:
 
 - **H-0** [NEW, C, 250, FIRST] `seam_carrier_audit`: derive the exact
   relation between seamCoeff f (windowIndicator y (X/y)) t₀ and the
-  g-built carriers, starting from `fgJ_factorization` (HalaszSeam:288)
+  g-built carriers, starting from `fgJ_factorization` (HalaszSeam:297)
   and `smoothPart` (HalaszLambda:410). Deliverable: the STATEMENT of
   H-EXIT — either (route i) `prop21_unconditional` carrying the
   hypothesis f = ellLin g (the tools become exact; consumers

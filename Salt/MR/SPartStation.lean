@@ -707,7 +707,7 @@ set_option maxHeartbeats 1000000 in
 -- As at `SupStation.seam_ball_leg_station_M`: the crown's binder block is instantiated
 -- wholesale and the `S`-slot carries the assembled grade expression twice.
 /-- **R7 (the AS-twin) — THE STATION EXIT AT GENERAL `F` (`seam_ball_leg_station_M_gen`).**
-`SupStation.seam_ball_leg_station_M` (:352) with the DATUM GENERALIZED from
+`SupStation.seam_ball_leg_station_M` (:349) with the DATUM GENERALIZED from
 `seamCoeff (ellLin g) 1 t₀` to `seamCoeff F 1 t₀` at any `1`-bounded multiplicative `F`:
 
   `‖A_t(m)‖ ≤ ballSupS X S₀ · m/(1+|t−t₁|)`,
