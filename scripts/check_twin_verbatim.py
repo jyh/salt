@@ -31,6 +31,12 @@ LIMITS, printed with every verdict:
     finding, not a pass.
   * The swap list above is the whole of what it forgives. A twin that differs in any other way is
     reported even when the difference is harmless.
+  * Layout is not seen: tokens are compared without indentation, so a tactic moved under a
+    different `have` with the same tokens passes.
+  * A twin is found by its docstring marker, never by its name: an `_of_standoff` declaration with
+    no `⟦STANDOFF TWIN⟧` docstring is not counted at all.
+  * A body is the text after the declaration's first `:=`; an empty body on either side (no `:=`,
+    e.g. equation style) is a finding, never an equal pair.
 """
 from __future__ import annotations
 
@@ -44,9 +50,9 @@ MARK = '/-- **⟦STANDOFF TWIN⟧**'
 DECL_START = re.compile(r'(?:private |protected )?(?:theorem|lemma) ')
 DECL_END = re.compile(r'(theorem|lemma|def|noncomputable|abbrev|structure|instance|/--|/-!|end( |$)|'
                       r'set_option|@\[|#|namespace|section|open )')
-LIMITS = ('LIMITS: source-level token compare after the swap (no elaboration context); a twin without '
-          '`verbatim` makes no claim; an unresolved source is a finding; only the listed swaps are '
-          'forgiven.')
+LIMITS = ('LIMITS: source-level token compare after the swap (no elaboration context, no layout); a twin '
+          'is found by its docstring marker, not its name; a twin without `verbatim` makes no claim; an '
+          'unresolved source or an empty body is a finding; only the listed swaps are forgiven.')
 
 
 def decl_text(lines: list[str], start: int) -> str:
@@ -141,6 +147,11 @@ def check(files: dict[str, list[str]]) -> tuple[int, int, int, list[str]]:
             swaps = [('siegel_real_carve', 'standoff_real_carve')] if 'siegel_real_carve' in doc else []
             a = toks(body_of(decl_text(files[sf], sk)), swaps)
             b = toks(body_of(decl_text(L, k)), swaps)
+            if not a or not b:
+                bad += 1
+                report.append(f'FINDING {f}:{k + 1} {tname} vs {sf}:{sk + 1} {sname}: an empty body '
+                              f'(no `:=` read) on the {"source" if not a else "twin"} side; not compared')
+                continue
             d = [x for x in difflib.ndiff(a, b) if x[:1] in '+-']
             if d:
                 bad += 1
@@ -204,6 +215,12 @@ def self_test() -> int:
         gone = t.replace('`foo`', '`foo_missing`', 1)
         assert gone != t
         arm(f'{label}: an unresolvable source name is a finding', check(fx(gone))[2] == 1)
+        eq_src = 'theorem foo : ∀ n : Nat, 0 ≤ n\n  | 0 => le_rfl\n  | n + 1 => Nat.zero_le _\n'
+        eq_twin = t.split('theorem ')[0] + ('theorem foo_of_standoff {cS : ℝ} (hcS : 0 < cS) '
+                   '(hSieg : Salt.SW.NoSiegelZerosAt cS) : ∀ n : Nat, 0 ≤ n\n  | 0 => by simp\n'
+                   '  | n + 1 => by omega\n')
+        arm(f'{label}: an equation-style pair (no `:=`, empty bodies) is a finding',
+            check(fx(eq_twin, eq_src))[2] == 1)
     return 0 if ok else 1
 
 
