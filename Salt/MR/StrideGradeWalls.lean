@@ -318,10 +318,10 @@ theorem s15_sel''_L_gk_witness_flat_bumped_win_h_g {A : ℝ} (hA : 162 ≤ A) (K
     (flatDoorM_bfloor_bump_g hh (h_le_1096_of_hh7 hh hh7) hA hδ hδb hCg)
     hMfl hx0win heps hlo hhi
 
-/-! ## §5 — THE ARM AT THE GRADED PIN (`XThread.lean:311-500`, `S16ProducersH.lean` · `s15ArmH_log_le`) -/
+/-! ## §5 — THE ARM AT THE GRADED PIN (`XThread.lean:312-501`, `S16ProducersH.lean` · `s15ArmH_log_le`) -/
 
 /-- **⟦THE ARM, PRICED, AT A `c`-CEILING THAT ADMITS `2^11·h²`⟧ (class B)** —
-`s15Arm_log_le_scaled` (`XThread.lean:513`) with `hcb : c ≤ 1201216 ↦ c ≤ 2460090368` and
+`s15Arm_log_le_scaled` (`XThread.lean:514`) with `hcb : c ≤ 1201216 ↦ c ≤ 2460090368` and
 `hlogc : log c ≤ 14 ↦ ≤ 22`; conclusion unchanged.  ⛔ The landed lemma CANNOT be reused at
 `c = 2^11·h²`: both binders fail (`log(2^11·1201216) = 21.62`).  ⚠ `2460090368 = 2^11·1096²`
 EXACTLY — the `c`-ceiling has ZERO margin; it is safe only because its sole supplier (`h ≤ 1096`

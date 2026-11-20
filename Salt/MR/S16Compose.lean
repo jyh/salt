@@ -18,6 +18,7 @@ import Salt.Entropy.Chowla.HeadFloors
 import Salt.MR.RegimeScaleReads
 import Salt.MR.SocketFrame
 import Salt.MR.SocketLogFrame
+import Salt.MR.RegimeHeadFacts
 
 /-!
 # `S16Compose` — ⟦THE BAR-2 CLOSING PASS⟧ AND `logChowla2_ineffective_v3`
@@ -49,7 +50,7 @@ those hooks through the uniform lane and mints
 * **`Ct`** — `m4_hrowsSlot_at_door_zero'_L_gk_ceiling` drops into
   `m4_closure_fuse_zero'_const_nonneg_L_gk` (§5 here), whose twin then feeds §6–§9.
 * **`Kq`** — ⟦THE ONE CORRECTION TO THE MISSION BRIEF⟧ the `Kq` of the terminal's `∃`-prefix
-  is **not** the one `S16Uniform` :627 opens: that `obtain`'s payload is DISCARDED (`… , -⟩`)
+  is **not** the one `S16Uniform` :628 opens: that `obtain`'s payload is DISCARDED (`… , -⟩`)
   and its five constants are re-exported only to be dropped again by `flat_conditional_*`.
   The terminal's `Kq` is minted by `S16FlatFinal.s15_crossing_supplied_L_gk`, off the LINEAR
   wire `S16FlatTerminalLinear.m4_fuse_hcap_of_capWS_L_gk` → `M4CapWireLinear.
@@ -1154,20 +1155,13 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling (Awin : ℝ)
   refine ⟨R, hReps, hHlo, hRg, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
   -- ⟦THE REGISTER, SUPPLIED⟧ at the flat design modulus
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
+  obtain ⟨hM1, heps, hlo, hfl⟩ := regime_flat_head_facts hReps hHlo hεpin hA26
   have hKle : (32000000 : ℕ) ≤ 170000000 * flatDoorM A := by
     calc (32000000 : ℕ) ≤ 170000000 * 1 := by norm_num
       _ ≤ 170000000 * flatDoorM A := Nat.mul_le_mul_left _ hM1
-  have heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps := by
-    rw [hReps]
-    have : (1 : ℚ) / 2 ^ 9 ≤ 1 / 500 := by norm_num
-    linarith [hεpin]
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA26
   have hsel := s15_sel''_L_gk_witness_flat_bumped_win (c := 1) hA26 32000000 hKle (by norm_num) (by norm_num) (by simp) hδ₀ (by simpa using hδpin) hKc hKcb
     hCt hCtb hCgle (hMflb A hA26 hAwin) hx0win (by simpa using heps) hlo hwin
   -- ⟦THE CROSSING, SUPPLIED⟧ the block floor off the register's own `blk` line
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseL R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk 32000000 (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb

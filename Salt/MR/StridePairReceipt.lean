@@ -1414,7 +1414,7 @@ theorem xceil_arm_split_mul_h_b9 {h : ℕ} (hh : 0 < h) (hh9 : Real.log (h : ℝ
     rw [e1, e2]; linarith [hHbig, hlog2, hh9]
   linarith [hkey, hr1]
 
-/-- **⟦A1 — THE `+ 7` NUMERAL TWIN⟧ (class A, v2).**  `xceil_arm_split_h` (XThread.lean:1046)
+/-- **⟦A1 — THE `+ 7` NUMERAL TWIN⟧ (class A, v2).**  `xceil_arm_split_h` (XThread.lean:1047)
 with `+ 7` on the left: `log 2 + log h + 7 ≤ H₊/(250000·h²) − H₊/10²⁰`.  The landed lemma is an
 EQUALITY-tight budget line (the conditional's `hg'` block closes at ZERO slack on `31/ε·H₊`), so
 the H2→H3 replay's extra `log a ≤ 7` cannot ride it — refuter verdict A1.  Same body as the
@@ -1915,7 +1915,7 @@ theorem flat_door_head_xceil_h_14 (h : ℕ) (hh : 0 < h) (_hh14 : Real.log (h : 
       le_trans hρ hδ₀le, hdoor⟩
 
 /-- **⟦THE DOOR-HEAD AT `h`, AT A GENERIC SET⟧ (class B).**  `DoorReceipt.flat_door_head_xceil`
-(DoorReceipt.lean:860) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean):
+(DoorReceipt.lean:853) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean):
 the leaves PINNED — `cD3 := 1/4`, `C := h·(1 + 2·(2·log 4))`, `ε := 1/(500·h)` —
 so `δ₀ := cD3/(16·C)·ε/4 = 1/(128000·h²·(1 + 8·log 2))` closes BOTH `1/(838400·h²) ≤ δ₀`
 (`hδ₀ge`, the landed script at `h`) and `δ₀ ≤ 1/(837782·h²)` (`hδ₀le`, `C > 6.5451718·h` by

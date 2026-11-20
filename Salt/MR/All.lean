@@ -7443,7 +7443,7 @@ supplies.  `Kc` rides seven twins (head → socket → door-`L²` → road → w
 windowed conditional → terminal): it enters the head as an UPPER BOUND ON A COUNT and leaves
 the door as a BUDGET COEFFICIENT, so the sign change forbids any short-circuit above the leaf.
 `Ct` enters at the constant-pool fuse.  `Kq` — ⟦THE CORRECTION TO THE WAVE'S CONSUMPTION
-LIST⟧ — is NOT the constant `S16Uniform` :627 opens (that `obtain`'s payload is discarded and
+LIST⟧ — is NOT the constant `S16Uniform` :628 opens (that `obtain`'s payload is discarded and
 its constants are dropped again one hop later): the terminal's `Kq` is minted by
 `s15_crossing_supplied_L_gk` off the LINEAR wire, so §8 re-cuts `m4_hcap_at_door_perBlock_L_gk`
 → `m4_fuse_hcap_of_capWS_L_gk` → `s15_crossing_supplied_L_gk` against the SHARED leaf
@@ -7909,7 +7909,7 @@ cushion added as the ONE new inner hypothesis.  Outer: nothing.  Inner: `cs`, `T
 
 ⟦THE TRACE⟧ `Ks` is minted at ONE site — `PortAssembly.siegel_real_carve (:1180)`, as
 `Ks = 10^8 · min(min(Cs, c₀/32), 1/2)` — and travels to `v6` through nine pass-throughs
-(`NumeralKq:177 → :314 → :497 → RegisterCompose:54 → :119 → :166 → :204 → :336`).  Of the two
+(`NumeralKq:177 → :314 → :497 → RegisterCompose:54 → :119 → :166 → :204 → :329`).  Of the two
 leaves, `c₀` is EFFECTIVE (`NumeralKq.zero_free_region_all'_bounded:125` pins `1/126848 ≤ c₀`,
 so `c₀/32 ≥ 2.46·10^{-7}`) and `1/2` is a literal; the binding leaf is `Cs`, the constant of
 `Salt.SW.siegel_theorem (1/16)` (`SW/SiegelClose.lean:848`), whose own docstring reads
@@ -7946,7 +7946,7 @@ effective ceiling** in the corpus (its VK leg bottoms out at `zeta_zero_free_str
 `RiderTrace:54-92`), so the rider cannot be discharged by computing `T₀`.
 
 ⟦THE ARM⟧ it does not have to be.  `v6` mints its six crossing constants — `T₀` among them —
-at `RegisterCompose:359`, BEFORE it chooses the design constant `A` at `:364` as a `max` over
+at `RegisterCompose:352`, BEFORE it chooses the design constant `A` at `:357` as a `max` over
 five absorption thresholds.  `T₀` is a fixed, `A`-independent real, so it joins that `max` as
 a **sixth arm**; then `T₀ ≤ A`, and the tolerance is a THREE-DEEP exponential tower in `A`.
 No numeric value of `T₀` is needed, wanted, or used.
@@ -8051,7 +8051,7 @@ at one opaque tolerance and one produced window.
 ⟦WHAT MOVED, AND WHAT IT COST⟧ `v7`'s second inner rider, `XCeilRiderStrict ε g`, is a property
 of the function the CALLER supplies as its outer-scale request.  It is not discharged in
 general: it is VOID at `g ≡ 0`, off `Real.log 0 = 0` — the same three-line argument the corpus
-already runs inside `RegisterCompose` (:248-251), `XThread` (:1273) and `V7B` (:825) to read
+already runs inside `RegisterCompose` (:248-251), `XThread` (:1274) and `V7B` (:825) to read
 the `ε`-ceiling.  The price is in the conclusion: `v7`'s `g R.Hhi R.ω ≤ R.x` conjunct becomes
 `0 ≤ R.x` and is dropped, so the instance makes NO outer-scale demand.  The `∃`-prefix is
 `v7`'s verbatim; the two surviving riders are `v7`'s unchanged.
@@ -8112,7 +8112,7 @@ hypotheses none, at one opaque tolerance and one produced window.
 ⟦WHAT MOVED, AND WHAT IT COST⟧ `…_ksarm`'s first inner rider, `XCeilRiderStrict ε g`, is a
 property of the function the CALLER supplies as its outer-scale request.  It is not discharged
 in general: it is VOID at `g ≡ 0`, off `Real.log 0 = 0` — the same three-line argument the corpus
-already runs inside `RegisterCompose` (:248-251), `XThread` (:1273) and `V7B` (:825) to read the
+already runs inside `RegisterCompose` (:248-251), `XThread` (:1274) and `V7B` (:825) to read the
 `ε`-ceiling; `xceilRiderStrict_zero` names it so the terminal can cite it.  The price is in the
 conclusion: `…_ksarm`'s `g R.Hhi R.ω ≤ R.x` conjunct becomes `0 ≤ R.x`, vacuous of every regime
 (`R.x : ℕ`), and is DROPPED, so the instance makes NO outer-scale demand.  The `∃`-prefix is
@@ -9352,7 +9352,7 @@ cap-9 twins, their two rows dropped here (the twins are audited under ⟦β W1 E
 /-! ## ⟦H2c⟧ — THE CROSSING SUPPLIER AT THE INFLATED SOCKET `SocketBaseLH h`
 
 `Salt/MR/S13CapGateLinearLH.lean` (wave H2c).  The deliverable is
-`s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:1067` with the same `∃ Cq cs T₀ Kq Ks C`
+`s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:1068` with the same `∃ Cq cs T₀ Kq Ks C`
 prefix and pins, `hblk` at `SocketBaseLH h`, concluding
 `S16CofactorSupply_LH_gk h K Cq R M → S16BaseScaleCap96_LH_gk h K R M →
 S15CrossingBound_LH_gk h K R M`.
@@ -9512,7 +9512,7 @@ statement at all, so `flat_socket_uniform` and `flat_doorL2_uniform` have nothin
 ⭐ **BLOCK W — AND HERE H2b's PRICE CUT DOES NOT REPEAT, WHICH IS THE POINT.**
 `S16BandLaneCBoundedL` has **no producer anywhere** (34 binder sites, 9 modules, zero
 discharges), so wave H2b re-quantified it for free and left an open rider.  The WINDOWED riders
-are **theorems** (`s16_bandLaneWinL_holds` S16Uniform:1271, `_holdsU` S16ComposeV4:102), so their
+are **theorems** (`s16_bandLaneWinL_holds` S16Uniform:1265, `_holdsU` S16ComposeV4:103), so their
 `h` twins need a producer PORT — and the `h` lane gets a DISCHARGED rider in exchange for it.
 ⭐ **The port is class A, and a projection census says why.**  The mint
 `m4_hband_at_door_slot_split_graded_L_gk` (S11HoistLinear:909) touches its socket in exactly two

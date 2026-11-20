@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.S16FlatTerminalLinear
 import Salt.MR.RegisterRepair
+import Salt.MR.RegimeHeadFacts
 
 /-!
 # The co-factor supply's inputs at a flat-road regime
