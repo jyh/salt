@@ -784,13 +784,8 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_ks
   intro hx0win hopq hT₀ hKsw g hg
   obtain ⟨R, hReps, hHlo, hRg, hRx, hRtow, hfire⟩ :=
     hbody (flatWitFloor ε β A Hopq) g hg (flatCap_le_flatWitFloor hCapLe)
-  have hdes : 3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
-    rw [hHlo]; exact flatWitFloor_design ε β A Hopq
-  have hbaseceil : Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 := by
-    rw [hHlo, flat_witFloor_eq_designBase hA26 hβ hεR hε2 hε hεpin hAge hopq]
-    exact flatDesignBase_loglog_le hA26
-  have hwin : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) :=
-    flat_L_width_priced hA26 hbaseceil hdes hRtow
+  obtain ⟨hdes, hbaseceil, hwin⟩ :=
+    flat_des_base_width hA26 hβ hεR hε2 hε hεpin hAge hopq hHlo hRtow
   refine ⟨R, hReps, hHlo, hRg, hRx, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
   have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
@@ -923,13 +918,8 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_of
   intro hx0win hopq hT₀ hKs g hg
   obtain ⟨R, hReps, hHlo, hRg, hRx, hRtow, hfire⟩ :=
     hbody (flatWitFloor ε β A Hopq) g hg (flatCap_le_flatWitFloor hCapLe)
-  have hdes : 3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
-    rw [hHlo]; exact flatWitFloor_design ε β A Hopq
-  have hbaseceil : Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 := by
-    rw [hHlo, flat_witFloor_eq_designBase hA26 hβ hεR hε2 hε hεpin hAge hopq]
-    exact flatDesignBase_loglog_le hA26
-  have hwin : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) :=
-    flat_L_width_priced hA26 hbaseceil hdes hRtow
+  obtain ⟨hdes, hbaseceil, hwin⟩ :=
+    flat_des_base_width hA26 hβ hεR hε2 hε hεpin hAge hopq hHlo hRtow
   refine ⟨R, hReps, hHlo, hRg, hRx, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
   have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
@@ -956,7 +946,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6_csarm` (`V7B.lean:905`): its statement under the
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6_csarm` (`V7B.lean:900`): its statement under the
 three standoff binders, its proof verbatim with `s16_bandLaneWinL_holdsU` ·
 `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree` replaced by their twins. -/
 theorem logChowla2_ineffective_v6_csarm_of_standoff {cS : ℝ} (hcS : 0 < cS)

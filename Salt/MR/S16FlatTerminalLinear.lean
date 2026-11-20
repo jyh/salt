@@ -1686,6 +1686,28 @@ theorem flat_L_width_priced {A : ℝ} {R : ChowlaRegime} (hA : 162 ≤ A)
     _ ≤ Real.exp (3.2 * A / 2) * 2 := by nlinarith [hhalf, hpos]
     _ = 2 * Real.exp (3.2 * A / 2) := by ring
 
+/-- **`flat_des_base_width`** (O13-e row 303). The flat design's three `Hlo`/`Hhi` rows
+at once. At `R.Hlo = flatWitFloor ε β A Hopq`, the witness floor gives `3.2·A ≤ log log Hlo`; on
+the design range, the floor equals `flatDesignBase A`, so `log log Hlo ≤ 3.2·A + log 2`; and the
+tower bound `htow` then prices the width, `log log Hhi ≤ 2·e^{3.2·A/2}`
+(`flat_L_width_priced`). Its core reaches no Siegel name, so every standoff twin site calls
+it exactly as its source does. -/
+theorem flat_des_base_width {A β : ℝ} {ε : ℚ} {Hopq : ℕ} {R : ChowlaRegime} (hA : 162 ≤ A)
+    (hβ : 0 < β) (hε : (1 : ℝ) / 500 ≤ (ε : ℝ)) (hε2 : (ε : ℝ) ≤ 1 / 2) (hεq : 0 < ε)
+    (hεqpin : 1 / 500 ≤ ε) (hbudA : budgetAFlat (ε : ℝ) β ≤ A)
+    (hopq : Hopq ≤ flatDesignBase A) (hHlo : R.Hlo = flatWitFloor ε β A Hopq)
+    (htow : 50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+      Real.log (Real.log (R.Hhi : ℝ)) ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) :
+    3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+      Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 ∧
+      Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) := by
+  have hdes : 3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
+    rw [hHlo]; exact flatWitFloor_design ε β A Hopq
+  have hbaseceil : Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 := by
+    rw [hHlo, flat_witFloor_eq_designBase hA hβ hε hε2 hεq hεqpin hbudA hopq]
+    exact flatDesignBase_loglog_le hA
+  exact ⟨hdes, hbaseceil, flat_L_width_priced hA hbaseceil hdes htow⟩
+
 /-! ## §6 — ⟦THE FLAT TERMINAL AT THE LINEAR LADDER, WITH THE REGISTER SUPPLIED⟧ -/
 
 /-- `flatWitFloor_design` read as the register's `hlo` line: the pinned base clears

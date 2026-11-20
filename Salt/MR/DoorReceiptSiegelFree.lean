@@ -46,7 +46,7 @@ open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
 set_option exponentiation.threshold 4000
-/-- **⟦STANDOFF TWIN⟧** `flat_v7_generic` (`Salt/MR/DoorReceipt.lean:794`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `flat_v7_generic` (`Salt/MR/DoorReceipt.lean:789`): its statement under the three standoff
 binders, its proof verbatim with `s16_bandLaneWinL_holdsU` replaced by their twins. -/
 theorem flat_v7_generic_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (P : ChowlaRegime → Prop)
@@ -158,13 +158,8 @@ theorem flat_kswin_generic_of_standoff {cS : ℝ} (hcS : 0 < cS)
   intro hx0win hopq hT₀ hKsw g hg
   obtain ⟨R, hReps, hHlo, hRg, hRx, hRtow, hfire⟩ :=
     hbody (flatWitFloor ε β A Hopq) g hg (flatCap_le_flatWitFloor hCapLe)
-  have hdes : 3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
-    rw [hHlo]; exact flatWitFloor_design ε β A Hopq
-  have hbaseceil : Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 := by
-    rw [hHlo, flat_witFloor_eq_designBase hA26 hβ hεR hε2 hε hεpin hAge hopq]
-    exact flatDesignBase_loglog_le hA26
-  have hwin : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) :=
-    flat_L_width_priced hA26 hbaseceil hdes hRtow
+  obtain ⟨hdes, hbaseceil, hwin⟩ :=
+    flat_des_base_width hA26 hβ hεR hε2 hε hεpin hAge hopq hHlo hRtow
   refine ⟨R, hReps, hHlo, hRg, hRx, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
   have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
@@ -197,7 +192,7 @@ open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
 set_option exponentiation.threshold 4000
-/-- **⟦STANDOFF TWIN⟧** `flat_chain_generic` (`Salt/MR/DoorReceipt.lean:951`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `flat_chain_generic` (`Salt/MR/DoorReceipt.lean:946`): its statement under the three standoff
 binders, its proof verbatim with `flat_v7_generic` · `flat_kswin_generic` replaced by their twins. -/
 theorem flat_chain_generic_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (P : ChowlaRegime → Prop) (h : FlatHeadForm P) (A₀ : ℝ) :
@@ -216,7 +211,7 @@ open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
 set_option exponentiation.threshold 4000
-/-- **⟦STANDOFF TWIN⟧** `mrtDoorReceipt_v7_form` (`Salt/MR/DoorReceipt.lean:975`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `mrtDoorReceipt_v7_form` (`Salt/MR/DoorReceipt.lean:970`): its statement under the three standoff
 binders, its proof verbatim with `flat_chain_generic` replaced by their twins. -/
 theorem mrtDoorReceipt_v7_form_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) : V7RatedForm MRTDoorReceipt A₀ :=
@@ -231,7 +226,7 @@ open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
 set_option exponentiation.threshold 4000
-/-- **⟦STANDOFF TWIN⟧** `mrtUniformityXiL2_holds_flat` (`Salt/MR/DoorReceipt.lean:985`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `mrtUniformityXiL2_holds_flat` (`Salt/MR/DoorReceipt.lean:980`): its statement under the three standoff
 binders, its proof verbatim with `mrtDoorReceipt_v7_form` replaced by their twins. -/
 theorem mrtUniformityXiL2_holds_flat_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) :
@@ -253,7 +248,7 @@ open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
 set_option exponentiation.threshold 4000
-/-- **⟦STANDOFF TWIN⟧** `mrtUniformityXi_holds_flat` (`Salt/MR/DoorReceipt.lean:1048`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `mrtUniformityXi_holds_flat` (`Salt/MR/DoorReceipt.lean:1043`): its statement under the three standoff
 binders, its proof verbatim with `mrtUniformityXiL2_holds_flat` replaced by their twins. -/
 theorem mrtUniformityXi_holds_flat_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) :

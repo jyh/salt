@@ -244,7 +244,7 @@ theorem xt_log_inv_rho_le_L {c δ₀ Kc Kb : ℝ} (hc1 : 1 ≤ c) (hδ₀ : 0 < 
 
 /-! ## §3 — ⟦R7⟧ the three S16 flat arms at generic `L`
 
-The two cap sites are `S16FlatTerminalLinear.lean:2136` (`h ≤ 8103`, feeding
+The two cap sites are `S16FlatTerminalLinear.lean:2158` (`h ≤ 8103`, feeding
 `⌈1/ε⌉₊ ≤ 500·h ≤ 4051500` and `4·4051500⁴ ≤ arcFloor36 = 10¹³⁸`) and `:1411` (the budget chain's
 `1/ε⁶ ≤ 4.43·10³⁹`).  Neither numeral survives a generic `L`: both are bounds on `h`, so at
 generic `L` they read `4·(500·h)⁴ ≤ e^{27 + 4L}` and `1/ε⁶ ≤ 1.5625·10¹⁶ · e^{6L}`, and the
@@ -4725,7 +4725,7 @@ theorem flat_head_uniform_xceil_epsW (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 
   have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:887–896`)
+  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:882–891`)
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
@@ -5537,7 +5537,7 @@ to their `hW` binder and nothing else.
 
 The other two consumers are NOT applied here, on purpose.  Supplying `hW` to C3
 (`mrtUniformityXiL2_holds_flat_of_epsFamily`) yields the statement of
-`mrtUniformityXiL2_holds_flat` (`DoorReceipt.lean:985`), and supplying it to C4
+`mrtUniformityXiL2_holds_flat` (`DoorReceipt.lean:980`), and supplying it to C4
 (`mrtUniformityXiL2_holds_flat_epsFamily_capped_of_epsFamily`) yields rung 1's
 (`mrtUniformityXiL2_holds_flat_epsFamily_capped`); both are ALREADY LANDED with no hypothesis, so
 an applied copy would land no new statement.  The value of C3 and C4 is the implication each
