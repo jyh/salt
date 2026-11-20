@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # ⟦THE `Hlo` CAP⟧ — the builder's base EQUATION, re-threaded (node HLO-EXPORT)
 
-`chowlaRegime_exists_param_gen` (`RegimeParam.lean:335`) sets the regime base by
+`chowlaRegime_exists_param_gen` (`RegimeParam.lean:377`) sets the regime base by
 an EQUALITY,
 
 ```
@@ -24,9 +24,9 @@ consuming the previous twin.  No landed declaration is touched.
   EQUATION itself, `R.Hlo = max 4000000 (max Hlo₀ (4·⌈1/ε⌉₊⁴))`.  This is the one
   place where the proof must be replayed (the equation is discarded inside the
   landed proof, so no consequence of the landed statement can recover it); the
-  replay is `RegimeParam.lean:323–391` verbatim with the equation kept.
+  replay is `RegimeParam.lean:373–401` verbatim with the equation kept.
 * §2 the two tower twins pass the conjunct through untouched
-  (`regimeEnlargeX'` carries `Hlo` VERBATIM, `RegimeParam.lean:438`).
+  (`regimeEnlargeX'` carries `Hlo` VERBATIM, `RegimeParam.lean:448`).
 * §3 the head twin `log_chowla_two_budget_head_g_sq_count_hloCap` re-shapes it
   for the road.  The head calls the builder at
   `Hlo₀ := max A (max extraFloor U1floor)` with `A` the head's own four-arm
@@ -67,7 +67,7 @@ namespace Salt.Entropy.Chowla
 
 /-- **The parametric regime builder, with the base equation exported**
 (`chowlaRegime_exists_param_gen_hloCap`) — `chowlaRegime_exists_param_gen`
-(`RegimeParam.lean:318`) plus the fourth conjunct
+(`RegimeParam.lean:368`) plus the fourth conjunct
 
 ```
 R.Hlo = max 4000000 (max Hlo₀ (4·⌈1/ε⌉₊⁴))
@@ -137,7 +137,7 @@ theorem chowlaRegime_exists_param_tower_45_hloCap (eps : ℚ) (heps : 0 < eps)
 /-- **The head-shaped builder at `K = 9/2`, cap-carrying**
 (`chowlaRegime_exists_param_head_tower45'_hloCap`) — `TowerExport.lean:910`'s
 statement plus the base equation.  `regimeEnlargeX'` carries `Hlo` VERBATIM
-(`RegimeParam.lean:438`), so the equation survives the outer-scale push
+(`RegimeParam.lean:448`), so the equation survives the outer-scale push
 untouched, exactly as `Hlo₀ ≤ R.Hlo` does there. -/
 theorem chowlaRegime_exists_param_head_tower45'_hloCap (eps : ℚ) (heps : 0 < eps)
     (heps1 : eps ≤ 1 / 2) (Hlo₀ : ℕ) (g : ℕ → ℕ → ℕ) :

@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # THE FLAT REGIME BUILDER (freeze F-1; FLAT-REF amendment 2)
 
-`chowlaRegime_exists_param_gen` (`RegimeParam.lean:318`) builds a landed
+`chowlaRegime_exists_param_gen` (`RegimeParam.lean:368`) builds a landed
 `ChowlaRegime` over the base `max 4·10⁶ (max H₋₀ (4·⌈1/ε⌉₊⁴))`.  Its flat twin
 cannot re-use that base: the flat tower's crossing needs the FLOOR hypothesis
 `100·(c + loglog B) ≤ log B` (`TowerFlat`'s `hfl`), which FAILS at `B = 4·10⁶`,
@@ -248,7 +248,7 @@ enlargement moves. The most-named of the six — in the `simp only` sets of
       UNGUARDED: the `50 ≤ loglog H₋` guard the MR conjunct carries is free here
       (`3.2·A ≥ 83.2`).
 
-    The construction is `RegimeParam.lean:323–391` with three changes: the base
+    The construction is `RegimeParam.lean:373–401` with three changes: the base
     arm `4·10⁶ ⟶ flatDesignFloor A`; the endpoint `H₊` is the MAX of the landed
     and flat towers at their minimal crossings; and the four flat fields are
     discharged by `flatDesignFloor_design` (the design law), `flatFloor_of_design`
