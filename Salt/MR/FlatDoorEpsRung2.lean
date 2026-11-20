@@ -4679,7 +4679,7 @@ def V7RatedFormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ
         P R
 
 /-- **⟦THE ZERO CALLER MEETS THE STRICT RIDER AT ANY FLOOR⟧** (`xceilRiderStrictAt_zero`) — the
-landed `xceilRiderStrict_zero` (`XThread.lean:1240`) on `XCeilRiderStrictAt lam0`, its four lines
+landed `xceilRiderStrict_zero` (`XThread.lean:1236`) on `XCeilRiderStrictAt lam0`, its four lines
 unchanged: `log 0 = 0` and the gate's own width conjunct carry the margin.  Read twice in the
 re-thread, at the `ε`-ceiling probe and at the exhibited caller. -/
 theorem xceilRiderStrictAt_zero (lam0 : ℝ) (ε : ℚ) :

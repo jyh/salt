@@ -1227,10 +1227,6 @@ theorem flat_conditional_uniform_win_xceil_kwide_khoist (Awin : ℝ)
 
 /-! ## §9 — ⟦THE FLAT LINEAR TERMINAL `v2`, `K`-HOISTED AND `x`-CEILINGED⟧ -/
 
-set_option exponentiation.threshold 4000 in
-set_option maxHeartbeats 1600000 in
--- Same cause as the landed original: the hoisted prefix plus the three window discharges
--- re-elaborate the terminal's conclusion.
 /-- **⟦DREAM-SPACE, night 08/14 — branch artifact; consumes nothing until waking review⟧**
 
 **⟦THE ZERO CALLER⟧** (`xceilRiderStrict_zero`) — the constant-zero request meets
@@ -1243,6 +1239,10 @@ theorem xceilRiderStrict_zero (ε : ℚ) : XCeilRiderStrict ε (fun _ _ : ℕ =>
   simp only [Nat.cast_zero, Real.log_zero]
   linarith [Real.log_natCast_nonneg ω]
 
+set_option exponentiation.threshold 4000 in
+set_option maxHeartbeats 1600000 in
+-- Same cause as the landed original: the hoisted prefix plus the three window discharges
+-- re-elaborate the terminal's conclusion.
 /-- **⟦THE FLAT LINEAR TERMINAL `v2`, `A`-UNIFORM, WINDOWED, PRICED, `K`-HOISTED, `x`-CEILINGED⟧**
 (`logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist`) —
 `S16ComposeV4.logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_khoist` on §8's twin.  The
