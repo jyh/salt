@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `c20590fd` · source digest `55017a8ef2451890` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `e3dac125` · source digest `931998aeab31a93a` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23466 · with a proof/definition body: 23466 · direct corpus references (edges): 85944 · audited results: 9148 · corpus Prop-valued names: 691.
+Declarations indexed: 23466 · with a proof/definition body: 23466 · direct corpus references (edges): 85959 · audited results: 9148 · corpus Prop-valued names: 691.
 
 ## Hypothesis status (Deliverable A)
 
@@ -194,7 +194,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 102 | `Salt.MR.M4ChiSummedBlockMeanSqNH_L_gk` | 2 | 3 | — | Salt/MR/S16FlatTerminalLinearH.lean:382 |
 | 103 | `Salt.MR.M4CoprimeBlockMeanSq_L` | 2 | 0 | — | Salt/MR/M4WaveLinear.lean:330 |
 | 104 | `Salt.MR.M4DoorL2HeadDemand` | 2 | 0 | — | Salt/MR/M4DoorL2.lean:432 |
-| 105 | `Salt.MR.MRTDoorAllGrades` | 2 | 0 | — | Salt/MR/DoorReceipt.lean:1065 |
+| 105 | `Salt.MR.MRTDoorAllGrades` | 2 | 0 | — | Salt/MR/DoorReceipt.lean:1061 |
 | 106 | `Salt.MR.MRTLargeRangeEquidistributionFixed` | 2 | 0 | — | Salt/MR/MRTPropA3.lean:4792 |
 | 107 | `Salt.MR.MRTThmA1` | 2 | 1 | — | Salt/MR/MRTThmA1.lean:120 |
 | 108 | `Salt.MR.PocketSocket3` | 2 | 1 | — | Salt/MR/CapFreeArm3.lean:143 |
@@ -308,7 +308,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Entropy.Chowla.MRTUniformityXi` | DISCHARGED | 20 | `Salt.MR.mrtUniformityXi_of_absWindowBound_twelve` ✓audited GUARDED (Salt/MR/M4Window.lean:268) |
 | `Salt.Chen.StepHypWPC` | DISCHARGED | 14 | `Salt.Chen.stepHypWPC_sharpB` ✓audited GUARDED (Salt/Chen/SharpClose.lean:125) · `Salt.Chen.stepHypWPC_const` ✓audited GUARDED (Salt/Chen/WindowedStepC.lean:79) |
 | `Salt.MR.CapFreeFloor3` | DISCHARGED | 14 | `Salt.MR.capFreeFloor3_pieceDatum_vt_rated` ✓audited GUARDED (Salt/MR/BandRatedAssembly.lean:271) · `Salt.MR.capFreeFloor3_pieceDatum_arcDen_rated` ✓audited GUARDED (Salt/MR/BandRatedAssembly.lean:343) · `Salt.MR.capFreeFloor3_of_row_floor` ✓audited GUARDED (Salt/MR/CapFreeArm3.lean:89) · +19 |
-| `Salt.Entropy.Chowla.XCeilRiderStrict` | DISCHARGED | 13 | `Salt.MR.xceilRiderStrict_zero` ✓audited (Salt/MR/V7Headline.lean:91) |
+| `Salt.Entropy.Chowla.XCeilRiderStrict` | DISCHARGED | 13 | `Salt.MR.xceilRiderStrict_zero` ✓audited (Salt/MR/XThread.lean:1236) |
 | `Salt.MR.M4GradeGateSplit` | DISCHARGED | 12 | `Salt.MR.m4_gradeGate_of_block_pricing_split` ✓audited GUARDED (Salt/MR/M4BridgeCover.lean:527) · `Salt.MR.m4_gradeGate_direct_split` ✓audited GUARDED (Salt/MR/M4ClassPrice.lean:792) · `Salt.MR.m4_gradeGate_of_pricing_split` ✓audited GUARDED (Salt/MR/M4Close.lean:686) · +1 |
 | `Salt.MR.M4SievedDoorSq` | DISCHARGED | 12 | `Salt.MR.m4_sievedDoorSq_trivial` ✓audited (Salt/MR/M4Close.lean:384) |
 | `Salt.MR.LevelGates` | DISCHARGED | 11 | `Salt.MR.levelGates_calibrated_door` ✓audited GUARDED (Salt/MR/DoorFrame.lean:245) · `Salt.MR.levelGates_calibrated_door_gk` GUARDED (Salt/MR/DoorFrame.lean:415) · `Salt.MR.levelGates_calibrated_doorH1` ✓audited GUARDED (Salt/MR/DoorFrameH1.lean:299) · +7 |
@@ -361,7 +361,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Entropy.Chowla.LogChowlaAffSupply` | DISCHARGED | 3 | `Salt.MR.logChowlaAffSupply_one_zero` ✓audited GUARDED (Salt/MR/AffineSupplyH.lean:37) |
 | `Salt.MR.ExitClose` | DISCHARGED | 3 | `Salt.MR.exitClose_twelve` ✓audited (Salt/MR/ExitClose.lean:748) |
 | `Salt.MR.FlatDoorAllGradesW` | DISCHARGED | 3 | `Salt.MR.flatDoorAllGradesW_holds` ✓audited (Salt/MR/FlatDoorAllGrades.lean:107) · `Salt.MR.flatDoorAllGradesW_of_uniform` ✓audited (Salt/MR/FlatDoorUniform.lean:1537) |
-| `Salt.MR.FlatHeadForm` | DISCHARGED | 3 | `Salt.MR.flat_door_head_xceil` ✓audited (Salt/MR/DoorReceipt.lean:853) |
+| `Salt.MR.FlatHeadForm` | DISCHARGED | 3 | `Salt.MR.flat_door_head_xceil` ✓audited (Salt/MR/DoorReceipt.lean:849) |
 | `Salt.MR.FlatHeadFormEpsW_band` | DISCHARGED | 3 | `Salt.MR.flat_head_uniform_xceil_epsW_band` ✓audited GUARDED (Salt/MR/FlatDoorAllGradesBand.lean:582) |
 | `Salt.MR.FlatHeadFormU` | DISCHARGED | 3 | `Salt.MR.flatHeadFormU_trivial` ✓audited GUARDED (Salt/MR/FlatDoorUniform.lean:1106) |
 | `Salt.MR.M4BlockMeanSqSup` | DISCHARGED | 3 | `Salt.MR.m4_blockMeanSqSup_trivial` ✓audited (Salt/MR/M4Join.lean:274) |
@@ -708,7 +708,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.S15Sel''` | DISCHARGED | `Salt.MR.s15_sel''_witness` GUARDED (Salt/MR/S15Witness.lean:1006) |
 | `Salt.MR.S15Sel'_gk` | DISCHARGED | `Salt.MR.s15_sel'_witness_gk` GUARDED (Salt/MR/S15Witness.lean:1299) |
 | `Salt.MR.SeamCoefWLevels` | DISCHARGED | `Salt.MR.seamCoefWLevels_of_global` ✓audited GUARDED (Salt/MR/SeamRowWindowed.lean:163) |
-| `Salt.MR.V7RatedForm` | DISCHARGED | `Salt.MR.logChowla2_v7_rated_form` ✓audited (Salt/MR/DoorReceipt.lean:938) · `Salt.MR.logChowla2_v7_rated_of_generic` ✓audited (Salt/MR/DoorReceipt.lean:946) · `Salt.MR.mrtDoorReceipt_v7_form` ✓audited (Salt/MR/DoorReceipt.lean:952) |
+| `Salt.MR.V7RatedForm` | DISCHARGED | `Salt.MR.logChowla2_v7_rated_form` ✓audited (Salt/MR/DoorReceipt.lean:934) · `Salt.MR.logChowla2_v7_rated_of_generic` ✓audited (Salt/MR/DoorReceipt.lean:942) · `Salt.MR.mrtDoorReceipt_v7_form` ✓audited (Salt/MR/DoorReceipt.lean:948) |
 | `Salt.Maynard.Admissible` | DISCHARGED | `Salt.Maynard.admissible_of_small_primes` GUARDED (Salt/Maynard/Tuple.lean:49) · `Salt.Maynard.std_admissible` (Salt/Maynard/Tuple.lean:130) · `Salt.Maynard.H_admissible` (Salt/Maynard/Tuple.lean:245) · +1 |
 | `Salt.Maynard.CompatFrontier` | DISCHARGED | `Salt.Maynard.compatFrontier_holds` GUARDED (Salt/Maynard/Complete.lean:1444) |
 | `Salt.Maynard.CrossCollisionControlled` | DISCHARGED | `Salt.Maynard.crossCollisionControlled_holds` GUARDED (Salt/Maynard/CollisionQuant.lean:2121) · `Salt.Maynard.crossCollisionControlled_holdsW` GUARDED (Salt/Maynard/CollisionQuant.lean:2610) |

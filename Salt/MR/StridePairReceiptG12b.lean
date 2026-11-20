@@ -676,11 +676,7 @@ theorem flat_kswin_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : �
   obtain ⟨Hcap0, -, hbody0⟩ :=
     hcond0 (max 162 (budgetAFlat (ε : ℝ) β)) (le_max_left _ _) (le_max_right _ _)
   -- the `ε`-probe's own `g ≡ 0` obeys the strict rider trivially
-  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
-    intro Hhi ω hgate
-    obtain ⟨-, -, hωw⟩ := hgate
-    simp only [Nat.cast_zero, Real.log_zero]
-    linarith [Real.log_natCast_nonneg ω]
+  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := xceilRiderStrict_zero ε
   obtain ⟨R0, hR0eps, -, -, -, -, -, -⟩ :=
     hbody0 1 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) le_rfl (by norm_num)
       hzero le_rfl
@@ -933,7 +929,7 @@ HONEST LABEL.  Replays only; nothing here proves a new estimate, and nothing bea
 primes. -/
 
 /-- **⟦THE CHAIN AT `2^12`⟧ — `flat_chain_generic_h_g12b`.** `flat_chain_generic_h_g`
-(StridePairReceiptG.lean:970) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
+(StridePairReceiptG.lean:966) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
 replays (census band 4 row 23: SUPPLIER-SWAP, no numerals). -/
 theorem flat_chain_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) (Xi : XiFamily)
     (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →

@@ -8,7 +8,7 @@ import Salt.MR.S13CapFloor
 /-!
 # V7-A `KS-TRACE` — the `Ks` rider of `logChowla2_ineffective_v6`, traced and re-sized
 
-`RegisterCompose.logChowla2_ineffective_v6` (:335-354) carries the inner rider
+`RegisterCompose.logChowla2_ineffective_v6` (:331-350) carries the inner rider
 `e^{-100} ≤ Ks` on a constant its own `∃`-prefix mints.  `RiderTrace` did this job for `cs`
 and `T₀`; this file does it for `Ks`.  **PURELY ADDITIVE** — no landed declaration is touched.
 
@@ -223,7 +223,7 @@ theorem capfloor_floor4_of_pos {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Ks T
   capfloor_floor4_sharp hfl hb hAN hTlo (exp_neg_le_of_log_inv_le hKs0 hwin)
 
 /-- **⟦THE V7-E LEAF⟧** the `Ks` arm discharged against the terminal's OWN design conjunct.
-`logChowla2_ineffective_v6` exports `3.2·A ≤ loglog R.Hlo` (`RegisterCompose:341`) and mints
+`logChowla2_ineffective_v6` exports `3.2·A ≤ loglog R.Hlo` (`RegisterCompose:337`) and mints
 `Ks` (`:237`) BEFORE it chooses `A` (`:241`) — so a terminal may put
 `log(1/Ks) ≤ 3·e^{3.2·A}/16` into its own `max` for `A` and read `floor4` off with no rider at
 all.  The Siegel constant is then carried by name, never by numeral. -/

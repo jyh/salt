@@ -41,9 +41,8 @@ parent; the proof discards the parent's own `hRg` and passes the rest through un
 `XCeilRiderStrict ε (fun _ _ => 0)` unfolds to: on `XCeilGate ε H₊ ω`,
 `log 0 + ε²·H₊ ≤ (31/ε)·H₊`.  `Real.log_zero` collapses the `log 0` summand to `0`, and the
 gate's own third field is `log ω + ε²·H₊ ≤ (31/ε)·H₊` with `log ω ≥ 0` — the ε²·H₊ margin the
-gate already carries is the whole payment.  This is the witness pattern already in-body at
-`RegisterCompose.lean:242-246`, `XThread.lean:1276-1280` and `V7B.lean:830`, lifted here to the
-terminal.
+gate already carries is the whole payment.  This is the witness pattern that 18 charge heads
+once carried in-body; `xceilRiderStrict_zero` (now in XThread) names it, and each of them calls it.
 
 ## What this instance does and does not say
 
@@ -81,18 +80,6 @@ open Salt.Entropy.Chowla
 open scoped BigOperators
 
 /-! ## §1 — ⟦THE EXHIBITED CALLER⟧ `g ≡ 0` meets the strict rider -/
-
-/-- **⟦DREAM-SPACE, night 08/14 — branch artifact; consumes nothing until waking review⟧**
-
-**⟦THE ZERO CALLER⟧** (`xceilRiderStrict_zero`) — the constant-zero request meets
-`XCeilRiderStrict` at every `ε`.  `log 0 = 0` and the gate's own width window carries the
-`ε²·H₊` margin; `log ω ≥ 0` closes it.  (The witness pattern of `RegisterCompose.lean:242-246`,
-named here so the terminal can cite it.) -/
-theorem xceilRiderStrict_zero (ε : ℚ) : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
-  intro Hhi ω hgate
-  obtain ⟨-, -, hωw⟩ := hgate
-  simp only [Nat.cast_zero, Real.log_zero]
-  linarith [Real.log_natCast_nonneg ω]
 
 /-! ## §2 — ⟦THE TERMINAL AT THE EXHIBITED CALLER⟧ `…_ksarm` read at `g ≡ 0` -/
 
