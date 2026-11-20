@@ -116,7 +116,7 @@ private lemma widthKamp_nonnegS {Cb X h y c₀ : ℝ} (hCb0 : 0 ≤ Cb) (hX0 : 0
 
 /-- **S-A — the pointwise pin `supF` (`joint_supF_pin_at`).**  `RHSGrade.joint_supF_pin` with
 its floor binder taken at the ONE contour point where the proof uses it: `joint_supF_pin`
-asks for `∀ t : ℝ, M ≤ 𝔻²(…; k)` but consumes it only as `hMt t` (`RHSGrade.lean:318`), so
+asks for `∀ t : ℝ, M ≤ 𝔻²(…; k)` but consumes it only as `hMt t` (`RHSGrade.lean:315`), so
 the per-`t` form is a strict weakening, proved by the same page.
 
 This is the stone the CONTOUR TRUNCATION needs: on the truncated contour the floor is
@@ -158,11 +158,8 @@ theorem joint_supF_pin_at {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ �
     rw [div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 4)]
     linarith
   -- the twisted datum is 1-bounded at primes
-  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist t₀' hp.one_lt.le, mul_one]
-    exact hg p hp
+  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg t₀'
   -- the scale condition `e^{1/σ} ≤ k` on `σ ≥ 1/L`
   have hσL : 1 / (β + 1 / L) ≤ L := by
     rw [div_le_iff₀ hσ0]
@@ -354,11 +351,8 @@ theorem rhs_grade_at_scale_trunc {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g
       (fun n => norm_seamCoeff_le (fun m => ellLin_norm_le_one g hg m) (fun _ => by simp) t₀ n)
       (fun n => le_of_eq (costwist_norm t₁ n))
   have hgtw : ∀ p, p.Prime →
-      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist (t₀ + t₁) hp.one_lt.le, mul_one]
-    exact hg p hp
+      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg (t₀ + t₁)
   have hKamp0 : (0 : ℝ) ≤ widthKamp Cb k h y c₀ := widthKamp_nonnegS hCb0 hk0 hh0 hy0
   have hG0 : (0 : ℝ) ≤ rhsSigmaG
       (pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X) L := by

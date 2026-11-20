@@ -593,11 +593,8 @@ theorem rhs_grade_at_scale_trunc2 {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖
       (fun n => norm_seamCoeff_le (fun m => ellLin_norm_le_one g hg m) (fun _ => by simp) t₀ n)
       (fun n => le_of_eq (costwist_norm t₁ n))
   have hgtw : ∀ p, p.Prime →
-      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist (t₀ + t₁) hp.one_lt.le, mul_one]
-    exact hg p hp
+      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg (t₀ + t₁)
   have hKamp0 : (0 : ℝ) ≤ widthKamp Cb k h (L ^ 4) c₀ := widthKamp_nonneg2 hCb0 hk0 hh0 hy40
   have hG0 : (0 : ℝ) ≤ rhsSigmaG
       (pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X) L := by
@@ -755,11 +752,8 @@ theorem rhs_grade_at_scale_closed_star2 {g : ℕ → ℂ} (hg : ∀ p, p.Prime �
   obtain ⟨hk0, hL32, -, -, -, -, -, -, -, -, -, -, -⟩ := pin2_basic hk hL
   have hL0 : (0 : ℝ) < L := by linarith
   have hgtw : ∀ p, p.Prime →
-      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist (t₀ + t₁) hp.one_lt.le, mul_one]
-    exact hg p hp
+      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg (t₀ + t₁)
   have hgate : |t₁| + Tstar2 k L ≤ seamGateRstar2 X Tann := by
     rw [hL]
     exact seam_gate_star2_of_nonempty hk hkX hne

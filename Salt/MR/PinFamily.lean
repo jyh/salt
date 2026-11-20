@@ -951,11 +951,8 @@ theorem joint_supF_pin_at2 {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ 
   have hylo' : Real.exp 1 ≤ y := by rw [hy]; exact hylo
   have hηy : η = 1 / Real.log y := by rw [hy, hη]; exact hηeq
   have hη4 : η ≤ 1 / 4 := by rw [hη]; linarith
-  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist t₀' hp.one_lt.le, mul_one]
-    exact hg p hp
+  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg t₀'
   have hσL : 1 / (β + 1 / L) ≤ L := by
     rw [div_le_iff₀ hσ0]
     have h1 : L * (1 / L) = 1 := by field_simp
@@ -999,11 +996,8 @@ theorem far_supF_bound2 {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤
   intro α hα β hβ t
   obtain ⟨hk0, hL32, -, -, -, -, -, -, -, -, -, -, -⟩ := pin2_basic hk hL
   have hL0 : (0 : ℝ) < L := by linarith
-  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist t₀' hp.one_lt.le, mul_one]
-    exact hg p hp
+  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg t₀'
   have hM0 : (0 : ℝ) ≤ pretDistSq (ellLin (fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)))
       (costwist (t - t₀')) k :=
     pretDistSq_nonneg _ _ _

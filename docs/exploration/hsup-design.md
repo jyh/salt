@@ -235,7 +235,7 @@ report, byte-compatible with BallSup:488 at f := seamCoeff (ellLin g) 1 t0
 general multiplicative f has NO supply and must not be instantiated).
 The y-pin free in the gates; y = (logX)^4 recommended (E/X = (logX)^{-1+o(1)},
 margin 0.99 powers), e^{sqrt L} the fallback if the eta-box tightens.
-X0 is g/t0-independent (HExit:740 -- recorded, nobody re-derives it).
+X0 is g/t0-independent (HExit:737 -- recorded, nobody re-derives it).
 
 **REFUTERS on this freeze** (2, firing): SHAPE-REF (the A-5 honest-target
 page + the A-9 binder byte-compat + the datum gate) + GRADE-REF (the full
@@ -657,7 +657,7 @@ theta83/rhoB4 are DEFS (not frozen) — the amended-pin twins land with U7-C.
 list: W4-1 rhsFboundC/rhsSigmaGC defs + identities [A,60]; W4-2
 joint_supF_pinC (RHSGrade:253) [B,120]; W4-3 beta_integral_pin_constC
 (GradeConst:1011, cites sigma_cutoff_pretentious_gen at c) [B/C,250]; W4-4
-rhs_grade_at_scale in WINDOW-FLOOR form (GradeConst:1075 + SupClose:319;
+rhs_grade_at_scale in WINDOW-FLOOR form (GradeConst:1075 + SupClose:316;
 hMwin replaces hmin/hgate) [C,300]; W4-5 JointIntegrableAtC + the JointPlumb
 clone (30 sites; σ^{2c−1} integrable at c > 0) [B,250–350]; W4-6
 center_halasz_supply B-ABSTRACT (CenterSupply:293; the exponent opaque —

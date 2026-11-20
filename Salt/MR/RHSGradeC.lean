@@ -10,7 +10,7 @@ import Salt.MR.GradeConst
 
 `RHSGrade`/`GradeConst` land the joint-head grade at the BALL arm's pinned exponent
 `c = 1/(2e)` — the numeral is baked into `rhsFbound` (`RHSGrade`:230), into `rhsSigmaG`
-(`RHSGrade`:513), and into the two theorems that spend it (`joint_supF_pin`,
+(`RHSGrade`:510), and into the two theorems that spend it (`joint_supF_pin`,
 `beta_integral_pin_const`).  The U-7 CASE-A route needs the SAME chain at `c = 1/e`, so this
 file re-runs exactly the `c`-carrying stones with the exponent freed, under the gates the
 suppliers themselves state:
@@ -147,11 +147,8 @@ theorem joint_supF_pinC {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤
     rw [div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 4)]
     linarith
   -- the twisted datum is 1-bounded at primes
-  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist t₀' hp.one_lt.le, mul_one]
-    exact hg p hp
+  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg t₀'
   -- the scale condition `e^{1/σ} ≤ k` on `σ ≥ 1/L`
   have hσL : 1 / (β + 1 / L) ≤ L := by
     rw [div_le_iff₀ hσ0]
