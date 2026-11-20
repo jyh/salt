@@ -876,7 +876,7 @@ Recorded in `docs/blueprints/flags.md` with its RESOLVED line; the three hops be
 -/
 
 /-- **the `L²` door hop, uniform** (`flat_doorL2_generic_U`) — `flat_doorL2_generic_epsW`
-(`FlatDoorEpsRung2.lean:4897`) on the U-forms: the regime and its six hypotheses are introduced and
+(`FlatDoorEpsRung2.lean:4914`) on the U-forms: the regime and its six hypotheses are introduced and
 passed to the socket form at the same floor `Hcap ≤ R.Hlo`; the slot's proof is the source's. -/
 theorem flat_doorL2_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
     (h : FlatSocketFormU ε c P) :
@@ -916,7 +916,7 @@ theorem flat_doorL2_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
     linarith
 
 /-- **the road hop, uniform** (`flat_road_generic_U`) — `flat_road_generic_epsW`
-(`FlatDoorEpsRung2.lean:4937`) on the U-forms: the regime and its six hypotheses are introduced and
+(`FlatDoorEpsRung2.lean:4954`) on the U-forms: the regime and its six hypotheses are introduced and
 passed to the `L²` door form at the same floor; the slot's proof is the source's. -/
 theorem flat_road_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
     (h : FlatDoorL2FormU ε c P) :
@@ -959,10 +959,10 @@ theorem flat_road_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
     nlinarith [h]
 
 /-- **the capstone hop, uniform** (`flat_capstone_generic_U`) — `flat_capstone_generic_epsW`
-(`FlatDoorEpsRung2.lean:4981`) on the U-forms: the floor hypothesis
+(`FlatDoorEpsRung2.lean:4998`) on the U-forms: the floor hypothesis
 `max Hcap' (max arcFloor36 loglogFloor50) ≤ R.Hlo` (with `Hcap' = max Hcap (max arcFloor36
 loglogFloor50)`) gives the road form its floor `Hcap ≤ R.Hlo` and the two absorbed floors, as at
-the source's `:5013–5015`; the slot's proof is the source's. -/
+the source's `:5030–5032`; the slot's proof is the source's. -/
 theorem flat_capstone_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
     (h : FlatRoadFormU ε c P) (Awin : ℝ) (hband : S16BandLaneCBoundedL_winU Awin) :
     FlatCapstoneFormU ε c P Awin := by
@@ -1070,7 +1070,7 @@ its second addendum §2–§3): `FlatHeadFormU`'s count moved to its conclusion 
 lets the socket hop below forward it, and `V7RatedFormU` exports a floor. -/
 
 /-- **the socket hop, uniform** (`flat_socket_generic_U`) — `flat_socket_generic_epsW`
-(`FlatDoorEpsRung2.lean:4871`) on the U-forms: the head's floor `Hcap` sits under the socket's
+(`FlatDoorEpsRung2.lean:4888`) on the U-forms: the head's floor `Hcap` sits under the socket's
 `max Hcap H₀`, the head at the given regime returns the COUNT beside its slot (the re-cut), and the
 count is spent, as at the source, as `hcount` of `sum_bigXi_norm_windowExpSum_sq_le_twelve`. -/
 theorem flat_socket_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
@@ -1095,7 +1095,7 @@ theorem flat_socket_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
     H hlo hhi) (hρ H hlo hhi)
 
 /-- **the head at the trivial payload, uniform** (`flatHeadFormU_trivial`) — rung 2's head
-`flat_head_uniform_xceil_epsW` (`FlatDoorEpsRung2.lean:4710`) WITHOUT the spine: the ε bounds, the
+`flat_head_uniform_xceil_epsW` (`FlatDoorEpsRung2.lean:4742`) WITHOUT the spine: the ε bounds, the
 mint against the pin (`hδnum`), the count hook `bigXi_bounded_ceiling_eps`, `β`, and the head's own
 floor `Hopq = max (max H₀red H₀D3) H₀xi` (the two spine floors kept, so the `Hcap` equation is the
 source's) are the source's; the regime is GIVEN, the count is proved at it from `H₀xi ≤ Hopq ≤ Hcap
@@ -1109,28 +1109,12 @@ theorem flatHeadFormU_trivial (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500)
   unfold FlatHeadFormU
   obtain ⟨-, -, -, H₀red, -⟩ := hreduce_holds_final_bounded
   obtain ⟨-, -, -, H₀D3, -⟩ := primeWindow_sum_inv_ge_bounded
-  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
-    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
   have hC : 0 < C := by rw [hCdef]; positivity
   have hεR0 : (0 : ℝ) < (ε : ℝ) := by exact_mod_cast hε0
-  have hmint : cD3 / (16 * C) * (ε : ℝ) / 4 = (ε : ℝ) / (256 * (1 + 4 * Real.log 4)) := by
-    rw [hcD3def, hCdef]
-    have hne : (1 : ℝ) + 2 * (2 * Real.log 4) ≠ 0 := by positivity
-    field_simp
-    ring
-  have hcQ : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
-  have hcQ0 : (0 : ℚ) < 500 * (c : ℚ) := by linarith
-  have hqcap : (1 : ℚ) ≤ 500 * (c : ℚ) * ε := by
-    rw [div_le_iff₀ hcQ0] at hcε; linarith
-  have hcapR : (1 : ℝ) ≤ 500 * (c : ℝ) * (ε : ℝ) := by exact_mod_cast hqcap
-  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
-  have hδnum : (1 : ℝ) / (838400 * (c : ℝ)) ≤ cD3 / (16 * C) * (ε : ℝ) / 4 := by
-    rw [hmint, div_le_div_iff₀ (by linarith) (by positivity), hlog4eq]
-    linarith
+  obtain ⟨_, _, hδnum⟩ := flat_mint_at_charge hcD3def hCdef hc1 hcε
   obtain ⟨K, hK, hKb, H₀xi, -, hxi⟩ := bigXi_bounded_ceiling_eps ε hε0 hε hc1 hcε
   obtain ⟨β, hβdef⟩ : ∃ b : ℝ, b = cD3 * (ε : ℝ) / (144 * Real.log 4) := ⟨_, rfl⟩
   have hβpos : 0 < β := by
@@ -1170,7 +1154,7 @@ theorem flatHeadFormU_at_grade {ε : ℚ} {c : ℕ} {Q : ChowlaRegime → Prop}
   exact ⟨hcount, fun ρ _ hle hd => mrtUniformityXiL2_mono hle hd⟩
 
 /-- **the conditional hop, uniform** (`flat_conditional_generic_U`) —
-`flat_conditional_generic_epsW` (`FlatDoorEpsRung2.lean:5099`) on the U-forms.  The source asks the
+`flat_conditional_generic_epsW` (`FlatDoorEpsRung2.lean:5116`) on the U-forms.  The source asks the
 builder for the substituted caller `s15Arm δ₀ ρ + g`; here the regime is GIVEN and its arm
 `s15Arm δ₀ ρ Hhi ω ≤ x` comes from U-ARM (`s15Arm_le_of_regime`) at the form's ninth-arm floor
 hypothesis.  The capstone form is called at the same regime with the caller's own `g` (its strict
@@ -1260,7 +1244,7 @@ theorem flat_conditional_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pr
     harith
 
 /-- **the kswin hop, uniform** (`flat_kswin_generic_U`) — `flat_kswin_generic_epsW`
-(`FlatDoorEpsRung2.lean:5208`) on the U-forms.  The source's PROBE regime (`:5218–5234`), built only
+(`FlatDoorEpsRung2.lean:5225`) on the U-forms.  The source's PROBE regime (`:5235–5251`), built only
 to read `ε ≤ 1/2` off its `heps1`, is DELETED: a `∀ R` form exhibits no regime.  The ONE site that
 reads `ε ≤ 1/2` with no regime in scope is the form's first conjunct
 (`flat_witFloor_eq_designBase_L`, under `∀ A` and before `∀ R`), so this hop takes it as the
@@ -1339,7 +1323,7 @@ theorem flat_kswin_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (A
       hcapsc)
 
 /-- **the rated hop, uniform** (`flat_v7_generic_U`) — `flat_v7_generic_epsW`
-(`FlatDoorEpsRung2.lean:5331`) on the re-cut V7 U-form.  The supplies and the nine arms are the
+(`FlatDoorEpsRung2.lean:5336`) on the re-cut V7 U-form.  The supplies and the nine arms are the
 source's, minted BEFORE the lever (the seven landed arms at `A₀ := 0`, `armVt Kvt`, and
 `162 + 2·log c` outermost), into `A*`; the form's floor is `Hfl := flatDesignBase A*`.  For a
 given regime above it the design constant is `A := loglog Hlo / 3.2` (the INVERSION): `A* ≤ A`
@@ -1505,7 +1489,7 @@ theorem flat_v7_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
         hA26 hLt (flatDoorM_one_le hA26) heps500 hxceil hwin))
 
 /-- **the chain, uniform** (`flat_chain_U`) — `flat_chain_generic_epsW`
-(`FlatDoorEpsRung2.lean:5476`) on the U-forms: the seven U-hops composed.  ONE binder beyond the
+(`FlatDoorEpsRung2.lean:5478`) on the U-forms: the seven U-hops composed.  ONE binder beyond the
 source's, `hε2 : ε ≤ 1 / 2`, for the kswin hop's first conjunct (see `flat_kswin_generic_U`). -/
 theorem flat_chain_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (hε2 : ε ≤ 1 / 2)
     (h : FlatHeadFormU ε c P) : V7RatedFormU ε c P :=

@@ -4690,6 +4690,38 @@ theorem xceilRiderStrictAt_zero (lam0 : ℝ) (ε : ℚ) :
   linarith [Real.log_natCast_nonneg ω]
 
 
+/-- **⟦THE MINT AT THE CHARGE⟧** (`flat_mint_at_charge`): the three facts the charge heads read
+from their pinned leaf witnesses `cD3 = 1/4`, `C = 1 + 2·(2·log 4)` under the charge
+`1 ≤ c`, `1/(500·c) ≤ ε`: the mint identity, `1 ≤ c` over `ℝ`, and the mint against the pin,
+`1/(838400·c) ≤ cD3/(16·C)·ε/4` (`1 ≤ 500·c·ε` gives `838400·c·ε ≥ 1676.8`, against the mint's
+denominator `256·(1 + 8·log 2) ≤ 1675.5654262784`). One home for the block the five charge
+heads (here, `FlatDoorAllGradesBand`, `FlatDoorUniform`, `FlatDoorStandoff`,
+`StrideDoorAllGrades`) each carried. Nothing here bears on twin primes. -/
+theorem flat_mint_at_charge {ε : ℚ} {c : ℕ} {cD3 C : ℝ} (hcD3def : cD3 = 1 / 4)
+    (hCdef : C = 1 + 2 * (2 * Real.log 4)) (hc1 : 1 ≤ c)
+    (hcε : (1 : ℚ) / (500 * (c : ℚ)) ≤ ε) :
+    cD3 / (16 * C) * (ε : ℝ) / 4 = (ε : ℝ) / (256 * (1 + 4 * Real.log 4)) ∧
+      (1 : ℝ) ≤ (c : ℝ) ∧
+      (1 : ℝ) / (838400 * (c : ℝ)) ≤ cD3 / (16 * C) * (ε : ℝ) / 4 := by
+  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
+  have hmint : cD3 / (16 * C) * (ε : ℝ) / 4 = (ε : ℝ) / (256 * (1 + 4 * Real.log 4)) := by
+    rw [hcD3def, hCdef]
+    have hne : (1 : ℝ) + 2 * (2 * Real.log 4) ≠ 0 := by positivity
+    field_simp
+    ring
+  have hcQ : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
+  have hcQ0 : (0 : ℚ) < 500 * (c : ℚ) := by linarith
+  have hqcap : (1 : ℚ) ≤ 500 * (c : ℚ) * ε := by
+    rw [div_le_iff₀ hcQ0] at hcε; linarith
+  have hcapR : (1 : ℝ) ≤ 500 * (c : ℝ) * (ε : ℝ) := by exact_mod_cast hqcap
+  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
+  have hδnum : (1 : ℝ) / (838400 * (c : ℝ)) ≤ cD3 / (16 * C) * (ε : ℝ) / 4 := by
+    rw [hmint, div_le_div_iff₀ (by linarith) (by positivity), hlog4eq]
+    linarith
+  exact ⟨hmint, hcR1, hδnum⟩
+
 /-! ### §W6.2 — ⟦THE HEAD AT GENERIC `ε`, NO CAP⟧ -/
 
 /-- **⟦THE `A`-UNIFORM FLAT HEAD AT THE CHARGE⟧** (`flat_head_uniform_xceil_epsW`) —
@@ -4720,9 +4752,7 @@ theorem flat_head_uniform_xceil_epsW (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 
   obtain ⟨cD3', hcD3', hcD3'ge, H₀D3, hD3'⟩ := primeWindow_sum_inv_ge_bounded
   obtain ⟨C', hC', hCcap, hcm'⟩ := circle_method_estimate_sq_bounded (2 * Real.log 4)
     (by have := Real.log_pos (by norm_num : (1 : ℝ) < 4); linarith)
-  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
   have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
   -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:860–869`)
@@ -4754,24 +4784,11 @@ theorem flat_head_uniform_xceil_epsW (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 
     have h2 : (1 : ℚ) / 500 ≤ 1 / 2 := by norm_num
     linarith
   -- ⟦THE MINT⟧ the head's `δ₀` at the pinned witnesses IS the frozen file's term, exactly
-  have hmint : cD3 / (16 * C) * (ε : ℝ) / 4 = (ε : ℝ) / (256 * (1 + 4 * Real.log 4)) := by
-    rw [hcD3def, hCdef]
-    have hne : (1 : ℝ) + 2 * (2 * Real.log 4) ≠ 0 := by positivity
-    field_simp
-    ring
   -- ⟦THE MINT AGAINST THE PIN, AT THE CHARGE⟧ the source's `hqcap`/`hcapR`/`hδnum` at `c`
   -- in place of `8103`: `1 ≤ 500·c·ε` gives `838400·c·ε ≥ 1676.8`, and the mint's own
   -- denominator is `256·(1 + 8·log 2) ≤ 256 · 6.5451774464 = 1675.5654262784` — the source's
   -- own margin, now `1.2345737216` wide and INDEPENDENT of `c`.
-  have hcQ : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
-  have hcQ0 : (0 : ℚ) < 500 * (c : ℚ) := by linarith
-  have hqcap : (1 : ℚ) ≤ 500 * (c : ℚ) * ε := by
-    rw [div_le_iff₀ hcQ0] at hcε; linarith
-  have hcapR : (1 : ℝ) ≤ 500 * (c : ℝ) * (ε : ℝ) := by exact_mod_cast hqcap
-  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
-  have hδnum : (1 : ℝ) / (838400 * (c : ℝ)) ≤ cD3 / (16 * C) * (ε : ℝ) / 4 := by
-    rw [hmint, div_le_div_iff₀ (by linarith) (by positivity), hlog4eq]
-    linarith
+  obtain ⟨hmint, hcR1, hδnum⟩ := flat_mint_at_charge hcD3def hCdef hc1 hcε
   -- ⟦THE COUNT HOOK AT THE CAP⟧ §2, in place of the pinned hook
   obtain ⟨K, hK, hKb, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded_ceiling_eps ε hε0 hε hc1 hcε
   obtain ⟨β, hβdef⟩ : ∃ b : ℝ, b = cD3 * (ε : ℝ) / (144 * Real.log 4) := ⟨_, rfl⟩
@@ -5265,18 +5282,7 @@ theorem flat_kswin_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
     flat_L_width_priced hA26 hbaseceil hdes hRtow
   refine ⟨R, hReps, hHlo, hRg, hRx, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
-  -- `1/(2^9·c) ≤ 1/(500·c) ≤ ε`, the source's step at the charge: `500 ≤ 512 = 2^9`
-  have heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps := by
-    rw [hReps]
-    have h512 : (500 : ℚ) * (c : ℚ) ≤ 2 ^ 9 * (c : ℚ) := by
-      have h9 : (2 : ℚ) ^ 9 = 512 := by norm_num
-      rw [h9]; linarith
-    have hb : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ 1 / (500 * (c : ℚ)) :=
-      one_div_le_one_div_of_le (by linarith) h512
-    linarith [hεpin]
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA26
+  obtain ⟨hM1, heps, hlo, hfl⟩ := regime_flat_head_facts_mul hc0 hReps hHlo hεpin hA26
   -- ⟦THE BRIDGE⟧ the `A`-scoped window becomes §4's regime-scoped one at the flat floor
   have hKswR : Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16 := by linarith
   -- `1/(838400·2^12·c²) ≤ 1/(838400·c)`: `c ≤ 4096·c²` at `c ≥ 1`
@@ -5289,7 +5295,6 @@ theorem flat_kswin_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
   have hsel := s15_sel''_L_gk_witness_flat_bumped_win_L hA26 K hKw (h := c) hc0 hLc0 le_rfl hAL
     hδ₀ hδb hKc (epsRung2_one_le_Kb hc1) hKcb (epsRung2_log_Kb_le hc1)
     hCt hCtb hCgle (hMflb A hA26 hAwin) hx0win heps hlo hwin
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseL R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk K (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb
@@ -5300,7 +5305,7 @@ theorem flat_kswin_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
 
 /-! ### §W6.6 — ⟦THE NINTH ARM AND THE RATED HOP⟧
 
-The design constant `A` is minted in exactly one place on the road (`FlatDoorEpsChain.lean:1132`),
+The design constant `A` is minted in exactly one place on the road (`FlatDoorEpsChain.lean:1126`),
 as a `max` of eight arms.  This is where the whole charge is paid: a NINTH arm `162 + 2·Lc`, put
 OUTERMOST, with the source's eight verbatim inside it.  It is a `max`, so it costs nothing anyone
 downstream can see — every consumer reads `A` through an inequality — and it pays five demands:
@@ -5425,7 +5430,7 @@ theorem flat_v7_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
   have hxceil : Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (R.eps : ℝ) * ((R.Hhi : ℕ) : ℝ) := by
     rw [hReps]; exact hRx
   -- ⟦THE RATED SUPPLY, WITH THE CUSHION PAID BY THE EIGHTH ARM⟧
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
+  obtain ⟨hM1, -, hlo, hfl⟩ := regime_flat_head_facts_mul hc0 hReps hHlo hεpin hA162
   have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
   have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
   have heps500R : (1 : ℝ) / (500 * (c : ℝ)) ≤ (R.eps : ℝ) := by
@@ -5438,9 +5443,6 @@ theorem flat_v7_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
   -- ⟦THE NINTH ARM, FIRST READER⟧ `3.2·(162 + 2·Lc) = 518.4 + 6.4·Lc ≥ 518 + 6·Lc` at `0 ≤ Lc`
   have h518 : (518 : ℝ) + 6 * Real.log (c : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
     linarith [hdes, hA162b, hLc0]
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA162
   -- ⟦THE NINTH ARM, SECOND READER⟧ `cofkRThr ≤ A`, `2·Lc ≤ A`, `2·A ≤ 3.2·A + 1 ≤ e^(3.2A)`
   have hthrgate : cofkRThr Cq Cb Xsk Y0 + 2 * Real.log (c : ℝ)
       ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
@@ -5468,7 +5470,7 @@ theorem flat_v7_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
 /-! ### §W6.7 — ⟦THE CHAIN AND THE THEOREM⟧ -/
 
 /-- **⟦THE CHAIN, AT THE CHARGE⟧** (`flat_chain_generic_epsW`) — `flat_chain_generic_eps`
-(`FlatDoorEpsChain.lean:1200`) with every hop's `W` sibling and `c` threaded beside `ε`.  The
+(`FlatDoorEpsChain.lean:1194`) with every hop's `W` sibling and `c` threaded beside `ε`.  The
 charge and the `δ₀` pin travel INSIDE the forms, so no hop takes either as a hypothesis and this
 composition is the landed one token for token. -/
 theorem flat_chain_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)

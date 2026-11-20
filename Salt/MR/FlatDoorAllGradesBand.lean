@@ -551,7 +551,7 @@ theorem chowlaRegimeFlat_exists_param_head_xceil_at_tight (lam0 A : ℝ) (hA : 2
 
 /-- **⟦ARM R H0 — THE BAND HEAD AT THE TRIVIAL PAYLOAD⟧**
 (`flat_head_uniform_xceil_epsW_band`) — rung 2's `flat_head_uniform_xceil_epsW`
-(`FlatDoorEpsRung2.lean:4710`, body 169 lines) at the band form, at `P := fun _ => True`.
+(`FlatDoorEpsRung2.lean:4742`, body 169 lines) at the band form, at `P := fun _ => True`.
 
 **THE PAYLOAD IS DROPPED, BINDER AND ALL.**  The landed head takes a four-clause `hP` and spends
 it in a SLOT that runs the door-head's spine at the regime it built; this twin takes no `hP`, and
@@ -584,10 +584,8 @@ theorem flat_head_uniform_xceil_epsW_band (ε : ℚ) (hε0 : 0 < ε) (hε : ε �
     FlatHeadFormEpsW_band ε c (fun _ => True) := by
   classical
   unfold FlatHeadFormEpsW_band
-  -- ⟦THE LEAF NUMERALS, PINNED⟧ `log 4 = 2·log 2`, both `d9` bounds on `log 2`
-  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  -- ⟦THE LEAF NUMERALS, PINNED⟧ `log 4 = 2·log 2` and the upper `d9` bound on `log 2` (for `hCnum`)
   have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
   -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:860–869`)
@@ -602,21 +600,8 @@ theorem flat_head_uniform_xceil_epsW_band (ε : ℚ) (hε0 : 0 < ε) (hε : ε �
     have h2 : (1 : ℚ) / 500 ≤ 1 / 2 := by norm_num
     linarith
   -- ⟦THE MINT⟧ the head's `δ₀` at the pinned witnesses IS the frozen file's term, exactly
-  have hmint : cD3 / (16 * C) * (ε : ℝ) / 4 = (ε : ℝ) / (256 * (1 + 4 * Real.log 4)) := by
-    rw [hcD3def, hCdef]
-    have hne : (1 : ℝ) + 2 * (2 * Real.log 4) ≠ 0 := by positivity
-    field_simp
-    ring
   -- ⟦THE MINT AGAINST THE PIN, AT THE CHARGE⟧ the source's `hqcap`/`hcapR`/`hδnum` at `c`
-  have hcQ : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
-  have hcQ0 : (0 : ℚ) < 500 * (c : ℚ) := by linarith
-  have hqcap : (1 : ℚ) ≤ 500 * (c : ℚ) * ε := by
-    rw [div_le_iff₀ hcQ0] at hcε; linarith
-  have hcapR : (1 : ℝ) ≤ 500 * (c : ℝ) * (ε : ℝ) := by exact_mod_cast hqcap
-  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
-  have hδnum : (1 : ℝ) / (838400 * (c : ℝ)) ≤ cD3 / (16 * C) * (ε : ℝ) / 4 := by
-    rw [hmint, div_le_div_iff₀ (by linarith) (by positivity), hlog4eq]
-    linarith
+  obtain ⟨_, _, hδnum⟩ := flat_mint_at_charge hcD3def hCdef hc1 hcε
   -- ⟦THE COUNT HOOK AT THE CAP⟧ §2, in place of the pinned hook
   obtain ⟨K, hK, hKb, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded_ceiling_eps ε hε0 hε hc1 hcε
   obtain ⟨β, hβdef⟩ : ∃ b : ℝ, b = cD3 * (ε : ℝ) / (144 * Real.log 4) := ⟨_, rfl⟩
@@ -656,7 +641,7 @@ theorem flat_head_uniform_xceil_epsW_band (ε : ℚ) (hε0 : 0 < ε) (hε : ε �
 
 /-! ## §5 — the four pass-through hops, at the enlarged regime
 
-Rung 2's four PASS-THROUGH hops (`FlatDoorEpsRung2.lean:4871 · 4978 · 5023 · 5086`) at the band
+Rung 2's four PASS-THROUGH hops (`FlatDoorEpsRung2.lean:4888 · 4978 · 5023 · 5086`) at the band
 forms.  In each one the source's tuple gains the THREE new export conjuncts of rules (i-ω) (i-x)
 (i-gate) — `hRωtight`, `hRxtight`, `hll` — which are passed straight through, and the source's
 antecedent block gains `intro x' hx' hxc` in front and is then RUN AT `R' := regimeEnlargeX R hx'`
@@ -925,14 +910,14 @@ theorem flat_capstone_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime �
 
 /-! ## §6 — the conditional hop, and the ONE export block: tier A → tier B
 
-Rung 2's conditional hop (`FlatDoorEpsRung2.lean:5099`) at the band forms.  It is the only hop
+Rung 2's conditional hop (`FlatDoorEpsRung2.lean:5116`) at the band forms.  It is the only hop
 of this file that does arithmetic rather than pass a conjunct through, and the arithmetic is
 forced by rule (i-x)'s TWO TIERS: this hop instantiates its source at the INFLATED rider
 `g' = s15Arm δ₀ ρ + g`, so the tier-A bound it receives is stated at `g'` and the tier-B bound it
 must export is stated at `2 · g`.  The block below is that conversion. -/
 
 /-- **⟦ARM R H4→H5⟧** (`flat_conditional_generic_epsW_band`) — rung 2's
-`flat_conditional_generic_epsW` (`FlatDoorEpsRung2.lean:5099`) at the band forms.
+`flat_conditional_generic_epsW` (`FlatDoorEpsRung2.lean:5116`) at the band forms.
 
 THREE THINGS HAPPEN HERE, and only the third is new work:
 * the source's `hg'` (the substituted rider `s15Arm δ₀ ρ + g` still obeys the builder-side gate,
@@ -1081,7 +1066,7 @@ theorem flat_conditional_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegim
 /-! ## §7 — the terminal hop, the rated hop and the chain -/
 
 /-- **⟦ARM R H5→H6⟧** (`flat_kswin_generic_epsW_band`) — rung 2's `flat_kswin_generic_epsW`
-(`FlatDoorEpsRung2.lean:5208`) at the band forms.  Everything above the band quantifier is the
+(`FlatDoorEpsRung2.lean:5225`) at the band forms.  Everything above the band quantifier is the
 source's token for token: the hoisted crossing constants, the `ε`-ceiling probe at the re-minted
 design constant `162 + 2·log c`, the two `ε`-numeral casts at the charge, the two
 `flat_witFloor_eq_designBase_L` reads and the width price.  The (i-ω) and tier-B exports pass
@@ -1148,17 +1133,7 @@ theorem flat_kswin_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → 
     flat_L_width_priced hA26 hbaseceil hdes hRtow
   refine ⟨R, hReps, hHlo, hRg, hRx, hRωtight, hRxtight, hRtow, hdes, hwin, ?_⟩
   intro x' hx' hxc hcof hcapsc
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
-  have heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps := by
-    rw [hReps]
-    have h512 : (500 : ℚ) * (c : ℚ) ≤ 2 ^ 9 * (c : ℚ) := by
-      have h9 : (2 : ℚ) ^ 9 = 512 := by norm_num
-      rw [h9]; linarith
-    have hb : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ 1 / (500 * (c : ℚ)) :=
-      one_div_le_one_div_of_le (by linarith) h512
-    linarith [hεpin]
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA26
+  obtain ⟨hM1, heps, hlo, hfl⟩ := regime_flat_head_facts_mul hc0 hReps hHlo hεpin hA26
   have hKswR : Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16 := by linarith
   have hδb : (1 : ℝ) / (838400 * 2 ^ 12 * (c : ℝ) ^ 2) ≤ δ₀ := by
     refine le_trans ?_ hδpin
@@ -1170,7 +1145,6 @@ theorem flat_kswin_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → 
     hA26 K hKw (h := c) hc0 hLc0 le_rfl hAL
     hδ₀ hδb hKc (epsRung2_one_le_Kb hc1) hKcb (epsRung2_log_Kb_le hc1)
     hCt hCtb hCgle (hMflb A hA26 hAwin) hx0win heps hlo hwin
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hblk : ∀ H L q j Aw s : ℕ,
       SocketBaseL (regimeEnlargeX R hx') (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk K (flatDoorM A) ≤ Aw + s := by
@@ -1182,7 +1156,7 @@ theorem flat_kswin_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → 
       (by simp only [regimeEnlargeX_Hlo]; rw [hHlo]; exact hT₀) hblk hcof hcapsc)
 
 /-- **⟦ARM R H6→H7⟧** (`flat_v7_generic_epsW_band`) — rung 2's `flat_v7_generic_epsW`
-(`FlatDoorEpsRung2.lean:5331`) at the band forms.  The ninth arm, the eight-arm design constant,
+(`FlatDoorEpsRung2.lean:5336`) at the band forms.  The ninth arm, the eight-arm design constant,
 the rated co-factor supply and every `le_max` chain are the source's, unchanged: the design
 constant is chosen before any regime exists, so the band does not reach it.
 
@@ -1293,7 +1267,7 @@ theorem flat_v7_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pro
     rwa [max_eq_left (xTightCeilArm_nonneg ε hε R.Hhi hHhi4)] at hle
   have heps500 : (1 : ℚ) / (500 * (c : ℚ)) ≤ R.eps := by
     rw [hReps]; exact hεpin
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
+  obtain ⟨hM1, -, hlo, hfl⟩ := regime_flat_head_facts_mul hc0 hReps hHlo hεpin hA162
   have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
   have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
   have heps500R : (1 : ℝ) / (500 * (c : ℝ)) ≤ (R.eps : ℝ) := by
@@ -1305,9 +1279,6 @@ theorem flat_v7_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pro
     linarith
   have h518 : (518 : ℝ) + 6 * Real.log (c : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
     linarith [hdes, hA162b, hLc0]
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA162
   have hthrgate : cofkRThr Cq Cb Xsk Y0 + 2 * Real.log (c : ℝ)
       ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
     linarith [hthrA, hlo, hexp1, hAL, hA162]
@@ -1339,7 +1310,7 @@ theorem flat_v7_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pro
         hA26 hLt (flatDoorM_one_le hA26) heps500 hxceil hwin))
 
 /-- **⟦ARM R — THE CHAIN⟧** (`flat_chain_generic_epsW_band`) — rung 2's
-`flat_chain_generic_epsW` (`FlatDoorEpsRung2.lean:5476`) over the `_band` hops, token for token.
+`flat_chain_generic_epsW` (`FlatDoorEpsRung2.lean:5478`) over the `_band` hops, token for token.
 The charge and the `δ₀` pin travel INSIDE the forms and the band quantifier travels inside their
 last conjunct, so no hop takes either as a hypothesis and this composition is the landed one with
 six names changed.  Nothing here bears on twin primes. -/

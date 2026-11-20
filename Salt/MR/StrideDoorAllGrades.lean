@@ -428,7 +428,7 @@ theorem zBuilder_absorb_L {Hhi : ℕ} (hH4 : 4000000 ≤ Hhi) {u L : ℝ} (hu2 :
 
 /-- **⟦THE SET DOOR IS MONOTONE UP IN ITS GRADE⟧** (`mrtUniformityXiL2Set_mono`) — the Set-door
 twin of `mrtUniformityXiL2_mono` (`FlatDoorEpsChain.lean:64`): `MRTUniformityXiL2Set Xi R ρ` is
-`∀ H …, Σ … ≤ ρ` (`StridePair.lean:365`), so a door at `ρ` is a door at any `ρ' ≥ ρ`. -/
+`∀ H …, Σ … ≤ ρ` (`StridePair.lean:335`), so a door at `ρ` is a door at any `ρ' ≥ ρ`. -/
 theorem mrtUniformityXiL2Set_mono {Xi : XiFamily} {R : ChowlaRegime} {ρ ρ' : ℝ}
     (hd : MRTUniformityXiL2Set Xi R ρ) (hle : ρ ≤ ρ') : MRTUniformityXiL2Set Xi R ρ' := by
   intro H _ hlo hhi
@@ -679,10 +679,6 @@ theorem flat_door_head_xceil_h_Z (h : ℕ) (_hh : 0 < h) (ε : ℚ) (hε0 : 0 < 
     FlatHeadFormHG_Z h ε c L Xi (fun _ => True) := by
   classical
   unfold FlatHeadFormHG_Z
-  -- ⟦THE LEAF NUMERALS, PINNED⟧ `log 4 = 2·log 2`, the upper `d9` bound on `log 2`
-  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
-    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
@@ -693,23 +689,10 @@ theorem flat_door_head_xceil_h_Z (h : ℕ) (_hh : 0 < h) (ε : ℚ) (hε0 : 0 < 
     have h2 : (1 : ℚ) / 500 ≤ 1 / 2 := by norm_num
     linarith
   -- ⟦THE MINT⟧ the head's `δ₀` at the pinned witnesses is rung 2's term, exactly
-  have hmint : cD3 / (16 * C) * (ε : ℝ) / 4 = (ε : ℝ) / (256 * (1 + 4 * Real.log 4)) := by
-    rw [hcD3def, hCdef]
-    have hne : (1 : ℝ) + 2 * (2 * Real.log 4) ≠ 0 := by positivity
-    field_simp
-    ring
   -- ⟦THE MINT AGAINST THE PIN, AT THE CHARGE⟧ rung 2's `hqcap`/`hcapR`/`hδnum`: `1 ≤ 500·c·ε`
   -- gives `838400·c·ε ≥ 1676.8`, against the mint's denominator
   -- `256·(1 + 8·log 2) ≤ 256 · 6.5451774464 = 1675.5654262784`
-  have hcQ : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
-  have hcQ0 : (0 : ℚ) < 500 * (c : ℚ) := by linarith
-  have hqcap : (1 : ℚ) ≤ 500 * (c : ℚ) * ε := by
-    rw [div_le_iff₀ hcQ0] at hcε; linarith
-  have hcapR : (1 : ℝ) ≤ 500 * (c : ℝ) * (ε : ℝ) := by exact_mod_cast hqcap
-  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
-  have hδnum : (1 : ℝ) / (838400 * (c : ℝ)) ≤ cD3 / (16 * C) * (ε : ℝ) / 4 := by
-    rw [hmint, div_le_div_iff₀ (by linarith) (by positivity), hlog4eq]
-    linarith
+  obtain ⟨hmint, hcR1, hδnum⟩ := flat_mint_at_charge hcD3def hCdef hc1 hcε
   -- ⟦THE COUNT HOOK AT THE CHARGE⟧ carrying `K ≤ 2^283·c^20·h`
   obtain ⟨K, hK, hKb, H₀xi, _hH₀xi2, hxi⟩ := hcount
   obtain ⟨β, hβdef⟩ : ∃ b : ℝ, b = cD3 * (ε : ℝ) / (144 * Real.log 4) := ⟨_, rfl⟩
@@ -2446,7 +2429,7 @@ theorem flat_v7_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L : ℝ
   obtain ⟨A', hA'def⟩ : ∃ a : ℝ, a = max (16 * Real.log (1 / Ks) / 3) (max T₀
       (max (max (max (max A₀ 162) Awin) (cofkRThr Cq Cb Xsk Y0))
         (max (budgetAFlat (ε : ℝ) β) (max (4 * (x₀ : ℝ)) ((Hopq : ℕ) : ℝ))))) := ⟨_, rfl⟩
-  -- ⟦THE NINTH ARM⟧ `162 + 2·Lc`, OUTERMOST (rung 2's re-mint, `FlatDoorEpsRung2.lean:5195`)
+  -- ⟦THE NINTH ARM⟧ `162 + 2·Lc`, OUTERMOST (rung 2's re-mint, `FlatDoorEpsRung2.lean:5212`)
   obtain ⟨A, hAdef⟩ : ∃ a : ℝ,
       a = max (162 + 2 * (Real.log (c : ℝ) + L)) (max (armVt Kvt) A') := ⟨_, rfl⟩
   have hA162b : 162 + 2 * (Real.log (c : ℝ) + L) ≤ A := by rw [hAdef]; exact le_max_left _ _
@@ -4678,7 +4661,7 @@ replace each such site by a binder or by the design base, and are the sources' b
 elsewhere.  These lifts did not touch the landed `StridePair.lean`. -/
 
 /-- **⟦F3-P19 AT THE CHARGE⟧** (`loglog_mul_flatDesignBase_le_L`) —
-`loglog_mul_flatDesignBase_le_b9` (`StridePair.lean:776`) with `ha9 : log a ≤ 9` REPLACED by
+`loglog_mul_flatDesignBase_le_b9` (`StridePair.lean:746`) with `ha9 : log a ≤ 9` REPLACED by
 `haL : log a ≤ L` and `hLA : L ≤ A`.  The cap was read only in `hub`
 (`log a + log 2 + E ≤ 2E`); at the charge it closes from
 `hE519' : A + 1 ≤ exp (3.2·A)` (`Real.add_one_le_exp` and `A ≤ 3.2·A`):
@@ -4726,7 +4709,7 @@ theorem loglog_mul_flatDesignBase_le_L {A : ℝ} (hA : 162 ≤ A) {a : ℕ} (ha 
         rw [Real.log_mul (by norm_num) (Real.exp_ne_zero _), Real.log_exp]; ring
 
 /-- **⟦F3-P20 AT THE CHARGE⟧** (`flatDesignBase_clears_stride_floors_L`) —
-`flatDesignBase_clears_stride_floors_b9` (`StridePair.lean:882`) with the pin floor
+`flatDesignBase_clears_stride_floors_b9` (`StridePair.lean:852`) with the pin floor
 `1/4051500 = 1/(500·8103)` REPLACED by the form's own pin at the MULTIPLIER `k`,
 `1/(500·k) ≤ eps`, and `k` bounded through the charge (`log k ≤ L ≤ A`), plus the third floor
 `500000·k³ ≤ flatDesignBase A` that pays the shrink's `hcop` and `hHlo` at the terminal.  DERIVED:
@@ -4803,7 +4786,7 @@ theorem flatDesignBase_clears_stride_floors_L {A : ℝ} (hA : 162 ≤ A) {k : �
   exact Nat.mul_le_mul (le_refl 4) (Nat.pow_le_pow_left hceil 4)
 
 /-- **⟦F3-P3 AT THE CHARGE⟧ (def)** (`regimeShrinkX_stride_L`) — `regimeShrinkX_stride_b9`
-(`StridePair.lean:914`) with the stride cap `ha8103 : a ≤ 8103` GONE.  The source read it at exactly
+(`StridePair.lean:884`) with the stride cap `ha8103 : a ≤ 8103` GONE.  The source read it at exactly
 two sites, and BOTH are now HYPOTHESES of the def, paid by the caller at the terminal
 (`strideDoorAllGradesW_holds`, from `flatDesignBase_clears_stride_floors_L`'s third floor
 `500000·k³ ≤ flatDesignBase A` and the multiplier pin `1/(500·k) ≤ ε`): `hcop`
@@ -4956,7 +4939,7 @@ theorem regimeShrinkX_stride_J_L (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
     (regimeShrinkX_stride_L R a ha heps500 hs hdiv hlo4 hloM hcop hHlo).J = R.J := by
   rfl
 
-/-- **⟦F3-P6 AT THE CHARGE⟧** — `regimeShrinkX_stride_x_mul_b9` (`StridePair.lean:1085`) at the
+/-- **⟦F3-P6 AT THE CHARGE⟧** — `regimeShrinkX_stride_x_mul_b9` (`StridePair.lean:1025`) at the
 lift, read through `regimeShrinkX_stride_x_L`. -/
 theorem regimeShrinkX_stride_x_mul_L (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
     (heps500 : R.eps ≤ 1 / 500) (hs : StrideScale a R) (hdiv : a ∣ R.a * R.Hlo)
@@ -4968,7 +4951,7 @@ theorem regimeShrinkX_stride_x_mul_L (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a)
   exact Nat.div_mul_cancel hs.1
 
 /-- **⟦F3-P16 AT THE CHARGE⟧** (`mrtUniformityXiL2AffW_of_set_L`) —
-`mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1103`), which reads its stride cap ONLY inside
+`mrtUniformityXiL2AffW_of_set_b9` (`StridePair.lean:1043`), which reads its stride cap ONLY inside
 the regime terms (its `omega` for `hω2` does not spend it): the binder list is the def's
 (`hcop hHlo` where the source has `ha8103`), `regimeShrinkX_stride_b9 ↦ regimeShrinkX_stride_L` in
 `hb` and in the conclusion's regime.  BODY: the source's, verbatim. -/
@@ -5238,7 +5221,7 @@ theorem flat_chain_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L : 
 /-- **⟦THE COUNT FLOOR AT THE AFFINE FAMILY, CAP-FREE⟧** (`zCount_affine`) — the head's `hcount`
 (`flat_door_head_xceil_h_Z`, §E) at the grid-restricted affine family and the multiplier `a·h`:
 the cap-free leaf `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2224`, `C ≤ 2^283·c^20`)
-through `bigXiAffD_card_le` (`StridePair.lean:348`) and `bigXiAff_card_le_mul`
+through `bigXiAffD_card_le` (`StridePair.lean:318`) and `bigXiAff_card_le_mul`
 (`StrideFork.lean:379`) with the constant `(a·h)·C ≤ 2^283·c^20·(a·h)`.  G12b's
 `mrtUniformityXiL2AffSet_holds_flat_floor_g12b` `hcount` block (`:1127–1133`) with its capped pin
 leaf replaced by the cap-free one (the freeze's row K). -/
