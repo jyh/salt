@@ -5273,7 +5273,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    ⚖️⭐⭐ **PRICED 2026-08-26 01:5x (math) — THE ROW ABOVE IS BYTE-UNTOUCHED; THIS IS A STAMP.**
    *"Unpriced until it exists" is upgradeable, and the price is the surprising part:* **THIS
    CAMPAIGN NEEDS NO SHARPNESS.** Its consumer is the `K_vt` cushion at
-   `logChowla2_ineffective_v7_ksarm_g0` (`V7Headline.lean:145`), which evaluates `Kvt` at
+   `logChowla2_ineffective_v7_ksarm_g0` (`V7Headline.lean:144`), which evaluates `Kvt` at
    `Qm = ⌈arcDen 12 R.Hhi⌉₊ = ⌈(log H₊)^12⌉₊` against a budget `log H₊/128 ≥ e^518/128`.
    ⇒ **any effective band floor `B(q) ≤ a·log q + c` with `a`, `c` explicit — ANY polynomial
    grade, however crude — gives `Kvt(Qm) ≲ 12a·loglog H₊ + c` and clears that budget by

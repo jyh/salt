@@ -23397,7 +23397,7 @@ cost a census and not a wave.
 
 **What was measured** (bytes only, every citation re-grepped after the edits above it):
 
-* the cushion is applied at `Kvt (KlevF A) ⌈arcDen 12 R.Hhi⌉₊` (`V7Headline.lean:145`), and
+* the cushion is applied at `Kvt (KlevF A) ⌈arcDen 12 R.Hhi⌉₊` (`V7Headline.lean:144`), and
   `arcDen 12 H = (Real.log H)^12` (`BigXiArc.lean:148`) ⇒ the evaluation point
   `Qm = ⌈(log H₊)^12⌉₊` **moves with the same `H₊` that funds the budget**;
 * budget `Kvt ≤ e^518/128 ≈ 10^222.9` (from `3.2·A ≤ loglog H₋`, `162 ≤ A`) against

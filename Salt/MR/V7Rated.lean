@@ -974,7 +974,7 @@ statement, re-derived from `logChowla2_v7_rated` at `Kvt := fun _ _ => 0` (nonne
 it referees the rated headline AGAINST THIS RESTATEMENT, not against the landed declaration —
 the `example` immediately below closes that gap: its type is exactly this statement and its
 proof term is the landed `logChowla2_ineffective_v7_ksarm_g0` itself, so any drift between
-the copy and `V7Headline.lean:145` fails to elaborate HERE. -/
+the copy and `V7Headline.lean:144` fails to elaborate HERE. -/
 theorem logChowla2_ineffective_v7_ksarm_g0_of_rated (A₀ : ℝ) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ) (Kvt : ℕ → ℕ → ℝ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
