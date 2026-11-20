@@ -1903,7 +1903,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6` (`Salt/MR/RegisterCompose.lean:325`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6` (`Salt/MR/RegisterCompose.lean:322`): its statement under the three standoff
 binders, its proof verbatim with `s16_bandLaneWinL_holdsU` · `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist` replaced by their twins. -/
 theorem logChowla2_ineffective_v6_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) :
@@ -2211,7 +2211,7 @@ open MeasureTheory
 open Salt.Entropy.Chowla
 set_option maxHeartbeats 1000000 in
 -- The twin re-elaborates the landed proof, so it keeps the landed declaration's heartbeat room.
-/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk` (`Salt/MR/S16FlatTerminalLinear.lean:2046`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk` (`Salt/MR/S16FlatTerminalLinear.lean:2043`): its statement under the three standoff
 binders, its proof verbatim with `m4_hcap_at_door_perBlock_L_gk` replaced by their twins. -/
 theorem m4_fuse_hcap_of_capWS_L_gk_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) :
