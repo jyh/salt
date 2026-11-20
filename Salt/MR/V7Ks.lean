@@ -38,8 +38,8 @@ window in place of the numeral:
 
 ```
 capfloor_floor4                    (S13CapFloor:452)   -> capfloor_floor4_of_pos      (V7A:216)
-s13CapFloor_all_L_gk_sharpT0       (S16ComposeV4:588)  -> §2  _kswin
-s16_capGate_supply_L_gk_sharpT0    (S16ComposeV4:632)  -> §3  _kswin
+s13CapFloor_all_L_gk_sharpT0       (S16ComposeV4:589)  -> §2  _kswin
+s16_capGate_supply_L_gk_sharpT0    (S16ComposeV4:633)  -> §3  _kswin
 s15_crossing_..._khoist_csfree     (V7B:753)          -> §4  _kswin
 logChowla2_witnessed_..._csfree    (V7B:792)          -> §5  _kswin
 logChowla2_ineffective_v7          (V7E:76)            -> §6  _ksarm
@@ -91,7 +91,7 @@ theorem capfloor_floor4_of_regimeWin {R : ChowlaRegime} {M H L q j A s Nd : ℕ}
 
 /-! ## §2 — ⟦HOP 7⟧ the floor wave, windowed
 
-`S16ComposeV4.s13CapFloor_all_L_gk_sharpT0` (:588) with `hKs : e^{-100} ≤ Ks` replaced by
+`S16ComposeV4.s13CapFloor_all_L_gk_sharpT0` (:589) with `hKs : e^{-100} ≤ Ks` replaced by
 `0 < Ks` + the regime window.  The only proof edit is the `floor4` entry. -/
 
 /-- ⟦`Ks`-WINDOWED TWIN⟧ (`s13CapFloor_all_L_gk_sharpT0_kswin`) —

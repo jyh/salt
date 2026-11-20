@@ -1910,7 +1910,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6` (`Salt/MR/RegisterCompose.lean:336`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6` (`Salt/MR/RegisterCompose.lean:329`): its statement under the three standoff
 binders, its proof verbatim with `s16_bandLaneWinL_holdsU` · `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist` replaced by their twins. -/
 theorem logChowla2_ineffective_v6_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) :
@@ -2269,7 +2269,7 @@ end Salt.MR
 namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `s15_crossing_supplied_L_gk` (`Salt/MR/S16FlatFinal.lean:66`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `s15_crossing_supplied_L_gk` (`Salt/MR/S16FlatFinal.lean:67`): its statement under the three standoff
 binders, its proof verbatim with `m4_fuse_hcap_of_capWS_L_gk` replaced by their twins. -/
 theorem s15_crossing_supplied_L_gk_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) :
@@ -2301,7 +2301,7 @@ end Salt.MR
 namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_witnessed_scale_flat_L_v2` (`Salt/MR/S16FlatFinal.lean:130`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_witnessed_scale_flat_L_v2` (`Salt/MR/S16FlatFinal.lean:131`): its statement under the three standoff
 binders, its proof verbatim with `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L` · `s15_crossing_supplied_L_gk` replaced by their twins. -/
 theorem logChowla2_witnessed_scale_flat_L_v2_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (hband : S16BandLaneCBoundedL 32000000)

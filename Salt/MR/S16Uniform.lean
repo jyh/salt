@@ -53,7 +53,7 @@ landed one with `intro A hA hAge` moved to where the landed proof chose `A`:
 * §4 `flat_road_uniform`         ← `S16FlatTerminalLinear.m4_second_road_L2_gk_flatRoot_L`
 * §5 `flat_capstone_uniform`     ← `S16FlatTerminalLinear.logChowla2_capstone_…_flatRoot_L`
 * §6 `flat_conditional_uniform`  ← `S16FlatTerminalLinear.logChowla2_conditional_…_L`
-* §7 `logChowla2_witnessed_scale_flat_L_v2_uniform` ← `S16FlatFinal.…_v2` (:125)
+* §7 `logChowla2_witnessed_scale_flat_L_v2_uniform` ← `S16FlatFinal.…_v2` (:126)
 
 §8 is the point: `logChowla2_ineffective` — the terminal with the TWO SIEGEL RIDERS GONE.  With
 `x₀` and `Hopq` fixed, `A` is chosen above them and both windows close by
