@@ -228,11 +228,7 @@ theorem logChowla2_ineffective_v7_g0 (A₀ : ℝ) :
     hCgle, hεpin, hδpin, hMflb, hβ, hA162, hA₀A, hKvt0, ?_⟩
   intro hKs
   -- ⟦THE RIDER, VOID⟧ the caller's request is `0`, and `log 0 = 0` leaves the margin intact
-  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
-    intro Hhi ω hgate
-    obtain ⟨-, -, hωw⟩ := hgate
-    simp only [Nat.cast_zero, Real.log_zero]
-    linarith [Real.log_natCast_nonneg ω]
+  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := xceilRiderStrict_zero ε
   obtain ⟨R, hReps, hHlo, -, hRtow, hdes, hwin, hfire⟩ := hmain hKs (fun _ _ => 0) hzero
   exact ⟨R, hReps, hHlo, hRtow, hdes, hwin, hfire⟩
 

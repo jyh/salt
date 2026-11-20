@@ -2387,11 +2387,7 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist_h (h : ℕ
     hcond0 (max 162 (budgetAFlat (ε : ℝ) β)) (le_max_left _ _) (le_max_right _ _)
   -- the `ε`-probe's own `g ≡ 0` obeys the strict rider trivially (`log 0 = 0`, and the gate's
   -- width window already carries the `ε²·H₊` margin)
-  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
-    intro Hhi ω hgate
-    obtain ⟨-, -, hωw⟩ := hgate
-    simp only [Nat.cast_zero, Real.log_zero]
-    linarith [Real.log_natCast_nonneg ω]
+  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := xceilRiderStrict_zero ε
   obtain ⟨R0, hR0eps, -, -, -, -, -⟩ :=
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
   have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
@@ -3288,11 +3284,7 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_ks
     hcond0 (max 162 (budgetAFlat (ε : ℝ) β)) (le_max_left _ _) (le_max_right _ _)
   -- the `ε`-probe's own `g ≡ 0` obeys the strict rider trivially (`log 0 = 0`, and the gate's
   -- width window already carries the `ε²·H₊` margin)
-  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
-    intro Hhi ω hgate
-    obtain ⟨-, -, hωw⟩ := hgate
-    simp only [Nat.cast_zero, Real.log_zero]
-    linarith [Real.log_natCast_nonneg ω]
+  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := xceilRiderStrict_zero ε
   obtain ⟨R0, hR0eps, -, -, -, -, -⟩ :=
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
   have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1

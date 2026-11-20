@@ -760,11 +760,7 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_ks
   obtain ⟨_Ct0, -, -, hcond0⟩ := hcondU 0
   obtain ⟨Hcap0, -, hbody0⟩ :=
     hcond0 (max 162 (budgetAFlat (ε : ℝ) β)) (le_max_left _ _) (le_max_right _ _)
-  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
-    intro Hhi ω hgate
-    obtain ⟨-, -, hωw⟩ := hgate
-    simp only [Nat.cast_zero, Real.log_zero]
-    linarith [Real.log_natCast_nonneg ω]
+  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := xceilRiderStrict_zero ε
   obtain ⟨R0, hR0eps, -, -, -, -, -⟩ :=
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
   have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
@@ -887,11 +883,7 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_of
   obtain ⟨_Ct0, -, -, hcond0⟩ := hcondU 0
   obtain ⟨Hcap0, -, hbody0⟩ :=
     hcond0 (max 162 (budgetAFlat (ε : ℝ) β)) (le_max_left _ _) (le_max_right _ _)
-  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
-    intro Hhi ω hgate
-    obtain ⟨-, -, hωw⟩ := hgate
-    simp only [Nat.cast_zero, Real.log_zero]
-    linarith [Real.log_natCast_nonneg ω]
+  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := xceilRiderStrict_zero ε
   obtain ⟨R0, hR0eps, -, -, -, -, -⟩ :=
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
   have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
@@ -1210,11 +1202,7 @@ theorem logChowla2_ineffective_v7_g0_of_standoff {cS : ℝ} (hcS : 0 < cS)
     hCgle, hεpin, hδpin, hMflb, hβ, hA162, hA₀A, hKvt0, ?_⟩
   intro hKs
   -- ⟦THE RIDER, VOID⟧ the caller's request is `0`, and `log 0 = 0` leaves the margin intact
-  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
-    intro Hhi ω hgate
-    obtain ⟨-, -, hωw⟩ := hgate
-    simp only [Nat.cast_zero, Real.log_zero]
-    linarith [Real.log_natCast_nonneg ω]
+  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := xceilRiderStrict_zero ε
   obtain ⟨R, hReps, hHlo, -, hRtow, hdes, hwin, hfire⟩ := hmain hKs (fun _ _ => 0) hzero
   exact ⟨R, hReps, hHlo, hRtow, hdes, hwin, hfire⟩
 /-- `logChowla2_ineffective_v7_g0` from the 7/8 statement, without Siegel's theorem. -/

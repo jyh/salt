@@ -1042,11 +1042,7 @@ theorem flat_kswin_generic_eps (ε : ℚ) (P : ChowlaRegime → Prop) (Awin : �
   obtain ⟨_Ct0, -, -, hcond0⟩ := hcondU 0
   obtain ⟨Hcap0, -, hbody0⟩ :=
     hcond0 (max 162 (budgetAFlat (ε : ℝ) β)) (le_max_left _ _) (le_max_right _ _)
-  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
-    intro Hhi ω hgate
-    obtain ⟨-, -, hωw⟩ := hgate
-    simp only [Nat.cast_zero, Real.log_zero]
-    linarith [Real.log_natCast_nonneg ω]
+  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := xceilRiderStrict_zero ε
   obtain ⟨R0, hR0eps, -, -, -, -, -⟩ :=
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
   have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1

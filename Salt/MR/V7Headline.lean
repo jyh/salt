@@ -82,18 +82,6 @@ open scoped BigOperators
 
 /-! ## §1 — ⟦THE EXHIBITED CALLER⟧ `g ≡ 0` meets the strict rider -/
 
-/-- **⟦DREAM-SPACE, night 08/14 — branch artifact; consumes nothing until waking review⟧**
-
-**⟦THE ZERO CALLER⟧** (`xceilRiderStrict_zero`) — the constant-zero request meets
-`XCeilRiderStrict` at every `ε`.  `log 0 = 0` and the gate's own width window carries the
-`ε²·H₊` margin; `log ω ≥ 0` closes it.  (The witness pattern of `RegisterCompose.lean:242-246`,
-named here so the terminal can cite it.) -/
-theorem xceilRiderStrict_zero (ε : ℚ) : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
-  intro Hhi ω hgate
-  obtain ⟨-, -, hωw⟩ := hgate
-  simp only [Nat.cast_zero, Real.log_zero]
-  linarith [Real.log_natCast_nonneg ω]
-
 /-! ## §2 — ⟦THE TERMINAL AT THE EXHIBITED CALLER⟧ `…_ksarm` read at `g ≡ 0` -/
 
 set_option exponentiation.threshold 4000 in
