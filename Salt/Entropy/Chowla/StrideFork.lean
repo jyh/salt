@@ -486,7 +486,7 @@ theorem towerDropSum_eq_base_one (C0 a Hlo J : ℕ) :
 
 /-- **F1-R4 (class B) — the flat regime at a general stride EXISTS, with the coprimality floor
 paid by the flat base.**  The mirror of `chowlaRegimeFlat_exists_param_gen`
-(`TowerFlatBuilder.lean:257-359`, which builds at `a := 1` and returns a `ChowlaRegimeFlat`), read
+(`TowerFlatBuilder.lean:257-319`, which builds at `a := 1` and returns a `ChowlaRegimeFlat`), read
 at stride `a` and returned as a plain `ChowlaRegime` with the SAME lower endpoint
 `Hlo = max (flatDesignFloor A) (max Hlo₀ (4·⌈1/ε⌉₊⁴))` — spelled EXACTLY as that builder spells it
 (at `A ≥ 162` the `Salt.MR` side knows `flatDesignFloor A = flatDesignBase A`,
@@ -514,13 +514,6 @@ theorem chowlaRegime_exists_flat_stride (a : ℕ) (ha : 1 ≤ a) (A : ℝ) (_hA 
   classical
   have hapos : 0 < a := ha
   obtain ⟨m, hmdef⟩ : ∃ m : ℕ, m = ⌈(1 / eps : ℚ)⌉₊ := ⟨_, rfl⟩
-  have hm_ge : (1 / eps : ℚ) ≤ (m : ℚ) := by rw [hmdef]; exact Nat.le_ceil _
-  have hem : (1 : ℚ) ≤ eps * (m : ℚ) := by
-    have h := mul_le_mul_of_nonneg_left hm_ge (le_of_lt heps)
-    rwa [mul_one_div, div_self (ne_of_gt heps)] at h
-  have hm1N : 1 ≤ m := by rw [hmdef]; exact Nat.ceil_pos.mpr (div_pos one_pos heps)
-  have hm1 : (1 : ℚ) ≤ (m : ℚ) := by exact_mod_cast hm1N
-  have hemR : (1 : ℝ) ≤ (eps : ℝ) * (m : ℝ) := by exact_mod_cast hem
   obtain ⟨Hlo, hHlodef⟩ : ∃ Hlo : ℕ,
       Hlo = max (flatDesignFloor A) (max Hlo₀ (4 * m ^ 4)) := ⟨_, rfl⟩
   have hHloDF : flatDesignFloor A ≤ Hlo := by rw [hHlodef]; exact le_max_left _ _
@@ -529,7 +522,6 @@ theorem chowlaRegime_exists_flat_stride (a : ℕ) (ha : 1 ≤ a) (A : ℝ) (_hA 
     rw [hHlodef]; exact le_trans (le_max_left _ _) (le_max_right _ _)
   have hHlo4 : 4 * m ^ 4 ≤ Hlo := by
     rw [hHlodef]; exact le_trans (le_max_right _ _) (le_max_right _ _)
-  have hHlo4R : (4 : ℝ) * (m : ℝ) ^ 4 ≤ (Hlo : ℝ) := by exact_mod_cast hHlo4
   have hHlocap : Hlo = max (flatDesignFloor A) (max Hlo₀ (4 * ⌈(1 / eps : ℚ)⌉₊ ^ 4)) := by
     rw [hHlodef, hmdef]
   -- the two stride-sensitive fields, transferred from the flat base
@@ -539,26 +531,8 @@ theorem chowlaRegime_exists_flat_stride (a : ℕ) (ha : 1 ≤ a) (A : ℝ) (_hA 
     have hle : ((flatDesignFloor A : ℕ) : ℚ) ≤ (Hlo : ℚ) := by exact_mod_cast hHloDF
     have hmul := mul_le_mul_of_nonneg_left hle (sq_nonneg eps)
     linarith
-  -- `hPNTwindow`, the builder's script verbatim
-  have hPNT : Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) / 2 := by
-    have hsqrtHlo : (2 : ℝ) * (m : ℝ) ^ 2 ≤ Real.sqrt (Hlo : ℝ) := by
-      have heq : Real.sqrt (4 * (m : ℝ) ^ 4) = 2 * (m : ℝ) ^ 2 := by
-        rw [show (4 : ℝ) * (m : ℝ) ^ 4 = (2 * (m : ℝ) ^ 2) ^ 2 by ring,
-          Real.sqrt_sq (by positivity)]
-      calc (2 : ℝ) * (m : ℝ) ^ 2 = Real.sqrt (4 * (m : ℝ) ^ 4) := heq.symm
-        _ ≤ Real.sqrt (Hlo : ℝ) := Real.sqrt_le_sqrt hHlo4R
-    have hsqrtnn : (0 : ℝ) ≤ Real.sqrt (Hlo : ℝ) := Real.sqrt_nonneg _
-    have hHloeq : Real.sqrt (Hlo : ℝ) * Real.sqrt (Hlo : ℝ) = (Hlo : ℝ) :=
-      Real.mul_self_sqrt (by positivity)
-    have h2 : (2 : ℝ) ≤ (eps : ℝ) ^ 2 * Real.sqrt (Hlo : ℝ) := by
-      have hstep : (eps : ℝ) ^ 2 * (2 * (m : ℝ) ^ 2) ≤ (eps : ℝ) ^ 2 * Real.sqrt (Hlo : ℝ) :=
-        mul_le_mul_of_nonneg_left hsqrtHlo (sq_nonneg _)
-      nlinarith [hstep, hemR, sq_nonneg ((eps : ℝ) * (m : ℝ) - 1)]
-    have h3 : 2 * Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) := by
-      have hh := mul_le_mul_of_nonneg_right h2 hsqrtnn
-      rw [mul_assoc, hHloeq] at hh
-      linarith [hh]
-    linarith [h3]
+  -- `hPNTwindow`, from the shared `regime_eps_window_facts`
+  obtain ⟨-, hPNT⟩ := regime_eps_window_facts (Hlo := Hlo) heps (by rw [← hmdef]; exact hHlo4)
   -- ⟦THE RE-BASED TOWER⟧ at base `a·Hlo`
   have hHloaHlo : Hlo ≤ a * Hlo := Nat.le_mul_of_pos_left Hlo hapos
   have hbase : 4000000 ≤ a * Hlo := le_trans hHlo_floor hHloaHlo

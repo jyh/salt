@@ -14101,7 +14101,7 @@ Hlo ≥ f(M); M is post-R but U1floor is pre-R, and ChowlaRegime exports
 NO Hhi upper bound (hfit forces Hhi UP only). A refuter sets
 log Hhi = 2^{10^9} and breaks any pre-fixed Hlo. REPAIR: export
 log R.Hhi ≤ f(log R.Hlo) from the tower construction
-(chowlaRegime_exists_param_head', RegimeParam:475; benign in fact —
+(chowlaRegime_exists_param_head', RegimeParam:485; benign in fact —
 log Hhi ≈ (log Hlo)^{1+o(1)} — but NOT exported). ~200–500 ln + 3
 conjuncts, **Fable/JYH-tier statement change** (SpineFinal/regime
 territory). Schedule REGARDLESS of design choice.
@@ -14233,7 +14233,7 @@ shapes move** — everything else consumes the anchor through Adoor_ge
 (monotone, verbatim). Every anchor-sensitive gate moves FAVOURABLY
 (A_gate_logK margin 221× → 895265×; a2Level1 shrinks; H1_two easier;
 the arc floor anchor-independent). The x-floor rises log x ≥ 10^{473}
-→ 10^{480} — one-sided (RegimeParam:463-482 states the law; g is
+→ 10^{480} — one-sided (RegimeParam:473-492 states the law; g is
 spine-choosable after R) and 2.9e9 ORDERS below the floor hheadroom
 already imposes. **The anchor re-pin is cheap; it re-pins the
 JYH-ratified 7/26 B₅/door design (DoorFrame) — council ruling
@@ -15405,7 +15405,7 @@ on a baseline of 1.24e5** (it converts a constant arm to a λ-linear arm).
 (37620·5 + 33; the sibling constants cross-check).
 
 **⟦R-A4-3(b) — CONFIRMED BY DERIVATION: F5/gate-neutral.⟧**  The
-mechanism is `regimeEnlargeX'` (RegimeParam:433-460): a g-bump moves `x`
+mechanism is `regimeEnlargeX'` (RegimeParam:443-470): a g-bump moves `x`
 ALONE — ω/a/eps/Hlo/Hhi/C0/J carried verbatim.  All 11 gates walked:
 x-reading gates (the g-floor, gate 1's ladder/blocks, gate 10's
 `4·2^k/x`, gate 11's socket antecedent) are x-LOWERs or strictly eased;
@@ -17578,8 +17578,8 @@ itself held for the Captain).  (E1 TOP) capstone hframe = the PRE-R1
 DoorFuseFrame at a2RowsSum's growing p2-row — unprovable at any
 M ≥ 2 (the shortfall exactly ×M; only vacuity could discharge it).
 (E5) the M-band is TWO-SIDED in λ (≲289) but the head exports no
-R.Hlo upper — the builder's equality (RegimeParam:335) is discarded
-at :321; a seven-statement conjunct-carry recovers it.  (E4) epsrf ≡ 0
+R.Hlo upper — the builder's equality (RegimeParam:377) is discarded
+at :371; a seven-statement conjunct-carry recovers it.  (E4) epsrf ≡ 0
 is a TRAP (kills abs8640); pin epsrf := θ₂₉₃ − 1/500.  (E7) compose
 at SYMBOLIC Λ := (loglog R.Hlo)^{9/2} off the tower conjunct, no
 numeral.  (E8 favorable) bfloor discharges by ⌈24Cg/δ₀⌉-choice since
@@ -18254,7 +18254,7 @@ at large J).
 
 ## () WITNESS-LIVE: STALE CONFIRMED -- the register NON-EMPTY at the live forms (kernel, probe_live_sel'_witness); the margin corrected to ~1 BIT; the 2.63x prose slip caught and fixed; the reachability price COLLAPSES (3 leaves, K-free) -- EPSPIN + X0MFL fly
 
-THE VERDICT at the bytes: the live head (HloExport:434) emits δ₀ =
+THE VERDICT at the bytes: the live head (HloExport:394) emits δ₀ =
 cD3/(16C)·ε/4 — K-FREE, /4 not /(2K); delta0Expr certifies the OLD
 L¹ head (SpineFinal:873, /(2K), 2^-556.89) which the live road NEVER
 consumes.  The live closed form s13Delta0 = 2^-19.676; the live
@@ -18759,7 +18759,7 @@ maestro-verified; 12/12 axioms.
 
 ## () H2-CONSTANTS: HARD -- the chase's honest max A ~ 5.4e14 (fantasy+redesigns 1.8e5) vs the 86.65 window; THE KERNEL FLOOR A >= 1.7e6-3.9e7 (a THEOREM about the dyadic window; cD3 <= log2 is the Mertens TRUTH; closing at the landed shape needs eps >= 6 vs <= 1/2). THE MASTER FORMULA banked (the couplings: cD3 at exponent 10; C0 = 2log4 -> 1/2 the biggest unlisted item at 2.2e6; the window-width K the only lever past the log2 ceiling, D-tier). BUT ⟦THE SYNTHESIS -- H1 x H2⟧: THE 86.65 WINDOW IS ITSELF THE WITNESS-FLOOR ARTIFACT (the frozen s15WitFloor2, chosen for the OLD road): the flat road pins ITS OWN floor (flatWitFloor -- the Hcap comparison is a landed THEOREM there), and H1's p9 proves the LINEAR door hosts the full flat width UNIFORMLY IN A -- so A does NOT need to shrink: λ₋ = 3.2A grows with it and NOTHING at the linear door caps λ₋ from above (H1: blk/x0M/bfloor/mfloor/rho all clear or eased; lvl/gRows at 55 orders). THE FACE DISSOLVES BY UNFREEZING, NOT BY CHASING. THE ROAD: the _L arithmetic-page wave (H1's repair, ALREADY-RATIFIED as the mandatory Adoor re-cut's unfinished half) -> the register witness at λ₋ = 3.2A -> the flat compose re-fired at the linear door. H2's S1-tier gains (f=1, q=2: 16x, class B) ride along as freebies; the deep chase NOT load-bearing. ⟦LINEAR-PAGE dispatched⟧
 
-## () H3-SHAPE: **THE WIDTH LAW IS A THEOREM** (kernelized shape-free, 19 probes): ANY threshold with phi >= A_b crossing log2 forces (c+lambda+) >= 2^{(20/21)A_b}(c+lambda-) -- THE FLAT TOWER IS EXTREMAL (no shape beats it by more than 2x in the exponent base; the landed logloglog pays the SAME A_b on the scale axis -- the height-3 budgetFloor IS that bill); the mixed-design question CLOSED; the cheap-levels escape CLOSED (the pigeonhole discharge is uniform-at-the-base: HloExport:465); the Q-ary escape priced absurd; THE ONE STRUCTURAL DOOR LEFT: a step lemma whose concatenation error is not eps^2/m. FREEBIES: eps <= cD3/16 (not 1/500) = 1.4e7 free in A_b; the Fannes UPPER phi <= L/(6log2) noted (free at the design law). ⟦THE RECONCILIATION -- maestro note⟧ H3's "H1 buys only 350 bits" ran at the FROZEN M = 2^355 and did NOT ingest H1's design-law scaling (M = e^{lambda-/2}/3e5 GROWS): H1's p9 is kernel -- the linear pair hosts lambda+ = lambda-*4^{0.95A} UNIFORM IN A -- the register supplies B = 1.9A bits exactly when the law demands A_b <= B. THE SYNTHESIS STANDS: flat tower + linear door + growing M = the road; H2's chase not load-bearing; H3's law = the publishable by-product (the entropy-decrement width law -- The Witness's companion theorem). THE COMPOSE REFUTER MUST VERIFY THE JOINT POINT EXPLICITLY (lambda- = 3.2A, M = e^{lambda-/2}/3e5, anchor-linear, the width law, the budget, Fannes -- ALL simultaneously; the three hunts ran parallel and never met in one kernel statement). LINEAR-PAGE aloft; COMPOSE-FLAT-2 + the joint refuter after.
+## () H3-SHAPE: **THE WIDTH LAW IS A THEOREM** (kernelized shape-free, 19 probes): ANY threshold with phi >= A_b crossing log2 forces (c+lambda+) >= 2^{(20/21)A_b}(c+lambda-) -- THE FLAT TOWER IS EXTREMAL (no shape beats it by more than 2x in the exponent base; the landed logloglog pays the SAME A_b on the scale axis -- the height-3 budgetFloor IS that bill); the mixed-design question CLOSED; the cheap-levels escape CLOSED (the pigeonhole discharge is uniform-at-the-base: HloExport:425); the Q-ary escape priced absurd; THE ONE STRUCTURAL DOOR LEFT: a step lemma whose concatenation error is not eps^2/m. FREEBIES: eps <= cD3/16 (not 1/500) = 1.4e7 free in A_b; the Fannes UPPER phi <= L/(6log2) noted (free at the design law). ⟦THE RECONCILIATION -- maestro note⟧ H3's "H1 buys only 350 bits" ran at the FROZEN M = 2^355 and did NOT ingest H1's design-law scaling (M = e^{lambda-/2}/3e5 GROWS): H1's p9 is kernel -- the linear pair hosts lambda+ = lambda-*4^{0.95A} UNIFORM IN A -- the register supplies B = 1.9A bits exactly when the law demands A_b <= B. THE SYNTHESIS STANDS: flat tower + linear door + growing M = the road; H2's chase not load-bearing; H3's law = the publishable by-product (the entropy-decrement width law -- The Witness's companion theorem). THE COMPOSE REFUTER MUST VERIFY THE JOINT POINT EXPLICITLY (lambda- = 3.2A, M = e^{lambda-/2}/3e5, anchor-linear, the width law, the budget, Fannes -- ALL simultaneously; the three hunts ran parallel and never met in one kernel statement). LINEAR-PAGE aloft; COMPOSE-FLAT-2 + the joint refuter after.
 
 ## () LINEAR-PAGE LANDS (2 files, 9653 exit-0): THE ACCEPTANCE THEOREM s15_sel_L_witness_flat -- the register AT THE FLAT DESIGN POINT, **NO UPPER BOUND ON A ANYWHERE** (H1xH2's synthesis kernelized); the two transport-freenesses (linear anchor WEAKER -> supply transports down; linear socket STRONGER -> consumption transports up -- the ~97 floor-sites need NO twin); half binding by design (M at its ceiling); x0M second-tightest at 1.24x (A REAL design constraint on the x0 window, flagged); the blk line = one inequality (y^4/256 <= e^y). RESIDUE for the re-fire: M4ArithPrime/_L + M4AssemblyFrames/_L twins + the socket form. ⚠ MAESTRO CATCH: the acceptance witness carries the OLD narrow riders (1/2^10 delta0 -- FALSE at the pinned 1/838400! -- and Kc/Ct at 2^20): THE RE-FIRE MUST USE THE WIDE FORMS (S16Budget §6.6: 1/2^20 + charge 403 + 2^539/2^23). ⟦COMPOSE-FLAT-2 dispatched⟧
 
@@ -23307,7 +23307,7 @@ docstring were measured stale at the tree (`395786f0`) and re-worded in the same
 "exactly as `MRTUniformityXi` is for `h = 1`" (`mrtUniformityXi_holds_flat`,
 `Salt/MR/DoorReceipt.lean`, 2026-09-02, produces it at flat regimes). Left standing because
 still true: `MRTUniformity` (the `∀ α` door) is produced nowhere — 11 hits, all binders, 0
-conclusions; `MRTUniformityXiH h` itself has no producer (`StrideFork.lean:627` is a compat
+conclusions; `MRTUniformityXiH h` itself has no producer (`StrideFork.lean:601` is a compat
 EQUALITY, not a supply).
 
 ## ⚠️ (2026-08-16, wave BRUN-ELL1) ⟦THE `Buchstab.lean` HEADER FLAG IS STALE AT HEAD — THE `_div` LEMMAS ARE NOW EXACT DUPLICATES; DISPOSITION DEFERRED⟧
@@ -23509,10 +23509,10 @@ the brief's `≳ 1.17e4` = 11700 FAILS at `−9.18`). So the conjunct demands
 
 ### 📐 THE CENSUS — 5 construction sites (three search shapes; structure-instance form is the only one used)
 ```
-  Salt/Entropy/Chowla/RegimeParam.lean:386      chowlaRegime_exists_param_gen           Hlo₀ param
-  Salt/Entropy/Chowla/HloExport.lean:151        chowlaRegime_exists_param_gen_hloCap    Hlo₀ param
-  Salt/Entropy/Chowla/TowerFlatBuilder.lean:351 chowlaRegimeFlat_exists_param_gen       Hlo₀ param
-  Salt/MR/XCeil.lean:510                        chowlaRegimeFlat_exists_param_gen_ceiling Hlo₀ param
+  Salt/Entropy/Chowla/RegimeParam.lean:396      chowlaRegime_exists_param_gen           Hlo₀ param
+  Salt/Entropy/Chowla/HloExport.lean:111        chowlaRegime_exists_param_gen_hloCap    Hlo₀ param
+  Salt/Entropy/Chowla/TowerFlatBuilder.lean:311 chowlaRegimeFlat_exists_param_gen       Hlo₀ param
+  Salt/MR/XCeil.lean:471                        chowlaRegimeFlat_exists_param_gen_ceiling Hlo₀ param
   Salt/Entropy/Chowla/RegimeInst.lean:175       regime_exists_of_dropSum          ⛔ Hlo := 4000000
 ```
 **The four parametric sites CAN discharge it.** Each sets `R.Hlo = max … (max Hlo₀ …)`, so the floor
@@ -25447,7 +25447,7 @@ Neither is paid from `hhL : log h <= L` by one `linarith`: both need an `h`-depe
 floor.  The brief's STOP condition "a cap site the two lifts do not cover" fired.
 
 **(2) The split lift is FALSE as specified.**  `xceil_arm_split_mul_h_b9`
-(`StridePairReceipt.lean:1404`) concludes `log 2 + log h + 9 <= H/(250000 h^2) - H/10^20`.  With
+(`StridePairReceipt.lean:1365`) concludes `log 2 + log h + 9 <= H/(250000 h^2) - H/10^20`.  With
 `L` for `9` and the cap gone, the right side is `H * (1/(250000 h^2) - 10^-20)`, NEGATIVE once
 `250000 h^2 > 10^20`, i.e. `h > 2*10^7` (`log h > 16.81`), while the left side is positive.
 Kernel-checked at `h = 10^8`: the right side equals `H * (-96/10^22) < 0` for every `H > 0`, and
