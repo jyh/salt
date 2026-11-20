@@ -1269,7 +1269,7 @@ theorem flat_v7_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pro
     rwa [max_eq_left (xTightCeilArm_nonneg ε hε R.Hhi hHhi4)] at hle
   have heps500 : (1 : ℚ) / (500 * (c : ℚ)) ≤ R.eps := by
     rw [hReps]; exact hεpin
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
+  obtain ⟨hM1, -, hlo, hfl⟩ := regime_flat_head_facts_mul hc0 hReps hHlo hεpin hA162
   have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
   have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
   have heps500R : (1 : ℝ) / (500 * (c : ℝ)) ≤ (R.eps : ℝ) := by
@@ -1281,9 +1281,6 @@ theorem flat_v7_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pro
     linarith
   have h518 : (518 : ℝ) + 6 * Real.log (c : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
     linarith [hdes, hA162b, hLc0]
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA162
   have hthrgate : cofkRThr Cq Cb Xsk Y0 + 2 * Real.log (c : ℝ)
       ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
     linarith [hthrA, hlo, hexp1, hAL, hA162]
