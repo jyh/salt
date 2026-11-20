@@ -4,7 +4,7 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 
 # ⟦THE `Hlo` CAP⟧ — the builder's base EQUATION, re-threaded (node HLO-EXPORT)
 
-`chowlaRegime_exists_param_gen` (`RegimeParam.lean:335`) sets the regime base by
+`chowlaRegime_exists_param_gen` (`RegimeParam.lean:377`) sets the regime base by
 an EQUALITY,
 
 ```
@@ -24,9 +24,9 @@ consuming the previous twin.  No landed declaration is touched.
   EQUATION itself, `R.Hlo = max 4000000 (max Hlo₀ (4·⌈1/ε⌉₊⁴))`.  This is the one
   place where the proof must be replayed (the equation is discarded inside the
   landed proof, so no consequence of the landed statement can recover it); the
-  replay is `RegimeParam.lean:323–391` verbatim with the equation kept.
+  replay is `RegimeParam.lean:373–401` verbatim with the equation kept.
 * §2 the two tower twins pass the conjunct through untouched
-  (`regimeEnlargeX'` carries `Hlo` VERBATIM, `RegimeParam.lean:438`).
+  (`regimeEnlargeX'` carries `Hlo` VERBATIM, `RegimeParam.lean:448`).
 * §3 the head twin `log_chowla_two_budget_head_g_sq_count_hloCap` re-shapes it
   for the road.  The head calls the builder at
   `Hlo₀ := max A (max extraFloor U1floor)` with `A` the head's own four-arm
@@ -67,7 +67,7 @@ namespace Salt.Entropy.Chowla
 
 /-- **The parametric regime builder, with the base equation exported**
 (`chowlaRegime_exists_param_gen_hloCap`) — `chowlaRegime_exists_param_gen`
-(`RegimeParam.lean:318`) plus the fourth conjunct
+(`RegimeParam.lean:368`) plus the fourth conjunct
 
 ```
 R.Hlo = max 4000000 (max Hlo₀ (4·⌈1/ε⌉₊⁴))
@@ -83,16 +83,8 @@ theorem chowlaRegime_exists_param_gen_hloCap (eps : ℚ) (heps : 0 < eps)
       R.Hhi = chowlaTower 2 1 R.Hlo (Jof R.Hlo) ∧
       R.Hlo = max 4000000 (max Hlo₀ (4 * ⌈(1 / eps : ℚ)⌉₊ ^ 4)) := by
   classical
-  have hepsR : (0 : ℝ) < (eps : ℝ) := by exact_mod_cast heps
   -- the scale `m ≥ 1/ε`
   obtain ⟨m, hmdef⟩ : ∃ m : ℕ, m = ⌈(1 / eps : ℚ)⌉₊ := ⟨_, rfl⟩
-  have hm_ge : (1 / eps : ℚ) ≤ (m : ℚ) := by rw [hmdef]; exact Nat.le_ceil _
-  have hem : (1 : ℚ) ≤ eps * (m : ℚ) := by
-    have h := mul_le_mul_of_nonneg_left hm_ge (le_of_lt heps)
-    rwa [mul_one_div, div_self (ne_of_gt heps)] at h
-  have hm1N : 1 ≤ m := by rw [hmdef]; exact Nat.ceil_pos.mpr (div_pos one_pos heps)
-  have hm1 : (1 : ℚ) ≤ (m : ℚ) := by exact_mod_cast hm1N
-  have hemR : (1 : ℝ) ≤ (eps : ℝ) * (m : ℝ) := by exact_mod_cast hem
   -- the enlarged base floor
   obtain ⟨Hlo, hHlodef⟩ : ∃ Hlo : ℕ, Hlo = max 4000000 (max Hlo₀ (4 * m ^ 4)) := ⟨_, rfl⟩
   have hHlo_floor : 4000000 ≤ Hlo := by rw [hHlodef]; exact le_max_left _ _
@@ -100,43 +92,11 @@ theorem chowlaRegime_exists_param_gen_hloCap (eps : ℚ) (heps : 0 < eps)
     rw [hHlodef]; exact le_trans (le_max_left _ _) (le_max_right _ _)
   have hHlo4 : 4 * m ^ 4 ≤ Hlo := by
     rw [hHlodef]; exact le_trans (le_max_right _ _) (le_max_right _ _)
-  have hHlo4Q : (4 : ℚ) * (m : ℚ) ^ 4 ≤ (Hlo : ℚ) := by exact_mod_cast hHlo4
-  have hHlo4R : (4 : ℝ) * (m : ℝ) ^ 4 ≤ (Hlo : ℝ) := by exact_mod_cast hHlo4
   -- ⟦THE EXPORTED EQUATION⟧ the landed `hHlodef`, spelled at `⌈1/ε⌉₊`
   have hHlocap : Hlo = max 4000000 (max Hlo₀ (4 * ⌈(1 / eps : ℚ)⌉₊ ^ 4)) := by
     rw [hHlodef, hmdef]
-  -- `hcoprime : 1 ≤ ε²·Hlo/2`
-  have hcop : ((1 : ℕ) : ℚ) ≤ eps ^ 2 * (Hlo : ℚ) / 2 := by
-    have hprod : (1 : ℚ) ≤ (eps * (m : ℚ)) ^ 2 * (m : ℚ) ^ 2 := by
-      have h1 : (1 : ℚ) ≤ (eps * (m : ℚ)) ^ 2 := by nlinarith [hem, sq_nonneg (eps * (m : ℚ) - 1)]
-      have h2 : (1 : ℚ) ≤ (m : ℚ) ^ 2 := by nlinarith [hm1, sq_nonneg ((m : ℚ) - 1)]
-      exact le_trans h1 (le_mul_of_one_le_right (sq_nonneg _) h2)
-    have heq : (eps * (m : ℚ)) ^ 2 * (m : ℚ) ^ 2 = eps ^ 2 * (m : ℚ) ^ 4 := by ring
-    have h4le : (4 : ℚ) ≤ eps ^ 2 * (Hlo : ℚ) := by
-      have hmul : eps ^ 2 * (4 * (m : ℚ) ^ 4) ≤ eps ^ 2 * (Hlo : ℚ) :=
-        mul_le_mul_of_nonneg_left hHlo4Q (sq_nonneg eps)
-      nlinarith [hmul, hprod, heq]
-    rw [Nat.cast_one]; linarith
-  -- `hPNTwindow : √Hlo ≤ ε²·Hlo/2`
-  have hPNT : Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) / 2 := by
-    have hsqrtHlo : (2 : ℝ) * (m : ℝ) ^ 2 ≤ Real.sqrt (Hlo : ℝ) := by
-      have heq : Real.sqrt (4 * (m : ℝ) ^ 4) = 2 * (m : ℝ) ^ 2 := by
-        rw [show (4 : ℝ) * (m : ℝ) ^ 4 = (2 * (m : ℝ) ^ 2) ^ 2 by ring,
-          Real.sqrt_sq (by positivity)]
-      calc (2 : ℝ) * (m : ℝ) ^ 2 = Real.sqrt (4 * (m : ℝ) ^ 4) := heq.symm
-        _ ≤ Real.sqrt (Hlo : ℝ) := Real.sqrt_le_sqrt hHlo4R
-    have hsqrtnn : (0 : ℝ) ≤ Real.sqrt (Hlo : ℝ) := Real.sqrt_nonneg _
-    have hHloeq : Real.sqrt (Hlo : ℝ) * Real.sqrt (Hlo : ℝ) = (Hlo : ℝ) :=
-      Real.mul_self_sqrt (by positivity)
-    have h2 : (2 : ℝ) ≤ (eps : ℝ) ^ 2 * Real.sqrt (Hlo : ℝ) := by
-      have hstep : (eps : ℝ) ^ 2 * (2 * (m : ℝ) ^ 2) ≤ (eps : ℝ) ^ 2 * Real.sqrt (Hlo : ℝ) :=
-        mul_le_mul_of_nonneg_left hsqrtHlo (sq_nonneg _)
-      nlinarith [hstep, hemR, sq_nonneg ((eps : ℝ) * (m : ℝ) - 1)]
-    have h3 : 2 * Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) := by
-      have hh := mul_le_mul_of_nonneg_right h2 hsqrtnn
-      rw [mul_assoc, hHloeq] at hh
-      linarith [hh]
-    linarith [h3]
+  -- `hcoprime : 1 ≤ ε²·Hlo/2` and `hPNTwindow : √Hlo ≤ ε²·Hlo/2`
+  obtain ⟨hcop, hPNT⟩ := regime_eps_window_facts (Hlo := Hlo) heps (by rw [← hmdef]; exact hHlo4)
   -- the tower endpoint and its divergence
   obtain ⟨J, hJdef⟩ : ∃ J : ℕ, J = Jof Hlo := ⟨_, rfl⟩
   have hJ : Real.log 2 < towerDropSum 2 1 Hlo J := by
@@ -177,7 +137,7 @@ theorem chowlaRegime_exists_param_tower_45_hloCap (eps : ℚ) (heps : 0 < eps)
 /-- **The head-shaped builder at `K = 9/2`, cap-carrying**
 (`chowlaRegime_exists_param_head_tower45'_hloCap`) — `TowerExport.lean:910`'s
 statement plus the base equation.  `regimeEnlargeX'` carries `Hlo` VERBATIM
-(`RegimeParam.lean:438`), so the equation survives the outer-scale push
+(`RegimeParam.lean:448`), so the equation survives the outer-scale push
 untouched, exactly as `Hlo₀ ≤ R.Hlo` does there. -/
 theorem chowlaRegime_exists_param_head_tower45'_hloCap (eps : ℚ) (heps : 0 < eps)
     (heps1 : eps ≤ 1 / 2) (Hlo₀ : ℕ) (g : ℕ → ℕ → ℕ) :
