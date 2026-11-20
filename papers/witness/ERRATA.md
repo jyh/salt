@@ -57,7 +57,7 @@ produces and two windows of Siegel genre. \S\ref{sec:limit} removes the two wind
 removal is Siegel's ineffective constant, carried by the rider $e^{-100} \le K_s$ and the cushion.
 ```
 
-(`logChowla2_ineffective_v6` (`Salt/MR/RegisterCompose.lean:339`), the end of §sec:limit's chain, has neither window
+(`logChowla2_ineffective_v6` (`Salt/MR/RegisterCompose.lean:336`), the end of §sec:limit's chain, has neither window
 among its hypotheses: they are `x₀ ≤ e^{e^{3.2A}/10}` and `H_opq ≤ ⌈e^{e^{3.2A}}⌉`, and its statement binds no `x₀` or
 `H_opq`. The manuscript's own §sec:limit, :1278, opens the chain with "Step 1: the Siegel pair, by the limit", and
 :295–297 names the surviving pair as `K_s` and the cushion.)
