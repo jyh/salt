@@ -391,11 +391,8 @@ theorem prop21_unconditional_uniform (g : ℕ → ℂ) (hg : ∀ p, p.Prime → 
   -- BOTH constants are obtained BEFORE any scale is named
   obtain ⟨Cc, hCc0, hCbound⟩ := shortInterval_vonMangoldt_le
   obtain ⟨X₁, hX₁⟩ := logpow4_le_sqrt_ev
-  have hgtw : ∀ p, p.Prime → ‖(fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist t₀ hp.one_lt.le, mul_one]
-    exact hg p hp
+  have hgtw : ∀ p, p.Prime → ‖(fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg t₀
   obtain ⟨C_E, hCE⟩ := mult_shiu_MS_EXIT (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) hgtw
   refine ⟨max X₁ 17179869184, max C_E 0, 32 * Cc, le_max_right _ _, by linarith, ?_⟩
   intro X h c₀ y η hXlb hh hc₀ hη hc' hy10 hyX hygate

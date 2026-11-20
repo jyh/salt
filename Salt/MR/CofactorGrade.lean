@@ -287,11 +287,8 @@ theorem caseA_rhs_socket {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ �
   have hgx : ∀ p : ℕ, p.Prime → ‖gxDatum g P Q x p‖ ≤ 1 :=
     fun p hp => gxDatum_norm_le_one hx0 hx1 hg p hp
   have hgtw : ∀ p : ℕ, p.Prime →
-      ‖(fun q => gxDatum g P Q x q * (q : ℂ) ^ (-(τ : ℂ) * Complex.I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist τ hp.one_lt.le, mul_one]
-    exact hgx p hp
+      ‖(fun q => gxDatum g P Q x q * (q : ℂ) ^ (-(τ : ℂ) * Complex.I)) p‖ ≤ 1 :=
+    norm_twist_le_one hgx τ
   have hk0 : (0 : ℝ) < (k : ℝ) := lt_of_lt_of_le (Real.exp_pos 64) hk
   have hk3 : Real.exp 3 ≤ (k : ℝ) :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hk

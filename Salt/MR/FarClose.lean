@@ -190,11 +190,8 @@ theorem far_supF_bound {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 
   have hL3 : (3 : ℝ) ≤ L := by
     rw [hL, ← Real.log_exp 3]; exact Real.log_le_log (Real.exp_pos 3) hk
   have hL0 : (0 : ℝ) < L := by linarith
-  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist t₀' hp.one_lt.le, mul_one]
-    exact hg p hp
+  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg t₀'
   have hM0 : (0 : ℝ) ≤ pretDistSq (ellLin (fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)))
       (costwist (t - t₀')) k :=
     pretDistSq_nonneg _ _ _

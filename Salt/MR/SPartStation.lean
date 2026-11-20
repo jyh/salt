@@ -392,11 +392,8 @@ theorem dilated_scale_grade {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖
   have hk3 : Real.exp 3 ≤ (k : ℝ) :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hk64
   have hgtw : ∀ p, p.Prime →
-      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist (t₀ + t₁) hp.one_lt.le, mul_one]
-    exact hg p hp
+      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg (t₀ + t₁)
   have hEll : ∀ n : ℕ, ‖ellLin g n‖ ≤ 1 := ellLin_norm_le_one g hg
   set M : ℝ := max 0 (M₀ - dilGap X Xd) with hMdef
   have hM0 : (0 : ℝ) ≤ M := le_max_left _ _

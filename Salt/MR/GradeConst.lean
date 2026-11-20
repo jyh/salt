@@ -1101,11 +1101,8 @@ theorem rhs_grade_at_scale_const (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g
   have hk3 : Real.exp 3 ≤ k := by
     have h3 : Real.exp 3 ≤ Real.exp 64 := Real.exp_le_exp.mpr (by norm_num)
     linarith
-  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist t₀' hp.one_lt.le, mul_one]
-    exact hg p hp
+  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg t₀'
   have hKamp0 : (0 : ℝ) ≤ widthKamp Cb k h y c₀ := widthKamp_nonneg hCb0 hk0 hh0 hy0
   have hG0 : (0 : ℝ) ≤ rhsSigmaG M L := by
     unfold rhsSigmaG

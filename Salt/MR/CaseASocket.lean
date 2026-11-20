@@ -310,11 +310,8 @@ theorem joint_supF_pin_at2C {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖
   have hylo' : Real.exp 1 ≤ y := by rw [hy]; exact hylo
   have hηy : η = 1 / Real.log y := by rw [hy, hη]; exact hηeq
   have hη4 : η ≤ 1 / 4 := by rw [hη]; linarith
-  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist t₀' hp.one_lt.le, mul_one]
-    exact hg p hp
+  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg t₀'
   have hσL : 1 / (β + 1 / L) ≤ L := by
     rw [div_le_iff₀ hσ0]
     have h1 : L * (1 / L) = 1 := by field_simp
@@ -431,11 +428,8 @@ theorem jointIntegrableAtC_pin2_free {g : ℕ → ℂ} (hg : ∀ p, p.Prime → 
   have hη0' : (0 : ℝ) ≤ η := by rw [hη]; exact hη0.le
   have hc2η : (0 : ℝ) < c₀ - 2 * η := by
     rw [hc₀, hη]; linarith
-  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist t₀' hp.one_lt.le, mul_one]
-    exact hg p hp
+  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg t₀'
   refine jointIntegrableAtC_of_gates hk1 hh0 hL0 hη0' hc2η ?_
   refine jointIntegrableAt_of_gates hk1 hh0 hL0 hη0' hc2η ?_
   intro α hα β hβ t
@@ -573,11 +567,8 @@ theorem rhs_grade_at_scale_window2C {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
     le_trans (Real.exp_le_exp.mpr (by norm_num : (64 : ℝ) ≤ 32768)) hkexp
   have hy40 : (0 : ℝ) < L ^ 4 := by positivity
   have hd : (0 : ℝ) < 1 - 2 * c := by linarith
-  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist t₀' hp.one_lt.le, mul_one]
-    exact hg p hp
+  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg t₀'
   have hKamp0 : (0 : ℝ) ≤ widthKamp Cb k h (L ^ 4) c₀ :=
     widthKamp_nonneg2C hCb0 hk0 hh0 hy40
   have hG0 : (0 : ℝ) ≤ rhsSigmaGC c M L := by
@@ -690,11 +681,8 @@ theorem caseA_rhs_socket2 {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ �
   have hgx : ∀ p : ℕ, p.Prime → ‖gxDatum g P Q x p‖ ≤ 1 :=
     fun p hp => gxDatum_norm_le_one hx0 hx1 hg p hp
   have hgtw : ∀ p : ℕ, p.Prime →
-      ‖(fun q => gxDatum g P Q x q * (q : ℂ) ^ (-(τ : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist τ hp.one_lt.le, mul_one]
-    exact hgx p hp
+      ‖(fun q => gxDatum g P Q x q * (q : ℂ) ^ (-(τ : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hgx τ
   obtain ⟨hk0, hL32, -, -, -, -, -, -, -, -, -, -, -⟩ := pin2_basic hk rfl
   have hL0 : (0 : ℝ) < Real.log (k : ℝ) := by linarith
   -- the `η`-slot: the closed form `η₂` IS `1/log y₂`

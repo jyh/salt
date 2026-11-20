@@ -220,6 +220,15 @@ lemma norm_twist (t₀ : ℝ) {n : ℕ} (hn : 1 ≤ n) :
   have hre : (-(t₀ : ℂ) * I).re = 0 := by simp
   rw [hre, Real.rpow_zero]
 
+/-- The twisted datum `q ↦ g q · q^{-it₀}` keeps `g`'s bound `‖g p‖ ≤ 1` at every prime, because
+the twist is unimodular (`norm_twist`). -/
+lemma norm_twist_le_one {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ : ℝ) :
+    ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀ : ℂ) * I)) p‖ ≤ 1 := by
+  intro p hp
+  simp only
+  rw [norm_mul, norm_twist t₀ hp.one_lt.le, mul_one]
+  exact hg p hp
+
 /-- The seam coefficient is bounded by `1` (unimodular twist, `‖f‖,‖g_J‖ ≤ 1`). -/
 lemma norm_seamCoeff_le {f gJ : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1)
     (hg : ∀ n, ‖gJ n‖ ≤ 1) (t₀ : ℝ) (n : ℕ) : ‖seamCoeff f gJ t₀ n‖ ≤ 1 := by

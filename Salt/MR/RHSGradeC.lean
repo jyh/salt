@@ -147,11 +147,8 @@ theorem joint_supF_pinC {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤
     rw [div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 4)]
     linarith
   -- the twisted datum is 1-bounded at primes
-  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist t₀' hp.one_lt.le, mul_one]
-    exact hg p hp
+  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg t₀'
   -- the scale condition `e^{1/σ} ≤ k` on `σ ≥ 1/L`
   have hσL : 1 / (β + 1 / L) ≤ L := by
     rw [div_le_iff₀ hσ0]

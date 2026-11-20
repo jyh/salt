@@ -896,11 +896,8 @@ theorem dilated_scale_grade_polylog {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
     (η := 1 / Real.log (Real.log (k : ℝ) ^ 4)) (c₀ := 1 + 1 / Real.log (k : ℝ))
     hk64 rfl rfl rfl rfl
   have hgtw : ∀ p, p.Prime →
-      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist (t₀ + t₁) hp.one_lt.le, mul_one]
-    exact hg p hp
+      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg (t₀ + t₁)
   have hEll : ∀ n : ℕ, ‖ellLin g n‖ ≤ 1 := ellLin_norm_le_one g hg
   set M : ℝ := max 0 (M₀ - dilGap X Xd) with hMdef
   have hM0 : (0 : ℝ) ≤ M := le_max_left _ _

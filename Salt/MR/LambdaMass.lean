@@ -256,11 +256,8 @@ theorem prop21_unconditional_uniform_absC :
   obtain ⟨C_E, hCEall⟩ := mult_shiu_MS_EXIT_const
   refine ⟨max X₁ 17179869184, max C_E 0, 32 * Cc, le_max_right _ _, by linarith, ?_⟩
   intro g hg t₀ X h c₀ y η hXlb hh hc₀ hη hc' hy10 hyX hygate
-  have hgtw : ∀ p, p.Prime → ‖(fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist t₀ hp.one_lt.le, mul_one]
-    exact hg p hp
+  have hgtw : ∀ p, p.Prime → ‖(fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg t₀
   have hCE := hCEall (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) hgtw
   -- outer-regime facts
   have hXbig : (17179869184 : ℝ) ≤ X := le_trans (le_max_right _ _) hXlb
