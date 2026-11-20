@@ -150,18 +150,6 @@ namespace Salt.MR
 
 open Salt.Entropy.Chowla
 
-/-- **⟦DREAM-SPACE, night 08/14 — branch artifact; consumes nothing until waking review⟧**
-
-**⟦THE ZERO CALLER⟧** (`xceilRiderStrict_zero`) — the constant-zero request meets
-`XCeilRiderStrict` at every `ε`.  `log 0 = 0` and the gate's own width window carries the
-`ε²·H₊` margin; `log ω ≥ 0` closes it.  (Named so the terminal can cite it; it
-sits beside `XCeilRiderStrict` so every charge head can take it in place of an inline witness.) -/
-theorem xceilRiderStrict_zero (ε : ℚ) : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
-  intro Hhi ω hgate
-  obtain ⟨-, -, hωw⟩ := hgate
-  simp only [Nat.cast_zero, Real.log_zero]
-  linarith [Real.log_natCast_nonneg ω]
-
 /-! ## §2 — ⟦THE ONE GENUINE ESTIMATE⟧ THE COMPOSE'S ARM, PRICED -/
 
 /-- `6·10^{10} ≤ e^{25}` — the numeral `TowerFlatExport.flat_lambda_core` uses, re-derived
@@ -1243,6 +1231,18 @@ set_option exponentiation.threshold 4000 in
 set_option maxHeartbeats 1600000 in
 -- Same cause as the landed original: the hoisted prefix plus the three window discharges
 -- re-elaborate the terminal's conclusion.
+/-- **⟦DREAM-SPACE, night 08/14 — branch artifact; consumes nothing until waking review⟧**
+
+**⟦THE ZERO CALLER⟧** (`xceilRiderStrict_zero`) — the constant-zero request meets
+`XCeilRiderStrict` at every `ε`.  `log 0 = 0` and the gate's own width window carries the
+`ε²·H₊` margin; `log ω ≥ 0` closes it.  (Named so the terminal can cite it; it
+sits beside `XCeilRiderStrict` so every charge head can take it in place of an inline witness.) -/
+theorem xceilRiderStrict_zero (ε : ℚ) : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
+  intro Hhi ω hgate
+  obtain ⟨-, -, hωw⟩ := hgate
+  simp only [Nat.cast_zero, Real.log_zero]
+  linarith [Real.log_natCast_nonneg ω]
+
 /-- **⟦THE FLAT LINEAR TERMINAL `v2`, `A`-UNIFORM, WINDOWED, PRICED, `K`-HOISTED, `x`-CEILINGED⟧**
 (`logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist`) —
 `S16ComposeV4.logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_khoist` on §8's twin.  The
