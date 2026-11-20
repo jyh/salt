@@ -1173,7 +1173,7 @@ theorem flat_kswin_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → 
       (by simp only [regimeEnlargeX_Hlo]; rw [hHlo]; exact hT₀) hblk hcof hcapsc)
 
 /-- **⟦ARM R H6→H7⟧** (`flat_v7_generic_epsW_band`) — rung 2's `flat_v7_generic_epsW`
-(`FlatDoorEpsRung2.lean:5331`) at the band forms.  The ninth arm, the eight-arm design constant,
+(`FlatDoorEpsRung2.lean:5319`) at the band forms.  The ninth arm, the eight-arm design constant,
 the rated co-factor supply and every `le_max` chain are the source's, unchanged: the design
 constant is chosen before any regime exists, so the band does not reach it.
 
@@ -1330,7 +1330,7 @@ theorem flat_v7_generic_epsW_band (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Pro
         hA26 hLt (flatDoorM_one_le hA26) heps500 hxceil hwin))
 
 /-- **⟦ARM R — THE CHAIN⟧** (`flat_chain_generic_epsW_band`) — rung 2's
-`flat_chain_generic_epsW` (`FlatDoorEpsRung2.lean:5476`) over the `_band` hops, token for token.
+`flat_chain_generic_epsW` (`FlatDoorEpsRung2.lean:5464`) over the `_band` hops, token for token.
 The charge and the `δ₀` pin travel INSIDE the forms and the band quantifier travels inside their
 last conjunct, so no hop takes either as a hypothesis and this composition is the landed one with
 six names changed.  Nothing here bears on twin primes. -/
