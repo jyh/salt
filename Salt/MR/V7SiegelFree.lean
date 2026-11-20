@@ -59,7 +59,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_head_uniform_xceil` (`XThread.lean:542`): its statement under the
+/-- **⟦STANDOFF TWIN⟧** `flat_head_uniform_xceil` (`XThread.lean:543`): its statement under the
 three standoff binders, its proof verbatim with `hreduce_holds_final_bounded` ·
 `primeWindow_sum_inv_ge_bounded` replaced by their twins. -/
 theorem flat_head_uniform_xceil_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -169,7 +169,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_socket_uniform_xceil` (`XThread.lean:644`): its statement under the
+/-- **⟦STANDOFF TWIN⟧** `flat_socket_uniform_xceil` (`XThread.lean:645`): its statement under the
 three standoff binders, its proof verbatim with `flat_head_uniform_xceil` replaced by their twins.
 -/
 theorem flat_socket_uniform_xceil_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -229,7 +229,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_doorL2_uniform_xceil_khoist` (`XThread.lean:696`): its statement under
+/-- **⟦STANDOFF TWIN⟧** `flat_doorL2_uniform_xceil_khoist` (`XThread.lean:697`): its statement under
 the three standoff binders, its proof verbatim with `flat_socket_uniform_xceil` replaced by their
 twins. -/
 theorem flat_doorL2_uniform_xceil_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -297,7 +297,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_road_uniform_xceil_khoist` (`XThread.lean:756`): its statement under
+/-- **⟦STANDOFF TWIN⟧** `flat_road_uniform_xceil_khoist` (`XThread.lean:757`): its statement under
 the three standoff binders, its proof verbatim with `flat_doorL2_uniform_xceil_khoist` replaced by
 their twins. -/
 theorem flat_road_uniform_xceil_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -379,7 +379,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_capstone_uniform_win_xceil_kwide_khoist` (`XThread.lean:836`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_capstone_uniform_win_xceil_kwide_khoist` (`XThread.lean:837`): its
 statement under the three standoff binders, its proof verbatim with `flat_road_uniform_xceil_khoist`
 replaced by their twins. -/
 theorem flat_capstone_uniform_win_xceil_kwide_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -580,7 +580,7 @@ open private spine_False_core_xi_sq_uniform uniformCap_arc uniformCap_shuffle fr
 open scoped BigOperators
 open MeasureTheory
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_conditional_uniform_win_xceil_kwide_khoist` (`XThread.lean:1100`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_conditional_uniform_win_xceil_kwide_khoist` (`XThread.lean:1101`): its
 statement under the three standoff binders, its proof verbatim with
 `flat_capstone_uniform_win_xceil_kwide_khoist` replaced by their twins. -/
 theorem flat_conditional_uniform_win_xceil_kwide_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -788,18 +788,11 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_ks
     flat_des_base_width hA26 hβ hεR hε2 hε hεpin hAge hopq hHlo hRtow
   refine ⟨R, hReps, hHlo, hRg, hRx, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
-  have heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps := by
-    rw [hReps]
-    have : (1 : ℚ) / 2 ^ 9 ≤ 1 / 500 := by norm_num
-    linarith [hεpin]
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA26
+  obtain ⟨hM1, heps, hlo, hfl⟩ := regime_flat_head_facts hReps hHlo hεpin hA26
   -- ⟦THE BRIDGE⟧ the `A`-scoped window becomes §4's regime-scoped one at the flat floor
   have hKswR : Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16 := by linarith
   have hsel := s15_sel''_L_gk_witness_flat_bumped_win (c := 1) hA26 K hKw (by norm_num) (by norm_num) (by simp) hδ₀ (by simpa using hδpin) hKc hKcb
     hCt hCtb hCgle (hMflb A hA26 hAwin) hx0win (by simpa using heps) hlo hwin
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseL R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk K (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb
@@ -922,16 +915,9 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_of
     flat_des_base_width hA26 hβ hεR hε2 hε hεpin hAge hopq hHlo hRtow
   refine ⟨R, hReps, hHlo, hRg, hRx, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
-  have heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps := by
-    rw [hReps]
-    have : (1 : ℚ) / 2 ^ 9 ≤ 1 / 500 := by norm_num
-    linarith [hεpin]
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA26
+  obtain ⟨hM1, heps, hlo, hfl⟩ := regime_flat_head_facts hReps hHlo hεpin hA26
   have hsel := s15_sel''_L_gk_witness_flat_bumped_win (c := 1) hA26 K hKw (by norm_num) (by norm_num) (by simp) hδ₀ (by simpa using hδpin) hKc hKcb
     hCt hCtb hCgle (hMflb A hA26 hAwin) hx0win (by simpa using heps) hlo hwin
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseL R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk K (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb
@@ -946,7 +932,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6_csarm` (`V7B.lean:900`): its statement under the
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6_csarm` (`V7B.lean:893`): its statement under the
 three standoff binders, its proof verbatim with `s16_bandLaneWinL_holdsU` ·
 `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree` replaced by their twins. -/
 theorem logChowla2_ineffective_v6_csarm_of_standoff {cS : ℝ} (hcS : 0 < cS)

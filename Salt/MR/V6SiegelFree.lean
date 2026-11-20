@@ -1893,16 +1893,9 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_of_stando
     flat_L_width_priced hA26 hbaseceil hdes hRtow
   refine ⟨R, hReps, hHlo, hRg, hRx, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
-  have heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps := by
-    rw [hReps]
-    have : (1 : ℚ) / 2 ^ 9 ≤ 1 / 500 := by norm_num
-    linarith [hεpin]
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA26
+  obtain ⟨hM1, heps, hlo, hfl⟩ := regime_flat_head_facts hReps hHlo hεpin hA26
   have hsel := s15_sel''_L_gk_witness_flat_bumped_win (c := 1) hA26 K hKw (by norm_num) (by norm_num) (by simp) hδ₀ (by simpa using hδpin) hKc hKcb
     hCt hCtb hCgle (hMflb A hA26 hAwin) hx0win (by simpa using heps) hlo hwin
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseL R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk K (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb
@@ -1917,7 +1910,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6` (`Salt/MR/RegisterCompose.lean:336`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6` (`Salt/MR/RegisterCompose.lean:329`): its statement under the three standoff
 binders, its proof verbatim with `s16_bandLaneWinL_holdsU` · `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist` replaced by their twins. -/
 theorem logChowla2_ineffective_v6_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) :
@@ -2276,7 +2269,7 @@ end Salt.MR
 namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `s15_crossing_supplied_L_gk` (`Salt/MR/S16FlatFinal.lean:66`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `s15_crossing_supplied_L_gk` (`Salt/MR/S16FlatFinal.lean:67`): its statement under the three standoff
 binders, its proof verbatim with `m4_fuse_hcap_of_capWS_L_gk` replaced by their twins. -/
 theorem s15_crossing_supplied_L_gk_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (K : ℕ) :
@@ -2308,7 +2301,7 @@ end Salt.MR
 namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_witnessed_scale_flat_L_v2` (`Salt/MR/S16FlatFinal.lean:130`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_witnessed_scale_flat_L_v2` (`Salt/MR/S16FlatFinal.lean:131`): its statement under the three standoff
 binders, its proof verbatim with `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L` · `s15_crossing_supplied_L_gk` replaced by their twins. -/
 theorem logChowla2_witnessed_scale_flat_L_v2_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (hband : S16BandLaneCBoundedL 32000000)
@@ -2360,20 +2353,13 @@ theorem logChowla2_witnessed_scale_flat_L_v2_of_standoff {cS : ℝ} (hcS : 0 < c
   refine ⟨R, hReps, hHlo, hRg, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
   -- ⟦THE REGISTER, SUPPLIED⟧ at the flat design modulus
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
+  obtain ⟨hM1, heps, hlo, hfl⟩ := regime_flat_head_facts hReps hHlo hεpin hA26
   have hKle : (32000000 : ℕ) ≤ 170000000 * flatDoorM A := by
     calc (32000000 : ℕ) ≤ 170000000 * 1 := by norm_num
       _ ≤ 170000000 * flatDoorM A := Nat.mul_le_mul_left _ hM1
-  have heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps := by
-    rw [hReps]
-    have : (1 : ℚ) / 2 ^ 9 ≤ 1 / 500 := by norm_num
-    linarith [hεpin]
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA26
   have hsel := s15_sel''_L_gk_witness_flat_bumped (c := 1) hA26 32000000 hKle (by norm_num) (by norm_num) (by simp) hδ₀ (by simpa using hδpin) hKc hKb
     hCt hCtb hCgle hMflb hx0win (by simpa using heps) hlo hwin
   -- ⟦THE CROSSING, SUPPLIED⟧ the block floor off the register's own `blk` line
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseL R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk 32000000 (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb
