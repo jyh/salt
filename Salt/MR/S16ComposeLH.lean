@@ -705,7 +705,7 @@ set_option maxHeartbeats 1600000 in
 -- Same cause as the landed capstone: the ~120-line residue re-elaborates against the re-cut
 -- prefix, here at the inflated socket and with the cap threaded through every gate.
 /-- **⟦THE `A`-UNIFORM CAPSTONE, WINDOWED AND PRICED, AT SHIFT `h`⟧**
-(`flat_capstone_uniform_win_ceiling_h`) — `S16Compose:799` on block U's `A`-uniform road and
+(`flat_capstone_uniform_win_ceiling_h`) — `S16Compose:800` on block U's `A`-uniform road and
 block W's windowed rider, carrying `Kc ≤ 2^539` and `Ct ≤ 2^23`, at `ε` pinned by
 `1/(500·h)` and `δ₀` by `1/(838400·h²)`.  ⛔ Gate 7 is routed off `loglogFloor50`, NOT
 `arcFloor36` — see the file header. -/
@@ -822,7 +822,7 @@ set_option maxHeartbeats 1000000 in
 -- Same cause as the landed conditional: the residue re-elaborates against the prefix.
 -- 2026-10-08, the XY debt lane, family 44: nine calls at the cap 9 (eight twins); the rest at cap 7
 /-- **⟦THE `A`-UNIFORM CONDITIONAL, WINDOWED AND PRICED, AT SHIFT `h`⟧**
-(`flat_conditional_uniform_win_ceiling_h`) — `S16Compose:909` on §2, with wave H2b's `h` fire
+(`flat_conditional_uniform_win_ceiling_h`) — `S16Compose:910` on §2, with wave H2b's `h` fire
 list (`S16FlatTerminalLinearLH` §5) substituted for the `h = 1` one.
 
 ⭐ **`S13BandGate'_L_gk` DISSOLVES RATHER THAN PORTING.**  At `h = 1` the band register is
@@ -1422,7 +1422,7 @@ _gen_ceiling` · `XThread.chowlaRegimeFlat_exists_param_head_xceil`).  So the `h
 head is built HERE, beside its `h = 1` sibling, off the one-line public re-export appended to
 `HloExportFlatH` §5.
 
-⭐ **THE ARITHMETIC WAS ALREADY PAID.**  H2a word 4's `xceil_arm_split_h` (XThread:1046) is this
+⭐ **THE ARITHMETIC WAS ALREADY PAID.**  H2a word 4's `xceil_arm_split_h` (XThread:1047) is this
 row's `ε`-margin repair: at `ε = 1/(500·h)` the compose's margin is `H₊/(250000·h²)` against the
 arm's `H₊/10^20`, and the `log 2 + log h` is bought from `50 ≤ loglog H₊` — a tower against a
 demand of `2.31·10^12` at `h = 1096`.  Nothing in this section re-opens it.
@@ -2125,23 +2125,13 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_h (h : ℕ) (hh
   refine ⟨R, hReps, hHlo, hRg, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
   -- ⟦THE REGISTER, SUPPLIED⟧ at the flat design modulus
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
+  obtain ⟨hM1, heps, hlo, hfl⟩ := regime_flat_head_facts_mul hh hReps hHlo hεpin hA26
   have hKle : (32000000 : ℕ) ≤ 170000000 * flatDoorM A := by
     calc (32000000 : ℕ) ≤ 170000000 * 1 := by norm_num
       _ ≤ 170000000 * flatDoorM A := Nat.mul_le_mul_left _ hM1
-  have hhQ : (0 : ℚ) < (h : ℚ) := by exact_mod_cast hh
-  have heps : (1 : ℚ) / (2 ^ 9 * (h : ℚ)) ≤ R.eps := by
-    rw [hReps]
-    have hle : (1 : ℚ) / (2 ^ 9 * (h : ℚ)) ≤ 1 / (500 * (h : ℚ)) := by
-      apply div_le_div_of_nonneg_left (by norm_num) (by positivity)
-      nlinarith [hhQ]
-    linarith [hεpin]
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA26
   have hsel := s15_sel''_L_gk_witness_flat_bumped_win_h hA26 32000000 hKle hh hh7 hδ₀ hδpin
     hKc hKcb hCt hCtb hCgle (hMflb A hA26 hAwin) hx0win heps hlo hwin
   -- ⟦THE CROSSING, SUPPLIED⟧ the block floor off the register's own `blk` line
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseLH h R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk 32000000 (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb
@@ -2422,20 +2412,10 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist_h (h : ℕ
   refine ⟨R, hReps, hHlo, hRg, hRx, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
   -- ⟦THE REGISTER, SUPPLIED⟧ at the flat design modulus
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
-  have hhQ : (0 : ℚ) < (h : ℚ) := by exact_mod_cast hh
-  have heps : (1 : ℚ) / (2 ^ 9 * (h : ℚ)) ≤ R.eps := by
-    rw [hReps]
-    have hle : (1 : ℚ) / (2 ^ 9 * (h : ℚ)) ≤ 1 / (500 * (h : ℚ)) := by
-      apply div_le_div_of_nonneg_left (by norm_num) (by positivity)
-      nlinarith [hhQ]
-    linarith [hεpin]
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA26
+  obtain ⟨hM1, heps, hlo, hfl⟩ := regime_flat_head_facts_mul hh hReps hHlo hεpin hA26
   have hsel := s15_sel''_L_gk_witness_flat_bumped_win_h hA26 K hKw hh hh7 hδ₀ hδpin
     hKc hKcb hCt hCtb hCgle (hMflb A hA26 hAwin) hx0win heps hlo hwin
   -- ⟦THE CROSSING, SUPPLIED⟧ the block floor off the register's own `blk` line
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseLH h R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk K (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb
@@ -2456,7 +2436,7 @@ set_option maxHeartbeats 1600000 in
 -- as the landed original: the design constant's arm census re-elaborates against the terminal's
 -- own prefix
 /-- **⟦THE INEFFECTIVE LIMIT, `v3`, AT SHIFT `h`⟧** (`logChowla2_ineffective_v3_h`) —
-`S16Compose:1203` on §7, with the band rider discharged from block W. -/
+`S16Compose:1197` on §7, with the band rider discharged from block W. -/
 theorem logChowla2_ineffective_v3_h (h : ℕ) (hh : 0 < h) (hh7 : Real.log (h : ℝ) ≤ 7)
     (A₀ : ℝ) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
@@ -3322,22 +3302,12 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_ks
   refine ⟨R, hReps, hHlo, hRg, hRx, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
   -- ⟦THE REGISTER, SUPPLIED⟧ at the flat design modulus
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
-  have hhQ : (0 : ℚ) < (h : ℚ) := by exact_mod_cast hh
-  have heps : (1 : ℚ) / (2 ^ 9 * (h : ℚ)) ≤ R.eps := by
-    rw [hReps]
-    have hle : (1 : ℚ) / (2 ^ 9 * (h : ℚ)) ≤ 1 / (500 * (h : ℚ)) := by
-      apply div_le_div_of_nonneg_left (by norm_num) (by positivity)
-      nlinarith [hhQ]
-    linarith [hεpin]
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA26
+  obtain ⟨hM1, heps, hlo, hfl⟩ := regime_flat_head_facts_mul hh hReps hHlo hεpin hA26
   -- ⟦THE BRIDGE⟧ the `A`-scoped window becomes §11.4's regime-scoped one at the flat floor
   have hKswR : Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16 := by linarith
   have hsel := s15_sel''_L_gk_witness_flat_bumped_win_h hA26 K hKw hh hh7 hδ₀ hδpin
     hKc hKcb hCt hCtb hCgle (hMflb A hA26 hAwin) hx0win heps hlo hwin
   -- ⟦THE CROSSING, SUPPLIED⟧ the block floor off the register's own `blk` line
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseLH h R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk K (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb

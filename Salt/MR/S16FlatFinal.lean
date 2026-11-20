@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.S13CapGateLinear
 import Salt.MR.S16FlatTerminalLinear
 import Salt.MR.SocketLogFrame
+import Salt.MR.RegimeHeadFacts
 
 /-!
 # `S16FlatFinal` — THE CROSSING BOUND, SUPPLIED, AND THE FLAT LINEAR TERMINAL WITHOUT IT
@@ -176,20 +177,13 @@ theorem logChowla2_witnessed_scale_flat_L_v2 (hband : S16BandLaneCBoundedL 32000
   refine ⟨R, hReps, hHlo, hRg, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
   -- ⟦THE REGISTER, SUPPLIED⟧ at the flat design modulus
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
+  obtain ⟨hM1, heps, hlo, hfl⟩ := regime_flat_head_facts hReps hHlo hεpin hA26
   have hKle : (32000000 : ℕ) ≤ 170000000 * flatDoorM A := by
     calc (32000000 : ℕ) ≤ 170000000 * 1 := by norm_num
       _ ≤ 170000000 * flatDoorM A := Nat.mul_le_mul_left _ hM1
-  have heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps := by
-    rw [hReps]
-    have : (1 : ℚ) / 2 ^ 9 ≤ 1 / 500 := by norm_num
-    linarith [hεpin]
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA26
   have hsel := s15_sel''_L_gk_witness_flat_bumped (c := 1) hA26 32000000 hKle (by norm_num) (by norm_num) (by simp) hδ₀ (by simpa using hδpin) hKc hKb
     hCt hCtb hCgle hMflb hx0win (by simpa using heps) hlo hwin
   -- ⟦THE CROSSING, SUPPLIED⟧ the block floor off the register's own `blk` line
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseL R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk 32000000 (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb
