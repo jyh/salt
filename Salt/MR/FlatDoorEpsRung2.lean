@@ -5267,18 +5267,7 @@ theorem flat_kswin_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
     flat_L_width_priced hA26 hbaseceil hdes hRtow
   refine ⟨R, hReps, hHlo, hRg, hRx, hRtow, hdes, hwin, ?_⟩
   intro hcof hcapsc
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
-  -- `1/(2^9·c) ≤ 1/(500·c) ≤ ε`, the source's step at the charge: `500 ≤ 512 = 2^9`
-  have heps : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ R.eps := by
-    rw [hReps]
-    have h512 : (500 : ℚ) * (c : ℚ) ≤ 2 ^ 9 * (c : ℚ) := by
-      have h9 : (2 : ℚ) ^ 9 = 512 := by norm_num
-      rw [h9]; linarith
-    have hb : (1 : ℚ) / (2 ^ 9 * (c : ℚ)) ≤ 1 / (500 * (c : ℚ)) :=
-      one_div_le_one_div_of_le (by linarith) h512
-    linarith [hεpin]
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA26
+  obtain ⟨hM1, heps, hlo, hfl⟩ := regime_flat_head_facts_mul hc0 hReps hHlo hεpin hA26
   -- ⟦THE BRIDGE⟧ the `A`-scoped window becomes §4's regime-scoped one at the flat floor
   have hKswR : Real.log (1 / Ks) ≤ 3 * Real.log ((R.Hlo : ℕ) : ℝ) / 16 := by linarith
   -- `1/(838400·2^12·c²) ≤ 1/(838400·c)`: `c ≤ 4096·c²` at `c ≥ 1`
@@ -5291,7 +5280,6 @@ theorem flat_kswin_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
   have hsel := s15_sel''_L_gk_witness_flat_bumped_win_L hA26 K hKw (h := c) hc0 hLc0 le_rfl hAL
     hδ₀ hδb hKc (epsRung2_one_le_Kb hc1) hKcb (epsRung2_log_Kb_le hc1)
     hCt hCtb hCgle (hMflb A hA26 hAwin) hx0win heps hlo hwin
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
   have hblk : ∀ H L q j Aw s : ℕ, SocketBaseL R (flatDoorM A) H L q j Aw s →
       s13BlockFloor_L_gk K (flatDoorM A) ≤ Aw + s := by
     intro H L q j Aw s hb
@@ -5302,7 +5290,7 @@ theorem flat_kswin_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
 
 /-! ### §W6.6 — ⟦THE NINTH ARM AND THE RATED HOP⟧
 
-The design constant `A` is minted in exactly one place on the road (`FlatDoorEpsChain.lean:1132`),
+The design constant `A` is minted in exactly one place on the road (`FlatDoorEpsChain.lean:1130`),
 as a `max` of eight arms.  This is where the whole charge is paid: a NINTH arm `162 + 2·Lc`, put
 OUTERMOST, with the source's eight verbatim inside it.  It is a `max`, so it costs nothing anyone
 downstream can see — every consumer reads `A` through an inequality — and it pays five demands:
@@ -5470,7 +5458,7 @@ theorem flat_v7_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
 /-! ### §W6.7 — ⟦THE CHAIN AND THE THEOREM⟧ -/
 
 /-- **⟦THE CHAIN, AT THE CHARGE⟧** (`flat_chain_generic_epsW`) — `flat_chain_generic_eps`
-(`FlatDoorEpsChain.lean:1200`) with every hop's `W` sibling and `c` threaded beside `ε`.  The
+(`FlatDoorEpsChain.lean:1198`) with every hop's `W` sibling and `c` threaded beside `ε`.  The
 charge and the `δ₀` pin travel INSIDE the forms, so no hop takes either as a hypothesis and this
 composition is the landed one token for token. -/
 theorem flat_chain_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)

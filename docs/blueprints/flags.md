@@ -25475,7 +25475,7 @@ else in half 2 landed in `Salt/MR/StrideDoorAllGrades.lean`: ten of the eleven t
 `_L` helpers (§I), the conditional with Z1 and its re-statement (§J), and v7 (§K).
 
 **The finding: a SCOPE stop, not an arithmetic one.**  The brief priced twin 9 at its source's
-38 lines (`S16ComposeLH.lean:3186`, "SUPPLIER-SWAP").  The source's body calls two capped
+38 lines (`S16ComposeLH.lean:3170`, "SUPPLIER-SWAP").  The source's body calls two capped
 suppliers (`m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_b9`,
 `s16_capGate_supply_LH_gk_sharpT0_kswin_b9`), and their capped dependency tree, walked by name
 at `881de30f` (every identifier ending `_b9`/`_g12b`/`_14` in each body, recursively), is
