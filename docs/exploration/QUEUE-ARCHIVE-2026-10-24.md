@@ -5273,7 +5273,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    ⚖️⭐⭐ **PRICED 2026-08-26 01:5x (math) — THE ROW ABOVE IS BYTE-UNTOUCHED; THIS IS A STAMP.**
    *"Unpriced until it exists" is upgradeable, and the price is the surprising part:* **THIS
    CAMPAIGN NEEDS NO SHARPNESS.** Its consumer is the `K_vt` cushion at
-   `logChowla2_ineffective_v7_ksarm_g0` (`V7Headline.lean:157`), which evaluates `Kvt` at
+   `logChowla2_ineffective_v7_ksarm_g0` (`V7Headline.lean:144`), which evaluates `Kvt` at
    `Qm = ⌈arcDen 12 R.Hhi⌉₊ = ⌈(log H₊)^12⌉₊` against a budget `log H₊/128 ≥ e^518/128`.
    ⇒ **any effective band floor `B(q) ≤ a·log q + c` with `a`, `c` explicit — ANY polynomial
    grade, however crude — gives `Kvt(Qm) ≲ 12a·loglog H₊ + c` and clears that budget by
@@ -5293,7 +5293,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    IT IS NOT SLACK, IT IS AN EXPONENT.*** ⛔ **AND THE ATTRACTIVE WRONG ANSWER, TESTED AND
    REFUTED BEFORE PROPOSING IT:** re-routing the cushion onto the outer scale so the regime lever
    `g R.Hhi R.ω ≤ R.x` absorbs it — `_g0` sets that lever to zero and the parent
-   (`V7Ks.lean:417`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
+   (`V7Ks.lean:413`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
    `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:93`) with `ε ≥ 1/500` permits at most
    `log g ≤ 15500·H₊`, worth **≈ +24 additive on `loglog X`** against the landed floor
    `loglog X ≥ log H₊ − 14` — a constant factor ≤ ~4, **never a rate.** Full stamp:
@@ -7148,7 +7148,7 @@ numbering is UNVERIFIED.
      mutation control), all `[propext, Classical.choice, Quot.sound]`, `+177/−0`, audit block at
      `Salt/MR/All.lean`. Statements elaborated sorry-bodied BEFORE the executor and byte-identical after.
    * ⛔✅ **S-2 — CLOSED AS SUPPLIED, NOT BUILT.** The form the road consumes is already on `main`:
-     **`mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`Salt/MR/StridePairReceiptG12b.lean:1033`, audited
+     **`mrtUniformityXiL2AffW_holds_flat_stride_g12b` (`Salt/MR/StridePairReceiptG12b.lean:1029`, audited
      `Salt/MR/All.lean:10520`, landed in `e23b45c5` — β W34 H1).** It carries the `ε` pin, `162 ≤ A ∧ A₀ ≤ A`,
      `Ra.a = a`, `Ra.b = b`, the `ρ` cap and the transported grade `a·Zr·ρ + E` with `Zr ≤ 1.02`, `E` bounded.
      ⛔ **The `b`-UNIFORM one-regime form is UNSUPPLIED and UNNEEDED:** every landed supplier is `∀b, ∃R`
@@ -7243,7 +7243,7 @@ numbering is UNVERIFIED.
      **The substitution to the only `A` the suppliers have — the DESIGN PARAMETER — is FLAGGED, not made
      quietly: if a third `A` was meant, this census has not found it and the charter returns OPEN.**
    * ⭐⭐ **FOR THAT `A`, THE ANSWER IS YES AT THE WITNESS LEVEL.** It is built at
-     `Salt/MR/StridePairReceiptG12b.lean:765` (`flat_v7_generic_h_g12b`) as a `max` of TEN arms. Nine are
+     `Salt/MR/StridePairReceiptG12b.lean:761` (`flat_v7_generic_h_g12b`) as a `max` of TEN arms. Nine are
      closed in `h`, `A₀` and numerals (`cofkR…_b9 h hh hh9` · `s15_crossing…_b9 hh hh9` ·
      `s16_bandLaneWinLH_holdsU h hh` · the pinned `ε = 1/(500·(a·h))` · `β = cD3·ε/(144·log 4)`, `cD3 = 1/4`).
      **The ONE arm that could carry `b` — `Hopq = H₀xi`, from the count gate — is supplied by a LITERAL in

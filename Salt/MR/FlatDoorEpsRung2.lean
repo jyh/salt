@@ -4315,7 +4315,7 @@ theorem s15_sel''_L_gk_witness_flat_bumped_win_L {A : ℝ} (hA : 162 ≤ A) (Kle
 /-- **⟦THE CONDITIONAL HOP'S SIX READS, ON THE NEW SELECTOR⟧** (`s15_replay_reads_L_gk_T`) —
 this wave's END-TO-END CHECK.  It takes a `S15Sel''_L_gk_T` and the conditional replay's own
 context hypotheses and produces, by calling `s15_bandGate''_of_grade_L_gk_T` and the four `_T`
-readers EXACTLY as `FlatDoorEpsChain.lean:996` and `:1075-1085` call their sources, the five
+readers EXACTLY as `FlatDoorEpsChain.lean:996` and `:1071-1081` call their sources, the five
 facts those six lines produce.
 
 ⭐ THE POINT: `hsel.rho` feeds all four `_T` consumers with NO conversion — the register's new
@@ -4679,7 +4679,7 @@ def V7RatedFormEpsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (A₀ : ℝ
         P R
 
 /-- **⟦THE ZERO CALLER MEETS THE STRICT RIDER AT ANY FLOOR⟧** (`xceilRiderStrictAt_zero`) — the
-landed `xceilRiderStrict_zero` (`V7Headline.lean:91`) on `XCeilRiderStrictAt lam0`, its four lines
+landed `xceilRiderStrict_zero` (`XThread.lean:1236`) on `XCeilRiderStrictAt lam0`, its four lines
 unchanged: `log 0 = 0` and the gate's own width conjunct carry the margin.  Read twice in the
 re-thread, at the `ε`-ceiling probe and at the exhibited caller. -/
 theorem xceilRiderStrictAt_zero (lam0 : ℝ) (ε : ℚ) :
@@ -4755,7 +4755,7 @@ theorem flat_head_uniform_xceil_epsW (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 
   have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:864–873`)
+  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:860–869`)
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
@@ -5307,7 +5307,7 @@ theorem flat_kswin_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
 
 /-! ### §W6.6 — ⟦THE NINTH ARM AND THE RATED HOP⟧
 
-The design constant `A` is minted in exactly one place on the road (`FlatDoorEpsChain.lean:1130`),
+The design constant `A` is minted in exactly one place on the road (`FlatDoorEpsChain.lean:1126`),
 as a `max` of eight arms.  This is where the whole charge is paid: a NINTH arm `162 + 2·Lc`, put
 OUTERMOST, with the source's eight verbatim inside it.  It is a `max`, so it costs nothing anyone
 downstream can see — every consumer reads `A` through an inequality — and it pays five demands:
@@ -5472,7 +5472,7 @@ theorem flat_v7_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
 /-! ### §W6.7 — ⟦THE CHAIN AND THE THEOREM⟧ -/
 
 /-- **⟦THE CHAIN, AT THE CHARGE⟧** (`flat_chain_generic_epsW`) — `flat_chain_generic_eps`
-(`FlatDoorEpsChain.lean:1198`) with every hop's `W` sibling and `c` threaded beside `ε`.  The
+(`FlatDoorEpsChain.lean:1194`) with every hop's `W` sibling and `c` threaded beside `ε`.  The
 charge and the `δ₀` pin travel INSIDE the forms, so no hop takes either as a hypothesis and this
 composition is the landed one token for token. -/
 theorem flat_chain_generic_epsW (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
@@ -5539,7 +5539,7 @@ to their `hW` binder and nothing else.
 
 The other two consumers are NOT applied here, on purpose.  Supplying `hW` to C3
 (`mrtUniformityXiL2_holds_flat_of_epsFamily`) yields the statement of
-`mrtUniformityXiL2_holds_flat` (`DoorReceipt.lean:962`), and supplying it to C4
+`mrtUniformityXiL2_holds_flat` (`DoorReceipt.lean:958`), and supplying it to C4
 (`mrtUniformityXiL2_holds_flat_epsFamily_capped_of_epsFamily`) yields rung 1's
 (`mrtUniformityXiL2_holds_flat_epsFamily_capped`); both are ALREADY LANDED with no hypothesis, so
 an applied copy would land no new statement.  The value of C3 and C4 is the implication each
