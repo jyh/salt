@@ -92,9 +92,7 @@ lemma D3_sixteen {z : ℕ} (hz : 16 ≤ z) :
       ≥ (1 / 16 : ℝ) * Real.log z := by
   have hzR : (0 : ℝ) ≤ (z : ℝ) := by positivity
   have hlogsqrt : Real.log (Real.sqrt (z : ℝ)) = Real.log z / 2 := Real.log_sqrt hzR
-  have hzpos : (0 : ℝ) < (z : ℝ) := by
-    have : (16 : ℝ) ≤ (z : ℝ) := by exact_mod_cast hz
-    linarith
+  have hzpos : (0 : ℝ) < (z : ℝ) := by linarith [show (16 : ℝ) ≤ (z : ℝ) by exact_mod_cast hz]
   have hlogdiv : Real.log (Real.sqrt (z : ℝ) / 2)
       = Real.log (Real.sqrt (z : ℝ)) - Real.log 2 := by
     rw [Real.log_div (by positivity) (by norm_num)]

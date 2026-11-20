@@ -558,9 +558,7 @@ theorem ege_line_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ} {x₀ : ℝ}
     49920 * (q.totient : ℝ)
       ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (theta293 - 1 / 500) := by
   obtain ⟨hlo, hhi, hLH, hqp, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩ := hb
-  have hω : (0 : ℝ) < (R.ω : ℝ) := by
-    have : (2 : ℝ) ≤ (R.ω : ℝ) := by exact_mod_cast R.hω
-    linarith
+  have hω : (0 : ℝ) < (R.ω : ℝ) := by linarith [show (2 : ℝ) ≤ (R.ω : ℝ) by exact_mod_cast R.hω]
   have harmA := ege_arm_of_gArmEge hω hHreg.1 hHreg.2 hg hAx
   have hmuA : (7800 : ℝ) ≤ Real.log (Real.log (A : ℝ)) := by
     have := hHreg.2; linarith

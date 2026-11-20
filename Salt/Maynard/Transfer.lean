@@ -293,9 +293,7 @@ lemma A1_ge_min_sq_mul_phiAtom {k R W : ℕ} {T : ℝ} (hk : 1 ≤ k) (hR : 2 �
 /-- `log R₀ ≤ (T/k)·log R`. -/
 lemma log_R0_le {k R : ℕ} {T : ℝ} (hR : 2 ≤ R) (hR0 : 1 ≤ R0 k R T) :
     Real.log (R0 k R T) ≤ (T / (k : ℝ)) * Real.log R := by
-  have hRpos : (0 : ℝ) < (R : ℝ) := by
-    have : (2 : ℝ) ≤ (R : ℝ) := by exact_mod_cast hR
-    linarith
+  have hRpos : (0 : ℝ) < (R : ℝ) := by linarith [show (2 : ℝ) ≤ (R : ℝ) by exact_mod_cast hR]
   have hy0 : (0 : ℝ) ≤ (R : ℝ) ^ (T / (k : ℝ)) := (Real.rpow_pos_of_pos hRpos _).le
   have hR0pos : (0 : ℝ) < (R0 k R T : ℕ) := by exact_mod_cast hR0
   have hle : ((R0 k R T : ℕ) : ℝ) ≤ (R : ℝ) ^ (T / (k : ℝ)) := by

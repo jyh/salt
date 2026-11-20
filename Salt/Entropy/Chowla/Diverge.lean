@@ -72,9 +72,7 @@ theorem tower_log_upper (j : ℕ) :
       -- normalise the `((2:ℕ):ℝ)` coefficient
       simpa [hLdef, hMdef] using this
     set m := ⌊(2 : ℝ) * L * M⌋₊ with hmdef
-    have hmpos : (0 : ℝ) < (m : ℝ) := by
-      have : (2 : ℝ) ≤ (m : ℝ) := by exact_mod_cast hm2
-      linarith
+    have hmpos : (0 : ℝ) < (m : ℝ) := by linarith [show (2 : ℝ) ≤ (m : ℝ) by exact_mod_cast hm2]
     have h2LM_pos : (0 : ℝ) < 2 * L * M := by positivity
     have hm_le : (m : ℝ) ≤ 2 * L * M := by
       have := Nat.floor_le (le_of_lt h2LM_pos)

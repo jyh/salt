@@ -46,9 +46,7 @@ theorem HasLevel_antitone {θ₁ θ₂ : ℝ} (h : θ₁ ≤ θ₂) (_hθ₁ : 0
   intro A hA
   obtain ⟨B, C, hB0, hC⟩ := hL A hA
   refine ⟨B, C, hB0, fun x hx => ?_⟩
-  have hx1 : (1 : ℝ) < (x : ℝ) := by
-    have : (2 : ℝ) ≤ (x : ℝ) := by exact_mod_cast hx
-    linarith
+  have hx1 : (1 : ℝ) < (x : ℝ) := by linarith [show (2 : ℝ) ≤ (x : ℝ) by exact_mod_cast hx]
   have hxr : (1 : ℝ) ≤ (x : ℝ) := le_of_lt hx1
   have hden : (0 : ℝ) < (Real.log x) ^ B := Real.rpow_pos_of_pos (Real.log_pos hx1) B
   have hsub : Finset.Icc 1 ⌊(x : ℝ) ^ θ₁ / (Real.log x) ^ B⌋₊

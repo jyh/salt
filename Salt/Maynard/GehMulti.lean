@@ -179,9 +179,7 @@ theorem pieceObligationU_of_multiblock {θ ε : ℝ} (hε : 0 < ε)
       (mul_le_mul_of_nonneg_right (le_max_right _ _) (by norm_num))
   · -- Main regime: x ≥ 3, one (B, C) for every block.
     have hx2le : 2 ≤ x := by omega
-    have hx1 : (1 : ℝ) < (x : ℝ) := by
-      have : (3 : ℝ) ≤ (x : ℝ) := by exact_mod_cast hge
-      linarith
+    have hx1 : (1 : ℝ) < (x : ℝ) := by linarith [show (3 : ℝ) ≤ (x : ℝ) by exact_mod_cast hge]
     have hx0 : (0 : ℝ) ≤ (x : ℝ) := by linarith
     have hlogxpos : (0 : ℝ) < Real.log x := Real.log_pos hx1
     have hlogApos : (0 : ℝ) < Real.log x ^ A := Real.rpow_pos_of_pos hlogxpos A

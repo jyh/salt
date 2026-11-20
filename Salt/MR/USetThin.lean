@@ -457,9 +457,7 @@ lemma largeblock_bound_mono (T V : ℝ) (hT : 1 < T) (hV : 1 ≤ V) (P p : ℕ) 
         * Real.exp (2 * (Real.log T / Real.log p) * Real.log (Real.log T))
       ≤ 840 * T ^ (2 * Real.log V / Real.log P) * V ^ 2
         * Real.exp (2 * (Real.log T / Real.log P) * Real.log (Real.log T)) := by
-  have hP1 : (1 : ℝ) < (P : ℝ) := by
-    have : (3 : ℝ) ≤ (P : ℝ) := by exact_mod_cast hP3
-    linarith
+  have hP1 : (1 : ℝ) < (P : ℝ) := by linarith [show (3 : ℝ) ≤ (P : ℝ) by exact_mod_cast hP3]
   have hlogP : 0 < Real.log P := Real.log_pos hP1
   have hlogp : Real.log P ≤ Real.log p := by
     refine Real.log_le_log (by linarith) ?_

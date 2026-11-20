@@ -322,9 +322,7 @@ theorem qdiag_bridge_gen_of (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fi
       * ((simplexInt (sq (contractB m P)) : ℚ) : ℝ) with hMaindef
   set Log6 : ℝ := c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ (n + 2) / Real.log R
     with hLog6def
-  have hDpos : (0 : ℝ) < (D : ℝ) := by
-    have : (3 : ℝ) ≤ (D : ℝ) := by exact_mod_cast hD3
-    linarith
+  have hDpos : (0 : ℝ) < (D : ℝ) := by linarith [show (3 : ℝ) ≤ (D : ℝ) by exact_mod_cast hD3]
   have hκ1 : (1 : ℝ) ≤ κinv := by
     rw [hκdef, le_div_iff₀ (by exact_mod_cast Nat.totient_pos.mpr hpos)]
     simpa using (by exact_mod_cast Nat.totient_le W' : (W'.totient : ℝ) ≤ (W' : ℝ))

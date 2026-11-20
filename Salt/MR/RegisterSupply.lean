@@ -342,9 +342,7 @@ theorem cofkL_logX_floor {R : ChowlaRegime} {M H L q j A s : ℕ}
   have hHhi0 : (0 : ℝ) < (R.Hhi : ℝ) := by nlinarith
   have hlogH : (14 : ℝ) ≤ Real.log (H : ℝ) := cofk_log_big hH
   have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) := by linarith
-  have hω0 : (0 : ℝ) < (R.ω : ℝ) := by
-    have : (2 : ℝ) ≤ (R.ω : ℝ) := by exact_mod_cast R.hω
-    linarith
+  have hω0 : (0 : ℝ) < (R.ω : ℝ) := by linarith [show (2 : ℝ) ≤ (R.ω : ℝ) by exact_mod_cast R.hω]
   -- ⟦the arc denominator⟧
   have harc : (0 : ℝ) < arcDen 12 H := by
     rw [arcDen]; exact Real.rpow_pos_of_pos hlogH0 12

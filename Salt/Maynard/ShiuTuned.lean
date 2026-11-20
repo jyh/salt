@@ -50,9 +50,7 @@ the slack into the quadratic term `(p^{−σ})²`, whose prime-sum is `O(1)` for
 From `−log(1−x) ≤ x/(1−x) ≤ x + 4x²` (valid for `x ≤ 3/4`). -/
 lemma one_sub_rpow_neg_sq_le_exp_tight {p : ℕ} (hp : 2 ≤ p) {σ : ℝ} (hσ : 1 / 2 ≤ σ) :
     (1 - (p : ℝ) ^ (-σ))⁻¹ ^ 2 ≤ Real.exp (2 * (p : ℝ) ^ (-σ) + 8 * ((p : ℝ) ^ (-σ)) ^ 2) := by
-  have hppos : (0 : ℝ) < (p : ℝ) := by
-    have : (2 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp
-    linarith
+  have hppos : (0 : ℝ) < (p : ℝ) := by linarith [show (2 : ℝ) ≤ (p : ℝ) by exact_mod_cast hp]
   set x := (p : ℝ) ^ (-σ) with hx
   have hx0 : 0 ≤ x := (Real.rpow_pos_of_pos hppos _).le
   have hx34 : x ≤ 3 / 4 := rpow_neg_prime_le_three_quarters hp hσ

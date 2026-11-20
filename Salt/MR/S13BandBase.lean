@@ -641,9 +641,7 @@ theorem s13_band_arm_at_top {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : ℝ}
   have hhi : H ≤ R.Hhi := hb.2.1
   have hAx : (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) :=
     hb.2.2.2.2.2.2.2.2.2.2.1
-  have hω : (0 : ℝ) < (R.ω : ℝ) := by
-    have : (2 : ℝ) ≤ (R.ω : ℝ) := by exact_mod_cast R.hω
-    linarith
+  have hω : (0 : ℝ) < (R.ω : ℝ) := by linarith [show (2 : ℝ) ≤ (R.ω : ℝ) by exact_mod_cast R.hω]
   obtain ⟨hlogH0, hlamH⟩ := hHreg H hlo hhi
   obtain ⟨hlogT0, hlamT⟩ := hHreg R.Hhi (le_trans hlo hhi) le_rfl
   -- ⟦`arcDen 12 H ≤ arcDen 12 H₊`⟧
