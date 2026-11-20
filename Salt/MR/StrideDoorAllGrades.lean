@@ -679,10 +679,6 @@ theorem flat_door_head_xceil_h_Z (h : ℕ) (_hh : 0 < h) (ε : ℚ) (hε0 : 0 < 
     FlatHeadFormHG_Z h ε c L Xi (fun _ => True) := by
   classical
   unfold FlatHeadFormHG_Z
-  -- ⟦THE LEAF NUMERALS, PINNED⟧ `log 4 = 2·log 2`, the upper `d9` bound on `log 2`
-  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
-    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num

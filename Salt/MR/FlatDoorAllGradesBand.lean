@@ -584,10 +584,8 @@ theorem flat_head_uniform_xceil_epsW_band (ε : ℚ) (hε0 : 0 < ε) (hε : ε �
     FlatHeadFormEpsW_band ε c (fun _ => True) := by
   classical
   unfold FlatHeadFormEpsW_band
-  -- ⟦THE LEAF NUMERALS, PINNED⟧ `log 4 = 2·log 2`, both `d9` bounds on `log 2`
-  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  -- ⟦THE LEAF NUMERALS, PINNED⟧ `log 4 = 2·log 2` and the upper `d9` bound on `log 2` (for `hCnum`)
   have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
   -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:871–880`)

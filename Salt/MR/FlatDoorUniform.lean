@@ -1109,9 +1109,6 @@ theorem flatHeadFormU_trivial (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 / 500)
   unfold FlatHeadFormU
   obtain ⟨-, -, -, H₀red, -⟩ := hreduce_holds_final_bounded
   obtain ⟨-, -, -, H₀D3, -⟩ := primeWindow_sum_inv_ge_bounded
-  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
-    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num

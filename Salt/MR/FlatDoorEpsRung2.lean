@@ -4752,9 +4752,7 @@ theorem flat_head_uniform_xceil_epsW (ε : ℚ) (hε0 : 0 < ε) (hε : ε ≤ 1 
   obtain ⟨cD3', hcD3', hcD3'ge, H₀D3, hD3'⟩ := primeWindow_sum_inv_ge_bounded
   obtain ⟨C', hC', hCcap, hcm'⟩ := circle_method_estimate_sq_bounded (2 * Real.log 4)
     (by have := Real.log_pos (by norm_num : (1 : ℝ) < 4); linarith)
-  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
   have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
   -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:871–880`)
