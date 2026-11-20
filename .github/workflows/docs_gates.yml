@@ -56,6 +56,7 @@ jobs:
           python scripts/fulcrum_census.py --self-test
           python scripts/rekey_cites.py --self-test
           python scripts/headline_theorems.py --self-test
+          python scripts/check_twin_verbatim.py --self-test
       # One step per page, so a red names the stale page in the step list.
       - name: docs/CATALOGUE.md is current
         if: ${{ !cancelled() }}
@@ -74,6 +75,11 @@ jobs:
       - name: docs/HEADLINE-THEOREMS.md and its axiom receipt are current
         if: ${{ !cancelled() }}
         run: python scripts/headline_theorems.py --check
+      # O13 row 306: a STANDOFF TWIN whose docstring says `verbatim` has its source's proof
+      # body, token for token after the child swap (salt #785 fixed four that did not).
+      - name: every STANDOFF TWIN that claims verbatim token-equals its source
+        if: ${{ !cancelled() }}
+        run: python scripts/check_twin_verbatim.py
       # The helm's fifth condition for an edit to merged proofs: no hand-written
       # `File.lean:N` cite that this PR moves is left pointing at the wrong line, and no
       # published manuscript is edited (rc 3). Measured from the MERGE-BASE, because a diff
