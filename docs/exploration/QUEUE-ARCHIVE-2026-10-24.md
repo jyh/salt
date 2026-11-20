@@ -222,7 +222,7 @@
 ## P1 — THE λ-BV CAMPAIGN (commissioned 08/20) + finish-first fill
 
 ⭐⭐ **S-3 — THE b-FREENESS RE-STATEMENT (chartered at council 2026-09-14 ⑩; STAMPED HERE 09-14 19:0x by the 61st helm head, which is the HOME ⑩ named and the stamp h2c asked for).**
-**CHARTER:** the re-statement that EXPORTS b-freeness of the additive constant A — math's ⑥ census found A b-free at every WITNESS and exported by NO statement, so the gap is a RE-STATEMENT, not new mathematics. DRAFTER **h2c** (author of S-1's freeze, whose crown band `TierSBand.lean:576` S-3 consumes), STATEMENT-ONLY, honest label on line one. REFUTER **math** (non-author). CAP: one drafting shift + one refuter pass. ⛔ **NO PROOF ATTEMPT UNTIL THE STATEMENT SURVIVES.**
+**CHARTER:** the re-statement that EXPORTS b-freeness of the additive constant A — math's ⑥ census found A b-free at every WITNESS and exported by NO statement, so the gap is a RE-STATEMENT, not new mathematics. DRAFTER **h2c** (author of S-1's freeze, whose crown band `TierSBand.lean:537` S-3 consumes), STATEMENT-ONLY, honest label on line one. REFUTER **math** (non-author). CAP: one drafting shift + one refuter pass. ⛔ **NO PROOF ATTEMPT UNTIL THE STATEMENT SURVIVES.**
 ✅ **THE CHARTER IS DISCHARGED AND THE STATEMENT SURVIVED.** h2c froze v1 (18:32, `2c28bc6e8`); math ran the NON-AUTHOR refuter pass **pre-registering its kill-checks before reading the freeze** and returned **SURVIVES, NO KILL** (`6cf7f7e60`, desk MV); h2c folded the verdict into **v1.1 @ `d227b5700`** (R1: the BAND `(x₀, ω₀, Hhi₀)` is the load-bearing export — `ε` is a theorem of the landed statement and a per-class `A` is a finite `max` at D10; R2: every pin re-derived by grep at the tree, six moved, eleven exact). **The Lean is UNCHANGED at `74afa591` (`d354601a0bff`), so math's receipt stands over v1.1.**
 ⚖️ **§6's ONE OPUS WAVE: FIRE** — the helm's word, 09-14 19:0x, on h2c's `blocked-on-helm`. The charter's precondition ("until the statement survives") is MET, and the Captain's ⑩ tempo order is explicit: *"we go for the gold, as fast as possible, the field is accelerating, we are in a race"*, with ⑩(c) *"nothing on the twin-prime path waits on a sitting"*. SHAPE, unchanged from the freeze: six names, ~310 lines, mostly class A (U1 ~5 · U2 ~55), **`sorry` replaced IN PLACE, statements BYTE-IDENTICAL** — so a failure is a failure to prove, never a moved goalpost. ONE registered executor; h2c STAYS LIT while it runs (row GE). The executor rewrites U3's `:520-522` docstring slip in U3's own commit.
 ⛔ **AND THE WAVE DOES NOT FIRE FROM `the all-models pool`** — the helm's own migration error, caught before the word: h2c is a FABLE seat, so it was placed by the FABLE pool, and **an OPUS executor it fires draws the ALL-MODELS pool on the same credential**, which on the all-models pool reads **96 = EVERYONE-OFF**. h2c is moved to `the launcher pool` (all-models 69 ✅ · fable-only 54 ✅ — BOTH axes). ⇒ 🔑 ***A SEAT IS PLACED BY THE POOLS ITS EXECUTORS DRAW, NOT BY ITS OWN MODEL.***
@@ -736,10 +736,10 @@
    REPAIR-THEN-FIRE (no FATAL), v1.1 cut at the freeze 20:5x (`35eaadcb`), fired 20:59, landed 21:17 in four path-limited
    commits (`9433f402` Walls 14/14 · `a9f0838a` ReceiptG 11/11 · `fe028ee0` ShellG 1/1 · `5d1de440` GradeReceipt 1/1 + the
    37 audit rows). **Every one of the 37 names `[propext, Classical.choice, Quot.sound]`**; the K5 control RECORDED (the arm
-   with `13·10^13` left landed at the wider `c` FAILS at `hstep`'s own `nlinarith`, XThread:442's twin — one step before the
+   with `13·10^13` left landed at the wider `c` FAILS at `hstep`'s own `nlinarith`, XThread:443's twin — one step before the
    freeze's predicted :482); the exit test §7.1 whole (the six-path diff against `9a2b3053`, the excluding diff EMPTY, the
    minus lines exactly the 27 `sorry`, statements 14/18/2/3 byte-identical to the freeze, both aggregates `EXIT=0`, lint
-   `OK`). Two lines the recipe did not carry, both ABOVE the arm's `theorem` and copied from the landed `XThread.lean:291`
+   `OK`). Two lines the recipe did not carry, both ABOVE the arm's `theorem` and copied from the landed `XThread.lean:292`
    shape: `open private xt_exp25 from Salt.MR.XThread` and `set_option maxHeartbeats 2000000 in`. salt `math/lbv-w2s-beta`
    off `9a2b3053`: `Salt/MR/StrideGradeWalls.lean` (14) · `Salt/MR/StridePairReceiptG.lean` (7 defs + 11) ·
    `Salt/Entropy/Chowla/StrideShellG.lean` (2) · `Salt/MR/StrideGradeReceipt.lean` (3) = **37 declarations, 27 obligations
@@ -1189,7 +1189,7 @@
    ⛔ **PLACED AT THE END OF THE LIST, DELIBERATELY, not beside its three family siblings at `:163-165`**
    (`log_chowla_two_shell`, `…_xi`, `…_xi_h` — it alone of the four was ungated): `#audit_axioms`
    ABORTS the remainder of its list on a throw, so a name whose axioms nobody has measured belongs
-   where a failure can mask nothing. *Consumers verified before the edit: `HloExport.lean:363`,
+   where a failure can mask nothing. *Consumers verified before the edit: `HloExport.lean:323`,
    `HloExportFlat.lean:197`.*
 
 5b. ✅ **LANDED `c4a1a237` (08/20 16:15, math) — DO NOT DISPATCH.** Name the untwisted λ trophy — one theorem composing
@@ -5293,8 +5293,8 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    IT IS NOT SLACK, IT IS AN EXPONENT.*** ⛔ **AND THE ATTRACTIVE WRONG ANSWER, TESTED AND
    REFUTED BEFORE PROPOSING IT:** re-routing the cushion onto the outer scale so the regime lever
    `g R.Hhi R.ω ≤ R.x` absorbs it — `_g0` sets that lever to zero and the parent
-   (`V7Ks.lean:424`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
-   `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:92`) with `ε ≥ 1/500` permits at most
+   (`V7Ks.lean:417`) keeps it live, so it looks free. **`XCeilRiderStrict` caps the request:**
+   `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊` (`XThread.lean:93`) with `ε ≥ 1/500` permits at most
    `log g ≤ 15500·H₊`, worth **≈ +24 additive on `loglog X`** against the landed floor
    `loglog X ≥ log H₊ − 14` — a constant factor ≤ ~4, **never a rate.** Full stamp:
    `docs/blueprints/arc.md` §4's R-1 row (and §7 carries the pointer).
@@ -6094,7 +6094,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    executor head, A/B tier throughout, in parallel with H2b).** New module
    `Salt/MR/S13CapGateLinearLH.lean`, **62 names, every theorem `[3 axioms]`**; audit block in
    `Salt/MR/All.lean`; no landed declaration edited. Deliverable
-   `s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:1142`'s `∃`-prefix and pins with `hblk` at
+   `s15_crossing_supplied_LH_gk_ceiling`: `S16Compose:1143`'s `∃`-prefix and pins with `hblk` at
    `SocketBaseLH h`, concluding `S16CofactorSupply_LH_gk h → S16BaseScaleCap96_LH_gk h →
    S15CrossingBound_LH_gk h`.
    ⛔ **WHY SIXTY AND NOT THIRTY.** `s16_capGate_supply_L_gk` and `s13CapGrid_all_L_gk` derive
@@ -6355,7 +6355,7 @@ three days and was carried into a council as an open item before measurement kil
    `linarith`; 82 `maxHeartbeats` overrides in the population; the 24 M site measured 8,034,485 heartbeats.
    **THE CANDIDATE: `explog_num`** (T3's first cut) — closes the four numeral `exp`/`log` forms at integer exponent by
    `exp n = (exp 1)^n` + `exp_one_gt_d9`/`lt_d9` + one `norm_num`; rung (a) is six lemmas (scratch-proven at the three axioms with a
-   planted-sorry control), one line per site. Named proof `s13_smallGradeFits_h_L` (`StrideDoorAllGrades.lean:1523`): lines 175 → 163,
+   planted-sorry control), one line per site. Named proof `s13_smallGradeFits_h_L` (`StrideDoorAllGrades.lean:1484`): lines 175 → 163,
    heartbeats 90,432 → 89,670 (measured at the object). Second candidate, RECORDED for the next pull: `nlinarith?` (certificate
    replay → `linarith [products]`, ~70× per converted call, after unmeasured). Finding that is NOT a tactic: 39 families of copied
    ladder-port proofs, 10,856 redundant lines (30 % of proof lines), bodies byte-identical across sockets — the sibling policy's
@@ -7139,7 +7139,7 @@ numbering is UNVERIFIED.
    argument (RENAMED from "S-4" 2026-09-14, desk `NI` — see the S-PLATEAU card in the Tier S block
    below) redone against the TWO builders that actually pin `Hhi`; the socket window's
    non-emptiness as a stated obligation; and S-1's head form EXPORTING the tight upper bound
-   (`XCeil.lean:502–505`) as a third conjunct.
+   (`XCeil.lean:463–466`) as a third conjunct.
    ⚖️✅ **TIER S IS STAMPED — 2026-09-14 (math, 32nd head; helm-ruled at 01:31 · 01:37 · 01:53 · 02:08).
    THE ⛔ ROW DIRECTLY ABOVE IS DISCHARGED AS TO S-0 AND S-2 AND IS KEPT AS WRITTEN.** Five states:
    * ✅ **S-0 — LANDED.** The socket's `A`-window is inhabited at `A := 2·R.x`. salt **PR #129 → main
@@ -7247,8 +7247,8 @@ numbering is UNVERIFIED.
      closed in `h`, `A₀` and numerals (`cofkR…_b9 h hh hh9` · `s15_crossing…_b9 hh hh9` ·
      `s16_bandLaneWinLH_holdsU h hh` · the pinned `ε = 1/(500·(a·h))` · `β = cD3·ε/(144·log 4)`, `cD3 = 1/4`).
      **The ONE arm that could carry `b` — `Hopq = H₀xi`, from the count gate — is supplied by a LITERAL in
-     BOTH cap routes:** `Salt/Entropy/Chowla/StrideFork.lean:769` (cap 9) and `:413` (cap 7) close at
-     `:832` and `:438` respectively with
+     BOTH cap routes:** `Salt/Entropy/Chowla/StrideFork.lean:743` (cap 9) and `:413` (cap 7) close at
+     `:806` and `:438` respectively with
      `refine ⟨32·exp 40·(2^35·(a·h)²)²·(500·(a·h))^10·(a·h), by positivity, ?_, 2, le_rfl, ?_⟩` — **`H₀ = 2`**,
      with `C` closed in `a·h`. ⇒ **`b` does not reach `A` in any landed instantiation.**
    * ⚠️ **`β` LOOKED `b`-DEPENDENT AND IS NOT.** It is bound inside `FlatHeadFormHG_g12b`, whose type mentions
@@ -7336,7 +7336,7 @@ numbering is UNVERIFIED.
    the arm evidence flagged). THE RE-TIER CONDITION IS *NOT* MET — ITEM STAYS AT P3.**
    ```
      δ₀   ∝ ε                                              LINEAR   (helm)
-     K    = 9/2, ε absent   HloExport.lean:160, :177        FREE     (evidence)
+     K    = 9/2, ε absent   HloExport.lean:120, :137        FREE     (evidence)
      Hcap := max 4000000 (max A (4·⌈1/ε⌉₊⁴))                QUARTIC  (evidence)
      A    ⊇ budgetFloor ε (cD3·ε/(144·log 4))                        (helm, traced)
             budgetFloor ε β := ⌈exp(exp(exp(budgetX ε β)))⌉₊   BudgetCore.lean:30

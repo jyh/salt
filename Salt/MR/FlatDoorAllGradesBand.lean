@@ -488,7 +488,7 @@ THREE conjuncts move, and they are the whole reason this twin exists:
 * `hRωtight` (`log R.ω ≤ xTightCeil eps R.Hhi`) is EXPORTED unchanged — `ω` is carried verbatim
   by the enlargement — and `hRxtight` (`log R.x ≤ xTightCeil eps R.Hhi`) is carried through the
   enlargement `x ↦ max x (g Hhi ω)` into the MAX shape by the two `rcases` on `le_total`, exactly
-  as the landed B2 does it (`TierSBand.lean:622`), minus the stride's division by `a`.
+  as the landed B2 does it (`TierSBand.lean:583`), minus the stride's division by `a`.
 * `hll` (`lam0 ≤ log (log R.Hhi)`, the source's own `:2917`) is EXPORTED as the last conjunct
   instead of being spent silently at the rider gate.  The five tier-A band forms of §2 carry it
   and HALF 2's conditional hop spends it; it reads `Hhi` only, so the enlargement does not move
@@ -590,7 +590,7 @@ theorem flat_head_uniform_xceil_epsW_band (ε : ℚ) (hε0 : 0 < ε) (hε : ε �
   have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:871–880`)
+  -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:864–873`)
   obtain ⟨cD3, hcD3def⟩ : ∃ c : ℝ, c = 1 / 4 := ⟨_, rfl⟩
   obtain ⟨C, hCdef⟩ : ∃ c : ℝ, c = 1 + 2 * (2 * Real.log 4) := ⟨_, rfl⟩
   have hcD3 : 0 < cD3 := by rw [hcD3def]; norm_num
@@ -665,7 +665,7 @@ bodies spend (`R.hx`, `R.hω`, `R.hωx`, `R.hheadroom`, `R.hHlo_floor`) are `R'`
 `R'.eps`, `R'.Hlo`, `R'.Hhi` are `R`'s verbatim.  MEASURED over all four bodies: not one of them
 bounds `x` from ABOVE anywhere — every read of `x` is a lower bound and so survives `x ↦ x'` — so
 the band hypothesis `hxc` is consumed by nothing here but the next form's own block.  The worked
-precedent is the landed road-exit band hop (`TierSBand.lean:782`), which merges rung 2's three
+precedent is the landed road-exit band hop (`TierSBand.lean:743`), which merges rung 2's three
 into one; these are three separate hops making the same moves, plus the capstone. -/
 
 /-- **⟦ARM R H0→H1⟧** (`flat_socket_generic_epsW_band`) — rung 2's `flat_socket_generic_epsW`
@@ -954,7 +954,7 @@ THREE THINGS HAPPEN HERE, and only the third is new work:
   B2′ of §3 exports and the five tier-A forms carry; THIS hop is what spends it, and `log c` does
   NOT reach the conclusion — it is consumed entirely inside the arm's own cut.
 
-The landed precedent is the stride lane's conditional band hop (`TierSBand.lean:1053`, the block
+The landed precedent is the stride lane's conditional band hop (`TierSBand.lean:1014`, the block
 opening ⟦S-1 (i-x) TIER A → TIER B⟧); this transcription drops that block's `a` multiplier
 throughout (no `Real.log_mul`, no zero-product case) and its `log h` term, and reads the arm
 through `s15Arm_log_le_L_cut20` instead of `s15ArmH_log_le_g12b`.
@@ -1088,7 +1088,7 @@ design constant `162 + 2·log c`, the two `ε`-numeral casts at the charge, the 
 straight through — `ω` is untouched and the tier-B bound was already converted one hop below.
 
 THE BAND-ONLY WORK IS FIFTEEN LINES, and it is the same shape as the landed stride-lane band
-hop (`TierSBand.lean:1166`): the `M`-selection register and the block floor are built at
+hop (`TierSBand.lean:1127`): the `M`-selection register and the block floor are built at
 `regimeEnlargeX R hx'` rather than at `R`, and the crossing supply is fired there.  Every
 hypothesis those two consumers read — `R.eps` (through `heps`), `R.Hlo` (through `hfl`, `hlo`,
 `hKswR`) and `R.Hhi` (through `hwin`) — is carried VERBATIM by the enlargement, so each is

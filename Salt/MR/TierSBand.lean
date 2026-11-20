@@ -52,7 +52,7 @@ byte otherwise:
          where `xTightCeilArm` = `xTightCeil` + the arm's slack `18 + log 2 + H₊/10²⁰`
          (`s15ArmH_log_le_g12b`, `StrideGrade12bWalls.lean:93`: `log arm ≤ log ω + log h + H₊/10²⁰`,
          spent against (i-ω) and `log a ≤ 9`, `log h ≤ 9`);
-       — `XCeil.lean:502-505`'s `hxu` at the stride builder (`StridePairReceipt.lean`, the
+       — `XCeil.lean:463-466`'s `hxu` at the stride builder (`StridePairReceipt.lean`, the
        `+ 9` is `log a ≤ 9` at `a ≤ 8103`), through the enlargement `x ↦ max x (a·g Hhi ω)`;
   (i′) `V7RatedFormHG_g12b` carries no ceiling: after `StrideScale a R ∧` INSERT the loose ceiling,
        then (i-ω), then (i-x) tier B;
@@ -84,7 +84,7 @@ namespace Salt.MR
 
 /-! ## §0 — the tight ceiling, named once -/
 
-/-- **⟦S-1⟧ THE TIGHT OUTER-SCALE CEILING AT THE STRIDE BUILDER** — `XCeil.lean:502-505`'s `hxu`
+/-- **⟦S-1⟧ THE TIGHT OUTER-SCALE CEILING AT THE STRIDE BUILDER** — `XCeil.lean:463-466`'s `hxu`
 with the stride multiplier's `log a ≤ 9` absorbed (`StridePairReceipt`'s `_b9` builder, `hxu`):
 `log R.x ≤ (30/ε)·log H₊ + 9 + 2·log(4^⌊ε²H₊⌋ + 1)`.  Against the loose `31/ε · H₊` its
 leading term is `2·log 4·ε²·H₊` — smaller by the factor `31/(2·log 4·ε³)` (`1.4·10⁹` at
@@ -420,7 +420,7 @@ theorem xTightCeilArm_nonneg (ε : ℚ) (hε : 0 < ε) (Hhi : ℕ) (hHhi : 40000
   have hH : (0 : ℝ) ≤ ((Hhi : ℕ) : ℝ) / 10 ^ 20 := by positivity
   linarith
 
-/-! ## §3 — the builder twins: the tight bound lifted OUT of the proof (`XCeil.lean:502-505`) -/
+/-! ## §3 — the builder twins: the tight bound lifted OUT of the proof (`XCeil.lean:463-466`) -/
 
 /-- **⟦S-1 B1⟧** `chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9` (`StridePairReceipt.lean`)
 with ITS OWN `hxu` exported: body verbatim, one conjunct added. -/
@@ -440,13 +440,6 @@ theorem chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9_tight (a : ℕ) (ha : 1
   have hepsR : (0 : ℝ) < (eps : ℝ) := by exact_mod_cast heps
   -- the scale `m ≥ 1/ε`
   obtain ⟨m, hmdef⟩ : ∃ m : ℕ, m = ⌈(1 / eps : ℚ)⌉₊ := ⟨_, rfl⟩
-  have hm_ge : (1 / eps : ℚ) ≤ (m : ℚ) := by rw [hmdef]; exact Nat.le_ceil _
-  have hem : (1 : ℚ) ≤ eps * (m : ℚ) := by
-    have h := mul_le_mul_of_nonneg_left hm_ge (le_of_lt heps)
-    rwa [mul_one_div, div_self (ne_of_gt heps)] at h
-  have hm1N : 1 ≤ m := by rw [hmdef]; exact Nat.ceil_pos.mpr (div_pos one_pos heps)
-  have hm1 : (1 : ℚ) ≤ (m : ℚ) := by exact_mod_cast hm1N
-  have hemR : (1 : ℝ) ≤ (eps : ℝ) * (m : ℝ) := by exact_mod_cast hem
   -- ⟦THE RE-BASED BASE⟧
   obtain ⟨Hlo, hHlodef⟩ : ∃ Hlo : ℕ,
       Hlo = max (flatDesignFloor A) (max Hlo₀ (4 * m ^ 4)) := ⟨_, rfl⟩
@@ -456,8 +449,6 @@ theorem chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9_tight (a : ℕ) (ha : 1
     rw [hHlodef]; exact le_trans (le_max_left _ _) (le_max_right _ _)
   have hHlo4 : 4 * m ^ 4 ≤ Hlo := by
     rw [hHlodef]; exact le_trans (le_max_right _ _) (le_max_right _ _)
-  have hHlo4Q : (4 : ℚ) * (m : ℚ) ^ 4 ≤ (Hlo : ℚ) := by exact_mod_cast hHlo4
-  have hHlo4R : (4 : ℝ) * (m : ℝ) ^ 4 ≤ (Hlo : ℝ) := by exact_mod_cast hHlo4
   have hHlocap : Hlo = max (flatDesignFloor A) (max Hlo₀ (4 * ⌈(1 / eps : ℚ)⌉₊ ^ 4)) := by
     rw [hHlodef, hmdef]
   -- ⟦THE DESIGN LAW⟧ and the two floors it and `flatBase` supply
@@ -465,38 +456,8 @@ theorem chowlaRegimeFlat_exists_param_gen_ceiling_mul_b9_tight (a : ℕ) (ha : 1
   have hfl : 100 * (flatC A + Real.log (Real.log (Hlo : ℝ))) ≤ Real.log (Hlo : ℝ) :=
     flatFloor_of_design hA hHlo_floor hflat
   have h50 : (50 : ℝ) ≤ Real.log (Real.log (Hlo : ℝ)) := by linarith
-  -- `hcoprime : 1 ≤ ε²·Hlo/2`
-  have hcop : ((1 : ℕ) : ℚ) ≤ eps ^ 2 * (Hlo : ℚ) / 2 := by
-    have hprod : (1 : ℚ) ≤ (eps * (m : ℚ)) ^ 2 * (m : ℚ) ^ 2 := by
-      have h1 : (1 : ℚ) ≤ (eps * (m : ℚ)) ^ 2 := by nlinarith [hem, sq_nonneg (eps * (m : ℚ) - 1)]
-      have h2 : (1 : ℚ) ≤ (m : ℚ) ^ 2 := by nlinarith [hm1, sq_nonneg ((m : ℚ) - 1)]
-      exact le_trans h1 (le_mul_of_one_le_right (sq_nonneg _) h2)
-    have heq : (eps * (m : ℚ)) ^ 2 * (m : ℚ) ^ 2 = eps ^ 2 * (m : ℚ) ^ 4 := by ring
-    have h4le : (4 : ℚ) ≤ eps ^ 2 * (Hlo : ℚ) := by
-      have hmul : eps ^ 2 * (4 * (m : ℚ) ^ 4) ≤ eps ^ 2 * (Hlo : ℚ) :=
-        mul_le_mul_of_nonneg_left hHlo4Q (sq_nonneg eps)
-      nlinarith [hmul, hprod, heq]
-    rw [Nat.cast_one]; linarith
-  -- `hPNTwindow : √Hlo ≤ ε²·Hlo/2`
-  have hPNT : Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) / 2 := by
-    have hsqrtHlo : (2 : ℝ) * (m : ℝ) ^ 2 ≤ Real.sqrt (Hlo : ℝ) := by
-      have heq : Real.sqrt (4 * (m : ℝ) ^ 4) = 2 * (m : ℝ) ^ 2 := by
-        rw [show (4 : ℝ) * (m : ℝ) ^ 4 = (2 * (m : ℝ) ^ 2) ^ 2 by ring,
-          Real.sqrt_sq (by positivity)]
-      calc (2 : ℝ) * (m : ℝ) ^ 2 = Real.sqrt (4 * (m : ℝ) ^ 4) := heq.symm
-        _ ≤ Real.sqrt (Hlo : ℝ) := Real.sqrt_le_sqrt hHlo4R
-    have hsqrtnn : (0 : ℝ) ≤ Real.sqrt (Hlo : ℝ) := Real.sqrt_nonneg _
-    have hHloeq : Real.sqrt (Hlo : ℝ) * Real.sqrt (Hlo : ℝ) = (Hlo : ℝ) :=
-      Real.mul_self_sqrt (by positivity)
-    have h2 : (2 : ℝ) ≤ (eps : ℝ) ^ 2 * Real.sqrt (Hlo : ℝ) := by
-      have hstep : (eps : ℝ) ^ 2 * (2 * (m : ℝ) ^ 2) ≤ (eps : ℝ) ^ 2 * Real.sqrt (Hlo : ℝ) :=
-        mul_le_mul_of_nonneg_left hsqrtHlo (sq_nonneg _)
-      nlinarith [hstep, hemR, sq_nonneg ((eps : ℝ) * (m : ℝ) - 1)]
-    have h3 : 2 * Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) := by
-      have hh := mul_le_mul_of_nonneg_right h2 hsqrtnn
-      rw [mul_assoc, hHloeq] at hh
-      linarith [hh]
-    linarith [h3]
+  -- `hcoprime : 1 ≤ ε²·Hlo/2` and `hPNTwindow : √Hlo ≤ ε²·Hlo/2`
+  obtain ⟨hcop, hPNT⟩ := regime_eps_window_facts (Hlo := Hlo) heps (by rw [← hmdef]; exact hHlo4)
   -- ⟦THE TWO TOWERS⟧ at their minimal crossings, and the endpoint that hosts both
   obtain ⟨J, hJdef⟩ : ∃ J : ℕ, J = towerJmin 2 1 Hlo := ⟨_, rfl⟩
   obtain ⟨Jf, hJfdef⟩ : ∃ Jf : ℕ, Jf = towerFlatJmin A 1 Hlo := ⟨_, rfl⟩
