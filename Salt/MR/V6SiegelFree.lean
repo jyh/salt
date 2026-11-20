@@ -1664,7 +1664,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `m4_hcap_at_door_perBlock_L_gk_bounded_khoist` (`Salt/MR/RegisterCompose.lean:53`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_hcap_at_door_perBlock_L_gk_bounded_khoist` (`Salt/MR/RegisterCompose.lean:54`): its statement under the three standoff
 binders, its proof verbatim with `m4_rowChi_capstone_perBlock_bounded` replaced by their twins. -/
 theorem m4_hcap_at_door_perBlock_L_gk_bounded_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -1730,7 +1730,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist` (`Salt/MR/RegisterCompose.lean:114`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist` (`Salt/MR/RegisterCompose.lean:115`): its statement under the three standoff
 binders, its proof verbatim with `m4_hcap_at_door_perBlock_L_gk_bounded_khoist` replaced by their twins. -/
 theorem m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -1784,7 +1784,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist` (`Salt/MR/RegisterCompose.lean:165`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist` (`Salt/MR/RegisterCompose.lean:166`): its statement under the three standoff
 binders, its proof verbatim with `m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist` replaced by their twins. -/
 theorem s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -1819,7 +1819,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist` (`Salt/MR/RegisterCompose.lean:203`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist` (`Salt/MR/RegisterCompose.lean:204`): its statement under the three standoff
 binders, its proof verbatim with `flat_conditional_uniform_win_xceil_kwide_khoist` · `s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist` replaced by their twins. -/
 theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (Awin : ℝ)
@@ -1917,7 +1917,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6` (`Salt/MR/RegisterCompose.lean:339`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6` (`Salt/MR/RegisterCompose.lean:336`): its statement under the three standoff
 binders, its proof verbatim with `s16_bandLaneWinL_holdsU` · `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist` replaced by their twins. -/
 theorem logChowla2_ineffective_v6_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) (A₀ : ℝ) :

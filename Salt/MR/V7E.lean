@@ -170,7 +170,7 @@ theorem logChowla2_ineffective_v7 (A₀ : ℝ) :
 `v7`'s second inner rider, `XCeilRiderStrict ε g`, is a property of the function the CALLER
 supplies as its outer-scale request.  A caller who requests nothing supplies `g ≡ 0`, and then
 the rider is met by `Real.log 0 = 0` — the same three-line discharge the corpus already runs
-inside `RegisterCompose` (:247-251), `XThread` (:1273) and `V7B` (:825) to read off the
+inside `RegisterCompose` (:248-251), `XThread` (:1273) and `V7B` (:825) to read off the
 `ε`-ceiling.  This section states that instance as its own citable declaration.
 
 Additive: `logChowla2_ineffective_v7` is byte-untouched and remains the object of record. -/
