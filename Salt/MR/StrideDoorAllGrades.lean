@@ -474,7 +474,7 @@ theorem chowlaRegimeFlat_exists_param_gen_ceiling_mul_L (a : ℕ) (ha : 1 ≤ a)
     flatFloor_of_design hA hHlo_floor hflat
   have h50 : (50 : ℝ) ≤ Real.log (Real.log (Hlo : ℝ)) := by linarith
   -- `hcoprime : 1 ≤ ε²·Hlo/2` and `hPNTwindow : √Hlo ≤ ε²·Hlo/2`
-  obtain ⟨hcop, hPNT⟩ := regime_eps_window_facts heps (by rw [← hmdef]; exact hHlo4)
+  obtain ⟨hcop, hPNT⟩ := regime_eps_window_facts (Hlo := Hlo) heps (by rw [← hmdef]; exact hHlo4)
   -- ⟦THE TWO TOWERS⟧ at their minimal crossings, and the endpoint that hosts both
   obtain ⟨J, hJdef⟩ : ∃ J : ℕ, J = towerJmin 2 1 Hlo := ⟨_, rfl⟩
   obtain ⟨Jf, hJfdef⟩ : ∃ Jf : ℕ, Jf = towerFlatJmin A 1 Hlo := ⟨_, rfl⟩

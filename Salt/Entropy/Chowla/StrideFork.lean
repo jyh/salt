@@ -532,7 +532,7 @@ theorem chowlaRegime_exists_flat_stride (a : ℕ) (ha : 1 ≤ a) (A : ℝ) (_hA 
     have hmul := mul_le_mul_of_nonneg_left hle (sq_nonneg eps)
     linarith
   -- `hPNTwindow`, from the shared `regime_eps_window_facts`
-  obtain ⟨-, hPNT⟩ := regime_eps_window_facts heps (by rw [← hmdef]; exact hHlo4)
+  obtain ⟨-, hPNT⟩ := regime_eps_window_facts (Hlo := Hlo) heps (by rw [← hmdef]; exact hHlo4)
   -- ⟦THE RE-BASED TOWER⟧ at base `a·Hlo`
   have hHloaHlo : Hlo ≤ a * Hlo := Nat.le_mul_of_pos_left Hlo hapos
   have hbase : 4000000 ≤ a * Hlo := le_trans hHlo_floor hHloaHlo

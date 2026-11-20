@@ -381,7 +381,7 @@ theorem chowlaRegime_exists_param_gen (eps : ℚ) (heps : 0 < eps) (heps1 : eps 
   have hHlo4 : 4 * m ^ 4 ≤ Hlo := by
     rw [hHlodef]; exact le_trans (le_max_right _ _) (le_max_right _ _)
   -- `hcoprime : 1 ≤ ε²·Hlo/2` and `hPNTwindow : √Hlo ≤ ε²·Hlo/2`
-  obtain ⟨hcop, hPNT⟩ := regime_eps_window_facts heps (by rw [← hmdef]; exact hHlo4)
+  obtain ⟨hcop, hPNT⟩ := regime_eps_window_facts (Hlo := Hlo) heps (by rw [← hmdef]; exact hHlo4)
   -- the tower endpoint and its divergence
   obtain ⟨J, hJdef⟩ : ∃ J : ℕ, J = Jof Hlo := ⟨_, rfl⟩
   have hJ : Real.log 2 < towerDropSum 2 1 Hlo J := by

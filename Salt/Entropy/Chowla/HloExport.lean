@@ -96,7 +96,7 @@ theorem chowlaRegime_exists_param_gen_hloCap (eps : ℚ) (heps : 0 < eps)
   have hHlocap : Hlo = max 4000000 (max Hlo₀ (4 * ⌈(1 / eps : ℚ)⌉₊ ^ 4)) := by
     rw [hHlodef, hmdef]
   -- `hcoprime : 1 ≤ ε²·Hlo/2` and `hPNTwindow : √Hlo ≤ ε²·Hlo/2`
-  obtain ⟨hcop, hPNT⟩ := regime_eps_window_facts heps (by rw [← hmdef]; exact hHlo4)
+  obtain ⟨hcop, hPNT⟩ := regime_eps_window_facts (Hlo := Hlo) heps (by rw [← hmdef]; exact hHlo4)
   -- the tower endpoint and its divergence
   obtain ⟨J, hJdef⟩ : ∃ J : ℕ, J = Jof Hlo := ⟨_, rfl⟩
   have hJ : Real.log 2 < towerDropSum 2 1 Hlo J := by
