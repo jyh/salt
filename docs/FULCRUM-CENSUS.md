@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `e3dac125` · source digest `931998aeab31a93a` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `85b5402e` · source digest `6df096edd56992be` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,7 +22,7 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 23466 | 691 | 22764 | 9148 | 13 | 293 | 40 | 345 | 84 |
+| 23467 | 691 | 22765 | 9148 | 13 | 293 | 40 | 345 | 84 |
 
 Per-polarity totals over the 691 Props: with F-consumers 538 · with ¬F-consumers 21 · with F-producers (any kind) 451 · with ¬F-producers (any kind) 59.
 
@@ -59,7 +59,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | 7 | `Salt.MR.DoorFuseFrame_gk` | Salt/MR/M4Assembly.lean:656 | OPEN | 30 (30/0) | 0 | - | 1 | 0 | 0 | `Salt.MR.doorFuseFrame_reEps_gk` (Salt/MR/S12Compose.lean:874), `Salt.MR.logChowla2_capstone_conditional_gk` (Salt/MR/S12Compose.lean:886), `Salt.MR.logChowla2_capstone_conditional_perBlock_gk` (Salt/MR/S12Compose.lean:1011) +27 |
 | 8 | `Salt.MR.M4DoorGates_L` | Salt/MR/M4LadderLinear.lean:1792 | OPEN | 30 (30/0) | 8 | - | 0 | 2 | 0 | `Salt.MR.G2Scaffold.m4_cover_assembly_L` (Salt/MR/M4RowLinear.lean:1513), `Salt.MR.G2Scaffold.m4_cover_assembly_blk_L` (Salt/MR/M4RowLinear.lean:1535), `Salt.MR.G2Scaffold.m4_cover_assembly_supQ_L` (Salt/MR/M4RowLinear.lean:2068) +27 |
 | 9 | `Salt.MR.DoorFuseFrame_L_gk` | Salt/MR/M4RowAssemblyLinear.lean:284 | OPEN | 28 (28/0) | 18 | - | 0 | 0 | 0 | `Salt.MR.m4_arith_door_exit_of_delta_L_gk` (Salt/MR/M4ArithRhoLinear.lean:255), `Salt.MR.m4_arith_door_exit_rho_L_gk` (Salt/MR/M4ArithRhoLinear.lean:219), `Salt.MR.m4_chiSummedFreeRow_of_doorArithRho_L_gk` (Salt/MR/M4ArithRhoLinear.lean:186) +25 |
-| 10 | `Salt.MR.S16BandLaneCBoundedLH_winU` | Salt/MR/S16UniformLH.lean:142 | OPEN | 27 (22/5) | 22 | `Salt.MR.s16_bandLaneWinLH_holdsU` (Salt/MR/S16UniformLH.lean:301) | 0 | 0 | 0 | `Salt.MR.flat_capstone_generic_h` (Salt/MR/StridePairReceipt.lean:1352), `Salt.MR.flat_capstone_generic_h_14` (Salt/MR/StridePairReceipt.lean:1227), `Salt.MR.flat_capstone_generic_h_Z` (Salt/MR/StrideDoorAllGrades.lean:1180) +24 |
+| 10 | `Salt.MR.S16BandLaneCBoundedLH_winU` | Salt/MR/S16UniformLH.lean:142 | OPEN | 27 (22/5) | 22 | `Salt.MR.s16_bandLaneWinLH_holdsU` (Salt/MR/S16UniformLH.lean:301) | 0 | 0 | 0 | `Salt.MR.flat_capstone_generic_h` (Salt/MR/StridePairReceipt.lean:1352), `Salt.MR.flat_capstone_generic_h_14` (Salt/MR/StridePairReceipt.lean:1227), `Salt.MR.flat_capstone_generic_h_Z` (Salt/MR/StrideDoorAllGrades.lean:1163) +24 |
 | 11 | `Salt.MR.S16BandLaneCBoundedL_winU` | Salt/MR/S16ComposeV4.lean:84 | OPEN | 26 (19/7) | 19 | `Salt.MR.s16_bandLaneWinL_holdsU` (Salt/MR/S16ComposeV4.lean:103) | 0 | 0 | 0 | `Salt.MR.flat_capstone_generic` (Salt/MR/DoorReceipt.lean:421), `Salt.MR.flat_capstone_generic_U` (Salt/MR/FlatDoorUniform.lean:966), `Salt.MR.flat_capstone_generic_eps` (Salt/MR/FlatDoorEpsChain.lean:822) +23 |
 | 12 | `Salt.MR.A2Frame3` | Salt/MR/CapFreeArm3.lean:1416 | OPEN | 25 (25/0) | 15 | - | 3 | 0 | 0 | `Salt.MR.A2Frame3.box_at` (Salt/MR/CapFreeArm3.lean:1459), `Salt.MR.A2Frame3.ksGate_at` (Salt/MR/CapFreeArm3.lean:1467), `Salt.MR.a2Rows_of_capfree3` (Salt/MR/ThmA2Rows.lean:872) +22 |
 | 13 | `Salt.MR.DoorRowZeroBase` | Salt/MR/M4RowsChiZero.lean:702 | OPEN | 25 (25/0) | 12 | - | 3 | 0 | 0 | `Salt.MR.m4_chiSummedFreeRow_of_doorArith_zero` (Salt/MR/M4ArithZero.lean:140), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_zero'` (Salt/MR/M4RowsChiZeroPrime.lean:718), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_gated` (Salt/MR/M4ClosureRepair.lean:536) +22 |
@@ -78,7 +78,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | 26 | `Salt.MR.DoorRowEndBase_gk` | Salt/MR/M4RowsChiEnd.lean:1055 | OPEN | 12 (12/0) | 0 | - | 2 | 0 | 0 | `Salt.MR.doorRowZeroBase_of_doorRowEndBase_gk` (Salt/MR/M4RowsChiZero.lean:927), `Salt.MR.m4_chiSummedFreeRow_of_doorArith_end_gk` (Salt/MR/M4SocketDischarge.lean:643), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end_gk` (Salt/MR/M4RowsChiEnd.lean:1140) +9 |
 | 27 | `Salt.MR.S15CrossingBound_L_gk` | Salt/MR/S16FlatTerminalLinear.lean:1067 | OPEN | 12 (12/0) | 12 | `Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist` (Salt/MR/RegisterCompose.lean:166), `Salt.MR.s15_crossing_supplied_L_gk_ceiling` (Salt/MR/S16Compose.lean:1068) +4 | 0 | 0 | 0 | `Salt.MR.flat_conditional_uniform` (Salt/MR/S16Uniform.lean:927), `Salt.MR.flat_conditional_uniform_kwide` (Salt/MR/S16Uniform.lean:722), `Salt.MR.flat_conditional_uniform_win` (Salt/MR/S16Uniform.lean:1673) +9 |
 | 28 | `Salt.HB.IsAdditiveOn` | Salt/HB/CrownAssembly.lean:175 | OPEN | 11 (11/0) | 8 | - | 0 | 0 | 0 | `Salt.HB.abs_A_sub_sum_ratio_le` (Salt/HB/CrownAssembly.lean:724), `Salt.HB.additive_prod` (Salt/HB/CrownAssembly.lean:299), `Salt.HB.deltaSum_nuG_mul_additive` (Salt/HB/CrownAssembly.lean:381) +8 |
-| 29 | `Salt.MR.DoorCapBasePerBlock_L_gk` | Salt/MR/M4CapWireLinear.lean:836 | OPEN | 11 (11/0) | 11 | - | 1 | 0 | 0 | `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling` (Salt/MR/S13CapGateLinearLH.lean:1446), `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist` (Salt/MR/S16ComposeLH.lean:2654), `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_L` (Salt/MR/StrideDoorAllGrades.lean:3787) +8 |
+| 29 | `Salt.MR.DoorCapBasePerBlock_L_gk` | Salt/MR/M4CapWireLinear.lean:836 | OPEN | 11 (11/0) | 11 | - | 1 | 0 | 0 | `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling` (Salt/MR/S13CapGateLinearLH.lean:1446), `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist` (Salt/MR/S16ComposeLH.lean:2654), `Salt.MR.m4_fuse_hcap_of_capWS_LH_gk_ceiling_khoist_cs_L` (Salt/MR/StrideDoorAllGrades.lean:3770) +8 |
 | 30 | `Salt.MR.DoorCapBasePerBlock_gk` | Salt/MR/M4CapWire.lean:1312 | OPEN | 11 (11/0) | 3 | - | 1 | 0 | 0 | `Salt.MR.logChowla2_capstone_conditional_perBlock_gk` (Salt/MR/S12Compose.lean:1011), `Salt.MR.logChowla2_capstone_final'_gk` (Salt/MR/S12FuseCompose.lean:835), `Salt.MR.logChowla2_capstone_final_gk` (Salt/MR/S12Compose.lean:1136) +8 |
 | 31 | `Salt.MR.DoorFuseFrame_pool'_L_gk` | Salt/MR/M4RowSpineLinear.lean:980 | OPEN | 11 (11/0) | 7 | - | 6 | 0 | 0 | `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'_L_gk` (Salt/MR/M4RowSpineLinear.lean:1055), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'_gatedH_L_gk` (Salt/MR/S16ProducersH.lean:1287), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'_gated_L_gk` (Salt/MR/M4ClosureRepairLinear.lean:853) +8 |
 | 32 | `Salt.MR.M4SievedDoorSq_L_gk` | Salt/MR/M4LadderLinear.lean:1814 | OPEN | 11 (11/0) | 7 | - | 8 | 0 | 0 | `Salt.MR.G2Scaffold.m4_door_contradiction_of_live_L_gk` (Salt/MR/M4RowLinear.lean:2780), `Salt.MR.G2Scaffold.m4_door_contradiction_of_live_split_L_gk` (Salt/MR/M4RowLinear.lean:2534), `Salt.MR.G2Scaffold.m4_hbd_of_live_L_gk` (Salt/MR/M4RowLinear.lean:2298) +8 |
@@ -253,5 +253,5 @@ By kind: case split `by_cases` 81 · prop-def body 2 · theorem conclusion 1.
 - `Salt.Entropy.Chowla.decrement_exists_of_tower` (Salt/Entropy/Chowla/Endpoints.lean:98)
 - `Salt.Entropy.Chowla.decrement_exists_of_tower_aff` (Salt/Entropy/Chowla/StrideDecrement.lean:684)
 - `Salt.MR.flat_head_uniform_xceil_eps` (Salt/MR/FlatDoorEpsChain.lean:561)
-- `Salt.MR.flat_head_uniform_xceil_epsW` (Salt/MR/FlatDoorEpsRung2.lean:4710)
+- `Salt.MR.flat_head_uniform_xceil_epsW` (Salt/MR/FlatDoorEpsRung2.lean:4742)
 

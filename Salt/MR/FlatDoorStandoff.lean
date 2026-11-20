@@ -1463,7 +1463,7 @@ namespace Salt.MR
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_head_uniform_xceil_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:4710`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_head_uniform_xceil_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:4742`): its
 statement under the three standoff binders, its proof verbatim with `primeWindow_sum_inv_ge_bounded`
 and `hreduce_holds_final_bounded` replaced by the standoff form. -/
 theorem flat_head_uniform_xceil_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1481,9 +1481,7 @@ theorem flat_head_uniform_xceil_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
       (primeWindow_sum_inv_ge_bounded_of_standoff hcS hSieg)
   obtain ⟨C', hC', hCcap, hcm'⟩ := circle_method_estimate_sq_bounded (2 * Real.log 4)
     (by have := Real.log_pos (by norm_num : (1 : ℝ) < 4); linarith)
-  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
   have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog2gt : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
   have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
   -- ⟦THE LEAVES' WITNESSES, PINNED⟧ the door-head's device (`DoorReceipt.lean:860–869`)
@@ -1515,24 +1513,11 @@ theorem flat_head_uniform_xceil_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
     have h2 : (1 : ℚ) / 500 ≤ 1 / 2 := by norm_num
     linarith
   -- ⟦THE MINT⟧ the head's `δ₀` at the pinned witnesses IS the frozen file's term, exactly
-  have hmint : cD3 / (16 * C) * (ε : ℝ) / 4 = (ε : ℝ) / (256 * (1 + 4 * Real.log 4)) := by
-    rw [hcD3def, hCdef]
-    have hne : (1 : ℝ) + 2 * (2 * Real.log 4) ≠ 0 := by positivity
-    field_simp
-    ring
   -- ⟦THE MINT AGAINST THE PIN, AT THE CHARGE⟧ the source's `hqcap`/`hcapR`/`hδnum` at `c`
   -- in place of `8103`: `1 ≤ 500·c·ε` gives `838400·c·ε ≥ 1676.8`, and the mint's own
   -- denominator is `256·(1 + 8·log 2) ≤ 256 · 6.5451774464 = 1675.5654262784` — the source's
   -- own margin, now `1.2345737216` wide and INDEPENDENT of `c`.
-  have hcQ : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
-  have hcQ0 : (0 : ℚ) < 500 * (c : ℚ) := by linarith
-  have hqcap : (1 : ℚ) ≤ 500 * (c : ℚ) * ε := by
-    rw [div_le_iff₀ hcQ0] at hcε; linarith
-  have hcapR : (1 : ℝ) ≤ 500 * (c : ℝ) * (ε : ℝ) := by exact_mod_cast hqcap
-  have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
-  have hδnum : (1 : ℝ) / (838400 * (c : ℝ)) ≤ cD3 / (16 * C) * (ε : ℝ) / 4 := by
-    rw [hmint, div_le_div_iff₀ (by linarith) (by positivity), hlog4eq]
-    linarith
+  obtain ⟨hmint, hcR1, hδnum⟩ := flat_mint_at_charge hcD3def hCdef hc1 hcε
   -- ⟦THE COUNT HOOK AT THE CAP⟧ §2, in place of the pinned hook
   obtain ⟨K, hK, hKb, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded_ceiling_eps ε hε0 hε hc1 hcε
   obtain ⟨β, hβdef⟩ : ∃ b : ℝ, b = cD3 * (ε : ℝ) / (144 * Real.log 4) := ⟨_, rfl⟩
@@ -1622,7 +1607,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_kswin_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5208`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_kswin_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5225`): its
 statement under the three standoff binders, its proof verbatim with
 `s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist_csfree_kswin` replaced by the standoff form. -/
 theorem flat_kswin_generic_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1715,7 +1700,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_v7_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5319`): its statement
+/-- **⟦STANDOFF TWIN⟧** `flat_v7_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5336`): its statement
 under the three standoff binders, its proof verbatim with `s16_bandLaneWinL_holdsU` replaced by the
 standoff form. -/
 theorem flat_v7_generic_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1818,7 +1803,7 @@ theorem flat_v7_generic_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
   have hxceil : Real.log ((R.x : ℕ) : ℝ) ≤ 31 / (R.eps : ℝ) * ((R.Hhi : ℕ) : ℝ) := by
     rw [hReps]; exact hRx
   -- ⟦THE RATED SUPPLY, WITH THE CUSHION PAID BY THE EIGHTH ARM⟧
-  have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le hA26
+  obtain ⟨hM1, -, hlo, hfl⟩ := regime_flat_head_facts_mul hc0 hReps hHlo hεpin hA162
   have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
   have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
   have heps500R : (1 : ℝ) / (500 * (c : ℝ)) ≤ (R.eps : ℝ) := by
@@ -1831,9 +1816,6 @@ theorem flat_v7_generic_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
   -- ⟦THE NINTH ARM, FIRST READER⟧ `3.2·(162 + 2·Lc) = 518.4 + 6.4·Lc ≥ 518 + 6·Lc` at `0 ≤ Lc`
   have h518 : (518 : ℝ) + 6 * Real.log (c : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
     linarith [hdes, hA162b, hLc0]
-  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact flatWitFloor_ll _ _ _ _
-  have hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
-    rw [hHlo]; exact flatWitFloor_log_ge hA162
   -- ⟦THE NINTH ARM, SECOND READER⟧ `cofkRThr ≤ A`, `2·Lc ≤ A`, `2·A ≤ 3.2·A + 1 ≤ e^(3.2A)`
   have hthrgate : cofkRThr Cq Cb Xsk Y0 + 2 * Real.log (c : ℝ)
       ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
@@ -1863,7 +1845,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flat_chain_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5464`): its
+/-- **⟦STANDOFF TWIN⟧** `flat_chain_generic_epsW` (`Salt/MR/FlatDoorEpsRung2.lean:5478`): its
 statement under the three standoff binders, its proof verbatim with `flat_kswin_generic_epsW` and
 `flat_v7_generic_epsW` replaced by the standoff form. -/
 theorem flat_chain_generic_epsW_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -1881,7 +1863,7 @@ end
 section
 open scoped BigOperators
 open Salt.Entropy.Chowla
-/-- **⟦STANDOFF TWIN⟧** `flatDoorEpsFamilyW_holds` (`Salt/MR/FlatDoorEpsRung2.lean:5490`): its
+/-- **⟦STANDOFF TWIN⟧** `flatDoorEpsFamilyW_holds` (`Salt/MR/FlatDoorEpsRung2.lean:5504`): its
 statement under the three standoff binders, its proof verbatim with `flat_head_uniform_xceil_epsW`
 and `flat_chain_generic_epsW` replaced by the standoff form. -/
 theorem flatDoorEpsFamilyW_holds_of_standoff {cS : ℝ} (hcS : 0 < cS)

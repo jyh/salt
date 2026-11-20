@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `e3dac125` · source digest `931998aeab31a93a` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `85b5402e` · source digest `6df096edd56992be` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23466 · with a proof/definition body: 23466 · direct corpus references (edges): 85959 · audited results: 9148 · corpus Prop-valued names: 691.
+Declarations indexed: 23467 · with a proof/definition body: 23467 · direct corpus references (edges): 85958 · audited results: 9148 · corpus Prop-valued names: 691.
 
 ## Hypothesis status (Deliverable A)
 
@@ -349,8 +349,8 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Chen.StepHyp` | DISCHARGED | 4 | `Salt.Chen.stepHyp_of_comparisons` ✓audited GUARDED (Salt/Chen/AbelStep.lean:271) · `Salt.Chen.stepHyp_sharp_of_comparisons` ✓audited GUARDED (Salt/Chen/TauSharp.lean:280) |
 | `Salt.Chen.rosserCond` | DISCHARGED | 4 | `Salt.Chen.rosserCond_one` ✓audited (Salt/Chen/LinearSieve.lean:515) |
 | `Salt.MR.CalFrame` | DISCHARGED | 4 | `Salt.MR.calFrame_satisfiable` ✓audited (Salt/MR/SeamCalibration.lean:361) |
-| `Salt.MR.FlatDoorEpsFamilyW` | DISCHARGED | 4 | `Salt.MR.flatDoorEpsFamilyW_holds` ✓audited (Salt/MR/FlatDoorEpsRung2.lean:5490) |
-| `Salt.MR.FlatHeadFormEpsW` | DISCHARGED | 4 | `Salt.MR.flat_head_uniform_xceil_epsW` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4710) |
+| `Salt.MR.FlatDoorEpsFamilyW` | DISCHARGED | 4 | `Salt.MR.flatDoorEpsFamilyW_holds` ✓audited (Salt/MR/FlatDoorEpsRung2.lean:5504) |
+| `Salt.MR.FlatHeadFormEpsW` | DISCHARGED | 4 | `Salt.MR.flat_head_uniform_xceil_epsW` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4742) |
 | `Salt.MR.HalaszPrimesChi` | DISCHARGED | 4 | `Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded` GUARDED (Salt/MR/NumeralKq.lean:290) · `Salt.MR.halaszPrimesChi_pointwise_of_gates` ✓audited GUARDED (Salt/MR/PortClose.lean:230) · `Salt.MR.halaszPrimesChi_pointwise_of_gates_bounded_cs` ✓audited GUARDED (Salt/MR/V7B.lean:284) |
 | `Salt.MR.M4BlockMeanSq` | DISCHARGED | 4 | `Salt.MR.m4_blockMeanSq_trivial` ✓audited (Salt/MR/M4BridgeCover.lean:426) |
 | `Salt.MR.M4CoprimeBlockMeanSq` | DISCHARGED | 4 | `Salt.MR.m4_coprimeBlockMeanSq_trivial` ✓audited (Salt/MR/M4NonCoprime.lean:366) |
@@ -360,7 +360,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `ProbabilityTheory.Kernel.AEFiniteKernelSupport` | DISCHARGED | 3 | `ProbabilityTheory.Kernel.aefiniteKernelSupport_zero` (Salt/Entropy/Mathlib/KernelDisintegration.lean:714) |
 | `Salt.Entropy.Chowla.LogChowlaAffSupply` | DISCHARGED | 3 | `Salt.MR.logChowlaAffSupply_one_zero` ✓audited GUARDED (Salt/MR/AffineSupplyH.lean:37) |
 | `Salt.MR.ExitClose` | DISCHARGED | 3 | `Salt.MR.exitClose_twelve` ✓audited (Salt/MR/ExitClose.lean:748) |
-| `Salt.MR.FlatDoorAllGradesW` | DISCHARGED | 3 | `Salt.MR.flatDoorAllGradesW_holds` ✓audited (Salt/MR/FlatDoorAllGrades.lean:107) · `Salt.MR.flatDoorAllGradesW_of_uniform` ✓audited (Salt/MR/FlatDoorUniform.lean:1537) |
+| `Salt.MR.FlatDoorAllGradesW` | DISCHARGED | 3 | `Salt.MR.flatDoorAllGradesW_holds` ✓audited (Salt/MR/FlatDoorAllGrades.lean:107) · `Salt.MR.flatDoorAllGradesW_of_uniform` ✓audited (Salt/MR/FlatDoorUniform.lean:1521) |
 | `Salt.MR.FlatHeadForm` | DISCHARGED | 3 | `Salt.MR.flat_door_head_xceil` ✓audited (Salt/MR/DoorReceipt.lean:849) |
 | `Salt.MR.FlatHeadFormEpsW_band` | DISCHARGED | 3 | `Salt.MR.flat_head_uniform_xceil_epsW_band` ✓audited GUARDED (Salt/MR/FlatDoorAllGradesBand.lean:582) |
 | `Salt.MR.FlatHeadFormU` | DISCHARGED | 3 | `Salt.MR.flatHeadFormU_trivial` ✓audited GUARDED (Salt/MR/FlatDoorUniform.lean:1106) |
@@ -399,7 +399,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.MinorArcBoundTight` | DISCHARGED | 2 | `Salt.MR.minorArcBoundTight_twelve` ✓audited (Salt/MR/ExitClose.lean:775) |
 | `Salt.MR.S15Sel''_L_T` | DISCHARGED | 2 | `Salt.MR.s15_sel''_L_witness_flat_charge_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4182) · `Salt.MR.s15_sel''_L_witness_flat_wide_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4240) |
 | `Salt.MR.S16BaseScaleCapEnd_L_gk` | DISCHARGED | 2 | `Salt.MR.s16_baseScaleCapEnd_L_of_xceil` ✓audited GUARDED (Salt/MR/KLever.lean:215) |
-| `Salt.MR.StrideDoorAllGradesW` | DISCHARGED | 2 | `Salt.MR.strideDoorAllGradesW_holds` ✓audited (Salt/MR/StrideDoorAllGrades.lean:5283) |
+| `Salt.MR.StrideDoorAllGradesW` | DISCHARGED | 2 | `Salt.MR.strideDoorAllGradesW_holds` ✓audited (Salt/MR/StrideDoorAllGrades.lean:5266) |
 | `Salt.MR.XCeilRiderStrictAt` | DISCHARGED | 2 | `Salt.MR.xceilRiderStrictAt_zero` ✓audited (Salt/MR/FlatDoorEpsRung2.lean:4685) |
 | `Salt.SW.EstermannPositivity` | DISCHARGED | 2 | `Salt.SW.estermannPositivity` ✓audited (Salt/SW/EstermannInterface.lean:473) |
 | `Salt.SW.WellSpacedAt` | DISCHARGED | 2 | `Salt.SW.wellSpacedAt_parity_reps` ✓audited GUARDED (Salt/SW/DensityLogfree.lean:389) |
@@ -411,8 +411,8 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Entropy.Chowla.GradedAffHeadAt_g12b` | DISCHARGED | 1 | `Salt.MR.log_chowla_aff_of_door_crowned_unslotted_g12b` ✓audited GUARDED (Salt/MR/StrideGradeReceipt12b.lean:40) |
 | `Salt.Entropy.Chowla.TwinDetecting` | DISCHARGED | 1 | `Salt.Entropy.Chowla.slack_witness_twinDetecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:102) · `Salt.Entropy.Chowla.chi4w_detecting` ✓audited (Salt/Entropy/Chowla/PinDichotomy.lean:307) |
 | `Salt.ExpSum.IsVdCBound` | DISCHARGED | 1 | `Salt.ExpSum.isVdCBound_two` (Salt/ExpSum/DerivTestK.lean:236) · `Salt.ExpSum.isVdCBound_16` ✓audited GUARDED (Salt/ExpSum/Strip.lean:182) |
-| `Salt.MR.FlatDoorAllGradesBandW` | DISCHARGED | 1 | `Salt.MR.flatDoorAllGradesBandW_holds` ✓audited (Salt/MR/FlatDoorAllGradesBand.lean:1570) |
-| `Salt.MR.FlatDoorUniformW` | DISCHARGED | 1 | `Salt.MR.flatDoorUniformW_holds` ✓audited (Salt/MR/FlatDoorUniform.lean:1524) |
+| `Salt.MR.FlatDoorAllGradesBandW` | DISCHARGED | 1 | `Salt.MR.flatDoorAllGradesBandW_holds` ✓audited (Salt/MR/FlatDoorAllGradesBand.lean:1552) |
+| `Salt.MR.FlatDoorUniformW` | DISCHARGED | 1 | `Salt.MR.flatDoorUniformW_holds` ✓audited (Salt/MR/FlatDoorUniform.lean:1508) |
 | `Salt.MR.M4BlockMeanSqBlk` | DISCHARGED | 1 | `Salt.MR.m4_blockMeanSqBlk_trivial` ✓audited (Salt/MR/M4BridgeBlock.lean:530) |
 | `Salt.MR.M4BlockMeanSqSupQ` | DISCHARGED | 1 | `Salt.MR.m4_blockMeanSqSupQ_of_classPrice` ✓audited GUARDED (Salt/MR/M4ClassPrice.lean:401) |
 | `Salt.MR.M4ChiFreeShiftBlockMeanSq` | DISCHARGED | 1 | `Salt.MR.m4_chiFreeShiftBlock_trivial` ✓audited (Salt/MR/M4CoprimeSupply.lean:320) |
@@ -998,7 +998,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | Mertens / PNT-type | 255 | 67 | 883 | 792 | 4 | 16 | 0 | 1695 | 1638 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
 | explog/lognum numeral tactic | 53 | 0 | 669 | 763 | 1 | 5 | 0 | 1438 | 1438 |
-| Matomaki-Radziwill / Halasz (short intervals) | 9841 | 5428 | 2964 | 1301 | 168 | 189 | 0 | 4622 | 73 |
+| Matomaki-Radziwill / Halasz (short intervals) | 9842 | 5428 | 2964 | 1301 | 168 | 189 | 0 | 4622 | 73 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
 
@@ -1178,7 +1178,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | family | external dependents | audited members | decls |
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
-| Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9841 |
+| Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9842 |
 | entropy decrement | 650 | 534 | 1411 |
 | character sums / L-functions | 966 | 2196 | 4331 |
 | circle method / Fourier | 1171 | 83 | 184 |
