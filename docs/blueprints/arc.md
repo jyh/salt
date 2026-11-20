@@ -57,7 +57,7 @@ close; every wave carries that sentence.
 default at the bytes: the sieved supply is LANDED end-to-end — `m4_doorL2_close_split_sq`
 (`M4DoorL2.lean:597`, legs 1/3/4 in place) → `m4_second_road_L2` (`S12Compose.lean:99`,
 11-item register, ONE analytic item, that item carrying FIVE producers + an unconditional
-witness) → grade MET → `logChowla2_ineffective_v7_ksarm_g0` (`V7Headline.lean:157`, no outer
+witness) → grade MET → `logChowla2_ineffective_v7_ksarm_g0` (`V7Headline.lean:145`, no outer
 hypotheses, ONE open rider). The rider (`Kvt` cushion) measured at its flip-point: no second
 rider, genuine Skolem witness, headroom `K_vt ≤ e^518/128 ≈ 10^222` (518 re-derived from the
 terminal's own exports). Corroborated by the month-old JYH-ratified s9-freeze ⟦AMENDMENT B⟧
@@ -168,7 +168,7 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   ⚠️⛔⛔ **STAMPED 2026-08-26 01:5x (math) — THE ROW ABOVE IS BYTE-UNTOUCHED; THIS IS A STAMP, AND
   IT CHANGES THE ROW'S PRICE AND ITS OWNER.** *"Prove the cushion inequality" is not a node, and
   `10^222` is not headroom.* Measured at the bytes, bottom to top:
-  `logChowla2_ineffective_v7_ksarm_g0` (`V7Headline.lean:157`) applies its cushion at
+  `logChowla2_ineffective_v7_ksarm_g0` (`V7Headline.lean:145`) applies its cushion at
   **`Kvt (KlevF A) ⌈arcDen 12 R.Hhi⌉₊`** — and `arcDen 12 H = (Real.log H)^12` (`BigXiArc.lean:148`),
   so the modulus cap is `Qm = ⌈(log H₊)^12⌉₊`, **a function of the same `H₊` that funds the budget.**
   ⇒ 🔑 ***A HEADROOM IS A RATIO BETWEEN TWO QUANTITIES; WHEN BOTH MOVE WITH THE SAME PARAMETER IT IS
@@ -189,7 +189,7 @@ side** — taken only at the Captain's word or after D-1's pricing report (§7).
   whole blocker.**
   ⛔⛔ **AND THE RE-ROUTE I TESTED BEFORE PROPOSING IT IS REFUTED — recorded because it is the
   attractive wrong answer.** `SiegelBand.lean`'s design law says an `X`-independent debit is absorbed
-  by regime enlargement, and the terminal's parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:417`)
+  by regime enlargement, and the terminal's parent `logChowla2_ineffective_v7_ksarm` (`V7Ks.lean:413`)
   keeps a live lever `g R.Hhi R.ω ≤ R.x` that `_g0` sets to **zero**. So the obvious move is to re-route
   the cushion from `log H₊/4` onto the outer scale and let `g` absorb it. **The lever has a ceiling.**
   `XCeilRiderStrict ε g` (`XThread.lean:93`) demands `log (g H₊ ω) + ε²H₊ ≤ (31/ε)·H₊`, and `ε ≥ 1/500`,

@@ -41,9 +41,8 @@ parent; the proof discards the parent's own `hRg` and passes the rest through un
 `XCeilRiderStrict ε (fun _ _ => 0)` unfolds to: on `XCeilGate ε H₊ ω`,
 `log 0 + ε²·H₊ ≤ (31/ε)·H₊`.  `Real.log_zero` collapses the `log 0` summand to `0`, and the
 gate's own third field is `log ω + ε²·H₊ ≤ (31/ε)·H₊` with `log ω ≥ 0` — the ε²·H₊ margin the
-gate already carries is the whole payment.  This is the witness pattern already in-body at
-`RegisterCompose.lean:242-246`, `XThread.lean:1276-1280` and `V7B.lean:830`, lifted here to the
-terminal.
+gate already carries is the whole payment.  This is the witness pattern that 18 charge heads
+once proved in-body; `xceilRiderStrict_zero` (now in XThread) names it, and each of them calls it.
 
 ## What this instance does and does not say
 

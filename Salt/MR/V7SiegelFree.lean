@@ -924,7 +924,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6_csarm` (`V7B.lean:893`): its statement under the
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6_csarm` (`V7B.lean:889`): its statement under the
 three standoff binders, its proof verbatim with `s16_bandLaneWinL_holdsU` ·
 `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree` replaced by their twins. -/
 theorem logChowla2_ineffective_v6_csarm_of_standoff {cS : ℝ} (hcS : 0 < cS)

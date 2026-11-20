@@ -885,7 +885,7 @@ the `K_vt` cushion — is discharged inside.
 * nothing here bears on twin primes — the transport wall is untouched at this rung.
 
 ⟦KEPT, FROZEN⟧ the tower conjunct and the `loglog H₊ ≤ 2·e^{1.6A}` export are carried
-verbatim from the parent (`V7Ks.lean:426-430`): the kernel census found zero live kernel
+verbatim from the parent (`V7Ks.lean:422-426`): the kernel census found zero live kernel
 consumers either way, but `arc.md`'s erratum-(a) argument reads the second export off the
 headline, and keeping both is what makes the parent's `_g0` derivable-from-stronger as a
 KERNEL FACT (`logChowla2_ineffective_v7_ksarm_g0_of_rated` below).
@@ -974,7 +974,7 @@ statement, re-derived from `logChowla2_v7_rated` at `Kvt := fun _ _ => 0` (nonne
 it referees the rated headline AGAINST THIS RESTATEMENT, not against the landed declaration —
 the `example` immediately below closes that gap: its type is exactly this statement and its
 proof term is the landed `logChowla2_ineffective_v7_ksarm_g0` itself, so any drift between
-the copy and `V7Headline.lean:157` fails to elaborate HERE. -/
+the copy and `V7Headline.lean:145` fails to elaborate HERE. -/
 theorem logChowla2_ineffective_v7_ksarm_g0_of_rated (A₀ : ℝ) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ) (Kvt : ℕ → ℕ → ℝ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
