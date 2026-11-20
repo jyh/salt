@@ -120,8 +120,8 @@ new fields do — no cast lemma needed); `hω`, `heps`, `heps1`, `hC0`, `hHlohi`
 `4 ≤ ε²·Hlo'·ε²·⌈1/ε⌉₊²/…`; the builders' shared script (`RegimeParam.lean:323-330`, `h4le :
 4 ≤ eps²·Hlo`) yields `2 ≤ eps²·Hlo'/2 · (1/ε²)`… — simplest: from `hlo4`, `(1/ε)⁴ ≤ ⌈1/ε⌉₊⁴ ≤
 Hlo'/4`, so `ε²·Hlo'/2 ≥ 2/ε² ≥ 2·500² = 500000 ≥ 1096 ≥ a` using `heps500` (`nlinarith` after
-`one_div_le` at `ε ≤ 1/500`).  `hPNTwindow : √Hlo' ≤ ε²·Hlo'/2` — the `hPNT` block of `regime_eps_window_facts`
-VERBATIM (`RegimeParam.lean:331-349`) at `m := ⌈1/ε⌉₊`, from `hlo4`.  `hHlohi`:
+`one_div_le` at `ε ≤ 1/500`).  `hPNTwindow : √Hlo' ≤ ε²·Hlo'/2` — `regime_eps_window_facts`'s second
+fact at `Hlo := R.a*R.Hlo/a`, from `hlo4`.  `hHlohi`:
 `Nat.div_le_self`
 then `chowlaTower_ge_base R.hC0 (base ≥ 4·10⁶) R.J` at base `R.a * R.Hlo` read through
 `chowlaTower_eq_base_one` and `R.hfit`.  `hfit`: `chowlaTower R.C0 a (R.a*R.Hlo/a) R.J =
@@ -163,9 +163,6 @@ def regimeShrinkX_stride (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a
     nlinarith [hem, hprod]
   have hHlo4Q : (4 : ℚ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) ^ 4
       ≤ ((R.a * R.Hlo / a : ℕ) : ℚ) := by exact_mod_cast hlo4
-  have hHlo4R : (4 : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 4
-      ≤ ((R.a * R.Hlo / a : ℕ) : ℝ) := by exact_mod_cast hlo4
-  have hemR : (1 : ℝ) ≤ (R.eps : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) := by exact_mod_cast hem
   have hcop : (a : ℚ) ≤ R.eps ^ 2 * ((R.a * R.Hlo / a : ℕ) : ℚ) / 2 := by
     have haQ : (a : ℚ) ≤ 1096 := by exact_mod_cast ha1096
     have h1 : R.eps ^ 2 * (4 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) ^ 4)
@@ -183,34 +180,7 @@ def regimeShrinkX_stride (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha1096 : a
         = 4 * (R.eps * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ)) ^ 2
             * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) ^ 2 := by ring
     linarith [h1, hprod, heq, haQ]
-  have hPNT : Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ)
-      ≤ (R.eps : ℝ) ^ 2 * ((R.a * R.Hlo / a : ℕ) : ℝ) / 2 := by
-    have hsqrtHlo : (2 : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 2
-        ≤ Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) := by
-      have heq : Real.sqrt (4 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 4)
-          = 2 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 2 := by
-        rw [show (4 : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 4
-            = (2 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 2) ^ 2 by ring,
-          Real.sqrt_sq (by positivity)]
-      calc (2 : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 2
-          = Real.sqrt (4 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 4) := heq.symm
-        _ ≤ Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) := Real.sqrt_le_sqrt hHlo4R
-    have hsqrtnn : (0 : ℝ) ≤ Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) := Real.sqrt_nonneg _
-    have hHloeq : Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ)
-        * Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) = ((R.a * R.Hlo / a : ℕ) : ℝ) :=
-      Real.mul_self_sqrt (by positivity)
-    have h2 : (2 : ℝ) ≤ (R.eps : ℝ) ^ 2 * Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) := by
-      have hstep : (R.eps : ℝ) ^ 2 * (2 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 2)
-          ≤ (R.eps : ℝ) ^ 2 * Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) :=
-        mul_le_mul_of_nonneg_left hsqrtHlo (sq_nonneg _)
-      nlinarith [hstep, hemR,
-        sq_nonneg ((R.eps : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) - 1)]
-    have h3 : 2 * Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ)
-        ≤ (R.eps : ℝ) ^ 2 * ((R.a * R.Hlo / a : ℕ) : ℝ) := by
-      have hh := mul_le_mul_of_nonneg_right h2 hsqrtnn
-      rw [mul_assoc, hHloeq] at hh
-      linarith [hh]
-    linarith [h3]
+  have hPNT := (regime_eps_window_facts R.heps hlo4).2
   exact { x := R.x / a, ω := R.ω, a := a, eps := R.eps, Hlo := R.a * R.Hlo / a,
           Hhi := R.Hhi, C0 := R.C0, J := R.J,
           hx := hs.2.1, hω := R.hω, hωx := hs.2.2.1, ha := ha,
@@ -942,9 +912,6 @@ def regimeShrinkX_stride_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 
     nlinarith [hem, hprod]
   have hHlo4Q : (4 : ℚ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) ^ 4
       ≤ ((R.a * R.Hlo / a : ℕ) : ℚ) := by exact_mod_cast hlo4
-  have hHlo4R : (4 : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 4
-      ≤ ((R.a * R.Hlo / a : ℕ) : ℝ) := by exact_mod_cast hlo4
-  have hemR : (1 : ℝ) ≤ (R.eps : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) := by exact_mod_cast hem
   have hcop : (a : ℚ) ≤ R.eps ^ 2 * ((R.a * R.Hlo / a : ℕ) : ℚ) / 2 := by
     have haQ : (a : ℚ) ≤ 8103 := by exact_mod_cast ha8103
     have h1 : R.eps ^ 2 * (4 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) ^ 4)
@@ -962,34 +929,7 @@ def regimeShrinkX_stride_b9 (R : ChowlaRegime) (a : ℕ) (ha : 1 ≤ a) (ha8103 
         = 4 * (R.eps * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ)) ^ 2
             * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℚ) ^ 2 := by ring
     linarith [h1, hprod, heq, haQ]
-  have hPNT : Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ)
-      ≤ (R.eps : ℝ) ^ 2 * ((R.a * R.Hlo / a : ℕ) : ℝ) / 2 := by
-    have hsqrtHlo : (2 : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 2
-        ≤ Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) := by
-      have heq : Real.sqrt (4 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 4)
-          = 2 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 2 := by
-        rw [show (4 : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 4
-            = (2 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 2) ^ 2 by ring,
-          Real.sqrt_sq (by positivity)]
-      calc (2 : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 2
-          = Real.sqrt (4 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 4) := heq.symm
-        _ ≤ Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) := Real.sqrt_le_sqrt hHlo4R
-    have hsqrtnn : (0 : ℝ) ≤ Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) := Real.sqrt_nonneg _
-    have hHloeq : Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ)
-        * Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) = ((R.a * R.Hlo / a : ℕ) : ℝ) :=
-      Real.mul_self_sqrt (by positivity)
-    have h2 : (2 : ℝ) ≤ (R.eps : ℝ) ^ 2 * Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) := by
-      have hstep : (R.eps : ℝ) ^ 2 * (2 * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) ^ 2)
-          ≤ (R.eps : ℝ) ^ 2 * Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ) :=
-        mul_le_mul_of_nonneg_left hsqrtHlo (sq_nonneg _)
-      nlinarith [hstep, hemR,
-        sq_nonneg ((R.eps : ℝ) * ((⌈(1 / R.eps : ℚ)⌉₊ : ℕ) : ℝ) - 1)]
-    have h3 : 2 * Real.sqrt ((R.a * R.Hlo / a : ℕ) : ℝ)
-        ≤ (R.eps : ℝ) ^ 2 * ((R.a * R.Hlo / a : ℕ) : ℝ) := by
-      have hh := mul_le_mul_of_nonneg_right h2 hsqrtnn
-      rw [mul_assoc, hHloeq] at hh
-      linarith [hh]
-    linarith [h3]
+  have hPNT := (regime_eps_window_facts R.heps hlo4).2
   exact { x := R.x / a, ω := R.ω, a := a, eps := R.eps, Hlo := R.a * R.Hlo / a,
           Hhi := R.Hhi, C0 := R.C0, J := R.J,
           hx := hs.2.1, hω := R.hω, hωx := hs.2.2.1, ha := ha,
