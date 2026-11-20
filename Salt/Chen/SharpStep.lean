@@ -64,6 +64,23 @@ open Finset
 
 namespace Salt.Chen
 
+/-- **`log_le_log_of_one_le_logRatio`** (O13-e row 295). The cutoff preamble the sharp
+peeling steps open with: `1 ≤ logRatio z D` (that is, `log D / log z ≥ 1`) forces `log z > 0`, since
+a zero denominator makes the ratio `0`, and then `log z ≤ log D`. Stated with `0 ≤ log z` as well,
+the form the steps' own `rcases` produced. -/
+theorem log_le_log_of_one_le_logRatio {z D : ℕ} (h : 1 ≤ logRatio z D) :
+    (0 : ℝ) ≤ Real.log z ∧ 0 < Real.log z ∧ Real.log z ≤ Real.log D := by
+  have hnn : (0 : ℝ) ≤ Real.log z := by
+    rcases Nat.eq_zero_or_pos z with h0 | h0
+    · simp [h0]
+    · exact Real.log_nonneg (by exact_mod_cast h0)
+  have hpos : 0 < Real.log z := by
+    rcases lt_or_eq_of_le hnn with h0 | h0
+    · exact h0
+    · exfalso; rw [logRatio, ← h0, div_zero] at h; linarith
+  refine ⟨hnn, hpos, ?_⟩
+  have h' := h; rw [logRatio, le_div_iff₀ hpos, one_mul] at h'; exact h'
+
 /-! ## Part A — support and boundedness helpers for `fseq` -/
 
 /-- `fₙ(s) = 0` for `s < 1` and `n ≥ 1` (below every parity window: `[1,3]` odd/`f₁`,
@@ -372,16 +389,8 @@ theorem hf_of_window (s' : BoundingSieve) (ε : ℝ) (z side' D' n : ℕ)
   set S := logRatio z D' with hSdef
   set win := s'.prodPrimes.primeFactors.filter (fun p => side' % 2 = 1 → p ^ 3 < D') with hwin
   -- positivity of log z, log D', S from the operating window
-  have hlz_nn : (0 : ℝ) ≤ Real.log z := by
-    rcases Nat.eq_zero_or_pos z with h | h
-    · simp [h]
-    · exact Real.log_nonneg (by exact_mod_cast h)
-  have hlogz : 0 < Real.log z := by
-    rcases lt_or_eq_of_le hlz_nn with h | h
-    · exact h
-    · exfalso; rw [hSdef, logRatio, ← h, div_zero] at hS1; linarith
-  have hzD : Real.log z ≤ Real.log D' := by
-    have h := hS1; rw [hSdef, logRatio, le_div_iff₀ hlogz, one_mul] at h; exact h
+  obtain ⟨hlz_nn, hlogz, hzD⟩ :=
+    log_le_log_of_one_le_logRatio (z := z) (D := D') hS1
   have hlogD : 0 < Real.log D' := lt_of_lt_of_le hlogz hzD
   have hS0 : 0 < S := by linarith [hS1]
   have hzS : Real.log z * S = Real.log D' := by

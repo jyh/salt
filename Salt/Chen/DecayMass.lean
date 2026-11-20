@@ -451,16 +451,8 @@ theorem hh_of_window (s' : BoundingSieve) (ε : ℝ) (z side' D' n : ℕ)
   have hW := Salt.BrunLower.W_pos s'
   set S := logRatio z D' with hSdef
   -- log positivity from the operating window
-  have hlz_nn : (0 : ℝ) ≤ Real.log z := by
-    rcases Nat.eq_zero_or_pos z with h | h
-    · simp [h]
-    · exact Real.log_nonneg (by exact_mod_cast h)
-  have hlogz : 0 < Real.log z := by
-    rcases lt_or_eq_of_le hlz_nn with h | h
-    · exact h
-    · exfalso; rw [hSdef, logRatio, ← h, div_zero] at hS1; linarith
-  have hzD : Real.log z ≤ Real.log D' := by
-    have h := hS1; rw [hSdef, logRatio, le_div_iff₀ hlogz, one_mul] at h; exact h
+  obtain ⟨hlz_nn, hlogz, hzD⟩ :=
+    log_le_log_of_one_le_logRatio (z := z) (D := D') hS1
   have hzpos : (0 : ℝ) < (z : ℝ) := by
     rcases (Nat.cast_nonneg z : (0 : ℝ) ≤ (z : ℝ)).lt_or_eq with h | h
     · exact h
