@@ -908,12 +908,14 @@ amplitude is unchanged (`joint_cs_factoring`, `joint_supF_pin`, `bridge_adapter`
 `L` — is replaced by `widthKamp`, which does not.  The exit `hRHS_discharged_const` has
 `hRHS_discharged`'s conclusion byte-for-byte, with `C₁` EXHIBITED (no longer a socket). -/
 
-/-- The pin's elementary arithmetic at the `e^{64}` gate: everything `beta_integral_pin_const`
-and `rhs_grade_at_scale_const` need about `(k, L, y, η)`. -/
-private lemma pin_basic64 {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Real.log k)
+/-- The pin's elementary arithmetic at the `e^{64}` gate, in the form that carries
+`log y = 4 log L` and the STRICT gap `1/L < η` (which `FarClose`'s low-leg shift
+`δ = η − 1/L > 0` needs).  Public since O13-e: `SupClose`, `FarClose`, `FarStar`,
+`GradeWindowC` and `RHSGradeC` each re-derived it as a private copy. -/
+lemma pin_basic64_strict {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Real.log k)
     (hy : y = L ^ 4) (hη : η = 1 / Real.log y) :
-    0 < k ∧ 64 ≤ L ∧ (131072 : ℝ) ≤ y ∧ 0 < Real.log y ∧ 0 < η ∧ η ≤ 1 / 8
-      ∧ 1 / L ≤ η ∧ L ^ 4 ≤ k := by
+    0 < k ∧ 64 ≤ L ∧ (131072 : ℝ) ≤ y ∧ Real.log y = 4 * Real.log L ∧ 0 < η ∧ η ≤ 1 / 8
+      ∧ 1 / L < η ∧ L ^ 4 ≤ k := by
   have hk0 : (0 : ℝ) < k := lt_of_lt_of_le (Real.exp_pos 64) hk
   have hL64 : (64 : ℝ) ≤ L := by
     rw [hL, ← Real.log_exp 64]; exact Real.log_le_log (Real.exp_pos 64) hk
@@ -928,16 +930,25 @@ private lemma pin_basic64 {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Re
     exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 64) (by norm_num)
   have hlogL2 : (2 : ℝ) ≤ Real.log L := by
     rw [← Real.log_exp 2]; exact Real.log_le_log (Real.exp_pos 2) (by linarith)
-  have hlogy0 : (0 : ℝ) < Real.log y := by rw [hlogy]; linarith
-  refine ⟨hk0, hL64, hy131072, hlogy0, by rw [hη]; positivity, ?_, ?_, ?_⟩
+  refine ⟨hk0, hL64, hy131072, hlogy, by rw [hη, hlogy]; positivity, ?_, ?_, ?_⟩
   · rw [hη, hlogy, div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 8)]
     linarith
-  · rw [hη, hlogy, div_le_div_iff₀ hL0 (by linarith)]
-    linarith [four_log_le_self hL64]
+  · rw [hη, hlogy, div_lt_div_iff₀ hL0 (by linarith)]
+    linarith [four_log_lt_self hL64]
   · have h1 : Real.log (L ^ 4) ≤ Real.log k := by
       rw [Real.log_pow, ← hL]; push_cast; linarith [four_log_le_self hL64]
     have h2 := Real.exp_le_exp.mpr h1
     rwa [Real.exp_log (by positivity), Real.exp_log hk0] at h2
+
+/-- The pin's elementary arithmetic at the `e^{64}` gate: everything `beta_integral_pin_const`
+and `rhs_grade_at_scale_const` need about `(k, L, y, η)` (`pin_basic64_strict`, weakened). -/
+lemma pin_basic64 {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Real.log k)
+    (hy : y = L ^ 4) (hη : η = 1 / Real.log y) :
+    0 < k ∧ 64 ≤ L ∧ (131072 : ℝ) ≤ y ∧ 0 < Real.log y ∧ 0 < η ∧ η ≤ 1 / 8
+      ∧ 1 / L ≤ η ∧ L ^ 4 ≤ k := by
+  obtain ⟨hk0, hL64, hy1, hlogy, hη0, hη8, hLη, hyk⟩ := pin_basic64_strict hk hL hy hη
+  refine ⟨hk0, hL64, hy1, ?_, hη0, hη8, hLη.le, hyk⟩
+  rw [hlogy]; linarith [Real.log_pos (by linarith : (1 : ℝ) < L)]
 
 /-- Interval-integrability of the σ-integrand `Fbound σ/σ`.  Re-derivation of `RHSGrade`'s
 private `rhs_sigma_div_integrable`. -/

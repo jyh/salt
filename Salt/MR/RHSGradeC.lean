@@ -36,10 +36,9 @@ the two families never diverge.
 **LIVE GUARD (inherited).**  `c = 1/(2e)` is the BALL arm's halved constant; the free-`c` forms
 here carry no route commitment — the caller's `hc0`/`hce`/`hc1` are the whole contract.
 
-`GradeConst` keeps `pin_basic64`, `continuous_rpow_negC`,
-`widthKamp_nonneg` and its two integrability pages `private`; they are re-derived here
-verbatim under a `GC` suffix (the house's re-derivation convention, cf. `SupClose`'s
-`pin_basic64S` and `FarStar`'s `pin_basic64T`).
+`GradeConst` keeps `continuous_rpow_negC`, `widthKamp_nonneg` and its two integrability
+pages `private`; they are re-derived here verbatim under a `GC` suffix (the house's
+re-derivation convention, cf. `FarStar`'s `pin_rpow_scaleT`).  Its `pin_basic64` is public.
 -/
 
 noncomputable section
@@ -179,39 +178,8 @@ that page is `joint_sigma_integral`, whose own gates are `0 < c` and `2c < 1` (f
 `sigma_cutoff_pretentious_gen`); everything upstream (the width amplitude, `bridge_adapter`,
 the two integrability pages) is `c`-free plumbing over `rhsFboundC`.
 
-The three `private` helpers `GradeConst` needs here are re-derived verbatim below
-(`4·log L ≤ L` is `RHSGrade`'s public `four_log_le_self`). -/
-
-/-- The pin's elementary arithmetic at the `e^{64}` gate.  Re-derivation of `GradeConst`'s
-private `pin_basic64`. -/
-private lemma pin_basic64GC {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Real.log k)
-    (hy : y = L ^ 4) (hη : η = 1 / Real.log y) :
-    0 < k ∧ 64 ≤ L ∧ (131072 : ℝ) ≤ y ∧ 0 < Real.log y ∧ 0 < η ∧ η ≤ 1 / 8
-      ∧ 1 / L ≤ η ∧ L ^ 4 ≤ k := by
-  have hk0 : (0 : ℝ) < k := lt_of_lt_of_le (Real.exp_pos 64) hk
-  have hL64 : (64 : ℝ) ≤ L := by
-    rw [hL, ← Real.log_exp 64]; exact Real.log_le_log (Real.exp_pos 64) hk
-  have hL0 : (0 : ℝ) < L := by linarith
-  have hy131072 : (131072 : ℝ) ≤ y := by
-    rw [hy]
-    have h4 : (64 : ℝ) ^ 4 ≤ L ^ 4 := pow_le_pow_left₀ (by norm_num) hL64 4
-    norm_num at h4
-    linarith
-  have hlogy : Real.log y = 4 * Real.log L := by rw [hy, Real.log_pow]; norm_num
-  have he2 : Real.exp 2 ≤ 64 := by
-    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 64) (by norm_num)
-  have hlogL2 : (2 : ℝ) ≤ Real.log L := by
-    rw [← Real.log_exp 2]; exact Real.log_le_log (Real.exp_pos 2) (by linarith)
-  have hlogy0 : (0 : ℝ) < Real.log y := by rw [hlogy]; linarith
-  refine ⟨hk0, hL64, hy131072, hlogy0, by rw [hη]; positivity, ?_, ?_, ?_⟩
-  · rw [hη, hlogy, div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 8)]
-    linarith
-  · rw [hη, hlogy, div_le_div_iff₀ hL0 (by linarith)]
-    linarith [four_log_le_self hL64]
-  · have h1 : Real.log (L ^ 4) ≤ Real.log k := by
-      rw [Real.log_pow, ← hL]; push_cast; linarith [four_log_le_self hL64]
-    have h2 := Real.exp_le_exp.mpr h1
-    rwa [Real.exp_log (by positivity), Real.exp_log hk0] at h2
+The `private` helpers `GradeConst` needs here are re-derived verbatim below (the pin's
+arithmetic is its public `pin_basic64`). -/
 
 /-- Interval-integrability of the `c`-generic σ-integrand `rhsFboundC c M L σ/σ`.
 Re-derivation of `GradeConst`'s private `rhs_sigma_div_integrableC` at the freed exponent. -/
@@ -304,7 +272,7 @@ theorem beta_integral_pin_constC (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g
         * crossKer g k h y c₀ t₀' α β) volume 0 η) :
     (∫ β in (0 : ℝ)..η, rhsFboundC c M L (β + 1 / L) * crossKer g k h y c₀ t₀' α β)
       ≤ (widthKamp Cb k h y c₀ * (k + h) ^ (-α)) * rhsSigmaGC c M L := by
-  obtain ⟨hk0, hL64, hy131072, _hlogy0, hη0, hη8, hLη, -⟩ := pin_basic64GC hk hL hy hη
+  obtain ⟨hk0, hL64, hy131072, _hlogy0, hη0, hη8, hLη, -⟩ := pin_basic64 hk hL hy hη
   have hL0 : (0 : ℝ) < L := by linarith
   have hLinv0 : (0 : ℝ) < 1 / L := by positivity
   obtain ⟨hh0, -, -, hyT⟩ := pin_width_gates hL64 hk0 hh hy

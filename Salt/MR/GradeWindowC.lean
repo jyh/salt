@@ -266,40 +266,8 @@ theorem jointIntegrableAtC_pin_free {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
 
 /-! ## §2 (W4-4) — the grade at scale in WINDOW-FLOOR form, at a FREE `c`
 
-`GradeConst`'s / `SupClose`'s pin arithmetic, re-derived verbatim under a `W` suffix (both
-files keep it `private`). -/
-
-/-- The pin's elementary arithmetic at the `e^{64}` gate.  Re-derivation of `GradeConst`'s
-private `pin_basic64`. -/
-private lemma pin_basic64W {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Real.log k)
-    (hy : y = L ^ 4) (hη : η = 1 / Real.log y) :
-    0 < k ∧ 64 ≤ L ∧ (131072 : ℝ) ≤ y ∧ 0 < Real.log y ∧ 0 < η ∧ η ≤ 1 / 8
-      ∧ 1 / L ≤ η ∧ L ^ 4 ≤ k := by
-  have hk0 : (0 : ℝ) < k := lt_of_lt_of_le (Real.exp_pos 64) hk
-  have hL64 : (64 : ℝ) ≤ L := by
-    rw [hL, ← Real.log_exp 64]; exact Real.log_le_log (Real.exp_pos 64) hk
-  have hL0 : (0 : ℝ) < L := by linarith
-  have hy131072 : (131072 : ℝ) ≤ y := by
-    rw [hy]
-    have h4 : (64 : ℝ) ^ 4 ≤ L ^ 4 := pow_le_pow_left₀ (by norm_num) hL64 4
-    norm_num at h4
-    linarith
-  have hlogy : Real.log y = 4 * Real.log L := by rw [hy, Real.log_pow]; norm_num
-  have he2 : Real.exp 2 ≤ 64 := by
-    have h1 : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
-    nlinarith [Real.exp_one_lt_d9, Real.exp_pos 1]
-  have hlogL2 : (2 : ℝ) ≤ Real.log L := by
-    rw [← Real.log_exp 2]; exact Real.log_le_log (Real.exp_pos 2) (by linarith)
-  have hlogy0 : (0 : ℝ) < Real.log y := by rw [hlogy]; linarith
-  refine ⟨hk0, hL64, hy131072, hlogy0, by rw [hη]; positivity, ?_, ?_, ?_⟩
-  · rw [hη, hlogy, div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 8)]
-    linarith
-  · rw [hη, hlogy, div_le_div_iff₀ hL0 (by linarith)]
-    linarith [four_log_le_self hL64]
-  · have h1 : Real.log (L ^ 4) ≤ Real.log k := by
-      rw [Real.log_pow, ← hL]; push_cast; linarith [four_log_le_self hL64]
-    have h2 := Real.exp_le_exp.mpr h1
-    rwa [Real.exp_log (by positivity), Real.exp_log hk0] at h2
+The pin's arithmetic is `GradeConst`'s public `pin_basic64`; the `private` helpers below are
+re-derived verbatim under a `W` suffix. -/
 
 /-- Continuity of `α ↦ a^{−α}`.  Re-derivation of `GradeConst`'s private
 `continuous_rpow_negC`. -/
@@ -449,7 +417,7 @@ theorem joint_cs_trunc_pinC {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖
               * crossKer (fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) k h y c₀ t₀' α β)
         + (1 / Real.pi) * (η ^ 2 * (Ffar * Kfar)) := by
   obtain ⟨hIβ, hIβ', hIα, hIα'⟩ := hInt
-  obtain ⟨hk0, hL64, -, -, hη0, hη8, -, -⟩ := pin_basic64W hk hL hy hη
+  obtain ⟨hk0, hL64, -, -, hη0, hη8, -, -⟩ := pin_basic64 hk hL hy hη
   have hL0 : (0 : ℝ) < L := by linarith
   have hLinv0 : (0 : ℝ) < 1 / L := by positivity
   have hk1 : (1 : ℝ) ≤ k := by
@@ -584,7 +552,7 @@ theorem rhs_grade_at_scale_windowC {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
       ≤ gradeAbsConstC c Cb * k * Real.exp (-c * M)
         + (1 / Real.pi) * (η ^ 2 * (Ffar * Kfar)) := by
   obtain ⟨hIβ, hIβ', hIα, hIα'⟩ := hInt
-  obtain ⟨hk0, hL64, -, -, hη0, -, -, hyk⟩ := pin_basic64W hk hL hy hη
+  obtain ⟨hk0, hL64, -, -, hη0, -, -, hyk⟩ := pin_basic64 hk hL hy hη
   have hL0 : (0 : ℝ) < L := by linarith
   obtain ⟨hh0, -, -, -⟩ := pin_width_gates hL64 hk0 hh hy
   have hkh0 : (0 : ℝ) < k + h := by linarith
