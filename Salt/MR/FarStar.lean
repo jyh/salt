@@ -699,11 +699,8 @@ theorem rhs_grade_at_scale_closed_star {g : ℕ → ℂ} (hg : ∀ p, p.Prime �
           * Real.exp (-(1 / (2 * Real.exp 1))
               * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X) := by
   have hgtw : ∀ p, p.Prime →
-      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist (t₀ + t₁) hp.one_lt.le, mul_one]
-    exact hg p hp
+      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg (t₀ + t₁)
   have hee : Real.exp (Real.exp 1) ≤ k :=
     le_trans (Real.exp_le_exp.mpr (by linarith [Real.exp_one_lt_d9])) hk
   have hgate : |t₁| + Tstar k L ≤ seamGateRstar X Tann := by
@@ -746,11 +743,8 @@ theorem hRHS_socket_star {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ �
         ≤ (gradeAbsConst Cb + farCStar) * (k : ℝ) * Real.exp (-(1 / (2 * Real.exp 1))
             * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X) := by
   have hgtw : ∀ p, p.Prime →
-      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist (t₀ + t₁) hp.one_lt.le, mul_one]
-    exact hg p hp
+      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg (t₀ + t₁)
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   intro k hk1 hk2
   have hk := hk64 k hk1 hk2

@@ -11815,7 +11815,7 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 
 - PropA3Core's docstring says the (1/32)loglog floor is "Mrange_one_floor-
   supplied"; that stone is proved at the datum (fun _ => 1), while hfloor
-  (HExit:1468) is at the SEAM datum — the seam-datum floor still routes
+  (HExit:1465) is at the SEAM datum — the seam-datum floor still routes
   through dist_split_A4_frozen's branch structure (the W-loss). The HCENTER
   wave leans on this exponent; the honest supply chain is the A.4 dichotomy
   + the per-t floor step (the V2 amendment's A-10), not the sInf stone.
@@ -11823,7 +11823,7 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 
 ## 2026-07-25 — hmin-on-ℝ vacuous in the live band (the sixth vacuity catch, pre-consumption)
 
-- **Where**: Salt/MR/RHSGrade.lean:189/:850/:919 (center_dist_floor,
+- **Where**: Salt/MR/RHSGrade.lean:189/:844/:913 (center_dist_floor,
   hRHS_discharged, center_halasz_of_grade's hmin binder).
 - **Finding** (GRADE-SCOPE): pretDistSq is a FINITE sum; by Kronecker
   density of {p^{iv}} in the torus, inf over v ∈ ℝ = Σ(1−|f(p)|)/p — zero
@@ -24084,7 +24084,7 @@ at all.**  My routing ask named objects the arc does not use.
 *scope to where the ANSWER lives, not the SUBJECT.*)
 
 **② WHERE `c` IS ACTUALLY CHOSEN — two sites, identical, and both DISCHARGE `hce` rather than
-assume it:** `StationHoist:195` and `SPartStation:776`, `set c : ℝ := 1 / (2 * Real.exp 1)`.
+assume it:** `StationHoist:195` and `SPartStation:773`, `set c : ℝ := 1 / (2 * Real.exp 1)`.
 **The station takes EXACTLY HALF the cap** (`c = (1/2)·(1/e)`), so cap and choice move together.
 📌 Of ~40 `hce : c ≤ 1/e` sites across 18 files, these two are the only ones that discharge it —
 ⇒ ***THE NUMERAL LIVES WHERE A HYPOTHESIS IS DISCHARGED, NOT WHERE IT IS DECLARED***, and grepping

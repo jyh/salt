@@ -392,11 +392,8 @@ theorem dilated_scale_grade {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖
   have hk3 : Real.exp 3 ≤ (k : ℝ) :=
     le_trans (Real.exp_le_exp.mpr (by norm_num)) hk64
   have hgtw : ∀ p, p.Prime →
-      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist (t₀ + t₁) hp.one_lt.le, mul_one]
-    exact hg p hp
+      ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg (t₀ + t₁)
   have hEll : ∀ n : ℕ, ‖ellLin g n‖ ≤ 1 := ellLin_norm_le_one g hg
   set M : ℝ := max 0 (M₀ - dilGap X Xd) with hMdef
   have hM0 : (0 : ℝ) ≤ M := le_max_left _ _
@@ -710,7 +707,7 @@ set_option maxHeartbeats 1000000 in
 -- As at `SupStation.seam_ball_leg_station_M`: the crown's binder block is instantiated
 -- wholesale and the `S`-slot carries the assembled grade expression twice.
 /-- **R7 (the AS-twin) — THE STATION EXIT AT GENERAL `F` (`seam_ball_leg_station_M_gen`).**
-`SupStation.seam_ball_leg_station_M` (:352) with the DATUM GENERALIZED from
+`SupStation.seam_ball_leg_station_M` (:349) with the DATUM GENERALIZED from
 `seamCoeff (ellLin g) 1 t₀` to `seamCoeff F 1 t₀` at any `1`-bounded multiplicative `F`:
 
   `‖A_t(m)‖ ≤ ballSupS X S₀ · m/(1+|t−t₁|)`,

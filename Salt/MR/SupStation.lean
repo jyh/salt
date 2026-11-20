@@ -129,11 +129,8 @@ theorem jointIntegrableAt_pin_free {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
     JointIntegrableAt (fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) t₀' M (k : ℝ)
       (Real.log (k : ℝ)) (1 + 1 / Real.log (k : ℝ)) (Real.log (k : ℝ) ^ 4)
       (1 / Real.log (Real.log (k : ℝ) ^ 4)) ((k : ℝ) / Real.sqrt (Real.log (k : ℝ))) := by
-  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist t₀' hp.one_lt.le, mul_one]
-    exact hg p hp
+  have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg t₀'
   refine jointIntegrableAt_of_zero M (jointIntegrableAt_pin hg hk64 (fun t => ?_))
   exact pretDistSq_nonneg _ _ _ (fun n => ellLin_norm_le_one _ hgtw n)
     (fun n => le_of_eq (costwist_norm _ n))

@@ -647,11 +647,8 @@ theorem prop21_unconditional_final (g : ℕ → ℂ) (hg : ∀ p, p.Prime → �
   have hη0 : (0 : ℝ) ≤ η := by rw [hη]; exact le_of_lt (div_pos one_pos hlogy)
   have hη1 : η ≤ 1 := by rw [hη, div_le_one hlogy]; exact hylog1
   -- the twisted datum
-  have hgtw : ∀ p, p.Prime → ‖(fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) p‖ ≤ 1 := by
-    intro p hp
-    simp only
-    rw [norm_mul, norm_twist t₀ hp.one_lt.le, mul_one]
-    exact hg p hp
+  have hgtw : ∀ p, p.Prime → ‖(fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) p‖ ≤ 1 :=
+    norm_twist_le_one hg t₀
   -- the unconditional sliver mass bound
   obtain ⟨C, hCbound⟩ := rampSliverMass_bound_unconditional
     (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) hgtw hX hh hy10 hygate hreg

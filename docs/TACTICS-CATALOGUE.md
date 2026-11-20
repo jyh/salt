@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `98878e86` · source digest `363a47f99cdc0da4` (the same digest as items 1–3).
-> Receipt: files 1414 · decls 23462 · with_body 23462 · tactic_lines 300677 · runs 35420 · blocks 1168.
+> Base: last commit touching `Salt/` = `c26fdc95` · source digest `526fbc1f942d9c24` (the same digest as items 1–3).
+> Receipt: files 1414 · decls 23463 · with_body 23463 · tactic_lines 300573 · runs 35428 · blocks 1164.
 
 ## LIMITS (read before any number below)
 
@@ -100,20 +100,20 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-300677 tactic lines. Top 30:
+300573 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
 | 1 | `have` | 130777 | 43.5% |
-| 2 | `rw` | 48638 | 16.2% |
-| 3 | `exact` | 17378 | 5.8% |
-| 4 | `intro` | 13998 | 4.7% |
+| 2 | `rw` | 48612 | 16.2% |
+| 3 | `exact` | 17352 | 5.8% |
+| 4 | `intro` | 13972 | 4.6% |
 | 5 | `refine` | 12723 | 4.2% |
 | 6 | `linarith` | 10280 | 3.4% |
 | 7 | `obtain` | 9181 | 3.1% |
 | 8 | `calc` | 7727 | 2.6% |
 | 9 | `set` | 5438 | 1.8% |
-| 10 | `simp` | 5140 | 1.7% |
+| 10 | `simp` | 5114 | 1.7% |
 | 11 | `apply` | 4508 | 1.5% |
 | 12 | `nlinarith` | 3293 | 1.1% |
 | 13 | `unfold` | 2623 | 0.9% |
@@ -150,12 +150,12 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | Mertens / PNT-type | 3297 | `have` 1530, `rw` 557, `exact` 173, `linarith` 147, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
-| Matomaki-Radziwill / Halasz (short intervals) | 114052 | `have` 51553, `rw` 15751, `exact` 6665, `refine` 6524, `intro` 5707, `linarith` 5200, `obtain` 4988, `calc` 2188 |
+| Matomaki-Radziwill / Halasz (short intervals) | 113948 | `have` 51553, `rw` 15725, `exact` 6639, `refine` 6524, `intro` 5681, `linarith` 5200, `obtain` 4988, `calc` 2188 |
 | (no family) | 28095 | `have` 10829, `rw` 4988, `exact` 1719, `intro` 1551, `obtain` 984, `refine` 956, `set` 876, `calc` 827 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
-Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1168 candidates; top 25 by the UPPER-BOUND saving.
+Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1164 candidates; top 25 by the UPPER-BOUND saving.
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 
@@ -392,16 +392,7 @@ have := $6.logX_four
 linarith
 ```
 
-**22.** 4 lines × 20 occurrences in 13 files · lines saved ≤ **60** · e.g. `Salt/MR/CaseASocket.lean:314` · `Salt/MR/CofactorGrade.lean:291`
-
-```lean
-intro $1 $2
-simp only
-rw [norm_mul, norm_twist $3 $2.one_lt.le, mul_one]
-exact $4 $1 $2
-```
-
-**23.** 4 lines × 20 occurrences in 17 files · lines saved ≤ **60** · e.g. `Salt/MR/DoorReceipt.lean:715` · `Salt/MR/DoorReceiptSiegelFree.lean:138` · ⚠️ shares source lines with #6
+**22.** 4 lines × 20 occurrences in 17 files · lines saved ≤ **60** · e.g. `Salt/MR/DoorReceipt.lean:715` · `Salt/MR/DoorReceiptSiegelFree.lean:138` · ⚠️ shares source lines with #6
 
 ```lean
 intro $1 $2 $3
@@ -410,17 +401,7 @@ simp only [Nat.cast_zero, Real.log_zero]
 linarith [Real.log_natCast_nonneg $2]
 ```
 
-**24.** 5 lines × 15 occurrences in 9 files · lines saved ≤ **60** · e.g. `Salt/MR/CaseASocket.lean:313` · `Salt/MR/FarClose.lean:193` · ⚠️ shares source lines with #22
-
-```lean
-have $1 : ∀ $2, $2.Prime → ‖(fun $3 => $4 $3 * ($3 : ℂ) ^ (-($5 : ℂ) * $6)) $2‖ ≤ # := by
-intro $2 $7
-simp only
-rw [norm_mul, norm_twist $5 $7.one_lt.le, mul_one]
-exact $8 $2 $7
-```
-
-**25.** 6 lines × 12 occurrences in 3 files · lines saved ≤ **60** · e.g. `Salt/MR/S12Compose.lean:418` · `Salt/MR/S12ConstCompose.lean:608`
+**23.** 6 lines × 12 occurrences in 3 files · lines saved ≤ **60** · e.g. `Salt/MR/S12Compose.lean:418` · `Salt/MR/S12ConstCompose.lean:608`
 
 ```lean
 have $1 : (# : ℝ) < # * $2 := by linarith
@@ -429,6 +410,33 @@ rw [$6]
 field_simp
 ring
 linarith [$7, $3.le, $3.ge]
+```
+
+**24.** 6 lines × 12 occurrences in 10 files · lines saved ≤ **60** · e.g. `Salt/MR/DoorReceipt.lean:714` · `Salt/MR/DoorReceiptSiegelFree.lean:137` · ⚠️ shares source lines with #6, #22
+
+```lean
+have $1 : XCeilRiderStrict $2 (fun _ _ : ℕ => #) := by
+intro $3 $4 $5
+obtain ⟨-, -, $6⟩ := $5
+simp only [Nat.cast_zero, Real.log_zero]
+linarith [Real.log_natCast_nonneg $4]
+obtain ⟨$7, $8, -, -, -, -, -⟩ :=
+```
+
+**25.** 11 lines × 6 occurrences in 6 files · lines saved ≤ **60** · e.g. `Salt/Entropy/Chowla/HloExport.lean:283` · `Salt/Entropy/Chowla/HloExportFlat.lean:118`
+
+```lean
+have $1 : # ≤ $2 := le_trans $3.hHlo_floor $4
+have $5 : # ≤ $2 := by omega
+have $6 : $7 ≤ $2 := le_trans (le_max_left _ _) $8
+have $9 : $10 ≤ $2 := le_trans (le_max_right _ _) $8
+have $11 : (# : ℝ) ≤ ($2 : ℝ) := by exact_mod_cast $1
+have $12 : (# : ℝ) < ($2 : ℝ) := by linarith
+have $13 : # ≤ Real.log ($2 : ℝ) := by
+rw [Real.le_log_iff_exp_le $12]
+exact le_trans (le_of_lt Real.exp_one_lt_d9) (by linarith)
+have $14 : # < Real.log ($2 : ℝ) := by linarith
+have $15 : Real.sqrt ($2 : ℝ) ≤ ($3.eps : ℝ) ^ # * ($2 : ℝ) / # :=
 ```
 
 ## Whitelist (data)
