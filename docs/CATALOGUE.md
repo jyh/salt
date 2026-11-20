@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `a60a1c7d` · source digest `7d4c32267031f0a7` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `fc084025` · source digest `0da92403816a4f6d` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -6012,7 +6012,7 @@ Declarations indexed across the tree: 23465 · corpus Prop-valued names (the hyp
 | `Salt.MR.s15Arm_log_le_scaled` | Salt/MR/XThread.lean:514 | characters |
 | `Salt.MR.s15Arm_log_le` | Salt/MR/XThread.lean:530 | characters |
 | `Salt.MR.xceil_arm_split_h` | Salt/MR/XThread.lean:1047 | characters |
-| `Salt.MR.xceilRiderStrict_zero` | Salt/MR/XThread.lean:1240 | characters |
+| `Salt.MR.xceilRiderStrict_zero` | Salt/MR/XThread.lean:1236 | characters |
 | `Salt.MR.logChowla2_ineffective_v5` | Salt/MR/XThread.lean:1388 | characters |
 | `Salt.MR.vkShallowWidthSharp_one` | Salt/MR/ZetaInvShallow.lean:81 | zeros, characters |
 | `Salt.MR.exists_zetaShallowGate` | Salt/MR/ZetaInvShallow.lean:89 | zeros, characters |
