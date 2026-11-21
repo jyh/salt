@@ -194,4 +194,39 @@ theorem riemannHypothesis_of_GRHDirichlet (h : GRHDirichlet) : RiemannHypothesis
   exact h 1 (1 : DirichletCharacter ℂ 1) s
     (by rwa [DirichletCharacter.LFunction_modOne_eq]) hre0 hre1
 
+/-! ## Row 337 — the all-characters form is the primitive form -/
+
+/-- GRH for PRIMITIVE Dirichlet characters only. -/
+def GRHPrimitive : Prop :=
+  ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsPrimitive → ∀ s : ℂ,
+    DirichletCharacter.LFunction χ s = 0 → 0 < s.re → s.re < 1 → s.re = 1 / 2
+
+/-- **`GRHDirichlet` is no stronger than its primitive form.** An imprimitive `L(s, χ)` is
+`L(s, χ*) · ∏_{p ∣ N} (1 − χ*(p) p^{−s})` (`LFunction_changeLevel`), and in the open strip each
+factor is nonzero because `‖χ*(p) p^{−s}‖ ≤ p^{−re s} < 1`. -/
+theorem grhDirichlet_iff_primitive : GRHDirichlet ↔ GRHPrimitive := by
+  constructor
+  · intro h N _ χ _ s
+    exact h N χ s
+  · intro h N _ χ s hs h0 h1
+    haveI : NeZero χ.conductor := ⟨χ.conductor_ne_zero⟩
+    have hs1 : s ≠ 1 := by
+      rintro rfl
+      simp at h1
+    rw [← χ.changeLevel_primitiveCharacter,
+      DirichletCharacter.LFunction_changeLevel _ _ (Or.inr hs1)] at hs
+    rcases mul_eq_zero.mp hs with h' | h'
+    · exact h _ _ χ.primitiveCharacter_isPrimitive s h' h0 h1
+    · exfalso
+      obtain ⟨p, hp, hp0⟩ := Finset.prod_eq_zero_iff.mp h'
+      have hpp := Nat.prime_of_mem_primeFactors hp
+      have hx : χ.primitiveCharacter p * (p : ℂ) ^ (-s) = 1 := by linear_combination -hp0
+      have hn := congrArg norm hx
+      rw [norm_mul, norm_one] at hn
+      have hA : ‖χ.primitiveCharacter p‖ ≤ 1 := DirichletCharacter.norm_le_one _ _
+      have hB : ‖(p : ℂ) ^ (-s)‖ < 1 := by
+        rw [Complex.norm_natCast_cpow_of_pos hpp.pos, Complex.neg_re]
+        exact Real.rpow_lt_one_of_one_lt_of_neg (by exact_mod_cast hpp.one_lt) (by linarith)
+      nlinarith [norm_nonneg (χ.primitiveCharacter p), norm_nonneg ((p : ℂ) ^ (-s))]
+
 end Salt.RH
