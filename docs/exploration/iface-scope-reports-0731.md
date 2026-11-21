@@ -296,8 +296,8 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 | field | Regime.lean | couples | where read (Salt/MR) | direction |
 |---|---|---|---|---|
 | `hPHheadroom` `8·(4^⌊ε²H₊⌋)²·ω ≤ x` | :116 | **H₊ ↔ x/ω** | `S13MSelect2.lean:112` (`s13_socketBase_xscale`), `:512`, `:644`; `S13FramesA.lean:1027`, `Salt/MR/S13FramesA.lean:1533`; `DoorDischarge.lean:113`; `DoorFloor1500.lean:160` | **x-FLOOR, exponential in H₊** |
-| `hheadroom` `Hhi ≤ x/ω` | :86 | H₊ ↔ x/ω | `S14Compose.lean:301` (inside the socket witness), `M4Close.lean:485/731/911/994`, `M4BridgeCover.lean:371`, `HloExportMR.lean:144/344/510/642`, `M4DoorL2.lean:160/623/697/855` | x-FLOOR, linear in H₊ |
-| `hheadroom'` `8H₊(log H₊)² ≤ x/ω` | :103 | H₊ ↔ x/ω | `Salt/MR/M4SecondRoad.lean:498` (`regime_eight_omega_Hhi_le_x`, the Salt/MR ladder's one consumer since O13-e row 184, 2026-11-15) | x-FLOOR, poly in H₊ |
+| `hheadroom` `Hhi ≤ x/ω` | :86 | H₊ ↔ x/ω | `S14Compose.lean:301` (inside the socket witness), `M4Close.lean:485/731/911/994`, `M4BridgeCover.lean:371`, `HloExportMR.lean:145/337/495/619`, `M4DoorL2.lean:160/623/697/855` | x-FLOOR, linear in H₊ |
+| `hheadroom'` `8H₊(log H₊)² ≤ x/ω` | :103 | H₊ ↔ x/ω | `Salt/MR/M4SecondRoad.lean:499` (`regime_eight_omega_Hhi_le_x`, the Salt/MR ladder's one consumer since O13-e row 184, 2026-11-15) | x-FLOOR, poly in H₊ |
 | `hHlo_floor` `4·10⁶ ≤ Hlo` | :80 | H₋ | ~81 sites (`S13CapFloor`, `S14Compose:112/298/339` (its other reads now go through `regime_log_floors`, S12Compose), …) | H₋ floor |
 | `hHlohi` `Hlo ≤ Hhi` | :70 | H₋ ↔ H₊ | ~54 sites | window |
 | `hPNTwindow` `√H₋ ≤ ε²H₋/2` | :127 | H₋ ↔ ε | `S13MSelect2.lean:165` (`s13_socketBase_mFloor`), `S13FramesA.lean:347` | H₋/ε |
@@ -312,7 +312,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 
 **And the one x-CEILING:** `S16BaseScaleCap_gk` (`S16Budget.lean:577`) — `∀ H L q j A s, SocketBase R M H L q j A s → loglog(A+s) ≤ log 𝒫₂/24`. Carried, never discharged (`S16Budget.lean:97`, `:913`).
 
-**Why the base is x-scale at all** (the supply side, named): `doorLadder_ge_x_div_four_omega` (`M4SecondRoad.lean:459`) — every cover rung is ≥ ⌊x/(4ω)⌋, the window's own lower endpoint. That is the physical content of `SocketBase`'s x-scale field.
+**Why the base is x-scale at all** (the supply side, named): `doorLadder_ge_x_div_four_omega` (`M4SecondRoad.lean:460`) — every cover rung is ≥ ⌊x/(4ω)⌋, the window's own lower endpoint. That is the physical content of `SocketBase`'s x-scale field.
 
 **Kernel probe (B):** `probe_cap_is_x_ceiling` — the cap instantiated at the landed inhabitation witness `s14_socketBase_witness` (`S14Compose.lean:297`, tuple `H=L=Hhi, q=1, j=doorRowFloor M, A=2·R.x, s=0`) yields literally `loglog(2·R.x) ≤ log 𝒫₂/24`. The family is non-vacuous on the real chain (`S14Compose.lean:386-388` forces `2^{doorRowFloor M} ≤ R.Hlo` from `MSelect'.winFit`), so this is a genuine ceiling, not a vacuity.
 
@@ -388,7 +388,7 @@ Budget demand: `logloglog H ≥ budgetX(1/500, cD3·ε/(144 log 4)) = 1.036·10�
 
 **I-2 · Raise `log 𝒫₂`. [dead at this design]** The ceiling is `log 𝒫₂/24 = 0.0301·2^{K+413}` — exponential in K, so it *looks* like the free knob. It is not: `K ≤ 1.7·10⁸` is spent at `A_gate_logK` inside `calFrameK_satisfiable_door_gk` (`DoorFrameH1.lean:513-522` names it), which is linear in `Adoor M ∝ log₂M`; and `M` is capped by `half` at `log₂M ≲ 1.4427·λ₋`. So the K-ceiling grows only *linearly in λ₋* while the demand grows like `e^{budgetX}`. **Impossible at this design.**
 
-**I-3 · Restate the family at a scale variable independent of H. [impossible at this design — named]** The socket base is the door ladder's rung and the ladder tiles `(x/ω, x]` (`M4SecondRoad.lean:459`). Any sieve run for the spine must run *on the spine's own window*, whose lower endpoint the spine bounds from below. There is no scale variable to introduce: `X_d`'s floor is `x/ω`, `x/ω`'s floor is a regime field, and the regime has no x-ceiling to trade against. The only structural freedom — `regimeEnlargeX` — points the wrong way.
+**I-3 · Restate the family at a scale variable independent of H. [impossible at this design — named]** The socket base is the door ladder's rung and the ladder tiles `(x/ω, x]` (`M4SecondRoad.lean:460`). Any sieve run for the spine must run *on the spine's own window*, whose lower endpoint the spine bounds from below. There is no scale variable to introduce: `X_d`'s floor is `x/ω`, `x/ω`'s floor is a regime field, and the regime has no x-ceiling to trade against. The only structural freedom — `regimeEnlargeX` — points the wrong way.
 
 **I-4 · Index-carrying `entropy_decrement`. [A/B-tier, and worthless here]** Mechanically available from `Endpoints.lean:126-129`. Buys `H = chowlaTower C0 a Hlo j` for some `j < J`. Does **not** help: `hPHheadroom` is stated at the `Hhi`-majorant by necessity (`Regime.lean:104-116`), so the socket floor never reads the selected H. Only worth doing if some *other* face needs the tower index.
 
