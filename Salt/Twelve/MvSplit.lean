@@ -129,7 +129,7 @@ private lemma list_sum_map_add {γ : Type*} (l : List γ) (f g : γ → ℝ) :
   | nil => simp
   | cons a l ih => simp only [List.map_cons, List.sum_cons]; rw [ih]; ring
 
-/-! ## The prime tail `Σ_{p>D} 1/(p-1)² ≤ 2/D` (public; `JMainSplit`, `JSplit` read it) -/
+/-! ## The prime tail `Σ_{p>D} 1/(p-1)² ≤ 2/D` (public; `JMainSplit` reads it) -/
 
 /-- The integer tail `Σ_{D < k < R} 1/(k − 1)² ≤ 1/(D − 1)` for `3 ≤ D` (`hD`): the filter is
 `Ico (D+1) R`, each term is at most `1/(k − 2) − 1/(k − 1)` (`1/(a+1)² ≤ 1/(a(a+1))` at
