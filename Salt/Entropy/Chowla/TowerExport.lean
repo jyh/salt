@@ -231,9 +231,7 @@ lemma towerL_pos {B : ℕ} (hB : 4000000 ≤ B) (j : ℕ) : 0 < towerL B j := by
 /-- The base floor `50 ≤ loglog B` propagates up the tower (`H_j ≥ B`). -/
 lemma towerU_ge {B : ℕ} (hB : 4000000 ≤ B) (hu : 50 ≤ Real.log (Real.log (B : ℝ))) (j : ℕ) :
     50 ≤ towerU B j := by
-  have hBpos : (0 : ℝ) < (B : ℝ) := by
-    have : (4000000 : ℝ) ≤ (B : ℝ) := by exact_mod_cast hB
-    linarith
+  have hBpos : (0 : ℝ) < (B : ℝ) := by linarith [show (4000000 : ℝ) ≤ (B : ℝ) by exact_mod_cast hB]
   have hle : (B : ℝ) ≤ (chowlaTower 2 1 B j : ℝ) := by
     exact_mod_cast chowlaTower_base_ge hB j
   have hlogB : 15 ≤ Real.log (B : ℝ) := (tower_log_bounds hB).1

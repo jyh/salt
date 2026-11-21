@@ -44,7 +44,7 @@ Everything else in the chain is `y`-BLIND: the twist combine, the desmooth, the 
 
 ## THE CLONE BASE
 
-`GradeWindowC.center_halasz_supply_B_uniform` (:681) — the `B`-abstract, centre-uniform
+`GradeWindowC.center_halasz_supply_B_uniform` (:649) — the `B`-abstract, centre-uniform
 face — is the cheaper base: the grade factor is already opaque, so the twin below is
 `B`-abstract AND centre-uniform for free.  `SupStation`'s §2 hoisting is inherited the same
 way (the `∃ X₀` witness mentions neither `g`, `t₀`, `t₁` nor `Y`).

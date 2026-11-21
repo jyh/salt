@@ -23,7 +23,7 @@ S1's "2.2·10³¹-genre, height 1" is exact. λ₋ is a **logarithm** of the dem
 | face | source | forces |
 |---|---|---|
 | budget (post-D1) | `BudgetCore.lean:223` | λ₋ ≥ 72.17 |
-| **x₀ rider** | `S15Sel''_gk.x0M` (`S15Compose.lean:2436`) + the chain's pinned `x₀ ≥ exp(exp 100)` (`S15Witness.lean:~795`, `mmu1Chi_rate_of_pinned`) | **λ₋ ≥ 100.9** (`p9_x0_rider_lambda`: ≥ 100) |
+| **x₀ rider** | `S15Sel''_gk.x0M` (`S15Compose.lean:2432`) + the chain's pinned `x₀ ≥ exp(exp 100)` (`S15Witness.lean:~795`, `mmu1Chi_rate_of_pinned`) | **λ₋ ≥ 100.9** (`p9_x0_rider_lambda`: ≥ 100) |
 | **b-floor** | `S15Sel''_gk.bfloor` + the road's own `24·Cg/δ₀ = 1.68·10¹⁸¹ = 2^602.02` (`ConstantsExposed.lean:417`, docstring `:67`) + `half` | **λ₋ ≥ 448.98** (`p4_bfloor_lambda`: ≥ 448) |
 
 So the honest post-D1 working point is **λ₋ = 448.98, M = 2^602.02, L+1 = 603** — not "λ₋ ≈ 72–110". CLAIM 1's numerals name only the weakest of the three floors. (Silver lining, and it is real: post-D1 λ₋ is *free to be chosen* at 449, which is exactly where the landed witness's 248-bit b-floor gap — `S15Witness.lean:799` — closes to zero. Pre-D1 that was impossible because λ₋ was pinned at `e^{1.04e31}`.)
@@ -32,7 +32,7 @@ Freeze numeral slip inside CLAIM 2, kernel-checked: "at L+1 ≈ 155 [with] λ₋
 
 ## 3. The width law is 6.4517, not 7.1448 — the freeze's own figure, off by exactly log 2
 
-`S15Sel''_gk.half` (`S15Compose.lean:2441-2442`) reads `0.7·doorRowFloor M + 3·log(1/ρ) ≤ (log H₋)/2` — **with the /2**. The budget ghost (`S15Compose.lean:842`, `flags.md:17978`) is `log H₊ ≤ 1280·log2·doorRowFloor M`. Composing (`p2_width_from_half`, certified at the clean `10·log2 = 6.9315`; the sharp value is `log(1280·log2/1.4) = 6.4517`):
+`S15Sel''_gk.half` (`S15Compose.lean:2437-2438`) reads `0.7·doorRowFloor M + 3·log(1/ρ) ≤ (log H₋)/2` — **with the /2**. The budget ghost (`S15Compose.lean:840`, `flags.md:17978`) is `log H₊ ≤ 1280·log2·doorRowFloor M`. Composing (`p2_width_from_half`, certified at the clean `10·log2 = 6.9315`; the sharp value is `log(1280·log2/1.4) = 6.4517`):
 
 **λ₊ ≤ λ₋ + 6.4517.** `p2b_width_gap_is_log_two` certifies `log(1280·log2/0.7) = log(1280·log2/1.4) + log 2` — the flags'/freeze's 7.1448 dropped the `/2`. Status of the law itself: the `×1280` ghost is LAMBDA-RECON **prose**, not a landed field (`flags.md:17978` says so outright) — but it is the price of supplying the one carried binder `S15CrossingBound` (`S15Compose.lean:~800`) through its only known route.
 
@@ -40,7 +40,7 @@ Freeze numeral slip inside CLAIM 2, kernel-checked: "at L+1 ≈ 155 [with] λ₋
 
 At λ₋ = 448.98 the landed tower gives λ₊ = λ₋^3.7436 = **8.489·10⁹** (cube: 9.05·10⁷).
 
-- **Width face (the kill)**: `p3_branch_a_kill` — even the *weakest* landed law `λ₋³ ≤ λ₊` (`TowerExport.lean:691`) contradicts `λ₊ ≤ λ₋ + 6.94` at every λ₋ ≥ 50. `p3b_branch_a_deficit`: window demand ≥ 9·10⁷ vs budget 6.45 — **deficit 1.3·10⁶× at the honest exponent**. Not repairable by any constant: saving it needs `e^{8.5e9}` of re-pricing, i.e. a shape change in the crossing-bound supply. D1 does not touch this face at all.
+- **Width face (the kill)**: `p3_branch_a_kill` — even the *weakest* landed law `λ₋³ ≤ λ₊` (`TowerExport.lean:689`) contradicts `λ₊ ≤ λ₋ + 6.94` at every λ₋ ≥ 50. `p3b_branch_a_deficit`: window demand ≥ 9·10⁷ vs budget 6.45 — **deficit 1.3·10⁶× at the honest exponent**. Not repairable by any constant: saving it needs `e^{8.5e9}` of re-pricing, i.e. a shape change in the crossing-bound supply. D1 does not touch this face at all.
 - **Anchor face (second, independent kill)**: `p4b_anchor_caps_lambda` — `anchor` + `half` + the compose's only exported λ₊-handle `λ₊ ≤ λ₋^{9/2}` cap **λ₋ ≤ 288**, against the b-floor's 448.98. The honest sharpest export (4.4077, S2 §1) gives only λ₋ ≤ 334.6; the working point needs an export exponent ≤ **4.244**, which is inside the [3.7436, 4.4077] bracket-gap but is not provable from the landed budget line. So branch (a) cannot even host the road's own `bfloor`.
 - Everything else at branch (a) **passes**: anchor RHS 2.35e12 vs LHS 1.19e11; gRows 4.14e13 vs 2.05e12; lvl 2.39e12 vs 1.19e11; cap needs K ≥ 1.226·10¹⁰ vs frame ceiling 1.079·10¹¹ (`p5b_branch_a_cap_K`).
 

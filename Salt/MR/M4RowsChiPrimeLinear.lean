@@ -261,7 +261,7 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_pool_end'_L :
 /-! ## §3 — THE DENSITY-FREE PRIMED DOOR PAGE, AT THE LINEAR DOOR -/
 
 /-- **⟦THE `a2Mrow'`-GENRE ROW FAMILY AT THE LINEAR DOOR, DENSITY-FREE⟧**
-(`m4_hrowsSum_chi_door_zero'_L`).  `M4RowsChiZeroPrime.m4_hrowsSum_chi_door_zero'` (:600) at
+(`m4_hrowsSum_chi_door_zero'_L`).  `M4RowsChiZeroPrime.m4_hrowsSum_chi_door_zero'` (:596) at
 `AdoorL`; the engine `m4_hrowsSum_chi_zero'` is `(A, G, H1)`-GENERIC. -/
 theorem m4_hrowsSum_chi_door_zero'_L :
     ∃ Ct : ℝ, 0 < Ct ∧

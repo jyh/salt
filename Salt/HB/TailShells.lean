@@ -484,9 +484,7 @@ private lemma contB3_log_comp {s : Set ℝ} {g : ℝ → ℝ} (hg : ContinuousOn
 `q · u > 0` there. -/
 private lemma contB3_logqu {q : ℕ} (hq : 2 ≤ q) :
     ContinuousOn (fun u : ℝ => Real.log ((q : ℝ) * u)) (Set.Ici (3 : ℝ)) := by
-  have hq0 : (0 : ℝ) < (q : ℝ) := by
-    have : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
-    linarith
+  have hq0 : (0 : ℝ) < (q : ℝ) := by linarith [show (2 : ℝ) ≤ (q : ℝ) by exact_mod_cast hq]
   refine contB3_log_comp (continuousOn_const.mul continuousOn_id) (fun u hu => ?_)
   have h3 : (3 : ℝ) ≤ u := hu
   exact ne_of_gt (by positivity)

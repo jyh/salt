@@ -4072,9 +4072,7 @@ private lemma inv_one_sub_le_smoothC {p : ℕ} (hp : p.Prime) :
     (1 - (p : ℝ) ^ (-(1/2) : ℝ))⁻¹ ≤ smoothC p * (1 + (p : ℝ) ^ (-(1/4) : ℝ)) := by
   have h2 := hp.two_le
   have hp1 : 1 ≤ p := by omega
-  have hp0 : (0 : ℝ) < (p : ℝ) := by
-    have : (2 : ℝ) ≤ (p : ℝ) := by exact_mod_cast h2
-    linarith
+  have hp0 : (0 : ℝ) < (p : ℝ) := by linarith [show (2 : ℝ) ≤ (p : ℝ) by exact_mod_cast h2]
   have hvsq : ((p : ℝ) ^ (-(1/4) : ℝ)) ^ 2 = (p : ℝ) ^ (-(1/2) : ℝ) := rpow_neg_quarter_sq hp1
   have hv0 : (0 : ℝ) < (p : ℝ) ^ (-(1/4) : ℝ) := Real.rpow_pos_of_pos hp0 _
   rw [← hvsq]

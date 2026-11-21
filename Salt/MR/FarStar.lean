@@ -80,10 +80,9 @@ open scoped BigOperators
 
 /-! ## §0 — the pin's arithmetic, re-derived
 
-`FarClose`'s `pin_basic64F` and `GradeConst`'s `pin_rpow_scale` are `private`; re-derived
-verbatim, plus the new `8·log L ≤ L` (which is what the `ℓ¹` shift `η − 1/L ≥ 1/(8 log L)`
-needs) and the `x/log x` monotonicity of FS-1m.  `4 log L ≤ L` and `4 log L < L` are
-`RHSGrade`'s public `four_log_le_self` / `four_log_lt_self`. -/
+`GradeConst`'s `pin_rpow_scale` is `private`; re-derived verbatim, plus the new `8·log L ≤ L`
+(which is what the `ℓ¹` shift `η − 1/L ≥ 1/(8 log L)` needs) and the `x/log x` monotonicity of
+FS-1m.  The pin's arithmetic is `GradeConst`'s public `pin_basic64_strict`. -/
 
 /-- **`8·log L ≤ L` for `L ≥ 64`** — the sharper self-bound the `ℓ¹` shift needs.  The
 `√L − 1` majorant of `four_log_le_self` is too lossy here (it needs `√L ≥ 14.9`); the
@@ -108,35 +107,6 @@ private lemma eight_log_le_selfT {L : ℝ} (h : 64 ≤ L) : 8 * Real.log L ≤ L
     div_le_div_of_nonneg_left hs0.le (by norm_num) he2
   rw [hhalf] at hlog
   nlinarith only [hs0, hs8, hdiv, hlog, hsq]
-
-/-- The pin's elementary arithmetic at the `e^{64}` gate (`FarClose`'s `pin_basic64F`). -/
-private lemma pin_basic64T {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Real.log k)
-    (hy : y = L ^ 4) (hη : η = 1 / Real.log y) :
-    0 < k ∧ 64 ≤ L ∧ (131072 : ℝ) ≤ y ∧ Real.log y = 4 * Real.log L ∧ 0 < η ∧ η ≤ 1 / 8
-      ∧ 1 / L < η ∧ L ^ 4 ≤ k := by
-  have hk0 : (0 : ℝ) < k := lt_of_lt_of_le (Real.exp_pos 64) hk
-  have hL64 : (64 : ℝ) ≤ L := by
-    rw [hL, ← Real.log_exp 64]; exact Real.log_le_log (Real.exp_pos 64) hk
-  have hL0 : (0 : ℝ) < L := by linarith
-  have hy131072 : (131072 : ℝ) ≤ y := by
-    rw [hy]
-    have h4 : (64 : ℝ) ^ 4 ≤ L ^ 4 := pow_le_pow_left₀ (by norm_num) hL64 4
-    norm_num at h4
-    linarith
-  have hlogy : Real.log y = 4 * Real.log L := by rw [hy, Real.log_pow]; norm_num
-  have he2 : Real.exp 2 ≤ 64 := by
-    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 64) (by norm_num)
-  have hlogL2 : (2 : ℝ) ≤ Real.log L := by
-    rw [← Real.log_exp 2]; exact Real.log_le_log (Real.exp_pos 2) (by linarith)
-  refine ⟨hk0, hL64, hy131072, hlogy, by rw [hη, hlogy]; positivity, ?_, ?_, ?_⟩
-  · rw [hη, hlogy, div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 8)]
-    linarith
-  · rw [hη, hlogy, div_lt_div_iff₀ hL0 (by linarith)]
-    linarith [four_log_lt_self hL64]
-  · have h1 : Real.log (L ^ 4) ≤ Real.log k := by
-      rw [Real.log_pow, ← hL]; push_cast; linarith [four_log_le_self hL64]
-    have h2 := Real.exp_le_exp.mpr h1
-    rwa [Real.exp_log (by positivity), Real.exp_log hk0] at h2
 
 /-- The pin's scale factor `(k+h)^{c₀} ≤ 9·k` (`GradeConst`'s private `pin_rpow_scale`). -/
 private lemma pin_rpow_scaleT {k h L c₀ : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Real.log k)
@@ -291,7 +261,7 @@ theorem far_kernel_bound_star {d : ℕ → ℂ} {t₀' k L c₀ y η : ℝ}
     (hc₀ : c₀ = 1 + 1 / L) :
     ∀ α ∈ Icc (0 : ℝ) η, ∀ β ∈ Icc (0 : ℝ) η,
       crossKerFar d k (k / Real.sqrt L) y c₀ t₀' α β (Tstar k L) ≤ farKfarStar d k L := by
-  obtain ⟨hk0, hL64, -, -, -, -, -, -⟩ := pin_basic64T hk hL hy hη
+  obtain ⟨hk0, hL64, -, -, -, -, -, -⟩ := pin_basic64_strict hk hL hy hη
   have hT : 0 < Tstar k L := Tstar_pos hk0 (by linarith)
   intro α hα β hβ
   have hmain := far_kernel_bound_T (d := d) (t₀' := t₀') hk hL hy hη hc₀ hT α hα β hβ
@@ -314,7 +284,7 @@ merely a large one. -/
 private lemma far_mass_cancel {k L : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Real.log k) :
     (k / L ^ 4) ^ (1 / (4 * Real.log L) - 1 / L) * (L ^ 4) ^ (-(1 / L))
       = k ^ (1 / (4 * Real.log L)) / (Real.exp 1 * Real.exp 1) := by
-  obtain ⟨hk0, hL64, -, -, -, -, -, -⟩ := pin_basic64T hk hL rfl rfl
+  obtain ⟨hk0, hL64, -, -, -, -, -, -⟩ := pin_basic64_strict hk hL rfl rfl
   have hL0 : (0 : ℝ) < L := by linarith
   have hy0 : (0 : ℝ) < L ^ 4 := by positivity
   have he2 : Real.exp 2 ≤ 64 := by
@@ -342,7 +312,7 @@ theorem far_kfar_star_le {d : ℕ → ℂ} (hd : ∀ p, p.Prime → ‖d p‖ �
     (hk : Real.exp 64 ≤ k) (hL : L = Real.log k) :
     farKfarStar d k L
       ≤ 2448 * (Real.log 4 + 4) ^ 2 * (k * Real.log L * Real.sqrt L / L ^ 3) := by
-  obtain ⟨hk0, hL64, -, hlogy, -, -, -, -⟩ := pin_basic64T hk hL rfl rfl
+  obtain ⟨hk0, hL64, -, hlogy, -, -, -, -⟩ := pin_basic64_strict hk hL rfl rfl
   have hL0 : (0 : ℝ) < L := by linarith
   have hLne : L ≠ 0 := ne_of_gt hL0
   have hs0 : (0 : ℝ) < Real.sqrt L := Real.sqrt_pos.mpr hL0
@@ -537,7 +507,7 @@ theorem hfar_star {d : ℕ → ℂ} (hd : ∀ p, p.Prime → ‖d p‖ ≤ 1) {k
     (hXe : Real.exp 1 ≤ X) (hX2k : X ≤ 2 * k) :
     (1 / Real.pi) * (η ^ 2 * (farFbound L * farKfarStar d k L))
       ≤ farCStar * k * Real.log X ^ (-(1 / (32 * Real.exp 1))) := by
-  obtain ⟨hk0, hL64, -, hlogy, -, -, -, -⟩ := pin_basic64T hk hL hy hη
+  obtain ⟨hk0, hL64, -, hlogy, -, -, -, -⟩ := pin_basic64_strict hk hL hy hη
   have hL0 : (0 : ℝ) < L := by linarith
   have hLne : L ≠ 0 := ne_of_gt hL0
   have hπ : (0 : ℝ) < Real.pi := Real.pi_pos

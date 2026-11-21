@@ -375,9 +375,7 @@ theorem zeta_seam_prefix_twist (t : ℝ) (N : ℕ) (x : ℤ) (β : ℝ) (hN3 : 3
     (hx1 : (N : ℤ) < x) (hx2 : x ≤ 2 * N) :
     ‖∑ n ∈ Finset.Ioc (N : ℤ) x, eR (phi t n + β * (n : ℝ))‖
       ≤ 288 * (N : ℝ) ^ (1 - 1 / ((2 : ℝ) ^ 3 - 2)) := by
-  have hNRpos : (0 : ℝ) < (N : ℝ) := by
-    have : (3 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN3
-    linarith
+  have hNRpos : (0 : ℝ) < (N : ℝ) := by linarith [show (3 : ℝ) ≤ (N : ℝ) by exact_mod_cast hN3]
   have hπpos : (0 : ℝ) < π := Real.pi_pos
   have h2πpos : (0 : ℝ) < 2 * π := by positivity
   have htpos : 0 < t := lt_of_lt_of_le (mul_pos (by positivity) hNRpos) hlo
@@ -464,9 +462,7 @@ theorem zeta_patch_prefix_twist (t : ℝ) (N : ℕ) (x : ℤ) (β : ℝ) (hN2 : 
     (hx1 : (N : ℤ) < x) (hx2 : x ≤ 2 * N) :
     ‖∑ n ∈ Finset.Ioc (N : ℤ) x, eR (phi t n + β * (n : ℝ))‖
       ≤ 1348 * (N : ℝ) ^ (1 / 2 : ℝ) := by
-  have hNRpos : (0 : ℝ) < (N : ℝ) := by
-    have : (2 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN2
-    linarith
+  have hNRpos : (0 : ℝ) < (N : ℝ) := by linarith [show (2 : ℝ) ≤ (N : ℝ) by exact_mod_cast hN2]
   have htpos : 0 < t := lt_of_lt_of_le hNRpos hlo
   set lam : ℝ := t / (2 * π) * ((2 - 1).factorial : ℝ) * (((2 * N + 2 : ℕ) : ℝ) ^ 2)⁻¹
     with hlam_def
@@ -557,9 +553,7 @@ theorem zeta_lowt_prefix_twist (t : ℝ) (N : ℕ) (x : ℤ) (β : ℝ) (hN2 : 2
     (hx1 : (N : ℤ) < x) (hx2 : x ≤ 2 * N) :
     ‖∑ n ∈ Finset.Ioc (N : ℤ) x, eR (phi t n + β * (n : ℝ))‖
       ≤ 144 * Real.sqrt (N : ℝ) + 1095 * (N : ℝ) / Real.sqrt t := by
-  have hNRpos : (0 : ℝ) < (N : ℝ) := by
-    have : (2 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN2
-    linarith
+  have hNRpos : (0 : ℝ) < (N : ℝ) := by linarith [show (2 : ℝ) ≤ (N : ℝ) by exact_mod_cast hN2]
   set lam : ℝ := t / (2 * π) * ((2 - 1).factorial : ℝ) * (((2 * N + 2 : ℕ) : ℝ) ^ 2)⁻¹
     with hlam_def
   have hvdc := zeta_block_vdC_prefix_twist 2 (by norm_num) t N lam x β ht0 hN2 hlam_def hx1 hx2

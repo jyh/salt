@@ -155,12 +155,8 @@ theorem hcount_op_geometry {x : ℕ} (hx : 256 ≤ x)
       ∧ Real.log zR = Real.log x / 8 ∧ Real.log yR = Real.log x / 3
       ∧ (opZ x : ℝ) ≤ zR ∧ zR ≤ (opZ x : ℝ) + 1
       ∧ (opY x : ℝ) ≤ yR ∧ yR ≤ (opY x : ℝ) + 1 := by
-  have hxpos : (0 : ℝ) < (x : ℝ) := by
-    have : (256 : ℝ) ≤ (x : ℝ) := by exact_mod_cast hx
-    linarith
-  have hx1 : (1 : ℝ) < (x : ℝ) := by
-    have : (256 : ℝ) ≤ (x : ℝ) := by exact_mod_cast hx
-    linarith
+  have hxpos : (0 : ℝ) < (x : ℝ) := by linarith [show (256 : ℝ) ≤ (x : ℝ) by exact_mod_cast hx]
+  have hx1 : (1 : ℝ) < (x : ℝ) := by linarith [show (256 : ℝ) ≤ (x : ℝ) by exact_mod_cast hx]
   have hx256R : (256 : ℝ) ≤ (x : ℝ) := by exact_mod_cast hx
   have hzRpos : 0 < zR := by rw [hzR]; exact Real.rpow_pos_of_pos hxpos _
   have hyRpos : 0 < yR := by rw [hyR]; exact Real.rpow_pos_of_pos hxpos _

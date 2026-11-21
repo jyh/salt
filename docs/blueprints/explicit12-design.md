@@ -1362,7 +1362,7 @@ real weight), it just needs a new estimate.
 2. **The interface to hit is `S1_lt_sum_S2m`** (`Endgame.lean:373`, free `y`,
    slots `δ`/`cval`/`errEH`) — `win_core'` produces its `hnum`. The prime-supply
    plug is `deltaPi_lower_of` (`Final.lean:174`), which takes `WindowPNT`'s
-   `63−ε` directly in place of Chebyshev `c=1` (`ChebyshevInterval.lean:144`,
+   `63−ε` directly in place of Chebyshev `c=1` (`ChebyshevInterval.lean:142`,
    which is FATAL here: `2/(a·θ) ≥ 2.17 > M₅` for any fixed `a<1`).
 3. **Prime-side plumbing (clusters 1–3): all mechanical, B/A.** Confirmed:
    (i) `Salt.Twelve` reuses `Salt.Maynard.hSeq 5` — no tuple mismatch;

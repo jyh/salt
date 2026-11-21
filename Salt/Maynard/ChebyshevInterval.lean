@@ -86,9 +86,7 @@ theorem primes_in_interval_ge :
         tendsto_logNat_succ_div.eventually_lt_const (show (0 : ℝ) < 1 by norm_num)]
       with N hN64 hsqrt hsucc
     -- Basic positivity facts.
-    have hN1 : (1 : ℝ) < (N : ℝ) := by
-      have : (64 : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN64
-      linarith
+    have hN1 : (1 : ℝ) < (N : ℝ) := by linarith [show (64 : ℝ) ≤ (N : ℝ) by exact_mod_cast hN64]
     have hN0 : (0 : ℝ) < (N : ℝ) := by linarith
     set L := Real.log (N : ℝ) with hLdef
     have hL : 0 < L := Real.log_pos hN1

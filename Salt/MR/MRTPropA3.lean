@@ -859,7 +859,7 @@ Last section fenced a hypothesis as **UNTESTED**: that obstruction 2's *"general
 input"* might be `sum_progression_le_sum_Ioc` / `progression_mem_Ioc_of_window_in_block`,
 built at the dyadic step where nothing needed them.  **Tested it.  It is REFUTED.**
 
-`M4BlockMeanSq` (`M4BridgeCover.lean:386`) reads
+`M4BlockMeanSq` (`M4BridgeCover.lean:384`) reads
 ```
   ∀ H …, ∀ α, NearRatTight (arcDen 12 H) H α → ∀ i < k,
     ∑ n ∈ Finset.Ioc (doorLadder R.x H (i+1)) (doorLadder R.x H i),

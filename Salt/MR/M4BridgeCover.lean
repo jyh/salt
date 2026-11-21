@@ -303,9 +303,7 @@ theorem integral_door_cover_le {x ω H k : ℕ} {g : ℕ → ℝ} {P E : ℝ}
     (hblk : ∀ i < k, ∑ n ∈ Finset.Ioc (doorLadder x H (i + 1)) (doorLadder x H i), g n
         ≤ P * (doorLadder x H (i + 1) : ℝ) + E) :
     (∫ n, g n ∂(logMeasure x ω)) ≤ 3 * P + 4 * 2 ^ k * E / (x : ℝ) := by
-  have hx0 : (0 : ℝ) < (x : ℝ) := by
-    have : (2 : ℝ) ≤ (x : ℝ) := by exact_mod_cast hx
-    linarith
+  have hx0 : (0 : ℝ) < (x : ℝ) := by linarith [show (2 : ℝ) ≤ (x : ℝ) by exact_mod_cast hx]
   -- ⟦the normaliser, off M4-8's `log ω` page⟧
   have hZlo : Real.log (ω : ℝ) - 1 ≤ ∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹ :=
     door_norm_ge hx hω hωx

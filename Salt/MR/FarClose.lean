@@ -86,42 +86,6 @@ namespace Salt.MR
 open Complex MeasureTheory Set
 open scoped BigOperators
 
-/-! ## §0 — the pin's arithmetic, re-derived
-
-`SupClose`'s `pin_basic64S` is `private`; re-derived verbatim.  `4 log L ≤ L` and its STRICT
-form `4 log L < L` (which the low leg's shift `δ = η − 1/L > 0` needs) are `RHSGrade`'s
-`four_log_le_self` / `four_log_lt_self`. -/
-
-/-- The pin's elementary arithmetic at the `e^{64}` gate.  Re-derivation of `SupClose`'s
-private `pin_basic64S`, with `log y = 4 log L` and the STRICT gap `1/L < η` added. -/
-private lemma pin_basic64F {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Real.log k)
-    (hy : y = L ^ 4) (hη : η = 1 / Real.log y) :
-    0 < k ∧ 64 ≤ L ∧ (131072 : ℝ) ≤ y ∧ Real.log y = 4 * Real.log L ∧ 0 < η ∧ η ≤ 1 / 8
-      ∧ 1 / L < η ∧ L ^ 4 ≤ k := by
-  have hk0 : (0 : ℝ) < k := lt_of_lt_of_le (Real.exp_pos 64) hk
-  have hL64 : (64 : ℝ) ≤ L := by
-    rw [hL, ← Real.log_exp 64]; exact Real.log_le_log (Real.exp_pos 64) hk
-  have hL0 : (0 : ℝ) < L := by linarith
-  have hy131072 : (131072 : ℝ) ≤ y := by
-    rw [hy]
-    have h4 : (64 : ℝ) ^ 4 ≤ L ^ 4 := pow_le_pow_left₀ (by norm_num) hL64 4
-    norm_num at h4
-    linarith
-  have hlogy : Real.log y = 4 * Real.log L := by rw [hy, Real.log_pow]; norm_num
-  have he2 : Real.exp 2 ≤ 64 := by
-    exact_mod_cast Salt.Tactic.exp_nat_le_of_pow_le 2 (c := 64) (by norm_num)
-  have hlogL2 : (2 : ℝ) ≤ Real.log L := by
-    rw [← Real.log_exp 2]; exact Real.log_le_log (Real.exp_pos 2) (by linarith)
-  refine ⟨hk0, hL64, hy131072, hlogy, by rw [hη, hlogy]; positivity, ?_, ?_, ?_⟩
-  · rw [hη, hlogy, div_le_div_iff₀ (by linarith) (by norm_num : (0 : ℝ) < 8)]
-    linarith
-  · rw [hη, hlogy, div_lt_div_iff₀ hL0 (by linarith)]
-    linarith [four_log_lt_self hL64]
-  · have h1 : Real.log (L ^ 4) ≤ Real.log k := by
-      rw [Real.log_pow, ← hL]; push_cast; linarith [four_log_le_self hL64]
-    have h2 := Real.exp_le_exp.mpr h1
-    rwa [Real.exp_log (by positivity), Real.exp_log hk0] at h2
-
 /-! ## §1 — F-1: the far `𝒮·𝓛` majorant at the FREE `M = 0` floor -/
 
 /-- **The far arm's `β`-uniform `𝒮·𝓛` majorant.**  `RHSGrade.rhsFbound` at `M = 0`,
@@ -229,7 +193,7 @@ theorem far_kernel_bound {d : ℕ → ℂ} {t₀' k L c₀ y η : ℝ}
               ‖lambdaLin (restrictAbove y d) n‖ / (n : ℝ) ^ c₀)
             * ((k + k / Real.sqrt L) ^ c₀ / (L ^ 2 * Real.sqrt L)) := by
   intro α hα β hβ
-  obtain ⟨hk0, hL64, -, -, hη0, hη8, -, -⟩ := pin_basic64F hk hL hy hη
+  obtain ⟨hk0, hL64, -, -, hη0, hη8, -, -⟩ := pin_basic64_strict hk hL hy hη
   have hL0 : (0 : ℝ) < L := by linarith
   have hk65 : (65 : ℝ) ≤ k := by linarith [Real.add_one_le_exp (64 : ℝ)]
   have hX1 : (1 : ℝ) ≤ k := by linarith
@@ -292,7 +256,7 @@ theorem far_kernel_bound_T {d : ℕ → ℂ} {t₀' k L c₀ y η T : ℝ}
               ‖lambdaLin (restrictAbove y d) n‖ / (n : ℝ) ^ c₀)
             * ((k + k / Real.sqrt L) ^ c₀ * (4 * (Real.sqrt L + 1) / T)) := by
   intro α hα β hβ
-  obtain ⟨hk0, hL64, -, -, hη0, hη8, -, -⟩ := pin_basic64F hk hL hy hη
+  obtain ⟨hk0, hL64, -, -, hη0, hη8, -, -⟩ := pin_basic64_strict hk hL hy hη
   have hL0 : (0 : ℝ) < L := by linarith
   have hk65 : (65 : ℝ) ≤ k := by linarith [Real.add_one_le_exp (64 : ℝ)]
   have hX1 : (1 : ℝ) ≤ k := by linarith
@@ -347,7 +311,7 @@ theorem far_window_mass_le {d : ℕ → ℂ} (hd : ∀ p, p.Prime → ‖d p‖ 
       ≤ (Real.log 4 + 4) ^ 2 * ((k / y) ^ (η - 1 / L) * y ^ (-(1 / L)))
           * (min (Real.log (⌈k / y⌉₊ : ℝ) + (Real.log 4 + 4)) (1 + 2 / (η - 1 / L))
               * min (Real.log (⌈k / y⌉₊ : ℝ) + (Real.log 4 + 4)) (2 + 1 / (1 / L))) := by
-  obtain ⟨hk0, hL64, hy131072, -, hη0, hη8, hLη, hyk⟩ := pin_basic64F hk hL hy hη
+  obtain ⟨hk0, hL64, hy131072, -, hη0, hη8, hLη, hyk⟩ := pin_basic64_strict hk hL hy hη
   have hL0 : (0 : ℝ) < L := by linarith
   have hy1 : (1 : ℝ) ≤ y := by linarith
   have hy0 : (0 : ℝ) < y := by linarith
@@ -451,7 +415,7 @@ theorem rhs_grade_at_scale_closed {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖
       ≤ (gradeAbsConst Cb + Cfar) * k
           * Real.exp (-(1 / (2 * Real.exp 1))
               * pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X) := by
-  obtain ⟨hk0, hL64, -, -, -, -, -, -⟩ := pin_basic64F hk hL hy hη
+  obtain ⟨hk0, hL64, -, -, -, -, -, -⟩ := pin_basic64_strict hk hL hy hη
   have hL0 : (0 : ℝ) < L := by linarith
   have hk3 : Real.exp 3 ≤ k :=
     le_trans (Real.exp_le_exp.mpr (by norm_num : (3 : ℝ) ≤ 64)) hk

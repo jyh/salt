@@ -1057,9 +1057,7 @@ theorem m4_rowDatum_dilated :
 theorem arcDen_le_arcDen_Hhi (R : ChowlaRegime) {H : ℕ} (hlo : R.Hlo ≤ H) (hhi : H ≤ R.Hhi) :
     arcDen 12 H ≤ arcDen 12 R.Hhi := by
   have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
-  have hH0 : (0 : ℝ) < (H : ℝ) := by
-    have : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
-    linarith
+  have hH0 : (0 : ℝ) < (H : ℝ) := by linarith [show (4000000 : ℝ) ≤ (H : ℝ) by exact_mod_cast hH4]
   have hle : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast hhi
   have hL : Real.log (H : ℝ) ≤ Real.log (R.Hhi : ℝ) := Real.log_le_log hH0 hle
   have hL0 : (0 : ℝ) ≤ Real.log (H : ℝ) := by

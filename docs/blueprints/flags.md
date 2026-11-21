@@ -9801,8 +9801,8 @@ routing branches remain.
 **RESIDUALS — VK-8 (WALL 1 mid CLOSED; WALL 2 + the outer branches remain).**
 - **R6 body (`zeta_growth_pow`) — WALL 2, the remaining wall.** Front end LANDED
   (`zeta_sub_dirichlet_bound`, VK-7); mid-block phase bound LANDED (`vk_window_mid`, this wave). The
-  dyadic σ-weighted assembly is unbuilt: `dyadic_sum_split_gen` (`Salt/ExpSum/Strip.lean:979`) →
-  per-block `zeta_weighted_block` (`Salt/ExpSum/Strip.lean:762`, `‖∑n^{−s}‖ ≤ M^{−σ}·B`) fed by the
+  dyadic σ-weighted assembly is unbuilt: `dyadic_sum_split_gen` (`Salt/ExpSum/Strip.lean:975`) →
+  per-block `zeta_weighted_block` (`Salt/ExpSum/Strip.lean:758`, `‖∑n^{−s}‖ ≤ M^{−σ}·B`) fed by the
   trichotomy — Kušmin `zeta_block_kusmin` (`ZetaGrowth.lean:278`, `t ≤ M`), the mid tile `vk_window_mid`
   (this wave), the vdC tiles `zeta_block_window(_three)`/`zeta_block_strip` (large `M`) — then the
   `~2L` dyadic contributions sum to `K·log t` (`∃ K t₀` existential). The routing predicates
@@ -11884,7 +11884,7 @@ predicate — the pin-free collision δ ≲ Q_j^{−1/2} (𝒯-side) vs
 the full hU chain remain VALID (hU is non-vacuous at the live pin) — the
 wall is about the 𝒯-side only.
 
-**Docstring correction (informational)**: USetThin.lean:642's "the ratified
+**Docstring correction (informational)**: USetThin.lean:640's "the ratified
 pin δ := P_J^{−α_J}" is NOT simultaneously satisfiable with hlogV at
 super-polylog P_J; the LIVE pin under the landed statements is
 δ ≈ K₀(log X)^{−100}. hU non-vacuous either way. No future wave should
@@ -18050,7 +18050,7 @@ Captain's coffee, with the width law as its wall map.
 
 ## (2026-07-30 23:24 PDT) COMPOSE-2 LANDS: logChowla2_conditional FIRED (15/16 discharged; S15Compose 1022 ln, 30/30 axioms) -- the capstone MODULO the named crossing bound; the 2484 catch; a CLAIMED second width leg (refuter dispatched)
 
-⟦THE FIRE⟧ logChowla2_conditional (S15Compose:889): the const
+⟦THE FIRE⟧ logChowla2_conditional (S15Compose:887): the const
 capstone at the working point — Cp := 0, epsrf ≡ θ₂₉₃−1/500 (fired
 at the UPPER endpoint, the reserve paying abs8640), C₁ ≡ 1, M₀ :=
 s13BandM0, U1floor ≥ max Hcap (arcFloor36, loglogFloor50) PINNING
@@ -18820,7 +18820,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 ## (2026-08-02 10:22 PDT) **ROUTE 1 (`Kc ≤ 2^539`) PRICED TO THE LINE AND STOPPED LOUDLY -- the rider is TRUE with 317 BITS OF ROOM and the twin is a ~15-LINE JOB, blocked ONLY by `private` + a full-corpus rebuild** (DISCHARGE, route-1 scope)
 
-**THE EXACT PATH (walk it, it is short).** The flat head pins `ε := 1/500` LITERALLY (`HloExportFlat` :257), and the corpus already has the count at that literal: `GoldbachEnergyN0.bigXi_bounded_explicit` (:718, **PUBLIC**) gives `∀ H [NeZero H], 2 ≤ H → |Ξ_eps H| ≤ 32·K·C₁²/eps^10` from `(K, 0 < K, ∀X, Σ hFac2 d₁ hFac2 d₂ / lcm ≤ K)` and `hpt`; `bigXi_bounded_500` (:866) is that instance at `C₁ = 2^35`, `eps = 1/500`. So the head's `obtain ⟨K, hK, H₀xi, _, hxi⟩ := bigXi_bounded ε hεQpos hε2` can be REPLACED (in a twin) by the 500-instance with `H₀xi := 2`, and the exported constant becomes the CLOSED FORM `Kc = 32·K·(2^35)²·500^10`.
+**THE EXACT PATH (walk it, it is short).** The flat head pins `ε := 1/500` LITERALLY (`HloExportFlat` :257), and the corpus already has the count at that literal: `GoldbachEnergyN0.bigXi_bounded_explicit` (:716, **PUBLIC**) gives `∀ H [NeZero H], 2 ≤ H → |Ξ_eps H| ≤ 32·K·C₁²/eps^10` from `(K, 0 < K, ∀X, Σ hFac2 d₁ hFac2 d₂ / lcm ≤ K)` and `hpt`; `bigXi_bounded_500` (:866) is that instance at `C₁ = 2^35`, `eps = 1/500`. So the head's `obtain ⟨K, hK, H₀xi, _, hxi⟩ := bigXi_bounded ε hεQpos hε2` can be REPLACED (in a twin) by the 500-instance with `H₀xi := 2`, and the exported constant becomes the CLOSED FORM `Kc = 32·K·(2^35)²·500^10`.
 
 **THE NUMERAL.** `K` is `GoldbachEnergyHsq2.hFac2_lcm_sum_le`'s witness, and it is EXPLICIT IN THE PROOF TERM: `Real.exp (24 · Σ' n:ℕ, 1/n²) = exp(24·ζ(2)) = exp(4π²) = e^{39.478}`. Mathlib closes it in two lines: `hasSum_zeta_two : HasSum (fun n:ℕ => 1/(n:ℝ)^2) (π²/6)` (`Mathlib/NumberTheory/ZetaValues.lean` :452, the tsum is over ℕ with the `n = 0` term `1/0 = 0`, i.e. EXACTLY this sum) plus `Real.pi_lt_315` gives `24·Σ' ≤ 4·(3.15)² = 39.69 ≤ 40`, so `K ≤ e^40` -- and `S11HoistGrade.s11_exp40_le : e^40 ≤ 2.4·10^17` is ALREADY LANDED. Bits: `K ≤ 2^{57.0}`, `32 = 2^5`, `(2^35)² = 2^70`, `500^10 = 2^{89.7}` ⟹ **`Kc ≤ 2^{221.7}`** -- which is the corpus's own `221.6` figure (`GoldbachEnergyN0` :58). Against the rider `2^539` that is **317 bits of room**; against `KExpr_le`'s `2^{538.42}` it is 317 bits BETTER, because the 500-instance is a genuinely sharper count, not the same constant re-read.
 
@@ -20597,7 +20597,7 @@ silently assume the convergence it is meant to prove, so it is flagged, not forc
 
 1. *(convergence, class B/C)* Discharge the `Tendsto (hbEulerLog χ z ·)` hypothesis itself —
    the corpus is one comparison away: `logChiSum_tendsto_zfr_hundred`
-   (`Salt/HB/Lemma7EF.lean:3208`) already delivers `Tendsto (fun Y => logChiSum χ X Y) atTop`
+   (`Salt/HB/Lemma7EF.lean:3206`) already delivers `Tendsto (fun Y => logChiSum χ X Y) atTop`
    **with the rate `100/√log X`** off the zero-free region, and
    `hbEulerLog_sub_primeSum_termwise` + `logChiSum_re_sub_primeSum_le` bound the difference by
    an absolutely convergent `∑ 2/p²` tail.  Cauchy criterion closes it.
@@ -20655,7 +20655,7 @@ DOUBLED `log(1/c)` (an ξ=1 shape) but the `(k−1)` power of `:218`'s `(e^{632}
 
 **⛔ K3 CONFIRMED-FATAL — THE N11 DOOR DOES NOT CLOSE AT `k = 1`, AND `k` IS NOT THE LEVER.**
 A **k-INDEPENDENT** L-power survives, from the LANDED ledger, not from the margin:
-`efEnvelope_le_ledger_sharp` (`Salt/HB/Lemma7EF.lean:2696-2704`) prices the Range-A erased-spend
+`efEnvelope_le_ledger_sharp` (`Salt/HB/Lemma7EF.lean:2694-2702`) prices the Range-A erased-spend
 row at `10^3·M^3·N·u^{bceil−1}` against the consumer's target grade `(m+255)/log u` (`:2979-2980`)
 inside the byte-fixed window `250·log q ≤ log u` (`:2916`), forcing
 `𝒩 ≥ (b/250)·(5·log L + 29)`, hence
@@ -20677,7 +20677,7 @@ explicit-constant hygiene and (through `b`) the θ ledger. Recorded so no later 
 TS-2 landing for door progress.
 
 **AND TS-3's PREMISE IS UNVERIFIED.** The landed end-to-end consumer
-`logChiSum_tendsto_zfr_hundred` (`Lemma7EF.lean:3208`) closes HB's (4.12) tail at `K = 100` using
+`logChiSum_tendsto_zfr_hundred` (`Lemma7EF.lean:3206`) closes HB's (4.12) tail at `K = 100` using
 the CLASSICAL ZFR ceiling `efZfrCeil` at every `u`, and `logChiSum_tendsto_zfr`'s own docstring
 says in the open that "`hN+`, `hord` and the `q^{250} ≤ X` edge do NOT appear — they are
 Range-A's". **On the landed bytes the repulsion contract is currently not load-bearing for
@@ -21920,7 +21920,7 @@ shape 1, proofs 2 (one build round of three tactic repairs). Full `saltbuild.sh`
 
 This composition kernel-checks the **`hσ'r` obligation only**. There is a *second, independent*
 demand on `log η` from the Range-A EF ledger (`efEnvelope_le_ledger_sharp`,
-`Salt/HB/Lemma7EF.lean:2696-2704`, inside the byte-fixed window at `:2916`), which contributes a
+`Salt/HB/Lemma7EF.lean:2694-2702`, inside the byte-fixed window at `:2916`), which contributes a
 `5b/s·log L` term that is **entirely `k`-independent**. **Nothing here certifies the door, or
 `q`-freeness, or the full threshold. It certifies one of two conjoined obligations.** The same
 fence is written into the new file's header and into both delivered docstrings.
@@ -23409,7 +23409,7 @@ cost a census and not a wave.
   `chi_floor_band_uniform` → `chi_Llower_band_uniform`, **a bare induction-max over every
   modulus `q ≤ Q`** (`SiegelBand.lean:36`: *"no known growth rate in `Q`"*). The cushion's own
   docstring already says *"has no effective bound anywhere in the corpus"*
-  (`RegisterSupply.lean:577`);
+  (`RegisterSupply.lean:575`);
 * `Kvk`/`Kbulk` **are** effective — Wave K's stones (`cpeel_le_two`, `primeTailConst_le_27`,
   salt `aa66b675`) bottom them out. **The band arm is the whole blocker.**
 
@@ -23521,7 +23521,7 @@ is caller-driven and unboundedly raisable.
 ### ⛔⛔ THE SITE THAT CANNOT: `regime_exists_of_dropSum` (`RegimeInst.lean:169-175`)
 It hardcodes `Hlo := 4000000` with `hHlo_floor := le_refl _`, and **it is the corpus's ANTI-VACUITY
 WITNESS** — the proof that a `ChowlaRegime` exists at all. Chain:
-`Diverge.lean:457 dropSum_exceeds_log_two → regime_exists_of_dropSum_exists (:201) →
+`Diverge.lean:455 dropSum_exceeds_log_two → regime_exists_of_dropSum_exists (:201) →
 regime_exists_of_dropSum`, audited at `Salt/Entropy/All.lean:268`.
 
 Raising its `Hlo` to `10^5086` is **not a mechanical edit**: its own hypothesis is
@@ -25622,7 +25622,7 @@ the class and the statement of record, the five receipts, the four inversion lem
 U-forms, U-ARM (`s15Arm_le_of_regime`), and the doorL2, road and capstone hops on the U-forms.
 
 **What the hop needs about `R` that its U-form does not give.**  The source
-`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4888`) spends the head's COUNT export
+`flat_socket_generic_epsW` (`FlatDoorEpsRung2.lean:4886`) spends the head's COUNT export
 `∀ H [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → |bigXi R.eps H| ≤ K` (K the head's existential) twice:
 as an input to the head's own slot and as `hcount` of `sum_bigXi_norm_windowExpSum_sq_le_twelve`
 (`M4Window.lean:567`).  Under the brief's rule `FlatHeadFormU` keeps the count as a HYPOTHESIS
@@ -25632,7 +25632,7 @@ one open goal is exactly
 `⊢ ∀ (H : ℕ) [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ↑(bigXi R.eps H).card ≤ K`
 with `K` known only through `0 < K` and `K ≤ 2 ^ 283 * c ^ 20`.
 
-**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2224`) needs
+**Why no floor pays it here.**  `bigXi_bounded_ceiling_eps` (`FlatDoorEpsRung2.lean:2222`) needs
 `ε ≤ 1/500`, which no form carries (only `0 < ε` and the pin), and it yields ITS OWN constant `C`,
 not the head's `K`; the socket's `Hopq`/`Hcap` are the hop's to choose but a floor cannot bound a
 count by a constant the hop did not pick.  So this is a walk finding about the FORMS, not a proof

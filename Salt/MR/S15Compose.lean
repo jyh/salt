@@ -542,9 +542,7 @@ theorem s15_doorArithFrameRho_at_socket {R : ChowlaRegime} {M H L q j A s : ℕ}
   have hjd : doorRowFloor M ≤ j := hb.2.2.2.2.2.2.1
   have hA : 0 < A := hb.2.2.2.2.2.2.2.1
   have hAx : (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) := hb.2.2.2.2.2.2.2.2.2.2.1
-  have hω : (0 : ℝ) < (R.ω : ℝ) := by
-    have : (2 : ℝ) ≤ (R.ω : ℝ) := by exact_mod_cast R.hω
-    linarith
+  have hω : (0 : ℝ) < (R.ω : ℝ) := by linarith [show (2 : ℝ) ≤ (R.ω : ℝ) by exact_mod_cast R.hω]
   have hlrho : (0 : ℝ) ≤ Real.log (1 / ρ) := log_one_div_nonneg hρ0 hρ1
   have hllH : Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) :=
     s13_loglog_le_of_range (R := R) hlo hhi
@@ -1415,7 +1413,7 @@ exactly as landed.
 suppliers carry, and each discard is a wall:
 
 * **`x0M`** reads `x₀ ≤ M` — a `2^{doorRowFloor M}`-fold strengthening of what
-  `S13BandGate'.x0_le` actually asks (`x₀ ≤ 2^{doorRowFloor M}`, `S13BandBase.lean:727`).
+  `S13BandGate'.x0_le` actually asks (`x₀ ≤ 2^{doorRowFloor M}`, `S13BandBase.lean:725`).
   `s15_x0_le` (§3b) is the throwaway bridge between them.  The analytic chain's own `x₀` is
   `≥ exp (exp 100)`, so at the weak form no window admits it and at the tolerant form the
   room is `doorRowFloor M` DOUBLE-LOG units.
@@ -1459,9 +1457,7 @@ theorem s15_doorArithFrameRho_at_socket'' {R : ChowlaRegime} {M H L q j A s : �
   have hjd : doorRowFloor M ≤ j := hb.2.2.2.2.2.2.1
   have hA : 0 < A := hb.2.2.2.2.2.2.2.1
   have hAx : (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) := hb.2.2.2.2.2.2.2.2.2.2.1
-  have hω : (0 : ℝ) < (R.ω : ℝ) := by
-    have : (2 : ℝ) ≤ (R.ω : ℝ) := by exact_mod_cast R.hω
-    linarith
+  have hω : (0 : ℝ) < (R.ω : ℝ) := by linarith [show (2 : ℝ) ≤ (R.ω : ℝ) by exact_mod_cast R.hω]
   have hlrho : (0 : ℝ) ≤ Real.log (1 / ρ) := log_one_div_nonneg hρ0 hρ1
   have hllH : Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) :=
     s13_loglog_le_of_range (R := R) hlo hhi

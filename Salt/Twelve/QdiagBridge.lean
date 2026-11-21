@@ -536,9 +536,7 @@ theorem qdiag_bridge_of (F : Poly) (m : Fin 5)
       * ((simplexInt (sq (contractAt m F)) : ℚ) : ℝ) with hMaindef
   set Log6 : ℝ := c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 6 / Real.log R
     with hLog6def
-  have hDpos : (0 : ℝ) < (D : ℝ) := by
-    have : (300 : ℝ) ≤ (D : ℝ) := by exact_mod_cast hD
-    linarith
+  have hDpos : (0 : ℝ) < (D : ℝ) := by linarith [show (300 : ℝ) ≤ (D : ℝ) by exact_mod_cast hD]
   have hκ1 : (1 : ℝ) ≤ κinv := by
     rw [hκdef, le_div_iff₀ (by exact_mod_cast Nat.totient_pos.mpr hpos)]
     simpa using (by exact_mod_cast Nat.totient_le W' : (W'.totient : ℝ) ≤ (W' : ℝ))

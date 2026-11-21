@@ -88,9 +88,7 @@ private lemma logbsq_two_mul_P_le_zero {P Q Xd : ℕ} (hP : 2 ≤ P) (hPQ : P �
     (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 * (P : ℝ) ≤ 3 * (Xd : ℝ) := by
   have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
   have hXd0 : (0 : ℝ) < (Xd : ℝ) := by linarith
-  have hP0 : (0 : ℝ) < (P : ℝ) := by
-    have : (2 : ℝ) ≤ (P : ℝ) := by exact_mod_cast hP
-    linarith
+  have hP0 : (0 : ℝ) < (P : ℝ) := by linarith [show (2 : ℝ) ≤ (P : ℝ) by exact_mod_cast hP]
   have hPQR : (P : ℝ) ≤ (Q : ℝ) := by exact_mod_cast hPQ
   have hu0 : 0 ≤ Real.log (Xd : ℝ) := by
     by_contra hcon
@@ -200,9 +198,7 @@ theorem lemma12RowsMR_pricedK_end_zero' (P Q N Xd : ℕ) (H T : ℝ) (a b c : �
   have hP2 : 2 ≤ P := by omega
   have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
   have hXd0 : (0 : ℝ) < (Xd : ℝ) := by linarith
-  have hP0 : (0 : ℝ) < (P : ℝ) := by
-    have : (4 : ℝ) ≤ (P : ℝ) := by exact_mod_cast hP
-    linarith
+  have hP0 : (0 : ℝ) < (P : ℝ) := by linarith [show (4 : ℝ) ≤ (P : ℝ) by exact_mod_cast hP]
   have hNR : 2 * (Xd : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN
   have hpre : (0 : ℝ) ≤ 2 * T + 20 * (N : ℝ) := by
     have : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg _

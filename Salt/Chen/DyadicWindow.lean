@@ -92,9 +92,7 @@ theorem xm_log_bounds_of_le {x X M : ℕ} (hx : 2 ≤ x)
     Real.log x - 1 ≤ Real.log ((X : ℝ) * (M : ℝ))
       ∧ Real.log ((X : ℝ) * (M : ℝ)) ≤ Real.log x + 3 := by
   obtain ⟨hXMposR, hhalf, hhiR⟩ := xm_real_bounds_of_le hlo hhi
-  have hxpos : (0 : ℝ) < (x : ℝ) := by
-    have : (2 : ℝ) ≤ (x : ℝ) := by exact_mod_cast hx
-    linarith
+  have hxpos : (0 : ℝ) < (x : ℝ) := by linarith [show (2 : ℝ) ≤ (x : ℝ) by exact_mod_cast hx]
   constructor
   · have hlog : Real.log ((x : ℝ) / 2) ≤ Real.log ((X : ℝ) * (M : ℝ)) :=
       Real.log_le_log (by linarith) hhalf.le

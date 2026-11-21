@@ -211,7 +211,7 @@ single hypothesis `exp 32768 ≤ k`:
 `0 < k`, `L ≥ 32768`, `L^{2/5} ≥ 64`, `log y₂ = L^{2/5}`, `η₂ = 1/log y₂`, `0 < η₂`,
 `η₂ ≤ 1/64`, `1/L < η₂`, `e ≤ y₂`, `131072 ≤ y₂`, `y₂ ≤ √k`, `√L ≤ y₂`, `y₂ ≤ k`.
 
-Compare `FarClose.pin_basic64F`, whose `y = L⁴` analogues these replace verbatim in shape.
+Compare `GradeConst.pin_basic64_strict`, whose `y = L⁴` analogues these replace verbatim in shape.
 The two that the old pin got only asymptotically — `y ≤ √X` (`logpow4_le_sqrt_ev'`) and
 `√(log X) ≤ y` — are NUMERAL facts here. -/
 theorem pin2_basic {k L : ℝ} (hk : pin2Gate ≤ k) (hL : L = Real.log k) :
