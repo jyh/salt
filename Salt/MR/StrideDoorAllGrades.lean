@@ -35,7 +35,7 @@ open private norm_windowExpSum_trivial from Salt.Entropy.Chowla.MRTDoor
 (`StrideDoorAllGrades`)
 
 The graded lane's crown `mrtUniformityXiL2AffW_holds_flat_stride_g12b`
-(`StridePairReceiptG12b.lean:1029`) is the affine `L²` MRT door at stride `a` and twist `h` under
+(`StridePairReceiptG12b.lean:1026`) is the affine `L²` MRT door at stride `a` and twist `h` under
 THREE caps: `log (a·h) ≤ 9`, the ε-pin `ε = 1/(500·a·h)`, and the grade pinned at
 `837782·2^12·(a·h)²`.  ARM Z states the same door with the three caps GONE — stride and twist FREE,
 the grade a QUANTIFIER `∀ ρ > 0`, `ε` over its range `[1/(500·a·h), 1/500]` — as the statement of
@@ -657,7 +657,7 @@ theorem chowlaRegimeFlat_exists_param_head_xceil_mul_at_L (a : ℕ) (ha : 1 ≤ 
 /-! ## §E — THE HEAD AT THE TRIVIAL PAYLOAD, AND THE SHRINK -/
 
 /-- **⟦THE DOOR-HEAD AT THE CHARGE⟧** (`flat_door_head_xceil_h_Z`) — G12b's
-`flat_door_head_xceil_h_g12b` (`StridePairReceiptG12b.lean:844`) at the charge and at the TRIVIAL
+`flat_door_head_xceil_h_g12b` (`StridePairReceiptG12b.lean:841`) at the charge and at the TRIVIAL
 payload `fun _ => True`: (a) the count `2^539 ↦ 2^283·c^20·h` is `hcount`'s, read at `Xi ε`; the
 ε-pin `1/(500h) ≤ ε` is the binder `hεh`, with the charge pin `hcε` beside it; the grade pin
 `1/(838400·c) ≤ δ₀` is proved from `hcε` exactly as rung 2's head proves its pin
@@ -2399,7 +2399,7 @@ The kswin hop (H3→H4) is NOT in this file: its crossing spine head has no char
 above).  v7 takes the kswin form as a hypothesis and is proved here. -/
 
 /-- **⟦H4→H5 AT THE CHARGE⟧ — `flat_v7_generic_h_Z`.** G12b's `flat_v7_generic_h_g12b`
-(`StridePairReceiptG12b.lean:765`) on the Z forms.  The two capped suppliers are rung 2's
+(`StridePairReceiptG12b.lean:762`) on the Z forms.  The two capped suppliers are rung 2's
 h-generic ones AT THE TRUE `h` (rule (i)): `cofkR_cofactorSupply_L_gk_rated_L h hh` and
 `s16_baseScaleCap96_LH_at_klevF_L (h := h) hh`, each at `Lc := log c + L`.  The supply's `obtain`
 moves below the terminal's (as rung 2's v7 does), because the charge conjuncts are components of
@@ -4524,9 +4524,7 @@ theorem flat_kswin_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L : 
   obtain ⟨R0, hR0eps, -, -, -, -, -, -⟩ :=
     hbody0 1 (max Hcap0 (max (flatDesignBase A0) loglogFloor50)) (fun _ _ => 0) le_rfl
       (by simpa using hL0) hzero le_rfl
-  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
-  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
+  have hε2 : (ε : ℝ) ≤ 1 / 2 := by simpa [hR0eps] using (Rat.cast_le (K := ℝ)).mpr R0.heps1
   -- ⟦THE CHARGE PIN AT `c`, IN THE REAL SPELLING⟧ (rung 2's cast)
   have hcQ1 : (1 : ℚ) ≤ (c : ℚ) := by exact_mod_cast hc1
   have hcR1 : (1 : ℝ) ≤ (c : ℝ) := by exact_mod_cast hc1
@@ -5206,7 +5204,7 @@ theorem zE_beaten {Kc : ℝ} {c k a : ℕ} {ρ A : ℝ} {Rd : ChowlaRegime}
 cell 24) -/
 
 /-- **⟦THE CHAIN AT THE CHARGE⟧** (`flat_chain_generic_h_Z`) — G12b's `flat_chain_generic_h_g12b`
-(`StridePairReceiptG12b.lean:934`) on the Z forms: the five hops head→roadExit→capstone→conditional
+(`StridePairReceiptG12b.lean:931`) on the Z forms: the five hops head→roadExit→capstone→conditional
 →kswin→v7 composed at the landed binder orders (§F, §H, §J, §N, §K), every `_g12b ↦ _Z`, and the
 cap `hh9` GONE (no hop reads it).  No numeral. -/
 theorem flat_chain_generic_h_Z (h : ℕ) (hh : 0 < h) (ε : ℚ) (c : ℕ) (L : ℝ) (Xi : XiFamily)
@@ -5441,7 +5439,7 @@ guard gained one named exemption for exactly this theorem and its `example`; the
 
 /-- **⟦ZERO LEVEL A — Z AT THE PIN IS THE LANDED CROWN⟧** (`strideDoor_zero_level_g12b`) — from
 `StrideDoorAllGradesW` at `ε := 1/(500·a·h)` and grade `a·ρ₀` (`ρ₀` the landed ceiling), the
-conclusion of `mrtUniformityXiL2AffW_holds_flat_stride_g12b` (StridePairReceiptG12b.lean:1029)
+conclusion of `mrtUniformityXiL2AffW_holds_flat_stride_g12b` (StridePairReceiptG12b.lean:1026)
 VERBATIM, with `Zr := 1`, `E := 0`.  The cap `hah9` is a binder here so the two statements can be
 laid side by side; it is READ NOWHERE (the linter would say so). -/
 theorem strideDoor_zero_level_g12b (hZ : StrideDoorAllGradesW) (a b h : ℕ) (ha : 0 < a)

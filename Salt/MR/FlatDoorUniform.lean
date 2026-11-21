@@ -1323,7 +1323,7 @@ theorem flat_kswin_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (A
       hcapsc)
 
 /-- **the rated hop, uniform** (`flat_v7_generic_U`) — `flat_v7_generic_epsW`
-(`FlatDoorEpsRung2.lean:5336`) on the re-cut V7 U-form.  The supplies and the nine arms are the
+(`FlatDoorEpsRung2.lean:5334`) on the re-cut V7 U-form.  The supplies and the nine arms are the
 source's, minted BEFORE the lever (the seven landed arms at `A₀ := 0`, `armVt Kvt`, and
 `162 + 2·log c` outermost), into `A*`; the form's floor is `Hfl := flatDesignBase A*`.  For a
 given regime above it the design constant is `A := loglog Hlo / 3.2` (the INVERSION): `A* ≤ A`
@@ -1489,7 +1489,7 @@ theorem flat_v7_generic_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop)
         hA26 hLt (flatDoorM_one_le hA26) heps500 hxceil hwin))
 
 /-- **the chain, uniform** (`flat_chain_U`) — `flat_chain_generic_epsW`
-(`FlatDoorEpsRung2.lean:5478`) on the U-forms: the seven U-hops composed.  ONE binder beyond the
+(`FlatDoorEpsRung2.lean:5476`) on the U-forms: the seven U-hops composed.  ONE binder beyond the
 source's, `hε2 : ε ≤ 1 / 2`, for the kswin hop's first conjunct (see `flat_kswin_generic_U`). -/
 theorem flat_chain_U (ε : ℚ) (c : ℕ) (P : ChowlaRegime → Prop) (hε2 : ε ≤ 1 / 2)
     (h : FlatHeadFormU ε c P) : V7RatedFormU ε c P :=

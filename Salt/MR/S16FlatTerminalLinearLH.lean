@@ -1273,9 +1273,7 @@ theorem logChowla2_witnessed_scale_flat_LH (h : ℕ) (hh : 0 < h) (hh7 : Real.lo
   -- ⟦THE `ε`-CEILING⟧ read off ONE regime's own `heps1` (the census needs `ε ≤ 1/2`)
   obtain ⟨R0, hR0eps, -, -, -, -⟩ :=
     hbody (flatWitFloor ε β A Hopq) (fun _ _ => 0) (flatCap_le_flatWitFloor hCapLe)
-  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
-  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
+  have hε2 : (ε : ℝ) ≤ 1 / 2 := by simpa [hR0eps] using (Rat.cast_le (K := ℝ)).mpr R0.heps1
   -- ⟦THE `ε` PIN, CAST⟧ the shift rides inside the denominator
   have hεR : (1 : ℝ) / (500 * (h : ℝ)) ≤ (ε : ℝ) := by
     have hc := (Rat.cast_le (K := ℝ)).mpr hεpin

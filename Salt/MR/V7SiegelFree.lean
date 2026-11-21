@@ -763,11 +763,8 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_ks
   have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := xceilRiderStrict_zero ε
   obtain ⟨R0, hR0eps, -, -, -, -, -⟩ :=
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
-  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
-  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
-  have hεR : (1 : ℝ) / 500 ≤ (ε : ℝ) := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
+  have hε2 : (ε : ℝ) ≤ 1 / 2 := by simpa [hR0eps] using (Rat.cast_le (K := ℝ)).mpr R0.heps1
+  have hεR : (1 : ℝ) / 500 ≤ (ε : ℝ) := by simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   refine ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
     hCgle, hεpin, hδpin, hMflb, hβ, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40, ?_⟩
   intro K
@@ -886,11 +883,8 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree_of
   have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := xceilRiderStrict_zero ε
   obtain ⟨R0, hR0eps, -, -, -, -, -⟩ :=
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
-  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
-  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
-  have hεR : (1 : ℝ) / 500 ≤ (ε : ℝ) := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
+  have hε2 : (ε : ℝ) ≤ 1 / 2 := by simpa [hR0eps] using (Rat.cast_le (K := ℝ)).mpr R0.heps1
+  have hεR : (1 : ℝ) / 500 ≤ (ε : ℝ) := by simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   refine ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
     hCgle, hεpin, hδpin, hMflb, hβ, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40, ?_⟩
   intro K
@@ -924,7 +918,7 @@ namespace Salt.MR
 noncomputable section
 open Salt.Entropy.Chowla
 open scoped BigOperators
-/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6_csarm` (`V7B.lean:889`): its statement under the
+/-- **⟦STANDOFF TWIN⟧** `logChowla2_ineffective_v6_csarm` (`V7B.lean:886`): its statement under the
 three standoff binders, its proof verbatim with `s16_bandLaneWinL_holdsU` ·
 `logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist_csfree` replaced by their twins. -/
 theorem logChowla2_ineffective_v6_csarm_of_standoff {cS : ℝ} (hcS : 0 < cS)

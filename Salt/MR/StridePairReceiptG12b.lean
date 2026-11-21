@@ -680,11 +680,8 @@ theorem flat_kswin_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : �
   obtain ⟨R0, hR0eps, -, -, -, -, -, -⟩ :=
     hbody0 1 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) le_rfl (by norm_num)
       hzero le_rfl
-  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
-  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
-  have hεR : (1 : ℝ) / (500 * (h : ℝ)) ≤ (ε : ℝ) := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
+  have hε2 : (ε : ℝ) ≤ 1 / 2 := by simpa [hR0eps] using (Rat.cast_le (K := ℝ)).mpr R0.heps1
+  have hεR : (1 : ℝ) / (500 * (h : ℝ)) ≤ (ε : ℝ) := by simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   refine ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, Cq, cs, T₀, Kq, Ks, C, hε, hCg, hKc, hδ₀, hMfl1,
     hCgle, hεpin, hδpin, hMflb, hβ, hCq, hcs0, hcsf, hT₀3, hKq0, hKs0, hC0, hC40, ?_⟩
   intro K
@@ -929,7 +926,7 @@ HONEST LABEL.  Replays only; nothing here proves a new estimate, and nothing bea
 primes. -/
 
 /-- **⟦THE CHAIN AT `2^12`⟧ — `flat_chain_generic_h_g12b`.** `flat_chain_generic_h_g`
-(StridePairReceiptG.lean:966) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
+(StridePairReceiptG.lean:963) at the `_g12b` forms and cap `≤ 9`.  BODY verbatim at the five G1
 replays (census band 4 row 23: SUPPLIER-SWAP, no numerals). -/
 theorem flat_chain_generic_h_g12b (h : ℕ) (hh : 0 < h) (hh9 : Real.log (h : ℝ) ≤ 9) (Xi : XiFamily)
     (harcXi : ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →
