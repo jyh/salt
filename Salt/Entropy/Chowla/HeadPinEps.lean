@@ -15,8 +15,10 @@ in `ℝ`, its positivity, the four ceilings `ε ≤ cE/(32·log 4)`, `ε < 1/2`,
 `ε ≤ cD3/(16·C)`, `ε ≤ 1/2` and `ε² < 1/2`, and the `δ₀` floor
 `1/838400 ≤ cD3/(16·C)·ε/4`. This file states them once.
 
-## Main result
+## Main results
 * `eps500_pin_facts` — the pin and its facts.
+* `exists_eps_below_heads` — a rational `ε > 0` under the same four ceilings, from positivity
+  alone (for the heads that choose `ε` by `exists_rat_btwn` rather than pinning it).
 -/
 
 namespace Salt.Entropy.Chowla
@@ -54,5 +56,29 @@ theorem eps500_pin_facts {cE cD3 C : ℝ} (hcEge : 1 / 4 ≤ cE) (hcD3ge : 1 / 4
       rw [le_div_iff₀ (by positivity : (0 : ℝ) < 16 * C)]; linarith
     rw [hεR]; linarith
   exact ⟨ε, hεdef, hεR, hεR0, hεQpos, hεcE, hε_half_lt, hε_D3, hε_D3C, hεQ1, hε2, hδ₀ge⟩
+
+/-- **A rational `ε` under the heads' four ceilings, from positivity alone.** For `0 < cE`,
+`0 < cD3` and `0 < C` there is `ε : ℚ` with `0 < ε`, `0 < (ε : ℝ)`, `ε ≤ cE/(32·log 4)`,
+`ε < 1/2`, `ε ≤ cD3/16` and `ε ≤ cD3/(16·C)`. `HloExport`, `SiegelFree`, `SpineFinal` (four
+heads) and `XGapThread` each chose it inline by `exists_rat_btwn` below the `min` of the four. -/
+theorem exists_eps_below_heads {cE cD3 C : ℝ} (hcE : 0 < cE) (hcD3 : 0 < cD3) (hC : 0 < C) :
+    ∃ ε : ℚ, 0 < ε ∧ (0 : ℝ) < (ε : ℝ) ∧ (ε : ℝ) ≤ cE / (32 * Real.log 4) ∧ (ε : ℝ) < 1 / 2 ∧
+      (ε : ℝ) ≤ cD3 / 16 ∧ (ε : ℝ) ≤ cD3 / (16 * C) := by
+  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  have hbound_pos : (0 : ℝ) < min (min (min (cE / (32 * Real.log 4)) (1 / 2))
+      (cD3 / 16)) (cD3 / (16 * C)) := by
+    refine lt_min (lt_min (lt_min ?_ ?_) ?_) ?_
+    · exact div_pos hcE (mul_pos (by norm_num) hlog4)
+    · norm_num
+    · exact div_pos hcD3 (by norm_num)
+    · exact div_pos hcD3 (mul_pos (by norm_num) hC)
+  obtain ⟨ε, hε0, hεlt⟩ := exists_rat_btwn hbound_pos
+  refine ⟨ε, by exact_mod_cast hε0, hε0, ?_, ?_, ?_, ?_⟩
+  · exact le_of_lt (lt_of_lt_of_le hεlt
+      (le_trans (le_trans (min_le_left _ _) (min_le_left _ _)) (min_le_left _ _)))
+  · exact lt_of_lt_of_le hεlt
+      (le_trans (le_trans (min_le_left _ _) (min_le_left _ _)) (min_le_right _ _))
+  · exact le_of_lt (lt_of_lt_of_le hεlt (le_trans (min_le_left _ _) (min_le_right _ _)))
+  · exact le_of_lt (lt_of_lt_of_le hεlt (min_le_right _ _))
 
 end Salt.Entropy.Chowla

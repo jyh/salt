@@ -55,7 +55,7 @@ Matomäki hits are bibliographic only [G grep].
 ## 2. WHAT THE CORPUS ALREADY HOLDS (all [G], file:line)
 
 **The Entropy spine (COMPLETE, sorry-free):**
-- `Salt/Entropy/Chowla/SpineFinal.lean:260` — `log_chowla_two_final`: the
+- `Salt/Entropy/Chowla/SpineFinal.lean:261` — `log_chowla_two_final`: the
   terminal surface, Tao's model form `a=1, b=0, h=1, g₁=g₂=λ`
   (docstring :237–245). Conditional **ONLY** on `MRTUniformity R δ` for any
   `0 < δ ≤ δ₀` (with `δ₀ = ε/(2K)`, docstring :251), plus the explicit
@@ -71,7 +71,7 @@ Matomäki hits are bibliographic only [G grep].
 - `Salt/Entropy/Chowla/CircleMethod.lean:37–46` — `expSum` (Tao (3.17) at
   `c_p = 1`: `S_H(α) = Σ_{p∈𝒫_H} (1/p)e(αp)`), `bigXi` = `{ξ : |S_H(−ξ/H)| ≥
   ε²/log H}` (Lemma 3.4 at a=1), `bigXi_bounded` (card ≤ K, Lemma 3.5).
-- Regime floor: `H ≥ 4,000,000` (`SpineFinal.lean:298`, via `R.hHlo_floor`).
+- Regime floor: `H ≥ 4,000,000` (`SpineFinal.lean:299`, via `R.hHlo_floor`).
 
 **The region side (the MR gate's key opened 2026-07-18):**
 - `Salt/Vk/GrowthPow.lean:426` — `zeta_zero_free_region_pow`
@@ -182,7 +182,7 @@ machinery is ζ-only — gap node N2 below.
 
 ## 5. THE PORT-SHAPED CHAIN (nodes; class guesses; both routes)
 
-**Gate target:** discharge the door consumed at `SpineFinal.lean:263`.
+**Gate target:** discharge the door consumed at `SpineFinal.lean:264`.
 Currently that is the FULL `MRTUniformity` (∀α). The Xi-rewire (spine consuming
 `MRTUniformityXi` instead) is grounding-map-#1 scope; both routes below are
 stated against their natural door.
@@ -304,8 +304,8 @@ details = map #1.)
 | scale ordering | x ≥ n ≥ x/ω ≥ log x ≥ log A ≫ H* | [G] chowla.txt:597 |
 | bigXi threshold | ε²/log H | [G] CircleMethod.lean:41 |
 | spectrum bound | card(Ξ_H) ≤ K (Lemma 3.5 = `bigXi_bounded`) | [G] |
-| door threshold | δ₀ = ε/(2K) | [G] SpineFinal.lean:251 (docstring) |
-| regime H-floor | H ≥ 4·10⁶ | [G] SpineFinal.lean:298 |
+| door threshold | δ₀ = ε/(2K) | [G] SpineFinal.lean:252 (docstring) |
+| regime H-floor | H ≥ 4·10⁶ | [G] SpineFinal.lean:299 |
 | MR quantitative error exponents (e.g. the remembered 1/50) | — | **[M] DO NOT USE; stage 1501.04585** |
 
 ---

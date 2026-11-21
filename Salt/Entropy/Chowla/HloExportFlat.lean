@@ -54,7 +54,7 @@ private lemma flatCap_shuffle (a b c d e : ℕ) :
 
 /-- **The `L²` spine contradiction core, flat-file twin**
 (`spine_False_core_xi_sq_flat`) — `HloExport.spine_False_core_xi_sq_cap`
-(itself `SpineFinal.lean:1164`'s `private` core) VERBATIM under a fresh name.
+(itself `SpineFinal.lean:1117`'s `private` core) VERBATIM under a fresh name.
 The core takes `κ` as an EXPLICIT ARGUMENT, so it is threshold-agnostic: the flat
 head fires it at `κ = H/(A·log H)` exactly as the landed head fires it at
 `κ = H/(log H·logloglog H)`.  Nothing in the body reads the threshold. -/

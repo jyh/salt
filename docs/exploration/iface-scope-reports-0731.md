@@ -16,7 +16,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 ## THE CHAIN, BYTE BY BYTE
 
 **The demand's two halves** (`Salt/Entropy/Chowla/BudgetCore.lean:138-146`):
-- `κ := H/(log H · logloglog H)` — produced by `entropy_decrement` (`Decrement.lean:49-56`), consumed at `SpineFinal.lean:632` and threaded into fact (iv) at `SpineFinal.lean:576-579, 626`.
+- `κ := H/(log H · logloglog H)` — produced by `entropy_decrement` (`Decrement.lean:49-56`), consumed at `SpineFinal.lean:633` and threaded into fact (iv) at `SpineFinal.lean:576-579, 626`.
 - `gcap := ε⁶H/(18·(2·log 4)·log H) − log 2` — the concentration exponent, born at `Transport.lean:257` as `E = δ²·log H/(2·C₀·ε²H·(2/ε²+1)²)` and specialized at `Transport.lean:181-199` to `δ := ε²H/log H`, giving `ε⁶H/(18·C₀·log H)`; `C₀ = 2·log 4` from `circle_method_estimate` (the theorem in `CircleMethod.lean` and the first line of its proof, witness `C = 1+2C₀`).
 
 **The cancellation (P1, kernel):** `(H/(L·L3)) / (ε⁶H/(18·(2·log4)·L)) = 36·log 4/(ε⁶·L3)` — identically, for all `H, L, L3, ε > 0`. Both sides are `(H/log H) × scalar`. This is the crux: the demand is not "H large", it is a **pure constant inequality on `logloglog H`**.
@@ -51,7 +51,7 @@ Three candidate births; I checked all three at the bytes.
 - `÷ R² = (H/p+1)² ≤ (2/ε²+1)² → ×ε⁴`.
 Net `ε⁶`. **`R` is a RANGE, not a variance**: `fBridge_varTerm` (`FBridge.lean:207-215`) literally computes the Hoeffding half-width `((hi−lo)/2)² = (H/p+1)²`. The file's "sharp" refers only to the *cardinality* upgrade (`FBridge.lean:381-383`), never the tail.
 
-**`β²` — the mass-slice bookkeeping.** `β := cD3·ε/(144·log 4)` (`SpineFinal.lean:621`). It is **not the door grade** — that is `c₀ = cD3/(16C)`, `δ₀ = c₀ε/(2K)` (`ConstantsExposed.lean:26-33`). `β` occurs ONLY as `budgetFloor`'s second argument and inside `hbudget1_witness`. It is `(S4 mass slice)/(2·boxGrade)`: `2·boxGrade·bracket ≤ (cD3/16)(εH/log H)` with `boxGrade = 2·log4·(2+ε²)·(H/log H)` (`OuterCombine.lean:42-43`), and `(2+ε²) ≤ 9/4` gives the 144. `β` enters squared because `bracket_close` (`BudgetCore.lean:83-113`) is an **AM–GM square root**: `2√(κ/g) + 2log2/g ≤ β`.
+**`β²` — the mass-slice bookkeeping.** `β := cD3·ε/(144·log 4)` (`SpineFinal.lean:622`). It is **not the door grade** — that is `c₀ = cD3/(16C)`, `δ₀ = c₀ε/(2K)` (`ConstantsExposed.lean:26-33`). `β` occurs ONLY as `budgetFloor`'s second argument and inside `hbudget1_witness`. It is `(S4 mass slice)/(2·boxGrade)`: `2·boxGrade·bracket ≤ (cD3/16)(εH/log H)` with `boxGrade = 2·log4·(2+ε²)·(H/log H)` (`OuterCombine.lean:42-43`), and `(2+ε²) ≤ 9/4` gives the 144. `β` enters squared because `bracket_close` (`BudgetCore.lean:83-113`) is an **AM–GM square root**: `2√(κ/g) + 2log2/g ≤ β`.
 
 **Combination:** `ε⁶β² = cD3²ε⁸/(20736·log4²)` — the "ε⁻⁸ law" (`spine-budget-freeze.md:61`, labeled DERIVED-not-registered). And `ε` is itself capped by `cD3/(16C)` (`SpineFinal.lean` ε-arms; `C = 1+4·log4 = 6.545`), so the demand scales as **`cD3^{-10}`**. With the landed witness `cD3 = 1/4` (`WindowMertensLower.lean:254`, `refine ⟨1/4, …⟩`) and `ε` pinned to `1/500` (`ConstantsExposed.lean:187`): forced demand `≥ 10^30` (P3c, kernel).
 
@@ -84,7 +84,7 @@ Kernel-probed at candidate floors:
 
 ## (4) `β = cD3·ε/(144·log 4)` — PLUMBING, AND ALREADY NEARLY MAXIMAL
 
-**The flags entry's pre-analysis is wrong on this point** (`flags.md:18658-18659`, "beta (IS the door grade, small by design)"). `β` is the bracket budget, not the door grade. Grep of `144 * Real.log 4` returns only `budgetFloor` call sites and `SpineFinal.lean:621`.
+**The flags entry's pre-analysis is wrong on this point** (`flags.md:18658-18659`, "beta (IS the door grade, small by design)"). `β` is the bracket budget, not the door grade. Grep of `144 * Real.log 4` returns only `budgetFloor` call sites and `SpineFinal.lean:622`.
 
 Can the budget run at its own larger `β`? **No, and the reason is structural, not plumbing.** `β` is pinned by the mass ledger: the total correlation mass is `c₁·εH/log H` with `c₁ = cD3/4` (exact: `(1/2)·Σ_p 1/p ·H·|X|` with `Σ ≥ cD3/log H` and seed `|X| ≥ ε/2`, `HBudget.lean:705`), and the four errors (S1 door, S2 circle-method `ε²`, S3 good-event `δ`, S4 bracket) must fit under it. `β` = S4's share ÷ `2·boxGrade`. The only enlargements are the slice share (≤ 4×) and `(2+ε²) → 2` (≤ 1.125×) — a combined ≤ 20× in `β²`, already counted above. Decoupling `β` from the door is free (they were never coupled) and buys **nothing**.
 
@@ -156,7 +156,7 @@ for **every** `k ≥ 1`. Its ONLY `k`-dependence is the error `ε²log4/k`. `tow
 
 **(c) And it is then killed by S1's floor, on the SAME line.** Two independent kills:
 
-*Kill 1 — the ε-axis (the shallow road's own price).* The `k=2` step needs `ε² ≲ 1/(2·log4·log H·logloglog H)`, i.e. `ε ≲ e^{−λ₋/2}` (at `λ₋ = 277`, `ε ≤ e^{−139}`). `budgetX` (`BudgetCore.lean:21`) carries `1/ε⁶`, and its β is `cD3·ε/(144·log 4)` (`HloExport.lean:394,424`; `SpineFinal.lean:604`), making it `ε^{−8}`. KERNEL (`P3.lean:19 probe_shallow_budget_kill`): no `(λ,ε,β)` satisfies both, at **every** `λ ≥ 1` — the `ε^{−6}` alone suffices, `β` never used. KERNEL (`P3.lean:67 probe_shallow_budget_price`): the induced `budgetX ≥ 24000·e^{3λ}`, so the floor then demands `λ ≥ exp(24000·e^{3λ})`. **No fixed point, by an exponential, at every λ.**
+*Kill 1 — the ε-axis (the shallow road's own price).* The `k=2` step needs `ε² ≲ 1/(2·log4·log H·logloglog H)`, i.e. `ε ≲ e^{−λ₋/2}` (at `λ₋ = 277`, `ε ≤ e^{−139}`). `budgetX` (`BudgetCore.lean:21`) carries `1/ε⁶`, and its β is `cD3·ε/(144·log 4)` (`HloExport.lean:394,424`; `SpineFinal.lean:605`), making it `ε^{−8}`. KERNEL (`P3.lean:19 probe_shallow_budget_kill`): no `(λ,ε,β)` satisfies both, at **every** `λ ≥ 1` — the `ε^{−6}` alone suffices, `β` never used. KERNEL (`P3.lean:67 probe_shallow_budget_price`): the induced `budgetX ≥ 24000·e^{3λ}`, so the floor then demands `λ ≥ exp(24000·e^{3λ})`. **No fixed point, by an exponential, at every λ.**
 
 *Kill 2 — the design-independent one (this is the giant).* Forget `ε`. Any tower has multiplier `≥ 2` per level (`step_ineq_3_11` needs the `k`-fold block structure; `k=1` is a no-op in the telescope), and every level pays at most the landed summand `1/(2 L_j v_j)`. KERNEL (`P4.lean:49 probe_window_floor`): then
 > **`λ₊ − λ₋ ≥ (15/8)·(log 2)²·logloglog H₋ = 0.90085 · logloglog H₋`**
@@ -174,7 +174,7 @@ stated on abstract sequences — it holds for EVERY tower design, not just `chow
 ## (5) DIRECTIONS, WITH CLASS AND HONEST PRICE
 
 1. **THE SHALLOW TOWER (`k = 2`), as a construction — SOUND, class C, ~800–1200 ln, and it BUYS NOTHING ALONE.** New recursion + a `towerDropSum₂` potential `u = loglog H` (easier than the landed `w = log v`: `P2.lean:78` is the whole per-step law), new builder, re-point `hJcon`. Dissolves the 7.1448 width collision at `λ₋ ≤ 1690` and the S16 `K`-collision at `λ₋ ≤ 417`. **Priced only as a package with (2) or (3); alone it dies at the ε-price (`P3`).**
-2. **BREAK THE ε-COUPLING (split the residue-window ε from the budget's ε).** The tower's ε is the `𝒫_H` window parameter; the budget's is the same `R.eps` field (`HloExport.lean:425`). A two-ε regime is the only way the shallow road survives Kill 1. Note (favourable, analysis-tier): the Mertens input `cD3/log H ≤ Σ_{p∈𝒫_H} 1/p` (`HloExport.lean:209`) is a DYADIC window sum ≈ `log2/log(ε²H)` — first-order **ε-independent**, so shrinking ε does not obviously kill the D3 leg. **Class D. Does not touch Kill 2.**
+2. **BREAK THE ε-COUPLING (split the residue-window ε from the budget's ε).** The tower's ε is the `𝒫_H` window parameter; the budget's is the same `R.eps` field (`HloExport.lean:409`). A two-ε regime is the only way the shallow road survives Kill 1. Note (favourable, analysis-tier): the Mertens input `cD3/log H ≤ Σ_{p∈𝒫_H} 1/p` (`HloExport.lean:209`) is a DYADIC window sum ≈ `log2/log(ε²H)` — first-order **ε-independent**, so shrinking ε does not obviously kill the D3 leg. **Class D. Does not touch Kill 2.**
 3. **RE-DERIVE `budgetX`'s `ε^{-6}` / the fact-4 ratio line.** The single highest-value object in the campaign under my face: it is what stands between an additive tower and the register's window, and it is the ONLY surviving wall after (1). But `budgetX` is a Captain-tier freeze ("enlargeable, never shrinkable"), and Kill 2 shows even `budgetX`'s DEFINITIONAL minimum `270270` (forced by `ε ≤ 1/2` alone) overshoots the register's `7.94` by 34043×. **So the re-derivation must beat 270270 → 7.94, i.e. kill the `1/ε⁶` factor entirely, not shrink it. Class D, and the target is a shape not a constant.**
 4. **Sharpen the exported `K` (5 → 9/2 → 4.42).** Class A/B, ~30 ln. **DO NOT FLY** (1.8% of exponent).
 5. **IMPOSSIBLE AT THIS DESIGN — name it as such.** Any road that keeps (i) `step_ineq_3_11`'s `ε²·log4/k` error shape, (ii) the `log 2` entropy ceiling, and (iii) `budgetFloor` in the `H₋` floor, has `λ₊ − λ₋ ≥ 243243` as a THEOREM (`P5.lean probe_the_one_line`). No tower redesign, no `C₀`, no `a`, no `J`, no multiplier schedule, no exponent re-export touches it. The register must supply a window of `≥ 243243` in `loglog H`, or one of (i)/(ii)/(iii) must go.
@@ -320,7 +320,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 
 ## 2. THE DECOUPLING QUESTION
 
-**(a) Which spine lemma consumes `hPHheadroom`, at what strength?** Exactly one, through `pH_headroom_at` (`Regime.lean:161`): `deficit_le_log_two` (`BudgetDeficit.lean:46-69`). Its whole use is `u := 8·P_H²·ω/x ≤ 1`, so that `log(1+u) ≤ log 2` in `entropy_residueWindow_ge` (`ResidueUniform.lean:536-539`). Consumed at **one** H per spine run: `SpineFinal.lean:641`, inside `hbudget1_witness` (`SpineFinal.lean:592`, hypothesis `hhi : H ≤ R.Hhi`) — the pigeonhole's H, *not* every tower level. (The per-level telescope reads `hheadroom'` only: `Salt/Entropy/Chowla/Step.lean:469`.)
+**(a) Which spine lemma consumes `hPHheadroom`, at what strength?** Exactly one, through `pH_headroom_at` (`Regime.lean:161`): `deficit_le_log_two` (`BudgetDeficit.lean:46-69`). Its whole use is `u := 8·P_H²·ω/x ≤ 1`, so that `log(1+u) ≤ log 2` in `entropy_residueWindow_ge` (`ResidueUniform.lean:536-539`). Consumed at **one** H per spine run: `SpineFinal.lean:642`, inside `hbudget1_witness` (`SpineFinal.lean:593`, hypothesis `hhi : H ≤ R.Hhi`) — the pigeonhole's H, *not* every tower level. (The per-level telescope reads `hheadroom'` only: `Salt/Entropy/Chowla/Step.lean:469`.)
 
 Second consumer, spine-side: `regime_W_headroom_of_floor` (`DoorDischarge.lean:42`) — Tao's W-constraint `(log H₊)^625 ≤ log(x/2ω)`. **Polynomial** in `log H₊`; funded by `hPHheadroom` with astronomic slack. Nothing else in the corpus needs an exponential-in-H₊ x-floor.
 
@@ -339,7 +339,7 @@ Second consumer, spine-side: `regime_W_headroom_of_floor` (`DoorDischarge.lean:4
 
 ## 3. THE PIGEONHOLE FACE
 
-**Re-verified — `∃H` has no index control, at the statement.** `entropy_decrement` (`Decrement.lean:49-55`): `∃ H, R.Hlo ≤ H ∧ H ≤ R.Hhi ∧ R.a ∣ H ∧ I[…] ≤ H/(log H·logloglog H)`. Six consumers, all `obtain ⟨H, hlo, hhi, _hdvd, hMI⟩` (`SpineFinal.lean:462/558/794/921/1061/1417`, `HloExport.lean:415/533`, `TowerDischarge.lean:117`) — the divisibility conjunct is discarded at every one.
+**Re-verified — `∃H` has no index control, at the statement.** `entropy_decrement` (`Decrement.lean:49-55`): `∃ H, R.Hlo ≤ H ∧ H ≤ R.Hhi ∧ R.a ∣ H ∧ I[…] ≤ H/(log H·logloglog H)`. Six consumers, all `obtain ⟨H, hlo, hhi, _hdvd, hMI⟩` (`SpineFinal.lean:463/559/779/890/1014/1354`, `HloExport.lean:399/517`, `TowerDischarge.lean:117`) — the divisibility conjunct is discarded at every one.
 
 **But it is not dead at *source*.** `decrement_exists_of_tower` (`Endpoints.lean:98`) obtains `⟨j, hjJ, hb⟩` and packages the witness as **`chowlaTower R.C0 R.a R.Hlo j`** (`Endpoints.lean:126-129`). The index exists in the proof term and is thrown away in the statement. An index-carrying restatement is a mechanical **class A/B** re-derivation.
 
@@ -394,6 +394,6 @@ Budget demand: `logloglog H ≥ budgetX(1/500, cD3·ε/(144 log 4)) = 1.036·10�
 
 **I-5 · Split the ∀-H family. [free, and worthless here]** Already effectively done: 1 H-reader of 37, discharged verbatim from the antecedent (probe A certifies the count). No gain available.
 
-**I-6 · Weaken `hPHheadroom`'s constant (`u ≤ 1 → u ≤ U`). [A-tier, worthless]** The bracket in `hbudget1_witness` (`SpineFinal.lean:645-655`) tolerates a deficit `D ≲ β²·g ≈ ε⁸H/log H`, so `x` may be shrunk by at most `e^{O(ε⁸H₊/log H₊)}` — a lower-order correction to `log x ≍ ε²H₊`. `Λ = loglog x` is unchanged to `O(1)`. Any *constant* relaxation is invisible; only the **shape** (I-1) matters.
+**I-6 · Weaken `hPHheadroom`'s constant (`u ≤ 1 → u ≤ U`). [A-tier, worthless]** The bracket in `hbudget1_witness` (`SpineFinal.lean:646-656`) tolerates a deficit `D ≲ β²·g ≈ ε⁸H/log H`, so `x` may be shrunk by at most `e^{O(ε⁸H₊/log H₊)}` — a lower-order correction to `log x ≍ ε²H₊`. `Λ = loglog x` is unchanged to `O(1)`. Any *constant* relaxation is invisible; only the **shape** (I-1) matters.
 
 **Where I would put the design council's attention, from this face:** the collision at S16BaseScaleCap is monotone, tower-free, and one exponential deeper than banked. It is not repairable on the register side at any K or M. Of the three shapes the flags name, only "the budget's `logloglog` demand" (spine-side, `budgetX`) can move this face by more than one exponential — I-1 buys exactly one exponential and leaves 23 orders.

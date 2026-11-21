@@ -262,7 +262,7 @@ the arc.
 
 Non-vacuity: `H₀` is produced from `ε` alone, *before* the regime — matching
 `log_chowla_two_budget_head`'s `∀ extraFloor : ℕ, ∃ R, R.eps = ε ∧ extraFloor ≤
-R.Hlo` interface (`SpineFinal.lean:749`), which is exactly how the head is asked
+R.Hlo` interface (`SpineFinal.lean:750`), which is exactly how the head is asked
 to place a floor.  (Stating it as `∃ H₀, H₀ ≤ R.Hlo → …` for a *given* `R` would
 be vacuous — take `H₀ := R.Hlo + 1`.) -/
 theorem mrtUniformityXi_of_absWindowBound_twelve (eps : ℚ) (heps : 0 < eps) :
@@ -562,7 +562,7 @@ unconditional) supplies it, `nearRatTight_of_bigXiArcTight` transports the sign.
 
 Non-vacuity is §4's, verbatim: `H₀` is produced from `ε` alone, BEFORE the
 regime, matching `log_chowla_two_budget_head`'s `∀ extraFloor, ∃ R, …` interface
-(`SpineFinal.lean:749`).  Stating it as `∃ H₀, H₀ ≤ R.Hlo → …` for a *given* `R`
+(`SpineFinal.lean:750`).  Stating it as `∃ H₀, H₀ ≤ R.Hlo → …` for a *given* `R`
 would be vacuous. -/
 theorem sum_bigXi_norm_windowExpSum_sq_le_twelve (eps : ℚ) (heps : 0 < eps) :
     ∃ H₀ : ℕ, ∀ R : ChowlaRegime, R.eps = eps → H₀ ≤ R.Hlo →
