@@ -59,7 +59,7 @@ Matomäki–Radziwiłł gate.
 ## 2. What MR-shaped consumption the corpus DEMANDS (the demand side, landed)
 
 The terminal surface `log_chowla_two_final`
-(G: Salt/Entropy/Chowla/SpineFinal.lean:260–272) is conditional ONLY on
+(G: Salt/Entropy/Chowla/SpineFinal.lean:261–273) is conditional ONLY on
 `MRTUniformity R δ` (δ ≤ δ₀ = R.eps/(2K)) plus the explicit entropy-decrement
 residuals (t, g, shellError budget). `MRTUniformity R δ`
 (G: Salt/Entropy/Chowla/MRTDoor.lean):
@@ -74,7 +74,7 @@ Scales at the door (G): `logMeasure x ω` supported on `(x/ω, x]`
 (LogMeasure.lean:79), probability measure for x, ω ≥ 2 (LogMeasure.lean:70);
 regime has `Hlo ≥ 4·10⁶` (Regime.lean:85), `Hhi ≤ x/ω` (Regime.lean:88), and the
 builder `chowlaRegime_exists_param` takes an arbitrary floor — x can be pushed
-arbitrarily large (SpineFinal.lean:295–297).
+arbitrarily large (SpineFinal.lean:296–298).
 
 **So the MR campaign's obligation is: prove `MRTUniformity R δ` for one
 sufficiently-large built regime.** That is where the region gets consumed.
@@ -116,7 +116,7 @@ polynomials of length ~x, Parseval over frequencies |t| up to x-grade
 - **Does T₀ = exp(exp ~1251) hurt?** For any ASYMPTOTIC consumer: NO. The
   T₀-split costs one additive constant ≈ loglog T₀ ≈ 1251 in the 𝔻² lower
   bound, absorbed once loglog x ≫ 1251, i.e. x ≥ exp(exp(~5000))-grade — and
-  the spine's regime builder places no upper cap on x (G: SpineFinal.lean:295,
+  the spine's regime builder places no upper cap on x (G: SpineFinal.lean:296,
   Regime.lean floors are one-sided). The pow region's export being existential
   in (c, T₀) is exactly the right interface for this: consumers destruct and
   split.
@@ -128,7 +128,7 @@ polynomials of length ~x, Parseval over frequencies |t| up to x-grade
 - **Small-t coverage need**: the door's α near rationals ↔ ζ-input near t = 0.
   Covered WITHOUT the pow region: (i) at t = 0, 𝔻(λ, 1; x)² = Σ 2/p =
   2 loglog x needs only prime reciprocal sums (corpus: `primeWindow_sum_inv_ge`,
-  G: SpineFinal.lean:275); (ii) compact |t| < 2 is `zeta_inv_shallow`'s
+  G: SpineFinal.lean:276); (ii) compact |t| < 2 is `zeta_inv_shallow`'s
   pole-patch branch (G: ZetaInvShallow.lean:115). No consumer starves below T₀.
 - Shape crossover sanity: pow beats dlVP width iff (llt)³ ≤ (log t)^{1/4}·(c/c₃)
   ⟺ roughly loglog t ≥ 12·logloglog t + O(1); at loglog t = 1251,

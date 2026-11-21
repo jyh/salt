@@ -7,7 +7,7 @@ campaign: nothing below is from memory; every statement was re-read this session
 
 ## 1. The spine's terminal surface and its exact conditionality
 
-`log_chowla_two_final` — Salt/Entropy/Chowla/SpineFinal.lean:260-272:
+`log_chowla_two_final` — Salt/Entropy/Chowla/SpineFinal.lean:261-273:
 
 ```
 ∃ (δ₀ : ℝ) (R : ChowlaRegime) (H : ℕ) (c₁ C : ℝ),
@@ -23,16 +23,16 @@ campaign: nothing below is from memory; every statement was re-read this session
 
 Conditional on exactly TWO things:
 1. **`MRTUniformity R δ` at any `0 < δ ≤ δ₀`** — the MR side. δ₀ is witnessed
-   as `(R.eps)/(2*K)` (SpineFinal.lean:309), a FIXED positive constant once ε
-   is chosen (`exists_rat_btwn` below `cE/(32·log 4)`, SpineFinal.lean:278-291).
+   as `(R.eps)/(2*K)` (SpineFinal.lean:310), a FIXED positive constant once ε
+   is chosen (`exists_rat_btwn` below `cE/(32·log 4)`, SpineFinal.lean:279-292).
    MR does NOT need o(1) decay — fixed-δ₀ grade suffices.
 2. **The `t`/`g`/`hbudget1` residual** — the entropy-decrement AM–GM balance
-   (docstring SpineFinal.lean:254-258: "the honest analytic core... Tao's
+   (docstring SpineFinal.lean:255-259: "the honest analytic core... Tao's
    Lemma-3.x quantitative close"). This is SPINE-internal, NOT an MR
    obligation; it is the registered node **SPINE-BUDGET** (pilot.md:5255-5259,
    "the node for the unqualified form"). Everything else — hepsc, H₀, hI
    (κ = H/(log H·logloglog H)), hbudget2 — is DISCHARGED in the final surface
-   (SpineFinal.lean:247-253).
+   (SpineFinal.lean:248-254).
 
 `logChowla2Fails eps x ω` — Salt/Entropy/Chowla/ChowlaFailure.lean:59-64:
 `ε·log ω < |Σ_{n ∈ Ioc(x/ω, x]} λ(n)λ(n+1)/n|` (Tao (2.4), model
@@ -67,7 +67,7 @@ from MRT arXiv:1503.05121. The sup-INSIDE variant is Tao (4.1), OPEN
 (MRTDoor.lean:41-47 warning block; same warning at :95-108).
 
 **Regime scale (what makes it hard):** `R` is the witnessed regime from
-`chowlaRegime_exists_param` (SpineFinal.lean:295-296); H ranges over
+`chowlaRegime_exists_param` (SpineFinal.lean:296-297); H ranges over
 `[Hlo, Hhi]` with `Hlo ≥ 4·10⁶` and `Hhi ≥ chowlaTower C0 a Hlo J`
 (tower-sized; Regime.lean:56-110 fields `hHlo_floor`, `hfit`, `hJcon`), and x
 sits further above via `hheadroom'`. So the door is the DEEP `H = x^{o(1)}`
@@ -86,7 +86,7 @@ scale (POLE-2 memo, s3-a3-design.md:933-971).
 Only the major-arc frequencies `α = −ξ/H`, `ξ ∈ Ξ_H = bigXi R.eps H` =
 `{ξ ∈ ZMod H : ε²/log H ≤ ‖S_H(−ξ/H)‖}` with `S_H(α) = Σ_{p∈𝒫_H}(1/p)e(αp)`
 (CircleMethod.lean:35-45). `|Ξ_H| ≤ K` is landed (`bigXi_bounded`,
-consumed at SpineFinal.lean:231/293). Extra explicit hypothesis `0 ≤ δ`
+consumed at SpineFinal.lean:232/294). Extra explicit hypothesis `0 ≤ δ`
 (no longer derivable — the derivation fired the door at α = 0;
 MRTDoor.lean:121-128). The trivial weakening `mrtUniformity_implies_xi` is
 MRTDoor.lean:116-119; the Xi seam `contradiction_of_mrtDoorXi` SHIPS
@@ -114,7 +114,7 @@ Plancherel height range is UNRESOLVED — do not assume (s3-a3-design.md:962-968
 - Theorem23Shell.lean:159 (`log_chowla_two_shell`, hdoor + hbudget2)
 - SpineClose.lean:29, :178 (`log_chowla_two_conditional`, `_regime`)
 - TowerDischarge.lean:95-96 (`log_chowla_two_of_door` — δ₀ = ε/(2K) form)
-- SpineFinal.lean:47, :203, :263 (`spine_False_core`, `_hoisted`, `_final`)
+- SpineFinal.lean:48, :204, :264 (`spine_False_core`, `_hoisted`, `_final`)
 - MRTDoor.lean:59, :117, :129 (seam, weakening, Xi seam)
 
 ## 3. The registered MR infrastructure + adjudications (docs)
@@ -193,7 +193,7 @@ RegimeParam.lean, lets MR pick its own R at any admissible ε and floor):
 > **∃ δ ∈ (0, ε/(2K)] : ∀ H ∈ [R.Hlo, R.Hhi], ∀ α ∈ ℝ,
 > ∫ ‖Σ_{i<H} λ(n+i+1)·e(α(i+1))‖ d(logMeasure R.x R.ω)(n) ≤ δ·H**
 > — i.e. `MRTUniformity R δ` (MRTDoor.lean:48) with δ ≤ δ₀
-> (δ₀ = R.eps/(2K), SpineFinal.lean:309), quantifier ∀α OUTSIDE the integral.
+> (δ₀ = R.eps/(2K), SpineFinal.lean:310), quantifier ∀α OUTSIDE the integral.
 
 Weakened admissible form after the registered Fable spine-rewire (couples with
 SPINE-BUDGET): `MRTUniformityXi R δ` + `0 ≤ δ` (MRTDoor.lean:109) — α

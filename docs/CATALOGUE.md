@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `f651f704` · source digest `d3b3e9cffa4481fd` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `246da892` · source digest `cfc4858a118b5367` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23463 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23464 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -6003,8 +6003,8 @@ Declarations indexed across the tree: 23463 · corpus Prop-valued names (the hyp
 | `Salt.MR.s16_baseScaleCap96_L_of_xceil` | Salt/MR/XCeil.lean:553 | characters |
 | `Salt.MR.s16_baseScaleCap96_L_supplied` | Salt/MR/XCeil.lean:614 | characters |
 | `Salt.MR.flatA_endpoint_ceiling_misses_K_half` | Salt/MR/XCeil.lean:669 | characters |
-| `Salt.MR.m4_exit_socket_split_sq_arc_forallX` | Salt/MR/XGapThread.lean:146 | sieves, characters |
-| `Salt.MR.m4_exit_socket_split_sq_trivial_forallX` | Salt/MR/XGapThread.lean:188 | characters |
+| `Salt.MR.m4_exit_socket_split_sq_arc_forallX` | Salt/MR/XGapThread.lean:131 | sieves, characters |
+| `Salt.MR.m4_exit_socket_split_sq_trivial_forallX` | Salt/MR/XGapThread.lean:173 | characters |
 | `Salt.MR.xt_log_inv_rho_le` | Salt/MR/XThread.lean:174 | characters |
 | `Salt.MR.xt_log_inv_rho_le_scaled` | Salt/MR/XThread.lean:224 | characters |
 | `Salt.MR.xt_log_add_le` | Salt/MR/XThread.lean:265 | characters |
@@ -7390,12 +7390,12 @@ Declarations indexed across the tree: 23463 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.hreduce_holds_final_of_standoff` | Salt/Entropy/Chowla/SiegelFree.lean:48 | characters, entropy | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.Entropy.Chowla.primeWindow_sum_inv_ge_of_standoff` | Salt/Entropy/Chowla/SiegelFree.lean:71 | entropy | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.Entropy.Chowla.log_chowla_two_budget_head_of_standoff` | Salt/Entropy/Chowla/SiegelFree.lean:83 | entropy | `Salt.SW.NoSiegelZerosAt`, `Salt.Entropy.Chowla.MRTUniformityXi` |
-| `Salt.Entropy.Chowla.log_chowla_two_door_only_xi_of_standoff` | Salt/Entropy/Chowla/SiegelFree.lean:168 | entropy | `Salt.SW.NoSiegelZerosAt`, `Salt.Entropy.Chowla.MRTUniformityXi` |
-| `Salt.Entropy.Chowla.log_chowla_two_door_only_of_standoff` | Salt/Entropy/Chowla/SiegelFree.lean:179 | entropy | `Salt.SW.NoSiegelZerosAt`, `Salt.Entropy.Chowla.MRTUniformity` |
-| `Salt.Entropy.Chowla.spine_eps_constant_floor_of_standoff` | Salt/Entropy/Chowla/SiegelFree.lean:190 | entropy | `Salt.SW.NoSiegelZerosAt` |
-| `Salt.Entropy.Chowla.log_chowla_two_budget_head_of_sevenEighths` | Salt/Entropy/Chowla/SiegelFree.lean:208 | entropy | `Salt.TwinBar.DirichletSevenEighths`, `Salt.Entropy.Chowla.MRTUniformityXi` |
-| `Salt.Entropy.Chowla.log_chowla_two_door_only_of_sevenEighths` | Salt/Entropy/Chowla/SiegelFree.lean:217 | entropy | `Salt.TwinBar.DirichletSevenEighths`, `Salt.Entropy.Chowla.MRTUniformity` |
-| `Salt.Entropy.Chowla.spine_eps_constant_floor_of_sevenEighths` | Salt/Entropy/Chowla/SiegelFree.lean:225 | entropy | `Salt.TwinBar.DirichletSevenEighths` |
+| `Salt.Entropy.Chowla.log_chowla_two_door_only_xi_of_standoff` | Salt/Entropy/Chowla/SiegelFree.lean:152 | entropy | `Salt.SW.NoSiegelZerosAt`, `Salt.Entropy.Chowla.MRTUniformityXi` |
+| `Salt.Entropy.Chowla.log_chowla_two_door_only_of_standoff` | Salt/Entropy/Chowla/SiegelFree.lean:163 | entropy | `Salt.SW.NoSiegelZerosAt`, `Salt.Entropy.Chowla.MRTUniformity` |
+| `Salt.Entropy.Chowla.spine_eps_constant_floor_of_standoff` | Salt/Entropy/Chowla/SiegelFree.lean:174 | entropy | `Salt.SW.NoSiegelZerosAt` |
+| `Salt.Entropy.Chowla.log_chowla_two_budget_head_of_sevenEighths` | Salt/Entropy/Chowla/SiegelFree.lean:192 | entropy | `Salt.TwinBar.DirichletSevenEighths`, `Salt.Entropy.Chowla.MRTUniformityXi` |
+| `Salt.Entropy.Chowla.log_chowla_two_door_only_of_sevenEighths` | Salt/Entropy/Chowla/SiegelFree.lean:201 | entropy | `Salt.TwinBar.DirichletSevenEighths`, `Salt.Entropy.Chowla.MRTUniformity` |
+| `Salt.Entropy.Chowla.spine_eps_constant_floor_of_sevenEighths` | Salt/Entropy/Chowla/SiegelFree.lean:209 | entropy | `Salt.TwinBar.DirichletSevenEighths` |
 | `Salt.Entropy.Chowla.sign_split_of_not_fails` | Salt/Entropy/Chowla/SignSplit.lean:209 | entropy | `¬Salt.Entropy.Chowla.logChowla2Fails` |
 | `Salt.Entropy.Chowla.sign_split_door_only` | Salt/Entropy/Chowla/SignSplit.lean:230 | entropy | `Salt.Entropy.Chowla.MRTUniformityXi` |
 | `Salt.Entropy.Chowla.sign_split_quarter_log` | Salt/Entropy/Chowla/SignSplit.lean:252 | entropy | `¬Salt.Entropy.Chowla.logChowla2Fails` |
@@ -7403,16 +7403,16 @@ Declarations indexed across the tree: 23463 · corpus Prop-valued names (the hyp
 | `Salt.Entropy.Chowla.log_chowla_two_conditional` | Salt/Entropy/Chowla/SpineClose.lean:28 | characters, entropy | `Salt.Entropy.Chowla.MRTUniformity`, `Salt.Entropy.Chowla.logChowla2Fails` |
 | `Salt.Entropy.Chowla.log_chowla_two_conditional_regime` | Salt/Entropy/Chowla/SpineClose.lean:177 | characters, entropy | `Salt.Entropy.Chowla.MRTUniformity`, `Salt.Entropy.Chowla.logChowla2Fails` |
 | `Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq_count_hloCap_epsFamily` | Salt/Entropy/Chowla/SpineEpsFamily.lean:65 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2` |
-| `Salt.Entropy.Chowla.log_chowla_two_conditional_hoisted` | Salt/Entropy/Chowla/SpineFinal.lean:360 | characters, entropy | `Salt.Entropy.Chowla.MRTUniformity`, `Salt.Entropy.Chowla.logChowla2Fails` |
-| `Salt.Entropy.Chowla.log_chowla_two_final` | Salt/Entropy/Chowla/SpineFinal.lean:425 | entropy | `Salt.Entropy.Chowla.MRTUniformity` |
-| `Salt.Entropy.Chowla.log_chowla_two_final_xi` | Salt/Entropy/Chowla/SpineFinal.lean:521 | entropy | `Salt.Entropy.Chowla.MRTUniformityXi` |
-| `Salt.Entropy.Chowla.log_chowla_two_budget_head` | Salt/Entropy/Chowla/SpineFinal.lean:750 | entropy | `Salt.Entropy.Chowla.MRTUniformityXi` |
-| `Salt.Entropy.Chowla.log_chowla_two_budget_head_g` | Salt/Entropy/Chowla/SpineFinal.lean:873 | entropy | `Salt.Entropy.Chowla.MRTUniformityXi` |
-| `Salt.Entropy.Chowla.log_chowla_two_door_only_xi` | Salt/Entropy/Chowla/SpineFinal.lean:966 | entropy | `Salt.Entropy.Chowla.MRTUniformityXi` |
-| `Salt.Entropy.Chowla.log_chowla_two_door_only` | Salt/Entropy/Chowla/SpineFinal.lean:981 | entropy | `Salt.Entropy.Chowla.MRTUniformity` |
-| `Salt.Entropy.Chowla.log_chowla_two_budget_head_g_45` | Salt/Entropy/Chowla/SpineFinal.lean:1011 | entropy | `Salt.Entropy.Chowla.MRTUniformityXi` |
-| `Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq_count` | Salt/Entropy/Chowla/SpineFinal.lean:1359 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2` |
-| `Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq` | Salt/Entropy/Chowla/SpineFinal.lean:1459 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2` |
+| `Salt.Entropy.Chowla.log_chowla_two_conditional_hoisted` | Salt/Entropy/Chowla/SpineFinal.lean:361 | characters, entropy | `Salt.Entropy.Chowla.MRTUniformity`, `Salt.Entropy.Chowla.logChowla2Fails` |
+| `Salt.Entropy.Chowla.log_chowla_two_final` | Salt/Entropy/Chowla/SpineFinal.lean:426 | entropy | `Salt.Entropy.Chowla.MRTUniformity` |
+| `Salt.Entropy.Chowla.log_chowla_two_final_xi` | Salt/Entropy/Chowla/SpineFinal.lean:522 | entropy | `Salt.Entropy.Chowla.MRTUniformityXi` |
+| `Salt.Entropy.Chowla.log_chowla_two_budget_head` | Salt/Entropy/Chowla/SpineFinal.lean:751 | entropy | `Salt.Entropy.Chowla.MRTUniformityXi` |
+| `Salt.Entropy.Chowla.log_chowla_two_budget_head_g` | Salt/Entropy/Chowla/SpineFinal.lean:858 | entropy | `Salt.Entropy.Chowla.MRTUniformityXi` |
+| `Salt.Entropy.Chowla.log_chowla_two_door_only_xi` | Salt/Entropy/Chowla/SpineFinal.lean:935 | entropy | `Salt.Entropy.Chowla.MRTUniformityXi` |
+| `Salt.Entropy.Chowla.log_chowla_two_door_only` | Salt/Entropy/Chowla/SpineFinal.lean:950 | entropy | `Salt.Entropy.Chowla.MRTUniformity` |
+| `Salt.Entropy.Chowla.log_chowla_two_budget_head_g_45` | Salt/Entropy/Chowla/SpineFinal.lean:980 | entropy | `Salt.Entropy.Chowla.MRTUniformityXi` |
+| `Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq_count` | Salt/Entropy/Chowla/SpineFinal.lean:1312 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2` |
+| `Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq` | Salt/Entropy/Chowla/SpineFinal.lean:1396 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2` |
 | `Salt.Entropy.Chowla.h211_aff` | Salt/Entropy/Chowla/StrideBridge.lean:665 | characters, entropy | `Salt.Entropy.Chowla.logChowlaFailsAff` |
 | `Salt.Entropy.Chowla.h211_aff_one_zero` | Salt/Entropy/Chowla/StrideBridge.lean:699 | characters, entropy | `Salt.Entropy.Chowla.logChowlaFails` |
 | `Salt.Entropy.Chowla.log_chowla_aff_of_door_unslotted` | Salt/Entropy/Chowla/StrideCircle.lean:1089 | entropy | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` |
@@ -8868,7 +8868,7 @@ Declarations indexed across the tree: 23463 · corpus Prop-valued names (the hyp
 | `Salt.MR.chi_floor_vk_pointwise` | Salt/MR/VkTwistClose.lean:594 | characters | `Salt.MR.VkTwistUB` |
 | `Salt.MR.capFreeFloor3_lamChi_vk` | Salt/MR/VkTwistClose.lean:659 | characters | `Salt.MR.VkTwistUB` |
 | `Salt.MR.capFreeFloor_lamChi_vk` | Salt/MR/VkTwistClose.lean:677 | characters | `Salt.MR.VkTwistUB` |
-| `Salt.Entropy.Chowla.log_chowla_two_budget_head_forallX_sq_count` | Salt/MR/XGapThread.lean:36 | characters | `Salt.Entropy.Chowla.MRTUniformityXiL2` |
+| `Salt.Entropy.Chowla.log_chowla_two_budget_head_forallX_sq_count` | Salt/MR/XGapThread.lean:37 | characters | `Salt.Entropy.Chowla.MRTUniformityXiL2` |
 | `Salt.Entropy.Chowla.chowlaRegimeFlat_exists_param_head_xceil` | Salt/MR/XThread.lean:107 | characters | `Salt.Entropy.Chowla.XCeilRider` |
 | `Salt.MR.flat_head_uniform_xceil` | Salt/MR/XThread.lean:543 | characters | `Salt.Entropy.Chowla.XCeilRider`, `Salt.Entropy.Chowla.MRTUniformityXiL2` |
 | `Salt.MR.flat_socket_uniform_xceil` | Salt/MR/XThread.lean:645 | sieves, characters | `Salt.Entropy.Chowla.XCeilRider` |

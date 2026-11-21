@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `f651f704` · source digest `d3b3e9cffa4481fd` (the same digest as items 1–3).
-> Receipt: files 1415 · decls 23463 · with_body 23463 · tactic_lines 299717 · runs 35392 · blocks 1123.
+> Base: last commit touching `Salt/` = `246da892` · source digest `cfc4858a118b5367` (the same digest as items 1–3).
+> Receipt: files 1415 · decls 23464 · with_body 23464 · tactic_lines 299639 · runs 35386 · blocks 1120.
 
 ## LIMITS (read before any number below)
 
@@ -100,17 +100,17 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-299717 tactic lines. Top 30:
+299639 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 130297 | 43.5% |
+| 1 | `have` | 130243 | 43.5% |
 | 2 | `rw` | 48500 | 16.2% |
-| 3 | `exact` | 17344 | 5.8% |
+| 3 | `exact` | 17330 | 5.8% |
 | 4 | `intro` | 13954 | 4.7% |
-| 5 | `refine` | 12719 | 4.2% |
+| 5 | `refine` | 12714 | 4.2% |
 | 6 | `linarith` | 10161 | 3.4% |
-| 7 | `obtain` | 9206 | 3.1% |
+| 7 | `obtain` | 9207 | 3.1% |
 | 8 | `calc` | 7718 | 2.6% |
 | 9 | `set` | 5438 | 1.8% |
 | 10 | `simp` | 5093 | 1.7% |
@@ -124,7 +124,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 18 | `field_simp` | 1853 | 0.6% |
 | 19 | `by_cases` | 1634 | 0.5% |
 | 20 | `rwa` | 1542 | 0.5% |
-| 21 | `norm_num` | 1473 | 0.5% |
+| 21 | `norm_num` | 1467 | 0.5% |
 | 22 | `show` | 1254 | 0.4% |
 | 23 | `omega` | 1248 | 0.4% |
 | 24 | `classical` | 1241 | 0.4% |
@@ -140,7 +140,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | family | tactic lines | top tactics |
 |---|---:|---|
 | circle method / Fourier | 2670 | `have` 941, `rw` 582, `refine` 201, `exact` 153, `intro` 135, `ring` 79, `simp` 72, `calc` 62 |
-| entropy decrement | 14814 | `have` 5907, `rw` 2610, `exact` 988, `intro` 565, `refine` 515, `simp` 463, `linarith` 425, `obtain` 363 |
+| entropy decrement | 14749 | `have` 5861, `rw` 2610, `exact` 977, `intro` 565, `refine` 511, `simp` 463, `linarith` 425, `obtain` 364 |
 | large sieve | 1719 | `have` 560, `rw` 379, `intro` 108, `refine` 104, `exact` 101, `simp` 56, `apply` 53, `calc` 48 |
 | Selberg/Brun sieve | 69895 | `have` 30035, `rw` 12017, `exact` 3780, `intro` 3236, `apply` 2283, `calc` 2267, `refine` 1685, `obtain` 1447 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 34726 | `have` 15468, `rw` 6451, `exact` 1867, `intro` 1431, `refine` 1416, `linarith` 1099, `calc` 1076, `set` 854 |
@@ -150,12 +150,12 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | Mertens / PNT-type | 3297 | `have` 1530, `rw` 557, `exact` 173, `linarith` 147, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
-| Matomaki-Radziwill / Halasz (short intervals) | 113284 | `have` 51194, `rw` 15625, `exact` 6638, `refine` 6520, `intro` 5663, `linarith` 5114, `obtain` 5005, `calc` 2184 |
+| Matomaki-Radziwill / Halasz (short intervals) | 113271 | `have` 51186, `rw` 15625, `exact` 6635, `refine` 6519, `intro` 5663, `linarith` 5114, `obtain` 5005, `calc` 2184 |
 | (no family) | 28091 | `have` 10827, `rw` 4988, `exact` 1719, `intro` 1551, `obtain` 984, `refine` 956, `set` 876, `calc` 827 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
-Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1123 candidates; top 25 by the UPPER-BOUND saving.
+Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1120 candidates; top 25 by the UPPER-BOUND saving.
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 
@@ -218,7 +218,7 @@ have $28 : (# : ℝ) < # * $8 := by linarith
 exact doorCapBundle_at_workingPoint_perBlock_L_gk $29 $30 $31 $23 $21 $19 $28 $10 $12
 ```
 
-**7.** 5 lines × 17 occurrences in 15 files · lines saved ≤ **68** · e.g. `Salt/Entropy/Chowla/HloExport.lean:435` · `Salt/Entropy/Chowla/HloExportFlat.lean:314`
+**7.** 5 lines × 17 occurrences in 15 files · lines saved ≤ **68** · e.g. `Salt/Entropy/Chowla/HloExport.lean:419` · `Salt/Entropy/Chowla/HloExportFlat.lean:314`
 
 ```lean
 have $1 : $2 < $3 / (# * $4) * ($5.eps : ℝ) := by
@@ -419,18 +419,15 @@ intro $7 $8 $9 $10
 obtain ⟨$11, $12, $13, $14, $15⟩ := $16 $7 $8 $9 $10
 ```
 
-**25.** 9 lines × 7 occurrences in 4 files · lines saved ≤ **56** · e.g. `Salt/Entropy/Chowla/HloExport.lean:371` · `Salt/Entropy/Chowla/SiegelFree.lean:98`
+**25.** 6 lines × 11 occurrences in 11 files · lines saved ≤ **55** · e.g. `Salt/MR/DoorReceipt.lean:305` · `Salt/MR/FlatDoorEpsChain.lean:804` · ⚠️ shares source lines with #19
 
 ```lean
-refine lt_min (lt_min (lt_min ?_ ?_) ?_) ?_
-· exact div_pos $1 (mul_pos (by norm_num) $2)
-· norm_num
-· exact div_pos $3 (by norm_num)
-· exact div_pos $3 (mul_pos (by norm_num) $4)
-obtain ⟨$5, $6, $7⟩ := exists_rat_btwn $8
-have $9 : (# : ℝ) < ($5 : ℝ) := $6
-have $10 : # < $5 := by exact_mod_cast $9
-have $11 : ($5 : ℝ) ≤ $12 / (# * Real.log #) := le_of_lt (lt_of_lt_of_le $7
+intro $1
+have := $2 $1
+positivity
+have $3 := m4_cover_assembly_blk2_L_gk $4 $5 $6 $7
+refine $8 $9 $10 $11 $12 $13 $5 $14 ?_ $15 $16
+refine m4_sievedDoorSq_of_blk2_blockLen_L_gk $4
 ```
 
 ## Whitelist (data)

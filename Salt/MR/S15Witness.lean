@@ -72,7 +72,7 @@ twin per link.  The chains were traced (2026-07-31) and priced:
   Links 2–8 are verbatim re-emits; link 1→2 raises to `max C₀ 1` (harmless above `1`).
   `ConstantsExposed.typical_density_le_bounded` is the wired root, so this chain is TWINNABLE.
 * `δ₀`, `K`, `ε`: TWENTY distinct `∃`-producers under
-  `Salt.Entropy.Chowla.log_chowla_two_budget_head_g` (`SpineFinal.lean:873`), and — the
+  `Salt.Entropy.Chowla.log_chowla_two_budget_head_g` (`SpineFinal.lean:858`), and — the
   blocker — `log_chowla_two_budget_head_g_sq_count_hloCap` (`HloExport.lean:350`), the head
   the road actually consumes, does NOT `obtain` from it: the four heads are INDEPENDENT
   verbatim replays of the same leaf set, so their `ε`/`δ₀`/`K` are four different

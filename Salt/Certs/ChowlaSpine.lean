@@ -11,8 +11,8 @@ import Salt.Entropy.Chowla.SpineFinal
 Campaign: `saltworks/docs/cert-layer-design-0811.md` (the fifth deliverable).
 Landed theorems certified — **`thm:spine` names TWO declarations under one label, and
 this file covers BOTH**:
-* `Salt.Entropy.Chowla.log_chowla_two_door_only` (`SpineFinal.lean:981`) — the reduction.
-* `Salt.Entropy.Chowla.log_chowla_two_budget_head` (`SpineFinal.lean:750`) — the
+* `Salt.Entropy.Chowla.log_chowla_two_door_only` (`SpineFinal.lean:950`) — the reduction.
+* `Salt.Entropy.Chowla.log_chowla_two_budget_head` (`SpineFinal.lean:751`) — the
   ∀-quantified head, the second sentence of Pi's `thm:spine`.
 
 ⚠️ *The first version of this file certified only the reduction. **Evidence's adequacy arm
