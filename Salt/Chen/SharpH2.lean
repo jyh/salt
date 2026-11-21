@@ -34,23 +34,6 @@ open Finset MeasureTheory intervalIntegral Set
 
 namespace Salt.Chen
 
-/-- **`log_le_log_of_one_le_logRatio`** (O13-e row 295). The cutoff preamble the sharp
-peeling steps open with: `1 ≤ logRatio z D` (that is, `log D / log z ≥ 1`) forces `log z > 0`, since
-a zero denominator makes the ratio `0`, and then `log z ≤ log D`. Stated with `0 ≤ log z` as well,
-the form the steps' own `rcases` produced. -/
-theorem log_le_log_of_one_le_logRatio {z D : ℕ} (h : 1 ≤ logRatio z D) :
-    (0 : ℝ) ≤ Real.log z ∧ 0 < Real.log z ∧ Real.log z ≤ Real.log D := by
-  have hnn : (0 : ℝ) ≤ Real.log z := by
-    rcases Nat.eq_zero_or_pos z with h0 | h0
-    · simp [h0]
-    · exact Real.log_nonneg (by exact_mod_cast h0)
-  have hpos : 0 < Real.log z := by
-    rcases lt_or_eq_of_le hnn with h0 | h0
-    · exact h0
-    · exfalso; rw [logRatio, ← h0, div_zero] at h; linarith
-  refine ⟨hnn, hpos, ?_⟩
-  have h' := h; rw [logRatio, le_div_iff₀ hpos, one_mul] at h'; exact h'
-
 /-! ## Part 0 — the kernel `Kh = -hBJS'` and its integrability -/
 
 /-- `Kh = -hBJS'`, the nonnegative descending-`V` kernel: `0` on `v ≤ 2`, `e^{-v}` on `(2,3]`,
