@@ -28,4 +28,16 @@ theorem deterministicMR_of_smallNonMember {C : ℝ} (hS : SmallNonMember C) :
   have hun : (u : ZMod n).val < n := ZMod.val_lt _
   exact huH (hliar u (hpass _ hu2 hun huC))
 
+/-- **R5, polylog form.** `SmallNonMemberLog k → DeterministicMRLog k`, by the same argument. -/
+theorem deterministicMRLog_of_smallNonMemberLog {k : ℕ} (hS : SmallNonMemberLog k) :
+    DeterministicMRLog k := by
+  obtain ⟨C, hC⟩ := hS
+  refine ⟨C, fun n h3 hodd hpass => ?_⟩
+  by_contra hnp
+  obtain ⟨H, hH, hliar⟩ := millerAlgebraic n h3 hodd hnp
+  obtain ⟨u, huH, hu2, huC⟩ := hC n h3 H hH
+  haveI : NeZero n := ⟨by omega⟩
+  have hun : (u : ZMod n).val < n := ZMod.val_lt _
+  exact huH (hliar u (hpass _ hu2 hun huC))
+
 end Salt.RH

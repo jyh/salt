@@ -113,6 +113,20 @@ def DeterministicMR (C : ℝ) : Prop :=
     (∀ a : ℕ, 2 ≤ a → a < n → (a : ℝ) < C * Real.log n ^ 2 → StrongProbablePrime n a) →
       n.Prime
 
+/-- The POLYLOG form of `SmallNonMember` at log power `k` (O106 plan addendum 4, arm (b)): the
+unsmoothed R1 route ported to `L(s, χ)` reaches it at `k = 5`, while Bach's `C (log n)²` needs a
+smoothed explicit formula. -/
+def SmallNonMemberLog (k : ℕ) : Prop :=
+  ∃ C : ℝ, ∀ n : ℕ, 3 ≤ n → ∀ H : Subgroup (ZMod n)ˣ, H ≠ ⊤ →
+    ∃ u : (ZMod n)ˣ, u ∉ H ∧ 2 ≤ (u : ZMod n).val ∧
+      ((u : ZMod n).val : ℝ) < C * Real.log n ^ k
+
+/-- Deterministic Miller–Rabin with bases below `C (log n)^k`. -/
+def DeterministicMRLog (k : ℕ) : Prop :=
+  ∃ C : ℝ, ∀ n : ℕ, 3 ≤ n → Odd n →
+    (∀ a : ℕ, 2 ≤ a → a < n → (a : ℝ) < C * Real.log n ^ k → StrongProbablePrime n a) →
+      n.Prime
+
 /-! ## R0b — the GRH Prop has the content it should: it implies Mathlib's RH -/
 
 /-- A zero of `ζ` in the closed left half-plane `re s ≤ 0` is a trivial zero `-2(n+1)`.
