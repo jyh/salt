@@ -129,7 +129,7 @@ private lemma list_sum_map_add {γ : Type*} (l : List γ) (f g : γ → ℝ) :
   | nil => simp
   | cons a l ih => simp only [List.map_cons, List.sum_cons]; rw [ih]; ring
 
-/-! ## The prime tail `Σ_{p>D} 1/(p-1)² ≤ 2/D` (private copy) -/
+/-! ## The prime tail `Σ_{p>D} 1/(p-1)² ≤ 2/D` (public; `JMainSplit`, `JSplit` read it) -/
 
 /-- The integer tail `Σ_{D < k < R} 1/(k − 1)² ≤ 1/(D − 1)` for `3 ≤ D` (`hD`): the filter is
 `Ico (D+1) R`, each term is at most `1/(k − 2) − 1/(k − 1)` (`1/(a+1)² ≤ 1/(a(a+1))` at
@@ -176,7 +176,7 @@ lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
 
 /-- The prime tail `Σ_{p prime, D < p < R} 1/(p − 1)² ≤ 2/D` for `3 ≤ D` (`hD`): the primes are
 a subset of the integers `D < k` (`int_tail` gives `1/(D − 1)`), and `1/(D − 1) ≤ 2/D` for
-`D ≥ 3`. The file's private copy of the Stage-2 tail, consumed by every `1/D` drop bound
+`D ≥ 3`. This file's copy of the Stage-2 tail, consumed by every `1/D` drop bound
 below. -/
 lemma prime_tail (D R : ℕ) (hD : 3 ≤ D) :
     ∑ p ∈ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p), 1 / ((p:ℝ) - 1)^2
@@ -665,10 +665,10 @@ theorem mv_I_split (F : Poly) :
           + A * (1 + Salt.Maynard.phiAtomSum R W') ^ 5 / D := by
   simpa only [eval_sq] using mv_I_split_k 5 (by norm_num) (sq (ofPoly F))
 
-/-! ## Helpers for `inner_contract_rel` (private copies from `MvJ.lean`) -/
+/-! ## Helpers for `inner_contract_rel` (copies of `MvJ.lean`'s; some public, for `JMainSplit`) -/
 
 /-- Swap a `Finset` sum over `S` with an inner `List` sum over `L` (induction on `L`); the
-private copy of `MvJ`'s `sum_finset_list_sum`. -/
+copy of `MvJ`'s `sum_finset_list_sum`. -/
 lemma ic_sum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
     (f : ι → γ → ℝ) :
     ∑ u ∈ S, (L.map (fun x => f u x)).sum = (L.map (fun x => ∑ u ∈ S, f u x)).sum := by
@@ -1308,7 +1308,7 @@ theorem inner_contract_rel (F : Poly) (m : Fin 5) :
   refine le_trans (ic_list_sum_le F _ _ hpera) ?_
   rw [hbndsum]
 
-/-! ## `mv_J_split` — shared helpers (private copies from `MvJ.lean`) -/
+/-! ## `mv_J_split` — shared helpers (copies of `MvJ.lean`'s; the public ones serve the splits) -/
 
 /-- `g(p) = p − 2` for a prime `p` (`hp`), cast to `ℝ`: `primeFactors p = {p}`. -/
 lemma mjs_gMult_prime_cast {p : ℕ} (hp : Nat.Prime p) : (gMult p : ℝ) = (p : ℝ) - 2 := by
