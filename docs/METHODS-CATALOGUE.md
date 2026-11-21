@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `d0d74cf7` · source digest `3ed7325ca16553c3` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `69149cad` · source digest `e4f5716c2c454c6e` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23540 · with a proof/definition body: 23540 · direct corpus references (edges): 86082 · audited results: 9148 · corpus Prop-valued names: 702.
+Declarations indexed: 23543 · with a proof/definition body: 23543 · direct corpus references (edges): 86085 · audited results: 9148 · corpus Prop-valued names: 704.
 
 ## Hypothesis status (Deliverable A)
 
@@ -14,8 +14,8 @@ Declarations indexed: 23540 · with a proof/definition body: 23540 · direct cor
 | DISCHARGED | 225 | 150 | 1065 |
 | STRUCTURAL | 4 | 4 | 95 |
 | FRAME | 48 | 24 | 157 |
-| OPEN | 425 | 191 | 730 |
-| **all** | 702 | 369 | 1630 |
+| OPEN | 427 | 191 | 730 |
+| **all** | 704 | 369 | 1630 |
 
 Of the DISCHARGED, 98 are discharged ONLY by GUARDED producers (the producer carries non-corpus Prop premises, e.g. `2 ≤ q → P q`, or instantiates P at specific arguments).
 
@@ -656,7 +656,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.TwinBar.TwinTypeII` | OPEN | 1 | — |
 | `Salt.Vmvt.PairEqFracBound` | OPEN | 1 | — |
 
-## Every corpus Prop not hung on an audited result (333)
+## Every corpus Prop not hung on an audited result (335)
 
 | hypothesis | status | producer(s) |
 |---|---|---|
@@ -974,10 +974,12 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MaynardK.WinSlackM105` | OPEN | — |
 | `Salt.Parity.ParityBarrier` | OPEN | — |
 | `Salt.RH.DeterministicMR` | OPEN | — |
+| `Salt.RH.DeterministicMRLog` | OPEN | — |
 | `Salt.RH.GRHDirichlet` | OPEN | — |
 | `Salt.RH.GRHPrimitive` | OPEN | — |
 | `Salt.RH.Schoenfeld` | OPEN | — |
 | `Salt.RH.SmallNonMember` | OPEN | — |
+| `Salt.RH.SmallNonMemberLog` | OPEN | — |
 | `Salt.RH.StrongProbablePrime` | OPEN | — |
 | `Salt.SW.dhLSeries_target` | OPEN | — |
 | `Salt.Twelve.WinFrontierMWL` | OPEN | — |
