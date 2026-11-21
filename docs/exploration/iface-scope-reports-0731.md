@@ -123,10 +123,10 @@ VERDICT: **THE TOWER LAW IS NOT THE WALL — AND IT IS NOT INTRINSIC.** The cubi
 | `towerDropSum` | `Regime.lean:47-51` | `Σ_{j<J} 1/(2·log H_j·logloglog H_j)` |
 | `hfit` | `Regime.lean:94` | `chowlaTower C0 a Hlo J ≤ Hhi` — bounds `H₊` from BELOW |
 | `hJcon` | `Regime.lean:98` | `log 2 < towerDropSum C0 a Hlo J` |
-| crossing law, lower | `TowerExport.lean:520` | `(1−1/20)·½·(w_J−w₀) ≤ S_J` |
-| crossing law, upper | `TowerExport.lean:557` | `S_J ≤ (1+1/20)·½·(w_J−w₀)`, `w = log v`, `v = logloglog H` |
-| companion | `TowerExport.lean:691` | `tower_loglog_ge : λ₋³ ≤ λ₊` |
-| export | `TowerExport.lean:635` | `tower_loglog_le : λ₊ ≤ λ₋⁵` (9/2 twin at `:770-800`) |
+| crossing law, lower | `TowerExport.lean:518` | `(1−1/20)·½·(w_J−w₀) ≤ S_J` |
+| crossing law, upper | `TowerExport.lean:555` | `S_J ≤ (1+1/20)·½·(w_J−w₀)`, `w = log v`, `v = logloglog H` |
+| companion | `TowerExport.lean:689` | `tower_loglog_ge : λ₋³ ≤ λ₊` |
+| export | `TowerExport.lean:633` | `tower_loglog_le : λ₊ ≤ λ₋⁵` (9/2 twin at `:770-800`) |
 
 The forcing re-derives exactly: `log 2 < S_J ≤ (21/40)(w_J−w₀)` ⟹ `w_J−w₀ > (40/21)·log 2 = 1.320280` ⟹ `v_J/v₀ > e^{1.32028} = 3.74366` ⟹ **`λ₊ ≥ λ₋^{3.7436}`**. WIDTH-SCOPE's `probe_regime_width_forced` (`scratchpad/width/probe_width.lean:9`) re-runs green; its `K = 3` spends the budget against `log 3 < 6/5`, a weakening.
 
@@ -169,7 +169,7 @@ stated on abstract sequences — it holds for EVERY tower design, not just `chow
 
 ## (4) THE MINIMAL TOWER — THE BUILDER DOES NOT OVERSHOOT
 
-`chowlaRegime_exists_param_gen` (`RegimeParam.lean:368`) returns `R.Hhi = chowlaTower 2 1 R.Hlo (Jof R.Hlo)` — an EQUATION; at `Jof = towerJmin` (`TowerExport.lean:747 chowlaRegime_exists_param_tower`) `H₊` is *exactly* the minimal crossing tower value. There is no builder slack to recover. And `λ₊ = λ₋³` exactly is impossible: `3 < 3.7436` (kernel, `P1.lean:76`). The only slack is in the EXPORTED upper law: landed `K = 5` and the `9/2` twin against an honest `4.4077`. Re-cutting `9/2 → 4.42` is a 30-line arithmetic twin (`three_halves_lt_log_nine_halves` pattern, `TowerExport.lean:804`) worth 1.8% of exponent — **worthless against a 34043× deficit. Do not fly it.**
+`chowlaRegime_exists_param_gen` (`RegimeParam.lean:368`) returns `R.Hhi = chowlaTower 2 1 R.Hlo (Jof R.Hlo)` — an EQUATION; at `Jof = towerJmin` (`TowerExport.lean:745 chowlaRegime_exists_param_tower`) `H₊` is *exactly* the minimal crossing tower value. There is no builder slack to recover. And `λ₊ = λ₋³` exactly is impossible: `3 < 3.7436` (kernel, `P1.lean:76`). The only slack is in the EXPORTED upper law: landed `K = 5` and the `9/2` twin against an honest `4.4077`. Re-cutting `9/2 → 4.42` is a 30-line arithmetic twin (`three_halves_lt_log_nine_halves` pattern, `TowerExport.lean:802`) worth 1.8% of exponent — **worthless against a 34043× deficit. Do not fly it.**
 
 ## (5) DIRECTIONS, WITH CLASS AND HONEST PRICE
 
@@ -193,17 +193,17 @@ stated on abstract sequences — it holds for EVERY tower design, not just `chow
 
 `λ₋ = log log R.Hlo`, `λ₊ = log log R.Hhi`, `Adoor M = 2^36·(L+1)` (`Salt/MR/DoorFrame.lean:84`, cast at `:96`), `doorRowFloor M = M·Adoor M` (`Salt/MR/M4DoorRow.lean:472`), `s13GK K M = 3072·2^K·M` (`Salt/MR/GLever.lean:59`).
 
-The register is `S15Sel''_gk` (`Salt/MR/S15Compose.lean:2425`), the live one on the final object (`Salt/MR/S16Budget.lean:754`).
+The register is `S15Sel''_gk` (`Salt/MR/S15Compose.lean:2421`), the live one on the final object (`Salt/MR/S16Budget.lean:754`).
 
 | face | file:line | exact inequality | what it caps | probe |
 |---|---|---|---|---|
-| **anchor** | `S15Compose.lean:2446`, frame form `M4ArithRho.lean:201` | `14λ₊ + log(1/ρ) + 33 ≤ 3.9e9·(L+1)` | `λ₊ ≤ 2.78571e8·(L+1)` — **SHARPEST register λ₊-cap** | `faceA_anchor` ✅ |
-| **lvl** | `S15Compose.lean:2452` | `26 + 14λ₊ + ⅓·loglog Q₁ + log(1/ρ) ≤ (1/12)·Adoor M·log2` | `λ₊ ≤ 2.83530e8·(L+1)` (1.8% slacker) | `faceB_lvl` ✅ |
-| **gRows** | `S15Compose.lean:2434` | `242·λ₊ ≤ Adoor M` | `λ₊ ≤ 2.83965e8·(L+1)` | `faceC_gRows` ✅ |
-| **gP1** | `S15Compose.lean:2449` | `29 + log Ct + 14λ₊ ≤ Adoor M·log2 + log ρ` | `λ₊ ≤ 3.40234e9·(L+1)` (12× slack) | `faceD_gP1` ✅ |
-| **half/winFit** | `S15Compose.lean:2441`; law at `S14Compose.lean:123,295,332` | `0.7·M·Adoor M + 3log(1/ρ) ≤ (log H₋)/2` | **the ONLY M-upper**: `L+1 ≤ λ₋/log2 − 35` | `faceE_half` ✅ |
+| **anchor** | `S15Compose.lean:2442`, frame form `M4ArithRho.lean:201` | `14λ₊ + log(1/ρ) + 33 ≤ 3.9e9·(L+1)` | `λ₊ ≤ 2.78571e8·(L+1)` — **SHARPEST register λ₊-cap** | `faceA_anchor` ✅ |
+| **lvl** | `S15Compose.lean:2448` | `26 + 14λ₊ + ⅓·loglog Q₁ + log(1/ρ) ≤ (1/12)·Adoor M·log2` | `λ₊ ≤ 2.83530e8·(L+1)` (1.8% slacker) | `faceB_lvl` ✅ |
+| **gRows** | `S15Compose.lean:2430` | `242·λ₊ ≤ Adoor M` | `λ₊ ≤ 2.83965e8·(L+1)` | `faceC_gRows` ✅ |
+| **gP1** | `S15Compose.lean:2445` | `29 + log Ct + 14λ₊ ≤ Adoor M·log2 + log ρ` | `λ₊ ≤ 3.40234e9·(L+1)` (12× slack) | `faceD_gP1` ✅ |
+| **half/winFit** | `S15Compose.lean:2437`; law at `S14Compose.lean:123,295,332` | `0.7·M·Adoor M + 3log(1/ρ) ≤ (log H₋)/2` | **the ONLY M-upper**: `L+1 ≤ λ₋/log2 − 35` | `faceE_half` ✅ |
 | **cap+frame** | `S16Budget.lean:577` + `S13CapGrid.lean:201` + `SeamCalibrationK.lean:181` | `e^{λ₊} = log H₊ ≤ log𝒫₂/12 = 2^K(L+1)M·2^46·log2` | `λ₊ ≤ 1.241e8·(L+1)` — **2.25× sharper than anchor** | `faceF0_size`, `faceF_cap` ✅ |
-| **blk** | `S15Compose.lean:2438`, def `S13FramesA.lean:1117` | `14427+64+8(L+1)+400(A·G·M)² + 1 + 18λ₊ ≤ 4⌊ε²H₊⌋` | K-upper `K ≲ e^{λ₊}/(2log2) ≳ 3.7e21` — **NOT the binder**, ~13 orders looser than the frame | analytic |
+| **blk** | `S15Compose.lean:2434`, def `S13FramesA.lean:1117` | `14427+64+8(L+1)+400(A·G·M)² + 1 + 18λ₊ ≤ 4⌊ε²H₊⌋` | K-upper `K ≲ e^{λ₊}/(2log2) ≳ 3.7e21` — **NOT the binder**, ~13 orders looser than the frame | analytic |
 | **rho / bfloor / mfloor / x0M** | `:2583/:2571/:2569/:2575` | `−log ρ ≤ 1e14`; `24Cg/δ₀ ≤ M`; `Mfl(=2) ≤ M`; `x₀ ≤ 2^{doorRowFloor M}` | no λ-content | — |
 
 **Structure in one line:** every λ₊-cap is `λ₊ ≤ c·Adoor M` (`c` = 1/246.7, 1/242.4, 1/242, 1/20.2, and 1/554 for the cap chain); the single M-upper is `log₂(M·Adoor M) ≤ 1.4427·λ₋ − const`.
@@ -246,7 +246,7 @@ In triple-log terms: register alone `logloglog H₋ ≤ log 20048 = 9.906`; with
 - The anchor's SHAPE — `DoorArithFrameRho.anchor` (`M4ArithRho.lean:201`), supplied by `doorGrade_summand2_priced_rho` (`M4ArithRho.lean:307`), which prices `1787702400·a2Level1 M·e^{14λ}` ≤ ρ/8 with `a2Level1 M = (log Q₁)^{1/3}/P₁^{1/12}`. The `3.9e9·(L+1)` **is** `Adoor M·log2/12` rounded down — so it moves *automatically* with `Adoor`, and the proof is symbolic in `Adoor M` except through `Adoor_cast`.
 
 **SELECTION-REGISTER LINES (cheap):**
-- All 12 fields of `S15Sel''_gk` (`S15Compose.lean:2425-2455`) — demands on the witness `M`, each with a named supplier. At any `λ₋ ≤ 2e4` only `anchor` and `half` are within 10× of binding.
+- All 12 fields of `S15Sel''_gk` (`S15Compose.lean:2421-2451`) — demands on the witness `M`, each with a named supplier. At any `λ₋ ≤ 2e4` only `anchor` and `half` are within 10× of binding.
 - `S16BaseScaleCap_gk` (`S16Budget.lean:577`) — **carried, underived**, at `/24` with a stated 1.5× margin over what `s16_budget_num` spends. Cheapest of all.
 - `K ≤ 170000000` — 94 sites, kernel-proved re-cuttable (P1c).
 
@@ -296,7 +296,7 @@ Probes: `/private/tmp/claude-501/-Users-jyh-projects-claude-salt/ea81b992-0821-4
 | field | Regime.lean | couples | where read (Salt/MR) | direction |
 |---|---|---|---|---|
 | `hPHheadroom` `8·(4^⌊ε²H₊⌋)²·ω ≤ x` | :116 | **H₊ ↔ x/ω** | `S13MSelect2.lean:112` (`s13_socketBase_xscale`), `:512`, `:644`; `S13FramesA.lean:1027`, `Salt/MR/S13FramesA.lean:1533`; `DoorDischarge.lean:113`; `DoorFloor1500.lean:160` | **x-FLOOR, exponential in H₊** |
-| `hheadroom` `Hhi ≤ x/ω` | :86 | H₊ ↔ x/ω | `S14Compose.lean:301` (inside the socket witness), `M4Close.lean:485/731/911/994`, `M4BridgeCover.lean:373`, `HloExportMR.lean:144/344/510/642`, `M4DoorL2.lean:160/623/697/855` | x-FLOOR, linear in H₊ |
+| `hheadroom` `Hhi ≤ x/ω` | :86 | H₊ ↔ x/ω | `S14Compose.lean:301` (inside the socket witness), `M4Close.lean:485/731/911/994`, `M4BridgeCover.lean:371`, `HloExportMR.lean:144/344/510/642`, `M4DoorL2.lean:160/623/697/855` | x-FLOOR, linear in H₊ |
 | `hheadroom'` `8H₊(log H₊)² ≤ x/ω` | :103 | H₊ ↔ x/ω | `Salt/MR/M4SecondRoad.lean:498` (`regime_eight_omega_Hhi_le_x`, the Salt/MR ladder's one consumer since O13-e row 184, 2026-11-15) | x-FLOOR, poly in H₊ |
 | `hHlo_floor` `4·10⁶ ≤ Hlo` | :80 | H₋ | ~81 sites (`S13CapFloor`, `S14Compose:112/298/339` (its other reads now go through `regime_log_floors`, S12Compose), …) | H₋ floor |
 | `hHlohi` `Hlo ≤ Hhi` | :70 | H₋ ↔ H₊ | ~54 sites | window |

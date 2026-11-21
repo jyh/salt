@@ -2461,14 +2461,14 @@ theorem m4_meansq_or_trivial_pool_L_gk (K : ℕ) (hK : K ≤ 170000000) (Qm : �
   exact hw q χ N Xd P Q M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail C₁' M₀ π₀ xw
     ω H' α Hp d₀ W e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 hM (by omega)
 
-/-! ### `M4BridgeCover` :358 — `doorSievedCoeff` -/
+/-! ### `M4BridgeCover` :356 — `doorSievedCoeff` -/
 /-- **THE DOOR'S SIEVED DATUM**, named once: `1_𝒮·λ` at the door's own K-family
 (`A = AdoorL M`, `G = 3072·M`, `J = 2`).  This is byte-exactly the coefficient sequence
 inside `M4Close.M4SievedDoorSq_L`; the `def` is a spelling, definitionally transparent. -/
 def doorSievedCoeff_L (M : ℕ) : ℕ → ℂ :=
   memSCoeff (calP (AdoorL M) (3072 * M)) (calQK (AdoorL M) (3072 * M) M) 2 liouvilleC
 
-/-! ### `M4BridgeCover` :572 — `doorSievedCoeff_gk` -/
+/-! ### `M4BridgeCover` :570 — `doorSievedCoeff_gk` -/
 /-- **THE DOOR'S SIEVED DATUM AT THE LEVER** — `doorSievedCoeff_L` (:361) at `G := s13GK K M`.
 Byte-exactly the coefficient sequence inside `M4Close.M4SievedDoorSq_L_gk`. -/
 def doorSievedCoeff_L_gk (K M : ℕ) : ℕ → ℂ :=

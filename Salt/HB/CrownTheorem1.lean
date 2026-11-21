@@ -107,7 +107,7 @@ carried to the crown's window by the bridge `hbDataHB_S3_le_S3_window`.
    real from `q^250` on.
 4. **THE TAIL CARRIES A `k`-INDEPENDENT POWER OF `log q`, AND THE REGIME MUST PAY IT (v3).**  The
    Range-A ledger's row (iv) is `10³·M³·N·u^{bceil−1}` (`efEnvelope_le_ledger_sharp`,
-   `Lemma7EF.lean:2696-2704`; `M = log(qu)+2 ≈ 251·L` at `u = q^250`, `N ≈ L`) — the CRUDE zero
+   `Lemma7EF.lean:2694-2702`; `M = log(qu)+2 ≈ 251·L` at `u = q^250`, `N ≈ L`) — the CRUDE zero
    count of the near-1 strip (`DensityCrude.lean:459`: on `16/17 < σ ≤ 1` the density shape
    degenerates and `N(σ,T) ≤` the count, polylog in `L`) — against the repulsion decay
    `exp(−0.368·ℓ′)` at the window edge.  The grade needs `exp(0.368·ℓ′) ≥ 10^{10}·L^{4.5}`, i.e.
@@ -3607,7 +3607,7 @@ non-negative and bounded by `2/⌊z⌋` (`hbEulerLog_sub_primeSum_termwise` +
 `(logChiSum χ z Y).re` converges because `logChiSum_tendsto_zfr_hundred` at its OWN existential
 `X₀` (any `X ≥ max X₀ z`, however large — `hreal` from `real_zeros_below_zfrCeil`, `hZFR` from
 `zero_free_region_all_numeral`, `250 ≤ L` from the regime, `σa = 9/10`, `σb = 19/20 ≤ β₀`) plus
-`logChiSum_add` (`Lemma7EF.lean:1204`) moves the base point down to `z`.
+`logChiSum_add` (`Lemma7EF.lean:1202`) moves the base point down to `z`.
 Consumer: `hcorr_at_split`. -/
 theorem hbEulerLog_tendsto [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
     (hR : N9Regime q χ β₀ η) {z : ℝ} (hz : 3 ≤ z) :
@@ -3851,7 +3851,7 @@ theorem hbEulerLog_tendsto [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η 
 
 /-- **`hcorr` at the split point** — the bridge `hb_hcorr_closed` lacks: its `A′` is the limit of
 `(logChiSum χ z Y).re`, while `(L2)` wants `(logChiSum χ z X).re + Stail.re`; `logChiSum_add`
-(`Lemma7EF.lean:1204`) splits `[z, Y] = [z, X] ∪ [X, Y]` and the tail limit is `S`
+(`Lemma7EF.lean:1202`) splits `[z, Y] = [z, X] ∪ [X, Y]` and the tail limit is `S`
 (`hS`, produced by `logChiSum_tail_at_window` at `X = x`).  Class **B**, cap 200.
 Consumer: `hb_L2_at_hb_point`. -/
 theorem hcorr_at_split [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}

@@ -1413,7 +1413,7 @@ exactly as landed.
 suppliers carry, and each discard is a wall:
 
 * **`x0M`** reads `x₀ ≤ M` — a `2^{doorRowFloor M}`-fold strengthening of what
-  `S13BandGate'.x0_le` actually asks (`x₀ ≤ 2^{doorRowFloor M}`, `S13BandBase.lean:727`).
+  `S13BandGate'.x0_le` actually asks (`x₀ ≤ 2^{doorRowFloor M}`, `S13BandBase.lean:725`).
   `s15_x0_le` (§3b) is the throwaway bridge between them.  The analytic chain's own `x₀` is
   `≥ exp (exp 100)`, so at the weak form no window admits it and at the tolerant form the
   room is `doorRowFloor M` DOUBLE-LOG units.

@@ -78,13 +78,13 @@ Re-verified by name (line numbers current at HEAD, 2026-08-06):
 | `psiDefect_norm_le_rangeA` | `Salt/HB/Lemma7EF.lean:748` | **NONE.** `Salt/HB/All.lean:212` roll-call only |
 | `one_sub_ceiling_le_dist_one` | `Salt/HB/PretenseSumProof.lean:312` | **NONE.** `Salt/HB/All.lean:179` roll-call only; `:73`, `:338`, `:377`, `TwistedMertens.lean:115`, `:792` are all PROSE |
 
-And the end-to-end (4.12) theorem closes **without** any of it. `Salt/HB/Lemma7EF.lean:2388-2391`
+And the end-to-end (4.12) theorem closes **without** any of it. `Salt/HB/Lemma7EF.lean:2386-2389`
 (docstring of `logChiSum_tendsto_zfr`, PROSE but describing a machine-checked type):
 > "The ONLY remaining binders are the freeze's own named ones: `hZFR` …, `hreal′` …, and the
 > design's numeric `hgap`. **`hN+`, `hord` and the `q^{250} ≤ X` edge do NOT appear — they are
 > Range-A's, and Range B needs neither.**"
 
-Verified at the type: `logChiSum_tendsto_zfr_hundred` (`Salt/HB/Lemma7EF.lean:3208-3221`, USE)
+Verified at the type: `logChiSum_tendsto_zfr_hundred` (`Salt/HB/Lemma7EF.lean:3206-3219`, USE)
 has hypotheses `hZFR` and `hreal` only, both against `efZfrCeil` (`:2007`), and concludes
 `≤ 100/√(log X)`. **The Range-A/efHeight repulsion branch is dead on the landed bytes.**
 
@@ -116,7 +116,7 @@ USE sites, all sorry-free and all `Lp = 2L`, `ell = log η`:
 - `hb_lemma3_unconditional_absorbed` — `Salt/HB/Lemma3Uncond.lean:213`, binders at `:218`, `:222`.
 
 **Why `efZfrCeil` cannot supply this.** `efZfrCeil q c₀ u = 1 − c₀/log(q(T₀(u)+3))`
-(`Salt/HB/Lemma7EF.lean:2007-2008`, USE). The distance-to-1 floor it yields is
+(`Salt/HB/Lemma7EF.lean:2005-2006`, USE). The distance-to-1 floor it yields is
 `r0 = c₀/log Q ≤ c₀/L`. Substituting into `hσ'r` demands
 
 ```
@@ -202,7 +202,7 @@ Stated so the deferral is not read as "the road needs nothing here":
    `k = 1` the `+1·log(log Q+2)` and the `−log L` from `log(ηL)` cancel to `O(1)`, so this
    obligation *does* become `q`-free at `k = 1`. **This contradicts nothing in TS-0's K3**, which
    was analysing a *different* obligation (the Range-A EF ledger's `10³M³N` prefactor,
-   `Lemma7EF.lean:2698-2704`) — the one §3 shows is dead.
+   `Lemma7EF.lean:2696-2702`) — the one §3 shows is dead.
 2. **If TS-3 is re-scoped as a `b`-wave (S3 alone: `a : 104 → 51`), it clears the (A) bar on the
    `b` axis** — 10.5× on the threshold, ~3× on the delivered `Cs`. That is a different wave with a
    different justification, and it should be priced against K2's corrected `b`-floor of **664.66**

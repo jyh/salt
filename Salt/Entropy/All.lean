@@ -1148,7 +1148,7 @@ one `obtain` reaching for the unbounded sibling.  The `h` head took the EXISTENT
 ⭐ **THE TWO CASES ARE FORCED, NOT STYLISTIC.**  At `ε = 1/(500·h)`, `T = 2^41·h²` the payoff is
 `C₁'(h) ≤ 1.58277·10^10 + 2.58249·10^10·h²` against `2^35·h²`; the `hh7`-uniform
 `(log T)² ≤ 1799.4564` therefore **FAILS at `h = 1` by 1.212×**, while the landed
-`hpt_const_le_pow35` (`GoldbachEnergyN0:812`) carries `h = 1` on its own tight `(log T)² = 807.70`
+`hpt_const_le_pow35` (`GoldbachEnergyN0:810`) carries `h = 1` on its own tight `(log T)² = 807.70`
 at ratio 0.955.  For `h ≥ 2`: 0.867 at `h = 2`, 0.752 at `h = 1096`.
 ⭐ **`T := 2^41·h²` IS THE CHOICE THAT KEEPS `hTA` `h`-FREE** (`ε²·T = 2^41/250000`); `2^41·h³`
 does not, which is what made the obvious uniform route false at `h = 1, 2`.
