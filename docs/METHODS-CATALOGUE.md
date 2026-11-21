@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `319ec46e` · source digest `21b6cb5ae00eede3` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `0d9ed2cd` · source digest `51f83d8d5a25c68c` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23581 · with a proof/definition body: 23581 · direct corpus references (edges): 86184 · audited results: 9148 · corpus Prop-valued names: 704.
+Declarations indexed: 23583 · with a proof/definition body: 23583 · direct corpus references (edges): 86190 · audited results: 9148 · corpus Prop-valued names: 704.
 
 ## Hypothesis status (Deliverable A)
 
@@ -723,7 +723,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Parity.ParityInv` | DISCHARGED | `parityInv_S1_le_S2` ✓audited (Salt/Parity/Instances.lean:37) · `parityInv_twin_bar` ✓audited (Salt/Parity/Instances.lean:45) · `parityInv_twin_gate_fails` ✓audited (Salt/Parity/Instances.lean:53) · +8 |
 | `Salt.RH.CramerGap` | DISCHARGED | `Salt.RH.cramerGap_three_of_RH` (Salt/RH/Cramer.lean:163) |
 | `Salt.RH.MillerAlgebraic` | DISCHARGED | `Salt.RH.millerAlgebraic` (Salt/RH/MillerAlgebraic.lean:195) |
-| `Salt.RH.PiLi2` | DISCHARGED | `Salt.RH.piLi2_three_of_RH` (Salt/RH/PiLi.lean:234) |
+| `Salt.RH.PiLi2` | DISCHARGED | `Salt.RH.piLi2_three_of_RH` (Salt/RH/PiLi.lean:235) · `Salt.RH.piLi2_two_of_RH` (Salt/RH/PiLi.lean:304) |
 | `Salt.RH.VonKochPsi` | DISCHARGED | `Salt.RH.vonKochPsi_three_of_RH` (Salt/RH/VonKochFinal.lean:271) |
 | `Salt.SW.EstermannInterface'` | DISCHARGED | `Salt.SW.estermannInterface'` ✓audited (Salt/SW/EstermannInterface.lean:236) |
 | `Salt.Twelve.IsPowerful` | DISCHARGED | `Salt.Twelve.powPart_isPowerful` (Salt/Twelve/PhiUpperReindex.lean:119) |
