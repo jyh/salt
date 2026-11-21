@@ -42,16 +42,16 @@ consuming the previous twin.  No landed declaration is touched.
   `U1floor ≥ Hcap` gets `R.Hlo ≤ U1floor` on top of the landed `U1floor ≤ R.Hlo`,
   i.e. the base is PINNED, and a two-sided `loglog R.Hlo` band closes.
 
-⟦WHY THE HEAD IS REPLAYED⟧  `spine_False_core_xi_sq` (`SpineFinal.lean:1164`) is
+⟦WHY THE HEAD IS REPLAYED⟧  `spine_False_core_xi_sq` (`SpineFinal.lean:1117`) is
 `private`, so the head's door implication cannot be re-derived from outside its
 file by citing it.  The core's own body, however, is a public assembly
 (`log_chowla_two_shell_xi_sq` + `sqrt_le_window_at`/`omega_big_at`/`x_big_at`/
 `pH_headroom_at`/`singleCorr_of_fails`/`primeWindow_card_le_of_regime`), so §3
 carries `spine_False_core_xi_sq_cap`, a VERBATIM in-file transcription of it
-(`SpineFinal.lean:1164–1303`, statement and proof, name changed) — the S0-TOWER
+(`SpineFinal.lean:1117–1256`, statement and proof, name changed) — the S0-TOWER
 in-file-core precedent, one file over.  It is a separate declaration, not an
 inline block, because heartbeats are counted per declaration.  The head twin's
-own proof is then `SpineFinal.lean:1370–1445` with exactly two edits: the builder
+own proof is then `SpineFinal.lean:1323–1382` with exactly two edits: the builder
 call (§2) and the core name.
 -/
 import Salt.Entropy.Chowla.SpineFinal
@@ -175,7 +175,7 @@ private lemma hloCap_shuffle (a b c d e : ℕ) :
   omega
 
 /-- **The `L²` spine contradiction core, in-file twin** (`spine_False_core_xi_sq_cap`)
-— `SpineFinal.lean:1164`'s `private` core, VERBATIM (statement and proof), under a
+— `SpineFinal.lean:1117`'s `private` core, VERBATIM (statement and proof), under a
 fresh name because `private` blocks the citation across files.  The body is a
 public assembly (`log_chowla_two_shell_xi_sq` + the regime reads
 `sqrt_le_window_at`/`omega_big_at`/`x_big_at`/`pH_headroom_at`, plus
@@ -324,7 +324,7 @@ private theorem spine_False_core_xi_sq_cap (R : ChowlaRegime) {ρ : ℝ}
     (by positivity) h211 hC hcirc hdoor hbudget1 hbudget2
 
 /-- **THE `L²` SPINE-BUDGET HEAD, count-exporting, WITH THE BASE CAP**
-(`log_chowla_two_budget_head_g_sq_count_hloCap`) — `SpineFinal.lean:1359` plus
+(`log_chowla_two_budget_head_g_sq_count_hloCap`) — `SpineFinal.lean:1312` plus
 ONE conjunct and ONE `∃`-prefix item:
 
 ```
@@ -342,7 +342,7 @@ Every other conjunct, the `ε` choice, the `δ₀`, the five-arm floor and the
 `hbudget1`/`hbudget2` block are the landed head's, verbatim.  Two edits: the
 regime comes from `chowlaRegime_exists_param_head_tower45'_hloCap` (§2), and the
 final `spine_False_core_xi_sq` discharge — `private`, hence uncitable here — is
-INLINED as its own body (`SpineFinal.lean:1214–1303`), which is a public
+INLINED as its own body (`SpineFinal.lean:1167–1256`), which is a public
 assembly ending at `log_chowla_two_shell_xi_sq`.
 
 ⚠ THE SEAM WARNING rides this statement unchanged (`MRTDoor.lean:179–187`):

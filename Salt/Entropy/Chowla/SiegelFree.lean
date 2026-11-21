@@ -77,7 +77,7 @@ theorem primeWindow_sum_inv_ge_of_standoff {cS : ℝ} (hcS : 0 < cS)
   obtain ⟨c, hc, -, H₀, h⟩ := primeWindow_sum_inv_ge_bounded_of_standoff hcS hSieg
   exact ⟨c, hc, H₀, h⟩
 
-/-- **⟦STANDOFF TWIN⟧** `log_chowla_two_budget_head` (`SpineFinal.lean:750`): its statement under
+/-- **⟦STANDOFF TWIN⟧** `log_chowla_two_budget_head` (`SpineFinal.lean:751`): its statement under
 the three standoff binders, its proof verbatim with `hreduce_holds_final` and
 `primeWindow_sum_inv_ge` replaced by their twins. -/
 theorem log_chowla_two_budget_head_of_standoff {cS : ℝ} (hcS : 0 < cS)
@@ -147,7 +147,7 @@ theorem log_chowla_two_budget_head_of_standoff {cS : ℝ} (hcS : 0 < cS)
     ((H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H)))) (cD3 / (16 * C))
     ht hg hgle hI hbudget1 hbudget2 hfail
 
-/-- **⟦STANDOFF TWIN⟧** `log_chowla_two_door_only_xi` (`SpineFinal.lean:966`): the same, through
+/-- **⟦STANDOFF TWIN⟧** `log_chowla_two_door_only_xi` (`SpineFinal.lean:935`): the same, through
 `log_chowla_two_budget_head_of_standoff`. -/
 theorem log_chowla_two_door_only_xi_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -158,7 +158,7 @@ theorem log_chowla_two_door_only_xi_of_standoff {cS : ℝ} (hcS : 0 < cS)
   obtain ⟨R, _hReps, _h0Hlo, hδbody⟩ := hbody 0
   exact ⟨δ₀, R, hδ₀pos, hδbody⟩
 
-/-- **⟦STANDOFF TWIN⟧** `log_chowla_two_door_only` (`SpineFinal.lean:981`): the same, through
+/-- **⟦STANDOFF TWIN⟧** `log_chowla_two_door_only` (`SpineFinal.lean:950`): the same, through
 `log_chowla_two_door_only_xi_of_standoff`. -/
 theorem log_chowla_two_door_only_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :

@@ -389,7 +389,7 @@ against it.*
 
 ### THE δ₀ CONTRACT
 
-`log_chowla_two_budget_head_g` (`SpineFinal.lean:856–861`) binds `δ₀` in its own `∃`-prefix,
+`log_chowla_two_budget_head_g` (`SpineFinal.lean:841–846`) binds `δ₀` in its own `∃`-prefix,
 BEFORE `∀ extraFloor U1floor g`, and then opens the door quantifier
 
 ```

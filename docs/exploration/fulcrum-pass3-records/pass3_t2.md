@@ -13,7 +13,7 @@ architecture.
 
 - `ChowlaRegime` (Salt/Entropy/Chowla/Regime.lean:56-96) has fields x, ω, a, eps, Hlo,
   Hhi, C0, J — **no modulus field exists**. GROUNDED.
-- The sole residual door of `log_chowla_two_final` (SpineFinal.lean:416-427) is
+- The sole residual door of `log_chowla_two_final` (SpineFinal.lean:417-428) is
   `MRTUniformity R δ` (MRTDoor.lean): an `e(αj)`-twisted window exponential sum,
   ∀α real — **no characters, no moduli**. GROUNDED.
 - The S5 split form (Salt/MR/NonPret.lean:103-122) is `pretDistSq lam (costwist t) x` —

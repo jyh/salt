@@ -17,7 +17,7 @@ PLAIN ROAD).  The crown exports a PLAIN `ChowlaRegimeAff` whose tower fits and c
 `a` (`regimeShrinkX_stride`, `StridePair.lean:135-194`); the affine decrement
 (`entropy_decrementAff`, `StrideDecrement.lean`) runs on exactly that, at the plain threshold
 `κ = H/(log H · logloglog H)`, and the PLAIN spine-budget witness `hbudget1_witness`
-(`SpineFinal.lean:598`; `R : ChowlaRegime`, `cD3 C` free, NO `h` binder) supplies `hbudget1` at
+(`SpineFinal.lean:599`; `R : ChowlaRegime`, `cD3 C` free, NO `h` binder) supplies `hbudget1` at
 `cD3' := cD3/a` (F2-C3: `c₁ ↦ c₁/a`).  Its floor `budgetFloor ε β` (`BudgetCore.lean:30`, a
 triple exponential) is paid in the design constant `A`, which the crown quantifies `∀ A₀ ∃ A ≥
 A₀` and which NO consumer caps (price brief §2): `budgetFloor_le_flatDesignBase` and
@@ -647,7 +647,7 @@ its payload; (5) `δ₀ := (cD3/a)/(16·C)·ε/4`; then `intro ρ' hρ'pos hρ' 
 (6) `obtain ⟨H, hlo, hhi, hdvd, hMI⟩ := entropy_decrementAff Ra.toChowlaRegime` (Tao's range
 `a·Ra.Hlo ≤ H`), `hI` by `mutualInfo_window_comm_aff`; `hH₀` from `nat_le_flatDesignBase` +
 `hHloB` + `hlo`; `hcount : 64·a ≤ ε·H` from `Ra.hcoprime` (`a ≤ ε²·Hlo/2`), `hε32`, `Hlo ≤ H`;
-(7) `hbudget1_witness Ra.toChowlaRegime H (cD3/a) C …` (`SpineFinal.lean:598`) at `hfloor` from
+(7) `hbudget1_witness Ra.toChowlaRegime H (cD3/a) C …` (`SpineFinal.lean:599`) at `hfloor` from
 `budgetFloor_le_flatDesignBase` + `hHloB` + `hlo` (its `cD3/a/4` against the core's `cD3/(4·a)`
 is `div_div` — v1.1, verdict A8(iv)); `hbudget2 : ρ' < (cD3/a)/(16·C)·ε` from
 `hρ'`; (8) `spine_False_core_xi_sq_aff`.  `hcrown`'s shape is the crown's conclusion verbatim,

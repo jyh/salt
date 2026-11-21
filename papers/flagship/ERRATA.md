@@ -36,10 +36,10 @@ manuscript's framing of F(C) as a live hypothesis is what the claim, if it holds
 
 ## The five corrected statements (what the Lean proves)
 
-**C1, log-Chowla.** `log_chowla_two_door_only` (Salt/Entropy/Chowla/SpineFinal.lean:981) proves: there are δ₀ > 0
+**C1, log-Chowla.** `log_chowla_two_door_only` (Salt/Entropy/Chowla/SpineFinal.lean:950) proves: there are δ₀ > 0
 and one regime R (one x, one ω, one ε) such that, if `MRTUniformity R δ` holds for some 0 < δ ≤ δ₀, then
 |Σ_{x/ω < n ≤ x} λ(n)λ(n+1)/n| ≤ ε·log ω (that inequality is `¬ logChowla2Fails`, ChowlaFailure.lean:59).
-`log_chowla_two_budget_head` (SpineFinal.lean:750) gives, at one fixed ε, such a regime above every floor on
+`log_chowla_two_budget_head` (SpineFinal.lean:751) gives, at one fixed ε, such a regime above every floor on
 `R.Hlo`, under the weaker hypothesis `MRTUniformityXi` (`mrtUniformity_implies_xi`, MRTDoor.lean:121). Neither
 states the logarithmic two-point Chowla statement (the limit as x → ∞, which is Tao's theorem), and the hypothesis
 is assumed at the constructed regime, not proved.

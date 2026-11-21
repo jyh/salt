@@ -154,7 +154,7 @@ PARITY-BREAKING INPUTS (bilinear / L-function / oracle-fed):
 - HB-ENGINE (Salt/HB/, campaign in flight; Kloosterman inputs banked Salt/Weil/) — the parity-breaker is
   the exceptional character as Möbius surrogate (GROUNDED H-B p.196) + Estermann/Kloosterman bilinear
   (GROUNDED p.221 eq. 7.1). **Lives entirely on the F horn: ¬F is the hypothesis that deletes its oracle.**
-- `log_chowla_two_final` (Salt/Entropy/Chowla/SpineFinal.lean:416, THE CITATION THEOREM) — Tao's bilinear
+- `log_chowla_two_final` (Salt/Entropy/Chowla/SpineFinal.lean:417, THE CITATION THEOREM) — Tao's bilinear
   entropy-decrement parity-break, λ-side only; residual hypotheses are `MRTUniformity R δ` + entropy-budget
   inequalities (GROUNDED :416–428) — NONE is Siegel-sensitive; ¬F discharges nothing here, and by Tao's own
   statement the conclusion has no bearing on Λ(n)Λ(n+2).
