@@ -20,9 +20,10 @@ Statement choices that a reader should check (the audit list):
   strip is where the hypothesis has content. The principal character mod `N` has a pole at `1`,
   which is outside the open strip.
 * `li` is the PRINCIPAL-VALUE logarithmic integral
-  `lim_{ε→0⁺} (∫₀^{1-ε} + ∫_{1+ε}^x) dt / log t`.
-  Schoenfeld's bound is stated with it. `Li2` (`∫₂^x`) differs by the constant `li 2 ≈ 1.045` and
-  is the form the `O(·)` targets use.
+  `lim_{ε→0⁺} (∫₀^{1-ε} + ∫_{1+ε}^x) dt / log t`, for `x > 1` only (for `x ≤ 1` the limit
+  diverges and `limUnder` returns junk; every target binds `x ≥ 2`). Schoenfeld's bound is
+  stated with it. `Li2` (`∫₂^x`) differs by the constant `li 2 ≈ 1.045` and is the form the
+  `O(·)` targets use.
 * `π(x)` is `Nat.primeCounting ⌊x⌋₊`. The `n`-th prime is `Nat.nth Nat.Prime n`
   (0-indexed: `2` at `0`).
 * `StrongProbablePrime n a` is the Miller–Rabin test at base `a`: write `n - 1 = 2^s · d` with
@@ -51,7 +52,7 @@ noncomputable def Li2 (x : ℝ) : ℝ :=
   ∫ t in (2 : ℝ)..x, 1 / Real.log t
 
 /-- The principal-value logarithmic integral
-`li x = lim_{ε→0⁺} (∫₀^{1-ε} + ∫_{1+ε}^x) dt / log t`. -/
+`li x = lim_{ε→0⁺} (∫₀^{1-ε} + ∫_{1+ε}^x) dt / log t`, meaningful for `x > 1` only. -/
 noncomputable def li (x : ℝ) : ℝ :=
   Filter.limUnder (nhdsWithin (0 : ℝ) (Set.Ioi 0)) fun ε : ℝ =>
     (∫ t in (0 : ℝ)..(1 - ε), 1 / Real.log t) + ∫ t in (1 + ε)..x, 1 / Real.log t
@@ -98,7 +99,8 @@ def MillerAlgebraic : Prop :=
       ∀ u : (ZMod n)ˣ, StrongProbablePrime n (u : ZMod n).val → u ∈ H
 
 /-- A **small unit outside any proper subgroup** at scale `C (log n)^2` (row R5b; Ankeny–Montgomery
-shape; Bach's explicit `C = 2` is the same statement at `C = 2`). -/
+shape). The UNIT form asked here is Bach's at `C = 3`; his `C = 2` is the least INTEGER outside `H`
+with no coprimality asked (Lamzouri–Li–Soundararajan, arXiv 1309.3595 §1.1). -/
 def SmallNonMember (C : ℝ) : Prop :=
   ∀ n : ℕ, 3 ≤ n → ∀ H : Subgroup (ZMod n)ˣ, H ≠ ⊤ →
     ∃ u : (ZMod n)ˣ, u ∉ H ∧ 2 ≤ (u : ZMod n).val ∧
