@@ -1,20 +1,20 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `b0dc4ffd` · source digest `c43bdadfa5f8b4b8` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `92e20076` · source digest `fc80924ece2e81b8` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23478 · with a proof/definition body: 23478 · direct corpus references (edges): 85966 · audited results: 9148 · corpus Prop-valued names: 701.
+Declarations indexed: 23490 · with a proof/definition body: 23490 · direct corpus references (edges): 85988 · audited results: 9148 · corpus Prop-valued names: 701.
 
 ## Hypothesis status (Deliverable A)
 
 | status | corpus Props | hung on >= 1 audited conditional result | audited conditional results hanging on them |
 |---|---|---|---|
-| DISCHARGED | 221 | 150 | 1065 |
+| DISCHARGED | 222 | 150 | 1065 |
 | STRUCTURAL | 4 | 4 | 95 |
 | FRAME | 48 | 24 | 157 |
-| OPEN | 428 | 191 | 730 |
+| OPEN | 427 | 191 | 730 |
 | **all** | 701 | 369 | 1630 |
 
 Of the DISCHARGED, 98 are discharged ONLY by GUARDED producers (the producer carries non-corpus Prop premises, e.g. `2 ≤ q → P q`, or instantiates P at specific arguments).
@@ -721,6 +721,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MaynardK.WinFrontierMW105` | DISCHARGED | `Salt.MaynardK.winFrontierMW105_of` GUARDED (Salt/MaynardK/Frontier105.lean:147) · `Salt.MaynardK.winFrontierMW105_all` GUARDED (Salt/MaynardK/Slack105.lean:757) |
 | `Salt.Parity.Completion` | DISCHARGED | `Salt.Parity.oneWeight_mem` ✓audited GUARDED (Salt/Parity/Z.lean:463) · `Salt.Parity.twinFree_mem` ✓audited GUARDED (Salt/Parity/Z.lean:621) |
 | `Salt.Parity.ParityInv` | DISCHARGED | `parityInv_S1_le_S2` ✓audited (Salt/Parity/Instances.lean:37) · `parityInv_twin_bar` ✓audited (Salt/Parity/Instances.lean:45) · `parityInv_twin_gate_fails` ✓audited (Salt/Parity/Instances.lean:53) · +8 |
+| `Salt.RH.MillerAlgebraic` | DISCHARGED | `Salt.RH.millerAlgebraic` (Salt/RH/MillerAlgebraic.lean:195) |
 | `Salt.SW.EstermannInterface'` | DISCHARGED | `Salt.SW.estermannInterface'` ✓audited (Salt/SW/EstermannInterface.lean:236) |
 | `Salt.Twelve.IsPowerful` | DISCHARGED | `Salt.Twelve.powPart_isPowerful` (Salt/Twelve/PhiUpperReindex.lean:119) |
 | `Salt.Twelve.S1InnerBoundM` | DISCHARGED | `Salt.Twelve.s1_inner_bounded` GUARDED (Salt/Twelve/InnerS1.lean:323) |
@@ -972,7 +973,6 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.RH.CramerGap` | OPEN | — |
 | `Salt.RH.DeterministicMR` | OPEN | — |
 | `Salt.RH.GRHDirichlet` | OPEN | — |
-| `Salt.RH.MillerAlgebraic` | OPEN | — |
 | `Salt.RH.PiLi2` | OPEN | — |
 | `Salt.RH.Schoenfeld` | OPEN | — |
 | `Salt.RH.SmallNonMember` | OPEN | — |
