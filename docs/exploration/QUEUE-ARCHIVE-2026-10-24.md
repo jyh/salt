@@ -1895,7 +1895,7 @@ RESURRECTS THEM:**
    `M4ChiSummedFreeRow` (~30 sites/18 files) ← `m4_socket_discharged_bandfree` (`M4SocketDischarge.lean:410`)
    ← `DoorCapErrWS` ← `S13CapGatePerBlock_L_gk` **37 fields, PRODUCED** (`S13CapGateLinear.lean:931`) ← D7.
    ⛔ **`M4RowMeanSq_L`'s famous "NO PRODUCER" IS ON A DIFFERENT ROAD** (the `_L` ladder), and
-   `M4SecondRoad.lean:721` says of the split road: *"⟦WALL-D/F5's `DoorRowCarriedT0` bundle is not reached
+   `M4SecondRoad.lean:722` says of the split road: *"⟦WALL-D/F5's `DoorRowCarriedT0` bundle is not reached
    at all.⟧"* ⇒ ***A READER TAKING "THE ROAD BOTTOMS OUT" UNQUALIFIED PRICES THE SOCKET AT DEPTH 3 WHEN
    THE SPLIT ROAD RUNS AT LEAST 7.*** The honest first gap is `hcap` at **depth 4** — landed supplier,
    **not instantiated** (`All.lean:6032`).

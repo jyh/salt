@@ -990,8 +990,8 @@ FALSE by 6.88× (`s16_audit_Ct_over_pin`) — the FOURTH register vacuity of the
 ### ⟦RIDER `Kc`⟧ FALSE BY ~515 BITS; CEILING `2^539`; ALSO FREE
 
 `Kc` descends (all pass-throughs) `final'` ← … ← `logChowla2_capstone_final_const'_graded_gk_
-pinned` ← `HloExportMR.m4_second_road_L2_hloCap_pinned_gk` (:648) ← `…_close_split_sq_
-hloCap_pinned_gk` (:595) ← `…m4_exit_socket_split_sq_arc_hloCap_pinned` (:262) ←
+pinned` ← `HloExportMR.m4_second_road_L2_hloCap_pinned_gk` (:625) ← `…_close_split_sq_
+hloCap_pinned_gk` (:572) ← `…m4_exit_socket_split_sq_arc_hloCap_pinned` (:255) ←
 `HloExport.log_chowla_two_budget_head_g_sq_count_hloCap_pinned` (:492), where it is minted as
 `bigXi_bounded`'s `∃`-constant (`GoldbachEnergyFinal` :502) — the large-spectrum `L²` count.
 `ConstantsExposed.KExpr` (:346) IS that constant's closed form at the same `ε`-pin; the two
@@ -1012,7 +1012,7 @@ still close: `lvl` (the binding one, `3.13·10^{10}` of slack — `s16_audit_lvl
 
 Exported `Hcap = max Hcap_road (max arcFloor36 loglogFloor50)`; the two right arms are
 LANDED-fine (`s15WitFloor2_arc`, `s15WitFloor2_ll`).  `Hcap_road` descends to
-`HloExportMR.m4_exit_socket_split_sq_arc_hloCap_pinned` (:288) as `max Hcap_head H₀arc`, with
+`HloExportMR.m4_exit_socket_split_sq_arc_hloCap_pinned` (:281) as `max Hcap_head H₀arc`, with
 `Hcap_head = max 4000000 (max A (4·⌈1/ε⌉^4))`, `A = max (max (max H₀red H₀D3) H₀xi)
 (budgetFloor …)` (`HloExport` :494).  Leaf by leaf: `H₀xi = 2` (benign);
 `H₀D3 = H₀red = max (96^8) (⌈e^{64·K_Chen}⌉+1)` with `K_Chen` the Siegel-ineffective PNT
