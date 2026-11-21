@@ -1764,7 +1764,7 @@ theorem m4_meansq_or_trivial_L_gk (K : ℕ) (hK : K ≤ 170000000) (Qm : ℕ) :
   exact hw q χ N Xd P Q M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail C₁' M₀ xw ω
     H' α Hp d₀ W e1 e2 e3 e4 e5 e6 e7 e8 e9 e10 e11 e12 e13 e14 e15 e16 hM (by omega)
 
-/-! ### `M4Close` :362 — `M4SievedDoorSq` -/
+/-! ### `M4Close` :363 — `M4SievedDoorSq` -/
 /-- **THE M4-7 SOCKET** — the mean square of the SIEVED λ-window sum on the door's measure,
 at every tight-major frequency, with the band transport (hence `hlive`) as its own premise.
 
@@ -1780,7 +1780,7 @@ def M4SievedDoorSq_L (R : ChowlaRegime) (M : ℕ) (Braw : ℕ → ℝ) : Prop :=
             ∂(logMeasure R.x R.ω))
           ≤ Braw H * (H : ℝ) ^ 2
 
-/-! ### `M4Close` :395 — `M4DoorGates` -/
+/-! ### `M4Close` :396 — `M4DoorGates` -/
 /-- **THE DOOR-DATA GATE BUNDLE** — M4-8's own hypothesis list, at the regime, uniform over
 the window range.  `Cg` is the door glue's single opened constant; the `M`-gate is the
 `24·Cg/δ` of M4-8 (the `8C/δ` of the freeze at the per-block grade `δ/3`, i.e. the `log ω`
@@ -1808,8 +1808,8 @@ structure M4DoorGates_L (Cg : ℝ) (R : ChowlaRegime) (M k : ℕ) (δ : ℝ) : P
   hblocks : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ i < k,
     SieveBlockGate (AdoorL M) (3072 * M) M 2 (doorLadder R.x H (i + 1))
 
-/-! ### `M4Close` :845 — `M4SievedDoorSq_gk` -/
-/-- **THE M4-7 SOCKET AT THE LEVER** — `M4SievedDoorSq_L` (:368) at `G := s13GK K M`.  The
+/-! ### `M4Close` :838 — `M4SievedDoorSq_gk` -/
+/-- **THE M4-7 SOCKET AT THE LEVER** — `M4SievedDoorSq_L` (:1774) at `G := s13GK K M`.  The
 sieve set moves with `K`; the shape does not. -/
 def M4SievedDoorSq_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Braw : ℕ → ℝ) : Prop :=
   M4BandTransport →
@@ -1820,8 +1820,8 @@ def M4SievedDoorSq_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Braw : ℕ → �
             ∂(logMeasure R.x R.ω))
           ≤ Braw H * (H : ℝ) ^ 2
 
-/-! ### `M4Close` :869 — `M4DoorGates_gk` -/
-/-- **THE DOOR-DATA GATE BUNDLE AT THE LEVER** — `M4DoorGates_L` (:403) with the per-block
+/-! ### `M4Close` :862 — `M4DoorGates_gk` -/
+/-- **THE DOOR-DATA GATE BUNDLE AT THE LEVER** — `M4DoorGates_L` (:1792) with the per-block
 `SieveBlockGate` read at `G := s13GK K M`. -/
 structure M4DoorGates_L_gk (K : ℕ) (Cg : ℝ) (R : ChowlaRegime) (M k : ℕ) (δ : ℝ) : Prop where
   /-- the K-family's re-pin parameter is a genuine modulus -/
@@ -2468,7 +2468,7 @@ inside `M4Close.M4SievedDoorSq_L`; the `def` is a spelling, definitionally trans
 def doorSievedCoeff_L (M : ℕ) : ℕ → ℂ :=
   memSCoeff (calP (AdoorL M) (3072 * M)) (calQK (AdoorL M) (3072 * M) M) 2 liouvilleC
 
-/-! ### `M4BridgeCover` :570 — `doorSievedCoeff_gk` -/
+/-! ### `M4BridgeCover` :567 — `doorSievedCoeff_gk` -/
 /-- **THE DOOR'S SIEVED DATUM AT THE LEVER** — `doorSievedCoeff_L` (:361) at `G := s13GK K M`.
 Byte-exactly the coefficient sequence inside `M4Close.M4SievedDoorSq_L_gk`. -/
 def doorSievedCoeff_L_gk (K M : ℕ) : ℕ → ℂ :=

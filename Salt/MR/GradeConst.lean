@@ -910,8 +910,8 @@ amplitude is unchanged (`joint_cs_factoring`, `joint_supF_pin`, `bridge_adapter`
 
 /-- The pin's elementary arithmetic at the `e^{64}` gate, in the form that carries
 `log y = 4 log L` and the STRICT gap `1/L < η` (which `FarClose`'s low-leg shift
-`δ = η − 1/L > 0` needs).  Public since O13-e: `SupClose`, `FarClose`, `FarStar`,
-`GradeWindowC` and `RHSGradeC` each re-derived it as a private copy. -/
+`δ = η − 1/L > 0` needs).  Public since O13-e: `FarClose` and `FarStar` re-derived it;
+`SupClose`, `GradeWindowC` and `RHSGradeC` re-derived the weakened `pin_basic64`. -/
 lemma pin_basic64_strict {k L y η : ℝ} (hk : Real.exp 64 ≤ k) (hL : L = Real.log k)
     (hy : y = L ^ 4) (hη : η = 1 / Real.log y) :
     0 < k ∧ 64 ≤ L ∧ (131072 : ℝ) ≤ y ∧ Real.log y = 4 * Real.log L ∧ 0 < η ∧ η ≤ 1 / 8

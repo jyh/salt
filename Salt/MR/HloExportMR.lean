@@ -105,7 +105,7 @@ theorem m4_exit_socket_split_sq_arc_hloCap :
 /-! ## §2 — the closed loop, cap-carrying -/
 
 /-- **THE LOOP, CLOSED, WITH THE BASE CAP** (`m4_doorL2_close_split_sq_hloCap`) —
-`M4DoorL2.m4_doorL2_close_split_sq` (`M4DoorL2.lean:592`) plus `(Hcap : ℕ)` in the
+`M4DoorL2.m4_doorL2_close_split_sq` (`M4DoorL2.lean:587`) plus `(Hcap : ℕ)` in the
 `∃`-prefix and `R.Hlo ≤ max Hcap U1floor` in the payload.  A pure conjunct carry:
 the proof is the landed one, reading §1 instead of the landed socket, with the new
 conjunct destructured and re-emitted. -/
@@ -138,12 +138,7 @@ theorem m4_doorL2_close_split_sq_hloCap :
   have hG : 1 ≤ 3072 * M := by
     have := hgates.hM
     omega
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   refine hR (memSCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 liouvilleC)
     (fun m => lamCoeff m - memSCoeff (calP (Adoor M) (3072 * M))
       (calQK (Adoor M) (3072 * M) M) 2 liouvilleC m)
@@ -338,12 +333,7 @@ theorem m4_doorL2_close_split_sq_hloCap_pinned :
   have hG : 1 ≤ 3072 * M := by
     have := hgates.hM
     omega
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   refine hR (memSCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 liouvilleC)
     (fun m => lamCoeff m - memSCoeff (calP (Adoor M) (3072 * M))
       (calQK (Adoor M) (3072 * M) M) 2 liouvilleC m)
@@ -504,12 +494,7 @@ theorem m4_doorL2_close_split_sq_hloCap_gk (K : ℕ) :
     have h := Adoor_ge M
     omega
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   refine hR (memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2
       liouvilleC)
     (fun m => lamCoeff m - memSCoeff (calP (Adoor M) (s13GK K M))
@@ -532,7 +517,7 @@ theorem m4_doorL2_close_split_sq_hloCap_gk (K : ℕ) :
       mul_le_mul_of_nonneg_left (hceil H hlo hhi) (by linarith)
     linarith
 
-/-- `m4_second_road_L2_hloCap` (:188), at the lever. -/
+/-- `m4_second_road_L2_hloCap` (:183), at the lever. -/
 theorem m4_second_road_L2_hloCap_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧
@@ -636,12 +621,7 @@ theorem m4_doorL2_close_split_sq_hloCap_pinned_gk (K : ℕ) :
     have h := Adoor_ge M
     omega
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   refine hR (memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2
       liouvilleC)
     (fun m => lamCoeff m - memSCoeff (calP (Adoor M) (s13GK K M))

@@ -30,8 +30,8 @@ produces the wrong object and `le_trans hoc (le_trans hB …)` will not typechec
 `ShiftFork`'s import cone, so stating the terminal there *does* add an import.
 
 ## B4 — ⛔ AND MY SIGNATURE ERROR, COMMITTED IN A BLOCK THAT CITES THE LAW AGAINST IT
-§1's table says `log_chowla_two_shell_xi_sq` is *"consumed by `M4DoorL2.lean:408`"*.
-**`M4DoorL2.lean:408` IS PROSE inside a `/-! … -/` section-doc block, and `Salt/MR/M4DoorL2.lean`
+§1's table says `log_chowla_two_shell_xi_sq` is *"consumed by `M4DoorL2.lean:403`"*.
+**`M4DoorL2.lean:403` IS PROSE inside a `/-! … -/` section-doc block, and `Salt/MR/M4DoorL2.lean`
 does not import `Theorem23Shell` at all.** ***Docstring-as-declaration — the exact defect in my own
 banked six-corrections law — written into a design block whose J-gates cite that law.***
 The real consumers: `SpineFinal.lean:1255` · `S16Uniform.lean:230` · `HloExport.lean:323` ·
@@ -129,7 +129,7 @@ a category error in the query, not an absence and not a broken matcher.*
 | object | where | role |
 |---|---|---|
 | `log_chowla_two_shell_xi` | `Theorem23Shell.lean:242` | **the statement to mirror at `h`** |
-| `log_chowla_two_shell_xi_sq` | `:361` | the squared variant; consumed by `M4DoorL2.lean:408` |
+| `log_chowla_two_shell_xi_sq` | `:361` | the squared variant; consumed by `M4DoorL2.lean:403` |
 | `circle_method_estimate_h` | `ShiftFork.lean:397` | supplies `hcirc` **at offset `p·h`** |
 | `contradiction_of_mrtDoorXiH` | `ShiftFork.lean:338` | the door-firing contradiction at `bigXiH h` |
 | `MRTUniformityXiH h R δ` | ShiftFork | the h-twisted door hypothesis |
