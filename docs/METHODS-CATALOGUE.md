@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `246da892` · source digest `cfc4858a118b5367` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `b0dc4ffd` · source digest `c43bdadfa5f8b4b8` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23464 · with a proof/definition body: 23464 · direct corpus references (edges): 85960 · audited results: 9148 · corpus Prop-valued names: 691.
+Declarations indexed: 23478 · with a proof/definition body: 23478 · direct corpus references (edges): 85966 · audited results: 9148 · corpus Prop-valued names: 701.
 
 ## Hypothesis status (Deliverable A)
 
@@ -13,13 +13,13 @@ Declarations indexed: 23464 · with a proof/definition body: 23464 · direct cor
 |---|---|---|---|
 | DISCHARGED | 221 | 150 | 1065 |
 | STRUCTURAL | 4 | 4 | 95 |
-| FRAME | 47 | 24 | 157 |
-| OPEN | 419 | 191 | 730 |
-| **all** | 691 | 369 | 1630 |
+| FRAME | 48 | 24 | 157 |
+| OPEN | 428 | 191 | 730 |
+| **all** | 701 | 369 | 1630 |
 
 Of the DISCHARGED, 98 are discharged ONLY by GUARDED producers (the producer carries non-corpus Prop premises, e.g. `2 ≤ q → P q`, or instantiates P at specific arguments).
 
-FRAME overlap (the FRAME rule is evaluated on EVERY corpus Prop, status-blind; precedence then assigns one status): 76 Props pass the FRAME rule — 26 are DISCHARGED, 3 are STRUCTURAL (STRUCTURAL kept, not re-labelled), 47 carry status FRAME. STRUCTURAL Props that FAIL the FRAME rule: 1.
+FRAME overlap (the FRAME rule is evaluated on EVERY corpus Prop, status-blind; precedence then assigns one status): 77 Props pass the FRAME rule — 26 are DISCHARGED, 3 are STRUCTURAL (STRUCTURAL kept, not re-labelled), 48 carry status FRAME. STRUCTURAL Props that FAIL the FRAME rule: 1.
 
 ## LIMITS — read these beside every count above
 
@@ -656,7 +656,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.TwinBar.TwinTypeII` | OPEN | 1 | — |
 | `Salt.Vmvt.PairEqFracBound` | OPEN | 1 | — |
 
-## Every corpus Prop not hung on an audited result (322)
+## Every corpus Prop not hung on an audited result (332)
 
 | hypothesis | status | producer(s) |
 |---|---|---|
@@ -754,6 +754,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.S15Sel` | FRAME | — |
 | `Salt.MR.S15Sel_gk` | FRAME | — |
 | `Salt.MR.S16BaseScaleCapL96_gk` | FRAME | — |
+| `Salt.RH.RobinInequality` | FRAME | — |
 | `EH` | OPEN | — |
 | `LambdaLevel` | OPEN | — |
 | `LambdaLevelU` | OPEN | — |
@@ -968,6 +969,15 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MaynardK.SlackEv105` | OPEN | — |
 | `Salt.MaynardK.WinSlackM105` | OPEN | — |
 | `Salt.Parity.ParityBarrier` | OPEN | — |
+| `Salt.RH.CramerGap` | OPEN | — |
+| `Salt.RH.DeterministicMR` | OPEN | — |
+| `Salt.RH.GRHDirichlet` | OPEN | — |
+| `Salt.RH.MillerAlgebraic` | OPEN | — |
+| `Salt.RH.PiLi2` | OPEN | — |
+| `Salt.RH.Schoenfeld` | OPEN | — |
+| `Salt.RH.SmallNonMember` | OPEN | — |
+| `Salt.RH.StrongProbablePrime` | OPEN | — |
+| `Salt.RH.VonKochPsi` | OPEN | — |
 | `Salt.SW.dhLSeries_target` | OPEN | — |
 | `Salt.Twelve.WinFrontierMWL` | OPEN | — |
 | `Salt.Twelve.WinSlack` | OPEN | — |
