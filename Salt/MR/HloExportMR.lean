@@ -10,6 +10,7 @@ import Salt.MR.S11CoefWS
 import Salt.MR.M4DoorL2
 import Salt.Entropy.Chowla.HloExport
 import Salt.MR.CgPin
+import Salt.MR.ArcRegimeWeaken
 
 /-!
 # ⟦THE `Hlo` CAP⟧ on the road — the MR half of the re-thread (node HLO-EXPORT)
@@ -163,7 +164,7 @@ theorem m4_doorL2_close_split_sq_hloCap :
 /-! ## §3 — THE TERMINAL: the second road's register, cap-carrying -/
 
 /-- **⟦THE SECOND ROAD'S TERMINAL REGISTER, AT THE `L²` DOOR, WITH THE BASE CAP⟧**
-(`m4_second_road_L2_hloCap`) — `S12Compose.m4_second_road_L2` (`S12Compose.lean:101`)
+(`m4_second_road_L2_hloCap`) — `S12Compose.m4_second_road_L2` (`S12Compose.lean:102`)
 plus `(Hcap : ℕ)` in the `∃`-prefix and the payload conjunct
 
 ```
@@ -215,16 +216,8 @@ theorem m4_second_road_L2_hloCap :
   intro δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3
     hdgate hdrift hceil hbudget hrow
   -- ⟦the window floor, read at the two powers the chain spends⟧
-  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
-  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith only [harc1, h1, sq_nonneg (arcDen 12 H)]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -408,16 +401,8 @@ theorem m4_second_road_L2_hloCap_pinned :
   intro δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3
     hdgate hdrift hceil hbudget hrow
   -- ⟦the window floor, read at the two powers the chain spends⟧
-  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
-  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith only [harc1, h1, sq_nonneg (arcDen 12 H)]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -448,7 +433,7 @@ theorem m4_second_road_L2_hloCap_pinned :
 
 The `L²` door export at `G := s13GK K M` (`GLever`), `(K : ℕ)` first.
 
-⟦§1 IS `G`-FREE AND IS REUSED VERBATIM⟧ `m4_exit_socket_split_sq_arc_hloCap` (:68) and its
+⟦§1 IS `G`-FREE AND IS REUSED VERBATIM⟧ `m4_exit_socket_split_sq_arc_hloCap` (:69) and its
 pinned twin (:277) speak an ABSTRACT split `(a, e)` — no door object occurs in either
 statement — so both are consumed unchanged by the twins below.  `parseval_insert_budget_door`,
 its bounded twin, `sum_bigXi_insert_spelling_eq` and `l2_budget_line` are `(A, G)`-ABSTRACT or
@@ -466,7 +451,7 @@ this dispatch).
 `L²` budget constant.  It is ALPHA-RENAMED to `Kb` so the lever's `(K : ℕ)` can go first, per
 THE KDESIGN. -/
 
-/-- `m4_doorL2_close_split_sq_hloCap` (:112), at the lever. -/
+/-- `m4_doorL2_close_split_sq_hloCap` (:113), at the lever. -/
 theorem m4_doorL2_close_split_sq_hloCap_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧
       ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
@@ -517,7 +502,7 @@ theorem m4_doorL2_close_split_sq_hloCap_gk (K : ℕ) :
       mul_le_mul_of_nonneg_left (hceil H hlo hhi) (by linarith)
     linarith
 
-/-- `m4_second_road_L2_hloCap` (:183), at the lever. -/
+/-- `m4_second_road_L2_hloCap` (:184), at the lever. -/
 theorem m4_second_road_L2_hloCap_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧
@@ -554,16 +539,8 @@ theorem m4_second_road_L2_hloCap_gk (K : ℕ) :
   intro δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3
     hdgate hdrift hceil hbudget hrow
   -- ⟦the window floor, read at the two powers the chain spends⟧
-  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
-  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith only [harc1, h1, sq_nonneg (arcDen 12 H)]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN_gk K R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -682,16 +659,8 @@ theorem m4_second_road_L2_hloCap_pinned_gk (K : ℕ) :
   intro δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3
     hdgate hdrift hceil hbudget hrow
   -- ⟦the window floor, read at the two powers the chain spends⟧
-  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
-  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith only [harc1, h1, sq_nonneg (arcDen 12 H)]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN_gk K R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow

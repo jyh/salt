@@ -432,7 +432,7 @@ ONE of the socket's two optional payloads and drop the other:
   serves the SOCKET's single open binder, not the door register.
 
 This file is the join: the door register with BOTH conjuncts in one `∃ R` payload.  It is
-the genre `S11Thread.lean:29-31` states verbatim — *"the landed proofs with one extra
+the genre `S11Thread.lean:30-32` states verbatim — *"the landed proofs with one extra
 component carried … No landed declaration is touched."*  Here two components are carried.
 
 ## What is NEW here, and what is not
@@ -445,7 +445,7 @@ fires it, with the same three floor demands joined into the socket's last floor 
 `U1floor := max U1floor (max ⌈Real.exp 36000000⌉₊ (epsFloor ε))`
 
 and the caller's own floor re-exposed as a binder.  ⛔ `m4_door_contradiction_of_live_split_tower`
-(`S11Thread.lean:49`) already carries the tower half; the CONJUNCTION with the headroom
+(`S11Thread.lean:50`) already carries the tower half; the CONJUNCTION with the headroom
 conjunct is what was missing, and a corpus scan on 2026-08-24 found the `^ (1500 : ℕ)`
 headroom conjunct only in `MRTPort.lean` and `DoorFloor1500.lean`, neither of which carries
 the tower.
