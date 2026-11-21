@@ -991,8 +991,8 @@ FALSE by 6.88× (`s16_audit_Ct_over_pin`) — the FOURTH register vacuity of the
 
 `Kc` descends (all pass-throughs) `final'` ← … ← `logChowla2_capstone_final_const'_graded_gk_
 pinned` ← `HloExportMR.m4_second_road_L2_hloCap_pinned_gk` (:648) ← `…_close_split_sq_
-hloCap_pinned_gk` (:640) ← `…m4_exit_socket_split_sq_arc_hloCap_pinned` (:277) ←
-`HloExport.log_chowla_two_budget_head_g_sq_count_hloCap_pinned` (:508), where it is minted as
+hloCap_pinned_gk` (:595) ← `…m4_exit_socket_split_sq_arc_hloCap_pinned` (:262) ←
+`HloExport.log_chowla_two_budget_head_g_sq_count_hloCap_pinned` (:480), where it is minted as
 `bigXi_bounded`'s `∃`-constant (`GoldbachEnergyFinal` :502) — the large-spectrum `L²` count.
 `ConstantsExposed.KExpr` (:346) IS that constant's closed form at the same `ε`-pin; the two
 landed numerals about it are `KExpr_le : KExpr ≤ 12·10^{161}` (:356) and

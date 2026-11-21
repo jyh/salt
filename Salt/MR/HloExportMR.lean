@@ -517,7 +517,7 @@ theorem m4_doorL2_close_split_sq_hloCap_gk (K : ℕ) :
       mul_le_mul_of_nonneg_left (hceil H hlo hhi) (by linarith)
     linarith
 
-/-- `m4_second_road_L2_hloCap` (:188), at the lever. -/
+/-- `m4_second_road_L2_hloCap` (:183), at the lever. -/
 theorem m4_second_road_L2_hloCap_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧

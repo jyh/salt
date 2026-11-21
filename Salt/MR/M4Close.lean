@@ -661,7 +661,7 @@ Everything above in this file is byte-untouched, `M4DoorGates` included: the spl
 consume the bundle unchanged, and post-split its `hMδ` field reads `24·Cg/δ ≤ M` at a
 constant-scale `δ` — the freeze's "defused at the constant", by design. -/
 
-/-- **THE GRADE GATE, SPLIT** (`M4GradeGateSplit`) — the twin of `M4GradeGate` (:425) at the
+/-- **THE GRADE GATE, SPLIT** (`M4GradeGateSplit`) — the twin of `M4GradeGate` (:426) at the
 constant grade.  The three summands are the SAME three (the socket's `L²` grade after the
 `√`, the door's sieve grade `δ/4`, the door's endpoint grade `4·2^k/x`); only the target
 moves, from `mrtDeliveredGrade C H` to `δ₀`.
@@ -673,7 +673,7 @@ def M4GradeGateSplit (R : ChowlaRegime) (δ₀ δ : ℝ) (Braw : ℕ → ℝ) (k
     Real.sqrt (Braw H) + δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ δ₀
 
 /-- **THE SPLIT GATE, DISCHARGED FROM THE PRICING** (`m4_gradeGate_of_pricing_split`) — the
-twin of `m4_gradeGate_of_pricing` (:434).
+twin of `m4_gradeGate_of_pricing` (:435).
 
 The pricing is read DIRECTLY against the constant: `Braw H ≤ (δ₀/2)²` pays the `√`-half by
 `Real.sqrt_sq`, and the caller meets the door's own two terms against the other half.  No
@@ -750,7 +750,7 @@ theorem m4_hbd_of_live_split :
         mul_le_mul_of_nonneg_right (hgrade H hlo hhi) (Nat.cast_nonneg H)
 
 /-- **THE WAVE'S EXIT, SPLIT** (`m4_door_contradiction_of_live_split`) — the twin of
-`m4_door_contradiction_of_live` (:537): `m4_exit_socket_split ∘ m4_hbd_of_live_split`.
+`m4_door_contradiction_of_live` (:534): `m4_exit_socket_split ∘ m4_hbd_of_live_split`.
 
 ⟦THE REGISTER, split form⟧ is the landed one with `C` deleted and the budget line re-cut:
 
@@ -807,7 +807,7 @@ def m4RawMS_gk (K : ℕ) (C₁' M₀ : ℝ) (M : ℕ) (X h : ℝ) : ℝ :=
         * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
     + 6315000 / h
 
-/-- **THE ARITHMETIC CLOSE OF THE MEAN SQUARE, AT THE LEVER.**  `m4_rawMS_le` (:249)
+/-- **THE ARITHMETIC CLOSE OF THE MEAN SQUARE, AT THE LEVER.**  `m4_rawMS_le` (:250)
 verbatim. -/
 theorem m4_rawMS_le_gk (K : ℕ) {C₁' M₀ W X h G : ℝ} {M : ℕ} (hW : 1 ≤ W)
     (hM : m4Demand W ≤ M₀)
@@ -822,7 +822,7 @@ theorem m4_rawMS_le_gk (K : ℕ) {C₁' M₀ W X h G : ℝ} {M : ℕ} (hW : 1 �
   unfold m4RawMS_gk
   linarith
 
-/-- The lever's close at the door's own cap `W = m4W H` — `m4_rawMS_le_saving` (:264). -/
+/-- The lever's close at the door's own cap `W = m4W H` — `m4_rawMS_le_saving` (:265). -/
 theorem m4_rawMS_le_saving_gk (K : ℕ) {C₁' M₀ X h : ℝ} {M H : ℕ} (hW : 1 ≤ m4W H)
     (hM : m4Demand (m4W H) ≤ M₀)
     (g1 : 8448 * C₁' ^ 2 * (m4W H) ^ (-(5 : ℝ) / 2) ≤ m4Saving H / 5)
@@ -835,7 +835,7 @@ theorem m4_rawMS_le_saving_gk (K : ℕ) {C₁' M₀ X h : ℝ} {M H : ℕ} (hW :
     m4RawMS_gk K C₁' M₀ M X h ≤ m4Saving H :=
   m4_rawMS_le_gk K hW hM g1 g2 g3 g4 g5
 
-/-- **THE M4-7 SOCKET AT THE LEVER** — `M4SievedDoorSq` (:368) at `G := s13GK K M`.  The
+/-- **THE M4-7 SOCKET AT THE LEVER** — `M4SievedDoorSq` (:369) at `G := s13GK K M`.  The
 sieve set moves with `K`; the shape does not. -/
 def M4SievedDoorSq_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Braw : ℕ → ℝ) : Prop :=
   M4BandTransport →
@@ -846,7 +846,7 @@ def M4SievedDoorSq_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Braw : ℕ → ℝ
             ∂(logMeasure R.x R.ω))
           ≤ Braw H * (H : ℝ) ^ 2
 
-/-- **THE LEVER'S SOCKET IS INHABITED** — `m4_sievedDoorSq_trivial` (:384) verbatim: the
+/-- **THE LEVER'S SOCKET IS INHABITED** — `m4_sievedDoorSq_trivial` (:385) verbatim: the
 1-boundedness of `memSCoeff` is `G`-uniform. -/
 theorem m4_sievedDoorSq_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) :
     M4SievedDoorSq_gk K R M (fun _ => 1) := by
@@ -859,7 +859,7 @@ theorem m4_sievedDoorSq_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) :
     (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC) H n α)
   nlinarith
 
-/-- **THE DOOR-DATA GATE BUNDLE AT THE LEVER** — `M4DoorGates` (:403) with the per-block
+/-- **THE DOOR-DATA GATE BUNDLE AT THE LEVER** — `M4DoorGates` (:404) with the per-block
 `SieveBlockGate` read at `G := s13GK K M`. -/
 structure M4DoorGates_gk (K : ℕ) (Cg : ℝ) (R : ChowlaRegime) (M k : ℕ) (δ : ℝ) : Prop where
   /-- the K-family's re-pin parameter is a genuine modulus -/
@@ -880,7 +880,7 @@ structure M4DoorGates_gk (K : ℕ) (Cg : ℝ) (R : ChowlaRegime) (M k : ℕ) (δ
   hblocks : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ i < k,
     SieveBlockGate (Adoor M) (s13GK K M) M 2 (doorLadder R.x H (i + 1))
 
-/-- **THE M4-7 DELIVERABLE AT THE LEVER** — `m4_hbd_of_live` (:464).  The one proof diff:
+/-- **THE M4-7 DELIVERABLE AT THE LEVER** — `m4_hbd_of_live` (:465).  The one proof diff:
 `1 ≤ s13GK K M` comes from `one_le_s13GK` where the landed line used `omega`. -/
 theorem m4_hbd_of_live_gk (K : ℕ) :
     ∃ Cg : ℝ, 1 ≤ Cg ∧
@@ -925,7 +925,7 @@ theorem m4_hbd_of_live_gk (K : ℕ) :
     _ ≤ mrtDeliveredGrade C H * (H : ℝ) :=
         mul_le_mul_of_nonneg_right (hgrade H hlo hhi) (Nat.cast_nonneg H)
 
-/-- **THE WAVE'S EXIT AT THE LEVER** — `m4_door_contradiction_of_live` (:537). -/
+/-- **THE WAVE'S EXIT AT THE LEVER** — `m4_door_contradiction_of_live` (:534). -/
 theorem m4_door_contradiction_of_live_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
       ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
@@ -942,7 +942,7 @@ theorem m4_door_contradiction_of_live_gk (K : ℕ) :
   exact ⟨R, hReps, hU1, hRg, fun δ Braw M k hgates hBraw0 hgrade hsock =>
     hR (hhbd R C δ Braw M k hgates hBraw0 hgrade hsock)⟩
 
-/-- **The lever's exit, collision form** — `m4_door_False_of_live` (:555). -/
+/-- **The lever's exit, collision form** — `m4_door_False_of_live` (:552). -/
 theorem m4_door_False_of_live_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
       ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
@@ -959,7 +959,7 @@ theorem m4_door_False_of_live_gk (K : ℕ) :
   exact ⟨R, hReps, hU1, hRg, fun δ Braw M k hgates hBraw0 hgrade hsock hfail =>
     hR (hhbd R C δ Braw M k hgates hBraw0 hgrade hsock) hfail⟩
 
-/-- **THE M4-7 DELIVERABLE, SPLIT, AT THE LEVER** — `m4_hbd_of_live_split` (:710). -/
+/-- **THE M4-7 DELIVERABLE, SPLIT, AT THE LEVER** — `m4_hbd_of_live_split` (:707). -/
 theorem m4_hbd_of_live_split_gk (K : ℕ) :
     ∃ Cg : ℝ, 1 ≤ Cg ∧
       ∀ (R : ChowlaRegime) (δ₀ δ : ℝ) (Braw : ℕ → ℝ) (M k : ℕ),

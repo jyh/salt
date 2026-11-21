@@ -1644,7 +1644,7 @@ theorem m4_hbd_of_live_split_L :
     _ ≤ δ₀ * (H : ℝ) :=
         mul_le_mul_of_nonneg_right (hgrade H hlo hhi) (Nat.cast_nonneg H)
 
-/-- **THE M4-7 DELIVERABLE, SPLIT, AT THE LEVER** — `m4_hbd_of_live_split_L` (:710). -/
+/-- **THE M4-7 DELIVERABLE, SPLIT, AT THE LEVER** — `m4_hbd_of_live_split_L` (:707). -/
 theorem m4_hbd_of_live_split_L_gk (K : ℕ) :
     ∃ Cg : ℝ, 1 ≤ Cg ∧
       ∀ (R : ChowlaRegime) (δ₀ δ : ℝ) (Braw : ℕ → ℝ) (M k : ℕ),
@@ -2281,7 +2281,7 @@ theorem le_doorChiSup_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) 
     ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖ ≤ doorChiSup_L χ M H n :=
   le_doorChiSupAZ (AdoorL M) (3072 * M) χ M H n hK
 
-/-- **THE M4-7 DELIVERABLE AT THE LEVER** — `m4_hbd_of_live_L` (:464).  The one proof diff:
+/-- **THE M4-7 DELIVERABLE AT THE LEVER** — `m4_hbd_of_live_L` (:465).  The one proof diff:
 `1 ≤ s13GK K M` comes from `one_le_s13GK` where the landed line used `omega`. -/
 theorem m4_hbd_of_live_L_gk (K : ℕ) :
     ∃ Cg : ℝ, 1 ≤ Cg ∧
@@ -2484,7 +2484,7 @@ theorem m4_capE_at_door_L_gk (K : ℕ) {q M Nd Xd P Q : ℕ} [NeZero q] {b cf : 
     (fun n => norm_doorRowDatumU_le_one_L_gk K M Xd n) hb1 hcf1 hasupp Mtail htail Tann hT
 
 /-- **THE WAVE'S EXIT, SPLIT** (`m4_door_contradiction_of_live_split_L`) — the twin of
-`m4_door_contradiction_of_live_L` (:537): `m4_exit_socket_split ∘ m4_hbd_of_live_split_L`.
+`m4_door_contradiction_of_live_L` (:534): `m4_exit_socket_split ∘ m4_hbd_of_live_split_L`.
 
 ⟦THE REGISTER, split form⟧ is the landed one with `C` deleted and the budget line re-cut:
 
@@ -2760,7 +2760,7 @@ theorem classSup_le_inv_totient_sum_doorChiSup_L {q : ℕ} [NeZero q] {r : ℕ}
       ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup_L χ M H n :=
   classSup_le_inv_totient_sum_doorChiSup_AZ (AdoorL M) (3072 * M) hcop M H n
 
-/-- **THE WAVE'S EXIT AT THE LEVER** — `m4_door_contradiction_of_live_L` (:537). -/
+/-- **THE WAVE'S EXIT AT THE LEVER** — `m4_door_contradiction_of_live_L` (:534). -/
 theorem m4_door_contradiction_of_live_L_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
       ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),

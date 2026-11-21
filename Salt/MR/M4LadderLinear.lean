@@ -1809,7 +1809,7 @@ structure M4DoorGates_L (Cg : ℝ) (R : ChowlaRegime) (M k : ℕ) (δ : ℝ) : P
     SieveBlockGate (AdoorL M) (3072 * M) M 2 (doorLadder R.x H (i + 1))
 
 /-! ### `M4Close` :838 — `M4SievedDoorSq_gk` -/
-/-- **THE M4-7 SOCKET AT THE LEVER** — `M4SievedDoorSq_L` (:368) at `G := s13GK K M`.  The
+/-- **THE M4-7 SOCKET AT THE LEVER** — `M4SievedDoorSq_L` (:1774) at `G := s13GK K M`.  The
 sieve set moves with `K`; the shape does not. -/
 def M4SievedDoorSq_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Braw : ℕ → ℝ) : Prop :=
   M4BandTransport →
@@ -1821,7 +1821,7 @@ def M4SievedDoorSq_L_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Braw : ℕ → �
           ≤ Braw H * (H : ℝ) ^ 2
 
 /-! ### `M4Close` :862 — `M4DoorGates_gk` -/
-/-- **THE DOOR-DATA GATE BUNDLE AT THE LEVER** — `M4DoorGates_L` (:403) with the per-block
+/-- **THE DOOR-DATA GATE BUNDLE AT THE LEVER** — `M4DoorGates_L` (:1792) with the per-block
 `SieveBlockGate` read at `G := s13GK K M`. -/
 structure M4DoorGates_L_gk (K : ℕ) (Cg : ℝ) (R : ChowlaRegime) (M k : ℕ) (δ : ℝ) : Prop where
   /-- the K-family's re-pin parameter is a genuine modulus -/

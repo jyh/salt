@@ -426,7 +426,7 @@ as *"available to any of them without a re-run"*.  Two landed forwarders each ke
 ONE of the socket's two optional payloads and drop the other:
 
 * `M4Close.m4_door_contradiction_of_live_split` (`M4Close.lean:764`) discards the tower with
-  a `-` in its `obtain` (`:784`) and carries no headroom conjunct at all;
+  a `-` in its `obtain` (`:778`) and carries no headroom conjunct at all;
 * `MRTPort.regime_headroom_at_socket` (`MRTPort.lean:99`) discards the tower with a `-`
   (`:113`) and trades it for the `B₅ = 12` W-headroom `(log H₊)^{1500} ≤ log (x/(2ω))`, but
   serves the SOCKET's single open binder, not the door register.

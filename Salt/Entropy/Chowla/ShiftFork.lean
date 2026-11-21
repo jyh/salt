@@ -529,7 +529,7 @@ twice, so it now names WHICH slot is open rather than asserting a bare absence.*
   (7b node N4s), which has no producer and cannot get one from `nearRatTight_mono`: that
   raises caps ONE WAY, so the `α`-set at `h · arcDen 12 H` strictly contains the landed
   socket's and the implication runs backwards.  The `h`-mint
-  (`m4_doorL2_supply_500`'s `h`-analogue, `M4DoorL2.lean:201`/`:730`) is open with it.
+  (`m4_doorL2_supply_500`'s `h`-analogue, `M4DoorL2.lean:201`/`:715`) is open with it.
 
 ⇒ the fork makes this door REACHABLE, not done — but the open residue is now ONE named
 socket, not the whole chain.  *Prose beside code is a second implementation nobody tests.*
