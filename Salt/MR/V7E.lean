@@ -170,7 +170,7 @@ theorem logChowla2_ineffective_v7 (A₀ : ℝ) :
 `v7`'s second inner rider, `XCeilRiderStrict ε g`, is a property of the function the CALLER
 supplies as its outer-scale request.  A caller who requests nothing supplies `g ≡ 0`, and then
 the rider is met by `Real.log 0 = 0` — the same three-line discharge the corpus already runs
-inside `RegisterCompose` (:248-251), `XThread` (:1274) and `V7B` (:825) to read off the
+inside `RegisterCompose` (:244-245), `XThread` (:1286) and `V7B` (:825) to read off the
 `ε`-ceiling.  This section states that instance as its own citable declaration.
 
 Additive: `logChowla2_ineffective_v7` is byte-untouched and remains the object of record. -/
@@ -228,11 +228,7 @@ theorem logChowla2_ineffective_v7_g0 (A₀ : ℝ) :
     hCgle, hεpin, hδpin, hMflb, hβ, hA162, hA₀A, hKvt0, ?_⟩
   intro hKs
   -- ⟦THE RIDER, VOID⟧ the caller's request is `0`, and `log 0 = 0` leaves the margin intact
-  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
-    intro Hhi ω hgate
-    obtain ⟨-, -, hωw⟩ := hgate
-    simp only [Nat.cast_zero, Real.log_zero]
-    linarith [Real.log_natCast_nonneg ω]
+  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := xceilRiderStrict_zero ε
   obtain ⟨R, hReps, hHlo, -, hRtow, hdes, hwin, hfire⟩ := hmain hKs (fun _ _ => 0) hzero
   exact ⟨R, hReps, hHlo, hRtow, hdes, hwin, hfire⟩
 

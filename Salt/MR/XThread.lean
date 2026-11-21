@@ -1227,6 +1227,18 @@ theorem flat_conditional_uniform_win_xceil_kwide_khoist (Awin : ℝ)
 
 /-! ## §9 — ⟦THE FLAT LINEAR TERMINAL `v2`, `K`-HOISTED AND `x`-CEILINGED⟧ -/
 
+/-- **⟦DREAM-SPACE, night 08/14 — branch artifact; consumes nothing until waking review⟧**
+
+**⟦THE ZERO CALLER⟧** (`xceilRiderStrict_zero`) — the constant-zero request meets
+`XCeilRiderStrict` at every `ε`.  `log 0 = 0` and the gate's own width window carries the
+`ε²·H₊` margin; `log ω ≥ 0` closes it.  (Named so the terminal can cite it; it
+sits beside `XCeilRiderStrict` so every charge head can take it in place of an inline witness.) -/
+theorem xceilRiderStrict_zero (ε : ℚ) : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
+  intro Hhi ω hgate
+  obtain ⟨-, -, hωw⟩ := hgate
+  simp only [Nat.cast_zero, Real.log_zero]
+  linarith [Real.log_natCast_nonneg ω]
+
 set_option exponentiation.threshold 4000 in
 set_option maxHeartbeats 1600000 in
 -- Same cause as the landed original: the hoisted prefix plus the three window discharges
@@ -1273,18 +1285,11 @@ theorem logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist (Awin : �
     hcond0 (max 162 (budgetAFlat (ε : ℝ) β)) (le_max_left _ _) (le_max_right _ _)
   -- the `ε`-probe's own `g ≡ 0` obeys the strict rider trivially (`log 0 = 0`, and the gate's
   -- width window already carries the `ε²·H₊` margin)
-  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := by
-    intro Hhi ω hgate
-    obtain ⟨-, -, hωw⟩ := hgate
-    simp only [Nat.cast_zero, Real.log_zero]
-    linarith [Real.log_natCast_nonneg ω]
+  have hzero : XCeilRiderStrict ε (fun _ _ : ℕ => 0) := xceilRiderStrict_zero ε
   obtain ⟨R0, hR0eps, -, -, -, -, -⟩ :=
     hbody0 (max Hcap0 (max arcFloor36 loglogFloor50)) (fun _ _ => 0) hzero le_rfl
-  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
-  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hε2q
-  have hεR : (1 : ℝ) / 500 ≤ (ε : ℝ) := by
-    simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
+  have hε2 : (ε : ℝ) ≤ 1 / 2 := by simpa [hR0eps] using (Rat.cast_le (K := ℝ)).mpr R0.heps1
+  have hεR : (1 : ℝ) / 500 ≤ (ε : ℝ) := by simpa using (Rat.cast_le (K := ℝ)).mpr hεpin
   refine ⟨ε, Cg, Kc, δ₀, β, x₀, Hopq, Mfl, hε, hCg, hKc, hδ₀, hMfl1,
     hCgle, hεpin, hδpin, hMflb, hβ, ?_⟩
   intro K
