@@ -105,7 +105,7 @@ theorem m4_exit_socket_split_sq_arc_hloCap :
 /-! ## §2 — the closed loop, cap-carrying -/
 
 /-- **THE LOOP, CLOSED, WITH THE BASE CAP** (`m4_doorL2_close_split_sq_hloCap`) —
-`M4DoorL2.m4_doorL2_close_split_sq` (`M4DoorL2.lean:592`) plus `(Hcap : ℕ)` in the
+`M4DoorL2.m4_doorL2_close_split_sq` (`M4DoorL2.lean:587`) plus `(Hcap : ℕ)` in the
 `∃`-prefix and `R.Hlo ≤ max Hcap U1floor` in the payload.  A pure conjunct carry:
 the proof is the landed one, reading §1 instead of the landed socket, with the new
 conjunct destructured and re-emitted. -/
