@@ -4,6 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.PerronTrunc
+import Salt.HB.TwistedMertens
+import Salt.SW.ZetaPartialFractions
 
 /-!
 # O106 row R1, node N4a — truncated Perron for `ψ`
@@ -230,5 +232,110 @@ theorem perron_psi {y c T : ℝ} (hy : 1 < y) (hyn : ∀ m : ℕ, (m : ℝ) ≠ 
     rw [e]
     exact mul_le_mul_of_nonneg_left (by linarith) vonMangoldt_nonneg
   exact hE.norm_le_of_bounded hgs.hasSum hbound
+
+/-! ## N4b — the size of the Perron error at `T = y²` -/
+
+/-- `|log(y/m)| ≥ 1/(4y)` when `y ≥ 1`, `m ≥ 1` and `|y − m| ≥ 1/2`. -/
+theorem log_div_ge {y : ℝ} {m : ℕ} (hy : 1 ≤ y) (hm : 1 ≤ m) (hym : 1 / 2 ≤ |y - m|) :
+    1 / (4 * y) ≤ |Real.log (y / m)| := by
+  have hy0 : 0 < y := by linarith
+  have hm' : (1 : ℝ) ≤ m := by exact_mod_cast hm
+  have hm0 : (0 : ℝ) < m := by linarith
+  rcases lt_or_ge (m : ℝ) y with hlt | hge
+  · have hd : 1 / 2 ≤ y - m := by
+      rw [abs_of_pos (by linarith)] at hym; exact hym
+    have h1 : 1 - m / y ≤ Real.log (y / m) := by
+      have := Real.one_sub_inv_le_log_of_pos (show 0 < y / m by positivity)
+      rwa [inv_div] at this
+    have h2 : 1 / (4 * y) ≤ 1 - m / y := by
+      rw [div_le_iff₀ (by positivity)]
+      have : (1 - m / y) * (4 * y) = 4 * (y - m) := by field_simp
+      rw [this]; linarith
+    have h3 : 0 < 1 / (4 * y) := by positivity
+    rw [abs_of_nonneg (by linarith)]
+    linarith
+  · have hd : 1 / 2 ≤ m - y := by
+      rw [abs_sub_comm, abs_of_nonneg (by linarith)] at hym; exact hym
+    have h1 : 1 - y / m ≤ Real.log (m / y) := by
+      have := Real.one_sub_inv_le_log_of_pos (show 0 < (m : ℝ) / y by positivity)
+      rwa [inv_div] at this
+    have hneg : Real.log (y / m) = -Real.log (m / y) := by
+      rw [← Real.log_inv, inv_div]
+    have h2 : 1 / (4 * y) ≤ 1 - y / m := by
+      have e : 1 - y / m = (m - y) / m := by field_simp
+      rw [e, div_le_div_iff₀ (by positivity) hm0]
+      nlinarith
+    have h3 : 0 < 1 / (4 * y) := by positivity
+    rw [hneg, abs_neg, abs_of_nonneg (by linarith)]
+    linarith
+
+/-- `∑ Λ(n) n^{−σ} ≤ 1/(σ − 1) + 1080 log 2` for `1 < σ ≤ 2`. -/
+theorem sum_vonMangoldt_rpow_le {σ : ℝ} (h1 : 1 < σ) (h2 : σ ≤ 2) :
+    ∑' n : ℕ, Λ n * (n : ℝ) ^ (-σ) ≤ 1 / (σ - 1) + 1080 * Real.log 2 := by
+  rw [← Salt.HB.neg_re_logDeriv_zeta_eq_tsum h1]
+  have h := Salt.SW.zeta_neg_re_logDeriv_le (γ := 0) h1 h2
+  simp only [Complex.ofReal_zero, mul_zero, zero_mul, add_zero, abs_zero, zero_add] at h
+  have e1 : (-deriv riemannZeta (σ : ℂ) / riemannZeta (σ : ℂ))
+      = -logDeriv riemannZeta (σ : ℂ) := by
+    rw [logDeriv_apply, neg_div]
+  have e2 : (1 / ((σ : ℂ) - 1)).re = 1 / (σ - 1) := by
+    rw [show ((σ : ℂ) - 1) = ((σ - 1 : ℝ) : ℂ) by push_cast; ring, ← Complex.ofReal_one,
+      ← Complex.ofReal_div, Complex.ofReal_re]
+  rw [e1]
+  rw [e2] at h
+  exact h
+
+/-- **N4b.** The Perron error of `perron_psi`, for `y ≥ 1` at distance `≥ 1/2` from every integer
+and `1 < c ≤ 2`:
+`∑' Λ(m) · 2 (y/m)^c / (T |log(y/m)|) ≤ (8 y · y^c / T) (1/(c − 1) + 1080 log 2)`. -/
+theorem perron_psi_error_le {y c T : ℝ} (hy : 1 ≤ y) (hyn : ∀ m : ℕ, 1 / 2 ≤ |y - m|)
+    (hc1 : 1 < c) (hc2 : c ≤ 2) (hT : 0 < T) :
+    ∑' m : ℕ, Λ m * (2 * ((y / m) ^ c / (T * |Real.log (y / m)|)))
+      ≤ 8 * y * y ^ c / T * (1 / (c - 1) + 1080 * Real.log 2) := by
+  have hy0 : 0 < y := by linarith
+  have hc0 : 0 < c := by linarith
+  set K : ℝ := 8 * y * y ^ c / T with hK
+  have hK0 : 0 ≤ K := by positivity
+  have hterm : ∀ m : ℕ, Λ m * (2 * ((y / m) ^ c / (T * |Real.log (y / m)|)))
+      ≤ K * (Λ m * (m : ℝ) ^ (-c)) := by
+    intro m
+    rcases Nat.eq_zero_or_pos m with rfl | hm
+    · simp
+    · have hm' : (0 : ℝ) < m := by exact_mod_cast hm
+      have hlog := log_div_ge hy hm (hyn m)
+      have hlog0 : 0 < |Real.log (y / m)| := lt_of_lt_of_le (by positivity) hlog
+      have hinv : 1 / |Real.log (y / m)| ≤ 4 * y := by
+        rw [div_le_iff₀ hlog0]
+        have := mul_le_mul_of_nonneg_left hlog (show (0 : ℝ) ≤ 4 * y by positivity)
+        rw [mul_one_div, div_self (by positivity)] at this
+        linarith
+      have hdiv : (y / m) ^ c = y ^ c * (m : ℝ) ^ (-c) := by
+        rw [Real.div_rpow hy0.le hm'.le, Real.rpow_neg hm'.le, div_eq_mul_inv]
+      have e : 2 * ((y / m) ^ c / (T * |Real.log (y / m)|))
+          = 2 * (y / m) ^ c / T * (1 / |Real.log (y / m)|) := by
+        field_simp
+      rw [e]
+      have hpos : 0 ≤ 2 * (y / m) ^ c / T := by positivity
+      calc Λ m * (2 * (y / m) ^ c / T * (1 / |Real.log (y / m)|))
+          ≤ Λ m * (2 * (y / m) ^ c / T * (4 * y)) :=
+            mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left hinv hpos) vonMangoldt_nonneg
+        _ = K * (Λ m * (m : ℝ) ^ (-c)) := by
+            rw [hK, hdiv]; field_simp; ring
+  have hsumR : Summable fun m : ℕ => Λ m * (m : ℝ) ^ (-c) := by
+    have := (summable_psiBound (y := 1) one_pos hc1).mul_left c
+    refine this.congr fun n => ?_
+    rcases Nat.eq_zero_or_pos n with rfl | hn
+    · simp
+    · have hn' : (0 : ℝ) < n := by exact_mod_cast hn
+      rw [Real.div_rpow zero_le_one hn'.le, Real.one_rpow, Real.rpow_neg hn'.le]
+      field_simp
+  have hnonneg : ∀ m : ℕ, 0 ≤ Λ m * (2 * ((y / m) ^ c / (T * |Real.log (y / m)|))) :=
+    fun m => mul_nonneg vonMangoldt_nonneg (by positivity)
+  have hsumL := (hsumR.mul_left K).of_nonneg_of_le hnonneg hterm
+  calc ∑' m : ℕ, Λ m * (2 * ((y / m) ^ c / (T * |Real.log (y / m)|)))
+      ≤ ∑' m : ℕ, K * (Λ m * (m : ℝ) ^ (-c)) := hsumL.tsum_le_tsum hterm (hsumR.mul_left K)
+    _ = K * ∑' m : ℕ, Λ m * (m : ℝ) ^ (-c) := tsum_mul_left
+    _ ≤ K * (1 / (c - 1) + 1080 * Real.log 2) :=
+        mul_le_mul_of_nonneg_left (sum_vonMangoldt_rpow_le hc1 hc2) hK0
 
 end Salt.RH
