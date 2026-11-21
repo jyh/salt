@@ -1618,11 +1618,7 @@ theorem m4_hbd_of_live_split_L :
   have hG : 1 ≤ 3072 * M := by
     have := hgates.hM
     omega
-  have hHx : H + 1 ≤ R.x := by
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx : H + 1 ≤ R.x := R.add_one_le_x H hhi
   -- ⟦M4-8's glue, consumed⟧
   have hglueH := hglue (AdoorL M) (3072 * M) M 2 R.x R.ω H k α δ hA hG hgates.hM hgates.hδ
     hgates.hMδ R.hx R.hω R.hωx hgates.hlogω hHx (hgates.hreach H hlo hhi) hgates.hpow
@@ -1667,11 +1663,7 @@ theorem m4_hbd_of_live_split_L_gk (K : ℕ) :
     have h := AdoorL_ge hgates.hM
     omega
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : H + 1 ≤ R.x := by
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx : H + 1 ≤ R.x := R.add_one_le_x H hhi
   -- ⟦M4-8's glue, consumed at the lever's base⟧
   have hglueH := hglue (AdoorL M) (s13GK K M) M 2 R.x R.ω H k α δ hA hG hgates.hM hgates.hδ
     hgates.hMδ R.hx R.hω R.hωx hgates.hlogω hHx (hgates.hreach H hlo hhi) hgates.hpow
@@ -2208,11 +2200,7 @@ theorem m4_hbd_of_live_L :
   have hG : 1 ≤ 3072 * M := by
     have := hgates.hM
     omega
-  have hHx : H + 1 ≤ R.x := by
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx : H + 1 ≤ R.x := R.add_one_le_x H hhi
   -- ⟦M4-8's glue, consumed⟧
   have hglueH := hglue (AdoorL M) (3072 * M) M 2 R.x R.ω H k α δ hA hG hgates.hM hgates.hδ
     hgates.hMδ R.hx R.hω R.hωx hgates.hlogω hHx (hgates.hreach H hlo hhi) hgates.hpow
@@ -2312,11 +2300,7 @@ theorem m4_hbd_of_live_L_gk (K : ℕ) :
     have h := AdoorL_ge hgates.hM
     omega
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : H + 1 ≤ R.x := by
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx : H + 1 ≤ R.x := R.add_one_le_x H hhi
   -- ⟦M4-8's glue, consumed at the lever's base⟧
   have hglueH := hglue (AdoorL M) (s13GK K M) M 2 R.x R.ω H k α δ hA hG hgates.hM hgates.hδ
     hgates.hMδ R.hx R.hω R.hωx hgates.hlogω hHx (hgates.hreach H hlo hhi) hgates.hpow

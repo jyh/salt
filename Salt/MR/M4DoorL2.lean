@@ -154,12 +154,7 @@ theorem m4_doorL2_supply :
   have hG : 1 ≤ 3072 * M := by
     have := hgates.hM
     omega
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   -- ⟦THE FUSE⟧ the adapter's `hins`, discharged from the Parseval stone.
   have hins : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
       (1 / (H : ℝ) ^ 2) * ∑ ξ ∈ bigXi R.eps H,
@@ -617,12 +612,7 @@ theorem m4_doorL2_close_split_sq :
   have hG : 1 ≤ 3072 * M := by
     have := hgates.hM
     omega
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   refine hR (memSCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 liouvilleC)
     (fun m => lamCoeff m - memSCoeff (calP (Adoor M) (3072 * M))
       (calQK (Adoor M) (3072 * M) M) 2 liouvilleC m)
@@ -691,12 +681,7 @@ theorem m4_doorL2_supply_gk (K : ℕ) :
     have h := Adoor_ge M
     omega
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   -- ⟦THE FUSE⟧ the adapter's `hins`, discharged from the Parseval stone.
   have hins : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
       (1 / (H : ℝ) ^ 2) * ∑ ξ ∈ bigXi R.eps H,
@@ -849,12 +834,7 @@ theorem m4_doorL2_close_split_sq_gk (K : ℕ) :
     have h := Adoor_ge M
     omega
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   refine hR (memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2
       liouvilleC)
     (fun m => lamCoeff m - memSCoeff (calP (Adoor M) (s13GK K M))

@@ -366,11 +366,8 @@ theorem norm_doorSievedCoeff_le_one (M m : ℕ) : ‖doorSievedCoeff M m‖ ≤ 
 /-- **`H + 1 ≤ x` FROM THE REGIME** — the ladder's floor invariant, off `R.hheadroom`
 (`H ≤ Hhi ≤ x/ω ≤ x/2`) and `R.hx`.  Extracted from `M4Close.m4_hbd_of_live`'s proof, where
 the same three lines appear inline. -/
-theorem regime_window_headroom (R : ChowlaRegime) {H : ℕ} (hhi : H ≤ R.Hhi) : H + 1 ≤ R.x := by
-  have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-  have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-  have h2 : 2 ≤ R.x := R.hx
-  omega
+theorem regime_window_headroom (R : ChowlaRegime) {H : ℕ} (hhi : H ≤ R.Hhi) : H + 1 ≤ R.x :=
+  R.add_one_le_x H hhi
 
 /-- **THE PER-BLOCK MEAN SQUARE** — the shape bridges 1–4 deliver, one `doorLadder` block at
 a time, uniformly over the admissible window range and over tight-major frequencies:
