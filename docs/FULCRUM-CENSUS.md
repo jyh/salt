@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `aec93c59` · source digest `7fe564220e9dff26` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `e1e76b98` · source digest `dce5bc98cadd17b4` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,9 +22,9 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 23532 | 702 | 22819 | 9148 | 13 | 295 | 40 | 354 | 84 |
+| 23539 | 702 | 22826 | 9148 | 13 | 295 | 40 | 354 | 84 |
 
-Per-polarity totals over the 702 Props: with F-consumers 541 · with ¬F-consumers 21 · with F-producers (any kind) 454 · with ¬F-producers (any kind) 59.
+Per-polarity totals over the 702 Props: with F-consumers 541 · with ¬F-consumers 21 · with F-producers (any kind) 455 · with ¬F-producers (any kind) 59.
 
 ## FULCRUM-SHAPED (13) — both polarities consumed
 
