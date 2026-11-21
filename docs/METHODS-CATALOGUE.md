@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `a3107a66` · source digest `14e01c89b667d1c1` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `5b36a460` · source digest `0d42191a5e5bfd3a` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23463 · with a proof/definition body: 23463 · direct corpus references (edges): 85951 · audited results: 9148 · corpus Prop-valued names: 691.
+Declarations indexed: 23463 · with a proof/definition body: 23463 · direct corpus references (edges): 85960 · audited results: 9148 · corpus Prop-valued names: 691.
 
 ## Hypothesis status (Deliverable A)
 
@@ -255,14 +255,14 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 163 | `Salt.MR.FlatSocketFormEpsW_band` | 1 | 1 | — | Salt/MR/FlatDoorAllGradesBand.lean:172 |
 | 164 | `Salt.MR.FlatSocketFormU` | 1 | 1 | — | Salt/MR/FlatDoorUniform.lean:315 |
 | 165 | `Salt.MR.L2KernelUniform` | 1 | 0 | — | Salt/MR/MVCore.lean:123 |
-| 166 | `Salt.MR.M4BlockMeanSqBlk2` | 1 | 1 | — | Salt/MR/M4SecondRoad.lean:382 |
+| 166 | `Salt.MR.M4BlockMeanSqBlk2` | 1 | 1 | — | Salt/MR/M4SecondRoad.lean:383 |
 | 167 | `Salt.MR.M4BlockMeanSqBlk2H_L_gk` | 1 | 1 | — | Salt/MR/S16FlatTerminalLinearH.lean:393 |
 | 168 | `Salt.MR.M4ChiSummedBlockMeanSqN_L` | 1 | 2 | — | Salt/MR/M4RowLinear.lean:6019 |
 | 169 | `Salt.MR.M4ChiSummedBlockMeanSqN_L_gk` | 1 | 2 | — | Salt/MR/M4RowLinear.lean:6160 |
 | 170 | `Salt.MR.M4ChiSummedFreeShiftBlockH_L_gk` | 1 | 1 | — | Salt/MR/S16FlatTerminalLinearH.lean:368 |
 | 171 | `Salt.MR.M4CoprimeBlockMeanSqN_L` | 1 | 2 | — | Salt/MR/M4WaveLinear.lean:365 |
 | 172 | `Salt.MR.M4RowMeanSqLam` | 1 | 0 | — | Salt/MR/MRTPortRowLam.lean:49 |
-| 173 | `Salt.MR.M4SievedDoorSqBlk2` | 1 | 1 | — | Salt/MR/M4SecondRoad.lean:323 |
+| 173 | `Salt.MR.M4SievedDoorSqBlk2` | 1 | 1 | — | Salt/MR/M4SecondRoad.lean:324 |
 | 174 | `Salt.MR.M4SievedDoorSqBlk2H_L_gk` | 1 | 1 | — | Salt/MR/S16FlatTerminalLinearH.lean:405 |
 | 175 | `Salt.MR.MRTLemmaA4iiFixed34T` | 1 | 1 | — | Salt/MR/A4FThreshold.lean:62 |
 | 176 | `Salt.MR.MRTParsevalConstantMatch` | 1 | 0 | — | Salt/MR/MRTPropA3.lean:4105 |
