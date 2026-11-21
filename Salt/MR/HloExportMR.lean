@@ -164,7 +164,7 @@ theorem m4_doorL2_close_split_sq_hloCap :
 /-! ## §3 — THE TERMINAL: the second road's register, cap-carrying -/
 
 /-- **⟦THE SECOND ROAD'S TERMINAL REGISTER, AT THE `L²` DOOR, WITH THE BASE CAP⟧**
-(`m4_second_road_L2_hloCap`) — `S12Compose.m4_second_road_L2` (`S12Compose.lean:101`)
+(`m4_second_road_L2_hloCap`) — `S12Compose.m4_second_road_L2` (`S12Compose.lean:102`)
 plus `(Hcap : ℕ)` in the `∃`-prefix and the payload conjunct
 
 ```
@@ -433,7 +433,7 @@ theorem m4_second_road_L2_hloCap_pinned :
 
 The `L²` door export at `G := s13GK K M` (`GLever`), `(K : ℕ)` first.
 
-⟦§1 IS `G`-FREE AND IS REUSED VERBATIM⟧ `m4_exit_socket_split_sq_arc_hloCap` (:68) and its
+⟦§1 IS `G`-FREE AND IS REUSED VERBATIM⟧ `m4_exit_socket_split_sq_arc_hloCap` (:69) and its
 pinned twin (:277) speak an ABSTRACT split `(a, e)` — no door object occurs in either
 statement — so both are consumed unchanged by the twins below.  `parseval_insert_budget_door`,
 its bounded twin, `sum_bigXi_insert_spelling_eq` and `l2_budget_line` are `(A, G)`-ABSTRACT or
@@ -451,7 +451,7 @@ this dispatch).
 `L²` budget constant.  It is ALPHA-RENAMED to `Kb` so the lever's `(K : ℕ)` can go first, per
 THE KDESIGN. -/
 
-/-- `m4_doorL2_close_split_sq_hloCap` (:112), at the lever. -/
+/-- `m4_doorL2_close_split_sq_hloCap` (:113), at the lever. -/
 theorem m4_doorL2_close_split_sq_hloCap_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧
       ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
@@ -502,7 +502,7 @@ theorem m4_doorL2_close_split_sq_hloCap_gk (K : ℕ) :
       mul_le_mul_of_nonneg_left (hceil H hlo hhi) (by linarith)
     linarith
 
-/-- `m4_second_road_L2_hloCap` (:183), at the lever. -/
+/-- `m4_second_road_L2_hloCap` (:184), at the lever. -/
 theorem m4_second_road_L2_hloCap_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧

@@ -17975,7 +17975,7 @@ wide-supply gates + 2 pins (rbd).  Temp audit sections stripped at
 the seal; imports added; build 9628 exit-0 maestro-verified.
 
 ⟦LAMBDA-RECON: THE TRUE FORK — THE WIDTH LAW⟧ 20 probes green.
-(1) S11Thread:18 CONFIRMED at the bytes: the door arm prices at λ₊
+(1) S11Thread:19 CONFIRMED at the bytes: the door arm prices at λ₊
 (gRows/g2_jfloor/gate8 read loglog Hhi linearly), the drift arm at
 λ₋ (winFit at H = Hlo).  (2) THE BUDGET GHOST derived exactly:
 Λ_x ≤ 1280·log2·doorRowFloor M (the census ×1280, kernel-exact,

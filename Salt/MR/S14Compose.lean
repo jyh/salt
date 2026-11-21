@@ -36,7 +36,7 @@ The maestro's table (dispatch of 2026-07-30) instantiated the twin
 | `Kf` | `0` | `DoorArithFrameRho.Knonneg` | fine |
 | `k` | `doorCount R.ω` | `s13_doorGates_of_MSelect'` | fine |
 | `ρ` | `doorRhoOfDelta (s12DeltaSock δ₀ K)` | the twin's own | fine |
-| `U1floor` | `≥ Hcap` (the pin) | `HloExportMR.lean:182` | fine |
+| `U1floor` | `≥ Hcap` (the pin) | `HloExportMR.lean:183` | fine |
 | `g` | `max` of `s13GArm' δ₀`, `gArmDoorRho`, `gArmEge` | `M4AssemblyFrames.lean` | fine |
 | `M` | the ceiling of the floors read after `R` | ⟦EDGE 8⟧ | **REFUTED** — §3 |
 

@@ -240,7 +240,7 @@ theorem m4_door_insert_mass_integral_bounded :
 
 /-- **Link 8, THE TERMINAL** — `M4ParsevalStone.parseval_insert_budget_door`
 (`M4ParsevalStone.lean:341`), verbatim re-emit.  This is the `Cg` the `L²` door
-reads (`HloExportMR.lean:126`), so `Cg ≤ 2·10^12` is now citable ON THE ROAD. -/
+reads (`HloExportMR.lean:127`), so `Cg ≤ 2·10^12` is now citable ON THE ROAD. -/
 theorem parseval_insert_budget_door_bounded :
     ∃ C : ℝ, 1 ≤ C ∧ C ≤ 2 * 10 ^ 12 ∧ ∀ (A G M J x ω H k : ℕ) [NeZero H] (a : ℕ → ℂ) (δ : ℝ)
       (Xi : Finset (ZMod H)),
