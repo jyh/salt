@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `9e37c3d1` · source digest `a1d6e3a34cf33c61` (the same digest as items 1–3).
-> Receipt: files 1424 · decls 23543 · with_body 23543 · tactic_lines 300976 · runs 35498 · blocks 1122.
+> Base: last commit touching `Salt/` = `f8ed63bf` · source digest `d0e60d85697b0b6d` (the same digest as items 1–3).
+> Receipt: files 1428 · decls 23575 · with_body 23575 · tactic_lines 301732 · runs 35563 · blocks 1123.
 
 ## LIMITS (read before any number below)
 
@@ -100,40 +100,40 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-300976 tactic lines. Top 30:
+301732 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 130880 | 43.5% |
-| 2 | `rw` | 48693 | 16.2% |
-| 3 | `exact` | 17396 | 5.8% |
-| 4 | `intro` | 13994 | 4.6% |
-| 5 | `refine` | 12748 | 4.2% |
-| 6 | `linarith` | 10218 | 3.4% |
-| 7 | `obtain` | 9234 | 3.1% |
-| 8 | `calc` | 7743 | 2.6% |
-| 9 | `set` | 5485 | 1.8% |
-| 10 | `simp` | 5127 | 1.7% |
-| 11 | `apply` | 4511 | 1.5% |
-| 12 | `nlinarith` | 3299 | 1.1% |
-| 13 | `unfold` | 2639 | 0.9% |
-| 14 | `exact_mod_cast` | 2350 | 0.8% |
-| 15 | `rcases` | 2116 | 0.7% |
-| 16 | `ring` | 2053 | 0.7% |
-| 17 | `push_cast` | 1922 | 0.6% |
-| 18 | `field_simp` | 1864 | 0.6% |
-| 19 | `by_cases` | 1637 | 0.5% |
-| 20 | `rwa` | 1550 | 0.5% |
-| 21 | `norm_num` | 1471 | 0.5% |
-| 22 | `show` | 1254 | 0.4% |
-| 23 | `omega` | 1253 | 0.4% |
+| 1 | `have` | 131256 | 43.5% |
+| 2 | `rw` | 48802 | 16.2% |
+| 3 | `exact` | 17442 | 5.8% |
+| 4 | `intro` | 14016 | 4.6% |
+| 5 | `refine` | 12764 | 4.2% |
+| 6 | `linarith` | 10254 | 3.4% |
+| 7 | `obtain` | 9243 | 3.1% |
+| 8 | `calc` | 7753 | 2.6% |
+| 9 | `set` | 5519 | 1.8% |
+| 10 | `simp` | 5138 | 1.7% |
+| 11 | `apply` | 4515 | 1.5% |
+| 12 | `nlinarith` | 3313 | 1.1% |
+| 13 | `unfold` | 2651 | 0.9% |
+| 14 | `exact_mod_cast` | 2356 | 0.8% |
+| 15 | `rcases` | 2121 | 0.7% |
+| 16 | `ring` | 2056 | 0.7% |
+| 17 | `push_cast` | 1926 | 0.6% |
+| 18 | `field_simp` | 1865 | 0.6% |
+| 19 | `by_cases` | 1638 | 0.5% |
+| 20 | `rwa` | 1554 | 0.5% |
+| 21 | `norm_num` | 1472 | 0.5% |
+| 22 | `omega` | 1254 | 0.4% |
+| 23 | `show` | 1254 | 0.4% |
 | 24 | `classical` | 1242 | 0.4% |
 | 25 | `rintro` | 1158 | 0.4% |
 | 26 | `congr` | 917 | 0.3% |
-| 27 | `simpa` | 882 | 0.3% |
-| 28 | `positivity` | 789 | 0.3% |
-| 29 | `constructor` | 656 | 0.2% |
-| 30 | `haveI` | 550 | 0.2% |
+| 27 | `simpa` | 887 | 0.3% |
+| 28 | `positivity` | 793 | 0.3% |
+| 29 | `constructor` | 657 | 0.2% |
+| 30 | `haveI` | 552 | 0.2% |
 
 ### Per method family (top 8 each)
 
@@ -145,17 +145,17 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | Selberg/Brun sieve | 69895 | `have` 30035, `rw` 12017, `exact` 3780, `intro` 3236, `apply` 2283, `calc` 2267, `refine` 1685, `obtain` 1447 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 34726 | `have` 15468, `rw` 6451, `exact` 1867, `intro` 1431, `refine` 1416, `linarith` 1099, `calc` 1076, `set` 854 |
 | zero-density / zero-free regions | 13545 | `have` 6218, `rw` 2378, `exact` 694, `intro` 612, `linarith` 569, `refine` 438, `set` 408, `calc` 379 |
-| character sums / L-functions | 62468 | `have` 26160, `rw` 9874, `exact` 4059, `refine` 3593, `intro` 3337, `obtain` 2395, `linarith` 2124, `calc` 1437 |
+| character sums / L-functions | 63081 | `have` 26458, `rw` 9967, `exact` 4098, `refine` 3606, `intro` 3355, `obtain` 2400, `linarith` 2151, `calc` 1446 |
 | exponential sums | 8295 | `have` 3158, `rw` 1696, `exact` 504, `intro` 409, `refine` 391, `linarith` 232, `set` 228, `simp` 209 |
 | Mertens / PNT-type | 3297 | `have` 1530, `rw` 557, `exact` 173, `linarith` 147, `intro` 127, `refine` 103, `apply` 93, `simp` 73 |
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
 | Matomaki-Radziwill / Halasz (short intervals) | 113271 | `have` 51186, `rw` 15625, `exact` 6635, `refine` 6519, `intro` 5663, `linarith` 5114, `obtain` 5005, `calc` 2184 |
-| (no family) | 29321 | `have` 11423, `rw` 5168, `exact` 1772, `intro` 1585, `obtain` 1010, `refine` 985, `set` 922, `calc` 852 |
+| (no family) | 29464 | `have` 11501, `rw` 5184, `exact` 1779, `intro` 1589, `obtain` 1014, `refine` 988, `set` 927, `calc` 853 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
-Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1122 candidates; top 25 by the UPPER-BOUND saving.
+Blocks of 3–20 consecutive tactic lines, repeated ≥ 5 times (non-overlapping) in ≥ 3 files, maximal only (a block is dropped when a one-line-longer block has exactly its occurrences). `$n` = a local name (numbered by first appearance, so equal blocks bind alike), `#` = a numeral. 1123 candidates; top 25 by the UPPER-BOUND saving.
 
 ⚠️ **Lines saved is an UPPER bound, never a price:** a macro call is ≥ 1 line; sites whose placeholders bind differently may not share a macro; generic blocks may cost more to name than to repeat.
 

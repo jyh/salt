@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `9e37c3d1` · source digest `a1d6e3a34cf33c61` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `f8ed63bf` · source digest `d0e60d85697b0b6d` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23543 · with a proof/definition body: 23543 · direct corpus references (edges): 86085 · audited results: 9148 · corpus Prop-valued names: 704.
+Declarations indexed: 23575 · with a proof/definition body: 23575 · direct corpus references (edges): 86170 · audited results: 9148 · corpus Prop-valued names: 704.
 
 ## Hypothesis status (Deliverable A)
 
@@ -1006,7 +1006,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | Selberg/Brun sieve | 5692 | 952 | 3762 | 1357 | 65 | 94 | 0 | 5278 | 4411 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1611 | 747 | 1500 | 719 | 4 | 19 | 0 | 2242 | 1592 |
 | zero-density / zero-free regions | 729 | 295 | 1022 | 749 | 2 | 20 | 0 | 1793 | 1539 |
-| character sums / L-functions | 4333 | 2196 | 1825 | 853 | 81 | 99 | 0 | 2858 | 966 |
+| character sums / L-functions | 4361 | 2196 | 1825 | 853 | 81 | 99 | 0 | 2858 | 966 |
 | exponential sums | 594 | 223 | 799 | 619 | 31 | 33 | 0 | 1482 | 1297 |
 | Mertens / PNT-type | 255 | 67 | 883 | 792 | 4 | 16 | 0 | 1695 | 1638 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
@@ -1193,7 +1193,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | certificates / explicit numerics | 0 | 32 | 50 |
 | Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9838 |
 | entropy decrement | 650 | 534 | 1412 |
-| character sums / L-functions | 966 | 2196 | 4333 |
+| character sums / L-functions | 966 | 2196 | 4361 |
 | circle method / Fourier | 1171 | 83 | 184 |
 | exponential sums | 1297 | 223 | 594 |
 | large sieve | 1326 | 18 | 136 |
