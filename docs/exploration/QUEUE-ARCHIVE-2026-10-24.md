@@ -1483,7 +1483,7 @@ RESURRECTS THEM:**
     E-5c (helm/Fable, one paragraph of statement) · the two
     ε-dependent thresholds `H₀mrt(ε)` / `H₊*(ε)`, whose port instruction v2 §4 corrects to
     *"instantiate the existing `extraFloor` binder — ZERO edits inside `SpineFinal`"* (the v1 target
-    `SpineFinal.lean:461` is a SUPERSEDED terminal) · and 12b's dyadic node, still held.
+    `SpineFinal.lean:462` is a SUPERSEDED terminal) · and 12b's dyadic node, still held.
     ⛔⛔ **AND A THIRD STALENESS, FOUND WHILE PRICING THAT REMAINDER — DO NOT DERIVE THE A.1
     THRESHOLDS FROM THE BRIEF'S TABLE.** v2's *"REMAINING QUANTITATIVE DEMAND, against A.1's actual
     error terms"* writes the middle term **`(loglog h)²/(log h)` — UNSQUARED**. **The corpus's
@@ -1574,7 +1574,7 @@ RESURRECTS THEM:**
     · workhorse `log_le_two_sqrt` · certificate `budget_head_at_mrt_floors`.
     ⛔⛔ **ERRATUM TO THE SEAM LINE ABOVE — IT NAMES ONE BINDER AND THE TWO THRESHOLDS RIDE TWO.**
     *(Annotated, not rewritten.)* Measured at `log_chowla_two_budget_head_g`
-    (`SpineFinal.lean:873-880`): `extraFloor ≤ R.Hlo` and `U1floor ≤ R.Hlo` bound the **window
+    (`SpineFinal.lean:858-865`): `extraFloor ≤ R.Hlo` and `U1floor ≤ R.Hlo` bound the **window
     length**, while `g R.Hhi R.ω ≤ R.x` is the **outer-scale** clearance. `H₀mrt` bounds `h` and
     rides `extraFloor`; **`H₊*` bounds `X` and rides the `g` slot** (fired at a constant function —
     no `max`, no reshaping). Firing both at `extraFloor` would have placed an `X`-floor on `R.Hlo`:
@@ -5798,7 +5798,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    row calls it *"the fork's full payoff"*, but **a consumer-less socket is a socket** and no
    landing here may be reported as extending the h-family's reach.
    ② **`_sq`'s one-window shape is DELIBERATE, not an accident to be generalised.**
-   `Salt/Entropy/All.lean:364` and `SpineFinal.lean:1143` both record it: *"ONE window `x1` — the
+   `Salt/Entropy/All.lean:364` and `SpineFinal.lean:1096` both record it: *"ONE window `x1` — the
    shell's only instantiation"*. The h-analogue must stay diagonal; taking `_h`'s two-window
    shape instead would produce a different object that the `_sq` lane cannot consume.
    📌 **The second half of this row — `m4_doorL2_supply_500`'s h-analogue (`M4DoorL2.lean:201`) —

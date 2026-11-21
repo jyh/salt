@@ -73,7 +73,7 @@ The `g`-clearance CANNOT be bolted onto `budget_head_grade_closed`
 statement rather than a consequence — `regimeEnlargeX` is sound for the regime's own
 field constraints, all one-sided, but not for a door hypothesis already discharged
 at the smaller scale.  Threading `g` in is exactly the freeze's S11 "head-builder
-rerun of `SpineFinal.lean:749-829`", which must happen INSIDE `SpineFinal.lean`
+rerun of `SpineFinal.lean:750-814`", which must happen INSIDE `SpineFinal.lean`
 (its `spine_False_core_xi` is private).  This file supplies the lever S11 calls at
 that point; `regime_head_W_headroom` is the furthest the composition reaches from
 outside.
@@ -288,7 +288,7 @@ theorem chowlaRegime_exists_param_head (eps : ℚ) (heps : 0 < eps) (heps1 : eps
 /-- **The binder-position certificate.**  The head form recovers the landed
 `chowlaRegime_exists_param` (`RegimeParam.lean:416`) verbatim at the trivial demand
 `g := fun _ _ => 0` — so the head is a STRICT generalisation, drop-in at every
-existing call site (in particular `SpineFinal.lean:759`, inside `∀ extraFloor`,
+existing call site (in particular `SpineFinal.lean:760`, inside `∀ extraFloor`,
 where `ε` is already fixed).  The compile is the check. -/
 theorem chowlaRegime_exists_param_of_head (eps : ℚ) (heps : 0 < eps)
     (heps1 : eps ≤ 1 / 2) (Hlo₀ : ℕ) :

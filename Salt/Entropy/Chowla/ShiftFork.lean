@@ -293,7 +293,7 @@ that was FALSE — `docs/blueprints/flags.md`, the W-F2 row of 2026-08-15.)*
 
 **THE PRODUCER STORY, HONESTLY.**  `MRTUniformity` is NEVER PRODUCED anywhere in
 this corpus: every occurrence of it is a hypothesis binder, and the `∀ α`-shaped
-terminal is DERIVED FROM the `Ξ`-restricted door (`SpineFinal.lean:981`), not the
+terminal is DERIVED FROM the `Ξ`-restricted door (`SpineFinal.lean:950`), not the
 reverse.  So `MRTUniformityXiH h` is the `h`-family's OPEN HYPOTHESIS, as
 `MRTUniformityXi` was for `h = 1` until `mrtUniformityXi_holds_flat`
 (`Salt/MR/DoorReceipt.lean`, 2026-09-02) produced it at flat regimes (`∃ R`,

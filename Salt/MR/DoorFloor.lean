@@ -9,7 +9,7 @@ import Salt.MR.DoorDischarge
 /-!
 # `H₀door` — the SPINE-BUDGET head's missing consumable (MR gate, stone S11)
 
-`log_chowla_two_budget_head` (`Salt/Entropy/Chowla/SpineFinal.lean:749`) fixes an
+`log_chowla_two_budget_head` (`Salt/Entropy/Chowla/SpineFinal.lean:750`) fixes an
 honest `ε : ℚ` and the door threshold `δ₀ = (cD3/(16·C))·ε/(2·K) > 0` — BOTH
 before its `∀ extraFloor : ℕ` quantifier, which is what makes the interface
 non-circular — and then hands the caller, for every floor demand `extraFloor`, a
@@ -471,7 +471,7 @@ theorem mrt_tail_le_of_HplusStar {ε X : ℝ} (hε : 0 < ε)
 
 ⛔⛔ **THE QUEUE'S SEAM SAYS "instantiate the existing `∀ extraFloor` binder", AND THAT IS TRUE OF
 ONE THRESHOLD, NOT BOTH.**  Measured at the head's own signature
-(`log_chowla_two_budget_head_g`, `SpineFinal.lean:873-880`):
+(`log_chowla_two_budget_head_g`, `SpineFinal.lean:858-865`):
 
 ```
   extraFloor ≤ R.Hlo         a floor on the WINDOW LENGTH  ⇒  H0mrt ε rides here

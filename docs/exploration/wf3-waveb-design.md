@@ -328,7 +328,7 @@ sweep reaches last, because you remember it as settled.*** Text kept verbatim as
 answer is structural, not numerical.
 
 **① `ε` HAS NO LOWER BOUND BUT POSITIVITY.** `Regime.lean:77-78` gives `0 < eps`, `eps ≤ 1/2`;
-`SpineFinal.lean:413` pins `ε ≤ cE/(32·log 4)`. **Both are CEILINGS.** The only constraint pushing
+`SpineFinal.lean:414` pins `ε ≤ cE/(32·log 4)`. **Both are CEILINGS.** The only constraint pushing
 `ε` up is `hcoprime : a ≤ eps²·Hlo/2` (`Regime.lean:91`) — and it is relieved by **inflating
 `Hlo`**, which `chowlaRegime_exists_param` supplies for any threshold (MRT recon #2). ⇒ Choose
 `ε < 1/√h` and take `Hlo` large enough; `ε²h < 1` holds for any `h`. **K1 costs nothing in
@@ -337,9 +337,9 @@ reachability.**
 **② ⛔ BUT IT IS NOT FREE, AND THE PRICE IS PAID IN A DIFFERENT LANE.** Every form of the door
 threshold in the spine is **LINEAR IN `ε`**:
 ```
-  δ₀ = c₀·ε/4                       SpineFinal.lean:1113, :1311   (c₀ = cD3/(16·C))
-  δ₀ = ε/(2K)                       SpineFinal.lean:416, :513
-  δ₀ = (cD3/(16·C))·ε/(2K)          SpineFinal.lean:739
+  δ₀ = c₀·ε/4                       SpineFinal.lean:1066, :1264   (c₀ = cD3/(16·C))
+  δ₀ = ε/(2K)                       SpineFinal.lean:417, :514
+  δ₀ = (cD3/(16·C))·ε/(2K)          SpineFinal.lean:740
 ```
 ⇒ **Shrinking `ε` shrinks `δ₀` proportionally, and a SMALLER `δ₀` is a STRONGER MRT door.**
 With `ε < 1/√h`:

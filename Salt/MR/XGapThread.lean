@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.Entropy.Chowla.SpineFinal
 import Salt.Entropy.Chowla.TowerExport
 import Salt.MR.S11ExitL2
+import Salt.Entropy.Chowla.HeadPinEps
 
 /-!
 # F-5 — ⟦GAP X, THE THREADING PROBE⟧
@@ -52,25 +53,9 @@ theorem log_chowla_two_budget_head_forallX_sq_count :
   -- ⟦THE ONE CHANGED PRODUCER⟧ the SQUARED circle-method estimate; `C = 1 + 2C₀` unchanged
   obtain ⟨C, hC, hcm⟩ := circle_method_estimate_sq (2 * Real.log 4)
     (by have := Real.log_pos (by norm_num : (1 : ℝ) < 4); linarith)
-  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
   -- choose ε below `min(min(min (cE/(32·log4)) (1/2)) (cD3/16)) (cD3/(16·C))`
-  have hbound_pos : (0 : ℝ) < min (min (min (cE / (32 * Real.log 4)) (1 / 2))
-      (cD3 / 16)) (cD3 / (16 * C)) := by
-    refine lt_min (lt_min (lt_min ?_ ?_) ?_) ?_
-    · exact div_pos hcE (mul_pos (by norm_num) hlog4)
-    · norm_num
-    · exact div_pos hcD3 (by norm_num)
-    · exact div_pos hcD3 (mul_pos (by norm_num) hC)
-  obtain ⟨ε, hε0, hεlt⟩ := exists_rat_btwn hbound_pos
-  have hεR0 : (0 : ℝ) < (ε : ℝ) := hε0
-  have hεQpos : 0 < ε := by exact_mod_cast hεR0
-  have hεcE : (ε : ℝ) ≤ cE / (32 * Real.log 4) := le_of_lt (lt_of_lt_of_le hεlt
-    (le_trans (le_trans (min_le_left _ _) (min_le_left _ _)) (min_le_left _ _)))
-  have hε_half_lt : (ε : ℝ) < 1 / 2 := lt_of_lt_of_le hεlt
-    (le_trans (le_trans (min_le_left _ _) (min_le_left _ _)) (min_le_right _ _))
-  have hε_D3 : (ε : ℝ) ≤ cD3 / 16 := le_of_lt (lt_of_lt_of_le hεlt
-    (le_trans (min_le_left _ _) (min_le_right _ _)))
-  have hε_D3C : (ε : ℝ) ≤ cD3 / (16 * C) := le_of_lt (lt_of_lt_of_le hεlt (min_le_right _ _))
+  obtain ⟨ε, hεQpos, hεR0, hεcE, hε_half_lt, hε_D3, hε_D3C⟩ :=
+    exists_eps_below_heads hcE hcD3 hC
   have hεQ1 : ε ≤ 1 / 2 := by
     have h2 : (2 : ℝ) * (ε : ℝ) < 1 := by linarith [hε_half_lt]
     have h2Q : (2 : ℚ) * ε < 1 := by exact_mod_cast h2

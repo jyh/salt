@@ -9,7 +9,7 @@ threshold `κ`:
 
 * `hbudget1_witnessFlat` — the SPINE-BUDGET AM–GM residual discharged at the
   FLAT `κ = H/(A·log H)` and the HEIGHT-1 floor `budgetFloorFlat`.  This is the
-  one place in the whole spine where `κ`'s VALUE is spent (`SpineFinal.lean:632`
+  one place in the whole spine where `κ`'s VALUE is spent (`SpineFinal.lean:633`
   in the landed cone): the four-slice `shellError` margin.  Every arm but the
   `κ`-arm is byte-identical to the landed `hbudget1_witness`; the `κ`-arm is
   `budget_factsFlat` (iv) in place of `budget_facts` (iv).
