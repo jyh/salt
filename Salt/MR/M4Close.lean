@@ -695,7 +695,7 @@ theorem m4_gradeGate_of_pricing_split {R : ChowlaRegime} {δ₀ δ : ℝ} {Braw 
   linarith
 
 /-- **THE M4-7 DELIVERABLE, SPLIT** (`m4_hbd_of_live_split`) — the twin of `m4_hbd_of_live`
-(:464), byte-plug-compatible with `M4Exit.m4_exit_socket_split`'s single open binder.
+(:465), byte-plug-compatible with `M4Exit.m4_exit_socket_split`'s single open binder.
 
 The proof is the landed one with its final `calc` step re-targeted: the door glue, the
 socket, §1's `L²→L¹` descent and the `√`-split are all identical, and the last line reads the
@@ -1005,7 +1005,7 @@ theorem m4_hbd_of_live_split_gk (K : ℕ) :
         mul_le_mul_of_nonneg_right (hgrade H hlo hhi) (Nat.cast_nonneg H)
 
 /-- **THE WAVE'S EXIT, SPLIT, AT THE LEVER** — `m4_door_contradiction_of_live_split`
-(:771). -/
+(:764). -/
 theorem m4_door_contradiction_of_live_split_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
       ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),

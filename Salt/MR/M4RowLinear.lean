@@ -1590,7 +1590,7 @@ theorem m4_cover_assembly_L_gk (K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {M k : �
   exact hmain
 
 /-- **THE M4-7 DELIVERABLE, SPLIT** (`m4_hbd_of_live_split_L`) — the twin of `m4_hbd_of_live_L`
-(:464), byte-plug-compatible with `M4Exit.m4_exit_socket_split`'s single open binder.
+(:465), byte-plug-compatible with `M4Exit.m4_exit_socket_split`'s single open binder.
 
 The proof is the landed one with its final `calc` step re-targeted: the door glue, the
 socket, §1's `L²→L¹` descent and the `√`-split are all identical, and the last line reads the
@@ -2514,7 +2514,7 @@ theorem m4_door_contradiction_of_live_split_L :
     hR (hhbd R δ₀ δ Braw M k hgates hBraw0 hgrade hsock)⟩
 
 /-- **THE WAVE'S EXIT, SPLIT, AT THE LEVER** — `m4_door_contradiction_of_live_split_L`
-(:771). -/
+(:764). -/
 theorem m4_door_contradiction_of_live_split_L_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
       ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),

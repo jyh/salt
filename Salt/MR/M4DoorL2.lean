@@ -711,7 +711,7 @@ theorem m4_doorL2_supply_gk (K : ℕ) :
   linarith
 
 /-- **THE `L²` DOOR SUPPLY AT THE IMPROVED COUNT, AT THE LEVER** — `m4_doorL2_supply_500`
-(:206). -/
+(:201). -/
 theorem m4_doorL2_supply_500_gk (K : ℕ) :
     ∃ (Cg KXi : ℝ), 1 ≤ Cg ∧ 0 < KXi ∧ ∃ H₀ : ℕ,
       ∀ (R : ChowlaRegime), R.eps = 1 / 500 → H₀ ≤ R.Hlo →
