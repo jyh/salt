@@ -9,7 +9,7 @@ import Salt.MR.ZetaLowerAllT
 import Salt.MR.TwistedEdge
 
 /-!
-# O106 row R1 — von Koch from RH: the analytic inputs (nodes N1, N2)
+# O106 row R1 — von Koch from RH: the analytic inputs (nodes N1, N2, N3)
 
 The route (the O106 plan, addendum 3, frozen after a three-refuter pass): bound
 `logDeriv Zc = ζ′/ζ + 1/(s − 1)` (not the bare `ζ′/ζ`, which has the pole at `1`) near the

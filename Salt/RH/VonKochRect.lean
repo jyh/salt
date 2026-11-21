@@ -7,7 +7,7 @@ import Salt.RH.VonKoch
 import Salt.SW.ContourShift
 
 /-!
-# O106 row R1, node N5 — the rectangle and its residue at `s = 1`
+# O106 row R1, nodes N5, N6 — the rectangle, its residue at `s = 1`, and the edges
 
 Under RH, `Zc` has no zero on `Re s > 1/2`, so
 

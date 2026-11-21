@@ -8,7 +8,7 @@ import Salt.HB.TwistedMertens
 import Salt.SW.ZetaPartialFractions
 
 /-!
-# O106 row R1, node N4a — truncated Perron for `ψ`
+# O106 row R1, nodes N4a, N4b — truncated Perron for `ψ` and its error
 
 For `y > 1` not an integer, `c > 1` and `T > 0`,
 
