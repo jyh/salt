@@ -17,7 +17,7 @@ stated in `L²`.
 
 This file re-serves the socket so its open binder is the `L²` demand at grade
 `δ₀²·H²`.  Nothing analytic is added: the `L²→L¹` step is the landed
-`M4Close.integral_logMeasure_le_sqrt_of_sq` (`M4Close.lean:191`), which carries no
+`M4Close.integral_logMeasure_le_sqrt_of_sq` (`M4Close.lean:192`), which carries no
 integrability side condition, and the only arithmetic is `√(δ₀²H²) = δ₀·H` under two
 nonnegativity facts the `ChowlaRegime` record already holds (`R.hx`, `R.hω`).
 

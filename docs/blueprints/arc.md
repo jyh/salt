@@ -55,7 +55,7 @@ close; every wave carries that sentence.
 
 **VERDICT (a): THE SIEVED ROAD.** The pricing wave's adversarial gate broke the five-reader
 default at the bytes: the sieved supply is LANDED end-to-end — `m4_doorL2_close_split_sq`
-(`M4DoorL2.lean:597`, legs 1/3/4 in place) → `m4_second_road_L2` (`S12Compose.lean:99`,
+(`M4DoorL2.lean:592`, legs 1/3/4 in place) → `m4_second_road_L2` (`S12Compose.lean:99`,
 11-item register, ONE analytic item, that item carrying FIVE producers + an unconditional
 witness) → grade MET → `logChowla2_ineffective_v7_ksarm_g0` (`V7Headline.lean:144`, no outer
 hypotheses, ONE open rider). The rider (`Kvt` cushion) measured at its flip-point: no second
@@ -65,7 +65,7 @@ terminal's own exports). Corroborated by the month-old JYH-ratified s9-freeze �
 **BASELINE CORRECTION folded: v2's premise "neither road has a supply today" was FALSE at
 tip** — the readers' census was scoped to the unprimed spelling (correct and irrelevant; the
 live spine is the `_L_gk` family; *a census is scoped by its spelling, and a spelling is a
-claim*). **The reframe, on the record:** `m4_hbd_of_live` (`M4Close.lean:461`) lands the
+claim*). **The reframe, on the record:** `m4_hbd_of_live` (`M4Close.lean:462`) lands the
 UNSIEVED L¹ conclusion FROM sieved hypotheses — one object at two exponents, not two roads;
 ruling (a) is the provable route TO the unsieved target. Units fence: the roads were measured
 in different units (supply census vs demand enumeration) — "sieved = 1 class-D" reads *by

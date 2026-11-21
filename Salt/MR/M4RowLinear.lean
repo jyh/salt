@@ -1590,7 +1590,7 @@ theorem m4_cover_assembly_L_gk (K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {M k : �
   exact hmain
 
 /-- **THE M4-7 DELIVERABLE, SPLIT** (`m4_hbd_of_live_split_L`) — the twin of `m4_hbd_of_live_L`
-(:464), byte-plug-compatible with `M4Exit.m4_exit_socket_split`'s single open binder.
+(:465), byte-plug-compatible with `M4Exit.m4_exit_socket_split`'s single open binder.
 
 The proof is the landed one with its final `calc` step re-targeted: the door glue, the
 socket, §1's `L²→L¹` descent and the `√`-split are all identical, and the last line reads the
@@ -1618,11 +1618,7 @@ theorem m4_hbd_of_live_split_L :
   have hG : 1 ≤ 3072 * M := by
     have := hgates.hM
     omega
-  have hHx : H + 1 ≤ R.x := by
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx : H + 1 ≤ R.x := R.add_one_le_x H hhi
   -- ⟦M4-8's glue, consumed⟧
   have hglueH := hglue (AdoorL M) (3072 * M) M 2 R.x R.ω H k α δ hA hG hgates.hM hgates.hδ
     hgates.hMδ R.hx R.hω R.hωx hgates.hlogω hHx (hgates.hreach H hlo hhi) hgates.hpow
@@ -1648,7 +1644,7 @@ theorem m4_hbd_of_live_split_L :
     _ ≤ δ₀ * (H : ℝ) :=
         mul_le_mul_of_nonneg_right (hgrade H hlo hhi) (Nat.cast_nonneg H)
 
-/-- **THE M4-7 DELIVERABLE, SPLIT, AT THE LEVER** — `m4_hbd_of_live_split_L` (:710). -/
+/-- **THE M4-7 DELIVERABLE, SPLIT, AT THE LEVER** — `m4_hbd_of_live_split_L` (:707). -/
 theorem m4_hbd_of_live_split_L_gk (K : ℕ) :
     ∃ Cg : ℝ, 1 ≤ Cg ∧
       ∀ (R : ChowlaRegime) (δ₀ δ : ℝ) (Braw : ℕ → ℝ) (M k : ℕ),
@@ -1667,11 +1663,7 @@ theorem m4_hbd_of_live_split_L_gk (K : ℕ) :
     have h := AdoorL_ge hgates.hM
     omega
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : H + 1 ≤ R.x := by
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx : H + 1 ≤ R.x := R.add_one_le_x H hhi
   -- ⟦M4-8's glue, consumed at the lever's base⟧
   have hglueH := hglue (AdoorL M) (s13GK K M) M 2 R.x R.ω H k α δ hA hG hgates.hM hgates.hδ
     hgates.hMδ R.hx R.hω R.hωx hgates.hlogω hHx (hgates.hreach H hlo hhi) hgates.hpow
@@ -2208,11 +2200,7 @@ theorem m4_hbd_of_live_L :
   have hG : 1 ≤ 3072 * M := by
     have := hgates.hM
     omega
-  have hHx : H + 1 ≤ R.x := by
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx : H + 1 ≤ R.x := R.add_one_le_x H hhi
   -- ⟦M4-8's glue, consumed⟧
   have hglueH := hglue (AdoorL M) (3072 * M) M 2 R.x R.ω H k α δ hA hG hgates.hM hgates.hδ
     hgates.hMδ R.hx R.hω R.hωx hgates.hlogω hHx (hgates.hreach H hlo hhi) hgates.hpow
@@ -2293,7 +2281,7 @@ theorem le_doorChiSup_L {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) 
     ‖∑ m ∈ doorSievedWindow_L M K n, liouChi χ m‖ ≤ doorChiSup_L χ M H n :=
   le_doorChiSupAZ (AdoorL M) (3072 * M) χ M H n hK
 
-/-- **THE M4-7 DELIVERABLE AT THE LEVER** — `m4_hbd_of_live_L` (:464).  The one proof diff:
+/-- **THE M4-7 DELIVERABLE AT THE LEVER** — `m4_hbd_of_live_L` (:465).  The one proof diff:
 `1 ≤ s13GK K M` comes from `one_le_s13GK` where the landed line used `omega`. -/
 theorem m4_hbd_of_live_L_gk (K : ℕ) :
     ∃ Cg : ℝ, 1 ≤ Cg ∧
@@ -2312,11 +2300,7 @@ theorem m4_hbd_of_live_L_gk (K : ℕ) :
     have h := AdoorL_ge hgates.hM
     omega
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : H + 1 ≤ R.x := by
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx : H + 1 ≤ R.x := R.add_one_le_x H hhi
   -- ⟦M4-8's glue, consumed at the lever's base⟧
   have hglueH := hglue (AdoorL M) (s13GK K M) M 2 R.x R.ω H k α δ hA hG hgates.hM hgates.hδ
     hgates.hMδ R.hx R.hω R.hωx hgates.hlogω hHx (hgates.hreach H hlo hhi) hgates.hpow
@@ -2500,7 +2484,7 @@ theorem m4_capE_at_door_L_gk (K : ℕ) {q M Nd Xd P Q : ℕ} [NeZero q] {b cf : 
     (fun n => norm_doorRowDatumU_le_one_L_gk K M Xd n) hb1 hcf1 hasupp Mtail htail Tann hT
 
 /-- **THE WAVE'S EXIT, SPLIT** (`m4_door_contradiction_of_live_split_L`) — the twin of
-`m4_door_contradiction_of_live_L` (:537): `m4_exit_socket_split ∘ m4_hbd_of_live_split_L`.
+`m4_door_contradiction_of_live_L` (:534): `m4_exit_socket_split ∘ m4_hbd_of_live_split_L`.
 
 ⟦THE REGISTER, split form⟧ is the landed one with `C` deleted and the budget line re-cut:
 
@@ -2530,7 +2514,7 @@ theorem m4_door_contradiction_of_live_split_L :
     hR (hhbd R δ₀ δ Braw M k hgates hBraw0 hgrade hsock)⟩
 
 /-- **THE WAVE'S EXIT, SPLIT, AT THE LEVER** — `m4_door_contradiction_of_live_split_L`
-(:771). -/
+(:764). -/
 theorem m4_door_contradiction_of_live_split_L_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
       ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
@@ -2776,7 +2760,7 @@ theorem classSup_le_inv_totient_sum_doorChiSup_L {q : ℕ} [NeZero q] {r : ℕ}
       ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup_L χ M H n :=
   classSup_le_inv_totient_sum_doorChiSup_AZ (AdoorL M) (3072 * M) hcop M H n
 
-/-- **THE WAVE'S EXIT AT THE LEVER** — `m4_door_contradiction_of_live_L` (:537). -/
+/-- **THE WAVE'S EXIT AT THE LEVER** — `m4_door_contradiction_of_live_L` (:534). -/
 theorem m4_door_contradiction_of_live_L_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
       ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),

@@ -417,7 +417,7 @@ theorem mrtUniformityXiL2H_of_absWindowSqBound (h : ℕ) (R : ChowlaRegime) (a e
 
 /-! ## N4s — the socket AT THE INFLATED CAP, stated and DECLARED OPEN
 
-`M4SievedDoorSq` (`M4Close.lean:368-375`) with the literal `arcDen 12 H` replaced by
+`M4SievedDoorSq` (`M4Close.lean:369-376`) with the literal `arcDen 12 H` replaced by
 `(h : ℝ) * arcDen 12 H` in the `α`-binder.  Nothing else moves — same coefficient sequence,
 same measure, same grade shape.
 
@@ -449,7 +449,7 @@ def M4SievedDoorSqH (h : ℕ) (R : ChowlaRegime) (M : ℕ) (Braw : ℕ → ℝ) 
           ≤ Braw H * (H : ℝ) ^ 2
 
 /-- ⭐⭐ **N4s IS INHABITED — THE ANTI-VACUITY DUTY, DISCHARGED AT THE SAME TIME THE SOCKET IS
-DECLARED OPEN.**  The `h`-clone of `m4_sievedDoorSq_trivial` (`M4Close.lean:377-390`), and it
+DECLARED OPEN.**  The `h`-clone of `m4_sievedDoorSq_trivial` (`M4Close.lean:378-391`), and it
 is owed for a sharper reason than the landed one: N5 takes `M4SievedDoorSqH` as a HYPOTHESIS,
 and **the kernel cannot check that a hypothesis is inhabited** — an uninhabited socket would
 make every consumer of the `h`-mint VACUOUSLY TRUE, with a green build and a clean axiom audit.
@@ -475,7 +475,7 @@ theorem m4_sievedDoorSqH_trivial (h : ℕ) (R : ChowlaRegime) (M : ℕ) :
 /-! ## N5 — the `h`-mint -/
 
 /-- **N5, §1** (`m4_doorL2_supply_H`) — the `h`-clone of `m4_doorL2_supply`
-(`M4DoorL2.lean:127-188`), the `L²` restructure's stone-7 composition at the twisted set.
+(`M4DoorL2.lean:127-183`), the `L²` restructure's stone-7 composition at the twisted set.
 
 Every summand of the budget line keeps its landed meaning: `2·K·Bceil` is the socket leg (the
 count times the `(a+b)²` factor times the `H`-uniform grade — **no `√`**, the `L¹→L²` descent
@@ -550,7 +550,7 @@ theorem m4_doorL2_supply_H (h : ℕ) (hh : 0 < h) :
   linarith
 
 /-- ⭐⭐ **N5 — THE `h`-MINT** (`m4_doorL2_supply_500_H`), the `h`-clone of
-`m4_doorL2_supply_500` (`M4DoorL2.lean:206-228`), with the count gate discharged.
+`m4_doorL2_supply_500` (`M4DoorL2.lean:201-223`), with the count gate discharged.
 
 ⛔ **THE COUNT DOES NOT GO THROUGH `bigXiH_bounded`** (commission correction 2, striking QUEUE
 7b ③'s citation): that routes through the opaque `bigXi_bounded` and regresses `log₂ KXi` by
@@ -561,7 +561,7 @@ bound) against `bigXi_bounded_500`'s THIRD conjunct — so the exported constant
     `KXi = h · 32·K_lcm·(2^35)² / ε^10`  at `ε = 1/500`,
 
 `h`-explicit in the witness and with the constant IN THE STATEMENT.  The `2 ≤ H` side condition
-is free from the regime (`two_le_regime_Hlo`), exactly as at `M4DoorL2.lean:224-226`.
+is free from the regime (`two_le_regime_Hlo`), exactly as at `M4DoorL2.lean:219-221`.
 
 📌 **WHAT THIS DOES AND DOES NOT DO.**  It mints the door; it does not open it.  `hsock` is a
 HYPOTHESIS here, exactly as the landed mint takes its own — and its supplier (N4s) has no
