@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `5cc7b78d` · source digest `afabb1bff475a48b` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `01f7d109` · source digest `978f5f940fc10c93` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23490 · with a proof/definition body: 23490 · direct corpus references (edges): 85988 · audited results: 9148 · corpus Prop-valued names: 701.
+Declarations indexed: 23492 · with a proof/definition body: 23492 · direct corpus references (edges): 85988 · audited results: 9148 · corpus Prop-valued names: 702.
 
 ## Hypothesis status (Deliverable A)
 
@@ -14,8 +14,8 @@ Declarations indexed: 23490 · with a proof/definition body: 23490 · direct cor
 | DISCHARGED | 222 | 150 | 1065 |
 | STRUCTURAL | 4 | 4 | 95 |
 | FRAME | 48 | 24 | 157 |
-| OPEN | 427 | 191 | 730 |
-| **all** | 701 | 369 | 1630 |
+| OPEN | 428 | 191 | 730 |
+| **all** | 702 | 369 | 1630 |
 
 Of the DISCHARGED, 98 are discharged ONLY by GUARDED producers (the producer carries non-corpus Prop premises, e.g. `2 ≤ q → P q`, or instantiates P at specific arguments).
 
@@ -656,7 +656,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.TwinBar.TwinTypeII` | OPEN | 1 | — |
 | `Salt.Vmvt.PairEqFracBound` | OPEN | 1 | — |
 
-## Every corpus Prop not hung on an audited result (332)
+## Every corpus Prop not hung on an audited result (333)
 
 | hypothesis | status | producer(s) |
 |---|---|---|
@@ -973,6 +973,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.RH.CramerGap` | OPEN | — |
 | `Salt.RH.DeterministicMR` | OPEN | — |
 | `Salt.RH.GRHDirichlet` | OPEN | — |
+| `Salt.RH.GRHPrimitive` | OPEN | — |
 | `Salt.RH.PiLi2` | OPEN | — |
 | `Salt.RH.Schoenfeld` | OPEN | — |
 | `Salt.RH.SmallNonMember` | OPEN | — |
