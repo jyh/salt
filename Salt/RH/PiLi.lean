@@ -6,14 +6,15 @@ Authors: Jason Hickey, Claude
 import Salt.RH.VonKochFinal
 
 /-!
-# O106 row R2 — the prime-counting form: `RiemannHypothesis → PiLi2 3`
+# O106 row R2 — the prime-counting form: `RiemannHypothesis → PiLi2 2` (and `PiLi2 3`)
 
 The core, `piLi2_of_vonKoch : VonKochPsi 3 → PiLi2 3`, carries NO hypothesis on ζ:
 * `|θ(t) − t| ≤ C₁ √t (log t)³` from `VonKochPsi 3` and Mathlib's `|ψ − θ| ≤ 2 √t log t`;
 * `Li₂(x) = x / log x − 2 / log 2 + ∫₂ˣ dt / log² t` (FTC on `t / log t`);
 * Mathlib's `π(x) = θ(x) / log x + ∫₂ˣ θ(t) / (t log² t) dt`;
 so `π(x) − Li₂(x) = (θ(x) − x)/log x + 2/log 2 + ∫₂ˣ (θ(t) − t)/(t log² t) dt`, and the integral is
-`≤ C₁ log x ∫₂ˣ t^{−1/2} dt ≤ 2 C₁ √x log x`.
+`≤ C₁ log x ∫₂ˣ t^{−1/2} dt ≤ 2 C₁ √x log x`. The largest term is `(θ(x) − x)/log x ≪ √x (log x)²`,
+so `piLi2_two_of_vonKoch` states `PiLi2 2`; `piLi2_of_vonKoch` is the earlier `PiLi2 3` form.
 -/
 
 namespace Salt.RH
@@ -233,5 +234,74 @@ theorem piLi2_of_vonKoch (hV : VonKochPsi 3) : PiLi2 3 := by
 /-- **R2.** Under RH, `|π(x) − Li₂(x)| ≤ C √x (log x)³` for `x ≥ 2`. -/
 theorem piLi2_three_of_RH (hRH : RiemannHypothesis) : PiLi2 3 :=
   piLi2_of_vonKoch (vonKochPsi_three_of_RH hRH)
+
+/-- **R2 at `log²`, the core: `VonKochPsi 3 → PiLi2 2`** (no hypothesis on `ζ`). The three terms of
+`primeCounting_sub_Li2` are `C₁ √x (log x)²`, `2/log 2` and `2 C₁ √x log x`, so the square is what
+`VonKochPsi 3` buys: the division by `log x` in `(θ(x) − x)/log x` takes one log off. -/
+theorem piLi2_two_of_vonKoch (hV : VonKochPsi 3) : PiLi2 2 := by
+  obtain ⟨C₁, hC₁, hθ⟩ := theta_sub_le_of_vonKoch hV
+  set l : ℝ := Real.log 2 with hl
+  have hl0 : 0 < l := log_two_pos'
+  have hl1 : l < 1 := by
+    have := Real.log_two_lt_d9; rw [hl]; linarith
+  refine ⟨(3 * C₁ + 2) / l ^ 3, fun x hx => ?_⟩
+  have hx0 : 0 < x := by linarith
+  set L : ℝ := Real.log x with hL
+  have hLl : l ≤ L := Real.log_le_log (by norm_num) hx
+  have hL0 : 0 < L := lt_of_lt_of_le hl0 hLl
+  have hs1 : 1 ≤ Real.sqrt x := by
+    rw [show (1 : ℝ) = Real.sqrt 1 by simp]; exact Real.sqrt_le_sqrt (by linarith)
+  rw [primeCounting_sub_Li2 hx]
+  have hI := integral_err_le hC₁ hθ hx
+  have hT := hθ x hx
+  have t1 : |(Chebyshev.theta x - x) / L| ≤ C₁ * Real.sqrt x * L ^ 2 := by
+    rw [abs_div, abs_of_pos hL0, div_le_iff₀ hL0]
+    calc |Chebyshev.theta x - x| ≤ C₁ * Real.sqrt x * L ^ 3 := hT
+      _ = C₁ * Real.sqrt x * L ^ 2 * L := by ring
+  have hl3 : 0 < l ^ 3 := by positivity
+  have hl31 : l ^ 3 ≤ 1 := pow_le_one₀ hl0.le hl1.le
+  have hl32 : l ^ 3 ≤ l := by
+    have := pow_le_pow_of_le_one hl0.le hl1.le (show 1 ≤ 3 by norm_num); simpa using this
+  have hS : 0 ≤ Real.sqrt x * L ^ 2 := by positivity
+  have u1 : C₁ * Real.sqrt x * L ^ 2 ≤ C₁ / l ^ 3 * (Real.sqrt x * L ^ 2) := by
+    rw [div_mul_eq_mul_div, le_div_iff₀ hl3]
+    have h0 : 0 ≤ C₁ * (Real.sqrt x * L ^ 2) := by positivity
+    have := mul_le_mul_of_nonneg_left hl31 h0
+    linarith [show C₁ * Real.sqrt x * L ^ 2 * l ^ 3 = C₁ * (Real.sqrt x * L ^ 2) * l ^ 3 by ring]
+  have u2 : 2 * C₁ * L * Real.sqrt x ≤ 2 * C₁ / l ^ 3 * (Real.sqrt x * L ^ 2) := by
+    have hk : L * l ^ 3 ≤ L ^ 2 := by
+      have h1 : L * l ^ 3 ≤ L * l := mul_le_mul_of_nonneg_left hl32 hL0.le
+      have h2 : L * l ≤ L * L := mul_le_mul_of_nonneg_left hLl hL0.le
+      nlinarith
+    rw [div_mul_eq_mul_div, le_div_iff₀ hl3]
+    have h0 : 0 ≤ 2 * C₁ * Real.sqrt x := by positivity
+    have := mul_le_mul_of_nonneg_left hk h0
+    linarith [show 2 * C₁ * L * Real.sqrt x * l ^ 3 = 2 * C₁ * Real.sqrt x * (L * l ^ 3) by ring,
+      show 2 * C₁ * (Real.sqrt x * L ^ 2) = 2 * C₁ * Real.sqrt x * L ^ 2 by ring]
+  have u3 : 2 / l ≤ 2 / l ^ 3 * (Real.sqrt x * L ^ 2) := by
+    have hL2 : l ^ 2 ≤ L ^ 2 := pow_le_pow_left₀ hl0.le hLl 2
+    have hk : l ^ 2 ≤ Real.sqrt x * L ^ 2 := by nlinarith
+    rw [div_mul_eq_mul_div, le_div_iff₀ hl3, div_mul_eq_mul_div, div_le_iff₀ hl0]
+    have : 2 * l ^ 3 = 2 * l ^ 2 * l := by ring
+    nlinarith
+  have hsum : (3 * C₁ + 2) / l ^ 3 * Real.sqrt x * L ^ 2
+      = C₁ / l ^ 3 * (Real.sqrt x * L ^ 2) + 2 * C₁ / l ^ 3 * (Real.sqrt x * L ^ 2)
+        + 2 / l ^ 3 * (Real.sqrt x * L ^ 2) := by ring
+  have h2l : |2 / l| = 2 / l := abs_of_pos (by positivity)
+  calc |(Chebyshev.theta x - x) / L + 2 / l
+        + ∫ t in (2 : ℝ)..x, (Chebyshev.theta t - t) / (t * Real.log t ^ 2)|
+      ≤ |(Chebyshev.theta x - x) / L| + |2 / l|
+        + |∫ t in (2 : ℝ)..x, (Chebyshev.theta t - t) / (t * Real.log t ^ 2)| := by
+        have := abs_add_le ((Chebyshev.theta x - x) / L + 2 / l)
+          (∫ t in (2 : ℝ)..x, (Chebyshev.theta t - t) / (t * Real.log t ^ 2))
+        have := abs_add_le ((Chebyshev.theta x - x) / L) (2 / l)
+        linarith
+    _ ≤ C₁ * Real.sqrt x * L ^ 2 + 2 / l + 2 * C₁ * L * Real.sqrt x := by
+        rw [h2l]; rw [Real.norm_eq_abs] at hI; linarith
+    _ ≤ (3 * C₁ + 2) / l ^ 3 * Real.sqrt x * L ^ 2 := by linarith
+
+/-- **R2 at `log²`.** Under RH, `|π(x) − Li₂(x)| ≤ C √x (log x)²` for `x ≥ 2`. -/
+theorem piLi2_two_of_RH (hRH : RiemannHypothesis) : PiLi2 2 :=
+  piLi2_two_of_vonKoch (vonKochPsi_three_of_RH hRH)
 
 end Salt.RH
