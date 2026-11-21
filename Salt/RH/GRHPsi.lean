@@ -16,7 +16,7 @@ so `g(s) := −logDeriv L(·, χ)(s) · y^s / s` is holomorphic on every closed 
 
 * **M5** `rectBI_gChi_eq_zero` — the rectangle identity.
 * **M6** `gChi_left_edge_le`, `gChi_horiz_edge_le` — the three other edges, from M3.
-* **M7** `psiChi_le_of_GRH` — `GRHDirichlet → ∃ C, ∀ q, ∀ χ ≠ 1 mod q, ∀ x ≥ 2,
+* **M7** `psiTwist_le_of_GRH` — `GRHDirichlet → ∃ C, ∀ q, ∀ χ ≠ 1 mod q, ∀ x ≥ 2,
   ‖ψ(x, χ)‖ ≤ C √x (log(qx))³`, with `C` absolute.
 
 `GRHDirichlet` is carried as a NAMED HYPOTHESIS (the O106 exception).
@@ -70,7 +70,7 @@ theorem rectBI_gChi_eq_zero (hGRH : GRHDirichlet) {q : ℕ} [NeZero q]
     rw [Set.uIcc_of_le h01] at hre; exact hre.1
   exact (differentiableAt_gChi hGRH hχ hy (by linarith)).differentiableWithinAt
 
-/-- On `Re s > 1`, `gChi` is the Perron integrand of `perron_psiChi`. -/
+/-- On `Re s > 1`, `gChi` is the Perron integrand of `perron_psiTwist`. -/
 theorem gChi_eq_perron {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) (y : ℝ) {s : ℂ}
     (hs : 1 < s.re) : gChi χ y s = LSeries (↗χ * ↗Λ) s * pk y s := by
   rw [gChi, LSeries_twist_vonMangoldt_eq_neg_logDeriv χ hs]
@@ -200,17 +200,54 @@ theorem gChi_horiz_edge_le {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ q} 
 
 /-! ## M7 — the assembly -/
 
+/-- The closing real arithmetic of M7a in the fine shape (`A = 6 K log(qy) log y`). -/
+theorem final_arith_fine {e K Ly Lq s P B Q F : ℝ} (he : 0 < e) (hK : 0 ≤ K) (hLy : 4 ≤ Ly)
+    (hLq : Ly ≤ Lq) (hs : 1 ≤ s) (hP : P ≤ 8 * e * (Ly + 760))
+    (hB : B ≤ 6 * K * Lq * Ly * e) (hQ : Q ≤ 6 * K * Lq * Ly * e)
+    (hF : F ≤ 6 * K * Lq * Ly * (s * e) * (8 * (3 * Ly))) :
+    P + B + Q + F ≤ e * (6088 + 156 * K) * s * Lq * Ly ^ 2 := by
+  have hLy1 : 1 ≤ Ly := by linarith
+  have hLq1 : 1 ≤ Lq := by linarith
+  have hX : Ly ≤ s * Lq * Ly ^ 2 := by
+    have h1 : Ly ≤ Lq * Ly ^ 2 := by nlinarith
+    have h2 : 0 ≤ Lq * Ly ^ 2 := by positivity
+    nlinarith
+  have hY : Lq * Ly ≤ s * Lq * Ly ^ 2 := by
+    have h1 : Lq * Ly ≤ Lq * Ly ^ 2 := by
+      have : Ly ≤ Ly ^ 2 := by nlinarith
+      exact mul_le_mul_of_nonneg_left this (by linarith)
+    have h2 : 0 ≤ Lq * Ly ^ 2 := by positivity
+    nlinarith
+  have e1 : P ≤ 6088 * e * (s * Lq * Ly ^ 2) := by
+    have : Ly + 760 ≤ 761 * Ly := by linarith
+    have h8 : 8 * e * (Ly + 760) ≤ 8 * e * (761 * Ly) :=
+      mul_le_mul_of_nonneg_left this (by positivity)
+    have h9 : 8 * e * (761 * Ly) ≤ 8 * e * (761 * (s * Lq * Ly ^ 2)) := by gcongr
+    linarith
+  have e2 : B + Q ≤ 12 * K * e * (s * Lq * Ly ^ 2) := by
+    have : 6 * K * Lq * Ly * e = 6 * K * e * (Lq * Ly) := by ring
+    have h1 : 6 * K * e * (Lq * Ly) ≤ 6 * K * e * (s * Lq * Ly ^ 2) :=
+      mul_le_mul_of_nonneg_left hY (by positivity)
+    linarith
+  have e3 : F ≤ 144 * K * e * (s * Lq * Ly ^ 2) := by
+    have : 6 * K * Lq * Ly * (s * e) * (8 * (3 * Ly)) = 144 * K * e * (s * Lq * Ly ^ 2) := by ring
+    linarith
+  have : e * (6088 + 156 * K) * s * Lq * Ly ^ 2
+      = 6088 * e * (s * Lq * Ly ^ 2) + 12 * K * e * (s * Lq * Ly ^ 2)
+        + 144 * K * e * (s * Lq * Ly ^ 2) := by ring
+  linarith
+
 set_option maxHeartbeats 800000 in -- four edge integrals in one context, as in N7a
-/-- **M7a.** Under GRH, at `y ≥ 55` at distance `≥ 1/2` from every integer, for every `χ ≠ 1`
-mod `q`: `‖ψ(y, χ)‖ ≤ C √y (log(qy))³`, with `C` absolute. -/
-theorem psiChi_le_halfint (hGRH : GRHDirichlet) :
+/-- **M7a, the fine shape.** Under GRH, at `y ≥ 55` at distance `≥ 1/2` from every integer, for
+every `χ ≠ 1` mod `q`: `‖ψ(y, χ)‖ ≤ C √y log(qy) (log y)²`, with `C` absolute. -/
+theorem psiTwist_le_halfint_fine (hGRH : GRHDirichlet) :
     ∃ C : ℝ, 0 ≤ C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
       ∀ y : ℝ, 55 ≤ y → (∀ m : ℕ, 1 / 2 ≤ |y - m|) →
-        ‖psiChi χ y‖ ≤ C * Real.sqrt y * Real.log (q * y) ^ 3 := by
+        ‖psiTwist χ y‖ ≤ C * Real.sqrt y * Real.log (q * y) * Real.log y ^ 2 := by
   obtain ⟨K, hK0, hKall⟩ := LFunction_logDeriv_near_half hGRH
   set e : ℝ := Real.exp 1 with he
   have he0 : 0 < e := Real.exp_pos 1
-  refine ⟨e * (8 * 761 + 25 * (4 + 6 * K)) / (2 * Real.pi), by positivity,
+  refine ⟨e * (6088 + 156 * K) / (2 * Real.pi), by positivity,
     fun q _ χ hχ y hy hyn => ?_⟩
   have hK := hKall q χ hχ
   have hq1 : (1 : ℝ) ≤ q := by
@@ -270,7 +307,7 @@ theorem psiChi_le_halfint (hGRH : GRHDirichlet) :
     have := hyn m
     rw [h, sub_self, abs_zero] at this
     norm_num at this
-  have hP := perron_psiChi χ hy1 hyn' hca hT0
+  have hP := perron_psiTwist χ hy1 hyn' hca hT0
   rw [← hRP] at hP
   have hE := perron_psi_error_le hy1.le hyn hca hcb hT0
   have hc1 : 1 / (c₀ - 1) = Ly := by
@@ -289,12 +326,12 @@ theorem psiChi_le_halfint (hGRH : GRHDirichlet) :
   rw [hσLy, hys] at hLfb
   rw [hσLy, hyc] at hBtb hTpb
   -- the triangle inequality
-  have hkey : (2 * (Real.pi : ℂ) * I) * psiChi χ y
-      = -(I * R - 2 * (Real.pi : ℂ) * I * psiChi χ y) - Bt + Tp + I * Lf := by
+  have hkey : (2 * (Real.pi : ℂ) * I) * psiTwist χ y
+      = -(I * R - 2 * (Real.pi : ℂ) * I * psiTwist χ y) - Bt + Tp + I * Lf := by
     linear_combination h5'
-  have hnorm : 2 * Real.pi * ‖psiChi χ y‖
-      ≤ ‖I * R - 2 * (Real.pi : ℂ) * I * psiChi χ y‖ + ‖Bt‖ + ‖Tp‖ + ‖Lf‖ := by
-    have h1 : ‖(2 * (Real.pi : ℂ) * I) * psiChi χ y‖ = 2 * Real.pi * ‖psiChi χ y‖ := by
+  have hnorm : 2 * Real.pi * ‖psiTwist χ y‖
+      ≤ ‖I * R - 2 * (Real.pi : ℂ) * I * psiTwist χ y‖ + ‖Bt‖ + ‖Tp‖ + ‖Lf‖ := by
+    have h1 : ‖(2 * (Real.pi : ℂ) * I) * psiTwist χ y‖ = 2 * Real.pi * ‖psiTwist χ y‖ := by
       rw [norm_mul, norm_mul, norm_mul, Complex.norm_I, mul_one, Complex.norm_two,
         Complex.norm_real, Real.norm_eq_abs, abs_of_pos Real.pi_pos]
     have htri : ∀ a b c d : ℂ, ‖-a - b + c + I * d‖ ≤ ‖a‖ + ‖b‖ + ‖c‖ + ‖d‖ := by
@@ -305,11 +342,11 @@ theorem psiChi_le_halfint (hGRH : GRHDirichlet) :
       rw [norm_neg] at h6
       rw [norm_mul, Complex.norm_I, one_mul] at h4
       linarith
-    have h7 := htri (I * R - 2 * (Real.pi : ℂ) * I * psiChi χ y) Bt Tp Lf
+    have h7 := htri (I * R - 2 * (Real.pi : ℂ) * I * psiTwist χ y) Bt Tp Lf
     rw [← hkey, h1] at h7
     exact h7
   -- sizes
-  have hA : K * Real.log (q * (T + 3)) * (1 + Ly) ≤ 4 + 6 * K * Lq ^ 2 := by
+  have hA : K * Real.log (q * (T + 3)) * (1 + Ly) ≤ 6 * K * Lq * Ly := by
     have hT3 : T + 3 ≤ y ^ 3 := by rw [hT]; nlinarith
     have hlog : Real.log (q * (T + 3)) ≤ 3 * Lq := by
       have h1 : Real.log (q * (T + 3)) ≤ Real.log (q * y ^ 3) :=
@@ -317,15 +354,15 @@ theorem psiChi_le_halfint (hGRH : GRHDirichlet) :
       rw [Real.log_mul (x := (q : ℝ)) (y := y ^ 3) (by positivity) (by positivity),
         Real.log_pow] at h1
       rw [hLqe]; push_cast at h1; nlinarith
-    have h1L : 1 + Ly ≤ 2 * Lq := by linarith
+    have h1L : 1 + Ly ≤ 2 * Ly := by linarith
     have hlog0 : 0 ≤ Real.log (q * (T + 3)) := Real.log_nonneg (by nlinarith)
-    have h3 : Real.log (q * (T + 3)) * (1 + Ly) ≤ 3 * Lq * (2 * Lq) :=
+    have h3 : Real.log (q * (T + 3)) * (1 + Ly) ≤ 3 * Lq * (2 * Ly) :=
       mul_le_mul hlog h1L (by linarith) (by linarith)
-    have h4 : K * Real.log (q * (T + 3)) * (1 + Ly) ≤ K * (3 * Lq * (2 * Lq)) := by
+    have h4 : K * Real.log (q * (T + 3)) * (1 + Ly) ≤ K * (3 * Lq * (2 * Ly)) := by
       rw [mul_assoc]; exact mul_le_mul_of_nonneg_left h3 hK0.le
-    have h5 : K * (3 * Lq * (2 * Lq)) = 6 * K * Lq ^ 2 := by ring
+    have h5 : K * (3 * Lq * (2 * Ly)) = 6 * K * Lq * Ly := by ring
     linarith
-  have hlog1T : Real.log (1 + T) ≤ 3 * Lq := by
+  have hlog1T : Real.log (1 + T) ≤ 3 * Ly := by
     have h : 1 + T ≤ y ^ 3 := by rw [hT]; nlinarith
     have := Real.log_le_log (by positivity) h
     rw [Real.log_pow] at this
@@ -333,18 +370,18 @@ theorem psiChi_le_halfint (hGRH : GRHDirichlet) :
     linarith
   have hsq1 : 1 ≤ Real.sqrt y := by
     rw [show (1 : ℝ) = Real.sqrt 1 by simp]; exact Real.sqrt_le_sqrt (by linarith)
-  set A : ℝ := 4 + 6 * K * Lq ^ 2 with hAdef
+  set A : ℝ := 6 * K * Lq * Ly with hAdef
   have hA0 : 0 ≤ A := by positivity
   have hAA : K * Real.log (q * (T + 3)) * (1 + Ly) ≤ A := hA
   have hcs : c₀ - σ₀ = 1 / 2 := by rw [hc₀, hσ₀]; ring
-  have hE' : ‖I * R - 2 * (Real.pi : ℂ) * I * psiChi χ y‖ ≤ 8 * e * (Lq + 760) := by
+  have hE' : ‖I * R - 2 * (Real.pi : ℂ) * I * psiTwist χ y‖ ≤ 8 * e * (Ly + 760) := by
     have h1 := le_trans hP hE
     have hq : 8 * y * (y * e) / T = 8 * e := by rw [hT]; field_simp
     rw [hq] at h1
     have hl2 : Real.log 2 < 7 / 10 := by
       have := Real.log_two_lt_d9; linarith
-    have : 8 * e * (Ly + 1080 * Real.log 2) ≤ 8 * e * (Lq + 760) := by
-      have : Ly + 1080 * Real.log 2 ≤ Lq + 760 := by linarith
+    have : 8 * e * (Ly + 1080 * Real.log 2) ≤ 8 * e * (Ly + 760) := by
+      have : Ly + 1080 * Real.log 2 ≤ Ly + 760 := by linarith
       exact mul_le_mul_of_nonneg_left this (by positivity)
     linarith
   have hBt' : ‖Bt‖ ≤ A * e := by
@@ -364,28 +401,54 @@ theorem psiChi_le_halfint (hGRH : GRHDirichlet) :
     calc ‖Tp‖ ≤ K * Real.log (q * (T + 3)) * (1 + Ly) * (y * e / T) * (c₀ - σ₀) := hTpb
       _ = K * Real.log (q * (T + 3)) * (1 + Ly) * (y * e / T * (c₀ - σ₀)) := by ring
       _ ≤ A * e := mul_le_mul hAA hq (by have := hσc₀; positivity) hA0
-  have hLf' : ‖Lf‖ ≤ A * (Real.sqrt y * e) * (8 * (3 * Lq)) := by
+  have hLf' : ‖Lf‖ ≤ A * (Real.sqrt y * e) * (8 * (3 * Ly)) := by
     calc ‖Lf‖ ≤ K * Real.log (q * (T + 3)) * (1 + Ly) * (Real.sqrt y * e)
           * (8 * Real.log (1 + T)) := hLfb
-      _ ≤ A * (Real.sqrt y * e) * (8 * (3 * Lq)) := by
+      _ ≤ A * (Real.sqrt y * e) * (8 * (3 * Ly)) := by
           have h0 : 0 ≤ Real.log (1 + T) := Real.log_nonneg (by linarith)
           gcongr
   -- assemble
-  have htot : 2 * Real.pi * ‖psiChi χ y‖
-      ≤ e * (8 * 761 + 25 * (4 + 6 * K)) * Real.sqrt y * Lq ^ 3 :=
-    le_trans hnorm (final_arith he0 hK0.le hLq4 hsq1 hE' hBt' hTp' hLf')
-  calc ‖psiChi χ y‖
-      = 2 * Real.pi * ‖psiChi χ y‖ / (2 * Real.pi) := by field_simp
-    _ ≤ e * (8 * 761 + 25 * (4 + 6 * K)) * Real.sqrt y * Lq ^ 3 / (2 * Real.pi) := by
+  have htot : 2 * Real.pi * ‖psiTwist χ y‖
+      ≤ e * (6088 + 156 * K) * Real.sqrt y * Lq * Ly ^ 2 :=
+    le_trans hnorm (final_arith_fine he0 hK0.le hL4 hLLq hsq1 hE' hBt' hTp' hLf')
+  calc ‖psiTwist χ y‖
+      = 2 * Real.pi * ‖psiTwist χ y‖ / (2 * Real.pi) := by field_simp
+    _ ≤ e * (6088 + 156 * K) * Real.sqrt y * Lq * Ly ^ 2 / (2 * Real.pi) := by
         gcongr
-    _ = e * (8 * 761 + 25 * (4 + 6 * K)) / (2 * Real.pi) * Real.sqrt y * Lq ^ 3 := by ring
+    _ = e * (6088 + 156 * K) / (2 * Real.pi) * Real.sqrt y * Lq * Ly ^ 2 := by ring
 
-/-- **M7.** `GRHDirichlet → ‖ψ(x, χ)‖ ≤ C √x (log(qx))³` for every `χ ≠ 1` mod `q` and every
-`x ≥ 2`, with `C` absolute. -/
-theorem psiChi_le_of_GRH (hGRH : GRHDirichlet) :
+
+/-- **M7a.** Under GRH, at `y ≥ 55` at distance `≥ 1/2` from every integer, for every `χ ≠ 1`
+mod `q`: `‖ψ(y, χ)‖ ≤ C √y (log(qy))³`, with `C` absolute (from the fine shape). -/
+theorem psiTwist_le_halfint (hGRH : GRHDirichlet) :
     ∃ C : ℝ, 0 ≤ C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
-      ∀ x : ℝ, 2 ≤ x → ‖psiChi χ x‖ ≤ C * Real.sqrt x * Real.log (q * x) ^ 3 := by
-  obtain ⟨C, hC0, hC⟩ := psiChi_le_halfint hGRH
+      ∀ y : ℝ, 55 ≤ y → (∀ m : ℕ, 1 / 2 ≤ |y - m|) →
+        ‖psiTwist χ y‖ ≤ C * Real.sqrt y * Real.log (q * y) ^ 3 := by
+  obtain ⟨C, hC0, hC⟩ := psiTwist_le_halfint_fine hGRH
+  refine ⟨C, hC0, fun q _ χ hχ y hy hyn => le_trans (hC q χ hχ y hy hyn) ?_⟩
+  have hq1 : (1 : ℝ) ≤ q := by
+    have := NeZero.ne q
+    exact_mod_cast Nat.one_le_iff_ne_zero.mpr this
+  have hy0 : 0 < y := by linarith
+  have hly0 : 0 ≤ Real.log y := Real.log_nonneg (by linarith)
+  have hly : Real.log y ≤ Real.log (q * y) := Real.log_le_log hy0 (by nlinarith)
+  have hl2 : Real.log y ^ 2 ≤ Real.log (q * y) ^ 2 := pow_le_pow_left₀ hly0 hly 2
+  have hlq0 : 0 ≤ Real.log (q * y) := le_trans hly0 hly
+  have : Real.log (q * y) * Real.log y ^ 2 ≤ Real.log (q * y) ^ 3 := by
+    have := mul_le_mul_of_nonneg_left hl2 hlq0
+    nlinarith
+  have hCs : 0 ≤ C * Real.sqrt y := by positivity
+  calc C * Real.sqrt y * Real.log (q * y) * Real.log y ^ 2
+      = C * Real.sqrt y * (Real.log (q * y) * Real.log y ^ 2) := by ring
+    _ ≤ C * Real.sqrt y * Real.log (q * y) ^ 3 := mul_le_mul_of_nonneg_left this hCs
+
+/-- **M7, the fine shape.** `GRHDirichlet → ‖ψ(x, χ)‖ ≤ C √x log(qx) (log x)²` for every `χ ≠ 1`
+mod `q` and every `x ≥ 2`, with `C` absolute. -/
+theorem psiTwist_le_fine_of_GRH (hGRH : GRHDirichlet) :
+    ∃ C : ℝ, 0 ≤ C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
+      ∀ x : ℝ, 2 ≤ x →
+        ‖psiTwist χ x‖ ≤ C * Real.sqrt x * Real.log (q * x) * Real.log x ^ 2 := by
+  obtain ⟨C, hC0, hC⟩ := psiTwist_le_halfint_fine hGRH
   refine ⟨max (16 * C) 700, le_trans (by norm_num) (le_max_right _ _),
     fun q _ χ hχ x hx => ?_⟩
   have hq1 : (1 : ℝ) ≤ q := by
@@ -410,8 +473,8 @@ theorem psiChi_le_of_GRH (hGRH : GRHDirichlet) :
     have hy55 : 55 ≤ y := by linarith
     have hfl : ⌊y⌋₊ = n := by
       rw [Nat.floor_eq_iff (by linarith)]; constructor <;> linarith
-    have hpsi : psiChi χ x = psiChi χ y := by
-      rw [psiChi_eq_floor χ x, psiChi_eq_floor χ y, hfl]
+    have hpsi : psiTwist χ x = psiTwist χ y := by
+      rw [psiTwist_eq_floor χ x, psiTwist_eq_floor χ y, hfl]
     have hmain := hC q χ hχ y hy55 (fun m => half_int_dist n m)
     have hsy : Real.sqrt y ≤ 2 * Real.sqrt x := by
       have : Real.sqrt y ≤ Real.sqrt (4 * x) := Real.sqrt_le_sqrt (by linarith)
@@ -423,21 +486,34 @@ theorem psiChi_le_of_GRH (hGRH : GRHDirichlet) :
       have := Real.log_le_log (by positivity) h
       rwa [Real.log_pow] at this
     have hly0 : 0 ≤ Real.log (q * y) := Real.log_nonneg (by nlinarith)
-    have hly3 : Real.log (q * y) ^ 3 ≤ 8 * Real.log (q * x) ^ 3 := by
-      have := pow_le_pow_left₀ hly0 hly 3
+    have hlyy : Real.log y ≤ 2 * Real.log x := by
+      have h : y ≤ x ^ 2 := by nlinarith
+      have := Real.log_le_log (by linarith) h
+      rwa [Real.log_pow] at this
+    have hlyy0 : 0 ≤ Real.log y := Real.log_nonneg (by linarith)
+    have hly2 : Real.log y ^ 2 ≤ 4 * Real.log x ^ 2 := by
+      have := pow_le_pow_left₀ hlyy0 hlyy 2
       nlinarith
     have hlx1 : 0 ≤ Real.log (q * x) := by linarith
-    have hbig : C * Real.sqrt y * Real.log (q * y) ^ 3
-        ≤ 16 * C * (Real.sqrt x * Real.log (q * x) ^ 3) := by
-      have h1 : Real.sqrt y * Real.log (q * y) ^ 3
-          ≤ (2 * Real.sqrt x) * (8 * Real.log (q * x) ^ 3) :=
-        mul_le_mul hsy hly3 (by positivity) (by positivity)
-      nlinarith
-    calc ‖psiChi χ x‖ = ‖psiChi χ y‖ := by rw [hpsi]
-      _ ≤ 16 * C * (Real.sqrt x * Real.log (q * x) ^ 3) := le_trans hmain hbig
-      _ ≤ max (16 * C) 700 * (Real.sqrt x * Real.log (q * x) ^ 3) :=
+    have hprod : Real.log (q * y) * Real.log y ^ 2
+        ≤ (2 * Real.log (q * x)) * (4 * Real.log x ^ 2) :=
+      mul_le_mul hly hly2 (by positivity) (by positivity)
+    have hbig : C * Real.sqrt y * Real.log (q * y) * Real.log y ^ 2
+        ≤ 16 * C * (Real.sqrt x * (Real.log (q * x) * Real.log x ^ 2)) := by
+      have h1 : Real.sqrt y * (Real.log (q * y) * Real.log y ^ 2)
+          ≤ (2 * Real.sqrt x) * ((2 * Real.log (q * x)) * (4 * Real.log x ^ 2)) :=
+        mul_le_mul hsy hprod (by positivity) (by positivity)
+      have e1 : C * Real.sqrt y * Real.log (q * y) * Real.log y ^ 2
+          = C * (Real.sqrt y * (Real.log (q * y) * Real.log y ^ 2)) := by ring
+      have e2 : 16 * C * (Real.sqrt x * (Real.log (q * x) * Real.log x ^ 2))
+          = C * ((2 * Real.sqrt x) * ((2 * Real.log (q * x)) * (4 * Real.log x ^ 2))) := by ring
+      rw [e1, e2]
+      exact mul_le_mul_of_nonneg_left h1 hC0
+    calc ‖psiTwist χ x‖ = ‖psiTwist χ y‖ := by rw [hpsi]
+      _ ≤ 16 * C * (Real.sqrt x * (Real.log (q * x) * Real.log x ^ 2)) := le_trans hmain hbig
+      _ ≤ max (16 * C) 700 * (Real.sqrt x * (Real.log (q * x) * Real.log x ^ 2)) :=
           mul_le_mul_of_nonneg_right hM (by positivity)
-      _ = max (16 * C) 700 * Real.sqrt x * Real.log (q * x) ^ 3 := by ring
+      _ = max (16 * C) 700 * Real.sqrt x * Real.log (q * x) * Real.log x ^ 2 := by ring
   · replace hx56 : x < 56 := lt_of_not_ge hx56
     have hpsi : Chebyshev.psi x ≤ 56 * 5 := by
       have h1 := psi_le_mul_log (show (1 : ℝ) ≤ x by linarith)
@@ -449,23 +525,50 @@ theorem psiChi_le_of_GRH (hGRH : GRHDirichlet) :
         have : (2.7182818283 : ℝ) ^ 5 < Real.exp 1 ^ 5 := by gcongr
         nlinarith
       nlinarith
-    have hnorm : ‖psiChi χ x‖ ≤ 280 := le_trans (norm_psiChi_le χ x) (by linarith)
+    have hnorm : ‖psiTwist χ x‖ ≤ 280 := le_trans (norm_psiTwist_le χ x) (by linarith)
     have hsq2 : (1.41 : ℝ) ≤ Real.sqrt x := by
       rw [Real.le_sqrt (by norm_num) hx0.le]; nlinarith
     have hl : Real.log 2 ≤ Real.log (q * x) :=
       le_trans (Real.log_le_log (by norm_num) hx) hlqx
-    have hlow : (2 / 5 : ℝ) ≤ Real.sqrt x * Real.log (q * x) ^ 3 := by
-      have h3 : (0.6931471803 : ℝ) ^ 3 ≤ Real.log (q * x) ^ 3 :=
-        pow_le_pow_left₀ (by norm_num) (by linarith) 3
-      have : (1.41 : ℝ) * 0.6931471803 ^ 3 ≤ Real.sqrt x * Real.log (q * x) ^ 3 :=
+    have hlx2 : Real.log 2 ≤ Real.log x := Real.log_le_log (by norm_num) hx
+    have hlow : (2 / 5 : ℝ) ≤ Real.sqrt x * (Real.log (q * x) * Real.log x ^ 2) := by
+      have h2 : (0.6931471803 : ℝ) ^ 2 ≤ Real.log x ^ 2 :=
+        pow_le_pow_left₀ (by norm_num) (by linarith) 2
+      have h3 : (0.6931471803 : ℝ) * 0.6931471803 ^ 2 ≤ Real.log (q * x) * Real.log x ^ 2 :=
+        mul_le_mul (by linarith) h2 (by positivity) (by linarith)
+      have : (1.41 : ℝ) * (0.6931471803 * 0.6931471803 ^ 2)
+          ≤ Real.sqrt x * (Real.log (q * x) * Real.log x ^ 2) :=
         mul_le_mul hsq2 h3 (by positivity) hsx.le
-      have : (2 / 5 : ℝ) ≤ 1.41 * 0.6931471803 ^ 3 := by norm_num
+      have : (2 / 5 : ℝ) ≤ 1.41 * (0.6931471803 * 0.6931471803 ^ 2) := by norm_num
       linarith
-    calc ‖psiChi χ x‖ ≤ 280 := hnorm
+    calc ‖psiTwist χ x‖ ≤ 280 := hnorm
       _ = 700 * (2 / 5) := by norm_num
-      _ ≤ 700 * (Real.sqrt x * Real.log (q * x) ^ 3) := by gcongr
-      _ ≤ max (16 * C) 700 * (Real.sqrt x * Real.log (q * x) ^ 3) :=
+      _ ≤ 700 * (Real.sqrt x * (Real.log (q * x) * Real.log x ^ 2)) := by gcongr
+      _ ≤ max (16 * C) 700 * (Real.sqrt x * (Real.log (q * x) * Real.log x ^ 2)) :=
           mul_le_mul_of_nonneg_right hM' (by positivity)
-      _ = max (16 * C) 700 * Real.sqrt x * Real.log (q * x) ^ 3 := by ring
+      _ = max (16 * C) 700 * Real.sqrt x * Real.log (q * x) * Real.log x ^ 2 := by ring
+
+/-- **M7.** `GRHDirichlet → ‖ψ(x, χ)‖ ≤ C √x (log(qx))³` for every `χ ≠ 1` mod `q` and every
+`x ≥ 2`, with `C` absolute (from the fine shape). -/
+theorem psiTwist_le_of_GRH (hGRH : GRHDirichlet) :
+    ∃ C : ℝ, 0 ≤ C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
+      ∀ x : ℝ, 2 ≤ x → ‖psiTwist χ x‖ ≤ C * Real.sqrt x * Real.log (q * x) ^ 3 := by
+  obtain ⟨C, hC0, hC⟩ := psiTwist_le_fine_of_GRH hGRH
+  refine ⟨C, hC0, fun q _ χ hχ x hx => le_trans (hC q χ hχ x hx) ?_⟩
+  have hq1 : (1 : ℝ) ≤ q := by
+    have := NeZero.ne q
+    exact_mod_cast Nat.one_le_iff_ne_zero.mpr this
+  have hx0 : 0 < x := by linarith
+  have hlx0 : 0 ≤ Real.log x := Real.log_nonneg (by linarith)
+  have hlx : Real.log x ≤ Real.log (q * x) := Real.log_le_log hx0 (by nlinarith)
+  have hl2 : Real.log x ^ 2 ≤ Real.log (q * x) ^ 2 := pow_le_pow_left₀ hlx0 hlx 2
+  have hlq0 : 0 ≤ Real.log (q * x) := le_trans hlx0 hlx
+  have : Real.log (q * x) * Real.log x ^ 2 ≤ Real.log (q * x) ^ 3 := by
+    have := mul_le_mul_of_nonneg_left hl2 hlq0
+    nlinarith
+  have hCs : 0 ≤ C * Real.sqrt x := by positivity
+  calc C * Real.sqrt x * Real.log (q * x) * Real.log x ^ 2
+      = C * Real.sqrt x * (Real.log (q * x) * Real.log x ^ 2) := by ring
+    _ ≤ C * Real.sqrt x * Real.log (q * x) ^ 3 := mul_le_mul_of_nonneg_left this hCs
 
 end Salt.RH

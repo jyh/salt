@@ -24,24 +24,24 @@ open Complex MeasureTheory intervalIntegral Salt.MR ArithmeticFunction
 open scoped LSeries.notation
 
 /-- The twisted Chebyshev function `ψ(y, χ) = ∑_{m ≤ y} χ(m) Λ(m)`. -/
-noncomputable def psiChi {q : ℕ} (χ : DirichletCharacter ℂ q) (y : ℝ) : ℂ :=
+noncomputable def psiTwist {q : ℕ} (χ : DirichletCharacter ℂ q) (y : ℝ) : ℂ :=
   ∑ m ∈ Finset.Ioc 0 ⌊y⌋₊, χ (m : ZMod q) * (Λ m : ℂ)
 
-theorem psiChi_eq_floor {q : ℕ} (χ : DirichletCharacter ℂ q) (y : ℝ) :
-    psiChi χ y = psiChi χ (⌊y⌋₊ : ℝ) := by
-  unfold psiChi
+theorem psiTwist_eq_floor {q : ℕ} (χ : DirichletCharacter ℂ q) (y : ℝ) :
+    psiTwist χ y = psiTwist χ (⌊y⌋₊ : ℝ) := by
+  unfold psiTwist
   rw [Nat.floor_natCast]
 
 /-- `‖ψ(y, χ)‖ ≤ ψ(y)`. -/
-theorem norm_psiChi_le {q : ℕ} (χ : DirichletCharacter ℂ q) (y : ℝ) :
-    ‖psiChi χ y‖ ≤ Chebyshev.psi y := by
-  unfold psiChi Chebyshev.psi
+theorem norm_psiTwist_le {q : ℕ} (χ : DirichletCharacter ℂ q) (y : ℝ) :
+    ‖psiTwist χ y‖ ≤ Chebyshev.psi y := by
+  unfold psiTwist Chebyshev.psi
   refine le_trans (norm_sum_le _ _) (Finset.sum_le_sum fun m _ => ?_)
   rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg vonMangoldt_nonneg]
   exact mul_le_of_le_one_left vonMangoldt_nonneg (χ.norm_le_one _)
 
 /-- The `m`-th term of the twisted series under the integral. -/
-noncomputable def psiTermChi {q : ℕ} (χ : DirichletCharacter ℂ q) (y c : ℝ) (m : ℕ) (v : ℝ) : ℂ :=
+noncomputable def psiTermTwist {q : ℕ} (χ : DirichletCharacter ℂ q) (y c : ℝ) (m : ℕ) (v : ℝ) : ℂ :=
   χ (m : ZMod q) * (Λ m : ℂ) * pk (y / m) ((c : ℂ) + (v : ℂ) * I)
 
 theorem norm_twist_le {q : ℕ} (χ : DirichletCharacter ℂ q) (m : ℕ) :
@@ -49,18 +49,18 @@ theorem norm_twist_le {q : ℕ} (χ : DirichletCharacter ℂ q) (m : ℕ) :
   rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg vonMangoldt_nonneg]
   exact mul_le_of_le_one_left vonMangoldt_nonneg (χ.norm_le_one _)
 
-theorem hasSum_psiTermChi {q : ℕ} (χ : DirichletCharacter ℂ q) {y c : ℝ} (hy : 0 < y)
+theorem hasSum_psiTermTwist {q : ℕ} (χ : DirichletCharacter ℂ q) {y c : ℝ} (hy : 0 < y)
     (hc : 1 < c) (v : ℝ) :
-    HasSum (fun m => psiTermChi χ y c m v)
+    HasSum (fun m => psiTermTwist χ y c m v)
       (LSeries (↗χ * ↗Λ) ((c : ℂ) + (v : ℂ) * I) * pk y ((c : ℂ) + (v : ℂ) * I)) := by
   set s : ℂ := (c : ℂ) + (v : ℂ) * I with hs
   have hre : 1 < s.re := by simp [hs, hc]
   have hsum := (DirichletCharacter.LSeriesSummable_twist_vonMangoldt χ hre).hasSum
   have h := hsum.mul_right (pk y s)
-  have hfun : (fun m => psiTermChi χ y c m v)
+  have hfun : (fun m => psiTermTwist χ y c m v)
       = fun m => LSeries.term (↗χ * ↗Λ) s m * pk y s := by
     funext m
-    unfold psiTermChi
+    unfold psiTermTwist
     rcases Nat.eq_zero_or_pos m with rfl | hm
     · simp
     · rw [LSeries.term_of_ne_zero hm.ne']
@@ -107,16 +107,16 @@ theorem summable_perronErr {y c T : ℝ} (hy0 : 0 < y) (hc : 1 < c) (hT : 0 < T)
   exact mul_le_mul_of_nonneg_left (by linarith) vonMangoldt_nonneg
 
 /-- **M4 — truncated Perron for `ψ(y, χ)`, decay branch.** -/
-theorem perron_psiChi {q : ℕ} (χ : DirichletCharacter ℂ q) {y c T : ℝ} (hy : 1 < y)
+theorem perron_psiTwist {q : ℕ} (χ : DirichletCharacter ℂ q) {y c T : ℝ} (hy : 1 < y)
     (hyn : ∀ m : ℕ, (m : ℝ) ≠ y) (hc : 1 < c) (hT : 0 < T) :
     ‖I * (∫ v in (-T)..T,
         LSeries (↗χ * ↗Λ) ((c : ℂ) + (v : ℂ) * I) * pk y ((c : ℂ) + (v : ℂ) * I))
-      - 2 * (Real.pi : ℂ) * I * psiChi χ y‖
+      - 2 * (Real.pi : ℂ) * I * psiTwist χ y‖
       ≤ ∑' m : ℕ, Λ m * (2 * ((y / m) ^ c / (T * |Real.log (y / m)|))) := by
   have hy0 : 0 < y := by linarith
   have hc0 : 0 < c := by linarith
   -- A: the integral of the series is the series of integrals
-  have hA : HasSum (fun m => ∫ v in (-T)..T, psiTermChi χ y c m v)
+  have hA : HasSum (fun m => ∫ v in (-T)..T, psiTermTwist χ y c m v)
       (∫ v in (-T)..T,
         LSeries (↗χ * ↗Λ) ((c : ℂ) + (v : ℂ) * I) * pk y ((c : ℂ) + (v : ℂ) * I)) := by
     refine intervalIntegral.hasSum_integral_of_dominated_convergence
@@ -125,18 +125,18 @@ theorem perron_psiChi {q : ℕ} (χ : DirichletCharacter ℂ q) {y c T : ℝ} (h
       exact (continuous_const.mul (continuous_pk_line hc0)).aestronglyMeasurable
     · intro m
       refine Filter.Eventually.of_forall fun v _ => ?_
-      unfold psiTermChi
+      unfold psiTermTwist
       rw [norm_mul]
       exact mul_le_mul (norm_twist_le χ m) (norm_pk_le (by positivity) hc0) (norm_nonneg _)
         vonMangoldt_nonneg
     · exact Filter.Eventually.of_forall fun v _ => summable_psiBound hy0 hc
     · exact _root_.intervalIntegrable_const
-    · exact Filter.Eventually.of_forall fun v _ => hasSum_psiTermChi χ hy0 hc v
+    · exact Filter.Eventually.of_forall fun v _ => hasSum_psiTermTwist χ hy0 hc v
   -- B: each integral is `χ(m)Λ(m)` times a Perron contour
-  have hB : ∀ m, I * ∫ v in (-T)..T, psiTermChi χ y c m v
+  have hB : ∀ m, I * ∫ v in (-T)..T, psiTermTwist χ y c m v
       = (χ (m : ZMod q) * (Λ m : ℂ)) * perronContour (y / m) c T := by
     intro m
-    unfold psiTermChi perronContour
+    unfold psiTermTwist perronContour
     rw [intervalIntegral.integral_const_mul]
     ring
   have hC : HasSum (fun m : ℕ => (χ (m : ZMod q) * (Λ m : ℂ)) * perronContour (y / m) c T)
@@ -148,7 +148,7 @@ theorem perron_psiChi {q : ℕ} (χ : DirichletCharacter ℂ q) {y c T : ℝ} (h
   -- D: the indicator sum is `2πi ψ(y, χ)`
   have hD : HasSum (fun m : ℕ => (χ (m : ZMod q) * (Λ m : ℂ)) * (2 * (Real.pi : ℂ) * I
       * (if 1 < y / m then (1 : ℂ) else 0)))
-      (2 * (Real.pi : ℂ) * I * psiChi χ y) := by
+      (2 * (Real.pi : ℂ) * I * psiTwist χ y) := by
     have hfin : HasSum (fun m : ℕ => (χ (m : ZMod q) * (Λ m : ℂ)) * (2 * (Real.pi : ℂ) * I
         * (if 1 < y / m then (1 : ℂ) else 0)))
         (∑ m ∈ Finset.Ioc 0 ⌊y⌋₊, (χ (m : ZMod q) * (Λ m : ℂ)) * (2 * (Real.pi : ℂ) * I
@@ -168,7 +168,7 @@ theorem perron_psiChi {q : ℕ} (χ : DirichletCharacter ℂ q) {y c T : ℝ} (h
           rw [one_lt_div hm']; linarith
         simp [this])
     convert hfin using 1
-    unfold psiChi
+    unfold psiTwist
     rw [Finset.mul_sum]
     refine Finset.sum_congr rfl fun m hm => ?_
     obtain ⟨hm0, hmf⟩ := Finset.mem_Ioc.mp hm

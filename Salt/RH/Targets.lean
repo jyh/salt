@@ -114,9 +114,9 @@ def DeterministicMR (C : ℝ) : Prop :=
       n.Prime
 
 /-- The POLYLOG form of `SmallNonMember` at log power `k` (O106 plan, arm (b)): the unsmoothed
-R1 route ported to `L(s, χ)`, with `ψ(x, χ) ≪ √x log³(qx)`, reaches it at `k = 6` (`k = 5` only if
-that bound keeps the finer shape `√x log x log²(qx)`); Bach's `C (log n)²` needs a smoothed explicit
-formula. -/
+R1 route ported to `L(s, χ)` reaches it at `k = 6` with `ψ(x, χ) ≪ √x log³(qx)`, and at `k = 3`
+with the finer shape `ψ(x, χ) ≪ √x log(qx) (log x)²` (`Salt.RH.GRHMiller`); Bach's `C (log n)²`
+needs a smoothed explicit formula. -/
 def SmallNonMemberLog (k : ℕ) : Prop :=
   ∃ C : ℝ, ∀ n : ℕ, 3 ≤ n → ∀ H : Subgroup (ZMod n)ˣ, H ≠ ⊤ →
     ∃ u : (ZMod n)ˣ, u ∉ H ∧ 2 ≤ (u : ZMod n).val ∧
