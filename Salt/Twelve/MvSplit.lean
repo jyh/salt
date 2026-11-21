@@ -47,12 +47,12 @@ open Salt.Maynard
 /-! ## `phiAtomSum` basics -/
 
 /-- `phiAtomSum` is a sum of nonnegative terms. -/
-private lemma pas_nonneg (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
+lemma pas_nonneg (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
   unfold Salt.Maynard.phiAtomSum
   exact Finset.sum_nonneg fun r _ => by positivity
 
 /-- `phiAtomSum` is monotone in the cap (more terms, all nonnegative). -/
-private lemma pas_mono {z z' W' : ℕ} (h : z ≤ z') :
+lemma pas_mono {z z' W' : ℕ} (h : z ≤ z') :
     Salt.Maynard.phiAtomSum z W' ≤ Salt.Maynard.phiAtomSum z' W' := by
   unfold Salt.Maynard.phiAtomSum
   apply Finset.sum_le_sum_of_subset_of_nonneg
@@ -135,7 +135,7 @@ private lemma list_sum_map_add {γ : Type*} (l : List γ) (f g : γ → ℝ) :
 `Ico (D+1) R`, each term is at most `1/(k − 2) − 1/(k − 1)` (`1/(a+1)² ≤ 1/(a(a+1))` at
 `a = k − 2`), and the telescoped sum (`Finset.sum_range_sub'`) is at most its first term
 `1/(D − 1)`. -/
-private lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
+lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
     ∑ k ∈ (Finset.range R).filter (fun k => D < k), 1 / ((k:ℝ) - 1)^2
       ≤ 1 / ((D:ℝ) - 1) := by
   have hset : (Finset.range R).filter (fun k => D < k) = Finset.Ico (D+1) R := by
@@ -178,7 +178,7 @@ private lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
 a subset of the integers `D < k` (`int_tail` gives `1/(D − 1)`), and `1/(D − 1) ≤ 2/D` for
 `D ≥ 3`. The file's private copy of the Stage-2 tail, consumed by every `1/D` drop bound
 below. -/
-private lemma prime_tail (D R : ℕ) (hD : 3 ≤ D) :
+lemma prime_tail (D R : ℕ) (hD : 3 ≤ D) :
     ∑ p ∈ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p), 1 / ((p:ℝ) - 1)^2
       ≤ 2 / (D:ℝ) := by
   have hsub : (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p)
@@ -669,7 +669,7 @@ theorem mv_I_split (F : Poly) :
 
 /-- Swap a `Finset` sum over `S` with an inner `List` sum over `L` (induction on `L`); the
 private copy of `MvJ`'s `sum_finset_list_sum`. -/
-private lemma ic_sum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
+lemma ic_sum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
     (f : ι → γ → ℝ) :
     ∑ u ∈ S, (L.map (fun x => f u x)).sum = (L.map (fun x => ∑ u ∈ S, f u x)).sum := by
   induction L with
@@ -679,7 +679,7 @@ private lemma ic_sum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List �
       rw [Finset.sum_add_distrib, ih]
 
 /-- `|Σ_{a ∈ L} f a| ≤ Σ |f a|` for a mapped `List` sum (induction on `L`, `abs_add_le`). -/
-private lemma ic_list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
+lemma ic_list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
     |(L.map f).sum| ≤ (L.map (fun a => |f a|)).sum := by
   induction L with
   | nil => simp
@@ -696,20 +696,20 @@ private lemma ic_list_sum_map_add {γ : Type*} (L : List γ) (f g : γ → ℝ) 
   | cons a L ih => simp only [List.map_cons, List.sum_cons, ih]; ring
 
 /-- Division of a mapped `List` sum by `c` distributes termwise (`List.sum_map_mul_right`). -/
-private lemma ic_list_sum_div {γ : Type*} (L : List γ) (g : γ → ℝ) (c : ℝ) :
+lemma ic_list_sum_div {γ : Type*} (L : List γ) (g : γ → ℝ) (c : ℝ) :
     (L.map g).sum / c = (L.map (fun a => g a / c)).sum := by
   rw [div_eq_mul_inv, ← List.sum_map_mul_right]; simp only [div_eq_mul_inv]
 
 /-- A difference of two mapped `List` sums is the mapped sum of the differences (induction on
 `L`). -/
-private lemma ic_list_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
+lemma ic_list_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
     (L.map f).sum - (L.map g).sum = (L.map (fun a => f a - g a)).sum := by
   induction L with
   | nil => simp
   | cons a L ih => simp only [List.map_cons, List.sum_cons]; rw [← ih]; ring
 
 /-- Termwise `f a ≤ g a` on `L` (`h`) gives `Σ f ≤ Σ g` (induction on `L`). -/
-private lemma ic_list_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
+lemma ic_list_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
     (h : ∀ a ∈ L, f a ≤ g a) : (L.map f).sum ≤ (L.map g).sum := by
   induction L with
   | nil => simp
@@ -1311,18 +1311,18 @@ theorem inner_contract_rel (F : Poly) (m : Fin 5) :
 /-! ## `mv_J_split` — shared helpers (private copies from `MvJ.lean`) -/
 
 /-- `g(p) = p − 2` for a prime `p` (`hp`), cast to `ℝ`: `primeFactors p = {p}`. -/
-private lemma mjs_gMult_prime_cast {p : ℕ} (hp : Nat.Prime p) : (gMult p : ℝ) = (p : ℝ) - 2 := by
+lemma mjs_gMult_prime_cast {p : ℕ} (hp : Nat.Prime p) : (gMult p : ℝ) = (p : ℝ) - 2 := by
   have : gMult p = p - 2 := by rw [gMult, Nat.Prime.primeFactors hp, Finset.prod_singleton]
   rw [this, Nat.cast_sub hp.two_le]; norm_num
 
 /-- `g(1) = 1`: the empty product over `primeFactors 1 = ∅`. -/
-private lemma mjs_gMult_one_cast : (gMult 1 : ℝ) = 1 := by
+lemma mjs_gMult_one_cast : (gMult 1 : ℝ) = 1 := by
   rw [gMult, Nat.primeFactors_one, Finset.prod_empty]; norm_num
 
 /-- `g(pq) = (p − 2)(q − 2)` for distinct primes (`hp`, `hq`, `hpq`): `gMult` is multiplicative
 on coprime arguments (`Nat.Coprime.primeFactors_mul`, `Finset.prod_union`), then
 `mjs_gMult_prime_cast` twice. -/
-private lemma mjs_gMult_pq_cast {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) :
+lemma mjs_gMult_pq_cast {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) :
     (gMult (p * q) : ℝ) = ((p:ℝ) - 2) * ((q:ℝ) - 2) := by
   have hcop : Nat.Coprime p q := (Nat.coprime_primes hp hq).mpr hpq
   have hmul : gMult (p * q) = gMult p * gMult q := by
@@ -1332,7 +1332,7 @@ private lemma mjs_gMult_pq_cast {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq :
 
 /-- Every prime factor of an `x < R` coprime to `W'` (`hxR`, `hxcop`) lies in the prime window
 `D < p < R`: `p ≤ x < R`, and `p ∤ W'` (coprimality) gives `D < p` by `hD`. -/
-private lemma mjs_box_PF_subset {W' D R : ℕ} (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p)
+lemma mjs_box_PF_subset {W' D R : ℕ} (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p)
     {x : ℕ} (hxR : x < R) (hxcop : x.Coprime W') :
     x.primeFactors ⊆ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p) := by
   intro p hp
@@ -1346,7 +1346,7 @@ private lemma mjs_box_PF_subset {W' D R : ℕ} (hD : ∀ p : ℕ, p.Prime → ¬
   rw [Finset.mem_filter, Finset.mem_range]; exact ⟨hpltR, hpp, hD p hpp hnpW⟩
 
 /-- The marked-prime sum `Σ_{p ∣ m} 1/(p − 1)` is nonnegative (each `p ≥ 2`). -/
-private lemma mjs_PFsum_nn (m : ℕ) : 0 ≤ ∑ p ∈ m.primeFactors, (1 / ((p:ℝ) - 1)) := by
+lemma mjs_PFsum_nn (m : ℕ) : 0 ≤ ∑ p ∈ m.primeFactors, (1 / ((p:ℝ) - 1)) := by
   apply Finset.sum_nonneg; intro p hp
   have hpp := Nat.prime_of_mem_primeFactors hp
   have : (2:ℝ) ≤ (p:ℝ) := by exact_mod_cast hpp.two_le
@@ -1355,7 +1355,7 @@ private lemma mjs_PFsum_nn (m : ℕ) : 0 ≤ ∑ p ∈ m.primeFactors, (1 / ((p:
 
 /-- A nonnegative `g` (`hg`) summed over a `biUnion` is at most the sum of the sums over the
 pieces (induction on `s`; the overlap `t a ∩ s.biUnion t` is dropped as a nonnegative term). -/
-private lemma mjs_sum_biUnion_le {ι : Type*} (s : Finset ι) (t : ι → Finset ℕ)
+lemma mjs_sum_biUnion_le {ι : Type*} (s : Finset ι) (t : ι → Finset ℕ)
     (g : ℕ → ℝ) (hg : ∀ i ∈ s, ∀ p ∈ t i, 0 ≤ g p) :
     ∑ p ∈ s.biUnion t, g p ≤ ∑ i ∈ s, ∑ p ∈ t i, g p := by
   classical
@@ -1497,7 +1497,7 @@ private lemma mjs_erase_prod_removeNth {M : Type*} [CommMonoid M] (m : Fin 5) (F
 /-- On the simplex — `0 ≤ t i ≤ 1` (`ht0`, `ht1`) and `Σ t ≤ 1` (`hs`) — a budget polynomial is
 bounded by the sum of its coefficients' absolute values: each monomial's
 `∏ t_i^{e_i}·(1 − Σ t)^d` lies in `[0, 1]`. -/
-private lemma mjs_eval_bpoly_bound {n : ℕ} (P : BPoly n) (t : Fin n → ℝ)
+lemma mjs_eval_bpoly_bound {n : ℕ} (P : BPoly n) (t : Fin n → ℝ)
     (ht0 : ∀ i, 0 ≤ t i) (ht1 : ∀ i, t i ≤ 1) (hs : ∑ i, t i ≤ 1) :
     |eval P t| ≤ (P.map (fun mo => |(mo.2.2 : ℝ)|)).sum := by
   unfold eval
@@ -1521,7 +1521,7 @@ private lemma mjs_eval_bpoly_bound {n : ℕ} (P : BPoly n) (t : Fin n → ℝ)
 `Σ_{x < R, square-free, coprime to W'} 1/g(x) ≤ 2·phiAtomSum R W'` for square-free `W' > 0`
 (`hW'`, `hpos`), `3 ≤ D` below every prime not dividing `W'` (`hD`, `hDW`) and `2 ≤ R` (`hR2`):
 `marked_sqf_g_rel` at `a = 0`, `s = 1`, `z = R` (`g(1) = 1`, the `1 ∣ r` filter is vacuous). -/
-private lemma mjs_M0_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
+lemma mjs_M0_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'), (1 / (gMult x : ℝ)))
       ≤ 2 * Salt.Maynard.phiAtomSum R W' := by
@@ -1544,7 +1544,7 @@ private lemma mjs_M0_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 `cg`), `Σ_{x < R, square-free, coprime to W'} 1/g(x) ≤ cg·log R` for `3 ≤ D` below every prime
 not dividing `W'` (`hD`, `hDW`) and `2 ≤ R` (`hR2`): `hcg` at `s = 1`, `z = R`. The two `W'`
 hypotheses are carried for the signature and not consumed. -/
-private lemma mjs_M0_op (W' : ℕ) (_hW' : Squarefree W') (_hpos : 0 < W') (cg : ℝ)
+lemma mjs_M0_op (W' : ℕ) (_hW' : Squarefree W') (_hpos : 0 < W') (cg : ℝ)
     (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
       (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
         (Real.log r) ^ 0 / (gMult r : ℝ)) ≤ (1 / (gMult s : ℝ)) * cg * (Real.log z) ^ (0 + 1))
@@ -1575,7 +1575,7 @@ private lemma mjs_M0_op (W' : ℕ) (_hW' : Squarefree W') (_hpos : 0 < W') (cg :
 `1/(p − 1)·Σ_{p ∣ x} 1/g(x)` is at most `2·PAS·2/(p − 1)²` by `marked_sqf_g_rel` at `a = 0`,
 `s = p` (`g(p) = p − 2`, and `1/((p − 1)(p − 2)) ≤ 2/(p − 1)²` for `p ≥ 3`); `prime_tail` sums
 the squares to `2/D`. -/
-private lemma mjs_MQ_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
+lemma mjs_MQ_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'),
         (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) / (gMult x : ℝ))
@@ -1677,7 +1677,7 @@ diagonal `p = q` costs `2·PAS/(p − 2)` per prime (`marked_sqf_g_rel` at `s = 
 off-diagonal `2·PAS/((p − 2)(q − 2))` (`s = p·q`, `mjs_gMult_pq_cast`); with
 `Σ_p 1/((p − 1)(p − 2)) ≤ 4/D` (`prime_tail`) the two parts are `2·PAS·4/D` and `2·PAS·(4/D)²`,
 and `(4/D)² ≤ 16/D`. -/
-private lemma mjs_MQ2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
+lemma mjs_MQ2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'),
         (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) ^ 2 / (gMult x : ℝ))

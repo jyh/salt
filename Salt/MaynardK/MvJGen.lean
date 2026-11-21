@@ -47,7 +47,7 @@ noncomputable def yFg {n : ℕ} (R W' : ℕ) (P : BPoly (n + 1)) (s : Fin (n + 1
 /-! ## List-sum plumbing -/
 
 /-- Swap a `Finset` sum with an inner `List` sum. -/
-private lemma sum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
+lemma sum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
     (f : ι → γ → ℝ) :
     ∑ u ∈ S, (L.map (fun x => f u x)).sum = (L.map (fun x => ∑ u ∈ S, f u x)).sum := by
   induction L with
@@ -57,7 +57,7 @@ private lemma sum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
       rw [Finset.sum_add_distrib, ih]
 
 /-- Triangle inequality for a `List.sum` of reals. -/
-private lemma list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
+lemma list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
     |(L.map f).sum| ≤ (L.map (fun a => |f a|)).sum := by
   induction L with
   | nil => simp
@@ -67,7 +67,7 @@ private lemma list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
         _ ≤ |f a| + (L.map (fun a => |f a|)).sum := by linarith [ih]
 
 /-- Additivity of `List.sum` over a pointwise sum of the mapped functions. -/
-private lemma list_sum_map_add {γ : Type*} (L : List γ) (f g : γ → ℝ) :
+lemma list_sum_map_add {γ : Type*} (L : List γ) (f g : γ → ℝ) :
     (L.map (fun a => f a + g a)).sum = (L.map f).sum + (L.map g).sum := by
   induction L with
   | nil => simp
@@ -76,7 +76,7 @@ private lemma list_sum_map_add {γ : Type*} (L : List γ) (f g : γ → ℝ) :
 /-! ## Membership of the updated tuple in the sieve box -/
 
 /-- `∏ᵢ (update r m u) i = u · ∏ᵢ r i` when `r m = 1`. -/
-private lemma prod_update_eq {n : ℕ} {r : Fin (n + 1) → ℕ} {m : Fin (n + 1)} (hrm : r m = 1)
+lemma prod_update_eq {n : ℕ} {r : Fin (n + 1) → ℕ} {m : Fin (n + 1)} (hrm : r m = 1)
         (u : ℕ) :
     ∏ i, Function.update r m u i = u * ∏ i, r i := by
   rw [Finset.prod_update_of_mem (Finset.mem_univ m)]
@@ -86,7 +86,7 @@ private lemma prod_update_eq {n : ℕ} {r : Fin (n + 1) → ℕ} {m : Fin (n + 1
 
 /-- Membership of `Function.update r m u` in the sieve box, unfolded to the
 one-dimensional conditions on `u`. -/
-private lemma update_mem_kSieveIndex_iff {R W' : ℕ} {n : ℕ} {r : Fin (n + 1) → ℕ}
+lemma update_mem_kSieveIndex_iff {R W' : ℕ} {n : ℕ} {r : Fin (n + 1) → ℕ}
     (hr : r ∈ kSieveIndex (n + 1) R W') {m : Fin (n + 1)} (hrm : r m = 1) (u : ℕ) :
     Function.update r m u ∈ kSieveIndex (n + 1) R W' ↔
       (Squarefree u ∧ u.Coprime W' ∧ u.Coprime (∏ i, r i) ∧ u * (∏ i, r i) < R) := by
@@ -131,7 +131,7 @@ private lemma update_mem_kSieveIndex_iff {R W' : ℕ} {n : ℕ} {r : Fin (n + 1)
 /-! ## A Lipschitz estimate for powers on the unit interval -/
 
 /-- For `A, B ∈ [0,1]`, `|Aⁿ − Bⁿ| ≤ n·|A − B|`. -/
-private lemma abs_pow_sub_pow_le_unit {A B : ℝ} (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+lemma abs_pow_sub_pow_le_unit {A B : ℝ} (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
     (hB0 : 0 ≤ B) (hB1 : B ≤ 1) (n : ℕ) : |A ^ n - B ^ n| ≤ n * |A - B| := by
   induction n with
   | zero => simp
@@ -551,13 +551,13 @@ private lemma inner_sum_estimate_b (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < 
 /-! ## `eval` expansions and further list plumbing -/
 
 /-- `eval P t` as the coefficient sum: `Σ_{(a,d,c) ∈ P} c · Π_i t_i^{a i} · (1 − Σ_i t_i)^d`. -/
-private lemma eval_expand {k : ℕ} (P : BPoly k) (t : Fin k → ℝ) :
+lemma eval_expand {k : ℕ} (P : BPoly k) (t : Fin k → ℝ) :
     eval P t = (P.map (fun a => (a.2.2 : ℝ) * (∏ i, t i ^ a.1 i) * (1 - ∑ i, t i) ^ a.2.1)).sum :=
   rfl
 
 /-- `eval (contractB m P) t` term by term: for each `(a, d, c) ∈ P` the coefficient
 `c · (a m)!·d!/(a m + d + 1)!`, the exponents `a ∘ m.succAbove` and the budget `a m + d + 1`. -/
-private lemma eval_contractB {n : ℕ} (m : Fin (n + 1)) (P : BPoly (n + 1)) (t : Fin n → ℝ) :
+lemma eval_contractB {n : ℕ} (m : Fin (n + 1)) (P : BPoly (n + 1)) (t : Fin n → ℝ) :
     eval (contractB m P) t
       = (P.map (fun a => ((a.2.2 * (((a.1 m).factorial * a.2.1.factorial : ℕ) : ℚ)
             / ((a.1 m + a.2.1 + 1).factorial : ℕ) : ℚ) : ℝ)
@@ -566,7 +566,7 @@ private lemma eval_contractB {n : ℕ} (m : Fin (n + 1)) (P : BPoly (n + 1)) (t 
 
 /-- the product `Π_i (log ((update r m u) i) / RR)^{a i}` splits as the `u`-factor
 `(log u / RR)^{a m}` times the product over `m.succAbove`. -/
-private lemma prod_update_split {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n + 1)) (u : ℕ) (RR : ℝ)
+lemma prod_update_split {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n + 1)) (u : ℕ) (RR : ℝ)
     (a : Fin (n + 1) → ℕ) :
     ∏ i, (Real.log ((Function.update r m u) i) / RR) ^ a i
       = (Real.log u / RR) ^ a m
@@ -578,7 +578,7 @@ private lemma prod_update_split {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n 
       (fun i _ => by rw [Function.update_of_ne (Fin.succAbove_ne m i)])
 
 /-- `Σ_j log ((update r m u) j) = log u + Σ_{i : Fin n} log (r (m.succAbove i))`. -/
-private lemma sum_log_update {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n + 1)) (u : ℕ) :
+lemma sum_log_update {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n + 1)) (u : ℕ) :
     ∑ j, Real.log ((Function.update r m u j : ℕ) : ℝ)
       = Real.log u + ∑ i : Fin n, Real.log (r (m.succAbove i)) := by
   rw [Fin.sum_univ_succAbove _ m, Function.update_self]
@@ -586,13 +586,13 @@ private lemma sum_log_update {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n + 1
   exact Finset.sum_congr rfl (fun i _ => by rw [Function.update_of_ne (Fin.succAbove_ne m i)])
 
 /-- Division distributes into a mapped `List.sum`. -/
-private lemma list_sum_div {γ : Type*} (L : List γ) (g : γ → ℝ) (c : ℝ) :
+lemma list_sum_div {γ : Type*} (L : List γ) (g : γ → ℝ) (c : ℝ) :
     (L.map g).sum / c = (L.map (fun a => g a / c)).sum := by
   rw [div_eq_mul_inv, ← List.sum_map_mul_right]
   simp only [div_eq_mul_inv]
 
 /-- Subtractivity of `List.sum` over a pointwise difference. -/
-private lemma list_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
+lemma list_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
     (L.map f).sum - (L.map g).sum = (L.map (fun a => f a - g a)).sum := by
   induction L with
   | nil => simp
@@ -1865,7 +1865,7 @@ private lemma MQ2_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
 /-- factoring one marked coordinate out of the product box:
 `Σ_{ρ ∈ F_R^n} w (ρ i) · Π_k 1/gMult (ρ k)`
 `= (Σ_{x ∈ F_R} w x / gMult x) · (Σ_{x ∈ F_R} 1/gMult x)^(n−1)`. -/
-private lemma factor_one {n : ℕ} (F_R : Finset ℕ) (i : Fin n) (w : ℕ → ℝ) :
+lemma factor_one {n : ℕ} (F_R : Finset ℕ) (i : Fin n) (w : ℕ → ℝ) :
     ∑ ρ ∈ Fintype.piFinset (fun _ : Fin n => F_R), w (ρ i) * ∏ k, (1 / (gMult (ρ k) : ℝ))
       = (∑ x ∈ F_R, w x * (1 / (gMult x : ℝ))) * (∑ x ∈ F_R, (1 / (gMult x : ℝ))) ^ (n - 1) := by
   classical
@@ -1982,7 +1982,7 @@ private lemma P_subadd {n : ℕ} (ρ : Fin n → ℕ) (hρ : ∀ i, ρ i ≠ 0) 
 /-- enlarging `kSieveIndex n R W'` to the product box `(sqfCop R W')^n`: for `num ≥ 0`,
 `Σ_{ρ ∈ kSieveIndex} num ρ / Π_i gMult (ρ i) ≤ Σ_{ρ ∈ box} num ρ · Π_i 1/gMult (ρ i)` (`hD`,
 `hDW` carried unused). -/
-private lemma enlarge_to_PB {n : ℕ} (W' D R : ℕ) (_hD : 3 ≤ D) (_hDW : ∀ p : ℕ,
+lemma enlarge_to_PB {n : ℕ} (W' D R : ℕ) (_hD : 3 ≤ D) (_hDW : ∀ p : ℕ,
         p.Prime → ¬ p ∣ W' → D < p)
     (num : (Fin n → ℕ) → ℝ) (hnum0 : ∀ ρ, 0 ≤ num ρ) :
     (∑ ρ ∈ kSieveIndex n R W', num ρ / ∏ i, (gMult (ρ i) : ℝ))
