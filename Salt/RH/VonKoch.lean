@@ -11,7 +11,8 @@ import Salt.MR.TwistedEdge
 /-!
 # O106 row R1 — von Koch from RH: the analytic inputs (nodes N1, N2)
 
-The route (the O106 plan, addendum 3, frozen after a three-refuter pass): bound `ζ′/ζ` near the
+The route (the O106 plan, addendum 3, frozen after a three-refuter pass): bound
+`logDeriv Zc = ζ′/ζ + 1/(s − 1)` (not the bare `ζ′/ζ`, which has the pole at `1`) near the
 critical line by the λ-scaled Landau engine centred at `7/5 + it` with `λ = 79/100`. Its outer
 sphere has radius `553/400` (`= 7/4 · λ`), so it stays in `Re ≥ 7/400 > 0`, where the landed growth
 bound `Salt.SW.Zc_growth` applies, and no growth bound left of the critical line is needed.
@@ -171,7 +172,7 @@ theorem zc_centre_lower_crude : ∃ c : ℝ, 0 < c ∧ ∀ t : ℝ,
       _ = u ^ 5 := by ring
   exact div_le_div_of_nonneg_left hc.le (by positivity) hD
 
-/-! ## N3 — the ζ′/ζ bound near the critical line, under RH -/
+/-! ## N3 — the bound on `logDeriv Zc = ζ′/ζ + 1/(s − 1)` near the critical line, under RH -/
 
 /-- **N3.** Under RH, for `1/2 < Re s ≤ 23/10`,
 `‖logDeriv Zc s‖ ≤ K · log(|Im s| + 3) · (1 + 1/(Re s − 1/2))`. -/
