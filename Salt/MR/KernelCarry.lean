@@ -86,7 +86,7 @@ finite-`T` too).  The frequency window in R3-d is a single segment avoiding `0`;
 two-sided tail is the sum of the two half-tails, which is how `lemma14_contour_kernel` uses it.
 The five `Lemma14` privates (`coeff_sum_inv_le`, `norm_sum_five_sq_le`, `integral_five_add`,
 `uSlab_eq_vSeg`, `vSeg_split_five`, `five_split_integral_bound`) and the `vdiffR` device are
-re-derived verbatim here, per the standing precedent.
+imported from `Salt.MR.Lemma14`, where they are public.
 
 All results are axiom-clean (`propext, Classical.choice, Quot.sound`); no `native_decide`,
 no new axioms, no `sorry`.
@@ -278,43 +278,7 @@ theorem uKernel_wdiff_norm_le {x h₁ h₂ : ℝ} (hx : 0 < x) (hh1 : 0 < h₁) 
 
 /-! ## R3-c — the two arms of the kernel-carrying `x`-average
 
-The `x`-integrability device is `Lemma14`'s `vdiffR` (private there, re-derived verbatim). -/
-
-/-- The weighted `V`-difference through the `max`-regularized tail transform — globally
-continuous in `x`, equal to the honest difference for `x ≥ X` (re-derived from `Lemma14`). -/
-private def vdiffR (A : ℝ → ℂ) (X h₁ h₂ α β x : ℝ) : ℂ :=
-  ((1 / h₁ : ℝ) : ℂ) * (I * ∫ u in x..(x + h₁), tailTr A α β (X / 2) u)
-    - ((1 / h₂ : ℝ) : ℂ) * (I * ∫ u in x..(x + h₂), tailTr A α β (X / 2) u)
-
-/-- `x ↦ vdiffR A X h₁ h₂ α β x` is continuous for a continuous `A` and `0 < X`: a difference of
-two window integrals of the continuous `tailTr A α β (X / 2)`. Private; read three times in this
-file. `SeamLemma14` and `Lemma14` hold same-named private copies of their own. -/
-private lemma vdiffR_continuous {A : ℝ → ℂ} (hA : Continuous A) {X : ℝ} (hX : 0 < X)
-    (h₁ h₂ α β : ℝ) : Continuous (fun x : ℝ => vdiffR A X h₁ h₂ α β x) := by
-  have hFr : Continuous (tailTr A α β (X / 2)) := tailTr_continuous hA α β (by linarith)
-  simp only [vdiffR]
-  exact (continuous_const.mul (continuous_const.mul (continuous_window_integral hFr h₁))).sub
-    (continuous_const.mul (continuous_const.mul (continuous_window_integral hFr h₂)))
-
-/-- For `X ≤ x` and `0 ≤ h₁`, `0 ≤ h₂`, `vdiffR A X h₁ h₂ α β x` is `(1 / h₁) * vSeg A x h₁ α β`
-minus `(1 / h₂) * vSeg A x h₂ α β`: on `[x, x + h]` the regularized `tailTr` is the tail
-transform (`tailTr_eq`, `vSeg_eq_tailT_integral`). Private; read ten times in this file.
-`SeamLemma14` and `Lemma14` hold same-named private copies of their own. -/
-private lemma vdiffR_eq {A : ℝ → ℂ} (hA : Continuous A) {X x h₁ h₂ : ℝ}
-    (hX : 0 < X) (hx : X ≤ x) (hh1 : 0 ≤ h₁) (hh2 : 0 ≤ h₂) {α β : ℝ} :
-    vdiffR A X h₁ h₂ α β x
-      = ((1 / h₁ : ℝ) : ℂ) * vSeg A x h₁ α β - ((1 / h₂ : ℝ) : ℂ) * vSeg A x h₂ α β := by
-  have hx0 : (0 : ℝ) < x := lt_of_lt_of_le hX hx
-  have key : ∀ h : ℝ, 0 ≤ h →
-      vSeg A x h α β = I * ∫ u in x..(x + h), tailTr A α β (X / 2) u := by
-    intro h hh
-    rw [vSeg_eq_tailT_integral hA hx0 hh]
-    congr 1
-    refine intervalIntegral.integral_congr (fun u hu => ?_)
-    rw [Set.uIcc_of_le (by linarith : x ≤ x + h), Set.mem_Icc] at hu
-    exact (tailTr_eq A α β (by linarith [hu.1] : X / 2 ≤ u)).symm
-  simp only [vdiffR]
-  rw [key h₁ hh1, key h₂ hh2]
+The `x`-integrability device is `Lemma14`'s `vdiffR`, imported. -/
 
 /-- The `x`-integrability of the squared weighted `V`-difference on a frequency segment. -/
 private lemma vdiff_sq_intervalIntegrable {A : ℝ → ℂ} (hA : Continuous A) {X h₁ h₂ : ℝ}
@@ -808,129 +772,7 @@ theorem vtail_meansq_kernel_neg {A : ℝ → ℂ} (hA : Continuous A) {X h₁ h�
 
 /-! ## R3-e — the consumption: Lemma 14's contour at `Tcut = 2^N·(X/h₁)`, UNIFORMLY in `N`
 
-The five `Lemma14` privates below are re-derived verbatim (they are `private` there). -/
-
-/-- The coefficient mass of an `[X, 4X]`-supported index set: `∑_{m ∈ s0} 1/m ≤ 5`. -/
-private lemma coeff_sum_inv_le {X : ℝ} (hX : 1 ≤ X) (s0 : Finset ℕ)
-    (hrange : ∀ m ∈ s0, X ≤ (m : ℝ) ∧ (m : ℝ) ≤ 4 * X) :
-    (∑ m ∈ s0, 1 / (m : ℝ)) ≤ 5 := by
-  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le zero_lt_one hX
-  have hsub : s0 ⊆ Finset.Icc 0 ⌊4 * X⌋₊ := by
-    intro m hm
-    rw [Finset.mem_Icc]
-    exact ⟨Nat.zero_le _, Nat.le_floor (hrange m hm).2⟩
-  have hcard : (s0.card : ℝ) ≤ 4 * X + 1 := by
-    have h1 : s0.card ≤ ⌊4 * X⌋₊ + 1 := by
-      have h2 := Finset.card_le_card hsub
-      rwa [Nat.card_Icc, Nat.sub_zero] at h2
-    have h3 : ((⌊4 * X⌋₊ : ℕ) : ℝ) ≤ 4 * X := Nat.floor_le (by linarith)
-    have h4 : (s0.card : ℝ) ≤ ((⌊4 * X⌋₊ + 1 : ℕ) : ℝ) := by exact_mod_cast h1
-    rw [Nat.cast_add, Nat.cast_one] at h4
-    linarith
-  calc (∑ m ∈ s0, 1 / (m : ℝ)) ≤ ∑ _m ∈ s0, 1 / X :=
-        Finset.sum_le_sum fun m hm => one_div_le_one_div_of_le hX0 (hrange m hm).1
-    _ = s0.card * (1 / X) := by rw [Finset.sum_const, nsmul_eq_mul]
-    _ ≤ (4 * X + 1) * (1 / X) := mul_le_mul_of_nonneg_right hcard (by positivity)
-    _ ≤ 5 := by rw [mul_one_div, div_le_iff₀ hX0]; linarith
-
-/-- `‖z₁+z₂+z₃+z₄+z₅‖² ≤ 5·(‖z₁‖²+⋯+‖z₅‖²)`. -/
-private lemma norm_sum_five_sq_le (z₁ z₂ z₃ z₄ z₅ : ℂ) :
-    ‖z₁ + z₂ + z₃ + z₄ + z₅‖ ^ 2
-      ≤ 5 * (‖z₁‖ ^ 2 + ‖z₂‖ ^ 2 + ‖z₃‖ ^ 2 + ‖z₄‖ ^ 2 + ‖z₅‖ ^ 2) := by
-  have htri : ‖z₁ + z₂ + z₃ + z₄ + z₅‖ ≤ ‖z₁‖ + ‖z₂‖ + ‖z₃‖ + ‖z₄‖ + ‖z₅‖ := by
-    have t1 : ‖z₁ + z₂ + z₃ + z₄ + z₅‖ ≤ ‖z₁ + z₂ + z₃ + z₄‖ + ‖z₅‖ := norm_add_le _ _
-    have t2 : ‖z₁ + z₂ + z₃ + z₄‖ ≤ ‖z₁ + z₂ + z₃‖ + ‖z₄‖ := norm_add_le _ _
-    have t3 : ‖z₁ + z₂ + z₃‖ ≤ ‖z₁ + z₂‖ + ‖z₃‖ := norm_add_le _ _
-    have t4 : ‖z₁ + z₂‖ ≤ ‖z₁‖ + ‖z₂‖ := norm_add_le _ _
-    linarith
-  refine (pow_le_pow_left₀ (norm_nonneg _) htri 2).trans ?_
-  linarith only [sq_nonneg (‖z₁‖ - ‖z₂‖),
-      sq_nonneg (‖z₁‖ - ‖z₃‖), sq_nonneg (‖z₁‖ - ‖z₄‖), sq_nonneg (‖z₁‖ - ‖z₅‖),
-      sq_nonneg (‖z₂‖ - ‖z₃‖), sq_nonneg (‖z₂‖ - ‖z₄‖), sq_nonneg (‖z₂‖ - ‖z₅‖),
-      sq_nonneg (‖z₃‖ - ‖z₄‖), sq_nonneg (‖z₃‖ - ‖z₅‖), sq_nonneg (‖z₄‖ - ‖z₅‖)]
-
-/-- Additivity of an interval integral over a five-term sum. -/
-private lemma integral_five_add {f₁ f₂ f₃ f₄ f₅ : ℝ → ℝ} {p q : ℝ}
-    (h₁ : IntervalIntegrable f₁ volume p q) (h₂ : IntervalIntegrable f₂ volume p q)
-    (h₃ : IntervalIntegrable f₃ volume p q) (h₄ : IntervalIntegrable f₄ volume p q)
-    (h₅ : IntervalIntegrable f₅ volume p q) :
-    (∫ x in p..q, (f₁ x + f₂ x + f₃ x + f₄ x + f₅ x))
-      = (∫ x in p..q, f₁ x) + (∫ x in p..q, f₂ x) + (∫ x in p..q, f₃ x)
-        + (∫ x in p..q, f₄ x) + ∫ x in p..q, f₅ x := by
-  rw [intervalIntegral.integral_add (((h₁.add h₂).add h₃).add h₄) h₅,
-    intervalIntegral.integral_add ((h₁.add h₂).add h₃) h₄,
-    intervalIntegral.integral_add (h₁.add h₂) h₃,
-    intervalIntegral.integral_add h₁ h₂]
-
-/-- The `U`-slab at truncation `T` IS the `V`-segment on `[−T, T]`. -/
-private lemma uSlab_eq_vSeg (A : ℝ → ℂ) (x h T : ℝ) : uSlab A x h T = vSeg A x h (-T) T := rfl
-
-/-- The five-way frequency split. -/
-private lemma vSeg_split_five {A : ℝ → ℂ} (hA : Continuous A) {x h : ℝ}
-    (hx : 0 < x) (hxh : 0 < x + h) (T₀ W Tc : ℝ) :
-    vSeg A x h (-Tc) Tc
-      = vSeg A x h (-Tc) (-W) + vSeg A x h (-W) (-T₀) + vSeg A x h (-T₀) T₀
-        + vSeg A x h T₀ W + vSeg A x h W Tc := by
-  have e : ∀ p q r : ℝ, vSeg A x h p q + vSeg A x h q r = vSeg A x h p r :=
-    fun p q r => vSeg_add_adj hA hx hxh p q r
-  rw [← e (-Tc) W Tc, ← e (-Tc) T₀ W, ← e (-Tc) (-T₀) T₀, ← e (-Tc) (-W) (-T₀)]
-
-/-- The five-way split of the `x`-integrated squared weighted Perron difference. -/
-private lemma five_split_integral_bound {A : ℝ → ℂ} (hA : Continuous A) {X h₁ h₂ : ℝ}
-    (hX : 0 < X) (hh1 : 0 < h₁) (hh2 : 0 < h₂) (T₀ W Tc : ℝ) :
-    (∫ x in X..(2 * X),
-        ‖((1 / h₁ : ℝ) : ℂ) * uSlab A x h₁ Tc - ((1 / h₂ : ℝ) : ℂ) * uSlab A x h₂ Tc‖ ^ 2)
-      ≤ 5 * ((∫ x in X..(2 * X), ‖vdiffR A X h₁ h₂ (-Tc) (-W) x‖ ^ 2)
-          + (∫ x in X..(2 * X), ‖vdiffR A X h₁ h₂ (-W) (-T₀) x‖ ^ 2)
-          + (∫ x in X..(2 * X), ‖vdiffR A X h₁ h₂ (-T₀) T₀ x‖ ^ 2)
-          + (∫ x in X..(2 * X), ‖vdiffR A X h₁ h₂ T₀ W x‖ ^ 2)
-          + ∫ x in X..(2 * X), ‖vdiffR A X h₁ h₂ W Tc x‖ ^ 2) := by
-  have hX2 : X ≤ 2 * X := by linarith
-  have hc : ∀ α β : ℝ, Continuous (fun x : ℝ => vdiffR A X h₁ h₂ α β x) :=
-    fun α β => vdiffR_continuous hA hX h₁ h₂ α β
-  have hsq : ∀ α β : ℝ, Continuous (fun x : ℝ => ‖vdiffR A X h₁ h₂ α β x‖ ^ 2) :=
-    fun α β => ((hc α β).norm).pow 2
-  have hsplit : ∀ x : ℝ, X ≤ x →
-      ((1 / h₁ : ℝ) : ℂ) * uSlab A x h₁ Tc - ((1 / h₂ : ℝ) : ℂ) * uSlab A x h₂ Tc
-        = vdiffR A X h₁ h₂ (-Tc) (-W) x + vdiffR A X h₁ h₂ (-W) (-T₀) x
-          + vdiffR A X h₁ h₂ (-T₀) T₀ x + vdiffR A X h₁ h₂ T₀ W x
-          + vdiffR A X h₁ h₂ W Tc x := by
-    intro x hx
-    have hx0 : (0 : ℝ) < x := lt_of_lt_of_le hX hx
-    rw [vdiffR_eq hA hX hx hh1.le hh2.le, vdiffR_eq hA hX hx hh1.le hh2.le,
-      vdiffR_eq hA hX hx hh1.le hh2.le, vdiffR_eq hA hX hx hh1.le hh2.le,
-      vdiffR_eq hA hX hx hh1.le hh2.le, uSlab_eq_vSeg, uSlab_eq_vSeg,
-      vSeg_split_five hA hx0 (show (0 : ℝ) < x + h₁ by linarith) T₀ W Tc,
-      vSeg_split_five hA hx0 (show (0 : ℝ) < x + h₂ by linarith) T₀ W Tc]
-    ring
-  have hcongr : (∫ x in X..(2 * X),
-        ‖((1 / h₁ : ℝ) : ℂ) * uSlab A x h₁ Tc - ((1 / h₂ : ℝ) : ℂ) * uSlab A x h₂ Tc‖ ^ 2)
-      = ∫ x in X..(2 * X),
-          ‖vdiffR A X h₁ h₂ (-Tc) (-W) x + vdiffR A X h₁ h₂ (-W) (-T₀) x
-            + vdiffR A X h₁ h₂ (-T₀) T₀ x + vdiffR A X h₁ h₂ T₀ W x
-            + vdiffR A X h₁ h₂ W Tc x‖ ^ 2 := by
-    refine intervalIntegral.integral_congr (fun x hx => ?_)
-    rw [Set.uIcc_of_le hX2, Set.mem_Icc] at hx
-    rw [hsplit x hx.1]
-  rw [hcongr]
-  have hcs : Continuous (fun x : ℝ =>
-      ‖vdiffR A X h₁ h₂ (-Tc) (-W) x + vdiffR A X h₁ h₂ (-W) (-T₀) x
-        + vdiffR A X h₁ h₂ (-T₀) T₀ x + vdiffR A X h₁ h₂ T₀ W x
-        + vdiffR A X h₁ h₂ W Tc x‖ ^ 2) :=
-    ((((((hc _ _).add (hc _ _)).add (hc _ _)).add (hc _ _)).add (hc _ _)).norm).pow 2
-  have hcm : Continuous (fun x : ℝ =>
-      5 * (‖vdiffR A X h₁ h₂ (-Tc) (-W) x‖ ^ 2 + ‖vdiffR A X h₁ h₂ (-W) (-T₀) x‖ ^ 2
-        + ‖vdiffR A X h₁ h₂ (-T₀) T₀ x‖ ^ 2 + ‖vdiffR A X h₁ h₂ T₀ W x‖ ^ 2
-        + ‖vdiffR A X h₁ h₂ W Tc x‖ ^ 2)) :=
-    continuous_const.mul
-      (((((hsq _ _).add (hsq _ _)).add (hsq _ _)).add (hsq _ _)).add (hsq _ _))
-  refine le_trans (intervalIntegral.integral_mono_on hX2 (hcs.intervalIntegrable _ _)
-    (hcm.intervalIntegrable _ _) (fun x _ => norm_sum_five_sq_le _ _ _ _ _)) (le_of_eq ?_)
-  rw [intervalIntegral.integral_const_mul]
-  congr 1
-  exact integral_five_add ((hsq _ _).intervalIntegrable _ _) ((hsq _ _).intervalIntegrable _ _)
-    ((hsq _ _).intervalIntegrable _ _) ((hsq _ _).intervalIntegrable _ _)
-    ((hsq _ _).intervalIntegrable _ _)
+The five `Lemma14` lemmas it reads are imported from `Salt.MR.Lemma14`. -/
 
 /-- **R3-e — Lemma 14's contour assembly at the DYADICALLY EXTENDED truncation.**  With
 `T₀ = (log X)^{1/45}`, `W = X/h₁` and `Tcut = 2^N·W` for ANY `N`,

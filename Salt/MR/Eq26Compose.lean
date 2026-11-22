@@ -427,13 +427,13 @@ Feeding the landed lemma in therefore leaves exactly two side conditions that ar
 not already binders of E26-6; both are discharged here, once and for all. -/
 
 /-- **Obligation 1** — the landed Step-1 binder `h₂ ≤ X(log X)^{−1/5}`
-(`KernelCarry` :1165) at `h₂ := hTwo X`: it holds with EQUALITY, `hTwo` being that
+(`KernelCarry` :1007) at `h₂ := hTwo X`: it holds with EQUALITY, `hTwo` being that
 number in quotient form (`Eq26Bridge.hTwo_eq_mul_rpow_neg`). -/
 theorem hTwo_meets_kernel_binder {X : ℝ} (hX : Real.exp 1 ≤ X) :
     hTwo X ≤ X * Real.log X ^ (-(1 / 5 : ℝ)) :=
   le_of_eq (hTwo_eq_mul_rpow_neg (le_trans zero_le_one (one_le_log_of_exp_le hX)))
 
-/-- **Obligation 2** — the landed Step-1 binder `hrange` (`KernelCarry` :1168) at
+/-- **Obligation 2** — the landed Step-1 binder `hrange` (`KernelCarry` :1010) at
 the eq-(26) carrier: `[⌈X⌉₊, ⌊4X⌋₊] ∩ 𝒮` lies in `[X, 4X]` by construction, so the
 carrier the window bridge needs is exactly the carrier the kernel accepts. -/
 theorem eq26_carrier_hrange (Pseq Qseq : ℕ → ℕ) (J : ℕ) {X : ℝ} (hX0 : 0 ≤ X) :
@@ -447,7 +447,7 @@ theorem eq26_carrier_hrange (Pseq Qseq : ℕ → ℕ) (J : ℕ) {X : ℝ} (hX0 :
   · exact le_trans (by exact_mod_cast hhi) (Nat.floor_le (by linarith))
 
 /-- **THE COMPOSITION, CERTIFIED.**  E26-6 fed by the landed Step 1 itself:
-`KernelCarry.lemma14_shortInterval_meansq_kernel` (:1162) at `a := ↑f`,
+`KernelCarry.lemma14_shortInterval_meansq_kernel` (:1004) at `a := ↑f`,
 `s0 := [⌈X⌉₊,⌊4X⌋₊] ∩ 𝒮`, `h₂ := hTwo X`, with its two extra side conditions
 discharged by `hTwo_meets_kernel_binder` and `eq26_carrier_hrange`.
 
