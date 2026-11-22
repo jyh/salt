@@ -436,7 +436,7 @@ private lemma sum_rpow_neg_half_le (N : ℕ) :
 
 /-- The telescoping step of `Σ f^{−3/4}`: `4(a − b)a³ − 1 = (a − b)²(3a² + 2ab + b²)` with
 `a⁴ = t + 1`, `b⁴ = t`. -/
-lemma rpow_step_three_quarter (t : ℝ) (ht : 0 ≤ t) :
+private lemma rpow_step_three_quarter (t : ℝ) (ht : 0 ≤ t) :
     (t + 1) ^ (-(3/4) : ℝ) ≤ 4 * (t + 1) ^ ((1/4) : ℝ) - 4 * t ^ ((1/4) : ℝ) := by
   have ht1 : (0 : ℝ) < t + 1 := by linarith
   have hcube : ((t + 1) ^ ((1/4) : ℝ)) ^ 3 = (t + 1) ^ ((3/4) : ℝ) := by
@@ -457,7 +457,7 @@ lemma rpow_step_three_quarter (t : ℝ) (ht : 0 ≤ t) :
     (show (0 : ℝ) ≤ 3 * a ^ 2 + 2 * a * b + b ^ 2 by positivity), ha4, hb4]
 
 /-- `Σ_{f ≤ N} f^{−3/4} ≤ 4·N^{1/4}`. -/
-lemma sum_rpow_neg_three_quarter_le (N : ℕ) :
+private lemma sum_rpow_neg_three_quarter_le (N : ℕ) :
     ∑ f ∈ Finset.Icc 1 N, (f : ℝ) ^ (-(3/4) : ℝ) ≤ 4 * (N : ℝ) ^ ((1/4) : ℝ) := by
   induction N with
   | zero => simp [Real.zero_rpow]
