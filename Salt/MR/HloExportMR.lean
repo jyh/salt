@@ -434,7 +434,7 @@ theorem m4_second_road_L2_hloCap_pinned :
 The `L²` door export at `G := s13GK K M` (`GLever`), `(K : ℕ)` first.
 
 ⟦§1 IS `G`-FREE AND IS REUSED VERBATIM⟧ `m4_exit_socket_split_sq_arc_hloCap` (:69) and its
-pinned twin (:277) speak an ABSTRACT split `(a, e)` — no door object occurs in either
+pinned twin (:255) speak an ABSTRACT split `(a, e)` — no door object occurs in either
 statement — so both are consumed unchanged by the twins below.  `parseval_insert_budget_door`,
 its bounded twin, `sum_bigXi_insert_spelling_eq` and `l2_budget_line` are `(A, G)`-ABSTRACT or
 datum-abstract and are RE-INSTANTIATED at `calP (Adoor M) (s13GK K M)` /
@@ -568,7 +568,7 @@ theorem m4_second_road_L2_hloCap_gk (K : ℕ) :
     have hB := hBcl0 H
     linarith only [h]
 
-/-- `m4_doorL2_close_split_sq_hloCap_pinned` (:320), at the lever. -/
+/-- `m4_doorL2_close_split_sq_hloCap_pinned` (:298), at the lever. -/
 theorem m4_doorL2_close_split_sq_hloCap_pinned_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
       0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧
@@ -621,7 +621,7 @@ theorem m4_doorL2_close_split_sq_hloCap_pinned_gk (K : ℕ) :
       mul_le_mul_of_nonneg_left (hceil H hlo hhi) (by linarith)
     linarith
 
-/-- `m4_second_road_L2_hloCap_pinned` (:394), at the lever. -/
+/-- `m4_second_road_L2_hloCap_pinned` (:367), at the lever. -/
 theorem m4_second_road_L2_hloCap_pinned_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ),
       1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧ 0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧

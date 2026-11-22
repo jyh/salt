@@ -610,14 +610,8 @@ theorem caseA_damped_partial_gen {b : ℕ → ℂ} {H : ℝ} {N Xn P Q j M k₀ 
     intro n hn1 hn2
     have hmem : n ∈ ramRrange H N Xn j := by
       have hnk : (k₀ : ℝ) + 1 ≤ (n : ℝ) := by exact_mod_cast hn1
-      have hnM : (n : ℝ) ≤ (M : ℝ) := by exact_mod_cast hn2
-      rw [ramRrange, Finset.mem_filter]
-      refine ⟨Finset.mem_Icc.mpr ⟨by omega, le_trans hn2 hMN⟩, ?_, ?_⟩
-      · have : ramRbot H Xn j ≤ (n : ℝ) := by linarith
-        rwa [ramRbot] at this
-      · have : (n : ℝ) ≤ 2 * ramRbot H Xn j := le_trans hnM hMtop2
-        rw [ramRbot] at this
-        linarith
+      exact mem_ramRrange_of (by omega) (le_trans hn2 hMN) (by linarith)
+        (le_trans (by exact_mod_cast hn2) hMtop2)
     rw [ramRdampCoeff_damp, if_pos hmem]
   intro m hm
   have hm0 : (0 : ℝ) ≤ (m : ℝ) := Nat.cast_nonneg m
@@ -675,14 +669,8 @@ theorem damped_partial_transfer_34_gen {b : ℕ → ℂ} (hb1 : b 1 = 1)
   · intro n hn1 hn2
     have hmem : n ∈ ramRrange H N Xn j := by
       have hnk : (k₀ : ℝ) + 1 ≤ (n : ℝ) := by exact_mod_cast hn1
-      have hnM : (n : ℝ) ≤ (M : ℝ) := by exact_mod_cast hn2
-      rw [ramRrange, Finset.mem_filter]
-      refine ⟨Finset.mem_Icc.mpr ⟨by omega, le_trans hn2 hMN⟩, ?_, ?_⟩
-      · have : ramRbot H Xn j ≤ (n : ℝ) := by linarith
-        rwa [ramRbot] at this
-      · have : (n : ℝ) ≤ 2 * ramRbot H Xn j := le_trans hnM hMtop2
-        rw [ramRbot] at this
-        linarith
+      exact mem_ramRrange_of (by omega) (le_trans hn2 hMN) (by linarith)
+        (le_trans (by exact_mod_cast hn2) hMtop2)
     rw [ramRdampCoeff_damp, if_pos hmem]
 
 /-- **THE CO-FACTOR `Rbd` AT THE GENERAL DATUM** (`cofactor_Rbd34_local_nocap3_gen`).
