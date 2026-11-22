@@ -38,8 +38,8 @@ smaller one), and it is never used to prove a primed statement from a landed one
   A3 middle's own exit: `π₀ := (log X)^{−1/500}`, with `hgU`/`hgBand` derived from `hεwin`
   and `hL4096` exactly as the landed proof derives them).
 
-Additive: no landed declaration is touched.  `ThmA2.spine_scale` and
-`ThmA2Pool.spine_scale_pool` are both module-private, so §2 carries its own copy.
+Additive: no landed declaration is touched.  The spine's `π`-arithmetic is
+`ThmA2.spine_scale`, imported.
 -/
 
 noncomputable section
@@ -74,22 +74,6 @@ lemma a2Mrow'_le_a2Mrow {Cs C : ℝ} {M Xd : ℕ} {X ε : ℝ} (hXd : 2 ≤ Xd) 
   linarith
 
 /-! ## §2 — THE JOIN: the `q = 1` crossing at the primed sum AND the free pool -/
-
-/-- The `π`-arithmetic of the spine's prefactor `1/(2π²)`, isolated (`ThmA2.spine_scale`'s
-statement and proof; both the landed copy and `ThmA2Pool`'s are module-private):
-`236365/(2π) ≤ 37620`, `205/(2π) ≤ 33`, `39674880/(2π) ≤ 6315000`. -/
-private lemma spine_scale_prime {p Mr Bd w Eg eg : ℝ} (hp1 : 3.141592 < p)
-    (hMr : 0 ≤ Mr) (hBd : 0 ≤ Bd) (hw : 0 ≤ w) (hEg : Eg ≤ 2 * p ^ 2 * eg) :
-    1 / (2 * p ^ 2) * (236365 * p * Mr + 205 * p * Bd + 39674880 * p * w + Eg)
-      ≤ 37620 * Mr + 33 * Bd + 6315000 * w + eg := by
-  have hp0 : (0 : ℝ) < p := by linarith
-  have hp2pos : (0 : ℝ) < 2 * p ^ 2 := by positivity
-  rw [one_div, inv_mul_eq_div, div_le_iff₀ hp2pos]
-  have h1 : 236365 * p ≤ 75240 * p ^ 2 := by nlinarith only [hp1]
-  have h2 : 205 * p ≤ 66 * p ^ 2 := by linarith only [h1, hp1]
-  have h3 : 39674880 * p ≤ 12630000 * p ^ 2 := by linarith only [h1, hp1]
-  linarith only [hEg, mul_le_mul_of_nonneg_right h3 hw,
-      mul_le_mul_of_nonneg_right h2 hBd, mul_le_mul_of_nonneg_right h1 hMr]
 
 /-- **⟦THE R1×R2 JOIN⟧** (`thm_a2'_of_rows_pool'`) — `ThmA2Pool.thm_a2'_of_rows_pool` with
 its row family at `a2Mrow'` and its second grading gate at `a2RowsSum'`:
@@ -217,7 +201,7 @@ theorem thm_a2'_of_rows_pool' {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁'
     rw [e3]
     linarith
   refine hmono.trans ?_
-  have hscale := spine_scale_prime (p := Real.pi)
+  have hscale := spine_scale (p := Real.pi)
     (Mr := 47520 * a2Level1 M + 5 * π₀)
     (Bd := 256 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
         + π₀
