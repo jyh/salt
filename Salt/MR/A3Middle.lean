@@ -64,7 +64,7 @@ the `a2RowsSum'` nonnegativity the primed slot needs. -/
 
 /-- `ThmA2Rows.a2_weight_gates`, re-minted: with `w := (X/h)/T`, `0 ≤ w ≤ 1` and the four
 `Tann`-linear factors weigh in at `9`, `244`, `3`, `3/2`. -/
-private lemma a3_weight_gates {X h T Xd Q1 : ℝ} (hh4 : 4 ≤ h) (hX0 : 0 < X)
+lemma a3_weight_gates {X h T Xd Q1 : ℝ} (hh4 : 4 ≤ h) (hX0 : 0 < X)
     (hT : X / h ≤ T) (hXd : X ≤ 4 * Xd) (hQ1 : Q1 ≤ h) (hQ10 : 0 ≤ Q1) :
     0 ≤ X / h / T ∧ X / h / T ≤ 1 ∧
       X / h / T * (2 * T * Q1 / Xd + 1) ≤ 9 ∧
@@ -121,14 +121,14 @@ private lemma a3_weight_gates {X h T Xd Q1 : ℝ} (hh4 : 4 ≤ h) (hX0 : 0 < X)
     rw [hid]; linarith
 
 /-- `ThmA2Rows.a2_row_weigh`, re-minted. -/
-private lemma a3_row_weigh {w A B C D a b c d : ℝ}
+lemma a3_row_weigh {w A B C D a b c d : ℝ}
     (hA : w * A ≤ a) (hB : w * B ≤ b) (hC : w * C ≤ c) (hD : w * D ≤ d) :
     w * (A + B + C + D) ≤ a + b + c + d := by
   have h : w * (A + B + C + D) = w * A + w * B + w * C + w * D := by ring
   rw [h]; linarith
 
 /-- `ThmA2Rows.a2_level1_weigh`, re-minted. -/
-private lemma a3_level1_weigh {w Hq Lq R Pq Br Z : ℝ}
+lemma a3_level1_weigh {w Hq Lq R Pq Br Z : ℝ}
     (hkey : ∀ R' : ℝ, 0 ≤ R' → 2 * (Hq * Lq + 1) * R' * Pq * Br ≤ 5280 * R' * Z)
     (hR0 : 0 ≤ w * R) (hR9 : w * R ≤ 9) (hZ0 : 0 ≤ Z) :
     w * (2 * (Hq * Lq + 1) * R * Pq * Br) ≤ 47520 * Z := by
@@ -139,7 +139,7 @@ private lemma a3_level1_weigh {w Hq Lq R Pq Br Z : ℝ}
   nlinarith [mul_nonneg hZ0 (by linarith : (0 : ℝ) ≤ 9 - w * R)]
 
 /-- `ThmA2Rows.a2_term2_weigh`, re-minted: `1536·244 = 374784`. -/
-private lemma a3_term2_weigh {w Cs R Y : ℝ} (hCs : 0 ≤ Cs) (hY : 0 ≤ Y) (hR : w * R ≤ 244) :
+lemma a3_term2_weigh {w Cs R Y : ℝ} (hCs : 0 ≤ Cs) (hY : 0 ≤ Y) (hR : w * R ≤ 244) :
     w * (1536 * Cs * Real.exp 3 * R * Y) ≤ 374784 * Cs * Real.exp 3 * Y := by
   have hid : w * (1536 * Cs * Real.exp 3 * R * Y)
       = 1536 * Cs * Real.exp 3 * Y * (w * R) := by ring
@@ -148,14 +148,14 @@ private lemma a3_term2_weigh {w Cs R Y : ℝ} (hCs : 0 ≤ Cs) (hY : 0 ≤ Y) (h
   linarith [mul_le_mul_of_nonneg_left hR h0]
 
 /-- `ThmA2Rows.a2_term3_weigh_mr`, re-minted: `960·3 = 2880 ≤ 5760`. -/
-private lemma a3_term3_weigh_mr {w R S : ℝ} (hS : 0 ≤ S) (hR : w * R ≤ 3) :
+lemma a3_term3_weigh_mr {w R S : ℝ} (hS : 0 ≤ S) (hR : w * R ≤ 3) :
     w * (960 * R * S) ≤ 5760 * S := by
   have hid : w * (960 * R * S) = 960 * S * (w * R) := by ring
   rw [hid]
   linarith [mul_le_mul_of_nonneg_left hR (mul_nonneg (by norm_num : (0 : ℝ) ≤ 960) hS)]
 
 /-- `ThmA2Rows.a2_term4_weigh`, re-minted: `2·(3/2) = 3`. -/
-private lemma a3_term4_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3 / 2) :
+lemma a3_term4_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3 / 2) :
     w * (2 * (R * Z)) ≤ 3 * Z := by
   have hid : w * (2 * (R * Z)) = 2 * Z * (w * R) := by ring
   rw [hid]
