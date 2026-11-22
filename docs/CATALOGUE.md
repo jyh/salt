@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `2481f040` · source digest `e1a8490e24d6d0b1` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `224aceb9` · source digest `35844df617b9e8d2` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -5676,7 +5676,7 @@ Declarations indexed across the tree: 23446 · corpus Prop-valued names (the hyp
 | `Salt.MR.t0BandB_grade` | Salt/MR/ThmA2.lean:262 | characters |
 | `Salt.MR.egap_small` | Salt/MR/ThmA2.lean:360 | characters |
 | `Salt.MR.calFrameK_doorH1_at` | Salt/MR/ThmA2.lean:662 | characters |
-| `Salt.MR.calFrameK_doorH1_at_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:547 | characters |
+| `Salt.MR.calFrameK_doorH1_at_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:461 | characters |
 | `Salt.MR.exp_add_exp_sub_two_cos_le` | Salt/MR/ThmA2Open.lean:78 | characters |
 | `Salt.MR.a3_prefactor_band_le_two` | Salt/MR/ThmA2Open.lean:92 | characters |
 | `Salt.MR.a3_prefactor_max_le_three` | Salt/MR/ThmA2Open.lean:105 | characters |
@@ -8675,20 +8675,20 @@ Declarations indexed across the tree: 23446 · corpus Prop-valued names (the hyp
 | `Salt.MR.a2_row_cap_of_not_capFreeFloor` | Salt/MR/ThmA2.lean:683 | characters | `¬Salt.MR.CapFreeFloor` |
 | `Salt.MR.A2Frame.box_at` | Salt/MR/ThmA2.lean:751 | characters | `Salt.MR.A2Frame` |
 | `Salt.MR.A2Frame.ksGate_at` | Salt/MR/ThmA2.lean:759 | characters | `Salt.MR.A2Frame` |
-| `Salt.MR.thm_a2'_of_rows_L` | Salt/MR/ThmA2Linear.lean:361 | characters | `Salt.MR.TannGate` |
-| `Salt.MR.thm_a2'_of_rows_L_gk` | Salt/MR/ThmA2Linear.lean:577 | characters | `Salt.MR.TannGate` |
-| `Salt.MR.thm_a2'_L` | Salt/MR/ThmA2Linear.lean:1391 | characters | `Salt.MR.A2Frame`, `Salt.MR.collisionGate`, `Salt.MR.ShortIntervalDatum`, `Salt.MR.TannGate` |
-| `Salt.MR.a2Rows_of_capfree3_end_L` | Salt/MR/ThmA2Linear.lean:1646 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
-| `Salt.MR.a2Rows_of_capfree_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:1803 | characters | `Salt.MR.A2Frame`, `Salt.MR.CapFreeFloor`, `Salt.MR.ShortIntervalDatum`, `Salt.MR.TannGate` |
-| `Salt.MR.a2Rows_of_cap_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:1920 | characters | `Salt.MR.A2Frame`, `¬Salt.MR.CapFreeFloor`, `Salt.MR.collisionGate`, `Salt.MR.ShortIntervalDatum`, `Salt.MR.TannGate` |
-| `Salt.MR.thm_a2'_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:2049 | characters | `Salt.MR.A2Frame`, `Salt.MR.collisionGate`, `Salt.MR.ShortIntervalDatum`, `Salt.MR.TannGate` |
-| `Salt.MR.a2Rows_of_capfree3_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:2169 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
-| `Salt.MR.a2Rows_of_capfree3_end_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:2277 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
-| `Salt.MR.thm_a2'_of_rows'_L` | Salt/MR/ThmA2Linear.lean:3021 | characters | `Salt.MR.TannGate` |
-| `Salt.MR.a2Rows_of_capfree3_end'_L` | Salt/MR/ThmA2Linear.lean:3281 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
-| `Salt.MR.a2Rows_of_capfree3_end'_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:3550 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
-| `Salt.MR.a2Rows_of_capfree3'_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:3658 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
-| `Salt.MR.a2Rows_of_capfree3'_L_gk` | Salt/MR/ThmA2Linear.lean:3840 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
+| `Salt.MR.thm_a2'_of_rows_L` | Salt/MR/ThmA2Linear.lean:275 | characters | `Salt.MR.TannGate` |
+| `Salt.MR.thm_a2'_of_rows_L_gk` | Salt/MR/ThmA2Linear.lean:491 | characters | `Salt.MR.TannGate` |
+| `Salt.MR.thm_a2'_L` | Salt/MR/ThmA2Linear.lean:1305 | characters | `Salt.MR.A2Frame`, `Salt.MR.collisionGate`, `Salt.MR.ShortIntervalDatum`, `Salt.MR.TannGate` |
+| `Salt.MR.a2Rows_of_capfree3_end_L` | Salt/MR/ThmA2Linear.lean:1560 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
+| `Salt.MR.a2Rows_of_capfree_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:1717 | characters | `Salt.MR.A2Frame`, `Salt.MR.CapFreeFloor`, `Salt.MR.ShortIntervalDatum`, `Salt.MR.TannGate` |
+| `Salt.MR.a2Rows_of_cap_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:1834 | characters | `Salt.MR.A2Frame`, `¬Salt.MR.CapFreeFloor`, `Salt.MR.collisionGate`, `Salt.MR.ShortIntervalDatum`, `Salt.MR.TannGate` |
+| `Salt.MR.thm_a2'_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:1963 | characters | `Salt.MR.A2Frame`, `Salt.MR.collisionGate`, `Salt.MR.ShortIntervalDatum`, `Salt.MR.TannGate` |
+| `Salt.MR.a2Rows_of_capfree3_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:2083 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
+| `Salt.MR.a2Rows_of_capfree3_end_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:2191 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
+| `Salt.MR.thm_a2'_of_rows'_L` | Salt/MR/ThmA2Linear.lean:2935 | characters | `Salt.MR.TannGate` |
+| `Salt.MR.a2Rows_of_capfree3_end'_L` | Salt/MR/ThmA2Linear.lean:3195 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
+| `Salt.MR.a2Rows_of_capfree3_end'_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:3464 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
+| `Salt.MR.a2Rows_of_capfree3'_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:3572 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
+| `Salt.MR.a2Rows_of_capfree3'_L_gk` | Salt/MR/ThmA2Linear.lean:3754 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
 | `Salt.MR.thm_a2'_of_rows_pool` | Salt/MR/ThmA2Pool.lean:92 | characters | `Salt.MR.TannGate` |
 | `Salt.MR.thm_a2'_of_rows_chiSummed_pool` | Salt/MR/ThmA2Pool.lean:230 | characters | `Salt.MR.TannGate` |
 | `Salt.MR.thm_a2'_of_rows_pool'` | Salt/MR/ThmA2Prime.lean:116 | characters | `Salt.MR.TannGate` |
