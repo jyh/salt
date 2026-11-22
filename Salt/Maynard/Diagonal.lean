@@ -27,7 +27,7 @@ variable [TupleChoice]
 /-! ## Small reindexing helper -/
 
 /-- Move the innermost of three nested sums to the front. -/
-private theorem sum_move3 {α β γ δ : Type*} [AddCommMonoid δ]
+theorem sum_move3 {α β γ δ : Type*} [AddCommMonoid δ]
     (A : Finset α) (B : Finset β) (C : Finset γ) (F : α → β → γ → δ) :
     (∑ a ∈ A, ∑ b ∈ B, ∑ c ∈ C, F a b c)
       = ∑ c ∈ C, ∑ a ∈ A, ∑ b ∈ B, F a b c := by

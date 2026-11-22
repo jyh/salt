@@ -47,7 +47,7 @@ namespace Salt.Twelve
 open Salt.Maynard
 
 /-- `(gMult 1 : ℝ) = 1` (the empty prime-factor product). -/
-private lemma gMult_one_R : (gMult 1 : ℝ) = 1 := by
+lemma gMult_one_R : (gMult 1 : ℝ) = 1 := by
   simp [gMult, Nat.primeFactors_one]
 
 /-- **Step 1 at general `k`, any weight `y`** (`Salt.MaynardK.qdiag_eq_yMsq_sum_gen`; stated here,
@@ -251,7 +251,7 @@ theorem absInn_le_pas (R W' : ℕ) (m : Fin 5) (F : Poly) (hQ : Qabs F ≤ 1)
 /-! ## Step 4: the crude 4-dim `g`-moment and the summed contraction bound -/
 
 /-- `0 ≤ phiAtomSum z W'`: a sum of nonnegative terms. -/
-private lemma pas_nn (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
+lemma pas_nn (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
   unfold Salt.Maynard.phiAtomSum
   exact Finset.sum_nonneg (fun x _ => by positivity)
 

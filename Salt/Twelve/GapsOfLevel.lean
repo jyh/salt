@@ -105,14 +105,6 @@ private lemma lcm_pairwise_coprime_of_noncollision {R W' : ℕ} {d e : Fin 5 →
   · exact absurd (hnc j i hij.symm) (Nat.Prime.not_coprime_iff_dvd.mpr ⟨p, hp, hdj, hei⟩)
   · exact absurd (hecop i j hij) (Nat.Prime.not_coprime_iff_dvd.mpr ⟨p, hp, hei, hej⟩)
 
-/-- `h_i ≤ 19` for each of the five shifts: the five values of `hSeq 5` (`hSeq_five_zero` …
-`hSeq_five_four`), by cases on `i`; the file-scoped mirror of `FrontierM`'s private helper. -/
-private lemma hSeq_le_nineteen (i : Fin 5) : hSeq 5 i ≤ 19 := by
-  fin_cases i <;>
-    simp only [hSeq_five_zero, hSeq_five_one, hSeq_five_two, hSeq_five_three,
-      hSeq_five_four] <;>
-    norm_num
-
 /-! ## The `EHall`-free largeness bundle `WinFrontierMWL` (parameterized by `D`)
 
 Byte-mirror of `FrontierM`'s `WinFrontierMW` with the leading `EHall →` deleted:
