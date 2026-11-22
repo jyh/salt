@@ -219,17 +219,6 @@ private lemma gap_rel_g (n : ℕ) (hn : 1 ≤ n) (W' : ℕ) (hW' : Squarefree W'
   have hM0le : M0 ≤ 2 * PAS := mjs_M0_rel W' hW' hpos D R hD hDW hR2
   have hMQnn : 0 ≤ MQ := Finset.sum_nonneg (fun x _ => div_nonneg (mjs_PFsum_nn _) (by positivity))
   have hMQle : MQ ≤ 8 * PAS / (D:ℝ) := mjs_MQ_rel W' hW' hpos D R hD hDW hR2
-  set PAS := Salt.Maynard.phiAtomSum R W' with hPAS
-  have hPAS0 : 0 ≤ PAS := pas_nonneg R W'
-  have hDR : (3:ℝ) ≤ (D:ℝ) := by exact_mod_cast hD
-  have hDpos : (0:ℝ) < (D:ℝ) := by linarith
-  set F_R := (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W') with hF_R
-  set M0 := ∑ x ∈ F_R, (1 / (gMult x : ℝ)) with hM0def
-  set MQ := ∑ x ∈ F_R, (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) / (gMult x : ℝ) with hMQdef
-  have hM0nn : 0 ≤ M0 := Finset.sum_nonneg (fun x _ => by positivity)
-  have hM0le : M0 ≤ 2 * PAS := mjs_M0_rel W' hW' hpos D R hD hDW hR2
-  have hMQnn : 0 ≤ MQ := Finset.sum_nonneg (fun x _ => div_nonneg (mjs_PFsum_nn _) (by positivity))
-  have hMQle : MQ ≤ 8 * PAS / (D:ℝ) := mjs_MQ_rel W' hW' hpos D R hD hDW hR2
   have h1 := enlarge_to_PB (n := n) W' D R hD hDW
     (fun ρ => ∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))))
     (fun ρ => Finset.sum_nonneg (fun i _ => mjs_PFsum_nn _))
