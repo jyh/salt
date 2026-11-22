@@ -37,7 +37,7 @@ hypothesis lists BYTE FOR BYTE — the `2 ≤ A` is read off the frame, never as
 
 ## Contents
 
-* §1 the weighting gates (private copies — `ThmA2Rows`'s are module-private);
+* §1 the weighting gates (local copies; only `ThmA2Rows.a2_weight_gates` is module-private);
 * §2 `seam_row_number_nocap3_end'` — the socketed strict/fused row at the primed bracket;
 * §3 `seam_row_number_capfree3_end'` — its cap-free instance at `t₁ := 0`, `S := 0`;
 * §4 `a2Rows_of_capfree3_end'` — **THE A3 EXIT (strict/fused)**: the door's `hrows` supplier
@@ -58,9 +58,10 @@ namespace Salt.MR
 
 /-! ## §1 — the weighting gates, re-minted
 
-`ThmA2Rows`'s §1 lemmas are `private` to that module.  The four numerals `9`/`244`/`3`/`3/2`
-and the four weighing steps are reproduced here verbatim (same statements, same proofs), plus
-the `a2RowsSum'` nonnegativity the primed slot needs. -/
+`ThmA2Rows.a2_weight_gates` is `private` to that module (its four weighing steps are public
+there).  The four numerals `9`/`244`/`3`/`3/2` and the four weighing steps are reproduced here
+verbatim (same statements, same proofs), plus the `a2RowsSum'` nonnegativity the primed slot
+needs. -/
 
 /-- `ThmA2Rows.a2_weight_gates`, re-minted: with `w := (X/h)/T`, `0 ≤ w ≤ 1` and the four
 `Tann`-linear factors weigh in at `9`, `244`, `3`, `3/2`. -/

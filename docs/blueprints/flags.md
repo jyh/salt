@@ -23683,7 +23683,7 @@ Halász bound:
   the `exp(−(1/2)·mrtM)` shape occurs ONLY in MRTPropA3.lean's own def (:382) and its
       CONSUMERS (:1900, :2230, :2239) — there is NO landed PRODUCER at that constant
 ```
-📌 **The `1/(1+|t−t₁|)` decay factor IS available** (`BallSup.lean:211,219,232`; `A3Middle.lean:243,602`)
+📌 **The `1/(1+|t−t₁|)` decay factor IS available** (`BallSup.lean:211,219,232`; `A3Middle.lean:244,603`)
 — **the gap is the constant, not the shape.**  MRT get `1/2` from the sharp Granville–Harper–
 Soundararajan proof of Halász; our corpus holds an explicit peel at `1/(2e)`.
 ⇒ 🔑 ***THE SAME LAW, THIRD INSTANCE: A CONSTANT IS A RECORD OF WHICH EXTERNAL THEOREM ITS AUTHOR
