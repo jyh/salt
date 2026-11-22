@@ -44,7 +44,7 @@ The brief's two candidate supplies for the centre bound
   `|t| ≤ y` ↝ `|t| ≤ ⌊√y⌋` ↝ `|t| ≤ ⌊√⌊√y⌋⌋`.  At `y = k ≍ X` that is `|t₁| ≲ X^{1/4}`,
   and the seam's annulus reaches `Tann ≤ X` (`ThmA2.lean · A2Frame`), so **a centre above `X^{1/4}`
   is NOT covered by this route** — the honest statement of the death the brief anticipated.
-  It does not bite at the door: `M4DoorClose.lean:61` pins the socket's ball centre at
+  It does not bite at the door: `M4DoorClose.lean:62` pins the socket's ball centre at
   **`t₁ := 0`** (`Ps := 1`, `J := 2`, `Tann := X`, `Rrad := seamRad X`), and `|0| ≤ anything`
   — see `ball_leg_pieceDatum_at_zero`, where the gate is discharged outright.
 
@@ -453,7 +453,7 @@ theorem ball_leg_pieceDatum (A : ℝ) (hA : 0 < A) {Mmass : ℝ} (hMmass : 0 ≤
   exact hsup X T N a q χ Pseq Qseq j t₁ hXth hx₀ hXN hN2 hq ht₁ hmass htail hsupp hDatum hcap
 
 /-- **THE DOOR INSTANCE — the height gate discharged at the pinned centre.**
-`M4DoorClose.lean:61` pins the socket's ball data at `Ps := 1`, `J := 2`, `Tann := X`,
+`M4DoorClose.lean:62` pins the socket's ball data at `Ps := 1`, `J := 2`, `Tann := X`,
 **`t₁ := 0`**, `Rrad := seamRad X`.  At `t₁ = 0` the route's one real restriction — the
 `X^{1/4}` height ceiling of the two hyperbola folds — is discharged outright, so the ball leg
 at the door's `{j}`-piece carries NO centre-height hypothesis at all. -/
