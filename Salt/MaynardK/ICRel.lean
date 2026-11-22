@@ -24,127 +24,11 @@ variable [Salt.Maynard.TupleChoice]
 
 open Salt.Twelve Salt.Maynard Salt.MaynardK
 
-/-- `phiAtomSum` is a sum of nonnegative terms. -/
-private lemma pas_nonneg (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
-  unfold Salt.Maynard.phiAtomSum
-  exact Finset.sum_nonneg fun r _ => by positivity
-
-/-- `phiAtomSum` is monotone in the cap (more terms, all nonnegative). -/
-private lemma pas_mono {z z' W' : ℕ} (h : z ≤ z') :
-    Salt.Maynard.phiAtomSum z W' ≤ Salt.Maynard.phiAtomSum z' W' := by
-  unfold Salt.Maynard.phiAtomSum
-  apply Finset.sum_le_sum_of_subset_of_nonneg
-  · intro r hr
-    simp only [Salt.Maynard.sqfCop, Finset.mem_filter, Finset.mem_range] at hr ⊢
-    exact ⟨lt_of_lt_of_le hr.1 h, hr.2⟩
-  · intro r _ _; positivity
-
 /-! ## List-sum plumbing -/
-
-/-- Swap a `Finset` sum with an inner `List` sum. -/
-private lemma sum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
-    (f : ι → γ → ℝ) :
-    ∑ u ∈ S, (L.map (fun x => f u x)).sum = (L.map (fun x => ∑ u ∈ S, f u x)).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih =>
-      simp only [List.map_cons, List.sum_cons]
-      rw [Finset.sum_add_distrib, ih]
-
-/-- Triangle inequality for a `List.sum` of reals. -/
-private lemma list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
-    |(L.map f).sum| ≤ (L.map (fun a => |f a|)).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih =>
-      simp only [List.map_cons, List.sum_cons]
-      calc |f a + (L.map f).sum| ≤ |f a| + |(L.map f).sum| := abs_add_le _ _
-        _ ≤ |f a| + (L.map (fun a => |f a|)).sum := by linarith [ih]
-
-/-- Additivity of `List.sum` over a pointwise sum of the mapped functions. -/
-private lemma list_sum_map_add {γ : Type*} (L : List γ) (f g : γ → ℝ) :
-    (L.map (fun a => f a + g a)).sum = (L.map f).sum + (L.map g).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih => simp only [List.map_cons, List.sum_cons, ih]; ring
 
 /-! ## Membership of the updated tuple in the sieve box -/
 
-/-- `∏ᵢ (update r m u) i = u · ∏ᵢ r i` when `r m = 1`. -/
-private lemma prod_update_eq {n : ℕ} {r : Fin (n + 1) → ℕ} {m : Fin (n + 1)} (hrm : r m = 1)
-        (u : ℕ) :
-    ∏ i, Function.update r m u i = u * ∏ i, r i := by
-  rw [Finset.prod_update_of_mem (Finset.mem_univ m)]
-  congr 1
-  rw [← Finset.erase_eq]
-  exact Finset.prod_erase _ hrm
-
-/-- Membership of `Function.update r m u` in the sieve box, unfolded to the
-one-dimensional conditions on `u`. -/
-private lemma update_mem_kSieveIndex_iff {R W' : ℕ} {n : ℕ} {r : Fin (n + 1) → ℕ}
-    (hr : r ∈ kSieveIndex (n + 1) R W') {m : Fin (n + 1)} (hrm : r m = 1) (u : ℕ) :
-    Function.update r m u ∈ kSieveIndex (n + 1) R W' ↔
-      (Squarefree u ∧ u.Coprime W' ∧ u.Coprime (∏ i, r i) ∧ u * (∏ i, r i) < R) := by
-  rw [mem_kSieveIndex_iff] at hr ⊢
-  obtain ⟨hrSF, hrPC, hrW, hrlt⟩ := hr
-  have hprodU : ∏ i, Function.update r m u i = u * ∏ i, r i := prod_update_eq hrm u
-  constructor
-  · rintro ⟨hSF, hPC, hW, hlt⟩
-    refine ⟨?_, ?_, ?_, ?_⟩
-    · have := hSF m; rwa [Function.update_self] at this
-    · have := hW m; rwa [Function.update_self] at this
-    · rw [Nat.coprime_fintype_prod_right_iff]
-      intro i
-      rcases eq_or_ne i m with hi | hi
-      · subst hi; rw [hrm]; exact Nat.coprime_one_right u
-      · have := hPC m i (Ne.symm hi)
-        rwa [Function.update_self, Function.update_of_ne hi] at this
-    · rwa [hprodU] at hlt
-  · rintro ⟨hSFu, hcopu, hcopuP, hlt⟩
-    refine ⟨?_, ?_, ?_, ?_⟩
-    · intro i
-      rcases eq_or_ne i m with hi | hi
-      · subst hi; rwa [Function.update_self]
-      · rw [Function.update_of_ne hi]; exact hrSF i
-    · intro i j hij
-      rcases eq_or_ne i m with hi | hi
-      · have hjm : j ≠ m := hi ▸ hij.symm
-        rw [hi, Function.update_self, Function.update_of_ne hjm]
-        exact Nat.Coprime.coprime_dvd_right (Finset.dvd_prod_of_mem r (Finset.mem_univ j)) hcopuP
-      · rcases eq_or_ne j m with hj | hj
-        · rw [hj, Function.update_self, Function.update_of_ne hi]
-          exact (Nat.Coprime.coprime_dvd_right
-            (Finset.dvd_prod_of_mem r (Finset.mem_univ i)) hcopuP).symm
-        · rw [Function.update_of_ne hi, Function.update_of_ne hj]
-          exact hrPC i j hij
-    · intro i
-      rcases eq_or_ne i m with hi | hi
-      · subst hi; rwa [Function.update_self]
-      · rw [Function.update_of_ne hi]; exact hrW i
-    · rwa [hprodU]
-
 /-! ## A Lipschitz estimate for powers on the unit interval -/
-
-/-- For `A, B ∈ [0,1]`, `|Aⁿ − Bⁿ| ≤ n·|A − B|`. -/
-private lemma abs_pow_sub_pow_le_unit {A B : ℝ} (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
-    (hB0 : 0 ≤ B) (hB1 : B ≤ 1) (n : ℕ) : |A ^ n - B ^ n| ≤ n * |A - B| := by
-  induction n with
-  | zero => simp
-  | succ n ih =>
-      have hBn : |B ^ n| ≤ 1 := by
-        rw [abs_of_nonneg (pow_nonneg hB0 n)]; exact pow_le_one₀ hB0 hB1
-      have hAle : |A| ≤ 1 := by rw [abs_of_nonneg hA0]; exact hA1
-      have key : A ^ (n + 1) - B ^ (n + 1) = A * (A ^ n - B ^ n) + (A - B) * B ^ n := by ring
-      calc |A ^ (n + 1) - B ^ (n + 1)|
-          = |A * (A ^ n - B ^ n) + (A - B) * B ^ n| := by rw [key]
-        _ ≤ |A * (A ^ n - B ^ n)| + |(A - B) * B ^ n| := abs_add_le _ _
-        _ = |A| * |A ^ n - B ^ n| + |A - B| * |B ^ n| := by rw [abs_mul, abs_mul]
-        _ ≤ 1 * ((n : ℝ) * |A - B|) + |A - B| * 1 := by
-              apply add_le_add
-              · exact mul_le_mul hAle ih (abs_nonneg _) (by norm_num)
-              · exact mul_le_mul_of_nonneg_left hBn (abs_nonneg _)
-        _ = ((n : ℝ) + 1) * |A - B| := by ring
-        _ = ((n + 1 : ℕ) : ℝ) * |A - B| := by push_cast; ring
 
 /-! ## The one-dimensional inner-sum estimate, with the budget exponent `d` -/
 
@@ -548,61 +432,6 @@ private lemma inner_sum_estimate_brel (W' : ℕ) (hW' : Squarefree W') (hpos : 0
   linarith [hbudget, hslip, hbslip, hdropabs, t1, t2, t3]
 
 /-! ## `eval` expansions and further list plumbing -/
-
-/-- `eval P t` written out: the sum over the entries `(a, b, c)` of `P` of `c · ∏ᵢ tᵢ^{aᵢ} · (1 − Σᵢ
-tᵢ)^b`, definitionally.
--/
-private lemma eval_expand {k : ℕ} (P : BPoly k) (t : Fin k → ℝ) :
-    eval P t = (P.map (fun a => (a.2.2 : ℝ) * (∏ i, t i ^ a.1 i) * (1 - ∑ i, t i) ^ a.2.1)).sum :=
-  rfl
-
-/-- `eval (contractB m P) t` written out: each entry `(a, b, c)` of `P` contributes `c · aₘ! b! /
-(aₘ + b + 1)! · ∏ᵢ tᵢ^{a (m.succAbove i)} · (1 − Σᵢ tᵢ)^{aₘ + b + 1}`.
--/
-private lemma eval_contractB {n : ℕ} (m : Fin (n + 1)) (P : BPoly (n + 1)) (t : Fin n → ℝ) :
-    eval (contractB m P) t
-      = (P.map (fun a => ((a.2.2 * (((a.1 m).factorial * a.2.1.factorial : ℕ) : ℚ)
-            / ((a.1 m + a.2.1 + 1).factorial : ℕ) : ℚ) : ℝ)
-          * (∏ i, t i ^ a.1 (m.succAbove i)) * (1 - ∑ i, t i) ^ (a.1 m + a.2.1 + 1))).sum := by
-  simp only [eval, contractB, List.map_map, Function.comp_def, Fin.removeNth_apply]
-
-/-- Splitting a product over `Fin (n + 1)` at the updated coordinate `m`: `∏ᵢ (log (r[m ↦ u] i) /
-RR)^{a i} = (log u / RR)^{a m} · ∏_{i : Fin n} (log (r (m.succAbove i)) / RR)^{a (m.succAbove
-i)}`.
--/
-private lemma prod_update_split {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n + 1)) (u : ℕ) (RR : ℝ)
-    (a : Fin (n + 1) → ℕ) :
-    ∏ i, (Real.log ((Function.update r m u) i) / RR) ^ a i
-      = (Real.log u / RR) ^ a m
-        * ∏ i : Fin n, (Real.log (r (m.succAbove i)) / RR) ^ a (m.succAbove i) := by
-  rw [Fin.prod_univ_succAbove _ m]
-  congr 1
-  · rw [Function.update_self]
-  · exact Finset.prod_congr rfl
-      (fun i _ => by rw [Function.update_of_ne (Fin.succAbove_ne m i)])
-
-/-- Splitting a sum of logarithms at the updated coordinate `m`: `Σⱼ log (r[m ↦ u] j) = log u + Σ_{i
-: Fin n} log (r (m.succAbove i))`.
--/
-private lemma sum_log_update {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n + 1)) (u : ℕ) :
-    ∑ j, Real.log ((Function.update r m u j : ℕ) : ℝ)
-      = Real.log u + ∑ i : Fin n, Real.log (r (m.succAbove i)) := by
-  rw [Fin.sum_univ_succAbove _ m, Function.update_self]
-  congr 1
-  exact Finset.sum_congr rfl (fun i _ => by rw [Function.update_of_ne (Fin.succAbove_ne m i)])
-
-/-- Division distributes into a mapped `List.sum`. -/
-private lemma list_sum_div {γ : Type*} (L : List γ) (g : γ → ℝ) (c : ℝ) :
-    (L.map g).sum / c = (L.map (fun a => g a / c)).sum := by
-  rw [div_eq_mul_inv, ← List.sum_map_mul_right]
-  simp only [div_eq_mul_inv]
-
-/-- Subtractivity of `List.sum` over a pointwise difference. -/
-private lemma list_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
-    (L.map f).sum - (L.map g).sum = (L.map (fun a => f a - g a)).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih => simp only [List.map_cons, List.sum_cons]; rw [← ih]; ring
 
 /-- Monotonicity of `List.sum` under a pointwise `≤`. -/
 private lemma list_sum_le_sum {γ : Type*} (L : List γ) (f g : γ → ℝ)
