@@ -69,14 +69,14 @@ lemma rankinC_bound (Q : ℕ) (hQ : 2 ≤ Q) :
 
 /-- `μ(n)² = 1` (real-valued) for squarefree `n` (local copy of the private
 `moebius_sq_one`). -/
-private theorem moebius_sq_one' {n : ℕ} (hn : Squarefree n) :
+theorem moebius_sq_one' {n : ℕ} (hn : Squarefree n) :
     ((μ n : ℤ) : ℝ) ^ 2 = 1 := by
   have h := ArithmeticFunction.moebius_sq_eq_one_of_squarefree hn
   have hc : ((μ n : ℤ) : ℝ) ^ 2 = (((μ n) ^ 2 : ℤ) : ℝ) := by push_cast; ring
   rw [hc, h]; norm_num
 
 /-- Per-coordinate factorization (local copy of the private `g_factor_prod`). -/
-private theorem g_factor_prod' {r : ℕ} (hr : Squarefree r)
+theorem g_factor_prod' {r : ℕ} (hr : Squarefree r)
     (hodd : ∀ p ∈ r.primeFactors, 3 ≤ p) :
     (gMult r : ℝ) * (r : ℝ) / (Nat.totient r : ℝ) ^ 2
       = ∏ p ∈ r.primeFactors, (1 - (((p : ℝ) - 1)⁻¹) ^ 2) := by
@@ -91,7 +91,7 @@ private theorem g_factor_prod' {r : ℕ} (hr : Squarefree r)
   ring
 
 /-- `g(ρ)·ρ/φ(ρ)² ∈ [0,1]` (local copy of the private `gr_ratio_mem`). -/
-private theorem gr_ratio_mem' {ρ : ℕ} (hρ : Squarefree ρ)
+theorem gr_ratio_mem' {ρ : ℕ} (hρ : Squarefree ρ)
     (hodd : ∀ p ∈ ρ.primeFactors, 3 ≤ p) :
     0 ≤ (gMult ρ : ℝ) * (ρ : ℝ) / (Nat.totient ρ : ℝ) ^ 2
       ∧ (gMult ρ : ℝ) * (ρ : ℝ) / (Nat.totient ρ : ℝ) ^ 2 ≤ 1 := by
