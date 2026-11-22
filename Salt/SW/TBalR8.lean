@@ -2135,7 +2135,7 @@ lemma C2Rho_le {q : ℕ} {Z₀ Q L₂ c₀ : ℝ} {ρ : ℂ}
   linarith [hLHS1, hfold1, hfold2r, hfinaleq ▸ le_refl ((564 + 72 * Z₀) * B * r)]
 
 /-- ceil bounds: `x ≤ ⌈x⌉ ≤ 2x` for `x ≥ 1`. -/
-private lemma ceil_dbl {x : ℝ} (hx : 1 ≤ x) : x ≤ (⌈x⌉₊ : ℝ) ∧ (⌈x⌉₊ : ℝ) ≤ 2 * x := by
+lemma ceil_dbl {x : ℝ} (hx : 1 ≤ x) : x ≤ (⌈x⌉₊ : ℝ) ∧ (⌈x⌉₊ : ℝ) ≤ 2 * x := by
   refine ⟨Nat.le_ceil x, ?_⟩
   have h1 : (⌈x⌉₊ : ℝ) < x + 1 := Nat.ceil_lt_add_one (by linarith)
   linarith
