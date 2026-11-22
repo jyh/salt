@@ -1,7 +1,7 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `7ef0a11b` · source digest `491ac822827dd286` (the same digest as items 1–3).
+> Base: last commit touching `Salt/` = `acb2b3db` · source digest `56b30a3c639fc03e` (the same digest as items 1–3).
 > Receipt: files 1415 · decls 23447 · with_body 23447 · tactic_lines 299108 · runs 35344 · blocks 1113.
 
 ## LIMITS (read before any number below)
@@ -284,7 +284,7 @@ rcases ($3 $4.eps $5).$18 with $19 | $20
 set $21 : ℝ := |∫ $22, (ArithmeticFunction.liouville $22 : ℝ)
 ```
 
-**13.** 8 lines × 9 occurrences in 5 files · lines saved ≤ **63** · e.g. `Salt/MR/M4BridgeBlock.lean:430` · `Salt/MR/M4RowLinear.lean:1712`
+**13.** 8 lines × 9 occurrences in 5 files · lines saved ≤ **63** · e.g. `Salt/MR/M4BridgeBlock.lean:430` · `Salt/MR/M4RowLinear.lean:1683`
 
 ```lean
 intro $1 $2 _ $3 $4 $5 $6
