@@ -22,9 +22,10 @@ the a=0 crude atom `Salt.Maynard.phiAtomSum z W'` instead of an opaque
 `∃ c, ...` constant. No `∃` appears anywhere; every coefficient is a literal
 (`1`, `2`, `4/D`).
 
-Because the helper lemmas used by the landed proofs are `private` to their
-own files, the small amount of shared machinery (log/reindex facts, the
-`1/g` divisor expansion, the Euler tail bound) is re-derived here verbatim.
+The Euler tail bound and the box and `h/φ` facts are read from
+`BudgetMomentG.lean`. The rest of the shared machinery (log/reindex facts,
+the `1/g` divisor expansion) is `private` to its own files, so it is
+re-derived here verbatim.
 -/
 
 open Finset
