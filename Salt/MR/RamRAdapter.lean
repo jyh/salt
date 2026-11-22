@@ -112,6 +112,16 @@ lemma notMem_ramRrange_of_lt {H : ℝ} {N X j m : ℕ} (h : (m : ℝ) < ramRbot 
     m ∉ ramRrange H N X j :=
   fun hm => absurd (ramRrange_bot_le hm) (not_le.mpr h)
 
+/-- The window's introduction rule, the converse of `ramRrange_one_le`, `ramRrange_bot_le` and
+`ramRrange_le_top`: `1 ≤ m ≤ N` and `X_j ≤ m ≤ 2X_j` put `m` in `ramRrange`. -/
+lemma mem_ramRrange_of {H : ℝ} {N X j m : ℕ} (h1 : 1 ≤ m) (hN : m ≤ N)
+    (hbot : ramRbot H X j ≤ (m : ℝ)) (htop : (m : ℝ) ≤ 2 * ramRbot H X j) :
+    m ∈ ramRrange H N X j := by
+  rw [ramRrange, Finset.mem_filter]
+  refine ⟨Finset.mem_Icc.mpr ⟨h1, hN⟩, ?_, ?_⟩
+  · rwa [ramRbot] at hbot
+  · rw [ramRbot] at htop; linarith
+
 /-- **The sharp-`M` subset (`⟦V4a⟧`).**  Any `M ≥ 2X_j` contains the co-factor range.  This
 is the `M ≍ 2X e^{−j/H}` of the sharp-`M` law — the `𝒯_S` twin `ramRrange_subset_Icc` only
 gives the dyadic `N ≍ 2X`, which throws away the `e^{j/H}`. -/
