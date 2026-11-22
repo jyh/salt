@@ -4150,35 +4150,6 @@ theorem m4_rowDatum_dilated_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   exact hw R Qm M k MS hM (by omega)
 /-! ## §6 — `M4RowsChiEnd` -/
 
-/-- The Lemma-12 row sum is a sum of nonnegative terms (`1 ≤ X_d`, `2 ≤ H₁`, `1 ≤ P_j`). -/
-private lemma d5_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) (hH1 : 2 ≤ H1) :
-    (0 : ℝ) ≤ ∑ j ∈ Finset.Icc 1 Jb,
-      ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
-          * (Real.exp 1 / (Xd : ℝ) ^ 2))
-        + 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ)
-        + 1 / (Xd : ℝ)) := by
-  have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
-  refine Finset.sum_nonneg (fun j hj => ?_)
-  rw [Finset.mem_Icc] at hj
-  have hj1 : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
-  have hcalH : (0 : ℝ) < calH H1 j := by rw [calH]; nlinarith
-  have hP1 : (1 : ℝ) ≤ ((calP A G j : ℕ) : ℝ) := by
-    have h : 1 ≤ calP A G j := by simp only [calP]; exact Nat.one_le_two_pow
-    exact_mod_cast h
-  have hlogb : (0 : ℝ) ≤ Real.logb 2 (2 * (Xd : ℝ)) :=
-    Real.logb_nonneg (by norm_num) (by linarith)
-  have h1 : (0 : ℝ) ≤ (Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
-      * (Real.exp 1 / (Xd : ℝ) ^ 2)) := by
-    have hq : (0 : ℝ) ≤ 2 * Real.exp 1 * (Xd : ℝ) / calH H1 j :=
-      div_nonneg (by positivity) hcalH.le
-    have hr : (0 : ℝ) ≤ Real.exp 1 / (Xd : ℝ) ^ 2 := by positivity
-    have := mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1) hr
-    nlinarith only [this, (Nat.cast_nonneg _ : 0 ≤ ↑Xd)]
-  have h2 : (0 : ℝ) ≤ 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ) :=
-    div_nonneg (by linarith) (by linarith)
-  have h3 : (0 : ℝ) ≤ 1 / (Xd : ℝ) := by positivity
-  linarith
-
 /-- **⟦THE SLOT, MET⟧** (`m4_hrowsSlot_at_door_end_L`).  The statement below is
 `M4Assembly.m4_chiSummedFreeRow_of_doorAssembly`'s `hrows` binder VERBATIM at
 `Cs ≡ Ct`, `Ccc ≡ Cp` — the compile is the certificate of the byte-fit.  Supplied by §6

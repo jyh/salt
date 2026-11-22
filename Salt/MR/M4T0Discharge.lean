@@ -220,7 +220,7 @@ re-derived here verbatim, suffixed `_t0d`.  The binding gate is the fourth,
 /-- `8·log Lv ≤ Lv` at `64 ≤ Lv` (private): `log Lv = 2·log √Lv ≤ 2√Lv/e ≤ √Lv`
 (`Real.log_le_sub_one_of_pos` at `√Lv/e`, `e ≥ 2`), and `8√Lv ≤ √Lv·√Lv = Lv` since `√Lv ≥ 8`
 (`nlinarith`) — the elementary step both exponential gates of `ypin4_gates_t0d` turn on. Read
-twice in this file; `M4RowLinear`'s same-named lemma is its own private copy. -/
+twice in this file. -/
 private lemma eight_log_le_self_t0d {Lv : ℝ} (h : 64 ≤ Lv) : 8 * Real.log Lv ≤ Lv := by
   have hL0 : (0 : ℝ) < Lv := by linarith
   have hs0 : (0 : ℝ) < Real.sqrt Lv := Real.sqrt_pos.mpr hL0
@@ -242,12 +242,12 @@ private lemma eight_log_le_self_t0d {Lv : ℝ} (h : 64 ≤ Lv) : 8 * Real.log Lv
   rw [hhalf] at hlog
   nlinarith only [hs0, hs8, hdiv, hlog, hsq]
 
-/-- `exp 4096 ≤ k` yields the four gates of the pin `y = (log k)⁴` (private): `10 ≤ y`,
+/-- `exp 4096 ≤ k` yields the four gates of the pin `y = (log k)⁴`: `10 ≤ y`,
 `y ≤ √k`, `√(log k) ≤ y` and `log y ≤ √(log k)`. With `L = log k ≥ 4096`: `y ≥ L ≥ 10`;
 `log y = 4·log L ≤ √L` and `y = e^{4 log L} ≤ e^{L/2} = √k` both through `eight_log_le_self_t0d`
-(at `√L ≥ 64` and at `L`); `√L ≤ L ≤ L⁴`. Read eight times in this file; `M4RowLinear`'s
-same-named lemma is its own private copy. -/
-private lemma ypin4_gates_t0d {k : ℝ} (hk : Real.exp 4096 ≤ k) :
+(at `√L ≥ 64` and at `L`); `√L ≤ L ≤ L⁴`. Read eight times in this file and in
+`M4RowLinear`. -/
+lemma ypin4_gates_t0d {k : ℝ} (hk : Real.exp 4096 ≤ k) :
     10 ≤ Real.log k ^ 4 ∧ Real.log k ^ 4 ≤ Real.sqrt k
       ∧ Real.sqrt (Real.log k) ≤ Real.log k ^ 4
       ∧ Real.log (Real.log k ^ 4) ≤ Real.sqrt (Real.log k) := by

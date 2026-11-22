@@ -73,35 +73,6 @@ set_option maxHeartbeats 4000000
 
 /-! ## §0a — in-lane roots hoisted for the scaffold -/
 
-/-- The Lemma-12 row sum is a sum of nonnegative terms (`1 ≤ X_d`, `2 ≤ H₁`, `1 ≤ P_j`). -/
-private lemma d5_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) (hH1 : 2 ≤ H1) :
-    (0 : ℝ) ≤ ∑ j ∈ Finset.Icc 1 Jb,
-      ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
-          * (Real.exp 1 / (Xd : ℝ) ^ 2))
-        + 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ)
-        + 1 / (Xd : ℝ)) := by
-  have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
-  refine Finset.sum_nonneg (fun j hj => ?_)
-  rw [Finset.mem_Icc] at hj
-  have hj1 : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
-  have hcalH : (0 : ℝ) < calH H1 j := by rw [calH]; nlinarith
-  have hP1 : (1 : ℝ) ≤ ((calP A G j : ℕ) : ℝ) := by
-    have h : 1 ≤ calP A G j := by simp only [calP]; exact Nat.one_le_two_pow
-    exact_mod_cast h
-  have hlogb : (0 : ℝ) ≤ Real.logb 2 (2 * (Xd : ℝ)) :=
-    Real.logb_nonneg (by norm_num) (by linarith)
-  have h1 : (0 : ℝ) ≤ (Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
-      * (Real.exp 1 / (Xd : ℝ) ^ 2)) := by
-    have hq : (0 : ℝ) ≤ 2 * Real.exp 1 * (Xd : ℝ) / calH H1 j :=
-      div_nonneg (by positivity) hcalH.le
-    have hr : (0 : ℝ) ≤ Real.exp 1 / (Xd : ℝ) ^ 2 := by positivity
-    have := mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1) hr
-    nlinarith only [this, (Nat.cast_nonneg _ : 0 ≤ ↑Xd)]
-  have h2 : (0 : ℝ) ≤ 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ) :=
-    div_nonneg (by linarith) (by linarith)
-  have h3 : (0 : ℝ) ≤ 1 / (Xd : ℝ) := by positivity
-  linarith
-
 /-- **THE FREE-BASE ROW MEAN SQUARE, PER CHARACTER** (`chiFreeRowSq_L χ M j X`) — the door's
 sieved, χ-twisted, UN-PHASED datum in `ThmA2.thm_a2'_of_rows`' own currency at the dyadic
 window length `2^j` and the scale `X`, with the capstone's two pins `X_d = X`, `N = 2X_d`.
@@ -6189,36 +6160,6 @@ theorem m4_chiSummedN_supplied_L_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {RS :
     linarith
 /-! ## §6 — `M4RowsChi` -/
 
-/-- The Lemma-12 row sum is a sum of nonnegative terms (`1 ≤ X_d`, `2 ≤ H₁`, `1 ≤ P_j`) —
-`ThmA2Rows.a2RowsSum_nonneg` at the free ladder. -/
-private lemma m4_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) (hH1 : 2 ≤ H1) :
-    (0 : ℝ) ≤ ∑ j ∈ Finset.Icc 1 Jb,
-      ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
-          * (Real.exp 1 / (Xd : ℝ) ^ 2))
-        + 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ)
-        + 1 / (Xd : ℝ)) := by
-  have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
-  refine Finset.sum_nonneg (fun j hj => ?_)
-  rw [Finset.mem_Icc] at hj
-  have hj1 : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
-  have hcalH : (0 : ℝ) < calH H1 j := by rw [calH]; nlinarith
-  have hP1 : (1 : ℝ) ≤ ((calP A G j : ℕ) : ℝ) := by
-    have h : 1 ≤ calP A G j := by simp only [calP]; exact Nat.one_le_two_pow
-    exact_mod_cast h
-  have hlogb : (0 : ℝ) ≤ Real.logb 2 (2 * (Xd : ℝ)) :=
-    Real.logb_nonneg (by norm_num) (by linarith)
-  have h1 : (0 : ℝ) ≤ (Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
-      * (Real.exp 1 / (Xd : ℝ) ^ 2)) := by
-    have hq : (0 : ℝ) ≤ 2 * Real.exp 1 * (Xd : ℝ) / calH H1 j :=
-      div_nonneg (by positivity) hcalH.le
-    have hr : (0 : ℝ) ≤ Real.exp 1 / (Xd : ℝ) ^ 2 := by positivity
-    have := mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1) hr
-    nlinarith only [this, (Nat.cast_nonneg _ : 0 ≤ ↑Xd)]
-  have h2 : (0 : ℝ) ≤ 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ) :=
-    div_nonneg (by linarith) (by linarith)
-  have h3 : (0 : ℝ) ≤ 1 / (Xd : ℝ) := by positivity
-  linarith
-
 /-- **THE DOOR BRIDGE** (`m4MrowChi_le_a2Mrow_L`).  At the door family and the vacuous ball,
 the per-`χ` row number sits inside the frozen interface's `a2Mrow_L`. -/
 theorem m4MrowChi_le_a2Mrow_L {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) {Ct Cp X ε : ℝ}
@@ -7105,76 +7046,6 @@ theorem m4_freeBlockSup_of_chiSummed_L_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
             ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) :=
   m4_freeBlockSup_of_chiSummedAZ (AdoorL M) (s13GK K M)
     (fun hq hqW hW b => subWindowSup_sq_le_strata_L_gk K hM hq hqW hW b) hBcl0 hgate hchi
-
-/-- `8·log Lv ≤ Lv` at `h : 64 ≤ Lv`: with `s = √Lv ≥ 8`, `log s ≤ s/e ≤ s/2` and
-`log Lv = 2·log s`, then `nlinarith`. `M4T0Discharge`'s private lemma re-derived verbatim for §9
-(it is `private` there); the binding gate `8·log s ≤ s` at `s = √L` behind `ypin4_gates_t0d`. -/
-private lemma eight_log_le_self_t0d {Lv : ℝ} (h : 64 ≤ Lv) : 8 * Real.log Lv ≤ Lv := by
-  have hL0 : (0 : ℝ) < Lv := by linarith
-  have hs0 : (0 : ℝ) < Real.sqrt Lv := Real.sqrt_pos.mpr hL0
-  have hs8 : (8 : ℝ) ≤ Real.sqrt Lv := by
-    have h64 : Real.sqrt 64 = 8 := by
-      rw [show (64 : ℝ) = 8 ^ 2 from by norm_num, Real.sqrt_sq (by norm_num)]
-    rw [← h64]
-    exact Real.sqrt_le_sqrt h
-  have hsq : Real.sqrt Lv * Real.sqrt Lv = Lv := Real.mul_self_sqrt hL0.le
-  have he2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
-  have hlog : Real.log (Real.sqrt Lv) ≤ Real.sqrt Lv / Real.exp 1 := by
-    have h1 : Real.log (Real.sqrt Lv / Real.exp 1) ≤ Real.sqrt Lv / Real.exp 1 - 1 :=
-      Real.log_le_sub_one_of_pos (by positivity)
-    rw [Real.log_div hs0.ne' (Real.exp_ne_zero 1), Real.log_exp] at h1
-    linarith
-  have hhalf : Real.log (Real.sqrt Lv) = Real.log Lv / 2 := Real.log_sqrt hL0.le
-  have hdiv : Real.sqrt Lv / Real.exp 1 ≤ Real.sqrt Lv / 2 :=
-    div_le_div_of_nonneg_left hs0.le (by norm_num) he2
-  rw [hhalf] at hlog
-  nlinarith only [hs0, hs8, hdiv, hlog, hsq]
-
-/-- **The four `Y`-gates at the corpus pin** at `hk : e^{4096} ≤ k`: `10 ≤ (log k)^4`,
-`(log k)^4 ≤ √k`, `√(log k) ≤ (log k)^4` and `log((log k)^4) ≤ √(log k)`; the fourth is
-`4·loglog k ≤ √(log k)`, i.e. `eight_log_le_self_t0d` at `√(log k) ≥ 64`, and the second is the
-same lemma at `log k ≥ 4096`. `M4T0Discharge.ypin4_gates_t0d` re-derived verbatim (it is
-`private` there). Consumed by `m4_t0band_discharged_L` and `m4_t0band_discharged_L_gk` (the four
-gate slots of their `hwide`). -/
-private lemma ypin4_gates_t0d {k : ℝ} (hk : Real.exp 4096 ≤ k) :
-    10 ≤ Real.log k ^ 4 ∧ Real.log k ^ 4 ≤ Real.sqrt k
-      ∧ Real.sqrt (Real.log k) ≤ Real.log k ^ 4
-      ∧ Real.log (Real.log k ^ 4) ≤ Real.sqrt (Real.log k) := by
-  have hk0 : (0 : ℝ) < k := lt_of_lt_of_le (Real.exp_pos _) hk
-  have hL : (4096 : ℝ) ≤ Real.log k := Salt.le_log_of_exp_le hk
-  have hL0 : (0 : ℝ) < Real.log k := by linarith
-  have hL1 : (1 : ℝ) ≤ Real.log k := by linarith
-  have hL4 : Real.log k ≤ Real.log k ^ 4 := le_self_pow₀ hL1 (by norm_num)
-  have hsqL0 : (0 : ℝ) < Real.sqrt (Real.log k) := Real.sqrt_pos.mpr hL0
-  have hsqLsq : Real.sqrt (Real.log k) * Real.sqrt (Real.log k) = Real.log k :=
-    Real.mul_self_sqrt hL0.le
-  have hsqL64 : (64 : ℝ) ≤ Real.sqrt (Real.log k) := by
-    have h64 : Real.sqrt 4096 = 64 := by
-      rw [show (4096 : ℝ) = 64 ^ 2 from by norm_num, Real.sqrt_sq (by norm_num)]
-    rw [← h64]
-    exact Real.sqrt_le_sqrt hL
-  have hsqLle : Real.sqrt (Real.log k) ≤ Real.log k := by nlinarith
-  have hlogpow : Real.log (Real.log k ^ 4) = 4 * Real.log (Real.log k) := by
-    rw [Real.log_pow]; push_cast; ring
-  have hbind : 4 * Real.log (Real.log k) ≤ Real.sqrt (Real.log k) := by
-    have h8 := eight_log_le_self_t0d hsqL64
-    have hhalf : Real.log (Real.sqrt (Real.log k)) = Real.log (Real.log k) / 2 :=
-      Real.log_sqrt hL0.le
-    rw [hhalf] at h8
-    linarith
-  have hg2 : Real.log k ^ 4 ≤ Real.sqrt k := by
-    have hsk : Real.sqrt k = Real.exp (Real.log k * (1 / 2)) := by
-      rw [Real.sqrt_eq_rpow, Real.rpow_def_of_pos hk0]
-    have hp4 : Real.log k ^ 4 = Real.exp (4 * Real.log (Real.log k)) := by
-      rw [← hlogpow]
-      exact (Real.exp_log (by positivity)).symm
-    rw [hsk, hp4]
-    refine Real.exp_le_exp.mpr ?_
-    have h8 := eight_log_le_self_t0d (le_trans (by norm_num) hL)
-    linarith
-  refine ⟨by linarith only [hL4, hL], hg2, le_trans hsqLle hL4, ?_⟩
-  rw [hlogpow]
-  exact hbind
 
 /-- **THE DISCHARGE'S GRADE CONSTANT** (`t0dC1_L`).  `X`-free and `q`-free; `1 ≤ t0dC1_L Cb`
 outright (`one_le_t0dC1_L`), which is `m4_hT0band_at_door_of_wide_L`'s `hC₁`. -/

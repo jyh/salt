@@ -440,7 +440,7 @@ def m4MrowChiEnd (Ct Cp : ℝ) (A G M Jb Xd : ℕ) (H1 η X ε S : ℝ) : ℝ :=
     + 3 * (Real.log X) ^ (-theta293 + ε)
 
 /-- The Lemma-12 row sum is a sum of nonnegative terms (`1 ≤ X_d`, `2 ≤ H₁`, `1 ≤ P_j`). -/
-private lemma d5_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) (hH1 : 2 ≤ H1) :
+lemma d5_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) (hH1 : 2 ≤ H1) :
     (0 : ℝ) ≤ ∑ j ∈ Finset.Icc 1 Jb,
       ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
           * (Real.exp 1 / (Xd : ℝ) ^ 2))
