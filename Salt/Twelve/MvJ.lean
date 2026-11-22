@@ -1257,14 +1257,6 @@ lemma jlist_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
       simp only [List.map_cons, List.sum_cons]
       exact add_le_add (h a (by simp)) (ih (fun b hb => h b (List.mem_cons_of_mem a hb)))
 
-/-- A mapped `List` sum of termwise sums splits into two (induction on `L`); re-declares
-`list_sum_map_add`. -/
-lemma jlist_sum_map_add {γ : Type*} (L : List γ) (f g : γ → ℝ) :
-    (L.map (fun a => f a + g a)).sum = (L.map f).sum + (L.map g).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih => simp only [List.map_cons, List.sum_cons, ih]; ring
-
 /-- Swap a `Finset` sum over `S` with an inner `List` sum over `L` (induction on `L`);
 re-declares `sum_finset_list_sum`. -/
 lemma jsum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
