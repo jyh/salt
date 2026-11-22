@@ -8,7 +8,7 @@ import Salt.MR.CaseASocket
 /-!
 # `GradedCapstone` — the graded `hU` row with NO socket (`hUG34_unconditional`)
 
-`USetGradedPrice.hUG34_fully_priced` (:963) is the graded seam row's `𝒰`-leg fully priced —
+`USetGradedPrice.hUG34_fully_priced` (:957) is the graded seam row's `𝒰`-leg fully priced —
 conditional on ONE named page, the CASE-A window-floor supply at the `y₂` truncation height,
 carried there as the hypothesis
 

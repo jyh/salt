@@ -605,12 +605,6 @@ theorem div_totient_mul_coprimeSeries_inv_kappa_totient (t : ℕ) (ht : 1 ≤ t)
 
 /-! ## II. THE COUNTING HALF (H5) -/
 
-/-- `(x^q)^k = x^(q·k)` for a natural `k` (the landed `rpow_pow_nat` recipe, re-derived:
-a `private` cannot cross a file boundary). -/
-private lemma rpow_pow_nat {x : ℝ} (hx : 0 ≤ x) (q : ℝ) (k : ℕ) :
-    (x ^ q) ^ k = x ^ (q * (k : ℝ)) := by
-  rw [← Real.rpow_natCast (x ^ q) k, ← Real.rpow_mul hx]
-
 /-- The telescoping step of `Σ f^{−1/2}` (the landed recipe, re-derived). -/
 private lemma rpow_step_half (t : ℝ) (ht : 0 ≤ t) :
     (t + 1) ^ (-(1/2) : ℝ) ≤ 2 * (t + 1) ^ ((1/2) : ℝ) - 2 * t ^ ((1/2) : ℝ) := by
@@ -638,11 +632,6 @@ private lemma sum_rpow_neg_half_le (N : ℕ) :
     have hcast : ((m + 1 : ℕ) : ℝ) = (m : ℝ) + 1 := by push_cast; ring
     rw [hcast]
     linarith [ih, rpow_step_half (m : ℝ) (by positivity)]
-
-/-- `(Q/e)^q = Q^q·e^{−q}` (the landed `div_rpow_neg` recipe, re-derived). -/
-private lemma div_rpow_neg {Q e : ℝ} (hQ : 0 ≤ Q) (he : 0 ≤ e) (q : ℝ) :
-    (Q / e) ^ q = Q ^ q * e ^ (-q) := by
-  rw [div_eq_mul_inv, Real.mul_rpow hQ (inv_nonneg.mpr he), Real.inv_rpow he, Real.rpow_neg he]
 
 /-- `1 ≤ σ_{−1/4}(r)` for `r ≥ 1` — the divisor `e = 1` alone. -/
 private lemma one_le_sigmaQ (r : ℕ) (hr : 1 ≤ r) : (1 : ℝ) ≤ sigmaQ r := by
@@ -1214,48 +1203,6 @@ theorem sqf_coprime_count_eq : ∃ C : ℝ, 0 < C ∧ ∀ r : ℕ, 1 ≤ r → �
         add_le_add herr hmainerr
     _ = 4 * M ^ (1/2 : ℝ) * sigmaQ r := by ring
 
-/-- The telescoping step of `Σ f^{−3/4}` (the landed recipe, re-derived). -/
-private lemma rpow_step_three_quarter (t : ℝ) (ht : 0 ≤ t) :
-    (t + 1) ^ (-(3/4) : ℝ) ≤ 4 * (t + 1) ^ ((1/4) : ℝ) - 4 * t ^ ((1/4) : ℝ) := by
-  have ht1 : (0 : ℝ) < t + 1 := by linarith
-  have hcube : ((t + 1) ^ ((1/4) : ℝ)) ^ 3 = (t + 1) ^ ((3/4) : ℝ) := by
-    rw [rpow_pow_nat ht1.le, show ((1/4 : ℝ)) * ((3 : ℕ) : ℝ) = (3/4 : ℝ) by norm_num]
-  have hinv : (t + 1) ^ (-(3/4) : ℝ) = ((t + 1) ^ ((3/4) : ℝ))⁻¹ := Real.rpow_neg ht1.le _
-  rw [hinv, ← hcube]
-  set a : ℝ := (t + 1) ^ ((1/4) : ℝ) with ha
-  set b : ℝ := t ^ ((1/4) : ℝ) with hb
-  have ha0 : 0 < a := Real.rpow_pos_of_pos ht1 _
-  have hb0 : (0 : ℝ) ≤ b := Real.rpow_nonneg ht _
-  have ha4 : a ^ 4 = t + 1 := by
-    rw [ha, rpow_pow_nat ht1.le, show ((1/4 : ℝ)) * ((4 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
-  have hb4 : b ^ 4 = t := by
-    rw [hb, rpow_pow_nat ht, show ((1/4 : ℝ)) * ((4 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
-  have ha3 : (0 : ℝ) < a ^ 3 := by positivity
-  rw [inv_eq_one_div, div_le_iff₀ ha3]
-  linarith only [hb4, ha4, mul_nonneg (sq_nonneg (a - b))
-      (show (0 : ℝ) ≤ 3 * a ^ 2 + 2 * a * b + b ^ 2 by positivity)]
-
-/-- `Σ_{f ≤ N} f^{−3/4} ≤ 4·N^{1/4}` (the landed recipe, re-derived). -/
-private lemma sum_rpow_neg_three_quarter_le (N : ℕ) :
-    ∑ f ∈ Finset.Icc 1 N, (f : ℝ) ^ (-(3/4) : ℝ) ≤ 4 * (N : ℝ) ^ ((1/4) : ℝ) := by
-  induction N with
-  | zero => simp [Real.zero_rpow]
-  | succ m ih =>
-    rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ m + 1)]
-    have hcast : ((m + 1 : ℕ) : ℝ) = (m : ℝ) + 1 := by push_cast; ring
-    rw [hcast]
-    linarith [ih, rpow_step_three_quarter (m : ℝ) (by positivity)]
-
-/-- `log u ≤ 4·u^{1/4}` for `u ≥ 1` (the landed recipe, re-derived). -/
-private lemma log_le_four_rpow_quarter {u : ℝ} (hu : 1 ≤ u) :
-    Real.log u ≤ 4 * u ^ ((1/4) : ℝ) := by
-  have hu0 : (0 : ℝ) < u := by linarith
-  have h1 : Real.log (u ^ ((1/4) : ℝ)) = (1/4 : ℝ) * Real.log u := Real.log_rpow hu0 _
-  have h2 : Real.log (u ^ ((1/4) : ℝ)) ≤ u ^ ((1/4) : ℝ) - 1 :=
-    Real.log_le_sub_one_of_pos (Real.rpow_pos_of_pos hu0 _)
-  have h3 : (0 : ℝ) ≤ u ^ ((1/4) : ℝ) := (Real.rpow_pos_of_pos hu0 _).le
-  linarith
-
 /-- `Σ_{f ≤ m} 1/f ≤ 1 + log m` (the landed recipe, re-derived). -/
 private lemma sum_inv_le_one_add_log (m : ℕ) :
     ∑ f ∈ Finset.Icc 1 m, ((f : ℝ))⁻¹ ≤ 1 + Real.log m := by
@@ -1263,65 +1210,6 @@ private lemma sum_inv_le_one_add_log (m : ℕ) :
   rw [harmonic_eq_sum_Icc] at h
   push_cast at h
   exact h
-
-/-- `Σ_{f ≤ M} f^{−1/2}·log(2Y/f) ≤ (2 log 2 + 16)·Y^{1/2}` for `M ≤ Y` (the landed
-recipe, re-derived). -/
-private lemma sum_rpow_neg_half_log_le {Y : ℝ} (hY : 1 ≤ Y) {M : ℕ} (hM : (M : ℝ) ≤ Y) :
-    ∑ f ∈ Finset.Icc 1 M, (f : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * Y / (f : ℝ))
-      ≤ (2 * Real.log 2 + 16) * Y ^ ((1/2) : ℝ) := by
-  have hY0 : (0 : ℝ) < Y := by linarith
-  have hbound : ∀ f ∈ Finset.Icc 1 M,
-      (f : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * Y / (f : ℝ))
-        ≤ Real.log 2 * (f : ℝ) ^ (-(1/2) : ℝ)
-          + 4 * Y ^ ((1/4) : ℝ) * (f : ℝ) ^ (-(3/4) : ℝ) := by
-    intro f hf
-    have hf1 : 1 ≤ f := (Finset.mem_Icc.mp hf).1
-    have hfM : f ≤ M := (Finset.mem_Icc.mp hf).2
-    have hf0 : (0 : ℝ) < (f : ℝ) := by exact_mod_cast hf1
-    have hfY : (f : ℝ) ≤ Y := le_trans (by exact_mod_cast hfM) hM
-    have hYf1 : (1 : ℝ) ≤ Y / (f : ℝ) := (one_le_div hf0).mpr hfY
-    have hsplit : Real.log (2 * Y / (f : ℝ)) = Real.log 2 + Real.log (Y / (f : ℝ)) := by
-      rw [show 2 * Y / (f : ℝ) = 2 * (Y / (f : ℝ)) by ring,
-        Real.log_mul (by norm_num) (by positivity)]
-    have hlogb : Real.log (Y / (f : ℝ)) ≤ 4 * (Y / (f : ℝ)) ^ ((1/4) : ℝ) :=
-      log_le_four_rpow_quarter hYf1
-    have hdr : (Y / (f : ℝ)) ^ ((1/4) : ℝ) = Y ^ ((1/4) : ℝ) * (f : ℝ) ^ (-(1/4) : ℝ) :=
-      div_rpow_neg hY0.le hf0.le _
-    have hmul : (f : ℝ) ^ (-(1/2) : ℝ) * (f : ℝ) ^ (-(1/4) : ℝ) = (f : ℝ) ^ (-(3/4) : ℝ) := by
-      rw [← Real.rpow_add hf0, show (-(1/2 : ℝ)) + (-(1/4 : ℝ)) = (-(3/4) : ℝ) by norm_num]
-    have hfp : (0 : ℝ) < (f : ℝ) ^ (-(1/2) : ℝ) := Real.rpow_pos_of_pos hf0 _
-    rw [hsplit, mul_add]
-    have hstep : (f : ℝ) ^ (-(1/2) : ℝ) * Real.log (Y / (f : ℝ))
-        ≤ 4 * Y ^ ((1/4) : ℝ) * (f : ℝ) ^ (-(3/4) : ℝ) := by
-      calc (f : ℝ) ^ (-(1/2) : ℝ) * Real.log (Y / (f : ℝ))
-          ≤ (f : ℝ) ^ (-(1/2) : ℝ) * (4 * (Y / (f : ℝ)) ^ ((1/4) : ℝ)) :=
-            mul_le_mul_of_nonneg_left hlogb hfp.le
-        _ = 4 * Y ^ ((1/4) : ℝ) * ((f : ℝ) ^ (-(1/2) : ℝ) * (f : ℝ) ^ (-(1/4) : ℝ)) := by
-            rw [hdr]; ring
-        _ = 4 * Y ^ ((1/4) : ℝ) * (f : ℝ) ^ (-(3/4) : ℝ) := by rw [hmul]
-    linarith only [hstep]
-  have hMY2 : ((M : ℕ) : ℝ) ^ ((1/2) : ℝ) ≤ Y ^ ((1/2) : ℝ) :=
-    Real.rpow_le_rpow (by positivity) hM (by norm_num)
-  have hMY4 : ((M : ℕ) : ℝ) ^ ((1/4) : ℝ) ≤ Y ^ ((1/4) : ℝ) :=
-    Real.rpow_le_rpow (by positivity) hM (by norm_num)
-  have hYY : Y ^ ((1/4) : ℝ) * Y ^ ((1/4) : ℝ) = Y ^ ((1/2) : ℝ) := by
-    rw [← Real.rpow_add hY0, show ((1/4 : ℝ)) + ((1/4 : ℝ)) = ((1/2) : ℝ) by norm_num]
-  have hY4 : (0 : ℝ) ≤ Y ^ ((1/4) : ℝ) := Real.rpow_nonneg hY0.le _
-  have hlog2 : (0 : ℝ) ≤ Real.log 2 := Real.log_nonneg (by norm_num)
-  calc ∑ f ∈ Finset.Icc 1 M, (f : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * Y / (f : ℝ))
-      ≤ ∑ f ∈ Finset.Icc 1 M, (Real.log 2 * (f : ℝ) ^ (-(1/2) : ℝ)
-          + 4 * Y ^ ((1/4) : ℝ) * (f : ℝ) ^ (-(3/4) : ℝ)) := Finset.sum_le_sum hbound
-    _ = Real.log 2 * (∑ f ∈ Finset.Icc 1 M, (f : ℝ) ^ (-(1/2) : ℝ))
-          + 4 * Y ^ ((1/4) : ℝ) * (∑ f ∈ Finset.Icc 1 M, (f : ℝ) ^ (-(3/4) : ℝ)) := by
-        rw [Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum]
-    _ ≤ Real.log 2 * (2 * ((M : ℕ) : ℝ) ^ ((1/2) : ℝ))
-          + 4 * Y ^ ((1/4) : ℝ) * (4 * ((M : ℕ) : ℝ) ^ ((1/4) : ℝ)) := by
-        gcongr
-        · exact sum_rpow_neg_half_le M
-        · exact sum_rpow_neg_three_quarter_le M
-    _ ≤ Real.log 2 * (2 * Y ^ ((1/2) : ℝ)) + 4 * Y ^ ((1/4) : ℝ) * (4 * Y ^ ((1/4) : ℝ)) := by
-        gcongr
-    _ = (2 * Real.log 2 + 16) * Y ^ ((1/2) : ℝ) := by rw [← hYY]; ring
 
 /-- **The general discrete Abel identity** over `[1, N]`:
 `Σ_{m ≤ N} a_m G(m) = A_N·G(N) − Σ_{n < N} A_n·(G(n+1) − G(n))` with `A_n = Σ_{m ≤ n} a_m`.
@@ -2086,26 +1974,6 @@ theorem log_rpow_le_rpow_quarter (A : ℝ) (hA : 0 < A) {x : ℝ} (hx : 1 ≤ x)
     rw [Real.mul_rpow (by positivity) (Real.rpow_nonneg hx0.le _), ← Real.rpow_mul hx0.le,
       show (1 / (4 * A) : ℝ) * A = 1/4 by field_simp]
   linarith [h2, h3.le, h3.ge]
-
-/-- **The swap stone** (the landed `sum_divisors_swap` recipe, re-derived):
-`Σ_{r ≤ N} Σ_{e ∣ r} F(e, r) = Σ_{e ≤ N} Σ_{f ≤ N/e} F(e, e·f)`. -/
-private lemma sum_divisors_swap (N : ℕ) (F : ℕ → ℕ → ℝ) :
-    ∑ r ∈ Finset.Icc 1 N, ∑ e ∈ r.divisors, F e r
-      = ∑ e ∈ Finset.Icc 1 N, ∑ f ∈ Finset.Icc 1 (N / e), F e (e * f) := by
-  have h1 : ∑ r ∈ Finset.Icc 1 N, ∑ e ∈ r.divisors, F e r
-      = ∑ e ∈ Finset.Icc 1 N, ∑ r ∈ (Finset.Icc 1 N).filter (fun r => e ∣ r), F e r := by
-    refine Finset.sum_comm' ?_
-    intro r e
-    simp only [Finset.mem_Icc, Nat.mem_divisors, Finset.mem_filter]
-    constructor
-    · rintro ⟨⟨hr1, hrN⟩, hed, hr0⟩
-      have he1 : 1 ≤ e := Nat.pos_of_dvd_of_pos hed (by omega)
-      exact ⟨⟨⟨hr1, hrN⟩, hed⟩, he1, le_trans (Nat.le_of_dvd (by omega) hed) hrN⟩
-    · rintro ⟨⟨⟨hr1, hrN⟩, hed⟩, _⟩
-      exact ⟨⟨hr1, hrN⟩, hed, by omega⟩
-  rw [h1]
-  refine Finset.sum_congr rfl fun e he => ?_
-  exact sum_dvd_reindex (Finset.mem_Icc.mp he).1 (fun r => F e r)
 
 /-- **C1 (the exact identity).** `Σ_{n ≤ N}(μ(n)/n)·H(⌊N/n⌋) = 1` for `N ≥ 1`.
 

@@ -230,14 +230,8 @@ theorem damped_partial_transfer_34 {g : ℕ → ℂ} (hg : ∀ p : ℕ, p.Prime 
     intro n hn1 hn2
     have hmem : n ∈ ramRrange H N Xn j := by
       have hnk : (k₀ : ℝ) + 1 ≤ (n : ℝ) := by exact_mod_cast hn1
-      have hnM : (n : ℝ) ≤ (M : ℝ) := by exact_mod_cast hn2
-      rw [ramRrange, Finset.mem_filter]
-      refine ⟨Finset.mem_Icc.mpr ⟨by omega, le_trans hn2 hMN⟩, ?_, ?_⟩
-      · have : ramRbot H Xn j ≤ (n : ℝ) := by linarith
-        rwa [ramRbot] at this
-      · have : (n : ℝ) ≤ 2 * ramRbot H Xn j := le_trans hnM hMtop2
-        rw [ramRbot] at this
-        linarith
+      exact mem_ramRrange_of (by omega) (le_trans hn2 hMN) (by linarith)
+        (le_trans (by exact_mod_cast hn2) hMtop2)
     rw [ramRdampCoeff_ellLin, if_pos hmem]
 
 /-- **THE FUSED `Rbd` AT THE REPAIRED ARM** (`cofactorRbd34loc`).  `CofactorSupply.cofactorRbd`
