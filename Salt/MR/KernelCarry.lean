@@ -84,7 +84,7 @@ The improper `∫^∞` limit is still not taken: everything is at finite truncat
 uniformly in `N` — the honest form (the truncated-Perron bridge `Aperron_short_interval` is
 finite-`T` too).  The frequency window in R3-d is a single segment avoiding `0`; Lemma 14's
 two-sided tail is the sum of the two half-tails, which is how `lemma14_contour_kernel` uses it.
-The five `Lemma14` privates (`coeff_sum_inv_le`, `norm_sum_five_sq_le`, `integral_five_add`,
+The six `Lemma14` lemmas (`coeff_sum_inv_le`, `norm_sum_five_sq_le`, `integral_five_add`,
 `uSlab_eq_vSeg`, `vSeg_split_five`, `five_split_integral_bound`) and the `vdiffR` device are
 imported from `Salt.MR.Lemma14`, where they are public.
 
