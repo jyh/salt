@@ -1203,14 +1203,6 @@ theorem sqf_coprime_count_eq : ∃ C : ℝ, 0 < C ∧ ∀ r : ℕ, 1 ≤ r → �
         add_le_add herr hmainerr
     _ = 4 * M ^ (1/2 : ℝ) * sigmaQ r := by ring
 
-/-- `Σ_{f ≤ m} 1/f ≤ 1 + log m` (the landed recipe, re-derived). -/
-lemma sum_inv_le_one_add_log (m : ℕ) :
-    ∑ f ∈ Finset.Icc 1 m, ((f : ℝ))⁻¹ ≤ 1 + Real.log m := by
-  have h := harmonic_le_one_add_log m
-  rw [harmonic_eq_sum_Icc] at h
-  push_cast at h
-  exact h
-
 /-- **The general discrete Abel identity** over `[1, N]`:
 `Σ_{m ≤ N} a_m G(m) = A_N·G(N) − Σ_{n < N} A_n·(G(n+1) − G(n))` with `A_n = Σ_{m ≤ n} a_m`.
 (The landed `mwWeighted_abel` is weight-`1/n`-specific; this is the general form.) -/
