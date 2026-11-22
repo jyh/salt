@@ -26,9 +26,9 @@ with the Q²/δ diagonal]`.
 The coefficient machinery of `bilinear_LS_shell` — `gammaH`, `bilinCoeffA`,
 `bilinCoeffB` (public defs, reused verbatim), and their support lemmas — is
 **independent of the modulus index set**; only the character-sieve consumption and
-the Cauchy–Schwarz-over-`q` step see the filter.  Because the support lemmas are
-`private` to `Salt/BV/BilinearLS.lean`, they are reproven here (identical proofs).
-The genuinely new pieces:
+the Cauchy–Schwarz-over-`q` step see the filter.  The support lemmas are read from
+`Salt/BV/BilinearLS.lean`, where the ones this file uses are public; none is
+reproven here.  The genuinely new pieces:
 
 * `cs_over_finset_chi` — `cs_over_q_chi` generalized to sum over an **arbitrary**
   `Finset` (both the un-restricted shell and this δ-shell could share it; the
@@ -47,8 +47,6 @@ namespace Salt.BV
 
 open scoped BigOperators
 open Salt.LS
-
-/-! ### The uniform coefficient bound `γ_h` support (reproved private kernel) -/
 
 /-! ### The nested weighted Cauchy–Schwarz over an arbitrary `Finset` -/
 
@@ -88,8 +86,6 @@ theorem cs_over_finset_chi {ι : Type*} (s : Finset ι) (w P R C : ι → ℝ)
     rw [← Real.sqrt_mul hsumP, ← Real.sqrt_sq hLHSnn]
     exact Real.sqrt_le_sqrt hcs
   exact le_trans hstep1 hfin
-
-/-! ### The `char_LS`-compatible bilinear coefficients (reproved private support) -/
 
 /-! ### The δ-restricted fixed-shell bilinear large sieve -/
 
