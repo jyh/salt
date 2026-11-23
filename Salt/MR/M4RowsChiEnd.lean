@@ -321,7 +321,7 @@ theorem m4_rowChi_number_of_capstone_end :
 CHARACTER-BLIND and ROW-BLIND arithmetic; what moves is only the Lemma-12 summand's
 prefactor, `960·3 = 2880` where the three-row chain has `480·3 = 1440`.
 
-`M4RowsChi`'s weighing helpers are `private` to that file (as `ThmA2Rows`' are to theirs), so the
+`M4RowsChi`'s weighing helpers are `private` to that file (as `ThmA2Rows`' gate lemma is), so the
 page is re-derived here at its own names, from two facts only: `(X/h)/X_d ≤ 4/h`, used in three
 of the four numerals, and `w ≤ 1`, used in all four. -/
 
@@ -408,13 +408,6 @@ private lemma d5_term3_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3) :
   have hid : w * (960 * R * Z) = 960 * Z * (w * R) := by ring
   rw [hid]
   linarith [mul_le_mul_of_nonneg_left hR (mul_nonneg (by norm_num : (0 : ℝ) ≤ 960) hZ)]
-
-/-- The `𝒰`-leg summand, at the `3/2`-gate: `2·(3/2) = 3`. -/
-private lemma d5_term4_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3 / 2) :
-    w * (2 * (R * Z)) ≤ 3 * Z := by
-  have hid : w * (2 * (R * Z)) = 2 * Z * (w * R) := by ring
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR (by linarith : (0 : ℝ) ≤ 2 * Z)]
 
 /-- The ball leg passes the weighting untouched (`w ≤ 1`). -/
 private lemma d5_ball_weigh {w S : ℝ} (hw1 : w ≤ 1) :
@@ -511,7 +504,7 @@ theorem m4_rowChi_weighed_end {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ 
   unfold m4MrowChiEnd
   exact d5_row_weigh (d5_ball_weigh hw1)
     (d5_level1_weigh hHL0 hPq0 hBr0 hg9)
-    (d5_term2_weigh hCt hY0 hg244) (d5_term3_weigh hRS0 hg3) (d5_term4_weigh hZ0 hg32)
+    (d5_term2_weigh hCt hY0 hg244) (d5_term3_weigh hRS0 hg3) (a2_term4_weigh hZ0 hg32)
 
 /-! ## §5 — THE DELIVERABLE: the `hrowsSum` slot, per character, STRICT/FUSED
 
@@ -884,7 +877,7 @@ the ⟦PROVISIONAL⟧ tag below is DISCHARGED: these three are the canonical min
 back into `M4Assembly` is a one-commit maestro decision, not an executor's; nothing
 downstream is missing either way.
 
-⟦THE BLOCK IS CLEARED⟧ `m4_chiSummedFreeRow_of_doorAssembly_end` (:885) was banked BLOCKED on
+⟦THE BLOCK IS CLEARED⟧ `m4_chiSummedFreeRow_of_doorAssembly_end` (:824) was banked BLOCKED on
 `M4Assembly.DoorFuseFrame_gk` and `M4Assembly.m4_chiFreeRowSq_sum_at_door_gk`.  Both exist
 now, and the twin is landed in `§GK.wire` below — one `exact`, as predicted.
 (`DoorFuseFrame` moves ONLY through its `gRows` field, `ThmA2.a2RowsSum M Xd`; its `gP1`
@@ -1107,7 +1100,7 @@ with those names substituted.  `hK : K ≤ 1.7·10⁸` is the slot supplier's fr
 condition, inherited. -/
 
 /-- **⟦ITEM 11⟧ AT THE ASSEMBLY WIRE, AT THE LEVER** —
-`m4_chiSummedFreeRow_of_doorAssembly_end` (:885). -/
+`m4_chiSummedFreeRow_of_doorAssembly_end` (:824). -/
 theorem m4_chiSummedFreeRow_of_doorAssembly_end_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (RSbig : ℕ → ℕ → ℝ)

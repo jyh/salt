@@ -322,13 +322,6 @@ private lemma d5p_term3_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3) :
   rw [hid]
   linarith [mul_le_mul_of_nonneg_left hR (mul_nonneg (by norm_num : (0 : ℝ) ≤ 960) hZ)]
 
-/-- `M4RowsChiEnd.d5_term4_weigh`, re-minted: `2·(3/2) = 3`. -/
-private lemma d5p_term4_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3 / 2) :
-    w * (2 * (R * Z)) ≤ 3 * Z := by
-  have hid : w * (2 * (R * Z)) = 2 * Z * (w * R) := by ring
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR (by linarith : (0 : ℝ) ≤ 2 * Z)]
-
 /-- `M4RowsChiEnd.d5_ball_weigh`, re-minted. -/
 private lemma d5p_ball_weigh {w S : ℝ} (hw1 : w ≤ 1) :
     w * (8 * S ^ 2) ≤ 8 * S ^ 2 := by nlinarith only [hw1, sq_nonneg S]
@@ -453,7 +446,7 @@ theorem m4_rowChi_weighed_end' {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ
   unfold m4MrowChiEnd'
   exact d5p_row_weigh (d5p_ball_weigh hw1)
     (d5p_level1_weigh hHL0 hPq0 hBr0 hg9)
-    (d5p_term2_weigh hCt hY0 hg244) (d5p_term3_weigh hRS0 hg3) (d5p_term4_weigh hZ0 hg32)
+    (d5p_term2_weigh hCt hY0 hg244) (d5p_term3_weigh hRS0 hg3) (a2_term4_weigh hZ0 hg32)
 
 /-! ## §4 — THE DELIVERABLE: the `hrowsSum` slot, per character, at ⟦R1⟧'s bracket
 
