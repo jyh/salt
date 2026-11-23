@@ -790,18 +790,6 @@ private lemma update_mem_kSieveIndex_iff {R W' : ℕ} {r : Fin 5 → ℕ}
       · rw [Function.update_of_ne hi]; exact hrW i
     · rwa [hprodU]
 
-/-- `eval (ofPoly F) t` as an explicit monomial `List.sum` (budget power `0`). -/
-private lemma eval_ofPoly (F : Poly) (t : Fin 5 → ℝ) :
-    eval (ofPoly F) t = (F.map (fun a => (a.2 : ℝ) * ∏ i, t i ^ a.1 i)).sum := by
-  simp only [eval, ofPoly, List.map_map, Function.comp_def, pow_zero, mul_one]
-
-/-- `eval (contractAt m F) t` as an explicit monomial `List.sum`. -/
-private lemma eval_contractAt (m : Fin 5) (F : Poly) (t : Fin 4 → ℝ) :
-    eval (contractAt m F) t
-      = (F.map (fun a => ((a.2 / ((a.1 m + 1 : ℕ) : ℚ) : ℚ) : ℝ)
-          * (∏ i, t i ^ a.1 (m.succAbove i)) * (1 - ∑ i, t i) ^ (a.1 m + 1))).sum := by
-  simp only [eval, contractAt, List.map_map, Function.comp_def, Fin.removeNth_apply]
-
 /-- The product `∏ᵢ (log (update r m u) i / RR)^{α i}` splits off the `m`-th factor. -/
 private lemma prod_update_split (r : Fin 5 → ℕ) (m : Fin 5) (u : ℕ) (RR : ℝ)
     (a : Fin 5 → ℕ) :

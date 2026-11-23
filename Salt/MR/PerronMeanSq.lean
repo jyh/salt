@@ -883,8 +883,8 @@ theorem gapMaj_meansq_sqrt (s0 : Finset ℕ) {X T h₁ h₂ : ℝ} (hX : 1 ≤ X
 
 /-! ## Part G — X4: the consumer exit, with the gap entering in mean square -/
 
-/-- The `max`-regularized weighted `V`-difference (`Lemma14`'s `vdiffR`, re-derived here
-because that file's copy is `private`).  Globally continuous in `x`, and equal to the honest
+/-- The `max`-regularized weighted `V`-difference (a local copy of `Lemma14`'s `vdiffR`,
+written when that copy was `private`).  Globally continuous in `x`, and equal to the honest
 weighted difference for `x ≥ X`. -/
 private def vdiffQ (A : ℝ → ℂ) (X h₁ h₂ α β x : ℝ) : ℂ :=
   ((1 / h₁ : ℝ) : ℂ) * (I * ∫ u in x..(x + h₁), tailTr A α β (X / 2) u)

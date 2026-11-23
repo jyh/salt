@@ -98,7 +98,7 @@ namespace Salt.MR
 
 /-- The coefficient mass of an `[X, 4X]`-supported index set: `∑_{m ∈ s0} 1/m ≤ 5`.
 (`s0 ⊆ [0, ⌊4X⌋]` gives `card ≤ 4X + 1`, and each term is `≤ 1/X`.) -/
-private lemma coeff_sum_inv_le {X : ℝ} (hX : 1 ≤ X) (s0 : Finset ℕ)
+lemma coeff_sum_inv_le {X : ℝ} (hX : 1 ≤ X) (s0 : Finset ℕ)
     (hrange : ∀ m ∈ s0, X ≤ (m : ℝ) ∧ (m : ℝ) ≤ 4 * X) :
     (∑ m ∈ s0, 1 / (m : ℝ)) ≤ 5 := by
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le zero_lt_one hX
@@ -121,7 +121,7 @@ private lemma coeff_sum_inv_le {X : ℝ} (hX : 1 ≤ X) (s0 : Finset ℕ)
     _ ≤ 5 := by rw [mul_one_div, div_le_iff₀ hX0]; linarith
 
 /-- `‖z₁+z₂+z₃+z₄+z₅‖² ≤ 5·(‖z₁‖²+⋯+‖z₅‖²)` — the five-way triangle/AM–QM step. -/
-private lemma norm_sum_five_sq_le (z₁ z₂ z₃ z₄ z₅ : ℂ) :
+lemma norm_sum_five_sq_le (z₁ z₂ z₃ z₄ z₅ : ℂ) :
     ‖z₁ + z₂ + z₃ + z₄ + z₅‖ ^ 2
       ≤ 5 * (‖z₁‖ ^ 2 + ‖z₂‖ ^ 2 + ‖z₃‖ ^ 2 + ‖z₄‖ ^ 2 + ‖z₅‖ ^ 2) := by
   have htri : ‖z₁ + z₂ + z₃ + z₄ + z₅‖ ≤ ‖z₁‖ + ‖z₂‖ + ‖z₃‖ + ‖z₄‖ + ‖z₅‖ := by
@@ -137,7 +137,7 @@ private lemma norm_sum_five_sq_le (z₁ z₂ z₃ z₄ z₅ : ℂ) :
       sq_nonneg (‖z₃‖ - ‖z₄‖), sq_nonneg (‖z₃‖ - ‖z₅‖), sq_nonneg (‖z₄‖ - ‖z₅‖)]
 
 /-- Additivity of an interval integral over a five-term sum. -/
-private lemma integral_five_add {f₁ f₂ f₃ f₄ f₅ : ℝ → ℝ} {p q : ℝ}
+lemma integral_five_add {f₁ f₂ f₃ f₄ f₅ : ℝ → ℝ} {p q : ℝ}
     (h₁ : IntervalIntegrable f₁ volume p q) (h₂ : IntervalIntegrable f₂ volume p q)
     (h₃ : IntervalIntegrable f₃ volume p q) (h₄ : IntervalIntegrable f₄ volume p q)
     (h₅ : IntervalIntegrable f₅ volume p q) :
@@ -152,10 +152,10 @@ private lemma integral_five_add {f₁ f₂ f₃ f₄ f₅ : ℝ → ℝ} {p q : 
 /-! ## E1 — the frequency split of the truncated Perron object -/
 
 /-- The `U`-slab at truncation `T` IS the `V`-segment on `[−T, T]` (same normalization). -/
-private lemma uSlab_eq_vSeg (A : ℝ → ℂ) (x h T : ℝ) : uSlab A x h T = vSeg A x h (-T) T := rfl
+lemma uSlab_eq_vSeg (A : ℝ → ℂ) (x h T : ℝ) : uSlab A x h T = vSeg A x h (-T) T := rfl
 
 /-- Adjacent frequency segments add. -/
-private lemma vSeg_add_adjacent {A : ℝ → ℂ} (hA : Continuous A) {x h : ℝ}
+lemma vSeg_add_adjacent {A : ℝ → ℂ} (hA : Continuous A) {x h : ℝ}
     (hx : 0 < x) (hxh : 0 < x + h) (p q r : ℝ) :
     vSeg A x h p q + vSeg A x h q r = vSeg A x h p r := by
   have hc : Continuous (fun t : ℝ => A t * uKernel x h t) :=
@@ -166,7 +166,7 @@ private lemma vSeg_add_adjacent {A : ℝ → ℂ} (hA : Continuous A) {x h : ℝ
 
 /-- **The five-way frequency split** of the truncated Perron object:
 `[−Tc, Tc] = [−Tc, −W] ∪ [−W, −T₀] ∪ [−T₀, T₀] ∪ [T₀, W] ∪ [W, Tc]`. -/
-private lemma vSeg_split_five {A : ℝ → ℂ} (hA : Continuous A) {x h : ℝ}
+lemma vSeg_split_five {A : ℝ → ℂ} (hA : Continuous A) {x h : ℝ}
     (hx : 0 < x) (hxh : 0 < x + h) (T₀ W Tc : ℝ) :
     vSeg A x h (-Tc) Tc
       = vSeg A x h (-Tc) (-W) + vSeg A x h (-W) (-T₀) + vSeg A x h (-T₀) T₀
@@ -181,14 +181,14 @@ private lemma vSeg_split_five {A : ℝ → ℂ} (hA : Continuous A) {x h : ℝ}
 tail transform `tailTr` — globally continuous in `x`, and equal to the honest
 `(1/h₁)·vSeg − (1/h₂)·vSeg` for `x ≥ X` (`vdiffR_eq`).  This is the device that makes every
 `x`-integral in the assembly interval-integrable. -/
-private def vdiffR (A : ℝ → ℂ) (X h₁ h₂ α β x : ℝ) : ℂ :=
+def vdiffR (A : ℝ → ℂ) (X h₁ h₂ α β x : ℝ) : ℂ :=
   ((1 / h₁ : ℝ) : ℂ) * (I * ∫ u in x..(x + h₁), tailTr A α β (X / 2) u)
     - ((1 / h₂ : ℝ) : ℂ) * (I * ∫ u in x..(x + h₂), tailTr A α β (X / 2) u)
 
 /-- `x ↦ vdiffR A X h₁ h₂ α β x` is continuous for a continuous `A` and `0 < X`: a difference of
-two window integrals of the continuous `tailTr A α β (X / 2)`. Private; read three times in this
-file. `KernelCarry` and `SeamLemma14` hold same-named private copies of their own. -/
-private lemma vdiffR_continuous {A : ℝ → ℂ} (hA : Continuous A) {X : ℝ} (hX : 0 < X)
+two window integrals of the continuous `tailTr A α β (X / 2)`. Read three times in this file,
+and by `KernelCarry` and `SeamLemma14`. -/
+lemma vdiffR_continuous {A : ℝ → ℂ} (hA : Continuous A) {X : ℝ} (hX : 0 < X)
     (h₁ h₂ α β : ℝ) : Continuous (fun x : ℝ => vdiffR A X h₁ h₂ α β x) := by
   have hFr : Continuous (tailTr A α β (X / 2)) := tailTr_continuous hA α β (by linarith)
   simp only [vdiffR]
@@ -197,9 +197,9 @@ private lemma vdiffR_continuous {A : ℝ → ℂ} (hA : Continuous A) {X : ℝ} 
 
 /-- For `X ≤ x` and `0 ≤ h₁`, `0 ≤ h₂`, `vdiffR A X h₁ h₂ α β x` is `(1 / h₁) * vSeg A x h₁ α β`
 minus `(1 / h₂) * vSeg A x h₂ α β`: on `[x, x + h]` the regularized `tailTr` is the tail
-transform (`tailTr_eq`, `vSeg_eq_tailT_integral`). Private; read eight times in this file.
-`KernelCarry` and `SeamLemma14` hold same-named private copies of their own. -/
-private lemma vdiffR_eq {A : ℝ → ℂ} (hA : Continuous A) {X x h₁ h₂ : ℝ}
+transform (`tailTr_eq`, `vSeg_eq_tailT_integral`). Read eight times in this file,
+and by `KernelCarry` and `SeamLemma14`. -/
+lemma vdiffR_eq {A : ℝ → ℂ} (hA : Continuous A) {X x h₁ h₂ : ℝ}
     (hX : 0 < X) (hx : X ≤ x) (hh1 : 0 ≤ h₁) (hh2 : 0 ≤ h₂) {α β : ℝ} :
     vdiffR A X h₁ h₂ α β x
       = ((1 / h₁ : ℝ) : ℂ) * vSeg A x h₁ α β - ((1 / h₂ : ℝ) : ℂ) * vSeg A x h₂ α β := by
@@ -230,7 +230,7 @@ private lemma uSlab_diff_sq_integrable {A : ℝ → ℂ} (hA : Continuous A) {X 
 /-! ## E3 — the split, integrated -/
 
 /-- The five-way split of the `x`-integrated squared weighted Perron difference. -/
-private lemma five_split_integral_bound {A : ℝ → ℂ} (hA : Continuous A) {X h₁ h₂ : ℝ}
+lemma five_split_integral_bound {A : ℝ → ℂ} (hA : Continuous A) {X h₁ h₂ : ℝ}
     (hX : 0 < X) (hh1 : 0 < h₁) (hh2 : 0 < h₂) (T₀ W Tc : ℝ) :
     (∫ x in X..(2 * X),
         ‖((1 / h₁ : ℝ) : ℂ) * uSlab A x h₁ Tc - ((1 / h₂ : ℝ) : ℂ) * uSlab A x h₂ Tc‖ ^ 2)
