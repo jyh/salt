@@ -43,7 +43,8 @@ new receipt.
 What this can NOT check: that a statement means what the plain line says (a reader checks
 that), that the build record describes the build log handed in (the receipt records both logs'
 sha256, the audit records, and the commit; anyone can re-run it), or that an uncommitted edit
-was not made between the build and the audit (the record's `dirty` count is copied, not judged).
+was not made and reverted between the build and the audit (a build or audit whose wrapper record
+reads any uncommitted tracked file, `dirty` other than 0->0, is refused).
 
 Usage (from anywhere):
   python3 scripts/headline_theorems.py               write docs/HEADLINE-THEOREMS.md
@@ -315,7 +316,8 @@ def audit_file() -> str:
 
 
 AUDIT_REC = re.compile(r"^(\d{4}-\d\d-\d\d \d\d:\d\d:\d\d) \| (build|audit) \| ([^|]+?) \| args=([^|]*?) \|"
-                       r"(?: sha256=\S+)? ?HEAD=(\S+) \| .*?\| EXIT=(\d+) \|(.*)$")
+                       r"(?: sha256=(\S+))? ?HEAD=(\S+) \| .*?\| EXIT=(\d+) \|(.*)$")
+DIRTY = re.compile(r"dirty=(\S+)")
 
 
 def fleet_audit_path() -> str | None:
@@ -332,13 +334,19 @@ def fleet_audit_path() -> str | None:
 
 
 def fleet_records(text: str, cwd: str) -> list[dict]:
-    """The fleet audit log's machine-written lines for runs in `cwd`, oldest first."""
+    """The fleet audit log's machine-written lines for runs in `cwd` (the repo root), oldest
+    first. `when` is the run's END time (the wrapper writes the line as the run ends); the
+    wrapper's lock runs one build or audit at a time, so end-before-end orders the runs.
+    `dirty` is the wrapper's count of uncommitted tracked files, before->after; `sha` is the
+    audited scratch file's sha256 prefix (audit runs only)."""
     out = []
     for line in text.splitlines():
         m = AUDIT_REC.match(line)
         if m and os.path.realpath(m.group(3).strip()) == os.path.realpath(cwd):
+            d = DIRTY.search(m.group(8))
             out.append({"when": m.group(1), "kind": m.group(2), "args": m.group(4).split(),
-                        "head": m.group(5), "exit": m.group(6)})
+                        "sha": m.group(5), "head": m.group(6), "exit": m.group(7),
+                        "dirty": d.group(1) if d else None})
     return out
 
 
@@ -356,7 +364,7 @@ def pick_records(recs: list[dict], scratch: str) -> tuple[dict | None, dict | No
 
 
 TAGGED = re.compile(r":[0-9]+:[0-9]+: error(\([^)]*\))?:|^error: .*:[0-9]+:[0-9]+:", re.M)
-AX_LINE = re.compile(r"'([^']+)' (depends on axioms: \[([^\]]*)\]|does not depend on any axioms)")
+AX_LINE = re.compile(r"'(\S+)' (depends on axioms: \[([^\]]*)\]|does not depend on any axioms)")
 
 
 def parse_log(log: str) -> dict:
@@ -405,6 +413,15 @@ def receipt_problems(entries: list[dict], rc: dict | None) -> list[str]:
             p.append("the build record is not BEFORE the audit record")
         elif rec.get("head") != arec.get("head"):
             p.append(f"build HEAD {rec.get('head')} != audit HEAD {arec.get('head')}")
+        if arec and rc.get("built_at") and not str(arec.get("head", "")).startswith(str(rc["built_at"])[:8]):
+            p.append(f"receipt says built at {rc.get('built_at')} but the records ran at HEAD {arec.get('head')}")
+        for nm, r in (("build", rec), ("audit", arec)):
+            if r and r.get("dirty") != "0->0":
+                p.append(f"the {nm} record reads dirty={r.get('dirty')}, not 0->0: the commit it names may not "
+                         "be the source that was built; re-take it in a clean tree")
+        if arec and rc.get("scratch_sha") and arec.get("sha") and not rc["scratch_sha"].startswith(arec["sha"]):
+            p.append(f"the audited scratch (sha {arec.get('sha')}) is not the file --audit-file writes now "
+                     f"(sha {rc['scratch_sha'][:12]})")
     for e in entries:
         got = rc.get("axioms", {}).get(e["name"])
         if got is None:
@@ -418,8 +435,9 @@ def receipt_problems(entries: list[dict], rc: dict | None) -> list[str]:
 
 
 def logp_scratch(argv: list[str]) -> str:
-    """The scratch file the audit ran on (`--scratch F`, default HeadlineAudit.lean)."""
-    return argv[argv.index("--scratch") + 1] if "--scratch" in argv else "HeadlineAudit.lean"
+    """The scratch file the audit ran on (`--scratch F`, default ScratchHeadlineAudit.lean: the
+    repository ignores `Scratch*.lean`, so the scratch does not count as an uncommitted file)."""
+    return argv[argv.index("--scratch") + 1] if "--scratch" in argv else "ScratchHeadlineAudit.lean"
 
 
 def load_receipt() -> dict | None:
@@ -471,14 +489,16 @@ def render(entries: list[dict], rc: dict | None) -> str:
         L += [f"Built at commit `{rc['built_at']}` on {rc['date']}; audit log sha256 `{rc['log_sha256']}`"
               f", build log sha256 `{b.get('log_sha256')}`.", "",
               f"- build line (the {len(build_targets())} defining modules, rebuilt before the audit): "
-              f"`saltbuild EXIT={b.get('exit')}` · tagged errors {b.get('tagged_errors')}",
-              f"- audit log: `saltbuild EXIT={rc['exit']}` · tagged errors {rc['tagged_errors']}",
+              f"`saltbuild EXIT={b.get('exit')}` · tagged errors {b.get('tagged_errors')} · "
+              f"uncommitted tracked files {(b.get('record') or {}).get('dirty')}",
+              f"- audit log: `saltbuild EXIT={rc['exit']}` · tagged errors {rc['tagged_errors']} · "
+              f"uncommitted tracked files {(rc.get('audit_record') or {}).get('dirty')}",
               f"- {sum(1 for e in entries if e['name'] in rc['axioms'])} of {len(entries)} theorems "
               f"print only `{', '.join(sorted(ALLOWED))}` (or a subset)",
               f"- imported control `{CONTROL}`: `{', '.join(rc['axioms'].get(CONTROL, []))}`", "",
-              "To re-take it: `" + COMMAND + " --audit-file HeadlineAudit.lean`, then "
+              "To re-take it: `" + COMMAND + " --audit-file ScratchHeadlineAudit.lean`, then "
               "`../saltbuild.sh $(" + COMMAND + " --build-targets) > build.log 2>&1`, then "
-              "`../saltbuild.sh HeadlineAudit.lean > audit.log 2>&1`, then `" + COMMAND +
+              "`../saltbuild.sh ScratchHeadlineAudit.lean > audit.log 2>&1`, then `" + COMMAND +
               " --receipt build.log audit.log` and regenerate this page.", ""]
     return "\n".join(L).rstrip() + "\n"
 
@@ -512,20 +532,24 @@ def self_test() -> int:
     ent = [{"name": "A.b", "digest": "d1"}]
     cwd = "/r/salt"
     tg = build_targets()
-    flog = (f"2026-11-23 05:00:00 | build | {cwd} | args={' '.join(tg)} | HEAD=abc | cap=lakefile | EXIT=0 | start=x\n"
-            f"2026-11-23 05:01:00 | audit | {cwd} | args=HeadlineAudit.lean | sha256=ff HEAD=abc | cap=24000 | EXIT=0 | start=y\n"
-            f"2026-11-23 05:02:00 | audit | /elsewhere | args=HeadlineAudit.lean | sha256=ff HEAD=zzz | cap=24000 | EXIT=0 | start=y\n")
-    brec, arec = pick_records(fleet_records(flog, cwd), "HeadlineAudit.lean")
+    flog = (f"2026-11-23 05:00:00 | build | {cwd} | args={' '.join(tg)} | HEAD=abc | cap=lakefile | EXIT=0 | start=x | pre_head=abc | dirty=0->0\n"
+            f"2026-11-23 05:01:00 | audit | {cwd} | args=ScratchHeadlineAudit.lean | sha256=ff HEAD=abc | cap=24000 | EXIT=0 | start=y | pre_head=abc | dirty=0->0\n"
+            f"2026-11-23 05:02:00 | audit | /elsewhere | args=ScratchHeadlineAudit.lean | sha256=ff HEAD=zzz | cap=24000 | EXIT=0 | start=y | pre_head=abc | dirty=0->0\n")
+    brec, arec = pick_records(fleet_records(flog, cwd), "ScratchHeadlineAudit.lean")
     check("fleet record: the build covering every defining module is found", brec is not None and brec["head"] == "abc")
     check("fleet record: another tree's audit run is not taken", arec is not None and arec["head"] == "abc")
     late = flog.replace("05:00:00 | build", "05:09:00 | build")
-    check("fleet record: a build AFTER the audit is not taken", pick_records(fleet_records(late, cwd), "HeadlineAudit.lean")[0] is None)
+    check("fleet record: a build AFTER the audit is not taken", pick_records(fleet_records(late, cwd), "ScratchHeadlineAudit.lean")[0] is None)
     part = flog.replace(f"args={' '.join(tg)}", f"args={' '.join(tg[1:])}")
     check("fleet record: a build missing one defining module is not taken",
-          pick_records(fleet_records(part, cwd), "HeadlineAudit.lean")[0] is None)
+          pick_records(fleet_records(part, cwd), "ScratchHeadlineAudit.lean")[0] is None)
+    check("fleet record: the dirty count and the scratch sha are read",
+          brec["dirty"] == "0->0" and arec["sha"] == "ff")
+    check("parse_log reads a name ending in a prime",
+          parse_log("'Foo.bar'' depends on axioms: [propext]\n")["axioms"].get("Foo.bar'") == ["propext"])
     good = {"exit": "0", "tagged_errors": 0, "axioms": {"A.b": ["propext"], CONTROL: [CONTROL_AXIOM]},
             "digests": {"A.b": "d1"}, "build": {"exit": "0", "tagged_errors": 0, "record": brec},
-            "audit_record": arec}
+            "audit_record": arec, "built_at": "abc", "scratch_sha": "ff" + "0" * 14}
     check("a sound receipt passes", receipt_problems(ent, good) == [])
     old_form = {"exit": "0", "tagged_errors": 0, "digests": {"A.b": "d1"},
                 "axioms": {"A.b": ["propext"], "Salt.HeadlineAudit.sorry_control": ["sorryAx"]}}
@@ -545,6 +569,12 @@ def self_test() -> int:
         ("mutant: build record after the audit", {**good, "build": {**good["build"], "record": {**brec, "when": "2026-11-23 06:00:00"}}}),
         ("mutant: build at another HEAD", {**good, "build": {**good["build"], "record": {**brec, "head": "def"}}}),
         ("mutant: no audit record", {**good, "audit_record": None}),
+        ("mutant: built_at names another commit", {**good, "built_at": "zzz"}),
+        ("mutant: the build ran in a dirty tree", {**good, "build": {**good["build"], "record": {**brec, "dirty": "2->3"}}}),
+        ("mutant: a record with no dirty count (the pre-triple receipt)",
+         {**good, "build": {**good["build"], "record": {k: v for k, v in brec.items() if k != "dirty"}}}),
+        ("mutant: the audited scratch is not the current audit file",
+         {**good, "scratch_sha": "00" * 8, "audit_record": {**arec, "sha": "ff"}}),
     ]:
         check(label + " is refused", receipt_problems(ent, mut) != [])
     check("no receipt is refused", receipt_problems(ent, None) != [])
@@ -581,7 +611,8 @@ def main(argv: list[str]) -> int:
             ftext = open(fpath, encoding="utf-8", errors="replace").read() if fpath else ""
         except OSError:
             ftext = ""
-        brec, arec = pick_records(fleet_records(ftext, os.getcwd()), logp_scratch(argv))
+        brec, arec = pick_records(fleet_records(ftext, REPO), logp_scratch(argv))
+        rc["scratch_sha"] = hashlib.sha256(audit_file().encode("utf-8")).hexdigest()[:16]
         rc["build"] = {"exit": bl["exit"], "tagged_errors": bl["tagged_errors"],
                        "log_sha256": hashlib.sha256(braw).hexdigest()[:16], "record": brec}
         rc["audit_record"] = arec
