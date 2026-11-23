@@ -321,7 +321,7 @@ theorem m4_rowChi_number_of_capstone_end :
 CHARACTER-BLIND and ROW-BLIND arithmetic; what moves is only the Lemma-12 summand's
 prefactor, `960·3 = 2880` where the three-row chain has `480·3 = 1440`.
 
-`M4RowsChi`'s own helpers are `private` to that file (as `ThmA2Rows`' are to theirs), so the
+`M4RowsChi`'s weighing helpers are `private` to that file (as `ThmA2Rows`' are to theirs), so the
 page is re-derived here at its own names, from two facts only: `(X/h)/X_d ≤ 4/h`, used in three
 of the four numerals, and `w ≤ 1`, used in all four. -/
 
@@ -439,35 +439,6 @@ def m4MrowChiEnd (Ct Cp : ℝ) (A G M Jb Xd : ℕ) (H1 η X ε S : ℝ) : ℝ :=
             + Cp * (2 / (M : ℝ))))
     + 3 * (Real.log X) ^ (-theta293 + ε)
 
-/-- The Lemma-12 row sum is a sum of nonnegative terms (`1 ≤ X_d`, `2 ≤ H₁`, `1 ≤ P_j`). -/
-lemma d5_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) (hH1 : 2 ≤ H1) :
-    (0 : ℝ) ≤ ∑ j ∈ Finset.Icc 1 Jb,
-      ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
-          * (Real.exp 1 / (Xd : ℝ) ^ 2))
-        + 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ)
-        + 1 / (Xd : ℝ)) := by
-  have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
-  refine Finset.sum_nonneg (fun j hj => ?_)
-  rw [Finset.mem_Icc] at hj
-  have hj1 : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
-  have hcalH : (0 : ℝ) < calH H1 j := by rw [calH]; nlinarith
-  have hP1 : (1 : ℝ) ≤ ((calP A G j : ℕ) : ℝ) := by
-    have h : 1 ≤ calP A G j := by simp only [calP]; exact Nat.one_le_two_pow
-    exact_mod_cast h
-  have hlogb : (0 : ℝ) ≤ Real.logb 2 (2 * (Xd : ℝ)) :=
-    Real.logb_nonneg (by norm_num) (by linarith)
-  have h1 : (0 : ℝ) ≤ (Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
-      * (Real.exp 1 / (Xd : ℝ) ^ 2)) := by
-    have hq : (0 : ℝ) ≤ 2 * Real.exp 1 * (Xd : ℝ) / calH H1 j :=
-      div_nonneg (by positivity) hcalH.le
-    have hr : (0 : ℝ) ≤ Real.exp 1 / (Xd : ℝ) ^ 2 := by positivity
-    have := mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1) hr
-    nlinarith only [this, (Nat.cast_nonneg _ : 0 ≤ ↑Xd)]
-  have h2 : (0 : ℝ) ≤ 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ) :=
-    div_nonneg (by linarith) (by linarith)
-  have h3 : (0 : ℝ) ≤ 1 / (Xd : ℝ) := by positivity
-  linarith
-
 set_option maxHeartbeats 400000 in
 -- The `hrow` hypothesis is the full number-row; matching it summand by summand against
 -- `m4MrowChiEnd` costs more than the default budget in elaboration alone.
@@ -535,7 +506,7 @@ theorem m4_rowChi_weighed_end {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ 
         + 1 / (Xd : ℝ))) + Cp * (2 / (M : ℝ)) := by
     have hM0 : (0 : ℝ) < (M : ℝ) := by exact_mod_cast hM1
     have h2 : (0 : ℝ) ≤ Cp * (2 / (M : ℝ)) := by positivity
-    linarith [d5_rowsSum_nonneg (A := A) (G := G) (Jb := Jb) (Xd := Xd) (H1 := H1) hXd1 hH1]
+    linarith [m4_rowsSum_nonneg (A := A) (G := G) (Jb := Jb) (Xd := Xd) (H1 := H1) hXd1 hH1]
   have hZ0 : (0 : ℝ) ≤ (Real.log X) ^ (-theta293 + ε) := Real.rpow_nonneg hL0 _
   unfold m4MrowChiEnd
   exact d5_row_weigh (d5_ball_weigh hw1)
@@ -641,7 +612,7 @@ theorem m4MrowChiEnd_le_a2Mrow {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) {Ct 
             / ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ)
         + 1 / (Xd : ℝ))) + Cp * (2 / (M : ℝ)) := by
     have h2 : (0 : ℝ) ≤ Cp * (2 / (M : ℝ)) := by positivity
-    linarith [d5_rowsSum_nonneg (A := Adoor M) (G := 3072 * M) (Jb := 2) (Xd := Xd)
+    linarith [m4_rowsSum_nonneg (A := Adoor M) (G := 3072 * M) (Jb := 2) (Xd := Xd)
       (H1 := H1door M) hXd (H1door_two hM)]
   unfold m4MrowChiEnd a2Mrow a2Level1 a2RowsSum
   have hlvl' : 18 * (calH (H1door M) 1
@@ -964,7 +935,7 @@ theorem m4MrowChiEnd_le_a2Mrow_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1
             / ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ)
         + 1 / (Xd : ℝ))) + Cp * (2 / (M : ℝ)) := by
     have h2 : (0 : ℝ) ≤ Cp * (2 / (M : ℝ)) := by positivity
-    linarith [d5_rowsSum_nonneg (A := Adoor M) (G := s13GK K M) (Jb := 2) (Xd := Xd)
+    linarith [m4_rowsSum_nonneg (A := Adoor M) (G := s13GK K M) (Jb := 2) (Xd := Xd)
       (H1 := H1door M) hXd (H1door_two hM)]
   unfold m4MrowChiEnd a2Mrow_gk a2RowsSum_gk
   rw [← a2Level1_gk_eq K M]

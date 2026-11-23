@@ -212,7 +212,7 @@ theorem m4MrowChiEnd_le_a2Mrow_L {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) {C
             / ((calP (AdoorL M) (3072 * M) j : ℕ) : ℝ)
         + 1 / (Xd : ℝ))) + Cp * (2 / (M : ℝ)) := by
     have h2 : (0 : ℝ) ≤ Cp * (2 / (M : ℝ)) := by positivity
-    linarith [d5_rowsSum_nonneg (A := AdoorL M) (G := 3072 * M) (Jb := 2) (Xd := Xd)
+    linarith [m4_rowsSum_nonneg (A := AdoorL M) (G := 3072 * M) (Jb := 2) (Xd := Xd)
       (H1 := H1doorL M) hXd (H1door_two_L hM)]
   unfold m4MrowChiEnd a2Mrow_L a2Level1_L a2RowsSum_L
   have hlvl' : 18 * (calH (H1doorL M) 1

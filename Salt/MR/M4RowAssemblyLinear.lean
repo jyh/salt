@@ -4306,7 +4306,7 @@ theorem m4MrowChiEnd_le_a2Mrow_L_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd :
             / ((calP (AdoorL M) (s13GK K M) j : ℕ) : ℝ)
         + 1 / (Xd : ℝ))) + Cp * (2 / (M : ℝ)) := by
     have h2 : (0 : ℝ) ≤ Cp * (2 / (M : ℝ)) := by positivity
-    linarith [d5_rowsSum_nonneg (A := AdoorL M) (G := s13GK K M) (Jb := 2) (Xd := Xd)
+    linarith [m4_rowsSum_nonneg (A := AdoorL M) (G := s13GK K M) (Jb := 2) (Xd := Xd)
       (H1 := H1doorL M) hXd (H1door_two_L hM)]
   unfold m4MrowChiEnd a2Mrow_L_gk a2RowsSum_L_gk
   rw [← a2Level1_L_gk_eq K M]

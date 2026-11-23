@@ -49,7 +49,7 @@ hypothesis lists BYTE FOR BYTE.
 * §2 `m4_rowChi_number_of_capstone_end'` — the per-`χ` seam row as a number
   (`M4RowsChiEnd` §3's twin);
 * §3 `m4MrowChiEnd'` and `m4_rowChi_weighed_end'` — the weighting page
-  (`M4RowsChiEnd` §4's twin; that file's helpers are `private`, so they are re-minted here);
+  (`M4RowsChiEnd` §4's twin; its weighing gates are `private` there, so they are re-minted here);
 * §4 `m4_hrowsSum_chi_end'` — the `hrowsSum` slot per character;
 * §5 `m4MrowChiEnd'_le_a2Mrow'` and `m4_hrowsSum_chi_door_end'` — the door instance;
 * §6 **THE FUSE**: `m4_hrowsSlot_at_door_end'` meets
@@ -237,7 +237,7 @@ theorem m4_rowChi_number_of_capstone_end' :
 ROW-BLIND arithmetic and do not move; the Lemma-12 summand still weighs `960·3 = 2880`.
 What moves is the OBJECT the third weighing lands in — the primed bracket.
 
-`M4RowsChiEnd`'s helpers are `private` to that file, so the page is re-minted here at its own
+`M4RowsChiEnd`'s weighing gates are `private` to that file, so the page is re-minted here at its own
 names (same statements, same proofs), with the row-sum nonnegativity restated at the primed
 bracket — where it is STRICTLY easier, the `log₂(2X_d) ≥ 0` step disappearing. -/
 
@@ -353,7 +353,7 @@ def m4MrowChiEnd' (Ct Cp : ℝ) (A G M Jb Xd : ℕ) (H1 η X ε S : ℝ) : ℝ :
             + Cp * (2 / (M : ℝ))))
     + 3 * (Real.log X) ^ (-theta293 + ε)
 
-/-- The primed Lemma-12 row sum is a sum of nonnegative terms.  `M4RowsChiEnd`'s
+/-- The primed Lemma-12 row sum is a sum of nonnegative terms; the twin of what `M4RowsChiEnd` named
 `d5_rowsSum_nonneg` at ⟦R1⟧'s bracket — strictly easier, the `log₂(2X_d) ≥ 0` step gone. -/
 private lemma d5p_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) (hH1 : 2 ≤ H1) :
     (0 : ℝ) ≤ ∑ j ∈ Finset.Icc 1 Jb,
