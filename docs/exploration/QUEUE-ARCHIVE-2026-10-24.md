@@ -1614,7 +1614,7 @@ RESURRECTS THEM:**
     `L²` MR short-interval mean-value theorem: **no `1_S`, no `W`, no `d`, no (2.1)/(2.3), no
     exponential twist.** ⭐ **PARTS ARE LANDED, ASSEMBLY IS NOT** (probe 2): the short-interval
     mean-square family `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:948`) / `_concrete`
-    (`:1079`) / `_kernel` (`KernelCarry.lean:1162`) is A.1's own shape; Halász in 65 files with
+    (`:1079`) / `_kernel` (`KernelCarry.lean:1004`) is A.1's own shape; Halász in 65 files with
     closed numeric instances. **CLASS: assigned after a targeted read (B/C expected). NOT `D`.**
 14. ✅✅ **BLOCK-C REWIRE — LANDED `3c6bd64f` 2026-08-21.** New file `Salt/MR/MRTQualityLam.lean`
     (94 ln, 2 theorems), rooted in `MR/All.lean` **with both names registered in the audit list AS the
@@ -4581,7 +4581,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
       spoly_eq_dpoly           MomentsA2.lean:59
         spoly N a t = dpoly N (fun n => a n / n) (-t)
         docstring: "since n^{1+it} = n · e^{it log n}"      ⇐ the REFLECTED FREQUENCY, exactly
-      spoly_eq_dpolyA_filter   SeamLemma14.lean:121          spoly ↔ dpolyA
+      spoly_eq_dpolyA_filter   SeamLemma14.lean:120          spoly ↔ dpolyA
       hybrid_char_spoly_mvt    HybridMoments.lean:179        an MVT FOR spoly, over characters:
         Σ_χ ∫_{-T}^{T} ‖spoly N (chiBarCoeff q χ a) t‖² ≤ (2φ(q)T + 7φ(q)N/q)·Σ ‖a_n‖²/n²
         ⇒ at q = 1 (φ(1) = 1, one trivial character) this IS the plain MVT for spoly
@@ -4940,7 +4940,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     ⇒ ***THE JOIN IS NO LONGER PROSE.*** The only analytic hypothesis `_concrete` left undischarged now
     has a machine-checked deduction from its source-identified producer.
     ⭐ **Integrability is DERIVED, not assumed** — `dpolyA` continuous on positive `s0` ⇒ `‖·‖²`
-    interval-integrable everywhere; the idiom is the corpus's own (`SeamLemma14.lean:150`).
+    interval-integrable everywhere; the idiom is the corpus's own (`SeamLemma14.lean:149`).
     ⛔ **ONE REAL DEFECT, FOUND BY THE BUILD AND WORTH THE ROW:** `field_simp` does **NOT** close
     `X/h₁/T * (2T/(X/h₁)) = 2` — it **SPLITS `X/h₁` into `X` and `h₁`** and then wants nonvanishing
     facts for each, which `0 < X/h₁` does not supply separately. Fixed with `set u := X / h₁` first.
@@ -5034,7 +5034,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
       *(The family below is real and useful; only its identification with A.1 is retracted.)*
       The landed short-interval mean-square family:
       `lemma14_shortInterval_meansq` (`PerronMeanSq.lean:948`) · `_concrete` (`:1079`) ·
-      `_kernel` (`KernelCarry.lean:1162`) · `shortInterval_vonMangoldt_le`
+      `_kernel` (`KernelCarry.lean:1004`) · `shortInterval_vonMangoldt_le`
       (`ShortIntervalPsi.lean:422`).
       ⛔ **No ASSEMBLED "MR short-interval mean value" statement exists** (searched
       `MRShort`/`mrCore`/`MRgate`). ⇒ **THE PARTS ARE LANDED; THE ASSEMBLY IS NOT.**
@@ -5058,7 +5058,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
     variant (`:1079`) discharges **three**: `hGint` by `gapMaj_sq_intervalIntegrable`, `hPerron` by
     `perron_gap_le_gapMaj` + `perron_guards_ae`, and `hGsq` by folding `Egap` into an explicit
     `34560·δ·(…)² + 1152·(…)²` term. ⇒ **`hMsup` IS THE ONLY SURVIVOR, and ALL THREE family members
-    carry it** (`_kernel` `KernelCarry.lean:1162` too; at the live application `Eq26Compose.lean:493`
+    carry it** (`_kernel` `KernelCarry.lean:1004` too; at the live application `Eq26Compose.lean:493`
     it is passed **upward**, not discharged).
     ⭐ **AND `hMsup`'s PRODUCER IS LANDED AND UNCONDITIONAL:** `dirichlet_poly_l2_mvt_final`
     (`MVCore2.lean:635`) — **no hypotheses at all** beyond the data — resting on
