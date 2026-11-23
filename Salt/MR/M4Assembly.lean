@@ -45,10 +45,10 @@ It cannot be, and the obstruction is in the corpus already:
 
 * `m4_hrowsSum_chi_door` carries the **GLOBAL, unconditional** Lemma-12 factorization
   `∀ j ∈ [1,2], ∀ p m, p.Prime → P_j ≤ p → p ≤ Q_j → ¬p∣m → a (p·m) = bfam j m · c p`
-  (`M4RowsChi.lean:1161-1162`), inherited from `m4_rowChi_number_of_capstone`
+  (`M4RowsChi.lean:1154-1155`), inherited from `m4_rowChi_number_of_capstone`
   (`M4RowsChi.lean:595-596`) and ultimately from `TLegChi`/`SeamNumber`;
 * the SAME statement carries `hasupp : ∀ n, a n ≠ 0 → X_d ≤ n ≤ 2X_d`
-  (`M4RowsChi.lean:1166`), which pins the datum to the dyadic window;
+  (`M4RowsChi.lean:1159`), which pins the datum to the dyadic window;
 * `ThmA2Spine.seam_coef_contract_absurd` proves that pair CONTRADICTORY as soon as the datum
   is live somewhere and the block `[P_j, Q_j]` spans a ratio `> 2` (it does: `P₁ = 2^{E₁}`,
   `Q₁ = 2^{M·E₁}`), which is exactly why `SeamRowWindowed.SeamCoefW`/`SeamCoefWS` exist.
@@ -63,8 +63,8 @@ in `thm_a2'_of_rows_chiSummed`'s own frozen shape, which any supplier — D2's, 
 ## ⟦THE SECOND FROZEN-SHAPE FINDING⟧ — the ball leg at the door is `S ≡ 0`, not a sup
 
 `m4_hrowsSum_chi_door` hard-codes the carried capstone's ball summand as `8·(0 : ℝ)^2`
-(`M4RowsChi.lean:1181`), and the door bridge `m4MrowChi_le_a2Mrow` is stated at `S := 0`
-(`M4RowsChi.lean:1104`) because `ThmA2.a2Mrow` has NO ball summand at all.  So
+(`M4RowsChi.lean:1174`), and the door bridge `m4MrowChi_le_a2Mrow` is stated at `S := 0`
+(`M4RowsChi.lean:1097`) because `ThmA2.a2Mrow` has NO ball summand at all.  So
 `BallSupChi.ball_sup_pieceDatum`'s nonzero `ballSupS X (pieceCenterS0 C X A)` cannot be wired
 into the DOOR row without moving the frozen `a2Mrow`; at the door pin the ball leg is
 discharged by emptiness instead (§1a), and BallSupChi's sup is wired at the FREE-centre shape
@@ -530,8 +530,8 @@ checked object and not a note. -/
 
 /-- **⟦THE WALL⟧** (`doorRows_global_hcoef_kills_block`).
 `ThmA2Spine.seam_coef_contract_forces_vanishing` read at the DOOR's block `j`: a datum that is
-window-supported (`M4RowsChi.m4_hrowsSum_chi_door`'s `hasupp`, `M4RowsChi.lean:1166`) and obeys
-the GLOBAL Lemma-12 factorization (its `hcoef`, `M4RowsChi.lean:1161-1162`) is KILLED on the
+window-supported (`M4RowsChi.m4_hrowsSum_chi_door`'s `hasupp`, `M4RowsChi.lean:1159`) and obeys
+the GLOBAL Lemma-12 factorization (its `hcoef`, `M4RowsChi.lean:1154-1155`) is KILLED on the
 whole block by one live product plus one block prime that pushes off the window:
 `a (p₁·m) = 0` for every `m` coprime to `p₁`.
 
