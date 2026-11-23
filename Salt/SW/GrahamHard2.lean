@@ -435,9 +435,13 @@ private lemma rpow_three_halves_le {p : ℝ} (hp : 2 ≤ p) : p ^ ((3/2 : ℝ)) 
       (mul_nonneg (mul_nonneg hp0.le hp0.le) (by linarith : (0 : ℝ) ≤ p - 2))
       (by linarith : (0 : ℝ) ≤ p + 1)]
 
-/-- `κ` is multiplicative on coprime pairs (`Nat.Coprime.primeFactors_mul` +
-`Finset.prod_union`). -/
-private lemma kappa_mul_of_coprime {a b : ℕ} (hab : Nat.Coprime a b) :
+/-- `κ` is multiplicative on coprime pairs: `κ(ab) = κ(a)κ(b)` — the prime-factor sets are
+disjoint and their union is `(ab).primeFactors` (`Nat.Coprime.primeFactors_mul` +
+`Finset.prod_union`). Public: `GrahamHard3.lean` consumes it.
+
+The must-FAIL control: WITHOUT `Coprime`, `kappa (a*b) = kappa a * kappa b` is FALSE at
+`(2, 2)` — `κ(4) = 4·(3/2) = 6` against `κ(2)² = 3² = 9`. -/
+theorem kappa_mul_of_coprime {a b : ℕ} (hab : Nat.Coprime a b) :
     kappa (a * b) = kappa a * kappa b := by
   rw [kappa, kappa, kappa, Nat.Coprime.primeFactors_mul hab,
     Finset.prod_union (Nat.Coprime.disjoint_primeFactors hab)]
