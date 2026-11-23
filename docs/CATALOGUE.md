@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `b3eb0a86` · source digest `58876f07ede317d9` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `8499bedb` · source digest `cf27d02a816860bf` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -498,8 +498,8 @@ Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hyp
 |---|---|---|
 | `Salt.BV.psiToPiTransfer_holds` | Salt/BV/AbelCore.lean:750 | sieves |
 | `Salt.BV.bilinear_LS_shell` | Salt/BV/BilinearLS.lean:279 | sieves, characters |
-| `Salt.BV.cs_over_finset_chi` | Salt/BV/BilinearLSDvd.lean:119 | sieves |
-| `Salt.BV.bilinear_LS_shell_dvd` | Salt/BV/BilinearLSDvd.lean:252 | sieves, characters |
+| `Salt.BV.cs_over_finset_chi` | Salt/BV/BilinearLSDvd.lean:59 | sieves |
+| `Salt.BV.bilinear_LS_shell_dvd` | Salt/BV/BilinearLSDvd.lean:106 | sieves, characters |
 | `Salt.BV.fourierCutoff_indicator` | Salt/BV/Completion.lean:141 | sieves, exponential sums |
 | `Salt.BV.sum_norm_fourierCutoff_le` | Salt/BV/Completion.lean:237 | sieves, exponential sums |
 | `Salt.BV.bilinear_factorization` | Salt/BV/Completion.lean:291 | sieves, characters, exponential sums |
