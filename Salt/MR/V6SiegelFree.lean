@@ -718,7 +718,7 @@ namespace Salt.MR
 noncomputable section
 open scoped BigOperators
 open MeasureTheory
-/-- **⟦STANDOFF TWIN⟧** `usetGChi_row_exit_perChi_perBlock` (`Salt/MR/M4RowsChi.lean:1234`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `usetGChi_row_exit_perChi_perBlock` (`Salt/MR/M4RowsChi.lean:1225`): its statement under the three standoff
 binders, its proof verbatim with `usetGChi_window_meansq_gated_family_perBlock` replaced by their twins. -/
 theorem usetGChi_row_exit_perChi_perBlock_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :
@@ -824,7 +824,7 @@ namespace Salt.MR
 noncomputable section
 open scoped BigOperators
 open MeasureTheory
-/-- **⟦STANDOFF TWIN⟧** `m4_rowChi_capstone_perBlock` (`Salt/MR/M4RowsChi.lean:1341`): its statement under the three standoff
+/-- **⟦STANDOFF TWIN⟧** `m4_rowChi_capstone_perBlock` (`Salt/MR/M4RowsChi.lean:1332`): its statement under the three standoff
 binders, its proof verbatim with `usetGChi_row_exit_perChi_perBlock` replaced by their twins. -/
 theorem m4_rowChi_capstone_perBlock_of_standoff {cS : ℝ} (hcS : 0 < cS)
     (hSieg : Salt.SW.NoSiegelZerosAt cS) :

@@ -195,8 +195,8 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_L {R : ChowlaRegime} {M : ℕ}
 
 /-- **⟦THE WALL⟧** (`doorRows_global_hcoef_kills_block_L`).
 `ThmA2Spine.seam_coef_contract_forces_vanishing` read at the DOOR's block `j`: a datum that is
-window-supported (`M4RowsChi.m4_hrowsSum_chi_door`'s `hasupp`, `M4RowsChi.lean:1159`) and obeys
-the GLOBAL Lemma-12 factorization (its `hcoef`, `M4RowsChi.lean:1154-1155`) is KILLED on the
+window-supported (`M4RowsChi.m4_hrowsSum_chi_door`'s `hasupp`, `M4RowsChi.lean:1150`) and obeys
+the GLOBAL Lemma-12 factorization (its `hcoef`, `M4RowsChi.lean:1145-1146`) is KILLED on the
 whole block by one live product plus one block prime that pushes off the window:
 `a (p₁·m) = 0` for every `m` coprime to `p₁`.
 
