@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `acb2b3db` · source digest `56b30a3c639fc03e` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `823f98af` · source digest `6d959769fdf14e80` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23447 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23446 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -4208,8 +4208,8 @@ Declarations indexed across the tree: 23447 · corpus Prop-valued names (the hyp
 | `Salt.MR.m4MrowChi_le_a2Mrow` | Salt/MR/M4RowsChi.lean:1102 | characters |
 | `Salt.MR.seamCoefWS_levels_of_global` | Salt/MR/M4RowsChiEnd.lean:127 | characters |
 | `Salt.MR.sum_lemma12RowsMR_priced_chi_end` | Salt/MR/M4RowsChiEnd.lean:148 | characters |
-| `Salt.MR.m4_rowChi_weighed_end` | Salt/MR/M4RowsChiEnd.lean:477 | characters |
-| `Salt.MR.m4MrowChiEnd_le_a2Mrow` | Salt/MR/M4RowsChiEnd.lean:631 | characters |
+| `Salt.MR.m4_rowChi_weighed_end` | Salt/MR/M4RowsChiEnd.lean:448 | characters |
+| `Salt.MR.m4MrowChiEnd_le_a2Mrow` | Salt/MR/M4RowsChiEnd.lean:602 | characters |
 | `Salt.MR.blockfree_row_memS_zero` | Salt/MR/M4RowsChiZero.lean:168 | zeros, characters |
 | `Salt.MR.blockLive_winCutH_doorCoeffU` | Salt/MR/M4RowsChiZero.lean:678 | zeros, characters |
 | `Salt.MR.cfb_t0band_supply_of_sup` | Salt/MR/M4Seam.lean:119 | characters |
@@ -8105,10 +8105,10 @@ Declarations indexed across the tree: 23447 · corpus Prop-valued names (the hyp
 | `Salt.MR.chiBarCoeff_seamCoefWS` | Salt/MR/M4RowsChiEnd.lean:100 | characters | `Salt.MR.SeamCoefWS` |
 | `Salt.MR.chiBarCoeff_seamCoefWS_levels` | Salt/MR/M4RowsChiEnd.lean:109 | characters | `Salt.MR.SeamCoefWS` |
 | `Salt.MR.m4_rowChi_number_of_capstone_end` | Salt/MR/M4RowsChiEnd.lean:219 | characters | `Salt.MR.CalFrameK`, `Salt.MR.SeamCoefWS` |
-| `Salt.MR.m4_hrowsSum_chi_end` | Salt/MR/M4RowsChiEnd.lean:574 | characters | `Salt.MR.CalFrameK`, `Salt.MR.SeamCoefWS`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_hrowsSum_chi_door_end` | Salt/MR/M4RowsChiEnd.lean:685 | characters | `Salt.MR.SeamCoefWS`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_hrowsSlot_at_door_end` | Salt/MR/M4RowsChiEnd.lean:788 | characters | `Salt.MR.DoorRowEndBase`, `Salt.MR.SocketBase`, `Salt.MR.TannGate` |
-| `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end` | Salt/MR/M4RowsChiEnd.lean:860 | characters | `Salt.MR.DoorFuseFrame`, `Salt.MR.DoorRowEndBase` |
+| `Salt.MR.m4_hrowsSum_chi_end` | Salt/MR/M4RowsChiEnd.lean:545 | characters | `Salt.MR.CalFrameK`, `Salt.MR.SeamCoefWS`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_hrowsSum_chi_door_end` | Salt/MR/M4RowsChiEnd.lean:656 | characters | `Salt.MR.SeamCoefWS`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_hrowsSlot_at_door_end` | Salt/MR/M4RowsChiEnd.lean:759 | characters | `Salt.MR.DoorRowEndBase`, `Salt.MR.SocketBase`, `Salt.MR.TannGate` |
+| `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end` | Salt/MR/M4RowsChiEnd.lean:831 | characters | `Salt.MR.DoorFuseFrame`, `Salt.MR.DoorRowEndBase` |
 | `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_end'_L` | Salt/MR/M4RowsChiPrimeLinear.lean:217 | characters | `Salt.MR.DoorFuseFrame_pool'_L`, `Salt.MR.DoorRowEndBase_L` |
 | `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_L` | Salt/MR/M4RowsChiPrimeLinear.lean:361 | characters | `Salt.MR.DoorFuseFrame_pool'_L`, `Salt.MR.DoorRowZeroBase_L` |
 | `Salt.MR.m4_hrowsSum_chi_door_end'_L_gk_kwide` | Salt/MR/M4RowsChiPrimeLinear.lean:470 | characters | `Salt.MR.SeamCoefWS`, `Salt.MR.TannGate` |
@@ -9079,7 +9079,7 @@ Declarations indexed across the tree: 23447 · corpus Prop-valued names (the hyp
 | `Salt.MR.M4CoprimeBlockMeanSq` | Salt/MR/M4NonCoprime.lean:346 | characters |
 | `Salt.MR.M4CoprimeBlockMeanSqN` | Salt/MR/M4NonCoprime.lean:534 | characters |
 | `Salt.MR.MemSPunct` | Salt/MR/M4Puncture.lean:61 | characters |
-| `Salt.MR.DoorRowEndBase` | Salt/MR/M4RowsChiEnd.lean:758 | characters |
+| `Salt.MR.DoorRowEndBase` | Salt/MR/M4RowsChiEnd.lean:729 | characters |
 | `Salt.MR.M4SievedDoorSqBlk2` | Salt/MR/M4SecondRoad.lean:324 | characters |
 | `Salt.MR.M4BlockMeanSqBlk2` | Salt/MR/M4SecondRoad.lean:383 | characters |
 | `Salt.MR.DoorBandBase` | Salt/MR/M4SocketDischarge.lean:262 | characters |
