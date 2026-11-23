@@ -43,37 +43,6 @@ private lemma kwide {K M : ℕ} (hK : K ≤ 170000000) (hM : 1 ≤ M) : K ≤ 17
 
 /-! ## §0 — the landed `private` stones, re-declared (all door-free) -/
 
-/-- The `π`-arithmetic of the spine's prefactor `1/(2π²)`, isolated:
-`236365/(2π) ≤ 37620`, `205/(2π) ≤ 33`, `39674880/(2π) ≤ 6315000`. -/
-private lemma spine_scale {p Mr Bd w Eg eg : ℝ} (hp1 : 3.141592 < p)
-    (hMr : 0 ≤ Mr) (hBd : 0 ≤ Bd) (hw : 0 ≤ w) (hEg : Eg ≤ 2 * p ^ 2 * eg) :
-    1 / (2 * p ^ 2) * (236365 * p * Mr + 205 * p * Bd + 39674880 * p * w + Eg)
-      ≤ 37620 * Mr + 33 * Bd + 6315000 * w + eg := by
-  have hp0 : (0 : ℝ) < p := by linarith
-  have hp2pos : (0 : ℝ) < 2 * p ^ 2 := by positivity
-  rw [one_div, inv_mul_eq_div, div_le_iff₀ hp2pos]
-  have h1 : 236365 * p ≤ 75240 * p ^ 2 := by nlinarith
-  have h2 : 205 * p ≤ 66 * p ^ 2 := by nlinarith
-  have h3 : 39674880 * p ≤ 12630000 * p ^ 2 := by nlinarith
-  nlinarith [mul_le_mul_of_nonneg_right h1 hMr, mul_le_mul_of_nonneg_right h2 hBd,
-    mul_le_mul_of_nonneg_right h3 hw]
-
-/-- The `π`-arithmetic of the spine's prefactor `1/(2π²)`, isolated (`ThmA2.spine_scale`'s
-statement and proof, re-stated here because the original is module-private):
-`236365/(2π) ≤ 37620`, `205/(2π) ≤ 33`, `39674880/(2π) ≤ 6315000`. -/
-private lemma spine_scale_pool {p Mr Bd w Eg eg : ℝ} (hp1 : 3.141592 < p)
-    (hMr : 0 ≤ Mr) (hBd : 0 ≤ Bd) (hw : 0 ≤ w) (hEg : Eg ≤ 2 * p ^ 2 * eg) :
-    1 / (2 * p ^ 2) * (236365 * p * Mr + 205 * p * Bd + 39674880 * p * w + Eg)
-      ≤ 37620 * Mr + 33 * Bd + 6315000 * w + eg := by
-  have hp0 : (0 : ℝ) < p := by linarith
-  have hp2pos : (0 : ℝ) < 2 * p ^ 2 := by positivity
-  rw [one_div, inv_mul_eq_div, div_le_iff₀ hp2pos]
-  have h1 : 236365 * p ≤ 75240 * p ^ 2 := by nlinarith
-  have h2 : 205 * p ≤ 66 * p ^ 2 := by nlinarith
-  have h3 : 39674880 * p ≤ 12630000 * p ^ 2 := by nlinarith
-  nlinarith [mul_le_mul_of_nonneg_right h1 hMr, mul_le_mul_of_nonneg_right h2 hBd,
-    mul_le_mul_of_nonneg_right h3 hw]
-
 /-- **THE FOUR NUMERALS** (`a2_weight_gates`).  With `w := (X/h)/T` the weight of the
 dyadic family: `0 ≤ w ≤ 1`, and
 
@@ -136,207 +105,6 @@ private lemma a2_weight_gates {X h T Xd Q1 : ℝ} (hh4 : 4 ≤ h) (hX0 : 0 < X)
       rw [div_le_div_iff₀ hh0 (by norm_num)]
       linarith
     rw [hid]; linarith
-
-/-- The weighting, summand by summand: four bounds compose into one. -/
-private lemma a2_row_weigh {w A B C D a b c d : ℝ}
-    (hA : w * A ≤ a) (hB : w * B ≤ b) (hC : w * C ≤ c) (hD : w * D ≤ d) :
-    w * (A + B + C + D) ≤ a + b + c + d := by
-  have h : w * (A + B + C + D) = w * A + w * B + w * C + w * D := by ring
-  rw [h]; linarith
-
-/-- The §8.1 level-1 summand, weighted: the weight rides into the row's own free factor `R`
-(`DoorFrameH1.level1_term_door_decays`' `R`-slot), where the `9`-gate meets it. -/
-private lemma a2_level1_weigh {w Hq Lq R Pq Br Z : ℝ}
-    (hkey : ∀ R' : ℝ, 0 ≤ R' → 2 * (Hq * Lq + 1) * R' * Pq * Br ≤ 5280 * R' * Z)
-    (hR0 : 0 ≤ w * R) (hR9 : w * R ≤ 9) (hZ0 : 0 ≤ Z) :
-    w * (2 * (Hq * Lq + 1) * R * Pq * Br) ≤ 47520 * Z := by
-  have hid : w * (2 * (Hq * Lq + 1) * R * Pq * Br)
-      = 2 * (Hq * Lq + 1) * (w * R) * Pq * Br := by ring
-  rw [hid]
-  refine le_trans (hkey (w * R) hR0) ?_
-  nlinarith [mul_nonneg hZ0 (by linarith : (0 : ℝ) ≤ 9 - w * R)]
-
-/-- The `Cs`-summand, weighted at the `244`-gate: `1536·244 = 374784`. -/
-private lemma a2_term2_weigh {w Cs R Y : ℝ} (hCs : 0 ≤ Cs) (hY : 0 ≤ Y) (hR : w * R ≤ 244) :
-    w * (1536 * Cs * Real.exp 3 * R * Y) ≤ 374784 * Cs * Real.exp 3 * Y := by
-  have hid : w * (1536 * Cs * Real.exp 3 * R * Y)
-      = 1536 * Cs * Real.exp 3 * Y * (w * R) := by ring
-  have h0 : (0 : ℝ) ≤ 1536 * Cs * Real.exp 3 * Y := by positivity
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR h0]
-
-/-- The Lemma-12 summand, weighted at the `3`-gate: `480·3 = 1440`, and ⟦AMENDMENT G⟧'s
-`×4` cover carries it to `a2Mrow`'s `5760`. -/
-private lemma a2_term3_weigh {w R S : ℝ} (hS : 0 ≤ S) (hR : w * R ≤ 3) :
-    w * (480 * R * S) ≤ 5760 * S := by
-  have hid : w * (480 * R * S) = 480 * S * (w * R) := by ring
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR (mul_nonneg (by norm_num : (0 : ℝ) ≤ 480) hS)]
-
-/-- **THE LEMMA-12 SUMMAND AT ⟦WALL 1⟧'s MR ROW** (`a2_term3_weigh_mr`).  The `hwin`-free
-four-row exit prices the seam row at `960·(T_ann/X_d+1)·(…)` in place of `480·(…)`
-(`M4RowMR`), so the `3`-gate gives `960·3 = 2880` — still inside `a2Mrow`'s `5760`, which is
-⟦AMENDMENT G⟧'s `×4` cover of `1440`.  **The interface numeral does not move.** -/
-private lemma a2_term3_weigh_mr {w R S : ℝ} (hS : 0 ≤ S) (hR : w * R ≤ 3) :
-    w * (960 * R * S) ≤ 5760 * S := by
-  have hid : w * (960 * R * S) = 960 * S * (w * R) := by ring
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR (mul_nonneg (by norm_num : (0 : ℝ) ≤ 960) hS)]
-
-/-- The `𝒰`-leg summand, weighted at the `3/2`-gate: `2·(3/2) = 3`. -/
-private lemma a2_term4_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3 / 2) :
-    w * (2 * (R * Z)) ≤ 3 * Z := by
-  have hid : w * (2 * (R * Z)) = 2 * Z * (w * R) := by ring
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR (by linarith : (0 : ℝ) ≤ 2 * Z)]
-
-/-- The cap branch's weighting: five summands, the ball leg folded into the row slot. -/
-private lemma a2_row_weigh_cap {w Sq A B C D a b c d : ℝ}
-    (hA : w * A ≤ a) (hB : w * B ≤ b) (hSC : w * Sq + w * C ≤ c) (hD : w * D ≤ d) :
-    w * (Sq + (A + B + C) + D) ≤ a + b + c + d := by
-  have h : w * (Sq + (A + B + C) + D) = w * A + w * B + (w * Sq + w * C) + w * D := by ring
-  rw [h]; linarith
-
-/-- The cap branch's third slot: ball leg plus Lemma-12 rows, into `a2Mrow`'s `5760`.
-
-**THE ONE-STEP RE-PROOF** (⟦THE WALL⟧'s wave, REFUTE-RESIDUE correction 4).  The rows are
-weighed at `a2_term3_weigh`'s FULL `5760` — the same constant the cap-FREE branch spends —
-and the `8S²` ball leg is paid ENTIRELY out of `Ccc`'s free slack, of which it is a
-`720`-th: `hCcc` gives `Ccc·(2/M) ≥ Cst·(2/M) + S²`, hence `5760·S²` of room against a
-demand of `8·S²`.  ⟦AMENDMENT G⟧'s `×4` cover (`1440 → 5760`) is therefore NOT spent here at
-all — it stays available to the rows, exactly as on the cap-free branch, which is what makes
-the two branches' `hR : w·R ≤ 3` gates readable as the same gate. -/
-private lemma a2_term3_ball_weigh {w R Sb RS Cst Ccc Mr : ℝ}
-    (hw1 : w ≤ 1) (hRS : 0 ≤ RS) (hC0 : 0 ≤ Cst) (hM1 : 1 ≤ Mr)
-    (hCcc : Cst + Mr * Sb ^ 2 / 2 ≤ Ccc) (hR : w * R ≤ 3) :
-    w * (8 * Sb ^ 2) + w * (480 * R * (RS + Cst * (2 / Mr)))
-      ≤ 5760 * (RS + Ccc * (2 / Mr)) := by
-  have hM0 : (0 : ℝ) < Mr := by linarith
-  have hq0 : (0 : ℝ) < 2 / Mr := by positivity
-  have hCq : (0 : ℝ) ≤ Cst * (2 / Mr) := mul_nonneg hC0 hq0.le
-  have hball : w * (8 * Sb ^ 2) ≤ 8 * Sb ^ 2 := by nlinarith [sq_nonneg Sb]
-  have hrows := a2_term3_weigh (w := w) (R := R) (S := RS + Cst * (2 / Mr))
-    (by linarith) hR
-  have hslack : (Cst + Mr * Sb ^ 2 / 2) * (2 / Mr) ≤ Ccc * (2 / Mr) :=
-    mul_le_mul_of_nonneg_right hCcc hq0.le
-  have hexp : (Cst + Mr * Sb ^ 2 / 2) * (2 / Mr) = Cst * (2 / Mr) + Sb ^ 2 := by field_simp
-  rw [hexp] at hslack
-  linarith [sq_nonneg Sb]
-
-/-- The `π`-arithmetic of the spine's prefactor `1/(2π²)`, isolated (`ThmA2.spine_scale`'s
-statement and proof; both the landed copy and `ThmA2Pool`'s are module-private):
-`236365/(2π) ≤ 37620`, `205/(2π) ≤ 33`, `39674880/(2π) ≤ 6315000`. -/
-private lemma spine_scale_prime {p Mr Bd w Eg eg : ℝ} (hp1 : 3.141592 < p)
-    (hMr : 0 ≤ Mr) (hBd : 0 ≤ Bd) (hw : 0 ≤ w) (hEg : Eg ≤ 2 * p ^ 2 * eg) :
-    1 / (2 * p ^ 2) * (236365 * p * Mr + 205 * p * Bd + 39674880 * p * w + Eg)
-      ≤ 37620 * Mr + 33 * Bd + 6315000 * w + eg := by
-  have hp0 : (0 : ℝ) < p := by linarith
-  have hp2pos : (0 : ℝ) < 2 * p ^ 2 := by positivity
-  rw [one_div, inv_mul_eq_div, div_le_iff₀ hp2pos]
-  have h1 : 236365 * p ≤ 75240 * p ^ 2 := by nlinarith
-  have h2 : 205 * p ≤ 66 * p ^ 2 := by nlinarith
-  have h3 : 39674880 * p ≤ 12630000 * p ^ 2 := by nlinarith
-  nlinarith [mul_le_mul_of_nonneg_right h1 hMr, mul_le_mul_of_nonneg_right h2 hBd,
-    mul_le_mul_of_nonneg_right h3 hw]
-
-/-- `ThmA2Rows.a2_weight_gates`, re-minted: with `w := (X/h)/T`, `0 ≤ w ≤ 1` and the four
-`Tann`-linear factors weigh in at `9`, `244`, `3`, `3/2`. -/
-private lemma a3_weight_gates {X h T Xd Q1 : ℝ} (hh4 : 4 ≤ h) (hX0 : 0 < X)
-    (hT : X / h ≤ T) (hXd : X ≤ 4 * Xd) (hQ1 : Q1 ≤ h) (hQ10 : 0 ≤ Q1) :
-    0 ≤ X / h / T ∧ X / h / T ≤ 1 ∧
-      X / h / T * (2 * T * Q1 / Xd + 1) ≤ 9 ∧
-      X / h / T * (2 * (2 * T) / Xd + 240) ≤ 244 ∧
-      X / h / T * (2 * T / Xd + 1) ≤ 3 ∧
-      X / h / T * (2 * T / X + 1) ≤ 3 / 2 := by
-  have hh0 : (0 : ℝ) < h := by linarith
-  have hu0 : (0 : ℝ) < X / h := div_pos hX0 hh0
-  have hT0 : (0 : ℝ) < T := lt_of_lt_of_le hu0 hT
-  have hXd0 : (0 : ℝ) < Xd := by linarith
-  have hw0 : (0 : ℝ) ≤ X / h / T := le_of_lt (div_pos hu0 hT0)
-  have hw1 : X / h / T ≤ 1 := (div_le_one hT0).mpr hT
-  have hratio : X / h / Xd ≤ 4 / h := by
-    rw [div_div, div_le_div_iff₀ (by positivity) hh0]
-    nlinarith
-  have hr0 : (0 : ℝ) ≤ X / h / Xd := le_of_lt (div_pos hu0 hXd0)
-  refine ⟨hw0, hw1, ?_, ?_, ?_, ?_⟩
-  · have hid : X / h / T * (2 * T * Q1 / Xd + 1) = 2 * Q1 * (X / h / Xd) + X / h / T := by
-      field_simp
-    have h8 : 2 * Q1 * (X / h / Xd) ≤ 8 := by
-      have hstep : 2 * Q1 * (X / h / Xd) ≤ 2 * Q1 * (4 / h) :=
-        mul_le_mul_of_nonneg_left hratio (by linarith)
-      have hval : 2 * Q1 * (4 / h) ≤ 8 := by
-        rw [show 2 * Q1 * (4 / h) = 8 * Q1 / h by ring, div_le_iff₀ hh0]
-        linarith
-      linarith
-    rw [hid]; linarith
-  · have hid : X / h / T * (2 * (2 * T) / Xd + 240)
-        = 4 * (X / h / Xd) + 240 * (X / h / T) := by
-      field_simp; ring
-    have h16 : 4 * (X / h / Xd) ≤ 4 := by
-      have hstep : 4 * (X / h / Xd) ≤ 4 * (4 / h) :=
-        mul_le_mul_of_nonneg_left hratio (by norm_num)
-      have hval : 4 * (4 / h) ≤ 4 := by
-        rw [show 4 * (4 / h) = 16 / h by ring, div_le_iff₀ hh0]
-        linarith
-      linarith
-    rw [hid]; linarith
-  · have hid : X / h / T * (2 * T / Xd + 1) = 2 * (X / h / Xd) + X / h / T := by
-      field_simp
-    have h8 : 2 * (X / h / Xd) ≤ 2 := by
-      have hstep : 2 * (X / h / Xd) ≤ 2 * (4 / h) :=
-        mul_le_mul_of_nonneg_left hratio (by norm_num)
-      have hval : 2 * (4 / h) ≤ 2 := by
-        rw [show 2 * (4 / h) = 8 / h by ring, div_le_iff₀ hh0]
-        linarith
-      linarith
-    rw [hid]; linarith
-  · have hid : X / h / T * (2 * T / X + 1) = 2 / h + X / h / T := by
-      field_simp
-    have h2 : 2 / h ≤ 1 / 2 := by
-      rw [div_le_div_iff₀ hh0 (by norm_num)]
-      linarith
-    rw [hid]; linarith
-
-/-- `ThmA2Rows.a2_row_weigh`, re-minted. -/
-private lemma a3_row_weigh {w A B C D a b c d : ℝ}
-    (hA : w * A ≤ a) (hB : w * B ≤ b) (hC : w * C ≤ c) (hD : w * D ≤ d) :
-    w * (A + B + C + D) ≤ a + b + c + d := by
-  have h : w * (A + B + C + D) = w * A + w * B + w * C + w * D := by ring
-  rw [h]; linarith
-
-/-- `ThmA2Rows.a2_level1_weigh`, re-minted. -/
-private lemma a3_level1_weigh {w Hq Lq R Pq Br Z : ℝ}
-    (hkey : ∀ R' : ℝ, 0 ≤ R' → 2 * (Hq * Lq + 1) * R' * Pq * Br ≤ 5280 * R' * Z)
-    (hR0 : 0 ≤ w * R) (hR9 : w * R ≤ 9) (hZ0 : 0 ≤ Z) :
-    w * (2 * (Hq * Lq + 1) * R * Pq * Br) ≤ 47520 * Z := by
-  have hid : w * (2 * (Hq * Lq + 1) * R * Pq * Br)
-      = 2 * (Hq * Lq + 1) * (w * R) * Pq * Br := by ring
-  rw [hid]
-  refine le_trans (hkey (w * R) hR0) ?_
-  nlinarith [mul_nonneg hZ0 (by linarith : (0 : ℝ) ≤ 9 - w * R)]
-
-/-- `ThmA2Rows.a2_term2_weigh`, re-minted: `1536·244 = 374784`. -/
-private lemma a3_term2_weigh {w Cs R Y : ℝ} (hCs : 0 ≤ Cs) (hY : 0 ≤ Y) (hR : w * R ≤ 244) :
-    w * (1536 * Cs * Real.exp 3 * R * Y) ≤ 374784 * Cs * Real.exp 3 * Y := by
-  have hid : w * (1536 * Cs * Real.exp 3 * R * Y)
-      = 1536 * Cs * Real.exp 3 * Y * (w * R) := by ring
-  have h0 : (0 : ℝ) ≤ 1536 * Cs * Real.exp 3 * Y := by positivity
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR h0]
-
-/-- `ThmA2Rows.a2_term3_weigh_mr`, re-minted: `960·3 = 2880 ≤ 5760`. -/
-private lemma a3_term3_weigh_mr {w R S : ℝ} (hS : 0 ≤ S) (hR : w * R ≤ 3) :
-    w * (960 * R * S) ≤ 5760 * S := by
-  have hid : w * (960 * R * S) = 960 * S * (w * R) := by ring
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR (mul_nonneg (by norm_num : (0 : ℝ) ≤ 960) hS)]
-
-/-- `ThmA2Rows.a2_term4_weigh`, re-minted: `2·(3/2) = 3`. -/
-private lemma a3_term4_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3 / 2) :
-    w * (2 * (R * Z)) ≤ 3 * Z := by
-  have hid : w * (2 * (R * Z)) = 2 * Z * (w * R) := by ring
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR (by linarith : (0 : ℝ) ≤ 2 * Z)]
 
 
 /-! ### `ThmA2` — `thm_a2'_of_rows` -/
@@ -742,7 +510,7 @@ theorem thm_a2'_of_rows_chiSummed_L_gk (K : ℕ) {q : ℕ} [NeZero q] {N M Xd : 
     rw [a2RowsSum_shift_L_gk K (Ccc χ) (M := M) Xd hM]
     exact hgRows χ
 
-/-! ### `ThmA2Pool` :70 — `thm_a2'_of_rows_pool` -/
+/-! ### `ThmA2Pool` :54 — `thm_a2'_of_rows_pool` -/
 /-- **thm_A2′ AT A FREE CONSTANT POOL** (`thm_a2'_of_rows_pool_L`) — ⟦R2⟧'s crossing twin of
 `ThmA2.thm_a2'_of_rows_L`.  The frozen five-summand interface with the three `X`-side sources
 pooled into ONE free real `π₀ ≥ 0`:
@@ -869,7 +637,7 @@ theorem thm_a2'_of_rows_pool_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁
     rw [e3]
     linarith
   refine hmono.trans ?_
-  have hscale := spine_scale_pool (p := Real.pi)
+  have hscale := spine_scale (p := Real.pi)
     (Mr := 47520 * a2Level1_L M + 5 * π₀)
     (Bd := 256 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
         + π₀
@@ -881,7 +649,7 @@ theorem thm_a2'_of_rows_pool_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁
   rw [hw]
   linarith
 
-/-! ### `ThmA2Pool` :213 — `thm_a2'_of_rows_chiSummed_pool` -/
+/-! ### `ThmA2Pool` :197 — `thm_a2'_of_rows_chiSummed_pool` -/
 /-- **⟦R2 — THE `Σ_χ` FROZEN INTERFACE AT A FREE POOL⟧** (`thm_a2'_of_rows_chiSummed_pool_L`).
 The character sum of §1's five-summand bound, at a GENERIC `χ`-indexed coefficient family,
 INDEXED constant families `Cs Ccc C₁' M₀ ε`, and a **`χ`-FREE pool `π₀`**:
@@ -956,7 +724,7 @@ theorem thm_a2'_of_rows_chiSummed_pool_L {q : ℕ} [NeZero q] {N M Xd : ℕ}
   refine le_trans (Finset.sum_le_sum hper) ?_
   rw [a2_sum_head_split]
 
-/-! ### `ThmA2Pool` :294 — `thm_a2'_of_rows_pool_gk` -/
+/-! ### `ThmA2Pool` :278 — `thm_a2'_of_rows_pool_gk` -/
 /-- **thm_A2′ AT THE FREE POOL, AT THE G-LEVER** (`thm_a2'_of_rows_pool_L_gk`). -/
 theorem thm_a2'_of_rows_pool_L_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ}
     {X h Cs Ccc C₁' M₀ ε π₀ : ℝ}
@@ -996,7 +764,7 @@ theorem thm_a2'_of_rows_pool_L_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ}
   · rw [a2RowsSum_shift_L_gk K Ccc (M := M) Xd hM]
     exact hgRows
 
-/-! ### `ThmA2Pool` :333 — `thm_a2'_of_rows_chiSummed_pool_gk` -/
+/-! ### `ThmA2Pool` :317 — `thm_a2'_of_rows_chiSummed_pool_gk` -/
 /-- **thm_A2′ χ-SUMMED AT THE FREE POOL, AT THE G-LEVER**
 (`thm_a2'_of_rows_chiSummed_pool_L_gk`). -/
 theorem thm_a2'_of_rows_chiSummed_pool_L_gk (K : ℕ) {q : ℕ} [NeZero q] {N M Xd : ℕ}
@@ -2800,7 +2568,7 @@ def a2Mrow'_L (Cs C : ℝ) (M Xd : ℕ) (X ε : ℝ) : ℝ :=
     + 5760 * (a2RowsSum'_L M Xd + C * (2 / (M : ℝ)))
     + 3 * (Real.log X) ^ (-theta293 + ε)
 
-/-! ### `ThmA2Prime` :94 — `thm_a2'_of_rows_pool'` -/
+/-! ### `ThmA2Prime` :78 — `thm_a2'_of_rows_pool'` -/
 /-- **⟦THE R1×R2 JOIN⟧** (`thm_a2'_of_rows_pool'_L`) — `ThmA2Pool.thm_a2'_of_rows_pool_L` with
 its row family at `a2Mrow'_L` and its second grading gate at `a2RowsSum'_L`:
 
@@ -2927,7 +2695,7 @@ theorem thm_a2'_of_rows_pool'_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C�
     rw [e3]
     linarith
   refine hmono.trans ?_
-  have hscale := spine_scale_prime (p := Real.pi)
+  have hscale := spine_scale (p := Real.pi)
     (Mr := 47520 * a2Level1_L M + 5 * π₀)
     (Bd := 256 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
         + π₀
@@ -2939,7 +2707,7 @@ theorem thm_a2'_of_rows_pool'_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C�
   rw [hw]
   linarith
 
-/-! ### `ThmA2Prime` :238 — `thm_a2'_of_rows_chiSummed_pool'` -/
+/-! ### `ThmA2Prime` :222 — `thm_a2'_of_rows_chiSummed_pool'` -/
 /-- **⟦THE R1×R2 JOIN, `Σ_χ`⟧** (`thm_a2'_of_rows_chiSummed_pool'_L`).  §2's character sum, at
 a generic `χ`-indexed coefficient family, INDEXED constant families `Cs Ccc C₁' M₀ ε`, and a
 `χ`-FREE pool `π₀`:
@@ -3010,7 +2778,7 @@ theorem thm_a2'_of_rows_chiSummed_pool'_L {q : ℕ} [NeZero q] {N M Xd : ℕ}
   refine le_trans (Finset.sum_le_sum hper) ?_
   rw [a2_sum_head_split]
 
-/-! ### `ThmA2Prime` :316 — `thm_a2'_of_rows'` -/
+/-! ### `ThmA2Prime` :300 — `thm_a2'_of_rows'` -/
 /-- **thm_A2′ AT THE PRIMED ROW SUM** (`thm_a2'_of_rows'_L`) — `ThmA2.thm_a2'_of_rows_L` with
 `a2Mrow_L ↦ a2Mrow'_L` and `a2RowsSum_L ↦ a2RowsSum'_L`, the frozen conclusion BYTE-IDENTICAL.
 
@@ -3063,7 +2831,7 @@ theorem thm_a2'_of_rows'_L {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M�
   exact thm_a2'_of_rows_pool'_L hM hX hX3 hh4 hhX ha hsupp hN2 hTann hceil hrows hT0band
     hrp500.le hgP1 hgRows hgU hgBand
 
-/-! ### `ThmA2Prime` :375 — `a2Mrow'_gk` -/
+/-! ### `ThmA2Prime` :359 — `a2Mrow'_gk` -/
 /-- **THE FLAT ROW NUMBER — R1, AT THE G-LEVER** (`a2Mrow'_L_gk`). -/
 noncomputable def a2Mrow'_L_gk (K : ℕ) (Cs C : ℝ) (M Xd : ℕ) (X ε : ℝ) : ℝ :=
   47520 * a2Level1_L M
@@ -3071,7 +2839,7 @@ noncomputable def a2Mrow'_L_gk (K : ℕ) (Cs C : ℝ) (M Xd : ℕ) (X ε : ℝ) 
     + 5760 * (a2RowsSum'_L_gk K M Xd + C * (2 / (M : ℝ)))
     + 3 * (Real.log X) ^ (-theta293 + ε)
 
-/-! ### `ThmA2Prime` :389 — `a2RowsSum'_shift_gk` -/
+/-! ### `ThmA2Prime` :373 — `a2RowsSum'_shift_gk` -/
 /-- ⟦THE `Ccc`-SHIFT⟧ at the primed row sum. -/
 lemma a2RowsSum'_shift_L_gk (K : ℕ) (C : ℝ) {M : ℕ} (Xd : ℕ) (hM : 1 ≤ M) :
     a2RowsSum'_L M Xd + (C + (M : ℝ) / 2 * (a2RowsSum'_L_gk K M Xd - a2RowsSum'_L M Xd))
@@ -3086,14 +2854,14 @@ lemma a2RowsSum'_shift_L_gk (K : ℕ) (C : ℝ) {M : ℕ} (Xd : ℕ) (hM : 1 ≤
   rw [hexp, hcancel]
   ring
 
-/-! ### `ThmA2Prime` :403 — `a2Mrow'_shift_gk` -/
+/-! ### `ThmA2Prime` :387 — `a2Mrow'_shift_gk` -/
 /-- ⟦THE `Ccc`-SHIFT⟧ at the primed row number. -/
 lemma a2Mrow'_shift_L_gk (K : ℕ) (Cs C : ℝ) {M : ℕ} (Xd : ℕ) (X ε : ℝ) (hM : 1 ≤ M) :
     a2Mrow'_L Cs (C + (M : ℝ) / 2 * (a2RowsSum'_L_gk K M Xd - a2RowsSum'_L M Xd)) M Xd X ε
       = a2Mrow'_L_gk K Cs C M Xd X ε := by
   rw [a2Mrow'_L, a2Mrow'_L_gk, calP_doorL_one_gk, a2RowsSum'_shift_L_gk K C Xd hM]
 
-/-! ### `ThmA2Prime` :409 — `thm_a2'_of_rows_pool'_gk` -/
+/-! ### `ThmA2Prime` :393 — `thm_a2'_of_rows_pool'_gk` -/
 /-- **⟦THE R1×R2 JOIN⟧ AT THE G-LEVER** (`thm_a2'_of_rows_pool'_L_gk`). -/
 theorem thm_a2'_of_rows_pool'_L_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ}
     {X h Cs Ccc C₁' M₀ ε π₀ : ℝ}
@@ -3133,7 +2901,7 @@ theorem thm_a2'_of_rows_pool'_L_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ}
   · rw [a2RowsSum'_shift_L_gk K Ccc (M := M) Xd hM]
     exact hgRows
 
-/-! ### `ThmA2Prime` :448 — `thm_a2'_of_rows_chiSummed_pool'_gk` -/
+/-! ### `ThmA2Prime` :432 — `thm_a2'_of_rows_chiSummed_pool'_gk` -/
 /-- **⟦THE R1×R2 JOIN, χ-SUMMED⟧ AT THE G-LEVER**
 (`thm_a2'_of_rows_chiSummed_pool'_L_gk`). -/
 theorem thm_a2'_of_rows_chiSummed_pool'_L_gk (K : ℕ) {q : ℕ} [NeZero q] {N M Xd : ℕ}
@@ -3185,7 +2953,7 @@ theorem thm_a2'_of_rows_chiSummed_pool'_L_gk (K : ℕ) {q : ℕ} [NeZero q] {N M
     rw [a2RowsSum'_shift_L_gk K (Ccc χ) (M := M) Xd hM]
     exact hgRows χ
 
-/-! ### `ThmA2Prime` :499 — `thm_a2'_of_rows'_gk` -/
+/-! ### `ThmA2Prime` :483 — `thm_a2'_of_rows'_gk` -/
 /-- **thm_A2′ AT THE PRIMED ROW SUM, AT THE G-LEVER** (`thm_a2'_of_rows'_L_gk`) — the frozen
 five-summand conclusion, BYTE-IDENTICAL, carrying the two WEAKEST gates of the whole family:
 the primed row sum AND the lever's larger `𝒫₂`. -/

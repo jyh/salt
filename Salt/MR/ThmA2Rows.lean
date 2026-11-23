@@ -143,7 +143,7 @@ private lemma a2_weight_gates {X h T Xd Q1 : ℝ} (hh4 : 4 ≤ h) (hX0 : 0 < X)
     rw [hid]; linarith
 
 /-- The weighting, summand by summand: four bounds compose into one. -/
-private lemma a2_row_weigh {w A B C D a b c d : ℝ}
+lemma a2_row_weigh {w A B C D a b c d : ℝ}
     (hA : w * A ≤ a) (hB : w * B ≤ b) (hC : w * C ≤ c) (hD : w * D ≤ d) :
     w * (A + B + C + D) ≤ a + b + c + d := by
   have h : w * (A + B + C + D) = w * A + w * B + w * C + w * D := by ring
@@ -151,7 +151,7 @@ private lemma a2_row_weigh {w A B C D a b c d : ℝ}
 
 /-- The §8.1 level-1 summand, weighted: the weight rides into the row's own free factor `R`
 (`DoorFrameH1.level1_term_door_decays`' `R`-slot), where the `9`-gate meets it. -/
-private lemma a2_level1_weigh {w Hq Lq R Pq Br Z : ℝ}
+lemma a2_level1_weigh {w Hq Lq R Pq Br Z : ℝ}
     (hkey : ∀ R' : ℝ, 0 ≤ R' → 2 * (Hq * Lq + 1) * R' * Pq * Br ≤ 5280 * R' * Z)
     (hR0 : 0 ≤ w * R) (hR9 : w * R ≤ 9) (hZ0 : 0 ≤ Z) :
     w * (2 * (Hq * Lq + 1) * R * Pq * Br) ≤ 47520 * Z := by
@@ -162,7 +162,7 @@ private lemma a2_level1_weigh {w Hq Lq R Pq Br Z : ℝ}
   linarith only [mul_nonneg hZ0 (by linarith : (0 : ℝ) ≤ 9 - w * R)]
 
 /-- The `Cs`-summand, weighted at the `244`-gate: `1536·244 = 374784`. -/
-private lemma a2_term2_weigh {w Cs R Y : ℝ} (hCs : 0 ≤ Cs) (hY : 0 ≤ Y) (hR : w * R ≤ 244) :
+lemma a2_term2_weigh {w Cs R Y : ℝ} (hCs : 0 ≤ Cs) (hY : 0 ≤ Y) (hR : w * R ≤ 244) :
     w * (1536 * Cs * Real.exp 3 * R * Y) ≤ 374784 * Cs * Real.exp 3 * Y := by
   have hid : w * (1536 * Cs * Real.exp 3 * R * Y)
       = 1536 * Cs * Real.exp 3 * Y * (w * R) := by ring
@@ -172,7 +172,7 @@ private lemma a2_term2_weigh {w Cs R Y : ℝ} (hCs : 0 ≤ Cs) (hY : 0 ≤ Y) (h
 
 /-- The Lemma-12 summand, weighted at the `3`-gate: `480·3 = 1440`, and ⟦AMENDMENT G⟧'s
 `×4` cover carries it to `a2Mrow`'s `5760`. -/
-private lemma a2_term3_weigh {w R S : ℝ} (hS : 0 ≤ S) (hR : w * R ≤ 3) :
+lemma a2_term3_weigh {w R S : ℝ} (hS : 0 ≤ S) (hR : w * R ≤ 3) :
     w * (480 * R * S) ≤ 5760 * S := by
   have hid : w * (480 * R * S) = 480 * S * (w * R) := by ring
   rw [hid]
@@ -182,14 +182,14 @@ private lemma a2_term3_weigh {w R S : ℝ} (hS : 0 ≤ S) (hR : w * R ≤ 3) :
 four-row exit prices the seam row at `960·(T_ann/X_d+1)·(…)` in place of `480·(…)`
 (`M4RowMR`), so the `3`-gate gives `960·3 = 2880` — still inside `a2Mrow`'s `5760`, which is
 ⟦AMENDMENT G⟧'s `×4` cover of `1440`.  **The interface numeral does not move.** -/
-private lemma a2_term3_weigh_mr {w R S : ℝ} (hS : 0 ≤ S) (hR : w * R ≤ 3) :
+lemma a2_term3_weigh_mr {w R S : ℝ} (hS : 0 ≤ S) (hR : w * R ≤ 3) :
     w * (960 * R * S) ≤ 5760 * S := by
   have hid : w * (960 * R * S) = 960 * S * (w * R) := by ring
   rw [hid]
   linarith [mul_le_mul_of_nonneg_left hR (mul_nonneg (by norm_num : (0 : ℝ) ≤ 960) hS)]
 
 /-- The `𝒰`-leg summand, weighted at the `3/2`-gate: `2·(3/2) = 3`. -/
-private lemma a2_term4_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3 / 2) :
+lemma a2_term4_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3 / 2) :
     w * (2 * (R * Z)) ≤ 3 * Z := by
   have hid : w * (2 * (R * Z)) = 2 * Z * (w * R) := by ring
   rw [hid]
@@ -227,7 +227,7 @@ private lemma a2RowsSum_nonneg {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
   linarith
 
 /-- The cap branch's weighting: five summands, the ball leg folded into the row slot. -/
-private lemma a2_row_weigh_cap {w Sq A B C D a b c d : ℝ}
+lemma a2_row_weigh_cap {w Sq A B C D a b c d : ℝ}
     (hA : w * A ≤ a) (hB : w * B ≤ b) (hSC : w * Sq + w * C ≤ c) (hD : w * D ≤ d) :
     w * (Sq + (A + B + C) + D) ≤ a + b + c + d := by
   have h : w * (Sq + (A + B + C) + D) = w * A + w * B + (w * Sq + w * C) + w * D := by ring
@@ -266,7 +266,7 @@ and the `8S²` ball leg is paid ENTIRELY out of `Ccc`'s free slack, of which it 
 demand of `8·S²`.  ⟦AMENDMENT G⟧'s `×4` cover (`1440 → 5760`) is therefore NOT spent here at
 all — it stays available to the rows, exactly as on the cap-free branch, which is what makes
 the two branches' `hR : w·R ≤ 3` gates readable as the same gate. -/
-private lemma a2_term3_ball_weigh {w R Sb RS Cst Ccc Mr : ℝ}
+lemma a2_term3_ball_weigh {w R Sb RS Cst Ccc Mr : ℝ}
     (hw1 : w ≤ 1) (hRS : 0 ≤ RS) (hC0 : 0 ≤ Cst) (hM1 : 1 ≤ Mr)
     (hCcc : Cst + Mr * Sb ^ 2 / 2 ≤ Ccc) (hR : w * R ≤ 3) :
     w * (8 * Sb ^ 2) + w * (480 * R * (RS + Cst * (2 / Mr)))

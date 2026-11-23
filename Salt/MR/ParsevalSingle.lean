@@ -78,7 +78,7 @@ open MeasureTheory Complex
 
 /-! ## S-1a — the single-`h` object, regularized (the `x`-integrability device)
 
-`KernelCarry`'s `vdiffR` is `private` there; its one-scale analogue is re-derived here. -/
+`Lemma14.vdiffR` (used by `KernelCarry`) is two-scale; its one-scale analogue is defined here. -/
 
 /-- The weighted single-`h` `V`-object through the `max`-regularized tail transform — globally
 continuous in `x`, equal to the honest `(1/h)·vSeg` for `x ≥ X`. -/
