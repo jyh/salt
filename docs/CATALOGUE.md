@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `b3eb0a86` · source digest `58876f07ede317d9` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `a6ce6893` · source digest `e8c1673c3ca748e5` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23422 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -7526,12 +7526,12 @@ Declarations indexed across the tree: 23427 · corpus Prop-valued names (the hyp
 | `Salt.HB.hb_lemma2` | Salt/HB/TransferFull.lean:204 | characters | `Salt.HB.CoprimeSupport` |
 | `Salt.HB.hb_lemma3_final` | Salt/HB/TwistedMertens.lean:799 | characters | `Salt.HB.CoprimeSupport` |
 | `Salt.LS.analytic_LS` | Salt/LS/AnalyticLS.lean:58 | sieves, exponential sums | `Salt.LS.Spaced` |
-| `Salt.MR.seam_row_number_nocap3_end'` | Salt/MR/A3Middle.lean:206 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
-| `Salt.MR.seam_row_number_capfree3_end'` | Salt/MR/A3Middle.lean:334 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
-| `Salt.MR.a2Rows_of_capfree3_end'` | Salt/MR/A3Middle.lean:440 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
-| `Salt.MR.seam_row_number_nocap3'` | Salt/MR/A3Middle.lean:564 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
-| `Salt.MR.seam_row_number_capfree3'` | Salt/MR/A3Middle.lean:690 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
-| `Salt.MR.a2Rows_of_capfree3'` | Salt/MR/A3Middle.lean:796 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
+| `Salt.MR.seam_row_number_nocap3_end'` | Salt/MR/A3Middle.lean:165 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
+| `Salt.MR.seam_row_number_capfree3_end'` | Salt/MR/A3Middle.lean:293 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
+| `Salt.MR.a2Rows_of_capfree3_end'` | Salt/MR/A3Middle.lean:399 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
+| `Salt.MR.seam_row_number_nocap3'` | Salt/MR/A3Middle.lean:523 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
+| `Salt.MR.seam_row_number_capfree3'` | Salt/MR/A3Middle.lean:649 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
+| `Salt.MR.a2Rows_of_capfree3'` | Salt/MR/A3Middle.lean:755 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
 | `Salt.MR.largeRangeFixedEps_of_fixed` | Salt/MR/A4FLargeRange.lean:101 | characters | `Salt.MR.MRTLargeRangeEquidistributionFixed` |
 | `Salt.MR.lemmaA4iiFixed34E_of_fixed34T` | Salt/MR/A4FLargeRange.lean:114 | characters | `Salt.MR.MRTLemmaA4iiFixed34T` |
 | `Salt.MR.mrtLemmaA4iiFixed34T_of_largeRangeFixed` | Salt/MR/A4FThreshold.lean:124 | characters | `Salt.MR.MRTLargeRangeEquidistributionFixed` |
