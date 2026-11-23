@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `9304bea1` · source digest `259b45f7900b594e` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `b6179030` · source digest `055b9bd624c2dc87` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -3488,11 +3488,11 @@ Declarations indexed across the tree: 23429 · corpus Prop-valued names (the hyp
 | `Salt.MR.vSeg_eq_damp_endpoints` | Salt/MR/KernelCarry.lean:141 | characters |
 | `Salt.MR.uKernel_norm_le` | Salt/MR/KernelCarry.lean:186 | characters |
 | `Salt.MR.uKernel_wdiff_norm_le` | Salt/MR/KernelCarry.lean:212 | characters |
-| `Salt.MR.vtail_meansq_damped` | Salt/MR/KernelCarry.lean:340 | characters |
-| `Salt.MR.vtail_meansq_kernel` | Salt/MR/KernelCarry.lean:673 | characters |
-| `Salt.MR.vtail_meansq_kernel_neg` | Salt/MR/KernelCarry.lean:742 | characters |
-| `Salt.MR.lemma14_contour_kernel` | Salt/MR/KernelCarry.lean:947 | characters |
-| `Salt.MR.lemma14_shortInterval_meansq_kernel` | Salt/MR/KernelCarry.lean:1162 | characters |
+| `Salt.MR.vtail_meansq_damped` | Salt/MR/KernelCarry.lean:304 | characters |
+| `Salt.MR.vtail_meansq_kernel` | Salt/MR/KernelCarry.lean:637 | characters |
+| `Salt.MR.vtail_meansq_kernel_neg` | Salt/MR/KernelCarry.lean:706 | characters |
+| `Salt.MR.lemma14_contour_kernel` | Salt/MR/KernelCarry.lean:789 | characters |
+| `Salt.MR.lemma14_shortInterval_meansq_kernel` | Salt/MR/KernelCarry.lean:1004 | characters |
 | `Salt.MR.continuous_dpoly` | Salt/MR/L2MVT.lean:47 | characters |
 | `Salt.MR.sq_norm_dpoly_eq` | Salt/MR/L2MVT.lean:55 | characters |
 | `Salt.MR.dirichlet_poly_l2_expand` | Salt/MR/L2MVT.lean:97 | characters |
@@ -5347,17 +5347,17 @@ Declarations indexed across the tree: 23429 · corpus Prop-valued names (the hyp
 | `Salt.MR.seam_TU_splitG` | Salt/MR/SeamGraded.lean:286 | characters |
 | `Salt.MR.prop_A3_T1_row_split_weightedG` | Salt/MR/SeamGraded.lean:317 | characters |
 | `Salt.MR.prop_A3_T1_row_split_weightedG_crude` | Salt/MR/SeamGraded.lean:353 | characters |
-| `Salt.MR.seamAnn_integral_split` | Salt/MR/SeamLemma14.lean:83 | characters |
-| `Salt.MR.spoly_eq_dpolyA_filter` | Salt/MR/SeamLemma14.lean:121 | characters |
-| `Salt.MR.seamS0_range` | Salt/MR/SeamLemma14.lean:133 | characters |
-| `Salt.MR.seamS0_pos` | Salt/MR/SeamLemma14.lean:141 | characters |
-| `Salt.MR.seam_midrange_bound` | Salt/MR/SeamLemma14.lean:182 | characters |
-| `Salt.MR.seam_split_four` | Salt/MR/SeamLemma14.lean:194 | characters |
-| `Salt.MR.seam_Msup` | Salt/MR/SeamLemma14.lean:226 | characters |
-| `Salt.MR.seam_midrange_of_tall_row` | Salt/MR/SeamLemma14.lean:243 | characters |
-| `Salt.MR.lemma14_contour_of_Msup_at` | Salt/MR/SeamLemma14.lean:458 | characters |
-| `Salt.MR.lemma14_contour_seam_supplied` | Salt/MR/SeamLemma14.lean:612 | characters |
-| `Salt.MR.lemma14_contour_seam_supplied_single` | Salt/MR/SeamLemma14.lean:640 | characters |
+| `Salt.MR.seamAnn_integral_split` | Salt/MR/SeamLemma14.lean:82 | characters |
+| `Salt.MR.spoly_eq_dpolyA_filter` | Salt/MR/SeamLemma14.lean:120 | characters |
+| `Salt.MR.seamS0_range` | Salt/MR/SeamLemma14.lean:132 | characters |
+| `Salt.MR.seamS0_pos` | Salt/MR/SeamLemma14.lean:140 | characters |
+| `Salt.MR.seam_midrange_bound` | Salt/MR/SeamLemma14.lean:181 | characters |
+| `Salt.MR.seam_split_four` | Salt/MR/SeamLemma14.lean:193 | characters |
+| `Salt.MR.seam_Msup` | Salt/MR/SeamLemma14.lean:225 | characters |
+| `Salt.MR.seam_midrange_of_tall_row` | Salt/MR/SeamLemma14.lean:242 | characters |
+| `Salt.MR.lemma14_contour_of_Msup_at` | Salt/MR/SeamLemma14.lean:279 | characters |
+| `Salt.MR.lemma14_contour_seam_supplied` | Salt/MR/SeamLemma14.lean:433 | characters |
+| `Salt.MR.lemma14_contour_seam_supplied_single` | Salt/MR/SeamLemma14.lean:461 | characters |
 | `Salt.MR.sum_ratioK_le_basel` | Salt/MR/SeamNumber.lean:264 | characters |
 | `Salt.MR.eq28_clears_of_M_basel` | Salt/MR/SeamNumber.lean:290 | characters |
 | `Salt.MR.seamCoefW_of_global` | Salt/MR/SeamRowWindowed.lean:135 | characters |
@@ -8520,8 +8520,8 @@ Declarations indexed across the tree: 23429 · corpus Prop-valued names (the hyp
 | `Salt.MR.levelGates_calibratedK` | Salt/MR/SeamCalibrationK.lean:244 | characters | `Salt.MR.CalFrameK` |
 | `Salt.MR.seam_row_calibratedK` | Salt/MR/SeamCalibrationK.lean:950 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.collisionGate`, `Salt.MR.TLBlockGates34`, `Salt.MR.ShortIntervalDatum` |
 | `Salt.MR.rhs_grade_at_scale_seam_gate` | Salt/MR/SeamGate.lean:233 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAt` |
-| `Salt.MR.lemma14_contour_seam_supplied_calibrated` | Salt/MR/SeamLemma14.lean:706 | characters | `Salt.MR.CalFrame`, `Salt.MR.TannGate`, `Salt.MR.collisionGate`, `Salt.MR.TLBlockGates34`, `Salt.MR.ShortIntervalDatum` |
-| `Salt.MR.seam_row_calibrated_station` | Salt/MR/SeamLemma14.lean:831 | characters | `Salt.MR.CalFrame`, `Salt.MR.TannGate`, `Salt.MR.collisionGate`, `Salt.MR.TLBlockGates34`, `Salt.MR.ShortIntervalDatum` |
+| `Salt.MR.lemma14_contour_seam_supplied_calibrated` | Salt/MR/SeamLemma14.lean:527 | characters | `Salt.MR.CalFrame`, `Salt.MR.TannGate`, `Salt.MR.collisionGate`, `Salt.MR.TLBlockGates34`, `Salt.MR.ShortIntervalDatum` |
+| `Salt.MR.seam_row_calibrated_station` | Salt/MR/SeamLemma14.lean:652 | characters | `Salt.MR.CalFrame`, `Salt.MR.TannGate`, `Salt.MR.collisionGate`, `Salt.MR.TLBlockGates34`, `Salt.MR.ShortIntervalDatum` |
 | `Salt.MR.seam_row_number` | Salt/MR/SeamNumber.lean:98 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.collisionGate`, `Salt.MR.TLBlockGates34`, `Salt.MR.ShortIntervalDatum` |
 | `Salt.MR.seamCoefWS_of_seamCoefW` | Salt/MR/SeamRowWindowed.lean:158 | characters | `Salt.MR.SeamCoefW` |
 | `Salt.MR.spoly_ramare_split_mr_windowed` | Salt/MR/SeamRowWindowed.lean:280 | characters | `Salt.MR.SeamCoefW` |
