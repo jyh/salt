@@ -231,11 +231,11 @@ theorem jacobian_conjecture_counterexample :
 
 ## Receipt
 
-Built at commit `7c91f8197e` on 2026-11-23; audit log sha256 `0606c5c2caf6472b`, build log sha256 `b95ef660d8ff3fb3`.
+Built at commit `bacf898591` on 2026-11-23; audit log sha256 `3adf79676d0efc69`, build log sha256 `101f2d8c7a47b0a1`.
 
-- build line (the 15 defining modules, rebuilt before the audit): `saltbuild EXIT=0` · tagged errors 0
-- audit log: `saltbuild EXIT=0` · tagged errors 0
+- build line (the 15 defining modules, rebuilt before the audit): `saltbuild EXIT=0` · tagged errors 0 · uncommitted tracked files 0->0
+- audit log: `saltbuild EXIT=0` · tagged errors 0 · uncommitted tracked files 0->0
 - 16 of 16 theorems print only `Classical.choice, Quot.sound, propext` (or a subset)
 - imported control `Lean.reduceBool`: `Lean.trustCompiler`
 
-To re-take it: `python3 scripts/headline_theorems.py --audit-file HeadlineAudit.lean`, then `../saltbuild.sh $(python3 scripts/headline_theorems.py --build-targets) > build.log 2>&1`, then `../saltbuild.sh HeadlineAudit.lean > audit.log 2>&1`, then `python3 scripts/headline_theorems.py --receipt build.log audit.log` and regenerate this page.
+To re-take it: `python3 scripts/headline_theorems.py --audit-file ScratchHeadlineAudit.lean`, then `../saltbuild.sh $(python3 scripts/headline_theorems.py --build-targets) > build.log 2>&1`, then `../saltbuild.sh ScratchHeadlineAudit.lean > audit.log 2>&1`, then `python3 scripts/headline_theorems.py --receipt build.log audit.log` and regenerate this page.
