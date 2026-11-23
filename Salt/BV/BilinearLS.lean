@@ -67,7 +67,7 @@ noncomputable def gammaH (H h : ℕ) : ℝ :=
   if h = 0 then (1 : ℝ) else (1 / (H : ℝ)) * (1 / (2 * dist₁ ((h : ℝ) / (H : ℝ)) 0))
 
 /-- `γ_h ≥ 0`. -/
-private lemma gammaH_nonneg (H h : ℕ) : 0 ≤ gammaH H h := by
+lemma gammaH_nonneg (H h : ℕ) : 0 ≤ gammaH H h := by
   unfold gammaH
   by_cases h0 : h = 0
   · rw [if_pos h0]; norm_num
@@ -99,7 +99,7 @@ private lemma norm_fourierCutoff_le_gammaH (H Y m h : ℕ) (hH : 0 < H) (hhH : h
 
 /-- **P3 mass.** `∑_{h<H} γ_h ≤ 2 + log H`, uniformly in the coefficient data:
 the `h = 0` term is `1`, and the `h ≠ 0` terms sum (via `sum_H_le`) to `≤ 1 + log H`. -/
-private lemma sum_gammaH_le (H : ℕ) (hH : 0 < H) :
+lemma sum_gammaH_le (H : ℕ) (hH : 0 < H) :
     ∑ h ∈ Finset.range H, gammaH H h ≤ 2 + Real.log H := by
   rcases lt_or_ge H 2 with hH1 | hH2
   · have hHeq : H = 1 := by omega
@@ -180,7 +180,7 @@ noncomputable def bilinCoeffB (b : ℕ → ℂ) (H h : ℕ) (n : ℕ) : ℂ :=
 
 /-- The range-form `A`-factor equals the `Icc`-form `A`-factor of
 `bilinear_factorization` (the `m = 0` term vanishes). -/
-private lemma bilinCoeffA_sum_eq {q : ℕ} (χ : DirichletCharacter ℂ q) (a : ℕ → ℂ)
+lemma bilinCoeffA_sum_eq {q : ℕ} (χ : DirichletCharacter ℂ q) (a : ℕ → ℂ)
     (H Y h M : ℕ) :
     ∑ m ∈ Finset.range (M + 1), bilinCoeffA a H Y h m * χ ((m : ℕ) : ZMod q)
       = ∑ m ∈ Finset.Icc 1 M,
@@ -202,7 +202,7 @@ private lemma bilinCoeffA_sum_eq {q : ℕ} (χ : DirichletCharacter ℂ q) (a : 
 
 /-- The range-form `B`-factor equals the `Icc`-form `B`-factor of
 `bilinear_factorization` (the `n = 0` term vanishes). -/
-private lemma bilinCoeffB_sum_eq {q : ℕ} (χ : DirichletCharacter ℂ q) (b : ℕ → ℂ)
+lemma bilinCoeffB_sum_eq {q : ℕ} (χ : DirichletCharacter ℂ q) (b : ℕ → ℂ)
     (H h H' : ℕ) :
     ∑ n ∈ Finset.range (H' + 1), bilinCoeffB b H h n * χ ((n : ℕ) : ZMod q)
       = ∑ n ∈ Finset.Icc 1 H',
@@ -223,7 +223,7 @@ private lemma bilinCoeffB_sum_eq {q : ℕ} (χ : DirichletCharacter ℂ q) (b : 
   simp only [bilinCoeffB, if_neg hn0]
 
 /-- The `A`-side coefficient mass is controlled by `γ_h²·∑‖a‖²` (P4). -/
-private lemma bilinCoeffA_mass_le (a : ℕ → ℂ) (H Y h M : ℕ) (hH : 0 < H) (hhH : h < H) :
+lemma bilinCoeffA_mass_le (a : ℕ → ℂ) (H Y h M : ℕ) (hH : 0 < H) (hhH : h < H) :
     ∑ m ∈ Finset.range (M + 1), ‖bilinCoeffA a H Y h m‖ ^ 2
       ≤ (gammaH H h) ^ 2 * ∑ m ∈ Finset.Icc 1 M, ‖a m‖ ^ 2 := by
   have hsub : Finset.Icc 1 M ⊆ Finset.range (M + 1) := by
@@ -248,7 +248,7 @@ private lemma bilinCoeffA_mass_le (a : ℕ → ℂ) (H Y h M : ℕ) (hH : 0 < H)
     _ = gammaH H h ^ 2 * ‖a m‖ ^ 2 := by ring
 
 /-- The `B`-side coefficient mass equals `∑‖b‖²` (`‖e‖ = 1`). -/
-private lemma bilinCoeffB_mass_eq (b : ℕ → ℂ) (H h H' : ℕ) :
+lemma bilinCoeffB_mass_eq (b : ℕ → ℂ) (H h H' : ℕ) :
     ∑ n ∈ Finset.range (H' + 1), ‖bilinCoeffB b H h n‖ ^ 2
       = ∑ n ∈ Finset.Icc 1 H', ‖b n‖ ^ 2 := by
   have hsub : Finset.Icc 1 H' ⊆ Finset.range (H' + 1) := by

@@ -210,7 +210,7 @@ Every bound below is discharged with named in-repo machinery
 /-- Telescoping tail bound (local copy of the `private`
 `CollisionQuant.inv_sq_tele`): `∑_{a<n≤b}(n−1)⁻² ≤ (a−1)⁻¹ − (b−1)⁻¹`
 for `2 ≤ a ≤ b`. -/
-private theorem inv_sq_tele53 (a : ℕ) (ha : 2 ≤ a) :
+theorem inv_sq_tele53 (a : ℕ) (ha : 2 ≤ a) :
     ∀ b : ℕ, a ≤ b →
       (∑ n ∈ Finset.Icc (a + 1) b, (((n : ℝ) - 1)⁻¹) ^ 2)
         ≤ ((a : ℝ) - 1)⁻¹ - ((b : ℝ) - 1)⁻¹ := by
@@ -257,7 +257,7 @@ private theorem one_sub_sum_le_prod_one_sub {ι : Type*} (s : Finset ι) (x : ι
           mul_le_mul_of_nonneg_left hih (by linarith : (0 : ℝ) ≤ 1 - x a)]
 
 /-- `|∏(1 − xₚ) − 1| ≤ ∑ xₚ` for `0 ≤ xₚ ≤ 1`. -/
-private theorem abs_prod_one_sub_le {ι : Type*} (s : Finset ι) (x : ι → ℝ)
+theorem abs_prod_one_sub_le {ι : Type*} (s : Finset ι) (x : ι → ℝ)
     (hx0 : ∀ p ∈ s, 0 ≤ x p) (hx1 : ∀ p ∈ s, x p ≤ 1) :
     |(∏ p ∈ s, (1 - x p)) - 1| ≤ ∑ p ∈ s, x p := by
   have hle : ∏ p ∈ s, (1 - x p) ≤ 1 :=

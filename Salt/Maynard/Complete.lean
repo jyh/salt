@@ -258,7 +258,7 @@ The `rankinC`-free private helpers are re-copied here (they are `private` in
 `Lemma53Tight`); the constant-carrying lemmas are the tight proofs verbatim with
 `rankinC → rankinK` and `lemma53Const → lemma53KConst`. -/
 
-/-- Local copy of the private `g_factor_prod'` (no constant). -/
+/-- Local copy of `g_factor_prod'` (no constant). -/
 private theorem g_factor_prod'' {r : ℕ} (hr : Squarefree r)
     (hodd : ∀ p ∈ r.primeFactors, 3 ≤ p) :
     (gMult r : ℝ) * (r : ℝ) / (Nat.totient r : ℝ) ^ 2
@@ -273,7 +273,7 @@ private theorem g_factor_prod'' {r : ℕ} (hr : Squarefree r)
   field_simp
   ring
 
-/-- Local copy of the private `gr_ratio_mem'` (no constant). -/
+/-- Local copy of `gr_ratio_mem'` (no constant). -/
 private theorem gr_ratio_mem'' {ρ : ℕ} (hρ : Squarefree ρ)
     (hodd : ∀ p ∈ ρ.primeFactors, 3 ≤ p) :
     0 ≤ (gMult ρ : ℝ) * (ρ : ℝ) / (Nat.totient ρ : ℝ) ^ 2

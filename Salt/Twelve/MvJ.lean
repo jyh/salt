@@ -451,13 +451,13 @@ private lemma inner_sum_estimate (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W'
 /-! ## `eval` expansions and further list plumbing -/
 
 /-- `eval (ofPoly F) t` as an explicit monomial `List.sum` (budget power `0`). -/
-private lemma eval_ofPoly (F : Poly) (t : Fin 5 → ℝ) :
+lemma eval_ofPoly (F : Poly) (t : Fin 5 → ℝ) :
     eval (ofPoly F) t = (F.map (fun a => (a.2 : ℝ) * ∏ i, t i ^ a.1 i)).sum := by
   simp only [eval, ofPoly, List.map_map, Function.comp_def, pow_zero, mul_one]
 
 /-- `eval (contractAt m F) t` as an explicit monomial `List.sum`, with the
 `succAbove`-aligned exponents and the `αₘ+1` budget power. -/
-private lemma eval_contractAt (m : Fin 5) (F : Poly) (t : Fin 4 → ℝ) :
+lemma eval_contractAt (m : Fin 5) (F : Poly) (t : Fin 4 → ℝ) :
     eval (contractAt m F) t
       = (F.map (fun a => ((a.2 / ((a.1 m + 1 : ℕ) : ℚ) : ℚ) : ℝ)
           * (∏ i, t i ^ a.1 (m.succAbove i)) * (1 - ∑ i, t i) ^ (a.1 m + 1))).sum := by
@@ -781,7 +781,7 @@ lemma sum_filt_removeNth {M : Type*} [AddCommMonoid M] (R W' : ℕ) (m : Fin 5)
 /-- The integer tail `Σ_{D < k < R} 1/(k − 1)² ≤ 1/(D − 1)` for `3 ≤ D` (`hD`): each term is at
 most `1/(k − 2) − 1/(k − 1)` and the sum telescopes (`Finset.sum_range_sub'`); the file's copy
 of `MvI`'s private `int_tail`. -/
-private lemma int_tail' (D R : ℕ) (hD : 3 ≤ D) :
+lemma int_tail' (D R : ℕ) (hD : 3 ≤ D) :
     ∑ k ∈ (Finset.range R).filter (fun k => D < k), 1 / ((k:ℝ) - 1)^2
       ≤ 1 / ((D:ℝ) - 1) := by
   have hset : (Finset.range R).filter (fun k => D < k) = Finset.Ico (D+1) R := by
@@ -823,7 +823,7 @@ private lemma int_tail' (D R : ℕ) (hD : 3 ≤ D) :
 /-- The prime tail `Σ_{p prime, D < p < R} 1/(p − 1)² ≤ 2/D` for `3 ≤ D` (`hD`): the primes are
 a subset of the integers `D < k` (`int_tail'`) and `1/(D − 1) ≤ 2/D`; the file's copy of `MvI`'s
 `prime_tail`. -/
-private lemma prime_tail' (D R : ℕ) (hD : 3 ≤ D) :
+lemma prime_tail' (D R : ℕ) (hD : 3 ≤ D) :
     ∑ p ∈ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p), 1 / ((p:ℝ) - 1)^2
       ≤ 2 / (D:ℝ) := by
   have hsub : (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p)
@@ -839,13 +839,13 @@ private lemma prime_tail' (D R : ℕ) (hD : 3 ≤ D) :
 
 -- gMult of a prime and of 1
 /-- `g(p) = p − 2` for a prime `p` (`hp`), cast to `ℝ`: `primeFactors p = {p}`. -/
-private lemma gMult_prime_cast {p : ℕ} (hp : Nat.Prime p) : (gMult p : ℝ) = (p : ℝ) - 2 := by
+lemma gMult_prime_cast {p : ℕ} (hp : Nat.Prime p) : (gMult p : ℝ) = (p : ℝ) - 2 := by
   have : gMult p = p - 2 := by
     rw [gMult, Nat.Prime.primeFactors hp, Finset.prod_singleton]
   rw [this, Nat.cast_sub hp.two_le]; norm_num
 
 /-- `g(1) = 1`: the empty product over `primeFactors 1 = ∅`. -/
-private lemma gMult_one_cast : (gMult 1 : ℝ) = 1 := by
+lemma gMult_one_cast : (gMult 1 : ℝ) = 1 := by
   rw [gMult, Nat.primeFactors_one, Finset.prod_empty]; norm_num
 
 -- g-side pairwise collision bound (n = 4)
@@ -1238,7 +1238,7 @@ private lemma box4_g_moment (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 -- reuse MvJ's existing private list helpers by re-declaring the ones I need here
 /-- `|Σ_{a ∈ L} f a| ≤ Σ |f a|` for a mapped `List` sum (induction on `L`, `abs_add_le`); the
 `mv_J` section's re-declaration of the file's `list_abs_sum_le`. -/
-private lemma jlist_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
+lemma jlist_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
     |(L.map f).sum| ≤ (L.map (fun a => |f a|)).sum := by
   induction L with
   | nil => simp
@@ -1249,7 +1249,7 @@ private lemma jlist_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
 
 /-- Termwise `f a ≤ g a` on `L` (`h`) gives `Σ f ≤ Σ g` (induction on `L`); re-declares
 `list_sum_le_sum`. -/
-private lemma jlist_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
+lemma jlist_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
     (h : ∀ a ∈ L, f a ≤ g a) : (L.map f).sum ≤ (L.map g).sum := by
   induction L with
   | nil => simp
@@ -1257,17 +1257,9 @@ private lemma jlist_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
       simp only [List.map_cons, List.sum_cons]
       exact add_le_add (h a (by simp)) (ih (fun b hb => h b (List.mem_cons_of_mem a hb)))
 
-/-- A mapped `List` sum of termwise sums splits into two (induction on `L`); re-declares
-`list_sum_map_add`. -/
-private lemma jlist_sum_map_add {γ : Type*} (L : List γ) (f g : γ → ℝ) :
-    (L.map (fun a => f a + g a)).sum = (L.map f).sum + (L.map g).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih => simp only [List.map_cons, List.sum_cons, ih]; ring
-
 /-- Swap a `Finset` sum over `S` with an inner `List` sum over `L` (induction on `L`);
 re-declares `sum_finset_list_sum`. -/
-private lemma jsum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
+lemma jsum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
     (f : ι → γ → ℝ) :
     ∑ u ∈ S, (L.map (fun x => f u x)).sum = (L.map (fun x => ∑ u ∈ S, f u x)).sum := by
   induction L with
@@ -1278,13 +1270,13 @@ private lemma jsum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
 
 /-- Division of a mapped `List` sum by `c` distributes termwise (`List.sum_map_mul_right`);
 re-declares `list_sum_div`. -/
-private lemma jlist_sum_div {γ : Type*} (L : List γ) (g : γ → ℝ) (c : ℝ) :
+lemma jlist_sum_div {γ : Type*} (L : List γ) (g : γ → ℝ) (c : ℝ) :
     (L.map g).sum / c = (L.map (fun a => g a / c)).sum := by
   rw [div_eq_mul_inv, ← List.sum_map_mul_right]; simp only [div_eq_mul_inv]
 
 /-- A difference of two mapped `List` sums is the mapped sum of the differences (induction on
 `L`); re-declares `list_sum_map_sub`. -/
-private lemma jlist_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
+lemma jlist_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
     (L.map f).sum - (L.map g).sum = (L.map (fun a => f a - g a)).sum := by
   induction L with
   | nil => simp
@@ -1438,7 +1430,7 @@ lemma mv_J_main (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 -- primes on the box are > D and < R
 /-- Every prime factor of an `x < R` coprime to `W'` (`hxR`, `hxcop`) lies in the prime window
 `D < p < R`: `p ≤ x < R`, and `p ∤ W'` gives `D < p` by `hD`. -/
-private lemma box_PF_subset {W' D R : ℕ} (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p)
+lemma box_PF_subset {W' D R : ℕ} (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p)
     {x : ℕ} (hxR : x < R) (hxcop : x.Coprime W') :
     x.primeFactors ⊆ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p) := by
   intro p hp
@@ -1456,7 +1448,7 @@ private lemma box_PF_subset {W' D R : ℕ} (hD : ∀ p : ℕ, p.Prime → ¬ p �
 (constant `cg`), `Σ_{x < R, square-free, coprime to W'} 1/g(x) ≤ cg·log R` for `3 ≤ D` below
 every prime not dividing `W'` (`hD`, `hDW`) and `2 ≤ R` (`hR2`): `hcg` at `s = 1`, `z = R`
 (`gMult_one_cast`, the `1 ∣ r` filter vacuous). -/
-private lemma M0_bound (W' : ℕ) (cg : ℝ)
+lemma M0_bound (W' : ℕ) (cg : ℝ)
     (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
       (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
         (Real.log r) ^ 0 / (gMult r : ℝ)) ≤ (1 / (gMult s : ℝ)) * cg * (Real.log z) ^ (0 + 1))
@@ -1488,7 +1480,7 @@ private lemma M0_bound (W' : ℕ) (cg : ℝ)
 `1/(p − 1)·Σ_{p ∣ x} 1/g(x)` is at most `cg·log R·2/(p − 1)²` by `hcg` at `s = p`
 (`gMult_prime_cast`, and `1/((p − 1)(p − 2)) ≤ 2/(p − 1)²` for `p ≥ 3`); `prime_tail'` sums the
 squares to `2/D`. -/
-private lemma MQ_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
+lemma MQ_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
     (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
       (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
         (Real.log r) ^ 0 / (gMult r : ℝ)) ≤ (1 / (gMult s : ℝ)) * cg * (Real.log z) ^ (0 + 1))
@@ -1586,7 +1578,7 @@ private lemma MQ_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
 /-- `g(pq) = (p − 2)(q − 2)` for distinct primes (`hp`, `hq`, `hpq`): `gMult` is multiplicative
 on coprime arguments (`Nat.Coprime.primeFactors_mul`, `Finset.prod_union`), then
 `gMult_prime_cast` twice. -/
-private lemma gMult_pq_cast {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) :
+lemma gMult_pq_cast {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) :
     (gMult (p * q) : ℝ) = ((p:ℝ) - 2) * ((q:ℝ) - 2) := by
   have hcop : Nat.Coprime p q := (Nat.coprime_primes hp hq).mpr hpq
   have hmul : gMult (p * q) = gMult p * gMult q := by
@@ -1601,7 +1593,7 @@ same hypotheses as `MQ_bound`. Expand `Q(x)²` over pairs of primes `p, q ∣ x`
 at most `cg·log R/(p − 2)` on the diagonal (`hcg` at `s = p`) and `cg·log R/((p − 2)(q − 2))`
 off it (`s = p·q`, `gMult_pq_cast`); with `Σ_p 1/((p − 1)(p − 2)) ≤ 4/D` (`prime_tail'`,
 `p ≥ 4`) the two parts are `cg·log R·4/D` and `cg·log R·(4/D)²`, and `(4/D)² ≤ 16/D`. -/
-private lemma MQ2_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
+lemma MQ2_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
     (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
       (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
         (Real.log r) ^ 0 / (gMult r : ℝ)) ≤ (1 / (gMult s : ℝ)) * cg * (Real.log z) ^ (0 + 1))
@@ -1867,7 +1859,7 @@ private lemma factor_one (F_R : Finset ℕ) (i : Fin 4) (w : ℕ → ℝ) :
 /-- On the simplex — `0 ≤ t i ≤ 1` (`ht0`, `ht1`) and `Σ t ≤ 1` (`hs`) — a budget polynomial is
 bounded by the sum of its coefficients' absolute values: each monomial's
 `∏ t_i^{e_i}·(1 − Σ t)^d` lies in `[0, 1]`. -/
-private lemma eval_bpoly_bound {n : ℕ} (P : BPoly n) (t : Fin n → ℝ)
+lemma eval_bpoly_bound {n : ℕ} (P : BPoly n) (t : Fin n → ℝ)
     (ht0 : ∀ i, 0 ≤ t i) (ht1 : ∀ i, t i ≤ 1) (hs : ∑ i, t i ≤ 1) :
     |eval P t| ≤ (P.map (fun mo => |(mo.2.2 : ℝ)|)).sum := by
   unfold eval
@@ -1977,7 +1969,7 @@ private lemma enlarge_to_PB (W' D R : ℕ) (_hD : 3 ≤ D) (_hDW : ∀ p : ℕ, 
         Finset.sum_le_sum_of_subset_of_nonneg hsub2 (fun ρ _ _ => hnn ρ)
 
 /-- The marked-prime sum `Σ_{p ∣ m} 1/(p − 1)` is nonnegative (each `p ≥ 2`). -/
-private lemma PFsum_nn (m : ℕ) : 0 ≤ ∑ p ∈ m.primeFactors, (1 / ((p:ℝ) - 1)) := by
+lemma PFsum_nn (m : ℕ) : 0 ≤ ∑ p ∈ m.primeFactors, (1 / ((p:ℝ) - 1)) := by
   apply Finset.sum_nonneg; intro p hp
   have hpp := Nat.prime_of_mem_primeFactors hp
   have : (2:ℝ) ≤ (p:ℝ) := by exact_mod_cast hpp.two_le
