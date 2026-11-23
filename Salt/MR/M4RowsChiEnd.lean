@@ -321,9 +321,9 @@ theorem m4_rowChi_number_of_capstone_end :
 CHARACTER-BLIND and ROW-BLIND arithmetic; what moves is only the Lemma-12 summand's
 prefactor, `960·3 = 2880` where the three-row chain has `480·3 = 1440`.
 
-`M4RowsChi`'s weighing helpers are `private` to that file (as `ThmA2Rows`' gate lemma is), so the
-page is re-derived here at its own names, from two facts only: `(X/h)/X_d ≤ 4/h`, used in three
-of the four numerals, and `w ≤ 1`, used in all four. -/
+The `244` and `3/2` steps are `ThmA2Rows`' own lemmas (`a2_term2_weigh`, `a2_term4_weigh`).
+`M4RowsChi`'s other weighing helpers are `private` to that file (as `ThmA2Rows`' gate lemma is), so
+the rest of the page is re-derived here at its own names, from `(X/h)/X_d ≤ 4/h` and `w ≤ 1`. -/
 
 /-- **THE FOUR NUMERALS** (`d5_weight_gates`) — `M4RowsChi.m4_weight_gates` at its own name
 (that one is `private`).  With `w := (X/h)/T`: `0 ≤ w ≤ 1`, and the four `T`-linear factors
@@ -390,15 +390,6 @@ private lemma d5_level1_weigh {w Hq Lq R Pq Br : ℝ}
   have h0 : (0 : ℝ) ≤ 2 * (Hq * Lq + 1) * Pq * Br := by positivity
   rw [hid]
   linarith only [mul_le_mul_of_nonneg_left hR9 h0]
-
-/-- The `Ct`-summand, at the `244`-gate: `1536·244 = 374784`. -/
-private lemma d5_term2_weigh {w Ct R Y : ℝ} (hCt : 0 ≤ Ct) (hY : 0 ≤ Y) (hR : w * R ≤ 244) :
-    w * (1536 * Ct * Real.exp 3 * R * Y) ≤ 374784 * Ct * Real.exp 3 * Y := by
-  have hid : w * (1536 * Ct * Real.exp 3 * R * Y)
-      = 1536 * Ct * Real.exp 3 * Y * (w * R) := by ring
-  have h0 : (0 : ℝ) ≤ 1536 * Ct * Real.exp 3 * Y := by positivity
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR h0]
 
 /-- **⟦THE ONE NUMERAL THAT MOVES⟧** the Lemma-12 summand at the FOUR-row exit, weighed at the
 `3`-gate: `960·3 = 2880` in place of the three-row chain's `480·3 = 1440`.  The debit is
@@ -504,7 +495,7 @@ theorem m4_rowChi_weighed_end {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ 
   unfold m4MrowChiEnd
   exact d5_row_weigh (d5_ball_weigh hw1)
     (d5_level1_weigh hHL0 hPq0 hBr0 hg9)
-    (d5_term2_weigh hCt hY0 hg244) (d5_term3_weigh hRS0 hg3) (a2_term4_weigh hZ0 hg32)
+    (a2_term2_weigh hCt hY0 hg244) (d5_term3_weigh hRS0 hg3) (a2_term4_weigh hZ0 hg32)
 
 /-! ## §5 — THE DELIVERABLE: the `hrowsSum` slot, per character, STRICT/FUSED
 
