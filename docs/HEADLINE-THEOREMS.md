@@ -233,8 +233,8 @@ theorem jacobian_conjecture_counterexample :
 
 Built at commit `bacf898591` on 2026-11-23; audit log sha256 `3adf79676d0efc69`, build log sha256 `101f2d8c7a47b0a1`.
 
-- build line (the 15 defining modules, rebuilt before the audit): `saltbuild EXIT=0` · tagged errors 0 · uncommitted tracked files 0->0
-- audit log: `saltbuild EXIT=0` · tagged errors 0 · uncommitted tracked files 0->0
+- build line (the 15 defining modules, rebuilt before the audit): `saltbuild EXIT=0` · tagged errors 0 · files git status lists 0->0
+- audit log: `saltbuild EXIT=0` · tagged errors 0 · files git status lists 0->0
 - 16 of 16 theorems print only `Classical.choice, Quot.sound, propext` (or a subset)
 - imported control `Lean.reduceBool`: `Lean.trustCompiler`
 

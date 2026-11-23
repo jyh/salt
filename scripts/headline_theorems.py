@@ -43,8 +43,9 @@ new receipt.
 What this can NOT check: that a statement means what the plain line says (a reader checks
 that), that the build record describes the build log handed in (the receipt records both logs'
 sha256, the audit records, and the commit; anyone can re-run it), or that an uncommitted edit
-was not made and reverted between the build and the audit (a build or audit whose wrapper record
-reads any uncommitted tracked file, `dirty` other than 0->0, is refused).
+was not made and reverted between the build and the audit. A build or audit whose wrapper record
+counts any line of `git status --porcelain` (untracked files included; `Scratch*.lean` is
+ignored), that is `dirty` other than 0->0, is refused.
 
 Usage (from anywhere):
   python3 scripts/headline_theorems.py               write docs/HEADLINE-THEOREMS.md
@@ -337,7 +338,7 @@ def fleet_records(text: str, cwd: str) -> list[dict]:
     """The fleet audit log's machine-written lines for runs in `cwd` (the repo root), oldest
     first. `when` is the run's END time (the wrapper writes the line as the run ends); the
     wrapper's lock runs one build or audit at a time, so end-before-end orders the runs.
-    `dirty` is the wrapper's count of uncommitted tracked files, before->after; `sha` is the
+    `dirty` is the wrapper's count of the lines `git status --porcelain` prints, before->after; `sha` is the
     audited scratch file's sha256 prefix (audit runs only)."""
     out = []
     for line in text.splitlines():
@@ -490,9 +491,9 @@ def render(entries: list[dict], rc: dict | None) -> str:
               f", build log sha256 `{b.get('log_sha256')}`.", "",
               f"- build line (the {len(build_targets())} defining modules, rebuilt before the audit): "
               f"`saltbuild EXIT={b.get('exit')}` · tagged errors {b.get('tagged_errors')} · "
-              f"uncommitted tracked files {(b.get('record') or {}).get('dirty')}",
+              f"files git status lists {(b.get('record') or {}).get('dirty')}",
               f"- audit log: `saltbuild EXIT={rc['exit']}` · tagged errors {rc['tagged_errors']} · "
-              f"uncommitted tracked files {(rc.get('audit_record') or {}).get('dirty')}",
+              f"files git status lists {(rc.get('audit_record') or {}).get('dirty')}",
               f"- {sum(1 for e in entries if e['name'] in rc['axioms'])} of {len(entries)} theorems "
               f"print only `{', '.join(sorted(ALLOWED))}` (or a subset)",
               f"- imported control `{CONTROL}`: `{', '.join(rc['axioms'].get(CONTROL, []))}`", "",
