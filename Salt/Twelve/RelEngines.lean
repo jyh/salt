@@ -22,8 +22,8 @@ the a=0 crude atom `Salt.Maynard.phiAtomSum z W'` instead of an opaque
 `∃ c, ...` constant. No `∃` appears anywhere; every coefficient is a literal
 (`1`, `2`, `4/D`).
 
-The Euler tail bound and the box and `h/φ` facts are read from
-`BudgetMomentG.lean`. The rest of the shared machinery (log/reindex facts,
+The Euler tail bound, the box and `h/φ` facts and `gMult_mul_coprime` are read
+from `BudgetMomentG.lean`. The rest of the shared machinery (log/reindex facts,
 the `1/g` divisor expansion) is `private` to its own files, so it is
 re-derived here verbatim.
 -/
@@ -72,12 +72,6 @@ private lemma totient_reindex {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) 
   exact_mod_cast heq
 
 /-! ## Local helpers, re-derived from `Salt.Twelve.BudgetMomentG` (there: `private`) -/
-
-/-- `g` is multiplicative on a coprime factorization. -/
-private lemma gMult_mul_coprime {s b : ℕ} (hcop : Nat.Coprime s b) :
-    gMult (s * b) = gMult s * gMult b := by
-  rw [gMult, gMult, gMult, Nat.Coprime.primeFactors_mul hcop,
-    Finset.prod_union hcop.disjoint_primeFactors]
 
 /-- Divisors of a squarefree `r` are the products of subsets of its prime
 factors. -/
