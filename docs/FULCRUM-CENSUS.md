@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `8499bedb` · source digest `cf27d02a816860bf` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `d6c9fd50` · source digest `571ea57b811ac466` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,7 +22,7 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 23427 | 691 | 22725 | 9148 | 13 | 293 | 40 | 345 | 84 |
+| 23420 | 691 | 22718 | 9148 | 13 | 293 | 40 | 345 | 84 |
 
 Per-polarity totals over the 691 Props: with F-consumers 538 · with ¬F-consumers 21 · with F-producers (any kind) 451 · with ¬F-producers (any kind) 59.
 
@@ -218,7 +218,7 @@ By kind: case split `by_cases` 81 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.MR.thm_a2'_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:1917 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.MR.thm_a2'` | Salt/MR/ThmA2Rows.lean:716 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.MR.thm_a2'_gk` | Salt/MR/ThmA2Rows.lean:1570 | `Salt.MR.CapFreeFloor` |
-| case split `by_cases` | `Salt.Maynard.compat_moebius_expansion` | Salt/Maynard/CollisionQuant.lean:1675 | `Salt.Maynard.IsCollisionPair` |
+| case split `by_cases` | `Salt.Maynard.compat_moebius_expansion` | Salt/Maynard/CollisionQuant.lean:1664 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.S2m_ge_compatMain_lod_uniform` | Salt/Maynard/LevelConsume.lean:451 | `Salt.Maynard.IsCollisionPair` |
 | case split `by_cases` | `Salt.Maynard.classSum_pp2_le` | Salt/Maynard/PpFold.lean:235 | `Salt.Maynard.isPrimeSq` |
 | case split `by_cases` | `Salt.Maynard.pp2Term_le_ppTerm` | Salt/Maynard/PpFold.lean:340 | `Salt.Maynard.isPrimeSq` |
