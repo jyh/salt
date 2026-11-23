@@ -420,7 +420,10 @@ def receipt_problems(entries: list[dict], rc: dict | None) -> list[str]:
             if r and r.get("dirty") != "0->0":
                 p.append(f"the {nm} record reads dirty={r.get('dirty')}, not 0->0: the commit it names may not "
                          "be the source that was built; re-take it in a clean tree")
-        if arec and rc.get("scratch_sha") and arec.get("sha") and not rc["scratch_sha"].startswith(arec["sha"]):
+        if arec and not (rc.get("scratch_sha") and arec.get("sha")):
+            p.append("the receipt does not tie the audit record to a scratch (scratch_sha or the record's sha "
+                     "is missing)")
+        elif arec and not rc["scratch_sha"].startswith(arec["sha"]):
             p.append(f"the audited scratch (sha {arec.get('sha')}) is not the file --audit-file writes now "
                      f"(sha {rc['scratch_sha'][:12]})")
     for e in entries:
@@ -574,6 +577,8 @@ def self_test() -> int:
         ("mutant: the build ran in a dirty tree", {**good, "build": {**good["build"], "record": {**brec, "dirty": "2->3"}}}),
         ("mutant: a record with no dirty count (the pre-triple receipt)",
          {**good, "build": {**good["build"], "record": {k: v for k, v in brec.items() if k != "dirty"}}}),
+        ("mutant: scratch_sha removed", {k: v for k, v in good.items() if k != "scratch_sha"}),
+        ("mutant: the audit record's sha removed", {**good, "audit_record": {k: v for k, v in arec.items() if k != "sha"}}),
         ("mutant: the audited scratch is not the current audit file",
          {**good, "scratch_sha": "00" * 8, "audit_record": {**arec, "sha": "ff"}}),
     ]:
