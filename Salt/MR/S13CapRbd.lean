@@ -29,7 +29,7 @@ This file is wave **W-RBD**: the bundle's four co-factor fields, at the shared b
 | `Rbd_socket` | 1072 | SUPPLIED | `RbdSupply.m4_supplier_all_chi` at `J = 2`, `Ps = 1` |
 
 ⟦MAESTRO RULING 9⟧ `Rbd_grade` and `Cq_gate` are carried as SUPPLIER HYPOTHESES — they are
-hypotheses at all six landed sites already (`M4DoorClose:265`/`:211`,
+hypotheses at all six landed sites already (`M4DoorClose:266`/`:211`,
 `M4DoorClosePool:208/532/887/1217`, `M4T0Discharge:706`), so the corpus posture is
 unchanged.  They are stated here VERBATIM at the pin `C_R := gradeCR2 Cb`, which is the
 spelling every one of those sites uses; the wide-arm grading page (which would DERIVE them)
@@ -57,13 +57,13 @@ socket into `DoorCapBase`'s `Rbd_binder`), so the field and the wire agree byte 
 gates (the 34 of the supplier minus the three the pin discharges: `1 ≤ Ps`, `0 < θ`,
 `θ ≤ 1/32`), the two existential constants `X₀` (the wide-supply scale) and `K` (the `_vt`
 floor's threshold constant — ⟦NOT `DoorArithFrameRho`'s `K`⟧, and never identified with it),
-the mask debit `D`, and three register lines quoted verbatim from `M4DoorClose:264/265/211`.
-The gate block is `M4DoorClose.lean:233–266`'s, at the S13 pin above.
+the mask debit `D`, and three register lines quoted verbatim from `M4DoorClose:265/266/212`.
+The gate block is `M4DoorClose.lean:234–267`'s, at the S13 pin above.
 
 ⟦THE `0 ≤ R̄₀` LINE⟧ is carried rather than derived because `ramI H P Q` may be EMPTY, in
 which case the endpoint gate says nothing.  §1 below is the wire that discharges it at any
 site whose block set is inhabited (`CofactorSupplier.cofactorRbdGen_nonneg`); the register
-line is `M4DoorClose:264` verbatim, so no landed site pays anything new.
+line is `M4DoorClose:265` verbatim, so no landed site pays anything new.
 -/
 
 noncomputable section
@@ -81,8 +81,8 @@ open Salt.Entropy.Chowla
 block, so `0 ≤ R̄₀` is free as soon as ONE block exists. -/
 
 /-- **⟦`0 ≤ R̄₀` FROM THE ENDPOINT GATE⟧** (`s13_rbar0_nonneg_of_ramI`).  At an inhabited
-block set, the register's `0 ≤ R̄₀` line (`M4DoorClose:264`) is redundant: it follows from
-`0 ≤ S` and the endpoint gate (`M4DoorClose:261–263`). -/
+block set, the register's `0 ≤ R̄₀` line (`M4DoorClose:265`) is redundant: it follows from
+`0 ≤ S` and the endpoint gate (`M4DoorClose:262–264`). -/
 theorem s13_rbar0_nonneg_of_ramI {H : ℝ} {P Q : ℕ} {Mt kk : ℕ → ℕ} {Rrad S Rbar0 : ℝ}
     (hS0 : 0 ≤ S) (hne : (ramI H P Q).Nonempty)
     (hRbdU : ∀ j ∈ ramI H P Q,
@@ -101,7 +101,7 @@ four co-factor fields — `Rbd_nonneg` (1066), `Rbd_grade` (1068), `Cq_gate` (10
   `Rbd = 2 ^ 2 * Rbar0` (⟦`J = 2`⟧) and `CR = gradeCR2 Cb`.
 
 The hypothesis register is `RbdSupply.m4_supplier_all_chi`'s, verbatim, at the S13 pin
-(module header), together with the three lines `M4DoorClose:264`, `:265` and `:211` that
+(module header), together with the three lines `M4DoorClose:265`, `:265` and `:211` that
 ⟦RULING 9⟧ keeps as supplier hypotheses.  The existentials `X₀` and `K` are the supplier's
 own — a wide-supply scale and the `_vt` floor's threshold constant. -/
 theorem s13CapRbd_all (Qm : ℕ) :
@@ -159,7 +159,7 @@ theorem s13CapRbd_all (Qm : ℕ) :
         (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
           cofactorRbdGen S ((kk j : ℕ) : ℝ) ((Mt j : ℕ) : ℝ)
               (Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ))) Rrad ≤ Rbar0) →
-        -- ⟦RULING 9 — the three carried register lines (`M4DoorClose:264`, `:265`, `:211`)⟧
+        -- ⟦RULING 9 — the three carried register lines (`M4DoorClose:265`, `:265`, `:211`)⟧
         0 ≤ Rbar0 →
         4 * Rbar0 ≤ gradeCR2 Cb * (Real.log ((Nd : ℕ) : ℝ)) ^ (-rho293) →
         1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log ((Nd : ℕ) : ℝ)) ^ (2 * theta293) →
@@ -248,7 +248,7 @@ theorem s13CapRbd_all_gk (K : ℕ) (Qm : ℕ) :
         (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
           cofactorRbdGen S ((kk j : ℕ) : ℝ) ((Mt j : ℕ) : ℝ)
               (Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ))) Rrad ≤ Rbar0) →
-        -- ⟦RULING 9 — the three carried register lines (`M4DoorClose:264`, `:265`, `:211`)⟧
+        -- ⟦RULING 9 — the three carried register lines (`M4DoorClose:265`, `:265`, `:211`)⟧
         0 ≤ Rbar0 →
         4 * Rbar0 ≤ gradeCR2 Cb * (Real.log ((Nd : ℕ) : ℝ)) ^ (-rho293) →
         1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log ((Nd : ℕ) : ℝ)) ^ (2 * theta293) →
