@@ -1,9 +1,21 @@
 {
+ "audit_record": {
+  "args": [
+   "HeadlineAudit.lean"
+  ],
+  "exit": "0",
+  "head": "7c91f819",
+  "kind": "audit",
+  "when": "2026-11-23 05:30:18"
+ },
  "axioms": {
   "Keller.jacobian_conjecture_counterexample": [
    "Classical.choice",
    "Quot.sound",
    "propext"
+  ],
+  "Lean.reduceBool": [
+   "Lean.trustCompiler"
   ],
   "Salt.BrunLower.twin_almost_prime": [
    "Classical.choice",
@@ -19,9 +31,6 @@
    "Classical.choice",
    "Quot.sound",
    "propext"
-  ],
-  "Salt.HeadlineAudit.sorry_control": [
-   "sorryAx"
   ],
   "Salt.MR.lambda_nonpret": [
    "Classical.choice",
@@ -84,8 +93,36 @@
    "propext"
   ]
  },
- "built_at": "e7d9a19067",
- "date": "2026-11-09",
+ "build": {
+  "exit": "0",
+  "log_sha256": "b95ef660d8ff3fb3",
+  "record": {
+   "args": [
+    "Salt.Brun.N6",
+    "Salt.BrunLower.TwinInstance",
+    "Salt.Chen.ChenTheorem",
+    "Salt.Goldbach.ChenGoldbach",
+    "Salt.Keller.Counterexample",
+    "Salt.MR.NonPretClose",
+    "Salt.MaynardK.Gaps600",
+    "Salt.SW.Gate",
+    "Salt.ThreePrimes.Assembly",
+    "Salt.TwinBar.WallUnconditional",
+    "Salt.TwinBar.Witness",
+    "Salt.Vk.GrowthPow",
+    "Salt.Vmvt.Summit2",
+    "Salt.Weil.Descent",
+    "SaltC1.MaynardK.Gaps270"
+   ],
+   "exit": "0",
+   "head": "7c91f819",
+   "kind": "build",
+   "when": "2026-11-23 05:30:12"
+  },
+  "tagged_errors": 0
+ },
+ "built_at": "7c91f8197e",
+ "date": "2026-11-23",
  "digests": {
   "Keller.jacobian_conjecture_counterexample": "f86d5f9e67d09bbd",
   "Salt.BrunLower.twin_almost_prime": "fd681cb58d72661f",
@@ -105,7 +142,7 @@
   "SaltC1.MaynardK.gaps_le_270": "e67140b140ccd894"
  },
  "exit": "0",
- "log_sha256": "80639d1599692bed",
+ "log_sha256": "0606c5c2caf6472b",
  "plain_error_lines": 0,
  "tagged_errors": 0
 }

@@ -4,7 +4,7 @@
 
 The landed top-level results of this repository, one theorem each. Each statement below is copied from the Lean source by the generator; the Lean statement is the authority, and the one-line summary beside it is a paraphrase from [RESULTS.md](RESULTS.md), which holds every registered result (this page is the short list).
 
-**What "axiom-audited" means here.** Each theorem is checked two ways. (1) Its ledger (named in its entry) fails CI if the theorem depends on any axiom other than `propext`, `Classical.choice`, `Quot.sound`: an `#audit_axioms` line fails `lake build`, and a `scripts/blueprint_lint.py` HEADLINERS entry fails the blueprint lint. (2) The receipt at the foot of this page: one build log in which the build exits 0 with no errors and `#print axioms` names only those three for every theorem, while a planted `sorry` in the same file prints `sorryAx`. The check is `python3 scripts/headline_theorems.py --check`, which also fails if any statement has changed since the receipt was taken.
+**What "axiom-audited" means here.** Each theorem is checked two ways. (1) Its ledger (named in its entry) fails CI if the theorem depends on any axiom other than `propext`, `Classical.choice`, `Quot.sound`: an `#audit_axioms` line fails `lake build`, and a `scripts/blueprint_lint.py` HEADLINERS entry fails the blueprint lint. (2) The receipt at the foot of this page, in three parts: a build of every module that defines one of these theorems, exiting 0 with no errors (an audit that builds nothing reads axiom tables written into each compiled file at its last build, which can be stale); then an audit log, exiting 0 with no errors, in which `#print axioms` names only those three for every theorem; and in that log an imported control, `Lean.reduceBool`, printing `Lean.trustCompiler`. The check is `python3 scripts/headline_theorems.py --check`, which also fails if any statement has changed since the receipt was taken.
 
 **Commit and date** are the first commit in this repository's public history that adds the declaration to its file, and that commit's author date.
 
@@ -231,10 +231,11 @@ theorem jacobian_conjecture_counterexample :
 
 ## Receipt
 
-Built at commit `e7d9a19067` on 2026-11-09; log sha256 `80639d1599692bed`.
+Built at commit `7c91f8197e` on 2026-11-23; audit log sha256 `0606c5c2caf6472b`, build log sha256 `b95ef660d8ff3fb3`.
 
-- `saltbuild EXIT=0` · tagged errors 0
+- build line (the 15 defining modules, rebuilt before the audit): `saltbuild EXIT=0` · tagged errors 0
+- audit log: `saltbuild EXIT=0` · tagged errors 0
 - 16 of 16 theorems print only `Classical.choice, Quot.sound, propext` (or a subset)
-- control `Salt.HeadlineAudit.sorry_control`: `sorryAx`
+- imported control `Lean.reduceBool`: `Lean.trustCompiler`
 
-To re-take it: `python3 scripts/headline_theorems.py --audit-file HeadlineAudit.lean`, then `../saltbuild.sh HeadlineAudit.lean > audit.log 2>&1`, then `python3 scripts/headline_theorems.py --receipt audit.log` and regenerate this page.
+To re-take it: `python3 scripts/headline_theorems.py --audit-file HeadlineAudit.lean`, then `../saltbuild.sh $(python3 scripts/headline_theorems.py --build-targets) > build.log 2>&1`, then `../saltbuild.sh HeadlineAudit.lean > audit.log 2>&1`, then `python3 scripts/headline_theorems.py --receipt build.log audit.log` and regenerate this page.
