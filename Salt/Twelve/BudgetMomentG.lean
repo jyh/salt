@@ -44,7 +44,7 @@ open Salt.Maynard
 /-! ## `box_g_pos` and per-prime facts on the box -/
 
 /-- Any prime dividing a number coprime to `W'` exceeds `D`. -/
-private lemma box_prime_gt {W' D r : ℕ} (hrcop : r.Coprime W')
+lemma box_prime_gt {W' D r : ℕ} (hrcop : r.Coprime W')
     (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) {p : ℕ}
     (hpp : p.Prime) (hpr : p ∣ r) : D < p := by
   refine hD p hpp (fun hpW => ?_)
@@ -140,7 +140,7 @@ private lemma inv_gMult_expand {r : ℕ} (hrsq : Squarefree r)
   ring
 
 /-- For squarefree `d`, `h(d)·(1/φ(d)) = ∏_{p ∣ d} ((p−1)(p−2))⁻¹`. -/
-private lemma h_over_phi {d : ℕ} (hd : Squarefree d) :
+lemma h_over_phi {d : ℕ} (hd : Squarefree d) :
     (∏ p ∈ d.primeFactors, ((p : ℝ) - 2)⁻¹) * ((Nat.totient d : ℝ))⁻¹
       = ∏ p ∈ d.primeFactors, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹ := by
   rw [totient_squarefree_cast hd, ← Finset.prod_inv_distrib,
@@ -175,7 +175,7 @@ private lemma prod_one_add_le {ι : Type*} (s : Finset ι)
 
 /-- Telescoping tail bound:
 `∑_{D < n ≤ M} ((n−1)(n−2))⁻¹ ≤ (D−1)⁻¹` for `2 ≤ D`. -/
-private lemma inv_prod_tele (D : ℕ) (hD : 2 ≤ D) :
+lemma inv_prod_tele (D : ℕ) (hD : 2 ≤ D) :
     ∀ M : ℕ, D ≤ M →
       (∑ n ∈ Finset.Icc (D + 1) M, (((n : ℝ) - 1) * ((n : ℝ) - 2))⁻¹)
         ≤ ((D : ℝ) - 1)⁻¹ - ((M : ℝ) - 1)⁻¹ := by
@@ -202,7 +202,7 @@ private lemma inv_prod_tele (D : ℕ) (hD : 2 ≤ D) :
 /-- **The Euler tail.** For `D ≥ 3`, the sum of `h(d)/φ(d) = ∏_{p∣d}((p−1)(p−2))⁻¹`
 over nontrivial squarefree moduli `< M` with all prime factors `> D` is at most
 `2/(D−1)`.  (Powerset expansion + `prod_one_add_le` + telescoping tail.) -/
-private lemma tail_erase_le (D M : ℕ) (hD : 3 ≤ D) :
+lemma tail_erase_le (D M : ℕ) (hD : 3 ≤ D) :
     ∑ d ∈ ((Finset.range M).filter
         (fun d => Squarefree d ∧ ∀ p ∈ d.primeFactors, D < p)).erase 1,
       ∏ p ∈ d.primeFactors, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹
@@ -308,7 +308,7 @@ private lemma tail_erase_le (D M : ℕ) (hD : 3 ≤ D) :
 
 /-- **The full Euler tail (including `d = 1`).** For `D ≥ 3` and `2 ≤ M`,
 `∑_{d < M, nice} ∏_{p∣d}((p−1)(p−2))⁻¹ ≤ 2`.  This is `1 + tail_erase ≤ 1 + 2/(D−1) ≤ 2`. -/
-private lemma tail_full_le (D M : ℕ) (hD : 3 ≤ D) (hM : 2 ≤ M) :
+lemma tail_full_le (D M : ℕ) (hD : 3 ≤ D) (hM : 2 ≤ M) :
     ∑ d ∈ (Finset.range M).filter
         (fun d => Squarefree d ∧ ∀ p ∈ d.primeFactors, D < p),
       ∏ p ∈ d.primeFactors, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹ ≤ 2 := by

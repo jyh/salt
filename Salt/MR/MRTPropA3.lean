@@ -729,7 +729,7 @@ bound on the UNTWISTED, NORM-form prime sum**; `mrtM` provably runs the wrong wa
 (`pretDistSq_one_le_sum_norm`), and at `f = λ` the route is vacuous by `(log x)^{2+1/10}`
 (`sum_norm_one_sub_liouvilleC`).
 
-**The door — walked to the corpus's own named residue.**  `M4RowMeanSq_L` (`M4RowLinear:993`),
+**The door — walked to the corpus's own named residue.**  `M4RowMeanSq_L` (`M4RowLinear:994`),
 labelled the wave's ⟦RESIDUE⟧ at its own definition site; of its two obstructions ⟦THE WALL⟧ is
 REPAIRED (07-28) and ⟦THE CLASS PRICING⟧ is OPEN and design-tier.
 
@@ -791,7 +791,7 @@ predecessor already lost a day to two different objects both called "Prop 2.4".
 length — the same family as `dpolyS_l2_mvt_final`.  69 references, 13 files, decoy 0.
 
 **4. AND IT HAS A PRODUCER, SO THE ROAD CONTINUES.**  `m4_dyadicRow_carried`
-(`M4DoorClose.lean:535`) concludes `M4ChiDyadicRowMeanSq R M k MS` from: `1 ≤ M`; the modulus
+(`M4DoorClose.lean:524`) concludes `M4ChiDyadicRowMeanSq R M k MS` from: `1 ≤ M`; the modulus
 cap `arcDen 12 H ≤ Qm`; the trivial grade below `doorRowFloor M` (that is item 1); and
 `DoorRowCarried …` above it.  Its constants are **constructed** (`∃ Cq cq T₀ Xcap Cs Ccc …`
 via `m4_door_meansq_carried`), not assumed.
@@ -892,7 +892,7 @@ earlier were all published first and corrected after.  **Fencing is cheap; retra
 /-! ### THE ROAD BOTTOMS OUT — AND THE CORPUS NAMES ITS OWN FRONTIER
 
 Walked the gates down: `M4SievedDoorSq_L → M4BlockMeanSq_L → M4RowMeanSq_L`.
-`M4RowMeanSq_L` (`M4RowLinear.lean:993`) has **no producer** — established by reading **all six
+`M4RowMeanSq_L` (`M4RowLinear.lean:994`) has **no producer** — established by reading **all six
 of its mentions**, not by a probe: docstring · def · a cross-ref · the `hrow` binder (`:1394`) ·
 an enumeration entry (`:2868`) · one arrow (`:2883`).
 
@@ -937,7 +937,7 @@ produces it from **two explicit inequalities and NO other gate**:
 *It bottoms out in arithmetic about the delivered grade, not in another Prop socket.*
 
 **`M4SievedDoorSq_L`** (`M4LadderLinear.lean:1774`) — `m4_cover_assembly_L`
-(`M4RowLinear.lean:1516`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
+(`M4RowLinear.lean:1517`) produces it from `M4DoorGates_L` + `Bblk ≥ 0` + **`M4BlockMeanSq_L`**.
 Its own docstring states the gate bundle is *"the same bundle `m4_hbd_of_live_L` reads, so the
 join needs no new hypothesis"* — so this reduction is free at the seam.  ⇒ **it reduces to the
 BLOCK MEAN SQUARE**, which is what `M4Maximal.m4_chiBlockMeanSq_of_shiftBlock` produces.
