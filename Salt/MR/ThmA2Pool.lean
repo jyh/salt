@@ -38,8 +38,8 @@ the single-`φ(q)` payment (KNOT2-SCOPE's note) and is deliberately not offered.
 * §1 `thm_a2'_of_rows_pool` — the `q = 1` crossing twin at a free pool;
 * §2 `thm_a2'_of_rows_chiSummed_pool` — its `Σ_χ` wrapper.
 
-Additive: no landed declaration is touched.  `ThmA2.spine_scale` is `private` to its module,
-so §1 carries its own copy (`spine_scale_pool`, same statement, same proof).
+Additive: no landed declaration is touched.  The spine's `π`-arithmetic is
+`ThmA2.spine_scale`, imported.
 -/
 
 noncomputable section
@@ -50,22 +50,6 @@ open MeasureTheory
 namespace Salt.MR
 
 /-! ## §1 — THE `q = 1` INTERFACE, AT A FREE POOL -/
-
-/-- The `π`-arithmetic of the spine's prefactor `1/(2π²)`, isolated (`ThmA2.spine_scale`'s
-statement and proof, re-stated here because the original is module-private):
-`236365/(2π) ≤ 37620`, `205/(2π) ≤ 33`, `39674880/(2π) ≤ 6315000`. -/
-private lemma spine_scale_pool {p Mr Bd w Eg eg : ℝ} (hp1 : 3.141592 < p)
-    (hMr : 0 ≤ Mr) (hBd : 0 ≤ Bd) (hw : 0 ≤ w) (hEg : Eg ≤ 2 * p ^ 2 * eg) :
-    1 / (2 * p ^ 2) * (236365 * p * Mr + 205 * p * Bd + 39674880 * p * w + Eg)
-      ≤ 37620 * Mr + 33 * Bd + 6315000 * w + eg := by
-  have hp0 : (0 : ℝ) < p := by linarith
-  have hp2pos : (0 : ℝ) < 2 * p ^ 2 := by positivity
-  rw [one_div, inv_mul_eq_div, div_le_iff₀ hp2pos]
-  have h1 : 236365 * p ≤ 75240 * p ^ 2 := by nlinarith
-  have h2 : 205 * p ≤ 66 * p ^ 2 := by nlinarith
-  have h3 : 39674880 * p ≤ 12630000 * p ^ 2 := by nlinarith
-  nlinarith [mul_le_mul_of_nonneg_right h1 hMr, mul_le_mul_of_nonneg_right h2 hBd,
-    mul_le_mul_of_nonneg_right h3 hw]
 
 /-- **thm_A2′ AT A FREE CONSTANT POOL** (`thm_a2'_of_rows_pool`) — ⟦R2⟧'s crossing twin of
 `ThmA2.thm_a2'_of_rows`.  The frozen five-summand interface with the three `X`-side sources
@@ -193,7 +177,7 @@ theorem thm_a2'_of_rows_pool {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' 
     rw [e3]
     linarith
   refine hmono.trans ?_
-  have hscale := spine_scale_pool (p := Real.pi)
+  have hscale := spine_scale (p := Real.pi)
     (Mr := 47520 * a2Level1 M + 5 * π₀)
     (Bd := 256 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
         + π₀
