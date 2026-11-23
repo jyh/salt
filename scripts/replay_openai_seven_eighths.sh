@@ -20,8 +20,10 @@
 #      not changed
 #   4  build the solution module
 #   5  check the challenge statement against the theorem, and assert the axioms of both (exactly the
-#      three standard ones), beside a planted `sorry` that must print `sorryAx`; the scratch module is
-#      removed after
+#      three standard ones), with an IMPORTED control (`Lean.reduceBool`, read from core's olean table,
+#      must print `Lean.trustCompiler`) and a planted `sorry` (a printer check only); the scratch module
+#      is removed after. The axioms of an IMPORTED name are read from a table written into its olean
+#      when it was built, so step 4's build of the solution module is what makes them current.
 #   6  CONTROL: a module holding `replay78_bad : False := True.intro`, added with the kernel's check
 #      skipped; `leanchecker --fresh` on it must FAIL, AT that declaration; the module is removed after
 #   7  `leanchecker --fresh` on the solution module: every imported declaration replayed into an
@@ -94,7 +96,7 @@ run git -C "$L" diff --exit-code -- lake-manifest.json
 say "4  build $MOD"
 build "$MOD" solution
 
-say "5  the challenge statement, the axioms, and a planted sorry"
+say "5  the challenge statement, the axioms, an imported control and a planted sorry"
 if [ "$DRY" = 0 ]; then cat > "$L/ScratchReplay78.lean" <<EOF
 import $MOD
 
@@ -107,6 +109,9 @@ theorem replay78_challenge_statement
 
 #print axioms $THM
 #print axioms replay78_challenge_statement
+
+-- the IMPORTED control: a core constant whose axioms are read from its olean's table
+#print axioms Lean.reduceBool
 
 theorem replay78_control : (1 : ℕ) = 2 := by sorry
 #print axioms replay78_control
@@ -122,9 +127,11 @@ if [ "$DRY" = 0 ]; then
     || { echo "FAILED: the axioms of $THM are not the three standard ones (log $A)"; exit 1; }
   tr -s '[:space:]' ' ' < "$A" | grep -F -q "'replay78_challenge_statement' depends on axioms: [propext, Classical.choice, Quot.sound]" \
     || { echo "FAILED: the axioms of replay78_challenge_statement are not the three standard ones (log $A)"; exit 1; }
+  tr -s '[:space:]' ' ' < "$A" | grep -F -q "'Lean.reduceBool' depends on axioms: [Lean.trustCompiler]" \
+    || { echo "FAILED: the imported control Lean.reduceBool did not print Lean.trustCompiler, so the imported path is not shown able to report (log $A)"; exit 1; }
   tr -s '[:space:]' ' ' < "$A" | grep -F -q "'replay78_control' depends on axioms: [sorryAx]" \
-    || { echo "FAILED: the planted sorry did not print sorryAx, so the audit saw nothing (log $A)"; exit 1; }
-  echo "AXIOMS: $THM and replay78_challenge_statement depend on [propext, Classical.choice, Quot.sound]; the control prints [sorryAx]"
+    || { echo "FAILED: the planted sorry did not print sorryAx, so the printer saw nothing (log $A)"; exit 1; }
+  echo "AXIOMS: $THM and replay78_challenge_statement depend on [propext, Classical.choice, Quot.sound]; the imported control prints [Lean.trustCompiler]; the planted sorry prints [sorryAx]"
   rm -f -- "${L:?}/ScratchReplay78.lean"
 fi
 
