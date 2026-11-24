@@ -1876,7 +1876,7 @@ lemma eval_bpoly_bound {n : ℕ} (P : BPoly n) (t : Fin n → ℝ)
 
 /-- A nonnegative `g` (`hg`) summed over a `biUnion` is at most the sum of the sums over the
 pieces (induction on `s`; the overlap `t a ∩ s.biUnion t` is dropped as a nonnegative term). -/
-private lemma sum_biUnion_le {ι : Type*} (s : Finset ι) (t : ι → Finset ℕ)
+lemma sum_biUnion_le {ι : Type*} (s : Finset ι) (t : ι → Finset ℕ)
     (g : ℕ → ℝ) (hg : ∀ i ∈ s, ∀ p ∈ t i, 0 ≤ g p) :
     ∑ p ∈ s.biUnion t, g p ≤ ∑ i ∈ s, ∑ p ∈ t i, g p := by
   classical

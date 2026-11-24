@@ -1296,35 +1296,16 @@ theorem inner_contract_rel (F : Poly) (m : Fin 5) :
   refine le_trans (ic_list_sum_le F _ _ hpera) ?_
   rw [hbndsum]
 
-/-! ## `mv_J_split` — shared helpers (copies of `MvJ.lean`'s; the public ones serve the splits)
+/-! ## `mv_J_split` — shared helpers (those still here are copies of `MvJ.lean`'s; the public ones
+serve the splits)
 
-`gMult_prime_cast`, `gMult_one_cast`, `gMult_pq_cast`, `box_PF_subset`, `PFsum_nn` and
-`eval_bpoly_bound` are `MvJ.lean`'s own. -/
-
-/-- A nonnegative `g` (`hg`) summed over a `biUnion` is at most the sum of the sums over the
-pieces (induction on `s`; the overlap `t a ∩ s.biUnion t` is dropped as a nonnegative term). -/
-lemma mjs_sum_biUnion_le {ι : Type*} (s : Finset ι) (t : ι → Finset ℕ)
-    (g : ℕ → ℝ) (hg : ∀ i ∈ s, ∀ p ∈ t i, 0 ≤ g p) :
-    ∑ p ∈ s.biUnion t, g p ≤ ∑ i ∈ s, ∑ p ∈ t i, g p := by
-  classical
-  induction s using Finset.induction with
-  | empty => simp
-  | insert a s ha ih =>
-    rw [Finset.biUnion_insert, Finset.sum_insert ha]
-    have hga : ∀ p ∈ t a, 0 ≤ g p := hg a (Finset.mem_insert_self a s)
-    have hgs : ∀ i ∈ s, ∀ p ∈ t i, 0 ≤ g p :=
-      fun i hi => hg i (Finset.mem_insert_of_mem hi)
-    have hunion : ∑ p ∈ t a ∪ s.biUnion t, g p ≤ ∑ p ∈ t a, g p + ∑ p ∈ s.biUnion t, g p := by
-      rw [← Finset.sum_union_inter]
-      have : 0 ≤ ∑ p ∈ t a ∩ s.biUnion t, g p :=
-        Finset.sum_nonneg (fun p hp => hga p (Finset.mem_of_mem_inter_left hp))
-      linarith
-    linarith [ih hgs]
+`gMult_prime_cast`, `gMult_one_cast`, `gMult_pq_cast`, `box_PF_subset`, `PFsum_nn`,
+`eval_bpoly_bound` and `sum_biUnion_le` are `MvJ.lean`'s own. -/
 
 /-- Subadditivity of the marked-prime sum over a product:
 `Σ_{p ∣ ∏ ρ} 1/(p − 1) ≤ Σ_i Σ_{p ∣ ρ i} 1/(p − 1)` for nonzero coordinates (`hρ`); the prime
 factors of the product are covered by the `biUnion` of the coordinates'
-(`Prime.exists_mem_finset_dvd`), then `mjs_sum_biUnion_le`. -/
+(`Prime.exists_mem_finset_dvd`), then `sum_biUnion_le`. -/
 private lemma mjs_P_subadd (ρ : Fin 4 → ℕ) (hρ : ∀ i, ρ i ≠ 0) :
     (∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1)))
       ≤ ∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))) := by
@@ -1347,7 +1328,7 @@ private lemma mjs_P_subadd (ρ : Fin 4 → ℕ) (hρ : ∀ i, ρ i ≠ 0) :
         have : (0:ℝ) < (p:ℝ) - 1 := by linarith
         positivity
     _ ≤ ∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))) := by
-        apply mjs_sum_biUnion_le
+        apply sum_biUnion_le
         intro i _ p hp
         have hpp := Nat.prime_of_mem_primeFactors hp
         have h2 : (2:ℝ) ≤ (p:ℝ) := by exact_mod_cast hpp.two_le
