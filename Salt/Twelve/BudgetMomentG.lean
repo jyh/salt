@@ -66,7 +66,7 @@ theorem box_g_pos {W' D r : ℕ} (_hr : Squarefree r) (hrcop : r.Coprime W')
   omega
 
 /-- `g` is multiplicative on a coprime factorization. -/
-private lemma gMult_mul_coprime {s b : ℕ} (hcop : Nat.Coprime s b) :
+lemma gMult_mul_coprime {s b : ℕ} (hcop : Nat.Coprime s b) :
     gMult (s * b) = gMult s * gMult b := by
   rw [gMult, gMult, gMult, Nat.Coprime.primeFactors_mul hcop,
     Finset.prod_union hcop.disjoint_primeFactors]

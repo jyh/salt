@@ -1308,15 +1308,12 @@ lemma mjs_gMult_one_cast : (gMult 1 : ℝ) = 1 := by
   rw [gMult, Nat.primeFactors_one, Finset.prod_empty]; norm_num
 
 /-- `g(pq) = (p − 2)(q − 2)` for distinct primes (`hp`, `hq`, `hpq`): `gMult` is multiplicative
-on coprime arguments (`Nat.Coprime.primeFactors_mul`, `Finset.prod_union`), then
+on coprime arguments (`gMult_mul_coprime`), then
 `mjs_gMult_prime_cast` twice. -/
 lemma mjs_gMult_pq_cast {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) :
     (gMult (p * q) : ℝ) = ((p:ℝ) - 2) * ((q:ℝ) - 2) := by
   have hcop : Nat.Coprime p q := (Nat.coprime_primes hp hq).mpr hpq
-  have hmul : gMult (p * q) = gMult p * gMult q := by
-    rw [gMult, gMult, gMult, Nat.Coprime.primeFactors_mul hcop,
-      Finset.prod_union hcop.disjoint_primeFactors]
-  rw [hmul, Nat.cast_mul, mjs_gMult_prime_cast hp, mjs_gMult_prime_cast hq]
+  rw [gMult_mul_coprime hcop, Nat.cast_mul, mjs_gMult_prime_cast hp, mjs_gMult_prime_cast hq]
 
 /-- Every prime factor of an `x < R` coprime to `W'` (`hxR`, `hxcop`) lies in the prime window
 `D < p < R`: `p ≤ x < R`, and `p ∤ W'` (coprimality) gives `D < p` by `hD`. -/

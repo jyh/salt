@@ -552,19 +552,12 @@ termwise `V`-bound `∏g(w)·|V(w)| ≤ PAS+ε` (both below); the contamination
 partition then mirrors `s1_inner_bounded` verbatim with `φ→g`, `(p−1)→(p−2)`,
 `M→(2·PAS)⁴`. -/
 
-/-- `gMult` is multiplicative on coprime arguments (local copy of the `private`
-`gMult_mul_coprime`). -/
-private lemma gMult_mul_cop {a b : ℕ} (h : Nat.Coprime a b) :
-    gMult (a * b) = gMult a * gMult b := by
-  unfold gMult
-  rw [Nat.Coprime.primeFactors_mul h, Finset.prod_union h.disjoint_primeFactors]
-
 /-- **`g`-side `lcm`-split** (the `g`-analog of `totient_lcm_split`): for
 squarefree `a`, `g(lcm b a) = g(b)·g(a/gcd(a,b))` with coprime factors. -/
 lemma gMult_lcm_split {a b : ℕ} (ha : Squarefree a) :
     gMult (Nat.lcm b a) = gMult b * gMult (a / Nat.gcd a b) := by
   obtain ⟨heq, hcop⟩ := lcm_split (a := a) (b := b) ha
-  rw [heq, gMult_mul_cop hcop]
+  rw [heq, gMult_mul_coprime hcop]
 
 omit [Salt.Maynard.TupleChoice] in
 /-- **The contraction `V` vanishes off the pinned box.**  If `w` is not a box

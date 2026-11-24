@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `2dd0fcd7` · source digest `d03dad9e50b80f25` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `0adc6b91` · source digest `4cdeaebe6bc13f21` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23410 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23409 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -8908,9 +8908,9 @@ Declarations indexed across the tree: 23410 · corpus Prop-valued names (the hyp
 | `Salt.ThreePrimes.three_primes_of_standoff` | Salt/ThreePrimes/SiegelFree.lean:44 | other | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.Twelve.gaps_le_twelve_of_frontierM` | Salt/Twelve/GapsFinal.lean:303 | sieves | `WindowPNT`, `EHall`, `Salt.Twelve.WinFrontierM` |
 | `Salt.Twelve.gaps_le_twelve` | Salt/Twelve/GapsUncond.lean:1090 | sieves | `WindowPNT`, `EHall` |
-| `Salt.Twelve.s2_inner_yF` | Salt/Twelve/InnerS2.lean:1254 | sieves | `Salt.Twelve.PhiUpperAtom` |
+| `Salt.Twelve.s2_inner_yF` | Salt/Twelve/InnerS2.lean:1247 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.mv_I` | Salt/Twelve/MvI.lean:274 | sieves | `Salt.Twelve.PhiUpperAtom` |
-| `Salt.Twelve.mv_J` | Salt/Twelve/MvJ.lean:2242 | sieves | `Salt.Twelve.PhiUpperAtom` |
+| `Salt.Twelve.mv_J` | Salt/Twelve/MvJ.lean:2239 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.qdiag_bridge` | Salt/Twelve/QdiagBridge.lean:578 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.windowPNT_of_piAsymp` | Salt/Twelve/WindowPNTDischarge.lean:49 | sieves | `Salt.Twelve.PiAsymp` |
 | `Salt.Twelve.gaps_le_twelve_of_piAsymp` | Salt/Twelve/WindowPNTDischarge.lean:130 | sieves | `Salt.Twelve.PiAsymp`, `EHall` |
