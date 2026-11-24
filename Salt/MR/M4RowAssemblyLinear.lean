@@ -195,8 +195,8 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_L {R : ChowlaRegime} {M : ℕ}
 
 /-- **⟦THE WALL⟧** (`doorRows_global_hcoef_kills_block_L`).
 `ThmA2Spine.seam_coef_contract_forces_vanishing` read at the DOOR's block `j`: a datum that is
-window-supported (`M4RowsChi.m4_hrowsSum_chi_door`'s `hasupp`, `M4RowsChi.lean:1166`) and obeys
-the GLOBAL Lemma-12 factorization (its `hcoef`, `M4RowsChi.lean:1161-1162`) is KILLED on the
+window-supported (`M4RowsChi.m4_hrowsSum_chi_door`'s `hasupp`, `M4RowsChi.lean:1150`) and obeys
+the GLOBAL Lemma-12 factorization (its `hcoef`, `M4RowsChi.lean:1145-1146`) is KILLED on the
 whole block by one live product plus one block prime that pushes off the window:
 `a (p₁·m) = 0` for every `m` coprime to `p₁`.
 
@@ -4150,35 +4150,6 @@ theorem m4_rowDatum_dilated_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   exact hw R Qm M k MS hM (by omega)
 /-! ## §6 — `M4RowsChiEnd` -/
 
-/-- The Lemma-12 row sum is a sum of nonnegative terms (`1 ≤ X_d`, `2 ≤ H₁`, `1 ≤ P_j`). -/
-private lemma d5_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) (hH1 : 2 ≤ H1) :
-    (0 : ℝ) ≤ ∑ j ∈ Finset.Icc 1 Jb,
-      ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
-          * (Real.exp 1 / (Xd : ℝ) ^ 2))
-        + 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ)
-        + 1 / (Xd : ℝ)) := by
-  have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
-  refine Finset.sum_nonneg (fun j hj => ?_)
-  rw [Finset.mem_Icc] at hj
-  have hj1 : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
-  have hcalH : (0 : ℝ) < calH H1 j := by rw [calH]; nlinarith
-  have hP1 : (1 : ℝ) ≤ ((calP A G j : ℕ) : ℝ) := by
-    have h : 1 ≤ calP A G j := by simp only [calP]; exact Nat.one_le_two_pow
-    exact_mod_cast h
-  have hlogb : (0 : ℝ) ≤ Real.logb 2 (2 * (Xd : ℝ)) :=
-    Real.logb_nonneg (by norm_num) (by linarith)
-  have h1 : (0 : ℝ) ≤ (Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
-      * (Real.exp 1 / (Xd : ℝ) ^ 2)) := by
-    have hq : (0 : ℝ) ≤ 2 * Real.exp 1 * (Xd : ℝ) / calH H1 j :=
-      div_nonneg (by positivity) hcalH.le
-    have hr : (0 : ℝ) ≤ Real.exp 1 / (Xd : ℝ) ^ 2 := by positivity
-    have := mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1) hr
-    nlinarith only [this, (Nat.cast_nonneg _ : 0 ≤ ↑Xd)]
-  have h2 : (0 : ℝ) ≤ 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ) :=
-    div_nonneg (by linarith) (by linarith)
-  have h3 : (0 : ℝ) ≤ 1 / (Xd : ℝ) := by positivity
-  linarith
-
 /-- **⟦THE SLOT, MET⟧** (`m4_hrowsSlot_at_door_end_L`).  The statement below is
 `M4Assembly.m4_chiSummedFreeRow_of_doorAssembly`'s `hrows` binder VERBATIM at
 `Cs ≡ Ct`, `Ccc ≡ Cp` — the compile is the certificate of the byte-fit.  Supplied by §6
@@ -4335,7 +4306,7 @@ theorem m4MrowChiEnd_le_a2Mrow_L_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd :
             / ((calP (AdoorL M) (s13GK K M) j : ℕ) : ℝ)
         + 1 / (Xd : ℝ))) + Cp * (2 / (M : ℝ)) := by
     have h2 : (0 : ℝ) ≤ Cp * (2 / (M : ℝ)) := by positivity
-    linarith [d5_rowsSum_nonneg (A := AdoorL M) (G := s13GK K M) (Jb := 2) (Xd := Xd)
+    linarith [m4_rowsSum_nonneg (A := AdoorL M) (G := s13GK K M) (Jb := 2) (Xd := Xd)
       (H1 := H1doorL M) hXd (H1door_two_L hM)]
   unfold m4MrowChiEnd a2Mrow_L_gk a2RowsSum_L_gk
   rw [← a2Level1_L_gk_eq K M]
