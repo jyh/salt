@@ -435,9 +435,13 @@ private lemma rpow_three_halves_le {p : ℝ} (hp : 2 ≤ p) : p ^ ((3/2 : ℝ)) 
       (mul_nonneg (mul_nonneg hp0.le hp0.le) (by linarith : (0 : ℝ) ≤ p - 2))
       (by linarith : (0 : ℝ) ≤ p + 1)]
 
-/-- `κ` is multiplicative on coprime pairs (`Nat.Coprime.primeFactors_mul` +
-`Finset.prod_union`). -/
-private lemma kappa_mul_of_coprime {a b : ℕ} (hab : Nat.Coprime a b) :
+/-- `κ` is multiplicative on coprime pairs: `κ(ab) = κ(a)κ(b)` — the prime-factor sets are
+disjoint and their union is `(ab).primeFactors` (`Nat.Coprime.primeFactors_mul` +
+`Finset.prod_union`). Public: `GrahamHard3.lean` consumes it.
+
+The must-FAIL control: WITHOUT `Coprime`, `kappa (a*b) = kappa a * kappa b` is FALSE at
+`(2, 2)` — `κ(4) = 4·(3/2) = 6` against `κ(2)² = 3² = 9`. -/
+theorem kappa_mul_of_coprime {a b : ℕ} (hab : Nat.Coprime a b) :
     kappa (a * b) = kappa a * kappa b := by
   rw [kappa, kappa, kappa, Nat.Coprime.primeFactors_mul hab,
     Finset.prod_union (Nat.Coprime.disjoint_primeFactors hab)]
@@ -1203,14 +1207,6 @@ theorem sqf_coprime_count_eq : ∃ C : ℝ, 0 < C ∧ ∀ r : ℕ, 1 ≤ r → �
         add_le_add herr hmainerr
     _ = 4 * M ^ (1/2 : ℝ) * sigmaQ r := by ring
 
-/-- `Σ_{f ≤ m} 1/f ≤ 1 + log m` (the landed recipe, re-derived). -/
-private lemma sum_inv_le_one_add_log (m : ℕ) :
-    ∑ f ∈ Finset.Icc 1 m, ((f : ℝ))⁻¹ ≤ 1 + Real.log m := by
-  have h := harmonic_le_one_add_log m
-  rw [harmonic_eq_sum_Icc] at h
-  push_cast at h
-  exact h
-
 /-- **The general discrete Abel identity** over `[1, N]`:
 `Σ_{m ≤ N} a_m G(m) = A_N·G(N) − Σ_{n < N} A_n·(G(n+1) − G(n))` with `A_n = Σ_{m ≤ n} a_m`.
 (The landed `mwWeighted_abel` is weight-`1/n`-specific; this is the general form.) -/
@@ -1334,7 +1330,7 @@ private lemma bigF_step_bound (α β : ℝ) {m : ℕ} (hm : 1 ≤ m) :
   exact mul_le_mul hδ1 hb (abs_nonneg _) (by positivity)
 
 /-- `1 ≤ ∏_{p ∣ r}(1 + 1/p)`. -/
-private lemma one_le_prod_one_add (r : ℕ) : (1 : ℝ) ≤ ∏ p ∈ r.primeFactors, (1 + 1 / (p : ℝ)) := by
+lemma one_le_prod_one_add (r : ℕ) : (1 : ℝ) ≤ ∏ p ∈ r.primeFactors, (1 + 1 / (p : ℝ)) := by
   calc (1 : ℝ) = ∏ _p ∈ r.primeFactors, (1 : ℝ) := by rw [Finset.prod_const_one]
     _ ≤ ∏ p ∈ r.primeFactors, (1 + 1 / (p : ℝ)) := by
         refine Finset.prod_le_prod (fun p _ => zero_le_one) fun p _ => ?_
@@ -1357,14 +1353,14 @@ private lemma div_kappa_pos (r : ℕ) (hr : 1 ≤ r) : (0 : ℝ) < (r : ℝ) / k
 
 /-- `r/κ(r) ≤ 1` for `1 ≤ r` (`hr`): `r ≤ κ(r)` (`le_kappa`) over the positive `κ(r)`
 (`div_le_one`). -/
-private lemma div_kappa_le_one (r : ℕ) (hr : 1 ≤ r) : (r : ℝ) / kappa r ≤ 1 := by
+lemma div_kappa_le_one (r : ℕ) (hr : 1 ≤ r) : (r : ℝ) / kappa r ≤ 1 := by
   have hr0 : (0 : ℝ) < r := by exact_mod_cast hr
   have hk := le_kappa r hr
   rw [div_le_one (by linarith)]
   exact hk
 
 /-- `|ρ₀| ≤ 2` — the `D = 0` case of the `1/n²`-dominated tail bound. -/
-private lemma abs_rho0_le_two : |rho0| ≤ 2 := by
+lemma abs_rho0_le_two : |rho0| ≤ 2 := by
   have h := abs_tsum_sub_sum_le (g := fun n : ℕ => (moebius n : ℝ) / (n : ℝ) ^ 2)
     summable_abs_moebius_div_sq.of_abs abs_moebius_div_sq_le 0
   simpa [rho0] using h
@@ -3091,7 +3087,7 @@ theorem abs_sum_moebius_div_mul_log_div_sub_one_le (A : ℝ) (hA : 0 < A) :
   linarith only [habs, hDb, hPb, hsplitC.le, hsplitC.ge]
 
 /-- `|x − y| ≤ |x| + |y|`. -/
-private lemma abs_sub_le_add (x y : ℝ) : |x - y| ≤ |x| + |y| := by
+lemma abs_sub_le_add (x y : ℝ) : |x - y| ≤ |x| + |y| := by
   rw [sub_eq_add_neg]
   refine le_trans (abs_add_le _ _) ?_
   rw [abs_neg]
@@ -5691,7 +5687,7 @@ private lemma rpow_step_three_halves (t : ℝ) (ht : 1 ≤ t) :
   exact le_of_mul_le_mul_left hkey hsum0
 
 /-- `Σ_{D < n ≤ M} n^{−3/2} ≤ 2·D^{−1/2}` for `D ≥ 1`. -/
-private lemma sum_Ioc_rpow_neg_three_halves_le {D : ℕ} (hD : 1 ≤ D) (M : ℕ) :
+lemma sum_Ioc_rpow_neg_three_halves_le {D : ℕ} (hD : 1 ≤ D) (M : ℕ) :
     ∑ n ∈ Finset.Ioc D M, (n : ℝ) ^ (-(3/2) : ℝ) ≤ 2 * (D : ℝ) ^ (-(1/2) : ℝ) := by
   rcases le_or_gt M D with hMD | hMD
   · rw [Finset.Ioc_eq_empty (by omega), Finset.sum_empty]

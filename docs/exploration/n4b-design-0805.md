@@ -102,8 +102,8 @@ For the (4.11)-analog on Σ_{u<n≤v} χ(n)Λ(n)/n, v ≥ u ≥ x ≥ q^{250}:
 
 | supply | where (byte-checked by R2) | role |
 |---|---|---|
-| `dh_repulsion_tall` | TBalTall.lean:711 | the height-free contract |
-| `boxZeros_re_le_of_repulsion` (general T) / `_at_efHeight` | TauExt.lean:259 / TBalTall.lean:829 | the ceiling; the ∃-obtain-then-feed composition is WAVE WORK, stated in briefs |
+| `dh_repulsion_tall` | TBalTall.lean:705 | the height-free contract |
+| `boxZeros_re_le_of_repulsion` (general T) / `_at_efHeight` | TauExt.lean:259 / TBalTall.lean:823 | the ceiling; the ∃-obtain-then-feed composition is WAVE WORK, stated in briefs |
 | `efZeroSumM_spend_le` (general T) / `_at_efHeight` | DensityCrude.lean:371 / :403 | the spend (N2's deliverable, NOT EFSharp's) |
 | `zeroCountM_efHeight_le` / `efZeroSumM_norm_le` (Z-general) | DensityCrude.lean:289 / :352 | the counts |
 | `psi_explicit_sharpM` (T, h free) + `psi_explicit_sharpM_of_riesz_residues` (σ free) + `psi1_contour_shift_finsetM` outputs | EFSharpMult.lean:1033 / (σ-general variant) / contour stack | the EF; the packaged `psi_sharp_at_efHeightM` is NOT used (vacuous — R1-U1/R4-U1) |
@@ -112,7 +112,7 @@ For the (4.11)-analog on Σ_{u<n≤v} χ(n)Λ(n)/n, v ≥ u ≥ x ≥ q^{250}:
 | `LFunction_partialFraction` / `_remainder_diff` | PartialFractions.lean:245 / BCSup.lean:229 (admits 1 ≤ σ) | W1's s = 1 machinery |
 | `mertens_third` via EulerLink | Salt/Mertens/Third.lean:749 / SW/EulerLink.lean:62 | (4.6); ∃C existential + ℕ-indexed — W4 owes the re-indexing |
 | `mertens_second_sharp` (+′) / `mertensB` | Mertens/Second.lean:216 / Third.lean:685 / PrimePower.lean:148 | W3's (4.7) bridging (the "Mertens handles the rest" identity) |
-| `zero_free_region_all` | (used at TBalTall.lean:723) | Range B's fallback ceiling |
+| `zero_free_region_all` | (used at TBalTall.lean:717) | Range B's fallback ceiling |
 
 ## 4. The waves
 
@@ -239,7 +239,7 @@ the ledger closes with ∫_x^∞ (log t)^{−2}-grade margin.
 - the tail grade stated with its constant: ≈ 1.27e5·L^{−19}-grade
   (the freeze's own explicit-constant discipline);
 - `zero_free_region_all` (decl ZeroFreeReal.lean:611; obtained at
-  TBalTall.lean:719) covers ONLY complex zeros (side condition
+  TBalTall.lean:713) covers ONLY complex zeros (side condition
   χ² ≠ 1 ∨ Im ρ ≠ 0; our χ is real) — hreal′ is carried height-free
   at the repulsion ceiling (the stronger of the two), one binder
   suffices.

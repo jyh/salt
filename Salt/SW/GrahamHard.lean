@@ -485,7 +485,7 @@ lemma div_rpow_neg {Q e : ℝ} (hQ : 0 ≤ Q) (he : 0 ≤ e) (q : ℝ) :
   rw [div_eq_mul_inv, Real.mul_rpow hQ (inv_nonneg.mpr he), Real.inv_rpow he, Real.rpow_neg he]
 
 /-- `Σ_{f ≤ m} 1/f ≤ 1 + log m` (mathlib's harmonic bound, cast to `ℝ`). -/
-private lemma sum_inv_le_one_add_log (m : ℕ) :
+lemma sum_inv_le_one_add_log (m : ℕ) :
     ∑ f ∈ Finset.Icc 1 m, ((f : ℝ))⁻¹ ≤ 1 + Real.log m := by
   have h := harmonic_le_one_add_log m
   rw [harmonic_eq_sum_Icc] at h

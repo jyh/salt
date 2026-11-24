@@ -119,15 +119,20 @@ one-order needle read a failing build's 4 diagnostics as 2.** Count
 count, and treat a count that disagrees with `EXIT≠0` as a broken instrument, never as a clean build.
 ⛔ **Put this rule VERBATIM in every executor/subagent brief you write** — a subagent that does not
 know it will OOM the fleet.
-⛔⛔ **AN AXIOM AUDIT READS THE OLEANS, NOT THE SOURCE — SO `#print axioms` MISLEADS IN BOTH DIRECTIONS.** A scratch
-run through `../saltbuild.sh Scratch.lean` is compiled against the CACHE on disk: (a) a downstream name keeps `sorryAx`
-until its module is REBUILT after the upstream proof lands (h2c, the S-4 wave, 2026-09-14); (b) a declaration that
-NEVER PARSED in the current source still prints a positive-sounding line — math's second read of rung 2 (2026-09-17)
-saw `does not depend on any axioms` for three theorems that were syntax errors, and h2c met the same on its own bench
-within the hour. ✅ **THE FORM: an axiom receipt is a PAIR from ONE log — the `saltbuild EXIT=0` line with a ZERO
-tagged-error count (the rule above) AND the axioms lines — taken after rebuilding every module that names the
-declaration, with a fourth-axiom control (a planted `sorry` in the same scratch printing `sorryAx`).** An axioms line
-with no build line beside it is a claim about the cache, and a bulk audit read by list is where both readings hide.
+⛔⛔ **AN AXIOM AUDIT OF AN IMPORTED NAME READS A TABLE WRITTEN INTO ITS OLEAN AT BUILD TIME, NOT THE SOURCE — SO
+`#print axioms` MISLEADS IN THREE DIRECTIONS** (`exportedAxiomsExt`; h2c, 2026-11-23). A scratch run through
+`../saltbuild.sh Scratch.lean` builds NOTHING: (a) STALE DIRTY: a downstream name keeps `sorryAx` until its own module
+is rebuilt after the upstream proof lands (2026-09-14); (a′) **STALE CLEAN: a downstream name whose olean predates an
+upstream that has since gained a `sorry` prints `does not depend on any axioms`** (driven 2026-11-23, beside an in-file
+planted sorry printing `sorryAx` in the same log); (b) a declaration that NEVER PARSED still prints a positive-sounding
+line (2026-09-17). ✅ **THE FORM: an axiom receipt is a TRIPLE. (1) THE BUILD LINE: `../saltbuild.sh <module>` for the
+module that DEFINES each audited name, after the last source write and before the audit, `saltbuild EXIT=0` with a ZERO
+tagged-error count (the rule above); this line, and nothing else, makes the table current. (2) THE AUDIT LOG:
+`saltbuild EXIT=0`, zero tagged errors, the axioms lines. (3) AN IMPORTED CONTROL in that audit log:
+`#print axioms Lean.reduceBool` printing `Lean.trustCompiler`, or a `sorry` in its OWN module, built and imported by
+the scratch, printing `sorryAx`.** ⛔ A planted `sorry` in the scratch itself tests only the printer and stays green on
+(a′). ⛔ A control proves the path can report, never that an olean is current: an axioms line with no build line for
+its defining module is a claim about the cache. `#audit_axioms` in a module lake builds is the strongest form.
 
 ⛔⛔ **A `have` INSIDE A TACTIC BLOCK IS NEVER LINTED — SO AN ORPHANED `have` IS DECIDED BY NAME IN SOURCE, NEVER BY THE
 WARNING COUNT.** Measured at the toolchain (h2c's fam-19 reader; Lean v4.32.0-rc1): `linter.unusedVariables.analyzeTactics`

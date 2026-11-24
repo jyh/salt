@@ -40,16 +40,6 @@ variable [TupleChoice]
 
 /-! ## Small reindexing helpers (copied from the S₁ file; `private` there) -/
 
-/-- Move the innermost of three nested sums to the front. -/
-private theorem sum_move3' {α β γ δ : Type*} [AddCommMonoid δ]
-    (A : Finset α) (B : Finset β) (C : Finset γ) (F : α → β → γ → δ) :
-    (∑ a ∈ A, ∑ b ∈ B, ∑ c ∈ C, F a b c)
-      = ∑ c ∈ C, ∑ a ∈ A, ∑ b ∈ B, F a b c := by
-  rw [← Finset.sum_product']
-  rw [Finset.sum_comm]
-  apply Finset.sum_congr rfl; intro c _
-  exact Finset.sum_product' A B (fun a b => F a b c)
-
 /-- Move the outer pair of four nested sums (over one common set) to the back. -/
 private theorem sum_move4' {α δ : Type*} [AddCommMonoid δ] (A : Finset α)
     (F : α → α → α → α → δ) :
@@ -186,7 +176,7 @@ theorem kernelG {r s : ℕ} (hr : Squarefree r) (hs : Squarefree s) :
         = ∑ u ∈ r.divisors, ∑ d ∈ r.divisors, ∑ e ∈ s.divisors,
             if u ∣ d ∧ u ∣ e then
               ((μ d : ℤ) : ℝ) * ((μ e : ℤ) : ℝ) * (gMult u : ℝ) else 0 := by
-        rw [hsub, sum_move3']
+        rw [hsub, sum_move3]
     _ = ∑ u ∈ r.divisors,
           (gMult u : ℝ)
             * (∑ d ∈ r.divisors, if u ∣ d then ((μ d : ℤ) : ℝ) else 0)

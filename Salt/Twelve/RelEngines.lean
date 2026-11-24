@@ -22,9 +22,10 @@ the a=0 crude atom `Salt.Maynard.phiAtomSum z W'` instead of an opaque
 `∃ c, ...` constant. No `∃` appears anywhere; every coefficient is a literal
 (`1`, `2`, `4/D`).
 
-Because the helper lemmas used by the landed proofs are `private` to their
-own files, the small amount of shared machinery (log/reindex facts, the
-`1/g` divisor expansion, the Euler tail bound) is re-derived here verbatim.
+The Euler tail bound, the box and `h/φ` facts and `gMult_mul_coprime` are read
+from `BudgetMomentG.lean`. The rest of the shared machinery (log/reindex facts,
+the `1/g` divisor expansion) is `private` to its own files, so it is
+re-derived here verbatim.
 -/
 
 open Finset
@@ -71,20 +72,6 @@ private lemma totient_reindex {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) 
   exact_mod_cast heq
 
 /-! ## Local helpers, re-derived from `Salt.Twelve.BudgetMomentG` (there: `private`) -/
-
-/-- Any prime dividing a number coprime to `W'` exceeds `D`. -/
-private lemma box_prime_gt {W' D r : ℕ} (hrcop : r.Coprime W')
-    (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) {p : ℕ}
-    (hpp : p.Prime) (hpr : p ∣ r) : D < p := by
-  refine hD p hpp (fun hpW => ?_)
-  have : p ∣ 1 := hrcop ▸ Nat.dvd_gcd hpr hpW
-  exact hpp.one_lt.ne' (Nat.dvd_one.mp this)
-
-/-- `g` is multiplicative on a coprime factorization. -/
-private lemma gMult_mul_coprime {s b : ℕ} (hcop : Nat.Coprime s b) :
-    gMult (s * b) = gMult s * gMult b := by
-  rw [gMult, gMult, gMult, Nat.Coprime.primeFactors_mul hcop,
-    Finset.prod_union hcop.disjoint_primeFactors]
 
 /-- Divisors of a squarefree `r` are the products of subsets of its prime
 factors. -/
@@ -151,193 +138,6 @@ private lemma inv_gMult_expand {r : ℕ} (hrsq : Squarefree r)
   have h1 : ((p : ℝ) - 1) ≠ 0 := by intro h; rw [sub_eq_zero] at h; linarith
   field_simp
   ring
-
-/-- For squarefree `d`, `h(d)·(1/φ(d)) = ∏_{p ∣ d} ((p−1)(p−2))⁻¹`. -/
-private lemma h_over_phi {d : ℕ} (hd : Squarefree d) :
-    (∏ p ∈ d.primeFactors, ((p : ℝ) - 2)⁻¹) * ((Nat.totient d : ℝ))⁻¹
-      = ∏ p ∈ d.primeFactors, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹ := by
-  rw [totient_squarefree_cast hd, ← Finset.prod_inv_distrib,
-    ← Finset.prod_mul_distrib]
-  refine Finset.prod_congr rfl fun p _ => ?_
-  rw [← mul_inv, mul_comm ((p : ℝ) - 2) ((p : ℝ) - 1)]
-
-/-- Product-versus-sum: if the `aₓ ≥ 0` sum to at most `1/2`, then
-`∏(1 + aₓ) ≤ 1 + 2∑aₓ`. -/
-private lemma prod_one_add_le {ι : Type*} (s : Finset ι)
-    (a : ι → ℝ) (ha : ∀ x ∈ s, 0 ≤ a x) (hs : ∑ x ∈ s, a x ≤ 1 / 2) :
-    ∏ x ∈ s, (1 + a x) ≤ 1 + 2 * ∑ x ∈ s, a x := by
-  classical
-  induction s using Finset.induction with
-  | empty => simp
-  | insert x s hx ih =>
-      rw [Finset.prod_insert hx, Finset.sum_insert hx]
-      have hax : 0 ≤ a x := ha x (Finset.mem_insert_self x s)
-      have has : ∀ z ∈ s, 0 ≤ a z := fun z hz =>
-        ha z (Finset.mem_insert_of_mem hz)
-      have hsum_nonneg : 0 ≤ ∑ z ∈ s, a z := Finset.sum_nonneg has
-      have hss : ∑ z ∈ s, a z ≤ 1 / 2 := by
-        rw [Finset.sum_insert hx] at hs
-        linarith
-      have hih := ih has hss
-      have hprod_nonneg : (0 : ℝ) ≤ ∏ z ∈ s, (1 + a z) :=
-        Finset.prod_nonneg fun z hz => by linarith [has z hz]
-      nlinarith [hih, hax, hss, hsum_nonneg]
-
-/-- Telescoping tail bound:
-`∑_{D < n ≤ M} ((n−1)(n−2))⁻¹ ≤ (D−1)⁻¹` for `2 ≤ D`. -/
-private lemma inv_prod_tele (D : ℕ) (hD : 2 ≤ D) :
-    ∀ M : ℕ, D ≤ M →
-      (∑ n ∈ Finset.Icc (D + 1) M, (((n : ℝ) - 1) * ((n : ℝ) - 2))⁻¹)
-        ≤ ((D : ℝ) - 1)⁻¹ - ((M : ℝ) - 1)⁻¹ := by
-  intro M hM
-  induction M, hM using Nat.le_induction with
-  | base =>
-      rw [Finset.Icc_eq_empty (by omega), Finset.sum_empty]
-      simp
-  | succ M hDM ih =>
-      rw [Finset.sum_Icc_succ_top (by omega)]
-      have hM2 : (2 : ℝ) ≤ (M : ℝ) := by exact_mod_cast le_trans hD hDM
-      have h1 : (0 : ℝ) < (M : ℝ) - 1 := by linarith
-      have h2 : (0 : ℝ) < (M : ℝ) := by linarith
-      have hstep : ((((M + 1 : ℕ) : ℝ) - 1) * (((M + 1 : ℕ) : ℝ) - 2))⁻¹
-          = ((M : ℝ) - 1)⁻¹ - (((M + 1 : ℕ) : ℝ) - 1)⁻¹ := by
-        push_cast
-        rw [show ((M : ℝ) + 1 - 1) = (M : ℝ) by ring,
-          show ((M : ℝ) + 1 - 2) = (M : ℝ) - 1 by ring]
-        field_simp
-        ring
-      rw [hstep]
-      linarith [ih]
-
-/-- **The Euler tail (nontrivial moduli).** For `D ≥ 3`, the sum of
-`h(d)/φ(d) = ∏_{p∣d}((p−1)(p−2))⁻¹` over nontrivial squarefree moduli `< M`
-with all prime factors `> D` is at most `2/(D−1)`. -/
-private lemma tail_erase_le (D M : ℕ) (hD : 3 ≤ D) :
-    ∑ d ∈ ((Finset.range M).filter
-        (fun d => Squarefree d ∧ ∀ p ∈ d.primeFactors, D < p)).erase 1,
-      ∏ p ∈ d.primeFactors, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹
-      ≤ 2 / ((D : ℝ) - 1) := by
-  classical
-  have hDR : (3 : ℝ) ≤ (D : ℝ) := by exact_mod_cast hD
-  have hDpos : (0 : ℝ) < (D : ℝ) - 1 := by linarith
-  set SF := ((Finset.range M).filter
-      (fun d => Squarefree d ∧ ∀ p ∈ d.primeFactors, D < p)).erase 1 with hSF
-  set PP := (Finset.range M).filter (fun p => p.Prime ∧ D < p) with hPP
-  have ha_nonneg : ∀ p ∈ PP, (0 : ℝ) ≤ (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹ := by
-    intro p hp
-    rw [hPP, Finset.mem_filter] at hp
-    have hp3 : 3 ≤ p := by have := hp.2.2; omega
-    have hpR : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp3
-    exact (inv_pos.mpr (mul_pos (by linarith) (by linarith))).le
-  have hinj : Set.InjOn Nat.primeFactors ↑SF := by
-    intro x hx y hy hxy
-    rw [Finset.mem_coe, hSF, Finset.mem_erase, Finset.mem_filter] at hx hy
-    have hx' := Nat.prod_primeFactors_of_squarefree hx.2.2.1
-    rw [← hx', hxy, Nat.prod_primeFactors_of_squarefree hy.2.2.1]
-  have hsub : SF.image Nat.primeFactors ⊆ PP.powerset.erase ∅ := by
-    refine Finset.forall_mem_image.2 fun t ht => ?_
-    rw [hSF, Finset.mem_erase, Finset.mem_filter, Finset.mem_range] at ht
-    obtain ⟨hne1, htM, hsq, hbig⟩ := ht
-    rw [Finset.mem_erase, Finset.mem_powerset]
-    refine ⟨?_, ?_⟩
-    · have ht2 : 1 < t := by
-        rcases Nat.lt_or_ge t 2 with h | h
-        · interval_cases t
-          · exact absurd hsq not_squarefree_zero
-          · exact absurd rfl hne1
-        · omega
-      exact Finset.nonempty_iff_ne_empty.mp (Nat.nonempty_primeFactors.mpr ht2)
-    · intro p hp
-      rw [hPP, Finset.mem_filter, Finset.mem_range]
-      have hpp : p.Prime := Nat.prime_of_mem_primeFactors hp
-      have hpd : p ∣ t := Nat.dvd_of_mem_primeFactors hp
-      have ht0 : 0 < t := Nat.pos_of_ne_zero hsq.ne_zero
-      exact ⟨lt_of_le_of_lt (Nat.le_of_dvd ht0 hpd) htM, hpp, hbig p hp⟩
-  have hprodadd : ∏ p ∈ PP, (1 + (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹)
-      = ∑ S ∈ PP.powerset, ∏ p ∈ S, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹ := by
-    have h := Finset.prod_add (fun p : ℕ => (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹)
-      (fun _ : ℕ => (1 : ℝ)) PP
-    simp only [Finset.prod_const_one, mul_one] at h
-    rw [← h]
-    exact Finset.prod_congr rfl fun p _ => by ring
-  have hsplit : ∑ S ∈ PP.powerset.erase ∅,
-        ∏ p ∈ S, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹
-      = (∏ p ∈ PP, (1 + (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹)) - 1 := by
-    have h := Finset.sum_erase_add PP.powerset
-      (fun S => ∏ p ∈ S, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹)
-      (Finset.empty_mem_powerset PP)
-    rw [Finset.prod_empty] at h
-    rw [hprodadd]; linarith
-  have htailsum : ∑ p ∈ PP, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹ ≤ ((D : ℝ) - 1)⁻¹ := by
-    have hPPsub : PP ⊆ Finset.Icc (D + 1) M := by
-      intro p hp
-      rw [hPP, Finset.mem_filter, Finset.mem_range] at hp
-      rw [Finset.mem_Icc]; omega
-    have hmono : ∑ p ∈ PP, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹
-        ≤ ∑ n ∈ Finset.Icc (D + 1) M, (((n : ℝ) - 1) * ((n : ℝ) - 2))⁻¹ := by
-      apply Finset.sum_le_sum_of_subset_of_nonneg hPPsub
-      intro n hn _
-      rw [Finset.mem_Icc] at hn
-      have : (3 : ℝ) ≤ (n : ℝ) := by exact_mod_cast (by omega : 3 ≤ n)
-      exact (inv_pos.mpr (mul_pos (by linarith) (by linarith))).le
-    rcases Nat.lt_or_ge M D with hM | hM
-    · rw [Finset.Icc_eq_empty (by omega), Finset.sum_empty] at hmono
-      have : (0 : ℝ) ≤ ((D : ℝ) - 1)⁻¹ := inv_nonneg.mpr hDpos.le
-      linarith
-    · have htele := inv_prod_tele D (by omega) M hM
-      have hMinv : (0 : ℝ) ≤ ((M : ℝ) - 1)⁻¹ := by
-        have : (2 : ℝ) ≤ (M : ℝ) := by exact_mod_cast (by omega : 2 ≤ M)
-        exact inv_nonneg.mpr (by linarith)
-      linarith [htele]
-  have hasum : ∑ p ∈ PP, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹ ≤ 1 / 2 := by
-    have hle : (2 : ℝ) ≤ (D : ℝ) - 1 := by linarith
-    have h := one_div_le_one_div_of_le (by norm_num : (0 : ℝ) < 2) hle
-    rw [one_div] at h
-    linarith [htailsum, h]
-  have himg : ∑ S ∈ SF.image Nat.primeFactors,
-        ∏ p ∈ S, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹
-      = ∑ d ∈ SF, ∏ p ∈ d.primeFactors, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹ :=
-    Finset.sum_image hinj
-  calc ∑ d ∈ SF, ∏ p ∈ d.primeFactors, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹
-      = ∑ S ∈ SF.image Nat.primeFactors,
-          ∏ p ∈ S, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹ := himg.symm
-    _ ≤ ∑ S ∈ PP.powerset.erase ∅, ∏ p ∈ S, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹ := by
-        apply Finset.sum_le_sum_of_subset_of_nonneg hsub
-        intro S hSt _
-        have hSsub : S ⊆ PP := Finset.mem_powerset.mp (Finset.mem_of_mem_erase hSt)
-        exact Finset.prod_nonneg fun p hp => ha_nonneg p (hSsub hp)
-    _ = (∏ p ∈ PP, (1 + (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹)) - 1 := hsplit
-    _ ≤ (1 + 2 * ∑ p ∈ PP, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹) - 1 := by
-        have := prod_one_add_le PP _ ha_nonneg hasum
-        linarith
-    _ = 2 * ∑ p ∈ PP, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹ := by ring
-    _ ≤ 2 / ((D : ℝ) - 1) := by
-        rw [div_eq_mul_inv]
-        have := htailsum
-        nlinarith [htailsum, inv_nonneg.mpr hDpos.le]
-
-/-- **The full Euler tail (including `d = 1`).** For `D ≥ 3` and `2 ≤ M`,
-`∑_{d < M, nice} ∏_{p∣d}((p−1)(p−2))⁻¹ ≤ 2`. -/
-private lemma tail_full_le (D M : ℕ) (hD : 3 ≤ D) (hM : 2 ≤ M) :
-    ∑ d ∈ (Finset.range M).filter
-        (fun d => Squarefree d ∧ ∀ p ∈ d.primeFactors, D < p),
-      ∏ p ∈ d.primeFactors, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹ ≤ 2 := by
-  have hDR : (3 : ℝ) ≤ (D : ℝ) := by exact_mod_cast hD
-  have hDpos : (0 : ℝ) < (D : ℝ) - 1 := by linarith
-  have h1mem : (1 : ℕ) ∈ (Finset.range M).filter
-      (fun d => Squarefree d ∧ ∀ p ∈ d.primeFactors, D < p) := by
-    rw [Finset.mem_filter, Finset.mem_range]
-    refine ⟨by omega, squarefree_one, ?_⟩
-    simp
-  have hsplit := Finset.add_sum_erase
-    ((Finset.range M).filter
-      (fun d => Squarefree d ∧ ∀ p ∈ d.primeFactors, D < p))
-    (fun d : ℕ => ∏ p ∈ d.primeFactors, (((p : ℝ) - 1) * ((p : ℝ) - 2))⁻¹) h1mem
-  simp only [Nat.primeFactors_one, Finset.prod_empty] at hsplit
-  have htail := tail_erase_le D M hD
-  have hle : 2 / ((D : ℝ) - 1) ≤ 1 := by
-    rw [div_le_one hDpos]; linarith
-  linarith [hsplit, htail, hle]
 
 /-- `phiAtomSum` is nonnegative (a sum of nonnegative terms). -/
 private lemma phiAtomSum_nonneg (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by

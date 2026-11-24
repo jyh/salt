@@ -26,9 +26,9 @@ with the Q²/δ diagonal]`.
 The coefficient machinery of `bilinear_LS_shell` — `gammaH`, `bilinCoeffA`,
 `bilinCoeffB` (public defs, reused verbatim), and their support lemmas — is
 **independent of the modulus index set**; only the character-sieve consumption and
-the Cauchy–Schwarz-over-`q` step see the filter.  Because the support lemmas are
-`private` to `Salt/BV/BilinearLS.lean`, they are reproven here (identical proofs).
-The genuinely new pieces:
+the Cauchy–Schwarz-over-`q` step see the filter.  The support lemmas are read from
+`Salt/BV/BilinearLS.lean`, where the ones this file uses are public; none is
+reproven here.  The genuinely new pieces:
 
 * `cs_over_finset_chi` — `cs_over_q_chi` generalized to sum over an **arbitrary**
   `Finset` (both the un-restricted shell and this δ-shell could share it; the
@@ -47,66 +47,6 @@ namespace Salt.BV
 
 open scoped BigOperators
 open Salt.LS
-
-/-! ### The uniform coefficient bound `γ_h` support (reproved private kernel) -/
-
-/-- `γ_h ≥ 0` (reproof of the `Salt/BV/BilinearLS.lean` private lemma). -/
-private lemma gammaH_nonneg (H h : ℕ) : 0 ≤ gammaH H h := by
-  unfold gammaH
-  by_cases h0 : h = 0
-  · rw [if_pos h0]; norm_num
-  · rw [if_neg h0]
-    have : (0 : ℝ) ≤ 2 * dist₁ ((h : ℝ) / (H : ℝ)) 0 := by
-      have := dist₁_nonneg ((h : ℝ) / (H : ℝ)) 0; linarith
-    exact mul_nonneg (by positivity) (by positivity)
-
-/-- **P4, packaged** (reproof).  `‖ĉ_h(min(⌊Y/m⌋,H))‖ ≤ γ_h`. -/
-private lemma norm_fourierCutoff_le_gammaH (H Y m h : ℕ) (hH : 0 < H) (hhH : h < H) :
-    ‖fourierCutoff H (min (Y / m) H) h‖ ≤ gammaH H h := by
-  unfold gammaH
-  by_cases h0 : h = 0
-  · rw [if_pos h0]
-    subst h0
-    have hHR : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH
-    have hZH : min (Y / m) H ≤ H := min_le_right _ _
-    have hval : fourierCutoff H (min (Y / m) H) 0 = ((min (Y / m) H : ℕ) : ℂ) / (H : ℂ) := by
-      unfold fourierCutoff
-      simp only [Nat.cast_zero, zero_mul, neg_zero, zero_div, e_zero, Finset.sum_const,
-                 Nat.card_Icc, Nat.add_sub_cancel, nsmul_eq_mul, mul_one]
-      ring
-    rw [hval, norm_div, Complex.norm_natCast, Complex.norm_natCast, div_le_one hHR]
-    exact_mod_cast hZH
-  · rw [if_neg h0]
-    exact norm_fourierCutoff_le H (min (Y / m) H) h (Nat.one_le_iff_ne_zero.mpr h0) hhH
-
-/-- **P3 mass** (reproof).  `∑_{h<H} γ_h ≤ 2 + log H`. -/
-private lemma sum_gammaH_le (H : ℕ) (hH : 0 < H) :
-    ∑ h ∈ Finset.range H, gammaH H h ≤ 2 + Real.log H := by
-  rcases lt_or_ge H 2 with hH1 | hH2
-  · have hHeq : H = 1 := by omega
-    subst hHeq
-    rw [Finset.range_one, Finset.sum_singleton, Nat.cast_one, Real.log_one]
-    norm_num [gammaH]
-  · have hHne : (H : ℝ) ≠ 0 := by exact_mod_cast hH.ne'
-    calc ∑ h ∈ Finset.range H, gammaH H h
-        = 1 + (1 / (H : ℝ)) *
-            ∑ h ∈ Finset.range H,
-              (if h = 0 then (0 : ℝ) else 1 / (2 * dist₁ ((h : ℝ) / (H : ℝ)) 0)) := by
-          have hpt : ∀ h : ℕ, gammaH H h
-              = (if h = 0 then (1 : ℝ) else 0)
-                + (1 / (H : ℝ)) *
-                  (if h = 0 then (0 : ℝ) else 1 / (2 * dist₁ ((h : ℝ) / (H : ℝ)) 0)) := by
-            intro h; unfold gammaH; by_cases h0 : h = 0 <;> simp [h0]
-          rw [Finset.sum_congr rfl (fun h _ => hpt h), Finset.sum_add_distrib, ← Finset.mul_sum]
-          have hone : ∑ h ∈ Finset.range H, (if h = 0 then (1 : ℝ) else 0) = 1 := by
-            simp [hH]
-          rw [hone]
-      _ ≤ 1 + (1 / (H : ℝ)) * ((H : ℝ) * (1 + Real.log H)) := by
-          have hstep := mul_le_mul_of_nonneg_left (sum_H_le H hH2)
-            (by positivity : (0 : ℝ) ≤ 1 / (H : ℝ))
-          linarith [hstep]
-      _ = 2 + Real.log H := by
-          rw [← mul_assoc, one_div, inv_mul_cancel₀ hHne, one_mul]; ring
 
 /-! ### The nested weighted Cauchy–Schwarz over an arbitrary `Finset` -/
 
@@ -146,92 +86,6 @@ theorem cs_over_finset_chi {ι : Type*} (s : Finset ι) (w P R C : ι → ℝ)
     rw [← Real.sqrt_mul hsumP, ← Real.sqrt_sq hLHSnn]
     exact Real.sqrt_le_sqrt hcs
   exact le_trans hstep1 hfin
-
-/-! ### The `char_LS`-compatible bilinear coefficients (reproved private support) -/
-
-/-- The range-form `A`-factor equals the `Icc`-form `A`-factor (reproof). -/
-private lemma bilinCoeffA_sum_eq {q : ℕ} (χ : DirichletCharacter ℂ q) (a : ℕ → ℂ)
-    (H Y h M : ℕ) :
-    ∑ m ∈ Finset.range (M + 1), bilinCoeffA a H Y h m * χ ((m : ℕ) : ZMod q)
-      = ∑ m ∈ Finset.Icc 1 M,
-          a m * fourierCutoff H (min (Y / m) H) h * χ ((m : ℕ) : ZMod q) := by
-  have hsub : Finset.Icc 1 M ⊆ Finset.range (M + 1) := by
-    intro m hm; rw [Finset.mem_Icc] at hm; rw [Finset.mem_range]; omega
-  have hcompl : ∀ m ∈ Finset.range (M + 1), m ∉ Finset.Icc 1 M →
-      bilinCoeffA a H Y h m * χ ((m : ℕ) : ZMod q) = 0 := by
-    intro m hmr hm
-    rw [Finset.mem_range] at hmr
-    rw [Finset.mem_Icc] at hm
-    have hm0 : m = 0 := by omega
-    subst hm0
-    simp [bilinCoeffA]
-  rw [← Finset.sum_subset hsub hcompl]
-  refine Finset.sum_congr rfl (fun m hm => ?_)
-  have hm0 : m ≠ 0 := by rw [Finset.mem_Icc] at hm; omega
-  simp only [bilinCoeffA, if_neg hm0]
-
-/-- The range-form `B`-factor equals the `Icc`-form `B`-factor (reproof). -/
-private lemma bilinCoeffB_sum_eq {q : ℕ} (χ : DirichletCharacter ℂ q) (b : ℕ → ℂ)
-    (H h H' : ℕ) :
-    ∑ n ∈ Finset.range (H' + 1), bilinCoeffB b H h n * χ ((n : ℕ) : ZMod q)
-      = ∑ n ∈ Finset.Icc 1 H',
-          b n * e ((h : ℝ) * (n : ℝ) / (H : ℝ)) * χ ((n : ℕ) : ZMod q) := by
-  have hsub : Finset.Icc 1 H' ⊆ Finset.range (H' + 1) := by
-    intro n hn; rw [Finset.mem_Icc] at hn; rw [Finset.mem_range]; omega
-  have hcompl : ∀ n ∈ Finset.range (H' + 1), n ∉ Finset.Icc 1 H' →
-      bilinCoeffB b H h n * χ ((n : ℕ) : ZMod q) = 0 := by
-    intro n hnr hn
-    rw [Finset.mem_range] at hnr
-    rw [Finset.mem_Icc] at hn
-    have hn0 : n = 0 := by omega
-    subst hn0
-    simp [bilinCoeffB]
-  rw [← Finset.sum_subset hsub hcompl]
-  refine Finset.sum_congr rfl (fun n hn => ?_)
-  have hn0 : n ≠ 0 := by rw [Finset.mem_Icc] at hn; omega
-  simp only [bilinCoeffB, if_neg hn0]
-
-/-- The `A`-side coefficient mass is controlled by `γ_h²·∑‖a‖²` (reproof). -/
-private lemma bilinCoeffA_mass_le (a : ℕ → ℂ) (H Y h M : ℕ) (hH : 0 < H) (hhH : h < H) :
-    ∑ m ∈ Finset.range (M + 1), ‖bilinCoeffA a H Y h m‖ ^ 2
-      ≤ (gammaH H h) ^ 2 * ∑ m ∈ Finset.Icc 1 M, ‖a m‖ ^ 2 := by
-  have hsub : Finset.Icc 1 M ⊆ Finset.range (M + 1) := by
-    intro m hm; rw [Finset.mem_Icc] at hm; rw [Finset.mem_range]; omega
-  have hzero : ∀ m ∈ Finset.range (M + 1), m ∉ Finset.Icc 1 M →
-      ‖bilinCoeffA a H Y h m‖ ^ 2 = 0 := by
-    intro m hmr hm
-    have hm0 : m = 0 := by
-      rw [Finset.mem_range] at hmr; rw [Finset.mem_Icc] at hm; omega
-    simp only [bilinCoeffA, if_pos hm0, norm_zero]; ring
-  rw [← Finset.sum_subset hsub hzero, Finset.mul_sum]
-  refine Finset.sum_le_sum (fun m hm => ?_)
-  have hm0 : m ≠ 0 := by rw [Finset.mem_Icc] at hm; omega
-  have hfc : ‖fourierCutoff H (min (Y / m) H) h‖ ≤ gammaH H h :=
-    norm_fourierCutoff_le_gammaH H Y m h hH hhH
-  calc ‖bilinCoeffA a H Y h m‖ ^ 2
-      = ‖a m‖ ^ 2 * ‖fourierCutoff H (min (Y / m) H) h‖ ^ 2 := by
-        simp only [bilinCoeffA, if_neg hm0, norm_mul, mul_pow]
-    _ ≤ ‖a m‖ ^ 2 * (gammaH H h) ^ 2 := by
-        apply mul_le_mul_of_nonneg_left _ (sq_nonneg _)
-        exact pow_le_pow_left₀ (norm_nonneg _) hfc 2
-    _ = gammaH H h ^ 2 * ‖a m‖ ^ 2 := by ring
-
-/-- The `B`-side coefficient mass equals `∑‖b‖²` (reproof). -/
-private lemma bilinCoeffB_mass_eq (b : ℕ → ℂ) (H h H' : ℕ) :
-    ∑ n ∈ Finset.range (H' + 1), ‖bilinCoeffB b H h n‖ ^ 2
-      = ∑ n ∈ Finset.Icc 1 H', ‖b n‖ ^ 2 := by
-  have hsub : Finset.Icc 1 H' ⊆ Finset.range (H' + 1) := by
-    intro n hn; rw [Finset.mem_Icc] at hn; rw [Finset.mem_range]; omega
-  have hzero : ∀ n ∈ Finset.range (H' + 1), n ∉ Finset.Icc 1 H' →
-      ‖bilinCoeffB b H h n‖ ^ 2 = 0 := by
-    intro n hnr hn
-    have hn0 : n = 0 := by
-      rw [Finset.mem_range] at hnr; rw [Finset.mem_Icc] at hn; omega
-    simp only [bilinCoeffB, if_pos hn0, norm_zero]; ring
-  rw [← Finset.sum_subset hsub hzero]
-  refine Finset.sum_congr rfl (fun n hn => ?_)
-  have hn0 : n ≠ 0 := by rw [Finset.mem_Icc] at hn; omega
-  simp only [bilinCoeffB, if_neg hn0, norm_mul, norm_e, mul_one]
 
 /-! ### The δ-restricted fixed-shell bilinear large sieve -/
 

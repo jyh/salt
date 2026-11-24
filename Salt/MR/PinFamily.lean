@@ -151,12 +151,6 @@ private lemma rpow_fifths_mul {L : ℝ} (hL : 0 < L) :
   · rw [← Real.rpow_add hL]; norm_num
   · rw [← Real.rpow_add hL]; norm_num
 
-/-- `a ≤ b → 0 ≤ c → a/c ≤ b/c` — the one division form §4/§5 need.  The `rpow`
-denominators below have NO free positivity, so the `0 ≤ c` side condition is load-bearing. -/
-private lemma div_le_div_same {a b c : ℝ} (hab : a ≤ b) (hc : 0 ≤ c) : a / c ≤ b / c := by
-  have h : a * c⁻¹ ≤ b * c⁻¹ := mul_le_mul_of_nonneg_right hab (inv_nonneg.mpr hc)
-  rwa [← div_eq_mul_inv, ← div_eq_mul_inv] at h
-
 /-! ## §1 — the pin -/
 
 /-- **The R2 pin: `y₂ = exp(L^{2/5})`.**  Stated as a function of `L` (the corpus writes its

@@ -37,7 +37,7 @@ hypothesis lists BYTE FOR BYTE — the `2 ≤ A` is read off the frame, never as
 
 ## Contents
 
-* §1 the weighting gates (private copies — `ThmA2Rows`'s are module-private);
+* §1 the weighting gates (`ThmA2Rows.a2_weight_gates` is module-private, so a local copy);
 * §2 `seam_row_number_nocap3_end'` — the socketed strict/fused row at the primed bracket;
 * §3 `seam_row_number_capfree3_end'` — its cap-free instance at `t₁ := 0`, `S := 0`;
 * §4 `a2Rows_of_capfree3_end'` — **THE A3 EXIT (strict/fused)**: the door's `hrows` supplier
@@ -58,13 +58,14 @@ namespace Salt.MR
 
 /-! ## §1 — the weighting gates, re-minted
 
-`ThmA2Rows`'s §1 lemmas are `private` to that module.  The four numerals `9`/`244`/`3`/`3/2`
-and the four weighing steps are reproduced here verbatim (same statements, same proofs), plus
-the `a2RowsSum'` nonnegativity the primed slot needs. -/
+`ThmA2Rows.a2_weight_gates` is `private` to that module, so its four numerals
+`9`/`244`/`3`/`3/2` are reproduced here verbatim (same statement, same proof), plus the
+`a2RowsSum'` nonnegativity the primed slot needs.  The weighing steps are `ThmA2Rows`'s own
+(`a2_row_weigh`, `a2_level1_weigh`, `a2_term2_weigh`, `a2_term3_weigh_mr`, `a2_term4_weigh`). -/
 
 /-- `ThmA2Rows.a2_weight_gates`, re-minted: with `w := (X/h)/T`, `0 ≤ w ≤ 1` and the four
 `Tann`-linear factors weigh in at `9`, `244`, `3`, `3/2`. -/
-private lemma a3_weight_gates {X h T Xd Q1 : ℝ} (hh4 : 4 ≤ h) (hX0 : 0 < X)
+lemma a3_weight_gates {X h T Xd Q1 : ℝ} (hh4 : 4 ≤ h) (hX0 : 0 < X)
     (hT : X / h ≤ T) (hXd : X ≤ 4 * Xd) (hQ1 : Q1 ≤ h) (hQ10 : 0 ≤ Q1) :
     0 ≤ X / h / T ∧ X / h / T ≤ 1 ∧
       X / h / T * (2 * T * Q1 / Xd + 1) ≤ 9 ∧
@@ -119,47 +120,6 @@ private lemma a3_weight_gates {X h T Xd Q1 : ℝ} (hh4 : 4 ≤ h) (hX0 : 0 < X)
       rw [div_le_div_iff₀ hh0 (by norm_num)]
       linarith
     rw [hid]; linarith
-
-/-- `ThmA2Rows.a2_row_weigh`, re-minted. -/
-private lemma a3_row_weigh {w A B C D a b c d : ℝ}
-    (hA : w * A ≤ a) (hB : w * B ≤ b) (hC : w * C ≤ c) (hD : w * D ≤ d) :
-    w * (A + B + C + D) ≤ a + b + c + d := by
-  have h : w * (A + B + C + D) = w * A + w * B + w * C + w * D := by ring
-  rw [h]; linarith
-
-/-- `ThmA2Rows.a2_level1_weigh`, re-minted. -/
-private lemma a3_level1_weigh {w Hq Lq R Pq Br Z : ℝ}
-    (hkey : ∀ R' : ℝ, 0 ≤ R' → 2 * (Hq * Lq + 1) * R' * Pq * Br ≤ 5280 * R' * Z)
-    (hR0 : 0 ≤ w * R) (hR9 : w * R ≤ 9) (hZ0 : 0 ≤ Z) :
-    w * (2 * (Hq * Lq + 1) * R * Pq * Br) ≤ 47520 * Z := by
-  have hid : w * (2 * (Hq * Lq + 1) * R * Pq * Br)
-      = 2 * (Hq * Lq + 1) * (w * R) * Pq * Br := by ring
-  rw [hid]
-  refine le_trans (hkey (w * R) hR0) ?_
-  nlinarith [mul_nonneg hZ0 (by linarith : (0 : ℝ) ≤ 9 - w * R)]
-
-/-- `ThmA2Rows.a2_term2_weigh`, re-minted: `1536·244 = 374784`. -/
-private lemma a3_term2_weigh {w Cs R Y : ℝ} (hCs : 0 ≤ Cs) (hY : 0 ≤ Y) (hR : w * R ≤ 244) :
-    w * (1536 * Cs * Real.exp 3 * R * Y) ≤ 374784 * Cs * Real.exp 3 * Y := by
-  have hid : w * (1536 * Cs * Real.exp 3 * R * Y)
-      = 1536 * Cs * Real.exp 3 * Y * (w * R) := by ring
-  have h0 : (0 : ℝ) ≤ 1536 * Cs * Real.exp 3 * Y := by positivity
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR h0]
-
-/-- `ThmA2Rows.a2_term3_weigh_mr`, re-minted: `960·3 = 2880 ≤ 5760`. -/
-private lemma a3_term3_weigh_mr {w R S : ℝ} (hS : 0 ≤ S) (hR : w * R ≤ 3) :
-    w * (960 * R * S) ≤ 5760 * S := by
-  have hid : w * (960 * R * S) = 960 * S * (w * R) := by ring
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR (mul_nonneg (by norm_num : (0 : ℝ) ≤ 960) hS)]
-
-/-- `ThmA2Rows.a2_term4_weigh`, re-minted: `2·(3/2) = 3`. -/
-private lemma a3_term4_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3 / 2) :
-    w * (2 * (R * Z)) ≤ 3 * Z := by
-  have hid : w * (2 * (R * Z)) = 2 * Z * (w * R) := by ring
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR (by linarith : (0 : ℝ) ≤ 2 * Z)]
 
 /-- `ThmA2.a2RowsSum'` is a sum of nonnegative terms — `ThmA2Rows.a2RowsSum_nonneg`'s twin,
 and STRICTLY easier: the `p²` slot is the constant `24/𝒫ⱼ`, so the `log₂(2X_d) ≥ 0` step of
@@ -431,7 +391,7 @@ set_option maxHeartbeats 1000000 in
 
 The hypothesis list, the weighting arithmetic and the four numerals `9`/`244`/`3`/`3/2` are
 the landed theorem's verbatim; the ONLY change is the object the third weighing step lands
-in — `a2RowsSum'` in place of `a2RowsSum`, which `a3_term3_weigh_mr` is blind to (it prices
+in — `a2RowsSum'` in place of `a2RowsSum`, which `a2_term3_weigh_mr` is blind to (it prices
 `960·R·S ≤ 5760·S` for ANY nonnegative `S`).
 
 This is the supplier `ThmA2Prime.thm_a2'_of_rows_pool'`'s `hrows` binder asks for, and it is
@@ -537,12 +497,12 @@ theorem a2Rows_of_capfree3_end' :
       (by linarith : (0 : ℝ) ≤ (Xd : ℝ))
     linarith
   unfold a2Mrow'
-  refine a3_row_weigh ?_ ?_ ?_ ?_
-  · exact a3_level1_weigh (fun R' hR' => level1_term_door_decays hM hR')
+  refine a2_row_weigh ?_ ?_ ?_ ?_
+  · exact a2_level1_weigh (fun R' hR' => level1_term_door_decays hM hR')
       (mul_nonneg hw0 hRnn) hg9 hlvl0
-  · exact a3_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
-  · exact a3_term3_weigh_mr hRS0 hg3
-  · exact a3_term4_weigh hZ0 hg32
+  · exact a2_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
+  · exact a2_term3_weigh_mr hRS0 hg3
+  · exact a2_term4_weigh hZ0 hg32
 
 /-! ## §5 — THE CLOSED-WINDOW ARM AT THE PRIMED BRACKET
 
@@ -894,12 +854,12 @@ theorem a2Rows_of_capfree3' :
       (by linarith : (0 : ℝ) ≤ (Xd : ℝ))
     linarith
   unfold a2Mrow'
-  refine a3_row_weigh ?_ ?_ ?_ ?_
-  · exact a3_level1_weigh (fun R' hR' => level1_term_door_decays hM hR')
+  refine a2_row_weigh ?_ ?_ ?_ ?_
+  · exact a2_level1_weigh (fun R' hR' => level1_term_door_decays hM hR')
       (mul_nonneg hw0 hRnn) hg9 hlvl0
-  · exact a3_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
-  · exact a3_term3_weigh_mr hRS0 hg3
-  · exact a3_term4_weigh hZ0 hg32
+  · exact a2_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
+  · exact a2_term3_weigh_mr hRS0 hg3
+  · exact a2_term4_weigh hZ0 hg32
 
 /-! ## §GK — the G-lever twin
 
@@ -948,7 +908,7 @@ page, the window ladder, the `V`/`L` gates, the co-factor socket at the window's
 grade `Rbar ≤ gradeCR2 Cb·(log X)^{−ρ₂₉₃}`, the STRICT coefficient window `Xd < p·m`, and every
 `T` with `X/h ≤ T`, `2T ≤ X`, `TannGate X (2T)`: `X/h/T · ∫_{seamAnn X (2T)} ‖spoly N a t‖²`
 `≤ a2Mrow'_gk K Cs C M Xd X ε`. Route: `seam_row_number_capfree3_end'` at `Tann = 2T` under
-`calFrameK_doorH1_at_gk`, then `a3_weight_gates` and `a3_row_weigh` with
+`calFrameK_doorH1_at_gk`, then `a3_weight_gates` and `a2_row_weigh` with
 `level1_term_door_decays_gk`. No proof in `Salt/` applies it; its linear twin is
 `ThmA2Linear.a2Rows_of_capfree3_end'_L_gk`. -/
 theorem a2Rows_of_capfree3_end'_gk (K : ℕ) (hK : K ≤ 170000000) :
@@ -1048,12 +1008,12 @@ theorem a2Rows_of_capfree3_end'_gk (K : ℕ) (hK : K ≤ 170000000) :
       (by linarith : (0 : ℝ) ≤ (Xd : ℝ))
     linarith
   unfold a2Mrow'_gk
-  refine a3_row_weigh ?_ ?_ ?_ ?_
-  · exact a3_level1_weigh (fun R' hR' => level1_term_door_decays_gk K hM hR')
+  refine a2_row_weigh ?_ ?_ ?_ ?_
+  · exact a2_level1_weigh (fun R' hR' => level1_term_door_decays_gk K hM hR')
       (mul_nonneg hw0 hRnn) hg9 hlvl0
-  · exact a3_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
-  · exact a3_term3_weigh_mr hRS0 hg3
-  · exact a3_term4_weigh hZ0 hg32
+  · exact a2_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
+  · exact a2_term3_weigh_mr hRS0 hg3
+  · exact a2_term4_weigh hZ0 hg32
 
 set_option maxHeartbeats 1000000 in
 /-- **THE A3 EXIT (closed window) AT THE G-LEVER**: `a2Rows_of_capfree3'` at `G := s13GK K M`
@@ -1159,12 +1119,12 @@ theorem a2Rows_of_capfree3'_gk (K : ℕ) (hK : K ≤ 170000000) :
       (by linarith : (0 : ℝ) ≤ (Xd : ℝ))
     linarith
   unfold a2Mrow'_gk
-  refine a3_row_weigh ?_ ?_ ?_ ?_
-  · exact a3_level1_weigh (fun R' hR' => level1_term_door_decays_gk K hM hR')
+  refine a2_row_weigh ?_ ?_ ?_ ?_
+  · exact a2_level1_weigh (fun R' hR' => level1_term_door_decays_gk K hM hR')
       (mul_nonneg hw0 hRnn) hg9 hlvl0
-  · exact a3_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
-  · exact a3_term3_weigh_mr hRS0 hg3
-  · exact a3_term4_weigh hZ0 hg32
+  · exact a2_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
+  · exact a2_term3_weigh_mr hRS0 hg3
+  · exact a2_term4_weigh hZ0 hg32
 
 -- #audit (temporary)
 

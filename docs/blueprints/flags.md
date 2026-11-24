@@ -2150,7 +2150,7 @@ entry above:
    `simplexInt`-positivity lemma needed.
 2. **The frozen `hQd` interface needs NO statement surgery (no "R1-IF").**
    `s2_inner_yF` is quantifier plumbing; the content is `s2_inner_termwise`
-   (`InnerS2.lean:1129`), POINTWISE in `(R, W', D)` with only `300 ≤ D`. The
+   (`InnerS2.lean:1122`), POINTWISE in `(R, W', D)` with only `300 ≤ D`. The
    universally-quantified `hQd` (which demands the qdiag comparison down to
    `D = 300`, where the landed `κ⁻¹ ≤ 5√D` bound cannot close it) is BYPASSED:
    R1 proves the comparison only at `(primorial Dfin, Dfin)` and feeds
@@ -13865,7 +13865,7 @@ byte-untouched; four sites. The ε-window headroom VERIFIED from
 crumb needs 2688 via one new A-class stone `3(log X)³ ≤ X` →
 `673 + 2688 = 3361 ≤ 4320` — **fits with 959 to spare, no new named
 threshold**. ⚠ COUPLING 2: the ROW side moves one numeral — the
-register grading conjunct (M4DoorClose:279/M4T0Discharge:712) gains
+register grading conjunct (M4DoorClose:280/M4T0Discharge:712) gains
 `+ 8·(logb 2 (2Xd))²/Xd` (in-place register-conjunct strengthening,
 clears by ~10⁻¹⁰²).
 
@@ -15213,7 +15213,7 @@ lock now hypothesises a binder pair nothing in the corpus carries.  ⟦WALL 2⟧
 `door_length_gate_iff` is the socket's own floor WORKING AS DESIGNED — it is the
 partition boundary of the landed graded split (`m4_door_meansq_carried` at
 `doorRowFloor M ≤ j`; `m4_dyadicRow_carried` routes `j < doorRowFloor M` to
-`doorRow_trivial_grade`); `M4DoorClose.lean:15-17` says it flatly: "Both are down."
+`doorRow_trivial_grade`); `M4DoorClose.lean:16-18` says it flatly: "Both are down."
 The A4 executor read `M4DoorRow`'s historical §6 prose, not the HEAD capstone — a
 VK-forgetting-class miss, now fenced: §6's header carries the counter-wave pointer
 (this commit), at parity with §7's.
@@ -18981,7 +18981,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 **W1 -- THE EXIT.** `cofkL_capFreeFloor_at_socket (K Qm) : exists K_vt >= 0, forall (socket instance) chi, ... -> forall J subset Icc 1 2, CapFreeFloor3 (pieceDatum chi J (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M)) ((A+s : R))`. **This closes the ONLY anchor-reading and the ONLY character-reading binder of `m4_supplier_all_chi`.** What remains of `S16CofactorSupply_L_gk` reads neither `AdoorL` nor `s13GK` nor `chi`.
 
-**STOPPED LOUDLY -- THE BULK (W1 parts (c)+(d)), NOT ATTEMPTED, GAP NAMED EXACTLY.** The residual binders of `m4_supplier_all_chi` (`RbdSupply.lean:190`) at `Pseq := calP (AdoorL M) (s13GK K M)`, `Qseq := calQK ... M`, `J := 2`, `Ps := 1`, `H := H83 X theta293`, `N := 2(A+s)`, `Xd := A+s`, `P := s13BandP (A+s)`, `Q := s13BandQ (A+s)`, `Tann := 2T`, `X := (A+s : R)`, `theta := theta293`: (i) the ladder bundle `Mt`/`kk`/`Dd`/`Xa` with its ten per-block laws; (ii) `TLBlockGates34` (17 conjuncts/block, `USetGradedPrice.lean:815`); (iii) the `c`/`Cb`/`ShortIntervalDatum`/`Rrad` head; (iv) the `S`/`Rbar0` grading and the `CR` register (`4*Rbar0 <= CR*(log X)^{-rho293}`, `1728*Cq*CR^2 <= (log X)^{2 theta293}`). PRECEDENT AND EVIDENCE THAT THIS IS TRANSCRIPTION, NOT MATHEMATICS: `M4RowLinear.DoorRowCarried_L_gk` (:5652) is this very bundle at the linear anchor and the lever, ~98 conjuncts, **CARRIED (never discharged) at BOTH doors** -- consistent with COFK-L section 4 ("the BULK is anchor-blind and unbuilt at both doors; the L re-cut adds ZERO to it"). Honest price for the bulk: a `CofactorBulk_L` register (~150 ln) + the ~35-binder instantiation (~150 ln), one wave, class B, no new mathematics. NOT started tonight -- the W2 finding changed the accounting and deserved the report first.
+**STOPPED LOUDLY -- THE BULK (W1 parts (c)+(d)), NOT ATTEMPTED, GAP NAMED EXACTLY.** The residual binders of `m4_supplier_all_chi` (`RbdSupply.lean:190`) at `Pseq := calP (AdoorL M) (s13GK K M)`, `Qseq := calQK ... M`, `J := 2`, `Ps := 1`, `H := H83 X theta293`, `N := 2(A+s)`, `Xd := A+s`, `P := s13BandP (A+s)`, `Q := s13BandQ (A+s)`, `Tann := 2T`, `X := (A+s : R)`, `theta := theta293`: (i) the ladder bundle `Mt`/`kk`/`Dd`/`Xa` with its ten per-block laws; (ii) `TLBlockGates34` (17 conjuncts/block, `USetGradedPrice.lean:809`); (iii) the `c`/`Cb`/`ShortIntervalDatum`/`Rrad` head; (iv) the `S`/`Rbar0` grading and the `CR` register (`4*Rbar0 <= CR*(log X)^{-rho293}`, `1728*Cq*CR^2 <= (log X)^{2 theta293}`). PRECEDENT AND EVIDENCE THAT THIS IS TRANSCRIPTION, NOT MATHEMATICS: `M4RowLinear.DoorRowCarried_L_gk` (:5629) is this very bundle at the linear anchor and the lever, ~98 conjuncts, **CARRIED (never discharged) at BOTH doors** -- consistent with COFK-L section 4 ("the BULK is anchor-blind and unbuilt at both doors; the L re-cut adds ZERO to it"). Honest price for the bulk: a `CofactorBulk_L` register (~150 ln) + the ~35-binder instantiation (~150 ln), one wave, class B, no new mathematics. NOT started tonight -- the W2 finding changed the accounting and deserved the report first.
 
 **K_vt, HONEST (mission item (e)).** No effective bound was traced -- `capFreeFloor3_margin_all_chi_vt`'s witness remains symbolic, as COFK-L banked. The K-free law is threaded instead: `cofkL_threshold_at_socket` and `cofkL_capFreeFloor_at_socket` carry `K_vt` under the single explicit cushion `32*K_vt + 32*D <= log H+/4`. At the terminal's regime `log H+ >= e^{518}`, so the cushion admits `K_vt <= e^{518}/128 ~ 10^{222}` -- the traced-shape verification COFK-L asked for, now a kernel-checked hypothesis rather than a doc claim.
 
@@ -18991,7 +18991,7 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 
 **CONSEQUENCE FOR THE ACCOUNTING.** COFK-L's headline ("the two carried predicates are BOTH priced") needs one amendment: the CO-FACTOR is priced and its anchor half is now PAID; the BASE-SCALE CAP is NOT priced -- it is unprovable as stated from the terminal's exports and needs the `x`-ceiling export first. The predicate-free classical terminal therefore costs: (1) the `x`-ceiling threading pass (BAND-WINDOW genre), (2) the co-factor bulk (transcription), (3) the cs/T0/Ks riders (the sibling arm + the named Siegel caveat).
 
-## () ROAD-B ARM 1 HOME (REGISTER-SUPPLY, 31c14c6+7ef684a) + CATCH #104 + THE ACCOUNTING AMENDMENT: W1's anchor-reading half PAID in kernel (the cancellation log QK = i^2*M*log P at the bytes; the debit 2logM+log4+50 anchor-identical; the mu-floor loglog(A+s) >= log H+ - 14 via hPHheadroom -- the ONE step carrying the whole margin; the vt-threshold discharged from the terminal's OWN exports; the capFreeFloor exit closes the supplier's only anchor+character-reading binder; K_vt carried under the explicit cushion 32K_vt+32D <= logH+/4, admits ~10^222). STOPPED LOUDLY on the bulk (c)+(d): the ~98-conjunct register carried-never-discharged at both doors (M4RowLinear:4389) -- transcription not mathematics, ~300 ln class B, ONE wave. W2 HEADLINE: the base-scale cap is NOT dischargeable from the terminal's current exports -- the terminal exports x-FLOORS only; the cap needs an x-CEILING export (the builder holds x in closed form; BAND-WINDOW-genre threading, the landed reductions s16_baseScaleCap96_L_of_xwindow/_of_x_small await it). ⟦CATCH #104 (operational)⟧: the quiescence guard `pgrep -f "leanchecker|lake build"` SELF-MATCHES its own bash cmdline and never terminates (both arms deadlocked ~30 min past ceremony end) -- future briefs: pattern-narrow to bin/-prefixed + exclude $$. ⟦All.lean = shared-write hazard between parallel arms -- Road-B follow-ons go SEQUENTIAL⟧. Road-B remaining: X-CEIL threading + COFACTOR-BULK + the riders (RIDER-TRACE in flight, T0 tripwire already fired).
+## () ROAD-B ARM 1 HOME (REGISTER-SUPPLY, 31c14c6+7ef684a) + CATCH #104 + THE ACCOUNTING AMENDMENT: W1's anchor-reading half PAID in kernel (the cancellation log QK = i^2*M*log P at the bytes; the debit 2logM+log4+50 anchor-identical; the mu-floor loglog(A+s) >= log H+ - 14 via hPHheadroom -- the ONE step carrying the whole margin; the vt-threshold discharged from the terminal's OWN exports; the capFreeFloor exit closes the supplier's only anchor+character-reading binder; K_vt carried under the explicit cushion 32K_vt+32D <= logH+/4, admits ~10^222). STOPPED LOUDLY on the bulk (c)+(d): the ~98-conjunct register carried-never-discharged at both doors (M4RowLinear:4378) -- transcription not mathematics, ~300 ln class B, ONE wave. W2 HEADLINE: the base-scale cap is NOT dischargeable from the terminal's current exports -- the terminal exports x-FLOORS only; the cap needs an x-CEILING export (the builder holds x in closed form; BAND-WINDOW-genre threading, the landed reductions s16_baseScaleCap96_L_of_xwindow/_of_x_small await it). ⟦CATCH #104 (operational)⟧: the quiescence guard `pgrep -f "leanchecker|lake build"` SELF-MATCHES its own bash cmdline and never terminates (both arms deadlocked ~30 min past ceremony end) -- future briefs: pattern-narrow to bin/-prefixed + exclude $$. ⟦All.lean = shared-write hazard between parallel arms -- Road-B follow-ons go SEQUENTIAL⟧. Road-B remaining: X-CEIL threading + COFACTOR-BULK + the riders (RIDER-TRACE in flight, T0 tripwire already fired).
 
 ## 2026-08-02 RIDER-TRACE Opus done — ⟦THE cs RIDER IS EFFECTIVE AT EVERY LEAF; THE T₀ RIDER IS A MIS-SIZED NUMERAL, UNREACHABLE AT THE CORPUS'S OWN WITNESS⟧ `Salt/MR/RiderTrace.lean` (three rungs + the cs arithmetic, exit 0)
 
@@ -19252,7 +19252,7 @@ additions; all 13 new top-level decls at `[propext, Classical.choice, Quot.sound
 
 ## () COFACTOR-BULK HOME (f4ec2b1, exit-0, 13 decls 3-axiom): ⟦RULING 9⟧ instantiated END-TO-END at the L door -- cofkL_cofactorSupply_L_gk_flat concludes S16CofactorSupply_L_gk 32000000 Cq R (flatDoorM A) at the terminal's own numerals; ALL SEVENTEEN TLBlockGates34 conjuncts discharged none-resisted (C6 collapses -- cq is instantiation-free; C4 one charge covers every block); the ladder off the landed witnesses; the head off exists_shortIntervalDatum; arm 1's capFreeFloor consumed verbatim as hfloor; the register shrank 19->17 (the band-bottom pays the anchor ceiling free). THE ACCOUNTING HEADLINE KERNELIZED: not one carried conjunct mentions AdoorL/s13GK/calP/calQK/chi -- COFK-L's anchor-blindness is now kernel fact. K_vt symbolic under the explicit cushion; the Qm slot CLOSED via cofkL_q_le_arcCap. HONEST RESIDUAL: CofactorBulkL is a REGISTER not a theorem -- its inhabitation at the flat scale (C7 wants X >~ e^{e^165}; the mu-floor supplies loglog X ~ 10^95 -- looks free, unproven) is COMPOSE-2's to close. Road-B chain: BAND-K-PROBE (aloft) -> CAP-RECUT -> COMPOSE-2 v4.
 
-## () BAND-K-PROBE: **GATE OPEN** (pure byte-read, no kernel probes): K enters the band lane at exactly TWO sites, both through s13GK; the supplier chain is PARAMETRIC (no hK ceiling anywhere on it); the minted Cband = 64C + e^{-52.5}4^{-1.05} is K-FREE AND A-FREE (witness obtained before every intro, traced hop-by-hop) -- Awin ~ 35439 unchanged by the raise. ⟦LOAD-BEARING CREDIT⟧: the K-freeness was BOUGHT by the 7/31 LEVEL2-PROD reprice (per-block gaps log M / log 4M at every G -- the lever cancels in-block); on the old covering-window witness the raise would be DEAD (log Cband >= 0.728K). THE ONE RESIDUAL: the forall-K/exists-Awin SWAP (four binder-hoists, ~170 ln, bodies verbatim: M4RowLinear:5784/:5873, S11HoistLinear:909, S16Uniform:1262). CENSUS: 167 hK binders all pure forwards; the L spend sites ALREADY at the linear ceiling (DoorLinear:311, DoorLadderLinear:396/:406/:584); the kwide widener (ThmA2Linear:41, spent :560) is the one hop to delete; CAVEAT: ~8 twins quantify M internally -- the ceiling moves INSIDE as an antecedent (body edits, sites named). THE REGISTER HOSTS ANY Klev <= 548e^{1.6A} uniformly (S15SelLinear:741 derivation; margin 137x at the pinned ceiling). DESIGN NOTE ADOPTED: Klev := ceil(kcap*e^{1.6A}) with kcap a NAMED design constant (:= 4; budget 547; the demand-side coefficient margin is 1.386x -- one bad constant away, so the dial gets a name). The cap direction: raising K makes the cap RHS ~10^{4.5e112} -- clears CAP-SCOPE's demand by 10^112 orders in the exponent. BULK's product verified K-parametric (forall-K outside the witness prefix) -- survives the raise as-is. ⟦CAP-RECUT fires: hoists + weakenings + kwide deletion + Klev(kcap) + the g-rider + the iii-B re-cut + discharge⟧
+## () BAND-K-PROBE: **GATE OPEN** (pure byte-read, no kernel probes): K enters the band lane at exactly TWO sites, both through s13GK; the supplier chain is PARAMETRIC (no hK ceiling anywhere on it); the minted Cband = 64C + e^{-52.5}4^{-1.05} is K-FREE AND A-FREE (witness obtained before every intro, traced hop-by-hop) -- Awin ~ 35439 unchanged by the raise. ⟦LOAD-BEARING CREDIT⟧: the K-freeness was BOUGHT by the 7/31 LEVEL2-PROD reprice (per-block gaps log M / log 4M at every G -- the lever cancels in-block); on the old covering-window witness the raise would be DEAD (log Cband >= 0.728K). THE ONE RESIDUAL: the forall-K/exists-Awin SWAP (four binder-hoists, ~170 ln, bodies verbatim: M4RowLinear:5761/:5873, S11HoistLinear:909, S16Uniform:1262). CENSUS: 167 hK binders all pure forwards; the L spend sites ALREADY at the linear ceiling (DoorLinear:311, DoorLadderLinear:323/:333/:511); the kwide widener (ThmA2Linear:41, spent :560) is the one hop to delete; CAVEAT: ~8 twins quantify M internally -- the ceiling moves INSIDE as an antecedent (body edits, sites named). THE REGISTER HOSTS ANY Klev <= 548e^{1.6A} uniformly (S15SelLinear:741 derivation; margin 137x at the pinned ceiling). DESIGN NOTE ADOPTED: Klev := ceil(kcap*e^{1.6A}) with kcap a NAMED design constant (:= 4; budget 547; the demand-side coefficient margin is 1.386x -- one bad constant away, so the dial gets a name). The cap direction: raising K makes the cap RHS ~10^{4.5e112} -- clears CAP-SCOPE's demand by 10^112 orders in the exponent. BULK's product verified K-parametric (forall-K outside the witness prefix) -- survives the raise as-is. ⟦CAP-RECUT fires: hoists + weakenings + kwide deletion + Klev(kcap) + the g-rider + the iii-B re-cut + discharge⟧
 
 ## () CAP-RECUT HOME (exit-0, 19 decls 3-axiom, ~640 ln): **⟦ITEM 3 IS A THEOREM AT THE RAISED LEVER⟧** — `s16_baseScaleCap96_L_at_klevF` lands `S16BaseScaleCap96_L_gk (KlevF A) R M` on the flat builder's two exported ceilings (the `x`-ceiling under the `g`-rider; the endpoint ceiling `loglog H₊ ≤ 2e^{1.6A}`) plus `ε ≥ 1/500`. The vacuity CAP-SCOPE found is repaired exactly where the ruling said. **P1 (4/4)** the uniform hoists land bodies-verbatim — `m4_hpiece…_uniform`, `m4_hT0band…_uniform`, `m4_hband_at_door_slot…_uniform`, and the prize `s16_bandLaneWinL_holds_uniform : ∃ Awin, 162 ≤ Awin ∧ ∀ K, S16BandLaneCBoundedL_win Awin K`: ONE `Awin` for EVERY `K`, BAND-K-PROBE's gate confirmed at the kernel. **P2(a)** `kcap := 4` (NAMED dial) + `KlevF A := ⌈kcap·e^{1.6A}⌉₊`; `KlevF_le_wideCeiling` proves admissibility inside the register's own `1.7e8·flatDoorM A` at every `A ≥ 26` (137× margin, uniform). **P2(c)** the `kwide` hop DELETED — `calFrameK_doorH1_at_L_gk_kwide` (ThmA2Linear, beside its original) takes `K ≤ 1.7e8·M` straight into the landed wide frame `calFrameK_satisfiable_doorH1_L_gk`; `calFrameK_doorH1_at_L_gk_flat` is its flat-design-point instance. **P3** `chowlaRegimeFlat_exists_param_head_gceil` collapses XCeil's `max`-shaped head ceiling for any caller `g` with `log(g H₊ ω) ≤ (31/ε)·H₊`. ⟦HONEST COEFFICIENT, CORRECTED AT THE BYTES⟧ the builder's own `x` has `log x ≈ 1.386·ε²·H₊` against the rider's `31·H₊/ε`, a ratio `22.4/ε³ ≥ 2.8·10^9` at `ε ≤ 1/500` — **NINE** orders in the coefficient, not the four the 0802 dossier addendum estimated. **P4** `S16BaseScaleCapEnd_L_gk` is the `K`-FREE endpoint form (`loglog(A+s) ≤ log H₊ + log(1/ε) + 5`), a THEOREM off the `x`-ceiling (`s16_baseScaleCapEnd_L_of_xceil`); `s16_baseScaleCap96_L_of_end` is ⟦iii-A⟧ in one lemma (the door-vs-endpoint numeral as an EXPLICIT hypothesis, so no consumer statement changes); `klevF_capNumeral` proves that numeral at `K = KlevF A`; `s16_capGate_supply_L_gk_{end,klevF}` are the cap gate on the re-cut route. ⟦THE WHOLE QUESTION IS ONE COEFFICIENT⟧ demand `loglog H₊ ≤ 2·e^{1.6A}` against supply `K·log 2 = kcap·log 2·e^{1.6A} = 2.7724·e^{1.6A}` — margin **1.386×**, one bad constant away, which is why `kcap` is a named dial and not an inline numeral (the residual `e^{0.7724t}`, `t ≥ 10^{17}`, is pure slack). ⟦THE ONE STOPPED ITEM: P2(b)⟧ the signature weakenings. The brief priced ~25; the **verified census is 67 decls across 14 files** transitively on the `calFrameK_doorH1_at_L_gk` chain (177 flat-ceiling decls exist in `Salt/MR` overall). TWO landed as the pattern — `m4_hrowsSum_chi_door_zero_L_gk_kwide`, `m4_hrowsSlot_at_door_zero_L_gk_kwide` (the deepest pair, six consumers between them) — showing the mechanical recipe: delete `(hK : K ≤ 170000000)` from the binder list, insert `K ≤ 170000000 * M →` immediately after the INTERNAL `1 ≤ M →` (M is internally quantified at every one of the 67), re-point at the `_kwide` frame. 65 remain: M4ArithZeroLinear(4) M4ClosureRepairLinear(6) M4LadderLinear(6) M4RowAssemblyLinear(10) M4RowLinear(5) M4RowSpineLinear(2 left) M4RowsChiPrimeLinear(6) M4SocketLinear(3) NumeralCt(3) S11HoistLinear(3) S16Compose(3) S16FlatTerminalLinear(3) S16Uniform(4) ThmA2Linear(7). STOPPED not because it is hard but because it is BULK (~4000 ln of verbatim restatement) — a dedicated mechanical wave, not a design item. ⟦COMPOSE-2's INGREDIENT LIST⟧ `KlevF`/`kcap`/`KlevF_le_wideCeiling`; `s16_baseScaleCap96_L_at_klevF` (⟦ITEM 3⟧); `s16_capGate_supply_L_gk_klevF`; `chowlaRegimeFlat_exists_param_head_gceil` (the `g`-rider the v4 terminal must state); `s16_bandLaneWinL_holds_uniform` (the `A`-uniform band rider); `calFrameK_doorH1_at_L_gk_kwide` + the two spine twins; and the 65-decl widening as its prerequisite.
 
@@ -20693,7 +20693,7 @@ obligation the repulsion ceiling discharges that `efZfrCeil` cannot. (It cannot 
    (`:1752`) — consumed at `TauExt.lean:353`, audited in `Salt/SW/All.lean:339`. Four of the five
    row caps are SHARED verbatim by both assemblies (`row_rho_main_cap`, `row_A_cap`, `row_1x_cap`,
    `row_Eβ_cap`); only the Eρ row is forked. There are **two** `c`-min towers, an **11-fold** at
-   `TBalR8:2603-2660` and a **10-fold** at `TBalTall:1401-1452`, and TBalR8's KEβ/KEρ arms carry a
+   `TBalR8:2603-2660` and a **10-fold** at `TBalTall:1395-1446`, and TBalR8's KEβ/KEρ arms carry a
    free `Z₀` (`:1387-1388`) so the dossier's §3 arm table — computed at the tall numerals — does
    not price that tower at all. Following S1 literally turns a landed theorem red. S1 as specified
    re-priced at **~123 ln / 2 files / 5 declarations**, against the dossier's ~15 ln.
@@ -20730,7 +20730,7 @@ shortfall — and S4's four-move list does not name it.
 **WHAT SURVIVED THE ATTACK, UNBROKEN.** Headline (i) is byte-exact: all ten arms reproduce
 (`631.5764` landed on the `(c₀/KEρ)^8` arm; `86.2267` post-S2 on `(c₀/32)^{17/3}`; `c₀ = 1/126848`
 confirmed at `ZeroFreeReal.lean:602/:611`). The `htriv` guard claim is right — `htriv : u <
-1/(40·L₂)` (`TBalTall:550`) is live through the whole deep bullet and gives `u·L₂ < 1/40` with no
+1/(40·L₂)` (`TBalTall:544`) is live through the whole deep bullet and gives `u·L₂ < 1/40` with no
 `L₂` lower bound needed, so `hc_t9 : c ≤ 1/18` is genuinely redundant in BOTH assemblies (but
 worth **0.00**, since `1/576` at 6.36 already dominates `1/18` at 2.89 — do not spend on it).
 `tbal_tau_le_split` really does need only `c ≤ 1` (`c ≤ 204.8` suffices). The rpow sign convention
@@ -20741,7 +20741,7 @@ is correct and does not invert. The window `hσlo` is already in scope at all th
 K1+K4 repairs: **both towers always**; S1 by **numeral replacement** (`2^{−250}` → `1/40`) rather
 than arm deletion, which keeps every hand-built min-projection chain index-stable (~20 ln instead
 of ~123) and pre-pays S4; γ-floors as **exact rationals**; and the shared writer-slot block is
-`TBalR8:2603-2660` **AND** `TBalTall:1401-1452`, which is what forces TS-1 strictly before TS-2.
+`TBalR8:2603-2660` **AND** `TBalTall:1395-1446`, which is what forces TS-1 strictly before TS-2.
 Honest delivery, stated in advance: **631.58 → 86.23** (`e^{1264}` → `e^{172}`), no parameter
 changed, no statement outside the two files — and, per the corollary above, **zero door progress**.
 ⛔ Both waves are HELD until 20:00 by the fleet's third-OOM standing order (math seat pauses all
@@ -21351,9 +21351,9 @@ else, no statement outside these two towers.
   which is the honest hypothesis set the refuter's §1 identified. `b = 680`, `k = 14` stay
   hardwired (parametrising them is TS-3's).
   Landed **by numeral replacement, not arm deletion**: the head arm of the `c`-min becomes
-  `1/40` in **both** towers (`TBalR8:2603`, `TBalTall:1401`), `hp1` becomes `by norm_num`
-  (`TBalR8:2607`, `TBalTall:1405`), `hc_t1 : c ≤ 1/40` (binders `TBalR8:2158`, `TBalTall:503`;
-  locals `TBalR8:2623`, `TBalTall:1420`). **Every `min`-projection index below is
+  `1/40` in **both** towers (`TBalR8:2603`, `TBalTall:1395`), `hp1` becomes `by norm_num`
+  (`TBalR8:2607`, `TBalTall:1399`), `hc_t1 : c ≤ 1/40` (binders `TBalR8:2158`, `TBalTall:497`;
+  locals `TBalR8:2623`, `TBalTall:1414`). **Every `min`-projection index below is
   unchanged** — the ~123-line re-index the refuter priced was avoided in full.
 - **S5(a) — the sharp crude-log.** New `neg_log_le_rpow'` (`TBalR8:322`):
   `−log u ≤ u^{−δ}/(e·δ)`, a factor `e` better than the landed `neg_log_le_rpow` (which keeps its
@@ -21422,7 +21422,7 @@ linarith only [hsplit, htriv]
 ```
 
 `le_trans hc_t1 (by norm_num) : c ≤ 1` **consumes `hc_t1`**, so the binder stays live at both
-`TBalR8:2158` and `TBalTall:503`, and **no binder was renamed to `_hc_t1`** — Amendment 5's own
+`TBalR8:2158` and `TBalTall:497`, and **no binder was renamed to `_hc_t1`** — Amendment 5's own
 instruction ("if the build turns out not to warn, drop step 2 and say so"). Both towers built with
 `✔` (no diagnostics at all), and the full corpus's 190 warnings contain **zero** lines matching
 `Salt/SW/{TBalR8,TBalTall,All}`. Amendment 5 was right about the mechanism and right to flag it;
@@ -21447,7 +21447,7 @@ above produce a signal instead of a silent pass.
 | 10 | `1/576` | 6.3561 | 6.3561 | 6.3561 |
 | — | **MAX** | **631.5764** | **563.9186** | **86.2267** |
 
-This is the **TALL** tower (`TBalTall:1378`), the only one that prices numerically: `KEβ =
+This is the **TALL** tower (`TBalTall:1372`), the only one that prices numerically: `KEβ =
 16·(328+48·5)·248⁹`, `KEρ = 16·570·248⁹`. TS-1's delivery is **631.5764 → 563.9186**, i.e.
 `−66.7813` from S5(a) (`8·9·log(627/248)`) and `−0.8765` from S6 (`8·log(636/570)`); S1 contributes
 **0.00** to the MAX because its arm was never binding — its value is that it removes the
@@ -21507,7 +21507,7 @@ executor's comment used the tall figure here too, also corrected), MAX `567.7832
    the "no uniformity trap" ruling extends to the fourth site unchanged. Use `linarith [hσlo]` for
    the tight-but-true endpoint, per the brief.
 6. **The `−9/100` exponent is UNCHANGED** (S5(b) not attempted), so TS-2's floors stand as written.
-7. **Arm-table comments now exist beside both `c`-min blocks** (`TBalR8:2579`, `TBalTall:1378`) and
+7. **Arm-table comments now exist beside both `c`-min blocks** (`TBalR8:2579`, `TBalTall:1372`) and
    both carry the projected post-TS-2 figures. Update them, do not re-derive them.
 
 ### THE HONEST LINE COUNT — the dossier's `~120 ln` is **~2.7× low** on churn
@@ -21552,7 +21552,7 @@ leave behind. **The rule of thumb TS-2 should use: a single constant change in t
 1. `saltbuild.sh Salt.SW.TBalR8` ✔ (94 s, no diagnostics) → `saltbuild.sh Salt.SW.TBalTall` ✔
    (37 s, no diagnostics) → full `saltbuild.sh` **EXIT=0, 9718 jobs, 0 errors**, and none of the
    190 corpus warnings is in a file this wave touched.
-2. **Both** `dh_repulsion_ordered` (`TBalR8:2663`) and `dh_repulsion_tall` (`TBalTall:1458`) build,
+2. **Both** `dh_repulsion_ordered` (`TBalR8:2663`) and `dh_repulsion_tall` (`TBalTall:1452`) build,
    with the byte-identical witness `refine ⟨680, c, 14, by norm_num, hcpos, by norm_num, ?_⟩`.
 3. `#print axioms` on all ten touched/new declarations = `[propext, Classical.choice, Quot.sound]`
    (via `saltbuild.sh ScratchTS1.lean`, not committed), and `Salt/SW/All.lean`'s own
@@ -21668,7 +21668,7 @@ different in kind: the goal becomes arithmetically false, so there is nothing to
 ### 📊 THE REALISED ARM TABLES — RECOMPUTED, NOT COPIED; THEY MATCH THE PROJECTION EXACTLY
 
 `log(1/arm)`; `c` is a `min`, so `log(1/c)` is the **MAX**. `c₀ = 1/126848`, `log(1/c₀) = 11.7507`.
-**TALL tower** (`TBalTall:1378`, the only one that prices numerically):
+**TALL tower** (`TBalTall:1372`, the only one that prices numerically):
 `KEβ = 16·(328+48·5)·248⁹`, `KEρ = 16·570·248⁹`.
 
 | # | arm | landed | after TS-1 | **after TS-2 (REALISED)** | TS-1's projection |
@@ -21760,7 +21760,7 @@ mathematics; it never budgeted the ledger or the numeral carriage.
 1. `saltbuild.sh Salt.SW.TBalR8` ✔ → `saltbuild.sh Salt.SW.TBalTall` ✔ → full `saltbuild.sh`
    **EXIT=0, 9718 jobs, 0 errors**. The corpus's **190** warnings are unchanged and **none** is in
    `Salt/SW/TBalR8.lean`, `Salt/SW/TBalTall.lean` or `Salt/SW/All.lean`.
-2. **Both** `dh_repulsion_ordered` (`TBalR8:2663`) and `dh_repulsion_tall` (`TBalTall:1458`) build,
+2. **Both** `dh_repulsion_ordered` (`TBalR8:2663`) and `dh_repulsion_tall` (`TBalTall:1452`) build,
    with the byte-identical witness `refine ⟨680, c, 14, by norm_num, hcpos, by norm_num, ?_⟩`.
 3. `#print axioms` on all six touched declarations = `[propext, Classical.choice, Quot.sound]`
    (via `saltbuild.sh ScratchTS2.lean`, **not committed**), and `Salt/SW/All.lean`'s `#audit_axioms`
@@ -21768,7 +21768,7 @@ mathematics; it never budgeted the ledger or the numeral carriage.
 4. The γ_Eρ mutation: run, failed at the intended goal with the error text quoted above, restored
    byte-exactly (SHA verified), rebuilt green. **Both outcomes recorded.**
 5. **Both arm-table comments carry REALISED figures, not projections** (`TBalR8:2579`,
-   `TBalTall:1378`), with the after-TS-1 and after-TS-2 columns side by side and the binding arm
+   `TBalTall:1372`), with the after-TS-1 and after-TS-2 columns side by side and the binding arm
    marked. Amendment 6's defect — a projection left sitting in a post-wave column — is not repeated.
 
 ### THE HONEST STATEMENT OF WHAT THIS BUYS (do not let a later reader misread it)
@@ -21880,7 +21880,7 @@ TS-0 predicted `680` at ~63 sites and `(14 : ℝ)` at ~101. Measured (lines, `gr
 1. `saltbuild.sh Salt.SW.TBalR8` ✔ (**92 s** elaboration) → `saltbuild.sh Salt.SW.TBalTall` ✔
    (**187 s**, unchanged from TS-2's post-wave cost — the parametrization is free) → full
    `saltbuild.sh` **EXIT=0, 9718 jobs, 0 errors**.
-2. **Both** `dh_repulsion_ordered` (`TBalR8:2663`) and `dh_repulsion_tall` (`TBalTall:1458`) build,
+2. **Both** `dh_repulsion_ordered` (`TBalR8:2663`) and `dh_repulsion_tall` (`TBalTall:1452`) build,
    with the **byte-identical** witness `refine ⟨680, c, 14, by norm_num, hcpos, by norm_num, ?_⟩` —
    the line does not appear in `git diff` at all. `#check` confirms both delivered statements are
    character-for-character the pre-wave existentials.
@@ -21890,7 +21890,7 @@ TS-0 predicted `680` at ~63 sites and `(14 : ℝ)` at ~101. Measured (lines, `gr
    Quot.sound]`, via `saltbuild.sh ScratchTS3P.lean` (**not committed**); `Salt/SW/All.lean:152`'s
    roll-call independently reports `✓ … [3 axioms]` for every one in the full build. (The two
    per-instance bodies are `private`, so they are audited transitively through the contracts.)
-5. **Neither arm table moved by one digit.** `TBalR8:2588`/`TBalTall:1385` still read
+5. **Neither arm table moved by one digit.** `TBalR8:2588`/`TBalTall:1379` still read
    `2. (c₀/32)^{17/3}  86.2267 ← BINDING`, and both `log(1/c)` MAX lines still read **86.2267**.
    Neither table is in the diff.
 6. `git diff` sanity: the diff is **parametrization + re-threading and nothing else**. The only
@@ -22827,7 +22827,7 @@ exactly as written: GREP THE LIKELY NAMES FIRST — every time, it existed.*
 ### ⛔ AMENDMENT, 20 MINUTES LATER — THE HAZARD IS REAL AND **NOT ON THE CRITICAL PATH**
 
 I analysed the reindex before reading the row the supply table NAMES for it. **`congrExpSum`
-(`Salt/Weil/Sawtooth.lean:1128`) and `norm_congrExpSum_le` (`:1241`) are stated ENTIRELY OVER
+(`Salt/Weil/Sawtooth.lean:1113`) and `norm_congrExpSum_le` (`:1241`) are stated ENTIRELY OVER
 ℤ** — `Finset.Ioc A B` with `A B : ℤ`, filter `(q:ℤ) ∣ n - b` — and proved via
 `Salt.BV.geom_e_bound`, geometrically. **They never form `M₁`/`M₂` at all.** Corpus-wide grep
 for a hand-rolled `(A-b)/q` reindex: **ZERO sites.**
@@ -23683,7 +23683,7 @@ Halász bound:
   the `exp(−(1/2)·mrtM)` shape occurs ONLY in MRTPropA3.lean's own def (:382) and its
       CONSUMERS (:1900, :2230, :2239) — there is NO landed PRODUCER at that constant
 ```
-📌 **The `1/(1+|t−t₁|)` decay factor IS available** (`BallSup.lean:211,219,232`; `A3Middle.lean:243,602`)
+📌 **The `1/(1+|t−t₁|)` decay factor IS available** (`BallSup.lean:211,219,232`; `A3Middle.lean:203,562`)
 — **the gap is the constant, not the shape.**  MRT get `1/2` from the sharp Granville–Harper–
 Soundararajan proof of Halász; our corpus holds an explicit peel at `1/(2e)`.
 ⇒ 🔑 ***THE SAME LAW, THIRD INSTANCE: A CONSTANT IS A RECORD OF WHICH EXTERNAL THEOREM ITS AUTHOR
@@ -24313,7 +24313,7 @@ At 05:0x I posted M2 with a named residual: *"whether the `1/16` reaches the MAS
 remaining half and I have not proved it."* **Looked. It was answered and wired before tonight.**
 ```
   FarL2 §12  box_floor_M0_pieceDatum   boxM0 (K+D) q X ≤ 𝔻²(pieceDatum χ 𝒥 …, costwist v; X)
-             LANDED · AUDITED All.lean:3488 · CONSUMED M4T0Discharge:34 · M4RowLinear:7230
+             LANDED · AUDITED All.lean:3488 · CONSUMED M4T0Discharge:34 · M4RowLinear:7207
   FarL2      box_floor_clears_gate_45  AUDITED All.lean:3489; All.lean:3449 records
              "⟦T₀-SUPPLIER CONSUMES⟧ … floor + mask + gate in one implication"
   M4T0Datum  winCutH_doorChiCoeff_split_L splits the DOOR's cut datum into exactly those pieces
@@ -24568,7 +24568,7 @@ branch threshold. Nothing here bears on twin primes.
 
 ### 📥 09-02 — EM: `M4RowMeanSq_L` is RETIRED as an object (not refuted); the spine door is NAMED at the flat family; the crown `MRTDoorAllGrades` is minted with no producer
 
-**Object:** the QUEUE P1b residue `M4RowMeanSq_L` (M4RowLinear.lean:993) — "⟦THE CLASS PRICING⟧ open, a
+**Object:** the QUEUE P1b residue `M4RowMeanSq_L` (M4RowLinear.lean:994) — "⟦THE CLASS PRICING⟧ open, a
 design question". **Measured at `980c5c4f` (kernel reverse-dependency walk, refuter-reproduced ±1):** it
 is the PLAIN route's socket — two consumers, both on that route (`m4_blockMeanSq_of_rowMeanSq_L` :1394,
 hypothesis position; `m4_wave_exit_L` :2899, in its statement, itself with ZERO dependents), zero
@@ -25210,7 +25210,7 @@ astronomically large and carries no information, and the swept minimum was
 **What would close it, stated so the next session does not re-derive it — NOT DONE HERE.** The
 `K`-carrying terms are exactly the two rows that spend the `K/m²` arm of (7.4) where the uniform
 arm `2(1 + log K)/K` is the better one. That arm is `norm_majorantCoeff_le`
-(`Salt/Weil/Sawtooth.lean:680`), it is landed, and it holds at every `m`. Against the same
+(`Salt/Weil/Sawtooth.lean:672`), it is landed, and it holds at every `m`. Against the same
 machine it gives a `V`-free head of `≍ 4(1 + log K)·C = O(L·C)`, which the `512 L²` budget
 carries at every `k`. The freeze's ground for the `K/m²` arm — that it is the min at `m = 1`
 and on the head — is TRUE only for `K ≤ 7`, i.e. `k < 1296`, and it says so; what was not
@@ -25589,7 +25589,7 @@ one strength the consumers read (W1), move what a landed theorem already implies
 quantity to what is counted (W5). The negation then gets stronger (`not_fulcrum_implies_noSiegelZeros`).
 
 **Dead ends.**
-- `gaps_le_twelve_of_hasLevel` (`Salt/Twelve/GapsOfLevel.lean:296`): already fulcrum-shaped before the fulcrum (Q3b,
+- `gaps_le_twelve_of_hasLevel` (`Salt/Twelve/GapsOfLevel.lean:288`): already fulcrum-shaped before the fulcrum (Q3b,
   07-15, `EHall` consumed at one line; `WindowPNT` discharged by `windowPNT_holds`). The remaining `∀A` binder of
   `HasLevel (3999/4000)` can collapse to one saving, but that is FORM only: `θ★ ≈ 1` stays EH in depth, as the file's own
   θ-caveat says.

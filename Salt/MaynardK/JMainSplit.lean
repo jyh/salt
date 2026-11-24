@@ -27,7 +27,7 @@ open Salt.Twelve Salt.Maynard Salt.MaynardK
 /-! ### Relative one-coordinate g-moments (`M0`, `MQ`, `MQ2`) over `sqfCop R W'` -/
 
 /-- a product over `univ.erase m` is the product over `Fin n` through `m.succAbove`. -/
-private lemma erase_prod_removeNth_g {n : ℕ} {M : Type*} [CommMonoid M] (m : Fin (n + 1)) (F : Fin
+lemma erase_prod_removeNth_g {n : ℕ} {M : Type*} [CommMonoid M] (m : Fin (n + 1)) (F : Fin
         (n + 1) → M) :
     ∏ i ∈ Finset.univ.erase m, F i = ∏ i : Fin n, F (m.succAbove i) := by
   have he : Finset.univ.erase m = ({m}ᶜ : Finset (Fin (n + 1))) := by

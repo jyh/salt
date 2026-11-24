@@ -82,7 +82,7 @@ private lemma hSeq_lt_Dstar' (i : Fin 5) : hSeq 5 i < Dstar := by
 
 /-- `h_i ≤ 19` for each of the five shifts (`hSeq_five_zero` … `hSeq_five_four`, by cases on
 `i`). -/
-private lemma hSeq_le_nineteen (i : Fin 5) : hSeq 5 i ≤ 19 := by
+lemma hSeq_le_nineteen (i : Fin 5) : hSeq 5 i ≤ 19 := by
   fin_cases i <;>
     simp only [hSeq_five_zero, hSeq_five_one, hSeq_five_two, hSeq_five_three,
       hSeq_five_four] <;>

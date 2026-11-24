@@ -23,9 +23,9 @@ CONCLUSION: An's `S₃`, the tail second moment `Σ_{n ≤ u} T_z(n)² ≤ C·u�
 * **I, the exact reductions.** H7a puts H4's side conditions back as ONE lower limit
   `z/min(a,b) < k`, reading the filtered sum as a difference of two `J`s; H7a' is the box
   identity — H4's triple sum over `Icc 1 ⌊u⌋₊` EQUALS the sum over `max(a,b)·g·z ≤ ⌊u⌋₊`,
-  because outside that box the term is `J(M) − J(M) = 0`. Two public helpers land with
-  them: H7-0 (`κ` multiplicative on coprime pairs) and H7e-0 (`σ_{−1/4}` sub-multiplicative,
-  with NO coprimality).
+  because outside that box the term is `J(M) − J(M) = 0`. One public helper lands with
+  them: H7e-0 (`σ_{−1/4}` sub-multiplicative, with NO coprimality). H7-0 (`κ` multiplicative
+  on coprime pairs) is `GrahamHard2.lean`'s `kappa_mul_of_coprime`.
 * **II, the evaluation.** H7b is H5c instantiated at `r = ab`, `α = log(a/z)`,
   `β = log(b/z)`.
 * **III, ΣA.** H7c: `aKernel Q → c₀` at rate `(log 2Q)^{−2}`, on H6e/H6f at `A = 4`, C3 and
@@ -109,19 +109,6 @@ noncomputable def bKernel (z : ℕ) (Q : ℝ) : ℝ :=
           * (Real.log ((b : ℝ) / ((min a b : ℕ) : ℝ)) - 1) + 1)
 
 /-! ## I. THE EXACT REDUCTIONS -/
-
-/-- `κ` is multiplicative on coprime pairs: `κ(ab) = κ(a)κ(b)` — the prime-factor sets are
-disjoint and their union is `(ab).primeFactors`. (`GrahamHard2.lean` carries this as a
-private helper of T7; a `private` cannot be consumed across files, so it lands here PUBLIC.)
-
-The must-FAIL control: WITHOUT `Coprime`, `kappa (a*b) = kappa a * kappa b` is FALSE at
-`(2, 2)` — `κ(4) = 4·(3/2) = 6` against `κ(2)² = 3² = 9`. -/
-theorem kappa_mul_of_coprime {a b : ℕ} (hab : Nat.Coprime a b) :
-    kappa (a * b) = kappa a * kappa b := by
-  rw [kappa, kappa, kappa, Nat.Coprime.primeFactors_mul hab,
-    Finset.prod_union (Nat.Coprime.disjoint_primeFactors hab)]
-  push_cast
-  ring
 
 /-- **H7e-0 (K36).** `σ_{−1/4}(ab) ≤ σ_{−1/4}(a)·σ_{−1/4}(b)` for ALL `a, b` — no coprimality.
 `Nat.divisors_mul` (hypothesis-free) writes `(ab).divisors` as the pointwise product
@@ -383,18 +370,8 @@ theorem sum_tailT_sq_eq_box {z : ℕ} (hz : 1 ≤ z) {u : ℝ} (hu : 1 ≤ u) :
 
 /-! ## The re-derived private helpers
 
-`GrahamHard2.lean` carries these as `private` lemmas, which cannot be consumed across a
-module boundary; each is re-derived here by its landed recipe. -/
-
-/-- `1 ≤ ∏_{p ∣ r} (1 + 1/p)`: every factor is `≥ 1` (`Finset.prod_le_prod` against the constant
-product `1`). -/
-private lemma one_le_prod_one_add (r : ℕ) :
-    (1 : ℝ) ≤ ∏ p ∈ r.primeFactors, (1 + 1 / (p : ℝ)) := by
-  calc (1 : ℝ) = ∏ _p ∈ r.primeFactors, (1 : ℝ) := by rw [Finset.prod_const_one]
-    _ ≤ ∏ p ∈ r.primeFactors, (1 + 1 / (p : ℝ)) := by
-        refine Finset.prod_le_prod (fun i _ => by norm_num) (fun i _ => ?_)
-        have : (0 : ℝ) ≤ 1 / (i : ℝ) := by positivity
-        linarith
+Local helpers in the shape of `GrahamHard2.lean`'s `private` ones, each re-derived here by its
+landed recipe; the helpers `GrahamHard2` states identically are read from there. -/
 
 /-- `r ≤ κ(r) = r · ∏_{p ∣ r} (1 + 1/p)`, since the product is `≥ 1` (`one_le_prod_one_add`). -/
 private lemma le_kappa (r : ℕ) : (r : ℝ) ≤ kappa r := by
@@ -406,47 +383,11 @@ private lemma kappa_pos (r : ℕ) (hr : 1 ≤ r) : (0 : ℝ) < kappa r := by
   have h1 : (1 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr
   linarith [le_kappa r]
 
-/-- `r/κ(r) ≤ 1` for `1 ≤ r` (`hr`): `r ≤ κ(r)` (`le_kappa`) over the positive `κ(r)`
-(`kappa_pos`). -/
-private lemma div_kappa_le_one (r : ℕ) (hr : 1 ≤ r) : (r : ℝ) / kappa r ≤ 1 := by
-  rw [div_le_one (kappa_pos r hr)]
-  exact le_kappa r
-
 /-- `1/κ(r) ≤ 1/r` for `1 ≤ r` (`hr`): the reciprocal of `r ≤ κ(r)` (`le_kappa`,
 `one_div_le_one_div_of_le`). -/
 private lemma inv_kappa_le_inv (r : ℕ) (hr : 1 ≤ r) : 1 / kappa r ≤ 1 / (r : ℝ) := by
   have h1 : (1 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr
   exact one_div_le_one_div_of_le (by linarith) (le_kappa r)
-
-/-- `|ρ₀| ≤ 2`: the series is dominated termwise by `1/n²`, whose sum is `π²/6 < 2`. -/
-private lemma abs_rho0_le_two : |rho0| ≤ 2 := by
-  have hb : ∀ n : ℕ, ‖(moebius n : ℝ) / (n : ℝ) ^ 2‖ ≤ 1 / (n : ℝ) ^ 2 := by
-    intro n
-    rcases Nat.eq_zero_or_pos n with rfl | hn
-    · simp
-    · have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
-      have hmu : |((moebius n : ℤ) : ℝ)| ≤ 1 := by
-        rw [← Int.cast_abs]
-        exact_mod_cast ArithmeticFunction.abs_moebius_le_one
-      rw [Real.norm_eq_abs, abs_div, abs_of_nonneg (by positivity : (0 : ℝ) ≤ (n : ℝ) ^ 2)]
-      exact (div_le_div_iff_of_pos_right (by positivity)).mpr hmu
-  have h := tsum_of_norm_bounded hasSum_zeta_two hb
-  rw [Real.norm_eq_abs] at h
-  have hpi : Real.pi < 3.15 := Real.pi_lt_d2
-  have hpi0 : (0 : ℝ) < Real.pi := Real.pi_pos
-  have hbound : Real.pi ^ 2 / 6 ≤ 2 := by nlinarith only [hpi, hpi0]
-  have hr : rho0 = ∑' n : ℕ, (moebius n : ℝ) / (n : ℝ) ^ 2 := rfl
-  rw [hr]
-  linarith
-
-/-- `∑_{f = 1}^{m} 1/f ≤ 1 + log m` — mathlib's `harmonic_le_one_add_log`, with the harmonic
-number unfolded to the `Icc` sum (`harmonic_eq_sum_Icc`). -/
-private lemma sum_inv_le_one_add_log (m : ℕ) :
-    ∑ f ∈ Finset.Icc 1 m, ((f : ℝ))⁻¹ ≤ 1 + Real.log m := by
-  have h := harmonic_le_one_add_log m
-  rw [harmonic_eq_sum_Icc] at h
-  push_cast at h
-  exact h
 
 /-- `1 + log Q ≤ (1/log 2)·log(2Q)` for `Q ≥ 1` — the bridge that turns every
 `(1 + log Q)` numerator into a `log(2Q)` the denominators can absorb. -/
@@ -536,12 +477,6 @@ private lemma sigmaQ_nonneg (r : ℕ) : (0 : ℝ) ≤ sigmaQ r :=
 private lemma abs_moebius_cast_le_one (n : ℕ) : |(moebius n : ℝ)| ≤ 1 := by
   rw [← Int.cast_abs]
   exact_mod_cast ArithmeticFunction.abs_moebius_le_one
-
-/-- `|x − y| ≤ |x| + |y|`: the triangle inequality on `x + (−y)`, with `|−y| = |y|`. -/
-private lemma abs_sub_le_add' (x y : ℝ) : |x - y| ≤ |x| + |y| := by
-  rw [sub_eq_add_neg]
-  refine le_trans (abs_add_le _ _) (le_of_eq ?_)
-  rw [abs_neg]
 
 /-- `|x + y − z| ≤ |x − z| + |y|`: regroup as `(x − z) + y` and apply the triangle
 inequality. -/
@@ -758,7 +693,7 @@ theorem abs_aKernel_sub_c0_le : ∃ C : ℝ, 0 < C ∧ ∀ Q : ℝ, 1 ≤ Q →
     have hsub : |((∑ a ∈ Finset.Icc 1 ⌊Q⌋₊, (moebius a : ℝ) / a * Real.log (Q / a)) - 1)
           - ∑ a ∈ Finset.Icc 1 ⌊Q⌋₊, (moebius a : ℝ) / a|
         ≤ (C3 + C4) / Real.log (2 * Q) ^ 2 := by
-      refine le_trans (abs_sub_le_add' _ _) ?_
+      refine le_trans (abs_sub_le_add _ _) ?_
       rw [add_div]
       exact add_le_add hmainT hmainf
     calc c0 * |((∑ a ∈ Finset.Icc 1 ⌊Q⌋₊, (moebius a : ℝ) / a * Real.log (Q / a)) - 1)
@@ -1227,7 +1162,7 @@ theorem abs_bKernel_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 1 ≤ z → ∀ Q :
           - ((∑ n ∈ (Finset.Icc 1 b).filter (fun n => Nat.Coprime n b),
                 (moebius n : ℝ) / kappa n * Real.log ((b : ℝ) / n)) - c0 * kappa b / b)|
           ≤ (C1 + 2 * C2) * sigmaQ b / Real.log (2 * (b : ℝ)) ^ 2 := by
-        refine le_trans (abs_sub_le_add' _ _) ?_
+        refine le_trans (abs_sub_le_add _ _) ?_
         rw [abs_mul, abs_of_nonneg (by norm_num : (0 : ℝ) ≤ (2 : ℝ))]
         have : 2 * |∑ n ∈ (Finset.Icc 1 b).filter (fun n => Nat.Coprime n b),
               (moebius n : ℝ) / kappa n|
@@ -1298,7 +1233,7 @@ theorem abs_bKernel_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 1 ≤ z → ∀ Q :
       ≤ 2 * ((z : ℝ) * c0 * (Ca * Q / Real.log (2 * Q) ^ 2)
           + (z : ℝ) * ((C1 + 2 * C2) * ((640 / Real.log 2 ^ 2 + 20) * Q
               / Real.log (2 * Q) ^ 2))) + 2 * (z : ℝ) := by
-    refine le_trans (abs_sub_le_add' _ _) ?_
+    refine le_trans (abs_sub_le_add _ _) ?_
     rw [abs_mul, abs_of_nonneg (by norm_num : (0 : ℝ) ≤ (2 : ℝ)), abs_mul,
       abs_of_nonneg (by norm_num : (0 : ℝ) ≤ (2 : ℝ)), abs_of_nonneg hz0.le]
     refine add_le_add (mul_le_mul_of_nonneg_left ?_ (by norm_num)) (le_refl _)
@@ -1743,90 +1678,6 @@ private lemma rpow_pow_nat' {x : ℝ} (hx : 0 ≤ x) (q : ℝ) (k : ℕ) :
     (x ^ q) ^ k = x ^ (q * (k : ℝ)) := by
   rw [← Real.rpow_natCast (x ^ q) k, ← Real.rpow_mul hx]
 
-/-- The telescoping step of `Σ g^{−3/2}`: with `a = t^{1/2}`, `b = (t+1)^{1/2}` the
-relation `b² − a² = 1` and `a < b` give `(t+1)^{−3/2} ≤ 2t^{−1/2} − 2(t+1)^{−1/2}`. -/
-private lemma rpow_step_three_halves' (t : ℝ) (ht : 1 ≤ t) :
-    (t + 1) ^ (-(3/2) : ℝ) ≤ 2 * t ^ (-(1/2) : ℝ) - 2 * (t + 1) ^ (-(1/2) : ℝ) := by
-  have ht0 : (0 : ℝ) < t := by linarith
-  have ht1 : (0 : ℝ) < t + 1 := by linarith
-  have ha0 : (0 : ℝ) < t ^ ((1/2 : ℝ)) := Real.rpow_pos_of_pos ht0 _
-  have hb0 : (0 : ℝ) < (t + 1) ^ ((1/2 : ℝ)) := Real.rpow_pos_of_pos ht1 _
-  have ha2 : (t ^ ((1/2 : ℝ))) ^ 2 = t := by
-    rw [rpow_pow_nat' ht0.le, show (1/2 : ℝ) * ((2 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
-  have hb2 : ((t + 1) ^ ((1/2 : ℝ))) ^ 2 = t + 1 := by
-    rw [rpow_pow_nat' ht1.le, show (1/2 : ℝ) * ((2 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
-  have hb3 : ((t + 1) ^ ((1/2 : ℝ))) ^ 3 = (t + 1) ^ ((3/2 : ℝ)) := by
-    rw [rpow_pow_nat' ht1.le, show (1/2 : ℝ) * ((3 : ℕ) : ℝ) = (3/2 : ℝ) by norm_num]
-  have hL : (t + 1) ^ (-(3/2) : ℝ) = 1 / ((t + 1) ^ ((1/2 : ℝ))) ^ 3 := by
-    rw [hb3, Real.rpow_neg ht1.le]
-    ring
-  have hR1 : t ^ (-(1/2) : ℝ) = 1 / t ^ ((1/2 : ℝ)) := by
-    rw [Real.rpow_neg ht0.le]
-    ring
-  have hR2 : (t + 1) ^ (-(1/2) : ℝ) = 1 / (t + 1) ^ ((1/2 : ℝ)) := by
-    rw [Real.rpow_neg ht1.le]
-    ring
-  have hab : t ^ ((1/2 : ℝ)) < (t + 1) ^ ((1/2 : ℝ)) := by nlinarith only [hb0, ha0, hb2, ha2]
-  have hidt : ((t + 1) ^ ((1/2 : ℝ)) - t ^ ((1/2 : ℝ)))
-      * ((t + 1) ^ ((1/2 : ℝ)) + t ^ ((1/2 : ℝ))) = 1 := by
-    nlinarith only [ha2, hb2]
-  rw [hL, hR1, hR2, div_le_iff₀ (by positivity : (0 : ℝ) < ((t + 1) ^ ((1/2 : ℝ))) ^ 3)]
-  have hid : (2 * (1 / t ^ ((1/2 : ℝ))) - 2 * (1 / (t + 1) ^ ((1/2 : ℝ))))
-        * ((t + 1) ^ ((1/2 : ℝ))) ^ 3
-      = (2 * ((t + 1) ^ ((1/2 : ℝ))) ^ 3
-          - 2 * t ^ ((1/2 : ℝ)) * ((t + 1) ^ ((1/2 : ℝ))) ^ 2) / t ^ ((1/2 : ℝ)) := by
-    field_simp
-    try ring
-  rw [hid, le_div_iff₀ ha0]
-  have hsum0 : (0 : ℝ) < t ^ ((1/2 : ℝ)) + (t + 1) ^ ((1/2 : ℝ)) := by linarith
-  have hkey : (t ^ ((1/2 : ℝ)) + (t + 1) ^ ((1/2 : ℝ))) * (1 * t ^ ((1/2 : ℝ)))
-      ≤ (t ^ ((1/2 : ℝ)) + (t + 1) ^ ((1/2 : ℝ)))
-        * (2 * ((t + 1) ^ ((1/2 : ℝ))) ^ 3
-          - 2 * t ^ ((1/2 : ℝ)) * ((t + 1) ^ ((1/2 : ℝ))) ^ 2) := by
-    have hexp : (t ^ ((1/2 : ℝ)) + (t + 1) ^ ((1/2 : ℝ)))
-        * (2 * ((t + 1) ^ ((1/2 : ℝ))) ^ 3
-          - 2 * t ^ ((1/2 : ℝ)) * ((t + 1) ^ ((1/2 : ℝ))) ^ 2)
-        = 2 * ((t + 1) ^ ((1/2 : ℝ))) ^ 2
-          * (((t + 1) ^ ((1/2 : ℝ)) - t ^ ((1/2 : ℝ)))
-            * ((t + 1) ^ ((1/2 : ℝ)) + t ^ ((1/2 : ℝ)))) := by ring
-    rw [hexp, hidt]
-    nlinarith only [hab, ha0]
-  exact le_of_mul_le_mul_left hkey hsum0
-
-/-- `∑_{D < n ≤ M} n^{−3/2} ≤ 2 D^{−1/2}` for `1 ≤ D` (`hD`): an empty range when `M ≤ D`;
-otherwise induction on `M` with the telescoping step `rpow_step_three_halves'` gives
-`≤ 2 D^{−1/2} − 2 M^{−1/2}`, and the subtracted term is positive. -/
-private lemma sum_Ioc_rpow_neg_three_halves_le' {D : ℕ} (hD : 1 ≤ D) (M : ℕ) :
-    ∑ n ∈ Finset.Ioc D M, (n : ℝ) ^ (-(3/2) : ℝ) ≤ 2 * (D : ℝ) ^ (-(1/2) : ℝ) := by
-  rcases le_or_gt M D with hMD | hMD
-  · rw [Finset.Ioc_eq_empty (by omega), Finset.sum_empty]
-    have : (0 : ℝ) < (D : ℝ) ^ (-(1/2) : ℝ) := by
-      refine Real.rpow_pos_of_pos ?_ _
-      exact_mod_cast hD
-    linarith
-  · have hDM : D ≤ M := by omega
-    have key : ∀ m : ℕ, D ≤ m →
-        ∑ n ∈ Finset.Ioc D m, (n : ℝ) ^ (-(3/2) : ℝ)
-          ≤ 2 * (D : ℝ) ^ (-(1/2) : ℝ) - 2 * (m : ℝ) ^ (-(1/2) : ℝ) := by
-      intro m hm
-      induction m, hm using Nat.le_induction with
-      | base => simp
-      | succ k hk ih =>
-        rw [Finset.sum_Ioc_succ_top hk]
-        have hk1 : (1 : ℝ) ≤ (k : ℝ) := by
-          have : (1 : ℕ) ≤ k := le_trans hD hk
-          exact_mod_cast this
-        have hstep := rpow_step_three_halves' (k : ℝ) hk1
-        have hcast : ((k + 1 : ℕ) : ℝ) = (k : ℝ) + 1 := by push_cast; ring
-        rw [hcast]
-        linarith only [ih, hstep]
-    have h := key M hDM
-    have hpos : (0 : ℝ) < (M : ℝ) ^ (-(1/2) : ℝ) := by
-      refine Real.rpow_pos_of_pos ?_ _
-      have : (1 : ℕ) ≤ M := le_trans hD hDM
-      exact_mod_cast this
-    linarith
-
 /-- **H7e-4 (the `g`-tail).** `Σ_{g ≤ X} g^{−3/2} ≤ 3` — the `g = 1` term plus the
 telescoped tail `2·(1 − X^{−1/2}) ≤ 2`.
 
@@ -1844,7 +1695,7 @@ theorem sum_rpow_neg_three_half_le (X : ℕ) :
       omega
     have hnot : (1 : ℕ) ∉ Finset.Ioc 1 X := by simp
     rw [hins, Finset.sum_insert hnot]
-    have h := sum_Ioc_rpow_neg_three_halves_le' (D := 1) (le_refl 1) X
+    have h := sum_Ioc_rpow_neg_three_halves_le (D := 1) (le_refl 1) X
     have h1 : ((1 : ℕ) : ℝ) ^ (-(3/2 : ℝ)) = 1 := by
       norm_num
     have h2 : ((1 : ℕ) : ℝ) ^ (-(1/2) : ℝ) = 1 := by
@@ -2102,7 +1953,7 @@ private lemma h7_per_g {Cb Ce2 Ce3 : ℝ} (hCb : 0 < Cb)
             + Cb * ((z : ℝ) / ((min a b : ℕ) : ℝ)) ^ (1/2 : ℝ) * sigmaQ (a * b)
               * (1 + |Real.log ((a : ℝ) / ((min a b : ℕ) : ℝ))|)
               * (1 + |Real.log ((b : ℝ) / ((min a b : ℕ) : ℝ))|) :=
-      le_trans (abs_sub_le_add' _ _) (add_le_add hM hL)
+      le_trans (abs_sub_le_add _ _) (add_le_add hM hL)
     rw [e1, e2, e3, e4, abs_mul]
     calc |(moebius a : ℝ) * (moebius b : ℝ)| * _
         ≤ 1 * (Cb * (u / ((g : ℝ) * a * b)) ^ (1/2 : ℝ) * sigmaQ (a * b)
@@ -2335,7 +2186,7 @@ theorem sum_tailT_sq_le : ∃ C : ℝ, 0 < C ∧ ∀ z : ℕ, 2 ≤ z → ∀ u 
           - rho0 * bKernel z (u / ((g : ℝ) * z)))|
       ≤ 2 * u * (Cac * (1 + Real.log (u / (z : ℝ)))) + 2 * (Cbk * u) := by
     rw [Finset.sum_sub_distrib]
-    exact le_trans (abs_sub_le_add' _ _) (add_le_add hmainA hmainB)
+    exact le_trans (abs_sub_le_add _ _) (add_le_add hmainA hmainB)
   have hb2 : |∑ g ∈ Finset.Icc 1 (⌊u⌋₊ / z),
         ((∑ a ∈ Finset.Icc 1 (⌊u⌋₊ / (g * z)),
             ∑ b ∈ (Finset.Icc 1 (⌊u⌋₊ / (g * z))).filter (fun b => Nat.Coprime a b),
