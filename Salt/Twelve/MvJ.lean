@@ -1581,10 +1581,7 @@ on coprime arguments (`Nat.Coprime.primeFactors_mul`, `Finset.prod_union`), then
 lemma gMult_pq_cast {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) :
     (gMult (p * q) : ℝ) = ((p:ℝ) - 2) * ((q:ℝ) - 2) := by
   have hcop : Nat.Coprime p q := (Nat.coprime_primes hp hq).mpr hpq
-  have hmul : gMult (p * q) = gMult p * gMult q := by
-    rw [gMult, gMult, gMult, Nat.Coprime.primeFactors_mul hcop,
-      Finset.prod_union hcop.disjoint_primeFactors]
-  rw [hmul, Nat.cast_mul, gMult_prime_cast hp, gMult_prime_cast hq]
+  rw [gMult_mul_coprime hcop, Nat.cast_mul, gMult_prime_cast hp, gMult_prime_cast hq]
 
 -- S(p,q): the doubly-marked g-mass
 /-- **The second marked `g`-moment `MQ2`**: `Σ_{x ∈ F_R} Q(x)²/g(x) ≤ 20·cg·log R/D` under the
