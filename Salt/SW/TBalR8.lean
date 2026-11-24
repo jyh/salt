@@ -2135,7 +2135,7 @@ lemma C2Rho_le {q : ℕ} {Z₀ Q L₂ c₀ : ℝ} {ρ : ℂ}
   linarith [hLHS1, hfold1, hfold2r, hfinaleq ▸ le_refl ((564 + 72 * Z₀) * B * r)]
 
 /-- ceil bounds: `x ≤ ⌈x⌉ ≤ 2x` for `x ≥ 1`. -/
-private lemma ceil_dbl {x : ℝ} (hx : 1 ≤ x) : x ≤ (⌈x⌉₊ : ℝ) ∧ (⌈x⌉₊ : ℝ) ≤ 2 * x := by
+lemma ceil_dbl {x : ℝ} (hx : 1 ≤ x) : x ≤ (⌈x⌉₊ : ℝ) ∧ (⌈x⌉₊ : ℝ) ≤ 2 * x := by
   refine ⟨Nat.le_ceil x, ?_⟩
   have h1 : (⌈x⌉₊ : ℝ) < x + 1 := Nat.ceil_lt_add_one (by linarith)
   linarith
@@ -2578,7 +2578,7 @@ theorem dh_repulsion_ordered : ∃ b c k : ℝ, 0 < b ∧ 0 < c ∧ 0 ≤ k ∧
     linarith only [h1, h2]
   -- **THE ARM TABLE** (`log(1/arm)`; the BINDING arm is the largest).  Arms 6, 7, 8, 11 carry the
   -- FREE variable `Z₀`, so this tower cannot be priced numerically; the figures below are that
-  -- pricing **evaluated at `Z₀ ⇝ 5`**, purely for comparison with the tall twin (`TBalTall:1378`),
+  -- pricing **evaluated at `Z₀ ⇝ 5`**, purely for comparison with the tall twin (`TBalTall:1372`),
   -- whose `Eρ` arm is genuinely `Z₀`-free.  REALISED post-TAU-SHARP TS-1 (S1: arm 1
   -- `2^{−250} ⇝ 1/40`; S5(a): `627 ⇝ 248` inside `KEβ`/`KEρ`; S6 is TALL-ONLY — `C2Rho_le` here is
   -- tight already) **and TS-2** (S2: arms 4/6/7 carry each row's own γ-floor in place of the

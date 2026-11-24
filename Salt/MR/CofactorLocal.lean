@@ -426,7 +426,7 @@ exactly this: R1 + R3 are the certificate pair, R2 (the `y` re-pin `log y = L^{2
 replaces the `1/(4 log L)` exponent by `L^{−2/5}`) is what closes it. -/
 
 /-- `a ≤ b → 0 ≤ c → a/c ≤ b/c`, in the one form §5 divides by. -/
-private lemma div_le_div_same {a b c : ℝ} (hab : a ≤ b) (hc : 0 ≤ c) : a / c ≤ b / c := by
+lemma div_le_div_same {a b c : ℝ} (hab : a ≤ b) (hc : 0 ≤ c) : a / c ≤ b / c := by
   have h : a * c⁻¹ ≤ b * c⁻¹ := mul_le_mul_of_nonneg_right hab (inv_nonneg.mpr hc)
   rwa [← div_eq_mul_inv, ← div_eq_mul_inv] at h
 

@@ -49,7 +49,7 @@ open Salt.LS
 /-! ### `e`-arithmetic helpers -/
 
 /-- `e (n·x) = (e x)^n` for `n : ℕ` (additive-to-multiplicative). -/
-private lemma e_nat_mul (n : ℕ) (x : ℝ) : e ((n : ℝ) * x) = (e x) ^ n := by
+lemma e_nat_mul (n : ℕ) (x : ℝ) : e ((n : ℝ) * x) = (e x) ^ n := by
   induction n with
   | zero => simp
   | succ k ih =>
@@ -57,7 +57,7 @@ private lemma e_nat_mul (n : ℕ) (x : ℝ) : e ((n : ℝ) * x) = (e x) ^ n := b
       rw [hk, e_add, ih, pow_succ]
 
 /-- `e (r) = 1` at every integer `r` (`e` is 1-periodic). -/
-private lemma e_intCast (r : ℤ) : e ((r : ℝ)) = 1 := by
+lemma e_intCast (r : ℤ) : e ((r : ℝ)) = 1 := by
   have h : e ((r : ℝ)) = Complex.exp ((r : ℂ) * (2 * Real.pi * Complex.I)) := by
     unfold e; congr 1; push_cast; ring
   rw [h]; exact Complex.exp_int_mul_two_pi_mul_I r

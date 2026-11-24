@@ -478,12 +478,6 @@ lemma row_Eρ_cap_tall_k1 {Q L₂ c c₀ u w σ Y z Cρ δ' : ℝ} (a m b k : �
         mul_le_mul_of_nonneg_left hcγ hCnn
     _ ≤ 1 / 8 := hg
 
-/-- ceil bounds: `x ≤ ⌈x⌉ ≤ 2x` for `x ≥ 1` (verbatim copy of `TBalR8`'s `private`). -/
-private lemma ceil_dbl {x : ℝ} (hx : 1 ≤ x) : x ≤ (⌈x⌉₊ : ℝ) ∧ (⌈x⌉₊ : ℝ) ≤ 2 * x := by
-  refine ⟨Nat.le_ceil x, ?_⟩
-  have h1 : (⌈x⌉₊ : ℝ) < x + 1 := Nat.ceil_lt_add_one (by linarith)
-  linarith
-
 set_option maxHeartbeats 3200000 in
 -- The per-instance assembly threads the 5 row caps + 6 guard discharges through the tall master;
 -- the accumulated `rpow`/`nlinarith` elaboration exceeds the default budget.
