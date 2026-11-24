@@ -47,7 +47,7 @@ Legend:  [B] = byte-verified at the cited file:line
 1. WHERE THE CONSTANT LIVES (the map)
 ========================================================================
 
-`c` is a 10-fold `min`, set at TBalTall.lean:735-738 [B], projected out by
+`c` is a 10-fold `min`, set at TBalTall.lean:729-732 [B], projected out by
 hc_t1..hc_t10 at :1464-1496 [B], consumed by `dh_repulsion_inst_tall`
 (:1013-1031 [B]) which discharges the five row caps' `hg`-hypotheses at
 :1318-1354 [B].  The witnesses land at :1502 [B]: `refine ⟨680, c, 14, …⟩`.
@@ -81,7 +81,7 @@ proves a bound `K·c^{γ_row}` with its own γ_row, then throws γ_row away:
   Eβ row  TBalR8.lean:848-849 [B]      TRUE γ_Eβ ≥ 2.0865  [A]
   A row   TBalR8.lean:574-575 [B]      TRUE γ_A  ≥ 0.15647 [A]
 
-The arm is then `c ≤ (1/(8K))^{1/γ}` (the `hcollapse` helper, TBalTall:603
+The arm is then `c ≤ (1/(8K))^{1/γ}` (the `hcollapse` helper, TBalTall:597
 [B]) — with 1/γ read as 8 instead of 1/3.0865 = 0.324.
 
   VERDICT: SLACK, and it is the dominant one.  flags.md:11245 (catch R8b-C)
@@ -134,7 +134,7 @@ Raised to the 9th by `logz_factor_pow9_le` (:712-731 [B]).
       Q^{5/2} (was Q^{1/2}) is the tall re-pricing of ‖ρ‖ ≤ Q and Z₀ ≤ 2Q
       (:1451-1457 [B]) — STRUCTURAL to the tall box, and free (§2.6).
 
-16:   TBalTall:727-728 [B] KEβ = 16·(328+48·5)·627^9, KEρ = 16·636·627^9.
+16:   TBalTall:721-722 [B] KEβ = 16·(328+48·5)·627^9, KEρ = 16·636·627^9.
       16 = 8 × 2 exactly [B, hgEρ at :1346-1354]:
         8 = the row budget 1/8 (five rows must sum < 3/4; the assembly is
             :1397-1402 [B]: 5·(1/8) + 1/4 = 7/8 vs the master's 1 − 1/Y).
@@ -171,7 +171,7 @@ g = 12, n = 3 — **STRUCTURAL**, and I checked the crux:
   Do not touch g, n.
 
 m = 14 — SLACK, floor 12.  The only lower constraint is `hY_nat : 2z^4 ≤ Y`
-  (TBalTall:555-568 [B], hypothesis of `dh_master_ray_tall`, itself forced by
+  (TBalTall:549-562 [B], hypothesis of `dh_master_ray_tall`, itself forced by
   the extraction's Y/(mk) ≥ 2 with mk ≤ z^4), which needs m ≥ 4n = 12 and
   a ≥ 4g + 3 = 51 (the code spends the surplus as Q^{56}u^{−2} ≥ 32, :1249-1276
   [B]).  m = 12 is admissible.
@@ -208,8 +208,8 @@ Full treatment in §4.
 --- 2.8  c₀ = 1/126848  ----------------------------------------------------
 
 `zero_free_region_all`, ZeroFreeReal.lean:610-611 [B], obtained at
-TBalTall:719 [B], entering through the pole floors 1/‖1−ρ‖, 1/(1−σ) ≤ L₂/c₀
-(TBalTall:523-526 [B]).  log(1/c₀) = 11.75.
+TBalTall:713 [B], entering through the pole floors 1/‖1−ρ‖, 1/(1−σ) ≤ L₂/c₀
+(TBalTall:517-520 [B]).  log(1/c₀) = 11.75.
   VERDICT: STRUCTURAL for this wave (a better ZFR constant is its own
   campaign).  But note where it lands: after every stone below, the BINDING
   arm is (c₀/32)^{1/γ₁} and log(1/c₀) is 11.75 of its 15.22 numerator.  c₀ is
@@ -224,7 +224,7 @@ max over the five row arms + the four guard arms.
 
   state                                        log(1/c)      b       k
   ------------------------------------------------------------------------
-  LANDED (TBalTall:735-738)                    631.58     680      14
+  LANDED (TBalTall:729-732)                    631.58     680      14
   + S1 (kill 2^{-250}) + S2 (γ-honest arms)       86.23     680      14
       binding arm: (c₀/32)^{17/3}, the ρ-main/ZFR row
   + S3 (a,m,b) = (51,12,174)                      55.71     174      14
@@ -317,7 +317,7 @@ Each: what re-derives / class / gain in log(1/c) / files touched.
  S1  RETIRE THE 2^{−250} ARM.                                     class A
      Restate `tbal_tau_le_split` (TBalR8:44-46) with hypothesis `hc : c ≤ 1`
      (its proof already only needs 40c ≤ 8192, :71-82).  Delete hc_t1
-     (TBalTall:314, :739, :754) and the :1070-1073 block's numeral.
+     (TBalTall:314, :733, :748) and the :1070-1073 block's numeral.
      GAIN: removes an arm at 173.29.  ~15 ln.  No statement outside TBalR8/Tall.
 
  S2  THE γ-HONEST ARMS (THE BIG ONE).                             class B
@@ -325,7 +325,7 @@ Each: what re-derives / class / gain in log(1/c) / files touched.
      (TBalTall:274-275; TBalR8:848-849, :574-575) replace 1/8 by the row's
      own γ-floor (3.0865 / 2.0865 / 0.15647), restate the row's `hg` as
      `K·c^{γ₀} ≤ 1/8`, and change the corresponding `c`-arm to
-     `c ≤ (1/(8K))^{1/γ₀}` — `hcollapse` (TBalTall:603) already takes an
+     `c ≤ (1/(8K))^{1/γ₀}` — `hcollapse` (TBalTall:597) already takes an
      arbitrary rational pinv, so the assembly needs only new `pinv` numerals.
      GAIN: 631.58 → 86.23 (the two 8th-power arms fall to 25.58 and 32.16;
      the A-arm to 66.86).  ~80 ln, no new mathematics.
@@ -368,7 +368,7 @@ Each: what re-derives / class / gain in log(1/c) / files touched.
  S7  THE WINDOW 16/17 → 1 − 1/34.                        class B, CONSUMER-GATED
      Every γ improves (γ_ρmain 5/17 → 0.647).  GAIN: 51.74 → 36.41, b → 79.
      COST: the contract's window numeral appears in the statement
-     (TBalTall:716) and in the consumer's `hceil` (TauExt:262,:269,:283,:316),
+     (TBalTall:710) and in the consumer's `hceil` (TauExt:262,:269,:283,:316),
      which must then hold at 1−1/34 rather than 16/17.  DO NOT fire without
      the road's ruling.
 
@@ -429,7 +429,7 @@ Wave TS-3 (Fable design block + one executor, ~300 ln):  S3 + S4 together.
 Wave TS-4 (gated): S7, only on the road's ruling about `hceil`.
 
 Sequencing note: TS-1 and TS-2 are independent and could run in parallel, but
-they touch the same `c`-min block (TBalTall:735-786) — run them sequentially,
+they touch the same `c`-min block (TBalTall:729-780) — run them sequentially,
 TS-1 first (it deletes an arm, which shortens TS-2's min-tower projections).
 
 WHAT I DID NOT VERIFY (honest gaps in this page):

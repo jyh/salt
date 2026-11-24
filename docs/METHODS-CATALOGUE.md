@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `537bc365` · source digest `ff34465c49af6de6` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `0f8ddccb` · source digest `a475f11ad25d9628` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23408 · with a proof/definition body: 23408 · direct corpus references (edges): 85905 · audited results: 9148 · corpus Prop-valued names: 691.
+Declarations indexed: 23405 · with a proof/definition body: 23405 · direct corpus references (edges): 85903 · audited results: 9148 · corpus Prop-valued names: 691.
 
 ## Hypothesis status (Deliverable A)
 
@@ -991,10 +991,10 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | entropy decrement | 1412 | 534 | 525 | 464 | 78 | 38 | 0 | 1105 | 650 |
 | large sieve | 136 | 18 | 719 | 598 | 1 | 22 | 0 | 1340 | 1326 |
 | Selberg/Brun sieve | 5690 | 952 | 3761 | 1357 | 65 | 94 | 0 | 5277 | 4410 |
-| Bombieri-Vinogradov / Siegel-Walfisz | 1611 | 747 | 1500 | 719 | 4 | 19 | 0 | 2242 | 1592 |
+| Bombieri-Vinogradov / Siegel-Walfisz | 1608 | 747 | 1511 | 719 | 4 | 19 | 0 | 2253 | 1603 |
 | zero-density / zero-free regions | 729 | 295 | 1022 | 749 | 2 | 20 | 0 | 1793 | 1539 |
-| character sums / L-functions | 4331 | 2196 | 1825 | 853 | 81 | 99 | 0 | 2858 | 966 |
-| exponential sums | 594 | 223 | 799 | 619 | 31 | 33 | 0 | 1482 | 1297 |
+| character sums / L-functions | 4329 | 2196 | 1825 | 853 | 81 | 99 | 0 | 2858 | 966 |
+| exponential sums | 592 | 223 | 799 | 619 | 31 | 33 | 0 | 1482 | 1297 |
 | Mertens / PNT-type | 255 | 67 | 883 | 792 | 4 | 16 | 0 | 1695 | 1638 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
 | explog/lognum numeral tactic | 53 | 0 | 669 | 766 | 1 | 5 | 0 | 1441 | 1441 |
@@ -1034,7 +1034,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.Chen.twinWindow_mass_eq` | 310 | Salt/Chen/MertensPNT.lean:248 |
 | `Salt.Mertens.mertensB_nonneg` | 286 | Salt/Mertens/PrimePower.lean:155 |
 
-### Bombieri-Vinogradov / Siegel-Walfisz — 1592 external dependents
+### Bombieri-Vinogradov / Siegel-Walfisz — 1603 external dependents
 
 | audited member | in-degree | file:line |
 |---|---|---|
@@ -1180,13 +1180,13 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | certificates / explicit numerics | 0 | 32 | 50 |
 | Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9832 |
 | entropy decrement | 650 | 534 | 1412 |
-| character sums / L-functions | 966 | 2196 | 4331 |
+| character sums / L-functions | 966 | 2196 | 4329 |
 | circle method / Fourier | 1171 | 83 | 184 |
-| exponential sums | 1297 | 223 | 594 |
+| exponential sums | 1297 | 223 | 592 |
 | large sieve | 1326 | 18 | 136 |
 | explog/lognum numeral tactic | 1441 | 0 | 53 |
 | zero-density / zero-free regions | 1539 | 295 | 729 |
-| Bombieri-Vinogradov / Siegel-Walfisz | 1592 | 747 | 1611 |
+| Bombieri-Vinogradov / Siegel-Walfisz | 1603 | 747 | 1608 |
 | Mertens / PNT-type | 1638 | 67 | 255 |
 | Selberg/Brun sieve | 4410 | 952 | 5690 |
 
