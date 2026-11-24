@@ -1394,25 +1394,6 @@ lemma factor_one {n : ℕ} (F_R : Finset ℕ) (i : Fin n) (w : ℕ → ℝ) :
   rw [hp2, Finset.prod_const, Finset.card_erase_of_mem (Finset.mem_univ i), Finset.card_univ,
     Fintype.card_fin]
 
-/-- a sum of a nonnegative `g` over a `biUnion` is at most the double sum over the pieces. -/
-private lemma sum_biUnion_le {ι : Type*} (s : Finset ι) (t : ι → Finset ℕ)
-    (g : ℕ → ℝ) (hg : ∀ i ∈ s, ∀ p ∈ t i, 0 ≤ g p) :
-    ∑ p ∈ s.biUnion t, g p ≤ ∑ i ∈ s, ∑ p ∈ t i, g p := by
-  classical
-  induction s using Finset.induction with
-  | empty => simp
-  | insert a s ha ih =>
-    rw [Finset.biUnion_insert, Finset.sum_insert ha]
-    have hga : ∀ p ∈ t a, 0 ≤ g p := hg a (Finset.mem_insert_self a s)
-    have hgs : ∀ i ∈ s, ∀ p ∈ t i, 0 ≤ g p :=
-      fun i hi => hg i (Finset.mem_insert_of_mem hi)
-    have hunion : ∑ p ∈ t a ∪ s.biUnion t, g p ≤ ∑ p ∈ t a, g p + ∑ p ∈ s.biUnion t, g p := by
-      rw [← Finset.sum_union_inter]
-      have : 0 ≤ ∑ p ∈ t a ∩ s.biUnion t, g p :=
-        Finset.sum_nonneg (fun p hp => hga p (Finset.mem_of_mem_inter_left hp))
-      linarith
-    linarith [ih hgs]
-
 -- subadditivity of the prime-factor weight over a product
 /-- subadditivity of `Σ_{p ∣ ·} 1/(p − 1)` over a product: for `ρ` with no zero coordinate, the
 sum over the prime factors of `Π_i ρ i` is at most `Σ_i` of the sums over the prime factors of

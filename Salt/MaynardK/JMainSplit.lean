@@ -63,7 +63,7 @@ lemma P_subadd {n : ℕ} (ρ : Fin n → ℕ) (hρ : ∀ i, ρ i ≠ 0) :
         have : (0:ℝ) < (p:ℝ) - 1 := by linarith
         positivity
     _ ≤ ∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))) := by
-        apply mjs_sum_biUnion_le
+        apply sum_biUnion_le
         intro i _ p hp
         have hpp := Nat.prime_of_mem_primeFactors hp
         have h2 : (2:ℝ) ≤ (p:ℝ) := by exact_mod_cast hpp.two_le
