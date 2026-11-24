@@ -561,7 +561,7 @@ private lemma gMult_mul_cop {a b : ℕ} (h : Nat.Coprime a b) :
 
 /-- **`g`-side `lcm`-split** (the `g`-analog of `totient_lcm_split`): for
 squarefree `a`, `g(lcm b a) = g(b)·g(a/gcd(a,b))` with coprime factors. -/
-private lemma gMult_lcm_split {a b : ℕ} (ha : Squarefree a) :
+lemma gMult_lcm_split {a b : ℕ} (ha : Squarefree a) :
     gMult (Nat.lcm b a) = gMult b * gMult (a / Nat.gcd a b) := by
   obtain ⟨heq, hcop⟩ := lcm_split (a := a) (b := b) ha
   rw [heq, gMult_mul_cop hcop]

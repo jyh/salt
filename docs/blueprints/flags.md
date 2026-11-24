@@ -23683,7 +23683,7 @@ Halász bound:
   the `exp(−(1/2)·mrtM)` shape occurs ONLY in MRTPropA3.lean's own def (:382) and its
       CONSUMERS (:1900, :2230, :2239) — there is NO landed PRODUCER at that constant
 ```
-📌 **The `1/(1+|t−t₁|)` decay factor IS available** (`BallSup.lean:211,219,232`; `A3Middle.lean:244,603`)
+📌 **The `1/(1+|t−t₁|)` decay factor IS available** (`BallSup.lean:211,219,232`; `A3Middle.lean:203,562`)
 — **the gap is the constant, not the shape.**  MRT get `1/2` from the sharp Granville–Harper–
 Soundararajan proof of Halász; our corpus holds an explicit peel at `1/(2e)`.
 ⇒ 🔑 ***THE SAME LAW, THIRD INSTANCE: A CONSTANT IS A RECORD OF WHICH EXTERNAL THEOREM ITS AUTHOR
@@ -25589,7 +25589,7 @@ one strength the consumers read (W1), move what a landed theorem already implies
 quantity to what is counted (W5). The negation then gets stronger (`not_fulcrum_implies_noSiegelZeros`).
 
 **Dead ends.**
-- `gaps_le_twelve_of_hasLevel` (`Salt/Twelve/GapsOfLevel.lean:296`): already fulcrum-shaped before the fulcrum (Q3b,
+- `gaps_le_twelve_of_hasLevel` (`Salt/Twelve/GapsOfLevel.lean:288`): already fulcrum-shaped before the fulcrum (Q3b,
   07-15, `EHall` consumed at one line; `WindowPNT` discharged by `windowPNT_holds`). The remaining `∀A` binder of
   `HasLevel (3999/4000)` can collapse to one saving, but that is FORM only: `θ★ ≈ 1` stays EH in depth, as the file's own
   θ-caveat says.

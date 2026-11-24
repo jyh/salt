@@ -3041,7 +3041,7 @@ set_option maxHeartbeats 1000000 in
 
 The hypothesis list, the weighting arithmetic and the four numerals `9`/`244`/`3`/`3/2` are
 the landed theorem's verbatim; the ONLY change is the object the third weighing step lands
-in — `a2RowsSum'_L` in place of `a2RowsSum_L`, which `a3_term3_weigh_mr` is blind to (it prices
+in — `a2RowsSum'_L` in place of `a2RowsSum_L`, which `a2_term3_weigh_mr` is blind to (it prices
 `960·R·S ≤ 5760·S` for ANY nonnegative `S`).
 
 This is the supplier `ThmA2Prime.thm_a2'_of_rows_pool'_L`'s `hrows` binder asks for, and it is
@@ -3147,12 +3147,12 @@ theorem a2Rows_of_capfree3_end'_L :
       (by linarith : (0 : ℝ) ≤ (Xd : ℝ))
     linarith
   unfold a2Mrow'_L
-  refine a3_row_weigh ?_ ?_ ?_ ?_
-  · exact a3_level1_weigh (fun R' hR' => level1_term_door_decays_L hM hR')
+  refine a2_row_weigh ?_ ?_ ?_ ?_
+  · exact a2_level1_weigh (fun R' hR' => level1_term_door_decays_L hM hR')
       (mul_nonneg hw0 hRnn) hg9 hlvl0
-  · exact a3_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
-  · exact a3_term3_weigh_mr hRS0 hg3
-  · exact a3_term4_weigh hZ0 hg32
+  · exact a2_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
+  · exact a2_term3_weigh_mr hRS0 hg3
+  · exact a2_term4_weigh hZ0 hg32
 
 /-! ### `A3Middle` — `a2Rows_of_capfree3'` -/
 set_option maxHeartbeats 1000000 in
@@ -3270,12 +3270,12 @@ theorem a2Rows_of_capfree3'_L :
       (by linarith : (0 : ℝ) ≤ (Xd : ℝ))
     linarith
   unfold a2Mrow'_L
-  refine a3_row_weigh ?_ ?_ ?_ ?_
-  · exact a3_level1_weigh (fun R' hR' => level1_term_door_decays_L hM hR')
+  refine a2_row_weigh ?_ ?_ ?_ ?_
+  · exact a2_level1_weigh (fun R' hR' => level1_term_door_decays_L hM hR')
       (mul_nonneg hw0 hRnn) hg9 hlvl0
-  · exact a3_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
-  · exact a3_term3_weigh_mr hRS0 hg3
-  · exact a3_term4_weigh hZ0 hg32
+  · exact a2_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
+  · exact a2_term3_weigh_mr hRS0 hg3
+  · exact a2_term4_weigh hZ0 hg32
 
 /-! ### `A3Middle` — `a2RowsSum'_nonneg_gk` -/
 /-- `0 ≤ a2RowsSum'_L_gk K M Xd` at `hM : 1 ≤ M`, `hXd : 1 ≤ Xd`: the PRIMED row sum at the
@@ -3412,12 +3412,12 @@ theorem a2Rows_of_capfree3_end'_L_gk_kwide (K : ℕ) :
       (by linarith : (0 : ℝ) ≤ (Xd : ℝ))
     linarith
   unfold a2Mrow'_L_gk
-  refine a3_row_weigh ?_ ?_ ?_ ?_
-  · exact a3_level1_weigh (fun R' hR' => level1_term_door_decays_L_gk K hM hR')
+  refine a2_row_weigh ?_ ?_ ?_ ?_
+  · exact a2_level1_weigh (fun R' hR' => level1_term_door_decays_L_gk K hM hR')
       (mul_nonneg hw0 hRnn) hg9 hlvl0
-  · exact a3_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
-  · exact a3_term3_weigh_mr hRS0 hg3
-  · exact a3_term4_weigh hZ0 hg32
+  · exact a2_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
+  · exact a2_term3_weigh_mr hRS0 hg3
+  · exact a2_term4_weigh hZ0 hg32
 
 /-- ⟦WIDE CEILING TWIN⟧ (`a2Rows_of_capfree3'_L_gk_kwide`) —
 `a2Rows_of_capfree3'_L_gk` with the flat ceiling moved inside the `∀ M`.
@@ -3521,12 +3521,12 @@ theorem a2Rows_of_capfree3'_L_gk_kwide (K : ℕ) :
       (by linarith : (0 : ℝ) ≤ (Xd : ℝ))
     linarith
   unfold a2Mrow'_L_gk
-  refine a3_row_weigh ?_ ?_ ?_ ?_
-  · exact a3_level1_weigh (fun R' hR' => level1_term_door_decays_L_gk K hM hR')
+  refine a2_row_weigh ?_ ?_ ?_ ?_
+  · exact a2_level1_weigh (fun R' hR' => level1_term_door_decays_L_gk K hM hR')
       (mul_nonneg hw0 hRnn) hg9 hlvl0
-  · exact a3_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
-  · exact a3_term3_weigh_mr hRS0 hg3
-  · exact a3_term4_weigh hZ0 hg32
+  · exact a2_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
+  · exact a2_term3_weigh_mr hRS0 hg3
+  · exact a2_term4_weigh hZ0 hg32
 
 set_option maxHeartbeats 1000000 in
 -- the landed budget, replayed: this twin re-elaborates the same ~60-binder
@@ -3536,7 +3536,7 @@ set_option maxHeartbeats 1000000 in
 hypotheses of `a2Rows_of_capfree3_end_L_gk`, the conclusion at the PRIMED bracket
 `≤ a2Mrow'_L_gk K Cs C M Xd X ε`. Proof: the instance at `hK` of its `_kwide` twin (above), whose
 body runs the route: `seam_row_number_capfree3_end'` at `Tann = 2T`, then `a3_weight_gates` and
-`a3_row_weigh`. No proof in `Salt/` applies it; `a2Rows_of_capfree3_end'_L_gk_kwide` restates it
+`a2_row_weigh`. No proof in `Salt/` applies it; `a2Rows_of_capfree3_end'_L_gk_kwide` restates it
 with the ceiling inside the `∀ M`. -/
 theorem a2Rows_of_capfree3_end'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
