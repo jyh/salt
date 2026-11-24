@@ -30,15 +30,6 @@ open Salt.Twelve Salt.Maynard Salt.MaynardK
 
 /-! ### The 4-dim aggregate g-moments `T0` (opaque), `T1`, `T2` (relative) -/
 
-/-- a product over `univ.erase m` is the product over `Fin n` through `m.succAbove`. -/
-private lemma erase_prod_removeNth_g {n : ℕ} {M : Type*} [CommMonoid M] (m : Fin (n + 1)) (F : Fin
-        (n + 1) → M) :
-    ∏ i ∈ Finset.univ.erase m, F i = ∏ i : Fin n, F (m.succAbove i) := by
-  have he : Finset.univ.erase m = ({m}ᶜ : Finset (Fin (n + 1))) := by
-    rw [Finset.compl_eq_univ_sdiff, Finset.sdiff_singleton_eq_erase]
-  rw [he, ← Fin.image_succAbove_univ m, Finset.prod_image
-    (fun i _ j _ h => Fin.succAbove_right_injective h)]
-
 -- factor a single "marked" coordinate over the product box (n = 4)
 /-! ## NEW: the general-`n` relative aggregate moments `T0`, `T1`, `T2` -/
 

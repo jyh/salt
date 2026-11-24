@@ -223,7 +223,7 @@ decisions per question.
 
 - 2026-07-15 ~10:15: **Q3-recon COMPLETE** (cost ≈ 97k tokens / 23
   tools / ~6 min): the ENTIRE gaps ≤ 12 chain consumes EHall at
-  EXACTLY ONE LINE (FrontierM.lean:180), reducing to the landed
+  EXACTLY ONE LINE (FrontierM.lean:172), reducing to the landed
   HasLevel (3999/4000) — strictly weaker in FORM (single level +
   BV-shaped haircut; the honest caveat: θ ≈ 1 is EH-strength in
   DEPTH). Option (b) EH_min ⟹ H₁ ≤ 12 = 1–2 nodes of pure

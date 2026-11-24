@@ -31,7 +31,7 @@ not one applies `a2RowsSum'_le_a2RowsSum`.  In particular the bridge
 
 is a NEW inequality between NEW objects: `m4MrowChiEnd'` carries the `X_d`-FREE `24/𝒫ⱼ` in
 its own Lemma-12 summand, so the `2880 ≤ 5760` half of ⟦AMENDMENT G⟧'s `×4` cover is spent
-against the primed row sum, exactly as `A3Middle.a3_term3_weigh_mr` spends it at `q = 1`.
+against the primed row sum, exactly as `ThmA2Rows.a2_term3_weigh_mr` spends it at `q = 1`.
 It is in that sense — and only that sense — that "the primed sum's smaller `p²`-term weakens
 the bridge's demand": the demand moves with the object on BOTH sides.
 

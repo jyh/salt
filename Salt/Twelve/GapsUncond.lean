@@ -49,14 +49,6 @@ open Salt.Maynard
 
 /-! ## Local numeric helper -/
 
-/-- `h_i ≤ 19` for each of the five shifts (`hSeq_five_zero` … `hSeq_five_four`, by cases on
-`i`); the file-scoped copy of `FrontierM`'s private helper. -/
-private lemma hSeq_le_nineteen' (i : Fin 5) : hSeq 5 i ≤ 19 := by
-  fin_cases i <;>
-    simp only [hSeq_five_zero, hSeq_five_one, hSeq_five_two, hSeq_five_three,
-      hSeq_five_four] <;>
-    norm_num
-
 /-- `Lc ≤ log R` once `R ≥ ⌈e^{Lc}⌉` (`hR`): `e^{Lc} ≤ ⌈e^{Lc}⌉ ≤ R` (`Nat.le_ceil`) and `log`
 is monotone (`Real.log_le_log`). -/
 private lemma log_ge_of_ceil_exp' (Lc : ℝ) (R : ℕ) (hR : ⌈Real.exp Lc⌉₊ ≤ R) :
@@ -85,7 +77,7 @@ theorem deltaPi_upper_ev :
     exact hlo.comp tendsto_natCast_atTop_atTop
   filter_upwards [eventually_ge_atTop 100,
       hsqrt.eventually_lt_const (show (0:ℝ) < 1 by norm_num)] with N' hN100 hsq m
-  have hh19 : hSeq 5 m ≤ 19 := hSeq_le_nineteen' m
+  have hh19 : hSeq 5 m ≤ 19 := hSeq_le_nineteen m
   have hN100r : (100 : ℝ) ≤ (N' : ℝ) := by exact_mod_cast hN100
   have hN1 : (1 : ℝ) < (N' : ℝ) := by linarith
   have hN0 : (0 : ℝ) < (N' : ℝ) := by linarith
@@ -1101,7 +1093,7 @@ theorem gaps_le_twelve (hPNT : WindowPNT) (hEH : EHall) :
   obtain ⟨D₀, hD₀300, hslackfun⟩ := winSlackM_ev
   have hFrontier : WinFrontierMW D₀ := winFrontierMW_of D₀ hD₀300 (hslackfun D₀ le_rfl)
   have hSeqlt : ∀ i : Fin 5, hSeq 5 i < D₀ := fun i => by
-    have := hSeq_le_nineteen' i; omega
+    have := hSeq_le_nineteen i; omega
   refine bounded_gaps_reduces_twelve (primorial D₀) (fun N => ?_)
   obtain ⟨N', R, ν₀, δ, errEH, cval, hNN', hsol, hφpos, hcvnn, hδ0, hDpi, hQlow,
     hS2low, hslack⟩ := hFrontier hPNT hEH N

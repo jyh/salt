@@ -30,17 +30,6 @@ namespace Salt.Maynard
 set_option linter.unusedSectionVars false
 variable [TupleChoice]
 
-/-- Move the innermost of three nested sums to the front (local copy; `private`
-in the S₁ file). -/
-private theorem sum_move3'' {α β γ δ : Type*} [AddCommMonoid δ]
-    (A : Finset α) (B : Finset β) (C : Finset γ) (F : α → β → γ → δ) :
-    (∑ a ∈ A, ∑ b ∈ B, ∑ c ∈ C, F a b c)
-      = ∑ c ∈ C, ∑ a ∈ A, ∑ b ∈ B, F a b c := by
-  rw [← Finset.sum_product']
-  rw [Finset.sum_comm]
-  apply Finset.sum_congr rfl; intro c _
-  exact Finset.sum_product' A B (fun a b => F a b c)
-
 /-! ## The multiplicative atom `n ↦ n/φ(n)` -/
 
 /-- The arithmetic function `n ↦ n/φ(n)` over `ℝ` (with `0 ↦ 0`). -/
@@ -460,7 +449,7 @@ theorem s2_diag_lam (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
       _ = (∏ i, (gMult (u i) : ℝ)) * (lamPhiContract k R W y u) ^ 2 := by ring
   -- assemble
   rw [Finset.sum_congr rfl (fun d hd => Finset.sum_congr rfl (fun e he => hMain d hd e he))]
-  rw [sum_move3'']
+  rw [sum_move3]
   apply Finset.sum_congr rfl; intro u hu
   exact hInner u hu
 

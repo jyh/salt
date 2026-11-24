@@ -29,15 +29,6 @@ variable [Salt.Maynard.TupleChoice]
 
 open Salt.Twelve Salt.Maynard Salt.MaynardK
 
-/-- `gMult 1 = 1`, in `ℝ`. -/
-private lemma gMult_one_R : (gMult 1 : ℝ) = 1 := by
-  simp [gMult, Nat.primeFactors_one]
-
-/-- `phiAtomSum` is a sum of nonnegative terms. -/
-private lemma pas_nn (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
-  unfold Salt.Maynard.phiAtomSum
-  exact Finset.sum_nonneg (fun x _ => by positivity)
-
 omit [Salt.Maynard.TupleChoice] in
 /-- **Step 2 at general `k`, bounded weight.** -/
 theorem yM_sub_inn_le_gen (k R W' D : ℕ) (hk : 1 ≤ k) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
