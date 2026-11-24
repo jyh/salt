@@ -23,9 +23,9 @@ CONCLUSION: An's `S₃`, the tail second moment `Σ_{n ≤ u} T_z(n)² ≤ C·u�
 * **I, the exact reductions.** H7a puts H4's side conditions back as ONE lower limit
   `z/min(a,b) < k`, reading the filtered sum as a difference of two `J`s; H7a' is the box
   identity — H4's triple sum over `Icc 1 ⌊u⌋₊` EQUALS the sum over `max(a,b)·g·z ≤ ⌊u⌋₊`,
-  because outside that box the term is `J(M) − J(M) = 0`. Two public helpers land with
-  them: H7-0 (`κ` multiplicative on coprime pairs) and H7e-0 (`σ_{−1/4}` sub-multiplicative,
-  with NO coprimality).
+  because outside that box the term is `J(M) − J(M) = 0`. One public helper lands with
+  them: H7e-0 (`σ_{−1/4}` sub-multiplicative, with NO coprimality). H7-0 (`κ` multiplicative
+  on coprime pairs) is `GrahamHard2.lean`'s `kappa_mul_of_coprime`.
 * **II, the evaluation.** H7b is H5c instantiated at `r = ab`, `α = log(a/z)`,
   `β = log(b/z)`.
 * **III, ΣA.** H7c: `aKernel Q → c₀` at rate `(log 2Q)^{−2}`, on H6e/H6f at `A = 4`, C3 and
@@ -109,19 +109,6 @@ noncomputable def bKernel (z : ℕ) (Q : ℝ) : ℝ :=
           * (Real.log ((b : ℝ) / ((min a b : ℕ) : ℝ)) - 1) + 1)
 
 /-! ## I. THE EXACT REDUCTIONS -/
-
-/-- `κ` is multiplicative on coprime pairs: `κ(ab) = κ(a)κ(b)` — the prime-factor sets are
-disjoint and their union is `(ab).primeFactors`. (`GrahamHard2.lean` carries this as a
-private helper of T7; a `private` cannot be consumed across files, so it lands here PUBLIC.)
-
-The must-FAIL control: WITHOUT `Coprime`, `kappa (a*b) = kappa a * kappa b` is FALSE at
-`(2, 2)` — `κ(4) = 4·(3/2) = 6` against `κ(2)² = 3² = 9`. -/
-theorem kappa_mul_of_coprime {a b : ℕ} (hab : Nat.Coprime a b) :
-    kappa (a * b) = kappa a * kappa b := by
-  rw [kappa, kappa, kappa, Nat.Coprime.primeFactors_mul hab,
-    Finset.prod_union (Nat.Coprime.disjoint_primeFactors hab)]
-  push_cast
-  ring
 
 /-- **H7e-0 (K36).** `σ_{−1/4}(ab) ≤ σ_{−1/4}(a)·σ_{−1/4}(b)` for ALL `a, b` — no coprimality.
 `Nat.divisors_mul` (hypothesis-free) writes `(ab).divisors` as the pointwise product
