@@ -1296,7 +1296,8 @@ theorem inner_contract_rel (F : Poly) (m : Fin 5) :
   refine le_trans (ic_list_sum_le F _ _ hpera) ?_
   rw [hbndsum]
 
-/-! ## `mv_J_split` — shared helpers (copies of `MvJ.lean`'s; the public ones serve the splits)
+/-! ## `mv_J_split` — shared helpers (those still here are copies of `MvJ.lean`'s; the public ones
+serve the splits)
 
 `gMult_prime_cast`, `gMult_one_cast`, `gMult_pq_cast`, `box_PF_subset`, `PFsum_nn`,
 `eval_bpoly_bound` and `sum_biUnion_le` are `MvJ.lean`'s own. -/
