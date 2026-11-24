@@ -1,7 +1,7 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `e90c74b4` · source digest `c766a1d3eef17dbb` (the same digest as items 1–3).
+> Base: last commit touching `Salt/` = `dda1b03a` · source digest `672075d7e0b30700` (the same digest as items 1–3).
 > Receipt: files 1415 · decls 23415 · with_body 23415 · tactic_lines 298758 · runs 35295 · blocks 1107.
 
 ## LIMITS (read before any number below)
