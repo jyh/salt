@@ -1300,7 +1300,8 @@ theorem inner_contract_rel (F : Poly) (m : Fin 5) :
 serve the splits)
 
 `gMult_prime_cast`, `gMult_one_cast`, `gMult_pq_cast`, `box_PF_subset`, `PFsum_nn`,
-`eval_bpoly_bound` and `sum_biUnion_le` are `MvJ.lean`'s own. -/
+`eval_bpoly_bound`, `sum_biUnion_le`, `factor_one4` and `erase_prod_removeNth5` are `MvJ.lean`'s
+own. -/
 
 /-- Subadditivity of the marked-prime sum over a product:
 `Σ_{p ∣ ∏ ρ} 1/(p − 1) ≤ Σ_i Σ_{p ∣ ρ i} 1/(p − 1)` for nonzero coordinates (`hρ`); the prime
@@ -1334,49 +1335,6 @@ private lemma mjs_P_subadd (ρ : Fin 4 → ℕ) (hρ : ∀ i, ρ i ≠ 0) :
         have h2 : (2:ℝ) ≤ (p:ℝ) := by exact_mod_cast hpp.two_le
         have : (0:ℝ) < (p:ℝ) - 1 := by linarith
         positivity
-
-/-- Over the full product box `F_R⁴`, a weight on one coordinate `i` factors out:
-`Σ_ρ w(ρ i)·∏_k 1/g(ρ k) = (Σ_x w x/g x)·(Σ_x 1/g x)³` (`Finset.prod_univ_sum` after writing the
-summand as a product over `k` with the `w` on the `i`-th factor). -/
-private lemma mjs_factor_one (F_R : Finset ℕ) (i : Fin 4) (w : ℕ → ℝ) :
-    ∑ ρ ∈ Fintype.piFinset (fun _ : Fin 4 => F_R), w (ρ i) * ∏ k, (1 / (gMult (ρ k) : ℝ))
-      = (∑ x ∈ F_R, w x * (1 / (gMult x : ℝ))) * (∑ x ∈ F_R, (1 / (gMult x : ℝ))) ^ 3 := by
-  classical
-  have hrw : ∀ ρ : Fin 4 → ℕ, w (ρ i) * ∏ k, (1 / (gMult (ρ k) : ℝ))
-      = ∏ k, (if k = i then w (ρ k) * (1 / (gMult (ρ k) : ℝ)) else (1 / (gMult (ρ k) : ℝ))) := by
-    intro ρ
-    rw [← Finset.mul_prod_erase Finset.univ (fun k => (1 / (gMult (ρ k) : ℝ))) (Finset.mem_univ i),
-      ← Finset.mul_prod_erase Finset.univ
-        (fun k => if k = i then w (ρ k) * (1 / (gMult (ρ k) : ℝ)) else (1 / (gMult (ρ k) : ℝ)))
-        (Finset.mem_univ i)]
-    rw [if_pos rfl]
-    have hp : (∏ k ∈ Finset.univ.erase i,
-        (if k = i then w (ρ k) * (1 / (gMult (ρ k) : ℝ)) else (1 / (gMult (ρ k) : ℝ))))
-        = ∏ k ∈ Finset.univ.erase i, (1 / (gMult (ρ k) : ℝ)) :=
-      Finset.prod_congr rfl (fun k hk => if_neg (Finset.ne_of_mem_erase hk))
-    rw [hp]; ring
-  rw [Finset.sum_congr rfl (fun ρ _ => hrw ρ),
-    ← Finset.prod_univ_sum (fun _ : Fin 4 => F_R)
-      (fun k x => if k = i then w x * (1 / (gMult x : ℝ)) else (1 / (gMult x : ℝ)))]
-  have heval : ∀ k : Fin 4,
-      (∑ x ∈ F_R, (if k = i then w x * (1 / (gMult x : ℝ)) else (1 / (gMult x : ℝ))))
-      = if k = i then (∑ x ∈ F_R, w x * (1 / (gMult x : ℝ)))
-          else (∑ x ∈ F_R, (1 / (gMult x : ℝ))) := by
-    intro k; by_cases hk : k = i
-    · simp only [hk, if_true]
-    · simp only [hk, if_false]
-  rw [Finset.prod_congr rfl (fun k _ => heval k)]
-  rw [← Finset.mul_prod_erase Finset.univ
-      (fun k => if k = i then (∑ x ∈ F_R, w x * (1 / (gMult x : ℝ)))
-        else (∑ x ∈ F_R, (1 / (gMult x : ℝ)))) (Finset.mem_univ i)]
-  rw [if_pos rfl]
-  have hp2 : (∏ k ∈ Finset.univ.erase i,
-      (if k = i then (∑ x ∈ F_R, w x * (1 / (gMult x : ℝ)))
-        else (∑ x ∈ F_R, (1 / (gMult x : ℝ)))))
-      = ∏ k ∈ Finset.univ.erase i, (∑ x ∈ F_R, (1 / (gMult x : ℝ))) :=
-    Finset.prod_congr rfl (fun k hk => if_neg (Finset.ne_of_mem_erase hk))
-  rw [hp2, Finset.prod_const, Finset.card_erase_of_mem (Finset.mem_univ i), Finset.card_univ,
-    Fintype.card_fin]
 
 /-- Enlarge a nonnegative `g`-weighted sum (`hnum0`) from the sieve box `kSieveIndex 4 R W'` to
 the full product box `F_R⁴` of square-free `x < R` coprime to `W'`:
@@ -1413,15 +1371,6 @@ private lemma mjs_enlarge_to_PB (W' R : ℕ)
         Finset.sum_le_sum_of_subset_of_nonneg hsub1 (fun ρ _ _ => hnn ρ)
     _ ≤ ∑ ρ ∈ Fintype.piFinset (fun _ : Fin 4 => F_R), num ρ * ∏ i, (1 / (gMult (ρ i) : ℝ)) :=
         Finset.sum_le_sum_of_subset_of_nonneg hsub2 (fun ρ _ _ => hnn ρ)
-
-/-- A product over `Fin 5` minus `m` is the product over `Fin 4` through `m.succAbove`
-(`Fin.image_succAbove_univ`, `Finset.prod_image`). -/
-private lemma mjs_erase_prod_removeNth {M : Type*} [CommMonoid M] (m : Fin 5) (F : Fin 5 → M) :
-    ∏ i ∈ Finset.univ.erase m, F i = ∏ i : Fin 4, F (m.succAbove i) := by
-  have he : Finset.univ.erase m = ({m}ᶜ : Finset (Fin 5)) := by
-    rw [Finset.compl_eq_univ_sdiff, Finset.sdiff_singleton_eq_erase]
-  rw [he, ← Fin.image_succAbove_univ m, Finset.prod_image
-    (fun i _ j _ h => Fin.succAbove_right_injective h)]
 
 /-! ### Relative one-coordinate g-moments (`M0`, `MQ`, `MQ2`) over `sqfCop R W'` -/
 
@@ -1807,7 +1756,7 @@ lemma mjs_MQ2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 /-- **The opaque 4-dimensional `g`-moment `T0`**:
 `Σ_{ρ ∈ kSieveIndex 4 R W'} 1/∏_i g(ρ i) ≤ (cg·log R)⁴` under the `marked_sqf_g` spec `hcg` at
 `a = 0`, `3 ≤ D` below every prime not dividing `W'` (`hD`, `hDW`) and `2 ≤ R` (`hR2`): enlarge
-to the product box (`mjs_enlarge_to_PB`), factor (`mjs_factor_one` with `w = 1`) into `M0⁴`, and
+to the product box (`mjs_enlarge_to_PB`), factor (`factor_one4` with `w = 1`) into `M0⁴`, and
 `mjs_M0_op`. The sign hypothesis on `cg` is carried, not consumed. -/
 private lemma mjs_T0_op (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W') (cg : ℝ) (_hcg0 : 0 ≤ cg)
     (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
@@ -1821,7 +1770,7 @@ private lemma mjs_T0_op (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W') (cg : �
   have hM0le : M0 ≤ cg * Real.log R := mjs_M0_op W' hW' hpos cg hcg D R hD hDW hR2
   have h1 := mjs_enlarge_to_PB W' R (fun _ => (1:ℝ)) (fun _ => zero_le_one)
   refine le_trans h1 ?_
-  have hfac := mjs_factor_one F_R 0 (fun _ => (1:ℝ))
+  have hfac := factor_one4 F_R 0 (fun _ => (1:ℝ))
   simp only [one_mul] at hfac ⊢
   rw [hfac]
   calc (∑ x ∈ F_R, (1 / (gMult x : ℝ))) * (∑ x ∈ F_R, (1 / (gMult x : ℝ))) ^ 3
@@ -1831,7 +1780,7 @@ private lemma mjs_T0_op (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W') (cg : �
 /-- **The relative first-marked 4-dimensional `g`-moment `T1`**:
 `Σ_{ρ ∈ kSieveIndex 4 R W'} Q(∏ ρ)/∏_i g(ρ i) ≤ 256·(phiAtomSum R W')⁴/D` (`hW'`, `hpos`, `hD`,
 `hDW`, `hR2` as in `mjs_M0_rel`). Enlarge to the product box (`mjs_enlarge_to_PB`), split
-`Q(∏ ρ) ≤ Σ_i Q(ρ i)` (`mjs_P_subadd`), factor each of the four terms (`mjs_factor_one`) into
+`Q(∏ ρ) ≤ Σ_i Q(ρ i)` (`mjs_P_subadd`), factor each of the four terms (`factor_one4`) into
 `MQ·M0³`, and `4·(8·PAS/D)·(2·PAS)³ = 256·PAS⁴/D` (`mjs_MQ_rel`, `mjs_M0_rel`). -/
 private lemma mjs_T1_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
@@ -1873,7 +1822,7 @@ private lemma mjs_T1_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
         (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))) * ∏ k, (1 / (gMult (ρ k) : ℝ)))
       = MQ * M0 ^ 3 := by
     intro i
-    rw [mjs_factor_one F_R i (fun x => ∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1)))]
+    rw [factor_one4 F_R i (fun x => ∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1)))]
     congr 1
     rw [hMQdef]; apply Finset.sum_congr rfl; intro x _; rw [mul_one_div]
   rw [Finset.sum_congr rfl (fun i _ => hi i), Finset.sum_const, Finset.card_univ,
@@ -1889,7 +1838,7 @@ private lemma mjs_T1_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 `Σ_{ρ ∈ kSieveIndex 4 R W'} Q(∏ ρ)²/∏_i g(ρ i) ≤ 5120·(phiAtomSum R W')⁴/D` (same hypotheses).
 Enlarge (`mjs_enlarge_to_PB`), `Q(∏ ρ)² ≤ (Σ_i Q(ρ i))² = Σ_{i,j} Q(ρ i)·Q(ρ j)`, each cross
 term at most `(Q(ρ i)² + Q(ρ j)²)/2`, so each of the 16 `(i, j)` sums is at most `MQ2·M0³`
-(`mjs_factor_one`), and `16·(40·PAS/D)·(2·PAS)³ = 5120·PAS⁴/D` (`mjs_MQ2_rel`, `mjs_M0_rel`). -/
+(`factor_one4`), and `16·(40·PAS/D)·(2·PAS)³ = 5120·PAS⁴/D` (`mjs_MQ2_rel`, `mjs_M0_rel`). -/
 private lemma mjs_T2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
     (∑ ρ ∈ kSieveIndex 4 R W',
@@ -1910,7 +1859,7 @@ private lemma mjs_T2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
       (∑ ρ ∈ PB, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))) ^ 2 * ∏ k, (1 / (gMult (ρ k) : ℝ)))
       = MQ2 * M0 ^ 3 := by
     intro i
-    rw [hPBdef, mjs_factor_one F_R i (fun x => (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) ^ 2)]
+    rw [hPBdef, factor_one4 F_R i (fun x => (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) ^ 2)]
     congr 1
     rw [hMQ2def]; apply Finset.sum_congr rfl; intro x _; rw [mul_one_div]
   have h1 := mjs_enlarge_to_PB W' R
@@ -2129,7 +2078,7 @@ private lemma mjs_gap_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
         (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))) * ∏ k, (1 / (gMult (ρ k) : ℝ)))
       = MQ * M0 ^ 3 := by
     intro i
-    rw [mjs_factor_one F_R i (fun x => ∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1)))]
+    rw [factor_one4 F_R i (fun x => ∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1)))]
     congr 1
     rw [hMQdef]; apply Finset.sum_congr rfl; intro x _; rw [mul_one_div]
   rw [Finset.sum_congr rfl (fun i _ => hi i), Finset.sum_const, Finset.card_univ,
@@ -2329,7 +2278,7 @@ within `c·(1 + X)⁴/log R + A·(1 + phiAtomSum R W')⁴/D` of `X⁴·∫_{Δ�
 (`X = φ(W')/W'·log R`, `simplexInt (sq (contractAt m F))`). The witnesses are `A = 280·cF²`,
 `cF = Σ|coeff|` over `contractAt m F`, and `c = Cmain/κ` with `Cmain` the `mv_monomial`-weighted
 coefficient sum of `sq (contractAt m F)` (`n = 4`). Reindex to `kSieveIndex 4 R W'`
-(`sum_filt_removeNth`, `mjs_erase_prod_removeNth`), then three brackets: the `g → φ` gap
+(`sum_filt_removeNth`, `erase_prod_removeNth5`), then three brackets: the `g → φ` gap
 `≤ 256·cF²·PAS⁴/D` (`mjs_gap_rel`, `|Ev| ≤ cF` by `eval_bpoly_bound`), the drop from
 `kSieveIndex` to `decBox` `≤ 24·cF²·PAS⁴/D` (`mjs_drop_phi4`), and `mv_monomial` at `z = R` per
 monomial with error `Cmain·(1 + X)³`, absorbed into `(1 + X)⁴/(κ·log R)`. -/
@@ -2418,7 +2367,7 @@ private lemma mv_J_main_split (F : Poly) (m : Fin 5) :
       (fun ρ => Ev' ρ ^ 2 / ∏ i, (gMult (ρ i) : ℝ))]
     apply Finset.sum_congr rfl
     intro r _
-    rw [mjs_erase_prod_removeNth m (fun i => (gMult (r i) : ℝ))]
+    rw [erase_prod_removeNth5 m (fun i => (gMult (r i) : ℝ))]
     simp only [Fin.removeNth_apply, hEv'def]
   rw [hreindex]
   -- the three brackets
@@ -2815,7 +2764,7 @@ theorem mv_J_split (F : Poly) (m : Fin 5) :
     intro r hr
     have hrf : r ∈ filt := by rw [hfiltdef]; exact hr
     simp only [hDenomdef, Fin.removeNth_apply]
-    rw [mjs_erase_prod_removeNth m (fun i => (gMult (r i):ℝ)), hprodeq r hrf]
+    rw [erase_prod_removeNth5 m (fun i => (gMult (r i):ℝ)), hprodeq r hrf]
   -- S0, S1, S2 bounds
   have hS0le : (∑ r ∈ filt, (1:ℝ) / Denom r) ≤ (cg * L) ^ 4 := by
     have key : (∑ r ∈ filt, (1:ℝ) / Denom r)
