@@ -1576,7 +1576,7 @@ lemma MQ_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
     _ = 4 * cg * Real.log R / (D : ℝ) := by ring
 
 /-- `g(pq) = (p − 2)(q − 2)` for distinct primes (`hp`, `hq`, `hpq`): `gMult` is multiplicative
-on coprime arguments (`Nat.Coprime.primeFactors_mul`, `Finset.prod_union`), then
+on coprime arguments (`gMult_mul_coprime`), then
 `gMult_prime_cast` twice. -/
 lemma gMult_pq_cast {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) :
     (gMult (p * q) : ℝ) = ((p:ℝ) - 2) * ((q:ℝ) - 2) := by

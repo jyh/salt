@@ -1308,7 +1308,7 @@ lemma mjs_gMult_one_cast : (gMult 1 : ℝ) = 1 := by
   rw [gMult, Nat.primeFactors_one, Finset.prod_empty]; norm_num
 
 /-- `g(pq) = (p − 2)(q − 2)` for distinct primes (`hp`, `hq`, `hpq`): `gMult` is multiplicative
-on coprime arguments (`Nat.Coprime.primeFactors_mul`, `Finset.prod_union`), then
+on coprime arguments (`gMult_mul_coprime`), then
 `mjs_gMult_prime_cast` twice. -/
 lemma mjs_gMult_pq_cast {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) :
     (gMult (p * q) : ℝ) = ((p:ℝ) - 2) * ((q:ℝ) - 2) := by
