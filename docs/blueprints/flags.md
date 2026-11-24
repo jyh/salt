@@ -25589,7 +25589,7 @@ one strength the consumers read (W1), move what a landed theorem already implies
 quantity to what is counted (W5). The negation then gets stronger (`not_fulcrum_implies_noSiegelZeros`).
 
 **Dead ends.**
-- `gaps_le_twelve_of_hasLevel` (`Salt/Twelve/GapsOfLevel.lean:296`): already fulcrum-shaped before the fulcrum (Q3b,
+- `gaps_le_twelve_of_hasLevel` (`Salt/Twelve/GapsOfLevel.lean:288`): already fulcrum-shaped before the fulcrum (Q3b,
   07-15, `EHall` consumed at one line; `WindowPNT` discharged by `windowPNT_holds`). The remaining `∀A` binder of
   `HasLevel (3999/4000)` can collapse to one saving, but that is FORM only: `θ★ ≈ 1` stays EH in depth, as the file's own
   θ-caveat says.

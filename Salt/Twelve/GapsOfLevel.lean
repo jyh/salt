@@ -14,7 +14,7 @@ weakest precisely-stated equidistribution interface that the landed gaps ≤ 12
 chain actually consumes.*
 
 **The find (Q3-recon, verbatim from the ledger).**  The ENTIRE gaps ≤ 12 chain
-consumes `EHall` at EXACTLY ONE LINE (`Salt/Twelve/FrontierM.lean:180`), reducing
+consumes `EHall` at EXACTLY ONE LINE (`Salt/Twelve/FrontierM.lean:172`), reducing
 to the landed `HasLevel (3999/4000)` — strictly weaker in FORM (single level +
 BV-shaped haircut; the honest caveat: θ ≈ 1 is EH-strength in DEPTH).
 
@@ -104,14 +104,6 @@ private lemma lcm_pairwise_coprime_of_noncollision {R W' : ℕ} {d e : Fin 5 →
   · exact absurd (hnc i j hij) (Nat.Prime.not_coprime_iff_dvd.mpr ⟨p, hp, hdi, hej⟩)
   · exact absurd (hnc j i hij.symm) (Nat.Prime.not_coprime_iff_dvd.mpr ⟨p, hp, hdj, hei⟩)
   · exact absurd (hecop i j hij) (Nat.Prime.not_coprime_iff_dvd.mpr ⟨p, hp, hei, hej⟩)
-
-/-- `h_i ≤ 19` for each of the five shifts: the five values of `hSeq 5` (`hSeq_five_zero` …
-`hSeq_five_four`), by cases on `i`; the file-scoped mirror of `FrontierM`'s private helper. -/
-private lemma hSeq_le_nineteen (i : Fin 5) : hSeq 5 i ≤ 19 := by
-  fin_cases i <;>
-    simp only [hSeq_five_zero, hSeq_five_one, hSeq_five_two, hSeq_five_three,
-      hSeq_five_four] <;>
-    norm_num
 
 /-! ## The `EHall`-free largeness bundle `WinFrontierMWL` (parameterized by `D`)
 
@@ -286,7 +278,7 @@ every `N` there are two primes `p ≠ q > N` with `|q − p| ≤ 12`, assuming o
 
 This is the equidistribution interface that the landed gaps ≤ 12 chain consumes
 (sufficient; not proved minimal): the chain touches `EHall` at exactly one point
-(`FrontierM.lean:180`), and that point needs only `HasLevel (3999/4000)`.
+(`FrontierM.lean:172`), and that point needs only `HasLevel (3999/4000)`.
 
 **θ-caveat (see the module docstring):** `θ★ = 3999/4000` is near `1`, so this
 hypothesis is EH-strength *in analytic depth*.  The extraction's content is a
