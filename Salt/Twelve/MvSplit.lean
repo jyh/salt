@@ -1296,39 +1296,9 @@ theorem inner_contract_rel (F : Poly) (m : Fin 5) :
   refine le_trans (ic_list_sum_le F _ _ hpera) ?_
   rw [hbndsum]
 
-/-! ## `mv_J_split` — shared helpers (copies of `MvJ.lean`'s; the public ones serve the splits) -/
+/-! ## `mv_J_split` — shared helpers (copies of `MvJ.lean`'s; the public ones serve the splits)
 
-/-- `g(p) = p − 2` for a prime `p` (`hp`), cast to `ℝ`: `primeFactors p = {p}`. -/
-lemma mjs_gMult_prime_cast {p : ℕ} (hp : Nat.Prime p) : (gMult p : ℝ) = (p : ℝ) - 2 := by
-  have : gMult p = p - 2 := by rw [gMult, Nat.Prime.primeFactors hp, Finset.prod_singleton]
-  rw [this, Nat.cast_sub hp.two_le]; norm_num
-
-/-- `g(1) = 1`: the empty product over `primeFactors 1 = ∅`. -/
-lemma mjs_gMult_one_cast : (gMult 1 : ℝ) = 1 := by
-  rw [gMult, Nat.primeFactors_one, Finset.prod_empty]; norm_num
-
-/-- `g(pq) = (p − 2)(q − 2)` for distinct primes (`hp`, `hq`, `hpq`): `gMult` is multiplicative
-on coprime arguments (`gMult_mul_coprime`), then
-`mjs_gMult_prime_cast` twice. -/
-lemma mjs_gMult_pq_cast {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) :
-    (gMult (p * q) : ℝ) = ((p:ℝ) - 2) * ((q:ℝ) - 2) := by
-  have hcop : Nat.Coprime p q := (Nat.coprime_primes hp hq).mpr hpq
-  rw [gMult_mul_coprime hcop, Nat.cast_mul, mjs_gMult_prime_cast hp, mjs_gMult_prime_cast hq]
-
-/-- Every prime factor of an `x < R` coprime to `W'` (`hxR`, `hxcop`) lies in the prime window
-`D < p < R`: `p ≤ x < R`, and `p ∤ W'` (coprimality) gives `D < p` by `hD`. -/
-lemma mjs_box_PF_subset {W' D R : ℕ} (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p)
-    {x : ℕ} (hxR : x < R) (hxcop : x.Coprime W') :
-    x.primeFactors ⊆ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p) := by
-  intro p hp
-  have hpp := Nat.prime_of_mem_primeFactors hp
-  have hpx := Nat.dvd_of_mem_primeFactors hp
-  have hx0 : 0 < x := Nat.pos_of_ne_zero (by rintro rfl; simp at hp)
-  have hpltR : p < R := lt_of_le_of_lt (Nat.le_of_dvd hx0 hpx) hxR
-  have hnpW : ¬ p ∣ W' := by
-    intro hpW; have h1 : p ∣ 1 := hxcop ▸ Nat.dvd_gcd hpx hpW
-    exact hpp.one_lt.ne' (Nat.dvd_one.mp h1)
-  rw [Finset.mem_filter, Finset.mem_range]; exact ⟨hpltR, hpp, hD p hpp hnpW⟩
+`gMult_prime_cast`, `gMult_one_cast`, `gMult_pq_cast` and `box_PF_subset` are `MvJ.lean`'s own. -/
 
 /-- The marked-prime sum `Σ_{p ∣ m} 1/(p − 1)` is nonnegative (each `p ≥ 2`). -/
 lemma mjs_PFsum_nn (m : ℕ) : 0 ≤ ∑ p ∈ m.primeFactors, (1 / ((p:ℝ) - 1)) := by
@@ -1517,7 +1487,7 @@ lemma mjs_M0_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     constructor
     · rintro ⟨h1, h2, _⟩; exact ⟨h1, h2⟩
     · rintro ⟨h1, h2⟩; exact ⟨h1, h2, one_dvd r⟩
-  rw [mjs_gMult_one_cast, hFeq] at hg1
+  rw [gMult_one_cast, hFeq] at hg1
   have hL : ∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'),
         (Real.log x) ^ 0 / (gMult x : ℝ)
       = ∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'), (1 / (gMult x : ℝ)) :=
@@ -1543,7 +1513,7 @@ lemma mjs_M0_op (W' : ℕ) (_hW' : Squarefree W') (_hpos : 0 < W') (cg : ℝ)
     constructor
     · rintro ⟨h1, h2, _⟩; exact ⟨h1, h2⟩
     · rintro ⟨h1, h2⟩; exact ⟨h1, h2, one_dvd r⟩
-  rw [mjs_gMult_one_cast, hFeq] at hg1
+  rw [gMult_one_cast, hFeq] at hg1
   have hL : ∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'),
         (Real.log x) ^ 0 / (gMult x : ℝ)
       = ∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'), (1 / (gMult x : ℝ)) :=
@@ -1556,7 +1526,7 @@ lemma mjs_M0_op (W' : ℕ) (_hW' : Squarefree W') (_hpos : 0 < W') (cg : ℝ)
 /-- **The relative first marked `g`-moment `MQ`**:
 `Σ_{x ∈ F_R} Q(x)/g(x) ≤ 8·phiAtomSum R W'/D`, `Q(x) = Σ_{p ∣ x} 1/(p − 1)`, for square-free
 `W' > 0` (`hW'`, `hpos`), `3 ≤ D` below every prime not dividing `W'` (`hD`, `hDW`) and `2 ≤ R`
-(`hR2`). Swap to a sum over the primes `D < p < R` (`mjs_box_PF_subset`); each
+(`hR2`). Swap to a sum over the primes `D < p < R` (`box_PF_subset`); each
 `1/(p − 1)·Σ_{p ∣ x} 1/g(x)` is at most `2·PAS·2/(p − 1)²` by `marked_sqf_g_rel` at `a = 0`,
 `s = p` (`g(p) = p − 2`, and `1/((p − 1)(p − 2)) ≤ 2/(p − 1)²` for `p ≥ 3`); `prime_tail` sums
 the squares to `2/D`. -/
@@ -1590,7 +1560,7 @@ lemma mjs_MQ_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
       apply Finset.sum_le_sum_of_subset_of_nonneg
       · intro p hp
         rw [Finset.mem_filter]
-        exact ⟨mjs_box_PF_subset hDW hxR hxcop hp, Nat.dvd_of_mem_primeFactors hp⟩
+        exact ⟨box_PF_subset hDW hxR hxcop hp, Nat.dvd_of_mem_primeFactors hp⟩
       · intro p hp _
         rw [Finset.mem_filter, hPrimes, Finset.mem_filter, Finset.mem_range] at hp
         have hpD : D < p := hp.1.2.2
@@ -1617,7 +1587,7 @@ lemma mjs_MQ_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     have hp3 : 3 ≤ p := by omega
     have hp3R : (3:ℝ) ≤ (p:ℝ) := by exact_mod_cast hp3
     have hmk := marked_sqf_g_rel W' hW' hpos 0 D p R hD hDW hpp.pos hR2
-    rw [mjs_gMult_prime_cast hpp] at hmk
+    rw [gMult_prime_cast hpp] at hmk
     have hfilt : F_R.filter (fun x => p ∣ x)
         = (Finset.range R).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ p ∣ r) := by
       rw [hF_R, Finset.filter_filter]; apply Finset.filter_congr; intro x _
@@ -1659,7 +1629,7 @@ lemma mjs_MQ_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
 `Σ_{x ∈ F_R} Q(x)²/g(x) ≤ 40·phiAtomSum R W'/D` under the same hypotheses (`hW'`, `hpos`, `hD`,
 `hDW`, `hR2`). Expand `Q(x)²` over pairs of primes `p, q ∣ x` in the window `D < p, q < R`; the
 diagonal `p = q` costs `2·PAS/(p − 2)` per prime (`marked_sqf_g_rel` at `s = p`) and the
-off-diagonal `2·PAS/((p − 2)(q − 2))` (`s = p·q`, `mjs_gMult_pq_cast`); with
+off-diagonal `2·PAS/((p − 2)(q − 2))` (`s = p·q`, `gMult_pq_cast`); with
 `Σ_p 1/((p − 1)(p − 2)) ≤ 4/D` (`prime_tail`) the two parts are `2·PAS·4/D` and `2·PAS·(4/D)²`,
 and `(4/D)² ≤ 16/D`. -/
 lemma mjs_MQ2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
@@ -1697,7 +1667,7 @@ lemma mjs_MQ2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     intro x hx
     rw [hF_R, Finset.mem_filter, Finset.mem_range] at hx
     obtain ⟨hxR, hxsf, hxcop⟩ := hx
-    have hsub : x.primeFactors ⊆ Primes := mjs_box_PF_subset hDW hxR hxcop
+    have hsub : x.primeFactors ⊆ Primes := box_PF_subset hDW hxR hxcop
     have hnnW : ∀ p q, p ∈ Primes → q ∈ Primes → 0 ≤ c1 p * c1 q * (1 / (gMult x : ℝ)) := by
       intro p q hpP hqP
       obtain ⟨_, _, hp1, _⟩ := hprime_facts p hpP
@@ -1783,7 +1753,7 @@ lemma mjs_MQ2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
       · rintro ⟨⟨h1,h2⟩,h3,_⟩; exact ⟨h1,h2,h3⟩
       · rintro ⟨h1,h2,h3⟩; exact ⟨⟨h1,h2⟩,h3,h3⟩
     simp only [hSdef]; rw [hfe]
-    have := hmarked p hpp.pos; rw [mjs_gMult_prime_cast hpp] at this; exact this
+    have := hmarked p hpp.pos; rw [gMult_prime_cast hpp] at this; exact this
   have hS_off : ∀ p ∈ Primes, ∀ q ∈ Primes, p ≠ q →
       S p q ≤ (1 / (((p:ℝ) - 2) * ((q:ℝ) - 2))) * 2 * PAS := by
     intro p hp q hq hpq
@@ -1799,7 +1769,7 @@ lemma mjs_MQ2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
         exact ⟨⟨h1,h2⟩, (dvd_mul_right p q).trans h3, (dvd_mul_left q p).trans h3⟩
     simp only [hSdef]; rw [hfe]
     have := hmarked (p*q) (Nat.mul_pos hpp.pos hqp.pos)
-    rw [mjs_gMult_pq_cast hpp hqp hpq] at this; exact this
+    rw [gMult_pq_cast hpp hqp hpq] at this; exact this
   have hsplit : ∑ p ∈ Primes, ∑ q ∈ Primes, c1 p * c1 q * S p q
       = ∑ p ∈ Primes, c1 p * c1 p * S p p
         + ∑ p ∈ Primes, ∑ q ∈ Primes.erase p, c1 p * c1 q * S p q := by
