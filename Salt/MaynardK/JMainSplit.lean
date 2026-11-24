@@ -217,11 +217,11 @@ private lemma gap_rel_g (n : ℕ) (hn : 1 ≤ n) (W' : ℕ) (hW' : Squarefree W'
   set MQ := ∑ x ∈ F_R, (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) / (gMult x : ℝ) with hMQdef
   have hM0nn : 0 ≤ M0 := Finset.sum_nonneg (fun x _ => by positivity)
   have hM0le : M0 ≤ 2 * PAS := mjs_M0_rel W' hW' hpos D R hD hDW hR2
-  have hMQnn : 0 ≤ MQ := Finset.sum_nonneg (fun x _ => div_nonneg (mjs_PFsum_nn _) (by positivity))
+  have hMQnn : 0 ≤ MQ := Finset.sum_nonneg (fun x _ => div_nonneg (PFsum_nn _) (by positivity))
   have hMQle : MQ ≤ 8 * PAS / (D:ℝ) := mjs_MQ_rel W' hW' hpos D R hD hDW hR2
   have h1 := enlarge_to_PB (n := n) W' D R hD hDW
     (fun ρ => ∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))))
-    (fun ρ => Finset.sum_nonneg (fun i _ => mjs_PFsum_nn _))
+    (fun ρ => Finset.sum_nonneg (fun i _ => PFsum_nn _))
   refine le_trans h1 ?_
   have hdist : ∀ ρ : Fin n → ℕ,
       (∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1)))) * ∏ k, (1 / (gMult (ρ k) : ℝ))
@@ -495,7 +495,7 @@ theorem mv_J_main_split_gen (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fi
     obtain ⟨hlt, hsqf, hcop, hprod⟩ := hr
     have hr1 : ∀ i, 1 ≤ ρ i := fun i => Nat.pos_of_ne_zero (hsqf i).ne_zero
     rw [hEv'def, hcFdef]
-    apply mjs_eval_bpoly_bound
+    apply eval_bpoly_bound
     · intro i; exact div_nonneg (Real.log_nonneg (by exact_mod_cast hr1 i)) hLpos.le
     · intro i; rw [div_le_one hLpos, hLdef]
       exact Real.log_le_log (by exact_mod_cast hr1 i) (by exact_mod_cast (le_of_lt (hlt i)))
