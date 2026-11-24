@@ -54,87 +54,14 @@ open scoped BigOperators
 
 /-! ## §0 — the private rpow/arith stones, re-cut
 
-`DoorFrameH1`'s and `Eq26Compose`'s helper stones are `private`, hence invisible across
-modules; they are re-declared here verbatim (they are door-free, so no `_L` is warranted in
-their names). -/
+`DoorFrameH1.rpow_pow_eq` is `private`, hence invisible across modules; it is re-declared
+here verbatim (it is door-free, so no `_L` is warranted in its name). `DoorFrameH1`'s other
+helper stones are read from there. -/
 
 /-- `(x^a)^n = x^b` whenever `a·n = b` — the rpow-gate idiom, on an abstract base. -/
 private lemma rpow_pow_eq {x : ℝ} (hx : 0 ≤ x) {a b : ℝ} (n : ℕ) (h : a * (n : ℝ) = b) :
     (x ^ a) ^ n = x ^ b := by
   rw [← Real.rpow_natCast (x ^ a) n, ← Real.rpow_mul hx, h]
-
-/-- `(x^a)^n = x` whenever `a·n = 1`. -/
-private lemma rpow_pow_one {x : ℝ} (hx : 0 ≤ x) {a : ℝ} (n : ℕ) (h : a * (n : ℝ) = 1) :
-    (x ^ a) ^ n = x := by
-  rw [← Real.rpow_natCast (x ^ a) n, ← Real.rpow_mul hx, h, Real.rpow_one]
-
-/-- `(x^n)^a = x` whenever `n·a = 1` — the exact fourth root of `𝒫₁ = (2^{KdoorL M})^4`. -/
-private lemma pow_rpow_one {x : ℝ} (hx : 0 ≤ x) (n : ℕ) {a : ℝ} (h : (n : ℝ) * a = 1) :
-    (x ^ n) ^ a = x := by
-  rw [← Real.rpow_natCast x n, ← Real.rpow_mul hx, h, Real.rpow_one]
-
-/-- The abstract shape behind the level-1 identity: `(w/z)²·z³·(w³)⁻¹ = z/w`. -/
-private lemma level1_ratio {w z L P : ℝ} (hw : 0 < w) (hz : 0 < z)
-    (hL : L = z ^ (3 : ℕ)) (hP : P = (w ^ (3 : ℕ))⁻¹) :
-    (w / z) ^ 2 * L * P = z / w := by
-  have hw0 : w ≠ 0 := ne_of_gt hw
-  have hz0 : z ≠ 0 := ne_of_gt hz
-  subst hL
-  subst hP
-  field_simp
-
-/-- The abstract §8.1 level-1 shape, at `α₁ = 1/8` and `H₁ ≥ 2`. -/
-private lemma level1_shape {Ha Lq Pq R : ℝ} (hH2 : 2 ≤ Ha) (hLq : 1 ≤ Lq)
-    (hPq : 0 < Pq) (hR : 0 ≤ R) :
-    2 * (Ha * Lq + 1) * R * Pq
-        * (4 * (Ha / (3 / 4 : ℝ)) * Real.exp ((3 / 4 : ℝ) / Ha)
-            + 60 * (Ha / (1 / 8 : ℝ)) * Real.exp ((1 / 2 : ℝ) / Ha))
-      ≤ 5280 * R * (Ha ^ 2 * Lq * Pq) := by
-  have hHa0 : (0 : ℝ) < Ha := by linarith
-  have he1 : Real.exp ((3 / 4 : ℝ) / Ha) ≤ 2.7182818286 := by
-    have h : (3 / 4 : ℝ) / Ha ≤ 1 := by rw [div_le_one hHa0]; linarith
-    exact le_trans (Real.exp_le_exp.mpr h) Real.exp_one_lt_d9.le
-  have he2 : Real.exp ((1 / 2 : ℝ) / Ha) ≤ 2.7182818286 := by
-    have h : (1 / 2 : ℝ) / Ha ≤ 1 := by rw [div_le_one hHa0]; linarith
-    exact le_trans (Real.exp_le_exp.mpr h) Real.exp_one_lt_d9.le
-  have hB1 : 4 * (Ha / (3 / 4 : ℝ)) * Real.exp ((3 / 4 : ℝ) / Ha)
-      ≤ 16 / 3 * Ha * 2.7182818286 := by
-    have hEq : 4 * (Ha / (3 / 4 : ℝ)) = 16 / 3 * Ha := by ring
-    rw [hEq]
-    exact mul_le_mul_of_nonneg_left he1 (by linarith)
-  have hB2 : 60 * (Ha / (1 / 8 : ℝ)) * Real.exp ((1 / 2 : ℝ) / Ha)
-      ≤ 480 * Ha * 2.7182818286 := by
-    have hEq : 60 * (Ha / (1 / 8 : ℝ)) = 480 * Ha := by ring
-    rw [hEq]
-    exact mul_le_mul_of_nonneg_left he2 (by linarith)
-  have hB : 4 * (Ha / (3 / 4 : ℝ)) * Real.exp ((3 / 4 : ℝ) / Ha)
-      + 60 * (Ha / (1 / 8 : ℝ)) * Real.exp ((1 / 2 : ℝ) / Ha) ≤ 1320 * Ha := by linarith
-  have hB0 : (0 : ℝ) ≤ 4 * (Ha / (3 / 4 : ℝ)) * Real.exp ((3 / 4 : ℝ) / Ha)
-      + 60 * (Ha / (1 / 8 : ℝ)) * Real.exp ((1 / 2 : ℝ) / Ha) := by
-    have hc1 : (0 : ℝ) ≤ 4 * (Ha / (3 / 4 : ℝ)) := by linarith
-    have hc2 : (0 : ℝ) ≤ 60 * (Ha / (1 / 8 : ℝ)) := by linarith
-    linarith [mul_nonneg hc1 (Real.exp_pos ((3 / 4 : ℝ) / Ha)).le,
-      mul_nonneg hc2 (Real.exp_pos ((1 / 2 : ℝ) / Ha)).le]
-  have hHL : (1 : ℝ) ≤ Ha * Lq := by nlinarith
-  have key : 2 * (Ha * Lq + 1)
-        * (4 * (Ha / (3 / 4 : ℝ)) * Real.exp ((3 / 4 : ℝ) / Ha)
-            + 60 * (Ha / (1 / 8 : ℝ)) * Real.exp ((1 / 2 : ℝ) / Ha))
-      ≤ 5280 * (Ha ^ 2 * Lq) := by
-    calc 2 * (Ha * Lq + 1)
-          * (4 * (Ha / (3 / 4 : ℝ)) * Real.exp ((3 / 4 : ℝ) / Ha)
-              + 60 * (Ha / (1 / 8 : ℝ)) * Real.exp ((1 / 2 : ℝ) / Ha))
-        ≤ (4 * (Ha * Lq)) * (1320 * Ha) :=
-          mul_le_mul (by linarith) hB hB0 (by linarith)
-      _ = 5280 * (Ha ^ 2 * Lq) := by ring
-  calc 2 * (Ha * Lq + 1) * R * Pq
-        * (4 * (Ha / (3 / 4 : ℝ)) * Real.exp ((3 / 4 : ℝ) / Ha)
-            + 60 * (Ha / (1 / 8 : ℝ)) * Real.exp ((1 / 2 : ℝ) / Ha))
-      = (2 * (Ha * Lq + 1)
-          * (4 * (Ha / (3 / 4 : ℝ)) * Real.exp ((3 / 4 : ℝ) / Ha)
-              + 60 * (Ha / (1 / 8 : ℝ)) * Real.exp ((1 / 2 : ℝ) / Ha))) * (R * Pq) := by ring
-    _ ≤ (5280 * (Ha ^ 2 * Lq)) * (R * Pq) :=
-        mul_le_mul_of_nonneg_right key (mul_nonneg hR hPq.le)
-    _ = 5280 * R * (Ha ^ 2 * Lq * Pq) := by ring
 
 /-! ## §1 — `DoorFrameH1` at the linear anchor -/
 
