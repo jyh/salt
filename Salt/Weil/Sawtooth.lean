@@ -47,14 +47,6 @@ open Salt.LS Salt.BV
 
 /-! ### `e`- and `dist₁`-arithmetic (local re-derivations of the completion kernel's privates) -/
 
-/-- `e (n·x) = (e x)^n` for `n : ℕ`. -/
-private lemma e_natMul (n : ℕ) (x : ℝ) : e ((n : ℝ) * x) = (e x) ^ n := by
-  induction n with
-  | zero => simp
-  | succ m ih =>
-      have h : ((m + 1 : ℕ) : ℝ) * x = (m : ℝ) * x + x := by push_cast; ring
-      rw [h, e_add, ih, pow_succ]
-
 /-- `dist₁` only sees the difference: `dist₁ x y = dist₁ (x − y) 0`. -/
 lemma dist₁_sub_zero (x y : ℝ) : dist₁ x y = dist₁ (x - y) 0 := by
   unfold dist₁; rw [sub_zero]
@@ -951,13 +943,6 @@ private lemma majorantCoeff_core_bound {K : ℕ} (hK : 2 ≤ K) {m : ℤ} (hm : 
   field_simp
   try ring
 
-/-- `e` kills integers: `e(r) = 1` for `r : ℤ`. -/
-private lemma e_intCast (r : ℤ) : e ((r : ℝ)) = 1 := by
-  unfold e
-  rw [show (2 * (Real.pi : ℂ) * Complex.I * ((r : ℝ) : ℂ))
-        = (r : ℂ) * (2 * (Real.pi : ℂ) * Complex.I) by push_cast; ring]
-  exact Complex.exp_int_mul_two_pi_mul_I r
-
 /-- The `±x` pair of characters is the real cosine: `e(x) + e(−x) = 2cos(2πx)`. -/
 private lemma e_add_e_neg (x : ℝ) :
     e x + e (-x) = ((2 * Real.cos (2 * Real.pi * x) : ℝ) : ℂ) := by
@@ -1226,7 +1211,7 @@ theorem norm_congrExpSum_le_dist {q k : ℕ} (hq : 0 < q) (s b A B : ℤ)
     have harg : (-((s : ℝ) * ((b + (q : ℤ) * (c + 1 + (i : ℤ)) : ℤ) : ℝ)) / (k : ℝ))
         = (-((s : ℝ) * (n₀ : ℝ)) / (k : ℝ)) + ((i : ℝ) * θ) := by
       rw [hn₀, hθ]; push_cast; ring
-    rw [harg, e_add, e_natMul]
+    rw [harg, e_add, e_nat_mul]
   rw [hstep, norm_mul, norm_e, one_mul, ← hθeq]
   exact geom_e_bound θ t hθd
 

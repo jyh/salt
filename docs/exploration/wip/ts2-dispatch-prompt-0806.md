@@ -65,7 +65,7 @@ Read **in this order, in full**, before editing anything:
 Each of the three collapse *rows* currently throws its true exponent away by collapsing to the
 uniform `c ^ (1/8)`. Replace that with **each row's own γ-floor**: restate the row's `hg` as
 `K · c^{γ₀} ≤ 1/8`, and change the corresponding `c`-min arm to `c ≤ (1/(8K))^{1/γ₀}`.
-`hcollapse` (`TBalTall:603`, and the twin inside the R8 min block) already takes an **arbitrary
+`hcollapse` (`TBalTall:597`, and the twin inside the R8 min block) already takes an **arbitrary
 rational `pinv`**, with the side condition `pinv * p = 1` closed `by norm_num`.
 
 ### ⛔ THERE ARE **FOUR** SITES, NOT THREE — the brief's table is incomplete

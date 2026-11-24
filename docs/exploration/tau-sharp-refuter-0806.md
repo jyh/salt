@@ -88,7 +88,7 @@ conductor**: from `u < 1/(40 L₂)` and `L₂ > 0`, multiply by `L₂` — `u·L
 
 **Consumer enumeration.** `hc_t9` is used at exactly two sites —
 `TBalTall:399`, `TBalR8:1495` — both `le_trans huL2c hc_t9`, both inside the
-deep bullet. `huL2g` at exactly two — `TBalTall:594`, `TBalR8:1683-1684` —
+deep bullet. `huL2g` at exactly two — `TBalTall:588`, `TBalR8:1683-1684` —
 both feeding `tbal_hscale`, whose hypothesis is literally `u·L₂ ≤ 1/18`
 (`TBalR8:1035`), discharged by the stronger `1/40`. **So `hc_t9 : c ≤ 1/18` is
 genuinely redundant today in BOTH assemblies.**
@@ -104,9 +104,9 @@ hypothesis on `c` — the literal `2^{−250}` is hard-wired in the STATEMENT
 needs only `40·c·Q^{−680w} ≤ 8192` given `hL13` (`:58-63`). Honest hypothesis
 set: `(hc0 : 0 ≤ c) (hc1 : c ≤ 1)`. The freeze's "c ≤ 204.8 suffices" is
 byte-accurate, and `hc1 : c ≤ 1` is already derived independently of the deleted
-arm (`le_trans hc_t5 …`, `TBalTall:787` / `TBalR8:1866`), so S1 orphans nothing.
+arm (`le_trans hc_t5 …`, `TBalTall:781` / `TBalR8:1866`), so S1 orphans nothing.
 Nothing outside the deep branch consumes the smallness of `c`: after
-`clear_value c` the witness is existential (`TBalTall:792` / `TBalR8:1868`) and
+`clear_value c` the witness is existential (`TBalTall:786` / `TBalR8:1868`) and
 every downstream consumer takes `c` abstractly with only `0 < c` and `hN`, which
 is **monotone-easier as c grows**. Enlarging `c` is safe in every direction.
 
@@ -120,7 +120,7 @@ the **LANDED `dh_repulsion_ordered`** (`TBalR8:1784`) — which is consumed
 downstream at `TauExt.lean:353` (`boxZeros_re_le_unit_box`) and audited in
 `Salt/SW/All.lean:313`.
 
-S1's edit list names only `TBalTall:314, :739, :754` and the `:1070-1073`
+S1's edit list names only `TBalTall:314, :733, :748` and the `:1070-1073`
 block. **An executor following S1 literally restates `tbal_tau_le_split` and
 leaves `TBalR8:1454` applied at the old arity: `lake build` fails and a landed
 theorem with live consumers goes red.**
@@ -128,7 +128,7 @@ theorem with live consumers goes red.**
 **S2 REPEATS THE SAME OMISSION.** Four of the five row caps are shared verbatim
 by both assemblies — `row_rho_main_cap`, `row_A_cap`, `row_1x_cap`,
 `row_Eβ_cap` are applied at `TBalR8:1741, :1755, :1758, :1762` AND at
-`TBalTall:651, :665, :668, :672`; only the Eρ row is forked
+`TBalTall:645, :659, :662, :666`; only the Eρ row is forked
 (`row_Eρ_cap` vs `row_Eρ_cap_tall`, `TBalTall:200`). S2 restates the `hg` of
 exactly these shared caps and then says "the assembly needs only new `pinv`
 numerals" — *singular*. It is **two** assemblies: TBalR8's hg-block `:1660-1707`
@@ -150,8 +150,8 @@ deep). Ledger: TBalTall ≈ 52 changed lines, TBalR8 ≈ 71 — **≈ 123 lines,
 
 **THE PREFERRED REPAIR (adopted for TS-1): do NOT delete the head arm.**
 Replace the head numeral `2^(-(250:ℝ))` by `1/40` in both towers
-(`TBalTall:735`, `TBalR8:1808`), replace `hp1` by `by norm_num`
-(`TBalTall:739`, `TBalR8:1812`), and restate `tbal_tau_le_split` once,
+(`TBalTall:729`, `TBalR8:1808`), replace `hp1` by `by norm_num`
+(`TBalTall:733`, `TBalR8:1812`), and restate `tbal_tau_le_split` once,
 generalised in `c` (and `b`, `k`):
 
 ```lean
@@ -317,7 +317,7 @@ unreachable in this skeleton by ANY (b, c, k).**
 consumers, three in the road's own file — `Lemma7EF.lean:673`
 (`re_le_repulsionCeiling_of_ne`), `:708` (`exists_repulsion_ceiling_of_ne`, which
 `obtain`s `dh_repulsion_tall` at `:721`), `:760` (`psiDefect_norm_le_rangeA`) —
-plus `TBalTall.lean:829` (`boxZeros_re_le_at_efHeight`). The freeze also names
+plus `TBalTall.lean:823` (`boxZeros_re_le_at_efHeight`). The freeze also names
 the **wrong prefactor** as the risk: `efZeroSumM_spend_at_repulsion`'s
 `4110·(log q+2)^5` (`TauExt:320`) is the count-form route **retired by design D4**
 (`n4b-design-0805.md:236-238`); the operative prefactor is `10^3·M^3·N`
@@ -387,7 +387,7 @@ site already discharges its side goal with the window in hand. The window is
 `ray_pow_bound`'s hα/hε. Nothing new enters scope.
 
 **ARM ARITHMETIC: UNFOUNDED — all ten arms reproduce.** `c₀ = 1/126848` confirmed
-(`ZeroFreeReal.lean:602/:611`; `TBalTall:720` takes `min c₀' 1`),
+(`ZeroFreeReal.lean:602/:611`; `TBalTall:714` takes `min c₀' 1`),
 `log(1/c₀) = 11.7507`. As `log(1/arm)`: `2^{−250}` 173.2868 · `(c₀/32)^{17/3}`
 **86.2267** · `(1/805)^{50/49}` 6.8274 · `(1/(8·1610·e))^8` 83.7074 · `1/2`
 0.6931 · `(1/KEβ)^8` 536.6658 · `(c₀/KEρ)^8` **631.5764** · `1/(3A₀)` 4.8527 ·
@@ -408,7 +408,7 @@ which **five** are ≤ 6.9.
 2. **S1 by numeral replacement, not arm deletion** (`2^(-250)` → `1/40`), keeping
    every min-projection chain index-stable. ~20 ln instead of ~123.
 3. **γ-floors as exact rationals** `5247/1700`, `3547/1700`, `133/850`.
-4. **The shared `c`-min block is `TBalR8:1808-1865` AND `TBalTall:735-786`** —
+4. **The shared `c`-min block is `TBalR8:1808-1865` AND `TBalTall:729-780`** —
    this, not TBalTall alone, is what forces TS-1 strictly before TS-2 (the
    writer-slot law).
 

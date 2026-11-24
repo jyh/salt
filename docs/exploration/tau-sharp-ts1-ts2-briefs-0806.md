@@ -68,7 +68,7 @@ assemblies; four of five row caps SHARED verbatim (`row_rho_main_cap`, `row_A_ca
 - `dh_repulsion_inst` (`TBalR8:1405`) → **LANDED `dh_repulsion_ordered` (`:1752`)**, **11-fold**
   `c`-min at `TBalR8:1808-1865`. Consumed at `TauExt.lean:353`, audited in `Salt/SW/All.lean:313`.
 - `dh_repulsion_inst_tall` (`TBalTall:303`) → `dh_repulsion_tall` (`:1421`), **10-fold** `c`-min
-  at `TBalTall:735-786`.
+  at `TBalTall:729-780`.
 
 `hc_t1` is consumed at **TWO** sites: `TBalTall:360-363` **and `TBalR8:1457-1460`**. Edit only
 the tall side and a landed theorem with live consumers goes red.
@@ -81,8 +81,8 @@ Deleting a `min` head shifts every hand-built `le_trans (min_le_right _ _) …` 
 1. Restate `tbal_tau_le_split` (`TBalR8:44-46`) generalised in `c` — **the proof is already
    written in the banked scratch file**. Keep `b = 680`, `k = 14` hardwired; parametrising them
    is TS-3's job.
-2. Replace the head numeral `2 ^ (-(250 : ℝ))` by `1/40` in BOTH towers (`TBalTall:735`,
-   `TBalR8:1808`); `hp1` becomes `by norm_num` (`TBalTall:739`, `TBalR8:1812`). `hc_t1` then
+2. Replace the head numeral `2 ^ (-(250 : ℝ))` by `1/40` in BOTH towers (`TBalTall:729`,
+   `TBalR8:1808`); `hp1` becomes `by norm_num` (`TBalTall:733`, `TBalR8:1812`). `hc_t1` then
    reads `c ≤ 1/40` and feeds both trivial branches. **Every other projection keeps its index.**
 `log 40 = 3.69` is dominated by the surviving `1/576` arm (6.36), so the arm goes inert and the
 **full 173.29 is realised anyway**; and it is S4-shaped, so TS-3 never re-touches this lemma.
@@ -103,7 +103,7 @@ explicitly**; do not force a change.
 
 Replace the three `Real.rpow_le_rpow_of_exponent_ge … (1/8)` collapse steps by each row's own
 γ-floor, restate that row's `hg` as `K·c^{γ₀} ≤ 1/8`, and change the arm to
-`c ≤ (1/(8K))^{1/γ₀}` (`hcollapse`, `TBalTall:603`, already takes an arbitrary rational `pinv`).
+`c ≤ (1/(8K))^{1/γ₀}` (`hcollapse`, `TBalTall:597`, already takes an arbitrary rational `pinv`).
 
 ### ⛔ USE EXACT RATIONALS — THE FREEZE'S NUMERALS ARE INADMISSIBLE
 Each γ is a function of σ alone (Eρ, Eβ), strictly increasing, so the infimum is at the **closed**
@@ -144,7 +144,7 @@ three lines — no uniformity trap.
 | **MAX** | **631.58** | **86.23** |
 
 `c₀ = 1/126848` (`ZeroFreeReal.lean:602/:611`), `log(1/c₀) = 11.7507`;
-`KEβ = 16·(328+48·5)·627^9`, `KEρ = 16·636·627^9` (`TBalTall:727-728`).
+`KEβ = 16·(328+48·5)·627^9`, `KEρ = 16·636·627^9` (`TBalTall:721-722`).
 
 **Read this before budgeting effort:** **S1 is the load-bearing stone.** Without it the
 `2^{−250}` arm at 173.29 becomes binding after TS-2 and the whole program stalls there instead of
