@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `0d45507b` · source digest `af97c3934b886292` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `79e74f82` · source digest `200da3da422c0e1e` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23422 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23410 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -6411,44 +6411,44 @@ Declarations indexed across the tree: 23422 · corpus Prop-valued names (the hyp
 | `Salt.SW.coprimeSeries_eq_mul_prime` | Salt/SW/GrahamHard2.lean:168 | sieves |
 | `Salt.SW.coprimeSeries_mul_prod_eq` | Salt/SW/GrahamHard2.lean:269 | sieves |
 | `Salt.SW.totient_div_mul_coprimeSeries_moebius_div_sq` | Salt/SW/GrahamHard2.lean:375 | sieves, characters |
-| `Salt.SW.kappa_mul_of_coprime` | Salt/SW/GrahamHard2.lean:444 | sieves |
-| `Salt.SW.summable_moebius_sq_div_kappa_totient` | Salt/SW/GrahamHard2.lean:494 | sieves, characters |
-| `Salt.SW.div_totient_mul_coprimeSeries_inv_kappa_totient` | Salt/SW/GrahamHard2.lean:532 | sieves, characters |
-| `Salt.SW.sum_moebius_sq_dvd_eq` | Salt/SW/GrahamHard2.lean:694 | sieves, characters |
-| `Salt.SW.abs_card_coprime_sub_le` | Salt/SW/GrahamHard2.lean:804 | sieves |
-| `Salt.SW.sqf_coprime_count_eq` | Salt/SW/GrahamHard2.lean:959 | sieves |
-| `Salt.SW.sqf_coprime_sum_log_mul_log_eq` | Salt/SW/GrahamHard2.lean:1466 | sieves |
-| `Salt.SW.log_rpow_le_rpow_quarter` | Salt/SW/GrahamHard2.lean:1956 | sieves |
-| `Salt.SW.sum_moebius_div_mul_harmonic_eq` | Salt/SW/GrahamHard2.lean:1981 | sieves, characters |
-| `Salt.SW.abs_sum_moebius_mul_log_floor_ratio_le` | Salt/SW/GrahamHard2.lean:2252 | sieves |
-| `Salt.SW.abs_sum_moebius_div_mul_log_div_sub_one_le` | Salt/SW/GrahamHard2.lean:2793 | sieves |
-| `Salt.SW.abs_sum_moebius_mul_log_div_add_one_le` | Salt/SW/GrahamHard2.lean:3105 | sieves |
-| `Salt.SW.sum_coprime_moebius_eq_sum_smooth` | Salt/SW/GrahamHard2.lean:3333 | sieves, characters |
-| `Salt.SW.sum_smooth_inv_le` | Salt/SW/GrahamHard2.lean:3521 | sieves |
-| `Salt.SW.div_totient_sub_sum_smooth_inv_le` | Salt/SW/GrahamHard2.lean:4121 | sieves |
-| `Salt.SW.abs_coprime_sum_moebius_div_le` | Salt/SW/GrahamHard2.lean:4291 | sieves |
-| `Salt.SW.coprime_sum_moebius_div_log_eq` | Salt/SW/GrahamHard2.lean:4729 | sieves |
-| `Salt.SW.sigmaQ_mul_le` | Salt/SW/GrahamHard2.lean:5222 | sieves |
-| `Salt.SW.coprime_sum_moebius_div_kappa_le` | Salt/SW/GrahamHard2.lean:5372 | sieves |
-| `Salt.SW.one_le_c0` | Salt/SW/GrahamHard2.lean:5808 | sieves |
-| `Salt.SW.coprime_sum_moebius_div_kappa_log_eq` | Salt/SW/GrahamHard2.lean:5963 | sieves |
-| `Salt.SW.coprime_sum_moebius_div_kappa_log_exists` | Salt/SW/GrahamHard2.lean:6497 | sieves |
-| `Salt.SW.sum_filter_side_eq_sqfLogPair_sub` | Salt/SW/GrahamHard3.lean:141 | sieves, characters |
-| `Salt.SW.sum_tailT_sq_eq_box` | Salt/SW/GrahamHard3.lean:323 | sieves, characters |
-| `Salt.SW.abs_sqfLogPair_sub_le` | Salt/SW/GrahamHard3.lean:425 | sieves |
-| `Salt.SW.abs_aKernel_sub_c0_le` | Salt/SW/GrahamHard3.lean:615 | sieves |
-| `Salt.SW.sum_inv_mul_abs_aKernel_le` | Salt/SW/GrahamHard3.lean:771 | sieves |
-| `Salt.SW.abs_bKernel_le` | Salt/SW/GrahamHard3.lean:1023 | sieves |
-| `Salt.SW.sum_abs_bKernel_le` | Salt/SW/GrahamHard3.lean:1270 | sieves |
-| `Salt.SW.sum_rpow_neg_half_sigmaQ_one_add_log_le` | Salt/SW/GrahamHard3.lean:1330 | sieves |
-| `Salt.SW.sum_sum_errUpper_le` | Salt/SW/GrahamHard3.lean:1379 | sieves |
-| `Salt.SW.sum_sum_errLower_le` | Salt/SW/GrahamHard3.lean:1548 | sieves |
-| `Salt.SW.sum_rpow_neg_three_half_le` | Salt/SW/GrahamHard3.lean:1687 | sieves |
-| `Salt.SW.sum_tailT_sq_le` | Salt/SW/GrahamHard3.lean:2068 | sieves |
-| `Salt.SW.grahamW_sum_le_full` | Salt/SW/GrahamHard3.lean:2274 | sieves |
-| `Salt.SW.sum_sq_sum_bvWeight_le_full` | Salt/SW/GrahamHard3.lean:2371 | sieves |
-| `Salt.SW.sum_sq_sum_bvWeight_le` | Salt/SW/GrahamHard3.lean:2436 | sieves |
-| `Salt.SW.sum_sq_sum_bvWeight_le_low` | Salt/SW/GrahamHard3.lean:2453 | sieves |
+| `Salt.SW.kappa_mul_of_coprime` | Salt/SW/GrahamHard2.lean:440 | sieves |
+| `Salt.SW.summable_moebius_sq_div_kappa_totient` | Salt/SW/GrahamHard2.lean:490 | sieves, characters |
+| `Salt.SW.div_totient_mul_coprimeSeries_inv_kappa_totient` | Salt/SW/GrahamHard2.lean:528 | sieves, characters |
+| `Salt.SW.sum_moebius_sq_dvd_eq` | Salt/SW/GrahamHard2.lean:690 | sieves, characters |
+| `Salt.SW.abs_card_coprime_sub_le` | Salt/SW/GrahamHard2.lean:800 | sieves |
+| `Salt.SW.sqf_coprime_count_eq` | Salt/SW/GrahamHard2.lean:955 | sieves |
+| `Salt.SW.sqf_coprime_sum_log_mul_log_eq` | Salt/SW/GrahamHard2.lean:1462 | sieves |
+| `Salt.SW.log_rpow_le_rpow_quarter` | Salt/SW/GrahamHard2.lean:1952 | sieves |
+| `Salt.SW.sum_moebius_div_mul_harmonic_eq` | Salt/SW/GrahamHard2.lean:1977 | sieves, characters |
+| `Salt.SW.abs_sum_moebius_mul_log_floor_ratio_le` | Salt/SW/GrahamHard2.lean:2248 | sieves |
+| `Salt.SW.abs_sum_moebius_div_mul_log_div_sub_one_le` | Salt/SW/GrahamHard2.lean:2789 | sieves |
+| `Salt.SW.abs_sum_moebius_mul_log_div_add_one_le` | Salt/SW/GrahamHard2.lean:3101 | sieves |
+| `Salt.SW.sum_coprime_moebius_eq_sum_smooth` | Salt/SW/GrahamHard2.lean:3329 | sieves, characters |
+| `Salt.SW.sum_smooth_inv_le` | Salt/SW/GrahamHard2.lean:3517 | sieves |
+| `Salt.SW.div_totient_sub_sum_smooth_inv_le` | Salt/SW/GrahamHard2.lean:4117 | sieves |
+| `Salt.SW.abs_coprime_sum_moebius_div_le` | Salt/SW/GrahamHard2.lean:4287 | sieves |
+| `Salt.SW.coprime_sum_moebius_div_log_eq` | Salt/SW/GrahamHard2.lean:4725 | sieves |
+| `Salt.SW.sigmaQ_mul_le` | Salt/SW/GrahamHard2.lean:5218 | sieves |
+| `Salt.SW.coprime_sum_moebius_div_kappa_le` | Salt/SW/GrahamHard2.lean:5368 | sieves |
+| `Salt.SW.one_le_c0` | Salt/SW/GrahamHard2.lean:5804 | sieves |
+| `Salt.SW.coprime_sum_moebius_div_kappa_log_eq` | Salt/SW/GrahamHard2.lean:5959 | sieves |
+| `Salt.SW.coprime_sum_moebius_div_kappa_log_exists` | Salt/SW/GrahamHard2.lean:6493 | sieves |
+| `Salt.SW.sum_filter_side_eq_sqfLogPair_sub` | Salt/SW/GrahamHard3.lean:154 | sieves, characters |
+| `Salt.SW.sum_tailT_sq_eq_box` | Salt/SW/GrahamHard3.lean:336 | sieves, characters |
+| `Salt.SW.abs_sqfLogPair_sub_le` | Salt/SW/GrahamHard3.lean:438 | sieves |
+| `Salt.SW.abs_aKernel_sub_c0_le` | Salt/SW/GrahamHard3.lean:628 | sieves |
+| `Salt.SW.sum_inv_mul_abs_aKernel_le` | Salt/SW/GrahamHard3.lean:784 | sieves |
+| `Salt.SW.abs_bKernel_le` | Salt/SW/GrahamHard3.lean:1036 | sieves |
+| `Salt.SW.sum_abs_bKernel_le` | Salt/SW/GrahamHard3.lean:1283 | sieves |
+| `Salt.SW.sum_rpow_neg_half_sigmaQ_one_add_log_le` | Salt/SW/GrahamHard3.lean:1343 | sieves |
+| `Salt.SW.sum_sum_errUpper_le` | Salt/SW/GrahamHard3.lean:1392 | sieves |
+| `Salt.SW.sum_sum_errLower_le` | Salt/SW/GrahamHard3.lean:1561 | sieves |
+| `Salt.SW.sum_rpow_neg_three_half_le` | Salt/SW/GrahamHard3.lean:1700 | sieves |
+| `Salt.SW.sum_tailT_sq_le` | Salt/SW/GrahamHard3.lean:2081 | sieves |
+| `Salt.SW.grahamW_sum_le_full` | Salt/SW/GrahamHard3.lean:2287 | sieves |
+| `Salt.SW.sum_sq_sum_bvWeight_le_full` | Salt/SW/GrahamHard3.lean:2384 | sieves |
+| `Salt.SW.sum_sq_sum_bvWeight_le` | Salt/SW/GrahamHard3.lean:2449 | sieves |
+| `Salt.SW.sum_sq_sum_bvWeight_le_low` | Salt/SW/GrahamHard3.lean:2466 | sieves |
 | `Salt.SW.grahamW_eq_sum_grahamGc` | Salt/SW/GrahamL2.lean:82 | sieves |
 | `Salt.SW.abs_grahamGc_le` | Salt/SW/GrahamL2.lean:173 | sieves |
 | `Salt.SW.graham_diagonalisation` | Salt/SW/GrahamL2.lean:230 | sieves |
@@ -6799,7 +6799,7 @@ Declarations indexed across the tree: 23422 · corpus Prop-valued names (the hyp
 | `Salt.SW.zeta_zero_free_region` | Salt/SW/ZetaZeroFree.lean:235 | zeros, sieves |
 | `Salt.ThreePrimes.three_primes` | Salt/ThreePrimes/Assembly.lean:800 | other |
 | `Salt.Twelve.M5_cert` | Salt/Twelve/Certificate.lean:272 | sieves |
-| `Salt.Twelve.winFrontierMW_of` | Salt/Twelve/FrontierM.lean:164 | sieves |
+| `Salt.Twelve.winFrontierMW_of` | Salt/Twelve/FrontierM.lean:156 | sieves |
 | `Salt.Twelve.collision_yF_M` | Salt/Twelve/InnerS1.lean:956 | sieves |
 | `Salt.Twelve.phiUpperAtom_final` | Salt/Twelve/PhiUpperReindex.lean:499 | sieves |
 | `Salt.Twelve.bounded_gaps_reduces_twelve` | Salt/Twelve/Pigeonhole12.lean:98 | sieves |
@@ -7526,12 +7526,12 @@ Declarations indexed across the tree: 23422 · corpus Prop-valued names (the hyp
 | `Salt.HB.hb_lemma2` | Salt/HB/TransferFull.lean:204 | characters | `Salt.HB.CoprimeSupport` |
 | `Salt.HB.hb_lemma3_final` | Salt/HB/TwistedMertens.lean:799 | characters | `Salt.HB.CoprimeSupport` |
 | `Salt.LS.analytic_LS` | Salt/LS/AnalyticLS.lean:58 | sieves, exponential sums | `Salt.LS.Spaced` |
-| `Salt.MR.seam_row_number_nocap3_end'` | Salt/MR/A3Middle.lean:206 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
-| `Salt.MR.seam_row_number_capfree3_end'` | Salt/MR/A3Middle.lean:334 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
-| `Salt.MR.a2Rows_of_capfree3_end'` | Salt/MR/A3Middle.lean:440 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
-| `Salt.MR.seam_row_number_nocap3'` | Salt/MR/A3Middle.lean:564 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
-| `Salt.MR.seam_row_number_capfree3'` | Salt/MR/A3Middle.lean:690 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
-| `Salt.MR.a2Rows_of_capfree3'` | Salt/MR/A3Middle.lean:796 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
+| `Salt.MR.seam_row_number_nocap3_end'` | Salt/MR/A3Middle.lean:165 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
+| `Salt.MR.seam_row_number_capfree3_end'` | Salt/MR/A3Middle.lean:293 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
+| `Salt.MR.a2Rows_of_capfree3_end'` | Salt/MR/A3Middle.lean:399 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
+| `Salt.MR.seam_row_number_nocap3'` | Salt/MR/A3Middle.lean:523 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
+| `Salt.MR.seam_row_number_capfree3'` | Salt/MR/A3Middle.lean:649 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
+| `Salt.MR.a2Rows_of_capfree3'` | Salt/MR/A3Middle.lean:755 | characters | `Salt.MR.A2Frame3`, `Salt.MR.CofactorSocket`, `Salt.MR.TannGate` |
 | `Salt.MR.largeRangeFixedEps_of_fixed` | Salt/MR/A4FLargeRange.lean:101 | characters | `Salt.MR.MRTLargeRangeEquidistributionFixed` |
 | `Salt.MR.lemmaA4iiFixed34E_of_fixed34T` | Salt/MR/A4FLargeRange.lean:114 | characters | `Salt.MR.MRTLemmaA4iiFixed34T` |
 | `Salt.MR.mrtLemmaA4iiFixed34T_of_largeRangeFixed` | Salt/MR/A4FThreshold.lean:124 | characters | `Salt.MR.MRTLargeRangeEquidistributionFixed` |
@@ -8907,7 +8907,7 @@ Declarations indexed across the tree: 23422 · corpus Prop-valued names (the hyp
 | `Salt.SW.sum_inv_sq_sub_le_of_wellSpacedAt` | Salt/SW/WellSpacedAt.lean:93 | sieves | `Salt.SW.WellSpacedAt` |
 | `Salt.ThreePrimes.three_primes_of_standoff` | Salt/ThreePrimes/SiegelFree.lean:44 | other | `Salt.SW.NoSiegelZerosAt` |
 | `Salt.Twelve.gaps_le_twelve_of_frontierM` | Salt/Twelve/GapsFinal.lean:303 | sieves | `WindowPNT`, `EHall`, `Salt.Twelve.WinFrontierM` |
-| `Salt.Twelve.gaps_le_twelve` | Salt/Twelve/GapsUncond.lean:1098 | sieves | `WindowPNT`, `EHall` |
+| `Salt.Twelve.gaps_le_twelve` | Salt/Twelve/GapsUncond.lean:1090 | sieves | `WindowPNT`, `EHall` |
 | `Salt.Twelve.s2_inner_yF` | Salt/Twelve/InnerS2.lean:1254 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.mv_I` | Salt/Twelve/MvI.lean:274 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.mv_J` | Salt/Twelve/MvJ.lean:2242 | sieves | `Salt.Twelve.PhiUpperAtom` |
