@@ -1,8 +1,8 @@
 # THE TACTICS CATALOGUE — by machine (O13 item 4)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/tactics_catalogue.py` · staleness gate: `python3 scripts/tactics_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `2dd0fcd7` · source digest `d03dad9e50b80f25` (the same digest as items 1–3).
-> Receipt: files 1415 · decls 23410 · with_body 23410 · tactic_lines 298692 · runs 35288 · blocks 1107.
+> Base: last commit touching `Salt/` = `0adc6b91` · source digest `4cdeaebe6bc13f21` (the same digest as items 1–3).
+> Receipt: files 1415 · decls 23409 · with_body 23409 · tactic_lines 298686 · runs 35286 · blocks 1107.
 
 ## LIMITS (read before any number below)
 
@@ -100,12 +100,12 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 
 ## 2. Tactic usage (first token of each tactic line)
 
-298692 tactic lines. Top 30:
+298686 tactic lines. Top 30:
 
 | # | tactic | lines | share |
 |---:|---|---:|---:|
-| 1 | `have` | 129849 | 43.5% |
-| 2 | `rw` | 48353 | 16.2% |
+| 1 | `have` | 129847 | 43.5% |
+| 2 | `rw` | 48350 | 16.2% |
 | 3 | `exact` | 17305 | 5.8% |
 | 4 | `intro` | 13884 | 4.6% |
 | 5 | `refine` | 12699 | 4.3% |
@@ -116,7 +116,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | 10 | `simp` | 5078 | 1.7% |
 | 11 | `apply` | 4445 | 1.5% |
 | 12 | `nlinarith` | 3254 | 1.1% |
-| 13 | `unfold` | 2616 | 0.9% |
+| 13 | `unfold` | 2615 | 0.9% |
 | 14 | `exact_mod_cast` | 2340 | 0.8% |
 | 15 | `rcases` | 2098 | 0.7% |
 | 16 | `ring` | 2042 | 0.7% |
@@ -151,7 +151,7 @@ Ledger: `docs/blueprints/tactics.md`. Module claims come from three sources: the
 | certificates / explicit numerics | 129 | `exact` 22, `rw` 22, `have` 13, `obtain` 10, `simp` 10, `refine` 8, `intro` 6, `rintro` 6 |
 | explog/lognum numeral tactic | 106 | `have` 33, `rw` 20, `exact` 15, `intro` 6, `filter_upwards` 5, `refine` 5, `nlinarith` 4, `calc` 3 |
 | Matomaki-Radziwill / Halasz (short intervals) | 113013 | `have` 51025, `rw` 15610, `exact` 6640, `refine` 6514, `intro` 5636, `linarith` 5097, `obtain` 5009, `calc` 2184 |
-| (no family) | 27476 | `have` 10621, `rw` 4876, `exact` 1693, `intro` 1509, `obtain` 959, `refine` 949, `set` 853, `calc` 801 |
+| (no family) | 27470 | `have` 10619, `rw` 4873, `exact` 1693, `intro` 1509, `obtain` 959, `refine` 949, `set` 853, `calc` 801 |
 
 ## 3. Macro candidates (repeated normalised tactic blocks)
 
