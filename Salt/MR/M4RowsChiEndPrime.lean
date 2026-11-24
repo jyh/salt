@@ -49,7 +49,7 @@ hypothesis lists BYTE FOR BYTE.
 * §2 `m4_rowChi_number_of_capstone_end'` — the per-`χ` seam row as a number
   (`M4RowsChiEnd` §3's twin);
 * §3 `m4MrowChiEnd'` and `m4_rowChi_weighed_end'` — the weighting page
-  (`M4RowsChiEnd` §4's twin; that file's helpers are `private`, so they are re-minted here);
+  (`M4RowsChiEnd` §4's twin; its weighing gates are `private` there, so they are re-minted here);
 * §4 `m4_hrowsSum_chi_end'` — the `hrowsSum` slot per character;
 * §5 `m4MrowChiEnd'_le_a2Mrow'` and `m4_hrowsSum_chi_door_end'` — the door instance;
 * §6 **THE FUSE**: `m4_hrowsSlot_at_door_end'` meets
@@ -237,8 +237,9 @@ theorem m4_rowChi_number_of_capstone_end' :
 ROW-BLIND arithmetic and do not move; the Lemma-12 summand still weighs `960·3 = 2880`.
 What moves is the OBJECT the third weighing lands in — the primed bracket.
 
-`M4RowsChiEnd`'s helpers are `private` to that file, so the page is re-minted here at its own
-names (same statements, same proofs), with the row-sum nonnegativity restated at the primed
+The `244` and `3/2` steps are `ThmA2Rows`' own (`a2_term2_weigh`, `a2_term4_weigh`); the rest of
+the page is re-minted here at its own names (same statements, same proofs; `M4RowsChiEnd`'s helpers
+are `private` to that file), with the row-sum nonnegativity restated at the primed
 bracket — where it is STRICTLY easier, the `log₂(2X_d) ≥ 0` step disappearing. -/
 
 /-- `M4RowsChiEnd.d5_weight_gates`, re-minted (that one is `private`). -/
@@ -305,15 +306,6 @@ private lemma d5p_level1_weigh {w Hq Lq R Pq Br : ℝ}
   rw [hid]
   linarith only [mul_le_mul_of_nonneg_left hR9 h0]
 
-/-- `M4RowsChiEnd.d5_term2_weigh`, re-minted: `1536·244 = 374784`. -/
-private lemma d5p_term2_weigh {w Ct R Y : ℝ} (hCt : 0 ≤ Ct) (hY : 0 ≤ Y) (hR : w * R ≤ 244) :
-    w * (1536 * Ct * Real.exp 3 * R * Y) ≤ 374784 * Ct * Real.exp 3 * Y := by
-  have hid : w * (1536 * Ct * Real.exp 3 * R * Y)
-      = 1536 * Ct * Real.exp 3 * Y * (w * R) := by ring
-  have h0 : (0 : ℝ) ≤ 1536 * Ct * Real.exp 3 * Y := by positivity
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR h0]
-
 /-- `M4RowsChiEnd.d5_term3_weigh`, re-minted: `960·3 = 2880`, at ANY nonnegative bracket —
 which is why the primed row sum passes through it untouched. -/
 private lemma d5p_term3_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3) :
@@ -321,13 +313,6 @@ private lemma d5p_term3_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3) :
   have hid : w * (960 * R * Z) = 960 * Z * (w * R) := by ring
   rw [hid]
   linarith [mul_le_mul_of_nonneg_left hR (mul_nonneg (by norm_num : (0 : ℝ) ≤ 960) hZ)]
-
-/-- `M4RowsChiEnd.d5_term4_weigh`, re-minted: `2·(3/2) = 3`. -/
-private lemma d5p_term4_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3 / 2) :
-    w * (2 * (R * Z)) ≤ 3 * Z := by
-  have hid : w * (2 * (R * Z)) = 2 * Z * (w * R) := by ring
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR (by linarith : (0 : ℝ) ≤ 2 * Z)]
 
 /-- `M4RowsChiEnd.d5_ball_weigh`, re-minted. -/
 private lemma d5p_ball_weigh {w S : ℝ} (hw1 : w ≤ 1) :
@@ -353,7 +338,7 @@ def m4MrowChiEnd' (Ct Cp : ℝ) (A G M Jb Xd : ℕ) (H1 η X ε S : ℝ) : ℝ :
             + Cp * (2 / (M : ℝ))))
     + 3 * (Real.log X) ^ (-theta293 + ε)
 
-/-- The primed Lemma-12 row sum is a sum of nonnegative terms.  `M4RowsChiEnd`'s
+/-- The primed Lemma-12 row sum is a sum of nonnegative terms; the twin of what `M4RowsChiEnd` named
 `d5_rowsSum_nonneg` at ⟦R1⟧'s bracket — strictly easier, the `log₂(2X_d) ≥ 0` step gone. -/
 private lemma d5p_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) (hH1 : 2 ≤ H1) :
     (0 : ℝ) ≤ ∑ j ∈ Finset.Icc 1 Jb,
@@ -453,7 +438,7 @@ theorem m4_rowChi_weighed_end' {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ
   unfold m4MrowChiEnd'
   exact d5p_row_weigh (d5p_ball_weigh hw1)
     (d5p_level1_weigh hHL0 hPq0 hBr0 hg9)
-    (d5p_term2_weigh hCt hY0 hg244) (d5p_term3_weigh hRS0 hg3) (d5p_term4_weigh hZ0 hg32)
+    (a2_term2_weigh hCt hY0 hg244) (d5p_term3_weigh hRS0 hg3) (a2_term4_weigh hZ0 hg32)
 
 /-! ## §4 — THE DELIVERABLE: the `hrowsSum` slot, per character, at ⟦R1⟧'s bracket
 
@@ -741,7 +726,7 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_pool_end' :
 are the moved objects; `M4RowsChiEnd.DoorRowEndBase_gk` is reused unchanged (the per-base
 bundle reads no `p²` numeral, so R1 stays invisible to it).
 
-⟦THE BLOCK IS CLEARED⟧ `m4_chiSummedFreeRow_of_doorAssembly_pool_end'` (:721) was banked
+⟦THE BLOCK IS CLEARED⟧ `m4_chiSummedFreeRow_of_doorAssembly_pool_end'` (:680) was banked
 BLOCKED on `M4AssemblyPrime.m4_chiSummedFreeRow_of_doorAssembly_pool'_gk`; `M4AssemblyPrime`
 now has its own `§GK` and the twin is landed in `§GK.wire` below — one `exact`. -/
 
@@ -903,7 +888,7 @@ theorem m4_hrowsSlot_at_door_end'_gk (K : ℕ) (hK : K ≤ 170000000) :
 with those names substituted.  `hK : K ≤ 1.7·10⁸` is the slot supplier's frame side
 condition, inherited. -/
 
-/-- **THE FUSE AT THE LEVER** — `m4_chiSummedFreeRow_of_doorAssembly_pool_end'` (:721). -/
+/-- **THE FUSE AT THE LEVER** — `m4_chiSummedFreeRow_of_doorAssembly_pool_end'` (:680). -/
 theorem m4_chiSummedFreeRow_of_doorAssembly_pool_end'_gk (K : ℕ)
     (hK : K ≤ 170000000) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
