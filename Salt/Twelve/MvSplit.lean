@@ -1298,15 +1298,8 @@ theorem inner_contract_rel (F : Poly) (m : Fin 5) :
 
 /-! ## `mv_J_split` — shared helpers (copies of `MvJ.lean`'s; the public ones serve the splits)
 
-`gMult_prime_cast`, `gMult_one_cast`, `gMult_pq_cast` and `box_PF_subset` are `MvJ.lean`'s own. -/
-
-/-- The marked-prime sum `Σ_{p ∣ m} 1/(p − 1)` is nonnegative (each `p ≥ 2`). -/
-lemma mjs_PFsum_nn (m : ℕ) : 0 ≤ ∑ p ∈ m.primeFactors, (1 / ((p:ℝ) - 1)) := by
-  apply Finset.sum_nonneg; intro p hp
-  have hpp := Nat.prime_of_mem_primeFactors hp
-  have : (2:ℝ) ≤ (p:ℝ) := by exact_mod_cast hpp.two_le
-  have : (0:ℝ) < (p:ℝ) - 1 := by linarith
-  positivity
+`gMult_prime_cast`, `gMult_one_cast`, `gMult_pq_cast`, `box_PF_subset`, `PFsum_nn` and
+`eval_bpoly_bound` are `MvJ.lean`'s own. -/
 
 /-- A nonnegative `g` (`hg`) summed over a `biUnion` is at most the sum of the sums over the
 pieces (induction on `s`; the overlap `t a ∩ s.biUnion t` is dropped as a nonnegative term). -/
@@ -1448,27 +1441,6 @@ private lemma mjs_erase_prod_removeNth {M : Type*} [CommMonoid M] (m : Fin 5) (F
     rw [Finset.compl_eq_univ_sdiff, Finset.sdiff_singleton_eq_erase]
   rw [he, ← Fin.image_succAbove_univ m, Finset.prod_image
     (fun i _ j _ h => Fin.succAbove_right_injective h)]
-
-/-- On the simplex — `0 ≤ t i ≤ 1` (`ht0`, `ht1`) and `Σ t ≤ 1` (`hs`) — a budget polynomial is
-bounded by the sum of its coefficients' absolute values: each monomial's
-`∏ t_i^{e_i}·(1 − Σ t)^d` lies in `[0, 1]`. -/
-lemma mjs_eval_bpoly_bound {n : ℕ} (P : BPoly n) (t : Fin n → ℝ)
-    (ht0 : ∀ i, 0 ≤ t i) (ht1 : ∀ i, t i ≤ 1) (hs : ∑ i, t i ≤ 1) :
-    |eval P t| ≤ (P.map (fun mo => |(mo.2.2 : ℝ)|)).sum := by
-  unfold eval
-  refine le_trans (ic_list_abs_sum_le P _) (ic_list_sum_le _ _ _ (fun mo _ => ?_))
-  have hprod0 : 0 ≤ ∏ i, t i ^ mo.1 i := Finset.prod_nonneg (fun i _ => pow_nonneg (ht0 i) _)
-  have hprod1 : ∏ i, t i ^ mo.1 i ≤ 1 :=
-    Finset.prod_le_one (fun i _ => pow_nonneg (ht0 i) _) (fun i _ => pow_le_one₀ (ht0 i) (ht1 i))
-  have hb0 : 0 ≤ 1 - ∑ i, t i := by linarith
-  have hb1 : 1 - ∑ i, t i ≤ 1 := by
-    have := Finset.sum_nonneg (fun i (_ : i ∈ Finset.univ) => ht0 i); linarith
-  rw [abs_mul, abs_mul, abs_pow, abs_of_nonneg hprod0, abs_of_nonneg hb0]
-  calc |(mo.2.2:ℝ)| * (∏ i, t i ^ mo.1 i) * (1 - ∑ i, t i) ^ mo.2.1
-      ≤ |(mo.2.2:ℝ)| * 1 * 1 := by
-        apply mul_le_mul _ (pow_le_one₀ hb0 hb1) (pow_nonneg hb0 _) (by positivity)
-        exact mul_le_mul_of_nonneg_left hprod1 (abs_nonneg _)
-    _ = |(mo.2.2:ℝ)| := by ring
 
 /-! ### Relative one-coordinate g-moments (`M0`, `MQ`, `MQ2`) over `sqfCop R W'` -/
 
@@ -1894,10 +1866,10 @@ private lemma mjs_T1_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
   set MQ := ∑ x ∈ F_R, (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) / (gMult x : ℝ) with hMQdef
   have hM0nn : 0 ≤ M0 := Finset.sum_nonneg (fun x _ => by positivity)
   have hM0le : M0 ≤ 2 * PAS := mjs_M0_rel W' hW' hpos D R hD hDW hR2
-  have hMQnn : 0 ≤ MQ := Finset.sum_nonneg (fun x _ => div_nonneg (mjs_PFsum_nn _) (by positivity))
+  have hMQnn : 0 ≤ MQ := Finset.sum_nonneg (fun x _ => div_nonneg (PFsum_nn _) (by positivity))
   have hMQle : MQ ≤ 8 * PAS / (D:ℝ) := mjs_MQ_rel W' hW' hpos D R hD hDW hR2
   have h1 := mjs_enlarge_to_PB W' R
-    (fun ρ => ∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1))) (fun ρ => mjs_PFsum_nn _)
+    (fun ρ => ∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1))) (fun ρ => PFsum_nn _)
   refine le_trans h1 ?_
   have hstep2 : ∑ ρ ∈ Fintype.piFinset (fun _ : Fin 4 => F_R),
         (∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1))) * ∏ i, (1 / (gMult (ρ i) : ℝ))
@@ -1975,7 +1947,7 @@ private lemma mjs_T2_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     have hsub := mjs_P_subadd ρ hρne
     have hsq : (∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1))) ^ 2
         ≤ (∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1)))) ^ 2 :=
-      pow_le_pow_left₀ (mjs_PFsum_nn _) hsub 2
+      pow_le_pow_left₀ (PFsum_nn _) hsub 2
     have hexp : (∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1)))) ^ 2
         = ∑ i, ∑ j, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1)))
               * (∑ p ∈ (ρ j).primeFactors, (1 / ((p:ℝ) - 1))) := by rw [pow_two, sum_mul_sum]
@@ -2160,11 +2132,11 @@ private lemma mjs_gap_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
   set MQ := ∑ x ∈ F_R, (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) / (gMult x : ℝ) with hMQdef
   have hM0nn : 0 ≤ M0 := Finset.sum_nonneg (fun x _ => by positivity)
   have hM0le : M0 ≤ 2 * PAS := mjs_M0_rel W' hW' hpos D R hD hDW hR2
-  have hMQnn : 0 ≤ MQ := Finset.sum_nonneg (fun x _ => div_nonneg (mjs_PFsum_nn _) (by positivity))
+  have hMQnn : 0 ≤ MQ := Finset.sum_nonneg (fun x _ => div_nonneg (PFsum_nn _) (by positivity))
   have hMQle : MQ ≤ 8 * PAS / (D:ℝ) := mjs_MQ_rel W' hW' hpos D R hD hDW hR2
   have h1 := mjs_enlarge_to_PB W' R
     (fun ρ => ∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))))
-    (fun ρ => Finset.sum_nonneg (fun i _ => mjs_PFsum_nn _))
+    (fun ρ => Finset.sum_nonneg (fun i _ => PFsum_nn _))
   refine le_trans h1 ?_
   have hdist : ∀ ρ : Fin 4 → ℕ,
       (∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1)))) * ∏ k, (1 / (gMult (ρ k) : ℝ))
@@ -2377,7 +2349,7 @@ within `c·(1 + X)⁴/log R + A·(1 + phiAtomSum R W')⁴/D` of `X⁴·∫_{Δ�
 `cF = Σ|coeff|` over `contractAt m F`, and `c = Cmain/κ` with `Cmain` the `mv_monomial`-weighted
 coefficient sum of `sq (contractAt m F)` (`n = 4`). Reindex to `kSieveIndex 4 R W'`
 (`sum_filt_removeNth`, `mjs_erase_prod_removeNth`), then three brackets: the `g → φ` gap
-`≤ 256·cF²·PAS⁴/D` (`mjs_gap_rel`, `|Ev| ≤ cF` by `mjs_eval_bpoly_bound`), the drop from
+`≤ 256·cF²·PAS⁴/D` (`mjs_gap_rel`, `|Ev| ≤ cF` by `eval_bpoly_bound`), the drop from
 `kSieveIndex` to `decBox` `≤ 24·cF²·PAS⁴/D` (`mjs_drop_phi4`), and `mv_monomial` at `z = R` per
 monomial with error `Cmain·(1 + X)³`, absorbed into `(1 + X)⁴/(κ·log R)`. -/
 private lemma mv_J_main_split (F : Poly) (m : Fin 5) :
@@ -2445,7 +2417,7 @@ private lemma mv_J_main_split (F : Poly) (m : Fin 5) :
     obtain ⟨hlt, hsqf, hcop, hprod⟩ := hr
     have hr1 : ∀ i, 1 ≤ ρ i := fun i => Nat.pos_of_ne_zero (hsqf i).ne_zero
     rw [hEv'def, hcFdef]
-    apply mjs_eval_bpoly_bound
+    apply eval_bpoly_bound
     · intro i; exact div_nonneg (Real.log_nonneg (by exact_mod_cast hr1 i)) hLpos.le
     · intro i; rw [div_le_one hLpos, hLdef]
       exact Real.log_le_log (by exact_mod_cast hr1 i) (by exact_mod_cast (le_of_lt (hlt i)))
@@ -2827,7 +2799,7 @@ theorem mv_J_split (F : Poly) (m : Fin 5) :
     rw [hfiltdef, Finset.mem_filter] at hr
     have hrk := hr.1
     rw [hEvdef, hcFdef]
-    apply mjs_eval_bpoly_bound
+    apply eval_bpoly_bound
     · intro i; apply div_nonneg (Real.log_nonneg _) hLpos.le
       exact_mod_cast Nat.one_le_iff_ne_zero.mpr (kSieveIndex_coord_pos hrk (m.succAbove i)).ne'
     · intro i; rw [div_le_one hLpos, hLdef]
@@ -2924,7 +2896,7 @@ theorem mv_J_split (F : Poly) (m : Fin 5) :
       _ = X ^ 2 * (cmain * (1 + X) ^ 4 / L) + X ^ 2 * (Amain * (1 + PAS) ^ 4 / (D:ℝ)) := by ring
       _ ≤ cmain * (1 + X) ^ 6 / L + Amain * Y ^ 6 / (D:ℝ) := add_le_add hLpart hDpart
   -- === error part (Approach A: Inn² − X²Ev² = 2X·Ev·δ + δ²) ===
-  have hPrnn : ∀ r, 0 ≤ Pr r := fun r => by rw [hPrdef]; exact mjs_PFsum_nn _
+  have hPrnn : ∀ r, 0 ≤ Pr r := fun r => by rw [hPrdef]; exact PFsum_nn _
   have hterm : ∀ r ∈ filt,
       |(Inn r) ^ 2 / Denom r - X ^ 2 * ((Ev r) ^ 2 / Denom r)|
       ≤ ((2 * X * cF * cic + 2 * cic ^ 2)

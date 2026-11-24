@@ -73,10 +73,10 @@ private lemma T1_rel_g (n : ℕ) (hn : 1 ≤ n) (W' : ℕ) (hW' : Squarefree W')
   set MQ := ∑ x ∈ F_R, (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) / (gMult x : ℝ) with hMQdef
   have hM0nn : 0 ≤ M0 := Finset.sum_nonneg (fun x _ => by positivity)
   have hM0le : M0 ≤ 2 * PAS := mjs_M0_rel W' hW' hpos D R hD hDW hR2
-  have hMQnn : 0 ≤ MQ := Finset.sum_nonneg (fun x _ => div_nonneg (mjs_PFsum_nn _) (by positivity))
+  have hMQnn : 0 ≤ MQ := Finset.sum_nonneg (fun x _ => div_nonneg (PFsum_nn _) (by positivity))
   have hMQle : MQ ≤ 8 * PAS / (D:ℝ) := mjs_MQ_rel W' hW' hpos D R hD hDW hR2
   have h1 := enlarge_to_PB (n := n) W' D R hD hDW
-    (fun ρ => ∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1))) (fun ρ => mjs_PFsum_nn _)
+    (fun ρ => ∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1))) (fun ρ => PFsum_nn _)
   refine le_trans h1 ?_
   have hstep2 : ∑ ρ ∈ Fintype.piFinset (fun _ : Fin n => F_R),
         (∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1))) * ∏ i, (1 / (gMult (ρ i) : ℝ))
@@ -153,7 +153,7 @@ private lemma T2_rel_g (n : ℕ) (hn : 1 ≤ n) (W' : ℕ) (hW' : Squarefree W')
     have hsub := P_subadd ρ hρne
     have hsq : (∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1))) ^ 2
         ≤ (∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1)))) ^ 2 :=
-      pow_le_pow_left₀ (mjs_PFsum_nn _) hsub 2
+      pow_le_pow_left₀ (PFsum_nn _) hsub 2
     have hexp : (∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1)))) ^ 2
         = ∑ i, ∑ j, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1)))
               * (∑ p ∈ (ρ j).primeFactors, (1 / ((p:ℝ) - 1))) := by rw [pow_two, sum_mul_sum]
@@ -339,7 +339,7 @@ theorem mv_J_split_gen_of (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin 
     rw [hfiltdef, Finset.mem_filter] at hr
     have hrk := hr.1
     rw [hEvdef, hcFdef]
-    apply mjs_eval_bpoly_bound
+    apply eval_bpoly_bound
     · intro i; apply div_nonneg (Real.log_nonneg _) hLpos.le
       exact_mod_cast Nat.one_le_iff_ne_zero.mpr (kSieveIndex_coord_pos hrk (m.succAbove i)).ne'
     · intro i; rw [div_le_one hLpos, hLdef]
@@ -436,7 +436,7 @@ theorem mv_J_split_gen_of (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fin 
       _ = X ^ 2 * (cmain * (1 + X) ^ n / L) + X ^ 2 * (Amain * (1 + PAS) ^ n / (D:ℝ)) := by ring
       _ ≤ cmain * (1 + X) ^ (n + 2) / L + Amain * Y ^ (n + 2) / (D:ℝ) := add_le_add hLpart hDpart
   -- === error part (Approach A: Inn² − X²Ev² = 2X·Ev·δ + δ²) ===
-  have hPrnn : ∀ r, 0 ≤ Pr r := fun r => by rw [hPrdef]; exact mjs_PFsum_nn _
+  have hPrnn : ∀ r, 0 ≤ Pr r := fun r => by rw [hPrdef]; exact PFsum_nn _
   have hterm : ∀ r ∈ filt,
       |(Inn r) ^ 2 / Denom r - X ^ 2 * ((Ev r) ^ 2 / Denom r)|
       ≤ ((2 * X * cF * cic + 2 * cic ^ 2)
