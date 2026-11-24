@@ -90,7 +90,7 @@ and §5 are BINDING amendments to the original freeze and override it where they
 **The one thing you must not get wrong:** there are **TWO** parallel assemblies.
 `dh_repulsion_inst` (`TBalR8:1405`) → the **LANDED** `dh_repulsion_ordered` (`:1752`), with an
 **11-fold** `c`-min at `TBalR8:1808-1865`; and `dh_repulsion_inst_tall` (`TBalTall:303`) →
-`dh_repulsion_tall` (`:1421`), with a **10-fold** `c`-min at `TBalTall:735-786`. `hc_t1` is
+`dh_repulsion_tall` (`:1421`), with a **10-fold** `c`-min at `TBalTall:729-780`. `hc_t1` is
 consumed at **TWO** sites — `TBalTall:360-363` **and `TBalR8:1457-1460`**. Edit only the tall side
 and a landed theorem with live consumers goes red.
 

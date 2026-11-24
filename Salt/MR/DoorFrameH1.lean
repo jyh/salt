@@ -93,13 +93,13 @@ private lemma rpow_pow_eq {x : ℝ} (hx : 0 ≤ x) {a b : ℝ} (n : ℕ) (h : a 
   rw [← Real.rpow_natCast (x ^ a) n, ← Real.rpow_mul hx, h]
 
 /-- `(x^a)^n = x` whenever `a·n = 1`. -/
-private lemma rpow_pow_one {x : ℝ} (hx : 0 ≤ x) {a : ℝ} (n : ℕ) (h : a * (n : ℝ) = 1) :
+lemma rpow_pow_one {x : ℝ} (hx : 0 ≤ x) {a : ℝ} (n : ℕ) (h : a * (n : ℝ) = 1) :
     (x ^ a) ^ n = x := by
   rw [← Real.rpow_natCast (x ^ a) n, ← Real.rpow_mul hx, h, Real.rpow_one]
 
 /-- `(x^n)^a = x` whenever `n·a = 1` — the other direction, used to take the exact fourth
 root of `P₁ = (2^{Kdoor M})^4`. -/
-private lemma pow_rpow_one {x : ℝ} (hx : 0 ≤ x) (n : ℕ) {a : ℝ} (h : (n : ℝ) * a = 1) :
+lemma pow_rpow_one {x : ℝ} (hx : 0 ≤ x) (n : ℕ) {a : ℝ} (h : (n : ℝ) * a = 1) :
     (x ^ n) ^ a = x := by
   rw [← Real.rpow_natCast x n, ← Real.rpow_mul hx, h, Real.rpow_one]
 
@@ -311,7 +311,7 @@ lemma mrAlpha_door_one : mrAlpha (1 / 12 : ℝ) 1 = 1 / 8 := by
   norm_num
 
 /-- The abstract shape behind the identity: `(w/z)²·z³·(w³)⁻¹ = z/w`. -/
-private lemma level1_ratio {w z L P : ℝ} (hw : 0 < w) (hz : 0 < z)
+lemma level1_ratio {w z L P : ℝ} (hw : 0 < w) (hz : 0 < z)
     (hL : L = z ^ (3 : ℕ)) (hP : P = (w ^ (3 : ℕ))⁻¹) :
     (w / z) ^ 2 * L * P = z / w := by
   have hw0 : w ≠ 0 := ne_of_gt hw
@@ -364,7 +364,7 @@ theorem H1door_level1_certificate {M : ℕ} (hM : 1 ≤ M) :
 /-- The abstract §8.1 level-1 shape, at `α₁ = 1/8` and `H₁ ≥ 2`: the bracket is
 `(16/3)H₁e^{3/(4H₁)} + 480H₁e^{1/(2H₁)} ≤ (16/3 + 480)e·H₁ ≤ 1320H₁` and the block count
 `H₁log Q₁ + 1 ≤ 2H₁log Q₁`, so the whole factor is `≤ 2·2·1320·H₁²log Q₁·P₁^{−1/4}`. -/
-private lemma level1_shape {Ha Lq Pq R : ℝ} (hH2 : 2 ≤ Ha) (hLq : 1 ≤ Lq)
+lemma level1_shape {Ha Lq Pq R : ℝ} (hH2 : 2 ≤ Ha) (hLq : 1 ≤ Lq)
     (hPq : 0 < Pq) (hR : 0 ≤ R) :
     2 * (Ha * Lq + 1) * R * Pq
         * (4 * (Ha / (3 / 4 : ℝ)) * Real.exp ((3 / 4 : ℝ) / Ha)
