@@ -34,7 +34,7 @@ open Salt.Entropy.Chowla
 
 /-! ## §1 — THE DOOR BRIDGE AT ⟦R1⟧'s BRACKET, AT THE LINEAR DOOR -/
 
-/-- `M4RowsChiEndPrime.d5p_rowsSum_nonneg` (:357), re-proved here because the landed lemma is
+/-- `M4RowsChiEndPrime.d5p_rowsSum_nonneg` (:342), re-proved here because the landed lemma is
 `private` to its file.  `(A, G, H1)`-GENERIC — nothing about the door enters. -/
 private lemma d5pL_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) (hH1 : 2 ≤ H1) :
     (0 : ℝ) ≤ ∑ j ∈ Finset.Icc 1 Jb,
@@ -63,7 +63,7 @@ private lemma d5pL_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) 
   linarith
 
 /-- **THE DOOR BRIDGE AT ⟦R1⟧'s BRACKET, AT THE LINEAR DOOR** (`m4MrowChiEnd'_le_a2Mrow'_L`).
-`M4RowsChiEndPrime.m4MrowChiEnd'_le_a2Mrow'` (:522) at `AdoorL`: at the linear door family and
+`M4RowsChiEndPrime.m4MrowChiEnd'_le_a2Mrow'` (:507) at `AdoorL`: at the linear door family and
 the vacuous ball, the primed per-`χ` row number sits inside `a2Mrow'_L`.  The arithmetic is
 the landed one verbatim (`2880 ≤ 5760`), read through `level1_term_door_decays_L`. -/
 theorem m4MrowChiEnd'_le_a2Mrow'_L {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) {Ct Cp X ε : ℝ}
@@ -113,7 +113,7 @@ theorem m4MrowChiEnd'_le_a2Mrow'_L {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) 
 /-! ## §2 — ⟦THE R4 DELIVERABLE AT THE LINEAR DOOR⟧ -/
 
 /-- **⟦THE R4 DELIVERABLE AT THE LINEAR DOOR⟧** (`m4_hrowsSum_chi_door_end'_L`).
-`M4RowsChiEndPrime.m4_hrowsSum_chi_door_end'` (:570) at `AdoorL`.  The engine
+`M4RowsChiEndPrime.m4_hrowsSum_chi_door_end'` (:555) at `AdoorL`.  The engine
 `m4_hrowsSum_chi_end'` is `(A, G, H1)`-GENERIC and is reused verbatim; the frame is
 `ThmA2Linear.calFrameK_doorH1_at_L`. -/
 theorem m4_hrowsSum_chi_door_end'_L :
