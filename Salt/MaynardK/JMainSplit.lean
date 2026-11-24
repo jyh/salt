@@ -35,11 +35,6 @@ lemma erase_prod_removeNth_g {n : ℕ} {M : Type*} [CommMonoid M] (m : Fin (n + 
   rw [he, ← Fin.image_succAbove_univ m, Finset.prod_image
     (fun i _ j _ h => Fin.succAbove_right_injective h)]
 
-
-
--- factor a single "marked" coordinate over the product box (n = 4)
--- common: enlarge a nonneg per-coordinate weighted sum from kSieveIndex4 (via decBox4)
--- to the product box
 /-! ## NEW: the general-`n` relative aggregate moments `T0`, `T1`, `T2` -/
 
 /-- `a^n = a · a^(n − 1)` for `1 ≤ n`. -/
