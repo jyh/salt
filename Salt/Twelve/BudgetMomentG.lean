@@ -110,7 +110,7 @@ private lemma sum_divisors_eq_sum_powerset {r : ℕ} (hr : Squarefree r)
 
 /-- **The `h`-expansion.** For squarefree `r` with all prime factors `≥ 3`,
 `1/g(r) = (∑_{d ∣ r} ∏_{p ∣ d} (p−2)⁻¹) · (1/φ(r))`. -/
-private lemma inv_gMult_expand {r : ℕ} (hrsq : Squarefree r)
+lemma inv_gMult_expand {r : ℕ} (hrsq : Squarefree r)
     (hp3 : ∀ p ∈ r.primeFactors, 3 ≤ p) :
     ((gMult r : ℝ))⁻¹
       = (∑ d ∈ r.divisors, ∏ p ∈ d.primeFactors, ((p : ℝ) - 2)⁻¹)
