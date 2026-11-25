@@ -22,9 +22,8 @@ convention `D < p`) and the Euler tail (`euler_tail_LW`).
 The landed `*` lemmas are left byte-identical; these are PARALLEL `*W` names.
 The landed modules' helpers `moebius_sq_one'`, `g_factor_prod'`, `gr_ratio_mem'`
 (public in `Lemma53Tight`) and `inv_sq_tele53`, `abs_prod_one_sub_le` (public in
-`Lemma53`) are imported, and so is `inv_sq_tele` (public in `HOmit`). Their private
-helpers `prod_one_add_le` and `one_sub_sum_le_prod_one_sub` are NOT accessible across
-the module boundary, so we re-declare local private copies of those here.
+`Lemma53`) are imported, and so are `inv_sq_tele` (public in `HOmit`) and
+`prod_one_add_le` (public in `EulerTailL`).
 -/
 
 open Finset
@@ -35,54 +34,8 @@ namespace Salt.Maynard
 set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
-/-! ## Local private copies of the landed private helpers
-
-These are byte-identical copies of the same-named `private` lemmas in
-`EulerTailL.lean`/`Lemma53Tight.lean`/`Lemma53.lean`.  `private` declarations
-are not accessible across module boundaries in Lean 4, so — following the
-established precedent of `Lemma53Tight.lean` re-declaring its own copies — we
-re-declare them locally.  They are `W`/`D`-free (pure real analysis). -/
-
-/-- Product-versus-sum bound (local copy of `EulerTailL.prod_one_add_le`). -/
-private theorem prod_one_add_le {ι : Type*} (s : Finset ι)
-    (a : ι → ℝ) (ha : ∀ x ∈ s, 0 ≤ a x) (hs : ∑ x ∈ s, a x ≤ 1 / 2) :
-    ∏ x ∈ s, (1 + a x) ≤ 1 + 2 * ∑ x ∈ s, a x := by
-  classical
-  induction s using Finset.induction with
-  | empty => simp
-  | insert x s hx ih =>
-      rw [Finset.prod_insert hx, Finset.sum_insert hx]
-      have hax : 0 ≤ a x := ha x (Finset.mem_insert_self x s)
-      have has : ∀ z ∈ s, 0 ≤ a z := fun z hz =>
-        ha z (Finset.mem_insert_of_mem hz)
-      have hsum_nonneg : 0 ≤ ∑ z ∈ s, a z := Finset.sum_nonneg has
-      have hss : ∑ z ∈ s, a z ≤ 1 / 2 := by
-        rw [Finset.sum_insert hx] at hs
-        linarith
-      have hih := ih has hss
-      have hprod_nonneg : (0 : ℝ) ≤ ∏ z ∈ s, (1 + a z) :=
-        Finset.prod_nonneg fun z hz => by linarith [has z hz]
-      nlinarith only [hax, hih, hss]
-
-/-- Weierstrass lower bound (local copy of `Lemma53.one_sub_sum_le_prod_one_sub`). -/
-private theorem one_sub_sum_le_prod_one_sub {ι : Type*} (s : Finset ι) (x : ι → ℝ)
-    (hx0 : ∀ p ∈ s, 0 ≤ x p) (hx1 : ∀ p ∈ s, x p ≤ 1) :
-    1 - ∑ p ∈ s, x p ≤ ∏ p ∈ s, (1 - x p) := by
-  classical
-  induction s using Finset.induction with
-  | empty => simp
-  | insert a s ha ih =>
-      rw [Finset.prod_insert ha, Finset.sum_insert ha]
-      have hxa0 : 0 ≤ x a := hx0 a (Finset.mem_insert_self a s)
-      have hxa1 : x a ≤ 1 := hx1 a (Finset.mem_insert_self a s)
-      have hx0' : ∀ p ∈ s, 0 ≤ x p := fun p hp => hx0 p (Finset.mem_insert_of_mem hp)
-      have hx1' : ∀ p ∈ s, x p ≤ 1 := fun p hp => hx1 p (Finset.mem_insert_of_mem hp)
-      have hih := ih hx0' hx1'
-      have hpn : 0 ≤ ∏ p ∈ s, (1 - x p) :=
-        Finset.prod_nonneg fun p hp => by linarith [hx1' p hp]
-      have hsn : 0 ≤ ∑ p ∈ s, x p := Finset.sum_nonneg hx0'
-      nlinarith only [hxa0, hsn,
-          mul_le_mul_of_nonneg_left hih (by linarith : (0 : ℝ) ≤ 1 - x a)]
+/-! The helpers `inv_sq_tele` and `prod_one_add_le` are imported (public in `HOmit` and
+`EulerTailL`). -/
 
 /-! ## `euler_tail_LW` — the free-`D` `L`-weighted Euler tail
 
