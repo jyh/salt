@@ -71,8 +71,7 @@ private lemma totient_reindex {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) 
     exact Nat.totient_mul hcop
   exact_mod_cast heq
 
-/-! ## Local helper (the divisor-sum chain `divisors_eq_powerset_image`,
-`sum_divisors_eq_sum_powerset`, `inv_gMult_expand` is public in `Salt.Twelve.BudgetMomentG`) -/
+/-! ## Local helper (`inv_gMult_expand` is imported: public in `Salt.Twelve.BudgetMomentG`) -/
 
 /-- `phiAtomSum` is nonnegative (a sum of nonnegative terms). -/
 private lemma phiAtomSum_nonneg (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by

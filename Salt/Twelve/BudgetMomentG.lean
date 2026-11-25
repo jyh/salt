@@ -75,7 +75,7 @@ lemma gMult_mul_coprime {s b : ℕ} (hcop : Nat.Coprime s b) :
 
 /-- Divisors of a squarefree `r` are the products of subsets of its prime
 factors. -/
-lemma divisors_eq_powerset_image {r : ℕ} (hr : Squarefree r) :
+private lemma divisors_eq_powerset_image {r : ℕ} (hr : Squarefree r) :
     r.divisors = r.primeFactors.powerset.image (fun S => ∏ p ∈ S, p) := by
   ext d
   simp only [Nat.mem_divisors, Finset.mem_image, Finset.mem_powerset]
@@ -91,7 +91,7 @@ lemma divisors_eq_powerset_image {r : ℕ} (hr : Squarefree r) :
 
 /-- Divisor sums over a squarefree `r` are powerset sums over its prime
 factors. -/
-lemma sum_divisors_eq_sum_powerset {r : ℕ} (hr : Squarefree r)
+private lemma sum_divisors_eq_sum_powerset {r : ℕ} (hr : Squarefree r)
     (f : ℕ → ℝ) :
     ∑ d ∈ r.divisors, f d
       = ∑ S ∈ r.primeFactors.powerset, f (∏ p ∈ S, p) := by
