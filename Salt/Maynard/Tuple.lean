@@ -25,7 +25,7 @@ namespace Salt.Maynard
 open Finset
 
 -- A section `[TupleChoice]` is included in every declaration of the section; the ones that do not
--- use it (e.g. `prod_primes_squarefree`) would otherwise each raise `unusedSectionVars`.
+-- use it would otherwise each raise `unusedSectionVars` (`prod_primes_squarefree` omits it).
 set_option linter.unusedSectionVars false
 
 /-! ## N1.1 — admissibility -/
