@@ -255,16 +255,6 @@ lemma pas_nn (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
   unfold Salt.Maynard.phiAtomSum
   exact Finset.sum_nonneg (fun x _ => by positivity)
 
-/-- `∏_{i≠m} F i = ∏_{j:Fin 4} F (m.succAbove j)` (reindex the erased product by
-`succAbove`). -/
-private lemma erase_prod_removeNth {M : Type*} [CommMonoid M] (m : Fin 5)
-    (F : Fin 5 → M) :
-    ∏ i ∈ Finset.univ.erase m, F i = ∏ j : Fin 4, F (m.succAbove j) := by
-  have he : Finset.univ.erase m = ({m}ᶜ : Finset (Fin 5)) := by
-    rw [Finset.compl_eq_univ_sdiff, Finset.sdiff_singleton_eq_erase]
-  rw [he, ← Fin.image_succAbove_univ m, Finset.prod_image
-    (fun i _ j _ h => Fin.succAbove_right_injective h)]
-
 /-- **Step 4 g-moment (crude, PAS-relative).** The 4-dimensional `1/∏g`-moment
 over the pinned box `uₘ = 1` is `≤ (2·PAS)⁴`: reindex to `kSieveIndex 4`
 (`sum_filt_removeNth`), enlarge the box to the per-coordinate product
@@ -301,7 +291,7 @@ theorem gmoment4_le (W' D R : ℕ) (m : Fin 5) (hW' : Squarefree W') (hpos : 0 <
     rw [← sum_filt_removeNth R W' m (fun ρ => (1 : ℝ) / ∏ j, (gMult (ρ j) : ℝ))]
     apply Finset.sum_congr rfl; intro r _
     congr 1
-    rw [erase_prod_removeNth m (fun i => (gMult (r i) : ℝ))]
+    rw [erase_prod_removeNth5 m (fun i => (gMult (r i) : ℝ))]
     exact Finset.prod_congr rfl (fun j _ => by rw [Fin.removeNth_apply])
   rw [hreindex]
   -- enlarge to the per-coordinate product box and factor

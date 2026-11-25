@@ -777,10 +777,10 @@ lemma sum_filt_removeNth {M : Type*} [AddCommMonoid M] (R W' : ℕ) (m : Fin 5)
       = ∑ ρ ∈ kSieveIndex 4 R W', h ρ :=
   sum_filt_removeNth_g (n := 4) R W' m h
 
--- ==== tail lemmas (ported from MvI, which are private there) ====
+-- ==== tail lemmas (copies of MvI's; MvJ does not import MvI) ====
 /-- The integer tail `Σ_{D < k < R} 1/(k − 1)² ≤ 1/(D − 1)` for `3 ≤ D` (`hD`): each term is at
 most `1/(k − 2) − 1/(k − 1)` and the sum telescopes (`Finset.sum_range_sub'`); the file's copy
-of `MvI`'s private `int_tail`. -/
+of `MvI`'s `int_tail` (MvJ does not import MvI). -/
 lemma int_tail' (D R : ℕ) (hD : 3 ≤ D) :
     ∑ k ∈ (Finset.range R).filter (fun k => D < k), 1 / ((k:ℝ) - 1)^2
       ≤ 1 / ((D:ℝ) - 1) := by
@@ -1285,7 +1285,7 @@ lemma jlist_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
 -- the transport of the erase-product to a Fin 4 product
 /-- A product over `Fin 5` minus `m` is the product over `Fin 4` through `m.succAbove`
 (`Fin.image_succAbove_univ`, `Finset.prod_image`). -/
-private lemma erase_prod_removeNth {M : Type*} [CommMonoid M] (m : Fin 5) (F : Fin 5 → M) :
+lemma erase_prod_removeNth5 {M : Type*} [CommMonoid M] (m : Fin 5) (F : Fin 5 → M) :
     ∏ i ∈ Finset.univ.erase m, F i = ∏ i : Fin 4, F (m.succAbove i) := by
   have he : Finset.univ.erase m = ({m}ᶜ : Finset (Fin 5)) := by
     rw [Finset.compl_eq_univ_sdiff, Finset.sdiff_singleton_eq_erase]
@@ -1303,7 +1303,7 @@ below every prime not dividing `W'` and `1 ≤ log R`, the `g`-weighted second m
 `c·(1 + X)⁴·(1/log R + 1/D)` of `X⁴·∫_{Δ₄} (contractAt m F)²` (`X = φ(W')/W'·log R`,
 `simplexInt (sq (contractAt m F))`). The witness is `c = Σ|coeff|·C_mo` over the monomials of
 `sq (contractAt m F)`, `C_mo` the `box4_g_moment` constant of each. Reindex to
-`kSieveIndex 4 R W'` (`sum_filt_removeNth`, `erase_prod_removeNth`), expand the square monomial
+`kSieveIndex 4 R W'` (`sum_filt_removeNth`, `erase_prod_removeNth5`), expand the square monomial
 by monomial (`eval_sq`, `jsum_finset_list_sum`), and apply `box4_g_moment` per monomial. -/
 lemma mv_J_main (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     (hUpper : PhiUpperAtom W') (F : Poly) (m : Fin 5) :
@@ -1359,7 +1359,7 @@ lemma mv_J_main (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
         (fun ρ => eval (contractAt m F) (fun i => Real.log (ρ i) / L) ^ 2 / ∏ i, (gMult (ρ i) : ℝ))]
       apply Finset.sum_congr rfl
       intro r _
-      rw [erase_prod_removeNth m (fun i => (gMult (r i) : ℝ))]
+      rw [erase_prod_removeNth5 m (fun i => (gMult (r i) : ℝ))]
       simp only [Fin.removeNth_apply]
     rw [hreindex]
     have hbudget : ∀ ρ : Fin 4 → ℕ, (1 : ℝ) - ∑ i, Real.log (ρ i) / L = (L - ∑ i, Real.log (ρ i)) / L := by
@@ -1816,7 +1816,7 @@ lemma MQ2_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
 /-- Over the full product box `F_R⁴`, a weight on one coordinate `i` factors out:
 `Σ_ρ w(ρ i)·∏_k 1/g(ρ k) = (Σ_x w x/g x)·(Σ_x 1/g x)³` (`Finset.prod_univ_sum` after writing the
 summand as a product over `k` with the `w` on the `i`-th factor). -/
-private lemma factor_one (F_R : Finset ℕ) (i : Fin 4) (w : ℕ → ℝ) :
+lemma factor_one4 (F_R : Finset ℕ) (i : Fin 4) (w : ℕ → ℝ) :
     ∑ ρ ∈ Fintype.piFinset (fun _ : Fin 4 => F_R), w (ρ i) * ∏ k, (1 / (gMult (ρ k) : ℝ))
       = (∑ x ∈ F_R, w x * (1 / (gMult x : ℝ))) * (∑ x ∈ F_R, (1 / (gMult x : ℝ))) ^ 3 := by
   classical
@@ -1976,7 +1976,7 @@ lemma PFsum_nn (m : ℕ) : 0 ≤ ∑ p ∈ m.primeFactors, (1 / ((p:ℝ) - 1)) :
 /-- **The 4-dimensional `g`-moment `T0`**:
 `Σ_{ρ ∈ kSieveIndex 4 R W'} 1/∏_i g(ρ i) ≤ (cg·log R)⁴` under the `marked_sqf_g` spec `hcg` at
 `a = 0`, `3 ≤ D` below every prime not dividing `W'` (`hD`, `hDW`) and `2 ≤ R` (`hR2`): enlarge
-to the product box (`enlarge_to_PB`), factor (`factor_one` with `w = 1`) into `M0⁴`, and
+to the product box (`enlarge_to_PB`), factor (`factor_one4` with `w = 1`) into `M0⁴`, and
 `M0_bound`. The sign hypothesis on `cg·log R` is carried, not consumed. -/
 private lemma hT0_bound (W' : ℕ) (cg : ℝ)
     (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
@@ -1991,7 +1991,7 @@ private lemma hT0_bound (W' : ℕ) (cg : ℝ)
   have hM0le : M0 ≤ cg * Real.log R := M0_bound W' cg hcg D R hD hDW hR2
   have h1 := enlarge_to_PB W' D R hD hDW (fun _ => (1:ℝ)) (fun _ => zero_le_one)
   refine le_trans h1 ?_
-  have hfac := factor_one F_R 0 (fun _ => (1:ℝ))
+  have hfac := factor_one4 F_R 0 (fun _ => (1:ℝ))
   simp only [one_mul] at hfac ⊢
   rw [hfac]
   calc (∑ x ∈ F_R, (1 / (gMult x : ℝ))) * (∑ x ∈ F_R, (1 / (gMult x : ℝ))) ^ 3
@@ -2002,7 +2002,7 @@ private lemma hT0_bound (W' : ℕ) (cg : ℝ)
 `Σ_{ρ ∈ kSieveIndex 4 R W'} Q(∏ ρ)/∏_i g(ρ i) ≤ 16·cg⁴·(log R)⁴/D` under the `marked_sqf_g` spec
 `hcg` at `a = 0` (`cg ≥ 0`, `hcg0`), `3 ≤ D` below every prime not dividing `W'` (`hD`, `hDW`),
 `2 ≤ R` (`hR2`) and `0 ≤ log R` (`hlogR0`). Enlarge (`enlarge_to_PB`), split
-`Q(∏ ρ) ≤ Σ_i Q(ρ i)` (`P_subadd`), factor each of the four terms (`factor_one`) into `MQ·M0³`,
+`Q(∏ ρ) ≤ Σ_i Q(ρ i)` (`P_subadd`), factor each of the four terms (`factor_one4`) into `MQ·M0³`,
 and `4·(4·cg·log R/D)·(cg·log R)³ = 16·cg⁴·(log R)⁴/D` (`MQ_bound`, `M0_bound`). -/
 private lemma hT1_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
     (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
@@ -2046,7 +2046,7 @@ private lemma hT1_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
         (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))) * ∏ k, (1 / (gMult (ρ k) : ℝ)))
       = MQ * M0 ^ 3 := by
     intro i
-    rw [factor_one F_R i (fun x => ∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1)))]
+    rw [factor_one4 F_R i (fun x => ∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1)))]
     congr 1
     rw [hMQdef]; apply Finset.sum_congr rfl; intro x _; rw [mul_one_div]
   rw [Finset.sum_congr rfl (fun i _ => hi i), Finset.sum_const, Finset.card_univ,
@@ -2062,7 +2062,7 @@ private lemma hT1_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
 `Σ_{ρ ∈ kSieveIndex 4 R W'} Q(∏ ρ)²/∏_i g(ρ i) ≤ 320·cg⁴·(log R)⁴/D` (the hypotheses of
 `hT1_bound`). Enlarge (`enlarge_to_PB`), `Q(∏ ρ)² ≤ (Σ_i Q(ρ i))² = Σ_{i,j} Q(ρ i)·Q(ρ j)`, each
 cross term at most `(Q(ρ i)² + Q(ρ j)²)/2`, so each of the 16 `(i, j)` sums is at most `MQ2·M0³`
-(`factor_one`), and `16·(20·cg·log R/D)·(cg·log R)³ = 320·cg⁴·(log R)⁴/D` (`MQ2_bound`,
+(`factor_one4`), and `16·(20·cg·log R/D)·(cg·log R)³ = 320·cg⁴·(log R)⁴/D` (`MQ2_bound`,
 `M0_bound`). -/
 private lemma hT2_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
     (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
@@ -2084,12 +2084,12 @@ private lemma hT2_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
   have hM0le : M0 ≤ cg * Real.log R := M0_bound W' cg hcg D R hD hDW hR2
   have hMQ2nn : 0 ≤ MQ2 := Finset.sum_nonneg (fun x _ => div_nonneg (sq_nonneg _) (by positivity))
   have hMQ2le : MQ2 ≤ 20 * cg * Real.log R / (D:ℝ) := MQ2_bound W' cg hcg0 hcg D R hD hDW hR2 hlogR0
-  -- factor_one for Q^2 gives MQ2 * M0^3
+  -- factor_one4 for Q^2 gives MQ2 * M0^3
   have hQsqmom : ∀ i : Fin 4,
       (∑ ρ ∈ PB, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))) ^ 2 * ∏ k, (1 / (gMult (ρ k) : ℝ)))
       = MQ2 * M0 ^ 3 := by
     intro i
-    rw [hPBdef, factor_one F_R i (fun x => (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) ^ 2)]
+    rw [hPBdef, factor_one4 F_R i (fun x => (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) ^ 2)]
     congr 1
     rw [hMQ2def]; apply Finset.sum_congr rfl; intro x _; rw [mul_one_div]
   have h1 := enlarge_to_PB W' D R hD hDW
@@ -2337,7 +2337,7 @@ theorem mv_J (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     intro r hr
     have hrf : r ∈ filt := by rw [hfiltdef]; exact hr
     simp only [hDenomdef, Fin.removeNth_apply]
-    rw [erase_prod_removeNth m (fun i => (gMult (r i):ℝ)), hprodeq r hrf]
+    rw [erase_prod_removeNth5 m (fun i => (gMult (r i):ℝ)), hprodeq r hrf]
   -- S0, S1, S2 bounds
   have hS0le : (∑ r ∈ filt, (1:ℝ) / Denom r) ≤ (cg * L) ^ 4 := by
     have key : (∑ r ∈ filt, (1:ℝ) / Denom r)
