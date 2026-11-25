@@ -80,7 +80,7 @@ private lemma list_sum_map_add {γ : Type*} (L : List γ) (f g : γ → ℝ) :
 /-! ## Membership of the updated tuple in the sieve box -/
 
 /-- `∏ᵢ (update r m u) i = u · ∏ᵢ r i` when `r m = 1`. -/
-private lemma prod_update_eq {r : Fin 5 → ℕ} {m : Fin 5} (hrm : r m = 1) (u : ℕ) :
+lemma prod_update_eq5 {r : Fin 5 → ℕ} {m : Fin 5} (hrm : r m = 1) (u : ℕ) :
     ∏ i, Function.update r m u i = u * ∏ i, r i := by
   rw [Finset.prod_update_of_mem (Finset.mem_univ m)]
   congr 1
@@ -89,13 +89,13 @@ private lemma prod_update_eq {r : Fin 5 → ℕ} {m : Fin 5} (hrm : r m = 1) (u 
 
 /-- Membership of `Function.update r m u` in the sieve box, unfolded to the
 one-dimensional conditions on `u`. -/
-private lemma update_mem_kSieveIndex_iff {R W' : ℕ} {r : Fin 5 → ℕ}
+lemma update_mem_kSieveIndex_iff5 {R W' : ℕ} {r : Fin 5 → ℕ}
     (hr : r ∈ kSieveIndex 5 R W') {m : Fin 5} (hrm : r m = 1) (u : ℕ) :
     Function.update r m u ∈ kSieveIndex 5 R W' ↔
       (Squarefree u ∧ u.Coprime W' ∧ u.Coprime (∏ i, r i) ∧ u * (∏ i, r i) < R) := by
   rw [mem_kSieveIndex_iff] at hr ⊢
   obtain ⟨hrSF, hrPC, hrW, hrlt⟩ := hr
-  have hprodU : ∏ i, Function.update r m u i = u * ∏ i, r i := prod_update_eq hrm u
+  have hprodU : ∏ i, Function.update r m u i = u * ∏ i, r i := prod_update_eq5 hrm u
   constructor
   · rintro ⟨hSF, hPC, hW, hlt⟩
     refine ⟨?_, ?_, ?_, ?_⟩
@@ -199,7 +199,7 @@ private lemma inner_sum_estimate (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W'
             (fun u => u.Coprime (∏ i, r i)) := by
     ext u
     simp only [Finset.mem_filter, Finset.mem_range]
-    rw [update_mem_kSieveIndex_iff hr hrm]
+    rw [update_mem_kSieveIndex_iff5 hr hrm]
     constructor
     · rintro ⟨_huR, hSF, hcW, hcP, hmul⟩
       exact ⟨⟨(hcap u).mp hmul, hSF, hcW⟩, hcP⟩
@@ -465,7 +465,7 @@ lemma eval_contractAt (m : Fin 5) (F : Poly) (t : Fin 4 → ℝ) :
 
 /-- The product `∏ᵢ (log (update r m u) i / RR)^{α i}` splits off the `m`-th
 factor `(log u / RR)^{α m}`, leaving the `succAbove`-indexed constant. -/
-private lemma prod_update_split (r : Fin 5 → ℕ) (m : Fin 5) (u : ℕ) (RR : ℝ)
+lemma prod_update_split5 (r : Fin 5 → ℕ) (m : Fin 5) (u : ℕ) (RR : ℝ)
     (a : Fin 5 → ℕ) :
     ∏ i, (Real.log ((Function.update r m u) i) / RR) ^ a i
       = (Real.log u / RR) ^ a m
@@ -598,7 +598,7 @@ theorem inner_contract (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
               * ∏ i, (Real.log (r (m.succAbove i)) / Real.log R) ^ a.1 (m.succAbove i))
             * ((Real.log u / Real.log R) ^ a.1 m / (Nat.totient u : ℝ)) := by
       intro u
-      rw [prod_update_split r m u (Real.log R) a.1]; ring
+      rw [prod_update_split5 r m u (Real.log R) a.1]; ring
     rw [Finset.sum_congr rfl (fun u _ => hre u), ← Finset.mul_sum]
   -- === The per-monomial bound ===
   have hpera : ∀ a ∈ F,
