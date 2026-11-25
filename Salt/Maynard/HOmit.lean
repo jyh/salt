@@ -27,7 +27,7 @@ The reduction (all steps below are proved here) is:
    named hypotheses `H_box` and `H_reindex`:
    * `H_box`  : `H(p) ≤ (k-1)·(p-1)⁻¹·A₁^{k-1}`  (reindex `uᵢ = p·b`).
    * `H_reindex` : `Σ_{am∈sqfCop, p∣am} fWt/φ ≤ (p-1)⁻¹·B₁`  (reindex `am = p·b`).
-5. **`inv_sq_tele`** (re-declared private copy): `Σ_{p>D₀k} (p-1)⁻² ≤ 2/(D₀ k)`.
+5. **`inv_sq_tele`** (the public copy; see its docstring): `Σ_{p>D₀k} (p-1)⁻² ≤ 2/(D₀ k)`.
    The `log R₀` has cancelled; the average converges.  With `16k ≤ D₀ k` and
    `k ≥ 1` this gives `≤ 2(k-1)/(D₀ k)·B₁·A₁^{k-1} ≤ (1/8)·B₁·A₁^{k-1}`.
 -/
@@ -66,10 +66,11 @@ private lemma owt_nonneg (k R : ℕ) (m : Fin k) (T : ℝ) (u : Fin k → ℕ) :
     0 ≤ owt k R m T u :=
   Finset.prod_nonneg (fun _ _ => div_nonneg (sq_nonneg _) (Nat.cast_nonneg _))
 
-/-- Re-declared private copy of `CollisionQuant.inv_sq_tele` (it is `private`
-there, hence not importable): telescoping tail
-`∑_{a < n ≤ b} (n−1)⁻² ≤ (a−1)⁻¹ − (b−1)⁻¹` for `2 ≤ a ≤ b`. -/
-private theorem inv_sq_tele (a : ℕ) (ha : 2 ≤ a) :
+/-- Telescoping tail bound:
+`∑_{a < n ≤ b} (n−1)⁻² ≤ (a−1)⁻¹ − (b−1)⁻¹` for `2 ≤ a ≤ b`.
+The copy that `EulerTailL`, `HMainClose` and `Lemma53W` use (`CollisionQuant`
+keeps its own `private` copy: neither file imports the other). -/
+theorem inv_sq_tele (a : ℕ) (ha : 2 ≤ a) :
     ∀ b : ℕ, a ≤ b →
       (∑ n ∈ Finset.Icc (a + 1) b, (((n : ℝ) - 1)⁻¹) ^ 2)
         ≤ ((a : ℝ) - 1)⁻¹ - ((b : ℝ) - 1)⁻¹ := by
