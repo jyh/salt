@@ -260,8 +260,9 @@ noncomputable def D₀ (k : ℕ) : ℕ := max (k ^ 3) ((H k).sup id)
 /-- The fixed sieve modulus: the primorial of `D₀ k`. -/
 noncomputable def W (k : ℕ) : ℕ := primorial (D₀ k)
 
+omit [TupleChoice] in
 /-- A finite product of (distinct) primes is squarefree. -/
-private lemma prod_primes_squarefree {s : Finset ℕ} (hs : ∀ p ∈ s, p.Prime) :
+lemma prod_primes_squarefree {s : Finset ℕ} (hs : ∀ p ∈ s, p.Prime) :
     Squarefree (∏ p ∈ s, p) :=
   Finset.squarefree_prod_of_pairwise_isCoprime
     (fun p hp q hq hpq => Nat.coprime_iff_isRelPrime.mp
