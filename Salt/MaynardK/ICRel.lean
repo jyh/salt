@@ -433,16 +433,6 @@ private lemma inner_sum_estimate_brel (W' : ℕ) (hW' : Squarefree W') (hpos : 0
 
 /-! ## `eval` expansions and further list plumbing -/
 
-/-- Monotonicity of `List.sum` under a pointwise `≤`. -/
-private lemma list_sum_le_sum {γ : Type*} (L : List γ) (f g : γ → ℝ)
-    (h : ∀ a ∈ L, f a ≤ g a) : (L.map f).sum ≤ (L.map g).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih =>
-      simp only [List.map_cons, List.sum_cons]
-      exact add_le_add (h a (by simp)) (ih (fun b hb => h b (List.mem_cons_of_mem a hb)))
-
-
 /-- B4.2b hypothesis 2: `inner_contract_rel`'s statement, transformed (`F → P`, `yF → yFg`,
 `contractAt m F → contractB m P`, `kSieveIndex 5 → kSieveIndex (n+1)`; the error shape
 `c + A·PAS·Σ_{p ∣ ∏r} 1/(p−1)` is kept — `inner_contract_b`'s cap slip lands in `c`). -/
