@@ -44,7 +44,7 @@ variable [TupleChoice]
 
 /-- Product-versus-sum: if the `aₓ ≥ 0` sum to at most `1/2`, then
 `∏(1 + aₓ) ≤ 1 + 2∑aₓ`. Elementary induction — no logs, no `exp`. -/
-private theorem prod_one_add_le {ι : Type*} (s : Finset ι)
+theorem prod_one_add_le {ι : Type*} (s : Finset ι)
     (a : ι → ℝ) (ha : ∀ x ∈ s, 0 ≤ a x) (hs : ∑ x ∈ s, a x ≤ 1 / 2) :
     ∏ x ∈ s, (1 + a x) ≤ 1 + 2 * ∑ x ∈ s, a x := by
   classical
