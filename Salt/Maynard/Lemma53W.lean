@@ -22,9 +22,9 @@ convention `D < p`) and the Euler tail (`euler_tail_LW`).
 The landed `*` lemmas are left byte-identical; these are PARALLEL `*W` names.
 The landed modules' helpers `moebius_sq_one'`, `g_factor_prod'`, `gr_ratio_mem'`
 (public in `Lemma53Tight`) and `inv_sq_tele53`, `abs_prod_one_sub_le` (public in
-`Lemma53`) are imported. Their private helpers `inv_sq_tele`, `prod_one_add_le` and
-`one_sub_sum_le_prod_one_sub` are NOT accessible across the module boundary, so we
-re-declare local private copies of those here.
+`Lemma53`) are imported, and so is `inv_sq_tele` (public in `HOmit`). Their private
+helpers `prod_one_add_le` and `one_sub_sum_le_prod_one_sub` are NOT accessible across
+the module boundary, so we re-declare local private copies of those here.
 -/
 
 open Finset
@@ -42,34 +42,6 @@ These are byte-identical copies of the same-named `private` lemmas in
 are not accessible across module boundaries in Lean 4, so — following the
 established precedent of `Lemma53Tight.lean` re-declaring its own copies — we
 re-declare them locally.  They are `W`/`D`-free (pure real analysis). -/
-
-/-- Telescoping tail bound (local copy of `EulerTailL.inv_sq_tele`). -/
-private theorem inv_sq_tele (a : ℕ) (ha : 2 ≤ a) :
-    ∀ b : ℕ, a ≤ b →
-      (∑ n ∈ Finset.Icc (a + 1) b, (((n : ℝ) - 1)⁻¹) ^ 2)
-        ≤ ((a : ℝ) - 1)⁻¹ - ((b : ℝ) - 1)⁻¹ := by
-  intro b hb
-  induction b, hb using Nat.le_induction with
-  | base =>
-      rw [Finset.Icc_eq_empty (by omega), Finset.sum_empty]
-      simp
-  | succ b hab ih =>
-      rw [Finset.sum_Icc_succ_top (by omega)]
-      have hb2 : (2 : ℝ) ≤ (b : ℝ) := by exact_mod_cast le_trans ha hab
-      have hstep : (((b + 1 : ℕ) : ℝ) - 1)⁻¹ ^ 2
-          ≤ ((b : ℝ) - 1)⁻¹ - (((b + 1 : ℕ) : ℝ) - 1)⁻¹ := by
-        push_cast
-        have h1 : (0 : ℝ) < (b : ℝ) - 1 := by linarith
-        have h2 : (0 : ℝ) < (b : ℝ) := by linarith
-        rw [show ((b : ℝ) + 1 - 1) = (b : ℝ) by ring, ← sub_nonneg]
-        have hexp : ((b : ℝ) - 1)⁻¹ - (b : ℝ)⁻¹ - ((b : ℝ)⁻¹) ^ 2
-            = (((b : ℝ)) ^ 2 * ((b : ℝ) - 1))⁻¹ := by
-          field_simp
-          ring
-        rw [hexp]
-        have hposm : (0 : ℝ) < ((b : ℝ)) ^ 2 * ((b : ℝ) - 1) := by nlinarith
-        exact inv_nonneg.mpr hposm.le
-      linarith [ih]
 
 /-- Product-versus-sum bound (local copy of `EulerTailL.prod_one_add_le`). -/
 private theorem prod_one_add_le {ι : Type*} (s : Finset ι)
