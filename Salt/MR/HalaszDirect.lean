@@ -139,7 +139,7 @@ twist lemmas it cannot reach. -/
 
 /-- Local copy of `GrandComp.dist_triv_left_eq` (`private` there): the trivial-left-datum
 distance `𝔻²(1, f·costwist(−t); X)` equals `𝔻²(f, costwist t; X)`. -/
-private lemma dist_triv_left_eq_local (f : ℕ → ℂ) (t X : ℝ) :
+lemma dist_triv_left_eq_local (f : ℕ → ℂ) (t X : ℝ) :
     pretDistSq (fun _ => 1) (fun n => f n * costwist (-t) n) X
       = pretDistSq f (costwist t) X := by
   unfold pretDistSq
@@ -289,7 +289,7 @@ continuous on `[1/L, b]` because the whole range is bounded away from `0`. -/
 
 /-- The σ-cutoff integrand `σ ↦ σ^{−2}·exp(−c(M − 2log(σL) − 48))` is interval-integrable on
 `[1/L, b]` (continuity: `σ ≥ 1/L > 0` on the range, so neither `σ^2` nor `σ·L` vanishes). -/
-private lemma sigma_core_intervalIntegrable {c L M b : ℝ} (hL : 0 < L) (hb : 1 / L ≤ b) :
+lemma sigma_core_intervalIntegrable {c L M b : ℝ} (hL : 0 < L) (hb : 1 / L ≤ b) :
     IntervalIntegrable
       (fun σ : ℝ => (1 / σ ^ 2) * Real.exp (-c * (M - 2 * Real.log (σ * L) - 48)))
       volume (1 / L) b := by
