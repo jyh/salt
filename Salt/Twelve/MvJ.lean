@@ -490,7 +490,7 @@ private lemma list_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
   | cons a L ih => simp only [List.map_cons, List.sum_cons]; rw [← ih]; ring
 
 /-- Monotonicity of `List.sum` under a pointwise `≤`. -/
-private lemma list_sum_le_sum {γ : Type*} (L : List γ) (f g : γ → ℝ)
+lemma list_sum_le_sum {γ : Type*} (L : List γ) (f g : γ → ℝ)
     (h : ∀ a ∈ L, f a ≤ g a) : (L.map f).sum ≤ (L.map g).sum := by
   induction L with
   | nil => simp
