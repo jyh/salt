@@ -777,10 +777,10 @@ lemma sum_filt_removeNth {M : Type*} [AddCommMonoid M] (R W' : ℕ) (m : Fin 5)
       = ∑ ρ ∈ kSieveIndex 4 R W', h ρ :=
   sum_filt_removeNth_g (n := 4) R W' m h
 
--- ==== tail lemmas (ported from MvI, which are private there) ====
+-- ==== tail lemmas (copies of MvI's; MvJ does not import MvI) ====
 /-- The integer tail `Σ_{D < k < R} 1/(k − 1)² ≤ 1/(D − 1)` for `3 ≤ D` (`hD`): each term is at
 most `1/(k − 2) − 1/(k − 1)` and the sum telescopes (`Finset.sum_range_sub'`); the file's copy
-of `MvI`'s private `int_tail`. -/
+of `MvI`'s `int_tail` (MvJ does not import MvI). -/
 lemma int_tail' (D R : ℕ) (hD : 3 ≤ D) :
     ∑ k ∈ (Finset.range R).filter (fun k => D < k), 1 / ((k:ℝ) - 1)^2
       ≤ 1 / ((D:ℝ) - 1) := by

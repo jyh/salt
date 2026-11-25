@@ -60,7 +60,7 @@ private lemma list_sum_map_sub {γ : Type*} (l : List γ) (f g : γ → ℝ) :
   | cons a l ih => simp only [List.map_cons, List.sum_cons]; rw [← ih]; ring
 
 /-- Dividing a mapped `List`-sum distributes over the list. -/
-private lemma list_sum_map_div {γ : Type*} (l : List γ) (f : γ → ℝ) (c : ℝ) :
+lemma list_sum_map_div {γ : Type*} (l : List γ) (f : γ → ℝ) (c : ℝ) :
     (l.map f).sum / c = (l.map (fun x => f x / c)).sum := by
   rw [div_eq_mul_inv, ← List.sum_map_mul_right]
   simp only [div_eq_mul_inv]
@@ -76,7 +76,7 @@ private lemma sum_finset_list_swap {γ : Type*} (B : Finset (Fin 5 → ℕ))
     rw [Finset.sum_add_distrib, ih]
 
 /-- Pointwise-`≤` monotonicity of a mapped `List`-sum. -/
-private lemma list_sum_map_le {γ : Type*} (l : List γ) (f g : γ → ℝ)
+lemma list_sum_map_le {γ : Type*} (l : List γ) (f g : γ → ℝ)
     (h : ∀ x ∈ l, f x ≤ g x) : (l.map f).sum ≤ (l.map g).sum := by
   induction l with
   | nil => simp
@@ -87,7 +87,7 @@ private lemma list_sum_map_le {γ : Type*} (l : List γ) (f g : γ → ℝ)
     linarith
 
 /-- Nonnegativity of a mapped `List`-sum. -/
-private lemma list_map_sum_nonneg {γ : Type*} (l : List γ) (f : γ → ℝ)
+lemma list_map_sum_nonneg {γ : Type*} (l : List γ) (f : γ → ℝ)
     (h : ∀ x ∈ l, 0 ≤ f x) : 0 ≤ (l.map f).sum := by
   induction l with
   | nil => simp
@@ -107,7 +107,7 @@ private lemma list_sum_map_add {γ : Type*} (l : List γ) (f g : γ → ℝ) :
 /-! ## The prime tail `Σ_{p>D} 1/(p-1)² ≤ 2/D` -/
 
 /-- Telescoping tail over the integer range `(D, R)`: `Σ 1/(k-1)² ≤ 1/(D-1)`. -/
-private lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
+lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
     ∑ k ∈ (Finset.range R).filter (fun k => D < k), 1 / ((k:ℝ) - 1)^2
       ≤ 1 / ((D:ℝ) - 1) := by
   have hset : (Finset.range R).filter (fun k => D < k) = Finset.Ico (D+1) R := by
@@ -147,7 +147,7 @@ private lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
     _ = 1 / ((D:ℝ) - 1) := by simp [hφ]
 
 /-- The prime tail bound: `Σ_{D<p<R} 1/(p-1)² ≤ 2/D`. -/
-private lemma prime_tail (D R : ℕ) (hD : 3 ≤ D) :
+lemma prime_tail (D R : ℕ) (hD : 3 ≤ D) :
     ∑ p ∈ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p), 1 / ((p:ℝ) - 1)^2
       ≤ 2 / (D:ℝ) := by
   have hsub : (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p)
