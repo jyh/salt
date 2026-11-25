@@ -75,7 +75,7 @@ lemma gMult_mul_coprime {s b : ℕ} (hcop : Nat.Coprime s b) :
 
 /-- Divisors of a squarefree `r` are the products of subsets of its prime
 factors. -/
-private lemma divisors_eq_powerset_image {r : ℕ} (hr : Squarefree r) :
+lemma divisors_eq_powerset_image {r : ℕ} (hr : Squarefree r) :
     r.divisors = r.primeFactors.powerset.image (fun S => ∏ p ∈ S, p) := by
   ext d
   simp only [Nat.mem_divisors, Finset.mem_image, Finset.mem_powerset]
@@ -91,7 +91,7 @@ private lemma divisors_eq_powerset_image {r : ℕ} (hr : Squarefree r) :
 
 /-- Divisor sums over a squarefree `r` are powerset sums over its prime
 factors. -/
-private lemma sum_divisors_eq_sum_powerset {r : ℕ} (hr : Squarefree r)
+lemma sum_divisors_eq_sum_powerset {r : ℕ} (hr : Squarefree r)
     (f : ℕ → ℝ) :
     ∑ d ∈ r.divisors, f d
       = ∑ S ∈ r.primeFactors.powerset, f (∏ p ∈ S, p) := by
@@ -110,7 +110,7 @@ private lemma sum_divisors_eq_sum_powerset {r : ℕ} (hr : Squarefree r)
 
 /-- **The `h`-expansion.** For squarefree `r` with all prime factors `≥ 3`,
 `1/g(r) = (∑_{d ∣ r} ∏_{p ∣ d} (p−2)⁻¹) · (1/φ(r))`. -/
-private lemma inv_gMult_expand {r : ℕ} (hrsq : Squarefree r)
+lemma inv_gMult_expand {r : ℕ} (hrsq : Squarefree r)
     (hp3 : ∀ p ∈ r.primeFactors, 3 ≤ p) :
     ((gMult r : ℝ))⁻¹
       = (∑ d ∈ r.divisors, ∏ p ∈ d.primeFactors, ((p : ℝ) - 2)⁻¹)
