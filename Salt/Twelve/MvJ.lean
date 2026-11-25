@@ -1899,7 +1899,7 @@ lemma sum_biUnion_le {ι : Type*} (s : Finset ι) (t : ι → Finset ℕ)
 `Σ_{p ∣ ∏ ρ} 1/(p − 1) ≤ Σ_i Σ_{p ∣ ρ i} 1/(p − 1)` for nonzero coordinates (`hρ`); the prime
 factors of the product are covered by the `biUnion` of the coordinates'
 (`Prime.exists_mem_finset_dvd`), then `sum_biUnion_le`. -/
-private lemma P_subadd {n : ℕ} (ρ : Fin n → ℕ) (hρ : ∀ i, ρ i ≠ 0) :
+lemma P_subadd {n : ℕ} (ρ : Fin n → ℕ) (hρ : ∀ i, ρ i ≠ 0) :
     (∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1)))
       ≤ ∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))) := by
   classical

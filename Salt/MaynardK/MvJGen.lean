@@ -1394,39 +1394,6 @@ lemma factor_one {n : ℕ} (F_R : Finset ℕ) (i : Fin n) (w : ℕ → ℝ) :
   rw [hp2, Finset.prod_const, Finset.card_erase_of_mem (Finset.mem_univ i), Finset.card_univ,
     Fintype.card_fin]
 
--- subadditivity of the prime-factor weight over a product
-/-- subadditivity of `Σ_{p ∣ ·} 1/(p − 1)` over a product: for `ρ` with no zero coordinate, the
-sum over the prime factors of `Π_i ρ i` is at most `Σ_i` of the sums over the prime factors of
-`ρ i`. -/
-private lemma P_subadd {n : ℕ} (ρ : Fin n → ℕ) (hρ : ∀ i, ρ i ≠ 0) :
-    (∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1)))
-      ≤ ∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))) := by
-  classical
-  have hsub : (∏ i, ρ i).primeFactors ⊆ Finset.univ.biUnion (fun i => (ρ i).primeFactors) := by
-    intro p hp
-    have hpp := Nat.prime_of_mem_primeFactors hp
-    have hpdvd := Nat.dvd_of_mem_primeFactors hp
-    obtain ⟨i, _, hpi⟩ := (Prime.exists_mem_finset_dvd hpp.prime hpdvd)
-    rw [Finset.mem_biUnion]
-    exact ⟨i, Finset.mem_univ i, Nat.mem_primeFactors.mpr ⟨hpp, hpi, hρ i⟩⟩
-  calc (∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1)))
-      ≤ ∑ p ∈ Finset.univ.biUnion (fun i => (ρ i).primeFactors), (1 / ((p:ℝ) - 1)) := by
-        apply Finset.sum_le_sum_of_subset_of_nonneg hsub
-        intro p hp _
-        rw [Finset.mem_biUnion] at hp
-        obtain ⟨i, _, hpi⟩ := hp
-        have hpp := Nat.prime_of_mem_primeFactors hpi
-        have h2 : (2:ℝ) ≤ (p:ℝ) := by exact_mod_cast hpp.two_le
-        have : (0:ℝ) < (p:ℝ) - 1 := by linarith
-        positivity
-    _ ≤ ∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))) := by
-        apply sum_biUnion_le
-        intro i _ p hp
-        have hpp := Nat.prime_of_mem_primeFactors hp
-        have h2 : (2:ℝ) ≤ (p:ℝ) := by exact_mod_cast hpp.two_le
-        have : (0:ℝ) < (p:ℝ) - 1 := by linarith
-        positivity
-
 -- common: enlarge a nonneg per-coordinate weighted sum from kSieveIndex4 (via decBox4)
 -- to the product box
 /-- enlarging `kSieveIndex n R W'` to the product box `(sqfCop R W')^n`: for `num ≥ 0`,
