@@ -43,8 +43,9 @@ cite is classed:
              carries it: the sentence was deleted, or the number dropped for a name. Decided on HEAD's citing text:
              the exact cite text occurs 0 times there, and every cite of that target it does carry was written at
              BASE or by this tool, so a number REPLACED by hand stays REPORTED, and so does a removal beside a cite
-             written fresh into the same target. Printed and counted, never stale (math's batch 23: prose deleted
-             with the copy it described cited two root lines the same edit changed)
+             written fresh into the same target. Never a cite into a RENAMED or deleted target: that stays REPORTED.
+             Printed and counted, never stale (math's batch 23: prose deleted with the copy it described cited two
+             root lines the same edit changed)
   AMBIGUOUS  a bare leaf shared by several files: not re-keyed, counted; one the EDITED file's map would move
              or report is PRINTED with that file and its class (`write the path and it is read`), never
              rewritten and never counted stale (h2c's census, 11-05: 27 of 98 such cites meant the moved file)
@@ -133,8 +134,8 @@ LIMITS = ("LIMITS: .lean targets only; forms Leaf.lean:N and :N–M / :N-M, and 
           "range is not checked at all: its endpoints did not move and its interior changed, so rc 0 says nothing about "
           "whether it still spans what its sentence means (read each printed INTERIOR row by hand); a GONE cite is "
           "decided inside its own citing file only: a sentence MOVED to another file takes its stale cite with it "
-          "unread (a cite written fresh at HEAD is not checked), a citing file deleted or renamed stays REPORTED, and "
-          "one of two identical cites removed stays REPORTED.")
+          "unread (a cite written fresh at HEAD is not checked), a citing file deleted or renamed stays REPORTED, a "
+          "cite into a renamed or deleted TARGET stays REPORTED, and one of two identical cites removed stays REPORTED.")
 
 
 LAST = {}                     # the last --apply's record verdicts (read by the self-test)
@@ -563,7 +564,7 @@ def census(root, base, head, published=PUBLISHED):
                                              "or its writing commit", nested=False, runon=False))
     mark_done(root, base, head, rows, cls)
     mark_hand(root, base, head, rows, cls)
-    mark_gone(root, base, head, rows, cls)
+    mark_gone(root, base, head, rows, cls, renamed)
     rows += bare
     for r in rows:
         # a list that goes on in a form this tool does not read (`:N,K` / `:N/:K`): re-keying only the members it
@@ -621,7 +622,7 @@ def target_cites(text, f):
             if not (m.group(1) and not f.endswith(m.group(1) + leaf))]
 
 
-def mark_gone(root, base, head, rows, cls):
+def mark_gone(root, base, head, rows, cls, renamed=()):
     """A REPORTED cite is GONE when the citing file no longer carries it at HEAD. Cites are read at BASE, so without
     this a sentence the edit DELETES (or a number dropped for a name) is REPORTED whatever HEAD says, and can only be
     cured by an earlier PR (math's batch 23: CenterCore's deleted prose cited two root lines the batch edits).
@@ -632,10 +633,12 @@ def mark_gone(root, base, head, rows, cls):
           hand image). So a number REPLACED by hand (`:10` to `:11`) is not a removal and stays REPORTED, and so does
           a removal beside a cite written FRESH into the same target, which nobody checked.
     A citing file DELETED at HEAD is left REPORTED: a rename reads the same from here. Rows REPORTED for a broken pin
-    or a run-on list (they carry a `why`) are not this class's."""
+    or a run-on list (they carry a `why`) are not this class's. Nor is any cite into a RENAMED or deleted target
+    (`renamed`): its hand fix is a cite of the NEW path, which condition (2) cannot see, since it reads cites of the
+    old one (math's read of salt #831: `R.lean:10` rewritten to a wrong `R2.lean:33` read GONE, rc 0)."""
     by = {}
     for r in rows:
-        if r["cls"] == "REPORTED" and not r.get("why") and r["src"] != PINS_FILE:
+        if r["cls"] == "REPORTED" and not r.get("why") and r["src"] != PINS_FILE and r["target"] not in renamed:
             by.setdefault((r["src"], r["target"]), []).append(r)
     for (src, f), rs in by.items():
         b, h = show(root, base, src), show(root, head, src)
@@ -1739,6 +1742,29 @@ def self_test():
               per("file.md") == [("W.lean:10", "REPORTED")])
         check("GONE: counted, printed, never stale: 3 GONE and 7 REPORTED here", cls["GONE"] == 3 and cls["REPORTED"] == 7)
         check("... and the LIMITS printed beside every verdict name GONE's limit", "GONE" in LIMITS)
+    # math's LOW on salt #831: a cite into a RENAMED (or deleted) target is REPORTED so that a hand reads it; a hand
+    # rewrite to the NEW path is invisible to condition (2), which reads cites of the OLD path, so GONE must never
+    # take a row whose target was renamed or deleted.
+    with tempfile.TemporaryDirectory() as d:
+        g = lambda *a: git(d, *a)
+        g("init", "-q"); g("config", "user.email", "t@t"); g("config", "user.name", "t")
+        os.makedirs(os.path.join(d, "Salt"))
+        open(os.path.join(d, "Salt/R.lean"), "w").write("".join(f"r{i}\n" for i in range(1, 41)))
+        open(os.path.join(d, "Salt/Q.lean"), "w").write("".join(f"q{i}\n" for i in range(1, 41)))
+        open(os.path.join(d, "notes.md"), "w").write("the bound is R.lean:10 here\n")
+        open(os.path.join(d, "dead.md"), "w").write("the bound is Q.lean:10 here\n")
+        g("add", "-A"); g("commit", "-q", "-m", "base")
+        g("mv", "Salt/R.lean", "Salt/R2.lean"); g("rm", "-q", "Salt/Q.lean")
+        open(os.path.join(d, "notes.md"), "w").write("the bound is R2.lean:33 here\n")    # a WRONG hand number, new path
+        open(os.path.join(d, "dead.md"), "w").write("the bound is gone\n")
+        g("add", "-A"); g("commit", "-q", "-m", "head")
+        _, rr, cr = census(d, "HEAD~1", "HEAD")
+        check("GONE: a cite into a RENAMED target rewritten by hand to the new path stays REPORTED (math's LOW on #831)",
+              [(r["cite"], r["cls"]) for r in rr if r["src"] == "notes.md"] == [("R.lean:10", "REPORTED")])
+        check("GONE: a cite into a DELETED target stays REPORTED too, whatever the citing file says at HEAD",
+              [(r["cite"], r["cls"]) for r in rr if r["src"] == "dead.md"] == [("Q.lean:10", "REPORTED")])
+        check("GONE: ... so a rename with a hand-rewritten cite is still stale (rc 1)",
+              cr["GONE"] == 0 and main_rc(d, ["HEAD~1", "HEAD"]) == 1)
     with tempfile.TemporaryDirectory() as d:             # a run whose ONLY finding is a removed cite is clean
         g = gone_repo(d, {"del.md": "intro\nthe bound is W.lean:10 here\n", "name.md": "see `W.thm` (:10) for it\n"})
         gone_head(d, g, {"del.md": "intro\n", "name.md": "see `W.thm` for it\n"})
