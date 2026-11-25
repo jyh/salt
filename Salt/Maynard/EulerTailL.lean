@@ -42,35 +42,6 @@ variable [TupleChoice]
 
 /-! ## `euler_tail_L` — the `L`-weighted Euler tail -/
 
-/-- Telescoping tail bound:
-`∑_{a < n ≤ b} (n−1)⁻² ≤ (a−1)⁻¹ − (b−1)⁻¹` for `2 ≤ a ≤ b`. -/
-private theorem inv_sq_tele (a : ℕ) (ha : 2 ≤ a) :
-    ∀ b : ℕ, a ≤ b →
-      (∑ n ∈ Finset.Icc (a + 1) b, (((n : ℝ) - 1)⁻¹) ^ 2)
-        ≤ ((a : ℝ) - 1)⁻¹ - ((b : ℝ) - 1)⁻¹ := by
-  intro b hb
-  induction b, hb using Nat.le_induction with
-  | base =>
-      rw [Finset.Icc_eq_empty (by omega), Finset.sum_empty]
-      simp
-  | succ b hab ih =>
-      rw [Finset.sum_Icc_succ_top (by omega)]
-      have hb2 : (2 : ℝ) ≤ (b : ℝ) := by exact_mod_cast le_trans ha hab
-      have hstep : (((b + 1 : ℕ) : ℝ) - 1)⁻¹ ^ 2
-          ≤ ((b : ℝ) - 1)⁻¹ - (((b + 1 : ℕ) : ℝ) - 1)⁻¹ := by
-        push_cast
-        have h1 : (0 : ℝ) < (b : ℝ) - 1 := by linarith
-        have h2 : (0 : ℝ) < (b : ℝ) := by linarith
-        rw [show ((b : ℝ) + 1 - 1) = (b : ℝ) by ring, ← sub_nonneg]
-        have hexp : ((b : ℝ) - 1)⁻¹ - (b : ℝ)⁻¹ - ((b : ℝ)⁻¹) ^ 2
-            = (((b : ℝ)) ^ 2 * ((b : ℝ) - 1))⁻¹ := by
-          field_simp
-          ring
-        rw [hexp]
-        have hposm : (0 : ℝ) < ((b : ℝ)) ^ 2 * ((b : ℝ) - 1) := by nlinarith
-        exact inv_nonneg.mpr hposm.le
-      linarith [ih]
-
 /-- Product-versus-sum: if the `aₓ ≥ 0` sum to at most `1/2`, then
 `∏(1 + aₓ) ≤ 1 + 2∑aₓ`. Elementary induction — no logs, no `exp`. -/
 private theorem prod_one_add_le {ι : Type*} (s : Finset ι)
