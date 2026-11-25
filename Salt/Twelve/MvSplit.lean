@@ -634,70 +634,6 @@ private lemma abs_pow_sub_pow_le_unit {A B : ℝ} (hA0 : 0 ≤ A) (hA1 : A ≤ 1
         _ = ((n : ℝ) + 1) * |A - B| := by ring
         _ = ((n + 1 : ℕ) : ℝ) * |A - B| := by push_cast; ring
 
-/-- `∏ᵢ (update r m u) i = u · ∏ᵢ r i` when `r m = 1`. -/
-private lemma prod_update_eq {r : Fin 5 → ℕ} {m : Fin 5} (hrm : r m = 1) (u : ℕ) :
-    ∏ i, Function.update r m u i = u * ∏ i, r i := by
-  rw [Finset.prod_update_of_mem (Finset.mem_univ m)]
-  congr 1
-  rw [← Finset.erase_eq]
-  exact Finset.prod_erase _ hrm
-
-/-- Membership of `Function.update r m u` in the sieve box, unfolded to the
-one-dimensional conditions on `u`. -/
-private lemma update_mem_kSieveIndex_iff {R W' : ℕ} {r : Fin 5 → ℕ}
-    (hr : r ∈ kSieveIndex 5 R W') {m : Fin 5} (hrm : r m = 1) (u : ℕ) :
-    Function.update r m u ∈ kSieveIndex 5 R W' ↔
-      (Squarefree u ∧ u.Coprime W' ∧ u.Coprime (∏ i, r i) ∧ u * (∏ i, r i) < R) := by
-  rw [mem_kSieveIndex_iff] at hr ⊢
-  obtain ⟨hrSF, hrPC, hrW, hrlt⟩ := hr
-  have hprodU : ∏ i, Function.update r m u i = u * ∏ i, r i := prod_update_eq hrm u
-  constructor
-  · rintro ⟨hSF, hPC, hW, hlt⟩
-    refine ⟨?_, ?_, ?_, ?_⟩
-    · have := hSF m; rwa [Function.update_self] at this
-    · have := hW m; rwa [Function.update_self] at this
-    · rw [Nat.coprime_fintype_prod_right_iff]
-      intro i
-      rcases eq_or_ne i m with hi | hi
-      · subst hi; rw [hrm]; exact Nat.coprime_one_right u
-      · have := hPC m i (Ne.symm hi)
-        rwa [Function.update_self, Function.update_of_ne hi] at this
-    · rwa [hprodU] at hlt
-  · rintro ⟨hSFu, hcopu, hcopuP, hlt⟩
-    refine ⟨?_, ?_, ?_, ?_⟩
-    · intro i
-      rcases eq_or_ne i m with hi | hi
-      · subst hi; rwa [Function.update_self]
-      · rw [Function.update_of_ne hi]; exact hrSF i
-    · intro i j hij
-      rcases eq_or_ne i m with hi | hi
-      · have hjm : j ≠ m := hi ▸ hij.symm
-        rw [hi, Function.update_self, Function.update_of_ne hjm]
-        exact Nat.Coprime.coprime_dvd_right (Finset.dvd_prod_of_mem r (Finset.mem_univ j)) hcopuP
-      · rcases eq_or_ne j m with hj | hj
-        · rw [hj, Function.update_self, Function.update_of_ne hi]
-          exact (Nat.Coprime.coprime_dvd_right
-            (Finset.dvd_prod_of_mem r (Finset.mem_univ i)) hcopuP).symm
-        · rw [Function.update_of_ne hi, Function.update_of_ne hj]
-          exact hrPC i j hij
-    · intro i
-      rcases eq_or_ne i m with hi | hi
-      · subst hi; rwa [Function.update_self]
-      · rw [Function.update_of_ne hi]; exact hrW i
-    · rwa [hprodU]
-
-/-- The product `∏ᵢ (log (update r m u) i / RR)^{α i}` splits off the `m`-th factor. -/
-private lemma prod_update_split (r : Fin 5 → ℕ) (m : Fin 5) (u : ℕ) (RR : ℝ)
-    (a : Fin 5 → ℕ) :
-    ∏ i, (Real.log ((Function.update r m u) i) / RR) ^ a i
-      = (Real.log u / RR) ^ a m
-        * ∏ i : Fin 4, (Real.log (r (m.succAbove i)) / RR) ^ a (m.succAbove i) := by
-  rw [Fin.prod_univ_succAbove _ m]
-  congr 1
-  · rw [Function.update_self]
-  · exact Finset.prod_congr rfl
-      (fun i _ => by rw [Function.update_of_ne (Fin.succAbove_ne m i)])
-
 /-! ## The relative one-dimensional inner-sum estimate
 
 Truncation of `Salt.Twelve.inner_sum_estimate` (`MvJ.lean`, `private`): the
@@ -713,7 +649,7 @@ within `Catom·4^c + log 2 + phiAtomSum R W'·Σ_{p ∣ ∏ r} 1/(p − 1)` of
 `X·((log R − log ∏ r)/log R)^{c+1}/(c + 1)`, with `Catom` the
 `budget_moment W' hW' hpos hUpper c 0` constant and `X = φ(W')/W'·log R`. The admissible `u` are
 the square-free `u < z` coprime to `W'` and to `∏ r`, `z = (R − 1)/∏ r + 1`
-(`update_mem_kSieveIndex_iff`); the budget bound (`budget_moment` at `z ≤ R`, UNCHANGED, the
+(`update_mem_kSieveIndex_iff5`); the budget bound (`budget_moment` at `z ≤ R`, UNCHANGED, the
 opaque `Catom`) and the floor-slip bound (`log_natCap_slip` through `abs_pow_sub_pow_le_unit`,
 UNCHANGED, `log 2`) are the landed ones; only the `u ⊥ ∏ r` drop is re-based: covering the
 non-coprime `u` by the primes `p ∣ ∏ r`, `marked_sqf_phi_rel` at `a = c`, `s = p` bounds each
@@ -755,7 +691,7 @@ private lemma inner_sum_estimate_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 
             (fun u => u.Coprime (∏ i, r i)) := by
     ext u
     simp only [Finset.mem_filter, Finset.mem_range]
-    rw [update_mem_kSieveIndex_iff hr hrm]
+    rw [update_mem_kSieveIndex_iff5 hr hrm]
     constructor
     · rintro ⟨_huR, hSF, hcW, hcP, hmul⟩
       exact ⟨⟨(hcap u).mp hmul, hSF, hcW⟩, hcP⟩
@@ -1014,7 +950,7 @@ hypotheses are carried for the frozen shape and not consumed), there is `c ≥ 0
 of `X·eval (contractAt m F)` at `log r(m.succAbove i)/log R` (`X = φ(W')/W'·log R`). The
 witnesses are `A = Σ_a |f_a|` over the monomials of `F` and
 `c = Σ_a |f_a|·(Cb(α_m)·4^{α_m} + log 2)`, `Cb k` the `budget_moment … k 0` constant. The inner
-sum expands monomial by monomial (`eval_ofPoly`, `prod_update_split`, `ic_sum_finset_list_sum`),
+sum expands monomial by monomial (`eval_ofPoly`, `prod_update_split5`, `ic_sum_finset_list_sum`),
 each inner `u`-sum is `inner_sum_estimate_rel` at `c = α_m`, and the budget factor
 `1 − Σ_{i ≠ m} t_i` is `(log R − log ∏ r)/log R` since `r m = 1`. Where the landed
 `inner_contract` bounds the error by `c·(1 + X·Σ_p 1/(p − 1))` with one opaque `c` after `W'`,
@@ -1117,7 +1053,7 @@ theorem inner_contract_rel (F : Poly) (m : Fin 5) :
               * ∏ i, (Real.log (r (m.succAbove i)) / Real.log R) ^ a.1 (m.succAbove i))
             * ((Real.log u / Real.log R) ^ a.1 m / (Nat.totient u : ℝ)) := by
       intro u
-      rw [prod_update_split r m u (Real.log R) a.1]; ring
+      rw [prod_update_split5 r m u (Real.log R) a.1]; ring
     rw [Finset.sum_congr rfl (fun u _ => hre u), ← Finset.mul_sum]
   -- === The per-monomial bound (RELATIVE) ===
   have hpera : ∀ a ∈ F,
