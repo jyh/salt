@@ -598,15 +598,6 @@ lemma list_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
   | nil => simp
   | cons a L ih => simp only [List.map_cons, List.sum_cons]; rw [← ih]; ring
 
-/-- Monotonicity of `List.sum` under a pointwise `≤`. -/
-private lemma list_sum_le_sum {γ : Type*} (L : List γ) (f g : γ → ℝ)
-    (h : ∀ a ∈ L, f a ≤ g a) : (L.map f).sum ≤ (L.map g).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih =>
-      simp only [List.map_cons, List.sum_cons]
-      exact add_le_add (h a (by simp)) (ih (fun b hb => h b (List.mem_cons_of_mem a hb)))
-
 omit [Salt.Maynard.TupleChoice] in
 /-- The `∫dtₘ`-peel of one sieve coordinate of a budget polynomial. -/
 theorem inner_contract_b (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
