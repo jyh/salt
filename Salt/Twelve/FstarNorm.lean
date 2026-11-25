@@ -169,15 +169,6 @@ private lemma fn_list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
       calc |f a + (L.map f).sum| ≤ |f a| + |(L.map f).sum| := abs_add_le _ _
         _ ≤ |f a| + (L.map (fun a => |f a|)).sum := by linarith [ih]
 
-/-- Monotonicity of `List.sum` under a pointwise `≤`. -/
-private lemma fn_list_sum_le_sum {γ : Type*} (L : List γ) (f g : γ → ℝ)
-    (h : ∀ a ∈ L, f a ≤ g a) : (L.map f).sum ≤ (L.map g).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih =>
-      simp only [List.map_cons, List.sum_cons]
-      exact add_le_add (h a (by simp)) (ih (fun b hb => h b (List.mem_cons_of_mem a hb)))
-
 /-- The `ℚ → ℝ` cast of `Qabs F` as an explicit `ℝ`-valued `List.sum`. -/
 private lemma Qabs_cast (F : Poly) :
     ((Qabs F : ℚ) : ℝ) = (F.map (fun m => |(m.2 : ℝ)|)).sum := by
@@ -192,7 +183,7 @@ private lemma eval_ofPoly_abs_le (F : Poly) (t : Fin 5 → ℝ)
     (ht0 : ∀ i, 0 ≤ t i) (ht1 : ∀ i, t i ≤ 1) :
     |eval (ofPoly F) t| ≤ ((Qabs F : ℚ) : ℝ) := by
   rw [eval_ofPoly', Qabs_cast]
-  refine le_trans (fn_list_abs_sum_le F _) (fn_list_sum_le_sum F _ _ (fun a _ => ?_))
+  refine le_trans (fn_list_abs_sum_le F _) (list_sum_le_sum F _ _ (fun a _ => ?_))
   have hprod0 : 0 ≤ ∏ i, t i ^ a.1 i := Finset.prod_nonneg (fun i _ => pow_nonneg (ht0 i) _)
   have hprod1 : ∏ i, t i ^ a.1 i ≤ 1 :=
     Finset.prod_le_one (fun i _ => pow_nonneg (ht0 i) _) (fun i _ => pow_le_one₀ (ht0 i) (ht1 i))

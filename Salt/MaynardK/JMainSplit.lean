@@ -644,7 +644,7 @@ theorem mv_J_main_split_gen (n : ℕ) (hn : 1 ≤ n) (P : BPoly (n + 1)) (m : Fi
             - X ^ n * ((mo.2.2 : ℝ) * ((DInt' mo.1 mo.2.1 : ℚ) : ℝ))|)).sum :=
           ic_list_abs_sum_le _ _
       _ ≤ (Q.map (fun mo => |(mo.2.2 : ℝ)| * Cfun mo * (1 + X) ^ (n - 1))).sum :=
-          ic_list_sum_le _ _ _ hPer
+          list_sum_le_sum _ _ _ hPer
       _ = Cmain * (1 + X) ^ (n - 1) := by
           rw [hCmaindef,
             List.sum_map_mul_right Q (fun mo => |(mo.2.2 : ℝ)| * Cfun mo) ((1 + X) ^ (n - 1))]
