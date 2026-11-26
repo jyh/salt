@@ -11437,7 +11437,7 @@ via Real.add_one_le_exp.
 
 **2026-07-25 15:57 PDT — Z2-SCOPE: verdict (C), route (b) — NO GATE NEEDED.**
 The overhang gate closes from SEAM GEOMETRY: |t₁| ≤ T_ann + seamRad X on the
-ball leg's own domain (the outer companion of CenterCore:490's inner cut);
+ball leg's own domain (the outer companion of CenterCore:451's inner cut);
 R := T_ann + seamRad X + (log 2X)⁴ + 1; empty-intersection arm = hSup
 vacuous by its own guards. ~50 ln class B, ZERO statement changes, NO JYH
 gate. Acid test passed in both regimes (the B-2 counterexample harmless —

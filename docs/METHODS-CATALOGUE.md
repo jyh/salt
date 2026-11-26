@@ -1,7 +1,7 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `2cd9f8a8` · source digest `12cabe1623e37538` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `85fe0bc8` · source digest `579f0feec9f792b5` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
@@ -991,7 +991,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | entropy decrement | 1412 | 534 | 525 | 464 | 78 | 38 | 0 | 1105 | 650 |
 | large sieve | 136 | 18 | 719 | 598 | 1 | 22 | 0 | 1340 | 1326 |
 | Selberg/Brun sieve | 5690 | 952 | 3761 | 1357 | 65 | 94 | 0 | 5277 | 4410 |
-| Bombieri-Vinogradov / Siegel-Walfisz | 1607 | 747 | 1511 | 719 | 4 | 19 | 0 | 2253 | 1603 |
+| Bombieri-Vinogradov / Siegel-Walfisz | 1608 | 747 | 1511 | 719 | 4 | 19 | 0 | 2253 | 1603 |
 | zero-density / zero-free regions | 729 | 295 | 1022 | 749 | 2 | 20 | 0 | 1793 | 1539 |
 | character sums / L-functions | 4329 | 2196 | 1825 | 853 | 81 | 99 | 0 | 2858 | 966 |
 | exponential sums | 592 | 223 | 799 | 619 | 31 | 33 | 0 | 1482 | 1297 |
@@ -1186,7 +1186,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | large sieve | 1326 | 18 | 136 |
 | explog/lognum numeral tactic | 1441 | 0 | 53 |
 | zero-density / zero-free regions | 1539 | 295 | 729 |
-| Bombieri-Vinogradov / Siegel-Walfisz | 1603 | 747 | 1607 |
+| Bombieri-Vinogradov / Siegel-Walfisz | 1603 | 747 | 1608 |
 | Mertens / PNT-type | 1638 | 67 | 255 |
 | Selberg/Brun sieve | 4410 | 952 | 5690 |
 
