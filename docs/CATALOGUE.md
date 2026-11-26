@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `d0597383` · source digest `3c5669671146fe45` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `6a7029d6` · source digest `30701519223e6289` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -802,8 +802,8 @@ Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hyp
 | `Salt.Chen.errorBundle_le` | Salt/Chen/GlueNormalized.lean:210 | sieves |
 | `Salt.Chen.normalized_package` | Salt/Chen/GlueNormalized.lean:232 | sieves |
 | `Salt.Chen.h4_cond_of_base` | Salt/Chen/H4Cond.lean:55 | sieves |
-| `Salt.Chen.catch65_slot_torn` | Salt/Chen/Headline.lean:128 | sieves |
-| `Salt.Chen.catch65_no_H_at_odd_P` | Salt/Chen/Headline.lean:172 | sieves |
+| `Salt.Chen.catch65_slot_torn` | Salt/Chen/Headline.lean:129 | sieves |
+| `Salt.Chen.catch65_no_H_at_odd_P` | Salt/Chen/Headline.lean:161 | sieves |
 | `Salt.Chen.band_habs_row` | Salt/Chen/Headline3.lean:48 | sieves |
 | `Salt.Chen.middle_k_M_le_two_y` | Salt/Chen/Headline3.lean:169 | sieves |
 | `Salt.Chen.chen_headline_of_ops` | Salt/Chen/Headline4.lean:84 | sieves |
@@ -4835,11 +4835,11 @@ Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hyp
 | `Salt.MR.gates_jointly_satisfiable` | Salt/MR/PortNonVacuous.lean:75 | characters |
 | `Salt.MR.socket_nonvacuous` | Salt/MR/PortNonVacuous.lean:157 | characters |
 | `Salt.MR.mmuChiRate_instantiated` | Salt/MR/PortNonVacuous.lean:176 | characters |
-| `Salt.MR.smooth_euler_product` | Salt/MR/PretSupply.lean:183 | characters |
-| `Salt.MR.head_dist_floor_gen` | Salt/MR/PretSupply.lean:272 | zeros, characters |
-| `Salt.MR.supF_pret_pointwise` | Salt/MR/PretSupply.lean:320 | characters |
-| `Salt.MR.supF_pret_majorant_sigma` | Salt/MR/PretSupply.lean:388 | characters |
-| `Salt.MR.joint_sigma_integral` | Salt/MR/PretSupply.lean:447 | characters |
+| `Salt.MR.smooth_euler_product` | Salt/MR/PretSupply.lean:217 | characters |
+| `Salt.MR.head_dist_floor_gen` | Salt/MR/PretSupply.lean:306 | zeros, characters |
+| `Salt.MR.supF_pret_pointwise` | Salt/MR/PretSupply.lean:354 | characters |
+| `Salt.MR.supF_pret_majorant_sigma` | Salt/MR/PretSupply.lean:422 | characters |
+| `Salt.MR.joint_sigma_integral` | Salt/MR/PretSupply.lean:481 | characters |
 | `Salt.MR.pretentious_pointwise_triangle` | Salt/MR/PretentiousTriangle.lean:100 | characters |
 | `Salt.MR.pretDist_triangle` | Salt/MR/PretentiousTriangle.lean:172 | characters |
 | `Salt.MR.dist_mul_half` | Salt/MR/PretentiousTriangle.lean:213 | characters |
