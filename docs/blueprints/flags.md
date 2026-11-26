@@ -13991,7 +13991,7 @@ audit block :3595-3596 + prose :3573-3579); (3) hEP2 sites are FIVE
 e^{u/5} ≥ u/5); (5) rcases m BEFORE the agreement law in the
 band/puncture proofs (the m=0 absurdity precedes the rw); (6) sibling
 discipline LOAD-BEARING — editing the landed ramP2*MR defs breaks
-SmallStones:387-462; (7) `hend` name-collides with the unrelated
+SmallStones:374-449; (7) `hend` name-collides with the unrelated
 cofactor endpoint charge in eight files — NO name-based sweeps; (8)
 the ∨-filter Σ-half splits by subset-sum (over-counting the overlap
 is an upper bound); the else-branch needs one Nat.cast_injective step
