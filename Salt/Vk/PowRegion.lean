@@ -115,16 +115,16 @@ lemma pow_uniform_growth {K t₀ : ℝ} (hK : 1 ≤ K) (ht₀ : 3 ≤ t₀)
   calc ‖riemannZeta z‖ ≤ K * Real.log z.im := hfz
     _ ≤ K * Real.log (3 * γ) := mul_le_mul_of_nonneg_left hlogle hKpos.le
 
-/-! ## Analytic thresholds (copies of the Littlewood helpers) -/
+/-! ## Analytic thresholds (also read by `Littlewood`) -/
 
-/-- `log x ≤ 2√x` for `x > 0`. -/
-private lemma log_le_two_sqrt {x : ℝ} (hx : 0 < x) : Real.log x ≤ 2 * Real.sqrt x := by
+/-- `log x ≤ 2√x` for `x > 0` (via `log √x ≤ √x − 1`). -/
+lemma log_le_two_sqrt {x : ℝ} (hx : 0 < x) : Real.log x ≤ 2 * Real.sqrt x := by
   have h := Real.log_le_sub_one_of_pos (Real.sqrt_pos.mpr hx)
   rw [Real.log_sqrt hx.le] at h
   linarith [Real.sqrt_nonneg x]
 
-/-- `x³/27 ≤ exp x` for `0 ≤ x`. -/
-private lemma cube_le_exp {x : ℝ} (hx : 0 ≤ x) : x ^ 3 / 27 ≤ Real.exp x := by
+/-- `x³/27 ≤ exp x` for `0 ≤ x` (cube of `1 + x/3 ≤ exp(x/3)`). -/
+lemma cube_le_exp {x : ℝ} (hx : 0 ≤ x) : x ^ 3 / 27 ≤ Real.exp x := by
   have hcube : Real.exp x = (Real.exp (x / 3)) ^ 3 := by
     rw [← Real.exp_nat_mul]; congr 1; push_cast; ring
   have hb : 1 + x / 3 ≤ Real.exp (x / 3) := by
