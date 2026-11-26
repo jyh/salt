@@ -613,15 +613,6 @@ lemma ic_list_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
   | nil => simp
   | cons a L ih => simp only [List.map_cons, List.sum_cons]; rw [← ih]; ring
 
-/-- Termwise `f a ≤ g a` on `L` (`h`) gives `Σ f ≤ Σ g` (induction on `L`). -/
-lemma ic_list_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
-    (h : ∀ a ∈ L, f a ≤ g a) : (L.map f).sum ≤ (L.map g).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih =>
-      simp only [List.map_cons, List.sum_cons]
-      exact add_le_add (h a (by simp)) (ih (fun b hb => h b (List.mem_cons_of_mem a hb)))
-
 /-- For `A, B ∈ [0,1]`, `|Aⁿ − Bⁿ| ≤ n·|A − B|`. -/
 private lemma abs_pow_sub_pow_le_unit {A B : ℝ} (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
     (hB0 : 0 ≤ B) (hB1 : B ≤ 1) (n : ℕ) : |A ^ n - B ^ n| ≤ n * |A - B| := by
@@ -1134,7 +1125,7 @@ theorem inner_contract_rel (F : Poly) (m : Fin 5) :
     ring
   rw [hFull, hTarget, list_sum_map_sub]
   refine le_trans (ic_list_abs_sum_le F _) ?_
-  refine le_trans (ic_list_sum_le F _ _ hpera) ?_
+  refine le_trans (list_sum_le_sum F _ _ hpera) ?_
   rw [hbndsum]
 
 /-! ## `mv_J_split` — shared helpers (those still here are copies of `MvJ.lean`'s; the public ones
@@ -2373,7 +2364,7 @@ private lemma mv_J_main_split (F : Poly) (m : Fin 5) :
             - X ^ 4 * ((mo.2.2 : ℝ) * ((DInt' mo.1 mo.2.1 : ℚ) : ℝ))|)).sum :=
           ic_list_abs_sum_le _ _
       _ ≤ (Q.map (fun mo => |(mo.2.2 : ℝ)| * Cfun mo * (1 + X) ^ 3)).sum :=
-          ic_list_sum_le _ _ _ hPer
+          list_sum_le_sum _ _ _ hPer
       _ = Cmain * (1 + X) ^ 3 := by
           rw [hCmaindef,
             List.sum_map_mul_right Q (fun mo => |(mo.2.2 : ℝ)| * Cfun mo) ((1 + X) ^ 3)]
