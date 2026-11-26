@@ -134,15 +134,6 @@ what `gJ_prime_pow`'s `k`-uniformity records. -/
 def gJ (𝒥 : Finset ℕ) (Pseq Qseq : ℕ → ℕ) (n : ℕ) : ℂ :=
   if ∀ j ∈ 𝒥, blockOmega (Pseq j) (Qseq j) n = 0 then 1 else 0
 
-/-- `ω(p^k; P, Q)` is `1` or `0` according as `p` lies in the block or not. -/
-lemma blockOmega_prime_pow {P Q p k : ℕ} (hp : p.Prime) (hk : k ≠ 0) :
-    blockOmega P Q (p ^ k) = if P ≤ p ∧ p ≤ Q then 1 else 0 := by
-  unfold blockOmega BlockPrimeDivs
-  rw [Nat.primeFactors_pow p hk, hp.primeFactors]
-  by_cases h : P ≤ p ∧ p ≤ Q
-  · rw [Finset.filter_singleton, if_pos h, if_pos h, Finset.card_singleton]
-  · rw [Finset.filter_singleton, if_neg h, if_neg h, Finset.card_empty]
-
 /-- **The MR defining spec of `g_𝒥`, byte-fit** (p. 15): `g_𝒥(p^k) = 1` if
 `p ∉ ⋃_{j∈𝒥}[P_j,Q_j]`, `0` otherwise — for *every* exponent `k ≥ 1`, which is the
 "the exponent is immaterial" half of complete multiplicativity.  The `⋃` is the

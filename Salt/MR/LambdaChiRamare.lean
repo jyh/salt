@@ -118,18 +118,6 @@ it. -/
 private lemma blockOmega_one_lam (P Q : ℕ) : blockOmega P Q 1 = 0 := by
   simp [blockOmega, BlockPrimeDivs]
 
-/-- `ω(p^k; P, Q) = if P ≤ p ∧ p ≤ Q then 1 else 0` at `p` prime, `k ≠ 0` (private): the only
-prime factor is `p` (`Nat.primeFactors_prime_pow`, `Finset.filter_singleton`) — this file's copy
-of the private `MobiusChiRamare.blockOmega_prime_pow`. Read once in this file; no consumer
-outside it. -/
-private lemma blockOmega_prime_pow_lam {P Q p k : ℕ} (hp : p.Prime) (hk : k ≠ 0) :
-    blockOmega P Q (p ^ k) = if P ≤ p ∧ p ≤ Q then 1 else 0 := by
-  unfold blockOmega BlockPrimeDivs
-  rw [Nat.primeFactors_prime_pow hk hp, Finset.filter_singleton]
-  by_cases h : P ≤ p ∧ p ≤ Q
-  · rw [if_pos h, if_pos h, Finset.card_singleton]
-  · rw [if_neg h, if_neg h, Finset.card_empty]
-
 /-- **The damped Liouville datum** `(λ·g_r)(m) = λ(m)·r^{ω(m;P,Q)}` as an
 `ArithmeticFunction ℝ` — the λ-twin of `Salt.MR.muGr`.  `ω(·;P,Q)` is the corpus's window
 prime count `Salt.MR.blockOmega`; `RamWeight` writes the damping parameter `x`, the freeze and
@@ -361,7 +349,7 @@ theorem lamTailWeight_mul_liouville (P Q : ℕ) (r : ℝ) :
     (lamTailWeight_isMultiplicative P Q r).map_one]
   simp only [Nat.sub_zero, Nat.add_sub_cancel]
   rw [lamTailWeight_prime_pow r hp one_ne_zero, if_pos rfl, lamGr_apply,
-    blockOmega_prime_pow_lam hp (Nat.succ_ne_zero j), liouville_prime_pow_real hp,
+    blockOmega_prime_pow hp (Nat.succ_ne_zero j), liouville_prime_pow_real hp,
     liouville_prime_pow_real hp]
   by_cases hwin : P ≤ p ∧ p ≤ Q
   · simp only [if_pos hwin]

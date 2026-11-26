@@ -67,6 +67,16 @@ lemma norm_blockOmega_inv_le_one (P Q m : ℕ) :
   rw [heq]
   exact inv_le_one_of_one_le₀ (le_add_of_nonneg_left (by positivity))
 
+/-- `ω(p^k; P, Q) = if P ≤ p ∧ p ≤ Q then 1 else 0` at `p` prime, `k ≠ 0`: the only prime factor
+is `p` (`Nat.primeFactors_prime_pow`, `Finset.filter_singleton`). -/
+lemma blockOmega_prime_pow {P Q p k : ℕ} (hp : p.Prime) (hk : k ≠ 0) :
+    blockOmega P Q (p ^ k) = if P ≤ p ∧ p ≤ Q then 1 else 0 := by
+  unfold blockOmega BlockPrimeDivs
+  rw [Nat.primeFactors_prime_pow hk hp, Finset.filter_singleton]
+  by_cases h : P ≤ p ∧ p ≤ Q
+  · rw [if_pos h, if_pos h, Finset.card_singleton]
+  · rw [if_neg h, if_neg h, Finset.card_empty]
+
 /-- `p ∈ BlockPrimeDivs P Q n ↔ p.Prime ∧ p ∣ n ∧ n ≠ 0 ∧ P ≤ p ∧ p ≤ Q`: the filter of
 `n.primeFactors` unfolded. Read three times in this file and by `M4Seam`, `MRTProp24`,
 `RamareDpoly`, `RamareErr`, `RamareMR`, `TypicalDensity` and `TypicalPrice`. -/

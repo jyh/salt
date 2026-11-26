@@ -299,18 +299,6 @@ theorem ramTailWeight_isMultiplicative (P Q : ℕ) (r : ℝ) :
 
 /-! ## §3 — THE CONVOLUTION IDENTITY `μ·g_r = μ ∗ w_r` -/
 
-/-- `ω(p^k; P, Q) = if P ≤ p ∧ p ≤ Q then 1 else 0` at `p` prime, `k ≠ 0` (private): the only
-prime factor is `p` (`Nat.primeFactors_prime_pow`, `Finset.filter_singleton`). Read twice in
-this file. `Sec9Glue` has a public lemma of this name and statement, read by `CofactorSupplier`,
-`Eq26Bridge` and `MRTPropA3`; `LambdaChiRamare.blockOmega_prime_pow_lam` is a private copy. -/
-private lemma blockOmega_prime_pow {P Q p k : ℕ} (hp : p.Prime) (hk : k ≠ 0) :
-    blockOmega P Q (p ^ k) = if P ≤ p ∧ p ≤ Q then 1 else 0 := by
-  unfold blockOmega BlockPrimeDivs
-  rw [Nat.primeFactors_prime_pow hk hp, Finset.filter_singleton]
-  by_cases h : P ≤ p ∧ p ≤ Q
-  · rw [if_pos h, if_pos h, Finset.card_singleton]
-  · rw [if_neg h, if_neg h, Finset.card_empty]
-
 /-- `WindowSmooth P Q (p^k) ↔ P ≤ p ∧ p ≤ Q` at `p` prime, `k ≠ 0` (private): the only prime
 factor is `p` (`Nat.primeFactors_prime_pow`). Read twice in this file; no consumer outside
 it. -/
