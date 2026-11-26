@@ -1248,16 +1248,6 @@ lemma jlist_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
       calc |f a + (L.map f).sum| ≤ |f a| + |(L.map f).sum| := abs_add_le _ _
         _ ≤ |f a| + (L.map (fun a => |f a|)).sum := by linarith [ih]
 
-/-- Termwise `f a ≤ g a` on `L` (`h`) gives `Σ f ≤ Σ g` (induction on `L`); re-declares
-`list_sum_le_sum`. -/
-lemma jlist_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
-    (h : ∀ a ∈ L, f a ≤ g a) : (L.map f).sum ≤ (L.map g).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih =>
-      simp only [List.map_cons, List.sum_cons]
-      exact add_le_add (h a (by simp)) (ih (fun b hb => h b (List.mem_cons_of_mem a hb)))
-
 /-- Swap a `Finset` sum over `S` with an inner `List` sum over `L` (induction on `L`);
 re-declares `sum_finset_list_sum`. -/
 lemma jsum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
@@ -1419,7 +1409,7 @@ lemma mv_J_main (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
           - X ^ 4 * ((mo.2.2 : ℝ) * ((DInt' mo.1 mo.2.1 : ℚ) : ℝ)))
         exact this
     _ ≤ (Q.map (fun mo => |(mo.2.2 : ℝ)| * Cfun mo * (1 + X) ^ 4 * (1 / L + 1 / (D:ℝ)))).sum :=
-        jlist_sum_le _ _ _ hPer
+        list_sum_le_sum _ _ _ hPer
     _ = Cmain * (1 + X) ^ 4 * (1 / L + 1 / (D:ℝ)) := by
         rw [hCmaindef,
           show (fun mo : (Fin 4 → ℕ) × ℕ × ℚ => |(mo.2.2 : ℝ)| * Cfun mo * (1 + X) ^ 4 * (1 / L + 1 / (D:ℝ)))
@@ -1861,7 +1851,7 @@ lemma eval_bpoly_bound {n : ℕ} (P : BPoly n) (t : Fin n → ℝ)
     (ht0 : ∀ i, 0 ≤ t i) (ht1 : ∀ i, t i ≤ 1) (hs : ∑ i, t i ≤ 1) :
     |eval P t| ≤ (P.map (fun mo => |(mo.2.2 : ℝ)|)).sum := by
   unfold eval
-  refine le_trans (jlist_abs_sum_le P _) (jlist_sum_le _ _ _ (fun mo _ => ?_))
+  refine le_trans (jlist_abs_sum_le P _) (list_sum_le_sum _ _ _ (fun mo _ => ?_))
   have hprod0 : 0 ≤ ∏ i, t i ^ mo.1 i := Finset.prod_nonneg (fun i _ => pow_nonneg (ht0 i) _)
   have hprod1 : ∏ i, t i ^ mo.1 i ≤ 1 :=
     Finset.prod_le_one (fun i _ => pow_nonneg (ht0 i) _) (fun i _ => pow_le_one₀ (ht0 i) (ht1 i))
