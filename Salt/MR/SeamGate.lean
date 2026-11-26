@@ -24,7 +24,7 @@ domain is `seamAnn X T_ann ∩ seamBall X t₁`, and on it the geometry bounds t
 
 * if the intersection is NONEMPTY, a witness `t` has `|t| ≤ T_ann` (the annulus's OUTER cut)
   and `|t − t₁| ≤ seamRad X` (the ball), so `|t₁| ≤ T_ann + seamRad X` — the outer companion
-  of the landed inner cut `CenterCore.seamAnn_inter_seamBall_eq_empty` (:490);
+  of the landed inner cut `CenterCore.seamAnn_inter_seamBall_eq_empty` (:451);
 * if it is EMPTY, the row's `hSup` binder is VACUOUS (its three guards ARE membership in the
   intersection, `SeamBallWeighted.ball_leg_of_sup_weighted` :166–167) and the ball leg is `0`,
   so the row holds with any `S`.
@@ -65,7 +65,7 @@ open Complex MeasureTheory Set
 
 /-! ## §1 — G-1: the OUTER cut
 
-`CenterCore` :490 reads the annulus's INNER cut (`seamT0 X ≤ |t|`) against the ball and gets
+`CenterCore` :451 reads the annulus's INNER cut (`seamT0 X ≤ |t|`) against the ball and gets
 emptiness for small centres.  Read the OUTER cut (`|t| ≤ T`) against the same ball and you get
 the complementary fact: a nonempty intersection pins the centre from ABOVE. -/
 
@@ -87,7 +87,7 @@ lemma seamAnn_inter_seamBall_center_le {X T t₁ : ℝ}
   linarith
 
 /-- **G-2 — the TWO-SIDED ball-centre dichotomy (`ball_center_dichotomy_two_sided`).**
-`CenterCore.ball_center_dichotomy` (:531) with G-1 adjoined: for ANY `X`, `T`, `t₁`,
+`CenterCore.ball_center_dichotomy` (:492) with G-1 adjoined: for ANY `X`, `T`, `t₁`,
 
   `seamAnn X T ∩ seamBall X t₁ = ∅  ∨  (seamT0 X − seamRad X ≤ |t₁| ∧ |t₁| ≤ T + seamRad X)`.
 
