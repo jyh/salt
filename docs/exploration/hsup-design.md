@@ -411,7 +411,7 @@ price the shift. If a ratified-frozen statement must change: JYH GATE.
 numeral shift. Seam geometry closes it: on the ball leg's own domain
 (t ∈ seamAnn ∩ seamBall) the intersection being nonempty forces
 **|t₁| ≤ T_ann + seamRad X** (the outer companion of the landed inner cut
-CenterCore:490 — ~8 ln, the shape M_range already encodes at
+CenterCore:451 — ~8 ln, the shape M_range already encodes at
 DistHalasz:261). Instantiate exists_min_dist_abs at
 **R := T_ann + seamRad X + (log 2X)⁴ + 1**: hgate discharges outright; if
 the intersection is EMPTY, hSup is vacuous (its guards ARE membership) and

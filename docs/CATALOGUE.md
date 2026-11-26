@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `24ef934a` · source digest `d607d9e5dfd18818` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `43a7ad15` · source digest `5233d092e718a108` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -2617,12 +2617,12 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.MR.jointIntegrableAtC_pin2_free` | Salt/MR/CaseASocket.lean:418 | characters |
 | `Salt.MR.center_halasz_supply_wideA` | Salt/MR/CaseAWide.lean:109 | characters |
 | `Salt.MR.caseASwide_nonneg` | Salt/MR/CaseAWide.lean:261 | characters |
-| `Salt.MR.window_sup_decay_center` | Salt/MR/CenterCore.lean:147 | zeros, characters |
-| `Salt.MR.halasz_direct_center` | Salt/MR/CenterCore.lean:302 | zeros, characters |
-| `Salt.MR.halasz_direct_center_gen` | Salt/MR/CenterCore.lean:371 | zeros, characters |
-| `Salt.MR.ball_center_dichotomy` | Salt/MR/CenterCore.lean:531 | characters |
-| `Salt.MR.ball_leg_empty_of_le` | Salt/MR/CenterCore.lean:547 | characters |
-| `Salt.MR.ball_leg_of_center_small` | Salt/MR/CenterCore.lean:557 | characters |
+| `Salt.MR.window_sup_decay_center` | Salt/MR/CenterCore.lean:131 | zeros, characters |
+| `Salt.MR.halasz_direct_center` | Salt/MR/CenterCore.lean:263 | zeros, characters |
+| `Salt.MR.halasz_direct_center_gen` | Salt/MR/CenterCore.lean:332 | zeros, characters |
+| `Salt.MR.ball_center_dichotomy` | Salt/MR/CenterCore.lean:492 | characters |
+| `Salt.MR.ball_leg_empty_of_le` | Salt/MR/CenterCore.lean:508 | characters |
+| `Salt.MR.ball_leg_of_center_small` | Salt/MR/CenterCore.lean:518 | characters |
 | `Salt.MR.center_halasz_supply_uniform` | Salt/MR/CenterSupply.lean:143 | characters |
 | `Salt.MR.center_halasz_supply` | Salt/MR/CenterSupply.lean:266 | characters |
 | `Salt.MR.ball_sup_supplied_uniform` | Salt/MR/CenterSupply.lean:321 | characters |
