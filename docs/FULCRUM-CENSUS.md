@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `34016a98` · source digest `0a07379b31a11d24` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `cdeef4f0` · source digest `d0bf0c7a946b1838` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,7 +22,7 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 23385 | 691 | 22683 | 9148 | 13 | 293 | 40 | 345 | 84 |
+| 23384 | 691 | 22682 | 9148 | 13 | 293 | 40 | 345 | 84 |
 
 Per-polarity totals over the 691 Props: with F-consumers 538 · with ¬F-consumers 21 · with F-producers (any kind) 451 · with ¬F-producers (any kind) 59.
 
@@ -39,7 +39,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | `Salt.Entropy.Chowla.logChowlaFailsAff` | Salt/Entropy/Chowla/AffineFork.lean:69 | OPEN | 3 (3/0) | 5 (5/0) | 0/0/0 | 2/11/1 | 0/0 | `Salt.Entropy.Chowla.affWindow_survivorMass_ge` (Salt/Entropy/Chowla/AffineFork.lean:107), `Salt.Entropy.Chowla.exists_affSurvivor_of_not_failsAff` (Salt/Entropy/Chowla/AffineFork.lean:153), `Salt.Entropy.Chowla.gradedAffHeadAt_g12b_of_at_regime` (Salt/Entropy/Chowla/StrideShellBand.lean:369) +2 | `Salt.Entropy.Chowla.h211_aff` (Salt/Entropy/Chowla/StrideBridge.lean:665), `Salt.Entropy.Chowla.singleCorr_of_failsAff` (Salt/Entropy/Chowla/StrideFork.lean:138), `Salt.Entropy.Chowla.singleCorr_of_failsAff'` (Salt/Entropy/Chowla/StrideFork.lean:176) |
 | `Salt.Fulcrum.FulcrumQualityMin` | Salt/Fulcrum/Basic.lean:61 | OPEN | 3 (2/1) | 2 (2/0) | 0/2/0 | 0/0/0 | 0/1 | `Salt.Fulcrum.not_fulcrum_implies_noSiegelZeros` (Salt/Fulcrum/Dichotomy.lean:82), `Salt.SW.not_fulcrum_siegelFree_SW` (Salt/SW/StandoffGate.lean:803) | `Salt.Fulcrum.fulcrum_dichotomy` (Salt/Fulcrum/Dichotomy.lean:102), `Salt.HB.crown_handover_k1` (Salt/HB/CrownTheorem1.lean:6577), `Salt.HB.hEngine_of_N7` (Salt/HB/CrownTheorem1.lean:6925) |
 | `Salt.HB.FulcrumQualityPoly` | Salt/HB/CrownTheorem1.lean:6338 | OPEN | 4 (3/1) | 1 (1/0) | 0/0/0 | 0/0/0 | 0/1 | `Salt.HB.not_fulcrumPoly_implies_noSiegelZerosPoly` (Salt/HB/CrownTheorem1.lean:6414) | `Salt.HB.crown_handover` (Salt/HB/CrownTheorem1.lean:6902), `Salt.HB.fulcrumQualityMin_of_poly` (Salt/HB/CrownTheorem1.lean:6519), `Salt.HB.fulcrum_dichotomy_poly` (Salt/HB/CrownTheorem1.lean:6463) +1 |
-| `Salt.MR.WindowSmooth` | Salt/MR/MobiusChiRamare.lean:180 | DISCHARGED | 3 (3/0) | 2 (2/0) | 4/0/0 | 0/0/0 | 0/1 | `Salt.MR.lamTailWeight_eq_zero_of_not_smooth` (Salt/MR/LambdaChiRamare.lean:210), `Salt.MR.ramTailWeight_eq_zero_of_not_smooth` (Salt/MR/MobiusChiRamare.lean:216) | `Salt.MR.lamTailWeight_apply_of` (Salt/MR/LambdaChiRamare.lean:189), `Salt.MR.ramTailWeight_apply_of` (Salt/MR/MobiusChiRamare.lean:210), `Salt.MR.windowSmooth_dvd_bandPow` (Salt/MR/RamareMassTail.lean:219) |
+| `Salt.MR.WindowSmooth` | Salt/MR/MobiusChiRamare.lean:180 | DISCHARGED | 3 (3/0) | 2 (2/0) | 4/0/0 | 0/0/0 | 0/1 | `Salt.MR.lamTailWeight_eq_zero_of_not_smooth` (Salt/MR/LambdaChiRamare.lean:198), `Salt.MR.ramTailWeight_eq_zero_of_not_smooth` (Salt/MR/MobiusChiRamare.lean:216) | `Salt.MR.lamTailWeight_apply_of` (Salt/MR/LambdaChiRamare.lean:177), `Salt.MR.ramTailWeight_apply_of` (Salt/MR/MobiusChiRamare.lean:210), `Salt.MR.windowSmooth_dvd_bandPow` (Salt/MR/RamareMassTail.lean:219) |
 | `Salt.Chen.IsP2` | Salt/Chen/WeightTrivia.lean:270 | OPEN | 1 (1/0) | 3 (2/1) | 0/1/6 | 1/0/0 | 0/2 | `Salt.Chen.chen_weight_le_indicator` (Salt/Chen/WeightTrivia.lean:373), `Salt.Chen.chen_weight_struct` (Salt/Chen/WeightTrivia.lean:391), `Salt.Chen.not_isP2_cardFactors_ge_three` (Salt/Chen/WeightTrivia.lean:353) | `Salt.Chen.isP2_mono` (Salt/Chen/Assembly.lean:384) |
 | `Salt.MR.MaskSmooth` | Salt/MR/MobiusChiRamareUnion.lean:116 | DISCHARGED | 2 (2/0) | 2 (2/0) | 4/0/0 | 0/0/0 | 0/1 | `Salt.MR.lamTailWeightMask_eq_zero_of_not_smooth` (Salt/MR/LambdaChiMask.lean:162), `Salt.MR.maskTailWeight_eq_zero_of_not_smooth` (Salt/MR/MobiusChiRamareUnion.lean:219) | `Salt.MR.lamTailWeightMask_apply_of` (Salt/MR/LambdaChiMask.lean:139), `Salt.MR.maskTailWeight_apply_of` (Salt/MR/MobiusChiRamareUnion.lean:213) |
 | `Salt.MR.Squarefull` | Salt/MR/HalaszSeam.lean:154 | DISCHARGED | 3 (3/0) | 1 (1/0) | 3/0/0 | 1/0/0 | 0/0 | `Salt.MR.sPart_eq_zero_of_not_squarefull` (Salt/MR/SPartCore.lean:170) | `Salt.MR.cubePartOf_le` (Salt/MR/SPartCore.lean:724), `Salt.MR.sqPartOf_le` (Salt/MR/SPartCore.lean:713), `Salt.MR.sqPartOf_sq_mul_cubePartOf_cube` (Salt/MR/SPartCore.lean:686) |
@@ -211,8 +211,8 @@ By kind: case split `by_cases` 81 · prop-def body 2 · theorem conclusion 1.
 | case split `by_cases` | `Salt.MR.ramTailWeight_isMultiplicative` | Salt/MR/MobiusChiRamare.lean:282 | `Salt.MR.WindowSmooth` |
 | case split `by_cases` | `Salt.MR.maskTailWeight_isMultiplicative` | Salt/MR/MobiusChiRamareUnion.lean:272 | `Salt.MR.MaskSmooth` |
 | case split `by_cases` | `Salt.MR.maskTailWeight_isMultiplicative` | Salt/MR/MobiusChiRamareUnion.lean:273 | `Salt.MR.MaskSmooth` |
-| case split `by_cases` | `Salt.MR.prod_one_sub_gJ` | Salt/MR/Sec9Glue.lean:243 | `Salt.MR.MemS` |
-| case split `by_cases` | `Salt.MR.lemma5_middle` | Salt/MR/Sec9Glue.lean:265 | `Salt.MR.MemS` |
+| case split `by_cases` | `Salt.MR.prod_one_sub_gJ` | Salt/MR/Sec9Glue.lean:234 | `Salt.MR.MemS` |
+| case split `by_cases` | `Salt.MR.lemma5_middle` | Salt/MR/Sec9Glue.lean:256 | `Salt.MR.MemS` |
 | case split `by_cases` | `Salt.MR.wt_mul` | Salt/MR/ShiuMoment.lean:181 | `Salt.MR.BlockSmooth` |
 | case split `by_cases` | `Salt.MR.thm_a2'_L` | Salt/MR/ThmA2Linear.lean:1259 | `Salt.MR.CapFreeFloor` |
 | case split `by_cases` | `Salt.MR.thm_a2'_L_gk_kwide` | Salt/MR/ThmA2Linear.lean:1917 | `Salt.MR.CapFreeFloor` |

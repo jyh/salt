@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `34016a98` · source digest `0a07379b31a11d24` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `cdeef4f0` · source digest `d0bf0c7a946b1838` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23385 · with a proof/definition body: 23385 · direct corpus references (edges): 85895 · audited results: 9148 · corpus Prop-valued names: 691.
+Declarations indexed: 23384 · with a proof/definition body: 23384 · direct corpus references (edges): 85893 · audited results: 9148 · corpus Prop-valued names: 691.
 
 ## Hypothesis status (Deliverable A)
 
@@ -130,7 +130,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | 38 | `Salt.MR.DoorRowCarried_L_gk` | 5 | 1 | — | Salt/MR/M4RowLinear.lean:4349 |
 | 39 | `Salt.MR.DoorRowEndBase` | 5 | 2 | — | Salt/MR/M4RowsChiEnd.lean:713 |
 | 40 | `Salt.MR.DoorRowEndBase_L` | 5 | 0 | — | Salt/MR/M4RowLinear.lean:310 |
-| 41 | `Salt.MR.Lemma4Comparison` | 5 | 0 | — | Salt/MR/Sec9Glue.lean:366 |
+| 41 | `Salt.MR.Lemma4Comparison` | 5 | 0 | — | Salt/MR/Sec9Glue.lean:357 |
 | 42 | `Salt.MR.M4SievedDoorSqH_L_gk` | 5 | 1 | — | Salt/MR/S16FlatTerminalLinearH.lean:419 |
 | 43 | `Salt.MR.S15CrossingBound_LH_gk` | 5 | 0 | `Salt.MR.s15_crossing_supplied_LH_gk_ceiling`, `Salt.MR.s15_crossing_supplied_LH_gk_ceiling_sharpT0` +2 | Salt/MR/S16FlatTerminalLinearLH.lean:110 |
 | 44 | `Salt.MR.S16BandLaneCBoundedLH_win` | 5 | 0 | `Salt.MR.s16_bandLaneWinLH_holds` | Salt/MR/S16UniformLH.lean:124 |
@@ -374,7 +374,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.S15Sel''_L_gk_T` | DISCHARGED | 3 | `Salt.MR.s15_sel''_L_gk_witness_flat_wide_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4261) · `Salt.MR.s15_sel''_L_gk_witness_flat_bumped_win_L` ✓audited GUARDED (Salt/MR/FlatDoorEpsRung2.lean:4288) |
 | `Salt.MR.S16BaseScaleCap96_L_gk` | DISCHARGED | 3 | `Salt.MR.s16_baseScaleCap96_L_at_klevF` ✓audited GUARDED (Salt/MR/KLever.lean:427) · `Salt.MR.s16_baseScaleCap96_L_of_xwindow` ✓audited GUARDED (Salt/MR/RegisterSupply.lean:139) · `Salt.MR.s16_baseScaleCap96_L_of_x_small` ✓audited GUARDED (Salt/MR/RegisterSupply.lean:183) · +2 |
 | `Salt.MR.Squarefull` | DISCHARGED | 3 | `Salt.MR.squarefull_one` (Salt/MR/HalaszSeam.lean:157) · `Salt.MR.squarefull_zero` (Salt/MR/HalaszSeam.lean:162) · `Salt.MR.squarefull_of_sPart_ne_zero` ✓audited GUARDED (Salt/MR/SPartCore.lean:195) |
-| `Salt.MR.WindowSmooth` | DISCHARGED | 3 | `Salt.MR.lamTailWeight_support` ✓audited GUARDED (Salt/MR/LambdaChiRamare.lean:236) · `Salt.MR.windowSmooth_one` (Salt/MR/MobiusChiRamare.lean:222) · `Salt.MR.ramTailWeight_support` ✓audited GUARDED (Salt/MR/MobiusChiRamare.lean:238) · +1 |
+| `Salt.MR.WindowSmooth` | DISCHARGED | 3 | `Salt.MR.lamTailWeight_support` ✓audited GUARDED (Salt/MR/LambdaChiRamare.lean:224) · `Salt.MR.windowSmooth_one` (Salt/MR/MobiusChiRamare.lean:222) · `Salt.MR.ramTailWeight_support` ✓audited GUARDED (Salt/MR/MobiusChiRamare.lean:238) · +1 |
 | `Salt.MR.ZetaInvShallowVk` | DISCHARGED | 3 | `Salt.MR.zetaInvShallowVk_holds` ✓audited (Salt/MR/ZetaInvShallow.lean:627) |
 | `TwinPrimeConjecture` | DISCHARGED | 3 | `Salt.HB.twinPrimeConjecture_of_frequently_pos` ✓audited GUARDED (Salt/HB/DoorBridge.lean:67) · `Salt.HB.twinPrimeConjecture_of_frequently_S1` ✓audited GUARDED (Salt/HB/DoorBridge.lean:334) |
 | `CoeffAt` | DISCHARGED | 2 | `GehAnchor.anchorCoeff` GUARDED (Salt/Maynard/GehAnchor.lean:240) · `coeffAt_muBlock` (Salt/Maynard/GehDecomp.lean:197) |
@@ -998,7 +998,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | Mertens / PNT-type | 255 | 67 | 883 | 792 | 4 | 16 | 0 | 1695 | 1638 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
 | explog/lognum numeral tactic | 53 | 0 | 669 | 766 | 1 | 5 | 0 | 1441 | 1441 |
-| Matomaki-Radziwill / Halasz (short intervals) | 9825 | 5428 | 2964 | 1301 | 168 | 189 | 0 | 4622 | 73 |
+| Matomaki-Radziwill / Halasz (short intervals) | 9824 | 5428 | 2964 | 1301 | 168 | 189 | 0 | 4622 | 73 |
 
 `audited dependents` = audited results whose strict closure contains a member of the family; `external` excludes the family's own audited members.
 
@@ -1178,7 +1178,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | family | external dependents | audited members | decls |
 |---|---|---|---|
 | certificates / explicit numerics | 0 | 32 | 50 |
-| Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9825 |
+| Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9824 |
 | entropy decrement | 650 | 534 | 1412 |
 | character sums / L-functions | 966 | 2196 | 4329 |
 | circle method / Fourier | 1171 | 83 | 184 |
