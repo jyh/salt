@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.Chen.GlueFinal
+import Salt.Chen.TwinDeficit
 
 /-!
 # GLU-2 re-run — ★ CATCH #65 ★: the H-package's `hPfull` is torn from every landed
@@ -147,18 +148,6 @@ lemma keepR_zero_modulus (n : ℕ) : keepR 0 n = 0 := by
 lemma A1primeSum_zero_modulus (x : ℕ) : A1primeSum x 0 = 0 := by
   unfold A1primeSum
   exact Finset.sum_eq_zero fun n _ => by rw [keepR_zero_modulus, mul_zero]
-
-/-- The aggregated A₂ carrier is nonnegative (termwise `Λ ≥ 0`, `keepR ≥ 0`, `ω ≥ 0`). -/
-lemma omegaPrimeSum_nonneg (x P y : ℕ) : 0 ≤ omegaPrimeSum x P y := by
-  unfold omegaPrimeSum
-  exact Finset.sum_nonneg fun n _ =>
-    mul_nonneg (mul_nonneg vonMangoldt_nonneg (keepR_nonneg P n)) (Nat.cast_nonneg _)
-
-/-- The A₃ switch carrier is nonnegative (termwise, via `tripleT_nonneg`). -/
-lemma triplePrimeSum_nonneg (x P y : ℕ) : 0 ≤ triplePrimeSum x P y := by
-  unfold triplePrimeSum
-  exact Finset.sum_nonneg fun n _ =>
-    mul_nonneg (mul_nonneg vonMangoldt_nonneg (keepR_nonneg P n)) (tripleT_nonneg y (n + 2))
 
 /-- ★ **CATCH #65 — the headline.** ★  NO instantiation of `chen_of_hypotheses`' H-package
 whose modulus `P` carries the landed A₁-suppliers' parity constraint (`hPodd`, structural
