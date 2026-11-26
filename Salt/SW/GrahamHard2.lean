@@ -609,23 +609,6 @@ theorem div_totient_mul_coprimeSeries_inv_kappa_totient (t : ℕ) (ht : 1 ≤ t)
 
 /-! ## II. THE COUNTING HALF (H5) -/
 
-/-- The telescoping step of `Σ f^{−1/2}` (the landed recipe, re-derived). -/
-private lemma rpow_step_half (t : ℝ) (ht : 0 ≤ t) :
-    (t + 1) ^ (-(1/2) : ℝ) ≤ 2 * (t + 1) ^ ((1/2) : ℝ) - 2 * t ^ ((1/2) : ℝ) := by
-  have ht1 : (0 : ℝ) < t + 1 := by linarith
-  have hinv : (t + 1) ^ (-(1/2) : ℝ) = ((t + 1) ^ ((1/2) : ℝ))⁻¹ := Real.rpow_neg ht1.le _
-  rw [hinv]
-  set a : ℝ := (t + 1) ^ ((1/2) : ℝ) with ha
-  set b : ℝ := t ^ ((1/2) : ℝ) with hb
-  have ha0 : 0 < a := Real.rpow_pos_of_pos ht1 _
-  have hb0 : (0 : ℝ) ≤ b := Real.rpow_nonneg ht _
-  have ha2 : a ^ 2 = t + 1 := by
-    rw [ha, rpow_pow_nat ht1.le, show ((1/2 : ℝ)) * ((2 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
-  have hb2 : b ^ 2 = t := by
-    rw [hb, rpow_pow_nat ht, show ((1/2 : ℝ)) * ((2 : ℕ) : ℝ) = 1 by norm_num, Real.rpow_one]
-  rw [inv_eq_one_div, div_le_iff₀ ha0]
-  linarith only [hb2, ha2, sq_nonneg (a - b)]
-
 /-- `Σ_{f ≤ N} f^{−1/2} ≤ 2·N^{1/2}` (the landed recipe, re-derived). -/
 private lemma sum_rpow_neg_half_le (N : ℕ) :
     ∑ f ∈ Finset.Icc 1 N, (f : ℝ) ^ (-(1/2) : ℝ) ≤ 2 * (N : ℝ) ^ ((1/2) : ℝ) := by
