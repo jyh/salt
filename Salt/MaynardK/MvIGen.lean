@@ -10,6 +10,7 @@ import Salt.Twelve.MomentAtom
 import Salt.Twelve.BudgetPoly
 import Salt.Maynard.KSieve
 import Salt.Twelve.DecBoxPair
+import Salt.Twelve.MvI
 
 /-!
 # C1 bridge B2 — `mv_I` at general `k` for an arbitrary budget polynomial (`mv_I_gen`)
@@ -48,12 +49,6 @@ private lemma list_sum_map_sub {γ : Type*} (l : List γ) (f g : γ → ℝ) :
   | nil => simp
   | cons a l ih => simp only [List.map_cons, List.sum_cons]; rw [← ih]; ring
 
-/-- Dividing a mapped `List`-sum distributes over the list. -/
-private lemma list_sum_map_div {γ : Type*} (l : List γ) (f : γ → ℝ) (c : ℝ) :
-    (l.map f).sum / c = (l.map (fun x => f x / c)).sum := by
-  rw [div_eq_mul_inv, ← List.sum_map_mul_right]
-  simp only [div_eq_mul_inv]
-
 /-- Swap a `Finset`-sum over a box with the `List`-sum over monomials. -/
 private lemma sum_finset_list_swap {k : ℕ} {γ : Type*} (B : Finset (Fin k → ℕ))
     (P : List γ) (f : γ → (Fin k → ℕ) → ℝ) :
@@ -64,28 +59,6 @@ private lemma sum_finset_list_swap {k : ℕ} {γ : Type*} (B : Finset (Fin k →
     simp only [List.map_cons, List.sum_cons]
     rw [Finset.sum_add_distrib, ih]
 
-/-- Pointwise-`≤` monotonicity of a mapped `List`-sum. -/
-private lemma list_sum_map_le {γ : Type*} (l : List γ) (f g : γ → ℝ)
-    (h : ∀ x ∈ l, f x ≤ g x) : (l.map f).sum ≤ (l.map g).sum := by
-  induction l with
-  | nil => simp
-  | cons a l ih =>
-    simp only [List.map_cons, List.sum_cons]
-    have hrest := ih (fun x hx => h x (List.mem_cons.mpr (Or.inr hx)))
-    have ha := h a (List.mem_cons.mpr (Or.inl rfl))
-    linarith
-
-/-- Nonnegativity of a mapped `List`-sum. -/
-private lemma list_map_sum_nonneg {γ : Type*} (l : List γ) (f : γ → ℝ)
-    (h : ∀ x ∈ l, 0 ≤ f x) : 0 ≤ (l.map f).sum := by
-  induction l with
-  | nil => simp
-  | cons a l ih =>
-    simp only [List.map_cons, List.sum_cons]
-    have hrest := ih (fun x hx => h x (List.mem_cons.mpr (Or.inr hx)))
-    have ha := h a (List.mem_cons.mpr (Or.inl rfl))
-    linarith
-
 /-- Addition of two mapped `List`-sums. -/
 private lemma list_sum_map_add {γ : Type*} (l : List γ) (f g : γ → ℝ) :
     (l.map (fun x => f x + g x)).sum = (l.map f).sum + (l.map g).sum := by
@@ -93,66 +66,10 @@ private lemma list_sum_map_add {γ : Type*} (l : List γ) (f g : γ → ℝ) :
   | nil => simp
   | cons a l ih => simp only [List.map_cons, List.sum_cons]; rw [ih]; ring
 
-/-! ## The prime tail `Σ_{p>D} 1/(p-1)² ≤ 2/D` -/
+/-! ## The prime tail `Σ_{p>D} 1/(p-1)² ≤ 2/D`
 
-/-- Telescoping tail over the integer range `(D, R)`: `Σ 1/(k-1)² ≤ 1/(D-1)`. -/
-private lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
-    ∑ k ∈ (Finset.range R).filter (fun k => D < k), 1 / ((k:ℝ) - 1)^2
-      ≤ 1 / ((D:ℝ) - 1) := by
-  have hset : (Finset.range R).filter (fun k => D < k) = Finset.Ico (D+1) R := by
-    ext k; simp only [Finset.mem_filter, Finset.mem_range, Finset.mem_Ico]; omega
-  rw [hset, Finset.sum_Ico_eq_sum_range]
-  set N := R - (D+1) with hN
-  set φ : ℕ → ℝ := fun t => 1 / ((D:ℝ) - 1 + t) with hφ
-  have hterm : ∀ t ∈ Finset.range N,
-      1 / (((D+1+t:ℕ):ℝ) - 1)^2 ≤ φ t - φ (t+1) := by
-    intro t _
-    set a : ℝ := (D:ℝ) - 1 + t with ha_def
-    have ha : (0:ℝ) < a := by
-      have h3 : (3:ℝ) ≤ (D:ℝ) := by exact_mod_cast hD
-      have ht : (0:ℝ) ≤ (t:ℝ) := by positivity
-      simp only [ha_def]; linarith
-    have ha1 : (0:ℝ) < a + 1 := by linarith
-    have hcast : (((D+1+t:ℕ):ℝ) - 1) = a + 1 := by simp only [ha_def]; push_cast; ring
-    have hφt : φ t = 1 / a := by simp only [hφ, ha_def]
-    have hφt1 : φ (t+1) = 1 / (a+1) := by
-      simp only [hφ, ha_def]
-      rw [show (D:ℝ) - 1 + (t+1:ℕ) = (D:ℝ) - 1 + t + 1 by push_cast; ring]
-    rw [hcast, hφt, hφt1]
-    have hstep1 : 1 / (a*(a+1)) = 1/a - 1/(a+1) := by field_simp; ring
-    have hle : a * (a+1) ≤ (a+1)^2 := by linarith only [ha]
-    have hstep2 : 1 / (a+1)^2 ≤ 1 / (a*(a+1)) :=
-      one_div_le_one_div_of_le (mul_pos ha ha1) hle
-    rw [← hstep1]; exact hstep2
-  calc ∑ t ∈ Finset.range N, 1 / (((D+1+t:ℕ):ℝ) - 1)^2
-      ≤ ∑ t ∈ Finset.range N, (φ t - φ (t+1)) := Finset.sum_le_sum hterm
-    _ = φ 0 - φ N := Finset.sum_range_sub' φ N
-    _ ≤ φ 0 := by
-        have h3 : (3:ℝ) ≤ (D:ℝ) := by exact_mod_cast hD
-        have hN0 : (0:ℝ) ≤ (N:ℝ) := by positivity
-        have hpos : (0:ℝ) < (D:ℝ) - 1 + (N:ℝ) := by linarith
-        have : 0 ≤ φ N := by simp only [hφ]; exact div_nonneg zero_le_one hpos.le
-        linarith
-    _ = 1 / ((D:ℝ) - 1) := by simp [hφ]
-
-/-- The prime tail bound: `Σ_{D<p<R} 1/(p-1)² ≤ 2/D`. -/
-private lemma prime_tail (D R : ℕ) (hD : 3 ≤ D) :
-    ∑ p ∈ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p), 1 / ((p:ℝ) - 1)^2
-      ≤ 2 / (D:ℝ) := by
-  have hsub : (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p)
-      ⊆ (Finset.range R).filter (fun k => D < k) := by
-    intro p hp
-    rw [Finset.mem_filter] at hp ⊢
-    exact ⟨hp.1, hp.2.2⟩
-  have h1 : ∑ p ∈ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p), 1 / ((p:ℝ) - 1)^2
-      ≤ ∑ k ∈ (Finset.range R).filter (fun k => D < k), 1 / ((k:ℝ) - 1)^2 := by
-    apply Finset.sum_le_sum_of_subset_of_nonneg hsub
-    intro k _ _; positivity
-  have h2 : (1:ℝ) / ((D:ℝ) - 1) ≤ 2 / (D:ℝ) := by
-    have h3 : (3:ℝ) ≤ (D:ℝ) := by exact_mod_cast hD
-    rw [div_le_div_iff₀ (by linarith) (by linarith)]
-    linarith only [h3]
-  linarith [int_tail D R hD, h1, h2]
+`int_tail` and `prime_tail` (with the list helpers `list_sum_map_div`, `list_sum_map_le` and
+`list_map_sum_nonneg`) are read from `Twelve.MvI`. -/
 
 /-! ## The pairwise-collision bound (Stage 2 kernel) -/
 
