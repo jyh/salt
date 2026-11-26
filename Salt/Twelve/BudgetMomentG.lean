@@ -19,8 +19,8 @@ machinery over the `g`-weight `gMult r = ∏_{p ∣ r} (p − 2)`.
 The core identity (for squarefree `r` with all prime factors `> D ≥ 3`) is the
 Möbius-style expansion
 `1/g(r) = (1/φ(r)) · ∑_{u ∣ r} h(u)`, `h(u) = ∏_{p ∣ u} 1/(p−2)`,
-mirroring `Salt.Maynard.EulerTailL`'s `inv_gMult_expand` (whose lemmas are
-`private`, so the divisor-sum chain is re-derived here).
+which is `inv_gMult_expand` below (public; `Salt.Maynard.EulerTailL` reads it from
+here).
 
 * `marked_sqf_g` — the `g`-weighted marked-sqf sum: substitute the identity,
   factor `r = s·b` (so `g(r) = g(s)·g(b)`), bound `(log r)^a ≤ (log z)^a`, then
