@@ -37,28 +37,8 @@ variable [Salt.Maynard.TupleChoice]
 
 open Salt.Maynard
 
-/-! ## Local helpers, re-derived from `Salt.Twelve.W3Prep` (there: `private`) -/
-
-/-- A divisor `s` of a square-free `r` (`hrsf`, `hsr`) splits it as `r = s·(r/s)` with the two
-factors coprime (`Nat.squarefree_mul_iff`). -/
-private lemma reindex_coprime {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) :
-    r = s * (r / s) ∧ Nat.Coprime s (r / s) := by
-  have hrs : r = s * (r / s) := by
-    rw [mul_comm]; exact (Nat.div_mul_cancel hsr).symm
-  have hsf : Squarefree (s * (r / s)) := hrs ▸ hrsf
-  exact ⟨hrs, (Nat.squarefree_mul_iff.mp hsf).1⟩
-
-/-- `φ(r) = φ(s)·φ(r/s)` for a divisor `s` of a square-free `r` (`hrsf`, `hsr`):
-`Nat.totient_mul` on the coprime factorisation `reindex_coprime`. -/
-private lemma totient_reindex {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) :
-    (Nat.totient r : ℝ) = (Nat.totient s : ℝ) * (Nat.totient (r / s) : ℝ) := by
-  obtain ⟨hrs, hcop⟩ := reindex_coprime hrsf hsr
-  have heq : Nat.totient r = Nat.totient s * Nat.totient (r / s) := by
-    conv_lhs => rw [hrs]
-    exact Nat.totient_mul hcop
-  exact_mod_cast heq
-
-/-! ## Local helper (`inv_gMult_expand` is imported: public in `Salt.Twelve.BudgetMomentG`) -/
+/-! ## Local helper (`reindex_coprime` and `totient_reindex` are public in `Salt.Twelve.W3Prep`,
+`inv_gMult_expand` in `Salt.Twelve.BudgetMomentG`) -/
 
 /-- `phiAtomSum` is nonnegative (a sum of nonnegative terms). -/
 private lemma phiAtomSum_nonneg (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
