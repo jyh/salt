@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `145fe661` · source digest `fa78ea181f698ddc` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `85fe0bc8` · source digest `579f0feec9f792b5` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -2736,8 +2736,8 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.MR.KExpr_le` | Salt/MR/ConstantsExposed.lean:363 | characters |
 | `Salt.MR.delta0_ge` | Salt/MR/ConstantsExposed.lean:400 | characters |
 | `Salt.MR.b_floor_cert` | Salt/MR/ConstantsExposed.lean:417 | characters |
-| `Salt.MR.ramare_weight_sum` | Salt/MR/Decomp.lean:133 | characters |
-| `Salt.MR.ramare_decomp` | Salt/MR/Decomp.lean:204 | characters |
+| `Salt.MR.ramare_weight_sum` | Salt/MR/Decomp.lean:122 | characters |
+| `Salt.MR.ramare_decomp` | Salt/MR/Decomp.lean:193 | characters |
 | `Salt.MR.pretDistSq_principal_eval` | Salt/MR/Dist.lean:95 | characters |
 | `Salt.MR.prime_power_tail_le` | Salt/MR/Dist.lean:129 | characters |
 | `Salt.MR.dist_one_floor_pow` | Salt/MR/DistHalasz.lean:177 | characters |
@@ -4869,13 +4869,13 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.MR.joint_supF_pinC` | Salt/MR/RHSGradeC.lean:111 | characters |
 | `Salt.MR.ramP2coeffEndMR_chiBar` | Salt/MR/RamErrWS.lean:116 | characters |
 | `Salt.MR.ramRrange_subset_Icc_sharp` | Salt/MR/RamRAdapter.lean:128 | characters |
-| `Salt.MR.norm_ramRcoeff_le_one` | Salt/MR/RamRAdapter.lean:139 | characters |
-| `Salt.MR.norm_ramRcoeff_cterm_le` | Salt/MR/RamRAdapter.lean:152 | characters |
-| `Salt.MR.ramR_split_top` | Salt/MR/RamRAdapter.lean:169 | characters |
-| `Salt.MR.ramRtop_card_le_two` | Salt/MR/RamRAdapter.lean:206 | characters |
-| `Salt.MR.norm_ramRtop_le` | Salt/MR/RamRAdapter.lean:224 | characters |
-| `Salt.MR.ramR_abel_sup` | Salt/MR/RamRAdapter.lean:272 | characters |
-| `Salt.MR.ramR_abel_window_floor` | Salt/MR/RamRAdapter.lean:309 | characters |
+| `Salt.MR.norm_ramRcoeff_le_one` | Salt/MR/RamRAdapter.lean:150 | characters |
+| `Salt.MR.norm_ramRcoeff_cterm_le` | Salt/MR/RamRAdapter.lean:163 | characters |
+| `Salt.MR.ramR_split_top` | Salt/MR/RamRAdapter.lean:180 | characters |
+| `Salt.MR.ramRtop_card_le_two` | Salt/MR/RamRAdapter.lean:217 | characters |
+| `Salt.MR.norm_ramRtop_le` | Salt/MR/RamRAdapter.lean:235 | characters |
+| `Salt.MR.ramR_abel_sup` | Salt/MR/RamRAdapter.lean:283 | characters |
+| `Salt.MR.ramR_abel_window_floor` | Salt/MR/RamRAdapter.lean:320 | characters |
 | `Salt.MR.inv_blockOmega_succ_eq_integral` | Salt/MR/RamWeight.lean:72 | characters |
 | `Salt.MR.blockOmega_pow_mul_coprime` | Salt/MR/RamWeight.lean:95 | characters |
 | `Salt.MR.gxDatum_norm_le_one` | Salt/MR/RamWeight.lean:108 | characters |
@@ -5440,8 +5440,8 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.MR.mertensM_ge_neg_seventeen` | Salt/MR/SmallStones.lean:93 | characters |
 | `Salt.MR.sixteenth_loglog_le_SPartial_div_eight` | Salt/MR/SmallStones.lean:154 | characters |
 | `Salt.MR.hMball_of_A4_cap` | Salt/MR/SmallStones.lean:182 | characters |
-| `Salt.MR.ramP2mass_le` | Salt/MR/SmallStones.lean:408 | characters |
-| `Salt.MR.lemma12_meansq_mr_final` | Salt/MR/SmallStones.lean:480 | characters |
+| `Salt.MR.ramP2mass_le` | Salt/MR/SmallStones.lean:421 | characters |
+| `Salt.MR.lemma12_meansq_mr_final` | Salt/MR/SmallStones.lean:493 | characters |
 | `Salt.MR.zHead_A_pays` | Salt/MR/StrideDoorAllGrades.lean:386 | characters |
 | `Salt.MR.zCount_form` | Salt/MR/StrideDoorAllGrades.lean:396 | characters |
 | `Salt.MR.zBuilder_absorb_L` | Salt/MR/StrideDoorAllGrades.lean:411 | characters |
@@ -6069,11 +6069,11 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.Mertens.mertensB_le_two` | Salt/Mertens/PrimePower.lean:239 | sieves |
 | `Salt.Mertens.mertens_second_sharp` | Salt/Mertens/Second.lean:216 | sieves |
 | `Salt.Mertens.mertens_M_unique` | Salt/Mertens/Third.lean:83 | sieves |
-| `Salt.Mertens.abel_primeZeta` | Salt/Mertens/Third.lean:418 | sieves |
-| `Salt.Mertens.mertensM_eq_sub` | Salt/Mertens/Third.lean:659 | sieves |
-| `Salt.Mertens.mertens_second_sharp'` | Salt/Mertens/Third.lean:685 | sieves |
-| `Salt.Mertens.mertens_third_log` | Salt/Mertens/Third.lean:702 | sieves |
-| `Salt.Mertens.mertens_third` | Salt/Mertens/Third.lean:749 | sieves |
+| `Salt.Mertens.abel_primeZeta` | Salt/Mertens/Third.lean:402 | sieves |
+| `Salt.Mertens.mertensM_eq_sub` | Salt/Mertens/Third.lean:643 | sieves |
+| `Salt.Mertens.mertens_second_sharp'` | Salt/Mertens/Third.lean:669 | sieves |
+| `Salt.Mertens.mertens_third_log` | Salt/Mertens/Third.lean:686 | sieves |
+| `Salt.Mertens.mertens_third` | Salt/Mertens/Third.lean:733 | sieves |
 | `Salt.Mertens.abs_prodFactor_sub_twinC2_le` | Salt/Mertens/TwinDensity.lean:203 | sieves |
 | `Salt.Mertens.mertens_twin_density` | Salt/Mertens/TwinDensity.lean:292 | sieves |
 | `Salt.Mertens.mertens_twin_density_singularSeries` | Salt/Mertens/TwinDensity.lean:391 | sieves |
@@ -6414,25 +6414,25 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.SW.kappa_mul_of_coprime` | Salt/SW/GrahamHard2.lean:444 | sieves |
 | `Salt.SW.summable_moebius_sq_div_kappa_totient` | Salt/SW/GrahamHard2.lean:494 | sieves, characters |
 | `Salt.SW.div_totient_mul_coprimeSeries_inv_kappa_totient` | Salt/SW/GrahamHard2.lean:532 | sieves, characters |
-| `Salt.SW.sum_moebius_sq_dvd_eq` | Salt/SW/GrahamHard2.lean:694 | sieves, characters |
-| `Salt.SW.abs_card_coprime_sub_le` | Salt/SW/GrahamHard2.lean:804 | sieves |
-| `Salt.SW.sqf_coprime_count_eq` | Salt/SW/GrahamHard2.lean:959 | sieves |
-| `Salt.SW.sqf_coprime_sum_log_mul_log_eq` | Salt/SW/GrahamHard2.lean:1466 | sieves |
-| `Salt.SW.log_rpow_le_rpow_quarter` | Salt/SW/GrahamHard2.lean:1956 | sieves |
-| `Salt.SW.sum_moebius_div_mul_harmonic_eq` | Salt/SW/GrahamHard2.lean:1981 | sieves, characters |
-| `Salt.SW.abs_sum_moebius_mul_log_floor_ratio_le` | Salt/SW/GrahamHard2.lean:2252 | sieves |
-| `Salt.SW.abs_sum_moebius_div_mul_log_div_sub_one_le` | Salt/SW/GrahamHard2.lean:2793 | sieves |
-| `Salt.SW.abs_sum_moebius_mul_log_div_add_one_le` | Salt/SW/GrahamHard2.lean:3105 | sieves |
-| `Salt.SW.sum_coprime_moebius_eq_sum_smooth` | Salt/SW/GrahamHard2.lean:3333 | sieves, characters |
-| `Salt.SW.sum_smooth_inv_le` | Salt/SW/GrahamHard2.lean:3521 | sieves |
-| `Salt.SW.div_totient_sub_sum_smooth_inv_le` | Salt/SW/GrahamHard2.lean:4121 | sieves |
-| `Salt.SW.abs_coprime_sum_moebius_div_le` | Salt/SW/GrahamHard2.lean:4291 | sieves |
-| `Salt.SW.coprime_sum_moebius_div_log_eq` | Salt/SW/GrahamHard2.lean:4729 | sieves |
-| `Salt.SW.sigmaQ_mul_le` | Salt/SW/GrahamHard2.lean:5222 | sieves |
-| `Salt.SW.coprime_sum_moebius_div_kappa_le` | Salt/SW/GrahamHard2.lean:5372 | sieves |
-| `Salt.SW.one_le_c0` | Salt/SW/GrahamHard2.lean:5808 | sieves |
-| `Salt.SW.coprime_sum_moebius_div_kappa_log_eq` | Salt/SW/GrahamHard2.lean:5963 | sieves |
-| `Salt.SW.coprime_sum_moebius_div_kappa_log_exists` | Salt/SW/GrahamHard2.lean:6497 | sieves |
+| `Salt.SW.sum_moebius_sq_dvd_eq` | Salt/SW/GrahamHard2.lean:677 | sieves, characters |
+| `Salt.SW.abs_card_coprime_sub_le` | Salt/SW/GrahamHard2.lean:787 | sieves |
+| `Salt.SW.sqf_coprime_count_eq` | Salt/SW/GrahamHard2.lean:942 | sieves |
+| `Salt.SW.sqf_coprime_sum_log_mul_log_eq` | Salt/SW/GrahamHard2.lean:1449 | sieves |
+| `Salt.SW.log_rpow_le_rpow_quarter` | Salt/SW/GrahamHard2.lean:1939 | sieves |
+| `Salt.SW.sum_moebius_div_mul_harmonic_eq` | Salt/SW/GrahamHard2.lean:1964 | sieves, characters |
+| `Salt.SW.abs_sum_moebius_mul_log_floor_ratio_le` | Salt/SW/GrahamHard2.lean:2235 | sieves |
+| `Salt.SW.abs_sum_moebius_div_mul_log_div_sub_one_le` | Salt/SW/GrahamHard2.lean:2776 | sieves |
+| `Salt.SW.abs_sum_moebius_mul_log_div_add_one_le` | Salt/SW/GrahamHard2.lean:3088 | sieves |
+| `Salt.SW.sum_coprime_moebius_eq_sum_smooth` | Salt/SW/GrahamHard2.lean:3316 | sieves, characters |
+| `Salt.SW.sum_smooth_inv_le` | Salt/SW/GrahamHard2.lean:3504 | sieves |
+| `Salt.SW.div_totient_sub_sum_smooth_inv_le` | Salt/SW/GrahamHard2.lean:4104 | sieves |
+| `Salt.SW.abs_coprime_sum_moebius_div_le` | Salt/SW/GrahamHard2.lean:4274 | sieves |
+| `Salt.SW.coprime_sum_moebius_div_log_eq` | Salt/SW/GrahamHard2.lean:4712 | sieves |
+| `Salt.SW.sigmaQ_mul_le` | Salt/SW/GrahamHard2.lean:5205 | sieves |
+| `Salt.SW.coprime_sum_moebius_div_kappa_le` | Salt/SW/GrahamHard2.lean:5355 | sieves |
+| `Salt.SW.one_le_c0` | Salt/SW/GrahamHard2.lean:5791 | sieves |
+| `Salt.SW.coprime_sum_moebius_div_kappa_log_eq` | Salt/SW/GrahamHard2.lean:5946 | sieves |
+| `Salt.SW.coprime_sum_moebius_div_kappa_log_exists` | Salt/SW/GrahamHard2.lean:6480 | sieves |
 | `Salt.SW.sum_filter_side_eq_sqfLogPair_sub` | Salt/SW/GrahamHard3.lean:141 | sieves, characters |
 | `Salt.SW.sum_tailT_sq_eq_box` | Salt/SW/GrahamHard3.lean:323 | sieves, characters |
 | `Salt.SW.abs_sqfLogPair_sub_le` | Salt/SW/GrahamHard3.lean:425 | sieves |
