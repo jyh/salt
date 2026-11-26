@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `951dd04c` · source digest `f9b2754c3737adc3` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `6a7029d6` · source digest `30701519223e6289` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -802,8 +802,8 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.Chen.errorBundle_le` | Salt/Chen/GlueNormalized.lean:210 | sieves |
 | `Salt.Chen.normalized_package` | Salt/Chen/GlueNormalized.lean:232 | sieves |
 | `Salt.Chen.h4_cond_of_base` | Salt/Chen/H4Cond.lean:55 | sieves |
-| `Salt.Chen.catch65_slot_torn` | Salt/Chen/Headline.lean:128 | sieves |
-| `Salt.Chen.catch65_no_H_at_odd_P` | Salt/Chen/Headline.lean:172 | sieves |
+| `Salt.Chen.catch65_slot_torn` | Salt/Chen/Headline.lean:129 | sieves |
+| `Salt.Chen.catch65_no_H_at_odd_P` | Salt/Chen/Headline.lean:161 | sieves |
 | `Salt.Chen.band_habs_row` | Salt/Chen/Headline3.lean:48 | sieves |
 | `Salt.Chen.middle_k_M_le_two_y` | Salt/Chen/Headline3.lean:169 | sieves |
 | `Salt.Chen.chen_headline_of_ops` | Salt/Chen/Headline4.lean:84 | sieves |
@@ -7036,10 +7036,10 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.Vk.zeta_growth_pow` | Salt/Vk/GrowthPow.lean:358 | zeros, exponential sums |
 | `Salt.Vk.zeta_zero_free_region_pow` | Salt/Vk/GrowthPow.lean:424 | zeros, exponential sums |
 | `Salt.Vk.entire_norm_logDeriv_sub_sum_scaled` | Salt/Vk/Landau.lean:35 | zeros, exponential sums |
-| `Salt.Vk.littlewood_uniform_growth` | Salt/Vk/Littlewood.lean:36 | zeros, exponential sums |
-| `Salt.Vk.zeta_zero_free_littlewood_core` | Salt/Vk/Littlewood.lean:89 | zeros, exponential sums |
-| `Salt.Vk.littlewood_bracket` | Salt/Vk/Littlewood.lean:260 | zeros, exponential sums |
-| `Salt.Vk.zeta_zero_free_region_littlewood` | Salt/Vk/Littlewood.lean:395 | zeros, exponential sums |
+| `Salt.Vk.littlewood_uniform_growth` | Salt/Vk/Littlewood.lean:52 | zeros, exponential sums |
+| `Salt.Vk.zeta_zero_free_littlewood_core` | Salt/Vk/Littlewood.lean:105 | zeros, exponential sums |
+| `Salt.Vk.littlewood_bracket` | Salt/Vk/Littlewood.lean:276 | zeros, exponential sums |
+| `Salt.Vk.zeta_zero_free_region_littlewood` | Salt/Vk/Littlewood.lean:411 | zeros, exponential sums |
 | `Salt.Vk.vk_ladder_prefix` | Salt/Vk/Mid.lean:106 | zeros, exponential sums |
 | `Salt.Vk.vk_window_prefix` | Salt/Vk/Mid.lean:232 | zeros, exponential sums |
 | `Salt.Vk.vk_window_scale_prefix` | Salt/Vk/Mid.lean:284 | zeros, exponential sums |
