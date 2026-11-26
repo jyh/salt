@@ -227,14 +227,6 @@ lemma apSieve_errSum_le (hq : 1 ≤ q) (ha : a < q) (hPq : Nat.Coprime P q)
 
 /-! ## The concrete sifting modulus `roughP q t = ∏_{p ≤ t, p ∤ q} p` -/
 
-/-- A finite product of distinct primes is squarefree (copied utility). -/
-lemma prod_primes_squarefree {s : Finset ℕ} (hs : ∀ p ∈ s, p.Prime) :
-    Squarefree (∏ p ∈ s, p) :=
-  Finset.squarefree_prod_of_pairwise_isCoprime
-    (fun p hp q hq hpq => Nat.coprime_iff_isRelPrime.mp
-      ((Nat.coprime_primes (hs p hp) (hs q hq)).mpr hpq))
-    (fun p hp => (hs p hp).squarefree)
-
 /-- The set of primes `≤ t` not dividing `q`. -/
 def roughPrimes (q t : ℕ) : Finset ℕ :=
   (Finset.range (t + 1)).filter (fun p => p.Prime ∧ ¬ p ∣ q)
