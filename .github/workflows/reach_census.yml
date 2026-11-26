@@ -12,9 +12,12 @@ name: Reach census
 # Red on an owed row (parse rc 1) or on a run that is not clean (rc 2). It is not a required
 # check and blocks no merge. Not on workflow_run: one walk a night, not one per merge.
 # The build cache is RESTORED from main's Lean job and never saved here.
-# TIMEOUT: 150 min on main's runs, 300 on a pull request. A pull request that edits low modules misses
-# most of main's prefix cache and rebuilds the corpus inside this job (measured 10-27: #544's imports
-# took 146 min and the 150-min cap cancelled the walk). A cancelled run reaches no verdict; the
+# TIMEOUT: 300 min on every run. A pull request that edits low modules misses most of main's
+# prefix cache and rebuilds the corpus inside this job (measured 10-27: #544's imports took 146 min
+# and the then 150-min cap cancelled the walk). Main's scheduled run pays the same after a
+# root-class merge lands before main's cache is saved: run 45806900038 (2026-11-26, e67166fb) spent
+# 138.5 min building the scratch's imports and was cancelled at 150 min in its clean walk, so the
+# cap on main's runs, 150 until then, is now 300 as well. A cancelled run reaches no verdict; the
 # "No verdict" step below writes that to the summary, so a cancel never reads as a clean census.
 # ROOT TRAINS (census owner, 2026-11-11): a PR census restores the NEWEST SAVED main cache, and in a
 # train of root PRs that cache lags the PR's base by one or more merges, so the import build pays every
@@ -74,7 +77,7 @@ permissions:
 jobs:
   census:
     runs-on: ubuntu-latest
-    timeout-minutes: ${{ github.event_name == 'pull_request' && 300 || 150 }}
+    timeout-minutes: 300
     env:
       PLANT: Salt.HB.heathBrownDichotomy_of_N7
     steps:
