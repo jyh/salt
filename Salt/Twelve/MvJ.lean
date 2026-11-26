@@ -51,7 +51,7 @@ noncomputable def yF (R W' : ℕ) (F : Poly) (s : Fin 5 → ℕ) : ℝ :=
 /-! ## List-sum plumbing -/
 
 /-- Swap a `Finset` sum with an inner `List` sum. -/
-private lemma sum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
+lemma jsum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
     (f : ι → γ → ℝ) :
     ∑ u ∈ S, (L.map (fun x => f u x)).sum = (L.map (fun x => ∑ u ∈ S, f u x)).sum := by
   induction L with
@@ -61,7 +61,7 @@ private lemma sum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
       rw [Finset.sum_add_distrib, ih]
 
 /-- Triangle inequality for a `List.sum` of reals. -/
-private lemma list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
+lemma jlist_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
     |(L.map f).sum| ≤ (L.map (fun a => |f a|)).sum := by
   induction L with
   | nil => simp
@@ -483,7 +483,7 @@ private lemma list_sum_div {γ : Type*} (L : List γ) (g : γ → ℝ) (c : ℝ)
   simp only [div_eq_mul_inv]
 
 /-- Subtractivity of `List.sum` over a pointwise difference. -/
-private lemma list_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
+lemma jlist_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
     (L.map f).sum - (L.map g).sum = (L.map (fun a => f a - g a)).sum := by
   induction L with
   | nil => simp
@@ -588,7 +588,7 @@ theorem inner_contract (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
       · rfl
       · simp
     rw [e1, Finset.sum_congr rfl (fun u _ => by rw [eval_ofPoly, list_sum_div]),
-      sum_finset_list_sum]
+      jsum_finset_list_sum]
     apply congrArg List.sum
     apply List.map_congr_left
     intro a _
@@ -688,8 +688,8 @@ theorem inner_contract (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
   have hqX : (W' : ℝ) / (Nat.totient W' : ℝ)
       * ((Nat.totient W' : ℝ) / W' * Real.log R) = Real.log R := by
     field_simp
-  rw [hFull, hTarget, list_sum_map_sub]
-  refine le_trans (list_abs_sum_le F _) ?_
+  rw [hFull, hTarget, jlist_sum_map_sub]
+  refine le_trans (jlist_abs_sum_le F _) ?_
   refine le_trans (list_sum_le_sum F _ _ hpera) ?_
   rw [hbndsum]
   -- final numeric inequality
@@ -1237,41 +1237,11 @@ private lemma box4_g_moment (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
   simpa [hMSKdef, hLdef, hXdef, hκdef] using hMSKgoal
 
 -- reuse MvJ's existing private list helpers by re-declaring the ones I need here
-/-- `|Σ_{a ∈ L} f a| ≤ Σ |f a|` for a mapped `List` sum (induction on `L`, `abs_add_le`); the
-`mv_J` section's re-declaration of the file's `list_abs_sum_le`. -/
-lemma jlist_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
-    |(L.map f).sum| ≤ (L.map (fun a => |f a|)).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih =>
-      simp only [List.map_cons, List.sum_cons]
-      calc |f a + (L.map f).sum| ≤ |f a| + |(L.map f).sum| := abs_add_le _ _
-        _ ≤ |f a| + (L.map (fun a => |f a|)).sum := by linarith [ih]
-
-/-- Swap a `Finset` sum over `S` with an inner `List` sum over `L` (induction on `L`);
-re-declares `sum_finset_list_sum`. -/
-lemma jsum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
-    (f : ι → γ → ℝ) :
-    ∑ u ∈ S, (L.map (fun x => f u x)).sum = (L.map (fun x => ∑ u ∈ S, f u x)).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih =>
-      simp only [List.map_cons, List.sum_cons]
-      rw [Finset.sum_add_distrib, ih]
-
 /-- Division of a mapped `List` sum by `c` distributes termwise (`List.sum_map_mul_right`);
 re-declares `list_sum_div`. -/
 lemma jlist_sum_div {γ : Type*} (L : List γ) (g : γ → ℝ) (c : ℝ) :
     (L.map g).sum / c = (L.map (fun a => g a / c)).sum := by
   rw [div_eq_mul_inv, ← List.sum_map_mul_right]; simp only [div_eq_mul_inv]
-
-/-- A difference of two mapped `List` sums is the mapped sum of the differences (induction on
-`L`); re-declares `list_sum_map_sub`. -/
-lemma jlist_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
-    (L.map f).sum - (L.map g).sum = (L.map (fun a => f a - g a)).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih => simp only [List.map_cons, List.sum_cons]; rw [← ih]; ring
 
 -- the transport of the erase-product to a Fin 4 product
 /-- A product over `Fin 5` minus `m` is the product over `Fin 4` through `m.succAbove`
