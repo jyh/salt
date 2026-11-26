@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `d5384b66` · source digest `56b5ac1ea715689a` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `da8eb767` · source digest `f9f6bbe0108ad678` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23386 · with a proof/definition body: 23386 · direct corpus references (edges): 85895 · audited results: 9148 · corpus Prop-valued names: 691.
+Declarations indexed: 23385 · with a proof/definition body: 23385 · direct corpus references (edges): 85895 · audited results: 9148 · corpus Prop-valued names: 691.
 
 ## Hypothesis status (Deliverable A)
 
@@ -1028,9 +1028,9 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.BrunLower.sum_inv_le_of_prime_window` | 670 | Salt/BrunLower/MertensWindow.lean:608 |
 | `Salt.Chen.sum_inv_prime_window_ge` | 435 | Salt/Chen/MertensPNT.lean:159 |
 | `Salt.MR.mertens_first_upper` | 432 | Salt/MR/PrimeSigmaShift.lean:46 |
-| `Salt.Mertens.abel_primeZeta` | 327 | Salt/Mertens/Third.lean:402 |
+| `Salt.Mertens.abel_primeZeta` | 327 | Salt/Mertens/Third.lean:418 |
 | `Salt.Mertens.loglog_integral_asymp` | 327 | Salt/Mertens/GammaIntegral.lean:323 |
-| `Salt.Mertens.mertensM_eq_sub` | 326 | Salt/Mertens/Third.lean:643 |
+| `Salt.Mertens.mertensM_eq_sub` | 326 | Salt/Mertens/Third.lean:659 |
 | `Salt.Chen.twinWindow_mass_eq` | 310 | Salt/Chen/MertensPNT.lean:248 |
 | `Salt.Mertens.mertensB_nonneg` | 286 | Salt/Mertens/PrimePower.lean:155 |
 
