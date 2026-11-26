@@ -14,7 +14,7 @@ Honest-shape law: S1 is a priced lottery ticket throughout; nothing below is a t
 - Transfer lower half `S1 ≤ S2`: GROUNDED Salt/HB/Transfer.lean:197-200; hypotheses are
   `hsq : χ² = 1` only — pointwise, hence re-typable to any f with f² = 1 (the
   KC1-discharged B-class re-typing).
-- The demand: `hb_lemma2` (GROUNDED TransferFull.lean:204-214) squeezes
+- The demand: `hb_lemma2` (GROUNDED TransferFull.lean:212-222) squeezes
   `S2 − S1 ≤ C·(x/z₀) + C·(x/log x)·e^{A·z₀}·PretenseSum(χ,N) + junk`, with
   `PretenseSum(χ,N) = ∑_{p≤N, χ(p)=+1} log p / p` (GROUNDED TransferFull.lean:183-185).
   For the squeeze to beat the main term the engine needs **pret(f,N) = O(1)** (indeed

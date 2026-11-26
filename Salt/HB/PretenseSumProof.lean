@@ -590,7 +590,7 @@ theorem pretenseSum_le_quarter_rate (χ : DirichletCharacter ℂ q) {N : ℕ} {L
 
 /-! ## §6 — THE SLOT BRIDGE: `PretenseSum` out of `hb_lemma2` -/
 
-/-- **THE SLOT BRIDGE.**  `hb_lemma2` (`Salt/HB/TransferFull.lean:200`) carries the
+/-- **THE SLOT BRIDGE.**  `hb_lemma2` (`Salt/HB/TransferFull.lean:208`) carries the
 symbolic Lemma-3 slot `PretenseSum χ N` inside its (3.3)-shaped target.  Given *any*
 upper bound `P` for the slot and the (automatic) nonnegativity of its coefficient, the
 slot may be replaced by `P`:
