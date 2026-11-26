@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `ccc1afee` · source digest `a1dc34dd8bf91b67` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `cb8c0547` · source digest `7c2b9bd5a76d90e2` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23384 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -6574,11 +6574,11 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.SW.kernel_identity_2` | Salt/SW/Kernel2.lean:210 | sieves |
 | `Salt.SW.integrable_Fterm2` | Salt/SW/Kernel2.lean:244 | sieves |
 | `Salt.SW.kernel_sum_swap_2` | Salt/SW/Kernel2.lean:280 | sieves |
-| `Salt.SW.landau_neg_logDeriv_re_lower` | Salt/SW/LandauPage.lean:97 | sieves, characters |
-| `Salt.SW.analyticOrderAt_eq_of_factorization` | Salt/SW/LandauPage.lean:156 | sieves |
-| `Salt.SW.landau_one_exceptional_at` | Salt/SW/LandauPage.lean:193 | sieves, characters |
-| `Salt.SW.landau_one_exceptional` | Salt/SW/LandauPage.lean:351 | sieves, characters |
-| `Salt.SW.landau_one_exceptional_simple` | Salt/SW/LandauPage.lean:365 | sieves, characters |
+| `Salt.SW.landau_neg_logDeriv_re_lower` | Salt/SW/LandauPage.lean:98 | sieves, characters |
+| `Salt.SW.analyticOrderAt_eq_of_factorization` | Salt/SW/LandauPage.lean:157 | sieves |
+| `Salt.SW.landau_one_exceptional_at` | Salt/SW/LandauPage.lean:194 | sieves, characters |
+| `Salt.SW.landau_one_exceptional` | Salt/SW/LandauPage.lean:352 | sieves, characters |
+| `Salt.SW.landau_one_exceptional_simple` | Salt/SW/LandauPage.lean:366 | sieves, characters |
 | `Salt.SW.norm_reflectedFactor_eq_on_sphere` | Salt/SW/MaxModulus.lean:63 | sieves |
 | `Salt.SW.LFunction_norm_logDeriv_sub_sum'` | Salt/SW/MaxModulus.lean:89 | sieves, characters |
 | `Salt.SW.LSeries_moebius_eq_zeta_inv` | Salt/SW/MobiusRate.lean:82 | zeros, sieves |
@@ -6590,10 +6590,10 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.SW.abs_sum_moebius_div_mul_log_le` | Salt/SW/MoebiusLog.lean:206 | sieves |
 | `Salt.SW.abs_sum_grahamTheta_div_le_inv_log` | Salt/SW/MoebiusLog.lean:334 | sieves |
 | `Salt.SW.abs_mwWeighted_le_div_log` | Salt/SW/MoebiusRateSharp.lean:207 | sieves |
-| `Salt.SW.neg_reLogDeriv_changeLevel_le` | Salt/SW/Page.lean:80 | sieves, characters |
-| `Salt.SW.product_ne_one` | Salt/SW/Page.lean:144 | sieves, characters |
-| `Salt.SW.page_positivity` | Salt/SW/Page.lean:254 | zeros, sieves, characters |
-| `Salt.SW.page_cross_modulus` | Salt/SW/Page.lean:296 | sieves, characters |
+| `Salt.SW.neg_reLogDeriv_changeLevel_le` | Salt/SW/Page.lean:81 | sieves, characters |
+| `Salt.SW.product_ne_one` | Salt/SW/Page.lean:145 | sieves, characters |
+| `Salt.SW.page_positivity` | Salt/SW/Page.lean:247 | zeros, sieves, characters |
+| `Salt.SW.page_cross_modulus` | Salt/SW/Page.lean:289 | sieves, characters |
 | `Salt.SW.logDeriv_prod_pow` | Salt/SW/PartialFractions.lean:80 | sieves |
 | `Salt.SW.LFunction_exists_factorization` | Salt/SW/PartialFractions.lean:111 | sieves, characters |
 | `Salt.SW.LFunction_partialFraction` | Salt/SW/PartialFractions.lean:245 | sieves, characters |
@@ -6672,7 +6672,7 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.SW.selHSum_pos` | Salt/SW/SelWeight.lean:322 | sieves, characters |
 | `Salt.SW.selWeight_apply_one` | Salt/SW/SelWeight.lean:352 | sieves, characters |
 | `Salt.SW.tail_shift_to_beta0` | Salt/SW/SelWeight.lean:383 | sieves |
-| `Salt.SW.psi1_contour_shift` | Salt/SW/ShiftAssembly.lean:478 | sieves, characters |
+| `Salt.SW.psi1_contour_shift` | Salt/SW/ShiftAssembly.lean:470 | sieves, characters |
 | `Salt.SW.norm_logDeriv_eulerCorr_trivChar_le` | Salt/SW/ShiftTrivChar.lean:131 | sieves, characters |
 | `Salt.SW.norm_logDeriv_Zc_le_of_ball_dist` | Salt/SW/ShiftTrivChar.lean:186 | sieves, characters |
 | `Salt.SW.psi1_contour_shift_trivchar` | Salt/SW/ShiftTrivChar.lean:425 | zeros, sieves, characters |
