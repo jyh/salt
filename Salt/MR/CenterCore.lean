@@ -99,27 +99,11 @@ namespace Salt.MR
 
 open MeasureTheory
 
-/-! ## §0 — the twist-algebra copy (the THIRD copy)
+/-! ## §0 — the twist-algebra identity
 
-`GrandComp.dist_triv_left_eq` (:277) is `private` to its file, and so is
-`HalaszDirect.dist_triv_left_eq_local` (:142) — itself the second copy.  The identity is
-re-derived here byte-for-byte (no statement change, Iron rule 1), exactly as `SupF` re-derives
-the `HalaszHead` twist lemmas it cannot reach (`costwist_conj_local` :1111,
-`seamCoeff_trivial_dist_eq_local` :1125).  **Precedent noted: this is the third such copy.** -/
-
-/-- Local copy of `GrandComp.dist_triv_left_eq` (`private` there; and of
-`HalaszDirect.dist_triv_left_eq_local`, `private` there): the trivial-left-datum distance
-`𝔻²(1, f·costwist(−t); X)` equals `𝔻²(f, costwist t; X)`. -/
-private lemma dist_triv_left_eq_local (f : ℕ → ℂ) (t X : ℝ) :
-    pretDistSq (fun _ => 1) (fun n => f n * costwist (-t) n) X
-      = pretDistSq f (costwist t) X := by
-  unfold pretDistSq
-  refine Finset.sum_congr rfl (fun p _ => ?_)
-  have hre : ((fun _ => (1 : ℂ)) p
-        * (starRingEnd ℂ) ((fun n => f n * costwist (-t) n) p)).re
-      = (f p * (starRingEnd ℂ) (costwist t p)).re := by
-    simp only [one_mul, Complex.conj_re, costwist_conj]
-  rw [hre]
+`dist_triv_left_eq_local` (the trivial-left-datum distance identity) is imported from
+`HalaszDirect`, where it is public; it is itself a copy of `GrandComp.dist_triv_left_eq`,
+which is `private` to its file. -/
 
 /-! ## §1 (A-2) — the M-shaped pointwise decay at the centre
 
@@ -188,30 +172,7 @@ theorem window_sup_decay_center {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g 
 
 /-! ## §2 — the majorant's interval integrability
 
-`HalaszDirect.sigma_core_intervalIntegrable` (:292) is `private` to its file; the statement is
-re-derived here byte-for-byte (Iron rule 1, the private-lemma restatement law). -/
-
-/-- Local copy of `HalaszDirect.sigma_core_intervalIntegrable` (`private` there).  The σ-cutoff
-integrand `σ ↦ σ^{−2}·exp(−c(M − 2log(σL) − 48))` is interval-integrable on `[1/L, b]`
-(continuity: `σ ≥ 1/L > 0` on the range, so neither `σ^2` nor `σ·L` vanishes). -/
-private lemma sigma_core_intervalIntegrable {c L M b : ℝ} (hL : 0 < L) (hb : 1 / L ≤ b) :
-    IntervalIntegrable
-      (fun σ : ℝ => (1 / σ ^ 2) * Real.exp (-c * (M - 2 * Real.log (σ * L) - 48)))
-      volume (1 / L) b := by
-  have hLinv0 : (0 : ℝ) < 1 / L := by positivity
-  have hpos : ∀ σ ∈ Set.uIcc (1 / L) b, (0 : ℝ) < σ := by
-    intro σ hσ
-    rw [Set.uIcc_of_le hb, Set.mem_Icc] at hσ
-    exact lt_of_lt_of_le hLinv0 hσ.1
-  apply ContinuousOn.intervalIntegrable
-  refine ContinuousOn.mul ?_ ?_
-  · exact continuousOn_const.div (continuousOn_pow 2) (fun σ hσ => pow_ne_zero 2 (hpos σ hσ).ne')
-  · refine Real.continuous_exp.comp_continuousOn ?_
-    refine continuousOn_const.mul (ContinuousOn.sub (ContinuousOn.sub continuousOn_const ?_)
-      continuousOn_const)
-    exact continuousOn_const.mul (ContinuousOn.log
-      ((continuous_id.mul continuous_const).continuousOn)
-      (fun σ hσ => (mul_pos (hpos σ hσ) hL).ne'))
+`sigma_core_intervalIntegrable` is imported from `HalaszDirect`, where it is public. -/
 
 /-! ## §3 — the shared reduction (M-shaped)
 
