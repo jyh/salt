@@ -511,15 +511,6 @@ theorem nearOne_invSq_sum_le : ∃ C : ℝ, 0 < C ∧
 
 /-! ## §5 — THE NODE: HB 1983, Lemma 3 -/
 
-/-- `PretenseSum` is nonnegative (each `log p / p ≥ 0` at a prime `p ≥ 2`). -/
-lemma pretenseSum_nonneg (χ : DirichletCharacter ℂ q) (N : ℕ) : 0 ≤ PretenseSum χ N := by
-  classical
-  rw [PretenseSum]
-  refine Finset.sum_nonneg fun p hp => ?_
-  rw [Finset.mem_filter] at hp
-  have hp2 : (2 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp.2.1.two_le
-  exact div_nonneg (Real.log_nonneg (by linarith)) (by linarith)
-
 /-- **HB 1983, LEMMA 3 (statement p.198; proof pp.206-207) — the pretense-sum bound,
 truncated currency.**
 
