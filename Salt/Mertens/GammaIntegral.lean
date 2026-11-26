@@ -75,7 +75,7 @@ open Real
 
 /-- For `y ≥ log 2`, `|log y| ≤ y`.  (Fails for small `y`, but `log 2 ≈ 0.693` is safely
 above the crossover.)  Used to dominate both the `loglog·t^{-s}` and `log·e^{-εu}` integrands. -/
-private theorem abs_log_le_self {y : ℝ} (hy : Real.log 2 ≤ y) : |Real.log y| ≤ y := by
+theorem abs_log_le_self {y : ℝ} (hy : Real.log 2 ≤ y) : |Real.log y| ≤ y := by
   have h2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
   have hypos : 0 < y := lt_of_lt_of_le h2 hy
   by_cases h1 : 1 ≤ y

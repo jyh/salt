@@ -119,22 +119,6 @@ The `ζ`-side Abel integrand is `S(t)·t^{−s}`, a (step-sum)·(smooth) product
 the auxiliary `loglog·t^{−s}`, `log·t^{−s}` integrands, integrable on `Ioi 2` for `s > 1`.
 (`GammaIntegral`'s version of `loglog·t^{−s}` is `private`, so we re-derive.) -/
 
-/-- `|log y| ≤ y` for `y ≥ log 2` (the crossover is safely below `log 2`). -/
-theorem abs_log_le_self {y : ℝ} (hy : Real.log 2 ≤ y) : |Real.log y| ≤ y := by
-  have h2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
-  have hypos : 0 < y := lt_of_lt_of_le h2 hy
-  by_cases h1 : 1 ≤ y
-  · rw [abs_of_nonneg (Real.log_nonneg h1)]
-    linarith [Real.log_le_sub_one_of_pos hypos]
-  · replace h1 := not_le.mp h1
-    rw [abs_of_nonpos (Real.log_nonpos hypos.le h1.le)]
-    have hll2 : -Real.log 2 ≤ Real.log (Real.log 2) := by
-      have h12 : Real.log (2⁻¹ : ℝ) ≤ Real.log (Real.log 2) :=
-        Real.log_le_log (by norm_num) (by nlinarith [Real.log_two_gt_d9])
-      rwa [Real.log_inv] at h12
-    have hmono : Real.log (Real.log 2) ≤ Real.log y := Real.log_le_log h2 hy
-    linarith
-
 /-- `|log log t| ≤ log t` for `t ≥ 2`. -/
 theorem abs_loglog_le_log {t : ℝ} (ht : 2 ≤ t) : |Real.log (Real.log t)| ≤ Real.log t :=
   abs_log_le_self (Real.log_le_log (by norm_num) ht)
