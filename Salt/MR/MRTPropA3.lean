@@ -810,7 +810,7 @@ misses real producers, so **3 is a LOWER BOUND, not a count**, and is written he
 `Salt.MR.lemma5` already produces."*  That was a claim in prose; nothing in Lean connected the
 two.  This is the connection.
 
-`lemma5` (`Sec9Glue.lean:275`) is inclusion–exclusion:
+`lemma5` (`Sec9Glue.lean:266`) is inclusion–exclusion:
 `∑_{n ∈ N, n ∈ S} aₙ = ∑_{𝒥 ⊆ {1..J}} (−1)^{#𝒥} ∑_{n ∈ N} g_𝒥(n)·aₙ`.  At
 `N := Icc 1 ⌊X⌋₊` and `aₙ := f n · costwist (−t) n` its right-hand side **is** A.6's inner
 sum — up to the associativity of `gJ · f n · costwist`, which is the only real content of the
@@ -3109,7 +3109,7 @@ publishing the claim, by searching before composing.  The habit is worth more th
 and `‖f n‖ ≤ 1`.  A.7's summand is `gJ 𝒥 Pseq Qseq n · f n · costwist (−t₁) n`, so the match
 needs those three properties for each factor.  Censused:
 
-* `gJ` — **`gJ_mul` (`Sec9Glue.lean:183`) is COMPLETE multiplicativity** (`m,n ≠ 0`, no
+* `gJ` — **`gJ_mul` (`Sec9Glue.lean:174`) is COMPLETE multiplicativity** (`m,n ≠ 0`, no
   coprimality), and `norm_gJ_le_one` (`CofactorSupplier.lean:87`) bounds it.  Landed.
 * `f` — hypotheses of A.7 itself.
 * `costwist` — `costwist_norm` is landed, but **multiplicativity IN THE ARGUMENT and the value
