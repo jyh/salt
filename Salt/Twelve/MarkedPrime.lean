@@ -66,7 +66,7 @@ open Finset
 
 namespace Salt.Twelve
 
-/-! ## Log helpers (as in `Salt/Twelve/MomentAtom.lean`) -/
+/-! ## Log helpers (read by `W3Prep`, `RelEngines` and `MomentAtom`) -/
 
 /-- `0 ≤ log n` for every natural `n` (`log 0 = 0`; `Real.log_nonneg` for `n ≥ 1`). Public:
 `W3Prep`, `RelEngines` and `MomentAtom` read it. -/
