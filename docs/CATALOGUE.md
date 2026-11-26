@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `611ec8db` · source digest `c3e4cc7a732c06df` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `ddb13b5d` · source digest `ef80924a73186654` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -2617,12 +2617,12 @@ Declarations indexed across the tree: 23388 · corpus Prop-valued names (the hyp
 | `Salt.MR.jointIntegrableAtC_pin2_free` | Salt/MR/CaseASocket.lean:418 | characters |
 | `Salt.MR.center_halasz_supply_wideA` | Salt/MR/CaseAWide.lean:109 | characters |
 | `Salt.MR.caseASwide_nonneg` | Salt/MR/CaseAWide.lean:261 | characters |
-| `Salt.MR.window_sup_decay_center` | Salt/MR/CenterCore.lean:131 | zeros, characters |
-| `Salt.MR.halasz_direct_center` | Salt/MR/CenterCore.lean:263 | zeros, characters |
-| `Salt.MR.halasz_direct_center_gen` | Salt/MR/CenterCore.lean:332 | zeros, characters |
-| `Salt.MR.ball_center_dichotomy` | Salt/MR/CenterCore.lean:492 | characters |
-| `Salt.MR.ball_leg_empty_of_le` | Salt/MR/CenterCore.lean:508 | characters |
-| `Salt.MR.ball_leg_of_center_small` | Salt/MR/CenterCore.lean:518 | characters |
+| `Salt.MR.window_sup_decay_center` | Salt/MR/CenterCore.lean:147 | zeros, characters |
+| `Salt.MR.halasz_direct_center` | Salt/MR/CenterCore.lean:302 | zeros, characters |
+| `Salt.MR.halasz_direct_center_gen` | Salt/MR/CenterCore.lean:371 | zeros, characters |
+| `Salt.MR.ball_center_dichotomy` | Salt/MR/CenterCore.lean:531 | characters |
+| `Salt.MR.ball_leg_empty_of_le` | Salt/MR/CenterCore.lean:547 | characters |
+| `Salt.MR.ball_leg_of_center_small` | Salt/MR/CenterCore.lean:557 | characters |
 | `Salt.MR.center_halasz_supply_uniform` | Salt/MR/CenterSupply.lean:143 | characters |
 | `Salt.MR.center_halasz_supply` | Salt/MR/CenterSupply.lean:266 | characters |
 | `Salt.MR.ball_sup_supplied_uniform` | Salt/MR/CenterSupply.lean:321 | characters |
@@ -8910,7 +8910,7 @@ Declarations indexed across the tree: 23388 · corpus Prop-valued names (the hyp
 | `Salt.Twelve.gaps_le_twelve` | Salt/Twelve/GapsUncond.lean:1090 | sieves | `WindowPNT`, `EHall` |
 | `Salt.Twelve.s2_inner_yF` | Salt/Twelve/InnerS2.lean:1247 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.mv_I` | Salt/Twelve/MvI.lean:274 | sieves | `Salt.Twelve.PhiUpperAtom` |
-| `Salt.Twelve.mv_J` | Salt/Twelve/MvJ.lean:2239 | sieves | `Salt.Twelve.PhiUpperAtom` |
+| `Salt.Twelve.mv_J` | Salt/Twelve/MvJ.lean:2240 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.qdiag_bridge` | Salt/Twelve/QdiagBridge.lean:568 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.windowPNT_of_piAsymp` | Salt/Twelve/WindowPNTDischarge.lean:49 | sieves | `Salt.Twelve.PiAsymp` |
 | `Salt.Twelve.gaps_le_twelve_of_piAsymp` | Salt/Twelve/WindowPNTDischarge.lean:130 | sieves | `Salt.Twelve.PiAsymp`, `EHall` |
