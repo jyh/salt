@@ -7,6 +7,7 @@ import Salt.MR.CaseAWide
 import Salt.MR.VkMidSharp
 import Salt.MR.HybridMoments
 import Salt.MR.BigXiArc
+import Salt.MR.ConstantsExposed
 
 /-!
 # `RbdSupply` — WIRING THE LANDED CO-FACTOR SUPPLY INTO THE `Rbd` BINDER
@@ -350,11 +351,6 @@ lemma mertensCap_le_of_le_arcDen {q H : ℕ} (hH : Real.exp 1 ≤ Real.log (H : 
   have hM := mertensM_le_three
   unfold mertensCap
   linarith
-
-/-- `log 4 = 2·log 2` — used three times below. -/
-private lemma log_four_eq : Real.log 4 = 2 * Real.log 2 := by
-  rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
-  push_cast; ring
 
 /-- `log 10⁷ ≤ 20` (via `10⁷ ≤ 2²⁸`; the true value is `16.118…`). -/
 private lemma log_ten_million_le : Real.log 10000000 ≤ 20 := by
