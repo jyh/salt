@@ -43,7 +43,7 @@ open Salt.Maynard
 `r/s` (this falls straight out of squarefreeness of `r`, as in
 `Salt.Twelve.MarkedPrime.reindex_coprime`, but no primality of `s` is needed
 anywhere in that argument — it is a direct generalization). -/
-private lemma reindex_coprime {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) :
+lemma reindex_coprime {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) :
     r = s * (r / s) ∧ Nat.Coprime s (r / s) := by
   have hrs : r = s * (r / s) := by
     rw [mul_comm]; exact (Nat.div_mul_cancel hsr).symm
@@ -52,7 +52,7 @@ private lemma reindex_coprime {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) 
 
 /-- The reindexed totient identity: `φ(r) = φ(s)·φ(r/s)` in `ℝ`, for `s ∣ r`
 with `r` squarefree. -/
-private lemma totient_reindex {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) :
+lemma totient_reindex {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) :
     (Nat.totient r : ℝ) = (Nat.totient s : ℝ) * (Nat.totient (r / s) : ℝ) := by
   obtain ⟨hrs, hcop⟩ := reindex_coprime hrsf hsr
   have heq : Nat.totient r = Nat.totient s * Nat.totient (r / s) := by
