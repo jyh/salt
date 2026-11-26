@@ -489,6 +489,7 @@ private lemma list_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
   | nil => simp
   | cons a L ih => simp only [List.map_cons, List.sum_cons]; rw [← ih]; ring
 
+omit [Salt.Maynard.TupleChoice] in
 /-- Monotonicity of `List.sum` under a pointwise `≤`. -/
 lemma list_sum_le_sum {γ : Type*} (L : List γ) (f g : γ → ℝ)
     (h : ∀ a ∈ L, f a ≤ g a) : (L.map f).sum ≤ (L.map g).sum := by
