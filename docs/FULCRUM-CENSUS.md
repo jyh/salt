@@ -1,7 +1,7 @@
 # THE FULCRUM-SHAPE CENSUS — by machine (O13 item 3, first cut)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/fulcrum_census.py` · staleness gate: `python3 scripts/fulcrum_census.py --check` · self-test: `python3 scripts/fulcrum_census.py --self-test`.
-> Base: last commit touching `Salt/` = `85fe0bc8` · source digest `579f0feec9f792b5` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
+> Base: last commit touching `Salt/` = `b545fc8f` · source digest `f022a59db2832caa` (item 1's digest: sha256 over every `Salt/**/*.lean`, sorted by path). Built on `scripts/results_catalogue.py` + `scripts/methods_catalogue.py` (imported).
 
 ⚠️ **Nothing here bears on twin primes until it does.** This is a CENSUS of candidates for the fulcrum sweep (QUEUE item 15 lane (a)); the seat prices each by class (A–D) before any Lean. A shape is not a result.
 
@@ -22,7 +22,7 @@
 
 | declarations indexed | corpus Prop-valued names | consumer declarations scanned | audited results | FULCRUM-SHAPED | HALF-SHAPED SOCKETS | HALF-SHAPED FRAMES | neither | disjunction/case-split sites |
 |---|---|---|---|---|---|---|---|---|
-| 23385 | 691 | 22683 | 9148 | 13 | 293 | 40 | 345 | 84 |
+| 23384 | 691 | 22682 | 9148 | 13 | 293 | 40 | 345 | 84 |
 
 Per-polarity totals over the 691 Props: with F-consumers 538 · with ¬F-consumers 21 · with F-producers (any kind) 451 · with ¬F-producers (any kind) 59.
 
@@ -72,7 +72,7 @@ Counts: F-cons = F-consumers (direct/engine) · ¬F-cons = ¬F-consumers (direct
 | 20 | `Salt.Entropy.Chowla.MRTUniformityXiL2AffW` | Salt/Entropy/Chowla/StridePair.lean:359 | OPEN | 15 (14/2) | 17 | `Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride` (Salt/MR/StridePairReceipt.lean:2088), `Salt.MR.mrtUniformityXiL2AffW_holds_flat_stride_g` (Salt/MR/StridePairReceiptG.lean:1075) +4 | 5 | 4 | 0 | `Salt.Entropy.Chowla.gradedAffHeadAt_g12b_of_at_regime` (Salt/Entropy/Chowla/StrideShellBand.lean:369), `Salt.Entropy.Chowla.log_chowla_aff_of_door` (Salt/Entropy/Chowla/StrideShell.lean:655), `Salt.Entropy.Chowla.log_chowla_aff_of_door_K` (Salt/Entropy/Chowla/StrideShell.lean:407) +12 |
 | 21 | `HasLevel` | Salt/Maynard/Level.lean:28 | OPEN | 14 (14/0) | 1 | - | 7 | 0 | 0 | `HasLevel_antitone` (Salt/Maynard/Level.lean:44), `Salt.Maynard.S2m_ge_compatMain_lod_uniform` (Salt/Maynard/LevelConsume.lean:331), `Salt.Maynard.analyticFrontier_lod` (Salt/Maynard/LevelConsume.lean:493) +11 |
 | 22 | `Salt.MR.DoorRowZeroBase_L` | Salt/MR/M4RowLinear.lean:357 | OPEN | 14 (14/0) | 7 | - | 0 | 0 | 0 | `Salt.MR.m4_chiSummedFreeRow_of_doorArith_zero_L` (Salt/MR/M4ArithZeroLinear.lean:439), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_L` (Salt/MR/M4RowsChiPrimeLinear.lean:361), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_gated_L` (Salt/MR/M4ClosureRepairLinear.lean:335) +11 |
-| 23 | `Salt.HB.IsTsw` | Salt/HB/L2cELTsw.lean:82 | OPEN | 13 (13/0) | 0 | - | 0 | 0 | 0 | `Salt.HB.tsw_P_gt` (Salt/HB/L2cELTsw.lean:379), `Salt.HB.tsw_P_rough` (Salt/HB/L2cELTsw.lean:464), `Salt.HB.tsw_U_ge` (Salt/HB/L2cELTsw.lean:406) +10 |
+| 23 | `Salt.HB.IsTsw` | Salt/HB/L2cELTsw.lean:82 | OPEN | 13 (13/0) | 0 | - | 0 | 0 | 0 | `Salt.HB.tsw_P_gt` (Salt/HB/L2cELTsw.lean:372), `Salt.HB.tsw_P_rough` (Salt/HB/L2cELTsw.lean:457), `Salt.HB.tsw_U_ge` (Salt/HB/L2cELTsw.lean:399) +10 |
 | 24 | `Salt.MR.CaseASocket2` | Salt/MR/USetGradedPrice.lean:122 | OPEN | 12 (12/0) | 11 | - | 1 | 0 | 0 | `Salt.MR.cofactorSocket_of_ellLin` (Salt/MR/CapFreeArm3.lean:311), `Salt.MR.cofactor_Rbd34_local_nocap` (Salt/MR/CapFreeArm.lean:281), `Salt.MR.cofactor_Rbd34_local_nocap3` (Salt/MR/CapFreeArm3.lean:175) +9 |
 | 25 | `Salt.MR.DoorRowEndBase` | Salt/MR/M4RowsChiEnd.lean:713 | OPEN | 12 (12/0) | 5 | - | 2 | 0 | 0 | `Salt.MR.doorRowZeroBase_of_doorRowEndBase` (Salt/MR/M4RowsChiZero.lean:717), `Salt.MR.m4_chiSummedFreeRow_of_doorArith_end` (Salt/MR/M4SocketDischarge.lean:196), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end` (Salt/MR/M4RowsChiEnd.lean:815) +9 |
 | 26 | `Salt.MR.DoorRowEndBase_gk` | Salt/MR/M4RowsChiEnd.lean:1010 | OPEN | 12 (12/0) | 0 | - | 2 | 0 | 0 | `Salt.MR.doorRowZeroBase_of_doorRowEndBase_gk` (Salt/MR/M4RowsChiZero.lean:923), `Salt.MR.m4_chiSummedFreeRow_of_doorArith_end_gk` (Salt/MR/M4SocketDischarge.lean:643), `Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end_gk` (Salt/MR/M4RowsChiEnd.lean:1095) +9 |
