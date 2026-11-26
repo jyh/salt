@@ -111,12 +111,12 @@ open Complex MeasureTheory Set
 
 /-! ## §0 — the local re-derivations
 
-Three landed pages are `private` to their own files (`GrandComp` / `HalaszDirect`); they are
-re-derived here byte-for-byte, exactly as `HalaszDirect` re-derives `GrandComp`'s twist
-lemma.  No statement is changed. -/
+Three landed pages were `private` to their own files (`GrandComp` / `HalaszDirect`) when
+they were re-derived here byte-for-byte; `HalaszDirect`'s two are public now, and these
+renamed copies are not yet folded.  No statement is changed. -/
 
 /-- Local copy of `GrandComp.dist_triv_left_eq` / `HalaszDirect.dist_triv_left_eq_local`
-(`private` in both): the trivial-left-datum distance `𝔻²(1, f·costwist(−t); X)` equals
+(`private` / public): the trivial-left-datum distance `𝔻²(1, f·costwist(−t); X)` equals
 `𝔻²(f, costwist t; X)`. -/
 private lemma dist_triv_left_eq_pret (f : ℕ → ℂ) (t X : ℝ) :
     pretDistSq (fun _ => 1) (fun n => f n * costwist (-t) n) X
@@ -143,7 +143,7 @@ private lemma ellLin_idem (g : ℕ → ℂ) : ellLin (ellLin g) = ellLin g := by
       (fun p hp => ellLin_apply_prime g (Nat.prime_of_mem_primeFactors hp))
   · rfl
 
-/-- Local copy of `HalaszDirect.sigma_core_intervalIntegrable` (`private` there): the σ-cutoff
+/-- Local copy of `HalaszDirect.sigma_core_intervalIntegrable` (public there): the σ-cutoff
 integrand `σ ↦ σ^{−2}·exp(−c(M − 2log(σL) − 48))` is interval-integrable on `[1/L, b]`. -/
 private lemma sigma_core_integrable_pret {c L M b : ℝ} (hL : 0 < L) (hb : 1 / L ≤ b) :
     IntervalIntegrable
