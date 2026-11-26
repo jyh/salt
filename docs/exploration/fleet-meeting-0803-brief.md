@@ -59,7 +59,7 @@ The Witness open (Toll chapter drafted); the dossier composed
   verbatim, both Halász rows incl. χ-twisted, pretentious floor at
   exactly 1/4, MULT-SHIU, Plancherel, the arc supply
   bigXiArcTight_twelve). The 7/24 D-risk (the λχ̄ arm) is DEAD
-  (RbdSupply.lean:527). MISSING: NOTHING.
+  (RbdSupply.lean:523). MISSING: NOTHING.
 - The residue = the register: W1 the cofactor supplier instantiated
   at the L anchors (supplier m4_supplier_all_chi LANDED and
   anchor-general; witnesses exist; class B); W2 the base-scale cap

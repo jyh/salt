@@ -24,7 +24,7 @@ S1's "2.2·10³¹-genre, height 1" is exact. λ₋ is a **logarithm** of the dem
 |---|---|---|
 | budget (post-D1) | `BudgetCore.lean:223` | λ₋ ≥ 72.17 |
 | **x₀ rider** | `S15Sel''_gk.x0M` (`S15Compose.lean:2432`) + the chain's pinned `x₀ ≥ exp(exp 100)` (`S15Witness.lean:~795`, `mmu1Chi_rate_of_pinned`) | **λ₋ ≥ 100.9** (`p9_x0_rider_lambda`: ≥ 100) |
-| **b-floor** | `S15Sel''_gk.bfloor` + the road's own `24·Cg/δ₀ = 1.68·10¹⁸¹ = 2^602.02` (`ConstantsExposed.lean:417`, docstring `:67`) + `half` | **λ₋ ≥ 448.98** (`p4_bfloor_lambda`: ≥ 448) |
+| **b-floor** | `S15Sel''_gk.bfloor` + the road's own `24·Cg/δ₀ = 1.68·10¹⁸¹ = 2^602.02` (`ConstantsExposed.lean:416`, docstring `:67`) + `half` | **λ₋ ≥ 448.98** (`p4_bfloor_lambda`: ≥ 448) |
 
 So the honest post-D1 working point is **λ₋ = 448.98, M = 2^602.02, L+1 = 603** — not "λ₋ ≈ 72–110". CLAIM 1's numerals name only the weakest of the three floors. (Silver lining, and it is real: post-D1 λ₋ is *free to be chosen* at 449, which is exactly where the landed witness's 248-bit b-floor gap — `S15Witness.lean:799` — closes to zero. Pre-D1 that was impossible because λ₋ was pinned at `e^{1.04e31}`.)
 
@@ -85,7 +85,7 @@ Joint λ₋ window for branch (b): **[448.98, 823.9]** with the k=2 construction
 2. **Branch (b) price**: the two-ε split (D-tier, spine-side: split `R.eps` into the 𝒫_H-window ε and the budget ε — `HloExport.lean:409` is the single field) **plus** the k=2 tower construction (~800–1200 ln, class C). Then every face above closes with the margins tabled, the b-floor's 248-bit gap closes for free, and the residual is the width margin 0.58 and the cap margin 0.35 — both real but positive, both K-/M-tunable.
 3. **D1 alone closes nothing.** It converts the wall from "a 10³¹ constant in the triple log" into "a shallow-tower ε-coupling + a 6.45 width law" — a genuinely different and much smaller residual, but a residual.
 
-Status flags: the ×1280 ghost (§3) is prose, not kernel; `S16BaseScaleCap_gk` is carried, never discharged (`S16Budget.lean:97, 854`); `b_floor_cert` is landed (`ConstantsExposed.lean:417`); the frame ceiling `K ≤ 1.7896e8·(L+1)` is S3's kernel probe, consumed here as given.
+Status flags: the ×1280 ghost (§3) is prose, not kernel; `S16BaseScaleCap_gk` is carried, never discharged (`S16Budget.lean:97, 854`); `b_floor_cert` is landed (`ConstantsExposed.lean:416`); the frame ceiling `K ≤ 1.7896e8·(L+1)` is S3's kernel probe, consumed here as given.
 
 ---
 
