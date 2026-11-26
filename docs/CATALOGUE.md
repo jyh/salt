@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `8c174f1e` · source digest `33cd0635da97ff1f` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `3609333b` · source digest `df99fc255ebfee67` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -8910,7 +8910,7 @@ Declarations indexed across the tree: 23388 · corpus Prop-valued names (the hyp
 | `Salt.Twelve.gaps_le_twelve` | Salt/Twelve/GapsUncond.lean:1090 | sieves | `WindowPNT`, `EHall` |
 | `Salt.Twelve.s2_inner_yF` | Salt/Twelve/InnerS2.lean:1247 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.mv_I` | Salt/Twelve/MvI.lean:274 | sieves | `Salt.Twelve.PhiUpperAtom` |
-| `Salt.Twelve.mv_J` | Salt/Twelve/MvJ.lean:2239 | sieves | `Salt.Twelve.PhiUpperAtom` |
+| `Salt.Twelve.mv_J` | Salt/Twelve/MvJ.lean:2240 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.qdiag_bridge` | Salt/Twelve/QdiagBridge.lean:568 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.windowPNT_of_piAsymp` | Salt/Twelve/WindowPNTDischarge.lean:49 | sieves | `Salt.Twelve.PiAsymp` |
 | `Salt.Twelve.gaps_le_twelve_of_piAsymp` | Salt/Twelve/WindowPNTDischarge.lean:130 | sieves | `Salt.Twelve.PiAsymp`, `EHall` |
