@@ -20102,7 +20102,7 @@ explicit bounds**, not as proved steps:
    ~60-line stone.  **Follow-up: define `logEulerTail χ z` and discharge `hcorr`; the mertensB
    machinery is the right tool and it is already in the corpus.**
 2. `hseg`: the coprime half `∑_{z<n≤X,(n,q)=1} Λ/(n log n) = log log X − log log z + O(1/log z)`.
-   The inputs are all landed (`mertens_second_sharp'` at `Mertens/Third.lean:685`, i.e.
+   The inputs are all landed (`mertens_second_sharp'` at `Mertens/Third.lean:669`, i.e.
    `M = γ − B`), and the `p ∣ q, p ≥ z` correction is the divisor-count row `≤ z₀/z`
    (hb1983-notes:451); what is missing is the ~200 lines of Finset/floor bookkeeping between
    `∑_{p ≤ n} 1/p` and `∑ n ∈ Ioc ⌊z⌋ ⌊X⌋ with (n,q)=1, wLog n · Λ n`.  **Purely mechanical,
@@ -20117,7 +20117,7 @@ it too and any future W4 statement must match.  (b) `mertensB` at `PrimePower.le
 `1/(k p^k)`-weighted constant, i.e. exactly the prime-power correction of HB's step 1 — the brief
 called it "the prime-power correction" and that is right, but note its *tail* lemma
 (`mertensB_tail_le`) is what step 1 actually needs.  (c) `mertens_second_sharp` (Second.lean:216)
-carries an existential `M`; `mertens_second_sharp'` (Third.lean:685) is the one to quote, since
+carries an existential `M`; `mertens_second_sharp'` (Third.lean:669) is the one to quote, since
 only there is `M` identified as `γ − B` — and the `γ` must be the same `Real.eulerMascheroniConstant`
 that §1's integral produces, which it is.
 

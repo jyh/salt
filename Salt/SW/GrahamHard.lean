@@ -407,7 +407,7 @@ private lemma sum_rpow_neg_five_quarter_le (N : ℕ) :
 
 /-- The telescoping step of `Σ f^{−1/2}`: `(2a − 2b)a − 1 = (a − b)²` with `a² = t + 1`,
 `b² = t`. -/
-private lemma rpow_step_half (t : ℝ) (ht : 0 ≤ t) :
+lemma rpow_step_half (t : ℝ) (ht : 0 ≤ t) :
     (t + 1) ^ (-(1/2) : ℝ) ≤ 2 * (t + 1) ^ ((1/2) : ℝ) - 2 * t ^ ((1/2) : ℝ) := by
   have ht1 : (0 : ℝ) < t + 1 := by linarith
   have hinv : (t + 1) ^ (-(1/2) : ℝ) = ((t + 1) ^ ((1/2) : ℝ))⁻¹ := Real.rpow_neg ht1.le _
