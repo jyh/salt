@@ -71,7 +71,7 @@ lemma gMult_mul_coprime {s b : ℕ} (hcop : Nat.Coprime s b) :
   rw [gMult, gMult, gMult, Nat.Coprime.primeFactors_mul hcop,
     Finset.prod_union hcop.disjoint_primeFactors]
 
-/-! ## Divisor-sum expansion of `1/g` (re-derived; `EulerTailL`'s are private) -/
+/-! ## Divisor-sum expansion of `1/g` (`EulerTailL` reads `inv_gMult_expand` from here) -/
 
 /-- Divisors of a squarefree `r` are the products of subsets of its prime
 factors. -/
@@ -151,8 +151,8 @@ lemma h_over_phi {d : ℕ} (hd : Squarefree d) :
 /-! ## Elementary inequalities and the telescoping Euler tail -/
 
 /-- Product-versus-sum: if the `aₓ ≥ 0` sum to at most `1/2`, then
-`∏(1 + aₓ) ≤ 1 + 2∑aₓ`.  (Copy of `EulerTailL.prod_one_add_le`, which is
-private.) -/
+`∏(1 + aₓ) ≤ 1 + 2∑aₓ`.  (Copy of `EulerTailL.prod_one_add_le`; `EulerTailL`
+imports this file, so it cannot be read from there.) -/
 private lemma prod_one_add_le {ι : Type*} (s : Finset ι)
     (a : ι → ℝ) (ha : ∀ x ∈ s, 0 ≤ a x) (hs : ∑ x ∈ s, a x ≤ 1 / 2) :
     ∏ x ∈ s, (1 + a x) ≤ 1 + 2 * ∑ x ∈ s, a x := by
