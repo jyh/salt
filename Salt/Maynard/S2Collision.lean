@@ -10,6 +10,7 @@ import Salt.Maynard.S2DiagRestricted
 import Salt.Maynard.DiagonalS2
 import Salt.Maynard.VAbs
 import Salt.Maynard.EulerTailL
+import Salt.Twelve.BudgetMomentG
 
 /-!
 # S2-COLLISION — the `∏φ(lcm)` analog of N4.4's `collision_lower_order`
@@ -1070,13 +1071,6 @@ The `(p−1)⁻²` (NOT `⁻¹`) is confirmed verbatim in `S2InnerBoundQ` and co
 `euler_tail`; the erasure below contracts by `g(q₀)·(q₀−1)⁻¹ = (q₀−2)/(q₀−1)`,
 exhibiting both the `g`-weight and the `(q₀−1)⁻¹` density factor per prime. -/
 
-/-- `g` is multiplicative across a coprime product (`gMult (a·b) = gMult a·gMult b`),
-since the prime factors of coprime numbers are disjoint. -/
-private theorem gMult_mul_coprime {a b : ℕ} (hab : Nat.Coprime a b) :
-    gMult (a * b) = gMult a * gMult b := by
-  unfold gMult
-  rw [Nat.Coprime.primeFactors_mul hab, Finset.prod_union hab.disjoint_primeFactors]
-
 omit [TupleChoice] in
 /-- **The `g`-weighted single-prime erasure (the `erase_branch` analog, LANDED).**
 Dividing the forced prime `q₀ ≥ 3` out of coordinate `i₀` contracts the
@@ -1175,7 +1169,7 @@ theorem s2_erase_branch {k R W : ℕ} {f₀ : ℕ → ℝ}
               * (gMult (Function.update u i₀ (u i₀ / q₀) i₀) : ℝ) := by
         rw [Function.update_self]
         conv_lhs => rw [hsplit]
-        rw [gMult_mul_coprime hcop, Nat.cast_mul]
+        rw [Salt.Twelve.gMult_mul_coprime hcop, Nat.cast_mul]
         have hgq₀ : gMult q₀ = q₀ - 2 := by
           rw [gMult, hq₀.primeFactors, Finset.prod_singleton]
         rw [hgq₀, Nat.cast_sub (by omega : 2 ≤ q₀), Nat.cast_ofNat]
@@ -1692,7 +1686,7 @@ private theorem sum_gweight_occ_le (k R : ℕ) (T : ℝ) (m : Fin k)
           have hgsplit : gMult (u i)
               = gMult (eDiv α χ i) * gMult (u i / eDiv α χ i) := by
             conv_lhs => rw [hueq i]
-            exact gMult_mul_coprime (hcop i)
+            exact Salt.Twelve.gMult_mul_coprime (hcop i)
           rw [hgsplit, Nat.cast_mul]
         have hfsq : (fTilde k R T (u i)) ^ 2
             ≤ (fTilde k R T (u i / eDiv α χ i)) ^ 2 :=
@@ -1872,7 +1866,7 @@ private theorem s2_side_bound (k R : ℕ) (T : ℝ) (m : Fin k)
     have hgsplit : (gMult (Nat.lcm (u i) (slotProd s α sel i)) : ℝ)
         = (gMult (u i) : ℝ) * (gMult (slotProd s α sel i
             / Nat.gcd (slotProd s α sel i) (u i)) : ℝ) := by
-      rw [heq, gMult_mul_coprime hcop, Nat.cast_mul]
+      rw [heq, Salt.Twelve.gMult_mul_coprime hcop, Nat.cast_mul]
     have hlcm_pos : 0 < Nat.lcm (u i) (slotProd s α sel i) :=
       Nat.pos_of_ne_zero (Nat.lcm_ne_zero (hupos i).ne'
         (Squarefree.pos (hσsq i)).ne')
