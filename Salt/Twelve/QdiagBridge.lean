@@ -120,15 +120,6 @@ private lemma qb_list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
       calc |f a + (L.map f).sum| ≤ |f a| + |(L.map f).sum| := abs_add_le _ _
         _ ≤ |f a| + (L.map (fun a => |f a|)).sum := by linarith [ih]
 
-/-- Monotonicity of `List.sum` under a pointwise `≤`. -/
-private lemma qb_list_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
-    (h : ∀ a ∈ L, f a ≤ g a) : (L.map f).sum ≤ (L.map g).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih =>
-      simp only [List.map_cons, List.sum_cons]
-      exact add_le_add (h a (by simp)) (ih (fun b hb => h b (List.mem_cons_of_mem a hb)))
-
 /-- The evaluation of `ofPoly F` at `t` is the coefficient-list sum
 `Σ_{a ∈ F} a₂·∏_i t_i^{a₁ i}` (`eval` and `ofPoly` unfolded). -/
 private lemma eval_ofPoly_sum (F : Poly) (t : Fin 5 → ℝ) :
@@ -165,7 +156,7 @@ theorem yF_abs_le_Qabs (R W' : ℕ) (F : Poly) (s : Fin 5 → ℕ) :
       exact Real.log_le_log (by exact_mod_cast kSieveIndex_coord_pos hs i)
         (by exact_mod_cast (kSieveIndex_coord_lt hs i).le)
     rw [eval_ofPoly_sum, Qabs_cast_R]
-    refine le_trans (qb_list_abs_sum_le F _) (qb_list_sum_le F _ _ (fun a _ => ?_))
+    refine le_trans (qb_list_abs_sum_le F _) (list_sum_le_sum F _ _ (fun a _ => ?_))
     have hprod0 : 0 ≤ ∏ i, (Real.log (s i) / Real.log R) ^ a.1 i :=
       Finset.prod_nonneg (fun i _ => pow_nonneg (ht0 i) _)
     have hprod1 : ∏ i, (Real.log (s i) / Real.log R) ^ a.1 i ≤ 1 :=

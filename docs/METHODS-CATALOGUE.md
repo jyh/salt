@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `f6bfb84d` · source digest `f56dd8712b2348a3` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `df215e2e` · source digest `f489caf661edfff9` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23388 · with a proof/definition body: 23388 · direct corpus references (edges): 85895 · audited results: 9148 · corpus Prop-valued names: 691.
+Declarations indexed: 23386 · with a proof/definition body: 23386 · direct corpus references (edges): 85895 · audited results: 9148 · corpus Prop-valued names: 691.
 
 ## Hypothesis status (Deliverable A)
 

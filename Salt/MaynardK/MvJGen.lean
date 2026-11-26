@@ -1331,7 +1331,7 @@ lemma mv_J_main_g (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
           - X ^ n * ((mo.2.2 : ℝ) * ((DInt' mo.1 mo.2.1 : ℚ) : ℝ)))
         exact this
     _ ≤ (Q.map (fun mo => |(mo.2.2 : ℝ)| * Cfun mo * (1 + X) ^ n * (1 / L + 1 / (D:ℝ)))).sum :=
-        jlist_sum_le _ _ _ hPer
+        list_sum_le_sum _ _ _ hPer
     _ = Cmain * (1 + X) ^ n * (1 / L + 1 / (D:ℝ)) := by
         rw [hCmaindef,
           show (fun mo : (Fin n → ℕ) × ℕ × ℚ => |(mo.2.2 : ℝ)| * Cfun mo * (1 + X) ^ n * (1 / L
