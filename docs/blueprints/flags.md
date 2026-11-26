@@ -20352,7 +20352,7 @@ itself, and pushing its coefficient below `2` is precisely the optimized-radius 
 argument — i.e. the disc count, sharpened enough to prove simplicity, ceases to be a disc count.
 
 ⟦AND IT WAS ALREADY IN THE KERNEL — a third VK-forgetting, caught before the spend⟧
-`Salt.SW.landau_one_exceptional_at` (`Salt/SW/LandauPage.lean:195`, landed with the S3e wave)
+`Salt.SW.landau_one_exceptional_at` (`Salt/SW/LandauPage.lean:196`, landed with the S3e wave)
 evaluates the partial fraction at `σ = 1 + (3/5000)/log(4q)` — the radius tuned so a double
 zero's kept term `2/(σ−β₀) ≥ 2500·log(4q)` overruns the whole budget
 `1/(σ−1) + 1 + 720·log(4q)` — and returns `analyticOrderAt (LFunction χ) β₀ = 1` for **any**
