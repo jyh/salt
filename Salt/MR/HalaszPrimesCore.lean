@@ -145,18 +145,6 @@ lemma summable_mul_hatK (a : ℕ → ℂ) {X h : ℝ} (hh : 0 < h) :
     linarith
   rw [hatK_eq_zero hh hgt, Complex.ofReal_zero, mul_zero]
 
-/-- The hat Mellin kernel `hatKernel X h c` is continuous in `t`. -/
-lemma continuous_hatKernel {X h c : ℝ} (hX : 0 < X) (hh : 0 < h) (hc : 0 < c) :
-    Continuous (fun t : ℝ => hatKernel X h c t) := by
-  have hXh : (0 : ℝ) < X + h := by linarith
-  simp only [hatKernel]
-  refine Continuous.div ?_ (by fun_prop) (fun t => ?_)
-  · refine Continuous.sub ?_ ?_
-    · exact Continuous.const_cpow (by fun_prop) (Or.inl (Complex.ofReal_ne_zero.mpr hXh.ne'))
-    · exact Continuous.const_cpow (by fun_prop) (Or.inl (Complex.ofReal_ne_zero.mpr hX.ne'))
-  · exact mul_ne_zero (Complex.ofReal_ne_zero.mpr hh.ne')
-      (mul_ne_zero (Salt.SW.s_ne_zero hc t) (Salt.SW.s1_ne_zero hc t))
-
 /-- The per-`n` norm of a Dirichlet term on the `c`-line: `‖aₙ/n^{c+it}‖ = ‖aₙ‖/nᶜ`. -/
 lemma norm_dseries_term {a : ℕ → ℂ} {c : ℝ} (hc : 0 < c) (n : ℕ) (t : ℝ) :
     ‖a n / (n : ℂ) ^ ((c : ℂ) + (t : ℂ) * I)‖ = ‖a n‖ / (n : ℝ) ^ c := by
@@ -383,13 +371,6 @@ lemma norm_logDeriv_zeta_cline_le {c : ℝ} (hc : 1 < c) (s : ℝ) :
   calc ‖LSeries ↗vonMangoldt w‖
       ≤ ∑' n, ‖LSeries.term ↗vonMangoldt w n‖ := norm_tsum_le_tsum_norm hsummN
     _ = ∑' n, vonMangoldt n / (n : ℝ) ^ c := tsum_congr hnt
-
-/-- The hat Mellin kernel is integrable on the `c`-line (quadratic decay). -/
-lemma integrable_hatKernel {X h c : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c) :
-    Integrable (fun t : ℝ => hatKernel X h c t) := by
-  refine ((Salt.SW.integrable_inv_c_sq_add_sq hc).const_mul (2 * (X + h) ^ (c + 1) / h)).mono'
-    (continuous_hatKernel (by linarith) hh hc).aestronglyMeasurable
-    (Filter.Eventually.of_forall (fun t => norm_hatKernel_le hX hh hc t))
 
 /-- The window Mellin kernel is integrable on the `c`-line. -/
 lemma integrable_windowKernel {P c : ℝ} (hP : 2 ≤ P) (hc : 0 < c) :

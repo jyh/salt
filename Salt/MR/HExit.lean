@@ -920,7 +920,7 @@ end Salt.MR
 /-! ## LEG II — the integral factoring (`prop21RHS_le_head`)
 
 The middle leg of the `hRHS` chain (`T1_head_wire`'s named residual).  `prop21RHS`
-(`HalaszRepAsm:472`) is the `2·∫₀^η∫₀^η (1/2π)∫_t 𝒮·𝓛·P·P·hatKernel` triple integral
+(`HalaszRepAsm:423`) is the `2·∫₀^η∫₀^η (1/2π)∫_t 𝒮·𝓛·P·P·hatKernel` triple integral
 (the frozen GHS Prop-2.1 object, `s = c₀ + (t−t₀)·I`).  This leg FACTORS its norm into
 `(explicit constant)·F0·(kernel L¹ mass)·(window coefficient-mass²)`, the honest
 interface a downstream bridge combines with (iii-b)'s `(1+M)` decay.

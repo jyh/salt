@@ -1041,7 +1041,7 @@ independent of it.
 * `T₀ = max (e^{e^{100}}) T₀z` — the first arm is EXACTLY `e^{e^{100}}`
   (`TwistedEdge.twisted_edge_price_strip` :896, the `le_refl` tell), so the rider forces
   equality and reduces to `T₀z ≤ e^{e^{100}}`; `T₀z` rides three compactness/VK leaves
-  (`HalaszPrimesCore` :1060's `δ₀`, :570's `ε₀`, the VK `c_pow`).  No landed bound.
+  (`HalaszPrimesCore` :1041's `δ₀`, :551's `ε₀`, the VK `c_pow`).  No landed bound.
 * `Kq = 1/(10^8·c₀)` with `c₀ = min (1/50456) (1/126848) = 1/126848`
   (`SW.zero_free_region_all'` ← `ZeroFree` :384, `ZeroFreeReal` :602) — a RATIONAL NUMERAL
   `0.00126848`.  The rider is TRUE with 46 orders to spare; carrying it needs three

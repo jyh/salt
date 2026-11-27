@@ -237,55 +237,6 @@ two landed ingredients: the hat kernel's `1/‖s‖² ~ 1/t²` decay (`hat_melli
 dominating function; and the finiteness of the smooth series `𝒮` and window `P_β`
 (finite Dirichlet polynomials, so bounded on the vertical line). -/
 
-/-- The per-`t` hat kernel is continuous (a ratio of entire `cpow`s over a
-nowhere-vanishing denominator `h·s·(s+1)`). -/
-lemma continuous_hatKernel {X h c : ℝ} (hX : 0 < X) (hh : 0 < h) (hc : 0 < c) :
-    Continuous (fun t : ℝ => hatKernel X h c t) := by
-  have hXh : (0 : ℝ) < X + h := by linarith
-  haveI : NeZero ((X + h : ℝ) : ℂ) := ⟨Complex.ofReal_ne_zero.mpr hXh.ne'⟩
-  haveI : NeZero ((X : ℝ) : ℂ) := ⟨Complex.ofReal_ne_zero.mpr hX.ne'⟩
-  have hexp : Continuous (fun t : ℝ => ((c : ℂ) + (t : ℂ) * I) + 1) := by
-    fun_prop
-  have hnum : Continuous (fun t : ℝ =>
-      ((X + h : ℝ) : ℂ) ^ (((c : ℂ) + (t : ℂ) * I) + 1)
-        - ((X : ℝ) : ℂ) ^ (((c : ℂ) + (t : ℂ) * I) + 1)) :=
-    ((continuous_const_cpow _).comp hexp).sub ((continuous_const_cpow _).comp hexp)
-  have hden : Continuous (fun t : ℝ =>
-      (h : ℂ) * (((c : ℂ) + (t : ℂ) * I) * (((c : ℂ) + (t : ℂ) * I) + 1))) := by
-    fun_prop
-  have hdenne : ∀ t : ℝ,
-      (h : ℂ) * (((c : ℂ) + (t : ℂ) * I) * (((c : ℂ) + (t : ℂ) * I) + 1)) ≠ 0 :=
-    fun t =>
-    mul_ne_zero (Complex.ofReal_ne_zero.mpr hh.ne')
-      (mul_ne_zero (Salt.SW.s_ne_zero hc t) (Salt.SW.s1_ne_zero hc t))
-  exact hnum.div hden hdenne
-
-/-- **T2 core — the hat kernel is `L¹`** (the `1/t²` decay of the seam kernel).
-`‖hatKernel X h c t‖ ≤ (X+h)^c·2(X+h)/(h·(c²+t²))` by the dominant branch of
-`hat_mellin_bound`, and `∫ (c²+t²)⁻¹ < ∞` by `integrable_inv_c_sq_add_sq`; hence the
-per-`t` hat kernel is integrable on the full line.  This is the concrete dominating
-function underneath every `t`-integral in the S1' representation. -/
-theorem integrable_hatKernel {X h c : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c) :
-    Integrable (fun t : ℝ => hatKernel X h c t) := by
-  have hcont := continuous_hatKernel (by linarith : (0:ℝ) < X) hh hc
-  set A : ℝ := (X + h) ^ c * (2 * (X + h) / h) with hA
-  have hg : Integrable (fun t : ℝ => A * (c ^ 2 + t ^ 2)⁻¹) :=
-    (Salt.SW.integrable_inv_c_sq_add_sq hc).const_mul A
-  refine hg.mono' hcont.aestronglyMeasurable (Filter.Eventually.of_forall (fun t => ?_))
-  have hnorm : ‖(c : ℂ) + (t : ℂ) * I‖ ^ 2 = c ^ 2 + t ^ 2 := by
-    rw [Complex.norm_add_mul_I, Real.sq_sqrt (by positivity)]
-  have hb := hat_mellin_bound hX hh hc t
-  have hXhc : (0 : ℝ) ≤ (X + h) ^ c := Real.rpow_nonneg (by linarith) _
-  calc ‖hatKernel X h c t‖
-      ≤ (X + h) ^ c * min (2 / ‖(c : ℂ) + (t : ℂ) * I‖)
-          (2 * (X + h) / (h * ‖(c : ℂ) + (t : ℂ) * I‖ ^ 2)) := hb
-    _ ≤ (X + h) ^ c * (2 * (X + h) / (h * ‖(c : ℂ) + (t : ℂ) * I‖ ^ 2)) := by
-        gcongr; exact min_le_right _ _
-    _ = A * (c ^ 2 + t ^ 2)⁻¹ := by
-        rw [hnorm, hA]
-        have hct : (0 : ℝ) < c ^ 2 + t ^ 2 := by positivity
-        field_simp
-
 /-- **T2 — the line-integral domination.**  For any BOUNDED continuous coefficient
 `D` (the seam's `𝒮·𝓛·P·P` restricted to the vertical line is such — `𝒮` and each
 `P` are finite Dirichlet polynomials, `𝓛` converges on `re > 1`), the product
