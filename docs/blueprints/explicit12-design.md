@@ -1633,7 +1633,7 @@ if the partition balloons past ~500 lines, land `box_marked_moment` +
 ## Card NC-2 `Salt/Twelve/InnerS2.lean` — the S2 discharge — Opus, C+
 ```lean
 def S2InnerBoundQC (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) (CF : ℝ) : Prop :=
-  -- LHS verbatim from S2InnerBoundQ (S2Collision.lean:795); RHS gains the CF slot:
+  -- LHS verbatim from S2InnerBoundQ (S2Collision.lean:796); RHS gains the CF slot:
   ∀ {s : ℕ}, Squarefree s → ∀ α ∈ assignments k s,
     |/- S2 inner form -/| ≤ 3 ^ s.primeFactors.card
       * (∏ p ∈ s.primeFactors, (((p:ℝ)-2)⁻¹)^2) * CF * Qdiag_gv k R W' m y
@@ -1792,7 +1792,7 @@ it via the landed `phiUpperAtom_final` (W4-0, UNCONDITIONAL) so `yside_ge_cM` is
 hypothesis-free at `Fstar1`. PB floor: none.
 
 ### NB-3 `Salt/Twelve/CollisionYF.lean` — S2 twin `collision_yF_le_S2` — Opus, C
-The S2-side analog: `s2_collision_le_QdiagW` (`S2Collision.lean:808`, `y`-generic
+The S2-side analog: `s2_collision_le_QdiagW` (`S2Collision.lean:809`, `y`-generic
 modulo `S2InnerBoundQ`) — discharge `S2InnerBoundQ (yF)` by the SAME ONE-tensor
 domination (`s2_inner_bound_N`'s `fTilde`-antitone step replaced by the `f₀≡1`
 instance), giving `|Qdiag_mW − s2CompatFormM| ≤ (c₂k²/D)·M ≤ (c₂k²/(cD))·yside`.
@@ -1837,7 +1837,7 @@ wave-5 design under-scoped the S2 side as an "audit"; the W5-7 discharge showed
 it is a full atom of the same shape as the S1 one:
 - **S1 side — `S1InnerBound k R W' (yF R W' Fstar1)`** (Node A `collision_lower_orderW_of`,
   W5-1): the sharp S1 factor-2 kill.
-- **S2 side — `S2InnerBoundQ`-for-`yF` / `s2_collision_le_QdiagW`** (`S2Collision.lean:795/808`):
+- **S2 side — `S2InnerBoundQ`-for-`yF` / `s2_collision_le_QdiagW`** (`S2Collision.lean:796/809`):
   the `s2CompatFormM ↔ Qdiag_mW` passage (`Qdiag − s2CompatForm = s2CollisionForm`,
   needed to connect `S2mW_lower`'s compat-pairs bound to `qdiag_bridge`'s sharp
   `X⁶·Jcal`). Its landed discharge `s2_inner_bound_N` uses `fTilde`-antitonicity

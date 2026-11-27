@@ -38,7 +38,7 @@ open Salt.Maynard
 
 /-! ## Deliverable 2 — the correction-slotted S₂ atom `S2InnerBoundQC`
 
-The LHS is BYTE-IDENTICAL to `S2InnerBoundQ` (`S2Collision.lean:795`), so that
+The LHS is BYTE-IDENTICAL to `S2InnerBoundQ` (`S2Collision.lean:796`), so that
 the assembly `s2_collision_le_QdiagW_C` typechecks against `inner_exact_S2`. The
 RHS gains the `CF` slot relative to `S2InnerBoundQ`.
 

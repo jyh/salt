@@ -1668,7 +1668,7 @@ grinding; the next Fable wave opens by draining this list.
     fact as its own atom); (b) **the S2-collision total
     `Σ_m Δπ/φW'·(Qdiag − s2CompatForm)` (folded into `errEH`) needs an
     S2-collision estimate** — the `s2_collision_le_QdiagW`/`S2InnerBoundQ`
-    compat↔full-form passage (`S2Collision.lean:805`), not landed for `yF Fstar1`
+    compat↔full-form passage (`S2Collision.lean:806`), not landed for `yF Fstar1`
     (the S2 analog of Node B; `¬` cleanly in the landed free-`W'` `herr` chain,
     which is compat-pairs-only). Both are budgeted-vanishing per the design's
     error sheet (`Dstar` budget + `∀ᶠ`), so `hslackEv` is TRUE; only its Lean
@@ -1715,7 +1715,7 @@ grinding; the next Fable wave opens by draining this list.
     structural layer — `compat_moebius_expansion_M`/`inner_collision_expand_M`/
     `inner_exact_S2`/`s2_diag_lam_restricted` were already free-W).
   - `s2_collision_le_QdiagW` — the free-`(D,W')` mirror of `s2_collision_le_Qdiag`
-    (`S2Collision.lean:818`): `|s2CollisionForm| ≤ (Cs·k²/D)·Qdiag_gv`, CONDITIONAL
+    (`S2Collision.lean:819`): `|s2CollisionForm| ≤ (Cs·k²/D)·Qdiag_gv`, CONDITIONAL
     on the abstract atom `S2InnerBoundQ k R W' m y` (exactly as the landed W k
     version is). Proof = landed body with 3 swaps: no `subst hW`;
     `inner_collision_zero_MW`; `euler_tailW` (free-D). The vestigial tensor
@@ -1738,7 +1738,7 @@ grinding; the next Fable wave opens by draining this list.
     `|∑_u ∏g(uᵢ)·V(u∨σ)·V(u∨τ)| ≤ 3^ω·∏(p−1)⁻²·Qdiag_gv`, `V = lamPhiContractM y`.
     **The design's "dominate by ONE / monotone in |y|" shortcut is INVALID for the
     S₂ side** — two concrete corrections for the next Fable pass:
-    (1) `s2_inner_bound_N` (`S2Collision.lean:2104`) does NOT discharge
+    (1) `s2_inner_bound_N` (`S2Collision.lean:2098`) does NOT discharge
     `S2InnerBoundQ`: it proves a DIFFERENT bound (RHS `Ndiag`/`(p−2)⁻²`, not
     `Qdiag_gv`/`(p−1)⁻²`), and only for the tensor `yTensor`, via `fTilde`-
     antitonicity + `Gdiag`/`B1` machinery. There is no `f₀≡1` free slot-in.
@@ -1746,7 +1746,7 @@ grinding; the next Fable wave opens by draining this list.
     quadratic form `yᵀMy` bounded by the quadratic form `yᵀNy = Qdiag_gv` — a
     SPECTRAL statement (`−cN ⪯ M ⪯ cN`), NOT monotone in `|y|` and NOT reducible
     to the single vector `y=ONE` (the forced side does not collapse — the
-    documented `PORT-BLOCKER` at `S2Collision.lean:470,792`). So `S2InnerBoundQ
+    documented `PORT-BLOCKER` at `S2Collision.lean:471,793`). So `S2InnerBoundQ
     yF ≤ S2InnerBoundQ ONE` is FALSE as a route.
     **Real content:** a weighted Cauchy–Schwarz shift bound `∑_u ∏g·V(u∨σ)² ≤
     ∏_{p|σ}(…)·Qdiag_gv` (design open-question (c), "the full double-sieve
@@ -1940,7 +1940,7 @@ Quot.sound]`, builds with 0 warnings, 0 sorry/native_decide/admit, 0 new axioms.
   (`slot` maps `Q` into `univ.erase m`) + `gMult_cast` + `Nat.primeFactors_prod`.
   ~110 lines.
 - **`S2InnerBoundQC`** (deliverable 2) — the CF-slotted atom. LHS verified
-  **BYTE-IDENTICAL** to `S2InnerBoundQ` (`S2Collision.lean:805`) modulo the
+  **BYTE-IDENTICAL** to `S2InnerBoundQ` (`S2Collision.lean:806`) modulo the
   binder name `W`/`W'` (compiler-confirmed: `s2_collision_le_QdiagW_C`
   typechecks against `inner_exact_S2`'s output). RHS gains the `CF` slot:
   `≤ 3^ω(s)·(∏_{p|s}(p−1)⁻²)·CF·Qdiag_gv`.
@@ -1953,7 +1953,7 @@ Quot.sound]`, builds with 0 warnings, 0 sorry/native_decide/admit, 0 new axioms.
 **FLAGGED — `s2_inner_yF` (deliverable 4): NOT landed (would require sorry).**
 This is the termwise + contamination-partition + qdiag-conversion discharge of
 the *signed, non-collapsing* S2 inner form — the previously-open analytic core
-(the `S2Collision.lean:792` PORT-BLOCKER, `CollisionYF_S2.lean` header's "open
+(the `S2Collision.lean:793` PORT-BLOCKER, `CollisionYF_S2.lean` header's "open
 Cauchy–Schwarz shift"), whose S1 mirror (NC-1 `inner_abs_le`) is **also not yet
 landed**. The full proof is ~500–900 lines of new intricate Finset/contamination
 work; it did not fit this session's budget. All INPUTS it needs are in place:
@@ -1984,7 +1984,7 @@ the shared contamination-partition helper FIRST, then porting to the g/V S2 side
 
 Round-1's partition blocker was resolved (NC-1 `s1_inner_bounded`/`box_marked_moment`
 landed). Porting that S₁ structure to the g/V side surfaced a **constant-shape
-inconsistency in the frozen `S2InnerBoundQ`** (`S2Collision.lean:805`).
+inconsistency in the frozen `S2InnerBoundQ`** (`S2Collision.lean:806`).
 
 **The finding (high confidence, verified against the LANDED S₁ discharge).**
 In the PROVED `s1_inner_bounded`, the moment weight is `1/∏φ` and the atom

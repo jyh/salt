@@ -31,7 +31,7 @@ via `qdiag_bridge` (which already evaluates `Qdiag_mW ≈ X⁶·Jcal`).
 
 ## Route
 
-The landed collision bound `s2_collision_le_Qdiag` (`S2Collision.lean:808`) is
+The landed collision bound `s2_collision_le_Qdiag` (`S2Collision.lean:809`) is
 pinned to `W' = W k` and `D₀ k` (via `subst hW` + `euler_tail`), and carries a
 vestigial tensor hypothesis `(f₀, hy, …)` that its proof never uses.  Every
 *structural* piece it relies on — `compat_moebius_expansion_M`,
@@ -89,7 +89,7 @@ theorem inner_collision_zero_MW (k R W' D : ℕ) (m : Fin k) (y : (Fin k → ℕ
   exact absurd (D_lt_of_prime_dvd_coordW hDlt hd' hp h1) (not_lt.mpr hpD)
 
 /-- **Free-`(D,W')` S₂ collision bound (conditional on `S2InnerBoundQ`).**  The
-mirror of the landed `s2_collision_le_Qdiag` (`S2Collision.lean:808`) with `W k → W'`
+mirror of the landed `s2_collision_le_Qdiag` (`S2Collision.lean:809`) with `W k → W'`
 and `D₀ k → D`: the `m`-restricted S₂ collision form is controlled by the S₂
 diagonal `Qdiag_gv` up to `Cs·k²/D`.  The proof is the landed one with the three
 swaps documented in the module header (no `subst hW`; `inner_collision_zero_MW`;
