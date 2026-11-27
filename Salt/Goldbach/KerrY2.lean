@@ -46,45 +46,7 @@ open Finset
 open scoped BigOperators
 open Salt.Chen
 
-/-! ## 0. The numeric engine (local mirrors of `KerrY §0`'s `private` toolkit) -/
-
-/-- `(27/10)^n ≤ N^c` whenever `n ≤ c·10⁹` (`c > 0`), at `log N ≥ 10⁹`. -/
-private theorem k2_const_le_rpow {N : ℕ} (hNpos : 0 < (N : ℝ))
-    (hlogN : (10 : ℝ) ^ 9 ≤ Real.log N) {c : ℝ} (hc : 0 < c) (n : ℕ)
-    (hn : (n : ℝ) ≤ c * 10 ^ 9) : ((27 : ℝ) / 10) ^ n ≤ (N : ℝ) ^ c := by
-  have hmul : c * (10 ^ 9 : ℝ) ≤ c * Real.log N := mul_le_mul_of_nonneg_left hlogN hc.le
-  calc ((27 : ℝ) / 10) ^ n ≤ Real.exp (n : ℝ) := a12_pow27_le_exp n
-    _ ≤ Real.exp (c * Real.log N) := Real.exp_le_exp.mpr (by linarith [hn, hmul])
-    _ = (N : ℝ) ^ c := by rw [Real.rpow_def_of_pos hNpos]; congr 1; ring
-
-/-- `C·N^a ≤ N^b` for `a < b`, `C ≤ (27/10)^n ≤ N^{b−a}`. -/
-private theorem k2_mono_close {N : ℕ} (hNpos : 0 < (N : ℝ))
-    (hlogN : (10 : ℝ) ^ 9 ≤ Real.log N) {a b C : ℝ} {n : ℕ} (hab : a < b)
-    (hC : C ≤ ((27 : ℝ) / 10) ^ n) (hnc : (n : ℝ) ≤ (b - a) * 10 ^ 9) :
-    C * (N : ℝ) ^ a ≤ (N : ℝ) ^ b := by
-  have hstep : ((27 : ℝ) / 10) ^ n ≤ (N : ℝ) ^ (b - a) :=
-    k2_const_le_rpow hNpos hlogN (by linarith) n hnc
-  have hann : (0 : ℝ) ≤ (N : ℝ) ^ a := Real.rpow_nonneg hNpos.le _
-  calc C * (N : ℝ) ^ a ≤ ((27 : ℝ) / 10) ^ n * (N : ℝ) ^ a := mul_le_mul_of_nonneg_right hC hann
-    _ ≤ (N : ℝ) ^ (b - a) * (N : ℝ) ^ a := mul_le_mul_of_nonneg_right hstep hann
-    _ = (N : ℝ) ^ b := by rw [← Real.rpow_add hNpos]; congr 1; ring
-
-/-- `L^E ≤ 262144·N^{1/2000}` for `0 ≤ E ≤ 18`, `0 ≤ L ≤ 2·log N`. -/
-private theorem k2_Lpow_le {N : ℕ} {L : ℝ} (hlogN1 : 1 ≤ Real.log N)
-    (hL0 : 0 ≤ L) (hLle : L ≤ 2 * Real.log N)
-    (hpl : (Real.log N) ^ (18 : ℝ) ≤ (N : ℝ) ^ ((1 : ℝ) / 2000))
-    {E : ℝ} (hE0 : 0 ≤ E) (hE18 : E ≤ 18) :
-    L ^ E ≤ (262144 : ℝ) * (N : ℝ) ^ ((1 : ℝ) / 2000) := by
-  have h218 : (2 : ℝ) ^ (18 : ℝ) = 262144 := by
-    rw [show (18 : ℝ) = ((18 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]; norm_num
-  calc L ^ E ≤ (2 * Real.log N) ^ E := Real.rpow_le_rpow hL0 hLle hE0
-    _ = (2 : ℝ) ^ E * (Real.log N) ^ E := Real.mul_rpow (by norm_num) (by linarith)
-    _ ≤ (2 : ℝ) ^ (18 : ℝ) * (Real.log N) ^ (18 : ℝ) := by
-        refine mul_le_mul (Real.rpow_le_rpow_of_exponent_le (by norm_num) hE18)
-          (Real.rpow_le_rpow_of_exponent_le hlogN1 hE18)
-          (Real.rpow_nonneg (by linarith) _) (Real.rpow_nonneg (by norm_num) _)
-    _ ≤ (262144 : ℝ) * (N : ℝ) ^ ((1 : ℝ) / 2000) := by
-        rw [h218]; exact mul_le_mul_of_nonneg_left hpl (by norm_num)
+/-! ## 0. The numeric engine (`RowsLive §2`'s three helpers, public since O13-e) -/
 
 /-! ## 1. The block-indicator boundary equality (for the one-point y-floor boundary) -/
 
@@ -269,9 +231,9 @@ theorem gold_kerrY2_engine_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kc : �
     gold_rpow_div_le_sqrt hNpos.le (by norm_num) (by norm_num) (by norm_num) hMfloor
   have hXsqrt : L ^ ((13 : ℝ) + 3) ≤ Real.sqrt ((2 ^ (i + 1) - 1 : ℕ) : ℝ) := by
     have hLpow : L ^ ((13 : ℝ) + 3) ≤ 262144 * (N : ℝ) ^ ((1 : ℝ) / 2000) :=
-      k2_Lpow_le hlogN1 hL0 hLle hpl (by norm_num) (by norm_num)
+      gold_Lpow_le hlogN1 hL0 hLle hpl (by norm_num) (by norm_num)
     have htail : (262144 : ℝ) * (N : ℝ) ^ ((1 : ℝ) / 2000) ≤ (N : ℝ) ^ ((11 : ℝ) / 48) / 2 := by
-      have hm := k2_mono_close hNpos hlogN9 (a := 1 / 2000) (b := 11 / 48) (C := 524288)
+      have hm := gold_mono_close hNpos hlogN9 (a := 1 / 2000) (b := 11 / 48) (C := 524288)
         (n := 14) (by norm_num) (by norm_num) (by norm_num)
       linarith
     calc L ^ ((13 : ℝ) + 3) ≤ 262144 * (N : ℝ) ^ ((1 : ℝ) / 2000) := hLpow
@@ -280,9 +242,9 @@ theorem gold_kerrY2_engine_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kc : �
   have hMrow : ∀ E : ℝ, 0 ≤ E → E ≤ 18 → L ^ E ≤ Real.sqrt (pieceM kp : ℝ) := by
     intro E hE0 hE18
     have hLpow : L ^ E ≤ 262144 * (N : ℝ) ^ ((1 : ℝ) / 2000) :=
-      k2_Lpow_le hlogN1 hL0 hLle hpl hE0 hE18
+      gold_Lpow_le hlogN1 hL0 hLle hpl hE0 hE18
     have htail : (262144 : ℝ) * (N : ℝ) ^ ((1 : ℝ) / 2000) ≤ (N : ℝ) ^ ((1 : ℝ) / 6) / 4 := by
-      have hm := k2_mono_close hNpos hlogN9 (a := 1 / 2000) (b := 1 / 6) (C := 1048576)
+      have hm := gold_mono_close hNpos hlogN9 (a := 1 / 2000) (b := 1 / 6) (C := 1048576)
         (n := 15) (by norm_num) (by norm_num) (by norm_num)
       linarith
     linarith [hLpow, htail, hsqrtM]
@@ -316,7 +278,7 @@ theorem gold_kerrY2_engine_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kc : �
     have h2N_le : 2 * (N : ℝ) ≤ ((N : ℝ) ^ ((2 : ℝ) / 3) / 256)
         * ((N : ℝ) ^ ((2 : ℝ) / 3) / 256) := by
       have hstep : (134217728 : ℝ) * (N : ℝ) ^ (1 : ℝ) ≤ (N : ℝ) ^ ((4 : ℝ) / 3) := by
-        have := k2_mono_close hNpos hlogN9 (a := 1) (b := 4 / 3) (C := 134217728)
+        have := gold_mono_close hNpos hlogN9 (a := 1) (b := 4 / 3) (C := 134217728)
           (n := 19) (by norm_num) (by norm_num) (by norm_num)
         exact this
       rw [Real.rpow_one] at hstep
@@ -453,7 +415,7 @@ theorem gold_kerrY2_engine_of_SW (hSWall : Salt.BV.SiegelWalfisz) : ∃ (Kc : �
           have h2N_le : 2048 * (N : ℝ) ≤ ((N : ℝ) ^ ((2 : ℝ) / 3) / 256)
               * ((N : ℝ) ^ ((2 : ℝ) / 3) / 256) := by
             have hstep : (137438953472 : ℝ) * (N : ℝ) ^ (1 : ℝ) ≤ (N : ℝ) ^ ((4 : ℝ) / 3) := by
-              have := k2_mono_close hNpos hlogN9 (a := 1) (b := 4 / 3) (C := 137438953472)
+              have := gold_mono_close hNpos hlogN9 (a := 1) (b := 4 / 3) (C := 137438953472)
                 (n := 27) (by norm_num) (by norm_num) (by norm_num)
               exact this
             rw [Real.rpow_one] at hstep

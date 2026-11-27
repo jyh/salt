@@ -344,12 +344,13 @@ theorem gold_box_zx_rows : ∃ x₁ : ℕ, ∀ N : ℕ, x₁ ≤ N →
 
 /-! ## 2. The numeric engine (local `N`-scale mirrors of `ChenRows1`'s private toolkit)
 
-The three private helpers behind every poly-log-vs-power close, re-exported at the global scale
-`N` (the twin's are keyed to its window `x`; `private`, hence not importable). -/
+The three helpers behind every poly-log-vs-power close, re-exported at the global scale `N`
+(the twin's are keyed to its window `x`; `private`, hence not importable). Public since O13-e:
+`RowsWide`, `BandRows`, `KerrY` and `KerrY2` read them here. -/
 
 /-- `(27/10)^n ≤ N^c` whenever `n ≤ c·10⁹` (`c > 0`), at `log N ≥ 10⁹`.  Mirror of
 `row_const_le_rpow`. -/
-private theorem gold_const_le_rpow {N : ℕ} (hNpos : 0 < (N : ℝ))
+theorem gold_const_le_rpow {N : ℕ} (hNpos : 0 < (N : ℝ))
     (hlogN : (10 : ℝ) ^ 9 ≤ Real.log N) {c : ℝ} (hc : 0 < c) (n : ℕ)
     (hn : (n : ℝ) ≤ c * 10 ^ 9) : ((27 : ℝ) / 10) ^ n ≤ (N : ℝ) ^ c := by
   have hmul : c * (10 ^ 9 : ℝ) ≤ c * Real.log N := mul_le_mul_of_nonneg_left hlogN hc.le
@@ -358,7 +359,7 @@ private theorem gold_const_le_rpow {N : ℕ} (hNpos : 0 < (N : ℝ))
     _ = (N : ℝ) ^ c := by rw [Real.rpow_def_of_pos hNpos]; congr 1; ring
 
 /-- `C·N^a ≤ N^b` for `a < b`, `C ≤ (27/10)^n ≤ N^{b−a}`.  Mirror of `row_mono_close`. -/
-private theorem gold_mono_close {N : ℕ} (hNpos : 0 < (N : ℝ))
+theorem gold_mono_close {N : ℕ} (hNpos : 0 < (N : ℝ))
     (hlogN : (10 : ℝ) ^ 9 ≤ Real.log N) {a b C : ℝ} {n : ℕ} (hab : a < b)
     (hC : C ≤ ((27 : ℝ) / 10) ^ n) (hnc : (n : ℝ) ≤ (b - a) * 10 ^ 9) :
     C * (N : ℝ) ^ a ≤ (N : ℝ) ^ b := by
@@ -371,7 +372,7 @@ private theorem gold_mono_close {N : ℕ} (hNpos : 0 < (N : ℝ))
 
 /-- The poly-log-power bound at the box log `L` (`0 ≤ L ≤ 2·log N`): `L^E ≤ 262144·N^{1/2000}` for
 `0 ≤ E ≤ 18`.  Mirror of `row_Lpow_le`. -/
-private theorem gold_Lpow_le {N : ℕ} {L : ℝ} (hlogN1 : 1 ≤ Real.log N)
+theorem gold_Lpow_le {N : ℕ} {L : ℝ} (hlogN1 : 1 ≤ Real.log N)
     (hL0 : 0 ≤ L) (hLle : L ≤ 2 * Real.log N)
     (hpl : (Real.log N) ^ (18 : ℝ) ≤ (N : ℝ) ^ ((1 : ℝ) / 2000))
     {E : ℝ} (hE0 : 0 ≤ E) (hE18 : E ≤ 18) :
