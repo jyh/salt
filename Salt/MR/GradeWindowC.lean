@@ -61,8 +61,8 @@ the ball arm's `B := C₁·e^{−M/(2e)}` recovers the original.  The uniform fo
 `center_error_grade` + `rpow_neg_half_eq` + `two_log_le_self` + `twentyfive_le_exp_eight`
 are `CenterGrade`'s (until 2026-11 they were `private` and re-derived here under a `_B`
 suffix); `SupClose`'s /
-`GradeConst`'s pin arithmetic is re-derived here under a `W` suffix (the house's re-derivation
-convention).
+`GradeConst`'s pin arithmetic is its public `pin_basic64`; its two helpers are read from their
+roots since O13-e (until then they were re-derived here under a `W` suffix).
 
 **LIVE GUARD (inherited).**  Nothing here commits to a route: `hc0`/`hce`/`hc1` are the whole
 `c`-contract of §1, and §2/§3 carry no exponent at all.

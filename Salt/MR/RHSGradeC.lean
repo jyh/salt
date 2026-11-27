@@ -36,8 +36,8 @@ the two families never diverge.
 **LIVE GUARD (inherited).**  `c = 1/(2e)` is the BALL arm's halved constant; the free-`c` forms
 here carry no route commitment — the caller's `hc0`/`hce`/`hc1` are the whole contract.
 
-`continuous_rpow_neg` (`RHSGrade`) and `widthKamp_nonneg` (`GradeConst`) are read from their
-public roots since O13-e; the two integrability pages are re-derived here at the freed exponent
+`widthKamp_nonneg` is read from its public root (`GradeConst`) since O13-e (this file never used
+`continuous_rpow_neg`); the two integrability pages are re-derived here at the freed exponent
 under a `GC` suffix (the house's re-derivation convention, cf. `FarStar`'s `pin_rpow_scaleT`).
 `GradeConst`'s `pin_basic64` is public.
 -/
