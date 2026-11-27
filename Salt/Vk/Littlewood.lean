@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.Vk.RegionGrowth
 import Salt.ExpSum.Strip
+import Salt.Vk.PowRegion
 
 /-!
 # VMVT-VK — the Littlewood zero-free region (`σ ≥ 1 − c·log log t / log t`)
@@ -21,26 +22,9 @@ namespace Salt.Vk
 open Complex
 open scoped Topology
 
-/-! ## Analytic thresholds -/
+/-! ## Analytic thresholds
 
-/-- `log x ≤ 2√x` for `x > 0` (via `log √x ≤ √x − 1`). -/
-private lemma log_le_two_sqrt {x : ℝ} (hx : 0 < x) : Real.log x ≤ 2 * Real.sqrt x := by
-  have h := Real.log_le_sub_one_of_pos (Real.sqrt_pos.mpr hx)
-  rw [Real.log_sqrt hx.le] at h
-  linarith [Real.sqrt_nonneg x]
-
-/-- `x³/27 ≤ exp x` for `0 ≤ x` (cube of `1 + x/3 ≤ exp(x/3)`). -/
-private lemma cube_le_exp {x : ℝ} (hx : 0 ≤ x) : x ^ 3 / 27 ≤ Real.exp x := by
-  have hcube : Real.exp x = (Real.exp (x / 3)) ^ 3 := by
-    rw [← Real.exp_nat_mul]; congr 1; push_cast; ring
-  have hb : 1 + x / 3 ≤ Real.exp (x / 3) := by
-    have := Real.add_one_le_exp (x / 3); linarith
-  rw [hcube]
-  have hb0 : 0 ≤ 1 + x / 3 := by linarith
-  calc x ^ 3 / 27 ≤ (1 + x / 3) ^ 3 := by
-        have hexp : (1 + x / 3) ^ 3 = 1 + x + x ^ 2 / 3 + x ^ 3 / 27 := by ring
-        rw [hexp]; nlinarith [hx, sq_nonneg x]
-    _ ≤ (Real.exp (x / 3)) ^ 3 := pow_le_pow_left₀ hb0 hb 3
+`log_le_two_sqrt` and `cube_le_exp` are read from `PowRegion`. -/
 
 /-! ## The growth discharge — `zeta_strip_family` at fixed `k` over the sphere box -/
 
