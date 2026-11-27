@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `4159f859` · source digest `8d2a5c3433516b7a` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `ac5b6313` · source digest `d78978cbc4db1a3e` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23378 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -7036,10 +7036,10 @@ Declarations indexed across the tree: 23378 · corpus Prop-valued names (the hyp
 | `Salt.Vk.zeta_growth_pow` | Salt/Vk/GrowthPow.lean:358 | zeros, exponential sums |
 | `Salt.Vk.zeta_zero_free_region_pow` | Salt/Vk/GrowthPow.lean:424 | zeros, exponential sums |
 | `Salt.Vk.entire_norm_logDeriv_sub_sum_scaled` | Salt/Vk/Landau.lean:35 | zeros, exponential sums |
-| `Salt.Vk.littlewood_uniform_growth` | Salt/Vk/Littlewood.lean:52 | zeros, exponential sums |
-| `Salt.Vk.zeta_zero_free_littlewood_core` | Salt/Vk/Littlewood.lean:105 | zeros, exponential sums |
-| `Salt.Vk.littlewood_bracket` | Salt/Vk/Littlewood.lean:276 | zeros, exponential sums |
-| `Salt.Vk.zeta_zero_free_region_littlewood` | Salt/Vk/Littlewood.lean:411 | zeros, exponential sums |
+| `Salt.Vk.littlewood_uniform_growth` | Salt/Vk/Littlewood.lean:36 | zeros, exponential sums |
+| `Salt.Vk.zeta_zero_free_littlewood_core` | Salt/Vk/Littlewood.lean:89 | zeros, exponential sums |
+| `Salt.Vk.littlewood_bracket` | Salt/Vk/Littlewood.lean:260 | zeros, exponential sums |
+| `Salt.Vk.zeta_zero_free_region_littlewood` | Salt/Vk/Littlewood.lean:395 | zeros, exponential sums |
 | `Salt.Vk.vk_ladder_prefix` | Salt/Vk/Mid.lean:106 | zeros, exponential sums |
 | `Salt.Vk.vk_window_prefix` | Salt/Vk/Mid.lean:232 | zeros, exponential sums |
 | `Salt.Vk.vk_window_scale_prefix` | Salt/Vk/Mid.lean:284 | zeros, exponential sums |
@@ -8909,7 +8909,7 @@ Declarations indexed across the tree: 23378 · corpus Prop-valued names (the hyp
 | `Salt.Twelve.gaps_le_twelve_of_frontierM` | Salt/Twelve/GapsFinal.lean:303 | sieves | `WindowPNT`, `EHall`, `Salt.Twelve.WinFrontierM` |
 | `Salt.Twelve.gaps_le_twelve` | Salt/Twelve/GapsUncond.lean:1090 | sieves | `WindowPNT`, `EHall` |
 | `Salt.Twelve.s2_inner_yF` | Salt/Twelve/InnerS2.lean:1247 | sieves | `Salt.Twelve.PhiUpperAtom` |
-| `Salt.Twelve.mv_I` | Salt/Twelve/MvI.lean:279 | sieves | `Salt.Twelve.PhiUpperAtom` |
+| `Salt.Twelve.mv_I` | Salt/Twelve/MvI.lean:274 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.mv_J` | Salt/Twelve/MvJ.lean:2200 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.qdiag_bridge` | Salt/Twelve/QdiagBridge.lean:559 | sieves | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.Twelve.windowPNT_of_piAsymp` | Salt/Twelve/WindowPNTDischarge.lean:49 | sieves | `Salt.Twelve.PiAsymp` |
