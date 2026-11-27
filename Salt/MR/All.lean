@@ -1759,7 +1759,7 @@ open Salt.Tactic in
   Salt.MR.Ah_containment
   Salt.MR.calFrameK_satisfiable_Ah
   Salt.MR.levelGates_calibrated_Ah
-  Salt.MR.log_nat_nonneg
+  Real.log_natCast_nonneg
   Salt.MR.log_nat_mono
   Salt.MR.log_nat_monotone
   Salt.MR.dist₁_neg_zero

@@ -84,17 +84,11 @@ open scoped ArithmeticFunction ArithmeticFunction.Moebius ArithmeticFunction.zet
 `Real.log` at natural arguments, the inner range as an interval, and the phase
 reindex that lines the `dist₁` argument up with the min-sum suite's indexing. -/
 
-/-- `Real.log` is nonnegative on natural arguments (`log 0 = 0` covers `n = 0`). -/
-theorem log_nat_nonneg (n : ℕ) : 0 ≤ Real.log n := by
-  rcases Nat.eq_zero_or_pos n with h | h
-  · simp [h]
-  · exact Real.log_nonneg (by exact_mod_cast h)
-
 /-- `Real.log` is monotone on natural arguments. -/
 theorem log_nat_mono {m n : ℕ} (h : m ≤ n) : Real.log m ≤ Real.log n := by
   rcases Nat.eq_zero_or_pos m with hm | hm
   · rw [hm]
-    simpa using log_nat_nonneg n
+    simpa using Real.log_natCast_nonneg n
   · exact Real.log_le_log (by exact_mod_cast hm) (by exact_mod_cast h)
 
 /-- `n ↦ log n` is monotone: the Abel weight of the Type I₁ inner sum. -/
@@ -230,11 +224,11 @@ theorem inner_log_phase_bound {V x d : ℕ} (hd : 0 < d) (α : ℝ) :
   simp only [eR_phase_reindex]
   rcases le_or_gt (V / d) (x / d) with h | h
   · exact norm_sum_Ioc_weighted_le (w := fun n : ℕ => Real.log n) h hmt log_nat_monotone
-      (log_nat_nonneg _) (log_nat_mono (Nat.div_le_self x d))
+      (Real.log_natCast_nonneg _) (log_nat_mono (Nat.div_le_self x d))
       (fun _ _ hK2 => partial_phase_bound hd α hK2)
   · rw [Finset.Ioc_eq_empty (by omega)]
     simp only [Finset.sum_empty, norm_zero]
-    exact mul_nonneg (by linarith [log_nat_nonneg x]) hmt
+    exact mul_nonneg (by linarith [Real.log_natCast_nonneg x]) hmt
 
 /-! ## L4 — the Type I bounds (Montgomery p. 40, display (5))
 
@@ -276,7 +270,7 @@ theorem typeI_one_bound {α : ℝ} {a : ℤ} {q : ℕ} {c : ℝ} (hq : 1 ≤ q) 
       ≤ 2 * Real.log x * (30 * ((x : ℝ) / (q : ℝ)) * (1 + Real.log (2 * (U : ℝ)))
           + 12 * ((U : ℝ) + (q : ℝ)) * (1 + Real.log q)) := by
   refine typeI_skeleton hq hc hcop happ hU ?_ _
-    (by linarith [log_nat_nonneg x]) ?_
+    (by linarith [Real.log_natCast_nonneg x]) ?_
   · intro d hd
     simp only [Finset.mem_filter, Finset.mem_Icc] at hd ⊢
     exact ⟨hd.1.1, hd.2⟩
@@ -312,7 +306,7 @@ theorem typeI_two_bound {α : ℝ} {a : ℤ} {q : ℕ} {c : ℝ} (hq : 1 ≤ q) 
     rw [typeICoeff_eq_zero (htn ht)]
     simp
   rw [← Finset.sum_subset (Finset.filter_subset _ _) hsupp]
-  refine typeI_skeleton hq hc hcop happ hUV ?_ _ (log_nat_nonneg _) ?_
+  refine typeI_skeleton hq hc hcop happ hUV ?_ _ (Real.log_natCast_nonneg _) ?_
   · intro t ht
     simp only [Finset.mem_filter, Finset.mem_Icc] at ht ⊢
     exact ⟨ht.1.1, ht.2⟩
@@ -325,7 +319,7 @@ theorem typeI_two_bound {α : ℝ} {a : ℤ} {q : ℕ} {c : ℝ} (hq : 1 ≤ q) 
       exact ht.2
     rw [norm_mul]
     exact mul_le_mul (le_trans (norm_typeICoeff_le U V t) (log_nat_mono htUV))
-      (inner_phase_bound ht0 α) (norm_nonneg _) (log_nat_nonneg _)
+      (inner_phase_bound ht0 α) (norm_nonneg _) (Real.log_natCast_nonneg _)
 
 /-- **L4 — the Type I bound, fused.**  The two Type I sums of `vaughan_expSum`
 together. -/
@@ -475,10 +469,10 @@ private theorem typeII_pair_bound (V : ℕ) {x m m' D E : ℕ} (hm : 0 < m) (hm'
       abs_of_nonneg (mul_nonneg (typeIIData_nonneg V m) (typeIIData_nonneg V m'))]
     exact mul_le_mul (le_trans (typeIIData_le_log V m) (log_nat_mono hmx))
       (le_trans (typeIIData_le_log V m') (log_nat_mono hm'x)) (typeIIData_nonneg V m')
-      (log_nat_nonneg x)
+      (Real.log_natCast_nonneg x)
   exact mul_le_mul hcoef
     (phase_block_sum_bound (le_max_left _ _) (min_le_left _ _) hDE (α * ((m : ℝ) - (m' : ℝ))))
-    (norm_nonneg _) (mul_nonneg (log_nat_nonneg x) (log_nat_nonneg x))
+    (norm_nonneg _) (mul_nonneg (Real.log_natCast_nonneg x) (Real.log_natCast_nonneg x))
 
 /-- **The Cauchy–Schwarz engine.**
 `(∑_d ‖∑_m G d m‖)² ≤ #s · ∑_{m,m'} ‖∑_d G d m · conj (G d m')‖`. -/
@@ -696,7 +690,7 @@ theorem typeII_block_bound {α : ℝ} {a : ℤ} {q : ℕ} {c : ℝ} (hq : 1 ≤ 
   have hL : (0 : ℝ) ≤ (E : ℝ) - (D : ℝ) := by
     have : (D : ℝ) ≤ (E : ℝ) := by exact_mod_cast hDE
     linarith
-  have hlogx : 0 ≤ Real.log x := log_nat_nonneg x
+  have hlogx : 0 ≤ Real.log x := Real.log_natCast_nonneg x
   have hSnn : (0 : ℝ) ≤ ∑ d ∈ Finset.Ioc D E,
       ‖∑ m ∈ Finset.Icc 1 (x / (D + 1)), typeIIterm V x α d m‖ :=
     Finset.sum_nonneg (fun _ _ => norm_nonneg _)
