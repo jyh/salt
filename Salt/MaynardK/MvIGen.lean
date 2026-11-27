@@ -68,8 +68,8 @@ private lemma list_sum_map_add {γ : Type*} (l : List γ) (f g : γ → ℝ) :
 
 /-! ## The prime tail `Σ_{p>D} 1/(p-1)² ≤ 2/D`
 
-`int_tail` and `prime_tail` (with the list helpers `list_sum_map_div`, `list_sum_map_le` and
-`list_map_sum_nonneg`) are read from `Twelve.MvI`. -/
+`prime_tail` and the list helpers `list_sum_map_div`, `list_sum_map_le` and `list_map_sum_nonneg`
+are read from `Twelve.MvI` (`int_tail` is used only inside `prime_tail` there). -/
 
 /-! ## The pairwise-collision bound (Stage 2 kernel) -/
 
