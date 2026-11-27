@@ -133,17 +133,6 @@ lemma ramRrange_subset_Icc_sharp (H : ℝ) (N X j M : ℕ) (hM : 2 * ramRbot H X
 
 /-! ## §2 — A-4: the coefficient and term bounds -/
 
-/-- The Ramaré co-factor weight `(ω(m;P,Q)+1)⁻¹` has norm `≤ 1`. -/
-lemma norm_blockOmega_inv_le_one (P Q m : ℕ) :
-    ‖((blockOmega P Q m : ℂ) + 1)⁻¹‖ ≤ 1 := by
-  rw [norm_inv]
-  have heq : ‖(blockOmega P Q m : ℂ) + 1‖ = (blockOmega P Q m : ℝ) + 1 := by
-    rw [show ((blockOmega P Q m : ℂ) + 1) = ((blockOmega P Q m + 1 : ℕ) : ℂ) by
-      push_cast; ring, Complex.norm_natCast]
-    push_cast; ring
-  rw [heq]
-  exact inv_le_one_of_one_le₀ (le_add_of_nonneg_left (by positivity))
-
 /-- **A-4, the coefficient bound.**  `‖a_R m‖ ≤ 1` for a `1`-bounded datum: the window
 indicator is `0/1`, the datum is `1`-bounded, and the Ramaré weight `(ω+1)⁻¹` has norm
 `≤ 1`.  There is no `1/m` here — `ramR` carries it internally (see `norm_ramRcoeff_cterm_le`). -/
