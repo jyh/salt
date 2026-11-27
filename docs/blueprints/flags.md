@@ -20597,7 +20597,7 @@ silently assume the convergence it is meant to prove, so it is flagged, not forc
 
 1. *(convergence, class B/C)* Discharge the `Tendsto (hbEulerLog χ z ·)` hypothesis itself —
    the corpus is one comparison away: `logChiSum_tendsto_zfr_hundred`
-   (`Salt/HB/Lemma7EF.lean:3206`) already delivers `Tendsto (fun Y => logChiSum χ X Y) atTop`
+   (`Salt/HB/Lemma7EF.lean:3196`) already delivers `Tendsto (fun Y => logChiSum χ X Y) atTop`
    **with the rate `100/√log X`** off the zero-free region, and
    `hbEulerLog_sub_primeSum_termwise` + `logChiSum_re_sub_primeSum_le` bound the difference by
    an absolutely convergent `∑ 2/p²` tail.  Cauchy criterion closes it.
@@ -20655,9 +20655,9 @@ DOUBLED `log(1/c)` (an ξ=1 shape) but the `(k−1)` power of `:218`'s `(e^{632}
 
 **⛔ K3 CONFIRMED-FATAL — THE N11 DOOR DOES NOT CLOSE AT `k = 1`, AND `k` IS NOT THE LEVER.**
 A **k-INDEPENDENT** L-power survives, from the LANDED ledger, not from the margin:
-`efEnvelope_le_ledger_sharp` (`Salt/HB/Lemma7EF.lean:2694-2702`) prices the Range-A erased-spend
-row at `10^3·M^3·N·u^{bceil−1}` against the consumer's target grade `(m+255)/log u` (`:2979-2980`)
-inside the byte-fixed window `250·log q ≤ log u` (`:2916`), forcing
+`efEnvelope_le_ledger_sharp` (`Salt/HB/Lemma7EF.lean:2684-2692`) prices the Range-A erased-spend
+row at `10^3·M^3·N·u^{bceil−1}` against the consumer's target grade `(m+255)/log u` (`:2969-2970`)
+inside the byte-fixed window `250·log q ≤ log u` (`:2906`), forcing
 `𝒩 ≥ (b/250)·(5·log L + 29)`, hence
 `log η ≥ log(1/c) + [(k−1) + 5b/s]·log L + O(1)`. At TS-3's own target `(k=1, b=174,
 log(1/c)=52)` that is `log η` = 102.2 at L=250, 120.0 at L=10⁶, 168.1 at L=10¹² — i.e.
@@ -20677,7 +20677,7 @@ explicit-constant hygiene and (through `b`) the θ ledger. Recorded so no later 
 TS-2 landing for door progress.
 
 **AND TS-3's PREMISE IS UNVERIFIED.** The landed end-to-end consumer
-`logChiSum_tendsto_zfr_hundred` (`Lemma7EF.lean:3206`) closes HB's (4.12) tail at `K = 100` using
+`logChiSum_tendsto_zfr_hundred` (`Lemma7EF.lean:3196`) closes HB's (4.12) tail at `K = 100` using
 the CLASSICAL ZFR ceiling `efZfrCeil` at every `u`, and `logChiSum_tendsto_zfr`'s own docstring
 says in the open that "`hN+`, `hord` and the `q^{250} ≤ X` edge do NOT appear — they are
 Range-A's". **On the landed bytes the repulsion contract is currently not load-bearing for
@@ -21920,7 +21920,7 @@ shape 1, proofs 2 (one build round of three tactic repairs). Full `saltbuild.sh`
 
 This composition kernel-checks the **`hσ'r` obligation only**. There is a *second, independent*
 demand on `log η` from the Range-A EF ledger (`efEnvelope_le_ledger_sharp`,
-`Salt/HB/Lemma7EF.lean:2694-2702`, inside the byte-fixed window at `:2916`), which contributes a
+`Salt/HB/Lemma7EF.lean:2684-2692`, inside the byte-fixed window at `:2906`), which contributes a
 `5b/s·log L` term that is **entirely `k`-independent**. **Nothing here certifies the door, or
 `q`-freeness, or the full threshold. It certifies one of two conjoined obligations.** The same
 fence is written into the new file's header and into both delivered docstrings.
@@ -25152,7 +25152,7 @@ leaves precisely because it is assumed.
 
 ## 2026-09-09 hbEulerLog_tendsto — a RED-FIRST CAP-DOCSTRING STANDING ABOVE A LANDED THEOREM (h2c, Fable; found by the helm's signed non-author pass over the N7 route freeze v2.1)
 
-**The object.** `Salt/HB/CrownTheorem1.lean:3612-3614` — `theorem hbEulerLog_tendsto [NeZero q] {χ} {β₀ η} (hR : N9Regime q χ β₀ η)
+**The object.** `Salt/HB/CrownTheorem1.lean:3601-3603` — `theorem hbEulerLog_tendsto [NeZero q] {χ} {β₀ η} (hR : N9Regime q χ β₀ η)
 {z : ℝ} (hz : 3 ≤ z) : ∃ A, Tendsto (fun Y => hbEulerLog χ z Y) atTop (𝓝 A)` — is LANDED, sorry-free, and audits at
 `[propext, Classical.choice, Quot.sound]`. It is the ⟦CHAR-TRIO⟧ flag's **step 1** (`hlimP`, the ordered Euler log-product converges),
 discharged from the regime alone.
@@ -25593,7 +25593,7 @@ quantity to what is counted (W5). The negation then gets stronger (`not_fulcrum_
   07-15, `EHall` consumed at one line; `WindowPNT` discharged by `windowPNT_holds`). The remaining `∀A` binder of
   `HasLevel (3999/4000)` can collapse to one saving, but that is FORM only: `θ★ ≈ 1` stays EH in depth, as the file's own
   θ-caveat says.
-- The crown's twin-horn use of `siegel_theorem` (`Salt/HB/CrownTheorem1.lean:6638`): the wrong horn. Under `F` a Siegel zero
+- The crown's twin-horn use of `siegel_theorem` (`Salt/HB/CrownTheorem1.lean:6627`): the wrong horn. Under `F` a Siegel zero
   exists, so the fixed standoff that would replace Siegel is false there by construction.
 
 **Honest zeros (the trade has nothing to act on).** Maynard under `EH (1/2)` (BV, unconditional) · `TwinB_min` (already
@@ -25604,7 +25604,7 @@ Out of lane or already done: `N7Exit` (the live crown campaign; window and quali
 
 **Correction to a ledger line.** `docs/exploration/fulcrum-pass2.md` C1 calls `Fold.lean:167` the *sole* consumer of
 `siegel_theorem`. That was true for Siegel-Walfisz and is not true for the corpus: at `431c1887` there are three code
-consumers (`SW/Fold.lean:167`, `HB/CrownTheorem1.lean:6638`, `MR/PortAssembly.lean:1216`).
+consumers (`SW/Fold.lean:167`, `HB/CrownTheorem1.lean:6627`, `MR/PortAssembly.lean:1216`).
 
 **What survived (a proposal, not a flag).** Siegel-Walfisz reads Siegel at ONE site (`Fold.lean:167`,
 `ε = 1/(4C)`), and one fixed standoff `β ≤ 1 − c/log q` serves every `(A, C)`. A Siegel-free

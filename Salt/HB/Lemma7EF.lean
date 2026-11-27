@@ -2145,16 +2145,6 @@ private lemma eventually_pow_exp_sqrt_le_one (C : ℝ) (n : ℕ) {δ : ℝ} (hδ
   filter_upwards [h.eventually (gt_mem_nhds (by norm_num : (0:ℝ) < 1))] with s hs
   linarith
 
-/-- `log x ≤ 2√x` — the only bound needed to keep `log M ≍ log log u` away from `M`. -/
-private lemma log_le_two_sqrt {x : ℝ} (hx : 0 < x) : Real.log x ≤ 2 * Real.sqrt x := by
-  have hs : (0 : ℝ) < Real.sqrt x := Real.sqrt_pos.mpr hx
-  have h1 : Real.log (Real.sqrt x) ≤ Real.sqrt x - 1 := Real.log_le_sub_one_of_pos hs
-  have h2 : Real.log x = 2 * Real.log (Real.sqrt x) := by
-    conv_lhs => rw [← Real.sq_sqrt (le_of_lt hx)]
-    rw [Real.log_pow]
-    norm_num
-  linarith
-
 set_option maxHeartbeats 1000000 in
 -- Four independent decay rows, each an rpow-to-exp rewrite followed by a `mul_le_mul` chain
 -- against a degree-12 polynomial in `log u`.
@@ -2246,7 +2236,7 @@ theorem efEnvelope_zfr_eventually_le {q : ℕ} {β₀ σa σb c₀ : ℝ} {m : �
         Real.log_mul (by norm_num) (ne_of_gt hs0)
       have hlog2 : Real.log 2 ≤ 1 := by
         linarith [Real.log_le_sub_one_of_pos (show (0:ℝ) < 2 by norm_num)]
-      linarith [log_le_two_sqrt hs0]
+      linarith [Salt.SW.log_le_two_sqrt hs0]
     have hA : (0 : ℝ) ≤ c₀ / 15 * Real.sqrt (Real.log u) := by positivity
     have hAle : c₀ / 15 * Real.sqrt (Real.log u)
         * (Real.log q + 7 * Real.log (Real.log ((q : ℝ) * u) + 2)) ≤ c₀ * Real.log u := by
@@ -2903,7 +2893,7 @@ private lemma log_le_eight_sqrt3 {M : ℝ} (hM : 0 < M) :
     conv_lhs => rw [← Real.sq_sqrt (le_of_lt hr0)]
     rw [Real.log_pow]; norm_num
   have h3 : Real.log (Real.sqrt (Real.sqrt M)) ≤ 2 * Real.sqrt (Real.sqrt (Real.sqrt M)) :=
-    log_le_two_sqrt ht0
+    Salt.SW.log_le_two_sqrt ht0
   linarith
 
 /-- **THE WINDOW EDGE, PUSHED INTO THE LEDGER.**  At `L = log q ≥ 250` and inside the design's
@@ -3069,7 +3059,7 @@ theorem efEnvelope_zfr_eventually_le_sharp {q : ℕ} {β₀ σa σb c₀ : ℝ} 
         Real.log_mul (by norm_num) (ne_of_gt hs0)
       have hlog2 : Real.log 2 ≤ 1 := by
         linarith [Real.log_le_sub_one_of_pos (show (0:ℝ) < 2 by norm_num)]
-      linarith [log_le_two_sqrt hs0]
+      linarith [Salt.SW.log_le_two_sqrt hs0]
     have hA : (0 : ℝ) ≤ c₀ / 15 * Real.sqrt (Real.log u) := by positivity
     have hAle : c₀ / 15 * Real.sqrt (Real.log u) * (Real.log q + 7 * Real.log M)
         ≤ c₀ * Real.log u := by
