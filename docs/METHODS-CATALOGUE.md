@@ -1,7 +1,7 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `441450eb` · source digest `50b1215069f3d5df` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `4fbacedd` · source digest `3c642af4b401ba3a` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
@@ -90,7 +90,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 
 | rank | hypothesis | hang count | cond. producers | ∃-witness producers | defined at |
 |---|---|---|---|---|---|
-| 1 | `Salt.MR.ShortIntervalDatum` | 98 | 0 | `Salt.MR.exists_shortIntervalDatum` | Salt/MR/GradeConst.lean:52 |
+| 1 | `Salt.MR.ShortIntervalDatum` | 98 | 0 | `Salt.MR.exists_shortIntervalDatum` | Salt/MR/GradeConst.lean:53 |
 | 2 | `Salt.SW.NoSiegelZerosAt` | 90 | 1 | — | Salt/SW/StandoffGate.lean:88 |
 | 3 | `Salt.MR.CofactorSocket` | 47 | 20 | — | Salt/MR/CapFreeArm3.lean:258 |
 | 4 | `Salt.MR.DoorRowZeroBase_L_gk` | 35 | 0 | — | Salt/MR/M4RowSpineLinear.lean:1263 |

@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `441450eb` · source digest `50b1215069f3d5df` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `4fbacedd` · source digest `3c642af4b401ba3a` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -3253,11 +3253,11 @@ Declarations indexed across the tree: 23365 · corpus Prop-valued names (the hyp
 | `Salt.MR.witEP2_gate` | Salt/MR/FrameWitness.lean:826 | characters |
 | `Salt.MR.err_at_witness` | Salt/MR/FrameWitness.lean:838 | characters |
 | `Salt.MR.row_ladder_at_witness` | Salt/MR/FrameWitness.lean:1253 | characters |
-| `Salt.MR.exists_shortIntervalDatum` | Salt/MR/GradeConst.lean:57 | characters |
-| `Salt.MR.crossKer_width_sigma_bound_uniform` | Salt/MR/GradeConst.lean:686 | characters |
-| `Salt.MR.pin_width_gates` | Salt/MR/GradeConst.lean:742 | characters |
-| `Salt.MR.width_pin_bracket_le` | Salt/MR/GradeConst.lean:778 | characters |
-| `Salt.MR.rhsAgradeConst_le` | Salt/MR/GradeConst.lean:1201 | characters |
+| `Salt.MR.exists_shortIntervalDatum` | Salt/MR/GradeConst.lean:58 | characters |
+| `Salt.MR.crossKer_width_sigma_bound_uniform` | Salt/MR/GradeConst.lean:687 | characters |
+| `Salt.MR.pin_width_gates` | Salt/MR/GradeConst.lean:743 | characters |
+| `Salt.MR.width_pin_bracket_le` | Salt/MR/GradeConst.lean:779 | characters |
+| `Salt.MR.rhsAgradeConst_le` | Salt/MR/GradeConst.lean:1202 | characters |
 | `Salt.MR.intervalIntegrable_beta_legC` | Salt/MR/GradeWindowC.lean:115 | characters |
 | `Salt.MR.intervalIntegrable_alpha_legC` | Salt/MR/GradeWindowC.lean:147 | characters |
 | `Salt.MR.jointIntegrableAtC_pin_free` | Salt/MR/GradeWindowC.lean:235 | characters |
@@ -7797,13 +7797,13 @@ Declarations indexed across the tree: 23365 · corpus Prop-valued names (the hyp
 | `Salt.MR.err_at_witness_mr_end` | Salt/MR/FrameWitness.lean:1006 | characters | `Salt.MR.SeamCoefWS` |
 | `Salt.MR.a2Frame3_witness` | Salt/MR/FrameWitness.lean:1094 | characters | `Salt.MR.TannGate`, `Salt.MR.SeamCoefW` |
 | `Salt.MR.a2Frame3_witness_end` | Salt/MR/FrameWitness.lean:1173 | characters | `Salt.MR.TannGate`, `Salt.MR.SeamCoefWS` |
-| `Salt.MR.hband_discharge_param` | Salt/MR/GradeConst.lean:89 | sieves, characters | `Salt.MR.ShortIntervalDatum` |
-| `Salt.MR.crossKer_width_sigma_bound_param` | Salt/MR/GradeConst.lean:506 | characters | `Salt.MR.ShortIntervalDatum` |
-| `Salt.MR.crossKer_width_pin_const` | Salt/MR/GradeConst.lean:865 | characters | `Salt.MR.ShortIntervalDatum` |
-| `Salt.MR.beta_integral_pin_const` | Salt/MR/GradeConst.lean:967 | characters | `Salt.MR.ShortIntervalDatum` |
-| `Salt.MR.rhs_grade_at_scale_const` | Salt/MR/GradeConst.lean:1031 | characters | `Salt.MR.ShortIntervalDatum` |
-| `Salt.MR.hRHS_discharged_const` | Salt/MR/GradeConst.lean:1249 | characters | `Salt.MR.JointIntegrableAt` |
-| `Salt.MR.center_halasz_of_grade_const` | Salt/MR/GradeConst.lean:1294 | characters | `Salt.MR.JointIntegrableAt` |
+| `Salt.MR.hband_discharge_param` | Salt/MR/GradeConst.lean:90 | sieves, characters | `Salt.MR.ShortIntervalDatum` |
+| `Salt.MR.crossKer_width_sigma_bound_param` | Salt/MR/GradeConst.lean:507 | characters | `Salt.MR.ShortIntervalDatum` |
+| `Salt.MR.crossKer_width_pin_const` | Salt/MR/GradeConst.lean:866 | characters | `Salt.MR.ShortIntervalDatum` |
+| `Salt.MR.beta_integral_pin_const` | Salt/MR/GradeConst.lean:968 | characters | `Salt.MR.ShortIntervalDatum` |
+| `Salt.MR.rhs_grade_at_scale_const` | Salt/MR/GradeConst.lean:1032 | characters | `Salt.MR.ShortIntervalDatum` |
+| `Salt.MR.hRHS_discharged_const` | Salt/MR/GradeConst.lean:1250 | characters | `Salt.MR.JointIntegrableAt` |
+| `Salt.MR.center_halasz_of_grade_const` | Salt/MR/GradeConst.lean:1295 | characters | `Salt.MR.JointIntegrableAt` |
 | `Salt.MR.jointIntegrableAtC_of_gates` | Salt/MR/GradeWindowC.lean:218 | characters | `Salt.MR.JointIntegrableAt` |
 | `Salt.MR.joint_cs_trunc_pinC` | Salt/MR/GradeWindowC.lean:377 | characters | `Salt.MR.JointIntegrableAtC` |
 | `Salt.MR.rhs_grade_at_scale_windowC` | Salt/MR/GradeWindowC.lean:512 | characters | `Salt.MR.ShortIntervalDatum`, `Salt.MR.JointIntegrableAtC` |
