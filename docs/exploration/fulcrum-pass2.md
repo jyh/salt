@@ -19,7 +19,7 @@ C4. Effectivized consumers (eat list): bounded_gaps_unconditional K (Gate.lean:3
 
 TIER N — needs ONE new C-class node (the Hecke converse: "no real zero in (1−δ,1) ⟹ L(1,χ) ≫ δ"; corpus holds only the cap direction LFunction_one_re_le_mvt_sharp; positivity substrate landed, DHRepulsion.lean:36-41):
 N1. Effective L(1,χ) ≫ 1/(C⋆·log q), q > Q₀. DEMOTED: conditional on the unbuilt node; the classical route is MEMORY (MV vol. 1 — montgomery3.txt's 28.62 is a POINTER, not a staged proof). Class-number corollaries: MEMORY, consumer-free in Salt.
-N2. Effective non-pretense (anti-surrogate). GROUNDED half: the zero-route supplier of small PretenseSum (TransferFull.lean:183-185) is definitionally cut — η < C⋆ ∀q > Q₀. DEMOTED half: "PretenseSum ~ ½·log N large" needs N1 + a MEMORY Mertens-for-χ step. Precision (R3): hres (hb_lemma2, :205-214) becomes satisfiable-but-VACUOUS beyond Q₀ (RHS exceeds x-scale), not unsatisfiable.
+N2. Effective non-pretense (anti-surrogate). GROUNDED half: the zero-route supplier of small PretenseSum (TransferFull.lean:183-185) is definitionally cut — η < C⋆ ∀q > Q₀. DEMOTED half: "PretenseSum ~ ½·log N large" needs N1 + a MEMORY Mertens-for-χ step. Precision (R3): hres (hb_lemma2, :213-222) becomes satisfiable-but-VACUOUS beyond Q₀ (RHS exceeds x-scale), not unsatisfiable.
 
 ANTI-SUPPLY (what ¬F deletes — load-bearing for Z):
 A1. HB engine starved: HeathBrownDichotomy (SiegelTwin.lean:97) resolves RIGHT via K1 with zero twin yield; SiegelSequence false (siegelSequence_implies_infinitely); the surviving S1 ≤ S2 (GROUNDED Salt/HB/Transfer.lean:197-200, termwise) is an UPPER bound only.
