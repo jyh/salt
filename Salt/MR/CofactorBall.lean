@@ -636,14 +636,6 @@ the gate holds past an EXPLICIT threshold — stated, never absorbed (law #253).
 `e^{100} ≈ 2.7·10⁴³`, so the honest threshold is `X ≳ exp exp(2·10⁴⁵)` — ⟦V5⟧'s Z-3 estimate,
 confirmed. -/
 
-/-- `log u ≤ 2√u` for `u > 0` — `log u = 2·log √u ≤ 2(√u − 1)`. -/
-private lemma log_le_two_sqrt {u : ℝ} (hu : 0 < u) : Real.log u ≤ 2 * Real.sqrt u := by
-  have hs : 0 < Real.sqrt u := Real.sqrt_pos.mpr hu
-  have h1 : Real.log (Real.sqrt u) ≤ Real.sqrt u - 1 := Real.log_le_sub_one_of_pos hs
-  have h2 : Real.log u = 2 * Real.log (Real.sqrt u) := by
-    rw [Real.log_sqrt hu.le]; ring
-  linarith
-
 /-- `√(u+1) ≤ √u + 1`. -/
 private lemma sqrt_add_one_le {u : ℝ} (hu : 0 ≤ u) : Real.sqrt (u + 1) ≤ Real.sqrt u + 1 := by
   have hsq := Real.sq_sqrt hu
@@ -677,7 +669,7 @@ The five charges of `collisionGate_of_five`, each put under `0.0135·loglog X`:
 (1) `0.8536·√25·√L = 4.268·√L ≤ 0.0135·L` once `√L ≥ 1000`;
 (2) the window constant `25`;
 (3) the height drift `(3/4)(loglog(4X+3) − loglog X) ≤ (3/4)log 2` (`loglog_drift`);
-(4) `5·logloglog(4X+16) ≤ 5·log(L+1) ≤ 10(√L+1)` (`log_le_two_sqrt`, `sqrt_add_one_le`);
+(4) `5·logloglog(4X+16) ≤ 5·log(L+1) ≤ 10(√L+1)` (`Salt.SW.log_le_two_sqrt`, `sqrt_add_one_le`);
 (5) the floor's own constant `C`, which is what puts the `75·C⁺` in the tower. -/
 theorem collisionGate_discharged (C : ℝ) :
     ∃ X₀ : ℝ, 0 < X₀ ∧ ∀ X : ℝ, X₀ ≤ X → collisionGate X 25 C := by
@@ -742,7 +734,7 @@ theorem collisionGate_discharged (C : ℝ) :
     have hle : Real.log (Real.log (4 * X + 16)) ≤ Real.log (Real.log X) + 1 := by linarith
     have hstep : Real.log (Real.log (Real.log (4 * X + 16)))
         ≤ Real.log (Real.log (Real.log X) + 1) := Real.log_le_log hp2 hle
-    have hlog := log_le_two_sqrt (u := Real.log (Real.log X) + 1) (by linarith)
+    have hlog := Salt.SW.log_le_two_sqrt (x := Real.log (Real.log X) + 1) (by linarith)
     have hsq := sqrt_add_one_le (u := Real.log (Real.log X)) hL0
     nlinarith only [hs, hsq, hlog, hstep, hssq, hL, hCm]
   · -- (5) the floor's own constant — the source of the tower

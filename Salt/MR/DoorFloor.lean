@@ -362,16 +362,6 @@ theorem H0mrt_pos (ε : ℝ) : 0 < H0mrt ε := Nat.ceil_pos.mpr (Real.exp_pos _)
 consumer at `main`, in this file or outside it. -/
 theorem HplusStar_pos (ε : ℝ) : 0 < HplusStar ε := Nat.ceil_pos.mpr (Real.exp_pos _)
 
-/-- The workhorse: `log u ≤ 2√u` for `u > 0`, from `log t ≤ t − 1` at `t = √u`.
-
-⭐ This is what makes the `h`-side threshold elementary: the naive route wants `log u / u → 0` as a
-limit, and a limit does not give a FLOOR. -/
-theorem log_le_two_sqrt {u : ℝ} (hu : 0 < u) : Real.log u ≤ 2 * Real.sqrt u := by
-  have hs : 0 < Real.sqrt u := Real.sqrt_pos.mpr hu
-  have h1 : Real.log (Real.sqrt u) ≤ Real.sqrt u - 1 := Real.log_le_sub_one_of_pos hs
-  rw [Real.log_sqrt hu.le] at h1
-  linarith
-
 /-- **`H₀mrt` clears the middle term.**  For `0 < ε ≤ 1` and `h ≥ H₀mrt(ε)`,
 
     `(log log h)² / (log h)²  ≤  ε` .
@@ -393,7 +383,7 @@ theorem mrt_middle_le_of_H0mrt {ε h : ℝ} (hε : 0 < ε) (hε1 : ε ≤ 1)
   have hu1 : (1 : ℝ) ≤ u := by linarith
   -- `(log u)^2 ≤ 4u`
   have hlog0 : 0 ≤ Real.log u := Real.log_nonneg hu1
-  have hls : Real.log u ≤ 2 * Real.sqrt u := log_le_two_sqrt hu0
+  have hls : Real.log u ≤ 2 * Real.sqrt u := Salt.SW.log_le_two_sqrt hu0
   have hsq : (Real.log u) ^ 2 ≤ 4 * u := by
     have h1 : (Real.log u) ^ 2 ≤ (2 * Real.sqrt u) ^ 2 := by
       exact pow_le_pow_left₀ hlog0 hls 2
