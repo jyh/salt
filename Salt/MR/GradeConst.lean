@@ -28,9 +28,10 @@ between that and the `hgrade` socket of `RHSGrade.hRHS_discharged` at an ABSOLUT
 
 Nothing in `HeadGrade`/`WidthGrade`/`RHSGrade` is touched: the handful of `private` lemmas
 those files keep (`sum_ne_eq_two_lt`, `planch_bilinear_le`, `diag_le_mass_width`,
-`sqrt_mul_sqrt_le`, `width_final_algebra`, `amp_beta_cancel_widthA`, `pin_basic`) are
-re-derived here verbatim-private (`four_log_le_self`, `continuous_rpow_neg` and the two
-integrability pages were too, until O13-e made `RHSGrade`'s public).
+`sqrt_mul_sqrt_le`, `width_final_algebra`, `amp_beta_cancel_widthA`) are re-derived here
+verbatim-private (`four_log_le_self`, `continuous_rpow_neg` and the two integrability pages
+were too, until O13-e made `RHSGrade`'s public). `RHSGrade`'s private `pin_basic` (at `exp 3`)
+is not: the pin arithmetic here is this file's own public `pin_basic64`.
 -/
 
 noncomputable section
