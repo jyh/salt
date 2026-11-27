@@ -221,13 +221,6 @@ lemma ert2_inv_logZz_sq {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 
     _ = 1024 * (1 / Real.log z) ^ 2 := by rw [div_pow, one_div, one_div]; ring
     _ = 1024 * (z0 z x / Lwin x) ^ 2 := by rw [ert2_inv_log_z hz100 hzx]
 
-/-- `PretenseSum χ N ≥ 0` (T2′-local copy). -/
-lemma ert2_PS_nonneg (χ : DirichletCharacter ℂ q) (N : ℕ) : 0 ≤ PretenseSum χ N := by
-  rw [PretenseSum]
-  refine Finset.sum_nonneg fun p hp => ?_
-  rw [Finset.mem_filter] at hp
-  exact div_nonneg (Real.log_nonneg (by exact_mod_cast hp.2.1.one_le)) (by positivity)
-
 /-- **The `Zz`-legality gate.**  For any modulus `d` obeying the T2′ law `d·z ≤ 2x+2`,
     the `l2c_pair_count_clean` legality holds at the `Zz` sift floor:
     `d·Zz⁸·(log Zz)² ≤ 32x` (with `z^{3/4}` room: `(log z)² ≤ 64·z^{1/4}`). -/
@@ -851,7 +844,7 @@ lemma ert2_routeA_sum (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : 
   have hSp_nn : 0 ≤ ∑ p ∈ (Finset.range (2 * x + 2 + 1)).filter
       (fun p => Nat.Prime p ∧ chiRe χ p = 1 ∧ z ≤ p), 1 / (p : ℝ) :=
     Finset.sum_nonneg fun p _ => by positivity
-  have hPS : 0 ≤ PretenseSum χ (2 * x + 2) := ert2_PS_nonneg χ _
+  have hPS : 0 ≤ PretenseSum χ (2 * x + 2) := pretenseSum_nonneg χ _
   have hprod : (∑ w ∈ Finset.Ioc 0 (ert2K z), Λ w / (w : ℝ))
       * (∑ p ∈ (Finset.range (2 * x + 2 + 1)).filter
           (fun p => Nat.Prime p ∧ chiRe χ p = 1 ∧ z ≤ p), 1 / (p : ℝ))
@@ -919,7 +912,7 @@ lemma ert2_routeB_sum (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : 
   have hL : 100 ≤ Lwin x := ert2_Lwin_ge hz100 hzx
   have hLpos : (0 : ℝ) < Lwin x := by linarith
   have hL0 : Lwin x ≠ 0 := hLpos.ne'
-  have hPS : 0 ≤ PretenseSum χ (2 * x + 2) := ert2_PS_nonneg χ _
+  have hPS : 0 ≤ PretenseSum χ (2 * x + 2) := pretenseSum_nonneg χ _
   have hz0nn : 0 ≤ z0 z x := z0_nonneg hz2
   set S := ((l2cWindow χ z x).filter (fun n =>
       n.Prime ∧ Odd n ∧ IsPrimePow (nMinus χ (n + 2)) ∧ 1 < nPlus χ (n + 2) ∧
@@ -1054,7 +1047,7 @@ theorem ER_T2'_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : �
   have hY : (0 : ℝ) ≤ (x : ℝ) / Lwin x * Real.exp (5 * z0 z x)
       * PretenseSum χ (2 * x + 2) :=
     mul_nonneg (mul_nonneg (div_nonneg (Nat.cast_nonneg x) (by linarith))
-      (Real.exp_pos _).le) (ert2_PS_nonneg χ _)
+      (Real.exp_pos _).le) (pretenseSum_nonneg χ _)
   rw [← Finset.sum_filter_add_sum_filter_not ((l2cWindow χ z x).filter (fun n =>
       n.Prime ∧ Odd n ∧ IsPrimePow (nMinus χ (n + 2)) ∧ 1 < nPlus χ (n + 2) ∧
         ¬ (nPlus χ (n + 2)).Prime ∧ ¬ ERT2'JunkBlock z (nMinus χ (n + 2))))

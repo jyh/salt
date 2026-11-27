@@ -470,13 +470,6 @@ The route (proven below):
   count gives the `J2` line via `z₀·e^{2z₀} ≤ e^{5z₀}`.
 -/
 
-/-- `PretenseSum` is nonnegative (a sum of `log p / p ≥ 0`). -/
-lemma PretenseSum_nonneg (χ : DirichletCharacter ℂ q) (N : ℕ) : 0 ≤ PretenseSum χ N := by
-  rw [PretenseSum]
-  refine Finset.sum_nonneg fun p hp => ?_
-  rw [Finset.mem_filter] at hp
-  exact div_nonneg (Real.log_nonneg (by exact_mod_cast hp.2.1.one_le)) (by positivity)
-
 /-- `PretenseSum` is monotone in its cutoff (more nonnegative terms). -/
 lemma PretenseSum_mono (χ : DirichletCharacter ℂ q) {M N : ℕ} (h : M ≤ N) :
     PretenseSum χ M ≤ PretenseSum χ N := by
@@ -685,7 +678,7 @@ theorem EL_evenCorner_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {
   have hz2R : (2 : ℝ) ≤ (z : ℝ) := by exact_mod_cast (show 2 ≤ z by omega)
   have hexp : (0 : ℝ) < Real.exp (2 * z0 z x) := Real.exp_pos _
   have ht0 : 0 ≤ z0 z x := z0_nonneg (by omega)
-  have hPSnn : 0 ≤ PretenseSum χ (2 * x + 2) := PretenseSum_nonneg χ _
+  have hPSnn : 0 ≤ PretenseSum χ (2 * x + 2) := pretenseSum_nonneg χ _
   -- window log-scale is `≥ 1`
   have hx8 : (8 : ℝ) ≤ (x : ℝ) := by
     have h23 : (2 : ℝ) ^ 3 ≤ (z : ℝ) ^ 3 := by gcongr

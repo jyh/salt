@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `f35ee1fc` · source digest `a4b2fe5c1392cc1f` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `edd844d0` · source digest `6a5e79c938e7a03b` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23382 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23377 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -1978,18 +1978,18 @@ Declarations indexed across the tree: 23382 · corpus Prop-valued names (the hyp
 | `Salt.HB.ER_wJunk_bound` | Salt/HB/L2cELJunk.lean:383 | characters |
 | `Salt.HB.EL_corners_bound` | Salt/HB/L2cELJunk.lean:645 | characters |
 | `Salt.HB.EL_T1_bound` | Salt/HB/L2cELT1.lean:798 | characters |
-| `Salt.HB.EL_T2_bound` | Salt/HB/L2cELT2.lean:1333 | characters |
+| `Salt.HB.EL_T2_bound` | Salt/HB/L2cELT2.lean:1325 | characters |
 | `Salt.HB.EL_T3F_bound` | Salt/HB/L2cELT3F.lean:674 | characters |
 | `Salt.HB.EL_Tsw_bound` | Salt/HB/L2cELTsw.lean:1013 | characters |
 | `Salt.HB.ER_squarefull_junk` | Salt/HB/L2cER.lean:154 | characters |
-| `Salt.HB.ER_T1'_bound_mixed` | Salt/HB/L2cERT1.lean:737 | characters |
-| `Salt.HB.ER_T2'_bound` | Salt/HB/L2cERT2.lean:1045 | characters |
-| `Salt.HB.ER_T3'_bound` | Salt/HB/L2cERT3.lean:480 | characters |
+| `Salt.HB.ER_T1'_bound_mixed` | Salt/HB/L2cERT1.lean:730 | characters |
+| `Salt.HB.ER_T2'_bound` | Salt/HB/L2cERT2.lean:1038 | characters |
+| `Salt.HB.ER_T3'_bound` | Salt/HB/L2cERT3.lean:472 | characters |
 | `Salt.HB.ER_Tsw'_bound_of_count` | Salt/HB/L2cERTsw.lean:371 | characters |
 | `Salt.HB.engineRoute_card_right` | Salt/HB/L2cEngineRoute.lean:184 | characters |
 | `Salt.HB.ER_Tsw'_bound_unconditional` | Salt/HB/L2cEngineRoute.lean:404 | characters |
 | `Salt.HB.cPairSum_bound_unconditional` | Salt/HB/L2cEngineRoute.lean:608 | characters |
-| `Salt.HB.EL_evenCorner_bound` | Salt/HB/L2cEven.lean:676 | characters |
+| `Salt.HB.EL_evenCorner_bound` | Salt/HB/L2cEven.lean:669 | characters |
 | `Salt.HB.hb_l2c_master_of_count` | Salt/HB/L2cMaster.lean:371 | characters |
 | `Salt.HB.EL_uncov_bound_unconditional` | Salt/HB/L2cMasterUncond.lean:48 | characters |
 | `Salt.HB.hb_l2c_master_unconditional` | Salt/HB/L2cMasterUncond.lean:85 | characters |
