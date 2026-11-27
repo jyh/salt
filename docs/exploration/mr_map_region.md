@@ -46,7 +46,7 @@ Matomäki–Radziwiłł gate.
    ρ.re ≤ 1 − c₃/log(|ρ.im| + 2)`, `c₃ = min(1/75712, ε₀·log 2)` with ε₀ the
   existential fixed-strip constant. **NO height threshold — covers ALL t
   including t = 0.**
-- **Littlewood region** (G: Salt/Vk/Littlewood.lean:409): width
+- **Littlewood region** (G: Salt/Vk/Littlewood.lean:393): width
   `c·loglog/log`, `c = 1/88214`, own T₀ = exp(exp(log C + 400))-grade
   (flags.md:9641–9644). Strictly between dlVP and pow; for MR purposes
   superseded by pow above T₀ and by dlVP below (it buys nothing extra in the
