@@ -8821,7 +8821,7 @@ N i=nScale (aIdx i), M i=nScale (bIdx i)` (`GehShiuWire.lean` convention).
   `rpow_quarter_le`/`le_rpow_three_quarter`.
 
 **★ THE OBSTRUCTION (rung 3 `hanch` does NOT close — factor-2 anchor-cap boundary) ★**
-`hanch` (GehAnchor.lean:514-519) demands FIVE conjuncts for EVERY `i < m x`; the
+`hanch` (GehAnchor.lean:509-514) demands FIVE conjuncts for EVERY `i < m x`; the
 fifth, **`2·N·M ≤ x`**, is jointly UNSATISFIABLE with `hdecomp_double`:
 - `hdecomp_double` needs the family to include every block that is NONZERO on
   `[1, x]`. A block `(a,b)` has convolution support `n ∈ (N·M, 4·N·M]`
@@ -8842,8 +8842,8 @@ NO product-cap restriction and NO boundary reconciliation exists in any design d
 
 **THE FIX (Fable/design-tier, out of this executor's scope):** relax the combinator's
 anchor cap from `2·N·M ≤ x` to `2·N·M ≤ 2x` (or `N·M ≤ x`). `deep_perblock`
-(`GehAnchor.lean:318`) uses `hsxx : 2*Nb*Mb ≤ x` at three points — `log sx ≤ log x`
-(:345), `2Mb ≤ x` (:354), and the rescaling `max C 0·sx ≤ ·x` (:401-403); with
+(`GehAnchor.lean:313`) uses `hsxx : 2*Nb*Mb ≤ x` at three points — `log sx ≤ log x`
+(:340), `2Mb ≤ x` (:349), and the rescaling `max C 0·sx ≤ ·x` (:396-398); with
 `sx ≤ 2x` each picks up only a bounded factor (`log(2x) ≤ 2 log x`, `sx ≤ 2x`), so
 the repair is mechanical but touches a LANDED file. Once relaxed, `anch_balance_of_le`
 (proven here, ε=1/4) supplies the four balance conjuncts verbatim and the cap conjunct

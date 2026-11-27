@@ -128,12 +128,6 @@ lemma deep_log_two_mul {F : ℝ} (hF : 0 ≤ F) {x s : ℕ} (hlx : 1 ≤ Real.lo
     linarith only [a3, a1]
   linarith [hkey, hcomb]
 
-/-- `0 ≤ log m` for every natural `m` (`log 0 = log 1 = 0`, `log ≥ 0` above). -/
-lemma log_nat_nonneg (m : ℕ) : (0 : ℝ) ≤ Real.log m := by
-  rcases Nat.eq_zero_or_pos m with h | h
-  · subst h; simp
-  · exact Real.log_nonneg (by exact_mod_cast h)
-
 /-- A nonzero coefficient supported on `Ioc N (2N)` sits at `n ≥ 1`, so `τ(n) ≥ 1`. -/
 lemma divisors_card_one_le_of_mem {N : ℕ} {n : ℕ} (hmem : n ∈ Finset.Ioc N (2 * N)) :
     (1 : ℝ) ≤ (n.divisors.card : ℝ) := by
@@ -253,7 +247,8 @@ lemma anchorCoeff {k : ℕ} {x sx Nb : ℕ} {αb : ℕ → ℝ}
     · subst hx''; simp only [if_true]
       exact kbump hlx0 hlxs h2k (fun hne => divisors_card_one_le_of_mem (hsupp n hne)) (hbd n)
     · simp only [if_neg hx'']; rw [abs_zero]
-      exact mul_nonneg (pow_nonneg (Nat.cast_nonneg _) _) (pow_nonneg (log_nat_nonneg x'') _)
+      exact mul_nonneg (pow_nonneg (Nat.cast_nonneg _) _)
+        (pow_nonneg (Real.log_natCast_nonneg x'') _)
 
 /-- **`SWAtData` of the anchor-spike family** (relaxed cap `sx ≤ 2x`, catch #96).
 Off the anchor the family (and its scale `Mb`) is `0`, so the SW bound is `0 ≤ 0`.

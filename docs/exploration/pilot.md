@@ -7397,7 +7397,7 @@ decisions per question.
   grounded). **HB-L2c re-classed: UNDESIGNED (C+), queues for
   its own design block after T-BAL** — no executor burn on it
   tonight. (2) The Maynard side is grounded composition:
-  `hshiu` (GehAnchor.lean:450) is shape-identical to
+  `hshiu` (GehAnchor.lean:445) is shape-identical to
   `shiu_for_blocks_of_core`'s conclusion (ShiuBlocks.lean:314),
   θ = 3999/4000 matching ppLevel_holds; the block-alignment
   (α/β vs muBlock/tiiBlock) is the one risk. **N-HDOM

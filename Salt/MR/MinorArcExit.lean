@@ -261,7 +261,7 @@ theorem prime_sum_to_lambda {α : ℝ} {M N : ℕ} (hM : 2 ≤ M) {B : ℝ} (hB 
     have h2 := norm_thetaPhase_sub_lambdaPhase α J
     have h3 : Real.sqrt J ≤ Real.sqrt N := Real.sqrt_le_sqrt (by exact_mod_cast hJ2)
     have h4 : Real.log J ≤ Real.log N := log_nat_mono hJ2
-    have h5 : 0 ≤ Real.log (J : ℝ) := log_nat_nonneg J
+    have h5 : 0 ≤ Real.log (J : ℝ) := Real.log_natCast_nonneg J
     have h6 : 2 * Real.sqrt J * Real.log J ≤ 2 * Real.sqrt N * Real.log N := by
       have : 0 ≤ Real.sqrt (J : ℝ) := Real.sqrt_nonneg _
       nlinarith only [h3, h5, hsqN, h4]
@@ -520,7 +520,7 @@ theorem typeIIBlockBd_le_crude {q x D E : ℕ} (hq : 1 ≤ q) {lo hi : ℝ}
     have := Real.log_nonneg (show (1 : ℝ) ≤ (q : ℝ) by exact_mod_cast hq)
     linarith
   have hxR : (0 : ℝ) ≤ (x : ℝ) := Nat.cast_nonneg x
-  have hlogx : 0 ≤ Real.log (x : ℝ) := log_nat_nonneg x
+  have hlogx : 0 ≤ Real.log (x : ℝ) := Real.log_natCast_nonneg x
   rw [typeIIBlockBd]
   set Δ : ℝ := (E : ℝ) - (D : ℝ) with hΔdef
   set P : ℝ := ((x / (D + 1) : ℕ) : ℝ) with hPdef
@@ -677,7 +677,7 @@ theorem vinoBd_mono {q W K : ℕ} {hi : ℝ} (hq : 1 ≤ q) (hhi : 0 ≤ hi) {x 
   have hxyR : (x : ℝ) ≤ (y : ℝ) := by exact_mod_cast hxy
   have hx0 : (0 : ℝ) ≤ (x : ℝ) := Nat.cast_nonneg x
   have hlog : Real.log (x : ℝ) ≤ Real.log (y : ℝ) := log_nat_mono hxy
-  have hlog0 : (0 : ℝ) ≤ Real.log (x : ℝ) := log_nat_nonneg x
+  have hlog0 : (0 : ℝ) ≤ Real.log (x : ℝ) := Real.log_natCast_nonneg x
   have hLq : (0 : ℝ) ≤ 1 + Real.log q := by
     have := Real.log_nonneg (show (1 : ℝ) ≤ (q : ℝ) by exact_mod_cast hq)
     linarith
@@ -697,7 +697,7 @@ theorem vinoBd_mono {q W K : ℕ} {hi : ℝ} (hq : 1 ≤ q) (hhi : 0 ≤ hi) {x 
         have : (1 : ℝ) ≤ ((W * W : ℕ) : ℝ) := by exact_mod_cast h
         linarith
     linarith
-  have hlogWW : (0 : ℝ) ≤ Real.log ((W * W : ℕ) : ℝ) := log_nat_nonneg _
+  have hlogWW : (0 : ℝ) ≤ Real.log ((W * W : ℕ) : ℝ) := Real.log_natCast_nonneg _
   unfold vinoBd
   gcongr
 
@@ -745,7 +745,7 @@ theorem expSum_le_vinoBd {eps : ℚ} {H : ℕ} {α : ℝ} {a : ℤ} {q : ℕ} {c
   have hBv0 : 0 ≤ vinoBd q N W K hi := le_trans (norm_nonneg _) (hbd N hMN le_rfl)
   have hMR : (2 : ℝ) ≤ (M : ℝ) := by exact_mod_cast hM2
   have hlogM : 0 < Real.log (M : ℝ) := Real.log_pos (by linarith)
-  have hlogN : 0 ≤ Real.log (N : ℝ) := log_nat_nonneg N
+  have hlogN : 0 ≤ Real.log (N : ℝ) := Real.log_natCast_nonneg N
   have hnum : 0 ≤ 2 * vinoBd q N W K hi + 4 * Real.sqrt N * Real.log N := by
     have h4 : 0 ≤ 4 * Real.sqrt (N : ℝ) * Real.log (N : ℝ) :=
       mul_nonneg (by positivity) hlogN
