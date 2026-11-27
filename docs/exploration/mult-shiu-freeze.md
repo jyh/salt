@@ -4,7 +4,7 @@
 Status: **REFUTER PASS COMPLETE — REPAIR-THEN-FIRE applied, FROZEN** (MS-REF-A
 + MS-REF-B verdicts digested ~10:50; binding repairs folded in below, marked
 ⟦R⟧). Source: GHS 1706.03749v1.pdf pp.8–11 (read directly this session).
-Consumer: `hfactor`'s E budget in `Salt/MR/HalaszRepAsm.lean:450`
+Consumer: `hfactor`'s E budget in `Salt/MR/HalaszRepAsm.lean:401`
 (`prop21_analog`) — the "Shiu/Lemma-2.4 secondary term O(X/log X·(log y)^κ)"
 at κ=1, per the HFACTOR scoper re-price (pilot 2026-07-20 17:09).*
 
@@ -222,7 +222,7 @@ MS-B's exponent bookkeeping: does Σ_{p≤y}p^{α-1} ≤ loglog y + c really hol
 for ALL α ∈ [0, η] with the e·α·log y ≤ e device (Mertens-first dependence),
 and is the smooth-side exponent shift 1-α (not 1-α-β or 1) correct against
 GHS's display? R-4: does MS-EXIT's shape actually plug into hfactor's E
-(read HalaszRepAsm:450 and the HalaszFactor resistance list — is the
+(read HalaszRepAsm:401 and the HalaszFactor resistance list — is the
 window-truncation defect EXACTLY MS-A+MS-B, or is there an uncounted third
 term)? R-5: asymptotic corners — any regime (y, x, η joint) where a stone's
 constant silently depends on a growing quantity (#253)?
