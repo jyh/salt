@@ -1,31 +1,31 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `2428aad0` · source digest `cb60d135a45765e7` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `620f6633` · source digest `d1b47ec80932ea90` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
 | ledgers read | ledgers with audit commands | names parsed | distinct names | resolved | unresolved | audited in 2+ ledgers | repeat mentions folded |
 |---|---|---|---|---|---|---|---|
-| 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
+| 26 | 24 | 9204 | 9149 | 9147 | 2 | 0 | 55 |
 
-Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23381 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
 | kind | total | zeros | sieves | characters | entropy | exponential sums | other |
 |---|---|---|---|---|---|---|---|
-| unconditional | 6804 | 296 | 2094 | 4638 | 376 | 425 | 41 |
+| unconditional | 6803 | 296 | 2094 | 4637 | 376 | 425 | 41 |
 | conditional | 1656 | 26 | 215 | 1435 | 103 | 24 | 15 |
 | statement-only | 212 | 0 | 5 | 198 | 10 | 0 | 0 |
 | infrastructure | 476 | 0 | 69 | 366 | 48 | 17 | 1 |
-| unresolved | 1 | 0 | 0 | 0 | 1 | 0 | 0 |
+| unresolved | 2 | 0 | 0 | 1 | 1 | 0 | 0 |
 | **all** | 9149 | 322 | 2383 | 6637 | 538 | 466 | 57 |
 
 ## LIMITS — read these beside every count above
 
 - **Source-level parse, no elaboration.** Names, binders and types are read from comment-stripped source text. Anything produced by macros, `alias`, `to_additive`, `@[simps]`, or elaboration-time notation is invisible; section `variable`s are attached only when their name occurs in the statement or is `include`d; implicit `{}`/`⦃⦄` binders are NOT walked.
-- **Unresolved: 1.** A name the parser cannot find a declaration site for is listed in its own section, never dropped. Unresolved ≠ absent from Lean.
+- **Unresolved: 2.** A name the parser cannot find a declaration site for is listed in its own section, never dropped. Unresolved ≠ absent from Lean.
 - **The conditional test** is the binder's HEAD SYMBOL (walked through leading `∀`/`→` and through `∧`) resolved against the corpus Prop-valued set; premises `A → …` at the top of the conclusion count as binders. A binder `¬ P …` or `P … → False` is a hypothesis on P at NEGATIVE polarity, listed as `¬P` (since 2026-09-26; before, 31 such results read as unconditional); a `¬ P` in a binder's own ANTECEDENT (`¬ P → Q`) is not walked — the hypothesis there is Q. A hypothesis whose head is a mathlib or infix Prop (`2 ≤ x`, `Tendsto …`, `Squarefree P`) does not make a result conditional. The Prop-valued set is itself heuristic: `: Prop` / `: … → Prop` ascriptions, structures/classes all of whose fields look Prop-shaped, and untyped defs whose body is `∀`/`∃`/relational.
 - **Mixed data+Prop bundles are DATA.** A corpus structure carrying both data and Prop fields (e.g. `ChowlaRegime`, `HBForms`, `TruncSieve`) is not Prop-valued, so a binder of that type does NOT make a result conditional — the constraints inside a regime bundle are invisible to this column.
 - **The infrastructure split for theorems is a HEURISTIC:** a theorem/lemma whose conclusion is `=`/`↔` and whose proof is `rfl`, `Iff.rfl`, `Eq.refl …`, `by rfl`, `by unfold …`, `by delta …` or `by exact rfl`. Every other identity lemma is classed by its binders.
@@ -492,7 +492,7 @@ Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hyp
 | `¬Salt.MR.WindowSmooth` | 1 |
 | `¬Salt.Parity.Completion` | 1 |
 
-## unconditional (6804)
+## unconditional (6803)
 
 | name | file:line | objects |
 |---|---|---|
@@ -4559,32 +4559,31 @@ Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hyp
 | `Salt.MR.zeta_block_secondDeriv` | Salt/MR/MidBand.lean:171 | characters |
 | `Salt.MR.halasz_socket_midHigh` | Salt/MR/MidBand.lean:418 | characters |
 | `Salt.MR.halasz_socket` | Salt/MR/MidBand.lean:769 | characters |
-| `Salt.MR.log_nat_nonneg` | Salt/MR/MinorArcCore.lean:88 | characters |
-| `Salt.MR.log_nat_mono` | Salt/MR/MinorArcCore.lean:94 | characters |
-| `Salt.MR.log_nat_monotone` | Salt/MR/MinorArcCore.lean:101 | characters |
-| `Salt.MR.dist₁_neg_zero` | Salt/MR/MinorArcCore.lean:105 | characters |
-| `Salt.MR.inner_range_eq` | Salt/MR/MinorArcCore.lean:112 | characters |
-| `Salt.MR.eR_phase_reindex` | Salt/MR/MinorArcCore.lean:133 | characters |
-| `Salt.MR.partial_phase_bound` | Salt/MR/MinorArcCore.lean:140 | characters |
-| `Salt.MR.inner_phase_bound` | Salt/MR/MinorArcCore.lean:154 | characters |
-| `Salt.MR.sum_Ioc_abel` | Salt/MR/MinorArcCore.lean:177 | characters |
-| `Salt.MR.norm_sum_Ioc_weighted_le` | Salt/MR/MinorArcCore.lean:193 | characters |
-| `Salt.MR.inner_log_phase_bound` | Salt/MR/MinorArcCore.lean:223 | characters |
-| `Salt.MR.typeI_one_bound` | Salt/MR/MinorArcCore.lean:270 | characters |
-| `Salt.MR.typeI_two_bound` | Salt/MR/MinorArcCore.lean:296 | characters |
-| `Salt.MR.typeI_bound` | Salt/MR/MinorArcCore.lean:332 | characters |
-| `Salt.MR.typeIIData_eq_zero_of_le` | Salt/MR/MinorArcCore.lean:370 | characters |
-| `Salt.MR.typeII_inner_vanishes` | Salt/MR/MinorArcCore.lean:381 | characters |
-| `Salt.MR.typeII_block_eq_zero` | Salt/MR/MinorArcCore.lean:397 | characters |
-| `Salt.MR.dpair_range_eq` | Salt/MR/MinorArcCore.lean:410 | characters |
-| `Salt.MR.typeIIBlockBd_nonneg` | Salt/MR/MinorArcCore.lean:682 | characters |
-| `Salt.MR.typeII_block_bound` | Salt/MR/MinorArcCore.lean:688 | characters |
-| `Salt.MR.norm_lambda_head_le` | Salt/MR/MinorArcCore.lean:775 | characters |
-| `Salt.MR.lambda_head_add_tail` | Salt/MR/MinorArcCore.lean:791 | characters |
-| `Salt.MR.typeII_dyadic_bound` | Salt/MR/MinorArcCore.lean:815 | characters |
-| `Salt.MR.vinogradov_lambda` | Salt/MR/MinorArcCore.lean:847 | characters |
-| `Salt.MR.vinogradov_lambda_dyadic` | Salt/MR/MinorArcCore.lean:867 | characters |
-| `Salt.MR.vinogradov_lambda_sq` | Salt/MR/MinorArcCore.lean:885 | characters |
+| `Salt.MR.log_nat_mono` | Salt/MR/MinorArcCore.lean:88 | characters |
+| `Salt.MR.log_nat_monotone` | Salt/MR/MinorArcCore.lean:95 | characters |
+| `Salt.MR.dist₁_neg_zero` | Salt/MR/MinorArcCore.lean:99 | characters |
+| `Salt.MR.inner_range_eq` | Salt/MR/MinorArcCore.lean:106 | characters |
+| `Salt.MR.eR_phase_reindex` | Salt/MR/MinorArcCore.lean:127 | characters |
+| `Salt.MR.partial_phase_bound` | Salt/MR/MinorArcCore.lean:134 | characters |
+| `Salt.MR.inner_phase_bound` | Salt/MR/MinorArcCore.lean:148 | characters |
+| `Salt.MR.sum_Ioc_abel` | Salt/MR/MinorArcCore.lean:171 | characters |
+| `Salt.MR.norm_sum_Ioc_weighted_le` | Salt/MR/MinorArcCore.lean:187 | characters |
+| `Salt.MR.inner_log_phase_bound` | Salt/MR/MinorArcCore.lean:217 | characters |
+| `Salt.MR.typeI_one_bound` | Salt/MR/MinorArcCore.lean:264 | characters |
+| `Salt.MR.typeI_two_bound` | Salt/MR/MinorArcCore.lean:290 | characters |
+| `Salt.MR.typeI_bound` | Salt/MR/MinorArcCore.lean:326 | characters |
+| `Salt.MR.typeIIData_eq_zero_of_le` | Salt/MR/MinorArcCore.lean:364 | characters |
+| `Salt.MR.typeII_inner_vanishes` | Salt/MR/MinorArcCore.lean:375 | characters |
+| `Salt.MR.typeII_block_eq_zero` | Salt/MR/MinorArcCore.lean:391 | characters |
+| `Salt.MR.dpair_range_eq` | Salt/MR/MinorArcCore.lean:404 | characters |
+| `Salt.MR.typeIIBlockBd_nonneg` | Salt/MR/MinorArcCore.lean:676 | characters |
+| `Salt.MR.typeII_block_bound` | Salt/MR/MinorArcCore.lean:682 | characters |
+| `Salt.MR.norm_lambda_head_le` | Salt/MR/MinorArcCore.lean:769 | characters |
+| `Salt.MR.lambda_head_add_tail` | Salt/MR/MinorArcCore.lean:785 | characters |
+| `Salt.MR.typeII_dyadic_bound` | Salt/MR/MinorArcCore.lean:809 | characters |
+| `Salt.MR.vinogradov_lambda` | Salt/MR/MinorArcCore.lean:841 | characters |
+| `Salt.MR.vinogradov_lambda_dyadic` | Salt/MR/MinorArcCore.lean:861 | characters |
+| `Salt.MR.vinogradov_lambda_sq` | Salt/MR/MinorArcCore.lean:879 | characters |
 | `Salt.MR.sqrt_add_le_sqrt_add_sqrt` | Salt/MR/MinorArcExit.lean:96 | characters |
 | `Salt.MR.norm_sum_Ioc_weighted_le_antitone` | Salt/MR/MinorArcExit.lean:121 | characters |
 | `Salt.MR.expSum_eq_indicator` | Salt/MR/MinorArcExit.lean:157 | characters, exponential sums |
@@ -8879,7 +8878,7 @@ Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hyp
 | `Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist` | Salt/MR/XThread.lean:1251 | characters | `Salt.MR.S16BandLaneCBoundedL_winU` |
 | `Salt.MR.mmuChiRate_of_carve` | Salt/MR/ZetaInvShallow.lean:883 | zeros, characters | `Salt.MR.XiCarveWidth` |
 | `Salt.MR.lambdaChiSummatory_of_carve` | Salt/MR/ZetaInvShallow.lean:888 | zeros, characters | `Salt.MR.XiCarveWidth` |
-| `GehAnchor.pieceObligationU_of_anchored_multiblock` | Salt/Maynard/GehAnchor.lean:505 | sieves | `GEH_min`, `CoeffAt`, `SWAtData` |
+| `GehAnchor.pieceObligationU_of_anchored_multiblock` | Salt/Maynard/GehAnchor.lean:500 | sieves | `GEH_min`, `CoeffAt`, `SWAtData` |
 | `geh_door_of_obligations` | Salt/Maynard/GehClose.lean:97 | sieves | `GEH_min`, `CoeffAt`, `SWAt`, `PieceObligationU`, `WindowPNT` |
 | `Salt.MaynardK.mv_I_of_gen` | Salt/MaynardK/Controls.lean:31 | other | `Salt.Twelve.PhiUpperAtom` |
 | `Salt.MaynardK.mv_J_of_gen` | Salt/MaynardK/Controls.lean:46 | other | `Salt.Twelve.PhiUpperAtom` |
@@ -9660,9 +9659,10 @@ Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hyp
 | `Salt.Weil.dist₁_sub_zero` | Salt/Weil/Sawtooth.lean:51 | exponential sums |
 | `Salt.Weil.sawtooth_fourier_expansion` | Salt/Weil/Sawtooth.lean:97 | exponential sums |
 
-## unresolved (1)
+## unresolved (2)
 
 | name | file:line | objects |
 |---|---|---|
 | `Salt.Entropy.Chowla.spine_False_core_xi_sq_flat_h_export` | (audited at) Salt/Entropy/All.lean:1201 | entropy |
+| `Real.log_natCast_nonneg` | (audited at) Salt/MR/All.lean:1762 | characters |
 
