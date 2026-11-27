@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `82e900de` · source digest `8f87da26c8538a50` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `2428aad0` · source digest `cb60d135a45765e7` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -2736,8 +2736,8 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.MR.KExpr_le` | Salt/MR/ConstantsExposed.lean:363 | characters |
 | `Salt.MR.delta0_ge` | Salt/MR/ConstantsExposed.lean:400 | characters |
 | `Salt.MR.b_floor_cert` | Salt/MR/ConstantsExposed.lean:417 | characters |
-| `Salt.MR.ramare_weight_sum` | Salt/MR/Decomp.lean:133 | characters |
-| `Salt.MR.ramare_decomp` | Salt/MR/Decomp.lean:204 | characters |
+| `Salt.MR.ramare_weight_sum` | Salt/MR/Decomp.lean:122 | characters |
+| `Salt.MR.ramare_decomp` | Salt/MR/Decomp.lean:193 | characters |
 | `Salt.MR.pretDistSq_principal_eval` | Salt/MR/Dist.lean:95 | characters |
 | `Salt.MR.prime_power_tail_le` | Salt/MR/Dist.lean:129 | characters |
 | `Salt.MR.dist_one_floor_pow` | Salt/MR/DistHalasz.lean:177 | characters |
@@ -4835,11 +4835,11 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.MR.gates_jointly_satisfiable` | Salt/MR/PortNonVacuous.lean:75 | characters |
 | `Salt.MR.socket_nonvacuous` | Salt/MR/PortNonVacuous.lean:157 | characters |
 | `Salt.MR.mmuChiRate_instantiated` | Salt/MR/PortNonVacuous.lean:176 | characters |
-| `Salt.MR.smooth_euler_product` | Salt/MR/PretSupply.lean:217 | characters |
-| `Salt.MR.head_dist_floor_gen` | Salt/MR/PretSupply.lean:306 | zeros, characters |
-| `Salt.MR.supF_pret_pointwise` | Salt/MR/PretSupply.lean:354 | characters |
-| `Salt.MR.supF_pret_majorant_sigma` | Salt/MR/PretSupply.lean:422 | characters |
-| `Salt.MR.joint_sigma_integral` | Salt/MR/PretSupply.lean:481 | characters |
+| `Salt.MR.smooth_euler_product` | Salt/MR/PretSupply.lean:183 | characters |
+| `Salt.MR.head_dist_floor_gen` | Salt/MR/PretSupply.lean:272 | zeros, characters |
+| `Salt.MR.supF_pret_pointwise` | Salt/MR/PretSupply.lean:320 | characters |
+| `Salt.MR.supF_pret_majorant_sigma` | Salt/MR/PretSupply.lean:388 | characters |
+| `Salt.MR.joint_sigma_integral` | Salt/MR/PretSupply.lean:447 | characters |
 | `Salt.MR.pretentious_pointwise_triangle` | Salt/MR/PretentiousTriangle.lean:100 | characters |
 | `Salt.MR.pretDist_triangle` | Salt/MR/PretentiousTriangle.lean:172 | characters |
 | `Salt.MR.dist_mul_half` | Salt/MR/PretentiousTriangle.lean:213 | characters |
@@ -4869,13 +4869,13 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.MR.joint_supF_pinC` | Salt/MR/RHSGradeC.lean:111 | characters |
 | `Salt.MR.ramP2coeffEndMR_chiBar` | Salt/MR/RamErrWS.lean:116 | characters |
 | `Salt.MR.ramRrange_subset_Icc_sharp` | Salt/MR/RamRAdapter.lean:128 | characters |
-| `Salt.MR.norm_ramRcoeff_le_one` | Salt/MR/RamRAdapter.lean:139 | characters |
-| `Salt.MR.norm_ramRcoeff_cterm_le` | Salt/MR/RamRAdapter.lean:152 | characters |
-| `Salt.MR.ramR_split_top` | Salt/MR/RamRAdapter.lean:169 | characters |
-| `Salt.MR.ramRtop_card_le_two` | Salt/MR/RamRAdapter.lean:206 | characters |
-| `Salt.MR.norm_ramRtop_le` | Salt/MR/RamRAdapter.lean:224 | characters |
-| `Salt.MR.ramR_abel_sup` | Salt/MR/RamRAdapter.lean:272 | characters |
-| `Salt.MR.ramR_abel_window_floor` | Salt/MR/RamRAdapter.lean:309 | characters |
+| `Salt.MR.norm_ramRcoeff_le_one` | Salt/MR/RamRAdapter.lean:150 | characters |
+| `Salt.MR.norm_ramRcoeff_cterm_le` | Salt/MR/RamRAdapter.lean:163 | characters |
+| `Salt.MR.ramR_split_top` | Salt/MR/RamRAdapter.lean:180 | characters |
+| `Salt.MR.ramRtop_card_le_two` | Salt/MR/RamRAdapter.lean:217 | characters |
+| `Salt.MR.norm_ramRtop_le` | Salt/MR/RamRAdapter.lean:235 | characters |
+| `Salt.MR.ramR_abel_sup` | Salt/MR/RamRAdapter.lean:283 | characters |
+| `Salt.MR.ramR_abel_window_floor` | Salt/MR/RamRAdapter.lean:320 | characters |
 | `Salt.MR.inv_blockOmega_succ_eq_integral` | Salt/MR/RamWeight.lean:72 | characters |
 | `Salt.MR.blockOmega_pow_mul_coprime` | Salt/MR/RamWeight.lean:95 | characters |
 | `Salt.MR.gxDatum_norm_le_one` | Salt/MR/RamWeight.lean:108 | characters |
@@ -5440,8 +5440,8 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.MR.mertensM_ge_neg_seventeen` | Salt/MR/SmallStones.lean:93 | characters |
 | `Salt.MR.sixteenth_loglog_le_SPartial_div_eight` | Salt/MR/SmallStones.lean:154 | characters |
 | `Salt.MR.hMball_of_A4_cap` | Salt/MR/SmallStones.lean:182 | characters |
-| `Salt.MR.ramP2mass_le` | Salt/MR/SmallStones.lean:408 | characters |
-| `Salt.MR.lemma12_meansq_mr_final` | Salt/MR/SmallStones.lean:480 | characters |
+| `Salt.MR.ramP2mass_le` | Salt/MR/SmallStones.lean:421 | characters |
+| `Salt.MR.lemma12_meansq_mr_final` | Salt/MR/SmallStones.lean:493 | characters |
 | `Salt.MR.zHead_A_pays` | Salt/MR/StrideDoorAllGrades.lean:386 | characters |
 | `Salt.MR.zCount_form` | Salt/MR/StrideDoorAllGrades.lean:396 | characters |
 | `Salt.MR.zBuilder_absorb_L` | Salt/MR/StrideDoorAllGrades.lean:411 | characters |
