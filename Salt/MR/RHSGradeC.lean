@@ -36,9 +36,10 @@ the two families never diverge.
 **LIVE GUARD (inherited).**  `c = 1/(2e)` is the BALL arm's halved constant; the free-`c` forms
 here carry no route commitment — the caller's `hc0`/`hce`/`hc1` are the whole contract.
 
-`GradeConst` keeps `continuous_rpow_negC`, `widthKamp_nonneg` and its two integrability
-pages `private`; they are re-derived here verbatim under a `GC` suffix (the house's
-re-derivation convention, cf. `FarStar`'s `pin_rpow_scaleT`).  Its `pin_basic64` is public.
+`continuous_rpow_neg` (`RHSGrade`) and `widthKamp_nonneg` (`GradeConst`) are read from their
+public roots since O13-e; the two integrability pages are re-derived here at the freed exponent
+under a `GC` suffix (the house's re-derivation convention, cf. `FarStar`'s `pin_rpow_scaleT`).
+`GradeConst`'s `pin_basic64` is public.
 -/
 
 noncomputable section
@@ -178,12 +179,12 @@ that page is `joint_sigma_integral`, whose own gates are `0 < c` and `2c < 1` (f
 `sigma_cutoff_pretentious_gen`); everything upstream (the width amplitude, `bridge_adapter`,
 the two integrability pages) is `c`-free plumbing over `rhsFboundC`.
 
-The `private` helpers `GradeConst` needs here are re-derived verbatim below (the pin's
-arithmetic is its public `pin_basic64`). -/
+The two integrability pages are re-derived below at the freed exponent (the pin's
+arithmetic is `GradeConst`'s public `pin_basic64`). -/
 
 /-- Interval-integrability of the `c`-generic σ-integrand `rhsFboundC c M L σ/σ`.
-Re-derivation of `GradeConst`'s private `rhs_sigma_div_integrableC` at the freed exponent. -/
-private lemma rhs_sigma_div_integrableGC {c M L b : ℝ} (hL0 : 0 < L) (hb : 1 / L ≤ b) :
+Re-derivation of `RHSGrade`'s `rhs_sigma_div_integrable` at the freed exponent. -/
+lemma rhs_sigma_div_integrableGC {c M L b : ℝ} (hL0 : 0 < L) (hb : 1 / L ≤ b) :
     IntervalIntegrable (fun σ : ℝ => rhsFboundC c M L σ / σ) volume (1 / L) b := by
   have hLinv0 : (0 : ℝ) < 1 / L := by positivity
   have hpos : ∀ σ ∈ Set.uIcc (1 / L) b, (0 : ℝ) < σ := by
@@ -204,8 +205,8 @@ private lemma rhs_sigma_div_integrableGC {c M L b : ℝ} (hL0 : 0 < L) (hb : 1 /
       (fun σ hσ => (mul_pos (hpos σ hσ) hL0).ne'))
 
 /-- Interval-integrability of `bridge_adapter`'s translated `c`-generic integrand.
-Re-derivation of `GradeConst`'s private `rhs_shift_integrableC` at the freed exponent. -/
-private lemma rhs_shift_integrableGC {c M L η Kα : ℝ} (hL0 : 0 < L) (hη0 : 0 ≤ η) :
+Re-derivation of `RHSGrade`'s `rhs_shift_integrable` at the freed exponent. -/
+lemma rhs_shift_integrableGC {c M L η Kα : ℝ} (hL0 : 0 < L) (hη0 : 0 ≤ η) :
     IntervalIntegrable
       (fun β : ℝ => Kα * (rhsFboundC c M L (β + 1 / L) / (β + 1 / L))) volume 0 η := by
   have hLinv0 : (0 : ℝ) < 1 / L := by positivity
@@ -225,27 +226,6 @@ private lemma rhs_shift_integrableGC {c M L η Kα : ℝ} (hL0 : 0 < L) (hη0 : 
     exact continuousOn_const.mul (ContinuousOn.log (by fun_prop)
       (fun β hβ => (mul_pos (hpos β hβ) hL0).ne'))
   · fun_prop
-
-/-- Continuity of `α ↦ a^{−α}` at a positive base.  Re-derivation of `GradeConst`'s private
-`continuous_rpow_negC` (staged for the `α`-integral of W4-4; `c`-free). -/
-private lemma continuous_rpow_negGC {a : ℝ} (ha : 0 < a) :
-    Continuous (fun α : ℝ => a ^ (-α)) := by
-  have hrw : (fun α : ℝ => a ^ (-α)) = fun α : ℝ => Real.exp (Real.log a * (-α)) := by
-    funext α; rw [Real.rpow_def_of_pos ha]
-  rw [hrw]
-  exact Real.continuous_exp.comp (by fun_prop)
-
-/-- The width amplitude is nonnegative on the pin's data.  Re-derivation of `GradeConst`'s
-private `widthKamp_nonneg` (`c`-free — the amplitude side never sees the exponent). -/
-private lemma widthKamp_nonnegGC {Cb X h y c₀ : ℝ} (hCb0 : 0 ≤ Cb) (hX0 : 0 < X) (hh : 0 < h)
-    (hy0 : 0 < y) : 0 ≤ widthKamp Cb X h y c₀ := by
-  have hXh0 : (0 : ℝ) < X + h := by linarith
-  have hy2 : (0 : ℝ) < y / 2 := by linarith
-  have hA0 : (0 : ℝ) < (y / 2) ^ (1 / 8 : ℝ) := Real.rpow_pos_of_pos hy2 _
-  have hlog4 : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
-  unfold widthKamp widthKampBr
-  have hrp : (0 : ℝ) ≤ (X + h) ^ c₀ := Real.rpow_nonneg hXh0.le _
-  positivity
 
 /-- **W4-3 — the per-`α` β-integral at the WIDTH face, at a FREE `c`**
 (`beta_integral_pin_constC`).  `GradeConst.beta_integral_pin_const` with the exponent freed:
@@ -279,7 +259,7 @@ theorem beta_integral_pin_constC (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g
   have hkh0 : (0 : ℝ) < k + h := by linarith
   have hy0 : (0 : ℝ) < y := by linarith
   have hK0 : (0 : ℝ) ≤ widthKamp Cb k h y c₀ * (k + h) ^ (-α) :=
-    mul_nonneg (widthKamp_nonnegGC hCb0 hk0 hh0 hy0) (Real.rpow_nonneg hkh0.le _)
+    mul_nonneg (widthKamp_nonneg hCb0 hk0 hh0 hy0) (Real.rpow_nonneg hkh0.le _)
   have hcross : ∀ β ∈ Icc (0 : ℝ) η,
       crossKer g k h y c₀ t₀' α β
         ≤ (widthKamp Cb k h y c₀ * (k + h) ^ (-α)) * (1 / (β + 1 / L)) := by

@@ -57,8 +57,9 @@ re-derived here under a `_CA` suffix).
 ## The stones
 
 * **§0** `center_halasz_supply_YA` — the `Y`-generic centre supply, `∃ X₀` DATUM-HOISTED.
-* **§1** the `c`-generic integrability/continuity privates at `y₂` (`RHSGradeC`'s `_GC`
-  page and `PinFamily2`'s `_2` page, merged under a `_2C` suffix).
+* **§1** (empty since O13-e) the `c`-generic integrability/continuity pages at `y₂` are read
+  from their public roots: `RHSGradeC`'s two `_GC` pages, `RHSGrade`'s `continuous_rpow_neg`
+  and `GradeConst`'s `widthKamp_nonneg`.
 * **§2** `joint_supF_pin_at2C`, `joint_supF_pin_window2C`, `joint_cs_trunc_pin2C`,
   `jointIntegrableAtC_pin2_free` — S-A/S-C/S-D at `y₂` with `c` free and the floor in window
   form.  The integrability bundle is DISCHARGED here (`JointPlumb.jointIntegrableAt_of_gates`
@@ -206,77 +207,11 @@ theorem center_halasz_supply_YA (Y : ℝ → ℝ) :
   rw [hexpand]
   linarith
 
-/-! ## §1 — the `c`-generic integrability/continuity privates at `y₂`
+/-! ## §1 — the `c`-generic integrability/continuity pages at `y₂` (read from their roots)
 
-`RHSGradeC`'s four `_GC` re-derivations (they are `private` there and in `GradeConst`);
-carried here under a `_2C` suffix.  All four are `y`-BLIND, so the corpus pages serve `y₂`
-unchanged. -/
-
-/-- Interval-integrability of the `c`-generic σ-integrand `rhsFboundC c M L σ/σ`.
-Re-derivation of `GradeConst`'s private `rhs_sigma_div_integrableC` at the freed exponent. -/
-private lemma rhs_sigma_div_integrable2C {c M L b : ℝ} (hL0 : 0 < L) (hb : 1 / L ≤ b) :
-    IntervalIntegrable (fun σ : ℝ => rhsFboundC c M L σ / σ) volume (1 / L) b := by
-  have hLinv0 : (0 : ℝ) < 1 / L := by positivity
-  have hpos : ∀ σ ∈ Set.uIcc (1 / L) b, (0 : ℝ) < σ := by
-    intro σ hσ
-    rw [Set.uIcc_of_le hb, Set.mem_Icc] at hσ
-    exact lt_of_lt_of_le hLinv0 hσ.1
-  apply ContinuousOn.intervalIntegrable
-  simp only [rhsFboundC]
-  refine ContinuousOn.div (ContinuousOn.mul ?_ ?_) continuousOn_id
-    (fun σ hσ => (hpos σ hσ).ne')
-  · exact continuousOn_const.mul
-      (continuousOn_const.div continuousOn_id (fun σ hσ => (hpos σ hσ).ne'))
-  · refine Real.continuous_exp.comp_continuousOn ?_
-    refine continuousOn_const.mul (ContinuousOn.sub (ContinuousOn.sub continuousOn_const ?_)
-      continuousOn_const)
-    exact continuousOn_const.mul (ContinuousOn.log
-      ((continuous_id.mul continuous_const).continuousOn)
-      (fun σ hσ => (mul_pos (hpos σ hσ) hL0).ne'))
-
-/-- Interval-integrability of `bridge_adapter`'s translated `c`-generic integrand.
-Re-derivation of `GradeConst`'s private `rhs_shift_integrableC` at the freed exponent. -/
-private lemma rhs_shift_integrable2C {c M L η Kα : ℝ} (hL0 : 0 < L) (hη0 : 0 ≤ η) :
-    IntervalIntegrable
-      (fun β : ℝ => Kα * (rhsFboundC c M L (β + 1 / L) / (β + 1 / L))) volume 0 η := by
-  have hLinv0 : (0 : ℝ) < 1 / L := by positivity
-  have hpos : ∀ β ∈ Set.uIcc (0 : ℝ) η, (0 : ℝ) < β + 1 / L := by
-    intro β hβ
-    rw [Set.uIcc_of_le hη0, Set.mem_Icc] at hβ
-    linarith [hβ.1]
-  apply ContinuousOn.intervalIntegrable
-  simp only [rhsFboundC]
-  refine continuousOn_const.mul (ContinuousOn.div (ContinuousOn.mul ?_ ?_) ?_
-    (fun β hβ => (hpos β hβ).ne'))
-  · exact continuousOn_const.mul
-      (continuousOn_const.div (by fun_prop) (fun β hβ => (hpos β hβ).ne'))
-  · refine Real.continuous_exp.comp_continuousOn ?_
-    refine continuousOn_const.mul (ContinuousOn.sub (ContinuousOn.sub continuousOn_const ?_)
-      continuousOn_const)
-    exact continuousOn_const.mul (ContinuousOn.log (by fun_prop)
-      (fun β hβ => (mul_pos (hpos β hβ) hL0).ne'))
-  · fun_prop
-
-/-- Continuity of `α ↦ a^{−α}` at a positive base.  Re-derivation of `GradeConst`'s private
-`continuous_rpow_negC` (staged for the `α`-integral of W4-4; `c`-free). -/
-private lemma continuous_rpow_neg2C {a : ℝ} (ha : 0 < a) :
-    Continuous (fun α : ℝ => a ^ (-α)) := by
-  have hrw : (fun α : ℝ => a ^ (-α)) = fun α : ℝ => Real.exp (Real.log a * (-α)) := by
-    funext α; rw [Real.rpow_def_of_pos ha]
-  rw [hrw]
-  exact Real.continuous_exp.comp (by fun_prop)
-
-/-- The width amplitude is nonnegative on the pin's data.  Re-derivation of `GradeConst`'s
-private `widthKamp_nonneg` (`c`-free — the amplitude side never sees the exponent). -/
-private lemma widthKamp_nonneg2C {Cb X h y c₀ : ℝ} (hCb0 : 0 ≤ Cb) (hX0 : 0 < X) (hh : 0 < h)
-    (hy0 : 0 < y) : 0 ≤ widthKamp Cb X h y c₀ := by
-  have hXh0 : (0 : ℝ) < X + h := by linarith
-  have hy2 : (0 : ℝ) < y / 2 := by linarith
-  have hA0 : (0 : ℝ) < (y / 2) ^ (1 / 8 : ℝ) := Real.rpow_pos_of_pos hy2 _
-  have hlog4 : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
-  unfold widthKamp widthKampBr
-  have hrp : (0 : ℝ) ≤ (X + h) ^ c₀ := Real.rpow_nonneg hXh0.le _
-  positivity
+Until O13-e, four `_2C` re-derivations sat here. All four are `y`-BLIND, so the public roots
+serve `y₂` unchanged: `RHSGradeC`'s `rhs_sigma_div_integrableGC` and `rhs_shift_integrableGC`,
+`RHSGrade`'s `continuous_rpow_neg` and `GradeConst`'s `widthKamp_nonneg`. -/
 
 /-! ## §2 — S-A / S-C / S-D at `y₂`, at a FREE `c`, with the floor in WINDOW form -/
 
@@ -471,7 +406,7 @@ theorem beta_integral_pin_const2C (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖
   have hkh0 : (0 : ℝ) < k + h := by linarith
   have hy40 : (0 : ℝ) < L ^ 4 := by positivity
   have hK0 : (0 : ℝ) ≤ widthKamp Cb k h (L ^ 4) c₀ * (k + h) ^ (-α) :=
-    mul_nonneg (widthKamp_nonneg2C hCb0 hk0 hh0 hy40) (Real.rpow_nonneg hkh0.le _)
+    mul_nonneg (widthKamp_nonneg hCb0 hk0 hh0 hy40) (Real.rpow_nonneg hkh0.le _)
   have hcross : ∀ β ∈ Icc (0 : ℝ) η,
       crossKer g k h y c₀ t₀' α β
         ≤ (widthKamp Cb k h (L ^ 4) c₀ * (k + h) ^ (-α)) * (1 / (β + 1 / L)) := by
@@ -485,13 +420,13 @@ theorem beta_integral_pin_const2C (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖
   have hFnn : ∀ σ ∈ Icc (1 / L) (2 * η), 0 ≤ rhsFboundC c M L σ := by
     intro σ hσ
     exact rhsFboundC_nonneg c M L (lt_of_lt_of_le hLinv0 hσ.1)
-  have hIσ := rhs_sigma_div_integrable2C (c := c) (M := M) (L := L) (b := 2 * η) hL0
+  have hIσ := rhs_sigma_div_integrableGC (c := c) (M := M) (L := L) (b := 2 * η) hL0
     (by linarith)
   have hBA := bridge_adapter (g := g) (X := k) (h := h) (y := y) (c₀ := c₀) (t₀ := t₀')
     (L := L) (η := η) (Kα := widthKamp Cb k h (L ^ 4) c₀ * (k + h) ^ (-α)) (α := α)
     (supF := fun _ β => rhsFboundC c M L (β + 1 / L)) (Fbound := rhsFboundC c M L)
     hL0 hLη hK0 hsup0 hcross (fun β _ => le_rfl) hFnn hIβ
-    (rhs_shift_integrable2C hL0 hη0'.le) hIσ
+    (rhs_shift_integrableGC hL0 hη0'.le) hIσ
   refine le_trans hBA ?_
   refine mul_le_mul_of_nonneg_left ?_ hK0
   have hlogk3 : (3 : ℝ) ≤ Real.log k := by rw [← hL]; linarith
@@ -570,7 +505,7 @@ theorem rhs_grade_at_scale_window2C {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
   have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 :=
     norm_twist_le_one hg t₀'
   have hKamp0 : (0 : ℝ) ≤ widthKamp Cb k h (L ^ 4) c₀ :=
-    widthKamp_nonneg2C hCb0 hk0 hh0 hy40
+    widthKamp_nonneg hCb0 hk0 hh0 hy40
   have hG0 : (0 : ℝ) ≤ rhsSigmaGC c M L := by
     unfold rhsSigmaGC
     have hE : (0 : ℝ) ≤ Real.exp (c * 48) / (1 - 2 * c) := by positivity
@@ -588,7 +523,7 @@ theorem rhs_grade_at_scale_window2C {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
       hα.1 hα.2 (hIβ α hα)
   have hKcont : Continuous
       (fun α : ℝ => (widthKamp Cb k h (L ^ 4) c₀ * (k + h) ^ (-α)) * rhsSigmaGC c M L) :=
-    ((continuous_rpow_neg2C hkh0).const_mul _).mul continuous_const
+    ((continuous_rpow_neg hkh0).const_mul _).mul continuous_const
   have hmono := intervalIntegral.integral_mono_on hη0'.le hIα
     (hKcont.intervalIntegrable 0 η) hper
   have hfe : ∀ α : ℝ, (widthKamp Cb k h (L ^ 4) c₀ * (k + h) ^ (-α)) * rhsSigmaGC c M L

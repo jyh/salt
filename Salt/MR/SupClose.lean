@@ -54,31 +54,11 @@ namespace Salt.MR
 
 open Complex MeasureTheory Set
 
-/-! ## §0 — the pin's helpers, re-derived
+/-! ## §0 — the pin's helpers, read from their roots
 
-The pin's arithmetic is `GradeConst`'s public `pin_basic64`; the `private` helpers below are
-re-derived verbatim. -/
-
-/-- Continuity of `α ↦ a^{−α}`.  Re-derivation of `GradeConst`'s private
-`continuous_rpow_negC`. -/
-private lemma continuous_rpow_negS {a : ℝ} (ha : 0 < a) :
-    Continuous (fun α : ℝ => a ^ (-α)) := by
-  have hrw : (fun α : ℝ => a ^ (-α)) = fun α : ℝ => Real.exp (Real.log a * (-α)) := by
-    funext α; rw [Real.rpow_def_of_pos ha]
-  rw [hrw]
-  exact Real.continuous_exp.comp (by fun_prop)
-
-/-- The width amplitude is nonnegative.  Re-derivation of `GradeConst`'s private
-`widthKamp_nonneg`. -/
-private lemma widthKamp_nonnegS {Cb X h y c₀ : ℝ} (hCb0 : 0 ≤ Cb) (hX0 : 0 < X) (hh : 0 < h)
-    (hy0 : 0 < y) : 0 ≤ widthKamp Cb X h y c₀ := by
-  have hXh0 : (0 : ℝ) < X + h := by linarith
-  have hy2 : (0 : ℝ) < y / 2 := by linarith
-  have hA0 : (0 : ℝ) < (y / 2) ^ (1 / 8 : ℝ) := Real.rpow_pos_of_pos hy2 _
-  have hlog4 : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
-  unfold widthKamp widthKampBr
-  have hrp : (0 : ℝ) ≤ (X + h) ^ c₀ := Real.rpow_nonneg hXh0.le _
-  positivity
+The pin's arithmetic is `GradeConst`'s public `pin_basic64`; its two helpers are read from
+their public roots since O13-e (`RHSGrade`'s `continuous_rpow_neg`, `GradeConst`'s
+`widthKamp_nonneg`). -/
 
 /-! ## §1 — the pin's `supF` at a SINGLE contour point -/
 
@@ -321,7 +301,7 @@ theorem rhs_grade_at_scale_trunc {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g
   have hgtw : ∀ p, p.Prime →
       ‖(fun q => g q * (q : ℂ) ^ (-((t₀ + t₁ : ℝ) : ℂ) * I)) p‖ ≤ 1 :=
     norm_twist_le_one hg (t₀ + t₁)
-  have hKamp0 : (0 : ℝ) ≤ widthKamp Cb k h y c₀ := widthKamp_nonnegS hCb0 hk0 hh0 hy0
+  have hKamp0 : (0 : ℝ) ≤ widthKamp Cb k h y c₀ := widthKamp_nonneg hCb0 hk0 hh0 hy0
   have hG0 : (0 : ℝ) ≤ rhsSigmaG
       (pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X) L := by
     unfold rhsSigmaG
@@ -352,7 +332,7 @@ theorem rhs_grade_at_scale_trunc {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g
   have hKcont : Continuous
       (fun α : ℝ => (widthKamp Cb k h y c₀ * (k + h) ^ (-α))
         * rhsSigmaG (pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X) L) :=
-    ((continuous_rpow_negS hkh0).const_mul _).mul continuous_const
+    ((continuous_rpow_neg hkh0).const_mul _).mul continuous_const
   have hmono := intervalIntegral.integral_mono_on hη0.le hIα
     (hKcont.intervalIntegrable 0 η) hper
   have hfe : ∀ α : ℝ, (widthKamp Cb k h y c₀ * (k + h) ^ (-α))

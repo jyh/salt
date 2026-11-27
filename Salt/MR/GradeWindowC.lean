@@ -266,29 +266,9 @@ theorem jointIntegrableAtC_pin_free {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
 
 /-! ## §2 (W4-4) — the grade at scale in WINDOW-FLOOR form, at a FREE `c`
 
-The pin's arithmetic is `GradeConst`'s public `pin_basic64`; the `private` helpers below are
-re-derived verbatim under a `W` suffix. -/
-
-/-- Continuity of `α ↦ a^{−α}`.  Re-derivation of `GradeConst`'s private
-`continuous_rpow_negC`. -/
-private lemma continuous_rpow_negW {a : ℝ} (ha : 0 < a) :
-    Continuous (fun α : ℝ => a ^ (-α)) := by
-  have hrw : (fun α : ℝ => a ^ (-α)) = fun α : ℝ => Real.exp (Real.log a * (-α)) := by
-    funext α; rw [Real.rpow_def_of_pos ha]
-  rw [hrw]
-  exact Real.continuous_exp.comp (by fun_prop)
-
-/-- The width amplitude is nonnegative.  Re-derivation of `GradeConst`'s private
-`widthKamp_nonneg`. -/
-private lemma widthKamp_nonnegW {Cb X h y c₀ : ℝ} (hCb0 : 0 ≤ Cb) (hX0 : 0 < X) (hh : 0 < h)
-    (hy0 : 0 < y) : 0 ≤ widthKamp Cb X h y c₀ := by
-  have hXh0 : (0 : ℝ) < X + h := by linarith
-  have hy2 : (0 : ℝ) < y / 2 := by linarith
-  have hA0 : (0 : ℝ) < (y / 2) ^ (1 / 8 : ℝ) := Real.rpow_pos_of_pos hy2 _
-  have hlog4 : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
-  unfold widthKamp widthKampBr
-  have hrp : (0 : ℝ) ≤ (X + h) ^ c₀ := Real.rpow_nonneg hXh0.le _
-  positivity
+The pin's arithmetic is `GradeConst`'s public `pin_basic64`; its two helpers are read from
+their public roots since O13-e (`RHSGrade`'s `continuous_rpow_neg`, `GradeConst`'s
+`widthKamp_nonneg`). -/
 
 /-! ### The window floor and the truncated factoring at a free `c` -/
 
@@ -562,7 +542,7 @@ theorem rhs_grade_at_scale_windowC {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
   have hd : (0 : ℝ) < 1 - 2 * c := by linarith
   have hgtw : ∀ p, p.Prime → ‖(fun q => g q * (q : ℂ) ^ (-(t₀' : ℂ) * I)) p‖ ≤ 1 :=
     norm_twist_le_one hg t₀'
-  have hKamp0 : (0 : ℝ) ≤ widthKamp Cb k h y c₀ := widthKamp_nonnegW hCb0 hk0 hh0 hy0
+  have hKamp0 : (0 : ℝ) ≤ widthKamp Cb k h y c₀ := widthKamp_nonneg hCb0 hk0 hh0 hy0
   have hG0 : (0 : ℝ) ≤ rhsSigmaGC c M L := by
     unfold rhsSigmaGC
     have hE : (0 : ℝ) ≤ Real.exp (c * 48) / (1 - 2 * c) := by positivity
@@ -579,7 +559,7 @@ theorem rhs_grade_at_scale_windowC {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
       hM0 hα.1 hα.2 (hIβ α hα)
   have hKcont : Continuous
       (fun α : ℝ => (widthKamp Cb k h y c₀ * (k + h) ^ (-α)) * rhsSigmaGC c M L) :=
-    ((continuous_rpow_negW hkh0).const_mul _).mul continuous_const
+    ((continuous_rpow_neg hkh0).const_mul _).mul continuous_const
   have hmono := intervalIntegral.integral_mono_on hη0.le hIα
     (hKcont.intervalIntegrable 0 η) hper
   have hfe : ∀ α : ℝ, (widthKamp Cb k h y c₀ * (k + h) ^ (-α)) * rhsSigmaGC c M L

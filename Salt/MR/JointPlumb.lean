@@ -25,7 +25,7 @@ pin, so the socket vanishes.
   since `HalaszPrimesCore.norm_hatKernel_le` is outside this file's import closure) at the
   worst exponent and the *smallest*
   Lorentzian width in the square.  `rhsFbound M L (β + 1/L)` is continuous for `σ = β + 1/L
-  > 0` (`GradeConst.rhs_shift_integrableC`'s continuity page, re-derived), so the product is
+  > 0` (`RHSGrade.rhs_shift_integrable`'s continuity page, re-derived), so the product is
   continuous on the box; `hIβ` is `ContinuousOn.intervalIntegrable`, and `hIα` is a second
   dominated-convergence pass (`intervalIntegral.continuousAt_of_dominated_interval`) with a
   CONSTANT dominating function — the box sup, from compactness.
@@ -275,7 +275,7 @@ lemma continuousAt_crossKer {Ω : Type*} [TopologicalSpace Ω] [FirstCountableTo
 
 /-! ## §3 — the `supF·crossKer` legs (`hIβ`, `hIα`) -/
 /-- `σ ↦ rhsFbound M L σ` at `σ = b w + 1/L` is continuous where `σ > 0`
-(`GradeConst.rhs_shift_integrableC`'s continuity page, in composable form). -/
+(`RHSGrade.rhs_shift_integrable`'s continuity page, in composable form). -/
 private lemma continuousAt_rhsFbound_shiftP {Ω : Type*} [TopologicalSpace Ω] {M L : ℝ}
     {b : Ω → ℝ} {w₀ : Ω} (hL0 : 0 < L) (hb : ContinuousAt b w₀) (hσ : 0 < b w₀ + 1 / L) :
     ContinuousAt (fun w : Ω => rhsFbound M L (b w + 1 / L)) w₀ := by
