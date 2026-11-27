@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `ac5b6313` · source digest `d78978cbc4db1a3e` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `1eeb911c` · source digest `748cbd34e90cea32` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23381 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -1950,11 +1950,11 @@ Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hyp
 | `Salt.HB.dh_repulsion_tall_real` | Salt/HB/CrownTheorem1.lean:1047 | characters |
 | `Salt.HB.neg_re_logDeriv_LFunction_ge` | Salt/HB/CrownTheorem1.lean:1804 | characters |
 | `Salt.HB.neg_re_logDeriv_differenced_mult_ge` | Salt/HB/CrownTheorem1.lean:1816 | characters |
-| `Salt.HB.card_divisors_le_rpow_explicit` | Salt/HB/CrownTheorem1.lean:4539 | characters |
-| `Salt.HB.fulcrumQualityPoly_one_iff` | Salt/HB/CrownTheorem1.lean:6365 | characters |
-| `Salt.HB.noSiegelZerosPoly_one_iff` | Salt/HB/CrownTheorem1.lean:6369 | characters |
-| `Salt.HB.heathBrownDichotomyPoly_one_iff` | Salt/HB/CrownTheorem1.lean:6375 | characters |
-| `Salt.HB.beta0_max_of_zero` | Salt/HB/CrownTheorem1.lean:6475 | characters |
+| `Salt.HB.card_divisors_le_rpow_explicit` | Salt/HB/CrownTheorem1.lean:4528 | characters |
+| `Salt.HB.fulcrumQualityPoly_one_iff` | Salt/HB/CrownTheorem1.lean:6354 | characters |
+| `Salt.HB.noSiegelZerosPoly_one_iff` | Salt/HB/CrownTheorem1.lean:6358 | characters |
+| `Salt.HB.heathBrownDichotomyPoly_one_iff` | Salt/HB/CrownTheorem1.lean:6364 | characters |
+| `Salt.HB.beta0_max_of_zero` | Salt/HB/CrownTheorem1.lean:6464 | characters |
 | `Salt.HB.hbDataN8_S_eq_zero` | Salt/HB/CrownWireHB.lean:51 | characters |
 | `Salt.HB.lamSum_S_eq_S3` | Salt/HB/CrownWireHB.lean:77 | characters |
 | `Salt.HB.four_mul_add_one_mem_Ioc` | Salt/HB/CrownWireHB.lean:157 | characters |
@@ -2177,13 +2177,13 @@ Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hyp
 | `Salt.HB.intervalIntegrable_rpow_div_log` | Salt/HB/Lemma7EF.lean:1215 | characters |
 | `Salt.HB.integrableOn_rpow_div_log` | Salt/HB/Lemma7EF.lean:1228 | characters |
 | `Salt.HB.logChiSum_tendsto_of_envelope` | Salt/HB/Lemma7EF.lean:1261 | characters |
-| `Salt.HB.efShiftB_le_scale_sharp` | Salt/HB/Lemma7EF.lean:2539 | characters |
-| `Salt.HB.efEnvelope_le_ledger_sharp` | Salt/HB/Lemma7EF.lean:2694 | characters |
-| `Salt.HB.ledger_const_le_of_window` | Salt/HB/Lemma7EF.lean:2912 | characters |
-| `Salt.HB.efEnvelope_zfr_eventually_le_sharp` | Salt/HB/Lemma7EF.lean:2974 | characters |
-| `Salt.HB.integral_inv_mul_log_sq` | Salt/HB/Lemma7EF.lean:3126 | characters |
-| `Salt.HB.tail_le_of_pointwise` | Salt/HB/Lemma7EF.lean:3154 | characters |
-| `Salt.HB.logChiSum_tendsto_zfr_hundred` | Salt/HB/Lemma7EF.lean:3206 | characters |
+| `Salt.HB.efShiftB_le_scale_sharp` | Salt/HB/Lemma7EF.lean:2529 | characters |
+| `Salt.HB.efEnvelope_le_ledger_sharp` | Salt/HB/Lemma7EF.lean:2684 | characters |
+| `Salt.HB.ledger_const_le_of_window` | Salt/HB/Lemma7EF.lean:2902 | characters |
+| `Salt.HB.efEnvelope_zfr_eventually_le_sharp` | Salt/HB/Lemma7EF.lean:2964 | characters |
+| `Salt.HB.integral_inv_mul_log_sq` | Salt/HB/Lemma7EF.lean:3116 | characters |
+| `Salt.HB.tail_le_of_pointwise` | Salt/HB/Lemma7EF.lean:3144 | characters |
+| `Salt.HB.logChiSum_tendsto_zfr_hundred` | Salt/HB/Lemma7EF.lean:3196 | characters |
 | `Salt.HB.integrableOn_expNeg_div_Ioi` | Salt/HB/Lemma7F.lean:92 | characters |
 | `Salt.HB.integrableOn_expNeg_mul_log_Ioi_zero` | Salt/HB/Lemma7F.lean:118 | characters |
 | `Salt.HB.hasDerivAt_expNeg_mul_log` | Salt/HB/Lemma7F.lean:167 | characters |
@@ -7490,24 +7490,24 @@ Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hyp
 | `Salt.HB.pretenseSum_at_hb_point` | Salt/HB/CrownTheorem1.lean:2169 | characters | `Salt.HB.N9Regime` |
 | `Salt.HB.chiOne_kill_at_hb_point` | Salt/HB/CrownTheorem1.lean:2196 | sieves, characters | `Salt.HB.N9Regime` |
 | `Salt.HB.real_zeros_below_zfrCeil` | Salt/HB/CrownTheorem1.lean:2238 | characters | `Salt.HB.N9Regime` |
-| `Salt.HB.logChiSum_tail_at_window` | Salt/HB/CrownTheorem1.lean:3517 | characters | `Salt.HB.N9Regime` |
-| `Salt.HB.hbEulerLog_tendsto` | Salt/HB/CrownTheorem1.lean:3612 | characters | `Salt.HB.N9Regime` |
-| `Salt.HB.hcorr_at_split` | Salt/HB/CrownTheorem1.lean:3857 | characters | `Salt.HB.N9Regime` |
-| `Salt.HB.hb_L2_at_hb_point` | Salt/HB/CrownTheorem1.lean:3979 | characters | `Salt.HB.N9Regime` |
-| `Salt.HB.hb_lemma4_at_hb_point` | Salt/HB/CrownTheorem1.lean:4930 | characters | `Salt.HB.N9Regime` |
-| `Salt.HB.hb_S3_lower_at_hb_point` | Salt/HB/CrownTheorem1.lean:5440 | characters | `Salt.HB.N9Regime`, `Salt.HB.N7Exit` |
-| `Salt.HB.hb_theorem1` | Salt/HB/CrownTheorem1.lean:6043 | characters | `Salt.HB.N9Regime`, `Salt.HB.N7Exit` |
-| `Salt.HB.hb_theorem1_lower` | Salt/HB/CrownTheorem1.lean:6311 | characters | `Salt.HB.N9Regime`, `Salt.HB.N7Exit` |
-| `Salt.HB.noSiegelZerosPoly_mono` | Salt/HB/CrownTheorem1.lean:6384 | characters | `Salt.HB.NoSiegelZerosPoly` |
-| `Salt.HB.not_fulcrumPoly_implies_noSiegelZerosPoly` | Salt/HB/CrownTheorem1.lean:6414 | characters | `¬Salt.HB.FulcrumQualityPoly` |
-| `Salt.HB.fulcrum_dichotomy_poly` | Salt/HB/CrownTheorem1.lean:6463 | characters | `TwinPrimeConjecture` |
-| `Salt.HB.fulcrumQualityMin_of_poly` | Salt/HB/CrownTheorem1.lean:6519 | characters | `Salt.HB.FulcrumQualityPoly` |
-| `Salt.HB.crown_handover_k1` | Salt/HB/CrownTheorem1.lean:6577 | characters | `Salt.HB.N7Exit`, `Salt.Fulcrum.FulcrumQualityMin` |
-| `Salt.HB.crown_handover` | Salt/HB/CrownTheorem1.lean:6902 | characters | `Salt.HB.N7Exit`, `Salt.HB.FulcrumQualityPoly` |
-| `Salt.HB.hEngine_poly_of_N7` | Salt/HB/CrownTheorem1.lean:6916 | characters | `Salt.HB.N7Exit`, `Salt.HB.FulcrumQualityPoly` |
-| `Salt.HB.hEngine_of_N7` | Salt/HB/CrownTheorem1.lean:6925 | characters | `Salt.HB.N7Exit`, `Salt.Fulcrum.FulcrumQualityMin` |
-| `Salt.HB.heathBrownDichotomyPoly_of_N7` | Salt/HB/CrownTheorem1.lean:6939 | characters | `Salt.HB.N7Exit` |
-| `Salt.HB.heathBrownDichotomy_of_N7` | Salt/HB/CrownTheorem1.lean:6957 | characters | `Salt.HB.N7Exit` |
+| `Salt.HB.logChiSum_tail_at_window` | Salt/HB/CrownTheorem1.lean:3506 | characters | `Salt.HB.N9Regime` |
+| `Salt.HB.hbEulerLog_tendsto` | Salt/HB/CrownTheorem1.lean:3601 | characters | `Salt.HB.N9Regime` |
+| `Salt.HB.hcorr_at_split` | Salt/HB/CrownTheorem1.lean:3846 | characters | `Salt.HB.N9Regime` |
+| `Salt.HB.hb_L2_at_hb_point` | Salt/HB/CrownTheorem1.lean:3968 | characters | `Salt.HB.N9Regime` |
+| `Salt.HB.hb_lemma4_at_hb_point` | Salt/HB/CrownTheorem1.lean:4919 | characters | `Salt.HB.N9Regime` |
+| `Salt.HB.hb_S3_lower_at_hb_point` | Salt/HB/CrownTheorem1.lean:5429 | characters | `Salt.HB.N9Regime`, `Salt.HB.N7Exit` |
+| `Salt.HB.hb_theorem1` | Salt/HB/CrownTheorem1.lean:6032 | characters | `Salt.HB.N9Regime`, `Salt.HB.N7Exit` |
+| `Salt.HB.hb_theorem1_lower` | Salt/HB/CrownTheorem1.lean:6300 | characters | `Salt.HB.N9Regime`, `Salt.HB.N7Exit` |
+| `Salt.HB.noSiegelZerosPoly_mono` | Salt/HB/CrownTheorem1.lean:6373 | characters | `Salt.HB.NoSiegelZerosPoly` |
+| `Salt.HB.not_fulcrumPoly_implies_noSiegelZerosPoly` | Salt/HB/CrownTheorem1.lean:6403 | characters | `¬Salt.HB.FulcrumQualityPoly` |
+| `Salt.HB.fulcrum_dichotomy_poly` | Salt/HB/CrownTheorem1.lean:6452 | characters | `TwinPrimeConjecture` |
+| `Salt.HB.fulcrumQualityMin_of_poly` | Salt/HB/CrownTheorem1.lean:6508 | characters | `Salt.HB.FulcrumQualityPoly` |
+| `Salt.HB.crown_handover_k1` | Salt/HB/CrownTheorem1.lean:6566 | characters | `Salt.HB.N7Exit`, `Salt.Fulcrum.FulcrumQualityMin` |
+| `Salt.HB.crown_handover` | Salt/HB/CrownTheorem1.lean:6891 | characters | `Salt.HB.N7Exit`, `Salt.HB.FulcrumQualityPoly` |
+| `Salt.HB.hEngine_poly_of_N7` | Salt/HB/CrownTheorem1.lean:6905 | characters | `Salt.HB.N7Exit`, `Salt.HB.FulcrumQualityPoly` |
+| `Salt.HB.hEngine_of_N7` | Salt/HB/CrownTheorem1.lean:6914 | characters | `Salt.HB.N7Exit`, `Salt.Fulcrum.FulcrumQualityMin` |
+| `Salt.HB.heathBrownDichotomyPoly_of_N7` | Salt/HB/CrownTheorem1.lean:6928 | characters | `Salt.HB.N7Exit` |
+| `Salt.HB.heathBrownDichotomy_of_N7` | Salt/HB/CrownTheorem1.lean:6946 | characters | `Salt.HB.N7Exit` |
 | `Salt.HB.hb_p200_lower_HB` | Salt/HB/CrownWireHB.lean:257 | sieves, characters | `Salt.HB.Lemma5Eval` |
 | `Salt.HB.hb_lemma3_at_repulsion_floor` | Salt/HB/Lemma3Floor.lean:160 | characters | `Salt.HB.CoprimeSupport` |
 | `Salt.HB.hb_lemma3_unconditional` | Salt/HB/Lemma3Uncond.lean:58 | characters | `Salt.HB.CoprimeSupport` |
@@ -8980,9 +8980,9 @@ Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hyp
 | `Salt.HB.Lemma5Eval` | Salt/HB/CrownAssembly.lean:1191 | sieves, characters |
 | `Salt.HB.N9Regime` | Salt/HB/CrownTheorem1.lean:442 | characters |
 | `Salt.HB.N7Exit` | Salt/HB/CrownTheorem1.lean:512 | characters |
-| `Salt.HB.FulcrumQualityPoly` | Salt/HB/CrownTheorem1.lean:6338 | characters |
-| `Salt.HB.NoSiegelZerosPoly` | Salt/HB/CrownTheorem1.lean:6348 | characters |
-| `Salt.HB.HeathBrownDichotomyPoly` | Salt/HB/CrownTheorem1.lean:6361 | characters |
+| `Salt.HB.FulcrumQualityPoly` | Salt/HB/CrownTheorem1.lean:6327 | characters |
+| `Salt.HB.NoSiegelZerosPoly` | Salt/HB/CrownTheorem1.lean:6337 | characters |
+| `Salt.HB.HeathBrownDichotomyPoly` | Salt/HB/CrownTheorem1.lean:6350 | characters |
 | `Salt.MR.MRTLargeRangeEquidistributionFixedEps` | Salt/MR/A4FLargeRange.lean:71 | characters |
 | `Salt.MR.MRTLemmaA4iiFixed34E` | Salt/MR/A4FLargeRange.lean:84 | characters |
 | `Salt.MR.MRTLemmaA4iiFixed34T` | Salt/MR/A4FThreshold.lean:62 | characters |
@@ -9293,9 +9293,9 @@ Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hyp
 | `Salt.HB.n9Tail` | Salt/HB/CrownTheorem1.lean:404 | characters |
 | `Salt.HB.n9E0B3` | Salt/HB/CrownTheorem1.lean:409 | characters |
 | `Salt.HB.n9K` | Salt/HB/CrownTheorem1.lean:528 | characters |
-| `Salt.HB.n9K2` | Salt/HB/CrownTheorem1.lean:3875 | characters |
-| `Salt.HB.n9K3` | Salt/HB/CrownTheorem1.lean:5354 | characters |
-| `Salt.HB.n9Cq` | Salt/HB/CrownTheorem1.lean:6550 | characters |
+| `Salt.HB.n9K2` | Salt/HB/CrownTheorem1.lean:3864 | characters |
+| `Salt.HB.n9K3` | Salt/HB/CrownTheorem1.lean:5343 | characters |
+| `Salt.HB.n9Cq` | Salt/HB/CrownTheorem1.lean:6539 | characters |
 | `Salt.HB.hbDataHB` | Salt/HB/CrownWireHB.lean:121 | sieves, characters |
 | `Salt.HB.hbDataHB_P` | Salt/HB/CrownWireHB.lean:134 | characters |
 | `Salt.HB.hbDataHB_S3_eq` | Salt/HB/CrownWireHB.lean:142 | characters |
