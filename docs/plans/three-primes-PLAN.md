@@ -275,7 +275,7 @@ would call hard.** The minor arcs are essentially done. The major arcs are not s
 | L20 Parseval | **have** ★ | `Salt.LS.parseval`, `Salt/LS/Parseval.lean:76` | over `range N` with `e`; S is over `Icc 1 x` with `eR`. **No bridge lemma exists**: a small seam to close first |
 | L20 Σ Λ² ≪ N log N | **have** ★ | `Salt.LS.sum_vonMangoldt_sq_le`, `Salt/LS/BDHPrep.lean:70` | ≤ (log 4 + 4) x log x |
 | L6 Siegel–Walfisz | **have** ★ | `Salt.SW.siegelWalfisz_holds : Salt.BV.SiegelWalfisz`, `Salt/SW/Gate.lean:150` | Λ-weighted ψ(x; q, a), q ≤ (log x)^C, any A; ineffective. (The docstring at `Salt/BV/Defs.lean:31` still says "assumed": stale) |
-| L7 Abel summation | **have** | `Salt.MR.sum_Ioc_abel`, `Salt/MR/MinorArcCore.lean:177`; mathlib `sum_mul_eq_sub_sub_integral_mul` | discrete and continuous |
+| L7 Abel summation | **have** | `Salt.MR.sum_Ioc_abel`, `Salt/MR/MinorArcCore.lean:171`; mathlib `sum_mul_eq_sub_sub_integral_mul` | discrete and continuous |
 | L9 geometric sum | **have** | `Salt.MR.geom_phase_bound`, `Salt/MR/MinorArcVaughan.lean:298` | ≤ min(M, 1/(2‖θ‖)) |
 | L14 Dirichlet | **have** ★ | `Salt.MR.exists_dirichlet_approx`, `Salt/MR/BigXiArc.lean:229`; `approx_reduced`, `approx_c_form` (`Salt/MR/MinorArcExit.lean:333`, `:387`) | to lowest terms, then to the \|α − a/q\| ≤ c/q² shape the bound consumes |
 | L15 Vaughan | **have** ★ | `Salt.LS.vaughan`, `Salt/LS/Vaughan.lean:93`; `Salt.MR.vaughan_expSum` | exact identity, and its exponential-sum form |

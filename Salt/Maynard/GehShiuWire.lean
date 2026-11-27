@@ -13,7 +13,7 @@ This file proves, from the freshly-proven Shiu core `sum_tau_in_ap_le : ShiuCore
 combinator `pieceObligationU_of_anchored_multiblock` (`Salt/Maynard/GehAnchor.lean`), at
 the floor `A' + 3 ≤ F`; the combinator's fixed-`F` slot does not accept it yet (catch #54).
 
-The combinator's `hshiu` slot (GehAnchor.lean:524–527), specialised to the vP3
+The combinator's `hshiu` slot (GehAnchor.lean:519–522), specialised to the vP3
 double-dyadic family (`α i x = muBlock (a i x) x`, `β i x = tiiBlock (b i x) x`,
 `N i x = nScale (a i x) x`, `M i x = nScale (b i x) x`, `θ = 3999/4000`), reads
 
@@ -33,7 +33,7 @@ nScale (b i x) x` is a pure binder rename: the two wires below.
 The combinator's `hshiu` quantifies `A'` universally with a **single fixed `F`**
 (the theorem parameter `{θ ε F : ℝ}`), and it invokes `hshiu (A + p)` for the
 `PieceObligationU`-saving `A`, which ranges over *all* positive reals
-(GehAnchor.lean:521–524).  But the honest Shiu bound needs `A' + 3 ≤ F`
+(GehAnchor.lean:516–519).  But the honest Shiu bound needs `A' + 3 ≤ F`
 (ShiuBlocks.lean:315; mathematically forced — a shallow block has `z ≤ x/(log x)^F`,
 so its summed AP discrepancy is `≈ z·log³x ≈ x/(log x)^{F-3}`, which beats
 `x/(log x)^{A'}` only for `F - 3 ≥ A'`).  A fixed finite `F` therefore caps the
