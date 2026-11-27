@@ -56,7 +56,7 @@ The Siegel zero enters WP1 only through the two named symbolic slots:
   (the four HB L₁–L₄ exceptional sub-sums).
 - GROUNDED TransferFull.lean:183 **PretenseSum** def:
   `PretenseSum χ N = Σ_{p ∈ range(N+1), p prime ∧ chiRe χ p = 1} log p / p`.
-- GROUNDED TransferFull.lean:204-214 **hb_lemma2 — THE EXACT OPEN HYPOTHESIS SHAPE (HB-L2c)**:
+- GROUNDED TransferFull.lean:212-222 **hb_lemma2 — THE EXACT OPEN HYPOTHESIS SHAPE (HB-L2c)**:
   ```
   theorem hb_lemma2 (χ) (hsq : χ ^ 2 = 1) {A} (hA : CoprimeSupport q A)
       (x : ℝ) (N : ℕ) (Cmain z0 Aexp junk : ℝ)

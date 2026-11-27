@@ -9,7 +9,7 @@ shiu-native (exact-overshoot surgery) with ALL verified repairs from both its re
 # HB-L2C FREEZE (JUDGE-FINAL): exact-overshoot surgery, all refuter repairs baked
 
 CHOSEN: shiu-native + repairs R-F1..R-F4 (both refuter passes) + faithful grafts.
-hres (TransferFull.lean:204-214, verified verbatim this pass) is BYPASSED, not filled:
+hres (TransferFull.lean:212-222, verified verbatim this pass) is BYPASSED, not filled:
 undischargeable at constant witnesses (Wall A: minus-prime family, majorant ~
 (x/L)PS*z0*loglog z, Euler-factor (log z)^2-grade over slot ceiling; Wall B: both-prime
 pairs, majorant 12L^2/pair, truth 0, pricing = Class D). hb_lemma2 has ZERO landed
