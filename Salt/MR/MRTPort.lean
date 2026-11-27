@@ -180,7 +180,7 @@ family member's non-uniformity was generalised to the family, and
 **per-`q` threshold hypothesis** (`VkMidSharp.lean:464-469`), which this lemma's `∀ q ≤ Q`
 needs discharged at *every* `q`.  A `q ≤ Q`-shaped discharge of it was **NOT FOUND UNDER
 THREE ARMS**; the nearest landed instrument, `pieceFloor_vt_threshold_of_loglog`
-(`Salt/MR/RbdSupply.lean:496`), does exactly this job but at the arc-denominator cap
+(`Salt/MR/RbdSupply.lean:492`), does exactly this job but at the arc-denominator cap
 `(q:ℝ) ≤ arcDen 12 H` and at the datum `pieceDatum χ 𝒥 Pseq Qseq`, not at `lamChi χ`.
 ⇒ **Read this as: the index-uniformity half is supplied MODULO a named, absent,
 arithmetic-only uniformisation — never as "G1 is closed".**  Nothing here is built.

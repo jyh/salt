@@ -10,7 +10,7 @@ never written at an anchor.
 Both `S16CofactorSupply_gk` (S16Budget.lean:583) and the L twin
 (S13CapGateLinear.lean:897) are OPEN — ⟦RULING 9⟧'s debt is unpaid at
 BOTH doors; there is one shared debt, not two. The intended supplier
-`RbdSupply.m4_supplier_all_chi` (RbdSupply.lean:190, wrapping
+`RbdSupply.m4_supplier_all_chi` (RbdSupply.lean:191, wrapping
 CaseAWide.m4_supplier_complete + VkMidSharp.capFreeFloor3_pieceDatum_vt)
 has ~30 binders; EXACTLY ONE reads Pseq/Qseq — the Mertens debit
 `Σ_{𝒥⊆Icc 1 J} Σ_p 1/p ≤ D`. Everything else reads the Ramaré band,

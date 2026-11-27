@@ -994,8 +994,8 @@ pinned` ← `HloExportMR.m4_second_road_L2_hloCap_pinned_gk` (:625) ← `…_clo
 hloCap_pinned_gk` (:572) ← `…m4_exit_socket_split_sq_arc_hloCap_pinned` (:255) ←
 `HloExport.log_chowla_two_budget_head_g_sq_count_hloCap_pinned` (:492), where it is minted as
 `bigXi_bounded`'s `∃`-constant (`GoldbachEnergyFinal` :502) — the large-spectrum `L²` count.
-`ConstantsExposed.KExpr` (:346) IS that constant's closed form at the same `ε`-pin; the two
-landed numerals about it are `KExpr_le : KExpr ≤ 12·10^{161}` (:356) and
+`ConstantsExposed.KExpr` (:345) IS that constant's closed form at the same `ε`-pin; the two
+landed numerals about it are `KExpr_le : KExpr ≤ 12·10^{161}` (:355) and
 `S15Witness.s15w_KExpr_ge : 12·10^{65} ≤ KExpr` (:693).  The LOWER one settles the rider:
 `Kc ≳ 2^{219}` at the closed form, `≈ 2^{538}` at the full tower — `2^20` is out by 199–518
 bits.  (`bigXi_bounded_500`, the variant with the count in its statement, is NOT on this

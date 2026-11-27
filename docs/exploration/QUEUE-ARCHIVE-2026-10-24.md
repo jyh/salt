@@ -1740,7 +1740,7 @@ RESURRECTS THEM:**
    grep trap `DoorFloor.lean:86-94` warns of in the corpus's own voice; the live margin is **exactly
    1×**. ③ **THE `K`-vs-`K` COLLISION**: I built the absorbing demand from `cffKVt` when the threshold's
    `K` is `capFreeFloor3_margin_all_chi_vt`'s witness — the corpus calls them **siblings** at different
-   floors (`RbdSupply.lean:71-72`, `:526-527`), no landed comparison. ***The `K` row of the collision
+   floors (`RbdSupply.lean:72-73`, `:522-523`), no landed comparison. ***The `K` row of the collision
    table, collecting on the block that quoted the table.*** ④ **THE ARITHMETIC**: my `X0MR` left 100 of
    slack while forcing `40·logloglog X ≥ 311` — **short by ≈211**, having quoted that very term two
    sections earlier. ⑤ **"THE PORT'S WALL IS G3, AN L¹-vs-L² WALL"** — false: BOTH endpoints are L¹,
@@ -1887,7 +1887,7 @@ RESURRECTS THEM:**
    and the objects meet **definitionally** via `pretDistSq_lam_chi_twist` (`ChiFloor.lean:208`) composed
    with N3, **which I landed in the same wave.** ⇒ **G1 is SMALLER than I priced it — but NOT closed:**
    the floor is gated by a **per-`q` threshold** whose `q ≤ Q`-shaped discharge is **NOT FOUND UNDER THREE
-   ARMS** (nearest: `pieceFloor_vt_threshold_of_loglog`, `RbdSupply.lean:496`, but at the arc cap and at
+   ARMS** (nearest: `pieceFloor_vt_threshold_of_loglog`, `RbdSupply.lean:492`, but at the arc cap and at
    `pieceDatum`, not `lamChi`). **Read as: supplied MODULO a named absent arithmetic-only uniformisation.**
    ⭐⭐ **AND THE RE-PRICING THAT OUTLIVES THE FOUR CORRECTIONS — THE SPLIT ROAD IS FAR DEEPER THAN THE
    CAMPAIGN HAS BEEN PRICING IT: `0` HOLES IN `7` EDGES.** D0 the socket binder ← `m4_hbd_of_live_split`
@@ -5542,7 +5542,7 @@ same integral · same dyadic range `[X,2X]` · same `1/X` normalisation · same 
    report-not-rule discipline stands: whether the program walks the rated lane is the helm's.)*
    📐 **THE BINDING ARM IS A PAGE NOBODY HAD NAMED** — `pieceFloor_vt_threshold_of_loglog_rated`
    (`BandRatedAssembly.lean:310-318`). All five cap-consumers factor through ONE lemma
-   (`log_le_of_le_arcDen`, `RbdSupply.lean:308`), so inflation is a single substitution
+   (`log_le_of_le_arcDen`, `RbdSupply.lean:309`), so inflation is a single substitution
    `log q ≤ log h + 12Λ` (`Λ := loglog H`). Row coefficients on `log q`, ×32: `4 + 24 + 128 = 156`
    (and `156 × 12 = 1872` reproduces the landed Λ-total — the check that the table is right).
    **Slack `28Λ + 4·log(7+12Λ) + 84` against cost `156·log h`:** at the lemma's own floor `Λ ≥ 1`,

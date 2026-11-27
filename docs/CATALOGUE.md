@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `f35ee1fc` · source digest `a4b2fe5c1392cc1f` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `8c203354` · source digest `65081122ca6d8e21` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -2731,11 +2731,11 @@ Declarations indexed across the tree: 23382 · corpus Prop-valued names (the hyp
 | `Salt.MR.compact_min_package` | Salt/MR/CompactMin.lean:342 | characters |
 | `Salt.MR.Cg_le` | Salt/MR/ConstantsExposed.lean:126 | characters |
 | `Salt.MR.typical_density_le_bounded` | Salt/MR/ConstantsExposed.lean:138 | characters |
-| `Salt.MR.eps_admissible` | Salt/MR/ConstantsExposed.lean:218 | characters |
-| `Salt.MR.Klcm_le` | Salt/MR/ConstantsExposed.lean:262 | characters |
-| `Salt.MR.KExpr_le` | Salt/MR/ConstantsExposed.lean:363 | characters |
-| `Salt.MR.delta0_ge` | Salt/MR/ConstantsExposed.lean:400 | characters |
-| `Salt.MR.b_floor_cert` | Salt/MR/ConstantsExposed.lean:417 | characters |
+| `Salt.MR.eps_admissible` | Salt/MR/ConstantsExposed.lean:217 | characters |
+| `Salt.MR.Klcm_le` | Salt/MR/ConstantsExposed.lean:261 | characters |
+| `Salt.MR.KExpr_le` | Salt/MR/ConstantsExposed.lean:362 | characters |
+| `Salt.MR.delta0_ge` | Salt/MR/ConstantsExposed.lean:399 | characters |
+| `Salt.MR.b_floor_cert` | Salt/MR/ConstantsExposed.lean:416 | characters |
 | `Salt.MR.ramare_weight_sum` | Salt/MR/Decomp.lean:122 | characters |
 | `Salt.MR.ramare_decomp` | Salt/MR/Decomp.lean:193 | characters |
 | `Salt.MR.pretDistSq_principal_eval` | Salt/MR/Dist.lean:95 | characters |

@@ -195,11 +195,10 @@ reals, so the numeral bounds below read `1/500` directly. Read nine times in thi
 `1 + 2·C₀` at the spine's `C₀ = 2·log 4`. -/
 noncomputable def CcmExpr : ℝ := 1 + 2 * (2 * Real.log 4)
 
-/-- `log 4 = 2·log 2` (private), by `4 = 2²` and `Real.log_pow`: the step that turns the
-circle-method constant's `log 4` into the `log 2` the decimal bound `Real.log_two_lt_d9` prices.
-Read twice in this file; the same-named lemmas in `L2cEngineRoute` and `RbdSupply` are their own
-private copies. -/
-private lemma log_four_eq : Real.log 4 = 2 * Real.log 2 := by
+/-- `log 4 = 2·log 2`, by `4 = 2²` and `Real.log_pow`: the step that turns the circle-method
+constant's `log 4` into the `log 2` the decimal bound `Real.log_two_lt_d9` prices. Read twice in
+this file and by `RbdSupply`; `L2cEngineRoute` has its own lemma of this name in `Salt.HB`. -/
+lemma log_four_eq : Real.log 4 = 2 * Real.log 2 := by
   rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
 
 /-- `0 < C`. -/
