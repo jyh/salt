@@ -407,7 +407,7 @@ by APPLICATION (not by prose citation):
 ```
   _of_gen  c = 1/e      HalaszDirect:422 (§8.3/L3 arm) · CenterCore:358
   _half    c = 1/(2e)   HalaszDirect:487 (ball arm)    · CenterCore:294
-  _gen     parametric   PretSupply:508 (caller's own c) · SeamBallWeighted:450, :473
+  _gen     parametric   PretSupply:474 (caller's own c) · SeamBallWeighted:450, :473
   _crit    c = 1/2      ⛔ NO CONSUMERS. New, and deliberately unwired.
 ```
 ⛔ **IT IS NOT A DROP-IN FOR ANY OF THEM, AND NOT A GENERALISATION OF `_gen`.**  `_gen`'s `hc1 :
