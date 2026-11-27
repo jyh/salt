@@ -37,7 +37,7 @@ halaszPrimesChiGated_of_price          cs := min (min (c_vk/(2·K₄)) (c₀/(2�
   invoked on `TwistedWindowPriceGated (1/10^8)` (`TwistedEdge.twisted_window_price_gated_holds`,
   whose own `twisted_edge_price_strip` exports `c_vk = 1/10^8` as an equation).
 * `K₄ = 2^{3/4}·16` and `Cκ = 2^{3/4}·8` — CLOSED-FORM `noncomputable def`s
-  (`PortAssembly.lean:640`, `HalaszPrimesCore.lean:3265`).  ⟦ERRATUM to the 0802 summit dossier
+  (`PortAssembly.lean:640`, `HalaszPrimesCore.lean:3246`).  ⟦ERRATUM to the 0802 summit dossier
   §3, which called `K₄`/`Cκ` "compactness existentials of our own port"⟧ — they are not
   existentials at all.
 * `c₀` — `per_pair_contour`'s `c_vk`, a pass-through of `shifted_edge_price_strip`'s, itself a
@@ -248,7 +248,7 @@ open scoped LSeries.notation
 
 `rect_zero_free_margin` passes the region's `c` through verbatim and sets
 `T₁ = max 3 (max M E)` with `M` the region's own threshold — so both bounds survive.
-Body verbatim from `HalaszPrimesCore.lean:618`. -/
+Body verbatim from `HalaszPrimesCore.lean:599`. -/
 
 /-- **`D₃` monotonicity** — a verbatim copy of `HalaszPrimesCore`'s `private logD3_mono`
 (:548), which the replayed body below needs and which `private` keeps out of reach. -/
@@ -365,7 +365,7 @@ open Complex Salt.SW Salt.Vk Metric Set
 `e^{e^{Cbig}}`, `Cbig = 9000·c_vk + c_vk/(2·δ₀) + 1`, enters here with `δ₀` the opaque
 compactness constant of `logDeriv_Zc_compact_bound` at height `H = e^{e^{A}}`.  That second
 floor is why `T₀` has no effective ceiling today.  Since O13-e row 191 the proof is
-`shifted_edge_price_strip_of` (`HalaszPrimesCore.lean:1986`), shared with the strip. -/
+`shifted_edge_price_strip_of` (`HalaszPrimesCore.lean:1967`), shared with the strip. -/
 
 /-- **⟦SHIFTED EDGE STRIP, BOTH BOUNDS⟧** `shifted_edge_price_strip` with `1/10^9 ≤ c_vk` and
 `e^{e^{1100}} ≤ T₀` carried, by `shifted_edge_price_strip_of` at the bounded margin. -/

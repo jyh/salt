@@ -2446,7 +2446,7 @@ theorem mult_shiu_MS_B (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 
 /-- **MS-EXIT (freeze §FROZEN TARGETS).**  The GHS-(2.4) secondary-term discharge at
 `κ = 1`: the sum of MS-A (Term 1) and MS-B (Term 2) is `O((x/log x)·log y)` uniformly on
 `8 ≤ y ≤ x`.  This is exactly the shape `hfactor`'s error budget `E` consumes in
-`prop21_analog` (`HalaszRepAsm.lean:450`), which accepts `E` as an arbitrary real bound —
+`prop21_analog` (`HalaszRepAsm.lean:401`), which accepts `E` as an arbitrary real bound —
 so landing this `∃ C_E` retires the "Shiu/Lemma-2.4 secondary term `O(X/log X·(log y)^κ)`"
 residual of the representation route.  Assembled directly from `mult_shiu_MS_A` and
 `mult_shiu_MS_B`. -/
