@@ -669,7 +669,7 @@ The five charges of `collisionGate_of_five`, each put under `0.0135·loglog X`:
 (1) `0.8536·√25·√L = 4.268·√L ≤ 0.0135·L` once `√L ≥ 1000`;
 (2) the window constant `25`;
 (3) the height drift `(3/4)(loglog(4X+3) − loglog X) ≤ (3/4)log 2` (`loglog_drift`);
-(4) `5·logloglog(4X+16) ≤ 5·log(L+1) ≤ 10(√L+1)` (`log_le_two_sqrt`, `sqrt_add_one_le`);
+(4) `5·logloglog(4X+16) ≤ 5·log(L+1) ≤ 10(√L+1)` (`Salt.SW.log_le_two_sqrt`, `sqrt_add_one_le`);
 (5) the floor's own constant `C`, which is what puts the `75·C⁺` in the tower. -/
 theorem collisionGate_discharged (C : ℝ) :
     ∃ X₀ : ℝ, 0 < X₀ ∧ ∀ X : ℝ, X₀ ≤ X → collisionGate X 25 C := by
