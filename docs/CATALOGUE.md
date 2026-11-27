@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `8cef5061` · source digest `e5c4fc3c6338bd4a` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `688efc36` · source digest `8dee5b67f268fe7e` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -1980,13 +1980,12 @@ Declarations indexed across the tree: 23382 · corpus Prop-valued names (the hyp
 | `Salt.HB.EL_T1_bound` | Salt/HB/L2cELT1.lean:798 | characters |
 | `Salt.HB.EL_T2_bound` | Salt/HB/L2cELT2.lean:1333 | characters |
 | `Salt.HB.EL_T3F_bound` | Salt/HB/L2cELT3F.lean:674 | characters |
-| `Salt.HB.pretenseSum_nonneg` | Salt/HB/L2cELTsw.lean:191 | characters |
-| `Salt.HB.EL_Tsw_bound` | Salt/HB/L2cELTsw.lean:1020 | characters |
+| `Salt.HB.EL_Tsw_bound` | Salt/HB/L2cELTsw.lean:1013 | characters |
 | `Salt.HB.ER_squarefull_junk` | Salt/HB/L2cER.lean:154 | characters |
 | `Salt.HB.ER_T1'_bound_mixed` | Salt/HB/L2cERT1.lean:737 | characters |
 | `Salt.HB.ER_T2'_bound` | Salt/HB/L2cERT2.lean:1045 | characters |
 | `Salt.HB.ER_T3'_bound` | Salt/HB/L2cERT3.lean:480 | characters |
-| `Salt.HB.ER_Tsw'_bound_of_count` | Salt/HB/L2cERTsw.lean:379 | characters |
+| `Salt.HB.ER_Tsw'_bound_of_count` | Salt/HB/L2cERTsw.lean:371 | characters |
 | `Salt.HB.engineRoute_card_right` | Salt/HB/L2cEngineRoute.lean:184 | characters |
 | `Salt.HB.ER_Tsw'_bound_unconditional` | Salt/HB/L2cEngineRoute.lean:404 | characters |
 | `Salt.HB.cPairSum_bound_unconditional` | Salt/HB/L2cEngineRoute.lean:608 | characters |
@@ -2287,11 +2286,11 @@ Declarations indexed across the tree: 23382 · corpus Prop-valued names (the hyp
 | `Salt.HB.one_sub_ceiling_le_dist_one` | Salt/HB/PretenseSumProof.lean:312 | characters |
 | `Salt.HB.nearOne_multTotal_le` | Salt/HB/PretenseSumProof.lean:341 | characters |
 | `Salt.HB.nearOne_invSq_sum_le` | Salt/HB/PretenseSumProof.lean:381 | characters |
-| `Salt.HB.pretenseSum_le` | Salt/HB/PretenseSumProof.lean:538 | characters |
-| `Salt.HB.pretenseSum_le_series` | Salt/HB/PretenseSumProof.lean:550 | characters |
-| `Salt.HB.pretenseSum_le_hb_rate` | Salt/HB/PretenseSumProof.lean:566 | characters |
-| `Salt.HB.pretenseSum_le_hb_rate_rpow` | Salt/HB/PretenseSumProof.lean:579 | characters |
-| `Salt.HB.pretenseSum_le_quarter_rate` | Salt/HB/PretenseSumProof.lean:590 | characters |
+| `Salt.HB.pretenseSum_le` | Salt/HB/PretenseSumProof.lean:529 | characters |
+| `Salt.HB.pretenseSum_le_series` | Salt/HB/PretenseSumProof.lean:541 | characters |
+| `Salt.HB.pretenseSum_le_hb_rate` | Salt/HB/PretenseSumProof.lean:557 | characters |
+| `Salt.HB.pretenseSum_le_hb_rate_rpow` | Salt/HB/PretenseSumProof.lean:570 | characters |
+| `Salt.HB.pretenseSum_le_quarter_rate` | Salt/HB/PretenseSumProof.lean:581 | characters |
 | `Salt.HB.quadraticChar_sum_mul_shift` | Salt/HB/QuadCharSum.lean:68 | characters |
 | `Salt.HB.quadraticChar_sum_two_forms_trivial` | Salt/HB/QuadCharSum.lean:123 | characters |
 | `Salt.HB.quadraticChar_sum_two_forms_bound` | Salt/HB/QuadCharSum.lean:143 | characters |
@@ -2392,6 +2391,7 @@ Declarations indexed across the tree: 23382 · corpus Prop-valued names (the hyp
 | `Salt.HB.S1_le_S2` | Salt/HB/Transfer.lean:197 | characters |
 | `Salt.HB.overshoot_sum_nonneg` | Salt/HB/Transfer.lean:219 | characters |
 | `Salt.HB.coprimeSupport_window` | Salt/HB/Transfer.lean:231 | characters |
+| `Salt.HB.pretenseSum_nonneg` | Salt/HB/TransferFull.lean:188 | characters |
 | `Salt.HB.LamTilde_eq_fChi_conv` | Salt/HB/TwistChain.lean:360 | characters |
 | `Salt.HB.LamStar_eq_fStar_conv` | Salt/HB/TwistChain.lean:364 | characters |
 | `Salt.HB.LamStar_nonneg` | Salt/HB/TwistChain.lean:368 | characters |
@@ -6574,11 +6574,11 @@ Declarations indexed across the tree: 23382 · corpus Prop-valued names (the hyp
 | `Salt.SW.kernel_identity_2` | Salt/SW/Kernel2.lean:210 | sieves |
 | `Salt.SW.integrable_Fterm2` | Salt/SW/Kernel2.lean:244 | sieves |
 | `Salt.SW.kernel_sum_swap_2` | Salt/SW/Kernel2.lean:280 | sieves |
-| `Salt.SW.landau_neg_logDeriv_re_lower` | Salt/SW/LandauPage.lean:98 | sieves, characters |
-| `Salt.SW.analyticOrderAt_eq_of_factorization` | Salt/SW/LandauPage.lean:157 | sieves |
-| `Salt.SW.landau_one_exceptional_at` | Salt/SW/LandauPage.lean:194 | sieves, characters |
-| `Salt.SW.landau_one_exceptional` | Salt/SW/LandauPage.lean:352 | sieves, characters |
-| `Salt.SW.landau_one_exceptional_simple` | Salt/SW/LandauPage.lean:366 | sieves, characters |
+| `Salt.SW.landau_neg_logDeriv_re_lower` | Salt/SW/LandauPage.lean:97 | sieves, characters |
+| `Salt.SW.analyticOrderAt_eq_of_factorization` | Salt/SW/LandauPage.lean:156 | sieves |
+| `Salt.SW.landau_one_exceptional_at` | Salt/SW/LandauPage.lean:193 | sieves, characters |
+| `Salt.SW.landau_one_exceptional` | Salt/SW/LandauPage.lean:351 | sieves, characters |
+| `Salt.SW.landau_one_exceptional_simple` | Salt/SW/LandauPage.lean:365 | sieves, characters |
 | `Salt.SW.norm_reflectedFactor_eq_on_sphere` | Salt/SW/MaxModulus.lean:63 | sieves |
 | `Salt.SW.LFunction_norm_logDeriv_sub_sum'` | Salt/SW/MaxModulus.lean:89 | sieves, characters |
 | `Salt.SW.LSeries_moebius_eq_zeta_inv` | Salt/SW/MobiusRate.lean:82 | zeros, sieves |
@@ -6590,10 +6590,10 @@ Declarations indexed across the tree: 23382 · corpus Prop-valued names (the hyp
 | `Salt.SW.abs_sum_moebius_div_mul_log_le` | Salt/SW/MoebiusLog.lean:206 | sieves |
 | `Salt.SW.abs_sum_grahamTheta_div_le_inv_log` | Salt/SW/MoebiusLog.lean:334 | sieves |
 | `Salt.SW.abs_mwWeighted_le_div_log` | Salt/SW/MoebiusRateSharp.lean:207 | sieves |
-| `Salt.SW.neg_reLogDeriv_changeLevel_le` | Salt/SW/Page.lean:81 | sieves, characters |
-| `Salt.SW.product_ne_one` | Salt/SW/Page.lean:145 | sieves, characters |
-| `Salt.SW.page_positivity` | Salt/SW/Page.lean:247 | zeros, sieves, characters |
-| `Salt.SW.page_cross_modulus` | Salt/SW/Page.lean:289 | sieves, characters |
+| `Salt.SW.neg_reLogDeriv_changeLevel_le` | Salt/SW/Page.lean:80 | sieves, characters |
+| `Salt.SW.product_ne_one` | Salt/SW/Page.lean:144 | sieves, characters |
+| `Salt.SW.page_positivity` | Salt/SW/Page.lean:254 | zeros, sieves, characters |
+| `Salt.SW.page_cross_modulus` | Salt/SW/Page.lean:296 | sieves, characters |
 | `Salt.SW.logDeriv_prod_pow` | Salt/SW/PartialFractions.lean:80 | sieves |
 | `Salt.SW.LFunction_exists_factorization` | Salt/SW/PartialFractions.lean:111 | sieves, characters |
 | `Salt.SW.LFunction_partialFraction` | Salt/SW/PartialFractions.lean:245 | sieves, characters |
@@ -6672,7 +6672,7 @@ Declarations indexed across the tree: 23382 · corpus Prop-valued names (the hyp
 | `Salt.SW.selHSum_pos` | Salt/SW/SelWeight.lean:322 | sieves, characters |
 | `Salt.SW.selWeight_apply_one` | Salt/SW/SelWeight.lean:352 | sieves, characters |
 | `Salt.SW.tail_shift_to_beta0` | Salt/SW/SelWeight.lean:383 | sieves |
-| `Salt.SW.psi1_contour_shift` | Salt/SW/ShiftAssembly.lean:470 | sieves, characters |
+| `Salt.SW.psi1_contour_shift` | Salt/SW/ShiftAssembly.lean:478 | sieves, characters |
 | `Salt.SW.norm_logDeriv_eulerCorr_trivChar_le` | Salt/SW/ShiftTrivChar.lean:131 | sieves, characters |
 | `Salt.SW.norm_logDeriv_Zc_le_of_ball_dist` | Salt/SW/ShiftTrivChar.lean:186 | sieves, characters |
 | `Salt.SW.psi1_contour_shift_trivchar` | Salt/SW/ShiftTrivChar.lean:425 | zeros, sieves, characters |
@@ -7511,8 +7511,8 @@ Declarations indexed across the tree: 23382 · corpus Prop-valued names (the hyp
 | `Salt.HB.hb_p200_lower_HB` | Salt/HB/CrownWireHB.lean:257 | sieves, characters | `Salt.HB.Lemma5Eval` |
 | `Salt.HB.hb_lemma3_at_repulsion_floor` | Salt/HB/Lemma3Floor.lean:160 | characters | `Salt.HB.CoprimeSupport` |
 | `Salt.HB.hb_lemma3_unconditional` | Salt/HB/Lemma3Uncond.lean:58 | characters | `Salt.HB.CoprimeSupport` |
-| `Salt.HB.hb_lemma2_of_pretenseSum_le` | Salt/HB/PretenseSumProof.lean:612 | characters | `Salt.HB.CoprimeSupport` |
-| `Salt.HB.hb_lemma2_at_hb_rate` | Salt/HB/PretenseSumProof.lean:630 | characters | `Salt.HB.CoprimeSupport` |
+| `Salt.HB.hb_lemma2_of_pretenseSum_le` | Salt/HB/PretenseSumProof.lean:603 | characters | `Salt.HB.CoprimeSupport` |
+| `Salt.HB.hb_lemma2_at_hb_rate` | Salt/HB/PretenseSumProof.lean:621 | characters | `Salt.HB.CoprimeSupport` |
 | `Salt.HB.HasTwoFormGcdBound.mul` | Salt/HB/RealPrimitive.lean:191 | characters | `Salt.HB.HasTwoFormGcdBound` |
 | `Salt.HB.sum_two_forms_le_gcd_of_split` | Salt/HB/RealPrimitive.lean:383 | characters | `Salt.HB.HasTwoFormGcdBound` |
 | `Salt.HB.chi_log_le_level` | Salt/HB/RosserDim4.lean:186 | characters | `Salt.BrunLower.chi` |
@@ -7523,7 +7523,7 @@ Declarations indexed across the tree: 23382 · corpus Prop-valued names (the hyp
 | `Salt.HB.S1_le_S2Gen` | Salt/HB/SignChain.lean:516 | characters | `Salt.HB.IsSignFunction` |
 | `Salt.HB.neutrality_rate` | Salt/HB/SignRate.lean:53 | characters | `Salt.HB.IsSignFunction` |
 | `Salt.HB.S2_sub_S1_le` | Salt/HB/Transfer.lean:207 | characters | `Salt.HB.CoprimeSupport` |
-| `Salt.HB.hb_lemma2` | Salt/HB/TransferFull.lean:204 | characters | `Salt.HB.CoprimeSupport` |
+| `Salt.HB.hb_lemma2` | Salt/HB/TransferFull.lean:212 | characters | `Salt.HB.CoprimeSupport` |
 | `Salt.HB.hb_lemma3_final` | Salt/HB/TwistedMertens.lean:799 | characters | `Salt.HB.CoprimeSupport` |
 | `Salt.LS.analytic_LS` | Salt/LS/AnalyticLS.lean:58 | sieves, exponential sums | `Salt.LS.Spaced` |
 | `Salt.MR.seam_row_number_nocap3_end'` | Salt/MR/A3Middle.lean:165 | characters | `Salt.MR.CalFrameK`, `Salt.MR.TannGate`, `Salt.MR.CofactorSocket`, `Salt.MR.TLBlockGates34` |
