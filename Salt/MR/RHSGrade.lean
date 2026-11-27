@@ -91,9 +91,9 @@ diagonalizes the kernel WITH the window legs and never incurs the standalone mas
 
 DISCHARGED here (continuity ⇒ interval-integrability, at the concrete `Fbound`):
 `hIσ` and `hIshift` of `bridge_adapter`, and `hint` of `joint_sigma_integral`
-(`sigma_core_integrable_rhs`, the local re-derivation of `PretSupply`'s private
-`sigma_core_integrable_pret`).  CARRIED as named hypotheses (the house
-conditional-assembly form, exactly as `joint_cs_factoring` itself carries them):
+(`rhs_sigma_div_integrable`, the re-derivation of `HalaszDirect`'s
+`sigma_core_intervalIntegrable` at the concrete `Fbound`).  CARRIED as named hypotheses (the
+house conditional-assembly form, exactly as `joint_cs_factoring` itself carries them):
 `hIβ`, `hIβ'`, `hIα`, `hIα'` — the `β`- and `α`-level integrability of `supF·crossKer`
 and of the `prop21RHS` integrand.  These are plumbing over `crossKer`, whose
 `β`-continuity is a dominated-convergence page in its own right; nothing here weakens
@@ -541,7 +541,7 @@ private lemma pin_basic {k L y η : ℝ} (hk : Real.exp 3 ≤ k) (hL : L = Real.
   linarith
 
 /-- Interval-integrability of the σ-integrand `Fbound σ/σ` (continuity on `[1/L, b]`) — the
-local re-derivation of `PretSupply`'s private `sigma_core_integrable_pret` at the concrete
+re-derivation of `HalaszDirect`'s `sigma_core_intervalIntegrable` at the concrete
 `Fbound`.  DISCHARGED, not carried. -/
 private lemma rhs_sigma_div_integrable {M L b : ℝ} (hL0 : 0 < L) (hb : 1 / L ≤ b) :
     IntervalIntegrable (fun σ : ℝ => rhsFbound M L σ / σ) volume (1 / L) b := by
