@@ -1540,7 +1540,7 @@ open Salt.Tactic in
   Salt.MR.rpow_neg_anti
   Salt.MR.H0mrt_pos
   Salt.MR.HplusStar_pos
-  Salt.MR.log_le_two_sqrt
+  Salt.SW.log_le_two_sqrt
   Salt.MR.mrt_middle_le_of_H0mrt
   Salt.MR.mrt_tail_le_of_HplusStar
   Salt.MR.HplusStar70

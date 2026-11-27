@@ -636,14 +636,6 @@ the gate holds past an EXPLICIT threshold — stated, never absorbed (law #253).
 `e^{100} ≈ 2.7·10⁴³`, so the honest threshold is `X ≳ exp exp(2·10⁴⁵)` — ⟦V5⟧'s Z-3 estimate,
 confirmed. -/
 
-/-- `log u ≤ 2√u` for `u > 0` — `log u = 2·log √u ≤ 2(√u − 1)`. -/
-private lemma log_le_two_sqrt {u : ℝ} (hu : 0 < u) : Real.log u ≤ 2 * Real.sqrt u := by
-  have hs : 0 < Real.sqrt u := Real.sqrt_pos.mpr hu
-  have h1 : Real.log (Real.sqrt u) ≤ Real.sqrt u - 1 := Real.log_le_sub_one_of_pos hs
-  have h2 : Real.log u = 2 * Real.log (Real.sqrt u) := by
-    rw [Real.log_sqrt hu.le]; ring
-  linarith
-
 /-- `√(u+1) ≤ √u + 1`. -/
 private lemma sqrt_add_one_le {u : ℝ} (hu : 0 ≤ u) : Real.sqrt (u + 1) ≤ Real.sqrt u + 1 := by
   have hsq := Real.sq_sqrt hu
@@ -742,7 +734,7 @@ theorem collisionGate_discharged (C : ℝ) :
     have hle : Real.log (Real.log (4 * X + 16)) ≤ Real.log (Real.log X) + 1 := by linarith
     have hstep : Real.log (Real.log (Real.log (4 * X + 16)))
         ≤ Real.log (Real.log (Real.log X) + 1) := Real.log_le_log hp2 hle
-    have hlog := log_le_two_sqrt (u := Real.log (Real.log X) + 1) (by linarith)
+    have hlog := Salt.SW.log_le_two_sqrt (x := Real.log (Real.log X) + 1) (by linarith)
     have hsq := sqrt_add_one_le (u := Real.log (Real.log X)) hL0
     nlinarith only [hs, hsq, hlog, hstep, hssq, hL, hCm]
   · -- (5) the floor's own constant — the source of the tower
