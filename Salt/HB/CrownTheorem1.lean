@@ -107,7 +107,7 @@ carried to the crown's window by the bridge `hbDataHB_S3_le_S3_window`.
    real from `q^250` on.
 4. **THE TAIL CARRIES A `k`-INDEPENDENT POWER OF `log q`, AND THE REGIME MUST PAY IT (v3).**  The
    Range-A ledger's row (iv) is `10³·M³·N·u^{bceil−1}` (`efEnvelope_le_ledger_sharp`,
-   `Lemma7EF.lean:2694-2702`; `M = log(qu)+2 ≈ 251·L` at `u = q^250`, `N ≈ L`) — the CRUDE zero
+   `Lemma7EF.lean:2684-2692`; `M = log(qu)+2 ≈ 251·L` at `u = q^250`, `N ≈ L`) — the CRUDE zero
    count of the near-1 strip (`DensityCrude.lean:459`: on `16/17 < σ ≤ 1` the density shape
    degenerates and `N(σ,T) ≤` the count, polylog in `L`) — against the repulsion decay
    `exp(−0.368·ℓ′)` at the window edge.  The grade needs `exp(0.368·ℓ′) ≥ 10^{10}·L^{4.5}`, i.e.

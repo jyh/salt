@@ -291,10 +291,10 @@ sources, both byte-grounded.
    not available — the freeze's own `θ = s·ξ/((1+ξ)·b)` vanishes at ξ=0, so the
    consumer gets no saving at all. At §D2's own ξ=1 the surviving power is `L^1`.
 2. **The ledger's polylog prefactor, read at the LANDED consumer.**
-   `efEnvelope_le_ledger_sharp` (`Lemma7EF.lean:2694-2702`) prices the Range-A
+   `efEnvelope_le_ledger_sharp` (`Lemma7EF.lean:2684-2692`) prices the Range-A
    erased-spend row as `10^3·M^3·N·u^{bceil−1}`, `M = log(qu)+2`,
    `N = log q + 11·log M`, against the consumer's target grade `(m+255)/log u`
-   (`:2979-2980`) inside the byte-fixed window `250·log q ≤ log u` (`:2916`).
+   (`:2969-2970`) inside the byte-fixed window `250·log q ≤ log u` (`:2906`).
    That forces `𝒩 ≥ (b/250)·(5·log L + 29)` — a demand that **grows like log L**
    and is **entirely k-independent**. Hence
    `log η ≥ log(1/c) + [(k−1) + 5b/s]·log L + O(1)`.
@@ -321,7 +321,7 @@ plus `TBalTall.lean:823` (`boxZeros_re_le_at_efHeight`). The freeze also names
 the **wrong prefactor** as the risk: `efZeroSumM_spend_at_repulsion`'s
 `4110·(log q+2)^5` (`TauExt:320`) is the count-form route **retired by design D4**
 (`n4b-design-0805.md:236-238`); the operative prefactor is `10^3·M^3·N`
-(`Lemma7EF.lean:2702`).
+(`Lemma7EF.lean:2692`).
 *(Reconciles with this seat's own grep: `dh_repulsion_tall` has no consumer in
 `Salt/SW/`; the consumers are in `Salt/HB/`.)*
 
@@ -335,7 +335,7 @@ the **wrong prefactor** as the risk: `efZeroSumM_spend_at_repulsion`'s
   of S3 — i.e. **all of TS-1 and all of TS-2** — buy the N11 door **exactly
   nothing**. They buy explicit-constant hygiene and (through `b`) the θ ledger.
 - **TS-3's PREMISE IS UNVERIFIED.** The landed end-to-end consumer
-  `logChiSum_tendsto_zfr_hundred` (`Lemma7EF.lean:3206-3219`) closes HB's (4.12)
+  `logChiSum_tendsto_zfr_hundred` (`Lemma7EF.lean:3196-3209`) closes HB's (4.12)
   tail at `K = 100` using the CLASSICAL ZFR ceiling `efZfrCeil` at every `u`, and
   `logChiSum_tendsto_zfr`'s docstring says in the open that "`hN+`, `hord` and the
   `q^{250} ≤ X` edge do NOT appear — they are Range-A's". **On the landed bytes
