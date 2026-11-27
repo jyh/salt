@@ -2303,17 +2303,6 @@ theorem real_zeros_below_zfrCeil [NeZero q] {χ : DirichletCharacter ℂ q} {β�
   rw [efZfrCeil]
   linarith only [hlandau, hkey]
 
-/-- `log t ≤ 2√t` — the largeness step the `m3` and star rows need against `log L`. -/
-private lemma n9_log_le_two_sqrt {t : ℝ} (ht : 0 < t) : Real.log t ≤ 2 * Real.sqrt t := by
-  have hs : 0 < Real.sqrt t := Real.sqrt_pos.mpr ht
-  have hsq : Real.sqrt t ^ 2 = t := Real.sq_sqrt ht.le
-  have h := n9_log_le_div (t := t) (M := Real.sqrt t / 2) (by linarith)
-    (by linarith only [hsq])
-  have heq : t / (Real.sqrt t / 2) = 2 * Real.sqrt t := by
-    rw [eq_comm, eq_div_iff (ne_of_gt (by linarith : (0 : ℝ) < Real.sqrt t / 2))]
-    linear_combination hsq
-  rwa [heq] at h
-
 /-- `y^k ≤ e^E` once `k·log y ≤ E` — the ledger's polynomial-against-exponential step, in the
 `log` currency (the `√` currency of §14 is far too lossy for the repulsion row). -/
 private lemma n9_pow_le_exp {y E : ℝ} {k : ℕ} (hy : 0 < y) (h : (k : ℝ) * Real.log y ≤ E) :
@@ -2491,7 +2480,7 @@ private lemma n9_envB3_core_le_window [NeZero q] {χ : DirichletCharacter ℂ q}
     exact Real.sqrt_le_sqrt (by norm_num; linarith only [hy])
   have hsqy : Real.sqrt y ^ 2 = y := Real.sq_sqrt hy0.le
   have hlogy : Real.log y ≤ y / 9682 := by
-    have h1 := n9_log_le_two_sqrt hy0
+    have h1 := Salt.SW.log_le_two_sqrt hy0
     nlinarith only [hsy, hsqy, h1]
   have hlogy0 : (0 : ℝ) ≤ Real.log y := Real.log_nonneg (by linarith only [hy])
   have hlogM : Real.log M ≤ Real.log y + 1 := by
@@ -2772,7 +2761,7 @@ private lemma n9_bceilA_gap_above [NeZero q] {χ : DirichletCharacter ℂ q} {β
     exact Real.sqrt_le_sqrt (by norm_num; linarith only [hy])
   have hsqy : Real.sqrt y ^ 2 = y := Real.sq_sqrt hy0.le
   have hlogy : Real.log y ≤ y / 9682 := by
-    have h1 := n9_log_le_two_sqrt hy0
+    have h1 := Salt.SW.log_le_two_sqrt hy0
     nlinarith only [hsy, hsqy, h1]
   have hlogy0 : (0 : ℝ) ≤ Real.log y := Real.log_nonneg (by linarith only [hy])
   have hlogM : Real.log M ≤ Real.log y + 1 := by
@@ -2945,7 +2934,7 @@ private lemma n9_shellRow_nonneg {q : ℕ} (hq : 2 ≤ q) (b : ℝ) {u : ℝ} (h
 /-- **THE THREE SHELL BINDERS AT THE RANGE-A CEILING.**  `hb16`: both arms are above `16/17`
 (`n9EllAt ≤ ℓ′ ≤ L/100 ≤ 40·log Q` for the repulsion arm, `c₀/log Q ≤ 1/17` for the ZFR arm).
 `hy`: `6/5·n9DB2·log(q(T₀+1)) ≤ 180·(L + 7·log M) ≤ (3/4)·log u` at `log u ≥ 250·L` — the
-`log M` is paid by `log y ≤ 4·y^{1/4}` (`n9_log_le_two_sqrt` twice), the crude `y/9682` being
+`log M` is paid by `log y ≤ 4·y^{1/4}` (`Salt.SW.log_le_two_sqrt` twice), the crude `y/9682` being
 too weak by a factor `10³`.  `hbig`: `20 ≤ (1 − bceil)·log u` from either gap lemma.
 Class **B**.  Consumer: `logChiSum_tail_at_window` (`hEF`). -/
 private lemma n9_shell_binders [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η : ℝ}
@@ -3040,7 +3029,7 @@ private lemma n9_shell_binders [NeZero q] {χ : DirichletCharacter ℂ q} {β₀
     have h1 : Real.log y = 2 * Real.log (Real.sqrt y) := by
       rw [Real.log_sqrt hy0.le]; ring
     have h2 : Real.log (Real.sqrt y) ≤ 2 * Real.sqrt (Real.sqrt y) :=
-      n9_log_le_two_sqrt (Real.sqrt_pos.mpr hy0)
+      Salt.SW.log_le_two_sqrt (Real.sqrt_pos.mpr hy0)
     linarith only [h1, h2]
   have hlogM : Real.log M ≤ 1 + 4 * Real.sqrt (Real.sqrt y) := by
     have h1 : Real.log M ≤ Real.log (2 * y) := Real.log_le_log hM0 hM2y
@@ -4002,7 +3991,7 @@ theorem hb_L2_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
       exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 14 (by norm_num) (by norm_num)
     linarith only [h, h2]
   have hlogEsq : Real.log (n9Ell q η) ≤ 2 * Real.sqrt (n9Ell q η) :=
-    n9_log_le_two_sqrt hEpos
+    Salt.SW.log_le_two_sqrt hEpos
   -- the constant `ec = 802 + 4·n9Cs`
   obtain ⟨ec, hecdef⟩ : ∃ ec : ℝ, ec = 802 + 4 * n9Cs := ⟨_, rfl⟩
   have hn9Cs : (3400 : ℝ) ≤ n9Cs := by
@@ -4219,7 +4208,7 @@ theorem hb_L2_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ η :
       rw [hrdef]; exact Real.sq_sqrt hEsqrt.le
     have hlogsplit : Real.log (n9Ell q η) ≤ 4 * r := by
       have h1 : Real.log (Real.sqrt (n9Ell q η)) ≤ 2 * r := by
-        rw [hrdef]; exact n9_log_le_two_sqrt hEsqrt
+        rw [hrdef]; exact Salt.SW.log_le_two_sqrt hEsqrt
       have h2 : Real.log (Real.sqrt (n9Ell q η)) = Real.log (n9Ell q η) / 2 :=
         Real.log_sqrt hEpos.le
       linarith only [h1, h2]
@@ -5149,7 +5138,7 @@ theorem hb_lemma4_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β₀ 
   -- ROW M3: the master's tail
   have hMexp : Real.exp (Real.log (Real.log q)) = Real.log q := Real.exp_log hL
   have hlogLsq : Real.log (Real.log q) ^ 2 ≤ 4 * Real.log q := by
-    have h1 := n9_log_le_two_sqrt hL
+    have h1 := Salt.SW.log_le_two_sqrt hL
     have h2 : Real.sqrt (Real.log q) ^ 2 = Real.log q := Real.sq_sqrt hL.le
     nlinarith only [h1, hlogLpos, h2]
   have hW8 : 6 * Real.log (Real.log q) ≤ W / 8 := by
@@ -5527,7 +5516,7 @@ theorem hb_S3_lower_at_hb_point [NeZero q] {χ : DirichletCharacter ℂ q} {β�
       exact_mod_cast Salt.Tactic.nat_le_log_of_pow_le 14 (by norm_num) (by norm_num)
     linarith only [h, h2]
   have hlogEsq : Real.log (n9Ell q η) ≤ 2 * Real.sqrt (n9Ell q η) :=
-    n9_log_le_two_sqrt hEpos
+    Salt.SW.log_le_two_sqrt hEpos
   have hlogZ25 : 25000 * Real.sqrt (Real.log q) ≤ Real.log (hbZ q η : ℝ) := by
     have hz0small : hbZ0 q η ≤ Real.log q / 10000 := by
       have hz0eq : hbZ0 q η = 1 / 10000 * Real.log (n9Ell q η) := by
