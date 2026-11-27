@@ -1,7 +1,7 @@
 # THE RESULTS CATALOGUE — by machine (O13 item 1)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/results_catalogue.py` · staleness gate: `python3 scripts/results_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `7d3a57a5` · source digest `2dc8058023d53ce3` (sha256 over every `Salt/**/*.lean`, sorted by path).
+> Base: last commit touching `Salt/` = `2428aad0` · source digest `cb60d135a45765e7` (sha256 over every `Salt/**/*.lean`, sorted by path).
 
 ## Population receipt
 
@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|---|---|
 | 26 | 24 | 9204 | 9149 | 9148 | 1 | 0 | 55 |
 
-Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hypothesis universe): 691.
+Declarations indexed across the tree: 23383 · corpus Prop-valued names (the hypothesis universe): 691.
 
 ## KIND × OBJECT (counts; a name with several objects counts once in each object column)
 
@@ -4835,11 +4835,11 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.MR.gates_jointly_satisfiable` | Salt/MR/PortNonVacuous.lean:75 | characters |
 | `Salt.MR.socket_nonvacuous` | Salt/MR/PortNonVacuous.lean:157 | characters |
 | `Salt.MR.mmuChiRate_instantiated` | Salt/MR/PortNonVacuous.lean:176 | characters |
-| `Salt.MR.smooth_euler_product` | Salt/MR/PretSupply.lean:217 | characters |
-| `Salt.MR.head_dist_floor_gen` | Salt/MR/PretSupply.lean:306 | zeros, characters |
-| `Salt.MR.supF_pret_pointwise` | Salt/MR/PretSupply.lean:354 | characters |
-| `Salt.MR.supF_pret_majorant_sigma` | Salt/MR/PretSupply.lean:422 | characters |
-| `Salt.MR.joint_sigma_integral` | Salt/MR/PretSupply.lean:481 | characters |
+| `Salt.MR.smooth_euler_product` | Salt/MR/PretSupply.lean:183 | characters |
+| `Salt.MR.head_dist_floor_gen` | Salt/MR/PretSupply.lean:272 | zeros, characters |
+| `Salt.MR.supF_pret_pointwise` | Salt/MR/PretSupply.lean:320 | characters |
+| `Salt.MR.supF_pret_majorant_sigma` | Salt/MR/PretSupply.lean:388 | characters |
+| `Salt.MR.joint_sigma_integral` | Salt/MR/PretSupply.lean:447 | characters |
 | `Salt.MR.pretentious_pointwise_triangle` | Salt/MR/PretentiousTriangle.lean:100 | characters |
 | `Salt.MR.pretDist_triangle` | Salt/MR/PretentiousTriangle.lean:172 | characters |
 | `Salt.MR.dist_mul_half` | Salt/MR/PretentiousTriangle.lean:213 | characters |
@@ -7036,10 +7036,10 @@ Declarations indexed across the tree: 23385 · corpus Prop-valued names (the hyp
 | `Salt.Vk.zeta_growth_pow` | Salt/Vk/GrowthPow.lean:358 | zeros, exponential sums |
 | `Salt.Vk.zeta_zero_free_region_pow` | Salt/Vk/GrowthPow.lean:424 | zeros, exponential sums |
 | `Salt.Vk.entire_norm_logDeriv_sub_sum_scaled` | Salt/Vk/Landau.lean:35 | zeros, exponential sums |
-| `Salt.Vk.littlewood_uniform_growth` | Salt/Vk/Littlewood.lean:36 | zeros, exponential sums |
-| `Salt.Vk.zeta_zero_free_littlewood_core` | Salt/Vk/Littlewood.lean:89 | zeros, exponential sums |
-| `Salt.Vk.littlewood_bracket` | Salt/Vk/Littlewood.lean:260 | zeros, exponential sums |
-| `Salt.Vk.zeta_zero_free_region_littlewood` | Salt/Vk/Littlewood.lean:395 | zeros, exponential sums |
+| `Salt.Vk.littlewood_uniform_growth` | Salt/Vk/Littlewood.lean:52 | zeros, exponential sums |
+| `Salt.Vk.zeta_zero_free_littlewood_core` | Salt/Vk/Littlewood.lean:105 | zeros, exponential sums |
+| `Salt.Vk.littlewood_bracket` | Salt/Vk/Littlewood.lean:276 | zeros, exponential sums |
+| `Salt.Vk.zeta_zero_free_region_littlewood` | Salt/Vk/Littlewood.lean:411 | zeros, exponential sums |
 | `Salt.Vk.vk_ladder_prefix` | Salt/Vk/Mid.lean:106 | zeros, exponential sums |
 | `Salt.Vk.vk_window_prefix` | Salt/Vk/Mid.lean:232 | zeros, exponential sums |
 | `Salt.Vk.vk_window_scale_prefix` | Salt/Vk/Mid.lean:284 | zeros, exponential sums |
