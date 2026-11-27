@@ -187,13 +187,6 @@ lemma z0sq_exp2log2_le {z x : ℕ} (hz2 : 2 ≤ z) :
         have hlog2 : Real.log 2 ≤ 1 := le_of_lt (by have := Real.log_two_lt_d9; linarith)
         nlinarith only [hz0, hlog2]
 
-/-- `PretenseSum χ N ≥ 0` (each term `log p / p ≥ 0`). -/
-lemma pretenseSum_nonneg (χ : DirichletCharacter ℂ q) (N : ℕ) : 0 ≤ PretenseSum χ N := by
-  rw [PretenseSum]
-  refine Finset.sum_nonneg fun p hp => ?_
-  rw [Finset.mem_filter] at hp
-  exact div_nonneg (Real.log_nonneg (by exact_mod_cast hp.2.1.one_le)) (Nat.cast_nonneg p)
-
 open Classical in
 /-- **`EL_Tsw_bound` (the frozen `J2` conclusion), conditional on the count residual.**
     From the reduction `EL_Tsw ≤ e^{2(log2)z₀}·L'·Σ_{n∈Tsw} Λ(n₋)` and the `S3` count-engine
