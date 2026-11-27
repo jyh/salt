@@ -76,7 +76,7 @@ Grade needed: any explicit `δ`; box `Re ∈ [1,2]`, `|Im| ≤ 3`; **σ ≥ 1 ex
 | `MR/ZetaLowerAllT.lean:140` | mask (b′) | new stone |
 | `MR/SiegelArm.lean:177` | `LFunction_band_lower`, χ≠1 | **genuinely ineffective** (Siegel; `:172` docstring says so) — not this wall |
 | `MR/SiegelArm.lean:407` | `zeta_upper_band` | free kill above |
-| `MR/HalaszPrimesCore.lean:589` | `zeta_zero_free_strip_height {M}` (`:570`), infDist on `|t| ≤ M` | same genre as `ZetaZeroFree:203`, height-parametric; not yet re-based on the sharp strip |
+| `MR/HalaszPrimesCore.lean:570` | `zeta_zero_free_strip_height {M}` (`:551`), infDist on `|t| ≤ M` | same genre as `ZetaZeroFree:203`, height-parametric; not yet re-based on the sharp strip |
 | `MR/CompactMin.lean:127` | `isCompact_Icc` min, different genre | out of scope |
 
 ---
