@@ -15,10 +15,10 @@ import Salt.MR.GradeConst
 file re-runs exactly the `c`-carrying stones with the exponent freed, under the gates the
 suppliers themselves state:
 
-* `supF_pret_pointwise` (`PretSupply`:354) is ALREADY `c`-generic — its gates are
+* `supF_pret_pointwise` (`PretSupply`:320) is ALREADY `c`-generic — its gates are
   `0 < c` and `c ≤ 1/e`; `joint_supF_pin` merely instantiates it at `1/(2e)`.  `joint_supF_pinC`
   re-passes a free `c` under those two gates and nothing else changes.
-* `joint_sigma_integral` (`PretSupply`:481) is ALREADY `c`-generic — its gates are `0 < c` and
+* `joint_sigma_integral` (`PretSupply`:447) is ALREADY `c`-generic — its gates are `0 < c` and
   `2c < 1`, inherited from `sigma_cutoff_pretentious_gen` (`SeamBallWeighted`:325), the honest
   convergence boundary of the σ-cutoff.  At the eventual `c = 1/e` the gate reads `2/e < 1` ✓.
   `beta_integral_pin_constC` re-passes a free `c` under those two gates.
