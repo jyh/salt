@@ -184,6 +184,14 @@ noncomputable def PretenseSum (χ : DirichletCharacter ℂ q) (N : ℕ) : ℝ :=
   ∑ p ∈ (Finset.range (N + 1)).filter (fun p => Nat.Prime p ∧ chiRe χ p = 1),
     Real.log (p : ℝ) / p
 
+/-- `PretenseSum χ N ≥ 0` (each term `log p / p ≥ 0`). -/
+lemma pretenseSum_nonneg (χ : DirichletCharacter ℂ q) (N : ℕ) : 0 ≤ PretenseSum χ N := by
+  classical
+  rw [PretenseSum]
+  refine Finset.sum_nonneg fun p hp => ?_
+  rw [Finset.mem_filter] at hp
+  exact div_nonneg (Real.log_nonneg (by exact_mod_cast hp.2.1.one_le)) (Nat.cast_nonneg p)
+
 /-- **Rung 3 — HB 1983, Lemma 2 (assembled, parametric).**  Under `CoprimeSupport q A`,
     if the overshoot majorant obeys HB's (3.3)-shaped bound
 
