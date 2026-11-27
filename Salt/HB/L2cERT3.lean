@@ -435,14 +435,6 @@ lemma ERT3'_card_le (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : �
 
 /-! ## §6 — the endgame: the `Aexp = 5` budget and the frozen `J2` bound -/
 
-/-- `PretenseSum χ N ≥ 0` (each term `log p / p ≥ 0`).  Family-prefixed copy (the
-    single-writer law extends to names; W3 reconciles duplicates). -/
-lemma ERT3'_PS_nonneg (χ : DirichletCharacter ℂ q) (N : ℕ) : 0 ≤ PretenseSum χ N := by
-  rw [PretenseSum]
-  refine Finset.sum_nonneg fun p hp => ?_
-  rw [Finset.mem_filter] at hp
-  exact div_nonneg (Real.log_nonneg (by exact_mod_cast hp.2.1.one_le)) (Nat.cast_nonneg p)
-
 /-- **The `Aexp = 5` budget arithmetic** `z₀³·e^{(log2)z₀} ≤ e^{5z₀}` (from `z₀ ≤ e^{z₀}`
     cubed and `3 + log 2 ≤ 5`). -/
 lemma ERT3'_z0cube_exp_le {z x : ℕ} (hz2 : 2 ≤ z) :
@@ -492,7 +484,7 @@ theorem ER_T3'_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : �
     rw [Lwin]
     refine Real.log_pos ?_
     linarith
-  have hPS : 0 ≤ PretenseSum χ (2 * x + 2) := ERT3'_PS_nonneg χ _
+  have hPS : 0 ≤ PretenseSum χ (2 * x + 2) := pretenseSum_nonneg χ _
   have hE0 : (0 : ℝ) < Real.exp (Real.log 2 * z0 z x) := Real.exp_pos _
   -- Step 1: the crude per-term cap collapses the sum to a count
   have h1 : ER_T3' χ z x

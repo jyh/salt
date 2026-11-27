@@ -579,7 +579,7 @@ lemma cpair_fiber_le (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : �
       ≤ 2 * (x : ℝ) * PretenseSum χ (2 * x + 2) / Real.log z * (Λ v / v) := by
   have hz2 : 2 ≤ z := le_trans (by norm_num) hz100
   have hlogz : 0 < Real.log z := Real.log_pos (by exact_mod_cast (by omega : 1 < z))
-  have hPS0 : 0 ≤ PretenseSum χ (2 * x + 2) := t2_pretenseSum_nonneg χ _
+  have hPS0 : 0 ≤ PretenseSum χ (2 * x + 2) := pretenseSum_nonneg χ _
   have hxR : (0 : ℝ) ≤ (x : ℝ) := Nat.cast_nonneg x
   have hRHS0 : 0 ≤ 2 * (x : ℝ) * PretenseSum χ (2 * x + 2) / Real.log z * (Λ v / v) :=
     mul_nonneg (div_nonneg (by positivity) hlogz.le)
@@ -734,7 +734,7 @@ theorem EL_minusPrimePair_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 
   have hL0 : 0 ≤ Lwin x := by linarith
   have hLpos : 0 < Lwin x := by linarith
   have hlogz : 0 < Real.log z := Real.log_pos (by exact_mod_cast (by omega : 1 < z))
-  have hPS0 : 0 ≤ PretenseSum χ (2 * x + 2) := t2_pretenseSum_nonneg χ _
+  have hPS0 : 0 ≤ PretenseSum χ (2 * x + 2) := pretenseSum_nonneg χ _
   have hz0 : 0 ≤ z0 z x := z0_nonneg hz2
   -- step 1: the per-summand cap, weight factored out
   have hcap : cPairSum χ z x
@@ -1595,7 +1595,7 @@ theorem EL_TmirrorT2_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z
   have _ := hz8
   have hL : 100 ≤ Lwin x := t2_Lwin_ge hz100 hzx
   have hz2 : 2 ≤ z := le_trans (by norm_num) hz100
-  have hPS0 : 0 ≤ PretenseSum χ (2 * x + 2) := t2_pretenseSum_nonneg χ _
+  have hPS0 : 0 ≤ PretenseSum χ (2 * x + 2) := pretenseSum_nonneg χ _
   have hcap : TmirrorSum χ z x
       ≤ Real.exp (2 * Real.log 2 * z0 z x) * ∑ n ∈ TmirrorSet χ z x,
           T2Wt x (nMinus χ n) * T2Wt x (nMinus χ (n + 2)) := by
@@ -1649,7 +1649,7 @@ theorem EL_uncov_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x :
   have ha := EL_TmirrorT2_bound χ hsq hz100 hz8 hzx
   have hb := L2cMid_bound χ hsq hz100 hz8 hzx
   have hc := EL_minusPrimePair_bound χ hsq hz100 hz8 hzx hLz0
-  have hPS0 : 0 ≤ PretenseSum χ (2 * x + 2) := t2_pretenseSum_nonneg χ _
+  have hPS0 : 0 ≤ PretenseSum χ (2 * x + 2) := pretenseSum_nonneg χ _
   have hA0 : 0 ≤ (x : ℝ) / Lwin x * Real.exp (5 * z0 z x) * PretenseSum χ (2 * x + 2) :=
     mul_nonneg (mul_nonneg (div_nonneg (Nat.cast_nonneg x) (Lwin_nonneg x))
       (Real.exp_pos _).le) hPS0

@@ -475,13 +475,6 @@ lemma erT1_legality {z x p : ℕ} (hz100 : 100 ^ 16 ≤ z) (hz8 : Lwin x ^ 8 ≤
     _ = 2 * (x : ℝ) := by rw [mul_assoc, Real.mul_self_sqrt (by positivity)]
     _ ≤ 32 * (x : ℝ) := by linarith
 
-/-- `PretenseSum ≥ 0`. -/
-lemma erT1_pretense_nonneg (χ : DirichletCharacter ℂ q) (N : ℕ) :
-    0 ≤ PretenseSum χ N := by
-  refine Finset.sum_nonneg fun p hp => ?_
-  rw [Finset.mem_filter] at hp
-  exact div_nonneg (Real.log_nonneg (by exact_mod_cast hp.2.1.one_le)) (by positivity)
-
 /-- `z₀³·e^{(log 2)·z₀} ≤ e^{5z₀}` (the `J2` exponent absorption). -/
 lemma erT1_z0_cube_absorb {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hx1 : (1 : ℝ) ≤ (x : ℝ)) :
     z0 z x ^ 3 * Real.exp (Real.log 2 * z0 z x) ≤ Real.exp (5 * z0 z x) := by
@@ -643,7 +636,7 @@ theorem ER_T1'_comp_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z 
   -- assemble
   have hLw : Lwin x ≠ 0 := (lt_of_lt_of_le one_pos (erT1_Lwin_ge_one hx1)).ne'
   have hlz : Real.log z ≠ 0 := hlogzpos.ne'
-  have hPS0 := erT1_pretense_nonneg χ (2 * x + 2)
+  have hPS0 := pretenseSum_nonneg χ (2 * x + 2)
   have hcardR : (S.card : ℝ)
       = ∑ p ∈ Q, ((S.filter (fun n => (n + 2).minFac = p)).card : ℝ) := by
     exact_mod_cast hcard

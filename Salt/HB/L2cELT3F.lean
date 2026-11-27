@@ -679,7 +679,7 @@ theorem EL_T3F_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : �
   have _ := hz8
   have hL : 100 ≤ Lwin x := t2_Lwin_ge hz100 hzx
   have hz2 : 2 ≤ z := le_trans (by norm_num) hz100
-  have hPS0 : 0 ≤ PretenseSum χ (2 * x + 2) := t2_pretenseSum_nonneg χ _
+  have hPS0 : 0 ≤ PretenseSum χ (2 * x + 2) := pretenseSum_nonneg χ _
   have hL0 : Lwin x ≠ 0 := by linarith
   have hcap : EL_T3F χ z x
       ≤ Real.exp (Real.log 2 * z0 z x) * (2 * Lwin x)

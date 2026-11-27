@@ -458,14 +458,6 @@ lemma t2_inv_logZz_sq {z x : ℕ} (hz100 : 100 ^ 16 ≤ z) (hzx : (z : ℝ) ^ 3 
         rw [div_pow]; rw [one_div, one_div]; ring_nf
     _ = 1024 * (z0 z x / Lwin x) ^ 2 := by rw [t2_inv_log_z hz100 hzx]
 
-/-- `PretenseSum χ N ≥ 0` (a sum of `log p/p ≥ 0`). -/
-lemma t2_pretenseSum_nonneg (χ : DirichletCharacter ℂ q) (N : ℕ) :
-    0 ≤ PretenseSum χ N := by
-  rw [PretenseSum]
-  refine Finset.sum_nonneg fun p hp => ?_
-  rw [Finset.mem_filter] at hp
-  exact div_nonneg (Real.log_nonneg (by exact_mod_cast hp.2.1.one_le)) (by positivity)
-
 /-! ## §6 — the count kernel
 
 The `Zz`-sifted pair count at a T2-legal modulus pair, folded into a single explicit
@@ -1339,7 +1331,7 @@ theorem EL_T2_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : �
   have _ := hz8
   have hL : 100 ≤ Lwin x := t2_Lwin_ge hz100 hzx
   have hz2 : 2 ≤ z := le_trans (by norm_num) hz100
-  have hPS0 : 0 ≤ PretenseSum χ (2 * x + 2) := t2_pretenseSum_nonneg χ _
+  have hPS0 : 0 ≤ PretenseSum χ (2 * x + 2) := pretenseSum_nonneg χ _
   have hcap : EL_T2 χ z x
       ≤ Real.exp (2 * Real.log 2 * z0 z x) * ∑ n ∈ T2Set χ z x,
           T2Wt x (nMinus χ n) * T2Wt x (nMinus χ (n + 2)) := by
