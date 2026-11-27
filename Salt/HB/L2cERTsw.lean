@@ -275,14 +275,6 @@ lemma erTsw_weightedCount_le (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) 
 
 /-! ## §5 — the unconditional pretense budget `≤ 56·x·z₀·PS` -/
 
-/-- `PretenseSum χ N ≥ 0` (family-prefixed copy; single-writer name law). -/
-lemma erTsw_pretenseSum_nonneg (χ : DirichletCharacter ℂ q) (N : ℕ) :
-    0 ≤ PretenseSum χ N := by
-  rw [PretenseSum]
-  refine Finset.sum_nonneg fun p hp => ?_
-  rw [Finset.mem_filter] at hp
-  exact div_nonneg (Real.log_nonneg (by exact_mod_cast hp.2.1.one_le)) (Nat.cast_nonneg p)
-
 /-- **The unconditional T-sw' pretense budget.**  `ER_Tsw' ≤ 56·x·z₀·PretenseSum χ (2x+2)`
     — the reduction times the `U`-fibration count (`2L'·(log4+4)(2x+2)·PS/log z`, and
     `L'/log z = z₀`, `log 4 + 4 ≤ 7`, `2x+2 ≤ 4x`).  This is `J2` with `e^{5z₀}/L'`
@@ -311,7 +303,7 @@ theorem ER_Tsw'_pretense_bound (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1
   have hlog4 : Real.log 4 ≤ 3 := by
     exact_mod_cast Salt.Tactic.log_le_nat_of_le_pow 3 (by norm_num) (by norm_num)
   have hz0 : 0 ≤ z0 z x := z0_nonneg (by omega)
-  have hPS : 0 ≤ PretenseSum χ (2 * x + 2) := erTsw_pretenseSum_nonneg χ _
+  have hPS : 0 ≤ PretenseSum χ (2 * x + 2) := pretenseSum_nonneg χ _
   have h1 : (Real.log 4 + 4) * (2 * (x : ℝ) + 2) * 2 ≤ 56 * (x : ℝ) := by
     have hA : Real.log 4 + 4 ≤ 7 := by linarith only [hlog4]
     have hB : 2 * (x : ℝ) + 2 ≤ 4 * (x : ℝ) := by linarith only [hx8]
@@ -391,7 +383,7 @@ theorem ER_Tsw'_bound_of_count (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1
     rw [Lwin]
     have hx0 : (0 : ℝ) ≤ (x : ℝ) := Nat.cast_nonneg x
     exact Real.log_pos (by linarith only [hx0])
-  have hPS : 0 ≤ PretenseSum χ (2 * x + 2) := erTsw_pretenseSum_nonneg χ _
+  have hPS : 0 ≤ PretenseSum χ (2 * x + 2) := pretenseSum_nonneg χ _
   refine le_trans (ER_Tsw'_le_weightedCount χ hsq z x) ?_
   refine le_trans (mul_le_mul_of_nonneg_left hcount
     (by linarith only [hLpos] : (0 : ℝ) ≤ 2 * Lwin x)) ?_

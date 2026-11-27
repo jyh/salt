@@ -177,7 +177,7 @@ bound on the twin von-Mangoldt sum. This is seam-input material (D2), not a twin
 producer (upper bounds don't make twins).
 
 **The hres slot: demand vs supply (the requested trace).**
-- DEMAND. `hb_lemma2` (Salt/HB/TransferFull.lean:204-214) leaves ONE input, `hres`:
+- DEMAND. `hb_lemma2` (Salt/HB/TransferFull.lean:212-222) leaves ONE input, `hres`:
   overshootMajorant χ A ≤ Cmain·(x/z₀) + Cmain·(x/log x)·exp(Aexp·z₀)·PretenseSum χ N
   + junk, where PretenseSum χ N = Σ_{p ≤ N, χ(p)=1} log p / p
   (TransferFull.lean:183-185). The route beats the S1 main term only when
