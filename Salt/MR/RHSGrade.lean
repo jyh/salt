@@ -488,7 +488,7 @@ theorem alpha_rpow_integral_le {a η : ℝ} (ha : 1 < a) (_hη : 0 ≤ η) :
   nlinarith
 
 /-- Continuity of `α ↦ a^{−α}` at a positive base (the `exp`-presentation). -/
-private lemma continuous_rpow_neg {a : ℝ} (ha : 0 < a) :
+lemma continuous_rpow_neg {a : ℝ} (ha : 0 < a) :
     Continuous (fun α : ℝ => a ^ (-α)) := by
   have hrw : (fun α : ℝ => a ^ (-α)) = fun α : ℝ => Real.exp (Real.log a * (-α)) := by
     funext α; rw [Real.rpow_def_of_pos ha]
@@ -543,7 +543,7 @@ private lemma pin_basic {k L y η : ℝ} (hk : Real.exp 3 ≤ k) (hL : L = Real.
 /-- Interval-integrability of the σ-integrand `Fbound σ/σ` (continuity on `[1/L, b]`) — the
 re-derivation of `HalaszDirect`'s `sigma_core_intervalIntegrable` at the concrete
 `Fbound`.  DISCHARGED, not carried. -/
-private lemma rhs_sigma_div_integrable {M L b : ℝ} (hL0 : 0 < L) (hb : 1 / L ≤ b) :
+lemma rhs_sigma_div_integrable {M L b : ℝ} (hL0 : 0 < L) (hb : 1 / L ≤ b) :
     IntervalIntegrable (fun σ : ℝ => rhsFbound M L σ / σ) volume (1 / L) b := by
   have hLinv0 : (0 : ℝ) < 1 / L := by positivity
   have hpos : ∀ σ ∈ Set.uIcc (1 / L) b, (0 : ℝ) < σ := by
@@ -565,7 +565,7 @@ private lemma rhs_sigma_div_integrable {M L b : ℝ} (hL0 : 0 < L) (hb : 1 / L �
 
 /-- Interval-integrability of `bridge_adapter`'s translated integrand.  DISCHARGED at the
 concrete `Fbound` (the `BridgeAdapt` note: with any concrete `Fbound` this follows). -/
-private lemma rhs_shift_integrable {M L η Kα : ℝ} (hL0 : 0 < L) (hη0 : 0 ≤ η) :
+lemma rhs_shift_integrable {M L η Kα : ℝ} (hL0 : 0 < L) (hη0 : 0 ≤ η) :
     IntervalIntegrable
       (fun β : ℝ => Kα * (rhsFbound M L (β + 1 / L) / (β + 1 / L))) volume 0 η := by
   have hLinv0 : (0 : ℝ) < 1 / L := by positivity

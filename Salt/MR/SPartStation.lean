@@ -353,7 +353,7 @@ transported explicitly:
 at the corpus pin `y = (log k)^4`, `η = 1/log y`, `h = k/√(log k)`, `c₀ = 1 + 1/log k`.
 
 **What is consumed, and where.**  The main term is `GradeWindowC.rhs_grade_at_scale_windowC`
-(:583) — the LANDED FREE-`M` face, whose floor binder is the WINDOW one `hMwin` alone
+(:512) — the LANDED FREE-`M` face, whose floor binder is the WINDOW one `hMwin` alone
 (`hmin`, `hgate`, `hMt` are gone; `M` is a free real named by the consumer) — at
 `M := max 0 (M₀ − dilGap X Xd)` (the `max` discharges its `0 ≤ M` gate for free and only
 strengthens the exit, since `c > 0`).  The far arm rides additively and is closed by the
