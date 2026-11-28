@@ -59,6 +59,7 @@ private lemma list_sum_map_sub {γ : Type*} (l : List γ) (f g : γ → ℝ) :
   | nil => simp
   | cons a l ih => simp only [List.map_cons, List.sum_cons]; rw [← ih]; ring
 
+omit [Salt.Maynard.TupleChoice] in
 /-- Dividing a mapped `List`-sum distributes over the list. -/
 lemma list_sum_map_div {γ : Type*} (l : List γ) (f : γ → ℝ) (c : ℝ) :
     (l.map f).sum / c = (l.map (fun x => f x / c)).sum := by
@@ -75,6 +76,7 @@ private lemma sum_finset_list_swap {γ : Type*} (B : Finset (Fin 5 → ℕ))
     simp only [List.map_cons, List.sum_cons]
     rw [Finset.sum_add_distrib, ih]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- Pointwise-`≤` monotonicity of a mapped `List`-sum. -/
 lemma list_sum_map_le {γ : Type*} (l : List γ) (f g : γ → ℝ)
     (h : ∀ x ∈ l, f x ≤ g x) : (l.map f).sum ≤ (l.map g).sum := by
@@ -86,6 +88,7 @@ lemma list_sum_map_le {γ : Type*} (l : List γ) (f g : γ → ℝ)
     have ha := h a (List.mem_cons.mpr (Or.inl rfl))
     linarith
 
+omit [Salt.Maynard.TupleChoice] in
 /-- Nonnegativity of a mapped `List`-sum. -/
 lemma list_map_sum_nonneg {γ : Type*} (l : List γ) (f : γ → ℝ)
     (h : ∀ x ∈ l, 0 ≤ f x) : 0 ≤ (l.map f).sum := by
@@ -106,6 +109,7 @@ private lemma list_sum_map_add {γ : Type*} (l : List γ) (f g : γ → ℝ) :
 
 /-! ## The prime tail `Σ_{p>D} 1/(p-1)² ≤ 2/D` -/
 
+omit [Salt.Maynard.TupleChoice] in
 /-- Telescoping tail over the integer range `(D, R)`: `Σ 1/(k-1)² ≤ 1/(D-1)`. -/
 lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
     ∑ k ∈ (Finset.range R).filter (fun k => D < k), 1 / ((k:ℝ) - 1)^2
@@ -146,6 +150,7 @@ lemma int_tail (D R : ℕ) (hD : 3 ≤ D) :
         linarith
     _ = 1 / ((D:ℝ) - 1) := by simp [hφ]
 
+omit [Salt.Maynard.TupleChoice] in
 /-- The prime tail bound: `Σ_{D<p<R} 1/(p-1)² ≤ 2/D`. -/
 lemma prime_tail (D R : ℕ) (hD : 3 ≤ D) :
     ∑ p ∈ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p), 1 / ((p:ℝ) - 1)^2
