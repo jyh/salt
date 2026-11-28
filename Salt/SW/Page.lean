@@ -7,6 +7,7 @@ import Mathlib
 import Salt.SW.ZeroFree
 import Salt.SW.ZeroFreeReal
 import Salt.Tactic.ExpLogNum
+import Salt.SW.LandauPage
 
 /-!
 # The SW rung, node S4c — Page's cross-modulus theorem
@@ -167,14 +168,6 @@ lemma product_ne_one {q₁ q₂ Q : ℕ} [NeZero Q] (h₁ : q₁ ∣ Q) (h₂ : 
 
 /-! ## 4. The 4-fold positivity floor -/
 
-/-- At real `σ`, the `↗Λ` L-series term is the real number `Λ(n)·n^{−σ}` (cast to `ℂ`). -/
-private lemma term_vonMangoldt_eq' (σ : ℝ) (n : ℕ) :
-    LSeries.term ↗vonMangoldt (σ : ℂ) n = ((vonMangoldt n / (n : ℝ) ^ σ : ℝ) : ℂ) := by
-  rcases eq_or_ne n 0 with rfl | hn
-  · simp
-  · rw [LSeries.term_of_ne_zero hn, Complex.ofReal_div, Complex.ofReal_cpow (Nat.cast_nonneg n),
-      Complex.ofReal_natCast]
-
 /-- At real `σ`, the twisted term is the real weight `Λ(n)/n^σ` times the character value. -/
 private lemma term_char_real_eq {Q : ℕ} (ψ : DirichletCharacter ℂ Q) (σ : ℝ) {n : ℕ} (hn : n ≠ 0) :
     LSeries.term (↗ψ * ↗vonMangoldt) (σ : ℂ) n
@@ -200,7 +193,7 @@ theorem page_termwise {Q : ℕ} (χ₁ χ₂ : DirichletCharacter ℂ Q)
       div_nonneg vonMangoldt_nonneg (Real.rpow_nonneg (Nat.cast_nonneg n) σ)
     set r : ℝ := vonMangoldt n / (n : ℝ) ^ σ with hr
     have e0 : (LSeries.term ↗vonMangoldt (σ : ℂ) n).re = r := by
-      rw [term_vonMangoldt_eq' σ n, Complex.ofReal_re]
+      rw [term_vonMangoldt_eq σ n, Complex.ofReal_re]
     by_cases hu : IsUnit (n : ZMod Q)
     · set a : ℂ := χ₁ (n : ZMod Q) with ha
       set b : ℂ := χ₂ (n : ZMod Q) with hb
