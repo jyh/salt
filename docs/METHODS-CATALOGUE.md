@@ -1,25 +1,25 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `82fb2684` · source digest `4f66a3cedc273f6a` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `2e4c3476` · source digest `74392464a6374f66` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23375 · with a proof/definition body: 23375 · direct corpus references (edges): 85889 · audited results: 9148 · corpus Prop-valued names: 691.
+Declarations indexed: 23494 · with a proof/definition body: 23494 · direct corpus references (edges): 86119 · audited results: 9148 · corpus Prop-valued names: 704.
 
 ## Hypothesis status (Deliverable A)
 
 | status | corpus Props | hung on >= 1 audited conditional result | audited conditional results hanging on them |
 |---|---|---|---|
-| DISCHARGED | 221 | 150 | 1065 |
+| DISCHARGED | 225 | 150 | 1065 |
 | STRUCTURAL | 4 | 4 | 95 |
-| FRAME | 47 | 24 | 157 |
-| OPEN | 419 | 191 | 730 |
-| **all** | 691 | 369 | 1630 |
+| FRAME | 48 | 24 | 157 |
+| OPEN | 427 | 191 | 730 |
+| **all** | 704 | 369 | 1630 |
 
 Of the DISCHARGED, 98 are discharged ONLY by GUARDED producers (the producer carries non-corpus Prop premises, e.g. `2 ≤ q → P q`, or instantiates P at specific arguments).
 
-FRAME overlap (the FRAME rule is evaluated on EVERY corpus Prop, status-blind; precedence then assigns one status): 76 Props pass the FRAME rule — 26 are DISCHARGED, 3 are STRUCTURAL (STRUCTURAL kept, not re-labelled), 47 carry status FRAME. STRUCTURAL Props that FAIL the FRAME rule: 1.
+FRAME overlap (the FRAME rule is evaluated on EVERY corpus Prop, status-blind; precedence then assigns one status): 77 Props pass the FRAME rule — 26 are DISCHARGED, 3 are STRUCTURAL (STRUCTURAL kept, not re-labelled), 48 carry status FRAME. STRUCTURAL Props that FAIL the FRAME rule: 1.
 
 ## LIMITS — read these beside every count above
 
@@ -656,7 +656,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.TwinBar.TwinTypeII` | OPEN | 1 | — |
 | `Salt.Vmvt.PairEqFracBound` | OPEN | 1 | — |
 
-## Every corpus Prop not hung on an audited result (322)
+## Every corpus Prop not hung on an audited result (335)
 
 | hypothesis | status | producer(s) |
 |---|---|---|
@@ -721,6 +721,10 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MaynardK.WinFrontierMW105` | DISCHARGED | `Salt.MaynardK.winFrontierMW105_of` GUARDED (Salt/MaynardK/Frontier105.lean:147) · `Salt.MaynardK.winFrontierMW105_all` GUARDED (Salt/MaynardK/Slack105.lean:757) |
 | `Salt.Parity.Completion` | DISCHARGED | `Salt.Parity.oneWeight_mem` ✓audited GUARDED (Salt/Parity/Z.lean:463) · `Salt.Parity.twinFree_mem` ✓audited GUARDED (Salt/Parity/Z.lean:621) |
 | `Salt.Parity.ParityInv` | DISCHARGED | `parityInv_S1_le_S2` ✓audited (Salt/Parity/Instances.lean:37) · `parityInv_twin_bar` ✓audited (Salt/Parity/Instances.lean:45) · `parityInv_twin_gate_fails` ✓audited (Salt/Parity/Instances.lean:53) · +8 |
+| `Salt.RH.CramerGap` | DISCHARGED | `Salt.RH.cramerGap_three_of_RH` (Salt/RH/Cramer.lean:163) |
+| `Salt.RH.MillerAlgebraic` | DISCHARGED | `Salt.RH.millerAlgebraic` (Salt/RH/MillerAlgebraic.lean:195) |
+| `Salt.RH.PiLi2` | DISCHARGED | `Salt.RH.piLi2_three_of_RH` (Salt/RH/PiLi.lean:235) · `Salt.RH.piLi2_two_of_RH` (Salt/RH/PiLi.lean:304) |
+| `Salt.RH.VonKochPsi` | DISCHARGED | `Salt.RH.vonKochPsi_three_of_RH` (Salt/RH/VonKochFinal.lean:271) |
 | `Salt.SW.EstermannInterface'` | DISCHARGED | `Salt.SW.estermannInterface'` ✓audited (Salt/SW/EstermannInterface.lean:236) |
 | `Salt.Twelve.IsPowerful` | DISCHARGED | `Salt.Twelve.powPart_isPowerful` (Salt/Twelve/PhiUpperReindex.lean:119) |
 | `Salt.Twelve.S1InnerBoundM` | DISCHARGED | `Salt.Twelve.s1_inner_bounded` GUARDED (Salt/Twelve/InnerS1.lean:323) |
@@ -754,6 +758,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MR.S15Sel` | FRAME | — |
 | `Salt.MR.S15Sel_gk` | FRAME | — |
 | `Salt.MR.S16BaseScaleCapL96_gk` | FRAME | — |
+| `Salt.RH.RobinInequality` | FRAME | — |
 | `EH` | OPEN | — |
 | `LambdaLevel` | OPEN | — |
 | `LambdaLevelU` | OPEN | — |
@@ -968,6 +973,14 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.MaynardK.SlackEv105` | OPEN | — |
 | `Salt.MaynardK.WinSlackM105` | OPEN | — |
 | `Salt.Parity.ParityBarrier` | OPEN | — |
+| `Salt.RH.DeterministicMR` | OPEN | — |
+| `Salt.RH.DeterministicMRLog` | OPEN | — |
+| `Salt.RH.GRHDirichlet` | OPEN | — |
+| `Salt.RH.GRHPrimitive` | OPEN | — |
+| `Salt.RH.Schoenfeld` | OPEN | — |
+| `Salt.RH.SmallNonMember` | OPEN | — |
+| `Salt.RH.SmallNonMemberLog` | OPEN | — |
+| `Salt.RH.StrongProbablePrime` | OPEN | — |
 | `Salt.SW.dhLSeries_target` | OPEN | — |
 | `Salt.Twelve.WinFrontierMWL` | OPEN | — |
 | `Salt.Twelve.WinSlack` | OPEN | — |
@@ -993,7 +1006,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | Selberg/Brun sieve | 5690 | 952 | 3761 | 1357 | 65 | 94 | 0 | 5277 | 4410 |
 | Bombieri-Vinogradov / Siegel-Walfisz | 1606 | 747 | 1511 | 719 | 4 | 19 | 0 | 2253 | 1603 |
 | zero-density / zero-free regions | 729 | 295 | 1022 | 749 | 2 | 20 | 0 | 1793 | 1539 |
-| character sums / L-functions | 4327 | 2196 | 1825 | 853 | 81 | 99 | 0 | 2858 | 966 |
+| character sums / L-functions | 4359 | 2196 | 1825 | 853 | 81 | 99 | 0 | 2858 | 966 |
 | exponential sums | 592 | 223 | 799 | 619 | 31 | 33 | 0 | 1482 | 1297 |
 | Mertens / PNT-type | 255 | 67 | 883 | 792 | 4 | 16 | 0 | 1695 | 1638 |
 | certificates / explicit numerics | 50 | 32 | 7 | 0 | 0 | 0 | 0 | 7 | 0 |
@@ -1180,7 +1193,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | certificates / explicit numerics | 0 | 32 | 50 |
 | Matomaki-Radziwill / Halasz (short intervals) | 73 | 5428 | 9823 |
 | entropy decrement | 650 | 534 | 1412 |
-| character sums / L-functions | 966 | 2196 | 4327 |
+| character sums / L-functions | 966 | 2196 | 4359 |
 | circle method / Fourier | 1171 | 83 | 184 |
 | exponential sums | 1297 | 223 | 592 |
 | large sieve | 1326 | 18 | 136 |
