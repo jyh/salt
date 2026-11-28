@@ -1,11 +1,11 @@
 # THE METHODS CATALOGUE + HYPOTHESIS STATUS — by machine (O13 item 2)
 
 > **GENERATED — do not edit by hand.** Regenerate: `python3 scripts/methods_catalogue.py` · staleness gate: `python3 scripts/methods_catalogue.py --check`.
-> Base: last commit touching `Salt/` = `756918d0` · source digest `9c89a936f18b533a` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
+> Base: last commit touching `Salt/` = `8cbd23f7` · source digest `de99842a395abe97` (the same digest as item 1's `docs/CATALOGUE.md`). Full per-result data: `docs/methods-catalogue.tsv`.
 
 ## Receipt
 
-Declarations indexed: 23496 · with a proof/definition body: 23496 · direct corpus references (edges): 86121 · audited results: 9148 · corpus Prop-valued names: 704.
+Declarations indexed: 23498 · with a proof/definition body: 23498 · direct corpus references (edges): 86125 · audited results: 9148 · corpus Prop-valued names: 706.
 
 ## Hypothesis status (Deliverable A)
 
@@ -14,8 +14,8 @@ Declarations indexed: 23496 · with a proof/definition body: 23496 · direct cor
 | DISCHARGED | 225 | 150 | 1065 |
 | STRUCTURAL | 4 | 4 | 95 |
 | FRAME | 48 | 24 | 157 |
-| OPEN | 427 | 191 | 730 |
-| **all** | 704 | 369 | 1630 |
+| OPEN | 429 | 191 | 730 |
+| **all** | 706 | 369 | 1630 |
 
 Of the DISCHARGED, 98 are discharged ONLY by GUARDED producers (the producer carries non-corpus Prop premises, e.g. `2 ≤ q → P q`, or instantiates P at specific arguments).
 
@@ -656,7 +656,7 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.TwinBar.TwinTypeII` | OPEN | 1 | — |
 | `Salt.Vmvt.PairEqFracBound` | OPEN | 1 | — |
 
-## Every corpus Prop not hung on an audited result (335)
+## Every corpus Prop not hung on an audited result (337)
 
 | hypothesis | status | producer(s) |
 |---|---|---|
@@ -977,6 +977,8 @@ Which single unproved Prop, if proved, unlocks the most audited results. `cond. 
 | `Salt.RH.DeterministicMRLog` | OPEN | — |
 | `Salt.RH.GRHDirichlet` | OPEN | — |
 | `Salt.RH.GRHPrimitive` | OPEN | — |
+| `Salt.RH.O90VariantCramer` | OPEN | — |
+| `Salt.RH.O90VariantPiLi` | OPEN | — |
 | `Salt.RH.Schoenfeld` | OPEN | — |
 | `Salt.RH.SmallNonMember` | OPEN | — |
 | `Salt.RH.SmallNonMemberLog` | OPEN | — |
