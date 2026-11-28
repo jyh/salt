@@ -79,8 +79,9 @@ private lemma landau_extraction {Lq x₁ x₂ : ℝ} (hL : 2 ≤ Lq)
 
 /-! ## 2. The termwise ζ-majorant at real `σ` -/
 
-/-- At real `σ`, the `↗Λ` L-series term is the real number `Λ(n)·n^{−σ}` (cast to `ℂ`). -/
-private lemma term_vonMangoldt_eq (σ : ℝ) (n : ℕ) :
+/-- At real `σ`, the `↗Λ` L-series term is the real number `Λ(n)·n^{−σ}` (cast to `ℂ`). Also read
+by `Page` and `ShiftAssembly`. -/
+lemma term_vonMangoldt_eq (σ : ℝ) (n : ℕ) :
     LSeries.term ↗vonMangoldt (σ : ℂ) n
       = ((vonMangoldt n / (n : ℝ) ^ σ : ℝ) : ℂ) := by
   rcases eq_or_ne n 0 with rfl | hn

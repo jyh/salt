@@ -13991,7 +13991,7 @@ audit block :3595-3596 + prose :3573-3579); (3) hEP2 sites are FIVE
 e^{u/5} ≥ u/5); (5) rcases m BEFORE the agreement law in the
 band/puncture proofs (the m=0 absurdity precedes the rw); (6) sibling
 discipline LOAD-BEARING — editing the landed ramP2*MR defs breaks
-SmallStones:387-462; (7) `hend` name-collides with the unrelated
+SmallStones:374-449; (7) `hend` name-collides with the unrelated
 cofactor endpoint charge in eight files — NO name-based sweeps; (8)
 the ∨-filter Σ-half splits by subset-sum (over-counting the overlap
 is an upper bound); the else-branch needs one Nat.cast_injective step
@@ -20352,7 +20352,7 @@ itself, and pushing its coefficient below `2` is precisely the optimized-radius 
 argument — i.e. the disc count, sharpened enough to prove simplicity, ceases to be a disc count.
 
 ⟦AND IT WAS ALREADY IN THE KERNEL — a third VK-forgetting, caught before the spend⟧
-`Salt.SW.landau_one_exceptional_at` (`Salt/SW/LandauPage.lean:195`, landed with the S3e wave)
+`Salt.SW.landau_one_exceptional_at` (`Salt/SW/LandauPage.lean:196`, landed with the S3e wave)
 evaluates the partial fraction at `σ = 1 + (3/5000)/log(4q)` — the radius tuned so a double
 zero's kept term `2/(σ−β₀) ≥ 2500·log(4q)` overruns the whole budget
 `1/(σ−1) + 1 + 720·log(4q)` — and returns `analyticOrderAt (LFunction χ) β₀ = 1` for **any**
