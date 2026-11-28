@@ -66,10 +66,10 @@ open Finset
 
 namespace Salt.Twelve
 
-/-! ## Log helpers (as in `Salt/Twelve/MomentAtom.lean`) -/
+/-! ## Log helpers (read by `W3Prep`, `RelEngines` and `MomentAtom`) -/
 
 /-- `0 ≤ log n` for every natural `n` (`log 0 = 0`; `Real.log_nonneg` for `n ≥ 1`). Public:
-`W3Prep` and `RelEngines` read it; `MomentAtom` keeps its own private copy (no import edge). -/
+`W3Prep`, `RelEngines` and `MomentAtom` read it. -/
 lemma log_nat_nonneg (n : ℕ) : 0 ≤ Real.log (n : ℝ) := by
   rcases Nat.eq_zero_or_pos n with h | h
   · subst h; simp
