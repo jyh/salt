@@ -315,7 +315,7 @@ numeric is stated for primitive `χ` mod `q ≥ 2` and the ball must sit in `bal
 
 open ArithmeticFunction in
 open scoped LSeries.notation in
-/-- At real `σ`, the real part of the `↗Λ` L-series term is `Λ(n)·n^{−σ}` (the private
+/-- At real `σ`, the real part of the `↗Λ` L-series term is `Λ(n)·n^{−σ}` (the
 `term_vonMangoldt_eq` of `LandauPage.lean` re-derived at the real part, the form the
 at-height majorant needs when the term's own exponent is complex). -/
 private lemma term_vonMangoldt_re (σ : ℝ) (n : ℕ) :
