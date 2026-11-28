@@ -20,11 +20,10 @@ STEPS are the strict-prime fact (`D_lt_of_prime_dvd_coordW`, collision
 convention `D < p`) and the Euler tail (`euler_tail_LW`).
 
 The landed `*` lemmas are left byte-identical; these are PARALLEL `*W` names.
-The private helpers of the landed modules (`inv_sq_tele`, `prod_one_add_le`,
-`moebius_sq_one'`, `g_factor_prod'`, `gr_ratio_mem'`, `inv_sq_tele53`,
-`one_sub_sum_le_prod_one_sub`, `abs_prod_one_sub_le`) are NOT accessible across
-the module boundary, so — exactly as `Lemma53Tight.lean` re-declares its own
-`moebius_sq_one'`/`g_factor_prod'`/… — we re-declare local private copies here.
+The landed modules' helpers `moebius_sq_one'`, `g_factor_prod'`, `gr_ratio_mem'`
+(public in `Lemma53Tight`) and `inv_sq_tele53`, `abs_prod_one_sub_le` (public in
+`Lemma53`) are imported, and so are `inv_sq_tele` (public in `HOmit`) and
+`prod_one_add_le` (public in `EulerTailL`).
 -/
 
 open Finset
@@ -35,160 +34,8 @@ namespace Salt.Maynard
 set_option linter.unusedSectionVars false
 variable [Salt.Maynard.TupleChoice]
 
-/-! ## Local private copies of the landed private helpers
-
-These are byte-identical copies of the same-named `private` lemmas in
-`EulerTailL.lean`/`Lemma53Tight.lean`/`Lemma53.lean`.  `private` declarations
-are not accessible across module boundaries in Lean 4, so — following the
-established precedent of `Lemma53Tight.lean` re-declaring its own copies — we
-re-declare them locally.  They are `W`/`D`-free (pure real analysis). -/
-
-/-- Telescoping tail bound (local copy of `EulerTailL.inv_sq_tele`). -/
-private theorem inv_sq_tele (a : ℕ) (ha : 2 ≤ a) :
-    ∀ b : ℕ, a ≤ b →
-      (∑ n ∈ Finset.Icc (a + 1) b, (((n : ℝ) - 1)⁻¹) ^ 2)
-        ≤ ((a : ℝ) - 1)⁻¹ - ((b : ℝ) - 1)⁻¹ := by
-  intro b hb
-  induction b, hb using Nat.le_induction with
-  | base =>
-      rw [Finset.Icc_eq_empty (by omega), Finset.sum_empty]
-      simp
-  | succ b hab ih =>
-      rw [Finset.sum_Icc_succ_top (by omega)]
-      have hb2 : (2 : ℝ) ≤ (b : ℝ) := by exact_mod_cast le_trans ha hab
-      have hstep : (((b + 1 : ℕ) : ℝ) - 1)⁻¹ ^ 2
-          ≤ ((b : ℝ) - 1)⁻¹ - (((b + 1 : ℕ) : ℝ) - 1)⁻¹ := by
-        push_cast
-        have h1 : (0 : ℝ) < (b : ℝ) - 1 := by linarith
-        have h2 : (0 : ℝ) < (b : ℝ) := by linarith
-        rw [show ((b : ℝ) + 1 - 1) = (b : ℝ) by ring, ← sub_nonneg]
-        have hexp : ((b : ℝ) - 1)⁻¹ - (b : ℝ)⁻¹ - ((b : ℝ)⁻¹) ^ 2
-            = (((b : ℝ)) ^ 2 * ((b : ℝ) - 1))⁻¹ := by
-          field_simp
-          ring
-        rw [hexp]
-        have hposm : (0 : ℝ) < ((b : ℝ)) ^ 2 * ((b : ℝ) - 1) := by nlinarith
-        exact inv_nonneg.mpr hposm.le
-      linarith [ih]
-
-/-- Product-versus-sum bound (local copy of `EulerTailL.prod_one_add_le`). -/
-private theorem prod_one_add_le {ι : Type*} (s : Finset ι)
-    (a : ι → ℝ) (ha : ∀ x ∈ s, 0 ≤ a x) (hs : ∑ x ∈ s, a x ≤ 1 / 2) :
-    ∏ x ∈ s, (1 + a x) ≤ 1 + 2 * ∑ x ∈ s, a x := by
-  classical
-  induction s using Finset.induction with
-  | empty => simp
-  | insert x s hx ih =>
-      rw [Finset.prod_insert hx, Finset.sum_insert hx]
-      have hax : 0 ≤ a x := ha x (Finset.mem_insert_self x s)
-      have has : ∀ z ∈ s, 0 ≤ a z := fun z hz =>
-        ha z (Finset.mem_insert_of_mem hz)
-      have hsum_nonneg : 0 ≤ ∑ z ∈ s, a z := Finset.sum_nonneg has
-      have hss : ∑ z ∈ s, a z ≤ 1 / 2 := by
-        rw [Finset.sum_insert hx] at hs
-        linarith
-      have hih := ih has hss
-      have hprod_nonneg : (0 : ℝ) ≤ ∏ z ∈ s, (1 + a z) :=
-        Finset.prod_nonneg fun z hz => by linarith [has z hz]
-      nlinarith only [hax, hih, hss]
-
-/-- `μ(n)² = 1` for squarefree `n` (local copy of `Lemma53Tight.moebius_sq_one'`). -/
-private theorem moebius_sq_one' {n : ℕ} (hn : Squarefree n) :
-    ((μ n : ℤ) : ℝ) ^ 2 = 1 := by
-  have h := ArithmeticFunction.moebius_sq_eq_one_of_squarefree hn
-  have hc : ((μ n : ℤ) : ℝ) ^ 2 = (((μ n) ^ 2 : ℤ) : ℝ) := by push_cast; ring
-  rw [hc, h]; norm_num
-
-/-- Per-coordinate factorization (local copy of `Lemma53Tight.g_factor_prod'`). -/
-private theorem g_factor_prod' {r : ℕ} (hr : Squarefree r)
-    (hodd : ∀ p ∈ r.primeFactors, 3 ≤ p) :
-    (gMult r : ℝ) * (r : ℝ) / (Nat.totient r : ℝ) ^ 2
-      = ∏ p ∈ r.primeFactors, (1 - (((p : ℝ) - 1)⁻¹) ^ 2) := by
-  have hrprod : (r : ℝ) = ∏ p ∈ r.primeFactors, (p : ℝ) := by
-    rw [← Nat.cast_prod, Nat.prod_primeFactors_of_squarefree hr]
-  rw [gMult_cast hodd, hrprod, totient_squarefree_cast hr,
-    ← Finset.prod_mul_distrib, ← Finset.prod_pow, ← Finset.prod_div_distrib]
-  refine Finset.prod_congr rfl (fun p hp => ?_)
-  have hp3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
-  have hp1 : (p : ℝ) - 1 ≠ 0 := by linarith
-  field_simp
-  ring
-
-/-- `g(ρ)·ρ/φ(ρ)² ∈ [0,1]` (local copy of `Lemma53Tight.gr_ratio_mem'`). -/
-private theorem gr_ratio_mem' {ρ : ℕ} (hρ : Squarefree ρ)
-    (hodd : ∀ p ∈ ρ.primeFactors, 3 ≤ p) :
-    0 ≤ (gMult ρ : ℝ) * (ρ : ℝ) / (Nat.totient ρ : ℝ) ^ 2
-      ∧ (gMult ρ : ℝ) * (ρ : ℝ) / (Nat.totient ρ : ℝ) ^ 2 ≤ 1 := by
-  rw [g_factor_prod' hρ hodd]
-  refine ⟨Finset.prod_nonneg (fun p hp => ?_),
-    Finset.prod_le_one (fun p hp => ?_) (fun p hp => ?_)⟩
-  · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
-    have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
-    have h1 : ((p : ℝ) - 1)⁻¹ ≤ 1 := by rw [inv_le_one_iff₀]; right; linarith
-    nlinarith only [h0, h1]
-  · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
-    have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
-    have h1 : ((p : ℝ) - 1)⁻¹ ≤ 1 := by rw [inv_le_one_iff₀]; right; linarith
-    nlinarith only [h0, h1]
-  · nlinarith [sq_nonneg (((p : ℝ) - 1)⁻¹)]
-
-/-- Telescoping tail bound (local copy of `Lemma53.inv_sq_tele53`). -/
-private theorem inv_sq_tele53 (a : ℕ) (ha : 2 ≤ a) :
-    ∀ b : ℕ, a ≤ b →
-      (∑ n ∈ Finset.Icc (a + 1) b, (((n : ℝ) - 1)⁻¹) ^ 2)
-        ≤ ((a : ℝ) - 1)⁻¹ - ((b : ℝ) - 1)⁻¹ := by
-  intro b hb
-  induction b, hb using Nat.le_induction with
-  | base =>
-      rw [Finset.Icc_eq_empty (by omega), Finset.sum_empty]
-      simp
-  | succ b hab ih =>
-      rw [Finset.sum_Icc_succ_top (by omega)]
-      have hb2 : (2 : ℝ) ≤ (b : ℝ) := by exact_mod_cast le_trans ha hab
-      have hstep : (((b + 1 : ℕ) : ℝ) - 1)⁻¹ ^ 2
-          ≤ ((b : ℝ) - 1)⁻¹ - (((b + 1 : ℕ) : ℝ) - 1)⁻¹ := by
-        push_cast
-        have h1 : (0 : ℝ) < (b : ℝ) - 1 := by linarith
-        rw [show ((b : ℝ) + 1 - 1) = (b : ℝ) by ring, ← sub_nonneg]
-        have hexp : ((b : ℝ) - 1)⁻¹ - (b : ℝ)⁻¹ - ((b : ℝ)⁻¹) ^ 2
-            = (((b : ℝ)) ^ 2 * ((b : ℝ) - 1))⁻¹ := by
-          field_simp
-          ring
-        rw [hexp]
-        have hposm : (0 : ℝ) < ((b : ℝ)) ^ 2 * ((b : ℝ) - 1) := by nlinarith
-        exact inv_nonneg.mpr hposm.le
-      linarith [ih]
-
-/-- Weierstrass lower bound (local copy of `Lemma53.one_sub_sum_le_prod_one_sub`). -/
-private theorem one_sub_sum_le_prod_one_sub {ι : Type*} (s : Finset ι) (x : ι → ℝ)
-    (hx0 : ∀ p ∈ s, 0 ≤ x p) (hx1 : ∀ p ∈ s, x p ≤ 1) :
-    1 - ∑ p ∈ s, x p ≤ ∏ p ∈ s, (1 - x p) := by
-  classical
-  induction s using Finset.induction with
-  | empty => simp
-  | insert a s ha ih =>
-      rw [Finset.prod_insert ha, Finset.sum_insert ha]
-      have hxa0 : 0 ≤ x a := hx0 a (Finset.mem_insert_self a s)
-      have hxa1 : x a ≤ 1 := hx1 a (Finset.mem_insert_self a s)
-      have hx0' : ∀ p ∈ s, 0 ≤ x p := fun p hp => hx0 p (Finset.mem_insert_of_mem hp)
-      have hx1' : ∀ p ∈ s, x p ≤ 1 := fun p hp => hx1 p (Finset.mem_insert_of_mem hp)
-      have hih := ih hx0' hx1'
-      have hpn : 0 ≤ ∏ p ∈ s, (1 - x p) :=
-        Finset.prod_nonneg fun p hp => by linarith [hx1' p hp]
-      have hsn : 0 ≤ ∑ p ∈ s, x p := Finset.sum_nonneg hx0'
-      nlinarith only [hxa0, hsn,
-          mul_le_mul_of_nonneg_left hih (by linarith : (0 : ℝ) ≤ 1 - x a)]
-
-/-- `|∏(1 − xₚ) − 1| ≤ ∑ xₚ` (local copy of `Lemma53.abs_prod_one_sub_le`). -/
-private theorem abs_prod_one_sub_le {ι : Type*} (s : Finset ι) (x : ι → ℝ)
-    (hx0 : ∀ p ∈ s, 0 ≤ x p) (hx1 : ∀ p ∈ s, x p ≤ 1) :
-    |(∏ p ∈ s, (1 - x p)) - 1| ≤ ∑ p ∈ s, x p := by
-  have hle : ∏ p ∈ s, (1 - x p) ≤ 1 :=
-    Finset.prod_le_one (fun p hp => by linarith [hx1 p hp])
-      (fun p hp => by linarith [hx0 p hp])
-  have hge := one_sub_sum_le_prod_one_sub s x hx0 hx1
-  rw [abs_of_nonpos (by linarith)]
-  linarith
+/-! The helpers `inv_sq_tele` and `prod_one_add_le` are imported (public in `HOmit` and
+`EulerTailL`). -/
 
 /-! ## `euler_tail_LW` — the free-`D` `L`-weighted Euler tail
 

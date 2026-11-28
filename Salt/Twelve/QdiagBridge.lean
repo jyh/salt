@@ -47,7 +47,7 @@ namespace Salt.Twelve
 open Salt.Maynard
 
 /-- `(gMult 1 : ℝ) = 1` (the empty prime-factor product). -/
-private lemma gMult_one_R : (gMult 1 : ℝ) = 1 := by
+lemma gMult_one_R : (gMult 1 : ℝ) = 1 := by
   simp [gMult, Nat.primeFactors_one]
 
 /-- **Step 1 at general `k`, any weight `y`** (`Salt.MaynardK.qdiag_eq_yMsq_sum_gen`; stated here,
@@ -120,15 +120,6 @@ private lemma qb_list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
       calc |f a + (L.map f).sum| ≤ |f a| + |(L.map f).sum| := abs_add_le _ _
         _ ≤ |f a| + (L.map (fun a => |f a|)).sum := by linarith [ih]
 
-/-- Monotonicity of `List.sum` under a pointwise `≤`. -/
-private lemma qb_list_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
-    (h : ∀ a ∈ L, f a ≤ g a) : (L.map f).sum ≤ (L.map g).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih =>
-      simp only [List.map_cons, List.sum_cons]
-      exact add_le_add (h a (by simp)) (ih (fun b hb => h b (List.mem_cons_of_mem a hb)))
-
 /-- The evaluation of `ofPoly F` at `t` is the coefficient-list sum
 `Σ_{a ∈ F} a₂·∏_i t_i^{a₁ i}` (`eval` and `ofPoly` unfolded). -/
 private lemma eval_ofPoly_sum (F : Poly) (t : Fin 5 → ℝ) :
@@ -165,7 +156,7 @@ theorem yF_abs_le_Qabs (R W' : ℕ) (F : Poly) (s : Fin 5 → ℕ) :
       exact Real.log_le_log (by exact_mod_cast kSieveIndex_coord_pos hs i)
         (by exact_mod_cast (kSieveIndex_coord_lt hs i).le)
     rw [eval_ofPoly_sum, Qabs_cast_R]
-    refine le_trans (qb_list_abs_sum_le F _) (qb_list_sum_le F _ _ (fun a _ => ?_))
+    refine le_trans (qb_list_abs_sum_le F _) (list_sum_le_sum F _ _ (fun a _ => ?_))
     have hprod0 : 0 ≤ ∏ i, (Real.log (s i) / Real.log R) ^ a.1 i :=
       Finset.prod_nonneg (fun i _ => pow_nonneg (ht0 i) _)
     have hprod1 : ∏ i, (Real.log (s i) / Real.log R) ^ a.1 i ≤ 1 :=
@@ -251,19 +242,9 @@ theorem absInn_le_pas (R W' : ℕ) (m : Fin 5) (F : Poly) (hQ : Qabs F ≤ 1)
 /-! ## Step 4: the crude 4-dim `g`-moment and the summed contraction bound -/
 
 /-- `0 ≤ phiAtomSum z W'`: a sum of nonnegative terms. -/
-private lemma pas_nn (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
+lemma pas_nn (z W' : ℕ) : 0 ≤ Salt.Maynard.phiAtomSum z W' := by
   unfold Salt.Maynard.phiAtomSum
   exact Finset.sum_nonneg (fun x _ => by positivity)
-
-/-- `∏_{i≠m} F i = ∏_{j:Fin 4} F (m.succAbove j)` (reindex the erased product by
-`succAbove`). -/
-private lemma erase_prod_removeNth {M : Type*} [CommMonoid M] (m : Fin 5)
-    (F : Fin 5 → M) :
-    ∏ i ∈ Finset.univ.erase m, F i = ∏ j : Fin 4, F (m.succAbove j) := by
-  have he : Finset.univ.erase m = ({m}ᶜ : Finset (Fin 5)) := by
-    rw [Finset.compl_eq_univ_sdiff, Finset.sdiff_singleton_eq_erase]
-  rw [he, ← Fin.image_succAbove_univ m, Finset.prod_image
-    (fun i _ j _ h => Fin.succAbove_right_injective h)]
 
 /-- **Step 4 g-moment (crude, PAS-relative).** The 4-dimensional `1/∏g`-moment
 over the pinned box `uₘ = 1` is `≤ (2·PAS)⁴`: reindex to `kSieveIndex 4`
@@ -301,7 +282,7 @@ theorem gmoment4_le (W' D R : ℕ) (m : Fin 5) (hW' : Squarefree W') (hpos : 0 <
     rw [← sum_filt_removeNth R W' m (fun ρ => (1 : ℝ) / ∏ j, (gMult (ρ j) : ℝ))]
     apply Finset.sum_congr rfl; intro r _
     congr 1
-    rw [erase_prod_removeNth m (fun i => (gMult (r i) : ℝ))]
+    rw [erase_prod_removeNth5 m (fun i => (gMult (r i) : ℝ))]
     exact Finset.prod_congr rfl (fun j _ => by rw [Fin.removeNth_apply])
   rw [hreindex]
   -- enlarge to the per-coordinate product box and factor

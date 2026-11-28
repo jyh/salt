@@ -82,14 +82,6 @@ open scoped LSeries.notation Topology
 
 namespace Salt.SW
 
-/-- The `n`-th term of `L(↗Λ)` at real `σ` is the real `Λ(n)·n^{−σ}`. -/
-private lemma term_vonMangoldt_eq' (σ : ℝ) (n : ℕ) :
-    LSeries.term ↗vonMangoldt (σ : ℂ) n = ((vonMangoldt n / (n : ℝ) ^ σ : ℝ) : ℂ) := by
-  rcases eq_or_ne n 0 with rfl | hn
-  · simp
-  · rw [LSeries.term_of_ne_zero hn, Complex.ofReal_div, Complex.ofReal_cpow (Nat.cast_nonneg n),
-      Complex.ofReal_natCast]
-
 /-- **The c-line norm bound.** For `1 < Re s ≤ 2`,
 `‖L'/L(s,χ)‖ ≤ 1/(Re s − 1) + 1`. The termwise triangle inequality on
 `−L'/L = LSeries(χ·Λ)` majorizes by the real `ζ`-quantity `−ζ'/ζ(Re s)`,
@@ -109,7 +101,7 @@ lemma norm_logDeriv_le_of_re {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q
   have hΛre : ∀ n, ‖LSeries.term ↗vonMangoldt (σ : ℂ) n‖
       = (LSeries.term ↗vonMangoldt (σ : ℂ) n).re := by
     intro n
-    rw [term_vonMangoldt_eq' σ n, Complex.norm_real, Complex.ofReal_re, Real.norm_eq_abs,
+    rw [term_vonMangoldt_eq σ n, Complex.norm_real, Complex.ofReal_re, Real.norm_eq_abs,
       abs_of_nonneg (div_nonneg vonMangoldt_nonneg (Real.rpow_nonneg (Nat.cast_nonneg n) σ))]
   have hSΛnorm : Summable (fun n => ‖LSeries.term ↗vonMangoldt (σ : ℂ) n‖) :=
     summable_norm_iff.mpr hSΛ

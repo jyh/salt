@@ -3973,7 +3973,7 @@ right-hand side (and no `moment_split5` exists).  Instead:
   take `haH` ALONE: `ha0` and `hend` both DROP, the `m = 0` case dying by absurdity;
 * the released endpoint cofactors are FUSED into the `p²` row, whose inner filter is enlarged
   to `p ∣ m ∨ p·m = X` (`RamareP2End`'s `ramP2domEndMR`/`ramP2corrEndMR`/`ramP2coeffEndMR`,
-  NEW siblings — the landed `ramP2*MR` defs are byte-untouched, `SmallStones`:387-462 reads
+  NEW siblings — the landed `ramP2*MR` defs are byte-untouched, `SmallStones`:374-449 reads
   them).  The split stays at FOUR rows; `moment_split4` and `M4ErrRewire.err_grade_fit`'s
   `4·520 ≤ 2160` are untouched.
 
@@ -8852,7 +8852,7 @@ open Salt.Tactic in
   -- HYPOTHESIS, and THE KERNEL CANNOT CHECK THAT A HYPOTHESIS IS INHABITED.  An uninhabited
   -- socket would make every consumer of the h-mint VACUOUSLY TRUE, with a green build and a
   -- clean axiom audit.  `m4_sievedDoorSqH_trivial` is the witness (grade `Braw ≡ 1`), the
-  -- h-clone of the landed anti-vacuity duty `m4_sievedDoorSq_trivial` (`M4Close.lean:377`).
+  -- h-clone of the landed anti-vacuity duty `m4_sievedDoorSq_trivial` (`M4Close.lean:378`).
   -- 📌 The witness never reads the cap — it discards the `NearRatTight` slot — which is itself
   -- the evidence that ALL of this socket's content is the GRADE and none of it is the SHAPE.
   -- N5 mints the door and does NOT open it: `hsock` is a hypothesis here exactly as in the
@@ -10544,7 +10544,7 @@ freeze v1.3 §2). Additive only: no landed statement moves. `ArithPageLinear.Soc
 socket as a HYPOTHESIS — so until now each was a claim about a set nobody had shown nonempty.
 `A := 2·R.x` meets all five at every regime and every admissible `(M, H, L, q, j, s)`: `0 < A`
 and `A ≤ 2x` from `R.hx`; `2 ^ j ≤ A` and `√H ≤ A` from the landed headroom chain
-`H ≤ R.Hhi ≤ R.x / R.ω ≤ R.x / 2` (`DoorReceipt.lean:215-221`); the window conjunct
+`H ≤ R.Hhi ≤ R.x / R.ω ≤ R.x / 2` (`RegimeHeadroom.lean:25-30`); the window conjunct
 `x ≤ 16·ω·arcDen 12 H·A` with a factor of 64 to spare, from `one_le_arcDen_of_regime` and
 `R.hω`. The `L = 0` branch is split out because `Nat.pow_log_le_self` carries the side
 condition `L ≠ 0` and the socket assumes no positivity of `L`; there `j ≤ Nat.log 2 0` forces

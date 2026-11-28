@@ -112,6 +112,16 @@ lemma notMem_ramRrange_of_lt {H : ℝ} {N X j m : ℕ} (h : (m : ℝ) < ramRbot 
     m ∉ ramRrange H N X j :=
   fun hm => absurd (ramRrange_bot_le hm) (not_le.mpr h)
 
+/-- The window's introduction rule, the converse of `ramRrange_one_le`, `ramRrange_bot_le` and
+`ramRrange_le_top`: `1 ≤ m ≤ N` and `X_j ≤ m ≤ 2X_j` put `m` in `ramRrange`. -/
+lemma mem_ramRrange_of {H : ℝ} {N X j m : ℕ} (h1 : 1 ≤ m) (hN : m ≤ N)
+    (hbot : ramRbot H X j ≤ (m : ℝ)) (htop : (m : ℝ) ≤ 2 * ramRbot H X j) :
+    m ∈ ramRrange H N X j := by
+  rw [ramRrange, Finset.mem_filter]
+  refine ⟨Finset.mem_Icc.mpr ⟨h1, hN⟩, ?_, ?_⟩
+  · rwa [ramRbot] at hbot
+  · rw [ramRbot] at htop; linarith
+
 /-- **The sharp-`M` subset (`⟦V4a⟧`).**  Any `M ≥ 2X_j` contains the co-factor range.  This
 is the `M ≍ 2X e^{−j/H}` of the sharp-`M` law — the `𝒯_S` twin `ramRrange_subset_Icc` only
 gives the dyadic `N ≍ 2X`, which throws away the `e^{j/H}`. -/
@@ -122,17 +132,6 @@ lemma ramRrange_subset_Icc_sharp (H : ℝ) (N X j M : ℕ) (hM : 2 * ramRbot H X
   exact_mod_cast le_trans (ramRrange_le_top hm) hM
 
 /-! ## §2 — A-4: the coefficient and term bounds -/
-
-/-- The Ramaré co-factor weight `(ω(m;P,Q)+1)⁻¹` has norm `≤ 1`. -/
-lemma norm_blockOmega_inv_le_one (P Q m : ℕ) :
-    ‖((blockOmega P Q m : ℂ) + 1)⁻¹‖ ≤ 1 := by
-  rw [norm_inv]
-  have heq : ‖(blockOmega P Q m : ℂ) + 1‖ = (blockOmega P Q m : ℝ) + 1 := by
-    rw [show ((blockOmega P Q m : ℂ) + 1) = ((blockOmega P Q m + 1 : ℕ) : ℂ) by
-      push_cast; ring, Complex.norm_natCast]
-    push_cast; ring
-  rw [heq]
-  exact inv_le_one_of_one_le₀ (le_add_of_nonneg_left (by positivity))
 
 /-- **A-4, the coefficient bound.**  `‖a_R m‖ ≤ 1` for a `1`-bounded datum: the window
 indicator is `0/1`, the datum is `1`-bounded, and the Ramaré weight `(ω+1)⁻¹` has norm

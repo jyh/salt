@@ -56,6 +56,17 @@ def BlockPrimeDivs (P Q n : ℕ) : Finset ℕ :=
 /-- `ω(n; P, Q)` — the number of distinct block primes dividing `n` (MR p.19). -/
 def blockOmega (P Q n : ℕ) : ℕ := (BlockPrimeDivs P Q n).card
 
+/-- The Ramaré co-factor weight `(ω(m;P,Q)+1)⁻¹` has norm `≤ 1`. -/
+lemma norm_blockOmega_inv_le_one (P Q m : ℕ) :
+    ‖((blockOmega P Q m : ℂ) + 1)⁻¹‖ ≤ 1 := by
+  rw [norm_inv]
+  have heq : ‖(blockOmega P Q m : ℂ) + 1‖ = (blockOmega P Q m : ℝ) + 1 := by
+    rw [show ((blockOmega P Q m : ℂ) + 1) = ((blockOmega P Q m + 1 : ℕ) : ℂ) by
+      push_cast; ring, Complex.norm_natCast]
+    push_cast; ring
+  rw [heq]
+  exact inv_le_one_of_one_le₀ (le_add_of_nonneg_left (by positivity))
+
 /-- `p ∈ BlockPrimeDivs P Q n ↔ p.Prime ∧ p ∣ n ∧ n ≠ 0 ∧ P ≤ p ∧ p ≤ Q`: the filter of
 `n.primeFactors` unfolded. Read three times in this file and by `M4Seam`, `MRTProp24`,
 `RamareDpoly`, `RamareErr`, `RamareMR`, `TypicalDensity` and `TypicalPrice`. -/

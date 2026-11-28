@@ -823,7 +823,7 @@ private lemma majorant_tail_range_le [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0
 
 ⛔ Without this the row above would be true and EMPTY: in Lean `∑' n, f n = 0` by definition
 when `f` is not summable, so a `tsum` bound on a non-summable family says nothing.  The corpus
-names the trap at `Salt/Weil/Sawtooth.lean:1438-1441`; it is answered here by the same range
+names the trap at `Salt/Weil/Sawtooth.lean:1423-1426`; it is answered here by the same range
 bound the row itself consumes. -/
 private lemma majorant_tail_summable [NeZero k] (hk : 2 ≤ k) {q : ℕ} (hq : 0 < q) (hqk : q ∣ k)
     (b A B : ℤ) (hAB : A ≤ B) {E : ℝ} (hE : 1 ≤ E) (hlen : ((B - A).toNat : ℝ) ≤ 2 * E)

@@ -680,9 +680,9 @@ The `hrowsSum` slot demands a constant `Mrow χ` UNIFORM over the whole height f
 `X/h ≤ T`, `2T ≤ X` (`ThmA2ChiSummed`'s ⟦A1⟧: `Mrow` is a scalar per character, never a
 function of `T`).  §7's row is `T`-linear in four places, and the weight `w = (X/h)/T` kills
 every one of them at the four numerals of `ThmA2Rows` §1 — `9`, `244`, `3`, `3/2` — which are
-CHARACTER-BLIND arithmetic.  Those helpers are `private` to `ThmA2Rows`, so the page is re-derived
-here at its own names; no content is re-proved that could have been imported (the arithmetic is
-`(X/h)/X_d ≤ 4/h` and `w ≤ 1`, twice each).
+CHARACTER-BLIND arithmetic.  The `244` and `3/2` steps are `ThmA2Rows`' own lemmas
+(`a2_term2_weigh`, `a2_term4_weigh`).  Its gate lemma is `private` to `ThmA2Rows`, and its row,
+level-1 and `3` steps are stated at other shapes, so those are re-derived here at their own names.
 
 ⟦THE LEVEL-1 TERM IS LEFT AT THE GENERAL LADDER⟧  `ThmA2Rows` weighs it against
 `DoorFrameH1.level1_term_door_decays`, which is pinned to the DOOR family
@@ -759,28 +759,12 @@ private lemma m4_level1_weigh {w Hq Lq R Pq Br : ℝ}
   rw [hid]
   linarith only [mul_le_mul_of_nonneg_left hR9 h0]
 
-/-- The `Ct`-summand, at the `244`-gate: `1536·244 = 374784`. -/
-private lemma m4_term2_weigh {w Ct R Y : ℝ} (hCt : 0 ≤ Ct) (hY : 0 ≤ Y) (hR : w * R ≤ 244) :
-    w * (1536 * Ct * Real.exp 3 * R * Y) ≤ 374784 * Ct * Real.exp 3 * Y := by
-  have hid : w * (1536 * Ct * Real.exp 3 * R * Y)
-      = 1536 * Ct * Real.exp 3 * Y * (w * R) := by ring
-  have h0 : (0 : ℝ) ≤ 1536 * Ct * Real.exp 3 * Y := by positivity
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR h0]
-
 /-- The Lemma-12 summand, at the `3`-gate: `480·3 = 1440`. -/
 private lemma m4_term3_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3) :
     w * (480 * R * Z) ≤ 1440 * Z := by
   have hid : w * (480 * R * Z) = 480 * Z * (w * R) := by ring
   rw [hid]
   linarith [mul_le_mul_of_nonneg_left hR (mul_nonneg (by norm_num : (0 : ℝ) ≤ 480) hZ)]
-
-/-- The `𝒰`-leg summand, at the `3/2`-gate: `2·(3/2) = 3`. -/
-private lemma m4_term4_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3 / 2) :
-    w * (2 * (R * Z)) ≤ 3 * Z := by
-  have hid : w * (2 * (R * Z)) = 2 * Z * (w * R) := by ring
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR (by linarith : (0 : ℝ) ≤ 2 * Z)]
 
 /-- The ball leg passes the weighting untouched (`w ≤ 1`). -/
 private lemma m4_ball_weigh {w S : ℝ} (hw1 : w ≤ 1) :
@@ -809,7 +793,7 @@ def m4MrowChi (Ct Cp : ℝ) (A G M Jb Xd : ℕ) (H1 η X ε S : ℝ) : ℝ :=
 
 /-- The Lemma-12 row sum is a sum of nonnegative terms (`1 ≤ X_d`, `2 ≤ H₁`, `1 ≤ P_j`) —
 `ThmA2Rows.a2RowsSum_nonneg` at the free ladder. -/
-private lemma m4_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) (hH1 : 2 ≤ H1) :
+lemma m4_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) (hH1 : 2 ≤ H1) :
     (0 : ℝ) ≤ ∑ j ∈ Finset.Icc 1 Jb,
       ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
           * (Real.exp 1 / (Xd : ℝ) ^ 2))
@@ -909,7 +893,7 @@ theorem m4_rowChi_weighed {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ q} {
   unfold m4MrowChi
   exact m4_row_weigh (m4_ball_weigh hw1)
     (m4_level1_weigh hHL0 hPq0 hBr0 hg9)
-    (m4_term2_weigh hCt hY0 hg244) (m4_term3_weigh hRS0 hg3) (m4_term4_weigh hZ0 hg32)
+    (a2_term2_weigh hCt hY0 hg244) (m4_term3_weigh hRS0 hg3) (a2_term4_weigh hZ0 hg32)
 
 /-! ## §9 — THE DELIVERABLE: the `hrowsSum` slot, per character
 

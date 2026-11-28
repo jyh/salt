@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.SeamBallWeighted
 import Salt.MR.JointHead
+import Salt.MR.HalaszDirect
 
 /-!
 # A-4 — the `hpret` supply: the concrete pointwise `supF` majorant
@@ -111,23 +112,9 @@ open Complex MeasureTheory Set
 
 /-! ## §0 — the local re-derivations
 
-Three landed pages are `private` to their own files (`GrandComp` / `HalaszDirect`); they are
-re-derived here byte-for-byte, exactly as `HalaszDirect` re-derives `GrandComp`'s twist
-lemma.  No statement is changed. -/
-
-/-- Local copy of `GrandComp.dist_triv_left_eq` / `HalaszDirect.dist_triv_left_eq_local`
-(`private` in both): the trivial-left-datum distance `𝔻²(1, f·costwist(−t); X)` equals
-`𝔻²(f, costwist t; X)`. -/
-private lemma dist_triv_left_eq_pret (f : ℕ → ℂ) (t X : ℝ) :
-    pretDistSq (fun _ => 1) (fun n => f n * costwist (-t) n) X
-      = pretDistSq f (costwist t) X := by
-  unfold pretDistSq
-  refine Finset.sum_congr rfl (fun p _ => ?_)
-  have hre : ((fun _ => (1 : ℂ)) p
-        * (starRingEnd ℂ) ((fun n => f n * costwist (-t) n) p)).re
-      = (f p * (starRingEnd ℂ) (costwist t p)).re := by
-    simp only [one_mul, Complex.conj_re, costwist_conj]
-  rw [hre]
+The trivial-left-datum distance identity and the σ-cutoff integrability are read from
+`HalaszDirect` (`dist_triv_left_eq_local`, `sigma_core_intervalIntegrable`, both public);
+this file once carried renamed copies of them.  Only the idempotence helper is local. -/
 
 /-- **Idempotence of the squarefree linearization.**  `ℓ(ℓ(g)) = ℓ(g)`: `ellLin` reads its
 datum only at primes, and `ellLin g p = g p` there (`ellLin_apply_prime`).  This is what lets
@@ -142,27 +129,6 @@ private lemma ellLin_idem (g : ℕ → ℂ) : ellLin (ellLin g) = ellLin g := by
   · exact Finset.prod_congr rfl
       (fun p hp => ellLin_apply_prime g (Nat.prime_of_mem_primeFactors hp))
   · rfl
-
-/-- Local copy of `HalaszDirect.sigma_core_intervalIntegrable` (`private` there): the σ-cutoff
-integrand `σ ↦ σ^{−2}·exp(−c(M − 2log(σL) − 48))` is interval-integrable on `[1/L, b]`. -/
-private lemma sigma_core_integrable_pret {c L M b : ℝ} (hL : 0 < L) (hb : 1 / L ≤ b) :
-    IntervalIntegrable
-      (fun σ : ℝ => (1 / σ ^ 2) * Real.exp (-c * (M - 2 * Real.log (σ * L) - 48)))
-      volume (1 / L) b := by
-  have hLinv0 : (0 : ℝ) < 1 / L := by positivity
-  have hpos : ∀ σ ∈ Set.uIcc (1 / L) b, (0 : ℝ) < σ := by
-    intro σ hσ
-    rw [Set.uIcc_of_le hb, Set.mem_Icc] at hσ
-    exact lt_of_lt_of_le hLinv0 hσ.1
-  apply ContinuousOn.intervalIntegrable
-  refine ContinuousOn.mul ?_ ?_
-  · exact continuousOn_const.div (continuousOn_pow 2) (fun σ hσ => pow_ne_zero 2 (hpos σ hσ).ne')
-  · refine Real.continuous_exp.comp_continuousOn ?_
-    refine continuousOn_const.mul (ContinuousOn.sub (ContinuousOn.sub continuousOn_const ?_)
-      continuousOn_const)
-    exact continuousOn_const.mul (ContinuousOn.log
-      ((continuous_id.mul continuous_const).continuousOn)
-      (fun σ hσ => (mul_pos (hpos σ hσ) hL).ne'))
 
 /-! ## §0.5 — SF-0's bridge: `smoothSeries = smoothEuler` (`smooth_euler_product`)
 
@@ -299,7 +265,7 @@ numeral is frozen (the M-shape, ⟦AMENDMENT V2⟧ item 4).  The datum is the ba
   `C_F = exp(cpeel + (log 4 + cpeel))`.
 
 Composition: `head_sigma_bound` at the datum `ellLin g` (legal by `ellLin_idem` +
-`ellLin_norm_le_one`), its distance rewritten by `dist_triv_left_eq_pret`, then the exponent
+`ellLin_norm_le_one`), its distance rewritten by `dist_triv_left_eq_local`, then the exponent
 chain `c·(𝔻²(X) − 2log(σL) − 48) ≤ c·𝔻²(e^{1/σ}) ≤ (1/e)·𝔻²(e^{1/σ})` — floor first inside
 the `c`-scaled bracket, `c ≤ 1/e` applied to the ALREADY-floored nonnegative distance (the
 order the HalaszDirect page banks). -/
@@ -313,7 +279,7 @@ theorem head_dist_floor_gen {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖
   have hEllOne : ∀ n : ℕ, ‖ellLin g n‖ ≤ 1 := fun n => ellLin_norm_le_one g hg n
   have hcw : ∀ n : ℕ, ‖costwist u n‖ ≤ 1 := fun n => le_of_eq (costwist_norm u n)
   have hHead := head_sigma_bound (g := ellLin g) hEllOne hσ0 hσ1 u
-  rw [ellLin_idem g, dist_triv_left_eq_pret (ellLin g) u (Real.exp (1 / σ))] at hHead
+  rw [ellLin_idem g, dist_triv_left_eq_local (ellLin g) u (Real.exp (1 / σ))] at hHead
   refine hHead.trans ?_
   refine mul_le_mul_of_nonneg_left ?_
     (mul_nonneg (Real.exp_nonneg _) (div_nonneg zero_le_one hσ0.le))
@@ -499,7 +465,7 @@ theorem joint_sigma_integral {Fbound : ℝ → ℝ} {c X b M CSF : ℝ}
     rw [div_le_iff₀ hσ0]
     refine (hFb σ hσ).trans (le_of_eq ?_)
     field_simp
-  have hmaj := (sigma_core_integrable_pret (c := c) (L := Real.log X) (M := M) (b := b)
+  have hmaj := (sigma_core_intervalIntegrable (c := c) (L := Real.log X) (M := M) (b := b)
     hLpos hb).const_mul CSF
   have hmono := intervalIntegral.integral_mono_on hb hint hmaj hpoint
   rw [intervalIntegral.integral_const_mul] at hmono

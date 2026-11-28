@@ -384,7 +384,7 @@ theorem integral_norm_absWindowSum_sq_split (x ω H : ℕ) (a e : ℕ → ℂ) (
   `L²` socket speaks about, `e` its α-independent insert complement);
 * `hB0`: the socket's grade is a grade;
 * the road's `L²` socket `hsock` — `M4Close.M4SievedDoorSq`'s per-`α` shape
-  (`M4Close.lean:368–375`) transcribed at the abstract coefficient sequence `a`,
+  (`M4Close.lean:369–376`) transcribed at the abstract coefficient sequence `a`,
   because `M4SievedDoorSq` is defined DOWNSTREAM of this file and is instantiated
   by the consumer;
 * `hXi`: the large-spectrum count gate `|Ξ_H| ≤ K` (`bigXi_bounded`'s payload);
@@ -628,7 +628,7 @@ theorem mrtUniformityXiL2_of_absWindowSqBound (R : ChowlaRegime) (a e : ℕ → 
 
 /-- **THE FREEZE'S BUDGET LINE, named** (`l2-restructure-freeze-0730.md:21`).
 At the insert budget `Binsert := δ/4 + 4·2^k/x` — the glue spelling the `L¹`
-road already carries (`M4Close.lean:506`, `M4ClassPrice.lean:740`) — this
+road already carries (`M4Close.lean:503`, `M4ClassPrice.lean:740`) — this
 adapter's right-hand side IS `2·K·Braw + δ/2 + 8·2^k/x`.  The `δ` the summed
 door reads is therefore `K`-FREE, which is the entire content of the
 restructure. -/

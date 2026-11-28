@@ -9,6 +9,7 @@ import Salt.MR.S11Arc36
 import Salt.MR.S11CoefWS
 import Salt.MR.M4DoorL2
 import Salt.MR.StrataBounds
+import Salt.MR.ArcRegimeWeaken
 
 /-!
 # ⟦S12⟧ — THE ROAD-THREADING TWIN AT THE `L²` DOOR, AND THE COMPOSE
@@ -131,16 +132,8 @@ theorem m4_second_road_L2 :
   intro δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3
     hdgate hdrift hceil hbudget hrow
   -- ⟦the window floor, read at the two powers the chain spends⟧
-  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
-  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -800,7 +793,7 @@ theorem logChowla2_capstone_final (Aexp : ℝ) (hAexp : 0 < Aexp) :
 
 /-! ## §GK — the G-lever twin -/
 
-/-- `m4_second_road_L2` (:100) at the lever.  Every door-side object moves to `s13GK K M`;
+/-- `m4_second_road_L2` (:102) at the lever.  Every door-side object moves to `s13GK K M`;
 the regime, the arc page and the share table are `G`-free. -/
 theorem m4_second_road_L2_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < Kc ∧ 0 < δ₀ ∧
@@ -834,16 +827,8 @@ theorem m4_second_road_L2_gk (K : ℕ) :
   refine ⟨R, hReps, hU1, hRg, hRtow, ?_⟩
   intro δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3
     hdgate hdrift hceil hbudget hrow
-  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
-  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith [h1, harc1]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN_gk K R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -869,7 +854,7 @@ theorem m4_second_road_L2_gk (K : ℕ) :
     have hB := hBcl0 H
     nlinarith [h]
 
-/-- `doorFuseFrame_reEps` (:696) at the lever.  Ten of the eleven fields do not mention the
+/-- `doorFuseFrame_reEps` (:637) at the lever.  Ten of the eleven fields do not mention the
 exponent, and the two that do are `G`-free. -/
 theorem doorFuseFrame_reEps_gk (K : ℕ) {M Xd j : ℕ} {Cs Ccc ε ε' : ℝ}
     (hF : DoorFuseFrame_gk K M Xd j Cs Ccc ε) (h0 : 0 ≤ ε')
@@ -881,7 +866,7 @@ theorem doorFuseFrame_reEps_gk (K : ℕ) {M Xd j : ℕ} {Cs Ccc ε ε' : ℝ}
 
 set_option maxHeartbeats 1000000 in
 -- the statement re-elaborates the full levered residue against the capstone's binder list
-/-- `logChowla2_capstone_conditional` (:283) at the lever.  The `K ≤ 1.7·10⁸` side condition
+/-- `logChowla2_capstone_conditional` (:294) at the lever.  The `K ≤ 1.7·10⁸` side condition
 rides in from `S11Hoist`'s levered terminal (ultimately `DoorFrame`'s `A_gate_logK`). -/
 theorem logChowla2_capstone_conditional_gk (K : ℕ) (hK : K ≤ 170000000)
     (Aexp : ℝ) (hAexp : 0 < Aexp) :
@@ -1007,7 +992,7 @@ theorem logChowla2_capstone_conditional_gk (K : ℕ) (hK : K ≤ 170000000)
 
 set_option maxHeartbeats 1000000 in
 -- the statement re-elaborates the full levered residue against the capstone's binder list
-/-- `logChowla2_capstone_conditional_perBlock` (:471) at the lever. -/
+/-- `logChowla2_capstone_conditional_perBlock` (:447) at the lever. -/
 theorem logChowla2_capstone_conditional_perBlock_gk (K : ℕ) (hK : K ≤ 170000000)
     (Aexp : ℝ) (hAexp : 0 < Aexp) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ Ct Cq cs T₀ Kq Ks : ℝ),
@@ -1132,7 +1117,7 @@ theorem logChowla2_capstone_conditional_perBlock_gk (K : ℕ) (hK : K ≤ 170000
 
 set_option maxHeartbeats 1000000 in
 -- the statement re-elaborates the full levered residue against the re-cut prefix
-/-- `logChowla2_capstone_final` (:710) at the lever — the `∀x ∃M` prefix, levered. -/
+/-- `logChowla2_capstone_final` (:651) at the lever — the `∀x ∃M` prefix, levered. -/
 theorem logChowla2_capstone_final_gk (K : ℕ) (hK : K ≤ 170000000)
     (Aexp : ℝ) (hAexp : 0 < Aexp) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ Ct Cq cs T₀ Kq Ks : ℝ) (x₀ : ℕ),

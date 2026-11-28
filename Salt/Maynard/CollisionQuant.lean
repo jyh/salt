@@ -103,17 +103,6 @@ private theorem prod_ite_one {ι : Type*} (s : Finset ι) (P : ι → Prop)
     obtain ⟨hxs, hPx⟩ := Classical.not_imp.mp hx
     exact Finset.prod_eq_zero hxs (if_neg hPx)
 
-/-- Move the innermost of three nested sums to the front (as in
-`Diagonal.lean`). -/
-private theorem sum_move3 {α β γ δ : Type*} [AddCommMonoid δ]
-    (A : Finset α) (B : Finset β) (C : Finset γ) (F : α → β → γ → δ) :
-    (∑ a ∈ A, ∑ b ∈ B, ∑ c ∈ C, F a b c)
-      = ∑ c ∈ C, ∑ a ∈ A, ∑ b ∈ B, F a b c := by
-  rw [← Finset.sum_product']
-  rw [Finset.sum_comm]
-  apply Finset.sum_congr rfl; intro c _
-  exact Finset.sum_product' A B (fun a b => F a b c)
-
 omit [TupleChoice] in
 /-- `|μ n| ≤ 1` as a real number. -/
 theorem abs_moebius_real_le_one (n : ℕ) : |((μ n : ℤ) : ℝ)| ≤ 1 := by

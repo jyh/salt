@@ -5,8 +5,8 @@ else in the v5 ladder is maestro/executor-tier and HIGH-confidence.*
 
 ## The decision
 
-Change `prop21_analog`'s frozen CONCLUSION (HalaszRepAsm:488, and the
-hfactor hypothesis :485): the seam's carrier `windowIndicator y (X/y)`
+Change `prop21_analog`'s frozen CONCLUSION (HalaszRepAsm:439, and the
+hfactor hypothesis :436): the seam's carrier `windowIndicator y (X/y)`
 becomes the trivial indicator `fun _ => 1` — i.e. H-EXIT delivers the
 identity for the FULL twisted hat-smoothed Σ f(n), exactly GHS (2.2).
 One token-family, two mention sites, same statement otherwise.

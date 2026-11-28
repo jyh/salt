@@ -411,7 +411,7 @@ price the shift. If a ratified-frozen statement must change: JYH GATE.
 numeral shift. Seam geometry closes it: on the ball leg's own domain
 (t ∈ seamAnn ∩ seamBall) the intersection being nonempty forces
 **|t₁| ≤ T_ann + seamRad X** (the outer companion of the landed inner cut
-CenterCore:490 — ~8 ln, the shape M_range already encodes at
+CenterCore:451 — ~8 ln, the shape M_range already encodes at
 DistHalasz:261). Instantiate exists_min_dist_abs at
 **R := T_ann + seamRad X + (log 2X)⁴ + 1**: hgate discharges outright; if
 the intersection is EMPTY, hSup is vacuous (its guards ARE membership) and
@@ -882,7 +882,7 @@ exists, nowhere near enough. q sharpens 1/2 → 3/4 FREE from data CASE B
 already has (the pocket's real cap α = 1/32 was converted to the crude 1/8
 — √(2P)·√(P/32) = P/4; the threshold exp(exp 165) ≪ the collision tower).
 **THE THREE STONES**: R1 [B/C, 200–350] the localized dichotomy
-(CofactorSupply:296–355, CofactorBall:550–623, one binder USetPrice:602;
+(CofactorSupply:296–355, CofactorBall:544–617, one binder USetPrice:602;
 Rmax → Tstar(M, log M)); R3 [B, 250–450] the 3/4-budget twin
 (budget_le_quarter at α = 1/32 + ballErr34/transfer_at_scale_34/farErr34 +
 the exp(exp 165) threshold; new stones only, BallSup:120/144/165/259/316 +

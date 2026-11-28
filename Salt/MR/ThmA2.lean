@@ -477,7 +477,7 @@ bound's own coefficient, a parameter of `T0Band.t0_band_supply`) and
 
 /-- The `π`-arithmetic of the spine's prefactor `1/(2π²)`, isolated:
 `236365/(2π) ≤ 37620`, `205/(2π) ≤ 33`, `39674880/(2π) ≤ 6315000`. -/
-private lemma spine_scale {p Mr Bd w Eg eg : ℝ} (hp1 : 3.141592 < p)
+lemma spine_scale {p Mr Bd w Eg eg : ℝ} (hp1 : 3.141592 < p)
     (hMr : 0 ≤ Mr) (hBd : 0 ≤ Bd) (hw : 0 ≤ w) (hEg : Eg ≤ 2 * p ^ 2 * eg) :
     1 / (2 * p ^ 2) * (236365 * p * Mr + 205 * p * Bd + 39674880 * p * w + Eg)
       ≤ 37620 * Mr + 33 * Bd + 6315000 * w + eg := by

@@ -47,7 +47,7 @@ noncomputable def yFg {n : ℕ} (R W' : ℕ) (P : BPoly (n + 1)) (s : Fin (n + 1
 /-! ## List-sum plumbing -/
 
 /-- Swap a `Finset` sum with an inner `List` sum. -/
-private lemma sum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
+lemma sum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
     (f : ι → γ → ℝ) :
     ∑ u ∈ S, (L.map (fun x => f u x)).sum = (L.map (fun x => ∑ u ∈ S, f u x)).sum := by
   induction L with
@@ -57,7 +57,7 @@ private lemma sum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
       rw [Finset.sum_add_distrib, ih]
 
 /-- Triangle inequality for a `List.sum` of reals. -/
-private lemma list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
+lemma list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
     |(L.map f).sum| ≤ (L.map (fun a => |f a|)).sum := by
   induction L with
   | nil => simp
@@ -67,7 +67,7 @@ private lemma list_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
         _ ≤ |f a| + (L.map (fun a => |f a|)).sum := by linarith [ih]
 
 /-- Additivity of `List.sum` over a pointwise sum of the mapped functions. -/
-private lemma list_sum_map_add {γ : Type*} (L : List γ) (f g : γ → ℝ) :
+lemma list_sum_map_add {γ : Type*} (L : List γ) (f g : γ → ℝ) :
     (L.map (fun a => f a + g a)).sum = (L.map f).sum + (L.map g).sum := by
   induction L with
   | nil => simp
@@ -76,7 +76,7 @@ private lemma list_sum_map_add {γ : Type*} (L : List γ) (f g : γ → ℝ) :
 /-! ## Membership of the updated tuple in the sieve box -/
 
 /-- `∏ᵢ (update r m u) i = u · ∏ᵢ r i` when `r m = 1`. -/
-private lemma prod_update_eq {n : ℕ} {r : Fin (n + 1) → ℕ} {m : Fin (n + 1)} (hrm : r m = 1)
+lemma prod_update_eq {n : ℕ} {r : Fin (n + 1) → ℕ} {m : Fin (n + 1)} (hrm : r m = 1)
         (u : ℕ) :
     ∏ i, Function.update r m u i = u * ∏ i, r i := by
   rw [Finset.prod_update_of_mem (Finset.mem_univ m)]
@@ -86,7 +86,7 @@ private lemma prod_update_eq {n : ℕ} {r : Fin (n + 1) → ℕ} {m : Fin (n + 1
 
 /-- Membership of `Function.update r m u` in the sieve box, unfolded to the
 one-dimensional conditions on `u`. -/
-private lemma update_mem_kSieveIndex_iff {R W' : ℕ} {n : ℕ} {r : Fin (n + 1) → ℕ}
+lemma update_mem_kSieveIndex_iff {R W' : ℕ} {n : ℕ} {r : Fin (n + 1) → ℕ}
     (hr : r ∈ kSieveIndex (n + 1) R W') {m : Fin (n + 1)} (hrm : r m = 1) (u : ℕ) :
     Function.update r m u ∈ kSieveIndex (n + 1) R W' ↔
       (Squarefree u ∧ u.Coprime W' ∧ u.Coprime (∏ i, r i) ∧ u * (∏ i, r i) < R) := by
@@ -131,7 +131,7 @@ private lemma update_mem_kSieveIndex_iff {R W' : ℕ} {n : ℕ} {r : Fin (n + 1)
 /-! ## A Lipschitz estimate for powers on the unit interval -/
 
 /-- For `A, B ∈ [0,1]`, `|Aⁿ − Bⁿ| ≤ n·|A − B|`. -/
-private lemma abs_pow_sub_pow_le_unit {A B : ℝ} (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+lemma abs_pow_sub_pow_le_unit {A B : ℝ} (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
     (hB0 : 0 ≤ B) (hB1 : B ≤ 1) (n : ℕ) : |A ^ n - B ^ n| ≤ n * |A - B| := by
   induction n with
   | zero => simp
@@ -551,13 +551,13 @@ private lemma inner_sum_estimate_b (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < 
 /-! ## `eval` expansions and further list plumbing -/
 
 /-- `eval P t` as the coefficient sum: `Σ_{(a,d,c) ∈ P} c · Π_i t_i^{a i} · (1 − Σ_i t_i)^d`. -/
-private lemma eval_expand {k : ℕ} (P : BPoly k) (t : Fin k → ℝ) :
+lemma eval_expand {k : ℕ} (P : BPoly k) (t : Fin k → ℝ) :
     eval P t = (P.map (fun a => (a.2.2 : ℝ) * (∏ i, t i ^ a.1 i) * (1 - ∑ i, t i) ^ a.2.1)).sum :=
   rfl
 
 /-- `eval (contractB m P) t` term by term: for each `(a, d, c) ∈ P` the coefficient
 `c · (a m)!·d!/(a m + d + 1)!`, the exponents `a ∘ m.succAbove` and the budget `a m + d + 1`. -/
-private lemma eval_contractB {n : ℕ} (m : Fin (n + 1)) (P : BPoly (n + 1)) (t : Fin n → ℝ) :
+lemma eval_contractB {n : ℕ} (m : Fin (n + 1)) (P : BPoly (n + 1)) (t : Fin n → ℝ) :
     eval (contractB m P) t
       = (P.map (fun a => ((a.2.2 * (((a.1 m).factorial * a.2.1.factorial : ℕ) : ℚ)
             / ((a.1 m + a.2.1 + 1).factorial : ℕ) : ℚ) : ℝ)
@@ -566,7 +566,7 @@ private lemma eval_contractB {n : ℕ} (m : Fin (n + 1)) (P : BPoly (n + 1)) (t 
 
 /-- the product `Π_i (log ((update r m u) i) / RR)^{a i}` splits as the `u`-factor
 `(log u / RR)^{a m}` times the product over `m.succAbove`. -/
-private lemma prod_update_split {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n + 1)) (u : ℕ) (RR : ℝ)
+lemma prod_update_split {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n + 1)) (u : ℕ) (RR : ℝ)
     (a : Fin (n + 1) → ℕ) :
     ∏ i, (Real.log ((Function.update r m u) i) / RR) ^ a i
       = (Real.log u / RR) ^ a m
@@ -578,7 +578,7 @@ private lemma prod_update_split {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n 
       (fun i _ => by rw [Function.update_of_ne (Fin.succAbove_ne m i)])
 
 /-- `Σ_j log ((update r m u) j) = log u + Σ_{i : Fin n} log (r (m.succAbove i))`. -/
-private lemma sum_log_update {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n + 1)) (u : ℕ) :
+lemma sum_log_update {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n + 1)) (u : ℕ) :
     ∑ j, Real.log ((Function.update r m u j : ℕ) : ℝ)
       = Real.log u + ∑ i : Fin n, Real.log (r (m.succAbove i)) := by
   rw [Fin.sum_univ_succAbove _ m, Function.update_self]
@@ -586,26 +586,17 @@ private lemma sum_log_update {n : ℕ} (r : Fin (n + 1) → ℕ) (m : Fin (n + 1
   exact Finset.sum_congr rfl (fun i _ => by rw [Function.update_of_ne (Fin.succAbove_ne m i)])
 
 /-- Division distributes into a mapped `List.sum`. -/
-private lemma list_sum_div {γ : Type*} (L : List γ) (g : γ → ℝ) (c : ℝ) :
+lemma list_sum_div {γ : Type*} (L : List γ) (g : γ → ℝ) (c : ℝ) :
     (L.map g).sum / c = (L.map (fun a => g a / c)).sum := by
   rw [div_eq_mul_inv, ← List.sum_map_mul_right]
   simp only [div_eq_mul_inv]
 
 /-- Subtractivity of `List.sum` over a pointwise difference. -/
-private lemma list_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
+lemma list_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
     (L.map f).sum - (L.map g).sum = (L.map (fun a => f a - g a)).sum := by
   induction L with
   | nil => simp
   | cons a L ih => simp only [List.map_cons, List.sum_cons]; rw [← ih]; ring
-
-/-- Monotonicity of `List.sum` under a pointwise `≤`. -/
-private lemma list_sum_le_sum {γ : Type*} (L : List γ) (f g : γ → ℝ)
-    (h : ∀ a ∈ L, f a ≤ g a) : (L.map f).sum ≤ (L.map g).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih =>
-      simp only [List.map_cons, List.sum_cons]
-      exact add_le_add (h a (by simp)) (ih (fun b hb => h b (List.mem_cons_of_mem a hb)))
 
 omit [Salt.Maynard.TupleChoice] in
 /-- The `∫dtₘ`-peel of one sieve coordinate of a budget polynomial. -/
@@ -805,73 +796,6 @@ theorem inner_contract_b (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
   linarith only [mul_nonneg hC30 hq0, mul_nonneg hCabs0 hXSnn]
 
 /-! ## W3-6 (keystone J) — the outer square-and-sum assembly (`mv_J`) -/
-
--- ==== tail lemmas (ported from MvI, which are private there) ====
-/-- the integer tail: `Σ_{D < k < R} 1/(k − 1)² ≤ 1/(D − 1)` for `3 ≤ D`. -/
-private lemma int_tail' (D R : ℕ) (hD : 3 ≤ D) :
-    ∑ k ∈ (Finset.range R).filter (fun k => D < k), 1 / ((k:ℝ) - 1)^2
-      ≤ 1 / ((D:ℝ) - 1) := by
-  have hset : (Finset.range R).filter (fun k => D < k) = Finset.Ico (D+1) R := by
-    ext k; simp only [Finset.mem_filter, Finset.mem_range, Finset.mem_Ico]; omega
-  rw [hset, Finset.sum_Ico_eq_sum_range]
-  set N := R - (D+1) with hN
-  set φ : ℕ → ℝ := fun t => 1 / ((D:ℝ) - 1 + t) with hφ
-  have hterm : ∀ t ∈ Finset.range N,
-      1 / (((D+1+t:ℕ):ℝ) - 1)^2 ≤ φ t - φ (t+1) := by
-    intro t _
-    set a : ℝ := (D:ℝ) - 1 + t with ha_def
-    have ha : (0:ℝ) < a := by
-      have h3 : (3:ℝ) ≤ (D:ℝ) := by exact_mod_cast hD
-      have ht : (0:ℝ) ≤ (t:ℝ) := by positivity
-      simp only [ha_def]; linarith
-    have ha1 : (0:ℝ) < a + 1 := by linarith
-    have hcast : (((D+1+t:ℕ):ℝ) - 1) = a + 1 := by simp only [ha_def]; push_cast; ring
-    have hφt : φ t = 1 / a := by simp only [hφ, ha_def]
-    have hφt1 : φ (t+1) = 1 / (a+1) := by
-      simp only [hφ, ha_def]
-      rw [show (D:ℝ) - 1 + (t+1:ℕ) = (D:ℝ) - 1 + t + 1 by push_cast; ring]
-    rw [hcast, hφt, hφt1]
-    have hstep1 : 1 / (a*(a+1)) = 1/a - 1/(a+1) := by field_simp; ring
-    have hle : a * (a+1) ≤ (a+1)^2 := by linarith only [ha]
-    have hstep2 : 1 / (a+1)^2 ≤ 1 / (a*(a+1)) :=
-      one_div_le_one_div_of_le (mul_pos ha ha1) hle
-    rw [← hstep1]; exact hstep2
-  calc ∑ t ∈ Finset.range N, 1 / (((D+1+t:ℕ):ℝ) - 1)^2
-      ≤ ∑ t ∈ Finset.range N, (φ t - φ (t+1)) := Finset.sum_le_sum hterm
-    _ = φ 0 - φ N := Finset.sum_range_sub' φ N
-    _ ≤ φ 0 := by
-        have h3 : (3:ℝ) ≤ (D:ℝ) := by exact_mod_cast hD
-        have hN0 : (0:ℝ) ≤ (N:ℝ) := by positivity
-        have hpos : (0:ℝ) < (D:ℝ) - 1 + (N:ℝ) := by linarith
-        have : 0 ≤ φ N := by simp only [hφ]; exact div_nonneg zero_le_one hpos.le
-        linarith
-    _ = 1 / ((D:ℝ) - 1) := by simp [hφ]
-
-/-- the prime tail: `Σ_{p < R prime, D < p} 1/(p − 1)² ≤ 2/D` for `3 ≤ D`. -/
-private lemma prime_tail' (D R : ℕ) (hD : 3 ≤ D) :
-    ∑ p ∈ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p), 1 / ((p:ℝ) - 1)^2
-      ≤ 2 / (D:ℝ) := by
-  have hsub : (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p)
-      ⊆ (Finset.range R).filter (fun k => D < k) := by
-    intro p hp; rw [Finset.mem_filter] at hp ⊢; exact ⟨hp.1, hp.2.2⟩
-  have h1 : ∑ p ∈ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p), 1 / ((p:ℝ) - 1)^2
-      ≤ ∑ k ∈ (Finset.range R).filter (fun k => D < k), 1 / ((k:ℝ) - 1)^2 := by
-    apply Finset.sum_le_sum_of_subset_of_nonneg hsub; intro k _ _; positivity
-  have h2 : (1:ℝ) / ((D:ℝ) - 1) ≤ 2 / (D:ℝ) := by
-    have h3 : (3:ℝ) ≤ (D:ℝ) := by exact_mod_cast hD
-    rw [div_le_div_iff₀ (by linarith) (by linarith)]; linarith only [h3]
-  linarith [int_tail' D R hD, h1, h2]
-
--- gMult of a prime and of 1
-/-- `gMult p = p − 2` (in `ℝ`) for a prime `p`. -/
-private lemma gMult_prime_cast {p : ℕ} (hp : Nat.Prime p) : (gMult p : ℝ) = (p : ℝ) - 2 := by
-  have : gMult p = p - 2 := by
-    rw [gMult, Nat.Prime.primeFactors hp, Finset.prod_singleton]
-  rw [this, Nat.cast_sub hp.two_le]; norm_num
-
-/-- `gMult 1 = 1` (in `ℝ`). -/
-private lemma gMult_one_cast : (gMult 1 : ℝ) = 1 := by
-  rw [gMult, Nat.primeFactors_one, Finset.prod_empty]; norm_num
 
 -- g-side pairwise collision bound (general k)
 /-- the opaque bad-pair bound: under the `hcg` bound on the marked g-sums with `0 ≤ cg`, for
@@ -1271,57 +1195,6 @@ private lemma boxn_g_moment (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
     linarith [hP1, hP2, hR3, hR4]
   simpa [hMSKdef, hLdef, hXdef, hκdef] using hMSKgoal
 
--- reuse MvJ's existing private list helpers by re-declaring the ones I need here
-/-- the triangle inequality for a list sum: `|Σ (L.map f)| ≤ Σ (L.map |f|)`. -/
-private lemma jlist_abs_sum_le {γ : Type*} (L : List γ) (f : γ → ℝ) :
-    |(L.map f).sum| ≤ (L.map (fun a => |f a|)).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih =>
-      simp only [List.map_cons, List.sum_cons]
-      calc |f a + (L.map f).sum| ≤ |f a| + |(L.map f).sum| := abs_add_le _ _
-        _ ≤ |f a| + (L.map (fun a => |f a|)).sum := by linarith [ih]
-
-/-- a list sum is monotone termwise: `f ≤ g` on `L` gives `Σ (L.map f) ≤ Σ (L.map g)`. -/
-private lemma jlist_sum_le {γ : Type*} (L : List γ) (f g : γ → ℝ)
-    (h : ∀ a ∈ L, f a ≤ g a) : (L.map f).sum ≤ (L.map g).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih =>
-      simp only [List.map_cons, List.sum_cons]
-      exact add_le_add (h a (by simp)) (ih (fun b hb => h b (List.mem_cons_of_mem a hb)))
-
-/-- additivity of a list sum over a pointwise sum:
-`Σ (L.map (f + g)) = Σ (L.map f) + Σ (L.map g)`. -/
-private lemma jlist_sum_map_add {γ : Type*} (L : List γ) (f g : γ → ℝ) :
-    (L.map (fun a => f a + g a)).sum = (L.map f).sum + (L.map g).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih => simp only [List.map_cons, List.sum_cons, ih]; ring
-
-/-- a finite sum of list sums is the list sum of the finite sums:
-`Σ_{u ∈ S} Σ (L.map (f u ·)) = Σ (L.map (fun x => Σ_{u ∈ S} f u x))`. -/
-private lemma jsum_finset_list_sum {ι γ : Type*} (S : Finset ι) (L : List γ)
-    (f : ι → γ → ℝ) :
-    ∑ u ∈ S, (L.map (fun x => f u x)).sum = (L.map (fun x => ∑ u ∈ S, f u x)).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih =>
-      simp only [List.map_cons, List.sum_cons]
-      rw [Finset.sum_add_distrib, ih]
-
-/-- dividing a list sum by `c` divides each term: `Σ (L.map g) / c = Σ (L.map (g · / c))`. -/
-private lemma jlist_sum_div {γ : Type*} (L : List γ) (g : γ → ℝ) (c : ℝ) :
-    (L.map g).sum / c = (L.map (fun a => g a / c)).sum := by
-  rw [div_eq_mul_inv, ← List.sum_map_mul_right]; simp only [div_eq_mul_inv]
-
-/-- the difference of two list sums is the list sum of the differences. -/
-private lemma jlist_sum_map_sub {γ : Type*} (L : List γ) (f g : γ → ℝ) :
-    (L.map f).sum - (L.map g).sum = (L.map (fun a => f a - g a)).sum := by
-  induction L with
-  | nil => simp
-  | cons a L ih => simp only [List.map_cons, List.sum_cons]; rw [← ih]; ring
-
 -- the transport of the erase-product to a Fin n product
 /-- a product over `univ.erase m` is the product over `Fin n` through `m.succAbove`. -/
 private lemma erase_prod_removeNth {n : ℕ} {M : Type*} [CommMonoid M] (m : Fin (n + 1)) (F : Fin
@@ -1458,7 +1331,7 @@ lemma mv_J_main_g (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
           - X ^ n * ((mo.2.2 : ℝ) * ((DInt' mo.1 mo.2.1 : ℚ) : ℝ)))
         exact this
     _ ≤ (Q.map (fun mo => |(mo.2.2 : ℝ)| * Cfun mo * (1 + X) ^ n * (1 / L + 1 / (D:ℝ)))).sum :=
-        jlist_sum_le _ _ _ hPer
+        list_sum_le_sum _ _ _ hPer
     _ = Cmain * (1 + X) ^ n * (1 / L + 1 / (D:ℝ)) := by
         rw [hCmaindef,
           show (fun mo : (Fin n → ℕ) × ℕ × ℚ => |(mo.2.2 : ℝ)| * Cfun mo * (1 + X) ^ n * (1 / L
@@ -1468,404 +1341,11 @@ lemma mv_J_main_g (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
           List.sum_map_mul_right]
         ring
 
--- primes on the box are > D and < R
-/-- for `x < R` coprime to `W'`, under `hD` (every prime `∤ W'` exceeds `D`), the prime factors
-of `x` lie in `{p < R : p prime, D < p}`. -/
-private lemma box_PF_subset {W' D R : ℕ} (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p)
-    {x : ℕ} (hxR : x < R) (hxcop : x.Coprime W') :
-    x.primeFactors ⊆ (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p) := by
-  intro p hp
-  have hpp := Nat.prime_of_mem_primeFactors hp
-  have hpx := Nat.dvd_of_mem_primeFactors hp
-  have hx0 : 0 < x := Nat.pos_of_ne_zero (by rintro rfl; simp at hp)
-  have hpltR : p < R := lt_of_le_of_lt (Nat.le_of_dvd hx0 hpx) hxR
-  have hnpW : ¬ p ∣ W' := by
-    intro hpW; have h1 : p ∣ 1 := hxcop ▸ Nat.dvd_gcd hpx hpW
-    exact hpp.one_lt.ne' (Nat.dvd_one.mp h1)
-  rw [Finset.mem_filter, Finset.mem_range]; exact ⟨hpltR, hpp, hD p hpp hnpW⟩
-
--- M0 : the crude coordinate g-moment
-/-- the opaque `M0` moment over `sqfCop R W'`: under the `hcg` bound on the marked g-sums
-(`Σ_{s ∣ r} 1/gMult r ≤ cg · log z / gMult s`), for `3 ≤ D`, every prime `∤ W'` above `D`,
-`2 ≤ R`, `Σ_x 1/gMult x ≤ cg · log R`. -/
-private lemma M0_bound (W' : ℕ) (cg : ℝ)
-    (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
-      (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
-        (Real.log r) ^ 0 / (gMult r : ℝ)) ≤ (1 / (gMult s : ℝ)) * cg * (Real.log z) ^ (0 + 1))
-    (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R) :
-    (∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'), (1 / (gMult x : ℝ)))
-      ≤ cg * Real.log R := by
-  have hg1 := hcg D 1 R hD hDW one_pos hR2
-  have hFeq : ((Finset.range R).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ (1:ℕ) ∣ r))
-      = (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W') := by
-    apply Finset.filter_congr; intro r _
-    constructor
-    · rintro ⟨h1, h2, _⟩; exact ⟨h1, h2⟩
-    · rintro ⟨h1, h2⟩; exact ⟨h1, h2, one_dvd r⟩
-  rw [gMult_one_cast, hFeq] at hg1
-  have hL : ∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'),
-        (Real.log x) ^ 0 / (gMult x : ℝ)
-      = ∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'), (1 /
-              (gMult x : ℝ)) := by
-    apply Finset.sum_congr rfl; intro x _; rw [pow_zero]
-  rw [hL] at hg1
-  have hRw : (1:ℝ) / 1 * cg * (Real.log R) ^ (0 + 1) = cg * Real.log R := by norm_num
-  rw [hRw] at hg1
-  exact hg1
-
--- MQ : ∑ Q(x)/g(x) ≤ 4 cg logR / D, Q(x) = ∑_{p ∣ x} 1/(p-1)
-/-- the opaque `MQ` moment over `sqfCop R W'`: under the `hcg` bound with `0 ≤ cg`, for `3 ≤ D`,
-every prime `∤ W'` above `D`, `2 ≤ R`, `0 ≤ log R`,
-`Σ_x (Σ_{p ∣ x} 1/(p − 1)) / gMult x ≤ 4 · cg · log R / D`. -/
-private lemma MQ_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
-    (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
-      (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
-        (Real.log r) ^ 0 / (gMult r : ℝ)) ≤ (1 / (gMult s : ℝ)) * cg * (Real.log z) ^ (0 + 1))
-    (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R)
-    (hlogR0 : 0 ≤ Real.log R) :
-    (∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'),
-        (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) / (gMult x : ℝ))
-      ≤ 4 * cg * Real.log R / (D : ℝ) := by
-  classical
-  set F_R := (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W') with hF_R
-  set Primes := (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p) with hPrimes
-  have hDR : (3:ℝ) ≤ (D:ℝ) := by exact_mod_cast hD
-  have hDpos : (0:ℝ) < (D:ℝ) := by linarith
-  -- swap
-  have hswap : (∑ x ∈ F_R, (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) / (gMult x : ℝ))
-      ≤ ∑ p ∈ Primes, (1 / ((p:ℝ) - 1)) *
-          ∑ x ∈ F_R.filter (fun x => p ∣ x), (1 / (gMult x : ℝ)) := by
-    have hstep : (∑ x ∈ F_R, (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) / (gMult x : ℝ))
-        ≤ ∑ x ∈ F_R, ∑ p ∈ Primes, (if p ∣ x then (1 / ((p:ℝ) - 1)) * (1 /
-                (gMult x : ℝ)) else 0) := by
-      apply Finset.sum_le_sum
-      intro x hx
-      rw [hF_R, Finset.mem_filter, Finset.mem_range] at hx
-      obtain ⟨hxR, hxsf, hxcop⟩ := hx
-      rw [Finset.sum_div]
-      have hcongr : ∑ p ∈ x.primeFactors, 1 / ((p:ℝ) - 1) / (gMult x : ℝ)
-          = ∑ p ∈ x.primeFactors, 1 / ((p:ℝ) - 1) * (1 / (gMult x : ℝ)) := by
-        apply Finset.sum_congr rfl; intro p _; ring
-      rw [hcongr, ← Finset.sum_filter]
-      apply Finset.sum_le_sum_of_subset_of_nonneg
-      · intro p hp
-        rw [Finset.mem_filter]
-        refine ⟨box_PF_subset hDW hxR hxcop hp, Nat.dvd_of_mem_primeFactors hp⟩
-      · intro p hp _
-        rw [Finset.mem_filter, hPrimes, Finset.mem_filter, Finset.mem_range] at hp
-        have hpD : D < p := hp.1.2.2
-        have hp1 : (0:ℝ) < (p:ℝ) - 1 := by
-          have : (3:ℝ) ≤ (p:ℝ) := by exact_mod_cast (by omega : 3 ≤ p)
-          linarith
-        positivity
-    calc (∑ x ∈ F_R, (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) / (gMult x : ℝ))
-        ≤ ∑ x ∈ F_R, ∑ p ∈ Primes, (if p ∣ x then (1 / ((p:ℝ) - 1)) * (1 /
-                (gMult x : ℝ)) else 0) := hstep
-      _ = ∑ p ∈ Primes, ∑ x ∈ F_R, (if p ∣ x then (1 / ((p:ℝ) - 1)) * (1 / (gMult x : ℝ)) else 0) :=
-          Finset.sum_comm
-      _ = ∑ p ∈ Primes, (1 / ((p:ℝ) - 1)) * ∑ x ∈ F_R.filter (fun x => p ∣ x), (1 /
-              (gMult x : ℝ)) := by
-          apply Finset.sum_congr rfl; intro p _
-          rw [Finset.mul_sum, ← Finset.sum_filter]
-  refine le_trans hswap ?_
-  -- per-prime marked bound and tail
-  have hper : ∀ p ∈ Primes, (1 / ((p:ℝ) - 1)) *
-        ∑ x ∈ F_R.filter (fun x => p ∣ x), (1 / (gMult x : ℝ))
-      ≤ cg * Real.log R * (2 / ((p:ℝ) - 1) ^ 2) := by
-    intro p hp
-    rw [hPrimes, Finset.mem_filter, Finset.mem_range] at hp
-    obtain ⟨hpR, hpp, hpD⟩ := hp
-    have hp3 : 3 ≤ p := by omega
-    have hp3R : (3:ℝ) ≤ (p:ℝ) := by exact_mod_cast hp3
-    have hmk := hcg D p R hD hDW hpp.pos hR2
-    rw [gMult_prime_cast hpp] at hmk
-    have hfilt : F_R.filter (fun x => p ∣ x)
-        = (Finset.range R).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ p ∣ r) := by
-      rw [hF_R, Finset.filter_filter]; apply Finset.filter_congr; intro x _
-      constructor
-      · rintro ⟨⟨h1,h2⟩,h3⟩; exact ⟨h1,h2,h3⟩
-      · rintro ⟨h1,h2,h3⟩; exact ⟨⟨h1,h2⟩,h3⟩
-    rw [hfilt]
-    have hsum_le : ∑ x ∈ (Finset.range R).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ p ∣ r),
-          (1 / (gMult x : ℝ)) ≤ (1 / ((p:ℝ) - 2)) * cg * Real.log R := by
-      have : ∑ x ∈ (Finset.range R).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ p ∣ r),
-          (Real.log x) ^ 0 / (gMult x : ℝ)
-          = ∑ x ∈ (Finset.range R).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ p ∣ r),
-            (1 / (gMult x : ℝ)) := by
-        apply Finset.sum_congr rfl; intro x _; rw [pow_zero]
-      rw [this] at hmk
-      simpa using hmk
-    have hp1 : (0:ℝ) < (p:ℝ) - 1 := by linarith
-    have hp2 : (0:ℝ) < (p:ℝ) - 2 := by linarith
-    have hfrac : (1 / ((p:ℝ) - 1)) * (1 / ((p:ℝ) - 2)) ≤ 2 / ((p:ℝ) - 1) ^ 2 := by
-      rw [one_div_mul_one_div, div_le_div_iff₀ (by positivity) (by positivity)]
-      nlinarith only [hp3R, (Nat.cast_nonneg _ : 0 ≤ ↑p)]
-    calc (1 / ((p:ℝ) - 1)) * ∑ x ∈ (Finset.range R).filter
-            (fun r => Squarefree r ∧ r.Coprime W' ∧ p ∣ r), (1 / (gMult x : ℝ))
-        ≤ (1 / ((p:ℝ) - 1)) * ((1 / ((p:ℝ) - 2)) * cg * Real.log R) :=
-          mul_le_mul_of_nonneg_left hsum_le (by positivity)
-      _ = cg * Real.log R * ((1 / ((p:ℝ) - 1)) * (1 / ((p:ℝ) - 2))) := by ring
-      _ ≤ cg * Real.log R * (2 / ((p:ℝ) - 1) ^ 2) :=
-          mul_le_mul_of_nonneg_left hfrac (mul_nonneg hcg0 hlogR0)
-  calc (∑ p ∈ Primes, (1 / ((p:ℝ) - 1)) * ∑ x ∈ F_R.filter (fun x => p ∣ x), (1 / (gMult x : ℝ)))
-      ≤ ∑ p ∈ Primes, cg * Real.log R * (2 / ((p:ℝ) - 1) ^ 2) := Finset.sum_le_sum hper
-    _ = cg * Real.log R * (2 * ∑ p ∈ Primes, 1 / ((p:ℝ) - 1) ^ 2) := by
-        rw [Finset.mul_sum, Finset.mul_sum]; apply Finset.sum_congr rfl; intro p _; ring
-    _ ≤ cg * Real.log R * (2 * (2 / (D:ℝ))) := by
-        apply mul_le_mul_of_nonneg_left _ (mul_nonneg hcg0 hlogR0)
-        apply mul_le_mul_of_nonneg_left (prime_tail' D R hD) (by norm_num)
-    _ = 4 * cg * Real.log R / (D : ℝ) := by ring
-
-/-- `gMult (p·q) = (p − 2)·(q − 2)` (in `ℝ`) for distinct primes `p ≠ q`. -/
-private lemma gMult_pq_cast {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p ≠ q) :
-    (gMult (p * q) : ℝ) = ((p:ℝ) - 2) * ((q:ℝ) - 2) := by
-  have hcop : Nat.Coprime p q := (Nat.coprime_primes hp hq).mpr hpq
-  have hmul : gMult (p * q) = gMult p * gMult q := by
-    rw [gMult, gMult, gMult, Nat.Coprime.primeFactors_mul hcop,
-      Finset.prod_union hcop.disjoint_primeFactors]
-  rw [hmul, Nat.cast_mul, gMult_prime_cast hp, gMult_prime_cast hq]
-
--- S(p,q): the doubly-marked g-mass
-/-- the opaque `MQ2` moment over `sqfCop R W'`: under the `hcg` bound with `0 ≤ cg`, for
-`3 ≤ D`, every prime `∤ W'` above `D`, `2 ≤ R`, `0 ≤ log R`,
-`Σ_x (Σ_{p ∣ x} 1/(p − 1))² / gMult x ≤ 20 · cg · log R / D`. -/
-private lemma MQ2_bound (W' : ℕ) (cg : ℝ) (hcg0 : 0 ≤ cg)
-    (hcg : ∀ D s z : ℕ, 3 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) → 0 < s → 2 ≤ z →
-      (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
-        (Real.log r) ^ 0 / (gMult r : ℝ)) ≤ (1 / (gMult s : ℝ)) * cg * (Real.log z) ^ (0 + 1))
-    (D R : ℕ) (hD : 3 ≤ D) (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hR2 : 2 ≤ R)
-    (hlogR0 : 0 ≤ Real.log R) :
-    (∑ x ∈ (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W'),
-        (∑ p ∈ x.primeFactors, (1 / ((p:ℝ) - 1))) ^ 2 / (gMult x : ℝ))
-      ≤ 20 * cg * Real.log R / (D : ℝ) := by
-  classical
-  set F_R := (Finset.range R).filter (fun x => Squarefree x ∧ x.Coprime W') with hF_R
-  set Primes := (Finset.range R).filter (fun p => Nat.Prime p ∧ D < p) with hPrimes
-  have hDR : (3:ℝ) ≤ (D:ℝ) := by exact_mod_cast hD
-  have hDpos : (0:ℝ) < (D:ℝ) := by linarith
-  have hclogR : 0 ≤ cg * Real.log R := mul_nonneg hcg0 hlogR0
-  -- p∈Primes facts
-  have hprime_facts : ∀ p ∈ Primes, Nat.Prime p ∧ D < p ∧ (0:ℝ) < (p:ℝ) - 1 ∧ (0:ℝ) < (p:ℝ) - 2
-          := by
-    intro p hp
-    rw [hPrimes, Finset.mem_filter, Finset.mem_range] at hp
-    have hpge : (4:ℝ) ≤ (p:ℝ) := by exact_mod_cast (by omega : 4 ≤ p)
-    exact ⟨hp.2.1, hp.2.2, by linarith, by linarith⟩
-  set c1 : ℕ → ℝ := fun p => 1 / ((p:ℝ) - 1) with hc1def
-  -- S(p,q)
-  set S : ℕ → ℕ → ℝ := fun p q =>
-    ∑ x ∈ F_R.filter (fun x => p ∣ x ∧ q ∣ x), (1 / (gMult x : ℝ)) with hSdef
-  have hSnn : ∀ p q, 0 ≤ S p q := fun p q => Finset.sum_nonneg (fun x _ => by positivity)
-  -- Step 1: expand the square and swap to ∑_{p,q∈Primes} c1 p * c1 q * S p q
-  have hexp : ∀ x, (∑ p ∈ x.primeFactors, c1 p) ^ 2 / (gMult x : ℝ)
-      = ∑ p ∈ x.primeFactors, ∑ q ∈ x.primeFactors, c1 p * c1 q * (1 / (gMult x : ℝ)) := by
-    intro x
-    rw [pow_two, sum_mul_sum, Finset.sum_div]
-    apply Finset.sum_congr rfl; intro p _
-    rw [Finset.sum_div]; apply Finset.sum_congr rfl; intro q _; ring
-  have hbound_x : ∀ x ∈ F_R,
-      (∑ p ∈ x.primeFactors, ∑ q ∈ x.primeFactors, c1 p * c1 q * (1 / (gMult x : ℝ)))
-      ≤ ∑ p ∈ Primes, ∑ q ∈ Primes,
-          (if p ∣ x ∧ q ∣ x then c1 p * c1 q * (1 / (gMult x : ℝ)) else 0) := by
-    intro x hx
-    rw [hF_R, Finset.mem_filter, Finset.mem_range] at hx
-    obtain ⟨hxR, hxsf, hxcop⟩ := hx
-    have hsub : x.primeFactors ⊆ Primes := box_PF_subset hDW hxR hxcop
-    have hnnW : ∀ p q, p ∈ Primes → q ∈ Primes → 0 ≤ c1 p * c1 q * (1 / (gMult x : ℝ)) := by
-      intro p q hpP hqP
-      obtain ⟨_, _, hp1, _⟩ := hprime_facts p hpP
-      obtain ⟨_, _, hq1, _⟩ := hprime_facts q hqP
-      rw [hc1def]; positivity
-    calc (∑ p ∈ x.primeFactors, ∑ q ∈ x.primeFactors, c1 p * c1 q * (1 / (gMult x : ℝ)))
-        ≤ ∑ p ∈ x.primeFactors, ∑ q ∈ Primes,
-            (if q ∣ x then c1 p * c1 q * (1 / (gMult x : ℝ)) else 0) := by
-          apply Finset.sum_le_sum; intro p hp
-          rw [← Finset.sum_filter]
-          apply Finset.sum_le_sum_of_subset_of_nonneg
-          · intro q hq; rw [Finset.mem_filter]
-            exact ⟨hsub hq, Nat.dvd_of_mem_primeFactors hq⟩
-          · intro q hq _; exact hnnW p q (hsub hp) (Finset.mem_of_mem_filter q hq)
-      _ ≤ ∑ p ∈ Primes,
-            (if p ∣ x then ∑ q ∈ Primes, (if q ∣ x then c1 p * c1 q * (1 /
-                    (gMult x : ℝ)) else 0) else 0) := by
-          rw [← Finset.sum_filter]
-          apply Finset.sum_le_sum_of_subset_of_nonneg
-          · intro p hp; rw [Finset.mem_filter]
-            exact ⟨hsub hp, Nat.dvd_of_mem_primeFactors hp⟩
-          · intro p hp _
-            apply Finset.sum_nonneg; intro q hq; split_ifs with hqx
-            · exact hnnW p q (Finset.mem_of_mem_filter p hp) hq
-            · exact le_refl 0
-      _ = ∑ p ∈ Primes, ∑ q ∈ Primes, (if p ∣ x ∧ q ∣ x then c1 p * c1 q * (1 /
-              (gMult x : ℝ)) else 0) := by
-          apply Finset.sum_congr rfl; intro p _
-          by_cases hpx : p ∣ x
-          · rw [if_pos hpx]; apply Finset.sum_congr rfl; intro q _
-            by_cases hqx : q ∣ x
-            · rw [if_pos hqx, if_pos ⟨hpx, hqx⟩]
-            · rw [if_neg hqx, if_neg (fun h => hqx h.2)]
-          · rw [if_neg hpx]; symm; apply Finset.sum_eq_zero; intro q _
-            rw [if_neg (fun h => hpx h.1)]
-  -- swap to ∑_{p,q} c1 p c1 q S p q
-  have hMQ2_le : (∑ x ∈ F_R, (∑ p ∈ x.primeFactors, c1 p) ^ 2 / (gMult x : ℝ))
-      ≤ ∑ p ∈ Primes, ∑ q ∈ Primes, c1 p * c1 q * S p q := by
-    calc ∑ x ∈ F_R, (∑ p ∈ x.primeFactors, c1 p) ^ 2 / (gMult x : ℝ)
-        = ∑ x ∈ F_R, ∑ p ∈ x.primeFactors, ∑ q ∈ x.primeFactors,
-            c1 p * c1 q * (1 / (gMult x : ℝ)) := by
-          apply Finset.sum_congr rfl; intro x _; exact hexp x
-      _ ≤ ∑ x ∈ F_R, ∑ p ∈ Primes, ∑ q ∈ Primes,
-            (if p ∣ x ∧ q ∣ x then c1 p * c1 q * (1 / (gMult x : ℝ)) else 0) :=
-          Finset.sum_le_sum hbound_x
-      _ = ∑ p ∈ Primes, ∑ q ∈ Primes, ∑ x ∈ F_R,
-            (if p ∣ x ∧ q ∣ x then c1 p * c1 q * (1 / (gMult x : ℝ)) else 0) := by
-          rw [Finset.sum_comm]; apply Finset.sum_congr rfl; intro p _; rw [Finset.sum_comm]
-      _ = ∑ p ∈ Primes, ∑ q ∈ Primes, c1 p * c1 q * S p q := by
-          apply Finset.sum_congr rfl; intro p _; apply Finset.sum_congr rfl; intro q _
-          rw [← Finset.sum_filter, hSdef, Finset.mul_sum]
-  refine le_trans hMQ2_le ?_
-  -- tail sum a p = 1/((p-1)(p-2))
-  have htail_a : ∑ p ∈ Primes, (1 / (((p:ℝ) - 1) * ((p:ℝ) - 2))) ≤ 4 / (D:ℝ) := by
-    have hpt : ∑ p ∈ Primes, (1 / (((p:ℝ) - 1) * ((p:ℝ) - 2)))
-        ≤ ∑ p ∈ Primes, (2 / ((p:ℝ) - 1) ^ 2) := by
-      apply Finset.sum_le_sum; intro p hp
-      obtain ⟨_, hpD, hp1, hp2⟩ := hprime_facts p hp
-      have hp4 : (4:ℝ) ≤ (p:ℝ) := by exact_mod_cast (by omega : 4 ≤ p)
-      rw [div_le_div_iff₀ (by positivity) (by positivity)]; nlinarith [hp1, hp2, hp4]
-    calc ∑ p ∈ Primes, (1 / (((p:ℝ) - 1) * ((p:ℝ) - 2)))
-        ≤ ∑ p ∈ Primes, (2 / ((p:ℝ) - 1) ^ 2) := hpt
-      _ = 2 * ∑ p ∈ Primes, (1 / ((p:ℝ) - 1) ^ 2)
-              := by rw [Finset.mul_sum]; apply Finset.sum_congr rfl; intro p _; ring
-      _ ≤ 2 * (2 / (D:ℝ)) := by apply mul_le_mul_of_nonneg_left (prime_tail' D R hD) (by norm_num)
-      _ = 4 / (D:ℝ) := by ring
-  -- S diag/off bounds
-  have hmarked : ∀ s : ℕ, 0 < s →
-      (∑ x ∈ (Finset.range R).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r), (1 /
-              (gMult x : ℝ)))
-        ≤ (1 / (gMult s : ℝ)) * cg * Real.log R := by
-    intro s hs
-    have hmk := hcg D s R hD hDW hs hR2
-    have hcv : ∑ x ∈ (Finset.range R).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
-            (Real.log x)^0/(gMult x:ℝ)
-        = ∑ x ∈ (Finset.range R).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
-                (1/(gMult x:ℝ)) := by
-      apply Finset.sum_congr rfl; intro x _; rw [pow_zero]
-    rw [hcv] at hmk; simpa using hmk
-  have hS_diag : ∀ p ∈ Primes, S p p ≤ (1 / ((p:ℝ) - 2)) * cg * Real.log R := by
-    intro p hp
-    obtain ⟨hpp, _, _, _⟩ := hprime_facts p hp
-    have hfe : F_R.filter (fun x => p ∣ x ∧ p ∣ x)
-        = (Finset.range R).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ p ∣ r) := by
-      rw [hF_R, Finset.filter_filter]; apply Finset.filter_congr; intro x _
-      constructor
-      · rintro ⟨⟨h1,h2⟩,h3,_⟩; exact ⟨h1,h2,h3⟩
-      · rintro ⟨h1,h2,h3⟩; exact ⟨⟨h1,h2⟩,h3,h3⟩
-    simp only [hSdef]; rw [hfe]
-    have := hmarked p hpp.pos; rw [gMult_prime_cast hpp] at this; exact this
-  have hS_off : ∀ p ∈ Primes, ∀ q ∈ Primes, p ≠ q →
-      S p q ≤ (1 / (((p:ℝ) - 2) * ((q:ℝ) - 2))) * cg * Real.log R := by
-    intro p hp q hq hpq
-    obtain ⟨hpp, _, _, _⟩ := hprime_facts p hp
-    obtain ⟨hqp, _, _, _⟩ := hprime_facts q hq
-    have hcop : Nat.Coprime p q := (Nat.coprime_primes hpp hqp).mpr hpq
-    have hfe : F_R.filter (fun x => p ∣ x ∧ q ∣ x)
-        = (Finset.range R).filter (fun r => Squarefree r ∧ r.Coprime W' ∧ p * q ∣ r) := by
-      rw [hF_R, Finset.filter_filter]; apply Finset.filter_congr; intro x _
-      constructor
-      · rintro ⟨⟨h1,h2⟩,h3,h4⟩; exact ⟨h1,h2, hcop.mul_dvd_of_dvd_of_dvd h3 h4⟩
-      · rintro ⟨h1,h2,h3⟩; exact ⟨⟨h1,h2⟩, (dvd_mul_right p q).trans h3,
-              (dvd_mul_left q p).trans h3⟩
-    simp only [hSdef]; rw [hfe]
-    have := hmarked (p*q) (Nat.mul_pos hpp.pos hqp.pos)
-    rw [gMult_pq_cast hpp hqp hpq] at this; exact this
-  -- combine: split diag/off
-  have hsplit : ∑ p ∈ Primes, ∑ q ∈ Primes, c1 p * c1 q * S p q
-      = ∑ p ∈ Primes, c1 p * c1 p * S p p
-        + ∑ p ∈ Primes, ∑ q ∈ Primes.erase p, c1 p * c1 q * S p q := by
-    rw [← Finset.sum_add_distrib]
-    apply Finset.sum_congr rfl; intro p hp
-    exact (Finset.add_sum_erase Primes (fun q => c1 p * c1 q * S p q) hp).symm
-  rw [hsplit]
-  -- diagonal bound ≤ cg logR * 4/D
-  have hdiag : ∑ p ∈ Primes, c1 p * c1 p * S p p ≤ cg * Real.log R * (4 / (D:ℝ)) := by
-    have hstep : ∑ p ∈ Primes, c1 p * c1 p * S p p
-        ≤ ∑ p ∈ Primes, (cg * Real.log R) * (1 / (((p:ℝ) - 1) * ((p:ℝ) - 2))) := by
-      apply Finset.sum_le_sum; intro p hp
-      obtain ⟨_, _, hp1, hp2⟩ := hprime_facts p hp
-      have hc1nn : 0 ≤ c1 p := by rw [hc1def]; positivity
-      have hc1le1 : c1 p ≤ 1 := by rw [hc1def, div_le_one hp1]; linarith
-      have hcSnn : 0 ≤ c1 p * S p p := mul_nonneg hc1nn (hSnn p p)
-      have hap : c1 p * (1 / ((p:ℝ) - 2)) = 1 / (((p:ℝ) - 1) * ((p:ℝ) - 2)) := by
-        rw [hc1def, div_mul_div_comm, one_mul]
-      calc c1 p * c1 p * S p p
-          = c1 p * (c1 p * S p p) := by ring
-        _ ≤ 1 * (c1 p * S p p) := mul_le_mul_of_nonneg_right hc1le1 hcSnn
-        _ = c1 p * S p p := one_mul _
-        _ ≤ c1 p * ((1 / ((p:ℝ) - 2)) * cg * Real.log R) :=
-            mul_le_mul_of_nonneg_left (hS_diag p hp) hc1nn
-        _ = (cg * Real.log R) * (1 / (((p:ℝ) - 1) * ((p:ℝ) - 2))) := by rw [← hap]; ring
-    calc ∑ p ∈ Primes, c1 p * c1 p * S p p
-        ≤ ∑ p ∈ Primes, (cg * Real.log R) * (1 / (((p:ℝ) - 1) * ((p:ℝ) - 2))) := hstep
-      _ = (cg * Real.log R) * ∑ p ∈ Primes, (1 / (((p:ℝ) - 1) * ((p:ℝ) - 2)))
-              := by rw [Finset.mul_sum]
-      _ ≤ (cg * Real.log R) * (4 / (D:ℝ)) := mul_le_mul_of_nonneg_left htail_a hclogR
-  -- off-diagonal bound ≤ cg logR * (4/D)^2
-  have hoff : ∑ p ∈ Primes, ∑ q ∈ Primes.erase p, c1 p * c1 q * S p q
-      ≤ cg * Real.log R * ((4 / (D:ℝ)) * (4 / (D:ℝ))) := by
-    set a : ℕ → ℝ := fun p => 1 / (((p:ℝ) - 1) * ((p:ℝ) - 2)) with hadef
-    have hann : ∀ p ∈ Primes, 0 ≤ a p := by
-      intro p hp; obtain ⟨_,_,hp1,hp2⟩ := hprime_facts p hp; rw [hadef]; positivity
-    have hstep1 : ∑ p ∈ Primes, ∑ q ∈ Primes.erase p, c1 p * c1 q * S p q
-        ≤ ∑ p ∈ Primes, ∑ q ∈ Primes.erase p, (cg * Real.log R) * (a p * a q) := by
-      apply Finset.sum_le_sum; intro p hp
-      apply Finset.sum_le_sum; intro q hq
-      have hqP : q ∈ Primes := Finset.mem_of_mem_erase hq
-      have hne : p ≠ q := (Finset.ne_of_mem_erase hq).symm
-      obtain ⟨_,_,hp1,hp2⟩ := hprime_facts p hp
-      obtain ⟨_,_,hq1,hq2⟩ := hprime_facts q hqP
-      have hc1nn : 0 ≤ c1 p * c1 q := by rw [hc1def]; positivity
-      have h1 : (p:ℝ)-1 ≠ 0 := ne_of_gt hp1
-      have h2 : (p:ℝ)-2 ≠ 0 := ne_of_gt hp2
-      have h3 : (q:ℝ)-1 ≠ 0 := ne_of_gt hq1
-      have h4 : (q:ℝ)-2 ≠ 0 := ne_of_gt hq2
-      calc c1 p * c1 q * S p q
-          ≤ c1 p * c1 q * ((1 / (((p:ℝ) - 2) * ((q:ℝ) - 2))) * cg * Real.log R) :=
-            mul_le_mul_of_nonneg_left (hS_off p hp q hqP hne) hc1nn
-        _ = (cg * Real.log R) * (a p * a q) := by rw [hc1def, hadef]; field_simp
-    have hstep2 : ∑ p ∈ Primes, ∑ q ∈ Primes.erase p, (cg * Real.log R) * (a p * a q)
-        ≤ ∑ p ∈ Primes, ∑ q ∈ Primes, (cg * Real.log R) * (a p * a q) := by
-      apply Finset.sum_le_sum; intro p hp
-      apply Finset.sum_le_sum_of_subset_of_nonneg (Finset.erase_subset p Primes)
-      intro q hq _
-      exact mul_nonneg hclogR (mul_nonneg (hann p hp) (hann q hq))
-    calc ∑ p ∈ Primes, ∑ q ∈ Primes.erase p, c1 p * c1 q * S p q
-        ≤ ∑ p ∈ Primes, ∑ q ∈ Primes.erase p, (cg * Real.log R) * (a p * a q) := hstep1
-      _ ≤ ∑ p ∈ Primes, ∑ q ∈ Primes, (cg * Real.log R) * (a p * a q) := hstep2
-      _ = (cg * Real.log R) * ((∑ p ∈ Primes, a p) * (∑ q ∈ Primes, a q)) := by
-          rw [sum_mul_sum, Finset.mul_sum]
-          apply Finset.sum_congr rfl; intro p _
-          rw [Finset.mul_sum]
-      _ ≤ (cg * Real.log R) * ((4 / (D:ℝ)) * (4 / (D:ℝ))) := by
-          apply mul_le_mul_of_nonneg_left _ hclogR
-          apply mul_le_mul htail_a htail_a (Finset.sum_nonneg (fun q hq => hann q hq))
-                  (by positivity)
-  -- final: 4/D + 16/D^2 ≤ 20/D
-  have hfinal : cg * Real.log R * (4 / (D:ℝ)) + cg * Real.log R * ((4 / (D:ℝ)) * (4 / (D:ℝ)))
-      ≤ 20 * cg * Real.log R / (D:ℝ) := by
-    have hD1 : (1:ℝ) ≤ (D:ℝ) := by linarith
-    have hDsq : (4 / (D:ℝ)) * (4 / (D:ℝ)) ≤ 16 / (D:ℝ) := by
-      rw [div_mul_div_comm, div_le_div_iff₀ (by positivity) hDpos]; nlinarith
-    have h2 : cg * Real.log R * ((4 / (D:ℝ)) * (4 / (D:ℝ))) ≤ cg * Real.log R * (16 / (D:ℝ)) :=
-      mul_le_mul_of_nonneg_left hDsq hclogR
-    have h3 : cg * Real.log R * (4 / (D:ℝ)) + cg * Real.log R * (16 / (D:ℝ))
-        = 20 * cg * Real.log R / (D:ℝ) := by ring
-    linarith
-  linarith [hdiag, hoff, hfinal]
-
 -- factor a single "marked" coordinate over the product box (n = 4)
 /-- factoring one marked coordinate out of the product box:
 `Σ_{ρ ∈ F_R^n} w (ρ i) · Π_k 1/gMult (ρ k)`
 `= (Σ_{x ∈ F_R} w x / gMult x) · (Σ_{x ∈ F_R} 1/gMult x)^(n−1)`. -/
-private lemma factor_one {n : ℕ} (F_R : Finset ℕ) (i : Fin n) (w : ℕ → ℝ) :
+lemma factor_one {n : ℕ} (F_R : Finset ℕ) (i : Fin n) (w : ℕ → ℝ) :
     ∑ ρ ∈ Fintype.piFinset (fun _ : Fin n => F_R), w (ρ i) * ∏ k, (1 / (gMult (ρ k) : ℝ))
       = (∑ x ∈ F_R, w x * (1 / (gMult x : ℝ))) * (∑ x ∈ F_R, (1 / (gMult x : ℝ))) ^ (n - 1) := by
   classical
@@ -1905,84 +1385,12 @@ private lemma factor_one {n : ℕ} (F_R : Finset ℕ) (i : Fin n) (w : ℕ → �
   rw [hp2, Finset.prod_const, Finset.card_erase_of_mem (Finset.mem_univ i), Finset.card_univ,
     Fintype.card_fin]
 
-/-- on the simplex (`0 ≤ t i ≤ 1`, `Σ_i t i ≤ 1`), `|eval P t| ≤ Σ |c|` over the coefficients of
-`P`. -/
-private lemma eval_bpoly_bound {n : ℕ} (P : BPoly n) (t : Fin n → ℝ)
-    (ht0 : ∀ i, 0 ≤ t i) (ht1 : ∀ i, t i ≤ 1) (hs : ∑ i, t i ≤ 1) :
-    |eval P t| ≤ (P.map (fun mo => |(mo.2.2 : ℝ)|)).sum := by
-  unfold eval
-  refine le_trans (jlist_abs_sum_le P _) (jlist_sum_le _ _ _ (fun mo _ => ?_))
-  have hprod0 : 0 ≤ ∏ i, t i ^ mo.1 i := Finset.prod_nonneg (fun i _ => pow_nonneg (ht0 i) _)
-  have hprod1 : ∏ i, t i ^ mo.1 i ≤ 1 :=
-    Finset.prod_le_one (fun i _ => pow_nonneg (ht0 i) _) (fun i _ => pow_le_one₀ (ht0 i) (ht1 i))
-  have hb0 : 0 ≤ 1 - ∑ i, t i := by linarith
-  have hb1 : 1 - ∑ i, t i ≤ 1 := by
-    have := Finset.sum_nonneg (fun i (_ : i ∈ Finset.univ) => ht0 i); linarith
-  rw [abs_mul, abs_mul, abs_pow, abs_of_nonneg hprod0, abs_of_nonneg hb0]
-  calc |(mo.2.2:ℝ)| * (∏ i, t i ^ mo.1 i) * (1 - ∑ i, t i) ^ mo.2.1
-      ≤ |(mo.2.2:ℝ)| * 1 * 1 := by
-        apply mul_le_mul _ (pow_le_one₀ hb0 hb1) (pow_nonneg hb0 _) (by positivity)
-        exact mul_le_mul_of_nonneg_left hprod1 (abs_nonneg _)
-    _ = |(mo.2.2:ℝ)| := by ring
-
-/-- a sum of a nonnegative `g` over a `biUnion` is at most the double sum over the pieces. -/
-private lemma sum_biUnion_le {ι : Type*} (s : Finset ι) (t : ι → Finset ℕ)
-    (g : ℕ → ℝ) (hg : ∀ i ∈ s, ∀ p ∈ t i, 0 ≤ g p) :
-    ∑ p ∈ s.biUnion t, g p ≤ ∑ i ∈ s, ∑ p ∈ t i, g p := by
-  classical
-  induction s using Finset.induction with
-  | empty => simp
-  | insert a s ha ih =>
-    rw [Finset.biUnion_insert, Finset.sum_insert ha]
-    have hga : ∀ p ∈ t a, 0 ≤ g p := hg a (Finset.mem_insert_self a s)
-    have hgs : ∀ i ∈ s, ∀ p ∈ t i, 0 ≤ g p :=
-      fun i hi => hg i (Finset.mem_insert_of_mem hi)
-    have hunion : ∑ p ∈ t a ∪ s.biUnion t, g p ≤ ∑ p ∈ t a, g p + ∑ p ∈ s.biUnion t, g p := by
-      rw [← Finset.sum_union_inter]
-      have : 0 ≤ ∑ p ∈ t a ∩ s.biUnion t, g p :=
-        Finset.sum_nonneg (fun p hp => hga p (Finset.mem_of_mem_inter_left hp))
-      linarith
-    linarith [ih hgs]
-
--- subadditivity of the prime-factor weight over a product
-/-- subadditivity of `Σ_{p ∣ ·} 1/(p − 1)` over a product: for `ρ` with no zero coordinate, the
-sum over the prime factors of `Π_i ρ i` is at most `Σ_i` of the sums over the prime factors of
-`ρ i`. -/
-private lemma P_subadd {n : ℕ} (ρ : Fin n → ℕ) (hρ : ∀ i, ρ i ≠ 0) :
-    (∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1)))
-      ≤ ∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))) := by
-  classical
-  have hsub : (∏ i, ρ i).primeFactors ⊆ Finset.univ.biUnion (fun i => (ρ i).primeFactors) := by
-    intro p hp
-    have hpp := Nat.prime_of_mem_primeFactors hp
-    have hpdvd := Nat.dvd_of_mem_primeFactors hp
-    obtain ⟨i, _, hpi⟩ := (Prime.exists_mem_finset_dvd hpp.prime hpdvd)
-    rw [Finset.mem_biUnion]
-    exact ⟨i, Finset.mem_univ i, Nat.mem_primeFactors.mpr ⟨hpp, hpi, hρ i⟩⟩
-  calc (∑ p ∈ (∏ i, ρ i).primeFactors, (1 / ((p:ℝ) - 1)))
-      ≤ ∑ p ∈ Finset.univ.biUnion (fun i => (ρ i).primeFactors), (1 / ((p:ℝ) - 1)) := by
-        apply Finset.sum_le_sum_of_subset_of_nonneg hsub
-        intro p hp _
-        rw [Finset.mem_biUnion] at hp
-        obtain ⟨i, _, hpi⟩ := hp
-        have hpp := Nat.prime_of_mem_primeFactors hpi
-        have h2 : (2:ℝ) ≤ (p:ℝ) := by exact_mod_cast hpp.two_le
-        have : (0:ℝ) < (p:ℝ) - 1 := by linarith
-        positivity
-    _ ≤ ∑ i, (∑ p ∈ (ρ i).primeFactors, (1 / ((p:ℝ) - 1))) := by
-        apply sum_biUnion_le
-        intro i _ p hp
-        have hpp := Nat.prime_of_mem_primeFactors hp
-        have h2 : (2:ℝ) ≤ (p:ℝ) := by exact_mod_cast hpp.two_le
-        have : (0:ℝ) < (p:ℝ) - 1 := by linarith
-        positivity
-
 -- common: enlarge a nonneg per-coordinate weighted sum from kSieveIndex4 (via decBox4)
 -- to the product box
 /-- enlarging `kSieveIndex n R W'` to the product box `(sqfCop R W')^n`: for `num ≥ 0`,
 `Σ_{ρ ∈ kSieveIndex} num ρ / Π_i gMult (ρ i) ≤ Σ_{ρ ∈ box} num ρ · Π_i 1/gMult (ρ i)` (`hD`,
 `hDW` carried unused). -/
-private lemma enlarge_to_PB {n : ℕ} (W' D R : ℕ) (_hD : 3 ≤ D) (_hDW : ∀ p : ℕ,
+lemma enlarge_to_PB {n : ℕ} (W' D R : ℕ) (_hD : 3 ≤ D) (_hDW : ∀ p : ℕ,
         p.Prime → ¬ p ∣ W' → D < p)
     (num : (Fin n → ℕ) → ℝ) (hnum0 : ∀ ρ, 0 ≤ num ρ) :
     (∑ ρ ∈ kSieveIndex n R W', num ρ / ∏ i, (gMult (ρ i) : ℝ))
@@ -2014,14 +1422,6 @@ private lemma enlarge_to_PB {n : ℕ} (W' D R : ℕ) (_hD : 3 ≤ D) (_hDW : ∀
         Finset.sum_le_sum_of_subset_of_nonneg hsub1 (fun ρ _ _ => hnn ρ)
     _ ≤ ∑ ρ ∈ Fintype.piFinset (fun _ : Fin n => F_R), num ρ * ∏ i, (1 / (gMult (ρ i) : ℝ)) :=
         Finset.sum_le_sum_of_subset_of_nonneg hsub2 (fun ρ _ _ => hnn ρ)
-
-/-- `Σ_{p ∣ m, p prime} 1/(p − 1) ≥ 0`. -/
-private lemma PFsum_nn (m : ℕ) : 0 ≤ ∑ p ∈ m.primeFactors, (1 / ((p:ℝ) - 1)) := by
-  apply Finset.sum_nonneg; intro p hp
-  have hpp := Nat.prime_of_mem_primeFactors hp
-  have : (2:ℝ) ≤ (p:ℝ) := by exact_mod_cast hpp.two_le
-  have : (0:ℝ) < (p:ℝ) - 1 := by linarith
-  positivity
 
 /-- the opaque aggregate `T0` at general `n ≥ 1`: under the `hcg` bound, for `3 ≤ D`, every
 prime `∤ W'` above `D`, `2 ≤ R`, `Σ_{ρ ∈ kSieveIndex n R W'} 1/Π_i gMult (ρ i) ≤ (cg · log R)^n`

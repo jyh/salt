@@ -35,22 +35,7 @@ namespace Salt.Twelve
 
 open Salt.Maynard
 
-/-! ## Log helpers (as in `Salt/Twelve/MarkedPrime.lean`/`MomentAtom.lean`) -/
-
-/-- `0 ≤ log n` for every natural `n` (`log 0 = 0`; `Real.log_nonneg` for `n ≥ 1`); the file's
-private copy of the helper in `MarkedPrime` and `MomentAtom`. -/
-private lemma log_nat_nonneg (n : ℕ) : 0 ≤ Real.log (n : ℝ) := by
-  rcases Nat.eq_zero_or_pos n with h | h
-  · subst h; simp
-  · exact Real.log_nonneg (by exact_mod_cast h)
-
-/-- `log m ≤ log n` for naturals `m ≤ n` (`h`), the case `m = 0` through `log_nat_nonneg`; the
-file's private copy. -/
-private lemma log_nat_mono_le {m n : ℕ} (h : m ≤ n) :
-    Real.log (m : ℝ) ≤ Real.log (n : ℝ) := by
-  rcases Nat.eq_zero_or_pos m with hm | hm
-  · subst hm; simpa using log_nat_nonneg n
-  · exact Real.log_le_log (by exact_mod_cast hm) (by exact_mod_cast h)
+/-! `log_nat_nonneg` and `log_nat_mono_le` are `MarkedPrime.lean`'s (public). -/
 
 /-! ## `marked_sqf_phi`: the composite-`s` marked atom -/
 
@@ -58,7 +43,7 @@ private lemma log_nat_mono_le {m n : ℕ} (h : m ≤ n) :
 `r/s` (this falls straight out of squarefreeness of `r`, as in
 `Salt.Twelve.MarkedPrime.reindex_coprime`, but no primality of `s` is needed
 anywhere in that argument — it is a direct generalization). -/
-private lemma reindex_coprime {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) :
+lemma reindex_coprime {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) :
     r = s * (r / s) ∧ Nat.Coprime s (r / s) := by
   have hrs : r = s * (r / s) := by
     rw [mul_comm]; exact (Nat.div_mul_cancel hsr).symm
@@ -67,7 +52,7 @@ private lemma reindex_coprime {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) 
 
 /-- The reindexed totient identity: `φ(r) = φ(s)·φ(r/s)` in `ℝ`, for `s ∣ r`
 with `r` squarefree. -/
-private lemma totient_reindex {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) :
+lemma totient_reindex {s r : ℕ} (hrsf : Squarefree r) (hsr : s ∣ r) :
     (Nat.totient r : ℝ) = (Nat.totient s : ℝ) * (Nat.totient (r / s) : ℝ) := by
   obtain ⟨hrs, hcop⟩ := reindex_coprime hrsf hsr
   have heq : Nat.totient r = Nat.totient s * Nat.totient (r / s) := by

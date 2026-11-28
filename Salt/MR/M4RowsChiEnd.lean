@@ -321,9 +321,9 @@ theorem m4_rowChi_number_of_capstone_end :
 CHARACTER-BLIND and ROW-BLIND arithmetic; what moves is only the Lemma-12 summand's
 prefactor, `960·3 = 2880` where the three-row chain has `480·3 = 1440`.
 
-`M4RowsChi`'s own helpers are `private` to that file (as `ThmA2Rows`' are to theirs), so the
-page is re-derived here at its own names, from two facts only: `(X/h)/X_d ≤ 4/h`, used in three
-of the four numerals, and `w ≤ 1`, used in all four. -/
+The `244` and `3/2` steps are `ThmA2Rows`' own lemmas (`a2_term2_weigh`, `a2_term4_weigh`).
+`M4RowsChi`'s other weighing helpers are `private` to that file (as `ThmA2Rows`' gate lemma is), so
+the rest of the page is re-derived here at its own names, from `(X/h)/X_d ≤ 4/h` and `w ≤ 1`. -/
 
 /-- **THE FOUR NUMERALS** (`d5_weight_gates`) — `M4RowsChi.m4_weight_gates` at its own name
 (that one is `private`).  With `w := (X/h)/T`: `0 ≤ w ≤ 1`, and the four `T`-linear factors
@@ -391,15 +391,6 @@ private lemma d5_level1_weigh {w Hq Lq R Pq Br : ℝ}
   rw [hid]
   linarith only [mul_le_mul_of_nonneg_left hR9 h0]
 
-/-- The `Ct`-summand, at the `244`-gate: `1536·244 = 374784`. -/
-private lemma d5_term2_weigh {w Ct R Y : ℝ} (hCt : 0 ≤ Ct) (hY : 0 ≤ Y) (hR : w * R ≤ 244) :
-    w * (1536 * Ct * Real.exp 3 * R * Y) ≤ 374784 * Ct * Real.exp 3 * Y := by
-  have hid : w * (1536 * Ct * Real.exp 3 * R * Y)
-      = 1536 * Ct * Real.exp 3 * Y * (w * R) := by ring
-  have h0 : (0 : ℝ) ≤ 1536 * Ct * Real.exp 3 * Y := by positivity
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR h0]
-
 /-- **⟦THE ONE NUMERAL THAT MOVES⟧** the Lemma-12 summand at the FOUR-row exit, weighed at the
 `3`-gate: `960·3 = 2880` in place of the three-row chain's `480·3 = 1440`.  The debit is
 carried in `m4MrowChiEnd`, never absorbed. -/
@@ -408,13 +399,6 @@ private lemma d5_term3_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3) :
   have hid : w * (960 * R * Z) = 960 * Z * (w * R) := by ring
   rw [hid]
   linarith [mul_le_mul_of_nonneg_left hR (mul_nonneg (by norm_num : (0 : ℝ) ≤ 960) hZ)]
-
-/-- The `𝒰`-leg summand, at the `3/2`-gate: `2·(3/2) = 3`. -/
-private lemma d5_term4_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3 / 2) :
-    w * (2 * (R * Z)) ≤ 3 * Z := by
-  have hid : w * (2 * (R * Z)) = 2 * Z * (w * R) := by ring
-  rw [hid]
-  linarith [mul_le_mul_of_nonneg_left hR (by linarith : (0 : ℝ) ≤ 2 * Z)]
 
 /-- The ball leg passes the weighting untouched (`w ≤ 1`). -/
 private lemma d5_ball_weigh {w S : ℝ} (hw1 : w ≤ 1) :
@@ -438,35 +422,6 @@ def m4MrowChiEnd (Ct Cp : ℝ) (A G M Jb Xd : ℕ) (H1 η X ε S : ℝ) : ℝ :=
                 + 1 / (Xd : ℝ)))
             + Cp * (2 / (M : ℝ))))
     + 3 * (Real.log X) ^ (-theta293 + ε)
-
-/-- The Lemma-12 row sum is a sum of nonnegative terms (`1 ≤ X_d`, `2 ≤ H₁`, `1 ≤ P_j`). -/
-private lemma d5_rowsSum_nonneg {A G Jb Xd : ℕ} {H1 : ℝ} (hXd : 1 ≤ Xd) (hH1 : 2 ≤ H1) :
-    (0 : ℝ) ≤ ∑ j ∈ Finset.Icc 1 Jb,
-      ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
-          * (Real.exp 1 / (Xd : ℝ) ^ 2))
-        + 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ)
-        + 1 / (Xd : ℝ)) := by
-  have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
-  refine Finset.sum_nonneg (fun j hj => ?_)
-  rw [Finset.mem_Icc] at hj
-  have hj1 : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
-  have hcalH : (0 : ℝ) < calH H1 j := by rw [calH]; nlinarith
-  have hP1 : (1 : ℝ) ≤ ((calP A G j : ℕ) : ℝ) := by
-    have h : 1 ≤ calP A G j := by simp only [calP]; exact Nat.one_le_two_pow
-    exact_mod_cast h
-  have hlogb : (0 : ℝ) ≤ Real.logb 2 (2 * (Xd : ℝ)) :=
-    Real.logb_nonneg (by norm_num) (by linarith)
-  have h1 : (0 : ℝ) ≤ (Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
-      * (Real.exp 1 / (Xd : ℝ) ^ 2)) := by
-    have hq : (0 : ℝ) ≤ 2 * Real.exp 1 * (Xd : ℝ) / calH H1 j :=
-      div_nonneg (by positivity) hcalH.le
-    have hr : (0 : ℝ) ≤ Real.exp 1 / (Xd : ℝ) ^ 2 := by positivity
-    have := mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1) hr
-    nlinarith only [this, (Nat.cast_nonneg _ : 0 ≤ ↑Xd)]
-  have h2 : (0 : ℝ) ≤ 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ) :=
-    div_nonneg (by linarith) (by linarith)
-  have h3 : (0 : ℝ) ≤ 1 / (Xd : ℝ) := by positivity
-  linarith
 
 set_option maxHeartbeats 400000 in
 -- The `hrow` hypothesis is the full number-row; matching it summand by summand against
@@ -535,12 +490,12 @@ theorem m4_rowChi_weighed_end {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ 
         + 1 / (Xd : ℝ))) + Cp * (2 / (M : ℝ)) := by
     have hM0 : (0 : ℝ) < (M : ℝ) := by exact_mod_cast hM1
     have h2 : (0 : ℝ) ≤ Cp * (2 / (M : ℝ)) := by positivity
-    linarith [d5_rowsSum_nonneg (A := A) (G := G) (Jb := Jb) (Xd := Xd) (H1 := H1) hXd1 hH1]
+    linarith [m4_rowsSum_nonneg (A := A) (G := G) (Jb := Jb) (Xd := Xd) (H1 := H1) hXd1 hH1]
   have hZ0 : (0 : ℝ) ≤ (Real.log X) ^ (-theta293 + ε) := Real.rpow_nonneg hL0 _
   unfold m4MrowChiEnd
   exact d5_row_weigh (d5_ball_weigh hw1)
     (d5_level1_weigh hHL0 hPq0 hBr0 hg9)
-    (d5_term2_weigh hCt hY0 hg244) (d5_term3_weigh hRS0 hg3) (d5_term4_weigh hZ0 hg32)
+    (a2_term2_weigh hCt hY0 hg244) (d5_term3_weigh hRS0 hg3) (a2_term4_weigh hZ0 hg32)
 
 /-! ## §5 — THE DELIVERABLE: the `hrowsSum` slot, per character, STRICT/FUSED
 
@@ -641,7 +596,7 @@ theorem m4MrowChiEnd_le_a2Mrow {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) {Ct 
             / ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ)
         + 1 / (Xd : ℝ))) + Cp * (2 / (M : ℝ)) := by
     have h2 : (0 : ℝ) ≤ Cp * (2 / (M : ℝ)) := by positivity
-    linarith [d5_rowsSum_nonneg (A := Adoor M) (G := 3072 * M) (Jb := 2) (Xd := Xd)
+    linarith [m4_rowsSum_nonneg (A := Adoor M) (G := 3072 * M) (Jb := 2) (Xd := Xd)
       (H1 := H1door M) hXd (H1door_two hM)]
   unfold m4MrowChiEnd a2Mrow a2Level1 a2RowsSum
   have hlvl' : 18 * (calH (H1door M) 1
@@ -913,7 +868,7 @@ the ⟦PROVISIONAL⟧ tag below is DISCHARGED: these three are the canonical min
 back into `M4Assembly` is a one-commit maestro decision, not an executor's; nothing
 downstream is missing either way.
 
-⟦THE BLOCK IS CLEARED⟧ `m4_chiSummedFreeRow_of_doorAssembly_end` (:885) was banked BLOCKED on
+⟦THE BLOCK IS CLEARED⟧ `m4_chiSummedFreeRow_of_doorAssembly_end` (:824) was banked BLOCKED on
 `M4Assembly.DoorFuseFrame_gk` and `M4Assembly.m4_chiFreeRowSq_sum_at_door_gk`.  Both exist
 now, and the twin is landed in `§GK.wire` below — one `exact`, as predicted.
 (`DoorFuseFrame` moves ONLY through its `gRows` field, `ThmA2.a2RowsSum M Xd`; its `gP1`
@@ -964,7 +919,7 @@ theorem m4MrowChiEnd_le_a2Mrow_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1
             / ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ)
         + 1 / (Xd : ℝ))) + Cp * (2 / (M : ℝ)) := by
     have h2 : (0 : ℝ) ≤ Cp * (2 / (M : ℝ)) := by positivity
-    linarith [d5_rowsSum_nonneg (A := Adoor M) (G := s13GK K M) (Jb := 2) (Xd := Xd)
+    linarith [m4_rowsSum_nonneg (A := Adoor M) (G := s13GK K M) (Jb := 2) (Xd := Xd)
       (H1 := H1door M) hXd (H1door_two hM)]
   unfold m4MrowChiEnd a2Mrow_gk a2RowsSum_gk
   rw [← a2Level1_gk_eq K M]
@@ -1136,7 +1091,7 @@ with those names substituted.  `hK : K ≤ 1.7·10⁸` is the slot supplier's fr
 condition, inherited. -/
 
 /-- **⟦ITEM 11⟧ AT THE ASSEMBLY WIRE, AT THE LEVER** —
-`m4_chiSummedFreeRow_of_doorAssembly_end` (:885). -/
+`m4_chiSummedFreeRow_of_doorAssembly_end` (:824). -/
 theorem m4_chiSummedFreeRow_of_doorAssembly_end_gk (K : ℕ) (hK : K ≤ 170000000) :
     ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
       ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (RSbig : ℕ → ℕ → ℝ)

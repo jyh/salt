@@ -644,7 +644,7 @@ B₅ H` by an arbitrary `Q H`: the proof (`sum_bigXiH_norm_windowExpSum_sq_le_su
 HDoorArc.lean:212-294) reads the set ONLY through `harc`, `hXi`, `hins` and is copied with the
 set renamed — no `mem_bigXiH_iff` is used anywhere in it.  `hins` in the parseval spelling
 (`(1/H²) * ∑ ‖λ-sum − a-sum‖²`), the spelling lemma `sum_bigXi_insert_spelling_eq`
-(M4DoorL2.lean:545) being set-generic in its proof (`absWindowSum_add_coeff` + `Finset.mul_sum`)
+(M4DoorL2.lean:540) being set-generic in its proof (`absWindowSum_add_coeff` + `Finset.mul_sum`)
 — the executor states its `Xi` twin inline as a `have`. -/
 theorem sum_Xi_norm_windowExpSum_sq_le_parseval (Xi : XiFamily) (Q : ℕ → ℝ) (R : ChowlaRegime)
     (a : ℕ → ℂ) (Bsieve : ℕ → ℝ) (K Binsert : ℝ) {H₀ : ℕ}
@@ -1908,7 +1908,7 @@ theorem flat_door_head_xceil_h_14 (h : ℕ) (hh : 0 < h) (_hh14 : Real.log (h : 
       le_trans hρ hδ₀le, hdoor⟩
 
 /-- **⟦THE DOOR-HEAD AT `h`, AT A GENERIC SET⟧ (class B).**  `DoorReceipt.flat_door_head_xceil`
-(DoorReceipt.lean:846) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean):
+(DoorReceipt.lean:841) ported to the `h` head (`flat_head_uniform_xceil_h`, S16ComposeLH.lean):
 the leaves PINNED — `cD3 := 1/4`, `C := h·(1 + 2·(2·log 4))`, `ε := 1/(500·h)` —
 so `δ₀ := cD3/(16·C)·ε/4 = 1/(128000·h²·(1 + 8·log 2))` closes BOTH `1/(838400·h²) ≤ δ₀`
 (`hδ₀ge`, the landed script at `h`) and `δ₀ ≤ 1/(837782·h²)` (`hδ₀le`, `C > 6.5451718·h` by

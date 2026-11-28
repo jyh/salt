@@ -37,15 +37,15 @@ integrand the *difference of two window sums*).
 
 ## THE ROAD SIDE, and what the `L²` route DELETES
 
-`M4Close.m4_hbd_of_live` (`:464`) is the landed `L¹` door chain.  Its second step is the
+`M4Close.m4_hbd_of_live` (`:465`) is the landed `L¹` door chain.  Its second step is the
 Cauchy–Schwarz descent `∫‖·‖ ≤ √(∫‖·‖²)` — and that step is **DELETED** here: the road's
-socket `M4Close.M4SievedDoorSq` (`:368`) is natively `L²`, so the `L²` door reads it with no
+socket `M4Close.M4SievedDoorSq` (`:369`) is natively `L²`, so the `L²` door reads it with no
 `√` at all.  That is why the socket's `Braw` ceiling relaxes by a full square
 (⟦REF-L2-ARITH⟧: "the socket's ceiling stops being squared").
 
-`M4Close.M4DoorGates` (`:403`) is consumed **UNCHANGED**, per the freeze — it is exactly the
+`M4Close.M4DoorGates` (`:404`) is consumed **UNCHANGED**, per the freeze — it is exactly the
 gate list `parseval_insert_budget_door` asks for, field for field, including the `24·Cg/δ`
-`M`-gate.  `M4Close.M4GradeGateSplit` (`:674`) is likewise UNTOUCHED; §3 mints a NEW gate
+`M`-gate.  `M4Close.M4GradeGateSplit` (`:671`) is likewise UNTOUCHED; §3 mints a NEW gate
 `M4GradeGateL2` beside it, because the `L²` budget line has no `√` and its target is `c₀ε`
 rather than `δ₀`.
 
@@ -154,12 +154,7 @@ theorem m4_doorL2_supply :
   have hG : 1 ≤ 3072 * M := by
     have := hgates.hM
     omega
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   -- ⟦THE FUSE⟧ the adapter's `hins`, discharged from the Parseval stone.
   have hins : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
       (1 / (H : ℝ) ^ 2) * ∑ ξ ∈ bigXi R.eps H,
@@ -350,7 +345,7 @@ theorem m4_doorL2_grade_split {R : ChowlaRegime} {c₀ε K δ δsock δ₀' : �
 
 /-! ## §3 — THE GRADE LINE TWIN: the `L²` replacement of the three-summand `L¹` gate
 
-`M4Close.M4GradeGateSplit` (`:674`) reads
+`M4Close.M4GradeGateSplit` (`:671`) reads
 
     √(Braw H) + δ/4 + 4·2^k/x  ≤  δ₀ .
 
@@ -378,7 +373,7 @@ def M4GradeGateL2 (R : ChowlaRegime) (c₀ε K δ : ℝ) (Braw : ℕ → ℝ) (k
     2 * K * Braw H + δ / 2 + 8 * 2 ^ k / (R.x : ℝ) < c₀ε
 
 /-- **THE `L²` GRADE GATE, DISCHARGED FROM ⟦A1⟧** (`m4_gradeGateL2_of_binder_split`) — the
-twin of `M4Close.m4_gradeGate_of_pricing_split` (`:686`) at the split binders.
+twin of `M4Close.m4_gradeGate_of_pricing_split` (`:683`) at the split binders.
 
 Note what is NOT spent: no `m4Saving`, no `sqrt_m4Saving_le_delivered`, no `2 ≤ C` halving —
 and, unlike the `L¹` twin, **no `Real.sqrt` at all**.  The socket ceiling is read directly at
@@ -617,12 +612,7 @@ theorem m4_doorL2_close_split_sq :
   have hG : 1 ≤ 3072 * M := by
     have := hgates.hM
     omega
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   refine hR (memSCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 liouvilleC)
     (fun m => lamCoeff m - memSCoeff (calP (Adoor M) (3072 * M))
       (calQK (Adoor M) (3072 * M) M) 2 liouvilleC m)
@@ -691,12 +681,7 @@ theorem m4_doorL2_supply_gk (K : ℕ) :
     have h := Adoor_ge M
     omega
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   -- ⟦THE FUSE⟧ the adapter's `hins`, discharged from the Parseval stone.
   have hins : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
       (1 / (H : ℝ) ^ 2) * ∑ ξ ∈ bigXi R.eps H,
@@ -726,7 +711,7 @@ theorem m4_doorL2_supply_gk (K : ℕ) :
   linarith
 
 /-- **THE `L²` DOOR SUPPLY AT THE IMPROVED COUNT, AT THE LEVER** — `m4_doorL2_supply_500`
-(:206). -/
+(:201). -/
 theorem m4_doorL2_supply_500_gk (K : ℕ) :
     ∃ (Cg KXi : ℝ), 1 ≤ Cg ∧ 0 < KXi ∧ ∃ H₀ : ℕ,
       ∀ (R : ChowlaRegime), R.eps = 1 / 500 → H₀ ≤ R.Hlo →
@@ -753,13 +738,13 @@ theorem m4_doorL2_supply_500_gk (K : ℕ) :
     positivity
 
 set_option linter.unusedVariables false in
-/-- **THE HEAD'S DOOR-FACING DEMAND AT THE LEVER** — `M4DoorL2HeadDemand` (:432).  The head's
+/-- **THE HEAD'S DOOR-FACING DEMAND AT THE LEVER** — `M4DoorL2HeadDemand` (:427).  The head's
 demand never reads the door base (`MRTUniformityXiL2` carries the whole `Ξ`-sum), so the twin
 is the landed Prop with the lever's binder in front, for uniformity of the family's shape. -/
 def M4DoorL2HeadDemand_gk (K : ℕ) (R : ChowlaRegime) (c₀ε : ℝ) : Prop :=
   ∀ ρ : ℝ, MRTUniformityXiL2 R ρ → ρ < c₀ε → ¬ logChowla2Fails R.eps R.x R.ω
 
-/-- **THE DOOR-TO-HEAD SEAM AT THE LEVER** — `m4_doorL2_feeds_head` (:449), count renamed
+/-- **THE DOOR-TO-HEAD SEAM AT THE LEVER** — `m4_doorL2_feeds_head` (:444), count renamed
 `K ↦ Kc`. -/
 theorem m4_doorL2_feeds_head_gk (K : ℕ) :
     ∃ Cg : ℝ, 1 ≤ Cg ∧
@@ -785,7 +770,7 @@ theorem m4_doorL2_feeds_head_gk (K : ℕ) :
   exact hhead _ (hH₀ R hReps hfloor Braw Kc Bceil δ M k hgates hBraw0 hsock hXi hK0 hceil)
     (m4_gradeGateL2_const hgate)
 
-/-- **THE SEAM AT ⟦A1⟧, END TO END, AT THE LEVER** — `m4_doorL2_feeds_head_split` (:482),
+/-- **THE SEAM AT ⟦A1⟧, END TO END, AT THE LEVER** — `m4_doorL2_feeds_head_split` (:477),
 count renamed `K ↦ Kc`. -/
 theorem m4_doorL2_feeds_head_split_gk (K : ℕ) :
     ∃ Cg : ℝ, 1 ≤ Cg ∧
@@ -819,7 +804,7 @@ theorem m4_doorL2_feeds_head_split_gk (K : ℕ) :
   exact m4_gradeGateL2_of_binder_split (δsock := δsock) (δ₀' := δ₀') hc hK
     (fun _ _ _ => le_rfl) hsockprice hglue hspine hend
 
-/-- **THE `L²` CLOSE, SPLIT, AT THE LEVER** — `m4_doorL2_close_split_sq` (:592), count
+/-- **THE `L²` CLOSE, SPLIT, AT THE LEVER** — `m4_doorL2_close_split_sq` (:587), count
 renamed `K ↦ Kc`.  (Not on this group's assigned list; landed because it is the sixth and
 last `G`-reading declaration of this file and the lever family would otherwise be
 incomplete here.) -/
@@ -849,12 +834,7 @@ theorem m4_doorL2_close_split_sq_gk (K : ℕ) :
     have h := Adoor_ge M
     omega
   have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
-  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
-    intro H hhi
-    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
-    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
-    have h2 : 2 ≤ R.x := R.hx
-    omega
+  have hHx := R.add_one_le_x
   refine hR (memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2
       liouvilleC)
     (fun m => lamCoeff m - memSCoeff (calP (Adoor M) (s13GK K M))

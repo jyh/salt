@@ -270,19 +270,6 @@ lemma abs_ramareWeight_le_one (P Q p m : ℕ) : |ramareWeight P Q p m| ≤ 1 := 
   · rw [abs_of_nonneg (by positivity), div_le_one (by linarith)]
     linarith
 
-/-- `‖(ω(m;P,Q) + 1)⁻¹‖ ≤ 1`. -/
-lemma norm_blockOmega_inv_le_one (P Q m : ℕ) :
-    ‖((blockOmega P Q m : ℂ) + 1)⁻¹‖ ≤ 1 := by
-  rw [norm_inv]
-  have hc : ((blockOmega P Q m : ℕ) : ℂ) + 1 = ((blockOmega P Q m + 1 : ℕ) : ℂ) := by
-    push_cast; ring
-  rw [hc, Complex.norm_natCast]
-  have h1 : (1 : ℝ) ≤ ((blockOmega P Q m + 1 : ℕ) : ℝ) := by
-    have : (1 : ℕ) ≤ blockOmega P Q m + 1 := Nat.le_add_left 1 _
-    exact_mod_cast this
-  rw [inv_eq_one_div, div_le_one (by linarith)]
-  linarith
-
 /-- Each summand of `ramP2coeffMR` has norm `≤ 2`. -/
 lemma ramP2_term_norm_le {P Q : ℕ} {a b c : ℕ → ℂ}
     (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ n, ‖b n‖ ≤ 1) (hc : ∀ n, ‖c n‖ ≤ 1) (p m : ℕ) :

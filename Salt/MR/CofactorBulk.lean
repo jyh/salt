@@ -14,7 +14,7 @@ ladder bundle `Mt`/`kk`/`Dd`/`Xa` with its ten per-block laws, `TLBlockGates34`,
 `c`/`Cb`/`ShortIntervalDatum` head, and the `S`/`R̄₀`/`C_R` grading register — the ~35 binders
 of `CaseAWide.m4_supplier_complete` that read neither `AdoorL` nor `s13GK` nor `χ`
 (⟦COFK-L⟧ §4: *"the BULK is anchor-blind and unbuilt at both doors; the L re-cut adds ZERO
-to it"*; the precedent is `M4RowLinear.DoorRowCarried_L_gk` (:4405), where this very bundle
+to it"*; the precedent is `M4RowLinear.DoorRowCarried_L_gk` (:4349), where this very bundle
 is CARRIED and never discharged, at BOTH doors).
 
 This file discharges what is discharge**able** and names the rest exactly.

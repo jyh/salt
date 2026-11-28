@@ -324,7 +324,7 @@ in `a = (n+1)^{−q}`, `b = n^{−q}`, so no integral comparison is needed. -/
 
 /-- `(x^q)^k = x^(q·k)` for a natural `k` — the bridge from `rpow` exponents to the
 polynomial identities the induction steps use. -/
-private lemma rpow_pow_nat {x : ℝ} (hx : 0 ≤ x) (q : ℝ) (k : ℕ) :
+lemma rpow_pow_nat {x : ℝ} (hx : 0 ≤ x) (q : ℝ) (k : ℕ) :
     (x ^ q) ^ k = x ^ (q * (k : ℝ)) := by
   rw [← Real.rpow_natCast (x ^ q) k, ← Real.rpow_mul hx]
 
@@ -407,7 +407,7 @@ private lemma sum_rpow_neg_five_quarter_le (N : ℕ) :
 
 /-- The telescoping step of `Σ f^{−1/2}`: `(2a − 2b)a − 1 = (a − b)²` with `a² = t + 1`,
 `b² = t`. -/
-private lemma rpow_step_half (t : ℝ) (ht : 0 ≤ t) :
+lemma rpow_step_half (t : ℝ) (ht : 0 ≤ t) :
     (t + 1) ^ (-(1/2) : ℝ) ≤ 2 * (t + 1) ^ ((1/2) : ℝ) - 2 * t ^ ((1/2) : ℝ) := by
   have ht1 : (0 : ℝ) < t + 1 := by linarith
   have hinv : (t + 1) ^ (-(1/2) : ℝ) = ((t + 1) ^ ((1/2) : ℝ))⁻¹ := Real.rpow_neg ht1.le _
@@ -469,7 +469,7 @@ private lemma sum_rpow_neg_three_quarter_le (N : ℕ) :
 
 /-- `log u ≤ 4·u^{1/4}` for `u ≥ 1` — the device that trades the log of `H0d`'s weight for
 a quarter power, which the `f^{−3/4}` sum then absorbs. -/
-private lemma log_le_four_rpow_quarter {u : ℝ} (hu : 1 ≤ u) :
+lemma log_le_four_rpow_quarter {u : ℝ} (hu : 1 ≤ u) :
     Real.log u ≤ 4 * u ^ ((1/4) : ℝ) := by
   have hu0 : (0 : ℝ) < u := by linarith
   have h1 : Real.log (u ^ ((1/4) : ℝ)) = (1/4 : ℝ) * Real.log u := Real.log_rpow hu0 _
@@ -480,12 +480,12 @@ private lemma log_le_four_rpow_quarter {u : ℝ} (hu : 1 ≤ u) :
 
 /-- `(Q/e)^q = Q^q · e^{−q}` for `0 ≤ Q` (`hQ`), `0 ≤ e` (`he`) and a real exponent `q`
 (`Real.mul_rpow`, `Real.inv_rpow`, `Real.rpow_neg`). -/
-private lemma div_rpow_neg {Q e : ℝ} (hQ : 0 ≤ Q) (he : 0 ≤ e) (q : ℝ) :
+lemma div_rpow_neg {Q e : ℝ} (hQ : 0 ≤ Q) (he : 0 ≤ e) (q : ℝ) :
     (Q / e) ^ q = Q ^ q * e ^ (-q) := by
   rw [div_eq_mul_inv, Real.mul_rpow hQ (inv_nonneg.mpr he), Real.inv_rpow he, Real.rpow_neg he]
 
 /-- `Σ_{f ≤ m} 1/f ≤ 1 + log m` (mathlib's harmonic bound, cast to `ℝ`). -/
-private lemma sum_inv_le_one_add_log (m : ℕ) :
+lemma sum_inv_le_one_add_log (m : ℕ) :
     ∑ f ∈ Finset.Icc 1 m, ((f : ℝ))⁻¹ ≤ 1 + Real.log m := by
   have h := harmonic_le_one_add_log m
   rw [harmonic_eq_sum_Icc] at h
@@ -497,7 +497,7 @@ private lemma sum_inv_le_one_add_log (m : ℕ) :
 /-- **The swap stone.** `Σ_{r ≤ N} Σ_{e ∣ r} F(e, r) = Σ_{e ≤ N} Σ_{f ≤ N/e} F(e, e·f)`:
 `Finset.sum_comm'` moves `e` outside, then `CoprimeBV.sum_dvd_reindex` reindexes the
 multiples of `e`. -/
-private lemma sum_divisors_swap (N : ℕ) (F : ℕ → ℕ → ℝ) :
+lemma sum_divisors_swap (N : ℕ) (F : ℕ → ℕ → ℝ) :
     ∑ r ∈ Finset.Icc 1 N, ∑ e ∈ r.divisors, F e r
       = ∑ e ∈ Finset.Icc 1 N, ∑ f ∈ Finset.Icc 1 (N / e), F e (e * f) := by
   have h1 : ∑ r ∈ Finset.Icc 1 N, ∑ e ∈ r.divisors, F e r
@@ -733,7 +733,7 @@ theorem sum_inv_mul_log_sq_le : ∃ C : ℝ, 0 < C ∧ ∀ Q : ℝ, 1 ≤ Q →
 /-- The one-variable core of H0d: `Σ_{f ≤ M} f^{−1/2}·log(2Y/f) ≤ (2 log 2 + 16)·Y^{1/2}`
 whenever `M ≤ Y`. The log is traded for a quarter power (`log u ≤ 4u^{1/4}`), which the
 `f^{−3/4}` sum absorbs — this is where the exponent `−1/4` of `σ` becomes load-bearing. -/
-private lemma sum_rpow_neg_half_log_le {Y : ℝ} (hY : 1 ≤ Y) {M : ℕ} (hM : (M : ℝ) ≤ Y) :
+lemma sum_rpow_neg_half_log_le {Y : ℝ} (hY : 1 ≤ Y) {M : ℕ} (hM : (M : ℝ) ≤ Y) :
     ∑ f ∈ Finset.Icc 1 M, (f : ℝ) ^ (-(1/2) : ℝ) * Real.log (2 * Y / (f : ℝ))
       ≤ (2 * Real.log 2 + 16) * Y ^ ((1/2) : ℝ) := by
   have hY0 : (0 : ℝ) < Y := by linarith

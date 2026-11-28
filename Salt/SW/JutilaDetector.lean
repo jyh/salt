@@ -318,27 +318,8 @@ theorem norm_jutilaLocal_selbergPsi_le (χ : DirichletCharacter ℂ q) {t : ℕ}
         rw [← Nat.cast_prod]
         exact_mod_cast Nat.le_of_dvd (Nat.pos_of_ne_zero ht) (Nat.prod_primeFactors_dvd t)
 
-/-- The telescoping step of `Σ d^{-1/2}` (`GrahamHard2.lean:614`'s recipe, re-derived). -/
-private lemma rpow_step_half_aux (t : ℝ) (ht : 0 ≤ t) :
-    (t + 1) ^ (-(1 / 2) : ℝ) ≤ 2 * (t + 1) ^ ((1 / 2) : ℝ) - 2 * t ^ ((1 / 2) : ℝ) := by
-  have ht1 : (0 : ℝ) < t + 1 := by linarith
-  have hinv : (t + 1) ^ (-(1 / 2) : ℝ) = ((t + 1) ^ ((1 / 2) : ℝ))⁻¹ := Real.rpow_neg ht1.le _
-  rw [hinv]
-  set a : ℝ := (t + 1) ^ ((1 / 2) : ℝ) with ha
-  set b : ℝ := t ^ ((1 / 2) : ℝ) with hb
-  have ha0 : 0 < a := Real.rpow_pos_of_pos ht1 _
-  have hb0 : (0 : ℝ) ≤ b := Real.rpow_nonneg ht _
-  have ha2 : a ^ 2 = t + 1 := by
-    rw [ha, ← Real.rpow_natCast ((t + 1) ^ ((1 / 2) : ℝ)) 2, ← Real.rpow_mul ht1.le]
-    norm_num
-  have hb2 : b ^ 2 = t := by
-    rw [hb, ← Real.rpow_natCast (t ^ ((1 / 2) : ℝ)) 2, ← Real.rpow_mul ht]
-    norm_num
-  rw [inv_eq_one_div, div_le_iff₀ ha0]
-  nlinarith [sq_nonneg (a - b), ha2, hb2]
-
-/-- `Σ_{d ≤ N} d^{−1/2} ≤ 2√N`: induction on `N` with the telescoping step `rpow_step_half_aux`,
-`(t + 1)^{−1/2} ≤ 2(t + 1)^{1/2} − 2t^{1/2}`. -/
+/-- `Σ_{d ≤ N} d^{−1/2} ≤ 2√N`: induction on `N` with the telescoping step
+`rpow_step_half` (GrahamHard), `(t + 1)^{−1/2} ≤ 2(t + 1)^{1/2} − 2t^{1/2}`. -/
 theorem sum_Icc_rpow_neg_half_le (N : ℕ) :
     ∑ d ∈ Finset.Icc 1 N, (d : ℝ) ^ (-(1 / 2) : ℝ) ≤ 2 * Real.sqrt N := by
   have key : ∀ M : ℕ, ∑ d ∈ Finset.Icc 1 M, (d : ℝ) ^ (-(1 / 2) : ℝ)
@@ -350,7 +331,7 @@ theorem sum_Icc_rpow_neg_half_le (N : ℕ) :
       rw [Finset.sum_Icc_succ_top (by omega : 1 ≤ m + 1)]
       have hcast : ((m + 1 : ℕ) : ℝ) = (m : ℝ) + 1 := by push_cast; ring
       rw [hcast]
-      linarith [ih, rpow_step_half_aux (m : ℝ) (by positivity)]
+      linarith [ih, rpow_step_half (m : ℝ) (by positivity)]
   rw [Real.sqrt_eq_rpow]
   exact key N
 

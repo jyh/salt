@@ -213,7 +213,7 @@ non-pretentiousness stone S5 (`Salt/MR/NonPret.lean`) states it at `lam`, the
 
 ## Why the bridge is legitimate — and why it is NOT a crossing
 
-⚠️ The corpus carries a standing warning at ~15 sites (e.g. `M4Close.lean:590`,
+⚠️ The corpus carries a standing warning at ~15 sites (e.g. `M4Close.lean:587`,
 "the two must never be crossed") against conflating `lam` with the true Liouville
 function: `lam = fun _ => −1` (`NonPret.lean:48`) and `lamCoeff = λ`
 (`M4Window.lean:74`) agree **only on primes** and differ everywhere else — most
@@ -425,14 +425,14 @@ data, the head's tower endpoint law
 as *"available to any of them without a re-run"*.  Two landed forwarders each keep exactly
 ONE of the socket's two optional payloads and drop the other:
 
-* `M4Close.m4_door_contradiction_of_live_split` (`M4Close.lean:771`) discards the tower with
-  a `-` in its `obtain` (`:784`) and carries no headroom conjunct at all;
+* `M4Close.m4_door_contradiction_of_live_split` (`M4Close.lean:764`) discards the tower with
+  a `-` in its `obtain` (`:778`) and carries no headroom conjunct at all;
 * `MRTPort.regime_headroom_at_socket` (`MRTPort.lean:99`) discards the tower with a `-`
   (`:113`) and trades it for the `B₅ = 12` W-headroom `(log H₊)^{1500} ≤ log (x/(2ω))`, but
   serves the SOCKET's single open binder, not the door register.
 
 This file is the join: the door register with BOTH conjuncts in one `∃ R` payload.  It is
-the genre `S11Thread.lean:29-31` states verbatim — *"the landed proofs with one extra
+the genre `S11Thread.lean:30-32` states verbatim — *"the landed proofs with one extra
 component carried … No landed declaration is touched."*  Here two components are carried.
 
 ## What is NEW here, and what is not
@@ -445,7 +445,7 @@ fires it, with the same three floor demands joined into the socket's last floor 
 `U1floor := max U1floor (max ⌈Real.exp 36000000⌉₊ (epsFloor ε))`
 
 and the caller's own floor re-exposed as a binder.  ⛔ `m4_door_contradiction_of_live_split_tower`
-(`S11Thread.lean:49`) already carries the tower half; the CONJUNCTION with the headroom
+(`S11Thread.lean:50`) already carries the tower half; the CONJUNCTION with the headroom
 conjunct is what was missing, and a corpus scan on 2026-08-24 found the `^ (1500 : ℕ)`
 headroom conjunct only in `MRTPort.lean` and `DoorFloor1500.lean`, neither of which carries
 the tower.
@@ -453,7 +453,7 @@ the tower.
 ## Measured strength
 
 The register (`M4DoorGates`, `0 ≤ Braw`, `M4GradeGateSplit`, `M4SievedDoorSq`) and the
-conclusion `¬ logChowla2Fails R.eps R.x R.ω` are byte-identical to `M4Close.lean:771`'s.  The
+conclusion `¬ logChowla2Fails R.eps R.x R.ω` are byte-identical to `M4Close.lean:764`'s.  The
 headroom conjunct is the **ℕ-power** form `(Real.log R.Hhi) ^ (1500 : ℕ)`; it does NOT deliver
 Tao arXiv:1509.05422v2 Prop. 2.4's `rpow` binder, exactly as `MRTPort.lean`'s N1 section
 records of its own conclusion.  `⌈Real.exp 36000000⌉₊` is a SHAPE, never evaluated.
@@ -462,7 +462,7 @@ records of its own conclusion.  `⌈Real.exp 36000000⌉₊` is a SHAPE, never e
 
 
 /-- **N7 — the split door's exit, with the W-headroom AND the tower.**
-`M4Close.m4_door_contradiction_of_live_split` (`M4Close.lean:771`) re-served so that its
+`M4Close.m4_door_contradiction_of_live_split` (`M4Close.lean:764`) re-served so that its
 `∃ R` payload carries BOTH `(log H₊)^{1500} ≤ log (x/(2ω))` (the `B₅ = 12` W-headroom of
 `regime_headroom_at_socket`) and the socket's tower endpoint law
 `50 ≤ loglog H₋ → loglog H₊ ≤ (loglog H₋)^5` (⟦THE NAMED AMENDMENT⟧, named here instead of

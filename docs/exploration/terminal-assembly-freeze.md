@@ -15,7 +15,7 @@ verdict. Three parts; Part 1 is lift-first per the ratified ordering.*
 ## PART 1 — HFACTOR-IDENTITY (the S1′ representation assembly)
 ═══════════════════════════════════════════════════════════════════
 
-GOAL: discharge `prop21_analog`'s `hfactor` (HalaszRepAsm:452-456):
+GOAL: discharge `prop21_analog`'s `hfactor` (HalaszRepAsm:403-407):
 `‖(1/2π)•∫ seamDirichlet(f, windowIndicator y (X/y), t₀)(c₀+it)·hatKernel‖
 − prop21RHS g t₀ X h c₀ y η‖ ≤ E` with E = the MS-EXIT budget. The Lift
 Map's verdict: the ERROR BUDGET is supplied (MS-EXIT); what remains is
@@ -92,7 +92,7 @@ APPROXIMATE with every gap accounted in E:
   redrawn per HF-REF-A: the truncation is woven, and lives in H-5).
 - **H-4** [C, 700, THE RISK STONE — SURVIVED THE LOAD TEST]
   `four_factor_hat_rep`: ⟦R (HF-REF-B): the finite×infinite step rides
-  the LANDED `LSeries_convolution'` (HalaszRepAsm:314) — NOT
+  the LANDED `LSeries_convolution'` (HalaszRepAsm:265) — NOT
   kconv/dpoly_pow (finite×finite only; usable solely for pre-convolving
   the finite 𝒮·P·P legs). The ~5 expected helper layers, ENUMERATED so
   the executor recognizes them as anticipated: (1) shifted-coefficient

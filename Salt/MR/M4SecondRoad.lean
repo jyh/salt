@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.M4Gauss
 import Salt.MR.M4BridgeBlock
 import Salt.MR.M4Collapse
+import Salt.MR.ArcRegimeWeaken
 
 /-!
 # ⟦S-4⟧ — THE SECOND ROAD'S TERMINAL REGISTER (`M4SecondRoad`)
@@ -751,16 +752,8 @@ theorem m4_second_road :
   intro δ RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3 hdgate
     hdrift hgrade hrow
   -- ⟦the window floor, read at the two powers the chain spends⟧
-  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
-  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith only [harc1, h1, sq_nonneg (arcDen 12 H)]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -1066,7 +1059,7 @@ The block-length page (`blockLen` and its five lemmas), the truncation budget
 landed names.
 -/
 
-/-- `M4SievedDoorSqBlk2` (:291), at the lever. -/
+/-- `M4SievedDoorSqBlk2` (:324), at the lever. -/
 def M4SievedDoorSqBlk2_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (ℓ : ℕ → ℕ → ℕ)
     (Bblk : ℕ → ℝ) : Prop :=
   M4BandTransport →
@@ -1077,7 +1070,7 @@ def M4SievedDoorSqBlk2_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (ℓ : ℕ → 
             ∂(logMeasure R.x R.ω))
           ≤ Bblk H * (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2
 
-/-- `m4_sievedDoorSq_of_blk2` (:303), at the lever. -/
+/-- `m4_sievedDoorSq_of_blk2` (:336), at the lever. -/
 theorem m4_sievedDoorSq_of_blk2_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {ℓ : ℕ → ℕ → ℕ}
     {Bblk Braw : ℕ → ℝ}
     (hB0 : ∀ H : ℕ, 0 ≤ Bblk H)
@@ -1125,7 +1118,7 @@ theorem m4_sievedDoorSq_of_blk2_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {ℓ :
     exact le_trans hmono (mul_le_mul_of_nonneg_left hsupply hfac0)
   exact blocked_close_of_step hN (by omega) (hB0 H) (hgrade H hlo hhi) hstep
 
-/-- `M4BlockMeanSqBlk2` (:372), at the lever. -/
+/-- `M4BlockMeanSqBlk2` (:383), at the lever. -/
 def M4BlockMeanSqBlk2_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (ℓ : ℕ → ℕ → ℕ)
     (Bblk : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ (b : ℤ) (q : ℕ), 0 < q → (q : ℝ) ≤ arcDen 12 H →
@@ -1136,7 +1129,7 @@ def M4BlockMeanSqBlk2_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (ℓ : ℕ →
         ≤ Bblk H * (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2
             * (doorLadder R.x H (i + 1) : ℝ)
 
-/-- `m4_cover_assembly_blk2` (:383), at the lever. -/
+/-- `m4_cover_assembly_blk2` (:394), at the lever. -/
 theorem m4_cover_assembly_blk2_gk (K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ} {δ : ℝ}
     {ℓ : ℕ → ℕ → ℕ} {Bblk : ℕ → ℝ}
     (hgates : M4DoorGates_gk K Cg R M k δ) (hB0 : ∀ H : ℕ, 0 ≤ Bblk H)
@@ -1159,7 +1152,7 @@ set_option maxHeartbeats 1200000 in
 -- the block sum is re-associated over the drift blocks and then over the ladder block, and
 -- the stratified bound is instantiated once per drift block; every arithmetic step is
 -- `linarith`/`nlinarith` with hints
-/-- `m4_blockMeanSqBlk2_of_chiSummed` (:525), at the lever. -/
+/-- `m4_blockMeanSqBlk2_of_chiSummed` (:576), at the lever. -/
 theorem m4_blockMeanSqBlk2_of_chiSummed_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
     (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
     (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
@@ -1243,7 +1236,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed_gk (K : ℕ) {R : ChowlaRegime} {M k : �
   refine le_of_eq ?_
   ring
 
-/-- `m4_second_road` (:683), at the lever. -/
+/-- `m4_second_road` (:726), at the lever. -/
 theorem m4_second_road_gk (K : ℕ) :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
       ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
@@ -1273,16 +1266,8 @@ theorem m4_second_road_gk (K : ℕ) :
   intro δ RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3 hdgate
     hdrift hgrade hrow
   -- ⟦the window floor, read at the two powers the chain spends⟧
-  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    linarith only [h1, (Nat.cast_nonneg _ : 0 ≤ ↑H)]
-  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
-    intro H hlo hhi
-    have h1 := harc3 H hlo hhi
-    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
-    nlinarith only [harc1, h1, sq_nonneg (arcDen 12 H)]
+  have harc8 := arcDen_cube_le_of_arc3 harc3
+  have harc := arcDen_sq_le_of_arc3 harc3
   have hchi : M4ChiSummedBlockMeanSqN_gk K R M
       (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
     m4_chiSummedN_supplied_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
@@ -1310,7 +1295,7 @@ theorem m4_second_road_gk (K : ℕ) :
     have hB := hBcl0 H
     linarith only [h]
 
-/-- `stratum_sq_le_chiSummed_at_truncD` (:848), at the lever. -/
+/-- `stratum_sq_le_chiSummed_at_truncD` (:877), at the lever. -/
 theorem stratum_sq_le_chiSummed_at_truncD_gk (K : ℕ) {M Kw n q d Lw : ℕ} {δ₀ : ℝ} (hM : 1 ≤ M)
     (hq : 0 < q) (hd0 : 0 < d) (hdq : d ∣ q) (hdD : (d : ℝ) ≤ ((truncD δ₀ : ℕ) : ℝ))
     (hgate : ((truncD δ₀ : ℕ) : ℝ) < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) (b : ℤ)
