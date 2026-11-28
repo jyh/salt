@@ -10,6 +10,7 @@ import Salt.Maynard.Transfer
 import Salt.Maynard.GFunction
 import Salt.Maynard.Lemma53
 import Salt.Maynard.HOmit
+import Salt.Twelve.BudgetMomentG
 
 /-!
 # Node C (S2 inner bound) — `euler_tail_L` and `Gdiag_le`
@@ -203,76 +204,6 @@ theorem euler_tail_L (k M : ℕ) (L : ℝ) (hL : 1 ≤ L)
 
 /-! ## The `h`-expansion `∏_{p ∣ r} (p−1)/(p−2) = ∑_{d ∣ r} ∏_{p ∣ d} (p−2)⁻¹` -/
 
-/-- For squarefree `r`, the divisors of `r` are exactly the products of
-subsets of its prime factors. -/
-private lemma divisors_eq_powerset_image {r : ℕ} (hr : Squarefree r) :
-    r.divisors = r.primeFactors.powerset.image (fun S => ∏ p ∈ S, p) := by
-  ext d
-  simp only [Nat.mem_divisors, Finset.mem_image, Finset.mem_powerset]
-  constructor
-  · rintro ⟨hdvd, -⟩
-    exact ⟨d.primeFactors, Nat.primeFactors_mono hdvd hr.ne_zero,
-      Nat.prod_primeFactors_of_squarefree (hr.squarefree_of_dvd hdvd)⟩
-  · rintro ⟨S, hS, rfl⟩
-    refine ⟨?_, hr.ne_zero⟩
-    calc ∏ p ∈ S, p ∣ ∏ p ∈ r.primeFactors, p :=
-          Finset.prod_dvd_prod_of_subset _ _ _ hS
-      _ = r := Nat.prod_primeFactors_of_squarefree hr
-
-/-- Divisor sums over a squarefree `r` are powerset sums over its prime
-factors. -/
-private lemma sum_divisors_eq_sum_powerset {r : ℕ} (hr : Squarefree r)
-    (f : ℕ → ℝ) :
-    ∑ d ∈ r.divisors, f d
-      = ∑ S ∈ r.primeFactors.powerset, f (∏ p ∈ S, p) := by
-  have hinj : Set.InjOn (fun S : Finset ℕ => ∏ p ∈ S, p)
-      ↑r.primeFactors.powerset := by
-    intro X hX Y hY hXY
-    rw [Finset.mem_coe, Finset.mem_powerset] at hX hY
-    have hXp : ∀ p ∈ X, p.Prime :=
-      fun p hp => Nat.prime_of_mem_primeFactors (hX hp)
-    have hYp : ∀ p ∈ Y, p.Prime :=
-      fun p hp => Nat.prime_of_mem_primeFactors (hY hp)
-    calc X = (∏ p ∈ X, p).primeFactors := (Nat.primeFactors_prod hXp).symm
-      _ = (∏ p ∈ Y, p).primeFactors := congrArg Nat.primeFactors hXY
-      _ = Y := Nat.primeFactors_prod hYp
-  rw [divisors_eq_powerset_image hr, Finset.sum_image hinj]
-
-/-- **The `h`-expansion.** For squarefree `r` with all prime factors `≥ 3`,
-`1/g(r) = (∑_{d ∣ r} ∏_{p ∣ d} (p−2)⁻¹) / φ(r)` — the Möbius-style expansion
-of `∏(p−1)/(p−2)` into the divisor sum of `h(d) = ∏_{p ∣ d} (p−2)⁻¹`. -/
-private lemma inv_gMult_expand {r : ℕ} (hrsq : Squarefree r)
-    (hp3 : ∀ p ∈ r.primeFactors, 3 ≤ p) :
-    ((gMult r : ℝ))⁻¹
-      = (∑ d ∈ r.divisors, ∏ p ∈ d.primeFactors, ((p : ℝ) - 2)⁻¹)
-          * ((Nat.totient r : ℝ))⁻¹ := by
-  classical
-  -- divisor sum → powerset sum
-  have hsum : (∑ d ∈ r.divisors, ∏ p ∈ d.primeFactors, ((p : ℝ) - 2)⁻¹)
-      = ∑ S ∈ r.primeFactors.powerset, ∏ p ∈ S, ((p : ℝ) - 2)⁻¹ := by
-    rw [sum_divisors_eq_sum_powerset hrsq]
-    refine Finset.sum_congr rfl fun S hS => ?_
-    rw [Finset.mem_powerset] at hS
-    rw [Nat.primeFactors_prod
-      (fun p hp => Nat.prime_of_mem_primeFactors (hS hp))]
-  -- powerset sum → Euler product
-  have hpow : (∑ S ∈ r.primeFactors.powerset, ∏ p ∈ S, ((p : ℝ) - 2)⁻¹)
-      = ∏ p ∈ r.primeFactors, (1 + ((p : ℝ) - 2)⁻¹) := by
-    have h := Finset.prod_add (fun p : ℕ => ((p : ℝ) - 2)⁻¹)
-      (fun _ => (1 : ℝ)) r.primeFactors
-    simp only [Finset.prod_const_one, mul_one] at h
-    rw [← h]
-    exact Finset.prod_congr rfl fun p _ => by ring
-  rw [hsum, hpow, gMult_cast hp3, totient_squarefree_cast hrsq,
-    ← Finset.prod_inv_distrib, ← Finset.prod_inv_distrib,
-    ← Finset.prod_mul_distrib]
-  refine Finset.prod_congr rfl fun p hp => ?_
-  have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp3 p hp
-  have h2 : ((p : ℝ) - 2) ≠ 0 := by intro h; rw [sub_eq_zero] at h; linarith
-  have h1 : ((p : ℝ) - 1) ≠ 0 := by intro h; rw [sub_eq_zero] at h; linarith
-  field_simp
-  ring
-
 /-! ## The divisor-fibre reindex on `sqfCop` -/
 
 /-- **Divisor-fibre reindex** (generalizes `sqfCop_dvd_reindex` from prime `p`
@@ -437,7 +368,7 @@ theorem Ag_le_A1_mul (k R : ℕ) (T : ℝ) (hk : 1 ≤ k) (hR : 2 ≤ R)
         = (fWt k R r) ^ 2 * ((gMult r : ℝ))⁻¹ := div_eq_mul_inv _ _
       _ = (∑ d ∈ r.divisors, ∏ p ∈ d.primeFactors, ((p : ℝ) - 2)⁻¹)
             * ((fWt k R r) ^ 2 / (Nat.totient r : ℝ)) := by
-          rw [inv_gMult_expand hrsq hp3r, div_eq_mul_inv]
+          rw [Salt.Twelve.inv_gMult_expand hrsq hp3r, div_eq_mul_inv]
           ring
       _ = ∑ d ∈ r.divisors,
             (∏ p ∈ d.primeFactors, ((p : ℝ) - 2)⁻¹)
