@@ -70,7 +70,8 @@ binder (`N7Exit` itself stays open), and says nothing about twin primes.
 - No axioms beyond mathlib's standard three (`propext`, `Quot.sound`,
   `Classical.choice`); in particular **no `native_decide`** — numerical
   certificates (e.g. Maynard-type variational bounds) are ordinary
-  kernel-checked proofs, keeping the trusted base at the kernel.
+  kernel-checked proofs, keeping the trusted base at the kernel. One is the `k = 54` certificate
+  `cert54` (`SaltC1/Cert54/Forms.lean`), whose axioms `.github/workflows/c1_certificates.yml` audits.
 - Statements are reviewed by humans; proofs are reviewed by the kernel. This is
   what makes large-scale AI-generated proof work safe to accept.
 
