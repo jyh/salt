@@ -51,8 +51,13 @@ on:
 permissions:
   contents: read
 
+# The event name is part of the key: a pull_request event on an already-merged
+# PR (an `edited` body) runs with github.ref = the BASE branch, so keyed on
+# github.ref alone it joined the base branch's group and cancelled that
+# branch's push run (jyh/salt run 46160140085, cancelled 15 s after run
+# 46160603800 on merged #853 checked out refs/remotes/origin/main).
 concurrency:
-  group: scrub-${{ github.ref }}
+  group: scrub-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
